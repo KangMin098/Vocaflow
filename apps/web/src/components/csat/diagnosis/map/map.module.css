@@ -2,7 +2,7 @@
  *
  * 학습 지도 — 레퍼런스(neon-currant · Tines 3B 앱) 실측 토큰을 이 범위(.root)에서만 쓴다(2026-10-02 번들 CSS 실측).
  * 글자 먹색 #0d0d17 · 보조 #5e5f6b · 면 #fff / #fbf9f7 · 선 #0d0d171a · 회색 사다리 #eeebe7 #d0cdc9 #918f8b ·
- * 상태 = green/yellow/red-600 · 트랙 = sky/purple/pink-600. 기존 /csat 화면 값은 건드리지 않는다.
+ * 상태 = green/yellow/red-600 · 트랙 = sky/purple/pink-600. 공통 면·잉크는 CSAT 스킨에서 상속한다.
  * 색은 상태의 보조일 뿐 — 모든 상태는 글자로도 보인다. 한글은 keep-all(I7). 터치 타깃 44px.
  */
 
@@ -24,13 +24,13 @@
   --p-gap: 18px;
   --p-card-px: 31px;
   --p-card-py: 26px;
-  --m-bg: #fff;
-  --m-canvas: #fbf9f7;
-  --m-ink: #0d0d17;
-  --m-ink2: #5e5f6b;
-  --m-line: #0d0d171a;
-  --m-hover: #f8f7f5;
-  --m-g200: #eeebe7;
+  --m-bg: var(--bg);
+  --m-canvas: var(--bg2);
+  --m-ink: var(--t1);
+  --m-ink2: var(--t2);
+  --m-line: var(--bd);
+  --m-hover: var(--bg2);
+  --m-g200: var(--bg3);
   --m-g400: #d0cdc9;
   --m-g600: #918f8b;
   --m-met: #00a370;
@@ -278,7 +278,7 @@
 }
 .pillToggleOn {
   background: var(--m-ink);
-  color: #fcf9f5;
+  color: var(--on-p);
 }
 .legendItem {
   display: inline-flex;
@@ -352,7 +352,7 @@
 .chipOn {
   background: var(--m-ink);
   border-color: var(--m-ink);
-  color: #fcf9f5;
+  color: var(--on-p);
 }
 .goalForm {
   display: flex;
@@ -390,7 +390,7 @@
   border: 0;
   border-radius: 999px;
   background: var(--m-ink);
-  color: #fcf9f5;
+  color: var(--on-p);
   font: inherit;
   font-size: 12px;
   font-weight: 500;

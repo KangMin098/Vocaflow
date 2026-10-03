@@ -142,7 +142,7 @@
 .sheetFoot { display: flex; align-items: center; justify-content: flex-end; gap: 10px; width: 100%; }
 .dangerBtn { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border-radius: 999px; background: #fde8e6; color: #b3372b; font-size: 12.5px; font-weight: 500; }
 .dangerBtn:hover { background: #fbd5d1; }
-.roundAdd { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--t1); color: #fff; }
+.roundAdd { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--p); color: var(--on-p); }
 .roundAdd:hover { opacity: 0.88; }
 .roundAdd:focus-visible { outline: 2px solid var(--t1); outline-offset: 2px; }
 

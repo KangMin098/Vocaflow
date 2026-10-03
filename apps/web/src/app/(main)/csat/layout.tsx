@@ -6,5 +6,5 @@
 import styles from '@/components/csat/session/learning-home.module.css'
 
 export default function CsatLayout({ children }: { children: React.ReactNode }) {
-  return <div className={styles.shell}>{children}</div>
+  return <div data-design-scope="csat" className={styles.shell}>{children}</div>
 }

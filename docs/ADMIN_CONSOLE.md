@@ -45,7 +45,7 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 
 | 요소 | 사용자 앱 | Admin Console |
 |---|---|---|
-| 액센트 | `var(--p)` Deep Ink `#0F2540` + 주묵 표식 | **2026-09-24 DD-82 — 레퍼런스 앱(`neon-currant.3b.dev`) 스킨**: `/admin` 이하에서는 `skins/admin-app.css` 가 토큰 값을 바꿔 `--p` · `--admin` · `--ju` 가 **먹색 `#0d0d17`**, 면은 흰 `#fff` / 캔버스 `#fbf9f7`, 선은 `rgba(13,13,23,.1)`, 서체는 Inter 다. 색은 토큰으로만 칠한다(회귀 `admin-color-tokens.test.ts`). 아래 DD-55 문장의 역할 구분(구조 `--p` · 표식 `--ju`)은 그대로이고 값만 바뀌었다. — **B 「주묵 도장」 확정**(2026-09-20 사용자 결정 · [design/DECISIONS](./design/DECISIONS.md) DD-55). 구조·액센트는 `--p` 로 통일하고, **관리자에서만** `--ju` 를 **표식(점·선)에만** 쓴다 — 헤더 도장 · 파괴적 동작 버튼 테두리 · 활성 행 왼쪽 2px. **면 금지**(주묵이 면적을 가지면 경고와 혼동된다). 관리자 구분은 그 표식 + `ShieldCheck` + 「Admin」 텍스트 셋이 함께 진다. 옛 보라 `#8B5CF6` 은 **2026-09-20 에 전량 교체됐다**(Gate 4 (i) · 라쳇 admin.ai-purple **318 → 0**). 코드모드 `scripts/design/purple-to-token.mjs` 가 정확 일치만 바꾼다 — 남은 것은 테스트 픽스처뿐이고, 학습자 표면(38)은 그 표면 작업에서 지운다. 액센트 C 「공정 띠」는 채택하지 않았고, 그 알맹이는 아래 **커버리지 규격**으로 남았다 |
+| 액센트 | 플랫폼 기본 Tines 스킨 | **2026-10-03 사용자 확정**: 관리자 전체( `/admin/csat/*` 포함)는 `skins/tines.css`의 보라 행동·크림/웜 중립면·라벤더선을 사용한다. DD-82의 관리자 3B 스킨 예외는 대체됐다. 운영 내비·표·도움말·ShieldCheck + Admin 표시는 유지한다. 색은 공통 토큰으로만 칠한다(`admin-color-tokens.test.ts`). 정본 [DESIGN.md](../DESIGN.md). |
 | 로고 아이콘 | `V` (Plus Jakarta) | `ShieldCheck` |
 | Sidebar 헤더 | "Vocaflow" | "Vocaflow" + **"Admin"** mono 배지 |
 | 알림 박스 | Streak | **"관리자 모드 · 시스템 데이터 접근 중"** |

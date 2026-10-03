@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: #0d0d1729;
+  background: var(--modal-backdrop);
 }
 .modal {
   display: flex;
@@ -156,7 +156,7 @@
 }
 .pillBtn {
   background: var(--m-ink);
-  color: #fcf9f5;
+  color: var(--on-p);
 }
 .whitePill {
   background: var(--m-bg);
@@ -409,7 +409,7 @@
 }
 .chipInk {
   background: var(--m-ink);
-  color: #fcf9f5;
+  color: var(--on-p);
 }
 
 /* ── 큰 숫자 · 막대 · 글 ── */

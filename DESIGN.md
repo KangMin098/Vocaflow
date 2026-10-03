@@ -1,98 +1,66 @@
-# Vocaflow 디자인 — 방향 · 형태 · 골든
+# Vocaflow 디자인 적용 기준
 
-> **[동결]** 이 문서는 **실물 확인 전 초안**이다. Stage 5 에서 실물(실제 라우트 캡처) 기준으로 교체된다. **수정 금지** — 고칠 것이 보이면 화면을 먼저 고치고 그 화면에서 값을 다시 뽑는다(DD-62).
+> **확정: 2026-10-03 · 사용자 지정 기본 디자인.** 디자인을 별도로 요청하지 않은 기능 추가·수정에도 적용한다.
+> 스타일과 화면 틀의 정본이다. 과거 주묵 판면·동결·DD-82 관리자 예외와 충돌하면 이 기준을 따른다.
 
-> 디자인 작업의 입구. 값은 [tokens.css](packages/design-tokens/src/tokens.css) · [globals.css](apps/web/src/app/globals.css) 에서 2026-09-18 에 읽었고,
-> 어긋나면 코드가 맞다. 형태를 만드는 절차는 [vocaflow-design](.claude/skills/vocaflow-design/SKILL.md) §G, 재료는 [DESIGN_SYSTEM](docs/DESIGN_SYSTEM.md).
-
-## 방향 — 값으로만
-
-지면 `#FBFAF6`(`--bg`) · 캔버스 `#F4F0E9`(`--bg2`) 위에 잉크 `#1A1714`(`--t1`)로 쓰고, 브랜드 행동은 Deep Ink `#0F2540`(`--p`),
-강조 색은 주묵 `#C0392B`(`--ju`), 골드 `#B0843A`(`--active`)가 있다.
-글꼴은 Hahmlet(한글 디스플레이) · Lora(영어 원문) · IBM Plex Sans KR(UI·본문) · JetBrains Mono(수치) 4종.
-구획은 그림자 대신 `0 0 0 1px #E0DBD0`(헤어라인 링, `--bd`), 모서리 2–6px(`--r-sm`…`--r-2xl`),
-무대는 1px 모눈(`--grid-line`, 24px) — 현재 삽화·증명 액자·공개 히어로·빈 상태의 바탕에 쓰인다([03-system §3-9](docs/design/03-system.md) · DD-24).
-모달·시트·토스트·팝오버 그림자는 `--sh-float`. 모션 토큰은 `--dur-fast`/`--dur-normal`/`--dur-slow`(100–300ms).
-기억 상태는 밑줄 두께 3px(risk `#9C3A30`) · 2px(shaky `#B5803A`) · 1px(stable `#2E7D5A`) · 2px dotted(new `#8A8278`)로 긋는다.
-
-## 세계의 사물 — 이 제품의 형태는 어디서 오는가
-
-| 사물 | 화면에서의 형태 | 자산(N1) | 정본 |
-|---|---|---|---|
-| 망각 곡선 | 7일 감쇠 선 · 밑줄 두께 3/2/1px | R(t) = `exp(ln(0.9)·t/S)` | `apps/web/src/components/layout/MemorySparkline.tsx` · `DecayUnderline` |
-| 칠해진 지문 | 아는/모르는 단어의 면, 레벨 슬라이더 1개 | 커버리지 계산 | `apps/web/src/components/marketing/CoverageHero.tsx` |
-| 주묵 붓 | 실선+화살표(지지) · 점선+막대(배제) · 점선+화살표(유인) · `=`(합류) | CSAT 분석 자료 | [DESIGN_SYSTEM §✒ 형태 문법](docs/DESIGN_SYSTEM.md) |
-| 기록 지도 | ○ · • · ✓ · ↻ × 점선 · 실선 · 이중선 · 라벨 | 세션 기록 | 같은 절 F3 |
-| 낙관·권점 | 주묵 테두리 28/36/44px 안의 Hahmlet 한 글자 · 권점 | — (서명 전용) | `apps/web/src/components/ui/press` |
-| 서가 | 층이 차오르는 사다리 | FSRS 안정도 | `apps/web/src/components/dashboard/DurabilityLadder.tsx` |
-| 시험지 | 2단 격자 · 문항 번호 · 괘선 · 모눈 무대(삽화·액자 바탕) | CSAT 코퍼스 | `apps/web/src/components/textfit/ClassSheet.tsx`(권점 · 난외 · 도장) |
-
-씨앗 전체(10개)와 골격 여부: [00-form-seeds](docs/design/00-form-seeds.md).
-
-## 화면별 골격·서명 배정
-
-골격 = 첫 시선이 닿는 형태(vocaflow-design §G1 축 하나). 서명 = 그 골격에서 화면당 하나.
-상태 칸은 2026-09-18 UX 감사의 **실캡처 판정**(브랜치 `feat/ux-audit` `docs/design/audit/verdict.md`)을 따른다 — 전체 127화면 중 서명 있음은 `/` · `/csat` 둘뿐이다.
-
-| 화면 | 골격 (G1 축) | 서명 (요소 · 트리거 · ms) | 상태 |
-|---|---|---|---|
-| `/` 랜딩 | 채색 지문 | 슬라이더 이동 → 단어 면 색 전환 · 200ms(`--dur-normal`) | 현행 |
-| `/fit` | 채색 지문 | 학년 슬라이더 → 낱말 면 색 200ms(랜딩과 같은 몸짓) · 출력 면 = 「학급에 나눠 줄 한 장」(권점·난외·도장) | **서명 있음 — 골든 1호**(2026-09-19, [golden/fit.md](docs/design/golden/fit.md)). A+B 채택, C 보류 · D 재검토 |
-| `/text/[id]` | 채색 지문(목표) | 단어 밑줄 두께 3/2/1px · 정지(모션 0) | **감사 판정 평균** — 모든 단어가 `status:'new'` 고정이라 밑줄이 한 종류(데이터는 `vocabularies.text_id` 로 있음). `word-pulse` 는 제거(DD-06) |
-| `/csat` 분석 | 주묵 문법 | 대조 순간 지지 실선이 근거 → 정답으로 그어짐 · 200ms | 현행(선 그리기 모션은 §5.2 개정 전까지 페이드) |
-| `/csat` 홈 | 시험지 사물 | 두 문항이 `=` 로 합류 · 패턴 교체 시 · 200ms | 현행 |
-| `/dashboard` | 환경 변형(목표) | 버티는 기간 사다리의 층 · 정지(모션 0) | **감사 판정 평균 · 선언 미렌더**(첫 화면이 빈 상태 문장 카드) |
-| `/hub` · 홈 | 망각(목표) | 오늘 단어의 밑줄 두께 3/2/1px(`TodayStage` · `NextWordsStrip`) | **감사 판정 평균** — 첫 시선의 표제어에 밑줄이 보이지 않음(검증 계정 단어 8개 — 데이터 있는 계정으로 재확인 필요). 7일 감쇠 선(S1) 승격 후보 |
-| `/wordvault` | 망각(목표) | — | **감사 판정 평균** — 링 게이지·4열 타일, 4색은 점·숫자 색뿐 · `/review` ≡ `/study` 픽셀 동일(우선순위 8위) |
-| `/library/books` 매대 | — | 표지 식별색(색상=갈래 · 명도=수준) | **다음 발산 대상**(`/fit` 골든 고정 후 착수 — DD-19) — 골격이 격자(평균). 발산 4안 [compare/library-books.md](docs/design/compare/library-books.md) → 사람이 고른다 |
-| `/flashcard` 등 학습 중 | 망각(목표) | 카드 뒤집기 0.55s | **감사 판정 평균** — 중앙 단일 카드, R(t)·망각 표시 0(Anki/Quizlet 와 같은 모양). `/flashcard/play` 우선순위 4위 · 학습 모듈 18화면 서명 0 |
-| `/admin/*` | **시험지 사물 — 「정오표」**(2026-09-20 확정 · DD-58) | 막힌 공정 행의 **주묵 권점(•)** → 고르면 권점이 주묵 실선으로 이어져 상세를 가리킨다 · 200ms | 대표 화면 `/admin/csat` 부터. 액센트 = `--p` + 주묵 표식(B 안 · DD-55) |
-
-## 관리자 콘솔 — 골격 「정오표」 (2026-09-20 확정)
-
-화면 **60개**로 가장 큰 표면인데 골격 선언이 **0/60** 이었다 — 그래서 「표 + 카드 + 3열」로 수렴했다
-(전수 감사 [design/admin-brief.md](docs/design/admin-brief.md)). 발산 4안 중 **1 정오표**를 골랐다
-([compare/admin-csat.md](docs/design/compare/admin-csat.md) · 결정 DD-58).
-
-### 채택안 구성 — 관리자 화면
-
-| # | 구성 | 왜 |
+| 라우트 | 기준 | 자동 적용 |
 |---|---|---|
-| A1 | **골격은 「정오표」** — 공정·항목이 **번호 + 괘선 행**으로 서고, 각 행이 「번호 · 이름 · 눈금 · 판정」이다 | 관리자가 묻는 것은 「지금 어느 칸이고 다음은 무엇인가」 하나다. 번호와 괘선이 그 순서를 말한다 |
-| A2 | **서명은 주묵 권점(•) 하나** — 막힌 행의 번호 왼쪽에 찍고, 고르면 **주묵 실선**으로 상세까지 이어진다(200ms `--dur-normal`) | 권점·실선은 이 제품의 주묵 어휘이고 관리자에만 쓰는 표식이다 |
-| A3 | **첫 뷰포트에 「가장 앞선 막힌 단계」 한 줄** — 색만이 아니라 **문장 + 주묵 표식**으로. 막힌 것이 없으면 **그 줄을 비운다** | 액센트 C 「공정 띠」를 대신해 흡수한 규격(DD-55) |
-| A4 | (주묵 사용 규칙 — DD-66 로 삭제) | |
-| A5 | **44px 은 관리자 레이아웃 루트에서 일괄 보장** — 화면마다 붙이지 않는다(2026-09-20 결정) | 요소마다 붙이면 반드시 빠뜨린다. 루트에서 보장하면 스캐너의 「판정 불가」도 근거를 갖는다(DD-51·DD-56) |
+| `/csat`, `/csat/` 및 `/csat/*` | [neon-currant.3b.dev](https://neon-currant.3b.dev/)의 **3B 앱** | 두 CSAT 레이아웃의 `data-design-scope="csat"` → `skins/csat-app.css` |
+| 그 외 모든 화면 | [www.tines.com](https://www.tines.com/)의 **웹사이트** | 루트 `data-skin="tines"` → `skins/tines.css` |
 
-### 진행 상태
+`/admin/csat/*`는 `/csat/*`가 아니므로 **Tines**다. 인증·설정·관리자·학습·게임 화면도 기본 Tines다.
+본문·모달·시트·팝오버·토스트는 현재 라우트의 토큰을 함께 쓴다. CSAT 표식은 서버 HTML에 있으며
+`:root:has(...)`로 루트 토큰을 선택하므로 body 포털도 같은 스타일이고, 경로 이동 시 자동 복귀한다.
+`?skin=off`, `vocaflow-skin` 저장값, `NEXT_PUBLIC_SKIN`으로 이 기준을 해제하지 않는다.
+라이트/다크·모션 감소 설정은 유지한다. 다크는 각 스킨의 대응 디자인이다.
 
-| Gate | 내용 | 상태 |
+## 두 디자인의 기본과 틀
+
+| 요소 | CSAT — 3B 앱 | 나머지 — Tines 웹사이트 |
 |---|---|---|
-| 0 | 전수 감사 + 액센트 3안 | **완료**(DD-55 · admin-brief) |
-| 1 | 발산 4안 | **완료 · 「정오표」 채택**(DD-58 · compare/admin-csat) |
-| 2 | 규칙 · 이 절 | **완료**(위 A1–A5) |
-| 3 | 골든 목업 1280 · 375 | 진행 |
-| 4 | 구현 + Tailwind 이관 | 대기(DD-56 — 이관은 구현과 함께) |
+| 지면·텍스트 | 흰 패널 `--bg`, 웜 중립 캔버스 `--bg2`, 먹색 `--t1`, 회색 보조 글자 | 크림 지면 `--bg`, 웜 중립 구획, 보라 제목·본문, 다색 틴트·진한 구획 |
+| 서체 | Inter + 한글 Pretendard, 수치 JetBrains Mono. UI 제목도 산세리프 | Figtree + 한글 Pretendard(UI), Petrona + Hahmlet(편집 제목), Space Mono(라벨). 참조 상용 서체의 무료 대체 |
+| 화면 골격 | 좌측 레일 → 상단 줄 → 작업 패널 → 탭·목록 → 상세/팝업. SpaceScreen·워크스페이스·지도 활용 | 공개/학습 셸의 상단 내비·메가메뉴 → 페이지 머리 → 목적에 맞는 구획/목록/작업면. 관리자의 운영 내비는 유지하며 Tines 재료 사용 |
+| 모서리·선 | 얇은 중립선·작은 컨트롤·분리된 패널, 지도/모달 기하는 측정 명세 | 알약 CTA·내비, 얇은 라벤더선, 둥근 액자·카드. 값은 Tines 스킨/기존 부품 |
+| 그림 | 3B 패턴 띠·노드·관계도에 대응하는 제품 자체 자산 | `public/illustrations/tines/`의 자체 삽화, 틴트면·패턴·액자 조합 |
+| 팝업 | 먹색 16% 배경막, 블러 0, 산세리프 제목. Dialog + PopupParts | 공통 Dialog/SearchDialog/시트·Tines 토큰. 메뉴는 기존 메가메뉴/모바일 서랍 |
+| 동작 | 선택 → 상세 → 실행/기록. 화면·상태·취소 동작을 실제 기능으로 연결 | 호버/포커스·메뉴 열기·탭·검색·폼·확인 단계는 확보한 대응 패턴 재사용 |
 
-## 골든 스크린
+**색만 바꾸면 적용 완료가 아니다.** 화면 골격, 타이포 위계, 폭·간격, 버튼·입력·팝업,
+삽화 역할, 핵심 동작을 대응시킨다. 페이지 유형이 다르면 참조의 해당 부품/템플릿을 고른다.
+예를 들어 관리 표와 학습 세션에 마케팅 히어로·푸터를 끼워 넣지 않는다.
+학습 기록·문항·FSRS·기억 4색·정보 이름·접근성은 제품 정본을 따른다.
 
-[docs/design/golden/](docs/design/golden/README.md) — **골든 1호 `/fit`(2026-09-19)**: [golden/fit.md](docs/design/golden/fit.md) 4장(A 1280·390 · B 판면 · 빈 상태). 다음은 `/library/books`(발산안 있음).
-같은 계열이 아닌 화면의 비평 (c) 는 아직 "기준 없음"으로 기록한다.
+## 별도 디자인 요청이 없어도 수행할 절차
 
-## 정본 연결
+1. 라우트로 디자인을 결정한다. 현재 정상 화면을 캡처하고 핵심 행동을 확인한다.
+2. 아래 자산에서 **대응하는 참조 화면/부품**을 지정한다. CSS/DOM 측정값과 캡처를 함께 본다.
+3. 기존 셸·공통 부품·스킨을 사용한다. 페이지 `.root`에 브랜드 색·글꼴을 다시 선언하지 않는다.
+   지도처럼 고유한 기하는 명세와 CSS 변수에 둔다. 신규 CSAT 라우트는 두 CSAT 세그먼트 중 하나에 둔다.
+4. 참조에 필요한 상태(메뉴 열림·팝업·선택·빈 상태·실패·취소)를 실제 기능으로 연결한다.
+5. 1440/390, 라이트/다크에서 정상 렌더·키보드·터치·넘침·팝업·경로 이동을 확인한다.
+   변경 부품은 같은 뷰포트의 참조와 대조한다. 크기·간격은 측정값으로 설명한다.
+6. 전후 캡처·비교표·검사 결과·남은 차이를 기록한다. 로그인/오류/로딩 캡처는 정상 화면 증거가 아니다.
+   색 테스트·문서 수정만으로 모든 화면의 참조 일치를 선언하지 않는다.
 
-| 결정할 것 | 정본 |
+사용자가 이미 두 기준을 선택했다. 일반적인 구현마다 새 디자인 4안이나 재승인을 요구하지 않는다.
+새로운 방향이 필요하면 최신 사용자 지시가 이 문서를 변경하는 근거가 된다.
+
+## 확보 자산과 적용 위치
+
+| 필요한 것 | 기존 정본/부품 |
 |---|---|
-| 학습 효과·형태 발명(참고) | [vocaflow-design](.claude/skills/vocaflow-design/SKILL.md) (Part 1 §A–§G — 제약 절 Part 2 는 DD-65, 남은 금지·게이트는 DD-66 으로 삭제), [CLAUDE.md](CLAUDE.md) |
-| 현재 판면·서체·토큰·형태 문법 | [디자인 시스템](docs/DESIGN_SYSTEM.md), [주묵 판면](docs/design/03-system.md) |
-| 실제 토큰·글꼴 구현 | [tokens.css](packages/design-tokens/src/tokens.css), [Tailwind](apps/web/tailwind.config.ts) |
-| 제품의 학습 계층 | [학습 모델](docs/LEARNING_MODEL.md) |
-| CSAT 학습자 결정 | [학습자 결정](docs/csat-learner/DECISIONS.md) · [통합 경험](docs/csat-learner/integrated-experience.md) |
-| 조사 → 방향 → 구현 → 캡처 → 비평 → 수정 | [디자인 작업 절차](docs/design/06-workflow.md) |
-| 레퍼런스를 고르는 이유 | [레퍼런스 인덱스](docs/design/references.md) |
-| 형태 씨앗 · 발산안 · 골든 | [00-form-seeds](docs/design/00-form-seeds.md) · [compare/](docs/design/compare/fit.md) · [golden/](docs/design/golden/README.md) |
-| 디자인 거버넌스 결정 | [design/DECISIONS](docs/design/DECISIONS.md) |
-| 겹치면 안 되는 자기 작업 | [own-portfolio](docs/design/own-portfolio.md) |
+| 참조 확보 상태·이번 검증 | [reference-contract](docs/design/reference-contract.md) |
+| Tines DOM·CSS·서체·색 | [computed](docs/design/refs/tines/computed-summary.md), [css-authored](docs/design/refs/tines/css-authored-summary.md), [font-lookalike](docs/design/refs/tines/font-lookalike.md) |
+| Tines 페이지·이미지·템플릿 대응 | [tines-mapping](docs/design/tines-mapping.md), [sections](docs/design/refs/tines/sections-summary.md), [corpus](docs/design/refs/tines/corpus-summary.md) |
+| Tines 버튼·폼·팝업·프로세스 | [ui-kit](docs/design/refs/tines/ui-kit-summary.md), [components](docs/design/refs/tines/components-summary.md), [interactions](docs/design/refs/tines/interactions-summary.md) |
+| 3B 앱 색·서체 | [reference-analysis](docs/design/reference-analysis.md), `packages/design-tokens/src/skins/csat-app.css` |
+| 3B 지도·팝업 크기 | [spec.json](docs/design/refs/3b/access-map/spec.json), [측정 절차](docs/design/refs/3b/access-map/README.md), [popup-patterns](docs/design/refs/3b/access-map/popup-patterns.md) |
+| 3B 실제 DOM 보강 | [CAPTURE](docs/design/refs/3b/CAPTURE.md), `scripts/design/workspace-skeleton.mjs` |
+| 구현 | `components/marketing/site`, `components/marketing/sections`, `components/layout/AppHeader`, `components/ui`, `components/csat/space`, `components/csat/diagnosis/map/PopupParts` |
+| 검증 | [06-workflow](docs/design/06-workflow.md), `reference-design.test.ts`, `92-reference-design.spec.ts`, `pnpm design:ref-compare` |
+| 학습·운영 기능 | [LEARNING_MODEL](docs/LEARNING_MODEL.md), [MODULES](docs/MODULES.md), [ADMIN_CONSOLE](docs/ADMIN_CONSOLE.md) |
 
-큰 재설계(새 화면·전면 재설계)는 §G3 발산 4안 — 골격(G1 축)이 서로 다른 넷 — 을 `compare.md` 로 비교할 수 있고, 고르는 것은 사람이다.
-고른 안은 골든으로 남겨 같은 계열 화면의 참고로 삼는다.
+외부 원본 HTML/CSS/JS·이미지·캡처는 로컬 분석용으로 보관한다. 제품은 자체 구현·자체 삽화·허용된 서체를 사용한다.
+쿠키·로그인 상태·사용자 데이터는 출력하거나 커밋하지 않는다. 접근 가능한 공개 자산부터 확보하며,
+인증된 화면을 확보하지 못한 범위는 명시하고 기존 측정 자료로 진행한다.

@@ -50,7 +50,8 @@
 
 ## 디자인 방향 · 학습 과학 7
 
-- 방향(강제 규칙 아님 — 디자인·UX 금지·제한은 DD-66 으로 전부 삭제): **Calm UI** · **Progressive Disclosure** · **Empathetic Feedback** · **Implicit Progress**. 현재 서체는 한국어 Hahmlet · 영어 Lora.
+- **디자인 기본 확정(2026-10-03)**: `/csat` 및 `/csat/*` = [neon-currant.3b.dev](https://neon-currant.3b.dev/) 3B 앱. **그 외 전부(관리자 포함)** = [tines.com](https://www.tines.com/) 웹사이트. 별도 디자인 요청 없는 작업에도 [DESIGN.md](./DESIGN.md)의 틀·부품·측정·검증 절차를 적용한다. 옛 동결·주묵 판면·DD-82 관리자 스킨 예외는 이 범위 결정을 뒤집지 않는다. 색만 바꾸고 완료하지 않는다.
+- 학습 UX 방향: **Calm UI** · **Progressive Disclosure** · **Empathetic Feedback** · **Implicit Progress**. 스타일·서체는 DESIGN.md의 라우트별 스킨을 따른다.
 - Active Recall(Karpicke & Roediger 2008) · Spaced Repetition(FSRS, `ts-fsrs`) · Desirable Difficulty(Bjork) · Dual Coding(Paivio) · Context-Dependent(학습 맥락에서 인출) · Cognitive Load(작업기억 ~4) · Emotional Encoding(보상 + 자기효능감). 적용: [LEARNING_MODEL](./docs/LEARNING_MODEL.md).
 - **Memory Decay 4색** — R(t) = `exp(ln(0.9) × t / S)` 를 **동적 계산**(`memory_state` 컬럼 저장 절대 금지): stable `#2E7D5A` R≥0.95 · shaky `#B5803A` 0.70≤R<0.95 · risk `#9C3A30` R<0.70 · new `#8A8278` 신규(D/S 미부여).
 
@@ -126,7 +127,7 @@ API 키를 기다리며 "막혔다" 고 보고하지 않는다 — **지금 돌�
 - CSAT 원문 배치: 새 도구 전 기존 자산 검색 → `csat-sources-audit` → 사유별 대상·dry-run → 소량 검증 → 재감사. 적격 정본은 `evaluateSource`; 내용 판정은 UUID·본문 해시·revision에 묶는다. 상세 `.agents/skills/csat-source-audit/SKILL.md`.
 
 **LCP** 9 외부 소스 → 도서 큐레이션(auto_curate_book 게이트 + 4축 난이도) · **VCB** seed → enrichment → shared_words(cast-2000 audit chain) · **VRL** 4축 분류(V-Level 0-11 · Track 6 · Domain 8 · Skill 5) + 진단 5종 · **ACP** 14 소스 수집(`scripts/acp/collect-daily.mjs`) → `library_articles`. **arXiv 는 없다**(`20260614240000_acp_remove_arxiv_source`, CHECK 제약이 재삽입 차단). 상세 [LIBRARY_PIPELINE](./docs/LIBRARY_PIPELINE.md).
-Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldCheck` + 「Admin」 텍스트 · 값은 앱 스킨 `skins/admin-app.css`(먹색 · Inter · 보라 0 — DD-82, 2026-09-24) · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
+Admin Console: `/admin/*`(route group 미사용) · 기본 디자인은 Tines 웹사이트(`skins/tines.css`, 2026-10-03 사용자 확정) · `ShieldCheck` + 「Admin」 표시 유지 · 상세 [ADMIN_CONSOLE](./docs/ADMIN_CONSOLE.md).
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 

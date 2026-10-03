@@ -8,6 +8,11 @@
 
 ## 토큰 로드
 
+**기본 디자인(2026-10-03)**: `/csat`과 하위 라우트 = 3B 앱, 그 외(관리자 포함) = Tines 웹사이트.
+정본은 루트 `DESIGN.md`. 루트 `data-skin="tines"` + 두 CSAT 레이아웃의 `data-design-scope="csat"`로
+본문·body 포털에 자동 적용한다. `skin=off`·저장값·환경변수로 해제하지 않는다. 새 작업은 참조 부품을
+지정하고 같은 조건의 캡처·측정으로 검증한다. 화면별 브랜드 색·글꼴 재선언은 피한다.
+
 `src/app/globals.css` 첫 줄에 `@import '@vocaflow/design-tokens/tokens.css';` — 이 한 줄로 `--p`, `--bg`, `--t1` 등 모든 CSS Variables 가 등록됨. Tailwind 는 `var(--p)` 식으로 참조.
 
 ## 인증 보호

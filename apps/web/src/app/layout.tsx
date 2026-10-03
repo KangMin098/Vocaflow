@@ -114,7 +114,7 @@ const fontTinesMono = Space_Mono({
   preload: false,
 });
 
-// ── Admin 앱 스킨(DD-82) — 레퍼런스 앱의 InterVariable 은 Inter(OFL) 그대로다. 변수는 skins/admin-app.css 가 읽는다.
+// ── CSAT 3B 앱 스킨 — Inter(OFL). 변수는 skins/csat-app.css 가 읽는다.
 // 고정폭(Geist Mono)은 next 14.2 폰트 목록에 없어 이미 싣는 JetBrains Mono 로 대체한다. preload 를 끈다 — /admin 밖에서는 받지 않는다.
 const fontAdminSans = Inter({
   subsets: ["latin"],
@@ -123,7 +123,7 @@ const fontAdminSans = Inter({
   preload: false,
 });
 
-// admin-app.css 가 `--font-mono` 자체를 덮으므로 원래 JetBrains Mono 변수를 가리킬 수 없다 — 별도 변수로 한 번 더 선언한다.
+// csat-app.css 가 `--font-mono`를 덮으므로 별도 변수로 선언한다.
 const fontAdminMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -132,11 +132,8 @@ const fontAdminMono = JetBrains_Mono({
   preload: false,
 });
 
-/**
- * 화면 스킨 — 기본은 `tines`(사용자 결정 2026-09-21 「가장 닮음으로 우선 진행 후 평가」).
- * `NEXT_PUBLIC_SKIN=off` 로 기본을 끄고, 브라우저에서는 `?skin=off|tines` 가 localStorage 에 남는다.
- */
-const DEFAULT_SKIN = process.env.NEXT_PUBLIC_SKIN ?? "tines";
+// 디자인은 사용자 취향 설정이 아니라 라우트 계약이다(DESIGN.md, 2026-10-03).
+// 기본 Tines + CSAT 레이아웃 표식의 3B 덮개. URL/환경변수/localStorage로 해제하지 않는다.
 
 export const metadata: Metadata = {
   // 이게 없으면 Next 는 OG·canonical 을 **상대경로**로 내보내고, 상대 OG URL 은 대부분의
@@ -189,7 +186,7 @@ export default function RootLayout({
     <html
       lang="ko"
       className={`${fontUI.variable} ${fontKoDisplay.variable} ${fontSerif.variable} ${fontMono.variable} ${fontTinesSans.variable} ${fontTinesSerif.variable} ${fontTinesMono.variable} ${fontAdminSans.variable} ${fontAdminMono.variable}`}
-      data-skin={DEFAULT_SKIN === "off" ? undefined : DEFAULT_SKIN}
+      data-skin="tines"
       suppressHydrationWarning
     >
       <head>
@@ -202,11 +199,6 @@ export default function RootLayout({
                   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                   var theme = stored || (prefersDark ? 'dark' : 'light');
                   document.documentElement.setAttribute('data-theme', theme);
-                  var q = new URLSearchParams(location.search).get('skin');
-                  if (q === 'off' || q === 'tines') localStorage.setItem('vocaflow-skin', q);
-                  var skin = localStorage.getItem('vocaflow-skin');
-                  if (skin === 'off') document.documentElement.removeAttribute('data-skin');
-                  else if (skin) document.documentElement.setAttribute('data-skin', skin);
                   // 모션 취향도 **첫 페인트 전에** 칠한다 — globals.css §4.5 의 상시 루프는
                   // 마운트 뒤에 칠하면 끈 사람에게 한 프레임 번쩍인다(전환만 낮추던 때는 늦어도 됐다).
                   // 저장·동기화는 DevicePreferences 가 계속 맡는다(여기는 첫 칠만).

@@ -43,7 +43,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const reportsBadge = await fetchPendingReportsCount()
 
   return (
-    // data-area="admin" — skins/admin-app.css 가 이 표지를 보고 /admin 이하에만 앱 스킨 토큰을 켠다(DD-82).
+    // 관리자도 플랫폼 기본 Tines 토큰을 사용한다(DESIGN.md, 2026-10-03).
     <div data-area="admin" className="flex min-h-screen bg-[var(--bg2)]">
       <AdminSidebar reportsBadge={reportsBadge} />
       {/* 레퍼런스 앱 골격 — 사이드바는 캔버스와 한 면이고, 본문은 캔버스 위에 떠 있는 흰 패널이다(DD-82). */}

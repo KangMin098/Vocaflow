@@ -1,22 +1,23 @@
-/* packages/design-tokens/src/skins/admin-app.css
+/* packages/design-tokens/src/skins/csat-app.css
  *
- * **Admin 앱 스킨 — 레퍼런스 `neon-currant.3b.dev`(Tines 3B 앱 화면) 실측값을 /admin 이하에만 얹는다**
- * (DD-82 · 사용자 지시 2026-09-24 「/admin 전체 스타일 교체」).
+ * **CSAT 앱 스킨 — neon-currant.3b.dev의 앱 토큰을 /csat 전체에 적용한다.**
+ * 사용자 확정 2026-10-03. DD-82의 관리자 스킨 범위는 이 결정으로 대체됐다.
  *
- * 켜지는 조건: 페이지 안에 `[data-area="admin"]` 이 있을 때(`app/admin/layout.tsx` 가 건다).
- *   `:root:has(...)` 에 변수를 두므로 body 로 포털되는 Dialog·Toast 도 같은 값을 받는다. /admin 을 떠나면
- *   공개·학습자 화면의 스킨(tines.css)으로 그대로 돌아간다.
+ * 켜지는 조건: 두 CSAT 라우트 그룹의 레이아웃에 `[data-design-scope="csat"]`이 있을 때.
+ *   루트 변수이므로 body로 포털되는 Dialog·Toast도 같은 값을 받는다. CSAT을 떠나면
+ *   관리자·공개·학습자 화면 모두 기본 tines.css로 돌아간다. URL·저장값으로 해제하지 않는다.
  * 값의 출처: docs/design/reference-analysis.md — 레퍼런스 `:root` 변수(display-p3)를 sRGB hex 로 옮긴 값.
  *
  * 규칙
- *   - 보라 0. 레퍼런스도 보라는 차트 계열색에만 쓴다 — 우리 admin 에는 차트 계열색 토큰이 따로 없으므로 뺀다.
+ *   - 기본 UI는 먹색·중립면. 패턴 띠·차트·학습 의미색은 해당 부품이 소유한다.
  *   - 1차 행동 = 먹색 컨트롤(`--control-bg` #0d0d17) + 크림 글자. 강조는 색이 아니라 먹색·굵기로.
  *   - 글자 1·2·3단 모두 흰 면·캔버스·채움면 위 WCAG AA 4.5 이상(reference-analysis §7).
  *   - 선택자 `:root:has()` (0,2,0)는 tines.css 의 `:root[data-skin]` (0,2,0)와 같아서 **이 파일이 뒤에
  *     import 돼야** 이긴다(globals.css). 다크는 (0,3,0)로 tines 다크와 같고 역시 순서로 이긴다.
  */
 
-:root:has([data-area="admin"]) {
+:root:has([data-design-scope="csat"]) {
+  --design-family: three-b;
   /* ── 1차 행동 — 레퍼런스 --control-bg / --control-fg ── */
   --p: #0d0d17;
   --p-hover: #282531;
@@ -122,12 +123,13 @@
   /* ── 서체 — Inter(OFL) · 고정폭은 JetBrains Mono(OFL, Geist Mono 대체) · 한글 Pretendard ── */
   --font-display: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-body: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-ko-display: var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif;
   --font-serif: var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif;
   --font-mono: var(--font-admin-mono), "Pretendard Variable", Pretendard, ui-monospace, monospace;
 }
 
 /* 다크 — 레퍼런스 light-dark() 의 두 번째 값 */
-:root[data-theme="dark"]:has([data-area="admin"]) {
+:root[data-theme="dark"]:has([data-design-scope="csat"]) {
   --p: #fcf9f5;
   --p-hover: #eeebe7;
   --p-light: #252530;

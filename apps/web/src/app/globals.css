@@ -10,8 +10,8 @@
 @import '@vocaflow/design-tokens/tokens.css';
 /* 화면 스킨 — <html data-skin="tines"> 일 때만 켜진다(DD-68). */
 @import '@vocaflow/design-tokens/skins/tines.css';
-/* Admin 앱 스킨 — /admin 이하([data-area="admin"])에서만 켜진다(DD-82). tines.css 뒤에 와야 이긴다. */
-@import '@vocaflow/design-tokens/skins/admin-app.css';
+/* CSAT 3B 앱 스킨 — 두 라우트 그룹의 CSAT 레이아웃 표식으로 선택. 포털도 루트 토큰을 상속한다. */
+@import '@vocaflow/design-tokens/skins/csat-app.css';
 
 @tailwind base;
 @tailwind components;
@@ -1104,27 +1104,27 @@ body.studying .sidebar:hover { opacity: 1; }
 /* ── 스킨 모양 층(DD-68 · tines-mapping §14 — 참조 80페이지 UI 실측) ─────────────────────────────
    우리 버튼은 공용 부품이 아니라 화면마다 적은 Tailwind 조합이다(모서리 토큰 --r-md 1,043곳을 카드·입력과 같이 쓴다).
    토큰 값을 바꾸면 카드까지 알약이 되므로, **버튼 조합**(inline-flex + 44px 하한)만 골라 참조 알약(990px)으로 만든다.
-   스킨을 끄면(?skin=off) 전부 원래대로다. 모양을 지키고 싶은 요소는 data-shape="keep". */
-:root[data-skin="tines"] :is(a, button, [role="button"])[class*="inline-flex"]:is([class*="min-h-[40px]"], [class*="min-h-[44px]"], [class*="min-h-[48px]"], [class*="min-h-11"], [class*="min-h-12"]):not([role="tab"]):not([data-shape="keep"]) {
+   CSAT은 3B 컨트롤을 사용하므로 제외한다. 모양을 지키는 요소는 data-shape="keep". */
+:root[data-skin="tines"]:not(:has([data-design-scope="csat"])) :is(a, button, [role="button"])[class*="inline-flex"]:is([class*="min-h-[40px]"], [class*="min-h-[44px]"], [class*="min-h-[48px]"], [class*="min-h-11"], [class*="min-h-12"]):not([role="tab"]):not([data-shape="keep"]) {
   border-radius: 999px;
 }
 /* 대화상자 뒤 막 — 참조는 화면을 검게 덮지 않는다(검색은 막 없이 뜨는 유리 막대). 옅은 라벤더 + blur 12px
    ⚠️ 클래스 이름의 `/` 는 선택자에서 반드시 `\/` 로 쓴다. 그냥 쓰면 브라우저는 이 규칙을 버리고
    배포 빌드의 CSS 압축기가 「Unexpected '/'」로 **빌드 전체를 멈춘다**(실측 2026-09-24 ·
    회귀 `app/__tests__/css-selector-escape.test.ts`). */
-:root[data-skin="tines"] [class*="fixed"]:is(.bg-black\/40, .bg-black\/50, .bg-black\/60) {
+:root[data-skin="tines"]:not(:has([data-design-scope="csat"])) [class*="fixed"]:is(.bg-black\/40, .bg-black\/50, .bg-black\/60) {
   background-color: rgba(236, 232, 253, 0.55);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
-:root[data-skin="tines"][data-theme="dark"] [class*="fixed"]:is(.bg-black\/40, .bg-black\/50, .bg-black\/60) {
+:root[data-skin="tines"][data-theme="dark"]:not(:has([data-design-scope="csat"])) [class*="fixed"]:is(.bg-black\/40, .bg-black\/50, .bg-black\/60) {
   background-color: rgba(25, 18, 38, 0.6);
 }
 /* 입력 — 참조 1px #d7c4fa, 포커스 때 보라 */
-:root[data-skin="tines"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select)[class*="border"] {
+:root[data-skin="tines"]:not(:has([data-design-scope="csat"])) :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select)[class*="border"] {
   border-color: var(--bd-input);
 }
-:root[data-skin="tines"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select)[class*="border"]:focus {
+:root[data-skin="tines"]:not(:has([data-design-scope="csat"])) :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select)[class*="border"]:focus {
   border-color: var(--ju);
 }
 

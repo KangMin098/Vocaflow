@@ -1,5 +1,9 @@
 # 참조 사이트(Tines) 구간 → Vocaflow 화면 매핑
 
+> **현행 범위(2026-10-03)**: [DESIGN.md](../../DESIGN.md). `/csat` 전체는 neon-currant 3B 앱,
+> 그 외(관리자 포함)는 Tines 웹사이트다. 아래 과거 매핑의 CSAT 마케팅 템플릿·관리자 예외와 상태는 당시 기록이며
+> 새 결정의 근거/기본 범위를 덮지 않는다. 재사용 자산과 이번 검증은 [reference-contract](reference-contract.md).
+
 > 2026-09-21 · 작성 Claude Code · DD-68(「가장 닮음」 1단계)의 적용 지도.
 > **사실의 출처**: 참조 쪽은 생성물 [`refs/tines/sections-summary.md`](refs/tines/sections-summary.md)
 > (`scripts/design/extract-sections.mjs` — 33페이지 · 구간 약 200 · 팝업류 6) · [`components-summary.md`](refs/tines/components-summary.md)(컴포넌트 313 · DOM 실재 156) ·
