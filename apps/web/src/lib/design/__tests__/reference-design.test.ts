@@ -31,7 +31,11 @@ describe('사용자가 지정한 두 디자인의 기본 적용', () => {
   })
 
   it('CSAT은 본문 안의 색·서체 재선언으로 포털과 갈라지지 않는다', () => {
-    const files = cssFiles(path.join(root, 'apps/web/src/components/csat'))
+    const files = [
+      'apps/web/src/components/csat',
+      'apps/web/src/app/(app)/csat',
+      'apps/web/src/app/(main)/csat',
+    ].flatMap(directory => cssFiles(path.join(root, directory)))
     expect(files.length).toBeGreaterThan(0)
     for (const file of files) {
       expect(readFileSync(file, 'utf8'), path.relative(root, file))

@@ -20,7 +20,8 @@
   word-break: keep-all;
 }
 .workspace :is(button, a, input, select):focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
-.workspace :is(button, a, input, select) { min-height: 44px; min-width: 44px; }
+/* 시간 막대는 원래의 22px 기하를 유지한다. 같은 단계 이동은 아래 44px 차례 목록에서도 제공한다. */
+.workspace :is(button, a, input, select):not(.seg) { min-height: 44px; min-width: 44px; }
 
 /* ── 상단 막대 ────────────────────────────────────────── */
 .bar {

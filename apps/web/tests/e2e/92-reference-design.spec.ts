@@ -122,6 +122,26 @@ for (const width of [1440, 390]) {
             expect(contrast(color.ink, color.chip)).toBeGreaterThanOrEqual(4.5)
             expect(contrast(color.ink, color.canvas)).toBeGreaterThanOrEqual(4.5)
           }
+          for (const code of ['GOAL', 'A1']) {
+            await page.locator(`[data-map-node="${code}"]`).click()
+            const popup = page.locator('[data-map-modal]')
+            await expect(popup).toBeVisible()
+            await expect(popup.getByRole('heading')).toBeVisible()
+            expect((await popup.getByRole('button', { name: '팝업 닫기', exact: true }).boundingBox())?.width).toBeGreaterThanOrEqual(44)
+            await expectTextContrast(popup.locator('[class*="headTile"]'))
+            for (const label of ['목표', '달성', '현 상태', '근거']) {
+              const tab = popup.getByRole('tab', { name: label, exact: true })
+              await tab.click()
+              await expect(tab).toHaveAttribute('aria-selected', 'true')
+              await expectTextContrast(tab.locator('span').first())
+              for (const tile of await popup.locator('[class*="rowTile"]').all()) {
+                await expectTextContrast(tile)
+              }
+            }
+            await page.screenshot({ path: path.join(shots, `map-popup-${code}-${width}-${dark ? 'dark' : 'light'}.png`) })
+            await popup.getByRole('button', { name: '팝업 닫기', exact: true }).click()
+            await expect(popup).not.toBeVisible()
+          }
         }
         await page.screenshot({ path: path.join(shots, `${route.split('?')[0].replace(/\//g, '-') || 'home'}-${width}-${dark ? 'dark' : 'light'}.png`) })
         if (route === '/csat') {
@@ -134,6 +154,7 @@ for (const width of [1440, 390]) {
           await page.screenshot({ path: path.join(shots, `csat-dialog-${width}-${dark ? 'dark' : 'light'}.png`) })
           await page.keyboard.press('Escape')
           await expect(dialog).not.toBeVisible()
+          await page.waitForLoadState('networkidle')
         }
       }
       // 정식 모달 주소에서 선택·답안 대비까지만 확인한다. 저장하거나 기존 기록을 바꾸지 않는다.
