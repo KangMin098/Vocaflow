@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): 오답 원인 Evidence 마이그레이션 `20261003230000_csat_error_evidence` **개발 Supabase DB 적용**(PostgreSQL 17.6, 사용자 승인) — 표 9 · 함수 40 · 트리거 15 · 정책 5, 기존 세션 2 · 응답 90 불변, Security Advisor 해당 25건 모두 의도 · ERROR 0. 실제 PostgREST · Auth smoke 142/142(`scripts/csat/error-evidence/dev-smoke/`): 무권한 노출 · RPC 우회 · 교차 접근 · blind 노출 0, 기존 진단 화면 회귀 0. taxonomy 시드 · Pilot 없음. 운영 환경 아님
+
 - feat(csat): 학습 지도 정보 구조 재편 — 첫 화면 72노드 → 핵심 6카드(V/S/R/E/L + X, 규칙 기반 proxy · 정밀 진단 미실시 표기 · A7 데이터 없음 · 진단 처방 · Route 미정), 54라인 지도는 `?view=full` 상세(3열, P/T 는 팝업 근거 탭). 「달성」 라벨 제거. DB 변경 없음.
 - test(csat): 오답 원인 Evidence 마이그레이션 격리 PostgreSQL 17 실행 검증 — 196/196 + rollback 6/6(권한 225칸 · blind 수명주기 · 경합 14 · rq-1 TS↔SQL 동치 · 봉인 · 삭제 경계). 실행으로 찾은 결함 4건 수정(대상 서버 계산 · 판정자 자기 응답 · 시작 중 대상 교체 · adjudicator 원자료). 하네스 `scripts/csat/error-evidence/isolated-pg/`. 운영 DB 변경 없음
 - docs(csat): 오답 원인 Evidence 물리 스키마 초안(미적용) — `20261003230000_csat_error_evidence.sql`(9 테이블 · 덧붙이기 전용 · blind 회차 수명주기 · RPC 전용 접근 · rq-1 SQL 강제) + rollback · 검증 쿼리 · Choice Trap v0.1 대응표. Codex SQL 리뷰 P0/P1 0

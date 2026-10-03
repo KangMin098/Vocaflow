@@ -1844,6 +1844,16 @@ RPC `csat_dx_activate_settings(p_settings, p_note, p_by)` · `csat_dx_save_item_
 | `csat_map_settings` | 지도 설정(활성 1행: 목표 기본값 · 기준 시험 수 · 근접 기준 · 최소 진단 범위) | SELECT 만 |
 RPC `csat_map_seed(jsonb)`(service_role 전용 · 한 트랜잭션 · advisory lock) — 시드 `scripts/csat/map/seed.mjs`. 목표율 · 성취율은 저장하지 않고 화면을 열 때 계산한다(`lib/csat/map/target.ts`).
 
+**오답 원인 Evidence(`csat_ec_*`, [20261003230000](../supabase/migrations/20261003230000_csat_error_evidence.sql) — 개발 DB 적용 2026-10-03)** — 응답 하나에 대한 원인 가설 · 과정 증거 · blind 검수. 학생 역량 상태는 저장하지 않는다. 설계 · 검증: [ERROR_EVIDENCE_DESIGN](./csat-learner/ERROR_EVIDENCE_DESIGN.md) §15–17.
+| 테이블 | 성격 | 직접 접근 |
+|---|---|---|
+| `csat_ec_taxonomy_version` · `csat_ec_code` | 원인 사전(draft → sealed, 봉인 뒤 불변 · 버전 삭제 불가) | authenticated SELECT |
+| `csat_ec_session_confirmation` · `csat_ec_process_evidence` | 학습자 확인(revision) · 풀이 과정 증거(supersede 로만 정정) | 본인 SELECT |
+| `csat_ec_claim` | 원인 claim(학생 범주 보고 · AI 제안, 덧붙이기만) | 본인 학생 보고만 SELECT |
+| `csat_ec_ai_run` · `csat_ec_review_round` · `csat_ec_review_assignment` · `csat_ec_judgment` | AI 실행 · 검수 회차(draft → blind_review → reveal → adjudication → closed \| cancelled, 지울 수 없음) · 배정 · 판정 | 없음(RPC 전용, service_role 포함) |
+
+9표 모두 FORCE RLS · 어떤 역할에도 INSERT/UPDATE/DELETE 권한 없음. 쓰기는 SECURITY DEFINER RPC(`search_path=''`)만 — 학습자 `csat_ec_confirm_session` · `add_process_evidence` · `add_student_claim`, 관리자(`is_admin()`) `taxonomy_seal` · `round_create` · `round_set_targets` · `round_assign` · `round_start_blind` · `round_reveal` · `round_advance`, 배정 판정자 `blind_queue` · `submit_blind` · `reveal_view` · `round_material` · `submit_verify` · `submit_adjudication`, AI(service_role) `ai_export` · `ai_taxonomy` · `ai_import`. 기존 표 변경은 `csat_dx_response` BEFORE DELETE 트리거 `csat_ec_cancel_rounds_on_response_delete`(대상 응답이 지워지면 열린 회차 취소) 하나. 사전 시드 없음(개발 DB 에는 smoke 용 TEST taxonomy v99.0 과 TEST 회차 2개가 남아 있다). 되돌리기 `scripts/csat/error-evidence/rollback.sql`(행이 있으면 거부).
+
  — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
 
 PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 행**이었다 — 어휘 권을 담으면

@@ -1014,10 +1014,77 @@ blind 시작 뒤 이 컬럼들은 트리거로 바뀌지 않는다 — rq-2 가 
 | 9 | AI 사전 · 적재가 deprecated 코드도 허용 | Pilot 전에 수정 | 신규 제안은 active 만 |
 | 10 | 문항 원문 · 태깅을 고치면 그 문항의 **모든 학습자 과정 증거가 무효**(실행에서 발견) | Pilot 에서 관찰 + 운영 절차 | 설계대로(작성 당시 문항에 묶음). Pilot 기간 대상 문항은 수정 동결, 오탈자 수정이 필요하면 재수집 안내 |
 
-### 운영 DB 적용 시 남은 위험
+### 적용 시 남은 위험(작성 당시 기준 — 1 · 3 은 §17 에서 해소)
 
 1. **검증 환경 차이** — 로컬 17.9 · Windows · 재현한 역할/권한. Supabase 고유 요소(PostgREST 캐시 · `pg_graphql` · 다른 확장 · 실제 기존 트리거 `csat_hold_on_item_change_trg` 와의 상호작용)는 재현하지 않았다. 적용 직후 `verify-schema.sql` POST 와 `get_advisors(security)` 를 운영에서 다시 확인해야 한다.
 2. **기존 표 영향** — `csat_dx_response` BEFORE DELETE 트리거 1개. 학습자 기록 삭제마다 열린 회차 검색이 한 번 돈다(지금 회차 0 → 비용 무시 가능, 회차가 쌓이면 `targets` jsonb 포함 검색 인덱스 검토).
 3. **Pilot 전 P2 6건**(3 · 4 · 5 · 6 · 8 · 9) — 운영 적용 전에 고치고 이 하네스를 다시 돌리는 것이 순서상 맞다.
 4. **taxonomy 시드 미작성** — 운영 적용만으로는 아무 것도 쓰이지 않는다(사전 0행). 코드 20개의 정의 · 포함 · 제외 · 예 · 반례 확정 뒤 별도 시드 마이그레이션.
 5. **문항 수정 = 증거 무효**(P2-10) — 운영 절차(Pilot 문항 동결)로 막아야 한다.
+
+## 17. 개발 Supabase DB 적용 · 실제 앱 경계 smoke (2026-10-03)
+
+> 환경 구분 — **개발 Supabase DB**(`jajenrevcbmrpaliomxv` · vocaflow-dev · PostgreSQL 17.6) / **로컬 격리 PostgreSQL**(§16 하네스 · 17.9) / **향후 운영 환경**(아직 없음). 이 절은 개발 DB 결과다. 운영 적용은 하지 않았다.
+
+### 적용 순서
+
+1. Pilot 전 P2 6건(§16 표 3 · 4 · 5 · 6 · 8 · 9) 수정 → 격리 하네스 재실행 **225/225 · rollback 6/6** → Codex SQL 리뷰 **P0 0 · P1 0**(커밋 41b13f2b).
+2. 파일 이름에 버전 부여 `20261003230000_csat_error_evidence.sql`(a2dd93d3) · rollback 은 `scripts/csat/error-evidence/rollback.sql` 로 이동.
+3. 개발 DB 적용(사용자 승인) — 파일을 한 트랜잭션으로 실행하고 같은 트랜잭션에서 `supabase_migrations.schema_migrations` 에 기록. 드라이런(ROLLBACK) 뒤 COMMIT. 일회성 적용 스크립트라 저장소에 넣지 않았다(다시 적용할 일이 없고, 새 환경은 마이그레이션 이력으로 적용한다).
+
+### 적용 직후 확인(`verify-schema.sql` POST)
+
+| 항목 | 결과 |
+|---|---|
+| 생성 객체 | 표 9 · 함수 40(SECURITY DEFINER 21, 전부 `search_path` 고정 · 소유자 postgres) · 트리거 15 · 정책 5 |
+| RLS | 9표 모두 ENABLE + FORCE |
+| 표 쓰기 권한 | anon · authenticated · service_role 의 INSERT/UPDATE/DELETE/TRUNCATE 0 |
+| 표 읽기 권한 | authenticated 만, 5표(사전 2 · 자기 확인 · 자기 과정 증거 · 자기 범주 보고) |
+| anon 함수 실행 | 0 |
+| 초기 행 | 9표 모두 0 — taxonomy 시드 없음 |
+| 기존 데이터 | 세션 2 · 응답 90 적용 전후 같음 · `csat_dx_response` 의 새 트리거 1(응답 삭제 → 열린 회차 취소) |
+| 이력 | `schema_migrations` 에 20261003230000 기록 |
+
+### Security Advisor(security)
+
+프로젝트 전체 630건 중 이 마이그레이션 객체 **25건, ERROR 0** — 전부 설계상 의도. 나머지 605건은 기존 객체(이 작업과 섞어 평가하지 않는다). smoke 과정에서 스키마 · 정책 · 함수를 바꾸지 않았으므로 이 결과가 기준선이다.
+
+| 경고 | 수 | 판단 |
+|---|---|---|
+| `rls_enabled_no_policy`(INFO) | 4 | ai_run · review_round · assignment · judgment — RPC 전용 표, 정책 없음 = 직접 접근 0행이 의도 |
+| `pg_graphql_authenticated_table_exposed` | 5 | 자기 행 읽기 표 · 사전 — 스키마에 보이지만 남의 행은 0(아래 GraphQL 실측) |
+| `authenticated_security_definer_function_executable` | 16 | 앱이 부를 RPC — 함수 안에서 본인 · 배정 · `is_admin()` 확인(아래 RPC 실측) |
+
+### 실제 앱 경계 smoke — **142/142**
+
+하네스 `scripts/csat/error-evidence/dev-smoke/smoke.mjs`(결과 `results.json`). 앱과 같은 `@supabase/supabase-js` 로 PostgREST · Auth 를 거친다 — anon 키, 테스트 계정 로그인(학습자 3 · 판정자 A/B · adjudicator · 관리자), service_role 키(AI 파이프라인 · 앱 서버 경로). 학습자 시험 기록은 앱 서버와 같은 `csat_dx_record_session` 으로 만들었다. SQL 직접 접속은 TEST taxonomy 시드 · 테스트 관리자 역할 부여 · 사후 읽기 확인에만 썼다. 거부는 「권한 없음(42501)」 또는 함수 예외일 때만 통과로 센다(열 이름 오류 등은 실패).
+
+| 영역 | 건수 | 확인한 것 |
+|---|---|---|
+| 표 RLS | 72 | 9표 × anon SELECT · service_role SELECT/INSERT/DELETE · 학습자 INSERT/UPDATE/DELETE 전부 42501 · RPC 전용 4표 판정자 SELECT 42501 · 자기 행 표 3개는 본인 행만(다른 학습자 0) · 사전 읽기 가능 |
+| 학습자 RPC | 12 | 확인 · 과정 증거 · 범주 보고 — 본인 성공, 다른 학습자 · 판정자 · anon · service_role 거부, 봉인 전 taxonomy 거부 |
+| 관리자 RPC | 13 | 봉인 · 회차 생성 · 대상 · 배정 · blind 시작 — 관리자 성공, 학습자 · 판정자 · anon · service_role 거부 |
+| AI RPC | 7 | export · taxonomy · import — service_role 성공, 관리자(authenticated) · anon 거부 · export 에 사람 판정 · 학생 범주 · 학생 식별자 없음 · 사전에 B/X 없음 |
+| blind | 19 | 큐 42건 · 열 10개 고정(AI · 학생 범주 · 다른 판정 없음) · B 는 A 제출 뒤에도 A 판정 못 봄 · 공개 전 reveal_view · round_material 거부 · judgment · ai_run 직접 조회 거부 · 학습자 · 미배정 관리자 · adjudicator · anon 의 큐 거부 |
+| reveal · 합의 | 11 | 공개 뒤 배정자만 두 판정 84 · 봉인 claim 2 열람 · 학습자 · 미배정 관리자 거부 · verify · adjudication 은 배정 슬롯만 · closed 까지 |
+| GraphQL | 4 | 로그인 학습자는 자기 과정 증거만 · 다른 학습자는 L1 행 0 · anon 은 표가 스키마에 없음 · 판정 표는 로그인 사용자 스키마에도 없음 |
+| 응답 삭제 트리거 | 2 | 테스트 학습자 계정 삭제 → 응답 cascade → 열린 회차 취소(`target_deleted`) · 닫힌 회차는 그대로 |
+| 정리 | 2 | 기존 세션 2 · 응답 90 불변 · 테스트 계정 · 증거 · 판정 · AI 실행 0 |
+
+**통과 기준(사용자 지시 13)**: 무권한 노출 0 · RPC 권한 우회 0 · anon RPC 실행 0 · 학습자 교차 접근 0 · blind 노출 0 · service_role 의도 밖 표 접근 0 · Security Advisor ERROR 0 — 모두 만족.
+
+### 남은 테스트 데이터(설계상 지울 수 없음 — append-only)
+
+- taxonomy **v99.0**(note 「TEST — 개발 DB smoke 전용 … Pilot · 학습자 화면에서 쓰지 않는다」, 봉인) + 코드 6.
+- 검수 회차 2개 — `eligibility` 에 `"test": "dev smoke…"` · 하나는 closed, 하나는 cancelled(`target_deleted`). 배정 3행은 계정 삭제로 `reviewer_id` NULL.
+- 학습자 기록 · 증거 · 판정 · AI 실행은 계정 삭제 cascade 로 0. Pilot 화면 · 집계는 taxonomy v0.1 을 명시해 고르고, `eligibility.test` 가 있는 회차를 빼야 한다.
+
+### 기존 CSAT 기능 회귀 — 0
+
+실제 학습자 계정(시험 기록 2회)으로 `quality.live` · `load.live` 테스트(읽기 전용) 재실행: M2409 17점 · M2509 27점과 원응답 그대로, 오답 표 70 · 두 기록 모두 rq-1 `excluded_pending_review` 로 진단 집계 제외(유형 0 · 함정 없음), 핵심 지도 V/S/R/E/X 「진단 근거 부족」 · L 「데이터 없음 · 진단 필요」, 전체 지도 조립 정상. `src/lib/csat` 단위 테스트 906 통과.
+
+### 아직 아닌 것
+
+- taxonomy v0.1 시드 — 코드 20개의 정의 · 포함 · 제외 · 예 · 반례 확정 전에는 만들지 않는다.
+- Pilot UI · 실제 Pilot · 대량 태깅 — 시작하지 않았다.
+- §16 표의 P2 7(공개 뒤 round_material 은 현재 값) · 10(문항 수정 = 증거 무효)과 §16 뒤 Codex 가 새로 낸 P2(blind 큐에 선지 함정 원값 없음 · 실패한 AI 실행은 해시 대조 안 함)는 Pilot 관찰 항목으로 남아 있다.

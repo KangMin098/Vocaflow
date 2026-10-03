@@ -1,0 +1,874 @@
+{
+  "ranAt": "2026-10-03",
+  "run": "ac3e12e2",
+  "pass": 142,
+  "fail": 0,
+  "results": [
+    {
+      "area": "learner RPC",
+      "name": "confirm_session — 본인 성공",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "confirm_session — 다른 학습자 기록 거부",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "confirm_session — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "confirm_session — 판정자(남) 거부",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "add_process_evidence — 다른 학습자 응답 거부",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "add_process_evidence — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "add_process_evidence — service_role 거부(실행 권한 없음)",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "add_process_evidence — 본인 응답 84건 성공(고른 이유 42 · 막힌 곳 30 + 확인 3)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "area": "learner RPC",
+      "name": "add_student_claim — 봉인 전 taxonomy 거부",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "taxonomy_seal — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "taxonomy_seal — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "taxonomy_seal — 관리자 성공(TEST v99.0)",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "add_student_claim — 본인 오답 성공",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "add_student_claim — 다른 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "learner RPC",
+      "name": "add_student_claim — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_taxonomy_version — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_taxonomy_version"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_taxonomy_version — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_taxonomy_version"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_taxonomy_version — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_taxonomy_version"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_taxonomy_version — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_taxonomy_version"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_taxonomy_version — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_taxonomy_version"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_taxonomy_version — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_taxonomy_version"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_taxonomy_version — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_taxonomy_version"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_code — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_code"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_code — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_code"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_code — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_code"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_code — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_code"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_code — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_code"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_code — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_code"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_code — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_code"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_ai_run — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_ai_run"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_ai_run — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_ai_run"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_ai_run — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_ai_run"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_ai_run — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_ai_run"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_ai_run — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_ai_run"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_ai_run — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_ai_run"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_ai_run — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_ai_run"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_ai_run — authenticated(판정자) SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_ai_run"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_claim — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_claim"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_claim — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_claim"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_claim — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_claim"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_claim — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_claim"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_claim — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_claim"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_claim — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_claim"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_claim — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_claim"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_round — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_round"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_round — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_round"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_round — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_round"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_round — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_round"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_round — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_round"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_round — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_round"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_round — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_round"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_round — authenticated(판정자) SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_round"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_assignment — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_assignment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_assignment — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_assignment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_assignment — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_assignment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_assignment — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_assignment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_assignment — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_assignment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_assignment — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_assignment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_assignment — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_assignment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_review_assignment — authenticated(판정자) SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_review_assignment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_judgment — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_judgment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_judgment — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_judgment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_judgment — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_judgment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_judgment — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_judgment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_judgment — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_judgment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_judgment — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_judgment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_judgment — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_judgment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_judgment — authenticated(판정자) SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_judgment"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_session_confirmation — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_session_confirmation"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_session_confirmation — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_session_confirmation"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_session_confirmation — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_session_confirmation"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_session_confirmation — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_session_confirmation"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_session_confirmation — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_session_confirmation"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_session_confirmation — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_session_confirmation"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_session_confirmation — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_session_confirmation"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_process_evidence — anon SELECT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_process_evidence"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_process_evidence — service_role SELECT 거부(GRANT 없음)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_process_evidence"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_process_evidence — service_role INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_process_evidence"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_process_evidence — service_role DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_process_evidence"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_process_evidence — learner INSERT 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_process_evidence"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_process_evidence — learner UPDATE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_process_evidence"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_process_evidence — learner DELETE 거부",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_process_evidence"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_session_confirmation — 본인 행 읽기 · 남의 행 0",
+      "ok": true,
+      "detail": {
+        "own": 1,
+        "other": 0,
+        "l2All": 1
+      }
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_process_evidence — 본인 행 읽기 · 남의 행 0",
+      "ok": true,
+      "detail": {
+        "own": 24,
+        "other": 0,
+        "l2All": 24
+      }
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_claim — 본인 행 읽기 · 남의 행 0",
+      "ok": true,
+      "detail": {
+        "own": 1,
+        "other": 0,
+        "l2All": 0
+      }
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_taxonomy_version — 로그인 사용자 사전 읽기",
+      "ok": true
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_code — 로그인 사용자 사전 읽기",
+      "ok": true
+    },
+    {
+      "area": "GraphQL",
+      "name": "로그인 학습자 — 자기 과정 증거만",
+      "ok": true,
+      "detail": {
+        "n": 24
+      }
+    },
+    {
+      "area": "GraphQL",
+      "name": "다른 학습자 — L1 행 0(자기 행만)",
+      "ok": true,
+      "detail": {
+        "n": 24
+      }
+    },
+    {
+      "area": "GraphQL",
+      "name": "anon — 표가 스키마에 없음(조회 오류)",
+      "ok": true,
+      "detail": "Unknown field \"csat_ec_process_evidenceCollection\" on type Query"
+    },
+    {
+      "area": "GraphQL",
+      "name": "판정 표 — 로그인 사용자 스키마에 없음",
+      "ok": true,
+      "detail": "Unknown field \"csat_ec_judgmentCollection\" on type Query"
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_create — 관리자 성공",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_create — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_create — 판정자 거부",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_create — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_create — service_role 거부(실행 권한 없음)",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_set_targets — 관리자 성공(42)",
+      "ok": true,
+      "detail": 42
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_set_targets — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "AI RPC",
+      "name": "ai_export — service_role 성공",
+      "ok": true
+    },
+    {
+      "area": "AI RPC",
+      "name": "ai_export — 관리자(authenticated) 거부",
+      "ok": true
+    },
+    {
+      "area": "AI RPC",
+      "name": "ai_export — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "AI RPC",
+      "name": "ai_export — 사람 판정 · 학생 범주 보고 · 학생 식별자 없음",
+      "ok": true,
+      "detail": [
+        "stem",
+        "answer",
+        "format",
+        "choices",
+        "item_id",
+        "passage",
+        "option_traps",
+        "quality_rule",
+        "chosen_option",
+        "process_evidence"
+      ]
+    },
+    {
+      "area": "AI RPC",
+      "name": "ai_taxonomy — service_role 성공 · B/X 제외",
+      "ok": true
+    },
+    {
+      "area": "AI RPC",
+      "name": "ai_import — 관리자(authenticated) 거부",
+      "ok": true
+    },
+    {
+      "area": "AI RPC",
+      "name": "ai_import — service_role 성공",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_assign — 판정자 거부",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_start_blind — 판정자 거부",
+      "ok": true
+    },
+    {
+      "area": "admin RPC",
+      "name": "round_start_blind — 관리자 성공(학습자 3 · 오답 30 · 대조 12)",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "A blind_queue — 42 대상 · 열이 정해진 것뿐(AI · 학생 범주 · 다른 판정 없음)",
+      "ok": true,
+      "detail": [
+        "answer",
+        "choices",
+        "chosen_option",
+        "item_id",
+        "item_no",
+        "my_judged",
+        "passage",
+        "process_evidence",
+        "session_id",
+        "stem"
+      ]
+    },
+    {
+      "area": "blind",
+      "name": "A blind_queue — 과정 증거에 범주 보고 없음",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "blind_queue — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "blind_queue — 배정 없는 관리자 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "blind_queue — adjudicator 거부(blind 판정자 아님)",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "blind_queue — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "A submit_blind 42 성공",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "area": "blind",
+      "name": "submit_blind — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "submit_blind — 관리자(미배정) 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "B blind_queue — A 제출 뒤에도 A 판정이 안 보임(my_judged=false 만)",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "reveal_view — 공개 전 A 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "reveal_view — 공개 전 B 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "round_material — 공개 전 adjudicator 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "judgment 표 직접 — A 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "ai_run 표 직접 — A 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "round_reveal — B 판정 없이 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "B submit_blind 42 성공",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "area": "blind",
+      "name": "round_reveal — 판정자 거부",
+      "ok": true
+    },
+    {
+      "area": "blind",
+      "name": "round_reveal — 관리자 성공",
+      "ok": true
+    },
+    {
+      "area": "reveal",
+      "name": "reveal_view — 공개 뒤 A 가 두 판정(84) · 봉인 claim(AI 1 · 학생 1) 봄",
+      "ok": true,
+      "detail": {
+        "j": 84,
+        "c": 2
+      }
+    },
+    {
+      "area": "reveal",
+      "name": "reveal_view — 공개 뒤에도 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "reveal",
+      "name": "reveal_view — 공개 뒤에도 미배정 관리자 거부",
+      "ok": true
+    },
+    {
+      "area": "reveal",
+      "name": "round_material — 공개 뒤 adjudicator 성공",
+      "ok": true
+    },
+    {
+      "area": "reveal",
+      "name": "submit_verify — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "adjudication",
+      "name": "round_advance → adjudication — 관리자 성공",
+      "ok": true
+    },
+    {
+      "area": "adjudication",
+      "name": "submit_adjudication — 판정자 A 거부",
+      "ok": true
+    },
+    {
+      "area": "adjudication",
+      "name": "submit_adjudication — 관리자(미배정) 거부",
+      "ok": true
+    },
+    {
+      "area": "adjudication",
+      "name": "submit_adjudication — adjudicator 성공",
+      "ok": true
+    },
+    {
+      "area": "adjudication",
+      "name": "round_advance — 판정자 거부",
+      "ok": true
+    },
+    {
+      "area": "adjudication",
+      "name": "round_advance → closed — 관리자 성공",
+      "ok": true
+    },
+    {
+      "area": "trigger",
+      "name": "테스트 학습자 계정 삭제 → 응답 cascade 삭제 → 열린 회차 취소(target_deleted)",
+      "ok": true,
+      "detail": {
+        "status": "cancelled",
+        "cancel_reason": "target_deleted"
+      }
+    },
+    {
+      "area": "trigger",
+      "name": "닫힌 회차는 대상 삭제에도 그대로(closed)",
+      "ok": true,
+      "detail": {
+        "status": "closed"
+      }
+    },
+    {
+      "area": "meta",
+      "rounds": [
+        1,
+        2
+      ]
+    },
+    {
+      "area": "정리",
+      "name": "기존 세션 · 응답 수 불변",
+      "ok": true,
+      "detail": {
+        "before": {
+          "s": 2,
+          "r": 90
+        },
+        "after": {
+          "s": 2,
+          "r": 90
+        }
+      }
+    },
+    {
+      "area": "정리",
+      "name": "테스트 계정 · 학습자 증거 · 판정 0 (회차 · TEST taxonomy 만 남음)",
+      "ok": true,
+      "detail": {
+        "claim": 0,
+        "pe": 0,
+        "conf": 0,
+        "ai": 0,
+        "j": 0,
+        "rounds": 2,
+        "live_assign": 0,
+        "smoke_users": 0
+      }
+    }
+  ]
+}
