@@ -160,6 +160,18 @@ for(const width of [1440,1280]) for(const dark of [false,true]) {
     await expect(page.getByRole('heading',{name:'PairFlip',exact:true})).toBeVisible()
     await safe(page)
   })
+  test(`PairFlip Master 카드 영역 ${condition}`,async({page})=>{
+    await open(page,'/pairflip',width,dark)
+    await page.getByRole('radio',{name:/^Master/}).click()
+    await page.getByRole('button',{name:'게임 시작'}).click()
+    await expect(page.locator('.pf-card')).toHaveCount(20)
+    const region=page.getByRole('region',{name:'카드 영역 (좁은 화면에서 가로 스크롤)'})
+    expect(await region.evaluate(node=>node.scrollWidth-node.clientWidth)).toBeLessThanOrEqual(1)
+    expect(await region.evaluate(node=>{const area=node.getBoundingClientRect();return [...node.querySelectorAll('.pf-card')].every(card=>{const r=card.getBoundingClientRect();return r.left>=area.left-1 && r.right<=area.right+1})})).toBe(true)
+    await expect(page.locator('.pf-card').last()).toBeInViewport({ratio:1})
+    await shot(page,`pairflip-master-${condition}`)
+    await safe(page)
+  })
   test(`Orrery 지도 관측 핵 결과 ${condition}`,async({page})=>{
     await open(page,'/play/word-orrery',width,dark)
     await expect(page.locator('.wo-orrery')).toBeVisible()
