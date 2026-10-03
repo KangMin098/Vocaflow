@@ -1,5 +1,7 @@
 # Vocaflow 디자인 적용 기준
 
+PC `/hub`는 Tines 홈의 큰 제목·다색 삽화 띠·제품 액자·색 탭·USP와 `/3b/` 웹사이트의 흰 벤토·다색 카드, University의 선 격자를 조합한다. [허브 실측 명세](docs/design/refs/tines/hub-spec.json)의 치수를 `--hub-*` 변수로 적용하며 `pnpm design:ref-compare --hub --base <URL>`로 확인한다. 실제 오늘의 흐름·학습 링크·발행 콘텐츠·기억 4색과 모바일 기존 구성은 보존한다. [적용/검증 기록](docs/design/hub-tines.md).
+
 PC Tines 표본의 하위 참조 대응은 단어장 → [Library](https://www.tines.com/library/), 받아쓰기 → [University](https://www.tines.com/university/)다. 재사용 시 [실측 명세](docs/design/refs/tines/pc-refinement-spec.json)의 치수를 `skins/tines.css`의 `--tines-*` 변수로 적용하고 `pnpm design:ref-compare --tines --base <URL>`로 확인한다. 관리자 전체는 3B 앱이며 아래 관리자 기준을 따른다. 범주 색만 입힌 작은 카드로 대체하거나 측정 항목 일치를 전체 화면 일치로 보고하지 않는다.
 
 > **확정: 2026-10-03 · 사용자 지정 기본 디자인.** 디자인을 별도로 요청하지 않은 기능 추가·수정에도 적용한다.

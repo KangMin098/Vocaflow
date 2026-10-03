@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "measuredAt": "2026-10-03",
+  "viewport": { "width": 1440, "height": 900 },
+  "sources": {
+    "home": "https://www.tines.com/",
+    "product": "https://www.tines.com/3b/",
+    "university": "https://www.tines.com/university/",
+    "evidence": "tmp/hub-tines/{home,product,details}.json and same-viewport captures; university grid is also in pc-refinement-spec.json"
+  },
+  "comparisons": [
+    { "name": "홈 본문 x", "selector": ".hub-hero", "field": "x", "reference": 40 },
+    { "name": "홈 제목 크기", "selector": ".hub-hero h1", "field": "size", "reference": 64 },
+    { "name": "홈 제목 행 높이", "selector": ".hub-hero h1", "field": "lineHeight", "reference": 67.2 },
+    { "name": "홈 구획 제목 크기", "selector": ".hub-platforms h2", "field": "size", "reference": 56 },
+    { "name": "홈 구획 제목 행 높이", "selector": ".hub-platforms h2", "field": "lineHeight", "reference": 58.8 },
+    { "name": "3B 웹 벤토 x", "selector": ".hub-solution-grid", "field": "x", "reference": 40 },
+    { "name": "3B 웹 벤토 폭", "selector": ".hub-solution-grid", "field": "width", "reference": 1360 },
+    { "name": "3B 웹 벤토 모서리", "selector": ".hub-solution-grid", "field": "radius", "reference": 48 },
+    { "name": "3B 웹 벤토 패딩", "selector": ".hub-solution-grid", "field": "padding", "reference": 30 },
+    { "name": "3B 웹 벤토 간격", "selector": ".hub-solution-grid", "field": "gap", "reference": 24 },
+    { "name": "3B 웹 벤토 제목", "selector": ".hub-solution-copy h2", "field": "size", "reference": 38 },
+    { "name": "3B 웹 벤토 제목 행 높이", "selector": ".hub-solution-copy h2", "field": "lineHeight", "reference": 39.9 },
+    { "name": "3B 웹 카드 모서리", "selector": ".hub-solution-features article", "field": "radius", "reference": 14 },
+    { "name": "홈 USP 글자 크기", "selector": ".hub-why > div > ul > li > a > p", "field": "size", "reference": 24 },
+    { "name": "홈 USP 행 높이", "selector": ".hub-why > div > ul > li > a > p", "field": "lineHeight", "reference": 28.8 }
+  ],
+  "adaptations": [
+    "Compare named dimensions, not complete pixels or y positions. The learning status ribbon adds height; Korean content differs.",
+    "Own book garden replaces the home floral 100x illustration, height 460px selected for hub content. No copied logo or customer endorsements.",
+    "Bento retains actual catalog counts and four learning principles, with existing lavender/green/peach/teal ink pairs. Reading uses University 24px grid with a peach surface.",
+    "Existing learning links, five platform tabs, actual books, memory states and analytics remain; mobile web/app excluded.",
+    "Figtree/Petrona/Pretendard/Hahmlet replace commercial reference fonts. Dark is a product adaptation of existing Tines tokens."
+  ]
+}

@@ -64,6 +64,15 @@ export function SectionHead({ kicker, title, byline, align = 'left' }: {
 
 // ── 제품 액자 — 참조 ThreeBProductVisual ─────────────────────────────
 
+/** Tines 홈의 다색 삽화 띠 → 자체 책/단어 정원. PC 전용, 실제 학습 액자로 이어진다. */
+export function HeroGarden() {
+  return (
+    <div className="hub-garden hidden md:block" aria-hidden>
+      <Image src={`${ILLO}/hero-book-field.webp`} alt="" width={1664} height={928} sizes="(min-width: 1440px) 1360px, 100vw" className="select-none" />
+    </div>
+  )
+}
+
 /**
  * 히어로 아래 앱 화면. 참조는 여기에 **자기 제품의 실제 화면**을 둔다 — 우리도 이 학습자의 오늘을 그대로 둔다.
  * 「오늘」 정의는 셸 나침반과 같은 모델(`buildWayfinder`)이다 — 레일의 `data-today-flow` 를 e2e 22-H · 23-② 가 띠와 비교한다.
@@ -71,7 +80,7 @@ export function SectionHead({ kicker, title, byline, align = 'left' }: {
 export function ProductFrame({ model, books, facts }: { model: WayfinderModel | null; books: PortalBook[]; facts: HubPortal['facts'] }) {
   return (
     <div
-      className="vf-rise rounded-[28px] border-2 border-[var(--bd)] bg-[var(--tint-lavender)] p-1.5"
+      className="hub-product-frame vf-rise rounded-[28px] border-2 border-[var(--bd)] bg-[var(--tint-lavender)] p-1.5"
       style={{ '--rise-y': '16px', '--rise-dur': '600ms' } as CSSProperties}
     >
       <div className="grid overflow-hidden rounded-[22px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--tint-lavender)_40%,var(--bg))] md:grid-cols-[232px_minmax(0,1fr)]">
@@ -562,10 +571,10 @@ export function platformTabs(p: HubPortal): ToneTab[] {
 // ── 보라 통판 — 참조 HomeSolutionSection ─────────────────────────────
 
 const PROPS = [
-  { title: '읽다가, 문장째 담습니다', body: '모르는 단어를 누르면 그 문장과 함께 보관함에 들어가요. 뜻은 문맥과 같이 남습니다.' },
-  { title: '잊을 때쯤 다시 꺼냅니다', body: '복습 간격은 단어마다 FSRS 가 계산합니다. 외운 단어를 매일 다시 볼 필요가 없어요.' },
-  { title: '아는 비율로 고릅니다', body: '글의 난이도가 아니라 이 글에서 내가 이미 아는 비율로 다음 읽을 것을 정합니다.' },
-  { title: '읽은 글이 문제가 됩니다', body: '지문 퀴즈 · 받아쓰기 · 게임이 같은 글과 같은 단어에서 나옵니다.' },
+  { title: '읽다가, 문장째 담습니다', body: '모르는 단어를 누르면 그 문장과 함께 보관함에 들어가요. 뜻은 문맥과 같이 남습니다.', spot: 'spot-reading' },
+  { title: '잊을 때쯤 다시 꺼냅니다', body: '복습 간격은 단어마다 FSRS 가 계산합니다. 외운 단어를 매일 다시 볼 필요가 없어요.', spot: 'spot-memory' },
+  { title: '아는 비율로 고릅니다', body: '글의 난이도가 아니라 이 글에서 내가 이미 아는 비율로 다음 읽을 것을 정합니다.', spot: 'spot-search' },
+  { title: '읽은 글이 문제가 됩니다', body: '지문 퀴즈 · 받아쓰기 · 게임이 같은 글과 같은 단어에서 나옵니다.', spot: 'spot-quiz' },
 ]
 
 const SLAB_TILES = [
@@ -583,9 +592,9 @@ export function SolutionSlab({ facts }: { facts: HubPortal['facts'] }) {
     facts.comics ? `만화 ${fmt(facts.comics)}편.` : null,
   ].filter(Boolean) as string[]
   return (
-    <div className="relative overflow-hidden rounded-[32px] bg-[var(--ju)] text-[var(--on-ju)] md:rounded-[48px]">
-      <div className="relative z-10 grid gap-12 px-6 pb-10 pt-12 md:px-14 lg:grid-cols-[1fr_1.15fr] lg:pb-14">
-        <div className="flex flex-col">
+    <div className="hub-solution relative overflow-hidden rounded-[32px] bg-[var(--ju)] text-[var(--on-ju)] md:rounded-[48px]">
+      <div className="hub-solution-grid relative z-10 grid gap-12 px-6 pb-10 pt-12 md:px-14 lg:grid-cols-[1fr_1.15fr] lg:pb-14">
+        <div className="hub-solution-copy flex flex-col">
           <p className={KICKER}>지금 서가에는</p>
           <h2 className="mt-10 whitespace-pre-line break-keep font-display text-[40px] font-[400] leading-[1.08] tracking-[-0.03em] md:text-[56px]">
             {lines.length > 0 ? lines.join('\n') : '읽을 것, 외울 것,\n풀 것이 한 곳에.'}
@@ -614,9 +623,10 @@ export function SolutionSlab({ facts }: { facts: HubPortal['facts'] }) {
           </ul>
         </div>
         <div>
-          <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
+          <div className="hub-solution-features grid gap-x-10 gap-y-10 sm:grid-cols-2">
             {PROPS.map((p) => (
               <article key={p.title}>
+                <Image src={`${ILLO}/${p.spot}.webp`} alt="" width={1328} height={1328} sizes="80px" className="hub-feature-art hidden md:block" />
                 <h3 className="break-keep font-serif text-[24px] font-[700] leading-[1.12] tracking-[-0.01em]">{p.title}</h3>
                 <p className="mt-4 break-keep font-body text-[15px] leading-[1.6]">{p.body}</p>
               </article>

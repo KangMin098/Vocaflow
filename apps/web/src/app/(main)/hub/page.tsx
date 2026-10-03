@@ -1,7 +1,7 @@
 // apps/web/src/app/(main)/hub/page.tsx
 // @form: 제품 액자 — 이 학습자의 오늘(흐름 · 기억 4색 · 예보 · 새 고전 표)이 참조 홈의 앱 화면 자리에 선다 (ProductFrame)
 //
-// 플랫폼 메인 — 2026-09-22 재설계 2회차(사용자 요청: 「tines 스타일을 더 분석해서 더 가깝게」).
+// 플랫폼 메인 — 2026-10-03 PC Tines 정밀 적용. 메인/3B 웹/University 실물 근거는 hub-spec.json.
 //
 // ── 골격: 참조 홈의 띠 순서를 그대로 (docs/design/refs/tines · 홈 캡처 8장) ────────────────
 //   참조                                   → 우리
@@ -13,8 +13,8 @@
 //   (참조에 없음 — 우리 콘텐츠)              → 읽을거리(새 글 · 주제 시리즈)
 //   HomeUSPSection(WHY + 보라 카드 넷)      → UspCards(진단 · 기억 4색 · 듣기 · 학급)
 //   「Built by you」 흩어진 물건 띠          → FinalCta(공개 화면 ScatterCta 와 같은 골격)
-//   꽃밭 · 꽃무늬는 랜딩 전용이라(tines-mapping §20) 여기에는 쓰지 않는다.
-//   1회차의 자동 넘김 배너 · 원형 바로 가기 · 크기 다른 칸 격자는 참조에 없는 포털 문법이라 걷어 냈다.
+//   PC에는 자체 책 정원 띠, 3B 웹사이트의 흰 벤토/다색 카드, University 선 격자를 대응한다.
+//   기존 모바일 골격/순서는 유지한다. 참조의 상용 서체/브랜드/사업 기능을 복사하지 않는다.
 //
 // ── 유지한 것 ────────────────────────────────────────────────────────
 //   · 「오늘」 정본은 셸 나침반 모델(`buildWayfinder`) 하나 — 액자 레일은 같은 모델을 그린다(e2e 22-H · 23-②).
@@ -31,6 +31,7 @@ import { PromoLink } from '@/components/hub/portal/PromoLink'
 import { CsatContinueLine } from '@/components/csat/home/CsatContinueLine'
 import {
   FinalCta,
+  HeroGarden,
   ProductFrame,
   ReadingSection,
   SectionHead,
@@ -56,10 +57,10 @@ export default async function HubPage() {
 
   return (
     <Screen width="full" background="bg" padX="none">
-      <div className="mx-auto flex w-full max-w-[1360px] flex-col gap-24 px-4 pb-24 pt-6 md:gap-[156px] md:pt-10 lg:px-10">
+      <div className="tines-hub mx-auto flex w-full max-w-[1360px] flex-col gap-24 px-4 pb-24 pt-6 md:gap-[156px] md:pt-10 lg:px-10">
         {/* ── 히어로 + 서명 줄 + 제품 액자 (참조 ThreeBHero 세 칸) ── */}
-        <div className="flex flex-col gap-10 md:gap-12">
-          <section aria-label="오늘">
+        <div className="hub-intro flex flex-col gap-10 md:gap-12">
+          <section className="hub-hero" aria-label="오늘">
             {/* 기출 이어서 — 멈춘 세트 · 오늘 복습이 있을 때만 선다(docs/csat/ia-design.md §3) */}
             <CsatContinueLine />
             {newest && (
@@ -102,11 +103,13 @@ export default async function HubPage() {
 
           <TitleMarquee books={portal.newBooks} />
 
+          <HeroGarden />
+
           <ProductFrame model={model} books={portal.newBooks} facts={portal.facts} />
         </div>
 
         {/* ── 플랫폼 색 탭 (참조 HomeUseCasesSection) ── */}
-        <section aria-label="플랫폼">
+        <section className="hub-platforms" aria-label="플랫폼">
           <SectionHead
             kicker="Vocaflow platforms"
             title={'한 서가에서, 다섯 갈래로\n이어 배웁니다.'}
@@ -118,12 +121,12 @@ export default async function HubPage() {
         </section>
 
         {/* ── 보라 통판 (참조 HomeSolutionSection) ── */}
-        <section aria-label="서가 규모">
+        <section className="hub-benefits" aria-label="서가 규모">
           <SolutionSlab facts={portal.facts} />
         </section>
 
         {/* ── 읽을거리 ── */}
-        <section aria-label="읽을거리">
+        <section className="hub-reading" aria-label="읽을거리">
           <SectionHead kicker="Read today" title="짧은 글로 매일 한 편." byline="원어민 낭독 · 쉬운 백과 · 과학 기사 · 논증문 — 지금 수준에서 읽히는 글부터 골라 드려요." />
           <div className="mt-12 md:mt-16">
             <ReadingSection portal={portal} />
@@ -131,7 +134,7 @@ export default async function HubPage() {
         </section>
 
         {/* ── WHY + 보라 카드 (참조 HomeUSPSection) ── */}
-        <section aria-label="왜 Vocaflow 인가">
+        <section className="hub-why" aria-label="왜 Vocaflow 인가">
           <SectionHead kicker="Why Vocaflow?" title={'읽은 글이 그대로\n단어장이 됩니다.'} byline="모르는 단어를 따로 적지 않습니다. 글에서 담고, 기억이 흐려질 때쯤 다시 만나고, 같은 글로 확인합니다." />
           <div className="mt-12 md:mt-16">
             <UspCards />

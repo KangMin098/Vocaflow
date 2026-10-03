@@ -1,5 +1,7 @@
 # Design System
 
+> **PC `/hub` 정밀 적용(2026-10-03)**: 홈의 64px/67.2px 제목·56px/58.8px 구획 제목·다색 자체 책 정원 띠·실제 학습 액자와 5색 플랫폼 탭을 사용한다. `/3b/` 웹사이트의 1360px 흰 벤토·48px 모서리·30px 패딩·24px 간격·14px 다색 카드, University의 24px 선 격자를 학습 구획으로 대응했다. 치수는 `--hub-*`, 색은 기존 Tines의 면/잉크 짝을 상속한다. 모바일 제외. [명세](design/refs/tines/hub-spec.json)·[검증 기록](design/hub-tines.md).
+
 > **관리자 기준 정정(2026-10-03)**: 사용자 지시로 PC `/admin/*` 전체(관리자 CSAT 포함)는 neon-currant.3b.dev의 3B 앱이다. 56px 상단 줄·216px 운영 레일·흰 작업 패널·22px 산세리프 제목·중립 KPI·먹색 행동색을 사용한다. 이전 관리자 Tines 헤더·삽화·틴트 설명은 과거 기록이다. CSAT의 3B 및 관리자 밖 Tines는 유지하며 모바일 디자인은 제외한다.
 
 > **PC 표본 비례 보정(2026-10-03)**: `/library/vocab`는 Library의 288px 분류 레일·72px 간격·1000×411px 보라 헤더·44px 제목·폴더 모양 통계를 사용한다(1440px 기준). 학령 사다리는 PC 왼쪽으로 옮겨 카드 제목이 첫 화면에 보인다. `/dictate`는 University의 24px 선 격자·중앙 64px 세리프 제목·상단 소품·통계 띠를 사용한다. `AdminPageHeader`는 44px 세리프 제목과 176px 자체 소품을 둔 최소 244px 작업용 헤더다. 모두 `min-width:768px` 아래에는 적용하지 않는다. [실측 명세](design/refs/tines/pc-refinement-spec.json)와 `pnpm design:ref-compare --tines --base <URL>`로 비교하며 y/원본 상용 서체/콘텐츠 일치를 주장하지 않는다.

@@ -25,6 +25,10 @@ if (process.argv.includes('--admin')) {
   await import('./admin-ref-compare.mjs')
   process.exit(0)
 }
+if (process.argv.includes('--hub')) {
+  await import('./hub-ref-compare.mjs')
+  process.exit(0)
+}
 
 const argv = process.argv.slice(2)
 const arg = (k, d) => {

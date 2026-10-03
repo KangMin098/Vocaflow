@@ -16,6 +16,66 @@
  *   - 선택자 `:root[data-skin]` (0,2,0)은 next/font 가 html 에 거는 변수 클래스(0,1,0)를 이긴다.
  */
 
+/* /hub PC: 홈의 큰 제목/다색 띠 + 3B 웹사이트의 흰 벤토 + University 격자.
+ * 실측/대응: docs/design/refs/tines/hub-spec.json. 모바일 및 3B 앱 라우트와 분리한다. */
+@media (min-width: 768px) {
+  :root[data-skin="tines"] .tines-hub {
+    --hub-max: 1440px;
+    --hub-inset: 40px;
+    --hub-section-gap: 156px;
+    --hub-title: 64px;
+    --hub-title-line: 67.2px;
+    --hub-heading: 56px;
+    --hub-heading-line: 58.8px;
+    --hub-card-radius: 14px;
+    --hub-bento-radius: 48px;
+    --hub-grid: 24px;
+    --hub-garden-height: 460px;
+    --hub-art: 300px;
+    --hub-bento-pad: 30px;
+    --hub-bento-title: 38px;
+    --hub-bento-title-line: 39.9px;
+    --hub-feature-art: 80px;
+    --hub-subtitle: 24px;
+    --hub-usp-title: 24px;
+    --hub-usp-line: 28.8px;
+    max-width: var(--hub-max);
+    padding-inline: var(--hub-inset);
+    gap: var(--hub-section-gap);
+  }
+  :root[data-skin="tines"] .hub-hero h1 { max-width: none; font-size: var(--hub-title); line-height: var(--hub-title-line); color: var(--ju); }
+  :root[data-skin="tines"] .hub-hero > p { max-width: none; font-size: var(--hub-subtitle); }
+  :root[data-skin="tines"] .hub-garden { height: var(--hub-garden-height); margin-block: -24px -48px; overflow: hidden; }
+  :root[data-skin="tines"] .hub-garden img { width: 100%; height: 100%; object-fit: contain; }
+  :root[data-skin="tines"] .hub-product-frame { position: relative; background: var(--tint-lavender); border-radius: 24px; }
+  :root[data-skin="tines"] .tines-hub > section > header { max-width: none; }
+  :root[data-skin="tines"] .tines-hub > section > header h2 { font-size: var(--hub-heading); line-height: var(--hub-heading-line); color: var(--ju); }
+  :root[data-skin="tines"] .hub-platforms > header { padding-right: calc(var(--hub-art) + var(--hub-inset)); background: url('/illustrations/tines/spot-vault.webp') right center / var(--hub-art) no-repeat; min-height: var(--hub-art); }
+  :root[data-skin="tines"] .hub-benefits { margin-inline: calc(-1 * var(--hub-inset)); padding: var(--hub-inset); background: var(--tint-lavender); }
+  :root[data-skin="tines"] .hub-solution { --ju: var(--tint-lavender-ink); --on-ju: var(--tint-lavender-ink); background: var(--tint-lavender); color: var(--tint-lavender-ink); padding: 0; border-radius: var(--hub-bento-radius); }
+  :root[data-skin="tines"] .hub-solution-grid { padding: var(--hub-bento-pad); gap: var(--hub-grid); background: var(--bg); border-radius: var(--hub-bento-radius); grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); }
+  :root[data-skin="tines"] .hub-solution-copy { padding: var(--hub-grid); }
+  :root[data-skin="tines"] .hub-solution-copy h2 { font-size: var(--hub-bento-title); line-height: var(--hub-bento-title-line); color: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .hub-solution-copy > ul { flex-wrap: nowrap; }
+  :root[data-skin="tines"] .hub-solution-copy > ul li img { width: var(--hub-feature-art); }
+  :root[data-skin="tines"] .hub-solution-features { gap: var(--hub-grid); }
+  :root[data-skin="tines"] .hub-solution-features article { padding: var(--hub-grid); border-radius: var(--hub-card-radius); background: var(--tint-lavender); color: var(--tint-lavender-ink); }
+  :root[data-skin="tines"] .hub-solution-features article:nth-child(2) { background: var(--tint-green); color: var(--tint-green-ink); }
+  :root[data-skin="tines"] .hub-solution-features article:nth-child(3) { background: var(--tint-peach); color: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .hub-solution-features article:nth-child(4) { background: var(--tint-teal); color: var(--tint-teal-ink); }
+  :root[data-skin="tines"] .hub-feature-art { width: var(--hub-feature-art); height: var(--hub-feature-art); object-fit: contain; margin-bottom: var(--hub-grid); }
+  :root[data-skin="tines"] .hub-solution-features h3 { font-size: 22px; }
+  :root[data-skin="tines"] .hub-reading { --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --ju: var(--tint-peach-ink); padding: calc(var(--hub-bento-pad) * 2); border-radius: var(--hub-bento-radius); background-color: var(--tint-peach); background-image: linear-gradient(color-mix(in srgb,var(--tint-peach-ink) 6%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--tint-peach-ink) 6%,transparent) 1px,transparent 1px); background-size: var(--hub-grid) var(--hub-grid); }
+  :root[data-skin="tines"] .hub-reading > header h2 { font-family: var(--font-serif); font-size: var(--hub-title); line-height: 1.1; }
+  :root[data-skin="tines"] .hub-reading > div { background: var(--bg); border-radius: var(--hub-card-radius); padding: var(--hub-bento-pad); }
+  :root[data-skin="tines"] .hub-why > header { padding-right: calc(var(--hub-art) + var(--hub-inset)); background: url('/illustrations/tines/spot-memory.webp') right center / var(--hub-art) no-repeat; min-height: var(--hub-art); }
+  :root[data-skin="tines"] .hub-why > div > ul > li > a > p { font-size: var(--hub-usp-title); line-height: var(--hub-usp-line); }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root[data-skin="tines"] .tines-hub { --hub-inset: 24px; --hub-heading: 44px; --hub-heading-line: 48.4px; --hub-art: 200px; }
+  :root[data-skin="tines"] .hub-solution-grid { grid-template-columns: 1fr; }
+}
+
 /* PC 참조 하위 화면의 골격. 근거: refs/tines/pc-refinement-spec.json.
  * 모바일의 기존 폭/순서/타일은 바꾸지 않는다. */
 @media (min-width: 768px) {
