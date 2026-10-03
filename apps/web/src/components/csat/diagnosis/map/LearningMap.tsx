@@ -17,14 +17,12 @@ import { track } from '@/lib/analytics/client'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { AXIS_ROLE, roleOf } from '@/lib/csat/map/core'
 import { pathOf } from '@/lib/csat/map/graph'
-import type { MapNodeRow, NodeValue } from '@/lib/csat/map/model'
+import type { MapNodeRow, MapSettings, NodeValue } from '@/lib/csat/map/model'
 
-import { STATUS_LABEL, pct, toneOf } from './format'
+import { obsLabel, pct } from './format'
 import s from './map.module.css'
 import { NodePopup, tileClass } from './NodePopup'
 
-const TONE_TEXT = { met: s.sMet, near: s.sNear, short: s.sShort, muted: '' } as const
-const FILL = { met: s.fillMet, near: s.fillNear, short: s.fillShort, muted: '' } as const
 
 interface DrawnEdge {
   id: number
@@ -197,13 +195,13 @@ export function LearningMap({ data }: { data: MapPageData }) {
             {/* 영역은 자기 라인 묶음의 가운데에 — 연결선이 한 점에서 부채꼴로 퍼지지 않게 */}
             {byKind.axes.map((n, gi) => (
               <div key={n.code} className={s.axisCell} style={{ gridRow: gi + 1, gridColumn: 2 }}>
-                <MapNode node={n} value={model.nodes[n.code]} roleAxis={n.code} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} />
+                <MapNode node={n} value={model.nodes[n.code]} roleAxis={n.code} core={data.settings.core} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} />
               </div>
             ))}
             {byKind.lineGroups.map((group, gi) => (
               <div key={gi} className={s.groupLines} style={{ gridRow: gi + 1, gridColumn: 3 }}>
                 {group.map((n) => (
-                  <MapNode key={n.code} node={n} value={model.nodes[n.code]} roleAxis={n.axis} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
+                  <MapNode key={n.code} node={n} value={model.nodes[n.code]} roleAxis={n.axis} core={data.settings.core} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
                 ))}
               </div>
             ))}
@@ -258,19 +256,14 @@ export function LearningMap({ data }: { data: MapPageData }) {
   )
 }
 
-function meterLabel(v: NodeValue): string {
-  if (v.status === 'tasks_only') return `과제 완료 ${v.tasks.done} / ${v.tasks.total}`
-  return `${STATUS_LABEL[v.status]}${v.achieved !== null ? ` · 지금 ${pct(v.achieved)}` : ''}${v.target !== null ? ` · 목표 ${pct(v.target)}` : ''}`
+function meterLabel(v: NodeValue, core: MapSettings['core']): string {
+  return `${obsLabel(v, core)}${v.achieved !== null ? ` · 기출 관찰 정답률 ${pct(v.achieved)}` : ''}`
 }
 
-/** 노드 보조 줄 — 상태(글자) + 지금. 목표 %는 이름 줄 오른쪽에, 막대의 눈금이 목표를 보인다 */
-function subline(value: NodeValue | undefined, badge?: string | null): string {
+/** 노드 보조 줄 — 관찰 수준(글자). 목표율 · 목표 눈금은 지도에 내지 않는다(calibration 전) */
+function subline(value: NodeValue | undefined, core: MapSettings['core'], badge?: string | null): string {
   if (!value) return ''
-  let base: string
-  if (value.status === 'tasks_only') base = value.tasks.total > 0 ? `과제 ${value.tasks.done}/${value.tasks.total}` : '과제 없음'
-  else if (value.status === 'no_items') base = value.note ?? '연결 문항 없음'
-  else if (value.status === 'needs_diagnosis' && value.note) base = value.note
-  else base = `${STATUS_LABEL[value.status]}${value.achieved !== null ? ` ${pct(value.achieved)}` : ''}`
+  const base = obsLabel(value, core)
   return badge ? `${base} · ${badge}` : base
 }
 
@@ -285,6 +278,7 @@ function MapNode({
   trackCode,
   badge,
   roleAxis,
+  core,
 }: {
   node: MapNodeRow
   value: NodeValue | undefined
@@ -295,12 +289,12 @@ function MapNode({
   onClick: () => void
   trackCode?: string | null
   badge?: string | null
-  /** 노드가 속한 영역 코드 — 역량(A)만 관찰 막대 · 목표율을 보인다 */
+  /** 노드가 속한 영역 코드 — 역량(A)만 관찰 막대를 보인다 */
   roleAxis?: string | null
+  core: MapSettings['core']
 }) {
   const role = roleOf(roleAxis)
   if (role && role !== 'ability_proxy') value = undefined
-  const tone = value ? toneOf(value.status) : 'muted'
   const rate = value ? (value.status === 'tasks_only' ? value.tasks.rate : value.achieved) : null
   const showBar = value && value.status !== 'no_items'
   return (
@@ -310,7 +304,7 @@ function MapNode({
       data-map-node={node.code}
       className={`${s.node} ${selected ? s.nodeSel : ''} ${dim ? s.nodeDim : ''} ${hidden ? s.nodeHidden : ''}`}
       aria-pressed={selected}
-      aria-label={`${node.code} ${node.name}${value ? ` — ${STATUS_LABEL[value.status]}` : ''}`}
+      aria-label={`${node.code} ${node.name}${value ? ` — ${obsLabel(value, core)}` : ''}`}
       onClick={onClick}
     >
       <span className={`${s.tile} ${tileClass(node.kind, trackCode)}`} aria-hidden="true">
@@ -319,14 +313,12 @@ function MapNode({
       <span className={s.nodeText}>
         <span className={s.nameRow}>
           <span className={s.name}>{node.name}</span>
-          {value?.target !== null && value?.target !== undefined && <span className={s.tgt}>{pct(value.target)}</span>}
         </span>
-        <span className={`${s.sub} ${TONE_TEXT[tone]}`}>{value ? subline(value, badge) : roleAxis ? AXIS_ROLE[roleAxis]?.label ?? '' : ''}</span>
+        <span className={s.sub}>{value ? subline(value, core, badge) : roleAxis ? AXIS_ROLE[roleAxis]?.label ?? '' : ''}</span>
       </span>
       {showBar && value && (
-        <span className={s.nodeBar} role="img" aria-label={meterLabel(value)}>
-          {rate !== null && <span className={`${s.fill} ${FILL[tone]}`} style={{ width: `${Math.min(100, rate * 100)}%` }} />}
-          {value.target !== null && <span className={s.tick} style={{ left: `${Math.min(100, value.target * 100)}%` }} />}
+        <span className={s.nodeBar} role="img" aria-label={meterLabel(value, core)}>
+          {rate !== null && <span className={s.fill} style={{ width: `${Math.min(100, rate * 100)}%` }} />}
         </span>
       )}
     </button>

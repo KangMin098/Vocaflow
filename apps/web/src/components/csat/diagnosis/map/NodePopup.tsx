@@ -17,10 +17,10 @@ import type { MapPageData } from '@/lib/csat/map/load'
 
 import { useModalFocus } from '../useModalFocus'
 
-import { BADGE_LABEL, BASIS_LABEL, EDGE_KIND_LABEL, KIND_LABEL, STATUS_LABEL, evidenceBadge, pct, shortExam, toneOf } from './format'
+import { BADGE_LABEL, BASIS_LABEL, EDGE_KIND_LABEL, KIND_LABEL, evidenceBadge, obsLabel, pct, shortExam } from './format'
 import s from './map.module.css'
 import p from './popup.module.css'
-import { Banner, BigMeter, Card, Chip, Empty, ListBox, ListRow, SearchBox, type ChipTone } from './PopupParts'
+import { Banner, BigMeter, Card, Chip, Empty, ListBox, ListRow, SearchBox } from './PopupParts'
 
 type TabKey = 'goal' | 'reached' | 'now' | 'basis'
 
@@ -31,8 +31,6 @@ const TABS: { key: TabKey; label: string; Icon: typeof Target }[] = [
   { key: 'basis', label: '근거', Icon: BookOpenCheck },
 ]
 
-const TONE_TEXT = { met: s.sMet, near: s.sNear, short: s.sShort, muted: '' } as const
-const statusChipTone = (t: ReturnType<typeof toneOf>): ChipTone => (t === 'met' ? 'good' : t === 'near' ? 'warn' : t === 'short' ? 'bad' : 'neutral')
 
 /** 노드 종류별 아이콘 타일 색 — 라인은 접근 트랙 색, 나머지는 중립 */
 export function tileClass(kind: string, trackCode: string | null | undefined): string {
@@ -93,8 +91,7 @@ export function NodePopup({
   const usesTarget = node.kind === 'goal' || role === 'ability_proxy'
   const roleInfo = roleAxis ? AXIS_ROLE[roleAxis] : undefined
   const hasTarget = usesTarget && value.target !== null
-  const tone = toneOf(value.status)
-  const gap = hasTarget && value.achieved !== null ? value.target! - value.achieved : null
+  const obs = obsLabel(value, data.settings.core)
   const lineTasks = data.tasks.filter((t) => t.line_code === code)
   const edges = data.edges.filter((e) => e.from_code === code || e.to_code === code)
   const trackName = node.track ? nameOf(node.track) : null
@@ -233,13 +230,12 @@ export function NodePopup({
             <>
               <Card title="기출 관찰 정답률" desc="최신 진단 기록에서 문항유형 → 역량 대응표로 이어 받은 값이에요. 실제 숙련 정도를 잰 값이 아니에요." right={<Chip tone="warn">규칙 기반 · 정밀 진단 미실시</Chip>}>
                 <div className={p.bigRow}>
-                  <span className={`${p.big} ${usesTarget ? TONE_TEXT[tone] : ''}`}>{value.achieved !== null ? pct(value.achieved) : '—'}</span>
-                  {usesTarget ? <Chip tone={statusChipTone(tone)}>{STATUS_LABEL[value.status]}</Chip> : roleInfo && <Chip>{roleInfo.label}</Chip>}
-                  {value.note && value.note !== STATUS_LABEL[value.status] && <Chip>{value.note}</Chip>}
+                  <span className={p.big}>{value.achieved !== null ? pct(value.achieved) : '—'}</span>
+                  {usesTarget ? <Chip>{obs}</Chip> : roleInfo && <Chip>{roleInfo.label}</Chip>}
+                  {value.note && value.note !== obs && <Chip>{value.note}</Chip>}
                   {value.coverage !== null && value.coverage < 1 && value.status !== 'no_items' && <Chip tone="warn">진단된 라인 {Math.round(value.coverage * 100)}%</Chip>}
                 </div>
-                {(value.achieved !== null || hasTarget) && <BigMeter rate={value.achieved} target={hasTarget ? value.target : null} tone={usesTarget ? tone : 'muted'} />}
-                {hasTarget && <p className={`${p.p} ${p.muted}`}>눈금이 목표 {pct(value.target)} 예요.</p>}
+                {(value.achieved !== null || hasTarget) && <BigMeter rate={value.achieved} target={null} tone="muted" />}
               </Card>
               <Card title="근거 데이터" desc="이 값이 얼마나 쌓인 기록에서 나왔는지예요.">
                 <ListBox>
@@ -268,29 +264,14 @@ export function NodePopup({
           {tab === 'now' && (
             <>
               {usesTarget && (
-              <Card title="목표와의 차이" desc="목표율 눈금과 지금 관찰값의 차이예요. 규칙 기반 관찰이라 참고로만 봐요.">
-                {gap !== null ? (
+                <Card title="지금 관찰" desc="목표 점수와 역량 수준의 직접 연결은 목표율 보정(calibration) 뒤에 다시 보여 줘요.">
                   <div className={p.bigRow}>
-                    <span className={p.big}>{gap > 1e-9 ? `${Math.round(gap * 100)}%p` : '0%p'}</span>
-                    <Chip tone={gap > 1e-9 ? statusChipTone(tone) : 'good'}>{gap > 1e-9 ? '목표까지' : '목표 이상 관찰'}</Chip>
-                    {value.status === 'hold' && <Chip tone="warn">추정 — 진단 안 된 라인이 있어요</Chip>}
+                    <Chip>{obs}</Chip>
+                    <Chip tone="warn">규칙 기반 · 정밀 진단 미실시</Chip>
                   </div>
-                ) : (
-                  <Empty>{hasTarget ? '진단이 쌓이면 목표와의 차이를 보여 줘요.' : '목표와의 차이는 문항에 연결된 라인에서만 보여요.'}</Empty>
-                )}
-                {isLine && value.habit !== null && (
-                  <p className={p.p}>
-                    습관 신호{' '}
-                    <Chip tone={value.habit === 'active' ? 'bad' : value.habit === 'resolved' ? 'good' : 'neutral'}>
-                      {value.habit === 'active' ? '신호 있음' : value.habit === 'resolved' ? '해소됨' : '판단 불가'}
-                    </Chip>
-                    {value.habitBasis ? ` 관측 ${value.habitBasis.n} / 필요 ${value.habitBasis.need}` : ''}
-                    {value.habit === 'unknown' ? ' — 지금 근거로는 신호가 없다고 확정할 수 없어요.' : ''}
-                  </p>
-                )}
-              </Card>
+                </Card>
               )}
-              {!usesTarget && isLine && value.habit !== null && (
+              {isLine && value.habit !== null && (
                 <Card title="행동 신호" desc="풀이 습관 신호예요. 능력이 아니라 행동을 봐요.">
                   <div className={p.bigRow}>
                     <Chip tone={value.habit === 'active' ? 'bad' : value.habit === 'resolved' ? 'good' : 'neutral'}>
@@ -356,7 +337,7 @@ export function NodePopup({
                 </Card>
               )}
               {principles.length > 0 && (
-                <Card title="설계 근거" desc="이 라인을 이렇게 짠 학습 원리예요. 학생이 숙달할 대상이 아니에요.">
+                <Card title="설계 근거" desc="이 라인을 이렇게 짠 학습 원리예요. 학생 실력을 재는 노드가 아니에요.">
                   <ListBox>
                     {principles.map((n) => (
                       <ListRow key={n.code} tile={n.code} tileTone="teal" title={n.name} sub={n.summary ?? ''} right={<Chip>{BADGE_LABEL[evidenceBadge(data.nodeSources[n.code], data.sources)]}</Chip>} />

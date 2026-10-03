@@ -2,7 +2,8 @@
 //
 // 학습 지도 표시용 순수 헬퍼 — 반올림은 표시에서만 한다(계산 · 저장은 원래 값).
 
-import type { MapEdgeRow, MapNodeRow, NodeStatus } from '@/lib/csat/map/model'
+import { CORE_STATUS_LABEL, observedLevel } from '@/lib/csat/map/core'
+import type { MapEdgeRow, MapNodeRow, MapSettings, NodeStatus, NodeValue } from '@/lib/csat/map/model'
 import type { MapSourceRow } from '@/lib/csat/map/load'
 
 /** 0~1 → 「73%」. 만점에 못 미치는데 반올림하면 100% 가 되는 값은 소수 한 자리(99.9%)로 — 달성처럼 보이지 않게 */
@@ -13,14 +14,26 @@ export function pct(v: number | null): string {
 }
 
 export const STATUS_LABEL: Record<NodeStatus, string> = {
-  // 관찰값과 라인 목표율의 비교일 뿐 — 숙달 · 「달성」으로 읽히지 않게(2026-10-03 결정)
-  met: '목표 이상 관찰',
-  near: '목표 근접',
-  short: '목표 미만',
+  // 내부 목표율 비교 상태 — 화면에는 내지 않는다(목표율 타당성 검증 전). 화면 글자는 obsLabel
+  met: '목표율 이상',
+  near: '목표율 근접',
+  short: '목표율 미만',
   hold: '판정 보류',
   needs_diagnosis: '진단 필요',
   no_items: '연결 문항 없음',
   tasks_only: '과제로 봐요',
+}
+
+/**
+ * 지도 노드 · 팝업의 화면 상태 글자 — 관찰값 수준(관찰 낮음 · 중간 · 높음) 또는 근거 상태.
+ * 목표율 대비 상태(met · near · short)는 화면에 내지 않는다 — calibration 전에는 목표와 역량 수준을 잇지 않는다.
+ */
+export function obsLabel(v: NodeValue, core: MapSettings['core']): string {
+  if (v.status === 'tasks_only') return v.tasks.total > 0 ? `과제 ${v.tasks.done}/${v.tasks.total}` : '과제 없음'
+  if (v.status === 'no_items') return v.note ?? '연결 문항 없음'
+  if (v.note && v.status === 'needs_diagnosis') return v.note
+  const lv = observedLevel(v.achieved, core)
+  return lv ? CORE_STATUS_LABEL[lv] : CORE_STATUS_LABEL.insufficient
 }
 
 export type Tone = 'met' | 'near' | 'short' | 'muted'

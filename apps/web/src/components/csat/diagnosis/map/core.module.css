@@ -48,10 +48,6 @@
   border-radius: 12px;
   box-shadow: var(--m-elev);
 }
-.cardCand {
-  border-color: var(--m-ink);
-  box-shadow: 0 0 0 1px var(--m-ink), var(--m-elev);
-}
 .cardHead {
   display: flex;
   align-items: center;
@@ -93,14 +89,8 @@
   font-size: 13px;
   font-weight: 600;
 }
-.tWeak {
-  color: var(--m-short-ink);
-}
-.tWatch {
-  color: var(--m-near-ink);
-}
-.tGood {
-  color: var(--m-met-ink);
+.tObs {
+  color: var(--m-ink);
 }
 .tMuted {
   color: var(--m-ink2);
@@ -113,6 +103,7 @@
   color: var(--m-ink2);
 }
 .basis {
+  white-space: pre-line;
   padding-top: 6px;
   border-top: 1px solid #0d0d170f;
 }

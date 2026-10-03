@@ -13,14 +13,15 @@ import type { MapPageData } from '@/lib/csat/map/load'
 import c from './core.module.css'
 
 const TONE: Record<CoreStatus, string> = {
-  weak_candidate: c.tWeak,
-  watch: c.tWatch,
-  good_candidate: c.tGood,
+  // 관찰 수준은 판정이 아니라 색으로 좋고 나쁨을 말하지 않는다 — 모두 같은 잉크
+  obs_low: c.tObs,
+  obs_mid: c.tObs,
+  obs_high: c.tObs,
   insufficient: c.tMuted,
   no_data: c.tMuted,
 }
 
-const BASIS_TEXT = { rule_proxy: '근거: 현재 규칙 기반 · 정밀 진단: 미실시', item_tagged: '근거: 문항 태깅 · 정밀 진단: 미실시', verified_diagnosis: '근거: 정밀 진단' } as const
+const BASIS_TEXT = { rule_proxy: '근거: 현재 규칙 기반\n정밀 진단: 미실시', item_tagged: '근거: 문항 태깅\n정밀 진단: 미실시', verified_diagnosis: '근거: 정밀 진단' } as const
 
 export function CoreSummary({ data, fullHref }: { data: MapPageData; fullHref: string }) {
   const sum = coreSummary(data.model, data.settings)
@@ -38,7 +39,7 @@ export function CoreSummary({ data, fullHref }: { data: MapPageData; fullHref: s
         <h3 id="core-h" className={c.h}>핵심 지도</h3>
         <div className={c.grid}>
           {core.map((a) => (
-            <AxisCard key={a.code} a={a} candidate={sum.candidates.includes(a.code)} />
+            <AxisCard key={a.code} a={a} />
           ))}
         </div>
       </section>
@@ -47,28 +48,28 @@ export function CoreSummary({ data, fullHref }: { data: MapPageData; fullHref: s
         <h3 id="perf-h" className={c.h}>실전 실행 <span className={c.hNote}>핵심 실력과 따로 봐요</span></h3>
         <div className={c.gridPerf}>
           {perf.map((a) => (
-            <AxisCard key={a.code} a={a} candidate={sum.candidates.includes(a.code)} />
+            <AxisCard key={a.code} a={a} />
           ))}
         </div>
       </section>
 
       <div className={c.row2}>
         <section className={c.panel} aria-labelledby="cand-h">
-          <h3 id="cand-h" className={c.h}>우선 확인 후보</h3>
+          <h3 id="cand-h" className={c.h}>우선 확인 후보 <span className={c.hNote}>관찰이 낮은 순 — 진단 결론이 아니에요</span></h3>
           {cand.length === 0 ? (
             <p className={c.muted}>지금 근거로 고를 후보가 없어요.</p>
           ) : (
-            <ul className={c.candList}>
-              {cand.map((a) => (
+            <ol className={c.candList}>
+              {cand.map((a, i) => (
                 <li key={a.code} className={c.cand}>
-                  <span className={c.tile} aria-hidden="true">{a.code}</span>
+                  <span className={c.tile} aria-hidden="true">{i + 1}</span>
                   <span>
                     <strong>{a.name}</strong>
-                    <span className={c.muted}> — 기출 관찰에서 {CORE_STATUS_LABEL[a.status]}. 실제 원인은 아직 확인 전이에요.</span>
+                    <span className={c.muted}> — 실제 원인은 아직 확인 전이에요.</span>
                   </span>
                 </li>
               ))}
-            </ul>
+            </ol>
           )}
         </section>
         <section className={c.panel} aria-labelledby="dx-h">
@@ -89,13 +90,13 @@ export function CoreSummary({ data, fullHref }: { data: MapPageData; fullHref: s
   )
 }
 
-function AxisCard({ a, candidate }: { a: CoreAxisView; candidate: boolean }) {
+function AxisCard({ a }: { a: CoreAxisView }) {
+  // 카드는 관찰값만 — 후보 표시는 아래 「우선 확인 후보」 영역에만 둔다(관찰과 진단 결론 분리)
   return (
-    <article className={`${c.card} ${candidate ? c.cardCand : ''}`} data-core={a.code} data-status={a.status}>
+    <article className={c.card} data-core={a.code} data-status={a.status}>
       <div className={c.cardHead}>
         <span className={c.tile} aria-hidden="true">{a.code}</span>
         <span className={c.name}>{a.name}</span>
-        {candidate && <span className={c.candTag}>우선 확인</span>}
       </div>
       <p className={c.q}>{a.question}</p>
       <p className={`${c.status} ${TONE[a.status]}`}>{CORE_STATUS_LABEL[a.status]}</p>

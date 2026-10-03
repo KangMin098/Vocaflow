@@ -27,10 +27,10 @@ describe('coreSummary', () => {
     expect(s.candidates).not.toContain('L')
   })
 
-  it('관찰값 기준 상태 — 근거가 없으면 진단 근거 부족', () => {
+  it('관찰 수준(낮음 · 중간 · 높음) — 판정 어휘가 아니다 · 근거가 없으면 진단 근거 부족', () => {
     const s = coreSummary({ nodes: { A1: v(0.3), A2: v(0.7), A8: v(null), A3: v(0.9), A6: v(0.9), A4: v(null), A5: v(null) } }, SETTINGS)
     const st = Object.fromEntries(s.axes.map((a) => [a.code, a.status]))
-    expect(st).toMatchObject({ V: 'weak_candidate', S: 'watch', R: 'good_candidate', E: 'insufficient', X: 'insufficient' })
+    expect(st).toMatchObject({ V: 'obs_low', S: 'obs_mid', R: 'obs_high', E: 'insufficient', X: 'insufficient' })
   })
 
   it('진단된 라인 배점이 min_coverage 미만이면 근거 부족', () => {
@@ -43,7 +43,7 @@ describe('coreSummary', () => {
     expect(s.candidates).toEqual(['R', 'V'])
     const s2 = coreSummary({ nodes: { A1: v(0.2), A2: v(0.3), A8: v(0.3) } }, SETTINGS)
     expect(s2.candidates).toEqual(['V', 'S'])
-    expect(s2.nextDiagnosis).toBe('어휘와 문장해석 중 실제 병목을 구분하기 위한 추가 진단 필요')
+    expect(s2.nextDiagnosis).toBe('어휘와 문장해석 중 실제 원인을 구분하기 위한 추가 진단 필요')
   })
 
   it('근거가 모두 없으면 시험 기록을 더하라는 진단, 후보가 없으면 후보 없음', () => {
@@ -62,6 +62,7 @@ describe('coreSummary', () => {
     for (const label of Object.values(CORE_STATUS_LABEL)) expect(label).not.toMatch(FORBIDDEN_WORDS)
     const texts = ([{},{ A1: v(0.2) }, { A1: v(0.2), A2: v(0.3), A8: v(0.3) }, { A1: v(0.95) }] as Record<string, NodeValue>[]).map((nodes) => coreSummary({ nodes }, SETTINGS).nextDiagnosis)
     for (const t of texts) expect(t).not.toMatch(FORBIDDEN_WORDS)
+    expect(Object.values(CORE_STATUS_LABEL)).toEqual(['관찰 낮음', '관찰 중간', '관찰 높음', '진단 근거 부족', '데이터 없음 · 진단 필요'])
   })
 })
 

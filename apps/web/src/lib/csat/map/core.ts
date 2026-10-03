@@ -45,7 +45,7 @@ export const NO_DATA_ATTRIBUTES: readonly string[] = ['A7']
 /** 영역(축) 역할 — 학생 숙달 노드인지, 측정 렌즈 · 오답 분류 · 행동 진단 · 방법 도구인지 */
 export type AxisRole = 'ability_proxy' | 'lens' | 'error' | 'behavior' | 'method' | 'performance'
 export const AXIS_ROLE: Record<string, { role: AxisRole; label: string; desc: string }> = {
-  A: { role: 'ability_proxy', label: '역량 관찰(규칙 기반)', desc: '유형 → 역량 대응표에서 상속된 관찰값이에요. 실제 숙달도가 아니에요.' },
+  A: { role: 'ability_proxy', label: '역량 관찰(규칙 기반)', desc: '유형 → 역량 대응표에서 상속된 관찰값이에요. 실제 실력 수준이 아니에요.' },
   B: { role: 'lens', label: '측정 렌즈', desc: '문항유형은 능력이 아니라, 학생 능력이 관찰되는 조건이에요.' },
   C: { role: 'error', label: '오답 원인 분류', desc: '틀렸을 때 왜 틀렸는지를 설명하는 분류예요. 공부할 영역이 아니에요.' },
   D: { role: 'behavior', label: '행동 진단', desc: '풀이 습관 신호예요. 능력이 아니라 행동을 봐요.' },
@@ -54,14 +54,28 @@ export const AXIS_ROLE: Record<string, { role: AxisRole; label: string; desc: st
 }
 export const roleOf = (axisCode: string | null | undefined) => (axisCode ? AXIS_ROLE[axisCode]?.role ?? null : null)
 
-/** 핵심 축 관찰 상태 — 금지 어휘(숙달도 · 능력 % · 레벨 · 달성 · 병목 확정)를 쓰지 않는다 */
-export type CoreStatus = 'weak_candidate' | 'watch' | 'good_candidate' | 'insufficient' | 'no_data'
+/**
+ * 핵심 축 관찰 상태 — rule_proxy 에서는 관찰값 수준만 말한다(2026-10-03 사용자 결정).
+ * 취약 · 양호 · 숙달 · 부족 역량 · 핵심 병목 같은 판정 어휘는 verified_diagnosis 전에는 쓰지 않는다.
+ * 「우선 확인 후보」는 카드가 아니라 별도 추천 영역에만 — 관찰값과 진단 결론을 UI 에서 분리한다.
+ */
+export type CoreStatus = 'obs_low' | 'obs_mid' | 'obs_high' | 'insufficient' | 'no_data'
 export const CORE_STATUS_LABEL: Record<CoreStatus, string> = {
-  weak_candidate: '취약 후보',
-  watch: '추가 확인 필요',
-  good_candidate: '양호 후보',
+  obs_low: '관찰 낮음',
+  obs_mid: '관찰 중간',
+  obs_high: '관찰 높음',
   insufficient: '진단 근거 부족',
   no_data: '데이터 없음 · 진단 필요',
+}
+
+export type ObservedLevel = 'obs_low' | 'obs_mid' | 'obs_high'
+/**
+ * 관찰값(0~1) → 관찰 수준. 기준은 설정 core.weak · core.watch — 목표 점수와 무관하다.
+ * 목표 점수와 역량 수준의 직접 연결은 calibration 뒤 별도로 복원한다.
+ */
+export function observedLevel(v: number | null, core: MapSettings['core']): ObservedLevel | null {
+  if (v === null) return null
+  return v < core.weak ? 'obs_low' : v < core.watch ? 'obs_mid' : 'obs_high'
 }
 
 export interface CoreAxisView extends CoreAxisDef {
@@ -109,19 +123,19 @@ export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSe
     const coverage = weight > 0 ? seenWeight / weight : 0
     if (seenWeight === 0 || coverage < settings.min_coverage) return { ...def, status: 'insufficient', contributions, basis: CURRENT_BASIS, observed: null }
     const observed = earned / seenWeight
-    const status: CoreStatus = observed < settings.core.weak ? 'weak_candidate' : observed < settings.core.watch ? 'watch' : 'good_candidate'
+    const status: CoreStatus = observedLevel(observed, settings.core) as ObservedLevel
     return { ...def, status, contributions, basis: CURRENT_BASIS, observed }
   })
 
   const candidates = axes
-    .filter((a) => a.status === 'weak_candidate')
+    .filter((a) => a.status === 'obs_low')
     .sort((a, b) => (a.observed as number) - (b.observed as number))
     .slice(0, 2)
     .map((a) => a.code)
 
   const nameOf = (c: CoreCode) => CORE_AXES.find((a) => a.code === c)?.name ?? c
   let nextDiagnosis: string
-  if (candidates.includes('V') && candidates.includes('S')) nextDiagnosis = '어휘와 문장해석 중 실제 병목을 구분하기 위한 추가 진단 필요'
+  if (candidates.includes('V') && candidates.includes('S')) nextDiagnosis = '어휘와 문장해석 중 실제 원인을 구분하기 위한 추가 진단 필요'
   else if (candidates.length === 2) nextDiagnosis = `${nameOf(candidates[0])}와(과) ${nameOf(candidates[1])} 중 실제 원인을 구분하기 위한 추가 진단 필요`
   else if (candidates.length === 1) nextDiagnosis = `${nameOf(candidates[0])} 후보의 실제 원인을 확인하기 위한 추가 진단 필요`
   else if (axes.every((a) => a.status === 'insufficient' || a.status === 'no_data')) nextDiagnosis = '진단 근거가 부족해요 — 시험 기록을 더하면 확인할 수 있어요'
@@ -136,5 +150,5 @@ export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSe
   }
 }
 
-/** 금지 어휘 — 라벨 · 문구 회귀 검사용(숙달도 · 능력 수치 · 레벨 · 달성 · 병목 확정) */
-export const FORBIDDEN_WORDS = /숙달도|능력\s*\d|레벨\s*\d|달성|핵심 병목(?!을 구분)/
+/** 금지 어휘 — rule_proxy 화면 라벨 · 문구 회귀 검사용(판정 · 숙달 · 수치 능력 · 병목) */
+export const FORBIDDEN_WORDS = /숙달|취약|양호|부족 역량|능력\s*\d|레벨\s*\d|달성|병목/

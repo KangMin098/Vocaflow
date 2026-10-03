@@ -12,6 +12,7 @@
 ## Unreleased (v06.34 → next)
 
 - feat(csat): 학습 지도 정보 구조 재편 — 첫 화면 72노드 → 핵심 6카드(V/S/R/E/L + X, 규칙 기반 proxy · 정밀 진단 미실시 표기 · A7 데이터 없음 · 진단 처방 · Route 미정), 54라인 지도는 `?view=full` 상세(3열, P/T 는 팝업 근거 탭). 「달성」 라벨 제거. DB 변경 없음.
+- fix(csat): rule_proxy 상태를 관찰 수준으로 — 핵심 카드 · 전체 지도 A 노드 「관찰 낮음 · 중간 · 높음」(목표율 대비 상태 · 눈금 · 판정 색 제거), 「우선 확인 후보」는 추천 영역에만.
 
 - feat(csat): 내 진단 **「학습 지도」 화면**(`/csat/diagnosis?tab=map`) — 목표 점수(0~100, 기본 만점) → 영역 → 학습 라인 → 근거 원리 → 접근 트랙, 노드 막대(채움 = 지금 · 눈금 = 목표) · 경로 강조 · 팝업(목표 · 달성 · 현 상태 · 근거). 목표율은 기준 시험(최근 적격 6회)의 배점 · EBSi 오답률(TOP15 관측 — 미관측은 반드시로 계산하고 과대 추정 가능 여부를 표시)로 계산, 성취율은 스냅샷 지도 지표(`evidence.attributePoints · lineAccuracy · trapAvoidance · habitEvaluable`, 반올림 없이 저장). B 라인 연결: 듣기 번호표(승인 6회) · 독해 유형표(승인). 마이그레이션 `20261002130000_csat_map_item_rate_ledger`(오답률 원장 컬럼) · `20261002120100_funnel_allow_csat_map`(이벤트 4종) 적용. API `PUT /api/csat/diagnosis/map/goal` · `POST|DELETE …/map/tasks/[id]`. 아래 저장소 항목과 함께.
 - feat(csat): 내 진단 「학습 지도」 저장소 — 마이그레이션 `20261002120000_csat_map`(`csat_map_*` 11테이블 · 보류 저장 트리거 · `csat_map_seed` RPC)을 적용하고 노드 72 · 연결선 160 · 과제 162 · 출처 9 를 시드했다(연결선 전부 · 원리 4/8 은 출처 없음 → 보류). 목표율 계산 `lib/csat/map/target.ts`. 이벤트 허용 목록 마이그레이션 `20261002120100_funnel_allow_csat_map` 은 작성만(미적용). 화면 · API 는 다음 단계. 같은 작업에서 내 진단 상단 탭을 개요 · 시험 기록으로 줄이고(유형 · 오답 함정 · 틀린 문항은 시험 기록 안) 계획 · 설계안도 Codex 목적 대조 리뷰를 받도록 `review.mjs --plan` 을 추가했다.
