@@ -4,7 +4,7 @@
 
 - **CSS Variables 본체** — `src/tokens.css` (웹 전용, `apps/web/src/app/globals.css` 에서 import)
 - **JS/TS 토큰 객체** — `src/colors.ts` 외 (RN 전용 + 타입 추론용)
-- **스타일·라우트 정본** — 프로젝트 루트 `DESIGN.md`. 웹 스킨 `skins/tines.css`(기본)와 `skins/csat-app.css`(`/csat` 표식). 베이스 토큰과 분리한다.
+- **스타일·라우트 정본** — 프로젝트 루트 `DESIGN.md`. 웹 스킨 `skins/tines.css`(기본)와 `skins/csat-app.css`(`/csat` 표식)·`skins/admin-app.css`(PC 관리자 표식). 베이스 토큰과 분리한다.
 
 ## 변경 시 절차
 

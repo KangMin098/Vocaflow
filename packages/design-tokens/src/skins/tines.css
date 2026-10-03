@@ -16,23 +16,6 @@
  *   - 선택자 `:root[data-skin]` (0,2,0)은 next/font 가 html 에 거는 변수 클래스(0,1,0)를 이긴다.
  */
 
-/* PC 관리자 상단 바(72px + 경계 1px) 아래에 뷰포트 고정 부품을 둔다.
- * 스크롤 컨테이너 안의 table thead는 자체 top:0을 유지한다. */
-@media (min-width: 768px) {
-  :root[data-skin="tines"] [data-area="admin"] {
-    --admin-header-height: 73px;
-  }
-  :root[data-skin="tines"] #admin-content :is(aside, nav).sticky.top-0 {
-    top: var(--admin-header-height);
-  }
-  :root[data-skin="tines"] #admin-content aside.sticky.top-0 {
-    max-height: calc(100dvh - var(--admin-header-height) - 16px);
-  }
-  :root[data-skin="tines"] #admin-content [id] {
-    scroll-margin-top: calc(var(--admin-header-height) + 4rem);
-  }
-}
-
 /* PC 참조 하위 화면의 골격. 근거: refs/tines/pc-refinement-spec.json.
  * 모바일의 기존 폭/순서/타일은 바꾸지 않는다. */
 @media (min-width: 768px) {
@@ -186,13 +169,6 @@
   :root[data-skin="tines"] .tines-dictation-daily { background: var(--tint-green); background-image: none; padding: 32px; box-shadow: none; }
   :root[data-skin="tines"] .tines-dictation-daily h2 { font-family: var(--font-serif); font-size: 32px; font-weight: 500; color: var(--tint-green-ink); }
   :root[data-skin="tines"] .tines-dictation-daily > button { align-self: flex-start; min-height: 44px; padding: 0 24px; box-shadow: none; }
-  :root[data-skin="tines"] .tines-admin-page-header { min-height: 244px; padding: 40px; background: var(--bg); background-image: none; border: 1px solid var(--bd); }
-  :root[data-skin="tines"] .tines-admin-page-header > span { display: none; }
-  :root[data-skin="tines"] .tines-admin-page-header > div:first-of-type { flex-basis: calc(100% - 216px); }
-  :root[data-skin="tines"] .tines-admin-page-header h1 { font-family: var(--font-serif); font-size: var(--tines-library-title); font-weight: 500; line-height: 1.1; }
-  :root[data-skin="tines"] .tines-admin-page-header p { font-size: 16px; }
-  :root[data-skin="tines"] .tines-admin-page-header > div > p:first-child { font-size: 12px; }
-  :root[data-skin="tines"] .tines-admin-page-header img { display: block; width: 176px; height: 176px; }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
   :root[data-skin="tines"] { --tines-page-inset: 24px; --tines-library-rail: 200px; --tines-library-gutter: 32px; --tines-library-pad: 32px; --tines-library-art: 160px; }

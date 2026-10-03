@@ -6,12 +6,12 @@ import type { ReactNode } from 'react'
 import { AdminSidebar } from './AdminSidebar'
 import { BTN } from '@/components/ui/tines-kit'
 
-/** Tines Library의 상단 내비 + 분류 레일 + 열린 본문. 인증은 서버 layout이 소유한다. */
+/** 관리자 PC는 3B 앱의 상단 줄 + 운영 레일 + 흰 작업 패널. 인증은 서버 layout이 소유한다. */
 export function AdminShell({ children, reportsBadge }: { children: ReactNode; reportsBadge: number | null }) {
   return (
     <div data-area="admin" className="min-h-screen bg-[var(--bg)]">
       <a href="#admin-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-[var(--p)] focus:p-4 focus:text-[var(--on-p)]">본문으로 이동</a>
-      <header className="sticky top-0 z-30 hidden border-b border-[var(--bd)] bg-[var(--bg)] md:block">
+      <header className="admin-site-header sticky top-0 z-30 hidden border-b border-[var(--bd)] bg-[var(--bg)] md:block">
         <div className="mx-auto flex min-h-[72px] max-w-[1440px] items-center justify-between gap-4 px-4 md:px-8">
           <Link href="/admin" className="flex min-h-11 items-center gap-3 rounded-full px-2 font-display text-[20px] font-[700] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--p)]">
             <ShieldCheck size={26} aria-hidden /> Vocaflow
@@ -22,9 +22,9 @@ export function AdminShell({ children, reportsBadge }: { children: ReactNode; re
           </div>
         </div>
       </header>
-      <div className="mx-auto flex max-w-[1440px] gap-4 px-2 md:gap-8 md:px-8">
+      <div className="admin-frame mx-auto flex max-w-[1440px] gap-4 px-2 md:gap-8 md:px-8">
         <AdminSidebar reportsBadge={reportsBadge} />
-        <main id="admin-content" tabIndex={-1} className="min-w-0 flex-1 py-4 outline-none md:py-8">{children}</main>
+        <main id="admin-content" tabIndex={-1} className="admin-main min-w-0 flex-1 py-4 outline-none md:py-8"><div data-admin-panel className="contents md:block">{children}</div></main>
       </div>
     </div>
   )

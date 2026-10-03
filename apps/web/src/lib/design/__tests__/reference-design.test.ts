@@ -19,7 +19,7 @@ describe('사용자가 지정한 두 디자인의 기본 적용', () => {
     expect(layout).not.toMatch(/process\.env\.NEXT_PUBLIC_SKIN|getItem\(['"]vocaflow-skin|setItem\(['"]vocaflow-skin|get\(['"]skin['"]\)/)
   })
 
-  it('두 CSAT 라우트 그룹을 덮고 관리자는 기본 디자인을 받는다', () => {
+  it('CSAT과 관리자 각각 3B 범위를 선택하고 포털에 루트 토큰을 적용한다', () => {
     for (const group of ['(app)', '(main)']) {
       expect(read(`apps/web/src/app/${group}/csat/layout.tsx`)).toContain('data-design-scope="csat"')
     }
@@ -28,6 +28,13 @@ describe('사용자가 지정한 두 디자인의 기본 적용', () => {
     expect(css).toContain(':root[data-theme="dark"]:has([data-design-scope="csat"]) {')
     expect(css).not.toContain('[data-area="admin"]')
     expect(read('apps/web/src/app/admin/layout.tsx')).not.toContain('data-design-scope="csat"')
+    const admin = read('packages/design-tokens/src/skins/admin-app.css')
+    expect(admin).toContain('@media (min-width: 768px)')
+    expect(admin).toContain(':root:has([data-area="admin"]) {')
+    expect(admin).toContain('--design-family: three-b;')
+    expect(admin).toContain('--p: #0d0d17;')
+    expect(admin).toContain('--p: #fcf9f5;')
+    expect(JSON.parse(read('packages/design-tokens/package.json')).exports['./skins/admin-app.css']).toBe('./src/skins/admin-app.css')
   })
 
   it('CSAT은 본문 안의 색·서체 재선언으로 포털과 갈라지지 않는다', () => {
@@ -43,7 +50,7 @@ describe('사용자가 지정한 두 디자인의 기본 적용', () => {
     }
     const globals = read('apps/web/src/app/globals.css')
     expect(globals.indexOf("skins/csat-app.css")).toBeGreaterThan(globals.indexOf("skins/tines.css"))
-    expect(globals).not.toContain('skins/admin-app.css')
+    expect(globals.indexOf('skins/admin-app.css')).toBeGreaterThan(globals.indexOf('skins/tines.css'))
     const tinesRules = globals.split('\n').filter(line => line.startsWith(':root[data-skin="tines"]'))
     expect(tinesRules.length).toBeGreaterThan(0)
     for (const rule of tinesRules) expect(rule).toContain(':not(:has([data-design-scope="csat"]))')

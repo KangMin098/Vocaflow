@@ -10,7 +10,7 @@
 |---|---|
 | DESIGN/디자인 시스템이 옛 주묵 판면을 동결·수정 금지로 안내 | DESIGN을 두 참조의 라우트별 적용 정본으로 교체. AGENTS·웹 가이드·토큰 가이드·디자인 시스템·작업 절차·매핑의 우선순위 정리 |
 | `skin=off` URL/저장값·환경변수가 기본 스킨 해제 | 루트 Tines 고정. 취향으로 디자인을 해제하는 코드를 제거. 테마·모션 감소는 유지 |
-| 관리자는 3B 예외, CSAT 일부만 국소 3B 값 | 새 사용자 범위대로 관리자도 Tines. 두 CSAT 그룹의 서버 레이아웃 표식으로 CSAT 전체에 3B 적용 |
+| 관리자는 3B 예외, CSAT 일부만 국소 3B 값 | 사용자 정정으로 관리자 PC 전체는 3B에 복귀. 두 CSAT 그룹도 서버 레이아웃 표식으로 3B 적용 |
 | SpaceScreen 국소 토큰과 body Dialog가 다른 스킨 | 국소 브랜드·서체 선언 제거. `:root:has([data-design-scope="csat"])`가 포털도 같은 토큰으로 칠함 |
 | 문항 해설 극장이 자체 밝은 면·보라 행동색·서체를 재선언 | 공통 CSAT 토큰 상속. CSAT 전체 CSS에 브랜드 재선언 방지 회귀를 적용하고 문항 해설 화면을 브라우저 검증에 포함 |
 | Tines 전역 컨트롤 보정이 CSAT에도 적용 | 해당 전역 규칙에서 CSAT 표식을 제외 |
@@ -31,7 +31,7 @@
 | Tines HTML/CSS/JS·이미지 원본 | **기존 로컬 미러 확인**: `tmp/tines-capture/`의 server/rendered HTML·assets·메뉴 캡처, `tmp/tines-corpus/`의 페이지 자료 | 원본은 분석용. 구현은 자체 부품·자체 삽화·무료 대체 서체 |
 | Tines 페이지/부품/폼·팝업·동작 자료 | **기존 저장소 자산**: `refs/tines/{sections,components,ui-kit,interactions,corpus,css-authored,computed}.json` 및 요약 | 메가메뉴·검색·서랍·탭·FAQ·영상·폼의 대응 패턴. 상세 적용표 `tines-mapping.md` |
 | 자체 삽화·모션·셸 | **기존 구현**: `public/illustrations/tines`, marketing/site·sections, AppHeader, ui, 모션 토큰 | 새 화면은 이 부품을 조합. 색 변경만으로 참조의 골격을 대체하지 않음 |
-| 3B 앱 스크린/DOM 계산값 | **기존 로컬 실물 확보 확인**: `docs/design/shots/reference-app/`의 Recents·Monitoring·Connectors·Skills·Links·Chats·워크플로 상세·Create space 캡처 및 extract JSON | 앱 스타일 근거는 `reference-analysis.md`(당시 관리자 적용 연구). 이번에는 CSAT 공통 스킨으로 적용 범위를 변경 |
+| 3B 앱 스크린/DOM 계산값 | **기존 로컬 실물 확보 확인**: `docs/design/shots/reference-app/`의 Recents·Monitoring·Connectors·Skills·Links·Chats·워크플로 상세·Create space 캡처 및 extract JSON | 앱 스타일 근거는 `reference-analysis.md`(당시 관리자 적용 연구). 현재 CSAT 및 PC 관리자 전체의 공통 스킨 근거로 사용 |
 | 3B Access map·Skill 팝업 | **기존 PNG 및 측정 명세 확인**: `refs/3b/access-map/{access-map-page.png,skill-modal.png,spec.json}` | 지도/모달 기하 + PopupParts. 부품별 추정 여부는 popup-patterns에 명시 |
 | 3B 현재 인증 앱 | **이번 세션에서 새로 확보하지 못함**. 웹 읽기 접근 실패, 자동 캡처는 로그인 이동으로 중단. CUA 브라우저 연결도 없음 | 로그인 화면을 앱 증거로 쓰지 않음. 기존 확보 자료로 진행. 보강 경로는 아래 |
 

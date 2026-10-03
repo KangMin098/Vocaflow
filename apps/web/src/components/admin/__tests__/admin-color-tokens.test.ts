@@ -1,6 +1,6 @@
 // apps/web/src/components/admin/__tests__/admin-color-tokens.test.ts
 //
-// **/admin 색 회귀 락**. admin 화면은 플랫폼 기본 `skins/tines.css` 토큰으로 칠한다.
+// **/admin 색 회귀 락**. 관리자 PC는 `skins/admin-app.css`의 3B 토큰으로 칠한다.
 //
 // 막는 것 세 가지. 셋 다 2026-09-24 실측으로 실제 있던 결함이다.
 //   ① 하드코딩 색 — 보라(`#8B5CF6` · `rgba(139,92,246,…)` · `#7c4ff0`)가 토큰을 우회해 남아 있었다.

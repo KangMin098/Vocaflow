@@ -1,0 +1,11 @@
+{
+  "source": "docs/design/shots/reference-app/app-recents.png",
+  "computedSource": "docs/design/shots/reference-app/extract-recents.json",
+  "viewport": { "width": 1440, "height": 900 },
+  "measurement": "2026-10-03 design:ref-measure: white connected component with min-w 1000 max-w 1300 min-h 500 max-h 900. These are fill bounds, not an authenticated DOM panel rectangle. Header 56px is from current.layout; rail 216px is documented in reference-analysis. Compare outer frame with 2px tolerance. Panel content can grow beyond viewport.",
+  "header": { "height": 56 },
+  "rail": { "width": 216 },
+  "panelFill": { "x": 228, "y": 58, "width": 1200, "minHeight": 830 },
+  "tokens": { "primary": "#0d0d17", "surface": "#ffffff", "canvas": "#fbf9f7" },
+  "adaptations": "Korean title 22px instead of reference 18px; interactive controls retain 44px minimum. Existing operational content and help remain. No claim of whole-screen pixel identity."
+}

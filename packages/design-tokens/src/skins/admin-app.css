@@ -1,24 +1,16 @@
-/* packages/design-tokens/src/skins/csat-app.css
- *
- * **CSAT 앱 스킨 — neon-currant.3b.dev의 앱 토큰을 /csat 전체에 적용한다.**
- * 사용자 확정 2026-10-03. 관리자는 같은 날 사용자 정정으로 별도 PC admin-app.css를 사용한다.
- *
- * 켜지는 조건: 두 CSAT 라우트 그룹의 레이아웃에 `[data-design-scope="csat"]`이 있을 때.
- *   루트 변수이므로 body로 포털되는 Dialog·Toast도 같은 값을 받는다. CSAT을 떠나면
- *   관리자 PC는 admin-app.css, 공개·학습자 화면은 tines.css로 돌아간다. URL·저장값으로 해제하지 않는다.
- * 값의 출처: docs/design/reference-analysis.md — 레퍼런스 `:root` 변수(display-p3)를 sRGB hex 로 옮긴 값.
- *
- * 규칙
- *   - 기본 UI는 먹색·중립면. 패턴 띠·차트·학습 의미색은 해당 부품이 소유한다.
- *   - 1차 행동 = 먹색 컨트롤(`--control-bg` #0d0d17) + 크림 글자. 강조는 색이 아니라 먹색·굵기로.
- *   - 글자 1·2·3단 모두 흰 면·캔버스·채움면 위 WCAG AA 4.5 이상(reference-analysis §7).
- *   - 선택자 `:root:has()` (0,2,0)는 tines.css 의 `:root[data-skin]` (0,2,0)와 같아서 **이 파일이 뒤에
- *     import 돼야** 이긴다(globals.css). 다크는 (0,3,0)로 tines 다크와 같고 역시 순서로 이긴다.
+/* packages/design-tokens/src/skins/admin-app.css
+ * 관리자 PC 전체 = neon-currant.3b.dev 3B 앱. 2026-10-03 사용자 정정.
+ * 기존 DD-82 실측 토큰을 복원한다. 관리자 CSAT과 body 포털도 루트 값을 상속한다.
+ * 모바일 디자인은 제외한다. 참조: docs/design/reference-analysis.md.
  */
-
-:root:has([data-design-scope="csat"]) {
-  color-scheme: light;
+@media (min-width: 768px) {
+:root:has([data-area="admin"]) {
   --design-family: three-b;
+  --admin-header-height: 56px;
+  --admin-rail-width: 216px;
+  --admin-panel-inset: 12px;
+  --admin-panel-radius: 16px;
+  --font-serif: var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif;
   /* ── 1차 행동 — 레퍼런스 --control-bg / --control-fg ── */
   --p: #0d0d17;
   --p-hover: #282531;
@@ -124,14 +116,39 @@
   /* ── 서체 — Inter(OFL) · 고정폭은 JetBrains Mono(OFL, Geist Mono 대체) · 한글 Pretendard ── */
   --font-display: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-body: var(--font-admin-sans), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-ko-display: var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif;
   --font-serif: var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif;
   --font-mono: var(--font-admin-mono), "Pretendard Variable", Pretendard, ui-monospace, monospace;
 }
 
+:root:has([data-area="admin"]) [data-area="admin"] { --admin-header-height: 56px; background: var(--bg2); }
+:root:has([data-area="admin"]) .admin-site-header { background: var(--bg2); border: 0; }
+:root:has([data-area="admin"]) .admin-site-header > div { min-height: var(--admin-header-height); max-width: none; padding-inline: 12px; }
+:root:has([data-area="admin"]) .admin-site-header a:first-child { font-size: 14px; }
+:root:has([data-area="admin"]) .admin-frame { max-width: none; gap: 0; padding: 0; }
+:root:has([data-area="admin"]) .admin-frame > aside { width: var(--admin-rail-width); background: var(--bg2); }
+:root:has([data-area="admin"]) .admin-frame > aside > a:first-child { display: none; }
+:root:has([data-area="admin"]) .admin-main { display: flex; padding: 0 var(--admin-panel-inset) var(--admin-panel-inset); }
+:root:has([data-area="admin"]) [data-admin-panel] { display: block; flex: 1; min-width: 0; min-height: calc(100dvh - var(--admin-header-height) - var(--admin-panel-inset)); background: var(--bg); border: 1px solid var(--bd); border-radius: var(--admin-panel-radius); }
+:root:has([data-area="admin"]) .admin-page-header { --t1: inherit; --t2: inherit; --t3: inherit; background: transparent; background-image: none; min-height: 0; padding: 0; border: 0; border-radius: 0; overflow: visible; gap: 12px; margin-bottom: 24px; }
+:root:has([data-area="admin"]) .admin-page-header > span { display: inline-flex; width: 36px; height: 36px; border: 0; border-radius: var(--r-md); background: var(--bg3); color: var(--t1); }
+:root:has([data-area="admin"]) .admin-page-header > span svg { width: 16px; height: 16px; }
+:root:has([data-area="admin"]) .admin-page-header h1 { margin-top: 2px; font-family: var(--font-display); font-size: 22px; font-weight: 600; line-height: 1.3; }
+:root:has([data-area="admin"]) .admin-page-header p { font-size: 13px; }
+:root:has([data-area="admin"]) .admin-page-header > div > p:first-child { font-size: 10px; }
+:root:has([data-area="admin"]) .admin-page-header h1 + p { margin-top: 4px; }
+:root:has([data-area="admin"]) .admin-page-header > img { display: none; }
+:root:has([data-area="admin"]) .admin-page-header > div:last-child:not(:first-of-type) { width: auto; margin-left: auto; }
+:root:has([data-area="admin"]) .admin-kpi-card { --t1: inherit; --t2: inherit; --t3: inherit; --bd: inherit; background: var(--bg2); border-radius: var(--r-lg); padding: 24px; color: var(--t1); }
+:root:has([data-area="admin"]) .admin-kpi-card > div > span:first-child { width: 32px; height: 32px; border-radius: var(--r-md); }
+:root:has([data-area="admin"]) .admin-kpi-card svg { width: 16px; height: 16px; }
+:root:has([data-area="admin"]) .admin-kpi-card > p:first-of-type { margin-top: 16px; font-size: 12px; }
+:root:has([data-area="admin"]) .admin-kpi-card > p:nth-of-type(2) { margin-top: 8px; font-size: 24px; }
+:root:has([data-area="admin"]) #admin-content :is(aside, nav).sticky.top-0 { top: var(--admin-header-height); }
+:root:has([data-area="admin"]) #admin-content aside.sticky.top-0 { max-height: calc(100dvh - var(--admin-header-height) - 16px); }
+:root:has([data-area="admin"]) #admin-content [id] { scroll-margin-top: calc(var(--admin-header-height) + 4rem); }
+
 /* 다크 — 레퍼런스 light-dark() 의 두 번째 값 */
-:root[data-theme="dark"]:has([data-design-scope="csat"]) {
-  color-scheme: dark;
+:root[data-theme="dark"]:has([data-area="admin"]) {
   --p: #fcf9f5;
   --p-hover: #eeebe7;
   --p-light: #252530;
@@ -201,4 +218,6 @@
 
   --modal-backdrop: rgba(13, 13, 23, 0.5);
   --dialog-backdrop: rgba(13, 13, 23, 0.5);
+}
+
 }

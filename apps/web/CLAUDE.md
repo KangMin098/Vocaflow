@@ -8,9 +8,9 @@
 
 ## 토큰 로드
 
-**기본 디자인(2026-10-03)**: `/csat`과 하위 라우트 = 3B 앱, 그 외(관리자 포함) = Tines 웹사이트.
+**기본 디자인(2026-10-03)**: `/csat`과 하위 라우트 및 PC `/admin/*`(관리자 CSAT 포함) = 3B 앱, 그 외 = Tines 웹사이트(사용자 범위 정정).
 정본은 루트 `DESIGN.md`. 루트 `data-skin="tines"` + 두 CSAT 레이아웃의 `data-design-scope="csat"`로
-본문·body 포털에 자동 적용한다. `skin=off`·저장값·환경변수로 해제하지 않는다. 새 작업은 참조 부품을
+본문·body 포털에 자동 적용한다. 관리자 `data-area="admin"`은 PC에서 `skins/admin-app.css`를 선택하며 Tines의 모양 강제도 제외한다. `skin=off`·저장값·환경변수로 해제하지 않는다. 새 작업은 참조 부품을
 지정하고 같은 조건의 캡처·측정으로 검증한다. 화면별 브랜드 색·글꼴 재선언은 피한다.
 참조는 **하위 대부분의 화면·기능·프로세스·팝업·탭·이미지·아이콘 등 모든 디자인 요소**다.
 홈만 보고 적용하지 않는다. `docs/design/reference-scope.md`에서 대응 하위 화면·부품·자산을 찾고,
@@ -145,7 +145,7 @@ Library 에서는 '짧은 글' · `word_set` 이 '공용단어장'/'단어장'/'
 - `(auth)` — 인증 라우트 (헤더 없음)
 - `(marketing)` — 공개 랜딩
 - `(main)` — 로그인 후 앱 (Sidebar 포함)
-- `admin/` — 관리자 콘솔 (route group 미사용 → URL = `/admin/*`, Tines `AdminShell` + AdminSidebar, ShieldCheck + Admin 표기)
+- `admin/` — 관리자 콘솔 (route group 미사용 → URL = `/admin/*`, PC 3B `AdminShell` + AdminSidebar(모바일 제외), ShieldCheck + Admin 표기)
 - `dev/` — 개발 검증 (`/dev` 화면 인덱스 · `/dev/components` 카탈로그). robots 가 막는다
 
 각 그룹/세그먼트는 자체 `layout.tsx` 보유. 그룹 간 컴포넌트 공유는 `src/components/` 의 도메인 폴더로.

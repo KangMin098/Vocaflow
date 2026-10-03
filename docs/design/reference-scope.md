@@ -28,6 +28,7 @@
 | 기준 | 참조 화면/경로 | 가져올 화면·부품·흐름 | Vocaflow 대응 위치 |
 |---|---|---|---|
 | 3B | `/recents`, 공간 화면 | 레일·상단·패턴 띠·명령 상자·탭·최근 목록 → 공간/작업 열기 | `/csat`·CSAT 셸·`components/csat/space` |
+| 3B | `/monitoring/workflows`, `/connectors/library`, `/skills/list`, 생성 팝업 | 216px 레일·56px 상단·흰 작업 패널·요약·표·필터·입력·탭·상세/팝업 | PC `/admin` 및 `/admin/*` 전체, 관리자 CSAT 포함. `admin-app.css`·`AdminShell`·`AdminPageHeader`·`AdminKpiGrid`·공용 Dialog |
 | 3B | `/monitoring/workflows` | 대시보드·요약·표·필터·상태 → 항목 상세 | `/csat/diagnosis`의 개요·유형·오답·기록 |
 | 3B | `/connectors/library`, `/skills/list`, `/links` | 라이브러리/목록·검색·행/카드·아이콘 타일·선택 → 상세 | CSAT 문항/공식/유형 목록과 상세 |
 | 3B | `/chats`, `/spaces/…/workflows/…` | 작업면·곁단·입력/실행·상태 피드백·타임라인 | CSAT 워크스페이스·문항 해설 작업면 |
@@ -38,10 +39,10 @@
 | Tines | `/library/`, `/library/tools/thinkst-canary/` | 분류 내비·검색·컬렉션·도구 목록 → 상세 → 사용 진입 | 서가·단어장·학습 허브·선택 화면 |
 | Tines | `/pricing/`, `/workflow-capability-matrix/` | 비교 카드/표·상태 선택·설명 펼침 → 행동 | 요금제·적합성·비교/선택 부품 |
 | Tines | `/university/`, `/events/`, `/webinars/` 및 상세 | 과정/행사 목록·필터·상세 → 시작/등록 | 학습 경로·콘텐츠 탐색·시작 안내 |
-| Tines | `/contact/`, 법률·404 | 폼·첨부·동의·검증 메시지·긴 글·회복 행동 | 계정/설정/지원/관리자 폼·정책·오류 화면 |
+| Tines | `/contact/`, 법률·404 | 폼·첨부·동의·검증 메시지·긴 글·회복 행동 | 관리자 밖 계정/설정/지원 폼·정책·오류 화면 |
 | Tines | 모든 페이지의 공통 셸 | 메가메뉴 → 하위 이동, 검색 입력 → 결과 → 이동, 모바일 서랍 → 하위 메뉴 | `marketing/site`·`AppHeader`·검색·내비 |
 
-관리자·학습·게임 화면도 Tines의 관련 목록·입력·카드·작업 패널·피드백 재료로 대응시킨다.
+관리자 전체(관리자 CSAT 포함)는 3B의 목록·입력·작업 패널·팝업으로 대응시킨다. 관리자 밖 학습·게임 화면은 Tines의 관련 재료로 대응시킨다.
 마케팅 페이지와 제품 기능이 다르므로 필요한 부품과 진행 구조를 선택한다.
 상세 화면 대응은 [tines-mapping](tines-mapping.md), CSAT 지도/팝업은 [popup-patterns](refs/3b/access-map/popup-patterns.md)를 함께 본다.
 
@@ -53,7 +54,7 @@
 | 패턴·액자·도해 | Tines의 격자/꽃/액자·3B 공간 띠/노드/연결선 | 기존 `marketing/sections`·CSAT 부품 사용. 화면 전체에 임의로 같은 배경을 깔지 않음 |
 | 기능 아이콘 | 3B 추출의 `icons`·Tines SVG/부품·팝업 아이콘 타일 | 기존 lucide/자체 SVG로 역할·크기·선 굵기·색·배경 타일 대응. 상태는 글자/형태도 함께 표시 |
 | 부품 상태 | ui-kit의 호버/선택 서명·components의 상태 선택자·interactions의 열린 층 | `components/ui`와 스킨을 재사용. 변경하는 부품의 열린/선택/실패 상태도 구현·확인 |
-| 모션·반응형 | sections의 animations·components의 breakpoints·390 메뉴 자료 | 공통 모션 토큰·모션 감소 설정 사용. 같은 기능을 데스크톱/모바일에서 완주 |
+| 모션·반응형 | sections의 animations·components의 breakpoints | 공통 모션 토큰·모션 감소 설정 사용. 이번 디자인 적용/완주 검증은 PC만. 모바일 웹/앱은 제외 |
 
 ## 다음 구현에서 남길 기록과 자료 보강
 
@@ -63,7 +64,7 @@
 2. 화면 틀·컨트롤·팝업·탭·이미지·아이콘의 대응 부품/자산과 측정값. 없는 요소는 해당 없음과 이유.
 3. 진입 → 선택/입력 → 실행 → 결과, 뒤로/취소·빈 상태·로딩·검증 오류/실패·재시도의 상태별 근거.
    참조에서 관찰한 상태와 제품에서 추가한 상태를 구별한다. 정상 화면 한 장은 전체 프로세스 증거가 아니다.
-4. 1440/390·테마·키보드에서 실제 기능 완주, 팝업/탭 전환과 이미지/아이콘 렌더, 전후 캡처·측정 비교·남은 차이.
+4. PC 1440/1280·테마·키보드에서 실제 기능 완주, 팝업/탭 전환과 이미지/아이콘 렌더, 전후 캡처·측정 비교·남은 차이. 모바일 제외.
 
 자료가 부족하면 기존 JSON/원본/캡처를 먼저 찾고 하위 링크·탭·메뉴를 따라 보강한다.
 공개 Tines 수집은 `tines-corpus.mjs --list`로 대상을 찾고 `extract-sections.mjs --only <key>`로 해당 구획을 갱신할 수 있다.

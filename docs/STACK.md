@@ -2,6 +2,8 @@
 
 > Vocaflow 모노레포 기술 스택 + 버전. `package.json` 직접 verified. 작성 시점: 2026-06-08.
 
+2026-10-03 디자인 패키지 진입점: `@vocaflow/design-tokens/skins/admin-app.css`를 복원해 PC 관리자 전체에 3B 스킨을 제공한다. `csat-app.css`는 학습자 CSAT, `tines.css`는 나머지 화면의 기준이다. 추가 의존성은 없다.
+
 ---
 
 ## 모노레포 (Turborepo)

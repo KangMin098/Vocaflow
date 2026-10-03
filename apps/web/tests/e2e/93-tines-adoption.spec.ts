@@ -147,7 +147,7 @@ for (const width of [1440, 1280]) for (const dark of [false, true]) {
 
 }
 
-test.describe('Tines 관리자', () => {
+test.describe('3B 관리자', () => {
   test.use({ storageState: adminState || state })
   for (const width of [1440, 1280]) for (const dark of [false, true]) test(`화면 ${width}px ${dark ? 'dark' : 'light'}`, async ({ page }) => {
     test.setTimeout(120000)
@@ -156,6 +156,14 @@ test.describe('Tines 관리자', () => {
     await page.goto('/admin/analytics')
     test.skip(!adminState && new URL(page.url()).pathname !== '/admin/analytics', '관리자 세션 없음 — PLAYWRIGHT_ADMIN_STORAGE_STATE 또는 기존 개발 관리자 환경 필요')
     await expect(page.getByRole('heading', { name: '플랫폼 분석', exact: true })).toBeVisible({ timeout: 30000 })
+    expect(await page.locator('html').evaluate(element => getComputedStyle(element).getPropertyValue('--design-family').trim())).toBe('three-b')
+    const rail = page.getByRole('complementary', { name: '관리자 메뉴', exact: true })
+    expect((await rail.boundingBox())!.width).toBe(216)
+    const panel = page.locator('[data-admin-panel]')
+    expect((await panel.boundingBox())!.x).toBe(228)
+    expect((await panel.boundingBox())!.y).toBe(56)
+    expect(await page.locator('.admin-page-header h1').evaluate(element => getComputedStyle(element).fontSize)).toBe('22px')
+    expect(await page.locator('.admin-page-header > img').isVisible()).toBe(false)
     await expect(page.getByRole('button', { name: '관리자 메뉴 열기', includeHidden: true })).toHaveCount(0)
     await surface(page)
     await page.screenshot({ path: path.join(shots, `admin-${width}-${dark ? 'dark' : 'light'}.png`) })
@@ -178,5 +186,11 @@ test.describe('Tines 관리자', () => {
     await page.screenshot({ path: path.join(shots, `admin-word-detail-${width}-${dark ? 'dark' : 'light'}.png`) })
     await wordDetail.getByRole('button', { name: 'Close detail panel (Esc)' }).click()
     await expect(wordDetail).toHaveCount(0)
+    await page.goto('/admin/csat')
+    await expect(page.locator('[data-admin-panel]')).toBeVisible()
+    expect(await page.locator('html').evaluate(element => getComputedStyle(element).getPropertyValue('--design-family').trim())).toBe('three-b')
+    await page.goto('/library/vocab')
+    await expect(page.locator('.tines-library-hero')).toBeVisible({ timeout: 30000 })
+    expect(await page.locator('html').evaluate(element => getComputedStyle(element).getPropertyValue('--p').trim())).toBe(dark ? '#aa94ff' : '#542f9c')
   })
 })

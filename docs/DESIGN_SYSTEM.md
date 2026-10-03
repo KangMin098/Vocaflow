@@ -1,14 +1,16 @@
 # Design System
 
+> **관리자 기준 정정(2026-10-03)**: 사용자 지시로 PC `/admin/*` 전체(관리자 CSAT 포함)는 neon-currant.3b.dev의 3B 앱이다. 56px 상단 줄·216px 운영 레일·흰 작업 패널·22px 산세리프 제목·중립 KPI·먹색 행동색을 사용한다. 이전 관리자 Tines 헤더·삽화·틴트 설명은 과거 기록이다. CSAT의 3B 및 관리자 밖 Tines는 유지하며 모바일 디자인은 제외한다.
+
 > **PC 표본 비례 보정(2026-10-03)**: `/library/vocab`는 Library의 288px 분류 레일·72px 간격·1000×411px 보라 헤더·44px 제목·폴더 모양 통계를 사용한다(1440px 기준). 학령 사다리는 PC 왼쪽으로 옮겨 카드 제목이 첫 화면에 보인다. `/dictate`는 University의 24px 선 격자·중앙 64px 세리프 제목·상단 소품·통계 띠를 사용한다. `AdminPageHeader`는 44px 세리프 제목과 176px 자체 소품을 둔 최소 244px 작업용 헤더다. 모두 `min-width:768px` 아래에는 적용하지 않는다. [실측 명세](design/refs/tines/pc-refinement-spec.json)와 `pnpm design:ref-compare --tines --base <URL>`로 비교하며 y/원본 상용 서체/콘텐츠 일치를 주장하지 않는다.
 
 > PC 관리자 상단 바는 `--admin-header-height: 73px`(본문 72px + 경계 1px)다. 사이드바와 뷰포트에 붙는 상세 `aside`/섹션 `nav`는 이 높이를 피하고, 상세 패널 높이·섹션 앵커 여백도 함께 계산한다. 표의 내부 스크롤 `thead`에는 이 오프셋을 적용하지 않는다.
 
 > GameKit HUD 점수/콤보는 불투명 `--bg` 통계 카드 안에서 테마 전경/의미색을 쓴다. 게임별 독립 캔버스의 색과 통계 글자의 대비를 분리한다. tier 2/3도 고정 색 대신 `--warning-ink`/`--error-ink`를 사용한다.
 
-> **개별 화면 변환 1차(2026-10-03)**: 관리자 `AdminShell`은 Tines Library의 상단 내비·분류 레일·열린 본문을 사용한다. `AdminPageHeader`·`AdminKpiGrid`는 큰 제목·자체 소품·틴트 카드로 구성한다. 학습 `ModuleHero`는 범주 틴트·제목·설명·실측 메타로 통일하고 중복 `ModuleBanner`를 생략한다. 단어장 카탈로그는 3D 선반 대신 Tines Library의 미디어 카드와 공통 상세 팝업을 사용한다. 게임 공통 결과·일시정지와 콤보 색은 기본 스킨을 상속한다. 게임 배경은 독립 전경과 함께 검증·변환할 대상으로 남기며 기존 계약을 유지한다. 웹 스킨 변경이며 RN 기본 색 객체는 변경하지 않는다. 전체 화면 완료 여부와 검증 범위는 [변환 기록](design/tines-adoption.md)을 따른다.
+> **개별 화면 변환 1차 과거 기록(2026-10-03, 관리자 부분은 위 정정으로 대체)**: 관리자 `AdminShell`은 Tines Library의 상단 내비·분류 레일·열린 본문을 사용한다. `AdminPageHeader`·`AdminKpiGrid`는 큰 제목·자체 소품·틴트 카드로 구성한다. 학습 `ModuleHero`는 범주 틴트·제목·설명·실측 메타로 통일하고 중복 `ModuleBanner`를 생략한다. 단어장 카탈로그는 3D 선반 대신 Tines Library의 미디어 카드와 공통 상세 팝업을 사용한다. 게임 공통 결과·일시정지와 콤보 색은 기본 스킨을 상속한다. 게임 배경은 독립 전경과 함께 검증·변환할 대상으로 남기며 기존 계약을 유지한다. 웹 스킨 변경이며 RN 기본 색 객체는 변경하지 않는다. 전체 화면 완료 여부와 검증 범위는 [변환 기록](design/tines-adoption.md)을 따른다.
 
-> **현재 스타일 정본(2026-10-03)**: [DESIGN.md](../DESIGN.md). `/csat/*`는 `skins/csat-app.css`(3B 앱), 나머지 전체는 `skins/tines.css`(Tines 웹사이트). 두 CSAT 레이아웃의 서버 표식으로 body 포털까지 자동 적용한다. 아래 v07 판면·수치는 기본 토큰/과거 재료 설명이며 새 라우트별 스킨보다 우선하지 않는다. 옛 동결은 이 결정으로 대체됐다.
+> **현재 스타일 정본(2026-10-03)**: [DESIGN.md](../DESIGN.md). `/csat/*`는 `skins/csat-app.css`, 관리자 PC 전체는 `skins/admin-app.css`(둘 다 3B 앱), 나머지는 `skins/tines.css`(Tines 웹사이트). 두 CSAT 레이아웃의 서버 표식으로 body 포털까지 자동 적용한다. 아래 v07 판면·수치는 기본 토큰/과거 재료 설명이며 새 라우트별 스킨보다 우선하지 않는다. 옛 동결은 이 결정으로 대체됐다.
 
 > 디자인 작업 진입: [DESIGN.md](../DESIGN.md) · 캡처·비평·수정과 로컬 픽셀 비교: [디자인 작업 절차](design/06-workflow.md).
 > 참조는 두 URL의 하위 대부분의 화면·기능·프로세스·팝업·탭·이미지·아이콘 등 모든 디자인 요소를 포함한다. 대응 자료·부품·상태별 검증은 [참조 범위·적용표](design/reference-scope.md)를 따른다.
@@ -113,7 +115,7 @@
 
 ### 과거 구역 스킨 — Admin 앱 (DD-82, 대체됨)
 
-**아래는 과거 기록이다. 2026-10-03 사용자 결정으로 관리자 전체는 Tines이며 `admin-app.css`를 다시 활성화하지 않는다.**
+**2026-10-03 사용자 정정으로 관리자 PC는 다시 3B다. 아래 DD-82 실측 토큰을 `admin-app.css`로 복원했고 모바일에는 적용하지 않는다.**
 
 `/admin` 이하(`app/admin/layout.tsx` 의 `data-area="admin"`)에서는 `packages/design-tokens/src/skins/admin-app.css` 가 Tines 스킨 **위에** 같은 토큰 이름을 레퍼런스 앱(`neon-currant.3b.dev`) 실측값으로 덮는다 — 선택자 `:root:has([data-area="admin"])` 라 body 포털(Dialog)도 받는다. 값: `--p`/`--admin`/`--ju` 먹색 `#0d0d17` · `--on-p` `#fcf9f5` · `--bg` `#fff` · `--bg2` `#fbf9f7` · `--bg3` `#eeebe7` · `--t1/2/3` `#0d0d17`/`#5e5f6c`/`#62616a` · `--bd` `rgba(13,13,23,.1)` · `--ju-wash`(선택 면) `rgba(84,50,0,.08)` · `--r-md` 8px · `--r-lg` 12px · 서체 `--font-admin-sans`(Inter)/`--font-admin-mono`(JetBrains Mono). Dialog 는 `--dialog-backdrop` · `--dialog-blur` · `--dialog-title-{sm,md,lg}` 변수를 읽는다(없으면 기존 값). 다크는 레퍼런스 `light-dark()` 두 번째 값. 대비표·출처 [design/reference-analysis](./design/reference-analysis.md).
 

@@ -1,6 +1,6 @@
 # Vocaflow 디자인 적용 기준
 
-PC Tines 표본의 하위 참조 대응은 단어장 → [Library](https://www.tines.com/library/), 받아쓰기 → [University](https://www.tines.com/university/)다. 재사용 시 [실측 명세](docs/design/refs/tines/pc-refinement-spec.json)의 치수를 `skins/tines.css`의 `--tines-*` 변수로 적용하고 `pnpm design:ref-compare --tines --base <URL>`로 확인한다. 관리자 제목은 동일한 타이포/소품을 작업 밀도에 맞게 줄인다. 범주 색만 입힌 작은 카드로 대체하거나 측정 항목 일치를 전체 화면 일치로 보고하지 않는다.
+PC Tines 표본의 하위 참조 대응은 단어장 → [Library](https://www.tines.com/library/), 받아쓰기 → [University](https://www.tines.com/university/)다. 재사용 시 [실측 명세](docs/design/refs/tines/pc-refinement-spec.json)의 치수를 `skins/tines.css`의 `--tines-*` 변수로 적용하고 `pnpm design:ref-compare --tines --base <URL>`로 확인한다. 관리자 전체는 3B 앱이며 아래 관리자 기준을 따른다. 범주 색만 입힌 작은 카드로 대체하거나 측정 항목 일치를 전체 화면 일치로 보고하지 않는다.
 
 > **확정: 2026-10-03 · 사용자 지정 기본 디자인.** 디자인을 별도로 요청하지 않은 기능 추가·수정에도 적용한다.
 > 스타일과 화면 틀의 정본이다. 과거 주묵 판면·동결·DD-82 관리자 예외와 충돌하면 이 기준을 따른다.
@@ -9,9 +9,10 @@ PC Tines 표본의 하위 참조 대응은 단어장 → [Library](https://www.t
 | 라우트 | 기준 | 자동 적용 |
 |---|---|---|
 | `/csat`, `/csat/` 및 `/csat/*` | [neon-currant.3b.dev](https://neon-currant.3b.dev/)의 **3B 앱** | 두 CSAT 레이아웃의 `data-design-scope="csat"` → `skins/csat-app.css` |
+| `/admin`, `/admin/*`(관리자 CSAT 포함) | [neon-currant.3b.dev](https://neon-currant.3b.dev/)의 **3B 앱** | 관리자 `data-area="admin"` → PC `skins/admin-app.css` |
 | 그 외 모든 화면 | [www.tines.com](https://www.tines.com/)의 **웹사이트** | 루트 `data-skin="tines"` → `skins/tines.css` |
 
-`/admin/csat/*`는 `/csat/*`가 아니므로 **Tines**다. 인증·설정·관리자·학습·게임 화면도 기본 Tines다.
+`/admin/csat/*`를 포함한 관리자 전체는 **3B 앱**이다(2026-10-03 사용자 정정). 관리자·CSAT 이외 인증·설정·학습·게임 화면은 Tines다. 관리자 PC는 56px 상단 줄·216px 레일·흰 작업 패널·산세리프 제목·먹색 컨트롤·중립 KPI로 구성하며 별도 디자인 요청 없이 적용한다.
 본문·모달·시트·팝오버·토스트는 현재 라우트의 토큰을 함께 쓴다. CSAT 표식은 서버 HTML에 있으며
 `:root:has(...)`로 루트 토큰을 선택하므로 body 포털도 같은 스타일이고, 경로 이동 시 자동 복귀한다.
 `?skin=off`, `vocaflow-skin` 저장값, `NEXT_PUBLIC_SKIN`으로 이 기준을 해제하지 않는다.
@@ -38,11 +39,11 @@ Tines는 제품·솔루션·목록·상세·라이브러리·가격·교육·이
 
 ## 두 디자인의 기본과 틀
 
-| 요소 | CSAT — 3B 앱 | 나머지 — Tines 웹사이트 |
+| 요소 | CSAT·관리자 — 3B 앱 | 나머지 — Tines 웹사이트 |
 |---|---|---|
 | 지면·텍스트 | 흰 패널 `--bg`, 웜 중립 캔버스 `--bg2`, 먹색 `--t1`, 회색 보조 글자 | 크림 지면 `--bg`, 웜 중립 구획, 보라 제목·본문, 다색 틴트·진한 구획 |
 | 서체 | Inter + 한글 Pretendard, 수치 JetBrains Mono. UI 제목도 산세리프 | Figtree + 한글 Pretendard(UI), Petrona + Hahmlet(편집 제목), Space Mono(라벨). 참조 상용 서체의 무료 대체 |
-| 화면 골격 | 좌측 레일 → 상단 줄 → 작업 패널 → 탭·목록 → 상세/팝업. SpaceScreen·워크스페이스·지도 활용 | 공개/학습 셸의 상단 내비·메가메뉴 → 페이지 머리 → 목적에 맞는 구획/목록/작업면. 관리자의 운영 내비는 유지하며 Tines 재료 사용 |
+| 화면 골격 | 좌측 레일 → 상단 줄 → 작업 패널 → 탭·목록 → 상세/팝업. SpaceScreen·워크스페이스·지도 활용 | 공개/학습 셸의 상단 내비·메가메뉴 → 페이지 머리 → 목적에 맞는 구획/목록/작업면. 관리자 밖 화면에 Tines 재료 사용 |
 | 모서리·선 | 얇은 중립선·작은 컨트롤·분리된 패널, 지도/모달 기하는 측정 명세 | 알약 CTA·내비, 얇은 라벤더선, 둥근 액자·카드. 값은 Tines 스킨/기존 부품 |
 | 그림 | 3B 패턴 띠·노드·관계도에 대응하는 제품 자체 자산 | `public/illustrations/tines/`의 자체 삽화, 틴트면·패턴·액자 조합 |
 | 팝업 | 먹색 16% 배경막, 블러 0, 산세리프 제목. Dialog + PopupParts | 공통 Dialog/SearchDialog/시트·Tines 토큰. 메뉴는 기존 메가메뉴/모바일 서랍 |
@@ -61,7 +62,7 @@ Tines는 제품·솔루션·목록·상세·라이브러리·가격·교육·이
 3. 기존 셸·공통 부품·스킨을 사용한다. 페이지 `.root`에 브랜드 색·글꼴을 다시 선언하지 않는다.
    지도처럼 고유한 기하는 명세와 CSS 변수에 둔다. 신규 CSAT 라우트는 두 CSAT 세그먼트 중 하나에 둔다.
 4. 진입 → 선택/입력 → 실행 → 결과의 흐름과 메뉴 열림·팝업·탭 전환·빈 상태·실패·취소를 실제 기능으로 연결한다.
-5. 1440/390, 라이트/다크에서 정상 렌더·키보드·터치·넘침·팝업·경로 이동을 확인한다.
+5. PC 1440/1280, 라이트/다크에서 정상 렌더·키보드·터치·넘침·팝업·경로 이동을 확인한다.
    변경 부품은 같은 뷰포트의 참조와 대조한다. 크기·간격은 측정값으로 설명한다.
 6. 참조 URL/화면·확보 날짜·대응 부품/자산·흐름별 상태·전후 캡처·비교표·검사 결과·남은 차이를 기록한다.
    변경 기능의 하위 화면·팝업·탭·이미지·아이콘을 확인한다. 로그인/오류/로딩 캡처는 정상 화면 증거가 아니다.

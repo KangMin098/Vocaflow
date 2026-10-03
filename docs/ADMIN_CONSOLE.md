@@ -1,10 +1,10 @@
 # Admin Console
 
-### Tines 공통 화면 틀(2026-10-03)
+### 3B 공통 화면 틀(2026-10-03 사용자 정정)
 
-PC 헤더 비례 보정: `AdminPageHeader`의 반복 점무늬·작은 아이콘 타일을 PC에서 제거하고 44px 세리프 제목·176px 소품·최소 244px 작업용 헤더로 조정했다. 본문 작업 밀도에 맞춰 Library 원본 411px보다 줄인 의도적 적용이다. 모바일에는 적용하지 않으며 관리자 인증·탭·액션·도움말 라벨과 절차는 유지한다.
+과거 Tines 표본(이 정정으로 대체됨): `AdminPageHeader`의 반복 점무늬·작은 아이콘 타일을 PC에서 제거하고 44px 세리프 제목·176px 소품·최소 244px 작업용 헤더로 조정했다. 본문 작업 밀도에 맞춰 Library 원본 411px보다 줄인 의도적 적용이다. 모바일에는 적용하지 않으며 관리자 인증·탭·액션·도움말 라벨과 절차는 유지한다.
 
-`admin/layout.tsx`는 서버 인증/집계 뒤 `AdminShell`을 렌더한다. Tines Library의 상단 내비·왼쪽 분류·열린 본문 구조를 사용하며 기존 3B의 본문 외곽 패널을 제거했다. ShieldCheck·Admin 표시는 유지한다. `AdminPageHeader`는 큰 제목·자체 소품·틴트 면, `AdminKpiGrid`는 틴트 카드·실측 값으로 구성한다. 탭/액션/도움말의 기존 라벨과 파이프라인 순서는 변경하지 않았다. 공통 틀 적용은 개별 80개 화면의 모든 기능/상태 검증 완료와 다르다. [실제 검증/잔여 기록](design/tines-adoption.md).
+`admin/layout.tsx`는 서버 인증/집계 뒤 `AdminShell`을 렌더한다. PC 3B의 56px 상단 줄·216px 운영 레일·12px 외곽 여백·흰 작업 패널을 사용한다. ShieldCheck·Admin 표시는 유지한다. `AdminPageHeader`는 22px 산세리프 제목·16px 아이콘이며 PC 삽화를 숨긴다. `AdminKpiGrid`는 중립 카드·실측 값으로 구성한다. 탭/액션/도움말의 기존 라벨과 파이프라인 순서는 변경하지 않았다. 공통 틀 적용은 개별 80개 화면의 모든 기능/상태 검증 완료와 다르다. [실제 검증/잔여 기록](design/tines-adoption.md).
 
 CSAT 원문 배치 운영(2026-09-19): `/admin/csat/sources`의 캐시 재검증과 내용 판정 드레인은 별개다. `csat-sources-audit.mjs`는 A–D 작업 후보와 사유별 ID를 내보내며 `source-policy-refresh --plan`은 실제 전후 값·연결 영향을 기록한다. 내용 판정은 UUID/revision/본문 해시를 확인하는 scoped importer를 사용한다. [자산 감사·실행 결과](./reports/csat-source-batch-discovery-20260919.md), [운영 절차](./LIBRARY_PIPELINE.md).
 
@@ -51,7 +51,7 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 
 | 요소 | 사용자 앱 | Admin Console |
 |---|---|---|
-| 액센트 | 플랫폼 기본 Tines 스킨 | **2026-10-03 사용자 확정**: 관리자 전체( `/admin/csat/*` 포함)는 `skins/tines.css`의 보라 행동·크림/웜 중립면·라벤더선을 사용한다. DD-82의 관리자 3B 스킨 예외는 대체됐다. 운영 내비·표·도움말·ShieldCheck + Admin 표시는 유지한다. 색은 공통 토큰으로만 칠한다(`admin-color-tokens.test.ts`). 정본 [DESIGN.md](../DESIGN.md). |
+| 액센트 | 플랫폼 기본 Tines 스킨 | **2026-10-03 사용자 정정**: 관리자 전체(`/admin/csat/*` 포함)는 PC `skins/admin-app.css`의 3B 앱 기준을 사용한다. 이전 관리자 Tines 표본과 지침은 대체됐다. 운영 내비·표·도움말·ShieldCheck + Admin 표시는 유지한다. 색은 공통 토큰으로만 칠한다(`admin-color-tokens.test.ts`). 정본 [DESIGN.md](../DESIGN.md). |
 | 로고 아이콘 | `V` (Plus Jakarta) | `ShieldCheck` |
 | Sidebar 헤더 | "Vocaflow" | "Vocaflow" + **"Admin"** mono 배지 |
 | 알림 박스 | Streak | **"관리자 모드 · 시스템 데이터 접근 중"** |
