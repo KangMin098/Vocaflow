@@ -2,6 +2,7 @@
 // 실제 컴포넌트의 PC 상태/흐름 회귀. 격리 하네스만 허용하고 모든 외부 요청을 차단한다.
 import fs from 'node:fs'
 import path from 'node:path'
+import { spawn, type ChildProcess } from 'node:child_process'
 import { test, expect, type Page, type Locator } from '@playwright/test'
 import { MOCK_PAIRS } from '../../src/components/pairflip/mock-data'
 
@@ -10,6 +11,29 @@ const base = `http://127.0.0.1:${before ? 3030 : 3031}`
 const out = path.resolve(__dirname, `../../../../tmp/tines-adoption/remaining-${before?'before':'after'}`)
 const externalRequests = new WeakMap<Page,string[]>()
 const runtimeErrors = new WeakMap<Page,string[]>()
+let harness: ChildProcess | undefined
+test.beforeAll(async()=>{
+  test.setTimeout(120000)
+  const ready=async()=>{
+    try {const response=await fetch(base,{signal:AbortSignal.timeout(1000)});if(response.ok && response.headers.get('X-Vocaflow-Learning-Harness')==='isolated-component')return true;if(response.ok)throw new Error('3030/3031에 다른 서버가 실행 중입니다');return false}
+    catch(error){if(error instanceof Error && error.message.includes('다른 서버'))throw error;return false}
+  }
+  if(await ready())return
+  harness=spawn(process.execPath,[path.resolve(__dirname,'../../../../scripts/design/learning-harness.mjs'),...(before?['--before']:[])],{cwd:path.resolve(__dirname,'../../../..'),windowsHide:true,stdio:'ignore'})
+  let failure: Error | undefined
+  harness.on('error',error=>{failure=error})
+  for(let attempt=0;attempt<180;attempt++) {
+    if(failure || harness.exitCode!==null)throw failure ?? new Error('격리 하네스 시작 실패')
+    if(await ready())return
+    await new Promise(resolve=>setTimeout(resolve,250))
+  }
+  throw new Error('격리 하네스 준비 시간 초과')
+})
+test.afterAll(async()=>{
+  if(!harness)return
+  const child=harness
+  await new Promise<void>(resolve=>{if(child.exitCode!==null)return resolve();child.once('exit',()=>resolve());child.kill()})
+})
 test.beforeEach(async ({ page }) => {
   test.setTimeout(120000)
   fs.mkdirSync(out,{recursive:true})
@@ -20,14 +44,14 @@ test.beforeEach(async ({ page }) => {
   await page.clock.setSystemTime(new Date('2026-10-03T12:00:00Z'))
 })
 async function shot(page: Page,name: string) { if(!before && await page.locator('.diagnostic-modal').count()) await expect(page.locator('.diagnostic-modal')).toHaveCSS('opacity','1');await page.screenshot({path:path.join(out,`${name}.png`),fullPage:true}) }
-async function contrast(locator: Locator) {
-  return locator.evaluate(node=>{
+async function contrast(locator: Locator,property: 'color'|'outlineColor' = 'color') {
+  return locator.evaluate((node,field)=>{
     const lum=(color:string)=>color.match(/[\d.]+/g)!.slice(0,3).map(Number).map(v=>{const c=v/255;return c<=.04045?c/12.92:((c+.055)/1.055)**2.4}).reduce((s,c,i)=>s+c*[.2126,.7152,.0722][i],0)
     let surface:Element|null=node
     while(surface && getComputedStyle(surface).backgroundColor==='rgba(0, 0, 0, 0)') surface=surface.parentElement
-    const a=lum(getComputedStyle(node).color), b=lum(surface?getComputedStyle(surface).backgroundColor:'rgb(252,249,245)')
+    const a=lum(getComputedStyle(node)[field]), b=lum(surface?getComputedStyle(surface).backgroundColor:'rgb(252,249,245)')
     return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)
-  })
+  },property)
 }
 async function open(page: Page,screen:string,width:number,dark:boolean,extra='') {
   await page.setViewportSize({width,height:900})
@@ -88,6 +112,13 @@ for(const width of [1440,1280]) for(const dark of [false,true]) {
     for(let i=0;i<5;i++) await page.getByRole('button',{name:i%2===0?'알아요':'모릅니다',exact:true}).click()
     await expect(page.getByText('진단 완료 · 내 수준은')).toBeVisible()
     await shot(page,`diagnostic-result-${condition}`)
+    if(!before) {
+      const levelButton=page.locator('.diagnostic-result-level button')
+      await page.keyboard.press('Tab')
+      await levelButton.focus()
+      await expect(levelButton).toHaveCSS('outline-style','solid')
+      expect(await contrast(levelButton,'outlineColor')).toBeGreaterThanOrEqual(3)
+    }
     await page.getByRole('button',{name:/이 레벨이 뭔가요/}).click()
     await expect(dialog).toBeVisible();await page.keyboard.press('Escape')
     await page.getByRole('button',{name:'의학 영어',exact:true}).click()

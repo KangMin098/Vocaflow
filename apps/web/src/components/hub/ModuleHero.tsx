@@ -36,11 +36,10 @@ export interface ModuleHeroProps {
 
 export function ModuleHero({ eyebrow, title, note, tagline, quiet = false, icon: Icon, stats, primaryAction, bottomSlot }: ModuleHeroProps) {
   const subText = note ?? tagline
-  const originalArt = HERO_ART[title]
   const moduleKey = HERO_ART[title] ? title : Object.keys(HERO_ART).find(key => eyebrow.startsWith(key))
   const art = moduleKey ? HERO_ART[moduleKey] : undefined
   return (
-    <section aria-label={title} data-module-hero={moduleKey ?? title} className={`tines-module-hero ${eyebrow.startsWith('Dictation') ? 'tines-university-hero' : ''} ${quiet && !originalArt ? 'bg-[var(--bg2)]' : `tone-${originalArt?.tone ?? 'lavender'} dots`} relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] p-5 text-[var(--t1)] sm:p-8`}>
+    <section aria-label={title} data-module-hero={moduleKey ?? title} className={`tines-module-hero ${eyebrow.startsWith('Dictation') ? 'tines-university-hero' : ''} ${quiet && !art ? 'bg-[var(--bg2)]' : `tone-${art?.tone ?? 'lavender'} dots`} relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] p-5 text-[var(--t1)] sm:p-8`}>
       {moduleKey === 'Flashcard' && <LearningPathArt variant="cards" className="module-path-art hidden md:block" />}
       <div className="relative flex flex-wrap items-start gap-5">
         {Icon && <span aria-hidden className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--r-lg)] border border-current bg-[var(--bg)]"><Icon size={24} strokeWidth={1.5} /></span>}
@@ -49,7 +48,7 @@ export function ModuleHero({ eyebrow, title, note, tagline, quiet = false, icon:
           <h1 className="mt-3 break-keep font-display text-[30px] font-[600] leading-[1.08] tracking-[-0.02em] sm:text-[40px]">{title}</h1>
           {subText && <p className="mt-4 max-w-[620px] break-keep font-body text-[14px] leading-relaxed text-[var(--t2)]">{subText}</p>}
         </div>
-        {art && <Image src={`/illustrations/tines/${art.spot}.webp`} alt="" width={160} height={160} className={`hidden h-24 w-24 shrink-0 select-none ${originalArt ? 'sm:block' : 'md:block'}`} />}
+        {art && <Image src={`/illustrations/tines/${art.spot}.webp`} alt="" width={160} height={160} className="hidden h-24 w-24 shrink-0 select-none sm:block" />}
         {primaryAction && <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">{primaryAction}</div>}
       </div>
       {bottomSlot && <div className="relative mt-5">{bottomSlot}</div>}

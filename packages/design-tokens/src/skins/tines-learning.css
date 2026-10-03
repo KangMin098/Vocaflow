@@ -57,6 +57,7 @@
   :root[data-skin="tines"] .diagnostic-question > div:last-child { display: flex; justify-content: center; }
   :root[data-skin="tines"] .diagnostic-question > div:last-child button { border-radius: 999px; min-width: 200px; box-shadow: none; }
   :root[data-skin="tines"] :is(.diagnostic-start,.diagnostic-question,.diagnostic-result,.diagnostic-modal) button:focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
+  :root[data-skin="tines"] :is(.diagnostic-primary,.diagnostic-result-level) button:focus-visible { outline-color: var(--on-p); }
   :root[data-skin="tines"] .diagnostic-result { display: grid; grid-template-columns: 1fr 1fr; gap: var(--learning-gap); padding-block: 48px 80px; }
   :root[data-skin="tines"] .diagnostic-result > * { margin: 0; box-shadow: none; border-radius: var(--learning-card-radius); }
   :root[data-skin="tines"] .diagnostic-result-level { grid-row: span 2; padding: 64px var(--learning-cell-pad); background: var(--p); display: flex; flex-direction: column; align-items: center; justify-content: center; }

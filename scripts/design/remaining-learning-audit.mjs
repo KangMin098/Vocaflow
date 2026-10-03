@@ -9,15 +9,15 @@ const routes=[]
 function resolve(from,spec) {
   const base=spec.startsWith('@/')?path.join(src,spec.slice(2)):spec.startsWith('.')?path.resolve(path.dirname(from),spec):null
   if(!base) return null
-  return ['', '.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext).find(file=>fs.existsSync(file)&&fs.statSync(file).isFile())
+  return ['', '.tsx','.ts','.js','.mjs','/index.tsx','/index.ts'].map(ext=>base+ext).find(file=>fs.existsSync(file)&&fs.statSync(file).isFile())
 }
 function graph(file,seen=new Set()) {
   if(seen.has(file)) return seen
   seen.add(file)
   const source=fs.readFileSync(file,'utf8')
-  for(const match of source.matchAll(/(?:from\s*|import\s*)['"]([^'"]+)['"]/g)) {
+  for(const match of source.matchAll(/(?:from\s*|import\s*(?:\(\s*)?)['"]([^'"]+)['"]/g)) {
     const child=resolve(file,match[1])
-    if(child && (/components/.test(child)||child.startsWith(app))) graph(child,seen)
+    if(child && child.startsWith(src+path.sep)) graph(child,seen)
   }
   return seen
 }
@@ -29,7 +29,8 @@ function walk(dir) {
       const route='/'+path.relative(app,dir).split(path.sep).filter(s=>!/^\(.+\)$/.test(s)).join('/')
       if(/^\/(admin|csat|dev)(\/|$)/.test(route)) continue
       const evidence=[]
-      for(const dependency of graph(file)) {
+      const dependencies=[...graph(file)]
+      for(const dependency of dependencies) {
         if(/components[\\/](ui|layout)[\\/]/.test(dependency)) continue
         const source=fs.readFileSync(dependency,'utf8')
         source.split(/\r?\n/).forEach((line,i)=>{
@@ -41,11 +42,17 @@ function walk(dir) {
           if(signals.length) evidence.push({file:path.relative(ROOT,dependency).replaceAll('\\','/'),line:i+1,signals})
         })
       }
-      routes.push({route,file:path.relative(ROOT,file).replaceAll('\\','/'),dynamic:route.includes('['),evidence,status:['/diagnostic','/diagnostic/history','/settings'].includes(route)?'격리 PC 상태 검증':/^\/pairflip(\/|$)/.test(route)?'격리 PC 흐름 검증':route==='/play/word-orrery'?'격리 PC 흐름 검증':route==='/play/pirate-quest'?'UI 상태 검증 / 3D 전체 흐름 잔여':['/flashcard','/spellforge','/text'].includes(route)?'공통 머리 적용 / 본문 잔여':route==='/hub'?'이전 회차 적용 검증':'정상 렌더 및 요소 대조 잔여'})
+      routes.push({route,file:path.relative(ROOT,file).replaceAll('\\','/'),dependencies:dependencies.map(dep=>path.relative(ROOT,dep).replaceAll('\\','/')),dynamic:route.includes('['),evidence,status:['/diagnostic','/diagnostic/history','/settings'].includes(route)?'격리 PC 상태 검증':/^\/pairflip(\/|$)/.test(route)?'격리 PC 흐름 검증':route==='/play/word-orrery'?'격리 PC 흐름 검증':route==='/play/pirate-quest'?'UI 상태 검증 / 3D 전체 흐름 잔여':['/flashcard','/spellforge','/text'].includes(route)?'공통 머리 적용 / 본문 잔여':route==='/hub'?'이전 회차 적용 검증':'정상 렌더 및 요소 대조 잔여'})
     }
   }
 }
 walk(app);routes.sort((a,b)=>a.route.localeCompare(b.route))
+// 이전 그래프가 import(...)를 놓쳐 두 게임을 0 후보로 보고했다. 결과를 쓰기 전에
+// 실제 동적 게임 본체가 연결됐는지 확인하며, 조용히 빠진 목록은 발행하지 않는다.
+for(const [route,body] of [['/play/word-orrery','/WordOrreryGame.tsx'],['/play/pirate-quest','/PirateQuestGame.tsx']]) {
+  const item=routes.find(item=>item.route===route)
+  if(!item?.dependencies.some(file=>file.endsWith(body)))throw new Error(`동적 본체 추적 누락: ${route}`)
+}
 const out=path.join(ROOT,'tmp/tines-adoption/remaining-inventory.json')
 fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify({mode:'source-only',routes},null,2)+'\n')
 const lines=['# PC 학습/공개 Tines 잔여 소스 목록','','자동 소스 후보이며 AI 미감/정상 화면 판정이 아니다. 관리자·CSAT는 3B, 개발 화면과 모바일은 제외한다. 연결 컴포넌트의 고정 폭·사각 패널·자체 팝업·지역 팔레트를 조사했다. 같은 컴포넌트가 여러 라우트에 연결되면 각 행에 나타난다. `scripts/design/remaining-learning-audit.mjs` 재실행으로 갱신한다.','','| 라우트 | 소스 후보 수 | 현재 검증 범위 | 후보 대표 소스 |','|---|---:|---|---|']

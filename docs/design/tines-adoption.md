@@ -16,7 +16,7 @@
 
 PC 1280/1440 × light/dark의 격리 브라우저 검사 **27/27**, 이전 커밋 `c577441bd`의 실제 컴포넌트를 사용하는 전후 기준 검사도 **27/27** 통과했다. 진단 팝업의 Tab 가둠·Escape·원래 버튼 포커스 복원을 포함한다. 네트워크는 격리 서버만 허용하며 외부 요청 시도도 실패로 처리한다. esbuild에서 실 Supabase/client/server/액션을 테스트 경계로 대체하고 실제 DB 모듈 포함을 거부한다. 테스트의 가짜 수치/기록은 제품에 들어가지 않는다. 격리 서버는 `.env`를 읽지 않고 GET/HEAD만 제공한다. Playwright 설정은 기존 로컬 환경 파일을 읽지만 학습 컴포넌트에는 전달하지 않는다.
 
-`node scripts/design/learning-harness.mjs`(3031), `--before`(3030)로 서버를 실행한다. `PLAYWRIGHT_BASE_URL`을 지정하고 `pnpm --filter web exec playwright test tests/e2e/95-learning-tines.spec.ts`를 실행한다. 전후 비교는 `LEARNING_PHASE=before`로 선택한다. 자동 캡처는 `tmp/tines-adoption/remaining-{before,after}/`, 참조는 `remaining-reference/`다. 격리 환경의 영어 서체는 Arial/Georgia이며 실제 Next 서체/스타일 캡슐화/운영 DB 검증과 구별한다.
+`95-learning-tines.spec.ts`가 3031 격리 서버를 자동 시작·종료한다. 이미 실행 중이면 전용 응답 헤더를 확인해 재사용하고 다른 서비스는 거부한다. 전체 기본 E2E와 직접 파일 실행 모두 같은 수명 관리를 사용한다. 수동 검수는 `node scripts/design/learning-harness.mjs`, 전후 기준은 `--before`(3030)/`LEARNING_PHASE=before`로 선택한다. `PLAYWRIGHT_BASE_URL`은 기존 Next 서버의 수명 정책에만 사용하며 학습 테스트는 고정된 격리 서버를 방문한다. 자동 캡처는 `tmp/tines-adoption/remaining-{before,after}/`, 참조는 `remaining-reference/`다. 격리 환경의 영어 서체는 Arial/Georgia이며 실제 Next 서체/스타일 캡슐화/운영 DB 검증과 구별한다.
 
 `pnpm design:ref-compare --learning`은 격리 서버에서 명시한 부품의 DOM 치수를 비교한다. `--learning-capture`로 두 공개 참조를 다시 확보할 수 있다. 1440px 결과:
 
@@ -32,7 +32,9 @@ PC 1280/1440 × light/dark의 격리 브라우저 검사 **27/27**, 이전 커�
 
 실제 `localhost:3000`의 진단·기록·설정을 1440px light 및 1280px dark에서 조회 전용으로 캡처했다(각 3/3 정상 렌더, 가로 넘침/깨진 이미지/빈 본문/런타임 오류 없음). `remaining-live-1440-light/` 및 `remaining-live-1280-dark/`이며 사용자 서버를 재시작하지 않았다. 실제 제품의 Petrona/Hahmlet 서체와 기존 셸을 확인했고 학습 제출·구독·계정 액션은 실행하지 않았다. 격리 테스트의 테마 초기화 오류를 수정한 뒤 html 테마·실제 지면색·브라우저 예외를 단언하며 네 조건을 다시 통과했다. 별도 typecheck와 4개 기존 회귀 파일 23검사, 격리 운영 빌드(263페이지, 종료 0, 기존 lint 경고 11건)도 통과했다. 새 스킨의 package export 누락은 빌드에서 발견해 공개 경로를 추가했다.
 
-**전체 잔여**: `remaining-learning-audit.mjs`가 관리자/CSAT/개발 경로를 제외한 Tines 경로 **90개(동적 14개)**의 정적 연결 소스를 조사했다. **64개 경로에 소스 후보**가 있다. 후보 수는 실제 평균 디자인 판정이나 미완료 화면 수가 아니다. 클래스/CSS 간접 적용과 인증/실제 ID/지연 로딩까지 판정하지 않으므로 정상 렌더 대조가 필요하다. [전체 경로별 목록](remaining-inventory.md)에 격리 검증/공통 머리만 적용/3D 잔여/정상 렌더 미검증을 나눠 기록했다. 이 회차로 플랫폼 전량의 모든 기능/팝업/이미지 완료를 선언하지 않는다. 모바일 웹/앱은 변경 및 디자인 검증에서 제외한다.
+리뷰 지적을 반영해 ModuleHero의 원래 art 선택·면 클래스·`sm:block`을 복원하고 PC 벡터만 추가했다. 모바일 디자인 검사를 새로 추가하지 않았다. 강조색 면의 진단 버튼은 `--on-p` 포커스 외곽선을 사용하며 실제 키보드 포커스의 선 스타일/대비를 단언한다. 수동 서버가 없는 상태의 자동 시작/종료로 27검사를 통과했다. 동적 게임 본체 누락은 목록 쓰기 전에 거부하며 동적 import 추적을 제거한 변이 실행이 실제 가드에 걸렸다. 실제 서버에서 안내 폭 880px·Escape 후 포커스 복원·뒤로가기의 페이지 유지도 확인했다(`remaining-live-{info,level}.png`, 학습 제출 0).
+
+**전체 잔여**: `remaining-learning-audit.mjs`가 관리자/CSAT/개발 경로를 제외한 Tines 경로 **90개(동적 14개)**의 소스를 조사했다. 리뷰에서 빠진 `import(...)`와 중간 모듈 추적을 추가한 뒤 **83개 경로에 소스 후보**가 있다(초기 정적 연결만 조사한 64개를 대체). 실행 시의 동적 로딩·분기와 클래스/CSS 간접 적용, 인증/실제 ID까지 판정하지 않으므로 정상 렌더 대조가 필요하다. 공유 게임 등록 모듈은 여러 게임 본체를 포함하므로 한 경로의 후보에 다른 게임 소스도 나타날 수 있다. 후보 수는 실제 평균 디자인 판정이나 미완료 화면 수가 아니다. [전체 경로별 목록](remaining-inventory.md)에 격리 검증/공통 머리만 적용/3D 잔여/정상 렌더 미검증을 나눠 기록했다. 이 회차로 플랫폼 전량의 모든 기능/팝업/이미지 완료를 선언하지 않는다. 모바일 웹/앱은 변경 및 디자인 검증에서 제외한다.
 
 > **학습자 `/hub` 추가 적용(2026-10-03)**: Tines 현재 메인·`/3b/` 웹사이트·University의 캡처/계산값으로 PC 허브의 다색 삽화 띠·제품 액자·색 탭·흰 벤토/다색 카드·선 격자 읽을거리 구획을 보정했다. [허브 적용 및 대조](hub-tines.md). 아래 관리자 정정 및 모바일 제외는 유지한다.
 

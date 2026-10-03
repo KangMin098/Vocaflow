@@ -31,6 +31,7 @@ const tokens = ['tokens.css','skins/tines.css',...(before?[]:['skins/tines-learn
 fs.writeFileSync(path.join(out,'style.css'),tokens+'\n'+css.css+'\n'+(fs.existsSync(path.join(out,'bundle.css'))?fs.readFileSync(path.join(out,'bundle.css'),'utf8'):'')+'\n:root{--font-display:Arial,sans-serif;--font-serif:Georgia,serif;--font-editorial:Georgia,serif;--font-mono:monospace;--font-english:Arial,sans-serif;}body{margin:0;background:var(--bg)}')
 const html='<!doctype html><html lang="ko" data-skin="tines"><head><meta charset="utf-8"><link rel="stylesheet" href="/style.css"></head><body><div id="root"></div><script src="/bundle.js"></script></body></html>'
 const server = http.createServer((req,res)=>{
+  res.setHeader('X-Vocaflow-Learning-Harness','isolated-component')
   if(req.method!=='GET' && req.method!=='HEAD'){res.statusCode=405;res.end();return}
   const pathname = new URL(req.url,'http://localhost').pathname
   if(pathname==='/'){res.setHeader('Content-Type','text/html');res.end(html);return}
