@@ -13,7 +13,7 @@
 | /comics/adapted/[bookId] | 18 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/app/(main)/comics/adapted/[bookId]/page.tsx:206 |
 | /comics/restored | 30 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/app/(main)/comics/restored/page.tsx:104 |
 | /comics/restored/[slug] | 16 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/app/(main)/comics/restored/[slug]/page.tsx:196 |
-| /dashboard | 22 | 정상 PC 렌더 + 격리 기능 검증 | apps/web/src/app/(main)/dashboard/page.tsx:77 |
+| /dashboard | 22 | 실제 셸 PC 4조건 렌더 + 격리 기능 검증 | apps/web/src/app/(main)/dashboard/page.tsx:77 |
 | /diagnostic | 54 | 격리 PC 상태 검증 | apps/web/src/components/ui/ios/InsetRow.tsx:52 |
 | /diagnostic/history | 17 | 격리 PC 상태 검증 | apps/web/src/components/ui/ios/InsetRow.tsx:52 |
 | /dictate | 35 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/ui/ios/InsetRow.tsx:52 |
@@ -28,7 +28,7 @@
 | /hub-lab | 31 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/ui/ios/InsetRow.tsx:52 |
 | /join/[code] | 12 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/app/(marketing)/join/[code]/page.tsx:77 |
 | /library | 10 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/app/(main)/library/layout.tsx:14 |
-| /library/books | 70 | 정상 PC 렌더 + 격리 기능 검증 | apps/web/src/components/ui/ios/InsetRow.tsx:52 |
+| /library/books | 70 | 실제 셸 PC 4조건 렌더 + 격리 기능 검증 | apps/web/src/components/ui/ios/InsetRow.tsx:52 |
 | /library/books/[bookId] | 38 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/library/books/BookDetailClient.tsx:105 |
 | /library/scripts | 37 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/ui/ios/InsetRow.tsx:52 |
 | /library/scripts/[bookId] | 11 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/app/(main)/library/scripts/[bookId]/page.tsx:388 |
@@ -46,7 +46,7 @@
 | /pairflip | 28 | 격리 PC 흐름 검증 | apps/web/src/components/pairflip/PairFlipHub.tsx:2 |
 | /pairflip/play | 23 | 격리 PC 흐름 검증 | apps/web/src/components/pairflip/PairFlipGameScreen.tsx:210 |
 | /pairflip/results | 16 | 격리 PC 흐름 검증 | apps/web/src/components/pairflip/PairFlipResultScreen.tsx:42 |
-| /plan | 45 | 정상 PC 렌더 + 격리 기능 검증 | apps/web/src/components/plan/PlanClient.tsx:373 |
+| /plan | 45 | 실제 셸 PC 4조건 렌더 + 격리 기능 검증 | apps/web/src/components/plan/PlanClient.tsx:373 |
 | /play/cascade | 10 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/layout/SessionFrame.tsx:277 |
 | /play/connections | 10 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/layout/SessionFrame.tsx:277 |
 | /play/daily-blitz | 10 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/layout/SessionFrame.tsx:277 |
@@ -70,7 +70,7 @@
 | /practice/dcp | 35 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/app/(main)/practice/dcp/page.tsx:65 |
 | /pricing | 20 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/marketing/PricingClient.tsx:128 |
 | /privacy | 13 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/marketing/LegalPage.tsx:54 |
-| /reports | 20 | 정상 PC 렌더 + 격리 기능 검증 | apps/web/src/components/reports/ReportsClient.tsx:39 |
+| /reports | 20 | 실제 셸 PC 4조건 렌더 + 격리 기능 검증 | apps/web/src/components/reports/ReportsClient.tsx:39 |
 | /reset-password | 13 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/app/(auth)/reset-password/page.tsx:146 |
 | /scriptquiz | 21 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/game/scriptquiz/ScriptQuizQueue.tsx:91 |
 | /scriptquiz/play | 30 | 정상 렌더 및 요소 대조 잔여 | apps/web/src/components/game/scriptquiz/ScriptQuiz.tsx:320 |

@@ -24,7 +24,7 @@
   :root[data-skin="tines"] .growth-intro h1 > span:first-child { color: inherit; }
   :root[data-skin="tines"] .growth-art { width: var(--learning-art); align-self: center; }
   :root[data-skin="tines"] .growth-story > .growth-first-rule { display: none; }
-  :root[data-skin="tines"] .growth-story > .growth-durability { grid-column: 2; grid-row: 1; border-radius: var(--learning-card-radius); padding: var(--learning-cell-pad); --p: var(--tint-green-ink); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); --t3: var(--tint-green-ink); --bd: color-mix(in srgb,var(--tint-green-ink) 25%,transparent); background: var(--tint-green); }
+  :root[data-skin="tines"] .growth-story > .growth-durability { grid-column: 2; grid-row: 1; border-radius: var(--learning-card-radius); padding: var(--learning-cell-pad); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); --t3: var(--tint-green-ink); --bd: color-mix(in srgb,var(--tint-green-ink) 25%,transparent); background: var(--tint-green); }
   :root[data-skin="tines"] .growth-durability h2 { font-size: 80px; line-height: 1; }
   :root[data-skin="tines"] .growth-durability aside { background: var(--learning-bg); border-radius: 0; border-left: 2px solid var(--tint-green-ink); }
   :root[data-skin="tines"] .growth-recollection { gap: var(--growth-gap); grid-template-columns: 1.1fr .9fr; }
@@ -33,8 +33,8 @@
   :root[data-skin="tines"] .growth-recollection > :last-child { border-radius: var(--learning-card-radius); padding: 32px; }
   :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div { gap: var(--learning-gap); }
   :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section { min-height: 180px; padding: 28px; border-radius: var(--learning-card-radius); background: var(--tint-lavender); border: 0; box-shadow: none; justify-content: space-between; }
-  :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section:nth-child(2) { background: var(--tint-pink); --t1: var(--tint-pink-ink); --t2: var(--tint-pink-ink); --p: var(--tint-pink-ink); }
-  :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section:nth-child(3) { background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --p: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section:nth-child(2) { background: var(--tint-pink); --t1: var(--tint-pink-ink); --t2: var(--tint-pink-ink); }
+  :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section:nth-child(3) { background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); }
   :root[data-skin="tines"] .growth-story > section[aria-label="어휘의 무게중심"] { background: transparent; border-radius: 0; border-bottom: 1px solid var(--bd); padding: 24px 0; }
   :root[data-skin="tines"] .plan-workspace { gap: 32px; }
   :root[data-skin="tines"] .plan-intro { position: relative; padding: 48px 280px 48px 0; min-height: 270px; }
@@ -60,7 +60,7 @@
   :root[data-skin="tines"] .reports-archive { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 40px; }
   :root[data-skin="tines"] .reports-archive > li:first-child { grid-column: 1 / -1; }
   :root[data-skin="tines"] .report-entry { border: 0; border-top: 1px solid var(--bd); border-radius: 0; padding: 32px 0; box-shadow: none; background: transparent; gap: 24px; }
-  :root[data-skin="tines"] .reports-archive > li:first-child .report-entry { padding: var(--learning-cell-pad); border-radius: var(--learning-card-radius); background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --p: var(--tint-peach-ink); --bd: color-mix(in srgb,var(--tint-peach-ink) 25%,transparent); }
+  :root[data-skin="tines"] .reports-archive > li:first-child .report-entry { padding: var(--learning-cell-pad); border-radius: var(--learning-card-radius); background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --bd: color-mix(in srgb,var(--tint-peach-ink) 25%,transparent); }
   :root[data-skin="tines"] .report-entry > header > span:first-child { font-family: var(--font-serif); font-size: 28px; }
   :root[data-skin="tines"] .report-stat { background: transparent; border: 0; border-radius: 0; padding: 24px 0; text-align: left; }
   :root[data-skin="tines"] .report-stat > p:first-child { font-family: var(--font-serif); font-size: 56px; font-weight: 400; }

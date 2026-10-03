@@ -300,7 +300,12 @@ for(const width of [1440,1280]) for(const dark of [false,true]) {
     expect(await contrast(page.locator('.growth-durability h2'))).toBeGreaterThanOrEqual(3)
     const cards=page.locator('section[aria-label="학습 관리"] > div > section')
     expect(new Set(await cards.evaluateAll(nodes=>nodes.map(node=>getComputedStyle(node).backgroundColor))).size).toBe(3)
-    for(const card of await cards.all()) expect(await contrast(card.locator('h3'))).toBeGreaterThanOrEqual(4.5)
+    const brand=await page.locator('html').evaluate(node=>getComputedStyle(node).getPropertyValue('--p').trim())
+    for(const card of await cards.all()) {
+      expect(await contrast(card.locator('h3'))).toBeGreaterThanOrEqual(4.5)
+      expect(await card.evaluate(node=>getComputedStyle(node).getPropertyValue('--p').trim())).toBe(brand)
+      for(const link of await card.locator('a').all()) expect(await contrast(link)).toBeGreaterThanOrEqual(4.5)
+    }
     await shot(page,`growth-${condition}`)
     await page.getByRole('link',{name:'계획 수정'}).click()
     await expect(page.getByRole('heading',{name:'나의 학습 계획'})).toBeVisible()

@@ -54,7 +54,7 @@ function walk(dir) {
           if(signals.length) evidence.push({file:path.relative(ROOT,dependency).replaceAll('\\','/'),line:i+1,signals})
         })
       }
-      routes.push({route,file:path.relative(ROOT,file).replaceAll('\\','/'),dependencies:dependencies.map(dep=>path.relative(ROOT,dep).replaceAll('\\','/')),dynamic:route.includes('['),evidence,status:['/dashboard','/plan','/reports','/library/books'].includes(route)?'정상 PC 렌더 + 격리 기능 검증':['/diagnostic','/diagnostic/history','/settings'].includes(route)?'격리 PC 상태 검증':/^\/pairflip(\/|$)/.test(route)?'격리 PC 흐름 검증':route==='/play/word-orrery'?'격리 PC 흐름 검증':route==='/play/pirate-quest'?'UI 상태 검증 / 3D 전체 흐름 잔여':['/flashcard','/spellforge','/text'].includes(route)?'공통 머리 적용 / 본문 잔여':route==='/hub'?'이전 회차 적용 검증':'정상 렌더 및 요소 대조 잔여'})
+      routes.push({route,file:path.relative(ROOT,file).replaceAll('\\','/'),dependencies:dependencies.map(dep=>path.relative(ROOT,dep).replaceAll('\\','/')),dynamic:route.includes('['),evidence,status:['/dashboard','/plan','/reports','/library/books'].includes(route)?'실제 셸 PC 4조건 렌더 + 격리 기능 검증':['/diagnostic','/diagnostic/history','/settings'].includes(route)?'격리 PC 상태 검증':/^\/pairflip(\/|$)/.test(route)?'격리 PC 흐름 검증':route==='/play/word-orrery'?'격리 PC 흐름 검증':route==='/play/pirate-quest'?'UI 상태 검증 / 3D 전체 흐름 잔여':['/flashcard','/spellforge','/text'].includes(route)?'공통 머리 적용 / 본문 잔여':route==='/hub'?'이전 회차 적용 검증':'정상 렌더 및 요소 대조 잔여'})
     }
   }
 }
