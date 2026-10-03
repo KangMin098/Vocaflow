@@ -416,8 +416,8 @@ switch (cmd) {
     const newF = followups.filter((f) => !hf.has(`${f.item_id}|${f.source}|${f.finding_key}`)).length
     console.log(`  배치 ${batches.length}(새 ${newB} · 갱신 ${batches.length - newB}) · 추적 ${followups.length}(새 ${newF} · 갱신 ${followups.length - newF})`)
     if (!has('commit')) { console.log('  미리보기 — 쓰려면 --commit'); break }
-    if (batches.length) { const { error } = await db.from('csat_review_batches').upsert(batches, { onConflict: 'batch' }); if (error) die(error.message) }
-    if (followups.length) { const { error } = await db.from('csat_review_followups').upsert(followups, { onConflict: 'item_id,source,finding_key' }); if (error) die(error.message) }
+    const { error } = await db.rpc('csat_review_ledgers_import', { p_batches: batches, p_followups: followups })
+    if (error) die(error.message)
     console.log('  기록 완료')
     break
   }

@@ -1,5 +1,7 @@
 # DB Schema
 
+> 적용 대기(2026-10-04): `20261004010000_csat_review_ledger_atomic.sql`의 `csat_review_ledgers_import(p_batches jsonb, p_followups jsonb)`는 검수 배치·추적 장부의 자연키 upsert를 한 트랜잭션으로 묶는다. SECURITY INVOKER·빈 search_path·service_role 전용이며 삭제·기존 테이블 변경이 없다. 사용자 승인 후 적용한다.
+
 ## DB 전수 조사 조치 (2026-09-23, migration 5건 `20260923103943`~`20260923105031`)
 
 조사·근거 전문: [reports/db-audit-2026-09-23.md](./reports/db-audit-2026-09-23.md) ·

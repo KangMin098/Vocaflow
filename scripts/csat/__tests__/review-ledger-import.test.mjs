@@ -12,7 +12,7 @@ const CLI = fileURLToPath(new URL('../review-drain.mjs', import.meta.url))
 const batch = { batch: 'review-test', date: '2026-10-02', kind: 'blind', items: 1 }
 const followup = { item_id: 'H2603G3#18', source: 'test', finding: '근거 번호를 다시 확인한다', severity: 'revise', status: 'open', date: '2026-10-02' }
 
-async function run(metrics, followups) {
+async function run(metrics, followups, rpcError = false) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-ledger-'))
   const work = path.join(dir, 'scripts/csat/review-drain-hakpyeong')
   fs.mkdirSync(work, { recursive: true })
@@ -24,6 +24,10 @@ async function run(metrics, followups) {
     for await (const part of req) body += part
     requests.push({ method: req.method, url: req.url, body: body ? JSON.parse(body) : null })
     res.setHeader('Content-Type', 'application/json')
+    if (req.url.startsWith('/rest/v1/rpc/') && rpcError) {
+      res.statusCode = 400
+      return res.end(JSON.stringify({ message: 'invalid followup: entire transaction rolled back' }))
+    }
     res.end('[]')
   })
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
@@ -77,7 +81,7 @@ test('ledger-import skips note-only annotation lines but still rejects a batch l
   const ok = await run([note, batch].map(JSON.stringify).join('\n'), JSON.stringify(followup))
   assert.equal(ok.code, 0, ok.output)
   assert.match(ok.output, /장부 주석 1줄/)
-  assert.equal(ok.requests.filter((q) => q.method === 'POST')[0].body.length, 1, 'the annotation must not become a batch row')
+  assert.equal(ok.requests.filter((q) => q.method === 'POST')[0].body.p_batches.length, 1, 'the annotation must not become a batch row')
   const bad = await run(JSON.stringify({ ...batch, batch: undefined }), JSON.stringify(followup))
   assert.notEqual(bad.code, 0)
   assert.match(bad.output, /_metrics\.jsonl:1/)
@@ -95,11 +99,12 @@ test('ledger-import upserts each natural key once using the last entry', async (
     [followup, { ...followup, status: 'fixed-published' }].map(JSON.stringify).join('\n'))
   assert.equal(r.code, 0, r.output)
   const writes = r.requests.filter((q) => q.method === 'POST')
-  assert.equal(writes.length, 2)
-  assert.equal(writes[0].body.length, 1, 'duplicate batch would fail ON CONFLICT')
-  assert.equal(writes[0].body[0].published, 1)
-  assert.equal(writes[1].body.length, 1)
-  assert.equal(writes[1].body[0].status, 'fixed-published')
+  assert.equal(writes.length, 1)
+  assert.equal(writes[0].url, '/rest/v1/rpc/csat_review_ledgers_import')
+  assert.equal(writes[0].body.p_batches.length, 1, 'duplicate batch would fail ON CONFLICT')
+  assert.equal(writes[0].body.p_batches[0].published, 1)
+  assert.equal(writes[0].body.p_followups.length, 1)
+  assert.equal(writes[0].body.p_followups[0].status, 'fixed-published')
 })
 
 test('ledger-import preserves valid surrogate pairs in text and nested JSON', async () => {
@@ -107,8 +112,16 @@ test('ledger-import preserves valid surrogate pairs in text and nested JSON', as
     JSON.stringify({ ...followup, finding: '😀abcd' }))
   assert.equal(r.code, 0, r.output)
   const writes = r.requests.filter((q) => q.method === 'POST')
-  assert.equal(writes.length, 2)
-  assert.equal(writes[0].body[0].note, '정상 😀')
-  assert.deepEqual(writes[0].body[0].tokens, { '😀': ['😎'] })
-  assert.equal(writes[1].body[0].finding, '😀abcd')
+  assert.equal(writes.length, 1)
+  assert.equal(writes[0].body.p_batches[0].note, '정상 😀')
+  assert.deepEqual(writes[0].body.p_batches[0].tokens, { '😀': ['😎'] })
+  assert.equal(writes[0].body.p_followups[0].finding, '😀abcd')
+})
+
+test('ledger RPC errors are reported without a partial table-write fallback', async () => {
+  const r = await run(JSON.stringify(batch), JSON.stringify(followup), true)
+  assert.notEqual(r.code, 0)
+  assert.match(r.output, /entire transaction rolled back/)
+  assert.equal(r.requests.filter((q) => q.method === 'POST').length, 1)
+  assert.equal(r.requests.filter((q) => q.method === 'POST')[0].url, '/rest/v1/rpc/csat_review_ledgers_import')
 })
