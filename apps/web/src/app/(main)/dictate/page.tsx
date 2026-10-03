@@ -32,7 +32,7 @@ export default async function DictationHubPage() {
   const data = await loadDictationHubData(supabase, user.id)
 
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="content" background="bg2" padX="md" className="tines-dictation-screen">
       <DictationHubClient data={data} />
     </Screen>
   )

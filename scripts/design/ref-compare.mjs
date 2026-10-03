@@ -16,6 +16,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { ROOT, chromium } from './lib/ref-page.mjs'
 
+// 기존 3B 게이트는 그대로 두고 PC Tines 표본 대조를 명시적으로 선택한다.
+if (process.argv.includes('--tines')) {
+  await import('./tines-ref-compare.mjs')
+  process.exit(0)
+}
+
 const argv = process.argv.slice(2)
 const arg = (k, d) => {
   const i = argv.indexOf(k)

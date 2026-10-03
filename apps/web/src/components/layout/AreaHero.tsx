@@ -45,6 +45,8 @@ export function AreaHero({
   deep,
   tabs,
   children,
+  className = '',
+  desktopSpot,
 }: {
   kicker: string
   title: React.ReactNode
@@ -63,10 +65,13 @@ export function AreaHero({
   tabs?: AreaTab[]
   /** 수치 아래 자리(알약 CTA 등) */
   children?: React.ReactNode
+  /** 실측한 하위 참조 화면을 PC에서만 적용한다. */
+  className?: string
+  desktopSpot?: string
 }) {
   const hasTabs = !!tabs && tabs.length > 0
   return (
-    <header className={`${DEEP_CLASS[deep ?? DEEP_OF[tint]]} relative overflow-hidden rounded-[var(--r-2xl)] px-6 pt-8 text-[var(--t1)] md:px-12 md:pt-10 ${hasTabs ? '' : 'pb-8 md:pb-10'}`}>
+    <header className={`${DEEP_CLASS[deep ?? DEEP_OF[tint]]} ${className} relative overflow-hidden rounded-[var(--r-2xl)] px-6 pt-8 text-[var(--t1)] md:px-12 md:pt-10 ${hasTabs ? '' : 'pb-8 md:pb-10'}`}>
       <div className="grid items-center gap-6 md:grid-cols-[1fr_auto] md:gap-10">
         <div className="flex flex-col justify-center py-2">
           {/* 모노는 한글이 없어 공백만 모노 폭이 된다(pill.ts) — 눈썹은 산세리프 굵게 */}
@@ -92,8 +97,9 @@ export function AreaHero({
           height={1328}
           priority
           sizes="(min-width: 768px) 240px, 50vw"
-          className="hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] lg:w-[240px]"
+          className={`hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] lg:w-[240px] ${desktopSpot ? 'md:hidden' : ''}`}
         />
+        {desktopSpot && <Image src={`/illustrations/tines/${desktopSpot}.webp`} alt="" width={320} height={320} sizes="240px" className="tines-library-art hidden select-none md:block" />}
       </div>
       {hasTabs && (
         <nav aria-label="보기" className="mt-6 flex flex-wrap items-end gap-1.5">

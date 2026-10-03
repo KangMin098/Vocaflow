@@ -67,21 +67,24 @@ export default async function LibraryVocabPage() {
   const learnerStep = userVLevel > 0 ? (rungForVLevel(userVLevel)?.step ?? null) : null
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
+    <Screen width="wide" background="bg2" padX="md" className="tines-vocab-screen">
       <div className="flex flex-col gap-3 py-4 sm:gap-5 sm:py-6 md:py-8">
-        <VocabSeriesHeader
-          fill={ladder}
-          learnerStep={learnerStep}
-          totalVolumes={setCount}
-          totalWords={totalWords}
-        />
-        {subscribedCount > 0 && (
-          <div className="flex flex-wrap items-center gap-2 px-1">
-            <Capsule tone="green" label="구독" value={`${subscribedCount}개`} />
-          </div>
-        )}
-
         <VocabSetGrid
+          header={
+            <>
+              <VocabSeriesHeader
+                fill={ladder}
+                learnerStep={learnerStep}
+                totalVolumes={setCount}
+                totalWords={totalWords}
+              />
+              {subscribedCount > 0 && (
+                <div className="flex flex-wrap items-center gap-2 px-1">
+                  <Capsule tone="green" label="구독" value={`${subscribedCount}개`} />
+                </div>
+              )}
+            </>
+          }
           sets={sets}
           subscribedIds={Array.from(subscribedSet)}
           isLoggedIn={!!user}

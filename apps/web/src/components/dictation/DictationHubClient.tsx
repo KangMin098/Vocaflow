@@ -136,7 +136,7 @@ export function DictationHubClient({ data }: { data: DictationHubData }) {
       ]
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-8 md:px-6 md:py-10">
+    <div className="tines-dictation-hub mx-auto flex max-w-5xl flex-col gap-4 px-4 py-8 md:px-6 md:py-10">
       <ModuleHero
         eyebrow="Dictation · 청각 인출"
         title="받아쓰기"
@@ -309,7 +309,7 @@ function DailyCard({
 
   return (
     <section
-      className="flex flex-col gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)]"
+      className="tines-dictation-daily flex flex-col gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)]"
       aria-labelledby="daily-dictation-title"
     >
       <div className="flex items-start justify-between gap-3">

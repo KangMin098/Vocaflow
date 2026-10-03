@@ -1,5 +1,7 @@
 # Learning Modules
 
+> **PC 참조 비례 보정(2026-10-03)**: 단어장 분류·학령 사다리는 왼쪽 레일, 카탈로그는 Library의 큰 보라 헤더·폴더 통계·2열 카드다. 맞춤 추천은 PC 목록 뒤에 있으며 모바일 순서는 유지한다. Dictation 허브는 University의 넓은 선 격자·중앙 세리프 제목·통계 띠·초록 오늘의 학습 카드다. 조회/시작/탭/상세/구독/점수 계약은 그대로다. [실측 비교](design/tines-adoption.md).
+
 > **Tines 화면 변환 1차(2026-10-03)**: Dictation·Flashcard·SpellForge·PairFlip·My Library의 공통 허브 제목을 Tines 하위 화면 구성으로 변경했다. Dictation 시작/결과 버튼과 본문 서체는 스킨을 상속한다. `/library/vocab` 카탈로그의 WebGL 선반을 실제 표지와 메타를 서버에서도 제공하는 카드 격자로 교체했다. 상세·추가/해지·분류 기능은 유지하며 상하 키보드 이동은 실제 반응형 행 위치로 계산한다. 게임 공통 결과·일시정지와 세션 출처 글자도 기본 스킨을 따른다. 학습 기록·FSRS·점수·URL 계약 변경 없음. [적용/잔여 범위](design/tines-adoption.md).
 
 > 디자인 기본(2026-10-03): `/csat` 및 하위는 3B 앱, 나머지 모든 모듈·관리자는 Tines 웹사이트.

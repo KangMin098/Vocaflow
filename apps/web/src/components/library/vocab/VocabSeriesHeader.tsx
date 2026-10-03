@@ -39,7 +39,7 @@ export function VocabSeriesHeader({
   // 같은 자로 잰 NE능률 모바일은 첫 상품 0.29화면 · 상품 3개다.
   // 데스크톱은 이미 시장을 넘으므로(이미지 면적 22.0%) **모바일에서만** 줄인다.
   return (
-    <header className="flex flex-col gap-3 md:gap-4">
+    <header className="tines-vocab-header flex flex-col gap-3 md:gap-4">
       {/*
         이웃 서가(도서 · 기사 · 교재)와 **같은 판**(DD-68 · tines-mapping §24) — 범주 색 진한 면에
         눈썹 · 제목 · 한 줄 · 수치 알약. 눈썹의 시리즈 이름은 판권면 브랜드와 같은 상수에서 온다
@@ -52,6 +52,8 @@ export function VocabSeriesHeader({
         sub="한 낱말을 여러 각도로 다시 만나게 엮은 서가입니다. 뜻마다 예문을 따로 두고, 함께 쓰이는 말과 갈라져 나온 말을 같이 싣습니다."
         tile="tile-decks"
         tint={MATERIAL_TONE.word_set.tint}
+        className="tines-library-hero"
+        desktopSpot="spot-vault"
         stats={[
           { label: '전체', value: `${totalVolumes}권` },
           { label: '표제어', value: totalWords.toLocaleString() },

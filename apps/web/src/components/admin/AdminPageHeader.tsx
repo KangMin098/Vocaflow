@@ -19,7 +19,7 @@ export function AdminPageHeader({
   actions,
 }: AdminPageHeaderProps) {
   return (
-    <header className="tone-lavender dots relative mb-8 flex flex-wrap items-center gap-4 overflow-hidden rounded-[var(--r-2xl)] p-5 sm:p-8">
+    <header className="tines-admin-page-header tone-lavender dots relative mb-8 flex flex-wrap items-center gap-4 overflow-hidden rounded-[var(--r-2xl)] p-5 sm:p-8">
       <span
         className="relative z-10 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--r-lg)] border border-current bg-[var(--bg)] text-[var(--tint-lavender-ink)]"
         aria-hidden

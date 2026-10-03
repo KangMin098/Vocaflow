@@ -160,7 +160,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
   if (items.length === 0) return null
 
   return (
-    <div className="flex flex-col items-center gap-5">
+    <div className="tines-vocab-catalog flex flex-col items-center gap-5">
       {/* 카테고리 탭 (다차원 레벨 전환) */}
       <div
         role="tablist"
@@ -186,7 +186,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
           WebkitMaskImage:
             'linear-gradient(to right, #000 0, #000 calc(100% - 36px), transparent 100%)',
         }}
-        className="-mx-1 flex min-w-0 max-w-full snap-x gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] sm:mx-0 sm:justify-start sm:px-0 [&::-webkit-scrollbar]:hidden"
+        className="tines-vocab-categories -mx-1 flex min-w-0 max-w-full snap-x gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] sm:mx-0 sm:justify-start sm:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {categories.map((c) => {
           const isActive = c.id === activeCat
@@ -231,7 +231,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
         })}
       </div>
 
-      <div className="w-full">
+      <div className="tines-vocab-content w-full">
         {activeSet && (
           <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--bd)] pb-5">
             <div className="min-w-0 flex-1" aria-live="polite">
@@ -249,7 +249,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
             </div>
           </div>
         )}
-        <div role="group" aria-label="단어장 목록 — 화살표로 이동, Enter 로 열기" onKeyDown={onShelfKey} className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div role="group" aria-label="단어장 목록 — 화살표로 이동, Enter 로 열기" onKeyDown={onShelfKey} className="tines-vocab-cards grid grid-cols-2 gap-4 lg:grid-cols-4">
           {items.map((set, index) => (
             <button key={set.id} type="button" ref={element => { coverRefs.current[index] = element }} tabIndex={index === active ? 0 : -1}
               aria-label={`${set.title} · ${set.wordCount.toLocaleString()} 단어${subscribedIds.has(set.id) ? ' · 추가됨' : ''} — 상세 열기`}

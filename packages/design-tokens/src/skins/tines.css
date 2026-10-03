@@ -33,6 +33,171 @@
   }
 }
 
+/* PC 참조 하위 화면의 골격. 근거: refs/tines/pc-refinement-spec.json.
+ * 모바일의 기존 폭/순서/타일은 바꾸지 않는다. */
+@media (min-width: 768px) {
+  :root[data-skin="tines"] {
+    --tines-page-max: 1440px;
+    --tines-page-inset: 40px;
+    --tines-library-rail: 288px;
+    --tines-library-gutter: 72px;
+    --tines-library-height: 411px;
+    --tines-library-pad: 60px;
+    --tines-library-title: 44px;
+    --tines-library-art: 240px;
+    --tines-library-radius: 24px;
+    --tines-university-title: 64px;
+    --tines-university-height: 362px;
+    --tines-university-grid: 24px;
+    --tines-library-surface: #7855e3;
+    --tines-library-ink: #fcf9f5;
+  }
+  :root[data-skin="tines"] :is(.tines-vocab-screen, .tines-dictation-screen) {
+    background: var(--bg);
+  }
+  :root[data-skin="tines"] :is(.tines-vocab-screen, .tines-dictation-screen) > main {
+    max-width: var(--tines-page-max);
+    padding-inline: var(--tines-page-inset);
+  }
+  :root[data-skin="tines"] .tines-library-shell-nav {
+    max-width: var(--tines-page-max);
+    padding: 12px var(--tines-page-inset) 0;
+  }
+  :root[data-skin="tines"] .tines-library-shell-nav > div:empty { display: none; }
+  :root[data-skin="tines"] .tines-library-shell-nav > div:first-child {
+    --t1: inherit;
+    --t2: inherit;
+    --t3: inherit;
+    --on-p-tint: inherit;
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+  }
+  :root[data-skin="tines"] .tines-library-shell-nav nav {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--bd);
+  }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--tines-library-rail) minmax(0, 1fr);
+    column-gap: var(--tines-library-gutter);
+    row-gap: 24px;
+    align-items: start;
+  }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] :is(.tines-vocab-group, .tines-vocab-catalog) { display: contents; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] :is(.tines-vocab-header-slot, .tines-vocab-header) { display: contents; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-library-hero { grid-column: 2; grid-row: 1; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-header > nav { grid-column: 1; grid-row: 2; margin: 0; padding: 0; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-header > nav ol { flex-direction: column; gap: 8px; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-header > nav li { display: grid; grid-template-columns: 44px 1fr; column-gap: 12px; padding: 12px 16px; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-header > nav li > div { grid-row: 1 / span 2; align-self: center; flex-wrap: wrap; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-header > nav li > div > span:last-child:not(:first-child) { margin-left: 0; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-header-slot > div { grid-column: 1; grid-row: 3; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-categories {
+    grid-column: 1;
+    grid-row: 1;
+    position: sticky;
+    top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-categories > button {
+    justify-content: flex-start;
+    border-radius: 8px;
+    background: transparent !important;
+    color: var(--t1) !important;
+    font-weight: 500;
+    padding-inline: 16px;
+  }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-categories > button[aria-selected="true"] {
+    background: var(--p-light) !important;
+    color: var(--on-p-tint) !important;
+  }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-categories > button > span { margin-left: auto; background: var(--bg3); }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-content { grid-column: 2; grid-row: 2; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] .tines-vocab-group > :not(.tines-vocab-catalog) { grid-column: 2; grid-row: 3; }
+  :root[data-skin="tines"] .tines-vocab-grid[data-grouped="true"] > :not(.tines-vocab-header-slot, .tines-vocab-group) { grid-column: 2; }
+  :root[data-skin="tines"] .tines-library-hero {
+    --t1: var(--tines-library-ink);
+    --on-deep: var(--tines-library-ink);
+    background: var(--tines-library-surface);
+    border-radius: var(--tines-library-radius);
+    min-height: var(--tines-library-height);
+    padding: 64px var(--tines-library-pad) 80px;
+    display: flex;
+    align-items: center;
+  }
+  :root[data-skin="tines"] .tines-library-hero > div { width: 100%; grid-template-columns: minmax(0, 1fr) var(--tines-library-art); gap: 40px; }
+  :root[data-skin="tines"] .tines-library-hero h1 { font-size: var(--tines-library-title); line-height: 1.02; font-weight: 500; }
+  :root[data-skin="tines"] .tines-library-hero h1 + p { font-size: 16px; max-width: 480px; line-height: 1.45; }
+  :root[data-skin="tines"] .tines-library-art { width: var(--tines-library-art); height: var(--tines-library-art); object-fit: contain; }
+  :root[data-skin="tines"] .tines-library-hero dl { position: absolute; bottom: 0; left: var(--tines-library-pad); margin: 0; gap: 2px; }
+  :root[data-skin="tines"] .tines-library-hero dl > div { min-height: 46px; border-radius: 10px 10px 0 0; padding: 12px 16px; }
+  :root[data-skin="tines"] .tines-library-hero dl > div:first-child { --t1: var(--p); background: var(--bg); color: var(--p); }
+  :root[data-skin="tines"] .tines-vocab-header nav li { min-width: 0; flex: 1; }
+  :root[data-skin="tines"] .tines-vocab-header nav ol { min-width: 0; }
+  :root[data-skin="tines"] .tines-vocab-header nav li > div { align-items: center; }
+  :root[data-skin="tines"] .tines-vocab-header nav li > span { font-size: 11px; }
+  :root[data-skin="tines"] .tines-vocab-header-slot > div { margin-top: 12px; }
+  :root[data-skin="tines"] .tines-vocab-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
+  :root[data-skin="tines"] .tines-vocab-cards > button { background: var(--tint-lavender); }
+  :root[data-skin="tines"] .tines-vocab-cards > button:nth-child(2n + 1) { background: var(--tint-green); }
+  :root[data-skin="tines"] .tines-vocab-cards > button > span:last-child { order: -1; padding: 24px 24px 16px; }
+  :root[data-skin="tines"] .tines-vocab-cards > button > span:last-child > span:nth-child(2) { font-size: 22px; }
+  :root[data-skin="tines"] .tines-vocab-cards > button > span:first-child { background-color: transparent; padding-top: 12px; }
+  :root[data-skin="tines"] .tines-dictation-hub { max-width: none; padding: 64px 0 40px; gap: 32px; }
+  :root[data-skin="tines"] .tines-university-hero {
+    --t1: inherit;
+    --t2: inherit;
+    --t3: inherit;
+    --p-light: inherit;
+    --on-p-tint: inherit;
+    --bd: inherit;
+    color: var(--on-p-tint);
+    background-color: var(--bg);
+    background-image: linear-gradient(var(--p-light) 1px, transparent 1px), linear-gradient(90deg, var(--p-light) 1px, transparent 1px);
+    background-size: var(--tines-university-grid) var(--tines-university-grid);
+    border-color: var(--bd);
+    border-radius: 12px;
+    overflow: visible;
+    min-height: var(--tines-university-height);
+    padding: 88px 40px 0;
+  }
+  :root[data-skin="tines"] .tines-university-hero > div:first-child { display: block; text-align: center; }
+  :root[data-skin="tines"] .tines-university-hero > div:first-child > span { display: none; }
+  :root[data-skin="tines"] .tines-university-hero h1 { font-family: var(--font-serif); font-size: var(--tines-university-title); font-weight: 500; line-height: 1; margin-top: 20px; }
+  :root[data-skin="tines"] .tines-university-hero h1 { color: var(--t1); }
+  :root[data-skin="tines"] .tines-university-hero li > span { color: var(--t1); }
+  :root[data-skin="tines"] .tines-university-hero h1 + p { max-width: 720px; margin: 28px auto 0; font-size: 16px; }
+  :root[data-skin="tines"] .tines-university-hero img { display: block; position: absolute; width: 160px; height: 160px; left: 50%; top: -156px; transform: translateX(-50%); }
+  :root[data-skin="tines"] .tines-university-hero > ul { justify-content: center; margin: 40px -40px 0; padding: 16px 24px; background: var(--p-light); gap: 40px; border-radius: 0 0 12px 12px; }
+  :root[data-skin="tines"] .tines-university-hero > ul > li { flex-direction: row; align-items: baseline; gap: 12px; }
+  :root[data-skin="tines"] .tines-dictation-hub > section:not(.tines-university-hero) { width: min(100%, 1128px); margin-inline: auto; }
+  :root[data-skin="tines"] .tines-dictation-daily { background: var(--tint-green); background-image: none; padding: 32px; box-shadow: none; }
+  :root[data-skin="tines"] .tines-dictation-daily h2 { font-family: var(--font-serif); font-size: 32px; font-weight: 500; color: var(--tint-green-ink); }
+  :root[data-skin="tines"] .tines-dictation-daily > button { align-self: flex-start; min-height: 44px; padding: 0 24px; box-shadow: none; }
+  :root[data-skin="tines"] .tines-admin-page-header { min-height: 244px; padding: 40px; background: var(--bg); background-image: none; border: 1px solid var(--bd); }
+  :root[data-skin="tines"] .tines-admin-page-header > span { display: none; }
+  :root[data-skin="tines"] .tines-admin-page-header > div:first-of-type { flex-basis: calc(100% - 216px); }
+  :root[data-skin="tines"] .tines-admin-page-header h1 { font-family: var(--font-serif); font-size: var(--tines-library-title); font-weight: 500; line-height: 1.1; }
+  :root[data-skin="tines"] .tines-admin-page-header p { font-size: 16px; }
+  :root[data-skin="tines"] .tines-admin-page-header > div > p:first-child { font-size: 12px; }
+  :root[data-skin="tines"] .tines-admin-page-header img { display: block; width: 176px; height: 176px; }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root[data-skin="tines"] { --tines-page-inset: 24px; --tines-library-rail: 200px; --tines-library-gutter: 32px; --tines-library-pad: 32px; --tines-library-art: 160px; }
+}
+
 :root[data-skin="tines"] {
   /* ── 브랜드 · 1차 행동 — 「Book a demo」 버튼 #542f9c ── */
   --p: #542f9c;

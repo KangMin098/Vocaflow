@@ -1,5 +1,7 @@
 # Vocaflow 디자인 적용 기준
 
+PC Tines 표본의 하위 참조 대응은 단어장 → [Library](https://www.tines.com/library/), 받아쓰기 → [University](https://www.tines.com/university/)다. 재사용 시 [실측 명세](docs/design/refs/tines/pc-refinement-spec.json)의 치수를 `skins/tines.css`의 `--tines-*` 변수로 적용하고 `pnpm design:ref-compare --tines --base <URL>`로 확인한다. 관리자 제목은 동일한 타이포/소품을 작업 밀도에 맞게 줄인다. 범주 색만 입힌 작은 카드로 대체하거나 측정 항목 일치를 전체 화면 일치로 보고하지 않는다.
+
 > **확정: 2026-10-03 · 사용자 지정 기본 디자인.** 디자인을 별도로 요청하지 않은 기능 추가·수정에도 적용한다.
 > 스타일과 화면 틀의 정본이다. 과거 주묵 판면·동결·DD-82 관리자 예외와 충돌하면 이 기준을 따른다.
 > **디자인 작업 범위는 PC 웹만이다. 모바일 웹(390px 등)과 `apps/mobile`은 제외한다**(2026-10-03 사용자 재확인). 별도 요청 없이 모바일 전용 디자인·메뉴·화면·검증을 작업에 추가하지 않는다. 이 범위는 옛 모바일 퍼스트·390px 포함 문구보다 우선한다.

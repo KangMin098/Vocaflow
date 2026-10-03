@@ -2,6 +2,8 @@
 
 ### Tines 공통 화면 틀(2026-10-03)
 
+PC 헤더 비례 보정: `AdminPageHeader`의 반복 점무늬·작은 아이콘 타일을 PC에서 제거하고 44px 세리프 제목·176px 소품·최소 244px 작업용 헤더로 조정했다. 본문 작업 밀도에 맞춰 Library 원본 411px보다 줄인 의도적 적용이다. 모바일에는 적용하지 않으며 관리자 인증·탭·액션·도움말 라벨과 절차는 유지한다.
+
 `admin/layout.tsx`는 서버 인증/집계 뒤 `AdminShell`을 렌더한다. Tines Library의 상단 내비·왼쪽 분류·열린 본문 구조를 사용하며 기존 3B의 본문 외곽 패널을 제거했다. ShieldCheck·Admin 표시는 유지한다. `AdminPageHeader`는 큰 제목·자체 소품·틴트 면, `AdminKpiGrid`는 틴트 카드·실측 값으로 구성한다. 탭/액션/도움말의 기존 라벨과 파이프라인 순서는 변경하지 않았다. 공통 틀 적용은 개별 80개 화면의 모든 기능/상태 검증 완료와 다르다. [실제 검증/잔여 기록](design/tines-adoption.md).
 
 CSAT 원문 배치 운영(2026-09-19): `/admin/csat/sources`의 캐시 재검증과 내용 판정 드레인은 별개다. `csat-sources-audit.mjs`는 A–D 작업 후보와 사유별 ID를 내보내며 `source-policy-refresh --plan`은 실제 전후 값·연결 영향을 기록한다. 내용 판정은 UUID/revision/본문 해시를 확인하는 scoped importer를 사용한다. [자산 감사·실행 결과](./reports/csat-source-batch-discovery-20260919.md), [운영 절차](./LIBRARY_PIPELINE.md).

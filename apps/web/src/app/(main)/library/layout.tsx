@@ -11,7 +11,7 @@ import { LibraryTabs } from '@/components/library/LibraryTabs'
 export default function LibraryLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5">
+      <div className="tines-library-shell-nav mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5">
         <LibraryTabs />
         <div className="mt-4">
           <ModuleBanner slot="library" />

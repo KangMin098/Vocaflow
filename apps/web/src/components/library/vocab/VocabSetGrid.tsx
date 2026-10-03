@@ -9,7 +9,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
+import { useCallback, useEffect, useMemo, useState, useTransition, type ReactNode } from 'react'
 import { Search } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
@@ -44,6 +44,7 @@ const SORT_KEYS = ['recommended', 'most_words', 'fewest_words', 'newest'] as con
 type SortKey = (typeof SORT_KEYS)[number]
 
 interface Props {
+  header?: ReactNode
   sets: PublishedVocabSet[]
   subscribedIds: string[]
   isLoggedIn: boolean
@@ -53,7 +54,7 @@ interface Props {
   recommended: RecommendedSet[]
 }
 
-export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, recommended }: Props) {
+export function VocabSetGrid({ header, sets, subscribedIds, isLoggedIn, userVLevel, recommended }: Props) {
   const router = useRouter()
 
   // Optimistic subscribed set — 서버 액션 성공 시 즉시 반영
@@ -361,7 +362,8 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
   const controlsFirst = !isGrouped
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="tines-vocab-grid flex flex-col gap-5" data-grouped={isGrouped}>
+      {header && <div className="tines-vocab-header-slot -mb-2 flex flex-col gap-3 sm:mb-0 sm:gap-5">{header}</div>}
       {controlsFirst && controls}
       {/* 카테고리 선택 시에만 빠른 클리어를 위해 CategoryMatrix 유지 (필터 active 표시). 기본 matrix view 일 때는 hide. */}
       {category !== 'all' && (
@@ -398,7 +400,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           ctaLabel="도서 보러 가기"
         />
       ) : isGrouped ? (
-        <div className="flex flex-col gap-6">
+        <div className="tines-vocab-group flex flex-col gap-6">
           {/* 개인 맞춤 추천 — 진단 엔진(recommend_word_sets_for_user) 결과·티어·사유. 미진단/추천없음이면 진단 유도 */}
           {recFeatured.length >= 1 ? (
             <FeaturedRow

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "measuredAt": "2026-10-03",
+  "viewport": { "width": 1440, "height": 900, "deviceScaleFactor": 1 },
+  "references": {
+    "library": {
+      "url": "https://www.tines.com/library/",
+      "hero": { "x": 400, "width": 1000, "height": 411, "radius": 24 },
+      "contentInset": 60,
+      "heading": { "size": 44, "lineHeight": 44.88, "font": "Roobert" },
+      "sidebarVisible": { "x": 40, "width": 288 },
+      "backgroundComputed": "color(display-p3 0.4583 0.3429 0.848)",
+      "backgroundSrgbScreenshot": "#7855e3"
+    },
+    "university": {
+      "url": "https://www.tines.com/university/",
+      "frame": { "x": 40, "width": 1360, "height": 361.78125 },
+      "heading": { "size": 64, "lineHeight": 64, "font": "Reckless" },
+      "grid": 24
+    }
+  },
+  "adaptations": [
+    "상용 Roobert/Reckless 대신 기존 Figtree/Petrona 및 한국어 Pretendard/Hahmlet을 사용한다.",
+    "단어장 기존 구역 내비를 보존해 참조보다 세로 위치가 낮다. 학령 사다리·구독 수치는 PC 왼쪽 레일에 옮긴다. x/width/height/radius/제목 크기를 대조하며 y 일치를 주장하지 않는다.",
+    "교재 표지는 콘텐츠로 보존하고 카드 제목을 미디어 위에 배치한다. 맞춤 추천은 PC에서 분류 목록 다음에 배치하며 모바일 순서는 유지한다.",
+    "University 후기 띠를 실제 받아쓰기 통계로 바꾼다. 관리자 헤더는 작업 밀도를 고려해 최소 244px로 축소한다.",
+    "모바일 웹/앱은 변경 및 디자인 검증 대상에서 제외한다."
+  ]
+}

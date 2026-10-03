@@ -37,7 +37,7 @@ export function ModuleHero({ eyebrow, title, note, tagline, quiet = false, icon:
   const subText = note ?? tagline
   const art = HERO_ART[title] ?? Object.entries(HERO_ART).find(([key]) => eyebrow.startsWith(key))?.[1]
   return (
-    <section aria-label={title} className={`${quiet && !art ? 'bg-[var(--bg2)]' : `tone-${art?.tone ?? 'lavender'} dots`} relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] p-5 text-[var(--t1)] sm:p-8`}>
+    <section aria-label={title} className={`${eyebrow.startsWith('Dictation') ? 'tines-university-hero' : ''} ${quiet && !art ? 'bg-[var(--bg2)]' : `tone-${art?.tone ?? 'lavender'} dots`} relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] p-5 text-[var(--t1)] sm:p-8`}>
       <div className="relative flex flex-wrap items-start gap-5">
         {Icon && <span aria-hidden className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--r-lg)] border border-current bg-[var(--bg)]"><Icon size={24} strokeWidth={1.5} /></span>}
         <div className="min-w-0 flex-1">
