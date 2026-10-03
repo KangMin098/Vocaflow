@@ -801,3 +801,164 @@ erDiagram
 - 모든 신규 테이블은 응답 · 세션 FK `on delete cascade` — 학습자 기록 삭제가 유일한 삭제 경로다(§5-1 권한 원칙).
 - 합친 결과로 바뀌는 규칙: 잠금 판정 = 「그 응답이 `cancelled_at IS NULL` 이고 완료 전인 회차의 `targets` 에 있는가」(RPC 안에서 회차 행을 잠그고 확인). 판정자 독립성 = 회차 `reviewers` jsonb 의 `reviewer_key` 대조.
 - 다음 단계: 이 8 테이블로 마이그레이션 초안(SQL)을 써서 **승인 요청** — 적용은 승인 뒤.
+
+## 15. 물리 스키마 초안 (2026-10-03 — 미적용)
+
+> 파일: `supabase/migrations/_pending_csat_error_evidence.sql`(적용 안 됨 · `_pending_`) · 되돌리기 `_pending_csat_error_evidence.rollback.sql` · 검증 `scripts/csat/error-evidence/verify-schema.sql` · Choice Trap `docs/csat-learner/choice-traps/v0.1.json`(+ 스키마 테스트).
+> 이 절이 §5 · §14 의 테이블 구성을 대체한다(§5 의 SQL 은 논리 설계 기록으로 남긴다). 테이블 접두사 `csat_ec_`.
+
+### A. ERD
+
+```mermaid
+erDiagram
+  csat_dx_session ||--o{ csat_dx_response : "응답"
+  csat_dx_session ||--o{ csat_ec_session_confirmation : "학습자 확인(revision)"
+  csat_dx_response ||--o{ csat_ec_process_evidence : "과정 증거(supersede)"
+  csat_dx_response ||--o{ csat_ec_ai_run : "AI 실행"
+  csat_dx_response ||--o{ csat_ec_claim : "원인 claim(학생 범주 · AI)"
+  csat_ec_ai_run ||--o{ csat_ec_claim : "AI claim"
+  csat_ec_taxonomy_version ||--o{ csat_ec_code : "코드 정의"
+  csat_ec_code ||--o{ csat_ec_claim : "code"
+  csat_ec_code ||--o{ csat_ec_judgment : "primary_code"
+  csat_ec_review_round ||--o{ csat_ec_review_assignment : "배정 A · B · adjudicator"
+  csat_ec_review_assignment ||--o{ csat_ec_judgment : "(round, reviewer_key)"
+  csat_dx_response ||--o{ csat_ec_judgment : "응답"
+  csat_ec_claim ||--o{ csat_ec_judgment : "verify"
+```
+
+### B. 8 → 9 테이블 (배정 테이블 복원)
+
+`reviewers jsonb` 를 SQL 로 써 보니 지시한 6개 질문 중 셋이 약해졌다:
+- **임의 UUID 삽입**(질문 3): jsonb 안 UUID 에는 FK 를 못 건다 — 트리거로 존재 확인을 흉내 내야 한다.
+- **계정 삭제**(질문 4): FK `on delete set null` 이 jsonb 안으로 안 들어간다 — 지워진 계정이 명부에 유령으로 남는다.
+- **판정 행 무결성**: 판정의 `(round, reviewer_key)` 를 배정에 FK 로 묶을 수 없다 — 배정되지 않은 판정자의 판정 행이 가능해진다.
+
+그래서 `csat_ec_review_assignment` 를 복원했다: `(round_id, reviewer_key)` PK · `(round_id, slot)` 유일 · 판정이 이 쌍을 FK 로 참조 · `reviewer_id → auth.users on delete set null` + 계정과 무관한 `reviewer_key`. 테이블 수보다 도메인 무결성이 우선(사용자 지시 3).
+
+반대 방향 병합도 검토했다: 학생 범주 보고(claim)와 과정 증거의 `category` 는 비슷해 보이지만, 범주 보고는 「왜 틀렸다고 생각하나」(원인 가설 · 판정 대상)이고 과정 증거의 `category` 는 「어디가 가장 어려웠나」(풀이 중 관찰)라 별개 질문으로 둔다. 같은 화면에서 두 질문을 한꺼번에 받지 않도록 UX 에서 정한다(구현 전 결정).
+
+### C. 테이블별 필요성 · 분류
+
+| # | 테이블 | 분류 | 책임 | 따로 있는 이유 |
+|---|---|---|---|---|
+| 1 | `csat_ec_taxonomy_version` | workflow(draft→sealed) | 버전 · 봉인 · 정의 해시 | 봉인은 버전 단위 상태 |
+| 2 | `csat_ec_code` | versioned(봉인 뒤 불변) | code · label · definition · inclusion · exclusion · group · status | 판정 · claim 의 FK 대상(과거 의미 재현) |
+| 3 | `csat_ec_ai_run` | event | 모델 · 프롬프트 · 분석기 · rq · trap 대응표 버전 · 입력 해시 · 참조 · 출력 | 「원인 0개」 결과를 남길 곳 · 재현성 |
+| 4 | `csat_ec_claim` | event(정정은 supersede) | 학생 범주 보고 · AI 제안 | attempt 당 0..N · 출처별 권한 |
+| 5 | `csat_ec_review_round` | workflow | 상태 · 봉인 입력(taxonomy · rq · trap 대응표 · eligibility · targets · targets_hash) | blind 보장의 근거 상태 |
+| 6 | `csat_ec_review_assignment` | event(draft 에서만 추가 · 계정 삭제 NULL 만) | 회차 × 판정자 × 슬롯 | B 참고 |
+| 7 | `csat_ec_judgment` | event | blind · verify · adjudication | 최초 blind 보존 · 합의는 별도 행 |
+| 8 | `csat_ec_session_confirmation` | versioned(revision) | 학습자 「실제로 풀었다」 | 품질 상태와 별개 개념 · 학생 작성 |
+| 9 | `csat_ec_process_evidence` | event(정정은 supersede) | confidence · reason · blocked_span · category · note | attempt 당 여러 개 · 학생 작성 · 위치는 문장 참조 |
+
+**claim 은 학생 역량 상태가 아니다** — attempt 에 대한 가설만. V/S/R/E/L 을 바꾸는 트리거 · 함수는 없다(사용자 지시 6).
+
+**primary 무결성**(지시 7) — DB 로 보장: AI 실행당 primary 1(`csat_ec_claim_ai_primary`) · 실행 안 같은 code 중복 금지 · blind 판정은 응답 × 판정자당 1행 · `outcome ≠ code` 면 primary 금지(근거 부족에 primary 를 요구하지 않음) · primary 가 contributing 에 겹치지 않음. 서비스 검증 — 「확정 primary 최대 1」은 판정 집계(§9)의 결과라 행 제약이 아니라 집계 규칙으로 둔다.
+
+### D. RLS / 권한 표
+
+원칙: 9개 표 모두 `revoke all from public, anon, authenticated, service_role` + `FORCE ROW LEVEL SECURITY`. **service_role 은 RLS 를 우회하므로 GRANT 자체를 주지 않는다**(AI 파이프라인이 사람 판정을 읽지 못하게). 직접 DELETE · TRUNCATE · UPDATE 는 어떤 역할에도 없다. 판정자 · 관리자 · 파이프라인은 전부 `SECURITY DEFINER` RPC(`search_path=''`).
+
+| 테이블 | learner | reviewer(배정된 회차) | admin | service(AI) |
+|---|---|---|---|---|
+| taxonomy_version · code | SELECT | SELECT | SELECT · 봉인 RPC | — |
+| ai_run | — | — | — | INSERT(`ai_import` RPC) |
+| claim | 자기 student 행 SELECT · INSERT(RPC) | reveal 뒤 `reveal_view` | `reveal_view` | AI 행 INSERT(RPC) |
+| review_round | — | `blind_queue` · `reveal_view`(자기 배정만) | 생성 · 배정 · 시작 · 공개 · 진행 · 취소(RPC) | — |
+| review_assignment | — | (자기 배정 확인은 RPC 안에서) | 배정(RPC, draft 만) | — |
+| judgment | — | 자기 blind 제출 · reveal 뒤 전체(RPC) | `reveal_view` | **없음** |
+| session_confirmation | 자기 행 SELECT · INSERT(RPC, 해시는 서버 계산) | — | — | — |
+| process_evidence | 자기 행 SELECT · INSERT(RPC) | blind 큐에서 해당 대상만(범주 제외) | — | `ai_export` 로 범주 제외분만 |
+
+UPDATE 는 모두 거부 — 예외: 회차 상태 · 시각 컬럼(앞으로만), 계정 삭제에 따른 `reviewer_id` · `created_by` NULL 전환, draft taxonomy 의 봉인.
+
+### E. blind review 수명주기
+
+`draft` → `blind_review` → `reveal` → `adjudication` → `closed` (어디서든 `cancelled`)
+
+| 단계 | 들어가는 조건 | 할 수 있는 것 | 못 하는 것 |
+|---|---|---|---|
+| draft | 관리자 생성 — 봉인된 taxonomy 만 | 배정 추가 · 대상 수정 | 판정 |
+| blind_review | `round_start_blind`: A · B 배정 · 대상 존재(세션 행 FOR SHARE) · `targets_hash` 기록 | 배정자 blind 제출 · blind 큐 조회(AI · 범주 보고 · 타인 판정 없음) | 입력 변경(트리거) · 배정 추가 · verify · AI 조회 |
+| reveal | `round_reveal`: 회차 FOR UPDATE → 모든 대상 × A · B blind 존재 확인 | `reveal_view`(두 판정 · AI · 범주 보고) · verify | blind 제출 |
+| adjudication | 관리자 진행 | adjudicator 의 합의 판정(별도 행) | 최초 판정 수정 |
+| closed / cancelled | 관리자 · 대상 응답 삭제 시 자동 취소 | 조회 | 모든 쓰기 |
+
+경쟁 조건: 제출은 회차 `FOR SHARE`, 공개는 `FOR UPDATE` — 공개가 진행 중인 제출을 기다리고, 공개가 먼저 끝나면 뒤의 제출은 상태 검사에서 거부된다. 공개 전에 AI · 타인 판정이 나가는 경로는 `reveal_view` 하나뿐이고 그 함수가 상태를 검사한다(UI 숨김에 의존하지 않음).
+
+### F. taxonomy 불변성
+
+- 버전 행: `draft → sealed` 한 번(트리거). 봉인 때 그 버전 코드 행 전체(정의 · 포함 · 제외 기준 포함)를 서버가 해시해 `definitions_hash` 에 둔다.
+- 코드 행: 봉인된 버전이면 INSERT · UPDATE · DELETE 모두 거부(부모 버전 행 `FOR UPDATE` 로 봉인과 직렬화).
+- 의미가 바뀌면 rename 하지 않고 새 버전에 새 code 를 둔다 — 과거 판정은 자기 버전의 정의를 `(version, code)` 복합 FK(`on delete restrict`)로 계속 가리킨다.
+- 판정 · claim · AI 실행 · 회차는 봉인된 버전으로만 만든다(RPC 검사).
+
+### G. rq-1 재현성
+
+품질 판정은 저장하지 않고 원 응답에서 매번 계산한다(그대로). 대신 검수 회차가 blind 를 시작할 때 봉인한다: `quality_rule_version`(rq-1) · `taxonomy_version` · `choice_trap_map`(`v0.1:<sha256>`) · `eligibility` · `targets`(대상마다 `quality: {status, signals}` 스냅샷 · `input_hash` · `ai_run_id` · `claim_ids`) · `targets_hash` · `blind_started_at`.
+blind 시작 뒤 이 컬럼들은 트리거로 바뀌지 않는다 — rq-2 가 나와도 시작한 회차의 대상은 그대로다. AI 실행도 `quality_rule_version` · `choice_trap_map` 을 함께 남긴다.
+
+### H. 마이그레이션 SQL 파일
+
+| 파일 | 내용 | 상태 |
+|---|---|---|
+| `supabase/migrations/_pending_csat_error_evidence.sql` | 9 테이블 · 인덱스 16 · FK · CHECK · 트리거 15 · 정책 5 · 함수 35 · 권한 | 미적용. PostgreSQL 파서(libpg-query 16)로 103문 파싱 통과. **plpgsql 함수 본문은 아직 실행 검증 전**(이 환경에 plpgsql 파서 없음 — 격리 브랜치에서) |
+| `supabase/migrations/_pending_csat_error_evidence.rollback.sql` | 비어 있을 때만 되돌림(행이 있으면 중단 — DROP 데이터 손실은 사용자 확인) | 미적용 |
+| `scripts/csat/error-evidence/verify-schema.sql` | PRE 4 · POST 8 검증(초기 행 0 포함) | 읽기 전용 |
+| `docs/csat-learner/choice-traps/v0.1.json` + `choice-traps-artifact.test.ts` | Choice Trap 9코드 · 31 key 대응 · 스키마 · 봉인 해시 고정 | 테스트 통과 |
+
+### 테스트 계획(승인 뒤 격리 Supabase 브랜치에서 — 운영 DB 아님)
+
+1. 브랜치에 적용 → `verify-schema.sql` POST 전부 기대값(초기 행 0 · 권한 · FORCE RLS · search_path).
+2. 불변성: 각 event 표 UPDATE 거부 · 직접 DELETE 권한 거부 · 봉인 taxonomy 코드 수정 거부 · blind 뒤 targets 수정 거부.
+3. blind 시나리오(사용자 지시 11): A 제출 전 · A 제출 후 B 미제출 → `reveal_view` 거부 · `blind_queue` 에 AI · 범주 보고 · B 판정 없음 / 둘 다 제출 → reveal 가능 / reveal 뒤 비교 가능 / adjudication 행 추가 뒤 최초 A · B 행 그대로.
+4. 경쟁: 두 연결로 「A 제출」과 「reveal」 동시 실행 → 결과가 둘 중 하나로 일관(공개 뒤 blind 행 없음).
+5. RLS: 학습자 X 가 학습자 Y 의 confirmation · process_evidence · claim 조회 → 0행 / 배정 안 된 사용자 `blind_queue` → 거부 / service_role 의 `select from csat_ec_judgment` → 권한 거부.
+6. 삭제 경계: 학습자 세션 삭제 → 그 응답의 ai_run · claim · judgment · process_evidence · confirmation 삭제, **회차 · 배정 · taxonomy · 다른 학생 행은 그대로**, 그 응답이 대상인 열린 회차는 `cancelled`.
+7. 계정 삭제: 판정자 계정 삭제 → 배정 `reviewer_id` NULL · 판정 행 그대로 / 회차 생성자 삭제 → `created_by` NULL(닫힌 회차여도).
+8. 입력 무결성: AI import 에 primary 0 · 2 → 거부 / 원인 없는 실행에 claim → 거부 / B · X 코드 → 거부 / 봉인 안 된 taxonomy → 거부 / 원문에 없는 인용 → 거부 / 같은 입력 · 판정기 재시도 → 같은 id.
+10. rq-1 동치: 같은 응답 fixture 들로 SQL `csat_ec_record_quality_rq1` 과 TS `recordQuality` 결과가 같다(전부 ② · 전부 ③ · 90% · 연속 15 · 20문항 미만).
+11. Pilot 적격 · 표본: 학습자 2명 · 오답 29 · 대조 9 · 중복 대상 · 진단 테스트 기록 · body_ok 거짓 문항 · 정답 변경 → 각각 시작 거부.
+12. 교착: 「blind 시작」과 「대상 세션 삭제」, 「blind 제출」과 「대상 세션 삭제」를 동시에 — 교착 없이 한쪽이 끝나고 다른 쪽이 일관된 오류.
+9. 앱 회귀: `pnpm turbo run lint typecheck test` + 지도 · 시험 기록 화면(새 표를 읽지 않으므로 변화 없음).
+
+### Pilot 적격 조건(DB 가 강제 — `csat_ec_pilot_eligible`)
+
+회차 시작 · AI export · AI 적재 모두 같은 함수로 검사한다:
+1. 기록 품질 rq-1 = trusted(SQL 구현 `csat_ec_record_quality_rq1` — TS `recordQuality` 와 같은 규칙, 동치 테스트는 브랜치에서)
+2. 시험 1회분(`live` · `retake`) — 진단 테스트 · 앱 기록 제외
+3. 학습자 최신 확인 = 응시 · 선지별 판단, 확인 당시 답안 해시 = 지금 답안
+4. 실제로 고른 답 · 원문 있는 문항(`stem` · `choices` · `body_ok`) — 듣기 · 무응답 · 본문 불완전 제외
+5. 저장된 정오 = 지금 유효 정답으로 매긴 정오(정답이 바뀌었으면 보류)
+6. 유효 과정 증거: 「고른 이유」 10자 이상 + (오답이면) 막힌 곳 표시 1개 이상(문자 범위 필수 · 원문 범위 안)
+
+회차 표본 구성은 **DB 상수**: 학습자 3명 이상 · 오답 30~50 · 정답 대조 10~20 · 대상 중복 없음. `eligibility` 로 낮출 수 없다(바꾸려면 별도 승인 + 함수 개정).
+
+### 잠금 규약
+
+모든 경로에서 **세션 → (응답 단위 advisory) → 회차** 순서로 잠근다 — 기록 삭제(세션 삭제 → 응답 삭제 트리거 → 회차 갱신)와 같은 순서라 교착이 없다.
+- 응답 단위 배타 advisory 잠금 `csat_ec_resp|세션|번호`: 과정 증거 작성 · 학생 보고 · AI 적재가 공유 — 잠금을 잡은 뒤 해시를 다시 검사한다.
+- 판정자 × 문항 advisory 잠금: blind 제출 · 다른 회차 공개가 공유 — 독립성(`independent`) 판정이 원자적이다.
+- 회차 행: blind 제출 · verify · 합의는 `FOR SHARE`, 공개 · 진행은 `FOR UPDATE`.
+
+### I. Codex 리뷰 결과(SQL 대상, 2026-10-03)
+
+7회 반복. 회차마다 나온 P1 을 고치고 다시 돌렸다. **마지막 회차: P0 0 · P1 0**.
+
+해소한 P1(주요): 전부 ② · ③ 기록이 Pilot 에 들어갈 수 있음(rq-1 을 SQL 로 구현해 강제) · draft 회차 자동 취소가 CHECK 에 걸려 기록 삭제 실패 · 학습자 확인 · 과정 증거 없는 응답 적격 · 판정 입력 해시에 과정 증거 · 선지 함정 누락 · AI 실행의 입력 해시 · 버전 대조 누락 · 봉인 뒤 입력 변경 · 확인 철회 미감지 · 「세션 → 회차」 역순 잠금으로 교착 · CHECK 가 NULL 로 통과 · eligibility 로 승인 규모를 낮출 수 있음 · 대상 중복 · 공개 RPC 의 advisory 잠금 정렬 실행 오류 · 판정자 큐와 해시의 정답 출처 불일치 · 학생 보고가 작성 당시 입력에 묶이지 않음.
+
+**남은 P2(알려진 한계 — 다음 단계에서 다룬다)**
+1. AI 실행은 입력 참조 + 해시만 저장한다 — 원문 · 정답이 바뀐 뒤 과거 입력 전문 복원은 문항 원문 변경 이력에 의존한다. 필요하면 실행별 비공개 입력 스냅샷 컬럼을 더한다.
+2. 응답 · 문항 · 정답표의 **직접 UPDATE** 는 이 잠금 규약 밖이다 — 해시 재검사(제출 · 공개 · 종료 때)로 감지하고 회차를 취소하는 사후 방식이다.
+3. `choice_trap_map`(`v0.1:<sha256>`)은 문자열로 받는다 — 저장소 파일 해시와의 대조 · 대상 선지 대응 완결성 검사는 회차 생성 스크립트(앱 쪽)에서 한다.
+4. adjudicator 가 원 응답 · 과정 증거를 보는 전용 조회가 없다(지금은 reveal_view 의 판정 · claim 만).
+5. targets 의 `quality.signals` 스냅샷은 회차 생성 스크립트가 넣는다 — DB 는 status(rq-1 = trusted)만 다시 계산해 강제한다.
+6. AI `input_refs` 는 감사용 참조라 서버 입력과의 완전 대조를 하지 않는다(판정 입력 해시는 서버 계산값과 대조한다).
+
+### J. 적용 시 예상 DB 변화
+
+- 새 테이블 9 · 새 함수 35(학습자 · 판정자 · 관리자 · AI RPC 와 계산 함수 25 · 트리거 함수 10) · 새 트리거 15 · 새 정책 5 · 새 인덱스 16(PK · 유일 제약 인덱스 제외).
+- **기존 테이블 변경: `csat_dx_response` 에 BEFORE DELETE 트리거 1개**(대상 응답이 지워지면 열린 회차 취소). 컬럼 · 데이터 변경 없음 · 기존 행 0 영향.
+- 기존 표에 대한 잠금: 학습자 증거 작성 · 판정 제출이 `csat_dx_session` 행을 `FOR SHARE` 로, blind 시작이 대상 세션을 `FOR UPDATE` 로 잠근다(짧은 트랜잭션). 기존 기록 저장 · 삭제 흐름은 바뀌지 않는다.
+- 초기 행 전부 0. taxonomy v0.1 시드(버전 1 · 코드 20)는 **별도 마이그레이션**으로, 코드별 정의 · 포함 · 제외 기준 문장을 확정한 뒤.
+- 앱 코드 변경 없음(아직 아무도 새 표를 읽거나 쓰지 않는다).
