@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat): 오답 원인 코드북 v0.1 candidate(미승인 · 시드 없음) — 20코드 초안을 공식 근거 · 기출 사례 은행 101건(평가원 68) · blind dry run 2회로 재검토해 19코드(폐기 3 · 신규 2), 증거 충분성 A0–A3, 판정 결과 4종, decision flow + 적용 규칙 R1–R11. 듣기는 v0.2 로 분리. 모델 판정자 일치(family 96% · primary 93%)는 사람 일치도가 아니다. `docs/csat-learner/codebook/`
+
 - feat(csat): 오답 원인 Evidence 마이그레이션 `20261003230000_csat_error_evidence` **개발 Supabase DB 적용**(PostgreSQL 17.6, 사용자 승인) — 표 9 · 함수 40 · 트리거 15 · 정책 5, 기존 세션 2 · 응답 90 불변, Security Advisor 해당 25건 모두 의도 · ERROR 0. 실제 PostgREST · Auth smoke 142/142(`scripts/csat/error-evidence/dev-smoke/`): 무권한 노출 · RPC 우회 · 교차 접근 · blind 노출 0, 기존 진단 화면 회귀 0. taxonomy 시드 · Pilot 없음. 운영 환경 아님
 
 - feat(csat): 학습 지도 정보 구조 재편 — 첫 화면 72노드 → 핵심 6카드(V/S/R/E/L + X, 규칙 기반 proxy · 정밀 진단 미실시 표기 · A7 데이터 없음 · 진단 처방 · Route 미정), 54라인 지도는 `?view=full` 상세(3열, P/T 는 팝업 근거 탭). 「달성」 라벨 제거. DB 변경 없음.

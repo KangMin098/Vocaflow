@@ -1,0 +1,676 @@
+{
+ "cases": [
+  {
+   "case_id": "C1-03",
+   "item_id": "H2203G1#36",
+   "exam": "2022년 3월 고1 학력평가",
+   "type": "R-ORDER",
+   "chosen_option": 2,
+   "confidence": "sure",
+   "reason": "(B)에서 시골 건축가들 얘기가 나오니까 (A)의 they가 그 건축가들이고 그들이 사람들 필요를 채웠다고 이어진다고 봤어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "But they supplied people’s needs perfectly"
+   },
+   "interpretation": "하지만 그들(시골 건축가들)은 사람들의 필요를 완벽하게 충족시켰다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(A)의 they는 (C)에서 묘사된 소박한 집들(plain wooden floors, whitewashed walls)을 가리키고 But은 그 소박함과 대조하는 연결인데, 학생은 they를 (B)의 ordinary country builders로 잘못 연결해 (B) 바로 뒤에 (A)를 놓았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-16",
+   "item_id": "2026#40",
+   "exam": "2026학년도 수능",
+   "type": "R-SUMMARY",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "공연 예술이 경제적으로 불안정해진다고 했으니까 관객도 잃는다고 봤어요. (A)는 확실히 uncertainty 맞잖아요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "they retain their power of fascination"
+   },
+   "interpretation": "그럼에도 불구하고 그들은 매력의 힘을 잃는다",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "(A)는 맞게 잡았지만, However 뒤 'retain their power of fascination'의 retain을 '잃다'로 잘못 이해해 역접 이후의 핵심(관객을 여전히 확보한다)을 반대로 받아들였다. 그 결과 (B)에 lose를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-17",
+   "item_id": "2026#40",
+   "exam": "2026학년도 수능",
+   "type": "R-SUMMARY",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "economically stable이라고 본 것 같아요. 그래서 (A)는 stability, (B)는 관객에게 닿는다니까 reach가 자연스러웠어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "the performing arts become economically unstable"
+   },
+   "interpretation": "공연 예술은 경제적으로 안정된다",
+   "self_category": "time",
+   "context": "앞 문항들에서 시간을 많이 써 이 문항에 50초",
+   "true_mechanism": "서두르면서 unstable의 un-을 놓쳐 '경제적으로 안정된다'로 읽었다. 이어서 요약문의 'due to reliance on external funding'(외부 자금 의존 때문에)과 stability가 모순된다는 점을 확인하지 않고 ④를 골랐다.",
+   "chain": [
+    "unstable을 stable로 잘못 읽음",
+    "요약문의 외부 자금 의존이라는 원인과 (A)가 맞는지 대조하지 않고 선택함"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C2-01",
+   "item_id": "H2403G1#20",
+   "exam": "2024년 3월 고1 학력평가",
+   "type": "R-CLAIM",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "처음부터 마법 얘기를 계속하고 신데렐라도 나와서 마법이 핵심인 줄 알았어요. 자신감도 나오니까 4번이 딱 맞았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "in real life, you can also create magic"
+   },
+   "interpretation": "현실에서도 너는 마술을 만들어 낼 수 있다(마술을 할 수 있다)",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "create magic 을 '변화를 일으키다'라는 비유로 읽지 못하고 실제 마술로 문자 그대로 해석했다. 그 결과 Here's the trick 이후 '도전을 긍정 진술로 바꿔 쓰라'는 실제 주장부를 도입부 비유의 설명으로 연결하지 못하고 표면 단어(magic, confidence)가 겹치는 선택지를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-08",
+   "item_id": "H2207G3#35",
+   "exam": "2022년 7월 고3 학력평가",
+   "type": "R-IRRELEVANT",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "글이 계속 석탄이랑 전기 얘기하다가 갑자기 태양광, 풍력이 나와요. 신재생 에너지는 환경 얘기니까 따로 노는 것 같았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 5,
+    "quote": "Solar and wind technologies have an advantage"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "태양광·풍력은 친환경 주제라는 배경지식으로 새 소재 등장을 곧 무관한 문장으로 판단했다. ⑤가 '고가치 전기를 직접 생산한다'로 ④의 에너지 가치 사다리를 이어받는다는 연결을 확인하지 않았고, 석탄 소재를 공유하지만 탄소섬유·농촌 활성화로 주제가 벗어난 ③을 놓쳤다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-09",
+   "item_id": "2024#31",
+   "exam": "2024학년도 수능",
+   "type": "R-BLANK",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "지문에 interpretation 이 나왔고 읽기가 더 복잡한 해석이라고 해서 해석이 들어간 4번을 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "reading becomes a more complicated kind of interpretation"
+   },
+   "interpretation": "읽기는 더 복잡한 종류의 해석이 된다 → 읽기는 주관적 해석이다",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "빈칸 문장이 'Reading is not simply ___'(읽기는 단순히 ~이 아니다)라는 부정 구조라는 것을 고려하지 않고, 지문의 interpretation 과 같은 단어가 든 선택지를 골랐다. 빈칸에는 지문이 부정하는 좁은 읽기 개념(글자 인식)이 들어가야 하는데 지문이 긍정하는 쪽을 넣었다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-11",
+   "item_id": "2024#29",
+   "exam": "2024학년도 수능",
+   "type": "R-GRAMMAR",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "will orient 가 동사니까 뒤에도 동사가 와야 하는 줄 알았어요. seeming 말고 seem 이나 seemed 가 맞는 것 같아서요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "infants will orient preferentially towards the human face and voice"
+   },
+   "interpretation": "아기들은 사람 얼굴과 목소리 쪽으로 향하고, 그것이 의미 있다는 걸 아는 것 같다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "쉼표 뒤 seeming 이 주절에 붙은 분사구문이라는 것을 보지 못하고, and 없이 두 번째 동사가 이어지는 병렬로 착각해 문장 경계를 잘못 나눴다. 정작 전치사 with 가 빠진 ② which they have some difficulty 는 관계절이 완전한지 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-16",
+   "item_id": "M2409#36",
+   "exam": "2024학년도 9월 모의평가",
+   "type": "R-ORDER",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "주어진 글 끝에 stereotype 이 나와서 그걸 설명하는 (A)가 먼저 오는 게 자연스러웠어요. 그 다음은 그냥 흐름상 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "that is the basis for stereotyping"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "주어진 글 끝 stereotype 과 (A)의 stereotyping 의 단어 연결만으로 (A)를 먼저 둔 것일 수도 있고, (C)의 the word stereotype 이 단어를 처음 소개하는 문장이라는 점을 놓친 것일 수도 있다. 학생 설명으로는 둘 중 어느 쪽이 주된 원인인지 가리기 어렵다.",
+   "chain": null,
+   "evidence_design": "ambiguous"
+  },
+  {
+   "case_id": "C3-01",
+   "item_id": "H2209G1#26",
+   "exam": "2022년 9월 고1 학력평가",
+   "type": "R-FACT",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "첫 줄에 historical fiction 나와서 1번 맞는 내용이네 하고 바로 골랐어요.",
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "choice",
+   "context": "남은 시간 2분에 마지막으로 풀었음, 이 문항에 25초",
+   "true_mechanism": "발문의 '일치하지 않는 것'을 '일치하는 것'으로 잘못 읽었다. 1번이 첫 문장과 맞는다는 것은 정확히 확인했으나, 시간에 쫓겨 발문의 부정 조건을 놓쳐 일치하는 선택지를 답으로 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-08",
+   "item_id": "H2410G3#37",
+   "exam": "2024년 10월 고3 학력평가",
+   "type": "R-ORDER",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "주어진 글이 아는 느낌이고 (A)가 Other epistemic feelings니까 바로 다음이 A라고 생각했어요. 다른 느낌이 나오니까요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "Other epistemic feelings alert our attention"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(A)의 Other가 앞의 '아는 느낌'에 대한 설명이 다 끝난 뒤에 와야 한다는 점을 보지 못하고, 주어진 글 바로 뒤에 붙였다. (C)의 1666 예시와 'not unfailing'이 주어진 글의 feeling of certainty를 이어 설명한다는 문장 간 연결을 놓쳤다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-15",
+   "item_id": "2024#37",
+   "exam": "2024학년도 수능",
+   "type": "R-ORDER",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "C에서 Others may conform이 나오고 B에서 some others가 나오니까 C 다음 B라고 봤어요. A는 마지막에 정리하는 느낌이었고요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "But some others will not need to have"
+   },
+   "interpretation": "그러나 다른 사람들은 행동을 규정받을 필요가 없다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(B)의 But some others가 (A)의 마지막 'This will cause some to conform'과 대조된다는 관계를 보지 못하고, (C)의 Others라는 단어 반복만 보고 연결했다. (C) 마지막 문장의 '남들도 따라야 한다고 생각함'이 (A)의 Thus, she may prescribe로 이어지는 인과 연결도 놓쳤다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-17",
+   "item_id": "M2309#23",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-TOPIC",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "trialability가 따옴표까지 쳐서 여러 번 나오니까 이게 중요하다는 글 같았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "turns out to be a real problem"
+   },
+   "interpretation": "trialability라는 기준이 진짜 중요한 문제로 드러난다",
+   "self_category": "unsure",
+   "context": null,
+   "true_mechanism": "trialability라는 반복 어휘에 끌린 것인지, But 이후 'real problem'을 '중요한 사안'으로 잘못 읽어 기준의 한계라는 방향을 놓친 것인지 증거만으로는 비슷하게 갈린다. 실제로는 problem을 중요성으로 해석해 글의 부정적 방향을 뒤집었다.",
+   "chain": null,
+   "evidence_design": "ambiguous"
+  }
+ ],
+ "expected": {
+  "C1-03": {
+   "outcome": "identified",
+   "primary": "R.reference"
+  },
+  "C1-16": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [
+    "V.unknown_word"
+   ]
+  },
+  "C1-17": {
+   "outcome": "identified",
+   "primary": "X.attention",
+   "accept": [
+    "V.wrong_sense"
+   ],
+   "contributing": [
+    "B.no_verification"
+   ]
+  },
+  "C2-01": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "contributing": [
+    "B.surface_match"
+   ]
+  },
+  "C2-08": {
+   "outcome": "identified",
+   "primary": "B.outside_knowledge",
+   "accept": [
+    "R.relation"
+   ]
+  },
+  "C2-09": {
+   "outcome": "identified",
+   "primary": "S.operator_scope",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "accept": [
+    "B.surface_match"
+   ]
+  },
+  "C2-11": {
+   "outcome": "identified",
+   "primary": "S.core_structure"
+  },
+  "C2-16": {
+   "outcome": "multiple_plausible",
+   "candidates": [
+    "B.surface_match",
+    "R.relation"
+   ]
+  },
+  "C3-01": {
+   "outcome": "identified",
+   "primary": "X.attention",
+   "accept": [
+    "E.task_misread"
+   ]
+  },
+  "C3-08": {
+   "outcome": "identified",
+   "primary": "R.relation"
+  },
+  "C3-15": {
+   "outcome": "identified",
+   "primary": "R.relation",
+   "contributing": [
+    "B.surface_match"
+   ]
+  },
+  "C3-17": {
+   "outcome": "multiple_plausible",
+   "candidates": [
+    "B.surface_match",
+    "V.wrong_sense"
+   ]
+  }
+ },
+ "reviewerA": [
+  {
+   "case_id": "C1-03",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rule_used": "R7",
+   "rationale": "(A)의 they 를 (B)의 시골 건축가들로 연결했다는 이유·해석이 명확 — 지시 대상 추적 실패.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-16",
+   "adequacy": "A3",
+   "outcome": "multiple_plausible",
+   "family": "V",
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "V.wrong_sense",
+    "R.relation"
+   ],
+   "flow_stop": "Q4",
+   "rule_used": "R9",
+   "rationale": "retain 을 \"잃는다\"로 확정 오역했고(V), 동시에 \"불안정하니 관객도 잃는다\"고 nevertheless 앞뒤를 같은 방향으로 이었다(R) — 둘 다 최소 증거 있음.",
+   "codebook_difficulty": "이전 문맥으로 낱말 뜻을 덮어쓴 경우(하향식 오독) V 와 R 중 어느 단계가 먼저인지 Q4→Q5 순서만으로 결정 안 됨"
+  },
+  {
+   "case_id": "C1-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.attention",
+   "contributing": [
+    "X.time"
+   ],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rule_used": "R2",
+   "rationale": "\"economically stable 이라고 본 것 같다\"는 진술과 해석이 un- 를 놓친 것을 보여 줌 — 읽었는데 잘못 봄(R2). 50초 기록은 contributing time.",
+   "codebook_difficulty": "un- 누락을 V(낱말 뜻)/S.operator_scope 로 볼지 X.attention 으로 볼지 — \"다시 보고 알아챘다\" 진술 없이 R2 를 쓸 수 있는지 불명"
+  },
+  {
+   "case_id": "C2-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [
+    "R.main_point"
+   ],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rule_used": "R6",
+   "rationale": "\"create magic\"을 실제 마술로 문자 그대로 읽었고(R6) 그 결과 마법·신데렐라 예시를 핵심으로 잡았다.",
+   "codebook_difficulty": "예시를 주장으로 착각(main_point)과 비유를 문자 그대로 읽음(inference)이 함께 있을 때 어느 쪽이 \"더 이른\" 실패인지 규정 없음"
+  },
+  {
+   "case_id": "C2-08",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": "B",
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "B.outside_knowledge",
+    "R.relation"
+   ],
+   "flow_stop": "Q5",
+   "rule_used": "R9",
+   "rationale": "신재생은 환경 얘기라는 글 밖 범주 판단과 화제 전환을 흐름 이탈로 본 관계 판단이 모두 이유에 드러나 하나로 가를 수 없다.",
+   "codebook_difficulty": "무관 문장에서 화제 표면 변화로 판단한 것이 R.relation 인지 B 인지 기준이 없음"
+  },
+  {
+   "case_id": "C2-09",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rule_used": "R5",
+   "rationale": "문장 해석은 맞으나 \"복잡한 해석\"을 \"주관적 해석\"으로 지나치게 추론했고, interpretation 낱말 겹침이 선택을 거들었다.",
+   "codebook_difficulty": "이유는 낱말 겹침(B)인데 해석은 과잉 추론(R) — Q5 가 Q7 보다 앞서므로 R 로 했으나 B 정의의 \"주된 근거\" 조건과 충돌"
+  },
+  {
+   "case_id": "C2-11",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rule_used": "R8",
+   "rationale": "\"will orient 가 동사니까 뒤에도 동사\"라는 틀린 구조 진술 — 분사구문을 병렬 동사로 봄(R8 core).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-16",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": "R",
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "R.relation",
+    "B.surface_match"
+   ],
+   "flow_stop": "Q5",
+   "rule_used": "R9",
+   "rationale": "stereotype 반복을 근거로 (A)가 \"설명\"한다고 이었다 — 관계 진술과 내용어 반복이 함께 있고 나머지는 \"그냥 흐름상\"이라 하나로 못 가른다.",
+   "codebook_difficulty": "내용어 반복 + 관계 진술이 섞일 때 R5 가 내용어 쪽을 B 로 보내는지 관계 진술을 우선하는지 불명"
+  },
+  {
+   "case_id": "C3-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rule_used": "R1",
+   "rationale": "남은 2분·25초 기록과 \"첫 줄만 보고 바로\" 진술로 읽기·대조를 건너뜀(R1 기록 충족). historical fiction 겹침이 보조.",
+   "codebook_difficulty": "\"시간 때문에\"라는 명시 진술 없이 기록만으로 X.time primary 를 허용하는 R1 의 \"읽기 불가능할 만큼 짧음\" 기준이 수치로 없음"
+  },
+  {
+   "case_id": "C3-08",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rule_used": "R5",
+   "rationale": "\"Other epistemic feelings\"의 Other 를 바로 앞 연결 단서로 써서 (A)를 붙였다 — 지시·연결 표현 단서 오용(R5).",
+   "codebook_difficulty": "Other 가 지시(reference)인지 연결(relation)인지 — R5 가 둘을 묶어 primary 를 정해 주지 않음"
+  },
+  {
+   "case_id": "C3-15",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rule_used": "R5",
+   "rationale": "Others / some others 의 지시 대상을 이어 (C)-(B) 순서를 정했다 — 지시 표현 추적 실패.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rule_used": "R4",
+   "rationale": "\"turns out to be a real problem\"을 \"진짜 중요한 문제\"로 읽어 뜻이 바뀌었고, 따옴표·반복된 trialability 를 근거로 들었다.",
+   "codebook_difficulty": "H-05 와 같은 problem 극성 오독 — V.wrong_sense 로 둘지 R.main_point 로 둘지 경계 부재"
+  }
+ ],
+ "reviewerB": [
+  {
+   "case_id": "C1-03",
+   "adequacy": "A3",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rule_used": "R9",
+   "rationale": "학생이 말한 they=시골 건축가 연결은 맞다. 오답의 원인인 (C) 위치에 대한 증거가 없어 실패 단계를 말하지 않는다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-16",
+   "adequacy": "A3",
+   "outcome": "multiple_plausible",
+   "family": "V",
+   "primary": null,
+   "contributing": [
+    "R.relation"
+   ],
+   "candidates": [
+    "V.unknown_word",
+    "V.wrong_sense"
+   ],
+   "flow_stop": "Q4",
+   "rule_used": "R3",
+   "rationale": "retain 을 '잃는다'로 해석해 lose 를 골랐고 However 대조도 놓쳤다. 몰라서 흐름으로 채웠는지 다르게 알았는지 구별할 수 없다.",
+   "codebook_difficulty": "해석이 반대 뜻일 때 추측인지 확정된 다른 뜻인지 가르는 증거 기준이 부족하다."
+  },
+  {
+   "case_id": "C1-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.attention",
+   "contributing": [
+    "X.time"
+   ],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rule_used": "R2",
+   "rationale": "unstable 을 stable 로 봤다는 진술, '안정된다' 해석, 50초 기록이 함께 있다. 읽었는데 잘못 봤으므로 attention, 서두름은 time 이다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [
+    "R.main_point"
+   ],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rule_used": "R6",
+   "rationale": "'create magic'을 실제 마술로 문자 그대로 읽었고(R6), 마법이 핵심인 글로 중심을 잡아 ④를 골랐다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-08",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.outside_knowledge",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rule_used": null,
+   "rationale": "'신재생 에너지는 환경 얘기니까 따로 논다'는 글 밖 범주 지식으로 판단했다. 해석이 없어 글 이해 실패 증거는 없다.",
+   "codebook_difficulty": "표면 화제 전환 판단과 상식 개입이 섞여 B.outside_knowledge 와 B.surface_match 경계가 흐리다."
+  },
+  {
+   "case_id": "C2-09",
+   "adequacy": "A3",
+   "outcome": "multiple_plausible",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "B.surface_match",
+    "R.inference"
+   ],
+   "flow_stop": "Q5",
+   "rule_used": "R3",
+   "rationale": "이유는 interpretation 낱말 겹침인데 해석은 '복잡한 해석→주관적 해석'으로 글에서 뜻을 확장했다. 두 경로 모두 최소 증거가 있다.",
+   "codebook_difficulty": "같은 낱말 근거와 의미 확장 해석이 함께 있을 때 R3(이른 단계 우선)를 B 와 R 사이에 적용할지 불분명하다."
+  },
+  {
+   "case_id": "C2-11",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rule_used": "R8",
+   "rationale": "'will orient 가 동사니까 뒤에도 동사'라는 구조 진술이 틀렸다. 분사구문 자리를 정동사 자리로 봤다(R8).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-16",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.surface_match",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rule_used": "R5",
+   "rationale": "주어진 글 끝의 stereotype 이 (A)에 다시 나온다는 내용어 반복으로 (A)를 앞에 두었고 나머지는 '그냥 흐름상'이었다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-01",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "E",
+   "primary": "E.task_misread",
+   "contributing": [
+    "X.time"
+   ],
+   "candidates": [],
+   "flow_stop": "Q3",
+   "rule_used": "R1",
+   "rationale": "불일치 문항에서 '맞는 내용이네' 하고 ①을 골랐다. 시간 기록(2분, 25초)은 있으나 시간 때문이라는 진술이 없어 contributing 이다(R1).",
+   "codebook_difficulty": "다시 보고 알아챈 진술이 없어 task_misread 기본값을 썼지만 시간 기록과 함께면 X.attention 가능성이 남는다."
+  },
+  {
+   "case_id": "C3-08",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rule_used": "R5",
+   "rationale": "Other 를 '다른 느낌이 나오니까' 바로 다음이라는 단서로 썼고, (C) 예시가 주어진 글을 먼저 받아야 한다는 관계를 놓쳤다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-15",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [
+    "R.reference"
+   ],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rule_used": "R5",
+   "rationale": "Others/some others 단서로 C→B 를 잇고 (A)를 정리 문단으로 봐서, (A)의 Thus·them 이 (C)에 이어진다는 관계를 놓쳤다.",
+   "codebook_difficulty": "같은 단서가 지시 표현이자 연결 관계일 때 R.reference 와 R.relation 중 primary 를 R5 가 정하지 않는다."
+  },
+  {
+   "case_id": "C3-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rule_used": "R3",
+   "rationale": "'real problem'을 '진짜 중요한 문제'로 읽었고 이유는 trialability 반복이라는 표면 근거다. 이른 단계(V) 증거를 primary 로 했다.",
+   "codebook_difficulty": null
+  }
+ ]
+}

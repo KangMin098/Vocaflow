@@ -81,6 +81,8 @@ Student Attempt ──► Observed Response       (고른 선지 · 정오 · �
 
 ### 4-2. Learner Error Cause (학생 처리 실패) — 20개, 6 영역
 
+> **2026-10-04 갱신**: 이 20코드는 초안이다. 공식 근거 · 기출 사례 은행 · blind dry run 으로 다시 본 **v0.1 candidate(19코드, 미승인)** 는 [codebook/CODEBOOK.md](./codebook/CODEBOOK.md), 변화와 이유는 [codebook/REVIEW.md](./codebook/REVIEW.md).
+
 제안 목록(약 30개)을 아래 기준으로 줄였다: ① Choice Trap 과 같은 것을 다시 세지 않는다 ② 지금 데이터 · 자기보고로 구별할 수 없는 쌍은 합친다 ③ 역량 원인(V · S · R · E)은 핵심 축과 1:1, 행동 원인(B)은 지도 D(행동 진단), 실행 원인(X)은 핵심 지도 X(실전 실행)와 이어진다.
 
 코드 수: V 3 · S 4 · R 4 · E 4 · B 3 · X 2 = **20**. **B 는 역량 축이 아니다** — verified 집계(§9)에서 빠지고, V/S/R/E 원인을 판정할 때 「추측이라 원인 판단 불가」를 가르는 데 쓴다.

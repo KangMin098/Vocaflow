@@ -1,0 +1,3900 @@
+{
+ "cases": [
+  {
+   "case_id": "C1-01",
+   "item_id": "H2109G1#31",
+   "exam": "2021년 9월 고1 학력평가",
+   "type": "R-BLANK",
+   "chosen_option": 2,
+   "confidence": "sure",
+   "reason": "사람들이 더 적게 돈 내고 산다고 해서 가격이 싼 게 경쟁력이라는 얘기 같았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "happy to pay more for much less"
+   },
+   "interpretation": "그것들을 사는 사람들은 훨씬 적게 내고 더 많이 얻어서 행복하다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "'pay more for much less'(훨씬 적은 기능에 더 많은 돈을 낸다)의 비교 구조에서 more와 less의 대상을 뒤바꿔 '더 싸게 산다'로 해석했다. 그 결과 단순한 제품이 아니라 저렴한 가격이 핵심이라고 보고 ②를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-02",
+   "item_id": "H2406G1#29",
+   "exam": "2024년 6월 고1 학력평가",
+   "type": "R-GRAMMAR",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "opening 앞에 콤마만 있고 동사가 없어서 opened로 써야 할 것 같았어요. 주어가 This period니까요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 5,
+    "quote": "opening the way to the growth of the first towns"
+   },
+   "interpretation": null,
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "'This period ... was a major turning point'에서 본동사 was가 이미 있어 문장이 완결된 뒤 ⑤ opening은 분사구문으로 이어지는 것인데, 학생은 절의 경계를 못 잡고 opening을 두 번째 본동사 자리로 오인했다. 실제 오류인 ③ what(강조구문 it ~ that 자리)은 검토하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-03",
+   "item_id": "H2203G1#36",
+   "exam": "2022년 3월 고1 학력평가",
+   "type": "R-ORDER",
+   "chosen_option": 2,
+   "confidence": "sure",
+   "reason": "(B)에서 시골 건축가들 얘기가 나오니까 (A)의 they가 그 건축가들이고 그들이 사람들 필요를 채웠다고 이어진다고 봤어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "But they supplied people’s needs perfectly"
+   },
+   "interpretation": "하지만 그들(시골 건축가들)은 사람들의 필요를 완벽하게 충족시켰다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(A)의 they는 (C)에서 묘사된 소박한 집들(plain wooden floors, whitewashed walls)을 가리키고 But은 그 소박함과 대조하는 연결인데, 학생은 they를 (B)의 ordinary country builders로 잘못 연결해 (B) 바로 뒤에 (A)를 놓았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-04",
+   "item_id": "H2603G2#20",
+   "exam": "2026년 3월 고2 학력평가",
+   "type": "R-CLAIM",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "앞에서 목표에 방해되는 걸 줄인다고 했고 mistake는 새로운 걸 못 익히는 게 실수라는 뜻 같았어요. 그래서 방해 요소를 없애라가 맞는 듯.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "But that is a mistake."
+   },
+   "interpretation": "하지만 (새것을 익히지 못하는) 그것은 실수다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "'that'이 바로 앞의 '방해될 수 있는 사람·활동과의 연결을 줄이는 것'을 가리킨다는 것을 놓치고 엉뚱한 대상에 연결했다. 그 때문에 But으로 시작되는 필자의 반박을 인식하지 못하고, 필자가 비판한 통념을 주장으로 받아들여 ①을 골랐다.",
+   "chain": [
+    "'that is a mistake'의 that이 가리키는 대상을 잘못 연결함",
+    "그 결과 But 뒤의 반박 구조를 놓치고 글 앞부분의 통념을 필자 주장으로 채택함"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C1-05",
+   "item_id": "H2403G2#21",
+   "exam": "2024년 3월 고2 학력평가",
+   "type": "R-IMPLY",
+   "chosen_option": 3,
+   "confidence": "sure",
+   "reason": "벽돌을 액셀에 붙이는 건 자동차 얘기니까 그때는 안전 운전 장치가 없었다는 뜻 아닌가요? 의학 부분은 잘 이해가 안 됐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "It is much the same story in medicine."
+   },
+   "interpretation": "의학에서도 그것은 거의 같은 이야기이다 — 의학에도 자동차 이야기가 나온다는 것",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "'much the same story in medicine'이 자동차 사례를 의학에 빗댄 비유의 전환점이라는 것을 이해하지 못했다. 그래서 밑줄 표현을 의학 맥락(환자 이해 도구의 부족)으로 옮기지 못하고 문자 그대로 자동차 장치 이야기로 읽어 ③을 골랐다.",
+   "chain": [
+    "자동차 사례→의학으로 넘어가는 비유 관계를 파악하지 못함",
+    "밑줄 표현을 문자 그대로 해석해 자동차 관련 선택지를 고름"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C1-06",
+   "item_id": "H2209G2#30",
+   "exam": "2022년 9월 고2 학력평가",
+   "type": "R-VOCAB",
+   "chosen_option": 5,
+   "confidence": "guess",
+   "reason": "시간이 없어서 마지막 문장만 봤는데 limited가 좀 부정적이라 어색해 보였어요.",
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "time",
+   "context": "시험 종료 2분 전에 이 문항을 처음 봄, 이 문항에 35초 사용",
+   "true_mechanism": "시간 압박으로 지문의 논리(남는 식량을 교환한다는 흐름)를 읽지 않고 마지막 밑줄 하나만 훑어 부정적 어감만으로 ⑤를 골랐다. 남는 음식이라 surplus여야 할 ③ scarce를 검토할 시간 자체가 없었다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-07",
+   "item_id": "H2304G3#26",
+   "exam": "2023년 4월 고3 학력평가",
+   "type": "R-FACT",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "첫 문장에 Vienna University of Technology에서 건축 공부했다고 그대로 나와서 바로 골랐어요.",
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "evidence",
+   "context": "이 문항에 25초, 선택지 2~5는 읽지 않음",
+   "true_mechanism": "발문의 '일치하지 않는 것'을 '일치하는 것'으로 잘못 읽었다. 지문 내용과 정확히 맞는 ①을 확인하자마자 정답으로 고르고 나머지 선택지는 보지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-08",
+   "item_id": "H2210G3#39",
+   "exam": "2022년 10월 고3 학력평가",
+   "type": "R-INSERT",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "charred가 무슨 뜻인지 몰라서 문장 전체가 해석이 안 됐어요. 그냥 실험 얘기 다음에 넣었어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Charred bones or even carbon deposits"
+   },
+   "interpretation": "탄 뼈나 탄소 퇴적물은 읽는 법을 아는 사람에게 정보가 되는 기록이다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "학생은 단어를 몰랐다고 하지만 각주로 뜻이 주어졌고 해석도 대체로 맞다. 실제로는 주어진 문장이 ③ 앞 문장 'examining the records it has left'의 기록을 구체화하고 ③의 Likewise가 그것을 받는다는 문장 간 연결을 보지 않고, '실험 불가' 다음이라는 막연한 느낌으로 ②에 넣었다.",
+   "chain": null,
+   "evidence_design": "conflicting"
+  },
+  {
+   "case_id": "C1-09",
+   "item_id": "H2210G3#41",
+   "exam": "2022년 10월 고3 학력평가",
+   "type": "X-TITLE",
+   "chosen_option": 2,
+   "confidence": "sure",
+   "reason": "Damasio라는 과학자가 좋은 결정은 감정을 빼야 한다고 결론 냈으니까 감정적 선택이 나쁜 결과를 낸다는 게 제목이에요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "good decisions (d) exclude an emotional component"
+   },
+   "interpretation": "사회적·개인적으로 중요한 문제에서 좋은 결정은 감정적 요소를 배제한다",
+   "self_category": "evidence",
+   "context": null,
+   "true_mechanism": "(d) exclude는 41번에서 문맥상 틀린 낱말(include가 맞음)인데, 학생은 이 한 문장을 글의 결론으로 받아들였다. 글 전체가 감정이 합리적 행동에 필수라는 'positive view'를 일관되게 펴고 있다는 중심 흐름보다 국소 문장 하나를 우선해 ②를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-10",
+   "item_id": "M2406#20",
+   "exam": "2024학년도 6월 모의평가",
+   "type": "R-CLAIM",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "hindrances를 처음 봐서 뭔가 창의 활동을 위한 방법이라고 생각했어요. 그러면 일찍 전문화하는 게 좋다는 얘기니까 ⑤.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Certain hindrances to multifaceted creative activity"
+   },
+   "interpretation": "다면적 창의 활동을 위한 어떤 방법은 조기 전문화에 있을 수 있다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "hindrances(방해 요소)의 뜻을 몰라 '방법·도움'처럼 긍정적으로 읽었고, 그래서 premature specialization이 창의성의 장애물이라는 첫 문장을 오히려 권장 사항으로 받아들였다. 핵심은 낱말 hindrances의 극성을 반대로 잡은 것이다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-11",
+   "item_id": "2024#22",
+   "exam": "2024학년도 수능",
+   "type": "R-GIST",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "'우선순위를 정해 응답하라'는 첫 문장과 '응답'이라는 단어에 끌려, 칭찬에 응답하지 않는 것이 놓친 기회라는 결론부까지 연결하지 않고 '신속한 응대'라는 지문에 없는 속도 개념이 들어간 ③을 받아들였다. 응답과 긍정적 반응의 인과도 지문과 반대 방향이다.",
+   "chain": null,
+   "evidence_design": "self_report_only"
+  },
+  {
+   "case_id": "C1-12",
+   "item_id": "M2606#21",
+   "exam": "2026학년도 6월 모의평가",
+   "type": "R-IMPLY",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "파트너랑 비교하는 예시가 두 개나 나오니까 비교가 문제라는 얘기 같아서 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Comparison is one source of illusion."
+   },
+   "interpretation": "비교는 착각의 한 원인이다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "비교는 외부 요인의 여러 예 중 하나(환경 요인도 있음)일 뿐인데, 예시 비중이 크다는 이유로 하위 사례를 글의 중심으로 끌어올렸다. 밑줄이 요약하는 '외부 요인에 기댄 자부심은 믿을 수 없다'는 상위 주장을 놓치고, 지문에 없는 '의욕 저하'까지 담긴 ④를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-13",
+   "item_id": "M2606#21",
+   "exam": "2026학년도 6월 모의평가",
+   "type": "R-IMPLY",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "마지막쯤에 네가 인정받을 수 있는 거에 기반한다고 해서 노력해서 생긴 자신감이라는 뜻인 줄 알았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "are not based on something you can take credit for"
+   },
+   "interpretation": "네가 가지는 좋고 나쁜 감정은 네가 공을 인정받을 수 있는 것에 바탕을 둔다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "'are not based on ...'의 not을 빠뜨리고 해석해 감정이 자신의 공로(노력)에 근거한다고 정반대로 이해했다. 그래서 boost가 허구에 기반한다는 밑줄의 부정적 의미 대신 꾸준한 노력의 결과라는 ②를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-14",
+   "item_id": "M2406#35",
+   "exam": "2024학년도 6월 모의평가",
+   "type": "R-IRRELEVANT",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "④는 갑자기 그들이 인지 자원이 더 많지 않다고 해서 앞에서 전문가가 잘한다는 거랑 반대되는 말 같았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 4,
+    "quote": "This is not because they necessarily have more cognitive resources"
+   },
+   "interpretation": "이것은 그들이 초보자보다 인지 자원이 많지 않기 때문이다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "④의 'not because A; rather, because B' 구조에서 부정이 이유절 전체에 걸린다는 것을 놓쳤을 수도 있고, ③이 끼어든 탓에 ④의 they를 바로 앞 ③의 beginners로 연결했을 수도 있다. 두 경우 모두 ④가 흐름에서 벗어난다고 판단하게 되며, 증거만으로는 어느 쪽인지 가르기 어렵다.",
+   "chain": null,
+   "evidence_design": "ambiguous"
+  },
+  {
+   "case_id": "C1-15",
+   "item_id": "M2509#27",
+   "exam": "2025학년도 9월 모의평가",
+   "type": "R-NOTICE",
+   "chosen_option": 1,
+   "confidence": null,
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": null,
+   "context": null,
+   "true_mechanism": "'3rd-year high school students only'를 확인하지 않고 선택지 ①의 '~만'을 지문보다 범위를 좁힌 함정으로 의심해 내용 대조 없이 골랐다. 정작 'Free lunch provided'와 반대되는 ③은 대조하지 않았다.",
+   "chain": null,
+   "evidence_design": "result_only"
+  },
+  {
+   "case_id": "C1-16",
+   "item_id": "2026#40",
+   "exam": "2026학년도 수능",
+   "type": "R-SUMMARY",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "공연 예술이 경제적으로 불안정해진다고 했으니까 관객도 잃는다고 봤어요. (A)는 확실히 uncertainty 맞잖아요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "they retain their power of fascination"
+   },
+   "interpretation": "그럼에도 불구하고 그들은 매력의 힘을 잃는다",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "(A)는 맞게 잡았지만, However 뒤 'retain their power of fascination'의 retain을 '잃다'로 잘못 이해해 역접 이후의 핵심(관객을 여전히 확보한다)을 반대로 받아들였다. 그 결과 (B)에 lose를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-17",
+   "item_id": "2026#40",
+   "exam": "2026학년도 수능",
+   "type": "R-SUMMARY",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "economically stable이라고 본 것 같아요. 그래서 (A)는 stability, (B)는 관객에게 닿는다니까 reach가 자연스러웠어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "the performing arts become economically unstable"
+   },
+   "interpretation": "공연 예술은 경제적으로 안정된다",
+   "self_category": "time",
+   "context": "앞 문항들에서 시간을 많이 써 이 문항에 50초",
+   "true_mechanism": "서두르면서 unstable의 un-을 놓쳐 '경제적으로 안정된다'로 읽었다. 이어서 요약문의 'due to reliance on external funding'(외부 자금 의존 때문에)과 stability가 모순된다는 점을 확인하지 않고 ④를 골랐다.",
+   "chain": [
+    "unstable을 stable로 잘못 읽음",
+    "요약문의 외부 자금 의존이라는 원인과 (A)가 맞는지 대조하지 않고 선택함"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C1-18",
+   "item_id": "2023#30",
+   "exam": "2023학년도 수능",
+   "type": "R-VOCAB",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "absorption이 흡수라는 건 아는데 모터를 흡수했다는 게 말이 안 돼서 틀린 낱말인 줄 알았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 2,
+    "quote": "absorption has been so complete"
+   },
+   "interpretation": "이 흡수(물을 빨아들이는 것)는 너무 완전해서",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "absorption을 물리적 '흡수'로만 알고 '삶 속으로의 동화·편입'이라는 비유적 의미를 몰랐다. 그래서 모터가 일상에 녹아든 것을 가리키는 적절한 낱말을 어색하다고 판단했다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-19",
+   "item_id": "2023#30",
+   "exam": "2023학년도 수능",
+   "type": "R-VOCAB",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "기술은 계속 바뀌니까 사람이 기술에 적응해야 하는 게 맞죠. 기술이 우리한테 적응한다는 건 이상해요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 4,
+    "quote": "adapt to us"
+   },
+   "interpretation": null,
+   "self_category": "evidence",
+   "context": null,
+   "true_mechanism": "지문은 '사람은 변하지 않고 기술이 우리에게 맞춰야 한다'는 인간 중심 컴퓨팅을 주장하는데, 학생은 '사람이 기술에 적응해야 한다'는 평소 상식을 기준으로 판단해 문맥상 적절한 adapt를 틀렸다고 봤다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C1-20",
+   "item_id": "2024#42",
+   "exam": "2024학년도 수능",
+   "type": "X-VOCAB",
+   "chosen_option": 2,
+   "confidence": "guess",
+   "reason": "시간이 1분 남아서 장문 다 못 읽고 찍었어요.",
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "time",
+   "context": "남은 시간 1분, 41번과 42번을 합쳐 70초에 풂",
+   "true_mechanism": "시간 부족으로 지문을 거의 읽지 못한 채 찍었다. (e) running the risk가 '기자를 피해 위험을 피한다'는 흐름과 반대라는 점을 검토할 기회가 없었다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-01",
+   "item_id": "H2403G1#20",
+   "exam": "2024년 3월 고1 학력평가",
+   "type": "R-CLAIM",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "처음부터 마법 얘기를 계속하고 신데렐라도 나와서 마법이 핵심인 줄 알았어요. 자신감도 나오니까 4번이 딱 맞았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "in real life, you can also create magic"
+   },
+   "interpretation": "현실에서도 너는 마술을 만들어 낼 수 있다(마술을 할 수 있다)",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "create magic 을 '변화를 일으키다'라는 비유로 읽지 못하고 실제 마술로 문자 그대로 해석했다. 그 결과 Here's the trick 이후 '도전을 긍정 진술로 바꿔 쓰라'는 실제 주장부를 도입부 비유의 설명으로 연결하지 못하고 표면 단어(magic, confidence)가 겹치는 선택지를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-02",
+   "item_id": "H2303G1#21",
+   "exam": "2023년 3월 고1 학력평가",
+   "type": "R-IMPLY",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "divorce가 이혼이니까 사이가 틀어진다는 뜻 같았어요. 일하는 얘기니까 동료랑 사이 안 좋은 거라고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "The divorce of the hands from the head"
+   },
+   "interpretation": "손과 머리의 이혼 = 같이 일하는 사람들끼리 갈라서는 것",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "divorce 를 '이혼→인간관계 불화'라는 사전 첫 뜻으로만 받아들여, 여기서 '손(육체노동)과 머리(정신노동)의 분리'라는 비유적 의미를 놓쳤다. 앞 문장의 lowtech physical work 회피와 digital world 일자리 추구라는 대조를 밑줄과 연결하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-03",
+   "item_id": "H2303G1#30",
+   "exam": "2023년 3월 고1 학력평가",
+   "type": "R-VOCAB",
+   "chosen_option": 2,
+   "confidence": null,
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": null,
+   "context": null,
+   "true_mechanism": "In fact, it was equally essential 의 In fact 를 앞 문장과의 대조로 오인해 essential 이 반대말이어야 한다고 판단했다. '품질·가격만으로 충분치 않다 → 원하는 제품 공급도 똑같이 필수'라는 추가 관계를 읽지 못했고, ④ strengthened 가 '생산이 수요를 만든다'는 옛 관점을 강화한다는 모순은 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "result_only"
+  },
+  {
+   "case_id": "C2-04",
+   "item_id": "H2106G2#26",
+   "exam": "2021년 6월 고2 학력평가",
+   "type": "R-FACT",
+   "chosen_option": 2,
+   "confidence": "sure",
+   "reason": "Moscow에서 만난 수학 교수랑 결혼했다고 그대로 나와서 바로 골랐어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 2,
+    "quote": "Moscow에서 만났던 수학 교수와 결혼했다."
+   },
+   "interpretation": null,
+   "self_category": "evidence",
+   "context": "이 문항에 25초, 1번 확인 후 2번에서 바로 마킹",
+   "true_mechanism": "발문의 '일치하지 않는 것'을 '일치하는 것'으로 잘못 읽었다. 지문 내용과 정확히 맞는 2번을 찾자 정답으로 확신하고 나머지 선택지(After their son and daughter were born 과 어긋나는 3번)는 검토하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-05",
+   "item_id": "H2206G2#38",
+   "exam": "2022년 6월 고2 학력평가",
+   "type": "R-INSERT",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "concealed 뜻을 몰라서 ④ 뒤 문장이 뭔 말인지 몰랐어요. 그냥 But 앞에 표면 얘기가 와야 할 것 같아서 ⑤에 넣었어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "at a much higher temperature, though it is concealed"
+   },
+   "interpretation": "별의 내부는 훨씬 높은 온도인데, 그건 집중되어 있다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "concealed(숨겨진)를 모르고 '집중된'으로 추측해, ④ 뒤 문장이 '색으로 재는 건 표면 온도일 뿐 내부는 더 뜨겁다'는 한계 제시라는 점을 놓쳤다. 그래서 주어진 문장(This temperature = 색으로 잰 온도는 표면 온도)이 ③ 문장과 내부 온도 문장 사이에 와야 한다는 표면-내부 대조를 세우지 못하고 But 바로 앞에 넣었다.",
+   "chain": [
+    "concealed 의 뜻을 몰라 내부 온도 문장을 잘못 해석함",
+    "표면 온도-내부 온도 대조 흐름을 세우지 못해 But 문장 앞(⑤)에 삽입"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C2-06",
+   "item_id": "H2509G2#41",
+   "exam": "2025년 9월 고2 학력평가",
+   "type": "X-TITLE",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "단어가 어려워서 다 해석은 못 했는데 converting it to fat 이 나와서 4번이 지문이랑 제일 비슷했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Maximum fat deposition (a) increases with body mass"
+   },
+   "interpretation": null,
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "학생은 어휘 문제라고 보지만, 실제로는 글 후반 한 문장에 나온 Eating food and converting it to fat 표현이 4번과 겹친다는 이유만으로 골랐다. 글 전체가 지방(몸 안)과 저장 식량(몸 밖)의 장단점 비교라는 구조를 잡지 않고 세부 단어 일치로 제목을 판단했다.",
+   "chain": null,
+   "evidence_design": "conflicting"
+  },
+  {
+   "case_id": "C2-07",
+   "item_id": "H2505G3#22",
+   "exam": "2025년 5월 고3 학력평가",
+   "type": "R-GIST",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "마지막 문장이 결론인데 개념화 안 된 경험이 경험과학에서 역할을 한다고 해서 감각 경험이 중요하다는 1번을 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "unconceptualized experiences hardly ever play a role as evidence"
+   },
+   "interpretation": "개념화되지 않은 경험이 증거로서 힘들게라도 역할을 한다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "hardly ever 를 '거의 ~않다'라는 부정어로 처리하지 못하고 hard(힘들게)로 읽어 마지막 문장의 극성을 뒤집었다. 그 결과 '범주화된 관찰이 증거가 된다'는 앞의 결론과 정반대인 1번을 요지로 택했다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-08",
+   "item_id": "H2207G3#35",
+   "exam": "2022년 7월 고3 학력평가",
+   "type": "R-IRRELEVANT",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "글이 계속 석탄이랑 전기 얘기하다가 갑자기 태양광, 풍력이 나와요. 신재생 에너지는 환경 얘기니까 따로 노는 것 같았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 5,
+    "quote": "Solar and wind technologies have an advantage"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "태양광·풍력은 친환경 주제라는 배경지식으로 새 소재 등장을 곧 무관한 문장으로 판단했다. ⑤가 '고가치 전기를 직접 생산한다'로 ④의 에너지 가치 사다리를 이어받는다는 연결을 확인하지 않았고, 석탄 소재를 공유하지만 탄소섬유·농촌 활성화로 주제가 벗어난 ③을 놓쳤다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-09",
+   "item_id": "2024#31",
+   "exam": "2024학년도 수능",
+   "type": "R-BLANK",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "지문에 interpretation 이 나왔고 읽기가 더 복잡한 해석이라고 해서 해석이 들어간 4번을 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "reading becomes a more complicated kind of interpretation"
+   },
+   "interpretation": "읽기는 더 복잡한 종류의 해석이 된다 → 읽기는 주관적 해석이다",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "빈칸 문장이 'Reading is not simply ___'(읽기는 단순히 ~이 아니다)라는 부정 구조라는 것을 고려하지 않고, 지문의 interpretation 과 같은 단어가 든 선택지를 골랐다. 빈칸에는 지문이 부정하는 좁은 읽기 개념(글자 인식)이 들어가야 하는데 지문이 긍정하는 쪽을 넣었다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-10",
+   "item_id": "2024#31",
+   "exam": "2024학년도 수능",
+   "type": "R-BLANK",
+   "chosen_option": 1,
+   "confidence": "guess",
+   "reason": "시간이 없어서 앞부분만 읽고 찍었어요.",
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "time",
+   "context": "남은 시간 2분에 풀었음, 이 문항에 35초",
+   "true_mechanism": "시간 부족으로 지문 첫 두 문장만 훑고 '아이들이 읽기를 배운다'는 소재에서 학습=지식 습득을 연상해 찍었다. 빈칸 앞뒤의 근거(그림과 글이 서로 보완, 문장이 말하는 것과 뜻하는 것이 다름)는 읽지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-11",
+   "item_id": "2024#29",
+   "exam": "2024학년도 수능",
+   "type": "R-GRAMMAR",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "will orient 가 동사니까 뒤에도 동사가 와야 하는 줄 알았어요. seeming 말고 seem 이나 seemed 가 맞는 것 같아서요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "infants will orient preferentially towards the human face and voice"
+   },
+   "interpretation": "아기들은 사람 얼굴과 목소리 쪽으로 향하고, 그것이 의미 있다는 걸 아는 것 같다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "쉼표 뒤 seeming 이 주절에 붙은 분사구문이라는 것을 보지 못하고, and 없이 두 번째 동사가 이어지는 병렬로 착각해 문장 경계를 잘못 나눴다. 정작 전치사 with 가 빠진 ② which they have some difficulty 는 관계절이 완전한지 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-12",
+   "item_id": "2024#29",
+   "exam": "2024학년도 수능",
+   "type": "R-GRAMMAR",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "they do succeed 의 do 를 강조 조동사로 인식하지 못하고 불필요한 동사가 겹친 오류로 판단했다. 관계사 뒤 절의 완전성(② 에서 with 누락)은 점검하지 않았다.",
+   "chain": null,
+   "evidence_design": "self_report_only"
+  },
+  {
+   "case_id": "C2-13",
+   "item_id": "M2409#39",
+   "exam": "2024학년도 9월 모의평가",
+   "type": "R-INSERT",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "주어진 문장에 art critics 가 있고 ④ 뒤에 Critics 가 나오니까 비평가 얘기 시작하는 데 넣었어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 4,
+    "quote": "Critics are often interested in the ways artists exploit"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "주어진 문장과 ④ 뒤 문장의 critics 라는 단어 반복만 보고 위치를 정했다. ③ 뒤 This is because 문장이 '왜 전문가에게 재료·기법 지식이 유용한가'의 이유라서 주어진 문장이 그 바로 앞에 와야 한다는 논리 연결을 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-14",
+   "item_id": "M2409#39",
+   "exam": "2024학년도 9월 모의평가",
+   "type": "R-INSERT",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "This sense 가 뭘 가리키는지 헷갈렸어요. 주어진 문장에 전문가의 깊은 친숙함이 나오니까 그게 This sense 랑 이어지는 줄 알았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 2,
+    "quote": "This sense might involve a basic familiarity"
+   },
+   "interpretation": "이 감각 = 비평가가 가진 더 깊은 친숙함",
+   "self_category": "evidence",
+   "context": null,
+   "true_mechanism": "This sense 가 ① 뒤 문장의 a general sense of a significant difference 를 가리킨다는 것을 추적하지 못하고 주어진 문장의 deeper familiarity 와 연결했다. 그 결과 '일반인에겐 기본적 친숙함이면 충분 ↔ 전문가에겐 더 깊은 친숙함'이라는 대조 전환 지점(③)을 찾지 못하고 ②에 넣어 지시어 연결을 끊었다.",
+   "chain": [
+    "This sense 의 선행사를 주어진 문장의 deeper familiarity 로 잘못 연결함",
+    "basic 과 deeper 의 대조 전환 위치를 놓쳐 ②에 삽입함"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C2-15",
+   "item_id": "M2409#36",
+   "exam": "2024학년도 9월 모의평가",
+   "type": "R-ORDER",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "(C)에서 고정관념 얘기 시작하고 (B)의 these tasks 가 (C)에 나온 일반화 같은 걸 말하는 거라고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Our brain performs these tasks efficiently and automatically"
+   },
+   "interpretation": "우리 뇌는 이런 일(일반화하는 것)을 효율적으로 한다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(B)의 these tasks 가 (A)의 '빠르게 분류하고 나중에 증거를 검토하는' 두 절차를 가리킨다는 것을 추적하지 못하고 (C)의 generalizations 로 연결했다. 그래서 (C) 바로 뒤에 (B)를 두는 순서를 택했다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-16",
+   "item_id": "M2409#36",
+   "exam": "2024학년도 9월 모의평가",
+   "type": "R-ORDER",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "주어진 글 끝에 stereotype 이 나와서 그걸 설명하는 (A)가 먼저 오는 게 자연스러웠어요. 그 다음은 그냥 흐름상 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "that is the basis for stereotyping"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "주어진 글 끝 stereotype 과 (A)의 stereotyping 의 단어 연결만으로 (A)를 먼저 둔 것일 수도 있고, (C)의 the word stereotype 이 단어를 처음 소개하는 문장이라는 점을 놓친 것일 수도 있다. 학생 설명으로는 둘 중 어느 쪽이 주된 원인인지 가리기 어렵다.",
+   "chain": null,
+   "evidence_design": "ambiguous"
+  },
+  {
+   "case_id": "C2-17",
+   "item_id": "M2209#24",
+   "exam": "2022학년도 9월 모의평가",
+   "type": "R-TITLE",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "정부가 서비스도 주고 시민 책임도 지원한다는 내용 같아서 건전한 정부에서 건전한 시민 책임이라는 1번을 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Responsibility of the citizen is slowly being supplanted"
+   },
+   "interpretation": "시민의 책임은 정부에 의해 서서히 보충되고(지원되고) 있다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "supplanted(대체되다, 밀려나다)를 supplemented(보충되다)처럼 읽어 '정부가 시민 책임을 대신해 약화시킨다'는 문장 의미를 긍정으로 뒤집었다. 이 오해 때문에 diminishing, impedes 같은 부정적 결과 진술을 글의 중심으로 묶지 못하고 글 방향과 반대인 1번 제목을 골랐다.",
+   "chain": [
+    "supplanted 를 '보충되다'로 오해함",
+    "글 전체의 부정적 방향(시민 참여 감소)을 놓쳐 반대 진술 제목을 택함"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C2-18",
+   "item_id": "2025#30",
+   "exam": "2025학년도 수능",
+   "type": "R-VOCAB",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "이타적인 결과라고 했으니까 결과의 중요성을 높이는 게 맞지 않나요? 줄이는 건 이상한 것 같았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 5,
+    "quote": "diminishing the significance of the outcome"
+   },
+   "interpretation": "이타적인 결과를 선호하는데, 그 예로 결과의 중요성을 줄이는 것",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "such as 뒤 예시가 '경쟁 승리를 덜 중요하게 여기거나 상금을 나누는' 협력적 선택이라는 관계를 읽지 못하고, altruistic 이 긍정어이니 뒤에 오는 말도 '증가'여야 한다고 극성을 맞췄다. ④에서 죄책감이 '더 강한' 동기로 이어진다는 앞뒤 모순은 검토하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C2-19",
+   "item_id": "2025#30",
+   "exam": "2025학년도 수능",
+   "type": "R-VOCAB",
+   "chosen_option": 3,
+   "confidence": "sure",
+   "reason": "사람들이 비교 대상이 되면 오히려 기분 좋을 것 같아서 불편하다는 게 틀린 줄 알았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 3,
+    "quote": "uncomfortable. When they believe that others are making envious comparisons"
+   },
+   "interpretation": null,
+   "self_category": "choice",
+   "context": "③에서 마킹하고 ④·⑤는 읽지 않고 다음 문항으로 넘어감",
+   "true_mechanism": "③에서 자기 생각(부러움을 받으면 기분 좋다)에 맞지 않는다고 느끼자 바로 다음 문장 'uneasiness, distress, or sorrow' 근거를 확인하지 않고 마킹했다. 남은 선택지 ④(죄책감이 더 강한 동기로 이어진다는 모순)는 아예 검토하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-01",
+   "item_id": "H2209G1#26",
+   "exam": "2022년 9월 고1 학력평가",
+   "type": "R-FACT",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "첫 줄에 historical fiction 나와서 1번 맞는 내용이네 하고 바로 골랐어요.",
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "choice",
+   "context": "남은 시간 2분에 마지막으로 풀었음, 이 문항에 25초",
+   "true_mechanism": "발문의 '일치하지 않는 것'을 '일치하는 것'으로 잘못 읽었다. 1번이 첫 문장과 맞는다는 것은 정확히 확인했으나, 시간에 쫓겨 발문의 부정 조건을 놓쳐 일치하는 선택지를 답으로 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-02",
+   "item_id": "H2603G1#38",
+   "exam": "2026년 3월 고1 학력평가",
+   "type": "R-INSERT",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "주어진 문장에 accurate가 있어서 정확한 측정 얘기 나오는 데 뒤에 넣었어요. 정확한 거 얘기 다음이 맞을 것 같았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "Even the most exacting measurements are only sensible"
+   },
+   "interpretation": "아무리 정확한 측정이라도 → 그러니까 과학 진보는 더 정확한 쪽으로 가는 게 아니다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "주어진 문장의 accurate와 ② 다음 문장의 exacting(정밀한)이 비슷한 뜻이라는 표면적 어휘 연결에 끌려 위치를 정했다. 주어진 문장이 Rather로 시작하는 ④ 다음 문장과 'not A, rather B' 구조로 짝을 이룬다는 문장 간 연결을 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-03",
+   "item_id": "H2309G1#41",
+   "exam": "2023년 9월 고1 학력평가",
+   "type": "X-TITLE",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "첫 문장이 로컬푸드가 운송 연료를 줄여서 온실가스를 줄인다는 거라서 거리 줄이면 좋다는 글인 줄 알았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "are usually not well founded"
+   },
+   "interpretation": "로컬 푸드가 온실가스를 줄인다는 주장은 대체로 근거가 잘 갖춰져 있다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "첫 문장 끝의 'not well founded'에서 not을 놓쳐 주장이 근거 있다고 정반대로 해석했다. 그 결과 글 전체를 '이동 거리를 줄이자'는 내용으로 잡고 1번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-04",
+   "item_id": "H2109G2#22",
+   "exam": "2021년 9월 고2 학력평가",
+   "type": "R-GIST",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "마지막 문장 folly가 뭔지 몰랐는데 건물 짓는 도시 재생 얘기가 계속 나와서 그걸 하자는 글 같았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "The folly of building centric urban renewal reminds us"
+   },
+   "interpretation": "건물 중심 도시 재생의 노력은 도시가 사람이라는 걸 일깨운다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "결론 문장의 folly(어리석음)를 몰라 긍정적인 말로 넘겨짚었고, 그 때문에 건설 중심 재생을 비판하는 글의 방향을 거꾸로 잡았다. 이어서 앞부분의 'it makes no sense to use public money' 같은 부정 근거를 다시 확인하지 않고 기반시설 확충 쪽 선택지를 골랐다.",
+   "chain": [
+    "결론 문장의 folly 의미를 몰라 긍정으로 추측함",
+    "그 추측에 맞춰 글의 주장 방향을 반대로 잡고 본문 근거와 대조하지 않은 채 3번을 고름"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C3-05",
+   "item_id": "H2603G2#35",
+   "exam": "2026년 3월 고2 학력평가",
+   "type": "R-IRRELEVANT",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "인쇄 얘기하다가 갑자기 마르코 폴로가 중국 갔다 온 얘기가 나와서 이게 튀는 것 같았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 2,
+    "quote": "After his return from China in 1295"
+   },
+   "interpretation": "폴로는 1295년에 중국에서 돌아와서 이야기를 썼다 (여행 얘기)",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "②가 ①에서 제시한 폴로와 콜럼버스 대비의 첫 번째 사례(필사본마다 내용이 달랐다)라는 것을 파악하지 못하고, 중국·1295년 같은 여행 세부만 보고 주제에서 벗어난 문장으로 판단했다. 예시 문장과 주제 문장의 위계 관계를 놓친 것이다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-06",
+   "item_id": "H2603G3#31",
+   "exam": "2026년 3월 고3 학력평가",
+   "type": "R-BLANK",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "commerce를 공동체 같은 거로 알았어요. 예술이 공동체랑 같이 가야 프로라는 말 같아서 collective 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "Art without commerce is a hobby"
+   },
+   "interpretation": "공동체 없는 예술은 취미일 뿐이다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "핵심어 commerce(상업)를 community 비슷한 말로 잘못 알아, 돈을 버는 능력이 예술가를 정당화한다는 글의 요지를 '공동체성'으로 바꿔 읽었다. 단어 하나의 의미 오류가 빈칸 추론 전체를 collective 쪽으로 끌고 갔다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-07",
+   "item_id": "H2207G3#29",
+   "exam": "2022년 7월 고3 학력평가",
+   "type": "R-GRAMMAR",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "앞에 spanning이 있는데 또 creating이 나와서 ing가 두 번 연속이면 이상하다고 생각했어요. 3번은 subjects가 주어고 have taught가 동사라 괜찮은 줄 알았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "across a range of subjects ③ have taught in their first"
+   },
+   "interpretation": "여러 과목들이 첫 학기에 가르쳤다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "subjects 다음에 바로 have taught가 오는 것을 주어+동사로 착각해, 이 자리가 과목을 수식하는 수동 분사(taught)여야 한다는 절 경계를 판단하지 못했다. 대신 분사구문 creating을 근거 없이 의심해 2번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-08",
+   "item_id": "H2410G3#37",
+   "exam": "2024년 10월 고3 학력평가",
+   "type": "R-ORDER",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "주어진 글이 아는 느낌이고 (A)가 Other epistemic feelings니까 바로 다음이 A라고 생각했어요. 다른 느낌이 나오니까요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "Other epistemic feelings alert our attention"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(A)의 Other가 앞의 '아는 느낌'에 대한 설명이 다 끝난 뒤에 와야 한다는 점을 보지 못하고, 주어진 글 바로 뒤에 붙였다. (C)의 1666 예시와 'not unfailing'이 주어진 글의 feeling of certainty를 이어 설명한다는 문장 간 연결을 놓쳤다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-09",
+   "item_id": "M2309#31",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-BLANK",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "이때는 요리하고 저때는 자고 이런 식으로 읽어서 하루 일과를 지킨다는 얘기인 줄 알았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "this part is for cooking, that part is for sleeping"
+   },
+   "interpretation": "이 시간에는 요리를 하고, 저 시간에는 잠을 잔다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "this part / that part를 공간의 구역이 아니라 시간대로 해석해, 영역을 기능별로 나눈다는 내용을 하루 일과 이야기로 바꿔 읽었다. 그래서 공간 분할이 아닌 daily routine 선택지를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-10",
+   "item_id": "M2309#31",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-BLANK",
+   "chosen_option": 4,
+   "confidence": null,
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": null,
+   "context": null,
+   "true_mechanism": "territory(영역)라는 말에서 동물이 경쟁자와 거리를 둔다는 일반 상식을 떠올리고, 영역 내부를 기능별로 나눈다는 본문 내용을 확인하지 않은 채 4번을 골랐다.",
+   "chain": null,
+   "evidence_design": "result_only"
+  },
+  {
+   "case_id": "C3-11",
+   "item_id": "M2706#29",
+   "exam": "2027학년도 6월 모의평가",
+   "type": "R-GRAMMAR",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "Allowed로 시작하면 분사구문인데 뒤 주어가 스타일이라 허락받는 게 사람이어야 하지 않나 해서 틀렸다고 봤어요. what은 앞에 styles 있으니까 별 생각 안 했어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 4,
+    "quote": "Allowed only for higher social classes"
+   },
+   "interpretation": "상류층에게만 허락받아서, 사치스러운 스타일들은 ~",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "분사구문 Allowed의 의미상 주어가 주절 주어인 luxurious styles와 일치하고 수동 관계도 맞다는 것을 판단하지 못했다. 동시에 선행사 styles 뒤에는 what이 아니라 관계대명사 that/which가 와야 한다는 점을 점검하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-12",
+   "item_id": "M2706#29",
+   "exam": "2027학년도 6월 모의평가",
+   "type": "R-GRAMMAR",
+   "chosen_option": 5,
+   "confidence": "guess",
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "time",
+   "context": "남은 시간 1분, 이 문항에 15초, 지문 앞부분만 읽음",
+   "true_mechanism": "시간이 거의 없어 밑줄 다섯 개를 각각 검토하지 못하고 마지막 밑줄 their를 찍었다. 어법 판단 자체가 이루어지지 않은 시간 압박에 의한 추측이다.",
+   "chain": null,
+   "evidence_design": "self_report_only"
+  },
+  {
+   "case_id": "C3-13",
+   "item_id": "M2309#39",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-INSERT",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "비밀번호랑 지문인식 다음에 전화 오는 것도 보안 방법이니까 거기 넣었어요. 그러면 they all이 그거 다 가리키는 거니까요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "But they all inevitably add a burden"
+   },
+   "interpretation": "그것들 모두(비밀번호, 생체인식, 확인 전화)가 부담을 더한다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "주어진 문장을 ④에 넣으면 they all이 비밀번호·생체인식을 가리키는 연결이 끊긴다는 점을 확인하지 않았다. 또한 ⑤ 다음 문장의 This와 such calls가 주어진 문장의 확인 전화를 받는다는 지시 관계를 추적하지 못했다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-14",
+   "item_id": "M2309#39",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-INSERT",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "hurdles라는 단어를 몰라서 그냥 대충 넣었어요. 단어 문제예요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "This obstacle applies at several levels"
+   },
+   "interpretation": "이 장애물은 여러 단계에 적용된다 → 앞에 장애물 얘기(전화)가 있어야 함",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "학생은 단어를 몰랐다고 하지만, 막힌 곳과 해석을 보면 This obstacle을 주어진 문장의 확인 전화로 연결한 것이 실제 원인이다. This obstacle이 바로 앞 문장의 '너무 부담스러운 서비스'를 가리킨다는 지시 관계를 놓쳤다.",
+   "chain": null,
+   "evidence_design": "conflicting"
+  },
+  {
+   "case_id": "C3-15",
+   "item_id": "2024#37",
+   "exam": "2024학년도 수능",
+   "type": "R-ORDER",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "C에서 Others may conform이 나오고 B에서 some others가 나오니까 C 다음 B라고 봤어요. A는 마지막에 정리하는 느낌이었고요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "But some others will not need to have"
+   },
+   "interpretation": "그러나 다른 사람들은 행동을 규정받을 필요가 없다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(B)의 But some others가 (A)의 마지막 'This will cause some to conform'과 대조된다는 관계를 보지 못하고, (C)의 Others라는 단어 반복만 보고 연결했다. (C) 마지막 문장의 '남들도 따라야 한다고 생각함'이 (A)의 Thus, she may prescribe로 이어지는 인과 연결도 놓쳤다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C3-16",
+   "item_id": "2024#37",
+   "exam": "2024학년도 수능",
+   "type": "R-ORDER",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "주어진 글 마지막에 she가 나와서 A의 she랑 같은 사람이니까 A가 먼저라고 생각했어요. them은 그냥 다른 사람들이겠지 했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "Thus, she may prescribe the behavior to them"
+   },
+   "interpretation": "그래서 그녀는 그들에게 그 행동을 하라고 할 수 있다",
+   "self_category": "evidence",
+   "context": null,
+   "true_mechanism": "(A)의 she를 주어진 글의 one person과 연결한 것 자체는 맞지만, them에 해당하는 선행사(others)가 아직 나오지 않았다는 점을 확인하지 않았다. 그 결과 Others를 처음 등장시키는 (C)보다 (A)를 앞에 놓았고, 이후 (C)-(B) 순서도 검토 없이 따라붙였다.",
+   "chain": [
+    "(A)의 them이 가리킬 대상이 앞에 없다는 지시어 점검을 빠뜨림",
+    "(A)를 맨 앞에 고정한 뒤 나머지 순서를 근거 없이 이어 붙임"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C3-17",
+   "item_id": "M2309#23",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-TOPIC",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "trialability가 따옴표까지 쳐서 여러 번 나오니까 이게 중요하다는 글 같았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "turns out to be a real problem"
+   },
+   "interpretation": "trialability라는 기준이 진짜 중요한 문제로 드러난다",
+   "self_category": "unsure",
+   "context": null,
+   "true_mechanism": "trialability라는 반복 어휘에 끌린 것인지, But 이후 'real problem'을 '중요한 사안'으로 잘못 읽어 기준의 한계라는 방향을 놓친 것인지 증거만으로는 비슷하게 갈린다. 실제로는 problem을 중요성으로 해석해 글의 부정적 방향을 뒤집었다.",
+   "chain": null,
+   "evidence_design": "ambiguous"
+  },
+  {
+   "case_id": "C3-18",
+   "item_id": "M2509#45",
+   "exam": "2025학년도 9월 모의평가",
+   "type": "X-FACT",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "Julia가 식물은 좀 안다고 했던 것 같아서 5번은 맞고요, 모자 쓴다는 건 Anna가 한 말 아닌가 해서 4번 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "not a plant expert, but I know that"
+   },
+   "interpretation": "나는 식물 전문가인데, Anna가 창문에서 멀리 뒀다는 걸 안다",
+   "self_category": "evidence",
+   "context": "이 문항에 1분 40초",
+   "true_mechanism": "Julia의 말에서 not을 빠뜨려 '식물 전문가'라고 읽어 5번을 사실로 처리했다. 그러자 틀린 것을 다른 데서 찾게 되었고, 순서가 섞인 (C) 문단의 야구 모자 메시지를 Anna가 보낸 것으로 화자를 혼동해 4번을 골랐다.",
+   "chain": [
+    "(D)의 I'm not a plant expert에서 부정어를 놓침",
+    "(C)의 메시지 화자를 Helen이 아닌 Anna로 혼동해 4번을 불일치로 판단함"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C3-19",
+   "item_id": "2025#44",
+   "exam": "2025학년도 수능",
+   "type": "X-REFER",
+   "chosen_option": 2,
+   "confidence": "sure",
+   "reason": "Sean이 고맙다고 했는데 him이니까 Sean 자기 자신 아니에요? 나머지는 다 아빠라서요.",
+   "blocked_span": {
+    "part": "passage",
+    "quote": "Though Sean thanked (b) him for the suggestion"
+   },
+   "interpretation": "Sean은 그(자신)에게 제안에 대해 고마워했지만",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "주어 Sean과 목적어 him이 같은 사람일 수 있다고 착각해 (b)를 Sean으로 처리했다. 주어와 목적어가 같으면 himself가 와야 하므로 him은 제안한 Ethan이다. 실제로 다른 하나인 (c) he agreed가 Sean이라는 점도 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-01",
+   "item_id": "H2309G1#22",
+   "exam": "2023년 9월 고1 학력평가",
+   "type": "R-GIST",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "마지막 문장에 독립적인 세상이라고 나와서 상호독립성 인정하는 게 요지 같았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "In today’s interdependent world of business partnerships"
+   },
+   "interpretation": "오늘날 서로 독립적인 비즈니스 세계에서",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "interdependent(상호의존적인)를 independent(독립적인)로 잘못 알아 마지막 문장의 의미를 반대로 받아들였고, 그 낱말이 겉으로 겹치는 5번 '상호독립성'을 골랐다. 실패 지점은 낱말 하나의 의미다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-02",
+   "item_id": "H2603G1#35",
+   "exam": "2026년 3월 고1 학력평가",
+   "type": "R-IRRELEVANT",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "4번은 fat cells 얘기라 계속 이어지는 것 같아서 넘겼고, 3번에서 갑자기 사람마다 다르다고 해서 이게 튀는 줄 알았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 3,
+    "quote": "Different people’s fat cells will have different set points"
+   },
+   "interpretation": "④ 지방세포가 호르몬을 내보내서 병 치료에 도움 → 지방세포 얘기니까 같은 흐름",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "④가 fat cells라는 같은 낱말을 반복한다는 이유만으로 흐름에 맞다고 판단해 '체중 조절 신호'라는 글의 초점에서 벗어난 것을 놓쳤다. 그 뒤 ③이 '사람마다 다른 set point'로 ⑤의 결론을 준비하는 문장이라는 연결을 보지 못해 ③을 골랐다.",
+   "chain": [
+    "④를 소재 낱말(fat cells) 반복만 보고 흐름 안에 있다고 받아들임",
+    "③과 ⑤의 '세포 수·set point → 식욕 강도' 연결을 파악하지 못해 ③을 무관 문장으로 오판"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C4-03",
+   "item_id": "H2510G2#34",
+   "exam": "2025년 10월 고2 학력평가",
+   "type": "R-BLANK",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "인기 없다고 생각하는 사람들이 말한다고 읽어서, 반대 의견이 우세해질 때 표현한다고 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "whereas those who do not think their opinions are popular remain quiet"
+   },
+   "interpretation": "반면 자기 의견이 인기 있다고 생각 안 하는 사람들도 계속 말한다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "whereas 뒤 절에서 not이 걸리는 범위와 remain quiet(침묵한다)의 의미를 놓쳐, 인기 없는 의견을 가진 사람이 오히려 말한다고 뒤집어 이해했다. 그 결과 빈칸에 반대 의견이 우세할 때라는 5번을 넣었다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-04",
+   "item_id": "H2306G2#29",
+   "exam": "2023년 6월 고2 학력평가",
+   "type": "R-GRAMMAR",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "observe의 주어가 opportunity인 줄 알았어요. 그러면 themselves가 아니라 them이어야 하잖아요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "people have a unique opportunity to observe"
+   },
+   "interpretation": "기회가 그들을 관찰한다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "to observe의 의미상 주어가 people이라는 것을 못 보고 opportunity를 주어로 잡아, 재귀대명사 themselves가 틀렸다고 판단했다. 정작 ④ subjects ask는 수동(are asked)이어야 한다는 점은 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-05",
+   "item_id": "H2406G2#36",
+   "exam": "2024년 6월 고2 학력평가",
+   "type": "R-ORDER",
+   "chosen_option": 3,
+   "confidence": "guess",
+   "reason": "(A)의 they가 누군지 몰라서 맨 뒤에 놨어요. (C)는 This all이라 (B) 뒤에 바로 오는 것 같았고요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "By directing your attention, they perform tricks with their hands"
+   },
+   "interpretation": "그들(뇌들?)이 손으로 속임수를 한다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(A)의 they가 (B) 끝의 Magicians를 가리킨다는 지시 관계를 추적하지 못했다. 그래서 (B) 뒤에 (A)를 잇지 못했고, This all을 (B)의 에너지 절약 설명만 받는 것으로 보고 (C)를 (B) 바로 뒤에 놓았다.",
+   "chain": [
+    "(A)의 they → Magicians 지시 추적 실패",
+    "그 결과 This all이 받는 범위를 (B)로만 잡아 (B)-(C)-(A)로 배열"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C4-06",
+   "item_id": "H2204G3#20",
+   "exam": "2022년 4월 고3 학력평가",
+   "type": "R-CLAIM",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "마지막에 분석이 해결책이라고 해서 원인을 먼저 분석하라는 게 주장인 줄 알았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "analysis is not the solution"
+   },
+   "interpretation": "분석이 해결책이고 같은 문제를 더 보는 것이다",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "마지막 문장 'analysis is not the solution, but ...'에서 not의 부정을 놓쳐 분석을 권하는 글로 정반대로 읽었다. 그래서 분석을 강조한 4번을 주장으로 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-07",
+   "item_id": "H2104G3#21",
+   "exam": "2021년 4월 고3 학력평가",
+   "type": "R-IMPLY",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "mind's eye가 상상하는 눈, 마음의 눈이니까 상상이랑 관련된 1번이 맞는 것 같았어요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "the mind’s eye is blind"
+   },
+   "interpretation": "상상력은 눈이 멀었다 = 뇌는 상상과 경험을 연결해서만 본다",
+   "self_category": "word",
+   "context": "이 문항에 2분 30초",
+   "true_mechanism": "관용 표현 mind's eye를 '상상력'이라는 사전적 의미로만 해석하고, 글에서 그것이 뉴런이 입력의 의미를 모른 채 반응한다는 비유라는 점을 연결하지 못했다. 그래서 imagination이 들어간 1번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-08",
+   "item_id": "H2304G3#30",
+   "exam": "2023년 4월 고3 학력평가",
+   "type": "R-VOCAB",
+   "chosen_option": 2,
+   "confidence": "guess",
+   "reason": "corresponding 뜻을 몰라서 이게 이상한가 보다 하고 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "a receptor site with the ② corresponding shape"
+   },
+   "interpretation": "반대되는 모양의 수용체",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "corresponding(일치하는, 대응하는)의 뜻을 몰라 '반대되는' 정도로 짐작했고, 열쇠-자물쇠 비유와 어긋난다고 판단했다. 호르몬 과다 시 분비를 줄여야 하는데 boost라고 한 ④는 검토하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-09",
+   "item_id": "M2409#25",
+   "exam": "2024학년도 9월 모의평가",
+   "type": "R-CHART",
+   "chosen_option": 4,
+   "confidence": null,
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": null,
+   "context": null,
+   "true_mechanism": "③의 '2011년과 2021년 모두 35% 초과 40% 미만'을 표의 두 해에 각각 대조하지 않고 넘겼고, ④의 'only year'라는 단정 표현이 수상해 보여 표 확인 없이 골랐다.",
+   "chain": null,
+   "evidence_design": "result_only"
+  },
+  {
+   "case_id": "C4-10",
+   "item_id": "M2309#26",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-FACT",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "1970년대 후반에 역사로 관심 돌렸다는 게 본문에 그대로 있어서 바로 찍었어요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "Leon Festinger에 관한 다음 글의 내용과 일치하지 않는 것은?"
+   },
+   "interpretation": null,
+   "self_category": "evidence",
+   "context": "앞 문항(25번)도 일치하지 않는 것 유형이었는데 이 문항에 35초",
+   "true_mechanism": "발문의 '일치하지 않는 것'을 '일치하는 것'으로 잘못 읽고, 본문과 그대로 일치하는 5번을 골랐다. 본문 이해는 정확했으나 질문을 거꾸로 처리했다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-11",
+   "item_id": "2026#21",
+   "exam": "2026학년도 수능",
+   "type": "R-IMPLY",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "sticky가 끈적끈적한 거니까 복잡하고 귀찮은 걸 뜻하는 것 같았어요. 플랫폼 때문에 고용이 덜 복잡해졌다는 거고요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "made a lot of work less sticky"
+   },
+   "interpretation": "많은 일을 덜 끈적거리게(덜 번거롭게) 만들었다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "sticky를 '복잡하고 번거로운'으로 해석해, 일이 특정 장소에 붙어 있는 정도(장소 고착성)라는 글 속 의미를 놓쳤다. 그 결과 지역적 연결이 끊긴다는 핵심 대신 고용 절차의 단순함을 말하는 5번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-12",
+   "item_id": "2026#21",
+   "exam": "2026학년도 수능",
+   "type": "R-IMPLY",
+   "chosen_option": 3,
+   "confidence": "sure",
+   "reason": "sticky라는 단어를 몰라서 틀린 것 같아요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "ties between service work and particular places can be disconnected"
+   },
+   "interpretation": "일과 장소의 연결이 끊어진다 → 지역 사업이 넓어지는 게 약해졌다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "장소와의 연결이 끊어진다는 내용 자체는 이해했지만, 이것이 사업을 어디서든 할 수 있는 유연성의 증가라는 점으로 잇지 못하고 '지역 확장이 약해졌다'는 부정 방향으로 옮겨 3번을 골랐다. 학생은 낱말 문제라고 하지만 실제 실패는 진술의 방향을 뒤집은 것이다.",
+   "chain": null,
+   "evidence_design": "conflicting"
+  },
+  {
+   "case_id": "C4-13",
+   "item_id": "M2206#35",
+   "exam": "2022학년도 6월 모의평가",
+   "type": "R-IRRELEVANT",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "③의 Although 양보 구문에서 가까이 산다는 앞부분만 보고 '거리와 무관하게 유대 유지'라는 주절을 놓쳐, 글 흐름(근거리 불필요)과 반대되는 문장이라고 판단했다.",
+   "chain": null,
+   "evidence_design": "self_report_only"
+  },
+  {
+   "case_id": "C4-14",
+   "item_id": "M2706#19",
+   "exam": "2027학년도 6월 모의평가",
+   "type": "R-MOOD",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "처음에 가기 싫어했고 시계 계속 봤으니까 긴장한 거라고 생각했어요. 끝에는 좋아했고요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "He checked his watch as the monorail departed"
+   },
+   "interpretation": "모노레일이 출발할 때 그는 초조하게 시계를 확인했다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "시계를 보고 창밖을 멍하니 보는 행동, 'didn't feel like going', 'nothing better to do'를 지루함이 아닌 긴장의 단서로 추론했다. 앞부분 심경을 행동 묘사에서 잘못 추론한 것이 실패 지점이다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-15",
+   "item_id": "M2309#18",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-PURPOSE",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "시장이 유명한 선수한테 편지 쓰면 보통 홍보대사 해달라는 거잖아요. 첫 부분만 보고 바로 골랐어요.",
+   "blocked_span": null,
+   "interpretation": "시장이 유명 선수에게 = 홍보 부탁",
+   "self_category": "evidence",
+   "context": "이 문항에 25초",
+   "true_mechanism": "편지 끝까지 읽지 않고 '시장이 유명 인물에게 쓰는 편지는 홍보 요청'이라는 배경 지식으로 목적을 정했다. 응원한다는 말(supporting you, Good luck)을 확인하지 않고 1번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-16",
+   "item_id": "2025#40",
+   "exam": "2025학년도 수능",
+   "type": "R-SUMMARY",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "천연 재료가 몇천 년 동안 먹어도 괜찮았다고 해서, 사람들 생각이 맞다는 쪽으로 support 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "can, therefore, be assumed to be safe"
+   },
+   "interpretation": "그러므로 천연 재료가 안전하다고 볼 수 있다(그래서 사람들의 생각이 맞다)",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "글 후반의 양보(천연 재료를 오래 먹어 안전한 경우도 있다) 부분을 결론으로 받아들이고, 바로 뒤 However로 다시 경고하는 흐름과 글 첫 문장의 주장(합성이 항상 더 해롭지는 않다)을 놓쳤다. 주장과 양보의 위계를 거꾸로 잡아 (B)에 support를 넣었다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-17",
+   "item_id": "2025#40",
+   "exam": "2025학년도 수능",
+   "type": "R-SUMMARY",
+   "chosen_option": 3,
+   "confidence": "guess",
+   "reason": "시간이 없어서 manageability가 controlled랑 비슷해 보여서 그냥 골랐어요.",
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "time",
+   "context": "남은 시간 2분에 41~45번 앞두고 풀었음, 이 문항에 30초",
+   "true_mechanism": "시간에 쫓겨 (A)만 controlled와 비슷한 낱말로 맞추고 (B) intensify가 사람들의 통념을 '강화한다'는 정반대 방향이라는 점은 확인하지 않았다. 내용 이해보다 시간 압박으로 (B)를 검토하지 못한 것이 원인이다.",
+   "chain": null,
+   "evidence_design": "clear"
+  },
+  {
+   "case_id": "C4-18",
+   "item_id": "2025#43",
+   "exam": "2025학년도 수능",
+   "type": "X-ORDER",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "(A) 끝에 재킷 가지러 간다고 했고 (B)가 재킷 들고 집에 왔다니까 바로 이어진다고 봤어요. (C)는 세탁소 얘기라 나중에 회상하는 건 줄 알았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Ethan and Grace came back home with the jackets"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "(A) 끝의 '세탁소에 가서 가져오자'와 (B)의 '재킷을 들고 귀가'를 바로 이으면서, 세탁소 장면인 (C)가 그 사이에 와야 한다는 시간 순서를 놓쳤다. 이어 (C)를 회상 장면으로 보고 맨 뒤로 보냈다.",
+   "chain": [
+    "(A)→(C) 장소 이동(세탁소) 연결을 놓치고 (A)→(B)로 바로 잇기",
+    "(C)를 회상으로 오인해 시간 순서를 뒤집어 맨 뒤에 배치"
+   ],
+   "evidence_design": "chained"
+  },
+  {
+   "case_id": "C4-19",
+   "item_id": "M2306#41",
+   "exam": "2023학년도 6월 모의평가",
+   "type": "X-TITLE",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "비상 상황에서 사람들이 어떻게 하는지 얘기니까 비상시 돕는 방법 같았어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 5,
+    "quote": "Ways of Helping Others in Emergent Situations"
+   },
+   "interpretation": "응급 상황에서 다른 사람을 돕는 방법들",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "글의 소재(emergency)와 겹치는 선택지에 끌린 것인지, 군중의 수동성이 개인 판단을 막는다는 중심 내용을 '돕는 방법'으로 잘못 요약한 것인지 증거만으로는 구분되지 않는다. 실제로는 emergency 낱말 반복에 끌려 선택지 방향을 확인하지 않은 쪽에 가깝다.",
+   "chain": null,
+   "evidence_design": "ambiguous"
+  }
+ ],
+ "expected": {
+  "C1-01": {
+   "outcome": "identified",
+   "primary": "S.operator_scope"
+  },
+  "C1-02": {
+   "outcome": "identified",
+   "primary": "S.core_structure"
+  },
+  "C1-03": {
+   "outcome": "identified",
+   "primary": "R.reference"
+  },
+  "C1-04": {
+   "outcome": "identified",
+   "primary": "R.reference",
+   "contributing": [
+    "R.main_point"
+   ]
+  },
+  "C1-05": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "accept": [
+    "R.relation"
+   ]
+  },
+  "C1-06": {
+   "outcome": "identified",
+   "primary": "X.time"
+  },
+  "C1-07": {
+   "outcome": "identified",
+   "primary": "E.task_misread",
+   "accept": [
+    "X.attention"
+   ]
+  },
+  "C1-08": {
+   "outcome": "identified",
+   "primary": "R.relation",
+   "accept_outcome": [
+    "inconsistent_evidence"
+   ]
+  },
+  "C1-09": {
+   "outcome": "identified",
+   "primary": "R.main_point"
+  },
+  "C1-10": {
+   "outcome": "identified",
+   "primary": "V.unknown_word",
+   "accept": [
+    "V.wrong_sense"
+   ]
+  },
+  "C1-11": {
+   "outcome": "insufficient_evidence"
+  },
+  "C1-12": {
+   "outcome": "identified",
+   "primary": "R.main_point"
+  },
+  "C1-13": {
+   "outcome": "identified",
+   "primary": "S.operator_scope"
+  },
+  "C1-14": {
+   "outcome": "multiple_plausible",
+   "candidates": [
+    "S.operator_scope",
+    "R.reference"
+   ]
+  },
+  "C1-15": {
+   "outcome": "insufficient_evidence"
+  },
+  "C1-16": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [
+    "V.unknown_word"
+   ]
+  },
+  "C1-17": {
+   "outcome": "identified",
+   "primary": "X.attention",
+   "accept": [
+    "V.wrong_sense"
+   ],
+   "contributing": [
+    "B.no_verification"
+   ]
+  },
+  "C1-18": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [
+    "V.multiword"
+   ]
+  },
+  "C1-19": {
+   "outcome": "identified",
+   "primary": "B.outside_knowledge"
+  },
+  "C1-20": {
+   "outcome": "identified",
+   "primary": "X.time"
+  },
+  "C2-01": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "contributing": [
+    "B.surface_match"
+   ]
+  },
+  "C2-02": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "accept": [
+    "V.wrong_sense"
+   ]
+  },
+  "C2-03": {
+   "outcome": "insufficient_evidence"
+  },
+  "C2-04": {
+   "outcome": "identified",
+   "primary": "E.task_misread",
+   "accept": [
+    "X.attention"
+   ]
+  },
+  "C2-05": {
+   "outcome": "identified",
+   "primary": "V.unknown_word",
+   "contributing": [
+    "R.relation"
+   ]
+  },
+  "C2-06": {
+   "outcome": "identified",
+   "primary": "B.surface_match",
+   "accept_outcome": [
+    "inconsistent_evidence"
+   ]
+  },
+  "C2-07": {
+   "outcome": "identified",
+   "primary": "S.operator_scope",
+   "accept": [
+    "V.wrong_sense"
+   ]
+  },
+  "C2-08": {
+   "outcome": "identified",
+   "primary": "B.outside_knowledge",
+   "accept": [
+    "R.relation"
+   ]
+  },
+  "C2-09": {
+   "outcome": "identified",
+   "primary": "S.operator_scope",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "accept": [
+    "B.surface_match"
+   ]
+  },
+  "C2-10": {
+   "outcome": "identified",
+   "primary": "X.time"
+  },
+  "C2-11": {
+   "outcome": "identified",
+   "primary": "S.core_structure"
+  },
+  "C2-12": {
+   "outcome": "insufficient_evidence"
+  },
+  "C2-13": {
+   "outcome": "identified",
+   "primary": "B.surface_match",
+   "accept": [
+    "R.relation"
+   ]
+  },
+  "C2-14": {
+   "outcome": "identified",
+   "primary": "R.reference",
+   "contributing": [
+    "R.relation"
+   ]
+  },
+  "C2-15": {
+   "outcome": "identified",
+   "primary": "R.reference"
+  },
+  "C2-16": {
+   "outcome": "multiple_plausible",
+   "candidates": [
+    "B.surface_match",
+    "R.relation"
+   ]
+  },
+  "C2-17": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "contributing": [
+    "R.main_point"
+   ]
+  },
+  "C2-18": {
+   "outcome": "identified",
+   "primary": "R.relation"
+  },
+  "C2-19": {
+   "outcome": "identified",
+   "primary": "B.outside_knowledge",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "accept": [
+    "B.no_verification"
+   ]
+  },
+  "C3-01": {
+   "outcome": "identified",
+   "primary": "X.attention",
+   "accept": [
+    "E.task_misread"
+   ]
+  },
+  "C3-02": {
+   "outcome": "identified",
+   "primary": "B.surface_match"
+  },
+  "C3-03": {
+   "outcome": "identified",
+   "primary": "S.operator_scope"
+  },
+  "C3-04": {
+   "outcome": "identified",
+   "primary": "V.unknown_word",
+   "contributing": [
+    "B.no_verification"
+   ]
+  },
+  "C3-05": {
+   "outcome": "identified",
+   "primary": "R.main_point",
+   "accept": [
+    "R.relation"
+   ]
+  },
+  "C3-06": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [
+    "V.unknown_word"
+   ]
+  },
+  "C3-07": {
+   "outcome": "identified",
+   "primary": "S.core_structure"
+  },
+  "C3-08": {
+   "outcome": "identified",
+   "primary": "R.relation"
+  },
+  "C3-09": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [
+    "R.reference"
+   ]
+  },
+  "C3-10": {
+   "outcome": "insufficient_evidence"
+  },
+  "C3-11": {
+   "outcome": "identified",
+   "primary": "S.form_rule"
+  },
+  "C3-12": {
+   "outcome": "insufficient_evidence",
+   "accept_outcome": [
+    "identified"
+   ],
+   "accept": [
+    "X.time"
+   ]
+  },
+  "C3-13": {
+   "outcome": "identified",
+   "primary": "R.reference"
+  },
+  "C3-14": {
+   "outcome": "identified",
+   "primary": "R.reference",
+   "accept_outcome": [
+    "inconsistent_evidence"
+   ]
+  },
+  "C3-15": {
+   "outcome": "identified",
+   "primary": "R.relation",
+   "contributing": [
+    "B.surface_match"
+   ]
+  },
+  "C3-16": {
+   "outcome": "identified",
+   "primary": "R.reference",
+   "contributing": [
+    "B.no_verification"
+   ]
+  },
+  "C3-17": {
+   "outcome": "multiple_plausible",
+   "candidates": [
+    "B.surface_match",
+    "V.wrong_sense"
+   ]
+  },
+  "C3-18": {
+   "outcome": "identified",
+   "primary": "S.operator_scope",
+   "accept": [
+    "X.attention"
+   ],
+   "contributing": [
+    "R.reference"
+   ]
+  },
+  "C3-19": {
+   "outcome": "identified",
+   "primary": "R.reference",
+   "accept": [
+    "S.form_rule",
+    "S.attachment"
+   ]
+  },
+  "C4-01": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "contributing": [
+    "B.surface_match"
+   ]
+  },
+  "C4-02": {
+   "outcome": "identified",
+   "primary": "B.surface_match",
+   "contributing": [
+    "R.relation"
+   ]
+  },
+  "C4-03": {
+   "outcome": "identified",
+   "primary": "S.operator_scope"
+  },
+  "C4-04": {
+   "outcome": "identified",
+   "primary": "S.core_structure",
+   "accept": [
+    "S.form_rule"
+   ]
+  },
+  "C4-05": {
+   "outcome": "identified",
+   "primary": "R.reference",
+   "contributing": [
+    "R.relation"
+   ]
+  },
+  "C4-06": {
+   "outcome": "identified",
+   "primary": "S.operator_scope"
+  },
+  "C4-07": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "accept": [
+    "V.multiword"
+   ]
+  },
+  "C4-08": {
+   "outcome": "identified",
+   "primary": "V.unknown_word"
+  },
+  "C4-09": {
+   "outcome": "insufficient_evidence"
+  },
+  "C4-10": {
+   "outcome": "identified",
+   "primary": "E.task_misread"
+  },
+  "C4-11": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [
+    "R.inference"
+   ]
+  },
+  "C4-12": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "accept_outcome": [
+    "inconsistent_evidence"
+   ]
+  },
+  "C4-13": {
+   "outcome": "insufficient_evidence"
+  },
+  "C4-14": {
+   "outcome": "identified",
+   "primary": "R.inference"
+  },
+  "C4-15": {
+   "outcome": "identified",
+   "primary": "B.outside_knowledge",
+   "contributing": [
+    "B.no_verification"
+   ]
+  },
+  "C4-16": {
+   "outcome": "identified",
+   "primary": "R.main_point"
+  },
+  "C4-17": {
+   "outcome": "identified",
+   "primary": "X.time"
+  },
+  "C4-18": {
+   "outcome": "identified",
+   "primary": "R.relation"
+  },
+  "C4-19": {
+   "outcome": "multiple_plausible",
+   "candidates": [
+    "B.surface_match",
+    "R.main_point"
+   ]
+  }
+ },
+ "reviewerA": [
+  {
+   "case_id": "C1-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "해석이 \"pay more for much less\"를 \"적게 내고 더 많이\"로 비교 방향을 뒤집었고 이유도 같은 방향(가격 싼 것).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-02",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "\"동사가 없어서 opened, 주어가 This period\"라며 분사구문을 본동사 자리로 봤다 — 절 구조 파악 실패.",
+   "codebook_difficulty": "form_rule(분사 자리 규칙)과 core_structure 경계가 학생 진술만으로는 가늠하기 어렵다"
+  },
+  {
+   "case_id": "C1-03",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "이유·해석 모두 (A)의 they를 (B)의 시골 건축가로 연결 — 지시 대상 오류.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-04",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "\"that is a mistake\"의 that을 \"새것을 익히지 못하는 것\"으로 연결해 글 방향을 반대로 잡음. 학생 범주(word)는 증거와 어긋나 증거를 따름.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-05",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "벽돌·액셀을 자동차 이야기로, \"same story in medicine\"을 의학에도 자동차가 나온다는 뜻으로 문자 그대로 읽음.",
+   "codebook_difficulty": "R.inference(문자 그대로)와 R.relation(유비 관계 못 봄) 경계가 겹친다"
+  },
+  {
+   "case_id": "C1-06",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "종료 2분 전 처음 보고 35초, \"시간이 없어서 마지막 문장만\" — 시간이 정상 절차를 막음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-07",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "E",
+   "primary": "E.task_misread",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q3",
+   "rationale": "불일치 문항에서 \"지문에 그대로 나와서\" 골랐다 — 발문 기준을 일치로 이해. 선지 2~5 미확인(시간 문제 기록 없음).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-08",
+   "adequacy": "A2",
+   "outcome": "inconsistent_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q1",
+   "rationale": "charred를 몰라 해석이 안 됐다는 이유와 달리 해석은 \"탄 뼈\"로 맞게 되어 있어 어휘 실패인지 위치 판단 실패인지 가릴 수 없다.",
+   "codebook_difficulty": "reason과 interpretation이 충돌할 때 등급·결과 처리 규칙이 불명확"
+  },
+  {
+   "case_id": "C1-09",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.main_point",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "\"Damasio가 감정을 빼야 한다고 결론\"이라며 변형된 (d) 문장을 글의 중심 주장으로 잡음.",
+   "codebook_difficulty": "장문 세트에서 변형 낱말을 그대로 받아들인 것이 V인지 R.main_point인지 경계 불명"
+  },
+  {
+   "case_id": "C1-10",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.unknown_word",
+   "contributing": [
+    "R.main_point"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "hindrances를 \"처음 봐서\" \"방법\"으로 추측해 넣었고 그 해석으로 요지(조기 전문화가 좋다)를 반대로 잡음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-11",
+   "adequacy": "A1",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "이유·막힌 곳·해석 없음, 학생 범주 choice만(메모).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-12",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.main_point",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "\"파트너 비교 예시가 두 개나 나오니까 비교가 문제\" — 예시를 밑줄 함축의 중심으로 잡음.",
+   "codebook_difficulty": "함축 문항에서 R.main_point와 R.inference 중 어느 쪽인지 — 중심 오류가 먼저 보여 main_point로 함"
+  },
+  {
+   "case_id": "C1-13",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "\"are not based on\"을 \"바탕을 둔다\"로 부정을 빼고 해석, 이유도 같은 방향.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-14",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "\"not because they necessarily have more\"를 \"더 많지 않기 때문\"으로 부정 범위를 잘못 걸어 흐름과 반대라고 판단.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-15",
+   "adequacy": "A0",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "고른 번호 외 증거 없음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-16",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "retain을 \"잃는다\"로 확정된 다른 뜻으로 해석해 (B)를 관객 상실로 잡음.",
+   "codebook_difficulty": "V.wrong_sense와 S.operator_scope(nevertheless 양보 처리) 구별 근거가 해석 한 줄뿐"
+  },
+  {
+   "case_id": "C1-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [
+    "X.attention"
+   ],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "앞 문항에 시간을 써 50초, \"unstable을 stable로 본 것 같다\" — 시간 압박 속 순간 오독.",
+   "codebook_difficulty": "X.time과 X.attention 중 primary 선택 규칙이 없다"
+  },
+  {
+   "case_id": "C1-18",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "absorption을 \"물을 빨아들이는 흡수\"로만 처리해 문맥상 뜻을 놓쳐 맞는 낱말을 틀렸다고 봄.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-19",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.outside_knowledge",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "\"기술은 계속 바뀌니까 사람이 적응해야 맞다\" — 글 대신 자기 상식으로 판단.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-20",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 1분, 두 문항 70초, 다 못 읽고 찍음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.main_point",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "마법·신데렐라 예시를 핵심으로 보고 비유를 \"마술을 할 수 있다\"로 읽음 — 중심 오류.",
+   "codebook_difficulty": "R.main_point와 R.inference(비유 문자 해석)가 동시에 보임"
+  },
+  {
+   "case_id": "C2-02",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "divorce를 이혼으로 알고 글쓴이 비유(손과 머리의 분리)를 동료 사이 갈등으로 잘못 이끌어 냄.",
+   "codebook_difficulty": "비유 오해에서 V.wrong_sense 대비 기준이 6절 표에 없다"
+  },
+  {
+   "case_id": "C2-03",
+   "adequacy": "A0",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "고른 번호 외 증거 없음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-04",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "E",
+   "primary": "E.task_misread",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q3",
+   "rationale": "불일치 문항에서 \"그대로 나와서\" 골랐고 1번 확인 후 2번에서 바로 마킹.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-05",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.unknown_word",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "concealed를 몰라 \"집중되어 있다\"로 추측, 그 문장을 못 읽어 위치를 But 연결로만 정함.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-06",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.surface_match",
+   "contributing": [
+    "V.unknown_word"
+   ],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "\"converting it to fat이 나와서 지문이랑 제일 비슷\" — 낱말 겹침이 결정 근거. 어려운 낱말은 특정 안 됨.",
+   "codebook_difficulty": "막연한 \"단어가 어려워서\"를 V contributing으로 둘 수 있는지 불명"
+  },
+  {
+   "case_id": "C2-07",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "\"hardly ever play a role\"을 \"힘들게라도 역할을 한다\"로 부정 정도어를 긍정으로 처리.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-08",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [
+    "B.outside_knowledge"
+   ],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "석탄·전기 흐름에서 태양광·풍력을 화제 이탈로 보고 비교 관계를 못 봄. \"신재생은 환경 얘기\"는 글 밖 판단.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-09",
+   "adequacy": "A3",
+   "outcome": "multiple_plausible",
+   "family": "B",
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "B.surface_match",
+    "R.inference"
+   ],
+   "flow_stop": "Q5",
+   "rationale": "이유는 지문 낱말 interpretation 겹침, 해석은 \"주관적 해석\"으로 과잉 추론 — 두 원인이 거의 같게 맞음.",
+   "codebook_difficulty": "이유(B)와 해석(R)이 다르면 Q1 inconsistent인지 순서상 R 우선인지 모호"
+  },
+  {
+   "case_id": "C2-10",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 2분, 35초, 앞부분만 읽고 찍음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-11",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "will orient와 병렬 동사가 와야 한다고 봐 seeming(분사구문)을 동사 자리로 잘못 파악.",
+   "codebook_difficulty": "form_rule과 core_structure 경계"
+  },
+  {
+   "case_id": "C2-12",
+   "adequacy": "A1",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "학생 범주 word·확신도만 있음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-13",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.surface_match",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "\"art critics와 Critics가 나오니까\" — 같은 낱말 겹침으로 위치를 정함, 뜻 대조 흔적 없음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-14",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "This sense를 주어진 문장의 \"전문가의 깊은 친숙함\"으로 연결 — 지시 대상 오류.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-15",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "(B)의 these tasks를 (C)의 일반화로 연결해 순서를 틀림.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-16",
+   "adequacy": "A2",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "첫 연결 이유만 있고 이후 \"그냥 흐름상\" — 무엇이 실패했는지 증거가 말하지 않음.",
+   "codebook_difficulty": "A2인데 실패 지점이 특정 안 될 때 Q0에서 멈추는지 Q8까지 가는지"
+  },
+  {
+   "case_id": "C2-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "supplanted를 비슷한 철자의 supplemented(보충·지원)로 해석해 제목을 반대로 고름.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-18",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "\"이타적 결과니까 중요성을 높여야\" — 낱말 뜻은 알면서 진술과 예시의 관계 방향을 잘못 연결.",
+   "codebook_difficulty": "R.relation과 B.outside_knowledge 경계"
+  },
+  {
+   "case_id": "C2-19",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.outside_knowledge",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "\"비교 대상이 되면 기분 좋을 것 같아서\" — 자기 상식으로 판단, ④·⑤ 미확인.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "E",
+   "primary": "E.task_misread",
+   "contributing": [
+    "X.time"
+   ],
+   "candidates": [],
+   "flow_stop": "Q3",
+   "rationale": "불일치 문항에서 \"첫 줄에 historical fiction 나와서 1번 맞는 내용\"이라 골랐다 — 일치 기준으로 판단. 남은 2분·25초 기록이 있으나 학생은 시간 때문이라고 하지 않아 보조로만 둠.",
+   "codebook_difficulty": "Q2(시간 기록)가 Q3보다 앞서지만, 시간이 절차를 막았다는 진술 없이 기록만 있을 때 X를 primary로 할지 규칙이 없다"
+  },
+  {
+   "case_id": "C3-02",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.surface_match",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "해석은 대체로 맞게 했으나 고른 이유가 주어진 문장의 accurate와 지문 낱말 겹침뿐이다.",
+   "codebook_difficulty": "해석(정상)과 이유(낱말 겹침)가 함께 있을 때 A3 인지 A2 인지 애매"
+  },
+  {
+   "case_id": "C3-03",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "해석에서 \"not well founded\"의 not 이 빠져 \"근거가 잘 갖춰져 있다\"로 반대 뜻이 됐다. self_category(word)는 증거와 어긋나 무시.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-04",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.unknown_word",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "folly 를 몰랐다고 하고 해석에서 그 자리를 \"노력\"으로 추측해 요지를 반대로 잡았다.",
+   "codebook_difficulty": "후속 요지 오판(R.main_point)을 contributing 으로 둘지 연쇄 규칙상 불명"
+  },
+  {
+   "case_id": "C3-05",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "폴로 문장 자체는 맞게 읽었으나 인쇄 주제와의 연결을 못 보고 흐름 이탈로 판단했다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-06",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "commerce 를 \"공동체\"라는 확정된 다른 뜻으로 읽었다고 진술하고 해석도 그렇다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-07",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [
+    "S.form_rule"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "③에서 subjects 를 have taught 의 주어로 읽어 성분을 잘못 잡았고, ②는 \"ing 연속은 이상\"이라는 틀린 형태 규칙으로 골랐다.",
+   "codebook_difficulty": "오답 선지를 고른 이유(form_rule)와 정답을 놓친 이유(core)가 다를 때 primary 결정 기준이 없음"
+  },
+  {
+   "case_id": "C3-08",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "R.relation",
+    "B.surface_match"
+   ],
+   "flow_stop": "Q5",
+   "rationale": "\"Other\"가 나오니 바로 다음이라는 연결 판단만 있고 해석이 없어 관계 오판인지 표면 단서 선택인지 구별되지 않는다.",
+   "codebook_difficulty": "담화 표지어(Other) 단서 사용을 관계 판단(R)으로 볼지 표면 일치(B)로 볼지 기준 없음"
+  },
+  {
+   "case_id": "C3-09",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "\"this part is for cooking\"의 part(공간 구획)를 시간으로 읽어 하루 일과 이야기로 오해했다.",
+   "codebook_difficulty": "명사 하나의 뜻 오류(V)인지 문장 처리(S)인지 경계"
+  },
+  {
+   "case_id": "C3-10",
+   "adequacy": "A0",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "고른 번호 외 증거가 없다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-11",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.form_rule",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "분사구문 의미상 주어를 스타일로 맞게 봤으나 \"허락받는 건 사람이어야\"라는 틀린 태 규칙을 적용했고, what 은 확인하지 않았다.",
+   "codebook_difficulty": "\"별 생각 안 했다\"를 B.no_verification contributing 으로 넣어도 되는지"
+  },
+  {
+   "case_id": "C3-12",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 시간 1분·15초·앞부분만 읽음 기록과 time 범주가 일치한다.",
+   "codebook_difficulty": "시험 상황 기록 1종 + 자기범주만이라 A2 로 매김"
+  },
+  {
+   "case_id": "C3-13",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "they all 이 비밀번호·생체인식·확인 전화를 모두 가리킨다고 잘못 연결해 위치를 정했다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-14",
+   "adequacy": "A3",
+   "outcome": "inconsistent_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q1",
+   "rationale": "hurdles 를 몰라 대충 넣었다는 이유와, This obstacle 앞에 장애물 얘기가 와야 한다는 해석 추론이 서로 다른 실패를 가리킨다.",
+   "codebook_difficulty": "자기진단(\"단어 문제\")이 해석 증거와 어긋날 때 증거를 따를지 inconsistent 로 둘지"
+  },
+  {
+   "case_id": "C3-15",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "R.relation",
+    "B.surface_match"
+   ],
+   "flow_stop": "Q5",
+   "rationale": "Others→some others 낱말 연결로 순서를 정했고 해석은 맞아 보여 관계 오판인지 표면 단서 의존인지 가르기 어렵다.",
+   "codebook_difficulty": "담화 표지 단서 의존의 R/B 경계"
+  },
+  {
+   "case_id": "C3-16",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "she 를 주어진 글의 그녀와 같은 사람으로 잇고 them 의 지시를 확인하지 않아 순서를 틀렸다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [
+    "R.main_point"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "\"a real problem\"을 \"중요한 문제\"로 읽어 trialability 를 장애가 아닌 핵심 주제로 잡았다.",
+   "codebook_difficulty": "problem 오독(V)과 반복 낱말=주제 판단(R/B) 중 최초 실패 판단이 애매"
+  },
+  {
+   "case_id": "C3-18",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [
+    "E.evidence_location"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "\"not a plant expert\"를 \"식물 전문가인데\"로 부정을 빠뜨렸고, 모자 발언 주체도 다른 인물에 대응시켰다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-19",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "him 을 Sean 자신으로 보아 지칭 대상을 잘못 이었다.",
+   "codebook_difficulty": "한 문장 안 대명사(him vs himself)는 S.attachment 에서 제외되고 R.reference 는 문장 사이라 정의 공백"
+  },
+  {
+   "case_id": "C4-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "interdependent 를 \"독립적\"으로 확정해 읽고 그 뜻으로 요지를 골랐다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-02",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "④를 지방세포 얘기라 같은 흐름으로 보고 ③의 개인차를 이탈로 봐 문장 사이 흐름 판단이 틀렸다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-03",
+   "adequacy": "A3",
+   "outcome": "multiple_plausible",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "V.wrong_sense",
+    "S.operator_scope"
+   ],
+   "flow_stop": "Q4",
+   "rationale": "\"remain quiet\"를 \"계속 말한다\"로 반대로 읽었는데 낱말 뜻 오류인지 whereas 대조 처리 오류인지 증거로 가려지지 않는다.",
+   "codebook_difficulty": "V vs S 경계에서 해석은 있으나 어느 요소가 틀렸는지 불명"
+  },
+  {
+   "case_id": "C4-04",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "observe 의 주어를 opportunity 로 잡아 \"기회가 그들을 관찰한다\"로 성분을 잘못 구성했다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-05",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "(A)의 they 가 누구인지 몰라 \"뇌들?\"로 추측하고 순서를 정했다.",
+   "codebook_difficulty": "지시 대상 미확정(모름)도 reference 로 볼지"
+  },
+  {
+   "case_id": "C4-06",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4b",
+   "rationale": "\"analysis is not the solution\"에서 not 을 빼고 \"분석이 해결책\"으로 읽었다. self_category(choice)는 증거와 어긋남.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-07",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "mind’s eye 의 사전 뜻(상상)은 알았으나 글에서 그 밑줄이 가리키는 바를 문자 뜻으로만 연결했다.",
+   "codebook_difficulty": "사전 숙어이면서 글쓴이가 확장한 비유일 때 V.multiword/R.inference 경계"
+  },
+  {
+   "case_id": "C4-08",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.unknown_word",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4a",
+   "rationale": "corresponding 뜻을 몰랐다고 하고 해석에서 \"반대되는\"으로 추측했다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-09",
+   "adequacy": "A0",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "결과만 있다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-10",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "E",
+   "primary": "E.task_misread",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q3",
+   "rationale": "불일치 문항에서 \"본문에 그대로 있어서\" 골랐고 다시 보고 알아챘다는 진술이 없다.",
+   "codebook_difficulty": "35초 기록이 X.attention 신호인지 애매 — 구별 증거 없음 규칙으로 task_misread"
+  },
+  {
+   "case_id": "C4-11",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "sticky 를 \"번거로움\"으로 문자 연상해 밑줄의 함축을 잘못 구성했다.",
+   "codebook_difficulty": "sticky 낱말 뜻 오류(V.wrong_sense)와 비유 함축 실패의 경계"
+  },
+  {
+   "case_id": "C4-12",
+   "adequacy": "A3",
+   "outcome": "inconsistent_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q1",
+   "rationale": "sticky 를 몰랐다는 이유와, 막힌 곳·해석(장소 연결 단절→지역 사업 약화)의 오독이 서로 다른 실패를 가리킨다.",
+   "codebook_difficulty": "자기진단과 해석 증거 불일치 처리"
+  },
+  {
+   "case_id": "C4-13",
+   "adequacy": "A1",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "확신도와 범주(flow)뿐이다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-14",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "시계를 본 행동을 \"초조\"로 추론해 심경을 잘못 구성했다.",
+   "codebook_difficulty": "해석에 덧붙인 낱말(초조하게)을 추론 증거로 쓸 수 있는지"
+  },
+  {
+   "case_id": "C4-15",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.outside_knowledge",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "\"시장이 선수에게 편지하면 보통 홍보대사\"라는 글 밖 상식으로 첫 부분만 보고 25초에 골랐다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-16",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.main_point",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "사람들의 통념(천연 재료가 안전하다)을 글쓴이 주장으로 받아들여 support 를 골랐다.",
+   "codebook_difficulty": "R.main_point vs R.relation(therefore 연결) 경계"
+  },
+  {
+   "case_id": "C4-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 2분·30초 기록과 \"시간이 없어서\"가 일치하고, manageability 를 controlled 와 비슷해 보여 골랐다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-18",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "재킷을 가지러 간다→재킷 들고 귀가로 시간 순서를 잇고 (C)를 회상으로 봐 사건 순서 관계를 틀렸다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-19",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "E.option_mismatch",
+    "R.main_point"
+   ],
+   "flow_stop": "Q6",
+   "rationale": "\"비상 상황에서 사람들이 어떻게 하는지\"라는 요지 진술이 막연해 글 이해가 맞았는지 확인되지 않는다.",
+   "codebook_difficulty": "요지 진술이 모호할 때 \"글 이해가 맞다\"는 증거 판단 기준 없음(R vs E)"
+  }
+ ],
+ "reviewerB": [
+  {
+   "case_id": "C1-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "해석이 'pay more for much less'를 '적게 내고 더 많이 얻어'로 비교 방향을 뒤집었고 막힌 곳·이유가 같은 구절을 가리킨다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-02",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "'동사가 없어서'라는 이유는 본동사 was를 못 찾은 것으로, 구조 파악 실패가 형태 규칙보다 먼저다.",
+   "codebook_difficulty": "core_structure와 form_rule 경계: '동사 없음' 판단이 구조 오인인지 규칙 오적용인지 구별 기준이 약함"
+  },
+  {
+   "case_id": "C1-03",
+   "adequacy": "A3",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "학생의 they=시골 건축가 연결은 사실 맞고, (C) 'Those materials' 연결을 놓친 이유는 증거에 없어 무엇이 실패했는지 말하지 못한다.",
+   "codebook_difficulty": "지시 연결은 옳은데 순서가 틀린 경우 처리 규칙 없음"
+  },
+  {
+   "case_id": "C1-04",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "'that'을 '새것을 익히지 못하는 것'으로 연결했으나 실제로는 연결을 줄이는 행동을 가리킨다; self_category word는 증거와 어긋나 따르지 않음.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-05",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [
+    "R.relation"
+   ],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "'much the same story in medicine'을 의학에도 자동차 이야기가 나온다로 읽어 밑줄을 자동차 문자 그대로 해석했다(③ 선택).",
+   "codebook_difficulty": "R.inference와 R.relation(유추 연결) 경계"
+  },
+  {
+   "case_id": "C1-06",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "종료 2분 전 처음 봄·35초 기록과 '시간이 없어서' 진술이 일치한다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-07",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "E",
+   "primary": "E.task_misread",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q3",
+   "rationale": "불일치 문항에서 '지문에 그대로 나와서' 일치 선지를 골랐고, 선택지 2~5를 읽지 않았다.",
+   "codebook_difficulty": "시간 기록 없이 25초만 있을 때 X.attention과 task_misread 구별"
+  },
+  {
+   "case_id": "C1-08",
+   "adequacy": "A2",
+   "outcome": "inconsistent_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q1",
+   "rationale": "'charred를 몰라서 해석이 안 됐다'는 이유와 달리 해석은 '탄 뼈…기록이다'로 맞아 증거가 서로 어긋난다.",
+   "codebook_difficulty": "주석(*charred)이 있는 낱말의 unknown 주장 처리"
+  },
+  {
+   "case_id": "C1-09",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.main_point",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "글 전체의 긍정적 감정관을 두고 (d) 한 문장(오류 낱말 포함)을 결론·제목으로 삼아 세부를 중심으로 잡았다.",
+   "codebook_difficulty": "장문 어휘 오류 낱말이 제목 판단에 섞인 경우 R.relation/main_point 경계"
+  },
+  {
+   "case_id": "C1-10",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.unknown_word",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "hindrances를 처음 봤다며 '방법'으로 추측해 채웠고 이 낱말이 요지 판단 자리에 있다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-11",
+   "adequacy": "A1",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "이유·막힌 곳 없이 self_category(choice)만 있다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-12",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.main_point",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "문장 해석은 맞으나 비교 예시가 두 번 나온다는 이유로 세부(비교)를 글의 중심으로 삼아 ④를 골랐다.",
+   "codebook_difficulty": "함축 문항에서 R.main_point vs R.inference"
+  },
+  {
+   "case_id": "C1-13",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "'are not based on'의 부정을 빼고 '바탕을 둔다'로 해석해 반대 뜻이 됐다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-14",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "'not because … necessarily'의 부정 범위를 '많지 않기 때문이다'로 잘못 걸어 ④를 반대 내용으로 읽었다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-15",
+   "adequacy": "A0",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "고른 번호 외 증거가 없다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-16",
+   "adequacy": "A3",
+   "outcome": "multiple_plausible",
+   "family": "V",
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "V.wrong_sense",
+    "V.unknown_word"
+   ],
+   "flow_stop": "Q4",
+   "rationale": "retain을 '잃는다'로 해석해 (B) lose를 골랐으나, 확정된 다른 뜻인지 앞 문장에서 추측한 것인지 가릴 증거가 없다.",
+   "codebook_difficulty": "unknown vs wrong_sense: 해석이 확정적이나 앞 문맥 추측일 수 있는 경우"
+  },
+  {
+   "case_id": "C1-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.attention",
+   "contributing": [
+    "X.time"
+   ],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "'stable이라고 본 것 같다'는 재확인 진술과 50초 시간 기록으로 unstable을 잘못 본 것이다.",
+   "codebook_difficulty": "X.attention vs S.operator_scope(un- 접두사)·X.time 우선순위"
+  },
+  {
+   "case_id": "C1-18",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "absorption을 '물을 빨아들이는 흡수'라는 1차 뜻으로만 처리해 문맥의 동화·통합 뜻을 놓쳤다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-19",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.outside_knowledge",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "'기술은 계속 바뀌니까 사람이 적응해야' 라는 글과 반대인 상식을 근거로 ④를 골랐다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C1-20",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 시간 1분·두 문항 70초 기록과 '시간이 1분 남아서' 진술이 일치한다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [
+    "R.main_point"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "해석이 magic을 '마술을 할 수 있다'로 문자 그대로 확정해 ④(마술 배우기)를 골랐고, 반복된 도입 소재를 중심으로 삼았다.",
+   "codebook_difficulty": "글쓴이의 비유적 낱말을 문자 뜻으로 읽은 경우 V.wrong_sense vs R.inference"
+  },
+  {
+   "case_id": "C2-02",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "글쓴이가 만든 비유 divorce of the hands from the head를 '동료와 갈라섬'으로 문자 그대로 옮겨 ③을 골랐다.",
+   "codebook_difficulty": "R.inference vs V.wrong_sense(이혼 1차 뜻)"
+  },
+  {
+   "case_id": "C2-03",
+   "adequacy": "A0",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "결과만 있다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-04",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "E",
+   "primary": "E.task_misread",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q3",
+   "rationale": "불일치 문항에서 '그대로 나와서' 일치 선지 ②를 골랐고 1번 확인 후 바로 마킹했다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-05",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.unknown_word",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "concealed를 몰라 '집중되어 있다'로 추측했고 그 문장이 삽입 위치 판단 자리다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-06",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.surface_match",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "'converting it to fat이 나와서 4번이 제일 비슷'이라며 겹치는 표현을 근거로 골랐고, 어떤 낱말을 몰랐는지는 특정되지 않는다.",
+   "codebook_difficulty": "'단어가 어려웠다'는 막연한 V 주장과 B 근거 공존 시 처리"
+  },
+  {
+   "case_id": "C2-07",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "'hardly ever play a role'을 '힘들게라도 역할을 한다'로 해석해 부정을 긍정으로 뒤집었다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-08",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "R.relation",
+    "B.outside_knowledge"
+   ],
+   "flow_stop": "Q5",
+   "rationale": "⑤와 앞의 가치 사다리(고가치 전기) 연결을 못 본 흐름 오류일 수도, '신재생=환경'이라는 글 밖 범주화로 판단했을 수도 있다.",
+   "codebook_difficulty": "R.relation vs B.outside_knowledge: 글 밖 범주 연상이 섞인 흐름 판단"
+  },
+  {
+   "case_id": "C2-09",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.surface_match",
+   "contributing": [
+    "R.inference"
+   ],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "'지문에 interpretation이 나와서 해석이 들어간 4번'이라는 낱말 겹침 근거가 주되고, 해석에 '주관적'을 덧붙인 과잉 추론이 함께 보인다.",
+   "codebook_difficulty": "Q5(R) 증거와 Q7(B) 근거가 같은 attempt에 있을 때 primary 순서"
+  },
+  {
+   "case_id": "C2-10",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 2분·35초 기록과 '시간이 없어서' 진술이 일치한다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-11",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.form_rule",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "해석은 맞게 했으나 '본동사 뒤에도 동사가 와야 한다'는 틀린 규칙으로 분사구문 seeming을 틀렸다고 봤다.",
+   "codebook_difficulty": "core_structure vs form_rule"
+  },
+  {
+   "case_id": "C2-12",
+   "adequacy": "A1",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "이유·막힌 곳 없이 self_category(word)만 있다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-13",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.surface_match",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "'art critics'와 'Critics'가 겹친다는 것만 근거로 위치를 정했다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-14",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "This sense를 주어진 문장의 '비평가의 깊은 친숙함'으로 연결했으나 실제로는 앞 문장의 general sense를 가리킨다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-15",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "(B)의 these tasks를 (C)의 일반화로 연결했으나 실제로는 (A)의 빠른 분류를 가리킨다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-16",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "R.relation",
+    "B.surface_match"
+   ],
+   "flow_stop": "Q5",
+   "rationale": "stereotype 낱말 겹침으로 (A)를 앞에 둔 것인지 설명 관계로 잘못 이은 것인지 가릴 수 없고, 이후 순서는 이유가 없다.",
+   "codebook_difficulty": "순서 문항에서 '설명한다' 진술이 낱말 겹침과 함께 나올 때 R vs B"
+  },
+  {
+   "case_id": "C2-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "supplanted를 '보충되고(지원되고)'라는 비슷한 철자 낱말(supplemented) 뜻으로 확정 해석해 ①을 골랐다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-18",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "diminishing 뜻(줄이다)은 알면서 '이타적 결과니까 높여야'라고 앞 내용과의 방향 관계를 잘못 이었다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C2-19",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.outside_knowledge",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "'비교 대상이 되면 기분 좋을 것 같아서'라는 글과 반대인 상식으로 판단했고 ④·⑤를 읽지 않았다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [
+    "E.task_misread"
+   ],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 2분·25초 기록이 있고, 불일치 문항에서 '맞는 내용이네 하고 바로' 일치 선지를 골랐다.",
+   "codebook_difficulty": "Q2(X) 우선 규칙과 task_misread 증거 공존 시 처리"
+  },
+  {
+   "case_id": "C3-02",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.surface_match",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "주어진 문장의 accurate 와 지문 exacting measurements 의 낱말 겹침을 배치 근거로 들었고 문장 간 논리(Rather 대조) 대조 흔적이 없다.",
+   "codebook_difficulty": "이유가 겹침과 흐름 진술을 섞을 때 surface_match 와 R.relation 경계가 모호"
+  },
+  {
+   "case_id": "C3-03",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [
+    "R.main_point"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "막힌 곳 'not well founded' 를 '근거가 잘 갖춰져 있다'로 부정을 빠뜨려 해석했고, 이유도 로컬푸드 찬성 글로 이해했다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-04",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.unknown_word",
+   "contributing": [
+    "R.main_point"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "folly 를 몰랐다고 밝혔고 해석에서 folly 자리를 '노력'으로 추측해 채워 요지를 반대로 잡았다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-05",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "폴로 문장 해석은 맞는데 인쇄 흐름과의 연결(확산 경로)을 이탈로 판단했다 — 문장 사이 관계 판단 실패.",
+   "codebook_difficulty": "무관 문장 문항에서 R.relation 과 R.main_point 구분 기준이 약함"
+  },
+  {
+   "case_id": "C3-06",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "commerce 를 '공동체'로 알았다는 이유와 해석('공동체 없는 예술')이 같은 낱말의 다른 확정 뜻을 가리킨다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-07",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [
+    "S.form_rule"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "subjects 를 have taught 의 주어로 보고 해석도 '과목들이 가르쳤다'로 성분을 잘못 잡았다(수동 분사 자리).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-08",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "Other epistemic feelings 를 주어진 글 바로 다음의 추가 관계로 연결했다는 관계 판단이 이유에 드러난다.",
+   "codebook_difficulty": "해석 없이 연결어 하나만 근거일 때 R.relation 과 B.surface_match 경계"
+  },
+  {
+   "case_id": "C3-09",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [
+    "R.main_point"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "this part(공간의 부분)를 '이때'(시간)로 읽은 해석이 막힌 곳과 일치해 daily routine 을 골랐다.",
+   "codebook_difficulty": "part 의 뜻 오류인지 구조 오류인지 V/S 경계 판단 필요"
+  },
+  {
+   "case_id": "C3-10",
+   "adequacy": "A0",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "고른 번호만 있고 이유·막힌 곳·해석이 없다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-11",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.form_rule",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "분사구문 의미상 주어를 사람이어야 한다는 틀린 규칙을 적용했고, 정답 what 은 '별 생각 안 했다'고 확인을 생략했다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-12",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 시간 1분·이 문항 15초·지문 앞부분만 읽음이라는 상황 기록이 있다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-13",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "they all 이 확인 전화까지 가리킨다고 연결했다는 이유와 해석이 같은 지시 오류를 가리킨다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-14",
+   "adequacy": "A2",
+   "outcome": "inconsistent_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q1",
+   "rationale": "이유는 hurdles 를 몰랐다(V)인데 막힌 곳·해석은 This obstacle 선행사 추론을 맞게 하고 있어 서로 다른 실패를 가리킨다.",
+   "codebook_difficulty": "self_category·이유 주장과 다른 증거가 어긋날 때 증거 우선 규칙 적용 범위"
+  },
+  {
+   "case_id": "C3-15",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "해석은 맞고, Others→some others 연결과 (A)를 정리로 본 관계 판단으로 순서를 정했다(then·she 흐름 무시).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-16",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "she 를 같은 사람으로 이은 것까지는 맞으나 them 의 지시 대상을 '그냥 다른 사람'으로 두어 (C) 없이 (A)를 먼저 놓았다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-17",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": "B",
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "B.surface_match",
+    "R.main_point"
+   ],
+   "flow_stop": "Q7",
+   "rationale": "이유는 trialability 반복 출현(표면)인데 해석은 'real problem' 을 '중요한 문제'로 읽어 중심 오인도 가능해 둘이 비슷하게 맞는다.",
+   "codebook_difficulty": "반복 낱말 근거 + 해석 오류가 함께 있을 때 primary 순서(Q4/5 vs Q7)"
+  },
+  {
+   "case_id": "C3-18",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [
+    "E.evidence_location"
+   ],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "'not a plant expert' 를 '식물 전문가인데'로 부정을 빠뜨렸고, 모자 발언을 Anna 것으로 대응한 위치 오류가 더해졌다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C3-19",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "(b) him 을 Sean 자신으로 연결했다는 이유와 해석이 일치한다.",
+   "codebook_difficulty": "한 문장 안 대명사 지시는 S.attachment 제외 조항 때문에 R.reference 로 가지만 '문장 사이' 정의와 어긋남"
+  },
+  {
+   "case_id": "C4-01",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.wrong_sense",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "interdependent 를 '서로 독립적'으로 읽은 해석과 이유가 같은 낱말을 가리킨다.",
+   "codebook_difficulty": "접두사 inter- 오해가 unknown 인지 wrong_sense 인지"
+  },
+  {
+   "case_id": "C4-02",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "④를 fat cells 낱말이 이어진다는 이유로 같은 흐름으로 보고 ③을 이탈로 판단했다 — 흐름 관계 판단 실패에 낱말 겹침이 더해짐.",
+   "codebook_difficulty": "무관 문장 문항에서 낱말 겹침 근거를 primary 로 볼지 contributing 으로 볼지"
+  },
+  {
+   "case_id": "C4-03",
+   "adequacy": "A3",
+   "outcome": "multiple_plausible",
+   "family": "V",
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "V.wrong_sense",
+    "V.multiword"
+   ],
+   "flow_stop": "Q4",
+   "rationale": "'remain quiet' 를 '계속 말한다'로 해석했다 — 낱말 뜻 오류인지 덩어리 뜻 오류인지 가를 증거가 없다.",
+   "codebook_difficulty": "remain + 형용사 같은 연어를 multiword 로 볼지 기준 부재"
+  },
+  {
+   "case_id": "C4-04",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.core_structure",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "observe 의 주어를 opportunity 로 잡았다는 이유와 '기회가 그들을 관찰한다' 해석이 일치한다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-05",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.reference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "(A)의 they(마술사)가 누군지 몰라 맨 뒤에 놓았다는 이유·해석('뇌들?')이 지시 추적 실패를 보인다.",
+   "codebook_difficulty": "확신도 guess 이지만 내용 있는 이유가 있을 때 A2 인정 여부"
+  },
+  {
+   "case_id": "C4-06",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "S",
+   "primary": "S.operator_scope",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "'analysis is not the solution' 을 '분석이 해결책'으로 부정을 빠뜨려 읽었다(이유·해석 일치).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-07",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "mind's eye 는 '상상'으로 맞게 알았으나 blind 의 함축을 글 논지로 옮기지 못하고 상상과 연결된 선지를 골랐다.",
+   "codebook_difficulty": "mind's eye 는 사전 숙어라 V.multiword 와 경계가 걸림"
+  },
+  {
+   "case_id": "C4-08",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "V",
+   "primary": "V.unknown_word",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q4",
+   "rationale": "corresponding 뜻을 몰랐다는 이유와 '반대되는'이라는 추측 해석이 같은 낱말을 가리킨다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-09",
+   "adequacy": "A0",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "결과만 있다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-10",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "E",
+   "primary": "E.task_misread",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q3",
+   "rationale": "불일치 문항에서 '본문에 그대로 있어서' 골랐다는 이유가 발문과 다른 기준을 드러내며, 다시 보고 알아챘다는 진술은 없다.",
+   "codebook_difficulty": "앞 문항 유형·35초 기록이 X.attention 신호인지 판단 기준 부족"
+  },
+  {
+   "case_id": "C4-11",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "sticky 를 '끈적=번거로움'으로 문자적으로 풀어 장소 결속이라는 글 속 함축을 놓쳤다.",
+   "codebook_difficulty": "글쓴이 비유와 V.wrong_sense 경계"
+  },
+  {
+   "case_id": "C4-12",
+   "adequacy": "A2",
+   "outcome": "inconsistent_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q1",
+   "rationale": "이유는 sticky 를 몰랐다(V)인데 막힌 곳·해석은 다른 문장의 관계 오독을 가리킨다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-13",
+   "adequacy": "A1",
+   "outcome": "insufficient_evidence",
+   "family": null,
+   "primary": null,
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q0",
+   "rationale": "학생 범주(flow)만 있고 내용 있는 증거가 없다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-14",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.inference",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "시계를 본 행동에 '초조하게'를 덧붙여 심경을 긴장으로 추론했다 — 글 근거에서 잘못 이끈 추론.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-15",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "B",
+   "primary": "B.outside_knowledge",
+   "contributing": [
+    "B.no_verification"
+   ],
+   "candidates": [],
+   "flow_stop": "Q7",
+   "rationale": "'보통 홍보대사 부탁'이라는 글 밖 통념으로 골랐고 첫 부분만 보고 25초에 확인을 생략했다(시간 부족 기록 없음).",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-16",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.main_point",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "통념(천연 재료는 안전하다고 가정됨)을 글쓴이 주장으로 받아들여 support 를 골랐다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-17",
+   "adequacy": "A3",
+   "outcome": "identified",
+   "family": "X",
+   "primary": "X.time",
+   "contributing": [
+    "B.surface_match"
+   ],
+   "candidates": [],
+   "flow_stop": "Q2",
+   "rationale": "남은 2분·30초 기록과 '시간이 없어서'가 일치하고, manageability-controlled 표면 유사가 더해졌다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-18",
+   "adequacy": "A2",
+   "outcome": "identified",
+   "family": "R",
+   "primary": "R.relation",
+   "contributing": [],
+   "candidates": [],
+   "flow_stop": "Q5",
+   "rationale": "(A)→(B) 재킷 연결과 (C)를 회상으로 본 시간 순서 관계 판단이 이유에 드러난다.",
+   "codebook_difficulty": null
+  },
+  {
+   "case_id": "C4-19",
+   "adequacy": "A2",
+   "outcome": "multiple_plausible",
+   "family": "E",
+   "primary": null,
+   "contributing": [],
+   "candidates": [
+    "E.option_mismatch",
+    "B.surface_match"
+   ],
+   "flow_stop": "Q6",
+   "rationale": "글을 '비상 상황에서 사람들의 행동'으로 대략 진술했으나 글 이해가 맞았는지 불확실하고 emergent 겹침으로 골랐을 가능성도 있다.",
+   "codebook_difficulty": "R vs E 경계에서 학생의 요지 진술이 모호할 때 처리"
+  }
+ ]
+}
