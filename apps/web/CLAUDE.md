@@ -12,6 +12,9 @@
 정본은 루트 `DESIGN.md`. 루트 `data-skin="tines"` + 두 CSAT 레이아웃의 `data-design-scope="csat"`로
 본문·body 포털에 자동 적용한다. `skin=off`·저장값·환경변수로 해제하지 않는다. 새 작업은 참조 부품을
 지정하고 같은 조건의 캡처·측정으로 검증한다. 화면별 브랜드 색·글꼴 재선언은 피한다.
+참조는 **하위 대부분의 화면·기능·프로세스·팝업·탭·이미지·아이콘 등 모든 디자인 요소**다.
+홈만 보고 적용하지 않는다. `docs/design/reference-scope.md`에서 대응 하위 화면·부품·자산을 찾고,
+변경 기능의 진입→중간 상태→결과/취소/오류와 팝업·탭 전환까지 확인한다. 별도 디자인 요청 없이도 적용한다.
 
 `src/app/globals.css` 첫 줄에 `@import '@vocaflow/design-tokens/tokens.css';` — 이 한 줄로 `--p`, `--bg`, `--t1` 등 모든 CSS Variables 가 등록됨. Tailwind 는 `var(--p)` 식으로 참조.
 

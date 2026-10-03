@@ -3,6 +3,7 @@
 > **현행 범위(2026-10-03)**: [DESIGN.md](../../DESIGN.md). `/csat` 전체는 neon-currant 3B 앱,
 > 그 외(관리자 포함)는 Tines 웹사이트다. 아래 과거 매핑의 CSAT 마케팅 템플릿·관리자 예외와 상태는 당시 기록이며
 > 새 결정의 근거/기본 범위를 덮지 않는다. 재사용 자산과 이번 검증은 [reference-contract](reference-contract.md).
+> **참조 범위**는 홈에 한정하지 않는다. 하위 대부분의 화면·기능·프로세스·팝업·탭·이미지·아이콘까지 [reference-scope](reference-scope.md)와 함께 대응시킨다. 아래 수집/적용 상태는 과거 기록이며 현재 전체 적용 완료를 뜻하지 않는다.
 
 > 2026-09-21 · 작성 Claude Code · DD-68(「가장 닮음」 1단계)의 적용 지도.
 > **사실의 출처**: 참조 쪽은 생성물 [`refs/tines/sections-summary.md`](refs/tines/sections-summary.md)

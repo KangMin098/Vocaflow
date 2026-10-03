@@ -3,6 +3,7 @@
 > **현재 스타일 정본(2026-10-03)**: [DESIGN.md](../DESIGN.md). `/csat/*`는 `skins/csat-app.css`(3B 앱), 나머지 전체는 `skins/tines.css`(Tines 웹사이트). 두 CSAT 레이아웃의 서버 표식으로 body 포털까지 자동 적용한다. 아래 v07 판면·수치는 기본 토큰/과거 재료 설명이며 새 라우트별 스킨보다 우선하지 않는다. 옛 동결은 이 결정으로 대체됐다.
 
 > 디자인 작업 진입: [DESIGN.md](../DESIGN.md) · 캡처·비평·수정과 로컬 픽셀 비교: [디자인 작업 절차](design/06-workflow.md).
+> 참조는 두 URL의 하위 대부분의 화면·기능·프로세스·팝업·탭·이미지·아이콘 등 모든 디자인 요소를 포함한다. 대응 자료·부품·상태별 검증은 [참조 범위·적용표](design/reference-scope.md)를 따른다.
 
 > 아래는 **기본 토큰 재료** — v07 「주묵 판면」의 2026-09-18 축약판. 웹의 현재 디자인은 위 두 라우트 스킨을 따른다.
 > **값의 정본은 코드다**: `packages/design-tokens/src/skins/{tines,csat-app}.css`(웹 스킨) · `tokens.css`(기본값) · `colors.ts`(RN) · `apps/web/src/app/globals.css`(앱 도메인 토큰).
