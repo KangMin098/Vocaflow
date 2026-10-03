@@ -213,7 +213,7 @@ switch (cmd) {
     // 이 도구는 **학평(보조·검증 집합) 전용**이다 — 평가원 분석은 csat_analysis_reviews 규약을 따른다
     if (isKiceExam(a.item_id)) die(`${a.item_id}: 평가원 문항은 이 도구로 검수하지 않는다(학평 전용)`)
     const existing = await reusableRun(a, persona, agentRun, 'blind')
-    if (!existing) {
+    if (!existing || existing.solve_answer == null) {
       const { data: parent, error: pe } = await db.rpc('csat_rereview_parent', { p_item: a.item_id, p_persona: persona, p_analyst_run: a.analyst_run ?? '' })
       if (pe) die(pe.message)
       if (parent) die(`기존 블라인드 풀이가 유효하다 — rereview --analysis ${a.id} --persona ${persona} --agent-run ${agentRun} 로 이어야 한다`)

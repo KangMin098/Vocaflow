@@ -47,6 +47,7 @@ const SET = process.argv.includes('--set') ? process.argv[process.argv.indexOf('
 const ONLY = process.argv.includes('--items') ? new Set((process.argv[process.argv.indexOf('--items') + 1] ?? '').split(',')) : null
 if (!['kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 kice | hakpyeong: ${SET}`)
 if (ONLY && (ONLY.has('') || PRUNE_LISTENING || PRUNE_STALE)) throw new Error('--items 는 비어 있거나 삭제 옵션과 함께 쓸 수 없다')
+if (ONLY && ONLY.size > 100) throw new Error('--items 원문 수리는 회당 최대 100문항이다 — 범위를 나눠 대조 후 실행한다')
 const inSet = (id) => (SET === 'kice' ? isKiceExam(id) : !isKiceExam(id))
 // 미리보기에서도 거부한다 — 잘못된 조합을 --commit 을 붙이는 순간에야 알게 하지 않는다
 if (PRUNE_LISTENING && SET !== 'kice') {

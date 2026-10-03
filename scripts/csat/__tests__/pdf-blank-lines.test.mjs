@@ -59,7 +59,7 @@ test('a whole-line blank or quoted empty line remains between the English lines'
   assert.equal(blankRuleItems(list, ops, [previous, { str: '“', x: 145, y: 852, w: 4 }], page).length, 1)
 })
 
-for (const mode of ['scoped', 'unknown', 'prune', 'changed-answer']) {
+for (const mode of ['scoped', 'unknown', 'prune', 'changed-answer', 'oversized']) {
   test(`recovered-source synchronization ${mode}: only the named current-set item may be written`, async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-source-scope-'))
     const data = path.join(dir, 'scripts/csat/data')
@@ -76,7 +76,8 @@ for (const mode of ['scoped', 'unknown', 'prune', 'changed-answer']) {
     })
     await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
     try {
-      const child = spawn(process.execPath, [fileURLToPath(new URL('../corpus-sync.mjs', import.meta.url)), '--set', 'hakpyeong', '--items', mode === 'unknown' ? 'H2603G1#99' : 'H2603G1#31', '--commit', ...(mode === 'prune' ? ['--prune-stale'] : [])], { cwd: dir, windowsHide: true, env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' } })
+      const selected = mode === 'oversized' ? Array.from({ length: 101 }, (_, n) => `H2603G1#${n}`).join(',') : mode === 'unknown' ? 'H2603G1#99' : 'H2603G1#31'
+      const child = spawn(process.execPath, [fileURLToPath(new URL('../corpus-sync.mjs', import.meta.url)), '--set', 'hakpyeong', '--items', selected, '--commit', ...(mode === 'prune' ? ['--prune-stale'] : [])], { cwd: dir, windowsHide: true, env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' } })
       let output = ''
       child.stdout.on('data', (s) => { output += s })
       child.stderr.on('data', (s) => { output += s })
@@ -91,6 +92,10 @@ for (const mode of ['scoped', 'unknown', 'prune', 'changed-answer']) {
       } else {
         assert.notEqual(code, 0, output)
         assert.ok(requests.every((r) => r.method === 'GET'))
+        if (mode === 'oversized') {
+          assert.match(output, /最大|최대 100문항/)
+          assert.equal(requests.length, 0)
+        }
       }
     } finally {
       await new Promise((resolve) => server.close(resolve))

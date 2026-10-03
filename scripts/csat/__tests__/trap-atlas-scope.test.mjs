@@ -46,6 +46,17 @@ test('hakpyeong atlas scopes grade and organizer, counts distractors only, expor
     assert.deepEqual(atlas.traps[0].examples, [])
     assert.doesNotMatch(raw, /SOURCE MUST STAY IN DB|정답에 남은 옛 라벨/)
     assert.equal(fs.existsSync(path.join(dir, 'apps/web/src/lib/csat/trap-atlas.json')), false)
+    fs.writeFileSync(file, '{}\n')
+    const check = spawn(process.execPath, [CLI, '--set', 'hakpyeong', '--grade', '2', '--check'], { cwd: dir, windowsHide: true,
+      env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' } })
+    let checkOutput = ''
+    check.stdout.on('data', (s) => { checkOutput += s })
+    check.stderr.on('data', (s) => { checkOutput += s })
+    const checkCode = await new Promise((resolve, reject) => { check.on('error', reject); check.on('close', resolve) })
+    assert.equal(checkCode, 1)
+    assert.match(checkOutput, /build-trap-atlas\.mjs --set hakpyeong --grade 2 --write/)
+    assert.equal(fs.readFileSync(file, 'utf8'), '{}\n')
+    assert.equal(fs.existsSync(path.join(dir, 'apps/web/src/lib/csat/trap-atlas.json')), false)
   } finally {
     await new Promise((resolve) => server.close(resolve))
     fs.rmSync(dir, { recursive: true, force: true })

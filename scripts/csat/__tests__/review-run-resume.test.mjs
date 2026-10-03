@@ -118,6 +118,15 @@ test('blind source changes do not reuse an old committed solve', async () => {
   assert.match(r.result.next, /^solve/)
 })
 
+test('an unsolved open blind cannot bypass a prior valid solution', async () => {
+  const r = await run('start', true, null, { validParent: true })
+  assert.notEqual(r.code, 0)
+  assert.match(r.output, /rereview --analysis analysis/)
+  assert.equal(r.result, null)
+  assert.equal(r.requests.filter((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_review_runs')).length, 0)
+  assert.ok(r.requests.some((q) => q.url.includes('csat_rereview_parent')))
+})
+
 test('open-runs is a scoped read-only anti-join using the caller-provided cutoff', async () => {
   const r = await run('open-runs', true)
   assert.equal(r.code, 0, r.output)

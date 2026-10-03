@@ -316,15 +316,17 @@ if (CHECK) {
     console.log('최신이다.')
     process.exit(0)
   }
-  console.error(`낡았다 — 다시 구워야 한다:\n  node scripts/csat/build-trap-atlas.mjs --write`)
-  process.exit(1)
+  console.error(`낡았다 — 다시 구워야 한다:\n  node scripts/csat/build-trap-atlas.mjs --set ${SET} --grade ${GRADE} --write`)
+  process.exitCode = 1
 }
 
-if (!WRITE) {
+if (!CHECK && !WRITE) {
   console.log(`예행이다. 쓰려면 --write (대상 ${path.relative(process.cwd(), OUT)}, ${json.length.toLocaleString()}자)`)
   process.exit(0)
 }
 
-fs.mkdirSync(path.dirname(OUT), { recursive: true })
-fs.writeFileSync(OUT, json)
-console.log(`→ ${path.relative(process.cwd(), OUT)} (${json.length.toLocaleString()}자)`)
+if (!CHECK && WRITE) {
+  fs.mkdirSync(path.dirname(OUT), { recursive: true })
+  fs.writeFileSync(OUT, json)
+  console.log(`→ ${path.relative(process.cwd(), OUT)} (${json.length.toLocaleString()}자)`)
+}

@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { scopedTypeReports } from './lib-scoped-type-reports.mjs'
+import { isKiceExam } from './lib-exam-id.mjs'
 
 function env(name) {
   if (process.env[name]) return process.env[name]
@@ -29,6 +30,7 @@ const [items, analyses, knownScopes] = await Promise.all([
   all(() => db.from('csat_item_analyses').select('item_id,version,status,answer_unknown,answer_locus,choice_analysis,time_budget_sec').like('item_id', 'H%').order('item_id').order('version')),
   all(() => db.from('csat_type_reports').select('type_id,grade').eq('organizer', 'edu_office').order('grade').order('type_id')),
 ])
+if (items.some((i) => isKiceExam(i.id))) throw new Error('학평 집계에 평가원 문항이 섞였다 — 쓰기 없음')
 const reports = scopedTypeReports(items, analyses, new Date().toISOString(), knownScopes)
 console.log(`유형 미지정 보류 ${items.filter((i) => !i.type_id).length}문항(유형 집계에서 제외)`)
 const file = path.resolve('scripts/csat/analysis-drain-hakpyeong/_type-reports-scoped.json')
