@@ -19,6 +19,7 @@ test('reports use latest published rows per grade and cannot include KICE or a h
     assert.equal(r.time_budget_sec, 60)
     assert.equal(r.updated_at, '2026-10-04T00:00:00Z')
     assert.ok(r.procedure_steps.length)
+    assert.equal(typeof r.procedure_steps[0].step, 'string', 'learner.ts uses steps[0].step for first_step')
   }
 })
 

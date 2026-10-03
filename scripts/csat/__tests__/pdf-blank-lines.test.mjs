@@ -59,7 +59,7 @@ test('a whole-line blank or quoted empty line remains between the English lines'
   assert.equal(blankRuleItems(list, ops, [previous, { str: '“', x: 145, y: 852, w: 4 }], page).length, 1)
 })
 
-for (const mode of ['scoped', 'unknown', 'prune']) {
+for (const mode of ['scoped', 'unknown', 'prune', 'changed-answer']) {
   test(`recovered-source synchronization ${mode}: only the named current-set item may be written`, async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-source-scope-'))
     const data = path.join(dir, 'scripts/csat/data')
@@ -72,7 +72,7 @@ for (const mode of ['scoped', 'unknown', 'prune']) {
       for await (const part of req) body += part
       requests.push({ method: req.method, url: req.url, body: body ? JSON.parse(body) : null })
       res.setHeader('Content-Type', 'application/json')
-      res.end('[]')
+      res.end(JSON.stringify(req.method === 'GET' ? [{ id: 'H2603G1#31', type_id: 'R-BLANK', choices: ['A','B','C','D','E'], answer: mode === 'changed-answer' ? 2 : 1, passage: 'A broken source.', body_ok: false }] : [{ id: 'H2603G1#31' }]))
     })
     await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
     try {
@@ -83,13 +83,14 @@ for (const mode of ['scoped', 'unknown', 'prune']) {
       const code = await new Promise((resolve, reject) => { child.on('error', reject); child.on('close', resolve) })
       if (mode === 'scoped') {
         assert.equal(code, 0, output)
-        assert.equal(requests.length, 1)
-        assert.equal(requests[0].method, 'POST')
-        assert.match(requests[0].url, /^\/rest\/v1\/csat_items\?/)
-        assert.deepEqual(requests[0].body.map((i) => i.id), ['H2603G1#31'])
+        assert.equal(requests.length, 2)
+        assert.equal(requests[1].method, 'PATCH')
+        assert.match(requests[1].url, /^\/rest\/v1\/csat_items\?id=eq.H2603G1%2331/)
+        assert.ok(decodeURIComponent(requests[1].url.replace(/\+/g, ' ')).includes('passage=eq.A broken source.'), 'a concurrent source update must prevent stale repair')
+        assert.deepEqual(requests[1].body, { passage: 'A recovered ______.', body_ok: true })
       } else {
         assert.notEqual(code, 0, output)
-        assert.deepEqual(requests, [])
+        assert.ok(requests.every((r) => r.method === 'GET'))
       }
     } finally {
       await new Promise((resolve) => server.close(resolve))

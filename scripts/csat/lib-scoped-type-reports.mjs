@@ -60,7 +60,7 @@ export function scopedTypeReports(items, analyses, now, knownScopes = []) {
       type_id: g.type_id, organizer: 'edu_office', grade: g.grade,
       n_analyzed: g.analyses.length, recurring_traps: recurring,
       answer_locus_pattern: `발행된 최신 분석 ${g.analyses.length}문항의 근거 단위 수: ${[...loci].sort((a, b) => a[0] - b[0]).map(([n, count]) => `${n}단위 ${count}문항`).join(' · ')}. 문항마다 다른 정본 목록의 번호이므로 번호 자체를 같은 위치로 일반화하지 않는다.`,
-      procedure_steps: [...(steps ?? [])],
+      procedure_steps: (steps ?? []).map((step) => ({ step })),
       failure_modes: [],
       time_budget_sec: times.length ? times[Math.floor(times.length / 2)] : null,
       open_questions: ['집계는 학년별 최신 발행 분석에 한정한다. 공통 절차는 _PROMPT.md §1-c의 유형별 근거 원리를 따른다. 실제 학생 오답률은 관측하지 않아 failure_modes와 정답률을 추정하지 않는다.', '함정 count는 오답 선지 수이며, 동일 문항의 다른 오답도 각각 센다.'],

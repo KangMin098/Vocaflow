@@ -25,6 +25,7 @@
 //   node scripts/csat/corpus-sync.mjs --set hakpyeong --items H2603G1#31,... [--commit] (지정 원문만 · 유형/회차 불변)
 
 import fs from 'node:fs'
+import { isDeepStrictEqual } from 'node:util'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { examMetaOf, isKiceExam, listeningEndOf, parseExamId } from './lib-exam-id.mjs'
@@ -163,8 +164,27 @@ async function upsert(table, rows, chunk = 500) {
 }
 
 if (ONLY) {
-  await upsert('csat_items', items)
-  console.log('  지정 문항 동기화 완료 — 원문 해시가 바뀐 분석은 DB 게이트가 자동 보류한다')
+  const { data: current, error: readError } = await db.from('csat_items').select('id,type_id,stem,choices,answer,answers,passage,body_ok').in('id', items.map((i) => i.id))
+  if (readError) throw new Error(readError.message)
+  const byId = new Map(current.map((i) => [i.id, i]))
+  // A source repair must not overwrite manually restored choices, answers or
+  // raw blocks with a regenerated corpus's older fields.
+  for (const it of items) {
+    const old = byId.get(it.id)
+    if (!old || ['type_id', 'stem', 'choices', 'answer', 'answers'].some((k) => !isDeepStrictEqual(old[k], it[k]))) throw new Error(`${it.id}: 기존 문항 정보가 원장과 다르다 — 지정 원문 동기화 전에 대조 필요(쓰기 없음)`)
+  }
+  let changed = 0
+  for (const it of items) {
+    const old = byId.get(it.id)
+    if (old.passage === it.passage && old.body_ok === it.body_ok) continue
+    let write = db.from('csat_items').update({ passage: it.passage, body_ok: it.body_ok }).eq('id', it.id)
+    write = old.passage == null ? write.is('passage', null) : write.eq('passage', old.passage)
+    const { data: written, error } = await write.select('id')
+    if (error || written?.length !== 1) throw new Error(`${it.id}: ${error?.message ?? '갱신 대상이 없다'} — 이미 갱신된 원문은 유지되며 같은 범위로 재실행한다`)
+    changed += 1
+    await new Promise((resolve) => setTimeout(resolve, 350))
+  }
+  console.log(`  지정 원문 ${changed}건 갱신 · ${items.length - changed}건 동일 — 정답·선지·raw_block 보존, 해시가 바뀐 분석은 DB 게이트가 자동 보류한다`)
   process.exit(0)
 }
 if (SET === 'kice') {

@@ -23,7 +23,7 @@ async function run(kind, existing, solveAnswer = null, overrides = {}) {
     for (const [name, hash] of [['csat_item_input_hash', 'input-hash'], ['csat_item_answer_hash', 'answer-hash'], ['csat_current_units_hash', 'units-hash']]) {
       if (url.startsWith(`/rest/v1/rpc/${name}`)) return res.end(JSON.stringify(hash))
     }
-    if (url.startsWith('/rest/v1/rpc/csat_rereview_parent')) return res.end('"parent"')
+    if (url.startsWith('/rest/v1/rpc/csat_rereview_parent')) return res.end(JSON.stringify(kind === 'rereview' || overrides.validParent ? 'parent' : null))
     if (url.startsWith('/rest/v1/rpc/csat_review_reveal')) return res.end(JSON.stringify([{ answer: 2, analysis: { item_id: 'H2603G3#18' } }]))
     if (url.startsWith('/rest/v1/csat_review_runs')) {
       if (req.method === 'POST') return res.end(JSON.stringify({ id: 'new-run' }))
@@ -94,6 +94,22 @@ for (const field of ['reveal_input_hash', 'reveal_answer_hash', 'reveal_analysis
     assert.equal(r.result.resumed, false)
   })
 }
+
+for (const field of ['reveal_analysis_hash', 'reveal_units_hash']) {
+  test(`start with only changed ${field} keeps its valid blind and requires rereview`, async () => {
+    const r = await run('start', true, 2, { revealed_at: '2026-10-01T00:00:00Z', reveal_input_hash: 'input-hash', reveal_answer_hash: 'answer-hash', reveal_analysis_hash: 'analysis-hash', reveal_units_hash: 'units-hash', [field]: 'old' })
+    assert.notEqual(r.code, 0)
+    assert.match(r.output, /rereview --analysis analysis/)
+    assert.equal(r.requests.filter((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_review_runs')).length, 0)
+  })
+}
+
+test('start cannot create another blind after a prior valid solution was submitted', async () => {
+  const r = await run('start', false, null, { validParent: true })
+  assert.notEqual(r.code, 0)
+  assert.match(r.output, /rereview --analysis analysis/)
+  assert.equal(r.requests.filter((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_review_runs')).length, 0)
+})
 
 test('blind source changes do not reuse an old committed solve', async () => {
   const r = await run('start', true, 2, { solve_input_hash: 'old-input' })
