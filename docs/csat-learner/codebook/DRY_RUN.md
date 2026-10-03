@@ -1,6 +1,7 @@
 # Blind 판정 dry run — 결과 (2026-10-04)
 
 > 코드북 [CODEBOOK.md](./CODEBOOK.md) · 사례 [CASES.md](./CASES.md) · 원 데이터 [data/](./data/).
+> **모델 판정자 dry run — 코드북 개발 자료로만 보존한다. 사람 판정자 신뢰도 근거로 쓰지 않는다**(사람 dry run: [HUMAN_DRY_RUN.md](./HUMAN_DRY_RUN.md)).
 > 실제 학생 Pilot 이 아니다. 가상 학생 시나리오로 「코드북만 보고 독립 판정자 둘이 같은 원인을 고르는가」를 본다.
 
 ## 절차

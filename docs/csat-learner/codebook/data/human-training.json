@@ -1,0 +1,262 @@
+{
+ "id": "human-v1-training",
+ "cases": [
+  {
+   "case_id": "C1-10",
+   "item_id": "M2406#20",
+   "exam": "2024학년도 6월 모의평가",
+   "type": "R-CLAIM",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "hindrances를 처음 봐서 뭔가 창의 활동을 위한 방법이라고 생각했어요. 그러면 일찍 전문화하는 게 좋다는 얘기니까 ⑤.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Certain hindrances to multifaceted creative activity"
+   },
+   "interpretation": "다면적 창의 활동을 위한 어떤 방법은 조기 전문화에 있을 수 있다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "hindrances(방해 요소)의 뜻을 몰라 '방법·도움'처럼 긍정적으로 읽었고, 그래서 premature specialization이 창의성의 장애물이라는 첫 문장을 오히려 권장 사항으로 받아들였다. 핵심은 낱말 hindrances의 극성을 반대로 잡은 것이다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "answer": {
+    "outcome": "identified",
+    "primary": "V.unknown_word",
+    "contributing": [],
+    "why": "「hindrances 를 처음 봐서 … 방법이라고 생각」 + 막힌 곳이 그 낱말, 해석에서 그 자리가 추측(「방법」)으로 채워졌다 → Q4a. 확정된 다른 뜻이 아니라 뜻을 얻지 못함 → V.unknown_word."
+   }
+  },
+  {
+   "case_id": "C1-04",
+   "item_id": "H2603G2#20",
+   "exam": "2026년 3월 고2 학력평가",
+   "type": "R-CLAIM",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "앞에서 목표에 방해되는 걸 줄인다고 했고 mistake는 새로운 걸 못 익히는 게 실수라는 뜻 같았어요. 그래서 방해 요소를 없애라가 맞는 듯.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "But that is a mistake."
+   },
+   "interpretation": "하지만 (새것을 익히지 못하는) 그것은 실수다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "'that'이 바로 앞의 '방해될 수 있는 사람·활동과의 연결을 줄이는 것'을 가리킨다는 것을 놓치고 엉뚱한 대상에 연결했다. 그 때문에 But으로 시작되는 필자의 반박을 인식하지 못하고, 필자가 비판한 통념을 주장으로 받아들여 ①을 골랐다.",
+   "chain": [
+    "'that is a mistake'의 that이 가리키는 대상을 잘못 연결함",
+    "그 결과 But 뒤의 반박 구조를 놓치고 글 앞부분의 통념을 필자 주장으로 채택함"
+   ],
+   "evidence_design": "chained",
+   "answer": {
+    "outcome": "identified",
+    "primary": "R.reference",
+    "contributing": [
+     "R.main_point"
+    ],
+    "why": "해석에서 that 이 가리키는 대상을 다른 것으로 이었다(직접 증거) → R.reference 가 먼저. 그 결과 통념을 필자 주장으로 받아들인 것은 뒤 단계 → R.main_point 는 contributing(§3 최초의 결정적 실패)."
+   }
+  },
+  {
+   "case_id": "C2-13",
+   "item_id": "M2409#39",
+   "exam": "2024학년도 9월 모의평가",
+   "type": "R-INSERT",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "주어진 문장에 art critics 가 있고 ④ 뒤에 Critics 가 나오니까 비평가 얘기 시작하는 데 넣었어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 4,
+    "quote": "Critics are often interested in the ways artists exploit"
+   },
+   "interpretation": null,
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "주어진 문장과 ④ 뒤 문장의 critics 라는 단어 반복만 보고 위치를 정했다. ③ 뒤 This is because 문장이 '왜 전문가에게 재료·기법 지식이 유용한가'의 이유라서 주어진 문장이 그 바로 앞에 와야 한다는 논리 연결을 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "answer": {
+    "outcome": "identified",
+    "primary": "B.surface_match",
+    "contributing": [],
+    "why": "이유가 「critics 라는 단어가 둘 다 있어서」뿐 — 내용어 반복만 근거(R5) · 논리 연결을 대조한 흔적 없음 → B.surface_match."
+   }
+  },
+  {
+   "case_id": "C2-10",
+   "item_id": "2024#31",
+   "exam": "2024학년도 수능",
+   "type": "R-BLANK",
+   "chosen_option": 1,
+   "confidence": "guess",
+   "reason": "시간이 없어서 앞부분만 읽고 찍었어요.",
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "time",
+   "context": "남은 시간 2분에 풀었음, 이 문항에 35초",
+   "true_mechanism": "시간 부족으로 지문 첫 두 문장만 훑고 '아이들이 읽기를 배운다'는 소재에서 학습=지식 습득을 연상해 찍었다. 빈칸 앞뒤의 근거(그림과 글이 서로 보완, 문장이 말하는 것과 뜻하는 것이 다름)는 읽지 않았다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "answer": {
+    "outcome": "identified",
+    "primary": "X.time",
+    "contributing": [],
+    "why": "「시간이 없어서 앞부분만 읽고 찍었어요」 + 남은 2분 — 학생 진술로 읽기 단계를 건너뜀(R1 · R2) → X.time."
+   }
+  },
+  {
+   "case_id": "C4-10",
+   "item_id": "M2309#26",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-FACT",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "1970년대 후반에 역사로 관심 돌렸다는 게 본문에 그대로 있어서 바로 찍었어요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "Leon Festinger에 관한 다음 글의 내용과 일치하지 않는 것은?"
+   },
+   "interpretation": null,
+   "self_category": "evidence",
+   "context": "앞 문항(25번)도 일치하지 않는 것 유형이었는데 이 문항에 35초",
+   "true_mechanism": "발문의 '일치하지 않는 것'을 '일치하는 것'으로 잘못 읽고, 본문과 그대로 일치하는 5번을 골랐다. 본문 이해는 정확했으나 질문을 거꾸로 처리했다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "answer": {
+    "outcome": "identified",
+    "primary": "E.task_misread",
+    "contributing": [],
+    "why": "「본문에 그대로 있어서 바로 찍었어요」 — 「일치하지 않는 것」 문항에서 일치 기준으로 골랐다는 이유 → 발문을 다른 기준으로 이해 → E.task_misread. 시간 기록(35초)은 있지만 시간 때문이라는 진술이 없다(R1). 「다시 보니 not 이 있었다」였다면 X.attention."
+   }
+  },
+  {
+   "case_id": "C2-12",
+   "item_id": "2024#29",
+   "exam": "2024학년도 수능",
+   "type": "R-GRAMMAR",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": null,
+   "blocked_span": null,
+   "interpretation": null,
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "they do succeed 의 do 를 강조 조동사로 인식하지 못하고 불필요한 동사가 겹친 오류로 판단했다. 관계사 뒤 절의 완전성(② 에서 with 누락)은 점검하지 않았다.",
+   "chain": null,
+   "evidence_design": "self_report_only",
+   "answer": {
+    "outcome": "insufficient_evidence",
+    "primary": null,
+    "contributing": [],
+    "why": "확신도(unsure)와 자기 분류(word)뿐 — 이유 · 막힌 곳 · 해석이 없어 무엇이 실패했는지 말하지 않는다 → A1 → insufficient_evidence. 오답이라고 원인을 하나 고르지 않는다."
+   }
+  },
+  {
+   "case_id": "C1-12",
+   "item_id": "M2606#21",
+   "exam": "2026학년도 6월 모의평가",
+   "type": "R-IMPLY",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "파트너랑 비교하는 예시가 두 개나 나오니까 비교가 문제라는 얘기 같아서 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Comparison is one source of illusion."
+   },
+   "interpretation": "비교는 착각의 한 원인이다",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "비교는 외부 요인의 여러 예 중 하나(환경 요인도 있음)일 뿐인데, 예시 비중이 크다는 이유로 하위 사례를 글의 중심으로 끌어올렸다. 밑줄이 요약하는 '외부 요인에 기댄 자부심은 믿을 수 없다'는 상위 주장을 놓치고, 지문에 없는 '의욕 저하'까지 담긴 ④를 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "answer": {
+    "outcome": "identified",
+    "primary": "R.main_point",
+    "contributing": [],
+    "why": "학생이 말한 글의 중심이 예시(비교 사례)다 — 중심 · 위계 판정 실패 → R.main_point. 선지 대조 문제가 아니다(학생이 말한 요지 자체가 틀림)."
+   }
+  },
+  {
+   "case_id": "C4-14",
+   "item_id": "M2706#19",
+   "exam": "2027학년도 6월 모의평가",
+   "type": "R-MOOD",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "처음에 가기 싫어했고 시계 계속 봤으니까 긴장한 거라고 생각했어요. 끝에는 좋아했고요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "He checked his watch as the monorail departed"
+   },
+   "interpretation": "모노레일이 출발할 때 그는 초조하게 시계를 확인했다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "시계를 보고 창밖을 멍하니 보는 행동, 'didn't feel like going', 'nothing better to do'를 지루함이 아닌 긴장의 단서로 추론했다. 앞부분 심경을 행동 묘사에서 잘못 추론한 것이 실패 지점이다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "answer": {
+    "outcome": "identified",
+    "primary": "R.inference",
+    "contributing": [],
+    "why": "행동 묘사에서 심경을 반대로 추론(근거는 글 안) → R.inference. 글 밖 상식이 근거였다면 B.outside_knowledge."
+   }
+  },
+  {
+   "case_id": "C4-04",
+   "item_id": "H2306G2#29",
+   "exam": "2023년 6월 고2 학력평가",
+   "type": "R-GRAMMAR",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "observe의 주어가 opportunity인 줄 알았어요. 그러면 themselves가 아니라 them이어야 하잖아요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "people have a unique opportunity to observe"
+   },
+   "interpretation": "기회가 그들을 관찰한다",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "to observe의 의미상 주어가 people이라는 것을 못 보고 opportunity를 주어로 잡아, 재귀대명사 themselves가 틀렸다고 판단했다. 정작 ④ subjects ask는 수동(are asked)이어야 한다는 점은 확인하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "answer": {
+    "outcome": "identified",
+    "primary": "S.core_structure",
+    "contributing": [],
+    "why": "「observe 의 주어가 opportunity 인 줄 알았어요」 — 학생이 말한 구조(의미상 주어)가 틀렸다 → R8 → S.core_structure. 구조는 맞게 말하고 규칙만 틀렸다면 S.form_rule."
+   }
+  },
+  {
+   "case_id": "C2-06",
+   "item_id": "H2509G2#41",
+   "exam": "2025년 9월 고2 학력평가",
+   "type": "X-TITLE",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "단어가 어려워서 다 해석은 못 했는데 converting it to fat 이 나와서 4번이 지문이랑 제일 비슷했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Maximum fat deposition (a) increases with body mass"
+   },
+   "interpretation": null,
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "학생은 어휘 문제라고 보지만, 실제로는 글 후반 한 문장에 나온 Eating food and converting it to fat 표현이 4번과 겹친다는 이유만으로 골랐다. 글 전체가 지방(몸 안)과 저장 식량(몸 밖)의 장단점 비교라는 구조를 잡지 않고 세부 단어 일치로 제목을 판단했다.",
+   "chain": null,
+   "evidence_design": "conflicting",
+   "answer": {
+    "outcome": "identified",
+    "primary": "B.surface_match",
+    "contributing": [],
+    "why": "학생은 「어휘 문제」라고 했지만(자기진단) 이유 · 막힌 곳은 낱말 겹침으로 고른 것을 보여 준다 → R4 구체 증거를 따름 → identified B.surface_match(inconsistent 아님)."
+   }
+  }
+ ]
+}

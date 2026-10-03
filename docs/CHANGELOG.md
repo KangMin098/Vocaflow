@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat): 오답 원인 코드북 사람 판정자 blind dry run 준비(미실시) — outcome 4종을 증거 기준으로 재정의 · unsupported_stimulus(도표 · 듣기) 판정 제외 · rev3 고정(sha256 사전 등록), 경계 중심 말뭉치 56건 + 연습 10건 · 기대 판정 봉인, 판정자별 HTML 패킷 생성기와 분석기(일치율 · Cohen κ · Gwet AC1 · 불일치 쌍 · 조정 시트) `scripts/csat/error-evidence/codebook/`. 판정자 2명은 미정
+
 - docs(csat): 오답 원인 코드북 v0.1 candidate(미승인 · 시드 없음) — 20코드 초안을 공식 근거 · 기출 사례 은행 101건(평가원 68) · blind dry run 2회로 재검토해 19코드(폐기 3 · 신규 2), 증거 충분성 A0–A3, 판정 결과 4종, decision flow + 적용 규칙 R1–R11. 듣기는 v0.2 로 분리. 모델 판정자 일치(family 96% · primary 93%)는 사람 일치도가 아니다. `docs/csat-learner/codebook/`
 
 - feat(csat): 오답 원인 Evidence 마이그레이션 `20261003230000_csat_error_evidence` **개발 Supabase DB 적용**(PostgreSQL 17.6, 사용자 승인) — 표 9 · 함수 40 · 트리거 15 · 정책 5, 기존 세션 2 · 응답 90 불변, Security Advisor 해당 25건 모두 의도 · ERROR 0. 실제 PostgREST · Auth smoke 142/142(`scripts/csat/error-evidence/dev-smoke/`): 무권한 노출 · RPC 우회 · 교차 접근 · blind 노출 0, 기존 진단 화면 회귀 0. taxonomy 시드 · Pilot 없음. 운영 환경 아님

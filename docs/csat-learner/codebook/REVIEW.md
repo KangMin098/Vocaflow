@@ -2,6 +2,8 @@
 
 > 이 문서는 승인 게이트(A–J)에 답한다. 코드 정의 본문은 [CODEBOOK.md](./CODEBOOK.md), 사례는 [CASES.md](./CASES.md), dry run 수치는 [DRY_RUN.md](./DRY_RUN.md), 근거는 [SOURCES.md](./SOURCES.md).
 > DB 시드 · 마이그레이션 · Pilot 없음.
+>
+> **상태(2026-10-04)**: 사용자가 「사람 판정자 검증 전 v0.1 candidate」로 승인. seed 금지 유지. outcome 4종을 확신도가 아니라 증거 기준으로 다시 정의하고(CODEBOOK §2), rev3 를 고정해 사람 dry run 을 준비했다 — [HUMAN_DRY_RUN.md](./HUMAN_DRY_RUN.md). 아래 G 의 모델 수치는 개발 자료이며 사람 신뢰도 근거가 아니다. 사람 dry run 결과로 코드별 유지 · 병합 · 분리 · contributing 전용 · 은퇴를 정한다(R.reference/R.relation · S.attachment 는 그때까지 병합하지 않는다).
 
 ## A. 20코드 초안 → 후보 taxonomy
 
