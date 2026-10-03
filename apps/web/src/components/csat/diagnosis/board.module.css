@@ -1390,12 +1390,12 @@ a.tagChip:hover {
 }
 
 .modal .line .lineNo {
-  color: color-mix(in srgb, var(--tint, var(--m-t2)) 85%, #000);
+  color: var(--m-t2);
 }
 
 .modal .line:focus-visible,
 .modal .line:focus-within {
-  background: color-mix(in srgb, var(--tint, var(--m-chip)) 7%, #fff);
+  background: var(--m-card);
 }
 
 .modal .bubble span {
@@ -1406,14 +1406,14 @@ a.tagChip:hover {
 }
 
 .modal .bubble:hover span {
-  border-color: color-mix(in srgb, var(--tint, var(--m-t1)) 60%, #fff);
-  color: color-mix(in srgb, var(--tint, var(--m-t1)) 85%, #000);
+  border-color: var(--m-t1);
+  color: var(--m-t1);
 }
 
 .modal .bubble[aria-checked='true'] span {
-  border-color: var(--tint, var(--m-t1));
-  background: var(--tint, var(--m-t1));
-  color: #fff;
+  border-color: var(--p);
+  background: var(--p);
+  color: var(--on-p);
 }
 
 .areaChips {

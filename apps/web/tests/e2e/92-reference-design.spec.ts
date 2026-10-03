@@ -48,11 +48,14 @@ function contrast(foreground: string, background: string) {
 }
 
 async function expectTextContrast(locator: Locator) {
-  const colors = await locator.evaluate(el => {
-    const style = getComputedStyle(el)
-    return [style.color, style.backgroundColor]
-  })
-  expect(contrast(colors[0], colors[1]), colors.join(' / ')).toBeGreaterThanOrEqual(4.5)
+  // 선택·호버 전환 중간 프레임이 아니라 최종 렌더 대비를 검증한다.
+  await expect.poll(async () => {
+    const colors = await locator.evaluate(el => {
+      const style = getComputedStyle(el)
+      return [style.color, style.backgroundColor]
+    })
+    return contrast(colors[0], colors[1])
+  }, { message: `글자 대비: ${locator.toString()}` }).toBeGreaterThanOrEqual(4.5)
 }
 
 for (const width of [1440, 390]) {
@@ -64,12 +67,24 @@ for (const width of [1440, 390]) {
         localStorage.setItem('vocaflow-skin', 'off')
         localStorage.setItem('vocaflow-theme', dark ? 'dark' : 'light')
       }, { dark })
-      for (const route of ['/pricing', '/fit', '/hub', '/admin/csat', '/csat', '/csat/diagnosis?tab=map', '/csat/formulas']) {
+      for (const route of ['/pricing', '/fit', '/hub', '/admin/csat', '/csat', '/csat/diagnosis?tab=map', '/csat/formulas', '/csat/item/M2706-31']) {
         const response = await page.goto(`${route}${route.includes('?') ? '&' : '?'}skin=off`)
         expect(response?.status(), route).toBe(200)
         expect(new URL(page.url()).pathname).toBe(route.split('?')[0])
         const csat = route.startsWith('/csat')
         await expectPalette(page, csat, dark)
+        if (route.startsWith('/csat/item/')) {
+          const theater = page.getByTestId('analysis-theater')
+          await expect(theater).toBeVisible({ timeout: 30000 })
+          const inherited = await theater.evaluate(el => {
+            const local = getComputedStyle(el)
+            const body = getComputedStyle(document.body)
+            return ['--p', '--bg', '--bg2', '--font-body'].map(token => [local.getPropertyValue(token), body.getPropertyValue(token)])
+          })
+          for (const [local, body] of inherited) expect(local).toBe(body)
+          const play = theater.getByRole('button', { name: /예측 후 상영|처음부터 상영|상영 시작|다시 상영/ }).first()
+          if (await play.count()) await expectTextContrast(play)
+        }
         if (route === '/csat') {
           await expect(page.getByTestId('continue-card')).not.toHaveAttribute('data-state', 'loading', { timeout: 30000 })
           await expect(page.getByTestId('ws-table').locator('[aria-busy="true"]')).toHaveCount(0)
@@ -121,8 +136,8 @@ for (const width of [1440, 390]) {
           await expect(dialog).not.toBeVisible()
         }
       }
-      // 시험 기록은 입력·단계 전환까지만 확인한다. 저장하거나 기존 기록을 바꾸지 않는다.
-      await page.goto('/csat/diagnosis/attempts/new')
+      // 정식 모달 주소에서 선택·답안 대비까지만 확인한다. 저장하거나 기존 기록을 바꾸지 않는다.
+      await page.goto('/csat/diagnosis?tab=records&modal=new')
       await expectPalette(page, true, dark)
       const record = page.getByRole('dialog')
       await expect(record).toBeVisible()
@@ -141,6 +156,16 @@ for (const width of [1440, 390]) {
         expect((await control.boundingBox())?.height).toBeGreaterThanOrEqual(44)
       }
       await page.screenshot({ path: path.join(shots, `csat-record-${width}-${dark ? 'dark' : 'light'}.png`) })
+      await next.click()
+      for (const no of [1, 18, 41]) {
+        const answer = record.getByRole('radio', { name: `${no}번 1`, exact: true })
+        await answer.hover()
+        await expectTextContrast(answer.locator('span'))
+        await answer.click()
+        await expectTextContrast(answer.locator('span'))
+      }
+      await expectTextContrast(record.getByRole('button', { name: '채점하고 저장', exact: true }))
+      await page.screenshot({ path: path.join(shots, `csat-answers-${width}-${dark ? 'dark' : 'light'}.png`) })
       await record.getByRole('link', { name: '닫기', exact: true }).click()
       await expect(record).not.toBeVisible()
       // 동일 (main) 그룹의 Next Link 이동에서도 CSAT 표식이 사라져야 한다.

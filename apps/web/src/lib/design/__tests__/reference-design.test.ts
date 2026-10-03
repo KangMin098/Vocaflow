@@ -1,12 +1,16 @@
 // apps/web/src/lib/design/__tests__/reference-design.test.ts
 // 반복됐던 스타일 해제·관리자 예외·본문/포털 불일치의 구조적 회귀를 막는다.
 
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const root = path.resolve(__dirname, '../../../../../../')
 const read = (file: string) => readFileSync(path.join(root, file), 'utf8')
+const cssFiles = (directory: string): string[] => readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+  const file = path.join(directory, entry.name)
+  return entry.isDirectory() ? cssFiles(file) : entry.name.endsWith('.css') ? [file] : []
+})
 
 describe('사용자가 지정한 두 디자인의 기본 적용', () => {
   it('저장값·URL·환경변수로 플랫폼 스킨을 해제하지 않는다', () => {
@@ -27,8 +31,12 @@ describe('사용자가 지정한 두 디자인의 기본 적용', () => {
   })
 
   it('CSAT은 본문 안의 색·서체 재선언으로 포털과 갈라지지 않는다', () => {
-    const css = read('apps/web/src/components/csat/space/space.module.css')
-    expect(css).not.toMatch(/--(?:bg[23]?|t[123]|p|ju|font-[a-z-]+)\s*:/)
+    const files = cssFiles(path.join(root, 'apps/web/src/components/csat'))
+    expect(files.length).toBeGreaterThan(0)
+    for (const file of files) {
+      expect(readFileSync(file, 'utf8'), path.relative(root, file))
+        .not.toMatch(/--(?:bg[23]?|bd(?:-input|-strong)?|t[1234]|p(?:-light|-hover|-dark)?|on-p|ju(?:-light|-ink)?|font-[a-z-]+)\s*:/)
+    }
     const globals = read('apps/web/src/app/globals.css')
     expect(globals.indexOf("skins/csat-app.css")).toBeGreaterThan(globals.indexOf("skins/tines.css"))
     expect(globals).not.toContain('skins/admin-app.css')

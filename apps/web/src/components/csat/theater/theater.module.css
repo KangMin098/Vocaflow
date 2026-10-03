@@ -4,37 +4,10 @@
    2026-09-25 재설계: 바탕은 따뜻한 오프화이트, 판은 흰 면 + 얇은 테두리 + 그림자 없음.
    색은 저장소 토큰만 쓴다: 액센트 --p · 근거 --ju · 면 --tint-*. */
 
-/* 참조(3B) 색·서체 — 극장 안에서만 토큰을 덮는다. 앱의 크림·세리프·보라 대신
-   흰 면 + 쿨 그레이 + Inter + 검정 글자, 코드 칩은 주황, 카드는 블루그레이·민트·라벤더. */
+/* 공통 면·잉크·행동·서체는 CSAT 루트에서 상속한다. 코드 표식만 의미색 별칭을 갖는다. */
 .workspace {
-  --bg: #ffffff;
-  --bg2: #f7f6f3;
-  --bg3: #efeee9;
-  --bd: #e6e4df;
-  --t1: #18181b;
-  --t2: #52525b;
-  --t3: #8e8e96;
-  --p: #7c5cfa;
-  --p-light: #f1edfe;
-  --on-p: #ffffff;
-  --ju: #16a34a;
-  --ju-light: #e8f5ec;
-  --ju-ink: #15803d;
-  --success: #16a34a;
-  --code: #c2410c;
-  --tint-lavender: #efeafd;
-  --tint-green: #e7f1ea;
-  --tint-peach: #e9eef3;
-  --tint-yellow: #e9eef3;
-  --tint-pink: #e9eef3;
-  --tint-teal: #e9eef3;
-  --font-sans: var(--font-admin-sans), 'Pretendard', system-ui, sans-serif;
-  --font-display: var(--font-sans);
-  --font-serif: var(--font-sans);
-  --font-body: var(--font-sans);
-  --font-ko-display: var(--font-sans);
-  --font-mono: var(--font-admin-mono), ui-monospace, monospace;
-  font-family: var(--font-sans);
+  --code: var(--warning-ink);
+  font-family: var(--font-body);
   letter-spacing: -0.005em;
   display: flex;
   flex-direction: column;
@@ -47,6 +20,7 @@
   word-break: keep-all;
 }
 .workspace :is(button, a, input, select):focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
+.workspace :is(button, a, input, select) { min-height: 44px; min-width: 44px; }
 
 /* ── 상단 막대 ────────────────────────────────────────── */
 .bar {
@@ -84,7 +58,7 @@
 .rate:hover { border-color: var(--t2); color: var(--t1); }
 .play {
   display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 16px;
-  border-radius: 8px; background: var(--t1); color: #fff; font-size: 12.5px; font-weight: 500;
+  border-radius: 8px; background: var(--p); color: var(--on-p); font-size: 12.5px; font-weight: 500;
   transition: opacity var(--dur-normal) var(--ease);
 }
 .play:hover { opacity: .88; }
@@ -110,7 +84,7 @@
 .paperStem b { font-family: var(--font-mono), monospace; font-weight: 600; }
 .paperPassage {
   padding: 12px 14px; border: 1px solid var(--bd); border-radius: 10px; background: var(--bg);
-  font-family: 'Lora', Georgia, serif; font-size: 14px; line-height: 1.85; white-space: pre-wrap; word-break: normal; overflow-wrap: anywhere;
+  font-family: var(--font-serif); font-size: 14px; line-height: 1.85; white-space: pre-wrap; word-break: normal; overflow-wrap: anywhere;
 }
 .paperNotes { font-size: 11.5px; line-height: 1.7; color: var(--t2); white-space: pre-wrap; text-align: right; }
 .paperChoices { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
@@ -130,7 +104,7 @@
 .composerHead { display: flex; align-items: center; gap: 8px; padding: 10px 12px 6px; font-size: 12.5px; color: var(--t2); }
 .avatar {
   display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
-  background: var(--t1); color: #fff; font-size: 10px; font-weight: 600;
+  background: var(--p); color: var(--on-p); font-size: 10px; font-weight: 600;
 }
 .composerActions { display: flex; flex-wrap: wrap; gap: 5px; padding: 0 12px 10px; }
 .composerActions :is(button, a) {
@@ -157,7 +131,7 @@
 .tabs { display: flex; align-items: center; gap: 2px; min-width: 0; overflow-x: auto; }
 .tabs button {
   display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 0 10px;
-  border-radius: 7px; font-family: var(--font-sans), system-ui, sans-serif; font-size: 12px; color: var(--t2); white-space: nowrap;
+  border-radius: 7px; font-family: var(--font-body), system-ui, sans-serif; font-size: 12px; color: var(--t2); white-space: nowrap;
   transition: background var(--dur-normal) var(--ease), color var(--dur-normal) var(--ease);
 }
 .tabs button:hover { background: var(--bg2); color: var(--t1); }
@@ -360,9 +334,9 @@
   background: var(--bg); font-size: 13px; color: var(--t2);
 }
 .gateRow button:hover { border-color: var(--t3); color: var(--t1); }
-.gateRow button[aria-pressed='true'] { border-color: var(--t1); background: var(--t1); color: #fff; }
+.gateRow button[aria-pressed='true'] { border-color: var(--p); background: var(--p); color: var(--on-p); }
 .gateActions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 4px; }
-.gatePrimary { min-height: 44px; padding: 0 16px; border-radius: 8px; background: var(--t1); color: #fff; font-size: 13px; font-weight: 500; }
+.gatePrimary { min-height: 44px; padding: 0 16px; border-radius: 8px; background: var(--p); color: var(--on-p); font-size: 13px; font-weight: 500; }
 .gatePrimary:disabled { opacity: .35; cursor: not-allowed; }
 .gateQuiet { min-height: 44px; padding: 0 12px; border-radius: 8px; font-size: 12.5px; color: var(--t2); text-decoration: underline; text-underline-offset: 3px; }
 .play:disabled { opacity: .45; cursor: not-allowed; }
