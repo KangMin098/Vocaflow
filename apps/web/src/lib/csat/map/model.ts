@@ -55,6 +55,8 @@ export interface MapSettings {
   status: { near: number }
   min_coverage: number
   goal_presets: number[]
+  /** 핵심 지도 관찰 후보 기준 — 관찰값 < weak 취약 후보 · < watch 추가 확인 필요(목표율과 무관) */
+  core: { weak: number; watch: number }
 }
 
 export interface MapStat {
@@ -94,6 +96,8 @@ export interface MapRaw {
   habitLine: Record<string, string>
   /** 이 습관 신호 코드 → 신호 */
   snapshot: SnapshotInput | null
+  /** 이번 단계에서 「데이터 없음 · 진단 필요」로 고정하는 역량 라인(core.ts NO_DATA_ATTRIBUTES) — 관찰값을 쓰지 않는다 */
+  noData?: readonly string[]
 }
 
 export type NodeStatus = AggregateStatus | 'tasks_only'
@@ -131,6 +135,8 @@ export interface MapModel {
   mayOverstate: boolean
   /** 스냅샷 전체 기준 근거 데이터 수(노드별 시험 수는 저장하지 않는다) — 스냅샷이 없으면 null */
   evidence: { examSessions: number; responses: number } | null
+  /** 진단 근거 수준 — 지금은 전부 규칙 기반 proxy(core.ts DiagnosisBasis) */
+  diagnosisBasis: 'rule_proxy' | 'item_tagged' | 'verified_diagnosis'
   nodes: Record<string, NodeValue>
 }
 
@@ -178,7 +184,11 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
     v.mustItems = t.mustItems
     const p = prefix(l.code)
     const stat = raw.snapshot ? (p === 'A' ? raw.snapshot.attributePoints[l.code] : p === 'B' ? raw.snapshot.lineAccuracy[l.code] : p === 'C' ? raw.snapshot.trapAvoidance[l.code] : undefined) : undefined
-    if (p === 'A' || p === 'B' || p === 'C') {
+    if (p === 'A' && raw.noData?.includes(l.code)) {
+      // 문항 태그 근거가 없는 역량 — 엔진 규칙 값이 있어도 학생에게 관찰값으로 쓰지 않는다
+      v.status = 'needs_diagnosis'
+      v.note = '데이터 없음 · 진단 필요'
+    } else if (p === 'A' || p === 'B' || p === 'C') {
       if (t.rate === null) {
         v.status = 'no_items'
         v.note = '연결 문항 없음'
@@ -252,6 +262,7 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
     missingRate,
     mayOverstate,
     evidence: raw.snapshot ? { examSessions: raw.snapshot.examSessions, responses: raw.snapshot.responses } : null,
+    diagnosisBasis: 'rule_proxy',
     nodes,
   }
 }

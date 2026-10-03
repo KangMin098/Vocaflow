@@ -11,6 +11,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { selectByChunks, selectSmall } from '../diagnosis/fetch'
 import { loadSnapshots } from '../diagnosis/snapshot'
 
+import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
@@ -45,6 +46,7 @@ export const DEFAULT_MAP_SETTINGS: MapSettings = {
   status: { near: 0.9 },
   min_coverage: 0.5,
   goal_presets: [100, 90, 80, 70, 60],
+  core: { weak: 0.6, watch: 0.8 },
 }
 
 const MISSING_TABLE = new Set(['42P01', 'PGRST205'])
@@ -61,7 +63,16 @@ export function parseMapSettings(json: unknown): MapSettings {
     status: { near: num(status.near, DEFAULT_MAP_SETTINGS.status.near, 0, 1) },
     min_coverage: num(j.min_coverage, DEFAULT_MAP_SETTINGS.min_coverage, 0, 1),
     goal_presets: presets.length > 0 ? presets : DEFAULT_MAP_SETTINGS.goal_presets,
+    core: parseCore(j.core),
   }
+}
+
+/** 핵심 지도 관찰 후보 기준 — 0~1 범위, weak ≤ watch 순서가 아니면 기본값(잘못된 설정이 판정을 뒤집지 않게) */
+function parseCore(v: unknown): MapSettings['core'] {
+  const o = (v && typeof v === 'object' ? v : {}) as Record<string, unknown>
+  const weak = num(o.weak, DEFAULT_MAP_SETTINGS.core.weak, 0, 1)
+  const watch = num(o.watch, DEFAULT_MAP_SETTINGS.core.watch, 0, 1)
+  return weak <= watch ? { weak, watch } : { ...DEFAULT_MAP_SETTINGS.core }
 }
 
 function group<T, K extends string | number>(rows: T[], key: (r: T) => K, val: (r: T) => string): Record<K, string[]> {
@@ -180,7 +191,8 @@ export async function loadMapPage(db: Db, userId: string): Promise<MapPageData |
   const trendRaw = [...(ev?.trend ?? [])].reverse().find((t) => t.raw !== null)?.raw ?? null
   const snapshot: SnapshotInput | null = snap
     ? {
-        attributePoints: ev?.attributePoints ?? {},
+        // 데이터 없음으로 고정한 역량(A7)은 모델을 만들기 전에 입력에서 뺀다 — 영역 집계 · 근거량 · coverage 에도 남지 않게
+        attributePoints: Object.fromEntries(Object.entries(ev?.attributePoints ?? {}).filter(([code]) => !NO_DATA_ATTRIBUTES.includes(code))),
         lineAccuracy: ev?.lineAccuracy ?? {},
         trapAvoidance: ev?.trapAvoidance ?? {},
         habitCodes: (snap.habitFlags ?? []).map((h) => h.code),
@@ -203,6 +215,7 @@ export async function loadMapPage(db: Db, userId: string): Promise<MapPageData |
     lineItems,
     habitLine: Object.fromEntries(links.filter((l) => l.link_kind === 'habit').map((l) => [l.ref, l.line_code])),
     snapshot,
+    noData: NO_DATA_ATTRIBUTES,
   }
 
   return {

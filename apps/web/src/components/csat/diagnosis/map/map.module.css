@@ -423,7 +423,7 @@
   z-index: 3;
   background: var(--m-canvas);
   display: grid;
-  grid-template-columns: repeat(5, var(--g-node-w));
+  grid-template-columns: repeat(3, var(--g-node-w));
   column-gap: calc(var(--g-pitch) - var(--g-node-w));
   align-items: center;
   height: var(--g-head-h);
@@ -439,7 +439,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(5, var(--g-node-w));
+  grid-template-columns: repeat(3, var(--g-node-w));
   column-gap: calc(var(--g-pitch) - var(--g-node-w));
   row-gap: calc(var(--g-row-gap) * 2);
   align-items: start;

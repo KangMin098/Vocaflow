@@ -13,9 +13,10 @@ export function pct(v: number | null): string {
 }
 
 export const STATUS_LABEL: Record<NodeStatus, string> = {
-  met: '달성',
-  near: '근접',
-  short: '미달',
+  // 관찰값과 라인 목표율의 비교일 뿐 — 숙달 · 「달성」으로 읽히지 않게(2026-10-03 결정)
+  met: '목표 이상 관찰',
+  near: '목표 근접',
+  short: '목표 미만',
   hold: '판정 보류',
   needs_diagnosis: '진단 필요',
   no_items: '연결 문항 없음',

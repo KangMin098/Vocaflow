@@ -28,7 +28,7 @@ function raw(over: Partial<MapRaw> = {}): MapRaw {
       { id: 'D1-1', line_code: 'D1', ord: 1, title: 't', how: 'h', cadence: 'c', done_when: 'd', material: 'past', method_line: null },
       { id: 'D1-2', line_code: 'D1', ord: 2, title: 't', how: 'h', cadence: 'c', done_when: 'd', material: 'past', method_line: null },
     ],
-    settings: { default_goal: 100, reference_exams: 6, status: { near: 0.9 }, min_coverage: 0.5, goal_presets: [100, 90] },
+    settings: { default_goal: 100, reference_exams: 6, status: { near: 0.9 }, min_coverage: 0.5, goal_presets: [100, 90], core: { weak: 0.6, watch: 0.8 } },
     goal: null,
     doneTaskIds: new Set(['D1-1']),
     selection: { exams: [{ id: 'E', label: 'E', held: 202606, itemCount: 45, pointsTotal: 100 }], shortfall: 0, skipped: [] },

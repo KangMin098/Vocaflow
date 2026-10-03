@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import type { MapSourceRow } from '@/lib/csat/map/load'
 
-import { evidenceBadge, pct, shortExam, toneOf } from '../format'
+import { STATUS_LABEL, evidenceBadge, pct, shortExam, toneOf } from '../format'
 
 const src = (id: string, status: MapSourceRow['status']): MapSourceRow => ({ id, citation: id, supports: '', status, url: null })
 
@@ -46,5 +46,12 @@ describe('shortExam', () => {
   it('시험 이름을 줄인다', () => {
     expect(shortExam('2027학년도 6월 모의평가')).toBe('27학년도 6월 모평')
     expect(shortExam('2026학년도 수능')).toBe('26학년도 수능')
+  })
+})
+
+describe('proxy 문구 회귀(2026-10-03)', () => {
+  it('지도 상태 라벨에 숙달 · 달성 어휘가 없다', async () => {
+    const { FORBIDDEN_WORDS } = await import('@/lib/csat/map/core')
+    for (const label of Object.values(STATUS_LABEL)) expect(label).not.toMatch(FORBIDDEN_WORDS)
   })
 })

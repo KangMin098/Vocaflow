@@ -209,7 +209,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 ## admin/* 관리자 콘솔
 
 > 2026-10-01 재설계: 학습자 진단은 **`/csat/diagnosis`** 한 화면(탭 `?tab=overview|types|traps|wrong|records`, 팝업 `?modal=new` · `?record=<id>`, 강조 `?focus=<id>`). `/start` · `/test` · `/history` · `/admin/csat/diagnosis/pool` 삭제, `/attempts/new` 는 팝업으로 넘김. API `DELETE /api/csat/diagnosis/sessions?id=` · `/api/admin/csat/diagnosis/sessions?userId=&id=` 추가, `profile` · `test` · `habit` 삭제.
-> 2026-10-02 정리·추가: 학습자 진단 탭은 **개요 · 시험 기록 · 학습 지도**(`?tab=overview|records|map`). 유형 · 오답 함정 · 틀린 문항은 시험 기록 안 보조 전환(`?tab=records&view=list|types|traps|wrong`, 예전 `?tab=types|traps|wrong` 는 같은 보기로 이어짐). **`?tab=map` = 학습 지도**(학습자 화면에만 — Admin 학습자 보기 없음). API `PUT /api/csat/diagnosis/map/goal`(본문 `{target:0~100}`) · `POST|DELETE /api/csat/diagnosis/map/tasks/[id]`(과제 완료 체크 · 멱등, 본인만).
+> 2026-10-02 정리·추가: 학습자 진단 탭은 **개요 · 시험 기록 · 학습 지도**(`?tab=overview|records|map`). 유형 · 오답 함정 · 틀린 문항은 시험 기록 안 보조 전환(`?tab=records&view=list|types|traps|wrong`, 예전 `?tab=types|traps|wrong` 는 같은 보기로 이어짐). **`?tab=map` = 학습 지도**(학습자 화면에만 — Admin 학습자 보기 없음) — 2026-10-03부터 첫 화면은 핵심 지도 요약(V/S/R/E/L + X), **`?tab=map&view=full` = 전체 지도**(영역 · 학습 라인 상세). API `PUT /api/csat/diagnosis/map/goal`(본문 `{target:0~100}`) · `POST|DELETE /api/csat/diagnosis/map/tasks/[id]`(과제 완료 체크 · 멱등, 본인만).
 > 2026-10-01 추가: **`/admin/csat/diagnosis`** 영어 진단 — `/exams` · `/exams/[examId]`(태깅) · `/pool` · `/learners` · `/learners/[id]`(대리 입력) · `/settings`. 학습자 쪽은 `/csat/diagnosis` · `/start` · `/attempts/new` · `/test` · `/history`, API `/api/csat/diagnosis/{sessions,test,profile,habit}` · `/api/admin/csat/diagnosis/sessions`.
 
 > 2026-09-24 추가: **`/admin/video/requests/[id]`** — 영상 요청 상세(기획 · 설계 · 검토 · 적용 · 평가). `/admin/video` 에 「요청」 탭(맨 앞, 기본 탭).

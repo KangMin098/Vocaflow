@@ -43,7 +43,8 @@ await page.fill('input[type="email"]', email)
 await page.fill('input[type="password"]', password)
 await page.keyboard.press('Enter')
 await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 150_000 })
-await page.goto(`${BASE}/csat/diagnosis?tab=map`, { waitUntil: 'domcontentloaded' })
+// 기하는 전체 지도(상세 보기)에서 잰다 — 첫 화면은 핵심 요약(2026-10-03)
+await page.goto(`${BASE}/csat/diagnosis?tab=map&view=full`, { waitUntil: 'domcontentloaded' })
 await page.waitForSelector('[data-map-cols]')
 await page.waitForTimeout(1500)
 
@@ -74,7 +75,9 @@ const normal = ours.nodes.filter((n) => n.code !== 'GOAL')
 const colXs = [...new Set(normal.map((n) => Math.round(n.x)))].sort((a, b) => a - b)
 const pitchX = colXs.length > 1 ? median(colXs.slice(1).map((x, i) => x - colXs[i])) : NaN
 // 같은 열(라인 열)의 연속 노드 간격 — 같은 묶음 안에서만(묶음 사이 여백은 제외하려고 최빈 간격)
-const lineCol = normal.filter((n) => Math.round(n.x) === colXs[2]).sort((a, b) => a.y - b.y)
+// 라인 열은 A1 이 있는 열 — 열 수가 바뀌어도(원리 · 트랙 열 제거) 순번에 기대지 않는다
+const lineX = Math.round(normal.find((n) => n.code === 'A1')?.x ?? NaN)
+const lineCol = normal.filter((n) => Math.round(n.x) === lineX).sort((a, b) => a.y - b.y)
 const gaps = lineCol.slice(1).map((n, i) => Math.round(n.y - lineCol[i].y))
 const mode = (xs) => {
   const m = new Map()

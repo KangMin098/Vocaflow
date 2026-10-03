@@ -8,7 +8,7 @@ export function MapPreparing() {
   return (
     <div className={s.root} data-testid="csat-learning-map-preparing" style={{ padding: 28 }}>
       <div className={s.title}>학습 지도를 준비하고 있어요</div>
-      <p className={s.p}>목표 점수에서 영역 · 학습 라인 · 근거 원리 · 접근 트랙까지 이어지는 지도예요. 데이터를 채우는 중이라 곧 열려요.</p>
+      <p className={s.p}>어휘 · 문장해석 · 독해 · 근거판단 · 듣기와 실전 실행을 기출 관찰로 보여 주는 지도예요. 데이터를 채우는 중이라 곧 열려요.</p>
     </div>
   )
 }
