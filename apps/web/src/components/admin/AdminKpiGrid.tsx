@@ -24,26 +24,27 @@ export function AdminKpiGrid({ kpis, cols = 4 }: AdminKpiGridProps) {
 
   return (
     <ul className={`mb-6 grid grid-cols-1 gap-3 ${colClass}`}>
-      {kpis.map((k) => {
+      {kpis.map((k, index) => {
         const Icon = k.icon
+        const tone = ['lavender', 'green', 'peach', 'teal'][index % 4]
         return (
           <li
             key={k.label}
-            className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]"
+            className={`tone-${tone} rounded-[var(--r-2xl)] border border-[var(--bd)] p-5 text-[var(--t1)] sm:p-6`}
           >
             <div className="flex items-start justify-between">
               <span
-                className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)]"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-lg)]"
                 style={{ backgroundColor: k.bg, color: k.accent }}
                 aria-hidden
               >
-                <Icon size={14} strokeWidth={2} />
+                <Icon size={22} strokeWidth={1.5} />
               </span>
               {k.delta && (
                 <span
                   className="inline-flex items-center gap-1 font-mono text-[11px] font-[700] tabular-nums"
                   style={{
-                    color: k.delta.positive ? 'var(--success)' : 'var(--error)',
+                    color: k.delta.positive ? 'var(--success-ink)' : 'var(--error-ink)',
                   }}
                 >
                   {k.delta.positive ? '▲' : '▼'} {Math.abs(k.delta.value)}
@@ -51,13 +52,13 @@ export function AdminKpiGrid({ kpis, cols = 4 }: AdminKpiGridProps) {
                 </span>
               )}
             </div>
-            <p className="mt-3 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            <p className="mt-5 break-keep font-display text-[13px] font-[600]">
               {k.label}
             </p>
-            <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--t1)]">
+            <p className="mt-2 font-display text-[32px] font-[600] tabular-nums leading-none">
               {k.value}
             </p>
-            {k.hint && <p className="mt-1.5 font-body text-[11px] text-[var(--t2)]">{k.hint}</p>}
+            {k.hint && <p className="mt-3 break-keep font-body text-[12px] leading-relaxed">{k.hint}</p>}
           </li>
         )
       })}

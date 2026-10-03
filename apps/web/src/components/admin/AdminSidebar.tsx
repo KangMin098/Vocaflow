@@ -483,7 +483,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
   return (
     <aside
       aria-label="관리자 메뉴"
-      className="sticky top-0 hidden h-screen w-[240px] shrink-0 flex-col bg-[var(--bg2)] md:flex"
+      className="sticky top-[var(--admin-header-height)] hidden h-[calc(100dvh-var(--admin-header-height))] w-[256px] shrink-0 flex-col bg-[var(--bg)] md:flex"
     >
       {/* ── 로고 ── */}
       <Link

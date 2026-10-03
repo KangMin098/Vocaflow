@@ -2,7 +2,7 @@
 
 > 2026-09-19 · 작성 Claude Code · 지시: [image-system-brief](image-system-brief.md) Gate 0(b).
 > 범위: `apps/web/public` · `packages/ui-shared` · `apps/web/src/**/*.{svg,png,jpg,webp,ico}` · 인라인 `<svg>` 컴포넌트 · 표지 생성 코드 · OG · 파비콘 · 웹 앱 아이콘.
-> **`apps/mobile` 은 범위 밖**(2026-09-19 사용자 지시 「모바일은 제외」 — Expo 앱, Phase 2). 웹의 390px 뷰포트는 범위 안이다(AGENTS.md 모바일 퍼스트).
+> **디자인 작업은 PC 웹만**(2026-10-03 사용자 재확인). `apps/mobile`과 모바일 웹의 390px 뷰포트도 제외한다. 옛 「웹 390px 포함」 해석은 더 이상 적용하지 않는다. 자산의 위치 인벤토리와 모바일 디자인 작업을 구별한다.
 > 방법: `find` · `grep -rl '<svg'` · `git ls-files` · `git check-ignore`(작업 트리 기준, 미커밋 파일 포함). **판정 칸의 "재생성"은 Gate 4 manifest 후보라는 뜻이지 확정이 아니다** — 확정은 사람이 방향(Gate 3)을 고른 뒤.
 > "별도 정본" = 이 작업이 손대지 않는 자산(아케이드 · 표지 생성 코드). **사람 확인** 칸에 ✋ 표시.
 

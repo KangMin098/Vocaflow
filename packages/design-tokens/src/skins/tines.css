@@ -16,6 +16,23 @@
  *   - 선택자 `:root[data-skin]` (0,2,0)은 next/font 가 html 에 거는 변수 클래스(0,1,0)를 이긴다.
  */
 
+/* PC 관리자 상단 바(72px + 경계 1px) 아래에 뷰포트 고정 부품을 둔다.
+ * 스크롤 컨테이너 안의 table thead는 자체 top:0을 유지한다. */
+@media (min-width: 768px) {
+  :root[data-skin="tines"] [data-area="admin"] {
+    --admin-header-height: 73px;
+  }
+  :root[data-skin="tines"] #admin-content :is(aside, nav).sticky.top-0 {
+    top: var(--admin-header-height);
+  }
+  :root[data-skin="tines"] #admin-content aside.sticky.top-0 {
+    max-height: calc(100dvh - var(--admin-header-height) - 16px);
+  }
+  :root[data-skin="tines"] #admin-content [id] {
+    scroll-margin-top: calc(var(--admin-header-height) + 4rem);
+  }
+}
+
 :root[data-skin="tines"] {
   /* ── 브랜드 · 1차 행동 — 「Book a demo」 버튼 #542f9c ── */
   --p: #542f9c;
@@ -25,6 +42,10 @@
   --on-p: #fcf9f5;
   --on-p-tint: #542f9c;
   --on-semantic: #fcf9f5;
+  /* 게임도 기본 브랜드를 상속한다. 콤보/연속 성공은 별도 브랜드색을 만들지 않는다. */
+  --combo: var(--p);
+  --on-combo: var(--on-p);
+  --streak: var(--warning-ink);
 
   /* ── 강조(주묵 자리) → 참조의 보라 55/70 ── */
   --ju: #714bd0;

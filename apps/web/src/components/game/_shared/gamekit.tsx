@@ -858,13 +858,8 @@ const GK_CSS = `
   .gk-atmos-mark svg { width: 100%; height: auto; display: block; }
   .gk-atmos-vig { position: absolute; inset: 0; box-shadow: inset 0 0 210px 40px rgba(28,14,38,.44), inset 0 -70px 100px rgba(18,8,28,.34); }
 
-  /* ── 다크 모드 (v07.8 결함 수정) ──────────────────────────────────────
-     게임은 AmbientBackground 에 밝은 색을 하드코딩해 넘긴다(예: center="#ECF7F7").
-     그런데 텍스트는 테마 토큰(--t1)이라 다크에서 밝아진다 → **밝은 배경 위 밝은 글씨**.
-     GK_CSS 에 data-theme 분기가 한 줄도 없어서 19게임이 전부 같은 증상이었다.
-
-     19개 게임의 색 인자를 각각 고치는 대신, 여기서 게임의 색조는 유지한 채
-     명도만 다크 캔버스(--bg)로 끌어내린다 — 중앙 한 곳 수정으로 전 게임 해결. */
+  /* 게임별 고정 전경까지 함께 변환하기 전에는 기존 배경 계약을 유지한다.
+     Word Orrery처럼 밝은 전경을 쓰는 게임은 밝은 지면만 먼저 적용하면 읽을 수 없다. */
   [data-theme="dark"] .gk-atmos-grad {
     background: radial-gradient(128% 112% at 50% 15%,
       color-mix(in srgb, var(--at-c) 24%, var(--bg)) 0%,
@@ -876,7 +871,7 @@ const GK_CSS = `
   [data-theme="dark"] .gk-atmos-vig { box-shadow: inset 0 0 210px 40px rgba(0,0,0,.5), inset 0 -70px 100px rgba(0,0,0,.4); }
 
   .gk-hud { display: grid; grid-template-columns: auto 1fr auto auto auto auto; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--bd); }
-  .gk-stat { display: flex; flex-direction: column; line-height: 1.05; }
+  .gk-stat { display: flex; flex-direction: column; gap: 4px; padding: 8px 12px; border: 1px solid var(--bd); border-radius: 12px; background: var(--bg); color: var(--t1); line-height: 1.05; }
   .gk-stat--right { align-items: flex-end; }
   .gk-stat-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; color: var(--t3); text-transform: uppercase; }
   .gk-stat-value { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
@@ -884,8 +879,8 @@ const GK_CSS = `
   .gk-combo { font-size: 15px; font-weight: 800; color: var(--t4); font-variant-numeric: tabular-nums; transition: font-size .2s ease; }
   .gk-combo--on { color: var(--streak); }
   .gk-combo--on[data-tier="1"] { font-size: 17px; }
-  .gk-combo--on[data-tier="2"] { font-size: 19px; color: #E8622F; text-shadow: 0 0 12px color-mix(in srgb, var(--streak) 60%, transparent); }
-  .gk-combo--on[data-tier="3"] { font-size: 22px; color: #E0322F; text-shadow: 0 0 16px color-mix(in srgb, var(--error) 70%, transparent); }
+  .gk-combo--on[data-tier="2"] { font-size: 19px; color: var(--warning-ink); text-shadow: 0 0 12px color-mix(in srgb, var(--streak) 60%, transparent); }
+  .gk-combo--on[data-tier="3"] { font-size: 22px; color: var(--error-ink); text-shadow: 0 0 16px color-mix(in srgb, var(--error) 70%, transparent); }
   .gk-progress { height: 6px; border-radius: 999px; background: var(--bg3); overflow: hidden; }
   .gk-progress-spacer { min-width: 20px; }
   .gk-progress-fill { height: 100%; border-radius: 999px; background: var(--combo); transition: width .4s var(--ease, cubic-bezier(.4,0,.2,1)); }
@@ -937,10 +932,10 @@ const GK_CSS = `
   .gk-fbicon { flex: none; vertical-align: -2px; }
   .gk-combo-mult { margin-left: 6px; font-size: .78em; font-weight: 800; opacity: .85; }
 
-  .gk-btn { min-height: 48px; padding: 0 24px; border-radius: var(--r-md, 10px); border: 1px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-display, system-ui); font-size: 15px; font-weight: 700; cursor: pointer; transition: transform .2s var(--ease-spring), background .15s, border-color .15s; }
+  .gk-btn { min-height: 48px; padding: 0 24px; border-radius: 999px; border: 1px solid var(--bd); background: var(--bg); color: var(--t1); font-family: var(--font-display, system-ui); font-size: 15px; font-weight: 700; cursor: pointer; transition: transform .2s var(--ease-spring), background .15s, border-color .15s; }
   .gk-btn:hover { border-color: var(--t3); }
   .gk-btn:active { transform: scale(.97); }
-  .gk-btn--primary { background: var(--combo); border-color: var(--combo); color: var(--ti); }
+  .gk-btn--primary { background: var(--p); border-color: var(--p); color: var(--on-p); }
   .gk-btn--primary:hover { filter: brightness(1.08); border-color: var(--combo); }
   .gk-btn:disabled { opacity: .5; cursor: default; }
 
@@ -948,9 +943,9 @@ const GK_CSS = `
   .gk-done-burst { position: absolute; top: 34%; left: 50%; width: 0; height: 0; }
   .gk-done-mark { width: 66px; height: 66px; display: grid; place-items: center; border-radius: 20px; color: var(--t1); background: color-mix(in srgb, var(--bg) 60%, transparent); border: 1px solid color-mix(in srgb, var(--t1) 12%, transparent); box-shadow: 0 14px 36px -12px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.5); backdrop-filter: blur(6px); animation: gk-pop .5s var(--ease, ease-out); }
   .gk-done-mark svg { width: 36px; height: 36px; opacity: .82; }
-  .gk-done-lead { margin: 0; font-family: var(--font-body, Georgia, serif); font-style: italic; font-size: clamp(22px, 5vw, 32px); font-weight: 500; color: var(--t1); animation: gk-pop .5s var(--ease, ease-out); text-align: center; }
-  .gk-done-stats { display: flex; gap: clamp(18px, 6vw, 52px); flex-wrap: wrap; justify-content: center; }
-  .gk-done-stat { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .gk-done-lead { margin: 0; font-family: var(--font-display, system-ui, sans-serif); font-size: clamp(28px, 5vw, 40px); font-weight: 600; line-height: 1.08; color: var(--t1); animation: gk-pop .5s var(--ease, ease-out); text-align: center; word-break: keep-all; }
+  .gk-done-stats { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; max-width: min(680px, 92vw); }
+  .gk-done-stat { display: flex; min-width: 132px; flex: 1; flex-direction: column; align-items: center; gap: 10px; padding: 20px; border-radius: var(--r-2xl); border: 1px solid var(--bd); background: var(--tint-lavender); }
   .gk-done-num { font-size: clamp(24px, 6vw, 38px); font-weight: 800; font-variant-numeric: tabular-nums; color: var(--t1); }
   .gk-done-lbl { font-size: 12px; font-weight: 700; color: var(--t3); text-align: center; }
   .gk-done-actions { display: flex; gap: 12px; }

@@ -36,7 +36,6 @@ import { createClient } from '@/lib/supabase/client'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import type { WordResult } from '@/lib/dictation/types'
 
-const DICTATION_ACCENT = '#0EA5E9'
 
 export function DictationResultsClient() {
   const router = useRouter()
@@ -140,8 +139,8 @@ export function DictationResultsClient() {
         </div>
         <Link
           href="/dictate"
-          className="inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-          style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+          className="inline-flex h-11 items-center gap-2 rounded-full px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          style={{ background: 'var(--p)', color: 'var(--on-p)' }}
         >
           받아쓰기로 돌아가기
           <ArrowRight size={14} />
@@ -169,17 +168,16 @@ export function DictationResultsClient() {
     <div className="mx-auto flex max-w-4xl flex-col gap-4 px-4 py-8 md:px-6 md:py-10">
       {/* ─── Hero ─── */}
       <header
-        className="relative overflow-hidden rounded-[var(--r-2xl)] p-7 text-[var(--ti)] shadow-[var(--sh-md)]"
-        style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+        className="tone-teal dots relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] p-7 sm:p-10"
       >
-        <div className="flex flex-col items-center text-center">
+        <div className="relative flex flex-col items-center text-center">
           <span className="mb-2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--ti)]/15">
             <BandIcon size={22} strokeWidth={2} aria-hidden="true" />
           </span>
           {/* 히어로 최상단이 이 화면의 이름이다 — `p` 로 두면 결과 화면 전체에 h1 이 없다
               (실측 2026-09-06: 전 화면 정체 검사에서 `/dictate/results` 만 h1=0 이었다).
               보이는 모습은 그대로 두고 의미만 바로잡는다. */}
-          <h1 className="font-editorial text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
+          <h1 className="break-keep font-display text-[28px] font-[600] leading-tight">
             받아쓰기 완료
           </h1>
           <p data-testid="results-accuracy" className="mt-2 font-display text-[60px] font-[800] leading-none tabular-nums">
@@ -368,8 +366,8 @@ export function DictationResultsClient() {
         </Link>
         <Link
           href="/dashboard"
-          className="col-span-2 flex items-center justify-center gap-2 rounded-[var(--r-md)] py-3 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 md:col-span-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-          style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+          className="col-span-2 flex items-center justify-center gap-2 rounded-full py-3 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 md:col-span-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          style={{ background: 'var(--p)', color: 'var(--on-p)' }}
         >
           <BarChart3 size={14} />
           통계

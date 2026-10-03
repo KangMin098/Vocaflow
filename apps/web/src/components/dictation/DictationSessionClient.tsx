@@ -601,7 +601,7 @@ export function DictationSessionClient() {
               spellCheck={false}
               rows={3}
               className="w-full resize-none rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-english text-[18px] leading-relaxed text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
-              style={{ fontFamily: 'Lora, serif' }}
+              style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
             />
 
             {hintAllowed && (

@@ -1,5 +1,7 @@
 # Learning Modules
 
+> **Tines 화면 변환 1차(2026-10-03)**: Dictation·Flashcard·SpellForge·PairFlip·My Library의 공통 허브 제목을 Tines 하위 화면 구성으로 변경했다. Dictation 시작/결과 버튼과 본문 서체는 스킨을 상속한다. `/library/vocab` 카탈로그의 WebGL 선반을 실제 표지와 메타를 서버에서도 제공하는 카드 격자로 교체했다. 상세·추가/해지·분류 기능은 유지하며 상하 키보드 이동은 실제 반응형 행 위치로 계산한다. 게임 공통 결과·일시정지와 세션 출처 글자도 기본 스킨을 따른다. 학습 기록·FSRS·점수·URL 계약 변경 없음. [적용/잔여 범위](design/tines-adoption.md).
+
 > 디자인 기본(2026-10-03): `/csat` 및 하위는 3B 앱, 나머지 모든 모듈·관리자는 Tines 웹사이트.
 > 두 CSAT 레이아웃의 `data-design-scope="csat"`로 본문·포털에 동일 스킨을 자동 적용한다.
 > SpaceScreen·문항 해설 극장·진단 팝업은 공통 CSAT 토큰을 상속하며, 전체 CSAT CSS의 브랜드 재선언을 회귀로 검사한다.

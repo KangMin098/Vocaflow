@@ -2,6 +2,7 @@
 // 관리자 sub-page 공통 헤더 — 일관된 컨텍스트 표시
 
 import type { LucideIcon } from 'lucide-react'
+import Image from 'next/image'
 
 export interface AdminPageHeaderProps {
   icon: LucideIcon
@@ -18,25 +19,26 @@ export function AdminPageHeader({
   actions,
 }: AdminPageHeaderProps) {
   return (
-    <header className="mb-6 flex flex-wrap items-center gap-3">
+    <header className="tone-lavender dots relative mb-8 flex flex-wrap items-center gap-4 overflow-hidden rounded-[var(--r-2xl)] p-5 sm:p-8">
       <span
-        className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg3)] text-[var(--t1)]"
+        className="relative z-10 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--r-lg)] border border-current bg-[var(--bg)] text-[var(--tint-lavender-ink)]"
         aria-hidden
       >
-        <Icon size={16} strokeWidth={2} />
+        <Icon size={24} strokeWidth={1.5} />
       </span>
-      <div className="min-w-0 flex-1">
+      <div className="relative z-10 min-w-0 flex-1">
         <p className="font-mono text-[10px] font-[500] uppercase tracking-[0.10em] text-[var(--t3)]">
           Admin Console
         </p>
-        <h1 className="font-display text-[22px] font-[600] tracking-tight text-[var(--t1)]">
+        <h1 className="mt-2 break-keep font-display text-[28px] font-[600] leading-[1.08] tracking-tight text-[var(--t1)] sm:text-[36px]">
           {title}
         </h1>
         {description && (
-          <p className="mt-0.5 font-body text-[13px] text-[var(--t2)]">{description}</p>
+          <p className="mt-3 max-w-[620px] break-keep font-body text-[14px] leading-relaxed text-[var(--t2)]">{description}</p>
         )}
       </div>
-      {actions && <div className="ml-auto flex shrink-0 items-center gap-2">{actions}</div>}
+      <Image src="/illustrations/tines/spot-vault.webp" alt="" width={160} height={160} className="ml-auto hidden h-24 w-24 shrink-0 lg:block" />
+      {actions && <div className="relative z-10 flex w-full flex-wrap items-center gap-2">{actions}</div>}
     </header>
   )
 }

@@ -30,6 +30,8 @@ function stageOf(pathname: string): { label: string; says: string; item: string 
 
 export function ModuleBanner({ slot = 'main' }: { slot?: 'main' | 'library' }) {
   const pathname = usePathname() ?? ''
+  // ModuleHero가 그림·큰 제목을 함께 제공하는 허브는 같은 머리를 두 번 쌓지 않는다.
+  if (slot === 'main' && ['/dictate', '/flashcard', '/spellforge', '/pairflip', '/text'].includes(pathname)) return null
   if (!wantsBanner(pathname, slot)) return null
   const art = routeArt(pathname)!
   const stage = stageOf(pathname)

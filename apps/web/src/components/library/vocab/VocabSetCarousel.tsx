@@ -1,15 +1,8 @@
 // apps/web/src/components/library/vocab/VocabSetCarousel.tsx
-//
-// v06.33 — 도서관 책장 + iPhone coverflow 단어장 선택 인터페이스.
-// - 상단 카테고리 탭 (다차원 레벨 전환)
-// - 선택 카테고리의 단어장을 3D coverflow (LibraryGrid 패턴 재사용)
-// - 중앙 focus 카드 + 좌우 회전 · 화살표 · 키보드 ←/→ · 터치 swipe · dot
-// - 책 cover (3:4) 스타일 + 카테고리 색 gradient
-// - iOS easing — 부드러운 전환
+// Tines Library의 분류 칩 · 틴트 미디어 카드 · 상세 팝업. 실제 교재 표지는 콘텐츠로 유지한다.
 
 'use client'
 
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { useRef, useState } from 'react'
@@ -25,27 +18,19 @@ import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { categoryImportance, VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
+import { VocabTradeCover } from './VocabTradeCover'
+import { VocabCoverArt } from './VocabCoverArt'
+import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
+import { coverFamilyOf } from '@/lib/vcb/covers/design'
+import { BTN, DIALOG } from '@/components/ui/tines-kit'
 
-// 3D 선반 — WebGL 은 브라우저에서만. 불러오는 동안 같은 높이의 빈 자리를 둔다(서가가 튀지 않게).
-const VocabShelf3D = dynamic(() => import('./VocabShelf3D'), {
-  ssr: false,
-  loading: () => <div aria-hidden className="w-full" style={{ height: 420 }} />,
-})
-
-/** 선반 한 판에 서는 권 수 */
-const SHELF_SIZE = 5
-/** 선반 줄마다 권 수 — 참조(Editions)는 위 4 · 아래 5 로 엇갈린다. 짝이 맞지 않으면 벽이 격자로 읽힌다. */
-const ROW_PATTERN = [4, SHELF_SIZE] as const
-
-/** 권 번호들을 줄로 나눈다(4 · 5 · 4 · 5 …). */
-function shelfRows(n: number): number[][] {
-  const rows: number[][] = []
-  for (let i = 0, k = 0; i < n; k++) {
-    const size = ROW_PATTERN[k % ROW_PATTERN.length] ?? SHELF_SIZE
-    rows.push(Array.from({ length: Math.min(size, n - i) }, (_, j) => i + j))
-    i += size
-  }
-  return rows
+/** 반응형 격자의 실제 위치를 사용한다. 2열/4열·마지막 짧은 줄에서 같은 열에 가까운 카드로 이동. */
+export function nearestCatalogRow(rects: { top: number; left: number }[], active: number, direction: -1 | 1): number {
+  const origin = rects[active]
+  if (!origin) return active
+  const candidates = rects.map((rect, index) => ({ ...rect, index })).filter(rect => direction * (rect.top - origin.top) > 1)
+  const nextTop = candidates.sort((a, b) => Math.abs(a.top - origin.top) - Math.abs(b.top - origin.top))[0]?.top
+  return candidates.filter(rect => rect.top === nextTop).sort((a, b) => Math.abs(a.left - origin.left) - Math.abs(b.left - origin.left))[0]?.index ?? active
 }
 
 /**
@@ -141,8 +126,6 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
   const activeSet = items[active]
 
   const coverRefs = useRef<(HTMLButtonElement | null)[]>([])
-  /** 키보드 포커스가 있는 권 — 3D 책을 당겨 보인다(마우스 가리킴은 3D 가 스스로 안다) */
-  const [focusedIdx, setFocusedIdx] = useState<number | null>(null)
 
   /** 그 권으로 포커스를 옮긴다(캡션·담기 대상도 그 권). */
   function focusCover(i: number) {
@@ -153,21 +136,12 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
 
   // 선반 키보드 — 창 전체의 화살표를 가로채지 않는다(본문 스크롤·다른 입력을 빼앗던 종전 전역 리스너를 걷었다).
   function onShelfKey(e: React.KeyboardEvent) {
-    // ↑/↓ — 줄 길이가 달라(4·5) 번호 차가 일정하지 않다. 가운데 정렬 기준으로 **보이는 위치가 가장 가까운** 권으로 간다.
-    const rows = shelfRows(items.length)
-    const ri = rows.findIndex((row) => row.includes(active))
-    const vertical = (dir: -1 | 1) => {
-      const from = rows[ri]
-      const to = rows[ri + dir]
-      if (!from || !to) return active
-      const col = from.indexOf(active) + (to.length - from.length) / 2
-      return to[Math.max(0, Math.min(to.length - 1, Math.round(col)))] ?? active
-    }
+    const rects = items.map((_, index) => coverRefs.current[index]?.getBoundingClientRect() ?? { top: 0, left: 0 })
     const move: Record<string, number> = {
       ArrowLeft: active - 1,
       ArrowRight: active + 1,
-      ArrowUp: vertical(-1),
-      ArrowDown: vertical(1),
+      ArrowUp: nearestCatalogRow(rects, active, -1),
+      ArrowDown: nearestCatalogRow(rects, active, 1),
       Home: 0,
       End: last,
     }
@@ -234,7 +208,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
                 // v07 — 활성 칩은 **잉크**로 채우고 유형 색은 밑줄로만 남긴다. 원색 면(수능·내신 =
                 //   인디고 한 덩어리)이 첫 화면에서 가장 큰 색 면적이었다 — 판면의 색은 주묵 하나다.
                 isActive
-                  ? { backgroundColor: 'var(--t1)', color: 'var(--bg)', boxShadow: `inset 0 -3px 0 ${cc.tint}` }
+                  ? { backgroundColor: 'var(--p)', color: 'var(--on-p)' }
                   : { backgroundColor: cc.tint, color: cc.ink }
               }
             >
@@ -257,141 +231,50 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
         })}
       </div>
 
-      {/*
-        벽 선반 — 참조 shopify.com/editions(WebGL 서가) 렌더 실측 2026-09-25 @1440:
-          · 벽은 **화면 전폭** #cdcdcd, 선반 뒤에만 흰 조명이 타원으로 번진다. 벽이 선반 위아래로 넉넉히 비어 있다.
-          · 표지는 **정사각** ~196px, 권 사이 ~30px, 아래를 축으로 살짝 뒤로 기댄다. 선반 판은 표지 줄보다 양쪽 ~110px 길다.
-          · 좌상단 작은 회색 두 줄(지금 가리킨 권) · 우상단 옅은 원 + 검정 알약 · 하단 괘선 위 3줄 목차.
-        인터랙션(참조와 같은 문법): 가리키면(hover·focus) 그 권이 **앞으로 당겨지고 포인터 쪽으로 기울며**
-        좌상단 캡션이 그 권으로 바뀐다. 누르면(click·Enter·Space) 상세가 열린다.
-        키보드: 표지 묶음은 탭 정지 하나(roving tabindex) — ←/→ 한 권, ↑/↓ 한 선반, Home/End 처음·끝.
-      */}
-      <div
-        className="relative mx-[calc(50%-50vw)] self-stretch overflow-hidden bg-[var(--bg2)]"
-        style={{ fontFamily: 'var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif' }}
-      >
+      <div className="w-full">
         {activeSet && (
-          <div className="relative z-20 flex items-start justify-between gap-6 px-4 pt-4">
-            <div key={activeSet.id} className="min-w-0" aria-live="polite">
-              <h2 className="break-keep text-[14px] font-[400] leading-[18px] text-[#3c3c3c] [font-family:inherit]">{activeSet.title}</h2>
-              <p className="break-keep text-[14px] leading-[18px] text-[#6a6a6a]">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--bd)] pb-5">
+            <div className="min-w-0 flex-1" aria-live="polite">
+              <h2 className="break-keep font-display text-[24px] font-[600] leading-tight text-[var(--t1)]">{activeSet.title}</h2>
+              <p className="mt-2 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
                 <span className="tabular-nums">{activeSet.wordCount.toLocaleString()}</span> 단어
                 {activeSet.description ? ` · ${activeSet.description}` : ''}
               </p>
             </div>
-            <div className="flex shrink-0 items-center gap-2">
-              <button
-                type="button"
-                onClick={() => void openDetail(activeSet)}
-                aria-label={`${activeSet.title} 상세`}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--bg3)] text-[#2b2b2b] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-              >
-                <Eye size={16} aria-hidden />
-              </button>
-              <button
-                type="button"
-                onClick={() => onToggle(activeSet)}
-                disabled={pendingId === activeSet.id}
-                // 참조 「Start for free」 — 검정 알약 · 흰 글자 · 15px/600
-                className={`inline-flex min-h-[44px] items-center gap-2 rounded-full px-5 text-[15px] font-[600] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:opacity-60 ${
-                  subscribedIds.has(activeSet.id) ? 'bg-white text-black hover:bg-[#f4f4f5]' : 'bg-black text-white hover:bg-[#3f3f46]'
-                }`}
-              >
-                {pendingId === activeSet.id ? (
-                  <Loader2 size={15} className="animate-spin" aria-hidden />
-                ) : subscribedIds.has(activeSet.id) ? (
-                  <>
-                    <Check size={15} aria-hidden /> 추가됨
-                  </>
-                ) : (
-                  <>
-                    <Plus size={15} aria-hidden /> {isLoggedIn ? '내 단어장에 추가' : '담기'}
-                  </>
-                )}
+            <div className="flex flex-wrap items-center gap-2">
+              <button type="button" onClick={() => void openDetail(activeSet)} aria-label={`${activeSet.title} 상세`} className={DIALOG.iconBtn}><Eye size={18} aria-hidden /></button>
+              <button type="button" onClick={() => onToggle(activeSet)} disabled={pendingId === activeSet.id} className={subscribedIds.has(activeSet.id) ? BTN.secondary : BTN.primary}>
+                {pendingId === activeSet.id ? <Loader2 size={16} className="animate-spin" aria-hidden /> : subscribedIds.has(activeSet.id) ? <><Check size={16} aria-hidden /> 추가됨</> : <><Plus size={16} aria-hidden /> {isLoggedIn ? '내 단어장에 추가' : '담기'}</>}
               </button>
             </div>
           </div>
         )}
-
-        <div
-          role="group"
-          aria-label="단어장 선반 — 화살표로 이동, Enter 로 열기"
-          onKeyDown={onShelfKey}
-          className="relative mx-auto max-w-[1400px] px-6 pb-6 pt-10"
-        >
-          <VocabShelf3D
-            rows={shelfRows(items.length).map((row) => row.flatMap((idx) => (items[idx] ? [{ set: items[idx], idx }] : [])))}
-            focused={focusedIdx}
-            onPoint={setActive}
-            onOpen={(set, idx) => {
-              setActive(idx)
-              void openDetail(set)
-            }}
-            renderHit={({ set, idx }, style) => (
-              // 키보드·스크린리더용 진짜 버튼 — 3D 책과 같은 자리에 겹친다. 마우스는 통과시킨다(3D 가 받는다).
-              <button
-                key={set.id}
-                ref={(el) => {
-                  coverRefs.current[idx] = el
-                }}
-                type="button"
-                tabIndex={idx === active ? 0 : -1}
-                aria-label={`${set.title} · ${set.wordCount.toLocaleString()} 단어${subscribedIds.has(set.id) ? ' · 추가됨' : ''} — 상세 열기`}
-                onClick={() => {
-                  setActive(idx)
-                  void openDetail(set)
-                }}
-                onFocus={() => {
-                  setActive(idx)
-                  setFocusedIdx(idx)
-                }}
-                onBlur={() => setFocusedIdx((f) => (f === idx ? null : f))}
-                className="pointer-events-none rounded-[2px] bg-transparent outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
-                style={style}
-              />
-            )}
-          />
+        <div role="group" aria-label="단어장 목록 — 화살표로 이동, Enter 로 열기" onKeyDown={onShelfKey} className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {items.map((set, index) => (
+            <button key={set.id} type="button" ref={element => { coverRefs.current[index] = element }} tabIndex={index === active ? 0 : -1}
+              aria-label={`${set.title} · ${set.wordCount.toLocaleString()} 단어${subscribedIds.has(set.id) ? ' · 추가됨' : ''} — 상세 열기`}
+              onClick={() => { setActive(index); void openDetail(set) }} onFocus={() => setActive(index)} onPointerEnter={() => setActive(index)}
+              className="group flex min-w-0 flex-col overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] text-left transition-colors hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--p)]">
+              <span className="tone-lavender dots relative flex w-full items-center justify-center p-5 sm:p-7">
+                <span className="relative block aspect-[152/225] w-full max-w-[152px] overflow-hidden rounded-[4px] bg-[var(--deep-charcoal)] shadow-[var(--sh-md)]">
+                  {set.coverImageMeta?.trade ? <VocabTradeCover set={set} spec={set.coverImageMeta.trade} className="absolute inset-0 block" /> : <>
+                    <VocabCoverArt family={coverFamilyOf(set.brandFamily ?? set.coverImageMeta?.family ?? null)} artKey={set.slug ?? set.title} scrim="hero" lockup={set.brandLockup} />
+                    <GradientBookCover title={set.title} subtitle={`${set.wordCount.toLocaleString()} 단어`} ornament={null} compact />
+                  </>}
+                </span>
+              </span>
+              <span className="flex w-full flex-1 flex-col gap-2 p-4 sm:p-5">
+                <span className="font-mono text-[11px] uppercase text-[var(--t2)]">{set.cefrLevel ?? 'Vocabulary'}</span>
+                <span className="break-keep font-display text-[16px] font-[600] leading-snug text-[var(--t1)]">{set.title}</span>
+                <span className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-2 font-body text-[12px] text-[var(--t2)]">
+                  <span>{set.wordCount.toLocaleString()} 단어</span>
+                  {subscribedIds.has(set.id) ? <span className="inline-flex items-center gap-1"><Check size={14} aria-hidden /> 추가됨</span> : <span className="group-hover:underline">자세히 보기 →</span>}
+                </span>
+              </span>
+            </button>
+          ))}
         </div>
-
-        {/* 하단 목차 — 참조 「2026 / Spring / Everywhere」. 급 · 단어 수 · 이름. 누르면 그 권으로 포커스가 간다. */}
-        {items.length > 1 && (
-          <div className="relative z-10 mx-4 border-t border-black/15">
-            <div className="mx-auto flex max-w-[1240px] items-start justify-center gap-10 overflow-x-auto px-6 py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {items.map((s, idx) => {
-                const on = idx === active
-                return (
-                  <button
-                    key={s.id}
-                    type="button"
-                    tabIndex={-1}
-                    aria-hidden
-                    onClick={() => focusCover(idx)}
-                    onPointerEnter={() => setActive(idx)}
-                    className="flex min-h-[44px] shrink-0 flex-col items-start text-left text-[12px] leading-[16px]"
-                  >
-                    <span className="text-[#6b6b6b]">{s.cefrLevel ?? '—'}</span>
-                    <span className="tabular-nums text-[#6b6b6b]">{s.wordCount.toLocaleString()} 단어</span>
-                    <span className={`whitespace-nowrap transition-colors ${on ? 'text-black' : 'text-[#3a3a3a]'}`}>{s.title}</span>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        )}
       </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
 
       <NetflixDetailSheet variant={detail} onClose={() => setDetail(null)} />
     </div>

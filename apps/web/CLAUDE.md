@@ -85,7 +85,9 @@ admin 가드는 3층: `middleware.ts`(라우트) + `requireAdmin`/`getAdminUser`
 | 관리자 링크 도달성 @390px | 33화면 중 **30곳에서 보이는 관리자 링크 0개** (사이드바가 `hidden`) |
 | 가로 스크롤 @390px | 학습자 0 · 관리자 2건 → **고침**(아래) |
 
-즉 **모바일에서 깨지는 것은 화면이 아니라 내비 발견성**이다. 학습자는 하단 탭 4개로
+**디자인 작업 범위(2026-10-03 사용자 재확인)**: PC 웹만. 모바일 웹/앱과 모바일 전용 내비 디자인·검증은 제외한다. 아래 모바일 발견은 과거 관찰이며 이번 디자인 작업의 해결 범위가 아니다.
+
+즉 **당시 모바일에서 깨진 것은 화면이 아니라 내비 발견성**이다. 학습자는 하단 탭 4개로
 어떻게든 돌아다니지만, **관리자는 모바일에서 이동 수단이 아예 없다** — URL 을 직접 쳐야 한다.
 그것을 바꾸려면 모바일 관리자 내비를 새로 만드는 **제품 결정**이 필요하므로 여기에 사실만 남긴다.
 
@@ -143,7 +145,7 @@ Library 에서는 '짧은 글' · `word_set` 이 '공용단어장'/'단어장'/'
 - `(auth)` — 인증 라우트 (헤더 없음)
 - `(marketing)` — 공개 랜딩
 - `(main)` — 로그인 후 앱 (Sidebar 포함)
-- `admin/` — 관리자 콘솔 (route group 미사용 → URL = `/admin/*`, AdminSidebar 적용, Deep Ink `--p` + ShieldCheck + Admin 표기)
+- `admin/` — 관리자 콘솔 (route group 미사용 → URL = `/admin/*`, Tines `AdminShell` + AdminSidebar, ShieldCheck + Admin 표기)
 - `dev/` — 개발 검증 (`/dev` 화면 인덱스 · `/dev/components` 카탈로그). robots 가 막는다
 
 각 그룹/세그먼트는 자체 `layout.tsx` 보유. 그룹 간 컴포넌트 공유는 `src/components/` 의 도메인 폴더로.

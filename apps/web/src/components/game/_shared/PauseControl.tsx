@@ -116,10 +116,10 @@ const PAUSE_CSS = `
   .gk-pause-btn:disabled { opacity: .5; cursor: default; }
 
   .gk-pause-veil { position: absolute; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 24px; background: color-mix(in srgb, var(--bg2) 84%, transparent); backdrop-filter: blur(7px); animation: gk-pause-in var(--dur-normal, 200ms) var(--ease, ease); }
-  .gk-pause-card { max-width: 320px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .gk-pause-title { margin: 0; font-family: var(--font-display, system-ui, sans-serif); font-size: 17px; font-weight: 800; color: var(--t1); word-break: keep-all; }
+  .gk-pause-card { width: 100%; max-width: 420px; padding: 32px 24px; border: 1px solid var(--bd); border-radius: var(--r-2xl); background: var(--bg); box-shadow: var(--sh-float); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .gk-pause-title { margin: 0; font-family: var(--font-display, system-ui, sans-serif); font-size: 28px; font-weight: 600; line-height: 1.08; color: var(--t1); word-break: keep-all; }
   .gk-pause-body { margin: 0; font-family: var(--font-body, system-ui, sans-serif); font-size: 13px; line-height: 1.65; color: var(--t2); word-break: keep-all; }
-  .gk-pause-resume { margin-top: 6px; min-height: 44px; padding: 0 22px; border-radius: var(--r-md, 8px); border: 1px solid transparent; background: var(--combo); color: var(--ti, #fff); font-family: var(--font-display, system-ui, sans-serif); font-size: 13px; font-weight: 800; cursor: pointer; transition: filter var(--dur-fast, 150ms) var(--ease, ease), transform 120ms var(--ease, ease); }
+  .gk-pause-resume { margin-top: 6px; min-height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid transparent; background: var(--p); color: var(--on-p); font-family: var(--font-display, system-ui, sans-serif); font-size: 14px; font-weight: 600; cursor: pointer; transition: filter var(--dur-fast, 150ms) var(--ease, ease), transform 120ms var(--ease, ease); }
   .gk-pause-resume:hover { filter: brightness(1.1); }
   .gk-pause-resume:active { transform: scale(.97); }
   .gk-pause-resume:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 35%, transparent); }

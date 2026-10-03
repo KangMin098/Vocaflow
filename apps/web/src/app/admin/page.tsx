@@ -33,6 +33,7 @@ import {
 import Link from 'next/link'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { RetentionPanel } from '@/components/admin/RetentionPanel'
 import { TeacherFunnelPanel } from '@/components/admin/TeacherFunnelPanel'
@@ -374,25 +375,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
       {/* ── 헤더 ── */}
-      <header className="mb-8 flex items-center gap-3">
-        <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] text-[var(--on-p)]"
-          aria-hidden="true"
-        >
-          <ShieldCheck size={16} strokeWidth={2} />
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
-            Admin Console
-          </p>
-          <h1 className="font-display text-[24px] font-[800] tracking-tight text-[var(--t1)]">
-            대시보드
-          </h1>
-        </div>
-        <p className="hidden font-body text-[12px] text-[var(--t2)] md:block">
-          조회 시각 · {fetchedAt} KST
-        </p>
-      </header>
+      <AdminPageHeader icon={ShieldCheck} title="대시보드" description={`파이프라인 실측 현황 · 조회 시각 ${fetchedAt} KST`} />
 
       <AdminScreenHelp screen="dashboard" className="-mt-4 mb-6" />
 

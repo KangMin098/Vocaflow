@@ -1,5 +1,11 @@
 # Design System
 
+> PC 관리자 상단 바는 `--admin-header-height: 73px`(본문 72px + 경계 1px)다. 사이드바와 뷰포트에 붙는 상세 `aside`/섹션 `nav`는 이 높이를 피하고, 상세 패널 높이·섹션 앵커 여백도 함께 계산한다. 표의 내부 스크롤 `thead`에는 이 오프셋을 적용하지 않는다.
+
+> GameKit HUD 점수/콤보는 불투명 `--bg` 통계 카드 안에서 테마 전경/의미색을 쓴다. 게임별 독립 캔버스의 색과 통계 글자의 대비를 분리한다. tier 2/3도 고정 색 대신 `--warning-ink`/`--error-ink`를 사용한다.
+
+> **개별 화면 변환 1차(2026-10-03)**: 관리자 `AdminShell`은 Tines Library의 상단 내비·분류 레일·열린 본문을 사용한다. `AdminPageHeader`·`AdminKpiGrid`는 큰 제목·자체 소품·틴트 카드로 구성한다. 학습 `ModuleHero`는 범주 틴트·제목·설명·실측 메타로 통일하고 중복 `ModuleBanner`를 생략한다. 단어장 카탈로그는 3D 선반 대신 Tines Library의 미디어 카드와 공통 상세 팝업을 사용한다. 게임 공통 결과·일시정지와 콤보 색은 기본 스킨을 상속한다. 게임 배경은 독립 전경과 함께 검증·변환할 대상으로 남기며 기존 계약을 유지한다. 웹 스킨 변경이며 RN 기본 색 객체는 변경하지 않는다. 전체 화면 완료 여부와 검증 범위는 [변환 기록](design/tines-adoption.md)을 따른다.
+
 > **현재 스타일 정본(2026-10-03)**: [DESIGN.md](../DESIGN.md). `/csat/*`는 `skins/csat-app.css`(3B 앱), 나머지 전체는 `skins/tines.css`(Tines 웹사이트). 두 CSAT 레이아웃의 서버 표식으로 body 포털까지 자동 적용한다. 아래 v07 판면·수치는 기본 토큰/과거 재료 설명이며 새 라우트별 스킨보다 우선하지 않는다. 옛 동결은 이 결정으로 대체됐다.
 
 > 디자인 작업 진입: [DESIGN.md](../DESIGN.md) · 캡처·비평·수정과 로컬 픽셀 비교: [디자인 작업 절차](design/06-workflow.md).

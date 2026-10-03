@@ -42,7 +42,7 @@ import type { DictationConfig } from '@/lib/dictation/types'
 import { SourcePicker } from './SourcePicker'
 import { WeaknessPanel } from './WeaknessPanel'
 
-const DICTATION_ACCENT = '#0EA5E9'
+const DICTATION_ACCENT = 'var(--tint-teal-ink)'
 
 /** 오늘의 받아쓰기 기본값 — 고르는 화면 없이 바로 시작하므로 온건한 중간값. */
 const DAILY_CONFIG: DictationConfig = {
@@ -346,8 +346,8 @@ function DailyCard({
         type="button"
         onClick={onStart}
         disabled={starting}
-        className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-        style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
+        className="group inline-flex items-center justify-center gap-2 rounded-full py-3 font-display text-[14px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        style={{ background: 'var(--p)', color: 'var(--on-p)' }}
       >
         {starting ? (
           <>

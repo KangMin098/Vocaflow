@@ -2,7 +2,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { AdminSidebar } from '@/components/admin/AdminSidebar'
+import { AdminShell } from '@/components/admin/AdminShell'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createClient } from '@/lib/supabase/server'
 
@@ -43,13 +43,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const reportsBadge = await fetchPendingReportsCount()
 
   return (
-    // 관리자도 플랫폼 기본 Tines 토큰을 사용한다(DESIGN.md, 2026-10-03).
-    <div data-area="admin" className="flex min-h-screen bg-[var(--bg2)]">
-      <AdminSidebar reportsBadge={reportsBadge} />
-      {/* 레퍼런스 앱 골격 — 사이드바는 캔버스와 한 면이고, 본문은 캔버스 위에 떠 있는 흰 패널이다(DD-82). */}
-      <main className="flex min-w-0 flex-1 flex-col p-2 md:py-3 md:pl-0 md:pr-3">
-        <div className="flex-1 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">{children}</div>
-      </main>
-    </div>
+    <AdminShell reportsBadge={reportsBadge}>{children}</AdminShell>
   )
 }
