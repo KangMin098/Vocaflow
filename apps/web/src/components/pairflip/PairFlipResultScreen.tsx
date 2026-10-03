@@ -36,7 +36,7 @@ export function PairFlipResultScreen({ result }: ResultScreenProps) {
 
   return (
     <div
-      className="relative min-h-screen"
+      className="pairflip-result relative min-h-screen"
       style={{
         background:
           'linear-gradient(180deg, #FFFBF5 0%, #FEF6E1 55%, #FDE9C2 100%)',

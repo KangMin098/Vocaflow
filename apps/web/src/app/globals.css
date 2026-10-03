@@ -10,6 +10,7 @@
 @import '@vocaflow/design-tokens/tokens.css';
 /* 화면 스킨 — <html data-skin="tines"> 일 때만 켜진다(DD-68). */
 @import '@vocaflow/design-tokens/skins/tines.css';
+@import '@vocaflow/design-tokens/skins/tines-learning.css';
 /* CSAT 3B 앱 스킨 — 두 라우트 그룹의 CSAT 레이아웃 표식으로 선택. 포털도 루트 토큰을 상속한다. */
 @import '@vocaflow/design-tokens/skins/csat-app.css';
 /* PC 관리자 전체(관리자 CSAT 포함)는 3B 앱. 라우트 표식으로 body 포털까지 적용한다. */

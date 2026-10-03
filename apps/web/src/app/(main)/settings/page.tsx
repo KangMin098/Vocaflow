@@ -258,7 +258,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="content" background="bg2" padX="md" className="tines-settings">
       <div className="py-6 md:py-8">
         <SaveIndicator />
         {/* ── Header ── */}

@@ -14,9 +14,57 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { ROOT, chromium } from './lib/ref-page.mjs'
+import { ROOT, chromium, openRef } from './lib/ref-page.mjs'
 
 // 기존 3B 게이트는 그대로 두고 PC Tines 표본 대조를 명시적으로 선택한다.
+if (process.argv.includes('--learning')) {
+  const spec=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/design/refs/tines/learning-spec.json'),'utf8'))
+  const args=process.argv.slice(2), at=args.indexOf('--base')
+  const base=at>=0?args[at+1]:'http://127.0.0.1:3031'
+  if(base!=='http://127.0.0.1:3031') throw new Error('대조는 DB 경계가 제거된 격리 서버(3031)에서 실행한다')
+  const browser=await chromium.launch()
+  try {
+    const page=await browser.newPage({viewport:spec.viewport,reducedMotion:'reduce'})
+    await page.route('**/*',route=>new URL(route.request().url()).origin===base?route.continue():route.abort('blockedbyclient'))
+    const rows=[]
+    let current=''
+    for(const item of spec.comparisons) {
+      if(current!==item.route){await page.goto(`${base}/?screen=${encodeURIComponent(item.route)}`);current=item.route}
+      await page.locator(item.selector).first().waitFor()
+      const value=await page.locator(item.selector).first().evaluate((el,field)=>{
+        const s=getComputedStyle(el),r=el.getBoundingClientRect()
+        return {size:parseFloat(s.fontSize),lineHeight:parseFloat(s.lineHeight),padding:parseFloat(s.paddingLeft),radius:parseFloat(s.borderRadius),gap:parseFloat(s.gap),x:r.x,width:r.width}[field]
+      },item.field)
+      rows.push({항목:item.name,참조:item.reference,적용:Math.round(value*100)/100,차이:Math.round(Math.abs(value-item.reference)*100)/100})
+    }
+    console.table(rows)
+    const out=path.join(ROOT,'tmp/tines-adoption/remaining-compare.json')
+    fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify({viewport:spec.viewport,mode:'isolated-component',rows},null,2)+'\n')
+    if(rows.some(row=>!Number.isFinite(row.차이)||row.차이>2)) throw new Error('참조 부품 허용 오차 2px 초과')
+  } finally {await browser.close()}
+  process.exit(0)
+}
+if (process.argv.includes('--learning-capture')) {
+  const out=path.join(ROOT,'tmp/tines-adoption/remaining-reference')
+  fs.mkdirSync(out,{recursive:true})
+  const browser=await chromium.launch(),results=[]
+  try {
+    for(const [name,url] of [['security','https://www.tines.com/solutions/security/'],['omada','https://www.tines.com/case-studies/omada-health/']]) {
+      const {ctx,page}=await openRef(browser,url,{width:1440,height:900})
+      await page.screenshot({path:path.join(out,`${name}.png`),fullPage:true})
+      await page.screenshot({path:path.join(out,`${name}-fold.png`)})
+      const measured=await page.evaluate(()=>{
+        const pick=el=>{const s=getComputedStyle(el),r=el.getBoundingClientRect();return {tag:el.tagName,class:el.className,width:r.width,height:r.height,x:r.x,fontSize:s.fontSize,lineHeight:s.lineHeight,padding:s.padding,gap:s.gap,radius:s.borderRadius,background:s.backgroundColor}}
+        const h1=document.querySelector('h1');if(!h1)throw new Error('정상 제목 없음')
+        return {heading:pick(h1),ancestors:Array.from({length:4},(_,i)=>{let el=h1;for(let k=0;k<=i;k++)el=el.parentElement;return pick(el)}),headings:[...document.querySelectorAll('h2,h3')].slice(0,10).map(pick)}
+      })
+      results.push({name,url,viewport:{width:1440,height:900},...measured});await ctx.close()
+    }
+    fs.writeFileSync(path.join(out,'measurements.json'),JSON.stringify(results,null,2)+'\n')
+    console.log(JSON.stringify(results.map(({name,heading})=>({name,heading}))))
+  } finally {await browser.close()}
+  process.exit(0)
+}
 if (process.argv.includes('--tines')) {
   await import('./tines-ref-compare.mjs')
   process.exit(0)

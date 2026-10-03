@@ -204,7 +204,7 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
 
   return (
     <div
-      className="flex min-h-screen flex-col"
+      className="pairflip-play flex min-h-screen flex-col"
       style={{
         background:
           'linear-gradient(180deg, #FFFBF5 0%, #FEF6E1 55%, #FDE9C2 100%)',

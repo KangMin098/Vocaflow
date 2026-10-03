@@ -1,0 +1,206 @@
+/* packages/design-tokens/src/skins/tines-learning.css
+ * PC 학습 화면: Security의 양옆 삽화/열린 제목, Omada의 비대칭 벤토,
+ * University의 격자 작업면. 참조 실측과 상태 검증: docs/design/tines-adoption.md.
+ * 모바일·CSAT·관리자 컴포넌트는 대상이 아니다. 각 화면은 명시적 hook으로 적용한다.
+ */
+@media (min-width: 768px) {
+  :root[data-skin="tines"] {
+    --learning-max: 1440px; --learning-inset: 40px;
+    --learning-title: 64px; --learning-title-line: 62.08px;
+    --learning-case-title: 48px; --learning-case-line: 50.4px;
+    --learning-bento-radius: 32px; --learning-card-radius: 16px;
+    --learning-bento-pad: 24px; --learning-gap: 24px;
+    --learning-cell-pad: 40px; --learning-art: 280px; --learning-grid: 24px;
+    --learning-ink: var(--t1); --learning-muted: var(--t2); --learning-subtle: var(--t3);
+    --learning-bg: var(--bg); --learning-line: var(--bd);
+    --learning-success: var(--success); --learning-error: var(--error);
+  }
+  :root[data-skin="tines"] :is(.diagnostic-start,.diagnostic-result,.pairflip-hub) { max-width: var(--learning-max); width: 100%; padding-inline: var(--learning-inset); }
+  :root[data-skin="tines"] .diagnostic-start { display: grid; grid-template-columns: 1.15fr .85fr; gap: var(--learning-gap); padding-top: 0; }
+  :root[data-skin="tines"] .diagnostic-intro { position: relative; grid-column: 1 / -1; min-height: 380px; margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px var(--learning-art); text-align: center; }
+  :root[data-skin="tines"] .diagnostic-intro h1 { font-size: var(--learning-title); line-height: var(--learning-title-line); }
+  :root[data-skin="tines"] .diagnostic-intro > p:last-child { max-width: 650px; font-size: 17px; margin-top: 24px; }
+  :root[data-skin="tines"] .diagnostic-eyebrow { margin-bottom: 24px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; }
+  :root[data-skin="tines"] .diagnostic-art { position: absolute; width: var(--learning-art); pointer-events: none; }
+  :root[data-skin="tines"] .diagnostic-art-left { left: 0; top: 30px; transform: rotate(-7deg); }
+  :root[data-skin="tines"] .diagnostic-art-right { right: 0; bottom: 0; transform: rotate(8deg); }
+  :root[data-skin="tines"] .diagnostic-start :is(p,h1,h2,button) { word-break: keep-all; }
+  :root[data-skin="tines"] .diagnostic-saved { grid-column: 1 / -1; grid-row: 2; margin: 0; }
+  :root[data-skin="tines"] .diagnostic-primary { grid-column: 1 / -1; padding: var(--learning-cell-pad); border-radius: var(--learning-card-radius); background: var(--p); box-shadow: none; min-height: 300px; display: flex; flex-direction: column; align-items: flex-start; }
+  :root[data-skin="tines"] .diagnostic-start:has(.diagnostic-previous) .diagnostic-primary { grid-column: 1; grid-row: 3; }
+  :root[data-skin="tines"] .diagnostic-primary h2 { font-family: var(--font-serif); font-size: var(--learning-case-title); line-height: var(--learning-case-line); font-weight: 400; }
+  :root[data-skin="tines"] .diagnostic-primary > span { background: var(--on-p); color: var(--p); }
+  :root[data-skin="tines"] .diagnostic-primary > div:last-child { margin-top: auto; padding-top: 32px; width: 100%; }
+  :root[data-skin="tines"] .diagnostic-primary button { flex: none; border-radius: 999px; min-height: 44px; padding-inline: 24px; box-shadow: none; }
+  :root[data-skin="tines"] .diagnostic-primary button:first-child { background: var(--on-p); color: var(--p); }
+  :root[data-skin="tines"] .diagnostic-previous { grid-column: 2; grid-row: 3; flex-direction: column; align-items: flex-start; justify-content: center; gap: 32px; margin: 0; padding: var(--learning-cell-pad); border: 0; border-radius: var(--learning-card-radius); background: var(--tint-lavender); color: var(--tint-lavender-ink); }
+  :root[data-skin="tines"] .diagnostic-previous > span { flex-wrap: wrap; color: inherit; font-size: 16px; }
+  :root[data-skin="tines"] .diagnostic-previous strong { font-family: var(--font-serif); font-size: var(--learning-title); line-height: 1; color: inherit; }
+  :root[data-skin="tines"] .diagnostic-previous button { border-radius: 999px; color: inherit; }
+  :root[data-skin="tines"] .diagnostic-goals { grid-column: 1 / -1; grid-row: 4; margin-top: 64px; border-top: 1px solid var(--bd); padding-top: 40px; }
+  :root[data-skin="tines"] .diagnostic-goals > div:first-child { margin-bottom: 24px; }
+  :root[data-skin="tines"] .diagnostic-goals > div:first-child > span:first-child { font-family: var(--font-serif); font-size: 32px; font-weight: 400; letter-spacing: -.02em; }
+  :root[data-skin="tines"] .diagnostic-goals > div:last-child { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: var(--learning-gap); }
+  :root[data-skin="tines"] .diagnostic-goal { flex-wrap: wrap; align-content: flex-start; align-items: flex-start; gap: 20px; padding: 30px; min-height: 245px; border-radius: var(--learning-card-radius); box-shadow: none; background: var(--tint-lavender); color: var(--tint-lavender-ink); border-color: currentColor; }
+  :root[data-skin="tines"] .diagnostic-goal:nth-child(4n+2) { background: var(--tint-pink); color: var(--tint-pink-ink); }
+  :root[data-skin="tines"] .diagnostic-goal:nth-child(4n+3) { background: var(--tint-peach); color: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .diagnostic-goal:nth-child(4n+4) { background: var(--tint-green); color: var(--tint-green-ink); }
+  :root[data-skin="tines"] .diagnostic-goal > div { flex-basis: 100%; }
+  :root[data-skin="tines"] .diagnostic-goal > div > p:first-child { color: inherit; font-family: var(--font-serif); font-size: 24px; line-height: 1.2; font-weight: 400; }
+  :root[data-skin="tines"] .diagnostic-goal > div > p:last-child { white-space: normal; font-size: 13px; margin-top: 12px; color: inherit; }
+  :root[data-skin="tines"] .diagnostic-goal > button { color: inherit; border: 1px solid currentColor; border-radius: 999px; background: transparent; }
+  :root[data-skin="tines"] .diagnostic-goal > button:hover { background: var(--bg); color: var(--p); }
+  :root[data-skin="tines"] .diagnostic-goal > .seal-mark { display: none; }
+  :root[data-skin="tines"] .diagnostic-question { max-width: 1040px; padding: 60px 40px; }
+  :root[data-skin="tines"] .diagnostic-word { border: 0; border-block: 1px solid var(--bd); border-radius: 0; padding: 96px 40px; box-shadow: none; background: transparent; background-image: linear-gradient(color-mix(in srgb,var(--bd) 45%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--bd) 45%,transparent) 1px,transparent 1px); background-size: var(--learning-grid) var(--learning-grid); }
+  :root[data-skin="tines"] .diagnostic-word > p:first-child { font-size: 80px; }
+  :root[data-skin="tines"] .diagnostic-question > div:last-child { display: flex; justify-content: center; }
+  :root[data-skin="tines"] .diagnostic-question > div:last-child button { border-radius: 999px; min-width: 200px; box-shadow: none; }
+  :root[data-skin="tines"] :is(.diagnostic-start,.diagnostic-question,.diagnostic-result,.diagnostic-modal) button:focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
+  :root[data-skin="tines"] .diagnostic-result { display: grid; grid-template-columns: 1fr 1fr; gap: var(--learning-gap); padding-block: 48px 80px; }
+  :root[data-skin="tines"] .diagnostic-result > * { margin: 0; box-shadow: none; border-radius: var(--learning-card-radius); }
+  :root[data-skin="tines"] .diagnostic-result-level { grid-row: span 2; padding: 64px var(--learning-cell-pad); background: var(--p); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  :root[data-skin="tines"] .diagnostic-result-level > p:nth-child(2) { color: var(--on-p); font-size: 104px; }
+  :root[data-skin="tines"] .diagnostic-result > section { padding: 32px; background: var(--tint-lavender); color: var(--tint-lavender-ink); border: 0; }
+  :root[data-skin="tines"] .diagnostic-result > section:nth-of-type(2n) { background: var(--tint-green); color: var(--tint-green-ink); }
+  :root[data-skin="tines"] .diagnostic-result > section:nth-of-type(3n) { background: var(--tint-peach); color: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .diagnostic-result > section :is(h2,p,li,strong) { color: inherit; }
+  :root[data-skin="tines"] .diagnostic-result > section h2 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; }
+  :root[data-skin="tines"] .diagnostic-result > section p, :root[data-skin="tines"] .diagnostic-result > section li { font-size: 15px; }
+  :root[data-skin="tines"] .diagnostic-result > :is(button,div:last-of-type) { grid-column: 1 / -1; }
+  :root[data-skin="tines"] .diagnostic-result > button, :root[data-skin="tines"] .diagnostic-result > div:last-of-type button { border-radius: 999px; }
+  :root[data-skin="tines"] .diagnostic-modal-content { max-width: none; max-height: none; border-radius: 0; box-shadow: none; }
+  :root[data-skin="tines"] .diagnostic-modal-content > div:first-child > button { display: none; }
+  :root[data-skin="tines"] .diagnostic-modal-content > div:nth-child(2) { padding: 32px 40px; }
+  :root[data-skin="tines"] .diagnostic-modal-content > div:nth-child(2):has(> div) { display: grid; grid-template-columns: 1.25fr 1fr; gap: 32px; }
+  :root[data-skin="tines"] .diagnostic-modal-content > div:nth-child(2) > div { background: transparent; border: 0; padding: 0; border-radius: 0; }
+  :root[data-skin="tines"] .diagnostic-modal-content > div:last-child button { border-radius: 999px; min-height: 44px; }
+  :root[data-skin="tines"] .tines-module-hero:not(.tines-university-hero) { border: 0; box-shadow: none; padding: var(--learning-cell-pad); border-radius: var(--learning-bento-radius); min-height: 320px; }
+  :root[data-skin="tines"] .tines-module-hero:not(.tines-university-hero) h1 { font-size: var(--learning-title); line-height: var(--learning-title-line); font-family: var(--font-serif); font-weight: 400; }
+  :root[data-skin="tines"] .tines-module-hero:not(.tines-university-hero) > div > img { width: 220px; height: 220px; object-fit: contain; }
+  :root[data-skin="tines"] .tines-module-hero:not(.tines-university-hero) > div > div > p:last-child { font-size: 17px; max-width: 600px; }
+  :root[data-skin="tines"] .tines-module-hero[data-module-hero="Flashcard"] { background: transparent; overflow: visible; border-radius: 0; padding-inline: 0; }
+  :root[data-skin="tines"] .tines-module-hero[data-module-hero="Flashcard"] > div { padding-right: 260px; }
+  :root[data-skin="tines"] .tines-module-hero[data-module-hero="Flashcard"] > div > img { display: none; }
+  :root[data-skin="tines"] .module-path-art { position: absolute; width: var(--learning-art); right: 0; top: 0; }
+  :root[data-skin="tines"] .tines-module-hero[data-module-hero="SpellForge"] { background: var(--tint-peach); background-image: linear-gradient(color-mix(in srgb,var(--tint-peach-ink) 8%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--tint-peach-ink) 8%,transparent) 1px,transparent 1px); background-size: var(--learning-grid) var(--learning-grid); }
+  :root[data-skin="tines"] .tines-module-hero[data-module-hero="PairFlip"] { background: var(--tint-green); }
+  :root[data-skin="tines"] :is(.pairflip-hub,.pairflip-play,.pairflip-result) { --pf-envTop: var(--bg); --pf-envMid: var(--bg); --pf-envBottom: var(--bg); --pf-coverFrom: var(--p); --pf-coverMid: var(--p); --pf-coverTo: var(--p); --pf-gold: var(--p); --pf-goldLight: var(--on-p); --pf-goldDeep: var(--bd); --pf-wordFrom: var(--tint-lavender); --pf-wordMid: var(--tint-lavender); --pf-wordTo: var(--tint-lavender); --pf-wordBorder: var(--bd); --pf-meaningFrom: var(--tint-green); --pf-meaningMid: var(--tint-green); --pf-meaningTo: var(--tint-green); --pf-meaningBorder: var(--tint-green-ink); --pf-textWord: var(--tint-lavender-ink); --pf-textMeaning: var(--tint-green-ink); --pf-textMuted: var(--tint-lavender-ink); --pf-matchedEmerald: var(--success); --pf-matchedDeep: var(--success); --pf-matchedGlow: color-mix(in srgb,var(--success) 20%,transparent); --pf-shakeCoral: var(--error); --pf-shakeDeep: var(--error); --pf-shakeGlow: color-mix(in srgb,var(--error) 20%,transparent); }
+  :root[data-skin="tines"] .pairflip-hub { display: grid; grid-template-columns: .8fr 1.2fr; gap: var(--learning-gap); }
+  :root[data-skin="tines"] .pairflip-hub > .tines-module-hero { grid-column: 1 / -1; }
+  :root[data-skin="tines"] .pairflip-hub > details { grid-column: 1 / -1; grid-row: 3; }
+  :root[data-skin="tines"] .pairflip-hub > section:last-child { grid-column: 2; grid-row: 2; border: 0; border-radius: var(--learning-card-radius); background: var(--tint-lavender); padding: 30px; box-shadow: none; }
+  :root[data-skin="tines"] .pairflip-hub > [data-game-pool] { padding: 30px; border-radius: var(--learning-card-radius); background: var(--bg); border-block: 1px solid var(--bd); box-shadow: none; }
+  :root[data-skin="tines"] .pairflip-hub button[aria-label="게임 시작"] { border-radius: 999px; box-shadow: none !important; width: auto; padding: 14px 32px; }
+  :root[data-skin="tines"] .pairflip-hub [role="radio"][aria-checked="true"] { background: var(--p) !important; color: var(--on-p); box-shadow: none !important; transform: none !important; border-radius: 14px; }
+  :root[data-skin="tines"] .pairflip-hub [role="radio"][aria-checked="true"] span { color: inherit !important; }
+  :root[data-skin="tines"] :is(.pairflip-hub,.pairflip-play,.pairflip-result) :is(button,a):focus-visible { outline: 2px solid var(--p); outline-offset: 3px; --tw-ring-color: var(--p); }
+  :root[data-skin="tines"] .pairflip-play { background: var(--bg) !important; }
+  :root[data-skin="tines"] .pairflip-play main { margin: 32px 40px; border-radius: var(--learning-bento-radius); background: var(--tint-lavender); padding: 40px; }
+  :root[data-skin="tines"] .pairflip-hud { background: var(--bg); height: 80px; padding-inline: 40px; backdrop-filter: none; }
+  :root[data-skin="tines"] .pairflip-hud > div:nth-child(2), :root[data-skin="tines"] .pairflip-hud > div:last-of-type > span { background: var(--p) !important; color: var(--on-p) !important; box-shadow: none !important; }
+  :root[data-skin="tines"] .pairflip-hud > div:nth-child(2) :is(svg,span) { color: inherit !important; }
+  :root[data-skin="tines"] .pairflip-hud button { min-height: 44px; border-radius: 999px; }
+  :root[data-skin="tines"] .pairflip-play footer [role="progressbar"] { background: var(--p) !important; }
+  :root[data-skin="tines"] .pf-card-face { box-shadow: none !important; }
+  :root[data-skin="tines"] .pairflip-result { background: var(--bg) !important; }
+  :root[data-skin="tines"] .pairflip-result > div { max-width: 1360px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; }
+  :root[data-skin="tines"] .pairflip-result header { grid-row: span 3; justify-content: center; border: 0; border-radius: 32px; background: var(--tint-lavender); box-shadow: none; }
+  :root[data-skin="tines"] .pairflip-result h1 { font-size: 48px; line-height: 1.05; font-weight: 400; }
+  :root[data-skin="tines"] .pairflip-result > div > :is(p,a) { grid-column: 1 / -1; }
+  :root[data-skin="tines"] .pairflip-result > div > section { box-shadow: none; border-radius: 16px; }
+  /* Pirate Quest: 3D 교재는 유지하고 UI를 불투명한 면/잉크 짝으로 만든다. */
+  :root[data-skin="tines"] :is(.pq-hud,.pq-deck,.pq-gate,.pq-mk) { --t1: var(--learning-ink); --t2: var(--learning-muted); --t3: var(--learning-subtle); --bg: var(--learning-bg); --bd: var(--learning-line); --combo: var(--p); --streak: var(--p); --success: var(--learning-success); --error: var(--learning-error); --pq-glass: var(--learning-bg); --pq-ring: 0 0 0 3px var(--p); color: var(--learning-ink); }
+  :root[data-skin="tines"] .pq-hud { padding: 16px 40px; background: var(--bg); border-bottom: 1px solid var(--bd); }
+  :root[data-skin="tines"] .pq-hud-tide { backdrop-filter: none; background: var(--bg); }
+  :root[data-skin="tines"] :is(.pq-deck-inner,.pq-mk) { background: var(--bg); backdrop-filter: none; border-color: var(--bd); box-shadow: none; }
+  :root[data-skin="tines"] .pq-deck { width: min(860px,calc(100vw - 80px)); bottom: 24px; }
+  :root[data-skin="tines"] .pq-deck-inner { padding: 24px 32px; border-radius: 24px; }
+  :root[data-skin="tines"] .pq-deck:is([data-phase="recall"],[data-phase="reveal"]) .pq-deck-inner { background: var(--tint-peach); border-color: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .pq-deck:is([data-phase="choice"],[data-phase="settle"]) .pq-deck-inner { background: var(--tint-green); border-color: var(--tint-green-ink); }
+  :root[data-skin="tines"] :is(.pq-ask,.pq-got b,.pq-correction b,.pq-recall-word,.pq-settle b,.pq-chain,.pq-rules b,.pq-eyebrow--good) { color: var(--p); text-shadow: none; }
+  :root[data-skin="tines"] .pq-ask { font-family: var(--font-serif); font-size: 36px; font-weight: 400; }
+  :root[data-skin="tines"] .pq-eyebrow--miss { color: var(--error); }
+  :root[data-skin="tines"] .pq-line--sub[data-knew="1"], :root[data-skin="tines"] .pq-line--sub[data-knew="1"] b { color: var(--success); }
+  :root[data-skin="tines"] .pq-btn { background: var(--bg); border-color: var(--p); border-radius: 999px; color: var(--p); }
+  :root[data-skin="tines"] .pq-btn:hover { background: var(--tint-lavender); border-color: var(--p); }
+  :root[data-skin="tines"] .pq-btn--primary { background: var(--p); color: var(--on-p); border-color: var(--p); }
+  :root[data-skin="tines"] .pq-btn--primary:hover { background: var(--ju); color: var(--on-ju); border-color: var(--ju); }
+  :root[data-skin="tines"] .pq-btn--risk { background: var(--tint-teal); color: var(--tint-teal-ink); border-color: currentColor; }
+  :root[data-skin="tines"] .pq-btn .gk-kbd { color: inherit; background: transparent; border-color: currentColor; }
+  :root[data-skin="tines"] :is(.pq-gate-bar,.pq-recall-bar) { background: var(--bg3); }
+  :root[data-skin="tines"] :is(.pq-gate-fill,.pq-recall-fill) { background: var(--p); }
+  :root[data-skin="tines"] .pq-gate { background: var(--bg); background-image: linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px); background-size: 48px 48px; }
+  :root[data-skin="tines"] .pq-gate-mark { background: var(--tint-lavender); color: var(--tint-lavender-ink); }
+  :root[data-skin="tines"] .pq-gate-title { font-family: var(--font-serif); font-size: 48px; font-weight: 400; }
+  :root[data-skin="tines"] .pq-mk { border-radius: 14px; }
+  :root[data-skin="tines"] .pq-mk[data-mode="label"] { border-color: var(--p); }
+  :root[data-skin="tines"] .pq-mk[data-mode="hidden"] { background: var(--tint-teal); color: var(--tint-teal-ink); border-color: currentColor; }
+  :root[data-skin="tines"] .pq-mk[data-mode="correct"] { background: var(--success-light); color: var(--success-ink); border-color: currentColor; }
+  :root[data-skin="tines"] .pq-mk[data-mode="wrong"] { background: var(--error-light); color: var(--error-ink); border-color: currentColor; }
+  :root[data-skin="tines"] .pq-mk-badge, :root[data-skin="tines"] .pq-mk[data-mode="hidden"] .pq-mk-badge { background: var(--bg); color: inherit; border-color: currentColor; }
+  :root[data-skin="tines"] .pq-hud-tide[data-capped="1"] { border-color: var(--tint-teal-ink); box-shadow: none; }
+  :root[data-skin="tines"] .pq-hud-tide[data-capped="1"] .pq-hud-cap { color: var(--tint-teal-ink); }
+  /* Orrery만의 전경과 배경을 함께 보정한다. 다른 게임의 공통 AmbientBackground는 유지. */
+  :root[data-skin="tines"] .wo-root { --wo-1: var(--t1); --wo-2: var(--t2); --wo-3: var(--t3); --wo-amber: var(--p); --wo-amber-s: var(--t1); --wo-panel: var(--bg); --wo-line: var(--bd); background: var(--bg); }
+  :root[data-skin="tines"] .wo-root .gk-atmos { background: var(--bg) !important; }
+  :root[data-skin="tines"] .wo-root .gk-atmos > * { display: none; }
+  :root[data-skin="tines"] .wo-root .wo-stage { display: grid; grid-template-columns: 1fr 1fr; align-content: start; gap: 24px; padding: 40px; }
+  :root[data-skin="tines"] .wo-help { grid-column: 1 / -1; font-family: var(--font-serif); font-size: 28px; max-width: 100%; text-align: left; }
+  :root[data-skin="tines"] .wo-codex { align-items: flex-start; gap: 20px; padding: 32px; border-top: 1px solid var(--bd); }
+  :root[data-skin="tines"] .wo-codex-label { font-family: var(--font-serif); font-size: 28px; letter-spacing: -.02em; }
+  :root[data-skin="tines"] .wo-codex-list { justify-content: flex-start; gap: 12px; max-width: 100%; }
+  :root[data-skin="tines"] .wo-codex-item { font-size: 14px; padding: 12px 16px; }
+  :root[data-skin="tines"] .wo-orrery { width: min(460px,100%); background: var(--tint-lavender); border-radius: 32px; }
+  :root[data-skin="tines"] :is(.wo-entry,.wo-codex,.wo-source) { grid-column: 2; align-self: start; background: transparent; }
+  :root[data-skin="tines"] .wo-panel { width: 100%; max-width: 640px; padding: 40px; border-radius: 32px; box-shadow: none; background: var(--tint-lavender); }
+  :root[data-skin="tines"] .wo-stage:has(.wo-panel) { display: flex; }
+  :root[data-skin="tines"] :is(.wo-entry,.wo-codex-item,.wo-chip,.wo-tile,.wo-mini,.wo-slot) { background: var(--bg); color: var(--t1); box-shadow: none; }
+  :root[data-skin="tines"] :is(.wo-chip,.wo-tile,.wo-mini):hover { background: var(--p-light); box-shadow: none; border-color: var(--p); }
+  :root[data-skin="tines"] :is(.wo-planet-name,.wo-signal,.wo-gain) { text-shadow: none; }
+  :root[data-skin="tines"] .wo-planet-orb::after { background: var(--bg); }
+  :root[data-skin="tines"] .wo-sun--locked { background: var(--bg); color: var(--t1); box-shadow: none; border-color: var(--bd); }
+  :root[data-skin="tines"] .wo-sun--ready { background: var(--p); color: var(--on-p); box-shadow: none; border-color: var(--p); }
+  :root[data-skin="tines"] .wo-sun--ready .wo-sun-core { background: transparent; }
+  :root[data-skin="tines"] .wo-cta { background: var(--p); color: var(--on-p); border-color: var(--p); box-shadow: none; }
+  :root[data-skin="tines"] .wo-cta--ghost { background: transparent; color: var(--p); border-color: var(--p); }
+  :root[data-skin="tines"] .wo-say.is-ok { color: var(--success); }
+  :root[data-skin="tines"] .wo-say.is-miss, :root[data-skin="tines"] .wo-gain[data-up="0"] { color: var(--error); }
+  :root[data-skin="tines"] :is(.wo-flare-card,.wo-slot.is-on) { background: var(--warning-light); color: var(--warning-ink); border-color: var(--warning-ink); }
+  :root[data-skin="tines"] .wo-root :is(button,[tabindex]):focus-visible { outline: 2px solid var(--p); outline-offset: 3px; box-shadow: none; }
+  /* 설정은 Library의 분류 레일/열린 행, 기록은 시간축 편집면으로 분리한다. */
+  :root[data-skin="tines"] :is(.tines-settings,.diagnostic-history) { background: var(--bg); }
+  :root[data-skin="tines"] :is(.tines-settings,.diagnostic-history) > main { max-width: var(--learning-max); padding-inline: var(--learning-inset); }
+  :root[data-skin="tines"] .tines-settings > main > div { display: grid; grid-template-columns: var(--tines-library-rail) minmax(0,1fr); gap: 48px var(--tines-library-gutter); padding-block: 64px; }
+  :root[data-skin="tines"] .tines-settings > main > div > header { grid-column: 1 / -1; margin: 0; padding: 0; }
+  :root[data-skin="tines"] :is(.tines-settings,.diagnostic-history) h1 { font-family: var(--font-serif); font-size: var(--learning-title); line-height: var(--learning-title-line); font-weight: 400; }
+  :root[data-skin="tines"] .tines-settings nav { position: sticky; top: calc(var(--app-header-h,64px) + 24px); align-self: start; flex-direction: column; align-items: stretch; gap: 8px; margin: 0; padding: 24px; border-radius: var(--learning-card-radius); background: var(--tint-lavender); }
+  :root[data-skin="tines"] .tines-settings nav a { justify-content: flex-start; background: transparent; box-shadow: none; color: var(--tint-lavender-ink); font-size: 15px; border-radius: 999px; }
+  :root[data-skin="tines"] .tines-settings nav a:hover { background: var(--bg); }
+  :root[data-skin="tines"] .tines-settings section { --t1: var(--learning-ink); --t2: var(--learning-muted); --t3: var(--learning-subtle); --bd: var(--learning-line); padding: 32px 0; background: transparent; background-image: none; box-shadow: none; border-radius: 0; border-top: 1px solid var(--bd); color: var(--t1); }
+  :root[data-skin="tines"] .tines-settings section header { margin-bottom: 32px; }
+  :root[data-skin="tines"] .tines-settings h2 { font-family: var(--font-serif); font-size: 32px; font-weight: 400; }
+  :root[data-skin="tines"] .tines-settings section header > span { width: 48px; height: 48px; border-radius: 50%; background: var(--tint-lavender) !important; color: var(--p) !important; }
+  :root[data-skin="tines"] .tines-settings section:nth-child(2n) header > span { background: var(--tint-peach) !important; color: var(--tint-peach-ink) !important; }
+  :root[data-skin="tines"] .tines-settings :is(nav a,button,input):focus-visible { outline: 2px solid var(--p); outline-offset: 3px; }
+  :root[data-skin="tines"] .tines-settings [role="radiogroup"] { border-radius: 999px; background: var(--tint-lavender); }
+  :root[data-skin="tines"] .tines-settings [role="radio"] { border-radius: 999px; }
+  :root[data-skin="tines"] .tines-settings [role="radio"][aria-checked="true"] { background: var(--p); color: var(--on-p); box-shadow: none; }
+  :root[data-skin="tines"] .diagnostic-history > main > div { display: grid; grid-template-columns: 1fr 1.5fr; gap: 72px; padding-block: 64px; }
+  :root[data-skin="tines"] .diagnostic-history header { padding: 0; }
+  :root[data-skin="tines"] .diagnostic-history > main > div > section { padding: 0; background: transparent; box-shadow: none; border: 0; border-radius: 0; }
+  :root[data-skin="tines"] .diagnostic-history ol { gap: 0; padding-left: 40px; }
+  :root[data-skin="tines"] .diagnostic-history ol > li { border-bottom: 1px solid var(--bd); }
+  :root[data-skin="tines"] .diagnostic-history ol article { padding: 32px 0; border-radius: 0; box-shadow: none; background: transparent; }
+  :root[data-skin="tines"] .diagnostic-history ol article > div > span:last-child { font-family: var(--font-serif); font-size: 48px; font-weight: 400; }
+  :root[data-skin="tines"] .diagnostic-history ol article header { gap: 12px; flex-wrap: wrap; }
+  :root[data-skin="tines"] .diagnostic-history ol > li > span { left: -53px; top: 40px; }
+  :root[data-skin="tines"] .diagnostic-history section > div { padding: 64px 40px; border-block: 1px solid var(--bd); border-inline: 0; border-radius: 0; background: transparent; }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root[data-skin="tines"] { --learning-art: 200px; --learning-cell-pad: 28px; }
+  :root[data-skin="tines"] .diagnostic-goals > div:last-child { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  :root[data-skin="tines"] .diagnostic-intro { padding-inline: 200px; }
+  :root[data-skin="tines"] .pairflip-hub { grid-template-columns: 1fr; }
+  :root[data-skin="tines"] .pairflip-hub > section:last-child { grid-column: 1; grid-row: auto; }
+}

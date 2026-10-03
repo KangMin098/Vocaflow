@@ -1,5 +1,39 @@
 # Tines 미적용 화면 변환 — 2026-10-03
 
+## 중앙 카드 반복 구조 변환 — 진단·설정·개별 게임
+
+2026-10-03 사용자 첨부 화면의 `/diagnostic`을 우선 변환했다. 공개 [Security](https://www.tines.com/solutions/security/)와 [Omada](https://www.tines.com/case-studies/omada-health/)를 PC 1440×900으로 다시 렌더하고 전체/첫 화면 캡처와 계산 스타일을 확보했다. 제목·면·여백·모서리·간격은 [learning-spec](refs/tines/learning-spec.json), 설정 레일은 기존 [Library 명세](refs/tines/pc-refinement-spec.json)를 따른다. `DESIGN.md`에 별도 요청이 없어도 중앙 카드 반복·빈 삽화 띠·팝업·이미지까지 검토하는 절차를 추가했다.
+
+| 대상 | 구조/전체 요소 적용 | 검증 범위 |
+|---|---|---|
+| `/diagnostic` | PC의 빈 ModuleBanner 제거, 큰 열린 제목과 양옆 자체 벡터, 진단과 지난 레벨의 분할 면, 4색 목표 구획 | 첫 방문/지난 결과, 안내/레벨 팝업, 시작/중단/이어하기, 제출/실패/답 보존 재시도, 결과/관심/추천/다음 경로 |
+| `/diagnostic/history` | 큰 제목 옆 열린 시간축, 카드 외곽과 반복 그림자 제거 | 실제 페이지/Timeline 렌더에 고정 스냅샷·빈 기록 주입 |
+| `/settings` | Library 분류 레일·열린 설정 행·다색 아이콘·알약 선택기 | 실제 설정 저장, 새로고침 후 유지, 구획 앵커 이동. 계정 종료/삭제 실행 없음 |
+| ModuleHero | PC 64px 제목·큰 자체 소품, Flashcard 열린 머리, SpellForge 격자, PairFlip 초록 면 | 공통 머리 적용. Flashcard/SpellForge 본문·전체 세션은 이 회차 완료로 세지 않음 |
+| `/pairflip`·`/play`·`/results` | 분할 설정, 불투명 HUD, 라벤더 단어/초록 뜻 카드, 의미색 피드백, 분할 결과 | 실제 설정→8장 플레이→힌트→짝 맞히기→결과→목록 접기→허브 복귀 |
+| `/play/word-orrery` | 크림/라벤더 지도·큰 성좌 노트, 관측/핵 패널·선택/철자 타일·피드백 | 실제 관측→핵 진입→선택/철자 봉인→결과. 다른 게임의 공통 배경 변경 없음 |
+| `/play/pirate-quest` | 불투명 HUD·격자 로딩·상태별 초록/복숭아 선택 면·알약·의미색 마커 | 실제 PirateQuestUI의 8개 상태에 고정 입력, 선택/교정/재시작 콜백. 3D 월드·재질·마커 위치·전체 게임 엔진은 잔여 |
+
+PC 1280/1440 × light/dark의 격리 브라우저 검사 **27/27**, 이전 커밋 `c577441bd`의 실제 컴포넌트를 사용하는 전후 기준 검사도 **27/27** 통과했다. 진단 팝업의 Tab 가둠·Escape·원래 버튼 포커스 복원을 포함한다. 네트워크는 격리 서버만 허용하며 외부 요청 시도도 실패로 처리한다. esbuild에서 실 Supabase/client/server/액션을 테스트 경계로 대체하고 실제 DB 모듈 포함을 거부한다. 테스트의 가짜 수치/기록은 제품에 들어가지 않는다. 격리 서버는 `.env`를 읽지 않고 GET/HEAD만 제공한다. Playwright 설정은 기존 로컬 환경 파일을 읽지만 학습 컴포넌트에는 전달하지 않는다.
+
+`node scripts/design/learning-harness.mjs`(3031), `--before`(3030)로 서버를 실행한다. `PLAYWRIGHT_BASE_URL`을 지정하고 `pnpm --filter web exec playwright test tests/e2e/95-learning-tines.spec.ts`를 실행한다. 전후 비교는 `LEARNING_PHASE=before`로 선택한다. 자동 캡처는 `tmp/tines-adoption/remaining-{before,after}/`, 참조는 `remaining-reference/`다. 격리 환경의 영어 서체는 Arial/Georgia이며 실제 Next 서체/스타일 캡슐화/운영 DB 검증과 구별한다.
+
+`pnpm design:ref-compare --learning`은 격리 서버에서 명시한 부품의 DOM 치수를 비교한다. `--learning-capture`로 두 공개 참조를 다시 확보할 수 있다. 1440px 결과:
+
+| 항목 | 참조 | 적용 | 차이(px) |
+|---|---:|---:|---:|
+| Security 제목 크기 / 행 높이 | 64 / 62.08 | 64 / 62.08 | 0 / 0 |
+| Omada 제목 크기 / 행 높이 | 48 / 50.4 | 48 / 50.4 | 0 / 0 |
+| Omada 면 패딩 / 모서리 / 간격 | 40 / 16 / 24 | 40 / 16 / 24 | 0 / 0 / 0 |
+| Security 목표 제목 크기 | 24 | 24 | 0 |
+| Library 설정 본문 x / 레일 폭 | 400 / 288 | 400 / 288 | 0 / 0 |
+
+원본 전체 화면 픽셀 일치, 원본 상용 서체/브랜드 삽화 일치를 뜻하지 않는다. 직접 이미지 비평에서 가장 큰 결함은 목표 구획이 주 진단 위로 올라간 자동 grid 배치였고 행을 명시해 수정했다. 모달은 페이드가 끝난 뒤 캡처하며 실제 기록의 남은 외곽 패널을 제거했다. 골든과 자체 포트폴리오의 이 화면 대응 기준은 없으므로 원본 캡처·치수와 접근성을 근거로 삼았다.
+
+실제 `localhost:3000`의 진단·기록·설정을 1440px light 및 1280px dark에서 조회 전용으로 캡처했다(각 3/3 정상 렌더, 가로 넘침/깨진 이미지/빈 본문/런타임 오류 없음). `remaining-live-1440-light/` 및 `remaining-live-1280-dark/`이며 사용자 서버를 재시작하지 않았다. 실제 제품의 Petrona/Hahmlet 서체와 기존 셸을 확인했고 학습 제출·구독·계정 액션은 실행하지 않았다. 격리 테스트의 테마 초기화 오류를 수정한 뒤 html 테마·실제 지면색·브라우저 예외를 단언하며 네 조건을 다시 통과했다. 별도 typecheck와 4개 기존 회귀 파일 23검사, 격리 운영 빌드(263페이지, 종료 0, 기존 lint 경고 11건)도 통과했다. 새 스킨의 package export 누락은 빌드에서 발견해 공개 경로를 추가했다.
+
+**전체 잔여**: `remaining-learning-audit.mjs`가 관리자/CSAT/개발 경로를 제외한 Tines 경로 **90개(동적 14개)**의 정적 연결 소스를 조사했다. **64개 경로에 소스 후보**가 있다. 후보 수는 실제 평균 디자인 판정이나 미완료 화면 수가 아니다. 클래스/CSS 간접 적용과 인증/실제 ID/지연 로딩까지 판정하지 않으므로 정상 렌더 대조가 필요하다. [전체 경로별 목록](remaining-inventory.md)에 격리 검증/공통 머리만 적용/3D 잔여/정상 렌더 미검증을 나눠 기록했다. 이 회차로 플랫폼 전량의 모든 기능/팝업/이미지 완료를 선언하지 않는다. 모바일 웹/앱은 변경 및 디자인 검증에서 제외한다.
+
 > **학습자 `/hub` 추가 적용(2026-10-03)**: Tines 현재 메인·`/3b/` 웹사이트·University의 캡처/계산값으로 PC 허브의 다색 삽화 띠·제품 액자·색 탭·흰 벤토/다색 카드·선 격자 읽을거리 구획을 보정했다. [허브 적용 및 대조](hub-tines.md). 아래 관리자 정정 및 모바일 제외는 유지한다.
 
 > **관리자 범위 정정(2026-10-03)**: 사용자가 관리자 전체(`/admin/csat/*` 포함)를 neon-currant.3b.dev의 **3B 앱**으로 정정했다. 아래 관리자 Tines 적용 내용은 과거 작업 기록이며 현재 기준이 아니다. 관리자 PC의 토큰·상단 줄·운영 레일·작업 패널·헤더·KPI·팝업은 3B로 복원한다. CSAT 3B, 관리자 밖 Tines 및 모바일 제외는 유지한다. 정본은 [DESIGN.md](../../DESIGN.md), 현재 관리자 구성은 [ADMIN_CONSOLE](../ADMIN_CONSOLE.md)이다.

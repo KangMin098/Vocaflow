@@ -80,7 +80,7 @@ export function PairFlipHub({
   }
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+    <div className="pairflip-hub mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
       {/* ── 1. Hero ── */}
       <ModuleHero
         eyebrow="익히기 · 짝맞추기"
@@ -162,7 +162,7 @@ export function PairFlipHub({
           <header className="mb-4 flex items-center gap-2">
             <span
               className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)]"
-              style={{ backgroundColor: `${PF_COLORS.coverFrom}12`, color: PF_COLORS.coverFrom }}
+              style={{ backgroundColor: `color-mix(in srgb, ${PF_COLORS.coverFrom} 7%, transparent)`, color: PF_COLORS.coverFrom }}
               aria-hidden
             >
               <Gwonjeom size={14} strokeWidth={1.75} />

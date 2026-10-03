@@ -42,7 +42,7 @@ export default async function DiagnosticHistoryPage() {
     .order('taken_at', { ascending: false })
 
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="content" background="bg2" padX="md" className="diagnostic-history">
       <div className="flex flex-col gap-5 py-6 md:py-8">
         <header className="px-1">
           {/* 되돌아가는 링크는 이 화면의 유일한 앞길이다 — 히트 영역 44px 확보

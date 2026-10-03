@@ -1,0 +1,22 @@
+{
+  "capturedAt": "2026-10-03",
+  "viewport": { "width": 1440, "height": 900 },
+  "sources": [
+    { "name": "Security", "url": "https://www.tines.com/solutions/security/", "capture": "tmp/tines-adoption/remaining-reference/security.png" },
+    { "name": "Omada", "url": "https://www.tines.com/case-studies/omada-health/", "capture": "tmp/tines-adoption/remaining-reference/omada.png" },
+    { "name": "Library", "url": "https://www.tines.com/library/", "measurements": "docs/design/refs/tines/pc-refinement-spec.json" }
+  ],
+  "scope": "명시한 부품 치수만 비교한다. 원본 전체 화면의 픽셀 일치를 뜻하지 않는다.",
+  "comparisons": [
+    { "name": "Security 제목 크기", "route": "/diagnostic", "selector": ".diagnostic-intro h1", "field": "size", "reference": 64 },
+    { "name": "Security 제목 행 높이", "route": "/diagnostic", "selector": ".diagnostic-intro h1", "field": "lineHeight", "reference": 62.08 },
+    { "name": "Omada 제목 크기", "route": "/diagnostic", "selector": ".diagnostic-primary h2", "field": "size", "reference": 48 },
+    { "name": "Omada 제목 행 높이", "route": "/diagnostic", "selector": ".diagnostic-primary h2", "field": "lineHeight", "reference": 50.4 },
+    { "name": "Omada 면 안쪽 여백", "route": "/diagnostic", "selector": ".diagnostic-primary", "field": "padding", "reference": 40 },
+    { "name": "Omada 면 모서리", "route": "/diagnostic", "selector": ".diagnostic-primary", "field": "radius", "reference": 16 },
+    { "name": "Omada 구획 간격", "route": "/diagnostic", "selector": ".diagnostic-start", "field": "gap", "reference": 24 },
+    { "name": "Security 목표 제목 크기", "route": "/diagnostic", "selector": ".diagnostic-goal > div > p:first-child", "field": "size", "reference": 24 },
+    { "name": "Library 설정 본문 x", "route": "/settings", "selector": ".tines-settings #learning", "field": "x", "reference": 400 },
+    { "name": "Library 설정 레일 폭", "route": "/settings", "selector": ".tines-settings nav", "field": "width", "reference": 288 }
+  ]
+}

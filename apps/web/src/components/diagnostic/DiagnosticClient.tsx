@@ -10,8 +10,10 @@
 
 'use client'
 
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
+import { LearningPathArt } from '@/components/ui/LearningPathArt'
+import { Dialog } from '@/components/ui/Dialog'
 import { subscribeSet } from '@/app/(main)/library/vocab/actions'
 import { useToast } from '@/components/ui/Toast'
 import { SealMark } from '@/components/ui/press'
@@ -611,7 +613,7 @@ export function DiagnosticClient() {
       const p = TEST_PRESENTATION[presoKey(t)]
       if (!p) return null
       return (
-        <div className="rounded-[var(--r-2xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-6 text-[var(--on-p)] shadow-[var(--sh-md)]">
+        <div className="diagnostic-primary rounded-[var(--r-2xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-6 text-[var(--on-p)] shadow-[var(--sh-md)]">
           <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--on-active)]">
             처음이라면 여기서 시작
           </span>
@@ -649,7 +651,7 @@ export function DiagnosticClient() {
       return (
         <div
           key={t.id}
-          className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-colors hover:border-[var(--p)]"
+          className="diagnostic-goal flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-colors hover:border-[var(--p)]"
         >
           <SealMark label={goal} />
           <div className="min-w-0 flex-1">
@@ -679,8 +681,11 @@ export function DiagnosticClient() {
     }
 
     return (
-      <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
-        <header className="mb-6">
+      <div className="diagnostic-start mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
+        <header className="diagnostic-intro mb-6">
+          <LearningPathArt className="diagnostic-art diagnostic-art-left hidden md:block" />
+          <LearningPathArt variant="cards" className="diagnostic-art diagnostic-art-right hidden md:block" />
+          <p className="diagnostic-eyebrow hidden md:block">YOUR NEXT CHAPTER</p>
           <h1 className="font-editorial text-[32px] font-[500] tracking-[-0.012em] text-[var(--t1)] md:text-[40px]">
             어휘 진단
           </h1>
@@ -693,7 +698,7 @@ export function DiagnosticClient() {
 
         {/* 하다 만 진단 — 보관된 답을 되돌려 준다. 자동으로 이어 붙이지 않고 고르게 한다. */}
         {saved && tests.some((t) => t.id === saved.testId) && (
-          <div className="mb-6 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--p-light)] p-4">
+          <div className="diagnostic-saved mb-6 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--p-light)] p-4">
             <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">
               하다 만 진단이 있어요 — {saved.responses.length}문항까지 답했어요
             </p>
@@ -730,7 +735,7 @@ export function DiagnosticClient() {
 
         {/* 지난 결과 — 컴팩트 요약 */}
         {lastLevel && (
-          <div className="mb-6 flex items-center justify-between rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+          <div className="diagnostic-previous mb-6 flex items-center justify-between rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
             <span className="flex items-center gap-1 font-body text-[13px] text-[var(--t2)]">
               지난 결과{' '}
               <strong className="font-display text-[var(--t1)]">V{lastLevel.level}</strong>
@@ -766,7 +771,7 @@ export function DiagnosticClient() {
             {primary && renderHero(primary)}
 
             {secondary.length > 0 && (
-              <section aria-label="목표별 진단" className="mt-7">
+              <section aria-label="목표별 진단" className="diagnostic-goals mt-7">
                 <div className="mb-3 flex items-center gap-3">
                   <span className="font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                     또는, 목표가 분명하다면
@@ -810,7 +815,7 @@ export function DiagnosticClient() {
     if (!q) return null
     const progress = ((currentIdx + 1) / questions.length) * 100
     return (
-      <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
+      <div className="diagnostic-question mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="mb-8">
           {/* 나가는 것을 막지 않는다(모달 금지) — 대신 답이 남는다는 사실을 라벨이 말한다.
               답은 매 문항 localStorage 에 보관되고 시작 화면이 "이어서 하기" 로 되돌려 준다. */}
@@ -846,7 +851,7 @@ export function DiagnosticClient() {
           </div>
         </div>
 
-        <div className="mb-8 rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-12 text-center shadow-[var(--sh-sm)]">
+        <div className="diagnostic-word mb-8 rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-12 text-center shadow-[var(--sh-sm)]">
           <p className="font-editorial text-[56px] font-[500] leading-tight tracking-[-0.015em] text-[var(--t1)]">
             {q.word}
           </p>
@@ -912,8 +917,8 @@ export function DiagnosticClient() {
       ]
 
   return (
-    <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
-      <header className="mb-6 rounded-[var(--r-xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-8 text-center text-[var(--on-p)] shadow-[var(--sh-md)]">
+    <div className="diagnostic-result mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
+      <header className="diagnostic-result-level mb-6 rounded-[var(--r-xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-8 text-center text-[var(--on-p)] shadow-[var(--sh-md)]">
         <p className="font-body text-[14px] opacity-85">진단 완료 · 내 수준은</p>
         <p className="mt-1 font-editorial text-[72px] font-[500] leading-none tracking-[-0.018em] text-[var(--active)]">
           {levelLabel}
@@ -1141,6 +1146,21 @@ export function DiagnosticClient() {
 }
 
 // ── 유형별 안내 팝업 (배경 클릭 / X / Esc 닫기) ──
+const desktopQuery = '(min-width: 768px)'
+const desktopSnapshot = () => window.matchMedia(desktopQuery).matches
+const desktopServerSnapshot = () => false
+const subscribeDesktop = (callback: () => void) => {
+  const query = window.matchMedia(desktopQuery)
+  query.addEventListener('change', callback)
+  return () => query.removeEventListener('change', callback)
+}
+
+function DiagnosticModalFrame({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
+  const desktop = useSyncExternalStore(subscribeDesktop, desktopSnapshot, desktopServerSnapshot)
+  if (desktop) return <Dialog title={title} crumbs={['Growth', 'Level']} onClose={onClose} size="lg" headerTone="lavender" className="diagnostic-modal" bare>{children}</Dialog>
+  return <div role="dialog" aria-modal="true" aria-label={title} onClick={onClose} className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 p-0 backdrop-blur-sm sm:items-center sm:p-4">{children}</div>
+}
+
 function InfoModal({
   test,
   onClose,
@@ -1156,16 +1176,10 @@ function InfoModal({
   if (!p || !info) return null
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={`${p.title} 안내`}
-      onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 p-0 backdrop-blur-sm sm:items-center sm:p-4"
-    >
+    <DiagnosticModalFrame title={`${p.title} 안내`} onClose={onClose}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[88vh] w-full max-w-md overflow-y-auto rounded-t-[var(--r-2xl)] bg-[var(--bg)] shadow-[var(--sh-xl)] sm:rounded-[var(--r-2xl)]"
+        className="diagnostic-modal-content max-h-[88vh] w-full max-w-md overflow-y-auto rounded-t-[var(--r-2xl)] bg-[var(--bg)] shadow-[var(--sh-xl)] sm:rounded-[var(--r-2xl)]"
       >
         {/* 헤더 밴드 */}
         <div className="flex items-start justify-between gap-3 border-b border-[var(--bd)] p-5">
@@ -1284,7 +1298,7 @@ function InfoModal({
           </button>
         </div>
       </div>
-    </div>
+    </DiagnosticModalFrame>
   )
 }
 
@@ -1302,16 +1316,10 @@ function LevelGuideModal({
 }) {
   const sorted = [...levels].sort((a, b) => a.level - b.level)
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="레벨 안내"
-      onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 p-0 backdrop-blur-sm sm:items-center sm:p-4"
-    >
+    <DiagnosticModalFrame title="레벨 안내" onClose={onClose}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[88vh] w-full max-w-md flex-col rounded-t-[var(--r-2xl)] bg-[var(--bg)] shadow-[var(--sh-xl)] sm:rounded-[var(--r-2xl)]"
+        className="diagnostic-modal-content flex max-h-[88vh] w-full max-w-md flex-col rounded-t-[var(--r-2xl)] bg-[var(--bg)] shadow-[var(--sh-xl)] sm:rounded-[var(--r-2xl)]"
       >
         {/* 헤더 */}
         <div className="flex items-start justify-between gap-3 border-b border-[var(--bd)] p-5">
@@ -1408,6 +1416,6 @@ function LevelGuideModal({
           </button>
         </div>
       </div>
-    </div>
+    </DiagnosticModalFrame>
   )
 }

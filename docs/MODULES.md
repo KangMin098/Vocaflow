@@ -1,5 +1,7 @@
 # Learning Modules
 
+> **PC 진단·게임·설정 구조 변환(2026-10-03)**: `LearningPathArt` 자체 벡터와 `.diagnostic-*`로 진단 진입/문항/결과/기록을 구성하고 PC의 두 안내 팝업을 공통 Dialog에 연결했다. ModuleHero의 한국어 제목도 기존 영어 eyebrow로 모듈을 식별하며 새 삽화는 PC에만 보인다. PairFlip은 기존 뒤집기/힌트/점수/다음 동작을 유지하면서 역할별 `--pf-*` 면/잉크 짝으로 연결한다. Orrery의 지도/관측/핵 봉인/결과와 Pirate UI의 상태별 패널은 `tines-learning.css`에 격리한다. 설정의 로컬 저장/실패 안내·계정 기능은 유지하며 전체 게임 월드 검증과 나머지 모듈 본문은 잔여다. [이번 검증 및 전체 목록](design/tines-adoption.md).
+
 > **학습자 PC `/hub`(2026-10-03)**: Tines 메인·3B 웹사이트·University에 대응한 큰 다색 삽화 띠·제품 액자·색 탭·흰 벤토·선 격자 읽을거리 구획을 적용했다. `HeroGarden`과 PC 전용 `.tines-hub`/`--hub-*`를 사용하며 기존 오늘의 흐름/기억 4색/도서·글·탐색 링크/계측을 보존한다. 모바일 구성·학습 과학·데이터 계약은 유지한다. [적용/검증](design/hub-tines.md).
 
 > **관리자 기준 정정(2026-10-03)**: 관리자 전체(`/admin/csat/*` 포함)는 PC 3B 앱이며 이전 관리자 Tines 설명을 대체한다. `/csat/*`도 3B, 그 밖의 학습·게임 모듈은 Tines다. 모바일 디자인 제외와 학습 기록/FSRS 계약은 유지한다.

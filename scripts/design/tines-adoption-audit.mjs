@@ -24,7 +24,7 @@ function walk(dir) {
     if (entry.isDirectory()) walk(file)
     else if (entry.name === 'page.tsx') {
       const route = '/' + path.relative(app, dir).split(path.sep).filter(segment => !/^\(.+\)$/.test(segment)).join('/')
-      if (/^\/(csat|dev)(\/|$)/.test(route)) continue
+      if (/^\/(admin|csat|dev)(\/|$)/.test(route)) continue
       const source = fs.readFileSync(file, 'utf8')
       inventory.push({ route, file: path.relative(ROOT, file).replaceAll('\\', '/'), dynamic: route.includes('['),
         directComponents: [...source.matchAll(/from\s+['"](@\/components\/[^'"]+)['"]/g)].map(match => match[1]),
@@ -35,7 +35,7 @@ function walk(dir) {
 walk(app)
 inventory.sort((a, b) => a.route.localeCompare(b.route))
 fs.mkdirSync(output, { recursive: true })
-const captureRoutes = new Set(['/', '/admin/analytics', '/library/vocab', '/dictate', '/flashcard', '/spellforge', '/pairflip'])
+const captureRoutes = new Set(['/', '/library/vocab', '/dictate', '/flashcard', '/spellforge', '/pairflip', '/diagnostic', '/diagnostic/history', '/settings'])
 if (!only?.length) {
   fs.writeFileSync(path.join(output, 'audit.json'), JSON.stringify({ base, width, dark, inventory, results: [], mode: 'source-only' }, null, 2) + '\n')
   console.log(JSON.stringify({ inventory: inventory.length, mode: 'source-only' }))
@@ -50,6 +50,11 @@ const signed = await browser.newContext({ viewport: { width, height: 900 }, stor
 const anonymous = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' })
 for (const context of [signed, anonymous]) {
   await context.addInitScript(theme => localStorage.setItem('vocaflow-theme', theme), dark ? 'dark' : 'light')
+  // 새로 허용한 세 경로는 초기 조회만 확인했다. 저장 버튼은 누르지 않는다.
+  // 이 가드를 서버 측 전량 쓰기 차단으로 세지 않는다.
+  if(only.every(route=>['/diagnostic','/diagnostic/history','/settings'].includes(route))) {
+    await context.route('**/*',route=>['GET','HEAD','OPTIONS'].includes(route.request().method())?route.continue():route.abort('blockedbyclient'))
+  }
 }
 const discovered = new Set()
 // 기존 실측 링크를 재사용한다. 동적 ID를 만들어 내지 않는다.

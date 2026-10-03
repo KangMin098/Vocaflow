@@ -36,7 +36,7 @@ export function ModuleBanner({ slot = 'main' }: { slot?: 'main' | 'library' }) {
   const art = routeArt(pathname)!
   const stage = stageOf(pathname)
   return (
-    <div className={`mx-auto w-full max-w-[var(--ios-content-wide-max)] ${slot === 'library' ? '' : 'px-4 pt-4 md:px-6 md:pt-5'}`}>
+    <div className={`${pathname === '/diagnostic' ? 'md:hidden' : ''} mx-auto w-full max-w-[var(--ios-content-wide-max)] ${slot === 'library' ? '' : 'px-4 pt-4 md:px-6 md:pt-5'}`}>
       <div className={`${TINT_CLASS[art.tint]} relative flex min-h-[112px] items-center gap-4 overflow-hidden rounded-[24px] py-4 pl-5 pr-[120px] md:min-h-[128px] md:pl-7 md:pr-[200px]`}>
         <div className="min-w-0">
           {stage && (

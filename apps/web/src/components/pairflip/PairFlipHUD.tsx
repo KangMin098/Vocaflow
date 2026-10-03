@@ -35,7 +35,7 @@ export function PairFlipHUD({
   return (
     <header
       role="banner"
-      className="sticky top-0 z-30 flex h-[60px] shrink-0 items-center justify-between gap-3 border-b border-[var(--bd)] bg-[var(--bg)]/95 px-4 backdrop-blur md:px-6"
+      className="pairflip-hud sticky top-0 z-30 flex h-[60px] shrink-0 items-center justify-between gap-3 border-b border-[var(--bd)] bg-[var(--bg)]/95 px-4 backdrop-blur md:px-6"
     >
       {/* 좌: 타이머 */}
       <div
