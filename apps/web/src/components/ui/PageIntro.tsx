@@ -23,17 +23,19 @@ export interface PageIntroProps {
   /** 오른쪽 그림 — 장식(aria-hidden 은 그림 쪽 책임) */
   art?: ReactNode
   className?: string
+  /** 낮은 변형 — 머리 바로 아래 큰 블록이 첫 화면 안에 있어야 하는 고르기 화면(예: /practice). 여백 · 제목을 줄인다. */
+  compact?: boolean
 }
 
-export function PageIntro({ kicker, title, description, lead, actions, art, className = '' }: PageIntroProps) {
+export function PageIntro({ kicker, title, description, lead, actions, art, className = '', compact = false }: PageIntroProps) {
   return (
-    <header className={`page-intro flex flex-col gap-6 border-b border-[var(--bd)] pb-8 md:flex-row md:items-end md:justify-between md:gap-10 md:pb-10 ${className}`}>
+    <header className={`page-intro flex flex-col gap-6 border-b border-[var(--bd)] pb-8 md:flex-row md:items-end md:justify-between md:gap-10 ${compact ? 'md:pb-6' : 'md:pb-10'} ${className}`}>
       <div className="min-w-0 max-w-[46rem]">
         {lead}
         {kicker && (
           <p className={`${lead ? 'mt-4' : ''} font-mono text-[12px] font-[700] uppercase tracking-[0.08em] text-[var(--ju)]`}>{kicker}</p>
         )}
-        <h1 className="mt-3 break-keep font-serif text-[34px] font-[400] leading-[1.08] tracking-[-0.02em] text-[var(--ju)] md:text-[48px]">{title}</h1>
+        <h1 className={`${compact ? 'mt-2' : 'mt-3'} break-keep font-serif text-[34px] font-[400] leading-[1.08] tracking-[-0.02em] text-[var(--ju)] ${compact ? 'md:text-[40px]' : 'md:text-[48px]'}`}>{title}</h1>
         {description && (
           <p className="mt-4 max-w-[60ch] break-keep font-body text-[15px] leading-[1.6] text-[var(--ju)] md:text-[16px]">{description}</p>
         )}

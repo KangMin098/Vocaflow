@@ -60,12 +60,14 @@ export default async function MainLayout({ children }: { children: React.ReactNo
             띠 안에 넣으면 ADR 0006 D2(띠는 상태 표면 하나)가 되돌아간다. */}
         <MobileUtilityBar signedIn={wayfinder !== null} />
         <CompassRibbon data={wayfinder} />
+        {/* 구역 보조 내비 줄(참조 하위 화면 공통 · PC 전용) — 메뉴 정본을 읽는다.
+            ⚠️ <main> **밖**이다: 탐색 장치라 본문 링크로 세면 안 된다(안에 두었을 때 /practice 의 본문 Game Lab
+            링크가 둘로 세어져 26-practice-chooser ③ 이 떨어졌다 · 2026-10-05). */}
+        <SectionSubNav />
         {/* `tabIndex={-1}` 이 있어야 건너뛰기 링크가 실제로 여기에 포커스를 놓는다 —
             없으면 주소만 바뀌고 포커스는 그대로라, 다음 Tab 이 다시 셸로 돌아간다. */}
         <main id="main-content" tabIndex={-1} className="min-w-0 flex-1 focus:outline-none">
           {/* 모듈 머리띠 — 경로의 범주 색 면 + 타일(DD-68 · tines-mapping §16). 세션 · 그림 머리가 있는 화면은 스스로 빠진다. */}
-          {/* 구역 보조 내비 줄(참조 하위 화면 공통 · PC 전용) — 메뉴 정본을 읽는다 */}
-          <SectionSubNav />
           <ModuleBanner />
           <SessionFrame>{children}</SessionFrame>
         </main>

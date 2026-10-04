@@ -13,6 +13,9 @@
 
 - docs(textbook): FYM calibration8의 사람 평가 2차 프로토콜 초안을 추가했다. 전문가 4점/critical/제3 중재·학년별 15~30명·미확정 pass band/사전 봉인·새 단계·production 재현을 정리하고 기존 v1 실행기와의 격차를 명시했다. 사람 승인/평가·실행기 계약 변경·DB 적재/발행 없음.
 
+- feat(design): bespoke 머리 이행 1차 — `/practice`(기능형 재분류 · `PageIntro compact`) · `/practice/dcp` · `/sitemap` 을 PC 에서 공용 `PageIntro` 로(모바일 기존 머리 유지, dcp 중복 배너 PC 숨김). 셸 `SectionSubNav` 를 `<main>` 밖으로(본문 링크 계약 회귀 수정 · 26-practice-chooser ③). e2e 26 ④ 복귀 링크를 본문 안 보이는 링크로 한정. bespoke 14→11.
+- feat(design): 학습자 화면 유형 정본 `lib/design/screen-types.ts` — 73 라우트를 발견형·기능형·세션·특수·별칭으로 고정하고 회귀 가드(분류 누락 · 머리 불일치 · 계층 혼용 · 세션↔전체화면)를 추가(보조 내비 세션 판정에 연결). 자체 머리 14개를 다음 정리 대상으로 명시. 화면 변경 없음.
+
 - feat(textbook): FYM 실제 blind 평가 응답의 로컬 수집을 추가했다. 해시/opaque ID/본문·사람 등록·시각·문항/학년 검증, 중복 skip·충돌 reject·학생 null 보충, 새 결과/receipt 보존을 지원한다. 실제 응답 없는 8편의 빈 입력 예행만 수행했으며 DB 쓰기·발송·발행·마이그레이션·라우트 변경 없음.
 
 - fix(shell): 상단 메뉴 — 마우스를 올려 연 패널을 이어지는 첫 클릭이 닫던 결함 수정(`AppHeader` `clickToggle`, 키보드 토글은 그대로). 만화 리더 상단 막대가 PC 상단 메뉴 밑에 깔려 「본문」 복귀가 눌리지 않던 결함 수정(`ComicReader`, PC 만 메뉴 아래로). 허브 WHY 문구에서 4색 이름 나열 제거. e2e 낡은 단언 정리: 12(Practice ③ 두 블록 허용 · 메뉴 hover 전 마우스 이탈), 13·20(셀렉터 정확 일치/계약 셀렉터), 22(허브 제품 액자 범례 예외 · 띠 위치 이름 대소문자). DB·라우트 변경 없음.

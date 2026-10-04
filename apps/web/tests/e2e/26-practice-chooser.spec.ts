@@ -111,7 +111,9 @@ test.describe('연습 통합 화면 — /practice', () => {
     // 화면이 안 읽으면 계약은 지켜진 게 아니다.
     await link.click()
     await page.waitForURL(/\/practice\/dcp/, { timeout: 30_000 })
-    await expect(page.locator('main a[href="/practice"], a[href="/practice"]').first()).toBeVisible()
+    // 본문(main) 안에서 보이는 것만 — 셸 보조 내비의 /practice 링크로는 이 계약이 지켜지지 않는다.
+    // PC·모바일 머리가 둘 다 DOM 에 있고(한쪽은 display:none) 둘 다 복귀 링크를 갖는다.
+    await expect(page.locator('main a[href="/practice"]:visible').first()).toBeVisible()
   })
 
   test('⑤ 흡수한 4모듈로 가는 길이 살아 있다 (딥링크 소실 금지)', async ({ page }) => {

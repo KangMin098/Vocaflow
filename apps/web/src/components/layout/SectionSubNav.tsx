@@ -13,17 +13,20 @@ import { usePathname } from 'next/navigation'
 
 import { pickCurrent } from '@/components/layout/nav-match'
 import { BAR_ENTRIES, allEntryItems } from '@/components/layout/top-nav-data'
+import { SCREEN_TYPES } from '@/lib/design/screen-types'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
-/** 이 줄을 세우지 않는 경로 — 허브(자체 히어로) · 서가(구역 탭) · CSAT(3B) · 게임 판 */
+/** 이 줄을 세우지 않는 경로 — 허브(자체 히어로) · 서가(구역 탭) · CSAT(3B) · 게임 판 · 본문 */
 const SKIP = [/^\/hub$/, /^\/library(\/|$)/, /^\/csat(\/|$)/, /^\/play\//, /^\/text\/[^/]+/]
+/** 세션은 화면 유형 정본이 정한다(2026-10-05) — 셸이 걷히는 화면과 같은 판정. */
+const isSession = (p: string) => SCREEN_TYPES[p]?.type === 'session'
 /** 오른쪽 링크는 참조처럼 한 줄 — 넘치면 앞에서부터 이만큼만 */
 const MAX_LINKS = 7
 
 export function SectionSubNav() {
   const pathname = usePathname() ?? ''
-  if (!pathname || isFullScreenRoute(pathname) || SKIP.some((re) => re.test(pathname))) return null
+  if (!pathname || isFullScreenRoute(pathname) || isSession(pathname) || SKIP.some((re) => re.test(pathname))) return null
 
   for (const entry of BAR_ENTRIES) {
     if (entry.kind !== 'menu') continue
