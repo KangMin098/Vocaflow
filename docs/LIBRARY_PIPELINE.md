@@ -1,5 +1,17 @@
 # Library Pipeline
 
+## 기출 지문 원천 후속 검수 (2026-10-04)
+
+`/admin/knowledge/csat-origins`의 `knowledge_csat_origins`는 기출 지문이 발췌된 책·논문을 기록한다. 생성 콘텐츠의 `/admin/csat/sources` 적격 판정과 별개다. [후속 조사 결과·보류 대상](./reports/csat-source-origin-followup-20261004.md), [변경 전후 manifest](./reports/csat-source-origin-followup-review-20261004.json)를 함께 보존한다.
+
+1. 서지 단서에서 도서·논문의 해당 문단 전체를 찾아 시험 편집을 복원해 대조한다. 인용 연구자·편집자·장 저자를 구분하고 실제 열람 판본을 기록한다.
+2. 기존 등록부 SHA·대표/연결 문항·각 현재 본문 SHA·변경 전후 10개 필드를 manifest에 담는다. 과거 정규화 SHA를 현재 raw SHA로 바꾸지 않는다.
+3. `node scripts/csat/source-origin-review.mjs --input <검수.json> --output <preview.sql>`로 읽기 전용 SQL을 만들고 DB에서 실행한다. 모두 `ready`인지 확인한다. 생성은 재실행 안전하고 DB 접속을 하지 않는다.
+4. 같은 입력에 `--commit-sql`을 붙여 적용 SQL을 생성한다. 생성만으로 적용되지 않는다. DB 체크포인트 전후를 찍고 허가된 DB 실행 도구로 한 트랜잭션을 실행한다. 연결 본문과 등록부 행을 잠그며 불일치가 하나라도 있으면 전체를 중단한다.
+5. 다시 preview하여 모두 `already_applied`인지 확인한다. 수능/모의평가 집계를 나누고 기존 원천 공백의 미확인 수·다음 작업도 갱신한다. 재실행은 동일 검수의 중복 쓰기를 건너뛰며 충돌은 강제 덮기 없이 재검수한다.
+
+초기 씨앗 import는 신규 원천만 넣으므로 후속 검수 덮어쓰기로 사용하지 않는다. 날짜가 들어간 보고서 수치는 회차 스냅샷이고 관리자 도움말은 현재 DB 집계를 확인하도록 안내한다.
+
 ## CSAT 파생 콘텐츠의 원문 정책 v3 (2026-09-18)
 
 최종 판정은 `source-eligibility.ts:evaluateSource` 한 벌이다. `judgeSource`는 기존 7축 진단이며 사용 허가에는 쓰지 않는다.

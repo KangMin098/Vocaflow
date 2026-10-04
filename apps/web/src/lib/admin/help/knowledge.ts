@@ -61,7 +61,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
       ],
       cautions: [
         '본질은 자동 추출로 만들지 않는다 — 기출 원천 같은 관찰을 근거로 사람이 쓰고, 분석자 추론(inferred)으로 표시한다.',
-        '표본이 작은 관찰로 전체를 단정하지 않는다(기출 원천은 713 지문 중 49개만 원천이 있다). 문장에 표본 크기를 함께 적는다.',
+        '표본이 작은 관찰로 전체를 단정하지 않는다. 기출 원천 화면의 현재 등급·모집단과 조사 날짜를 확인하고 문장에 표본 크기를 함께 적는다.',
       ],
     },
   },
@@ -135,7 +135,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
     title: '기출 원천',
     screen: {
       summary:
-        '수능·평가원 모의평가 지문이 발췌된 책·논문. Codex 2026-09-28 전수 조사 결과이고, 지문 원문 없이 문항 번호·서지·근거 링크·등급만 보인다.',
+        '수능·평가원 모의평가 지문이 발췌된 책·논문. 최초 조사와 후속 검수를 함께 반영하며, 지문 원문 없이 문항 번호·서지·근거 링크·등급만 보인다.',
       diagrams: [
         {
           kind: 'flow',
@@ -154,6 +154,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
       ],
       cautions: [
         '씨앗 파일은 2026-09-28 시점 자료다. DB 에서 판정을 고친 뒤(예: A→B) 다시 돌려도 덮지 않고 「충돌」로만 보고한다 — 파일이 맞다고 판단되면 그 행만 사람이 고친다(재등급 트리거가 연결 근거와 채택 항목을 함께 처리한다).',
+        '출처 소개·시험 재게시·서평은 탐색 단서다. 실제 도서·논문의 해당 문단 전체와 서지를 대조한 뒤 확정한다. 열람 사본의 발행 연도와 시험 사용 판본은 구분한다.',
       ],
       drain: {
         what: 'Codex 원천 조사 결과를 등록부(knowledge_csat_origins)에 적재한다.',
@@ -161,9 +162,11 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
         procedure: [
           { title: '미리보기', detail: 'node scripts/knowledge/import-seed.mjs — 등급별 개수만 출력하고 쓰지 않는다.' },
           { title: '적재', detail: 'node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/knowledge/import-seed.mjs --commit', done: '「원천 새로 N · 같음 M · 충돌 0」 — 충돌이 0 이 아니면 아래 주의를 본다' },
+          { title: '후속 검수 미리보기', detail: '현재 원천 행의 변경 전후 값·연결 문항별 본문 SHA를 manifest에 넣고 node scripts/csat/source-origin-review.mjs --input <검수.json> --output <preview.sql>로 SQL을 만든다. 생성 단계는 DB를 쓰지 않으며 재실행 안전하다.' },
+          { title: '후속 검수 적용', detail: 'preview SQL을 DB에서 확인해 모두 ready일 때 --commit-sql로 적용 SQL을 만든다. 생성만으로 적용되지 않는다. 체크포인트 전후를 찍고 승인된 DB 실행 도구로 한 트랜잭션을 실행한다. 이미 적용한 같은 검수는 건너뛰며 충돌은 전체를 중단한다.' },
         ],
-        verify: ['이 화면의 A·B·C·G 개수가 보고서와 같다(26·22·1·664).'],
-        recovery: ['재실행 안전 — 원천은 새 행만 넣고, 이미 있는 행은 덮지 않는다. 원리·공백은 이미 있으면 건너뛴다.'],
+        verify: ['현재 DB 집계를 해당 회차 보고서와 대조한다. 수능과 모의평가, 지문 수와 연결 문항 수를 구분한다.', '후속 검수 preview를 다시 실행하면 전부 already_applied이며, 기존 공백의 미확인 수·다음 작업도 실제 집계와 맞아야 한다.'],
+        recovery: ['초기 적재는 기존 원천을 덮지 않는다. 후속 검수는 동일 전후 값·본문 SHA일 때만 재실행 안전하다. 충돌은 현재 행과 본문을 다시 읽어 재검수하며, 강제로 덮지 않는다.'],
       },
     },
   },

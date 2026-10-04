@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-04",
+  "scope": "suneung",
+  "before_counts": [
+    {
+      "scope": "mock",
+      "status": "confirmed_exact",
+      "passages": 14,
+      "linked_items": 15
+    },
+    {
+      "scope": "mock",
+      "status": "unresolved",
+      "passages": 361,
+      "linked_items": 405
+    },
+    {
+      "scope": "suneung",
+      "status": "confirmed_exact",
+      "passages": 51,
+      "linked_items": 53
+    },
+    {
+      "scope": "suneung",
+      "status": "supported_candidate",
+      "passages": 15,
+      "linked_items": 15
+    },
+    {
+      "scope": "suneung",
+      "status": "topic_lineage_only",
+      "passages": 1,
+      "linked_items": 1
+    },
+    {
+      "scope": "suneung",
+      "status": "unresolved",
+      "passages": 271,
+      "linked_items": 313
+    }
+  ],
+  "after_counts": [
+    {
+      "scope": "suneung",
+      "status": "unresolved",
+      "passages": 268,
+      "linked_items": 309
+    },
+    {
+      "scope": "suneung",
+      "status": "confirmed_exact",
+      "passages": 57,
+      "linked_items": 60
+    },
+    {
+      "scope": "suneung",
+      "status": "supported_candidate",
+      "passages": 12,
+      "linked_items": 12
+    },
+    {
+      "scope": "suneung",
+      "status": "topic_lineage_only",
+      "passages": 1,
+      "linked_items": 1
+    },
+    {
+      "scope": "mock",
+      "status": "unresolved",
+      "passages": 361,
+      "linked_items": 405
+    },
+    {
+      "scope": "mock",
+      "status": "confirmed_exact",
+      "passages": 14,
+      "linked_items": 15
+    }
+  ],
+  "post_apply_preview": [
+    {
+      "item_id": "2018#41",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2022#33",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2025#24",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2022#30",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2024#36",
+      "state": "already_applied"
+    }
+  ],
+  "body_conflict_probe": [
+    {
+      "item_id": "2018#41",
+      "state": "body_or_identity_conflict"
+    },
+    {
+      "item_id": "2022#33",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2025#24",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2022#30",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2024#36",
+      "state": "already_applied"
+    }
+  ],
+  "row_conflict_probe": [
+    {
+      "item_id": "2018#41",
+      "state": "row_conflict"
+    },
+    {
+      "item_id": "2022#33",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2025#24",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2022#30",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2024#36",
+      "state": "already_applied"
+    }
+  ],
+  "checkpoint": {
+    "label": "csat-origin-followup-20261004",
+    "non_same": [
+      {
+        "axis": "capacity",
+        "metric": "bloat_sampled_pct",
+        "subject": "proper_noun_forms",
+        "before_value": "2.76",
+        "after_value": null,
+        "delta": null,
+        "pct": null,
+        "status": "disappeared"
+      },
+      {
+        "axis": "capacity",
+        "metric": "bloat_sampled_pct",
+        "subject": "lexicon_source_tags",
+        "before_value": null,
+        "after_value": "0.00",
+        "delta": null,
+        "pct": null,
+        "status": "appeared"
+      },
+      {
+        "axis": "capacity",
+        "metric": "db_size_mb",
+        "subject": null,
+        "before_value": "6299.0",
+        "after_value": "6299.1",
+        "delta": "0.1",
+        "pct": "0.00",
+        "status": "changed"
+      }
+    ]
+  },
+  "gap": {
+    "id": "4e309675-ce23-4127-8799-0e5af28ae0f8",
+    "before": {
+      "affected_count": 632,
+      "next_action": "수능 후보 15개 문단 대조 → 추가 서지 단서 확인 → 미확인 271개 두 번째 구절 검색. 모의평가는 별도 조사. 2026-10-04 검수 보고서 참조."
+    },
+    "after": {
+      "affected_count": 629,
+      "next_action": "수능 잔여 후보 12개와 서지 단서 1개 전문 확보 → 미확인 268개 추가 구절 검색. 모의평가 별도 조사. 2026-10-04 후속 검수 보고서 참조."
+    }
+  },
+  "checks": {
+    "node_review_tests": 5,
+    "help_typecheck": "passed",
+    "agent_config_checks": 10,
+    "db_stats_generation": "passed"
+  }
+}

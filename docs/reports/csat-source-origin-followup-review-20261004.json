@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-04",
+  "scope": "suneung",
+  "reviews": [
+    {
+      "passage_sha256": "7338bb150b06c0c46350d84bf958a99ec306241bb80ce70dc6f520ecc9e04b30",
+      "representative_item_id": "2018#41",
+      "item_ids": [
+        "2018#41",
+        "2018#42"
+      ],
+      "body_sha256_by_item": {
+        "2018#41": "1a05655e96758b4a9e25c8c1caa5c859a15e8fa17da5b7e2db73577fb93ae860",
+        "2018#42": "1a05655e96758b4a9e25c8c1caa5c859a15e8fa17da5b7e2db73577fb93ae860"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Write Great Fiction: Characters, Emotion & Viewpoint",
+        "source_authors": [
+          "Nancy Kress"
+        ],
+        "source_publisher": "Writer's Digest Books",
+        "source_year": 2005,
+        "source_part": "Chapter 1, Types of Characters—Assembling Your Cast; PDF pp. 18–20",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.saveourenvironment.ca/Characters_Emotion_and_Viewpoint_Nancy_Kress.pdf",
+            "label": "Full book scan / text, chapter 1",
+            "body_sha256_by_item": {
+              "2018#41": "1a05655e96758b4a9e25c8c1caa5c859a15e8fa17da5b7e2db73577fb93ae860",
+              "2018#42": "1a05655e96758b4a9e25c8c1caa5c859a15e8fa17da5b7e2db73577fb93ae860"
+            }
+          },
+          {
+            "kind": "author_metadata",
+            "url": "https://nancykress.com/characters-emotion-and-viewpoint/",
+            "label": "Author book page"
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://www.penguinrandomhouse.com/books/632217/characters-emotion-and-viewpoint-write-great-fiction-by-nancy-kress/",
+            "label": "Publisher date and author"
+          }
+        ],
+        "note": "도서 사본 장1의 연속 세 페이지에서 지문 전체를 직접 대조했다. 다른 작가 사례와 중간 설명이 생략되고, objectively가 빈칸으로 바뀌었다. PDF쪽수이며 인쇄 쪽수와 구분한다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-followup-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "12bbe03dbf5b2297c0a58c7fbb38dbc587e26bc6a7b36e4f7ffe10e6046e6a8a",
+      "representative_item_id": "2022#30",
+      "item_ids": [
+        "2022#30"
+      ],
+      "body_sha256_by_item": {
+        "2022#30": "030ade11c8094556c8cfa0d7fe95ebe217102816c7d0854c037bb6ecae014df8"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Crop Responses to Environment: Adapting to Global Climate Change",
+        "source_authors": [],
+        "source_publisher": "CRC Press",
+        "source_year": 2018,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://www.routledge.com/Crop-Responses-to-Environment-Adapting-to-Global-Climate-Change/",
+            "kind": "official_metadata",
+            "label": "CRC/Routledge title metadata"
+          }
+        ],
+        "note": "Exact wording appeared in a publisher-hosted preview during the audit, but the signed preview URL was not stable enough to retain.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Crop Responses to Environment",
+        "source_authors": [
+          "Anthony E. Hall"
+        ],
+        "source_publisher": "CRC Press",
+        "source_year": 2001,
+        "source_part": "First edition, Chapter 1, Introduction; organic farming paragraph",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.scribd.com/document/287608405/1-Crop-Responses-to-Environment",
+            "label": "Publicly readable first-edition book text and copyright/CIP page",
+            "body_sha256_by_item": {
+              "2022#30": "030ade11c8094556c8cfa0d7fe95ebe217102816c7d0854c037bb6ecae014df8"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://agris.fao.org/search/en/providers/122535/records/65ddeed40f3e94b9e5c78f2a",
+            "label": "FAO AGRIS 2001 edition, author, publisher, ISBN"
+          }
+        ],
+        "note": "공개 도서 전문의 유기농 문단 전체 및 판권·CIP(ISBN 0849310288, ©2001)를 직접 대조했다. 시험 지문은 2018 개정판보다 이 2001판의 문장 구성에 더 가깝다. constraints→benefits는 어휘 오답이고 herbicides→chemicals, affluent→wealthier, judicious→sensible 등 편집이 있다. source_year는 열람 판권 연도이며 실제 시험 사용 판본은 미확정. 기존 2018 개정판 후보 서지를 열람 사본 서지로 교정했다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-followup-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "05288cbff96b44ed6560a69978fe84c6b5340d9b7b9cba209c43ceaac1e576f4",
+      "representative_item_id": "2022#33",
+      "item_ids": [
+        "2022#33"
+      ],
+      "body_sha256_by_item": {
+        "2022#33": "beaf6ba19f179ed58ee1f4dd85f82e8b2e52a8c1774f9081249f937109b87e5b"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Social Traps and the Problem of Trust",
+        "source_authors": [
+          "Bo Rothstein"
+        ],
+        "source_publisher": "Cambridge University Press",
+        "source_year": 2005,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://www.cambridge.org/core/books/social-traps-and-the-problem-of-trust/02225C0BB48764F18F287FD6569EEF2E",
+            "kind": "official_metadata",
+            "label": "Cambridge metadata"
+          }
+        ],
+        "note": "Attribution is bibliographically strong, but publisher-visible exact text was not available.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Social Traps and the Problem of Trust",
+        "source_authors": [
+          "Bo Rothstein"
+        ],
+        "source_publisher": "Cambridge University Press",
+        "source_year": 2005,
+        "source_part": "Chapter 2, On the theory and practice of social capital, p. 50 (PDF p. 64)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://ndl.ethernet.edu.et/bitstream/123456789/5418/1/30.pdf",
+            "label": "University digital library full book, p. 50",
+            "body_sha256_by_item": {
+              "2022#33": "beaf6ba19f179ed58ee1f4dd85f82e8b2e52a8c1774f9081249f937109b87e5b"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://www.cambridge.org/core/books/social-traps-and-the-problem-of-trust/02225C0BB48764F18F287FD6569EEF2E",
+            "label": "Cambridge book record"
+          }
+        ],
+        "note": "대학 도서관 전문의 p.50 문단 전체를 직접 대조했다. Ostrom은 소개되는 연구자이며 지문을 쓴 저자는 Rothstein이다. dim→poor, emanating from→coming from, arenas→forums, compliance→observance 등 편집 및 결정 참여 구절 빈칸화.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-followup-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "affa802920f7a71ada58a37bb6b14740d7384355ab8b726cf3446f0adea13eea",
+      "representative_item_id": "2024#36",
+      "item_ids": [
+        "2024#36"
+      ],
+      "body_sha256_by_item": {
+        "2024#36": "0c1c5f7c71cfa7fecf90add3474ed9a250a04fe8638c42e858068611c8b8a6eb"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Modern Diplomacy",
+        "source_authors": [
+          "R. P. Barston"
+        ],
+        "source_publisher": "Routledge",
+        "source_year": 2014,
+        "source_part": "Fourth edition, Chapter 4, Negotiation, p. 51 (PDF p. 74)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://rexresearch1.com/DiplomacyLibrary/ModernDiplomacy.pdf",
+            "label": "Fourth edition full book, copyright page and p. 51",
+            "body_sha256_by_item": {
+              "2024#36": "0c1c5f7c71cfa7fecf90add3474ed9a250a04fe8638c42e858068611c8b8a6eb"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://books.google.com/books/about/Modern_Diplomacy.html?id=4r63AwAAQBAJ",
+            "label": "2014 Routledge fourth edition bibliographic record"
+          }
+        ],
+        "note": "협상 정의부터 마지막 부수 목적까지 지문 전체가 p.51의 연속 문단과 일치한다. 시험의 제시 순서 C-A-B를 원문 순서로 복원해 대조했다. 열람 사본은 2013 Pearson 제4판을 2014 Routledge에서 발행한 판본이며 시험 사용 판본은 미확정. 본문에 인용되는 Iklé가 아니라 Barston을 저자로 기록했다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-followup-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "7626283c1bc289b847bd18a01acf3de4fdef621483bdd366a29109d5045e332c",
+      "representative_item_id": "2025#24",
+      "item_ids": [
+        "2025#24"
+      ],
+      "body_sha256_by_item": {
+        "2025#24": "9a110b3de279292e1b6bced1a35a1161a99013a72cea9bd08edef6eeac62b482"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "How to See the World: An Introduction to Images, from Self-Portraits to Selfies, Maps to Movies, and More",
+        "source_authors": [
+          "Nicholas Mirzoeff"
+        ],
+        "source_publisher": "Basic Books",
+        "source_year": 2016,
+        "source_part": "Chapter 1, How to See Yourself, opening self-portrait / selfie paragraphs",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://pdfcoffee.com/how-to-see-the-world-nicholas-mirzoeff-pdf-free.html",
+            "label": "Full book copy with copyright page and chapter 1",
+            "body_sha256_by_item": {
+              "2025#24": "9a110b3de279292e1b6bced1a35a1161a99013a72cea9bd08edef6eeac62b482"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://www.hachettebookgroup.com/titles/nicholas-mirzoeff/how-to-see-the-world/9780465096008/",
+            "label": "Basic Books publication record"
+          }
+        ],
+        "note": "장1의 자화상·셀피 문단 전체와 시험 지문의 여섯 문장을 직접 대조했다. 열람 사본은 2016 미국판이며 2015 영국 초판과 구분한다. 문단 첫 설명 일부가 생략되었다. 실제 시험 사용 판본은 미확정.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-followup-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "30e4c1823ee2a3d4cfd9066270c5be8fb1d53f01bcdc40dfd2439d5e27dedfe7",
+      "representative_item_id": "2026#23",
+      "item_ids": [
+        "2026#23"
+      ],
+      "body_sha256_by_item": {
+        "2026#23": "472357902f9773ddd9cc31ea4ebae040fcb4bddb06e8a97106cb72089ccba74c"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Human Transit",
+        "source_authors": [
+          "Jarrett Walker"
+        ],
+        "source_publisher": "Island Press",
+        "source_year": 2012,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://humantransit.org/book/table-of-contents",
+            "kind": "author_site",
+            "label": "Author's book site"
+          },
+          {
+            "url": "https://peshare.com/saying/view_saying.jsp?saying_id=242",
+            "kind": "exact_text_attribution",
+            "label": "Exact-match attribution page"
+          }
+        ],
+        "note": "The exact passage is publicly reproduced and attributed to Walker, but the original author page containing it was not located.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Human Transit: How Clearer Thinking about Public Transit Can Enrich Our Communities and Our Lives",
+        "source_authors": [
+          "Jarrett Walker"
+        ],
+        "source_publisher": "Island Press",
+        "source_year": 2012,
+        "source_part": "Chapter 7, Frequency Is Freedom, pp. 89–90 (PDF pp. 96–97)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://ndl.ethernet.edu.et/bitstreams/88760be0-cd58-4d50-a85a-1f279dfbad8f/download",
+            "label": "University library full book, pp. 89–90",
+            "body_sha256_by_item": {
+              "2026#23": "472357902f9773ddd9cc31ea4ebae040fcb4bddb06e8a97106cb72089ccba74c"
+            }
+          },
+          {
+            "kind": "library_record",
+            "url": "https://ndl.ethernet.edu.et/handle/123456789/72714",
+            "label": "Library metadata and download link"
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://link.springer.com/book/10.5822/978-1-61091-174-0",
+            "label": "Island Press book record"
+          }
+        ],
+        "note": "대학 도서관 전문 p.89의 문단부터 p.90 첫 문장까지 시험 지문 전체를 대조했다. 끝의 sowing이 planting으로 바뀌었다. 독서모임 요약 PDF는 원문이 아니므로 제외했고, 실제 도서 PDF의 표제·판권도 확인했다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-followup-20261004.md"
+      }
+    }
+  ]
+}

@@ -1,0 +1,313 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-04",
+  "scope": "suneung",
+  "targets": 19,
+  "confirmed": 6,
+  "held": 13,
+  "retained_initial_query_records": 38,
+  "decisions": [
+    {
+      "passage_sha256": "7338bb150b06c0c46350d84bf958a99ec306241bb80ce70dc6f520ecc9e04b30",
+      "item_id": "2018#41",
+      "before_status": "unresolved",
+      "after_status": "confirmed_exact",
+      "result": "confirmed",
+      "reason": "도서 사본 장1의 연속 세 페이지에서 지문 전체를 직접 대조했다. 다른 작가 사례와 중간 설명이 생략되고, objectively가 빈칸으로 바뀌었다. PDF쪽수이며 인쇄 쪽수와 구분한다.",
+      "queries": [
+        "\"In one sense, every character you create\"",
+        "\"Characters Emotion Viewpoint\" Nancy Kress pdf"
+      ],
+      "checked_urls": [
+        "https://www.saveourenvironment.ca/Characters_Emotion_and_Viewpoint_Nancy_Kress.pdf",
+        "https://nancykress.com/characters-emotion-and-viewpoint/",
+        "https://www.penguinrandomhouse.com/books/632217/characters-emotion-and-viewpoint-write-great-fiction-by-nancy-kress/"
+      ]
+    },
+    {
+      "passage_sha256": "b37bfcf967ed3ae4af896d9cd4ed04cf3fbee043123cf514383b5a5fa721c888",
+      "item_id": "2022#20",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "대학 도서관 전문 링크는 현재 404. 출판사 표본은 다른 장이다. 해당 문단 전문을 다시 확보하지 못해 후보 유지.",
+      "queries": [
+        "\"creating a social media program begins\"",
+        "\"Social Media ROI\" pdf"
+      ],
+      "checked_urls": [
+        "https://www.informit.com/store/social-media-roi-managing-and-measuring-social-media-9780789747419",
+        "https://www.oreilly.com/library/view/social-media-roi/9780132678032/",
+        "https://www.pearson.de/media/muster/ext/9780132678063.pdf"
+      ]
+    },
+    {
+      "passage_sha256": "f74dc7841169c7c6d885663dc2274ba631734b46eab7c92e326c4acc8ef4fb3d",
+      "item_id": "2022#24",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "Waste and Want 서지는 확인되지만 공개 접근에서 수선 문단 전체를 확보하지 못했다. 인용된 1896 수선 설명서만으로 문단 전체의 저자를 바꾸지 않는다.",
+      "queries": [
+        "\"Mending and restoring objects often require\"",
+        "\"Waste and Want\" pdf"
+      ],
+      "checked_urls": [
+        "https://us.macmillan.com/books/9780805065121/wasteandwant/"
+      ]
+    },
+    {
+      "passage_sha256": "12bbe03dbf5b2297c0a58c7fbb38dbc587e26bc6a7b36e4f7ffe10e6046e6a8a",
+      "item_id": "2022#30",
+      "before_status": "supported_candidate",
+      "after_status": "confirmed_exact",
+      "result": "confirmed",
+      "reason": "공개 도서 전문의 유기농 문단 전체 및 판권·CIP(ISBN 0849310288, ©2001)를 직접 대조했다. 시험 지문은 2018 개정판보다 이 2001판의 문장 구성에 더 가깝다. constraints→benefits는 어휘 오답이고 herbicides→chemicals, affluent→wealthier, judicious→sensible 등 편집이 있다. source_year는 열람 판권 연도이며 실제 시험 사용 판본은 미확정. 기존 2018 개정판 후보 서지를 열람 사본 서지로 교정했다.",
+      "queries": [
+        "\"Crop Responses to Environment\" pdf",
+        "\"Crop Responses to Environment\" pdf"
+      ],
+      "checked_urls": [
+        "https://www.routledge.com/Crop-Responses-to-Environment-Adapting-to-Global-Climate-Change/",
+        "https://www.scribd.com/document/287608405/1-Crop-Responses-to-Environment",
+        "https://agris.fao.org/search/en/providers/122535/records/65ddeed40f3e94b9e5c78f2a"
+      ]
+    },
+    {
+      "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+      "item_id": "2022#31",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "학술 인용은 Comic Relief p.72를 새 단서로 제공한다. 출판사 표본은 해당 쪽을 포함하지 않고, 다른 장 재인쇄 자료도 전체 대조 근거가 되지 못했다.",
+      "queries": [
+        "\"Humour involves not just practical disengagement\"",
+        "\"Comic Relief\" pdf"
+      ],
+      "checked_urls": [
+        "https://onlinelibrary.wiley.com/doi/book/10.1002/9781444307795",
+        "https://content.e-bookshelf.de/media/reading/L-598894-0cd7fcb2f2.pdf",
+        "https://research.tees.ac.uk/ws/files/4402274/Hawkes_Openness_Otherness_and_Expertise.pdf"
+      ]
+    },
+    {
+      "passage_sha256": "05288cbff96b44ed6560a69978fe84c6b5340d9b7b9cba209c43ceaac1e576f4",
+      "item_id": "2022#33",
+      "before_status": "supported_candidate",
+      "after_status": "confirmed_exact",
+      "result": "confirmed",
+      "reason": "대학 도서관 전문의 p.50 문단 전체를 직접 대조했다. Ostrom은 소개되는 연구자이며 지문을 쓴 저자는 Rothstein이다. dim→poor, emanating from→coming from, arenas→forums, compliance→observance 등 편집 및 결정 참여 구절 빈칸화.",
+      "queries": [
+        "\"Social Traps\" \"Ostrom\" pdf",
+        "\"Social Traps and the Problem of Trust\" pdf"
+      ],
+      "checked_urls": [
+        "https://www.cambridge.org/core/books/social-traps-and-the-problem-of-trust/02225C0BB48764F18F287FD6569EEF2E",
+        "https://ndl.ethernet.edu.et/bitstream/123456789/5418/1/30.pdf"
+      ]
+    },
+    {
+      "passage_sha256": "a5a644a118074123868d9b4eb0d166a54204f4d73f119aa77a08ee0f0b2a081c",
+      "item_id": "2022#35",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "편집자와 장 저자를 구분해야 한다. 공개 장 사본은 다른 주제의 장이어서 정보시스템 문단 전체를 확인하지 못했다.",
+      "queries": [
+        "\"The Immersive Internet\" pdf",
+        "\"The Immersive Internet\" pdf"
+      ],
+      "checked_urls": [
+        "https://link.springer.com/book/10.1057/9781137283023"
+      ]
+    },
+    {
+      "passage_sha256": "58934cddcc758148e75a0d57f032316baed4e4bcfd230546ae7895b852cb56f4",
+      "item_id": "2022#40",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "Adaptation and Environment 출판사 표본과 Perlego 공개 범위에 Kitcher/Salmon 문단이 없다. 후보 유지.",
+      "queries": [
+        "\"Philip Kitcher and Wesley Salmon have suggested\"",
+        "\"Adaptation and Environment\" pdf"
+      ],
+      "checked_urls": [
+        "https://search.worldcat.org/search?q=ti%3AAdaptation+and+Environment+au%3ARobert+Brandon"
+      ]
+    },
+    {
+      "passage_sha256": "affa802920f7a71ada58a37bb6b14740d7384355ab8b726cf3446f0adea13eea",
+      "item_id": "2024#36",
+      "before_status": "unresolved",
+      "after_status": "confirmed_exact",
+      "result": "confirmed",
+      "reason": "협상 정의부터 마지막 부수 목적까지 지문 전체가 p.51의 연속 문단과 일치한다. 시험의 제시 순서 C-A-B를 원문 순서로 복원해 대조했다. 열람 사본은 2013 Pearson 제4판을 2014 Routledge에서 발행한 판본이며 시험 사용 판본은 미확정. 본문에 인용되는 Iklé가 아니라 Barston을 저자로 기록했다.",
+      "queries": [
+        "\"Negotiation can be defined as an attempt to explore\"",
+        "site:sciencedirect.com/topics/social-sciences/diplomatic-relation \"Negotiation\""
+      ],
+      "checked_urls": [
+        "https://rexresearch1.com/DiplomacyLibrary/ModernDiplomacy.pdf",
+        "https://books.google.com/books/about/Modern_Diplomacy.html?id=4r63AwAAQBAJ"
+      ]
+    },
+    {
+      "passage_sha256": "7626283c1bc289b847bd18a01acf3de4fdef621483bdd366a29109d5045e332c",
+      "item_id": "2025#24",
+      "before_status": "unresolved",
+      "after_status": "confirmed_exact",
+      "result": "confirmed",
+      "reason": "장1의 자화상·셀피 문단 전체와 시험 지문의 여섯 문장을 직접 대조했다. 열람 사본은 2016 미국판이며 2015 영국 초판과 구분한다. 문단 첫 설명 일부가 생략되었다. 실제 시험 사용 판본은 미확정.",
+      "queries": [
+        "\"The selfie resonates not because it is new\"",
+        "\"How to See the World\" Mirzoeff pdf"
+      ],
+      "checked_urls": [
+        "https://pdfcoffee.com/how-to-see-the-world-nicholas-mirzoeff-pdf-free.html",
+        "https://www.hachettebookgroup.com/titles/nicholas-mirzoeff/how-to-see-the-world/9780465096008/"
+      ]
+    },
+    {
+      "passage_sha256": "44330868551015973d7b376a75a82438797f2eaee6823528e10f9ae4b4c838bd",
+      "item_id": "2026#21",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "저자·출판사 서지와 cloud work 단서는 있으나 unsticky 문단 전문을 확보하지 못했다.",
+      "queries": [
+        "\"Digital platforms have made a lot of work less sticky\"",
+        "\"The Gig Economy\" pdf"
+      ],
+      "checked_urls": [
+        "https://www.oii.ox.ac.uk/research/publications/the-gig-economy-a-critical-introduction/"
+      ]
+    },
+    {
+      "passage_sha256": "0df714cfed308bfd6bf076636639bdc930c6c1fe146a0106ad9543b62950f6b8",
+      "item_id": "2026#22",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "Sport Entrepreneurial Ecosystems 서지와 관련 논문을 찾았지만 coopetition 문단 전체와 동일한 원전을 확인하지 못했다.",
+      "queries": [
+        "\"Sport Entrepreneurial Ecosystems\" pdf",
+        "\"Sport Entrepreneurial Ecosystems\" pdf"
+      ],
+      "checked_urls": [
+        "https://link.springer.com/book/10.1007/978-981-97-8923-8"
+      ]
+    },
+    {
+      "passage_sha256": "30e4c1823ee2a3d4cfd9066270c5be8fb1d53f01bcdc40dfd2439d5e27dedfe7",
+      "item_id": "2026#23",
+      "before_status": "supported_candidate",
+      "after_status": "confirmed_exact",
+      "result": "confirmed",
+      "reason": "대학 도서관 전문 p.89의 문단부터 p.90 첫 문장까지 시험 지문 전체를 대조했다. 끝의 sowing이 planting으로 바뀌었다. 독서모임 요약 PDF는 원문이 아니므로 제외했고, 실제 도서 PDF의 표제·판권도 확인했다.",
+      "queries": [
+        "\"Emphasizing speed over frequency\"",
+        "\"Human Transit\" pdf"
+      ],
+      "checked_urls": [
+        "https://humantransit.org/book/table-of-contents",
+        "https://peshare.com/saying/view_saying.jsp?saying_id=242",
+        "https://ndl.ethernet.edu.et/bitstreams/88760be0-cd58-4d50-a85a-1f279dfbad8f/download",
+        "https://ndl.ethernet.edu.et/handle/123456789/72714",
+        "https://link.springer.com/book/10.5822/978-1-61091-174-0"
+      ]
+    },
+    {
+      "passage_sha256": "5a57a428c7a744591f0f17e375b7a90145ffac0dd4e0ecf647f55b2869d67e65",
+      "item_id": "2026#24",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "The Entertainment Industry의 편집자와 culturtainment 장 저자를 구분해야 한다. 해당 장 전문 확보 미완.",
+      "queries": [
+        "\"The economic benefit of culturtainment\"",
+        "\"The Entertainment Industry\" pdf"
+      ],
+      "checked_urls": [
+        "https://books.google.com/books/about/The_Entertainment_Industry.html?id=n3Vi0RyXc5wC",
+        "https://entplanet.blogspot.com/2009/10/entertainment-industry-introduction-new.html"
+      ]
+    },
+    {
+      "passage_sha256": "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab",
+      "item_id": "2026#29",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "The Secret of Our Success 후보의 도서 기록은 있으나 해당 문단 전문은 미확인. 시험의 의도된 어법 오류까지 복제한 출처 소개 페이지는 독립 원문 근거로 인정하지 않는다.",
+      "queries": [
+        "\"We are exceptionally smart\" \"Henrich\" pdf",
+        "\"The Secret of Our Success\" pdf"
+      ],
+      "checked_urls": [
+        "https://assets.press.princeton.edu/catalogs/F15InternationalD.pdf",
+        "https://assets.press.princeton.edu/chapters/s10543.pdf"
+      ]
+    },
+    {
+      "passage_sha256": "f4e395749fea1db9483415b834156347369150f4bd5296085edce8e95497d311",
+      "item_id": "2026#31",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "Oxfam Cereal Secrets(2012) 공식 전문 80쪽을 확인했으나 해당 secrecy/early grain trade 문단이 없다. 관련 주제의 다른 보고서라는 이유로 확정하지 않는다.",
+      "queries": [
+        "\"The early grain trade firms\"",
+        "\"Strategic Issues in the Global Grain Trade\" pdf"
+      ],
+      "checked_urls": [
+        "https://peshare.com/saying/view_saying.jsp?saying_id=248",
+        "https://s3.amazonaws.com/oxfam-us/www/static/oa4/cereal-secrets.pdf"
+      ]
+    },
+    {
+      "passage_sha256": "bfa5ddcea1c50e6c4fa42b2f353d86c0007abd95f955294c192dca1c728305e0",
+      "item_id": "2026#33",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "Interior Design Illustrated 공개 범위에서 고객/사용자 문단 전체를 확인하지 못했다. 다른 설계 실무서 가능성도 남아 있다.",
+      "queries": [
+        "\"Giving clients sufficient opportunity to react\"",
+        "\"Interior Design Illustrated\" pdf"
+      ],
+      "checked_urls": [
+        "https://uat.store.wiley.com/en-us/interior-design-illustrated-4th-edition-p-9781119468530"
+      ]
+    },
+    {
+      "passage_sha256": "006179bcf07d82fd7bcd34d78da5fcedcb2abf51bc6b44fd79778a861cd5d9e9",
+      "item_id": "2026#38",
+      "before_status": "supported_candidate",
+      "after_status": "supported_candidate",
+      "result": "hold",
+      "reason": "Effective Data Storytelling의 관련 Google Books 구절과 출처 소개가 단서다. 저자 무료 장은 이메일 등록이 필요하고 공개 자료는 도표·도서 목록이어서 전체 문단 대조 미완.",
+      "queries": [
+        "\"The real clash is actually between stories\"",
+        "\"Effective Data Storytelling\" pdf"
+      ],
+      "checked_urls": [
+        "https://uat.store.wiley.com/en-us/effective-data-storytelling-how-to-drive-change-with-data-narrative-and-visuals-p-9781119615729",
+        "https://www.effectivedatastorytelling.com/resources"
+      ]
+    },
+    {
+      "passage_sha256": "393b2d45bdebff35b140e3a3f25abaf8b92137039a7c596fde2946554d5d7829",
+      "item_id": "2026#41",
+      "before_status": "unresolved",
+      "after_status": "unresolved",
+      "result": "hold",
+      "reason": "Understanding Fashion History 서지는 확인된다. Petrov 저서의 부분 인용만으로 시험 지문 전체를 확정할 수 없어 미확인 유지.",
+      "queries": [
+        "\"There is an obvious problem with the history of dress\"",
+        "\"Understanding Fashion History\" pdf"
+      ],
+      "checked_urls": []
+    }
+  ]
+}
