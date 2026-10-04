@@ -103,13 +103,17 @@ const shellNav = (page: Page) => page.locator('header[aria-label="주 메뉴"]')
 async function reveal(page: Page, href: string) {
   const link = shellNav(page).locator(`a[href="${href}"]`).first();
   if (await link.isVisible()) return link;
-  for (const btn of await shellNav(page).locator('button[aria-expanded]').all()) {
-    // 앞 단계의 클릭이 마우스를 이미 이 단추 위에 남겨 두면 hover() 가 mouseenter 를 다시 내지 않아
-    // 패널이 안 열린다(2026-10-04: 실패하는 주소가 매 실행 달랐다). 한 번 밖으로 뺐다가 올린다.
-    await page.mouse.move(0, 400);
-    await btn.hover();
-    await page.waitForTimeout(200);
-    if (await link.isVisible()) return link;
+  // 세 바퀴까지 — `domcontentloaded` 직후에는 하이드레이션 전이라 첫 올림이 아무 일도 안 할 수 있다
+  // (2026-10-04: 실패하는 주소가 매 실행 달랐다). 사용자에게는 없는 경합이라 테스트가 기다린다.
+  for (let pass = 0; pass < 3; pass++) {
+    for (const btn of await shellNav(page).locator('button[aria-expanded]').all()) {
+      // 앞 단계의 클릭이 마우스를 이 단추 위에 남겨 두면 hover() 가 mouseenter 를 다시 내지 않는다 — 한 번 뺐다가 올린다.
+      await page.mouse.move(0, 400);
+      await btn.hover();
+      await page.waitForTimeout(200);
+      if (await link.isVisible()) return link;
+    }
+    await page.waitForTimeout(500);
   }
   throw new Error(`${href} 로 가는 길이 상단 메뉴에 없다`);
 }

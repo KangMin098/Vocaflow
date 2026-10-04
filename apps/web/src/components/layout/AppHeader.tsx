@@ -112,12 +112,10 @@ export function AppHeader() {
   //   곧바로 클릭의 토글이 그것을 닫았다(「눌렀는데 메뉴가 닫힌다」 · e2e 12 가 간헐로 잡던 것).
   //   올려서 막 연 패널은 첫 클릭에 그대로 둔다. 키보드(올림 없음)는 예전처럼 토글한다.
   const clickToggle = (key: string) => {
-    setOpen((o) => {
-      const keep = o === key && hoverOpened.current === key
-      hoverOpened.current = null
-      if (keep) return key
-      return o === key ? null : key
-    })
+    // ref 는 핸들러에서 읽고 비운다 — updater 안에서 비우면 StrictMode 의 이중 호출에서 두 번째 결과가 달라진다.
+    const openedByHover = hoverOpened.current === key
+    hoverOpened.current = null
+    setOpen((o) => (o === key ? (openedByHover ? key : null) : key))
   }
   // 단추에서 패널로 마우스가 내려가는 사이에 닫히지 않게 조금 기다린다(참조와 같은 140ms).
   const hoverClose = () => {
