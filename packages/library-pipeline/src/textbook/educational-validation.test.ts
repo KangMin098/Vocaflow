@@ -8,6 +8,7 @@ import { validationBundleSchema,validationProtocolSchema,instrumentIdentity,eval
 import { canonical,digest,readPreservationRules } from '../../../../scripts/textbook/academic-reading-contract.mjs'
 import { readEducationalValidation,validateEducationalPromotion } from '../../../../scripts/textbook/educational-validation-contract.mjs'
 import { draftMeasurementItems } from '../../../../scripts/textbook/frym-validation/instruments.mjs'
+import { emptyEducationalResponseBatch,mergeEducationalResponses } from './educational-responses'
 
 const root=new URL('../../../../scripts/textbook/',import.meta.url)
 const reviewFile=new URL('frym-precision/round-1.json',root)
@@ -166,5 +167,99 @@ describe('educational validation promotion',()=>{
     expect(educationalDeliveryState(cert,null)).toBe('gold')
     expect(educationalDeliveryState(cert,article)).toBe('production')
     for(const changed of [{...article,status:'queued'},{...article,content:text+' Changed.'},{...article,adapted_from_id:'other-parent'},{...article,composed_spec:null}])expect(educationalDeliveryState(cert,changed)).toBe('gold')
+  })
+})
+
+describe('human response collection (synthetic regression records only)',()=>{
+  const incoming=()=>{
+    const b=fixture(),r=b.records[0]!,batch=emptyEducationalResponseBatch(b)
+    batch.expert_reviews=structuredClone(r.expert_reviews)
+    batch.student_sessions=[{...structuredClone(r.student_sessions[0]!),blind_item_id:r.blind_item_id,passage_hash:r.passage_hash}]
+    r.expert_reviews=[];r.student_sessions=[]
+    return {b,r,batch}
+  }
+  it('empty collection preserves unregistered real candidate data',()=>{
+    const {b}=incoming();b.protocol_approval=null;b.experts=[]
+    const result=mergeEducationalResponses(b,emptyEducationalResponseBatch(b),now)
+    expect(result.bundle).toEqual(b)
+    expect(Object.values(result.stats)).toEqual([0,0,0,0])
+  })
+  it('collects registered responses without modifying input and skips duplicate responses',()=>{
+    const {b,batch}=incoming(),before=structuredClone(b)
+    const first=mergeEducationalResponses(b,batch,now)
+    expect(b).toEqual(before)
+    expect(first.stats).toEqual({added_expert_reviews:2,added_student_sessions:1,filled_student_sessions:0,duplicate_responses:0})
+    const second=mergeEducationalResponses(first.bundle,batch,now)
+    expect(second.bundle).toEqual(first.bundle);expect(second.stats.duplicate_responses).toBe(3)
+    expect(evaluateEducationalRecord(first.bundle,first.bundle.records[0]!,text,now).state).toBe('reviewed')
+  })
+  it('fills partial student responses while preserving zero and measured values',()=>{
+    const {b,batch}=incoming(),partial=structuredClone(batch)
+    const s=partial.student_sessions[0]!
+    s.reading_finished_at=null;s.lexical_burden=null;s.grade=null;s.grade_verified_by=null
+    for(const a of s.answers){a.response='';a.score=null;a.scorer_id=null}
+    const first=mergeEducationalResponses(b,partial,now)
+    batch.expert_reviews=[]
+    const result=mergeEducationalResponses(first.bundle,batch,now)
+    expect(result.stats.filled_student_sessions).toBe(1)
+    expect(result.bundle.records[0]!.student_sessions[0]!).toEqual(fixture().records[0]!.student_sessions[0]!)
+    const conflict=structuredClone(batch);conflict.student_sessions[0]!.unknown_word_count=1
+    expect(()=>mergeEducationalResponses(result.bundle,conflict,now)).toThrow('Conflicting student')
+    const zero=structuredClone(batch);zero.student_sessions[0]!.answers[0]!.score=0
+    expect(()=>mergeEducationalResponses(result.bundle,zero,now)).toThrow('Conflicting student')
+  })
+  it('rejects conflicting expert verdicts atomically rather than overwriting judgments',()=>{
+    const {b,batch}=incoming(),first=mergeEducationalResponses(b,batch,now),snapshot=structuredClone(first.bundle)
+    batch.expert_reviews[0]!.criteria.core_claim='fail'
+    expect(()=>mergeEducationalResponses(first.bundle,batch,now)).toThrow('Conflicting expert')
+    expect(first.bundle).toEqual(snapshot)
+  })
+  it.each(['protocol','instrument','blind','passage','expert','scorer','item','duplicate_item'])('rejects changed %s binding',kind=>{
+    const {b,batch}=incoming()
+    if(kind==='protocol')batch.protocol_hash='0'.repeat(64)
+    if(kind==='instrument')batch.instrument_hash='0'.repeat(64)
+    if(kind==='blind')batch.expert_reviews[0]!.blind_item_id='B-unknown'
+    if(kind==='passage')batch.student_sessions[0]!.passage_hash='0'.repeat(64)
+    if(kind==='expert')batch.expert_reviews[0]!.expert_id='unregistered'
+    if(kind==='scorer')batch.student_sessions[0]!.answers[0]!.scorer_id='unregistered'
+    if(kind==='item')batch.student_sessions[0]!.answers[0]!.item_id='unknown-question'
+    if(kind==='duplicate_item')batch.student_sessions[0]!.answers.push(batch.student_sessions[0]!.answers[0]!)
+    expect(()=>mergeEducationalResponses(b,batch,now)).toThrow()
+    expect(b.records[0]!.expert_reviews).toEqual([])
+  })
+  it('requires preregistration and semantic review before student reading',()=>{
+    const {b,batch}=incoming();b.protocol_approval=null
+    expect(()=>mergeEducationalResponses(b,batch,now)).toThrow('preregistered')
+    const next=incoming();next.batch.expert_reviews=[]
+    expect(()=>mergeEducationalResponses(next.b,next.batch,now)).toThrow('semantic reviews first')
+    const failure=incoming();failure.batch.expert_reviews[0]!.criteria.core_claim='fail'
+    expect(()=>mergeEducationalResponses(failure.b,failure.batch,now)).toThrow('semantic reviews first')
+  })
+  it.each(['early_review','future_review','future_reading','reversed_time','wrong_grade','wrong_verifier'])('rejects %s',kind=>{
+    const {b,batch}=incoming()
+    if(kind==='early_review')batch.expert_reviews[0]!.reviewed_at='2026-09-30T00:00:00Z'
+    if(kind==='future_review')batch.expert_reviews[0]!.reviewed_at='2026-10-05T00:00:00Z'
+    if(kind==='future_reading')batch.student_sessions[0]!.reading_finished_at='2026-10-05T00:00:00Z'
+    if(kind==='reversed_time')batch.student_sessions[0]!.reading_finished_at='2026-10-02T00:00:00Z'
+    if(kind==='wrong_grade')batch.student_sessions[0]!.grade='high_1'
+    if(kind==='wrong_verifier')batch.student_sessions[0]!.grade_verified_by='wrong-lead'
+    expect(()=>mergeEducationalResponses(b,batch,now)).toThrow()
+  })
+  it('uses final timestamps when filling separately valid partial measurements',()=>{
+    const {b,batch}=incoming(),partial=structuredClone(batch)
+    partial.student_sessions[0]!.reading_finished_at=null
+    const result=mergeEducationalResponses(b,partial,now)
+    batch.student_sessions[0]!.reading_started_at=null
+    batch.student_sessions[0]!.reading_finished_at='2026-10-02T00:00:00Z'
+    expect(()=>mergeEducationalResponses(result.bundle,batch,now)).toThrow('combined student time')
+  })
+  it('rejects a student seeing both versions of the same pair',()=>{
+    const b=fixture(),r=b.records[0]!;r.student_sessions=[]
+    const second=structuredClone(r);second.id='other-variant';second.blind_item_id='B-other';second.target_key='2'.repeat(24);second.grade='high_1'
+    for(const e of second.expert_reviews)e.blind_item_id=second.blind_item_id
+    b.records.push(second);b.instrument_hash=digest(canonical(instrumentIdentity(b.records)));b.protocol_approval!.instrument_hash=b.instrument_hash
+    const batch=emptyEducationalResponseBatch(b),s=fixture().records[0]!.student_sessions[0]!
+    batch.student_sessions=[{...s,blind_item_id:r.blind_item_id,passage_hash:r.passage_hash},{...s,grade:'high_1',blind_item_id:second.blind_item_id,passage_hash:second.passage_hash}]
+    expect(()=>mergeEducationalResponses(b,batch,now)).toThrow('both variants')
   })
 })

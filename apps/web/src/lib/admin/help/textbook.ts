@@ -271,6 +271,11 @@ export const TBP_HELP: HelpRegistry = {
             done: '`frym-validation-verify.mjs --input <results.json> --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json>`는 반복 안전·읽기 전용입니다. 기준을 모두 통과한 정확한 본문/target/protocol만 gold이며 미측정은 null입니다. 완성 생성 청크 import에 --educational-validation <results.json>을 추가해야 합니다. 인증은 실제 발행/학년 규준과 다르며 queued 적재 후 기존 검수·발행 절차가 필요합니다.',
           },
           {
+            title: '돌아온 실제 응답을 새 결과에 수집한다',
+            detail: '`frym-validation-collect.mjs --input <results.json> --precision-review <회차.json> --prepare --output <새 batch.json>`은 해당 study 해시가 있는 빈 입력만 만듭니다. 사람 책임자가 실제 응답과 등록/학년/채점 증빙을 준비한 뒤 --responses <batch.json> --output <새 results.json>으로 수집합니다. DB 접근·발송 없이 수초 걸리며 같은 응답은 skip, 충돌은 전체 거절, 학생의 null/빈 값은 후속 응답으로 보충합니다. 이미 측정된 점수·시각·판정은 자동 덮지 않습니다. 원본과 응답을 보존하고 새 결과/receipt만 만듭니다.',
+            done: '새 결과를 verify로 다시 검사합니다. collect 성공은 gold가 아닙니다. 빈 batch는 0건 예행이며 실제 평가로 세지 않습니다. 같은 batch를 최신 결과에 다시 수집해도 변경 0입니다. 기존 출력 경로는 거절하므로 매번 새 이름을 사용합니다.',
+          },
+          {
             title: '연령·언어·사고 목표를 분리해 같은 원문을 교재화한다',
             detail: 'Academic Reading 타깃은 R0~R13 능력·P01~P20 목적·독자 age_band·language_band·reasoning_band·시험·분량을 따로 지정합니다. scripts/textbook/targets의 JSON을 준비하고 `pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target <JSON> --source <원천> --limit 2`로 소량부터 뽑습니다. 읽기 전용·재실행 안전이며 같은 타깃의 DB/예약 청크를 건너뛰고 완료 입력/결과를 보존합니다. 에이전트는 academic-reading-brief.md를 읽고 원문별 권리 증거·열 분석축·명제 대응·본문 근거가 있는 문항/활동을 채웁니다. 같은 target으로 import 예행 후 checkpoint와 --commit을 실행하면 원문을 보존하고 queued 자식만 만듭니다. 기존 분석·내용 판정·적격 확인을 마쳐야 문항 제작·조판으로 넘어갑니다. 최초 소량 처리 시간은 본문 길이와 권리 확인에 따라 달라집니다.',
             done: '새 각색의 composed_spec.academic_reading에 target·원문 UUID/hash/revision·권리·분석·문항 계획이 있고, 원문은 바뀌지 않았습니다. queued는 발행 완료가 아닙니다.',
@@ -368,7 +373,7 @@ export const TBP_HELP: HelpRegistry = {
           '학령별 표에서 조판 가능이 0 인 칸이 있는지. 있으면 **그 학년 교재를 지금 만들 수 없다**는 뜻이고, 재고가 있어도 마찬가지다.',
         ],
         recovery: [
-          '교육적 export는 기존 폴더를 덮지 않습니다. 부분 실패도 보존하고 새 폴더를 사용합니다. 프로토콜/문항/본문/목표/회차가 바뀌면 사전 등록·평가를 새로 진행합니다. import 중 인증 파일이 바뀌면 건너뛰고 최신 파일로 예행합니다. 미평가를 pass나 가상 점수로 채우지 않습니다. 상세 절차: scripts/textbook/frym-validation/README.md.',
+          '교육적 export/collect는 기존 폴더·결과·receipt를 덮지 않습니다. 부분 실패도 보존하고 새 경로를 사용합니다. 응답 충돌은 책임자가 원 증빙으로 해결한 새 결과를 verify합니다. 프로토콜/문항/본문/목표/회차가 바뀌면 사전 등록·평가를 새로 진행합니다. import 중 인증 파일이 바뀌면 건너뛰고 최신 파일로 예행합니다. 미평가를 pass나 가상 점수로 채우지 않습니다. 상세 절차: scripts/textbook/frym-validation/README.md.',
           'Academic Reading 입력과 out 청크는 둘 다 보존합니다. 원문 revision/hash가 바뀌면 새로운 디렉터리에 export하고 다시 검토합니다. 기존 각색을 upsert하지 않으므로 부분 실패 후 같은 import는 이미 적재한 판을 건너뜁니다. 트랜잭션 RPC는 아직 없으므로 실제 import 구간에는 관련 원문 편집·수집·분석·권리/내용 판정·다른 import를 모두 멈추고 한 작업으로 직렬 실행합니다. 이 전제를 확보할 수 없으면 예행까지만 합니다. 전후 checkpoint를 남깁니다. BLS/NPS 수집·FYM gold set·시험 calibration은 이 타깃 생성의 완료 상태와 별개입니다.',
           '캐시 적재 실패 시 .agent-logs의 배치 백업과 범위를 확인합니다. 원문 revision이 달라졌다면 최신 입력으로 다시 내보내 재검증합니다. 원문·정답 전체를 덮지 않습니다. checkpoint after/diff를 남깁니다.',
           '스캔이 `재고 조회 — 500 …` 으로 죽으면 statement timeout 이다. 페이지 크기(1000)를 줄이지 말고 잠시 뒤 다시 돌린다 — 커서 페이징은 중단해도 안전하고, 처음부터 다시 돌리면 된다.',
