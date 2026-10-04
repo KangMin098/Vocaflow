@@ -35,4 +35,6 @@ rev3 · 지난 회차 봉인 자료 · 기대 판정 파일 수정, seed · DB �
 
 ## 봉인 기록
 
-(사례 작성 뒤, 실행 전에 채운다)
+- 2026-10-05 실행 전: 말뭉치 `data/rev4-corpus.json`(`rev4-v1`, 21건 = regression 12 · holdout 7 · surveillance 2) · 코드북 `CODEBOOK.rev4.md` sha256 `f72c37c58407…` · 기대 판정 `data/sealed/rev4-expected.json` sha256 `fc431545f035…`(전체 값은 말뭉치 `expected_sha256`).
+- 새 사례 작성: 새 context 작성 에이전트(Claude) — rev4 코드북과 문항 후보만 읽음(지난 회차 결과 · 기대 판정 비공개). 작성자 자가 점검으로 R4-H3 · H6 · H7 을 봉인 전에 고침. 작성자가 남긴 위험: R4-H6 은 R3 을 엄격히 적용하는 판정자라면 V.multiword 로 판정할 수 있다.
+- 한계: 작성 에이전트와 판정자 A 가 같은 모델 계열(Claude)이다.

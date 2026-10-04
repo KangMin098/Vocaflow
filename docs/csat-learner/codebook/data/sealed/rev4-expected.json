@@ -1,0 +1,156 @@
+{
+ "_note": "rev4 재검증 기대 판정 — 실행 전 봉인. 판정자에게 공개 금지. REV4_VALIDATION_PLAN.md",
+ "expected": {
+  "C4-11": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "H-13": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "N-13": {
+   "outcome": "identified",
+   "primary": "V.multiword",
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "N-14": {
+   "outcome": "identified",
+   "primary": "R.main_point",
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "N-15": {
+   "outcome": "insufficient_evidence",
+   "primary": null,
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "H-04": {
+   "outcome": "identified",
+   "primary": "R.relation",
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "N-05": {
+   "outcome": "insufficient_evidence",
+   "primary": null,
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "H-05": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [
+    "R.main_point"
+   ],
+   "why": "원래 기대(adjudication 대상 아님)"
+  },
+  "C4-07": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "accept": [
+    "V.multiword"
+   ],
+   "why": "원래 기대(adjudication 대상 아님)"
+  },
+  "C2-02": {
+   "outcome": "undetermined",
+   "primary": null,
+   "accept": [
+    "identified:R.inference",
+    "identified:V.wrong_sense"
+   ],
+   "why": "권장 갈림 — 수렴 기준"
+  },
+  "H-17": {
+   "outcome": "undetermined",
+   "primary": null,
+   "accept": [
+    "identified:V.unknown_word",
+    "identified:V.wrong_sense"
+   ],
+   "why": "권장 갈림 — 수렴 기준"
+  },
+  "N-04": {
+   "outcome": "undetermined",
+   "primary": null,
+   "accept": [
+    "identified:V.multiword",
+    "multiple_plausible:V.multiword|V.wrong_sense"
+   ],
+   "why": "권장 갈림 — 수렴 기준"
+  },
+  "R4-H1": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "candidates": [],
+   "accept": [],
+   "why": "학생이 구절 안 한 낱말(refining)에 실제 다른 사전 뜻(정제=불순물 제거)을 넣었고 그 때문에 해석이 틀었다 — R6 ①, 비유 대응 실패 증거는 따로 없다."
+  },
+  "R4-H2": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "candidates": [],
+   "accept": [],
+   "why": "낱말 사전 뜻은 맞게 잡았고 글쓴이가 만든 구절 단위 비유를 잘못 옮겼다 — R6 ②, 고정 표현도 아니므로 V 가 아니다."
+  },
+  "R4-H3": {
+   "outcome": "identified",
+   "primary": "V.unknown_word",
+   "candidates": [],
+   "accept": [],
+   "why": "채운 뜻 '예민한'은 indifferent 의 어떤 사전 뜻도 아닌 추측이다 — 확신도와 무관하게 R12 ①로 unknown_word, 실제 사전 뜻을 넣은 것이 아니므로 wrong_sense 아님."
+  },
+  "R4-H4": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "candidates": [],
+   "accept": [],
+   "why": "고정 표현 밖 한 낱말(medium)에 실제 다른 사전 뜻(중간)을 넣어 해석이 틀었다 — R12 ① 후단·R6 ①, 낱말 뜻을 맞게 안 상태의 흐름 오판이 아니므로 R.relation 아님."
+  },
+  "R4-H5": {
+   "outcome": "identified",
+   "primary": "V.multiword",
+   "candidates": [],
+   "accept": [],
+   "why": "사전에 하나의 뜻으로 오른 고정 표현 안 한 낱말에 다른 사전 뜻을 넣어 표현 전체를 낱말 합으로 읽었다 — R12 ②, 표현이 판정 단위라 wrong_sense 가 아니다."
+  },
+  "R4-H6": {
+   "outcome": "multiple_plausible",
+   "primary": null,
+   "candidates": [
+    "V.multiword",
+    "R.inference"
+   ],
+   "accept": [],
+   "why": "같은 해석 하나가 낱말 합 직역(V.multiword 최소 증거: 직역이 드러난 해석)으로도, 글 근거(습관 대입)에서 잘못 이끈 함축(R.inference 최소 증거: 이끌어 낸 뜻+근거)으로도 설명되며 둘은 동시에 일어난 두 실패가 아니라 서로 대안이라 R3 단계 순서가 적용되지 않는다 — §6 R.inference vs V.multiword, R10."
+  },
+  "R4-H7": {
+   "outcome": "insufficient_evidence",
+   "primary": null,
+   "candidates": [],
+   "accept": [],
+   "why": "막힌 곳이 문장 전체이고 이유가 실패 단계·선택 근거를 말하지 않아 V·S(또는 B) 어느 코드도 최소 증거가 없다 — §6 V vs S(rev4)·R9."
+  },
+  "R4-S1": {
+   "outcome": "identified",
+   "primary": "S.attachment",
+   "candidates": [],
+   "accept": [],
+   "why": "낱말 뜻은 다 맞고 문장 성분(주어·본동사)도 유지됐는데 분사구가 걸리는 대상을 잘못 붙였다 — S.attachment 가르는 규칙(성분은 맞고 꾸밈 관계만 바뀜)."
+  },
+  "R4-S2": {
+   "outcome": "identified",
+   "primary": "S.attachment",
+   "candidates": [],
+   "accept": [],
+   "why": "낱말 뜻과 주어·동사·목적어는 맞는데 전치사구의 수식 대상을 잘못 붙였다 — S.attachment(성분은 맞고 꾸밈 관계만 바뀜)."
+  }
+ }
+}

@@ -42,6 +42,16 @@ if (!inside(realOf(RUN), realOf(XROOT)) || inside(realOf(RUN), realOf(path.resol
   console.error(`실행 폴더는 ${XROOT} 아래 · 저장소(와 이웃 워크트리) 밖이어야 한다(실제 경로 기준) — 판정자가 저장소를 볼 수 없게 · 원문이 저장소에 쓰이지 않게`); process.exit(2)
 }
 const OP = path.join(RUN, 'operator')
+// 회차 입력 — 준비(prepare) 때 --corpus · --codebook · --expected(코드북 폴더 기준 상대 경로)로 정하고 매니페스트에 고정한다.
+// 지정하지 않으면 rev3 회차 기본값(human-corpus · CODEBOOK.md · sealed/human-expected) — 지난 회차 재현이 그대로 된다
+const RUN_CFG = (() => {
+  const mf = path.join(OP, 'manifest.json')
+  const fromMan = fs.existsSync(mf) ? JSON.parse(fs.readFileSync(mf, 'utf8')).cfg : null
+  const cfg = fromMan ?? { corpus: arg('--corpus') ?? 'data/human-corpus.json', codebook: arg('--codebook') ?? 'CODEBOOK.md', expected: arg('--expected') ?? 'data/sealed/human-expected.json', training: 'data/human-training.json' }
+  for (const v of Object.values(cfg)) if (path.isAbsolute(v) || v.split(/[\\/]/).includes('..')) { console.error(`회차 입력은 코드북 폴더 기준 상대 경로: ${v}`); process.exit(2) }
+  return cfg
+})()
+const CORPUS_F = path.join(DIR, RUN_CFG.corpus), CODEBOOK_F = path.join(DIR, RUN_CFG.codebook), EXPECTED_F = path.join(DIR, RUN_CFG.expected), TRAINING_F = path.join(DIR, RUN_CFG.training)
 // 모든 쓰기 대상의 실제 경로가 실행 폴더 안인지(하위 정션으로 저장소에 쓰는 경로 차단) — 보고 출력만 예외로 따로 검사
 const guardWrite = (f) => { const t = path.resolve(f); if (isLink(t)) { console.error(`쓰기 대상이 링크다: ${f}`); process.exit(2) } if (!inside(realOf(t), realOf(RUN))) { console.error(`쓰기 대상이 실행 폴더 밖이다(실제 경로): ${f}`); process.exit(2) } }
 const sha = (s) => createHash('sha256').update(s).digest('hex')
@@ -268,7 +278,7 @@ function auditRaw(stageDir, engine, tag, out = null, ids = null) {
 
 // ── 명령 ──
 const manifestF = path.join(OP, 'manifest.json')
-const INPUT_FILES = () => ({ codebook: path.join(DIR, 'CODEBOOK.md'), corpus: path.join(DIR, 'data/human-corpus.json'), training: path.join(DIR, 'data/human-training.json'),
+const INPUT_FILES = () => ({ codebook: CODEBOOK_F, corpus: CORPUS_F, training: TRAINING_F,
   round1: path.join(DIR, 'data/round1.json'), round2_hard: path.join(DIR, 'data/round2-hard.json'), round2_recheck: path.join(DIR, 'data/round2-recheck.json'),
   map: path.join(OP, 'map.json'), items: path.join(OP, 'items.json') })
 const fileHash = (f) => sha(readAny(f).replace(/\r\n/g, '\n'))
@@ -286,9 +296,9 @@ const assertNotSealed = () => { if (fs.existsSync(sealF)) { console.error('이�
 
 async function prepare() {
   assertNotSealed()
-  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
-  const training = readJ(path.join(DIR, 'data/human-training.json'))
-  const codebook = readAny(path.join(DIR, 'CODEBOOK.md')).replace(/\r\n/g, '\n')
+  const corpus = readJ(CORPUS_F)
+  const training = readJ(TRAINING_F)
+  const codebook = readAny(CODEBOOK_F).replace(/\r\n/g, '\n')
   const codebookHash = sha(codebook)
   if (codebookHash !== corpus.codebook_sha256) { console.error('CODEBOOK.md 가 고정 해시와 다르다 — 교차검증 중에는 코드북을 바꾸지 않는다'); process.exit(2) }
   if (!corpus.expected_sha256) { console.error('말뭉치에 기대 판정 사전 등록 해시가 없다'); process.exit(2) }
@@ -315,7 +325,7 @@ async function prepare() {
     ;[order.slice(0, half), order.slice(half)].forEach((cs, i) => write(stage, i + 1, reviewerPrompt({ who, codebook, cases: cs, items, idOf: (c) => map[c.case_id], training: training.cases, mode: 'main' })))
   }
   writeJ(manifestF, { run_id: runId, created: new Date().toISOString(), codebook_rev: corpus.codebook_rev, codebook_sha256: codebookHash, expected_sha256_preregistered: corpus.expected_sha256,
-    corpus_id: corpus.id, cases: corpus.cases.length, packets, inputs: inputHashes() })
+    corpus_id: corpus.id, cases: corpus.cases.length, packets, inputs: inputHashes(), cfg: RUN_CFG })
   console.log(`준비: ${RUN} · 사례 ${corpus.cases.length} · 패킷 ${Object.keys(packets).length} · 기대 판정은 열지 않음(사전 등록 해시만 기록)`)
 }
 
@@ -362,7 +372,7 @@ function run() {
   }
   const isChallenge = /^(a2|b2)$/.test(stage), isFinal = /^final-/.test(stage)
   const plans = isChallenge ? readJ(path.join(OP, `${stage}-labels.json`)) : null
-  const caseByOid = (() => { const m = readJ(path.join(OP, 'map.json')); const c = readJ(path.join(DIR, 'data/human-corpus.json')).cases; return Object.fromEntries(c.map((x) => [m[x.case_id], x])) })()
+  const caseByOid = (() => { const m = readJ(path.join(OP, 'map.json')); const c = readJ(CORPUS_F).cases; return Object.fromEntries(c.map((x) => [m[x.case_id], x])) })()
   const expectIds = new Set(prompt.match(/^### 사례 (\S+)/gm).map((s) => s.slice(7)))
   const ctx = { isChallenge, isFinal, plans, caseByOid, expectIds, stage }
   const engine = stageEngine(stage)
@@ -418,7 +428,7 @@ const loadStage = (stage) => {
   if (!parts.length) throw new Error(`${stage} 패킷 없음`)
   const isCh = /^(a2|b2)$/.test(stage), isFin = /^final-/.test(stage)
   const plans = isCh ? JSON.parse(readRun(path.join(OP, `${stage}-labels.json`))) : null
-  const caseByOid = (() => { const mp = JSON.parse(readRun(path.join(OP, 'map.json'))); return Object.fromEntries(readJ(path.join(DIR, 'data/human-corpus.json')).cases.map((x) => [mp[x.case_id], x])) })()
+  const caseByOid = (() => { const mp = JSON.parse(readRun(path.join(OP, 'map.json'))); return Object.fromEntries(readJ(CORPUS_F).cases.map((x) => [mp[x.case_id], x])) })()
   const all = parts.flatMap((k) => {
     const p = k.split('/')[1]
     const f = path.join(d, `out-${p}.json`)
@@ -535,10 +545,10 @@ function gate1() {
   assertNotSealed()
   verifyInputs()
   const man = readJ(manifestF)
-  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const corpus = readJ(CORPUS_F)
   const items = readJ(path.join(OP, 'items.json'))
-  const codebook = readAny(path.join(DIR, 'CODEBOOK.md')).replace(/\r\n/g, '\n')
-  const training = readJ(path.join(DIR, 'data/human-training.json'))
+  const codebook = readAny(CODEBOOK_F).replace(/\r\n/g, '\n')
+  const training = readJ(TRAINING_F)
   const A1 = loadStage('a1'), B1 = loadStage('b1')
   const { toOpaque } = unmap()
   const rows = []
@@ -575,9 +585,9 @@ function challenge() {
   assertNotSealed()
   verifyInputs()
   const man = readJ(manifestF)
-  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const corpus = readJ(CORPUS_F)
   const items = readJ(path.join(OP, 'items.json'))
-  const codebook = readAny(path.join(DIR, 'CODEBOOK.md')).replace(/\r\n/g, '\n')
+  const codebook = readAny(CODEBOOK_F).replace(/\r\n/g, '\n')
   const plan = readJ(path.join(OP, 'challenge-plan.json'))
   const { toOpaque } = unmap()
   for (const [stage, preStage, who] of [['a2', 'a2p', 'A'], ['b2', 'b2p', 'B']]) {
@@ -735,9 +745,9 @@ function resolve() {
   assertNotSealed()
   verifyInputs()
   const man = readJ(manifestF)
-  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const corpus = readJ(CORPUS_F)
   const items = readJ(path.join(OP, 'items.json'))
-  const codebook = readAny(path.join(DIR, 'CODEBOOK.md')).replace(/\r\n/g, '\n')
+  const codebook = readAny(CODEBOOK_F).replace(/\r\n/g, '\n')
   const A1 = loadStage('a1'), B1 = loadStage('b1'), A2 = loadStage('a2'), B2 = loadStage('b2')
   const L2a = readJ(path.join(OP, 'a2-labels.json')), L2b = readJ(path.join(OP, 'b2-labels.json'))
   const A2p = loadStage('a2p'), B2p = loadStage('b2p')
@@ -793,7 +803,7 @@ function resolve() {
 // 보고가 읽는 모든 자료의 해시 — 봉인 뒤 바뀌면 보고를 거부한다
 function sealedInputs() {
   const files = [path.join(OP, 'map.json'), path.join(OP, 'manifest.json'), path.join(OP, 'gate1.json'), path.join(OP, 'resolve.json'), path.join(OP, 'a2-labels.json'), path.join(OP, 'b2-labels.json'),
-    path.join(DIR, 'data/human-corpus.json'), path.join(DIR, 'data/human-training.json'), path.join(DIR, 'CODEBOOK.md'),
+    CORPUS_F, TRAINING_F, CODEBOOK_F,
     path.join(DIR, 'data/round1.json'), path.join(DIR, 'data/round2-hard.json'), path.join(DIR, 'data/round2-recheck.json'), path.join(OP, 'challenge-plan.json')]
   for (const st of ['train-a', 'train-b', 'a1', 'b1', 'a2p', 'b2p', 'a2', 'b2', 'final-claude', 'final-codex']) {
     const d = path.join(RUN, st); if (fs.existsSync(d)) for (const f of fs.readdirSync(d).filter((x) => /^(out-\d+\.json|raw-\d+-\d+\.jsonl?|prompt-\d+\.md)$/.test(x)).sort()) files.push(path.join(d, f))
@@ -843,10 +853,10 @@ const manFor = (stage) => (/^adj[12]-[ab]$/.test(stage ?? '') ? adjManifestF : m
   if (!sealRec.inputs || changed.length) { console.error(`봉인 뒤 입력이 바뀌었다: ${changed.join(', ') || '봉인에 입력 해시 없음'}`); process.exit(2) }
   const rows = JSON.parse(finalText)
   const man = readJ(manifestF)
-  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const corpus = readJ(CORPUS_F)
   const { toCase } = unmap()
   const byCase = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c]))
-  const expRaw = readAny(path.join(DIR, 'data/sealed/human-expected.json'))
+  const expRaw = readAny(EXPECTED_F)
   if (![sha(expRaw), sha(expRaw.replace(/\r\n/g, '\n'))].includes(man.expected_sha256_preregistered ?? corpus.expected_sha256)) { console.error('기대 판정 파일이 사전 등록 해시와 다르다'); process.exit(2) }
   const exp = JSON.parse(expRaw).expected
   const A1 = loadStage('a1'), B1 = loadStage('b1')
@@ -968,7 +978,7 @@ const manFor = (stage) => (/^adj[12]-[ab]$/.test(stage ?? '') ? adjManifestF : m
     for (const f of fs.readdirSync(d).filter((x) => /^out-\d+\.json$/.test(x))) { const o = readJ(path.join(d, f)); models[`${st}/${o.part}`] = { cli: o.meta.cli, models: o.meta.models, run: o.reviewer_run_id, leakage: o.meta.leakage_events.length } }
   }
   // 연습 세트 점수(calibration)
-  const training = readJ(path.join(DIR, 'data/human-training.json'))
+  const training = readJ(TRAINING_F)
   const trainScore = {}
   for (const st of ['train-a', 'train-b']) {
     const f = path.join(RUN, st, 'out-1.json'); if (!fs.existsSync(f)) continue
@@ -1050,7 +1060,7 @@ function adjTargets() {
   const finalText = readRun(path.join(OP, 'final.json'))
   if (sha(finalText) !== JSON.parse(readRun(sealF)).final_sha256) { console.error('봉인 뒤 final.json 이 바뀌었다'); process.exit(2) }
   const rows = JSON.parse(finalText)
-  const expRaw = readAny(path.join(DIR, 'data/sealed/human-expected.json'))
+  const expRaw = readAny(EXPECTED_F)
   const exp = JSON.parse(expRaw).expected
   const { toCase } = unmap()
   const same = (k, e) => !!(k && e) && (k.startsWith('identified:') ? e.outcome === 'identified' && k.slice(11) === e.primary : k.split(':')[0] === e.outcome)
@@ -1119,7 +1129,7 @@ function validateAdj(v, stage, ids, caseData) {
 }
 
 function adjWritePackets(phase, man, entriesFor) {
-  const codebook = readAny(path.join(DIR, 'CODEBOOK.md')).replace(/\r\n/g, '\n')
+  const codebook = readAny(CODEBOOK_F).replace(/\r\n/g, '\n')
   const items = readJ(path.join(OP, 'items.json'))
   for (const [stage, seed] of [[`adj${phase}-a`, 'A'], [`adj${phase}-b`, 'B']]) {
     const entries = shuffled(entriesFor(stage), `${man.run_id}:${stage}:${seed}`)
@@ -1136,7 +1146,7 @@ function adjPrepare() {
   if (lexists(adjManifestF)) { console.error('adjudication 이 이미 준비됐다'); process.exit(2) }
   const base = readJ(manifestF)
   const man = { run_id: `${base.run_id}-adj`, codebook_sha256: base.codebook_sha256, created: new Date().toISOString(), plan_commit: arg('--plan-commit') ?? null, packets: {}, targets: [] }
-  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const corpus = readJ(CORPUS_F)
   const byCase = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c]))
   const targets = adjTargets()
   man.targets = targets.map((t) => t.oid)
@@ -1148,7 +1158,7 @@ function adjReveal() {
   verifyInputs()
   const man = readJ(adjManifestF)
   if (man.packets['adj2-a/1']) { console.error('2단계 패킷이 이미 있다'); process.exit(2) }
-  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const corpus = readJ(CORPUS_F)
   const byCase = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c]))
   const targets = adjTargets()
   const A1 = loadStage('a1'), B1 = loadStage('b1'), A2 = loadStage('a2'), B2 = loadStage('b2')
@@ -1172,7 +1182,7 @@ function adjReport() {
   verifyInputs()
   const man = readJ(adjManifestF)
   const { toCase } = unmap()
-  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const corpus = readJ(CORPUS_F)
   const byCase = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c]))
   const targets = adjTargets()
   const J1a = loadStage('adj1-a'), J1b = loadStage('adj1-b'), Ja = loadStage('adj2-a'), Jb = loadStage('adj2-b')
@@ -1256,6 +1266,68 @@ function adjReport() {
   console.log(`adjudication 보고: rev4 ${rev4 ? '필요' : '불필요'} · seed 후보 ${summary.seed_candidate ? '예' : '아니오'} · 합의 ${agreed.length}/${rows.length}`)
 }
 
-const cmds = { prepare, run, gate1, challenge, resolve, seal, report, 'adj-prepare': adjPrepare, 'adj-reveal': adjReveal, 'adj-report': adjReport }
+// ── rev4 채택 판정 — docs/csat-learner/codebook/REV4_VALIDATION_PLAN.md(사전 등록 c406cbd09)의 기준을 그대로 기계 판정
+// 봉인 · 입력 검증 뒤에만. 사례 원문 없이 사례 id · 판정 열쇠 · 통과 여부만 저장소에 쓴다
+function rev4Eval() {
+  verifyInputs()
+  if (!lexists(sealF)) { console.error('봉인 뒤에만'); process.exit(2) }
+  const finalText = readRun(path.join(OP, 'final.json'))
+  if (sha(finalText) !== JSON.parse(readRun(sealF)).final_sha256) { console.error('봉인 뒤 final.json 이 바뀌었다'); process.exit(2) }
+  const rows = JSON.parse(finalText)
+  const { toCase } = unmap()
+  const corpus = readJ(CORPUS_F)
+  const exp = JSON.parse(readAny(EXPECTED_F)).expected
+  const byCase = Object.fromEntries(rows.map((r) => [toCase[r.oid], r]))
+  const setOf = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c.set]))
+  // 기대와 같음 — identified 는 primary 까지, multiple 은 후보 집합까지(기대에 후보가 있으면), 그 밖은 결과
+  const match = (k, e) => {
+    if (!k || !e || e.outcome === 'undetermined') return false
+    if (k.startsWith('identified:')) return e.outcome === 'identified' && k.slice(11) === e.primary
+    if (k.startsWith('multiple_plausible:')) return e.outcome === 'multiple_plausible' && (!(e.candidates ?? []).length || [...e.candidates].sort().join('|') === k.slice(19))
+    return k === e.outcome
+  }
+  const verified = (id) => byCase[id]?.final_status === 'FINAL_VERIFIED'
+  const ok = (id) => verified(id) && match(byCase[id].final, exp[id])
+  // 수렴 — 권장 기대가 갈린 regression 사례: FINAL_VERIFIED 이고 그 판정이 두 adjudicator 권장 중 하나(accept 에 담아 둠)
+  const converged = (id) => verified(id) && (exp[id]?.accept ?? []).includes(byCase[id].final)
+  const CHANGES = {
+    R6: { holdout: ['R4-H1', 'R4-H2'], regression_match: ['C4-11', 'H-13', 'H-05', 'C4-07'], regression_converge: ['C2-02'] },
+    R12: { holdout: ['R4-H3', 'R4-H4', 'R4-H5'], regression_match: ['N-13'], regression_converge: ['H-17', 'N-04'] },
+    R9_section6: { holdout: ['R4-H6', 'R4-H7'], regression_match: ['N-15', 'N-05'], regression_converge: [] },
+  }
+  const regDefined = ['C4-11', 'H-13', 'H-05', 'C4-07', 'N-13', 'N-14', 'N-15', 'H-04', 'N-05']
+  const regMatch = regDefined.filter(ok).length
+  const noRegression = regMatch >= 7
+  const result = {}
+  for (const [name, c] of Object.entries(CHANGES)) {
+    const h = c.holdout.map((id) => ({ id, final: byCase[id]?.final ?? null, status: byCase[id]?.final_status, expected: exp[id], pass: ok(id) }))
+    const rm = c.regression_match.map((id) => ({ id, final: byCase[id]?.final ?? null, pass: ok(id) }))
+    const rc = c.regression_converge.map((id) => ({ id, final: byCase[id]?.final ?? null, pass: converged(id) }))
+    result[name] = { holdout: h, regression_match: rm, regression_converge: rc, adopt: noRegression && [...h, ...rm, ...rc].every((x) => x.pass) }
+  }
+  const surv = corpus.cases.filter((c) => c.set === 'surveillance').map((c) => ({ id: c.case_id, final: byCase[c.case_id]?.final ?? null, status: byCase[c.case_id]?.final_status }))
+  const survAbsorbed = surv.length > 0 && surv.every((x) => x.final?.startsWith('identified:S.') && x.final !== 'identified:S.attachment')
+  const summary = { plan_commit: arg('--plan-commit') ?? null, codebook_sha256: readJ(manifestF).codebook_sha256, final_sha256: sha(finalText), regression_defined_match: `${regMatch}/9`, rev3_baseline: '7/9', no_regression: noRegression, changes: result, surveillance: surv, surveillance_absorbed_into_other_S: survAbsorbed,
+    sets: Object.fromEntries(['regression', 'holdout', 'surveillance'].map((st) => [st, { n: rows.filter((r) => setOf[toCase[r.oid]] === st).length, verified: rows.filter((r) => setOf[toCase[r.oid]] === st && r.final_status === 'FINAL_VERIFIED').length, unresolved: rows.filter((r) => setOf[toCase[r.oid]] === st && r.final_status === 'UNRESOLVED').map((r) => toCase[r.oid]) }])) }
+  const outMd = path.resolve(arg('--out') ?? '')
+  if (!/REV4_EVAL\.md$/.test(outMd) || !inside(realOf(outMd), realOf(DIR)) || isLink(outMd)) { console.error('--out 은 docs/csat-learner/codebook/REV4_EVAL.md'); process.exit(2) }
+  fs.writeFileSync(outMd.replace(/\.md$/, '.json'), JSON.stringify(summary, null, 1) + '\n')
+  const esc = (x) => String(x ?? '—').replace(/\|/g, '\\|')
+  const ek = (e) => (!e ? '—' : e.outcome === 'identified' ? `identified:${e.primary}` : e.outcome === 'multiple_plausible' ? `multiple_plausible:${(e.candidates ?? []).slice().sort().join('|')}` : e.outcome)
+  const L = [`# rev4 재검증 결과 — 변경점별 채택 판정`, '', `> 사전 등록: [REV4_VALIDATION_PLAN.md](./REV4_VALIDATION_PLAN.md)${summary.plan_commit ? ` (\`${summary.plan_commit}\`)` : ''} · 코드북 \`${summary.codebook_sha256.slice(0, 12)}\` · 최종 판정 봉인 \`${summary.final_sha256.slice(0, 12)}\` · Claude × Codex 4중 blind · 사람 검증 아님 · 원문 없음.`, '',
+    '## 세트별(따로 본다)', '', '| 세트 | 건 | 최종 확정 | 미해결 |', '|---|---|---|---|', ...Object.entries(summary.sets).map(([k, v]) => `| ${k} | ${v.n} | ${v.verified} | ${v.unresolved.join(' ') || '—'} |`), '',
+    `퇴행 검사 — 기대가 정해진 Regression 9건 일치 **${summary.regression_defined_match}** (rev3 7/9) → ${noRegression ? '퇴행 없음' : '**퇴행 — rev4 전체 보류**'}`, '']
+  for (const [name, r] of Object.entries(result)) {
+    L.push(`## ${name} — ${r.adopt ? '**채택**' : '**candidate 유지**'}`, '', '| 사례 | 구분 | 최종 | 기대 / 기준 | 통과 |', '|---|---|---|---|---|',
+      ...r.holdout.map((x) => `| ${x.id} | holdout | ${esc(x.final)} | ${esc(ek(x.expected))} | ${x.pass ? '예' : '아니오'} |`),
+      ...r.regression_match.map((x) => `| ${x.id} | regression | ${esc(x.final)} | ${esc(ek(exp[x.id]))} | ${x.pass ? '예' : '아니오'} |`),
+      ...r.regression_converge.map((x) => `| ${x.id} | regression(수렴) | ${esc(x.final)} | 두 adjudicator 권장 중 하나: ${esc((exp[x.id]?.accept ?? []).join(' / '))} | ${x.pass ? '예' : '아니오'} |`), '')
+  }
+  L.push('## Surveillance — S.attachment(채택과 무관)', '', ...surv.map((x) => `- ${x.id}: ${esc(x.final)} (${x.status})`), '', `두 건 모두 다른 S 코드로 흡수: ${survAbsorbed ? '예 → 다음 개정에서 병합 · 하향 후보' : '아니오'}`, '')
+  fs.writeFileSync(outMd, L.join('\n'))
+  console.log(`rev4 판정: ${Object.entries(result).map(([k, v]) => `${k} ${v.adopt ? '채택' : '보류'}`).join(' · ')} · 퇴행 ${noRegression ? '없음' : '있음'}`)
+}
+
+const cmds = { prepare, run, gate1, challenge, resolve, seal, report, 'adj-prepare': adjPrepare, 'adj-reveal': adjReveal, 'adj-report': adjReport, 'rev4-eval': rev4Eval }
 if (!cmds[cmd]) { console.error(`명령: ${Object.keys(cmds).join(' | ')}`); process.exit(2) }
 await cmds[cmd]()
