@@ -18,6 +18,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor, passageOf, choicesOf, INLINE_SYMBOL_TYPES } from './lib-passage.mjs'
 import { examMetaOf, listeningEndOf } from './lib-exam-id.mjs'
+import {applySourceRepair} from './lib-source-repair.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
@@ -33,6 +34,11 @@ const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
 const SET = process.argv.includes('--set') ? process.argv[process.argv.indexOf('--set') + 1] : 'kice'
 if (!['kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 kice | hakpyeong: ${SET}`)
 const OUT_NAME = SET === 'kice' ? 'corpus' : 'corpus-hakpyeong'
+const repairFile = path.join(DIR, 'hakpyeong-source-repairs.json')
+const sourceRepairs = SET === 'hakpyeong' && fs.existsSync(repairFile)
+  ? new Map(JSON.parse(fs.readFileSync(repairFile, 'utf8')).repairs.map(repair => [repair.item_id, repair]))
+  : new Map()
+const pdfFolder = process.env.CSAT_HAKPYEONG_DIR ?? 'C:/Users/Administrator/Documents/영어/학력평가'
 
 const TYPES = new Map(read('classified.json').types.map((t) => [t.id, t]))
 
@@ -131,7 +137,7 @@ function bodyOf(exam, no, typeId) {
   let choices = null
   for (const b of blocks) {
     if (!passage) passage = passageOf(b, { symbolsInline, keepEnglishNotes }) || null
-    if (!choices) choices = choicesOf(b)
+    if (!choices) choices = choicesOf(b, {positionsOnly: SET === 'hakpyeong' && typeId === 'R-INSERT'})
     if (passage && choices) break
   }
   const set = setBlockFor(exam, no)
@@ -304,6 +310,13 @@ for (const q of rows) {
     SET === 'hakpyeong' && body.passage && !/BLANK/.test(q.type ?? '')
       ? reconstructed.replace(/ ?______ ?/g, ' ').replace(/ {2,}/g, ' ')
       : reconstructed
+  const itemId = `${q.exam}#${String(q.no).padStart(2, '0')}`
+  const repair = sourceRepairs.get(itemId)
+  let inspected = {id:itemId, passage, choices, stem:q.stem}
+  if (repair) {
+    if (path.basename(repair.pdf_file) !== repair.pdf_file || !repair.pdf_file.endsWith('.pdf')) throw new Error('원문 수리 PDF는 정본 폴더의 파일명만 받는다')
+    inspected = applySourceRepair(inspected, repair, fs.readFileSync(path.join(pdfFolder, repair.pdf_file)))
+  }
   items.push({
     id: `${q.exam}#${String(q.no).padStart(2, '0')}`,
     exam: q.exam,
@@ -318,9 +331,9 @@ for (const q of rows) {
     section: q.no <= listeningEnd(q.exam) ? '듣기' : q.no <= 40 ? '독해' : '장문',
     type_id: q.type ?? null,
     type_name: q.type ? (TYPES.get(q.type)?.name ?? null) : null,
-    stem: q.stem,
-    passage,
-    choices,
+    stem: inspected.stem,
+    passage: inspected.passage,
+    choices: inspected.choices,
     answer: key?.answer ?? null,
     answers: key?.answers ?? null,
     points: key?.points ?? null,
@@ -329,7 +342,7 @@ for (const q of rows) {
     // 지문이 미덥지 않다는 딱지. 파서를 더 깎는 대신 **딱지를 붙여** 드레인이 원문 블록을
     // 함께 싣게 한다 — 분석하는 쪽이 원문을 볼 수 있으면 파서의 마지막 몇 %는 병목이 아니다.
     // 신호 넷은 전부 실측에서 나왔다(2026-09-02, 서브에이전트 6종 보고):
-    body_suspect: suspectBody(passage, q.type) || suspectChoices(choices, q.type),
+    body_suspect: suspectBody(inspected.passage, q.type) || suspectChoices(inspected.choices, q.type),
     // **분석 파이프라인의 사정권.** 듣기는 제외한다 — 사용자 지시(2026-09-02).
     // 원장에서 빼지 않고 딱지만 붙이는 이유: 회차 배점 합이 100 인지 보는 검사가
     // 듣기를 포함해야 성립하고, 듣기 대본 9회차가 새로 들어와 있어 나중에 되살릴 수 있다.

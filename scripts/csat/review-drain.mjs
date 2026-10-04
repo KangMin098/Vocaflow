@@ -48,6 +48,7 @@ import { isKiceExam } from './lib-exam-id.mjs'
 import { execFileSync } from 'node:child_process'
 import { prepareReviewLedgers, reviewLedgerSql } from './lib-review-ledger.mjs'
 import { blindProtocolViolation } from './lib-review-blind-protocol.mjs'
+import { validateBlindSolutions } from './lib-review-solutions.mjs'
 import { fileURLToPath } from 'node:url'
 // 기록하는 커밋은 «실행한 스크립트»의 저장소 것 — 다른 워크트리 cwd 에서 돌려도 섞이지 않게
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
@@ -282,10 +283,11 @@ switch (cmd) {
     const run = must(arg('run'), 'run')
     const answer = Number(must(arg('answer'), 'answer'))
     const note = must(arg('note'), 'note')
-    if (!(answer >= 1 && answer <= 5)) die('answer 는 1~5')
+    if (!Number.isInteger(answer) || !(answer >= 1 && answer <= 5)) die('answer 는 1~5 정수')
     const { data: meta, error: me } = await db.from('csat_review_runs')
       .select('id, item_id, agent_run, created_at, solve_committed_at').eq('id', run).single()
     if (me) die(me.message)
+    validateBlindSolutions([{run_id:run,item_id:meta.item_id,answer,note}], [{run_id:run,item_id:meta.item_id,kind:'blind'}])
     await assertBlindValid([run])
     await assertBlindSourceUnseen(meta, new Date().toISOString())
     const { error } = await db.rpc('csat_review_solve', { p_run: run, p_answer: answer, p_note: note })
