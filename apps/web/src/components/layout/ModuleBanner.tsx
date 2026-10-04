@@ -31,12 +31,12 @@ function stageOf(pathname: string): { label: string; says: string; item: string 
 export function ModuleBanner({ slot = 'main' }: { slot?: 'main' | 'library' }) {
   const pathname = usePathname() ?? ''
   // ModuleHero가 그림·큰 제목을 함께 제공하는 허브는 같은 머리를 두 번 쌓지 않는다.
-  if (slot === 'main' && ['/dictate', '/flashcard', '/spellforge', '/pairflip', '/text', '/wordblitz', '/my/books'].includes(pathname)) return null
+  if (slot === 'main' && ['/dictate', '/flashcard', '/spellforge', '/pairflip', '/text'].includes(pathname)) return null
   if (!wantsBanner(pathname, slot)) return null
   const art = routeArt(pathname)!
   const stage = stageOf(pathname)
   return (
-    <div className={`${['/diagnostic', '/dashboard', '/plan', '/reports', '/library/books'].includes(pathname) ? 'md:hidden' : ''} mx-auto w-full max-w-[var(--ios-content-wide-max)] ${slot === 'library' ? '' : 'px-4 pt-4 md:px-6 md:pt-5'}`}>
+    <div className={`${['/diagnostic', '/dashboard', '/plan', '/reports', '/library/books', '/wordblitz', '/my/books'].includes(pathname) ? 'md:hidden' : ''} mx-auto w-full max-w-[var(--ios-content-wide-max)] ${slot === 'library' ? '' : 'px-4 pt-4 md:px-6 md:pt-5'}`}>
       <div className={`${TINT_CLASS[art.tint]} relative flex min-h-[112px] items-center gap-4 overflow-hidden rounded-[24px] py-4 pl-5 pr-[120px] md:min-h-[128px] md:pl-7 md:pr-[200px]`}>
         <div className="min-w-0">
           {stage && (
