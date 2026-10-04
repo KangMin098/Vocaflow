@@ -147,6 +147,8 @@
 
 스킨 위 앱 부품(DD-68): `components/layout/AreaNav` — 구역 하위 내비(라벤더 알약 막대, 선택 면 = 막대 면에 `--ju` 12% 섞음) · `.dots` — 옅은 면 위 점 격자 질감(면 글자색 12% · 12px, tines-mapping §25) · `components/layout/AreaHero` — 앱 구역 머리(범주 색 **진한 판** 안 2열 · 오른쪽 타일 · 선택 `tabs` = 판 아랫변 폴더 탭, 고른 탭 면 `--bg2` · tines-mapping §24). 틴트 면 위 본문은 `--t2` 까지 — 분홍 · 청록 면에는 `--t1` 만 쓴다(`#714bd0` 가 4.0 · 4.4:1).
 
+학습 화면 머리 두 계층(2026-10-04) — 같은 머리를 모든 화면에 붙이지 않는다. **발견형** = `ModuleHero` 의 `tines-solutions-hero`(참조 /solutions: 크림 바탕 · 가운데 모노 눈썹 + 보라 세리프 52px · 양옆 떠 있는 판 삽화 한 쌍, 복습카드 · SpellForge · PairFlip · 내 책장). **기능형** = `components/ui/PageIntro`(왼쪽 정렬 · 눈썹 「구역 · 화면」 · 보라 세리프 48px · 설명 · 오른쪽 행동/작은 그림 · 아래 가는 선, 대시보드 · 학습 계획 · 주간 리포트 · V-Level 기록 · 설정). 화면별 머리 크기 덮어쓰기는 스킨에 두지 않는다. 셸 `SectionSubNav` 가 PC 상단에 「구역 › 화면」 알약 + 형제 링크 줄을 그린다(메뉴 정본 `allEntryItems` · 서가/CSAT/허브/게임/세션 제외). PC 폭 토큰은 스킨에서 `--ios-content-wide-max` 1280 · `--ios-content-max` 1080.
+
 팝업 골격(DD-68 · tines-mapping §28): `components/ui/Dialog` 하나가 저장소의 모든 팝업 껍데기다 — 밝은 배경막(`--bg` 72% + blur, 어둡게 덮지 않는다) · 크림 패널 1px `--bd` · `--r-2xl` · `--sh-float` · 머리(빵부스러기 알약 → 40px 제목 → 작성자 줄 → 윤곽선 태그 + 오른쪽 메타) → 가로선 → 본문 → 바닥 알약 버튼 줄. 부품 `DialogColumns`(1.8:1 2열) · `DialogTintPanel`(`.tone-*` 면 패널) · `DialogSection`. 클래스는 `tines-kit.ts` 의 `DIALOG`(overlay · panel · header · crumbs · title · tag · iconBtn 44px · edgeBtn) · `TINT_PANEL` · `BTN_STACKED`(색 어긋난 겹친 그림자 — 참조 「COPY PROMPT」). Esc · 바깥 · 뒤로가기 · 포커스 가둠·복원 · 스크롤 잠금은 부품의 계약이고, **마운트 = 열림**이다(`isOpen` 없음). `ui/Modal` 은 `isOpen` 을 받는 얇은 호환 층으로 남는다.
 
 ### 색 토큰 카탈로그 (현행 · 2026-09-18 실측)

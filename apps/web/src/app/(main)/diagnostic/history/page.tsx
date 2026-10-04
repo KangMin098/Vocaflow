@@ -3,6 +3,8 @@
 // 진단 history — user_level_snapshots audit chain 시각화
 // Server Component: 본인 snapshots 조회 → 클라이언트 timeline 렌더
 
+import { PageIntro } from '@/components/ui/PageIntro'
+import { LearningPathArt } from '@/components/ui/LearningPathArt'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
@@ -44,24 +46,22 @@ export default async function DiagnosticHistoryPage() {
   return (
     <Screen width="content" background="bg2" padX="md" className="diagnostic-history">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        <header className="px-1">
-          {/* 되돌아가는 링크는 이 화면의 유일한 앞길이다 — 히트 영역 44px 확보
-              (실측 2026-08-25: 126×20 이었다). 세로 여백은 음수 마진으로 되받아
-              제목과의 간격을 유지한다. */}
-          <Link
-            href="/diagnostic"
-            className="-my-3 inline-flex min-h-11 items-center gap-2 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]"
-          >
-            <ArrowLeft size={14} aria-hidden />
-            진단으로 돌아가기
-          </Link>
-          <h1 className="mt-3 font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-            V-Level 변천사
-          </h1>
-          <p className="mt-2 font-body text-[14px] text-[var(--t2)]">
-            진단·학습·수동 갱신의 audit chain — 시간 순으로 V-Level 변화 추적
-          </p>
-        </header>
+        <PageIntro
+          lead={
+            // 되돌아가는 링크는 이 화면의 유일한 앞길이다 — 히트 영역 44px 확보(실측 2026-08-25: 126×20 이었다).
+            <Link
+              href="/diagnostic"
+              className="-my-3 inline-flex min-h-11 items-center gap-2 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]"
+            >
+              <ArrowLeft size={14} aria-hidden />
+              진단으로 돌아가기
+            </Link>
+          }
+          kicker="Growth · Level"
+          title="V-Level 변천사"
+          description="진단·학습·수동 갱신의 기록 — 시간 순으로 V-Level 변화를 따라갑니다."
+          art={<LearningPathArt variant="growth" />}
+        />
 
         {error && (
           <Card size="md" elevation={1}>

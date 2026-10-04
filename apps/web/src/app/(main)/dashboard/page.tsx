@@ -32,6 +32,7 @@
 // 조치 표면이 둘로 남아 있었다. 4상태는 "지금 뭘 할까"(forward)라 띠의 소관이고,
 // 이 화면은 "얼마나 오래 가나"(backward)를 맡는다.
 
+import { PageIntro } from '@/components/ui/PageIntro'
 import { LearningPathArt } from '@/components/ui/LearningPathArt'
 
 import { Screen } from '@/components/ui/ios'
@@ -88,18 +89,17 @@ export default async function DashboardPage() {
             v07 — 이름을 `--p`(딥 잉크)로 칠하던 것을 주묵 표식으로 바꿨다. 한 화면에서
             "여기가 당신" 이라고 말하는 자리는 하나이고, 그 표식은 브랜드 색이 맡는다. */}
         {/* DD-68 — 참조 구간 머리: 눈썹(날짜) · 큰 제목 · 오른쪽 소품. 무거운 밑줄 대신 여백으로 가른다. */}
-        <header className="growth-intro flex items-end justify-between gap-6">
-          <div className="min-w-0">
-            <span className="font-display text-[14px] font-[700] tracking-[0.04em] text-[var(--ju)]">
-              {kstDateLabel()}
-            </span>
-            <h1 className="mt-3 break-keep font-display text-[36px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[52px]">
-              <span className="text-[var(--ju-ink)]">{overview.userName}</span>
+        <PageIntro
+          className="growth-intro"
+          kicker={kstDateLabel()}
+          title={
+            <>
+              <span>{overview.userName}</span>
               <span>님이 지나온 길</span>
-            </h1>
-          </div>
-          <LearningPathArt variant="growth" className="growth-art hidden md:block" />
-        </header>
+            </>
+          }
+          art={<LearningPathArt variant="growth" />}
+        />
 
         {/* ── v07 「주묵 판면」 ────────────────────────────────────────────────
             이 화면의 결함은 블록이 나쁜 게 아니라 **일곱 블록이 전부 같은 무게**라는 것이었다

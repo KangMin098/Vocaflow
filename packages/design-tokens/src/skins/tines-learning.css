@@ -16,13 +16,13 @@
   :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports,.tines-books) { background: var(--bg); }
   :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports,.tines-books) > main { max-width: var(--learning-max); padding-inline: var(--learning-inset); }
   :root[data-skin="tines"] :is(.growth-story,.plan-workspace,.reports-journal,.tines-books > main > div) { padding-block: 64px 96px; }
-  :root[data-skin="tines"] :is(.growth-intro,.plan-intro,.reports-intro,.books-intro) h1 { font-family: var(--font-serif); font-size: var(--growth-title); line-height: var(--growth-title-line); font-weight: 400; letter-spacing: -.035em; word-break: keep-all; }
+  :root[data-skin="tines"] .books-intro h1 { font-family: var(--font-serif); font-size: var(--growth-title); line-height: var(--growth-title-line); font-weight: 400; letter-spacing: -.035em; word-break: keep-all; }
   :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports,.tines-books) :is(a,button):focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
   :root[data-skin="tines"] .growth-story { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 32px var(--growth-gap); }
   :root[data-skin="tines"] .growth-story > * { grid-column: 1 / -1; min-width: 0; }
-  :root[data-skin="tines"] .growth-story > .growth-intro { grid-column: 1; flex-direction: column; align-items: flex-start; justify-content: space-between; padding-block: 24px; }
-  :root[data-skin="tines"] .growth-intro h1 > span:first-child { color: inherit; }
-  :root[data-skin="tines"] .growth-art { width: var(--learning-art); align-self: center; }
+  /* 기능형 머리(PageIntro) — 대시보드 · 계획 · 리포트 · 기록 · 설정 공통. 화면별 머리 크기 덮어쓰기는 두지 않는다(2026-10-04). */
+  /* 대시보드만 승인된 비대칭(머리 | 기억 카드)을 지킨다 — 머리를 왼쪽 칸에 세로로 앉힌다. */
+  :root[data-skin="tines"] .growth-story > .growth-intro { grid-column: 1; flex-direction: column; align-items: flex-start; justify-content: space-between; }
   :root[data-skin="tines"] .growth-story > .growth-first-rule { display: none; }
   :root[data-skin="tines"] .growth-story > .growth-durability { grid-column: 2; grid-row: 1; border-radius: var(--learning-card-radius); padding: var(--learning-cell-pad); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); --t3: var(--tint-green-ink); --bd: color-mix(in srgb,var(--tint-green-ink) 25%,transparent); background: var(--tint-green); }
   :root[data-skin="tines"] .growth-durability h2 { font-size: 80px; line-height: 1; }
@@ -37,10 +37,6 @@
   :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section:nth-child(3) { background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); }
   :root[data-skin="tines"] .growth-story > section[aria-label="어휘의 무게중심"] { background: transparent; border-radius: 0; border-bottom: 1px solid var(--bd); padding: 24px 0; }
   :root[data-skin="tines"] .plan-workspace { gap: 32px; }
-  :root[data-skin="tines"] .plan-intro { position: relative; padding: 48px 280px 48px 0; min-height: 270px; }
-  :root[data-skin="tines"] .plan-intro h1 > span { display: none; }
-  :root[data-skin="tines"] .plan-intro > p { margin-top: 24px; font-size: 17px; }
-  :root[data-skin="tines"] .plan-art { position: absolute; right: 0; top: 0; width: var(--learning-art); }
   :root[data-skin="tines"] .plan-workspace > section[aria-label="오늘의 학습"] { background: var(--tint-green); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); padding: 28px; border: 0; border-radius: var(--learning-card-radius); box-shadow: none; }
   :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] { border-radius: 0; background: transparent; border: 0; padding: 32px 0; border-block: 1px solid var(--bd); }
   :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] > div:first-child h2 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; }
@@ -51,12 +47,6 @@
   :root[data-skin="tines"] .plan-composer > div:last-child { padding: 32px; border-radius: var(--learning-card-radius); background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --t3: var(--tint-peach-ink); }
   :root[data-skin="tines"] .plan-composer > div > h2 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; }
   :root[data-skin="tines"] .reports-journal { max-width: none; padding-inline: 0; gap: var(--growth-gap); }
-  :root[data-skin="tines"] .reports-intro { position: relative; min-height: 260px; padding-right: 300px; flex-wrap: wrap; gap: 24px; }
-  :root[data-skin="tines"] .reports-intro > span { display: none; }
-  :root[data-skin="tines"] .reports-intro > div { flex-basis: 100%; }
-  :root[data-skin="tines"] .reports-intro p { font-size: 17px; margin-top: 24px; }
-  :root[data-skin="tines"] .reports-art { position: absolute; right: 0; top: 0; width: var(--learning-art); }
-  :root[data-skin="tines"] .reports-intro > button { border-radius: 999px; }
   :root[data-skin="tines"] .reports-archive { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 40px; }
   :root[data-skin="tines"] .reports-archive > li:first-child { grid-column: 1 / -1; }
   :root[data-skin="tines"] .report-entry { border: 0; border-top: 1px solid var(--bd); border-radius: 0; padding: 32px 0; box-shadow: none; background: transparent; gap: 24px; }
@@ -112,8 +102,6 @@
 @media (min-width: 768px) and (max-width: 1199px) {
   :root[data-skin="tines"] .growth-story { grid-template-columns: 1fr; }
   :root[data-skin="tines"] .growth-story > .growth-durability { grid-column: 1; grid-row: auto; }
-  :root[data-skin="tines"] .growth-intro { position: relative; padding-right: 220px; }
-  :root[data-skin="tines"] .growth-art { position: absolute; right: 0; bottom: 0; width: 200px; }
   :root[data-skin="tines"] .books-browse { grid-template-columns: 240px minmax(0,1fr); gap: 24px; }
   :root[data-skin="tines"] .books-browse > .books-catalog { grid-template-columns: repeat(3,minmax(0,1fr)); }
   :root[data-skin="tines"] .books-feature-cover { width: 220px; }
@@ -297,7 +285,6 @@
   :root[data-skin="tines"] :is(.tines-settings,.diagnostic-history) > main { max-width: var(--learning-max); padding-inline: var(--learning-inset); }
   :root[data-skin="tines"] .tines-settings > main > div { display: grid; grid-template-columns: var(--tines-library-rail) minmax(0,1fr); gap: 48px var(--tines-library-gutter); padding-block: 64px; }
   :root[data-skin="tines"] .tines-settings > main > div > header { grid-column: 1 / -1; margin: 0; padding: 0; }
-  :root[data-skin="tines"] :is(.tines-settings,.diagnostic-history) h1 { font-family: var(--font-serif); font-size: var(--learning-title); line-height: var(--learning-title-line); font-weight: 400; }
   :root[data-skin="tines"] .tines-settings nav { position: sticky; top: calc(var(--app-header-h,64px) + 24px); align-self: start; flex-direction: column; align-items: stretch; gap: 8px; margin: 0; padding: 24px; border-radius: var(--learning-card-radius); background: var(--tint-lavender); }
   :root[data-skin="tines"] .tines-settings nav a { justify-content: flex-start; background: transparent; box-shadow: none; color: var(--tint-lavender-ink); font-size: 15px; border-radius: 999px; }
   :root[data-skin="tines"] .tines-settings nav a:hover { background: var(--bg); }
@@ -312,6 +299,8 @@
   :root[data-skin="tines"] .tines-settings [role="radio"][aria-checked="true"] { background: var(--p); color: var(--on-p); box-shadow: none; }
   :root[data-skin="tines"] .diagnostic-history > main > div { display: grid; grid-template-columns: 1fr 1.5fr; gap: 72px; padding-block: 64px; }
   :root[data-skin="tines"] .diagnostic-history header { padding: 0; }
+  /* 기록 화면 왼쪽 열 머리 — 참조 /webinars 처럼 위에 붙어 따라온다(격자 칸 높이로 늘어나 글자가 바닥에 깔리던 것 수정). */
+  :root[data-skin="tines"] .diagnostic-history .page-intro { align-self: start; position: sticky; top: calc(var(--app-header-h, 64px) + 64px); flex-direction: column; align-items: flex-start; }
   :root[data-skin="tines"] .diagnostic-history > main > div > section { padding: 0; background: transparent; box-shadow: none; border: 0; border-radius: 0; }
   :root[data-skin="tines"] .diagnostic-history ol { gap: 0; padding-left: 40px; }
   :root[data-skin="tines"] .diagnostic-history ol > li { border-bottom: 1px solid var(--bd); }

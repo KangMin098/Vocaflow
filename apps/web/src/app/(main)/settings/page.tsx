@@ -8,6 +8,7 @@
 
 'use client'
 
+import { PageIntro } from '@/components/ui/PageIntro'
 import {
   AlertTriangle,
   BellOff,
@@ -262,14 +263,12 @@ export default function SettingsPage() {
       <div className="py-6 md:py-8">
         <SaveIndicator />
         {/* ── Header ── */}
-        <header className="mb-6 px-1">
-          <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-            설정
-          </h1>
-          <p className="mt-2 font-body text-[15px] leading-relaxed text-[var(--t2)]">
-            학습 흐름은 당신의 것이에요. 무엇이든 자유롭게 바꿔보세요.
-          </p>
-        </header>
+        <PageIntro
+          className="mb-8"
+          kicker="Growth · Settings"
+          title="설정"
+          description="학습 흐름은 당신의 것이에요. 무엇이든 자유롭게 바꿔보세요."
+        />
 
         {/* ── Quick TOC — iOS 캡슐 ── */}
         <nav aria-label="섹션 바로가기" className="mb-6 flex flex-wrap gap-2 px-1">

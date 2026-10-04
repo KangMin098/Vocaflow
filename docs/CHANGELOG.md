@@ -11,6 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): 학습자 PC 화면 통일 2차 — 기능형 머리 `PageIntro` 신설(대시보드·학습 계획·주간 리포트·V-Level 기록·설정의 제각각 머리 통합, 화면별 스킨 덮어쓰기 제거), PC 폭 토큰 1024/820 → 1280/1080(가운데 섬 해소), V-Level 기록 머리 sticky. 캡처 하네스에 `--theme dark`·가로 넘침 실패 판정·재로그인 재시도·리다이렉트 재시도·실행 메타(git SHA·스크립트 해시·요청/최종 URL) 추가. DB·라우트 변경 없음.
 - feat(design): 학습자 PC 전 화면에 Tines 하위 화면 공통 어휘 — 셸 `SectionSubNav`(「구역 › 화면」 알약 + 형제 링크 줄, 메뉴 정본 `allEntryItems` 를 읽음 · 서가/CSAT/허브/게임/세션 제외), `ModuleHero` 솔루션형 가운데 히어로 + 구역별 양옆 아이소메트릭 삽화(복습카드·SpellForge·PairFlip·내 책장, 신규 `practice-iso-*`·`growth-iso-*`). 모바일 변화 없음 · DB·라우트 변경 없음.
 - feat(design): PC `/hub`에 Tines 하위 화면 어휘를 더했다 — /solutions 가운데 히어로+양옆 아이소메트릭 삽화(신규 `hero-iso-left/right`, Qwen-Image-Plus), 가는 선 사이 2단 진술, 웨비나형 글 카드(CEFR·읽기시간 칩·원문 출처 줄, 글 5→6편), /customers 메이슨리 서가 벽(DB 수치·발행 표지·척도 배지·기억 계산·자두색 진단 카드), 보라 단색 USP → 4색 파스텔 테두리 카드. 지어낸 후기 없음. 생성기 `ILLO_MODEL` 로 모델 교체 가능. e2e 94 에 색 다양성·대비 검사 추가. DB·라우트 변경 없음.
 - feat(design): PC Growth의 같은 폭/보라 패널 반복을 비대칭 회고·주간 작업 보드·기록 아카이브로, Books를 열린 제목·이미지/본문 추천·왼쪽 필터 레일로 변환했다. 자체 벡터·평면 표지와 참조 치수/격리 기능 검증을 추가했다. 추천·필터 URL·팝업·학습 데이터 계약 및 모바일/관리자/CSAT 유지. DB·라우트 변경 없음.

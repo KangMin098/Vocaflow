@@ -11,6 +11,8 @@
 // 전제: dev 서버가 이미 떠 있어야 한다(기본 http://localhost:3000). 이 워크스페이스는
 //       여러 세션이 공유하므로 서버를 여기서 띄우거나 죽이지 않는다.
 
+import { execSync } from 'node:child_process'
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
@@ -38,6 +40,8 @@ const outDir = path.resolve(ROOT, arg('out', 'docs/design/shots/tmp'))
 const wantAll = args.includes('--all')
 const only = arg('routes', '')
 const widths = (arg('widths', '390,1440')).split(',').map(Number)
+/** `--theme dark` — 셸이 읽는 저장값을 첫 프레임 전에 넣는다. 파일 이름에 `.dark` 가 붙는다. */
+const theme = arg('theme', 'light')
 const fullPage = !args.includes('--fold')
 
 /** 학습자 라우트 — 파일 시스템에서 읽는다(e2e/utils/learner-routes.ts 와 같은 규칙). */
@@ -93,6 +97,7 @@ const STATE_FILE = path.join(ROOT, 'apps/web/playwright-auth/.auth-design-captur
 const STATE_TTL_MS = 25 * 60 * 1000
 
 const run = async () => {
+  const startedAt = new Date().toISOString()
   fs.mkdirSync(outDir, { recursive: true })
   fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true })
   const browser = await chromium.launch()
@@ -139,13 +144,18 @@ const run = async () => {
     const p = await c.newPage()
     // 첫 프레임부터 모션을 세운다 — 연 **뒤**에 거는 것만으로는 이미 돌던 루프가 안 되감긴다.
     await installFreezeMotion(p, Number(arg('scene-time', DEFAULT_SCENE_TIME)))
-    for (const r of routes) {
-      const file = path.join(outDir, `${slug(r)}@${w}.png`)
+    await p.addInitScript((t) => { try { localStorage.setItem('vocaflow-theme', t) } catch {} }, theme)
+    for (const r of routes) for (let attempt = 0; attempt < 2; attempt++) {
+      const file = path.join(outDir, `${slug(r)}@${w}${theme === 'dark' ? '.dark' : ''}.png`)
       try {
         await p.goto(`${BASE}${r}`, { waitUntil: 'domcontentloaded', timeout: 45_000 })
         // 주소가 멈출 때까지(클라이언트 리다이렉트) + 폰트·데이터 도착까지
         // 느린 화면(첫 컴파일·서버 조회)은 2.6초로 부족하다 — 스피너가 찍힌다.
         await p.waitForTimeout(Number(arg('wait', 2600)))
+        // 클라이언트 리다이렉트(/library → /library/books 등)가 늦게 오면 다음 evaluate 가 「컨텍스트 파괴」로 죽는다 —
+        // 주소가 멈출 때까지 한 번 더 기다린다.
+        await p.waitForLoadState('load').catch(() => {})
+        await p.waitForTimeout(800)
         const landed = new URL(p.url()).pathname
 
         // ⚠️ **로그인으로 튕긴 화면을 찍지 않는다.**
@@ -153,31 +163,65 @@ const run = async () => {
         //    /login 으로 갔는데, 하네스는 그걸 `✓` 로 적고 **멀쩡하던 after 캡처 위에
         //    로그인 화면을 덮어썼다.** 못 잰 것을 통과로 세는 계측기는 없느니만 못하다
         //    (같은 원칙을 `measure-identity.mjs` 는 처음부터 지키고 있었다 — 분모에서 뺀다).
-        if (landed.startsWith('/login') && !r.startsWith('/login')) {
-          report.push({ route: r, width: w, landed, ok: false, error: '로그인으로 튕김 — 찍지 않음' })
+        // 공유 계정이라 다른 세션 로그인이 토큰을 회전시키면 **중간에** 세션이 죽는다(2026-10-04: 146장 중 100장 이상 튕김).
+        //    튕기면 같은 페이지에서 다시 로그인하고 그 라우트를 한 번 더 연다 — 그래도 튕기면 아래에서 실패로 센다.
+        if (landed.startsWith('/login') && !r.startsWith('/login') && !p.__relogged) {
+          p.__relogged = true
+          try {
+            await login(p)
+            await p.goto(`${BASE}${r}`, { waitUntil: 'domcontentloaded', timeout: 45_000 })
+            await p.waitForTimeout(Number(arg('wait', 2600)))
+            await p.waitForLoadState('load').catch(() => {})
+          } finally {
+            // 재시도가 throw 해도 다음 라우트는 다시 재로그인할 수 있어야 한다
+            p.__relogged = false
+          }
+        }
+        const landedAfter = new URL(p.url()).pathname
+        if (landedAfter.startsWith('/login') && !r.startsWith('/login')) {
+          report.push({ route: r, requested: r, final: landedAfter, width: w, theme, landed: landedAfter, ok: false, error: '로그인으로 튕김(재로그인 후에도) — 찍지 않음' })
           process.stdout.write(`✗ ${r} @${w} — 로그인으로 튕겼다(세션 만료). 기존 파일 보존\n`)
-          continue
+          break
         }
 
         // 같은 화면을 두 번 찍으면 같아야 한다 — 그걸 깨는 둘을 여기서 닫는다.
         // (지연 표지 · 앰비언트 루프. 이유와 값은 `lib/freeze-motion.mjs` 에.)
         const imgs = await settleImages(p)
         await freezeMotion(p, Number(arg('scene-time', DEFAULT_SCENE_TIME)))
+        // 가로 넘침 — PC 검증 항목(가로 스크롤이 생기면 그 화면은 실패로 본다)
+        const overflowX = await p.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
         await p.screenshot({ path: file, fullPage })
-        report.push({ route: r, width: w, landed, ok: true, images: imgs })
+        // 가로 넘침이 있으면 찍기는 하되 실패로 센다(PC 검증 기준)
+        report.push({ route: r, requested: r, final: landedAfter, file: path.relative(ROOT, file), width: w, theme, landed: landedAfter, ok: overflowX <= 0, overflowX, images: imgs, ...(overflowX > 0 ? { error: `가로 넘침 ${overflowX}px` } : {}) })
         process.stdout.write(
-          `✓ ${r} @${w}${landed !== r ? ` → ${landed}` : ''}` +
+          `${overflowX > 0 ? `✗ (가로 넘침 ${overflowX}px)` : '✓'} ${r} @${w}${landedAfter !== r ? ` → ${landedAfter}` : ''}` +
           `${imgs.pending > 0 ? ` · ⚠ 그림 ${imgs.pending}/${imgs.total} 못 받음(캡처가 흔들릴 수 있다)` : ''}\n`,
         )
+        break
       } catch (e) {
-        report.push({ route: r, width: w, ok: false, error: String(e).slice(0, 120) })
+        // 리다이렉트가 측정 도중 끼어들면(컨텍스트 파괴 · ERR_ABORTED) 그 화면 탓이 아니다 — 한 번만 다시 연다.
+        if (attempt === 0 && /Execution context was destroyed|ERR_ABORTED/.test(String(e))) {
+          process.stdout.write(`↻ ${r} @${w} — 리다이렉트 타이밍, 재시도\n`)
+          continue
+        }
+        report.push({ route: r, requested: r, final: (() => { try { return new URL(p.url()).pathname } catch { return null } })(), width: w, theme, ok: false, error: String(e).slice(0, 120) })
         process.stdout.write(`✗ ${r} @${w} — ${String(e).slice(0, 90)}\n`)
+        break
       }
     }
     await c.close()
   }
   await ctx.close()
   await browser.close()
+  // 어느 코드에서 나온 캡처인지 역추적할 수 있게 — 실행 메타(커밋 · 작업트리 변경 여부 · 스크립트 해시 · 시각)를 함께 남긴다.
+  const sh = (c) => { try { return execSync(c, { cwd: ROOT }).toString().trim() } catch { return null } }
+  const meta = {
+    gitSha: sh('git rev-parse HEAD'),
+    dirty: (sh('git status --porcelain -- apps/web/src packages/design-tokens/src') ?? '').length > 0,
+    scriptSha: crypto.createHash('sha256').update(fs.readFileSync(fileURLToPath(import.meta.url))).digest('hex').slice(0, 12),
+    startedAt, finishedAt: new Date().toISOString(), base: BASE, widths, theme,
+  }
+  fs.writeFileSync(path.join(outDir, `_report.${theme}.json`), JSON.stringify({ meta, results: report }, null, 2))
   fs.writeFileSync(path.join(outDir, '_report.json'), JSON.stringify(report, null, 2))
   const ok = report.filter((r) => r.ok).length
   console.log(`\n캡처 ${ok}/${report.length} → ${outDir}`)

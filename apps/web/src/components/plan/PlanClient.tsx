@@ -7,6 +7,7 @@
 
 'use client'
 
+import { PageIntro } from '@/components/ui/PageIntro'
 import {
   BookMarked,
   CalendarDays,
@@ -373,23 +374,13 @@ export function PlanClient({
     // 폭/가로 패딩은 페이지의 <Screen width="wide" padX> 가 담당 — 내부 이중 제약(max-w-3xl·px) 금지
     <div className="plan-workspace flex w-full flex-col gap-5 py-6 md:py-8">
       {/* Hero */}
-      <header className="plan-intro">
-        <LearningPathArt variant="calendar" className="plan-art hidden md:block" />
-        {/* v07 — 둥근 아이콘 칩 + `Sparkles` 를 주묵 획으로. `Sparkles` 는 지금 AI 생성 UI 의
-            공통 표식이라 화면마다 붙이면 출신 표시가 된다(00-inventory C4). */}
-        <h1 className="flex items-center gap-2.5 font-editorial text-[24px] font-[600] text-[var(--t1)] md:text-[28px]">
-          <span aria-hidden className="inline-block h-[22px] w-[3px] shrink-0 bg-[var(--ju)]" />
-          나의 학습 계획
-        </h1>
-        {/* ⚠️ `font-english italic` 이 **한국어 문장**에 걸려 있었다(390px 실측).
-            `font-english` 는 Lora 전용이라 한글이 없고, 브라우저는 폴백 글꼴을 **기울여 그린다**
-            — 가짜 이탤릭이다. CLAUDE.md 「한글에 Lora」·video-factory 회귀가 이름 대어 막는 것과
-            같은 종류다. 사람의 목소리는 **영문** Lora italic 이 맡는다(DESIGN_SYSTEM §6).
-            한국어 부제는 정자로 두고 낱말이 안 끊기게 `break-keep`. */}
-        <p className="mt-1.5 font-body text-[14px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
-          자료를 고르고 — 챕터·활동·요일을 클릭, 주간 보드에 쌓여요.
-        </p>
-      </header>
+      <PageIntro
+        className="plan-intro"
+        kicker="Growth · Plan"
+        title="나의 학습 계획"
+        description="자료를 고르고 — 챕터·활동·요일을 클릭, 주간 보드에 쌓여요."
+        art={<LearningPathArt variant="calendar" />}
+      />
 
       {error && (
         <p role="alert" className="font-body text-[13px] text-[var(--error-ink)]">

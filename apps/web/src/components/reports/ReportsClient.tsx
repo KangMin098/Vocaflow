@@ -3,7 +3,8 @@
 
 'use client'
 
-import { ArrowRight, CalendarRange, Clock, RefreshCw } from 'lucide-react'
+import { PageIntro } from '@/components/ui/PageIntro'
+import { ArrowRight, Clock, RefreshCw } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { LearningPathArt } from '@/components/ui/LearningPathArt'
 import Link from 'next/link'
@@ -36,30 +37,26 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
   }
 
   return (
-    <div className="reports-journal mx-auto flex max-w-2xl flex-col gap-5 px-4 py-10">
-      <header className="reports-intro flex items-center gap-2">
-        <LearningPathArt variant="report" className="reports-art hidden md:block" />
-        <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
-          aria-hidden
-        >
-          <CalendarRange size={18} strokeWidth={1.75} />
-        </span>
-        <div className="flex-1">
-          <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">주간 리포트</h1>
-          <p className="font-body text-[12px] text-[var(--t2)]">주마다 학습을 차분히 돌아봐요</p>
-        </div>
-        <button
-          type="button"
-          onClick={refresh}
-          disabled={pending}
-          // 44px 하한 — 실측 113x36 이었다(a11y 스윕 16회차).
-          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)] disabled:opacity-50"
-        >
-          <RefreshCw size={13} strokeWidth={2} className={pending ? 'animate-spin' : ''} aria-hidden />
-          {pending ? '갱신 중…' : '이번 주 갱신'}
-        </button>
-      </header>
+    <div className="reports-journal mx-auto flex w-full max-w-2xl flex-col gap-5 px-4 py-10 md:max-w-none md:px-0">
+      <PageIntro
+        className="reports-intro"
+        kicker="Growth · Report"
+        title="주간 리포트"
+        description="주마다 학습을 차분히 돌아봐요."
+        art={<LearningPathArt variant="report" />}
+        actions={
+          <button
+            type="button"
+            onClick={refresh}
+            disabled={pending}
+            // 44px 하한 — 실측 113x36 이었다(a11y 스윕 16회차).
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-[var(--p)] bg-[var(--bg)] px-5 py-2 font-display text-[13px] font-[700] text-[var(--p)] transition-colors hover:bg-[var(--p-light)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
+          >
+            <RefreshCw size={13} strokeWidth={2} className={pending ? 'animate-spin' : ''} aria-hidden />
+            {pending ? '갱신 중…' : '이번 주 갱신'}
+          </button>
+        }
+      />
 
       {error && (
         <p role="alert" className="font-body text-[13px] text-[var(--error-ink)]">

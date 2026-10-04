@@ -84,6 +84,10 @@
   :root[data-skin="tines"] {
     --tines-page-max: 1440px;
     --tines-page-inset: 40px;
+    /* PC 학습 화면 폭(2026-10-04) — 1024 · 820 은 1440 에서 가운데 섬이 됐다. 카드·목록 화면은 1280, 일반 화면은 1080.
+       긴 본문 읽기 화면은 이 토큰을 쓰지 않는다(자체 행 길이 제한). */
+    --ios-content-wide-max: 1280px;
+    --ios-content-max: 1080px;
     --tines-library-rail: 288px;
     --tines-library-gutter: 72px;
     --tines-library-height: 411px;
