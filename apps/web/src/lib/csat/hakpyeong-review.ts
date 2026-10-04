@@ -32,7 +32,7 @@ export interface ReviewVerdict {
  * 지금 사전 검사기 버전 — scripts/csat/lib-evidence-units.mjs 의 PRECHECK_VERSION 과 같아야 한다(회귀가 묶는다).
  * 다른 버전으로 낸 기록은 「오래된 결과」다.
  */
-export const PRECHECK_VERSION_CURRENT = 2
+export const PRECHECK_VERSION_CURRENT = 3
 
 export interface PrecheckRecord {
   errors: string[]
