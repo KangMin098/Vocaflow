@@ -39,13 +39,20 @@
   :root[data-skin="tines"] .plan-workspace { gap: 32px; }
   :root[data-skin="tines"] .plan-workspace > section[aria-label="오늘의 학습"] { background: var(--tint-green); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); padding: 28px; border: 0; border-radius: var(--learning-card-radius); box-shadow: none; }
   :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] { border-radius: 0; background: transparent; border: 0; padding: 32px 0; border-block: 1px solid var(--bd); }
-  :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] > div:first-child h2 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; }
+  :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] > div:first-child h2 { font-family: var(--font-serif); font-size: var(--section-title); font-weight: 400; }
   :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] > div:nth-child(2) > div { gap: 12px; }
   :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] > div:nth-child(2) > div > div { border-radius: 12px; box-shadow: none; min-height: 180px; }
   :root[data-skin="tines"] .plan-composer { gap: var(--growth-gap); margin-top: 24px; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); }
   :root[data-skin="tines"] .plan-composer > div { border: 0; border-radius: 0; background: transparent; box-shadow: none; padding: 24px 0; }
   :root[data-skin="tines"] .plan-composer > div:last-child { padding: 32px; border-radius: var(--learning-card-radius); background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --t3: var(--tint-peach-ink); }
-  :root[data-skin="tines"] .plan-composer > div > h2 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; }
+  :root[data-skin="tines"] .plan-composer > div > h2 { font-family: var(--font-serif); font-size: var(--section-title); font-weight: 400; }
+  /* 기능형 화면 본문 구획 제목 — 대시보드(Rule) · 계획(h2) 공통 규격(2026-10-04): 세리프 24 · 아이콘 없음 · 번호는 모노 눈썹 */
+  :root[data-skin="tines"] { --section-title: 24px; }
+  :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports) .press-rule { align-items: baseline; gap: 12px; padding-bottom: 12px; }
+  :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports) .press-rule-n { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .08em; color: var(--ju); }
+  :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports) .press-rule-label { font-family: var(--font-serif); font-size: var(--section-title); line-height: 1.2; letter-spacing: -.01em; color: var(--t1); }
+  :root[data-skin="tines"] .plan-workspace h2 { font-family: var(--font-serif); font-size: var(--section-title); font-weight: 400; letter-spacing: -.01em; }
+  :root[data-skin="tines"] .plan-workspace h2 > svg { display: none; }
   :root[data-skin="tines"] .reports-journal { max-width: none; padding-inline: 0; gap: var(--growth-gap); }
   :root[data-skin="tines"] .reports-archive { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 40px; }
   :root[data-skin="tines"] .reports-archive > li:first-child { grid-column: 1 / -1; }
@@ -320,6 +327,19 @@
   :root[data-skin="tines"] .diagnostic-intro { padding-inline: 200px; }
   :root[data-skin="tines"] .pairflip-hub { grid-template-columns: 1fr; }
   :root[data-skin="tines"] .pairflip-hub > section:last-child { grid-column: 1; grid-row: auto; }
+}
+
+/* 내 책장 카드(2026-10-04) — PC 만 참조 웨비나 카드 문법. 모바일은 기존 카드 그대로. */
+@media (min-width: 768px) {
+  :root[data-skin="tines"] .my-book-card { min-height: 220px; border-radius: 10px; box-shadow: none; border-color: color-mix(in srgb, var(--t1) 30%, transparent); }
+  :root[data-skin="tines"] .my-book-card h2 { font-family: var(--font-serif); font-size: 20px; font-weight: 400; line-height: 1.2; }
+  :root[data-skin="tines"] .my-book-card > div:last-child { background: transparent; border-color: color-mix(in srgb, var(--t1) 20%, transparent); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+1) > .my-book-card { background: var(--tint-green); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); --t3: var(--tint-green-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+2) > .my-book-card { background: var(--tint-lavender); --t1: var(--tint-lavender-ink); --t2: var(--tint-lavender-ink); --t3: var(--tint-lavender-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+3) > .my-book-card { background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --t3: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+4) > .my-book-card { background: var(--tint-pink); --t1: var(--tint-pink-ink); --t2: var(--tint-pink-ink); --t3: var(--tint-pink-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+5) > .my-book-card { background: var(--tint-teal); --t1: var(--tint-teal-ink); --t2: var(--tint-teal-ink); --t3: var(--tint-teal-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+6) > .my-book-card { background: var(--tint-yellow); --t1: var(--tint-yellow-ink); --t2: var(--tint-yellow-ink); --t3: var(--tint-yellow-ink); }
 }
 
 /* 솔루션형 가운데 히어로(참조 /solutions/security · 2026-10-04) — ModuleHero 의 `tines-solutions-hero`.

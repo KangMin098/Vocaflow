@@ -132,9 +132,18 @@ test.describe('허브 기록 — 없는 기록을 만들지 않는다', () => {
     await login(page);
     await page.goto('/wordblitz', { waitUntil: 'domcontentloaded' });
 
+    // 기록이 없으면 화면은 카드 두 장 대신 **한 줄 안내**만 세운다(wordblitz/page.tsx `noHistory`,
+    // 2026-08-16 실측 결정). 예전 단언은 카드가 늘 있다고 가정해, 기록 없는 검증 계정에서 항상 떨어졌다.
+    // 둘 중 무엇이 서든 「0점을 숫자로 그리지 않는다」만 지킨다.
+    const noHistory = page.getByText('아직 이 게임 기록이 없어요');
     // aria-label 은 '최고 점수'(h2 는 '최고 기록') — 접근성 라벨을 기준으로 잡는다
     const best = page.locator('aside[aria-label="최고 점수"]');
-    await expect(best).toBeVisible({ timeout: 30_000 });
+    await expect(best.or(noHistory)).toBeVisible({ timeout: 30_000 });
+    if (await noHistory.isVisible()) {
+      await expect(best, '기록이 없는데 최고 점수 카드가 섰다').toHaveCount(0);
+      await expect(page.getByText(/콤보\s*\d/), 'scores 에 없는 콤보가 화면에 있다').toHaveCount(0);
+      return;
+    }
     const text = await best.innerText();
 
     // 기록이 있으면 숫자, 없으면 안내 문구 — 둘 중 하나여야 하고 0점은 안 된다.

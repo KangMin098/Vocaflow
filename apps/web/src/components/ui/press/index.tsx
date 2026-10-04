@@ -46,15 +46,16 @@ export function Rule({
   return (
     <div
       className={cn(
-        'flex items-baseline gap-2 border-b border-[var(--bd)] pb-1.5',
+        // `press-rule` — 스킨이 기능형 화면(대시보드 등)의 구획 제목 규격을 한 곳에서 입힌다.
+        'press-rule flex items-baseline gap-2 border-b border-[var(--bd)] pb-1.5',
         className,
       )}
     >
       {n && (
-        <span className={cn('font-english text-[11px] tracking-[0.08em]', accent)}>{n}</span>
+        <span className={cn('press-rule-n font-english text-[11px] tracking-[0.08em]', accent)}>{n}</span>
       )}
       {label && (
-        <span className={cn('font-display text-[11.5px] tracking-[0.04em]', accent)}>{label}</span>
+        <span className={cn('press-rule-label font-display text-[11.5px] tracking-[0.04em]', accent)}>{label}</span>
       )}
       {right && <span className="ml-auto font-mono text-[11px] text-[var(--t3)]">{right}</span>}
     </div>

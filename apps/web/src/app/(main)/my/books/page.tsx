@@ -4,7 +4,8 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import { SpotState } from '@/components/ui/SpotState'
-import { BookOpen, Library } from 'lucide-react'
+import { ArrowRight, BookOpen, Library } from 'lucide-react'
+import { PageIntro } from '@/components/ui/PageIntro'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
@@ -197,12 +198,16 @@ async function BookList() {
         inProgressChapters={inProgressChapters}
       />
 
-      <ul role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul role="list" className="my-books-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {books.map((book) => (
           <li key={book.id}>
             <BookCard book={book} />
           </li>
         ))}
+        {/* 마지막 칸 — 책이 한두 권일 때 1440 에서 줄이 비어 「가운데 섬」이 되던 것을 다음 행동으로 채운다(참조 /customers 벽의 빈 칸 자리). */}
+        <li className="hidden md:block">
+          <AddMoreCard />
+        </li>
       </ul>
     </>
   );
@@ -218,9 +223,44 @@ function Hero({
   inProgressChapters: number;
 }) {
   return (
+    <>
+    <MobileHero totalBooks={totalBooks} completedBooks={completedBooks} inProgressChapters={inProgressChapters} />
+    <PageIntro
+      className="hidden md:flex"
+      kicker={
+        <span className="inline-flex items-center gap-2">
+          <Library size={12} aria-hidden />
+          Read · BookVault
+        </span>
+      }
+      title="내 책장"
+      description="Library 에서 내 학습에 추가한 책들 · chapter 단위로 이어 읽어요"
+      actions={
+        <dl className="flex shrink-0 gap-6 md:gap-8">
+          <Stat label="총 권수" value={totalBooks} />
+          <Stat label="완독" value={completedBooks} highlight={completedBooks > 0} />
+          <Stat label="학습 중 장" value={inProgressChapters} />
+        </dl>
+      }
+    />
+    </>
+  );
+}
+
+/** 모바일 머리 — 디자인 범위(PC 전용) 밖이라 이전 구성 그대로 둔다. */
+function MobileHero({
+  totalBooks,
+  completedBooks,
+  inProgressChapters,
+}: {
+  totalBooks: number;
+  completedBooks: number;
+  inProgressChapters: number;
+}) {
+  return (
     <header
-      className="relative overflow-hidden rounded-[var(--r-xl)] border border-[var(--bd)] bg-gradient-to-br from-[var(--p-light)] via-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)] md:p-6"
-      aria-labelledby="bookvault-title"
+      className="relative overflow-hidden md:hidden rounded-[var(--r-xl)] border border-[var(--bd)] bg-gradient-to-br from-[var(--p-light)] via-[var(--bg)] to-[var(--bg2)] p-5 shadow-[var(--sh-sm)] md:p-6"
+      aria-labelledby="bookvault-title-m"
     >
       <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[var(--p)]/[0.07] blur-2xl" aria-hidden />
       <div className="relative flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -230,7 +270,7 @@ function Hero({
             BookVault
           </div>
           <h1
-            id="bookvault-title"
+            id="bookvault-title-m"
             className="font-editorial text-[22px] font-[700] tracking-[-0.01em] text-[var(--t1)] md:text-[26px]"
           >
             내 책장
@@ -247,6 +287,23 @@ function Hero({
         </dl>
       </div>
     </header>
+  );
+}
+
+function AddMoreCard() {
+  return (
+    <Link
+      href="/library/books"
+      className="group flex h-full min-h-[220px] flex-col items-start justify-between rounded-[10px] border border-dashed border-[var(--bd-strong)] p-5 text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--tint-lavender)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+    >
+      <span className="font-mono text-[11px] font-[700] uppercase tracking-[0.08em]">Library</span>
+      <span>
+        <span className="block break-keep font-serif text-[20px] leading-[1.2]">서가에서 책 더 담기</span>
+        <span className="mt-2 inline-flex items-center gap-1.5 font-display text-[13px] font-[700]">
+          고전 서가로 <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5 motion-reduce:transform-none" />
+        </span>
+      </span>
+    </Link>
   );
 }
 
@@ -287,7 +344,7 @@ function BookCard({ book }: { book: BookSummary }) {
     <Link
       href={`/my/books/${book.id}`}
       aria-label={`${book.title} 이어 읽기 · ${progress}% 진행`}
-      className="group flex h-full flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="my-book-card group flex h-full flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <div className="flex flex-1 flex-col gap-2 p-5 pb-4">
         <div className="flex items-start justify-between gap-2">
