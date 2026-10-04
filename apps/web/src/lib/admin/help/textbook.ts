@@ -255,6 +255,11 @@ export const TBP_HELP: HelpRegistry = {
             done: '계보 manifest에 연결/없음/보류 상태가 있고 각색 청크에는 원문 hash/revision에 묶인 research_origin이 있습니다. 연구 본문 권리와 gold-set 승인은 별도입니다.',
           },
           {
+            title: 'FYM 링크와 각색 정렬을 따로 검증한다',
+            detail: '`frym-precision-select.mjs --origins <배치.json> (반복 가능) --expected-count <DB실측> --sample-size 20 --output <새표본.json>`은 중복 없는 전체 점검 배치에서 연결 첫 20~50편을 고릅니다. `frym-precision-prepare.mjs --origins <새표본.json> --workdir .agent-logs/<새폴더>`가 현재 FYM과 공식 HTML·연구 XML/초록·메타데이터를 읽고 원본/추출 해시를 보존합니다. tsx 실행에는 위와 같은 --tsconfig를 씁니다. 보통 편당 여러 외부 요청이 필요하며 접근 실패는 기록합니다. 연구 전문이 없으면 정렬은 held입니다. 에이전트가 실제 읽은 범위와 11개 변환 필드·짧은 인용 위치를 채우고 `frym-precision-verify.mjs --input <검토.json> --evidence-dir <증거폴더>`로 검증합니다. 링크 DOI·제목·저자 정확도와 구절 의미 정렬 정확도의 분모는 별도입니다. confidence는 관찰자 판단, 연령은 목표 제안입니다. DB 쓰기나 자동 각색 생성은 없습니다. select/prepare는 기존 출력을 덮지 않아 부분 실패 후 새 폴더로 재실행하며, verify는 반복 실행해도 파일·DB가 바뀌지 않습니다. 원문·증거 해시가 다르면 새 회차로 검토합니다.',
+            done: '링크/정렬/접근 상태와 보류 수가 따로 집계됩니다. 모든 기록 정렬이 일치한 전문 쌍도 후속 gold 검토 후보이며 전문가 승인·학생 calibration이 아닙니다. 반대 결과가 있는 쌍을 좋은 구절 하나로 승인하지 않습니다.',
+          },
+          {
             title: '연령·언어·사고 목표를 분리해 같은 원문을 교재화한다',
             detail: 'Academic Reading 타깃은 R0~R13 능력·P01~P20 목적·독자 age_band·language_band·reasoning_band·시험·분량을 따로 지정합니다. scripts/textbook/targets의 JSON을 준비하고 `pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target <JSON> --source <원천> --limit 2`로 소량부터 뽑습니다. 읽기 전용·재실행 안전이며 같은 타깃의 DB/예약 청크를 건너뛰고 완료 입력/결과를 보존합니다. 에이전트는 academic-reading-brief.md를 읽고 원문별 권리 증거·열 분석축·명제 대응·본문 근거가 있는 문항/활동을 채웁니다. 같은 target으로 import 예행 후 checkpoint와 --commit을 실행하면 원문을 보존하고 queued 자식만 만듭니다. 기존 분석·내용 판정·적격 확인을 마쳐야 문항 제작·조판으로 넘어갑니다. 최초 소량 처리 시간은 본문 길이와 권리 확인에 따라 달라집니다.',
             done: '새 각색의 composed_spec.academic_reading에 target·원문 UUID/hash/revision·권리·분석·문항 계획이 있고, 원문은 바뀌지 않았습니다. queued는 발행 완료가 아닙니다.',

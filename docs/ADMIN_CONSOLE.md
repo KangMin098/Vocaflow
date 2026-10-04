@@ -1,6 +1,6 @@
 # Admin Console
 
-FYM 원 연구 계보(2026-10-04): 소재 적격 도움말에 `frym-pairs-export`의 읽기 전용 조회·본문/revision 대조·보류·새 출력 경로로 재실행·각색 `--research-origins` 전달 절차를 추가했다. 신규 화면/탭/액션은 없으며 명시적 Original Source Article 연결과 원 연구의 이용권리/gold-set 승인을 구분한다.
+FYM 원 연구 계보·정밀 검증(2026-10-04): 소재 적격 도움말에 `frym-pairs-export`의 읽기 전용 조회·본문/revision 대조·보류·새 출력 경로로 재실행·각색 `--research-origins` 전달과 `frym-precision-select/prepare/verify`의 로컬 검토 절차를 추가했다. 20~50편 표본·전문/초록 분리·11개 변환 필드·독립 링크/정렬 분모·원본 해시 재검증을 안내한다. 신규 화면/탭/액션은 없으며 명시적 연결·접근 권리·gold 검토 후보·학생 calibration을 구분한다. [첫 회차](./reports/frym-precision-20261004.md)는 DB를 변경하지 않았다.
 
 ### 교재 생성 타깃·처리 계약 (2026-10-04)
 
