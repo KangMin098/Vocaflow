@@ -30,13 +30,15 @@
 // text === passage.slice(start, end) · 단위 사이 틈은 공백뿐(글자 누락 0).
 
 import crypto from 'node:crypto'
+import { analysisRuleErrors } from './lib-analysis-rules.mjs'
 
 // v3(2026-10-04): 이름 앞 이니셜(F. Carson), 연속 이니셜(A. Y.), 붙여 쓴 이니셜(A.L. Parker)도 보존한다.
 // 실제 문장 끝의 vitamin C. / Room A. / Gen X. 등은 유지한다. 경계가 같으면 옛 버전 행을 유지한다(units-build).
 export const UNITS_VERSION = 3
 /** 사전 검사(precheckAnalysis·checkUnitRefs) 규칙 버전 — 검사 기준이 바뀌면 올린다(기록된 결과를 어느 기준으로 냈는지 남기려고) */
 // v2(2026-10-01): DB 행 사전 검사가 풀이 절차·측정 능력·설계 의도의 [uN] 도 본다(v1 은 정답 근거·선지 해설만 읽어 놓쳤다 — Codex 리뷰)
-export const PRECHECK_VERSION = 2
+// v3: V10 rejects the confirmed unconditional named-referent exclusion rule.
+export const PRECHECK_VERSION = 3
 
 const ABBREV = /\b(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|Mt|vs|etc|e\.g|i\.e|U\.S|U\.K|a\.m|p\.m|No|Fig|approx|cf|Inc|Ltd|Co)\.$/
 const CLOSERS = /["'’”)\]]/
@@ -224,7 +226,7 @@ export function checkUnitRefs(a, units, bad, warn, id) {
  */
 export function precheckAnalysis(row, units) {
   const a = { ...row, choices: row.choices ?? row.choice_analysis ?? [] }
-  const errors = []
+  const errors = analysisRuleErrors(a)
   const warnings = []
   if (!units?.length) return { errors: ['근거 단위 목록 없음 — units-build 필요'], warnings }
   checkUnitRefs(a, units, (_, m) => errors.push(m), (_, m) => warnings.push(m), a.item_id ?? '')

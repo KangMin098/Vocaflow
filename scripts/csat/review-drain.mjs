@@ -30,7 +30,7 @@
 // ── 운영자 명령 ───────────────────────────────────────────────────────
 //   export  [--size 8] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
 //   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
-//   precheck [--items ...] [--out] [--commit]                   옛 분석도 근거 단위 번호 검사(V9) — 실패는 검수 전에 교정.
+//   precheck [--items ...] [--out] [--commit]                   옛 분석도 근거 단위(V9)·확인된 지칭 배제(V10) 검사 — 실패는 교정.
 //                                                               --commit 은 결과를 csat_review_prechecks 에(관리자 화면 「검수 진행」)
 //   ledger-import [--commit | --sql-out _ledger-*.sql]           원장 2종 원자적 upsert / 검증된 단일 DML 파일 출력(DB 쓰기 없음)
 //   status                                                      학평 분석 상태·독립 검수 진행 요약
@@ -415,11 +415,14 @@ switch (cmd) {
   }
   case 'publish': {
     const only = arg('items') ? new Set(arg('items').split(',')) : null
-    const latest = (await latestHakpyeong()).filter((a) => a.status !== 'published' && (!only || only.has(a.item_id)))
+    const candidates = (await latestHakpyeong()).filter((a) => a.status !== 'published' && (!only || only.has(a.item_id)))
+    const pre = await precheckMany(candidates)
+    const latest = candidates.filter((a) => pre.has(a.id) && !pre.get(a.id).errors.length)
     // 발행은 서버 함수가 문항별 저장점으로 한다(csat_publish_hakpyeong) — 한 문항의 게이트 거부가 나머지를 막지 않고,
     // 스크립트가 행마다 PATCH 하지 않는다(단건 쓰기 예산). 게이트가 최종 판정한다.
     let ok = 0
-    const refused = []
+    const refused = candidates.filter((a) => !pre.has(a.id) || pre.get(a.id).errors.length)
+      .map((a) => `${a.item_id}: 사전 검사 거부 — ${pre.get(a.id)?.errors.join(' · ') ?? '검사 결과 없음'}`)
     for (let i = 0; i < latest.length; i += 200) {
       const { data, error } = await db.rpc('csat_publish_hakpyeong', { p_analyses: latest.slice(i, i + 200).map((a) => a.id) })
       if (error) die(error.message)
