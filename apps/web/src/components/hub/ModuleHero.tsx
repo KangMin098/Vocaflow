@@ -10,6 +10,7 @@ const HERO_ART: Record<string, { spot: string; tone: string }> = {
   Flashcard: { spot: 'spot-flashcard', tone: 'lavender' },
   SpellForge: { spot: 'spot-spellforge', tone: 'peach' },
   PairFlip: { spot: 'spot-pairflip', tone: 'green' },
+  WordBlitz: { spot: 'spot-wordblitz', tone: 'peach' },
   'My Library': { spot: 'spot-reading', tone: 'lavender' },
 }
 
@@ -21,6 +22,7 @@ const FLANKS: Record<string, [string, string]> = {
   Flashcard: ['practice-iso-left', 'practice-iso-right'],
   SpellForge: ['practice-iso-left', 'practice-iso-right'],
   PairFlip: ['practice-iso-right', 'practice-iso-left'],
+  WordBlitz: ['practice-iso-left', 'practice-iso-right'],
   'My Library': ['hero-iso-left', 'hero-iso-right'],
 }
 

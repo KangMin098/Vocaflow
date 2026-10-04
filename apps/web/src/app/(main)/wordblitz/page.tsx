@@ -18,6 +18,7 @@ import { Award, ChevronRight, Gamepad2, Layers, Trophy, Zap } from 'lucide-react
 import Link from 'next/link'
 
 import { GamePoolPanel } from '@/components/hub/GamePoolPanel'
+import { ModuleHero } from '@/components/hub/ModuleHero'
 import { RecentScoresList } from '@/components/hub/RecentScoresList'
 import { fetchDueGameWords } from '@/lib/game/due-words'
 import { fetchBestScore, fetchRecentScores, type RecentScore } from '@/lib/scores/recent'
@@ -96,83 +97,40 @@ export default async function WordBlitzHubPage() {
 
   return (
     <div className="mx-auto max-w-[var(--ios-content-wide-max)] px-4 py-6 md:px-6 md:py-8">
-      {/* ── Hero (v06.30 슬림화) ── */}
-      <section
-        aria-label="WordBlitz 소개"
-        // PRACTICE 그룹 — 조용한 변형(형제 일관 · `ModuleHero quiet` 과 같은 판단).
-        // 이전에는 `linear-gradient(#2d6a2d → #5ab540)` 위에 `#FFE234` 글자였다. 형제 4화면이
-        // 각자 다른 고채도 면을 갖고 있어 한 그룹인데 네 브랜드가 동시에 소리쳤다.
-        // 연습 화면은 학습 직전의 대기실이다 — 자극이 아니라 준비가 필요하다.
-        className="relative mb-4 overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-[var(--t1)] md:px-5 md:py-4"
-      >
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <div className="flex min-w-0 flex-1 items-center gap-2">
-            <Gamepad2
-              size={14}
-              aria-hidden
-              strokeWidth={2.25}
-              className="shrink-0 text-[var(--t3)]"
-            />
-            <span className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
-              정글 어드벤처
-            </span>
-            <span className="opacity-30" aria-hidden>
-              ·
-            </span>
-            <h1 className="font-editorial text-[15px] font-[800] leading-tight text-[var(--t1)] md:text-[16px]">
-              WordBlitz
-            </h1>
-            <span className="hidden opacity-30 sm:inline" aria-hidden>
-              ·
-            </span>
-            <p className="hidden truncate font-body text-[12px] text-[var(--t2)] sm:block">
-              {hasRecord
-                ? `Best ${best!.toLocaleString()}${lastAccuracy != null ? ` · 최근 정확도 ${lastAccuracy}%` : ''}`
-                : '첫 판을 기다리고 있어요'}
-            </p>
-          </div>
-
-          {/* 시작 버튼은 하나다.
-              이전에는 옆에 "풀스크린으로 시작"(Maximize2) 버튼이 하나 더 있었는데 **href 가
-              이것과 완전히 같았다** — 다른 것을 해 줄 것처럼 생기고 이름까지 그렇게 붙여
-              놓고 같은 곳으로 갔다. 눌러 보고서야 아는 거짓 어포던스라 지웠다.
-              (풀스크린이 실제로 다른 모드가 되면 그때 파라미터와 함께 되살릴 것.) */}
-          <Link
-            href="/play/wordblitz"
+      {/* ── Hero — 형제 게임 대기실(PairFlip · SpellForge)과 같은 발견형 히어로(2026-10-04).
+          예전 한 줄 슬림 머리는 1440 에서 형제와 다른 화면처럼 보였다. 시작 버튼은 여전히 하나,
+          수치는 실기록만(기록이 없으면 줄 자체를 그리지 않는다 — 0점은 처음 온 학습자를 깎아내린다). ── */}
+      <div className="mb-6">
+        <ModuleHero
+          eyebrow="WordBlitz · 정글 어드벤처"
+          title="WordBlitz"
+          note={
+            hasRecord
+              ? `Best ${best!.toLocaleString()}${lastAccuracy != null ? ` · 최근 정확도 ${lastAccuracy}%` : ''} — 담은 단어로 빠르게 한 판.`
+              : '담은 단어로 빠르게 한 판. 첫 판을 기다리고 있어요.'
+          }
+          gradient={{ from: 'var(--tint-peach)', to: 'var(--tint-peach)' }}
+          stats={
+            hasRecord
+              ? [
+                  { label: 'Best', value: best!.toLocaleString(), emphasis: true },
+                  ...(lastAccuracy != null ? [{ label: '최근 정확도', value: lastAccuracy, unit: '%' }] : []),
+                ]
+              : undefined
+          }
+          primaryAction={
             // 실측 2026-08-25: 108×30 이었다. 이 화면의 주 행동인데 44px 규칙 아래였다.
-            className="group inline-flex min-h-11 shrink-0 items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[800] text-[var(--on-p)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
-          >
-            <Gamepad2 size={12} strokeWidth={2.5} aria-hidden />
-            바로 시작
-            <Zap size={10} strokeWidth={2.5} aria-hidden />
-          </Link>
-        </div>
-
-        {/* Stats — 실기록만. 기록이 없으면 row 자체를 렌더하지 않는다
-            (0점·0% 를 넣으면 "해봤는데 0점" 으로 읽혀 처음 온 학습자를 깎아내린다) */}
-        {hasRecord && (
-          <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--bd)] pt-2">
-            <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
-              <span className="text-[11px] font-[700] text-[var(--t2)]">Best</span>
-              <span className="text-[15px] font-[800] text-[var(--t1)]">
-                {best!.toLocaleString()}
-              </span>
-            </li>
-            {lastAccuracy != null && (
-              <li className="inline-flex items-baseline gap-1 font-display tabular-nums leading-tight">
-                <span className="text-[11px] font-[700] text-[var(--t2)]">최근 정확도</span>
-                <span className="text-[13px] font-[700] text-[var(--t1)]">
-                  {lastAccuracy}
-                  <span className="ml-0.5 text-[10px] font-[600] opacity-70">%</span>
-                </span>
-              </li>
-            )}
-            {/* "기록 N회" 는 넣지 않는다 — fetchRecentScores 는 4행으로 캡돼 있어서
-                30회 한 학습자에게도 4회라고 말하게 된다. 정확한 총 횟수를 세려면 별도
-                count 쿼리가 필요하고, 그만한 가치가 있는 숫자는 아니다. */}
-          </ul>
-        )}
-      </section>
+            <Link
+              href="/play/wordblitz"
+              className="group inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-[var(--p)] px-5 py-2 font-display text-[13px] font-[800] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:translate-y-0.5"
+            >
+              <Gamepad2 size={12} strokeWidth={2.5} aria-hidden />
+              바로 시작
+              <Zap size={10} strokeWidth={2.5} aria-hidden />
+            </Link>
+          }
+        />
+      </div>
 
       {/* ── 이번 판 단어 ──
           히어로 바로 다음에 온다. 이 화면에서 "설명" 보다 먼저 와야 하는 것은

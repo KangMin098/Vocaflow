@@ -11,6 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): 학습자 PC 본문 구성 — WordBlitz 머리를 형제 게임 대기실과 같은 발견형 히어로로, 내 책장을 `PageIntro` + 색 카드 + 「더 담기」 칸으로, 대시보드·계획 본문 구획 제목을 세리프 24 한 규격(`--section-title` · `press-rule-*`)으로. `/wordblitz`·`/my/books` 중복 배너 제거. e2e 18 WordBlitz 기록 단언을 제품의 「기록 없음 한 줄」 결정에 맞춤(기존 실패). DB·라우트 변경 없음.
 - feat(textbook): Academic Reading 타기팅·처리 계약 — R0~R13/P01~P20·독자/언어/사고 분리·기사별 권리·열 분석축·문항 난이도/근거를 공통 정본으로 추가. 기존 각색/문항 드레인에 target별 계보·hash/revision 대조·queued 자식과 payload 저장을 연결했다. 마이그레이션·라우트·DB 발행 변경 없음.
 - fix(textbook): 같은 원문의 다른 target 생성과 각색/문항 청크 보존·예약·중복 처리를 수정하고 high/exam의 중등 어휘 대역 오적용을 제거했다. 제시문 임의 변경을 막고 빈칸/어휘 치환만 허용한다. 관리자 도움말·집필 계약·파이프라인/DB 문서를 동반 갱신했다.
 
