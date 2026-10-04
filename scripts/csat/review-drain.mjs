@@ -47,6 +47,7 @@ import { precheckAnalysis, PRECHECK_VERSION, UNITS_VERSION } from './lib-evidenc
 import { isKiceExam } from './lib-exam-id.mjs'
 import { execFileSync } from 'node:child_process'
 import { prepareReviewLedgers, reviewLedgerSql } from './lib-review-ledger.mjs'
+import { blindProtocolViolation } from './lib-review-blind-protocol.mjs'
 import { fileURLToPath } from 'node:url'
 // 기록하는 커밋은 «실행한 스크립트»의 저장소 것 — 다른 워크트리 cwd 에서 돌려도 섞이지 않게
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
@@ -167,6 +168,51 @@ async function reviewItem(itemId) {
   return data
 }
 
+// Shared passages can disclose a pending item's answer through another analysis.
+// Commit every blind solve in this execution before revealing any analysis.
+async function assertExposureSafe(agentRun) {
+  const pending = await all(() => db.from('csat_review_runs').select('id, item_id')
+    .eq('agent_run', agentRun).eq('role', 'reviewer').eq('kind', 'blind')
+    .is('solve_committed_at', null).order('id'))
+  const excluded = new Set()
+  for (let i = 0; i < pending.length; i += 200) {
+    const { data, error } = await db.from('csat_review_followups').select('source')
+      .in('source', pending.slice(i, i + 200).map((r) => `blind-invalid:${r.id}`))
+    if (error) die(error.message)
+    for (const r of data) excluded.add(r.source.slice('blind-invalid:'.length))
+  }
+  const active = pending.find((r) => !excluded.has(r.id))
+  if (active) die(`미저장 blind 풀이 ${active.item_id} (${active.id}) — solve 저장 전에는 다른 분석도 공개하지 않는다`)
+}
+
+// Preserve disqualified evidence as an append-only followup, never erase its run.
+async function assertBlindValid(runIds) {
+  const ids = runIds.filter(Boolean)
+  if (!ids.length) return
+  const { data, error } = await db.from('csat_review_followups').select('source')
+    .in('source', ids.map((id) => `blind-invalid:${id}`)).limit(1)
+  if (error) die(error.message)
+  if (data?.length) die(`독립 풀이 증거에서 제외된 실행 ${data[0].source} — 새 풀이로 덮거나 재검수 부모로 재사용하지 않는다`)
+}
+
+async function assertBlindSourceUnseen(run, before) {
+  const history = await all(() => db.from('csat_review_runs')
+    .select('id, item_id, role, agent_run, created_at, solve_committed_at, revealed_at')
+    .eq('agent_run', run.agent_run).eq('role', 'reviewer').order('id'))
+  const ids = [...new Set([run.item_id, ...history.map((r) => r.item_id)])]
+  const items = new Map()
+  for (let i = 0; i < ids.length; i += 200) {
+    const { data, error } = await db.from('csat_items').select('id, exam_id, no, passage').in('id', ids.slice(i, i + 200))
+    if (error) die(error.message)
+    for (const item of data) items.set(item.id, item)
+  }
+  const exclusions = await all(() => db.from('csat_review_followups').select('source')
+    .like('source', 'blind-invalid:%').order('source').order('item_id'))
+  const invalid = new Set(exclusions.map((r) => r.source.slice('blind-invalid:'.length)))
+  const violation = blindProtocolViolation(run, history, items, invalid, before)
+  if (violation) die(`이미 공개되었거나 제외된 독립 풀이 근거 ${violation.item_id ?? run.item_id} (${violation.run_id}) — 같은 실행에서 새 blind로 대체하지 않는다`)
+}
+
 // A lost CLI response must not create another unsubmitted run. Same execution only.
 async function reusableRun(analysis, persona, agentRun, kind, parentId = null) {
   let q = db.from('csat_review_runs')
@@ -180,6 +226,7 @@ async function reusableRun(analysis, persona, agentRun, kind, parentId = null) {
   if (error) die(error.message)
   const run = data?.[0]
   if (!run) return null
+  await assertBlindValid([run.id, parentId])
   if (run.revealed_at || (kind === 'blind' && run.solve_answer != null)) {
     const values = await Promise.all([
       db.rpc('csat_item_input_hash', { p_item: analysis.item_id }),
@@ -218,6 +265,10 @@ switch (cmd) {
       if (pe) die(pe.message)
       if (parent) die(`기존 블라인드 풀이가 유효하다 — rereview --analysis ${a.id} --persona ${persona} --agent-run ${agentRun} 로 이어야 한다`)
     }
+    if (!existing) {
+      const now = new Date().toISOString()
+      await assertBlindSourceUnseen({ id: '', item_id: a.item_id, agent_run: agentRun, created_at: now }, now)
+    }
     const { data: run, error: re } = existing ? { data: existing } : await db.from('csat_review_runs')
       .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona }).select('id').single()
     if (re) die(re.message)
@@ -232,6 +283,11 @@ switch (cmd) {
     const answer = Number(must(arg('answer'), 'answer'))
     const note = must(arg('note'), 'note')
     if (!(answer >= 1 && answer <= 5)) die('answer 는 1~5')
+    const { data: meta, error: me } = await db.from('csat_review_runs')
+      .select('id, item_id, agent_run, created_at, solve_committed_at').eq('id', run).single()
+    if (me) die(me.message)
+    await assertBlindValid([run])
+    await assertBlindSourceUnseen(meta, new Date().toISOString())
     const { error } = await db.rpc('csat_review_solve', { p_run: run, p_answer: answer, p_note: note })
     if (error) die(error.message)
     out({ run_id: run, solved: answer, next: `reveal --run ${run}` })
@@ -239,10 +295,14 @@ switch (cmd) {
   }
   case 'reveal': {
     const run = must(arg('run'), 'run')
+    const { data: r, error: re } = await db.from('csat_review_runs')
+      .select('id, agent_run, solve_answer, parent_run_id').eq('id', run).single()
+    if (re) die(re.message)
+    await assertExposureSafe(r.agent_run)
+    await assertBlindValid([run, r.parent_run_id])
     const { data, error } = await db.rpc('csat_review_reveal', { p_run: run })
     if (error) die(error.message)
     const row = data?.[0]
-    const { data: r } = await db.from('csat_review_runs').select('solve_answer').eq('id', run).single()
     out({ run_id: run, official_answer: row?.answer, official_answers: row?.answers, your_solve: r?.solve_answer, matches: r?.solve_answer === row?.answer, analysis: forReviewer(row?.analysis),
       item: row?.analysis?.item_id ? await reviewItem(row.analysis.item_id) : null,
       units: row?.analysis?.item_id ? await unitsView(row.analysis.item_id) : null,
@@ -270,6 +330,7 @@ switch (cmd) {
     const analysisId = must(arg('analysis'), 'analysis')
     const persona = must(arg('persona'), 'persona')
     const agentRun = must(arg('agent-run'), 'agent-run')
+    await assertExposureSafe(agentRun)
     if (!PERSONAS.includes(persona)) die(`persona 는 ${PERSONAS.join('|')}`)
     const { data: a, error: ae } = await db.from('csat_item_analyses').select('id, item_id, analyst_run, csat_analysis_hash').eq('id', analysisId).single()
     if (ae) die(ae.message)
@@ -279,6 +340,7 @@ switch (cmd) {
     const { data: parentId, error: pe } = await db.rpc('csat_rereview_parent', { p_item: a.item_id, p_persona: persona, p_analyst_run: a.analyst_run ?? '' })
     if (pe) die(pe.message)
     if (!parentId) die(`${a.item_id} ${persona}: 지금 원문·정답과 맞는 블라인드 풀이가 없다 — start 로 새 블라인드부터`)
+    await assertBlindValid([parentId])
     const { data: parent, error: pe2 } = await db.from('csat_review_runs').select('id, solve_answer, solve_note').eq('id', parentId).single()
     if (pe2) die(pe2.message)
     const existing = await reusableRun(a, persona, agentRun, 'rereview', parent.id)
@@ -446,10 +508,8 @@ switch (cmd) {
       console.log(`  배치 ${batches.length} · 추적 ${followups.length} → ${sqlOut} (단일 DML · DB 쓰기 없음)`)
       break
     }
-    const { data: haveB, error: e1 } = await db.from('csat_review_batches').select('batch')
-    if (e1) die(e1.message)
-    const { data: haveF, error: e2 } = await db.from('csat_review_followups').select('item_id, source, finding_key')
-    if (e2) die(e2.message)
+    const haveB = await all(() => db.from('csat_review_batches').select('batch').order('batch'))
+    const haveF = await all(() => db.from('csat_review_followups').select('item_id, source, finding_key').order('item_id').order('source').order('finding_key'))
     const hb = new Set(haveB.map((r) => r.batch))
     const hf = new Set(haveF.map((r) => `${r.item_id}|${r.source}|${r.finding_key}`))
     const newB = batches.filter((b) => !hb.has(b.batch)).length

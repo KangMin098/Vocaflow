@@ -48,3 +48,4 @@ comment on function public.csat_review_ledgers_import(jsonb, jsonb)
   is 'Atomic review ledger import; both natural-key upserts commit together or neither does. Service role only.';
 
 commit;
+

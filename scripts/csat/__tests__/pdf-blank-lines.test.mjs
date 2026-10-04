@@ -31,6 +31,22 @@ test('a long empty underline before a full stop becomes a blank; text underlines
   assert.deepEqual(blankRuleItems(list, ops, [...items, { str: '______', x: 150, y: 852, w: 170 }], page), [], 'existing text-layer blanks must not be duplicated')
 })
 
+test('Td moves the text line matrix rather than adding the advance of preceding glyphs', () => {
+  const textOps = { ...ops, setTextMatrix: 5, setFillRGBColor: 6, showText: 7, setFont: 8, moveText: 10, beginText: 14 }
+  const glyphs = (s) => [...s].map((unicode) => ({ unicode, width: 500 }))
+  const list = { fnArray: [8, 14, 5, 7, 6, 10, 7, 6, 10, 7], argsArray: [
+    ['font', 10], [], [[1, 0, 0, 1, 100, 602]], [glyphs('lead')], ['#ffffff'], [50, 0],
+    [glyphs('hidden')], ['#000000'], [100, 0], [glyphs('.')],
+  ] }
+  const visible = visibleBlankText(list, textOps, [
+    { str: '34. A question', x: 90, y: 800, w: 100 },
+    { str: 'leadhidden.', x: 100, y: 602, w: 155 },
+  ], page)
+  assert.deepEqual(visible.map(({ str, x }) => ({ str, x })), [
+    { str: '34. A question', x: 90 }, { str: 'lead', x: 100 }, { str: '.', x: 250 },
+  ])
+})
+
 test('saved drawing transforms are applied and repeated paths yield only one blank', () => {
   const list = { fnArray: [1, 3, 4, 4, 2], argsArray: [[], [1, 0, 0, 1, 100, 800], drawPath([50, 50, 220, 50]), drawPath([50, 50, 220, 50]), []] }
   assert.equal(blankRuleItems(list, ops, [{ str: 'It is', x: 100, y: 852, w: 48 }], page).length, 1)

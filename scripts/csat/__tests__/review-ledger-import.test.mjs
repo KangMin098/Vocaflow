@@ -23,7 +23,7 @@ test('data-only SQL holds both ledgers in one statement and safely quotes dollar
   assert.deepEqual(literals, [prepared.batches, prepared.followups])
 })
 
-async function run(metrics, followups, rpcError = false, exportSql = false) {
+async function run(metrics, followups, rpcError = false, exportSql = false, existing = { batches: [], followups: [] }) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-ledger-'))
   const work = path.join(dir, 'scripts/csat/review-drain-hakpyeong')
   fs.mkdirSync(work, { recursive: true })
@@ -35,6 +35,13 @@ async function run(metrics, followups, rpcError = false, exportSql = false) {
     for await (const part of req) body += part
     requests.push({ method: req.method, url: req.url, body: body ? JSON.parse(body) : null })
     res.setHeader('Content-Type', 'application/json')
+    if (req.method === 'GET') {
+      const url = new URL(req.url, 'http://fixture')
+      const rows = url.pathname.endsWith('/csat_review_batches') ? existing.batches : existing.followups
+      const offset = Number(url.searchParams.get('offset') ?? 0)
+      const limit = Number(url.searchParams.get('limit') ?? 1000)
+      return res.end(JSON.stringify(rows.slice(offset, offset + limit)))
+    }
     if (req.url.startsWith('/rest/v1/rpc/') && rpcError) {
       res.statusCode = 400
       return res.end(JSON.stringify({ message: 'invalid followup: entire transaction rolled back' }))
@@ -144,4 +151,21 @@ test('ledger RPC errors are reported without a partial table-write fallback', as
   assert.match(r.output, /entire transaction rolled back/)
   assert.equal(r.requests.filter((q) => q.method === 'POST').length, 1)
   assert.equal(r.requests.filter((q) => q.method === 'POST')[0].url, '/rest/v1/rpc/csat_review_ledgers_import')
+})
+
+test('ledger-import counts existing natural keys beyond the first 1000 rows without reporting them as new', async () => {
+  const prepared=prepareReviewLedgers(JSON.stringify(batch),JSON.stringify(followup),'2026-10-04T00:00:00Z')
+  const existing={
+    batches:[...Array.from({length:1000},(_,i)=>({batch:`existing-${i}`})),prepared.batches[0]],
+    followups:[...Array.from({length:1000},(_,i)=>({item_id:`H#${i}`,source:'old',finding_key:`key-${i}`})),prepared.followups[0]],
+  }
+  const r=await run(JSON.stringify(batch),JSON.stringify(followup),false,false,existing)
+  assert.equal(r.code,0,r.output)
+  assert.match(r.output,/배치 1\(새 0 · 갱신 1\) · 추적 1\(새 0 · 갱신 1\)/)
+  for(const table of ['csat_review_batches','csat_review_followups']){
+    const reads=r.requests.filter(q=>q.method==='GET'&&q.url.includes(table))
+    assert.equal(reads.length,2)
+    assert.ok(reads.some(q=>q.url.includes('offset=1000')))
+  }
+  assert.equal(r.requests.filter(q=>q.method==='POST').length,1)
 })

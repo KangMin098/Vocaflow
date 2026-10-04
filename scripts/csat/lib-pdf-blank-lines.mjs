@@ -3,21 +3,29 @@
 /** White answer text in some source PDFs is invisible on the printed blank. */
 export function visibleBlankText(operatorList, ops, items, { width }) {
   const mul = (m, n) => [m[0] * n[0] + m[2] * n[1], m[1] * n[0] + m[3] * n[1], m[0] * n[2] + m[2] * n[3], m[1] * n[2] + m[3] * n[3], m[0] * n[4] + m[2] * n[5] + m[4], m[1] * n[4] + m[3] * n[5] + m[5]]
-  let state = { matrix: [1, 0, 0, 1, 0, 0], text: [1, 0, 0, 1, 0, 0], fill: '#000000', font: 1, scale: 1, char: 0, word: 0 }
+  let state = { matrix: [1, 0, 0, 1, 0, 0], text: [1, 0, 0, 1, 0, 0], lineText: [1, 0, 0, 1, 0, 0], leading: 0, fill: '#000000', font: 1, scale: 1, char: 0, word: 0 }
   const stack = [], spans = []
+  const moveLine = (x, y) => {
+    state.lineText[4] += x * state.lineText[0] + y * state.lineText[2]
+    state.lineText[5] += x * state.lineText[1] + y * state.lineText[3]
+    state.text = [...state.lineText]
+  }
   for (let i = 0; i < operatorList.fnArray.length; i++) {
     const op = operatorList.fnArray[i], a = operatorList.argsArray[i]
-    if (op === ops.save) { stack.push({ ...state, matrix: [...state.matrix], text: [...state.text] }); continue }
+    if (op === ops.save) { stack.push({ ...state, matrix: [...state.matrix], text: [...state.text], lineText: [...state.lineText] }); continue }
     if (op === ops.restore) { state = stack.pop() ?? state; continue }
     if (op === ops.transform) state.matrix = mul(state.matrix, a)
-    else if (op === ops.beginText) state.text = [1, 0, 0, 1, 0, 0]
+    else if (op === ops.beginText) { state.text = [1, 0, 0, 1, 0, 0]; state.lineText = [...state.text] }
     else if (op === ops.setFillRGBColor) state.fill = a[0]
     else if (op === ops.setFont) state.font = a[1]
     else if (op === ops.setHScale) state.scale = a[0] / 100
     else if (op === ops.setCharSpacing) state.char = a[0]
     else if (op === ops.setWordSpacing) state.word = a[0]
-    else if (op === ops.setTextMatrix) state.text = Array.from(a[0]?.length === 6 ? a[0] : a.length === 6 ? a : Object.values(a[0]))
-    else if (op === ops.moveText) { state.text[4] += a[0] * state.text[0]; state.text[5] += a[1] * state.text[3] }
+    else if (op === ops.setTextMatrix) { state.text = Array.from(a[0]?.length === 6 ? a[0] : a.length === 6 ? a : Object.values(a[0])); state.lineText = [...state.text] }
+    else if (op === ops.moveText) moveLine(a[0], a[1])
+    else if (op === ops.setLeadingMoveText) { state.leading = -a[1]; moveLine(a[0], a[1]) }
+    else if (op === ops.setLeading) state.leading = a[0]
+    else if (op === ops.nextLine) moveLine(0, -state.leading)
     else if (op === ops.showText) {
       const m = mul(state.matrix, state.text)
       let advance = 0, str = ''

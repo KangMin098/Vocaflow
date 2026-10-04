@@ -50,7 +50,8 @@ export function scopedTypeReports(items, analyses, now, knownScopes = []) {
       const n = new Set(a.answer_locus?.sentence_index ?? []).size
       loci.set(n, (loci.get(n) ?? 0) + 1)
       if (Number.isFinite(a.time_budget_sec) && a.time_budget_sec > 0) times.push(a.time_budget_sec)
-      for (const c of a.choice_analysis ?? []) if (c.verdict === 'distractor' && c.trap?.trim()) traps.set(c.trap.trim(), (traps.get(c.trap.trim()) ?? 0) + 1)
+      const itemTraps = new Set((a.choice_analysis ?? []).filter((c) => c.verdict === 'distractor' && c.trap?.trim()).map((c) => c.trap.trim()))
+      for (const trap of itemTraps) traps.set(trap, (traps.get(trap) ?? 0) + 1)
     }
     const recurring = [...traps].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([trap, count]) => ({ trap, count }))
     times.sort((a, b) => a - b)
@@ -63,7 +64,7 @@ export function scopedTypeReports(items, analyses, now, knownScopes = []) {
       procedure_steps: (steps ?? []).map((step) => ({ step })),
       failure_modes: [],
       time_budget_sec: times.length ? times[Math.floor(times.length / 2)] : null,
-      open_questions: ['집계는 학년별 최신 발행 분석에 한정한다. 공통 절차는 _PROMPT.md §1-c의 유형별 근거 원리를 따른다. 실제 학생 오답률은 관측하지 않아 failure_modes와 정답률을 추정하지 않는다.', '함정 count는 오답 선지 수이며, 동일 문항의 다른 오답도 각각 센다.'],
+      open_questions: ['집계는 학년별 최신 발행 분석에 한정한다. 공통 절차는 _PROMPT.md §1-c의 유형별 근거 원리를 따른다. 실제 학생 오답률은 관측하지 않아 failure_modes와 정답률을 추정하지 않는다.', '함정 count는 그 함정이 나온 문항 수이며, 같은 문항의 여러 오답에 같은 함정이 있어도 한 번 센다.'],
       status: g.analyses.length ? 'published' : 'draft', updated_at: now,
     }
   })

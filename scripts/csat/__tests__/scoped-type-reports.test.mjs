@@ -31,6 +31,17 @@ test('unknown-answer rows and out-of-scope items are excluded', () => {
   assert.equal(reports[0].n_analyzed, 0)
 })
 
+test('a recurring trap counts each item once even when several distractors share its label', () => {
+  const items = [23,24].map(n=>({id:`H2603G1#${n}`,type_id:'R-TOPIC',in_scope:true}))
+  const analyses = items.map(i=>({item_id:i.id,version:1,status:'published',choice_analysis:[
+    {verdict:'distractor',trap:'무관'}, {verdict:'distractor',trap:' 무관 '},
+    {verdict:'distractor',trap:'무관'}, {verdict:'correct',trap:'정답 잔재'},
+  ]}))
+  const [report]=scopedTypeReports(items,analyses,'fixed')
+  assert.equal(report.n_analyzed,2)
+  assert.deepEqual(report.recurring_traps,[{trap:'무관',count:2}])
+})
+
 test('previous report keys with no remaining scoped items become empty drafts instead of stale published rows', () => {
   const reports = scopedTypeReports([], [], 'fixed', [{ grade: 2, type_id: 'R-TOPIC' }])
   assert.equal(reports.length, 1)

@@ -9,7 +9,7 @@
 // 뒤집히거나 엉뚱한 해석은 학습자에게 되돌릴 수 없는 오학습이 된다.
 
 import { beforeAll, describe, expect, it } from 'vitest'
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 const SUPABASE_URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const SERVICE_KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
@@ -23,12 +23,12 @@ interface MinimalDb {
 }
 
 describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', () => {
-  let client: MinimalDb
+  let client: SupabaseClient
 
   beforeAll(() => {
     client = createClient(SUPABASE_URL!, SERVICE_KEY!, {
       auth: { persistSession: false },
-    }) as unknown as MinimalDb
+    })
   })
 
   async function resolve(surface: string): Promise<string | null> {
@@ -37,20 +37,30 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
     return (data as string | null) ?? null
   }
 
+  // 사전 확장으로 미등록 픽스처가 L1 표제어가 되어도 의미 보존 계약은 같다.
+  // 정확 일치는 허용하고, 접사를 떼어 다른 뜻의 어기로 보내는 것만 거부한다.
+  async function exactHeadword(surface: string): Promise<string | null> {
+    const { data, error } = await client.from('shared_dictionary')
+      .select('word,variant_of').eq('word', surface).eq('archived', false)
+      .not('classified_by', 'is', null).not('meaning_ko', 'is', null).neq('meaning_ko', '').maybeSingle()
+    expect(error).toBeNull()
+    return data?.variant_of ?? data?.word ?? null
+  }
+
   describe('극성 반전 파생은 해석하지 않는다', () => {
     // 실측 결함(2026-08-13): sugarless→sugar("설탕") · carbonless→carbon("탄소")
     // -less 는 뜻을 뒤집으므로 어기로 해석하면 정반대를 가르친다.
     it.each(['sugarless', 'carbonless', 'leaderless'])(
       '%s 는 어기로 해석되지 않는다',
       async (w) => {
-        expect(await resolve(w)).toBeNull()
+        expect(await resolve(w)).toBe(await exactHeadword(w))
       },
     )
 
     it.each(['unglamorous', 'mislabeled', 'nonlinear'])(
-      '부정 접두사 %s 는 해석되지 않는다',
+      '부정 접두사 %s 는 등록 표제어 이외의 어기로 해석되지 않는다',
       async (w) => {
-        expect(await resolve(w)).toBeNull()
+        expect(await resolve(w)).toBe(await exactHeadword(w))
       },
     )
 
@@ -64,7 +74,7 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
     // geochemist→chemist 는 형태론적으로 부분집합이지만, 사전의 chemist 주 뜻이
     // "약사" 라 지구화학자가 약사가 된다. 어떤 어기가 다의어인지 미리 알 수 없다.
     it('geochemist 는 chemist 로 해석되지 않는다', async () => {
-      expect(await resolve('geochemist')).toBeNull()
+      expect(await resolve('geochemist')).toBe(await exactHeadword('geochemist'))
     })
   })
 
@@ -79,7 +89,7 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
     })
 
     it('optimization → optimisation', async () => {
-      expect(await resolve('optimization')).toBe('optimisation')
+      expect(await resolve('optimization')).toBe(await exactHeadword('optimization') ?? 'optimisation')
     })
 
     // 9섹터 실측(2026-08-13)에서 드러난 결함: L5 가 미국식→영국식 **단방향**이었다.
