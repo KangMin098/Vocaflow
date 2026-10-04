@@ -63,7 +63,7 @@
 
 수준 숫자는 실제 분석 결과로 채운다. R0는 `kind: activity`, R13은 양의 제한시간을 명시한다. R11/R12는 target.resources의 실제 텍스트/자료에서 `resource_evidence: [{ "resource_index": 0, "quote": "해당 자료에 그대로 있는 근거" }]`를 붙인다. 자료가 없으면 목표 자체가 export 전에 거부된다.
 
-FYM 쌍은 `parallel_pair: { "original_work_id": "DOI", "research_url": "연구 URL", "student_url": "이번 FYM 원문 URL", "evidence": "원문에 DOI가 그대로 있는 구간" }`으로 남긴다. 단순히 주제가 비슷하다고 쌍으로 묶지 않는다. 증거가 없으면 null이다. 선택적인 `source_score`는 `academic-reading.ts:SOURCE_SCORE_WEIGHTS`의 11키·각 상한을 그대로 따른다. 권리 차단을 높은 점수로 상쇄할 수 없다.
+FYM 쌍은 `reading.research_origin.relations`의 명시적인 Original Source Article 증거에서 고른다. `parallel_pair: { "original_work_id": "정규화 DOI", "research_url": "relations의 doi.org URL", "student_url": "이번 FYM 원문 URL", "evidence": "relations의 evidence 전체 그대로" }`으로 남긴다. research_origin과 database_research_origin은 입력 그대로 보존한다. 일반 참고문헌·본문 속 DOI·주제 유사성으로 쌍을 추정하지 않는다. 명시적 증거가 없으면 null이다. 원 연구의 본문 이용권리와 gold-set 승인은 별도로 검증한다. 선택적인 `source_score`는 `academic-reading.ts:SOURCE_SCORE_WEIGHTS`의 11키·각 상한을 그대로 따른다. 권리 차단을 높은 점수로 상쇄할 수 없다.
 
 각색을 import하면 원문을 바꾸지 않고 `queued` 자식만 만든다. 기존 분석·내용 판정·적격 검증을 마친 뒤 문항 제작으로 넘긴다. 이 item_plan은 설계된 질문/활동이며, 기존 조판용 5지선다 문항은 별도 `item-drain-export/import`로 생성·검수한다.
 

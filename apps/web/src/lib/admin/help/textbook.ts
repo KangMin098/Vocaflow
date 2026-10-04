@@ -250,6 +250,11 @@ export const TBP_HELP: HelpRegistry = {
         ],
         procedure: [
           {
+            title: 'FYM 학생용 글의 원 연구 계보를 확인한다',
+            detail: '`pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-pairs-export.mjs --ids-file <UUID파일> --limit 3 --output <새.json>`은 DB와 공식 페이지를 읽기만 합니다. Original Source Article 구간의 DOI·URL·인용과 현재 원문 hash/revision을 대조하며 보통 편당 페이지 조회가 필요합니다. References만 있거나 DOI가 없으면 연결을 추정하지 않고, 페이지/DB 본문이 다르면 보류합니다. 출력이 이미 있으면 실패하므로 재실행에는 새 경로를 씁니다. 각색 export의 --research-origins <새.json>으로 해당 UUID 범위와 증거를 넘깁니다. 새 수집은 계보를 csat_fit에 보존하지만 기존 원문을 이 명령으로 수정하지 않습니다.',
+            done: '계보 manifest에 연결/없음/보류 상태가 있고 각색 청크에는 원문 hash/revision에 묶인 research_origin이 있습니다. 연구 본문 권리와 gold-set 승인은 별도입니다.',
+          },
+          {
             title: '연령·언어·사고 목표를 분리해 같은 원문을 교재화한다',
             detail: 'Academic Reading 타깃은 R0~R13 능력·P01~P20 목적·독자 age_band·language_band·reasoning_band·시험·분량을 따로 지정합니다. scripts/textbook/targets의 JSON을 준비하고 `pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target <JSON> --source <원천> --limit 2`로 소량부터 뽑습니다. 읽기 전용·재실행 안전이며 같은 타깃의 DB/예약 청크를 건너뛰고 완료 입력/결과를 보존합니다. 에이전트는 academic-reading-brief.md를 읽고 원문별 권리 증거·열 분석축·명제 대응·본문 근거가 있는 문항/활동을 채웁니다. 같은 target으로 import 예행 후 checkpoint와 --commit을 실행하면 원문을 보존하고 queued 자식만 만듭니다. 기존 분석·내용 판정·적격 확인을 마쳐야 문항 제작·조판으로 넘어갑니다. 최초 소량 처리 시간은 본문 길이와 권리 확인에 따라 달라집니다.',
             done: '새 각색의 composed_spec.academic_reading에 target·원문 UUID/hash/revision·권리·분석·문항 계획이 있고, 원문은 바뀌지 않았습니다. queued는 발행 완료가 아닙니다.',

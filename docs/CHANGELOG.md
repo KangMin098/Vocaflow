@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): FYM Original Source Article 계보를 학습 본문 밖에 보존하고 새 수집 JSONB·읽기 전용 원천 점검·각색 드레인에 연결했다. 참고문헌 오인·다른 페이지/변경된 본문·낡은 계보·연구 URL/인용 변조를 차단한다. 기존 DB 갱신·새 테이블·마이그레이션 없음.
+
 - feat(textbook): Academic Reading 타기팅·처리 계약 — R0~R13/P01~P20·독자/언어/사고 분리·기사별 권리·열 분석축·문항 난이도/근거를 공통 정본으로 추가. 기존 각색/문항 드레인에 target별 계보·hash/revision 대조·queued 자식과 payload 저장을 연결했다. 마이그레이션·라우트·DB 발행 변경 없음.
 - fix(textbook): 같은 원문의 다른 target 생성과 각색/문항 청크 보존·예약·중복 처리를 수정하고 high/exam의 중등 어휘 대역 오적용을 제거했다. 제시문 임의 변경을 막고 빈칸/어휘 치환만 허용한다. 관리자 도움말·집필 계약·파이프라인/DB 문서를 동반 갱신했다.
 

@@ -86,6 +86,7 @@ import { ShortBodyError } from './short-body'
 import { fetchWithTimeout, htmlToPlainText } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 import { sourceKey } from './source-key'
+import { extractFrymResearchOrigin } from './research-origin'
 
 const CROSSREF = 'https://api.crossref.org/journals/2296-6846/works'
 
@@ -474,7 +475,9 @@ export async function ingestFrymArticle(itemUrl: string): Promise<RawArticle> {
   const fullUrl = frymFullUrl(doi)
   const page = await fetchWithTimeout(fullUrl, { accept: 'text/html' })
   if (!page.ok) throw new Error(`FrYM 본문 GET 실패: ${page.status} ${fullUrl}`)
-  const content = frymFullTextContent(await page.text())
+  const html = await page.text()
+  const content = frymFullTextContent(html)
+  const fetchedAt = new Date()
   const words = countWords(content)
   // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
   const shortBody = words < FULLTEXT_MIN_WORDS
@@ -495,7 +498,11 @@ export async function ingestFrymArticle(itemUrl: string): Promise<RawArticle> {
     content,
     // 8~15세 대상이지만 심사물이라 등급이 붙어 있지 않다 — analyze 가 판정한다.
     estimated_cefr: null,
-    fetched_at: new Date(),
+    research_origin: extractFrymResearchOrigin({
+      html, container: frymFullTextContainer(html), studentUrl: fullUrl,
+      body: content, checkedAt: fetchedAt.toISOString(),
+    }),
+    fetched_at: fetchedAt,
   }
   if (shortBody) {
     throw new ShortBodyError(

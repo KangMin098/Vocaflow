@@ -18,6 +18,7 @@
 // 이 모듈은 쓰기 여부를 스스로 정하지 않는다. 부르는 쪽이 `commit` 을 넘긴다(기본 dry-run).
 
 const { rightsTag } = await import('../../packages/library-pipeline/src/ingest-article/rights-tag.ts')
+const { articleResearchOrigin } = await import('../../packages/library-pipeline/src/ingest-article/research-origin.ts')
 
 /** 파생 종류 — `csat_fit.derived_from.kind`. gate-rules `derivativeKind` 가 그대로 돌려준다. */
 export const DERIVED_KINDS = new Set(['lead', 'paragraphs', 'excerpt', 'abstract', 'intro', 'adapt'])
@@ -99,7 +100,7 @@ export async function ensureOriginal(db, {
       feed_id: feedId,
       feed_label: feedLabel,
       // 새 행이라 덮을 키가 없다 — 권리 표지 하나만 적는다.
-      csat_fit: { rights: rightsOf(article, licenseEvidence) },
+      csat_fit: { rights: rightsOf(article, licenseEvidence), ...articleResearchOrigin(article) },
     })
     .select('id')
     .single()
