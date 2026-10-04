@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {createClient} from '@supabase/supabase-js'
 import {isDeepStrictEqual} from 'node:util'
-import {applySourceRepair,mergeSourceRepair} from './lib-source-repair.mjs'
+import {applySourceRepair,mergeSourceRepair,completeSource} from './lib-source-repair.mjs'
 
 const argv=process.argv.slice(2)
 const value=key=>argv[argv.indexOf(key)+1]
@@ -29,7 +29,7 @@ const patches=plan.repairs.map(repair=>{
   if(!old)throw Error(`${repair.item_id}: 문항 없음`)
   if(path.basename(repair.pdf_file)!==repair.pdf_file||!repair.pdf_file.endsWith('.pdf'))throw Error('PDF는 정본 폴더의 파일명만 받는다')
   const next=applySourceRepair(old,repair,fs.readFileSync(path.join(folder,repair.pdf_file)))
-  const patch={...repair.after,body_ok:true}
+  const patch={...repair.after,body_ok:completeSource(next)}
   return {old,patch,changed:!Object.entries(patch).every(([field,v])=>isDeepStrictEqual(old[field],v)),next}
 })
 const recipeFile='scripts/csat/data/hakpyeong-source-repairs.json'
@@ -59,9 +59,10 @@ for(const {old,patch,changed} of patches){
   if(writeError||written?.length!==1)throw Error(`${old.id}: ${writeError?.message??'동시 변경 — 재대조 필요'}; 이미 처리한 문항은 유지하고 같은 계획으로 재실행한다`)
   await new Promise(resolve=>setTimeout(resolve,350))
 }
-for(const {old,patch} of patches){
+for(const {old,patch,next} of patches){
   const item=corpus.items.find(r=>r.id===old.id)
-  Object.assign(item,patch,{body_suspect:false})
+  // Align the entire validated input, while retaining unresolved local warnings.
+  Object.assign(item,{stem:next.stem,passage:next.passage,choices:next.choices,body_ok:patch.body_ok,body_suspect:!!item.body_suspect||!patch.body_ok})
 }
 fs.writeFileSync(corpusFile,JSON.stringify(corpus,null,1)+'\n')
 console.log('정본 확인 수리 완료. 해당 단위 목록을 재생성하고 새 분석·독립 검수 전에는 발행하지 않는다.')

@@ -4,6 +4,8 @@ import {isDeepStrictEqual} from 'node:util'
 
 const FIELDS = new Set(['passage', 'choices', 'stem'])
 export const sourceDigest = value => crypto.createHash('sha256').update(value).digest('hex')
+export const completeSource = item => [item.stem,item.passage].every(v=>typeof v==='string'&&v.trim()) &&
+  Array.isArray(item.choices) && item.choices.length===5 && item.choices.every(v=>typeof v==='string'&&v.trim())
 
 /** Retain the first parser input when a later inspection repairs another field. */
 export function mergeSourceRepair(previous, repair) {

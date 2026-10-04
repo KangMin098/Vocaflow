@@ -12,7 +12,7 @@
 // ── 검수 에이전트의 한 문항 절차(순서가 곧 규칙이다) ─────────────────
 //   1) start   --analysis <id> --persona <setter|analyst|tutor> --agent-run <내 실행 id>
 //              → 원문·발문·선지만 준다. 정답·분석은 주지 않는다.
-//   2) solve   --run <run id> --answer <1-5> --note "<왜 그 답인가>"
+//   2) solve   --run <run id> --item <문항 id> --answer <1-5> --note "<문항별 근거 20자 이상>"
 //              → 독립 풀이 확정. 한 번만. 이 뒤에만 공개된다.
 //   3) reveal  --run <run id>
 //              → 공식 정답과 분석(해당 버전)을 준다.
@@ -276,18 +276,19 @@ switch (cmd) {
     // 정답(answer·answers)과 분석은 **주지 않는다** — solve 뒤 reveal 에서만
     const { data: it, error: ie } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices').eq('id', a.item_id).single()
     if (ie) die(ie.message)
-    out({ run_id: run.id, resumed: !!existing, item: it, units: await unitsView(a.item_id), next: existing?.solve_answer != null ? `reveal --run ${run.id}` : `solve --run ${run.id} --answer <1-5> --note "<근거>"` })
+    out({ run_id: run.id, resumed: !!existing, item: it, units: await unitsView(a.item_id), next: existing?.solve_answer != null ? `reveal --run ${run.id}` : `solve --run ${run.id} --item ${a.item_id} --answer <1-5> --note "<문항별 근거 20자 이상>"` })
     break
   }
   case 'solve': {
     const run = must(arg('run'), 'run')
     const answer = Number(must(arg('answer'), 'answer'))
     const note = must(arg('note'), 'note')
+    const item = must(arg('item'), 'item')
     if (!Number.isInteger(answer) || !(answer >= 1 && answer <= 5)) die('answer 는 1~5 정수')
     const { data: meta, error: me } = await db.from('csat_review_runs')
       .select('id, item_id, agent_run, created_at, solve_committed_at').eq('id', run).single()
     if (me) die(me.message)
-    validateBlindSolutions([{run_id:run,item_id:meta.item_id,answer,note}], [{run_id:run,item_id:meta.item_id,kind:'blind'}])
+    validateBlindSolutions([{run_id:run,item_id:item,answer,note}], [{run_id:run,item_id:meta.item_id,kind:'blind'}])
     await assertBlindValid([run])
     await assertBlindSourceUnseen(meta, new Date().toISOString())
     const { error } = await db.rpc('csat_review_solve', { p_run: run, p_answer: answer, p_note: note })

@@ -41,7 +41,8 @@ async function run(kind, existing, solveAnswer = null, overrides = {}) {
   })
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
   try {
-    const child = spawn(process.execPath, [CLI, kind, '--run', 'parent', '--analysis', 'analysis', '--persona', 'setter', '--agent-run', 'reviewer', '--out', '_out-test.json', '--before', '2026-10-03T21:34:35.336Z'], {
+    const solveArgs=kind==='solve'?['--answer','2','--note',overrides.solveNote??'An independently committed solution.',...(overrides.omitItem?[]:['--item',overrides.submittedItem??'H2603G3#18'])]:[]
+    const child = spawn(process.execPath, [CLI, kind, '--run', 'parent', '--analysis', 'analysis', '--persona', 'setter', '--agent-run', 'reviewer', '--out', '_out-test.json', '--before', '2026-10-03T21:34:35.336Z',...solveArgs], {
       cwd: dir, windowsHide: true,
       env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
     })
@@ -84,6 +85,17 @@ for (const kind of ['start', 'rereview']) {
     assert.equal(r.requests.filter((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_review_runs')).length, 1)
   })
 }
+
+test('solve verifies the submitted item against the DB run before committing evidence',async()=>{
+ const good=await run('solve',false)
+ assert.equal(good.code,0,good.output)
+ assert.equal(good.requests.filter(r=>r.url.startsWith('/rest/v1/rpc/csat_review_solve')).length,1)
+ for(const overrides of [{submittedItem:'H2603G3#19'},{omitItem:true},{solveNote:'undefined'}]){
+  const bad=await run('solve',false,null,overrides)
+  assert.notEqual(bad.code,0)
+  assert.equal(bad.requests.filter(r=>r.method==='POST').length,0)
+ }
+})
 
 test('a resumed committed blind solve goes directly to reveal without solving twice', async () => {
   const r = await run('start', true, 2)
