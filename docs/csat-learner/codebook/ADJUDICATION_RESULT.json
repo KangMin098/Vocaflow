@@ -1,0 +1,979 @@
+{
+ "run_id": "xm-20261004-adj",
+ "plan_commit": "a6e4670e4",
+ "n": 26,
+ "agreement": {
+  "agreed": 20,
+  "disagreed": 6
+ },
+ "code_a": {
+  "CODEBOOK_BOUNDARY_WEAK": 7,
+  "GOLD_WRONG": 16,
+  "ITEM_BAD_CONSTRUCT": 2,
+  "CODE_REDUNDANT": 1
+ },
+ "code_b": {
+  "CODEBOOK_BOUNDARY_WEAK": 4,
+  "GOLD_WRONG": 17,
+  "MODEL_SHARED_BIAS": 1,
+  "ITEM_BAD_CONSTRUCT": 4
+ },
+ "agreed_codes": {
+  "CODEBOOK_BOUNDARY_WEAK": 3,
+  "GOLD_WRONG": 15,
+  "ITEM_BAD_CONSTRUCT": 2
+ },
+ "triggers": {
+  "t1_boundary_weak_same_boundary": [],
+  "t2_identified_vs_multiple_repeat": [],
+  "t3_attachment_not_separable": [],
+  "t4_volatile_codes_rule_problem": [
+   "C2-02",
+   "N-04"
+  ]
+ },
+ "rev4_required": true,
+ "gold_side_majority": true,
+ "seed_candidate": false,
+ "seed": {
+  "c1_unresolved_zero_or_excluded": {
+   "ok": false,
+   "detail": "미해결 8건 · 사유 있는 명시적 제외 0 · 남음 C2-02 C3-15 H-14 H-17 C3-17 N-15 N-05 H-24",
+   "excluded": {}
+  },
+  "c2_no_repeated_rule_failure": {
+   "ok": false,
+   "detail": "rev4 조건 충족"
+  },
+  "c3_shared_bias_le_25pct": {
+   "ok": true,
+   "detail": "MODEL_SHARED_BIAS(두 판정자 합의) 0/18"
+  },
+  "c4_im_boundary_reproducible": {
+   "ok": false,
+   "detail": "그 경계 사례 5건 중 합의 · 규칙 약함 아님 3"
+  },
+  "c5_gold_accept_schema": {
+   "ok": true,
+   "detail": "허용 대안이 필요한 기대 판정 없음"
+  },
+  "c6_subset_rerun_if_rev4": {
+   "ok": false,
+   "detail": "rev4 후 바뀐 경계 subset 재-blind-run 필요"
+  }
+ },
+ "rows": [
+  {
+   "case_id": "C2-02",
+   "kind": "unresolved",
+   "final": null,
+   "expected": "identified:R.inference",
+   "corpus_boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "adj1": {
+    "a": "identified:R.inference",
+    "b": "identified:V.wrong_sense",
+    "gold_a": "yes",
+    "gold_b": "partial"
+   },
+   "code_a": "CODEBOOK_BOUNDARY_WEAK",
+   "code_b": "CODEBOOK_BOUNDARY_WEAK",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "R.inference ↔ V.wrong_sense",
+   "boundary_b": "R.inference ↔ V.wrong_sense",
+   "agreed": "CODEBOOK_BOUNDARY_WEAK",
+   "gold_a": "identified:R.inference",
+   "gold_b": "identified:V.wrong_sense",
+   "accept_a": [
+    "V.wrong_sense"
+   ],
+   "accept_b": [
+    "R.inference"
+   ],
+   "codes_touched": [
+    "R.inference",
+    "V.wrong_sense"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": true
+   }
+  },
+  {
+   "case_id": "C4-11",
+   "kind": "model_vs_gold",
+   "final": "identified:R.inference",
+   "expected": "identified:V.wrong_sense",
+   "corpus_boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "adj1": {
+    "a": "identified:R.inference",
+    "b": "identified:R.inference",
+    "gold_a": "partial",
+    "gold_b": "partial"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": "CODEBOOK_BOUNDARY_WEAK",
+   "secondary_b": null,
+   "boundary_a": "R.inference ↔ V.wrong_sense",
+   "boundary_b": "R.inference ↔ V.wrong_sense",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:R.inference",
+   "gold_b": "identified:R.inference",
+   "accept_a": [
+    "V.wrong_sense"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "R.inference",
+    "V.wrong_sense"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  },
+  {
+   "case_id": "H-13",
+   "kind": "model_vs_gold",
+   "final": "identified:V.wrong_sense",
+   "expected": "identified:R.inference",
+   "corpus_boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "adj1": {
+    "a": "identified:V.wrong_sense",
+    "b": "identified:V.wrong_sense",
+    "gold_a": "no",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "R.inference ↔ V.wrong_sense",
+   "boundary_b": "R.inference ↔ V.wrong_sense",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:V.wrong_sense",
+   "gold_b": "identified:V.wrong_sense",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "V.wrong_sense",
+    "R.inference"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "C3-15",
+   "kind": "unresolved",
+   "final": null,
+   "expected": "identified:R.relation",
+   "corpus_boundaries": [
+    "R.reference ↔ R.relation"
+   ],
+   "adj1": {
+    "a": "identified:R.reference",
+    "b": "insufficient_evidence",
+    "gold_a": "partial",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "CODEBOOK_BOUNDARY_WEAK",
+   "secondary_a": "CODEBOOK_BOUNDARY_WEAK",
+   "secondary_b": "GOLD_WRONG",
+   "boundary_a": "R.reference ↔ R.relation",
+   "boundary_b": "R.reference ↔ R.relation ↔ insufficient_evidence",
+   "agreed": null,
+   "gold_a": "identified:R.reference",
+   "gold_b": "insufficient_evidence",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "R.reference",
+    "insufficient_evidence",
+    "R.relation"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": true
+   }
+  },
+  {
+   "case_id": "H-15",
+   "kind": "model_vs_gold",
+   "final": "identified:R.relation",
+   "expected": "identified:R.reference",
+   "corpus_boundaries": [
+    "R.reference ↔ R.relation"
+   ],
+   "adj1": {
+    "a": "identified:R.reference",
+    "b": "identified:R.relation",
+    "gold_a": "yes",
+    "gold_b": "partial"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "R.reference ↔ R.relation",
+   "boundary_b": "R.reference ↔ R.relation",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:R.relation",
+   "gold_b": "identified:R.relation",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "R.relation",
+    "R.reference"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "C2-08",
+   "kind": "model_vs_gold",
+   "final": "identified:R.relation",
+   "expected": "identified:B.outside_knowledge",
+   "corpus_boundaries": [
+    "R ↔ B"
+   ],
+   "adj1": {
+    "a": "identified:B.outside_knowledge",
+    "b": "identified:B.outside_knowledge",
+    "gold_a": "yes",
+    "gold_b": "yes"
+   },
+   "code_a": "CODEBOOK_BOUNDARY_WEAK",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": "GOLD_WRONG",
+   "secondary_b": null,
+   "boundary_a": "B.outside_knowledge ↔ R.relation",
+   "boundary_b": "B.outside_knowledge ↔ R.relation",
+   "agreed": null,
+   "gold_a": "identified:R.relation",
+   "gold_b": "identified:R.relation",
+   "accept_a": [
+    "B.outside_knowledge"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "R.relation",
+    "B.outside_knowledge"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  },
+  {
+   "case_id": "C2-09",
+   "kind": "model_vs_gold",
+   "final": "identified:R.inference",
+   "expected": "identified:S.operator_scope",
+   "corpus_boundaries": [
+    "R ↔ B"
+   ],
+   "adj1": {
+    "a": "identified:S.operator_scope",
+    "b": "identified:R.inference",
+    "gold_a": "partial",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": "ITEM_AMBIGUOUS",
+   "secondary_b": "MODEL_SHARED_BIAS",
+   "boundary_a": "B.surface_match ↔ R.inference ↔ R.relation ↔ S.operator_scope",
+   "boundary_b": "R.inference ↔ R.main_point ↔ R.relation ↔ S.operator_scope",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:R.inference",
+   "gold_b": "identified:R.inference",
+   "accept_a": [
+    "R.relation"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "R.relation",
+    "R.inference",
+    "R.main_point",
+    "S.operator_scope"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "C4-02",
+   "kind": "model_vs_gold",
+   "final": "identified:R.relation",
+   "expected": "identified:B.surface_match",
+   "corpus_boundaries": [
+    "R ↔ B"
+   ],
+   "adj1": {
+    "a": "identified:R.relation",
+    "b": "identified:R.relation",
+    "gold_a": "partial",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "B.surface_match ↔ R.relation",
+   "boundary_b": "B.surface_match ↔ R.relation",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:R.relation",
+   "gold_b": "identified:R.relation",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "R.relation",
+    "B.surface_match"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "C3-01",
+   "kind": "model_vs_gold",
+   "final": "identified:E.task_misread",
+   "expected": "identified:X.attention",
+   "corpus_boundaries": [
+    "E.task_misread ↔ X.time"
+   ],
+   "adj1": {
+    "a": "identified:E.task_misread",
+    "b": "identified:E.task_misread",
+    "gold_a": "partial",
+    "gold_b": "partial"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "E.task_misread ↔ X.attention",
+   "boundary_b": "E.task_misread ↔ X.attention ↔ X.time",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:E.task_misread",
+   "gold_b": "identified:E.task_misread",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "E.task_misread",
+    "X.attention"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "H-09",
+   "kind": "model_vs_gold",
+   "final": "identified:R.inference",
+   "expected": "multiple_plausible:",
+   "corpus_boundaries": [
+    "identified ↔ multiple_plausible"
+   ],
+   "adj1": {
+    "a": "identified:R.main_point",
+    "b": "identified:R.inference",
+    "gold_a": "no",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "B.no_verification ↔ R.inference ↔ X.time",
+   "boundary_b": "B.no_verification ↔ R.inference ↔ X.time",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:R.inference",
+   "gold_b": "identified:R.inference",
+   "accept_a": [
+    "R.main_point"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "R.inference"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "H-14",
+   "kind": "unresolved",
+   "final": null,
+   "expected": "identified:V.multiword",
+   "corpus_boundaries": [
+    "identified ↔ multiple_plausible"
+   ],
+   "adj1": {
+    "a": "identified:V.multiword",
+    "b": "identified:V.multiword",
+    "gold_a": "yes",
+    "gold_b": "yes"
+   },
+   "code_a": "CODEBOOK_BOUNDARY_WEAK",
+   "code_b": "MODEL_SHARED_BIAS",
+   "secondary_a": "ITEM_BAD_CONSTRUCT",
+   "secondary_b": null,
+   "boundary_a": "R.inference ↔ V.multiword",
+   "boundary_b": "R.inference ↔ V.multiword",
+   "agreed": null,
+   "gold_a": "identified:V.multiword",
+   "gold_b": "identified:V.multiword",
+   "accept_a": [
+    "R.inference"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "V.multiword",
+    "R.inference"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  },
+  {
+   "case_id": "H-17",
+   "kind": "unresolved",
+   "final": null,
+   "expected": "identified:V.unknown_word",
+   "corpus_boundaries": [
+    "identified ↔ multiple_plausible"
+   ],
+   "adj1": {
+    "a": "identified:V.unknown_word",
+    "b": "identified:V.wrong_sense",
+    "gold_a": "yes",
+    "gold_b": "partial"
+   },
+   "code_a": "CODEBOOK_BOUNDARY_WEAK",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": "MODEL_SHARED_BIAS",
+   "boundary_a": "V.unknown_word ↔ V.wrong_sense",
+   "boundary_b": "V.unknown_word ↔ V.wrong_sense",
+   "agreed": null,
+   "gold_a": "identified:V.unknown_word",
+   "gold_b": "identified:V.wrong_sense",
+   "accept_a": [
+    "V.wrong_sense"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "V.unknown_word",
+    "V.wrong_sense"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  },
+  {
+   "case_id": "H-19",
+   "kind": "model_vs_gold",
+   "final": "inconsistent_evidence",
+   "expected": "identified:S.operator_scope",
+   "corpus_boundaries": [
+    "identified ↔ multiple_plausible"
+   ],
+   "adj1": {
+    "a": "identified:R.relation",
+    "b": "inconsistent_evidence",
+    "gold_a": "partial",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": "CODEBOOK_BOUNDARY_WEAK",
+   "secondary_b": null,
+   "boundary_a": "identified ↔ inconsistent_evidence",
+   "boundary_b": "R.relation ↔ S.operator_scope ↔ inconsistent_evidence",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "inconsistent_evidence",
+   "gold_b": "inconsistent_evidence",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "inconsistent_evidence",
+    "S.operator_scope"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  },
+  {
+   "case_id": "C3-17",
+   "kind": "unresolved",
+   "final": null,
+   "expected": "multiple_plausible:",
+   "corpus_boundaries": [
+    "identified ↔ multiple_plausible"
+   ],
+   "adj1": {
+    "a": "identified:V.wrong_sense",
+    "b": "identified:V.wrong_sense",
+    "gold_a": "no",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": "ITEM_AMBIGUOUS",
+   "secondary_b": "MODEL_SHARED_BIAS",
+   "boundary_a": "B.surface_match ↔ R.main_point ↔ V.wrong_sense",
+   "boundary_b": "R.main_point ↔ V.wrong_sense ↔ multiple_plausible",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:V.wrong_sense",
+   "gold_b": "identified:R.main_point",
+   "accept_a": [
+    "R.main_point"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "V.wrong_sense",
+    "R.main_point"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "N-13",
+   "kind": "model_vs_gold",
+   "final": "identified:V.multiword",
+   "expected": "multiple_plausible:",
+   "corpus_boundaries": [
+    "multiple_plausible ↔ insufficient_evidence"
+   ],
+   "adj1": {
+    "a": "multiple_plausible:V.multiword|V.wrong_sense",
+    "b": "identified:V.multiword",
+    "gold_a": "partial",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": "CODEBOOK_BOUNDARY_WEAK",
+   "secondary_b": null,
+   "boundary_a": "V.multiword ↔ V.wrong_sense",
+   "boundary_b": "S.core_structure ↔ V.multiword ↔ multiple_plausible",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:V.multiword",
+   "gold_b": "identified:V.multiword",
+   "accept_a": [
+    "V.wrong_sense"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "V.multiword"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  },
+  {
+   "case_id": "N-14",
+   "kind": "model_vs_gold",
+   "final": "identified:R.main_point",
+   "expected": "multiple_plausible:",
+   "corpus_boundaries": [
+    "multiple_plausible ↔ insufficient_evidence"
+   ],
+   "adj1": {
+    "a": "multiple_plausible:S.core_structure|V.wrong_sense",
+    "b": "identified:R.main_point",
+    "gold_a": "yes",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "R.main_point ↔ multiple_plausible",
+   "boundary_b": "R.main_point ↔ S.core_structure ↔ V.wrong_sense",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:R.main_point",
+   "gold_b": "identified:R.main_point",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "R.main_point"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "N-15",
+   "kind": "unresolved",
+   "final": null,
+   "expected": "insufficient_evidence",
+   "corpus_boundaries": [
+    "multiple_plausible ↔ insufficient_evidence"
+   ],
+   "adj1": {
+    "a": "insufficient_evidence",
+    "b": "insufficient_evidence",
+    "gold_a": "yes",
+    "gold_b": "yes"
+   },
+   "code_a": "CODEBOOK_BOUNDARY_WEAK",
+   "code_b": "CODEBOOK_BOUNDARY_WEAK",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "insufficient_evidence ↔ multiple_plausible",
+   "boundary_b": "insufficient_evidence ↔ multiple_plausible",
+   "agreed": "CODEBOOK_BOUNDARY_WEAK",
+   "gold_a": "insufficient_evidence",
+   "gold_b": "insufficient_evidence",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "S.core_structure",
+    "V.unknown_word",
+    "insufficient_evidence"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": true
+   }
+  },
+  {
+   "case_id": "H-04",
+   "kind": "model_vs_gold",
+   "final": "identified:R.relation",
+   "expected": "multiple_plausible:",
+   "corpus_boundaries": [
+    "multiple_plausible ↔ insufficient_evidence"
+   ],
+   "adj1": {
+    "a": "identified:R.relation",
+    "b": "identified:R.relation",
+    "gold_a": "no",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "identified ↔ multiple_plausible",
+   "boundary_b": "R.relation ↔ multiple_plausible",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:R.relation",
+   "gold_b": "identified:R.relation",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "R.relation"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "N-12",
+   "kind": "model_vs_gold",
+   "final": "identified:R.inference",
+   "expected": "inconsistent_evidence",
+   "corpus_boundaries": [
+    "inconsistent_evidence"
+   ],
+   "adj1": {
+    "a": "identified:R.inference",
+    "b": "identified:R.inference",
+    "gold_a": "no",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "R.inference ↔ inconsistent_evidence",
+   "boundary_b": "R.inference ↔ inconsistent_evidence",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "identified:R.inference",
+   "gold_b": "identified:R.inference",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "R.inference"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "C1-08",
+   "kind": "model_vs_gold",
+   "final": "inconsistent_evidence",
+   "expected": "identified:R.relation",
+   "corpus_boundaries": [
+    "inconsistent_evidence"
+   ],
+   "adj1": {
+    "a": "inconsistent_evidence",
+    "b": "inconsistent_evidence",
+    "gold_a": "no",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": null,
+   "secondary_b": null,
+   "boundary_a": "R.relation ↔ inconsistent_evidence",
+   "boundary_b": "R.relation ↔ inconsistent_evidence",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "inconsistent_evidence",
+   "gold_b": "inconsistent_evidence",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "inconsistent_evidence",
+    "R.relation"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "N-01",
+   "kind": "model_vs_gold",
+   "final": "identified:S.operator_scope",
+   "expected": "identified:S.attachment",
+   "corpus_boundaries": [
+    "감시: S.attachment"
+   ],
+   "adj1": {
+    "a": "insufficient_evidence",
+    "b": "identified:S.attachment",
+    "gold_a": "no",
+    "gold_b": "yes"
+   },
+   "code_a": "ITEM_BAD_CONSTRUCT",
+   "code_b": "ITEM_BAD_CONSTRUCT",
+   "secondary_a": "GOLD_WRONG",
+   "secondary_b": "GOLD_WRONG",
+   "boundary_a": "R.relation ↔ S.attachment ↔ S.operator_scope",
+   "boundary_b": "S.attachment ↔ S.core_structure ↔ S.operator_scope",
+   "agreed": "ITEM_BAD_CONSTRUCT",
+   "gold_a": "insufficient_evidence",
+   "gold_b": "identified:S.operator_scope",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "S.operator_scope",
+    "R.relation",
+    "S.attachment"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  },
+  {
+   "case_id": "N-02",
+   "kind": "model_vs_gold",
+   "final": "identified:S.core_structure",
+   "expected": "identified:S.attachment",
+   "corpus_boundaries": [
+    "감시: S.attachment"
+   ],
+   "adj1": {
+    "a": "multiple_plausible:S.attachment|S.core_structure",
+    "b": "identified:S.core_structure",
+    "gold_a": "partial",
+    "gold_b": "no"
+   },
+   "code_a": "CODE_REDUNDANT",
+   "code_b": "ITEM_BAD_CONSTRUCT",
+   "secondary_a": "GOLD_WRONG",
+   "secondary_b": "GOLD_WRONG",
+   "boundary_a": "S.attachment ↔ S.core_structure",
+   "boundary_b": "S.attachment ↔ S.core_structure",
+   "agreed": null,
+   "gold_a": "identified:S.core_structure",
+   "gold_b": "identified:S.core_structure",
+   "accept_a": [
+    "S.attachment"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "S.core_structure",
+    "R.main_point",
+    "S.attachment"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  },
+  {
+   "case_id": "N-04",
+   "kind": "model_vs_gold",
+   "final": "multiple_plausible:V.multiword|V.wrong_sense",
+   "expected": "identified:V.multiword",
+   "corpus_boundaries": [
+    "감시: V.multiword"
+   ],
+   "adj1": {
+    "a": "identified:V.multiword",
+    "b": "identified:V.multiword",
+    "gold_a": "yes",
+    "gold_b": "yes"
+   },
+   "code_a": "CODEBOOK_BOUNDARY_WEAK",
+   "code_b": "CODEBOOK_BOUNDARY_WEAK",
+   "secondary_a": "MODEL_SHARED_BIAS",
+   "secondary_b": null,
+   "boundary_a": "V.multiword ↔ V.wrong_sense",
+   "boundary_b": "V.multiword ↔ V.wrong_sense",
+   "agreed": "CODEBOOK_BOUNDARY_WEAK",
+   "gold_a": "identified:V.multiword",
+   "gold_b": "multiple_plausible:V.multiword|V.wrong_sense",
+   "accept_a": [
+    "V.wrong_sense"
+   ],
+   "accept_b": [],
+   "codes_touched": [
+    "V.multiword",
+    "V.wrong_sense"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": true
+   }
+  },
+  {
+   "case_id": "N-05",
+   "kind": "unresolved",
+   "final": null,
+   "expected": "identified:V.multiword",
+   "corpus_boundaries": [
+    "감시: V.multiword"
+   ],
+   "adj1": {
+    "a": "multiple_plausible:S.operator_scope|V.multiword",
+    "b": "insufficient_evidence",
+    "gold_a": "partial",
+    "gold_b": "no"
+   },
+   "code_a": "ITEM_BAD_CONSTRUCT",
+   "code_b": "ITEM_BAD_CONSTRUCT",
+   "secondary_a": "GOLD_WRONG",
+   "secondary_b": "GOLD_WRONG",
+   "boundary_a": "S.operator_scope ↔ V.multiword ↔ insufficient_evidence",
+   "boundary_b": "R.inference ↔ S.operator_scope ↔ V.multiword ↔ insufficient_evidence",
+   "agreed": "ITEM_BAD_CONSTRUCT",
+   "gold_a": "insufficient_evidence",
+   "gold_b": "insufficient_evidence",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "S.operator_scope",
+    "insufficient_evidence",
+    "R.inference",
+    "V.multiword"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "N-09",
+   "kind": "model_vs_gold",
+   "final": "insufficient_evidence",
+   "expected": "identified:E.option_mismatch",
+   "corpus_boundaries": [
+    "감시: 저빈도 E"
+   ],
+   "adj1": {
+    "a": "identified:E.option_mismatch",
+    "b": "insufficient_evidence",
+    "gold_a": "yes",
+    "gold_b": "no"
+   },
+   "code_a": "GOLD_WRONG",
+   "code_b": "GOLD_WRONG",
+   "secondary_a": "ITEM_BAD_CONSTRUCT",
+   "secondary_b": "ITEM_BAD_CONSTRUCT",
+   "boundary_a": "E.option_mismatch ↔ insufficient_evidence",
+   "boundary_b": "E.option_mismatch ↔ insufficient_evidence",
+   "agreed": "GOLD_WRONG",
+   "gold_a": "insufficient_evidence",
+   "gold_b": "insufficient_evidence",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "insufficient_evidence",
+    "E.option_mismatch"
+   ],
+   "codebook_issue_raised": {
+    "a": false,
+    "b": false
+   }
+  },
+  {
+   "case_id": "H-24",
+   "kind": "unresolved",
+   "final": null,
+   "expected": "identified:E.option_mismatch",
+   "corpus_boundaries": [
+    "감시: 저빈도 E"
+   ],
+   "adj1": {
+    "a": "identified:E.evidence_location",
+    "b": "insufficient_evidence",
+    "gold_a": "partial",
+    "gold_b": "no"
+   },
+   "code_a": "CODEBOOK_BOUNDARY_WEAK",
+   "code_b": "ITEM_BAD_CONSTRUCT",
+   "secondary_a": "GOLD_WRONG",
+   "secondary_b": "GOLD_WRONG",
+   "boundary_a": "E.evidence_location ↔ E.option_mismatch ↔ insufficient_evidence",
+   "boundary_b": "E.evidence_location ↔ E.option_mismatch ↔ insufficient_evidence",
+   "agreed": null,
+   "gold_a": "identified:E.evidence_location",
+   "gold_b": "insufficient_evidence",
+   "accept_a": [],
+   "accept_b": [],
+   "codes_touched": [
+    "E.evidence_location",
+    "insufficient_evidence",
+    "E.option_mismatch"
+   ],
+   "codebook_issue_raised": {
+    "a": true,
+    "b": false
+   }
+  }
+ ]
+}

@@ -280,6 +280,8 @@ function verifyInputs() {
   if (bad.length) { console.error(`준비 뒤 입력이 바뀌었다: ${bad.join(', ')}`); process.exit(2) }
 }
 const sealF = path.join(OP, 'seal.json')
+const adjManifestF = path.join(OP, 'adj-manifest.json')
+const manFor = (stage) => (/^adj[12]-[ab]$/.test(stage ?? '') ? adjManifestF : manifestF)
 const assertNotSealed = () => { if (fs.existsSync(sealF)) { console.error('이미 봉인됐다 — 봉인 뒤에는 판정 · 후보 · 해결을 다시 만들지 않는다(기대 판정을 본 뒤 판정을 바꾸는 경로 차단)'); process.exit(2) } }
 
 async function prepare() {
@@ -317,11 +319,12 @@ async function prepare() {
   console.log(`준비: ${RUN} · 사례 ${corpus.cases.length} · 패킷 ${Object.keys(packets).length} · 기대 판정은 열지 않음(사전 등록 해시만 기록)`)
 }
 
-function stageEngine(stage) { return /^(train-a|a1|a2p|a2|final-claude)$/.test(stage) ? 'claude' : 'codex' }
+function stageEngine(stage) { return /^(train-a|a1|a2p|a2|final-claude|adj1-a|adj2-a)$/.test(stage) ? 'claude' : 'codex' }
 
 // 사례별 검증 오류 — 배치 전체가 아니라 사례 단위로 모은다
 function caseErrors(v, ctx) {
-  const { isChallenge, isFinal, plans, caseByOid, expectIds } = ctx
+  const { isChallenge, isFinal, plans, caseByOid, expectIds, stage } = ctx
+  if (isAdjStage(stage)) return validateAdj(v, stage, expectIds, caseByOid[v.case_id])
   const verdict = isChallenge ? v.proposal : v
   const e = []
   if (isChallenge) e.push(...(plans[v.case_id] ? validateChallenge(v, plans[v.case_id], caseByOid[v.case_id]) : ['계획에 없는 사례']))
@@ -341,11 +344,11 @@ function splitPacket(prompt) {
 }
 
 function run() {
-  assertNotSealed()
-  verifyInputs()
   const stage = arg('--stage'); const part = arg('--part', '1')
+  if (!isAdjStage(stage)) assertNotSealed()
+  verifyInputs()
   if (!/^\d+$/.test(part)) { console.error('--part 는 숫자'); process.exit(2) }
-  const man = readJ(manifestF)
+  const man = readJ(manFor(stage))
   const stageDir = path.join(RUN, stage)
   guardWrite(path.join(stageDir, 'x')) // 원본 출력(raw · last)도 실행 폴더 안에만
   const promptF = path.join(stageDir, `prompt-${part}.md`)
@@ -361,7 +364,7 @@ function run() {
   const plans = isChallenge ? readJ(path.join(OP, `${stage}-labels.json`)) : null
   const caseByOid = (() => { const m = readJ(path.join(OP, 'map.json')); const c = readJ(path.join(DIR, 'data/human-corpus.json')).cases; return Object.fromEntries(c.map((x) => [m[x.case_id], x])) })()
   const expectIds = new Set(prompt.match(/^### 사례 (\S+)/gm).map((s) => s.slice(7)))
-  const ctx = { isChallenge, isFinal, plans, caseByOid, expectIds }
+  const ctx = { isChallenge, isFinal, plans, caseByOid, expectIds, stage }
   const engine = stageEngine(stage)
   const accepted = {}            // case_id → 판정
   const segments = []            // 실행 단위 기록(본 패킷 · 재판정 패킷)
@@ -397,7 +400,7 @@ function run() {
     const text = head + pending.map((id) => blocks[id]).join('') + note + tail.replace(/사례 \d+건 모두/, `사례 ${pending.length}건 모두`)
     const key = `${stage}/${part}-r${r}`
     const f = path.join(stageDir, `prompt-${part}-r${r}.md`); guardWrite(f); fs.writeFileSync(f, text)
-    man.packets[key] = sha(text); writeJ(manifestF, man)
+    man.packets[key] = sha(text); writeJ(manFor(stage), man)
     const ids = [...pending]; lastErrors = {}
     exec(key, text, `${part}-r${r}`, ids)
   }
@@ -410,7 +413,7 @@ function run() {
 
 const loadStage = (stage) => {
   const d = path.join(RUN, stage)
-  const man = readJ(manifestF)
+  const man = readJ(manFor(stage))
   const parts = Object.keys(man.packets).filter((k) => new RegExp(`^${stage}/\\d+$`).test(k))
   if (!parts.length) throw new Error(`${stage} 패킷 없음`)
   const isCh = /^(a2|b2)$/.test(stage), isFin = /^final-/.test(stage)
@@ -443,6 +446,7 @@ const loadStage = (stage) => {
     // 읽을 때마다 현재 검증 규칙을 다시 적용
     const bad = []
     for (const v of o.judgments) {
+      if (isAdjStage(stage)) { const ae = validateAdj(v, stage, want, caseByOid[v.case_id]); if (ae.length) bad.push(`${v.case_id}: ${ae.join(', ')}`); continue }
       const ve = validateVerdict({ ...(isCh ? v.proposal : v), case_id: v.case_id }, want, isCh || isFin, caseByOid[v.case_id])
       const ce = isCh ? validateChallenge(v, plans[v.case_id], caseByOid[v.case_id]) : []
       if (ve.length || ce.length) bad.push(`${v.case_id}: ${[...ve, ...ce].join(', ')}`)
@@ -828,7 +832,9 @@ function seal() {
 // ── 보고(봉인 뒤에만 기대 판정을 연다) ──
 function report() {
   verifyInputs()
-  const sealF = path.join(OP, 'seal.json'); if (!fs.existsSync(sealF)) { console.error('봉인 전에는 기대 판정을 열지 않는다'); process.exit(2) }
+  const sealF = path.join(OP, 'seal.json')
+const adjManifestF = path.join(OP, 'adj-manifest.json')
+const manFor = (stage) => (/^adj[12]-[ab]$/.test(stage ?? '') ? adjManifestF : manifestF); if (!fs.existsSync(sealF)) { console.error('봉인 전에는 기대 판정을 열지 않는다'); process.exit(2) }
   const finalText = readRun(path.join(OP, 'final.json'))
   const sealRec = readJ(sealF)
   if (sha(finalText) !== sealRec.final_sha256) { console.error('봉인 뒤 final.json 이 바뀌었다'); process.exit(2) }
@@ -1030,6 +1036,226 @@ function report() {
   console.log(`보고: ${outMd}`)
 }
 
-const cmds = { prepare, run, gate1, challenge, resolve, seal, report }
+
+// ── adjudication(봉인 뒤) — docs/csat-learner/codebook/ADJUDICATION_PLAN.md 에 사전 등록된 절차
+// 1단계 adj1-a(Claude) · adj1-b(Codex): 사례 + 기대 판정과 작성 근거만 보고 독립 판정 · 기대 지지 평가(모델 결과 비공개)
+// 2단계 adj2-a · adj2-b: 새 context 에서 자기 1단계 판정 + 익명 모델 판정 공개 → adjudication 코드
+// 회차 봉인 자료는 고치지 않는다 — 별도 매니페스트(operator/adj-manifest.json)
+const ADJ_CODES = ['GOLD_WRONG', 'GOLD_UNDERSPECIFIED', 'ITEM_AMBIGUOUS', 'ITEM_BAD_CONSTRUCT', 'CODEBOOK_BOUNDARY_WEAK', 'CODE_REDUNDANT', 'MODEL_SHARED_BIAS', 'INSUFFICIENT_EVIDENCE']
+const isAdjStage = (stage) => /^adj[12]-[ab]$/.test(stage)
+
+function adjTargets() {
+  // 봉인 검증 — 봉인 뒤 바뀐 final.json 으로 대상을 고르지 않는다(report 와 같은 검사)
+  if (!lexists(sealF)) { console.error('회차 봉인 뒤에만'); process.exit(2) }
+  const finalText = readRun(path.join(OP, 'final.json'))
+  if (sha(finalText) !== JSON.parse(readRun(sealF)).final_sha256) { console.error('봉인 뒤 final.json 이 바뀌었다'); process.exit(2) }
+  const rows = JSON.parse(finalText)
+  const expRaw = readAny(path.join(DIR, 'data/sealed/human-expected.json'))
+  const exp = JSON.parse(expRaw).expected
+  const { toCase } = unmap()
+  const same = (k, e) => !!(k && e) && (k.startsWith('identified:') ? e.outcome === 'identified' && k.slice(11) === e.primary : k.split(':')[0] === e.outcome)
+  return rows.filter((r) => !r.final || !same(r.final, exp[toCase[r.oid]])).map((r) => ({ ...r, case_id: toCase[r.oid], expected: exp[toCase[r.oid]] }))
+}
+
+const goldBlock = (c, e) => `기대 판정(사례 작성자가 정한 것 — 정답이 아니다): 결과 ${e.outcome}${e.primary ? ' · primary ' + e.primary : ''}${(e.accept ?? []).length ? ' · 허용 대안 ' + e.accept.join(', ') : ''}
+기대 판정 작성 근거: 의도한 실패 기제 — ${c.true_mechanism ?? '없음'} / 증거 설계 — ${c.evidence_design ?? '없음'} / 겨냥한 경계 — ${(c.boundaries ?? []).join(', ') || '없음'}`
+
+const ADJ1_FIELDS = VERDICT_FIELDS.replace('"short_rationale"', '"gold_assessment": {"supported": "yes|partial|no", "reason": "<기대 판정이 학생 증거와 코드북으로 지지되는가 — 1–2문장>"},\n  "short_rationale"')
+const ADJ2_FIELDS = `{
+  "case_id": "<사례 id>",
+  "adjudication_code": "${ADJ_CODES.join('|')}",
+  "secondary_code": "<위 코드 중 하나 또는 null>",
+  "boundary": "<관련 경계 — 코드 이름으로, 예: S.attachment ↔ S.core_structure / identified ↔ multiple_plausible>",
+  "recommended_gold": {"outcome": "<결과>", "primary_cause": "<identified 일 때>", "candidate_causes": ["<multiple 일 때>"], "accept": ["<허용 대안 코드>"]},
+  "codebook_issue": "<코드북에 고칠 점이 있으면 무엇을 — 없으면 빈 문자열>",
+  "short_rationale": "<1–2문장>"
+}`
+
+function adjPrompt(phase, entries, codebook, items) {
+  const body = entries.map((x) => caseBlock(x.c, items[x.c.item_id], x.oid) + '\n\n' + goldBlock(x.c, x.e) + (phase === 2 ? x.reveal : '')).join('\n\n')
+  const head = phase === 1
+    ? `역할: CSAT English Error-Cause Adjudicator — 1단계 독립 판정. 각 사례를 코드북 rev3 로 스스로 판정하고, 사례 작성자의 기대 판정이 학생 증거와 코드북으로 지지되는지 평가한다. 다른 판정자의 판정은 보지 않는다(주어지지 않는다).`
+    : `역할: CSAT English Error-Cause Adjudicator — 2단계 분류. 각 사례에 대해 당신의 1단계 독립 판정과, 출처를 숨긴 다른 판정들 · 회차 최종 결과가 주어진다. 다수결로 정하지 말고 증거 · 코드북 규칙으로 불일치의 원인을 하나의 adjudication 코드로 분류한다.
+코드: GOLD_WRONG(기대 판정 자체가 잘못) · GOLD_UNDERSPECIFIED(기대는 가능하나 허용 대안 · 범위 부족) · ITEM_AMBIGUOUS(사례가 두 코드 이상을 정당화) · ITEM_BAD_CONSTRUCT(겨냥한 구분을 사례가 잘 못 드러냄) · CODEBOOK_BOUNDARY_WEAK(정의 · tie-break 규칙 부족) · CODE_REDUNDANT(두 코드가 실제 판정에서 안정적으로 구분되지 않음) · MODEL_SHARED_BIAS(규칙은 충분한데 판정들이 같은 방향으로 오판) · INSUFFICIENT_EVIDENCE(지금 자료로 adjudication 불가).
+S.attachment 사례는 CODE_REDUNDANT 가능성을 열어 둔다 — 「규칙만 보완하면 구분된다」고 가정하지 않는다.`
+  const fields = phase === 1 ? ADJ1_FIELDS : ADJ2_FIELDS
+  return `${head}
+
+## 규칙
+${COMMON_RULES}
+
+## 코드북 rev3(전문)
+
+${codebook}
+
+## 사례
+
+${body}
+
+## 출력 형식
+{"judgments": [ 사례마다 하나 ]} — 각 원소:
+${fields}
+사례 ${entries.length}건 모두.`
+}
+
+function validateAdj(v, stage, ids, caseData) {
+  if (/^adj1-/.test(stage)) {
+    const e = validateVerdict(v, ids, true, caseData)
+    if (!['yes', 'partial', 'no'].includes(v.gold_assessment?.supported) || !(v.gold_assessment?.reason ?? '').trim()) e.push('gold_assessment')
+    return e
+  }
+  const e = []
+  if (!ids.has(v.case_id)) e.push('모르는 case_id')
+  if (!ADJ_CODES.includes(v.adjudication_code)) e.push('adjudication_code')
+  if (v.secondary_code != null && (!ADJ_CODES.includes(v.secondary_code) || v.secondary_code === v.adjudication_code)) e.push('secondary_code')
+  if (!(v.boundary ?? '').trim()) e.push('boundary')
+  const g = v.recommended_gold ?? {}
+  if (!OUTCOMES.includes(g.outcome)) e.push('recommended_gold.outcome')
+  if (g.outcome === 'identified' && !PRIMARY_CODES.includes(g.primary_cause)) e.push('recommended_gold.primary_cause')
+  if (g.outcome === 'multiple_plausible' && (new Set(g.candidate_causes ?? []).size < 2 || g.candidate_causes.length !== new Set(g.candidate_causes).size || g.candidate_causes.some((c) => !PRIMARY_CODES.includes(c)))) e.push('recommended_gold.candidate_causes(서로 다른 primary 가능 코드 2개 이상)')
+  if ((g.accept ?? []).some((c) => !CODES.includes(c) && !OUTCOMES.includes(c))) e.push('recommended_gold.accept')
+  if (!(v.short_rationale ?? '').trim()) e.push('short_rationale')
+  return e
+}
+
+function adjWritePackets(phase, man, entriesFor) {
+  const codebook = readAny(path.join(DIR, 'CODEBOOK.md')).replace(/\r\n/g, '\n')
+  const items = readJ(path.join(OP, 'items.json'))
+  for (const [stage, seed] of [[`adj${phase}-a`, 'A'], [`adj${phase}-b`, 'B']]) {
+    const entries = shuffled(entriesFor(stage), `${man.run_id}:${stage}:${seed}`)
+    const d = path.join(RUN, stage); fs.mkdirSync(d, { recursive: true })
+    const f = path.join(d, 'prompt-1.md'); const text = adjPrompt(phase, entries, codebook, items)
+    guardWrite(f); fs.writeFileSync(f, text); man.packets[`${stage}/1`] = sha(text)
+  }
+  writeJ(adjManifestF, man)
+}
+
+function adjPrepare() {
+  verifyInputs()
+  if (!fs.existsSync(sealF)) { console.error('회차 봉인 뒤에만'); process.exit(2) }
+  if (lexists(adjManifestF)) { console.error('adjudication 이 이미 준비됐다'); process.exit(2) }
+  const base = readJ(manifestF)
+  const man = { run_id: `${base.run_id}-adj`, codebook_sha256: base.codebook_sha256, created: new Date().toISOString(), plan_commit: arg('--plan-commit') ?? null, packets: {}, targets: [] }
+  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const byCase = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c]))
+  const targets = adjTargets()
+  man.targets = targets.map((t) => t.oid)
+  adjWritePackets(1, man, () => targets.map((t) => ({ c: byCase[t.case_id], e: t.expected, oid: t.oid })))
+  console.log(`adjudication 1단계 패킷: ${targets.length}건 (불일치 ${targets.filter((t) => t.final).length} · 미해결 ${targets.filter((t) => !t.final).length})`)
+}
+
+function adjReveal() {
+  verifyInputs()
+  const man = readJ(adjManifestF)
+  if (man.packets['adj2-a/1']) { console.error('2단계 패킷이 이미 있다'); process.exit(2) }
+  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const byCase = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c]))
+  const targets = adjTargets()
+  const A1 = loadStage('a1'), B1 = loadStage('b1'), A2 = loadStage('a2'), B2 = loadStage('b2')
+  const FC = lexists(path.join(RUN, 'final-claude', 'out-1.json')) ? loadStage('final-claude') : {}, FX = lexists(path.join(RUN, 'final-codex', 'out-1.json')) ? loadStage('final-codex') : {}
+  const own = { 'adj2-a': loadStage('adj1-a'), 'adj2-b': loadStage('adj1-b') }
+  // 1단계 무효 출력이 남았으면 2단계 패킷을 만들지 않고 사례를 알린다(재판정 후에도 무효 — 운영자 판단 필요)
+  const bad1 = Object.entries(own).flatMap(([st, m]) => targets.filter((t) => !m[t.oid] || m[t.oid].invalid_output).map((t) => `${st.replace('adj2', 'adj1')}:${t.case_id}`))
+  if (bad1.length) { console.error(`1단계 무효 · 누락 출력: ${bad1.join(' ')} — 해당 사례를 다시 판정하거나 제외 결정 후 진행`); process.exit(2) }
+  const op = (v) => `${describe(v)} — 근거: ${v.short_rationale ?? ''}`
+  adjWritePackets(2, man, (stage) => targets.map((t) => {
+    const mine = own[stage][t.oid]
+    const others = shuffled([A1[t.oid], B1[t.oid], A2[t.oid]?.proposal, B2[t.oid]?.proposal, FC[t.oid], FX[t.oid]].filter((v) => v && v.outcome).map(op), `${man.run_id}:${stage}:${t.oid}`)
+    const reveal = `\n\n당신의 1단계 독립 판정: ${describe(mine)} — 기대 지지 ${mine.gold_assessment.supported}: ${mine.gold_assessment.reason}\n` +
+      `다른 판정들(출처 · 단계 숨김 · 순서 무의미):\n${others.map((o, i) => `- 판정 ${i + 1}: ${o}`).join('\n')}\n회차 최종 결과: ${t.final ? `확정 — ${t.final}` : '미해결(최종 판정 둘이 갈림)'}`
+    return { c: byCase[t.case_id], e: t.expected, oid: t.oid, reveal }
+  }))
+  console.log(`adjudication 2단계 패킷: ${targets.length}건`)
+}
+
+function adjReport() {
+  verifyInputs()
+  const man = readJ(adjManifestF)
+  const { toCase } = unmap()
+  const corpus = readJ(path.join(DIR, 'data/human-corpus.json'))
+  const byCase = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c]))
+  const targets = adjTargets()
+  const J1a = loadStage('adj1-a'), J1b = loadStage('adj1-b'), Ja = loadStage('adj2-a'), Jb = loadStage('adj2-b')
+  const norm = (b) => [...new Set(((b ?? '').match(/[A-Z]\.[a-z_]+|identified|multiple_plausible|insufficient_evidence|inconsistent_evidence/g) ?? []))].sort().join(' ↔ ')
+  // 무효 출력(재판정 후에도 규칙 위반)은 코드 INVALID_OUTPUT 으로 남기고 합의로 세지 않는다
+  const INV = { adjudication_code: 'INVALID_OUTPUT', secondary_code: null, boundary: '', recommended_gold: {}, codebook_issue: '' }
+  const g1 = (v) => (v && !v.invalid_output ? v.gold_assessment?.supported ?? null : 'invalid')
+  const rows = targets.map((t) => {
+    const a = Ja[t.oid] && !Ja[t.oid].invalid_output ? Ja[t.oid] : INV, b = Jb[t.oid] && !Jb[t.oid].invalid_output ? Jb[t.oid] : INV
+    const keys = [t.a1, t.b1, t.a2, t.b2, t.fc, t.fx, t.final].filter(Boolean)
+    const codesTouched = new Set(keys.flatMap((k) => (k.startsWith('identified:') ? [k.slice(11)] : k.startsWith('multiple_plausible:') ? k.slice(19).split('|') : [k])))
+    if (t.expected.primary) codesTouched.add(t.expected.primary)
+    return { case_id: t.case_id, kind: t.final ? 'model_vs_gold' : 'unresolved', final: t.final ?? null, expected: verdictKey({ outcome: t.expected.outcome, primary_cause: t.expected.primary, candidate_causes: [] }),
+      corpus_boundaries: byCase[t.case_id].boundaries ?? [], adj1: { a: verdictKey(J1a[t.oid]), b: verdictKey(J1b[t.oid]), gold_a: g1(J1a[t.oid]), gold_b: g1(J1b[t.oid]) },
+      code_a: a.adjudication_code, code_b: b.adjudication_code, secondary_a: a.secondary_code ?? null, secondary_b: b.secondary_code ?? null,
+      boundary_a: norm(a.boundary), boundary_b: norm(b.boundary), agreed: a.adjudication_code === b.adjudication_code && a.adjudication_code !== 'INVALID_OUTPUT' ? a.adjudication_code : null,
+      gold_a: verdictKey(a.recommended_gold), gold_b: verdictKey(b.recommended_gold), accept_a: a.recommended_gold?.accept ?? [], accept_b: b.recommended_gold?.accept ?? [],
+      issue_a: a.codebook_issue ?? '', issue_b: b.codebook_issue ?? '', codes_touched: [...codesTouched] }
+  })
+  const agreed = rows.filter((r) => r.agreed)
+  // 사전 등록 rev4 조건 — 두 판정자가 같은 주 코드를 매긴 사례만 센다. 경계는 **두 판정자가 같게 짚은 adjudicated 경계**(정규화)로만 센다 —
+  // 말뭉치의 겨냥 경계로 세면, 같은 겨냥 경계라도 실제 문제 경계가 다른 사례들이 한 경계 실패로 합쳐진다
+  const boundaryKeys = (r) => (r.boundary_a && r.boundary_a === r.boundary_b ? [r.boundary_a] : [])
+  const countBy = (list, codeSet) => { const m = {}; for (const r of list.filter((x) => codeSet.includes(x.agreed))) for (const k of boundaryKeys(r)) m[k] = (m[k] ?? 0) + 1; return m }
+  const weakBy = countBy(agreed, ['CODEBOOK_BOUNDARY_WEAK'])
+  const imBy = countBy(agreed, ['CODEBOOK_BOUNDARY_WEAK', 'MODEL_SHARED_BIAS'])
+  const isIM = (k) => /identified ↔ multiple_plausible|identified.*multiple_plausible|multiple_plausible.*identified/.test(k)
+  const attach = agreed.filter((r) => (r.codes_touched.includes('S.attachment') || r.corpus_boundaries.some((b) => /S\.attachment/.test(b))) && ['CODE_REDUNDANT', 'CODEBOOK_BOUNDARY_WEAK'].includes(r.agreed))
+  const four = agreed.filter((r) => r.codes_touched.some((c) => ['R.relation', 'R.inference', 'V.wrong_sense', 'B.outside_knowledge'].includes(c)) && ['CODEBOOK_BOUNDARY_WEAK', 'CODE_REDUNDANT'].includes(r.agreed))
+  const triggers = {
+    t1_boundary_weak_same_boundary: Object.entries(weakBy).filter(([, n]) => n >= 2),
+    t2_identified_vs_multiple_repeat: Object.entries(imBy).filter(([k, n]) => isIM(k) && n >= 2),
+    t3_attachment_not_separable: attach.map((r) => r.case_id),
+    t4_volatile_codes_rule_problem: four.length >= 2 ? four.map((r) => r.case_id) : [],
+  }
+  const rev4 = triggers.t1_boundary_weak_same_boundary.length > 0 || triggers.t2_identified_vs_multiple_repeat.length > 0 || triggers.t3_attachment_not_separable.length > 0 || triggers.t4_volatile_codes_rule_problem.length > 0
+  const goldSide = agreed.filter((r) => ['GOLD_WRONG', 'GOLD_UNDERSPECIFIED', 'ITEM_BAD_CONSTRUCT'].includes(r.agreed)).length
+  const mvg = rows.filter((r) => r.kind === 'model_vs_gold')
+  const bias = mvg.filter((r) => r.agreed === 'MODEL_SHARED_BIAS').length
+  const unresolved = rows.filter((r) => r.kind === 'unresolved').length
+  const imRows = rows.filter((r) => r.corpus_boundaries.some(isIM))
+  const seed = {
+    // 명시적 제외 — 운영자 결정 파일(--exclusions, 실행 폴더 안 JSON {case_id: 사유}). 미해결 사례마다 비어 있지 않은 사유가 있어야 제외로 인정
+    c1_unresolved_zero_or_excluded: (() => {
+      const xf = arg('--exclusions'); const ex = xf ? JSON.parse(readRun(path.resolve(xf))) : {}
+      const unres = rows.filter((r) => r.kind === 'unresolved').map((r) => r.case_id)
+      const left = unres.filter((id) => !(typeof ex[id] === 'string' && ex[id].trim()))
+      const extra = Object.keys(ex).filter((id) => !unres.includes(id))
+      if (extra.length) { console.error(`제외 파일에 미해결이 아닌 사례: ${extra.join(' ')}`); process.exit(2) }
+      return { ok: left.length === 0, detail: unres.length ? `미해결 ${unres.length}건 · 사유 있는 명시적 제외 ${unres.length - left.length}${left.length ? ` · 남음 ${left.join(' ')}` : ''}` : '미해결 없음', excluded: ex }
+    })(),
+    c2_no_repeated_rule_failure: { ok: !rev4, detail: rev4 ? 'rev4 조건 충족' : '없음' },
+    c3_shared_bias_le_25pct: { ok: bias <= 4, detail: `MODEL_SHARED_BIAS(두 판정자 합의) ${bias}/${mvg.length}` },
+    c4_im_boundary_reproducible: { ok: imRows.length > 0 && imRows.every((r) => r.agreed && r.agreed !== 'CODEBOOK_BOUNDARY_WEAK'), detail: `그 경계 사례 ${imRows.length}건 중 합의 · 규칙 약함 아님 ${imRows.filter((r) => r.agreed && r.agreed !== 'CODEBOOK_BOUNDARY_WEAK').length}` },
+    // 허용 대안이 필요한 기대 판정이 없으면 충족, 있으면 새 회차 기대 파일에 반영하기 전까지 미충족
+    c5_gold_accept_schema: (() => { const n = agreed.filter((r) => r.agreed === 'GOLD_UNDERSPECIFIED').length; return { ok: n === 0, detail: n ? `GOLD_UNDERSPECIFIED(합의) ${n}건 — 새 회차 기대 파일에 accept 반영 필요` : '허용 대안이 필요한 기대 판정 없음' } })(),
+    c6_subset_rerun_if_rev4: { ok: !rev4, detail: rev4 ? 'rev4 후 바뀐 경계 subset 재-blind-run 필요' : '해당 없음' },
+  }
+  const codeCount = (k) => rows.reduce((m, r) => ((m[r[k]] = (m[r[k]] ?? 0) + 1), m), {})
+  const summary = { run_id: man.run_id, plan_commit: man.plan_commit, n: rows.length, agreement: { agreed: agreed.length, disagreed: rows.length - agreed.length }, code_a: codeCount('code_a'), code_b: codeCount('code_b'),
+    agreed_codes: agreed.reduce((m, r) => ((m[r.agreed] = (m[r.agreed] ?? 0) + 1), m), {}), triggers, rev4_required: rev4, gold_side_majority: goldSide > rows.length / 2, seed_candidate: Object.values(seed).every((x) => x.ok), seed, rows }
+  const outMd = path.resolve(arg('--out') ?? '')
+  if (!/ADJUDICATION_RESULT\.md$/.test(outMd) || !inside(realOf(outMd), realOf(DIR)) || isLink(outMd)) { console.error('--out 은 docs/csat-learner/codebook/ADJUDICATION_RESULT.md'); process.exit(2) }
+  // 판정자 서술(코드북 문제)은 실행 폴더에만 — 저장소에는 코드 · 판정 열쇠 · 집계와 「문제 제기 여부」만
+  writeJ(path.join(OP, 'adjudication-full.json'), summary)
+  for (const r of rows) { r.codebook_issue_raised = { a: !!r.issue_a.trim(), b: !!r.issue_b.trim() }; delete r.issue_a; delete r.issue_b }
+  fs.writeFileSync(outMd.replace(/\.md$/, '.json'), JSON.stringify(summary, null, 1) + '\n')
+  const esc =(s) => String(s ?? '').replace(/\|/g, '\\|')
+  const L = [`# Cross-Model Dry Run adjudication 결과 — ${man.run_id}`, '', `> 사전 등록: [ADJUDICATION_PLAN.md](./ADJUDICATION_PLAN.md)${man.plan_commit ? ` (커밋 \`${man.plan_commit}\`)` : ''} · 판정자 Claude · Codex(새 context, 2단계) · 사람 판정 아님 · 원문 없음.`, '',
+    `대상 ${rows.length}건(모델-기대 불일치 ${mvg.length} · 미해결 ${unresolved}) · 두 판정자 주 코드 일치 ${agreed.length} · 불일치 ${rows.length - agreed.length}`, '',
+    '## 코드 분포', '', '| 코드 | Claude | Codex | 두 판정자 합의 |', '|---|---|---|---|', ...ADJ_CODES.map((c) => `| \`${c}\` | ${summary.code_a[c] ?? 0} | ${summary.code_b[c] ?? 0} | ${summary.agreed_codes[c] ?? 0} |`), '',
+    '## rev4 조건(사전 등록 — 합의 사례만)', '', `1. 같은 경계 CODEBOOK_BOUNDARY_WEAK ≥ 2: ${triggers.t1_boundary_weak_same_boundary.map(([k, n]) => `${k} ${n}`).join(' · ') || '없음'}`,
+    `2. identified ↔ multiple_plausible 반복(≥ 2): ${triggers.t2_identified_vs_multiple_repeat.map(([k, n]) => `${k} ${n}`).join(' · ') || '없음'}`,
+    `3. S.attachment 분리 안 됨: ${triggers.t3_attachment_not_separable.join(' ') || '없음'}`, `4. 흔들린 4코드 규칙 문제(≥ 2): ${triggers.t4_volatile_codes_rule_problem.join(' ') || '없음'}`, '',
+    `**rev4 필요: ${rev4 ? '예' : '아니오'}** · GOLD 쪽(GOLD_WRONG · GOLD_UNDERSPECIFIED · ITEM_BAD_CONSTRUCT) 과반: ${summary.gold_side_majority ? '예' : '아니오'}`, '',
+    '## v0.1 seed 후보 조건(사전 등록)', '', ...Object.entries(seed).map(([k, v]) => `- ${v.ok ? '충족' : '미충족'} — ${k}: ${v.detail}`), '', `**seed 후보: ${summary.seed_candidate ? '예' : '아니오'}**`, '',
+    '## 사례별', '', '| 사례 | 종류 | 회차 최종 | 기대 | 1단계 A / B (기대 지지) | 코드 Claude / Codex | 경계 | 권장 기대 A / B | 코드북 문제 제기 A / B |', '|---|---|---|---|---|---|---|---|---|',
+    ...rows.map((r) => `| ${r.case_id} | ${r.kind === 'unresolved' ? '미해결' : '불일치'} | ${esc(r.final ?? '—')} | ${esc(r.expected)} | ${esc(r.adj1.a)} (${r.adj1.gold_a}) / ${esc(r.adj1.b)} (${r.adj1.gold_b}) | ${r.code_a} / ${r.code_b} | ${esc(r.boundary_a || r.boundary_b)} | ${esc(r.gold_a)} / ${esc(r.gold_b)} | ${r.codebook_issue_raised.a ? '예' : '—'} / ${r.codebook_issue_raised.b ? '예' : '—'} |`), '',
+    '판정자 서술(코드북 문제 · 근거) 전문은 저장소 밖 실행 폴더 `operator/adjudication-full.json` 에만 있다.', '']
+  fs.writeFileSync(outMd, L.join('\n'))
+  console.log(`adjudication 보고: rev4 ${rev4 ? '필요' : '불필요'} · seed 후보 ${summary.seed_candidate ? '예' : '아니오'} · 합의 ${agreed.length}/${rows.length}`)
+}
+
+const cmds = { prepare, run, gate1, challenge, resolve, seal, report, 'adj-prepare': adjPrepare, 'adj-reveal': adjReveal, 'adj-report': adjReport }
 if (!cmds[cmd]) { console.error(`명령: ${Object.keys(cmds).join(' | ')}`); process.exit(2) }
 await cmds[cmd]()

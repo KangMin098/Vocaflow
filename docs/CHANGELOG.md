@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(csat): cross-model dry run adjudication 26건(사전 등록 a6e4670e4) — 두 판정자 합의 20 · GOLD_WRONG 15 · BOUNDARY_WEAK 3 · rev4 필요(조건 4: V.wrong_sense 인접 경계 C2-02 · N-04) · seed 후보 아님. `ADJUDICATION_RESULT.md`. Codex Stop 훅 루트 · 파일 선택 수정(저장소 밖)
 - docs(csat): 오답 원인 코드북 rev3 Cross-Model Blind Dry Run(Claude × Codex 4중 교차검증) — 도구 `xmodel.mjs` · 절차 `XMODEL_DRY_RUN.md` · 결과 `XMODEL_RESULT.md`(56건: 1차 primary 89.6% · GREEN 42 · 최종 확정 48 · 미해결 8 · 기대와 다른 모델 합의 18). 사람 검증 아님. analyze-human 기대 파일 형식 버그 수정
 
 - docs(csat): 오답 원인 코드북 사람 판정자 blind dry run 준비(미실시) — outcome 4종을 증거 기준으로 재정의 · unsupported_stimulus(도표 · 듣기) 판정 제외 · rev3 고정(sha256 사전 등록), 경계 중심 말뭉치 56건 + 연습 10건 · 기대 판정 봉인, 판정자별 HTML 패킷 생성기와 분석기(일치율 · Cohen κ · Gwet AC1 · 불일치 쌍 · 조정 시트) `scripts/csat/error-evidence/codebook/`. 판정자 2명은 미정
