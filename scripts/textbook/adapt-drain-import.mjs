@@ -26,7 +26,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
-import { adaptationKey, readTarget, targetKey, validateReadingDraft } from './academic-reading-contract.mjs'
+import { adaptationKey, readTarget, targetKey, validateReadingDraft, readPreservationRules, READING_SOURCE_COLUMNS } from './academic-reading-contract.mjs'
 
 // 등급 슬러그가 `license`(원문 표기) 칸에 들어가는 사고를 막는 정본 — 재고 80편 사고(2026-09-23).
 const { licenseTextOf } = await import('@vocaflow/library-pipeline')
@@ -38,6 +38,8 @@ const arg = (n) => {
 }
 const commit = process.argv.includes('--commit')
 const readingTarget = readTarget(arg('target'))
+const preservationRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
+if (preservationRules && !readingTarget) throw new Error('--preservation-rules requires --target')
 const BAND = readingTarget?.language_band ?? arg('band') ?? 'elementary'
 // export 와 **같은 규칙**으로 폴더를 찾는다. 어긋나면 채운 청크를 못 읽고
 // "out.json 이 없다" 로 끝난다 — 그 자리에서 원인을 알기 어렵다.
@@ -94,7 +96,7 @@ for (const f of outFiles) {
   rows.push(...JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')).map(r => ({ ...r, __file:f })))
 }
 const now = Date.now() // 시각은 계약 검증에 주입한다.
-const currentSources = new Map((await fetchAllIn(db,'library_articles','id, content, source, source_url, license, license_class, copyright_safe_in_kr, display_only, status, csat_fit, updated_at','id',[...new Set(rows.map(r => r.adapted_from_id).filter(Boolean))],['id'])).map(r => [r.id,r]))
+const currentSources = new Map((await fetchAllIn(db,'library_articles',READING_SOURCE_COLUMNS,'id',[...new Set(rows.map(r => r.adapted_from_id).filter(Boolean))],['id'])).map(r => [r.id,r]))
 
 const words = (t) => (t.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
 const sentences = (t) => t.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean)
@@ -146,7 +148,7 @@ for (const r of rows) {
   if (readingTarget) {
     if (targetKey(r.reading.target) !== targetKey(readingTarget)) { skip('CLI target differs from chunk'); continue }
     const original = exportsByFile.get(r.__file)?.find(x => x.adapted_from_id === r.adapted_from_id)
-    reading = validateReadingDraft(r,original,currentSources.get(r.adapted_from_id),now)
+    reading = validateReadingDraft(r,original,currentSources.get(r.adapted_from_id),now,preservationRules?.get(r.adapted_from_id) ?? null)
     if (!reading.ok) { skip(reading.reason); continue }
   }
   const current = currentSources.get(r.adapted_from_id)
@@ -273,10 +275,11 @@ let wrote = 0
 for (let i = 0; i < inserts.length; i += 100) {
   let entries = inserts.slice(i, i + 100)
   if (readingTarget) {
-    const latest = new Map((await fetchAllIn(db,'library_articles','id, content, source, source_url, license, license_class, copyright_safe_in_kr, display_only, status, csat_fit, updated_at','id',entries.map(x => x.row.adapted_from_id),['id'])).map(r => [r.id,r]))
+    const latest = new Map((await fetchAllIn(db,'library_articles',READING_SOURCE_COLUMNS,'id',entries.map(x => x.row.adapted_from_id),['id'])).map(r => [r.id,r]))
+    const latestRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
     entries = entries.filter(x => {
       const original = exportsByFile.get(x.draft.__file)?.find(r => r.adapted_from_id === x.draft.adapted_from_id)
-      const result = validateReadingDraft(x.draft,original,latest.get(x.draft.adapted_from_id),Date.now())
+      const result = validateReadingDraft(x.draft,original,latest.get(x.draft.adapted_from_id),Date.now(),latestRules?.get(x.draft.adapted_from_id) ?? null)
       if (result.ok) return true
       skip(result.reason)
       console.log(`  최종 확인에서 건너뜀: ${x.row.title} — ${result.reason}`)

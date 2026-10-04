@@ -260,6 +260,11 @@ export const TBP_HELP: HelpRegistry = {
             done: '링크/정렬/접근 상태와 보류 수가 따로 집계됩니다. Crossref 조회 실패는 서지 보류 사유로 남기고 다른 공개 본문 조회는 계속합니다. 모든 기록 정렬이 일치한 전문 쌍도 후속 gold 검토 후보이며 전문가 승인·학생 calibration이 아닙니다. 반대 결과가 있는 쌍을 좋은 구절 하나로 승인하지 않습니다.',
           },
           {
+            title: '검토 구절의 의미 보존 조건을 각색에 전달한다',
+            detail: 'FYM 후보 규칙은 `--preservation-rules <규칙.json> --precision-review <회차.json>`을 함께 주어 export/import에 전달합니다. 전체 기사 승인·학령 인증이 아니라 해시와 정렬 근거에 묶인 구절 조건입니다. 검토 목록의 UUID만 선택하며 그 목록의 VRL 미측정은 null로 유지합니다. 다른 필터/기사별 권리 검사는 유지합니다. 에이전트는 preservation_checks에 모든 규칙 ID·실제 각색 인용·보존 이유를 채웁니다. 누락·중복·changed/held·없는 인용은 거절되고, import 직전 최신 회차/규칙을 다시 읽어 바뀐 판정도 거절합니다. 회차/규칙이 바뀌면 새 폴더로 export합니다. 기존 target 자식은 덮어쓰지 않습니다.',
+            done: '로컬 `frym-preservation-verify.mjs --input <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --evidence-dir <보존 폴더>`를 먼저 실행합니다. 읽기 전용·재실행 안전이며 약 수초입니다. 구조 통과는 의미 인증이 아니므로 독립 내용 검토와 학생 calibration은 따로 필요합니다. 로컬 pilot은 완성 생성 청크가 아니며 DB에 직접 import하지 않습니다.',
+          },
+          {
             title: '연령·언어·사고 목표를 분리해 같은 원문을 교재화한다',
             detail: 'Academic Reading 타깃은 R0~R13 능력·P01~P20 목적·독자 age_band·language_band·reasoning_band·시험·분량을 따로 지정합니다. scripts/textbook/targets의 JSON을 준비하고 `pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target <JSON> --source <원천> --limit 2`로 소량부터 뽑습니다. 읽기 전용·재실행 안전이며 같은 타깃의 DB/예약 청크를 건너뛰고 완료 입력/결과를 보존합니다. 에이전트는 academic-reading-brief.md를 읽고 원문별 권리 증거·열 분석축·명제 대응·본문 근거가 있는 문항/활동을 채웁니다. 같은 target으로 import 예행 후 checkpoint와 --commit을 실행하면 원문을 보존하고 queued 자식만 만듭니다. 기존 분석·내용 판정·적격 확인을 마쳐야 문항 제작·조판으로 넘어갑니다. 최초 소량 처리 시간은 본문 길이와 권리 확인에 따라 달라집니다.',
             done: '새 각색의 composed_spec.academic_reading에 target·원문 UUID/hash/revision·권리·분석·문항 계획이 있고, 원문은 바뀌지 않았습니다. queued는 발행 완료가 아닙니다.',

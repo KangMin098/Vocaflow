@@ -2,6 +2,8 @@
 
 ## Academic Reading JSONB 계약 (2026-10-04, 마이그레이션 없음)
 
+선택적인 의미 보존 규칙을 사용한 각색은 `composed_spec.academic_reading.provenance.preservation_rules`에 version/review_hash/rules_hash/entry(원천 UUID/key/URL/hash/revision·원 연구 DOI/hash·정렬 ID/짧은 증거·규칙)를 보존하고 `analysis.preservation_checks`에 rule_id/verdict/passage_quote/reason을 저장한다. importer의 구조 통과 상태는 `awaiting_content_review`이며 의미를 자동 인증하지 않는다. 이번 로컬 8편 예시는 DB에 적재하지 않았다.
+
 FYM 새 수집의 `library_articles.csat_fit.research_origin`은 version(1)·student_url/doi·body_hash/page_hash(SHA256)·checked_at·status·section_text·relations 배열(original_work_id/research_url/evidence)을 가진다. 발행처의 Original Source Article(s) 구간만 연결 근거로 사용한다. 학습 본문·기존 원문은 변경하지 않으며 새 수집 INSERT에서 권리/precheck와 함께 보존한다. 기존 원문의 읽기 전용 계보 manifest는 현재 UUID/revision/hash에 묶어 각색 export가 받아들인다. 자식 `composed_spec.academic_reading.provenance.research_origin`은 선택한 쌍의 페이지/본문 증거 스냅샷이다. 연결과 원 연구 본문의 이용권리·gold-set 승인은 별개다.
 
 `library_articles` 원문은 그대로 두고 `adapted_from_id`로 자식 각색을 만든다. `source_id = reading:<원문 UUID>:<교육 설정·자료 식별자/본문·명세 버전 hash>`이며 기존 `(source,source_id)` 유일키가 같은 목적의 중복을 막는다. 가변 자료 권리 증거는 키에서 제외하고 요청/계보에 보존한다. `composed_spec.academic_reading`에 version·target_key·target·provenance(원문 UUID/hash/revision/기사별 권리)·analysis(원문/각색문 열 분석축·명제/담화·추가 배경·문항/활동 계획·선택적 원문 점수·FYM 연구 쌍)를 저장한다. 기존 행의 composed_spec/csat_fit을 덮지 않고 새 queued 자식에만 쓴다.

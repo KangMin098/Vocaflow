@@ -39,7 +39,7 @@ import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
 import { pickFreeSlots, readReservedTasks } from './chunk-slots.mjs'
-import { adaptationKey, readTarget, readingTask, targetKey, readResearchOrigins, researchOriginForSource } from './academic-reading-contract.mjs'
+import { adaptationKey, readTarget, readingTask, targetKey, readResearchOrigins, researchOriginForSource, readPreservationRules, preservationForSource, filterAdaptationSourceLevel } from './academic-reading-contract.mjs'
 import { readingDirectives, readingSourceRole, SOURCE_PRIORITIES } from '@vocaflow/library-pipeline/academic-reading'
 
 loadEnv()
@@ -49,6 +49,8 @@ const arg = (n) => {
 }
 const readingTarget = readTarget(arg('target'))
 const researchOrigins = readResearchOrigins(arg('research-origins'))
+const preservationRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
+if (preservationRules && !readingTarget) throw new Error('--preservation-rules requires --target')
 const exportNow = Date.now()
 if (researchOrigins && !readingTarget) throw new Error('--research-origins requires --target')
 const BAND = readingTarget?.language_band ?? arg('band') ?? 'elementary'
@@ -194,13 +196,14 @@ const sources = await fetchAll(
     let x = q
       .in('license_class', ADAPTABLE)
       .not('source', 'in', `(${NOT_ADAPTABLE_SOURCES.join(',')})`)
-      .gte('article_v_level', SOURCE_MIN_LEVEL)
       .eq('display_only', false)
       .eq('copyright_safe_in_kr', true)
       .is('adapted_from_id', null)
       .not('status', 'in', '(archived,failed)')
+    x = filterAdaptationSourceLevel(x, SOURCE_MIN_LEVEL, Boolean(preservationRules))
     if (arg('source')) x = x.eq('source',arg('source'))
     if (researchOrigins) x = x.in('id', [...researchOrigins.keys()])
+    if (preservationRules) x = x.in('id', [...preservationRules.keys()])
     // `register` 가 비어 있는 글은 막지 않는다 — 판정된 적이 없는 것과 부적합한 것은 다르다.
     if (excludeRegisters.length) x = x.or(`register.is.null,register.not.in.(${excludeRegisters.join(',')})`)
     return x
@@ -376,7 +379,7 @@ for (const [n, chunk] of chunks.entries()) {
     source_v_level: r.article_v_level,
     source_url: r.source_url,
     source_text: r.content,
-    ...(readingTarget ? { reading: readingTask(r, readingTarget, researchOriginForSource(r, researchOrigins, exportNow)) } : {}),
+    ...(readingTarget ? { reading: readingTask(r, readingTarget, researchOriginForSource(r, researchOrigins, exportNow), preservationForSource(r, preservationRules)) } : {}),
     // **각색해도 살아남을 새 낱말의 밀도** — 낮으면 그 원문은 대역에 못 든다(§위).
     //   게이트가 아니라 신호다. 낮으면 건너뛰고 다른 원문을 쓰는 편이 낫다.
     //   실측 참고: 끝내 반려된 원문 8.4% · 붙은 원문 34~41%.
@@ -393,7 +396,7 @@ console.log(
     `(밴드 V${spec.vRange.min}~${spec.vRange.max} · ${spec.cefrj.join('/')})`,
 )
 console.log(`  규격  ${spec.words.min}~${spec.words.max}어 · 평균 문장 ${spec.avgSentenceWords}어`)
-console.log(`  각색 가능 라이선스 원본  ${sources.length}편 (V${SOURCE_MIN_LEVEL} 이상 · ${ADAPTABLE.join('/')})`)
+console.log(`  각색 가능 라이선스 원본  ${sources.length}편 (${preservationRules ? '정밀 검토 범위 · VRL 미측정 유지' : `V${SOURCE_MIN_LEVEL} 이상`} · ${ADAPTABLE.join('/')})`)
 if (excludeRegisters.length) {
   console.log(`  소재로 안 맞는 성격 제외  ${excludeRegisters.join('/')} — 이 밴드의 지시문이 제도·쟁점을 금한다`)
 }

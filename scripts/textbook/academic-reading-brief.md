@@ -1,5 +1,7 @@
 # Academic Reading 집필 계약
 
+`reading.preservation_rules`가 있으면 그 규칙의 `must_preserve`와 `allowed_changes`를 먼저 읽는다. 이 규칙은 FYM의 검토된 특정 구절에 대한 관찰자 조건이며 기사 전체 정확성·원 연구 이용권리·학생 난이도 인증이 아니다. 원문에 다른 주장을 더 사용하면 그 근거도 별도로 검토한다. 규칙을 유지한 채 `reading_analysis.preservation_checks`에 각 rule ID의 `{rule_id, verdict: "preserved" | "changed" | "held", passage_quote, reason}`을 채운다. quote는 실제 각색문 구절이며 reason은 의미 보존을 설명한다. 같은 quote를 복사하는 것만으로 판정하지 않는다. 변경/미확인이 있으면 보류한다. 누락·중복·없는 인용·changed/held는 importer가 거절한다. 정확한 인용에 거짓 preserved 판정을 붙이면 구조 검사를 통과할 수 있으므로 독립 내용 검토는 계속 필요하다.
+
 `adapt-drain-export.mjs --target <JSON>`의 한 행을 읽고 같은 파일명의 `.out.json` 배열로 채운다. 입력 메타데이터·원문·target을 유지하고 `title`, `text`, `reading.source_rights`, `reading.reading_analysis`만 채운다. 내용·권리 증거가 부족하면 해당 행의 `title/text`를 비워 두고 이유를 별도 작업 기록에 남긴다. 이미 끝낸 out 파일을 덮지 않는다.
 
 `reading.reading_directives`가 이번 독자·언어·사고·제품 목적을 정한다. `reading.target.words`는 요청한 각색문의 분량이다. `passage_v_level`은 요청값이며, 실제 VRL은 기존 분석 공정에서 별도로 계산한다. 원문이 길다는 이유로 거절하거나 수능의 어수창으로 먼저 자르지 않는다.

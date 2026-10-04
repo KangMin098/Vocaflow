@@ -1,5 +1,6 @@
 // packages/library-pipeline/src/textbook/academic-reading-contract.ts
 import { z } from 'zod'
+import { preservationChecksSchema } from './reading-preservation'
 import {
   articleLicenseSchema,
   readingLicenseBlockers,
@@ -80,6 +81,7 @@ export const readingAnalysisSchema = z
     ),
     item_plan: z.array(readingItemPlanSchema).min(1),
     source_score: z.object(scoreShape).strict().optional(),
+    preservation_checks: preservationChecksSchema.optional(),
     parallel_pair: z
       .object({
         original_work_id: z.string().min(1),

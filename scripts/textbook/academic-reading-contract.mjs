@@ -1,6 +1,8 @@
 // scripts/textbook/academic-reading-contract.mjs
 import fs from 'node:fs'
 import crypto from 'node:crypto'
+import { isDeepStrictEqual } from 'node:util'
+import { preservationTaskSchema, validatePreservationPack, validatePreservationChecks } from '@vocaflow/library-pipeline/reading-preservation'
 import { normalizeResearchDoi, validateResearchOrigin } from '@vocaflow/library-pipeline/research-origin'
 import {
   readingTargetSchema,
@@ -22,6 +24,34 @@ export function canonical(value) {
   return JSON.stringify(value)
 }
 export const digest = (value) => crypto.createHash('sha256').update(value).digest('hex')
+// Both importer reads need the identity key used by preservationForSource.
+export const READING_SOURCE_COLUMNS = 'id, source_id, content, source, source_url, license, license_class, copyright_safe_in_kr, display_only, status, csat_fit, updated_at'
+export function filterAdaptationSourceLevel(query, minimum, hasPreservationReview) {
+  // Reviewed FYM candidates may not have VRL yet. Preserve null; do not invent V0.
+  return hasPreservationReview
+    ? query.or('article_v_level.is.null,article_v_level.gte.0')
+    : query.gte('article_v_level', minimum)
+}
+export function readPreservationRules(file, reviewFile) {
+  if (!file && !reviewFile) return null
+  if (!file || !reviewFile) throw new Error('--preservation-rules and --precision-review are required together')
+  const raw = fs.readFileSync(file, 'utf8')
+  const review = fs.readFileSync(reviewFile, 'utf8')
+  const pack = validatePreservationPack(JSON.parse(raw), JSON.parse(review), digest(review))
+  return new Map(pack.entries.map(entry => [entry.source_id, {
+    version: 1, review_hash: pack.review_hash, rules_hash: digest(raw), entry,
+  }]))
+}
+export function preservationForSource(source, rules) {
+  if (!rules) return null
+  const task = preservationTaskSchema.parse(rules.get(source.id))
+  const e = task.entry
+  if (source.source !== 'frym' || e.source_id !== source.id || e.source_key !== source.source_id ||
+      e.source_url !== source.source_url || e.source_revision !== source.updated_at ||
+      e.source_hash !== digest(source.content ?? '') || !source.content?.includes(e.source_quote))
+    throw new Error(`Preservation rules are stale or bound to another source: ${source.id}`)
+  return task
+}
 export function readTarget(file) {
   return file ? readingTargetSchema.parse(JSON.parse(fs.readFileSync(file, 'utf8'))) : null
 }
@@ -69,7 +99,7 @@ export function researchOriginForSource(source, manifest, now) {
   if (!origin || origin.status !== row.status) throw new Error(`Invalid FYM origin evidence: ${source.id}`)
   return origin
 }
-export function readingTask(source, target, origin = source.csat_fit?.research_origin ?? null) {
+export function readingTask(source, target, origin = source.csat_fit?.research_origin ?? null, preservation = null) {
   return {
     version: READING_ENGINE_VERSION,
     target,
@@ -79,12 +109,13 @@ export function readingTask(source, target, origin = source.csat_fit?.research_o
     source_rights: source.csat_fit?.reading_license ?? null,
     research_origin: origin,
     database_research_origin: source.csat_fit?.research_origin ?? null,
+    preservation_rules: preservation,
     brief: 'scripts/textbook/academic-reading-brief.md',
     reading_directives: readingDirectives(target),
     reading_analysis: null,
   }
 }
-export function validateReadingDraft(row, exported, current, now) {
+export function validateReadingDraft(row, exported, current, now, preservation = null) {
   const no = (reason) => ({ ok: false, reason })
   if (!exported?.reading || !row.reading) return no('export contract missing')
   const target = readingTargetSchema.safeParse(exported.reading.target)
@@ -101,6 +132,13 @@ export function validateReadingDraft(row, exported, current, now) {
   )
     return no('target or parent was changed')
   if (!current || current.id !== row.adapted_from_id) return no('current source missing')
+  const savedRules = exported.reading.preservation_rules ?? null
+  if (!isDeepStrictEqual(row.reading.preservation_rules ?? null, savedRules) ||
+      !isDeepStrictEqual(preservation, savedRules)) return no('preservation rules changed or current review/rules were not provided; export again')
+  if (savedRules) {
+    try { preservationForSource(current, new Map([[current.id, savedRules]])) }
+    catch { return no('preservation source binding changed') }
+  }
   if (
     current.updated_at !== exported.reading.source_revision ||
     digest(current.content ?? '') !== exported.reading.source_hash
@@ -160,6 +198,8 @@ export function validateReadingDraft(row, exported, current, now) {
     row.text ?? ''
   )
   if (!analysis.ok) return analysis
+  const preservationError = validatePreservationChecks(savedRules, analysis.analysis.preservation_checks, row.text ?? '')
+  if (preservationError) return no(preservationError)
   const pair = analysis.analysis.parallel_pair
   if (pair) {
     const doi = normalizeResearchDoi(pair.original_work_id)
@@ -184,6 +224,7 @@ export function validateReadingDraft(row, exported, current, now) {
         source_hash: digest(current.content),
         rights: license.rights,
         research_origin: pair ? exported.reading.research_origin : null,
+        preservation_rules: savedRules,
         resources: target.data.resources.map((r, index) => ({
           resource_index: index,
           content_hash: digest(r.content),

@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): FYM 검토 후보 4쌍의 보존 규칙을 source/review hash에 묶어 각색 export/import에 선택 전달하고 최신 판정·규칙 커버리지·인용을 재검증한다. 중1/고1 로컬 예시 8편과 왜곡 사례 4종을 검토했으며 DB 적재·학생 calibration·마이그레이션·라우트 변경은 없다.
+
 - fix(textbook): FYM 정밀 검증의 Crossref 서지 조회와 Europe PMC/발행처 본문 확보를 분리했다. Crossref 실패·다른 DOI 응답이 공개 전문/초록 조회를 막거나 잘못된 초록을 선택하지 않도록 회귀로 검증했다.
 
 - feat(textbook): FYM 20편의 로컬 정밀 검증 세트·11개 변환 필드·증거 해시/인용 위치 검증을 추가했다. 링크 20/20과 전문 정렬 5/10을 분리하고 불일치 3·부분 2·전문 미확보 보류 12를 보존했다. 모든 기록 정렬이 일치하는 후속 gold 검토 후보는 4쌍이다. 원문/DB/생성 importer 변경·마이그레이션 없음.
