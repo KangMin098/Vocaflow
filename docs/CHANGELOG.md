@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat): 학습 지도 vNext 설계 rev2(미구현) — 통합 관찰 *-O1 namespace · S7 흡수 · R5/R6 병합 · A6 → K(축 밖) · Performance Context · 54라인 상태(retain_core 7 · facet 1 · move 40 · alias 2 · retire 4 — 데이터 보존과 개념 보존 분리) · cause_adjudicated(응답)/cause_confirmed(축, 기존 §9) → Diagnostic Priority Signal · authoring/learning namespace · Evidence Anchor 전제(기존 좌표는 legacy_candidate). Codex 설계 리뷰 6회 → NO_FINDINGS
+
 - docs(csat): 학습 지도 vNext 정보 구조 설계안(미구현 · DB 변경 없음) — V/S/R/E/L+X 유지, 처리 단위 확장은 Learning Progression LP1–LP7 겹층(숙달도 아님), 하위 능력 후보 · 관계 facet · paraphrase 세 층 · cue 와 skill 구분, 오답 원인은 다음 진단 후보로만(상태 변경은 verified_diagnosis), 기존 출제 설계 주석 · 정본 문장 단위 · 정답 근거 재사용 조건. 실측: 문항 역량 태그 전부 유형 상속 · 문항별 시간 유효 데이터 0. 54라인 · A1–A9 · rev3 원인 대응표
 
 - docs(csat): 오답 원인 코드북 사람 판정자 blind dry run 준비(미실시) — outcome 4종을 증거 기준으로 재정의 · unsupported_stimulus(도표 · 듣기) 판정 제외 · rev3 고정(sha256 사전 등록), 경계 중심 말뭉치 56건 + 연습 10건 · 기대 판정 봉인, 판정자별 HTML 패킷 생성기와 분석기(일치율 · Cohen κ · Gwet AC1 · 불일치 쌍 · 조정 시트) `scripts/csat/error-evidence/codebook/`. 판정자 2명은 미정
