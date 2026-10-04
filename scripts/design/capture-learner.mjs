@@ -217,7 +217,7 @@ const run = async () => {
   const sh = (c) => { try { return execSync(c, { cwd: ROOT }).toString().trim() } catch { return null } }
   const meta = {
     gitSha: sh('git rev-parse HEAD'),
-    dirty: (sh('git status --porcelain -- apps/web/src packages/design-tokens/src') ?? '').length > 0,
+    dirty: (sh('git status --porcelain --untracked-files=no -- apps/web/src packages/design-tokens/src') ?? '').length > 0,
     scriptSha: crypto.createHash('sha256').update(fs.readFileSync(fileURLToPath(import.meta.url))).digest('hex').slice(0, 12),
     startedAt, finishedAt: new Date().toISOString(), base: BASE, widths, theme,
   }
