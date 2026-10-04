@@ -24,6 +24,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { validateReadingItem, validateReadingPresentation } from '@vocaflow/library-pipeline/academic-reading-contract'
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -81,16 +82,23 @@ const passed = []
 let failed = 0
 for (const f of files) {
   const rows = JSON.parse(fs.readFileSync(f, 'utf8'))
+  const input = f.replace('.out.json','.json')
+  const originalRows = fs.existsSync(input) ? JSON.parse(fs.readFileSync(input,'utf8')) : []
   const name = path.basename(f)
   rows.forEach((r, i) => {
     const v = checkDrainItem(r, TYPE, BAND)
+    const original = originalRows.find(x => x.article_id === r.article_id)
+    const readingFail = r.reading || original?.reading
+      ? !r.reading || !original?.reading ? 'reading source/export contract missing'
+        : validateReadingPresentation(r,original.passage,TYPE) ?? validateReadingItem({ version:r.reading.version, target:r.reading.target, skill:r.reading.skill, passage_level:r.reading.passage_level, item_reasoning_level:r.reading.item_reasoning_level, item_difficulty:r.reading.item_difficulty, difficulty_evidence:r.reading.difficulty_evidence, evidence:r.reading.evidence },original.reading.target,TYPE,original.passage,original.reading.passage_level)
+      : null
     const who = String(r?.source_title ?? r?.article_id ?? '?').slice(0, 40)
-    if (v.ok) {
+    if (v.ok && !readingFail) {
       passed.push({ choices: v.choices, answer: v.answer })
       console.log(`  ✅ ${name}[${i}] ${who}`)
     } else {
       failed += 1
-      console.log(`  ❌ ${name}[${i}] ${who} — ${v.reason}`)
+      console.log(`  ❌ ${name}[${i}] ${who} — ${readingFail ?? v.reason}`)
     }
   })
 }
@@ -113,7 +121,7 @@ if (bias.enough) {
 
 // ⚠️ **여기서 통과해도 import 가 막을 수 있는 것이 둘 있다** — 둘 다 DB 를 봐야 안다.
 console.log(
-  '\n남은 두 관문은 DB 를 본다 — ① 이미 같은 (유형·원글) 이 있는가 ② 이번에 새로 넣는 것의 정답 번호 쏠림.\n' +
+  '\nDB에서 확인할 것 — 이미 같은 (유형·원글)이 있는가, 새 문항의 정답 번호 쏠림, reading target의 현재 원문 revision·분석 수준이 같은가.\n' +
     `  pnpm dlx tsx scripts/textbook/item-drain-import.mjs --type ${TYPE} --band ${BAND}`,
 )
 

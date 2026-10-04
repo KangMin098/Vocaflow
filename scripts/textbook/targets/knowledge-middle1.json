@@ -1,0 +1,12 @@
+{
+  "family": "P03",
+  "age_band": "middle_1",
+  "language_band": "middle",
+  "reasoning_band": "middle_1",
+  "passage_v_level": 3,
+  "skills": ["R2", "R3", "R4"],
+  "exam": "none",
+  "words": { "min": 180, "max": 250 },
+  "share_alike": false,
+  "resources": []
+}

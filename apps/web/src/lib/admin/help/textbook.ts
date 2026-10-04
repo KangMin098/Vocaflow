@@ -250,6 +250,11 @@ export const TBP_HELP: HelpRegistry = {
         ],
         procedure: [
           {
+            title: '연령·언어·사고 목표를 분리해 같은 원문을 교재화한다',
+            detail: 'Academic Reading 타깃은 R0~R13 능력·P01~P20 목적·독자 age_band·language_band·reasoning_band·시험·분량을 따로 지정합니다. scripts/textbook/targets의 JSON을 준비하고 `pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target <JSON> --source <원천> --limit 2`로 소량부터 뽑습니다. 읽기 전용·재실행 안전이며 같은 타깃의 DB/예약 청크를 건너뛰고 완료 입력/결과를 보존합니다. 에이전트는 academic-reading-brief.md를 읽고 원문별 권리 증거·열 분석축·명제 대응·본문 근거가 있는 문항/활동을 채웁니다. 같은 target으로 import 예행 후 checkpoint와 --commit을 실행하면 원문을 보존하고 queued 자식만 만듭니다. 기존 분석·내용 판정·적격 확인을 마쳐야 문항 제작·조판으로 넘어갑니다. 최초 소량 처리 시간은 본문 길이와 권리 확인에 따라 달라집니다.',
+            done: '새 각색의 composed_spec.academic_reading에 target·원문 UUID/hash/revision·권리·분석·문항 계획이 있고, 원문은 바뀌지 않았습니다. queued는 발행 완료가 아닙니다.',
+          },
+          {
             title: '전수 판정 스캔',
             detail:
               '`pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs` — `status in (ready, published)` 전량을 커서 페이징으로 훑어 판정하고, **인자 없이도 이 화면이 읽는 스냅샷을 갱신한다**(터미널에만 보려면 `--no-write`). **읽기만 한다 — 재실행 안전**이고, 몇 번을 돌려도 DB 가 바뀌지 않는다. ⏱ **재고에 비례한다** — 2026-09-06 재고 35,889편에 31.9초였고, 2026-09-15 재고 **87,626편에 212초**다. 「금방 끝난다」고 적어 두면 돌리다 말고 끊는다. PostgREST 가 한 쪽 1,000행으로 강제하고 집계 함수가 꺼져 있어(PGRST123) 커서 페이징 말고 다른 길이 없다.',
@@ -335,12 +340,14 @@ export const TBP_HELP: HelpRegistry = {
           },
         ],
         verify: [
+          'Academic Reading은 원문/각색 분석축과 문항 난이도가 따로 있는지 확인합니다. 권리 미확인·변경된 원문은 보류하며 높은 원문 점수로 통과시키지 않습니다. 다지문·자료는 실제 입력과 자료별 권리가 필요합니다. 문항 제작 시 reading 메타데이터의 난이도·본문 근거를 채우고 item-selfcheck 및 import의 최신 각색문 대조를 통과해야 합니다.',
           'scripts/audit/csat-sources-audit.mjs --check가 exit 0인지 확인합니다. reject·분석 누락·CEFR 초과·발췌창만 있는 원문이 적격으로 통과하면 안 됩니다.',
           '적격 비율을 올리는 것이 목표가 아닙니다. 등급 줄의 편수 합이 전체와 같은지(합이 안 맞으면 스냅샷이 밴드 인자와 함께 만들어진 것이다).',
           '“되돌릴 수 없는 부적격” 이 0 이 아니면 그 편수만큼은 **아무리 드레인을 돌려도 안 줄어든다** — 조판에서 빼는 것이 유일한 처방이다.',
           '학령별 표에서 조판 가능이 0 인 칸이 있는지. 있으면 **그 학년 교재를 지금 만들 수 없다**는 뜻이고, 재고가 있어도 마찬가지다.',
         ],
         recovery: [
+          'Academic Reading 입력과 out 청크는 둘 다 보존합니다. 원문 revision/hash가 바뀌면 새로운 디렉터리에 export하고 다시 검토합니다. 기존 각색을 upsert하지 않으므로 부분 실패 후 같은 import는 이미 적재한 판을 건너뜁니다. 트랜잭션 RPC는 아직 없으므로 실제 import 구간에는 관련 원문 편집·수집·분석·권리/내용 판정·다른 import를 모두 멈추고 한 작업으로 직렬 실행합니다. 이 전제를 확보할 수 없으면 예행까지만 합니다. 전후 checkpoint를 남깁니다. BLS/NPS 수집·FYM gold set·시험 calibration은 이 타깃 생성의 완료 상태와 별개입니다.',
           '캐시 적재 실패 시 .agent-logs의 배치 백업과 범위를 확인합니다. 원문 revision이 달라졌다면 최신 입력으로 다시 내보내 재검증합니다. 원문·정답 전체를 덮지 않습니다. checkpoint after/diff를 남깁니다.',
           '스캔이 `재고 조회 — 500 …` 으로 죽으면 statement timeout 이다. 페이지 크기(1000)를 줄이지 말고 잠시 뒤 다시 돌린다 — 커서 페이징은 중단해도 안전하고, 처음부터 다시 돌리면 된다.',
           '스냅샷 파일이 없으면 화면이 뜨지 않는다(빌드 시 import 한다). 1단계를 한 번 돌리면 생긴다.',

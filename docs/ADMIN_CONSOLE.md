@@ -1,5 +1,9 @@
 # Admin Console
 
+### 교재 생성 타깃·처리 계약 (2026-10-04)
+
+소재 적격 도움말에 [Academic Reading Engine](./ACADEMIC_READING_ENGINE.md)의 연령·언어·사고·능력·제품 목적 분리와 소량 export → 에이전트 집필 → import 예행 → checkpoint → queued 각색 → 기존 분석/내용 판정/적격 → 문항 제작 절차를 추가했다. 같은 원문에서 여러 target을 처리하고 기사별 권리·본문 hash/revision·분석·문항 근거를 검증한다. 완료/대기 입력과 결과를 모두 보존한다. 새 화면·탭·라우트·자동 발행은 추가하지 않았다. 도움말 정본은 `lib/admin/help/textbook.ts`다.
+
 ### 3B 공통 화면 틀(2026-10-03 사용자 정정)
 
 과거 Tines 표본(이 정정으로 대체됨): `AdminPageHeader`의 반복 점무늬·작은 아이콘 타일을 PC에서 제거하고 44px 세리프 제목·176px 소품·최소 244px 작업용 헤더로 조정했다. 본문 작업 밀도에 맞춰 Library 원본 411px보다 줄인 의도적 적용이다. 모바일에는 적용하지 않으며 관리자 인증·탭·액션·도움말 라벨과 절차는 유지한다.

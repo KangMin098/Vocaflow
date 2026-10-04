@@ -15,6 +15,8 @@
     "./textbook-kid-source": "./src/textbook/kid-source.ts",
     "./source-rollup": "./src/textbook/source-rollup.ts",
     "./textbook-series": "./src/textbook/series.ts",
+    "./academic-reading": "./src/textbook/academic-reading.ts",
+    "./academic-reading-contract": "./src/textbook/academic-reading-contract.ts",
     "./textbook-brand": "./src/textbook/brand.ts",
     "./textbook-evaluation": "./src/textbook/evaluation.ts",
     "./textbook-press-gate": "./src/textbook/press-gate.ts",

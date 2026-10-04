@@ -27,7 +27,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv, fetchAllIn, fetchAllPaged, isRetractedTitle } from './volume-pool.mjs'
-import { pickFreeSlots } from './chunk-slots.mjs'
+import { pickFreeSlots, readReservedTasks } from './chunk-slots.mjs'
+import { readingSkillsForType } from '@vocaflow/library-pipeline/academic-reading-contract'
+import { digest } from './academic-reading-contract.mjs'
 import { peopleRatio, speechCount, SPEECH_FLOOR } from '../csat/lib-narrative.mjs'
 
 loadEnv()
@@ -194,7 +196,7 @@ const TYPES = {
       '선택지 문자열은 그 낱말이 든 **짧은 구절을 지문에서 그대로 따온 것**으로 쓴다 — ' +
       '적재기가 `passage.includes(선택지)` 로 검사하므로 바꾼 낱말이 **지문에도 바뀐 채로** 들어 있어야 한다. ' +
       '⚠️ 그래서 이 유형은 `passage` 를 고쳐 내보낸다: `passage_edited` 에 낱말 하나를 바꾼 지문을 쓰고, ' +
-      '`swapped` 에 `{원래낱말, 바꾼낱말}` 을 적는다. ' +
+      '`swapped` 에 `{from: 원래낱말, to: 바꾼낱말}` 을 적는다. ' +
       '**한 문장만 봐도 어색한 낱말은 쓰지 않는다** — 앞뒤 문장이 강제하는 자리라야 문항이 선다. ' +
       '다섯 구절을 여러 문단에 흩고 길이를 고르게 맞춘다.',
   },
@@ -230,7 +232,7 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 const arts = await fetchAllPaged(db, (q) =>
   q
     .from('library_articles')
-    .select('id, title, content, article_v_level, display_only, status, word_count, compose_batch_id')
+    .select('id, title, content, article_v_level, display_only, status, word_count, compose_batch_id, composed_spec, updated_at')
     .in('status', ['ready', 'published'])
     .eq('article_v_level', BAND)
     .order('id'))
@@ -317,6 +319,7 @@ const withBody = (arts ?? [])
   // 철회된 논문은 지문으로 쓰지 않는다 — 판정은 volume-pool 한 곳에 있다(조판과 같은 잣대).
   .filter((a) => !a.display_only && !isRetractedTitle(a.title) && String(a.content ?? '').trim())
   .filter((a) => !BATCH_FILTER.length || BATCH_FILTER.includes(String(a.compose_batch_id)))
+  .filter((a) => !a.composed_spec?.academic_reading || (a.composed_spec.academic_reading.target.passage_v_level === a.article_v_level && readingSkillsForType(TYPE,a.composed_spec.academic_reading.target).length > 0))
 
 /** 이 유형이 장문 묶음(43~45)인가 — 지문을 자르지 않고 통째로 쓴다. */
 const IS_LONG = spec.long === true
@@ -499,22 +502,7 @@ const existing = new Set(itemRows.filter((r) => r.type === TYPE).map((r) => r.re
  * 실제로 V6 심경에서 3편이 그렇게 겹쳤고, 적재기가 그 충돌 하나로 멀쩡한 24문항까지
  * 통째로 되돌렸다(그쪽도 함께 고쳤다). 여기서 막으면 헛일 자체가 안 생긴다.
  */
-const pending = new Set()
-if (fs.existsSync(DIR)) {
-  // ⚠️ **안 채운 청크도 센다.** 채운 것(.out.json)만 세면, 뽑아 놓고 아직 손 안 댄 몫을
-  //   다시 뽑아 같은 원글이 두 청크에 앉는다 — 실측: long_reference V6 에서 chunk-00 의
-  //   PLOS 4편이 chunk-03 에 그대로 다시 나왔다. 안 채운 청크를 지우지는 않으므로
-  //   (다른 세션이 쓰고 있을 수 있다) **재발급을 막는 쪽이 맞다.**
-  for (const f of fs.readdirSync(DIR)) {
-    if (!f.endsWith('.json')) continue
-    try {
-      for (const r of JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')))
-        if (r?.article_id) pending.add(String(r.article_id))
-    } catch {
-      // 손으로 고치다 깨진 청크가 뽑기를 막으면 안 된다 — 그건 import 가 말한다.
-    }
-  }
-}
+const pending = readReservedTasks(DIR,r => r?.article_id)
 
 /**
  * 글마다 이미 가진 **유형 수**. 뽑는 순서를 정하는 데 쓴다.
@@ -668,6 +656,14 @@ const tasks = todo.slice(0, need).map((a) => ({
   choice_language: spec.choiceLang,
   guide: spec.guide,
   source_title: a.title,
+  ...(a.composed_spec?.academic_reading ? { reading:{
+    version:a.composed_spec.academic_reading.version,
+    target:a.composed_spec.academic_reading.target,
+    passage_level:a.composed_spec.academic_reading.analysis.passage_profile.overall_level.level,
+    allowed_skills:readingSkillsForType(TYPE,a.composed_spec.academic_reading.target),
+    source_hash:digest(a.content), source_revision:a.updated_at,
+    item_reasoning_level:null, item_difficulty:null, difficulty_evidence:'', skill:null, evidence:[],
+  } } : {}),
   // 짧은 유형은 **창(90~200어)에 맞게 자른 구간**, 장문은 **글 전체**다 — 위 `passageOf` 주석 참조.
   passage: TYPE === 'long_order' ? shuffledOf(a).passage : passages.get(a.id),
   // 장문은 문단이 곧 (A)(B)(C)(D) 다. 배치가 문단 경계를 짐작하지 않도록 갈라서 준다.
@@ -679,27 +675,11 @@ const tasks = todo.slice(0, need).map((a) => ({
 }))
 
 fs.mkdirSync(DIR, { recursive: true })
-/**
- * 옛 청크를 지우고 새로 쓴다 — 다만 **아직 채우지 않은 청크는 남긴다.**
- *
- * ⚠️ 이 저장소는 여러 세션이 한 작업 폴더를 공유한다. 2026-09-05 실측: 다른 세션이
- * `chunk-01~03` 을 채우는 중에 이 스크립트를 돌렸더니 **그쪽 원본 청크가 통째로 지워졌다.**
- * `.out.json` 이 원본을 통째로 복사해 담는 구조라 데이터는 살아남았지만, 아직 손대지
- * 않은 청크였다면 그 몫은 흔적 없이 사라진다.
- *
- * 그래서 `.out.json` 이 **이미 있는** 청크(= 누군가 끝낸 것)만 지운다. 남긴 것은 세어서
- * 말한다 — 조용히 남기면 다음 사람이 왜 번호가 건너뛰는지 모른다.
- */
-let kept = 0
-for (const f of fs.readdirSync(DIR)) {
-  if (!/^chunk-\d+\.json$/.test(f)) continue
-  const done = fs.existsSync(path.join(DIR, f.replace('.json', '.out.json')))
-  if (done) fs.unlinkSync(path.join(DIR, f))
-  else kept++
-}
+// 완료 입력도 import의 본문/hash/revision 대조에 필요하다. 입력·결과 둘 다 보존한다.
+const kept = fs.readdirSync(DIR).filter(f => /^chunk-\d+\.json$/.test(f)).length
 if (kept) {
   console.log(
-    `※ 아직 안 채운 청크 ${kept}개는 지우지 않았다 — 다른 세션이 쓰고 있을 수 있다.\n` +
+    `※ 입력 청크 ${kept}개를 보존했다 — 완료 결과의 본문 대조에도 필요하다.\n` +
       `   새 몫은 그 뒤 번호로 붙는다.`,
   )
 }
@@ -714,7 +694,7 @@ const chunks = []
 const slotNames = pickFreeSlots(fs.readdirSync(DIR), Math.ceil(tasks.length / SIZE))
 for (let i = 0; i < tasks.length; i += SIZE) {
   const n = slotNames[i / SIZE]
-  fs.writeFileSync(path.join(DIR, `chunk-${n}.json`), JSON.stringify(tasks.slice(i, i + SIZE), null, 1), 'utf8')
+  fs.writeFileSync(path.join(DIR, `chunk-${n}.json`), JSON.stringify(tasks.slice(i, i + SIZE), null, 1), { encoding:'utf8', flag:'wx' })
   chunks.push(n)
 }
 

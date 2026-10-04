@@ -1,5 +1,11 @@
 # DB Schema
 
+## Academic Reading JSONB 계약 (2026-10-04, 마이그레이션 없음)
+
+`library_articles` 원문은 그대로 두고 `adapted_from_id`로 자식 각색을 만든다. `source_id = reading:<원문 UUID>:<교육 설정·자료 식별자/본문·명세 버전 hash>`이며 기존 `(source,source_id)` 유일키가 같은 목적의 중복을 막는다. 가변 자료 권리 증거는 키에서 제외하고 요청/계보에 보존한다. `composed_spec.academic_reading`에 version·target_key·target·provenance(원문 UUID/hash/revision/기사별 권리)·analysis(원문/각색문 열 분석축·명제/담화·추가 배경·문항/활동 계획·선택적 원문 점수·FYM 연구 쌍)를 저장한다. 기존 행의 composed_spec/csat_fit을 덮지 않고 새 queued 자식에만 쓴다.
+
+`csat_dcp_items.payload.academic_reading`은 version·target·skill·passage_level·item_reasoning_level·item_difficulty·difficulty_evidence·evidence·evidence_passage·각색문의 hash/revision을 가진다. 지문과 문항 수준은 별도 필드다. evidence_passage는 빈칸/어휘 치환 전 근거 본문이며 학습자 제시문은 기존 payload.passage다. 기존 type CHECK·문항 유일키·검수/서빙 판정은 유지한다. `parallel_adaptation_pairs` 테이블은 DB에서 미존재를 확인했고, 이번 작업에서는 별도 테이블을 만들거나 마이그레이션을 적용하지 않았다. 상세 [생성 계약](./ACADEMIC_READING_ENGINE.md).
+
 ## DB 전수 조사 조치 (2026-09-23, migration 5건 `20260923103943`~`20260923105031`)
 
 조사·근거 전문: [reports/db-audit-2026-09-23.md](./reports/db-audit-2026-09-23.md) ·

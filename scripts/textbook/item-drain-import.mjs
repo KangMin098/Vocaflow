@@ -24,6 +24,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
+import { validateReadingItem, validateReadingPresentation } from '@vocaflow/library-pipeline/academic-reading-contract'
+import { READING_ENGINE_VERSION } from '@vocaflow/library-pipeline/academic-reading'
+import { digest, canonical } from './academic-reading-contract.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -82,7 +85,25 @@ console.log(`청크 ${outFiles.length}개 · 문항 ${rows.length}건`)
 
 const skipped = []
 const ok = []
+const readingSources = new Map((await fetchAllIn(db,'library_articles','id, content, composed_spec, updated_at, article_v_level, status','id',[...new Set(rows.map(r => r.article_id).filter(Boolean))],['id'])).map(a => [a.id,a]))
+const originalChunks = new Map(outFiles.map(f => {
+  const p = path.join(DIR,f.replace('.out.json','.json'))
+  return [f,fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : []]
+}))
 for (const r of rows) {
+  const source = readingSources.get(r.article_id)
+  const spec = source?.composed_spec?.academic_reading
+  if (r.reading || spec) {
+    const original = originalChunks.get(r.__file)?.find(x => x.article_id === r.article_id)
+    const fail = !spec || !r.reading || !original?.reading ? 'reading source/export contract missing'
+      : spec.version !== READING_ENGINE_VERSION || original.reading.version !== spec.version || r.reading.version !== spec.version ? 'reading item version mismatch'
+      : !['ready','published'].includes(source.status) || source.article_v_level !== BAND || spec.target.passage_v_level !== BAND ? 'reading source status/level changed'
+      : digest(source.content) !== original.reading.source_hash || source.updated_at !== original.reading.source_revision ? 'reading source changed; export again'
+      : r.reading.source_hash !== original.reading.source_hash || r.reading.source_revision !== original.reading.source_revision || canonical(spec.target) !== canonical(original.reading.target) ? 'reading binding changed'
+      : validateReadingPresentation(r,original.passage,TYPE) ?? validateReadingItem({ version:r.reading.version, target:r.reading.target, skill:r.reading.skill, passage_level:r.reading.passage_level, item_reasoning_level:r.reading.item_reasoning_level, item_difficulty:r.reading.item_difficulty, difficulty_evidence:r.reading.difficulty_evidence, evidence:r.reading.evidence }, spec.target, TYPE, original.passage, spec.analysis.passage_profile.overall_level.level)
+    if (fail) { skipped.push([r.source_title ?? r.article_id,fail]); continue }
+    r.__evidence_passage = original.passage
+  }
   // 관문 한 벌. 밴드를 함께 넘긴다 — 안 넘기면 초등 몫을 고등 창으로 재게 된다.
   const v = checkDrainItem(r, TYPE, BAND)
   if (!v.ok) skipped.push([r.source_title ?? r.article_id, v.reason])
@@ -212,6 +233,7 @@ for (let i = 0; i < freshUnique.length; i += 100) {
       // 유형별로만 쓰는 것 — 없으면 null 로 남는다.
       underline: r.underline ?? null,
       summary_sentence: r.summary_sentence ?? null,
+      ...(r.reading ? { academic_reading:{ version:r.reading.version, target:r.reading.target, skill:r.reading.skill, passage_level:r.reading.passage_level, item_reasoning_level:r.reading.item_reasoning_level, item_difficulty:r.reading.item_difficulty, difficulty_evidence:r.reading.difficulty_evidence, evidence:r.reading.evidence, evidence_passage:r.__evidence_passage, source_hash:r.reading.source_hash, source_revision:r.reading.source_revision } } : {}),
     },
     answer_key: { answer: r.answer, rationale_ko: String(r.rationale_ko).trim() },
     paragraph_idx: 0,

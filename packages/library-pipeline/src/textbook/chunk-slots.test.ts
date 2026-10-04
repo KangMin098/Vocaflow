@@ -7,8 +7,11 @@
 // `blank-v4/chunk-00.json` 은 새 글 5편, `chunk-00.out.json` 은 옛 글 8편이 됐다.
 
 import { describe, expect, it } from 'vitest'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 // 정본은 스크립트 쪽에 있다 — 사본을 두면 둘이 갈린다.
-import { pickFreeSlots, slotOf, takenSlots } from '../../../../scripts/textbook/chunk-slots.mjs'
+import { pickFreeSlots, readReservedTasks, slotOf, takenSlots } from '../../../../scripts/textbook/chunk-slots.mjs'
 
 describe('드레인 청크 번호', () => {
   it('청크 파일에서 번호를 읽는다', () => {
@@ -42,5 +45,18 @@ describe('드레인 청크 번호', () => {
     expect(pickFreeSlots([], 1)).toEqual(['00'])
     const many = Array.from({ length: 10 }, (_, i) => `chunk-${String(i).padStart(2, '0')}.json`)
     expect(pickFreeSlots(many, 1)).toEqual(['10'])
+  })
+  it('대기·완료 청크 모두 예약하고 원본·결과 바이트를 보존한다',() => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(),'reading-reservations-'))
+    try {
+      const files = { 'chunk-00.json':'[{"article_id":"pending"}]', 'chunk-01.json':'[{"article_id":"done"}]', 'chunk-01.out.json':'[{"article_id":"done","answer":3}]' }
+      for (const [name,body] of Object.entries(files)) fs.writeFileSync(path.join(dir,name),body)
+      expect(readReservedTasks(dir,r=>r.article_id)).toEqual(new Set(['pending','done']))
+      expect(pickFreeSlots(fs.readdirSync(dir),1)).toEqual(['02'])
+      expect(readReservedTasks(dir,r=>r.article_id)).toEqual(new Set(['pending','done']))
+      for (const [name,body] of Object.entries(files)) expect(fs.readFileSync(path.join(dir,name),'utf8')).toBe(body)
+      fs.writeFileSync(path.join(dir,'chunk-02.json'),'{broken')
+      expect(()=>readReservedTasks(dir,r=>r.article_id)).toThrow()
+    } finally { fs.rmSync(dir,{recursive:true,force:true}) }
   })
 })
