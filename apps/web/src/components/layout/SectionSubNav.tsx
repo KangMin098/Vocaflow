@@ -13,17 +13,22 @@ import { usePathname } from 'next/navigation'
 
 import { pickCurrent } from '@/components/layout/nav-match'
 import { BAR_ENTRIES, allEntryItems } from '@/components/layout/top-nav-data'
+import { SCREEN_TYPES } from '@/lib/design/screen-types'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
-/** 이 줄을 세우지 않는 경로 — 허브(자체 히어로) · 서가(구역 탭) · CSAT(3B) · 게임 판 */
-const SKIP = [/^\/hub$/, /^\/library(\/|$)/, /^\/csat(\/|$)/, /^\/play\//, /^\/text\/[^/]+/]
+/**
+ * 세우지 않는 곳 — 화면 유형 정본이 정한다(2026-10-05): 특수(허브 · 서가 구역 탭 · 만화 서가 · CSAT 3B)와 세션은
+ * 자기 골격이 탐색을 맡는다. 정본에 없는 동적 경로(본문 `/text/[id]` · CSAT 하위 `[id]`)는 아래 정규식이 맡는다.
+ */
+const SELF_NAVIGATED = new Set(['special', 'session'])
+const SKIP_DYNAMIC = [/^\/library\//, /^\/csat\//, /^\/comics\//, /^\/play\//, /^\/text\/[^/]+/]
 /** 오른쪽 링크는 참조처럼 한 줄 — 넘치면 앞에서부터 이만큼만 */
 const MAX_LINKS = 7
 
 export function SectionSubNav() {
   const pathname = usePathname() ?? ''
-  if (!pathname || isFullScreenRoute(pathname) || SKIP.some((re) => re.test(pathname))) return null
+  if (!pathname || isFullScreenRoute(pathname) || SELF_NAVIGATED.has(SCREEN_TYPES[pathname]?.type ?? '') || SKIP_DYNAMIC.some((re) => re.test(pathname))) return null
 
   for (const entry of BAR_ENTRIES) {
     if (entry.kind !== 'menu') continue
