@@ -7,10 +7,10 @@ import { loadEnv } from './volume-pool.mjs'
 import { fetchWithTimeout } from '../../packages/library-pipeline/src/ingest-article/_helpers.ts'
 import { epmcFullTextUrl } from '../../packages/library-pipeline/src/ingest-article/europe-pmc.ts'
 import { resolveFrontiersSlug, frontiersXmlUrl } from '../../packages/library-pipeline/src/ingest-article/frontiers.ts'
-import { frymStudentDoi, normalizeResearchDoi, researchBodyHash, researchOriginSchema } from '@vocaflow/library-pipeline/research-origin'
+import { frymStudentDoi, researchBodyHash, researchOriginSchema } from '@vocaflow/library-pipeline/research-origin'
 import { frymFullTextContent, frymFullTextContainer } from '../../packages/library-pipeline/src/ingest-article/frontiers-young-minds.ts'
 import { extractFrymResearchOrigin } from '@vocaflow/library-pipeline/research-origin'
-import { acquirePrecisionFullText, selectPrecisionAbstract } from '../../packages/library-pipeline/src/textbook/parallel-evidence.ts'
+import { acquirePrecisionFullText, acquirePrecisionMetadata, selectPrecisionAbstract } from '../../packages/library-pipeline/src/textbook/parallel-evidence.ts'
 
 const arg = (name) => { const i = process.argv.indexOf(`--${name}`); return i < 0 ? null : process.argv[i + 1] }
 if (process.argv.includes('--commit')) throw new Error('Local review preparation has no --commit mode')
@@ -58,8 +58,6 @@ for (const row of selected) {
     save(`${id}.fym.html`, fymHtml)
     const doi = relation.original_work_id
     const attempts = []
-    let crossref = null
-    let epmc = null
     let researchText = ''
     let researchUrl = null
     let access = 'unavailable'
@@ -67,53 +65,43 @@ for (const row of selected) {
     let rawHash = null
     let rawFile = null
     const checkedAt = new Date().toISOString()
-    try {
-      const url = `https://api.crossref.org/works/${encodeURIComponent(doi)}`
-      const response = await fetchWithTimeout(url, { accept: 'application/json', timeoutMs: 30000 })
-      if (!response.ok) throw new Error(`Crossref ${response.status}`)
-      const body = await response.text()
-      save(`${id}.crossref.json`, body)
-      crossref = JSON.parse(body).message
-      if (normalizeResearchDoi(crossref?.DOI ?? '') !== doi) throw new Error('Crossref DOI mismatch')
-      const searchUrl = `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${encodeURIComponent(`DOI:"${doi}"`)}&format=json&resultType=core`
+    const metadata = await acquirePrecisionMetadata(doi, (url) => fetchWithTimeout(url, { accept: 'application/json', timeoutMs: 30000 }))
+    attempts.push(...metadata.attempts)
+    const crossref = metadata.crossref?.record ?? null
+    const epmc = metadata.epmc?.record ?? null
+    if (metadata.crossref) save(`${id}.crossref.json`, metadata.crossref.raw)
+    if (metadata.epmc) save(`${id}.epmc.json`, metadata.epmc.raw)
+    const candidates = []
+    if (epmc?.pmcid) candidates.push(epmcFullTextUrl(epmc.pmcid))
+    if (doi.startsWith('10.3389/')) {
       try {
-        const search = await fetchWithTimeout(searchUrl, { accept: 'application/json', timeoutMs: 30000 })
-        if (search.ok) {
-          const text = await search.text()
-          save(`${id}.epmc.json`, text)
-          epmc = JSON.parse(text).resultList?.result?.find((r) => normalizeResearchDoi(r.doi ?? '') === doi) ?? null
-        } else attempts.push(`Europe PMC search: ${search.status}`)
-      } catch (error) { attempts.push(`Europe PMC search: ${error instanceof Error ? error.message : String(error)}`) }
-      const candidates = []
-      if (epmc?.pmcid) candidates.push(epmcFullTextUrl(epmc.pmcid))
-      if (doi.startsWith('10.3389/')) {
-        try {
-          const slug = await resolveFrontiersSlug(doi)
-          if (slug) candidates.push(frontiersXmlUrl(slug, doi))
-        } catch (error) { attempts.push(`Frontiers resolution: ${error instanceof Error ? error.message : String(error)}`) }
+        const slug = await resolveFrontiersSlug(doi)
+        if (slug) candidates.push(frontiersXmlUrl(slug, doi))
+      } catch (error) { attempts.push(`Frontiers resolution: ${error instanceof Error ? error.message : String(error)}`) }
+    }
+    const fullText = await acquirePrecisionFullText(doi, candidates, (url) => fetchWithTimeout(url, { accept: 'application/xml', timeoutMs: 30000 }))
+    attempts.push(...fullText.attempts)
+    if (fullText.evidence) {
+      const { raw, text, url } = fullText.evidence
+      researchText = text
+      save(`${id}.research.xml`, raw)
+      rawHash = researchBodyHash(raw)
+      rawFile = `${id}.research.xml`
+      researchUrl = url
+      access = 'full_text'
+      extraction = 'jats_body_htmlToPlainText_v1'
+    }
+    if (!researchText) {
+      const abstract = selectPrecisionAbstract(epmc?.abstractText, crossref?.abstract)
+      if (abstract) {
+        researchText = abstract.text
+        access = 'abstract_only'
+        researchUrl = metadata[abstract.provider].url
+        extraction = 'metadata_abstract_htmlToPlainText_v1'
+        rawFile = `${id}.${abstract.provider}.json`
+        rawHash = researchBodyHash(fs.readFileSync(path.join(dir, rawFile), 'utf8'))
       }
-      const fullText = await acquirePrecisionFullText(doi, candidates, (url) => fetchWithTimeout(url, { accept: 'application/xml', timeoutMs: 30000 }))
-      attempts.push(...fullText.attempts)
-      if (fullText.evidence) {
-        const { raw, text, url } = fullText.evidence
-        researchText = text
-        save(`${id}.research.xml`, raw)
-        rawHash = researchBodyHash(raw)
-        rawFile = `${id}.research.xml`
-        researchUrl = url
-        access = 'full_text'
-        extraction = 'jats_body_htmlToPlainText_v1'
-      }
-      if (!researchText) {
-        const abstract = selectPrecisionAbstract(epmc?.abstractText, crossref?.abstract)
-        if (abstract) {
-          researchText = abstract.text
-          access = 'abstract_only'; researchUrl = abstract.provider === 'epmc' ? searchUrl : url; extraction = 'metadata_abstract_htmlToPlainText_v1'
-          rawFile = `${id}.${abstract.provider}.json`
-          rawHash = researchBodyHash(fs.readFileSync(path.join(dir, rawFile), 'utf8'))
-        }
-      }
-    } catch (error) { attempts.push(error instanceof Error ? error.message : String(error)) }
+    }
     if (researchText) save(`${id}.research.txt`, researchText)
     const item = {
       id, source: { id: row.id, source_id: row.source_id, title: row.title, source_url: row.source_url, source_revision: row.source_revision, source_hash: row.source_hash, page_hash: row.research_origin.page_hash },

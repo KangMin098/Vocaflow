@@ -2,6 +2,36 @@
 import { htmlToPlainText } from '../ingest-article/_helpers'
 import { normalizeResearchDoi } from '../ingest-article/research-origin'
 
+type EvidenceGet = (url: string) => Promise<{ ok: boolean; status: number; text(): Promise<string> }>
+type CrossrefRecord = { DOI: string; title?: string[]; author?: { given?: string; family?: string }[]; abstract?: string; 'container-title'?: string[]; type?: string; URL?: string }
+type EpmcRecord = { doi: string; pmcid?: string; abstractText?: string }
+
+/** Metadata providers fail independently; a bibliographic hold must not imply no body access. */
+export async function acquirePrecisionMetadata(doi: string, get: EvidenceGet) {
+  const attempts: string[] = []
+  const crossrefUrl = `https://api.crossref.org/works/${encodeURIComponent(doi)}`
+  const epmcUrl = `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${encodeURIComponent(`DOI:"${doi}"`)}&format=json&resultType=core`
+  let crossref: { record: CrossrefRecord; raw: string; url: string } | null = null
+  let epmc: { record: EpmcRecord; raw: string; url: string } | null = null
+  try {
+    const response = await get(crossrefUrl)
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const raw = await response.text()
+    const record = JSON.parse(raw).message as CrossrefRecord | undefined
+    if (typeof record?.DOI !== 'string' || normalizeResearchDoi(record.DOI) !== doi) throw new Error('DOI mismatch')
+    crossref = { record, raw, url: crossrefUrl }
+  } catch (error) { attempts.push(`Crossref: ${error instanceof Error ? error.message : String(error)}`) }
+  try {
+    const response = await get(epmcUrl)
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const raw = await response.text()
+    const records = JSON.parse(raw).resultList?.result as EpmcRecord[] | undefined
+    const record = records?.find((r) => typeof r.doi === 'string' && normalizeResearchDoi(r.doi) === doi)
+    if (record) epmc = { record, raw, url: epmcUrl }
+  } catch (error) { attempts.push(`Europe PMC search: ${error instanceof Error ? error.message : String(error)}`) }
+  return { crossref, epmc, attempts }
+}
+
 export function selectPrecisionAbstract(epmcAbstract: string | null | undefined, crossrefAbstract: string | null | undefined) {
   for (const [provider, raw] of [['epmc', epmcAbstract], ['crossref', crossrefAbstract]] as const) {
     const text = typeof raw === 'string' ? htmlToPlainText(raw) : ''
@@ -11,7 +41,7 @@ export function selectPrecisionAbstract(epmcAbstract: string | null | undefined,
 }
 
 /** Candidate failures do not skip later publishers or the caller's abstract fallback. */
-export async function acquirePrecisionFullText(doi: string, urls: string[], get: (url: string) => Promise<{ ok: boolean; status: number; text(): Promise<string> }>) {
+export async function acquirePrecisionFullText(doi: string, urls: string[], get: EvidenceGet) {
   const attempts: string[] = []
   for (const url of urls) {
     let raw: string
