@@ -98,7 +98,8 @@ test.describe('모바일 전역 셸 (하단 탭)', () => {
     await page.setViewportSize(MOBILE);
     await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 60_000 });
 
-    const tabbar = page.getByRole('navigation', { name: '주요 화면' });
+    // exact — 데스크톱 상단 막대가 「주요 화면 메뉴」라 부분 일치면 그것까지 잡혀 B 가 늘 떨어졌다(2026-10-04 DOM 실측).
+    const tabbar = page.getByRole('navigation', { name: '주요 화면', exact: true });
     await expect(tabbar).toBeVisible({ timeout: 30_000 });
 
     const links = tabbar.getByRole('link');
@@ -125,7 +126,7 @@ test.describe('모바일 전역 셸 (하단 탭)', () => {
     await page.setViewportSize(DESKTOP);
     await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 60_000 });
     await page.waitForTimeout(600);
-    await expect(page.getByRole('navigation', { name: '주요 화면' })).toBeHidden();
+    await expect(page.getByRole('navigation', { name: '주요 화면', exact: true })).toBeHidden();
   });
 
   test('C. 풀스크린 세션에서는 사라진다 (작업기억 보호)', async ({ page }) => {
@@ -133,7 +134,7 @@ test.describe('모바일 전역 셸 (하단 탭)', () => {
     // `/wordvault/browse` = 비활동 풀스크린 (full-screen-routes.ts)
     await page.goto('/wordvault/browse', { waitUntil: 'domcontentloaded', timeout: 60_000 });
     await page.waitForTimeout(900);
-    await expect(page.getByRole('navigation', { name: '주요 화면' })).toHaveCount(0);
+    await expect(page.getByRole('navigation', { name: '주요 화면', exact: true })).toHaveCount(0);
   });
 
   test('D. 풀스크린 세션에 하단 여백이 남지 않는다', async ({ page }) => {
@@ -151,7 +152,7 @@ test.describe('모바일 전역 셸 (하단 탭)', () => {
   test('F. 탭 높이만큼 여백이 있다 (콘텐츠 끝이 탭에 덮이지 않는다)', async ({ page }) => {
     await page.setViewportSize(MOBILE);
     await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 60_000 });
-    await expect(page.getByRole('navigation', { name: '주요 화면' })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole('navigation', { name: '주요 화면', exact: true })).toBeVisible({ timeout: 30_000 });
 
     // 여백은 탭을 그리는 컴포넌트가 같이 낸다(바로 앞 형제 스페이서) — 두 값이 갈리면
     // 콘텐츠 끝이 탭 아래로 들어가거나, 반대로 쓸데없는 빈칸이 생긴다.

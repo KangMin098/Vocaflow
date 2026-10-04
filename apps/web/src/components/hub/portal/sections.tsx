@@ -711,7 +711,7 @@ export function ReadingSection({ portal }: { portal: HubPortal }) {
 
 const USP = [
   { lead: '진단은 5분.', rest: '몇 개의 단어를 아는지만 재면, 지금 읽을 수 있는 책과 오늘 만날 단어가 정해집니다.', spot: 'spot-search', href: '/diagnostic' },
-  { lead: '기억은 네 색으로.', rest: '안정 · 흔들림 · 위급 · 신규 — 단어마다 지금의 기억을 계산해서 보여 줍니다.', spot: 'spot-memory', href: '/wordvault' },
+  { lead: '기억은 네 색으로.', rest: '단어마다 지금의 기억을 계산해, 다시 볼 때가 된 단어부터 색으로 알려 줍니다.', spot: 'spot-memory', href: '/wordvault' },
   { lead: '듣고, 따라 말하고.', rest: '받아쓰기로 소리를 잡고, 따라 말한 억양을 원문과 겹쳐 비교합니다.', spot: 'spot-listening', href: '/dictate' },
   { lead: '학급과 함께.', rest: '초대코드 하나로 학생을 모으고, 학급의 어휘 진행을 한 화면에서 봅니다.', spot: 'spot-teacher', href: '/teacher' },
 ]

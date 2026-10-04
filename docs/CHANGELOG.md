@@ -11,6 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(shell): 상단 메뉴 — 마우스를 올려 연 패널을 이어지는 첫 클릭이 닫던 결함 수정(`AppHeader` `clickToggle`, 키보드 토글은 그대로). 만화 리더 상단 막대가 PC 상단 메뉴 밑에 깔려 「본문」 복귀가 눌리지 않던 결함 수정(`ComicReader`, PC 만 메뉴 아래로). 허브 WHY 문구에서 4색 이름 나열 제거. e2e 낡은 단언 정리: 12(Practice ③ 두 블록 허용 · 메뉴 hover 전 마우스 이탈), 13·20(셀렉터 정확 일치/계약 셀렉터), 22(허브 제품 액자 범례 예외 · 띠 위치 이름 대소문자). DB·라우트 변경 없음.
 - feat(design): 학습자 PC 본문 구성 — WordBlitz 머리를 형제 게임 대기실과 같은 발견형 히어로로, 내 책장을 `PageIntro` + 색 카드 + 「더 담기」 칸으로, 대시보드·계획 본문 구획 제목을 세리프 24 한 규격(`--section-title` · `press-rule-*`)으로. `/wordblitz`·`/my/books` 중복 배너 제거. e2e 18 WordBlitz 기록 단언을 제품의 「기록 없음 한 줄」 결정에 맞춤(기존 실패). DB·라우트 변경 없음.
 
 - fix(textbook): FYM 정밀 검증의 Crossref 서지 조회와 Europe PMC/발행처 본문 확보를 분리했다. Crossref 실패·다른 DOI 응답이 공개 전문/초록 조회를 막거나 잘못된 초록을 선택하지 않도록 회귀로 검증했다.

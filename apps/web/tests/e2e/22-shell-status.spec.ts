@@ -134,7 +134,13 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
     for (const path of ['/hub', '/dashboard']) {
       await gotoStable(page, path);
       await page.waitForTimeout(600);
-      const text = (await page.locator('body').innerText()) ?? '';
+      // 예외 하나 — /hub 의 「제품 액자」(DD-68 · 2026-09-22 승인 허브 골격)는 앱 화면을 **보여 주는** 자리라
+      // 기억 도넛과 그 범례를 그린다. 조치(다시 보기)는 여전히 상태 띠가 소유하므로 액자 밖만 본다.
+      const text = await page.locator('body').evaluate((b) => {
+        const c = b.cloneNode(true) as HTMLElement;
+        c.querySelectorAll('.hub-product-frame').forEach((n) => n.remove());
+        return c.textContent || '';
+      });
       // 4색 범례의 고유 표지 — 넷이 함께 나오는 것이 범례다
       const hasLegend =
         text.includes('안정') &&
@@ -208,7 +214,9 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
       await gotoStable(page, path);
       const text = (await page.locator('[aria-label="오늘 상태"]').innerText()) ?? '';
       // 표면 이름은 `SURFACES[].name` 이 정본이라 영문 한 단어다.
-      const label = text.split(/\s+/).find((w) => /^[A-Z]{4,}$/.test(w));
+      // Tines 스킨이 띠의 대문자 변환을 걷어 「Library」 처럼 그대로 쓴다(innerText 는 text-transform 을 따른다).
+      // 지킬 것은 대소문자가 아니라 「화면마다 다른 위치 이름」이다.
+      const label = text.split(/\s+/).find((w) => /^[A-Z][A-Za-z]{3,}$/.test(w));
       expect(label, `${path} 에 위치 표기가 없다: "${text.slice(0, 60)}"`).toBeTruthy();
       seen.add(label!);
     }

@@ -241,7 +241,9 @@ test.describe('만화 화면 기본 조작', () => {
     await enterReader(page, bookId);
 
     await ensureChrome(page);
-    await page.getByRole('link', { name: /본문/ }).first().click();
+    // 라벨 `/본문/` 은 셸의 접근성 링크 「본문으로 건너뛰기」(sr-only)를 먼저 집는다 — 12-navigation 과 같은
+    // 함정. 계약으로 찾는다: 이 책의 본문을 읽기 모드로 여는 리더 링크.
+    await page.locator('a[href^="/text/"][href*="mode=read"]').first().click();
     await page.waitForURL(/\/text\/[0-9a-f-]{36}(\?|$)/, { timeout: 60_000 });
     expect(page.url()).not.toContain('/comic');
 

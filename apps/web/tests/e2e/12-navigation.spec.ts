@@ -104,6 +104,9 @@ async function reveal(page: Page, href: string) {
   const link = shellNav(page).locator(`a[href="${href}"]`).first();
   if (await link.isVisible()) return link;
   for (const btn of await shellNav(page).locator('button[aria-expanded]').all()) {
+    // 앞 단계의 클릭이 마우스를 이미 이 단추 위에 남겨 두면 hover() 가 mouseenter 를 다시 내지 않아
+    // 패널이 안 열린다(2026-10-04: 실패하는 주소가 매 실행 달랐다). 한 번 밖으로 뺐다가 올린다.
+    await page.mouse.move(0, 400);
     await btn.hover();
     await page.waitForTimeout(200);
     if (await link.isVisible()) return link;
@@ -324,11 +327,11 @@ test.describe('내비게이션 기본기', () => {
 
     // 순서는 각 블록·행의 sr-only 문장이 말한다("흐름 N번째 · 이름")
     const stageNames = ['Read', 'Words', 'Practice', 'Conquer', 'Complete'];
+    // 한 단계에 블록이 둘일 수 있다 — Practice 패널은 ③ 을 「연습」과 「놀이로(아케이드)」 두 곳에 단다
+    // (top-nav-data `PRACTICE_ENTRY` 의 의도된 열 배치). 지킬 것은 「다섯 단계가 모두 있다」와 아래의 순서다.
     for (const [i, name] of stageNames.entries()) {
-      await expect(
-        shell.getByText(new RegExp(`흐름 ${i + 1}번째 · ${name}`)),
-        `${i + 1}단계 ${name} 없음`,
-      ).toHaveCount(1);
+      const n = await shell.getByText(new RegExp(`흐름 ${i + 1}번째 · ${name}`)).count();
+      expect(n, `${i + 1}단계 ${name} 없음`).toBeGreaterThanOrEqual(1);
     }
 
     // 화면에 나오는 차례도 번호 차례와 같다 — 패널을 왼쪽에서 오른쪽으로 읽으면 ①→⑤ 다
