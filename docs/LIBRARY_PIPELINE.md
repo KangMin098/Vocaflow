@@ -2,6 +2,8 @@
 
 ## Academic Reading 교재 타기팅·처리 (2026-10-04)
 
+교육적 타당도 단계: [blind export/verify](../scripts/textbook/frym-validation/README.md)는 pair별 중1/고1 한 편씩과 연구 증거를 검사하고 전문가 8개·학생 8개 패킷, 4축 96개 초안 문항을 만든다. 전문가 의미 8항목·5차원, 실제 학생 측정, taxonomy v1을 분리한다. 사람이 사전 등록한 문항/프로토콜과 실제 평가가 모두 통과해야 exact passage/target/protocol gold다. 보존 규칙을 쓰는 import에는 `--educational-validation <results.json>`이 필수이며 파일 변경·본문/target/원천 불일치·미평가를 거절한다. 일반 각색의 기존 경로는 유지한다. 현재 candidate 8·실제 평가 0·gold 0·DB 쓰기 0이며 학년 규준 검증은 아직 없다([보고서](./reports/frym-educational-validation-20261004.md)).
+
 후속 의미 보존 단계: 검토 후보 F02/F06/F14/F18의 구절에만 [규칙](../scripts/textbook/frym-precision/preservation-rules-1.json)을 묶었다. 각색 export/import는 `--preservation-rules <규칙.json> --precision-review <회차.json>`을 함께 받아 해당 UUID로 범위를 좁히고 source/round/research 바인딩을 대조한다. 검토 목록에서 VRL 미측정은 null로 유지해 export할 수 있으나 그 값이 V0이 되는 것은 아니다. import는 모든 preservation_checks와 최신 규칙/판정을 대조하고 기존 권리·내용 검사를 유지한다. 정확한 quote에 거짓 preserved 판정을 붙이는 의미 오류는 구조 검사로 탐지할 수 없으므로 `awaiting_content_review`를 유지한다. 중1/고1 목표의 [로컬 예시 8편](../scripts/textbook/frym-precision/adaptation-pilot-1.json)은 의미 보존을 관찰 검토했지만 학생 calibration/완성 생성 청크/DB 적재가 아니다. [결과와 재현](./reports/frym-preservation-20261004.md).
 
 FYM 정밀 검증은 [읽기 전용 로컬 회차](../scripts/textbook/frym-precision/README.md)로 진행한다. disjoint origin 배치를 `frym-precision-select`로 합치고 `prepare`가 FYM/연구 전문·초록·메타데이터의 원본/추출 해시를 보존한다. 직접 읽은 구간·11개 변환 필드·관찰자 confidence/목표 연령 제안·링크와 정렬의 독립 판정을 기록한 뒤 `verify`가 원본 추출·DOI/본문/인용/offset/분모를 대조한다. 첫 회차 20편에서 링크 20/20, 전문 8편의 정렬 5/10·부분 2·불일치 3·보류 12, 후속 gold 검토 후보 4쌍을 확인했다([보고서](./reports/frym-precision-20261004.md)). 대표 표본이나 전문가 gold 인증은 아니며 생성 importer/DB 쓰기를 추가하지 않았다. 실패·보류 증거도 보존한다.

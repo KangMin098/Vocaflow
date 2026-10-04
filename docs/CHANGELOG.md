@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): FYM 4쌍×중1/고1의 blind 평가 패킷, 전문가 의미 보존 8항목/5차원, 학생 4축 측정, 왜곡 taxonomy v1, candidate/reviewed/gold 승격 및 보존 규칙 각색의 DB 적재 전 gold 검증을 추가했다. 실제 사람 평가 0건·gold 0편·DB 쓰기/발행/마이그레이션/라우트 변경 없음.
+
 - feat(textbook): FYM 검토 후보 4쌍의 보존 규칙을 source/review hash에 묶어 각색 export/import에 선택 전달하고 최신 판정·규칙 커버리지·인용을 재검증한다. 중1/고1 로컬 예시 8편과 왜곡 사례 4종을 검토했으며 DB 적재·학생 calibration·마이그레이션·라우트 변경은 없다.
 
 - feat(design): 학습자 PC 본문 구성 — WordBlitz 머리를 형제 게임 대기실과 같은 발견형 히어로로, 내 책장을 `PageIntro` + 색 카드 + 「더 담기」 칸으로, 대시보드·계획 본문 구획 제목을 세리프 24 한 규격(`--section-title` · `press-rule-*`)으로. `/wordblitz`·`/my/books` 중복 배너 제거. e2e 18 WordBlitz 기록 단언을 제품의 「기록 없음 한 줄」 결정에 맞춤(기존 실패). DB·라우트 변경 없음.

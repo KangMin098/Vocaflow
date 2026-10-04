@@ -244,6 +244,7 @@ export const TBP_HELP: HelpRegistry = {
       drain: {
         what: '조판 후보(`ready`·`published`) 전체를 일곱 축으로 판정한 스냅샷 — 등급 분포 · 탈락 축 · 학령별 적격 · 원천별 막힌 편수.',
         prerequisites: [
+          'FYM 보존 규칙을 쓰는 DB seed는 실제 사람의 교육적 gold 결과가 먼저 필요합니다. 전문가 자격·학생 학년을 사람이 확인하고 정확한 문항/프로토콜을 평가 전에 등록합니다. 초안 수치와 문항은 학년 규준이 아닙니다.',
           'DB 캐시는 승인된 eligibility SQL 적용이 전제입니다. 일괄 적재 전 최신 문항 연결 수·dry run diff·checkpoint·배치 백업을 확인합니다.',
           '`apps/web/.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY` 가 있어야 한다 — 스캔은 서비스 키로 읽는다.',
           '판정 규칙을 고쳤다면 `ELIGIBILITY_SPEC_VERSION` 을 먼저 올린다. 안 올리면 옛 스냅샷과 새 스냅샷이 같은 자로 잰 값처럼 보인다.',
@@ -263,6 +264,11 @@ export const TBP_HELP: HelpRegistry = {
             title: '검토 구절의 의미 보존 조건을 각색에 전달한다',
             detail: 'FYM 후보 규칙은 `--preservation-rules <규칙.json> --precision-review <회차.json>`을 함께 주어 export/import에 전달합니다. 전체 기사 승인·학령 인증이 아니라 해시와 정렬 근거에 묶인 구절 조건입니다. 검토 목록의 UUID만 선택하며 그 목록의 VRL 미측정은 null로 유지합니다. 다른 필터/기사별 권리 검사는 유지합니다. 에이전트는 preservation_checks에 모든 규칙 ID·실제 각색 인용·보존 이유를 채웁니다. 누락·중복·changed/held·없는 인용은 거절되고, import 직전 최신 회차/규칙을 다시 읽어 바뀐 판정도 거절합니다. 회차/규칙이 바뀌면 새 폴더로 export합니다. 기존 target 자식은 덮어쓰지 않습니다.',
             done: '로컬 `frym-preservation-verify.mjs --input <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --evidence-dir <보존 폴더>`를 먼저 실행합니다. 읽기 전용·재실행 안전이며 약 수초입니다. 구조 통과는 의미 인증이 아니므로 독립 내용 검토와 학생 calibration은 따로 필요합니다. 로컬 pilot은 완성 생성 청크가 아니며 DB에 직접 import하지 않습니다.',
+          },
+          {
+            title: '사람의 blind 의미 평가와 학생 측정을 거친다',
+            detail: '`frym-validation-export.mjs --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --protocol <프로토콜.json> --evidence-dir <증거폴더> --output <새폴더>`를 위와 같은 tsx 설정으로 실행합니다. 로컬 읽기만 하며 수초가 걸립니다. 전문가/학생 패킷만 나누고 coordinator는 비공개로 보관합니다. 사람이 초안 문항·수치 범위를 검토하고 해시를 사전 등록한 뒤 독립 전문가 최소 2명의 의미 판정 8항목 pass·왜곡 없음인 버전을 실제 해당 학년 학생에게 제시합니다. 버전별 최소 5명의 읽기 시간·이해도·어휘/문장/추론 정확도와 부담·체감 난도를 기록합니다. 같은 학생은 한 pair의 두 버전을 보지 않습니다. 도구는 응답을 생성하거나 패킷을 전송하지 않습니다.',
+            done: '`frym-validation-verify.mjs --input <results.json> --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json>`는 반복 안전·읽기 전용입니다. 기준을 모두 통과한 정확한 본문/target/protocol만 gold이며 미측정은 null입니다. 완성 생성 청크 import에 --educational-validation <results.json>을 추가해야 합니다. 인증은 실제 발행/학년 규준과 다르며 queued 적재 후 기존 검수·발행 절차가 필요합니다.',
           },
           {
             title: '연령·언어·사고 목표를 분리해 같은 원문을 교재화한다',
@@ -362,6 +368,7 @@ export const TBP_HELP: HelpRegistry = {
           '학령별 표에서 조판 가능이 0 인 칸이 있는지. 있으면 **그 학년 교재를 지금 만들 수 없다**는 뜻이고, 재고가 있어도 마찬가지다.',
         ],
         recovery: [
+          '교육적 export는 기존 폴더를 덮지 않습니다. 부분 실패도 보존하고 새 폴더를 사용합니다. 프로토콜/문항/본문/목표/회차가 바뀌면 사전 등록·평가를 새로 진행합니다. import 중 인증 파일이 바뀌면 건너뛰고 최신 파일로 예행합니다. 미평가를 pass나 가상 점수로 채우지 않습니다. 상세 절차: scripts/textbook/frym-validation/README.md.',
           'Academic Reading 입력과 out 청크는 둘 다 보존합니다. 원문 revision/hash가 바뀌면 새로운 디렉터리에 export하고 다시 검토합니다. 기존 각색을 upsert하지 않으므로 부분 실패 후 같은 import는 이미 적재한 판을 건너뜁니다. 트랜잭션 RPC는 아직 없으므로 실제 import 구간에는 관련 원문 편집·수집·분석·권리/내용 판정·다른 import를 모두 멈추고 한 작업으로 직렬 실행합니다. 이 전제를 확보할 수 없으면 예행까지만 합니다. 전후 checkpoint를 남깁니다. BLS/NPS 수집·FYM gold set·시험 calibration은 이 타깃 생성의 완료 상태와 별개입니다.',
           '캐시 적재 실패 시 .agent-logs의 배치 백업과 범위를 확인합니다. 원문 revision이 달라졌다면 최신 입력으로 다시 내보내 재검증합니다. 원문·정답 전체를 덮지 않습니다. checkpoint after/diff를 남깁니다.',
           '스캔이 `재고 조회 — 500 …` 으로 죽으면 statement timeout 이다. 페이지 크기(1000)를 줄이지 말고 잠시 뒤 다시 돌린다 — 커서 페이징은 중단해도 안전하고, 처음부터 다시 돌리면 된다.',

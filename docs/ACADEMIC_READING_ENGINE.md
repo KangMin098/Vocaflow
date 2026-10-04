@@ -1,5 +1,11 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+교육적 타당도 후속(2026-10-04): [FYM 평가 절차](../scripts/textbook/frym-validation/README.md)는 4쌍×중1/고1의 blind 패킷과 실제 사람 평가 데이터 계약을 제공한다. 현재 후보 8편·실제 전문가/학생 결과 0건·gold 0편이며 DB seed는 실행하지 않았다. [준비 결과](./reports/frym-educational-validation-20261004.md).
+
+전문가 의미 판정은 핵심 주장·인과·비교·조건/범위·불필요한 추가·근거 없는 추가·필수 생략·추론 강도의 8항목으로 나누고 5개 보존 차원으로 산출한다. 학생 읽기 시간·이해도·어휘/문장/추론 정확도·미지어 비율·각 부담·체감 난도는 각각 측정한다. 왜곡 taxonomy v1은 요청한 10종과 기존 실패 사례를 표현할 4종을 보존한다. 문항과 수치 범위는 초안이며 학년 규준이 아니다. 사람 책임자가 자격/학년 증빙을 확인하고 정확한 프로토콜·문항을 평가 시작 전에 등록해야 한다.
+
+`candidate → reviewed → gold → production` 중 gold는 독립 전문가 의미 통과·실제 해당 학년 학생 측정 범위·왜곡 없음·현재 provenance·high 연결을 모두 요구한다. 해당 본문/target/protocol에만 유효하다. 보존 규칙을 사용한 import는 `--educational-validation <results.json>`을 요구하고 최초와 각 batch 직전에 최신 결과를 재검증한다. queued 적재와 production은 다르며, production은 현재 published DB 행과 인증의 본문 hash·부모·target이 모두 같을 때만 계산한다.
+
 2026-10-04 사용자 첨부안 반영. 공통 정본은 `packages/library-pipeline/src/textbook/academic-reading.ts`와 `academic-reading-contract.ts`다. 생성 처리에는 기존 각색·문항 드레인을 사용한다.
 
 원문 → 문서별 권리 → 언어·담화·독해 능력 분석 → 독자 연령과 언어·사고 목표 → 자식 각색 → 근거가 있는 질문/활동 설계 → 기존 문항 생성·검수 → 권/과정/과제 구성 순서다. 원문은 각색으로 덮지 않는다. 하나의 corpus에서 여러 목적을 파생한다.
