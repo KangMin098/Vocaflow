@@ -84,15 +84,15 @@ const review = z.object({
   distortions: z.array(z.object({ code: distortion, passage_quote: z.string().min(8), reason }).strict()),
   reason,
 }).strict()
-const answer = z.object({ item_id: id, response: z.string().trim().min(1), score: z.number().min(0).max(1), scorer_id: id }).strict()
+const answer = z.object({ item_id: id, response: z.string().trim().nullable(), score: z.number().min(0).max(1).nullable(), scorer_id: id.nullable() }).strict()
 const session = z.object({
-  student_id: id, grade, grade_verified_by: id,
-  reading_started_at: date, reading_finished_at: date,
-  unknown_word_count: z.number().int().nonnegative(),
-  lexical_burden: z.number().int().min(1).max(5),
-  sentence_burden: z.number().int().min(1).max(5),
-  reasoning_burden: z.number().int().min(1).max(5),
-  perceived_difficulty: z.number().int().min(1).max(5),
+  student_id: id, grade:grade.nullable(), grade_verified_by: id.nullable(),
+  reading_started_at: date.nullable(), reading_finished_at: date.nullable(),
+  unknown_word_count: z.number().int().nonnegative().nullable(),
+  lexical_burden: z.number().int().min(1).max(5).nullable(),
+  sentence_burden: z.number().int().min(1).max(5).nullable(),
+  reasoning_burden: z.number().int().min(1).max(5).nullable(),
+  perceived_difficulty: z.number().int().min(1).max(5).nullable(),
   answers: z.array(answer),
 }).strict()
 export const validationBundleSchema = z.object({
@@ -128,14 +128,23 @@ export const validationBundleSchema = z.object({
       const key=`${r.pair_id}:${s.student_id}`
       if (participants.has(key)) ctx.addIssue({code:'custom',message:'Student repeated the same pair or both variants'})
       participants.add(key)
-      if (grades.has(s.student_id) && grades.get(s.student_id)!==s.grade)
+      if (s.grade!==null && grades.has(s.student_id) && grades.get(s.student_id)!==s.grade)
         ctx.addIssue({code:'custom',message:'Student grade changed across sessions'})
-      grades.set(s.student_id,s.grade)
+      if (s.grade!==null) grades.set(s.student_id,s.grade)
     }
   }
 })
 export type ValidationBundle = z.infer<typeof validationBundleSchema>
 export type ValidationRecord = ValidationBundle['records'][number]
+type StudentSession = ValidationRecord['student_sessions'][number]
+type CompleteSession = { [K in Exclude<keyof StudentSession,'answers'>]: NonNullable<StudentSession[K]> } & {
+  answers: {item_id:string;response:string;score:number;scorer_id:string}[]
+}
+function completeSession(s: StudentSession): s is CompleteSession {
+  return s.grade!==null && s.grade_verified_by!==null && s.reading_started_at!==null && s.reading_finished_at!==null &&
+    s.unknown_word_count!==null && s.lexical_burden!==null && s.sentence_burden!==null && s.reasoning_burden!==null &&
+    s.perceived_difficulty!==null && s.answers.every(a=>a.response!==null && a.response.trim().length>0 && a.score!==null && a.scorer_id!==null)
+}
 export const VALIDATION_STATES = ['candidate','reviewed','gold','production'] as const
 
 export function assertPilotGradeCoverage(records: {pair_id:string; grade:string}[], pairIds: string[]) {
@@ -185,11 +194,12 @@ export function evaluateEducationalRecord(bundle: ValidationBundle, r: Validatio
   const axes=['comprehension','lexical','syntax','reasoning'] as const
   for (const axis of axes) if (r.instrument.filter(i=>i.axis===axis).length<bundle.protocol.minimum_items_per_axis) blockers.push(`instrument_missing_${axis}`)
   if (r.instrument.some(i=>!passage.includes(i.source_quote))) blockers.push('instrument_quote_absent')
-  const eligible:typeof r.student_sessions=[]
+  const eligible:CompleteSession[]=[]
   const meaningPassed=completeReviews.length>=bundle.protocol.minimum_experts && r.expert_reviews.every(e=>validReview(e)&&SEMANTIC_CRITERIA.every(k=>e.criteria[k]==='pass')&&e.distortions.length===0)
   const lastSemanticReview=Math.max(0,...r.expert_reviews.map(e=>Date.parse(e.reviewed_at)))
   const words=passage.trim().split(/\s+/).length
   for (const s of r.student_sessions) {
+    if (!completeSession(s)) { blockers.push('student_session_incomplete'); continue }
     const started=Date.parse(s.reading_started_at),finished=Date.parse(s.reading_finished_at)
     const answersComplete=s.answers.length===r.instrument.length && new Set(s.answers.map(a=>a.item_id)).size===s.answers.length &&
       s.answers.every(a=>r.instrument.some(i=>i.id===a.item_id)&&bundle.experts.some(e=>e.id===a.scorer_id))
@@ -199,7 +209,7 @@ export function evaluateEducationalRecord(bundle: ValidationBundle, r: Validatio
     else eligible.push(s)
   }
   if (eligible.length<bundle.protocol.minimum_students_per_variant) blockers.push('student_sample_insufficient')
-  const axisScore=(axis:typeof axes[number])=>mean(eligible.map(s=>mean(s.answers.filter(a=>r.instrument.some(i=>i.id===a.item_id&&i.axis===axis)).map(a=>a.score)) ?? 0))
+  const axisScore=(axis:typeof axes[number])=>mean(eligible.flatMap(s=>s.answers.filter(a=>r.instrument.some(i=>i.id===a.item_id&&i.axis===axis)).map(a=>a.score)))
   const metrics={
     reading_seconds:median(eligible.map(s=>(Date.parse(s.reading_finished_at)-Date.parse(s.reading_started_at))/1000)),
     comprehension_accuracy:axisScore('comprehension'), lexical_accuracy:axisScore('lexical'),

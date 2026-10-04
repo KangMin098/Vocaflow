@@ -11,7 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- feat(textbook): FYM 4쌍×중1/고1의 blind 평가 패킷, 전문가 의미 보존 8항목/5차원, 학생 4축 측정, 왜곡 taxonomy v1, candidate/reviewed/gold 승격 및 보존 규칙 각색의 DB 적재 전 gold 검증을 추가했다. 실제 사람 평가 0건·gold 0편·DB 쓰기/발행/마이그레이션/라우트 변경 없음.
+- feat(textbook): FYM 4쌍×중1/고1의 blind 평가 패킷, 전문가 의미 보존 8항목/5차원, 학생 4축 측정(부분 기록 보존·미측정 null), 왜곡 taxonomy v1, candidate/reviewed/gold 승격 및 보존 규칙 각색의 DB 적재 전 gold 검증을 추가했다. 실제 사람 평가 0건·gold 0편·DB 쓰기/발행/마이그레이션/라우트 변경 없음.
 
 - feat(textbook): FYM 검토 후보 4쌍의 보존 규칙을 source/review hash에 묶어 각색 export/import에 선택 전달하고 최신 판정·규칙 커버리지·인용을 재검증한다. 중1/고1 로컬 예시 8편과 왜곡 사례 4종을 검토했으며 DB 적재·학생 calibration·마이그레이션·라우트 변경은 없다.
 

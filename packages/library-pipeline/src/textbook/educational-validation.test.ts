@@ -97,6 +97,26 @@ describe('educational validation promotion',()=>{
     const other=fixture(),copy=structuredClone(other.records[0]!);copy.id='second-variant';copy.blind_item_id='B-second';copy.target_key='2'.repeat(24)
     other.records.push(copy);expect(validationBundleSchema.safeParse(other).success).toBe(false)
   })
+  it('missing axis with otherwise complete responses stays null rather than zero',()=>{
+    const b=fixture(),r=b.records[0]!
+    r.instrument=r.instrument.filter(i=>i.axis!=='reasoning')
+    for(const s of r.student_sessions)s.answers=s.answers.filter(a=>!a.item_id.startsWith('reasoning'))
+    const result=evaluateEducationalRecord(b,r,text,now)
+    expect(result.metrics.reasoning_accuracy).toBeNull();expect(result.reasoning_level.value).toBeNull()
+    expect(result.metrics.lexical_accuracy).toBe(1)
+    expect(result.blockers).toContain('instrument_missing_reasoning');expect(result.state).toBe('reviewed')
+  })
+  it('preserves null and blank partial student records without treating them as measurements',()=>{
+    const b=fixture(),r=b.records[0]!
+    for(const s of r.student_sessions){s.reading_finished_at=null;s.unknown_word_count=null;s.lexical_burden=null;s.answers[0]!.response=null;s.answers[0]!.score=null;s.answers[0]!.scorer_id=null}
+    r.student_sessions[1]!.answers[0]!.response=''
+    const parsed=validationBundleSchema.parse(b),result=evaluateEducationalRecord(parsed,parsed.records[0]!,text,now)
+    expect(parsed.records[0]!.student_sessions[0]!.answers[0]!.response).toBeNull()
+    expect(result.metrics.comprehension_accuracy).toBeNull();expect(result.metrics.reading_seconds).toBeNull()
+    expect(result.student_count).toBe(0);expect(result.state).toBe('reviewed');expect(result.blockers).toContain('student_session_incomplete')
+    const blank=fixture();blank.records[0]!.student_sessions[0]!.answers[0]!.response=''
+    expect(evaluateEducationalRecord(blank,blank.records[0]!,text,now).state).toBe('reviewed')
+  })
   it('blind packets omit target, producer, prior verdict, source IDs and scoring rubrics',()=>{
     const pilot=JSON.parse(fs.readFileSync(new URL('frym-precision/adaptation-pilot-1.json',root),'utf8'))
     for(const r of pilot.records){
