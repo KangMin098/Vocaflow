@@ -204,6 +204,7 @@ export {
   FRYM_FEEDS,
 } from './ingest-article/frontiers-young-minds'
 export type { FrymListItem } from './ingest-article/frontiers-young-minds'
+export { articleResearchOrigin } from './ingest-article/research-origin'
 // Frontiers 성인 학술지 (비-PMC 18종) — **교육·언어 칸**(배율 0.57 · 부족 1,464편)을 겨눈다.
 //   ⚠️ 위 FrYM 과 다른 소스다(호스트·본문 형식·열쇠 접두어 전부 다름).
 export {

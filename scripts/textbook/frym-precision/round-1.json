@@ -1,0 +1,3459 @@
+{
+  "version": 1,
+  "mode": "local_review",
+  "reviewed_at": "2026-10-04T10:52:50.000Z",
+  "reviewer": "codex_observer",
+  "prepared_hash": "9a51ad0badd12795a691ddbe598cf09e77d4283389b1d5931609a42083ff3fc9",
+  "origins_hash": "243883421df340a34fa5a1a64519dcc3f78785ba7d93ad91823ffea1fd57c66e",
+  "selection": {
+    "method": "first_declared_original_source_in_source_id_order",
+    "sample_size": 20,
+    "population": 152,
+    "counts": {
+      "no_explicit_original_source": 115,
+      "declared_original_source": 37
+    },
+    "manifests": [
+      {
+        "file": ".agent-logs/frym-precision-origin-50.json",
+        "sha256": "0e86de84db4888c3a66683118932699e2096f00acd3d57189fb92dbcef0f70ea"
+      },
+      {
+        "file": ".agent-logs/frym-precision-origin-next100.json",
+        "sha256": "1286dd191d9ba32710cb7a4d617226d3ccea2e036da338c45a6f58da5d41e44f"
+      },
+      {
+        "file": ".agent-logs/frym-precision-origin-last2.json",
+        "sha256": "253fae9ea2faf58843cc3faeca4e7b275dfd1050f7d28a7ff26003d061f472be"
+      }
+    ],
+    "screening": [
+      {
+        "id": "88bb6047-c444-4d9f-9765-23feda4b20a3",
+        "source_id": "frym-full:10.3389/frym.2017.00055",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "e34a3a9f-efdc-491a-b16f-845947f54349",
+        "source_id": "frym-full:10.3389/frym.2020.00110",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "ffcd5533-14b7-4dd3-85fa-06bdada85927",
+        "source_id": "frym-full:10.3389/frym.2020.516072",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "38d98d1e-78a6-48e8-aa93-c7d1c89b1b28",
+        "source_id": "frym-full:10.3389/frym.2020.546763",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "4fc4f8fd-e60d-40b5-924d-632cd132f458",
+        "source_id": "frym-full:10.3389/frym.2020.548525",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "6dbb7edf-dcee-4a9f-a129-cc8fa21d7993",
+        "source_id": "frym-full:10.3389/frym.2020.554380",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "00a9cc1e-438e-40fd-b998-b3e97d7f0918",
+        "source_id": "frym-full:10.3389/frym.2020.557949",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "ab4f92a6-6af1-4521-b5d0-305f72f4fd66",
+        "source_id": "frym-full:10.3389/frym.2020.558673",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "11368e47-46b4-41b3-a12b-499aa9381d0b",
+        "source_id": "frym-full:10.3389/frym.2020.561561",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "f5e9311c-ad5f-4ed6-b8a0-4895ad7900cc",
+        "source_id": "frym-full:10.3389/frym.2020.563084",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1523/jneurosci.1044-17.2017"
+        ]
+      },
+      {
+        "id": "80b57391-d511-4134-b8aa-8a22fe3f2ebc",
+        "source_id": "frym-full:10.3389/frym.2021.548120",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fpsyg.2019.02246"
+        ]
+      },
+      {
+        "id": "d9f1c6fd-c2a3-48e5-93f3-30a028472dfe",
+        "source_id": "frym-full:10.3389/frym.2021.551557",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "1c0aa1b4-f7c4-46f5-bbee-f6537d89bcc0",
+        "source_id": "frym-full:10.3389/frym.2021.553496",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "c151244d-d8f3-4c26-bdb9-fdca156672c7",
+        "source_id": "frym-full:10.3389/frym.2021.554875",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "79a7540f-c751-4a39-87fb-827cbd2bbc1d",
+        "source_id": "frym-full:10.3389/frym.2021.556361",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1111/geb.12928"
+        ]
+      },
+      {
+        "id": "1e22f961-450d-430f-8f3c-7b3f2a0cfb9c",
+        "source_id": "frym-full:10.3389/frym.2021.558246",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "1a3397d6-d804-4c48-b31c-d7e88622b722",
+        "source_id": "frym-full:10.3389/frym.2021.560631",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "39d82e00-fb1d-45be-b6e1-b3378112aca6",
+        "source_id": "frym-full:10.3389/frym.2021.566272",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "23c9aabc-eac7-401e-b147-d5b0d5ac82c5",
+        "source_id": "frym-full:10.3389/frym.2021.578214",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "1b2aef71-5c8d-4a8f-a135-bcd79cd18cb1",
+        "source_id": "frym-full:10.3389/frym.2021.601068",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "9cef398a-8a80-4bd0-b12e-863dda9a8d80",
+        "source_id": "frym-full:10.3389/frym.2021.605677",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1080/17588928.2018.1521386"
+        ]
+      },
+      {
+        "id": "1f8726c2-431d-4377-a2cc-f68dd3eabe89",
+        "source_id": "frym-full:10.3389/frym.2021.608881",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "57e66abb-44a4-48f5-81ff-079abfe9f03c",
+        "source_id": "frym-full:10.3389/frym.2021.613862",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "3d33ddcf-5497-4dc0-9eeb-25c8a06eb04d",
+        "source_id": "frym-full:10.3389/frym.2021.622811",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "2920ea86-d3d1-4564-83ae-7d9ed78a7bfe",
+        "source_id": "frym-full:10.3389/frym.2021.646539",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "f5235fde-404a-4e38-827d-7c460021aebb",
+        "source_id": "frym-full:10.3389/frym.2021.656168",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "45d589a6-9058-4802-a393-f6add73c414c",
+        "source_id": "frym-full:10.3389/frym.2021.698575",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "c5a6a34c-7e3f-44ce-a77a-b78293a5c8e4",
+        "source_id": "frym-full:10.3389/frym.2021.732713",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "597a11c3-4bf6-4b4f-96ef-a5668c490c78",
+        "source_id": "frym-full:10.3389/frym.2021.751592",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1038/srep29517"
+        ]
+      },
+      {
+        "id": "1dea2fbf-23e2-4564-9fa6-b710630d4293",
+        "source_id": "frym-full:10.3389/frym.2022.587135",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "792e28b4-0d2b-4376-93d4-c9f0f7520951",
+        "source_id": "frym-full:10.3389/frym.2022.626305",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "d4d0a922-8155-4261-89fe-c1bf2ced0604",
+        "source_id": "frym-full:10.3389/frym.2022.626477",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "9fb3529a-6021-4402-b1ad-246bc42ab148",
+        "source_id": "frym-full:10.3389/frym.2022.637578",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "d7bdddcb-e005-46ec-a58c-8690b5bbd6de",
+        "source_id": "frym-full:10.3389/frym.2022.657265",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "9e22b194-1cba-426a-914c-8d7072b60d40",
+        "source_id": "frym-full:10.3389/frym.2022.666078",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "a962d979-d242-4daf-994c-da81c722d703",
+        "source_id": "frym-full:10.3389/frym.2022.676115",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "a952426d-7b4c-482d-83af-00344b64ae8e",
+        "source_id": "frym-full:10.3389/frym.2022.682759",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "69e2e075-b2e0-40c6-9f02-34a94c63effe",
+        "source_id": "frym-full:10.3389/frym.2022.684422",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "a4cc176b-9811-4aeb-a56b-b8398b288606",
+        "source_id": "frym-full:10.3389/frym.2022.685055",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "808de081-4f9d-4968-a9b7-11dda3ad324e",
+        "source_id": "frym-full:10.3389/frym.2022.685811",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "c19a63be-8d74-4424-ac92-5bf649330168",
+        "source_id": "frym-full:10.3389/frym.2022.692422",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "f9bec756-fb3d-4ebc-a92d-7ba3939288a4",
+        "source_id": "frym-full:10.3389/frym.2022.701688",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fsufs.2020.562513"
+        ]
+      },
+      {
+        "id": "3228b0e2-ccf3-4cb3-9e5f-8e6b711ed7be",
+        "source_id": "frym-full:10.3389/frym.2022.701756",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.jclepro.2021.126556"
+        ]
+      },
+      {
+        "id": "4d8419be-1021-4116-bbe1-a91e6900593f",
+        "source_id": "frym-full:10.3389/frym.2022.702664",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "9d0657f8-ae78-43ed-a979-7a8541be4831",
+        "source_id": "frym-full:10.3389/frym.2022.702784",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "2be8f523-d6c0-4374-98e1-700b3c058e55",
+        "source_id": "frym-full:10.3389/frym.2022.703643",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "70beeb86-8917-46ae-86ed-562b0d7983ba",
+        "source_id": "frym-full:10.3389/frym.2022.707801",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "90732438-e9e7-4b24-84b9-91c69e8c57b8",
+        "source_id": "frym-full:10.3389/frym.2022.718162",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "c9f3fc34-c288-449a-955c-c3f6142dd627",
+        "source_id": "frym-full:10.3389/frym.2022.723116",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "31917a2e-6843-46a0-8e6b-ff4c68b02a45",
+        "source_id": "frym-full:10.3389/frym.2022.734161",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1111/desc.13053"
+        ]
+      },
+      {
+        "id": "796ccee5-a116-49cf-a85f-fb9f1ba7a8e0",
+        "source_id": "frym-full:10.3389/frym.2022.739393",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "dcfb77df-d713-4cab-b11e-afdfbea87769",
+        "source_id": "frym-full:10.3389/frym.2022.786663",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "fb93b2af-d318-4822-8c44-44c839e027c4",
+        "source_id": "frym-full:10.3389/frym.2022.926624",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "7ca03474-1b9f-464c-bfd8-a92acf775775",
+        "source_id": "frym-full:10.3389/frym.2022.959496",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "92512f5e-3f3b-488d-8ac9-7fc5b7032534",
+        "source_id": "frym-full:10.3389/frym.2023.1005823",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fenvs.2022.874707"
+        ]
+      },
+      {
+        "id": "59c9d0b6-3d54-4e26-a3cc-8ab5dfdbffe5",
+        "source_id": "frym-full:10.3389/frym.2023.1047844",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "07baa2a7-89e4-4534-94a2-5ba669c4c885",
+        "source_id": "frym-full:10.3389/frym.2023.1063926",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "8a9247a2-8a78-4bfe-a7bb-c161bea17e3f",
+        "source_id": "frym-full:10.3389/frym.2023.1138574",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "20f058c9-2a48-4d1a-830e-997c7ba20f0c",
+        "source_id": "frym-full:10.3389/frym.2023.1150335",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "25671111-bdb3-4640-8766-2ba895949885",
+        "source_id": "frym-full:10.3389/frym.2023.1176391",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "1d341999-78ba-4ed6-bf69-52d8676f3f1b",
+        "source_id": "frym-full:10.3389/frym.2023.1228428",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "168b05c4-c1d9-41f4-8542-9e4e45d4837a",
+        "source_id": "frym-full:10.3389/frym.2023.809060",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "b0ef9a9d-7b5d-4f5a-9377-bdd390a88f22",
+        "source_id": "frym-full:10.3389/frym.2023.898445",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "451fd5a5-a3e8-451f-a621-54cc18820bd7",
+        "source_id": "frym-full:10.3389/frym.2023.999231",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "b5c21290-18bc-4b45-820f-f118f0524a6b",
+        "source_id": "frym-full:10.3389/frym.2024.1178387",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "1edd7b35-b318-4ccf-85d2-6e2dc3efd7da",
+        "source_id": "frym-full:10.3389/frym.2024.1279405",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "a1e9e63f-5be9-4113-87d3-8d3168f12a78",
+        "source_id": "frym-full:10.3389/frym.2024.1305938",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "9a4e9794-b968-43fe-9d25-ac28617520ec",
+        "source_id": "frym-full:10.3389/frym.2024.1336535",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "365d0e33-887d-4410-a71d-1b3366985c12",
+        "source_id": "frym-full:10.3389/frym.2024.1343809",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "00e673cf-5d5c-4218-b350-9cb6490018f3",
+        "source_id": "frym-full:10.3389/frym.2024.1356284",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "fc3eb59e-a98c-40c5-afa9-0f31f3b05b12",
+        "source_id": "frym-full:10.3389/frym.2024.1386116",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "7e3e8bf7-e603-4793-937e-98c9ec840429",
+        "source_id": "frym-full:10.3389/frym.2024.1390723",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "80ac74b3-0db0-4d78-bddc-d30cf778e2b1",
+        "source_id": "frym-full:10.3389/frym.2025.1395250",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "76a9dc17-34e4-4c84-8c56-63b47cbcdfaa",
+        "source_id": "frym-full:10.3389/frym.2026.1514704",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fdgth.2022.1016714"
+        ]
+      },
+      {
+        "id": "fb145f2a-556b-4199-9ece-81e53f327b80",
+        "source_id": "frym-full:10.3389/frym.2026.1527658",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "f1daddd2-2758-41c1-b654-7e2a9e30dc37",
+        "source_id": "frym-full:10.3389/frym.2026.1564654",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1073/pnas.2016811117"
+        ]
+      },
+      {
+        "id": "29e85616-8111-4ecd-ab8c-9f00cf128c5b",
+        "source_id": "frym-full:10.3389/frym.2026.1570316",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "09d4180c-5646-465b-bc2c-34b04ee010cf",
+        "source_id": "frym-full:10.3389/frym.2026.1571115",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "4407d14c-0817-4bb5-a94f-52133418bb63",
+        "source_id": "frym-full:10.3389/frym.2026.1577890",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "eecceede-1ff7-43da-980c-b8c12a23a832",
+        "source_id": "frym-full:10.3389/frym.2026.1591982",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "1c6ec540-58b7-40ca-b4b8-4dd69366a82d",
+        "source_id": "frym-full:10.3389/frym.2026.1592598",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.beproc.2024.105124"
+        ]
+      },
+      {
+        "id": "f4f0bb1d-beab-4359-ae11-b9def3e6df85",
+        "source_id": "frym-full:10.3389/frym.2026.1597631",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1002/jcv2.12254"
+        ]
+      },
+      {
+        "id": "51bc25a7-73a2-43ec-9564-dc00a370e0e6",
+        "source_id": "frym-full:10.3389/frym.2026.1598115",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.lanepe.2023.100733"
+        ]
+      },
+      {
+        "id": "92d8257f-4978-4399-bd25-28895f690378",
+        "source_id": "frym-full:10.3389/frym.2026.1606219",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "320d23f2-49a2-47b5-b697-90ef23b96e01",
+        "source_id": "frym-full:10.3389/frym.2026.1607616",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "9c351e71-1104-4028-8356-4083b4ed6888",
+        "source_id": "frym-full:10.3389/frym.2026.1610271",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "4e19803f-7aa6-47d4-b758-dd5aae641a8f",
+        "source_id": "frym-full:10.3389/frym.2026.1611962",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1017/s1366728924000774"
+        ]
+      },
+      {
+        "id": "c82349fa-dbd7-48a2-90e3-ecefc6363e8b",
+        "source_id": "frym-full:10.3389/frym.2026.1613848",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "143944d6-3fba-4b6f-8258-98008fc62022",
+        "source_id": "frym-full:10.3389/frym.2026.1614474",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "4373e96c-e31f-4570-b48c-38748691512b",
+        "source_id": "frym-full:10.3389/frym.2026.1615745",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "137d70f0-3ffc-4835-a8e9-f1119ad5979d",
+        "source_id": "frym-full:10.3389/frym.2026.1617594",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "822eb8c8-cec3-49ae-89a0-20c2a3d9c0db",
+        "source_id": "frym-full:10.3389/frym.2026.1619598",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "0eba09cd-b04e-4d76-88b2-c33902a45857",
+        "source_id": "frym-full:10.3389/frym.2026.1622201",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.seppur.2025.132777"
+        ]
+      },
+      {
+        "id": "ddb42365-b886-45ae-9b71-b729f13113e9",
+        "source_id": "frym-full:10.3389/frym.2026.1623370",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.5670/oceanog.2020.203"
+        ]
+      },
+      {
+        "id": "8dd4eba5-7252-44af-929f-499d81838c1a",
+        "source_id": "frym-full:10.3389/frym.2026.1628815",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "a8898608-0f1d-495e-998b-a223e27176c0",
+        "source_id": "frym-full:10.3389/frym.2026.1632918",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "bd26d95e-88ad-46a3-ad48-46f7dcb624a7",
+        "source_id": "frym-full:10.3389/frym.2026.1635652",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1098/rspb.2024.2301"
+        ]
+      },
+      {
+        "id": "3f2298d4-ff13-422a-9b6e-885bbdc1fe51",
+        "source_id": "frym-full:10.3389/frym.2026.1641048",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "22fa1459-f308-4fe2-920e-0e5247ca66ab",
+        "source_id": "frym-full:10.3389/frym.2026.1642603",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "47e4e9dc-b561-4a59-a168-93569b2fcfe1",
+        "source_id": "frym-full:10.3389/frym.2026.1647950",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "ab7cf811-8b42-450b-b907-b7b05eb3047f",
+        "source_id": "frym-full:10.3389/frym.2026.1648286",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "d82f6830-0c2e-4c63-9e37-708079af2819",
+        "source_id": "frym-full:10.3389/frym.2026.1648723",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1111/inm.13324"
+        ]
+      },
+      {
+        "id": "6d0d1f74-9f3e-46c4-9ee8-f3c0eab84649",
+        "source_id": "frym-full:10.3389/frym.2026.1649536",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1111/nbu.12626"
+        ]
+      },
+      {
+        "id": "4a663c94-f5ae-43ea-8ef7-5ca53185e6ee",
+        "source_id": "frym-full:10.3389/frym.2026.1661475",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "51265c03-946b-4c94-8bcd-ce36c9c421be",
+        "source_id": "frym-full:10.3389/frym.2026.1664365",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "d6dcd6b6-aded-4984-bda9-933415becb5d",
+        "source_id": "frym-full:10.3389/frym.2026.1666676",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "932c31fe-b578-42a5-923c-fa577d5f4976",
+        "source_id": "frym-full:10.3389/frym.2026.1670543",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "b4957653-fe36-46a8-8485-9c8ef4d8b40f",
+        "source_id": "frym-full:10.3389/frym.2026.1673545",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.ecresq.2025.04.007"
+        ]
+      },
+      {
+        "id": "68952efd-c8da-4f69-be5b-75efec02491e",
+        "source_id": "frym-full:10.3389/frym.2026.1675514",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1126/science.adg3177"
+        ]
+      },
+      {
+        "id": "5e70419b-8c12-404e-9777-d01d47655ba3",
+        "source_id": "frym-full:10.3389/frym.2026.1676601",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "4f65d53e-bab9-4cd0-a4fe-b461c5ed6ed4",
+        "source_id": "frym-full:10.3389/frym.2026.1678122",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.envint.2025.109479"
+        ]
+      },
+      {
+        "id": "ce31caa9-1d60-41ad-9cc1-749a3f489364",
+        "source_id": "frym-full:10.3389/frym.2026.1678795",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "9ce4acee-32ec-4938-984b-520e8412f5d2",
+        "source_id": "frym-full:10.3389/frym.2026.1685219",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "f8211516-714c-4a5b-9007-3025f11934c6",
+        "source_id": "frym-full:10.3389/frym.2026.1687459",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "95047a91-8e92-4218-99c2-950a6c1a926f",
+        "source_id": "frym-full:10.3389/frym.2026.1688898",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fcogn.2024.1403584"
+        ]
+      },
+      {
+        "id": "e7637cd8-e2e9-43ef-81e5-5b6f79eb1000",
+        "source_id": "frym-full:10.3389/frym.2026.1689717",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "8b8cea31-3a65-4b18-b84d-f03d4cfde8f3",
+        "source_id": "frym-full:10.3389/frym.2026.1689800",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "e86bdb82-27c6-40fb-9153-0fe6d5ccc387",
+        "source_id": "frym-full:10.3389/frym.2026.1691918",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "cae24496-72d7-40c5-9877-10f43854c987",
+        "source_id": "frym-full:10.3389/frym.2026.1694817",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "1e4f2802-27a2-43c9-8872-4233027a8363",
+        "source_id": "frym-full:10.3389/frym.2026.1697043",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "a6927d56-a0f7-45a7-af35-acf03a573a0b",
+        "source_id": "frym-full:10.3389/frym.2026.1699853",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "f8066bd8-0d44-4b8a-8e0d-47c805e9393e",
+        "source_id": "frym-full:10.3389/frym.2026.1700515",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "ec3a3941-a367-4c39-b523-517a590d2a63",
+        "source_id": "frym-full:10.3389/frym.2026.1700867",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "5d3b8ff4-f8d3-42d4-953d-279fd04f1f6c",
+        "source_id": "frym-full:10.3389/frym.2026.1727230",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "ed6dfa29-cbc4-4ab7-a3c5-f66d83bd7e43",
+        "source_id": "frym-full:10.3389/frym.2026.1734091",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "21673082-7281-43a5-9d68-158bdd9dba1f",
+        "source_id": "frym-full:10.3389/frym.2026.1734097",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "72a3b589-fb0e-4164-b184-2cc987431c2a",
+        "source_id": "frym-full:10.3389/frym.2026.1751396",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "7b0780c1-6485-4554-ae98-b8460919a7eb",
+        "source_id": "frym-full:10.3389/frym.2026.1751430",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "a86c2311-c089-48fd-bf43-b2602f3fbbef",
+        "source_id": "frym-full:10.3389/frym.2026.1751482",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "48c61247-df2c-41f7-93ab-8f8751525316",
+        "source_id": "frym-full:10.3389/frym.2026.1751500",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "dbf9c8ed-cdbd-42cb-a5e3-3700c29cb71a",
+        "source_id": "frym-full:10.3389/frym.2026.1751528",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1364/ol.531038"
+        ]
+      },
+      {
+        "id": "b54cef9f-4956-4ed3-89bc-3cbacd97720b",
+        "source_id": "frym-full:10.3389/frym.2026.1751538",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "07541321-26d0-45f5-a2fd-73a864840966",
+        "source_id": "frym-full:10.3389/frym.2026.1756248",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.tree.2023.11.004"
+        ]
+      },
+      {
+        "id": "06c15162-1900-4b07-9458-b91b848ac551",
+        "source_id": "frym-full:10.3389/frym.2026.1756258",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1038/s41558-023-01737-x"
+        ]
+      },
+      {
+        "id": "c43b342a-d35f-47c7-acc2-75bcbb498674",
+        "source_id": "frym-full:10.3389/frym.2026.1756273",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.spc.2023.05.016"
+        ]
+      },
+      {
+        "id": "ad411ee8-0c1f-4e89-84ed-fdcd5949d96c",
+        "source_id": "frym-full:10.3389/frym.2026.1756290",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1016/j.oneear.2023.04.003"
+        ]
+      },
+      {
+        "id": "62d23082-bf88-4aa6-8ca0-6c05e1d8e919",
+        "source_id": "frym-full:10.3389/frym.2026.1763974",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "739160c4-5110-4a13-8ac4-0299bf61177f",
+        "source_id": "frym-full:10.3389/frym.2026.1763985",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fsci.2026.1721295"
+        ]
+      },
+      {
+        "id": "f38cf8c6-1e85-4d37-8198-9d418f654846",
+        "source_id": "frym-full:10.3389/frym.2026.1767990",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1007/s42114-024-00962-y"
+        ]
+      },
+      {
+        "id": "55040ef1-6724-43d2-9841-c8f0ae88e359",
+        "source_id": "frym-full:10.3389/frym.2026.1768084",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "66bc90b1-76fb-410c-80fd-3b6831083d36",
+        "source_id": "frym-full:10.3389/frym.2026.1768144",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "ef5dfb67-6f09-41f9-b144-7462ad0cf6cc",
+        "source_id": "frym-full:10.3389/frym.2026.1768170",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "43dcb598-adc6-4ca3-a269-0988be2a0a2c",
+        "source_id": "frym-full:10.3389/frym.2026.1768423",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "b2cc0ce6-e9f8-415f-84bc-9d47846d0be0",
+        "source_id": "frym-full:10.3389/frym.2026.1783561",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.1038/s41893-024-01397-5"
+        ]
+      },
+      {
+        "id": "bc9a7a26-aaf2-4189-9232-a679fff03237",
+        "source_id": "frym-full:10.3389/frym.2026.1784148",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "c7364eb4-df52-4aca-8920-38a939839582",
+        "source_id": "frym-full:10.3389/frym.2026.1784155",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "46eef4fb-5ad6-40dd-85a4-66c5c363c683",
+        "source_id": "frym-full:10.3389/frym.2026.1791089",
+        "status": "no_explicit_original_source",
+        "declared_dois": []
+      },
+      {
+        "id": "b4f02e5c-c775-4ba7-8dfd-8fc9ee416afd",
+        "source_id": "frym-full:10.3389/frym.2026.1808300",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fsci.2026.1783803"
+        ]
+      },
+      {
+        "id": "48da33b4-6c9c-476f-b77e-254c0d5f2ad4",
+        "source_id": "frym-full:10.3389/frym.2026.1810061",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fsci.2026.1609998"
+        ]
+      },
+      {
+        "id": "b1ec80e2-4910-4a34-80f2-5da01965cbf7",
+        "source_id": "frym-full:10.3389/frym.2026.1827200",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fsci.2026.1792210"
+        ]
+      },
+      {
+        "id": "d9bb63a4-fa7b-4b5c-9cab-848dc6506578",
+        "source_id": "frym-full:10.3389/frym.2026.1829826",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fsci.2026.1763395"
+        ]
+      },
+      {
+        "id": "cbe39f44-f79c-490f-a330-88ed91a7b894",
+        "source_id": "frym-full:10.3389/frym.2026.1892859",
+        "status": "declared_original_source",
+        "declared_dois": [
+          "10.3389/fsci.2026.1856377"
+        ]
+      }
+    ]
+  },
+  "pairs": [
+    {
+      "id": "F01",
+      "source": {
+        "id": "f5e9311c-ad5f-4ed6-b8a0-4895ad7900cc",
+        "source_id": "frym-full:10.3389/frym.2020.563084",
+        "title": "How Do Teens and Adults Learn About Other People?",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2020.563084/full",
+        "source_revision": "2026-09-25T08:02:56.049447+00:00",
+        "source_hash": "4c9c41777f0603e2aedef7db7e947d4a3a30264dcf600aecf4be944894b35f9f",
+        "page_hash": "6f204ccc828877a4cc2186797b723ff49698575ea66826b8e6d085f30e4d1d60"
+      },
+      "relation": {
+        "doi": "10.1523/jneurosci.1044-17.2017",
+        "url": "https://doi.org/10.1523/jneurosci.1044-17.2017",
+        "citation_hash": "8ea9845fdd1f22926304cb19bc5c4d8ad7e4a2a9a7d8b724bf2ff19869dca82e"
+      },
+      "metadata": {
+        "doi": "10.1523/jneurosci.1044-17.2017",
+        "title": "A Computational Account of Optimizing Social Predictions Reveals That Adolescents Are Conservative Learners in Social Contexts",
+        "authors": [
+          "Gabriela Rosenblau",
+          "Christoph W. Korn",
+          "Kevin A. Pelphrey"
+        ],
+        "container_title": "The Journal of Neuroscience",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1523/jneurosci.1044-17.2017"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A%2210.1523%2Fjneurosci.1044-17.2017%22&format=json&resultType=core",
+        "hash": "95ee35e450bc51eca1bcfcf32a56f82c25d3154d5fb36a0ad65d26c9bf1fa7c0",
+        "raw_hash": "6ba14d190c4357a60249350e1221ed8168e75987ae9a47f07ffd670d562c8abc",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:35:53.723Z",
+        "attempts": [
+          "Full text 500: https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5783970/fullTextXML"
+        ]
+      },
+      "files": {
+        "fym": "F01.fym.txt",
+        "fym_page": "F01.fym.html",
+        "fym_page_hash": "7b09cd60e9f3f63fcae3839242baec78e966e429d1f35edc19c5789af8424e2f",
+        "research": "F01.research.txt",
+        "research_raw": "F01.epmc.json",
+        "crossref": "F01.crossref.json",
+        "epmc": "F01.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F01-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "source": {
+        "id": "80b57391-d511-4134-b8aa-8a22fe3f2ebc",
+        "source_id": "frym-full:10.3389/frym.2021.548120",
+        "title": "What Is Our Most Important Sense?",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2021.548120/full",
+        "source_revision": "2026-09-25T08:00:41.071424+00:00",
+        "source_hash": "be013e6a1cafece83b78f84a8de7ef31a578842000cce580dccea11caccda4dd",
+        "page_hash": "2cfd7ad56a31aa1fc3e560f2dbd54d0b1d885f6ca48bdeb7fa5005d666fa2a33"
+      },
+      "relation": {
+        "doi": "10.3389/fpsyg.2019.02246",
+        "url": "https://doi.org/10.3389/fpsyg.2019.02246",
+        "citation_hash": "f0f4a486bd57e45ba21cd5a2faf891acf8f105cf42e125e8c192fca8b49ee400"
+      },
+      "metadata": {
+        "doi": "10.3389/fpsyg.2019.02246",
+        "title": "Why Is There So Much More Research on Vision Than on Any Other Sensory Modality?",
+        "authors": [
+          "Fabian Hutmacher"
+        ],
+        "container_title": "Frontiers in Psychology",
+        "type": "journal-article",
+        "url": "https://doi.org/10.3389/fpsyg.2019.02246"
+      },
+      "research": {
+        "access": "full_text",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6787282/fullTextXML",
+        "hash": "e94874a27bd1d9681d7a9b127ceba3ad5543f516e6a112aaa9756fe12a817fd0",
+        "raw_hash": "00f0373461cabfec77cc260a1bbee2732c3e5b2cf351ae546838d47a05e6f85e",
+        "extraction": "jats_body_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:35:56.930Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F02.fym.txt",
+        "fym_page": "F02.fym.html",
+        "fym_page_hash": "333ba8c6899512098e1ca6abe85043e15ba62e6d7d2e3b2882406fddeadf2e8a",
+        "research": "F02.research.txt",
+        "research_raw": "F02.research.xml",
+        "crossref": "F02.crossref.json",
+        "epmc": "F02.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "theoretical",
+      "reviewed_spans": {
+        "fym": [
+          {
+            "start": 0,
+            "end": 8437,
+            "section": "Complete FYM learning body"
+          }
+        ],
+        "research": [
+          {
+            "start": 14897,
+            "end": 18080,
+            "section": "Importance"
+          },
+          {
+            "start": 39322,
+            "end": 40402,
+            "section": "Cultural explanation"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "id": "F02-A1",
+          "verdict": "aligned",
+          "reason": "기능이 달라 절대적 순위가 어렵다는 핵심 관계를 보존한다. 일상 사례로 설명하지만 촉각이 무조건 더 중요하다고 결론 내리지 않는다.",
+          "selection_basis": "감각의 순위를 정하기 어렵다는 글의 중심 주장과 시각·촉각의 역할 설명을 대조했다.",
+          "original_claim": "시각과 촉각은 질적으로 다른 기능을 하므로 어떤 감각이 절대적으로 가장 중요한지 결정하기 어렵다.",
+          "original_evidence": {
+            "start": 17231,
+            "end": 17308,
+            "section": "Importance",
+            "quote": "This qualitative difference renders conclusions about the absolute importance"
+          },
+          "fym_claim": "감각마다 인간에게 중요한 이유와 기능이 달라 한 감각을 최고로 순위 매기는 일의 의미가 작아진다.",
+          "fym_explanation": "물건을 보고 찾아가는 과정과 몸의 위치·물건을 잡는 감각을 나눠 보여 준다. 질문을 거쳐 서로 다른 역할을 설명한다.",
+          "fym_evidence": {
+            "start": 4160,
+            "end": 4195,
+            "section": "Complete FYM learning body",
+            "quote": "each sense is of crucial importance"
+          },
+          "omitted_detail": {
+            "description": "20개 언어 비교 연구의 자극 세트와 언어별 묘사 과제 절차를 줄이고 문화 차이의 예시를 남겼다.",
+            "original_evidence": {
+              "start": 39527,
+              "end": 39557,
+              "section": "Cultural explanation",
+              "quote": "created stimulus sets for each"
+            }
+          },
+          "simplification_type": [
+            "plain_language",
+            "conceptual_reordering"
+          ],
+          "lexical_shift": "원문에서 원거리·근접 감각으로 분류하던 용어를 몸을 느끼기와 세계에서 이동하기라는 행동 설명으로 바꾼다.",
+          "syntactic_shift": "추상적인 기능 비교 문장을 독자 질문과 짧은 행동 예시 문장들로 분해한다.",
+          "conceptual_shift": "감각의 절대적 중요성 논쟁을 일상에서 감각이 서로 보완하는 경험으로 설명한다.",
+          "age_band": {
+            "value": "upper_elementary",
+            "assessment_state": "proposed",
+            "basis": "몸의 위치와 길 찾기를 일상 사례로 설명해 초등 고학년 목표에 검토할 수 있다. 독해 수행 검증과 실제 FYM 대상 연령 확인은 하지 않았다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "source": {
+        "id": "79a7540f-c751-4a39-87fb-827cbd2bbc1d",
+        "source_id": "frym-full:10.3389/frym.2021.556361",
+        "title": "Can Methane-Eating Bacteria in Drylands Help Us Reduce Greenhouse Gases?",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2021.556361/full",
+        "source_revision": "2026-09-25T08:00:35.134166+00:00",
+        "source_hash": "e2901cc1a291f2eb1e8453beebca7b818c480d58a034aa465647cece37d11918",
+        "page_hash": "b27a4cd18aeff6da15a674e61bf4d80ec27590574ace5afd06d2573ceb19bb14"
+      },
+      "relation": {
+        "doi": "10.1111/geb.12928",
+        "url": "https://doi.org/10.1111/geb.12928",
+        "citation_hash": "da350d84c14b8348dc3d41dad3c1241c89c1dd329c11341c16ec2a85312638ba"
+      },
+      "metadata": {
+        "doi": "10.1111/geb.12928",
+        "title": "Global drivers of methane oxidation and denitrifying gene distribution in drylands",
+        "authors": [
+          "Angela Lafuente",
+          "Matthew A. Bowker",
+          "Manuel Delgado‐Baquerizo",
+          "Jorge Durán",
+          "Brajesh K. Singh",
+          "Fernando T. Maestre"
+        ],
+        "container_title": "Global Ecology and Biogeography",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1111/geb.12928"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://api.crossref.org/works/10.1111%2Fgeb.12928",
+        "hash": "3d698a39a3160bccc95f38a7b087218738de0f754c1f19db28822febc49894a2",
+        "raw_hash": "0f278835ac982691dfad9db069a2dc5e19e026ccedae98147a2e1dddb27df8eb",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:01.430Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F03.fym.txt",
+        "fym_page": "F03.fym.html",
+        "fym_page_hash": "d56743e47e28e6a7f3e802624928b89d7e57f8f76c40c9cff78b3d805357d429",
+        "research": "F03.research.txt",
+        "research_raw": "F03.crossref.json",
+        "crossref": "F03.crossref.json",
+        "epmc": null
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F03-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "source": {
+        "id": "9cef398a-8a80-4bd0-b12e-863dda9a8d80",
+        "source_id": "frym-full:10.3389/frym.2021.605677",
+        "title": "Boosting Brain Waves Improves Memory",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2021.605677/full",
+        "source_revision": "2026-09-25T08:01:16.981178+00:00",
+        "source_hash": "32de25b7f3310ecb9ccdfd95895ddf5d7cc339b9ec46ccfc258ab445918a44bc",
+        "page_hash": "c2d6dffcc95c54f6e7f5d5edbc4bd1c92c72fc585a21bbffc9e37634961d865a"
+      },
+      "relation": {
+        "doi": "10.1080/17588928.2018.1521386",
+        "url": "https://doi.org/10.1080/17588928.2018.1521386",
+        "citation_hash": "cfaa1cb8623f3f680b34ba1c38b2d7e2ad14fb8c1dcad81ca0c8f592218ff469"
+      },
+      "metadata": {
+        "doi": "10.1080/17588928.2018.1521386",
+        "title": "Entrainment enhances theta oscillations and improves episodic memory",
+        "authors": [
+          "Brooke M. Roberts",
+          "Alex Clarke",
+          "Richard J. Addante",
+          "Charan Ranganath"
+        ],
+        "container_title": "Cognitive Neuroscience",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1080/17588928.2018.1521386"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A%2210.1080%2F17588928.2018.1521386%22&format=json&resultType=core",
+        "hash": "05e8f4f99e2291de30b03c5cb6a64fa163c25e8f899bf2452c33858ac85b3148",
+        "raw_hash": "f8736992a763853e2aa376340b087dcb879de2d73c62f1f277796bb201531f43",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:03.200Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F04.fym.txt",
+        "fym_page": "F04.fym.html",
+        "fym_page_hash": "ea04a630537debc5ed85d8040a650bc440839468fa67f61debc85d0ad15cd1bd",
+        "research": "F04.research.txt",
+        "research_raw": "F04.epmc.json",
+        "crossref": "F04.crossref.json",
+        "epmc": "F04.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다. 인용의 Clark는 메타데이터의 Clarke와 철자가 다르지만 DOI·제목·다른 저자가 일치해 사소한 서지 차이로 기록했다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F04-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "source": {
+        "id": "597a11c3-4bf6-4b4f-96ef-a5668c490c78",
+        "source_id": "frym-full:10.3389/frym.2021.751592",
+        "title": "Are Our Genes Important for Cooperation?",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2021.751592/full",
+        "source_revision": "2026-09-25T08:00:04.697056+00:00",
+        "source_hash": "44cb4f4d22c73082ae036ab03fea14fb9f32a5777b786d5f98381787bc07dd3d",
+        "page_hash": "1d8a40d75ccf8579a20a14b95e1747d2239cc5e111e2e383905c8164de151877"
+      },
+      "relation": {
+        "doi": "10.1038/srep29517",
+        "url": "https://doi.org/10.1038/srep29517",
+        "citation_hash": "f95458385a363f6b3c219c480c6edb4bbe6bd684d325bfcf9e5571bbbc2c71f9"
+      },
+      "metadata": {
+        "doi": "10.1038/srep29517",
+        "title": "Evidence for social cooperation in rodents by automated maze",
+        "authors": [
+          "Avi Avital",
+          "Shlomit Aga-Mizrachi",
+          "Salman Zubedat"
+        ],
+        "container_title": "Scientific Reports",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1038/srep29517"
+      },
+      "research": {
+        "access": "full_text",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4932492/fullTextXML",
+        "hash": "5a5f73baf1fcf049cfeefd2a3ddc3e0eb114d8b2f7d372fc775f2a46d8835bc4",
+        "raw_hash": "d78122e0d856c2f8894a48e909ec34080aec4089125618faae50bd45c7221ee9",
+        "extraction": "jats_body_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:04.279Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F05.fym.txt",
+        "fym_page": "F05.fym.html",
+        "fym_page_hash": "70f138b298a16a4be57cf49d09f6d1d79a866fba89d1b4977051a7856292c0ea",
+        "research": "F05.research.txt",
+        "research_raw": "F05.research.xml",
+        "crossref": "F05.crossref.json",
+        "epmc": "F05.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "experiment",
+      "reviewed_spans": {
+        "fym": [
+          {
+            "start": 0,
+            "end": 7298,
+            "section": "Complete FYM learning body"
+          }
+        ],
+        "research": [
+          {
+            "start": 4039,
+            "end": 4647,
+            "section": "Maze design"
+          },
+          {
+            "start": 5320,
+            "end": 7394,
+            "section": "Results"
+          },
+          {
+            "start": 13902,
+            "end": 14485,
+            "section": "Discussion"
+          },
+          {
+            "start": 19212,
+            "end": 23493,
+            "section": "Methods"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "id": "F05-A1",
+          "verdict": "contradicted",
+          "reason": "출처 DOI·제목·저자는 맞지만 동일 비교의 보상 방향이 원문의 단독 쥐 우위와 FYM의 쌍 우위로 반대다. 추가 유전 연구 주장 전체를 이 한 비교로 판정하지 않는다.",
+          "selection_basis": "FYM 초기 결과의 첫 번째 보상 비교 주장을 동일 미로의 단독 쥐 비교 결과와 대조했다.",
+          "original_claim": "단독 쥐는 협동 쥐 쌍보다 보상 획득률·활동 수준·효율 지표가 높았다.",
+          "original_evidence": {
+            "start": 14076,
+            "end": 14130,
+            "section": "Discussion",
+            "quote": "Single rat performance led to a higher rate of rewards"
+          },
+          "fym_claim": "쥐 쌍이 단독 쥐보다 더 많은 보상을 얻었으며 협동이 강한 동기라는 설명으로 이어진다.",
+          "fym_explanation": "공동 보상의 수를 간단히 비교한 뒤 사회적 협동의 동기 효과를 바로 해석한다.",
+          "fym_evidence": {
+            "start": 3115,
+            "end": 3185,
+            "section": "Complete FYM learning body",
+            "quote": "pairs of rats got higher numbers of rewards compared with a single rat"
+          },
+          "omitted_detail": {
+            "description": "단독 쥐는 상대와 행동을 조율할 필요가 없어 과제가 더 쉽다는 비교 조건을 빠뜨렸다.",
+            "original_evidence": {
+              "start": 14411,
+              "end": 14456,
+              "section": "Discussion",
+              "quote": "doesn’t need to coordinate with a counterpart"
+            }
+          },
+          "simplification_type": [
+            "method_compression",
+            "causal_overstatement"
+          ],
+          "lexical_shift": "보상 획득률·활동·효율이라는 구분을 보상의 개수로 줄인다.",
+          "syntactic_shift": "세 지표와 과제 난도를 나눠 설명한 논의를 하나의 결과 문장과 동기 해석으로 압축한다.",
+          "conceptual_shift": "단독 쥐의 비교 우위를 협동 쌍의 우위로 뒤집고 동기 효과로 설명한다. 이 변화는 허용할 단순화 규칙이 아니다.",
+          "age_band": {
+            "value": "middle_1",
+            "assessment_state": "proposed",
+            "basis": "미로의 공동 보상 과정을 구체적으로 설명하는 형식은 중1 목표에 검토할 수 있다. 결과 방향이 달라 현재 구절은 모범 각색 후보가 아니다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "source": {
+        "id": "f9bec756-fb3d-4ebc-a92d-7ba3939288a4",
+        "source_id": "frym-full:10.3389/frym.2022.701688",
+        "title": "The Important Roles of Urban Agriculture",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2022.701688/full",
+        "source_revision": "2026-09-25T08:02:58.698421+00:00",
+        "source_hash": "76be1481d7963acfd608b0f8c6f3c5e6b86743149780880b09c5e298d8e37e5c",
+        "page_hash": "15dfbc39be138a3df117ecf75681ae217149d5544dd9b42e51a901a5cd8a49bd"
+      },
+      "relation": {
+        "doi": "10.3389/fsufs.2020.562513",
+        "url": "https://doi.org/10.3389/fsufs.2020.562513",
+        "citation_hash": "395e6056bfc0ccee579c52e63307846db07199e622f7c1384e03acf872596a60"
+      },
+      "metadata": {
+        "doi": "10.3389/fsufs.2020.562513",
+        "title": "Features and Functions of Multifunctional Urban Agriculture in the Global North: A Review",
+        "authors": [
+          "Francesco Orsini",
+          "Giuseppina Pennisi",
+          "Nicola Michelon",
+          "Alberto Minelli",
+          "Giovanni Bazzocchi",
+          "Esther Sanyé-Mengual",
+          "Giorgio Gianquinto"
+        ],
+        "container_title": "Frontiers in Sustainable Food Systems",
+        "type": "journal-article",
+        "url": "https://doi.org/10.3389/fsufs.2020.562513"
+      },
+      "research": {
+        "access": "full_text",
+        "url": "https://www.frontiersin.org/journals/sustainable-food-systems/articles/10.3389/fsufs.2020.562513/xml/nlm",
+        "hash": "1967438c75cfd766988af58669470901d4b23faff36060377a47631d325b672d",
+        "raw_hash": "7a1f7c4ff0df74f21b802d6d77dd3e6f2d3e869fbf7c4ea09df22d4d82a6f83f",
+        "extraction": "jats_body_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:06.993Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F06.fym.txt",
+        "fym_page": "F06.fym.html",
+        "fym_page_hash": "2a4cacf52be1b9cf03689f46ee281a276f064187d09dd3a240a77ef69af1ce03",
+        "research": "F06.research.txt",
+        "research_raw": "F06.research.xml",
+        "crossref": "F06.crossref.json",
+        "epmc": null
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "review",
+      "reviewed_spans": {
+        "fym": [
+          {
+            "start": 0,
+            "end": 5805,
+            "section": "Complete FYM learning body"
+          }
+        ],
+        "research": [
+          {
+            "start": 4866,
+            "end": 10170,
+            "section": "Review scope and methods"
+          },
+          {
+            "start": 12813,
+            "end": 14482,
+            "section": "Ecosystem services"
+          },
+          {
+            "start": 16614,
+            "end": 16771,
+            "section": "Table 1 advantages"
+          },
+          {
+            "start": 16869,
+            "end": 18339,
+            "section": "Table 1 constraints"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "id": "F06-A1",
+          "verdict": "aligned",
+          "reason": "서식처 제공과 다양성 보전의 관계는 대응한다. 다른 건강 효과나 전 세계 적용 가능성은 이 구절 하나로 승인하지 않는다.",
+          "selection_basis": "도시 농업의 생태계 기능 중 서식처·다양성 보전 주장을 분류 항목과 실제 학생용 예시로 대조했다.",
+          "original_claim": "도시 농업의 서식처 서비스에는 생물다양성 유지와 종을 위한 서식처 제공이 포함된다.",
+          "original_evidence": {
+            "start": 14147,
+            "end": 14215,
+            "section": "Ecosystem services",
+            "quote": "maintenance of genetic biodiversity and offering habitat for species"
+          },
+          "fym_claim": "도시 정원과 공원은 새와 유익한 곤충의 쉼터를 제공해 도시 생물다양성을 보전하는 데 도움이 된다.",
+          "fym_explanation": "생태계 서비스의 추상적인 분류명을 새와 곤충이 머물 공간으로 풀어 설명한다.",
+          "fym_evidence": {
+            "start": 3943,
+            "end": 3991,
+            "section": "Complete FYM learning body",
+            "quote": "provide shelter for birds and beneficial insects"
+          },
+          "omitted_detail": {
+            "description": "리뷰와 사례 데이터가 Global North 중심이라는 조사 범위를 본문에서 명시하지 않는다. 선택한 서식처 기능의 대응만 평가했다.",
+            "original_evidence": {
+              "start": 5230,
+              "end": 5252,
+              "section": "Review scope and methods",
+              "quote": "data from Global North"
+            }
+          },
+          "simplification_type": [
+            "plain_language",
+            "explicit_definition",
+            "conceptual_reordering"
+          ],
+          "lexical_shift": "종의 서식처 제공과 생태계 서비스라는 전문 표현을 새·곤충의 쉼터라는 익숙한 대상으로 구체화한다.",
+          "syntactic_shift": "분류표의 명사구를 누가 무엇을 제공하고 어떤 이익이 생기는지 설명하는 문장으로 바꾼다.",
+          "conceptual_shift": "서비스 분류를 도시에서 관찰할 수 있는 생물과 공간의 역할로 보여 준다. 리뷰 전체의 범위·안전 제약이 보존됐다는 판정은 아니다.",
+          "age_band": {
+            "value": "upper_elementary",
+            "assessment_state": "proposed",
+            "basis": "새와 곤충이 머물 곳이라는 구체적 설명은 초등 고학년 목표에 검토할 수 있다. 실제 연령별 이해도는 측정하지 않았다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F07",
+      "source": {
+        "id": "3228b0e2-ccf3-4cb3-9e5f-8e6b711ed7be",
+        "source_id": "frym-full:10.3389/frym.2022.701756",
+        "title": "Farming on Top: Rooftop Agriculture for Healthy Cities",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2022.701756/full",
+        "source_revision": "2026-09-25T07:59:26.581645+00:00",
+        "source_hash": "6b976f949591122b029b977a681b02fdc3cdb2cc9a88ccc61a22f876dce45c07",
+        "page_hash": "471ccf12487480bf2afb2c7bf10581b0fb9bc486dba105fbdd41d42e483a044d"
+      },
+      "relation": {
+        "doi": "10.1016/j.jclepro.2021.126556",
+        "url": "https://doi.org/10.1016/j.jclepro.2021.126556",
+        "citation_hash": "d7d9cf2c3acbe599335eaf56a39065b4429b28550dde7c589ad6ed8171867667"
+      },
+      "metadata": {
+        "doi": "10.1016/j.jclepro.2021.126556",
+        "title": "The global rise of urban rooftop agriculture: A review of worldwide cases",
+        "authors": [
+          "Elisa Appolloni",
+          "Francesco Orsini",
+          "Kathrin Specht",
+          "Susanne Thomaier",
+          "Esther Sanyé-Mengual",
+          "Giuseppina Pennisi",
+          "Giorgio Gianquinto"
+        ],
+        "container_title": "Journal of Cleaner Production",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1016/j.jclepro.2021.126556"
+      },
+      "research": {
+        "access": "unavailable",
+        "url": null,
+        "hash": null,
+        "raw_hash": null,
+        "extraction": null,
+        "checked_at": "2026-10-04T10:36:09.284Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F07.fym.txt",
+        "fym_page": "F07.fym.html",
+        "fym_page_hash": "875f2d830110e6c06ec3c121593268f7adc448b8a9235b11501833b76b5fa597",
+        "research": null,
+        "research_raw": null,
+        "crossref": "F07.crossref.json",
+        "epmc": null
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F07-A1",
+          "verdict": "held",
+          "reason": "현재 접근 경로에서 원 연구 전문이나 초록을 확보하지 못해 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F08",
+      "source": {
+        "id": "31917a2e-6843-46a0-8e6b-ff4c68b02a45",
+        "source_id": "frym-full:10.3389/frym.2022.734161",
+        "title": "Left or Right? How Attention and Reading Develop Together",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2022.734161/full",
+        "source_revision": "2026-09-25T07:59:26.003215+00:00",
+        "source_hash": "ee09915e06fd1ecdd05f2eb0af0860324100cf2781d9056c755e5ab58c18adf1",
+        "page_hash": "16b9cb599a540cd538d83feeb6fd8c7c37ba00b5a267c64db9459fc9133eb80c"
+      },
+      "relation": {
+        "doi": "10.1111/desc.13053",
+        "url": "https://doi.org/10.1111/desc.13053",
+        "citation_hash": "d42738840a158dd71f9ad50e78ccd0c47bcc653cdc362114802b5b931c09b22e"
+      },
+      "metadata": {
+        "doi": "10.1111/desc.13053",
+        "title": "Development of spatial biases in school‐aged children",
+        "authors": [
+          "Patricia M. Hoyos",
+          "Na Yeon Kim",
+          "Debby Cheng",
+          "Abigail Finkelston",
+          "Sabine Kastner"
+        ],
+        "container_title": "Developmental Science",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1111/desc.13053"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A%2210.1111%2Fdesc.13053%22&format=json&resultType=core",
+        "hash": "9094b936bff6aecff33ee6eefc3e87cc225b0020a5f81e32f536563d085082ab",
+        "raw_hash": "529e4e26c5e686adc7f8b0176aa17bcfe23b54b2deb4550ed1fea66ee14cf6a7",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:10.375Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F08.fym.txt",
+        "fym_page": "F08.fym.html",
+        "fym_page_hash": "f595189cdd719d0a602edf826446c4d61414533e140547765b10fa375cd52650",
+        "research": "F08.research.txt",
+        "research_raw": "F08.epmc.json",
+        "crossref": "F08.crossref.json",
+        "epmc": "F08.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F08-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F09",
+      "source": {
+        "id": "92512f5e-3f3b-488d-8ac9-7fc5b7032534",
+        "source_id": "frym-full:10.3389/frym.2023.1005823",
+        "title": "Visiting Nature in the City During the COVID-19 Pandemic",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2023.1005823/full",
+        "source_revision": "2026-09-25T08:01:02.124625+00:00",
+        "source_hash": "b532f8b11a93af31e338caed23e2219308c4b498fa1456207d04b40ea4ba7fd6",
+        "page_hash": "feda853e43e443abe844a0fc72976e8ec824041f7a04258df7530b61064197a5"
+      },
+      "relation": {
+        "doi": "10.3389/fenvs.2022.874707",
+        "url": "https://doi.org/10.3389/fenvs.2022.874707",
+        "citation_hash": "42e23c9be5dd597f56f26f23f985b38c228760631f8b38c50cc5151113b8e163"
+      },
+      "metadata": {
+        "doi": "10.3389/fenvs.2022.874707",
+        "title": "What Influences Shifts in Urban Nature Site Visitation During COVID-19? A Case Study in Tel Aviv-Yafo, Israel",
+        "authors": [
+          "Michelle L. Talal",
+          "Michal Gruntman"
+        ],
+        "container_title": "Frontiers in Environmental Science",
+        "type": "journal-article",
+        "url": "https://doi.org/10.3389/fenvs.2022.874707"
+      },
+      "research": {
+        "access": "full_text",
+        "url": "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2022.874707/xml/nlm",
+        "hash": "2c51ec5bd38b51b28ce53b2c39e580a7280097b10e108de1d7c193752fffa0c9",
+        "raw_hash": "3963f1a440b6038657c195dfc2ea0b861fc2a61c6516268222e2cf23d5114181",
+        "extraction": "jats_body_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:11.534Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F09.fym.txt",
+        "fym_page": "F09.fym.html",
+        "fym_page_hash": "62ecb8a1329addd969a2b142362accc59c1965e97547797453d81c6db5604a3b",
+        "research": "F09.research.txt",
+        "research_raw": "F09.research.xml",
+        "crossref": "F09.crossref.json",
+        "epmc": null
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "observational",
+      "reviewed_spans": {
+        "fym": [
+          {
+            "start": 0,
+            "end": 10152,
+            "section": "Complete FYM learning body"
+          }
+        ],
+        "research": [
+          {
+            "start": 17496,
+            "end": 18076,
+            "section": "Visitation index"
+          },
+          {
+            "start": 20573,
+            "end": 21633,
+            "section": "Participants"
+          },
+          {
+            "start": 25369,
+            "end": 26072,
+            "section": "Survey results"
+          },
+          {
+            "start": 29940,
+            "end": 33497,
+            "section": "Regression and discussion"
+          },
+          {
+            "start": 37459,
+            "end": 39302,
+            "section": "Limitations"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "id": "F09-A1",
+          "verdict": "partial",
+          "reason": "세 비율과 변화 방향은 같지만 원 연구는 방문자 421명 기준이며 FYM은 전체 참여자 458명을 설명한 직후 참여자 비율로 표현한다. 분모 한정이 약해져 부분 정렬로 판단한다.",
+          "selection_basis": "방문 감소·증가·변화 없음의 핵심 관측 비율과 그 분모를 원문의 설문 결과와 대조했다.",
+          "original_claim": "설문에 응답한 방문자의 53%는 방문을 줄였고 26%는 늘렸으며 21%는 변하지 않았다.",
+          "original_evidence": {
+            "start": 25480,
+            "end": 25529,
+            "section": "Survey results",
+            "quote": "53% of the surveyed visitors decreased visitation"
+          },
+          "fym_claim": "팬데믹 동안 방문이 감소한 비율 53%, 증가 26%, 변화 없음 21%를 설명한다.",
+          "fym_explanation": "기술적 회귀 결과에 앞서 세 비율을 나란히 제시해 변화의 방향을 이해시킨다.",
+          "fym_evidence": {
+            "start": 5992,
+            "end": 6028,
+            "section": "Complete FYM learning body",
+            "quote": "53% decreased their number of visits"
+          },
+          "omitted_detail": {
+            "description": "처음 완료한 472명 중 불완전하거나 모순된 응답 14명을 제외하고 458명을 분석한 절차를 줄였다.",
+            "original_evidence": {
+              "start": 20711,
+              "end": 20744,
+              "section": "Participants",
+              "quote": "14 were removed from the analysis"
+            }
+          },
+          "simplification_type": [
+            "method_compression",
+            "sentence_decomposition"
+          ],
+          "lexical_shift": "방문 빈도의 감소·증가를 방문 횟수가 줄거나 늘었다는 일상 표현으로 설명한다.",
+          "syntactic_shift": "설문 수치와 통계 설명을 짧은 세 비율의 병렬 문장으로 묶고 세부 분석을 뒤에 둔다.",
+          "conceptual_shift": "모형의 복잡한 변수보다 관측 변화 방향을 먼저 보여 준다. 자가 보고 설문이라는 한계는 뒤에서 설명한다.",
+          "age_band": {
+            "value": "middle_2",
+            "assessment_state": "proposed",
+            "basis": "비율과 방문 변화 지수를 구분하는 내용이라 중2 목표를 제안한다. 지수와 비율 이해에 대한 학생 검증은 하지 않았다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F10",
+      "source": {
+        "id": "76a9dc17-34e4-4c84-8c56-63b47cbcdfaa",
+        "source_id": "frym-full:10.3389/frym.2026.1514704",
+        "title": "Reducing Young Adults’ Alcohol Use Using a Smartphone App",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1514704/full",
+        "source_revision": "2026-09-25T08:00:32.626526+00:00",
+        "source_hash": "ee02df3076abb5574eab763ef419c937d798b5743214d541f731e8361878a30e",
+        "page_hash": "34b2cf7fab435fb9558e466a1c2f1b4bbd98f00f63785da3bde3f42c1014b813"
+      },
+      "relation": {
+        "doi": "10.3389/fdgth.2022.1016714",
+        "url": "https://doi.org/10.3389/fdgth.2022.1016714",
+        "citation_hash": "f344a9f19e2943014a3b07d47c8c7d8f606362032837f39831fa0e21b63c349d"
+      },
+      "metadata": {
+        "doi": "10.3389/fdgth.2022.1016714",
+        "title": "The effectiveness of a mobile intervention to reduce young adults’ alcohol consumption to not exceed low-risk drinking guidelines",
+        "authors": [
+          "Mieke H.J. Schulte",
+          "Nikolaos Boumparis",
+          "Annet Kleiboer",
+          "Tim R. Wind",
+          "Miranda Olff",
+          "Anja C. Huizink",
+          "Heleen Riper"
+        ],
+        "container_title": "Frontiers in Digital Health",
+        "type": "journal-article",
+        "url": "https://doi.org/10.3389/fdgth.2022.1016714"
+      },
+      "research": {
+        "access": "full_text",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9763894/fullTextXML",
+        "hash": "2e31ab7876ee519885946c9dea912d5997bca40e2a5dcc4efc3a5d43d144bc82",
+        "raw_hash": "93885051364b3825d1bc6f6c7b3f65db08f6e08e74c1c64ac407f9b09290faa2",
+        "extraction": "jats_body_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:14.210Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F10.fym.txt",
+        "fym_page": "F10.fym.html",
+        "fym_page_hash": "c3088591c44d32e4668241dd6e052d9158c1948a4ad535bd1a4b7dba7543c181",
+        "research": "F10.research.txt",
+        "research_raw": "F10.research.xml",
+        "crossref": "F10.crossref.json",
+        "epmc": "F10.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "experiment",
+      "reviewed_spans": {
+        "fym": [
+          {
+            "start": 0,
+            "end": 7932,
+            "section": "Complete FYM learning body"
+          }
+        ],
+        "research": [
+          {
+            "start": 5314,
+            "end": 6280,
+            "section": "Design and randomization"
+          },
+          {
+            "start": 20934,
+            "end": 21708,
+            "section": "Primary outcomes"
+          },
+          {
+            "start": 30217,
+            "end": 33212,
+            "section": "Discussion"
+          },
+          {
+            "start": 34455,
+            "end": 35662,
+            "section": "Limitations"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "id": "F10-A1",
+          "verdict": "aligned",
+          "reason": "앱 우월 효과가 발견되지 않았다는 비교 관계를 보존한다. 다른 음주 변화 구절은 별도의 정렬에서 반대 결과를 기록했다.",
+          "selection_basis": "앱이 대조 웹사이트보다 우월한지를 연구의 중심 비교 결과와 대조했다.",
+          "original_claim": "앱과 교육 웹사이트의 비교에서 음주 관련 결과에 차별적인 중재 효과가 발견되지 않았다.",
+          "original_evidence": {
+            "start": 32222,
+            "end": 32245,
+            "section": "Discussion",
+            "quote": "no differential effects"
+          },
+          "fym_claim": "앱이 웹사이트보다 더 잘 작동하지 않았다는 결과를 설명한다.",
+          "fym_explanation": "대조 조건과의 비교를 일상적 효과 표현으로 바꾸고 예상한 우월 효과가 없어도 연구를 공유해야 함을 설명한다.",
+          "fym_evidence": {
+            "start": 7223,
+            "end": 7279,
+            "section": "Complete FYM learning body",
+            "quote": "the Boozebuster app did not work better than the website"
+          },
+          "omitted_detail": {
+            "description": "앱과 웹사이트 사용을 비교하는 설계상 집단 배정을 눈가림할 수 없었다는 제한은 줄였다.",
+            "original_evidence": {
+              "start": 5658,
+              "end": 5703,
+              "section": "Design and randomization",
+              "quote": "blinding of group allocation was not possible"
+            }
+          },
+          "simplification_type": [
+            "plain_language",
+            "method_compression"
+          ],
+          "lexical_shift": "차별적인 중재 효과라는 통계 표현을 웹사이트보다 더 잘 작동했는가라는 비교로 풀어 쓴다.",
+          "syntactic_shift": "일차·이차 결과 목록과 통계적 비교를 짧은 양보절을 포함한 결과 문장으로 압축한다.",
+          "conceptual_shift": "유의한 집단 차이를 발견하지 못했다는 결과를 대조 조건과의 비교로 유지한다. 이 판정은 두 조건의 동일 효과를 확증한 것으로 해석하면 안 된다.",
+          "age_band": {
+            "value": "high_1",
+            "assessment_state": "proposed",
+            "basis": "성인 음주·중재 비교를 다루므로 고1의 건강 정보·연구 설계 독해 목표로 제안한다. 초중등용 건강 권고나 실제 FYM 연령으로 판정하지 않는다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        },
+        {
+          "id": "F10-A2",
+          "verdict": "contradicted",
+          "reason": "원 연구 일차 결과는 두 집단의 월 음주 빈도가 감소했다고 명시한다. FYM의 빈도 변화 없음과 대응하지 않아 모범 각색에서 제외한다.",
+          "selection_basis": "앱 비교 결과와 별도로 음주 빈도가 변했는지에 대한 명시 결과를 대조했다.",
+          "original_claim": "두 집단 모두 6주 시점에 월 음주 빈도가 약 2일 줄었다. 시간 효과가 유의했다.",
+          "original_evidence": {
+            "start": 21392,
+            "end": 21448,
+            "section": "Primary outcomes",
+            "quote": "both groups showed a decrease of around 2 days per month"
+          },
+          "fym_claim": "두 집단 모두 마시는 양은 줄었지만 얼마나 자주 마시는지는 바뀌지 않았다고 설명한다.",
+          "fym_explanation": "음주량과 빈도를 구분하지만 빈도의 시간에 따른 감소를 변화 없음으로 설명한다.",
+          "fym_evidence": {
+            "start": 6534,
+            "end": 6574,
+            "section": "Complete FYM learning body",
+            "quote": "they did not change how often they drank"
+          },
+          "omitted_detail": null,
+          "simplification_type": [
+            "numeric_compression",
+            "method_compression"
+          ],
+          "lexical_shift": "월별 음주 일수를 얼마나 자주 마셨는가라는 일상 표현으로 바꾸었다.",
+          "syntactic_shift": "시점과 집단별 변화의 기술을 음주량은 감소했지만 빈도는 그대로라는 짧은 대조 문장으로 압축한다.",
+          "conceptual_shift": "집단 간 효과 차이 없음과 두 집단 모두에서 관찰한 시간 변화가 뒤섞였다. 빈도 감소를 지워서는 안 된다.",
+          "age_band": {
+            "value": "high_1",
+            "assessment_state": "proposed",
+            "basis": "성인 음주·중재 비교를 다루므로 고1의 건강 정보·연구 설계 독해 목표로 제안한다. 초중등용 건강 권고나 실제 FYM 연령으로 판정하지 않는다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F11",
+      "source": {
+        "id": "f1daddd2-2758-41c1-b654-7e2a9e30dc37",
+        "source_id": "frym-full:10.3389/frym.2026.1564654",
+        "title": "Lake Mud Tells the Surprising Story of Human Impacts on Seabirds",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1564654/full",
+        "source_revision": "2026-09-25T08:02:52.658333+00:00",
+        "source_hash": "8dd3e7cc484838705b9e2304dbca194bccccbbd0c9f4460373ae54554b35b895",
+        "page_hash": "9c5fc12fe9364d36b3423e7055eab4a58d3f672617a40953e6a3030607b5317b"
+      },
+      "relation": {
+        "doi": "10.1073/pnas.2016811117",
+        "url": "https://doi.org/10.1073/pnas.2016811117",
+        "citation_hash": "c13e6df6eb1a0e1871b8332af96cfa7c6f8e7b1aa414b183261874bc5f43f040"
+      },
+      "metadata": {
+        "doi": "10.1073/pnas.2016811117",
+        "title": "Linking 19th century European settlement to the disruption of a seabird’s natural population dynamics",
+        "authors": [
+          "Matthew P. Duda",
+          "Sylvie Allen-Mahé",
+          "Christophe Barbraud",
+          "Jules M. Blais",
+          "Amaël Boudreau",
+          "Rachel Bryant",
+          "Karine Delord",
+          "Christopher Grooms",
+          "Linda E. Kimpe",
+          "Bruno Letournel",
+          "Joeline E. Lim",
+          "Hervé Lormée",
+          "Neal Michelutti",
+          "Gregory J. Robertson",
+          "Frank Urtizbéréa",
+          "Sabina I. Wilhelm",
+          "John P. Smol"
+        ],
+        "container_title": "Proceedings of the National Academy of Sciences",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1073/pnas.2016811117"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A%2210.1073%2Fpnas.2016811117%22&format=json&resultType=core",
+        "hash": "760c57f31c0135aace443446c510b65dbf084e850b4ab35ebc6ff522ff0e148e",
+        "raw_hash": "982c06c6a9a9d5bb0c0d09d9e4efce96947e518d4af85c27c7e00001fc76d7e9",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:16.681Z",
+        "attempts": [
+          "Full text 500: https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7768677/fullTextXML"
+        ]
+      },
+      "files": {
+        "fym": "F11.fym.txt",
+        "fym_page": "F11.fym.html",
+        "fym_page_hash": "95204643be08b7d291296904d4dd79801c3666cdabbc73e9a5621e7b041e38da",
+        "research": "F11.research.txt",
+        "research_raw": "F11.epmc.json",
+        "crossref": "F11.crossref.json",
+        "epmc": "F11.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F11-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F12",
+      "source": {
+        "id": "1c6ec540-58b7-40ca-b4b8-4dd69366a82d",
+        "source_id": "frym-full:10.3389/frym.2026.1592598",
+        "title": "Black Tadpoles Have a Message For Predators: Stay Away!",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1592598/full",
+        "source_revision": "2026-09-25T07:59:04.954388+00:00",
+        "source_hash": "994a72d4600730837e145364be2fa881abc66b9f76f0245fb2a4914e4f944aac",
+        "page_hash": "c14f3d2dbef465f5560f925289dcb31d47e3a4b6712c1f35d12af79e3f8ee54c"
+      },
+      "relation": {
+        "doi": "10.1016/j.beproc.2024.105124",
+        "url": "https://doi.org/10.1016/j.beproc.2024.105124",
+        "citation_hash": "2e41cfc8ce238e288ea738d51a4f0c32e392dbddf4659106f6e602dc7ef18553"
+      },
+      "metadata": {
+        "doi": "10.1016/j.beproc.2024.105124",
+        "title": "Experimental evidence of aposematic signal in black tadpoles",
+        "authors": [
+          "Julia Laura Pompeu de Abreu",
+          "Vinícius de Avelar São-Pedro"
+        ],
+        "container_title": "Behavioural Processes",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1016/j.beproc.2024.105124"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A%2210.1016%2Fj.beproc.2024.105124%22&format=json&resultType=core",
+        "hash": "4168a7fdb24bc3dae49484ffd5bd01ac3b629b9fe9b096c8e5a1470e9ec90c19",
+        "raw_hash": "b7a5e4cf68d1c50dd84052d9981e62a9772e2dd374a4f43dccf72d35a993c9a2",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:18.597Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F12.fym.txt",
+        "fym_page": "F12.fym.html",
+        "fym_page_hash": "c56616290d491bdd37859e5f7491c3d9992a97799ccacccc24638ced6ab32c21",
+        "research": "F12.research.txt",
+        "research_raw": "F12.epmc.json",
+        "crossref": "F12.crossref.json",
+        "epmc": "F12.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F12-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F13",
+      "source": {
+        "id": "f4f0bb1d-beab-4359-ae11-b9def3e6df85",
+        "source_id": "frym-full:10.3389/frym.2026.1597631",
+        "title": "Left Out in the Game—Better Understanding Anxiety",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1597631/full",
+        "source_revision": "2026-09-25T08:02:55.178677+00:00",
+        "source_hash": "a134a1f7367cb026f94970f57134ce91379c844067d66d78f413f4b7dda82c65",
+        "page_hash": "101848c11f0290230fac6be6c0fb61f967074577e1cfde402b85753a62f76bd8"
+      },
+      "relation": {
+        "doi": "10.1002/jcv2.12254",
+        "url": "https://doi.org/10.1002/jcv2.12254",
+        "citation_hash": "a1bd691e86bdc6e4c33dd66763d55ab80f3330fc5d335eae7979f37c7ba1b74e"
+      },
+      "metadata": {
+        "doi": "10.1002/jcv2.12254",
+        "title": "Four distinct peer interaction variables as moderators of the fearful temperament‐anxiety association, using data from the Generation R Study",
+        "authors": [
+          "Anita Harrewijn",
+          "Rosa H. Mulder",
+          "Marinus H. van IJzendoorn",
+          "Matthias J. Wieser",
+          "Pauline W. Jansen"
+        ],
+        "container_title": "JCPP Advances",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1002/jcv2.12254"
+      },
+      "research": {
+        "access": "full_text",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11889650/fullTextXML",
+        "hash": "b4b6be56b5f892be50a9c476d3e6718eb9d739ea8d789fd9308e0a6d31539661",
+        "raw_hash": "573e3e0b43a36d19bd420600e82d7863fa8e028efe3390cdc2954df35817e960",
+        "extraction": "jats_body_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:20.563Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F13.fym.txt",
+        "fym_page": "F13.fym.html",
+        "fym_page_hash": "91a20c4584d1f6a03801ed2f32d414a7a9be0e333e5cc93afdfdc9233e262cc0",
+        "research": "F13.research.txt",
+        "research_raw": "F13.research.xml",
+        "crossref": "F13.crossref.json",
+        "epmc": "F13.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "observational",
+      "reviewed_spans": {
+        "fym": [
+          {
+            "start": 0,
+            "end": 5953,
+            "section": "Complete FYM learning body"
+          }
+        ],
+        "research": [
+          {
+            "start": 8952,
+            "end": 11031,
+            "section": "Participants"
+          },
+          {
+            "start": 14896,
+            "end": 15703,
+            "section": "Anxiety measurement"
+          },
+          {
+            "start": 17072,
+            "end": 18584,
+            "section": "Cyberball task"
+          },
+          {
+            "start": 24700,
+            "end": 25704,
+            "section": "Moderator results"
+          },
+          {
+            "start": 29989,
+            "end": 32045,
+            "section": "Discussion"
+          },
+          {
+            "start": 34638,
+            "end": 35697,
+            "section": "Limitations"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "id": "F13-A1",
+          "verdict": "partial",
+          "reason": "사후 감정과 순간 감정의 차이는 대응하지만 인과 한정과 민감도 분석 제한이 사라져 부분 정렬로 판단한다.",
+          "selection_basis": "배제 중 감정과 배제 후 감정을 구분하는 핵심 조절 결과와 FYM의 설명을 대조했다.",
+          "original_claim": "배제 후 부정적 감정은 초기 두려움 기질과 13세 불안의 연관을 조절했지만 배제 중 감정은 조절하지 않았다. 관찰 설계로 인과를 결론 내릴 수 없다.",
+          "original_evidence": {
+            "start": 25237,
+            "end": 25287,
+            "section": "Moderator results",
+            "quote": "negative feelings after social exclusion moderated"
+          },
+          "fym_claim": "게임 중 기분 나쁨은 불안을 더 만들지 않았지만 배제된 뒤 기분 나쁨은 불안을 더 만들었다고 설명한다.",
+          "fym_explanation": "사후 반응과 순간 반응을 나누고 반복해서 생각하는 과정의 가능성을 설명한다.",
+          "fym_evidence": {
+            "start": 3480,
+            "end": 3520,
+            "section": "Complete FYM learning body",
+            "quote": "but feeling bad after being left out did"
+          },
+          "omitted_detail": {
+            "description": "연구가 인과 결론을 허용하지 않으며 이상치 제외 등 민감도 분석에서 결과가 유지되지 않았다는 제한을 생략했다.",
+            "original_evidence": {
+              "start": 31867,
+              "end": 31925,
+              "section": "Discussion",
+              "quote": "As our design precludes conclusions on causal associations"
+            }
+          },
+          "simplification_type": [
+            "plain_language",
+            "qualifier_weakening",
+            "causal_overstatement"
+          ],
+          "lexical_shift": "기질과 불안 연관의 조절이라는 용어를 배제 뒤 감정이 불안을 더 만드는 설명으로 옮긴다.",
+          "syntactic_shift": "통계적 상호작용과 제한을 설명한 문장을 순간 감정과 사후 감정의 대조로 바꾼다.",
+          "conceptual_shift": "사후 반응만 연관을 조절한다는 차이는 남지만 관찰적 연관이 불안을 만드는 원인처럼 읽힌다.",
+          "age_band": {
+            "value": "middle_1",
+            "assessment_state": "proposed",
+            "basis": "친구와 배제 경험으로 연구를 설명해 중1 목표로 검토할 수 있다. 인과 표현과 측정 나이의 불일치가 있어 현재 글 전체를 모범 각색으로 쓰지 않는다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        },
+        {
+          "id": "F13-A2",
+          "verdict": "contradicted",
+          "reason": "동일한 배제 과제의 실시 나이가 원문에서는 9세, FYM에서는 13세로 명시돼 서로 반대다.",
+          "selection_basis": "연구 결과의 시간 순서를 결정하는 공 던지기 과제 실시 나이를 별도로 대조했다.",
+          "original_claim": "공 던지기 배제 과제는 9세에 시행했고 불안 증상은 13세에 측정했다.",
+          "original_evidence": {
+            "start": 17180,
+            "end": 17206,
+            "section": "Cyberball task",
+            "quote": "when children were 9 years"
+          },
+          "fym_claim": "13세 아이들에게 공 던지기 게임을 시켰다고 설명한다.",
+          "fym_explanation": "서로 다른 시점의 측정을 청소년 시점 한 번의 친구 관계 실험처럼 설명한다.",
+          "fym_evidence": {
+            "start": 2544,
+            "end": 2589,
+            "section": "Complete FYM learning body",
+            "quote": "13-year-old kids to play a ball-throwing game"
+          },
+          "omitted_detail": null,
+          "simplification_type": [
+            "method_compression",
+            "conceptual_reordering"
+          ],
+          "lexical_shift": "과제 이름을 공 던지기 게임으로 바꾼 것은 가능하지만 측정 나이는 바꿀 수 없다.",
+          "syntactic_shift": "시점별로 나눈 측정 방법을 한 문장으로 묶으며 결과 측정 나이를 과제에 붙인다.",
+          "conceptual_shift": "9세 배제 반응과 13세 불안의 시간 순서가 사라진다. 발달적 연구의 재현에 영향을 주는 오류다.",
+          "age_band": {
+            "value": "middle_1",
+            "assessment_state": "proposed",
+            "basis": "친구와 배제 경험으로 연구를 설명해 중1 목표로 검토할 수 있다. 인과 표현과 측정 나이의 불일치가 있어 현재 글 전체를 모범 각색으로 쓰지 않는다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F14",
+      "source": {
+        "id": "51bc25a7-73a2-43ec-9564-dc00a370e0e6",
+        "source_id": "frym-full:10.3389/frym.2026.1598115",
+        "title": "Studying the Mental Health of Family and Friends of COVID-19 Patients",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1598115/full",
+        "source_revision": "2026-09-25T07:59:55.445109+00:00",
+        "source_hash": "ba2867fefb9b5d238bfff7836ec535c99c78be51cb9dbdea11d5527902c1006a",
+        "page_hash": "48fa69d75b425db5606740dc3abf8743441252dabbaebf4a19b7f52fa0de9475"
+      },
+      "relation": {
+        "doi": "10.1016/j.lanepe.2023.100733",
+        "url": "https://doi.org/10.1016/j.lanepe.2023.100733",
+        "citation_hash": "61c34fdd71962395a8b48a2ae75b0f455315784921c1819d94949264c33f900c"
+      },
+      "metadata": {
+        "doi": "10.1016/j.lanepe.2023.100733",
+        "title": "Elevated symptoms of depression and anxiety among family members and friends of critically ill COVID-19 patients – an observational study of five cohorts across four countries",
+        "authors": [
+          "Anikó Lovik",
+          "Juan González-Hijón",
+          "Asle Hoffart",
+          "Chloe Fawns-Ritchie",
+          "Ingibjörg Magnúsdóttir",
+          "Li Lu",
+          "Anna Bára Unnarsdóttir",
+          "Anna K. Kähler",
+          "Archie Campbell",
+          "Arna Hauksdóttir",
+          "Charilaos Chourpiliadis",
+          "Daniel L. McCartney",
+          "Edda Björk Thordardóttir",
+          "Emily E. Joyce",
+          "Emma M. Frans",
+          "Jóhanna Jakobsdóttir",
+          "Lill Trogstad",
+          "Ole A. Andreassen",
+          "Per Magnus",
+          "Sverre Urnes Johnson",
+          "Patrick F. Sullivan",
+          "Thor Aspelund",
+          "David J. Porteous",
+          "Helga Ask",
+          "Omid V. Ebrahimi",
+          "Unnur Anna Valdimarsdóttir",
+          "Fang Fang"
+        ],
+        "container_title": "The Lancet Regional Health - Europe",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1016/j.lanepe.2023.100733"
+      },
+      "research": {
+        "access": "full_text",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10636287/fullTextXML",
+        "hash": "0fde58429ca93563e1c909b9cb572347fb44a3d8d06abf6552ef0631cc8b010c",
+        "raw_hash": "b8745611fa1d31c99758e3e506d56599d4945f9ba96ea32248b4c7b509d60907",
+        "extraction": "jats_body_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:23.016Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F14.fym.txt",
+        "fym_page": "F14.fym.html",
+        "fym_page_hash": "c5dff05b8135af8faa2253976c4a4ce55f679e856161ef16ebfe033a565a5faa",
+        "research": "F14.research.txt",
+        "research_raw": "F14.research.xml",
+        "crossref": "F14.crossref.json",
+        "epmc": "F14.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "observational",
+      "reviewed_spans": {
+        "fym": [
+          {
+            "start": 0,
+            "end": 8185,
+            "section": "Complete FYM learning body"
+          }
+        ],
+        "research": [
+          {
+            "start": 4834,
+            "end": 6208,
+            "section": "Study design"
+          },
+          {
+            "start": 7309,
+            "end": 8231,
+            "section": "Measurement"
+          },
+          {
+            "start": 10773,
+            "end": 11971,
+            "section": "Statistical analysis"
+          },
+          {
+            "start": 20589,
+            "end": 21973,
+            "section": "Severity results"
+          },
+          {
+            "start": 28684,
+            "end": 30675,
+            "section": "Limitations"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "id": "F14-A1",
+          "verdict": "aligned",
+          "reason": "입원·ICU로 중증도가 높을 때 연관이 커진다는 핵심 관계를 보존한다. 선택한 구절 외의 사망군 비교는 별도로 평가해야 한다.",
+          "selection_basis": "가까운 사람의 질병 중증도와 응답자의 우울·불안 증상 유병 비율 사이의 핵심 결과를 대조했다.",
+          "original_claim": "가까운 사람의 COVID-19가 입원이나 ICU 치료를 필요로 할 때 우울·불안 증상과의 연관이 강했고 ICU 집단에서 가장 강했다.",
+          "original_evidence": {
+            "start": 21538,
+            "end": 21617,
+            "section": "Severity results",
+            "quote": "associations were strongest for having a significant person admitted to the ICU"
+          },
+          "fym_claim": "가족이나 친구가 중환자실 치료를 받은 경우 우울·불안 증상의 증가가 가장 컸다고 설명한다.",
+          "fym_explanation": "가까운 사람을 가족·친구로 풀고 ICU의 뜻과 중증도에 따른 증상 유병 비율 차이를 설명한다. 경증의 작은 차이는 우연일 수 있다는 해설도 남긴다.",
+          "fym_evidence": {
+            "start": 4323,
+            "end": 4347,
+            "section": "Complete FYM learning body",
+            "quote": "largest increase in risk"
+          },
+          "omitted_detail": {
+            "description": "증상 평가 도구와 10점 이상 기준·일부 결측값 처리 및 보정 모형의 세부 조건을 압축했다.",
+            "original_evidence": {
+              "start": 7620,
+              "end": 7636,
+              "section": "Measurement",
+              "quote": "a cut-off of ≥10"
+            }
+          },
+          "simplification_type": [
+            "plain_language",
+            "explicit_definition",
+            "method_compression"
+          ],
+          "lexical_shift": "가까운 주요 인물과 증상 부하라는 용어를 가족·친구와 슬프거나 불안한 증상으로 풀어 쓴다.",
+          "syntactic_shift": "보정 모형과 합동 분석의 복문을 중증도별 순차 설명과 질문으로 분해한다.",
+          "conceptual_shift": "통계 모형보다 질병 중증도와 증상 비율의 관계를 먼저 제시한다. 선택한 중증도 순서에 대한 판정이며 진단이나 인과 효과를 확증하지 않는다.",
+          "age_band": {
+            "value": "middle_3",
+            "assessment_state": "proposed",
+            "basis": "증상의 유병 비율과 증가 비율·우연 가능성을 구분하는 설명이므로 중3 목표로 제안한다. 실제 연령별 수행 검증은 하지 않았다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F15",
+      "source": {
+        "id": "4e19803f-7aa6-47d4-b758-dd5aae641a8f",
+        "source_id": "frym-full:10.3389/frym.2026.1611962",
+        "title": "How Do Bilingual People Avoid Falling for Tricky Words?",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1611962/full",
+        "source_revision": "2026-09-25T07:59:52.613093+00:00",
+        "source_hash": "b970ee97d82bd4bac1514fdb5722bd04e53fa4acac3d0209753296336fe15aef",
+        "page_hash": "8e44b1cafc98910e4c4c78237774698e254773f12b05ceb7b572ab21fadc92f8"
+      },
+      "relation": {
+        "doi": "10.1017/s1366728924000774",
+        "url": "https://doi.org/10.1017/s1366728924000774",
+        "citation_hash": "41e7f6013caf6461bc2591735921838e73438136d321b1e3dc93070a52b05b34"
+      },
+      "metadata": {
+        "doi": "10.1017/s1366728924000774",
+        "title": "Influence of language dominance on crosslinguistic and nonlinguistic interference resolution in bilinguals",
+        "authors": [
+          "Andrea F. Gálvez-McDonough",
+          "Henrike K. Blumenfeld",
+          "Anahy Barragán-Diaz",
+          "Jonathan J.D. Robinson Anthony",
+          "Stéphanie K. Riès"
+        ],
+        "container_title": "Bilingualism: Language and Cognition",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1017/s1366728924000774"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A%2210.1017%2Fs1366728924000774%22&format=json&resultType=core",
+        "hash": "c53851aadc7ff583f08858ecd6c6689f055956463c8cd99e9289a47d81eea89c",
+        "raw_hash": "4cb7dc6c3560adadac0e3bc8b578b9c1bf2eee49b80a5233221e872e8917a3c6",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:24.939Z",
+        "attempts": [
+          "Full text 500: https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13151918/fullTextXML"
+        ]
+      },
+      "files": {
+        "fym": "F15.fym.txt",
+        "fym_page": "F15.fym.html",
+        "fym_page_hash": "4267cf1a47952f44604790a8ca9b2078cce3dc511272ed98471c129a69e1cf67",
+        "research": "F15.research.txt",
+        "research_raw": "F15.epmc.json",
+        "crossref": "F15.crossref.json",
+        "epmc": "F15.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다. 복합 성씨의 표시 순서가 다르나 나머지 저자·제목·DOI가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F15-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F16",
+      "source": {
+        "id": "0eba09cd-b04e-4d76-88b2-c33902a45857",
+        "source_id": "frym-full:10.3389/frym.2026.1622201",
+        "title": "Transforming a Daily Waste Product Into a Mineral for Repairing Teeth and Bones",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1622201/full",
+        "source_revision": "2026-09-25T07:58:54.82524+00:00",
+        "source_hash": "cad18d8cf63b3ff791fd37fac1a85cadd3076a67cbf9e100e5154232f21da1b8",
+        "page_hash": "84d73cd601c9a4a4d3975d210d3c74e94ad58fd94a3a66b388ee28b543b22db8"
+      },
+      "relation": {
+        "doi": "10.1016/j.seppur.2025.132777",
+        "url": "https://doi.org/10.1016/j.seppur.2025.132777",
+        "citation_hash": "7d0ee7d754c4af562cc53ae1e0b82f7b4cfb62f582f8839361cbaf1c8e9853a9"
+      },
+      "metadata": {
+        "doi": "10.1016/j.seppur.2025.132777",
+        "title": "Recovery of calcium from maize Lime-Cooking wastewater as hydroxyapatite for biomedical applications",
+        "authors": [
+          "Edgardo I. Valenzuela",
+          "José M. Sánchez-Urzúa",
+          "Pamela González y Mendoza",
+          "Mireya Navarro-Márquez",
+          "Arizbe Zayas-Olivares",
+          "Janet A. Gutiérrez-Uribe",
+          "Wendy Ortega-Lara",
+          "Pabel Cervantes-Avilés"
+        ],
+        "container_title": "Separation and Purification Technology",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1016/j.seppur.2025.132777"
+      },
+      "research": {
+        "access": "unavailable",
+        "url": null,
+        "hash": null,
+        "raw_hash": null,
+        "extraction": null,
+        "checked_at": "2026-10-04T10:36:26.446Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F16.fym.txt",
+        "fym_page": "F16.fym.html",
+        "fym_page_hash": "979f2bc0ab7439d001ad68c249683778c492e5824a596aa774564f52fd58439d",
+        "research": null,
+        "research_raw": null,
+        "crossref": "F16.crossref.json",
+        "epmc": null
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F16-A1",
+          "verdict": "held",
+          "reason": "현재 접근 경로에서 원 연구 전문이나 초록을 확보하지 못해 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F17",
+      "source": {
+        "id": "ddb42365-b886-45ae-9b71-b729f13113e9",
+        "source_id": "frym-full:10.3389/frym.2026.1623370",
+        "title": "Tiny Ocean Creatures Full of Carbon",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1623370/full",
+        "source_revision": "2026-09-25T08:02:33.68701+00:00",
+        "source_hash": "18f6f6b68ca48ca134e00a710171399b8863ea5c4a1c921db6edf6ba3efceda9",
+        "page_hash": "0b962a17a33856a9049e597aa9193ddfee26d327cef249953255c9e4062d5cc0"
+      },
+      "relation": {
+        "doi": "10.5670/oceanog.2020.203",
+        "url": "https://doi.org/10.5670/oceanog.2020.203",
+        "citation_hash": "67da5c9140305eea8a9b749e0c7ed78c730764d9a9bebf0bc953daff9c8de674"
+      },
+      "metadata": {
+        "doi": "10.5670/oceanog.2020.203",
+        "title": "Linkages Between Dynamic Phytoplankton C:N:P and the Ocean Carbon Cycle Under Climate Change",
+        "authors": [
+          "",
+          "Katsumi Matsumoto",
+          "Tatsuro Tanioka",
+          "Rosalind Rickaby"
+        ],
+        "container_title": "Oceanography",
+        "type": "journal-article",
+        "url": "https://doi.org/10.5670/oceanog.2020.203"
+      },
+      "research": {
+        "access": "unavailable",
+        "url": null,
+        "hash": null,
+        "raw_hash": null,
+        "extraction": null,
+        "checked_at": "2026-10-04T10:36:28.555Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F17.fym.txt",
+        "fym_page": "F17.fym.html",
+        "fym_page_hash": "a5206e479ee4f1edaaf795790f817644fef67660e91fec61e671be26185ea036",
+        "research": null,
+        "research_raw": null,
+        "crossref": "F17.crossref.json",
+        "epmc": null
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다. Crossref의 빈 저자 항목은 개인 저자 일치 근거에서 제외했다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F17-A1",
+          "verdict": "held",
+          "reason": "현재 접근 경로에서 원 연구 전문이나 초록을 확보하지 못해 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F18",
+      "source": {
+        "id": "bd26d95e-88ad-46a3-ad48-46f7dcb624a7",
+        "source_id": "frym-full:10.3389/frym.2026.1635652",
+        "title": "Using AI to Study Fighting in Female Fruit Flies",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1635652/full",
+        "source_revision": "2026-09-25T08:01:57.845553+00:00",
+        "source_hash": "d5446e18cb1f328a8027ab890c5e40bb774cc8c878d0fcb19475c5a9e7f55079",
+        "page_hash": "1f7d5ba901a47db146542f39b746ab6c0aad00e40fdbc0d22baaf6366081027b"
+      },
+      "relation": {
+        "doi": "10.1098/rspb.2024.2301",
+        "url": "https://doi.org/10.1098/rspb.2024.2301",
+        "citation_hash": "c2232aafa9fbfe36058c7e3ceb5b663a527c4c97094604e69ecf138576bd13b9"
+      },
+      "metadata": {
+        "doi": "10.1098/rspb.2024.2301",
+        "title": "Is variation in female aggressiveness across\n                    <i>Drosophila</i>\n                    species associated with reproductive potential?",
+        "authors": [
+          "Eleanor Bath",
+          "Jennifer M. Gleason"
+        ],
+        "container_title": "Proceedings of the Royal Society B: Biological Sciences",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1098/rspb.2024.2301"
+      },
+      "research": {
+        "access": "full_text",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11978443/fullTextXML",
+        "hash": "4ddf410786c3f64382bb3869991a926b0422d9b3cb8017f85e5f269aa203f33f",
+        "raw_hash": "90ee02861ded0201a4002766d6c109f8bb8ab1936e7587dcee300521c70d58d2",
+        "extraction": "jats_body_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:29.683Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F18.fym.txt",
+        "fym_page": "F18.fym.html",
+        "fym_page_hash": "db1e5aafc3dd6b19c0a4a1796b6c927468a62d7ce9ece23684e24067fd93aab9",
+        "research": "F18.research.txt",
+        "research_raw": "F18.research.xml",
+        "crossref": "F18.crossref.json",
+        "epmc": "F18.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "experiment",
+      "reviewed_spans": {
+        "fym": [
+          {
+            "start": 0,
+            "end": 6434,
+            "section": "Complete FYM learning body"
+          }
+        ],
+        "research": [
+          {
+            "start": 17199,
+            "end": 18085,
+            "section": "Species traits"
+          },
+          {
+            "start": 20296,
+            "end": 21731,
+            "section": "Phylogenetic analysis"
+          },
+          {
+            "start": 27889,
+            "end": 29195,
+            "section": "Ovariole results"
+          },
+          {
+            "start": 34147,
+            "end": 35049,
+            "section": "Discussion"
+          },
+          {
+            "start": 39282,
+            "end": 42500,
+            "section": "Design and classifier caveats"
+          }
+        ]
+      },
+      "alignments": [
+        {
+          "id": "F18-A1",
+          "verdict": "aligned",
+          "reason": "종 간 양의 연관과 인과를 결론 내리지 못한다는 한계를 보존한다. 행동 측정 방식이나 종별 AI 성능 전체의 정렬 판정은 아니다.",
+          "selection_basis": "난소소관 수와 암컷 공격성의 종 간 연관이라는 예측·핵심 결과를 대조했다.",
+          "original_claim": "여덟 종 비교에서 난소소관 수와 머리 들이받기 행동의 비율이 양의 연관을 보였다. 종 평균과 계통을 고려해 분석했다.",
+          "original_evidence": {
+            "start": 34325,
+            "end": 34386,
+            "section": "Discussion",
+            "quote": "a positive correlation between ovariole number and aggression"
+          },
+          "fym_claim": "난소소관이 많은 종의 암컷이 더 싸우는 경향이 있지만 난소소관이 싸움을 일으킨다고 결론 내릴 수는 없다고 설명한다.",
+          "fym_explanation": "난소소관을 알을 생산하는 부분으로 정의하고 음식 필요를 가능한 설명으로 보여 주면서 인과를 단정하지 않는다.",
+          "fym_evidence": {
+            "start": 5386,
+            "end": 5437,
+            "section": "Complete FYM learning body",
+            "quote": "We cannot say that ovarioles cause females to fight"
+          },
+          "omitted_detail": {
+            "description": "종 평균의 계통 비교와 여러 모형에 대한 유의수준 보정 방법을 줄였다.",
+            "original_evidence": {
+              "start": 21534,
+              "end": 21567,
+              "section": "Phylogenetic analysis",
+              "quote": "we corrected for multiple testing"
+            }
+          },
+          "simplification_type": [
+            "plain_language",
+            "explicit_definition",
+            "numeric_compression",
+            "method_compression"
+          ],
+          "lexical_shift": "난소소관·계통 비교 분석을 알 생산 구조와 더 싸우는 경향이라는 설명으로 풀어 쓴다.",
+          "syntactic_shift": "상관의 수치와 여러 통계 모형 설명을 예측·결과·인과 한계의 짧은 문장 순서로 나눈다.",
+          "conceptual_shift": "생식 구조와 행동의 연관을 음식 필요의 가설로 설명하되 상관과 인과의 차이를 명시한다.",
+          "age_band": {
+            "value": "middle_2",
+            "assessment_state": "proposed",
+            "basis": "난소의 구조와 종 간 상관·인과를 함께 구분하므로 중2 목표를 제안한다. 실제 학습자 이해도를 확인한 연령 라벨은 아니다."
+          },
+          "confidence": {
+            "grade": "high",
+            "assessment_state": "observer_judgment",
+            "basis": "확보한 FYM 전문과 기록한 원 연구 방법·결과·한계 구간을 직접 읽고 관계를 대조한 관찰자 판단이다. 실측 확률이나 전문가 합의가 아니다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F19",
+      "source": {
+        "id": "d82f6830-0c2e-4c63-9e37-708079af2819",
+        "source_id": "frym-full:10.3389/frym.2026.1648723",
+        "title": "It Takes a Village: Supporting Children Whose Parents Have a Mental Illness",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1648723/full",
+        "source_revision": "2026-09-25T08:02:27.927844+00:00",
+        "source_hash": "6fab40010890b9771d178c8cb5ef20c33d587ca5225084169c0266bb6bb753ea",
+        "page_hash": "876cd94fd6628cd80c7f64fa9a73f487149910d8468861ab26bd3aa16975ba8d"
+      },
+      "relation": {
+        "doi": "10.1111/inm.13324",
+        "url": "https://doi.org/10.1111/inm.13324",
+        "citation_hash": "7bdca286288dfc494a30b6a97fa671edd743051e0ade7cae57ba4c8cc6090e78"
+      },
+      "metadata": {
+        "doi": "10.1111/inm.13324",
+        "title": "Acceptability, engagement and exploratory outcomes and costs of a co‐designed intervention to support children of parents with a mental illness: Mixed‐methods evaluation and descriptive analysis",
+        "authors": [
+          "Annette Bauer",
+          "Javiera Cartagena‐Farias",
+          "Hanna Christiansen",
+          "Melinda Goodyear",
+          "Mona Schamschula",
+          "Ingrid Zechmeister‐Koss",
+          "Jean Paul"
+        ],
+        "container_title": "International Journal of Mental Health Nursing",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1111/inm.13324"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A%2210.1111%2Finm.13324%22&format=json&resultType=core",
+        "hash": "a6fefac9e760323619911153011cce6bd760ec1560715cff508821f3933ab46d",
+        "raw_hash": "4729d9f08aeddbbcfc0babc85d7df7c126da4756cb821f6e71dfbe116d0febea",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:32.371Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F19.fym.txt",
+        "fym_page": "F19.fym.html",
+        "fym_page_hash": "4180da9c2f634840ed8b48bb8015da0922da110ad81e520b15c40659dacae301",
+        "research": "F19.research.txt",
+        "research_raw": "F19.epmc.json",
+        "crossref": "F19.crossref.json",
+        "epmc": "F19.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F19-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    },
+    {
+      "id": "F20",
+      "source": {
+        "id": "6d0d1f74-9f3e-46c4-9ee8-f3c0eab84649",
+        "source_id": "frym-full:10.3389/frym.2026.1649536",
+        "title": "Why is Eating Healthy More Difficult for Some People?",
+        "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1649536/full",
+        "source_revision": "2026-09-25T08:00:23.400966+00:00",
+        "source_hash": "5d0e89169e2d88bf89b52203e6450082da694dfdc97569c26c4f1ddd3510ea72",
+        "page_hash": "cbec53e1aa9c066f38222a458e5e0f0d30484807173c7593e7caa1a5f2c71d99"
+      },
+      "relation": {
+        "doi": "10.1111/nbu.12626",
+        "url": "https://doi.org/10.1111/nbu.12626",
+        "citation_hash": "31d74cc0aad1b885dcbcf0133901e368dbb77dcb764dc4c93edb1766a1928388"
+      },
+      "metadata": {
+        "doi": "10.1111/nbu.12626",
+        "title": "Food insecurity in people living with obesity: Improving sustainable and healthier food choices in the retail food environment—the FIO Food project",
+        "authors": [
+          "Marta Lonnie",
+          "Emma Hunter",
+          "Rebecca A. Stone",
+          "Mariana Dineva",
+          "Modupe Aggreh",
+          "Hannah Greatwood",
+          "Alexandra M. Johnstone",
+          ""
+        ],
+        "container_title": "Nutrition Bulletin",
+        "type": "journal-article",
+        "url": "https://doi.org/10.1111/nbu.12626"
+      },
+      "research": {
+        "access": "abstract_only",
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A%2210.1111%2Fnbu.12626%22&format=json&resultType=core",
+        "hash": "f6ef0268cc55e14b00a9b9a23b81f1242f88a24e218e9d2b8fc939c43a7ddc0e",
+        "raw_hash": "ac5ad8488c7c1ce5f31000f51868b82358f55ecfb0cebb78bf71d759fd94044e",
+        "extraction": "metadata_abstract_htmlToPlainText_v1",
+        "checked_at": "2026-10-04T10:36:33.490Z",
+        "attempts": []
+      },
+      "files": {
+        "fym": "F20.fym.txt",
+        "fym_page": "F20.fym.html",
+        "fym_page_hash": "887f343212faaa881e4f03dfd7d08992aa513e4eef8504bb66519a714c23e1fc",
+        "research": "F20.research.txt",
+        "research_raw": "F20.epmc.json",
+        "crossref": "F20.crossref.json",
+        "epmc": "F20.epmc.json"
+      },
+      "link_review": {
+        "verdict": "verified",
+        "identity_checks": [
+          "doi",
+          "title",
+          "authors"
+        ],
+        "confidence": {
+          "grade": "high",
+          "assessment_state": "observer_judgment",
+          "basis": "공식 FYM의 원 연구 구간 DOI·제목·인용 저자를 Crossref 원본 메타데이터와 직접 대조했다. 주제 유사성으로 추정하지 않았다."
+        },
+        "reason": "공식 원 연구 구간과 Crossref의 DOI·논문 제목·주요 저자가 일치한다. Crossref의 빈 저자 항목은 개인 저자 일치 근거에서 제외했다."
+      },
+      "research_type": "unassessed",
+      "reviewed_spans": {
+        "fym": [],
+        "research": []
+      },
+      "alignments": [
+        {
+          "id": "F20-A1",
+          "verdict": "held",
+          "reason": "원 연구 초록만 확보해 주장·근거와 생략된 상세의 정밀 정렬을 보류했다.",
+          "selection_basis": "링크 검증 대상인 모든 쌍을 정렬 목록에도 남기며 접근 실패 항목을 성공 분모로 넣지 않는다.",
+          "original_claim": null,
+          "original_evidence": null,
+          "fym_claim": null,
+          "fym_explanation": null,
+          "fym_evidence": null,
+          "omitted_detail": null,
+          "simplification_type": [],
+          "lexical_shift": null,
+          "syntactic_shift": null,
+          "conceptual_shift": null,
+          "age_band": {
+            "value": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구와의 정렬을 평가하지 않아 연령별 변환 제안도 부여하지 않았다."
+          },
+          "confidence": {
+            "grade": null,
+            "assessment_state": "unassessed",
+            "basis": "원 연구 전문을 확보하지 못해 실제 각색 대응을 판단하지 않았다."
+          }
+        }
+      ]
+    }
+  ]
+}

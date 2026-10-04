@@ -1,5 +1,7 @@
 # Admin Console
 
+FYM 원 연구 계보·정밀 검증(2026-10-04): 소재 적격 도움말에 `frym-pairs-export`의 읽기 전용 조회·본문/revision 대조·보류·새 출력 경로로 재실행·각색 `--research-origins` 전달과 `frym-precision-select/prepare/verify`의 로컬 검토 절차를 추가했다. 20~50편 표본·전문/초록 분리·11개 변환 필드·독립 링크/정렬 분모·원본 해시 재검증을 안내한다. 신규 화면/탭/액션은 없으며 명시적 연결·접근 권리·gold 검토 후보·학생 calibration을 구분한다. [첫 회차](./reports/frym-precision-20261004.md)는 DB를 변경하지 않았다.
+
 ### 교재 생성 타깃·처리 계약 (2026-10-04)
 
 소재 적격 도움말에 [Academic Reading Engine](./ACADEMIC_READING_ENGINE.md)의 연령·언어·사고·능력·제품 목적 분리와 소량 export → 에이전트 집필 → import 예행 → checkpoint → queued 각색 → 기존 분석/내용 판정/적격 → 문항 제작 절차를 추가했다. 같은 원문에서 여러 target을 처리하고 기사별 권리·본문 hash/revision·분석·문항 근거를 검증한다. 완료/대기 입력과 결과를 모두 보존한다. 새 화면·탭·라우트·자동 발행은 추가하지 않았다. 도움말 정본은 `lib/admin/help/textbook.ts`다.

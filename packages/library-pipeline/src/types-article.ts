@@ -38,6 +38,7 @@ export type ArticleSource =
   | 'manual'
 
 import type { RightsEvidence } from './ingest-article/rights-tag'
+import type { ResearchOrigin } from './ingest-article/research-origin'
 
 export interface RawArticle {
   source: ArticleSource
@@ -58,6 +59,8 @@ export interface RawArticle {
    *  Lit2Go = passage 별 mp3.
    *  /text/[id] 학습 화면에서 native player 자동 노출 (LibriVox 와 동일 연계). */
   audio_url?: string | null
+  /** Publisher-declared original research, kept outside the learning prose. Not a license approval. */
+  research_origin?: ResearchOrigin
   fetched_at: Date
 }
 

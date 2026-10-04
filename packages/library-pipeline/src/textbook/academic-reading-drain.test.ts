@@ -6,8 +6,10 @@ import {
   readingTask,
   targetKey,
   validateReadingDraft,
+  researchOriginForSource,
 } from '../../../../scripts/textbook/academic-reading-contract.mjs'
 import { analysis, quote, rights, target } from './academic-reading-fixtures'
+import { extractFrymResearchOrigin } from '../ingest-article/research-origin'
 
 const now = Date.parse('2026-10-04T00:00:00Z')
 const current = {
@@ -136,5 +138,55 @@ describe('각색 드레인 계보와 재실행 계약', () => {
         now
       ).ok
     ).toBe(false)
+  })
+})
+
+describe('FYM 연구 계보와 각색 연결', () => {
+  const url = 'https://kids.frontiersin.org/articles/10.3389/frym.2021.556361/full'
+  const container = `<div class="fulltext-content"><p>${quote}</p><h6>Original Source Article</h6><p>Lafuente 2019. Research citation. doi: 10.1111/geb.12928</p><h6>References</h6><p>Other study. doi: 10.1000/other</p></div>`
+  const origin = extractFrymResearchOrigin({ html: `<meta property="og:url" content="${url}">${container}`, container, studentUrl: url, body: quote, checkedAt: '2026-10-03T00:00:00Z' })
+  const frym = { ...current, source: 'frym', source_id: 'frym-full:10.3389/frym.2021.556361', source_url: url, license: 'CC-BY-4.0', license_class: 'cc_by' }
+  const input = { ...exported, source_feed: 'frym', source_url: url, source_license: 'cc_by', reading: readingTask(frym, target, origin) }
+  const relation = origin.relations[0]!
+  const pair = { ...relation, student_url: url }
+  const output = { ...row, ...input, reading: { ...input.reading,
+    source_rights: { ...rights, canonical_source: 'frym', canonical_url: url, license: frym.license },
+    reading_analysis: { ...analysis, parallel_pair: pair },
+  } }
+  const manifestRow = { id: frym.id, source_id: frym.source_id, source_url: url, source_revision: frym.updated_at, source_hash: input.reading.source_hash, status: origin.status, research_origin: origin }
+  it('passes explicit publisher evidence kept outside learning prose and preserves it in provenance', () => {
+    expect(quote).not.toContain(pair.original_work_id)
+    const result = validateReadingDraft(output, input, frym, now)
+    expect(result.ok).toBe(true)
+    expect(result.ok && result.spec.provenance.research_origin).toEqual(origin)
+  })
+  it('hands a read-only pair export to adaptation without editing the DB source', () => {
+    expect(researchOriginForSource(frym, new Map([[frym.id, manifestRow]]), now)).toEqual(origin)
+    expect(frym.csat_fit).toEqual(current.csat_fit)
+    expect(input.reading.database_research_origin).toBeNull()
+  })
+  it('rejects old manifest revisions and held exports', () => {
+    expect(() => researchOriginForSource(frym, new Map([[frym.id, { ...manifestRow, source_revision: 'old' }]]), now)).toThrow(/stale/)
+    expect(() => researchOriginForSource(frym, new Map([[frym.id, { ...manifestRow, status: 'held', reason: 'body changed' }]]), now)).toThrow(/held/)
+  })
+  it('rejects edits to the exported research snapshot', () => {
+    expect(validateReadingDraft({ ...output, reading: { ...output.reading, research_origin: { ...origin, page_hash: 'a'.repeat(64) } } }, input, frym, now).ok).toBe(false)
+  })
+  it('rejects wrong/current-body hashes and future origin evidence', () => {
+    for (const bad of [{ ...origin, body_hash: 'a'.repeat(64) }, { ...origin, checked_at: '2026-10-05T00:00:00Z' }]) {
+      const badInput = { ...input, reading: readingTask(frym, target, bad) }
+      const badOutput = { ...output, reading: { ...output.reading, ...badInput.reading, source_rights: output.reading.source_rights, reading_analysis: output.reading.reading_analysis } }
+      expect(validateReadingDraft(badOutput, badInput, frym, now).ok).toBe(false)
+    }
+  })
+  it('rejects arbitrary DOI evidence, another research URL and ordinary bibliography', () => {
+    for (const bad of [{ ...pair, evidence: 'Other study. doi: 10.1000/other', original_work_id: '10.1000/other', research_url: 'https://doi.org/10.1000/other' }, { ...pair, research_url: 'https://example.com' }]) {
+      expect(validateReadingDraft({ ...output, reading: { ...output.reading, reading_analysis: { ...analysis, parallel_pair: bad } } }, input, frym, now).ok).toBe(false)
+    }
+  })
+  it('does not fall back to an isolated body DOI without explicit publisher origin', () => {
+    const bodyOnlyInput = { ...input, reading: readingTask(frym, target) }
+    const bodyOnlyOutput = { ...output, reading: { ...output.reading, research_origin: null } }
+    expect(validateReadingDraft(bodyOnlyOutput, bodyOnlyInput, frym, now).ok).toBe(false)
   })
 })

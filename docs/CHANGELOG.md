@@ -12,6 +12,13 @@
 ## Unreleased (v06.34 → next)
 
 - feat(design): 학습자 PC 본문 구성 — WordBlitz 머리를 형제 게임 대기실과 같은 발견형 히어로로, 내 책장을 `PageIntro` + 색 카드 + 「더 담기」 칸으로, 대시보드·계획 본문 구획 제목을 세리프 24 한 규격(`--section-title` · `press-rule-*`)으로. `/wordblitz`·`/my/books` 중복 배너 제거. e2e 18 WordBlitz 기록 단언을 제품의 「기록 없음 한 줄」 결정에 맞춤(기존 실패). DB·라우트 변경 없음.
+
+- fix(textbook): FYM 정밀 검증의 Crossref 서지 조회와 Europe PMC/발행처 본문 확보를 분리했다. Crossref 실패·다른 DOI 응답이 공개 전문/초록 조회를 막거나 잘못된 초록을 선택하지 않도록 회귀로 검증했다.
+
+- feat(textbook): FYM 20편의 로컬 정밀 검증 세트·11개 변환 필드·증거 해시/인용 위치 검증을 추가했다. 링크 20/20과 전문 정렬 5/10을 분리하고 불일치 3·부분 2·전문 미확보 보류 12를 보존했다. 모든 기록 정렬이 일치하는 후속 gold 검토 후보는 4쌍이다. 원문/DB/생성 importer 변경·마이그레이션 없음.
+
+- feat(textbook): FYM Original Source Article 계보를 학습 본문 밖에 보존하고 새 수집 JSONB·읽기 전용 원천 점검·각색 드레인에 연결했다. 참고문헌 오인·다른 페이지/변경된 본문·낡은 계보·연구 URL/인용 변조를 차단한다. 기존 DB 갱신·새 테이블·마이그레이션 없음.
+
 - feat(textbook): Academic Reading 타기팅·처리 계약 — R0~R13/P01~P20·독자/언어/사고 분리·기사별 권리·열 분석축·문항 난이도/근거를 공통 정본으로 추가. 기존 각색/문항 드레인에 target별 계보·hash/revision 대조·queued 자식과 payload 저장을 연결했다. 마이그레이션·라우트·DB 발행 변경 없음.
 - fix(textbook): 같은 원문의 다른 target 생성과 각색/문항 청크 보존·예약·중복 처리를 수정하고 high/exam의 중등 어휘 대역 오적용을 제거했다. 제시문 임의 변경을 막고 빈칸/어휘 치환만 허용한다. 관리자 도움말·집필 계약·파이프라인/DB 문서를 동반 갱신했다.
 

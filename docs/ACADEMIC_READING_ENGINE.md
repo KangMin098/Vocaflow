@@ -70,4 +70,19 @@ pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-exp
 
 재실행·복구: export는 읽기만 하며 이미 예약/적재한 target을 건너뛴다. out 파일의 미완성 행은 DB에 쓰지 않는다. 임의로 청크를 지우고 다시 뽑으면 중복 예약 근거가 사라지므로 오류·보류 이유를 먼저 고친다. 원문이 바뀌면 새 입력을 별도 디렉터리로 뽑는다. import는 원문을 덮거나 기존 각색을 upsert하지 않는다. 부분 배치 삽입 실패 후 같은 청크를 재실행하면 이미 있는 판을 건너뛴다. DB 유일키가 중복 INSERT를 막는다. 원문 revision의 마지막 확인과 insert 사이를 DB 트랜잭션으로 묶는 RPC는 아직 없다. 실제 import 작업 구간에는 관련 원문 수정·수집·분석·권리/내용 판정·다른 각색/문항 import까지 모두 멈추고 한 작업으로 직렬 실행한다. 이 전제를 확보할 수 없으면 예행까지만 하고 --commit을 실행하지 않는다. 최종 재조회는 이 운영 전제를 대체하지 않는다. 대량 처리 전후 DB checkpoint와 `pnpm docs:db-stats`를 실행한다.
 
-FYM 연구–학생용 쌍은 `analysis.parallel_pair`에 원 연구 DOI·두 URL·원문에 포함된 DOI 증거를 저장한다. 별도 `parallel_adaptation_pairs` 테이블은 아직 없으며 자동 매칭이나 gold-set calibration은 실행하지 않았다. 별도 테이블은 향후 SQL 검토·승인 후 만든다. NIH 우선 처리·BLS/NPS 수집·비STEM 배합 보완·KICE calibration·학습자 수행 기반 조정도 타기팅 설계와 분리된 코퍼스 운영 작업이다.
+FYM 연구–학생용 연결(후속 구현, 2026-10-04): 수집기는 본문 정리 전에 **Original Source Article(s)** 구간을 읽어 `csat_fit.research_origin`에 보존한다. 학생용 DOI/URL·페이지/본문 SHA256·확인 시각·원 연구 DOI/doi.org URL·명시적 구간의 인용을 저장한다. 일반 References는 연결 근거로 쓰지 않는다. 여러 원 연구를 지원하며 명시적 구간 없음(`no_explicit_original_source`)과 DOI 없음(`original_source_without_doi`)을 구분한다. 기존 학습 본문과 기사별 권리 정보는 그대로 유지한다. 새 수집 INSERT만 메타데이터를 보존하며 기존 원천을 자동 갱신하지 않는다.
+
+기존 재고는 아래 읽기 전용 명령으로 점검한다. 페이지 `og:url`이 요청 DOI와 일치하고 추출한 본문이 현재 DB 원문과 같은 경우만 계보를 내보낸다. 네트워크 조회 뒤 DB revision/hash를 다시 확인한다. 페이지·DB 본문이 다르면 보류 이유를 남기며 본문을 덮지 않는다. `--limit`은 1~100, `--ids-file`은 선택한 UUID를 한 줄에 하나씩 담는다. 출력 파일이 있으면 실패하므로 재실행에는 새 경로를 쓴다. DB와 수집 커서는 변하지 않는다.
+
+```powershell
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-pairs-export.mjs --ids-file <UUID파일> --limit 3 --output <새계보.json>
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target scripts/textbook/targets/knowledge-middle1.json --source frym --research-origins <새계보.json> --limit 3 --dir <새청크폴더>
+```
+
+`--research-origins`는 해당 파일의 원천 UUID 범위에서만 뽑으며 source_id/URL/revision/hash를 현재 DB와 대조한다. DB에 메타데이터가 없어도 계보를 각색 청크에 넘길 수 있다. 입력 `research_origin` 및 `database_research_origin`을 그대로 유지하며 importer는 현재 원문과 DB 메타데이터를 대조한다. `analysis.parallel_pair`는 보존된 relations 중 DOI·URL·전체 인용이 일치하는 연결만 허용하고 자식 provenance에 스냅샷을 보존한다. 연결 자체가 원 연구 본문의 이용권리나 calibration 승인을 뜻하지 않는다.
+
+정밀 검증(2026-10-04): DB에서 직접 확인한 FYM 전문 원천 152편을 50/100/2 UUID 배치로 읽었다. 명시적 연결 37편·구간 없음 115편 중 source_id 순 연결 첫 20편을 고정했다. 20편 모두 DOI·제목·주요 저자 연결을 확인했지만 원 연구 전문은 8편, 초록만 9편, 미확보 3편이다. 전문 8편의 선택 정렬 10개는 aligned 5·partial 2·contradicted 3, 전문 미확보 12편은 held다. **링크 정확도 20/20과 정렬 정확도 5/10을 분리**하며 보류·대표성·기사 전체 정확성은 성공률에 포함하지 않는다. 모든 기록 정렬이 일치하는 후속 gold 검토 후보는 4쌍이며 전문가 인증이나 학생 calibration은 아니다. [주석 데이터](../scripts/textbook/frym-precision/round-1.json) · [검토 보고서](./reports/frym-precision-20261004.md).
+
+`parallel-precision.ts`에 original_claim/original_evidence/fym_claim/fym_explanation/omitted_detail/simplification_type/lexical_shift/syntactic_shift/conceptual_shift/age_band/confidence를 저장하는 계약을 추가했다. FYM 인용·양쪽 읽은 범위·선정 이유도 보존한다. confidence는 관찰자의 근거 있는 판단이고 age_band는 목표 제안이며 실제 FYM 연령을 추정하지 않는다. 명시적 연결·전문 확보·구절 의미 대응은 각각 다른 상태다. 부정·부분 정렬은 모범 각색에서 제외하고 실패 검증 사례로 남긴다.
+
+로컬 검토 절차는 `frym-precision-select.mjs` → `frym-precision-prepare.mjs` → 직접 검토 → `frym-precision-verify.mjs`다. [회차 절차](../scripts/textbook/frym-precision/README.md)에 명령·재실행·복구를 적었다. 전문/HTML/XML/원본 메타데이터는 ignored 로컬 증거 폴더에, 짧은 인용·offset·해시·판정은 결과 JSON에 보존한다. 검증기는 원본에서 추출을 재현하고 source/revision/DOI/인용/읽은 범위/분모 변조를 거부한다. DB 갱신·발행·마이그레이션은 없으며 이 데이터는 생성 importer의 자동 입력으로 연결하지 않았다. 별도 `parallel_adaptation_pairs` 테이블은 향후 SQL 검토·승인 후 만든다. 학령별 규칙·학생 calibration·NIH 우선 처리·BLS/NPS 수집·비STEM 배합 보완·KICE calibration은 후속 작업이다.

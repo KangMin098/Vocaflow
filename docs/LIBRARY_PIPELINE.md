@@ -2,6 +2,10 @@
 
 ## Academic Reading 교재 타기팅·처리 (2026-10-04)
 
+FYM 정밀 검증은 [읽기 전용 로컬 회차](../scripts/textbook/frym-precision/README.md)로 진행한다. disjoint origin 배치를 `frym-precision-select`로 합치고 `prepare`가 FYM/연구 전문·초록·메타데이터의 원본/추출 해시를 보존한다. 직접 읽은 구간·11개 변환 필드·관찰자 confidence/목표 연령 제안·링크와 정렬의 독립 판정을 기록한 뒤 `verify`가 원본 추출·DOI/본문/인용/offset/분모를 대조한다. 첫 회차 20편에서 링크 20/20, 전문 8편의 정렬 5/10·부분 2·불일치 3·보류 12, 후속 gold 검토 후보 4쌍을 확인했다([보고서](./reports/frym-precision-20261004.md)). 대표 표본이나 전문가 gold 인증은 아니며 생성 importer/DB 쓰기를 추가하지 않았다. 실패·보류 증거도 보존한다.
+
+FYM 계보 보존: 새 `ingestFrymArticle`은 Original Source Article(s) 구간을 본문 밖의 `research_origin`으로 추출하며 `frym-ingest`의 원천 INSERT와 ACP 일일 수집은 `csat_fit.research_origin`에 보존한다. 기존 행은 자동 갱신하지 않는다. `frym-pairs-export.mjs --ids-file <UUID파일> --limit 3 --output <새.json>`은 DB/공식 페이지를 읽고 현재 본문·revision을 대조해 계보와 보류 사유를 내보낸다(재실행: 새 출력 경로, DB/커서 변경 없음). `adapt-drain-export.mjs --target <JSON> --source frym --research-origins <새.json>`은 그 UUID 범위만 선택하고 원문 바인딩을 검증해 증거를 전달한다. import는 명시적 구간의 DOI/URL/인용 일치만 허용한다. References·주제 유사성·단독 DOI는 연결 근거가 아니며 원 연구 수집/권리 검증과 calibration은 별도다.
+
 원문 하나에서 초등 고학년~고3의 연령·언어·사고·독해 능력·교재 목적을 따로 지정하는 [Academic Reading Engine](./ACADEMIC_READING_ENGINE.md)을 추가했다. R0~R13·P01~P20·원천 역할·학년 progression의 정본은 `academic-reading.ts`다. 기존 `adapt-drain-export/import.mjs --target <JSON>`은 전체 target 식별키·원문 hash/revision·기사별 권리·열 분석축·질문/활동 계획을 검증하고 원문을 보존한 queued 자식만 만든다. 기존 밴드 모드도 같은 V-Level의 완료/예약만 건너뛰며 high/exam에 중등 어휘 대역을 적용하지 않는다.
 
 문항 드레인은 지원하는 유형/skill의 각색만 뽑고 별도 지문 수준·문항 사고 수준·문항 난이도·근거를 payload.academic_reading에 저장한다. 실제 제시문은 입력 원본과 같거나 빈칸/어휘의 지정된 치환만 허용한다. 입력/완료 청크를 모두 예약·보존하며 깨진 예약 파일은 오류로 드러낸다. 원문 프로파일은 자식의 composed_spec에 원문 계보와 함께 보존한다. 새 테이블·마이그레이션·공개 라우트·자동 발행은 추가하지 않았다. 자료/활동의 신규 조판과 FYM gold-set·BLS/NPS 수집·KICE 실측 calibration은 별도 운영 단계다.

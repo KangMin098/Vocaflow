@@ -39,7 +39,7 @@ import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
 import { pickFreeSlots, readReservedTasks } from './chunk-slots.mjs'
-import { adaptationKey, readTarget, readingTask, targetKey } from './academic-reading-contract.mjs'
+import { adaptationKey, readTarget, readingTask, targetKey, readResearchOrigins, researchOriginForSource } from './academic-reading-contract.mjs'
 import { readingDirectives, readingSourceRole, SOURCE_PRIORITIES } from '@vocaflow/library-pipeline/academic-reading'
 
 loadEnv()
@@ -48,6 +48,9 @@ const arg = (n) => {
   return i >= 0 ? process.argv[i + 1] : null
 }
 const readingTarget = readTarget(arg('target'))
+const researchOrigins = readResearchOrigins(arg('research-origins'))
+const exportNow = Date.now()
+if (researchOrigins && !readingTarget) throw new Error('--research-origins requires --target')
 const BAND = readingTarget?.language_band ?? arg('band') ?? 'elementary'
 const SIZE = Number(arg('size') ?? 6)
 const LIMIT = Number(arg('limit') ?? 60)
@@ -186,7 +189,7 @@ const excludeRegisters = readingTarget ? [] : REGISTER_EXCLUDE[BAND] ?? []
  */
 const sources = await fetchAll(
   'library_articles',
-  'id, title, source, feed_label, license, license_class, article_v_level, word_count, source_url, register',
+  'id, source_id, title, source, feed_label, license, license_class, article_v_level, word_count, source_url, register',
   (q) => {
     let x = q
       .in('license_class', ADAPTABLE)
@@ -197,6 +200,7 @@ const sources = await fetchAll(
       .is('adapted_from_id', null)
       .not('status', 'in', '(archived,failed)')
     if (arg('source')) x = x.eq('source',arg('source'))
+    if (researchOrigins) x = x.in('id', [...researchOrigins.keys()])
     // `register` 가 비어 있는 글은 막지 않는다 — 판정된 적이 없는 것과 부적합한 것은 다르다.
     if (excludeRegisters.length) x = x.or(`register.is.null,register.not.in.(${excludeRegisters.join(',')})`)
     return x
@@ -372,7 +376,7 @@ for (const [n, chunk] of chunks.entries()) {
     source_v_level: r.article_v_level,
     source_url: r.source_url,
     source_text: r.content,
-    ...(readingTarget ? { reading:readingTask(r,readingTarget) } : {}),
+    ...(readingTarget ? { reading: readingTask(r, readingTarget, researchOriginForSource(r, researchOrigins, exportNow)) } : {}),
     // **각색해도 살아남을 새 낱말의 밀도** — 낮으면 그 원문은 대역에 못 든다(§위).
     //   게이트가 아니라 신호다. 낮으면 건너뛰고 다른 원문을 쓰는 편이 낫다.
     //   실측 참고: 끝내 반려된 원문 8.4% · 붙은 원문 34~41%.
