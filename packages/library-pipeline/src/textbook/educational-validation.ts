@@ -78,14 +78,14 @@ const approval = z.object({
   human_lead_id: id, approved_at: date, protocol_hash: hash, instrument_hash: hash,
   registration_evidence: reason,
 }).strict()
-const review = z.object({
+export const expertReviewSchema = z.object({
   expert_id: id, blind_item_id: id, reviewed_at: date, passage_hash: hash,
   criteria,
   distortions: z.array(z.object({ code: distortion, passage_quote: z.string().min(8), reason }).strict()),
   reason,
 }).strict()
 const answer = z.object({ item_id: id, response: z.string().trim().nullable(), score: z.number().min(0).max(1).nullable(), scorer_id: id.nullable() }).strict()
-const session = z.object({
+export const studentSessionSchema = z.object({
   student_id: id, grade:grade.nullable(), grade_verified_by: id.nullable(),
   reading_started_at: date.nullable(), reading_finished_at: date.nullable(),
   unknown_word_count: z.number().int().nonnegative().nullable(),
@@ -109,8 +109,8 @@ export const validationBundleSchema = z.object({
     link_confidence: z.enum(['high','medium','low']),
     provenance_verified: z.boolean(),
     instrument: z.array(measurementItemSchema),
-    expert_reviews: z.array(review),
-    student_sessions: z.array(session),
+    expert_reviews: z.array(expertReviewSchema),
+    student_sessions: z.array(studentSessionSchema),
   }).strict()).min(1),
 }).strict().superRefine((b,ctx) => {
   if (new Set(b.experts.map(e=>e.id)).size !== b.experts.length ||

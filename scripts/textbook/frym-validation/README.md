@@ -29,6 +29,26 @@ Export는 DB 접근 없이 로컬 해시·정렬 증거·쌍별 중1/고1 한 �
 4. 필요한 전문가 모두 pass이고 왜곡이 없는 버전만 학생에게 제시한다. 읽기 시작/끝은 문항 답변 이전의 읽기 시간이다. 학생은 모르는 단어의 등장 횟수, 어휘/문장/추론 부담 및 체감 난도(각 1–5), 실제 응답을 기록한다. 전문가가 등록된 기준으로 각 답을 0/0.5/1로 채점한다. 같은 학생이 한 pair의 두 버전을 보거나 같은 버전을 반복 측정하지 않는다.
 5. 책임자가 결과를 `coordinator/results.json` 스키마에 맞춰 합친 뒤 verify를 실행한다. 학생의 미완료 측정과 무응답은 null/빈 응답으로 보존한다. 누락값을 0이나 pass로 채우지 않는다. 부분 기록은 gold 표본과 집계에서 제외되고 차단 사유로 남는다. 학년·시각·등록/전문가/학생 순서·본문 인용·현재 회차 해시가 맞아야 한다.
 
+## 실제 응답 수집 (2026-10-05)
+
+완성된 응답을 큰 결과 파일에 직접 붙이지 않고 새 수집 batch로 전달한다. 아래 경로는 예시이며 기존 출력이 있으면 새 이름을 사용한다. 두 명령 모두 DB 접근·발송 없이 로컬 파일만 처리한다.
+
+```powershell
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-collect.mjs --input .agent-logs/frym-validation-study-1/coordinator/results.json --precision-review scripts/textbook/frym-precision/round-1.json --prepare --output .agent-logs/frym-validation-study-1/coordinator/response-batch-1.json
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-collect.mjs --input .agent-logs/frym-validation-study-1/coordinator/results.json --precision-review scripts/textbook/frym-precision/round-1.json --responses .agent-logs/frym-validation-study-1/coordinator/response-batch-1.json --output .agent-logs/frym-validation-study-1/coordinator/collected-1.json
+```
+
+`--prepare`는 해당 study의 protocol/instrument hash가 있는 빈 `human_response_batch`를 만든다. 실제 사람 ID나 응답은 생성하지 않는다. 책임자가 실제 응답만 `expert_reviews`와 `student_sessions` 배열에 넣는다. batch는 coordinator 전용이며 학년 확인·채점 정보가 있으므로 학생에게 전달하지 않는다.
+
+- 전문가: 패킷에서 받은 `response`에 해당 `blind_item_id`와 coordinator 기록의 `passage_hash`를 붙인다. `expert_id`, `reviewed_at`, 8개 `criteria`, `distortions`, `reason`을 보존한다. 독립 전문가 등록과 protocol_approval은 사람 책임자가 결과 파일에 실제 증빙으로 먼저 기록해야 한다.
+- 학생: 패킷의 `response`에 `blind_item_id`, `passage_hash`, 실제 `grade`와 `grade_verified_by`를 붙인다. 답안마다 `item_id`, 실제 `response`, 전문가가 매긴 `score`, `scorer_id`를 보관한다. 학생은 가명 ID가 필요하며, 아직 채점되지 않은 값은 null이다. 제공된 문항 ID만 받으며 미등록 채점자를 거절한다.
+
+수집은 protocol/instrument 및 현재 회차, opaque ID/본문, 등록된 전문가/채점자, 평가 시각, 실제 목표 학년을 검사한다. 학생의 읽기는 필요한 전문가 모두 의미 pass·왜곡 없음 판정한 이후여야 한다. 학생의 부분 측정은 null/빈 값으로 보존하고 다음 batch에서 빈 칸만 채울 수 있다. 이미 기록된 점수·시각·답안·판정이 다르면 전체 수집을 거절하며 기존 결과를 수정하지 않는다. 전문가는 같은 판정의 재입력만 건너뛰고 판정을 자동 교체하지 않는다.
+
+성공 시 새 결과 파일과 `<output>.receipt.json`에 원 입력·응답·출력 SHA256 및 수집 건수를 남긴다. 같은 batch를 수집 결과에 다시 적용하면 변경 0이며 duplicate 수만 늘어난다. 저장된 receipt의 duplicate 수는 연구 응답 수가 아니다. 신규·부분 보충·중복 건수는 각각 집계한다. 빈 batch는 사전 등록 전에도 변경 0 예행이 가능하다.
+
+새 결과로 앞의 verify 명령을 실행한다. collect의 성공은 gold 인증이 아니다. 충돌은 원본·응답·receipt를 보존하고 책임자가 실제 증빙으로 해결한 새 결과를 검증한다. 부분 파일 또는 receipt만 생긴 저장 실패는 삭제/덮기 대신 새 경로로 재실행한다. `--commit`과 기존 경로 덮어쓰기는 거절한다. [빈 입력 예행 결과](../../../docs/reports/frym-response-collection-20261005.md).
+
 ## 승격과 DB 적재
 
 상태는 결과에서 계산한다. 유효하고 완전한 전문가 패널 전에는 `candidate`, 패널 완료 후 학생 측정 미완료 또는 실패가 있으면 `reviewed`, 모든 기준을 통과한 정확한 본문/target/protocol에만 `gold`다. 완전한 provenance·원 연구 링크 high·모든 전문가 항목 pass·왜곡 없음·실제 학년별 표본·모든 측정 범위 통과가 필요하다. fail/unassessed가 섞이면 승격하지 않는다.

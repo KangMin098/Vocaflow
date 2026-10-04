@@ -2,6 +2,8 @@
 
 ## Academic Reading 교재 타기팅·처리 (2026-10-04)
 
+실제 평가 수집(2026-10-05): `frym-validation-collect.mjs --input <results.json> --precision-review <회차.json> --prepare --output <새 batch.json>`은 사람이 채울 빈 입력을 만든다. `--responses <batch.json> --output <새 results.json>`은 해시·opaque ID·본문·전문가 등록·시각·문항/채점자·학년을 검사하고 충돌 없이 중복 skip/학생 null 값 보충을 수행한다. DB 접근/발송/자동 점수 생성은 없으며 새 출력과 해시 receipt를 보존한다. 최신 결과로 verify 후 기존 gold/적재 게이트를 계속 적용한다([절차](../scripts/textbook/frym-validation/README.md)).
+
 교육적 타당도 단계: [blind export/verify](../scripts/textbook/frym-validation/README.md)는 pair별 중1/고1 한 편씩과 연구 증거를 검사하고 전문가 8개·학생 8개 패킷, 4축 96개 초안 문항을 만든다. 전문가 의미 8항목·5차원, 실제 학생 측정, taxonomy v1을 분리한다. 사람이 사전 등록한 문항/프로토콜과 실제 평가가 모두 통과해야 exact passage/target/protocol gold다. 보존 규칙을 쓰는 import에는 `--educational-validation <results.json>`이 필수이며 파일 변경·본문/target/원천 불일치·미평가를 거절한다. 일반 각색의 기존 경로는 유지한다. 현재 candidate 8·실제 평가 0·gold 0·DB 쓰기 0이며 학년 규준 검증은 아직 없다([보고서](./reports/frym-educational-validation-20261004.md)).
 
 후속 의미 보존 단계: 검토 후보 F02/F06/F14/F18의 구절에만 [규칙](../scripts/textbook/frym-precision/preservation-rules-1.json)을 묶었다. 각색 export/import는 `--preservation-rules <규칙.json> --precision-review <회차.json>`을 함께 받아 해당 UUID로 범위를 좁히고 source/round/research 바인딩을 대조한다. 검토 목록에서 VRL 미측정은 null로 유지해 export할 수 있으나 그 값이 V0이 되는 것은 아니다. import는 모든 preservation_checks와 최신 규칙/판정을 대조하고 기존 권리·내용 검사를 유지한다. 정확한 quote에 거짓 preserved 판정을 붙이는 의미 오류는 구조 검사로 탐지할 수 없으므로 `awaiting_content_review`를 유지한다. 중1/고1 목표의 [로컬 예시 8편](../scripts/textbook/frym-precision/adaptation-pilot-1.json)은 의미 보존을 관찰 검토했지만 학생 calibration/완성 생성 청크/DB 적재가 아니다. [결과와 재현](./reports/frym-preservation-20261004.md).

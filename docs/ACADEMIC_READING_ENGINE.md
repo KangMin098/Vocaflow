@@ -1,5 +1,7 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+실제 응답 수집 후속(2026-10-05): `frym-validation-collect.mjs`는 등록된 사람의 blind 응답을 protocol/instrument·본문·opaque ID에 묶어 새 결과 파일로 합친다. 같은 응답은 skip, 충돌은 reject, 학생 부분 기록의 null/빈 값만 보충하며 원본·응답 파일은 보존한다. 현재 8편에 빈 입력 예행만 수행했고 실제 전문가/학생 결과와 gold는 계속 0이다. [수집 절차](../scripts/textbook/frym-validation/README.md) · [예행 결과](./reports/frym-response-collection-20261005.md).
+
 교육적 타당도 후속(2026-10-04): [FYM 평가 절차](../scripts/textbook/frym-validation/README.md)는 4쌍×중1/고1의 blind 패킷과 실제 사람 평가 데이터 계약을 제공한다. 현재 후보 8편·실제 전문가/학생 결과 0건·gold 0편이며 DB seed는 실행하지 않았다. [준비 결과](./reports/frym-educational-validation-20261004.md).
 
 전문가 의미 판정은 핵심 주장·인과·비교·조건/범위·불필요한 추가·근거 없는 추가·필수 생략·추론 강도의 8항목으로 나누고 5개 보존 차원으로 산출한다. 학생 읽기 시간·이해도·어휘/문장/추론 정확도·미지어 비율·각 부담·체감 난도는 각각 측정한다. 왜곡 taxonomy v1은 요청한 10종과 기존 실패 사례를 표현할 4종을 보존한다. 문항과 수치 범위는 초안이며 학년 규준이 아니다. 사람 책임자가 자격/학년 증빙을 확인하고 정확한 프로토콜·문항을 평가 시작 전에 등록해야 한다.

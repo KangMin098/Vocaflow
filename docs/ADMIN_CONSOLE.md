@@ -1,5 +1,7 @@
 # Admin Console
 
+FYM 응답 수집(2026-10-05): 소재 적격 도움말에 빈 응답 batch 준비·실제 사람 응답 합치기·중복/충돌/null 보충·새 출력/receipt 복구를 연결했다. 신규 UI·라우트·DB 액션은 없으며 수집 성공과 gold 인증을 구분한다. 실제 전문가/학생 데이터는 아직 제공되지 않았다([예행 결과](./reports/frym-response-collection-20261005.md)).
+
 FYM 교육적 타당도 준비(2026-10-04): 소재 적격 도움말에 blind 패킷 분리·사람 프로토콜 사전 등록·전문가 의미 판정 후 실제 학생 측정·gold 승격·import 인증 파일·재실행 복구를 추가했다. 화면/탭/라우트는 추가하지 않았다. 현재 실제 전문가/학생 결과와 gold는 0이며 [평가 운영 절차](../scripts/textbook/frym-validation/README.md)에 따라 사람 평가를 수집해야 한다.
 
 FYM 보존 규칙 후속(2026-10-04): 소재 적격 도움말에 source/review-bound 규칙을 선택 전달하는 export/import, 규칙별 판정·실제 인용·보존 이유, 최신 회차/규칙 재대조, 미측정 VRL 유지, 로컬 예시 검증과 복구를 추가했다. 신규 화면/탭/라우트는 없으며 [8편 관찰 예시](./reports/frym-preservation-20261004.md)를 DB에 적재하지 않았다. 구조 검사 통과와 독립 의미 검토·학생 calibration은 별개다.
