@@ -1,5 +1,14 @@
 # FYM precision round
 
+후속 단계: `preservation-rules-1.json`은 후보 4쌍의 기록 구절에 묶인 관찰자 보존 조건이다. `adaptation-pilot-1.json`에는 동일 middle/V3 언어 목표의 중1/고1 예시 8편(각 180~250단어), 대표 질문과 인용, 관찰 의미 검토, 기존 정렬의 왜곡 사례 4종을 보존했다. full reading_analysis/기사별 권리를 갖춘 완성 생성 청크가 아니며 DB importer에 넣지 않는다. V3/학년은 목표이고 학생 측정값이 아니다. 예시 질문은 전체 목표 능력의 문항 세트가 아니다.
+
+```powershell
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-preservation-verify.mjs --input scripts/textbook/frym-precision/adaptation-pilot-1.json --preservation-rules scripts/textbook/frym-precision/preservation-rules-1.json --precision-review scripts/textbook/frym-precision/round-1.json --evidence-dir .agent-logs/frym-precision-r2
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target scripts/textbook/targets/knowledge-middle1.json --source frym --research-origins <계보.json> --preservation-rules scripts/textbook/frym-precision/preservation-rules-1.json --precision-review scripts/textbook/frym-precision/round-1.json --limit 4 --dir <새청크폴더>
+```
+
+재실행은 읽기 전용이다. 생성 importer 예행에도 같은 규칙/회차 인자를 준다. 규칙 사용 입력이 있는데 최신 파일을 주지 않거나 해시/판정이 바뀌면 거절한다. 실제 insert 직전에도 다시 읽으며 원천 hash/revision/key를 대조한다. 새 판정은 원 회차를 자동 덮어쓰지 말고 새 회차로 보존한다. 기존 snapshot이 폐기/정정되었을 때는 그 snapshot으로 import하지 않고 정정 회차와 새 export를 사용한다. 규칙 파일의 조건·인용·판정을 바꾸면 pilot/생성 청크를 다시 검토한다. 기존 같은 target 자식은 덮어쓰지 않는다. verifier는 해시·인용·목표/규칙 커버리지·분량을 검사하며 의미 판정은 관찰자가 한다. false self-report는 구조 통과할 수 있어 독립 내용 검토가 필요하다. [후속 보고서](../../../docs/reports/frym-preservation-20261004.md).
+
 `round-1.json`은 2026-10-04의 **관찰자 검토**다. 링크와 선택한 주장/방법 구절을 따로 평가한다. 전문가가 인증한 gold, 기사 전체의 정확성 판정, 학생 난이도 calibration이 아니다. DB importer는 제공하지 않는다.
 
 1. DB에서 `source=frym`, `source_id=frym-full:%`, `adapted_from_id IS NULL`인 실제 UUID 범위를 읽어 고정한다. `frym-pairs-export.mjs`로 중복 없는 UUID 배치마다 최대 100편을 읽는다. 연결 없음·DOI 없음·보류도 보존한다. 출력이 이미 있으면 새 경로를 쓴다.

@@ -17,6 +17,8 @@
     "./textbook-series": "./src/textbook/series.ts",
     "./academic-reading": "./src/textbook/academic-reading.ts",
     "./academic-reading-contract": "./src/textbook/academic-reading-contract.ts",
+    "./reading-preservation": "./src/textbook/reading-preservation.ts",
+    "./educational-validation": "./src/textbook/educational-validation.ts",
     "./research-origin": "./src/ingest-article/research-origin.ts",
     "./textbook-brand": "./src/textbook/brand.ts",
     "./textbook-evaluation": "./src/textbook/evaluation.ts",

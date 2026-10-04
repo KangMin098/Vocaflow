@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "definitions": {
+    "CAUSE_REVERSAL": "Reverse the direction of an established causal relation.",
+    "SCOPE_EXPANSION": "Apply a claim to a broader population, setting or period than supported.",
+    "SCOPE_REDUCTION": "Narrow the supported scope so that the original claim changes.",
+    "CLAIM_STRENGTHENING": "Increase certainty or magnitude beyond the evidence.",
+    "CLAIM_WEAKENING": "Reduce a supported claim so its meaning changes.",
+    "CONTRAST_LOSS": "Remove a comparison or contrast necessary to interpret the claim.",
+    "CONDITION_LOSS": "Remove a condition on which the claim depends.",
+    "ADDED_CAUSALITY": "Turn association or sequence into an unsupported causal claim.",
+    "UNSUPPORTED_DETAIL": "Add a factual detail that the source evidence does not support.",
+    "KEY_DETAIL_OMISSION": "Omit information necessary to retain the core claim.",
+    "COMPARISON_REVERSAL": "Reverse the ordering or roles of compared groups; this is not necessarily causal.",
+    "DENOMINATOR_CHANGE": "Change the population counted by a proportion or rate.",
+    "MEASUREMENT_TIME_CHANGE": "Change or conflate the age, time or sequence of measurements.",
+    "RESULT_DIRECTION_CHANGE": "Change an increase, decrease or null result into a different direction."
+  },
+  "examples": [
+    {
+      "alignment_id": "F05-A1",
+      "codes": [
+        "COMPARISON_REVERSAL"
+      ],
+      "assessment_state": "observer_judgment",
+      "source_id": "597a11c3-4bf6-4b4f-96ef-a5668c490c78",
+      "source_hash": "44cb4f4d22c73082ae036ab03fea14fb9f32a5777b786d5f98381787bc07dd3d",
+      "original_work_id": "10.1038/srep29517",
+      "research_hash": "5a5f73baf1fcf049cfeefd2a3ddc3e0eb114d8b2f7d372fc775f2a46d8835bc4",
+      "original_evidence": {
+        "start": 14076,
+        "end": 14130,
+        "section": "Discussion",
+        "quote": "Single rat performance led to a higher rate of rewards"
+      },
+      "fym_evidence": {
+        "start": 3115,
+        "end": 3185,
+        "section": "Complete FYM learning body",
+        "quote": "pairs of rats got higher numbers of rewards compared with a single rat"
+      },
+      "reason": "출처 DOI·제목·저자는 맞지만 동일 비교의 보상 방향이 원문의 단독 쥐 우위와 FYM의 쌍 우위로 반대다. 추가 유전 연구 주장 전체를 이 한 비교로 판정하지 않는다."
+    },
+    {
+      "alignment_id": "F09-A1",
+      "codes": [
+        "DENOMINATOR_CHANGE",
+        "SCOPE_EXPANSION"
+      ],
+      "assessment_state": "observer_judgment",
+      "source_id": "92512f5e-3f3b-488d-8ac9-7fc5b7032534",
+      "source_hash": "b532f8b11a93af31e338caed23e2219308c4b498fa1456207d04b40ea4ba7fd6",
+      "original_work_id": "10.3389/fenvs.2022.874707",
+      "research_hash": "2c51ec5bd38b51b28ce53b2c39e580a7280097b10e108de1d7c193752fffa0c9",
+      "original_evidence": {
+        "start": 25480,
+        "end": 25529,
+        "section": "Survey results",
+        "quote": "53% of the surveyed visitors decreased visitation"
+      },
+      "fym_evidence": {
+        "start": 5992,
+        "end": 6028,
+        "section": "Complete FYM learning body",
+        "quote": "53% decreased their number of visits"
+      },
+      "reason": "세 비율과 변화 방향은 같지만 원 연구는 방문자 421명 기준이며 FYM은 전체 참여자 458명을 설명한 직후 참여자 비율로 표현한다. 분모 한정이 약해져 부분 정렬로 판단한다."
+    },
+    {
+      "alignment_id": "F10-A2",
+      "codes": [
+        "RESULT_DIRECTION_CHANGE",
+        "CLAIM_WEAKENING"
+      ],
+      "assessment_state": "observer_judgment",
+      "source_id": "76a9dc17-34e4-4c84-8c56-63b47cbcdfaa",
+      "source_hash": "ee02df3076abb5574eab763ef419c937d798b5743214d541f731e8361878a30e",
+      "original_work_id": "10.3389/fdgth.2022.1016714",
+      "research_hash": "2e31ab7876ee519885946c9dea912d5997bca40e2a5dcc4efc3a5d43d144bc82",
+      "original_evidence": {
+        "start": 21392,
+        "end": 21448,
+        "section": "Primary outcomes",
+        "quote": "both groups showed a decrease of around 2 days per month"
+      },
+      "fym_evidence": {
+        "start": 6534,
+        "end": 6574,
+        "section": "Complete FYM learning body",
+        "quote": "they did not change how often they drank"
+      },
+      "reason": "원 연구 일차 결과는 두 집단의 월 음주 빈도가 감소했다고 명시한다. FYM의 빈도 변화 없음과 대응하지 않아 모범 각색에서 제외한다."
+    },
+    {
+      "alignment_id": "F13-A2",
+      "codes": [
+        "MEASUREMENT_TIME_CHANGE",
+        "UNSUPPORTED_DETAIL"
+      ],
+      "assessment_state": "observer_judgment",
+      "source_id": "f4f0bb1d-beab-4359-ae11-b9def3e6df85",
+      "source_hash": "a134a1f7367cb026f94970f57134ce91379c844067d66d78f413f4b7dda82c65",
+      "original_work_id": "10.1002/jcv2.12254",
+      "research_hash": "b4b6be56b5f892be50a9c476d3e6718eb9d739ea8d789fd9308e0a6d31539661",
+      "original_evidence": {
+        "start": 17180,
+        "end": 17206,
+        "section": "Cyberball task",
+        "quote": "when children were 9 years"
+      },
+      "fym_evidence": {
+        "start": 2544,
+        "end": 2589,
+        "section": "Complete FYM learning body",
+        "quote": "13-year-old kids to play a ball-throwing game"
+      },
+      "reason": "동일한 배제 과제의 실시 나이가 원문에서는 9세, FYM에서는 13세로 명시돼 서로 반대다."
+    }
+  ]
+}
