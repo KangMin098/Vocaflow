@@ -111,9 +111,10 @@ export function AppHeader() {
   // 2026-10-04 실측 결함: 마우스 사용자는 누르기 전에 반드시 단추 위에 올라간다 → 올림이 패널을 열고
   //   곧바로 클릭의 토글이 그것을 닫았다(「눌렀는데 메뉴가 닫힌다」 · e2e 12 가 간헐로 잡던 것).
   //   올려서 막 연 패널은 첫 클릭에 그대로 둔다. 키보드(올림 없음)는 예전처럼 토글한다.
-  const clickToggle = (key: string) => {
+  const clickToggle = (key: string, byPointer: boolean) => {
     // ref 는 핸들러에서 읽고 비운다 — updater 안에서 비우면 StrictMode 의 이중 호출에서 두 번째 결과가 달라진다.
-    const openedByHover = hoverOpened.current === key
+    // 키보드(Enter/Space → click.detail 0)는 언제나 토글 — 올림 억제는 마우스 클릭에만.
+    const openedByHover = byPointer && hoverOpened.current === key
     hoverOpened.current = null
     setOpen((o) => (o === key ? (openedByHover ? key : null) : key))
   }
@@ -243,7 +244,7 @@ interface BarEntryProps {
   open: string | null
   baseId: string
   onOpen: (key: string) => void
-  onClickToggle: (key: string) => void
+  onClickToggle: (key: string, byPointer: boolean) => void
   onToggle: (fn: (prev: string | null) => string | null) => void
   onNavigate: () => void
 }
@@ -291,7 +292,7 @@ function BarEntry({
       aria-expanded={expanded}
       aria-controls={`${baseId}-${entry.key}`}
       onMouseEnter={() => onOpen(entry.key)}
-      onClick={() => onClickToggle(entry.key)}
+      onClick={(e) => onClickToggle(entry.key, e.detail > 0)}
       className={base}
     >
       {entry.label}
