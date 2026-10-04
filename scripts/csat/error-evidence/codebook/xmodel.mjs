@@ -410,7 +410,9 @@ function run() {
     const text = head + pending.map((id) => blocks[id]).join('') + note + tail.replace(/사례 \d+건 모두/, `사례 ${pending.length}건 모두`)
     const key = `${stage}/${part}-r${r}`
     const f = path.join(stageDir, `prompt-${part}-r${r}.md`); guardWrite(f); fs.writeFileSync(f, text)
-    man.packets[key] = sha(text); writeJ(manFor(stage), man)
+    // 쓰기 직전에 다시 읽어 합친다 — 두 판정자 단계를 동시에 돌리면 먼저 읽은 매니페스트로 덮어 서로의 재판정 패킷 등록을 지웠다(2026-10-05)
+    man.packets[key] = sha(text)
+    const fresh = readJ(manFor(stage)); fresh.packets[key] = man.packets[key]; writeJ(manFor(stage), fresh); Object.assign(man.packets, fresh.packets)
     const ids = [...pending]; lastErrors = {}
     exec(key, text, `${part}-r${r}`, ids)
   }

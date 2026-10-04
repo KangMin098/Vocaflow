@@ -1,0 +1,814 @@
+{
+ "run_id": "xm4-20261005",
+ "codebook_rev": "rev4-draft",
+ "codebook_sha256": "f72c37c5840703c0b7c9a41e1164f60096fcf5fd1daea78d374a1a1c0ba18ffe",
+ "final_sha256": "f2f2eb037ffa82981edc5e52b26762f9c97650d4ae5d37bfa2eb88f934446fa9",
+ "n": 21,
+ "first_pass": {
+  "outcome": {
+   "n": 21,
+   "po": 1,
+   "kappa": 1,
+   "ac1": 1
+  },
+  "insufficient": {
+   "n": 21,
+   "po": 1,
+   "kappa": 1,
+   "ac1": 1
+  },
+  "family": {
+   "n": 18,
+   "po": 1,
+   "kappa": 1,
+   "ac1": 1
+  },
+  "primary": {
+   "n": 18,
+   "po": 0.8888888888888888,
+   "kappa": 0.866171003717472,
+   "ac1": 0.8832172502623795
+  },
+  "verdict_key": {
+   "n": 21,
+   "po": 0.9047619047619048,
+   "kappa": 0.8885941644562334,
+   "ac1": 0.9009274647509784
+  }
+ },
+ "training_score": {},
+ "gate1": {
+  "G1_initial_agreement": 19,
+  "G2_boundary_disagreement": 2
+ },
+ "matrix": {
+  "RED-A_family_conflict": 1,
+  "GREEN-A_strong_consensus": 17,
+  "YELLOW-B_same_family_boundary": 2,
+  "YELLOW-A_unresolved_objection": 1
+ },
+ "grade": {
+  "verification_grade_3": 2,
+  "verification_grade_4": 8,
+  "verification_grade_2": 7,
+  "verification_grade_0": 3,
+  "verification_grade_1": 1
+ },
+ "final_status": {
+  "FINAL_VERIFIED": 20,
+  "UNRESOLVED": 1
+ },
+ "challenger_reversal": {
+  "initial_agreement": 19,
+  "challenger_changed": 2,
+  "final_changed": 0
+ },
+ "challenge_detail": {
+  "g1": 19,
+  "g1_closed": 19,
+  "retained": 17,
+  "hard_reversal": [
+   {
+    "case_id": "C2-02",
+    "kind": "excluded"
+   },
+   {
+    "case_id": "R4-H1",
+    "kind": "other"
+   }
+  ],
+  "plausibility_expansion": [],
+  "open_set": 0,
+  "insufficient_falsified": [],
+  "a2_b2_same": 18,
+  "retest": {
+   "claude": 19,
+   "codex": 20
+  },
+  "vulnerable": {
+   "V.wrong_sense": 1,
+   "R.inference": 2
+  },
+  "adequacy": {
+   "claude": 1,
+   "codex": 1,
+   "a2b2_same": 21,
+   "a1b1_same": 19
+  },
+  "challenger": {
+   "claude_changed": 2,
+   "codex_changed": 1,
+   "claude_multi": 0,
+   "codex_multi": 0
+  }
+ },
+ "expected": {
+  "agree": 15,
+  "models_agree_expected_differs": [
+   {
+    "case_id": "C2-02",
+    "final": "identified:V.wrong_sense",
+    "expected": "undetermined",
+    "in_accept": true
+   },
+   {
+    "case_id": "H-17",
+    "final": "identified:V.unknown_word",
+    "expected": "undetermined",
+    "in_accept": true
+   },
+   {
+    "case_id": "N-13",
+    "final": "multiple_plausible:V.multiword|V.wrong_sense",
+    "expected": "identified:V.multiword",
+    "in_accept": false
+   },
+   {
+    "case_id": "N-04",
+    "final": "identified:V.multiword",
+    "expected": "undetermined",
+    "in_accept": true
+   },
+   {
+    "case_id": "R4-H6",
+    "final": "identified:V.multiword",
+    "expected": "multiple_plausible:R.inference|V.multiword",
+    "in_accept": false
+   }
+  ],
+  "unresolved_expected_matches_one": [
+   "R4-H1"
+  ]
+ },
+ "repeated_pairs": [],
+ "stage_shifts": {
+  "identified:R.inference ↔ identified:V.wrong_sense": 3
+ },
+ "legacy_shared_pairs": [],
+ "coverage": {
+  "V.unknown_word": {
+   "exposed": 6,
+   "tested": 7,
+   "contributing": 0,
+   "final_primary": 2,
+   "unresolved": 0
+  },
+  "V.wrong_sense": {
+   "exposed": 10,
+   "tested": 12,
+   "contributing": 0,
+   "final_primary": 4,
+   "unresolved": 1
+  },
+  "V.multiword": {
+   "exposed": 5,
+   "tested": 6,
+   "contributing": 0,
+   "final_primary": 3,
+   "unresolved": 0
+  },
+  "S.core_structure": {
+   "exposed": 4,
+   "tested": 4,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "S.attachment": {
+   "exposed": 3,
+   "tested": 3,
+   "contributing": 0,
+   "final_primary": 2,
+   "unresolved": 0
+  },
+  "S.operator_scope": {
+   "exposed": 0,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "S.form_rule": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "R.reference": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "R.relation": {
+   "exposed": 5,
+   "tested": 5,
+   "contributing": 0,
+   "final_primary": 1,
+   "unresolved": 0
+  },
+  "R.main_point": {
+   "exposed": 6,
+   "tested": 6,
+   "contributing": 4,
+   "final_primary": 1,
+   "unresolved": 0
+  },
+  "R.inference": {
+   "exposed": 8,
+   "tested": 8,
+   "contributing": 5,
+   "final_primary": 3,
+   "unresolved": 1
+  },
+  "E.task_misread": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "E.evidence_location": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "E.option_mismatch": {
+   "exposed": 2,
+   "tested": 3,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "B.outside_knowledge": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "B.surface_match": {
+   "exposed": 2,
+   "tested": 2,
+   "contributing": 2,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "B.no_verification": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "X.time": {
+   "exposed": 1,
+   "tested": 2,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "X.attention": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  }
+ },
+ "boundaries": {
+  "V.wrong_sense ↔ R.inference": {
+   "n": 6,
+   "a1b1": 6,
+   "verified": 5,
+   "unresolved": 1,
+   "expected_match": 4
+  },
+  "identified ↔ multiple_plausible": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 0
+  },
+  "multiple_plausible ↔ insufficient_evidence": {
+   "n": 4,
+   "a1b1": 3,
+   "verified": 4,
+   "unresolved": 0,
+   "expected_match": 3
+  },
+  "감시: V.multiword": {
+   "n": 2,
+   "a1b1": 2,
+   "verified": 2,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "R.inference ↔ V.wrong_sense": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.unknown_word ↔ V.wrong_sense": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.wrong_sense ↔ R.relation": {
+   "n": 1,
+   "a1b1": 0,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.multiword ↔ V.wrong_sense": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.multiword ↔ R.inference": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 0
+  },
+  "V ↔ S": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "S.attachment ↔ S.core_structure": {
+   "n": 2,
+   "a1b1": 2,
+   "verified": 2,
+   "unresolved": 0,
+   "expected_match": 2
+  }
+ },
+ "confidence": {
+  "low": {
+   "n": 4,
+   "agree": 4
+  },
+  "high": {
+   "n": 17,
+   "agree": 16
+  },
+  "medium": {
+   "n": 21,
+   "agree": 18
+  }
+ },
+ "models": {
+  "a1/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm4-20261005:a1:1:1",
+   "leakage": 0
+  },
+  "a1/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm4-20261005:a1:2:1",
+   "leakage": 0
+  },
+  "b1/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm4-20261005:b1:1:1",
+   "leakage": 0
+  },
+  "b1/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm4-20261005:b1:2:1",
+   "leakage": 0
+  },
+  "a2p/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm4-20261005:a2p:1:1",
+   "leakage": 0
+  },
+  "a2p/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm4-20261005:a2p:2:1",
+   "leakage": 0
+  },
+  "b2p/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm4-20261005:b2p:1:1",
+   "leakage": 0
+  },
+  "b2p/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm4-20261005:b2p:2:1",
+   "leakage": 0
+  },
+  "a2/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm4-20261005:a2:1:1",
+   "leakage": 0
+  },
+  "a2/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm4-20261005:a2:2:1",
+   "leakage": 0
+  },
+  "b2/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm4-20261005:b2:1:1",
+   "leakage": 0
+  },
+  "b2/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm4-20261005:b2:2:1",
+   "leakage": 0
+  },
+  "final-claude/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm4-20261005:final-claude:1:1",
+   "leakage": 0
+  },
+  "final-codex/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm4-20261005:final-codex:1:1",
+   "leakage": 0
+  }
+ },
+ "cases": [
+  {
+   "case_id": "C2-02",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:R.inference",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "RED-A_family_conflict",
+   "fc": "identified:V.wrong_sense",
+   "fx": "identified:V.wrong_sense",
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_3",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "C4-11",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "H-13",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "H-05",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "C4-07",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "H-17",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.unknown_word",
+   "b1": "identified:V.unknown_word",
+   "a2": "identified:V.unknown_word",
+   "b2": "identified:V.unknown_word",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.unknown_word",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "N-13",
+   "gate1": "G2_boundary_disagreement",
+   "a1": "identified:V.multiword",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.multiword",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "YELLOW-B_same_family_boundary",
+   "fc": "multiple_plausible:V.multiword|V.wrong_sense",
+   "fx": "multiple_plausible:V.multiword|V.wrong_sense",
+   "final": "multiple_plausible:V.multiword|V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:V.multiword"
+  },
+  {
+   "case_id": "N-14",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.main_point",
+   "b1": "identified:R.main_point",
+   "a2": "identified:R.main_point",
+   "b2": "identified:R.main_point",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.main_point",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.main_point"
+  },
+  {
+   "case_id": "N-15",
+   "gate1": "G1_initial_agreement",
+   "a1": "insufficient_evidence",
+   "b1": "insufficient_evidence",
+   "a2": "insufficient_evidence",
+   "b2": "insufficient_evidence",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "insufficient_evidence",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_0",
+   "expected": "insufficient_evidence"
+  },
+  {
+   "case_id": "H-04",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.relation",
+   "b1": "identified:R.relation",
+   "a2": "identified:R.relation",
+   "b2": "identified:R.relation",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.relation",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:R.relation"
+  },
+  {
+   "case_id": "N-04",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.multiword",
+   "b1": "identified:V.multiword",
+   "a2": "identified:V.multiword",
+   "b2": "identified:V.multiword",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.multiword",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "N-05",
+   "gate1": "G1_initial_agreement",
+   "a1": "insufficient_evidence",
+   "b1": "insufficient_evidence",
+   "a2": "insufficient_evidence",
+   "b2": "insufficient_evidence",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "insufficient_evidence",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_0",
+   "expected": "insufficient_evidence"
+  },
+  {
+   "case_id": "R4-H1",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "YELLOW-A_unresolved_objection",
+   "fc": "identified:V.wrong_sense",
+   "fx": "multiple_plausible:R.inference|V.wrong_sense",
+   "final": null,
+   "status": "UNRESOLVED",
+   "grade": "verification_grade_1",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R4-H2",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R4-H3",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.unknown_word",
+   "b1": "identified:V.unknown_word",
+   "a2": "identified:V.unknown_word",
+   "b2": "identified:V.unknown_word",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.unknown_word",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.unknown_word"
+  },
+  {
+   "case_id": "R4-H4",
+   "gate1": "G2_boundary_disagreement",
+   "a1": "identified:V.unknown_word",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.unknown_word",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "YELLOW-B_same_family_boundary",
+   "fc": "identified:V.wrong_sense",
+   "fx": "identified:V.wrong_sense",
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_3",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R4-H5",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.multiword",
+   "b1": "identified:V.multiword",
+   "a2": "identified:V.multiword",
+   "b2": "identified:V.multiword",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.multiword",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:V.multiword"
+  },
+  {
+   "case_id": "R4-H6",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.multiword",
+   "b1": "identified:V.multiword",
+   "a2": "identified:V.multiword",
+   "b2": "identified:V.multiword",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.multiword",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "multiple_plausible:R.inference|V.multiword"
+  },
+  {
+   "case_id": "R4-H7",
+   "gate1": "G1_initial_agreement",
+   "a1": "insufficient_evidence",
+   "b1": "insufficient_evidence",
+   "a2": "insufficient_evidence",
+   "b2": "insufficient_evidence",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "insufficient_evidence",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_0",
+   "expected": "insufficient_evidence"
+  },
+  {
+   "case_id": "R4-S1",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:S.attachment",
+   "b1": "identified:S.attachment",
+   "a2": "identified:S.attachment",
+   "b2": "identified:S.attachment",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:S.attachment",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:S.attachment"
+  },
+  {
+   "case_id": "R4-S2",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:S.attachment",
+   "b1": "identified:S.attachment",
+   "a2": "identified:S.attachment",
+   "b2": "identified:S.attachment",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:S.attachment",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:S.attachment"
+  }
+ ]
+}

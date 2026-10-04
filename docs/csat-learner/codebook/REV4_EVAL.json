@@ -1,0 +1,212 @@
+{
+ "plan_commit": "c406cbd09",
+ "codebook_sha256": "f72c37c5840703c0b7c9a41e1164f60096fcf5fd1daea78d374a1a1c0ba18ffe",
+ "final_sha256": "f2f2eb037ffa82981edc5e52b26762f9c97650d4ae5d37bfa2eb88f934446fa9",
+ "regression_defined_match": "8/9",
+ "rev3_baseline": "7/9",
+ "no_regression": true,
+ "changes": {
+  "R6": {
+   "holdout": [
+    {
+     "id": "R4-H1",
+     "final": null,
+     "status": "UNRESOLVED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [],
+      "why": "학생이 구절 안 한 낱말(refining)에 실제 다른 사전 뜻(정제=불순물 제거)을 넣었고 그 때문에 해석이 틀었다 — R6 ①, 비유 대응 실패 증거는 따로 없다."
+     },
+     "pass": false
+    },
+    {
+     "id": "R4-H2",
+     "final": "identified:R.inference",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "R.inference",
+      "candidates": [],
+      "accept": [],
+      "why": "낱말 사전 뜻은 맞게 잡았고 글쓴이가 만든 구절 단위 비유를 잘못 옮겼다 — R6 ②, 고정 표현도 아니므로 V 가 아니다."
+     },
+     "pass": true
+    }
+   ],
+   "regression_match": [
+    {
+     "id": "C4-11",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "H-13",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "H-05",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "C4-07",
+     "final": "identified:R.inference",
+     "pass": true
+    }
+   ],
+   "regression_converge": [
+    {
+     "id": "C2-02",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    }
+   ],
+   "adopt": false
+  },
+  "R12": {
+   "holdout": [
+    {
+     "id": "R4-H3",
+     "final": "identified:V.unknown_word",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.unknown_word",
+      "candidates": [],
+      "accept": [],
+      "why": "채운 뜻 '예민한'은 indifferent 의 어떤 사전 뜻도 아닌 추측이다 — 확신도와 무관하게 R12 ①로 unknown_word, 실제 사전 뜻을 넣은 것이 아니므로 wrong_sense 아님."
+     },
+     "pass": true
+    },
+    {
+     "id": "R4-H4",
+     "final": "identified:V.wrong_sense",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [],
+      "why": "고정 표현 밖 한 낱말(medium)에 실제 다른 사전 뜻(중간)을 넣어 해석이 틀었다 — R12 ① 후단·R6 ①, 낱말 뜻을 맞게 안 상태의 흐름 오판이 아니므로 R.relation 아님."
+     },
+     "pass": true
+    },
+    {
+     "id": "R4-H5",
+     "final": "identified:V.multiword",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.multiword",
+      "candidates": [],
+      "accept": [],
+      "why": "사전에 하나의 뜻으로 오른 고정 표현 안 한 낱말에 다른 사전 뜻을 넣어 표현 전체를 낱말 합으로 읽었다 — R12 ②, 표현이 판정 단위라 wrong_sense 가 아니다."
+     },
+     "pass": true
+    }
+   ],
+   "regression_match": [
+    {
+     "id": "N-13",
+     "final": "multiple_plausible:V.multiword|V.wrong_sense",
+     "pass": false
+    }
+   ],
+   "regression_converge": [
+    {
+     "id": "H-17",
+     "final": "identified:V.unknown_word",
+     "pass": true
+    },
+    {
+     "id": "N-04",
+     "final": "identified:V.multiword",
+     "pass": true
+    }
+   ],
+   "adopt": false
+  },
+  "R9_section6": {
+   "holdout": [
+    {
+     "id": "R4-H6",
+     "final": "identified:V.multiword",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "multiple_plausible",
+      "primary": null,
+      "candidates": [
+       "V.multiword",
+       "R.inference"
+      ],
+      "accept": [],
+      "why": "같은 해석 하나가 낱말 합 직역(V.multiword 최소 증거: 직역이 드러난 해석)으로도, 글 근거(습관 대입)에서 잘못 이끈 함축(R.inference 최소 증거: 이끌어 낸 뜻+근거)으로도 설명되며 둘은 동시에 일어난 두 실패가 아니라 서로 대안이라 R3 단계 순서가 적용되지 않는다 — §6 R.inference vs V.multiword, R10."
+     },
+     "pass": false
+    },
+    {
+     "id": "R4-H7",
+     "final": "insufficient_evidence",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "insufficient_evidence",
+      "primary": null,
+      "candidates": [],
+      "accept": [],
+      "why": "막힌 곳이 문장 전체이고 이유가 실패 단계·선택 근거를 말하지 않아 V·S(또는 B) 어느 코드도 최소 증거가 없다 — §6 V vs S(rev4)·R9."
+     },
+     "pass": true
+    }
+   ],
+   "regression_match": [
+    {
+     "id": "N-15",
+     "final": "insufficient_evidence",
+     "pass": true
+    },
+    {
+     "id": "N-05",
+     "final": "insufficient_evidence",
+     "pass": true
+    }
+   ],
+   "regression_converge": [],
+   "adopt": false
+  }
+ },
+ "surveillance": [
+  {
+   "id": "R4-S1",
+   "final": "identified:S.attachment",
+   "status": "FINAL_VERIFIED"
+  },
+  {
+   "id": "R4-S2",
+   "final": "identified:S.attachment",
+   "status": "FINAL_VERIFIED"
+  }
+ ],
+ "surveillance_absorbed_into_other_S": false,
+ "sets": {
+  "regression": {
+   "n": 12,
+   "verified": 12,
+   "unresolved": []
+  },
+  "holdout": {
+   "n": 7,
+   "verified": 6,
+   "unresolved": [
+    "R4-H1"
+   ]
+  },
+  "surveillance": {
+   "n": 2,
+   "verified": 2,
+   "unresolved": []
+  }
+ }
+}
