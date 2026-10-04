@@ -244,6 +244,7 @@ export const TBP_HELP: HelpRegistry = {
       drain: {
         what: '조판 후보(`ready`·`published`) 전체를 일곱 축으로 판정한 스냅샷 — 등급 분포 · 탈락 축 · 학령별 적격 · 원천별 막힌 편수.',
         prerequisites: [
+          '최신 사람 운영안은 docs/FYM_HUMAN_VALIDATION_PROTOCOL.md의 2차 초안입니다. 현재 실행기는 v1(2값 판정·버전별 5명)이며 4점/제3 중재·학년별 15~30명·새 상태·재현 조건을 지원하지 않습니다. 8편은 calibration이므로 gold/DB seed로 자동 승격하지 않습니다. 사람 확정·band 봉인 후 별도 2차 양식으로 평가를 수집할 수 있으며 자동 검증/승격/적재는 새 계약 연결과 예행 후 재개합니다. pass-bands-2.draft.json은 기존 --protocol 입력이 아닙니다.',
           'FYM 보존 규칙을 쓰는 DB seed는 실제 사람의 교육적 gold 결과가 먼저 필요합니다. 전문가 자격·학생 학년을 사람이 확인하고 정확한 문항/프로토콜을 평가 전에 등록합니다. 초안 수치와 문항은 학년 규준이 아닙니다.',
           'DB 캐시는 승인된 eligibility SQL 적용이 전제입니다. 일괄 적재 전 최신 문항 연결 수·dry run diff·checkpoint·배치 백업을 확인합니다.',
           '`apps/web/.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY` 가 있어야 한다 — 스캔은 서비스 키로 읽는다.',

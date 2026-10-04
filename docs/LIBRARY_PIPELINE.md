@@ -2,6 +2,8 @@
 
 ## Academic Reading 교재 타기팅·처리 (2026-10-04)
 
+사람 운영안 2차 초안(2026-10-05): [프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)에서 8편을 calibration으로 지정하고 4점·critical·제3 중재·학년별 15~30명·사전 band 봉인·새 승격 단계·production 재현을 제안했다. 아래 v1 수집/검증 명령에는 이 계약이 아직 구현되지 않았다. 사람 확정·봉인 후 별도 2차 양식으로 평가를 수집할 수 있으며, 자동 검증/승격/적재는 새 계약 연결과 예행까지 보류한다. pass-bands-2.draft.json을 기존 --protocol 인자로 주지 않는다.
+
 실제 평가 수집(2026-10-05): `frym-validation-collect.mjs --input <results.json> --precision-review <회차.json> --prepare --output <새 batch.json>`은 사람이 채울 빈 입력을 만든다. `--responses <batch.json> --output <새 results.json>`은 해시·opaque ID·본문·전문가 등록·시각·문항/채점자·학년을 검사하고 충돌 없이 중복 skip/학생 null 값 보충을 수행한다. DB 접근/발송/자동 점수 생성은 없으며 새 출력과 해시 receipt를 보존한다. 최신 결과로 verify 후 기존 gold/적재 게이트를 계속 적용한다([절차](../scripts/textbook/frym-validation/README.md)).
 
 교육적 타당도 단계: [blind export/verify](../scripts/textbook/frym-validation/README.md)는 pair별 중1/고1 한 편씩과 연구 증거를 검사하고 전문가 8개·학생 8개 패킷, 4축 96개 초안 문항을 만든다. 전문가 의미 8항목·5차원, 실제 학생 측정, taxonomy v1을 분리한다. 사람이 사전 등록한 문항/프로토콜과 실제 평가가 모두 통과해야 exact passage/target/protocol gold다. 보존 규칙을 쓰는 import에는 `--educational-validation <results.json>`이 필수이며 파일 변경·본문/target/원천 불일치·미평가를 거절한다. 일반 각색의 기존 경로는 유지한다. 현재 candidate 8·실제 평가 0·gold 0·DB 쓰기 0이며 학년 규준 검증은 아직 없다([보고서](./reports/frym-educational-validation-20261004.md)).

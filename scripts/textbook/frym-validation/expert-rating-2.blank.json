@@ -1,0 +1,23 @@
+{
+  "design_version": 2,
+  "form_type": "independent_blind_semantic_rating",
+  "study_purpose": "calibration",
+  "registration_manifest_hash": null,
+  "blind_item_id": null,
+  "passage_hash": null,
+  "expert_id": null,
+  "rated_at": null,
+  "scale_points": 4,
+  "ratings": {
+    "core_claim": {"score": null, "critical": null, "passage_quote": null, "research_quote": null, "reason": null},
+    "causal_direction": {"score": null, "critical": null, "passage_quote": null, "research_quote": null, "reason": null},
+    "comparison_relation": {"score": null, "critical": null, "passage_quote": null, "research_quote": null, "reason": null},
+    "conditions_and_scope": {"score": null, "critical": null, "passage_quote": null, "research_quote": null, "reason": null},
+    "no_unnecessary_addition": {"score": null, "critical": null, "passage_quote": null, "research_quote": null, "reason": null},
+    "no_unsupported_addition": {"score": null, "critical": null, "passage_quote": null, "research_quote": null, "reason": null},
+    "no_key_omission": {"score": null, "critical": null, "passage_quote": null, "research_quote": null, "reason": null},
+    "no_epistemic_overstatement": {"score": null, "critical": null, "passage_quote": null, "research_quote": null, "reason": null}
+  },
+  "distortions": [],
+  "overall_comments": null
+}

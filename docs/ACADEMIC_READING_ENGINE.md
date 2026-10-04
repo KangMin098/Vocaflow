@@ -1,5 +1,7 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+사람 평가 운영안(2026-10-05): [2차 프로토콜 초안](./FYM_HUMAN_VALIDATION_PROTOCOL.md)은 현재 8편을 calibration set으로 분류하고 전문가 4점/8항목·치명 오류 자동 탈락·제3 독립 중재, 학년당 15~30명 및 버전별 유효 표본, 데이터 전 pass band 봉인, expert_validated/student_validated 단계와 production의 다른 주제/원천 재현을 제안한다. band·책임자·등록·실제 응답은 미확정이다. 이 초안은 실행 설정이 아니며 아래 v1 구현은 새 기준으로 갱신되지 않았다. calibration 결과만으로 gold/DB seed를 만들지 않는다.
+
 실제 응답 수집 후속(2026-10-05): `frym-validation-collect.mjs`는 등록된 사람의 blind 응답을 protocol/instrument·본문·opaque ID에 묶어 새 결과 파일로 합친다. 같은 응답은 skip, 충돌은 reject, 학생 부분 기록의 null/빈 값만 보충하며 원본·응답 파일은 보존한다. 현재 8편에 빈 입력 예행만 수행했고 실제 전문가/학생 결과와 gold는 계속 0이다. [수집 절차](../scripts/textbook/frym-validation/README.md) · [예행 결과](./reports/frym-response-collection-20261005.md).
 
 교육적 타당도 후속(2026-10-04): [FYM 평가 절차](../scripts/textbook/frym-validation/README.md)는 4쌍×중1/고1의 blind 패킷과 실제 사람 평가 데이터 계약을 제공한다. 현재 후보 8편·실제 전문가/학생 결과 0건·gold 0편이며 DB seed는 실행하지 않았다. [준비 결과](./reports/frym-educational-validation-20261004.md).
