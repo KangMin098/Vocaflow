@@ -23,3 +23,12 @@ test('invalid answers and absent or empty batches are rejected', () => {
  for(const answer of [0,6,2.5,'2',null])assert.throws(()=>validateBlindSolutions([{...solution('a'),answer}],rows),/integer/)
  for(const notes of [null,[],{},[null]])assert.throws(()=>validateBlindSolutions(notes,rows))
 })
+test('damaged encoding rejects the entire immutable solve batch without rejecting readable Korean', () => {
+ let writes=0
+ const broken={...solution('b'),note:'u19 sister媛\u0080 Cheryl???\u0080?좏빐 applied라는 손상된 기록'}
+ assert.throws(()=>{for(const note of validateBlindSolutions([solution('a'),broken],rows))writes++},/encoding/)
+ assert.equal(writes,0)
+ assert.throws(()=>validateBlindSolutions([{...solution('a'),note:'A long enough explanation containing the replacement character �.'}],rows),/encoding/)
+ const korean={...solution('a'),note:'u19에서 언니가 대신 신청했다고 명시하므로 직접 신청했다는 선지의 주체가 다르다.'}
+ assert.equal(validateBlindSolutions([korean],rows)[0],korean)
+})

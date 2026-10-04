@@ -286,6 +286,8 @@ function trimChoice(s) {
   let t = s
   const nx = t.search(NEXT_ITEM)
   if (nx > 0) t = t.slice(0, nx)
+  // A set instruction can share the last choice's line, with mixed-width brackets.
+  t = t.replace(/\s*[\[［]\s*\d{1,2}\s*[~～∼〜–—-]\s*\d{1,2}\s*[\]］]\s*(?:다음|주어진|윗글)[\s\S]*$/, '')
   // 지면 상투구 — 형별 표기 · 듣기 종료 안내 · 시험지 말미 확인 사항
   t = t.replace(/[,\s·]*(?:짝수형|홀수형)[\s\S]*$/, '')
   t = t.replace(/\s*이제\s*듣기[\s\S]*$/, '')

@@ -11,6 +11,8 @@ export function validateBlindSolutions(notes, rows) {
     seen.add(note.run_id)
     if (!Number.isInteger(note.answer) || note.answer < 1 || note.answer > 5) throw new Error('Answer must be an integer 1..5')
     if (typeof note.note !== 'string' || note.note.trim().length < 20) throw new Error('Actual item-specific reasoning of at least 20 characters required')
+    // C1 controls and replacement glyphs indicate a damaged text transport, not readable reasoning.
+    if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f\ufffd]/.test(note.note)) throw new Error('Solution reasoning contains damaged encoding or control characters')
   }
   return notes
 }
