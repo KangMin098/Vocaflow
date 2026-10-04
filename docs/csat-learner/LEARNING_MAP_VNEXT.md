@@ -1,5 +1,6 @@
-# 학습 지도 vNext — 정보 구조 설계 rev2 (2026-10-04 · 설계안 · 미구현)
+# 학습 지도 vNext — 정보 구조 설계 rev2.1 (2026-10-04 · 설계안 · 미구현 · 데이터 전 동결)
 
+> rev2.1(같은 날 · 사용자 승인 반영): cause 상태 3단위(attempt · student×axis · learning map) · X 에서 Processing Fluency 제거 → 가로 측정 차원 · E-O1 관찰 조건 · R3/R4 정의 · A6 legacy proxy 분리 · Anchor 원문 정체성 · 영구 ID = semantic slug(번호는 표시 순서). 요약 §24. **이 판에서 vNext 문서를 멈춘다** — 다음 근거는 사람 dry run 과 Evidence Anchor 표본 연구에서 온다.
 > rev2(같은 날): 통합 관찰 namespace(`*-O1`) · S7 흡수 · R5/R6 병합 · A6 → K · Performance Context · cause_confirmed 의 자리 · authoring/learning namespace · Evidence Anchor · 54라인 상태(retain/move/retire). 변경 요약 §23.
 
 > 상태: **설계 문서만.** DB · 마이그레이션 · mastery 계산 · UI 변경 없음. 지금 화면(Phase 1 핵심 지도 · rule_proxy 관찰)은 그대로다.
@@ -41,7 +42,7 @@
 | R | Discourse Comprehension | 글 이해 | 문장들을 참조 · 관계 · 기능 · 위계로 이어 글 전체의 의미 모델을 구성 | 「독해」 → 「글 이해」. 키워드 · 핵심 문장 찾기가 아니다 |
 | E | Evidence Judgment | 근거 · 선지 판단 | 글의 의미를 발문 · 선지와 대응시켜 고르고 버리는 판단 | R(글 이해)과 분리 유지 |
 | L | Listening | 듣기 | 음성을 실시간으로 의미로 바꾸는 처리 | 변화 없음 — 데이터 없음 유지 |
-| X | Timed Performance | 실전 | 위 처리를 시간 · 순서 · 집중 조건에서 안정적으로 수행 | 자동화 · 유창성의 관찰 자리 |
+| X | Timed Performance | 실전 | 시험 실행 — 시간 배분 · 풀이 순서 · 막힘 회복 · 집중 유지를 제한 시간 안에서 안정적으로 | 처리 속도(자동화 · 유창성)는 X 가 아니라 가로 측정 차원(§4) |
 
 ## 3. 축별 하위 능력 후보(candidate — mastery 노드 아님) · rev2
 
@@ -50,6 +51,26 @@
 > - `V1` · `S3` … — **하위 능력 후보**(원자 처리). 나중에 직접 진단의 대상이 될 수 있다.
 > - `S-O1` · `R-O1` · `E-O1` · `X-O1` — **통합 관찰(Integrated Observation / Outcome)**. 같은 축 하위 능력들이 **함께 작동한 결과**를 보는 자리다. 원자 능력이 아니며 **숙달도 · 퍼센트 · 막대를 계산하지 않는다**(번호를 하위 능력과 섞지 않은 이유 — 나중에 「S6 숙달도」가 생기지 않게).
 > - `facet` — 판단 · 관계의 **차원 속성**. 능력 노드가 아니다(§7 · E3).
+> - **영구 ID 는 semantic slug 이고, V1 · R2 같은 번호는 표시 순서(display_order)일 뿐이다**(rev2.1). 병합 · 분리 때문에 번호가 당겨져도 영구 ID 는 바뀌지 않게 한다 — rev2 에서 이미 R7 → R6 으로 번호가 바뀐 적이 있다. 아직 DB 가 없으므로 지금 정한다.
+
+| 표시 | 영구 ID(slug) | 표시 | 영구 ID(slug) |
+|---|---|---|---|
+| V1 | `v.core_meaning` | R1 | `r.reference` |
+| V2 | `v.contextual_sense` | R2 | `r.relation` |
+| V3 | `v.multiword` | R3 | `r.discourse_function` |
+| V4 | `v.semantic_relation` | R4 | `r.discourse_structure` |
+| S1 | `s.sentence_core` | R5 | `r.central_meaning` |
+| S2 | `s.chunk_boundary` | R6 | `r.inference` |
+| S3 | `s.attachment` | R-O1 | `r.o.global_meaning_model` |
+| S4 | `s.structural_relation` | E1 | `e.task_demand` |
+| S5 | `s.form_scope` | E2 | `e.evidence_location` |
+| S-O1 | `s.o.sentence_meaning_model` | E3 | `e.option_correspondence` |
+| X1 | `x.time_allocation` | E-O1 | `e.o.final_judgment` |
+| X2 | `x.sequence` | X-O1 | `x.o.whole_test_stability` |
+| X3 | `x.recovery_adaptation` | K | `k.context_resource`(축 밖) |
+| X4 | `x.attention_stamina` | | |
+
+> 이 slug 들은 `learning.*` namespace 안의 이름이다(§17-1). 오답 원인 코드(`R.reference` 처럼 대문자 축 + 점)와 철자가 비슷해도 **다른 namespace · 다른 객체**다.
 
 ### V — 어휘 · 표현 의미(Lexical-Semantic Processing)
 | | 후보 | 비고 |
@@ -78,8 +99,8 @@ R 의 중심은 **관계 → 구조 → 중심 의미**다.
 |---|---|---|
 | R1 | Reference / Cohesion — 대명사 · 지시어 · 같은 개념의 연결 추적 | |
 | R2 | Local Semantic Relation — 인접 · 관련 문장 사이 의미 관계 구성 | 관계 종류는 **relation facet**(§7) |
-| R3 | Discourse Function — 문장 · 문단이 글에서 하는 일 | 기능 종류는 **discourse-function facet**(§7). 기존 출제 설계 주석 역할 9 는 **명시적 대응표로만** 참조한다 — 같은 객체 · 같은 ID 가 아니다(§17-1-1) |
-| R4 | Discourse Structure — 기능 · 관계를 이어 전개 구조 구성 | 구조 종류는 기존 패턴 9 를 대응표로 참조 |
+| R3 | Discourse Function — **local functional role**: 이 문장 · 문단이 지금 무슨 역할을 하나(예시 · 근거 · 반론 · 설명 · 전환) | 기능 종류는 **discourse-function facet**(§7). 기존 출제 설계 주석 역할 9 는 **명시적 대응표로만** 참조한다 — 같은 객체 · 같은 ID 가 아니다(§17-1-1) |
+| R4 | Discourse Structure — **global organization**: 그 역할 · 관계들이 모여 글 전체가 어떤 방식으로 전개되나(통념 → 반전 → 주장 → 근거) | 구조 종류는 기존 패턴 9 를 대응표로 참조 |
 | R5 | **Central Meaning** — 중심 vs 부연 구별 · 글 전체에서 중요한 정보 선택 · 주제 · 핵심 주장 구성 · 나머지를 조직하는 중심 의미 판단 | 이전 R5 Information Hierarchy 와 R6 Theme / Central Claim 을 **병합**(rev2). 내부 facet: centrality · theme · central_claim — 별도 노드 아님 |
 | R6 | Inference — 쓰이지 않은 의미를 글 근거로 도출 | 이전 R7 |
 | **R-O1** | **Global Meaning Model** — R1–R6 이 합쳐져 글 전체의 일관된 의미 모델을 구성했나 | 통합 관찰(이전 R8) |
@@ -92,7 +113,7 @@ R 의 중심은 **관계 → 구조 → 중심 의미**다.
 | E1 | Task Demand — 발문이 요구하는 것 | |
 | E2 | Evidence Location — 판단에 쓸 글 근거 특정 | |
 | E3 | Option-Text Correspondence — 글과 선지가 같은 의미를 말하나 | **판단 facet**: `semantic_equivalence` · `scope_consistency` · `strength_consistency` · `polarity_consistency` · `relation_consistency`. option paraphrase(§8)는 `semantic_equivalence` |
-| **E-O1** | **Final Answer Judgment** — E1–E3 가 합쳐져 최종 선택 · 배제를 제대로 했나 | 통합 관찰(이전 E8) |
+| **E-O1** | **Final Answer Judgment** — E1–E3 가 합쳐져 최종 선택 · 배제를 제대로 했나 | 통합 관찰(이전 E8). **정답 여부만으로 성공이 아니다** — 정답 선택 **과** 충분한 과정 근거(근거 위치 · 선택 · 배제 이유)가 함께 있을 때만 관찰 후보가 된다. 추측으로 맞힌 사례(guess + correct)는 E-O1 성공 근거로 쓰지 않는다 |
 
 **E3 facet 은 독립 능력이 아니다**(범위 · 강도 · 극성 · 관계 판단을 학생의 네 능력으로 두면 「어떤 함정 선지를 골랐다 → 그 능력이 약하다」는 잘못된 추론이 생긴다). 그리고 아래 세 객체는 **관련 있지만 서로 자동 변환하지 않는다**:
 
@@ -115,14 +136,13 @@ R 과 E 는 합치지 않는다: R 은 「A → B 관계를 이해했나」, E �
 ### X — 실전(Timed Performance)
 | | 후보 | 비고 |
 |---|---|---|
-| X1 | Processing Fluency — 정확도를 유지하며 처리하는 속도 | 자동화 · 유창성이 시간 조건에서 관찰되는 자리(§4) |
-| X2 | Time Allocation — 문항 · 영역 시간 배분 | |
-| X3 | Sequence — 풀이 순서 | |
-| X4 | Recovery / Adaptation — 막힘 · 난이도 변동에서 빠져나오기 | |
-| X5 | Attention / Stamina — 집중 유지 · 후반 안정성 | |
+| X1 | Time Allocation — 문항 · 영역 시간 배분 | |
+| X2 | Sequence — 풀이 순서 | |
+| X3 | Recovery / Adaptation — 막힘 · 난이도 변동에서 빠져나오기 | |
+| X4 | Attention / Stamina — 집중 유지 · 후반 안정성 | |
 | **X-O1** | **Whole-Test Stability** — 제한 시간 전체 수행의 안정성 | 통합 관찰(이전 X6) |
 
-X 는 영어 지식 · 독해 능력과 분리한다. 「시간 부족」은 X 의 관찰이지 V/S/R/E 의 낮음이 아니다.
+X 는 **순수하게 시험 실행**이다 — 영어 지식 · 독해 능력과 분리한다. 「시간 부족」은 X 의 관찰이지 V/S/R/E 의 낮음이 아니다. rev2 의 X1 Processing Fluency 는 **X 에서 뺐다**(rev2.1): 어휘 인출 · 문장 처리 · 담화 통합 · 선지 판단의 속도는 서로 다른 V/S/R/E 처리의 속성이라 X 의 실행 능력과 성격이 다르다 → §4 가로 측정 차원.
 
 ### 축 밖 — K · Performance Context(핵심 지도 카드가 아니다)
 
@@ -130,6 +150,7 @@ X 는 영어 지식 · 독해 능력과 분리한다. 「시간 부족」은 X �
 - 학생이 글을 이해할 때 쓸 수 있는 **자원**(주제 친숙도 · 분야 친숙도 · 사전 지식의 유무). 능력 축이 아니라 **맥락 · 자원 · 조정 변수**다.
 - 배경지식은 이해를 돕기도 하고, 글과 충돌하는 상식을 끼워 넣어 오답을 만들기도 한다 — 그래서 많을수록 좋은 「역량」으로 그리지 않는다.
 - **금지**: 숙달 막대 · 목표 100% · 「부족 역량」 판정 · 핵심 지도 카드 · route 자동 결정.
+- **ontology 와 지금 계산을 분리한다**: ontology 에서는 A6 ≠ R(K 로 확정). 그러나 지금 화면의 R 카드 rule_proxy 는 A3 + A6 로 계산된다(`lib/csat/map/core.ts`) — 이것은 **legacy proxy only** 로 남겨 둔다. vNext ontology 확정만으로 지금 proxy 계산을 바꾸지 않는다(지금 R 값은 애초에 유형 상속 proxy 라 정밀 진단값이 아니다). 계산 변경은 별도 구현 승인 때.
 - 오답 원인 `B.outside_knowledge` 와 다르다: K = 배경지식이라는 자원이 **있는가**, `B.outside_knowledge` = 이 시도에서 글보다 외부 상식을 **우선해서** 틀렸다는 원인.
 - 나중에 필요하면 topic familiarity · domain familiarity · prior knowledge availability 를 **맥락 증거**로 기록할 수 있다. 지금은 데이터가 없어 만들지 않는다.
 
@@ -137,9 +158,13 @@ X 는 영어 지식 · 독해 능력과 분리한다. 「시간 부족」은 X �
 - 정서 · 상황 맥락. 영어 능력도, 안정적인 실행 능력(X)도 아니다.
 - 나중에 필요하면 별도 metadata 층. **숙달 막대를 만들지 않는다.**
 
-## 4. 자동화 · 유창성 — 능력 노드가 아니라 가로 차원
+## 4. 가로 측정 차원(Cross-cutting Performance Dimensions) — 능력 노드가 아니다
 
-「V 자동 인출」「S 자동 해석」은 노드로 두지 않는다. 모든 축의 처리는 **accuracy · fluency · latency · stability** 차원을 가질 수 있다. 지금은 숫자로 만들지 않는다 — 문항별 시간을 담을 구조(`csat_session_attempts.sec` + 수집 API)는 **있지만 유효 데이터가 0**이다(2026-10-04 실측: 문항 기록 1행 · 그 시간 0초, 시험 기록 2회의 `total_minutes` 모두 NULL). 시간 제약에서 드러나는 통합 수행은 X 에서 관찰한다.
+`accuracy` · `fluency` · `latency` · `stability` 는 **V · S · R · E 각 처리의 측정 차원**이다(어휘 인출 속도 · 문장 처리 속도 · 담화 통합 속도 · 선지 판단 속도는 서로 다른 처리의 fluency 다). 「V 자동 인출」 「S 자동 해석」 같은 노드를 두지 않고, X 안에도 두지 않는다(rev2.1 — X1 Processing Fluency 제거).
+
+- 지금은 **측정하지 않는다** — 문항별 시간을 담을 구조(`csat_session_attempts.sec` + 수집 API)는 **있지만 유효 데이터가 0**이다(2026-10-04 실측: 문항 기록 1행 · 그 시간 0초, 시험 기록 2회의 `total_minutes` 모두 NULL).
+- 숫자 · mastery 를 계산하지 않는다. 나중에 쓸 때도 축 상태가 아니라 「그 축 처리를 어떤 조건에서 관찰했나」의 속성이다.
+- 시간 제약에서 드러나는 **실행**(배분 · 순서 · 회복 · 집중)은 X 에서 본다.
 
 ## 5. Learning Progression(LP1–LP7) — 겹층
 
@@ -207,37 +232,60 @@ cue 어휘는 기존 출제 설계 주석의 **단서 6**(pronoun · connective 
 | 무엇 | **한 번의 풀이**에서 확인된 실패 사건 | 여러 시도 · 직접 진단으로 쌓인 능력 상태 |
 | 근거 | 그 시도의 과정 증거 | 누적 증거 + 직접 진단 |
 
-**허용되는 연결은 하나뿐**: 원인 확인(`cause_adjudicated` · `cause_confirmed` — §10-1) → (파생) **Diagnostic Priority Signal** → `next diagnostic candidate`.
+**허용되는 연결은 하나뿐**: attempt 단위 근거(`cause_adjudicated` = 코드 확인 · 그리고 §9 의 영역 확인 · 영역 일치) → `cause_confirmed`(student × axis, §9 규칙 그대로 합산) → (파생) **Diagnostic Priority Signal** → 직접 진단 → `verified_diagnosis`. 직접 진단 앞에서 상태를 바꾸지 않는다(§10-1 구조도).
 - 예: `R.reference` 원인이 확인됨 → 「R1(지시 · 응집)을 직접 확인하는 진단을 먼저 제안」.
 - **금지**: 원인 확인만으로 R1 상태를 「취약」으로 바꾸기. 학습 지도의 진단 상태는 `verified_diagnosis` 만 바꾼다.
 - 「`R.reference` 원인이 확인됐다」는 「reference 능력이 낮다」가 아니다. 「다음 진단에서 reference · cohesion 을 먼저 볼 이유가 생겼다」다.
 - 이름이 비슷해도 1:1 대응이 아니다(대응 후보표: 짝 문서 §C).
 - 선지 함정(C) · E3 facet · 오답 원인 사이에도 자동 추론 경로를 두지 않는다(§3 E 표).
 
-### 10-1. 원인 확인의 두 단계와 `cause_confirmed` 의 자리 — Attempt Evidence 층
+### 10-1. 원인 상태의 세 단위 — attempt · student × axis · learning map
 
-기존 설계([ERROR_EVIDENCE_DESIGN](./ERROR_EVIDENCE_DESIGN.md) §9)는 `cause_confirmed` 를 **한 축에 대해 여러 응답을 누적한 상태**로 이미 정의했다(조건 8 — 긍정 근거 ≥ 4 · 서로 다른 문항 ≥ 4 · 회차 ≥ 2 · 유형 ≥ 2 · 판정자 코드 확인 ≥ 1 · 120일 + 최근 3회 · 반증 ≤ 긍정 · 평가원/학평 출처, 그리고 적격 회차만 · 현재 taxonomy 판정만 · 철회 · 정정 제외 · `now` 주입으로 재계산). 이 문서는 그 정의를 **바꾸지 않고** 두 단계로 구분해 쓴다(rev2 — 1판은 같은 이름을 시도 단위로 써서 충돌했다):
+기존 설계([ERROR_EVIDENCE_DESIGN](./ERROR_EVIDENCE_DESIGN.md) §9)는 `cause_confirmed` 를 **한 학생 · 한 축에 대해 여러 응답을 누적한 상태**로 정의했다(조건 8 — 긍정 근거 ≥ 4 · 서로 다른 문항 ≥ 4 · 회차 ≥ 2 · 유형 ≥ 2 · 판정자 코드 확인 ≥ 1 · 120일 + 최근 3회 · 반증 ≤ 긍정 · 평가원/학평 출처, 적격 회차만 · 현재 taxonomy 판정만 · 철회 · 정정 제외 · `now` 주입으로 재계산). 이 문서는 그 정의와 이름을 **바꾸지 않는다** — 대신 언제나 **단위를 붙여** 쓴다.
 
-| 단계 | 단위 | 뜻 | 정본 |
+| 상태 | 단위 | 뜻 | 정본 · 계산 |
 |---|---|---|---|
-| `cause_adjudicated`(이 문서의 이름) | **응답 × 원인 코드** | §9 집계 ①의 **「코드 확인」** 결과 — 현재 회차 · 현재 taxonomy 판정만, 하나라도 기각이면 기각 우선, 판정 갈림은 보류, 그리고 집계 ②의 **판단 변경(공개 뒤 accept) 보류 줄**을 통과한 것. 단순한 blind 일치만으로는 아니다 | §9 집계(정본 `csat_ec_judgment` · claim) |
-| `cause_confirmed`(기존 §9 정의) | **학생 × 역량 축 V · S · R · E**(누적) | §9 집계 ②의 확인 · 영역 확인 · 영역 일치가 8 조건을 채움 — 「원인 가설 확인」. **B · X 는 §9 의 대상이 아니다** | §9 계산(저장값 아님 — 조회 때 `now` 로 재계산) |
+| `cause_adjudicated` | **attempt**(응답 × 원인 코드) | 이 시도의 원인에 대한 사람 검수 결과 — §9 집계 ①의 「코드 확인」(현재 회차 · 현재 taxonomy 판정만, 하나라도 기각이면 기각 우선, 판정 갈림 보류) + 집계 ②의 판단 변경(공개 뒤 accept) 보류 줄 통과. 단순 blind 일치만으로는 아니다 | `csat_ec_judgment` · claim(§9 집계) |
+| `cause_confirmed` | **student × axis**(V · S · R · E 만, 누적) | §9 집계 ②의 응답 × 축 결과 — **확인(= `cause_adjudicated` 코드 확인이 있는 응답) · 영역 확인 · 영역 일치**를 §9 규칙대로 합산해 8 조건을 채운 **Error Evidence 에서 파생된 누적 근거 상태**. `cause_adjudicated` 는 그 입력 가운데 하나(코드 수준)일 뿐이다. **attempt 상태가 아니고, Learning Map 진단도 아니다.** B · X 는 대상 아님 | §9 계산(저장값 아님 — 조회 때 `now` 로 재계산) |
+| `verified_diagnosis` | **student × learning skill/axis** | **직접 진단**으로 확인된 학습 지도 진단 | 직접 진단 설계(미정) |
+
+- 이름: 장기적으로 `axis_cause_confirmed` 처럼 단위가 드러나는 이름이 더 명확하다. 다만 §9 가 이미 쓰는 이름이라 지금 바꾸지 않고, 문서에서 늘 「student × axis」를 붙인다.
+- `DiagnosisBasis` 는 `rule_proxy · item_tagged · verified_diagnosis` 셋뿐이다. `cause_adjudicated` · `cause_confirmed` 는 넣지 않는다.
+
+**구조도 — 화살표 사이에 자동 승격이 없다**
 
 ```
-학생 시도 → 원인 claim → 검수 회차 → cause_adjudicated(응답 단위)         ┐
-                                     → §9 누적 조건 → cause_confirmed(축 단위) ├ Attempt Evidence 층(정본: csat_ec_*)
-                                                                             ┘
-                         ▼ 파생 계산(저장하지 않는 view/model)
-     Diagnostic Priority Signal = cause_confirmed(§9 조건 그대로: 적격 회차 · 현재 해시 · 현재 taxonomy 버전 · 철회 제외 · 최신성)
-                                  + 하위 능력 수준 반복(같은 원인 코드의 cause_adjudicated = §9 「코드 확인」 수 — 같은 적격 · 버전 · 철회 규칙)
-                         ▼
-     next diagnostic candidate(「다음에 무엇을 직접 확인할까」) → Learning Map 은 이것만 받는다
+ITEM ─────────── Question Type(B 렌즈) · Choice Trap(C, 선지 특성)            ← 문항 쪽. 학생 상태로 바뀌지 않는다
+  │
+ATTEMPT ──────── raw response → process evidence → Error Cause claim
+  │                                                   │ 사람 검수(blind · reveal · adjudication)
+  │                                                   ▼
+  │                                             cause_adjudicated(코드 확인)    (attempt 단위)
+  │                                             + 영역 확인 · 영역 일치(§9 ②)   (attempt × axis — 같은 attempt 층)
+  │                                                   │ 여러 시도 누적 · §9 규칙 합산 · 8 조건(V/S/R/E 만)
+  ▼                                                   ▼
+STUDENT × AXIS ─────────────────────────────── cause_confirmed                  (student × axis 누적 근거 — 진단 아님)
+                                                      │ 파생 계산(저장 안 함)
+                                                      ▼
+                                          Diagnostic Priority Signal            (「무엇을 먼저 직접 확인할까」만)
+                                                      │
+                                                      ▼
+DIRECT DIAGNOSIS ─────────────────────────── 직접 진단 과제 수행 · 판정
+                                                      │  ← 여기만 상태를 바꿀 수 있다
+                                                      ▼
+                                              verified_diagnosis                 (student × learning skill/axis)
+                                                      │
+                                                      ▼
+LEARNING MAP ─────────────────────────────── V / S / R / E / L / X 상태
+
+  ✕ cause_adjudicated → 학습 지도 상태      ✕ cause_confirmed → 학습 지도 상태
+  ✕ Choice Trap 선택 → E3 facet 약함        ✕ Diagnostic Priority Signal → mastery
 ```
 
-- `DiagnosisBasis` 는 계속 `rule_proxy · item_tagged · verified_diagnosis` 셋뿐이다. `cause_adjudicated` · `cause_confirmed` 모두 넣지 않는다(§9 도 「basis 가 아니라 별도 근거 상태」).
-- 축 수준(**V · S · R · E** 카드의 「우선 확인 후보」 순서)은 §9 의 `cause_confirmed` 가 정한다 — §9 의 후보 상한(최대 2개 · 진단 최대 1개)도 그대로다. **X 카드의 후보 선정은 §9 밖이라 미정**이다(`X.time` · `X.attention` 원인이 X 후보를 어떻게 움직일지는 사람 dry run · Pilot 뒤 별도 결정). B 원인은 축 후보를 움직이지 않는다.
-- 하위 능력 수준(R1 · E3 …)의 진단 후보는 짝 문서 §C 대응으로 **§9 와 같은 적격 회차 · 현재 해시 · 현재 taxonomy · 철회 제외 규칙**을 통과한 `cause_adjudicated`(코드 확인)만 센다 — verify 기각 우선과 판단 변경 보류를 우회하지 않는다. 예: 독립된 시도에서 `R.reference` 가 여러 번 adjudicated → R1 직접 진단의 우선순위를 올릴 수 있다. 「R1 관찰 낮음 · 취약 · mastery = 2」로 바꾸면 안 된다.
-- 지금은 별도 테이블을 만들지 않는다. 진실의 원천은 오답 원인 claim · judgment 와 §9 계산이고, Diagnostic Priority 는 그 위의 **계산된 downstream 모델로 문서에만 정의**한다. 하위 능력 수준의 반복 문턱 같은 수치는 사람 dry run · Pilot 뒤에 정한다.
+- 축 수준(**V · S · R · E** 카드의 「우선 확인 후보」 순서)은 §9 의 `cause_confirmed` 가 정한다 — §9 의 후보 상한(최대 2개 · 진단 최대 1개)도 그대로다. B 원인은 축 후보를 움직이지 않는다.
+- **X 원인은 우선순위 자동화를 보류한다.** `X.time` · `X.attention` 은 `cause_adjudicated` 까지는 기록할 수 있지만 `cause_confirmed` · Diagnostic Priority Signal 에는 넣지 않는다 — §9 대상이 아니고, 문항별 시간 데이터가 0 이라 자동화하면 가짜 정밀성이 된다. 문항별 시간 · 중단/재시도 · 문항 순서 · 전체 시험 시간 · 집중 자기보고 같은 **실행 근거 모델**이 생긴 뒤 따로 설계한다. 지금은 짝 문서 §C 의 의미상 대응만.
+- 하위 능력 수준(R1 · E3 …)의 진단 후보는 짝 문서 §C 대응으로 **§9 와 같은 적격 회차 · 현재 해시 · 현재 taxonomy · 철회 제외 규칙**을 통과한 `cause_adjudicated` 만 센다(V · S · R · E 원인만). 예: 독립된 시도에서 `R.reference` 가 여러 번 adjudicated → R1 직접 진단의 우선순위를 올릴 수 있다. 「R1 관찰 낮음 · 취약 · mastery = 2」로 바꾸면 안 된다.
+- 별도 테이블을 만들지 않는다. 진실의 원천은 오답 원인 claim · judgment 와 §9 계산이고, Diagnostic Priority 는 그 위의 **계산된 downstream 모델로 문서에만 정의**한다. 하위 능력 수준의 반복 문턱 같은 수치는 사람 dry run · Pilot 뒤에 정한다.
 
 ## 11. DiagnosisBasis 별 허용 표현
 
@@ -247,7 +295,7 @@ cue 어휘는 기존 출제 설계 주석의 **단서 6**(pronoun · connective 
 | `item_tagged`(문항 단위 태깅 생긴 뒤) | 어떤 세부 능력이 어떤 문항에서 관찰됐는지 · 근거 수 · 근거 품질(출처 · 검수 여부) | mastery 확정 |
 | `verified_diagnosis` | 세부 능력 상태 · route 결정 · 진단 기반 처방 | — |
 
-`cause_adjudicated`(응답 단위) · `cause_confirmed`(축 단위, 기존 §9 정의)는 근거 수준이 아니라 **Attempt Evidence 층의 상태**다(§10-1) — 이 표에 넣지 않는다. 지도에는 파생된 Diagnostic Priority Signal 만 「우선 확인 후보」로 전달된다.
+`cause_adjudicated`(attempt 단위)와 `cause_confirmed`(student × axis 누적 근거, 기존 §9 정의)는 근거 수준(basis)이 아니다(§10-1) — 이 표에 넣지 않는다. 지도에는 파생된 Diagnostic Priority Signal 만 「우선 확인 후보」로 전달된다.
 
 ## 12. 최종 정보 구조 — 층을 섞지 않는다
 
@@ -259,7 +307,8 @@ cue 어휘는 기존 출제 설계 주석의 **단서 6**(pronoun · connective 
 | Performance Context | 시험 불안 · 당일 컨디션 — 축 아님 | (신규 — 표시 없음) |
 | Question Lens | B 문항 유형(대의 · 함축 · 빈칸 · 순서 · 삽입 · 요약 …) | 라인 B1–B13 |
 | Item Feature | C 선지 함정(선지가 의미를 어떻게 바꿨나) | 라인 C1–C8 · `csat_dx_option_trap` |
-| Attempt Evidence | Learner Error Cause(학생이 왜 틀렸나) · `cause_adjudicated`(응답) · `cause_confirmed`(축, ERROR_EVIDENCE §9) → 파생 Diagnostic Priority Signal | `csat_ec_*`(검수 전) |
+| Attempt Evidence | Learner Error Cause(학생이 왜 틀렸나) · `cause_adjudicated`(attempt) | `csat_ec_*`(검수 전) |
+| Student × Axis Evidence | `cause_confirmed`(Error Evidence 에서 파생된 누적 근거, ERROR_EVIDENCE §9 — 진단 아님) → 파생 Diagnostic Priority Signal | §9 계산(구현 전) |
 | Pedagogy | Task · Route · 공부 방법 · 학습 전략(오답 분석 습관 · EBS 활용 · 학습 배분) | 과제 162 · 라인 I1–I10 · 일부 D |
 | Goal / Route | 목표 점수 · 경로(route) · 학습 배분 | 목표 · D9 |
 | Rationale | P 원리 | 원리 P1–P8 · 트랙 T1–T3 |
@@ -310,7 +359,7 @@ cue 어휘는 기존 출제 설계 주석의 **단서 6**(pronoun · connective 
 | | 측정 가능 | 측정 불가(이유) |
 |---|---|---|
 | 축 카드 | 유형 상속 proxy 의 관찰 수준(V · S · R · E · X) | L(듣기 태그 0) |
-| 하위 능력(V1 … X5) · 통합 관찰(*-O1) | — | 전부 불가(문항 태그가 `type_default` 뿐 · 관리자 수정 0 · 검수 0) |
+| 하위 능력(V1 … X4) · 통합 관찰(*-O1) | — | 전부 불가(문항 태그가 `type_default` 뿐 · 관리자 수정 0 · 검수 0) |
 | LP | — | 불가(문항 · 지문의 처리 단위 정보 없음) |
 | 관계 facet | — | 불가(문장 쌍 · facet 태그 없음) |
 | 선지 함정(C) | 847문항의 선지별 함정 | 나머지 문항 |
@@ -335,7 +384,7 @@ cue 어휘는 기존 출제 설계 주석의 **단서 6**(pronoun · connective 
 | 출처 · 검수 상태 | 모든 태그 | item_tagged 근거 품질 — 「유형 상속」과 「사람이 단 태그」를 구별 |
 | 도표 · 그림 구조화 값 | 도표 문항 | 지금 없음 → 판정 제외 |
 | 듣기 대본 · 시점 | 듣기 | L(v0.2) |
-| 문항별 시간 · 답 변경 | 응답 | X1 · 자동화 차원 |
+| 문항별 시간 · 답 변경 | 응답 | 가로 측정 차원(fluency · latency) · X 실행 근거 모델 |
 
 ### 17-1. 기존 자산 재사용 — 출제 설계 주석(`csat_item_analyses.answer_locus.passage_design`)
 
@@ -389,9 +438,10 @@ V/S/R/E 하위 능력을 문항에 태깅하기 **전에**, 문항 안의 근거
 | 필드 | 뜻 |
 |---|---|
 | `item_id` | 문항 |
-| `source_text_version` | 원문 버전(원문 해시 — `csat_item_units.input_hash` 와 같은 계열) |
+| `source_text_version` | **원문 정체성** — 이 Anchor 가 **어느 버전의 실제 본문**을 기준으로 만들어졌나(버전 식별자) |
+| `source_text_hash` | 그 본문의 해시(`csat_item_units.input_hash` 와 같은 계열). **경계 해시(`units_hash`) 일치만으로 원문 검증을 인정하지 않는다** — `units_hash` 는 분할 버전 · 단위 경계만 해시한다 |
 | `anchor_type` | passage · stem · option(n) · underline · blank · given_sentence |
-| `unit_id` | 정본 단위 id — `validated_anchor` 이상이면 이것 또는 신뢰할 수 있는 문자 범위 중 하나가 **필수** |
+| `unit_id` | 정본 단위(문장) 참조 — `validated_anchor` 이상이면 이것 또는 신뢰할 수 있는 문자 범위 중 하나가 **필수**(유일한 위치) |
 | `char_start` · `char_end` | 문자 범위 — 신뢰할 수 있을 때만 |
 | `quote_hash` | 인용 원문의 해시(원문을 복제하지 않고 대조) |
 | `segmentation_version` | 분할 규칙 버전(정본 `units_version` · 화면 `splitSentences` 를 구별) |
@@ -419,6 +469,18 @@ V/S/R/E 하위 능력을 문항에 태깅하기 **전에**, 문항 안의 근거
   선지별 좌표(`confirmed_at.sentence_index` — 정답 2,629 · 오답 112개/28문항)도 같은 `legacy_candidate` 다.
 
   기존 검사(`precheckAnalysis` · `checkUnitRefs` — `scripts/csat/lib-evidence-units.mjs` · 분석 · 검수 드레인 · 학평 검수 로더의 precheck 기록)와 검수 이력은 승격 1–2단계(§17-4)의 **근거로 재사용**한다. 그러나 해시 결속 · 기존 검사 통과를 이유로 `validated_anchor` 로 **자동 승격하지 않는다** — 새 Anchor 기준(필드 · 분할 버전 · 출처)으로 한 번 대조한 결과만 올린다.
+- **승격 순서**(rev2.1):
+
+  ```
+  legacy_candidate
+    → 원문 정체성 확인(source_text_version · source_text_hash 가 지금 본문과 같다 — 경계 해시 일치는 이 단계가 아니다)
+    → 유일한 위치 확인(unit 또는 신뢰 가능한 문자 범위 · 중복 인용 아님)
+    → validated_anchor
+    → 사람 확인(표본 · 검수)
+    → reviewed_anchor
+  ```
+
+  기존 `precheckAnalysis` · `checkUnitRefs` 통과는 위 단계의 **입력 근거**로 쓰지만, 통과만으로 자동 승격하지 않는다. 경계 해시 일치 2,405건도 자동으로 `validated_anchor` 가 아니다. 해시 불일치 21건은 **우선 조사 대상**이고, 해시 없음 982건은 그 자체로 오류라는 뜻이 아니다(분석 당시 정본 단위가 없었던 문항 포함).
 - **승격 금지 조건**: 위치 좌표 없이 `quote_hash` 만 있는 후보, 같은 인용이 지문 안에 두 번 이상 나와 위치가 하나로 정해지지 않는 후보는 `validated_anchor` 로 올리지 않고 **보류**한다(인용 해시는 대조용이지 위치가 아니다).
 - **item_tagged 근거로 쓸 수 있는 최소 상태는 `validated_anchor` 로 제안한다**(학생 진단에 영향을 주는 표시는 `reviewed_anchor` 부터 — 구현 때 결정). legacy_candidate 는 item evidence 로 승격하지 않는다.
 - 실측 근거: 정본 단위 2,910문항 · 본문 온전한데 단위 없는 문항 802 · 설계 주석 447 · 주석과 정본 단위가 겹치는 문항 **0** · 주석 기준 v1–v1.3 혼재.
@@ -440,7 +502,7 @@ E2 · E3 의 좋은 후보 원천이지만 바로 item_tagged 근거로 쓰지 �
 - `.agent-goal.md` 에 vNext 목표 구조를 적는 것.
 
 **데이터 확보 전 금지**
-- 하위 능력(V1 … X5) · 통합 관찰(*-O1) · LP · facet(관계 · 기능 · 중심 의미 · E3 판단)의 수치 · 막대 · 색 표시. K · Performance Context 의 막대.
+- 하위 능력(V1 … X4) · 통합 관찰(*-O1) · 가로 측정 차원 · LP · facet(관계 · 기능 · 중심 의미 · E3 판단)의 수치 · 막대 · 색 표시. K · Performance Context 의 막대.
 - 「병목」 「취약」 「약점 확정」 표현 · route 확정.
 - 오답 원인 확인 → 축 · 하위 능력 상태 변경.
 - 54라인 지도를 하위 능력 지도로 바꿔 보여 주기(근거가 유형 상속이라 같은 문제가 반복된다).
@@ -450,30 +512,29 @@ E2 · E3 의 좋은 후보 원천이지만 바로 item_tagged 근거로 쓰지 �
 
 Phase 1 핵심 지도 계산 · rule_proxy 관찰 로직 · 학생 기록 · Record Quality Guard · 오답 원인 DB · 코드북 rev3 · 사람 dry run 자료 · taxonomy seed · outcome 마이그레이션 · verified diagnosis · route 결정 · 과제 162 · Pilot.
 
-## 20. 결정 · 남은 논쟁(rev2)
+## 20. 확정 · 보류(rev2.1)
 
-**rev2 에서 정한 것**(1판 「남은 결정」 4개)
-1. S7 → S-O1 에 흡수 · R5/R6 → R5 Central Meaning 으로 병합(§3).
-2. A6 배경지식 → 축 밖 **K(Knowledge / Context Resource)**(§3).
-3. D 계열 → 라인마다 의미상 목적지를 지금 확정, DB · UI 이동은 vNext 구현 때(짝 문서 §B).
-4. `cause_confirmed` → Attempt Evidence 층의 상태(기존 §9 축 단위 정의 유지 · 응답 단위는 `cause_adjudicated`), 지도에는 파생 Diagnostic Priority Signal 만(§10-1).
+**승인(사용자 2026-10-04)**: S7 → S-O1 · R5/R6 → Central Meaning · A6 → K(ontology — 지금 R proxy 계산은 legacy 유지) · D/J 재분류 · 54라인 retain/facet/move/alias/retire 구조 · `authoring.*` / `learning.*` namespace 분리 · Evidence Anchor 전제 · E4–E7 → E3 facet · 통합 관찰 namespace(*-O1) · `cause_adjudicated` 도입과 cause 상태 세 단위 · X 원인 우선순위 자동화 보류 · X 에서 Processing Fluency 제거(→ 가로 측정 차원) · 영구 ID = semantic slug.
 
-**아직 논쟁적인 것**
-1. **R3 Discourse Function ↔ R4 Discourse Structure** — **잠정 결정: R4 를 독립 후보로 둔다.** 근거: 순서 · 삽입 판단은 개별 문장의 기능 라벨 없이도 「전개 순서 · 연결 지점」을 요구하고, 기능 라벨을 모두 맞혀도 전개 구조(통념 → 반박 → 근거 순서)를 재구성하지 못하는 경우를 따로 물을 수 있다(예: 기능 라벨을 준 상태에서 문단 순서만 묻는 진단). **하향 조건**: 직접 진단 설계에서 R4 를 R3 와 다른 문항으로 물을 수 없으면 R4 를 R-O1 의 관찰 요소로 내린다.
-2. **R1 ↔ R2** — 오답 원인 rev3 의 `R.reference` · `R.relation` 병합 여부가 사람 dry run 에 걸려 있다. **두 ontology 를 동시에 바꾸지 않는다** — 원인 쪽 결과가 나온 뒤 학습 지도 쪽을 따로 검토한다.
-3. **X1 Processing Fluency** — **잠정 결정: X1 은 「가로 차원(§4)이 시간 조건에서 관찰되는 유일한 자리」로 둔다.** 가로 차원(fluency · latency)은 모든 축의 처리 **속성**이고, X1 은 그것을 **제한 시간 안의 정확도 유지**라는 수행 결과로 관찰하는 지점이다 — 축마다 따로 「자동화 노드」를 두지 않는 대신 X1 한 곳에서만 본다. **하향 조건**: 문항별 시간 데이터(지금 유효 0)가 생긴 뒤에도 X1 이 X2(시간 배분) · X-O1 과 다른 진단으로 갈리지 않으면 X-O1 의 관찰 요소로 내린다.
-4. **E-O1 과 E2/E3 의 경계** — 「근거는 맞게 찾고 대응도 맞게 판단했는데 최종 선택이 틀림」이 실제로 따로 관찰되는지(관찰되면 X 나 B 쪽일 가능성).
-5. **번호 체계** — rev2 에서 R 번호를 당겼다(R7 → R6). 구현 전에 최종 확정한다(지금 코드 · DB 에는 번호가 없다).
-6. **authoring ↔ learning 대응**(§17-1-1)의 「부분」 항목은 정의 대조 전 — 동일로 올릴 것은 출제 기준 버전 고정 뒤.
+**보류(데이터 · 다른 작업 결과가 와야 정한다)**
+1. **R1 ↔ R2 변경** — 오답 원인 rev3 의 `R.reference` · `R.relation` 사람 dry run 결과 뒤. **사람 dry run 이 끝날 때까지 오답 원인 ontology 를 바꾸지 않고, 두 ontology 를 동시에 바꾸지 않는다.**
+2. **R3 ↔ R4 병합 여부** — 지금 별도 유지(R3 local functional role · R4 global organization). **하향 조건**: Gold item tagging 에서 R4 가 R3 와 독립으로 관찰되지 않으면(같은 문항 · 같은 근거로만 함께 나타나면) R3 를 R4 의 facet 으로 내린다.
+3. **E-O1 실제 관찰 가능성** — 정답 + 충분한 과정 근거가 있는 사례가 실제로 모이는지(§3 E).
+4. **X 실행 근거 모델** — 문항별 시간 · 중단/재시도 · 순서 · 전체 시간 · 집중 자기보고. 그 전에는 X 원인 우선순위 없음.
+5. **L 세부 ontology** — v0.2-listening.
+6. **번호 표시 순서** — 영구 ID 는 slug 로 정했다. 표시 번호(V1 …)의 최종 순서는 구현 때.
+7. **authoring 대응의 「부분」 항목**(§17-1-1) — 출제 기준 버전 고정 뒤 정의 대조.
+
+**다음 우선순위(이 문서 밖)**: ① 사람 판정자 dry run(오답 원인 taxonomy 의 사람 간 판정 가능성) ② Evidence Anchor 표본 연구(정답 근거 3,408 · 정본 단위 2,910 을 실제로 얼마나 정규화할 수 있나 — 작은 표본으로) → 그 뒤 Gold item tagging 설계. 실제 데이터 없이 이 문서를 더 세분화하는 이익은 작다.
 
 ## 21. 자기 검토(Q1–Q13)
 
 | 질문 | 답 · 조치 |
 |---|---|
-| Q1 다른 능력의 결과에 불과한 하위 능력이 있나 | **있었다** — 1판의 S6 · R8 · E8 · X6 은 통합 관찰로 내렸고(rev2 에서 S-O1 · R-O1 · E-O1 · X-O1 namespace), S7 은 S-O1 에 흡수, R5/R6 은 병합. R4 · X1 은 독립 근거와 **하향 조건**을 적어 잠정 유지(§20 1 · 3) |
+| Q1 다른 능력의 결과에 불과한 하위 능력이 있나 | **있었다** — 1판의 S6 · R8 · E8 · X6 은 통합 관찰로 내렸고(rev2 에서 S-O1 · R-O1 · E-O1 · X-O1 namespace), S7 은 S-O1 에 흡수, R5/R6 은 병합. R4 는 독립 근거와 하향 조건을 적어 유지(§20 보류 2), X1 Processing Fluency 는 rev2.1 에서 가로 측정 차원으로 내렸다 |
 | Q2 문항 유형을 이름만 바꾼 능력이 들어왔나 | 축 · 하위 능력 이름에 유형(빈칸 · 순서 · 삽입 · 요약 · 함축)은 없다. 단 E4–E7(범위 · 강도 · 극성 · 관계 일관성)은 선지 함정 계열과 같은 축이라 능력으로 두면 C 를 다시 능력으로 섞는다 → **E3 facet 으로 내렸다** |
 | Q3 cue 를 능력으로 올렸나 | 연결어 · 반복어 · 핵심 문장 찾기는 cue/과제로 분리(§9). 지금 과제 이름 중 「연결어 방향 표시」(A3) · 「인과 화살표 그리기」(C4)는 cue 훈련 과제다 — 과제로는 유지 가능, 능력 이름으로 쓰지 않는다 |
-| Q4 여러 축을 가로지르는 기능을 한 곳에 넣었나 | paraphrase(V4 · R2/R3 · E3), 자동화(가로 차원 · X1), 관계 facet(R2 · E3)을 가로 개념으로 뒀다. A4 「재진술」 라인 해체 제안(짝 문서) |
+| Q4 여러 축을 가로지르는 기능을 한 곳에 넣었나 | paraphrase(V4 · R2/R3 · E3), 자동화(가로 측정 차원 — rev2.1 에서 X 밖으로), 관계 facet(R2 · E3)을 가로 개념으로 뒀다. A4 「재진술」 라인 해체 제안(짝 문서) |
 | Q5 Error Cause 와 mastery 를 직접 잇나 | 잇지 않는다 — `cause_adjudicated` · `cause_confirmed → Diagnostic Priority Signal → next diagnostic candidate` 만(§10 · §10-1). 대응 후보표에 경고를 붙였다 |
 | Q6 rule_proxy 가 증명 못 하는 세부 상태를 UI 가 보여 주게 되나 | 하위 능력 · LP · facet 표시를 데이터 전 금지(§18). 지금 태그는 유형 상속뿐이라는 실측을 근거로 적었다(§1 · §16) |
 | Q7 학년별 hard lock 이 됐나 | 아니다 — 권장 노출 범위만, 경로는 진단 근거(§15). 선수 관계도 잠금 대신 우선순위(§6) |
@@ -527,6 +588,8 @@ Phase 1 핵심 지도 계산 · rule_proxy 관찰 로직 · 학생 기록 · Rec
 
 ## 23. rev2 변경 보고(A–L)
 
+> rev2 시점 기록이다. rev2.1 에서 바뀐 것(X 번호 · cause 단위 · X1 제거 등)은 §24.
+
 | | 결과 | 위치 |
 |---|---|---|
 | A S7 | S-O1 Sentence Meaning Model 에 흡수 — S 는 S1–S5 + S-O1 | §3 S |
@@ -554,3 +617,28 @@ Phase 1 핵심 지도 계산 · rule_proxy 관찰 로직 · 학생 기록 · Rec
 | 4 | **P1 1** · P2 1 | D7 을 retire 하고도 Goal/Route 층 예시로 남김 → 모든 층에서 제거 · Anchor 위치 유일성 → `validated_anchor` 에 유일 좌표 필수 · 중복 인용 보류 |
 | 5 | P2 2 | LP 순서가 공식 위계와 「부합」한다는 주장 → 다른 것(처리 단위 vs 성취 난이도)으로 고침 · 짝 문서가 X 원인에 우선순위 규칙 적용 → 의미상 대응만 |
 | 6 | **NO_FINDINGS** | |
+
+## 24. rev2.1 변경 요약
+
+| | 변경 | 위치 |
+|---|---|---|
+| 1 | cause 상태 세 단위: `cause_adjudicated`(attempt) · `cause_confirmed`(student × axis 누적 근거, V/S/R/E, 진단 아님) · `verified_diagnosis`(student × learning skill/axis). 「cause_confirmed = Attempt Evidence 층 상태」 표현 삭제 | §10-1 · §11 · §12 |
+| 2 | X 원인: `cause_adjudicated` 까지만, `cause_confirmed` · Priority Signal 에 넣지 않음 — 실행 근거 모델 뒤 별도 설계 | §10-1 · 짝 문서 §C |
+| 3 | X1 Processing Fluency 제거 → 가로 측정 차원(accuracy · fluency · latency · stability, 측정 안 함). X = Time Allocation · Sequence · Recovery/Adaptation · Attention/Stamina + X-O1 | §3 X · §4 |
+| 4 | E-O1: 정답 + 충분한 과정 근거일 때만 관찰 후보, 추측 정답은 근거 아님 | §3 E |
+| 5 | R3 = local functional role · R4 = global organization, 하향 조건 = Gold tagging 에서 독립 관찰 안 되면 R3 → R4 facet | §3 R · §20 |
+| 6 | A6: ontology 는 K 확정, 지금 R proxy(A3 + A6)는 legacy proxy only — 계산 변경은 별도 승인 | §3 축 밖 · 짝 문서 §A |
+| 7 | Evidence Anchor: `source_text_version` + `source_text_hash`(원문 정체성) · 유일 위치 · 승격 순서(원문 정체성 → 유일 위치 → validated → 사람 확인 → reviewed) · 기존 검사 통과만으로 자동 승격 금지 | §17-2 · §17-3 |
+| 8 | 영구 ID = semantic slug(`v.core_meaning` …), V1 · R2 번호는 display order | §3 머리말 |
+| 9 | 구조도(ITEM → ATTEMPT → STUDENT × AXIS → DIRECT DIAGNOSIS → LEARNING MAP, 자동 승격 없음 표시) | §10-1 |
+| 10 | 승인 · 보류 목록 · 문서 동결 · 다음 우선순위(사람 dry run · Anchor 표본 연구) | §20 |
+
+오답 원인 코드북 rev3 · 사람 dry run 자료 · 해시는 그대로다.
+
+### rev2.1 Codex 설계 리뷰 — 3회
+
+| 회 | 결과 | 지적 → 조치 |
+|---|---|---|
+| 1 | P1 1 · P3 2 | 목적 파일이 rev2 표현(「cause_confirmed = Attempt Evidence 상태」)을 그대로 갖고 있었다 → 사용자 정정에 맞춰 목적 파일을 고침 · 짝 문서 집계의 J5 → X5 잔존 → X4 · §2 X 정의의 「자동화 관찰 자리」 → 시험 실행으로 |
+| 2 | P1 1 | 경로를 `cause_adjudicated → cause_confirmed` 하나로 써서 §9 의 영역 확인 · 영역 일치가 빠짐 → `cause_adjudicated` 는 코드 확인 입력 하나, `cause_confirmed` 는 §9 ② 확인 · 영역 확인 · 영역 일치 합산 |
+| 3 | **NO_FINDINGS** | |

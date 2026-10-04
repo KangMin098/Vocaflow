@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat): 학습 지도 vNext rev2.1 — 설계 동결(미구현). cause 상태 세 단위(cause_adjudicated = attempt · cause_confirmed = student×axis 누적 근거 · verified_diagnosis) + 구조도, X 원인 우선순위 자동화 보류, X 에서 Processing Fluency 제거(가로 측정 차원), E-O1 관찰 조건, A6 legacy proxy 분리, Evidence Anchor 원문 정체성 · 승격 순서, 영구 ID = semantic slug. Codex 리뷰 → NO_FINDINGS
+
 - docs(csat): 학습 지도 vNext 설계 rev2(미구현) — 통합 관찰 *-O1 namespace · S7 흡수 · R5/R6 병합 · A6 → K(축 밖) · Performance Context · 54라인 상태(retain_core 7 · facet 1 · move 40 · alias 2 · retire 4 — 데이터 보존과 개념 보존 분리) · cause_adjudicated(응답)/cause_confirmed(축, 기존 §9) → Diagnostic Priority Signal · authoring/learning namespace · Evidence Anchor 전제(기존 좌표는 legacy_candidate). Codex 설계 리뷰 6회 → NO_FINDINGS
 
 - docs(csat): 학습 지도 vNext 정보 구조 설계안(미구현 · DB 변경 없음) — V/S/R/E/L+X 유지, 처리 단위 확장은 Learning Progression LP1–LP7 겹층(숙달도 아님), 하위 능력 후보 · 관계 facet · paraphrase 세 층 · cue 와 skill 구분, 오답 원인은 다음 진단 후보로만(상태 변경은 verified_diagnosis), 기존 출제 설계 주석 · 정본 문장 단위 · 정답 근거 재사용 조건. 실측: 문항 역량 태그 전부 유형 상속 · 문항별 시간 유효 데이터 0. 54라인 · A1–A9 · rev3 원인 대응표
