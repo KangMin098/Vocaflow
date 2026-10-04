@@ -155,7 +155,7 @@ const ROLE = {
   B: 'CSAT English Error-Cause Reviewer B',
 }
 const COMMON_RULES = `- 당신은 이번 작업에서 개발자 · 코드 리뷰어가 아니라 **독립 판정자**다. 파일 · 저장소 · 웹 · 다른 도구를 쓰지 않는다. 명령을 실행하지 않는다. 이 메시지에 있는 자료만으로 판정한다.
-- 코드북 rev3 의 정의 · decision flow(Q- … Q8) · 적용 규칙(R1–R11)만 따른다. 코드북에 없는 기준을 만들지 않는다.
+- 아래 코드북의 정의 · decision flow(Q- … Q8) · 적용 규칙(§4-1 의 R 규칙 전부)만 따른다. 코드북에 없는 기준을 만들지 않는다.
 - 결과(outcome)는 증거가 무엇을 하는가로 정한다. 확신도와 다르다 — multiple_plausible 은 「확신이 낮다」가 아니라 둘 이상의 원인이 각각 최소 증거를 갖추고 지금 증거로 서로 배제되지 않을 때만 쓴다.
 - 사고 과정 전문을 쓰지 않는다. 구조화된 근거 요약만 쓴다.
 - 출력은 **JSON 하나만**(코드 펜스 · 설명 없이).`
@@ -168,10 +168,10 @@ function trainingBlock(training, items, withAnswers) {
 function reviewerPrompt({ who, codebook, cases, items, idOf, training, mode }) {
   const head = mode === 'train'
     ? `역할: ${ROLE[who]} — 연습(calibration) 세션. 아래 연습 사례 10건을 판정한다. 정답 해설은 나중에 운영자가 대조한다.`
-    : `역할: ${ROLE[who]}. 주어진 문항과 학생 과정 증거만 보고 코드북 rev3 에 따라 학습자 오답 원인을 판정한다. 다른 판정자와 독립적으로 판정한다.`
+    : `역할: ${ROLE[who]}. 주어진 문항과 학생 과정 증거만 보고 아래 코드북에 따라 학습자 오답 원인을 판정한다. 다른 판정자와 독립적으로 판정한다.`
   const calib = mode === 'train' ? '' : `\n\n## 연습 사례와 해설(본 판정 사례와 겹치지 않는다 — 규칙 적용 방식을 익히는 용도)\n\n${trainingBlock(training, items, true)}`
   const body = mode === 'train' ? trainingBlock(training, items, false) : cases.map((c) => caseBlock(c, items[c.item_id], idOf(c))).join('\n\n')
-  return `${head}\n\n## 규칙\n${COMMON_RULES}\n\n## 코드북 rev3(전문)\n\n${codebook}${calib}\n\n## 판정할 사례\n\n${body}\n\n## 출력 형식\n{"judgments": [ 사례마다 하나 ]} — 각 원소:\n${VERDICT_FIELDS}\n사례 ${mode === 'train' ? training.length : cases.length}건 모두 판정한다.`
+  return `${head}\n\n## 규칙\n${COMMON_RULES}\n\n## 코드북(전문)\n\n${codebook}${calib}\n\n## 판정할 사례\n\n${body}\n\n## 출력 형식\n{"judgments": [ 사례마다 하나 ]} — 각 원소:\n${VERDICT_FIELDS}\n사례 ${mode === 'train' ? training.length : cases.length}건 모두 판정한다.`
 }
 
 // ── 엔진 실행(격리) ──
@@ -529,7 +529,7 @@ challenge_result: support_one(primary 후보로 살아남은 판정이 정확히
 ## 규칙
 ${COMMON_RULES}
 
-## 코드북 rev3(전문)
+## 코드북(전문)
 
 ${codebook}
 
@@ -629,7 +629,7 @@ function validateZ(z) {
   if (z.outcome != null) {
     if (!OUTCOMES.includes(z.outcome)) e.push('alternative_z.outcome')
     if (z.outcome === 'identified' && !CODES.includes(z.primary_cause)) e.push('alternative_z.primary_cause')
-    if (z.outcome === 'multiple_plausible' && ((z.candidate_causes ?? []).length < 2 || z.candidate_causes.some((c) => !PRIMARY_CODES.includes(c)))) e.push('alternative_z.candidate_causes(primary 가능 코드)')
+    if (z.outcome === 'multiple_plausible' && (!Array.isArray(z.candidate_causes) || z.candidate_causes.length < 2 || z.candidate_causes.some((c) => !PRIMARY_CODES.includes(c)))) e.push('alternative_z.candidate_causes(primary 가능 코드)')
     if (z.minimum_evidence_met && !(z.inclusion_evidence ?? '').trim()) e.push('alternative_z 직접 증거 누락')
     if (z.z_excluded && !(z.z_exclusion_evidence ?? '').trim()) e.push('alternative_z 배제 증거 누락')
   } else if (z.minimum_evidence_met) e.push('alternative_z 판정 없이 met=true')
@@ -668,7 +668,7 @@ function validateChallenge(v, plan, caseData = null) {
     if (caseData && refs.some((r) => caseData[r] == null || caseData[r] === '')) e.push('Z 가 비어 있는 과정 증거를 참조')
   }
   if (z?.outcome === 'identified' && !PRIMARY_CODES.includes(z.primary_cause)) e.push('alternative_z.primary_cause 는 primary 가능 코드')
-  if (z?.outcome === 'multiple_plausible' && new Set(z.candidate_causes).size !== z.candidate_causes.length) e.push('alternative_z 후보 중복')
+  if (z?.outcome === 'multiple_plausible' && Array.isArray(z.candidate_causes) && new Set(z.candidate_causes).size !== z.candidate_causes.length) e.push('alternative_z 후보 중복')
   if (plan.open && z?.outcome && !['identified', 'multiple_plausible'].includes(z.outcome)) e.push('open-set 의 Z 는 원인 판정(identified · multiple_plausible)이어야 X 를 반증한다')
   if (z?.nearest_competing_excluded && !(z.nearest_competing_exclusion_evidence ?? '').trim()) e.push('nearest_competing 배제 근거 누락')
   const pk = verdictKey(v.proposal)
@@ -726,7 +726,7 @@ competing_excluded: 남은 경쟁 판정을 모두 증거로 배제했으면 tru
 ## 규칙
 ${COMMON_RULES}
 
-## 코드북 rev3(전문)
+## 코드북(전문)
 
 ${codebook}
 
@@ -1056,6 +1056,65 @@ const manFor = (stage) => (/^adj[12]-[ab]$/.test(stage ?? '') ? adjManifestF : m
 const ADJ_CODES = ['GOLD_WRONG', 'GOLD_UNDERSPECIFIED', 'ITEM_AMBIGUOUS', 'ITEM_BAD_CONSTRUCT', 'CODEBOOK_BOUNDARY_WEAK', 'CODE_REDUNDANT', 'MODEL_SHARED_BIAS', 'INSUFFICIENT_EVIDENCE']
 const isAdjStage = (stage) => /^adj[12]-[ab]$/.test(stage)
 
+// ── adjudication v2 — 지정 사례만(--cases), 실패 원인 7분류. 1단계: 기대 판정 + 회차 모델 판정(익명)을 보고 독립 분류(다른 adjudicator 결과 비공개)
+// 2단계: 두 adjudicator 의 1단계 분류를 익명으로 공개 → 같은 증거 · 규칙으로 최종 분류. 다수결 금지
+const ADJ2_CATS = ['GOLD_WRONG', 'CASE_CONSTRUCTION', 'RULE_INSUFFICIENT', 'TAXONOMY_OVERLAP', 'TAXONOMY_MISSING', 'SHARED_MODEL_BIAS', 'GENUINELY_UNRESOLVED']
+const V2_FIELDS = `{
+  "case_id": "<사례 id>",
+  "own_verdict": {"outcome": "<결과>", "primary_cause": "<identified 일 때>", "candidate_causes": ["<multiple 일 때>"]},
+  "primary_category": "${ADJ2_CATS.join('|')}",
+  "contributing_categories": ["<위 분류 0개 이상, primary 와 중복 금지>"],
+  "key_answers": ["<사례에 적힌 핵심 질문마다 한 문장씩, 순서대로>"],
+  "expected_fix_needed": false,
+  "rule_fix_needed": false,
+  "case_fix_needed": false,
+  "recommended_gold": {"outcome": "<결과>", "primary_cause": "<identified 일 때>", "candidate_causes": ["<multiple 일 때>"]},
+  "short_rationale": "<1–3문장 — 학생 증거 → 최소 증거 → 배제 기준 → 결정 규칙 → 기대와 모델 판정 비교 순서로>"
+}`
+function adjV2Prompt(phase, entries, codebook, items, cbLabel) {
+  const body = entries.map((x) => caseBlock(x.c, items[x.c.item_id], x.oid) + '\n\n' + goldBlock(x.c, x.e) + x.models + (x.questions.length ? '\n\n핵심 질문:\n' + x.questions.map((q, i) => `${i + 1}. ${q}`).join('\n') : '') + (phase === 2 ? x.reveal : '')).join('\n\n')
+  const head = phase === 1
+    ? `역할: CSAT English Error-Cause Adjudicator — 1단계 독립 분류. 이 사례들은 코드북 ${cbLabel} 재검증에서 기준에 못 미쳤다(모델 판정이 기대와 다르거나 최종 판정이 갈림). 다른 adjudicator 의 판단은 보지 않는다(주어지지 않는다). 각 사례에 대해 스스로 판정하고, 실패의 원인을 분류한다.`
+    : `역할: CSAT English Error-Cause Adjudicator — 2단계 최종 분류. 1단계의 두 독립 분류(출처 숨김)가 공개된다. 다수결이 아니라 같은 증거와 코드북 ${cbLabel} 규칙으로 최종 분류한다.`
+  return `${head}
+판단 순서: ① 실제 학생 증거 ② 최소 증거 ③ 배제 기준 ④ 결정 규칙 ⑤ 기대 판정과 모델 판정 비교.
+분류: GOLD_WRONG(기대 판정이 틀림) · CASE_CONSTRUCTION(사례가 겨냥한 구분을 드러내지 못하거나 두 판정을 모두 정당화) · RULE_INSUFFICIENT(결정 규칙에 단계 · tie-break 가 빠짐) · TAXONOMY_OVERLAP(두 코드의 경계 자체가 겹침 — 규칙 보완으로 안 갈림) · TAXONOMY_MISSING(맞는 코드가 없음) · SHARED_MODEL_BIAS(규칙은 충분한데 판정들이 같은 방향으로 오판) · GENUINELY_UNRESOLVED(증거로 가를 수 없는 사례 — 실패가 아님). primary 1개 + contributing 0개 이상.
+expected_fix_needed · rule_fix_needed · case_fix_needed 는 이 분류에서 따라 나오는 조치다(고치는 것은 이 작업 밖).
+
+## 규칙
+${COMMON_RULES}
+
+## 코드북 ${cbLabel}(전문)
+
+${codebook}
+
+## 사례
+
+${body}
+
+## 출력 형식
+{"judgments": [ 사례마다 하나 ]} — 각 원소:
+${V2_FIELDS}
+사례 ${entries.length}건 모두.`
+}
+function validateAdjV2(v, ids, nQuestions) {
+  const e = []
+  if (!ids.has(v.case_id)) e.push('모르는 case_id')
+  if (!ADJ2_CATS.includes(v.primary_category)) e.push('primary_category')
+  if (!Array.isArray(v.contributing_categories) || v.contributing_categories.some((c) => !ADJ2_CATS.includes(c) || c === v.primary_category)) e.push('contributing_categories')
+  for (const k of ['expected_fix_needed', 'rule_fix_needed', 'case_fix_needed']) if (typeof v[k] !== 'boolean') e.push(k)
+  if (!Array.isArray(v.key_answers) || v.key_answers.length < nQuestions) e.push('key_answers(질문마다 하나)')
+  for (const g of [v.own_verdict, v.recommended_gold]) {
+    if (!OUTCOMES.includes(g?.outcome)) { e.push('verdict.outcome'); continue }
+    if (g.outcome === 'identified' && !PRIMARY_CODES.includes(g.primary_cause)) e.push('verdict.primary_cause')
+    // 배열인지 먼저 — 문자열 · 객체가 오면 예외로 실행 전체가 멈추지 않고 검증 오류(→ 재판정)로 처리
+    if (g.outcome === 'multiple_plausible' && (!Array.isArray(g.candidate_causes) || new Set(g.candidate_causes).size < 2 || g.candidate_causes.length !== new Set(g.candidate_causes).size || g.candidate_causes.some((c) => !PRIMARY_CODES.includes(c)))) e.push('verdict.candidate_causes')
+  }
+  if (v.primary_category === 'GOLD_WRONG' && !v.expected_fix_needed) e.push('GOLD_WRONG 인데 expected_fix_needed=false')
+  if (!(v.short_rationale ?? '').trim()) e.push('short_rationale')
+  return e
+}
+
 function adjTargets() {
   // 봉인 검증 — 봉인 뒤 바뀐 final.json 으로 대상을 고르지 않는다(report 와 같은 검사)
   if (!lexists(sealF)) { console.error('회차 봉인 뒤에만'); process.exit(2) }
@@ -1086,7 +1145,7 @@ const ADJ2_FIELDS = `{
 function adjPrompt(phase, entries, codebook, items) {
   const body = entries.map((x) => caseBlock(x.c, items[x.c.item_id], x.oid) + '\n\n' + goldBlock(x.c, x.e) + (phase === 2 ? x.reveal : '')).join('\n\n')
   const head = phase === 1
-    ? `역할: CSAT English Error-Cause Adjudicator — 1단계 독립 판정. 각 사례를 코드북 rev3 로 스스로 판정하고, 사례 작성자의 기대 판정이 학생 증거와 코드북으로 지지되는지 평가한다. 다른 판정자의 판정은 보지 않는다(주어지지 않는다).`
+    ? `역할: CSAT English Error-Cause Adjudicator — 1단계 독립 판정. 각 사례를 아래 코드북으로 스스로 판정하고, 사례 작성자의 기대 판정이 학생 증거와 코드북으로 지지되는지 평가한다. 다른 판정자의 판정은 보지 않는다(주어지지 않는다).`
     : `역할: CSAT English Error-Cause Adjudicator — 2단계 분류. 각 사례에 대해 당신의 1단계 독립 판정과, 출처를 숨긴 다른 판정들 · 회차 최종 결과가 주어진다. 다수결로 정하지 말고 증거 · 코드북 규칙으로 불일치의 원인을 하나의 adjudication 코드로 분류한다.
 코드: GOLD_WRONG(기대 판정 자체가 잘못) · GOLD_UNDERSPECIFIED(기대는 가능하나 허용 대안 · 범위 부족) · ITEM_AMBIGUOUS(사례가 두 코드 이상을 정당화) · ITEM_BAD_CONSTRUCT(겨냥한 구분을 사례가 잘 못 드러냄) · CODEBOOK_BOUNDARY_WEAK(정의 · tie-break 규칙 부족) · CODE_REDUNDANT(두 코드가 실제 판정에서 안정적으로 구분되지 않음) · MODEL_SHARED_BIAS(규칙은 충분한데 판정들이 같은 방향으로 오판) · INSUFFICIENT_EVIDENCE(지금 자료로 adjudication 불가).
 S.attachment 사례는 CODE_REDUNDANT 가능성을 열어 둔다 — 「규칙만 보완하면 구분된다」고 가정하지 않는다.`
@@ -1096,7 +1155,7 @@ S.attachment 사례는 CODE_REDUNDANT 가능성을 열어 둔다 — 「규칙�
 ## 규칙
 ${COMMON_RULES}
 
-## 코드북 rev3(전문)
+## 코드북(전문)
 
 ${codebook}
 
@@ -1111,6 +1170,8 @@ ${fields}
 }
 
 function validateAdj(v, stage, ids, caseData) {
+  const am = lexists(adjManifestF) ? readJ(adjManifestF) : null
+  if (am?.version === 'v2') { const oid = v.case_id; const cid = Object.entries(readJ(path.join(OP, 'map.json'))).find(([, o]) => o === oid)?.[0]; return validateAdjV2(v, ids, (am.questions?.[cid] ?? []).length) }
   if (/^adj1-/.test(stage)) {
     const e = validateVerdict(v, ids, true, caseData)
     if (!['yes', 'partial', 'no'].includes(v.gold_assessment?.supported) || !(v.gold_assessment?.reason ?? '').trim()) e.push('gold_assessment')
@@ -1124,7 +1185,7 @@ function validateAdj(v, stage, ids, caseData) {
   const g = v.recommended_gold ?? {}
   if (!OUTCOMES.includes(g.outcome)) e.push('recommended_gold.outcome')
   if (g.outcome === 'identified' && !PRIMARY_CODES.includes(g.primary_cause)) e.push('recommended_gold.primary_cause')
-  if (g.outcome === 'multiple_plausible' && (new Set(g.candidate_causes ?? []).size < 2 || g.candidate_causes.length !== new Set(g.candidate_causes).size || g.candidate_causes.some((c) => !PRIMARY_CODES.includes(c)))) e.push('recommended_gold.candidate_causes(서로 다른 primary 가능 코드 2개 이상)')
+  if (g.outcome === 'multiple_plausible' && (!Array.isArray(g.candidate_causes) || new Set(g.candidate_causes).size < 2 || g.candidate_causes.length !== new Set(g.candidate_causes).size || g.candidate_causes.some((c) => !PRIMARY_CODES.includes(c)))) e.push('recommended_gold.candidate_causes(서로 다른 primary 가능 코드 2개 이상)')
   if ((g.accept ?? []).some((c) => !CODES.includes(c) && !OUTCOMES.includes(c))) e.push('recommended_gold.accept')
   if (!(v.short_rationale ?? '').trim()) e.push('short_rationale')
   return e
@@ -1329,7 +1390,110 @@ function rev4Eval() {
   fs.writeFileSync(outMd, L.join('\n'))
   console.log(`rev4 판정: ${Object.entries(result).map(([k, v]) => `${k} ${v.adopt ? '채택' : '보류'}`).join(' · ')} · 퇴행 ${noRegression ? '없음' : '있음'}`)
 }
+function adjV2Context() {
+  const man = readJ(adjManifestF)
+  const corpus = readJ(CORPUS_F)
+  const byCase = Object.fromEntries(corpus.cases.map((c) => [c.case_id, c]))
+  const exp = JSON.parse(readAny(EXPECTED_F)).expected
+  const finalText = readRun(path.join(OP, 'final.json'))
+  if (sha(finalText) !== JSON.parse(readRun(sealF)).final_sha256) { console.error('봉인 뒤 final.json 이 바뀌었다'); process.exit(2) }
+  const { toOpaque } = unmap()
+  const rows = Object.fromEntries(JSON.parse(finalText).map((r) => [r.oid, r]))
+  return { man, byCase, exp, rows, toOpaque, cbLabel: readJ(manifestF).cfg?.codebook === 'CODEBOOK.rev4.md' ? 'rev4' : 'rev3' }
+}
+// 모델 판정(익명) — 1단계부터 공개: 실패 원인을 분류하려면 기대와 무엇이 어긋났는지 알아야 한다
+function modelsBlock(oid, row, seed) {
+  const A1 = loadStage('a1'), B1 = loadStage('b1'), A2 = loadStage('a2'), B2 = loadStage('b2')
+  const FC = lexists(path.join(RUN, 'final-claude', 'out-1.json')) ? loadStage('final-claude') : {}, FX = lexists(path.join(RUN, 'final-codex', 'out-1.json')) ? loadStage('final-codex') : {}
+  const op = (v) => `${describe(v)} — 근거: ${v.short_rationale ?? ''}`
+  const all = shuffled([A1[oid], B1[oid], A2[oid]?.proposal, B2[oid]?.proposal, FC[oid], FX[oid]].filter((v) => v && v.outcome).map(op), seed)
+  return `\n\n이 회차의 판정들(출처 · 단계 숨김 · 순서 무의미):\n${all.map((o, i) => `- 판정 ${i + 1}: ${o}`).join('\n')}\n회차 최종 결과: ${row.final ? `확정 — ${row.final}` : '미해결(최종 판정 둘이 갈림)'}`
+}
+function adjV2Prepare() {
+  verifyInputs()
+  if (!lexists(sealF)) { console.error('회차 봉인 뒤에만'); process.exit(2) }
+  if (lexists(adjManifestF)) { console.error('adjudication 이 이미 준비됐다'); process.exit(2) }
+  const qf = arg('--questions'); const questions = qf ? JSON.parse(readRun(path.resolve(qf))) : {}
+  const cases = (arg('--cases') ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+  if (!cases.length) { console.error('--cases 필요'); process.exit(2) }
+  const base = readJ(manifestF)
+  // 매니페스트를 쓰기 전에 검증 — 실패한 준비가 「이미 준비됨」 상태로 남아 재시도를 막지 않게
+  {
+    const finalText = readRun(path.join(OP, 'final.json'))
+    if (sha(finalText) !== JSON.parse(readRun(sealF)).final_sha256) { console.error('봉인 뒤 final.json 이 바뀌었다'); process.exit(2) }
+    const known = new Set(readJ(CORPUS_F).cases.map((c) => c.case_id)); const { toOpaque: tp } = unmap(); const fr = new Set(JSON.parse(finalText).map((r) => r.oid))
+    const bad = cases.filter((id) => !known.has(id) || !fr.has(tp[id]))
+    if (bad.length) { console.error(`없는 사례: ${bad.join(' ')}`); process.exit(2) }
+  }
+  writeJ(adjManifestF, { run_id: `${base.run_id}-adj2`, version: 'v2', codebook_sha256: base.codebook_sha256, created: new Date().toISOString(), plan_commit: arg('--plan-commit') ?? null, packets: {}, cases, questions })
+  const { man, byCase, exp, rows, toOpaque, cbLabel } = adjV2Context()
+  for (const id of cases) if (!byCase[id] || !rows[toOpaque[id]]) { console.error(`없는 사례: ${id}`); process.exit(2) }
+  const codebook = readAny(CODEBOOK_F).replace(/\r\n/g, '\n'); const items = readJ(path.join(OP, 'items.json'))
+  for (const [stage, seed] of [['adj1-a', 'A'], ['adj1-b', 'B']]) {
+    const entries = shuffled(cases.map((id) => ({ c: byCase[id], e: exp[id], oid: toOpaque[id], questions: questions[id] ?? [], models: modelsBlock(toOpaque[id], rows[toOpaque[id]], `${man.run_id}:${stage}:${id}`) })), `${man.run_id}:${stage}:${seed}`)
+    const d = path.join(RUN, stage); fs.mkdirSync(d, { recursive: true }); const f = path.join(d, 'prompt-1.md'); const text = adjV2Prompt(1, entries, codebook, items, cbLabel)
+    guardWrite(f); fs.writeFileSync(f, text); man.packets[`${stage}/1`] = sha(text)
+  }
+  writeJ(adjManifestF, man)
+  console.log(`adjudication v2 1단계: ${cases.join(' ')}`)
+}
+function adjV2Reveal() {
+  verifyInputs()
+  const { man, byCase, exp, rows, toOpaque, cbLabel } = adjV2Context()
+  if (man.packets['adj2-a/1']) { console.error('2단계 패킷이 이미 있다'); process.exit(2) }
+  const P = { a: loadStage('adj1-a'), b: loadStage('adj1-b') }
+  const bad = man.cases.filter((id) => ['a', 'b'].some((k) => !P[k][toOpaque[id]] || P[k][toOpaque[id]].invalid_output))
+  if (bad.length) { console.error(`1단계 무효 · 누락: ${bad.join(' ')}`); process.exit(2) }
+  const show = (v) => `분류 ${v.primary_category}${v.contributing_categories.length ? ' (+' + v.contributing_categories.join(', ') + ')' : ''} · 자기 판정 ${describe(v.own_verdict)} · 권장 기대 ${describe(v.recommended_gold)} · 기대 수정 ${v.expected_fix_needed} · 규칙 수정 ${v.rule_fix_needed} · 사례 수정 ${v.case_fix_needed} — 근거: ${v.short_rationale} — 질문 답: ${v.key_answers.join(' / ')}`
+  const codebook = readAny(CODEBOOK_F).replace(/\r\n/g, '\n'); const items = readJ(path.join(OP, 'items.json'))
+  for (const [stage, seed] of [['adj2-a', 'A'], ['adj2-b', 'B']]) {
+    const entries = shuffled(man.cases.map((id) => { const oid = toOpaque[id]; const two = shuffled([P.a[oid], P.b[oid]], `${man.run_id}:${stage}:${id}:rev`)
+      return { c: byCase[id], e: exp[id], oid, questions: man.questions[id] ?? [], models: modelsBlock(oid, rows[oid], `${man.run_id}:${stage}:${id}`),
+        reveal: `\n\n1단계 독립 분류 두 개(출처 숨김 · 순서 무의미):\n- 분류 1: ${show(two[0])}\n- 분류 2: ${show(two[1])}` } }), `${man.run_id}:${stage}:${seed}`)
+    const d = path.join(RUN, stage); fs.mkdirSync(d, { recursive: true }); const f = path.join(d, 'prompt-1.md'); const text = adjV2Prompt(2, entries, codebook, items, cbLabel)
+    guardWrite(f); fs.writeFileSync(f, text); man.packets[`${stage}/1`] = sha(text)
+  }
+  writeJ(adjManifestF, man)
+  console.log('adjudication v2 2단계 패킷')
+}
+function adjV2Report() {
+  verifyInputs()
+  const { man, rows, toOpaque, exp } = adjV2Context()
+  const P1 = { a: loadStage('adj1-a'), b: loadStage('adj1-b') }, P2 = { a: loadStage('adj2-a'), b: loadStage('adj2-b') }
+  const vk = (g) => verdictKey({ outcome: g?.outcome, primary_cause: g?.primary_cause, candidate_causes: g?.candidate_causes ?? [] })
+  const out = man.cases.map((id) => {
+    const oid = toOpaque[id]
+    // 무효 · 누락 출력은 판정 없음으로 — 조치 값을 비우고 최종 분류를 INVALID_OUTPUT 으로 공개한다(기본 결정으로 흘러가지 않게)
+    const ok = (v) => (v && !v.invalid_output ? v : { primary_category: 'INVALID_OUTPUT', contributing_categories: [], expected_fix_needed: null, rule_fix_needed: null, case_fix_needed: null, recommended_gold: {}, short_rationale: '', key_answers: [], invalid: true })
+    const a1 = ok(P1.a[oid]), b1 = ok(P1.b[oid]), a2 = ok(P2.a[oid]), b2 = ok(P2.b[oid])
+    const agreed = a2.invalid || b2.invalid ? 'INVALID_OUTPUT' : a2.primary_category === b2.primary_category ? a2.primary_category : null
+    const flag = (k) => (a2[k] === b2[k] ? a2[k] : 'split')
+    return { case_id: id, run_final: rows[oid].final ?? 'UNRESOLVED', expected: exp[id], independent: { claude: a1.primary_category, codex: b1.primary_category }, final2: { claude: a2.primary_category, codex: b2.primary_category },
+      final_category: agreed ?? 'ADJUDICATION_SPLIT', contributing: { claude: a2.contributing_categories, codex: b2.contributing_categories },
+      expected_fix_needed: flag('expected_fix_needed'), rule_fix_needed: flag('rule_fix_needed'), case_fix_needed: flag('case_fix_needed'), recommended_gold: { claude: vk(a2.recommended_gold), codex: vk(b2.recommended_gold) },
+      rationale: { claude: a2.short_rationale, codex: b2.short_rationale }, key_answers: { claude: a2.key_answers, codex: b2.key_answers } }
+  })
+  writeJ(path.join(OP, 'adjudication-v2-full.json'), out)
+  // 사용자 지시(2026-10-05)의 채택 규칙
+  const cat = (id) => out.find((r) => r.case_id === id)?.final_category
+  const decide = {
+    R9_section6: cat('R4-H6') === 'GOLD_WRONG' ? 'adopt' : 'candidate',
+    R6: ['RULE_INSUFFICIENT', 'TAXONOMY_OVERLAP'].includes(cat('R4-H1')) ? 'candidate' : ['CASE_CONSTRUCTION', 'GENUINELY_UNRESOLVED'].includes(cat('R4-H1')) ? 're-evaluate(rule 자체 실패 아님 가능)' : 'candidate',
+    R12: ['RULE_INSUFFICIENT', 'TAXONOMY_OVERLAP'].includes(cat('N-13')) ? 'candidate' : cat('N-13') === 'GOLD_WRONG' ? 're-evaluate(기대 오류)' : 'candidate',
+  }
+  const outMd = path.resolve(arg('--out') ?? '')
+  if (!/ADJUDICATION_REV4\.md$/.test(outMd) || !inside(realOf(outMd), realOf(DIR)) || isLink(outMd)) { console.error('--out 은 docs/csat-learner/codebook/ADJUDICATION_REV4.md'); process.exit(2) }
+  const pub = out.map(({ rationale, key_answers, ...r }) => ({ ...r, expected: vk({ outcome: r.expected.outcome, primary_cause: r.expected.primary, candidate_causes: r.expected.candidates ?? [] }) }))
+  fs.writeFileSync(outMd.replace(/\.md$/, '.json'), JSON.stringify({ run_id: man.run_id, plan_commit: man.plan_commit, cases: pub, decision: decide }, null, 1) + '\n')
+  const esc = (x) => String(x ?? '—').replace(/\|/g, '\\|')
+  const L = [`# rev4 재검증 미달 3건 adjudication — ${man.run_id}`, '', '> 2단계(1단계 독립 분류 → 두 분류 공개 후 최종 분류) · Claude · Codex 새 context · 사람 판정 아님 · 원문 · 판정자 서술은 저장소 밖(operator/adjudication-v2-full.json). 원본 기대 판정 · rev4 결과는 고치지 않는다 — 정정은 이 기록으로만.', '',
+    '| 사례 | 회차 최종 | 기대 | 독립 Claude / Codex | 최종 Claude / Codex | **최종 분류** | 기대 수정 | 규칙 수정 | 사례 수정 | 권장 기대 Claude / Codex |', '|---|---|---|---|---|---|---|---|---|---|',
+    ...pub.map((r) => `| ${r.case_id} | ${esc(r.run_final)} | ${esc(r.expected)} | ${r.independent.claude} / ${r.independent.codex} | ${r.final2.claude} / ${r.final2.codex} | **${r.final_category}** | ${r.expected_fix_needed} | ${r.rule_fix_needed} | ${r.case_fix_needed} | ${esc(r.recommended_gold.claude)} / ${esc(r.recommended_gold.codex)} |`), '',
+    '## 채택 규칙 적용(2026-10-05 사용자 지시)', '', `- §6/R9: R4-H6 이 GOLD_WRONG 합의면 채택 → **${decide.R9_section6}**`, `- R6: R4-H1 이 RULE_INSUFFICIENT · TAXONOMY_OVERLAP 이면 candidate, CASE_CONSTRUCTION · GENUINELY_UNRESOLVED 면 재평가 → **${decide.R6}**`, `- R12: N-13 이 RULE_INSUFFICIENT · TAXONOMY_OVERLAP 이면 candidate → **${decide.R12}**`, '']
+  fs.writeFileSync(outMd, L.join('\n'))
+  console.log('v2 보고:', JSON.stringify(decide), out.map((r) => `${r.case_id}=${r.final_category}`).join(' '))
+}
 
-const cmds = { prepare, run, gate1, challenge, resolve, seal, report, 'adj-prepare': adjPrepare, 'adj-reveal': adjReveal, 'adj-report': adjReport, 'rev4-eval': rev4Eval }
+const cmds = { prepare, run, gate1, challenge, resolve, seal, report, 'adj-prepare': adjPrepare, 'adj-reveal': adjReveal, 'adj-report': adjReport, 'rev4-eval': rev4Eval, 'adj2-prepare': adjV2Prepare, 'adj2-reveal': adjV2Reveal, 'adj2-report': adjV2Report }
 if (!cmds[cmd]) { console.error(`명령: ${Object.keys(cmds).join(' | ')}`); process.exit(2) }
 await cmds[cmd]()

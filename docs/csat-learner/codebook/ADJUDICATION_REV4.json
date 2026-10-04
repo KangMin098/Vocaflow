@@ -1,0 +1,95 @@
+{
+ "run_id": "xm4-20261005-adj2",
+ "plan_commit": null,
+ "cases": [
+  {
+   "case_id": "R4-H6",
+   "run_final": "identified:V.multiword",
+   "expected": "multiple_plausible:R.inference|V.multiword",
+   "independent": {
+    "claude": "GOLD_WRONG",
+    "codex": "GOLD_WRONG"
+   },
+   "final2": {
+    "claude": "GOLD_WRONG",
+    "codex": "GOLD_WRONG"
+   },
+   "final_category": "GOLD_WRONG",
+   "contributing": {
+    "claude": [],
+    "codex": [
+     "CASE_CONSTRUCTION"
+    ]
+   },
+   "expected_fix_needed": true,
+   "rule_fix_needed": false,
+   "case_fix_needed": "split",
+   "recommended_gold": {
+    "claude": "identified:V.multiword",
+    "codex": "identified:V.multiword"
+   }
+  },
+  {
+   "case_id": "R4-H1",
+   "run_final": "UNRESOLVED",
+   "expected": "identified:V.wrong_sense",
+   "independent": {
+    "claude": "SHARED_MODEL_BIAS",
+    "codex": "CASE_CONSTRUCTION"
+   },
+   "final2": {
+    "claude": "CASE_CONSTRUCTION",
+    "codex": "SHARED_MODEL_BIAS"
+   },
+   "final_category": "ADJUDICATION_SPLIT",
+   "contributing": {
+    "claude": [
+     "RULE_INSUFFICIENT"
+    ],
+    "codex": []
+   },
+   "expected_fix_needed": "split",
+   "rule_fix_needed": "split",
+   "case_fix_needed": "split",
+   "recommended_gold": {
+    "claude": "multiple_plausible:R.inference|V.wrong_sense",
+    "codex": "identified:V.wrong_sense"
+   }
+  },
+  {
+   "case_id": "N-13",
+   "run_final": "multiple_plausible:V.multiword|V.wrong_sense",
+   "expected": "identified:V.multiword",
+   "independent": {
+    "claude": "RULE_INSUFFICIENT",
+    "codex": "GOLD_WRONG"
+   },
+   "final2": {
+    "claude": "GOLD_WRONG",
+    "codex": "GOLD_WRONG"
+   },
+   "final_category": "GOLD_WRONG",
+   "contributing": {
+    "claude": [
+     "CASE_CONSTRUCTION",
+     "RULE_INSUFFICIENT"
+    ],
+    "codex": [
+     "CASE_CONSTRUCTION"
+    ]
+   },
+   "expected_fix_needed": true,
+   "rule_fix_needed": "split",
+   "case_fix_needed": true,
+   "recommended_gold": {
+    "claude": "identified:V.wrong_sense",
+    "codex": "identified:V.wrong_sense"
+   }
+  }
+ ],
+ "decision": {
+  "R9_section6": "adopt",
+  "R6": "candidate",
+  "R12": "re-evaluate(기대 오류)"
+ }
+}
