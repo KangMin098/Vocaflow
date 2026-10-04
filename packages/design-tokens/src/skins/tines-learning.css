@@ -329,6 +329,19 @@
   :root[data-skin="tines"] .pairflip-hub > section:last-child { grid-column: 1; grid-row: auto; }
 }
 
+/* 내 책장 카드(2026-10-04) — PC 만 참조 웨비나 카드 문법. 모바일은 기존 카드 그대로. */
+@media (min-width: 768px) {
+  :root[data-skin="tines"] .my-book-card { min-height: 220px; border-radius: 10px; box-shadow: none; border-color: color-mix(in srgb, var(--t1) 30%, transparent); }
+  :root[data-skin="tines"] .my-book-card h2 { font-family: var(--font-serif); font-size: 20px; font-weight: 400; line-height: 1.2; }
+  :root[data-skin="tines"] .my-book-card > div:last-child { background: transparent; border-color: color-mix(in srgb, var(--t1) 20%, transparent); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+1) > .my-book-card { background: var(--tint-green); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); --t3: var(--tint-green-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+2) > .my-book-card { background: var(--tint-lavender); --t1: var(--tint-lavender-ink); --t2: var(--tint-lavender-ink); --t3: var(--tint-lavender-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+3) > .my-book-card { background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --t3: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+4) > .my-book-card { background: var(--tint-pink); --t1: var(--tint-pink-ink); --t2: var(--tint-pink-ink); --t3: var(--tint-pink-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+5) > .my-book-card { background: var(--tint-teal); --t1: var(--tint-teal-ink); --t2: var(--tint-teal-ink); --t3: var(--tint-teal-ink); }
+  :root[data-skin="tines"] .my-books-grid > li:nth-child(6n+6) > .my-book-card { background: var(--tint-yellow); --t1: var(--tint-yellow-ink); --t2: var(--tint-yellow-ink); --t3: var(--tint-yellow-ink); }
+}
+
 /* 솔루션형 가운데 히어로(참조 /solutions/security · 2026-10-04) — ModuleHero 의 `tines-solutions-hero`.
    색 면 상자를 걷고 크림 바탕에 가운데 정렬 · 모노 눈썹 · 세리프 제목 · 양옆 떠 있는 판 삽화. PC 전용. */
 .tines-hero-flanks { display: none; }
