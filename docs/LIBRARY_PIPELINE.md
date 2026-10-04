@@ -2,7 +2,7 @@
 
 ## 기출 지문 원천 후속 검수 (2026-10-04)
 
-`/admin/knowledge/csat-origins`의 `knowledge_csat_origins`는 기출 지문이 발췌된 책·논문을 기록한다. 생성 콘텐츠의 `/admin/csat/sources` 적격 판정과 별개다. [후속 조사 결과·보류 대상](./reports/csat-source-origin-followup-20261004.md), [변경 전후 manifest](./reports/csat-source-origin-followup-review-20261004.json)를 함께 보존한다.
+`/admin/knowledge/sources/csat`의 `knowledge_csat_origins`는 기출 지문이 발췌된 책·논문을 기록한다. 생성 콘텐츠의 `/admin/csat/sources` 적격 판정과 별개다. [후속 조사 결과·보류 대상](./reports/csat-source-origin-followup-20261004.md), [변경 전후 manifest](./reports/csat-source-origin-followup-review-20261004.json)를 함께 보존한다.
 
 1. 서지 단서에서 도서·논문의 해당 문단 전체를 찾아 시험 편집을 복원해 대조한다. 인용 연구자·편집자·장 저자를 구분하고 실제 열람 판본을 기록한다.
 2. 기존 등록부 SHA·대표/연결 문항·각 현재 본문 SHA·변경 전후 10개 필드를 manifest에 담는다. 과거 정규화 SHA를 현재 raw SHA로 바꾸지 않는다.
