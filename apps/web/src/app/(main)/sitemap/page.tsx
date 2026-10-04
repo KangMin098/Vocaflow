@@ -22,6 +22,7 @@
 //    못박은 것과 같은 규칙이다(번호는 순서이지 자격·잠금·진도가 아니다). 그래서 여기에도
 //    자물쇠·비활성·"아직 못 함" 이 없다. 전부 언제나 눌린다.
 
+import { PageIntro } from '@/components/ui/PageIntro'
 import Link from 'next/link'
 
 import { Screen } from '@/components/ui/ios'
@@ -113,7 +114,8 @@ export default function SitemapPage() {
   return (
     <Screen width="wide" background="bg2" padX="md" asMain={false}>
       <div className="flex flex-col gap-3 py-6 md:py-8">
-        <header className="flex flex-col gap-2">
+        {/* 모바일 머리 — 그대로. PC 는 아래 공용 기능형 머리. */}
+        <header className="flex flex-col gap-2 md:hidden">
           <h1 className="font-editorial text-[26px] font-[500] leading-[1.25] tracking-[-0.014em] text-[var(--t1)] md:text-[30px]">
             전체 보기
           </h1>
@@ -123,6 +125,16 @@ export default function SitemapPage() {
             잠긴 곳은 없습니다 — 어디든 바로 갈 수 있어요.
           </p>
         </header>
+        <PageIntro
+          className="mb-4 hidden md:flex"
+          kicker="Growth · Sitemap"
+          title="전체 보기"
+          description={
+            <>
+              Vocaflow 의 모든 화면입니다. 가운데 다섯 묶음은 <strong className="font-[700]">순서</strong>대로 이어지지만, 잠긴 곳은 없습니다 — 어디든 바로 갈 수 있어요.
+            </>
+          }
+        />
 
         {/* 메타 표면 둘 — 앞을 보는 자리(Today)와 뒤를 보는 자리(Growth). 레일 밖이다. */}
         <Block title="어디서든 돌아오는 자리" note="지금 할 일과 지나온 기록.">

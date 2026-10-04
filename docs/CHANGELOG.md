@@ -11,6 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): bespoke 머리 이행 1차 — `/practice`(기능형 재분류 · `PageIntro compact`) · `/practice/dcp` · `/sitemap` 을 PC 에서 공용 `PageIntro` 로(모바일 기존 머리 유지, dcp 중복 배너 PC 숨김). 셸 `SectionSubNav` 를 `<main>` 밖으로(본문 링크 계약 회귀 수정 · 26-practice-chooser ③). e2e 26 ④ 복귀 링크를 본문 안 보이는 링크로 한정. bespoke 14→11.
 - feat(design): 학습자 화면 유형 정본 `lib/design/screen-types.ts` — 73 라우트를 발견형·기능형·세션·특수·별칭으로 고정하고 회귀 가드(분류 누락 · 머리 불일치 · 계층 혼용 · 세션↔전체화면)를 추가(보조 내비 세션 판정에 연결). 자체 머리 14개를 다음 정리 대상으로 명시. 화면 변경 없음.
 
 - feat(textbook): FYM 실제 blind 평가 응답의 로컬 수집을 추가했다. 해시/opaque ID/본문·사람 등록·시각·문항/학년 검증, 중복 skip·충돌 reject·학생 null 보충, 새 결과/receipt 보존을 지원한다. 실제 응답 없는 8편의 빈 입력 예행만 수행했으며 DB 쓰기·발송·발행·마이그레이션·라우트 변경 없음.

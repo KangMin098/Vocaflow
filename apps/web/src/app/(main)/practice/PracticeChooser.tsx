@@ -24,6 +24,7 @@
 
 'use client'
 
+import { PageIntro } from '@/components/ui/PageIntro'
 import { ArrowRight, Gamepad2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -115,7 +116,8 @@ export function PracticeChooser({
 
   return (
     <div className="flex flex-col gap-6 py-8 md:py-10">
-      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+      {/* 모바일 머리 — 그대로. PC 는 아래 공용 기능형 머리(아래 보라 추천 블록이 히어로 몫을 하므로 가운데 히어로를 겹쳐 쌓지 않는다). */}
+      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1 md:hidden">
         <h1 className="font-editorial text-[30px] font-[500] leading-[1.15] tracking-[-0.014em] text-[var(--t1)] md:text-[36px]">
           연습
         </h1>
@@ -125,6 +127,17 @@ export function PracticeChooser({
           </span>
         )}
       </header>
+      <PageIntro
+        className="hidden md:flex"
+        compact
+        kicker="Practice"
+        title="연습"
+        actions={
+          ownedTotal != null ? (
+            <span className="font-mono text-[13px] tabular-nums text-[var(--ju)]">내 단어 {ownedTotal.toLocaleString()}개</span>
+          ) : undefined
+        }
+      />
 
       {/* 가장 무른 면에 도구가 없을 때만 — 조용히 바꿔치기하지 않고 사실을 말한다. */}
       {weakest != null && !weakestHasTool && (

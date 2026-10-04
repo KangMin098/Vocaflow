@@ -8,6 +8,7 @@
 //    `/practice` 에서 들어온 학습자는 **온 곳으로 돌아갈 수단이 화면에 하나도 없었다**.
 //    이제 `?from=` 을 `resolveSessionReturnHref` 로 읽는다(오픈 리다이렉트는 그 안에서 차단).
 
+import { PageIntro } from '@/components/ui/PageIntro'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
@@ -40,7 +41,8 @@ export default async function DcpPracticePage({
   return (
     <Screen width="compact" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
-        <header className="flex flex-col gap-1">
+        {/* 모바일 머리 — 디자인 범위(PC 전용) 밖이라 그대로 둔다. PC 는 아래 공용 기능형 머리. */}
+        <header className="flex flex-col gap-1 md:hidden">
           <Link
             href={backHref}
             /* 41×18 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세션에서 나가는 유일한 링크다. */
@@ -54,6 +56,21 @@ export default async function DcpPracticePage({
             문장의 순서와 위치로 글의 논리 구조를 훈련해요.
           </p>
         </header>
+        <PageIntro
+          className="hidden md:flex"
+          lead={
+            <Link
+              href={backHref}
+              className="-my-3 inline-flex min-h-[44px] w-fit items-center gap-1 font-display text-[13px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            >
+              <ArrowLeft size={13} strokeWidth={2} aria-hidden />
+              {backLabel ?? '돌아가기'}
+            </Link>
+          }
+          kicker="Practice · Syntax"
+          title="구문 연습"
+          description="문장의 순서와 위치로 글의 논리 구조를 훈련해요."
+        />
 
         {active && items.length > 0 ? (
           <DcpPlayer items={items} backHref={backHref} backCta={backCta} />
