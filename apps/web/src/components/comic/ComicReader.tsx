@@ -390,7 +390,9 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
       {/* 상단 글래스바 (auto-hide · focus 시 자동 노출) */}
       <header
         onFocus={() => setChrome(true)}
-        className={`fixed inset-x-0 top-0 z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
+        // PC 에는 셸 상단 메뉴(sticky · z-40 · 64px + 1px 선)가 있어 top-0 막대가 그 밑에 깔려 「본문」 복귀가 눌리지 않았다
+        // (2026-10-04 e2e 12 실측: 상단 메뉴가 포인터를 가로챔). PC 에서만 메뉴 아래로 내린다 — 모바일은 상단 메뉴가 없다.
+        className={`fixed inset-x-0 top-0 z-30 md:top-[calc(var(--app-header-h,64px)+1px)] transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
       >
         <div className="mx-auto flex max-w-[860px] items-center justify-between gap-3 px-4 py-2">
           <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] px-3 py-1 font-body text-[13px] font-[600] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)]" style={glass}>
