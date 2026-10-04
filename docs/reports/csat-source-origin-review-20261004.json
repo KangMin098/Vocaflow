@@ -1,0 +1,1896 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-04",
+  "scope": "suneung",
+  "reviews": [
+    {
+      "passage_sha256": "07c6d34182b681f94d753ba7bafc5719847e68448c14cedab72bc6cae4e1a2f9",
+      "representative_item_id": "2014B#33",
+      "item_ids": [
+        "2014B#33"
+      ],
+      "body_sha256_by_item": {
+        "2014B#33": "46b2800650b0ec3a8b50817775413f3a834ad5ad51ccb94dc98c33c8da128414"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Water, Place, and Equity",
+        "source_authors": [
+          "Madeline Baer"
+        ],
+        "source_publisher": "MIT Press",
+        "source_year": 2008,
+        "source_part": "Chapter 7, The Global Water Crisis, Privatization, and the Bolivian Water War; manuscript pp. 313–314",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://bpb-us-e2.wpmucdn.com/sites.uci.edu/dist/2/3447/files/2018/08/7baerglobalwater.pdf",
+            "label": "Chapter 7, The Global Water Crisis, Privatization, and the Bolivian Water War; manuscript pp. 313–314",
+            "body_sha256_by_item": {
+              "2014B#33": "46b2800650b0ec3a8b50817775413f3a834ad5ad51ccb94dc98c33c8da128414"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://academic.oup.com/mit-press-scholarship-online/book/14969/chapter-abstract/169329756",
+            "label": "MIT Press chapter bibliography / DOI 10.7551/mitpress/9780262232715.003.0007"
+          }
+        ],
+        "note": "대학 보관 장 원고의 정책결정 문단을 두 페이지에 걸쳐 전체 대조. 원고 쪽수는 출판본 쪽수와 구분. 장 저자는 Madeline Baer.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "00e164275f58b4405f200b761944c4f9d90699ee141c9caa3a8ce514a94eaa1b",
+      "representative_item_id": "2015#22",
+      "item_ids": [
+        "2015#22"
+      ],
+      "body_sha256_by_item": {
+        "2015#22": "eda64ff6b45ea460f4f16b333e8917dbca8a887638d1d94024aaee043987cb17"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Business Ethics",
+        "source_authors": [
+          "William H. Shaw"
+        ],
+        "source_publisher": "Wadsworth / Cengage Learning",
+        "source_year": 2011,
+        "source_part": "Seventh edition, chapter 1, p. 20",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://ndl.ethernet.edu.et/bitstream/123456789/44353/1/221.pdf",
+            "label": "Seventh edition, chapter 1, p. 20",
+            "body_sha256_by_item": {
+              "2015#22": "eda64ff6b45ea460f4f16b333e8917dbca8a887638d1d94024aaee043987cb17"
+            }
+          }
+        ],
+        "note": "전문 사본의 도덕 원칙 문단 직접 대조. 판권은 2011 제7판이며 검색의 2010년 표시와 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "a21c8bd0562b21cdc0c11e967353c7c2a504ed6205d5e6c080e878383bf58ab2",
+      "representative_item_id": "2015#35",
+      "item_ids": [
+        "2015#35"
+      ],
+      "body_sha256_by_item": {
+        "2015#35": "c2b33aac9bc07867b6d3385859f465836e948701655e9211152d7d0f4f2724da"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Next 200 Years: A Scenario for America and the World",
+        "source_authors": [
+          "Herman Kahn",
+          "William Brown",
+          "Leon Martel"
+        ],
+        "source_publisher": "William Morrow",
+        "source_year": 1976,
+        "source_part": "Technology: Force for Good or Evil?, p. 150",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.biknotes.com/_files/ugd/b8b6dc_03313c2332814b388e836905f24b4d17.pdf",
+            "label": "Technology: Force for Good or Evil?, p. 150",
+            "body_sha256_by_item": {
+              "2015#35": "c2b33aac9bc07867b6d3385859f465836e948701655e9211152d7d0f4f2724da"
+            }
+          }
+        ],
+        "note": "표제·판권·전문 있는 사본에서 해당 문단 전체 대조. 세 저자를 기록하고 시험 무관 문장 삽입과 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "e972bde018a4cfecb66c1c632e5d7e2a5b62135fd259a98b33da7d565b0e3d3a",
+      "representative_item_id": "2015#37",
+      "item_ids": [
+        "2015#37"
+      ],
+      "body_sha256_by_item": {
+        "2015#37": "c41fd0fa16bbb3663591c4ab71eb760db8f941c6475ad4ca8b39a0621985f8df"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Backpacker's Handbook",
+        "source_authors": [
+          "Chris Townsend"
+        ],
+        "source_publisher": "McGraw-Hill / Ragged Mountain Press",
+        "source_year": 2005,
+        "source_part": "Third edition, The Wilderness Kitchen, pp. 243–244",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://cdn2.imagearchive.com/homesteading/data/attach/137/137412-Advanced-Backpacker-A-Handbook-of-Year-Round-Long-Distance-Hiking-The---Chris-Townsend.pdf",
+            "label": "Third edition, The Wilderness Kitchen, pp. 243–244",
+            "body_sha256_by_item": {
+              "2015#37": "c41fd0fa16bbb3663591c4ab71eb760db8f941c6475ad4ca8b39a0621985f8df"
+            }
+          }
+        ],
+        "note": "실제 사본 표제는 The Backpacker's Handbook 제3판이다. 파일명 Advanced Backpacker를 서지로 오인하지 않았다. 두 페이지에 걸친 문단 직접 대조, 원래 순서는 도입→(B)→(A)→(C). 실출제 사용 판본은 미확정.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "79d41711170e667e8e8012c60e771d4c21d57327f1b06b8d692b512564c0bba8",
+      "representative_item_id": "2016#28",
+      "item_ids": [
+        "2016#28"
+      ],
+      "body_sha256_by_item": {
+        "2016#28": "b1273933183ebd760c9a1347b7ddd189312cf68576387b62993d2e609ef94f95"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Geography of Thought: How Asians and Westerners Think Differently... and Why",
+        "source_authors": [
+          "Richard E. Nisbett"
+        ],
+        "source_publisher": "Free Press",
+        "source_year": 2003,
+        "source_part": "Chapter 1, PDF p. 8 of chapter extract",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.humanscience.org/docs/Nisbett%20%282003%29%20Ch.%201-3%20The%20Geography.pdf",
+            "label": "Chapter 1, PDF p. 8 of chapter extract",
+            "body_sha256_by_item": {
+              "2016#28": "b1273933183ebd760c9a1347b7ddd189312cf68576387b62993d2e609ef94f95"
+            }
+          }
+        ],
+        "note": "도서 장 사본의 그리스·중국 사고 문단 직접 대조. 시험 어법 오류와 인용문·일부 사례 생략을 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "c26d5abad4d16e4762142faf527e64575aa73dc1939fb02af1b7a793c059134d",
+      "representative_item_id": "2016#33",
+      "item_ids": [
+        "2016#33"
+      ],
+      "body_sha256_by_item": {
+        "2016#33": "5299822c8b233cbe8db4a3cf9438236f9336e64e1e1286c12b00403a09156eef"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Manifesto on the Future of Seeds",
+        "source_authors": [
+          "International Commission on the Future of Food and Agriculture"
+        ],
+        "source_publisher": "International Commission on the Future of Food and Agriculture",
+        "source_year": 2006,
+        "source_part": "Chapter II, pp. 10–11",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://navdanyainternational.org/wp-content/uploads/2016/04/futurosemi_eng.pdf",
+            "label": "Chapter II, pp. 10–11",
+            "body_sha256_by_item": {
+              "2016#33": "5299822c8b233cbe8db4a3cf9438236f9336e64e1e1286c12b00403a09156eef"
+            }
+          }
+        ],
+        "note": "공식 PDF의 종자 연구·잡종 옥수수·특허를 설명하는 연속 문단 직접 대조. 시험에서 생략·어휘 편집한 부분을 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "2a0bc154dd2696be1d5c528e2d3714a2cd02ed854de15d665b3e11368844d1a3",
+      "representative_item_id": "2017#20",
+      "item_ids": [
+        "2017#20"
+      ],
+      "body_sha256_by_item": {
+        "2017#20": "0524cdf4e259d78deb88c13dba7a97b98fcde2d1acaaf5ee0a366741ab857dbe"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Our Common Future",
+        "source_authors": [
+          "World Commission on Environment and Development"
+        ],
+        "source_publisher": "Oxford University Press",
+        "source_year": 1987,
+        "source_part": "From One Earth to One World, section 2, paragraph 25",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://en.wikisource.org/wiki/Brundtland_Report/From_One_Earth_to_One_World",
+            "label": "Digitized Brundtland Report, paragraph 25",
+            "body_sha256_by_item": {
+              "2017#20": "0524cdf4e259d78deb88c13dba7a97b98fcde2d1acaaf5ee0a366741ab857dbe"
+            }
+          },
+          {
+            "kind": "official_report_index",
+            "url": "https://sustainabledevelopment.un.org/content/documents/5987our-common-future.pdf",
+            "label": "UN report indexed PDF (live link redirects)"
+          }
+        ],
+        "note": "보고서 전사본의 제25문단 전체를 직접 대조했다. profits→profit, damn→blame, spendthrift→wasteful 등 편집. UN PDF 검색 색인으로 공식 보고서 귀속을 확인했으나 현재 PDF URL은 홈페이지로 리다이렉트된다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "0bfd457d7053a1996edd043744908a7e9fda1442e2fda70b4591c36d9c8dbe5a",
+      "representative_item_id": "2017#22",
+      "item_ids": [
+        "2017#22"
+      ],
+      "body_sha256_by_item": {
+        "2017#22": "e668fc1aff38926e440b5d778d5f19d1d63f60dd13e4c8781d18364a6f441dd3"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Words and Minds: How We Use Language to Think Together",
+        "source_authors": [
+          "Neil Mercer"
+        ],
+        "source_publisher": "Routledge",
+        "source_year": 2000,
+        "source_part": "Chapter 1, The evolution of language and thinking",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.perlego.com/book/1617209/words-and-minds-how-we-use-language-to-think-together-pdf",
+            "label": "Chapter 1, The evolution of language and thinking",
+            "body_sha256_by_item": {
+              "2017#22": "e668fc1aff38926e440b5d778d5f19d1d63f60dd13e4c8781d18364a6f441dd3"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://www.routledge.com/link/link/p/book/9780415224765",
+            "label": "Routledge first edition"
+          }
+        ],
+        "note": "전자책 공개 미리보기의 해당 연속 문단 전체 대조. endeavour→effort 수정. 원출판은 2000이고 전자본 연도와 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "5142aa32dc0689d9e0ce159a75f2c7736f3cb27805f1caacc68926abf41f4d85",
+      "representative_item_id": "2017#23",
+      "item_ids": [
+        "2017#23"
+      ],
+      "body_sha256_by_item": {
+        "2017#23": "c0677d069bdaa0ef232d6784039ecd6196cfcf51880763f9d181a5194055e099"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Film Technique and Film Acting",
+        "source_authors": [
+          "Vsevolod I. Pudovkin"
+        ],
+        "source_publisher": "Vision Press",
+        "source_year": 1968,
+        "source_part": "pp. 89–90, quoted in Ken Dancyger, The Technique of Film and Video Editing, chapter 1",
+        "evidence": [
+          {
+            "kind": "publisher_full_quote",
+            "url": "https://api.pageplace.de/preview/DT0400.9781351810456_A35629552/preview-9781351810456_A35629552.pdf",
+            "label": "Publisher preview, chapter 1 quotation and note 10",
+            "body_sha256_by_item": {
+              "2017#23": "c0677d069bdaa0ef232d6784039ecd6196cfcf51880763f9d181a5194055e099"
+            }
+          }
+        ],
+        "note": "출판사 미리보기의 인용 문단 전체와 주10의 출처·쪽수를 함께 직접 확인했다. 인용 원저자는 Pudovkin이며 Dancyger는 재인용자다. bracket 설명 통합, on the other hand와 tractable 삭제. 원저 판본은 주10에 명시된 1968판이며 시험 사용 판본은 미확정.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "b3bc7663819afd956b29d640255a83b3d75d0d46f412f7ebaa2f09f57fd5f233",
+      "representative_item_id": "2017#34",
+      "item_ids": [
+        "2017#34"
+      ],
+      "body_sha256_by_item": {
+        "2017#34": "acd3ecb865192369ef457597421d2d2d18d29cc4e3ba41a01c8f7489ced944b3"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Understanding Architecture: An Introduction to Architecture and Architectural History",
+        "source_authors": [
+          "Hazel Conway",
+          "Rowan Roenisch"
+        ],
+        "source_publisher": "Routledge",
+        "source_year": 2005,
+        "source_part": "Second edition, architectural responses",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://roofinggroup.com.au/wp-content/uploads/2017/03/Understanding-Architecture-by-Hazel-Conway-and-Rowan-Roenisch.pdf",
+            "label": "Second edition, architectural responses",
+            "body_sha256_by_item": {
+              "2017#34": "acd3ecb865192369ef457597421d2d2d18d29cc4e3ba41a01c8f7489ced944b3"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://www.routledge.com/Understanding-Architecture-An-Introduction-to-Architecture-and-Architectural-History/Conway-Roenisch/p/book/9780415320597",
+            "label": "Routledge bibliography"
+          }
+        ],
+        "note": "전문 사본의 연속 문단 대조. evoke→arouse, 영국·미국 철자 편집을 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "483b9d295a43e53df4ba2feb03be7dbd846b4489ef991bb0ce30539846008df3",
+      "representative_item_id": "2017#38",
+      "item_ids": [
+        "2017#38"
+      ],
+      "body_sha256_by_item": {
+        "2017#38": "5d123eb85b736243b22da572b6d60104af9dc5fe9b498ffa1e573a9f9e4e0863"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Effective Writing: Improving Scientific, Technical and Business Communication",
+        "source_authors": [
+          "Christopher Turk",
+          "John Kirkman"
+        ],
+        "source_publisher": "E & FN Spon / Routledge",
+        "source_year": 1989,
+        "source_part": "Second edition, pp. 29–30",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://lsms.ac/wp-content/uploads/2023/02/8.pdf",
+            "label": "Second edition, pp. 29–30",
+            "body_sha256_by_item": {
+              "2017#38": "5d123eb85b736243b22da572b6d60104af9dc5fe9b498ffa1e573a9f9e4e0863"
+            }
+          }
+        ],
+        "note": "표제·판권 있는 전문에서 보고서 구성 문단과 삽입 문장 위치 직접 대조. 전자본은 2005, 제2판 원출판은 1989.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "225a6addece0bbac6b3186c7dec06946780a986868c4556cb28d4e8d4ad3853c",
+      "representative_item_id": "2018#22",
+      "item_ids": [
+        "2018#22"
+      ],
+      "body_sha256_by_item": {
+        "2018#22": "f8d1b893d4feff354c7aaa3648d42675260da1e6bffaf3f5af45489005718aa9"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Eating Behavior and Obesity: Behavioral Economics Strategies for Health Professionals",
+        "source_authors": [
+          "Shahram Heshmat"
+        ],
+        "source_publisher": "Springer Publishing Company",
+        "source_year": 2011,
+        "source_part": "Chapter 2, Sensory-Specific Satiety, p. 25",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://fliphtml5.com/svwcm/suvb/Eating_Behavior_and_Obesity_Behavioral_Economics_Strategies_for_Health_Professionals/40/",
+            "label": "Chapter 2, Sensory-Specific Satiety, p. 25",
+            "body_sha256_by_item": {
+              "2018#22": "f8d1b893d4feff354c7aaa3648d42675260da1e6bffaf3f5af45489005718aa9"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://www.springerpub.com/eating-behavior-and-obesity-9780826106216.html",
+            "label": "Springer Publishing bibliography"
+          }
+        ],
+        "note": "도서 사본 p.25의 세 연속 문단 전체 대조. Epstein 논문은 참고 연구이고 해당 설명 문단 저자는 Heshmat.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "65a2eb838501cea73445946526fc7e1540d17c2714fbee1546e79db6e87bf1b4",
+      "representative_item_id": "2018#28",
+      "item_ids": [
+        "2018#28"
+      ],
+      "body_sha256_by_item": {
+        "2018#28": "d985717ba53d82c20d353dc347261b49db766bc6f2182af1933a54eb3c7acfc6"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Logic of Effective Altruism",
+        "source_authors": [
+          "Peter Singer"
+        ],
+        "source_publisher": "Boston Review",
+        "source_year": 2015,
+        "source_part": "Warm glow givers section",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.bostonreview.net/forum/peter-singer-logic-effective-altruism/",
+            "label": "Warm glow givers section",
+            "body_sha256_by_item": {
+              "2018#28": "d985717ba53d82c20d353dc347261b49db766bc6f2182af1933a54eb3c7acfc6"
+            }
+          }
+        ],
+        "note": "저자가 기고한 원사이트 두 연속 문단 직접 대조. 시험 어법 오류 what→whether 원문을 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "ac22de39ff4028d352b0877674ddd7b42bdd853795565c89c9c42c88efabf53e",
+      "representative_item_id": "2018#32",
+      "item_ids": [
+        "2018#32"
+      ],
+      "body_sha256_by_item": {
+        "2018#32": "a3d3457824b32d7f10fe6b1d60240daec7ef1e4cc73f5cfefcd1e2962014230e"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Moonwalking with Einstein: The Art and Science of Remembering Everything",
+        "source_authors": [
+          "Joshua Foer"
+        ],
+        "source_publisher": "Penguin Press",
+        "source_year": 2011,
+        "source_part": "Talking wine / digital copy pages 87–88",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://fliphtml5.com/gtbqx/vbvy/Moonwalking_with_Einstein_-_Foer__Joshua/",
+            "label": "Full book copy, lunch-memory paragraph",
+            "body_sha256_by_item": {
+              "2018#32": "a3d3457824b32d7f10fe6b1d60240daec7ef1e4cc73f5cfefcd1e2962014230e"
+            }
+          }
+        ],
+        "note": "도서 전문 사본의 점심 기억 문단 전체를 직접 대조했다. 서두 Consider는 빠지고 기억 인출 단서 부분이 빈칸으로 바뀌었다. 열람 사본의 쪽수이며 실제 사용 판본은 확정하지 않는다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "423f1f66761672af6b895069ab7ed000101f33285449f78daf6ce528d23336b2",
+      "representative_item_id": "2018#38",
+      "item_ids": [
+        "2018#38"
+      ],
+      "body_sha256_by_item": {
+        "2018#38": "c02fdf83bff85c18353ce47ae9db7827068fa739f7358dd4dd30d9de7a1da6e8"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Evolutionary Psychology: The New Science of the Mind",
+        "source_authors": [
+          "David M. Buss"
+        ],
+        "source_publisher": "Taylor & Francis / Psychology Press",
+        "source_year": null,
+        "source_part": "Problems of Survival; food preferences",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://dokumen.pub/evolutionary-psychology-the-new-science-of-the-mind.html",
+            "label": "Problems of Survival; food preferences",
+            "body_sha256_by_item": {
+              "2018#38": "c02fdf83bff85c18353ce47ae9db7827068fa739f7358dd4dd30d9de7a1da6e8"
+            }
+          }
+        ],
+        "note": "서지·전문 있는 사본의 음식 선호 문단과 삽입 문장 위치 전체 대조. 확인 사본은 후속판일 수 있어 실제 발췌 연도·판본을 단정하지 않는다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "d01d2d9382022a2bb81933731f93a3455cc56ed405a05539f4d4786ea5c7467c",
+      "representative_item_id": "2019#24",
+      "item_ids": [
+        "2019#24"
+      ],
+      "body_sha256_by_item": {
+        "2019#24": "7eac44ff9e0473ac6e9ca5fa8b0faa39ab4b6d4ab3efc4c61c7523fe645401a9"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Behavioural Public Policy",
+        "source_authors": [
+          "Paul Slovic",
+          "Daniel Västfjäll"
+        ],
+        "source_publisher": "Cambridge University Press",
+        "source_year": 2013,
+        "source_part": "Chapter 4, The more who die, the less we care: psychic numbing and genocide, summary",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.cambridge.org/core/books/abs/behavioural-public-policy/more-who-die-the-less-we-care-psychic-numbing-and-genocide/5C41D141244217E7E1CA4D37783E1AEF",
+            "label": "Chapter 4, The more who die, the less we care: psychic numbing and genocide, summary",
+            "body_sha256_by_item": {
+              "2019#24": "7eac44ff9e0473ac6e9ca5fa8b0faa39ab4b6d4ab3efc4c61c7523fe645401a9"
+            }
+          }
+        ],
+        "note": "출판사 공개 장 요약에서 시험 문단 전체 직접 대조. 장 저자와 편집자 Adam Oliver를 구분. 어휘 수정·문장 일부 생략.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "75a1945494282e173e07b609d09a2cc9c906c6bc75e2efb02d7c36ddb1b4d354",
+      "representative_item_id": "2019#40",
+      "item_ids": [
+        "2019#40"
+      ],
+      "body_sha256_by_item": {
+        "2019#40": "ce12247b7567f290c9d4ae5f6801fcdfa148f3a9a2c0ca0923ba08826a4e4806"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Applying time to energy analysis",
+        "source_authors": [
+          "Nate Hagens"
+        ],
+        "source_publisher": "The Oil Drum / Post Carbon Institute archive",
+        "source_year": 2010,
+        "source_part": "Executive Summary",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.resilience.org/stories/2010-12-13/applying-time-energy-analysis/",
+            "label": "Executive Summary",
+            "body_sha256_by_item": {
+              "2019#40": "ce12247b7567f290c9d4ae5f6801fcdfa148f3a9a2c0ca0923ba08826a4e4806"
+            }
+          }
+        ],
+        "note": "원출판처를 밝힌 기관 보관 글의 요약 세 문단 직접 대조. 본문 portion→proportion 편집과 시험 추가 요약문 구분. 글은 Hannes Kunz 공동 작업인 학위논문 장을 바탕으로 한다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "83bb6ae376a8b9a6bb9fdd6987e26ccb5ff6359c628e444849f60eaf1c9014c1",
+      "representative_item_id": "2019#41",
+      "item_ids": [
+        "2019#41",
+        "2019#42"
+      ],
+      "body_sha256_by_item": {
+        "2019#41": "1cef17918c9084dae85629a7625657d85bf8e2c9dd879c48bd5283b116411570",
+        "2019#42": "1cef17918c9084dae85629a7625657d85bf8e2c9dd879c48bd5283b116411570"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Capitalism: A Very Short Introduction",
+        "source_authors": [
+          "James Fulcher"
+        ],
+        "source_publisher": "Oxford University Press",
+        "source_year": 2004,
+        "source_part": "Chapter 1, pp. 8–9",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://studylib.net/doc/26262329/capitalism---james-fulcher",
+            "label": "Chapter 1, pp. 8–9",
+            "body_sha256_by_item": {
+              "2019#41": "1cef17918c9084dae85629a7625657d85bf8e2c9dd879c48bd5283b116411570",
+              "2019#42": "1cef17918c9084dae85629a7625657d85bf8e2c9dd879c48bd5283b116411570"
+            }
+          }
+        ],
+        "note": "서지·쪽수·전문 있는 사본의 여가 문단 전체 대조. 원문 disrupted와 시험 어휘 오류 promoted, 여행 사례 생략 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "bbab92d02f145678664c6269a9cbf2963ada5f10fddc6a57b9165dfd70071846",
+      "representative_item_id": "2020#21",
+      "item_ids": [
+        "2020#21"
+      ],
+      "body_sha256_by_item": {
+        "2020#21": "72457fd7a9f8b50ffd8a4c6f4ccc6bc0b5d191290147481956ed10a11631bef0"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Brain Rules",
+        "source_authors": [
+          "John J. Medina"
+        ],
+        "source_publisher": "Pear Press",
+        "source_year": 2008,
+        "source_part": "Rule 2, Survival, p. 38 (PDF p. 46)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://teachmint.storage.googleapis.com/public/850433870/StudyMaterial/5f16f9ae-373c-412e-9964-455022c27eee.pdf",
+            "label": "Rule 2, Survival, p. 38 (PDF p. 46)",
+            "body_sha256_by_item": {
+              "2020#21": "72457fd7a9f8b50ffd8a4c6f4ccc6bc0b5d191290147481956ed10a11631bef0"
+            }
+          }
+        ],
+        "note": "판권·전문 있는 사본에서 지식과 즉흥성 문단 전체 대조. 밑줄 표현의 원문과 시험 어휘 편집 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "85d7646810bdb0c418521d9759f0ef2bcb65c0d01f1aa4dbbd8e7f293ab86ba9",
+      "representative_item_id": "2020#37",
+      "item_ids": [
+        "2020#37"
+      ],
+      "body_sha256_by_item": {
+        "2020#37": "5cf605a4a34fa5801f5c7e920e27dd6d3d906d0cba81502eb4ac046cef2c0719"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Fifty Key Thinkers on History",
+        "source_authors": [
+          "Marnie Hughes-Warrington"
+        ],
+        "source_publisher": "Routledge",
+        "source_year": 2008,
+        "source_part": "Second edition, Thomas Kuhn entry, p. 211",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://manuals.plus/m/dfca66b3c2b48dc86164ba4283e182d1cb9e2c151ef76ba321e3278e5ad6e619",
+            "label": "Second edition, Thomas Kuhn entry, p. 211",
+            "body_sha256_by_item": {
+              "2020#37": "5cf605a4a34fa5801f5c7e920e27dd6d3d906d0cba81502eb4ac046cef2c0719"
+            }
+          }
+        ],
+        "note": "전문 사본의 쿤 항목에서 시험 문단 직접 대조. Kuhn 본인의 책과 구분하며 어휘 편집·문단 순서 복원.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "e9403a7f1104b9b7f418ddad60010840459040be1e7d27ed59276349875cd54e",
+      "representative_item_id": "2020#39",
+      "item_ids": [
+        "2020#39"
+      ],
+      "body_sha256_by_item": {
+        "2020#39": "d35896487c058ff8156458ebcc07a4579f391a42a16feec1933a24b720a8129a"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Advertising: A Very Short Introduction",
+        "source_authors": [
+          "Winston Fletcher"
+        ],
+        "source_publisher": "Oxford University Press",
+        "source_year": 2010,
+        "source_part": "Chapter 4, The media: blowing the advertisers’ trumpets, p. 58",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://dokumen.pub/advertising-a-very-short-introduction-0199568928-9780199568925.html",
+            "label": "Chapter 4, The media: blowing the advertisers’ trumpets, p. 58",
+            "body_sha256_by_item": {
+              "2020#39": "d35896487c058ff8156458ebcc07a4579f391a42a16feec1933a24b720a8129a"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://academic.oup.com/book/707",
+            "label": "Oxford Academic bibliography"
+          }
+        ],
+        "note": "전문 사본의 TV 광고 문단과 삽입 문장 위치 직접 대조. 미국 사례 문장 생략을 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "4ad76a105e78337e1644188bd592ae5957165fa29c46297d45168e2384553fa7",
+      "representative_item_id": "2021#24",
+      "item_ids": [
+        "2021#24"
+      ],
+      "body_sha256_by_item": {
+        "2021#24": "72227044f103d8e3bea3f3a8fd2a32b509b2ab8e6fd3dee5c46f0ae23a2aa274"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "On Intelligence",
+        "source_authors": [
+          "Jeff Hawkins",
+          "Sandra Blakeslee"
+        ],
+        "source_publisher": "Times Books",
+        "source_year": 2004,
+        "source_part": "Chapter 4, Memory; PDF p. 41",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://papers.harvie.cz/unsorted/Jeff%20Hawkins%20-%20On%20Intelligence.pdf",
+            "label": "Chapter 4, Memory; PDF p. 41",
+            "body_sha256_by_item": {
+              "2021#24": "72227044f103d8e3bea3f3a8fd2a32b509b2ab8e6fd3dee5c46f0ae23a2aa274"
+            }
+          }
+        ],
+        "note": "저자 표제와 전문이 있는 사본에서 촉각·시공간 패턴 문단 직접 대조. 추출 PDF의 자체 쪽수와 종이책 p.59를 혼용하지 않는다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "eec003367eb118b05f8fea1c639727ba0c1f7269444ab560b15edc82fdc3e658",
+      "representative_item_id": "2021#38",
+      "item_ids": [
+        "2021#38"
+      ],
+      "body_sha256_by_item": {
+        "2021#38": "725a6894a4e4a3b5ad72a9650a3b073736f88180d3c2c42f06c1cb35f77161dd"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Thick Evaluation",
+        "source_authors": [
+          "Simon Kirchin"
+        ],
+        "source_publisher": "Oxford University Press",
+        "source_year": 2017,
+        "source_part": "Introduction, Maddy example",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://academic.oup.com/book/26594/chapter/195243838",
+            "label": "Introduction, Maddy example",
+            "body_sha256_by_item": {
+              "2021#38": "725a6894a4e4a3b5ad72a9650a3b073736f88180d3c2c42f06c1cb35f77161dd"
+            }
+          },
+          {
+            "kind": "author_manuscript",
+            "url": "https://kar.kent.ac.uk/id/document/268072",
+            "label": "Kent author manuscript"
+          }
+        ],
+        "note": "출판사 공개 장에서 Maddy 예시와 삽입 문장의 앞뒤 문맥을 직접 대조.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "b1783ac523a8f4090dedb7c12743746239b7fea39570f0b780c697d771c26fa4",
+      "representative_item_id": "2021#40",
+      "item_ids": [
+        "2021#40"
+      ],
+      "body_sha256_by_item": {
+        "2021#40": "f80270bf93f6d6cae362c67a3d5da790df33799d51ef6dc98df1e96238fb5473"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Social and Cultural Anthropology: The Key Concepts",
+        "source_authors": [
+          "Nigel Rapport",
+          "Joanna Overing"
+        ],
+        "source_publisher": "Routledge",
+        "source_year": 2000,
+        "source_part": "Gender, PDF p. 162",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://mutabit.com/repos.fossil/doctorado-offray/doc/44f27b484291c3fc/Tesis/Referencias/socialAndCulturalAntropology-KeyConcepts.pdf",
+            "label": "Gender, p. 147 (PDF p. 162)",
+            "body_sha256_by_item": {
+              "2021#40": "f80270bf93f6d6cae362c67a3d5da790df33799d51ef6dc98df1e96238fb5473"
+            }
+          }
+        ],
+        "note": "전문 사본의 권력·강제력 문단 직접 대조. 참고 인용 삭제와 시험 마지막 요약문 구분. 전자본은 2003.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "27aacecf2a125bfc6cbd512cdf2dd7957449d4b3553bfdf312831a4744a507d5",
+      "representative_item_id": "2022#21",
+      "item_ids": [
+        "2022#21"
+      ],
+      "body_sha256_by_item": {
+        "2022#21": "13280a480ae4fee46e920443e2f5b131e0e879a11666820243afbd08d0d63c9b"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Merchants of Doubt",
+        "source_authors": [
+          "Naomi Oreskes",
+          "Erik M. Conway"
+        ],
+        "source_publisher": "Bloomsbury Press",
+        "source_year": 2010,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://www.bloomsbury.com/us/merchants-of-doubt-9781608192939/",
+            "kind": "official_metadata",
+            "label": "Bloomsbury metadata"
+          }
+        ],
+        "note": "Exact matching text was located in a full-book copy; official metadata confirms the bibliography but not the paragraph.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Merchants of Doubt",
+        "source_authors": [
+          "Naomi Oreskes",
+          "Erik M. Conway"
+        ],
+        "source_publisher": "Bloomsbury Press",
+        "source_year": 2010,
+        "source_part": "Conclusion / PDF page 195",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://s3.amazonaws.com/arena-attachments/1681302/81135daed9eca91760ffd75a38f9a75f.pdf",
+            "label": "Conclusion / PDF page 195",
+            "body_sha256_by_item": {
+              "2022#21": "13280a480ae4fee46e920443e2f5b131e0e879a11666820243afbd08d0d63c9b"
+            }
+          }
+        ],
+        "note": "全文 사본의 연속 문단을 직접 대조했다. indigenous→native, circumscribed→limited, dedicated→devoted 등 경미한 편집. PDF 쪽수와 종이책 쪽수는 구분한다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "238c2e3157785500d71eeefc1ae8f4c96058de12b0a552fc055c5d5359b5acf6",
+      "representative_item_id": "2022#23",
+      "item_ids": [
+        "2022#23"
+      ],
+      "body_sha256_by_item": {
+        "2022#23": "67daf6ce407bcd29697fc6446e65927aefffa50c60d1bb7ca59ae456d725b200"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Thomas Kuhn",
+        "source_authors": [
+          "Thomas Nickles"
+        ],
+        "source_publisher": "Cambridge University Press",
+        "source_year": null,
+        "source_part": "Contemporary Philosophy in Focus",
+        "evidence": [
+          {
+            "url": "https://www.cambridge.org/core/books/thomas-kuhn/339C2A262C829739D7DC8C74AFE27280",
+            "kind": "official_metadata",
+            "label": "Cambridge book metadata"
+          },
+          {
+            "url": "https://press.uchicago.edu/ucp/books/book/chicago/S/bo13179781.html",
+            "kind": "conceptual_source",
+            "label": "The Structure of Scientific Revolutions metadata"
+          }
+        ],
+        "note": "The passage combines exposition with recognizable Kuhn wording; the exact chapter-level origin remains unverified.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Thomas Kuhn",
+        "source_authors": [
+          "Joseph Rouse"
+        ],
+        "source_publisher": "Cambridge University Press",
+        "source_year": null,
+        "source_part": "Chapter 4, Kuhn’s Philosophy of Scientific Practice, p. 108",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://drive.google.com/file/d/1-WI-DKlVOjtrfayjJp0vB2d_P9jDL2mc/view",
+            "label": "Chapter 4, Kuhn’s Philosophy of Scientific Practice, p. 108",
+            "body_sha256_by_item": {
+              "2022#23": "67daf6ce407bcd29697fc6446e65927aefffa50c60d1bb7ca59ae456d725b200"
+            }
+          },
+          {
+            "kind": "author_repository",
+            "url": "https://jrouse.faculty.wesleyan.edu/static-page/recent-articles/",
+            "label": "Author bibliography"
+          }
+        ],
+        "note": "저자 홈페이지에 연결된 스캔 p.108의 연속 문단을 시각 대조했다. 장 저자는 Joseph Rouse이며 Thomas Nickles는 편집자다. Kuhn 1970 p.44 인용을 포함한다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "c96acfa2cecf06c999ecea7536ab0bfa284acad26550db139455c25346d8298c",
+      "representative_item_id": "2022#29",
+      "item_ids": [
+        "2022#29"
+      ],
+      "body_sha256_by_item": {
+        "2022#29": "721ea44df5a2a138b159aa84c35fc44c46cae105214d26dac54e418473d376f9"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Botany: An Introduction to Plant Biology",
+        "source_authors": [
+          "James D. Mauseth"
+        ],
+        "source_publisher": "Jones & Bartlett Learning",
+        "source_year": 2012,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://samples.jblearning.com/9781284157352/9781284157468_FMXx_Pass04_Secured_19251_1.pdf",
+            "kind": "official_metadata",
+            "label": "Jones & Bartlett sample and metadata"
+          }
+        ],
+        "note": "The title attribution is supported, but the exact passage was not exposed in the publisher sample.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Botany: An Introduction to Plant Biology",
+        "source_authors": [
+          "James D. Mauseth"
+        ],
+        "source_publisher": "Jones & Bartlett Learning",
+        "source_year": 2012,
+        "source_part": "Chapter 3, Cell Structure / section adjoining Figure 3-5",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://studylib.net/doc/28424990/botany---james-d.-mauseth",
+            "label": "Chapter 3, Cell Structure / section adjoining Figure 3-5",
+            "body_sha256_by_item": {
+              "2022#29": "721ea44df5a2a138b159aa84c35fc44c46cae105214d26dac54e418473d376f9"
+            }
+          }
+        ],
+        "note": "서지·목차·도판을 포함하는 도서 전문 사본의 두 연속 문단을 대조했다. 시험에서 That→What 어법 오류를 만든 부분을 구분했다. 실제 발췌 판본은 미확정.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "528594bb08c4f574e61d60cf7f5cd6677bd4deec2b9aec6db559d1391332a9ef",
+      "representative_item_id": "2022#32",
+      "item_ids": [
+        "2022#32"
+      ],
+      "body_sha256_by_item": {
+        "2022#32": "d45f5076378e5efd5eaa2d396c38e0fea63477b78f02e73e523d1240c6020017"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "The SAGE Dictionary of Cultural Studies",
+        "source_authors": [
+          "Chris Barker"
+        ],
+        "source_publisher": "SAGE",
+        "source_year": 2004,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://www.sagepub.com/shop/buy-a-book/the-sage-dictionary-of-cultural-studies-1-219252",
+            "kind": "official_metadata",
+            "label": "SAGE metadata"
+          }
+        ],
+        "note": "Exact wording was found in a searchable copy, while the publisher page confirms the work.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The SAGE Dictionary of Cultural Studies",
+        "source_authors": [
+          "Chris Barker"
+        ],
+        "source_publisher": "SAGE",
+        "source_year": 2004,
+        "source_part": "News, p. 136 (PDF page 159)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.fldm.usmba.ac.ma/wp-content/uploads/2020/03/AN425-BENNIS-Dr_Chris_Barker_The_SAGE_Dictionary_of-Introduction-to-cultural-studies.pdf",
+            "label": "News, p. 136 (PDF page 159)",
+            "body_sha256_by_item": {
+              "2022#32": "d45f5076378e5efd5eaa2d396c38e0fea63477b78f02e73e523d1240c6020017"
+            }
+          }
+        ],
+        "note": "대학 보관 PDF의 News 항목 해당 문단 전체 대조. 빈칸 원문은 verbal and visual idioms or modes of address. with adherence to→sticking to 등 경미한 편집.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "25b0736c9f9af55e3d4b3a336c5117fffcedd3273042224172f6125f8794d13b",
+      "representative_item_id": "2022#36",
+      "item_ids": [
+        "2022#36"
+      ],
+      "body_sha256_by_item": {
+        "2022#36": "f3f96cf993be8da0d85d9af7db1610b071060613ec60b97c12d15ddde6594f5b"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Environment and Society: A Critical Introduction",
+        "source_authors": [
+          "Paul Robbins",
+          "John Hintz",
+          "Sarah A. Moore"
+        ],
+        "source_publisher": "Wiley-Blackwell",
+        "source_year": 2011,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://uat.store.wiley.com/en-us/environment-and-society-a-critical-introduction-2nd-edition-p-9781118451557",
+            "kind": "official_metadata",
+            "label": "Wiley metadata for the later edition"
+          }
+        ],
+        "note": "Exact wording was found in a searchable copy; edition-level certainty remains limited.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Environment and Society: A Critical Introduction",
+        "source_authors": [
+          "Paul Robbins",
+          "John Hintz",
+          "Sarah A. Moore"
+        ],
+        "source_publisher": "Wiley-Blackwell",
+        "source_year": 2011,
+        "source_part": "Chapter 3, Markets and Commodities, Green taxes, pp. 38–40",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.uky.edu/~tmute2/nature-society/password-protect/nature-society-pdfs/hintz3-commodities.pdf",
+            "label": "Chapter 3, Markets and Commodities, Green taxes, pp. 38–40",
+            "body_sha256_by_item": {
+              "2022#36": "f3f96cf993be8da0d85d9af7db1610b071060613ec60b97c12d15ddde6594f5b"
+            }
+          }
+        ],
+        "note": "텍스트 레이어 없는 대학 수업자료 스캔을 렌더링하여 pp.38–40 시각 대조. 원문 흐름은 도입→(B)→(A)→(C). 확인 사본의 판본과 실제 발췌 판본은 구분한다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "89c830aa54c650d02fc75096ec04b0289093778ee557d0e063c0a70060ae365a",
+      "representative_item_id": "2022#38",
+      "item_ids": [
+        "2022#38"
+      ],
+      "body_sha256_by_item": {
+        "2022#38": "ce7d15adf090273c84c9f19cbd21e07a5703fe53659ff6b91ab70c1391bedec9"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Robot Ethics: The Ethical and Social Implications of Robotics",
+        "source_authors": [
+          "Patrick Lin",
+          "Keith Abney",
+          "George A. Bekey"
+        ],
+        "source_publisher": "MIT Press",
+        "source_year": 2012,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://mitpress.mit.edu/9780262526005/robot-ethics/",
+            "kind": "official_metadata",
+            "label": "MIT Press metadata"
+          }
+        ],
+        "note": "Exact wording was found in a searchable copy; the official page confirms the edited volume.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Robot Ethics: The Ethical and Social Implications of Robotics",
+        "source_authors": [
+          "George A. Bekey"
+        ],
+        "source_publisher": "MIT Press",
+        "source_year": 2012,
+        "source_part": "Chapter 2, Current Trends in Robotics, §2.3.1, pp. 20–21",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://helios.ntua.gr/pluginfile.php/115405/mod_folder/content/0/Computers_Information_AI_Philosophy/-Intelligent_robotics_and_autonomous_agents-_Abney,_Keith__Bekey,_George_A.__Lin,_Patrick_-_Robot_ethics___the_ethical_and_social_implications_of_robotics-The_MIT_Press_-2012-.pdf?forcedownload=1",
+            "label": "Chapter 2, Current Trends in Robotics, §2.3.1, pp. 20–21",
+            "body_sha256_by_item": {
+              "2022#38": "ce7d15adf090273c84c9f19cbd21e07a5703fe53659ff6b91ab70c1391bedec9"
+            }
+          }
+        ],
+        "note": "대학 보관 도서 전문 pp.20–21의 문단·삽입 문장 위치를 직접 대조. alleviate→ease 경미한 편집. 장 저자는 George A. Bekey이며 Lin·Abney·Bekey는 책 편집자.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "34ed67393482ac09618fddbfe2c307c4e8a567287527666c815c349db131f553",
+      "representative_item_id": "2023#22",
+      "item_ids": [
+        "2023#22"
+      ],
+      "body_sha256_by_item": {
+        "2023#22": "84a99124ba32784db4877330163ffa5cacd644c02791cf461c128cca1e2de8ea"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Planning and Design for Sustainable Urban Mobility: Global Report on Human Settlements 2013",
+        "source_authors": [
+          "UN-Habitat"
+        ],
+        "source_publisher": "Routledge",
+        "source_year": 2013,
+        "source_part": "Chapter 4, Modal adaptation, p. 72",
+        "evidence": [
+          {
+            "kind": "official_full_text_compared",
+            "url": "https://digitallibrary.un.org/record/3905875/files/3503_alt.pdf?ln=ar",
+            "label": "UN Digital Library report, p. 72",
+            "body_sha256_by_item": {
+              "2023#22": "84a99124ba32784db4877330163ffa5cacd644c02791cf461c128cca1e2de8ea"
+            }
+          }
+        ],
+        "note": "UN 공식 보고서의 검색 색인에 제공된 Modal adaptation 문단 전체를 직접 대조했다. 2014년 1월 개정 사본이며 본문은 지문과 일치한다. UN-Habitat 공식 보고서 소개도 확인했다.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "b75502d1893c9e6394d72aad3bfbb8ee06f4195e1d4720221f026da98cc1e610",
+      "representative_item_id": "2023#31",
+      "item_ids": [
+        "2023#31"
+      ],
+      "body_sha256_by_item": {
+        "2023#31": "e29b16c17ca5be828ac5afccafdc30fd9394b309645c1732d5bbd588b5ea8ac0"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Sport, Culture and the Media: The Unruly Trinity",
+        "source_authors": [
+          "David Rowe"
+        ],
+        "source_publisher": "Open University Press",
+        "source_year": 2004,
+        "source_part": "Second edition, chapter 2, p. 38 (PDF p. 56)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://repository.bbg.ac.id/bitstream/608/1/Sport_Culture_and_The_Media.pdf",
+            "label": "Second edition, chapter 2, p. 38 (PDF p. 56)",
+            "body_sha256_by_item": {
+              "2023#31": "e29b16c17ca5be828ac5afccafdc30fd9394b309645c1732d5bbd588b5ea8ac0"
+            }
+          }
+        ],
+        "note": "전문 사본에서 스포츠 기자 문단 전체 대조. 검색에 나온 Raymond Boyle의 재인용과 원저자 Rowe를 구분. 빈칸 원문까지 확인.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "5fb11ab44a1db738214f58202741c1d65509a31f3252a751de431aba12a0bb05",
+      "representative_item_id": "2023#40",
+      "item_ids": [
+        "2023#40"
+      ],
+      "body_sha256_by_item": {
+        "2023#40": "f711317ece0737c95962c9855b59da3b798ae2363460a7748c6c6eb2b4423927"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Craftsman",
+        "source_authors": [
+          "Richard Sennett"
+        ],
+        "source_publisher": "Yale University Press",
+        "source_year": 2008,
+        "source_part": "Prologue, pp. 8–9",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.usc.rarar.com/IML-499/fall-2015/readings/The-Craftsman.pdf",
+            "label": "Prologue, pp. 8–9",
+            "body_sha256_by_item": {
+              "2023#40": "f711317ece0737c95962c9855b59da3b798ae2363460a7748c6c6eb2b4423927"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://yalebooks.yale.edu/book/9780300151190/the-craftsman/",
+            "label": "Yale paperback metadata (2009)"
+          }
+        ],
+        "note": "전문 사본의 연속 문단 직접 대조. waned→declined, advent→arrival 등 어휘 편집. 시험 마지막 요약문은 원문과 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "9907c8eeafc3127285b39641b99ad558a10b61845159e959ad849346e91f04c2",
+      "representative_item_id": "2024#22",
+      "item_ids": [
+        "2024#22"
+      ],
+      "body_sha256_by_item": {
+        "2024#22": "aaa62473490dabadfc39cbf0f2abe5ffd5dc3ef9fe4350bf18f7108d667185f0"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Social Media Marketing: The Next Generation of Business Engagement",
+        "source_authors": [
+          "Dave Evans"
+        ],
+        "source_publisher": "Wiley",
+        "source_year": 2010,
+        "source_part": "PDF p. 150",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://crpf.gov.in/Upload/MediaGallery/social-media-marketing.pdf",
+            "label": "PDF p. 150",
+            "body_sha256_by_item": {
+              "2024#22": "aaa62473490dabadfc39cbf0f2abe5ffd5dc3ef9fe4350bf18f7108d667185f0"
+            }
+          }
+        ],
+        "note": "정부기관 보관 도서 전문의 해당 연속 문단 직접 대조. 이전 문단의 도구 이름으로도 검색해 본문에 도달.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "9df2b8a04c1b8810ea9b86809aa2ce937bbebb8ebc2c511cbe2e88ef84466bc5",
+      "representative_item_id": "2024#29",
+      "item_ids": [
+        "2024#29"
+      ],
+      "body_sha256_by_item": {
+        "2024#29": "f1d892e7c4227a910584eda8f464bc4cf5604e6f26f156e69e35745deb2833a8"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Psycho-practice, psycho-theory and the contrastive case of autism: How practices of mind become second-nature",
+        "source_authors": [
+          "Victoria McGeer"
+        ],
+        "source_publisher": "Journal of Consciousness Studies",
+        "source_year": 2001,
+        "source_part": "Vol. 8 (5–7), pp. 120–121",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.princeton.edu/~vmcgeer/papers/McGeer2001Psychopractice.pdf",
+            "label": "Vol. 8 (5–7), pp. 120–121",
+            "body_sha256_by_item": {
+              "2024#29": "f1d892e7c4227a910584eda8f464bc4cf5604e6f26f156e69e35745deb2833a8"
+            }
+          }
+        ],
+        "note": "저자 보관 논문의 영아 모방 문단 전체 직접 대조. lip pursings→lip tightenings와 시험 어법 오류 with 삭제를 구분. 비슷한 후속 논문과 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "5453c75e49dd58107da0e8ecfe26d7d41d182bb9442a73e664507c60994f5637",
+      "representative_item_id": "2024#38",
+      "item_ids": [
+        "2024#38"
+      ],
+      "body_sha256_by_item": {
+        "2024#38": "a2b79fd54a260fdb30c768939ac1f53c67c1e6dfc69e5f4c94b5d6927abc0401"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Handbook of the Economics of Innovation, Volume 1",
+        "source_authors": [
+          "Paula E. Stephan"
+        ],
+        "source_publisher": "Elsevier / North-Holland",
+        "source_year": 2010,
+        "source_part": "Chapter 5, The Economics of Science, p. 222 (PDF p. 233)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://users.metu.edu.tr/pamukcu/HandbookofInno2010.pdf",
+            "label": "Chapter 5, The Economics of Science, p. 222 (PDF p. 233)",
+            "body_sha256_by_item": {
+              "2024#38": "a2b79fd54a260fdb30c768939ac1f53c67c1e6dfc69e5f4c94b5d6927abc0401"
+            }
+          }
+        ],
+        "note": "도서 전문의 과학 경쟁 문단 직접 대조. 장 저자는 Paula E. Stephan이며 Hall·Rosenberg는 책 편집자. 삽입 문장 위치·어휘 편집 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "54a45aac5186bf3c2350fd8a408227b136899fbf8f3d948ea1a009c8cfef6e84",
+      "representative_item_id": "2025#23",
+      "item_ids": [
+        "2025#23"
+      ],
+      "body_sha256_by_item": {
+        "2025#23": "89ea35db16a64a9c21167b07fe5682029a6cfd6258aebe4002681e682a61d091"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Virtual Society: The Metaverse and the New Frontiers of Human Experience",
+        "source_authors": [
+          "Herman Narula"
+        ],
+        "source_publisher": "Currency / Penguin Random House",
+        "source_year": 2022,
+        "source_part": "PDF p. 46",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://iranbroker.net/wp-content/uploads/2023/01/Virtual_Society_The_Metaverse_and_the_New_Frontiers.pdf",
+            "label": "PDF p. 46",
+            "body_sha256_by_item": {
+              "2025#23": "89ea35db16a64a9c21167b07fe5682029a6cfd6258aebe4002681e682a61d091"
+            }
+          }
+        ],
+        "note": "표제·판권·전문이 있는 사본에서 산업화와 시간 문단 전체 대조. advent→arrival 등 경미한 편집.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "4b34d210e00ad50d6c21d1d7ae09e23cc824e92c9a8fd08b9168d8db5a9e1e9a",
+      "representative_item_id": "2025#33",
+      "item_ids": [
+        "2025#33"
+      ],
+      "body_sha256_by_item": {
+        "2025#33": "c1664f0be28232fbf309339c3080ed0fa03a9865d43883d82fe402f4789207cd"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Moral Codes: Designing Alternatives to AI",
+        "source_authors": [
+          "Alan F. Blackwell"
+        ],
+        "source_publisher": "MIT Press",
+        "source_year": 2024,
+        "source_part": "Conclusion; author manuscript (2022), chapter 15",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://moralcodes.pubpub.org/pub/chapter-13/release/4",
+            "label": "Conclusion; author manuscript (2022), chapter 15",
+            "body_sha256_by_item": {
+              "2025#33": "c1664f0be28232fbf309339c3080ed0fa03a9865d43883d82fe402f4789207cd"
+            }
+          },
+          {
+            "kind": "publisher_metadata",
+            "url": "https://mitpress.mit.edu/9780262548717/moral-codes/",
+            "label": "MIT Press published edition"
+          }
+        ],
+        "note": "저자 공개 원고에서 attention economy·captology 문단 전체 대조. 2022 원고와 2024 출판본의 판본을 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    },
+    {
+      "passage_sha256": "d17d529e8848e49eb697a5e542e1e520fd462a14b1fd104155ab4897b11089fb",
+      "representative_item_id": "2026#40",
+      "item_ids": [
+        "2026#40"
+      ],
+      "body_sha256_by_item": {
+        "2026#40": "78ac09c157672dc3f0c431acbe31bcfac6c1829a8b32a3be71bdb3d3908c81fc"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Semiotics at the Circus",
+        "source_authors": [
+          "Paul Bouissac"
+        ],
+        "source_publisher": "De Gruyter Mouton",
+        "source_year": 2010,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://www.degruyterbrill.com/document/doi/10.1515/9783110218312/html",
+            "kind": "official_metadata",
+            "label": "De Gruyter book page"
+          },
+          {
+            "url": "https://paulbouissac.com/cv-summary/",
+            "kind": "author_metadata",
+            "label": "Author CV"
+          }
+        ],
+        "note": "Independent teaching material gives this title; this corrects the vague claim that the source was merely a Semiotica article.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Semiotics at the Circus",
+        "source_authors": [
+          "Paul Bouissac"
+        ],
+        "source_publisher": "De Gruyter Mouton",
+        "source_year": 2010,
+        "source_part": "Chapter 10, §10.1 Toward a theory of live performances, p. 163",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://pdfcoffee.com/semiotics-at-the-circus-semiotics-communication-and-cognition-pdf-free.html",
+            "label": "Chapter 10, §10.1 Toward a theory of live performances, p. 163",
+            "body_sha256_by_item": {
+              "2026#40": "78ac09c157672dc3f0c431acbe31bcfac6c1829a8b32a3be71bdb3d3908c81fc"
+            }
+          }
+        ],
+        "note": "서지·쪽수·장 전체가 있는 전문 사본의 연속 문단 직접 대조. puppetry→storytelling 주변 목록 편집, spectators→audiences, fragile→unstable, reciprocal gratifications→shared enjoyment 등 경미한 편집. 시험의 마지막 요약문은 원문 문단과 구분.",
+        "audited_at": "2026-10-04",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+      }
+    }
+  ]
+}

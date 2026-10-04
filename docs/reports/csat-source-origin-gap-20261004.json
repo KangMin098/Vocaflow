@@ -1,0 +1,15 @@
+{
+  "id": "4e309675-ce23-4127-8799-0e5af28ae0f8",
+  "before": {
+    "question": "수능·평가원 영어 지문 664개의 원천(책·논문)이 확인되지 않았다",
+    "affected_count": 664,
+    "next_action": "구절 검색 외 방법(출판사 전문 검색·도서관 DB·EBS 연계 교재 역추적)으로 원천 재조사"
+  },
+  "after": {
+    "question": "수능·평가원 영어 지문의 미확인 원천(책·논문)을 추가 조사해야 한다",
+    "affected_count": 632,
+    "next_action": "수능 후보 15개 문단 대조 → 추가 서지 단서 확인 → 미확인 271개 두 번째 구절 검색. 모의평가는 별도 조사. 2026-10-04 검수 보고서 참조."
+  },
+  "audited_at": "2026-10-04",
+  "audit_ref": "docs/reports/csat-source-origin-audit-20261004.md"
+}

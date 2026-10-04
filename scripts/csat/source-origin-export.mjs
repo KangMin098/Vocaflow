@@ -7,14 +7,12 @@ import path from 'node:path'
 import process from 'node:process'
 import { createClient } from '@supabase/supabase-js'
 import dotenv from 'dotenv'
+import { documentFrequencies, selectFingerprints, searchQueries } from './source-origin-search.mjs'
 
 dotenv.config({ path: path.resolve('apps/web/.env.local') })
 
 const DEFAULT_OUTPUT = 'scripts/csat/source-origin-work/pending.jsonl'
 const PAGE_SIZE = 1000
-const WINDOW_SIZE = 11
-const FINGERPRINTS_PER_PASSAGE = 3
-const MIN_WORDS = 7
 
 function arg(name, fallback = null) {
   const index = process.argv.indexOf(name)
@@ -52,50 +50,6 @@ function searchWords(value) {
     .filter((word) => /^[A-Za-z][A-Za-z'-]*$/.test(word))
 }
 
-function documentFrequencies(passages) {
-  const frequencies = new Map()
-  for (const passage of passages) {
-    const seen = new Set(searchWords(passage).map((word) => word.toLowerCase()))
-    for (const word of seen) frequencies.set(word, (frequencies.get(word) ?? 0) + 1)
-  }
-  return frequencies
-}
-
-function selectFingerprints(passage, frequencies, documentCount) {
-  const words = searchWords(passage)
-  if (words.length < MIN_WORDS) return []
-  const size = Math.min(WINDOW_SIZE, words.length)
-  const candidates = []
-
-  for (let start = 0; start <= words.length - size; start += 1) {
-    const window = words.slice(start, start + size)
-    const lower = window.map((word) => word.toLowerCase())
-    const unique = new Set(lower)
-    const idfScore = [...unique].reduce(
-      (sum, word) => sum + Math.log((documentCount + 1) / ((frequencies.get(word) ?? 0) + 1)),
-      0,
-    )
-    const rareLongWords = lower.filter(
-      (word) => word.length >= 7 && (frequencies.get(word) ?? documentCount) <= Math.max(2, documentCount * 0.02),
-    ).length
-    const score = idfScore + rareLongWords * 1.5
-    candidates.push({ start, end: start + size, score, text: window.join(' ') })
-  }
-
-  candidates.sort((a, b) => b.score - a.score || a.start - b.start)
-  const selected = []
-  for (const candidate of candidates) {
-    const overlaps = selected.some(
-      (existing) => Math.max(existing.start, candidate.start) < Math.min(existing.end, candidate.end),
-    )
-    if (overlaps) continue
-    selected.push(candidate)
-    if (selected.length === FINGERPRINTS_PER_PASSAGE) break
-  }
-
-  return selected.sort((a, b) => a.start - b.start).map(({ text }) => text)
-}
-
 // keyset(id) 로 끝까지 — OFFSET 은 뒤 페이지가 앞을 다시 훑는다(scan-offset-paging 예산). 두 호출 모두 id 를 고른다.
 async function selectAll(db, table, columns) {
   const rows = []
@@ -112,6 +66,8 @@ async function selectAll(db, table, columns) {
 }
 
 const output = path.resolve(arg('--output', DEFAULT_OUTPUT))
+const kind = arg('--kind')
+if (kind && !['suneung', 'mock'].includes(kind)) throw new Error('--kind must be suneung or mock')
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY
 if (!url || !key) throw new Error('NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY를 찾지 못했다')
@@ -119,10 +75,11 @@ if (!url || !key) throw new Error('NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_R
 const db = createClient(url, key, { auth: { persistSession: false } })
 const [exams, items] = await Promise.all([
   selectAll(db, 'csat_exams', 'id,label,kind,year,month'),
-  selectAll(db, 'csat_items', 'id,exam_id,no,in_scope,passage'),
+  selectAll(db, 'csat_items', 'id,exam_id,no,in_scope,passage,type_id'),
 ])
 const examById = new Map(exams.map((exam) => [exam.id, exam]))
-const scoped = items.filter((item) => item.in_scope && normalizedHashText(item.passage).length >= 60)
+const scoped = items.filter((item) => item.in_scope && normalizedHashText(item.passage).length >= 60 &&
+  (kind ? examById.get(item.exam_id)?.kind === kind : ['suneung', 'mock'].includes(examById.get(item.exam_id)?.kind)))
 const grouped = new Map()
 
 for (const item of scoped) {
@@ -132,7 +89,7 @@ for (const item of scoped) {
   if (existing) {
     existing.items.push(item)
   } else {
-    grouped.set(passageSha256, { passage: normalizePassage(item.passage), items: [item] })
+    grouped.set(passageSha256, { passage: item.passage, items: [item] })
   }
 }
 
@@ -145,7 +102,7 @@ const records = groups
       .slice()
       .sort((a, b) => a.exam_id.localeCompare(b.exam_id) || a.no - b.no)[0]
     const exam = examById.get(representative.exam_id)
-    const fingerprints = selectFingerprints(group.passage, frequencies, groups.length)
+    const fingerprints = selectFingerprints(group.passage, frequencies, groups.length, representative.type_id)
     return {
       passage_sha256: group.passageSha256,
       representative_item_id: representative.id,
@@ -155,9 +112,7 @@ const records = groups
         : { id: representative.exam_id },
       word_count: searchWords(group.passage).length,
       fingerprints,
-      search_queries: fingerprints.map(
-        (fingerprint) => `"${fingerprint}" -수능 -모의고사 -EBS -ebsi -quizlet`,
-      ),
+      search_queries: searchQueries(fingerprints),
       status: 'pending',
     }
   })

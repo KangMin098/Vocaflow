@@ -4,7 +4,7 @@
 //   2) 미확인 지문 → knowledge_gaps 1건 (0 이 아니라 「모름」)
 //   3) 학습 과학 7 (LEARNING_MODEL) → L2 원리 항목 7개, 상태 in_review · 근거 미연결 공백 1건
 // 기본은 미리보기. --commit 일 때만 쓴다. 재실행 안전: 원천은 **새 행만** 넣고 판정이 바뀐 행은 덮지 않고 충돌로 보고,
-// 원리는 slug, 공백은 질문 문장으로 중복 확인.
+// 원리는 slug, 기출 원천 공백은 범위·원인·질문 접두어, 나머지 공백은 질문 문장으로 중복 확인.
 // 사용: node --tls-max-v1.2 scripts/knowledge/import-seed.mjs [--commit]
 import fs from 'node:fs'
 import path from 'node:path'
@@ -50,12 +50,13 @@ const origins = records.map((r) => ({
 
 const byStatus = origins.reduce((m, o) => ((m[o.status] = (m[o.status] ?? 0) + 1), m), {})
 const unresolved = byStatus.unresolved ?? 0
+const SOURCE_GAP_QUESTION = '수능·평가원 영어 지문의 미확인 원천(책·논문)을 추가 조사해야 한다'
 
 const gaps = [
   {
     skill_ids: [],
     layer: 'essence',
-    question: `수능·평가원 영어 지문 ${unresolved}개의 원천(책·논문)이 확인되지 않았다`,
+    question: SOURCE_GAP_QUESTION,
     cause: 'not_found',
     next_action: '구절 검색 외 방법(출판사 전문 검색·도서관 DB·EBS 연계 교재 역추적)으로 원천 재조사',
     affected_count: unresolved,
@@ -147,7 +148,11 @@ console.log(`원리 새로 ${newPrinciples.length} · 이미 있음 ${have.size}
 
 let gapNew = 0
 for (const g of gaps) {
-  const { data, error } = await db.from('knowledge_gaps').select('id').eq('question', g.question).limit(1)
+  let lookup = db.from('knowledge_gaps').select('id')
+  lookup = g.question === SOURCE_GAP_QUESTION
+    ? lookup.eq('layer', 'essence').eq('cause', 'not_found').ilike('question', '수능·평가원 영어 지문%원천(책·논문)%')
+    : lookup.eq('question', g.question)
+  const { data, error } = await lookup.limit(1)
   if (error) throw new Error(error.message)
   if (data.length) continue
   const { error: e2 } = await db.from('knowledge_gaps').insert(g)

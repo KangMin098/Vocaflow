@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "audited_at": "2026-09-28",
+  "audited_at": "2026-10-04",
   "scope": {
     "exam_rows": 30,
     "exam_rows_with_items": 29,
@@ -8,413 +8,1844 @@
     "mock_exam_rows": 16,
     "in_scope_items": 802,
     "unique_passages": 713,
-    "empty_exam_ids": ["M2009"],
-    "education_office_exam_rows": 0
+    "empty_exam_ids": [
+      "M2009"
+    ],
+    "education_office_exam_rows": 104
   },
   "entries": {
     "4d6f8b2199db333ecfafd9824f899cd43e7f83fa4684a00c1f84bf339fe25801": {
       "status": "confirmed_exact",
-      "source": { "title": "The Network Society", "authors": ["Jan van Dijk"], "year": 2006, "publisher": "SAGE" },
+      "source": {
+        "title": "The Network Society",
+        "authors": [
+          "Jan van Dijk"
+        ],
+        "year": 2006,
+        "publisher": "SAGE"
+      },
       "evidence": [
-        { "kind": "exact_text_with_attribution", "url": "https://bilgiyonetimi.net/essential-mooc/en/module_2_9.html?userType=trainee", "label": "New-media definition with van Dijk citation" }
+        {
+          "kind": "exact_text_with_attribution",
+          "url": "https://bilgiyonetimi.net/essential-mooc/en/module_2_9.html?userType=trainee",
+          "label": "New-media definition with van Dijk citation"
+        }
       ],
       "note": "The passage preserves van Dijk's definition and examples with minor editing."
     },
     "c687109777bf43efec55b77c5a9a259618e91384ca68beadaff6349ac2e6796d": {
       "status": "confirmed_exact",
-      "source": { "title": "Walt Whitman and the Culture of American Celebrity", "authors": ["David Haven Blake"], "year": 2006, "publisher": "Yale University Press" },
+      "source": {
+        "title": "Walt Whitman and the Culture of American Celebrity",
+        "authors": [
+          "David Haven Blake"
+        ],
+        "year": 2006,
+        "publisher": "Yale University Press"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://academic.oup.com/yale-scholarship-online/book/22558/chapter-abstract/182889838", "label": "Oxford Academic publisher page and exact preface text" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://academic.oup.com/yale-scholarship-online/book/22558/chapter-abstract/182889838",
+          "label": "Oxford Academic publisher page and exact preface text"
+        }
       ],
       "note": "The exam passage closely follows the preface."
     },
     "9770a67b3c40ba6745f411ff0bed83563bc015b21367905d44a8cf48e6ff4c65": {
       "status": "confirmed_exact",
-      "source": { "title": "Cognitive Psychology: Connecting Mind, Research, and Everyday Experience", "authors": ["E. Bruce Goldstein"], "year": 2011, "publisher": "Cengage" },
+      "source": {
+        "title": "Cognitive Psychology: Connecting Mind, Research, and Everyday Experience",
+        "authors": [
+          "E. Bruce Goldstein"
+        ],
+        "year": 2011,
+        "publisher": "Cengage"
+      },
       "evidence": [
-        { "kind": "exact_text", "url": "https://fliphtml5.com/lnym/ljxx/COGNITIVE_PSYCHOLOGY_2ND_EDITION/", "label": "Full-text copy, chapter on attention without eye movements" }
+        {
+          "kind": "exact_text",
+          "url": "https://fliphtml5.com/lnym/ljxx/COGNITIVE_PSYCHOLOGY_2ND_EDITION/",
+          "label": "Full-text copy, chapter on attention without eye movements"
+        }
       ],
       "note": "The basketball and inattentional-reading examples match in sequence."
     },
     "8af429f15c192be758d88311b6ff92e9f8443ad6d9edbd5e16fdc92a9f3c82bd": {
       "status": "confirmed_exact",
-      "source": { "title": "The Art of Understanding Art: A Behind the Scenes Story", "authors": ["Irina D. Costache"], "year": 2012, "publisher": "Wiley-Blackwell" },
+      "source": {
+        "title": "The Art of Understanding Art: A Behind the Scenes Story",
+        "authors": [
+          "Irina D. Costache"
+        ],
+        "year": 2012,
+        "publisher": "Wiley-Blackwell"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://catalogimages.wiley.com/images/db/pdf/9780470658321.excerpt.pdf", "label": "Wiley excerpt, chapter 1" },
-        { "kind": "catalog_metadata", "url": "https://catalogue.bnf.fr/ark:/12148/cb42719473n", "label": "Bibliothèque nationale de France metadata" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://catalogimages.wiley.com/images/db/pdf/9780470658321.excerpt.pdf",
+          "label": "Wiley excerpt, chapter 1"
+        },
+        {
+          "kind": "catalog_metadata",
+          "url": "https://catalogue.bnf.fr/ark:/12148/cb42719473n",
+          "label": "Bibliothèque nationale de France metadata"
+        }
       ],
       "note": "The sequence about artist, originality, authorship, and authenticity is nearly verbatim."
     },
     "ce53ef90d7503a08ec0a7344c4d0bbe845a270127acaa38dacf91c730b1f89fd": {
       "status": "confirmed_exact",
-      "source": { "title": "Music, Imagination, and Culture", "authors": ["Nicholas Cook"], "year": 1990, "publisher": "Oxford University Press" },
+      "source": {
+        "title": "Music, Imagination, and Culture",
+        "authors": [
+          "Nicholas Cook"
+        ],
+        "year": 1990,
+        "publisher": "Oxford University Press"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://academic.oup.com/book/49192/chapter-abstract/422321663", "label": "Oxford Academic chapter text" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://academic.oup.com/book/49192/chapter-abstract/422321663",
+          "label": "Oxford Academic chapter text"
+        }
       ],
       "note": "The discussion of measurable tone and fixed pitches matches the chapter."
     },
     "653f9b122e55600ffb598ea7118ec6122f0fb87ae7d4342d8ec047e53aed82a1": {
       "status": "confirmed_exact",
-      "source": { "title": "Cyber War Will Not Take Place", "authors": ["Thomas Rid"], "year": 2013, "publisher": "Oxford University Press" },
+      "source": {
+        "title": "Cyber War Will Not Take Place",
+        "authors": [
+          "Thomas Rid"
+        ],
+        "year": 2013,
+        "publisher": "Oxford University Press"
+      },
       "evidence": [
-        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9780199365463_A24395982/preview-9780199365463_A24395982.pdf", "label": "Publisher preview, chapter 1" }
+        {
+          "kind": "publisher_preview_exact_text",
+          "url": "https://api.pageplace.de/preview/DT0400.9780199365463_A24395982/preview-9780199365463_A24395982.pdf",
+          "label": "Publisher preview, chapter 1"
+        }
       ],
       "note": "The Clausewitz passage is reproduced with light lexical editing."
     },
     "29c75004dd24fa6aa985af8836f7e50af41ef92f4e3ae1490965b2051b35254b": {
       "status": "confirmed_exact",
-      "source": { "title": "Project Control: Integrating Cost and Schedule in Construction", "authors": ["Wayne J. Del Pico"], "year": 2023, "publisher": "Wiley" },
+      "source": {
+        "title": "Project Control: Integrating Cost and Schedule in Construction",
+        "authors": [
+          "Wayne J. Del Pico"
+        ],
+        "year": 2023,
+        "publisher": "Wiley"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://catalogimages.wiley.com/images/db/pdf/9781394150120.excerpt.pdf", "label": "Wiley excerpt, Benefits of Proper Planning" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://catalogimages.wiley.com/images/db/pdf/9781394150120.excerpt.pdf",
+          "label": "Wiley excerpt, Benefits of Proper Planning"
+        }
       ],
       "note": "The current edition preserves the exact passage; the exam may derive from an earlier edition."
     },
     "856c1d3ef33142e77388d210680de1089bb3c3ff0fb5c4ae9ba6e5d5ee5035b0": {
       "status": "confirmed_exact",
-      "source": { "title": "The Geography of Transport Systems", "authors": ["Jean-Paul Rodrigue", "Claude Comtois", "Brian Slack"], "year": 2013, "publisher": "Routledge" },
+      "source": {
+        "title": "The Geography of Transport Systems",
+        "authors": [
+          "Jean-Paul Rodrigue",
+          "Claude Comtois",
+          "Brian Slack"
+        ],
+        "year": 2013,
+        "publisher": "Routledge"
+      },
       "evidence": [
-        { "kind": "author_site_exact_text", "url": "https://transportgeography.org/contents/chapter1/what-is-transport-geography/transportation-derived-demand/", "label": "Author-maintained open textbook page" }
+        {
+          "kind": "author_site_exact_text",
+          "url": "https://transportgeography.org/contents/chapter1/what-is-transport-geography/transportation-derived-demand/",
+          "label": "Author-maintained open textbook page"
+        }
       ],
       "note": "The derived-demand paragraph and unused flight capacity example match."
     },
     "24551a63d2916d03bb9ddb4cf1af3e86da9cba19ba2d23c68c0f9e5c91925ffd": {
       "status": "confirmed_exact",
-      "source": { "title": "Conceptualising the Social World: Principles of Sociological Analysis", "authors": ["John Scott"], "year": 2011, "publisher": "Cambridge University Press", "part": "Chapter 2, Culture: the Socialisation of Meaning" },
+      "source": {
+        "title": "Conceptualising the Social World: Principles of Sociological Analysis",
+        "authors": [
+          "John Scott"
+        ],
+        "year": 2011,
+        "publisher": "Cambridge University Press",
+        "part": "Chapter 2, Culture: the Socialisation of Meaning"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://www.cambridge.org/core/books/abs/conceptualising-the-social-world/culture-the-socialisation-of-meaning/0E91BA2F04F4A490E6D47D9BCC082F15", "label": "Cambridge Core chapter" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://www.cambridge.org/core/books/abs/conceptualising-the-social-world/culture-the-socialisation-of-meaning/0E91BA2F04F4A490E6D47D9BCC082F15",
+          "label": "Cambridge Core chapter"
+        }
       ],
       "note": "The paragraph on cultural integration and ripe discoveries matches."
     },
     "4d27fb65de5d2704da6a95ddce0079366caba0a5972b290f3b66e422eabcad3e": {
       "status": "confirmed_exact",
-      "source": { "title": "Materials Science and Engineering: An Introduction", "authors": ["William D. Callister Jr.", "David G. Rethwisch"], "year": 2018, "publisher": "Wiley" },
+      "source": {
+        "title": "Materials Science and Engineering: An Introduction",
+        "authors": [
+          "William D. Callister Jr.",
+          "David G. Rethwisch"
+        ],
+        "year": 2018,
+        "publisher": "Wiley"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://catalogimages.wiley.com/images/db/pdf/9781119278566.excerpt.pdf", "label": "Wiley excerpt" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://catalogimages.wiley.com/images/db/pdf/9781119278566.excerpt.pdf",
+          "label": "Wiley excerpt"
+        }
       ],
       "note": "The historical paragraph on materials is nearly verbatim."
     },
     "468d65925afb04aca416af57f4796d24f38da54d7570dce44a3094d97759af44": {
       "status": "confirmed_exact",
-      "source": { "title": "The Cambridge Handbook of Creativity across Domains", "authors": ["James C. Kaufman", "Vlad P. Glăveanu", "John Baer"], "year": 2017, "publisher": "Cambridge University Press", "part": "Opportunities, Conditions, and Limitations of Cross-Domain Creativity" },
+      "source": {
+        "title": "The Cambridge Handbook of Creativity across Domains",
+        "authors": [
+          "James C. Kaufman",
+          "Vlad P. Glăveanu",
+          "John Baer"
+        ],
+        "year": 2017,
+        "publisher": "Cambridge University Press",
+        "part": "Opportunities, Conditions, and Limitations of Cross-Domain Creativity"
+      },
       "evidence": [
-        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9781108294775_A30638556/preview-9781108294775_A30638556.pdf", "label": "Publisher preview" }
+        {
+          "kind": "publisher_preview_exact_text",
+          "url": "https://api.pageplace.de/preview/DT0400.9781108294775_A30638556/preview-9781108294775_A30638556.pdf",
+          "label": "Publisher preview"
+        }
       ],
       "note": "The cross-domain creativity paragraph matches."
     },
     "6c6081273389daf8b4cc0c23a01c25bab026d12212229c70bc1cd892b42913b1": {
       "status": "confirmed_exact",
-      "source": { "title": "Museum Storage and Meaning: Tales from the Crypt", "authors": ["Mirjam Brusius", "Kavita Singh"], "year": 2018, "publisher": "Routledge", "part": "Introduction" },
+      "source": {
+        "title": "Museum Storage and Meaning: Tales from the Crypt",
+        "authors": [
+          "Mirjam Brusius",
+          "Kavita Singh"
+        ],
+        "year": 2018,
+        "publisher": "Routledge",
+        "part": "Introduction"
+      },
       "evidence": [
-        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9781351659437_A30869589/preview-9781351659437_A30869589.pdf", "label": "Publisher preview" }
+        {
+          "kind": "publisher_preview_exact_text",
+          "url": "https://api.pageplace.de/preview/DT0400.9781351659437_A30869589/preview-9781351659437_A30869589.pdf",
+          "label": "Publisher preview"
+        }
       ],
       "note": "The passage about galleries, consumable spaces, and neglected storerooms matches."
     },
     "54abdfdf38754e78d1e144a1f717f3c4987d75f68de453526344088996a506bc": {
       "status": "confirmed_exact",
-      "source": { "title": "International Companion Encyclopedia of Children's Literature", "authors": ["Peter Hunt"], "year": 2004, "publisher": "Routledge" },
+      "source": {
+        "title": "International Companion Encyclopedia of Children's Literature",
+        "authors": [
+          "Peter Hunt"
+        ],
+        "year": 2004,
+        "publisher": "Routledge"
+      },
       "evidence": [
-        { "kind": "exact_text", "url": "https://pubhtml5.com/iytc/jrjd/basic/", "label": "Searchable full-text copy" },
-        { "kind": "publisher_preview", "url": "https://api.pageplace.de/preview/DT0400.9781134436842_A23777097/preview-9781134436842_A23777097.pdf", "label": "Publisher preview" }
+        {
+          "kind": "exact_text",
+          "url": "https://pubhtml5.com/iytc/jrjd/basic/",
+          "label": "Searchable full-text copy"
+        },
+        {
+          "kind": "publisher_preview",
+          "url": "https://api.pageplace.de/preview/DT0400.9781134436842_A23777097/preview-9781134436842_A23777097.pdf",
+          "label": "Publisher preview"
+        }
       ],
       "note": "The paragraph on reading pictures, maps, screens, and design graphics matches."
     },
     "cc1f720ce73fe0821dbbebda8c3eced46a6efcfdf94cb3bfa33275dbe14c9ed7": {
       "status": "confirmed_exact",
-      "source": { "title": "The Aesthetics of Emotion: Up the Down Staircase of the Mind-Body", "authors": ["Gerald C. Cupchik"], "year": 2016, "publisher": "Cambridge University Press" },
+      "source": {
+        "title": "The Aesthetics of Emotion: Up the Down Staircase of the Mind-Body",
+        "authors": [
+          "Gerald C. Cupchik"
+        ],
+        "year": 2016,
+        "publisher": "Cambridge University Press"
+      },
       "evidence": [
-        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9781316540541_A27168315/preview-9781316540541_A27168315.pdf", "label": "Publisher preview" }
+        {
+          "kind": "publisher_preview_exact_text",
+          "url": "https://api.pageplace.de/preview/DT0400.9781316540541_A27168315/preview-9781316540541_A27168315.pdf",
+          "label": "Publisher preview"
+        }
       ],
       "note": "The trade-off between subject matter and style matches."
     },
     "ef16d1e696bd639b14c477352d5220f16fffc2ae41f31fc179a933b237e85eb3": {
       "status": "confirmed_exact",
-      "source": { "title": "Hunger and Public Action", "authors": ["Jean Drèze", "Amartya Sen"], "year": 1989, "publisher": "Oxford University Press", "part": "Experiences and Lessons" },
+      "source": {
+        "title": "Hunger and Public Action",
+        "authors": [
+          "Jean Drèze",
+          "Amartya Sen"
+        ],
+        "year": 1989,
+        "publisher": "Oxford University Press",
+        "part": "Experiences and Lessons"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://academic.oup.com/book/2070/chapter/141987885", "label": "Oxford Academic chapter" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://academic.oup.com/book/2070/chapter/141987885",
+          "label": "Oxford Academic chapter"
+        }
       ],
       "note": "The paragraph on famine vulnerability and direct public intervention matches."
     },
     "a29af4c2969ec1141b3fde9a77cbc206d22c81a53867cd83c70d41e04d859300": {
       "status": "confirmed_exact",
-      "source": { "title": "Chaos and Life: Complexity and Order in Evolution and Thought", "authors": ["Richard J. Bird"], "year": 2003, "publisher": "Columbia University Press" },
+      "source": {
+        "title": "Chaos and Life: Complexity and Order in Evolution and Thought",
+        "authors": [
+          "Richard J. Bird"
+        ],
+        "year": 2003,
+        "publisher": "Columbia University Press"
+      },
       "evidence": [
-        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9780231501552_A25430015/preview-9780231501552_A25430015.pdf", "label": "Publisher preview" }
+        {
+          "kind": "publisher_preview_exact_text",
+          "url": "https://api.pageplace.de/preview/DT0400.9780231501552_A25430015/preview-9780231501552_A25430015.pdf",
+          "label": "Publisher preview"
+        }
       ],
       "note": "The magnetic pendulum example matches exactly; this corrects an unsupported attribution to Edward T. Hall."
     },
     "084674e085527bd96676700a10056bae359e8aef02418991a949ebb9e9a4c419": {
       "status": "confirmed_exact",
-      "source": { "title": "Mapping Selfies and Memes as Touch", "authors": ["Fiona Andreallo"], "year": 2022, "publisher": "Palgrave Macmillan", "part": "Semeful Sociabilities: Socially Networked Photography as Embodied Relationships of Touch" },
+      "source": {
+        "title": "Mapping Selfies and Memes as Touch",
+        "authors": [
+          "Fiona Andreallo"
+        ],
+        "year": 2022,
+        "publisher": "Palgrave Macmillan",
+        "part": "Semeful Sociabilities: Socially Networked Photography as Embodied Relationships of Touch"
+      },
       "evidence": [
-        { "kind": "publisher_open_access_exact_text", "url": "https://link.springer.com/chapter/10.1007/978-3-030-94316-5_5", "label": "Springer open-access chapter" }
+        {
+          "kind": "publisher_open_access_exact_text",
+          "url": "https://link.springer.com/chapter/10.1007/978-3-030-94316-5_5",
+          "label": "Springer open-access chapter"
+        }
       ],
       "note": "The technological seamlessness paragraph matches with minor substitutions."
     },
     "b60e5253063b85c9017cc4738d532829f57b6078e2236b4ea1cc71b904281009": {
       "status": "confirmed_exact",
-      "source": { "title": "An Introduction to Tourism", "authors": ["Leonard J. Lickorish", "Carson L. Jenkins"], "year": 1997, "publisher": "Butterworth-Heinemann" },
+      "source": {
+        "title": "An Introduction to Tourism",
+        "authors": [
+          "Leonard J. Lickorish",
+          "Carson L. Jenkins"
+        ],
+        "year": 1997,
+        "publisher": "Butterworth-Heinemann"
+      },
       "evidence": [
-        { "kind": "exact_text", "url": "https://www.perlego.com/book/1625973/introduction-to-tourism-pdf", "label": "Searchable book preview" },
-        { "kind": "publisher_preview", "url": "https://api.pageplace.de/preview/DT0400.9781136391927_A23844089/preview-9781136391927_A23844089.pdf", "label": "Publisher preview" }
+        {
+          "kind": "exact_text",
+          "url": "https://www.perlego.com/book/1625973/introduction-to-tourism-pdf",
+          "label": "Searchable book preview"
+        },
+        {
+          "kind": "publisher_preview",
+          "url": "https://api.pageplace.de/preview/DT0400.9781136391927_A23844089/preview-9781136391927_A23844089.pdf",
+          "label": "Publisher preview"
+        }
       ],
       "note": "The paragraph on the tourism industry's integration after the 1950s matches."
     },
     "31875c36b61e8bfbccecfe88be76c7b69dada708e549fb0892e8909b9cc10cb0": {
       "status": "confirmed_exact",
-      "source": { "title": "Cities of Culture: Staging International Festivals and the Urban Agenda, 1851–2000", "authors": ["John R. Gold", "Margaret M. Gold"], "year": 2005, "publisher": "Ashgate" },
+      "source": {
+        "title": "Cities of Culture: Staging International Festivals and the Urban Agenda, 1851–2000",
+        "authors": [
+          "John R. Gold",
+          "Margaret M. Gold"
+        ],
+        "year": 2005,
+        "publisher": "Ashgate"
+      },
       "evidence": [
-        { "kind": "exact_text", "url": "https://www.researchgate.net/publication/335925233_Cities_of_culture_staging_international_festivals_and_the_urban_agenda_1851-2000", "label": "Full-text author copy" },
-        { "kind": "publisher_preview", "url": "https://api.pageplace.de/preview/DT0400.9781351951470_A30893651/preview-9781351951470_A30893651.pdf", "label": "Publisher preview" }
+        {
+          "kind": "exact_text",
+          "url": "https://www.researchgate.net/publication/335925233_Cities_of_culture_staging_international_festivals_and_the_urban_agenda_1851-2000",
+          "label": "Full-text author copy"
+        },
+        {
+          "kind": "publisher_preview",
+          "url": "https://api.pageplace.de/preview/DT0400.9781351951470_A30893651/preview-9781351951470_A30893651.pdf",
+          "label": "Publisher preview"
+        }
       ],
       "note": "The passage on spectacle, cultural frames, convention, and originality matches."
     },
     "b37bfcf967ed3ae4af896d9cd4ed04cf3fbee043123cf514383b5a5fa721c888": {
       "status": "supported_candidate",
-      "source": { "title": "Social Media ROI: Managing and Measuring Social Media Efforts in Your Organization", "authors": ["Olivier Blanchard"], "year": 2011, "publisher": "Que" },
+      "source": {
+        "title": "Social Media ROI: Managing and Measuring Social Media Efforts in Your Organization",
+        "authors": [
+          "Olivier Blanchard"
+        ],
+        "year": 2011,
+        "publisher": "Que"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://www.informit.com/store/social-media-roi-managing-and-measuring-social-media-9780789747419", "label": "InformIT/Que metadata" },
-        { "kind": "searchable_book", "url": "https://www.oreilly.com/library/view/social-media-roi/9780132678032/", "label": "Searchable book record" }
+        {
+          "kind": "official_metadata",
+          "url": "https://www.informit.com/store/social-media-roi-managing-and-measuring-social-media-9780789747419",
+          "label": "InformIT/Que metadata"
+        },
+        {
+          "kind": "searchable_book",
+          "url": "https://www.oreilly.com/library/view/social-media-roi/9780132678032/",
+          "label": "Searchable book record"
+        }
       ],
       "note": "An exact-match full-text copy was found, but the publisher preview retained here does not expose the matched paragraph."
     },
     "27aacecf2a125bfc6cbd512cdf2dd7957449d4b3553bfdf312831a4744a507d5": {
-      "status": "supported_candidate",
-      "source": { "title": "Merchants of Doubt", "authors": ["Naomi Oreskes", "Erik M. Conway"], "year": 2010, "publisher": "Bloomsbury Press" },
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Merchants of Doubt",
+        "authors": [
+          "Naomi Oreskes",
+          "Erik M. Conway"
+        ],
+        "publisher": "Bloomsbury Press",
+        "year": 2010,
+        "part": "Conclusion / PDF page 195"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://www.bloomsbury.com/us/merchants-of-doubt-9781608192939/", "label": "Bloomsbury metadata" }
+        {
+          "kind": "full_text_compared",
+          "url": "https://s3.amazonaws.com/arena-attachments/1681302/81135daed9eca91760ffd75a38f9a75f.pdf",
+          "label": "Conclusion / PDF page 195",
+          "body_sha256_by_item": {
+            "2022#21": "13280a480ae4fee46e920443e2f5b131e0e879a11666820243afbd08d0d63c9b"
+          }
+        }
       ],
-      "note": "Exact matching text was located in a full-book copy; official metadata confirms the bibliography but not the paragraph."
+      "note": "全文 사본의 연속 문단을 직접 대조했다. indigenous→native, circumscribed→limited, dedicated→devoted 등 경미한 편집. PDF 쪽수와 종이책 쪽수는 구분한다."
     },
     "a6374218884bd072995145055518cafc65d89d3c45ca1890c6ebcefde5f28f91": {
       "status": "confirmed_exact",
-      "source": { "title": "Understanding Global Health", "authors": ["William H. Markle", "Melanie A. Fisher", "Raymond A. Smego Jr."], "year": 2014, "publisher": "McGraw-Hill", "part": "Chapter 6, Environmental Health in the Global Context" },
+      "source": {
+        "title": "Understanding Global Health",
+        "authors": [
+          "William H. Markle",
+          "Melanie A. Fisher",
+          "Raymond A. Smego Jr."
+        ],
+        "year": 2014,
+        "publisher": "McGraw-Hill",
+        "part": "Chapter 6, Environmental Health in the Global Context"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://accessmedicine.mhmedical.com/content.aspx?bookid=710&sectionid=46796907", "label": "McGraw-Hill AccessMedicine chapter" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://accessmedicine.mhmedical.com/content.aspx?bookid=710&sectionid=46796907",
+          "label": "McGraw-Hill AccessMedicine chapter"
+        }
       ],
       "note": "The passage is visible on the publisher's chapter page."
     },
     "238c2e3157785500d71eeefc1ae8f4c96058de12b0a552fc055c5d5359b5acf6": {
-      "status": "supported_candidate",
-      "source": { "title": "Thomas Kuhn", "authors": ["Thomas Nickles"], "publisher": "Cambridge University Press", "part": "Contemporary Philosophy in Focus" },
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Thomas Kuhn",
+        "authors": [
+          "Joseph Rouse"
+        ],
+        "publisher": "Cambridge University Press",
+        "year": null,
+        "part": "Chapter 4, Kuhn’s Philosophy of Scientific Practice, p. 108"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://www.cambridge.org/core/books/thomas-kuhn/339C2A262C829739D7DC8C74AFE27280", "label": "Cambridge book metadata" },
-        { "kind": "conceptual_source", "url": "https://press.uchicago.edu/ucp/books/book/chicago/S/bo13179781.html", "label": "The Structure of Scientific Revolutions metadata" }
+        {
+          "kind": "full_text_compared",
+          "url": "https://drive.google.com/file/d/1-WI-DKlVOjtrfayjJp0vB2d_P9jDL2mc/view",
+          "label": "Chapter 4, Kuhn’s Philosophy of Scientific Practice, p. 108",
+          "body_sha256_by_item": {
+            "2022#23": "67daf6ce407bcd29697fc6446e65927aefffa50c60d1bb7ca59ae456d725b200"
+          }
+        },
+        {
+          "kind": "author_repository",
+          "url": "https://jrouse.faculty.wesleyan.edu/static-page/recent-articles/",
+          "label": "Author bibliography"
+        }
       ],
-      "note": "The passage combines exposition with recognizable Kuhn wording; the exact chapter-level origin remains unverified."
+      "note": "저자 홈페이지에 연결된 스캔 p.108의 연속 문단을 시각 대조했다. 장 저자는 Joseph Rouse이며 Thomas Nickles는 편집자다. Kuhn 1970 p.44 인용을 포함한다."
     },
     "f74dc7841169c7c6d885663dc2274ba631734b46eab7c92e326c4acc8ef4fb3d": {
       "status": "supported_candidate",
-      "source": { "title": "Waste and Want: A Social History of Trash", "authors": ["Susan Strasser"], "year": 1999, "publisher": "Metropolitan Books" },
+      "source": {
+        "title": "Waste and Want: A Social History of Trash",
+        "authors": [
+          "Susan Strasser"
+        ],
+        "year": 1999,
+        "publisher": "Metropolitan Books"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://us.macmillan.com/books/9780805065121/wasteandwant/", "label": "Macmillan metadata" }
+        {
+          "kind": "official_metadata",
+          "url": "https://us.macmillan.com/books/9780805065121/wasteandwant/",
+          "label": "Macmillan metadata"
+        }
       ],
       "note": "Bibliographic attribution is plausible, but an independently accessible exact paragraph was not found."
     },
     "c96acfa2cecf06c999ecea7536ab0bfa284acad26550db139455c25346d8298c": {
-      "status": "supported_candidate",
-      "source": { "title": "Botany: An Introduction to Plant Biology", "authors": ["James D. Mauseth"], "year": 2012, "publisher": "Jones & Bartlett Learning" },
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Botany: An Introduction to Plant Biology",
+        "authors": [
+          "James D. Mauseth"
+        ],
+        "publisher": "Jones & Bartlett Learning",
+        "year": 2012,
+        "part": "Chapter 3, Cell Structure / section adjoining Figure 3-5"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://samples.jblearning.com/9781284157352/9781284157468_FMXx_Pass04_Secured_19251_1.pdf", "label": "Jones & Bartlett sample and metadata" }
+        {
+          "kind": "full_text_compared",
+          "url": "https://studylib.net/doc/28424990/botany---james-d.-mauseth",
+          "label": "Chapter 3, Cell Structure / section adjoining Figure 3-5",
+          "body_sha256_by_item": {
+            "2022#29": "721ea44df5a2a138b159aa84c35fc44c46cae105214d26dac54e418473d376f9"
+          }
+        }
       ],
-      "note": "The title attribution is supported, but the exact passage was not exposed in the publisher sample."
+      "note": "서지·목차·도판을 포함하는 도서 전문 사본의 두 연속 문단을 대조했다. 시험에서 That→What 어법 오류를 만든 부분을 구분했다. 실제 발췌 판본은 미확정."
     },
     "12bbe03dbf5b2297c0a58c7fbb38dbc587e26bc6a7b36e4f7ffe10e6046e6a8a": {
       "status": "supported_candidate",
-      "source": { "title": "Crop Responses to Environment: Adapting to Global Climate Change", "authors": [], "year": 2018, "publisher": "CRC Press" },
+      "source": {
+        "title": "Crop Responses to Environment: Adapting to Global Climate Change",
+        "authors": [],
+        "year": 2018,
+        "publisher": "CRC Press"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://www.routledge.com/Crop-Responses-to-Environment-Adapting-to-Global-Climate-Change/", "label": "CRC/Routledge title metadata" }
+        {
+          "kind": "official_metadata",
+          "url": "https://www.routledge.com/Crop-Responses-to-Environment-Adapting-to-Global-Climate-Change/",
+          "label": "CRC/Routledge title metadata"
+        }
       ],
       "note": "Exact wording appeared in a publisher-hosted preview during the audit, but the signed preview URL was not stable enough to retain."
     },
     "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc": {
       "status": "supported_candidate",
-      "source": { "title": "Comic Relief: A Comprehensive Philosophy of Humor", "authors": ["John Morreall"], "year": 2009, "publisher": "Wiley-Blackwell", "part": "Chapter 5, The Negative Ethics of Humor" },
+      "source": {
+        "title": "Comic Relief: A Comprehensive Philosophy of Humor",
+        "authors": [
+          "John Morreall"
+        ],
+        "year": 2009,
+        "publisher": "Wiley-Blackwell",
+        "part": "Chapter 5, The Negative Ethics of Humor"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/9781444307795", "label": "Wiley book page and contents" }
+        {
+          "kind": "official_metadata",
+          "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/9781444307795",
+          "label": "Wiley book page and contents"
+        }
       ],
       "note": "Exact wording was found in a full-text copy; this corrects a weaker attribution to a different Morreall chapter."
     },
     "528594bb08c4f574e61d60cf7f5cd6677bd4deec2b9aec6db559d1391332a9ef": {
-      "status": "supported_candidate",
-      "source": { "title": "The SAGE Dictionary of Cultural Studies", "authors": ["Chris Barker"], "year": 2004, "publisher": "SAGE" },
+      "status": "confirmed_exact",
+      "source": {
+        "title": "The SAGE Dictionary of Cultural Studies",
+        "authors": [
+          "Chris Barker"
+        ],
+        "publisher": "SAGE",
+        "year": 2004,
+        "part": "News, p. 136 (PDF page 159)"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://www.sagepub.com/shop/buy-a-book/the-sage-dictionary-of-cultural-studies-1-219252", "label": "SAGE metadata" }
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.fldm.usmba.ac.ma/wp-content/uploads/2020/03/AN425-BENNIS-Dr_Chris_Barker_The_SAGE_Dictionary_of-Introduction-to-cultural-studies.pdf",
+          "label": "News, p. 136 (PDF page 159)",
+          "body_sha256_by_item": {
+            "2022#32": "d45f5076378e5efd5eaa2d396c38e0fea63477b78f02e73e523d1240c6020017"
+          }
+        }
       ],
-      "note": "Exact wording was found in a searchable copy, while the publisher page confirms the work."
+      "note": "대학 보관 PDF의 News 항목 해당 문단 전체 대조. 빈칸 원문은 verbal and visual idioms or modes of address. with adherence to→sticking to 등 경미한 편집."
     },
     "05288cbff96b44ed6560a69978fe84c6b5340d9b7b9cba209c43ceaac1e576f4": {
       "status": "supported_candidate",
-      "source": { "title": "Social Traps and the Problem of Trust", "authors": ["Bo Rothstein"], "year": 2005, "publisher": "Cambridge University Press" },
+      "source": {
+        "title": "Social Traps and the Problem of Trust",
+        "authors": [
+          "Bo Rothstein"
+        ],
+        "year": 2005,
+        "publisher": "Cambridge University Press"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://www.cambridge.org/core/books/social-traps-and-the-problem-of-trust/02225C0BB48764F18F287FD6569EEF2E", "label": "Cambridge metadata" }
+        {
+          "kind": "official_metadata",
+          "url": "https://www.cambridge.org/core/books/social-traps-and-the-problem-of-trust/02225C0BB48764F18F287FD6569EEF2E",
+          "label": "Cambridge metadata"
+        }
       ],
       "note": "Attribution is bibliographically strong, but publisher-visible exact text was not available."
     },
     "088563c00c5ae07908d75f8258c03e7b56dd33521edebab67a08dac4d46ed598": {
       "status": "confirmed_exact",
-      "source": { "title": "Historical Representation", "authors": ["Frank Ankersmit"], "year": 2001, "publisher": "Stanford University Press" },
+      "source": {
+        "title": "Historical Representation",
+        "authors": [
+          "Frank Ankersmit"
+        ],
+        "year": 2001,
+        "publisher": "Stanford University Press"
+      },
       "evidence": [
-        { "kind": "exact_text", "url": "https://dokumen.pub/download/historical-representation-9781503619029.html", "label": "Searchable full-text copy" }
+        {
+          "kind": "exact_text",
+          "url": "https://dokumen.pub/download/historical-representation-9781503619029.html",
+          "label": "Searchable full-text copy"
+        }
       ],
       "note": "The passage on precision, determinacy, and proliferating representations matches."
     },
     "a5a644a118074123868d9b4eb0d166a54204f4d73f119aa77a08ee0f0b2a081c": {
       "status": "supported_candidate",
-      "source": { "title": "The Immersive Internet", "authors": ["Robin Teigland", "Dominic Power"], "year": 2013, "publisher": "Palgrave Macmillan" },
+      "source": {
+        "title": "The Immersive Internet",
+        "authors": [
+          "Robin Teigland",
+          "Dominic Power"
+        ],
+        "year": 2013,
+        "publisher": "Palgrave Macmillan"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://link.springer.com/book/10.1057/9781137283023", "label": "Springer/Palgrave metadata" }
+        {
+          "kind": "official_metadata",
+          "url": "https://link.springer.com/book/10.1057/9781137283023",
+          "label": "Springer/Palgrave metadata"
+        }
       ],
       "note": "The book attribution is supported, but exact wording was not independently exposed."
     },
     "25b0736c9f9af55e3d4b3a336c5117fffcedd3273042224172f6125f8794d13b": {
-      "status": "supported_candidate",
-      "source": { "title": "Environment and Society: A Critical Introduction", "authors": ["Paul Robbins", "John Hintz", "Sarah A. Moore"], "year": 2011, "publisher": "Wiley-Blackwell" },
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Environment and Society: A Critical Introduction",
+        "authors": [
+          "Paul Robbins",
+          "John Hintz",
+          "Sarah A. Moore"
+        ],
+        "publisher": "Wiley-Blackwell",
+        "year": 2011,
+        "part": "Chapter 3, Markets and Commodities, Green taxes, pp. 38–40"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://uat.store.wiley.com/en-us/environment-and-society-a-critical-introduction-2nd-edition-p-9781118451557", "label": "Wiley metadata for the later edition" }
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.uky.edu/~tmute2/nature-society/password-protect/nature-society-pdfs/hintz3-commodities.pdf",
+          "label": "Chapter 3, Markets and Commodities, Green taxes, pp. 38–40",
+          "body_sha256_by_item": {
+            "2022#36": "f3f96cf993be8da0d85d9af7db1610b071060613ec60b97c12d15ddde6594f5b"
+          }
+        }
       ],
-      "note": "Exact wording was found in a searchable copy; edition-level certainty remains limited."
+      "note": "텍스트 레이어 없는 대학 수업자료 스캔을 렌더링하여 pp.38–40 시각 대조. 원문 흐름은 도입→(B)→(A)→(C). 확인 사본의 판본과 실제 발췌 판본은 구분한다."
     },
     "484c5657b5bee1738e5116fe164d9cf398f6a94251f8de908c42d44c6365a22e": {
       "status": "confirmed_exact",
-      "source": { "title": "Literary Fiction: The Ways We Read Narrative Literature", "authors": ["Geir Farner"], "year": 2014, "publisher": "Bloomsbury Academic" },
+      "source": {
+        "title": "Literary Fiction: The Ways We Read Narrative Literature",
+        "authors": [
+          "Geir Farner"
+        ],
+        "year": 2014,
+        "publisher": "Bloomsbury Academic"
+      },
       "evidence": [
-        { "kind": "exact_text", "url": "https://dokumen.pub/literary-fiction-the-ways-we-read-narrative-literature-9781623564841-9781623560249-9781628926996-9781623560256.html", "label": "Searchable full-text copy" },
-        { "kind": "official_metadata", "url": "https://www.bloomsbury.com/us/literary-fiction-9781623560256/", "label": "Bloomsbury metadata" }
+        {
+          "kind": "exact_text",
+          "url": "https://dokumen.pub/literary-fiction-the-ways-we-read-narrative-literature-9781623564841-9781623560249-9781628926996-9781623560256.html",
+          "label": "Searchable full-text copy"
+        },
+        {
+          "kind": "official_metadata",
+          "url": "https://www.bloomsbury.com/us/literary-fiction-9781623560256/",
+          "label": "Bloomsbury metadata"
+        }
       ],
       "note": "The wording matches and the publisher record confirms the bibliography."
     },
     "89c830aa54c650d02fc75096ec04b0289093778ee557d0e063c0a70060ae365a": {
-      "status": "supported_candidate",
-      "source": { "title": "Robot Ethics: The Ethical and Social Implications of Robotics", "authors": ["Patrick Lin", "Keith Abney", "George A. Bekey"], "year": 2012, "publisher": "MIT Press" },
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Robot Ethics: The Ethical and Social Implications of Robotics",
+        "authors": [
+          "George A. Bekey"
+        ],
+        "publisher": "MIT Press",
+        "year": 2012,
+        "part": "Chapter 2, Current Trends in Robotics, §2.3.1, pp. 20–21"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://mitpress.mit.edu/9780262526005/robot-ethics/", "label": "MIT Press metadata" }
+        {
+          "kind": "full_text_compared",
+          "url": "https://helios.ntua.gr/pluginfile.php/115405/mod_folder/content/0/Computers_Information_AI_Philosophy/-Intelligent_robotics_and_autonomous_agents-_Abney,_Keith__Bekey,_George_A.__Lin,_Patrick_-_Robot_ethics___the_ethical_and_social_implications_of_robotics-The_MIT_Press_-2012-.pdf?forcedownload=1",
+          "label": "Chapter 2, Current Trends in Robotics, §2.3.1, pp. 20–21",
+          "body_sha256_by_item": {
+            "2022#38": "ce7d15adf090273c84c9f19cbd21e07a5703fe53659ff6b91ab70c1391bedec9"
+          }
+        }
       ],
-      "note": "Exact wording was found in a searchable copy; the official page confirms the edited volume."
+      "note": "대학 보관 도서 전문 pp.20–21의 문단·삽입 문장 위치를 직접 대조. alleviate→ease 경미한 편집. 장 저자는 George A. Bekey이며 Lin·Abney·Bekey는 책 편집자."
     },
     "5e5156b6787a3aef5080c3e4f83119a7f039de51083fd518b76cbc2e391a23c2": {
       "status": "confirmed_exact",
-      "source": { "title": "The Real Gaze: Film Theory after Lacan", "authors": ["Todd McGowan"], "year": 2007, "publisher": "SUNY Press" },
+      "source": {
+        "title": "The Real Gaze: Film Theory after Lacan",
+        "authors": [
+          "Todd McGowan"
+        ],
+        "year": 2007,
+        "publisher": "SUNY Press"
+      },
       "evidence": [
-        { "kind": "exact_text", "url": "https://pdfcoffee.com/the-real-gaze-film-theory-after-lacan-pdf-free.html", "label": "Searchable full-text copy" }
+        {
+          "kind": "exact_text",
+          "url": "https://pdfcoffee.com/the-real-gaze-film-theory-after-lacan-pdf-free.html",
+          "label": "Searchable full-text copy"
+        }
       ],
       "note": "The passage on cinema's fantasmatic dimension matches."
     },
     "58934cddcc758148e75a0d57f032316baed4e4bcfd230546ae7895b852cb56f4": {
       "status": "supported_candidate",
-      "source": { "title": "Adaptation and Environment", "authors": ["Robert N. Brandon"], "year": 1990, "publisher": "Princeton University Press" },
+      "source": {
+        "title": "Adaptation and Environment",
+        "authors": [
+          "Robert N. Brandon"
+        ],
+        "year": 1990,
+        "publisher": "Princeton University Press"
+      },
       "evidence": [
-        { "kind": "catalog_metadata", "url": "https://search.worldcat.org/search?q=ti%3AAdaptation+and+Environment+au%3ARobert+Brandon", "label": "WorldCat catalog search" }
+        {
+          "kind": "catalog_metadata",
+          "url": "https://search.worldcat.org/search?q=ti%3AAdaptation+and+Environment+au%3ARobert+Brandon",
+          "label": "WorldCat catalog search"
+        }
       ],
       "note": "The title is consistently attributed, but a stable primary exact-text page was not retained."
     },
     "abd150006ef39404c8707dc9f1916111827f5d0fc710291e45e1461ac5081f3b": {
       "status": "confirmed_exact",
-      "source": { "title": "The Art of Reasoning: An Introduction to Logic and Critical Thinking", "authors": ["David Kelley"], "year": 2013, "publisher": "W. W. Norton" },
+      "source": {
+        "title": "The Art of Reasoning: An Introduction to Logic and Critical Thinking",
+        "authors": [
+          "David Kelley"
+        ],
+        "year": 2013,
+        "publisher": "W. W. Norton"
+      },
       "evidence": [
-        { "kind": "publisher_exact_text", "url": "https://nerd.wwnorton.com/ebooks/epub/artofreasoning5/EPUB/content/1.1.1-chapter01.xhtml", "label": "W. W. Norton ebook chapter" }
+        {
+          "kind": "publisher_exact_text",
+          "url": "https://nerd.wwnorton.com/ebooks/epub/artofreasoning5/EPUB/content/1.1.1-chapter01.xhtml",
+          "label": "W. W. Norton ebook chapter"
+        }
       ],
       "note": "The classification and concept/referent examples match; the publisher page is a later edition."
     },
     "4deb4899dcd562fe1b618cef5faaeba7690616b9ed97b25b16b5071a5d34a091": {
       "status": "topic_lineage_only",
-      "source": { "title": "Play Signals as Punctuation: The Structure of Social Play in Canids", "authors": ["Marc Bekoff"], "year": 1995, "publisher": "Behaviour" },
+      "source": {
+        "title": "Play Signals as Punctuation: The Structure of Social Play in Canids",
+        "authors": [
+          "Marc Bekoff"
+        ],
+        "year": 1995,
+        "publisher": "Behaviour"
+      },
       "evidence": [
-        { "kind": "scholarly_topic_source", "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1439-0310.1995.tb01096.x", "label": "Scholarly paper on the same study lineage" }
+        {
+          "kind": "scholarly_topic_source",
+          "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1439-0310.1995.tb01096.x",
+          "label": "Scholarly paper on the same study lineage"
+        }
       ],
       "note": "The study topic aligns, but the exam prose was not matched to this paper. Do not treat it as the textual origin."
     },
     "44330868551015973d7b376a75a82438797f2eaee6823528e10f9ae4b4c838bd": {
       "status": "supported_candidate",
-      "source": { "title": "The Gig Economy: A Critical Introduction", "authors": ["Jamie Woodcock", "Mark Graham"], "year": 2019, "publisher": "Polity" },
+      "source": {
+        "title": "The Gig Economy: A Critical Introduction",
+        "authors": [
+          "Jamie Woodcock",
+          "Mark Graham"
+        ],
+        "year": 2019,
+        "publisher": "Polity"
+      },
       "evidence": [
-        { "kind": "institutional_metadata", "url": "https://www.oii.ox.ac.uk/research/publications/the-gig-economy-a-critical-introduction/", "label": "Oxford Internet Institute publication record" }
+        {
+          "kind": "institutional_metadata",
+          "url": "https://www.oii.ox.ac.uk/research/publications/the-gig-economy-a-critical-introduction/",
+          "label": "Oxford Internet Institute publication record"
+        }
       ],
       "note": "The attribution is strong and an exact-match copy was reported, but publisher-visible exact text was unavailable."
     },
     "0df714cfed308bfd6bf076636639bdc930c6c1fe146a0106ad9543b62950f6b8": {
       "status": "supported_candidate",
-      "source": { "title": "Sport Entrepreneurial Ecosystems: Technology Innovation Perspectives", "authors": ["Vanessa Ratten"], "year": 2024, "publisher": "Springer Singapore" },
+      "source": {
+        "title": "Sport Entrepreneurial Ecosystems: Technology Innovation Perspectives",
+        "authors": [
+          "Vanessa Ratten"
+        ],
+        "year": 2024,
+        "publisher": "Springer Singapore"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://link.springer.com/book/10.1007/978-981-97-8923-8", "label": "Springer book page" }
+        {
+          "kind": "official_metadata",
+          "url": "https://link.springer.com/book/10.1007/978-981-97-8923-8",
+          "label": "Springer book page"
+        }
       ],
       "note": "Independent teaching material attributes the passage to this book; this corrects an unsupported attribution to different sport authors."
     },
     "30e4c1823ee2a3d4cfd9066270c5be8fb1d53f01bcdc40dfd2439d5e27dedfe7": {
       "status": "supported_candidate",
-      "source": { "title": "Human Transit", "authors": ["Jarrett Walker"], "year": 2012, "publisher": "Island Press" },
+      "source": {
+        "title": "Human Transit",
+        "authors": [
+          "Jarrett Walker"
+        ],
+        "year": 2012,
+        "publisher": "Island Press"
+      },
       "evidence": [
-        { "kind": "author_site", "url": "https://humantransit.org/book/table-of-contents", "label": "Author's book site" },
-        { "kind": "exact_text_attribution", "url": "https://peshare.com/saying/view_saying.jsp?saying_id=242", "label": "Exact-match attribution page" }
+        {
+          "kind": "author_site",
+          "url": "https://humantransit.org/book/table-of-contents",
+          "label": "Author's book site"
+        },
+        {
+          "kind": "exact_text_attribution",
+          "url": "https://peshare.com/saying/view_saying.jsp?saying_id=242",
+          "label": "Exact-match attribution page"
+        }
       ],
       "note": "The exact passage is publicly reproduced and attributed to Walker, but the original author page containing it was not located."
     },
     "5a57a428c7a744591f0f17e375b7a90145ffac0dd4e0ecf647f55b2869d67e65": {
       "status": "supported_candidate",
-      "source": { "title": "The Entertainment Industry: An Introduction", "authors": ["Stuart Moss"], "year": 2010, "publisher": "CABI", "part": "Chapter 16, Culturtainment" },
+      "source": {
+        "title": "The Entertainment Industry: An Introduction",
+        "authors": [
+          "Stuart Moss"
+        ],
+        "year": 2010,
+        "publisher": "CABI",
+        "part": "Chapter 16, Culturtainment"
+      },
       "evidence": [
-        { "kind": "book_metadata", "url": "https://books.google.com/books/about/The_Entertainment_Industry.html?id=n3Vi0RyXc5wC", "label": "Google Books metadata and contents" },
-        { "kind": "author_context", "url": "https://entplanet.blogspot.com/2009/10/entertainment-industry-introduction-new.html", "label": "Editor announcement" }
+        {
+          "kind": "book_metadata",
+          "url": "https://books.google.com/books/about/The_Entertainment_Industry.html?id=n3Vi0RyXc5wC",
+          "label": "Google Books metadata and contents"
+        },
+        {
+          "kind": "author_context",
+          "url": "https://entplanet.blogspot.com/2009/10/entertainment-industry-introduction-new.html",
+          "label": "Editor announcement"
+        }
       ],
       "note": "The chapter title and rare term make the attribution strong; this corrects a different-title claim."
     },
     "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab": {
       "status": "supported_candidate",
-      "source": { "title": "The Secret of Our Success", "authors": ["Joseph Henrich"], "year": 2015, "publisher": "Princeton University Press" },
+      "source": {
+        "title": "The Secret of Our Success",
+        "authors": [
+          "Joseph Henrich"
+        ],
+        "year": 2015,
+        "publisher": "Princeton University Press"
+      },
       "evidence": [
-        { "kind": "publisher_metadata", "url": "https://assets.press.princeton.edu/catalogs/F15InternationalD.pdf", "label": "Princeton catalog" },
-        { "kind": "publisher_preview", "url": "https://assets.press.princeton.edu/chapters/s10543.pdf", "label": "Princeton chapter preview" }
+        {
+          "kind": "publisher_metadata",
+          "url": "https://assets.press.princeton.edu/catalogs/F15InternationalD.pdf",
+          "label": "Princeton catalog"
+        },
+        {
+          "kind": "publisher_preview",
+          "url": "https://assets.press.princeton.edu/chapters/s10543.pdf",
+          "label": "Princeton chapter preview"
+        }
       ],
       "note": "The attribution is strong, but the retained publisher preview does not expose the exam paragraph."
     },
     "f4e395749fea1db9483415b834156347369150f4bd5296085edce8e95497d311": {
       "status": "supported_candidate",
-      "source": { "title": "Strategic Issues in the Global Grain Trade", "authors": ["Sophia Murphy"], "publisher": "Institute for Agriculture and Trade Policy" },
+      "source": {
+        "title": "Strategic Issues in the Global Grain Trade",
+        "authors": [
+          "Sophia Murphy"
+        ],
+        "publisher": "Institute for Agriculture and Trade Policy"
+      },
       "evidence": [
-        { "kind": "candidate_attribution", "url": "https://peshare.com/saying/view_saying.jsp?saying_id=248", "label": "Exact-match attribution page" }
+        {
+          "kind": "candidate_attribution",
+          "url": "https://peshare.com/saying/view_saying.jsp?saying_id=248",
+          "label": "Exact-match attribution page"
+        }
       ],
       "note": "The title and author are plausible, but no independent primary full text was located."
     },
     "bfa5ddcea1c50e6c4fa42b2f353d86c0007abd95f955294c192dca1c728305e0": {
       "status": "supported_candidate",
-      "source": { "title": "Interior Design Illustrated", "authors": ["Francis D. K. Ching", "Corky Binggeli"], "year": 2018, "publisher": "Wiley" },
+      "source": {
+        "title": "Interior Design Illustrated",
+        "authors": [
+          "Francis D. K. Ching",
+          "Corky Binggeli"
+        ],
+        "year": 2018,
+        "publisher": "Wiley"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://uat.store.wiley.com/en-us/interior-design-illustrated-4th-edition-p-9781119468530", "label": "Wiley metadata" }
+        {
+          "kind": "official_metadata",
+          "url": "https://uat.store.wiley.com/en-us/interior-design-illustrated-4th-edition-p-9781119468530",
+          "label": "Wiley metadata"
+        }
       ],
       "note": "The attribution is plausible and bibliographically verified, but exact wording was not independently exposed."
     },
     "b55393a504d52d671b92a4cc8efa3bbdb2fdf959defc0508ffdc6527f0181134": {
       "status": "confirmed_exact",
-      "source": { "title": "Chaos and Life: Complexity and Order in Evolution and Thought", "authors": ["Richard J. Bird"], "year": 2003, "publisher": "Columbia University Press" },
+      "source": {
+        "title": "Chaos and Life: Complexity and Order in Evolution and Thought",
+        "authors": [
+          "Richard J. Bird"
+        ],
+        "year": 2003,
+        "publisher": "Columbia University Press"
+      },
       "evidence": [
-        { "kind": "publisher_preview_exact_text", "url": "https://api.pageplace.de/preview/DT0400.9780231501552_A25430015/preview-9780231501552_A25430015.pdf", "label": "Publisher preview" }
+        {
+          "kind": "publisher_preview_exact_text",
+          "url": "https://api.pageplace.de/preview/DT0400.9780231501552_A25430015/preview-9780231501552_A25430015.pdf",
+          "label": "Publisher preview"
+        }
       ],
       "note": "The exact magnetic-pendulum passage disproves the candidate attribution to The Dance of Life."
     },
     "006179bcf07d82fd7bcd34d78da5fcedcb2abf51bc6b44fd79778a861cd5d9e9": {
       "status": "supported_candidate",
-      "source": { "title": "Effective Data Storytelling: How to Drive Change with Data, Narrative and Visuals", "authors": ["Brent Dykes"], "year": 2019, "publisher": "Wiley" },
+      "source": {
+        "title": "Effective Data Storytelling: How to Drive Change with Data, Narrative and Visuals",
+        "authors": [
+          "Brent Dykes"
+        ],
+        "year": 2019,
+        "publisher": "Wiley"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://uat.store.wiley.com/en-us/effective-data-storytelling-how-to-drive-change-with-data-narrative-and-visuals-p-9781119615729", "label": "Wiley metadata" }
+        {
+          "kind": "official_metadata",
+          "url": "https://uat.store.wiley.com/en-us/effective-data-storytelling-how-to-drive-change-with-data-narrative-and-visuals-p-9781119615729",
+          "label": "Wiley metadata"
+        }
       ],
       "note": "Independent teaching material attributes the passage to Dykes; this corrects the unsupported Sell with a Story claim."
     },
     "b7a85d81b7cbf6c821c93fb866f94bd0add28a16d8ee2a3ed1b9edeeefd32388": {
       "status": "confirmed_exact",
-      "source": { "title": "Game Feel: A Game Designer's Guide to Virtual Sensation", "authors": ["Steve Swink"], "year": 2008, "publisher": "Morgan Kaufmann / CRC Press" },
+      "source": {
+        "title": "Game Feel: A Game Designer's Guide to Virtual Sensation",
+        "authors": [
+          "Steve Swink"
+        ],
+        "year": 2008,
+        "publisher": "Morgan Kaufmann / CRC Press"
+      },
       "evidence": [
-        { "kind": "full_text_exact", "url": "https://studio.eecs.umich.edu/confluence/download/attachments/17827062/Game%20Feel.pdf?api=v2&modificationDate=1602432370681&version=1", "label": "University-hosted full text" },
-        { "kind": "official_metadata", "url": "https://www.routledge.com/Game-Feel-A-Game-Designers-Guide-to-Virtual-Sensation/Swink/p/book/9780123743282", "label": "CRC/Routledge metadata" }
+        {
+          "kind": "full_text_exact",
+          "url": "https://studio.eecs.umich.edu/confluence/download/attachments/17827062/Game%20Feel.pdf?api=v2&modificationDate=1602432370681&version=1",
+          "label": "University-hosted full text"
+        },
+        {
+          "kind": "official_metadata",
+          "url": "https://www.routledge.com/Game-Feel-A-Game-Designers-Guide-to-Virtual-Sensation/Swink/p/book/9780123743282",
+          "label": "CRC/Routledge metadata"
+        }
       ],
       "note": "The passage matches the book."
     },
     "d17d529e8848e49eb697a5e542e1e520fd462a14b1fd104155ab4897b11089fb": {
-      "status": "supported_candidate",
-      "source": { "title": "Semiotics at the Circus", "authors": ["Paul Bouissac"], "year": 2010, "publisher": "De Gruyter Mouton" },
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Semiotics at the Circus",
+        "authors": [
+          "Paul Bouissac"
+        ],
+        "publisher": "De Gruyter Mouton",
+        "year": 2010,
+        "part": "Chapter 10, §10.1 Toward a theory of live performances, p. 163"
+      },
       "evidence": [
-        { "kind": "official_metadata", "url": "https://www.degruyterbrill.com/document/doi/10.1515/9783110218312/html", "label": "De Gruyter book page" },
-        { "kind": "author_metadata", "url": "https://paulbouissac.com/cv-summary/", "label": "Author CV" }
+        {
+          "kind": "full_text_compared",
+          "url": "https://pdfcoffee.com/semiotics-at-the-circus-semiotics-communication-and-cognition-pdf-free.html",
+          "label": "Chapter 10, §10.1 Toward a theory of live performances, p. 163",
+          "body_sha256_by_item": {
+            "2026#40": "78ac09c157672dc3f0c431acbe31bcfac6c1829a8b32a3be71bdb3d3908c81fc"
+          }
+        }
       ],
-      "note": "Independent teaching material gives this title; this corrects the vague claim that the source was merely a Semiotica article."
+      "note": "서지·쪽수·장 전체가 있는 전문 사본의 연속 문단 직접 대조. puppetry→storytelling 주변 목록 편집, spectators→audiences, fragile→unstable, reciprocal gratifications→shared enjoyment 등 경미한 편집. 시험의 마지막 요약문은 원문 문단과 구분."
+    },
+    "07c6d34182b681f94d753ba7bafc5719847e68448c14cedab72bc6cae4e1a2f9": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Water, Place, and Equity",
+        "authors": [
+          "Madeline Baer"
+        ],
+        "publisher": "MIT Press",
+        "year": 2008,
+        "part": "Chapter 7, The Global Water Crisis, Privatization, and the Bolivian Water War; manuscript pp. 313–314"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://bpb-us-e2.wpmucdn.com/sites.uci.edu/dist/2/3447/files/2018/08/7baerglobalwater.pdf",
+          "label": "Chapter 7, The Global Water Crisis, Privatization, and the Bolivian Water War; manuscript pp. 313–314",
+          "body_sha256_by_item": {
+            "2014B#33": "46b2800650b0ec3a8b50817775413f3a834ad5ad51ccb94dc98c33c8da128414"
+          }
+        },
+        {
+          "kind": "publisher_metadata",
+          "url": "https://academic.oup.com/mit-press-scholarship-online/book/14969/chapter-abstract/169329756",
+          "label": "MIT Press chapter bibliography / DOI 10.7551/mitpress/9780262232715.003.0007"
+        }
+      ],
+      "note": "대학 보관 장 원고의 정책결정 문단을 두 페이지에 걸쳐 전체 대조. 원고 쪽수는 출판본 쪽수와 구분. 장 저자는 Madeline Baer."
+    },
+    "00e164275f58b4405f200b761944c4f9d90699ee141c9caa3a8ce514a94eaa1b": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Business Ethics",
+        "authors": [
+          "William H. Shaw"
+        ],
+        "publisher": "Wadsworth / Cengage Learning",
+        "year": 2011,
+        "part": "Seventh edition, chapter 1, p. 20"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://ndl.ethernet.edu.et/bitstream/123456789/44353/1/221.pdf",
+          "label": "Seventh edition, chapter 1, p. 20",
+          "body_sha256_by_item": {
+            "2015#22": "eda64ff6b45ea460f4f16b333e8917dbca8a887638d1d94024aaee043987cb17"
+          }
+        }
+      ],
+      "note": "전문 사본의 도덕 원칙 문단 직접 대조. 판권은 2011 제7판이며 검색의 2010년 표시와 구분."
+    },
+    "a21c8bd0562b21cdc0c11e967353c7c2a504ed6205d5e6c080e878383bf58ab2": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "The Next 200 Years: A Scenario for America and the World",
+        "authors": [
+          "Herman Kahn",
+          "William Brown",
+          "Leon Martel"
+        ],
+        "publisher": "William Morrow",
+        "year": 1976,
+        "part": "Technology: Force for Good or Evil?, p. 150"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.biknotes.com/_files/ugd/b8b6dc_03313c2332814b388e836905f24b4d17.pdf",
+          "label": "Technology: Force for Good or Evil?, p. 150",
+          "body_sha256_by_item": {
+            "2015#35": "c2b33aac9bc07867b6d3385859f465836e948701655e9211152d7d0f4f2724da"
+          }
+        }
+      ],
+      "note": "표제·판권·전문 있는 사본에서 해당 문단 전체 대조. 세 저자를 기록하고 시험 무관 문장 삽입과 구분."
+    },
+    "e972bde018a4cfecb66c1c632e5d7e2a5b62135fd259a98b33da7d565b0e3d3a": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "The Backpacker's Handbook",
+        "authors": [
+          "Chris Townsend"
+        ],
+        "publisher": "McGraw-Hill / Ragged Mountain Press",
+        "year": 2005,
+        "part": "Third edition, The Wilderness Kitchen, pp. 243–244"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://cdn2.imagearchive.com/homesteading/data/attach/137/137412-Advanced-Backpacker-A-Handbook-of-Year-Round-Long-Distance-Hiking-The---Chris-Townsend.pdf",
+          "label": "Third edition, The Wilderness Kitchen, pp. 243–244",
+          "body_sha256_by_item": {
+            "2015#37": "c41fd0fa16bbb3663591c4ab71eb760db8f941c6475ad4ca8b39a0621985f8df"
+          }
+        }
+      ],
+      "note": "실제 사본 표제는 The Backpacker's Handbook 제3판이다. 파일명 Advanced Backpacker를 서지로 오인하지 않았다. 두 페이지에 걸친 문단 직접 대조, 원래 순서는 도입→(B)→(A)→(C). 실출제 사용 판본은 미확정."
+    },
+    "79d41711170e667e8e8012c60e771d4c21d57327f1b06b8d692b512564c0bba8": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "The Geography of Thought: How Asians and Westerners Think Differently... and Why",
+        "authors": [
+          "Richard E. Nisbett"
+        ],
+        "publisher": "Free Press",
+        "year": 2003,
+        "part": "Chapter 1, PDF p. 8 of chapter extract"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.humanscience.org/docs/Nisbett%20%282003%29%20Ch.%201-3%20The%20Geography.pdf",
+          "label": "Chapter 1, PDF p. 8 of chapter extract",
+          "body_sha256_by_item": {
+            "2016#28": "b1273933183ebd760c9a1347b7ddd189312cf68576387b62993d2e609ef94f95"
+          }
+        }
+      ],
+      "note": "도서 장 사본의 그리스·중국 사고 문단 직접 대조. 시험 어법 오류와 인용문·일부 사례 생략을 구분."
+    },
+    "c26d5abad4d16e4762142faf527e64575aa73dc1939fb02af1b7a793c059134d": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Manifesto on the Future of Seeds",
+        "authors": [
+          "International Commission on the Future of Food and Agriculture"
+        ],
+        "publisher": "International Commission on the Future of Food and Agriculture",
+        "year": 2006,
+        "part": "Chapter II, pp. 10–11"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://navdanyainternational.org/wp-content/uploads/2016/04/futurosemi_eng.pdf",
+          "label": "Chapter II, pp. 10–11",
+          "body_sha256_by_item": {
+            "2016#33": "5299822c8b233cbe8db4a3cf9438236f9336e64e1e1286c12b00403a09156eef"
+          }
+        }
+      ],
+      "note": "공식 PDF의 종자 연구·잡종 옥수수·특허를 설명하는 연속 문단 직접 대조. 시험에서 생략·어휘 편집한 부분을 구분."
+    },
+    "2a0bc154dd2696be1d5c528e2d3714a2cd02ed854de15d665b3e11368844d1a3": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Our Common Future",
+        "authors": [
+          "World Commission on Environment and Development"
+        ],
+        "publisher": "Oxford University Press",
+        "year": 1987,
+        "part": "From One Earth to One World, section 2, paragraph 25"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://en.wikisource.org/wiki/Brundtland_Report/From_One_Earth_to_One_World",
+          "label": "Digitized Brundtland Report, paragraph 25",
+          "body_sha256_by_item": {
+            "2017#20": "0524cdf4e259d78deb88c13dba7a97b98fcde2d1acaaf5ee0a366741ab857dbe"
+          }
+        },
+        {
+          "kind": "official_report_index",
+          "url": "https://sustainabledevelopment.un.org/content/documents/5987our-common-future.pdf",
+          "label": "UN report indexed PDF (live link redirects)"
+        }
+      ],
+      "note": "보고서 전사본의 제25문단 전체를 직접 대조했다. profits→profit, damn→blame, spendthrift→wasteful 등 편집. UN PDF 검색 색인으로 공식 보고서 귀속을 확인했으나 현재 PDF URL은 홈페이지로 리다이렉트된다."
+    },
+    "0bfd457d7053a1996edd043744908a7e9fda1442e2fda70b4591c36d9c8dbe5a": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Words and Minds: How We Use Language to Think Together",
+        "authors": [
+          "Neil Mercer"
+        ],
+        "publisher": "Routledge",
+        "year": 2000,
+        "part": "Chapter 1, The evolution of language and thinking"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.perlego.com/book/1617209/words-and-minds-how-we-use-language-to-think-together-pdf",
+          "label": "Chapter 1, The evolution of language and thinking",
+          "body_sha256_by_item": {
+            "2017#22": "e668fc1aff38926e440b5d778d5f19d1d63f60dd13e4c8781d18364a6f441dd3"
+          }
+        },
+        {
+          "kind": "publisher_metadata",
+          "url": "https://www.routledge.com/link/link/p/book/9780415224765",
+          "label": "Routledge first edition"
+        }
+      ],
+      "note": "전자책 공개 미리보기의 해당 연속 문단 전체 대조. endeavour→effort 수정. 원출판은 2000이고 전자본 연도와 구분."
+    },
+    "5142aa32dc0689d9e0ce159a75f2c7736f3cb27805f1caacc68926abf41f4d85": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Film Technique and Film Acting",
+        "authors": [
+          "Vsevolod I. Pudovkin"
+        ],
+        "publisher": "Vision Press",
+        "year": 1968,
+        "part": "pp. 89–90, quoted in Ken Dancyger, The Technique of Film and Video Editing, chapter 1"
+      },
+      "evidence": [
+        {
+          "kind": "publisher_full_quote",
+          "url": "https://api.pageplace.de/preview/DT0400.9781351810456_A35629552/preview-9781351810456_A35629552.pdf",
+          "label": "Publisher preview, chapter 1 quotation and note 10",
+          "body_sha256_by_item": {
+            "2017#23": "c0677d069bdaa0ef232d6784039ecd6196cfcf51880763f9d181a5194055e099"
+          }
+        }
+      ],
+      "note": "출판사 미리보기의 인용 문단 전체와 주10의 출처·쪽수를 함께 직접 확인했다. 인용 원저자는 Pudovkin이며 Dancyger는 재인용자다. bracket 설명 통합, on the other hand와 tractable 삭제. 원저 판본은 주10에 명시된 1968판이며 시험 사용 판본은 미확정."
+    },
+    "b3bc7663819afd956b29d640255a83b3d75d0d46f412f7ebaa2f09f57fd5f233": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Understanding Architecture: An Introduction to Architecture and Architectural History",
+        "authors": [
+          "Hazel Conway",
+          "Rowan Roenisch"
+        ],
+        "publisher": "Routledge",
+        "year": 2005,
+        "part": "Second edition, architectural responses"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://roofinggroup.com.au/wp-content/uploads/2017/03/Understanding-Architecture-by-Hazel-Conway-and-Rowan-Roenisch.pdf",
+          "label": "Second edition, architectural responses",
+          "body_sha256_by_item": {
+            "2017#34": "acd3ecb865192369ef457597421d2d2d18d29cc4e3ba41a01c8f7489ced944b3"
+          }
+        },
+        {
+          "kind": "publisher_metadata",
+          "url": "https://www.routledge.com/Understanding-Architecture-An-Introduction-to-Architecture-and-Architectural-History/Conway-Roenisch/p/book/9780415320597",
+          "label": "Routledge bibliography"
+        }
+      ],
+      "note": "전문 사본의 연속 문단 대조. evoke→arouse, 영국·미국 철자 편집을 구분."
+    },
+    "483b9d295a43e53df4ba2feb03be7dbd846b4489ef991bb0ce30539846008df3": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Effective Writing: Improving Scientific, Technical and Business Communication",
+        "authors": [
+          "Christopher Turk",
+          "John Kirkman"
+        ],
+        "publisher": "E & FN Spon / Routledge",
+        "year": 1989,
+        "part": "Second edition, pp. 29–30"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://lsms.ac/wp-content/uploads/2023/02/8.pdf",
+          "label": "Second edition, pp. 29–30",
+          "body_sha256_by_item": {
+            "2017#38": "5d123eb85b736243b22da572b6d60104af9dc5fe9b498ffa1e573a9f9e4e0863"
+          }
+        }
+      ],
+      "note": "표제·판권 있는 전문에서 보고서 구성 문단과 삽입 문장 위치 직접 대조. 전자본은 2005, 제2판 원출판은 1989."
+    },
+    "225a6addece0bbac6b3186c7dec06946780a986868c4556cb28d4e8d4ad3853c": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Eating Behavior and Obesity: Behavioral Economics Strategies for Health Professionals",
+        "authors": [
+          "Shahram Heshmat"
+        ],
+        "publisher": "Springer Publishing Company",
+        "year": 2011,
+        "part": "Chapter 2, Sensory-Specific Satiety, p. 25"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://fliphtml5.com/svwcm/suvb/Eating_Behavior_and_Obesity_Behavioral_Economics_Strategies_for_Health_Professionals/40/",
+          "label": "Chapter 2, Sensory-Specific Satiety, p. 25",
+          "body_sha256_by_item": {
+            "2018#22": "f8d1b893d4feff354c7aaa3648d42675260da1e6bffaf3f5af45489005718aa9"
+          }
+        },
+        {
+          "kind": "publisher_metadata",
+          "url": "https://www.springerpub.com/eating-behavior-and-obesity-9780826106216.html",
+          "label": "Springer Publishing bibliography"
+        }
+      ],
+      "note": "도서 사본 p.25의 세 연속 문단 전체 대조. Epstein 논문은 참고 연구이고 해당 설명 문단 저자는 Heshmat."
+    },
+    "65a2eb838501cea73445946526fc7e1540d17c2714fbee1546e79db6e87bf1b4": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "The Logic of Effective Altruism",
+        "authors": [
+          "Peter Singer"
+        ],
+        "publisher": "Boston Review",
+        "year": 2015,
+        "part": "Warm glow givers section"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.bostonreview.net/forum/peter-singer-logic-effective-altruism/",
+          "label": "Warm glow givers section",
+          "body_sha256_by_item": {
+            "2018#28": "d985717ba53d82c20d353dc347261b49db766bc6f2182af1933a54eb3c7acfc6"
+          }
+        }
+      ],
+      "note": "저자가 기고한 원사이트 두 연속 문단 직접 대조. 시험 어법 오류 what→whether 원문을 구분."
+    },
+    "ac22de39ff4028d352b0877674ddd7b42bdd853795565c89c9c42c88efabf53e": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Moonwalking with Einstein: The Art and Science of Remembering Everything",
+        "authors": [
+          "Joshua Foer"
+        ],
+        "publisher": "Penguin Press",
+        "year": 2011,
+        "part": "Talking wine / digital copy pages 87–88"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://fliphtml5.com/gtbqx/vbvy/Moonwalking_with_Einstein_-_Foer__Joshua/",
+          "label": "Full book copy, lunch-memory paragraph",
+          "body_sha256_by_item": {
+            "2018#32": "a3d3457824b32d7f10fe6b1d60240daec7ef1e4cc73f5cfefcd1e2962014230e"
+          }
+        }
+      ],
+      "note": "도서 전문 사본의 점심 기억 문단 전체를 직접 대조했다. 서두 Consider는 빠지고 기억 인출 단서 부분이 빈칸으로 바뀌었다. 열람 사본의 쪽수이며 실제 사용 판본은 확정하지 않는다."
+    },
+    "423f1f66761672af6b895069ab7ed000101f33285449f78daf6ce528d23336b2": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Evolutionary Psychology: The New Science of the Mind",
+        "authors": [
+          "David M. Buss"
+        ],
+        "publisher": "Taylor & Francis / Psychology Press",
+        "year": null,
+        "part": "Problems of Survival; food preferences"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://dokumen.pub/evolutionary-psychology-the-new-science-of-the-mind.html",
+          "label": "Problems of Survival; food preferences",
+          "body_sha256_by_item": {
+            "2018#38": "c02fdf83bff85c18353ce47ae9db7827068fa739f7358dd4dd30d9de7a1da6e8"
+          }
+        }
+      ],
+      "note": "서지·전문 있는 사본의 음식 선호 문단과 삽입 문장 위치 전체 대조. 확인 사본은 후속판일 수 있어 실제 발췌 연도·판본을 단정하지 않는다."
+    },
+    "d01d2d9382022a2bb81933731f93a3455cc56ed405a05539f4d4786ea5c7467c": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Behavioural Public Policy",
+        "authors": [
+          "Paul Slovic",
+          "Daniel Västfjäll"
+        ],
+        "publisher": "Cambridge University Press",
+        "year": 2013,
+        "part": "Chapter 4, The more who die, the less we care: psychic numbing and genocide, summary"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.cambridge.org/core/books/abs/behavioural-public-policy/more-who-die-the-less-we-care-psychic-numbing-and-genocide/5C41D141244217E7E1CA4D37783E1AEF",
+          "label": "Chapter 4, The more who die, the less we care: psychic numbing and genocide, summary",
+          "body_sha256_by_item": {
+            "2019#24": "7eac44ff9e0473ac6e9ca5fa8b0faa39ab4b6d4ab3efc4c61c7523fe645401a9"
+          }
+        }
+      ],
+      "note": "출판사 공개 장 요약에서 시험 문단 전체 직접 대조. 장 저자와 편집자 Adam Oliver를 구분. 어휘 수정·문장 일부 생략."
+    },
+    "75a1945494282e173e07b609d09a2cc9c906c6bc75e2efb02d7c36ddb1b4d354": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Applying time to energy analysis",
+        "authors": [
+          "Nate Hagens"
+        ],
+        "publisher": "The Oil Drum / Post Carbon Institute archive",
+        "year": 2010,
+        "part": "Executive Summary"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.resilience.org/stories/2010-12-13/applying-time-energy-analysis/",
+          "label": "Executive Summary",
+          "body_sha256_by_item": {
+            "2019#40": "ce12247b7567f290c9d4ae5f6801fcdfa148f3a9a2c0ca0923ba08826a4e4806"
+          }
+        }
+      ],
+      "note": "원출판처를 밝힌 기관 보관 글의 요약 세 문단 직접 대조. 본문 portion→proportion 편집과 시험 추가 요약문 구분. 글은 Hannes Kunz 공동 작업인 학위논문 장을 바탕으로 한다."
+    },
+    "83bb6ae376a8b9a6bb9fdd6987e26ccb5ff6359c628e444849f60eaf1c9014c1": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Capitalism: A Very Short Introduction",
+        "authors": [
+          "James Fulcher"
+        ],
+        "publisher": "Oxford University Press",
+        "year": 2004,
+        "part": "Chapter 1, pp. 8–9"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://studylib.net/doc/26262329/capitalism---james-fulcher",
+          "label": "Chapter 1, pp. 8–9",
+          "body_sha256_by_item": {
+            "2019#41": "1cef17918c9084dae85629a7625657d85bf8e2c9dd879c48bd5283b116411570",
+            "2019#42": "1cef17918c9084dae85629a7625657d85bf8e2c9dd879c48bd5283b116411570"
+          }
+        }
+      ],
+      "note": "서지·쪽수·전문 있는 사본의 여가 문단 전체 대조. 원문 disrupted와 시험 어휘 오류 promoted, 여행 사례 생략 구분."
+    },
+    "bbab92d02f145678664c6269a9cbf2963ada5f10fddc6a57b9165dfd70071846": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Brain Rules",
+        "authors": [
+          "John J. Medina"
+        ],
+        "publisher": "Pear Press",
+        "year": 2008,
+        "part": "Rule 2, Survival, p. 38 (PDF p. 46)"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://teachmint.storage.googleapis.com/public/850433870/StudyMaterial/5f16f9ae-373c-412e-9964-455022c27eee.pdf",
+          "label": "Rule 2, Survival, p. 38 (PDF p. 46)",
+          "body_sha256_by_item": {
+            "2020#21": "72457fd7a9f8b50ffd8a4c6f4ccc6bc0b5d191290147481956ed10a11631bef0"
+          }
+        }
+      ],
+      "note": "판권·전문 있는 사본에서 지식과 즉흥성 문단 전체 대조. 밑줄 표현의 원문과 시험 어휘 편집 구분."
+    },
+    "85d7646810bdb0c418521d9759f0ef2bcb65c0d01f1aa4dbbd8e7f293ab86ba9": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Fifty Key Thinkers on History",
+        "authors": [
+          "Marnie Hughes-Warrington"
+        ],
+        "publisher": "Routledge",
+        "year": 2008,
+        "part": "Second edition, Thomas Kuhn entry, p. 211"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://manuals.plus/m/dfca66b3c2b48dc86164ba4283e182d1cb9e2c151ef76ba321e3278e5ad6e619",
+          "label": "Second edition, Thomas Kuhn entry, p. 211",
+          "body_sha256_by_item": {
+            "2020#37": "5cf605a4a34fa5801f5c7e920e27dd6d3d906d0cba81502eb4ac046cef2c0719"
+          }
+        }
+      ],
+      "note": "전문 사본의 쿤 항목에서 시험 문단 직접 대조. Kuhn 본인의 책과 구분하며 어휘 편집·문단 순서 복원."
+    },
+    "e9403a7f1104b9b7f418ddad60010840459040be1e7d27ed59276349875cd54e": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Advertising: A Very Short Introduction",
+        "authors": [
+          "Winston Fletcher"
+        ],
+        "publisher": "Oxford University Press",
+        "year": 2010,
+        "part": "Chapter 4, The media: blowing the advertisers’ trumpets, p. 58"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://dokumen.pub/advertising-a-very-short-introduction-0199568928-9780199568925.html",
+          "label": "Chapter 4, The media: blowing the advertisers’ trumpets, p. 58",
+          "body_sha256_by_item": {
+            "2020#39": "d35896487c058ff8156458ebcc07a4579f391a42a16feec1933a24b720a8129a"
+          }
+        },
+        {
+          "kind": "publisher_metadata",
+          "url": "https://academic.oup.com/book/707",
+          "label": "Oxford Academic bibliography"
+        }
+      ],
+      "note": "전문 사본의 TV 광고 문단과 삽입 문장 위치 직접 대조. 미국 사례 문장 생략을 구분."
+    },
+    "4ad76a105e78337e1644188bd592ae5957165fa29c46297d45168e2384553fa7": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "On Intelligence",
+        "authors": [
+          "Jeff Hawkins",
+          "Sandra Blakeslee"
+        ],
+        "publisher": "Times Books",
+        "year": 2004,
+        "part": "Chapter 4, Memory; PDF p. 41"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://papers.harvie.cz/unsorted/Jeff%20Hawkins%20-%20On%20Intelligence.pdf",
+          "label": "Chapter 4, Memory; PDF p. 41",
+          "body_sha256_by_item": {
+            "2021#24": "72227044f103d8e3bea3f3a8fd2a32b509b2ab8e6fd3dee5c46f0ae23a2aa274"
+          }
+        }
+      ],
+      "note": "저자 표제와 전문이 있는 사본에서 촉각·시공간 패턴 문단 직접 대조. 추출 PDF의 자체 쪽수와 종이책 p.59를 혼용하지 않는다."
+    },
+    "eec003367eb118b05f8fea1c639727ba0c1f7269444ab560b15edc82fdc3e658": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Thick Evaluation",
+        "authors": [
+          "Simon Kirchin"
+        ],
+        "publisher": "Oxford University Press",
+        "year": 2017,
+        "part": "Introduction, Maddy example"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://academic.oup.com/book/26594/chapter/195243838",
+          "label": "Introduction, Maddy example",
+          "body_sha256_by_item": {
+            "2021#38": "725a6894a4e4a3b5ad72a9650a3b073736f88180d3c2c42f06c1cb35f77161dd"
+          }
+        },
+        {
+          "kind": "author_manuscript",
+          "url": "https://kar.kent.ac.uk/id/document/268072",
+          "label": "Kent author manuscript"
+        }
+      ],
+      "note": "출판사 공개 장에서 Maddy 예시와 삽입 문장의 앞뒤 문맥을 직접 대조."
+    },
+    "b1783ac523a8f4090dedb7c12743746239b7fea39570f0b780c697d771c26fa4": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Social and Cultural Anthropology: The Key Concepts",
+        "authors": [
+          "Nigel Rapport",
+          "Joanna Overing"
+        ],
+        "publisher": "Routledge",
+        "year": 2000,
+        "part": "Gender, PDF p. 162"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://mutabit.com/repos.fossil/doctorado-offray/doc/44f27b484291c3fc/Tesis/Referencias/socialAndCulturalAntropology-KeyConcepts.pdf",
+          "label": "Gender, p. 147 (PDF p. 162)",
+          "body_sha256_by_item": {
+            "2021#40": "f80270bf93f6d6cae362c67a3d5da790df33799d51ef6dc98df1e96238fb5473"
+          }
+        }
+      ],
+      "note": "전문 사본의 권력·강제력 문단 직접 대조. 참고 인용 삭제와 시험 마지막 요약문 구분. 전자본은 2003."
+    },
+    "34ed67393482ac09618fddbfe2c307c4e8a567287527666c815c349db131f553": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Planning and Design for Sustainable Urban Mobility: Global Report on Human Settlements 2013",
+        "authors": [
+          "UN-Habitat"
+        ],
+        "publisher": "Routledge",
+        "year": 2013,
+        "part": "Chapter 4, Modal adaptation, p. 72"
+      },
+      "evidence": [
+        {
+          "kind": "official_full_text_compared",
+          "url": "https://digitallibrary.un.org/record/3905875/files/3503_alt.pdf?ln=ar",
+          "label": "UN Digital Library report, p. 72",
+          "body_sha256_by_item": {
+            "2023#22": "84a99124ba32784db4877330163ffa5cacd644c02791cf461c128cca1e2de8ea"
+          }
+        }
+      ],
+      "note": "UN 공식 보고서의 검색 색인에 제공된 Modal adaptation 문단 전체를 직접 대조했다. 2014년 1월 개정 사본이며 본문은 지문과 일치한다. UN-Habitat 공식 보고서 소개도 확인했다."
+    },
+    "b75502d1893c9e6394d72aad3bfbb8ee06f4195e1d4720221f026da98cc1e610": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Sport, Culture and the Media: The Unruly Trinity",
+        "authors": [
+          "David Rowe"
+        ],
+        "publisher": "Open University Press",
+        "year": 2004,
+        "part": "Second edition, chapter 2, p. 38 (PDF p. 56)"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://repository.bbg.ac.id/bitstream/608/1/Sport_Culture_and_The_Media.pdf",
+          "label": "Second edition, chapter 2, p. 38 (PDF p. 56)",
+          "body_sha256_by_item": {
+            "2023#31": "e29b16c17ca5be828ac5afccafdc30fd9394b309645c1732d5bbd588b5ea8ac0"
+          }
+        }
+      ],
+      "note": "전문 사본에서 스포츠 기자 문단 전체 대조. 검색에 나온 Raymond Boyle의 재인용과 원저자 Rowe를 구분. 빈칸 원문까지 확인."
+    },
+    "5fb11ab44a1db738214f58202741c1d65509a31f3252a751de431aba12a0bb05": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "The Craftsman",
+        "authors": [
+          "Richard Sennett"
+        ],
+        "publisher": "Yale University Press",
+        "year": 2008,
+        "part": "Prologue, pp. 8–9"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.usc.rarar.com/IML-499/fall-2015/readings/The-Craftsman.pdf",
+          "label": "Prologue, pp. 8–9",
+          "body_sha256_by_item": {
+            "2023#40": "f711317ece0737c95962c9855b59da3b798ae2363460a7748c6c6eb2b4423927"
+          }
+        },
+        {
+          "kind": "publisher_metadata",
+          "url": "https://yalebooks.yale.edu/book/9780300151190/the-craftsman/",
+          "label": "Yale paperback metadata (2009)"
+        }
+      ],
+      "note": "전문 사본의 연속 문단 직접 대조. waned→declined, advent→arrival 등 어휘 편집. 시험 마지막 요약문은 원문과 구분."
+    },
+    "9907c8eeafc3127285b39641b99ad558a10b61845159e959ad849346e91f04c2": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Social Media Marketing: The Next Generation of Business Engagement",
+        "authors": [
+          "Dave Evans"
+        ],
+        "publisher": "Wiley",
+        "year": 2010,
+        "part": "PDF p. 150"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://crpf.gov.in/Upload/MediaGallery/social-media-marketing.pdf",
+          "label": "PDF p. 150",
+          "body_sha256_by_item": {
+            "2024#22": "aaa62473490dabadfc39cbf0f2abe5ffd5dc3ef9fe4350bf18f7108d667185f0"
+          }
+        }
+      ],
+      "note": "정부기관 보관 도서 전문의 해당 연속 문단 직접 대조. 이전 문단의 도구 이름으로도 검색해 본문에 도달."
+    },
+    "9df2b8a04c1b8810ea9b86809aa2ce937bbebb8ebc2c511cbe2e88ef84466bc5": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Psycho-practice, psycho-theory and the contrastive case of autism: How practices of mind become second-nature",
+        "authors": [
+          "Victoria McGeer"
+        ],
+        "publisher": "Journal of Consciousness Studies",
+        "year": 2001,
+        "part": "Vol. 8 (5–7), pp. 120–121"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://www.princeton.edu/~vmcgeer/papers/McGeer2001Psychopractice.pdf",
+          "label": "Vol. 8 (5–7), pp. 120–121",
+          "body_sha256_by_item": {
+            "2024#29": "f1d892e7c4227a910584eda8f464bc4cf5604e6f26f156e69e35745deb2833a8"
+          }
+        }
+      ],
+      "note": "저자 보관 논문의 영아 모방 문단 전체 직접 대조. lip pursings→lip tightenings와 시험 어법 오류 with 삭제를 구분. 비슷한 후속 논문과 구분."
+    },
+    "5453c75e49dd58107da0e8ecfe26d7d41d182bb9442a73e664507c60994f5637": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Handbook of the Economics of Innovation, Volume 1",
+        "authors": [
+          "Paula E. Stephan"
+        ],
+        "publisher": "Elsevier / North-Holland",
+        "year": 2010,
+        "part": "Chapter 5, The Economics of Science, p. 222 (PDF p. 233)"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://users.metu.edu.tr/pamukcu/HandbookofInno2010.pdf",
+          "label": "Chapter 5, The Economics of Science, p. 222 (PDF p. 233)",
+          "body_sha256_by_item": {
+            "2024#38": "a2b79fd54a260fdb30c768939ac1f53c67c1e6dfc69e5f4c94b5d6927abc0401"
+          }
+        }
+      ],
+      "note": "도서 전문의 과학 경쟁 문단 직접 대조. 장 저자는 Paula E. Stephan이며 Hall·Rosenberg는 책 편집자. 삽입 문장 위치·어휘 편집 구분."
+    },
+    "54a45aac5186bf3c2350fd8a408227b136899fbf8f3d948ea1a009c8cfef6e84": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Virtual Society: The Metaverse and the New Frontiers of Human Experience",
+        "authors": [
+          "Herman Narula"
+        ],
+        "publisher": "Currency / Penguin Random House",
+        "year": 2022,
+        "part": "PDF p. 46"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://iranbroker.net/wp-content/uploads/2023/01/Virtual_Society_The_Metaverse_and_the_New_Frontiers.pdf",
+          "label": "PDF p. 46",
+          "body_sha256_by_item": {
+            "2025#23": "89ea35db16a64a9c21167b07fe5682029a6cfd6258aebe4002681e682a61d091"
+          }
+        }
+      ],
+      "note": "표제·판권·전문이 있는 사본에서 산업화와 시간 문단 전체 대조. advent→arrival 등 경미한 편집."
+    },
+    "4b34d210e00ad50d6c21d1d7ae09e23cc824e92c9a8fd08b9168d8db5a9e1e9a": {
+      "status": "confirmed_exact",
+      "source": {
+        "title": "Moral Codes: Designing Alternatives to AI",
+        "authors": [
+          "Alan F. Blackwell"
+        ],
+        "publisher": "MIT Press",
+        "year": 2024,
+        "part": "Conclusion; author manuscript (2022), chapter 15"
+      },
+      "evidence": [
+        {
+          "kind": "full_text_compared",
+          "url": "https://moralcodes.pubpub.org/pub/chapter-13/release/4",
+          "label": "Conclusion; author manuscript (2022), chapter 15",
+          "body_sha256_by_item": {
+            "2025#33": "c1664f0be28232fbf309339c3080ed0fa03a9865d43883d82fe402f4789207cd"
+          }
+        },
+        {
+          "kind": "publisher_metadata",
+          "url": "https://mitpress.mit.edu/9780262548717/moral-codes/",
+          "label": "MIT Press published edition"
+        }
+      ],
+      "note": "저자 공개 원고에서 attention economy·captology 문단 전체 대조. 2022 원고와 2024 출판본의 판본을 구분."
     }
+  },
+  "audit_run": {
+    "baseline_confirmed": 12,
+    "upgrades": 39,
+    "candidate_upgrades": 7,
+    "unresolved_upgrades": 32,
+    "searched_unresolved": 303,
+    "applied_note": "운영 DB 반영: 2026-10-04, 39행. 확인 상태와 서지·근거만 갱신했다. DB 미리보기 39행 ready, 본문 해시 위조 시험 conflict 1행, 반영 뒤 재확인 39행 already_applied. 체크포인트의 bloat 표본 대상 교체는 정상 회전 표본이었고 그 외 소실된 지표는 없었다. DB 스키마·라우트 변경은 없다. 원천 공백 1행의 영향 수도 664→632로 갱신했다. 별도 복구 스냅샷 csat-source-origin-gap-20261004.json을 보존했고, 최초 씨앗은 질문에 들어 있던 과거 수량이 달라도 같은 원천 공백을 건너뛰도록 고쳤다. 서지 검수 SQL의 완전한 JSONB 값 비교로 저자·근거가 추가되거나 빠진 경우도 충돌을 확인했다."
   }
 }

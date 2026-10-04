@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "scope": "22 existing supported candidates",
+  "decisions": [
+    {
+      "passage_sha256": "b37bfcf967ed3ae4af896d9cd4ed04cf3fbee043123cf514383b5a5fa721c888",
+      "item_id": "2022#20",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Social Media ROI: Managing and Measuring Social Media Efforts in Your Organization",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "27aacecf2a125bfc6cbd512cdf2dd7957449d4b3553bfdf312831a4744a507d5",
+      "item_id": "2022#21",
+      "before": "supported_candidate",
+      "after": "confirmed_exact",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Merchants of Doubt",
+      "evidence": {
+        "url": "https://s3.amazonaws.com/arena-attachments/1681302/81135daed9eca91760ffd75a38f9a75f.pdf",
+        "part": "Conclusion / PDF page 195",
+        "note": "全文 사본의 연속 문단을 직접 대조했다. indigenous→native, circumscribed→limited, dedicated→devoted 등 경미한 편집. PDF 쪽수와 종이책 쪽수는 구분한다."
+      },
+      "note": "全文 사본의 연속 문단을 직접 대조했다. indigenous→native, circumscribed→limited, dedicated→devoted 등 경미한 편집. PDF 쪽수와 종이책 쪽수는 구분한다."
+    },
+    {
+      "passage_sha256": "238c2e3157785500d71eeefc1ae8f4c96058de12b0a552fc055c5d5359b5acf6",
+      "item_id": "2022#23",
+      "before": "supported_candidate",
+      "after": "confirmed_exact",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Thomas Kuhn",
+      "evidence": {
+        "url": "https://jrouse.faculty.wesleyan.edu/static-page/recent-articles/",
+        "textUrl": "https://drive.google.com/file/d/1-WI-DKlVOjtrfayjJp0vB2d_P9jDL2mc/view",
+        "part": "Chapter 4, Kuhn’s Philosophy of Scientific Practice, p. 108",
+        "authors": [
+          "Joseph Rouse"
+        ],
+        "note": "저자 홈페이지에 연결된 스캔 p.108의 연속 문단을 시각 대조했다. 장 저자는 Joseph Rouse이며 Thomas Nickles는 편집자다. Kuhn 1970 p.44 인용을 포함한다."
+      },
+      "note": "저자 홈페이지에 연결된 스캔 p.108의 연속 문단을 시각 대조했다. 장 저자는 Joseph Rouse이며 Thomas Nickles는 편집자다. Kuhn 1970 p.44 인용을 포함한다."
+    },
+    {
+      "passage_sha256": "f74dc7841169c7c6d885663dc2274ba631734b46eab7c92e326c4acc8ef4fb3d",
+      "item_id": "2022#24",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Waste and Want: A Social History of Trash",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "c96acfa2cecf06c999ecea7536ab0bfa284acad26550db139455c25346d8298c",
+      "item_id": "2022#29",
+      "before": "supported_candidate",
+      "after": "confirmed_exact",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Botany: An Introduction to Plant Biology",
+      "evidence": {
+        "url": "https://studylib.net/doc/28424990/botany---james-d.-mauseth",
+        "part": "Chapter 3, Cell Structure / section adjoining Figure 3-5",
+        "note": "서지·목차·도판을 포함하는 도서 전문 사본의 두 연속 문단을 대조했다. 시험에서 That→What 어법 오류를 만든 부분을 구분했다. 실제 발췌 판본은 미확정."
+      },
+      "note": "서지·목차·도판을 포함하는 도서 전문 사본의 두 연속 문단을 대조했다. 시험에서 That→What 어법 오류를 만든 부분을 구분했다. 실제 발췌 판본은 미확정."
+    },
+    {
+      "passage_sha256": "12bbe03dbf5b2297c0a58c7fbb38dbc587e26bc6a7b36e4f7ffe10e6046e6a8a",
+      "item_id": "2022#30",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Crop Responses to Environment: Adapting to Global Climate Change",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+      "item_id": "2022#31",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Comic Relief: A Comprehensive Philosophy of Humor",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "528594bb08c4f574e61d60cf7f5cd6677bd4deec2b9aec6db559d1391332a9ef",
+      "item_id": "2022#32",
+      "before": "supported_candidate",
+      "after": "confirmed_exact",
+      "reviewed_at": "2026-10-04",
+      "source_title": "The SAGE Dictionary of Cultural Studies",
+      "evidence": {
+        "url": "https://www.fldm.usmba.ac.ma/wp-content/uploads/2020/03/AN425-BENNIS-Dr_Chris_Barker_The_SAGE_Dictionary_of-Introduction-to-cultural-studies.pdf",
+        "part": "News, p. 136 (PDF page 159)",
+        "note": "대학 보관 PDF의 News 항목 해당 문단 전체 대조. 빈칸 원문은 verbal and visual idioms or modes of address. with adherence to→sticking to 등 경미한 편집."
+      },
+      "note": "대학 보관 PDF의 News 항목 해당 문단 전체 대조. 빈칸 원문은 verbal and visual idioms or modes of address. with adherence to→sticking to 등 경미한 편집."
+    },
+    {
+      "passage_sha256": "05288cbff96b44ed6560a69978fe84c6b5340d9b7b9cba209c43ceaac1e576f4",
+      "item_id": "2022#33",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Social Traps and the Problem of Trust",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "a5a644a118074123868d9b4eb0d166a54204f4d73f119aa77a08ee0f0b2a081c",
+      "item_id": "2022#35",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "The Immersive Internet",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "25b0736c9f9af55e3d4b3a336c5117fffcedd3273042224172f6125f8794d13b",
+      "item_id": "2022#36",
+      "before": "supported_candidate",
+      "after": "confirmed_exact",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Environment and Society: A Critical Introduction",
+      "evidence": {
+        "url": "https://www.uky.edu/~tmute2/nature-society/password-protect/nature-society-pdfs/hintz3-commodities.pdf",
+        "part": "Chapter 3, Markets and Commodities, Green taxes, pp. 38–40",
+        "note": "텍스트 레이어 없는 대학 수업자료 스캔을 렌더링하여 pp.38–40 시각 대조. 원문 흐름은 도입→(B)→(A)→(C). 확인 사본의 판본과 실제 발췌 판본은 구분한다."
+      },
+      "note": "텍스트 레이어 없는 대학 수업자료 스캔을 렌더링하여 pp.38–40 시각 대조. 원문 흐름은 도입→(B)→(A)→(C). 확인 사본의 판본과 실제 발췌 판본은 구분한다."
+    },
+    {
+      "passage_sha256": "89c830aa54c650d02fc75096ec04b0289093778ee557d0e063c0a70060ae365a",
+      "item_id": "2022#38",
+      "before": "supported_candidate",
+      "after": "confirmed_exact",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Robot Ethics: The Ethical and Social Implications of Robotics",
+      "evidence": {
+        "url": "https://helios.ntua.gr/pluginfile.php/115405/mod_folder/content/0/Computers_Information_AI_Philosophy/-Intelligent_robotics_and_autonomous_agents-_Abney,_Keith__Bekey,_George_A.__Lin,_Patrick_-_Robot_ethics___the_ethical_and_social_implications_of_robotics-The_MIT_Press_-2012-.pdf?forcedownload=1",
+        "part": "Chapter 2, Current Trends in Robotics, §2.3.1, pp. 20–21",
+        "authors": [
+          "George A. Bekey"
+        ],
+        "note": "대학 보관 도서 전문 pp.20–21의 문단·삽입 문장 위치를 직접 대조. alleviate→ease 경미한 편집. 장 저자는 George A. Bekey이며 Lin·Abney·Bekey는 책 편집자."
+      },
+      "note": "대학 보관 도서 전문 pp.20–21의 문단·삽입 문장 위치를 직접 대조. alleviate→ease 경미한 편집. 장 저자는 George A. Bekey이며 Lin·Abney·Bekey는 책 편집자."
+    },
+    {
+      "passage_sha256": "58934cddcc758148e75a0d57f032316baed4e4bcfd230546ae7895b852cb56f4",
+      "item_id": "2022#40",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Adaptation and Environment",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "44330868551015973d7b376a75a82438797f2eaee6823528e10f9ae4b4c838bd",
+      "item_id": "2026#21",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "The Gig Economy: A Critical Introduction",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "0df714cfed308bfd6bf076636639bdc930c6c1fe146a0106ad9543b62950f6b8",
+      "item_id": "2026#22",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Sport Entrepreneurial Ecosystems: Technology Innovation Perspectives",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "30e4c1823ee2a3d4cfd9066270c5be8fb1d53f01bcdc40dfd2439d5e27dedfe7",
+      "item_id": "2026#23",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Human Transit",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "5a57a428c7a744591f0f17e375b7a90145ffac0dd4e0ecf647f55b2869d67e65",
+      "item_id": "2026#24",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "The Entertainment Industry: An Introduction",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab",
+      "item_id": "2026#29",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "The Secret of Our Success",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "f4e395749fea1db9483415b834156347369150f4bd5296085edce8e95497d311",
+      "item_id": "2026#31",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Strategic Issues in the Global Grain Trade",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "bfa5ddcea1c50e6c4fa42b2f353d86c0007abd95f955294c192dca1c728305e0",
+      "item_id": "2026#33",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Interior Design Illustrated",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "006179bcf07d82fd7bcd34d78da5fcedcb2abf51bc6b44fd79778a861cd5d9e9",
+      "item_id": "2026#38",
+      "before": "supported_candidate",
+      "after": "supported_candidate",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Effective Data Storytelling: How to Drive Change with Data, Narrative and Visuals",
+      "evidence": null,
+      "note": "공개 웹·서지·구절 재검색 후 해당 원문 문단을 직접 대조하지 못했다. 기존 후보를 유지하며 확정 수량에는 포함하지 않는다."
+    },
+    {
+      "passage_sha256": "d17d529e8848e49eb697a5e542e1e520fd462a14b1fd104155ab4897b11089fb",
+      "item_id": "2026#40",
+      "before": "supported_candidate",
+      "after": "confirmed_exact",
+      "reviewed_at": "2026-10-04",
+      "source_title": "Semiotics at the Circus",
+      "evidence": {
+        "url": "https://pdfcoffee.com/semiotics-at-the-circus-semiotics-communication-and-cognition-pdf-free.html",
+        "part": "Chapter 10, §10.1 Toward a theory of live performances, p. 163",
+        "note": "서지·쪽수·장 전체가 있는 전문 사본의 연속 문단 직접 대조. puppetry→storytelling 주변 목록 편집, spectators→audiences, fragile→unstable, reciprocal gratifications→shared enjoyment 등 경미한 편집. 시험의 마지막 요약문은 원문 문단과 구분."
+      },
+      "note": "서지·쪽수·장 전체가 있는 전문 사본의 연속 문단 직접 대조. puppetry→storytelling 주변 목록 편집, spectators→audiences, fragile→unstable, reciprocal gratifications→shared enjoyment 등 경미한 편집. 시험의 마지막 요약문은 원문 문단과 구분."
+    }
+  ]
+}

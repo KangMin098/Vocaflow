@@ -1,10 +1,11 @@
 // scripts/csat/source-origin-raw-write.mjs
-// 웹 검색 후보 행을 원전 조사 작업 파일에 해시 기준으로 재실행 안전하게 병합한다.
+// 웹 검색 시도를 해시·검색어·제공자·회차 기준으로 재실행 안전하게 병합한다.
 
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import readline from 'node:readline'
+import { searchAttemptKey } from './source-origin-search.mjs'
 
 const WORK_ROOT = path.resolve('scripts/csat/source-origin-work')
 const DEFAULT_OUTPUT = path.join(WORK_ROOT, 'raw-search.jsonl')
@@ -45,18 +46,19 @@ const existing = fs.existsSync(output)
       .map((line) => JSON.parse(line))
   : []
 
-const byHash = new Map(existing.map((row) => [row.passage_sha256, row]))
+const byAttempt = new Map(existing.map((row) => [searchAttemptKey(row), row]))
 
 function mergeAndWrite(incoming) {
   let changed = 0
   for (const row of incoming) {
-    const before = byHash.get(row.passage_sha256)
+    const key = searchAttemptKey(row)
+    const before = byAttempt.get(key)
     if (before && before.query === row.query && before.raw_search === row.raw_search) continue
-    byHash.set(row.passage_sha256, row)
+    byAttempt.set(key, row)
     changed += 1
   }
 
-  const rows = [...byHash.values()].sort((a, b) =>
+  const rows = [...byAttempt.values()].sort((a, b) =>
     a.representative_item_id.localeCompare(b.representative_item_id, 'en', { numeric: true }),
   )
   fs.mkdirSync(path.dirname(output), { recursive: true })

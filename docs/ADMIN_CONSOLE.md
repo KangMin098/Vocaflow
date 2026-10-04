@@ -1142,6 +1142,12 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 
 `/admin/csat/evidence`는 공개 문항과 최신 published 분석에서 필드 충족·준비 문항·제외 이유를 계산한다. 검토한 소재/형식/공식, 근거·오답 앵커, 보기 길이, 실제 동형 기출이 모두 있어야 학습자 후보가 된다. 목록은 읽기 전용 진단이다. 관리자 로더는 서비스 권한과 fresh 조회로 학습자용 10분 캐시를 읽거나 갱신하지 않는다. 재검증은 최신 DB를 다시 읽고, 정적 metadata·앵커는 새 배포 후 반영한다. 조회 오류·원장 범위 불일치는 정상 0건 대신 판정 보류로 표시한다. 도움말은 `lib/admin/help/csat.ts`에 동반 반영한다.
 
+## 기출 지문 원천 증분 검수 (2026-10-04)
+
+`/admin/knowledge/sources/csat`의 출처 등록부는 수능 338개·모의평가 375개 고유 지문을 관리한다. 수능 추가 조사로 직접 확인은 12→51개가 됐다(2026-10-04 DB 실측). 근거 링크·서지·문단 위치는 [검수 보고서](./reports/csat-source-origin-audit-20261004.md)에 있다. 교육청 학평과 생성용 소재 수집(`/admin/csat/sources`)은 별도 범위다.
+
+기존 행은 최초 씨앗 importer로 갱신하지 않는다. `scripts/csat/source-origin-review.mjs --input <검수 JSON> --output <SQL 파일>`은 읽기 전용 미리보기 SQL만 만든다. 검수 JSON은 기존 값과 모든 연결 문항의 현재 본문 SHA-256을 담는다. DB 미리보기 후 체크포인트를 찍고 `--commit-sql`로 만든 SQL을 한 트랜잭션으로 실행한다. 본문·연결·판정 충돌이면 전체 롤백하고, 재실행하면 이미 반영된 행은 건너뛴다. 직후 체크포인트와 `already_applied` 전량을 확인한다. 도움말은 `lib/admin/help/knowledge.ts`의 `knowledge-csat-origins`에 있다.
+
 ## 소스 수집 프로필 팝업 (2026-09-25)
 
 소스 이름이 나오는 관리자 화면(`/admin/csat/sources` 원천 목록 · 파이프라인 보드 · `/admin/articles` 소스 피드 목록)에서 이름을 누르면 `SourceProfileDialog` 가 뜬다. 값은 `GET /api/admin/sources/[source]/profile`(읽기 전용 · 관리자 인증) — 전량은 head count, 어수·피드·소재 분포는 최근 500편 표본(표본 크기를 함께 표시). 골격은 정오표 6행(재고 · 판정 · 수준 · 권리 · 구성 · 최근 원문), 첫 줄은 `profileIssues` 가 고른 가장 먼저 볼 문제(없으면 비움).

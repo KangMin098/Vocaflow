@@ -61,7 +61,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
       ],
       cautions: [
         '본질은 자동 추출로 만들지 않는다 — 기출 원천 같은 관찰을 근거로 사람이 쓰고, 분석자 추론(inferred)으로 표시한다.',
-        '표본이 작은 관찰로 전체를 단정하지 않는다(기출 원천은 713 지문 중 49개만 원천이 있다). 문장에 표본 크기를 함께 적는다.',
+        '표본이 작은 관찰로 전체를 단정하지 않는다. 기출 원천 화면에서 최신 등급별 수와 분모를 확인하고 문장에 표본 크기를 함께 적는다.',
       ],
     },
   },
@@ -135,7 +135,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
     title: '기출 원천',
     screen: {
       summary:
-        '수능·평가원 모의평가 지문이 발췌된 책·논문. Codex 2026-09-28 전수 조사 결과이고, 지문 원문 없이 문항 번호·서지·근거 링크·등급만 보인다.',
+        '수능·평가원 모의평가 지문이 발췌된 책·논문. 검수된 출처 등록부이며, 지문 원문 없이 문항 번호·서지·근거 링크·등급만 보인다. 수능 추가 조사는 2026-10-04 반영했다.',
       diagrams: [
         {
           kind: 'flow',
@@ -153,17 +153,19 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
         { label: '근거', detail: '출판사·학술 페이지 링크. 시험 재게시물·학원 자료는 근거로 쓰지 않았다.' },
       ],
       cautions: [
-        '씨앗 파일은 2026-09-28 시점 자료다. DB 에서 판정을 고친 뒤(예: A→B) 다시 돌려도 덮지 않고 「충돌」로만 보고한다 — 파일이 맞다고 판단되면 그 행만 사람이 고친다(재등급 트리거가 연결 근거와 채택 항목을 함께 처리한다).',
+        '최초 씨앗은 2026-09-28 자료이고 기존 행을 갱신하지 않는다. 추가 검수는 source-origin-review.mjs로 처리한다. 검색 결과의 책 제목만으로 A 등급을 주지 않는다.',
+        '새 검수는 연결 문항 각각의 현재 본문 해시에 묶는다. 본문·연결 문항·기존 판정이 달라지면 배치 전체가 거부된다. 같은 검수를 다시 적용하면 건너뛴다.',
       ],
       drain: {
-        what: 'Codex 원천 조사 결과를 등록부(knowledge_csat_origins)에 적재한다.',
-        prerequisites: ['docs/reports/csat-source-origin-results-20260928.jsonl 이 있다', 'apps/web/.env.local 의 service role 자격'],
+        what: '본문을 대조한 추가 검수만 기존 출처 등록부(knowledge_csat_origins)에 반영한다.',
+        prerequisites: ['변경 전후 서지·판정과 연결 문항별 현재 본문 해시를 담은 검수 JSON이 있다', '관리자 SQL 실행 권한 및 DB 체크포인트'],
         procedure: [
-          { title: '미리보기', detail: 'node scripts/knowledge/import-seed.mjs — 등급별 개수만 출력하고 쓰지 않는다.' },
-          { title: '적재', detail: 'node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/knowledge/import-seed.mjs --commit', done: '「원천 새로 N · 같음 M · 충돌 0」 — 충돌이 0 이 아니면 아래 주의를 본다' },
+          { title: '검색·대조', detail: 'source-origin-export.mjs --kind suneung은 읽기 전용 검색 큐다. 저장된 검색 이력과 출판사·저자·전문 사본을 대조하고, 기존 등록부에는 문항 ID로 대응한다.' },
+          { title: '미리보기', detail: 'node scripts/csat/source-origin-review.mjs --input <검수 JSON> --output <SQL 파일>. 읽기 전용 SQL을 생성하고 관리자 DB 도구로 실행한다. ready 또는 already_applied만 허용한다.' },
+          { title: '적재', detail: 'before 체크포인트 뒤 같은 명령에 --commit-sql을 붙여 생성한 SQL을 한 트랜잭션으로 실행한다. 생성 명령 자체는 DB에 연결하지 않는다.', done: '즉시 after 체크포인트를 찍고 미리보기를 재실행해 모든 행이 already_applied인지 확인한다.' },
         ],
-        verify: ['이 화면의 A·B·C·G 개수가 보고서와 같다(26·22·1·664).'],
-        recovery: ['재실행 안전 — 원천은 새 행만 넣고, 이미 있는 행은 덮지 않는다. 원리·공백은 이미 있으면 건너뛴다.'],
+        verify: ['범위별 A·B·C·G 개수를 DB에서 다시 세어 최신 보고서와 대조한다. 후보·소재 계보는 확인 수에 포함하지 않는다.', '미리보기 전체 already_applied 및 체크포인트의 소실 지표를 확인한다.'],
+        recovery: ['재실행 안전 — 동일 검수는 건너뛰고 충돌이 있으면 전체 롤백한다. 수정된 본문은 다시 검수한다.', '복구에는 검수 JSON의 before 값을 사용한다. 이후 판정이 변경되지 않았는지 확인한 별도 복구 작업이 필요하다. 최초 import-seed.mjs는 기존 행을 복구하거나 갱신하지 않는다.'],
       },
     },
   },
