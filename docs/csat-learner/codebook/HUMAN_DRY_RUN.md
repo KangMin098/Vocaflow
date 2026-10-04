@@ -1,5 +1,7 @@
 # 사람 판정자 blind dry run — 절차 (human-v1, 2026-10-04 준비 완료 · 판정자 역할 요건 고정 · 섭외 대기 · 미실시)
 
+> 2026-10-04: 사람 판정 대신 [Cross-Model Blind Dry Run](./XMODEL_DRY_RUN.md)(Claude × Codex)을 먼저 실시했다 — 결과 [XMODEL_RESULT.md](./XMODEL_RESULT.md). 이 사람 절차는 「향후 필요 시 human validation」 단계로 보존한다.
+
 > 상태: **준비만 끝났다. 사람 판정은 아직 없다.** 판정자 두 명을 사용자가 정해야 시작할 수 있다.
 > 목적: 코드별 신뢰도 추정이 아니라 **경계가 사람에게도 작동하는지** 확인한다(56건 · 19코드로는 코드별 신뢰도를 추정할 수 없다).
 > 모델 dry run([DRY_RUN.md](./DRY_RUN.md))은 코드북 개발 자료로만 보존하고 **사람 신뢰도 근거로 쓰지 않는다.**

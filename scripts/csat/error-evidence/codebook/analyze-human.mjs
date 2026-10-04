@@ -12,7 +12,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { agreement, CODES, FAMILIES, OUTCOMES } from './agreement.mjs'
+import { agreement, CODES, FAMILIES, OUTCOMES, PRIMARY_CODES } from './agreement.mjs'
 
 const [corpusF, aF, bF, outDir, expF] = process.argv.slice(2)
 if (!corpusF || !aF || !bF || !outDir) {
@@ -34,7 +34,7 @@ const judgmentsOf = (f) => {
 }
 const A = Object.fromEntries(judgmentsOf(aF).map((r) => [r.case_id, r]))
 const B = Object.fromEntries(judgmentsOf(bF).map((r) => [r.case_id, r]))
-const exp = expF ? load(expF) : null
+const exp = expF ? (load(expF).expected ?? load(expF)) : null // 봉인 파일 형식 {_note, expected: {...}}
 
 const GATES = { family: 0.8, primary: 0.7, insufficient: 0.8, primaryReview: 0.65, repeatedPair: 3 }
 
@@ -42,13 +42,14 @@ const fam = (c) => (c ? c.split('.')[0] : null)
 
 const both = cases.filter((c) => A[c.case_id] && B[c.case_id])
 const missing = cases.filter((c) => !A[c.case_id] || !B[c.case_id]).map((c) => c.case_id)
-const judged = both.filter((c) => A[c.case_id].outcome !== 'unsupported_stimulus' && B[c.case_id].outcome !== 'unsupported_stimulus')
+// 사전 제외(corpus.excluded)는 말뭉치에서 이미 빠졌다 — 한쪽만 unsupported_stimulus 라 판정한 것은 불일치로 센다
+const judged = both.filter((c) => !(A[c.case_id].outcome === 'unsupported_stimulus' && B[c.case_id].outcome === 'unsupported_stimulus'))
 
 const outcomeAg = agreement(judged.map((c) => [A[c.case_id].outcome, B[c.case_id].outcome]), OUTCOMES)
 const insuffAg = agreement(judged.map((c) => [A[c.case_id].outcome === 'insufficient_evidence', B[c.case_id].outcome === 'insufficient_evidence']), [true, false])
 const withPrimary = judged.filter((c) => A[c.case_id].primary && B[c.case_id].primary)
 const familyAg = agreement(withPrimary.map((c) => [fam(A[c.case_id].primary), fam(B[c.case_id].primary)]), FAMILIES)
-const primaryAg = agreement(withPrimary.map((c) => [A[c.case_id].primary, B[c.case_id].primary]), CODES)
+const primaryAg = agreement(withPrimary.map((c) => [A[c.case_id].primary, B[c.case_id].primary]), PRIMARY_CODES)
 // 전 사례 기준(primary 없음도 하나의 범주) — 「둘 다 primary 를 고른 사례」만 보는 수치가 보류 차이를 숨기지 않게
 const primaryAll = agreement(judged.map((c) => [A[c.case_id].primary ?? `(${A[c.case_id].outcome})`, B[c.case_id].primary ?? `(${B[c.case_id].outcome})`]),
   [...CODES, ...OUTCOMES.map((o) => `(${o})`)])

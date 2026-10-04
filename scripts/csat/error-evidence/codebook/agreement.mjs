@@ -26,3 +26,5 @@ export const FAMILIES = ['V', 'S', 'R', 'E', 'B', 'X']
 export const CODES = ['V.unknown_word', 'V.wrong_sense', 'V.multiword', 'S.core_structure', 'S.attachment', 'S.operator_scope', 'S.form_rule',
   'R.reference', 'R.relation', 'R.main_point', 'R.inference', 'E.task_misread', 'E.evidence_location', 'E.option_mismatch',
   'B.outside_knowledge', 'B.surface_match', 'B.no_verification', 'X.time', 'X.attention']
+// primary 로 쓸 수 있는 코드 — B.no_verification 은 contributing 전용(코드북 R11)이라 primary 범주가 아니다
+export const PRIMARY_CODES = CODES.filter((c) => c !== 'B.no_verification')
