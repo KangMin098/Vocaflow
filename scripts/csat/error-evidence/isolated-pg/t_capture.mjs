@@ -49,6 +49,15 @@ export default async function capture(admin, ctx) {
   record('capture', 'category(evidence · choice) 저장이 원인 claim 을 만들지 않음', claims === claimsAfter && ok(await pe(L1, n, 'category', { group: 'choice' })) &&
     Number((await admin.query(`select count(*) c from public.csat_ec_claim where session_id = $1 and source = 'student'`, [S.L1])).rows[0].c) === claims)
 
+  // ── 본인 유효 증거(수집 화면의 저장 상태 · 정정 대상) ──
+  const mine = await as(app, L1, `select id, item_no, kind from public.csat_ec_my_process_evidence($1)`, [S.L1])
+  const ids = new Set((mine.rows ?? []).map((r) => r.id))
+  record('capture', 'my_process_evidence — 정정된 행 빠짐 · 정정 행 · 범주 포함', ok(mine) && !ids.has(r1.rows[0].id) && ids.has(fix.rows[0].id) && ids.has(c1.rows[0].id), mine.err)
+  const mineOther = await as(app, learner(U.L2), `select id from public.csat_ec_my_process_evidence($1)`, [S.L1])
+  record('capture', 'my_process_evidence — 다른 학습자 0행', ok(mineOther) && mineOther.rows.length === 0, mineOther.err)
+  const mineAnon = await as(app, ANON, `select id from public.csat_ec_my_process_evidence($1)`, [S.L1])
+  record('capture', 'my_process_evidence — anon 거부', fails(mineAnon, /permission denied/), mineAnon.err)
+
   // ── 재시도 멱등 — 확인 ──
   const revs = async () => Number((await admin.query(`select count(*) c from public.csat_ec_session_confirmation where session_id = $1`, [S.L1])).rows[0].c)
   const before = await revs()

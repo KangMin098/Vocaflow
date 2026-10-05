@@ -95,20 +95,25 @@ export async function loadCapture(ctx: EcContext, sessionId: string): Promise<Ca
   return { status: 'open', confirmed: !!(conf?.[0]?.took_exam && conf?.[0]?.judged_each), items: out }
 }
 
-/** 본인 과정 증거(정정되지 않은 것)의 문항별 요약 — RLS 로 본인 행만 */
-async function savedSummary(ctx: EcContext, sessionId: string) {
-  const { data, error } = await ctx.rls.from('csat_ec_process_evidence').select('id, item_no, kind, value, supersedes_id').eq('session_id', sessionId)
+export interface OwnEvidence { id: string; item_no: number; kind: string; value: Record<string, unknown>; created_at: string }
+
+/** 본인 세션의 **유효** 과정 증거(지금 문항 입력 해시 · 정정되지 않음 — csat_ec_my_process_evidence) */
+export async function ownValidEvidence(ctx: EcContext, sessionId: string): Promise<OwnEvidence[]> {
+  const { data, error } = await ctx.rls.rpc('csat_ec_my_process_evidence', { p_session: sessionId })
   if (error) throw new Error(`증거 조회 실패: ${error.message}`)
-  const superseded = new Set((data ?? []).map((r) => r.supersedes_id as string | null).filter(Boolean))
+  return (data ?? []) as OwnEvidence[]
+}
+
+/** 문항별 저장 상태 — 유효 증거만(원문 · 정답이 바뀌어 무효가 된 증거는 저장 안 됨으로 본다) */
+async function savedSummary(ctx: EcContext, sessionId: string) {
   const m = new Map<number, CaptureItem['saved']>()
-  for (const r of data ?? []) {
-    if (superseded.has(r.id as string)) continue
-    const cur = m.get(r.item_no as number) ?? { reason: false, blocked: false, interpretation: null, category: false }
+  for (const r of await ownValidEvidence(ctx, sessionId)) {
+    const cur = m.get(r.item_no) ?? { reason: false, blocked: false, interpretation: null, category: false }
     if (r.kind === 'reason') cur.reason = true
     if (r.kind === 'blocked_span') cur.blocked = true
     if (r.kind === 'category') cur.category = true
     if (r.kind === 'interpretation') cur.interpretation = ((r.value as { state?: InterpretationState }).state ?? 'answered')
-    m.set(r.item_no as number, cur)
+    m.set(r.item_no, cur)
   }
   return m
 }

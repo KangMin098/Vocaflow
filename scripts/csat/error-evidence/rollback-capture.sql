@@ -87,6 +87,7 @@ begin
 end $$;
 
 drop function public.csat_ec_add_probe_response(uuid,smallint,jsonb,int);
+drop function public.csat_ec_my_process_evidence(uuid);
 
 revoke all on function public.csat_ec_confirm_session(uuid,boolean,boolean) from public, anon, authenticated, service_role;
 revoke all on function public.csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid) from public, anon, authenticated, service_role;

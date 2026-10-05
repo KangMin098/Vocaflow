@@ -11,7 +11,8 @@
 --    · csat_ec_add_process_evidence — 정정(supersedes)이 아니고 같은 kind · 같은 value(jsonb 의미 비교)의 유효 행이 있으면 그 id.
 -- 3. csat_ec_add_probe_response — 세션 잠금 안에서 세션 probe 누계(건너뜀 포함)를 서비스 설정의 상한과 비교하고 저장.
 --    상한 값은 호출자(서비스)가 넘긴다 — DB 상수 없음. 같은 attempt · probe 의 첫 응답이 있으면 그 행을 돌려준다.
--- 4. funnel_events 허용 목록 + csat_ec_capture_opened · csat_ec_capture_finished (AGENTS D2 — 목록은 2026-10-05 라이브 제약에서 옮겼다).
+-- 4. csat_ec_my_process_evidence — 학습자 본인 세션의 **유효** 과정 증거(지금 문항 입력 해시 · 정정되지 않음, 범주 포함). 수집 화면의 저장 상태 · 정정 대상.
+-- 5. funnel_events 허용 목록 + csat_ec_capture_opened · csat_ec_capture_finished (AGENTS D2 — 목록은 2026-10-05 라이브 제약에서 옮겼다).
 
 begin;
 
@@ -139,6 +140,20 @@ begin
   return public.csat_ec_add_process_evidence(p_session, p_item_no, 'targeted_probe', p_value, null);
 end $$;
 
+-- ═══ 4. 본인 유효 증거 ═══
+create or replace function public.csat_ec_my_process_evidence(p_session uuid)
+returns table (id uuid, item_no smallint, kind text, value jsonb, created_at timestamptz)
+language sql stable security definer set search_path = '' as $$
+  select p.id, p.item_no, p.kind, p.value, p.created_at
+    from public.csat_ec_process_evidence p
+    join public.csat_dx_session s on s.id = p.session_id and s.user_id = (select auth.uid())
+   where p.session_id = p_session
+     and p.item_input_hash = public.csat_ec_item_input_hash(p.session_id, p.item_no)
+     and not exists (select 1 from public.csat_ec_process_evidence q where q.supersedes_id = p.id)
+$$;
+
+revoke all on function public.csat_ec_my_process_evidence(uuid) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_my_process_evidence(uuid) to authenticated;
 revoke all on function public.csat_ec_confirm_session(uuid,boolean,boolean) from public, anon, authenticated, service_role;
 revoke all on function public.csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid) from public, anon, authenticated, service_role;
 revoke all on function public.csat_ec_add_probe_response(uuid,smallint,jsonb,int) from public, anon, authenticated, service_role;
@@ -146,7 +161,7 @@ grant execute on function public.csat_ec_confirm_session(uuid,boolean,boolean) t
 grant execute on function public.csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid) to authenticated;
 grant execute on function public.csat_ec_add_probe_response(uuid,smallint,jsonb,int) to authenticated;
 
--- ═══ 4. 이벤트 허용 목록 ═══
+-- ═══ 5. 이벤트 허용 목록 ═══
 alter table public.funnel_events drop constraint if exists funnel_events_event_check;
 alter table public.funnel_events
   add constraint funnel_events_event_check check (

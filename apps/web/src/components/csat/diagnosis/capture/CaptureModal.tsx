@@ -11,7 +11,7 @@
 import { ClipboardList, X } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
 import type { CaptureItem, CaptureState, PendingProbe } from '@/lib/csat/ec-pilot/server'
@@ -72,6 +72,24 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
     router.refresh()
   }, [sessionId, items.length, router])
 
+  // 지나간 문항(저장 · 건너뜀) · 이미 저장된 문항에 남은 추가 질문 — 다음 단계를 고를 때 쓴다(재개 · 새로고침 뒤에도)
+  const visited = useRef(new Set<number>())
+  const probeQueue = useRef<PendingProbe[]>([])
+  const itemsRef = useRef<CaptureItem[]>([])
+
+  const resetStep = () => { setForm(EMPTY); setError(null); setFailedOnce(false); setProbe(null); setProbeChoice(null) }
+
+  /** 다음 단계: 남은 추가 질문 → 아직 안 지나간 문항 → 결과 */
+  const advance = useCallback(() => {
+    resetStep()
+    const list = itemsRef.current
+    const q = probeQueue.current.shift()
+    if (q) { setIdx(Math.max(0, list.findIndex((i) => i.itemNo === q.itemNo))); setProbe(q); setPhase('probe'); return }
+    const nextIdx = list.findIndex((i) => !visited.current.has(i.itemNo))
+    if (nextIdx < 0) { void showResult('done'); return }
+    setIdx(nextIdx); setPhase('item')
+  }, [showResult])
+
   // 처음 · 재개 — 저장된 상태로 이어서
   useEffect(() => {
     let alive = true
@@ -84,14 +102,18 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
         setError(r.error); setPhase('error'); return
       }
       setState(r.data)
+      itemsRef.current = r.data.items
       if (r.data.status !== 'open' || r.data.items.length === 0) { void showResult('done'); return }
-      const first = r.data.items.findIndex((i) => !(i.saved.reason && i.saved.interpretation))
+      for (const i of r.data.items) if (i.saved.reason && i.saved.interpretation) visited.current.add(i.itemNo)
+      // 저장은 끝났는데 추가 질문에 답하기 전에 닫혔던 문항 — 그 질문부터
+      const p = await call<{ probes: PendingProbe[] }>(`/api/csat/ec/probes?session=${sessionId}`)
+      if (!alive) return
+      probeQueue.current = p.ok ? p.data.probes.filter((x) => visited.current.has(x.itemNo)) : []
       const resumed = r.data.confirmed || r.data.items.some((i) => i.saved.reason || i.saved.interpretation)
       stats.current.opened = true
       track({ name: 'csat_ec_capture_opened', props: { targets: r.data.items.length, resumed } })
-      if (first < 0) { void showResult('done'); return }
-      setIdx(first)
-      setPhase(r.data.confirmed ? 'item' : 'confirm')
+      if (!r.data.confirmed) { setPhase('confirm'); return }
+      advance()
     })()
     return () => { alive = false }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- 세션이 바뀔 때만 다시 연다
@@ -105,12 +127,6 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
     return () => window.removeEventListener('keydown', onKey)
   }, [router, closeHref, busy])
 
-  const next = useCallback(() => {
-    setForm(EMPTY); setError(null); setFailedOnce(false); setProbe(null); setProbeChoice(null)
-    if (idx + 1 >= items.length) { void showResult('done'); return }
-    setIdx(idx + 1); setPhase('item')
-  }, [idx, items.length, showResult])
-
   const fail = (msg: string) => { setError(msg); setFailedOnce(true); stats.current.failures += 1 }
 
   const saveConfirm = async () => {
@@ -119,36 +135,38 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
     const r = await call(`/api/csat/ec/confirm`, post({ sessionId, tookExam: confirm.took, judgedEach: confirm.took ? confirm.judged : false }))
     setBusy(false)
     if (!r.ok) { fail(r.error); return }
-    setFailedOnce(false); setPhase('item')
+    advance()
   }
 
   const saveItem = async () => {
     if (!item) return
+    // 「내가 이해한 뜻 적기」를 골랐는데 비어 있으면 저장하지 않는다(해석이 빠진 채 완료로 세지 않게)
+    if (form.mode === 'answered' && !form.text.trim()) { setError('이해한 뜻을 적거나, 「잘 모르겠어요」 · 「건너뛰기」를 골라 주세요'); return }
     const pieces: Record<string, unknown>[] = []
     if (form.blocked && form.blocked !== 'none') pieces.push({ kind: 'blocked_span', ...form.blocked })
     if (form.reason.trim()) pieces.push({ kind: 'reason', text: form.reason })
-    if (form.mode === 'answered' && form.text.trim()) pieces.push({ kind: 'interpretation', state: 'answered', text: form.text })
+    if (form.mode === 'answered') pieces.push({ kind: 'interpretation', state: 'answered', text: form.text })
     if (form.mode === 'unknown' || form.mode === 'skipped') pieces.push({ kind: 'interpretation', state: form.mode })
     if (form.group) pieces.push({ kind: 'category', group: form.group })
     setBusy(true); setError(null)
     for (const evidence of pieces) {
-      // 같은 값 재전송은 DB 가 같은 행을 돌려준다 — 재시도해도 행이 늘지 않는다
+      // 같은 값 재전송은 같은 행 · 고친 값은 정정(서버) — 재시도해도 상충 증거가 남지 않는다
       const r = await call(`/api/csat/ec/evidence`, post({ sessionId, itemNo: item.itemNo, evidence }))
       if (!r.ok) { setBusy(false); fail(r.error); return }
     }
-    const done = form.reason.trim().length >= 10 && form.mode !== null
-    if (done) stats.current.completed += 1
+    visited.current.add(item.itemNo)
+    if (form.reason.trim().length >= 10 && form.mode !== null) stats.current.completed += 1
     else stats.current.skipped += 1
     // 서버가 이 문항에 추가 질문을 요구할 때만 띄운다(화면은 경계를 판단하지 않는다). 조회 실패면 질문 없이 진행
     const p = await call<{ probes: PendingProbe[] }>(`/api/csat/ec/probes?session=${sessionId}`)
     setBusy(false)
-    const mine = p.ok ? p.data.probes.find((x) => x.itemNo === item.itemNo) : undefined
     if (!p.ok) stats.current.failures += 1
-    if (mine) { setProbe(mine); setProbeChoice(null); setError(null); setFailedOnce(false); setPhase('probe'); return }
-    next()
+    const mine = p.ok ? p.data.probes.find((x) => x.itemNo === item.itemNo) : undefined
+    if (mine) probeQueue.current.unshift(mine)
+    advance()
   }
 
-  const skipItem = () => { stats.current.skipped += 1; next() }
+  const skipItem = () => { if (item) visited.current.add(item.itemNo); stats.current.skipped += 1; advance() }
 
   const saveProbe = async (option: string | null) => {
     if (!probe) return
@@ -156,11 +174,11 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
     const r = await call(`/api/csat/ec/probe`, post({ sessionId, itemNo: probe.itemNo, probeKey: probe.probe.key, probeVersion: probe.probe.version, promptHash: probe.probe.promptHash, option }))
     setBusy(false)
     // 이미 답했거나(중복 복구) · 질문이 바뀌었거나 · 상한이면 질문 없이 진행
-    if (r.ok || r.status === 409 || r.status === 404) { if (r.ok) stats.current.probes += 1; next(); return }
+    if (r.ok || r.status === 409 || r.status === 404) { if (r.ok) stats.current.probes += 1; advance(); return }
     fail(r.error)
   }
 
-  const saveLabel = useMemo(() => (idx + 1 >= items.length ? '저장하고 마치기' : '저장하고 다음'), [idx, items.length])
+  const saveLabel = items.every((i) => i.itemNo === item?.itemNo || visited.current.has(i.itemNo)) ? '저장하고 마치기' : '저장하고 다음'
 
   return (
     <div className={s.overlay} role="dialog" aria-modal="true" aria-labelledby="dx-capture-title">
@@ -217,7 +235,7 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
             </span>
           ) : phase === 'probe' ? (
             <span className={c.footActions}>
-              <button type="button" className={c.ghost} disabled={busy} onClick={() => (failedOnce ? next() : void saveProbe(null))}>{failedOnce ? '넘어가기' : '건너뛰기'}</button>
+              <button type="button" className={c.ghost} disabled={busy} onClick={() => (failedOnce ? advance() : void saveProbe(null))}>{failedOnce ? '넘어가기' : '건너뛰기'}</button>
               <button type="button" className={s.done} disabled={busy || !probeChoice} onClick={() => void saveProbe(probeChoice)}>{failedOnce ? '다시 시도' : '다음'}</button>
             </span>
           ) : <span />}
