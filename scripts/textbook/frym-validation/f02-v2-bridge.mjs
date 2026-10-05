@@ -28,9 +28,9 @@ export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrume
       if (!original || session.reading_started_at !== original.reading_started_at || session.reading_finished_at !== original.reading_finished_at || session.grade !== original.grade || ['lexical_burden', 'sentence_burden', 'reasoning_burden', 'perceived_difficulty'].some(k => session[k] !== original[k]) || (session.unknown_word_fraction == null ? original.unknown_word_count != null : original.unknown_word_count == null || Math.abs(session.unknown_word_fraction - original.unknown_word_count / words) > 1e-10)) return insufficient(`v2_F02_${grade}_student_record_changed`)
       if (session.reading_started_at != null && Date.parse(session.reading_started_at) < meaning.completed_at) return insufficient(`v2_F02_${grade}_started_before_meaning_review`)
       for (const axis of ['comprehension', 'lexical', 'syntax', 'reasoning']) {
-        const values = original.answers.filter(a => r.instrument.some(i => i.id === a.item_id && i.axis === axis)).map(a => a.score)
+        const values = r.instrument.filter(i => i.axis === axis).map(i => original.answers.find(a => a.item_id === i.id)?.score ?? null)
         const observed = session[`${axis}_accuracy`]
-        if (values.length !== r.instrument.filter(i => i.axis === axis).length || (observed == null ? values.every(v => v != null) : values.some(v => v == null) || Math.abs(observed - values.reduce((sum, v) => sum + v, 0) / values.length) > 1e-10)) return insufficient(`v2_F02_${grade}_student_record_changed`)
+        if (observed == null ? values.every(v => v != null) : values.some(v => v == null) || Math.abs(observed - values.reduce((sum, v) => sum + v, 0) / values.length) > 1e-10) return insufficient(`v2_F02_${grade}_student_record_changed`)
       }
     }
     const range = bundle.protocol.ranges.find(x => x.grade === grade)

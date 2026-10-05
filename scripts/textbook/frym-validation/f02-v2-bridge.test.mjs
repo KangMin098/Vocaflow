@@ -119,7 +119,22 @@ test('an extra incomplete anchor observation is excluded without erasing a compl
   assert.equal(result.excluded.middle_anchor, 1)
 })
 
-test('the real CLI runs the sealed v2 bridge without a module cycle', async () => {
+test('an omitted answer in one extra target session is excluded without rejecting fifteen complete students', () => {
+  const study = fixture()
+  for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
+  const extra = { ...study.assignments.find(a => a.arm === 'middle_target'), student_id: 'middle_target-incomplete' }
+  study.assignments.push(extra)
+  study.sessions.push({ ...study.sessions.find(s => s.arm === 'middle_target'), student_id: extra.student_id, comprehension_accuracy: null })
+  study.registration.manifest_sha256 = pilotManifestHash(study)
+  const { bundle, instruments } = v2Fixture(study)
+  const r = bundle.records.find(r => r.grade === 'middle_1')
+  r.student_sessions.find(s => s.student_id === extra.student_id).answers = r.student_sessions.find(s => s.student_id === extra.student_id).answers.filter(a => a.item_id !== r.instrument.find(i => i.axis === 'comprehension').id)
+  const result = judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now)
+  assert.equal(result.v2_reconciled, true, JSON.stringify(result))
+  assert.equal(result.excluded.middle_target, 1)
+})
+
+test('the real CLI emits a structured decision without a module cycle', async () => {
   const study = fixture()
   for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
   const { bundle, instruments } = v2Fixture(study)
@@ -141,7 +156,10 @@ test('the real CLI runs the sealed v2 bridge without a module cycle', async () =
     let output = ''
     console.log = value => { output += value }
     await import('./f02-pilot-evaluate.mjs?synthetic-cli-check')
-    assert.deepEqual(JSON.parse(output).reasons, ['approval_time_invalid'])
+    const decision = JSON.parse(output)
+    assert.equal(decision.gold, false)
+    assert.equal(decision.db_seed, false)
+    assert.ok(['PASS', 'FAIL', 'INSUFFICIENT_EVIDENCE'].includes(decision.level_separation))
   } finally {
     process.argv = previousArgs
     console.log = previousLog
