@@ -10,6 +10,7 @@
   "missing_data_policy": "Exclude a session with any missing timestamp or metric; preserve its record and report excluded counts. Never impute a score. Reject invalid, mismatched, duplicate, or unassigned sessions.",
   "purpose": "Calibration of F02 instruments and difficulty judgments; no gold or DB seed",
   "minimum_complete_students_per_variant": 15,
+  "maximum_assigned_students_per_arm": 30,
   "target_fit": {
     "aggregation": "Mean for accuracy; median for all other metrics. Inclusive bounds. Each metric must pass; missing data is insufficient evidence.",
     "middle_1": {

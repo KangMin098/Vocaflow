@@ -77,3 +77,7 @@ calibration은 candidate → expert_validated → student_validated까지만 가
 production 확인은 verify에 --production --replication <후속v2결과> --replication-pilot <새pilot> --replication-precision-review <새회차> --replication-evidence-dir <새증거폴더>를 추가한다. 이때만 실제 DB의 현재 published 행을 읽는다. 후속 회차는 기존 gold 학생 측정이 끝난 뒤 등록되어야 하고 다른 주제·원천·연구·학생으로 gold 기준을 재현해야 한다. expert_reuse_allowed=false이면 원 validation의 전문가도 재사용하지 못한다. 현재 행의 본문/부모/target/저장된 manifest·validation hash까지 같아야 production이다. published만으로 승격하지 않는다. 실제 DB query 오류를 성공/0건으로 삼키지 않는다.
 
 모든 명령은 --commit을 거절하며 기존 출력도 덮지 않는다. v1 protocol/results는 과거 재현·읽기/빈 수집에 남기되 새 기준으로 인증하지 않는다. 실제 새 v2 예행과 한계는 [완료 보고서](../../../docs/reports/frym-human-validation-v2-20261005.md)에 기록한다.
+
+# F02 고정 pair 학생 pilot (미봉인)
+
+현재 F02 재검수 본문은 `f02-calibration-freeze.json`에 고정했다. `f02-student-pilot.proposed.json`의 숫자와 모집 상한은 사람 책임자가 모집 전에 검토·봉인할 제안이다. 기존 8편 문항은 수정 전 F02를 가리켜 재사용하지 않는다. 새 F02 문항과 v2 사람 평가·학생 응답이 생긴 뒤 `pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation/f02-pilot-judge.mjs <ignored-local-study.json> <sealed-v2-bundle.json>`을 실행한다. 이 명령은 F02 freeze·문항·배정·학생 세션을 확인하고 두 학년 목표 arm을 기존 v2의 `evaluateV2` 결과와 대조한다. 고1 학생의 중1판 비교 arm은 v2의 학년 일치 수집기에 넣지 않고 별도 봉인 자료로 수집한다. 재실행은 읽기 전용이며 결과를 DB에 쓰지 않는다. 미봉인·결측·v2 불일치는 `INSUFFICIENT_EVIDENCE`; 사람·학생 관측 전 gold/seed는 0이다. 상세 [F02 준비 기록](../../../docs/reports/academic-reading-f02-student-calibration-20261005.md).

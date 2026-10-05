@@ -37,7 +37,7 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
     assignmentMap.set(a.student_id, a)
   }
   const assigned = Object.fromEntries(arms.map(arm => [arm, study.assignments.filter(a => a.arm === arm).length]))
-  if (arms.some(arm => assigned[arm] < proposed.minimum_complete_students_per_variant || assigned[arm] > 30)) return insufficient('cohort_assignment_invalid')
+  if (arms.some(arm => assigned[arm] < proposed.minimum_complete_students_per_variant || assigned[arm] > proposed.maximum_assigned_students_per_arm)) return insufficient('cohort_assignment_invalid')
   const used = new Set(), byArm = Object.fromEntries(arms.map(arm => [arm, []])), excluded = Object.fromEntries(arms.map(arm => [arm, 0]))
   for (const s of study.sessions) {
     const a = assignmentMap.get(s.student_id), start = Date.parse(s.reading_started_at), end = Date.parse(s.reading_finished_at)
@@ -48,10 +48,11 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
     byArm[a.arm].push(s)
   }
   const min = proposed.minimum_complete_students_per_variant
-  const target = Object.fromEntries(Object.entries(grades).map(([g]) => {
+  const targetMetrics = {}, target = Object.fromEntries(Object.entries(grades).map(([g]) => {
     const rows = byArm[g === 'middle_1' ? 'middle_target' : 'high_target']
     if (rows.length < min) return [g, 'INSUFFICIENT_EVIDENCE']
     const measured = aggregate(rows), bands = proposed.target_fit[g]
+    targetMetrics[g] = measured
     return [g, metrics.every(k => measured[k] + 1e-10 >= bands[k].min && measured[k] - 1e-10 <= bands[k].max) ? 'PASS' : 'FAIL']
   }))
   let separation = 'INSUFFICIENT_EVIDENCE'
@@ -59,16 +60,23 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
     const low = aggregate(byArm.middle_anchor), high = aggregate(byArm.high_target)
     separation = high.reasoning_burden - low.reasoning_burden + 1e-10 >= proposed.level_separation.minimum_reasoning_burden_gap && (high.lexical_burden - low.lexical_burden + 1e-10 >= proposed.level_separation.minimum_language_burden_gap || high.sentence_burden - low.sentence_burden + 1e-10 >= proposed.level_separation.minimum_language_burden_gap) && low.comprehension_accuracy + 1e-10 >= proposed.level_separation.comprehension_floor_each_anchor_arm && high.comprehension_accuracy + 1e-10 >= proposed.level_separation.comprehension_floor_each_anchor_arm ? 'PASS' : 'FAIL'
   }
-  return { target_fit: target, level_separation: separation, counts: Object.fromEntries(arms.map(arm => [arm, byArm[arm].length])), excluded, reasons: [], scope: 'F02_calibration_only', gold: false, db_seed: false }
+  return { target_fit: target, target_metrics: targetMetrics, level_separation: separation, counts: Object.fromEntries(arms.map(arm => [arm, byArm[arm].length])), excluded, reasons: [], scope: 'F02_calibration_only', gold: false, db_seed: false }
 }
 
 if (process.argv[1]?.endsWith('f02-pilot-judge.mjs')) {
-  const [studyPath, freezePath = 'scripts/textbook/frym-validation/f02-calibration-freeze.json', proposalPath = 'scripts/textbook/frym-validation/f02-student-pilot.proposed.json'] = process.argv.slice(2)
-  if (!studyPath) throw Error('Usage: node f02-pilot-judge.mjs <ignored-local-study.json> [freeze.json] [proposal.json]')
-  const study = JSON.parse(readFileSync(studyPath, 'utf8')), freezeBytes = readFileSync(freezePath), proposed = JSON.parse(readFileSync(proposalPath, 'utf8'))
+  const [studyPath, v2Path] = process.argv.slice(2)
+  if (!studyPath || !v2Path) throw Error('Usage: pnpm exec tsx f02-pilot-judge.mjs <ignored-local-study.json> <sealed-v2-bundle.json>')
+  const freezeBytes = readFileSync(new URL('./f02-calibration-freeze.json', import.meta.url))
+  const proposed = JSON.parse(readFileSync(new URL('./f02-student-pilot.proposed.json', import.meta.url)))
+  const study = JSON.parse(readFileSync(studyPath, 'utf8'))
   if (study.freeze_sha256 !== sha256(freezeBytes)) throw Error('Frozen pair file changed')
+  const instrumentFiles = {}
   for (const grade of ['middle_1', 'high_1']) {
-    if (typeof study.instrument_paths?.[grade] !== 'string' || study.instrument_sha256?.[grade] !== sha256(readFileSync(study.instrument_paths[grade]))) throw Error(`F02 ${grade} instrument file changed or missing`)
+    if (typeof study.instrument_paths?.[grade] !== 'string') throw Error(`F02 ${grade} instrument file missing`)
+    const bytes = readFileSync(study.instrument_paths[grade])
+    if (study.instrument_sha256?.[grade] !== sha256(bytes)) throw Error(`F02 ${grade} instrument file changed`)
+    instrumentFiles[grade] = JSON.parse(bytes)
   }
-  console.log(JSON.stringify(judgeF02Pilot(study, JSON.parse(freezeBytes), proposed, Date.now()), null, 2))
+  const { judgeF02PilotWithV2 } = await import('./f02-v2-bridge.mjs')
+  console.log(JSON.stringify(judgeF02PilotWithV2(study, JSON.parse(freezeBytes), proposed, JSON.parse(readFileSync(v2Path, 'utf8')), instrumentFiles, Date.now()), null, 2))
 }
