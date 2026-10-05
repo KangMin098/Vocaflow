@@ -48,13 +48,13 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 | anon 또는 authenticated 가 실행 가능한 함수 | 276 |
 | anon 실행 가능 | 157 (전부 anon 직접 GRANT · 그중 121 은 PUBLIC 도) |
 | authenticated 실행 가능 | 276 (전부) |
-| 분류 — intended_public / authenticated_only / admin_only / service_only / trigger_only | 2 / 83 / 30 / 132 / 29 |
+| 분류 — intended_public / authenticated_only / admin_only / service_only / trigger_only | 2 / 117 / 30 / 98 / 29 |
 | unexpected_public_execute(anon, 의도 공개 · 트리거 제외) | 127 |
 | 그중 definer + 쓰기 | 17 |
-| 서비스 전용인데 authenticated 실행 가능 | 132 |
-| 그중 definer + 쓰기 + 본문 권한 검사 없음 | 24 (1개 오탐: `csat_ec_round_create` 5인자판은 4인자판의 `is_admin` 을 탄다) |
+| 서비스 전용인데 authenticated 실행 가능 | 98 |
+| 그중 definer + 쓰기 + 본문 권한 검사 없음 | 23 |
 
-분류 방법: 앱 · 스크립트 · edge 함수의 `.rpc('이름')` 호출부를 client 종류로 나눴다(브라우저 · 사용자 세션 서버 · service · 스크립트). 학습자 경로 호출이 없으면 service_only, 호출이 모두 admin 영역이면 admin_only. 변수 이름 호출 4곳(`api/lcp/*process` · `scripts/lcp/*`)은 모두 service key 라 분류에 영향 없다. 직접 `createClient(url, serviceKey)` 를 쓰는 서버 파일은 user_server 로 잡혀 **보수적으로**(권한을 더 남기는 쪽) 분류된다.
+분류 방법: 앱 · 스크립트 · edge 함수의 `.rpc('이름')` 호출부를 client 종류로 나눴다(브라우저 · 사용자 세션 서버 · service · 스크립트). 학습자 경로 호출이 없고 본문에 `auth.uid()`/`is_admin` 검사도 없으면 service_only. 스크립트라도 로그인 세션(`signInWithPassword` 등 — 검수자 · 학습자 스모크)으로 부르면 학습자 경로로 센다(Codex 리뷰 반영: `csat_ec_submit_blind` 등이 service_only 로 잘못 분류됐었다), 호출이 모두 admin 영역이면 admin_only. 변수 이름 호출 4곳(`api/lcp/*process` · `scripts/lcp/*`)은 모두 service key 라 분류에 영향 없다. 직접 `createClient(url, serviceKey)` 를 쓰는 서버 파일은 user_server 로 잡혀 **보수적으로**(권한을 더 남기는 쪽) 분류된다.
 
 **가장 무거운 것**: 로그인한 아무 학습자가 `insert_book_analysis(아무 book_id, …)` 를 부르면 그 책의 `library_chapters_master` · `library_book_vocabularies` 를 지운다 — 읽기 전용 트랜잭션에서 `set local role authenticated` 로 실행해 본문 DELETE 에 도달함을 확인했다(25006 에서 멈춤, 데이터 무변경). 같은 계열: `purge_ghost_vocab` · `video_job_restart` · `update_user_v_level`(타인 레벨) · `acp_claim_compose_jobs` 등.
 
@@ -74,12 +74,12 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 ## G. 수정안 (초안 · 미적용)
 
 - `scripts/db/drafts/function-execute-revoke.draft.sql` — 한 트랜잭션:
-  1. 서비스 전용 · 트리거 140개: `revoke execute ... from public, anon, authenticated` + `grant ... to service_role`. 정책 · 뷰 · 기본값이 부르는 함수는 이 묶음에서 빠진다. 트리거 함수의 EXECUTE 는 CREATE TRIGGER 때만 검사되므로 발화에는 영향이 없다. cron · definer 내부 호출은 소유자로 돈다.
-  2. 학습자 · 관리자 77개(본문이 `auth.uid()`/`is_admin` 을 요구하거나 정책/뷰 의존): `from public, anon` 만 회수 + `authenticated, service_role` 명시 GRANT.
+  1. 서비스 전용 · 트리거 109개: `revoke execute ... from public, anon, authenticated` + `grant ... to service_role`. 정책 · 뷰 · 기본값이 부르는 함수는 이 묶음에서 빠진다. 트리거 함수의 EXECUTE 는 CREATE TRIGGER 때만 검사되므로 발화에는 영향이 없다. cron · definer 내부 호출은 소유자로 돈다.
+  2. 학습자 · 관리자 105개(본문이 `auth.uid()`/`is_admin` 을 요구하거나 정책/뷰 의존): `from public, anon` 만 회수 + `authenticated, service_role` 명시 GRANT.
   3. `alter default privileges in schema public revoke execute on functions from authenticated` — 신규 함수가 다시 열리는 경로를 닫는다. 이후 학습자 RPC 는 GRANT 를 명시해야 한다.
-- 217 시그니처 모두 `to_regprocedure` 로 실재 확인.
+- 214 시그니처 모두 `to_regprocedure` 로 실재 확인.
 - 정확 복원: `function-execute-revoke.rollback.sql`(지금의 PUBLIC/anon/authenticated 직접 GRANT 를 그대로 되살림 + 기본 ACL 복원).
-- **초안에서 뺀 57개(review)** — 사람이 확정해야 한다: 42개는 학습자 경로에서 부르는데 본문 검사가 없어 비로그인 공개 화면(카탈로그 · 만화 서가 등)이 anon 으로 부르는지 라우트별 확인 필요, 15개는 서비스 전용이지만 SECURITY INVOKER 함수가 부른다(그 invoker 함수의 호출자 권한을 따라가야 한다). 아래 표.
+- **초안에서 뺀 60개(review)** — 사람이 확정해야 한다: 45개는 학습자 경로에서 부르는데 본문 검사가 없어 비로그인 공개 화면(카탈로그 · 만화 서가 등)이 anon 으로 부르는지 라우트별 확인 필요, 15개는 서비스 전용이지만 SECURITY INVOKER 함수가 부른다(그 invoker 함수의 호출자 권한을 따라가야 한다). 아래 표.
 - 적용 전 필수: 앱 e2e 스모크(비로그인 공개 화면 · 학습자 · 관리자) — 회수가 정상 화면을 조용히 막는 방향의 실패(42501)를 잡는다.
 
 ## H. 회귀 가드 설계
@@ -102,7 +102,7 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 | `commit_chapter_vocab(p_book_id uuid, p_chapter_idx integer)` | authenticated_only | Y | Y | Y | uid | revoke_public_anon |
 | `csat_source_snapshot_take(p_by text)` | service_only | Y | Y | Y | — | revoke_public_anon_authenticated |
 | `enqueue_comic_jobs(p_book_ids uuid[])` | authenticated_only | Y | Y | Y | admin | revoke_public_anon |
-| `enqueue_curation_jobs(p_book_ids uuid[])` | service_only | Y | Y | Y | admin | revoke_public_anon_authenticated |
+| `enqueue_curation_jobs(p_book_ids uuid[])` | authenticated_only | Y | Y | Y | admin | revoke_public_anon |
 | `enqueue_quiz_jobs(p_book_ids uuid[])` | authenticated_only | Y | Y | Y | admin | revoke_public_anon |
 | `enqueue_review_jobs(p_book_ids uuid[], p_task_type text)` | authenticated_only | Y | Y | Y (PUBLIC) | admin | revoke_public_anon |
 | `enroll_library_book(p_book_id uuid)` | authenticated_only | Y | Y | Y | uid | revoke_public_anon |
@@ -112,12 +112,12 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 | `save_comic_progress(p_book_id uuid, p_last_index integer, p_total integer, p_completed boolean)` | authenticated_only | Y | Y | Y | uid | revoke_public_anon |
 | `set_word_familiarity(p_lemma text, p_verdict text, p_v_level smallint)` | authenticated_only | Y | Y | Y | uid | revoke_public_anon |
 | `subscribe_article_word_set(p_article_id uuid)` | authenticated_only | Y | Y | Y (PUBLIC) | uid | revoke_public_anon |
-| `sync_published_set_examples(p_set_id uuid)` | service_only | Y | Y | Y (PUBLIC) | admin | revoke_public_anon_authenticated |
+| `sync_published_set_examples(p_set_id uuid)` | authenticated_only | Y | Y | Y (PUBLIC) | admin | revoke_public_anon |
 | `textbook_practice_items(p_v_level smallint, p_limit integer)` | authenticated_only | Y | Y | Y | uid | revoke_public_anon |
 | `unenroll_library_book(p_book_id uuid)` | authenticated_only | Y | Y | Y | uid | revoke_public_anon |
 | `update_pending_word_status(p_id uuid, p_status text, p_admin_note text)` | admin_only | Y | Y | Y (PUBLIC) | uid | revoke_public_anon |
 
-### authenticated 실행 가능 · 서비스 전용 · definer · 쓰기 · 본문 검사 없음 (24)
+### authenticated 실행 가능 · 서비스 전용 · definer · 쓰기 · 본문 검사 없음 (23)
 
 | 함수 | 분류 | definer | 쓰기 | anon | 본문 검사 | 조치 |
 |---|---|---|---|---|---|---|
@@ -128,7 +128,6 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 | `auto_promote_track_level_for_user(p_user_id uuid, p_track_id text)` | service_only | Y | Y |  | — | revoke_public_anon_authenticated |
 | `collect_content_gate_metrics()` | service_only | Y | Y |  | — | revoke_public_anon_authenticated |
 | `compute_book_coverage(p_book_id uuid)` | service_only | Y | Y |  | — | revoke_public_anon_authenticated |
-| `csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb, p_evidence_profile text)` | service_only | Y | Y |  | — | revoke_public_anon_authenticated |
 | `csat_source_snapshot_take(p_by text)` | service_only | Y | Y | Y | — | revoke_public_anon_authenticated |
 | `decode_entities_in_stored_sentences(p_book_id uuid)` | service_only | Y | Y |  | — | revoke_public_anon_authenticated |
 | `fill_lbv_resolution(p_book_id uuid, p_only_new boolean)` | service_only | Y | Y |  | — | revoke_public_anon_authenticated |
@@ -146,7 +145,7 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 | `video_retire_mark_purged(p_video_id text)` | service_only | Y | Y |  | — | revoke_public_anon_authenticated |
 | `video_retire_rerendered(p_video_id text)` | service_only | Y | Y |  | — | revoke_public_anon_authenticated |
 
-### 사람이 확정할 항목(review) (57)
+### 사람이 확정할 항목(review) (60)
 
 | 함수 | 분류 | definer | 쓰기 | anon | 본문 검사 | 조치 |
 |---|---|---|---|---|---|---|
@@ -168,6 +167,9 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 | `compute_frequency_tier(p_raw_count integer)` | service_only |  |  | Y (PUBLIC) | — | review(invoker 함수가 부름) |
 | `compute_syntax_score(p_content text)` | service_only |  |  | Y (PUBLIC) | — | review(invoker 함수가 부름) |
 | `content_gate_publishable(p_scope text, p_id uuid)` | service_only | Y |  |  | — | review(invoker 함수가 부름) |
+| `csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb, p_evidence_profile text)` | authenticated_only | Y | Y |  | — | review(비로그인 공개 경로 확인) |
+| `csat_ec_submit_adjudication(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text)` | authenticated_only | Y |  |  | — | review(비로그인 공개 경로 확인) |
+| `csat_ec_submit_blind(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text)` | authenticated_only | Y |  |  | — | review(비로그인 공개 경로 확인) |
 | `csat_source_inventory_live()` | authenticated_only |  |  |  | — | review(비로그인 공개 경로 확인) |
 | `csat_source_live_rollup()` | authenticated_only |  |  |  | — | review(비로그인 공개 경로 확인) |
 | `csat_source_pipeline_live()` | authenticated_only |  |  |  | — | review(비로그인 공개 경로 확인) |

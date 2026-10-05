@@ -46,8 +46,8 @@
    "action": "revoke_public_anon"
   },
   "admin_bulk_requeue_articles(p_article_ids uuid[])": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "admin_bulk_requeue_books(p_book_ids uuid[])": {
    "class": "authenticated_only",
@@ -58,8 +58,8 @@
    "action": "revoke_public_anon"
   },
   "admin_collect_content_gate_metrics()": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "admin_collect_db_health_integrity()": {
    "class": "admin_only",
@@ -70,8 +70,8 @@
    "action": "revoke_public_anon"
   },
   "admin_collect_db_health_queues()": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "admin_collect_quality_metrics()": {
    "class": "admin_only",
@@ -82,8 +82,8 @@
    "action": "revoke_public_anon"
   },
   "admin_delete_article(p_article_id uuid)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "admin_delete_book(p_book_id uuid)": {
    "class": "authenticated_only",
@@ -106,12 +106,12 @@
    "action": "revoke_public_anon"
   },
   "admin_force_publish_book(p_book_id uuid)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "admin_record_db_health_checkpoint(p_label text, p_phase text, p_note text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "admin_requeue_article(p_article_id uuid)": {
    "class": "authenticated_only",
@@ -122,8 +122,8 @@
    "action": "revoke_public_anon"
   },
   "admin_revert_published_article(p_article_id uuid)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "admin_revert_published_book(p_book_id uuid)": {
    "class": "authenticated_only",
@@ -377,36 +377,36 @@
    "action": "revoke_public_anon"
   },
   "csat_ec_add_student_claim(p_session uuid, p_item_no smallint, p_taxonomy text, p_group text, p_code text, p_supersedes uuid)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_blind_queue(p_round bigint)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_capture_close(p_user uuid, p_exam text, p_reason text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_capture_finish(p_session uuid)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_capture_open(p_session uuid)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_close_tombstone(p_id bigint, p_reason text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_confirm_session(p_session uuid, p_took_exam boolean, p_judged_each boolean)": {
    "class": "authenticated_only",
    "action": "revoke_public_anon"
   },
   "csat_ec_my_capture_state(p_session uuid)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_my_pending_probes(p_session uuid)": {
    "class": "authenticated_only",
@@ -417,64 +417,67 @@
    "action": "revoke_public_anon"
   },
   "csat_ec_reveal_view(p_round bigint)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_round_advance(p_round bigint, p_to text, p_reason text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_round_assign(p_round bigint, p_reviewer uuid, p_slot text, p_pre_disclosed text[])": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb, p_evidence_profile text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
   },
   "csat_ec_round_material(p_round bigint)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_round_reveal(p_round bigint)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_round_set_targets(p_round bigint, p_refs jsonb)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_round_start_blind(p_round bigint)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_submit_adjudication(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
   },
   "csat_ec_submit_adjudication(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text, p_candidates text[], p_boundary_keys text[], p_probe_required boolean)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_submit_blind(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
   },
   "csat_ec_submit_blind(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text, p_candidates text[], p_boundary_keys text[], p_probe_required boolean)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_submit_verify(p_round bigint, p_claim uuid, p_verdict text, p_note text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_ec_taxonomy_seal(p_version text)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "csat_source_eligibility_tally()": {
    "class": "service_only",
@@ -610,8 +613,8 @@
    "action": "revoke_public_anon"
   },
   "enqueue_curation_jobs(p_book_ids uuid[])": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "enqueue_quiz_jobs(p_book_ids uuid[])": {
    "class": "authenticated_only",
@@ -740,12 +743,12 @@
    "action": "revoke_public_anon_authenticated"
   },
   "is_admin()": {
-   "class": "service_only",
-   "action": "revoke_public_anon(정책/뷰 의존)"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "is_admin_or_curator()": {
-   "class": "service_only",
-   "action": "revoke_public_anon(정책/뷰 의존)"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "is_class_member(p_class_id uuid, p_uid uuid)": {
    "class": "service_only",
@@ -1006,8 +1009,8 @@
    "action": "revoke_public_anon_authenticated"
   },
   "sync_published_set_examples(p_set_id uuid)": {
-   "class": "service_only",
-   "action": "revoke_public_anon_authenticated"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "textbook_curriculum_vocab_counts()": {
    "class": "authenticated_only",
@@ -1112,8 +1115,8 @@
    "action": "revoke_public_anon_authenticated"
   },
   "video_is_admin()": {
-   "class": "service_only",
-   "action": "revoke_public_anon(정책/뷰 의존)"
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
   },
   "video_job_restart(p_video_id text, p_kind text)": {
    "class": "service_only",

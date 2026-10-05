@@ -47,7 +47,9 @@ for (const f of files) {
   if (!names.size) continue
   const rel = path.relative(ROOT, f).replace(/\\/g, '/')
   let kind
-  if (rel.startsWith('scripts/') || rel.startsWith('supabase/')) kind = 'script'
+  // 스크립트도 로그인 세션(학습자 · 검수자 JWT)으로 부르면 authenticated 호출이다 — service 로 세지 않는다
+  if ((rel.startsWith('scripts/') || rel.startsWith('supabase/')) && /signInWithPassword|signInWith|ANON_KEY|setSession/.test(s)) kind = 'user_script'
+  else if (rel.startsWith('scripts/') || rel.startsWith('supabase/')) kind = 'script'
   else if (/lib\/supabase\/admin|createAdminClient/.test(s) && !/lib\/supabase\/(server|client)['"]/.test(s)) kind = 'service'
   else if (/^['"]use client['"]/m.test(s)) kind = 'browser'
   else kind = 'user_server'
@@ -64,10 +66,12 @@ const baseNames = new Set(base.map(x => typeof x === 'string' ? x.split('(')[0] 
 const out = rows.filter(r => r.anon || r.au).map(r => {
   const cs = callers[r.n] || []
   const kinds = [...new Set(cs.map(x => x.kind))]
-  const learnerCall = cs.filter(x => x.kind === 'browser' || x.kind === 'user_server')
+  const learnerCall = cs.filter(x => x.kind === 'browser' || x.kind === 'user_server' || x.kind === 'user_script')
   let cls
   if (r.trig) cls = 'trigger_only'
-  else if (!learnerCall.length) cls = r.writes ? 'service_only' : 'service_only'
+  // 본문이 auth.uid()/is_admin 을 요구하면 로그인 호출을 전제한 함수다 — 호출부를 못 찾아도 service_only 로 내리지 않는다
+  else if (!learnerCall.length && !r.uid_check && !r.admin_check) cls = 'service_only'
+  else if (!learnerCall.length) cls = 'authenticated_only'
   else if (learnerCall.every(x => x.adminArea)) cls = 'admin_only'
   else cls = 'authenticated_only'
   // anon 이 앱 경로로 의도적으로 부르는 것: 브라우저 호출 + 이전 기준선의 의도 목록(peek/funnel 등)

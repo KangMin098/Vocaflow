@@ -16,27 +16,6 @@ grant execute on function public.acp_compose_shelf_candidates(uuid) to authentic
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.acp_prune_compose_candidates(integer) from public, anon, authenticated, service_role;
 grant execute on function public.acp_prune_compose_candidates(integer) to authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.admin_bulk_requeue_articles(uuid[]) from public, anon, authenticated, service_role;
-grant execute on function public.admin_bulk_requeue_articles(uuid[]) to authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.admin_collect_content_gate_metrics() from public, anon, authenticated, service_role;
-grant execute on function public.admin_collect_content_gate_metrics() to authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.admin_collect_db_health_queues() from public, anon, authenticated, service_role;
-grant execute on function public.admin_collect_db_health_queues() to authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.admin_delete_article(uuid) from public, anon, authenticated, service_role;
-grant execute on function public.admin_delete_article(uuid) to authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.admin_force_publish_book(uuid) from public, anon, authenticated, service_role;
-grant execute on function public.admin_force_publish_book(uuid) to authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.admin_record_db_health_checkpoint(text, text, text) from public, anon, authenticated, service_role;
-grant execute on function public.admin_record_db_health_checkpoint(text, text, text) to authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.admin_revert_published_article(uuid) from public, anon, authenticated, service_role;
-grant execute on function public.admin_revert_published_article(uuid) to authenticated, service_role;
 -- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.agg_daily_activity_from_learning_record() from public, anon, authenticated, service_role;
 grant execute on function public.agg_daily_activity_from_learning_record() to public, anon, authenticated, service_role;
@@ -127,72 +106,6 @@ grant execute on function public.csat_demote_on_review_change() to public, anon,
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.csat_drain_runs_stamp_finished() from public, anon, authenticated, service_role;
 grant execute on function public.csat_drain_runs_stamp_finished() to authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_add_student_claim(uuid, smallint, text, text, text, uuid) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_add_student_claim(uuid, smallint, text, text, text, uuid) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_blind_queue(bigint) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_blind_queue(bigint) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_capture_close(uuid, text, text) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_capture_close(uuid, text, text) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_capture_finish(uuid) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_capture_finish(uuid) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_capture_open(uuid) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_capture_open(uuid) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_close_tombstone(bigint, text) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_close_tombstone(bigint, text) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_my_capture_state(uuid) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_my_capture_state(uuid) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_reveal_view(bigint) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_reveal_view(bigint) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_round_advance(bigint, text, text) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_round_advance(bigint, text, text) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_round_assign(bigint, uuid, text, text[]) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_round_assign(bigint, uuid, text, text[]) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_round_create(text, text, text, jsonb) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_round_create(text, text, text, jsonb) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_round_create(text, text, text, jsonb, text) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_round_create(text, text, text, jsonb, text) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_round_material(bigint) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_round_material(bigint) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_round_reveal(bigint) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_round_reveal(bigint) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_round_set_targets(bigint, jsonb) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_round_set_targets(bigint, jsonb) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_round_start_blind(bigint) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_round_start_blind(bigint) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_submit_adjudication(bigint, uuid, smallint, text, text, text[], text[], text) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_submit_adjudication(bigint, uuid, smallint, text, text, text[], text[], text) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_submit_adjudication(bigint, uuid, smallint, text, text, text[], text[], text, text[], text[], boolean) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_submit_adjudication(bigint, uuid, smallint, text, text, text[], text[], text, text[], text[], boolean) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_submit_blind(bigint, uuid, smallint, text, text, text[], text[], text) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_submit_blind(bigint, uuid, smallint, text, text, text[], text[], text) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_submit_blind(bigint, uuid, smallint, text, text, text[], text[], text, text[], text[], boolean) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_submit_blind(bigint, uuid, smallint, text, text, text[], text[], text, text[], text[], boolean) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_submit_verify(bigint, uuid, text, text) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_submit_verify(bigint, uuid, text, text) to authenticated;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
-revoke execute on function public.csat_ec_taxonomy_seal(text) from public, anon, authenticated, service_role;
-grant execute on function public.csat_ec_taxonomy_seal(text) to authenticated;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.csat_source_eligibility_tally() from public, anon, authenticated, service_role;
 grant execute on function public.csat_source_eligibility_tally() to authenticated, service_role;
@@ -247,9 +160,6 @@ grant execute on function public.enforce_domain_levels_keys() to public, anon, a
 -- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.enforce_track_levels_keys() from public, anon, authenticated, service_role;
 grant execute on function public.enforce_track_levels_keys() to public, anon, authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.enqueue_curation_jobs(uuid[]) from public, anon, authenticated, service_role;
-grant execute on function public.enqueue_curation_jobs(uuid[]) to anon, authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.fill_lbv_resolution(uuid, boolean) from public, anon, authenticated, service_role;
 grant execute on function public.fill_lbv_resolution(uuid, boolean) to authenticated, service_role;
@@ -355,9 +265,6 @@ grant execute on function public.set_updated_at() to public, anon, authenticated
 -- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.sync_cefr_from_v_level() from public, anon, authenticated, service_role;
 grant execute on function public.sync_cefr_from_v_level() to public, anon, authenticated, service_role;
--- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.sync_published_set_examples(uuid) from public, anon, authenticated, service_role;
-grant execute on function public.sync_published_set_examples(uuid) to public, anon, authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.textfit_resolve_levels_public(text[]) from public, anon, authenticated, service_role;
 grant execute on function public.textfit_resolve_levels_public(text[]) to anon, authenticated, service_role;
@@ -428,11 +335,17 @@ grant execute on function public.admin_archive_article(uuid) to authenticated, s
 revoke execute on function public.admin_archive_book(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.admin_archive_book(uuid) to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.admin_bulk_requeue_articles(uuid[]) from public, anon, authenticated, service_role;
+grant execute on function public.admin_bulk_requeue_articles(uuid[]) to authenticated, service_role;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_bulk_requeue_books(uuid[]) from public, anon, authenticated, service_role;
 grant execute on function public.admin_bulk_requeue_books(uuid[]) to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_bulk_set_books_curating(uuid[]) from public, anon, authenticated, service_role;
 grant execute on function public.admin_bulk_set_books_curating(uuid[]) to authenticated, service_role;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.admin_collect_content_gate_metrics() from public, anon, authenticated, service_role;
+grant execute on function public.admin_collect_content_gate_metrics() to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_collect_db_health_integrity() from public, anon, authenticated, service_role;
 grant execute on function public.admin_collect_db_health_integrity() to authenticated, service_role;
@@ -440,11 +353,17 @@ grant execute on function public.admin_collect_db_health_integrity() to authenti
 revoke execute on function public.admin_collect_db_health_metrics() from public, anon, authenticated, service_role;
 grant execute on function public.admin_collect_db_health_metrics() to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.admin_collect_db_health_queues() from public, anon, authenticated, service_role;
+grant execute on function public.admin_collect_db_health_queues() to authenticated, service_role;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_collect_quality_metrics() from public, anon, authenticated, service_role;
 grant execute on function public.admin_collect_quality_metrics() to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_db_health_live() from public, anon, authenticated, service_role;
 grant execute on function public.admin_db_health_live() to authenticated, service_role;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.admin_delete_article(uuid) from public, anon, authenticated, service_role;
+grant execute on function public.admin_delete_article(uuid) to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_delete_book(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.admin_delete_book(uuid) to authenticated, service_role;
@@ -461,11 +380,20 @@ grant execute on function public.admin_enqueue_book(text, text, text, text, inte
 revoke execute on function public.admin_force_publish_article(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.admin_force_publish_article(uuid) to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.admin_force_publish_book(uuid) from public, anon, authenticated, service_role;
+grant execute on function public.admin_force_publish_book(uuid) to authenticated, service_role;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.admin_record_db_health_checkpoint(text, text, text) from public, anon, authenticated, service_role;
+grant execute on function public.admin_record_db_health_checkpoint(text, text, text) to authenticated, service_role;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_requeue_article(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.admin_requeue_article(uuid) to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_requeue_book(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.admin_requeue_book(uuid) to authenticated, service_role;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.admin_revert_published_article(uuid) from public, anon, authenticated, service_role;
+grant execute on function public.admin_revert_published_article(uuid) to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.admin_revert_published_book(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.admin_revert_published_book(uuid) to authenticated, service_role;
@@ -509,14 +437,71 @@ grant execute on function public.csat_ec_add_probe_response(uuid, smallint, json
 revoke execute on function public.csat_ec_add_process_evidence(uuid, smallint, text, jsonb, uuid) from public, anon, authenticated, service_role;
 grant execute on function public.csat_ec_add_process_evidence(uuid, smallint, text, jsonb, uuid) to authenticated;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_add_student_claim(uuid, smallint, text, text, text, uuid) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_add_student_claim(uuid, smallint, text, text, text, uuid) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_blind_queue(bigint) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_blind_queue(bigint) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_capture_close(uuid, text, text) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_capture_close(uuid, text, text) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_capture_finish(uuid) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_capture_finish(uuid) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_capture_open(uuid) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_capture_open(uuid) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_close_tombstone(bigint, text) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_close_tombstone(bigint, text) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
 revoke execute on function public.csat_ec_confirm_session(uuid, boolean, boolean) from public, anon, authenticated, service_role;
 grant execute on function public.csat_ec_confirm_session(uuid, boolean, boolean) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_my_capture_state(uuid) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_my_capture_state(uuid) to authenticated;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
 revoke execute on function public.csat_ec_my_pending_probes(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.csat_ec_my_pending_probes(uuid) to authenticated;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
 revoke execute on function public.csat_ec_my_process_evidence(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.csat_ec_my_process_evidence(uuid) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_reveal_view(bigint) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_reveal_view(bigint) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_round_advance(bigint, text, text) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_round_advance(bigint, text, text) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_round_assign(bigint, uuid, text, text[]) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_round_assign(bigint, uuid, text, text[]) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_round_create(text, text, text, jsonb) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_round_create(text, text, text, jsonb) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_round_material(bigint) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_round_material(bigint) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_round_reveal(bigint) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_round_reveal(bigint) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_round_set_targets(bigint, jsonb) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_round_set_targets(bigint, jsonb) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_round_start_blind(bigint) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_round_start_blind(bigint) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_submit_adjudication(bigint, uuid, smallint, text, text, text[], text[], text, text[], text[], boolean) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_submit_adjudication(bigint, uuid, smallint, text, text, text[], text[], text, text[], text[], boolean) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_submit_blind(bigint, uuid, smallint, text, text, text[], text[], text, text[], text[], boolean) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_submit_blind(bigint, uuid, smallint, text, text, text[], text[], text, text[], text[], boolean) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_submit_verify(bigint, uuid, text, text) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_submit_verify(bigint, uuid, text, text) to authenticated;
+-- 원래 acl: {postgres=X/postgres,authenticated=X/postgres}
+revoke execute on function public.csat_ec_taxonomy_seal(text) from public, anon, authenticated, service_role;
+grant execute on function public.csat_ec_taxonomy_seal(text) to authenticated;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.db_health_anomalies(integer, integer) from public, anon, authenticated, service_role;
 grant execute on function public.db_health_anomalies(integer, integer) to authenticated, service_role;
@@ -544,6 +529,9 @@ grant execute on function public.dictation_weakness(integer) to public, anon, au
 -- 원래 acl: {postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.enqueue_comic_jobs(uuid[]) from public, anon, authenticated, service_role;
 grant execute on function public.enqueue_comic_jobs(uuid[]) to anon, authenticated, service_role;
+-- 원래 acl: {postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.enqueue_curation_jobs(uuid[]) from public, anon, authenticated, service_role;
+grant execute on function public.enqueue_curation_jobs(uuid[]) to anon, authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.enqueue_quiz_jobs(uuid[]) from public, anon, authenticated, service_role;
 grant execute on function public.enqueue_quiz_jobs(uuid[]) to anon, authenticated, service_role;
@@ -622,6 +610,9 @@ grant execute on function public.stage_book_dict_candidates(uuid) to authenticat
 -- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.subscribe_article_word_set(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.subscribe_article_word_set(uuid) to public, anon, authenticated, service_role;
+-- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+revoke execute on function public.sync_published_set_examples(uuid) from public, anon, authenticated, service_role;
+grant execute on function public.sync_published_set_examples(uuid) to public, anon, authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.textbook_practice_items(smallint, integer) from public, anon, authenticated, service_role;
 grant execute on function public.textbook_practice_items(smallint, integer) to anon, authenticated, service_role;
