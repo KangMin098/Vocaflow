@@ -333,6 +333,8 @@ node scripts/csat/source-origin-search.mjs --public-metrics <fixed-plan.json> <c
 
 ### Books 증분 실험 기준선
 
+등록 evidence에는 실제 발견 후보의 `discovery_candidate_id`와 `discovery_retriever`를 남겨 DB와 연결한다. API에서 알려진 제목·저자·출판사·연도와 등록 서지가 같아야 한다. 판본/표제 차이가 있으면 registration의 `bibliographic_identity`에 same_work=true, baseline_sha256, candidate_id, passage_sha256, body_sha256_by_item, candidate_bibliography(title/authors/publisher/publishedDate), registered_bibliography(title/authors/publisher/year), checked_scope, explained_difference를 검수해 기록한다. 이 동일성 검수 없이 다른 책을 같은 등급으로 등록한 기록은 신규 성과가 아니다. 한 파일의 registrations는 현재 retriever에 해당하는 기록만 대조한다.
+
 공개 원문 종료 후 같은 50개·161질의를 보존했다. DB 재조회는 A+B133/713·G579로 이전 종료 상태와 같다(C1 별도). HTTP 호출 전 공개 종료 기준선과 연결 본문 SHA를 검증하며, 기준선 해시는 `839ff7134575746f6817abb40cc56d22fa8cc871f307b9a089903d9539c03c2b`이다. [고정 기준선·상태·미실행 집계](./csat-source-origin-books-incremental-20261005.json)를 저장했다. 키·키 일부·키 hash는 저장하지 않았다.
 
 - 등록12개는 검색 control이며 신규 발견/등록 성과에서 제외한다. G38 중 공개소진37개와 유력 미검증1개를 보존한다. API pending은 공개소진과 함께 존재하는 별도 속성으로 둔다. 이 상태는 로컬 실험 원장이고 DB 등급 변경이 아니다.

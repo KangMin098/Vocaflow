@@ -56,11 +56,24 @@ export function incrementalMetrics(plan, attempts, outcomes, metrics, baseline, 
   }
   const reviewed = [...reviews.values()], useful = reviewed.filter(o => ['A', 'B'].includes(o.after))
   const registeredItems = new Set(), fields = ['status', 'source_title', 'source_authors', 'source_publisher', 'source_year', 'source_part', 'evidence', 'note', 'audited_at', 'audit_ref']
-  for (const r of options.registrations ?? []) {
+  for (const r of (options.registrations ?? []).filter(r => r.retriever === options.retriever)) {
     const chosen = useful.find(o => o.representative_item_id === r.representative_item_id && o.candidate_id === r.candidate_id)
     const key = JSON.stringify([r.representative_item_id, r.candidate_id]), candidate = keys.get(key)?.candidate
     if (!chosen || !candidate || r.retriever !== options.retriever || r.candidate_title !== candidate.title || !r.candidate_title || r.before?.status !== 'unresolved' || r.after?.status !== (chosen.after === 'A' ? 'confirmed_exact' : 'supported_candidate') || r.passage_sha256 !== chosen.passage_sha256 || !isDeepStrictEqual(r.body_sha256_by_item, chosen.body_sha256_by_item)) throw new Error('Registration is not linked to the reviewed discovery candidate')
     validateReviews([r])
+    const normalize = s => String(s ?? '').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '')
+    const candidateBib = { title: candidate.title, authors: candidate.authors ?? [], publisher: candidate.publisher ?? null, publishedDate: candidate.publishedDate ?? null }
+    const registeredBib = { title: r.after.source_title, authors: r.after.source_authors, publisher: r.after.source_publisher, year: r.after.source_year }
+    const sameMetadata = normalize(candidateBib.title) === normalize(registeredBib.title)
+      && (!candidateBib.authors.length || isDeepStrictEqual(candidateBib.authors.map(normalize).sort(), registeredBib.authors.map(normalize).sort()))
+      && (!candidateBib.publisher || normalize(candidateBib.publisher) === normalize(registeredBib.publisher))
+      && (!/^\d{4}/.test(candidateBib.publishedDate ?? '') || Number(candidateBib.publishedDate.slice(0, 4)) === registeredBib.year)
+    const identity = r.bibliographic_identity
+    const reviewedIdentity = identity?.same_work === true && identity.baseline_sha256 === baseline.baseline_sha256 && identity.candidate_id === r.candidate_id
+      && identity.passage_sha256 === r.passage_sha256 && isDeepStrictEqual(identity.body_sha256_by_item, r.body_sha256_by_item)
+      && isDeepStrictEqual(identity.candidate_bibliography, candidateBib) && isDeepStrictEqual(identity.registered_bibliography, registeredBib)
+      && typeof identity.checked_scope === 'string' && identity.checked_scope.trim() && typeof identity.explained_difference === 'string' && identity.explained_difference.trim()
+    if (!r.after.evidence.some(e => e.discovery_candidate_id === r.candidate_id && e.discovery_retriever === options.retriever) || !sameMetadata && !reviewedIdentity) throw new Error('Registered source is not bibliographically linked to the discovery candidate')
     const current = options.currentRows?.find(x => x.representative_item_id === r.representative_item_id)
     if (!current || current.passage_sha256 !== r.passage_sha256 || !isDeepStrictEqual(current.body_sha256_by_item, r.body_sha256_by_item) || !isDeepStrictEqual(current.item_ids, r.item_ids) || fields.some(f => !isDeepStrictEqual(current[f], r.after[f]))) throw new Error('Registered bibliography/evidence differs from the bound review')
     registeredItems.add(r.representative_item_id)

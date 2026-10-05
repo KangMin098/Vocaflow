@@ -26,11 +26,23 @@ test('incremental metrics exclude public controls, await novel reviews and requi
   const outcome = { ...rows[0], retriever: options.retriever, candidate_id: 'newbook', before: 'G', after: 'A', plausible_candidate: true }
   assert.equal(incrementalMetrics(plan, attempts, [outcome], metrics, baseline, { ...options, currentRows: [{ ...rows[0], status: 'confirmed_exact' }] }).books_incremental_AB, null)
   const before = { status: 'unresolved', source_title: null, source_authors: [], source_publisher: null, source_year: null, source_part: null, evidence: [], note: '', audited_at: '2026-10-05', audit_ref: 'report' }
-  const after = { ...before, status: 'confirmed_exact', source_title: 'Title', source_authors: ['Author'], source_year: 2000, evidence: [{ url: 'https://publisher.test/chapter', kind: 'full_context' }] }
+  const after = { ...before, status: 'confirmed_exact', source_title: 'Title', source_authors: ['Author'], source_year: 2000, evidence: [{ url: 'https://publisher.test/chapter', kind: 'full_context', discovery_candidate_id: 'newbook', discovery_retriever: options.retriever }] }
   const registration = { ...rows[0], retriever: options.retriever, candidate_id: 'newbook', candidate_title: 'Title', item_ids: ['x'], before, after }
   const current = { ...rows[0], ...after, item_ids: ['x'] }
   const registeredOptions = { ...options, currentRows: [current], registrations: [registration] }
   assert.throws(() => incrementalMetrics(plan, attempts, [outcome], metrics, baseline, { ...registeredOptions, currentRows: [{ ...current, source_title: 'Different Source' }] }), /bibliography/)
+  const otherBook = { ...after, source_title: 'Different Source' }
+  assert.throws(() => incrementalMetrics(plan, attempts, [outcome], metrics, baseline, { ...options, registrations: [{ ...registration, after: otherBook }], currentRows: [{ ...current, ...otherBook }] }), /bibliographically/)
+  const missingProvenance = { ...after, evidence: [{ url: 'https://publisher.test/chapter', kind: 'full_context' }] }
+  assert.throws(() => incrementalMetrics(plan, attempts, [outcome], metrics, baseline, { ...options, registrations: [{ ...registration, after: missingProvenance }], currentRows: [{ ...current, ...missingProvenance }] }), /bibliographically/)
+  const mixedOptions = { ...registeredOptions, registrations: [...registeredOptions.registrations, { retriever: 'semantic_snippet' }] }
+  assert.equal(incrementalMetrics(plan, attempts, [outcome], metrics, baseline, mixedOptions).incremental_AB_items, 1)
+  const revised = { ...after, source_title: 'Title: Revised Edition' }
+  const identity = { same_work: true, baseline_sha256: baseline.baseline_sha256, candidate_id: 'newbook', passage_sha256: rows[0].passage_sha256, body_sha256_by_item: rows[0].body_sha256_by_item,
+    candidate_bibliography: { title: 'Title', authors: [], publisher: null, publishedDate: null }, registered_bibliography: { title: revised.source_title, authors: revised.source_authors, publisher: revised.source_publisher, year: revised.source_year }, checked_scope: 'Publisher edition history and paragraph', explained_difference: 'Expanded title in reviewed edition' }
+  const editionOptions = { ...options, registrations: [{ ...registration, after: revised, bibliographic_identity: identity }], currentRows: [{ ...current, ...revised }] }
+  assert.equal(incrementalMetrics(plan, attempts, [outcome], metrics, baseline, editionOptions).incremental_AB_items, 1)
+  assert.throws(() => incrementalMetrics(plan, attempts, [outcome], metrics, baseline, { ...editionOptions, registrations: [{ ...editionOptions.registrations[0], bibliographic_identity: { ...identity, baseline_sha256: 'changed' } }] }))
   const done = incrementalMetrics(plan, attempts, [outcome, { ...outcome, representative_item_id: 'y' }], metrics, baseline, registeredOptions)
   assert.equal(done.incremental_AB_items, 1); assert.equal(done.books_candidate_precision, 1); assert.equal(done.queries_per_incremental_AB, 2)
   assert.equal(done.decision, 'next_authorized_lane')
