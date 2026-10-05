@@ -65,6 +65,19 @@ test('missing response is excluded without erasing fifteen complete students', (
   assert.equal(result.level_separation, 'PASS')
   assert.equal(result.excluded.middle_target, 1)
 })
+test('incomplete rows still reject preapproval reading and invalid observed values', () => {
+  const base = fixture()
+  const extra = { ...base.assignments[0], student_id: 'middle_target-incomplete' }
+  base.assignments.push(extra)
+  base.sessions.push({ ...base.sessions[0], student_id: extra.student_id, reasoning_accuracy: null, reading_started_at: '2026-10-31T23:59:00Z', reading_finished_at: '2026-11-01T00:02:00Z' })
+  base.registration.manifest_sha256 = pilotManifestHash(base)
+  assert.equal(judgeF02Pilot(base, freeze, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
+  const badScore = fixture()
+  badScore.assignments.push(extra)
+  badScore.sessions.push({ ...badScore.sessions[0], student_id: extra.student_id, reasoning_accuracy: null, lexical_accuracy: -1 })
+  badScore.registration.manifest_sha256 = pilotManifestHash(badScore)
+  assert.equal(judgeF02Pilot(badScore, freeze, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
+})
 test('empty lead and unapproved operations cannot seal the result', () => {
   const study = fixture()
   study.protocol.human_lead_id = null

@@ -41,8 +41,8 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
     const a = assignmentMap.get(s.student_id), start = Date.parse(s.reading_started_at), end = Date.parse(s.reading_finished_at)
     if (!a || used.has(s.student_id) || s.arm !== a.arm || s.grade !== a.grade || s.passage_sha256 !== freeze.variants.find(v => v.grade === variant(a.arm))?.passage_sha256) return insufficient('session_invalid_or_unassigned')
     used.add(s.student_id)
+    if ((s.reading_started_at != null && (!Number.isFinite(start) || start < approvedAt || start > now)) || (s.reading_finished_at != null && (!Number.isFinite(end) || end < approvedAt || end > now)) || (s.reading_started_at != null && s.reading_finished_at != null && end <= start) || metrics.some(k => s[k] != null && !acceptable(s[k], k)) || (s.reading_seconds != null && s.reading_started_at != null && s.reading_finished_at != null && s.reading_seconds !== (end - start) / 1000)) return insufficient('session_invalid_or_unassigned')
     if (s.reading_started_at == null || s.reading_finished_at == null || metrics.some(k => s[k] == null)) { excluded[a.arm]++; continue }
-    if (!Number.isFinite(start) || !Number.isFinite(end) || start < approvedAt || end <= start || end > now || s.reading_seconds !== (end - start) / 1000 || metrics.some(k => !acceptable(s[k], k))) return insufficient('session_invalid_or_unassigned')
     byArm[a.arm].push(s)
   }
   const min = proposed.minimum_complete_students_per_variant
