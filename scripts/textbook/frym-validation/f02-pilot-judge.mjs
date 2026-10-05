@@ -62,21 +62,3 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
   }
   return { target_fit: target, target_metrics: targetMetrics, level_separation: separation, counts: Object.fromEntries(arms.map(arm => [arm, byArm[arm].length])), excluded, reasons: [], scope: 'F02_calibration_only', gold: false, db_seed: false }
 }
-
-if (process.argv[1]?.endsWith('f02-pilot-judge.mjs')) {
-  const [studyPath, v2Path] = process.argv.slice(2)
-  if (!studyPath || !v2Path) throw Error('Usage: pnpm exec tsx f02-pilot-judge.mjs <ignored-local-study.json> <sealed-v2-bundle.json>')
-  const freezeBytes = readFileSync(new URL('./f02-calibration-freeze.json', import.meta.url))
-  const proposed = JSON.parse(readFileSync(new URL('./f02-student-pilot.proposed.json', import.meta.url)))
-  const study = JSON.parse(readFileSync(studyPath, 'utf8'))
-  if (study.freeze_sha256 !== sha256(freezeBytes)) throw Error('Frozen pair file changed')
-  const instrumentFiles = {}
-  for (const grade of ['middle_1', 'high_1']) {
-    if (typeof study.instrument_paths?.[grade] !== 'string') throw Error(`F02 ${grade} instrument file missing`)
-    const bytes = readFileSync(study.instrument_paths[grade])
-    if (study.instrument_sha256?.[grade] !== sha256(bytes)) throw Error(`F02 ${grade} instrument file changed`)
-    instrumentFiles[grade] = JSON.parse(bytes)
-  }
-  const { judgeF02PilotWithV2 } = await import('./f02-v2-bridge.mjs')
-  console.log(JSON.stringify(judgeF02PilotWithV2(study, JSON.parse(freezeBytes), proposed, JSON.parse(readFileSync(v2Path, 'utf8')), instrumentFiles, Date.now()), null, 2))
-}

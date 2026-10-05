@@ -3,11 +3,13 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { judgeF02PilotWithV2 } from './f02-v2-bridge.mjs'
 import { fixture, freeze, proposed, now } from './f02-pilot-fixture.mjs'
-import { readFileSync } from 'node:fs'
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join, resolve } from 'node:path'
 import { SEMANTIC_CRITERIA } from '@vocaflow/library-pipeline/educational-validation'
 import { bundleV2Schema, deliveryPacketV2, digestV2, manifestIdentityV2, refreshV2Hashes } from '@vocaflow/library-pipeline/educational-validation-v2'
 import { researchBodyHash } from '@vocaflow/library-pipeline/research-origin'
-import { pilotManifestHash } from './f02-pilot-judge.mjs'
+import { pilotManifestHash, sha256 } from './f02-pilot-judge.mjs'
 
 const approved = '2026-11-01T00:00:00Z'
 function reseal(bundle) {
@@ -67,7 +69,17 @@ test('a changed v2 scored answer cannot inherit the pilot target-fit result', ()
   bundle.records[0].student_sessions[0].answers[0].score = 0
   const result = judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now)
   assert.equal(result.level_separation, 'INSUFFICIENT_EVIDENCE')
-  assert.deepEqual(result.reasons, ['v2_F02_middle_1_scores_changed'])
+  assert.deepEqual(result.reasons, ['v2_F02_middle_1_student_record_changed'])
+})
+
+test('a target-arm time changed only in the pilot cannot inherit v2 meaning validity', () => {
+  const study = fixture()
+  for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
+  const { bundle, instruments } = v2Fixture(study)
+  study.sessions.find(s => s.arm === 'middle_target').reading_started_at = '2026-11-01T00:00:05Z'
+  study.sessions.find(s => s.arm === 'middle_target').reading_finished_at = '2026-11-01T00:03:05Z'
+  const result = judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now)
+  assert.deepEqual(result.reasons, ['v2_F02_middle_1_student_record_changed'])
 })
 
 test('the comparison arm cannot read before the middle passage meaning review', () => {
@@ -105,4 +117,34 @@ test('an extra incomplete anchor observation is excluded without erasing a compl
   const result = judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now)
   assert.equal(result.v2_reconciled, true, JSON.stringify(result))
   assert.equal(result.excluded.middle_anchor, 1)
+})
+
+test('the real CLI runs the sealed v2 bridge without a module cycle', async () => {
+  const study = fixture()
+  for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
+  const { bundle, instruments } = v2Fixture(study)
+  const dir = mkdtempSync(join(tmpdir(), 'vocaflow-f02-cli-'))
+  const previousArgs = process.argv, previousLog = console.log
+  try {
+    study.instrument_paths = {}
+    for (const grade of ['middle_1', 'high_1']) {
+      const file = join(dir, `${grade}.json`), bytes = JSON.stringify(instruments[grade])
+      writeFileSync(file, bytes)
+      study.instrument_paths[grade] = file
+      study.instrument_sha256[grade] = sha256(bytes)
+      for (const s of study.sessions.filter(s => s.arm === (grade === 'middle_1' ? 'middle_target' : 'high_target') || grade === 'middle_1' && s.arm === 'middle_anchor')) s.instrument_sha256 = study.instrument_sha256[grade]
+    }
+    study.registration.manifest_sha256 = pilotManifestHash(study)
+    const studyPath = join(dir, 'study.json'), v2Path = join(dir, 'v2.json')
+    writeFileSync(studyPath, JSON.stringify(study)); writeFileSync(v2Path, JSON.stringify(bundle))
+    process.argv = [previousArgs[0], resolve('scripts/textbook/frym-validation/f02-pilot-evaluate.mjs'), studyPath, v2Path]
+    let output = ''
+    console.log = value => { output += value }
+    await import('./f02-pilot-evaluate.mjs?synthetic-cli-check')
+    assert.deepEqual(JSON.parse(output).reasons, ['approval_time_invalid'])
+  } finally {
+    process.argv = previousArgs
+    console.log = previousLog
+    if (resolve(dir).startsWith(resolve(tmpdir()))) rmSync(dir, { recursive: true, force: true })
+  }
 })

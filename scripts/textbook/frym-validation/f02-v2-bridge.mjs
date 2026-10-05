@@ -20,6 +20,19 @@ export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrume
     const r = records[0], arm = grade === 'middle_1' ? 'middle_target' : 'high_target', sessions = study.sessions.filter(s => s.arm === arm)
     const currentIds = sessions.map(s => s.student_id).sort(), v2Ids = r.student_sessions.map(s => s.student_id).sort()
     if (r.pair_id !== freeze.pair_id || r.source_revision !== freeze.source_revision || r.source_hash !== freeze.source_hash || sha256(r.adapted_passage) !== frozen.passage_sha256 || canonical(currentIds) !== canonical(v2Ids) || canonical(r.instrument) !== canonical(instrumentFiles[grade])) return insufficient(`v2_F02_${grade}_identity_or_sessions_changed`)
+    const meaning = expertOutcomeV2(bundle, r, r.adapted_passage, now)
+    if (!meaning.ok) return insufficient(`v2_F02_${grade}_meaning_review_failed`)
+    const words = r.adapted_passage.trim().split(/\s+/).length
+    for (const session of sessions) {
+      const original = r.student_sessions.find(s => s.student_id === session.student_id)
+      if (!original || session.reading_started_at !== original.reading_started_at || session.reading_finished_at !== original.reading_finished_at || session.grade !== original.grade || ['lexical_burden', 'sentence_burden', 'reasoning_burden', 'perceived_difficulty'].some(k => session[k] !== original[k]) || (session.unknown_word_fraction == null ? original.unknown_word_count != null : original.unknown_word_count == null || Math.abs(session.unknown_word_fraction - original.unknown_word_count / words) > 1e-10)) return insufficient(`v2_F02_${grade}_student_record_changed`)
+      if (session.reading_started_at != null && Date.parse(session.reading_started_at) < meaning.completed_at) return insufficient(`v2_F02_${grade}_started_before_meaning_review`)
+      for (const axis of ['comprehension', 'lexical', 'syntax', 'reasoning']) {
+        const values = original.answers.filter(a => r.instrument.some(i => i.id === a.item_id && i.axis === axis)).map(a => a.score)
+        const observed = session[`${axis}_accuracy`]
+        if (values.length !== r.instrument.filter(i => i.axis === axis).length || (observed == null ? values.every(v => v != null) : values.some(v => v == null) || Math.abs(observed - values.reduce((sum, v) => sum + v, 0) / values.length) > 1e-10)) return insufficient(`v2_F02_${grade}_student_record_changed`)
+      }
+    }
     const range = bundle.protocol.ranges.find(x => x.grade === grade)
     if (!range || METRIC_KEYS.some(k => canonical(range[k]) !== canonical(proposed.target_fit[grade][k]))) return insufficient(`v2_F02_${grade}_band_changed`)
     const outcome = evaluateV2(bundle, r, r.adapted_passage, now, passages)
