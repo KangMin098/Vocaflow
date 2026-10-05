@@ -1,6 +1,6 @@
 // scripts/csat/error-evidence/isolated-pg/t_reveal.mjs
 // Reveal Gate(20261005170000_csat_ec_reveal_gate.sql) — 상태 표 · 전이 · 완료 조건 · 시험 단위 전역 보류 · 정책 · 뷰 · oracle · 판정자 마스킹 · 묘비 · 동시성 · 감사 이벤트
-import { as, record } from './lib.mjs'
+import { as, openTx, record } from './lib.mjs'
 import { ANON, EXAM, SERVICE, U, WRONG, answerOf, learner } from './seed.mjs'
 import { fails, ok } from './t_flow.mjs'
 
@@ -169,6 +169,30 @@ export default async function reveal(admin, ctx) {
   for (const t of tomb) await as(app, ADM, `select public.csat_ec_close_tombstone($1, '계정 삭제 뒤 정리(테스트)')`, [t.id])
   const tombLifted = await seen(learner(U.L2))
   record('reveal', '관리자가 묘비를 닫으면 보류 해제', tombLifted.analyses > 0, tombLifted)
+
+  // ── client_key 재사용 — 다른 시험 · 다른 답안은 거부(엉뚱한 시험을 봉인하지 않는다) ──
+  await admin.query(`insert into public.csat_exams (id, label, kind, year, month, exam_year, has_answer_key) values ('X-OTHER', 'other', 'mock', 2024, 6, 2023, true) on conflict do nothing`)
+  const kR = '77777777-7777-4777-8777-777777777777'
+  const P4 = '00000000-0000-4000-8000-0000000000f5'
+  await admin.query(`insert into auth.users (id, email) values ($1, 'P4@test') on conflict do nothing`, [P4])
+  const first = await held(P4, kR, true)
+  const otherExam = await as(app, SERVICE, `select public.csat_ec_record_session_held($1::jsonb, $2::jsonb, true, $3, '{}'::jsonb, '{}'::smallint[], false)`,
+    [JSON.stringify({ user_id: P4, exam_id: 'X-OTHER', mode: 'live', taken_at: '2026-10-05', client_key: kR }), JSON.stringify(resp(normal)), TAX])
+  const otherAns = await held(P4, kR, true, () => 2)
+  const rowsP4 = Number((await admin.query(`select count(*) n from public.csat_ec_capture_session c join public.csat_dx_session s on s.id = c.session_id where s.user_id = $1`, [P4])).rows[0].n)
+  record('reveal', '같은 client_key 로 다른 시험 · 다른 답안 — 거부 · 봉인 행은 처음 것 하나', ok(first) && fails(otherExam, /같은 기록 키/) && fails(otherAns, /같은 기록 키/) && rowsP4 === 1, [otherExam.err, otherAns.err])
+
+  // ── 관리자 종료 vs 증거 쓰기 겹침 — 종료가 잠금을 쥔 동안 온 쓰기는 종료 커밋 뒤 거부 ──
+  const sidP4 = first.rows[0].r.session_id
+  await as(app, learner(P4), `select public.csat_ec_capture_open($1)`, [sidP4])
+  const adminTx = await openTx(app, ADM)
+  const closeRes = await adminTx.try(`select public.csat_ec_capture_close($1, $2, '겹침 테스트') n`, [P4, EXAM])
+  const lateWrite = as(app, learner(P4), `select public.csat_ec_add_process_evidence($1, 20::smallint, 'note', '{"text":"종료와 겹친 메모입니다"}'::jsonb)`, [sidP4])
+  await new Promise((r) => setTimeout(r, 300))
+  await adminTx.commit()
+  const lw = await lateWrite
+  const after4 = Number((await admin.query(`select count(*) n from public.csat_ec_process_evidence where session_id = $1 and kind = 'note'`, [sidP4])).rows[0].n)
+  record('reveal', '관리자 종료(잠금 보유) 중 온 증거 쓰기 — 종료 커밋 뒤 거부 · 행 0', closeRes.ok && fails(lw, /수집은 끝났다/) && after4 === 0, { close: closeRes.err, write: lw.err, after4 })
 
   // ── 해시 컬럼 · 감사 이벤트 ──
   const hashSel = await as(app, learner(P.P2), `select item_input_hash from public.csat_ec_process_evidence limit 1`)

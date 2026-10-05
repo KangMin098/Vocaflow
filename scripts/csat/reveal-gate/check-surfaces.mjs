@@ -42,8 +42,15 @@ const fns = [...new Set((await db.query(`
 const applied = new Set((await db.query(`select version from supabase_migrations.schema_migrations`)).rows.map((r) => r.version))
 
 const compare = (kind, found, declared) => {
-  for (const n of found) if (!declared[n]) problems.push({ kind, name: n, problem: '분류 안 됨(새 표면) — manifest.json 에 class · gate 를 정해 넣는다' })
-  for (const [n, v] of Object.entries(declared)) if (!found.includes(n) && (!v.since || applied.has(v.since))) problems.push({ kind, name: n, problem: '매니페스트에만 있음(낡음) — 표면이 사라졌거나 학습자 접근이 끊겼다' })
+  for (const n of found) {
+    if (!declared[n]) problems.push({ kind, name: n, problem: '분류 안 됨(새 표면) — manifest.json 에 class · gate 를 정해 넣는다' })
+    else if (declared[n].revoked_by && applied.has(declared[n].revoked_by)) problems.push({ kind, name: n, problem: `${declared[n].revoked_by} 적용 뒤인데 학습자 접근이 남아 있다(회수 실패)` })
+  }
+  for (const [n, v] of Object.entries(declared)) {
+    if (found.includes(n)) continue
+    if (v.revoked_by && applied.has(v.revoked_by)) continue   // 의도된 회수
+    if (!v.since || applied.has(v.since)) problems.push({ kind, name: n, problem: '매니페스트에만 있음(낡음) — 표면이 사라졌거나 학습자 접근이 끊겼다' })
+  }
 }
 compare('db_relation', rels, manifest.db_relations)
 compare('db_function', fns, manifest.db_functions)

@@ -46,7 +46,8 @@ async function makeUser(role, admin = false) {
   const c = createClient(URL_, ANON, opt)
   const { error: se } = await c.auth.signInWithPassword({ email, password })
   if (se) throw se
-  users[role] = { id: data.user.id, client: c, token: (await c.auth.getSession()).data.session.access_token }
+  const session = (await c.auth.getSession()).data.session
+  users[role] = { id: data.user.id, client: c, token: session.access_token, session }
 }
 const leaks = (payload) => {
   const s = JSON.stringify(payload ?? null)
@@ -79,7 +80,15 @@ try {
   for (const who of ['P', 'N']) {
     const c = users[who].client
     for (const rel of Object.keys(manifest.db_relations)) {
-      const r = await c.from(rel).select('*').limit(1000)
+      // 전체 페이지(1000행씩) — 권한 거부(42501)만 정상 거부로 보고, 그 밖의 오류는 검사 실패로 센다
+      const rows = []; let r = { data: [], error: null }
+      for (let from = 0; from < 200000; from += 1000) {
+        r = await c.from(rel).select('*').range(from, from + 999)
+        if (r.error || !r.data?.length) break
+        rows.push(...r.data); if (r.data.length < 1000) break
+      }
+      if (r.error && r.error.code !== '42501') { record('canary', `${who} · ${rel} — 조회 오류(검사 미실행)`, false, { code: r.error.code, msg: r.error.message }); continue }
+      r = { ...r, data: rows }
       const testRows = (r.data ?? []).filter((x) => JSON.stringify(x).includes(EXAM) || [sidP, sidN].includes(x.session_id) || [sidP, sidN].includes(x.id))
       const answerLeak = testRows.some((x) => x.answer != null || x.is_correct != null || x.raw_score != null || x.correct != null)
       record('canary', `${who} · ${rel}`, !leaks(r.data) && !answerLeak, { err: r.error?.code, rows: r.data?.length, testRows: testRows.length, answerLeak })
@@ -88,7 +97,8 @@ try {
     const gql = await fetch(`${URL_}/graphql/v1`, { method: 'POST', headers: { apikey: ANON, Authorization: `Bearer ${users[who].token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: `{ csat_items_publicCollection(filter: { exam_id: { eq: "${EXAM}" } }) { edges { node { id answer } } } csat_item_analysesCollection(first: 50) { edges { node { item_id choice_analysis } } } }` }) }).then((x) => x.json())
     const gEdges = gql.data?.csat_items_publicCollection?.edges ?? []
-    record('canary', `${who} · GraphQL 정답 · 해설`, !leaks(gql) && gEdges.every((e) => e.node.answer == null), { errors: gql.errors?.[0]?.message, n: gEdges.length })
+    // 오류면 검사가 실행되지 않은 것 — 실패로 센다(빈 결과를 통과로 보지 않는다)
+    record('canary', `${who} · GraphQL 정답 · 해설`, !gql.errors && !leaks(gql) && gEdges.length === 5 && gEdges.every((e) => e.node.answer == null), { errors: gql.errors?.[0]?.message, n: gEdges.length })
     // 학습자 RPC
     for (const [fn, args] of [['csat_ec_my_pending_probes', { p_session: who === 'P' ? sidP : sidN }], ['csat_ec_my_process_evidence', { p_session: who === 'P' ? sidP : sidN }],
       ['csat_ec_my_capture_state', { p_session: sidP }]]) {
@@ -117,11 +127,19 @@ try {
   // ── 앱 경로(선택) ──
   if (APP) {
     for (const who of ['P', 'N']) {
-      const cookie = `sb-${DEV_REF}-auth-token=${encodeURIComponent(JSON.stringify([users[who].token]))}`
+      // @supabase/ssr 세션 쿠키: 값 = 'base64-' + base64url(JSON(session)), 3180자 넘으면 .0 · .1 … 로 나뉜다
+      const raw = 'base64-' + Buffer.from(JSON.stringify(users[who].session)).toString('base64url')
+      const name = `sb-${DEV_REF}-auth-token`
+      const parts = raw.length <= 3180 ? [[name, raw]] : Array.from({ length: Math.ceil(raw.length / 3180) }, (_, i) => [`${name}.${i}`, raw.slice(i * 3180, (i + 1) * 3180)])
+      const cookie = parts.map(([k, v]) => `${k}=${v}`).join('; ')
+      const authProbe = await fetch(`${APP}/api/csat/diagnosis/sessions/${who === 'P' ? sidP : sidN}/result`, { headers: { cookie }, redirect: 'manual' })
+      if (authProbe.status === 401) { record('app', `${who} · 앱 세션 인증 실패 — 앱 경로 검사 미실행`, false, { status: 401 }); continue }
       for (const p of [`/api/csat/lecture?item=${encodeURIComponent(`${EXAM}#18`)}`, `/api/csat/diagnosis/sessions/${who === 'P' ? sidP : sidN}/result`, `/csat/item/${encodeURIComponent(`${EXAM}-18`)}`, '/csat/dissect', '/csat']) {
         const res = await fetch(APP + p, { headers: { cookie }, redirect: 'manual' })
         const body = await res.text()
-        record('app', `${who} · ${p}`, !body.includes(CANARY) && !/"raw"\s*:\s*\d/.test(body), { status: res.status, cache: res.headers.get('cache-control') })
+        // 로그인 리다이렉트(3xx → /login)는 인증 실패라 통과로 보지 않는다
+        const redirectedToLogin = res.status >= 300 && res.status < 400 && /\/login/.test(res.headers.get('location') ?? '')
+        record('app', `${who} · ${p}`, !redirectedToLogin && !body.includes(CANARY) && !/"raw"\s*:\s*\d/.test(body), { status: res.status, cache: res.headers.get('cache-control') })
       }
     }
   } else record('app', '앱 경로 검사 생략(--app 없음) — 앱 gate 구현 뒤 필수', true)

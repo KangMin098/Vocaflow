@@ -213,6 +213,14 @@ begin
   if v_user is null or coalesce(v_exam, '') = '' then raise exception 'csat_ec: 학습자 · 시험이 필요하다'; end if;
   perform pg_advisory_xact_lock(hashtextextended('csat_ec_exam|' || v_user::text || '|' || v_exam, 0));
   v_sid := public.csat_dx_record_session(p_session, p_responses);
+  -- 같은 client_key 의 기존 세션이 돌아왔을 수 있다 — 저장된 세션의 학습자 · 시험 · 답안이 요청과 같아야 한다(봉인은 저장된 값 기준)
+  if exists (select 1 from public.csat_dx_session s where s.id = v_sid and (s.user_id <> v_user or s.exam_id is distinct from v_exam))
+     or (select count(*) from public.csat_dx_response r where r.session_id = v_sid) <> jsonb_array_length(p_responses)
+     or exists (select 1 from jsonb_array_elements(p_responses) x
+                 where not exists (select 1 from public.csat_dx_response r where r.session_id = v_sid and r.item_no = (x->>'item_no')::smallint
+                                     and r.chosen_option is not distinct from (x->>'chosen_option')::smallint)) then
+    raise exception 'csat_ec: 같은 기록 키로 다른 시험 · 답안을 보냈다 — 새 기록으로 다시 저장한다';
+  end if;
   select * into v_c from public.csat_ec_capture_session where session_id = v_sid;
   if v_c.session_id is not null then   -- 같은 client_key 재전송 — 같은 행
     return jsonb_build_object('session_id', v_sid, 'held', v_c.status in ('held', 'collecting'), 'status', v_c.status);
@@ -316,7 +324,10 @@ begin
   if coalesce(length(btrim(p_reason)), 0) = 0 then raise exception 'csat_ec: 종료 사유가 필요하다'; end if;
   perform pg_advisory_xact_lock(hashtextextended('csat_ec_exam|' || p_user::text || '|' || p_exam, 0));
   for r in select c.session_id, c.status from public.csat_ec_capture_session c join public.csat_dx_session s on s.id = c.session_id
-            where s.user_id = p_user and c.exam_id = p_exam and c.status in ('held', 'collecting') order by c.session_id for update of c loop
+            where s.user_id = p_user and c.exam_id = p_exam and c.status in ('held', 'collecting') order by c.session_id loop
+    -- finish 와 같은 잠금 순서 ① (학습자, 시험) advisory ② 세션 행 FOR UPDATE — 증거 · 확인 쓰기(세션 FOR SHARE/UPDATE)와 직렬화
+    perform 1 from public.csat_dx_session where id = r.session_id for update;
+    if not exists (select 1 from public.csat_ec_capture_session where session_id = r.session_id and status in ('held', 'collecting')) then continue; end if;
     update public.csat_ec_capture_session
        set status = 'closed_incomplete', closed_at = now(), closed_reason = p_reason, closed_by = (select auth.uid()),
            seal = jsonb_build_object('closed', true, 'prior_status', r.status)

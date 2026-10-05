@@ -19,7 +19,7 @@
   "csat_dx_profile_hist": { "class": "LEARNER_OWN", "gate": "본인 행" },
   "csat_dx_response": { "class": "CORRECTNESS", "gate": "정책 보류 아님 + ② is_correct 회수" },
   "csat_dx_session": { "class": "CORRECTNESS", "gate": "정책 보류 아님 + ② raw_score · grade 회수" },
-  "csat_dx_snapshot": { "class": "CORRECTNESS", "gate": "정책 보류 세션 없음 + ② 전체 회수" },
+  "csat_dx_snapshot": { "class": "CORRECTNESS", "gate": "정책 보류 세션 없음 + ② 전체 회수", "revoked_by": "20261005170100" },
   "csat_ec_boundary": { "class": "PUBLIC_CONTENT", "gate": "경계 정의(공개 사전)" },
   "csat_ec_claim": { "class": "LEARNER_OWN", "gate": "본인 학생 claim · item_input_hash 컬럼 회수(DERIVED_SECRET)", "secret_columns": ["item_input_hash"] },
   "csat_ec_code": { "class": "PUBLIC_CONTENT", "gate": "원인 사전" },
