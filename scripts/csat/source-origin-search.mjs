@@ -875,12 +875,13 @@ async function main() {
       if (!semantic && persisted.some(r => r.api_disabled)) readiness = { ...readiness, credential_status: 'api_disabled', blocked_credentials: true, eligible: false, benchmark_status: 'pending_credentials' }
       const attempts = persisted, all = [...previous, ...attempts]
       const reviewsAt = process.argv.indexOf('--reviews')
-      const outcomes = reviewsAt < 0 ? [] : JSON.parse(fs.readFileSync(process.argv[reviewsAt + 1], 'utf8')).outcomes
+      const reviewBundle = reviewsAt < 0 ? {} : JSON.parse(fs.readFileSync(process.argv[reviewsAt + 1], 'utf8'))
+      const outcomes = reviewBundle.outcomes ?? []
       if (!Array.isArray(outcomes)) throw new Error('--reviews requires an outcomes array')
       const metrics = benchmarkMetrics(plan, all, outcomes, { retriever, apiKeyProject: project, readiness })
       if (publicBaseline) {
         const { incrementalMetrics } = await import('./source-origin-incremental.mjs')
-        metrics.incremental = incrementalMetrics(plan, all, outcomes, metrics, publicBaseline, { retriever, apiKeyProject: project, readiness, currentRows: JSON.parse(fs.readFileSync(fresh, 'utf8')) })
+        metrics.incremental = incrementalMetrics(plan, all, outcomes, metrics, publicBaseline, { retriever, apiKeyProject: project, readiness, currentRows: JSON.parse(fs.readFileSync(fresh, 'utf8')), identityReviews: reviewBundle.identity_reviews, registrations: reviewBundle.registrations })
         metrics.termination.all_candidates_verification_complete = metrics.termination.verification_complete
         metrics.termination.verification_scope = 'novel_public_unresolved'
         metrics.termination.verification_complete = metrics.incremental.novel_verification_complete

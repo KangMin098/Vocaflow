@@ -350,3 +350,5 @@ node --env-file=D:/workspace/Vocaflow/apps/web/.env.local scripts/csat/source-or
 ```
 
 `*.incremental-review-queue.json`만 신규 검수 대상으로 사용한다. 일반 `*.review-queue.json`은 대조군을 포함한 검색 검증용이다. 후속 원문 preview/PDF/공개 chapter에서 A/B가 나와도 discovery는 Books로 귀속하고 verification 경로를 따로 기록한다. 원문 등록은 기존 hash-bound preview→transaction→재검증을 유지하며 이번 작업에서 DB 쓰기·마이그레이션은 없다.
+
+최종 집계의 `--reviews` 파일은 `outcomes`, `registrations`, `identity_reviews`를 구분한다. outcomes는 후보별 A/B/G와 plausible_candidate를 기록하며 한 문항에 A·B 후보가 함께 있어도 모두 검수 분모에 포함한다. registrations는 선택해 실제 등록한 후보의 retriever·candidate_id·API candidate_title을 기존 source-origin-review의 before/after·item_ids·본문 SHA 검수에 더한 기록이다. 최신 DB의 서지·evidence·note·감사 필드를 after 전체와 비교한 뒤 문항 단위로 한 번만 신규 등록 성과를 계산한다. 등급만 같은 다른 출처의 등록은 거부하며, 유용한 후보가 있는데 등록 연결이 아직 없으면 실험은 미완료다. 검수 중 발견한 기존 공개 후보의 다른 판본은 기준선을 수정하지 않고 identity_reviews에 baseline_sha256·본문 SHA·candidate_id·public_candidate_id·same_as_public=true·checked_scope를 남겨 상위 후보 선택/분모에서 제외한다. 이미 알려진 후보는 top-N 자리를 차지하지 않는다.

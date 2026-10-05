@@ -23,13 +23,23 @@ test('incremental metrics exclude public controls, await novel reviews and requi
   const pending = incrementalMetrics(plan, attempts, [], metrics, baseline, options)
   assert.equal(pending.incremental_candidate_items, 1); assert.equal(pending.books_incremental_candidate_hit, 0.5)
   assert.equal(pending.books_incremental_AB, null); assert.equal(pending.decision, 'pending')
-  const outcome = { ...rows[0], retriever: options.retriever, candidate_id: 'newbook', before: 'G', after: 'B', plausible_candidate: true }
-  assert.throws(() => incrementalMetrics(plan, attempts, [outcome], metrics, baseline, { ...options, currentRows: rows }), /registered/)
-  const done = incrementalMetrics(plan, attempts, [outcome, { ...outcome, representative_item_id: 'y' }], metrics, baseline, { ...options, currentRows: [{ ...rows[0], status: 'supported_candidate' }] })
+  const outcome = { ...rows[0], retriever: options.retriever, candidate_id: 'newbook', before: 'G', after: 'A', plausible_candidate: true }
+  assert.equal(incrementalMetrics(plan, attempts, [outcome], metrics, baseline, { ...options, currentRows: [{ ...rows[0], status: 'confirmed_exact' }] }).books_incremental_AB, null)
+  const before = { status: 'unresolved', source_title: null, source_authors: [], source_publisher: null, source_year: null, source_part: null, evidence: [], note: '', audited_at: '2026-10-05', audit_ref: 'report' }
+  const after = { ...before, status: 'confirmed_exact', source_title: 'Title', source_authors: ['Author'], source_year: 2000, evidence: [{ url: 'https://publisher.test/chapter', kind: 'full_context' }] }
+  const registration = { ...rows[0], retriever: options.retriever, candidate_id: 'newbook', candidate_title: 'Title', item_ids: ['x'], before, after }
+  const current = { ...rows[0], ...after, item_ids: ['x'] }
+  const registeredOptions = { ...options, currentRows: [current], registrations: [registration] }
+  assert.throws(() => incrementalMetrics(plan, attempts, [outcome], metrics, baseline, { ...registeredOptions, currentRows: [{ ...current, source_title: 'Different Source' }] }), /bibliography/)
+  const done = incrementalMetrics(plan, attempts, [outcome, { ...outcome, representative_item_id: 'y' }], metrics, baseline, registeredOptions)
   assert.equal(done.incremental_AB_items, 1); assert.equal(done.books_candidate_precision, 1); assert.equal(done.queries_per_incremental_AB, 2)
   assert.equal(done.decision, 'next_authorized_lane')
   assert.throws(() => incrementalMetrics(plan, attempts, [{ ...outcome, before: 'B' }], metrics, baseline, options))
-  assert.throws(() => incrementalMetrics(plan, attempts, [outcome, { ...outcome, after: 'A' }], metrics, baseline, options), /Conflicting/)
+  assert.throws(() => incrementalMetrics(plan, attempts, [outcome, { ...outcome, after: 'B' }], metrics, baseline, options), /Conflicting/)
+  const alternatives = structuredClone(attempts)
+  alternatives[0].hits.push({ volume_id: 'otherbook', title: 'Other' })
+  const multiple = incrementalMetrics(plan, alternatives, [outcome, { ...outcome, candidate_id: 'otherbook', after: 'B' }], metrics, baseline, registeredOptions)
+  assert.equal(multiple.books_candidate_precision, 1); assert.equal(multiple.incremental_AB_items, 1); assert.equal(multiple.novel_verification_complete, true)
   assert.equal(incrementalMetrics(plan, attempts, [], { ...metrics, termination: { all_fixed_queries_completed: false } }, baseline, options).books_incremental_candidate_hit, null)
 })
 
@@ -45,6 +55,9 @@ test('public closure hash and known aliases suppress rediscovery without erasing
   withNovel[0].hits.push({ volume_id: 'actually-new', candidate_rank: 2 })
   const ranked = incrementalMetrics(f.plan, withNovel, [], f.metrics, aliasBaseline, { ...f.options, topN: 1 })
   assert.equal(ranked.review_queue[0].candidates[0].candidate_id, 'actually-new')
+  const identityReview = { ...f.rows[0], baseline_sha256: aliasBaseline.baseline_sha256, candidate_id: 'actually-new', public_candidate_id: 'publicbook', same_as_public: true, checked_scope: 'Same original work, different edition' }
+  assert.equal(incrementalMetrics(f.plan, withNovel, [], f.metrics, aliasBaseline, { ...f.options, identityReviews: [identityReview] }).selected_novel_candidates, 0)
+  assert.throws(() => incrementalMetrics(f.plan, withNovel, [], f.metrics, aliasBaseline, { ...f.options, identityReviews: [{ ...identityReview, baseline_sha256: 'changed' }] }))
   assert.throws(() => validatePublicBaseline(f.plan, { ...f.baseline, baseline_sha256: 'changed' }))
   const state = investigationState(f.baseline.rows[0], apiReadiness('google_books_api'))
   assert.equal(state.public_state, 'G_PUBLIC_EXHAUSTED'); assert.equal(state.api_state, 'G_API_PENDING'); assert.equal(state.public_research_allowed, false)
