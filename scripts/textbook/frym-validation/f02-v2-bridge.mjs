@@ -1,5 +1,5 @@
 // scripts/textbook/frym-validation/f02-v2-bridge.mjs
-import { bundleV2Schema, evaluateV2, METRIC_KEYS, registrationBlockersV2 } from '@vocaflow/library-pipeline/educational-validation-v2'
+import { bundleV2Schema, evaluateV2, expertOutcomeV2, METRIC_KEYS, registrationBlockersV2 } from '@vocaflow/library-pipeline/educational-validation-v2'
 import { judgeF02Pilot, sha256 } from './f02-pilot-judge.mjs'
 
 const canonical = value => JSON.stringify(value, (_, item) => item && !Array.isArray(item) && typeof item === 'object' ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item)
@@ -28,5 +28,8 @@ export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrume
     const nonBandBlockers = outcome.blockers.filter(k => !k.startsWith('target_range_failed_'))
     if (nonBandBlockers.length || (pilot.target_fit[grade] === 'PASS') !== (outcome.state === 'student_validated')) return insufficient(`v2_F02_${grade}_validation_failed`)
   }
+  const middle = bundle.records.find(r => r.source_id === freeze.source_id && r.target_key === freeze.variants.find(v => v.grade === 'middle_1').target_key)
+  const meaning = expertOutcomeV2(bundle, middle, middle.adapted_passage, now)
+  if (!meaning.ok || study.sessions.some(s => s.arm === 'middle_anchor' && (s.reading_started_at == null || Date.parse(s.reading_started_at) < meaning.completed_at))) return insufficient('anchor_started_before_meaning_review')
   return { ...pilot, v2_reconciled: true }
 }

@@ -60,3 +60,14 @@ test('a changed v2 scored answer cannot inherit the pilot target-fit result', ()
   assert.equal(result.level_separation, 'INSUFFICIENT_EVIDENCE')
   assert.deepEqual(result.reasons, ['v2_F02_middle_1_scores_changed'])
 })
+
+test('the comparison arm cannot read before the middle passage meaning review', () => {
+  const study = fixture()
+  for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
+  const anchor = study.sessions.find(s => s.arm === 'middle_anchor')
+  anchor.reading_started_at = '2026-11-01T00:00:05Z'
+  anchor.reading_finished_at = '2026-11-01T00:03:05Z'
+  const { bundle, instruments } = v2Fixture(study)
+  const result = judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now)
+  assert.deepEqual(result.reasons, ['anchor_started_before_meaning_review'])
+})
