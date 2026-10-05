@@ -11,7 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- docs(textbook): F02 중1·고1 현재 draft와 양쪽 agent pass를 해시로 고정하고 학생 pilot의 미승인 pass band·공통 학년 separation 비교안을 마련했다. 사람 평가·학생 응답·gold·DB seed는 0건이다.
+- feat(textbook): F02 중1·고1 현재 draft와 양쪽 agent pass를 해시로 고정하고 전체 draft identity 재검사를 추가했다. 미승인 학생 pass band와 별도 공통 학년 pilot 판정기·합성 회귀를 마련했다. 사람 평가·학생 응답·gold·DB seed는 0건이다.
 
 - docs(textbook): FYM F02 중1·고1 초안을 내용 분석·문항 근거·6축 난도 근거로 수정해 새 draft hash에 Claude Code·Codex 독립 검수를 묶었다. 두 초안 모두 agent review 통과, 변경/절단/권리 실패 주입 통과; 적재 예행은 교육적 검증 미완료로 0건 유지. 재현 스크립트와 결과 보고서를 추가했다.
 

@@ -2,6 +2,7 @@
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { reviewIdentity } from '../academic-reading-review.mjs'
 
 const root = resolve(import.meta.dirname, '../../..')
 const evidence = resolve(root, '.agent-logs/academic-reading-f02-r2')
@@ -16,7 +17,10 @@ const variants = packet.adaptations.map(a => {
   const folder = grade === 'middle_1' ? 'middle1' : grade === 'high_1' ? 'high1' : null
   if (!folder || !a.review_binding || a.review_binding.source_id !== packet.source_id || a.review_binding.source_hash !== packet.source_hash || a.review_binding.target_key !== a.target_key) throw Error(`Invalid F02 binding: ${grade}`)
   const draft = json(resolve(evidence, folder, 'chunk-00.out.json'))
-  if (draft.length !== 1 || draft[0].text !== a.text || draft[0].reading?.target_key !== a.target_key || draft[0].reading?.source_hash !== packet.source_hash) throw Error(`F02 draft differs from review packet: ${grade}`)
+  const exported = json(resolve(evidence, folder, 'chunk-00.json'))
+  if (draft.length !== 1 || exported.length !== 1 || draft[0].text !== a.text || draft[0].title !== a.title || draft[0].reading?.target_key !== a.target_key || draft[0].reading?.source_hash !== packet.source_hash) throw Error(`F02 draft differs from review packet: ${grade}`)
+  const actualBinding = reviewIdentity(draft[0], exported[0])
+  if (Object.entries(actualBinding).some(([key, value]) => a.review_binding[key] !== value)) throw Error(`F02 review binding is stale: ${grade}`)
   const reviews = Object.fromEntries(['claude_code', 'codex'].map(reviewer => {
     const path = resolve(evidence, folder, `chunk-00.${reviewer}.review.json`)
     const matching = json(path).filter(r => r.draft_hash === a.review_binding.draft_hash && r.target_hash === a.review_binding.target_hash && r.source_hash === packet.source_hash && r.target_key === a.target_key && r.reviewer === reviewer)

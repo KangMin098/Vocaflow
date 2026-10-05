@@ -36,7 +36,7 @@
     }
   },
   "level_separation": {
-    "design": "Separate high_1 anchor cohort, randomized between frozen middle_1 and high_1 passages; each student reads one F02 version only. Do not infer separation by comparing middle_1 and high_1 target cohorts.",
+    "design": "Randomly assign high_1 students between high_target (frozen high_1 passage) and middle_anchor (frozen middle_1 passage); each student reads one F02 version only. The high_target arm serves target fit and common-grade comparison. Do not infer separation by comparing middle_1 and high_1 target cohorts.",
     "minimum_complete_high_1_anchor_students_per_variant": 15,
     "primary": "Median reasoning_burden(high_1 passage) - median reasoning_burden(middle_1 passage) >= 0.5",
     "secondary": "At least one of lexical_burden or sentence_burden median differences (high_1 minus middle_1 passage) >= 0.5",

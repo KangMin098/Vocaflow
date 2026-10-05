@@ -56,4 +56,4 @@ pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/academic-readin
 
 # F02 학생 calibration freeze
 
-`node scripts/textbook/academic-reading-smoke/check-f02-freeze.mjs`는 ignored 로컬 F02 review packet, 두 draft, Claude Code·Codex의 각 pass 기록을 추적 파일 `scripts/textbook/frym-validation/f02-calibration-freeze.json`과 대조한다. 재실행은 읽기 전용이며 인자를 받지 않는다. 본문/target을 바꾸면 새 검수 회차와 새 버전의 freeze가 필요하다. 검수 또는 원문 파일이 없으면 실패한다. 학생 pass band 제안과 미승인 상태는 `scripts/textbook/frym-validation/f02-student-pilot.proposed.json`에 별도로 있다. 새 학생용 문항과 사람 승인 없이는 응답 수집·gold·DB seed를 시작하지 않는다.
+`pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/academic-reading-smoke/check-f02-freeze.mjs`는 ignored 로컬 F02 review packet, 두 draft의 전체 `reviewIdentity`, Claude Code·Codex의 각 pass 기록을 추적 파일 `scripts/textbook/frym-validation/f02-calibration-freeze.json`과 대조한다. 재실행은 읽기 전용이며 인자를 받지 않는다. 본문/target을 바꾸면 새 검수 회차와 새 버전의 freeze가 필요하다. 검수 또는 원문 파일이 없으면 실패한다. 학생 pass band 제안과 미승인 상태는 `scripts/textbook/frym-validation/f02-student-pilot.proposed.json`에 별도로 있다. 새 학생용 문항과 사람 승인 없이는 응답 수집·gold·DB seed를 시작하지 않는다.
