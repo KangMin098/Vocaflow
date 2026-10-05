@@ -8,6 +8,8 @@ const hash = value => /^[a-f0-9]{64}$/.test(value ?? '')
 const mean = values => values.reduce((sum, value) => sum + value, 0) / values.length
 const median = values => { const sorted = [...values].sort((a, b) => a - b); return sorted.length % 2 ? sorted[(sorted.length - 1) / 2] : (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2 }
 const metrics = ['reading_seconds', 'comprehension_accuracy', 'lexical_accuracy', 'syntax_accuracy', 'reasoning_accuracy', 'unknown_word_fraction', 'lexical_burden', 'sentence_burden', 'reasoning_burden', 'perceived_difficulty']
+const frozenBytes = readFileSync(new URL('./f02-calibration-freeze.json', import.meta.url))
+const frozenF02 = JSON.parse(frozenBytes)
 const grades = { middle_1: 'middle_1', high_1: 'high_1' }
 const arms = ['middle_target', 'high_target', 'middle_anchor']
 const variant = arm => arm.startsWith('middle') ? 'middle_1' : 'high_1'
@@ -23,7 +25,7 @@ export const pilotManifestHash = study => sha256(canonical(pilotManifest(study))
 
 export function judgeF02Pilot(study, freeze, proposed, now) {
   const insufficient = reason => ({ target_fit: { middle_1: 'INSUFFICIENT_EVIDENCE', high_1: 'INSUFFICIENT_EVIDENCE' }, level_separation: 'INSUFFICIENT_EVIDENCE', reasons: [reason], gold: false, db_seed: false })
-  if (proposed.status !== 'proposed_unsealed' || study.protocol?.status !== 'sealed' || study.protocol?.pair_id !== 'F02' || !['middle_1', 'high_1'].every(g => freeze.variants.some(v => v.grade === g))) return insufficient('protocol_or_freeze_unavailable')
+  if (proposed.status !== 'proposed_unsealed' || study.protocol?.status !== 'sealed' || study.protocol?.pair_id !== 'F02' || freeze.pair_id !== 'F02' || canonical(freeze) !== canonical(frozenF02) || study.freeze_sha256 !== sha256(frozenBytes) || !['middle_1', 'high_1'].every(g => freeze.variants.some(v => v.grade === g))) return insufficient('protocol_or_freeze_unavailable')
   if (canonical({ ...study.protocol, status: 'proposed_unsealed', human_lead_id: null, approved_at: null, registration_evidence: null, operations: null }) !== canonical(proposed)) return insufficient('protocol_changed_from_proposal')
   const approval = study.registration
   if (!approval || typeof study.protocol.human_lead_id !== 'string' || study.protocol.human_lead_id.trim().length < 2 || typeof study.protocol.registration_evidence !== 'string' || study.protocol.registration_evidence.length < 12 || typeof study.protocol.operations !== 'string' || study.protocol.operations.length < 12 || !hash(study.freeze_sha256) || !hash(approval.manifest_sha256) || !hash(study.instrument_sha256?.middle_1) || !hash(study.instrument_sha256?.high_1) || !Array.isArray(study.assignments) || !Array.isArray(study.sessions) || approval.manifest_sha256 !== pilotManifestHash(study) || approval.human_lead_id !== study.protocol.human_lead_id || ['registration_evidence', 'instrument_review_evidence', 'allocation_evidence'].some(k => typeof approval[k] !== 'string' || approval[k].length < 12)) return insufficient('registration_not_sealed_or_changed')
@@ -39,7 +41,7 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
   const used = new Set(), byArm = Object.fromEntries(arms.map(arm => [arm, []])), excluded = Object.fromEntries(arms.map(arm => [arm, 0]))
   for (const s of study.sessions) {
     const a = assignmentMap.get(s.student_id), start = Date.parse(s.reading_started_at), end = Date.parse(s.reading_finished_at)
-    if (!a || used.has(s.student_id) || s.arm !== a.arm || s.grade !== a.grade || s.passage_sha256 !== freeze.variants.find(v => v.grade === variant(a.arm))?.passage_sha256) return insufficient('session_invalid_or_unassigned')
+    if (!a || used.has(s.student_id) || s.arm !== a.arm || s.grade !== a.grade || s.passage_sha256 !== freeze.variants.find(v => v.grade === variant(a.arm))?.passage_sha256 || s.instrument_sha256 !== study.instrument_sha256[variant(a.arm)]) return insufficient('session_invalid_or_unassigned')
     used.add(s.student_id)
     if ((s.reading_started_at != null && (!Number.isFinite(start) || start < approvedAt || start > now)) || (s.reading_finished_at != null && (!Number.isFinite(end) || end < approvedAt || end > now)) || (s.reading_started_at != null && s.reading_finished_at != null && end <= start) || metrics.some(k => s[k] != null && !acceptable(s[k], k)) || (s.reading_seconds != null && s.reading_started_at != null && s.reading_finished_at != null && s.reading_seconds !== (end - start) / 1000)) return insufficient('session_invalid_or_unassigned')
     if (s.reading_started_at == null || s.reading_finished_at == null || metrics.some(k => s[k] == null)) { excluded[a.arm]++; continue }

@@ -19,7 +19,7 @@ function fixture() {
     const passage_sha256 = freeze.variants.find(v => v.grade === (arm === 'high_target' ? 'high_1' : 'middle_1')).passage_sha256
     const reading_started_at = new Date(Date.parse(approved_at) + 60_000 + sessions.length * 600_000).toISOString()
     const reading_finished_at = new Date(Date.parse(reading_started_at) + 180_000).toISOString()
-    sessions.push({ student_id, grade, arm, passage_sha256, reading_started_at, reading_finished_at, reading_seconds: 180,
+    sessions.push({ student_id, grade, arm, passage_sha256, instrument_sha256: arm === 'high_target' ? 'b'.repeat(64) : 'a'.repeat(64), reading_started_at, reading_finished_at, reading_seconds: 180,
       comprehension_accuracy: 0.8, lexical_accuracy: 0.8, syntax_accuracy: 0.8, reasoning_accuracy: 0.75,
       unknown_word_fraction: 0.1, lexical_burden: arm === 'high_target' ? 3 : 2,
       sentence_burden: 2, reasoning_burden: arm === 'high_target' ? 3 : 2, perceived_difficulty: 2 })
@@ -111,4 +111,14 @@ test('seventeen versus fifteen assigned anchor students remain evaluable', () =>
   }
   study.registration.manifest_sha256 = pilotManifestHash(study)
   assert.equal(judgeF02Pilot(study, freeze, proposed, now).level_separation, 'PASS')
+})
+test('a changed instrument or different pair freeze cannot reuse F02 observations', () => {
+  const study = fixture()
+  study.sessions[0].instrument_sha256 = 'c'.repeat(64)
+  assert.equal(judgeF02Pilot(study, freeze, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
+  const wrongPair = { ...freeze, pair_id: 'F06' }
+  assert.equal(judgeF02Pilot(fixture(), wrongPair, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
+  const changedDraft = structuredClone(freeze)
+  changedDraft.variants[0].draft_hash = 'c'.repeat(64)
+  assert.equal(judgeF02Pilot(fixture(), changedDraft, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
 })
