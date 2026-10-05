@@ -29,9 +29,9 @@ PostgreSQL 역할은 anon / authenticated / service_role 셋뿐이라 REVIEWER �
 | 우선순위 | 기준 | 수 |
 |---|---|---|
 | P0 | SECURITY DEFINER + 쓰기 + PUBLIC/anon 실행 가능 | 1 |
-| P1 | 본문 수정 필요(본인 · 관리자 검사 없음 등) | 11 |
-| P2 | 권한 차이만 | 44 |
-| — | 현재 = 목표 | 4 |
+| P1 | 본문 수정 필요(본인 · 관리자 검사 없음 등) | 16 |
+| P2 | 권한 차이만 | 40 |
+| — | 현재 = 목표 | 3 |
 
 **GRANT 만으로 닫히지 않는 것(P1)**: `p_user_id` · `p_result_id` 를 받는 SECURITY DEFINER 학습자 함수들은 본인 검사가 없어 authenticated 로 좁혀도 **로그인 사용자가 남의 데이터를 읽고 쓴다**. 권한 마이그레이션과 별도로 본문 수정 마이그레이션이 필요하다 — 특히 `auto_promote_v_level_for_user` 는 지금 anon 도 실행 가능해 비로그인 누구나 임의 사용자의 V-Level 을 올릴 수 있다.
 
@@ -40,6 +40,11 @@ PostgreSQL 역할은 anon / authenticated / service_role 셋뿐이라 REVIEWER �
 | 우선 | 함수 (OID) | 제안 등급 | 설계상 호출자 | 정의자/쓰기 | 학습자 데이터 | 부작용 | 현재 P/anon/auth/svc | 목표 | 차이 | 근거 | 본문 수정 | 확정 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | P0 | `auto_promote_v_level_for_user(p_user_id uuid)` (34146) | AUTH_SELF_RPC | 학습자 본인(WordVault 허브) | DEFINER/읽기 | 예 | 없음(읽기) | Y/Y/Y/Y | n/n/Y/Y | PUBLIC Y→n · anon Y→n | VLevelPromotionCheck.tsx 브라우저 · 내부에서 update_user_v_level 로 레벨 쓰기 | 본인 검사 없음 + 지금 anon 도 실행 가능 — 비로그인 누구나 임의 user 레벨을 올릴 수 있다. p_user_id = auth.uid() 강제 | ☐ |
+| P1 | `acp_article_rollup()` (453768) | ADMIN_RPC | 관리자 ACP 커버리지 화면 | DEFINER/읽기 | 아니오 | 없음(읽기) | n/Y/Y/Y | n/n/Y/Y | anon Y→n | admin-queries.ts(requireAdmin 뒤 · 사용자 세션 client 경로 있음). 발행분 집계 수치만 | 본문 is_admin 검사 없음 — 로그인 사용자 누구나 직접 RPC 로 부른다. 검사 추가 또는 SERVICE_ONLY 로 내림 | ☐ |
+| P1 | `content_gate_publishable(p_scope text, p_id uuid)` (76070) | ADMIN_RPC | 발행 경로(관리자 세션 또는 서비스) | DEFINER/읽기 | 아니오 | 없음(읽기) | n/n/Y/Y | n/n/Y/Y | 없음 | publish_*_word_set(invoker) 하위 · 상위는 발행 트리거가 DML 주체 권한으로 부른다 — 관리자 세션 발행이 있으면 authenticated 필요 | 본문 is_admin 검사 없음 — 로그인 사용자 누구나 직접 RPC 로 부른다. 검사 추가 또는 SERVICE_ONLY 로 내림 | ☐ |
+| P1 | `publish_article_word_set(p_article_id uuid, p_cap integer)` (48387) | ADMIN_RPC | 발행 트리거(DML 주체) | invoker/쓰기 | 아니오 | 쓰기: v_art, library_articles, v_set_id, shared_word_sets | Y/Y/Y/Y | n/n/Y/Y | PUBLIC Y→n · anon Y→n | trg_publish_article_word_set(invoker 트리거) 하위 — 관리자 세션 발행이면 authenticated 필요. invoker 라 RLS 가 쓰기를 거른다 | 본문 is_admin 검사 없음 — 로그인 사용자 누구나 직접 RPC 로 부른다. 검사 추가 또는 SERVICE_ONLY 로 내림 | ☐ |
+| P1 | `publish_book_word_sets(p_book_id uuid, p_cap integer)` (48386) | ADMIN_RPC | 발행 트리거 | invoker/쓰기 | 아니오 | 쓰기: v_book, library_books, select_book_chapter_vocab, _sel | Y/Y/Y/Y | n/n/Y/Y | PUBLIC Y→n · anon Y→n | 같음 | 본문 is_admin 검사 없음 — 로그인 사용자 누구나 직접 RPC 로 부른다. 검사 추가 또는 SERVICE_ONLY 로 내림 | ☐ |
+| P1 | `select_book_chapter_vocab(p_book_id uuid)` (44464) | ADMIN_RPC | 발행 경로 · 스크립트 | invoker/읽기 | 아니오 | 없음(읽기) | Y/Y/Y/Y | n/n/Y/Y | PUBLIC Y→n · anon Y→n | publish_book_word_sets(invoker) 하위 · scripts service · 사전 읽기만 | 본문 is_admin 검사 없음 — 로그인 사용자 누구나 직접 RPC 로 부른다. 검사 추가 또는 SERVICE_ONLY 로 내림 | ☐ |
 | P1 | `analyze_and_apply_comprehensive_diagnostic_result(p_result_id uuid)` (34159) | AUTH_SELF_RPC | 진단을 마친 본인(/diagnostic 로그인 화면 브라우저) | DEFINER/쓰기 | 예 | 쓰기: v_user_id, user_diagnostic_results, resp, vrl_diagnostic_questions | n/n/Y/Y | n/n/Y/Y | 없음 | DiagnosticClient.tsx 브라우저 호출 | 본인 검사 없음 — 아무 로그인 사용자가 타인 p_result_id 로 남의 user_profiles 레벨을 덮을 수 있다. auth.uid() = 결과 소유자 검사 추가 | ☐ |
 | P1 | `analyze_and_apply_diagnostic_result(p_result_id uuid)` (34110) | AUTH_SELF_RPC | 진단 본인 | DEFINER/쓰기 | 예 | 쓰기: v_est_level, analyze_diagnostic_result, user_diagnostic_results, v_snap_id | n/n/Y/Y | n/n/Y/Y | 없음 | DiagnosticClient.tsx | 같음 — 소유자 검사 추가 | ☐ |
 | P1 | `analyze_and_apply_track_diagnostic_result(p_result_id uuid)` (34148) | AUTH_SELF_RPC | 진단 본인 | DEFINER/쓰기 | 예 | 쓰기: v_est_level, analyze_track_diagnostic_result, v_user_id, user_diagnostic_results | n/n/Y/Y | n/n/Y/Y | 없음 | DiagnosticClient.tsx | 같음 — 소유자 검사 추가 | ☐ |
@@ -51,11 +56,7 @@ PostgreSQL 역할은 anon / authenticated / service_role 셋뿐이라 REVIEWER �
 | P1 | `select_book_comic_all(p_book_id uuid)` (116061) | PUBLIC_RPC | 비로그인 /comics 상세 | DEFINER/읽기 | 아니오 | 없음(읽기) | n/Y/Y/Y | n/Y/Y/Y | 없음 | comic/catalog.ts ← /comics/adapted/[bookId](공개) — 발행분 전 컷. 미리보기 5컷 하드캡과 충돌: 공개 화면이 전체를 받는지 확인 필요 | 공개 경로에서 전 컷 노출이 의도인지 확인 | ☐ |
 | P1 | `csat_ec_submit_adjudication(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text)` (684125) | REVIEWER_RPC | 배정된 검수자 | DEFINER/읽기 | 아니오 | 없음(읽기) | n/n/Y/n | n/n/Y/Y | service_role n→Y | 8인자 구판 — 본문이 11인자판을 위임 호출(검수자 배정 검사는 11인자판) · 스모크 검수자 JWT | 구판 overload 유지 필요 여부 확인 — 쓰는 곳이 smoke.mjs 뿐이면 제거 후보 | ☐ |
 | P1 | `csat_ec_submit_blind(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text)` (684119) | REVIEWER_RPC | 배정된 검수자 | DEFINER/읽기 | 아니오 | 없음(읽기) | n/n/Y/n | n/n/Y/Y | service_role n→Y | 8인자 구판 — 위와 같음 | 같음 | ☐ |
-| P2 | `acp_article_rollup()` (453768) | ADMIN_RPC | 관리자 ACP 커버리지 화면 | DEFINER/읽기 | 아니오 | 없음(읽기) | n/Y/Y/Y | n/n/Y/Y | anon Y→n | admin-queries.ts(requireAdmin 뒤 · 사용자 세션 client 경로 있음). 발행분 집계 수치만 | — | ☐ |
 | P2 | `csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb, p_evidence_profile text)` (688722) | ADMIN_RPC | 관리자(검수 회차 생성) | DEFINER/쓰기 | 아니오 | 쓰기: csat_ec_review_round | n/n/Y/n | n/n/Y/Y | service_role n→Y | 5인자판은 4인자판(is_admin 검사)을 부른다 · 스모크는 관리자 JWT | — | ☐ |
-| P2 | `publish_article_word_set(p_article_id uuid, p_cap integer)` (48387) | ADMIN_RPC | 발행 트리거(DML 주체) | invoker/쓰기 | 아니오 | 쓰기: v_art, library_articles, v_set_id, shared_word_sets | Y/Y/Y/Y | n/n/Y/Y | PUBLIC Y→n · anon Y→n | trg_publish_article_word_set(invoker 트리거) 하위 — 관리자 세션 발행이면 authenticated 필요. invoker 라 RLS 가 쓰기를 거른다 | — | ☐ |
-| P2 | `publish_book_word_sets(p_book_id uuid, p_cap integer)` (48386) | ADMIN_RPC | 발행 트리거 | invoker/쓰기 | 아니오 | 쓰기: v_book, library_books, select_book_chapter_vocab, _sel | Y/Y/Y/Y | n/n/Y/Y | PUBLIC Y→n · anon Y→n | 같음 | — | ☐ |
-| P2 | `select_book_chapter_vocab(p_book_id uuid)` (44464) | ADMIN_RPC | 발행 경로 · 스크립트 | invoker/읽기 | 아니오 | 없음(읽기) | Y/Y/Y/Y | n/n/Y/Y | PUBLIC Y→n · anon Y→n | publish_book_word_sets(invoker) 하위 · scripts service · 사전 읽기만 | — | ☐ |
 | P2 | `get_comic_format(p_book_id uuid)` (116285) | AUTH_SELF_RPC | 로그인 학습자(/text/[id]/comic) | DEFINER/읽기 | 아니오 | 없음(읽기) | n/Y/Y/Y | n/n/Y/Y | anon Y→n | /text 는 로그인 필수 · 발행 만화 메타만 — 학습자 데이터 아님(AUTH 열람용) | — | ☐ |
 | P2 | `select_book_comic(p_book_id uuid, p_chapter_idx integer)` (116034) | AUTH_SELF_RPC | 로그인 학습자(/text/[id]/comic) | DEFINER/읽기 | 아니오 | 없음(읽기) | n/Y/Y/Y | n/n/Y/Y | anon Y→n | /text 로그인 필수 | — | ☐ |
 | P2 | `textfit_resolve_levels(p_words text[])` (179419) | AUTH_SELF_RPC | 로그인 학습자(추출 패널) | invoker/읽기 | 아니오 | 없음(읽기) | Y/Y/Y/Y | n/n/Y/Y | PUBLIC Y→n · anon Y→n | textfit/queries ← ExtractionPanel(/text 로그인) · 사전 읽기만 — PUBLIC 으로 둬도 데이터 위험 없음 | — | ☐ |
@@ -95,7 +96,6 @@ PostgreSQL 역할은 anon / authenticated / service_role 셋뿐이라 REVIEWER �
 | P2 | `release_topic_corpus_claim(p_id uuid, p_status text, p_error text)` (149289) | SERVICE_ONLY | 관리자 API 뒤 서비스 client | DEFINER/쓰기 | 아니오 | 쓰기: topic_corpus_queue | n/n/Y/Y | n/n/n/Y | authenticated Y→n | topic-corpus/drain → createAdminClient | — | ☐ |
 | P2 | `store_content_chunk(p_content text)` (28795) | SERVICE_ONLY | 서비스(본문 저장) | DEFINER/쓰기 | 아니오 | 쓰기: content_chunks | n/n/Y/Y | n/n/n/Y | authenticated Y→n | 함수 주석이 「service_role 전용」 · 앱 importer 없음 | — | ☐ |
 | P2 | `textbook_shelf_refreshed_at()` (323868) | SERVICE_ONLY | 서버(서비스) | DEFINER/읽기 | 아니오 | 없음(읽기) | Y/Y/Y/Y | n/n/n/Y | PUBLIC Y→n · anon Y→n · authenticated Y→n | csat/item-count ← textbook/freedom-load(service) 뿐 — 시각 하나라 노출 위험은 낮다 | — | ☐ |
-| — | `content_gate_publishable(p_scope text, p_id uuid)` (76070) | ADMIN_RPC | 발행 경로(관리자 세션 또는 서비스) | DEFINER/읽기 | 아니오 | 없음(읽기) | n/n/Y/Y | n/n/Y/Y | 없음 | publish_*_word_set(invoker) 하위 · 상위는 발행 트리거가 DML 주체 권한으로 부른다 — 관리자 세션 발행이 있으면 authenticated 필요 | — | ☐ |
 | — | `list_book_comic_catalog()` (116035) | PUBLIC_RPC | 비로그인 /comics 카탈로그 | DEFINER/읽기 | 아니오 | 없음(읽기) | n/Y/Y/Y | n/Y/Y/Y | 없음 | comic/catalog.ts ← /comics/adapted(공개) | — | ☐ |
 | — | `list_comic_catalog()` (116207) | PUBLIC_RPC | 비로그인 /comics | DEFINER/읽기 | 아니오 | 없음(읽기) | n/Y/Y/Y | n/Y/Y/Y | 없음 | comic/catalog.ts | — | ☐ |
 | — | `preview_book_comic(p_book_id uuid, p_limit integer)` (116208) | PUBLIC_RPC | 비로그인 /comics 미리보기 | DEFINER/읽기 | 아니오 | 없음(읽기) | n/Y/Y/Y | n/Y/Y/Y | 없음 | 서버 하드캡 5컷 · 발행 게이트 | — | ☐ |

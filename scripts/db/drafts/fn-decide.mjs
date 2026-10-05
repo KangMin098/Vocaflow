@@ -78,12 +78,15 @@ const target = {
 const INDIRECT_WRITE = new Set(['auto_promote_v_level_for_user'])   // update_user_v_level 호출 · auth.uid 없음 · anon 실행(2026-10-06 실측)
 const rows = facts.map(f => {
   const d = D[f.name]; if (!d) throw new Error('미판정: ' + f.name)
-  const [cls, caller, why, fix] = d
+  const [cls, caller, why, fix0] = d
+  let fix = fix0
   const cur = Object.fromEntries(f.priv.split(' ').map(x => x.split('=')))
   const cmap = { PUBLIC: cur.PUBLIC, anon: cur.anon, authenticated: cur.auth, service_role: cur.svc }
   const t = target[cls]
   const diff = Object.keys(t).filter(k => (t[k].startsWith('Y') ? 'Y' : 'n') !== cmap[k]).map(k => `${k} ${cmap[k]}→${t[k][0]}`)
   const bodyCheckMissing = (cls === ADM || cls === REV) && !/is_admin|검수자|위임|4인자판/.test(why) && !f.head.match(/is_admin|auth\.uid/)
+  // ADMIN/REVIEWER 는 GRANT 로 authenticated 와 같다 — 본문 검사가 없으면 앱의 requireAdmin 은 직접 RPC 호출을 막지 못한다
+  if (bodyCheckMissing && !fix) fix = `본문 ${cls === ADM ? 'is_admin' : '검수자 배정'} 검사 없음 — 로그인 사용자 누구나 직접 RPC 로 부른다. 검사 추가 또는 SERVICE_ONLY 로 내림`
   return { name: f.name, sig: `${f.name}(${f.args})`, oid: f.oid, cls, caller, why, fix: fix || '', secdef: f.secdef, writes: f.writes, user_data: f.user_data,
     side_effect: f.writes ? `쓰기: ${f.tables.slice(0, 4).join(', ')}` : '없음(읽기)', current: cmap, target: t, diff, priority: (f.secdef && (f.writes || INDIRECT_WRITE.has(f.name)) && (cmap.PUBLIC === 'Y' || cmap.anon === 'Y')) ? 'P0' : (fix ? 'P1' : (diff.length ? 'P2' : '—')), comment: f.comment }
 })
