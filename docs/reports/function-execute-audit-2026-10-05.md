@@ -75,9 +75,10 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 
 - `scripts/db/drafts/function-execute-revoke.draft.sql` — 한 트랜잭션:
   1. 서비스 전용 · 트리거 109개: `revoke execute ... from public, anon, authenticated` + `grant ... to service_role`. 정책 · 뷰 · 기본값이 부르는 함수는 이 묶음에서 빠진다. 트리거 함수의 EXECUTE 는 CREATE TRIGGER 때만 검사되므로 발화에는 영향이 없다. cron · definer 내부 호출은 소유자로 돈다.
-  2. 학습자 · 관리자 105개(본문이 `auth.uid()`/`is_admin` 을 요구하거나 정책/뷰 의존): `from public, anon` 만 회수 + `authenticated, service_role` 명시 GRANT.
+  2. 학습자 · 관리자 100개(본문이 `auth.uid()`/`is_admin` 을 요구하거나 정책/뷰 의존): `from public, anon` 만 회수 + `authenticated, service_role` 명시 GRANT.
+  - **anon 이 평가하는 RLS 정책(roles=public/anon)이 부르는 함수 5개는 손대지 않는다** — `is_admin` · `is_admin_or_curator` · `is_class_member` · `is_class_teacher` · `video_is_admin`. 예: `library_books` 공개 SELECT 정책이 `is_admin_or_curator()` 를 같이 평가하므로 anon EXECUTE 를 빼면 비로그인 도서 조회가 42501 로 깨진다(Codex 리뷰 반영). 회수하려면 그 관리자 정책을 `to authenticated` 로 먼저 좁혀야 한다 — 별도 결정.
   3. `alter default privileges in schema public revoke execute on functions from authenticated` — 신규 함수가 다시 열리는 경로를 닫는다. 이후 학습자 RPC 는 GRANT 를 명시해야 한다.
-- 214 시그니처 모두 `to_regprocedure` 로 실재 확인.
+- 209 시그니처 모두 `to_regprocedure` 로 실재 확인.
 - 정확 복원: `function-execute-revoke.rollback.sql`(지금의 PUBLIC/anon/authenticated 직접 GRANT 를 그대로 되살림 + 기본 ACL 복원).
 - **초안에서 뺀 60개(review)** — 사람이 확정해야 한다: 45개는 학습자 경로에서 부르는데 본문 검사가 없어 비로그인 공개 화면(카탈로그 · 만화 서가 등)이 anon 으로 부르는지 라우트별 확인 필요, 15개는 서비스 전용이지만 SECURITY INVOKER 함수가 부른다(그 invoker 함수의 호출자 권한을 따라가야 한다). 아래 표.
 - 적용 전 필수: 앱 e2e 스모크(비로그인 공개 화면 · 학습자 · 관리자) — 회수가 정상 화면을 조용히 막는 방향의 실패(42501)를 잡는다.

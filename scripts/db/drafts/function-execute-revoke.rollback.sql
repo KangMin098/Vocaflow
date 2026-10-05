@@ -562,18 +562,6 @@ grant execute on function public.get_judgment_sample(text, uuid, integer) to aut
 -- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.grade_dcp_item(uuid, jsonb) from public, anon, authenticated, service_role;
 grant execute on function public.grade_dcp_item(uuid, jsonb) to public, anon, authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.is_admin() from public, anon, authenticated, service_role;
-grant execute on function public.is_admin() to anon, authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.is_admin_or_curator() from public, anon, authenticated, service_role;
-grant execute on function public.is_admin_or_curator() to anon, authenticated, service_role;
--- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.is_class_member(uuid, uuid) from public, anon, authenticated, service_role;
-grant execute on function public.is_class_member(uuid, uuid) to public, anon, authenticated, service_role;
--- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.is_class_teacher(uuid, uuid) from public, anon, authenticated, service_role;
-grant execute on function public.is_class_teacher(uuid, uuid) to public, anon, authenticated, service_role;
 -- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.join_class_by_code(text) from public, anon, authenticated, service_role;
 grant execute on function public.join_class_by_code(text) to public, anon, authenticated, service_role;
@@ -625,9 +613,6 @@ grant execute on function public.unenroll_library_book(uuid) to anon, authentica
 -- 원래 acl: {=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.update_pending_word_status(uuid, text, text) from public, anon, authenticated, service_role;
 grant execute on function public.update_pending_word_status(uuid, text, text) to public, anon, authenticated, service_role;
--- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
-revoke execute on function public.video_is_admin() from public, anon, authenticated, service_role;
-grant execute on function public.video_is_admin() to authenticated, service_role;
 -- 원래 acl: {postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
 revoke execute on function public.video_request_cancel(uuid) from public, anon, authenticated, service_role;
 grant execute on function public.video_request_cancel(uuid) to authenticated, service_role;

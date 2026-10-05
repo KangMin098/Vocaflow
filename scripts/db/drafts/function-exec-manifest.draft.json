@@ -744,19 +744,19 @@
   },
   "is_admin()": {
    "class": "authenticated_only",
-   "action": "revoke_public_anon"
+   "action": "keep(anon 정책 의존)"
   },
   "is_admin_or_curator()": {
    "class": "authenticated_only",
-   "action": "revoke_public_anon"
+   "action": "keep(anon 정책 의존)"
   },
   "is_class_member(p_class_id uuid, p_uid uuid)": {
    "class": "service_only",
-   "action": "revoke_public_anon(정책/뷰 의존)"
+   "action": "keep(anon 정책 의존)"
   },
   "is_class_teacher(p_class_id uuid, p_uid uuid)": {
    "class": "service_only",
-   "action": "revoke_public_anon(정책/뷰 의존)"
+   "action": "keep(anon 정책 의존)"
   },
   "is_quoted_foreign_citation(p_sentence text, p_word text)": {
    "class": "service_only",
@@ -1116,7 +1116,7 @@
   },
   "video_is_admin()": {
    "class": "authenticated_only",
-   "action": "revoke_public_anon"
+   "action": "keep(anon 정책 의존)"
   },
   "video_job_restart(p_video_id text, p_kind text)": {
    "class": "service_only",

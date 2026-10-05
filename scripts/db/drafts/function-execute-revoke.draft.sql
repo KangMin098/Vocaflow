@@ -225,7 +225,7 @@ grant execute on function public.video_retire_mark_purged(text) to service_role;
 revoke execute on function public.video_retire_rerendered(text) from public, anon, authenticated;
 grant execute on function public.video_retire_rerendered(text) to service_role;
 
--- ② 로그인 학습자 · 관리자 함수 105개 — PUBLIC · anon 만 회수(본문이 auth.uid()/is_admin 을 요구하거나 정책 · 뷰가 쓴다)
+-- ② 로그인 학습자 · 관리자 함수 100개 — PUBLIC · anon 만 회수(본문이 auth.uid()/is_admin 을 요구하거나 정책 · 뷰가 쓴다)
 revoke execute on function public.admin_archive_article(uuid) from public, anon;
 grant execute on function public.admin_archive_article(uuid) to authenticated, service_role;
 revoke execute on function public.admin_archive_book(uuid) from public, anon;
@@ -382,14 +382,6 @@ revoke execute on function public.get_judgment_sample(text, uuid, integer) from 
 grant execute on function public.get_judgment_sample(text, uuid, integer) to authenticated, service_role;
 revoke execute on function public.grade_dcp_item(uuid, jsonb) from public, anon;
 grant execute on function public.grade_dcp_item(uuid, jsonb) to authenticated, service_role;
-revoke execute on function public.is_admin() from public, anon;
-grant execute on function public.is_admin() to authenticated, service_role;
-revoke execute on function public.is_admin_or_curator() from public, anon;
-grant execute on function public.is_admin_or_curator() to authenticated, service_role;
-revoke execute on function public.is_class_member(uuid, uuid) from public, anon;
-grant execute on function public.is_class_member(uuid, uuid) to authenticated, service_role;
-revoke execute on function public.is_class_teacher(uuid, uuid) from public, anon;
-grant execute on function public.is_class_teacher(uuid, uuid) to authenticated, service_role;
 revoke execute on function public.join_class_by_code(text) from public, anon;
 grant execute on function public.join_class_by_code(text) to authenticated, service_role;
 revoke execute on function public.library_seed_dedup_key(text, text) from public, anon;
@@ -424,8 +416,6 @@ revoke execute on function public.unenroll_library_book(uuid) from public, anon;
 grant execute on function public.unenroll_library_book(uuid) to authenticated, service_role;
 revoke execute on function public.update_pending_word_status(uuid, text, text) from public, anon;
 grant execute on function public.update_pending_word_status(uuid, text, text) to authenticated, service_role;
-revoke execute on function public.video_is_admin() from public, anon;
-grant execute on function public.video_is_admin() to authenticated, service_role;
 revoke execute on function public.video_request_cancel(uuid) from public, anon;
 grant execute on function public.video_request_cancel(uuid) to authenticated, service_role;
 revoke execute on function public.video_request_create(text, text, text, text, text, text[], text, text) from public, anon;
