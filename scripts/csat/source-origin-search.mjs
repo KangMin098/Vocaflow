@@ -670,7 +670,7 @@ export function classifySearchResponse(provider, status, body) {
   return { state: (items?.length ?? 0) ? 'candidates' : 'no_results', hits: items ?? [], reported_total: reported ?? items.length }
 }
 
-export async function runProvenanceSearch(queue, { fetchImpl = fetch, now, keys = {}, retryOptions = {}, onAttempt = () => {}, circuit = new Map(), licensePolicy = {} } = {}) {
+export async function runProvenanceSearch(queue, { fetchImpl = fetch, now, keys = {}, retryOptions = {}, onAttempt = () => {}, circuit = new Map(), licensePolicy = {}, previous = [] } = {}) {
   if (typeof now !== 'function') throw new Error('Inject a clock')
   const attempts = []
   for (const row of queue) for (const request of row.requests) {
@@ -678,6 +678,11 @@ export async function runProvenanceSearch(queue, { fetchImpl = fetch, now, keys 
     if (request.provider === 'semantic_scholar' && !apiReadiness('semantic_snippet', { ...licensePolicy, credentialPresent: Boolean(keys.semantic_scholar) }).eligible) {
       const readiness = apiReadiness('semantic_snippet', { ...licensePolicy, credentialPresent: Boolean(keys.semantic_scholar) })
       const skipped = { ...base, ...readiness, state: readiness.blocked_license ? 'not_attempted_license' : 'not_attempted_credentials', hits: null }
+      attempts.push(skipped); onAttempt(skipped); continue
+    }
+    const prior = previous.filter(r => r.provider === request.provider && r.started_at != null).at(-1)
+    if (prior?.retry_not_before_ms > (retryOptions.nowMs ?? Date.now)()) {
+      const skipped = { ...base, state: 'not_attempted_provider_blocked', blocked_by: 'retry_after_wait', retry_not_before_ms: prior.retry_not_before_ms, hits: null }
       attempts.push(skipped); onAttempt(skipped); continue
     }
     if (circuit.has(request.provider)) { const skipped = { ...base, state: 'not_attempted_provider_blocked', blocked_by: circuit.get(request.provider) }; attempts.push(skipped); onAttempt(skipped); continue }
@@ -828,7 +833,7 @@ async function main() {
   const circuit = new Map(), counts = {}
   const keys = { semantic_scholar: process.env.SEMANTIC_SCHOLAR_API_KEY, google_books: process.env.GOOGLE_BOOKS_API_KEY }
   for (let i = 0; i < pending.length; i++) {
-    await runProvenanceSearch([pending[i]], { now: () => new Date().toISOString(), keys, licensePolicy, circuit, onAttempt: row => {
+    await runProvenanceSearch([pending[i]], { now: () => new Date().toISOString(), keys, licensePolicy, circuit, previous, onAttempt: row => {
       fs.appendFileSync(output, JSON.stringify(row) + '\n'); counts[row.state] = (counts[row.state] ?? 0) + 1
     } })
     if ((i + 1) % 30 === 0) console.log(JSON.stringify({ processed: i + 1, counts }))

@@ -257,4 +257,4 @@ smoke는 기존 첫 질의 1개로 자격·JSON schema를 확인하며 **후보�
 
 두 신규 B는 **public_fulltext 성과**다. API 신규 A/B에 귀속하지 않았다. 현재 DB 실측은 **A 98 · B 27 · C 1 · G 587 = 713**, 등록 **125/713**, 고정 cohort 미확인 **46/50**다. 나머지 46개는 계속 미확인이며, 이번 탐색에서 원작 근거가 없었다는 기록을 보존했다.
 
-적용 전 preview ready 2, 적용 후 동일 preview already_applied 2를 확인했다. registry 전 상태·각 연결 지문 본문 SHA를 묶은 트랜잭션으로 2행만 변경했다. DB checkpoint `csat-public-fulltext-20261005` 전후 비교에서 고정 지표 소실은 없었다(회전 bloat 표본 교체·용량 0.1MB·기존 cron 지연 0.01시간만 변화). 원문 본문·정답·마이그레이션 변경 없음. DB 통계 생성기도 재실행했다. 회귀 **41/41**, 에이전트 설정 검사 **10/10**. 상세 질의·48개별 상태·등록 전후·API 준비 상태는 manifest `credential_license_followup`에 남겼다.
+적용 전 preview ready 2, 적용 후 동일 preview already_applied 2를 확인했다. registry 전 상태·각 연결 지문 본문 SHA를 묶은 트랜잭션으로 2행만 변경했다. DB checkpoint `csat-public-fulltext-20261005` 전후 비교에서 고정 지표 소실은 없었다(회전 bloat 표본 교체·용량 0.1MB·기존 cron 지연 0.01시간만 변화). 원문 본문·정답·마이그레이션 변경 없음. DB 통계 생성기도 재실행했다. 회귀 **42/42**, 에이전트 설정 검사 **10/10**. 상세 질의·48개별 상태·등록 전후·API 준비 상태는 manifest `credential_license_followup`에 남겼다.

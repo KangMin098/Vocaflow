@@ -94,6 +94,20 @@ test('Semantic license changes invalidate successful cache and completion while 
   assert.ok(deferred.every(r => r.state === 'not_attempted_provider_blocked'))
 })
 
+test('general provenance CLI resumes provider Retry-After across separate runs', async () => {
+  const row = tinyBenchmark().cohort[0], request = { provider: 'semantic_scholar', query: 'fixed original query' }
+  const options = { now: () => 'fixed', keys: { semantic_scholar: 'dummy' }, licensePolicy: { usage: 'internal_research', licenseStatus: 'research_allowed' },
+    retryOptions: { nowMs: () => 1000, limiter: operation => operation(), maxAttempts: 1 } }
+  const previous = [{ ...row, ...request, started_at: 'fixed', retry_not_before_ms: 120000 }]
+  const deferred = await runProvenanceSearch([{ ...row, requests: [request] }], { ...options, previous, fetchImpl: () => { throw Error('must honor cooldown') } })
+  assert.equal(deferred[0].state, 'not_attempted_provider_blocked')
+  assert.equal(deferred[0].retry_not_before_ms, 120000)
+  let calls = 0
+  await runProvenanceSearch([{ ...row, requests: [request] }], { ...options, previous, retryOptions: { ...options.retryOptions, nowMs: () => 120000 },
+    fetchImpl: async () => { calls++; return { status: 200, json: async () => ({ data: [] }) } } })
+  assert.equal(calls, 1)
+})
+
 test('smoke and five-query canary use only frozen queries and cannot be skipped when eligible', () => {
   const plan = tinyBenchmark(), ready = apiReadiness('google_books_api', { credentialPresent: true, projectPresent: true })
   assert.equal(benchmarkStage(plan, 'smoke', [], ready, 'google_books_api', 'vocaflow-books').cohort[0].requests.length, 1)
