@@ -7,8 +7,17 @@ import { readFileSync } from 'node:fs'
 import { SEMANTIC_CRITERIA } from '@vocaflow/library-pipeline/educational-validation'
 import { bundleV2Schema, deliveryPacketV2, digestV2, manifestIdentityV2, refreshV2Hashes } from '@vocaflow/library-pipeline/educational-validation-v2'
 import { researchBodyHash } from '@vocaflow/library-pipeline/research-origin'
+import { pilotManifestHash } from './f02-pilot-judge.mjs'
 
 const approved = '2026-11-01T00:00:00Z'
+function reseal(bundle) {
+  refreshV2Hashes(bundle)
+  bundle.protocol_approval.manifest_hash = digestV2(manifestIdentityV2(bundle))
+  for (const r of bundle.records) {
+    for (const review of r.expert_reviews) review.packet_hash = deliveryPacketV2(bundle, r, 'expert').packet_hash
+    for (const session of r.student_sessions) session.packet_hash = deliveryPacketV2(bundle, r, 'student').packet_hash
+  }
+}
 function v2Fixture(study) {
   const packet = JSON.parse(readFileSync('.agent-logs/academic-reading-f02-r2/F02-review-packet.json'))
   const experts = ['expert-one', 'expert-two', 'expert-third'].map(id => ({ id, kind: 'human_domain_expert', independent_of_author: true, credential_verified_by: 'lead-synthetic', qualification_evidence: 'Synthetic expert qualification for testing only.', screened_at: '2026-10-31T00:00:00Z', screened_by: 'lead-synthetic', prior_exposure: [], blind_eligible: true, screening_evidence: 'Synthetic blind screening for testing only.' }))
@@ -70,4 +79,30 @@ test('the comparison arm cannot read before the middle passage meaning review', 
   const { bundle, instruments } = v2Fixture(study)
   const result = judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now)
   assert.deepEqual(result.reasons, ['anchor_started_before_meaning_review'])
+})
+
+test('a wrong pair or source revision in v2 cannot reuse the F02 freeze', () => {
+  const study = fixture()
+  for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
+  const { bundle, instruments } = v2Fixture(study)
+  bundle.records[0].pair_id = 'F06'
+  reseal(bundle)
+  assert.deepEqual(judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now).reasons, ['v2_F02_middle_1_identity_or_sessions_changed'])
+  bundle.records[0].pair_id = 'F02'
+  bundle.records[0].source_revision = 'changed-revision'
+  reseal(bundle)
+  assert.deepEqual(judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now).reasons, ['v2_F02_middle_1_identity_or_sessions_changed'])
+})
+
+test('an extra incomplete anchor observation is excluded without erasing a complete comparison', () => {
+  const study = fixture()
+  for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
+  const extra = { ...study.assignments.find(a => a.arm === 'middle_anchor'), student_id: 'middle_anchor-incomplete' }
+  study.assignments.push(extra)
+  study.sessions.push({ ...study.sessions.find(s => s.arm === 'middle_anchor'), student_id: extra.student_id, reading_started_at: null, reading_finished_at: null, reading_seconds: null })
+  study.registration.manifest_sha256 = pilotManifestHash(study)
+  const { bundle, instruments } = v2Fixture(study)
+  const result = judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now)
+  assert.equal(result.v2_reconciled, true, JSON.stringify(result))
+  assert.equal(result.excluded.middle_anchor, 1)
 })

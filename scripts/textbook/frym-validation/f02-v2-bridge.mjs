@@ -19,7 +19,7 @@ export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrume
     if (records.length !== 1) return insufficient(`v2_F02_${grade}_record_missing`)
     const r = records[0], arm = grade === 'middle_1' ? 'middle_target' : 'high_target', sessions = study.sessions.filter(s => s.arm === arm)
     const currentIds = sessions.map(s => s.student_id).sort(), v2Ids = r.student_sessions.map(s => s.student_id).sort()
-    if (r.source_hash !== freeze.source_hash || sha256(r.adapted_passage) !== frozen.passage_sha256 || canonical(currentIds) !== canonical(v2Ids) || canonical(r.instrument) !== canonical(instrumentFiles[grade])) return insufficient(`v2_F02_${grade}_identity_or_sessions_changed`)
+    if (r.pair_id !== freeze.pair_id || r.source_revision !== freeze.source_revision || r.source_hash !== freeze.source_hash || sha256(r.adapted_passage) !== frozen.passage_sha256 || canonical(currentIds) !== canonical(v2Ids) || canonical(r.instrument) !== canonical(instrumentFiles[grade])) return insufficient(`v2_F02_${grade}_identity_or_sessions_changed`)
     const range = bundle.protocol.ranges.find(x => x.grade === grade)
     if (!range || METRIC_KEYS.some(k => canonical(range[k]) !== canonical(proposed.target_fit[grade][k]))) return insufficient(`v2_F02_${grade}_band_changed`)
     const outcome = evaluateV2(bundle, r, r.adapted_passage, now, passages)
@@ -30,6 +30,6 @@ export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrume
   }
   const middle = bundle.records.find(r => r.source_id === freeze.source_id && r.target_key === freeze.variants.find(v => v.grade === 'middle_1').target_key)
   const meaning = expertOutcomeV2(bundle, middle, middle.adapted_passage, now)
-  if (!meaning.ok || study.sessions.some(s => s.arm === 'middle_anchor' && (s.reading_started_at == null || Date.parse(s.reading_started_at) < meaning.completed_at))) return insufficient('anchor_started_before_meaning_review')
+  if (!meaning.ok || study.sessions.some(s => s.arm === 'middle_anchor' && s.reading_started_at != null && Date.parse(s.reading_started_at) < meaning.completed_at)) return insufficient('anchor_started_before_meaning_review')
   return { ...pilot, v2_reconciled: true }
 }
