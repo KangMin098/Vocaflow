@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "description": "Human-led four-point semantic calibration and separately measured student difficulty. All bands remain unset pending prior human registration.",
+  "study_purpose": "calibration",
+  "scale_points": 4,
+  "student_instructions_revision": 2,
+  "score_anchors": ["Major meaning change or a serious unsupported claim.", "Important omission or ambiguity prevents confidence in preservation.", "Meaning preserved with only minor expression problems.", "Meaning clearly and accurately preserved in this criterion."],
+  "minimum_item_score": 3,
+  "minimum_experts": 2,
+  "minimum_students_per_variant": 15,
+  "minimum_students_per_grade": 15,
+  "minimum_items_per_axis": 3,
+  "ranges": [
+    {"grade":"middle_1","reading_seconds":null,"comprehension_accuracy":null,"lexical_accuracy":null,"syntax_accuracy":null,"reasoning_accuracy":null,"unknown_word_fraction":null,"lexical_burden":null,"sentence_burden":null,"reasoning_burden":null,"perceived_difficulty":null},
+    {"grade":"high_1","reading_seconds":null,"comprehension_accuracy":null,"lexical_accuracy":null,"syntax_accuracy":null,"reasoning_accuracy":null,"unknown_word_fraction":null,"lexical_burden":null,"sentence_burden":null,"reasoning_burden":null,"perceived_difficulty":null}
+  ],
+  "band_rationale": {"middle_1":null,"high_1":null},
+  "operations": null,
+  "expert_reuse_allowed": false,
+  "failed_passage_policy": "skip_only_after_completed_failure"
+}

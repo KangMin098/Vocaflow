@@ -1,12 +1,18 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+2026-10-05 파이프라인 게이트: `--target` 각색 `.out.json`을 만든 후 `adapt-review-export.mjs --dir <청크 폴더>`로 Claude Code와 Codex의 독립 검수 양식을 생성한다. 양식은 보류 행을 제외하고 UUID·target으로 순서와 무관하게 결속한다. 수정된 각색은 기존 검수 기록을 보존하고 새 해시의 양식을 추가한다. 두 검수는 실제 원문 본문 hash/revision, target key와 추가 자료의 권리·귀속을 포함한 전체 target hash, 제목·본문·권리·분석의 hash에 묶인다. 주장·관계·범위·추론 강도·허구 정보·어휘·구문·추론·연령·종합 수준 목표·권리·문항 근거 12항목 모두 통과하고 왜곡 taxonomy가 0건이어야 `adapt-drain-import.mjs` 예행/적재가 통과한다. import는 DB 삽입 직전 검수를 다시 읽고 `composed_spec.academic_reading.content_review`에 검수 원문과 hash를 남기며 `state=agent_reviewed`로 저장한다. `item-drain-export.mjs`는 현재 부모와 각색 자식의 본문/권리 상태·전체 target·검수 원문/hash를 다시 검증해 미검수 또는 메타데이터가 삭제된 Academic Reading 지문을 문항 대상으로 삼지 않는다. 제시문 창·정제 과정이 검수된 각색에서 구절이나 [12] 같은 수치를 삭제하면 조건·근거 유실을 배제할 수 없어 따옴표 모양·공백 차이만 허용하고 해당 문항 export를 보류한다(장문은 문단별로 정제해 경계를 유지하고 순서 문항의 네 문단 재배열은 전체 내용·라벨 일치 검증 후 허용). 문항 importer도 과거 청크와 현재 각색·부모 본문/권리 상태·검수 인증을 예행 및 insert 직전에 다시 확인한다. 검수 불일치는 각색 수정 후 새 검수로 해결한다. 이 에이전트 검수는 FYM 학생 평가·gold 인증과 별개다.
+
+Calibration 운영 준비(2026-10-05): 기존 8편·96문항을 전수 검토하여 [문항 revision 3 검토본](./reports/frym-calibration-instruments-3-review.md)과 [책임자 운영 안내](./FYM_CALIBRATION_OPERATIONS.md)를 준비했다. 문항별 정확한 근거와 1/0.5/0점 기준·한국어 질문을 작성하고 기존 default/v1/pilot을 보존했다. 새 문항은 export의 `--instruments`로 명시한다. 질문 간 힌트를 줄이기 위해 읽기/질문 단계를 분리하고 이전 답을 보존하는 사람 절차를 사전 확정해야 한다. 에이전트 전수 검토는 사람 인증이 아니며 실제 책임자/참여자·band·등록·평가·DB 쓰기는 여전히 미완료다.
+
+사람 평가 실행기 v2(2026-10-05): [사람 프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/8항목·핵심 차원의 critical 탈락·제3 독립 판정 후 중재·학년당 15~30명/버전별 완전 측정 15명·사전 manifest 봉인·calibration/validation 분리·다른 주제/원천 재현을 연결했다. [실행 절차](../scripts/textbook/frym-validation/README.md)의 `protocol-2.draft.json`을 사용한다. band·책임자·등록·실제 응답은 계속 미확정이며 실제 8편은 미봉인 calibration candidate다. v1 결과는 읽을 수 있으나 새 DB seed의 인증으로 사용할 수 없다.
+
 실제 응답 수집 후속(2026-10-05): `frym-validation-collect.mjs`는 등록된 사람의 blind 응답을 protocol/instrument·본문·opaque ID에 묶어 새 결과 파일로 합친다. 같은 응답은 skip, 충돌은 reject, 학생 부분 기록의 null/빈 값만 보충하며 원본·응답 파일은 보존한다. 현재 8편에 빈 입력 예행만 수행했고 실제 전문가/학생 결과와 gold는 계속 0이다. [수집 절차](../scripts/textbook/frym-validation/README.md) · [예행 결과](./reports/frym-response-collection-20261005.md).
 
 교육적 타당도 후속(2026-10-04): [FYM 평가 절차](../scripts/textbook/frym-validation/README.md)는 4쌍×중1/고1의 blind 패킷과 실제 사람 평가 데이터 계약을 제공한다. 현재 후보 8편·실제 전문가/학생 결과 0건·gold 0편이며 DB seed는 실행하지 않았다. [준비 결과](./reports/frym-educational-validation-20261004.md).
 
 전문가 의미 판정은 핵심 주장·인과·비교·조건/범위·불필요한 추가·근거 없는 추가·필수 생략·추론 강도의 8항목으로 나누고 5개 보존 차원으로 산출한다. 학생 읽기 시간·이해도·어휘/문장/추론 정확도·미지어 비율·각 부담·체감 난도는 각각 측정한다. 왜곡 taxonomy v1은 요청한 10종과 기존 실패 사례를 표현할 4종을 보존한다. 문항과 수치 범위는 초안이며 학년 규준이 아니다. 사람 책임자가 자격/학년 증빙을 확인하고 정확한 프로토콜·문항을 평가 시작 전에 등록해야 한다.
 
-`candidate → reviewed → gold → production` 중 gold는 독립 전문가 의미 통과·실제 해당 학년 학생 측정 범위·왜곡 없음·현재 provenance·high 연결을 모두 요구한다. 해당 본문/target/protocol에만 유효하다. 보존 규칙을 사용한 import는 `--educational-validation <results.json>`을 요구하고 최초와 각 batch 직전에 최신 결과를 재검증한다. queued 적재와 production은 다르며, production은 현재 published DB 행과 인증의 본문 hash·부모·target이 모두 같을 때만 계산한다.
+v2는 `candidate → expert_validated → student_validated → gold`를 판정한다. calibration은 student_validated까지만 가능하다. gold는 별도 validation/replication의 의미·학생 기준과 중대한 최종 왜곡 0건·현재 provenance·high 연결을 모두 요구한다. 최초 리뷰는 중재 후에도 보존하며 핵심 차원의 critical은 중재로 구제하지 않는다. 보존 규칙을 사용한 import는 `--educational-validation <v2 results.json> --evidence-dir <원본 폴더>`를 요구하고 최초와 batch 직전에 현재 원 연구 문맥·인증을 다시 대조한다. production은 다른 주제/원천/학생의 후속 등록된 gold 재현과 현재 published DB 행의 본문·부모·target·저장 인증 일치까지 읽기 전용으로 확인해야 한다. v1의 reviewed/발행 대조는 과거 계약이다.
 
 2026-10-04 사용자 첨부안 반영. 공통 정본은 `packages/library-pipeline/src/textbook/academic-reading.ts`와 `academic-reading-contract.ts`다. 생성 처리에는 기존 각색·문항 드레인을 사용한다.
 

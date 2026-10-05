@@ -4,6 +4,8 @@ import path from 'node:path'
 import { emptyEducationalResponseBatch,mergeEducationalResponses } from '@vocaflow/library-pipeline/educational-responses'
 import { readEducationalValidation } from './educational-validation-contract.mjs'
 import { digest } from './academic-reading-contract.mjs'
+import {emptyResponseV2,mergeResponsesV2} from '@vocaflow/library-pipeline/educational-responses-v2'
+import {preservationPilotSchema} from '@vocaflow/library-pipeline/reading-preservation'
 
 const arg=n=>{const i=process.argv.indexOf(`--${n}`);return i<0?null:process.argv[i+1]}
 if(process.argv.includes('--commit'))throw Error('Educational response collection has no DB commit mode')
@@ -12,12 +14,14 @@ const prepare=process.argv.includes('--prepare')
 if(prepare===Boolean(arg('responses')))throw Error('Use either --prepare or --responses <batch.json>')
 const out=path.resolve(arg('output'))
 if(fs.existsSync(out))throw Error('Output exists; preserve previous results and choose a new path')
-const now=Date.now(),validation=readEducationalValidation(arg('input'),now,arg('precision-review'))
+const now=Date.now(),validation=readEducationalValidation(arg('input'),now,arg('precision-review'),arg('evidence-dir'))
 if(prepare){
- fs.writeFileSync(out,JSON.stringify(emptyEducationalResponseBatch(validation.bundle),null,2)+'\n',{flag:'wx'})
+ fs.writeFileSync(out,JSON.stringify(validation.bundle.version===2?emptyResponseV2(validation.bundle):emptyEducationalResponseBatch(validation.bundle),null,2)+'\n',{flag:'wx'})
  console.log(JSON.stringify({mode:'empty_response_batch',actual_responses:0,db_writes:0}))
 }else{
- const raw=fs.readFileSync(arg('responses'),'utf8'),{bundle,stats}=mergeEducationalResponses(validation.bundle,JSON.parse(raw),now)
+ let passages={}
+ if(validation.bundle.version===2){if(!arg('pilot'))throw Error('--pilot required for v2 response evidence');const pilotRaw=fs.readFileSync(arg('pilot'),'utf8'),pilot=preservationPilotSchema.parse(JSON.parse(pilotRaw));if(digest(pilotRaw)!==validation.bundle.pilot_hash)throw Error('Pilot changed');passages=Object.fromEntries(pilot.records.map(r=>[r.id,r.text]))}
+ const raw=fs.readFileSync(arg('responses'),'utf8'),{bundle,stats}=validation.bundle.version===2?mergeResponsesV2(validation.bundle,JSON.parse(raw),passages,now):mergeEducationalResponses(validation.bundle,JSON.parse(raw),now)
  const output=JSON.stringify(bundle,null,2)+'\n',receipt=out+'.receipt.json'
  // A fresh receipt is required too; neither input nor previous receipt is overwritten.
  if(fs.existsSync(receipt))throw Error('Receipt exists; choose a new output path')

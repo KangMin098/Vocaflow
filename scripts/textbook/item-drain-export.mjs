@@ -30,6 +30,7 @@ import { loadEnv, fetchAllIn, fetchAllPaged, isRetractedTitle } from './volume-p
 import { pickFreeSlots, readReservedTasks } from './chunk-slots.mjs'
 import { readingSkillsForType } from '@vocaflow/library-pipeline/academic-reading-contract'
 import { digest } from './academic-reading-contract.mjs'
+import { READING_REVIEW_PARENT_COLUMNS, normalizeReviewedLongBody, readingReviewAllowsItem, reviewedPassageIsComplete } from './academic-reading-review.mjs'
 import { peopleRatio, speechCount, SPEECH_FLOOR } from '../csat/lib-narrative.mjs'
 
 loadEnv()
@@ -232,7 +233,7 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 const arts = await fetchAllPaged(db, (q) =>
   q
     .from('library_articles')
-    .select('id, title, content, article_v_level, display_only, status, word_count, compose_batch_id, composed_spec, updated_at')
+    .select('id, title, content, source, source_id, adapted_from_id, license, license_class, copyright_safe_in_kr, article_v_level, display_only, status, word_count, compose_batch_id, composed_spec, updated_at')
     .in('status', ['ready', 'published'])
     .eq('article_v_level', BAND)
     .order('id'))
@@ -262,7 +263,6 @@ const arts = await fetchAllPaged(db, (q) =>
 const {
   itemWordSpec,
   isPrintablePassage,
-  normalizeSourceMarkup,
   buildPassage,
   firstDefect,
   // 유형↔지문 적합 — 조판(`item-hygiene.ts`)이 쓰는 그 자를 뽑기도 쓴다(사본 금지).
@@ -315,11 +315,13 @@ const BATCH_FILTER = (arg('batch') ?? '')
   .map((s) => s.trim())
   .filter(Boolean)
 
+const readingParentIds = [...new Set((arts ?? []).filter(a => a.source_id?.startsWith('reading:') || a.composed_spec?.academic_reading).map(a => a.adapted_from_id).filter(Boolean))]
+const readingParents = new Map((await fetchAllIn(db, 'library_articles', READING_REVIEW_PARENT_COLUMNS, 'id', readingParentIds, ['id'])).map(a => [a.id, a]))
 const withBody = (arts ?? [])
   // 철회된 논문은 지문으로 쓰지 않는다 — 판정은 volume-pool 한 곳에 있다(조판과 같은 잣대).
   .filter((a) => !a.display_only && !isRetractedTitle(a.title) && String(a.content ?? '').trim())
   .filter((a) => !BATCH_FILTER.length || BATCH_FILTER.includes(String(a.compose_batch_id)))
-  .filter((a) => !a.composed_spec?.academic_reading || (a.composed_spec.academic_reading.target.passage_v_level === a.article_v_level && readingSkillsForType(TYPE,a.composed_spec.academic_reading.target).length > 0))
+  .filter((a) => readingReviewAllowsItem(a, readingParents.get(a.adapted_from_id), TYPE))
 
 /** 이 유형이 장문 묶음(43~45)인가 — 지문을 자르지 않고 통째로 쓴다. */
 const IS_LONG = spec.long === true
@@ -346,7 +348,8 @@ function passageOf(a) {
   if (IS_LONG) {
     const ps = parasOf(a.content)
     if (ps.length !== LONG_PARAGRAPHS) return null
-    const text = normalizeSourceMarkup(ps.join('\n\n'))
+    // 문단별로 정제한 뒤 다시 잇는다. 통째로 정제하면 연속 개행이 공백으로 접혀 네 문단이 사라진다.
+    const text = normalizeReviewedLongBody(ps.join('\n\n'))
     const n = text.split(/\s+/).filter(Boolean).length
     if (n < LONG_WORDS.min || n > LONG_WORDS.max) return null
     return isPrintablePassage(text) ? text : null
@@ -370,6 +373,9 @@ const defectOut = new Map()
 for (const a of withBody) {
   const p = passageOf(a)
   if (!p) continue
+  // 검수는 각색 전체에 묶여 있다. 제시문 창이 조건·근거를 잘라내면 별도 검수 없이 쓰지 않는다.
+  // long_order는 아직 섞기 전 본문이다. 변환 전 전체성은 장문 일반 경로로 검사한다.
+  if (!reviewedPassageIsComplete(a, p, TYPE === 'long_order' ? 'long_match' : TYPE)) continue
   const d = firstDefect(p)
   if (d) {
     const hit = defectOut.get(d.id) ?? { label: d.label, count: 0, evidence: d.evidence }
@@ -618,6 +624,8 @@ const plainKey = (a) => (plainFirst ? Math.round(abbrRatio(passages.get(a.id) ??
 
 const todo = usable
   .filter((a) => !existing.has(a.id) && !pending.has(a.id) && !avoided.has(a.id))
+  // 재배열 후에는 실제 제시문과 네 parts를 함께 검증한다.
+  .filter((a) => TYPE !== 'long_order' || reviewedPassageIsComplete(a, shuffledOf(a).passage, TYPE, longFields(a).parts))
   // 같은 수면 id 순 — 몇 번 돌려도 같은 몫이 나와야 재실행 안전이 성립한다.
   .sort(
     (a, b) =>

@@ -24,9 +24,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
-import { validateReadingItem, validateReadingPresentation } from '@vocaflow/library-pipeline/academic-reading-contract'
-import { READING_ENGINE_VERSION } from '@vocaflow/library-pipeline/academic-reading'
-import { digest, canonical } from './academic-reading-contract.mjs'
+import { READING_REVIEW_PARENT_COLUMNS, readingItemSourceFailure } from './academic-reading-review.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -85,7 +83,9 @@ console.log(`청크 ${outFiles.length}개 · 문항 ${rows.length}건`)
 
 const skipped = []
 const ok = []
-const readingSources = new Map((await fetchAllIn(db,'library_articles','id, content, composed_spec, updated_at, article_v_level, status','id',[...new Set(rows.map(r => r.article_id).filter(Boolean))],['id'])).map(a => [a.id,a]))
+const readingSources = new Map((await fetchAllIn(db,'library_articles','id, title, content, source, source_id, adapted_from_id, license, license_class, copyright_safe_in_kr, display_only, composed_spec, updated_at, article_v_level, status','id',[...new Set(rows.map(r => r.article_id).filter(Boolean))],['id'])).map(a => [a.id,a]))
+const readingParentIds = [...new Set([...readingSources.values()].filter(a => a.source_id?.startsWith('reading:') || a.composed_spec?.academic_reading).map(a => a.adapted_from_id).filter(Boolean))]
+const readingParents = new Map((await fetchAllIn(db,'library_articles',READING_REVIEW_PARENT_COLUMNS,'id',readingParentIds,['id'])).map(a => [a.id,a]))
 const originalChunks = new Map(outFiles.map(f => {
   const p = path.join(DIR,f.replace('.out.json','.json'))
   return [f,fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : []]
@@ -93,14 +93,9 @@ const originalChunks = new Map(outFiles.map(f => {
 for (const r of rows) {
   const source = readingSources.get(r.article_id)
   const spec = source?.composed_spec?.academic_reading
-  if (r.reading || spec) {
+  if (r.reading || spec || source?.source_id?.startsWith('reading:')) {
     const original = originalChunks.get(r.__file)?.find(x => x.article_id === r.article_id)
-    const fail = !spec || !r.reading || !original?.reading ? 'reading source/export contract missing'
-      : spec.version !== READING_ENGINE_VERSION || original.reading.version !== spec.version || r.reading.version !== spec.version ? 'reading item version mismatch'
-      : !['ready','published'].includes(source.status) || source.article_v_level !== BAND || spec.target.passage_v_level !== BAND ? 'reading source status/level changed'
-      : digest(source.content) !== original.reading.source_hash || source.updated_at !== original.reading.source_revision ? 'reading source changed; export again'
-      : r.reading.source_hash !== original.reading.source_hash || r.reading.source_revision !== original.reading.source_revision || canonical(spec.target) !== canonical(original.reading.target) ? 'reading binding changed'
-      : validateReadingPresentation(r,original.passage,TYPE) ?? validateReadingItem({ version:r.reading.version, target:r.reading.target, skill:r.reading.skill, passage_level:r.reading.passage_level, item_reasoning_level:r.reading.item_reasoning_level, item_difficulty:r.reading.item_difficulty, difficulty_evidence:r.reading.difficulty_evidence, evidence:r.reading.evidence }, spec.target, TYPE, original.passage, spec.analysis.passage_profile.overall_level.level)
+    const fail = readingItemSourceFailure(r, original, source, readingParents.get(source?.adapted_from_id), TYPE, BAND)
     if (fail) { skipped.push([r.source_title ?? r.article_id,fail]); continue }
     r.__evidence_passage = original.passage
   }
@@ -219,7 +214,20 @@ if (!commit) {
 
 let inserted = 0
 for (let i = 0; i < freshUnique.length; i += 100) {
-  const chunk = freshUnique.slice(i, i + 100).map((r) => ({
+  const candidates = freshUnique.slice(i, i + 100)
+  const latestSources = new Map((await fetchAllIn(db,'library_articles','id, title, content, source, source_id, adapted_from_id, license, license_class, copyright_safe_in_kr, display_only, composed_spec, updated_at, article_v_level, status','id',candidates.map(r => r.article_id),['id'])).map(a => [a.id,a]))
+  const latestParentIds = [...new Set([...latestSources.values()].filter(a => a.source_id?.startsWith('reading:') || a.composed_spec?.academic_reading).map(a => a.adapted_from_id).filter(Boolean))]
+  const latestParents = new Map((await fetchAllIn(db,'library_articles',READING_REVIEW_PARENT_COLUMNS,'id',latestParentIds,['id'])).map(a => [a.id,a]))
+  const verified = candidates.filter(r => {
+    const source = latestSources.get(r.article_id)
+    if (!(r.reading || source?.source_id?.startsWith('reading:') || source?.composed_spec?.academic_reading)) return true
+    const original = originalChunks.get(r.__file)?.find(x => x.article_id === r.article_id)
+    const fail = readingItemSourceFailure(r, original, source, latestParents.get(source?.adapted_from_id), TYPE, BAND)
+    if (!fail) return true
+    console.log(`  최종 확인에서 건너뜀: ${String(r.source_title ?? r.article_id).slice(0, 40)} — ${fail}`)
+    return false
+  })
+  const chunk = verified.map((r) => ({
     kind: 'article',
     ref_id: r.article_id,
     type: TYPE,
@@ -239,6 +247,7 @@ for (let i = 0; i < freshUnique.length; i += 100) {
     paragraph_idx: 0,
     v_level: BAND,
   }))
+  if (!chunk.length) continue
   const { error } = await db.from('csat_dcp_items').insert(chunk)
   if (error) {
     console.log(`  ✗ ${error.message}`)

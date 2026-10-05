@@ -2,7 +2,9 @@
 
 ## Academic Reading JSONB 계약 (2026-10-04, 마이그레이션 없음)
 
-보존 규칙을 사용한 완성 각색의 importer는 실제 교육적 gold 검증 후 `composed_spec.academic_reading.provenance.educational_validation`에 version/state(gold)·validation/protocol/instrument/pilot/review/rules SHA256·passage_hash·target_key·source_id·전문가별 5개 의미 보존 차원·분리된 학생 측정·유효 전문가/학생 수·scope(`exact_passage_target_protocol_only`)·production(false)를 넣는다. 같은 본문/target/source의 인증만 허용하고 DB batch 직전 최신 입력을 대조한다. 개인 실명·학생 원응답은 이 필드에 넣지 않는다. 실제 production은 현재 published 행의 본문/부모/target 일치를 별도로 확인해 산출한다. 이번 8편은 미평가 candidate이며 DB에 이 필드를 적재하거나 새 테이블/마이그레이션을 만들지 않았다.
+2026-10-05 [사람 실행기 v2](./FYM_HUMAN_VALIDATION_PROTOCOL.md)는 4점/중재·expert_validated/student_validated·사전 봉인·calibration 제외·후속 재현을 연결했다. 새 seed는 v2 gold만 허용한다. 기존 8편은 미봉인 calibration candidate로 DB에 적재하지 않았다. 테이블/마이그레이션/실제 DB 변경은 없다.
+
+보존 규칙을 사용한 완성 각색의 importer는 실제 교육적 gold 검증 후 `composed_spec.academic_reading.provenance.educational_validation`에 version(2)/state(gold)·study_id/study_purpose·manifest_hash·validation/protocol/instrument/pilot/review/rules SHA256·passage_hash·target_key·source_id·전문가별 5개 보존 차원·final_semantic_dimensions·final_distortions·adjudication_hash(nullable)·분리된 학생 측정·유효 전문가/학생 수·scope(`exact_passage_target_protocol_only`)·production(false)를 넣는다. 동일 본문/target/source만 허용하고 batch 직전 원 연구 문맥과 최신 인증을 대조한다. 사람 실명·학생 원응답은 DB 필드에 넣지 않는다. production은 후속 독립 주제/원천의 gold 재현과 실제 published 행의 본문/부모/target/저장 인증 일치를 읽기 전용으로 확인한다. 과거 v1 결과를 새 seed에 사용할 수 없다.
 
 선택적인 의미 보존 규칙을 사용한 각색은 `composed_spec.academic_reading.provenance.preservation_rules`에 version/review_hash/rules_hash/entry(원천 UUID/key/URL/hash/revision·원 연구 DOI/hash·정렬 ID/짧은 증거·규칙)를 보존하고 `analysis.preservation_checks`에 rule_id/verdict/passage_quote/reason을 저장한다. importer의 구조 통과 상태는 `awaiting_content_review`이며 의미를 자동 인증하지 않는다. 이번 로컬 8편 예시는 DB에 적재하지 않았다.
 

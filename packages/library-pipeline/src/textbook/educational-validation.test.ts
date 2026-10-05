@@ -136,7 +136,7 @@ describe('educational validation promotion',()=>{
     const b=fixture(),r=b.records[0]!,draft={text,reading:{target_key:r.target_key,target:{age_band:r.grade}}}
     const validated={bundle:b,file_hash:'b'.repeat(64)}
     expect(validateEducationalPromotion(draft,task,null,now).ok).toBe(false)
-    expect(validateEducationalPromotion(draft,task,validated,now).certificate.state).toBe('gold')
+    expect(validateEducationalPromotion(draft,task,validated,now)).toMatchObject({ok:false,reason:expect.stringContaining('legacy v1')})
     expect(validateEducationalPromotion({...draft,text:text+' Changed.'},task,validated,now).ok).toBe(false)
     expect(matchEducationalBinding({...r,target_key:'2'.repeat(24)},task,text,r.target_key)).toBe(false)
     expect(validateEducationalPromotion(draft,null,null,now)).toEqual({ok:true,certificate:null})
@@ -166,6 +166,7 @@ describe('educational validation promotion',()=>{
     const article={id:'fixture-article',status:'published',content:text,adapted_from_id:r.source_id,composed_spec:{academic_reading:{target_key:r.target_key}}}
     expect(educationalDeliveryState(cert,null)).toBe('gold')
     expect(educationalDeliveryState(cert,article)).toBe('production')
+    expect(educationalDeliveryState({...cert,version:2} as any,article)).toBe('gold')
     for(const changed of [{...article,status:'queued'},{...article,content:text+' Changed.'},{...article,adapted_from_id:'other-parent'},{...article,composed_spec:null}])expect(educationalDeliveryState(cert,changed)).toBe('gold')
   })
 })

@@ -1,5 +1,9 @@
 # Admin Console
 
+FYM 사람 실행기 v2(2026-10-05): [2차 프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/critical·제3 독립 판정 후 중재·학년별/버전별 15명·manifest 봉인·calibration/validation 구분·재현을 등록/수집/보고/적재 전 검사에 연결했다. 소재 적격 도움말에 실행 초안·새 출력/복구·원 연구 재검증·새 seed의 v1 거절·production 읽기 전용 대조를 함께 갱신했다. 새 화면/라우트/DB 액션은 없다. 실제 8편은 미봉인 candidate, 사람 응답/gold/DB 쓰기 0이다.
+
+Calibration 운영 준비: [문항 revision 3](./reports/frym-calibration-instruments-3-review.md) 96개를 전수 점검하고 explicit --instruments 선택·한국어 안내·질문 단계 분리/앞 답 회수·책임자 전용 채점 자료를 도움말과 [운영 안내](./FYM_CALIBRATION_OPERATIONS.md)에 연결했다. 단계 열람/잠금은 사람 절차이며 새 화면·전송·DB 액션은 없다.
+
 FYM 응답 수집(2026-10-05): 소재 적격 도움말에 빈 응답 batch 준비·실제 사람 응답 합치기·중복/충돌/null 보충·새 출력/receipt 복구를 연결했다. 신규 UI·라우트·DB 액션은 없으며 수집 성공과 gold 인증을 구분한다. 실제 전문가/학생 데이터는 아직 제공되지 않았다([예행 결과](./reports/frym-response-collection-20261005.md)).
 
 FYM 교육적 타당도 준비(2026-10-04): 소재 적격 도움말에 blind 패킷 분리·사람 프로토콜 사전 등록·전문가 의미 판정 후 실제 학생 측정·gold 승격·import 인증 파일·재실행 복구를 추가했다. 화면/탭/라우트는 추가하지 않았다. 현재 실제 전문가/학생 결과와 gold는 0이며 [평가 운영 절차](../scripts/textbook/frym-validation/README.md)에 따라 사람 평가를 수집해야 한다.

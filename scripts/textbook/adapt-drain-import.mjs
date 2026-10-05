@@ -16,6 +16,7 @@
 // **건너뛴 수와 이유를 반드시 출력한다** — 조용히 빠지면 다음 실행이 "완료" 로 세어
 // 구멍이 영영 남는다(루트 CLAUDE.md §🤖).
 //
+// --target 모드: Claude Code·Codex 독립 검수 파일 2개를 요구하고 insert 직전에 재검증한다.
 // 재실행 안전: 같은 원본에 같은 밴드의 각색본이 이미 있으면 건너뛴다.
 //
 // 실행:
@@ -27,6 +28,7 @@ import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
 import { adaptationKey, readTarget, targetKey, validateReadingDraft, readPreservationRules, READING_SOURCE_COLUMNS, canonical } from './academic-reading-contract.mjs'
+import { readAgentReviews, validateAgentReviews } from './academic-reading-review.mjs'
 import { readEducationalValidation, validateEducationalPromotion } from './educational-validation-contract.mjs'
 
 // 등급 슬러그가 `license`(원문 표기) 칸에 들어가는 사고를 막는 정본 — 재고 80편 사고(2026-09-23).
@@ -40,7 +42,7 @@ const arg = (n) => {
 const commit = process.argv.includes('--commit')
 const readingTarget = readTarget(arg('target'))
 const preservationRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
-const educationalValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'))
+const educationalValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
 if (preservationRules && !readingTarget) throw new Error('--preservation-rules requires --target')
 const BAND = readingTarget?.language_band ?? arg('band') ?? 'elementary'
 // export 와 **같은 규칙**으로 폴더를 찾는다. 어긋나면 채운 청크를 못 읽고
@@ -152,6 +154,10 @@ for (const r of rows) {
     const original = exportsByFile.get(r.__file)?.find(x => x.adapted_from_id === r.adapted_from_id)
     reading = validateReadingDraft(r,original,currentSources.get(r.adapted_from_id),now,preservationRules?.get(r.adapted_from_id) ?? null)
     if (!reading.ok) { skip(reading.reason); continue }
+    const agentReview = validateAgentReviews(r, original, readAgentReviews(DIR, r.__file))
+    if (!agentReview.ok) { skip(agentReview.reason); continue }
+    reading.spec.content_review = agentReview.certificate
+    reading.spec.state = 'agent_reviewed'
     const education = validateEducationalPromotion(r, original.reading.preservation_rules ?? null, educationalValidation, now)
     if (!education.ok) { skip(education.reason); continue }
     if (education.certificate) reading.spec.provenance.educational_validation = education.certificate
@@ -282,11 +288,15 @@ for (let i = 0; i < inserts.length; i += 100) {
   if (readingTarget) {
     const latest = new Map((await fetchAllIn(db,'library_articles',READING_SOURCE_COLUMNS,'id',entries.map(x => x.row.adapted_from_id),['id'])).map(r => [r.id,r]))
     const latestRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
-    const latestValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'))
+    const latestValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
     entries = entries.filter(x => {
       const original = exportsByFile.get(x.draft.__file)?.find(r => r.adapted_from_id === x.draft.adapted_from_id)
       const result = validateReadingDraft(x.draft,original,latest.get(x.draft.adapted_from_id),Date.now(),latestRules?.get(x.draft.adapted_from_id) ?? null)
       if (result.ok) {
+        const agentReview = validateAgentReviews(x.draft, original, readAgentReviews(DIR, x.draft.__file))
+        if (!agentReview.ok || canonical(agentReview.certificate) !== canonical(x.row.composed_spec?.academic_reading?.content_review)) {
+          skip(agentReview.ok ? 'agent review changed during import; run again' : agentReview.reason); return false
+        }
         const education = validateEducationalPromotion(x.draft, latestRules?.get(x.draft.adapted_from_id) ?? null, latestValidation, Date.now())
         if (education.ok) {
           const originalCertificate=x.row.composed_spec?.academic_reading?.provenance.educational_validation ?? null

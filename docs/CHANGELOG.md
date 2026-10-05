@@ -12,6 +12,17 @@
 ## Unreleased (v06.34 → next)
 
 - feat(design): bespoke 11 재판정 — `/scriptquiz`(기능형 · `PageIntro compact`) · `/wordvault`(모듈 막대 아래 `PageIntro`, PC 에서 막대 제목은 이름표) 공용화, 특수 6(게임 스킨 2 · 진단 입구 · 편집 작업면 · 셸 안 학습 카드 2) · 보류 3(렌더에 매개변수/세션 결과 필요). 허브 글 카드 대비 회귀(4.3) 수정. 모바일 불변 · 라우트 변경 없음.
+
+- feat(textbook): Academic Reading 각색 import 앞에 Claude Code·Codex 독립 검수 게이트를 추가했다. 원문 revision/hash·전체 target(추가 자료 권리 포함)·각색 hash에 묶인 두 검수에서 의미·어휘·구문·추론·연령·종합 수준 목표·권리·문항 근거 12항목과 왜곡 0건을 요구하고 삽입 직전 재검증한다. 통과 상태/검수 hash를 자식에 보존하고 문항 export는 현재 부모·검수 원문을 재검증해 미검수/메타데이터 삭제 자식을 제외하고 문항 importer도 적재 직전 부모·검수 인증을 재확인한다. 검수 양식은 보류 행을 제외하고 UUID·target으로 연결하고 수정본의 새 해시 양식을 기존 판정 옆에 더하며 장문은 정제 중 문단 경계를 유지하고 검수된 각색의 수치·구절 삭제를 차단하며 순서 재배열은 전체 내용 일치 시 허용한다. 누락된 resources는 배치 중단 대신 해당 지문만 제외한다. DB 마이그레이션·적재 없음.
+
+- feat(textbook): FYM calibration 8편·96문항의 전수 audit와 revision 3 개정안을 준비했다. 문항별 근거/부분점수·한국어 질문/v2 학생 안내·질문 단계 분리 운영 절차를 연결하고 기존 pilot/default/v1 자료를 보존했다. 사람 승인·평가·DB 쓰기/새 화면/마이그레이션 없음.
+- fix(textbook): v2 학생 안내 revision을 봉인 protocol에 포함했다. 새 revision=2만 한국어 안내를 선택하고 필드가 없는 기존 연구/revision=1은 당시 영문 패킷·응답을 유지한다.
+
+- feat(textbook): FYM 사람 평가 v2를 export/사전 등록/독립 4점 판정/critical/제3 중재/학생 표본/보고/적재 전 검사까지 연결했다. calibration gold 금지·v1 새 seed 거절·다른 주제/원천의 후속 재현과 published 행 대조를 추가하고 실제 8편 미봉인·평가/gold/DB 쓰기 0을 확인했다. 마이그레이션/새 라우트 없음.
+- fix(textbook): 봉인 후 배포 패킷을 다시 생성하고 전문가/학생 packet hash를 검사한다. 재현의 원 validation 전문가 재사용 정책과 고정 calibration UUID/DOI/본문 재사용 차단을 강화했다. 원천 UUID는 대소문자를 정규화해 비교한다. v2 인증은 legacy 발행 helper로 production이 될 수 없다.
+
+- docs(textbook): FYM calibration8의 사람 평가 2차 프로토콜 초안을 추가했다. 전문가 4점/critical/제3 중재·학년별 15~30명·미확정 pass band/사전 봉인·새 단계·production 재현을 정리하고 기존 v1 실행기와의 격차를 명시했다. 사람 승인/평가·실행기 계약 변경·DB 적재/발행 없음.
+
 - feat(design): bespoke 머리 이행 1차 — `/practice`(기능형 재분류 · `PageIntro compact`) · `/practice/dcp` · `/sitemap` 을 PC 에서 공용 `PageIntro` 로(모바일 기존 머리 유지, dcp 중복 배너 PC 숨김). 셸 `SectionSubNav` 를 `<main>` 밖으로(본문 링크 계약 회귀 수정 · 26-practice-chooser ③). e2e 26 ④ 복귀 링크를 본문 안 보이는 링크로 한정. bespoke 14→11.
 - feat(design): 학습자 화면 유형 정본 `lib/design/screen-types.ts` — 73 라우트를 발견형·기능형·세션·특수·별칭으로 고정하고 회귀 가드(분류 누락 · 머리 불일치 · 계층 혼용 · 세션↔전체화면)를 추가(보조 내비 세션 판정에 연결). 자체 머리 14개를 다음 정리 대상으로 명시. 화면 변경 없음.
 

@@ -1,62 +1,79 @@
-# FYM 교육적 타당도 pilot
+# FYM 사람 평가 v2 실행 절차
 
-4쌍 × 중1/고1의 8편을 실제 사람에게 평가하기 위한 로컬 도구다. 현재 전문가 판정·학생 측정은 0건이며 모두 `candidate`다. 문항·프로토콜은 초안이고 자동 생성된 응답이나 회귀 테스트의 가상 점수는 실험 결과로 사용하지 않는다.
+[사람 운영 프로토콜](../../../docs/FYM_HUMAN_VALIDATION_PROTOCOL.md)을 실행기에 연결했다. 기존 4쌍×중1/고1 8편은 **calibration 전용**이다. band 20개·사람 책임자·배정·사전 등록·실제 응답은 미확정이며 candidate 8, gold/production/DB 쓰기 0이다. 가상 회귀 점수는 실제 평가 결과가 아니다.
 
-## 역할과 사전 등록
+## Calibration 문항 revision 3
 
-사람 책임자가 독립 전문가의 자격, 학생의 실제 학년, 참여 절차를 확인한다. 실명 대신 가명 ID를 사용한다. JSON의 `human_domain_expert` 선언은 신원 인증을 대신하지 않는다. 책임자는 자격 확인·사전 등록의 실제 증빙을 별도로 보관하고 참조를 기록한다.
+기존 96문항을 전수 검토한 [개정 문항/채점 검토본](../../../docs/reports/frym-calibration-instruments-3-review.md)과 [운영 안내](../../../docs/FYM_CALIBRATION_OPERATIONS.md)를 준비했다. `calibration-instruments-3.draft.json`은 record ID별 배열이며 export에 `--instruments scripts/textbook/frym-validation/calibration-instruments-3.draft.json`을 명시한다. 8편·96문항, 지문별 12문항·축별 3문항을 유지했다. 기존 default/v1 문항과 pilot 본문은 보존했다. 개정안은 사람 미승인 초안이다.
 
-`protocol-1.json`은 전문가 최소 2명, 버전별 학생 최소 5명, 이해도/어휘/문장/추론 축별 문항 최소 3개를 제안한다. 두 학년의 현재 수치 범위는 같은 초기 제안값이며 학년별 경험적 기준이 아니다. 책임자가 목표 학년·표집·문항·채점 기준·통과 범위를 검토하고 **평가 시작 전에** 정확한 protocol/instrument 해시를 사전 등록해야 한다. 결과를 보고 나중에 문항·범위를 바꾸지 않는다. 변경 시 새로운 pilot과 새 출력 폴더로 다시 시작한다.
+새 protocol-2.draft.json은 student_instructions_revision=2로 한국어 v2 안내를 선택한다. 이 필드는 protocol/manifest 봉인에 포함된다. 필드가 없는 기존 v2 연구 또는 revision=1은 당시 영문 안내·패킷을 유지하며 기존 응답을 계속 읽고 수집한다. 새 안내와 개정 질문은 한국어이며 영어 본문/축별 측정값은 그대로다. 안내도 packet_hash에 포함되므로 변경은 새로운 회차·등록 후 재생성된 패킷을 사용한다. 학생 JSON은 전체 질문을 가진 진행자 원본이며 학생에게 한 번에 공개하지 않는다. 지문만 읽기 → 추론 → 명시 정보 → 어휘 → 문장 순서로 나누어 제시하고 매 단계 답을 회수한다. 문장 인용이 앞 문항의 답을 알려주지 않도록 이전 답의 수정을 막는 운영 방식·재열람·위반/결측 처리 규칙을 `protocol.operations`에 사전 확정한다. 현재 수집기는 단계 잠금/실제 열람 순서를 인증하지 않는다. 상세 자료 배포 구분과 절차는 운영 안내에 있다.
 
-## 준비와 검증
+## 준비와 봉인
 
-저장소 루트에서 실행한다. 연구 전문 스냅샷은 ignored 증거 폴더에 있어야 한다. 다른 컴퓨터에서는 해당 스냅샷을 함께 확보해야 원본 해시를 재현할 수 있다.
+실행 설정은 protocol-2.draft.json이다. pass-bands-2.draft.json은 사람 검토용이다. v2는 4점 척도만 지원한다. 원본 스냅샷은 ignored 증거 폴더에 보존한다. 다음 명령은 저장소 루트의 PowerShell에서 실행한다.
 
-```powershell
-pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-export.mjs --pilot scripts/textbook/frym-precision/adaptation-pilot-1.json --preservation-rules scripts/textbook/frym-precision/preservation-rules-1.json --precision-review scripts/textbook/frym-precision/round-1.json --protocol scripts/textbook/frym-validation/protocol-1.json --evidence-dir .agent-logs/frym-precision-r2 --output .agent-logs/frym-validation-study-1
-pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-verify.mjs --input .agent-logs/frym-validation-study-1/coordinator/results.json --pilot scripts/textbook/frym-precision/adaptation-pilot-1.json --preservation-rules scripts/textbook/frym-precision/preservation-rules-1.json --precision-review scripts/textbook/frym-precision/round-1.json
-```
+~~~powershell
+$study = '.agent-logs/frym-validation-v2-sealed-packets-20261005'
+$pilot = 'scripts/textbook/frym-precision/adaptation-pilot-1.json'
+$rules = 'scripts/textbook/frym-precision/preservation-rules-1.json'
+$round = 'scripts/textbook/frym-precision/round-1.json'
+$evidence = '.agent-logs/frym-precision-r2'
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-export.mjs --pilot $pilot --preservation-rules $rules --precision-review $round --protocol scripts/textbook/frym-validation/protocol-2.draft.json --study-id fym-v2-packet-draft-20261005 --evidence-dir $evidence --output $study
+~~~
 
-Export는 DB 접근 없이 로컬 해시·정렬 증거·쌍별 중1/고1 한 편씩을 검사한다. 무작위 opaque ID의 전문가 8개·학생 8개 패킷과 총 96개 초안 문항을 만든다. 기존 폴더가 있으면 실패하며 부분 실패한 폴더도 보존하고 새 경로로 재실행한다. Verify는 읽기 전용이며 반복해도 파일·DB가 바뀌지 않는다. 두 명령 모두 `--commit`을 지원하지 않는다.
+이 폴더는 실제 예행에서 이미 만들었으므로 재실행은 새 경로를 사용한다. Export는 DB 접근 없이 원본 본문/원 연구 hash·검토 범위·규칙·쌍별 두 학년을 대조하고 opaque ID 순서로 전문가/학생 패킷을 만든다. expert에는 원 연구 문맥·각색문·4점 anchor·빈 rating, student에는 지문·문항·빈 응답만 있다. **coordinator는 평가자/학생에게 보내지 않는다.** 목표 학년·제작 방법·이전 판정·정답 기준·실명 대응과 출처 표시는 책임자가 보관한다. 도구는 패킷을 발송하지 않는다.
 
-`expert/`에는 원 연구의 검토 문맥, 각색문과 미평가 양식만 있다. 목표 학년·생성 방법·기존 관찰 판정·채점 답안은 없다. `student/`에는 각색문, 질문, 빈 응답 양식이 있다. **`coordinator/`는 평가자·학생에게 전달하지 않는다.** 이 폴더는 ID 대응, 출처 표시, 정답 기준, 실패 사례, 등록 및 결과 기록을 담는다. 출처·저작권 표시는 책임자가 보존하고 blind 평가 후 공개한다. 도구는 파일을 누구에게도 전송하지 않는다.
+사람 책임자는 결과 초안을 **새 파일**에 복사하고 다음을 실제 증빙으로 채운다.
 
-## 실제 평가 순서
+- protocol: 두 학년 각 10개 band, 학년별 근거, 모집/제외·세션·결측 처리 운영 규칙. 정확도 0~1, 부담 1~5, 읽기 시간 초. 문항/채점 기준도 사전 검토한다.
+- experts: 사람 자격/작성 독립성, screened_by/credential_verified_by, screened_at, 사전 노출 확인·증빙. v2 blind_eligible는 노출 없는 사람만 허용한다.
+- 각 record의 expert_assignment: 최초 독립 2명과 다른 제3 adjudicator. 세 ID는 모두 등록되어야 한다. topic/source_family는 사람이 실제 분류를 확인하며 복제된 라벨로 재현을 주장하지 않는다.
+- participants: 가명 ID·실제 학년·책임자의 학년 확인·같은 학년 전체 지문 record_order. 학년당 최소15~최대30명, 각 지문의 순서 위치별 인원 차이는 최대1. 네 지문은 ABCD/BDAC/CADB/DCBA 등을 사용한다. 학생은 한 pair의 두 버전을 읽지 않는다.
 
-1. 책임자가 문항 타당성과 원 연구 문맥의 충분성을 확인한다. 어휘는 단어 뜻, 문장은 문장 내부 구조/의미, 추론은 근거·조건·한계, 이해도는 명시된 정보를 따로 채점한다. 12개 초안 문항 자체는 검증된 검사 도구가 아니다.
-2. 검토한 문항·target·본문·원천을 묶는 `instrument_hash`, 프로토콜의 `protocol_hash`를 등록하고 `protocol_approval`에 실제 책임자 ID·시각·증빙 참조를 기록한다. `experts`에 실제 독립 전문가의 가명 ID와 자격 증빙 참조를 등록한다.
-3. 전문가는 opaque 패킷을 독립 평가한다. 핵심 주장, 인과 방향, 비교, 조건/범위, 불필요한 추가 없음, 근거 없는 추가 없음, 핵심 생략 없음, 강도 과장 없음의 8항목을 판정하고 왜곡이면 taxonomy 코드·실제 문장·이유를 기록한다. 요청한 7항목에서 지원되는 불필요한 추가와 환각을 구분하기 위해 추가 판단을 분리했다.
-4. 필요한 전문가 모두 pass이고 왜곡이 없는 버전만 학생에게 제시한다. 읽기 시작/끝은 문항 답변 이전의 읽기 시간이다. 학생은 모르는 단어의 등장 횟수, 어휘/문장/추론 부담 및 체감 난도(각 1–5), 실제 응답을 기록한다. 전문가가 등록된 기준으로 각 답을 0/0.5/1로 채점한다. 같은 학생이 한 pair의 두 버전을 보거나 같은 버전을 반복 측정하지 않는다.
-5. 책임자가 결과를 `coordinator/results.json` 스키마에 맞춰 합친 뒤 verify를 실행한다. 학생의 미완료 측정과 무응답은 null/빈 응답으로 보존한다. 누락값을 0이나 pass로 채우지 않는다. 부분 기록은 gold 표본과 집계에서 제외되고 차단 사유로 남는다. 학년·시각·등록/전문가/학생 순서·본문 인용·현재 회차 해시가 맞아야 한다.
+~~~powershell
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-register.mjs --input <사람이_확정한_새draft.json> --precision-review $round --evidence-dir $evidence --prepare --output <새prepared.json>
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-register.mjs --input <새prepared.json> --precision-review $round --evidence-dir $evidence --approval <실제_사전등록증빙.json> --output <새registered.json>
+~~~
 
-## 실제 응답 수집 (2026-10-05)
+prepare는 hash를 갱신하고 새 출력 및 .registration-request.json의 책임자/시각/증빙을 null로 둔다. **등록 완료가 아니다.** 사람은 평가·응답 열람 전에 실제 외부 등록 증빙과 시각을 보관하고 요청 JSON의 human_lead_id/approved_at/manifest_hash/registration_evidence를 채운다. approval은 형식·시각·exact manifest·미확정 항목·배정/노출을 검사한다. 승인 성공 시 봉인된 bundle에서 **새 출력의 .packets/expert·student**를 다시 만든다. 이 새 패킷만 배포하며 export 당시 초안 패킷은 배포하지 않는다. 이미 응답이 있거나 봉인되었으면 등록을 거절한다. hash/JSON만으로 신원·외부 등록 시각을 인증하지 않는다.
 
-완성된 응답을 큰 결과 파일에 직접 붙이지 않고 새 수집 batch로 전달한다. 아래 경로는 예시이며 기존 출력이 있으면 새 이름을 사용한다. 두 명령 모두 DB 접근·발송 없이 로컬 파일만 처리한다.
+봉인은 프로토콜/anchor·지문·원 연구 문맥·문항/채점 기준·pair/source/target/revision·전문가/학생 배정·사전 노출·calibration 제외 명세에 묶인다. 변경은 새 회차/파일/등록으로 남긴다. 이전 응답에 새 band를 적용하지 않는다.
 
-```powershell
-pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-collect.mjs --input .agent-logs/frym-validation-study-1/coordinator/results.json --precision-review scripts/textbook/frym-precision/round-1.json --prepare --output .agent-logs/frym-validation-study-1/coordinator/response-batch-1.json
-pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-collect.mjs --input .agent-logs/frym-validation-study-1/coordinator/results.json --precision-review scripts/textbook/frym-precision/round-1.json --responses .agent-logs/frym-validation-study-1/coordinator/response-batch-1.json --output .agent-logs/frym-validation-study-1/coordinator/collected-1.json
-```
+## 독립 평가와 실제 응답 수집
 
-`--prepare`는 해당 study의 protocol/instrument hash가 있는 빈 `human_response_batch`를 만든다. 실제 사람 ID나 응답은 생성하지 않는다. 책임자가 실제 응답만 `expert_reviews`와 `student_sessions` 배열에 넣는다. batch는 coordinator 전용이며 학년 확인·채점 정보가 있으므로 학생에게 전달하지 않는다.
+~~~powershell
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-collect.mjs --input <registered.json> --precision-review $round --evidence-dir $evidence --prepare --output <새batch.json>
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-collect.mjs --input <registered.json> --precision-review $round --evidence-dir $evidence --pilot $pilot --responses <실제batch.json> --output <새collected.json>
+~~~
 
-- 전문가: 패킷에서 받은 `response`에 해당 `blind_item_id`와 coordinator 기록의 `passage_hash`를 붙인다. `expert_id`, `reviewed_at`, 8개 `criteria`, `distortions`, `reason`을 보존한다. 독립 전문가 등록과 protocol_approval은 사람 책임자가 결과 파일에 실제 증빙으로 먼저 기록해야 한다.
-- 학생: 패킷의 `response`에 `blind_item_id`, `passage_hash`, 실제 `grade`와 `grade_verified_by`를 붙인다. 답안마다 `item_id`, 실제 `response`, 전문가가 매긴 `score`, `scorer_id`를 보관한다. 학생은 가명 ID가 필요하며, 아직 채점되지 않은 값은 null이다. 제공된 문항 ID만 받으며 미등록 채점자를 거절한다.
+빈 batch는 미등록 초안에서도 변경0 예행이 가능하다. 실제 batch의 manifest_hash는 봉인과 같아야 하며 전문가/학생 응답의 packet_hash는 **등록 후 다시 만든 패킷**과 같아야 한다. 질문/anchor를 바꾼 뒤 옛 패킷의 응답을 새 manifest로 옮겨도 거절한다. 사람이 완성한 [독립 rating](./expert-rating-2.blank.json)은 expert_reviews 배열, [중재](./adjudication-2.blank.json)는 adjudications 배열, 채점/학년 확인이 있는 학생 세션은 student_sessions 배열에 넣는다. 빈 양식의 null은 평가 결과가 아니며 전문가 판정은 8항목/인용/이유를 모두 채워 한 번 제출한다.
 
-수집은 protocol/instrument 및 현재 회차, opaque ID/본문, 등록된 전문가/채점자, 평가 시각, 실제 목표 학년을 검사한다. 학생의 읽기는 필요한 전문가 모두 의미 pass·왜곡 없음 판정한 이후여야 한다. 학생의 부분 측정은 null/빈 값으로 보존하고 다음 batch에서 빈 칸만 채울 수 있다. 이미 기록된 점수·시각·답안·판정이 다르면 전체 수집을 거절하며 기존 결과를 수정하지 않는다. 전문가는 같은 판정의 재입력만 건너뛰고 판정을 자동 교체하지 않는다.
+최초 2명은 서로의 판정을 보지 않는다. score/critical/왜곡 코드·severity가 다르면 제3 사람이 먼저 동일 자료를 blind로 평가한다. 그 리뷰를 보존한 뒤 최초 두 리뷰를 공개하고, 이후 항목별 최종 판정과 final_distortions를 중재 양식에 쓴다. 초기 리뷰 2개와 제3 독립 리뷰의 canonical SHA256, 공개/중재 시각을 대조한다. digestV2는 canonicalJson 결과의 SHA256이며 helper는 educational-validation-v2.ts에 있다. 중재 양식의 hash를 수동 추측하지 않는다.
 
-성공 시 새 결과 파일과 `<output>.receipt.json`에 원 입력·응답·출력 SHA256 및 수집 건수를 남긴다. 같은 batch를 수집 결과에 다시 적용하면 변경 0이며 duplicate 수만 늘어난다. 저장된 receipt의 duplicate 수는 연구 응답 수가 아니다. 신규·부분 보충·중복 건수는 각각 집계한다. 빈 batch는 사전 등록 전에도 변경 0 예행이 가능하다.
+각 항목 최종 score≥3, 미평가 없음, 최종 major 왜곡0이 필요하다. 핵심 claim/관계/범위/강도의 critical은 최초/제3 어느 판정에서든 현재 버전을 탈락시키며 중재나 평균으로 구제하지 않는다. 비치명 왜곡의 불일치는 중재에서 해소할 수 있고 최초 기록은 남는다. distortion마다 code/severity(major 또는 minor)/실제 지문 quote/reason을 기록한다.
 
-새 결과로 앞의 verify 명령을 실행한다. collect의 성공은 gold 인증이 아니다. 충돌은 원본·응답·receipt를 보존하고 책임자가 실제 증빙으로 해결한 새 결과를 검증한다. 부분 파일 또는 receipt만 생긴 저장 실패는 삭제/덮기 대신 새 경로로 재실행한다. `--commit`과 기존 경로 덮어쓰기는 거절한다. [빈 입력 예행 결과](../../../docs/reports/frym-response-collection-20261005.md).
+학생은 의미 통과가 끝난 뒤 읽는다. 순서를 바꿔 앞 지문을 건너뛸 수 없으며 앞 지문이 확정 의미 실패일 때만 봉인된 skip 규칙을 적용한다. 중재 전 2점/4점 불일치는 확정 실패가 아니다. 부분 학생 측정·시각·무응답은 null/빈 값으로 보존하고 완전 측정 수에서 제외한다. 이미 기록된 값은 바꾸지 않고 누락만 후속 batch로 채운다.
 
-## 승격과 DB 적재
+같은 응답은 skip, 충돌은 전체 수집을 거절한다. 원 입력/응답 파일은 수정하지 않는다. 새 결과와 .receipt.json에 입력/응답/출력 SHA256·추가/보충/중복 수를 남긴다. duplicate 수는 연구 참가자 수가 아니다. 일부 파일만 생긴 실패도 보존하고 새 경로로 재실행한다.
 
-상태는 결과에서 계산한다. 유효하고 완전한 전문가 패널 전에는 `candidate`, 패널 완료 후 학생 측정 미완료 또는 실패가 있으면 `reviewed`, 모든 기준을 통과한 정확한 본문/target/protocol에만 `gold`다. 완전한 provenance·원 연구 링크 high·모든 전문가 항목 pass·왜곡 없음·실제 학년별 표본·모든 측정 범위 통과가 필요하다. fail/unassessed가 섞이면 승격하지 않는다.
+## 보고와 후속 validation
 
-`lexical_level`/`syntax_level`/`reasoning_level`은 각각 이 검사에서 얻은 정확도의 분리된 측정값이다. V-Level이나 학년 공인 척도로 환산하지 않는다. Gold도 해당 버전과 등록 프로토콜의 pilot 통과를 뜻하며 다른 학년·본문·모집단으로 일반화하지 않는다.
+~~~powershell
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-verify.mjs --input <collected.json> --pilot $pilot --preservation-rules $rules --precision-review $round --evidence-dir $evidence --report <새report.json>
+~~~
 
-보존 규칙을 사용한 완성 Academic Reading 생성 청크의 `adapt-drain-import.mjs`에는 기존 규칙·회차 인자와 **`--educational-validation <results.json>`**을 추가해야 한다. 본문/target/source가 gold 결과와 정확히 같아야 하며 초기와 각 DB batch 직전에 최신 결과·규칙·회차를 다시 검사한다. 실행 중 인증 파일이 바뀌면 해당 행을 건너뛰고 새 예행을 요구한다. 로컬 pilot은 완성 생성 청크가 아니므로 그대로 import하지 않는다.
+Verify는 현재 원본 스냅샷을 다시 읽어 hash와 원 연구 문맥을 검사한다. 읽기 전용·반복 안전이며 --report는 새 파일만 쓴다. 보고서는 단계·불일치·실제 리뷰/중재/세션 수, 학생별 4축 정확도 분포/유효 n, 시간/부담 사분위, 문항별 반응, 순서 위치, 전문가 항목별 일치, 미완료/미수집 수를 나눈다. null을 0점으로 만들지 않는다. lexical/syntax/reasoning_level은 서로 다른 측정값이며 V-Level/학년 규준으로 환산하지 않는다.
 
-실제 적재는 기존 권리·분석·내용 검수, 예행, DB checkpoint, 직렬 실행 조건도 충족한 뒤 수행한다. DB 자식은 여전히 `queued`다. `production`은 현재 DB 행이 실제 published이고 본문 hash·부모 UUID·target이 인증과 일치할 때만 별도로 산출한다. 로컬 인증만으로 production이라고 표시하지 않는다. 이번 단계는 DB seed·발행·마이그레이션을 수행하지 않았다.
+calibration은 candidate → expert_validated → student_validated까지만 가능하다. 표본/항목/band를 고친 뒤 플랫폼 타당도를 주장하려면 **새 validation sample**을 준비한다. export에 study_purpose=validation 또는 replication 프로토콜과 --instruments <record ID별 문항 JSON>을 제공하고, 해당 새 pilot/precision/rules/evidence를 사용한다. 기존8 pilot을 validation으로 export하면 거절한다.
 
-[실제 준비 결과와 한계](../../../docs/reports/frym-educational-validation-20261004.md)
+새 validation/replication register의 prepare/approval 모두 --calibration-results <실제완료된calibration.json>을 지정한다. 도구가 원천UUID/DOI/본문/학생/전문가 목록과 실제 파일 hash를 추출한다. 최초2명 pass·학생0, 부족표본, 미해결 중재는 완료가 아니다. 확정 의미 탈락 또는 완전 학생 표본으로 모든 지문이 끝나야 한다. band 밖 측정은 완료된 발견이지만 통과는 아니다. 새 원천/DOI/본문/학생을 요구하고 전문가 재사용 여부는 먼저 봉인한다.
+
+## Gold · DB seed · production
+
+별도 validation/replication의 실제 독립 의미 판정·학생 목표 band/완전 표본·최종 major 왜곡0·현재 provenance/high 연결을 모두 만족해야 exact passage/target/protocol gold다. calibration/v1/미봉인 결과는 새 seed에 사용할 수 없다.
+
+완성 Academic Reading 청크의 adapt-drain-import.mjs에 --educational-validation <v2 gold results.json> --evidence-dir <원본폴더> 및 기존 규칙/회차 인자를 지정한다. 동일 본문/target/source만 허용하며 최초와 batch 직전 최신 인증·규칙·원 연구 문맥을 대조한다. 인증이 바뀌면 새 예행을 요구한다. 기존 권리·분석·내용검수·DB checkpoint·직렬 적재 조건도 충족해야 한다. 로컬 pilot은 완성 청크가 아니므로 직접 import하지 않는다. 적재는 queued이며 이번 작업은 DB seed/발행을 실행하지 않았다.
+
+production 확인은 verify에 --production --replication <후속v2결과> --replication-pilot <새pilot> --replication-precision-review <새회차> --replication-evidence-dir <새증거폴더>를 추가한다. 이때만 실제 DB의 현재 published 행을 읽는다. 후속 회차는 기존 gold 학생 측정이 끝난 뒤 등록되어야 하고 다른 주제·원천·연구·학생으로 gold 기준을 재현해야 한다. expert_reuse_allowed=false이면 원 validation의 전문가도 재사용하지 못한다. 현재 행의 본문/부모/target/저장된 manifest·validation hash까지 같아야 production이다. published만으로 승격하지 않는다. 실제 DB query 오류를 성공/0건으로 삼키지 않는다.
+
+모든 명령은 --commit을 거절하며 기존 출력도 덮지 않는다. v1 protocol/results는 과거 재현·읽기/빈 수집에 남기되 새 기준으로 인증하지 않는다. 실제 새 v2 예행과 한계는 [완료 보고서](../../../docs/reports/frym-human-validation-v2-20261005.md)에 기록한다.
