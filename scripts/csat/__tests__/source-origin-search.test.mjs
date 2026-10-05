@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { alternativeQueries, documentFrequencies, searchSegments, provenanceRequests, localAlignment, buildOriginIndex, searchOriginIndex, classifySearchResponse, runProvenanceSearch, extractOaDocument, loadOaDocument } from '../source-origin-search.mjs'
 import { classifyOriginLane, bookQueryFamilies, makeBookPlan, bookCandidate, runBookBatch, retrieverStatistics, searchBookInside, pendingBookPlan, summarizeBookRun, bookCohortSha } from '../source-origin-search.mjs'
-import { createSerialLimiter, retryAfterMs, requestWithRetry, benchmarkMetrics, candidateReviewQueue, runFixedSemanticBatch } from '../source-origin-search.mjs'
+import { createSerialLimiter, retryAfterMs, requestWithRetry, benchmarkMetrics, candidateReviewQueue, runFixedSemanticBatch, benchmarkBaseline } from '../source-origin-search.mjs'
 
 test('all concurrent Semantic operations share a serial one-second start queue', async () => {
   let clock = 100, active = 0, peak = 0
@@ -95,12 +95,24 @@ test('benchmark closes only after all fixed queries and bound top-N reviews; ret
   assert.equal(final.rates.A_rate, 1)
   const control = structuredClone(plan); control.cohort[0].current_status = 'confirmed_exact'
   assert.equal(benchmarkMetrics(control, attempts, [outcome], options).rates.A_rate, 0)
+  control.benchmark_baseline = benchmarkBaseline(plan)
+  assert.equal(benchmarkMetrics(control, attempts, [outcome], options).rates.A_rate, 1)
+  assert.throws(() => benchmarkBaseline(plan, { ...control.benchmark_baseline, rows: [] }), /baseline identity/)
   assert.equal(benchmarkMetrics(plan, attempts, [], { retriever: 'google_books_api' }).availability.queries_completed, 0)
   const broken = attempts.map(r => r.state === 'candidates' ? { ...r, hits: [{ title: 'No stable ID' }] } : r)
   assert.equal(benchmarkMetrics(plan, broken, [], options).termination.benchmark_complete, false)
   assert.equal(classifySearchResponse('semantic_scholar', 200, { data: [{ text: 'missing id' }] }).state, 'invalid_response')
   assert.throws(() => benchmarkMetrics(plan, attempts, [{ ...outcome, body_sha256_by_item: {} }], options), /Unbound/)
   assert.equal(candidateReviewQueue(plan, attempts, { ...options, requireIdentification: true })[0].candidates.length, 1)
+})
+
+test('official Semantic corpus IDs survive parsing, ranking and deduplication; malformed arrays do not crash', () => {
+  const plan = tinyBenchmark(), hit = { paper: { corpusId: 123, title: 'Paper' }, snippet: { text: 'target text' } }
+  assert.equal(classifySearchResponse('semantic_scholar', 200, { data: [hit] }).state, 'candidates')
+  assert.equal(classifySearchResponse('google_books', 200, { totalItems: 0, items: {} }).state, 'invalid_response')
+  const attempts = plan.cohort[0].requests.map(q => ({ ...plan.cohort[0], ...q, retriever: 'semantic_snippet', state: 'candidates', authenticated: true, hits: [hit] }))
+  assert.equal(candidateReviewQueue(plan, attempts, { retriever: 'semantic_snippet' })[0].candidates[0].candidate_id, 'CorpusId:123')
+  assert.equal(benchmarkMetrics(plan, attempts, [], { retriever: 'semantic_snippet' }).retrieval.unique_candidates, 1)
 })
 
 test('Semantic Retry-After defers other queued requests before releasing the shared limiter', async () => {

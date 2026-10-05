@@ -262,7 +262,7 @@ export async function runBookBatch(plan, { fetchImpl = fetch, now, key, apiKeyPr
   if (apiKeyProject !== null && !/^(?:[a-z][a-z0-9-]{4,28}[a-z0-9]|\d{6,20})$/.test(apiKeyProject)) throw new Error('Invalid project identifier; credentials cannot be metadata')
   if (!['partial', 'full'].includes(plan.filter) || plan.maxResults !== 40 || !Number.isInteger(plan.max_pages_per_query) || plan.max_pages_per_query < 1 || plan.max_pages_per_query > 10) throw new Error('Invalid bounded book batch options')
   const attemptKey = r => JSON.stringify([r.representative_item_id, r.passage_sha256, Object.entries(r.body_sha256_by_item ?? {}).sort(), r.strategy ?? null, r.query, r.startIndex, plan.filter, plan.maxResults])
-  const done = new Map(previous.filter(r => ['candidates', 'no_results'].includes(r.state) && r.retriever === 'google_books_api' && r.filter === plan.filter && r.maxResults === plan.maxResults
+  const done = new Map(previous.filter(r => ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(candidateId) && r.retriever === 'google_books_api' && r.filter === plan.filter && r.maxResults === plan.maxResults
     && (!requireIdentification || r.authenticated === true && r.api_key_project === apiKeyProject)).map(r => [attemptKey(r), r]))
   const clockMs = retryOptions.nowMs ?? Date.now
   const priorTransport = previous.filter(r => r.retriever === 'google_books_api' && r.authenticated === Boolean(key) && r.api_key_project === apiKeyProject && r.started_at != null).at(-1)
@@ -349,6 +349,7 @@ export function retrieverStatistics(attempts, outcomes = []) {
 
 export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, requireIdentification = true, apiKeyProject = null, topN = 3 } = {}) {
   const fixed = plan.fixed_cohort ?? plan.cohort
+  const baseline = benchmarkBaseline(plan, plan.benchmark_baseline)
   const expected = new Map(fixed.flatMap(row => row.requests.map(q => [JSON.stringify([row.representative_item_id, q.strategy, q.query]), { row, q }])))
   const groups = new Map(), quarantined = []
   for (const r of attempts) {
@@ -370,7 +371,7 @@ export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, req
     if (Array.from({ length: needed }, (_, i) => retriever === 'google_books_api' ? i * 40 : 0).every(i => pages.has(i))) completed.set(key, [...pages.values()])
   }
   const scoped = [...groups.values()].flat(), candidateRecords = [...completed.values()].flat().filter(r => r.hits?.length)
-  const docId = h => h.volume_id ?? h.paperId ?? h.paper?.paperId ?? h.paperInfo?.paperId ?? h.id ?? h.url ?? null
+  const docId = candidateId
   const selected = candidateReviewQueue(plan, scoped.filter(valid), { retriever, topN }).flatMap(r => r.candidates.map(c => ({ ...r, candidate_id: c.candidate_id })))
   const selectedKeys = new Set(selected.map(r => JSON.stringify([r.representative_item_id, r.candidate_id])))
   const judged = outcomes.filter(o => o.retriever === retriever && selectedKeys.has(JSON.stringify([o.representative_item_id, o.candidate_id])))
@@ -384,7 +385,7 @@ export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, req
   const allComplete = completed.size === expected.size && fixed.length > 0
   const reviewedKeys = new Set(uniqueJudged.filter(o => ['A', 'B', 'C', 'G'].includes(o.after)).map(o => JSON.stringify([o.representative_item_id, o.candidate_id])))
   const verificationComplete = allComplete && [...selectedKeys].every(k => reviewedKeys.has(k))
-  const newAItems = new Set(uniqueJudged.filter(o => o.before === 'G' && o.after === 'A' && fixed.some(r => r.representative_item_id === o.representative_item_id && (r.current_status ?? r.status) === 'unresolved')).map(o => o.representative_item_id))
+  const newAItems = new Set(uniqueJudged.filter(o => o.before === 'G' && o.after === 'A' && baseline.rows.some(r => r.representative_item_id === o.representative_item_id && r.status === 'unresolved')).map(o => o.representative_item_id))
   const availability = {
     queries_planned: expected.size, queries_attempted: [...groups.values()].filter(rs => rs.some(wasAttempted)).length, queries_completed: completed.size,
     queries_429: [...groups.values()].filter(rs => rs.some(r => r.http_status === 429)).length,
@@ -405,7 +406,21 @@ export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, req
     limitation: 'Completed query counts deduplicate retries and require all predeclared pages. Final useful/A rates wait for frozen top-N review completion; status histories may overlap after retries.' }
 }
 
-function candidateId(hit) { return hit && (hit.volume_id ?? hit.paperId ?? hit.paper?.paperId ?? hit.paperInfo?.paperId ?? hit.id) }
+export function benchmarkBaseline(plan, snapshot = null) {
+  const fixed = plan.fixed_cohort ?? plan.cohort
+  const identity = r => ({ representative_item_id: r.representative_item_id, passage_sha256: r.passage_sha256, body_sha256_by_item: r.body_sha256_by_item })
+  const result = snapshot ?? { cohort_sha256: plan.cohort_sha256 ?? null, rows: fixed.map(r => ({ ...identity(r), status: r.current_status ?? r.status ?? null })) }
+  if (result.cohort_sha256 !== (plan.cohort_sha256 ?? null) || !Array.isArray(result.rows) || result.rows.length !== fixed.length || !isDeepStrictEqual(result.rows.map(identity), fixed.map(identity))) throw new Error('Benchmark baseline identity mismatch')
+  if (result.rows.some(r => r.status !== null && !['unresolved', 'confirmed_exact', 'supported_candidate', 'hold'].includes(r.status))) throw new Error('Unknown benchmark baseline status')
+  return result
+}
+
+function candidateId(hit) {
+  const id = hit && (hit.volume_id ?? hit.paperId ?? hit.paper?.paperId ?? hit.paperInfo?.paperId ?? hit.id)
+  if (typeof id === 'string' && id.trim()) return id
+  const corpusId = hit?.paper?.corpusId ?? hit?.corpusId
+  return Number.isSafeInteger(corpusId) && corpusId > 0 ? `CorpusId:${corpusId}` : null
+}
 
 export function candidateReviewQueue(plan, attempts, { retriever, topN = 3, requireIdentification = false, apiKeyProject = null } = {}) {
   if (!Number.isInteger(topN) || topN < 1 || topN > 10) throw new Error('Bounded top-N required')
@@ -418,7 +433,7 @@ export function candidateReviewQueue(plan, attempts, { retriever, topN = 3, requ
       .flatMap(r => r.hits.map(hit => ({ ...hit, origin_query: r.query, origin_strategy: r.strategy })))
     const byId = new Map()
     for (const hit of hits.sort((a, b) => (b.review_priority_score ?? 0) - (a.review_priority_score ?? 0) || (a.candidate_rank ?? 0) - (b.candidate_rank ?? 0))) {
-      const id = hit.volume_id ?? hit.paperId ?? hit.paper?.paperId ?? hit.paperInfo?.paperId ?? hit.id
+      const id = candidateId(hit)
       if (id && !byId.has(id)) byId.set(id, { ...hit, candidate_id: id, verdict: 'unreviewed' })
     }
     return { representative_item_id: row.representative_item_id, passage_sha256: row.passage_sha256, body_sha256_by_item: row.body_sha256_by_item, topN, candidates: [...byId.values()].slice(0, topN) }
@@ -597,6 +612,7 @@ export function classifySearchResponse(provider, status, body) {
   const arrays = { semantic_scholar: body?.data, google_books: body?.items, europe_pmc: body?.resultList?.result }
   const reported = provider === 'google_books' ? body?.totalItems : body?.hitCount
   const items = arrays[provider]
+  if (items !== undefined && !Array.isArray(items)) return { state: 'invalid_response', hits: null }
   if (!Array.isArray(items) && reported !== 0) return { state: 'invalid_response', hits: null }
   if (reported > 0 && !(items?.length)) return { state: 'invalid_response', hits: null }
   if (['google_books', 'semantic_scholar'].includes(provider) && items?.some(hit => !candidateId(hit))) return { state: 'invalid_response', hits: null }
@@ -633,7 +649,7 @@ export async function runProvenanceSearch(queue, { fetchImpl = fetch, now, keys 
 
 export async function runFixedSemanticBatch(plan, { previous = [], key, requireIdentification = true, onAttempt = () => {}, ...options } = {}) {
   const identity = r => JSON.stringify([r.representative_item_id, r.passage_sha256, Object.entries(r.body_sha256_by_item ?? {}).sort(), r.strategy, r.query])
-  const done = new Set(previous.filter(r => r.retriever === 'semantic_snippet' && ['candidates', 'no_results'].includes(r.state) && (!requireIdentification || r.authenticated === true)).map(identity))
+  const done = new Set(previous.filter(r => r.retriever === 'semantic_snippet' && ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(candidateId) && (!requireIdentification || r.authenticated === true)).map(identity))
   const queue = plan.cohort.map(row => ({ ...row, requests: row.requests.filter(q => !done.has(identity({ ...row, ...q }))).map(q => ({ ...q, provider: 'semantic_scholar', retriever: 'semantic_snippet',
     submitted_query: q.query.replace(/"/g, '').replace(/\s+/g, ' ').trim(),
     attempt_offset: Math.max(0, ...previous.filter(r => identity(r) === identity({ ...row, ...q })).map(r => r.attempt_no ?? 0)) })) }))
@@ -670,6 +686,9 @@ async function main() {
       const plan = pendingBookPlan(JSON.parse(fs.readFileSync(input, 'utf8')), JSON.parse(fs.readFileSync(fresh, 'utf8')), { includeResolved: benchmark })
       const previous = fs.existsSync(output) ? fs.readFileSync(output, 'utf8').trim().split('\n').filter(Boolean).map(l => JSON.parse(l)) : []
       fs.mkdirSync(path.dirname(output), { recursive: true })
+      const baselinePath = output + '.baseline.json'
+      plan.benchmark_baseline = benchmarkBaseline(plan, fs.existsSync(baselinePath) ? JSON.parse(fs.readFileSync(baselinePath, 'utf8')) : null)
+      if (!fs.existsSync(baselinePath)) fs.writeFileSync(baselinePath, JSON.stringify(plan.benchmark_baseline, null, 2), { flag: 'wx' })
       const common = { now: () => new Date().toISOString(), previous, onAttempt: r => fs.appendFileSync(output, JSON.stringify(r) + '\n') }
       const semantic = process.argv[2] === '--semantic-fixed'
       const attempts = semantic ? await runFixedSemanticBatch(plan, { ...common, key: process.env.SEMANTIC_SCHOLAR_API_KEY })

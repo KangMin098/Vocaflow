@@ -216,6 +216,6 @@ availability는 planned/attempted/completed/429/other_error/missing_auth, retrie
 
 성과 lane은 books_api(기존 google_books_api), semantic_snippet, public_fulltext(기존 web_book_discovery→public_book_pdf의 연결), general_web, citation_backtrack으로 역할을 표시한다. public_fulltext A 2개는 이전 읽은 페이지·판본 불확실성·원문 해시를 그대로 유지한다. 전체 확보수에서 generator와 verifier의 성과를 중복 합산하지 않는다. 현재 모든 API 수율 비교와 다음 589개 우선순위 결정은 **미완료**다.
 
-manifest benchmark_close에 고정 SHA·161개씩의 실제 skipped record·새 지표·기존 429 진단·PDF 성과 경로·자격 의존성을 보존했다. 회귀 **36/36**, 지시 검사 **10/10**. DB·마이그레이션·라우트 변경 없음. 자격이 마련되면 같은 파일의 기존 질의를 재개하고 정상 후보 top-3만 검수한다.
+manifest benchmark_close에 고정 SHA·161개씩의 실제 skipped record·새 지표·기존 429 진단·PDF 성과 경로·자격 의존성을 보존했다. 회귀 **37/37**, 지시 검사 **10/10**. DB·마이그레이션·라우트 변경 없음. 자격이 마련되면 같은 파일의 기존 질의를 재개하고 정상 후보 top-3만 검수한다.
 
-목적 리뷰의 지적을 반영해 현재 등록된 대조군은 검수 파일의 before 값과 무관하게 신규 A 수율에서 제외한다. Semantic Retry-After는 공유 queue가 다음 동시 요청을 시작하기 전에 반영한다. Books 프로젝트 ID가 없으면 다른 프로젝트의 성공 페이지를 합쳐 완료로 판정하지 않는다. 후보 ID가 없는 API 응답은 파싱 오류이며 검수 없이 완료 처리하지 않는다.
+목적 리뷰의 지적을 반영해 시작 시 등록된 대조군은 검수 파일의 before 값과 무관하게 신규 A 수율에서 제외한다. 실행 전 .baseline.json에 cohort·본문 SHA·등록 상태를 고정하며, 이후 DB 등록 후에도 해당 파일을 유지해 신규 A 귀속이 달라지지 않게 한다. manifest에도 시작 기준선을 보존했다. Semantic Retry-After는 공유 queue가 다음 동시 요청을 시작하기 전에 반영한다. Books 프로젝트 ID가 없으면 다른 프로젝트의 성공 페이지를 합쳐 완료로 판정하지 않는다. 후보 ID가 없는 API 응답과 배열이 아닌 items는 파싱 오류이며 검수 없이 완료 처리하지 않는다. 공식 Semantic snippet의 paper.corpusId는 CorpusId 접두사로 정규화해 파싱·검수 큐·중복 집계에 함께 사용한다([공식 응답 스키마](https://api.semanticscholar.org/graph/v1/swagger.json)).

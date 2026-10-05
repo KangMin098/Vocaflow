@@ -161,6 +161,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
         what: 'Codex 원천 조사 결과를 등록부(knowledge_csat_origins)에 적재한다.',
         prerequisites: ['docs/reports/csat-source-origin-results-20260928.jsonl 이 있다', 'apps/web/.env.local 의 service role 자격'],
         procedure: [
+          { title: '실험 기준선을 보존한다', detail: 'benchmark 실행 전 생성하는 .baseline.json은 고정 cohort·본문 SHA와 시작 시 등록 상태를 보존한다. DB 등록 후 재집계할 때도 같은 기준선 파일을 유지한다. 기준선을 지우거나 다른 실험 로그로 바꾸면 신규 A의 시작 기준이 달라지므로 기존 로그와 함께 보관한다. 내용 또는 cohort가 달라진 기준선은 실행 전에 거부한다.' },
           { title: '고정 API 비교를 완료한다', detail: '원문 출처 실험은 기존 50개·161개 query family를 유지한다. --books <plan> <log> <최신행> --benchmark와 --semantic-fixed <plan> <log> <최신행>은 이미 등록된 양성 대조군도 포함한다. GOOGLE_BOOKS_API_KEY·GOOGLE_BOOKS_API_PROJECT·SEMANTIC_SCHOLAR_API_KEY는 환경에서만 읽고 자격이 없으면 HTTP 호출 없이 미실행으로 기록한다. Semantic 호출은 한 Node 프로세스에서 직렬 1RPS로 진행하므로 benchmark CLI는 하나만 실행한다. 429·일시 오류는 최대 3회 재시도하고 30초를 넘는 Retry-After는 다음 실행까지 대기 기한을 보존한다. 성공 캐시만 재사용하므로 재실행 안전하며 DB 쓰기는 없다.' },
           { title: 'API 비교 종료 조건을 확인한다', detail: '.metrics.json의 availability·retrieval·verification을 각각 확인한다. 동일 후보 ID의 top 3만 검수하고 --reviews 파일에 현재 registry·본문 SHA와 판정을 기록한다. 161개 질의의 정상 응답과 상위 후보 검수가 모두 끝나기 전에는 수율을 null로 유지한다. 공개 PDF에서 확인한 기존 A는 public_fulltext 성과이며 API 신규 A로 합산하지 않는다. 후보 순위·부분 snippet만으로 A를 자동 등록하지 않는다.' },
           { title: '미리보기', detail: 'node scripts/knowledge/import-seed.mjs — 등급별 개수만 출력하고 쓰지 않는다.' },
