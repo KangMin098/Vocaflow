@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): 도서 retrieval lane에 G 전량 경로/근거·121행 참고 집합·수능 book-likely 고정 50개/161질의·Books 40건 bounded pagination·판본 시점 감점·known-volume reader·retriever/rank/depth/작업량 집계를 추가. Books/Semantic 429는 미실행으로 보존. 공개 PDF 문단/페이지 검수로 신규 A 2개·전체 123/713·수능 109/338, gap 589를 CAS 적용·재검증. 정상 API 수율/웹 우세 비교는 미완료로 명시; 회귀 29/29, 마이그레이션·라우트 변경 없음.
+
 - docs(csat): 도서 원천 후속으로 2016#29 신규 B 등록·2026#21 B→A 승격. 전체 A+B 121/713, 수능 107/338, 미확인 591행을 DB 재질의. 공개 reader 검색과 API 쿼터·전체 본문 열람을 구분하고 판본 불확실성을 보존. SHA/CAS·공백 갱신 트랜잭션·전후 체크포인트·재실행 검증 및 DB 통계 생성 완료.
 
 - feat(csat): 원천 조사에 도서·학술 API adapter와 OA 문단 역색인·편집 정렬·참고문헌 연결을 추가. 미확인 592행 Europe PMC 검색 및 175행 시점 재검색, OA 본문 633개·33,297문단 로컬 대조 후 추가 등록 0개를 명시했다. snippet 특수 문법 전제를 정정하고 Books/snippet 429 및 미실행 범위를 보존했다. 기존 120개 출처의 빈도와 후기 판본을 확률 모델과 구분했다. 응답 불일치 재시도·근거 보존·손상 캐시 복구 포함 회귀 22/22, DB·마이그레이션·라우트 변경 없음. [연합 검색 결과](./reports/csat-source-origin-priority-20261005.md#첨부-제안-적용-연합-검색-실험--추가-등록-0개).

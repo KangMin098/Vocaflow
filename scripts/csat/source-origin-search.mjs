@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
+import { isDeepStrictEqual } from 'node:util'
 export function searchSegments(value, typeId = '') {
   let text = String(value ?? '').normalize('NFC').replace(/[“”]/g, '"').replace(/[‘’]/g, "'")
   if (typeId === 'R-SUMMARY' && /\(A\)\s*[_━─]/.test(text)) {
@@ -91,6 +92,182 @@ export function provenanceRequests(row, frequencies, documentCount) {
 
 export function originTokens(value) {
   return String(value ?? '').normalize('NFC').toLowerCase().match(/[\p{Script=Latin}0-9][\p{Script=Latin}\p{M}0-9'’-]*/gu) ?? []
+}
+
+// Routing is a transparent heuristic, not an origin verdict or calibrated probability.
+export function passageLaneFeatures(row) {
+  const text = String(row.passage ?? ''), words = originTokens(text)
+  const sentences = text.split(/[.!?]+/).filter(s => originTokens(s).length >= 4)
+  const count = pattern => [...text.matchAll(pattern)].length
+  return {
+    long_explanation: words.length >= 120 ? 1 : 0,
+    long_sentences: sentences.length && words.length / sentences.length >= 20 ? 1 : 0,
+    examples: Math.min(3, count(/\b(for example|for instance|consider|imagine|suppose|say your|such as)\b/gi)),
+    conceptual: Math.min(3, count(/\b(therefore|however|thus|whereas|in contrast|in other words|concept|principle|theory)\b/gi)),
+    study: Math.min(3, count(/\b(researchers?|experiment|study|studies|findings|laboratory|hypothesis|survey)\b/gi)),
+    measurement: Math.min(3, count(/\b(percent|percentage|sample|measured|statistically|correlation|data)\b|\d+(?:\.\d+)?%/gi)),
+    notice: row.type_id === 'R-NOTICE' || /\b(dear|sincerely|register|registration|deadline|call us|email us|e-mail us|ticket|admission|opening hours)\b/i.test(text) ? 1 : 0,
+    chart: row.type_id === 'R-CHART' || /\b(the (?:above )?(?:graph|chart) (?:shows|illustrates)|as shown in the (?:graph|chart|table))\b/i.test(text) ? 1 : 0,
+    narrative: Math.min(3, count(/\b(I was|I had|she was|he was|my father|my mother|said|walked|smiled)\b/gi)),
+  }
+}
+
+export function referenceLane(row) {
+  const bibliography = `${row.source_title ?? ''} ${row.source_publisher ?? ''} ${row.source_part ?? ''}`
+  const urls = (row.evidence ?? []).map(e => e.url ?? '').join(' ')
+  if (/\b(journal|proceedings|working paper)\b/i.test(bibliography) || /doi\.org|pubmed|europepmc|\/articles\//i.test(urls)) return 'academic-likely'
+  if (/\b(chapter|edition|press|wiley|routledge|pearson|polity|bloomsbury|mcgraw|nolo|springer|sage|books)\b/i.test(bibliography) || /books\.google|\/book\/|\/books\/|oreilly\.com\/library/i.test(urls)) return 'book-likely'
+  if (/\b(report|magazine|newspaper|news|blog)\b/i.test(bibliography)) return 'report-web-likely'
+  return 'unclassified'
+}
+
+export function classifyOriginLane(row, references = []) {
+  const f = passageLaneFeatures(row)
+  const scores = {
+    'book-likely': 2 * f.long_explanation + f.long_sentences + 2 * f.examples + f.conceptual + f.narrative - 4 * f.notice - 4 * f.chart,
+    'academic-likely': 3 * f.study + 2 * f.measurement + f.long_explanation + f.conceptual - 3 * f.notice - 3 * f.narrative,
+    'report-web-likely': 5 * f.notice + 5 * f.chart + (f.long_explanation ? 0 : 1),
+  }
+  const nearest = references.map(ref => {
+    const rf = passageLaneFeatures(ref)
+    const distance = Object.keys(f).reduce((sum, key) => sum + Math.abs(f[key] - rf[key]), 0)
+    return { item_id: ref.representative_item_id, lane: referenceLane(ref), status: ref.status, distance }
+  }).filter(ref => ref.lane !== 'unclassified').sort((a, b) => a.distance - b.distance || a.item_id.localeCompare(b.item_id)).slice(0, 3)
+  // At most one point per lane: reference likeness cannot override clear notice/study features.
+  for (const lane of Object.keys(scores)) if (nearest.some(ref => ref.lane === lane && ref.distance <= 2)) scores[lane] += 1
+  // Passage function beats incidental research words in charts and event notices.
+  if (f.chart || f.notice) scores['report-web-likely'] = Math.max(...Object.values(scores)) + 3
+  const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  return { lane: ranked[0][0], scores, book_priority_score: scores['book-likely'] - Math.max(scores['academic-likely'], scores['report-web-likely']) / 2 - 2 * f.narrative,
+    ambiguity: ranked[0][1] - ranked[1][1] <= 2 ? 'overlapping' : 'preferred', features: f, nearest_reference: nearest,
+    classification_kind: 'routing_heuristic', verdict: 'unreviewed' }
+}
+
+export function bookQueryFamilies(row, frequencies, documentCount) {
+  const phrases = selectFingerprints(row.passage, frequencies, documentCount, row.type_id)
+  if (!phrases.length) return []
+  const short = alternativeQueries(row.passage, frequencies, documentCount, row.type_id).filter(q => q.strategy === 'short_phrase')
+  const requests = [{ provider: 'google_books', retriever: 'google_books_api', strategy: 'rare_exact_6_10', query: `"${phrases[0].split(' ').slice(0, 8).join(' ')}"` }]
+  if (short.length >= 2) requests.push({ provider: 'google_books', retriever: 'google_books_api', strategy: 'two_anchors_and', query: `${short[0].query} ${short[1].query}` })
+  // A shorter contiguous anchor avoids local exam edits; never silently invent synonyms.
+  if (short.length) requests.push({ provider: 'google_books', retriever: 'google_books_api', strategy: 'edit_tolerant_anchor', query: short[0].query })
+  const name = String(row.passage ?? '').match(/\b(?:[A-Z][a-z]+(?:[-'][A-Z]?[a-z]+)?\s+){1,2}[A-Z][a-z]+\b/gu)?.[0]
+  if (name && short.length && !short[0].query.includes(name)) requests.push({ provider: 'google_books', retriever: 'google_books_api', strategy: 'name_and_anchor', query: `"${name}" ${short[0].query}`, name_is_unverified: true })
+  return requests.filter((r, i) => requests.findIndex(other => other.query === r.query) === i)
+}
+
+export function makeBookPlan(rows, exams, { sampleSize = 50 } = {}) {
+  if (!Number.isInteger(sampleSize) || sampleSize < 1) throw new Error('Positive sample size required')
+  const references = rows.filter(r => ['confirmed_exact', 'supported_candidate'].includes(r.status))
+  const byExam = new Map(exams.map(e => [e.id, e]))
+  const frequencies = documentFrequencies(rows.map(r => r.passage))
+  const classified = rows.filter(r => r.status === 'unresolved').map(row => {
+    const exam = byExam.get(row.exam_id)
+    if (!exam || !Number.isInteger(exam.exam_year) || !Number.isInteger(exam.month)) throw new Error('Missing actual exam year/month: ' + row.exam_id)
+    return { representative_item_id: row.representative_item_id, passage_sha256: row.passage_sha256, body_sha256_by_item: row.body_sha256_by_item,
+      exam_kind: exam.kind, exam_year: exam.exam_year, exam_month: exam.month, ...classifyOriginLane(row, references), requests: bookQueryFamilies(row, frequencies, rows.length) }
+  }).sort((a, b) => b.book_priority_score - a.book_priority_score || a.representative_item_id.localeCompare(b.representative_item_id))
+  const cohort = classified.filter(r => r.exam_kind === 'suneung' && r.lane === 'book-likely' && r.requests.length).slice(0, sampleSize)
+  const identity = cohort.map(r => ({ id: r.representative_item_id, registry: r.passage_sha256, bodies: r.body_sha256_by_item, exam_year: r.exam_year, exam_month: r.exam_month, requests: r.requests }))
+  return { classification_version: 'book-routing-v2', reference_count: references.length, reference_labels: references.map(r => ({ item_id: r.representative_item_id, status: r.status, lane: referenceLane(r) })), classified,
+    cohort, cohort_sha256: createHash('sha256').update(JSON.stringify(identity)).digest('hex'), sample_size_requested: sampleSize,
+    filter: 'partial', maxResults: 40, max_pages_per_query: 2,
+    limitations: ['Heuristic routes overlap; no origin-type ground truth or held-out accuracy.', 'A and B references retain different verification status.', 'Missing name clues yield three families rather than fabricated names.', 'Preview filter excludes non-previewable candidates; no result does not establish absent source.'] }
+}
+
+export function bookCandidate(hit, row, candidateRank) {
+  const v = hit.volumeInfo ?? {}, publishedDate = v.publishedDate ?? null
+  const match = /^(\d{4})(?:-(\d{2}))?/.exec(publishedDate ?? '')
+  const year = match ? Number(match[1]) : null, month = match?.[2] ? Number(match[2]) : null
+  const timing = year === null ? 'unknown' : year > row.exam_year || year === row.exam_year && month !== null && month > row.exam_month ? 'later_edition' : year === row.exam_year && (month === null || month === row.exam_month) ? 'same_year_or_month_uncertain' : 'predates_exam_month'
+  return { retriever: 'google_books_api', candidate_rank: candidateRank, verification_depth: hit.searchInfo?.textSnippet ? 'indexed_text' : 'metadata_only',
+    volume_id: hit.id ?? null, title: v.title ?? null, authors: v.authors ?? [], publisher: v.publisher ?? null, publishedDate,
+    ISBN: (v.industryIdentifiers ?? []).filter(i => /^ISBN_/.test(i.type ?? '')).map(i => ({ type: i.type, identifier: i.identifier })),
+    preview_url: `https://books.google.com/books?id=${encodeURIComponent(hit.id ?? '')}`, viewability: hit.accessInfo?.viewability ?? null,
+    publication_timing: timing, timing_penalty: timing === 'later_edition' ? 1 : 0, review_priority_score: 1 / candidateRank - (timing === 'later_edition' ? 1 : 0), snippet: hit.searchInfo?.textSnippet ?? null,
+    candidate_confidence: 'unassessed', verdict: 'unreviewed', remaining_uncertainty: 'Volume match and edition timing require human attribution review; ranking never upgrades A/B.' }
+}
+
+export async function runBookBatch(plan, { fetchImpl = fetch, now, key, onAttempt = () => {}, previous = [] } = {}) {
+  if (typeof now !== 'function') throw new Error('Inject a clock')
+  if (!['partial', 'full'].includes(plan.filter) || plan.maxResults !== 40 || !Number.isInteger(plan.max_pages_per_query) || plan.max_pages_per_query < 1 || plan.max_pages_per_query > 10) throw new Error('Invalid bounded book batch options')
+  const attemptKey = r => JSON.stringify([r.passage_sha256, Object.entries(r.body_sha256_by_item ?? {}).sort(), r.query, r.startIndex, plan.filter, plan.maxResults])
+  const done = new Map(previous.filter(r => ['candidates', 'no_results'].includes(r.state) && r.retriever === 'google_books_api' && r.filter === plan.filter && r.maxResults === plan.maxResults).map(r => [attemptKey(r), r]))
+  let blocked = null
+  const attempts = []
+  for (const row of plan.cohort) for (const request of row.requests) {
+    for (let page = 0; page < plan.max_pages_per_query; page++) {
+      const base = { representative_item_id: row.representative_item_id, passage_sha256: row.passage_sha256, body_sha256_by_item: row.body_sha256_by_item,
+        ...request, retriever: 'google_books_api', startIndex: page * 40, maxResults: 40, filter: plan.filter, attempted_at: now() }
+      const cached = done.get(attemptKey(base))
+      if (cached) { if (cached.state === 'no_results' || cached.hits.length < 40 || base.startIndex + 40 >= cached.reported_total) break; continue }
+      if (blocked) { const attempt = { ...base, state: 'not_attempted_provider_blocked', blocked_by: blocked, hits: null }; attempts.push(attempt); onAttempt(attempt); break }
+      const url = new URL('https://www.googleapis.com/books/v1/volumes')
+      for (const [k, v] of Object.entries({ q: request.query, printType: 'books', langRestrict: 'en', filter: plan.filter, maxResults: 40, startIndex: base.startIndex })) url.searchParams.set(k, String(v))
+      if (key) url.searchParams.set('key', key)
+      let attempt
+      try {
+        const response = await fetchImpl(url, { signal: AbortSignal.timeout(25000) })
+        const body = await response.json().catch(() => null)
+        const result = classifySearchResponse('google_books', response.status, body)
+        attempt = { ...base, http_status: response.status, ...result, hits: result.hits?.map((hit, i) => bookCandidate(hit, row, base.startIndex + i + 1)) ?? null }
+        if (['rate_limited', 'access_denied'].includes(attempt.state)) blocked = attempt.state
+      } catch { attempt = { ...base, state: 'request_error', hits: null } }
+      attempts.push(attempt); onAttempt(attempt)
+      if (!['candidates', 'no_results'].includes(attempt.state) || !attempt.hits.length || attempt.hits.length < 40 || base.startIndex + 40 >= attempt.reported_total) break
+    }
+  }
+  return attempts
+}
+
+export function pendingBookPlan(plan, currentRows) {
+  const current = new Map(currentRows.map(r => [r.representative_item_id, r]))
+  const pending = []
+  for (const row of plan.cohort) {
+    const latest = current.get(row.representative_item_id)
+    if (!latest || latest.passage_sha256 !== row.passage_sha256 || !isDeepStrictEqual(latest.body_sha256_by_item, row.body_sha256_by_item)) throw new Error('Frozen cohort body changed: ' + row.representative_item_id)
+    if (latest.status === 'unresolved') pending.push(row)
+  }
+  return { ...plan, cohort: pending, fixed_cohort_size: plan.cohort.length, already_resolved: plan.cohort.length - pending.length }
+}
+
+export function retrieverStatistics(attempts, outcomes = []) {
+  const names = new Set([...attempts.map(r => r.retriever ?? r.provider ?? 'web_exact'), ...outcomes.map(r => r.retriever)])
+  return [...names].map(retriever => {
+    const rows = attempts.filter(r => (r.retriever ?? r.provider ?? 'web_exact') === retriever)
+    const judged = outcomes.filter(r => r.retriever === retriever)
+    const attempted = rows.filter(r => !r.state.startsWith('not_attempted'))
+    const keys = new Set(attempted.map(r => r.passage_sha256 ?? r.representative_item_id))
+    const successful = new Set(rows.filter(r => ['candidates', 'no_results'].includes(r.state)).map(r => r.passage_sha256 ?? r.representative_item_id))
+    return { retriever, requested_targets: keys.size, searched_targets: successful.size, issued_queries: attempted.length,
+      http_requests: retriever.startsWith('web_') ? null : attempted.length, http_responses: retriever.startsWith('web_') ? null : rows.filter(r => r.http_status != null).length,
+      not_attempted: rows.filter(r => r.state.startsWith('not_attempted')).length, candidate_count: rows.reduce((sum, r) => sum + (r.hits?.length ?? 0), 0),
+      unique_candidate_count: new Set(rows.flatMap(r => (r.hits ?? []).map(h => h.volume_id ?? h.id ?? h.paperId ?? h.url).filter(Boolean))).size,
+      reviewed_candidates: judged.length, new_A: judged.filter(r => r.before === 'G' && r.after === 'A').length,
+      new_B: judged.filter(r => r.before === 'G' && r.after === 'B').length, upgraded_A: judged.filter(r => r.before === 'B' && r.after === 'A').length,
+      review_actions: judged.reduce((sum, r) => sum + (r.review_actions ?? 0), 0),
+      review_minutes: judged.some(r => r.review_minutes == null) || !judged.length ? null : judged.reduce((sum, r) => sum + r.review_minutes, 0),
+      observed_yield_available: successful.size > 0 && judged.length > 0 }
+  })
+}
+
+export async function searchBookInside({ volume_id, query, candidate_rank = null }, { fetchImpl = fetch } = {}) {
+  if (!/^[A-Za-z0-9_-]{8,24}$/.test(volume_id ?? '') || typeof query !== 'string' || !query.trim()) throw new Error('Known volume ID and nonempty query required')
+  const url = new URL('https://books.google.com/books')
+  url.search = new URLSearchParams({ jscmd: 'SearchWithinVolume2', vid: volume_id, q: query })
+  const base = { retriever: 'google_books_inside', volume_id, query, candidate_rank, url: String(url), verification_depth: null }
+  try {
+    const response = await fetchImpl(url, { signal: AbortSignal.timeout(25000) })
+    const body = await response.json().catch(() => null)
+    if (response.status === 429) return { ...base, http_status: 429, state: 'rate_limited', hits: null }
+    if ([401, 403].includes(response.status)) return { ...base, http_status: response.status, state: 'access_denied', hits: null }
+    if (response.status < 200 || response.status >= 300) return { ...base, http_status: response.status, state: 'http_error', hits: null }
+    if (!Number.isInteger(body?.number_of_results) || body.number_of_results < 0 || body.number_of_results > 0 && !body.search_results?.length || body.search_results !== undefined && !Array.isArray(body.search_results) || body.number_of_results === 0 && body.search_results?.length) return { ...base, http_status: response.status, state: 'invalid_response', hits: null }
+    const hits = body.search_results ?? []
+    return { ...base, http_status: response.status, state: hits.length ? 'candidates' : 'no_results', reported_total: body.number_of_results,
+      verification_depth: hits.length ? 'indexed_text' : null, hits: hits.map(p => ({ page_id: p.page_id, page_number: p.page_number ?? null, snippet: p.snippet_text ?? '', verification_depth: 'indexed_text', verdict: 'unreviewed' })),
+      remaining_uncertainty: 'Public reader fragments only; no complete paragraph/page confirmation or A upgrade.' }
+  } catch { return { ...base, state: 'request_error', hits: null } }
 }
 
 function completeXml(xml) {
@@ -255,7 +432,7 @@ export async function runProvenanceSearch(queue, { fetchImpl = fetch, now, keys 
   if (typeof now !== 'function') throw new Error('Inject a clock')
   const attempts = []
   for (const row of queue) for (const request of row.requests) {
-    const base = { representative_item_id: row.representative_item_id, passage_sha256: row.passage_sha256, body_sha256_by_item: row.body_sha256_by_item, ...request, attempted_at: now() }
+      const base = { representative_item_id: row.representative_item_id, passage_sha256: row.passage_sha256, body_sha256_by_item: row.body_sha256_by_item, retriever: ({ semantic_scholar: 'semantic_snippet', google_books: 'google_books_api', europe_pmc: 'europe_pmc' })[request.provider], ...request, attempted_at: now() }
     if (circuit.has(request.provider)) { const skipped = { ...base, state: 'not_attempted_provider_blocked', blocked_by: circuit.get(request.provider) }; attempts.push(skipped); onAttempt(skipped); continue }
     const urls = { semantic_scholar: 'https://api.semanticscholar.org/graph/v1/snippet/search', google_books: 'https://www.googleapis.com/books/v1/volumes', europe_pmc: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search' }
     const url = new URL(urls[request.provider])
@@ -278,6 +455,25 @@ export async function runProvenanceSearch(queue, { fetchImpl = fetch, now, keys 
 
 // CLI writes an append-only local attempt log, never the attribution DB. Resume successes only.
 async function main() {
+    if (process.argv[2] === '--book-plan') {
+      const [input, exams, output] = process.argv.slice(3)
+      if (!input || !exams || !output) throw new Error('Usage: --book-plan <fresh-rows.json> <exams.json> <plan.json>')
+      const plan = makeBookPlan(JSON.parse(fs.readFileSync(input, 'utf8')), JSON.parse(fs.readFileSync(exams, 'utf8')))
+      fs.mkdirSync(path.dirname(output), { recursive: true }); fs.writeFileSync(output, JSON.stringify(plan, null, 2))
+      console.log(JSON.stringify({ classified: plan.classified.length, reference_count: plan.reference_count, cohort: plan.cohort.length, cohort_sha256: plan.cohort_sha256 }))
+      return
+    }
+    if (process.argv[2] === '--books') {
+      const [input, output, fresh] = process.argv.slice(3)
+      if (!input || !output || !fresh) throw new Error('Usage: --books <plan.json> <attempts.jsonl> <current-rows.json>')
+      const plan = pendingBookPlan(JSON.parse(fs.readFileSync(input, 'utf8')), JSON.parse(fs.readFileSync(fresh, 'utf8')))
+      const previous = fs.existsSync(output) ? fs.readFileSync(output, 'utf8').trim().split('\n').filter(Boolean).map(l => JSON.parse(l)) : []
+      fs.mkdirSync(path.dirname(output), { recursive: true })
+      const attempts = await runBookBatch(plan, { now: () => new Date().toISOString(), key: process.env.GOOGLE_BOOKS_API_KEY, previous,
+        onAttempt: r => fs.appendFileSync(output, JSON.stringify(r) + '\n') })
+      console.log(JSON.stringify(retrieverStatistics(attempts)))
+      return
+    }
   if (process.argv[2] === '--oa') {
     const [input, output] = process.argv.slice(3)
     if (!input || !output) throw new Error('Usage: node source-origin-search.mjs --oa <attempts.jsonl> <output-directory>')

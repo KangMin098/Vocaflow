@@ -106,3 +106,62 @@ HTRC·Common Crawl은 후속 조사 경로로 남긴다. [Common Crawl URL Index
 본문·연결 문항 SHA와 10개 원천 필드 스냅샷 CAS 검사는 두 행 모두 ready였다. 원천 변경과 공백 592→591을 한 트랜잭션으로 적용하고 두 행 모두 already_applied를 재확인했다. DB 체크포인트 csat-origin-books-20261005의 전후 비교에서 연결률은 55→60%, 회전식 bloat 표본 대상은 바뀌었고 손실 징후는 없었다. DB 통계 생성기를 실행했다. 마이그레이션·라우트·검색 코드 변경은 없다. 검수 원본·URL·검색 응답 해시·읽은 범위·잔여 불확실성은 기존 manifest의 book_followup에 보존했다.
 
 다음에는 이미 책이 특정된 후보의 목표 문단을 먼저 확인하고, 원작이 미식별인 지문은 서지 후보 확보 후 알려진 volume ID를 연결한다. 공개 검색 조각만 확보하면 B 근거로 검수하고 전체 대상 문단을 읽은 경우에만 A 승격한다.
+
+## 도서 lane 고정 50건 실험 — 신규 A 2개
+
+**최신 DB 재질의: 전체 A+B 123/713행(A 98·B 25), 연결 문항 130/802개. 수능 A+B 109/338행(A 84·B 25), 연결 문항 115/382개. G는 589행(수능 228·모의평가 361)**이다. 이번 신규 A는 고정 cohort 안의 2016#32와 2014B#32이며, A 승격·신규 B는 0개다.
+
+### G 전량의 검색 우선순위
+
+등록 전 G 591행의 현재 지문/연결 SHA와 실제 시험 연월을 DB에서 다시 읽었다. 참고 집합 121행은 A 96·B 25를 구분했으며 서지 단서로 책 103·학술 2·보고서/웹 1·미분류 15로 표시했다. 미분류를 억지로 학습 라벨로 만들지 않았다. 공개 OA에 편향된 이전 실험과 수집된 책에 편향된 이 참고 집합을 확률 모델로 학습하지 않았다.
+
+| 검색 우선 경로 | 당시 G 전체 | 당시 수능 G | 현재 남은 G(같은 규칙) |
+|---|---:|---:|---:|
+| book-likely | 427 | 159 | 425 |
+| academic-likely | 47 | 17 | 47 |
+| report-web-likely | 117 | 54 | 117 |
+| 합계 | 591 | 230 | 589 |
+
+이는 **출처 장르의 실제 분포가 아니라 retrieval 우선순위**다. 길이·설명 구조·예시·대조·연구/측정 단서·공지/도표 기능·서사 단서와 가까운 서지 참고 사례를 기록했다. 시험 시점은 후보 판본 검수에만 쓰며 지문 문체로 발행 연도를 추정하지 않는다. 상위 두 경로 점수차가 작은 129행은 overlapping으로 표시했다. 경로는 중첩될 수 있고 다른 lane을 차단하지 않는다.
+
+표본 직접 검토 후, 공지의 참가자 단어와 이야기의 탁자를 학술/도표로 오인한 규칙을 고쳤다. 최종 규칙에서는 현재 지문 **16행(고정군 10·학술군 2·웹군 4)**을 읽고 애매한 예시를 남겼다. 2016#40의 평가·통계 사례는 경영 교과서일 수 있고, 2018#40의 학술 정보 교환은 책 또는 논문일 수 있다. 정답 원작 장르가 없으므로 분류 정확도를 계산하지 않았다. 고유명 탐지는 대문자 패턴의 미검증 단서이며 저자/제목 식별을 뜻하지 않는다.
+
+수능 book-likely 상위 50개를 결과 확인 전 고정했다. 최종 cohort SHA는 **26e37b254b5500af979b25527bc94eb93e74b12e113a6d83781cb98ca8dcdb82**. 39개는 3 query family, 11개는 4 family, 총 **161개 질의**다. 희소 8단어 exact·앞뒤 4단어 AND·편집에 덜 민감한 연속 4단어·고유명 후보+구절을 생성했다. 고유명 단서가 없으면 네 번째를 꾸며내지 않는다. 길게 이어붙인 빈칸/순서/삽입문 경계는 넘지 않는다. 수정 전 v1 cohort는 폐기 기록으로 보존했고 첫 API 요청은 v2의 첫 대상/질의/SHA와 동일했다.
+
+### 실제 실행과 성과
+
+| retriever | 실제 질의/대상 | 결과 | 이번 신규 A/B·A 승격 |
+|---|---|---|---|
+| google_books_api | 1질의·1대상 | HTTP 429. 정상 검색 대상 0, 남은 160질의 미실행 | 0 / 0 / 0; 수율 계산 불가 |
+| web_books_site_exact | 50질의·50대상 | 공개 도서 사이트로 한정한 일반 웹 검색 0후보 | 0 / 0 / 0 |
+| web_book_discovery → public_book_pdf | 제목 단서 추적 8질의·4대상, 원문 PDF 2개 | 2개 대상 문단 전체·렌더 페이지 검수 | **2 / 0 / 0** |
+| google_books_inside | 알려진 책 2개·각 1질의 | HTTP 200, 검색 조각 0. PDF 확인과는 별도 | 0 / 0 / 0 |
+| semantic_snippet | 학술 우선 수능 17개 중 1질의 | HTTP 429, 나머지 16개 미실행 | 0 / 0 / 0; 수율 계산 불가 |
+
+도서 사이트 한정 웹 검색은 **Books API full-text 검색 실험의 대체 측정이 아니다**. 공개 reader의 조각 0은 그 판본/노출 범위의 해당 검색 결과일 뿐 책 전체에 글이 없다는 뜻이 아니다. 이번에도 실제 PDF 문단 확인으로 두 원작을 찾았다. 지난 Lost Animals G→B는 google_books_inside, Gig Economy B→A는 도서 전사 전체 대조의 성과였으며 이를 Books v1 API의 성공으로 합산하지 않는다.
+
+| 신규 A | 확인 범위·시험 차이·판본 |
+|---|---|
+| 2016#32 — Kahneman, *Thinking, Fast and Slow* | [공개 PDF](https://stenzelclinical.com/wp-content/uploads/2021/12/Kahneman-Thinking-Fast-Slow.pdf)의 Chapter 28 Bad Events, PDF 294번째 페이지의 전체 대상 문단·전후 문맥 및 렌더 이미지, 2011 FSG 판권·ISBN을 직접 읽었다. 시험은 강우 형용사를 교체하고 개선 방향 구절을 빈칸으로 만들었다. [출판사 ISBN 상품](https://us.macmillan.com/books/9780374275631/thinkingfastandslow/)을 연결했다. 전사 잡음·실물 판면·시험 사용 쇄는 남은 불확실성이다. PDF 번호를 인쇄본 쪽수로 쓰지 않았다. |
+| 2014B#32 — Ridley, *The Rational Optimist* | [공개 PDF](https://cpcglobal.org/publications/The%20rational%20Optimist.pdf)의 표지·Chapter 2와 PDF 58번째 페이지의 연속 두 문단·전후 문맥·이미지를 읽었다. 시험은 두 문단을 결합하고 중간 도입·표현을 줄여 기술 일부만 가져왔다는 절을 빈칸으로 만들었다. [Open Library 2010 서지](https://openlibrary.org/books/OL24383287M/The_rational_optimist)를 연결했다. 열람 표지는 후속 도서 발췌를 안내해 후기 복제판으로 보며 초판 파일로 지정하지 않는다. source_year 2010은 원작 서지 연도이고 읽은 파일/시험 사용 판본 연도는 미확인이다. |
+
+두 후보 검수는 각각 제목 탐색·독립 서지·PDF 확보·본문/문맥 대조·렌더 페이지 읽기·판본/시점 검토의 **6가지 작업 유형**을 기록했다. 이는 HTTP 6회나 소요 시간 6분이 아니다. 실제 질의 수는 위 표에 따로 기록했고 검수 분은 재지 않아 null이다. 이전 웹 239개 실험과 동일 대상·동일 작업 예산·동일 시간으로 비교하지 못했으므로 도서 lane 우세나 추가 확보 예상치를 주장하지 않는다.
+
+### 재실행·검증
+
+기존 검색 스크립트에 book plan·API batch·알려진 volume reader·성과 집계를 추가했다. [Books 공식 문서](https://developers.google.com/books/docs/v1/using)에 따라 exact/AND, printType=books, langRestrict=en, filter=partial(full도 설정 가능), maxResults=40, startIndex를 적용한다. 기본 2페이지/질의로 제한하고 후기 판본은 검수 우선 점수를 감점한다. partial 필터는 미리보기가 없는 책을 제외하며, API 반환 snippet은 indexed_text일 뿐 목표 원문 확인을 뜻하지 않는다.
+
+~~~powershell
+# 새 DB 조회로 본문·연결 SHA와 실제 시험 연월이 들어 있는 입력을 준비한다.
+node scripts/csat/source-origin-search.mjs --book-plan <fresh-rows.json> <exams.json> <plan.json>
+# 결과 비교 때에는 보존한 고정 plan을 사용한다. 새 plan 생성은 새 cohort다.
+node scripts/csat/source-origin-search.mjs --books <fixed-plan.json> <attempts.jsonl> <current-rows.json>
+~~~
+
+current-rows는 재실행 직전 DB에서 읽는다. 고정 cohort의 본문/연결 SHA가 바뀌면 중단하고, 이미 등록된 행은 건너뛴다. **고정 분모는 50, 이번 등록 후 남은 대상은 48**이다. 같은 본문·provider·질의·페이지·필터의 성공만 재개 때 건너뛰고 실패는 다시 시도한다. 쿼터 제한은 회차에서 circuit을 열어 남은 질의를 미실행으로 남긴다. 키는 환경에서 읽으며 출력·로그·manifest에 넣지 않는다. 정상 요청용 자격/쿼터가 마련되기 전에는 API 비교가 완료되지 않는다.
+
+Open Library/IA 내부 검색은 [공식 search_inside 설명](https://openlibrary.org/dev/docs/api/search_inside)에 따라 **후보 책의 IA item ID와 실제 데이터 host 확보 후** 검증하는 경로로 유지한다. 이번에는 Open Library 서지 확인만 했으며 내부 검색 성공으로 기록하지 않았다. Semantic snippet은 일반 텍스트 요청이며 특수 fuzzy/proximity 문법을 쓰지 않는다. snippet의 변형 대조는 기존 로컬 alignment에서 하고 논문의 귀속/시점을 별도 판정한다.
+
+manifest의 book_lane_experiment에 retriever·candidate_rank·verification_depth와 후보/원작 verdict를 보존했다. metadata_only→indexed_text→preview_text→page_image→full_context는 읽은 범위 표시이며 깊이만으로 A 승격하지 않는다. 검색 후보는 unreviewed, 귀속은 현재 본문 SHA에 묶인 검수다. 표본·고정 50개·G 전량 점수/근거·실행/미실행·API와 reader 분리·신규 두 리뷰·원문 해시를 보존했다.
+
+두 행 preview ready→원천 변경 및 gap 591→589/next_action CAS를 같은 트랜잭션으로 적용→두 행 already_applied를 재검증했다. 전후 체크포인트는 회전 bloat 표본 대상 교체와 시간 지표 1분/0.01시간 변화 외 차이가 없었다. DB 통계 생성기 실행, 관련 회귀 **29/29 통과**. 마이그레이션·라우트 변경 없음.
