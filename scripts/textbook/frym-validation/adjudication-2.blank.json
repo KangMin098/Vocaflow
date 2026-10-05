@@ -1,28 +1,70 @@
 {
-  "design_version": 2,
-  "form_type": "post_independent_review_adjudication",
-  "study_purpose": "calibration",
-  "registration_manifest_hash": null,
   "blind_item_id": null,
   "passage_hash": null,
-  "initial_expert_ids": [],
   "initial_review_hashes": [],
   "adjudicator_id": null,
   "adjudicator_independent_review_hash": null,
   "initial_reviews_disclosed_at": null,
   "adjudicated_at": null,
-  "disputed_items": [],
   "item_resolution": {
-    "core_claim": null,
-    "causal_direction": null,
-    "comparison_relation": null,
-    "conditions_and_scope": null,
-    "no_unnecessary_addition": null,
-    "no_unsupported_addition": null,
-    "no_key_omission": null,
-    "no_epistemic_overstatement": null
+    "core_claim": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "causal_direction": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "comparison_relation": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "conditions_and_scope": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "no_unnecessary_addition": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "no_unsupported_addition": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "no_key_omission": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "no_epistemic_overstatement": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    }
   },
-  "current_version_critical_rejection": null,
   "unresolved_items": [],
-  "evidence_and_reason": null
+  "evidence_and_reason": null,
+  "final_distortions": []
 }

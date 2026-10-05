@@ -1,6 +1,6 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
-사람 평가 운영안(2026-10-05): [2차 프로토콜 초안](./FYM_HUMAN_VALIDATION_PROTOCOL.md)은 현재 8편을 calibration set으로 분류하고 전문가 4점/8항목·치명 오류 자동 탈락·제3 독립 중재, 학년당 15~30명 및 버전별 유효 표본, 데이터 전 pass band 봉인, expert_validated/student_validated 단계와 production의 다른 주제/원천 재현을 제안한다. band·책임자·등록·실제 응답은 미확정이다. 이 초안은 실행 설정이 아니며 아래 v1 구현은 새 기준으로 갱신되지 않았다. calibration 결과만으로 gold/DB seed를 만들지 않는다.
+사람 평가 실행기 v2(2026-10-05): [사람 프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/8항목·핵심 차원의 critical 탈락·제3 독립 판정 후 중재·학년당 15~30명/버전별 완전 측정 15명·사전 manifest 봉인·calibration/validation 분리·다른 주제/원천 재현을 연결했다. [실행 절차](../scripts/textbook/frym-validation/README.md)의 `protocol-2.draft.json`을 사용한다. band·책임자·등록·실제 응답은 계속 미확정이며 실제 8편은 미봉인 calibration candidate다. v1 결과는 읽을 수 있으나 새 DB seed의 인증으로 사용할 수 없다.
 
 실제 응답 수집 후속(2026-10-05): `frym-validation-collect.mjs`는 등록된 사람의 blind 응답을 protocol/instrument·본문·opaque ID에 묶어 새 결과 파일로 합친다. 같은 응답은 skip, 충돌은 reject, 학생 부분 기록의 null/빈 값만 보충하며 원본·응답 파일은 보존한다. 현재 8편에 빈 입력 예행만 수행했고 실제 전문가/학생 결과와 gold는 계속 0이다. [수집 절차](../scripts/textbook/frym-validation/README.md) · [예행 결과](./reports/frym-response-collection-20261005.md).
 
@@ -8,7 +8,7 @@
 
 전문가 의미 판정은 핵심 주장·인과·비교·조건/범위·불필요한 추가·근거 없는 추가·필수 생략·추론 강도의 8항목으로 나누고 5개 보존 차원으로 산출한다. 학생 읽기 시간·이해도·어휘/문장/추론 정확도·미지어 비율·각 부담·체감 난도는 각각 측정한다. 왜곡 taxonomy v1은 요청한 10종과 기존 실패 사례를 표현할 4종을 보존한다. 문항과 수치 범위는 초안이며 학년 규준이 아니다. 사람 책임자가 자격/학년 증빙을 확인하고 정확한 프로토콜·문항을 평가 시작 전에 등록해야 한다.
 
-`candidate → reviewed → gold → production` 중 gold는 독립 전문가 의미 통과·실제 해당 학년 학생 측정 범위·왜곡 없음·현재 provenance·high 연결을 모두 요구한다. 해당 본문/target/protocol에만 유효하다. 보존 규칙을 사용한 import는 `--educational-validation <results.json>`을 요구하고 최초와 각 batch 직전에 최신 결과를 재검증한다. queued 적재와 production은 다르며, production은 현재 published DB 행과 인증의 본문 hash·부모·target이 모두 같을 때만 계산한다.
+v2는 `candidate → expert_validated → student_validated → gold`를 판정한다. calibration은 student_validated까지만 가능하다. gold는 별도 validation/replication의 의미·학생 기준과 중대한 최종 왜곡 0건·현재 provenance·high 연결을 모두 요구한다. 최초 리뷰는 중재 후에도 보존하며 핵심 차원의 critical은 중재로 구제하지 않는다. 보존 규칙을 사용한 import는 `--educational-validation <v2 results.json> --evidence-dir <원본 폴더>`를 요구하고 최초와 batch 직전에 현재 원 연구 문맥·인증을 다시 대조한다. production은 다른 주제/원천/학생의 후속 등록된 gold 재현과 현재 published DB 행의 본문·부모·target·저장 인증 일치까지 읽기 전용으로 확인해야 한다. v1의 reviewed/발행 대조는 과거 계약이다.
 
 2026-10-04 사용자 첨부안 반영. 공통 정본은 `packages/library-pipeline/src/textbook/academic-reading.ts`와 `academic-reading-contract.ts`다. 생성 처리에는 기존 각색·문항 드레인을 사용한다.
 

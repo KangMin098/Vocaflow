@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): FYM 사람 평가 v2를 export/사전 등록/독립 4점 판정/critical/제3 중재/학생 표본/보고/적재 전 검사까지 연결했다. calibration gold 금지·v1 새 seed 거절·다른 주제/원천의 후속 재현과 published 행 대조를 추가하고 실제 8편 미봉인·평가/gold/DB 쓰기 0을 확인했다. 마이그레이션/새 라우트 없음.
+
 - docs(textbook): FYM calibration8의 사람 평가 2차 프로토콜 초안을 추가했다. 전문가 4점/critical/제3 중재·학년별 15~30명·미확정 pass band/사전 봉인·새 단계·production 재현을 정리하고 기존 v1 실행기와의 격차를 명시했다. 사람 승인/평가·실행기 계약 변경·DB 적재/발행 없음.
 
 - feat(design): bespoke 머리 이행 1차 — `/practice`(기능형 재분류 · `PageIntro compact`) · `/practice/dcp` · `/sitemap` 을 PC 에서 공용 `PageIntro` 로(모바일 기존 머리 유지, dcp 중복 배너 PC 숨김). 셸 `SectionSubNav` 를 `<main>` 밖으로(본문 링크 계약 회귀 수정 · 26-practice-chooser ③). e2e 26 ④ 복귀 링크를 본문 안 보이는 링크로 한정. bespoke 14→11.

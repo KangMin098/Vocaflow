@@ -1,6 +1,6 @@
 # Admin Console
 
-FYM 사람 운영안 초안(2026-10-05): [2차 프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)은 사람이 확정할 척도/중재·표본·band 봉인·calibration/validation 구분과 다른 주제/원천 재현을 정리한다. 현재 실행기는 v1이며 새 상태/척도/중재/재현을 지원하지 않는다. 도움말에 이 차이와 calibration8의 gold/DB seed 보류를 명시했다. 실제 사람 평가나 프로토콜 승인을 대신하지 않는다.
+FYM 사람 실행기 v2(2026-10-05): [2차 프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/critical·제3 독립 판정 후 중재·학년별/버전별 15명·manifest 봉인·calibration/validation 구분·재현을 등록/수집/보고/적재 전 검사에 연결했다. 소재 적격 도움말에 실행 초안·새 출력/복구·원 연구 재검증·새 seed의 v1 거절·production 읽기 전용 대조를 함께 갱신했다. 새 화면/라우트/DB 액션은 없다. 실제 8편은 미봉인 candidate, 사람 응답/gold/DB 쓰기 0이다.
 
 FYM 응답 수집(2026-10-05): 소재 적격 도움말에 빈 응답 batch 준비·실제 사람 응답 합치기·중복/충돌/null 보충·새 출력/receipt 복구를 연결했다. 신규 UI·라우트·DB 액션은 없으며 수집 성공과 gold 인증을 구분한다. 실제 전문가/학생 데이터는 아직 제공되지 않았다([예행 결과](./reports/frym-response-collection-20261005.md)).
 

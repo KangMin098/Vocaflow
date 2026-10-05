@@ -244,7 +244,8 @@ export const TBP_HELP: HelpRegistry = {
       drain: {
         what: '조판 후보(`ready`·`published`) 전체를 일곱 축으로 판정한 스냅샷 — 등급 분포 · 탈락 축 · 학령별 적격 · 원천별 막힌 편수.',
         prerequisites: [
-          '최신 사람 운영안은 docs/FYM_HUMAN_VALIDATION_PROTOCOL.md의 2차 초안입니다. 현재 실행기는 v1(2값 판정·버전별 5명)이며 4점/제3 중재·학년별 15~30명·새 상태·재현 조건을 지원하지 않습니다. 8편은 calibration이므로 gold/DB seed로 자동 승격하지 않습니다. 사람 확정·band 봉인 후 별도 2차 양식으로 평가를 수집할 수 있으며 자동 검증/승격/적재는 새 계약 연결과 예행 후 재개합니다. pass-bands-2.draft.json은 기존 --protocol 입력이 아닙니다.',
+          '사람 평가 v2는 protocol-2.draft.json의 4점/8항목·critical 탈락·제3 독립 판정 후 중재·학년당 15~30명/버전별 완전 측정 15명을 사용합니다. band 20개·책임자·배정은 미확정입니다. 사람이 먼저 검토하고 frym-validation-register.mjs --prepare로 새 manifest를 준비한 뒤 실제 사전 등록 증빙을 --approval로 봉인합니다. 기존 8편은 calibration으로 gold/DB seed가 될 수 없으며 새 seed는 v1 인증을 거절합니다. pass-bands-2.draft.json은 검토 양식이며 실행 인자가 아닙니다.',
+          'v2 collect/verify/import에는 --evidence-dir로 보존된 원본을 지정하고 실제 collect에는 --pilot도 지정합니다. 원 연구 문맥·배정·시각을 재검증하고 응답 충돌은 거절, 학생 null만 보충합니다. 모든 결과/receipt/등록 요청은 새 경로에 보존하므로 같은 경로 재실행은 실패합니다. verify는 읽기 전용이며 --report도 새 파일만 만듭니다. 실패한 출력도 보존하고 새 경로로 복구합니다. validation/replication 등록은 완료된 calibration --calibration-results를 요구합니다. production 확인은 별도 재현 자료와 현재 published DB 행을 읽을 뿐 DB를 쓰지 않습니다.',
           'FYM 보존 규칙을 쓰는 DB seed는 실제 사람의 교육적 gold 결과가 먼저 필요합니다. 전문가 자격·학생 학년을 사람이 확인하고 정확한 문항/프로토콜을 평가 전에 등록합니다. 초안 수치와 문항은 학년 규준이 아닙니다.',
           'DB 캐시는 승인된 eligibility SQL 적용이 전제입니다. 일괄 적재 전 최신 문항 연결 수·dry run diff·checkpoint·배치 백업을 확인합니다.',
           '`apps/web/.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY` 가 있어야 한다 — 스캔은 서비스 키로 읽는다.',
@@ -268,12 +269,12 @@ export const TBP_HELP: HelpRegistry = {
           },
           {
             title: '사람의 blind 의미 평가와 학생 측정을 거친다',
-            detail: '`frym-validation-export.mjs --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --protocol <프로토콜.json> --evidence-dir <증거폴더> --output <새폴더>`를 위와 같은 tsx 설정으로 실행합니다. 로컬 읽기만 하며 수초가 걸립니다. 전문가/학생 패킷만 나누고 coordinator는 비공개로 보관합니다. 사람이 초안 문항·수치 범위를 검토하고 해시를 사전 등록한 뒤 독립 전문가 최소 2명의 의미 판정 8항목 pass·왜곡 없음인 버전을 실제 해당 학년 학생에게 제시합니다. 버전별 최소 5명의 읽기 시간·이해도·어휘/문장/추론 정확도와 부담·체감 난도를 기록합니다. 같은 학생은 한 pair의 두 버전을 보지 않습니다. 도구는 응답을 생성하거나 패킷을 전송하지 않습니다.',
-            done: '`frym-validation-verify.mjs --input <results.json> --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json>`는 반복 안전·읽기 전용입니다. 기준을 모두 통과한 정확한 본문/target/protocol만 gold이며 미측정은 null입니다. 완성 생성 청크 import에 --educational-validation <results.json>을 추가해야 합니다. 인증은 실제 발행/학년 규준과 다르며 queued 적재 후 기존 검수·발행 절차가 필요합니다.',
+            detail: '`frym-validation-export.mjs --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --protocol scripts/textbook/frym-validation/protocol-2.draft.json --study-id <고유ID> --evidence-dir <증거폴더> --output <새폴더>`를 tsx로 실행합니다. 로컬 읽기만 하며 수초 걸립니다. coordinator는 비공개로 보관합니다. 사람이 band/문항/배정/자격/학년을 확정하고 register로 사전 봉인한 뒤 독립 전문가 2명의 4점 평가 또는 제3 독립 판정 후 중재를 수집합니다. 최종 8항목≥3·핵심 critical 없음·중대한 왜곡 0인 버전만 학생에게 제시하고 학년당 15~30명/버전별 완전 측정 15명을 요구합니다. 같은 학생은 pair의 두 버전을 보지 않습니다. 도구는 응답 생성·패킷 전송을 하지 않습니다.',
+            done: '`frym-validation-verify.mjs --input <results.json> --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --evidence-dir <증거폴더>`는 반복 안전·읽기 전용입니다. calibration은 student_validated까지만 가능하며 독립 validation만 gold가 됩니다. --report <새.json>은 학생별 분포/문항/순서/평가자 일치를 보존합니다. 완성 청크 import에는 --educational-validation <v2 results.json> --evidence-dir <증거폴더>가 필요합니다. production은 별도 후속 재현과 현재 published 행을 읽어 검증합니다.',
           },
           {
             title: '돌아온 실제 응답을 새 결과에 수집한다',
-            detail: '`frym-validation-collect.mjs --input <results.json> --precision-review <회차.json> --prepare --output <새 batch.json>`은 해당 study 해시가 있는 빈 입력만 만듭니다. 사람 책임자가 실제 응답과 등록/학년/채점 증빙을 준비한 뒤 --responses <batch.json> --output <새 results.json>으로 수집합니다. DB 접근·발송 없이 수초 걸리며 같은 응답은 skip, 충돌은 전체 거절, 학생의 null/빈 값은 후속 응답으로 보충합니다. 이미 측정된 점수·시각·판정은 자동 덮지 않습니다. 원본과 응답을 보존하고 새 결과/receipt만 만듭니다.',
+            detail: '`frym-validation-collect.mjs --input <results.json> --precision-review <회차.json> --evidence-dir <증거폴더> --prepare --output <새 batch.json>`은 해당 manifest의 빈 입력만 만듭니다. 실제 사전 등록 뒤 --pilot <pilot.json> --responses <batch.json> --output <새 results.json>으로 합칩니다. DB 접근·발송 없이 수초 걸리며 같은 응답은 skip, 충돌은 전체 거절, 학생 null/빈 값은 보충합니다. 최초/제3 독립 판정과 중재는 별도 보존하며 기록한 판정/점수/시각/답안을 자동 교체하지 않습니다.',
             done: '새 결과를 verify로 다시 검사합니다. collect 성공은 gold가 아닙니다. 빈 batch는 0건 예행이며 실제 평가로 세지 않습니다. 같은 batch를 최신 결과에 다시 수집해도 변경 0입니다. 기존 출력 경로는 거절하므로 매번 새 이름을 사용합니다.',
           },
           {

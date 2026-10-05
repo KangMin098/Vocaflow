@@ -19,7 +19,7 @@
 
 각 지문마다 독립 전문가 최소 2명이 먼저 평가한다. 8항목별 점수·각색 인용·원 연구 근거·이유·critical 여부·왜곡 코드를 각각 남긴다. critical은 점수와 별도 기록이며 데이터 수집 전에 항목별 치명 오류 anchor를 확정한다.
 
-수기/별도 파일 기록에는 [독립 평가 빈 양식](../scripts/textbook/frym-validation/expert-rating-2.blank.json)을 사용한다. 사람 책임자가 등록 manifest·opaque ID·본문 hash를 붙여 배정하고 평가자가 실제 ID·시각·판정을 채운다. 원 연구 문맥과 각색문은 기존 expert 자료에서 준비하되 이전 pass/fail 양식과 관찰 결과는 함께 보여주지 않는다. 이 빈 양식은 실제 평가나 실행기 입력이 아니다.
+수기/별도 파일 기록에는 [독립 평가 빈 양식](../scripts/textbook/frym-validation/expert-rating-2.blank.json)을 사용한다. 사람 책임자가 등록 manifest·opaque ID·본문 hash를 붙여 배정하고 평가자가 실제 ID·시각·판정을 채운다. 원 연구 문맥과 각색문은 v2 expert 자료에서 준비하며 이전 관찰 결과는 보여주지 않는다. 빈 값은 실제 판정이 아니며 완성된 양식을 봉인 manifest의 response batch에 넣어 수집한다.
 
 | 항목 | 반드시 대조할 것 | 분해 결과 |
 |---|---|---|
@@ -91,10 +91,12 @@ Calibration 결과를 본 뒤 수정한 문항이나 band는 **후속 새 valida
 
 이번 8편은 calibration이므로 expert/student 평가 결과가 좋더라도 gold나 DB seed로 자동 승격하지 않는다. production 재현의 새 주제·새 원천·표본 수·성공 기준 역시 재현 데이터를 보기 전에 별도 등록한다. 다른 글을 만들었다는 사실이나 published 상태만으로 재현이 충족되지는 않는다.
 
-## 현재 실행기와 연결할 부분
+## 실행기 v2와 사람 확정
 
-현재 v1은 pass/fail/unassessed·전문가 2명·버전별 학생 5명, candidate/reviewed/gold/production을 사용한다. 그 수집기는 기존 판정 충돌을 거절하며 제3 ordinal adjudication을 저장하는 계약은 없다. published 행과 본문/부모/target을 대조하는 helper도 새로운 재현 조건을 구현하지 않는다. **이번 문서/양식은 v1 CLI에 넣을 실행 설정이 아니다.**
+v2는 위 4점/8항목·핵심 critical 거부·독립 제3 판정 후 중재·완전 측정 15명·봉인 manifest·단계/재현을 연결했다. 기존 v1 파일은 그대로 읽지만 새 DB seed에는 사용하지 못한다. [명령·복구](../scripts/textbook/frym-validation/README.md)와 `protocol-2.draft.json`이 실행 계약이며 `pass-bands-2.draft.json`은 사람 검토용 양식이다. 3점 척도 변경은 현재 v2 실행기에서 지원하지 않으며 새 계약을 데이터 전에 등록해야 한다.
 
-사람 책임자가 프로토콜·band·양식·배정을 확정하고 사전 봉인하면 **별도 2차 양식으로 사람 평가를 수집할 수 있다.** 학생의 기존 지문/질문 자료는 책임자가 검토한 뒤 재사용할 수 있으며 기록·채점은 봉인된 기준을 따른다. 4점/critical/중재 원자료를 v1 collect에 직접 넣거나 축약해 원자료를 버리지 않는다.
+사람 책임자가 band·근거·운영 규칙·문항·expert_assignment·experts의 자격/사전 노출 확인·participants의 학년/균형 순서를 확정하고 `register --prepare`로 manifest를 준비한다. 외부의 실제 사전 등록 증빙과 시각을 `--approval`로 제공해야 봉인된다. JSON/hash는 사람 인증이나 신뢰할 수 있는 외부 등록 시각을 대신하지 않는다. 실제 8편은 여전히 band 20개 null·책임자/배정/등록 없음·사람 응답 0이다.
 
-자동 검증/승격/적재를 재개하기 전에 별도 revision으로 4점/critical/중재 자료, 학년별 cohort 및 버전별 유효 n, 봉인 manifest, calibration/validation 구분, 새 단계와 재현 조건을 실행기에 연결하고 소량 예행한다. 기존 v1 파일·해시·0건 결과는 보존한다. v1 결과를 새 프로토콜 통과로 해석하지 않는다. 실제 평가·프로토콜 승인·DB seed·발행은 이번 문서 작업에서 수행하지 않았다.
+최초/제3 리뷰와 중재는 각각 보존한다. 왜곡은 major/minor로 구분하고 중재에 `final_distortions`를 명시한다. 핵심 critical은 언제나 탈락이며 비치명 불일치는 중재로 최종 판정할 수 있다. 학생은 의미 통과 지문만 읽고, 앞 지문 생략은 확정된 의미 실패에만 허용한다. 시작/종료 중 하나가 없는 부분 기록도 보존하지만 측정에 포함하지 않는다. 보고서는 학생별 축 정확도 n/사분위, 문항별 응답, 순서 위치, 전문가 항목별 일치를 분리한다.
+
+후속 validation/replication의 제외 명세는 `--calibration-results`의 실제 완료 파일에서 산출한다. 완료는 지문마다 확정 의미 탈락 또는 완전 학생 표본이다. band 밖 측정도 calibration의 완료된 발견이며 통과는 아니다. 미해결 중재나 학생 0명 상태를 완료로 인정하지 않는다. 새 source UUID/DOI/본문/학생을 써야 하며 전문가 재사용 여부는 미리 봉인한다. production 확인에는 gold 결과 이후 등록된 다른 주제/원천의 gold 재현과 현재 published 행/저장 인증 대조가 필요하다. 실제 사람 승인/평가·DB seed·발행은 수행하지 않았다.

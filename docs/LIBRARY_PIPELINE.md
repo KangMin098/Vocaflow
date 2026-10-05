@@ -2,9 +2,9 @@
 
 ## Academic Reading 교재 타기팅·처리 (2026-10-04)
 
-사람 운영안 2차 초안(2026-10-05): [프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)에서 8편을 calibration으로 지정하고 4점·critical·제3 중재·학년별 15~30명·사전 band 봉인·새 승격 단계·production 재현을 제안했다. 아래 v1 수집/검증 명령에는 이 계약이 아직 구현되지 않았다. 사람 확정·봉인 후 별도 2차 양식으로 평가를 수집할 수 있으며, 자동 검증/승격/적재는 새 계약 연결과 예행까지 보류한다. pass-bands-2.draft.json을 기존 --protocol 인자로 주지 않는다.
+사람 실행기 v2(2026-10-05): [프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/critical/제3 독립 판정 후 중재·학년별 15~30명/버전별 완전 측정 15명·manifest 봉인·새 승격/재현 조건을 export/register/collect/verify/import에 연결했다. 기존 8편은 calibration이며 gold/DB seed가 될 수 없다. 실행 초안은 `protocol-2.draft.json`이고 band 20개와 사람 등록은 미확정이다. `pass-bands-2.draft.json`은 사람 검토 양식이다. v1은 과거 결과 읽기만 지원하고 새 seed 인증으로는 거절한다.
 
-실제 평가 수집(2026-10-05): `frym-validation-collect.mjs --input <results.json> --precision-review <회차.json> --prepare --output <새 batch.json>`은 사람이 채울 빈 입력을 만든다. `--responses <batch.json> --output <새 results.json>`은 해시·opaque ID·본문·전문가 등록·시각·문항/채점자·학년을 검사하고 충돌 없이 중복 skip/학생 null 값 보충을 수행한다. DB 접근/발송/자동 점수 생성은 없으며 새 출력과 해시 receipt를 보존한다. 최신 결과로 verify 후 기존 gold/적재 게이트를 계속 적용한다([절차](../scripts/textbook/frym-validation/README.md)).
+v2 수집은 위 명령에 `--evidence-dir <원본 폴더>`를, 실제 합치기에는 `--pilot <pilot.json>`도 요구한다. 등록된 manifest·배정·본문/원 연구·문항·학년·시각을 검사한다. 불일치는 제3 독립 리뷰 hash와 공개 후 중재를 요구하며 critical은 평균으로 상쇄하지 않는다. 응답 충돌은 거절하고 null만 보충한다. 완료된 calibration 파일에서 제외 명세를 추출하여 새 validation/replication을 사전 등록하며 원천/DOI/본문/학생 재사용을 차단한다. 수집/등록/보고는 로컬·새 출력만 쓰며 발송/DB 쓰기/자동 점수 생성은 없다([명령·복구](../scripts/textbook/frym-validation/README.md)).
 
 교육적 타당도 단계: [blind export/verify](../scripts/textbook/frym-validation/README.md)는 pair별 중1/고1 한 편씩과 연구 증거를 검사하고 전문가 8개·학생 8개 패킷, 4축 96개 초안 문항을 만든다. 전문가 의미 8항목·5차원, 실제 학생 측정, taxonomy v1을 분리한다. 사람이 사전 등록한 문항/프로토콜과 실제 평가가 모두 통과해야 exact passage/target/protocol gold다. 보존 규칙을 쓰는 import에는 `--educational-validation <results.json>`이 필수이며 파일 변경·본문/target/원천 불일치·미평가를 거절한다. 일반 각색의 기존 경로는 유지한다. 현재 candidate 8·실제 평가 0·gold 0·DB 쓰기 0이며 학년 규준 검증은 아직 없다([보고서](./reports/frym-educational-validation-20261004.md)).
 

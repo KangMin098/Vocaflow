@@ -40,7 +40,7 @@ const arg = (n) => {
 const commit = process.argv.includes('--commit')
 const readingTarget = readTarget(arg('target'))
 const preservationRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
-const educationalValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'))
+const educationalValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
 if (preservationRules && !readingTarget) throw new Error('--preservation-rules requires --target')
 const BAND = readingTarget?.language_band ?? arg('band') ?? 'elementary'
 // export 와 **같은 규칙**으로 폴더를 찾는다. 어긋나면 채운 청크를 못 읽고
@@ -282,7 +282,7 @@ for (let i = 0; i < inserts.length; i += 100) {
   if (readingTarget) {
     const latest = new Map((await fetchAllIn(db,'library_articles',READING_SOURCE_COLUMNS,'id',entries.map(x => x.row.adapted_from_id),['id'])).map(r => [r.id,r]))
     const latestRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
-    const latestValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'))
+    const latestValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
     entries = entries.filter(x => {
       const original = exportsByFile.get(x.draft.__file)?.find(r => r.adapted_from_id === x.draft.adapted_from_id)
       const result = validateReadingDraft(x.draft,original,latest.get(x.draft.adapted_from_id),Date.now(),latestRules?.get(x.draft.adapted_from_id) ?? null)
