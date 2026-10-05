@@ -24,3 +24,15 @@ test('rare phrase wins over shared vocabulary and unusable bodies yield no inven
   assert.equal(queries[0].query, '"unusual axolotl regeneration mechanism"')
   assert.deepEqual(alternativeQueries('① ______ 한글', frequencies, 21), [])
 })
+
+test('accented Latin names remain intact in quoted searches', () => {
+  const passage = 'The zebra-striped Atitlán Giant Grebe lived peacefully on Lake Atitlán in Guatemala.'
+  for (const input of [passage, passage.normalize('NFD')]) {
+    const queries = alternativeQueries(input, documentFrequencies([input]), 1)
+    assert.ok(queries.some(row => row.query.includes('Atitlán')))
+    assert.ok(queries.every(row => !row.query.includes('Atitl n')))
+    for (const row of queries) for (const [, phrase] of row.query.matchAll(/"([^"]+)"/g)) {
+      assert.ok(passage.includes(phrase))
+    }
+  }
+})

@@ -1,7 +1,7 @@
 // scripts/csat/source-origin-search.mjs
 // Search phrases stay inside a sentence and an exam block; passage hashes remain unchanged.
 export function searchSegments(value, typeId = '') {
-  let text = String(value ?? '').replace(/[“”]/g, '"').replace(/[‘’]/g, "'")
+  let text = String(value ?? '').normalize('NFC').replace(/[“”]/g, '"').replace(/[‘’]/g, "'")
   if (typeId === 'R-SUMMARY' && /\(A\)\s*[_━─]/.test(text)) {
     const marker = text.search(/\(A\)\s*[_━─]/)
     const boundary = Math.max(text.lastIndexOf('.', marker), text.lastIndexOf('\n', marker), text.lastIndexOf('↓', marker))
@@ -9,9 +9,9 @@ export function searchSegments(value, typeId = '') {
   }
   return text
     .split(/\([A-C]\)|[①-⑤❶-❺]|[_━─]+|[.!?;\n\r]|\([^)]*\)|[→↓]|[\uac00-\ud7a3]+/)
-    .map(part => part.replace(/[^A-Za-z0-9'’ -]/g, ' ').replace(/\s+/g, ' ').trim())
+    .map(part => part.replace(/[^\p{Script=Latin}\p{M}0-9'’ -]/gu, ' ').replace(/\s+/g, ' ').trim())
     .filter(Boolean)
-    .map(part => part.split(' ').filter(word => /^[A-Za-z0-9][A-Za-z0-9'-]*$/.test(word)))
+    .map(part => part.split(' ').filter(word => /^[\p{Script=Latin}0-9][\p{Script=Latin}\p{M}0-9'-]*$/u.test(word)))
     .filter(words => words.length >= 7)
 }
 

@@ -2058,19 +2058,19 @@
       "queries": [
         {
           "strategy": "dual_anchor",
-          "query": "\"zebra-striped Atitl n Giant\" \"Atitl n Giant Grebe\""
+          "query": "\"zebra-striped Atitlán Giant Grebe's\" \"left on Lake Atitlán\""
         },
         {
           "strategy": "short_phrase",
-          "query": "\"zebra-striped Atitl n Giant\""
+          "query": "\"zebra-striped Atitlán Giant Grebe's\""
         },
         {
           "strategy": "short_phrase",
-          "query": "\"Atitl n Giant Grebe\""
+          "query": "\"left on Lake Atitlán\""
         },
         {
           "strategy": "short_phrase",
-          "query": "\"left on Lake Atitl\""
+          "query": "\"Atitlán Giant Grebe was\""
         }
       ]
     },
@@ -2477,11 +2477,11 @@
       "queries": [
         {
           "strategy": "dual_anchor",
-          "query": "\"Jan Nov k Forman\" \"directed swept eight Oscars\""
+          "query": "\"Jan Novák Forman wrote\" \"directed swept eight Oscars\""
         },
         {
           "strategy": "short_phrase",
-          "query": "\"Jan Nov k Forman\""
+          "query": "\"Jan Novák Forman wrote\""
         },
         {
           "strategy": "short_phrase",
@@ -3585,7 +3585,7 @@
         },
         {
           "strategy": "short_phrase",
-          "query": "\"Finkenauer and Rim investigated\""
+          "query": "\"Finkenauer and Rimé investigated\""
         }
       ]
     },
@@ -6952,7 +6952,7 @@
         },
         {
           "strategy": "short_phrase",
-          "query": "\"brown tree snake has\""
+          "query": "\"South Pacific probably as\""
         }
       ]
     },
@@ -8677,7 +8677,7 @@
         },
         {
           "strategy": "short_phrase",
-          "query": "\"the Garden Caf Gallery\""
+          "query": "\"the Garden Café Gallery\""
         }
       ]
     },
@@ -9500,19 +9500,19 @@
       "queries": [
         {
           "strategy": "dual_anchor",
-          "query": "\"1966 Z topek invited\" \"Dana Z topkov who\""
+          "query": "\"1966 Zátopek invited Ron\" \"won three gold medals\""
         },
         {
           "strategy": "short_phrase",
-          "query": "\"1966 Z topek invited\""
-        },
-        {
-          "strategy": "short_phrase",
-          "query": "\"Dana Z topkov who\""
+          "query": "\"1966 Zátopek invited Ron\""
         },
         {
           "strategy": "short_phrase",
           "query": "\"won three gold medals\""
+        },
+        {
+          "strategy": "short_phrase",
+          "query": "\"Olympic gold medalist too\""
         }
       ]
     },
@@ -13889,11 +13889,11 @@
       "queries": [
         {
           "strategy": "dual_anchor",
-          "query": "\"Gy rgy Kepes was\" \"Arts in Budapest Hungary\""
+          "query": "\"educator born in Selyp\" \"Arts in Budapest Hungary\""
         },
         {
           "strategy": "short_phrase",
-          "query": "\"Gy rgy Kepes was\""
+          "query": "\"educator born in Selyp\""
         },
         {
           "strategy": "short_phrase",
@@ -21449,6 +21449,48 @@
         "https://www.inkl.com/news/could-you-pass-south-korea-s-insane-english-test",
         "https://malaysia.news.yahoo.com/could-pass-south-korea-insane-105314081.html/"
       ]
+    },
+    {
+      "representative_item_id": "2016#29",
+      "passage_sha256": "e39e141b14de312260148895685aafda45795f0369205a0222aa35e0c315d99d",
+      "body_sha256_by_item": {
+        "2016#29": "86315340721fdb22c6615c68f767285e821ae95dc23601ce8d3abfe6dbfdb256"
+      },
+      "exam_id": "2016",
+      "strategy": "dual_anchor",
+      "query": "\"zebra-striped Atitlán Giant Grebe's\" \"left on Lake Atitlán\"",
+      "state": "completed",
+      "urls": [],
+      "attempt": "accent_correction",
+      "result_scope": "Three-query batch; shared result URLs recorded in query_correction, not attributed to each query. Exam reposts only; original unresolved."
+    },
+    {
+      "representative_item_id": "2017#25",
+      "passage_sha256": "7b489602b8d3a883f4bc5343c46985406a5d1dc264ec6cc231ef8124b862a806",
+      "body_sha256_by_item": {
+        "2017#25": "93c53a666e600aa5747c3be5ce7451769df897691ffbf376a957fd8a5a97d56d"
+      },
+      "exam_id": "2017",
+      "strategy": "dual_anchor",
+      "query": "\"Jan Novák Forman wrote\" \"directed swept eight Oscars\"",
+      "state": "completed",
+      "urls": [],
+      "attempt": "accent_correction",
+      "result_scope": "Three-query batch; shared result URLs recorded in query_correction, not attributed to each query. Exam reposts only; original unresolved."
+    },
+    {
+      "representative_item_id": "2019#31",
+      "passage_sha256": "b9924be958405e1e57c2a9518422ca78db2fbffed4b24147d7b3f167cf675124",
+      "body_sha256_by_item": {
+        "2019#31": "495dc05bcc3a58c55684456f5ef2f9d866b5310408aa085f976d5de4f1f9bbb3"
+      },
+      "exam_id": "2019",
+      "strategy": "dual_anchor",
+      "query": "\"Belgium's King Baudouin in\" \"tends initially to deny\"",
+      "state": "completed",
+      "urls": [],
+      "attempt": "accent_correction",
+      "result_scope": "Three-query batch; shared result URLs recorded in query_correction, not attributed to each query. Exam reposts only; original unresolved."
     }
   ],
   "verification": {
@@ -21539,7 +21581,7 @@
     "searched_suneung": 239,
     "planned_mock": 361,
     "db_stats": "gen-db-stats.mjs executed successfully",
-    "tests": "11/11 node:test passed",
+    "tests": "12/12 node:test passed",
     "checkpoint_diff": [
       {
         "axis": "capacity",
@@ -21581,7 +21623,9 @@
         "pct": "0.04",
         "status": "changed"
       }
-    ]
+    ],
+    "executed_search_calls": 242,
+    "suneung_unique_targets": 239
   },
   "scope": "Original-source attribution, not generated CSAT corpus. Queue entries are plans; executed_searches are actual calls. Search-only entries are not source judgments.",
   "gap_review": {
@@ -21813,5 +21857,310 @@
       "url": "https://books.google.com/books?id=4VEPAAAAQBAJ&jscmd=SearchWithinVolume2&q=auditory%20looming&hl=en",
       "state": "web_tool_access_error"
     }
-  ]
+  ],
+  "query_correction": {
+    "reason": "Review found accented Latin names split by ASCII-only tokenizer. Preserve Latin and combining marks, normalize NFC.",
+    "changed": [
+      {
+        "representative_item_id": "2016#29",
+        "before_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"zebra-striped Atitl n Giant\" \"Atitl n Giant Grebe\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"zebra-striped Atitl n Giant\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Atitl n Giant Grebe\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"left on Lake Atitl\""
+          }
+        ],
+        "after_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"zebra-striped Atitlán Giant Grebe's\" \"left on Lake Atitlán\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"zebra-striped Atitlán Giant Grebe's\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"left on Lake Atitlán\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Atitlán Giant Grebe was\""
+          }
+        ]
+      },
+      {
+        "representative_item_id": "2017#25",
+        "before_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"Jan Nov k Forman\" \"directed swept eight Oscars\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Jan Nov k Forman\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"directed swept eight Oscars\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"1960s Forman acted as\""
+          }
+        ],
+        "after_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"Jan Novák Forman wrote\" \"directed swept eight Oscars\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Jan Novák Forman wrote\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"directed swept eight Oscars\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"1960s Forman acted as\""
+          }
+        ]
+      },
+      {
+        "representative_item_id": "2019#31",
+        "before_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"Belgium's King Baudouin in\" \"tends initially to deny\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Belgium's King Baudouin in\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"tends initially to deny\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Finkenauer and Rim investigated\""
+          }
+        ],
+        "after_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"Belgium's King Baudouin in\" \"tends initially to deny\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Belgium's King Baudouin in\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"tends initially to deny\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Finkenauer and Rimé investigated\""
+          }
+        ]
+      },
+      {
+        "representative_item_id": "M1809#25",
+        "before_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"tree snake was accidentally\" \"darker markings or bands\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"tree snake was accidentally\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"darker markings or bands\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"brown tree snake has\""
+          }
+        ],
+        "after_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"tree snake was accidentally\" \"darker markings or bands\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"tree snake was accidentally\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"darker markings or bands\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"South Pacific probably as\""
+          }
+        ]
+      },
+      {
+        "representative_item_id": "M2109#18",
+        "before_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"2020 Caroline County Art\" \"Caroline County Art Contest\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"2020 Caroline County Art\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Caroline County Art Contest\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"the Garden Caf Gallery\""
+          }
+        ],
+        "after_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"2020 Caroline County Art\" \"Caroline County Art Contest\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"2020 Caroline County Art\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Caroline County Art Contest\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"the Garden Café Gallery\""
+          }
+        ]
+      },
+      {
+        "representative_item_id": "M2206#26",
+        "before_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"1966 Z topek invited\" \"Dana Z topkov who\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"1966 Z topek invited\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Dana Z topkov who\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"won three gold medals\""
+          }
+        ],
+        "after_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"1966 Zátopek invited Ron\" \"won three gold medals\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"1966 Zátopek invited Ron\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"won three gold medals\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Olympic gold medalist too\""
+          }
+        ]
+      },
+      {
+        "representative_item_id": "M2509#26",
+        "before_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"Gy rgy Kepes was\" \"Arts in Budapest Hungary\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Gy rgy Kepes was\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Arts in Budapest Hungary\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"started teaching visual design\""
+          }
+        ],
+        "after_queries": [
+          {
+            "strategy": "dual_anchor",
+            "query": "\"educator born in Selyp\" \"Arts in Budapest Hungary\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"educator born in Selyp\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"Arts in Budapest Hungary\""
+          },
+          {
+            "strategy": "short_phrase",
+            "query": "\"started teaching visual design\""
+          }
+        ]
+      }
+    ],
+    "reexecuted_targets": [
+      "2016#29",
+      "2017#25",
+      "2019#31"
+    ],
+    "shared_batch_result_urls": [
+      "https://orbi.kr/download/united/6714552/0",
+      "https://edu.chosun.com/suneung/files/2017_3.pdf",
+      "https://peshare.com/word/browseSatWdWithP_pdf.jsp?ctg=0&yr=2016",
+      "https://orbi.kr/download/united/11236374/2",
+      "http://class.orbi.kr/group/119/",
+      "https://orbi.kr/download/united/39052048/1",
+      "https://www.scribd.com/document/729667560/Answer-%EC%88%98%EB%8A%A5%EA%B0%90%EC%9E%A1%EA%B8%B0-11%EA%B0%95-07-%EB%B3%80%ED%98%95%EB%AC%B8%EC%A0%9C",
+      "https://www.scribd.com/document/748585707/%E1%84%84%E1%85%A9%E1%84%89%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC-2022-%E1%84%89%E1%85%AE%E1%84%82%E1%85%B3%E1%86%BC%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%A5-4-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%B5-%E1%84%87%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%B5",
+      "https://www.findsvoc.com/sermes/passage/MieSaeYSaSgSeciWiage/MWciQggUiSiQUYYgQYgi",
+      "https://www.scribd.com/document/942262026/%E1%84%84%E1%85%A9%E1%84%89%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC-2022-%E1%84%89%E1%85%AE%E1%84%82%E1%85%B3%E1%86%BC%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%A5",
+      "https://www.findsvoc.com/sermes/passage/MUeaeeYgcYYcQeYWaWSg/eiYiUicgiicQcUaQYc",
+      "https://ro.scribd.com/document/748585707/%E1%84%84%E1%85%A9%E1%84%89%E1%85%A5%E1%86%AB%E1%84%89%E1%85%A2%E1%86%BC-2022-%E1%84%89%E1%85%AE%E1%84%82%E1%85%B3%E1%86%BC%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%A5-4-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%B5-%E1%84%87%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%8E%E1%85%B5",
+      "https://www.i-ez.net/Essence/PDF/%EC%9D%B4%EC%A7%80%EC%88%98%EB%8A%A5%EA%B5%90%EC%9C%A1%202020%EB%85%84%207%EC%9B%94%EB%AA%A8%EC%9D%98%EA%B3%A0%EC%82%AC%20%EA%B3%A03%20%EC%98%81%EC%96%B4%20%EC%A0%84%EC%B2%B4%20%EC%98%A4%EB%8B%B5%EB%85%B8%ED%8A%B8.pdf",
+      "https://www.findsvoc.com/sermes/passage/MUiaUSQggggaUaYeeiia/iWQiieYUiQWaQeUgaQg",
+      "https://www.scribd.com/document/685351765/%EC%98%81%EC%96%B4-%EC%A7%9D",
+      "https://peshare.com/sat/2017/no25.jsp",
+      "https://peshare.com/sat/2017/index.jsp",
+      "https://www.scribd.com/document/1013140203/%E1%84%91%E1%85%A1%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B2-%E1%84%8B%E1%85%B2%E1%84%92%E1%85%A7%E1%86%BC%E1%84%80%E1%85%AE%E1%84%86%E1%85%AE%E1%86%AB2020-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%92%E1%85%A7%E1%86%BC2%E1%84%8E%E1%85%A1",
+      "https://wayne.tistory.com/1325"
+    ],
+    "result": "Exam reposts; no additional source registrations."
+  }
 }
