@@ -13,6 +13,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(textbook): 수정된 Windows 호출로 F02 28개 blind 패킷을 새 run에서 재실행했다. 유효 응답·독립 채점 27건과 역할 응답 거부 1건을 각각 원출력으로 보존하고 실패 종료를 기록했다. 합성 자료는 교육적 타당성·Gold-S·DB seed 승격에 사용하지 않는다.
+
 - fix(textbook): F02 합성 smoke의 공급자 원출력 28쌍을 별도 번들로 보존하고 응답·채점 행과 바이트 해시·내용을 재검증한다. 전건 실패 시 이전 응답이 남지 않도록 실행 상태를 먼저 초기화하고 Windows 실행기 회귀를 플랫폼별로 제한했다.
 
 - feat(textbook): F02 합성 교실 28패킷에 Claude Haiku 응답·Codex 독립 채점을 실행하고 해시 결속된 원자료와 실행기를 보존했다. 평균 합성 점수 91.37%와 고1판−중1판 +1.79%p로 능력/난도 분리가 확인되지 않아 `TARGET_FIT`·`LEVEL_SEPARATION`·Gold-S·DB seed는 보류한다.
