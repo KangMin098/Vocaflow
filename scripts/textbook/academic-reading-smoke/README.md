@@ -15,7 +15,7 @@ pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-review-ex
 pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/academic-reading-smoke/build-review-packet.mjs $work
 ```
 
-`F02-review-packet.json`은 **완성된 `.out.json`의 전체 분석·문항 계획·권리 정보와 review binding**을 담는다. 패킷 생성기는 현재 초안에서 `reviewIdentity`를 재계산해 정확히 일치하는 양식 1개만 선택하며, 초안이 수정된 뒤 오래된 양식으로 패킷을 만들면 중단한다. Claude Code와 Codex에 각각 독립 세션으로 전달하고 다른 검수자의 답은 제공하지 않는다. [동일한 판정 프롬프트](./review-prompt.md)를 각 실행에 전달하고 아래 경로에 원문 결과를 저장한다. 결과는 `id`, `source_hash`·`target_hash`·`draft_hash`, `verdict` (`pass|reject|insufficient_evidence`), `dimensions` ([12개 필드](../academic-reading-review.mjs)의 참/거짓), `distortions`, 실제 인용, 근거를 포함해야 한다. `fill-reviews.mjs`는 세 해시와 검수자명이 일치하는 현재 양식 1개만 갱신하고 이전 해시의 검수 기록은 보존한다. importer가 인용·차원·해시를 다시 검증한다.
+`F02-review-packet.json`은 **완성된 `.out.json`의 전체 분석·문항 계획·권리 정보와 review binding**을 담는다. 패킷 생성기는 현재 초안에서 `reviewIdentity`를 재계산해 정확히 일치하는 양식 1개만 선택하며, 초안이 수정된 뒤 오래된 양식으로 패킷을 만들면 중단한다. Claude Code와 Codex에 각각 독립 세션으로 전달하고 다른 검수자의 답은 제공하지 않는다. [동일한 판정 프롬프트](./review-prompt.md)를 각 실행에 전달하고 아래 경로에 원문 결과를 저장한다. 결과는 `id`, `source_hash`·`target_hash`·`draft_hash`, `verdict` (`pass|reject|insufficient_evidence`), `dimensions` ([12개 필드](../academic-reading-review.mjs)의 참/거짓), `distortions`, 실제 인용, 근거를 포함해야 한다. `fill-reviews.mjs`는 **현재 초안에서 다시 계산한 결속 정보**와 결과가 일치할 때만 현재 양식 1개를 갱신하고 이전 해시의 검수 기록은 보존한다. importer가 인용·차원·해시를 다시 검증한다.
 
 ```powershell
 $prompt = (Get-Content scripts/textbook/academic-reading-smoke/review-prompt.md -Raw).Replace('{{WORK}}', $work)
@@ -24,7 +24,7 @@ codex exec -s read-only -o "$work/codex-f02-complete-review.txt" $prompt
 ```
 
 ```powershell
-node scripts/textbook/academic-reading-smoke/fill-reviews.mjs $work
+pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/academic-reading-smoke/fill-reviews.mjs $work
 pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-import.mjs --target scripts/textbook/targets/knowledge-middle1.json --dir "$work/middle1" --preservation-rules scripts/textbook/frym-precision/preservation-rules-1.json --precision-review scripts/textbook/frym-precision/round-1.json
 pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-import.mjs --target scripts/textbook/targets/knowledge-high1-simple.json --dir "$work/high1" --preservation-rules scripts/textbook/frym-precision/preservation-rules-1.json --precision-review scripts/textbook/frym-precision/round-1.json
 pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/academic-reading-smoke/run-injections.mjs $work

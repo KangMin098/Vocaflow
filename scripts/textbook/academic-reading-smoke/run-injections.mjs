@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import { loadEnv } from '../volume-pool.mjs'
 import { createClient } from '@supabase/supabase-js'
 import { adaptationKey, digest, readPreservationRules, READING_SOURCE_COLUMNS, validateReadingDraft } from '../academic-reading-contract.mjs'
-import { REVIEW_DIMENSIONS, validateAgentReviews, canExportReadingItem, readingItemSourceFailure, reviewedPassageIsComplete } from '../academic-reading-review.mjs'
+import { REVIEW_DIMENSIONS, reviewIdentity, validateAgentReviews, canExportReadingItem, readingItemSourceFailure, reviewedPassageIsComplete } from '../academic-reading-review.mjs'
 
 loadEnv()
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
@@ -19,7 +19,10 @@ for (const dir of ['middle1', 'high1']) {
   const now = Date.parse('2026-10-05T12:00:00Z')
   const validated = validateReadingDraft(draft, input, parent, now, rules.get(parent.id))
   if (!validated.ok) throw new Error(`${dir} draft failed: ${validated.reason}`)
-  const actual = ['claude_code', 'codex'].map(reviewer => JSON.parse(fs.readFileSync(`${folder}/chunk-00.${reviewer}.review.json`, 'utf8')))
+  const binding = reviewIdentity(draft, input)
+  const actual = ['claude_code', 'codex'].map(reviewer => JSON.parse(fs.readFileSync(`${folder}/chunk-00.${reviewer}.review.json`, 'utf8'))
+    .filter(row => row.reviewer === reviewer && Object.entries(binding).every(([key, value]) => row[key] === value)))
+  if (actual.some(rows => rows.length !== 1)) throw new Error(`${dir} current review missing or duplicated`)
   const actualReview = validateAgentReviews(draft, input, actual)
   // Simulated approval exercises the downstream gates only; it is never written to the actual review files or DB.
   const simulated = actual.map(([review]) => [{ ...review, verdict: 'pass',
