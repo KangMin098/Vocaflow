@@ -1,7 +1,7 @@
 // scripts/csat/__tests__/source-origin-search.test.mjs
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { alternativeQueries, documentFrequencies, searchSegments, provenanceRequests, localAlignment, buildOriginIndex, searchOriginIndex, classifySearchResponse, runProvenanceSearch, extractOaDocument } from '../source-origin-search.mjs'
+import { alternativeQueries, documentFrequencies, searchSegments, provenanceRequests, localAlignment, buildOriginIndex, searchOriginIndex, classifySearchResponse, runProvenanceSearch, extractOaDocument, loadOaDocument } from '../source-origin-search.mjs'
 
 test('short and dual anchors remain in original exam blocks and exclude edited summary', () => {
   const passage = 'Auditory looming protects rhesus monkeys from approaching dangers and other hazards. (A) Distinctive rhinoceros examples illustrate the evolutionary benefit of predictable errors. (B) Natural selection favors safety over accuracy in dangerous situations.'
@@ -95,4 +95,34 @@ test('provider circuit skips requests after throttling while other providers con
   assert.equal(called.length, 2)
   assert.deepEqual(out.map(r => r.state), ['rate_limited', 'not_attempted_provider_blocked', 'no_results'])
   assert.equal(attempts.length, 3)
+})
+
+test('positive reported totals with empty hit pages stay retryable', () => {
+  assert.equal(classifySearchResponse('google_books', 200, { totalItems: 2, items: [] }).state, 'invalid_response')
+  assert.equal(classifySearchResponse('europe_pmc', 200, { hitCount: 1, resultList: { result: [] } }).hits, null)
+})
+
+test('local ranking preserves source evidence without promoting its verdict', () => {
+  const text = 'distinctive axolotl regeneration occurs under carefully controlled experimental conditions'
+  const result = searchOriginIndex(buildOriginIndex([{ id: 'block', document_id: 'PMC123', text, body_sha256: 'a'.repeat(64), candidate_title: 'Source title', candidate_author: 'Author', candidate_year: '2001', citation_edges: [{ type: 'CITES', to: 'reference' }], verdict: 'A' }]), text)[0]
+  assert.equal(result.candidate_title, 'Source title')
+  assert.equal(result.candidate_document_id, 'PMC123')
+  assert.equal(result.document_body_sha256, 'a'.repeat(64))
+  assert.equal(result.citation_edges[0].to, 'reference')
+  assert.equal(result.publication_predates_exam, null)
+  assert.equal(result.verdict, 'unreviewed')
+  assert.ok(result.remaining_uncertainty)
+  assert.equal(result.text, undefined)
+})
+
+test('invalid XML caches are replaced by fetched body and valid caches avoid requests', async () => {
+  let calls = 0
+  const xml = '<article><body><p>Distinctive original words occur in this valid body paragraph.</p></body></article>'
+  const fetchImpl = async () => { calls++; return { ok: true, status: 200, text: async () => xml } }
+  const loaded = await loadOaDocument('PMC123', { cachedXml: '<article>truncated', fetchImpl })
+  assert.equal(loaded.state, 'downloaded')
+  assert.equal(loaded.xml, xml)
+  assert.equal((await loadOaDocument('PMC123', { cachedXml: loaded.xml, fetchImpl })).state, 'cached')
+  assert.equal(calls, 1)
+  assert.equal(extractOaDocument('<html><body><p>Error page</p></body></html>', 'PMC123'), null)
 })

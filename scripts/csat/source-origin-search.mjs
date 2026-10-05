@@ -95,6 +95,7 @@ export function originTokens(value) {
 
 // JATS body paragraphs are kept separate from bibliography; citation edges remain evidence only.
 export function extractOaDocument(xml, documentId) {
+  if (!/<article\b/i.test(xml) || /<html\b/i.test(xml)) return null
   const body = xml.match(/<body\b[^>]*>([\s\S]*?)<\/body>/)?.[1]
   if (!body) return null
   const decode = value => value.replace(/<[^>]+>/g, ' ').replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16))).replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ').trim()
@@ -114,6 +115,16 @@ export function extractOaDocument(xml, documentId) {
     n++
   }
   return { paragraphs, references, body_sha256: createHash('sha256').update(xml).digest('hex') }
+}
+
+export async function loadOaDocument(documentId, { cachedXml, fetchImpl = fetch } = {}) {
+  if (!/^PMC\d+$/.test(documentId)) throw new Error('Invalid OA document ID')
+  const cached = cachedXml ? extractOaDocument(cachedXml, documentId) : null
+  if (cached) return { state: 'cached', xml: cachedXml, parsed: cached }
+  const response = await fetchImpl(`https://www.ebi.ac.uk/europepmc/webservices/rest/${documentId}/fullTextXML`, { signal: AbortSignal.timeout(25000) })
+  if (!response.ok) return { state: 'http_error', http_status: response.status }
+  const xml = await response.text(), parsed = extractOaDocument(xml, documentId)
+  return parsed ? { state: 'downloaded', xml, parsed } : { state: 'body_unavailable', http_status: response.status }
 }
 
 // Smith-Waterman over tokens: substitutions and inserted/deleted words are explicit gaps.
@@ -175,7 +186,10 @@ export function searchOriginIndex(index, exam, limit = 20) {
   }
   const candidates = [...new Set([...hits.keys(), ...[...overlap].filter(([, words]) => words.size >= 3).map(([id]) => id)])]
     .sort((a, b) => (hits.get(b)?.size ?? 0) - (hits.get(a)?.size ?? 0) || (overlap.get(b)?.size ?? 0) - (overlap.get(a)?.size ?? 0)).slice(0, limit)
-  return candidates.map(id => ({ document_id: index.entries[id].id, exact_shingle_count: hits.get(id)?.size ?? 0, rare_token_overlap: overlap.get(id)?.size ?? 0, ...localAlignment(exam, index.entries[id].text) }))
+  return candidates.map(id => {
+    const doc = index.entries[id], { text, tokens: ignoredTokens, ...metadata } = doc
+    return { ...metadata, document_id: doc.id, candidate_document_id: doc.candidate_document_id ?? doc.document_id ?? doc.pmcid ?? doc.id, candidate_title: doc.candidate_title ?? doc.title ?? null, candidate_author: doc.candidate_author ?? doc.authorString ?? null, candidate_year: doc.candidate_year ?? doc.pubYear ?? null, document_body_sha256: doc.document_body_sha256 ?? doc.body_sha256 ?? null, matched_block_sha256: createHash('sha256').update(text).digest('hex'), citation_edges: doc.citation_edges ?? [], publication_predates_exam: doc.publication_predates_exam ?? null, candidate_role: 'unclassified', verdict: 'unreviewed', direct_text_seen: true, page_image_seen: false, remaining_uncertainty: 'Automatic text ranking; original authorship, edition and publication timing require review.', exact_shingle_count: hits.get(id)?.size ?? 0, rare_token_overlap: overlap.get(id)?.size ?? 0, ...localAlignment(exam, text) }
+  })
     .sort((a, b) => b.local_alignment_score - a.local_alignment_score)
 }
 
@@ -187,6 +201,7 @@ export function classifySearchResponse(provider, status, body) {
   const reported = provider === 'google_books' ? body?.totalItems : body?.hitCount
   const items = arrays[provider]
   if (!Array.isArray(items) && reported !== 0) return { state: 'invalid_response', hits: null }
+  if (reported > 0 && !(items?.length)) return { state: 'invalid_response', hits: null }
   return { state: (items?.length ?? 0) ? 'candidates' : 'no_results', hits: items ?? [], reported_total: reported ?? items.length }
 }
 
@@ -221,30 +236,22 @@ async function main() {
     const [input, output] = process.argv.slice(3)
     if (!input || !output) throw new Error('Usage: node source-origin-search.mjs --oa <attempts.jsonl> <output-directory>')
     const attempts = fs.readFileSync(input, 'utf8').trim().split('\n').filter(Boolean).map(line => JSON.parse(line))
-    const ids = new Set(attempts.flatMap(row => row.hits ?? []).filter(hit => hit.isOpenAccess === 'Y' && /^PMC\d+$/.test(hit.pmcid ?? '')).map(hit => hit.pmcid))
+    const hits = new Map(attempts.flatMap(row => row.hits ?? []).filter(hit => hit.isOpenAccess === 'Y' && /^PMC\d+$/.test(hit.pmcid ?? '')).map(hit => [hit.pmcid, hit]))
     fs.mkdirSync(output, { recursive: true })
     const documents = [], downloads = []
-    for (const id of ids) {
+    for (const [id, hit] of hits) {
       const file = path.join(output, id + '.xml')
-      let xml, status, cached = fs.existsSync(file)
       try {
-        if (cached) xml = fs.readFileSync(file, 'utf8')
-        else {
-          const response = await fetch(`https://www.ebi.ac.uk/europepmc/webservices/rest/${id}/fullTextXML`, { signal: AbortSignal.timeout(25000) })
-          status = response.status
-          if (!response.ok) { downloads.push({ id, state: 'http_error', http_status: status }); continue }
-          xml = await response.text()
-        }
-        const parsed = extractOaDocument(xml, id)
-        if (!parsed) { downloads.push({ id, state: 'body_unavailable', http_status: status }); continue }
-        if (!cached) fs.writeFileSync(file, xml)
-        documents.push(...parsed.paragraphs.map(paragraph => ({ ...paragraph, body_sha256: parsed.body_sha256 })))
-        downloads.push({ id, state: cached ? 'cached' : 'downloaded', body_sha256: parsed.body_sha256 })
-      } catch { downloads.push({ id, state: 'request_error', http_status: status }) }
+        const result = await loadOaDocument(id, { cachedXml: fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : undefined })
+        if (!result.parsed) { downloads.push({ id, state: result.state, http_status: result.http_status }); continue }
+        if (result.state === 'downloaded') fs.writeFileSync(file, result.xml)
+        documents.push(...result.parsed.paragraphs.map(paragraph => ({ ...paragraph, body_sha256: result.parsed.body_sha256, candidate_title: hit.title ?? null, candidate_author: hit.authorString ?? null, candidate_year: hit.pubYear ?? null, publication_date: hit.firstPublicationDate ?? null, url: `https://europepmc.org/articles/${id}`, retriever: 'europe_pmc_oa', bibliography_seen: !!hit.title })))
+        downloads.push({ id, state: result.state, body_sha256: result.parsed.body_sha256 })
+      } catch { downloads.push({ id, state: 'request_error' }) }
     }
     fs.writeFileSync(path.join(output, 'documents.json'), JSON.stringify(documents))
     fs.writeFileSync(path.join(output, 'downloads.json'), JSON.stringify(downloads, null, 2))
-    console.log(JSON.stringify({ requested: ids.size, indexed_paragraphs: documents.length, failures: downloads.filter(d => !['cached', 'downloaded'].includes(d.state)).length }))
+    console.log(JSON.stringify({ requested: hits.size, indexed_paragraphs: documents.length, failures: downloads.filter(d => !['cached', 'downloaded'].includes(d.state)).length }))
     return
   }
   if (process.argv[2] === '--local') {
