@@ -12,6 +12,8 @@
 // ── 검수 에이전트의 한 문항 절차(순서가 곧 규칙이다) ─────────────────
 //   1) start   --analysis <id> --persona <setter|analyst|tutor> --agent-run <내 실행 id>
 //              → 원문·발문·선지만 준다. 정답·분석은 주지 않는다.
+//      도표: visual-input --run <id> → 출력 PNG를 직접 열어 확인 → visual-ack --run <id>
+//              --asset <UUID> --sha256 <이미지 해시> --note-file <UTF8 관찰 근거.txt> → solve.
 //   2) solve   --run <run id> --item <문항 id> --answer <1-5> --note "<문항별 근거 20자 이상>"
 //              → 독립 풀이 확정. 한 번만. 이 뒤에만 공개된다.
 //   3) reveal  --run <run id>
@@ -30,17 +32,19 @@
 // ── 운영자 명령 ───────────────────────────────────────────────────────
 //   export  [--size 8] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
 //   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
-//   precheck [--items ...] [--out] [--commit]                   옛 분석도 근거 단위(V9)·확인된 지칭 배제(V10) 검사 — 실패는 교정.
+//   precheck [--items ...] [--out] [--commit]                   옛 분석도 근거 단위(V9)·지칭 배제(V10)·특정 내부 수리 메모(V11) 검사 — 실패는 교정.
 //                                                               --commit 은 결과를 csat_review_prechecks 에(관리자 화면 「검수 진행」)
 //   ledger-import [--commit | --sql-out _ledger-*.sql]           원장 2종 원자적 upsert / 검증된 단일 DML 파일 출력(DB 쓰기 없음)
 //   status                                                      학평 분석 상태·독립 검수 진행 요약
 //   open-runs --before <ISO UTC 시각>                           지정 시각 이전 미제출 실행 목록(읽기 전용 · 삭제 없음)
+//   visual-register --file <정본 증거.json> [--commit]            원문 PNG·PDF 해시/쪽·텍스트 해시·실제 확인 기록을 원자 등록
 //
 // 재실행 안전: start/rereview 는 같은 실행 주체의 미제출 실행을 재사용한다 · solve 는 두 번 부르면
 // DB 가 거부 · reveal 은 몇 번 불러도 같은 값 · submit 은 (분석, 페르소나, 실행) 당 한 번 · publish 는 몇 번이든 안전.
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { createClient } from '@supabase/supabase-js'
 import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
 import { precheckAnalysis, PRECHECK_VERSION, UNITS_VERSION } from './lib-evidence-units.mjs'
@@ -74,7 +78,7 @@ const KEY = env('SUPABASE_SERVICE_ROLE_KEY') ?? env('SUPABASE_SERVICE_KEY')
 if (!URL || !KEY) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 를 못 찾았다')
 const db = createClient(URL, KEY, { auth: { persistSession: false } })
 
-const WORK = path.resolve('scripts/csat/review-drain-hakpyeong') // gitignore — 문항 id 만 담지만 학평 작업물과 같은 규칙
+const WORK = path.join(SCRIPT_DIR, 'review-drain-hakpyeong') // ignored, independent of the caller's cwd
 // Validate output paths before creating a review run.
 if (['start', 'rereview', 'reveal'].includes(cmd) && arg('out')) {
   const name = arg('out')
@@ -144,13 +148,28 @@ async function precheckMany(analyses) {
   return out
 }
 
-/** 도표(R-CHART) 문항 id — 이미지 입력이 없어 발행 보류 대상 */
-async function chartItems(itemIds) {
+/** Chart items with no image bound to their current text input. */
+async function chartItems(itemIds, analyses = []) {
   const set = new Set()
   for (let i = 0; i < itemIds.length; i += 200) {
     const { data, error } = await db.from('csat_items').select('id').in('id', itemIds.slice(i, i + 200)).eq('type_id', 'R-CHART')
     if (error) die(error.message)
-    for (const r of data) set.add(r.id)
+    for (const r of data) {
+      const asset = await db.rpc('csat_current_chart_asset', {p_item:r.id})
+      if (asset.error) {
+        // Old deployments remain closed until the reviewed migration is approved/applied.
+        if (asset.error.code === 'PGRST202' || asset.error.code === '42883') set.add(r.id)
+        else die(asset.error.message)
+      } else if (!asset.data) set.add(r.id)
+      else {
+        const analysis = analyses.find(a=>a.item_id===r.id)
+        if (analysis) {
+          const ready = await db.rpc('csat_chart_analysis_ready',{p_analysis:analysis.id})
+          if (ready.error) die(ready.error.message)
+          if (!ready.data) set.add(r.id)
+        }
+      }
+    }
   }
   return set
 }
@@ -215,7 +234,7 @@ async function assertBlindSourceUnseen(run, before) {
 }
 
 // A lost CLI response must not create another unsubmitted run. Same execution only.
-async function reusableRun(analysis, persona, agentRun, kind, parentId = null) {
+async function reusableRun(analysis, persona, agentRun, kind, parentId = null, typeId = null) {
   let q = db.from('csat_review_runs')
     .select('id, solve_answer, solve_input_hash, solve_answer_hash, revealed_at, reveal_input_hash, reveal_answer_hash, reveal_analysis_hash, reveal_units_hash, csat_independent_reviews(id)')
     .eq('analysis_id', analysis.id).eq('persona', persona).eq('agent_run', agentRun)
@@ -228,6 +247,17 @@ async function reusableRun(analysis, persona, agentRun, kind, parentId = null) {
   const run = data?.[0]
   if (!run) return null
   await assertBlindValid([run.id, parentId])
+  if (kind === 'blind' && run.solve_answer == null && typeId === 'R-CHART') {
+    const delivery = await db.from('csat_review_visual_deliveries').select('input_hash,units_hash').eq('run_id', run.id).maybeSingle()
+    if (delivery.error) die(delivery.error.message)
+    if (delivery.data) {
+      const current = await db.rpc('csat_item_input_hash', {p_item:analysis.item_id})
+      if (current.error) die(current.error.message)
+      const units=await db.rpc('csat_current_units_hash',{p_item:analysis.item_id})
+      if (units.error) die(units.error.message)
+      if (delivery.data.input_hash !== current.data || delivery.data.units_hash !== units.data) die('전달된 도표 입력이 변경됐다. 이 실행을 다시 시작하지 않는다. 옛 기록과 blind-invalid 추적을 보존하고 새 독립 문맥·실행 ID에 재배정한다')
+    }
+  }
   if (run.revealed_at || (kind === 'blind' && run.solve_answer != null)) {
     const values = await Promise.all([
       db.rpc('csat_item_input_hash', { p_item: analysis.item_id }),
@@ -249,6 +279,57 @@ async function reusableRun(analysis, persona, agentRun, kind, parentId = null) {
 }
 
 switch (cmd) {
+  case 'visual-register': {
+    const file = must(arg('file'), 'file')
+    const proof = JSON.parse(fs.readFileSync(file, 'utf8'))
+    if (!/^H\d{4}G[123]#\d{2}$/.test(proof.item_id) || !Number.isInteger(proof.pdf_page) || proof.pdf_page < 1) die('학평 문항과 실제 PDF 쪽 번호가 필요하다')
+    for (const field of ['source_input_hash','pdf_sha256','image_sha256']) if (!/^[a-f0-9]{64}$/.test(proof[field])) die(`${field}: SHA256이 필요하다`)
+    if (typeof proof.inspected_by !== 'string' || proof.inspected_by.trim().length < 8 || typeof proof.inspection !== 'string' || proof.inspection.trim().length < 40 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f\ufffd]/.test(proof.inspection)) die('정본을 실제로 본 실행 ID와 읽을 수 있는 관찰 근거가 필요하다')
+    const pdf = fs.readFileSync(proof.pdf_file)
+    const png = fs.readFileSync(proof.png_file)
+    const digest = bytes => createHash('sha256').update(bytes).digest('hex')
+    if (!pdf.subarray(0,5).equals(Buffer.from('%PDF-')) || digest(pdf) !== proof.pdf_sha256) die('정본 PDF 해시가 다르다')
+    if (png.length < 8 || png.length > 8388608 || !png.subarray(0,8).equals(Buffer.from('89504e470d0a1a0a','hex')) || digest(png) !== proof.image_sha256) die('정본 PNG 해시·형식·크기가 다르다')
+    const hash = await db.rpc('csat_item_text_input_hash', {p_item:proof.item_id})
+    if (hash.error) die(hash.error.message)
+    if (hash.data !== proof.source_input_hash) die('현재 텍스트 입력이 정본 확인 뒤 바뀌었다')
+    const head = await db.from('csat_review_visual_heads').select('asset_id').eq('item_id',proof.item_id).maybeSingle()
+    if (head.error) die(head.error.message)
+    if (!has('commit')) { out({mode:'preview',item_id:proof.item_id,image_sha256:proof.image_sha256,pdf_sha256:proof.pdf_sha256,pdf_page:proof.pdf_page,expected_asset:head.data?.asset_id ?? null,next:'비공개 정본 JSON의 expected_asset에 이 값을 명시한 뒤 --commit한다. 교체 사이 값이 바뀌면 다시 미리 보고 확인한다'}); break }
+    if (!Object.hasOwn(proof,'expected_asset')) die('등록에는 expected_asset이 필요하다. 미리보기의 현재 UUID 또는 null을 정본 JSON에 명시하고 다시 확인한다')
+    const result = await db.rpc('csat_review_visual_register', {p_item:proof.item_id,p_source_hash:proof.source_input_hash,p_pdf_sha256:proof.pdf_sha256,p_pdf_page:proof.pdf_page,p_image_base64:png.toString('base64'),p_inspected_by:proof.inspected_by,p_inspection:proof.inspection,p_expected_asset:proof.expected_asset ?? null})
+    if (result.error) die(result.error.message)
+    out({mode:'commit',item_id:proof.item_id,asset_id:result.data,image_sha256:proof.image_sha256,next:'단위 목록 재생성 → 이미지로 새 분석 → 새 독립 검수 3인'})
+    break
+  }
+  case 'visual-input': {
+    const run = must(arg('run'), 'run')
+    if (!/^[a-f0-9-]{36}$/i.test(run)) die('검수 실행 UUID가 필요하다')
+    fs.mkdirSync(WORK, {recursive:true})
+    const result = await db.rpc('csat_review_visual_input', {p_run:run})
+    if (result.error) die(result.error.message)
+    const row = result.data?.[0]
+    if (!row?.image_base64 || !/^[a-f0-9]{64}$/.test(row.image_sha256) || !/^[a-f0-9]{64}$/.test(row.input_hash) || !/^[a-f0-9]{64}$/.test(row.units_hash) || !row.item?.id || !Array.isArray(row.units?.list)) die('도표·텍스트·근거 단위를 묶은 입력이 없다')
+    const png = Buffer.from(row.image_base64.replace(/\s/g,''),'base64')
+    if (createHash('sha256').update(png).digest('hex') !== row.image_sha256 || !png.subarray(0,8).equals(Buffer.from('89504e470d0a1a0a','hex'))) die('받은 이미지가 정본 해시와 다르다')
+    const pngFile = path.join(WORK, `_visual-${run}.png`)
+    const {image_base64,...meta} = row
+    fs.writeFileSync(pngFile,png)
+    fs.writeFileSync(path.join(WORK, `_visual-${run}.json`),JSON.stringify({run_id:run,...meta},null,1)+'\n')
+    out({run_id:run,...meta,png_file:pngFile,next:'이 RPC가 함께 준 현재 텍스트·선지·근거 단위와 PNG를 직접 읽어 풀이한다. start의 옛 텍스트를 재사용하지 않는다. visual-ack로 문항별 관찰을 저장한다'})
+    break
+  }
+  case 'visual-ack': {
+    const run = must(arg('run'),'run')
+    const asset = must(arg('asset'),'asset')
+    const sha = must(arg('sha256'),'sha256')
+    const note = fs.readFileSync(must(arg('note-file'),'note-file'),'utf8').trim()
+    if (!/^[a-f0-9]{64}$/.test(sha) || note.length < 40 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f\ufffd]/.test(note)) die('관찰 이미지 해시와 읽을 수 있는 문항별 관찰 근거 40자 이상이 필요하다')
+    const result = await db.rpc('csat_review_visual_ack',{p_run:run,p_asset:asset,p_sha256:sha,p_observation:note})
+    if (result.error) die(result.error.message)
+    out({run_id:run,asset_id:asset,observation_recorded:true,next:'solve --run <id> --item <문항 id> --answer <1-5> --note "<실제 풀이>"'})
+    break
+  }
   // ── 검수 에이전트 ───────────────────────────────────────────────────
   case 'start': {
     const analysisId = must(arg('analysis'), 'analysis')
@@ -260,7 +341,14 @@ switch (cmd) {
     if (a.analyst_run && a.analyst_run === agentRun) die('분석을 쓴 실행 주체는 그 분석을 검수할 수 없다')
     // 이 도구는 **학평(보조·검증 집합) 전용**이다 — 평가원 분석은 csat_analysis_reviews 규약을 따른다
     if (isKiceExam(a.item_id)) die(`${a.item_id}: 평가원 문항은 이 도구로 검수하지 않는다(학평 전용)`)
-    const existing = await reusableRun(a, persona, agentRun, 'blind')
+    const { data: it, error: ie } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices').eq('id', a.item_id).single()
+    if (ie) die(ie.message)
+    if (it.type_id === 'R-CHART') {
+      const ready = await db.rpc('csat_chart_analysis_ready', {p_analysis:a.id})
+      if (ready.error) die(ready.error.message)
+      if (ready.data !== true) die('현재 도표 연결 뒤 새 단위·분석 재작성 먼저')
+    }
+    const existing = await reusableRun(a, persona, agentRun, 'blind', null, it.type_id)
     if (!existing || existing.solve_answer == null) {
       const { data: parent, error: pe } = await db.rpc('csat_rereview_parent', { p_item: a.item_id, p_persona: persona, p_analyst_run: a.analyst_run ?? '' })
       if (pe) die(pe.message)
@@ -274,9 +362,7 @@ switch (cmd) {
       .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona }).select('id').single()
     if (re) die(re.message)
     // 정답(answer·answers)과 분석은 **주지 않는다** — solve 뒤 reveal 에서만
-    const { data: it, error: ie } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices').eq('id', a.item_id).single()
-    if (ie) die(ie.message)
-    out({ run_id: run.id, resumed: !!existing, item: it, units: await unitsView(a.item_id), next: existing?.solve_answer != null ? `reveal --run ${run.id}` : `solve --run ${run.id} --item ${a.item_id} --answer <1-5> --note "<문항별 근거 20자 이상>"` })
+    out({ run_id: run.id, resumed: !!existing, item: it, units: await unitsView(a.item_id), next: existing?.solve_answer != null ? `reveal --run ${run.id}` : it.type_id === 'R-CHART' ? `visual-input --run ${run.id}` : `solve --run ${run.id} --item ${a.item_id} --answer <1-5> --note "<문항별 근거 20자 이상>"` })
     break
   }
   case 'solve': {
@@ -368,7 +454,7 @@ switch (cmd) {
     const only = arg('items') ? new Set(arg('items').split(',')) : null
     const all0 = (await latestHakpyeong()).filter((a) => a.status !== 'published' && (!only || only.has(a.item_id)))
     // 도표는 이미지 없이 검수할 수 없다 — 청크에서 빼되 **보류 건수로 남긴다**(조용히 제외하지 않는다 · DB 게이트도 발행 거부)
-    const chartHeld = await chartItems(all0.map((a) => a.item_id))
+    const chartHeld = await chartItems(all0.map((a) => a.item_id),all0)
     const latest0 = all0.filter((a) => !chartHeld.has(a.item_id))
     // 기계로 잡히는 번호 결함은 블라인드 검수에 보내지 않는다 — 검수 3인이 같은 결함을 세 번 적는 비용이다(2026-09-30 배치 4: 반려 4/4 가 V9 결함)
     const pre = await precheckMany(latest0)
@@ -407,7 +493,7 @@ switch (cmd) {
       fs.writeFileSync(path.join(WORK, name), JSON.stringify({ created_at: new Date().toISOString(), items: todo.slice(i, i + size) }, null, 1))
       console.log(`  ${name}  ${todo.slice(i, i + size).map((t) => t.item_id).join(' ')}`)
     }
-    console.log(`  보류: 도표 이미지 없음 ${chartHeld.size} (검수 청크에서 뺐다 · 완료로 세지 않는다)`)
+    console.log(`  보류: 도표 이미지 없음 또는 현재 이미지로 분석 재작성 먼저 ${chartHeld.size} (검수 청크에서 뺐다 · 완료로 세지 않는다)`)
     console.log(`  교정 먼저: 사전 검사(V9) 실패 ${fixFirst.length}${fixFirst.length ? ' — ' + fixFirst.slice(0, 10).map((a) => a.item_id).join(' ') + (fixFirst.length > 10 ? ' …' : '') : ''}`)
     console.log(`  대상 ${latest.length} · 작업 중 ${busy.size} · analyst_run 없음 ${noRun.length} · 검수 필요 ${todo.length} · 새 청크 ${n}`)
     if (noRun.length) console.log('  ⚠ analyst_run 이 없는 분석은 게이트가 발행을 막는다 — 분석을 다시 적재할 때 analyst_run 을 적는다(백필 명령은 2026-10-01 할 일을 마치고 없앴다)')
@@ -543,11 +629,12 @@ switch (cmd) {
     for (const a of latest) by[a.status] = (by[a.status] ?? 0) + 1
     const { count: runs } = await db.from('csat_review_runs').select('id', { count: 'exact', head: true })
     const { count: revs } = await db.from('csat_independent_reviews').select('id', { count: 'exact', head: true })
-    const held = await chartItems(latest.filter((a) => a.status !== 'published').map((a) => a.item_id))
+    const pending = latest.filter((a) => a.status !== 'published')
+    const held = await chartItems(pending.map((a) => a.item_id), pending)
     out({ analyses: latest.length, by_status: by, held_chart_no_image: held.size, analyst_run_missing: latest.filter((a) => !a.analyst_run).length, review_runs: runs, independent_reviews: revs })
     break
   }
   default:
-    console.log('usage: review-drain.mjs <start|solve|reveal|submit|rereview|precheck|ledger-import|export|publish|open-runs|status> …(머리 주석 참조)')
+    console.log('usage: review-drain.mjs <start|visual-register|visual-input|visual-ack|solve|reveal|submit|rereview|precheck|ledger-import|export|publish|open-runs|status> …(머리 주석 참조)')
     process.exit(cmd ? 1 : 0)
 }

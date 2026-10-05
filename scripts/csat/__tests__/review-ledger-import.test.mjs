@@ -6,10 +6,9 @@ import os from 'node:os'
 import path from 'node:path'
 import http from 'node:http'
 import { spawn } from 'node:child_process'
-import { fileURLToPath } from 'node:url'
 import { prepareReviewLedgers, reviewLedgerSql } from '../lib-review-ledger.mjs'
+import {cloneReviewCli,removeCliFixture} from './lib-cli-fixture.mjs'
 
-const CLI = fileURLToPath(new URL('../review-drain.mjs', import.meta.url))
 const batch = { batch: 'review-test', date: '2026-10-02', kind: 'blind', items: 1 }
 const followup = { item_id: 'H2603G3#18', source: 'test', finding: '근거 번호를 다시 확인한다', severity: 'revise', status: 'open', date: '2026-10-02' }
 
@@ -25,6 +24,7 @@ test('data-only SQL holds both ledgers in one statement and safely quotes dollar
 
 async function run(metrics, followups, rpcError = false, exportSql = false, existing = { batches: [], followups: [] }) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-ledger-'))
+  const fixtureCLI=cloneReviewCli(dir)
   const work = path.join(dir, 'scripts/csat/review-drain-hakpyeong')
   fs.mkdirSync(work, { recursive: true })
   fs.writeFileSync(path.join(work, '_metrics.jsonl'), metrics)
@@ -50,7 +50,7 @@ async function run(metrics, followups, rpcError = false, exportSql = false, exis
   })
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
   try {
-    const child = spawn(process.execPath, [CLI, 'ledger-import', ...(exportSql ? ['--sql-out', '_ledger-test.sql'] : ['--commit'])], {
+    const child = spawn(process.execPath, [fixtureCLI, 'ledger-import', ...(exportSql ? ['--sql-out', '_ledger-test.sql'] : ['--commit'])], {
       cwd: dir, windowsHide: true,
       env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
     })
@@ -61,7 +61,7 @@ async function run(metrics, followups, rpcError = false, exportSql = false, exis
     return { code, output, requests, sql: fs.existsSync(path.join(work, '_ledger-test.sql')) ? fs.readFileSync(path.join(work, '_ledger-test.sql'), 'utf8') : null }
   } finally {
     await new Promise((resolve) => server.close(resolve))
-    fs.rmSync(dir, { recursive: true, force: true })
+    removeCliFixture(dir)
   }
 }
 

@@ -27,6 +27,7 @@ import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 import { analysisWinners, chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
 import { loadCurrentAnswerHashes, loadCurrentUnits } from './lib-units-db.mjs'
 
+async function main() {
 const COMMIT = process.argv.includes('--commit')
 const WORK = WORK_DIR
 
@@ -72,7 +73,7 @@ if (COMMIT) {
   }
 }
 
-if (!files.length) { console.log('  .out.json 이 없다'); process.exit(0) }
+if (!files.length) { console.log('  .out.json 이 없다'); return }
 
 const analyses = []
 const reviewsOf = new Map()
@@ -200,7 +201,7 @@ if (CHUNKS) {
   if (SET === 'hakpyeong') console.log('  학평: 새 버전은 in_review 로 들어가고 발행을 시도하지 않는다(독립 검수 게이트)')
 }
 
-if (!COMMIT) { console.log('\n  미리보기다 — 아무것도 쓰지 않았다. 올리려면 --commit'); process.exit(0) }
+if (!COMMIT) { console.log('\n  미리보기다 — 아무것도 쓰지 않았다. 올리려면 --commit'); return }
 
 // ── 적재 ──────────────────────────────────────────────────────────────
 //
@@ -280,7 +281,25 @@ for (const a of analyses) {
         x.time_budget_sec ?? null, x.difficulty ?? null, x.required_vocab ?? [], x.answer_unknown === true, x.body_recovered === true,
         x.analyst_run ?? null, x.units_version ?? null, x.units_hash ?? null]),
     )
-  const same = last && shape(last) === shape(a)
+  let chart = false
+  if (SET === 'hakpyeong') {
+    const {data:item,error:ie} = await db.from('csat_items').select('type_id').eq('id',a.item_id).single()
+    if (ie) throw new Error(`${a.item_id}: 현재 문항 유형 조회 실패 — ${ie.message}`)
+    chart = item.type_id === 'R-CHART'
+  }
+  let same = last && shape(last) === shape(a)
+  if (chart && same) {
+    const {data:bindings,error:be} = await db.from('csat_review_visual_analysis_bindings').select('input_hash').eq('analysis_id',last.id)
+    if (be) throw new Error(`${a.item_id}: 도표 분석 입력 연결 조회 실패 — ${be.message}`)
+    if (bindings.length) same = bindings[0].input_hash === exportHashOf.get(a)
+    else if (last.status === 'draft') {
+      // Resume a lost insert response only if this draft was created after the
+      // current image and still matches its complete exported input.
+      const {data:bindable,error:ce} = await db.rpc('csat_chart_analysis_bindable',{p_analysis:last.id,p_input_hash:exportHashOf.get(a)})
+      if (ce) throw new Error(ce.message)
+      same = bindable === true
+    } else same = false
+  }
   let aid = last?.id
 
   if (!same) {
@@ -299,6 +318,10 @@ for (const a of analyses) {
   //    과거 검수 984행을 덮어쓰지 않고(재검수는 csat_independent_reviews 에 회차로 쌓는다),
   //    발행은 review-drain.mjs publish 가 독립 검수 3인이 모인 뒤에만 시도한다(DB 게이트가 최종 판정).
   if (SET === 'hakpyeong') {
+    if (chart) {
+      const {error:be} = await db.rpc('csat_review_visual_bind_analysis',{p_analysis:aid,p_input_hash:exportHashOf.get(a)})
+      if (be) throw new Error(`${a.item_id}: 도표 분석 입력 연결 실패 — ${be.message}`)
+    }
     // 내용이 같아도 행이 draft 로 남아 있으면(지난 실행이 insert 뒤 전환 전에 끊겼다) 여기서 마저 전환한다(Codex 게이트 P2)
     if (!same || last?.status === 'draft') {
       const { error: se } = await db.from('csat_item_analyses').update({ status: 'in_review' }).eq('id', aid)
@@ -430,3 +453,6 @@ for (const [tid, list] of typeReports) {
 console.log(`  새 분석 ${inserted} · ${SET === 'hakpyeong' ? `in_review ${republished}` : `published ${republished}`} · 유형 리포트 ${typeReports.size} · 건너뜀 ${skipped.length}`)
 console.log('→ csat_item_analyses · csat_analysis_reviews · csat_type_reports')
 if (failed) { console.log(`  ✗ 상태 전환 실패 ${failed} — 다시 돌리면 draft 행을 이어서 전환한다`); process.exit(1) }
+}
+
+await main()

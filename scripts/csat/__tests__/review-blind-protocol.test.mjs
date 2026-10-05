@@ -4,6 +4,7 @@ import test from 'node:test'
 import fs from 'node:fs'
 import {createClient} from '@supabase/supabase-js'
 import {shareReviewSource,blindProtocolViolation} from '../lib-review-blind-protocol.mjs'
+import {loadCurrentUnits} from '../lib-units-db.mjs'
 const items=new Map([41,42,43,44,45,18].map(no=>[`H#${no}`,{id:`H#${no}`,exam_id:'H',no,passage:`Text ${no}`}]))
 const run={id:'blind',item_id:'H#42',role:'reviewer',agent_run:'actor',created_at:'2026-10-01T10:00:00Z',solve_committed_at:'2026-10-01T10:01:00Z'}
 const previous={id:'previous',item_id:'H#41',role:'reviewer',agent_run:'actor',created_at:'2026-10-01T09:00:00Z',revealed_at:'2026-10-01T09:59:00Z'}
@@ -55,5 +56,26 @@ test('live publication evidence excludes legacy NULL-unit approvals after a list
  assert.equal(error,null)
  assert.equal(data.length,ids.length)
  assert.deepEqual(new Set(data.map(row=>row.analysis_id)),new Set(ids))
- for(const row of data)assert.deepEqual(row.personas,[],`Unbound approval counted for ${row.analysis_id}`)
+ const {data:analyses,error:ae}=await db.from('csat_item_analyses').select('id,item_id').in('id',ids)
+ assert.equal(ae,null);assert.equal(analyses.length,ids.length)
+ const units=await loadCurrentUnits(db,analyses.map(a=>a.item_id))
+ const reviews=[]
+ for(let from=0;;from+=1000){
+  const {data:part,error:re}=await db.from('csat_independent_reviews').select('id,analysis_id,persona,verdict,units_hash').in('analysis_id',ids).order('id').range(from,from+999)
+  assert.equal(re,null);reviews.push(...part);if(part.length<1000)break
+ }
+ for(const id of ids)assert.ok(reviews.some(r=>r.analysis_id===id&&r.units_hash===null),`Immutable legacy NULL-unit evidence missing for ${id}`)
+ let negativeChecks=0
+ for(const row of data){
+  const item=analyses.find(a=>a.id===row.analysis_id),currentHash=units.get(item.item_id)?.units_hash
+  assert.ok(currentHash)
+  // Remediation may add legitimate bound approvals to these same historical analyses.
+  // The invariant excludes NULL evidence; it does not forbid every future approval.
+  const boundPasses=new Set(reviews.filter(r=>r.analysis_id===row.analysis_id&&r.units_hash===currentHash&&r.verdict==='pass').map(r=>r.persona))
+  for(const persona of row.personas)assert.ok(boundPasses.has(persona),`Only unbound approval exists for ${row.analysis_id}/${persona}`)
+  for(const persona of ['setter','analyst','tutor'])if(!boundPasses.has(persona)){
+   negativeChecks++;assert.ok(!row.personas.includes(persona),`Unbound approval counted for ${row.analysis_id}/${persona}`)
+  }
+ }
+ assert.ok(negativeChecks>0,'Legacy fixture no longer exercises any NULL-only persona; refresh the read-only fixture')
 })

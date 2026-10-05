@@ -20,6 +20,12 @@ export function namedReferentExclusions(procedure) {
 }
 
 export function analysisRuleErrors(analysis) {
-  return namedReferentExclusions(analysis.solve_procedure).map((text) =>
+  const errors = namedReferentExclusions(analysis.solve_procedure).map((text) =>
     `V10 이름·호칭의 별도 등장만으로 지칭 후보를 제외한다 — 행위·소유·발화 관계로 대조해야 한다: ${text}`)
+  // Actual repeated repair metadata, confined to the learner-facing design field.
+  // Original-PDF instructions and generic mentions of underline scope remain valid.
+  if (/실제 밑줄은[^.!?\n]*이며 수리된 범위를 대상으로 검증한다(?:\.|$)/.test(analysis.design_intent ?? '')) {
+    errors.push('V11 학습자용 출제 의도에 원문 수리·검수 메모가 남아 있다 — 출제 설계로 작성하고 내부 기록은 별도로 보존해야 한다')
+  }
+  return errors
 }

@@ -34,7 +34,16 @@ test('DB precheck rejects a bad rule even when all references and quotes are val
   const { units } = buildUnits(passage)
   const analysis = { answer_locus: { quote: passage, sentence_index: [1] }, solve_procedure: [{ step: bad[0] }] }
   const result = precheckAnalysis(analysis, units)
-  assert.equal(PRECHECK_VERSION, 3)
+  assert.equal(PRECHECK_VERSION, 4)
   assert.equal(result.errors.length, 1)
   assert.match(result.errors[0], /V10/)
+})
+
+test('V11 blocks the actual internal repair memo without banning original-PDF learning instructions', () => {
+  const passage = 'The subject performs the action.'
+  const { units } = buildUnits(passage)
+  const a = { answer_locus: { quote: passage, sentence_index: [1] }, design_intent: '능동 관계를 판별하게 한다. 실제 밑줄은 doing · done이며 수리된 범위를 대상으로 검증한다.' }
+  assert.match(precheckAnalysis(a, units).errors.join('\n'), /V11/)
+  a.design_intent = '문제 화면 원본 PDF에서 밑줄 전체를 확인하여 동작 주체와 분사 태를 비교하게 한다.'
+  assert.deepEqual(precheckAnalysis(a, units).errors, [])
 })

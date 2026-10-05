@@ -98,3 +98,19 @@ test('local corpus input is fully aligned to validated DB fields without changin
  assert.equal(r.item.answer,local.answer)
  assert.equal(r.item.raw_block,local.raw_block)
 })
+
+test('a partial repair preserves a defective flag even when all source fields are nonempty',async()=>{
+ const row={...base,passage:'Truncated but nonempty source.',body_ok:false}
+ const r=await repairFixture(row,{...row,body_suspect:true},{stem:'Repaired synthetic question'})
+ assert.equal(r.requests.find(q=>q.method==='PATCH').body.body_ok,false)
+ assert.equal(r.item.body_ok,false)
+ assert.equal(r.item.body_suspect,true)
+})
+
+test('a full inspected source plan may clear a defective flag without erasing local warnings',async()=>{
+ const row={...base,body_ok:false}
+ const r=await repairFixture(row,{...row,body_suspect:true},{stem:'Repaired synthetic question',passage:base.passage,choices:base.choices})
+ assert.equal(r.requests.find(q=>q.method==='PATCH').body.body_ok,true)
+ assert.equal(r.item.body_ok,true)
+ assert.equal(r.item.body_suspect,true)
+})

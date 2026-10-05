@@ -149,10 +149,21 @@ export async function readPaper(file: File, opt: ReadOptions): Promise<ReadResul
     const kept: ReflowItem[] = []
     let failed = 0
     for (const it of items.values()) {
-      if (!it.ok) {
-        failed += 1
-        const url = await renderCrop(doc, pages, it.boxes, gutterX)
+      // A different PDF for the same exam must never inherit an older image.
+      crops.delete(`${examId}#${it.no}`)
+      if (!it.ok || it.needsOriginal) {
+        if (!it.ok) failed += 1
+        let url: string | null = null
+        try {
+          url = await renderCrop(doc, pages, it.boxes, gutterX)
+        } catch {
+          // One failed original crop must not discard other readable items.
+        }
         if (url) crops.set(`${examId}#${it.no}`, url)
+        else {
+          it.originalUnavailable = true
+          if (it.ok) failed += 1
+        }
       }
       kept.push(it)
     }

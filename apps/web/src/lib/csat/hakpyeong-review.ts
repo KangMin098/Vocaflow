@@ -32,7 +32,7 @@ export interface ReviewVerdict {
  * 지금 사전 검사기 버전 — scripts/csat/lib-evidence-units.mjs 의 PRECHECK_VERSION 과 같아야 한다(회귀가 묶는다).
  * 다른 버전으로 낸 기록은 「오래된 결과」다.
  */
-export const PRECHECK_VERSION_CURRENT = 3
+export const PRECHECK_VERSION_CURRENT = 4
 
 export interface PrecheckRecord {
   errors: string[]
@@ -58,6 +58,9 @@ export interface HakReviewItem {
   verdicts: ReviewVerdict[]
   /** 가장 최근 사전 검사(없으면 null) */
   precheck: PrecheckRecord | null
+  /** 현재 텍스트 입력에 묶인 비공개 도표 이미지 정본. 그림을 직접 본 증거는 검수 게이트가 판단한다. */
+  visualAssetId?: string | null
+  visualAnalysisReady?: boolean
 }
 
 export interface ReviewBatch {
@@ -123,11 +126,11 @@ export function reviewBlock(it: HakReviewItem): ReviewBlock {
   if (it.status === 'published' && n >= 3) {
     return { state: 'published', reason: `발행됨 · 유효 승인 ${n}/3`, next: '없음' }
   }
-  if (it.typeId === 'R-CHART') {
+  if (it.typeId === 'R-CHART' && !it.visualAssetId) {
     return {
       state: 'chart',
       reason: '도표 이미지가 검수 입력에 없어 도표 수치를 대조할 수 없다 — 발행 보류(완료로 세지 않는다)',
-      next: '도표 이미지를 검수 입력에 붙이는 작업이 먼저다(현재 없음)',
+      next: '정본 PNG·PDF 해시·쪽·실제 확인 기록을 visual-register로 미리 본 뒤 --commit한다(미적용 DB는 마이그레이션 승인 먼저)',
     }
   }
   if (!it.analysisId || !it.analystRun) {
@@ -136,6 +139,9 @@ export function reviewBlock(it: HakReviewItem): ReviewBlock {
       reason: it.analysisId ? '분석 실행 주체(analyst_run)가 없다 — 게이트가 발행을 막는다' : '분석이 없다',
       next: 'node scripts/csat/analysis-drain-export.mjs --set hakpyeong --exam <회차>',
     }
+  }
+  if (it.typeId === 'R-CHART' && it.visualAnalysisReady !== true) {
+    return {state:'fixFirst',reason:'현재 도표 연결 뒤 새 근거 단위·분석 재작성 먼저',next:`node scripts/csat/units-build.mjs --set hakpyeong --commit → node scripts/csat/analysis-drain-export.mjs --set hakpyeong --redo ${it.itemId}`}
   }
   if (it.precheck?.current && it.precheck.errors.length) {
     return {

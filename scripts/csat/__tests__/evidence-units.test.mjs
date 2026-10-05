@@ -36,6 +36,17 @@ test('circled numbers start a unit after terminal punctuation (position / chart 
   assert.deepEqual(u, ['The graph shows usage.', '① Teens used it most.', '② Adults used it least.'])
 })
 
+test('v4: attached ASCII/fullwidth insertion markers start the next unit without changing source offsets', () => {
+  for (const marker of ['（ ④ ）', '( ④ )']) {
+    const passage = `The old system changed.${marker}More land was used. ( ⑤ ) Thus, exports rose.`
+    const built = buildUnits(passage, { typeId: 'R-INSERT' })
+    assert.deepEqual(built.units.map(u => u.text), ['The old system changed.', `${marker}More land was used.`, '( ⑤ ) Thus, exports rose.'])
+    assert.doesNotThrow(() => checkUnits(passage, built.units))
+  }
+  assert.deepEqual(texts('The old system changed. （ ④ ） More land was used.', { typeId: 'R-INSERT' }), ['The old system changed.', '（ ④ ） More land was used.'])
+  assert.deepEqual(texts('It costs 3.5 dollars. Dr. Kim paid.', { typeId: 'R-INSERT' }), ['It costs 3.5 dollars.', 'Dr. Kim paid.'])
+})
+
 test('v3: leading and multiple name initials stay together without swallowing ordinary letter endings', () => {
   assert.deepEqual(texts('F. Carson studies birds. He writes.'), ['F. Carson studies birds.', 'He writes.'])
   assert.deepEqual(texts('A. Y. Morgan paints. A. Y. travels.'), ['A. Y. Morgan paints.', 'A. Y. travels.'])

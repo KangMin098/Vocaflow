@@ -6,12 +6,11 @@ import os from 'node:os'
 import path from 'node:path'
 import http from 'node:http'
 import { spawn } from 'node:child_process'
-import { fileURLToPath } from 'node:url'
-
-const CLI = fileURLToPath(new URL('../review-drain.mjs', import.meta.url))
+import {cloneReviewCli,removeCliFixture} from './lib-cli-fixture.mjs'
 
 async function run(kind, existing, solveAnswer = null, overrides = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-resume-'))
+  const fixtureCLI=cloneReviewCli(dir)
   const requests = []
   const server = http.createServer(async (req, res) => {
     let body = ''
@@ -24,8 +23,10 @@ async function run(kind, existing, solveAnswer = null, overrides = {}) {
       if (url.startsWith(`/rest/v1/rpc/${name}`)) return res.end(JSON.stringify(hash))
     }
     if (url.startsWith('/rest/v1/rpc/csat_rereview_parent')) return res.end(JSON.stringify(kind === 'rereview' || overrides.validParent ? 'parent' : null))
+    if (url.startsWith('/rest/v1/rpc/csat_chart_analysis_ready')) return res.end(JSON.stringify(overrides.chartReady !== false))
     if (url.startsWith('/rest/v1/rpc/csat_review_reveal')) return res.end(JSON.stringify([{ answer: 2, analysis: { item_id: 'H2603G3#18' } }]))
     if (url.startsWith('/rest/v1/csat_review_followups')) return res.end(JSON.stringify(overrides.invalidBlind ? [{ source: 'blind-invalid:parent' }] : overrides.excludedPending && url.includes('blind-invalid:pending') ? [{source:'blind-invalid:pending'}] : []))
+    if (url.startsWith('/rest/v1/csat_review_visual_deliveries')) return res.end(JSON.stringify(overrides.deliveryHash ? {input_hash:overrides.deliveryHash,units_hash:overrides.deliveryUnits ?? 'units-hash'} : null))
     if (url.startsWith('/rest/v1/csat_review_runs')) {
       if (req.method === 'POST') return res.end(JSON.stringify({ id: 'new-run' }))
       if (url.includes('solve_committed_at=is.null')) return res.end(JSON.stringify(overrides.pendingBlind ? [{ id: 'pending', item_id: 'H2603G3#41' }] : []))
@@ -34,7 +35,7 @@ async function run(kind, existing, solveAnswer = null, overrides = {}) {
       return res.end(JSON.stringify({ id: 'parent', item_id: 'H2603G3#18', agent_run: 'reviewer', created_at: '2026-10-01T00:00:00Z', solve_answer: 2, solve_note: 'An independently committed solution.' }))
     }
     if (url.startsWith('/rest/v1/csat_items')) {
-      const item={ id: 'H2603G3#18', exam_id: 'H2603G3', no: 18, stem: 'Which purpose?', passage: 'A synthetic passage.', choices: ['A', 'B', 'C', 'D', 'E'] }
+      const item={ id: 'H2603G3#18', exam_id: 'H2603G3', no: 18, type_id:overrides.typeId ?? 'R-PURPOSE', stem: 'Which purpose?', passage: 'A synthetic passage.', choices: ['A', 'B', 'C', 'D', 'E'] }
       return res.end(JSON.stringify(url.includes('id=in.') ? [item] : item))
     }
     return res.end('[]')
@@ -42,7 +43,7 @@ async function run(kind, existing, solveAnswer = null, overrides = {}) {
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
   try {
     const solveArgs=kind==='solve'?['--answer','2','--note',overrides.solveNote??'An independently committed solution.',...(overrides.omitItem?[]:['--item',overrides.submittedItem??'H2603G3#18'])]:[]
-    const child = spawn(process.execPath, [CLI, kind, '--run', 'parent', '--analysis', 'analysis', '--persona', 'setter', '--agent-run', 'reviewer', '--out', '_out-test.json', '--before', '2026-10-03T21:34:35.336Z',...solveArgs], {
+    const child = spawn(process.execPath, [fixtureCLI, kind, '--run', 'parent', '--analysis', 'analysis', '--persona', 'setter', '--agent-run', 'reviewer', '--out', '_out-test.json', '--before', '2026-10-03T21:34:35.336Z',...solveArgs], {
       cwd: dir, windowsHide: true,
       env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
     })
@@ -54,9 +55,26 @@ async function run(kind, existing, solveAnswer = null, overrides = {}) {
     return { code, output, requests, result: fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null }
   } finally {
     await new Promise((resolve) => server.close(resolve))
-    fs.rmSync(dir, { recursive: true, force: true })
+    removeCliFixture(dir)
   }
 }
+
+test('start refuses an unbound chart analysis before resuming or inserting a run',async()=>{
+ const r=await run('start',true,null,{typeId:'R-CHART',chartReady:false})
+ assert.notEqual(r.code,0)
+ assert.match(r.output,/분석 재작성 먼저/)
+ assert.equal(r.requests.filter(q=>q.url.startsWith('/rest/v1/csat_review_runs')).length,0)
+})
+test('start refuses a stale delivered chart without restarting or rewriting its history',async()=>{
+ const r=await run('start',true,null,{typeId:'R-CHART',deliveryHash:'old-chart-generation'})
+ assert.notEqual(r.code,0);assert.match(r.output,/새 독립 문맥·실행 ID/)
+ assert.equal(r.requests.filter(q=>q.method==='POST'&&q.url.startsWith('/rest/v1/csat_review_runs')).length,0)
+})
+for(const deliveryHash of [null,'input-hash'])test(`start safely resumes an unsolved chart with ${deliveryHash?'current':'no'} image delivery`,async()=>{
+ const r=await run('start',true,null,{typeId:'R-CHART',deliveryHash})
+ assert.equal(r.code,0,r.output);assert.equal(r.result.run_id,'existing-run');assert.match(r.result.next,/visual-input/)
+ assert.equal(r.requests.filter(q=>q.method==='POST'&&q.url.startsWith('/rest/v1/csat_review_runs')).length,0)
+})
 
 for (const kind of ['start', 'rereview']) {
   test(`${kind} resumes only the same execution's unsubmitted run after lost output`, async () => {

@@ -29,7 +29,10 @@ const patches=plan.repairs.map(repair=>{
   if(!old)throw Error(`${repair.item_id}: 문항 없음`)
   if(path.basename(repair.pdf_file)!==repair.pdf_file||!repair.pdf_file.endsWith('.pdf'))throw Error('PDF는 정본 폴더의 파일명만 받는다')
   const next=applySourceRepair(old,repair,fs.readFileSync(path.join(folder,repair.pdf_file)))
-  const patch={...repair.after,body_ok:completeSource(next)}
+  // Nonempty fields do not prove that a previously defective source is complete.
+  // Clearing its flag requires an inspected plan binding all three source fields.
+  const fullyVerified=['stem','passage','choices'].every(field=>Object.hasOwn(repair.after,field))
+  const patch={...repair.after,body_ok:completeSource(next)&&(old.body_ok===true||fullyVerified)}
   return {old,patch,changed:!Object.entries(patch).every(([field,v])=>isDeepStrictEqual(old[field],v)),next}
 })
 const recipeFile='scripts/csat/data/hakpyeong-source-repairs.json'
