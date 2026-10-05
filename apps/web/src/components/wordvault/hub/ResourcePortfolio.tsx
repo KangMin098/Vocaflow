@@ -12,6 +12,7 @@
 
 'use client'
 
+import { toPreviewSet } from '@/lib/wordvault/preview-set'
 import { BookOpen, ChevronRight, FileText, Library } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -99,39 +100,11 @@ export function ResourcePortfolio({
   const [preview, setPreview] = useState<PublishedVocabSet | null>(null)
   const [pendingUnsub, setPendingUnsub] = useState(false)
 
-  // SetEntry(경량 메타) → 모달이 요구하는 PublishedVocabSet 최소 형태로 승격(모달은 id/title/wordCount/coverEmoji만 사용).
+  // SetEntry(경량 메타) → 모달의 PublishedVocabSet 최소 형태. 모달 머리 「총 N개 단어」는 세트 전체 수다 —
+  // 행의 wordCount(내가 담은 수)를 넘기면 「총 0개 단어」가 된다(lib/wordvault/preview-set.ts).
   function openSet(s: SetEntry) {
     if (!s.setId) return
-    setPreview({
-      id: s.setId,
-      title: s.title,
-      description: null,
-      category: (s.category ?? 'themed') as PublishedVocabSet['category'],
-      categoryNode: null,
-      additionalCategoryIds: [],
-      cefrLevel: s.cefrLevel ?? null,
-      coverEmoji: s.coverEmoji ?? null,
-      sortOrder: 0,
-      wordCount: s.wordCount,
-      subscriberCount: 0,
-      createdAt: new Date(0).toISOString(),
-      // 모달은 id/title/wordCount/coverEmoji 만 쓴다 — 유형 줄은 카탈로그 카드에서만 보인다.
-      kind: null,
-      coverImageUrl: null,
-      coverImageMeta: null,
-      // 이 자리는 내 구독 목록이라 출판 정보를 싣지 않는다(판권면은 카탈로그에서 본다).
-      brandFingerprint: null,
-      ladderStep: null,
-      // 표지 계열·규격·슬러그도 같은 이유로 안 싣는다 — 이 승격은 모달의 최소 형태다.
-      brandFamily: null,
-      brandLockup: null,
-      slug: null,
-      // 판권면 3종 — 이 승격은 모달의 최소 형태라 각인값을 갖고 오지 않는다.
-      //   판권면은 그 줄들을 통째로 뺀다(없는 것을 지어내지 않는다).
-      imprintCode: null,
-      qa: null,
-      level: null,
-    })
+    setPreview(toPreviewSet({ ...s, setId: s.setId }))
   }
 
   // 모달 CTA(구독 해지) — 확인 후 해지, 성공 시 목록에서 제거 + 모달 닫기. 학습 기록은 서버에서 보존.

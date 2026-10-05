@@ -87,5 +87,10 @@ test.describe('챕터 스코프 학습 런처', () => {
     // 머리 표기는 「Chapter 1」 → 「V3 (1/10)」 처럼 바뀌어 왔다 — 라벨이 아니라 이 계약을 본다.
     const firstChapter = dialog.locator('a[href*="chapter=1"][href*="from=%2Fwordvault"]').first();
     await expect(firstChapter).toBeVisible({ timeout: 20_000 });
+    // 회귀(2026-10-05): 모달 머리는 세트 **전체** 단어 수다. 행의 「내가 담은 수」를 넘겨 「총 0개 단어」로 열리던 결함.
+    const summary = dialog.getByText(/총 [\d,]+개 단어/).first();
+    await expect(summary).toBeVisible();
+    const total = Number(((await summary.innerText()).match(/총 ([\d,]+)개 단어/)?.[1] ?? '0').replace(/,/g, ''));
+    expect(total, `챕터 단어장 모달 머리가 「총 ${total}개 단어」다 — 세트 전체 수가 아니다`).toBeGreaterThan(0);
   });
 });
