@@ -13,6 +13,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): F02 합성 교실 smoke v1을 별도 경로로 추가했다. 고정 본문·문항·채점·프로필 해시 기반 blind 패킷 28개와 독립 모델/채점 provenance 검사·문항 기술 통계를 제공한다. 외부 benchmark 전에는 IRT·학년 판정·Gold-S·DB seed를 차단한다.
+
 - docs(textbook): F02 학생 pilot의 현재 해시와 모집 전 책임자 결정·중지 조건을 봉인 검토표로 연결했다. 실제 승인·학생 관측·gold·DB seed는 없다.
 
 - docs(conventions): 임시 표지 기반 patch의 줄바꿈 정규화·표지 부재 hard fail과 파괴적 CLI의 명시적 verb 요구를 운영 규칙으로 기록했다. 로컬 scratchpad 수정은 저장소 tracked code 변경으로 계산하지 않는다.

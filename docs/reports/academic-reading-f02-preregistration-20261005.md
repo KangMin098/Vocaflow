@@ -1,5 +1,7 @@
 # F02 학생 pilot 사전등록 검토본 (2026-10-05)
 
+**운영 상태 변경:** 이 사람 pilot은 미봉인 제안본으로 보존한다. 현재 F02는 [합성 교실 smoke v1](./academic-reading-f02-synthetic-smoke-20261005.md)을 별도 진단 경로로 사용하며 학생 모집은 진행하지 않는다.
+
 모집 전 책임자 결정과 현재 결속 해시는 [F02 봉인 검토표](./academic-reading-f02-lead-seal-sheet-20261005.md)에 모았다.
 
 **현재 상태: `candidate_unsealed` / `educational-validation-pending`.** F02는 본문 생성 성능의 대표 표본이 아니라, 난도 측정 방식의 calibration 사례다. 이 문서와 JSON은 학생 응답을 보기 전에 책임자가 검토할 **제안**이다. 사람 승인, 학생 관측, gold, DB seed는 아직 0건이다.

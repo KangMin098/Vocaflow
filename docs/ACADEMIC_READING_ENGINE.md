@@ -1,5 +1,7 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+F02의 현재 운영 상태는 `synthetic-educational-validation-pending`이다. [Synthetic Classroom Smoke v1](./reports/academic-reading-f02-synthetic-smoke-20261005.md) 진단 경로를 추가했다. 기존 사람 pilot 제안본은 미봉인 상태로 보존하되 현재 실행 경로로 삼지 않는다. 합성 seal은 해시 동일성 검사이며 학년 타당도 승인이 아니다. 외부 benchmark와 독립 응답 검증 전에는 `TARGET_FIT`·`LEVEL_SEPARATION`·Gold-S·DB seed를 판정하지 않는다.
+
 F02 학생 pilot의 책임자 결정 기록은 [봉인 검토표](./reports/academic-reading-f02-lead-seal-sheet-20261005.md)를 사용한다. 현재 미봉인이며 모집·학생 평가·gold·DB seed는 시작하지 않았다.
 
 F02 교육적 calibration 사전등록 검토본(2026-10-05): 수정 후 고정 본문에 맞춘 중1·고1 각 12문항과 채점 기준을 분리하고 `passage_hash`·`item_set_hash`·`scoring_key_hash`·`pilot_protocol_hash` 후보 manifest를 만들었다. 이해도는 `TARGET_FIT` hard gate, 읽기시간·어휘/구문/추론 등은 supporting/diagnostic으로 사전 분류했다. 고1 학생의 두 arm에서 추론·문장 부담 증가와 양쪽 이해도 유지가 함께 필요하며, 사전 노출·중복 버전·짧은 읽기·장시간 이탈과 결측 처리를 제안했다. 이 manifest는 **미봉인**이고 사람 문항 검토·pass band 승인·학생 자료는 아직 없다. [책임자 검토본](./reports/academic-reading-f02-preregistration-20261005.md)을 참조한다. F06/F14/F18, gold, DB seed는 보류한다.
