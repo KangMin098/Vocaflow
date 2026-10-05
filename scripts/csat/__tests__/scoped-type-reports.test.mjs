@@ -57,3 +57,17 @@ test('a missing type holds only that item while normal grade reports continue', 
   assert.equal(reports[0].type_id, 'R-TITLE')
   assert.equal(reports[0].n_analyzed, 1)
 })
+
+test('the first independently published chart creates a grade-scoped report while unreviewed grades remain draft', () => {
+ const items=[1,2,3].map(grade=>({id:`H2603G${grade}#25`,type_id:'R-CHART',in_scope:true}))
+ const analyses=items.map((item,index)=>({item_id:item.id,version:3,status:index===2?'published':'in_review',answer_locus:{sentence_index:[3]},time_budget_sec:60,choice_analysis:[{verdict:'correct'},{verdict:'distractor',trap:'배수 표현 혼동'}]}))
+ const reports=scopedTypeReports(items,analyses,'2026-10-05T00:00:00Z')
+ assert.deepEqual(reports.map(r=>[r.grade,r.n_analyzed,r.status]),[[1,0,'draft'],[2,0,'draft'],[3,1,'published']])
+ const chart=reports[2]
+ assert.equal(chart.organizer,'edu_office')
+ assert.equal(chart.time_budget_sec,60)
+ assert.deepEqual(chart.recurring_traps,[{trap:'배수 표현 혼동',count:1}])
+ assert.match(chart.procedure_steps[0].step,/원본 도표.*범례/)
+ assert.match(chart.procedure_steps[2].step,/초과.*정확히.*경계/)
+ assert.match(chart.procedure_steps[3].step,/모든 주장/)
+})
