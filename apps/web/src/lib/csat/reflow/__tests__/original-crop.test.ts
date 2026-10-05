@@ -30,15 +30,15 @@ function arrange(canRender: boolean, renderRejects = false) {
     toDataURL: () => png,
   }) })
 }
-const read = () => readPaper(new File(['%PDF-synthetic'], 'synthetic.pdf'), {
-  typeOf: () => 'X-REFER', wanted: () => [44], exams: [exam],
+const read = (type = 'X-REFER') => readPaper(new File(['%PDF-synthetic'], 'synthetic.pdf'), {
+  typeOf: () => type, wanted: () => [44], exams: [exam],
 })
 afterEach(() => { vi.unstubAllGlobals(); vi.clearAllMocks() })
 
-describe('실제 readPaper의 원본 영역 보존', () => {
+describe.each(['X-REFER', 'R-IMPLY'])('실제 readPaper의 %s 원본 영역 보존', (type) => {
   it('글자가 성공해도 밑줄 유형의 원본을 탭 메모리에 생성한다', async () => {
     arrange(true)
-    const result = await read()
+    const result = await read(type)
     expect(result.kind).toBe('ok')
     if (result.kind !== 'ok') throw Error('Expected parsed paper')
     expect(result.failed).toBe(0)
@@ -47,10 +47,10 @@ describe('실제 readPaper의 원본 영역 보존', () => {
     expect(JSON.stringify(result.paper)).not.toContain('data:image')
   })
   it('원본 렌더링 실패를 세고 이전 파일의 그림을 재사용하지 않는다', async () => {
-    arrange(true); await read()
+    arrange(true); await read(type)
     expect(cropOf(exam, 44)).toBe(png)
     arrange(false)
-    const result = await read()
+    const result = await read(type)
     expect(result.kind).toBe('ok')
     if (result.kind !== 'ok') throw Error('Expected parsed paper')
     expect(result.failed).toBe(1)
@@ -58,9 +58,9 @@ describe('실제 readPaper의 원본 영역 보존', () => {
     expect(cropOf(exam, 44)).toBeNull()
   })
   it('원본 렌더 예외가 나도 추출된 문항을 보존하고 실패 수를 기록한다', async () => {
-    arrange(true); await read()
+    arrange(true); await read(type)
     arrange(true, true)
-    const result = await read()
+    const result = await read(type)
     expect(result.kind).toBe('ok')
     if (result.kind !== 'ok') throw Error('Expected parsed paper')
     expect(result.failed).toBe(1)

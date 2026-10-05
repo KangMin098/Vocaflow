@@ -104,7 +104,7 @@ function fixture(): { pages: PageFrags[]; anchors: ReflowAnchors } {
 const TYPES: Record<number, string> = { 18: 'R-PURPOSE', 19: 'R-NOTICE', 20: 'R-INSERT', 21: 'R-INSERT' }
 
 describe('원본의 시각 범위 보존', () => {
-  it.each(['R-REFER', 'X-REFER', 'R-GRAMMAR', 'R-VOCAB', 'X-VOCAB', 'R-CHART'])(
+  it.each(['R-REFER', 'X-REFER', 'R-GRAMMAR', 'R-VOCAB', 'X-VOCAB', 'R-CHART', 'R-IMPLY'])(
     '%s는 글자와 선지가 있어도 원본 크롭 경로로 보낸다', (type) => {
       const { pages, anchors } = fixture()
       const item = reflowExam(pages, anchors, (no) => no === 18 ? type : TYPES[no]).get(18)!
@@ -116,7 +116,7 @@ describe('원본의 시각 범위 보존', () => {
   )
 
   it('밑줄 범위를 버린 이전 추출 캐시는 새 판과 다르다', () => {
-    expect(REFLOW_VERSION).toBeGreaterThan(3)
+    expect(REFLOW_VERSION).toBeGreaterThan(4)
   })
 
   it('순서·삽입 문항은 기존 문자 분석을 유지한다', () => {

@@ -1,6 +1,7 @@
 // scripts/csat/__tests__/analysis-rules.test.mjs
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import { namedReferentExclusions } from '../lib-analysis-rules.mjs'
 import { buildUnits, precheckAnalysis, PRECHECK_VERSION } from '../lib-evidence-units.mjs'
 
@@ -13,6 +14,11 @@ const bad = [
   '밑줄이 든 문장이 다른 인물을 이름으로 따로 부르면 밑줄은 그 인물이 아니라고 지운다',
   '그 문장 안에서 다른 인물을 이름(the girl·Cora)으로 따로 부르면 밑줄은 그 사람이 아니다',
 ]
+
+test('the complete author prompt cannot recommend a named-referent exclusion rejected by V10', () => {
+  const prompt = readFileSync(new URL('../analysis-drain/_PROMPT.md', import.meta.url), 'utf8')
+  assert.deepEqual(namedReferentExclusions(prompt), [])
+})
 
 test('confirmed named-referent rule variants are rejected, including on_fail', () => {
   for (const text of bad) assert.deepEqual(namedReferentExclusions([{ on_fail: text }]), [text])
