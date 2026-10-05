@@ -5,7 +5,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { toPreviewSet } from '../preview-set'
+import { measuredSetWordCount, toPreviewSet } from '../preview-set'
 
 const row = {
   setId: 'set-1',
@@ -34,5 +34,21 @@ describe('toPreviewSet — 모달 머리는 세트 전체 단어 수', () => {
   it('모달이 쓰는 식별 필드는 행에서 그대로 옮긴다', () => {
     const set = toPreviewSet({ ...row, wordCount: 0, totalWords: 300 })
     expect(set).toMatchObject({ id: 'set-1', title: '아직 없는 말 · 중학', cefrLevel: 'B1', category: 'themed' })
+  })
+})
+
+describe('measuredSetWordCount — 캐시보다 실측(카탈로그와 같은 규칙)', () => {
+  it('캐시 word_count 가 실제 단어 행과 어긋나면 실측을 쓴다', () => {
+    expect(measuredSetWordCount({ word_count: 250, shared_words: [{ count: 300 }] })).toBe(300)
+  })
+  it('실측 0 은 그대로 0 이다(캐시가 남아 있어도)', () => {
+    expect(measuredSetWordCount({ word_count: 40, shared_words: [{ count: 0 }] })).toBe(0)
+  })
+  it('임베드가 비면 캐시로 물러난다', () => {
+    expect(measuredSetWordCount({ word_count: 250, shared_words: null })).toBe(250)
+    expect(measuredSetWordCount({ word_count: 250 })).toBe(250)
+  })
+  it('둘 다 없으면 null — 0 으로 지어내지 않는다', () => {
+    expect(measuredSetWordCount({ word_count: null, shared_words: [] })).toBeNull()
   })
 })

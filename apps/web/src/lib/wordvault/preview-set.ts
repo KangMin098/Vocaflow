@@ -41,3 +41,17 @@ export function toPreviewSet(s: ResourceSetEntry & { setId: string }): Published
     level: null,
   }
 }
+
+/**
+ * 세트 전체 단어 수 — 서가 카탈로그(`lib/library/books/queries.ts` embeddedWordCounts)와 같은 규칙.
+ * `word_count` 는 캐시라 실제 단어 행과 어긋날 수 있다 → `shared_words(count)` 임베드 실측을 먼저 쓰고,
+ * 임베드가 비었을 때만 캐시로 물러난다. 둘 다 없으면 null(0 으로 적으면 「단어 없는 단어장」이라는 다른 거짓말).
+ */
+export function measuredSetWordCount(row: {
+  word_count: number | null
+  shared_words?: { count: number }[] | null
+}): number | null {
+  const embedded = row.shared_words?.[0]?.count
+  if (typeof embedded === 'number') return embedded
+  return row.word_count ?? null
+}
