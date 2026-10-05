@@ -32117,7 +32117,8 @@
             }
           ],
           "remaining_uncertainty": "시험이 이용한 직접 판본과 PDF 판권은 미확인이다. 색인 조각으로는 A 전체 문단 검증을 주장하지 않는다.",
-          "verification_depth": "indexed_text"
+          "verification_depth": "indexed_text",
+          "candidate_id": "baseline:This Is Your Brain on Music: The Science of a Human Obsession"
         },
         {
           "representative_item_id": "2024#40",
@@ -32156,7 +32157,8 @@
             }
           ],
           "remaining_uncertainty": "1999 Swanson 영문판이 시험의 직접 판본이라는 귀속은 유추이다. 원작 특정은 강하지만 영어 직접 판본·쪽수는 미확인이라 B 유지.",
-          "verification_depth": "preview_text"
+          "verification_depth": "preview_text",
+          "candidate_id": "baseline:Advice for a Young Investigator"
         },
         {
           "representative_item_id": "2014B#27",
@@ -32188,7 +32190,8 @@
             }
           ],
           "remaining_uncertainty": "공개 HTML 전자판과 시험이 사용한 1995/1996 인쇄판의 직접 연결·쪽수 이미지는 미확인이다. p12는 2차 인용이므로 직접 페이지 검증으로 세지 않는다.",
-          "verification_depth": "full_context"
+          "verification_depth": "full_context",
+          "candidate_id": "carper:stop-aging-now"
         },
         {
           "representative_item_id": "2024#30",
@@ -32220,7 +32223,8 @@
             }
           ],
           "remaining_uncertainty": "원문 전사본의 무결성과 인쇄 p74 이미지를 정본으로 직접 확인하지 못해 B다. 출판사 미리보기 접근 실패를 기록한다.",
-          "verification_depth": "indexed_text"
+          "verification_depth": "indexed_text",
+          "candidate_id": "deka:traders-and-tinkers:2023"
         },
         {
           "representative_item_id": "2019#37",
@@ -32252,7 +32256,8 @@
             }
           ],
           "remaining_uncertainty": "6판 본문 전사와 독립 도서관 서지는 일치하나 인쇄판 직접 페이지 이미지와 시험 사용판본을 확인하지 못했다.",
-          "verification_depth": "preview_text"
+          "verification_depth": "preview_text",
+          "candidate_id": "reisberg:cognition:6"
         },
         {
           "representative_item_id": "2023#24",
@@ -32285,7 +32290,8 @@
             }
           ],
           "remaining_uncertainty": "원작 저자·책 귀속은 강하나 시험 직접 판본과 마지막 두 문장 출처는 미확인이다. 13판 2019의 공개 전사도 확인 경로에 있었으나 해당 문장을 확정하지 못했다.",
-          "verification_depth": "preview_text"
+          "verification_depth": "preview_text",
+          "candidate_id": "kalat:biological-psychology"
         }
       ],
       "metrics": {
@@ -32312,7 +32318,37 @@
             "B_to_B": 1
           }
         }
-      }
+      },
+      "baseline_candidates": [
+        {
+          "representative_item_id": "2014B#25",
+          "candidate_id": "baseline:This Is Your Brain on Music: The Science of a Human Obsession",
+          "grade": "B",
+          "passage_sha256": "3b463eb9d059cf39c731287c663e4abc8d136fd0444dc52106b5caf9e544680e",
+          "body_sha256_by_item": {
+            "2014B#25": "4029b6df44a81bed41e5ca3b72849d9de2ca636a6afd24e5e9a2546924e5dc32"
+          },
+          "source_title": "This Is Your Brain on Music: The Science of a Human Obsession",
+          "source_authors": [
+            "Daniel J. Levitin"
+          ],
+          "source_year": 2006
+        },
+        {
+          "representative_item_id": "2024#40",
+          "candidate_id": "baseline:Advice for a Young Investigator",
+          "grade": "B",
+          "passage_sha256": "ac32ca2dbb494d73055dbbe9cb2e3929dcc40d2fde6d99554ac95cac9cc564b5",
+          "body_sha256_by_item": {
+            "2024#40": "dad2b837edac9ce91f9d90c6ff692d2ad1232f399981f6389c46027d8c5d292f"
+          },
+          "source_title": "Advice for a Young Investigator",
+          "source_authors": [
+            "Santiago Ramón y Cajal"
+          ],
+          "source_year": 1999
+        }
+      ]
     },
     "promotion_evidence_refinement": [
       {

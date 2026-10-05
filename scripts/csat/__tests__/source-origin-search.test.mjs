@@ -5,7 +5,7 @@ import fs from 'node:fs'
 import { alternativeQueries, documentFrequencies, searchSegments, provenanceRequests, localAlignment, buildOriginIndex, searchOriginIndex, classifySearchResponse, runProvenanceSearch, extractOaDocument, loadOaDocument } from '../source-origin-search.mjs'
 import { classifyOriginLane, bookQueryFamilies, makeBookPlan, bookCandidate, runBookBatch, retrieverStatistics, searchBookInside, pendingBookPlan, summarizeBookRun, bookCohortSha } from '../source-origin-search.mjs'
 import { createSerialLimiter, retryAfterMs, requestWithRetry, benchmarkMetrics, candidateReviewQueue, runFixedSemanticBatch, benchmarkBaseline, apiReadiness, benchmarkStage } from '../source-origin-search.mjs'
-import { publicFulltextMetrics, promotionMetrics } from '../source-origin-search.mjs'
+import { publicFulltextMetrics, promotionMetrics, verifyPublicRegistry } from '../source-origin-search.mjs'
 import { createHash } from 'node:crypto'
 
 test('public closure rejects incomplete, foreign, duplicated or changed-body evidence', () => {
@@ -24,15 +24,19 @@ test('public metrics count rejected and held candidates, preserve measured denom
   const plan = { cohort: [row, other], cohort_sha256: bookCohortSha([row, other]), cohort_hash_format: 'canonical-body-map-v2' }
   const candidate = { candidate_id: 'book', verdict: 'B', verification_depth: 'full_context', route_checks: [{ state: 'checked' }] }
   const closure = { cohort_sha256: plan.cohort_sha256, scope_ids: ['x'], items: [{ ...row, disposition: 'found', searches: [{ strategy: 'rare', query: 'fixed', search_state: 'evaluated' }], candidates: [candidate, { ...candidate, candidate_id: 'rejected', verdict: 'rejected' }] }] }
+  assert.throws(() => publicFulltextMetrics(plan, { ...closure, items: [{ ...closure.items[0], candidates: [{ ...candidate, route_checks: [{ state: 'pending' }] }] }] }))
   const m = publicFulltextMetrics(plan, closure)
   assert.equal(m.cohort_size, 2); assert.equal(m.measured_scope_size, 1)
   assert.equal(m.candidate_precision, 0.5); assert.equal(m.mean_candidates_per_item, 2)
   assert.equal(m.verification_depth.full_context.B_rate, 0.5); assert.equal(m.verification_depth.page_image.A_rate, null)
   assert.equal(m.B_new, 1); assert.equal(m.A_new, 0)
-  const p = { ...row, discovery_closure_sha256: createHash('sha256').update(JSON.stringify(closure, null, 2)).digest('hex'), before_grade: 'B', after_grade: 'A', promotion_reason: ['edition_uncertain'], promotion_priority: 'high', state: 'reviewed', verification_depth: 'page_image', checks: [{ state: 'checked' }] }
+  assert.throws(() => verifyPublicRegistry(closure, [], [row]))
+  verifyPublicRegistry(closure, [], [{ ...row, status: 'supported_candidate' }])
+  assert.throws(() => verifyPublicRegistry({ items: [{ ...closure.items[0], candidates: [{ ...candidate, verdict: 'A' }] }] }, [], [{ ...row, status: 'supported_candidate' }]))
+  const p = { ...row, candidate_id: 'book', discovery_closure_sha256: createHash('sha256').update(JSON.stringify(closure, null, 2)).digest('hex'), before_grade: 'B', after_grade: 'A', promotion_reason: ['edition_uncertain'], promotion_priority: 'high', state: 'reviewed', verification_depth: 'page_image', checks: [{ state: 'checked' }] }
   assert.equal(promotionMetrics(plan, closure, [p]).promotion_rate, 1)
   assert.equal(promotionMetrics(plan, closure, [{ ...p, state: 'pending', after_grade: 'B', checks: [] }]).promotion_rate, null)
-  for (const changed of [{ ...p, discovery_closure_sha256: body }, { ...p, checks: [] }, { ...p, promotion_reason: ['topic_match'] }, { ...p, before_grade: 'G' }]) assert.throws(() => promotionMetrics(plan, closure, [changed]))
+  for (const changed of [{ ...p, discovery_closure_sha256: body }, { ...p, checks: [] }, { ...p, promotion_reason: ['topic_match'] }, { ...p, before_grade: 'G' }, { ...p, candidate_id: 'wrong' }, { ...p, checks: [{ state: 'pending' }] }]) assert.throws(() => promotionMetrics(plan, closure, [changed]))
   assert.throws(() => promotionMetrics(plan, closure, [p, p]))
 })
 

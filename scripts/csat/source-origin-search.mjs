@@ -5,9 +5,20 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
+const completedRoutes = checks => Array.isArray(checks) && checks.length > 0 && checks.every(c => ['checked', 'unavailable', 'not_applicable'].includes(c.state))
 
 export const sleepMs = ms => new Promise(resolve => setTimeout(resolve, ms))
-export function promotionMetrics(plan, closure, queue) {
+export function verifyPublicRegistry(closure, queue, current) {
+  const registered = new Map(current.map(r => [r.representative_item_id, r.status]))
+  for (const r of closure.items) {
+    const grade = r.candidates.some(c => c.verdict === 'A') ? 'A' : r.candidates.some(c => c.verdict === 'B') ? 'B' : 'G'
+    const promoted = queue.find(q => q.representative_item_id === r.representative_item_id && q.state === 'reviewed')
+    const expected = { A: 'confirmed_exact', B: 'supported_candidate', G: 'unresolved' }[promoted?.after_grade ?? grade]
+    if (registered.get(r.representative_item_id) !== expected) throw new Error('Discovery outcome is not reflected in the current registry')
+  }
+  for (const r of queue) if (r.state === 'reviewed' && registered.get(r.representative_item_id) !== (r.after_grade === 'A' ? 'confirmed_exact' : 'supported_candidate')) throw new Error('Promotion outcome is not reflected in the current registry')
+}
+export function promotionMetrics(plan, closure, queue, baselineCandidates = []) {
   publicFulltextMetrics(plan, closure)
   const reasons = new Set(['edition_uncertain', 'partial_context_only', 'secondary_quote_only', 'page_not_verified', 'bibliography_only', 'text_match_partial'])
   const targets = new Map(plan.cohort.map(r => [r.representative_item_id, r])), seen = new Set()
@@ -17,8 +28,11 @@ export function promotionMetrics(plan, closure, queue) {
     const t = targets.get(r.representative_item_id)
     if (!t || seen.has(r.representative_item_id) || r.passage_sha256 !== t.passage_sha256 || !isDeepStrictEqual(r.body_sha256_by_item, t.body_sha256_by_item) || r.discovery_closure_sha256 !== createHash('sha256').update(JSON.stringify(closure, null, 2)).digest('hex')) throw new Error('Promotion identity or frozen closure mismatch')
     seen.add(r.representative_item_id)
+    const discovered = closure.items.find(x => x.representative_item_id === r.representative_item_id)
+    const bound = discovered ? discovered.candidates.some(c => c.candidate_id === r.candidate_id && c.verdict === 'B') : baselineCandidates.some(c => c.representative_item_id === r.representative_item_id && c.candidate_id === r.candidate_id && c.grade === 'B' && c.passage_sha256 === r.passage_sha256 && isDeepStrictEqual(c.body_sha256_by_item, r.body_sha256_by_item))
+    if (!r.candidate_id || !bound) throw new Error('Promotion candidate is not bound to the frozen B attribution')
     if (r.before_grade !== 'B' || !['A', 'B'].includes(r.after_grade) || !['high', 'medium', 'low'].includes(r.promotion_priority) || !r.promotion_reason?.length || r.promotion_reason.some(x => !reasons.has(x))) throw new Error('Invalid promotion policy')
-    if (!Array.isArray(r.checks) || !['pending', 'reviewed'].includes(r.state) || r.state === 'reviewed' && !r.checks.length || r.state === 'pending' && r.after_grade !== 'B') throw new Error('Invalid promotion attempt state')
+    if (!Array.isArray(r.checks) || !['pending', 'reviewed'].includes(r.state) || r.state === 'reviewed' && !completedRoutes(r.checks) || r.state === 'pending' && r.after_grade !== 'B') throw new Error('Invalid promotion attempt state')
     attempted += Number(r.state === 'reviewed'); promoted += Number(r.state === 'reviewed' && r.after_grade === 'A')
     if (r.state === 'reviewed') {
       if (!['metadata_only', 'indexed_text', 'preview_text', 'page_image', 'full_context'].includes(r.verification_depth)) throw new Error('Promotion needs its actual reviewed depth')
@@ -57,6 +71,7 @@ export function publicFulltextMetrics(plan, closure) {
     for (const c of row.candidates) {
       const key = JSON.stringify([row.representative_item_id, c.candidate_id])
       if (!c.candidate_id || candidates.has(key) || !['A', 'B', 'G', 'rejected'].includes(c.verdict) || !depths[c.verification_depth] || !Array.isArray(c.route_checks) || !c.route_checks.length) throw new Error('Invalid/duplicate reviewed public candidate')
+      if (!completedRoutes(c.route_checks)) throw new Error('Public candidate still has unevaluated routes')
       candidates.set(key, c)
       const d = depths[c.verification_depth]; d.reviewed++; d[c.verdict]++
     }
@@ -808,10 +823,10 @@ async function main() {
     if ([planPath, closurePath, promotionPath, currentPath].some(p => path.resolve(p) === path.resolve(output))) throw new Error('Metrics output cannot overwrite evidence inputs')
     const read = p => JSON.parse(fs.readFileSync(p, 'utf8'))
     const plan = read(planPath), closure = read(closurePath), current = read(currentPath), queue = read(promotionPath).queue
+    const baselineCandidates = read(promotionPath).baseline_candidates ?? []
     pendingBookPlan(plan, current, { includeResolved: true })
-    const registered = new Map(current.map(r => [r.representative_item_id, r.status]))
-    for (const r of queue) if (r.state === 'reviewed' && registered.get(r.representative_item_id) !== (r.after_grade === 'A' ? 'confirmed_exact' : 'supported_candidate')) throw new Error('Promotion outcome is not reflected in the current registry')
-    const result = { public_fulltext: publicFulltextMetrics(plan, closure), promotion: promotionMetrics(plan, closure, queue) }
+    verifyPublicRegistry(closure, queue, current)
+    const result = { public_fulltext: publicFulltextMetrics(plan, closure), promotion: promotionMetrics(plan, closure, queue, baselineCandidates) }
     fs.mkdirSync(path.dirname(output), { recursive: true }); fs.writeFileSync(output, JSON.stringify(result, null, 2)); console.log(JSON.stringify(result))
     return
   }
