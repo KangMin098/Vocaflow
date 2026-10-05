@@ -71,7 +71,8 @@ test.describe('챕터 스코프 학습 런처', () => {
     // 라벨은 Tines 개편에서 영문 표면 이름(Books · Texts · Decks)으로 바뀌었다 — 둘 다 받는다.
     await seg.getByRole('button', { name: /단어장|Decks/ }).click({ timeout: 20_000 });
     // 시드 구독 세트 행(InsetRow onClick) → 모달
-    test.skip(!seeded, '시드 키 없음 또는 발행 중인 챕터 세트 0 — 시드 전제를 만족하지 못한다');
+    // 시드 전제가 깨졌으면 건너뛰지 않고 실패한다 — skip 은 계약이 지켜진 것처럼 보이게 한다.
+    expect(seeded, '시드 준비 실패 — service-role 키가 없거나 발행 중인 챕터 세트가 0개').not.toBeNull();
     await page.getByRole('button', { name: seeded!.title }).first().click({ timeout: 15_000 });
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible({ timeout: 15_000 });

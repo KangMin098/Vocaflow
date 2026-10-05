@@ -8,13 +8,14 @@
 //   session    세션 — 전체 화면 학습/게임 판. 셸 · 머리 없음(`isFullScreenRoute`)
 //   special    특수 — 자체 골격이 정본인 곳(허브 홈 · 서가 구역 탭 · 만화 서가 · CSAT 3B)
 //   alias      별칭 — 다른 화면으로 넘기기만 하는 주소
+//   undetermined 미확정 — 실제 렌더를 볼 수 없어 유형을 판정하지 않은 화면(전제 조건을 note 에 적는다)
 //
 // `head` 는 **지금 실제로 쓰는** 머리다. `bespoke` 는 아직 공용 부품으로 옮기지 않은 화면이라는 뜻이고,
 // 그 목록이 곧 다음 정리 대상이다(숨기지 않는다). 회귀(`__tests__/screen-types.test.ts`)가 지킨다:
 //   ① 정적 학습자 라우트가 빠짐없이 여기 있다  ② `ModuleHero`/`PageIntro` 라고 적은 화면은 실제로 그것을 쓴다
 //   ③ session 은 전체 화면 목록과 일치한다.
 
-export type ScreenType = 'landing' | 'functional' | 'session' | 'special' | 'alias'
+export type ScreenType = 'landing' | 'functional' | 'session' | 'special' | 'alias' | 'undetermined'
 export type ScreenHead = 'ModuleHero' | 'PageIntro' | 'bespoke' | 'none'
 
 export interface ScreenSpec {
@@ -29,6 +30,7 @@ const functional = (head: ScreenHead, note: string): ScreenSpec => ({ type: 'fun
 const session = (note = '전체 화면 세션'): ScreenSpec => ({ type: 'session', head: 'none', note })
 const special = (note: string): ScreenSpec => ({ type: 'special', head: 'bespoke', note })
 const alias = (to: string): ScreenSpec => ({ type: 'alias', head: 'none', note: `→ ${to}` })
+const undetermined = (note: string): ScreenSpec => ({ type: 'undetermined', head: 'bespoke', note })
 
 const PLAY_GAMES = [
   'cascade', 'connections', 'daily-blitz', 'ghost-race', 'glyph-tongue', 'letter-forge', 'lexicon-detective',
@@ -54,7 +56,7 @@ export const SCREEN_TYPES: Record<string, ScreenSpec> = {
   '/my/books': functional('PageIntro', '내 책장(PC 만 · 모바일 기존 머리)'),
   '/wordvault': functional('PageIntro', '단어 보관함 — 모듈 막대(뷰 전환) 아래 PC 공용 머리 · 모바일 막대 제목만'),
   '/scriptquiz': functional('PageIntro', '읽은 것 확인하기 — 고르기 화면(PageIntro compact · /practice 와 같은 판단, 코드 주석 「히어로 쓰지 않음」)'),
-  '/dictate/results': functional('bespoke', '미확정(유형 판정 보류) — 세션 결과가 있어야 렌더(없으면 /dictate)'),
+  '/dictate/results': undetermined('받아쓰기 세션 결과 — 검증 계정 받아쓰기 세션 0개라 렌더를 못 봤다. 전제: ?sessionId= 에 끝난 세션(17-dictation-loop 가 공용 계정에 만든다)'),
   '/practice/dcp': functional('PageIntro', '구문 연습(PC 만 · 모바일 기존 머리)'),
   '/practice': functional('PageIntro', '연습 고르기 — 보라 추천 블록이 히어로 몫(PC 만 · 모바일 기존 머리)'),
   '/sitemap': functional('PageIntro', '학습자 화면 지도(PC 만 · 모바일 기존 머리)'),

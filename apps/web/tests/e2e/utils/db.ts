@@ -55,19 +55,25 @@ export async function userIdByEmail(email: string): Promise<string | null> {
 export async function findPublishedChapteredSet(): Promise<{ id: string; title: string } | null> {
   const c = serviceClient();
   if (!c) return null;
-  const { data: words } = await c.from('shared_words').select('set_id').not('chapter', 'is', null).limit(5000);
-  const ids = [...new Set(((words ?? []) as Array<{ set_id: string }>).map((w) => w.set_id))].slice(0, 300);
-  if (ids.length === 0) return null;
-  const { data: sets } = await c
+  // 발행 중인 공용 세트(도서 단어장 제외)부터 — 단어 테이블을 일부만 읽고 거르면 PostgREST 1,000행 상한 밖의
+  // 적격 세트를 놓친다(Codex 리뷰 2026-10-05). 세트마다 챕터 행이 하나라도 있는지 head 로 확인한다.
+  const { data: sets, error } = await c
     .from('shared_word_sets')
-    .select('id, title, category')
-    .in('id', ids)
+    .select('id, title')
     .eq('is_published', true)
     .neq('category', 'library_book')
-    .order('title')
-    .limit(1);
-  const row = ((sets ?? []) as Array<{ id: string; title: string }>)[0];
-  return row ? { id: row.id, title: row.title } : null;
+    .order('title');
+  if (error) return null;
+  for (const row of (sets ?? []) as Array<{ id: string; title: string }>) {
+    const { count, error: e } = await c
+      .from('shared_words')
+      .select('id', { count: 'exact', head: true })
+      .eq('set_id', row.id)
+      .not('chapter', 'is', null);
+    if (e) continue;
+    if ((count ?? 0) > 0) return { id: row.id, title: row.title };
+  }
+  return null;
 }
 
 export async function ensureWordSetSubscription(userId: string, setId: string): Promise<boolean> {
