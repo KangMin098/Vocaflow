@@ -72,6 +72,29 @@ create table public.csat_dx_option_trap (
   source text not null check (source in ('analysis', 'admin')), analysis_version integer, reviewed_at timestamptz,
   reviewed_by uuid references auth.users(id) on delete set null, primary key (item_id, option_no)
 );
+-- 앱 이벤트(허용 목록 CHECK 만 마이그레이션이 바꾼다 — 20261005150000)
+create table public.funnel_events (id bigserial primary key, event text not null, created_at timestamptz not null default now(),
+  constraint funnel_events_event_check check (event = any (array[
+        'teacher_hub_view', 'invite_shared',
+        'fit_viewed', 'fit_analyzed', 'fit_shared', 'fit_share_opened', 'fit_signup_clicked',
+        'fit_worksheet_printed', 'fit_level_moved', 'fit_sheet_opened',
+        'landing_viewed', 'landing_cta_clicked', 'landing_demo_moved', 'landing_section_reached',
+        'hub_promo_clicked', 'hub_hero_moved', 'catalog_viewed', 'volume_previewed',
+        'wayfinder_opened', 'wayfinder_cta_clicked', 'screen_viewed', 'video_started', 'video_completed',
+        'csat_evidence_opened', 'csat_atlas_scoped', 'csat_plan_speed_set', 'csat_plan_ordered',
+        'csat_drill_answered', 'csat_drill_finished', 'csat_trap_opened',
+        'csat_overlay_loaded', 'csat_overlay_located', 'csat_overlay_answered', 'csat_overlay_revealed',
+        'csat_lecture_played', 'csat_lecture_ended',
+        'csat_session_started', 'csat_session_answered', 'csat_session_explained', 'csat_session_marked',
+        'csat_session_finished', 'csat_paper_read', 'csat_space_scoped', 'csat_space_opened',
+        'csat_home_viewed', 'csat_resume_clicked', 'csat_review_started', 'csat_review_done',
+        'csat_path_chosen', 'csat_item_back',
+        'csat_workspace_created', 'csat_workspace_opened', 'csat_workspace_session_started', 'csat_workspace_edited',
+        'csat_workspace_suggestion_applied',
+        'csat_dx_viewed', 'csat_dx_profile_saved', 'csat_dx_attempt_saved', 'csat_dx_test_submitted',
+        'csat_dx_habit_answered', 'csat_dx_history_compared',
+        'csat_map_viewed', 'csat_map_node_opened', 'csat_map_goal_set', 'csat_map_task_toggled'
+      ]::text[])));   -- 2026-10-05 라이브 목록(67) — 20261005150000 적용 전
 create table public.user_profiles (
   user_id uuid primary key references auth.users(id) on delete cascade, role text not null default 'user' check (role in ('user', 'admin', 'curator'))
 );

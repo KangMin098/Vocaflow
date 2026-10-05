@@ -2,6 +2,7 @@
 //
 // 내 진단 — 모니터링 보드(개요 · 시험 기록[기록 · 유형 · 오답 함정 · 틀린 문항] · 학습 지도). 기록한 학평 · 모평 · 수능 답안으로만 만든다.
 // 새 기록 · 기록 상세는 같은 화면의 모달(?tab=records&modal=new · &record=<id>).
+// 오답 원인 Pilot 참가자의 풀이 증거 수집은 ?tab=records&capture=<id> — 결과를 보기 전 단계라 뒤에 보드(점수)를 그리지 않는다.
 // 로그인 확인 뒤 서버가 service role 로 기록 + 문항 유형(번호·유형만) + 선지 함정을 읽는다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -14,10 +15,12 @@ import { MapScreen, parseMapView } from '@/components/csat/diagnosis/map/MapScre
 import { MapPreparing } from '@/components/csat/diagnosis/map/MapPreparing'
 import { RecordDetailModal } from '@/components/csat/diagnosis/RecordDetailModal'
 import { RecordModal } from '@/components/csat/diagnosis/RecordModal'
+import { CaptureModal } from '@/components/csat/diagnosis/capture/CaptureModal'
 import { learnerSession } from '@/lib/csat/diagnosis/learner'
 import { loadMapPage } from '@/lib/csat/map/load'
 import { todayKst } from '@/lib/csat/diagnosis/payload'
 import { loadExamReport, loadPickerExams } from '@/lib/csat/diagnosis/report'
+import { pilotOpen } from '@/lib/csat/ec-pilot/server'
 import { railExams } from '@/lib/csat/rail-data'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -25,12 +28,22 @@ export const metadata: Metadata = { title: '내 진단 — 기출분석공간' }
 export const dynamic = 'force-dynamic'
 
 const BASE = '/csat/diagnosis'
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-export default async function DiagnosisPage({ searchParams }: { searchParams: { tab?: string; view?: string; modal?: string; record?: string; focus?: string } }) {
+export default async function DiagnosisPage({ searchParams }: { searchParams: { tab?: string; view?: string; modal?: string; record?: string; focus?: string; capture?: string } }) {
   const { userId } = await learnerSession()
   if (!userId) redirect('/login?next=/csat/diagnosis')
   const { tab, view } = parseBoardTab(searchParams.tab, searchParams.view, { map: true })
   const db = createAdminClient() as unknown as SupabaseClient
+  const pilot = await pilotOpen(db, userId)
+  if (pilot && searchParams.capture && UUID.test(searchParams.capture)) {
+    // 결과(점수 · 틀린 문항)를 보기 전 — 보드 없이 수집 모달만
+    return (
+      <DiagnosisShell exams={await railExams()} screen="report">
+        <CaptureModal sessionId={searchParams.capture} closeHref={boardHref(BASE, 'records', 'list')} diagnosisBase={BASE} />
+      </DiagnosisShell>
+    )
+  }
   const [{ report, typeNames }, exams] = await Promise.all([
     loadExamReport(db, userId),
     searchParams.modal === 'new' ? loadPickerExams(db) : Promise.resolve(null),
@@ -51,6 +64,7 @@ export default async function DiagnosisPage({ searchParams }: { searchParams: { 
       closeHref={closeHref}
       diagnosisHref={`${BASE}?focus=${record.sessionId}`}
       deleteEndpoint={`/api/csat/diagnosis/sessions?id=${record.sessionId}`}
+      captureHref={pilot ? `${BASE}?tab=records&capture=${record.sessionId}` : undefined}
     />
   ) : null
 

@@ -160,6 +160,8 @@ describe('허용 이벤트 목록', () => {
     'csat_workspace_suggestion_applied',
     'csat_dx_viewed',
     'csat_dx_attempt_saved',
+    'csat_ec_capture_opened',
+    'csat_ec_capture_finished',
     // 2026-10-02 — 학습 지도(내 진단). DB 허용 목록은 20261002120100_funnel_allow_csat_map
     'csat_map_viewed',
     'csat_map_node_opened',

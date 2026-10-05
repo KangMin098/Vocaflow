@@ -42,6 +42,7 @@ export function RecordDetailModal({
   closeHref,
   diagnosisHref,
   deleteEndpoint,
+  captureHref,
 }: {
   record: Trend
   wrongs: WrongItem[]
@@ -50,6 +51,8 @@ export function RecordDetailModal({
   /** 진단 개요에서 이 시험을 강조해 여는 주소 */
   diagnosisHref: string
   deleteEndpoint: string
+  /** 오답 원인 Pilot 참가자만 — 풀이 증거 수집을 이어 하는 주소(이미 끝났으면 수집 화면이 바로 결과로 간다) */
+  captureHref?: string
 }) {
   const router = useRouter()
   const dialogRef = useModalFocus<HTMLDivElement>()
@@ -241,7 +244,10 @@ export function RecordDetailModal({
 
         <div className={s.modalFoot}>
           <span className={s.muted}>틀린 문항 {wrongs.length}</span>
-          <Link href={closeHref} className={s.done}>완료</Link>
+          <span style={{ display: 'flex', gap: 8 }}>
+            {captureHref && <Link href={captureHref} className={s.linkBtn}>풀이 더 알려 주기</Link>}
+            <Link href={closeHref} className={s.done}>완료</Link>
+          </span>
         </div>
       </div>
     </div>

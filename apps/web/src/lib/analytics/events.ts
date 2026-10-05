@@ -262,6 +262,12 @@ export type PublicEvent =
   | { name: 'csat_dx_viewed'; props: { screen: 'attempt' | 'report' } }
   | { name: 'csat_dx_attempt_saved'; props: { ready: boolean; retake: boolean; answered: number } }
   /**
+   * 오답 원인 Pilot 증거 수집(참가자만 · 시험 기록 저장 뒤) — 진입과 끝(D2). 수치 · 불리언 · 닫힌 열거형만(D3), 학생 글 · 범주 · 선택은 싣지 않는다.
+   * 질문: 수집 단계를 끝까지 가는가, 어디서 멈추는가(나중에 하기 · 저장 실패).
+   */
+  | { name: 'csat_ec_capture_opened'; props: { targets: number; resumed: boolean } }
+  | { name: 'csat_ec_capture_finished'; props: { targets: number; completed: number; skipped: number; probes: number; failures: number; outcome: 'done' | 'later' } }
+  /**
    * 학습 지도(내 진단 · 시험 기록 옆 「학습 지도」 탭) — 진입과 내부 상호작용(D2). 수치·불리언·닫힌 열거형만(D3).
    * 질문: 목표를 정하고 노드를 열어 과제까지 가는가. goal 은 학습자가 정한 목표 점수(0~100).
    */
@@ -598,6 +604,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_workspace_suggestion_applied: true,
   csat_dx_viewed: true,
   csat_dx_attempt_saved: true,
+  csat_ec_capture_opened: true,
+  csat_ec_capture_finished: true,
   csat_map_viewed: true,
   csat_map_node_opened: true,
   csat_map_goal_set: true,

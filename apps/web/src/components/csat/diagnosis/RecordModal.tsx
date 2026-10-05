@@ -4,6 +4,7 @@
 //   [시험] 종류 · 학년 · 회차 선택 + 응시일 + 「다시 푼 기출」 토글
 //   [답안] 1~45 고른 번호(모르면 비움) — 키보드 1~5 · 0/Backspace · ↑↓
 // 저장하면 같은 모달에 점수 · 등급 · 틀린 문항을 보이고 「완료」로 닫는다. 채점은 서버가 정답표로.
+// 오답 원인 Pilot 참가자면 서버가 결과 없이 held 를 돌려준다 → 풀이 증거 수집(?tab=records&capture=<세션>)으로 가고, 결과는 그 뒤에 연다.
 
 'use client'
 
@@ -52,7 +53,7 @@ export function RecordModal({
   const [choices, setChoices] = useState<Record<number, number | null>>({})
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [result, setResult] = useState<{ sessionId: string; raw: number; grade: number | null; wrong: number[] } | null>(null)
+  const [result, setResult] = useState<SavedResult | null>(null)
   const clientKey = useRef<string>(crypto.randomUUID())
   const lines = useRef<(HTMLDivElement | null)[]>([])
 
@@ -109,6 +110,11 @@ export function RecordModal({
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? '저장하지 못했어요')
+      if (json.held) {
+        if (!userId) track({ name: 'csat_dx_attempt_saved', props: { ready: Boolean(json.ready), retake, answered } })
+        router.push(`${diagnosisBase}?tab=records&capture=${json.sessionId}`)
+        return
+      }
       setResult({ sessionId: json.sessionId, raw: json.raw, grade: json.grade, wrong: json.wrong ?? [] })
       if (!userId) track({ name: 'csat_dx_attempt_saved', props: { ready: Boolean(json.ready), retake, answered } })
       router.refresh()
@@ -282,8 +288,10 @@ export function RecordModal({
   )
 }
 
-/** 저장 직후 — 진단 연결 카드 · 점수와 영역 막대 · 45칸 결과판 */
-function ResultView({ result, diagnosisHref }: { result: { raw: number; grade: number | null; wrong: number[] }; diagnosisHref: string }) {
+export interface SavedResult { sessionId: string; raw: number; grade: number | null; wrong: number[] }
+
+/** 저장 직후 — 진단 연결 카드 · 점수와 영역 막대 · 45칸 결과판(풀이 증거 수집 뒤에도 같은 화면) */
+export function ResultView({ result, diagnosisHref }: { result: Pick<SavedResult, 'raw' | 'grade' | 'wrong'>; diagnosisHref: string }) {
   return (
     <>
       <section className={s.linkCard}>

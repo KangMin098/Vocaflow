@@ -78,6 +78,13 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   // 온다(본문에서 받지 않는다). 쓰기는 service role 이지만 대상이 언제나 본인 행이다. 관리자 대리 입력은
   // admin/csat/diagnosis/sessions(requireAdminApi)로 따로 있다.
   { route: 'csat/diagnosis/sessions', why: '영어 진단 — 본인 시험 기록(OMR) 저장·채점. 로그인 확인은 라우트 안, 점수는 서버가 매긴다' },
+  { route: 'csat/diagnosis/sessions/[id]/result', why: '영어 진단 — 본인 기록 한 회의 점수 · 틀린 문항(오답 원인 Pilot 수집 뒤 공개). 로그인 · 소유 확인은 라우트 안' },
+  // 오답 원인 Pilot 학생 증거 수집 — ecContext(로그인 · Pilot 참가자 · 봉인 taxonomy 관문) 뒤 쿠키 클라이언트로 RPC(auth.uid() 본인만)
+  { route: 'csat/ec/capture', why: 'Pilot 참가자 본인 기록의 수집 대상 · 원문 · 저장 상태(정오 비노출). ecContext 관문' },
+  { route: 'csat/ec/confirm', why: 'Pilot 참가자 본인 기록 확인 — csat_ec_confirm_session(본인만 · 재전송 멱등). ecContext 관문' },
+  { route: 'csat/ec/evidence', why: 'Pilot 참가자 본인 과정 증거 — 허용 kind 만 · 막힌 곳 범위는 서버 계산. ecContext 관문' },
+  { route: 'csat/ec/probes', why: 'Pilot 참가자 본인 대기 추가 질문 — 서버 대기 목록 · 설정 taxonomy · 상한. ecContext 관문' },
+  { route: 'csat/ec/probe', why: 'Pilot 참가자 본인 추가 질문 응답 — 판 · 해시 대조 · 세션 상한 RPC. ecContext 관문' },
   { route: 'csat/diagnosis/map/goal', why: '학습 지도 — 본인 목표 점수(0~100). 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 온다' },
   { route: 'csat/diagnosis/map/tasks/[id]', why: '학습 지도 — 본인 과제 완료 체크. 로그인 확인은 라우트 안(learnerContext), 과제 id 는 형식 검증 + FK' },
 ]

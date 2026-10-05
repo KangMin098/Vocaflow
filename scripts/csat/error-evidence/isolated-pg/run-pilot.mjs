@@ -7,6 +7,7 @@ import { REPO, ROOT, record, results, startCluster } from './lib.mjs'
 import { stage1 } from './stage1.mjs'
 
 const PILOT = path.join(REPO, 'supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql')
+const CAPTURE = path.join(REPO, 'supabase/migrations/20261005150000_csat_ec_capture_support.sql')
 const server = await startCluster()
 const pools = []
 try {
@@ -29,8 +30,8 @@ try {
     const hashBefore = (await s.admin.query(`select public.csat_ec_judgment_input_hash(session_id, item_no) h from public.csat_ec_ai_run order by id`)).rows.map((r) => r.h)
 
     let applied
-    try { await s.owner.query(fs.readFileSync(PILOT, 'utf8')); applied = { ok: true } } catch (e) { applied = { ok: false, err: e.message, where: e.where } }
-    record('pilot 적용', 'Pilot 마이그레이션 적용(postgres 역할)', applied.ok, applied.err ?? '')
+    try { await s.owner.query(fs.readFileSync(PILOT, 'utf8')); await s.owner.query(fs.readFileSync(CAPTURE, 'utf8')); applied = { ok: true } } catch (e) { applied = { ok: false, err: e.message, where: e.where } }
+    record('pilot 적용', 'Pilot · 증거 수집 마이그레이션 적용(postgres 역할)', applied.ok, applied.err ?? '')
     if (applied.ok) {
       // 새 컬럼(candidate_codes · evidence_profile)은 기본값이 붙는다 — 그 컬럼을 뺀 나머지가 같아야 한다
       const after = await snap(['candidate_codes', 'evidence_profile'])
@@ -46,6 +47,7 @@ try {
       await lifecycle(s.admin, ctx)   // 기존 수명주기 — 새 함수 본문으로 회귀
       // t_pilot 은 기록을 지우는 테스트(t_concurrency · t_delete)보다 먼저 — 같은 학습자 · 관리자를 쓴다
       await (await import('./t_pilot.mjs')).default(s.admin, ctx)
+      await (await import('./t_capture.mjs')).default(s.admin, ctx)
       for (const mod of ['t_rls.mjs', 't_funcs.mjs', 't_rq1.mjs', 't_hash.mjs', 't_seal.mjs', 't_p1fix.mjs', 't_p2fix.mjs', 't_concurrency.mjs', 't_delete.mjs']) {
         if (!fs.existsSync(path.join(ROOT, mod))) continue
         const m = await import('./' + mod)

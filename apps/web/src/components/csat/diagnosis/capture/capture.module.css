@@ -1,0 +1,185 @@
+/* apps/web/src/components/csat/diagnosis/capture/capture.module.css
+ *
+ * 풀이 증거 수집 모달 — 기록 모달(board.module.css 3B 판면)의 섹션 · 알약 위에 문장 버튼 · 선택 알약 · 긴 입력만 더한다.
+ */
+
+.progress {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+}
+
+.stem {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--t1);
+  word-break: keep-all;
+}
+
+.passage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg);
+  line-height: 1.85;
+}
+
+.sentence {
+  display: inline;
+  padding: 1px 2px;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 14px;
+  text-align: left;
+  color: var(--t1);
+  cursor: pointer;
+}
+
+.sentence:hover {
+  background: var(--bg3);
+}
+
+.sentence[aria-pressed='true'] {
+  background: var(--t1);
+  color: var(--bg);
+}
+
+.sentence:focus-visible,
+.pill:focus-visible,
+.choiceRow:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--t1);
+  outline-offset: 2px;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.choiceRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  background: var(--bg);
+  font-size: 13px;
+  line-height: 1.55;
+  text-align: left;
+  color: var(--t1);
+  word-break: keep-all;
+}
+
+.choiceRow[aria-pressed='true'] {
+  border-color: var(--t1);
+  box-shadow: inset 0 0 0 1px var(--t1);
+}
+
+.choiceNo {
+  flex: none;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.mine {
+  margin-left: auto;
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--t2);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 16px;
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t1);
+  word-break: keep-all;
+}
+
+.pill[aria-checked='true'],
+.pill[aria-pressed='true'] {
+  border-color: var(--t1);
+  background: var(--t1);
+  color: var(--bg);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: 10px 12px;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  background: var(--bg);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--t1);
+  resize: vertical;
+}
+
+.hint {
+  font-size: 11.5px;
+  color: var(--t2);
+  word-break: keep-all;
+}
+
+.footActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ghost {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t2);
+}
+
+.ghost:hover {
+  background: var(--bg2);
+  color: var(--t1);
+}
+
+.ghost:focus-visible {
+  outline: 2px solid var(--t1);
+  outline-offset: 2px;
+}
+
+.probeOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sentence,
+  .pill,
+  .choiceRow {
+    transition: background var(--dur-fast, 120ms) var(--ease, ease), color var(--dur-fast, 120ms) var(--ease, ease);
+  }
+}
