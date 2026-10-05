@@ -768,7 +768,7 @@ The setting matters as well. Results from these European study groups should not
 근거 인용:
 
 > The association with severe symptoms was stronger when that person had been hospitalized or treated in an ICU, an intensive care unit. The ICU group showed an especially strong association. This describes a comparison between groups, not a claim that each respondent's symptoms increased over time.
-> 
+>
 > Two limits are important when interpreting the finding. First, the measures were survey reports of symptoms.
 
 채점 초안: 1점: 설문/자기보고 + ICU 치료 집단. 0.5점: 방식 또는 집단 중 하나만 정확; 예: 의사의 확정 진단과 ICU 집단이라고 쓴 답은 집단만 맞으므로 0.5점. 0점: 확정 진단/모든 개인을 임의 치료한 실험이라고 해석 또는 관련 없는 답. 판정 우선순위: 요청한 단위 중 일부는 맞고 나머지가 틀리거나 빠진 혼합 답은 0.5점이다. 아래 0점 예시에 해당하는 오류가 섞여도 정확한 요구 단위가 하나 이상 있으면 0.5점이며, 0점은 맞은 요구 단위가 전혀 없는 경우이다. 같은 단위에 서로 모순되는 답을 함께 쓰면 그 단위는 정답으로 인정하지 않는다. 무응답은 null로 보존하고 0점으로 바꾸지 않는다. 한국어/영어의 동의 표현을 인정하며 철자·문법만으로 감점하지 않는다. 이 문항에서 요청하지 않은 세부사항은 추가로 요구하지 않는다.
@@ -1107,4 +1107,3 @@ Nor와 every individual이 포함된 문장을 풀어 쓰세요. 정확히 알 �
 > Nor does a pattern in species averages tell us exactly how every individual will behave.
 
 채점 초안: 1점: 종 평균의 패턴은 모든 개체의 행동을 정확히 알려주지도 않음. 0.5점: 개체 행동 예측이 제한됨은 맞지만 종 평균/모든 개체 범위 일부가 빠짐. 0점: 모든 개체의 행동을 정확히 예측한다고 반대로 해석 또는 관련 없는 답. 판정 우선순위: 아래 0점의 뜻/관계 반전·근거 없는 단정·다른 대상 해석을 학생 자신의 해석으로 긍정하면 다른 일부가 맞아도 0점이다. 0.5점은 이런 오류 없이 요구 단위의 일부만 맞거나 빠진 답에 적용한다. 비지지 결론을 비지지라고 명확히 구별해 쓴 경우는 오답 해석을 긍정한 것이 아니다. 무응답은 null로 보존하고 0점으로 바꾸지 않는다. 한국어/영어의 동의 표현을 인정하며 철자·문법만으로 감점하지 않는다. 이 문항에서 요청하지 않은 세부사항은 추가로 요구하지 않는다.
-
