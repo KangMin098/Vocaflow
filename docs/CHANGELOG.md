@@ -11,7 +11,12 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(design): **학습자 PC replica-first 기준선 고정**(2026-10-05 · 검증 커밋 `74aa664a5`) — 정적 학습자 라우트 73 = 발견형 6 · 기능형 11 · 세션 26 · 특수 20 · 별칭 9 · 미확정 1(`/dictate/results`). 라이트/다크 × 1440/1280 292장 전부 통과 · 가로 넘침 0. 모바일 재설계는 범위 밖(기존 동작 유지). 이후 학습자 UI 변경은 `screen-types` 가드와 이 기준선을 깨지 않아야 한다.
 - feat(design): 학습자 PC UI 마감 — `/wordvault` 본문 두 열(상태 | 다음 할 일) · `/practice/dcp` 왼쪽 머리 sticky + 읽기 폭 열, 특수 예외 재공용화 금지 가드, 보류 2개 실제 재현 후 특수 판정(`/dictate/setup` · `/pairflip/results`, 빈 배너 PC 숨김) · `/dictate/results` 미확정. 접근성: 다크 ios 잉크(red·blue·pink) · AreaHero 수치 알약 · TodayQueue 빈 칸 · Flashcard 시작 버튼 · PrimaryButton 배지 · 허브 글 카드(모바일 포함) 대비 AA. e2e 06 시드(시계 의존·비발행 고정 세트·옛 라벨) 정리. 라우트 변경 없음.
+
+- docs(textbook): FYM F02 중1·고1 초안을 내용 분석·문항 근거·6축 난도 근거로 수정해 새 draft hash에 Claude Code·Codex 독립 검수를 묶었다. 두 초안 모두 agent review 통과, 변경/절단/권리 실패 주입 통과; 적재 예행은 교육적 검증 미완료로 0건 유지. 재현 스크립트와 결과 보고서를 추가했다.
+
+- docs(textbook): FYM F02 중1·고1 실제 원문 smoke에서 완성 초안의 문항 근거·분석 결함과 난도 근거 부족으로 적재 예행 0건을 확인하고, 원문·target·각색·절단·권리 변경의 차단 결과와 재현 실행기를 기록. DB seed·문항 생성 없음.
 - feat(design): bespoke 11 재판정 — `/scriptquiz`(기능형 · `PageIntro compact`) · `/wordvault`(모듈 막대 아래 `PageIntro`, PC 에서 막대 제목은 이름표) 공용화, 특수 6(게임 스킨 2 · 진단 입구 · 편집 작업면 · 셸 안 학습 카드 2) · 보류 3(렌더에 매개변수/세션 결과 필요). 허브 글 카드 대비 회귀(4.3) 수정. 모바일 불변 · 라우트 변경 없음.
 
 - feat(textbook): Academic Reading 각색 import 앞에 Claude Code·Codex 독립 검수 게이트를 추가했다. 원문 revision/hash·전체 target(추가 자료 권리 포함)·각색 hash에 묶인 두 검수에서 의미·어휘·구문·추론·연령·종합 수준 목표·권리·문항 근거 12항목과 왜곡 0건을 요구하고 삽입 직전 재검증한다. 통과 상태/검수 hash를 자식에 보존하고 문항 export는 현재 부모·검수 원문을 재검증해 미검수/메타데이터 삭제 자식을 제외하고 문항 importer도 적재 직전 부모·검수 인증을 재확인한다. 검수 양식은 보류 행을 제외하고 UUID·target으로 연결하고 수정본의 새 해시 양식을 기존 판정 옆에 더하며 장문은 정제 중 문단 경계를 유지하고 검수된 각색의 수치·구절 삭제를 차단하며 순서 재배열은 전체 내용 일치 시 허용한다. 누락된 resources는 배치 중단 대신 해당 지문만 제외한다. DB 마이그레이션·적재 없음.

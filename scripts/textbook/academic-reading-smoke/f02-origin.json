@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "mode": "read_only",
+  "rows": [
+    {
+      "id": "80b57391-d511-4134-b8aa-8a22fe3f2ebc",
+      "source_id": "frym-full:10.3389/frym.2021.548120",
+      "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2021.548120/full",
+      "title": "What Is Our Most Important Sense?",
+      "source_revision": "2026-09-25T08:00:41.071424+00:00",
+      "source_hash": "be013e6a1cafece83b78f84a8de7ef31a578842000cce580dccea11caccda4dd",
+      "status": "declared_original_source",
+      "research_origin": {
+        "version": 1,
+        "student_url": "https://kids.frontiersin.org/articles/10.3389/frym.2021.548120/full",
+        "student_doi": "10.3389/frym.2021.548120",
+        "body_hash": "be013e6a1cafece83b78f84a8de7ef31a578842000cce580dccea11caccda4dd",
+        "page_hash": "2cfd7ad56a31aa1fc3e560f2dbd54d0b1d885f6ca48bdeb7fa5005d666fa2a33",
+        "checked_at": "2026-10-04T10:26:04.623Z",
+        "status": "declared_original_source",
+        "section_text": "Original Source Article\n\n↑Hutmacher, F. 2019. Why is there so much more research on vision than on any other sensory modality? Front. Psychol. 10:2246. doi: 10.3389/fpsyg.2019.02246",
+        "relations": [
+          {
+            "original_work_id": "10.3389/fpsyg.2019.02246",
+            "research_url": "https://doi.org/10.3389/fpsyg.2019.02246",
+            "evidence": "Original Source Article\n\n↑Hutmacher, F. 2019. Why is there so much more research on vision than on any other sensory modality? Front. Psychol. 10:2246. doi: 10.3389/fpsyg.2019.02246"
+          }
+        ]
+      }
+    }
+  ]
+}
