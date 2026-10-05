@@ -219,3 +219,42 @@ availability는 planned/attempted/completed/429/other_error/missing_auth, retrie
 manifest benchmark_close에 고정 SHA·161개씩의 실제 skipped record·새 지표·기존 429 진단·PDF 성과 경로·자격 의존성을 보존했다. 회귀 **37/37**, 지시 검사 **10/10**. DB·마이그레이션·라우트 변경 없음. 자격이 마련되면 같은 파일의 기존 질의를 재개하고 정상 후보 top-3만 검수한다.
 
 목적 리뷰의 지적을 반영해 시작 시 등록된 대조군은 검수 파일의 before 값과 무관하게 신규 A 수율에서 제외한다. 실행 전 .baseline.json에 cohort·본문 SHA·등록 상태를 고정하며, 이후 DB 등록 후에도 해당 파일을 유지해 신규 A 귀속이 달라지지 않게 한다. manifest에도 시작 기준선을 보존했다. Semantic Retry-After는 공유 queue가 다음 동시 요청을 시작하기 전에 반영한다. Books 프로젝트 ID가 없으면 다른 프로젝트의 성공 페이지를 합쳐 완료로 판정하지 않는다. 후보 ID가 없는 API 응답과 배열이 아닌 items는 파싱 오류이며 검수 없이 완료 처리하지 않는다. 공식 Semantic snippet의 paper.corpusId는 CorpusId 접두사로 정규화해 파싱·검수 큐·중복 집계에 함께 사용한다([공식 응답 스키마](https://api.semanticscholar.org/graph/v1/swagger.json)).
+
+## 자격·라이선스 분리와 공개 원문 후속 조사
+
+2026-10-05 추가 지시를 반영했다. 고정 집합 **50개·161질의**와 시작 기준선은 그대로다. 새 API 질의·실제 API HTTP 요청은 **0개**다. 아래는 이번 실행 시점의 상태이며, 위 절의 123개 등록은 이전 시점 기록이다.
+
+| 경로 | credential_status | license_status | benchmark_status | planned | eligible | completed | blocked_credentials | blocked_license |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| Books API | missing_key | 해당 없음 | pending_credentials | 161 | 0 | 0 | 161 | 0 |
+| Semantic snippet | missing_key | unresolved | pending_license | 161 | 0 | 0 | 161 | 161 |
+
+차단 사유는 중복될 수 있다. 이 표는 실패율·검색 0건·수율을 뜻하지 않는다. 모든 수율은 아직 null이고 API 신규 A/B도 0이다. 이번 실행의 429는 0이며, 이전 429 진단은 별도 이력에 남긴다.
+
+[Google Books 공식 문서](https://developers.google.com/books/docs/v1/using)는 공개 데이터 요청에도 API key 또는 OAuth token으로 앱을 식별하도록 한다. 이 작업의 공개 volume 검색은 API key를 쓰므로 사용자 OAuth consent flow를 만들 필요가 없다. `project_id`는 key의 대체물이 아니다. Books API가 활성화된 프로젝트의 key를 로컬 환경에 두고 API 제한을 적용한다. `missing_project`, `missing_key`, `api_disabled`, `ready`를 구분하며 API disabled는 403의 공식 SERVICE_DISABLED/accessNotConfigured 사유로 확인한다. 지금은 key 부재이므로 활성화 여부를 실측하지 않았다.
+
+[Semantic 공식 가이드](https://webflow.development.semanticscholar.org/product/api/tutorial)는 x-api-key 헤더와 개별 key의 기본 1RPS, anonymous 공유 pool을 설명한다. [현재 API 약관](https://api.semanticscholar.org/license/)의 일반 허용은 특정 내부 비상업 연구·교육 목적에 한정되며, 그 밖의 목적과 상업 이용은 Expanded License 확인 대상이다. 따라서 **내부 조사라고 해서 자동 research_allowed로 분류하지 않는다**. 저장소에서는 조사 스크립트와 원문 출처 DB 등록 경로를 확인했으나 Semantic 데이터를 제품 기능에서 지속 활용하는지·허용 승인이 있는지는 미확인이다. 사용자에게 용도를 질문했고 답변 전 unresolved로 유지한다. 라이선스가 통과하기 전에는 key가 있어도 smoke를 포함한 Semantic HTTP 호출을 막는다. 외부 문의·키 발급·약관 동의는 실행하지 않았다.
+
+실행 정책은 환경의 닫힌 값으로 받는다: `SEMANTIC_SCHOLAR_USAGE=internal_research|product_db|unresolved`, `SEMANTIC_SCHOLAR_LICENSE_STATUS=research_allowed|expanded_license_required|unresolved`. product_db는 Expanded License 허용 범위를 확인한 경우에만 `SEMANTIC_SCHOLAR_EXPANDED_LICENSE_APPROVED=true`로 실행 가능하게 한다. 내부 비상업 연구도 실제 약관 범위에 해당하는지 확인 후 research_allowed를 지정한다. 일반 key 발급 자체를 상업 사용 승인으로 취급하지 않는다. key 값·일부·hash·prefix는 저장하지 않고 credential_present만 기록한다. 입력 질의·지문·cohort의 해시는 자격 비밀값의 해시와 별개다.
+
+자격·라이선스 준비 후 **같은 로그·기준선·고정 plan**으로 단계별 재개한다. 각 API에 --stage smoke → canary → full → retry를 순서대로 사용한다.
+
+```powershell
+node --env-file=apps/web/.env.local scripts/csat/source-origin-search.mjs --books <fixed-plan.json> <books-log.jsonl> <fresh-rows.json> --benchmark --stage smoke
+node --env-file=apps/web/.env.local scripts/csat/source-origin-search.mjs --semantic-fixed <fixed-plan.json> <semantic-log.jsonl> <fresh-rows.json> --stage smoke
+```
+
+smoke는 기존 첫 질의 1개로 자격·JSON schema를 확인하며 **후보·snippet을 저장하지 않고 상태 metadata만** 남긴다. canary는 같은 고정 집합 앞 5개로 rate-limit·quota·로그를 확인한다. full/retry는 cohort·본문·프로젝트·Semantic 사용 정책에 맞는 smoke와 canary 성공 증거가 있어야 실행한다. 새 질의는 만들지 않으며 정상 완료 캐시만 재사용한다. schema smoke는 completed 검색 분자에 넣지 않는다. canary/full의 유효 결과는 동일 질의로 중복 제거하고 top-3 검수까지 완료해야 benchmark가 끝난다.
+
+공개 원문 경로는 남은 **48개 전부를 한 차례 탐색**하고 일부 후보를 더 깊게 확인했다. 이 1회 탐색을 원문 전체 확인이나 exhaustive search로 부르지 않는다. 수능 문제·해설 재배포는 독립 원작 근거로 제외했다.
+
+| 문항 | 결과 | 확인 범위·남은 불확실성 |
+|---|---|---|
+| 2014B#25 | **G→B** | Daniel J. Levitin, *This Is Your Brain on Music: The Science of a Human Obsession*, Dutton 2006. [대학 PDF](https://ams.uokerbala.edu.iq/wp/wp-content/uploads/2014/03/images_%D8%A8%D8%A7%D9%8A%D9%88%D9%84%D9%88%D8%AC%D9%8A_Levitin_-_This_is_Your_Brain_on_Music_-_Science_of_a_Human_Obsession_Dutton_2006.pdf)의 검색 색인 p33에 A440·Mozart·Led Zeppelin·baroque 악기 전개가 일치한다. [도서관 서지](https://catalog.losgatosca.gov/Record/83212)를 검색 색인에서 연결했다. 직접 PDF 403·상세 서지 open 오류로 페이지 이미지·판권·직접 사용 판본은 미확인이다. 시험의 주파수 예시 생략과 밴드 설명 추가를 기록했다. |
+| 2024#40 | **G→B** | Santiago Ramón y Cajal, *Advice for a Young Investigator*, [MIT Press 1999 번역판 서지](https://mitpress.mit.edu/9780262181914/advice-for-a-young-investigator/). [스페인어 원작 1923 제6판](https://www.gutenberg.org/cache/epub/66373/pg66373-images.html)의 Chapter II (g), pp40–41 전체에서 분야별 순차 집중→기존 지식 압축→새 이미지 공간의 전개를 확인했다. 영어 직접 판본·페이지는 미확인이므로 B다. [archive의 2026 영어 번역](https://www.santiagoramonycajal.org/en/obras/reglas-y-consejos/capitulo-ii/)을 시험의 직접 원문으로 취급하지 않았다. |
+| 2024#30 | 후보 유지, G | Maitrayee Deka, *Traders and Tinkers*, 2023. [도서 서지](https://books.google.com/books/about/Traders_and_Tinkers.html?id=YF-8EAAAQBAJ)와 Chapter 2 p74 일부가 제3자 도서 mirror 색인에 나타났다. 출판사 원문 문단 대조를 완료하지 않아 이번 등록에 넣지 않았다. |
+| 2023#24 | 제목 후보 제외, G | *Know Thyself*는 시각 경로라는 주제만 비슷하고 해당 고유 문단을 찾지 못해 출처 귀속하지 않았다. |
+
+두 신규 B는 **public_fulltext 성과**다. API 신규 A/B에 귀속하지 않았다. 현재 DB 실측은 **A 98 · B 27 · C 1 · G 587 = 713**, 등록 **125/713**, 고정 cohort 미확인 **46/50**다. 나머지 46개는 계속 미확인이며, 이번 탐색에서 원작 근거가 없었다는 기록을 보존했다.
+
+적용 전 preview ready 2, 적용 후 동일 preview already_applied 2를 확인했다. registry 전 상태·각 연결 지문 본문 SHA를 묶은 트랜잭션으로 2행만 변경했다. DB checkpoint `csat-public-fulltext-20261005` 전후 비교에서 고정 지표 소실은 없었다(회전 bloat 표본 교체·용량 0.1MB·기존 cron 지연 0.01시간만 변화). 원문 본문·정답·마이그레이션 변경 없음. DB 통계 생성기도 재실행했다. 회귀 **40/40**, 에이전트 설정 검사 **10/10**. 상세 질의·48개별 상태·등록 전후·API 준비 상태는 manifest `credential_license_followup`에 남겼다.

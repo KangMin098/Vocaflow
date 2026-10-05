@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import { alternativeQueries, documentFrequencies, searchSegments, provenanceRequests, localAlignment, buildOriginIndex, searchOriginIndex, classifySearchResponse, runProvenanceSearch, extractOaDocument, loadOaDocument } from '../source-origin-search.mjs'
 import { classifyOriginLane, bookQueryFamilies, makeBookPlan, bookCandidate, runBookBatch, retrieverStatistics, searchBookInside, pendingBookPlan, summarizeBookRun, bookCohortSha } from '../source-origin-search.mjs'
-import { createSerialLimiter, retryAfterMs, requestWithRetry, benchmarkMetrics, candidateReviewQueue, runFixedSemanticBatch, benchmarkBaseline } from '../source-origin-search.mjs'
+import { createSerialLimiter, retryAfterMs, requestWithRetry, benchmarkMetrics, candidateReviewQueue, runFixedSemanticBatch, benchmarkBaseline, apiReadiness, benchmarkStage } from '../source-origin-search.mjs'
 
 test('all concurrent Semantic operations share a serial one-second start queue', async () => {
   let clock = 100, active = 0, peak = 0
@@ -46,7 +46,7 @@ function tinyBenchmark() {
 test('missing credentials issue no HTTP calls and keep planned/completed separate', async () => {
   const plan = tinyBenchmark()
   const book = await runBookBatch(plan, { now: () => 'fixed', requireIdentification: true, fetchImpl: () => { throw Error('must not call') } })
-  const s2 = await runFixedSemanticBatch(plan, { now: () => 'fixed', fetchImpl: () => { throw Error('must not call') } })
+  const s2 = await runFixedSemanticBatch(plan, { now: () => 'fixed', licensePolicy: { usage: 'internal_research', licenseStatus: 'research_allowed' }, fetchImpl: () => { throw Error('must not call') } })
   assert.equal(book.length, 2)
   assert.equal(s2.length, 2)
   assert.ok(book.every(r => r.state === 'not_attempted_missing_auth' && r.started_at === null && r.attempt_no === null))
@@ -58,6 +58,46 @@ test('missing credentials issue no HTTP calls and keep planned/completed separat
   assert.equal(m.availability.queries_completed, 0)
   assert.equal(m.availability.queries_missing_auth, 2)
   assert.equal(m.rates.candidate_hit_rate, null)
+})
+
+test('credential and license eligibility block calls independently and never become failed searches', async () => {
+  assert.equal(apiReadiness('google_books_api', { projectPresent: true }).credential_status, 'missing_key')
+  assert.equal(apiReadiness('google_books_api', { credentialPresent: true }).credential_status, 'missing_project')
+  assert.equal(apiReadiness('google_books_api', { credentialPresent: true, projectPresent: true, apiDisabled: true }).credential_status, 'api_disabled')
+  const policy = apiReadiness('semantic_snippet', { credentialPresent: true })
+  assert.equal(policy.benchmark_status, 'pending_license')
+  assert.equal(apiReadiness('semantic_snippet', { credentialPresent: true, usage: 'product_db', licenseStatus: 'research_allowed' }).eligible, false)
+  assert.equal(apiReadiness('semantic_snippet', { credentialPresent: true, usage: 'product_db', licenseStatus: 'expanded_license_required', expandedLicenseApproved: true }).eligible, true)
+  const attempts = await runFixedSemanticBatch(tinyBenchmark(), { key: 'PRIVATE_FAKE_KEY', now: () => 'fixed', fetchImpl: () => { throw Error('must not call') } })
+  const metrics = benchmarkMetrics(tinyBenchmark(), attempts, [], { retriever: 'semantic_snippet', readiness: policy })
+  assert.equal(metrics.availability.queries_eligible, 0)
+  assert.equal(metrics.availability.blocked_license, 2)
+  assert.equal(metrics.availability.queries_other_error, 0)
+  assert.equal(metrics.availability.http_attempts, 0)
+  assert.equal(metrics.rates.candidate_hit_rate, null)
+  assert.ok(!JSON.stringify(attempts).includes('PRIVATE_FAKE_KEY'))
+})
+
+test('smoke and five-query canary use only frozen queries and cannot be skipped when eligible', () => {
+  const plan = tinyBenchmark(), ready = apiReadiness('google_books_api', { credentialPresent: true, projectPresent: true })
+  assert.equal(benchmarkStage(plan, 'smoke', [], ready, 'google_books_api', 'vocaflow-books').cohort[0].requests.length, 1)
+  assert.throws(() => benchmarkStage(plan, 'full', [], ready, 'google_books_api', 'vocaflow-books'), /smoke first/)
+  const smoke = { ...plan.cohort[0], ...plan.cohort[0].requests[0], phase: 'smoke', schema_valid: true, retriever: 'google_books_api', authenticated: true, credential_present: true, api_key_project: 'vocaflow-books' }
+  const canary = benchmarkStage(plan, 'canary', [smoke], ready, 'google_books_api', 'vocaflow-books')
+  assert.deepEqual(canary.cohort[0].requests, plan.cohort[0].requests)
+  assert.throws(() => benchmarkStage(plan, 'full', [smoke], ready, 'google_books_api', 'vocaflow-books'), /canary/)
+  const previous = [smoke, ...plan.cohort[0].requests.map(q => ({ ...smoke, ...q, phase: 'canary', state: 'no_results', hits: [] }))]
+  assert.equal(benchmarkStage(plan, 'full', previous, ready, 'google_books_api', 'vocaflow-books').cohort.length, 1)
+  assert.throws(() => benchmarkStage(plan, 'full', previous, ready, 'google_books_api', 'different-project'), /smoke/)
+})
+
+test('disabled Books API has a closed error classification and no response body leaks to metadata', async () => {
+  const { metadata } = await requestWithRetry(new URL('https://www.googleapis.com/books/v1/volumes?q=fixed&key=PRIVATE_FAKE_KEY'), {
+    provider: 'google_books', now: () => 'fixed', maxAttempts: 1,
+    fetchImpl: async () => ({ status: 403, json: async () => ({ error: { errors: [{ reason: 'accessNotConfigured', message: 'PRIVATE_FAKE_KEY' }] } }) }),
+  })
+  assert.equal(metadata.api_disabled, true)
+  assert.ok(!JSON.stringify(metadata).includes('PRIVATE_FAKE_KEY'))
 })
 
 test('retry cooldown survives a new batch and never sleeps beyond declared budget', async () => {
@@ -115,7 +155,7 @@ test('official Semantic corpus IDs survive parsing, ranking and deduplication; m
   assert.equal(classifySearchResponse('google_books', 200, { totalItems: 0, items: {} }).state, 'invalid_response')
   const attempts = plan.cohort[0].requests.map(q => ({ ...plan.cohort[0], ...q, retriever: 'semantic_snippet', state: 'candidates', authenticated: true, hits: [hit] }))
   assert.equal(candidateReviewQueue(plan, attempts, { retriever: 'semantic_snippet' })[0].candidates[0].candidate_id, 'CorpusId:123')
-  assert.equal(benchmarkMetrics(plan, attempts, [], { retriever: 'semantic_snippet' }).retrieval.unique_candidates, 1)
+  assert.equal(benchmarkMetrics(plan, attempts, [], { retriever: 'semantic_snippet', readiness: apiReadiness('semantic_snippet', { credentialPresent: true, usage: 'internal_research', licenseStatus: 'research_allowed' }) }).retrieval.unique_candidates, 1)
 })
 
 test('Semantic Retry-After defers other queued requests before releasing the shared limiter', async () => {
