@@ -1,0 +1,163 @@
+{
+ "plan_commit": "f8855b4ff",
+ "codebook_sha256": "b3090d5c84257372cd172a072509eed7a68edc820ae961c768ab7bf479e7028b",
+ "final_sha256": "fa0f79c34302440db4e58327dd9ba59abd5b01680ab29e5e324db8edb107fad1",
+ "regression_defined_match": "11/11",
+ "baseline": "11/11 (rev4.2 회차(holdout 7/7 · 기대 일치 regression 4/4))",
+ "label": "rev4.3",
+ "no_regression": true,
+ "changes": {
+  "R6": {
+   "holdout": [
+    {
+     "id": "R43-HA",
+     "final": null,
+     "status": "UNRESOLVED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "R.inference",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 의미 도달 경로·사전 뜻 우연 일치: 기본 뜻으로 문자 명제를 맞게 읽고(⒜) 「~라는 비유라고 생각했다」로 함축을 도출하다(⒝) 틀렸으며(⒞) 결과가 다른 사전 뜻과 우연히 같을 뿐(⒟)이므로 V.wrong_sense가 아니라 R.inference primary; self_category flow는 R4상 메모."
+     },
+     "pass": false
+    },
+    {
+     "id": "R43-HB",
+     "final": "identified:V.wrong_sense",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 의미 도달 경로: 「~라는 뜻으로 알고 있어서」로 다른 사전 뜻을 직접 골랐고 그 뜻이 배타성 명제를 우월성 명제로 바꿔 ④로 이어지므로 V.wrong_sense(R6 ①); self_category sentence는 R4에 따라 메모."
+     },
+     "pass": true
+    },
+    {
+     "id": "R43-HC",
+     "final": "identified:V.wrong_sense",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 ③·R3: 낱말 뜻 선택(「~라는 뜻이라고 알고 있어서」)과 그 위의 함축 도출(「~라는 뜻이라고 생각했다」)이 각각 독립 최소 증거를 갖추므로 더 이른 단계 V.wrong_sense가 primary, R.inference는 contributing."
+     },
+     "pass": true
+    },
+    {
+     "id": "R43-HD",
+     "final": "insufficient_evidence",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "insufficient_evidence",
+      "primary": null,
+      "candidates": [],
+      "accept": [],
+      "why": "R6 의미 도달 경로: 경로 증거가 없으면 R9로 판단한다. 해석은 틀린 곳 없이 막연하고 막힌 곳도 없어 어느 코드도 최소 증거를 갖추지 못하므로 insufficient_evidence(R9); self_category flow는 R4상 증거가 아니다."
+     },
+     "pass": true
+    }
+   ],
+   "regression_match": [
+    {
+     "id": "C4-11",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R42-H1",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "R42-H2",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "R42-H3",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R42-H4",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R42-H5",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "R42-H6",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R42-H7",
+     "final": "insufficient_evidence",
+     "pass": true
+    },
+    {
+     "id": "H-13",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "H-05",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "C4-07",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R4-H2",
+     "final": "identified:R.inference",
+     "pass": true
+    }
+   ],
+   "regression_converge": [
+    {
+     "id": "C2-02",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R4-H1",
+     "final": "identified:R.inference",
+     "pass": false
+    }
+   ],
+   "adopt": false
+  }
+ },
+ "surveillance": [],
+ "surveillance_absorbed_into_other_S": false,
+ "sets": {
+  "regression": {
+   "n": 14,
+   "verified": 14,
+   "unresolved": []
+  },
+  "holdout": {
+   "n": 4,
+   "verified": 3,
+   "unresolved": [
+    "R43-HA"
+   ]
+  },
+  "surveillance": {
+   "n": 0,
+   "verified": 0,
+   "unresolved": []
+  }
+ }
+}

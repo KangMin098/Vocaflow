@@ -1,0 +1,724 @@
+{
+ "run_id": "xm43-20261005",
+ "codebook_rev": "rev4.3-draft",
+ "codebook_sha256": "b3090d5c84257372cd172a072509eed7a68edc820ae961c768ab7bf479e7028b",
+ "final_sha256": "fa0f79c34302440db4e58327dd9ba59abd5b01680ab29e5e324db8edb107fad1",
+ "n": 18,
+ "first_pass": {
+  "outcome": {
+   "n": 18,
+   "po": 1,
+   "kappa": 1,
+   "ac1": 1
+  },
+  "insufficient": {
+   "n": 18,
+   "po": 1,
+   "kappa": 1,
+   "ac1": 1
+  },
+  "family": {
+   "n": 16,
+   "po": 0.9375,
+   "kappa": 0.875,
+   "ac1": 0.93058568329718
+  },
+  "primary": {
+   "n": 16,
+   "po": 0.9375,
+   "kappa": 0.875,
+   "ac1": 0.9356136820925554
+  },
+  "verdict_key": {
+   "n": 18,
+   "po": 0.9444444444444444,
+   "kappa": 0.90625,
+   "ac1": 0.9429106898291645
+  }
+ },
+ "training_score": {},
+ "gate1": {
+  "G1_initial_agreement": 17,
+  "G3_major_disagreement": 1
+ },
+ "matrix": {
+  "RED-A_family_conflict": 2,
+  "GREEN-A_strong_consensus": 14,
+  "RED-C_evidence_insufficient": 2
+ },
+ "grade": {
+  "verification_grade_3": 1,
+  "verification_grade_4": 11,
+  "verification_grade_2": 3,
+  "verification_grade_0": 2,
+  "verification_grade_1": 1
+ },
+ "final_status": {
+  "FINAL_VERIFIED": 17,
+  "UNRESOLVED": 1
+ },
+ "challenger_reversal": {
+  "initial_agreement": 17,
+  "challenger_changed": 1,
+  "final_changed": 0
+ },
+ "challenge_detail": {
+  "g1": 17,
+  "g1_closed": 17,
+  "retained": 16,
+  "hard_reversal": [
+   {
+    "case_id": "C2-02",
+    "kind": "other"
+   }
+  ],
+  "plausibility_expansion": [],
+  "open_set": 0,
+  "insufficient_falsified": [],
+  "a2_b2_same": 16,
+  "retest": {
+   "claude": 18,
+   "codex": 17
+  },
+  "vulnerable": {
+   "R.inference": 1
+  },
+  "adequacy": {
+   "claude": 0,
+   "codex": 0,
+   "a2b2_same": 17,
+   "a1b1_same": 17
+  },
+  "challenger": {
+   "claude_changed": 0,
+   "codex_changed": 1,
+   "claude_multi": 0,
+   "codex_multi": 0
+  }
+ },
+ "expected": {
+  "agree": 15,
+  "models_agree_expected_differs": [
+   {
+    "case_id": "C2-02",
+    "final": "identified:R.inference",
+    "expected": "undetermined",
+    "in_accept": true
+   },
+   {
+    "case_id": "R4-H1",
+    "final": "identified:R.inference",
+    "expected": "undetermined",
+    "in_accept": false
+   }
+  ],
+  "unresolved_expected_matches_one": [
+   "R43-HA"
+  ]
+ },
+ "repeated_pairs": [],
+ "stage_shifts": {
+  "identified:R.inference ↔ identified:V.wrong_sense": 1
+ },
+ "legacy_shared_pairs": [],
+ "coverage": {
+  "V.unknown_word": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "V.wrong_sense": {
+   "exposed": 11,
+   "tested": 15,
+   "contributing": 0,
+   "final_primary": 7,
+   "unresolved": 1
+  },
+  "V.multiword": {
+   "exposed": 1,
+   "tested": 3,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "S.core_structure": {
+   "exposed": 0,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "S.attachment": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "S.operator_scope": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "S.form_rule": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "R.reference": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "R.relation": {
+   "exposed": 5,
+   "tested": 6,
+   "contributing": 1,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "R.main_point": {
+   "exposed": 4,
+   "tested": 4,
+   "contributing": 2,
+   "final_primary": 0,
+   "unresolved": 1
+  },
+  "R.inference": {
+   "exposed": 15,
+   "tested": 15,
+   "contributing": 7,
+   "final_primary": 8,
+   "unresolved": 1
+  },
+  "E.task_misread": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "E.evidence_location": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "E.option_mismatch": {
+   "exposed": 5,
+   "tested": 6,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 1
+  },
+  "B.outside_knowledge": {
+   "exposed": 2,
+   "tested": 2,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "B.surface_match": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "B.no_verification": {
+   "exposed": 0,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "X.time": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "X.attention": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  }
+ },
+ "boundaries": {
+  "V.wrong_sense ↔ R.inference": {
+   "n": 15,
+   "a1b1": 14,
+   "verified": 14,
+   "unresolved": 1,
+   "expected_match": 12
+  },
+  "R.inference ↔ V.wrong_sense": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.wrong_sense ↔ R.relation": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.wrong_sense ↔ V.unknown_word": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.wrong_sense ↔ B.surface_match": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "R.inference ↔ B.outside_knowledge": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.multiword ↔ R.inference": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "insufficient_evidence ↔ X.time": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  }
+ },
+ "confidence": {
+  "medium": {
+   "n": 14,
+   "agree": 14
+  },
+  "high": {
+   "n": 21,
+   "agree": 20
+  },
+  "low": {
+   "n": 1,
+   "agree": 0
+  }
+ },
+ "models": {
+  "a1/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm43-20261005:a1:1:1",
+   "leakage": 0
+  },
+  "a1/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm43-20261005:a1:2:1",
+   "leakage": 0
+  },
+  "b1/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm43-20261005:b1:1:1",
+   "leakage": 0
+  },
+  "b1/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm43-20261005:b1:2:1",
+   "leakage": 0
+  },
+  "a2p/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm43-20261005:a2p:1:1",
+   "leakage": 0
+  },
+  "a2p/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm43-20261005:a2p:2:1",
+   "leakage": 0
+  },
+  "b2p/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm43-20261005:b2p:1:1",
+   "leakage": 0
+  },
+  "b2p/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm43-20261005:b2p:2:1",
+   "leakage": 0
+  },
+  "a2/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm43-20261005:a2:1:1",
+   "leakage": 0
+  },
+  "a2/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm43-20261005:a2:2:1",
+   "leakage": 0
+  },
+  "b2/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm43-20261005:b2:1:1",
+   "leakage": 0
+  },
+  "b2/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm43-20261005:b2:2:1",
+   "leakage": 0
+  },
+  "final-claude/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm43-20261005:final-claude:1:1",
+   "leakage": 0
+  },
+  "final-codex/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm43-20261005:final-codex:1:1",
+   "leakage": 0
+  }
+ },
+ "cases": [
+  {
+   "case_id": "C2-02",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "RED-A_family_conflict",
+   "fc": "identified:R.inference",
+   "fx": "identified:R.inference",
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_3",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "C4-11",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "H-13",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "H-05",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "C4-07",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R4-H1",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "R4-H2",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R42-H1",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R42-H2",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R42-H3",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R42-H4",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R42-H5",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R42-H6",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R42-H7",
+   "gate1": "G1_initial_agreement",
+   "a1": "insufficient_evidence",
+   "b1": "insufficient_evidence",
+   "a2": "insufficient_evidence",
+   "b2": "insufficient_evidence",
+   "matrix": "RED-C_evidence_insufficient",
+   "fc": "insufficient_evidence",
+   "fx": "insufficient_evidence",
+   "final": "insufficient_evidence",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_0",
+   "expected": "insufficient_evidence"
+  },
+  {
+   "case_id": "R43-HA",
+   "gate1": "G3_major_disagreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:R.inference",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "RED-A_family_conflict",
+   "fc": "identified:R.inference",
+   "fx": "identified:V.wrong_sense",
+   "final": null,
+   "status": "UNRESOLVED",
+   "grade": "verification_grade_1",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R43-HB",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R43-HC",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R43-HD",
+   "gate1": "G1_initial_agreement",
+   "a1": "insufficient_evidence",
+   "b1": "insufficient_evidence",
+   "a2": "insufficient_evidence",
+   "b2": "insufficient_evidence",
+   "matrix": "RED-C_evidence_insufficient",
+   "fc": "insufficient_evidence",
+   "fx": "insufficient_evidence",
+   "final": "insufficient_evidence",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_0",
+   "expected": "insufficient_evidence"
+  }
+ ]
+}
