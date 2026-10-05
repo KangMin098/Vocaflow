@@ -101,7 +101,16 @@ type Scanner = {
  *   첫 연산이 SELECT 인 후보를 빼도록 고치고 회귀를 추가했다. 실제 단건 쓰기를 없앤 척한 것이
  *   아니라 같은 UPDATE 를 두 번 세던 오탐을 제거한 결과이며, 깨끗한 LF 체크아웃 실측 137이다.
  */
-const BASELINE = 137
+// 137 → 138 (2026-10-04): scripts/csat/corpus-sync.mjs 의 지정 원문 수리.
+// 전량 upsert 대신 정답·선지·raw_block을 보존하는 passage/body_ok PATCH가 필요하다.
+// --items 최대 100개, 순차 실행·매 쓰기 뒤 350ms 대기(초당 최대 2.86건),
+// 옛 passage CAS로 동시 수정 덮어쓰기를 거부한다. 이번 실측 대상은 31개다.
+// 138 → 139 (2026-10-04): scripts/csat/source-repair.mjs 의 PDF 대조 정본 수리.
+// 한 계획 최대100문항, CAS순차 PATCH 뒤350ms 대기(최대2.86건/초).
+// 정답·유형·원본블록을 유지하고 PDF해시와 기존모든필드가 일치할 때만 쓰므로
+// 전량동기화 대신 지정 수리를 쓴다. 실제 적용103문항·단위104행이며
+// 추가 수리로 대체된 옛 계획은 재실행에서 현재 입력 충돌로 거부한다.
+const BASELINE = 139
 
 let scanner: Scanner
 

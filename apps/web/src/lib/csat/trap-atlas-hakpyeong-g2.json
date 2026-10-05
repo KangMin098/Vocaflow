@@ -1,0 +1,872 @@
+{
+  "organizer": "edu_office",
+  "grade": 2,
+  "built_at": "2026-10-04",
+  "recent_from": 2023,
+  "min_n": 8,
+  "corpus": {
+    "exams": 35,
+    "items": 980,
+    "analyzed": 877,
+    "distractors": 3508,
+    "distinct_traps": 533,
+    "named": 2862,
+    "named_recent": 1496,
+    "recent": 1852,
+    "year_min": 2019,
+    "year_max": 2027
+  },
+  "types": [
+    {
+      "id": "R-INSERT",
+      "name": "문장 삽입",
+      "status": "active",
+      "distractors": 280,
+      "recent": 152,
+      "items": 70,
+      "named": 247
+    },
+    {
+      "id": "R-BLANK",
+      "name": "빈칸 추론",
+      "status": "active",
+      "distractors": 408,
+      "recent": 152,
+      "items": 102,
+      "named": 408
+    },
+    {
+      "id": "R-ORDER",
+      "name": "글의 순서",
+      "status": "active",
+      "distractors": 280,
+      "recent": 152,
+      "items": 70,
+      "named": 248
+    },
+    {
+      "id": "R-NOTICE",
+      "name": "안내문 일치",
+      "status": "active",
+      "distractors": 280,
+      "recent": 152,
+      "items": 70,
+      "named": 236
+    },
+    {
+      "id": "R-IMPLY",
+      "name": "함축 의미",
+      "status": "active",
+      "distractors": 124,
+      "recent": 76,
+      "items": 31,
+      "named": 118
+    },
+    {
+      "id": "X-REFER",
+      "name": "장문 지칭",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 45
+    },
+    {
+      "id": "R-SUMMARY",
+      "name": "요약문 완성",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 140
+    },
+    {
+      "id": "R-MOOD",
+      "name": "심경·분위기",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 129
+    },
+    {
+      "id": "R-TITLE",
+      "name": "제목",
+      "status": "active",
+      "distractors": 144,
+      "recent": 76,
+      "items": 36,
+      "named": 123
+    },
+    {
+      "id": "R-IRRELEVANT",
+      "name": "무관한 문장",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 68
+    },
+    {
+      "id": "R-GRAMMAR",
+      "name": "어법",
+      "status": "active",
+      "distractors": 136,
+      "recent": 76,
+      "items": 34,
+      "named": 7
+    },
+    {
+      "id": "R-GIST",
+      "name": "요지",
+      "status": "active",
+      "distractors": 136,
+      "recent": 76,
+      "items": 34,
+      "named": 136
+    },
+    {
+      "id": "R-FACT",
+      "name": "내용 일치(글)",
+      "status": "active",
+      "distractors": 136,
+      "recent": 76,
+      "items": 34,
+      "named": 54
+    },
+    {
+      "id": "X-ORDER",
+      "name": "장문 순서",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 124
+    },
+    {
+      "id": "X-TITLE",
+      "name": "장문 제목",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 140
+    },
+    {
+      "id": "X-FACT",
+      "name": "장문 내용 일치",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 114
+    },
+    {
+      "id": "R-TOPIC",
+      "name": "주제",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 140
+    },
+    {
+      "id": "R-VOCAB",
+      "name": "어휘(문맥)",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 106
+    },
+    {
+      "id": "R-PURPOSE",
+      "name": "글의 목적",
+      "status": "active",
+      "distractors": 140,
+      "recent": 76,
+      "items": 35,
+      "named": 140
+    },
+    {
+      "id": "X-VOCAB",
+      "name": "장문 어휘",
+      "status": "active",
+      "distractors": 120,
+      "recent": 72,
+      "items": 30,
+      "named": 89
+    },
+    {
+      "id": "R-CLAIM",
+      "name": "필자 주장",
+      "status": "active",
+      "distractors": 32,
+      "recent": 32,
+      "items": 8,
+      "named": 32
+    },
+    {
+      "id": "X-BLANK",
+      "name": "장문 빈칸(1개·폐지)",
+      "status": "retired",
+      "distractors": 16,
+      "recent": 0,
+      "items": 4,
+      "named": 16
+    },
+    {
+      "id": "R-REFER",
+      "name": "지칭 추론(단문·폐지)",
+      "status": "retired",
+      "distractors": 16,
+      "recent": 0,
+      "items": 4,
+      "named": 2
+    }
+  ],
+  "traps": [
+    {
+      "key": "반대 진술",
+      "n": 421,
+      "recent": 236,
+      "items": 368,
+      "types": 16,
+      "by_type": {
+        "R-BLANK": 80,
+        "R-NOTICE": 54,
+        "R-IMPLY": 38,
+        "R-SUMMARY": 37,
+        "R-MOOD": 32,
+        "R-VOCAB": 31,
+        "R-TITLE": 27,
+        "R-GIST": 25,
+        "X-TITLE": 24,
+        "X-VOCAB": 24,
+        "R-TOPIC": 22,
+        "R-PURPOSE": 13,
+        "R-CLAIM": 5,
+        "R-FACT": 5,
+        "X-BLANK": 2,
+        "X-FACT": 2
+      },
+      "by_type_recent": {
+        "R-BLANK": 31,
+        "R-IMPLY": 30,
+        "R-NOTICE": 29,
+        "R-SUMMARY": 22,
+        "R-VOCAB": 19,
+        "R-MOOD": 18,
+        "X-TITLE": 16,
+        "R-TITLE": 14,
+        "R-TOPIC": 14,
+        "X-VOCAB": 14,
+        "R-GIST": 13,
+        "R-PURPOSE": 7,
+        "R-CLAIM": 5,
+        "R-FACT": 3,
+        "X-FACT": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "무관",
+      "n": 409,
+      "recent": 222,
+      "items": 335,
+      "types": 14,
+      "by_type": {
+        "R-BLANK": 97,
+        "R-TOPIC": 54,
+        "R-GIST": 41,
+        "R-TITLE": 38,
+        "R-MOOD": 34,
+        "R-PURPOSE": 33,
+        "R-IMPLY": 30,
+        "X-TITLE": 30,
+        "R-SUMMARY": 29,
+        "R-VOCAB": 9,
+        "R-CLAIM": 5,
+        "R-NOTICE": 4,
+        "X-BLANK": 4,
+        "X-VOCAB": 1
+      },
+      "by_type_recent": {
+        "R-BLANK": 40,
+        "R-TOPIC": 34,
+        "R-GIST": 24,
+        "R-TITLE": 23,
+        "R-IMPLY": 19,
+        "R-MOOD": 19,
+        "R-PURPOSE": 18,
+        "R-SUMMARY": 16,
+        "X-TITLE": 14,
+        "R-VOCAB": 6,
+        "R-CLAIM": 5,
+        "R-NOTICE": 3,
+        "X-VOCAB": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "어휘 함정",
+      "n": 371,
+      "recent": 189,
+      "items": 336,
+      "types": 16,
+      "by_type": {
+        "R-BLANK": 67,
+        "X-FACT": 42,
+        "R-NOTICE": 37,
+        "X-VOCAB": 37,
+        "R-PURPOSE": 28,
+        "R-VOCAB": 26,
+        "X-TITLE": 21,
+        "R-FACT": 20,
+        "R-GIST": 19,
+        "R-IMPLY": 19,
+        "R-SUMMARY": 19,
+        "R-TITLE": 14,
+        "R-TOPIC": 10,
+        "R-MOOD": 8,
+        "R-CLAIM": 3,
+        "X-BLANK": 1
+      },
+      "by_type_recent": {
+        "R-BLANK": 25,
+        "X-FACT": 24,
+        "R-NOTICE": 22,
+        "X-VOCAB": 21,
+        "R-PURPOSE": 14,
+        "R-VOCAB": 13,
+        "R-IMPLY": 11,
+        "X-TITLE": 11,
+        "R-FACT": 10,
+        "R-GIST": 10,
+        "R-SUMMARY": 9,
+        "R-TITLE": 7,
+        "R-MOOD": 5,
+        "R-TOPIC": 4,
+        "R-CLAIM": 3
+      },
+      "examples": []
+    },
+    {
+      "key": "부분 사실",
+      "n": 348,
+      "recent": 186,
+      "items": 317,
+      "types": 16,
+      "by_type": {
+        "R-NOTICE": 53,
+        "R-SUMMARY": 40,
+        "R-BLANK": 38,
+        "R-PURPOSE": 30,
+        "X-FACT": 29,
+        "R-MOOD": 28,
+        "R-TOPIC": 28,
+        "X-TITLE": 25,
+        "R-TITLE": 19,
+        "R-VOCAB": 14,
+        "R-FACT": 13,
+        "R-GIST": 13,
+        "R-CLAIM": 7,
+        "R-IMPLY": 6,
+        "X-BLANK": 3,
+        "X-VOCAB": 2
+      },
+      "by_type_recent": {
+        "R-NOTICE": 34,
+        "R-SUMMARY": 18,
+        "R-BLANK": 16,
+        "R-MOOD": 16,
+        "R-TOPIC": 16,
+        "X-FACT": 16,
+        "R-PURPOSE": 15,
+        "R-TITLE": 14,
+        "X-TITLE": 12,
+        "R-FACT": 8,
+        "R-CLAIM": 7,
+        "R-GIST": 7,
+        "R-VOCAB": 5,
+        "R-IMPLY": 2
+      },
+      "examples": []
+    },
+    {
+      "key": "지문 밖 상식",
+      "n": 267,
+      "recent": 123,
+      "items": 260,
+      "types": 16,
+      "by_type": {
+        "R-BLANK": 82,
+        "R-VOCAB": 23,
+        "X-TITLE": 22,
+        "R-GIST": 21,
+        "R-PURPOSE": 19,
+        "R-NOTICE": 16,
+        "R-TITLE": 14,
+        "R-TOPIC": 13,
+        "X-VOCAB": 12,
+        "R-IMPLY": 11,
+        "R-MOOD": 11,
+        "X-FACT": 9,
+        "R-CLAIM": 5,
+        "R-SUMMARY": 5,
+        "X-BLANK": 3,
+        "R-FACT": 1
+      },
+      "by_type_recent": {
+        "R-BLANK": 29,
+        "R-VOCAB": 12,
+        "R-GIST": 11,
+        "R-NOTICE": 11,
+        "R-PURPOSE": 10,
+        "X-TITLE": 10,
+        "R-MOOD": 6,
+        "X-VOCAB": 6,
+        "R-CLAIM": 5,
+        "R-IMPLY": 5,
+        "R-TITLE": 5,
+        "R-TOPIC": 5,
+        "R-SUMMARY": 4,
+        "X-FACT": 4
+      },
+      "examples": []
+    },
+    {
+      "key": "어휘 반복 유인",
+      "n": 119,
+      "recent": 66,
+      "items": 119,
+      "types": 4,
+      "by_type": {
+        "R-INSERT": 54,
+        "R-ORDER": 35,
+        "X-ORDER": 22,
+        "R-IRRELEVANT": 8
+      },
+      "by_type_recent": {
+        "R-INSERT": 30,
+        "R-ORDER": 18,
+        "X-ORDER": 14,
+        "R-IRRELEVANT": 4
+      },
+      "examples": []
+    },
+    {
+      "key": "지시어 선행사 절단",
+      "n": 96,
+      "recent": 57,
+      "items": 94,
+      "types": 4,
+      "by_type": {
+        "R-ORDER": 44,
+        "R-INSERT": 31,
+        "X-ORDER": 11,
+        "R-IRRELEVANT": 10
+      },
+      "by_type_recent": {
+        "R-ORDER": 28,
+        "R-INSERT": 16,
+        "X-ORDER": 8,
+        "R-IRRELEVANT": 5
+      },
+      "examples": []
+    },
+    {
+      "key": "시간·인과 순서 역전",
+      "n": 89,
+      "recent": 44,
+      "items": 77,
+      "types": 5,
+      "by_type": {
+        "X-ORDER": 34,
+        "R-ORDER": 32,
+        "R-INSERT": 18,
+        "R-IRRELEVANT": 4,
+        "R-FACT": 1
+      },
+      "by_type_recent": {
+        "X-ORDER": 20,
+        "R-ORDER": 14,
+        "R-INSERT": 7,
+        "R-IRRELEVANT": 3
+      },
+      "examples": []
+    },
+    {
+      "key": "범위 과대",
+      "n": 88,
+      "recent": 48,
+      "items": 88,
+      "types": 14,
+      "by_type": {
+        "R-NOTICE": 28,
+        "R-BLANK": 15,
+        "R-GIST": 8,
+        "X-VOCAB": 7,
+        "R-FACT": 5,
+        "R-PURPOSE": 5,
+        "R-TITLE": 4,
+        "R-IMPLY": 3,
+        "R-TOPIC": 3,
+        "X-FACT": 3,
+        "R-SUMMARY": 2,
+        "X-BLANK": 2,
+        "X-TITLE": 2,
+        "R-MOOD": 1
+      },
+      "by_type_recent": {
+        "R-NOTICE": 18,
+        "R-GIST": 6,
+        "X-VOCAB": 5,
+        "R-BLANK": 4,
+        "R-FACT": 4,
+        "R-PURPOSE": 3,
+        "R-IMPLY": 2,
+        "R-TITLE": 2,
+        "R-MOOD": 1,
+        "R-SUMMARY": 1,
+        "R-TOPIC": 1,
+        "X-TITLE": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "범위 과소",
+      "n": 80,
+      "recent": 40,
+      "items": 79,
+      "types": 14,
+      "by_type": {
+        "R-NOTICE": 24,
+        "X-TITLE": 9,
+        "R-BLANK": 8,
+        "R-GIST": 7,
+        "R-TOPIC": 5,
+        "X-FACT": 5,
+        "R-CLAIM": 4,
+        "R-IMPLY": 4,
+        "R-TITLE": 4,
+        "R-SUMMARY": 3,
+        "R-FACT": 2,
+        "R-MOOD": 2,
+        "X-VOCAB": 2,
+        "R-PURPOSE": 1
+      },
+      "by_type_recent": {
+        "R-NOTICE": 14,
+        "X-TITLE": 5,
+        "R-CLAIM": 4,
+        "R-BLANK": 3,
+        "R-GIST": 3,
+        "X-FACT": 3,
+        "R-SUMMARY": 2,
+        "X-VOCAB": 2,
+        "R-FACT": 1,
+        "R-IMPLY": 1,
+        "R-TITLE": 1,
+        "R-TOPIC": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "주체 역전",
+      "n": 80,
+      "recent": 49,
+      "items": 77,
+      "types": 16,
+      "by_type": {
+        "X-FACT": 23,
+        "R-BLANK": 10,
+        "R-PURPOSE": 10,
+        "R-FACT": 5,
+        "R-IMPLY": 5,
+        "X-TITLE": 5,
+        "R-NOTICE": 4,
+        "R-TOPIC": 4,
+        "R-CLAIM": 3,
+        "R-SUMMARY": 3,
+        "R-GIST": 2,
+        "R-MOOD": 2,
+        "R-TITLE": 1,
+        "R-VOCAB": 1,
+        "X-BLANK": 1,
+        "X-REFER": 1
+      },
+      "by_type_recent": {
+        "X-FACT": 14,
+        "R-PURPOSE": 8,
+        "X-TITLE": 5,
+        "R-CLAIM": 3,
+        "R-FACT": 3,
+        "R-IMPLY": 3,
+        "R-SUMMARY": 3,
+        "R-BLANK": 2,
+        "R-GIST": 2,
+        "R-MOOD": 2,
+        "R-NOTICE": 2,
+        "R-TITLE": 1,
+        "R-TOPIC": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "연결사 방향 충돌",
+      "n": 75,
+      "recent": 33,
+      "items": 73,
+      "types": 5,
+      "by_type": {
+        "R-INSERT": 27,
+        "R-ORDER": 26,
+        "R-IRRELEVANT": 14,
+        "X-ORDER": 6,
+        "R-VOCAB": 2
+      },
+      "by_type_recent": {
+        "R-ORDER": 12,
+        "R-INSERT": 11,
+        "R-IRRELEVANT": 7,
+        "X-ORDER": 3
+      },
+      "examples": []
+    },
+    {
+      "key": "마무리 문장 위치 오판",
+      "n": 73,
+      "recent": 32,
+      "items": 69,
+      "types": 4,
+      "by_type": {
+        "R-INSERT": 30,
+        "R-ORDER": 16,
+        "R-IRRELEVANT": 14,
+        "X-ORDER": 13
+      },
+      "by_type_recent": {
+        "R-INSERT": 12,
+        "R-IRRELEVANT": 7,
+        "X-ORDER": 7,
+        "R-ORDER": 6
+      },
+      "examples": []
+    },
+    {
+      "key": "지시어 선행사 앞당김",
+      "n": 59,
+      "recent": 31,
+      "items": 54,
+      "types": 4,
+      "by_type": {
+        "R-ORDER": 28,
+        "R-INSERT": 15,
+        "X-ORDER": 15,
+        "R-IRRELEVANT": 1
+      },
+      "by_type_recent": {
+        "R-ORDER": 17,
+        "R-INSERT": 7,
+        "X-ORDER": 7
+      },
+      "examples": []
+    },
+    {
+      "key": "총론-각론 역전",
+      "n": 53,
+      "recent": 28,
+      "items": 53,
+      "types": 4,
+      "by_type": {
+        "R-ORDER": 22,
+        "R-INSERT": 19,
+        "R-IRRELEVANT": 11,
+        "X-ORDER": 1
+      },
+      "by_type_recent": {
+        "R-INSERT": 10,
+        "R-ORDER": 10,
+        "R-IRRELEVANT": 8
+      },
+      "examples": []
+    },
+    {
+      "key": "조건-귀결 절단",
+      "n": 49,
+      "recent": 25,
+      "items": 48,
+      "types": 4,
+      "by_type": {
+        "R-INSERT": 19,
+        "R-ORDER": 16,
+        "X-ORDER": 12,
+        "R-IRRELEVANT": 2
+      },
+      "by_type_recent": {
+        "R-INSERT": 12,
+        "X-ORDER": 7,
+        "R-ORDER": 5,
+        "R-IRRELEVANT": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "첫 등장 위반",
+      "n": 45,
+      "recent": 26,
+      "items": 43,
+      "types": 4,
+      "by_type": {
+        "R-ORDER": 21,
+        "R-INSERT": 13,
+        "X-ORDER": 10,
+        "R-IRRELEVANT": 1
+      },
+      "by_type_recent": {
+        "R-ORDER": 17,
+        "R-INSERT": 6,
+        "X-ORDER": 2,
+        "R-IRRELEVANT": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "인과 역전",
+      "n": 40,
+      "recent": 13,
+      "items": 40,
+      "types": 12,
+      "by_type": {
+        "R-BLANK": 11,
+        "R-MOOD": 11,
+        "X-VOCAB": 4,
+        "R-FACT": 2,
+        "R-IMPLY": 2,
+        "R-SUMMARY": 2,
+        "R-TITLE": 2,
+        "X-TITLE": 2,
+        "R-NOTICE": 1,
+        "R-PURPOSE": 1,
+        "R-TOPIC": 1,
+        "X-FACT": 1
+      },
+      "by_type_recent": {
+        "R-MOOD": 5,
+        "R-BLANK": 2,
+        "X-TITLE": 2,
+        "R-FACT": 1,
+        "R-PURPOSE": 1,
+        "R-SUMMARY": 1,
+        "X-VOCAB": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "열거·병렬 절단",
+      "n": 32,
+      "recent": 15,
+      "items": 32,
+      "types": 3,
+      "by_type": {
+        "R-INSERT": 21,
+        "R-ORDER": 8,
+        "R-IRRELEVANT": 3
+      },
+      "by_type_recent": {
+        "R-INSERT": 13,
+        "R-ORDER": 2
+      },
+      "examples": []
+    },
+    {
+      "key": "수치 변형",
+      "n": 15,
+      "recent": 12,
+      "items": 12,
+      "types": 1,
+      "by_type": {
+        "R-NOTICE": 15
+      },
+      "by_type_recent": {
+        "R-NOTICE": 12
+      },
+      "examples": []
+    },
+    {
+      "key": "인용 화자 혼동",
+      "n": 13,
+      "recent": 7,
+      "items": 11,
+      "types": 2,
+      "by_type": {
+        "X-REFER": 12,
+        "R-REFER": 1
+      },
+      "by_type_recent": {
+        "X-REFER": 7
+      },
+      "examples": []
+    },
+    {
+      "key": "목적어 대상 혼동",
+      "n": 12,
+      "recent": 5,
+      "items": 12,
+      "types": 1,
+      "by_type": {
+        "X-REFER": 12
+      },
+      "by_type_recent": {
+        "X-REFER": 5
+      },
+      "examples": []
+    },
+    {
+      "key": "소유격 임자 혼동",
+      "n": 10,
+      "recent": 3,
+      "items": 10,
+      "types": 2,
+      "by_type": {
+        "X-REFER": 9,
+        "R-REFER": 1
+      },
+      "by_type_recent": {
+        "X-REFER": 3
+      },
+      "examples": []
+    },
+    {
+      "key": "최근접 명사 오인",
+      "n": 10,
+      "recent": 3,
+      "items": 10,
+      "types": 2,
+      "by_type": {
+        "R-GRAMMAR": 7,
+        "X-REFER": 3
+      },
+      "by_type_recent": {
+        "R-GRAMMAR": 2,
+        "X-REFER": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "주어 승계 착각",
+      "n": 8,
+      "recent": 3,
+      "items": 8,
+      "types": 1,
+      "by_type": {
+        "X-REFER": 8
+      },
+      "by_type_recent": {
+        "X-REFER": 3
+      },
+      "examples": []
+    }
+  ]
+}

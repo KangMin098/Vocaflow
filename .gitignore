@@ -264,6 +264,8 @@ scripts/csat/data/columns2/H*.txt
 scripts/csat/data/hakpyeong-questions.json
 scripts/csat/data/hakpyeong-answers.json
 scripts/csat/data/hakpyeong-inventory.json
+scripts/csat/data/hakpyeong-source-repairs.json
+scripts/csat/data/hakpyeong-source-repairs.json.tmp
 scripts/csat/data/corpus-hakpyeong.json
 scripts/csat/data/corpus-hakpyeong-report.json
 

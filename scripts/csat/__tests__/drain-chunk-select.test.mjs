@@ -81,6 +81,44 @@ const previousRow = (status) => {
   return { ...a, choice_analysis: choices, id: 'old-analysis', version: 4, status }
 }
 
+for (const scenario of [
+  {name:'new image with identical boundaries creates a new analysis',status:'in_review',binding:'old-image-input',insert:true},
+  {name:'unchanged image input reuses the bound analysis',status:'in_review',binding:'x',insert:false},
+  {name:'lost draft response resumes current unbound analysis',status:'draft',binding:null,insert:false},
+  {name:'old unbound draft cannot be reused for a new image',status:'draft',binding:null,bindable:false,insert:true},
+]) test(`chart import: ${scenario.name}`,async()=>{
+ const {dir,work}=setup(),reqs=[]
+ const inputFile=path.join(work,'chunk-revise-test.json')
+ const input=JSON.parse(fs.readFileSync(inputFile,'utf8'));input.items[0].type_id='R-CHART'
+ fs.writeFileSync(inputFile,JSON.stringify(input))
+ const server=http.createServer(async(req,res)=>{
+  let body='';for await(const part of req)body+=part
+  const json=body?JSON.parse(body):null;reqs.push({method:req.method,url:req.url,body:json})
+  res.setHeader('Content-Type','application/json')
+  if(req.url.startsWith('/rest/v1/csat_items?'))return res.end(JSON.stringify(req.url.includes('type_id')?{type_id:'R-CHART'}:[{id:'H2603G3#18',answer:3,answers:null}]))
+  if(req.url.startsWith('/rest/v1/rpc/csat_current_units_many'))return res.end(JSON.stringify(currentUnits))
+  if(req.url.startsWith('/rest/v1/csat_review_visual_analysis_bindings?'))return res.end(JSON.stringify(scenario.binding?[{input_hash:scenario.binding}]:[]))
+  if(req.url.startsWith('/rest/v1/rpc/csat_chart_analysis_bindable'))return res.end(JSON.stringify(scenario.bindable!==false))
+  if(req.url.startsWith('/rest/v1/rpc/csat_review_visual_bind_analysis'))return res.end('null')
+  if(req.method==='GET')return res.end(JSON.stringify([previousRow(scenario.status)]))
+  res.end(req.method==='POST'?JSON.stringify({id:'new-analysis'}):'[]')
+ })
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve))
+ try{
+  const r=await runImport(dir,`http://127.0.0.1:${server.address().port}`,['--chunk','revise-test','--commit'])
+  assert.equal(r.code,0,r.output)
+  const inserts=reqs.filter(q=>q.method==='POST'&&q.url.startsWith('/rest/v1/csat_item_analyses'))
+  assert.equal(inserts.length,scenario.insert?1:0)
+  const binding=reqs.find(q=>q.url.includes('/rpc/csat_review_visual_bind_analysis'))
+  assert.deepEqual(binding.body,{p_analysis:scenario.insert?'new-analysis':'old-analysis',p_input_hash:'x'})
+  const transition=reqs.findIndex(q=>q.method==='PATCH')
+  if(transition>=0)assert.ok(reqs.indexOf(binding)<transition,'analysis binding must precede in_review')
+ }finally{
+  await new Promise(resolve=>server.close(resolve))
+  assert.ok(path.resolve(dir).startsWith(path.resolve(os.tmpdir())+path.sep));fs.rmSync(dir,{recursive:true,force:true})
+ }
+})
+
 test('legacy analysis without units or an export hash cannot bypass source verification', async () => {
   const { dir, work } = setup()
   try {

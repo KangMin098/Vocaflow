@@ -69,7 +69,7 @@ export function itemBlocks(exam, no) {
   // 다음 문항 번호에서 끊는다. **세트 머리글 `[41~42]` 에서도 끊어야 한다** —
   // 40번은 바로 뒤가 장문 세트라, 머리글을 무시하면 41번 줄까지 넘어가
   // 장문 지문을 40번 것으로 착각한다(실제로 겪었다).
-  const reSet = /^\s*\[\s*\d{2}\s*[~～∼〜–—-]\s*\d{2}\s*\]/
+  const reSet = /^\s*[\[［]\s*\d{2}\s*[~～∼〜–—-]\s*\d{2}\s*[\]］]/
 
   // **줄머리에 번호가 없는 문항**이 있다. 단 나누기가 실패한 페이지에서 번호가 줄 가운데로
   // 밀리거나, 세트 머리글(`[38~39]`)만 있고 개별 번호 줄이 아예 없는 경우다.
@@ -120,7 +120,7 @@ export function setBlockFor(exam, no) {
   // `[41～42]` `[43~45]` — 물결표가 회차마다 다르다(～ · ~ · –)
   const heads = []
   ls.forEach((l, i) => {
-    const m = l.match(/^\s*\[\s*(\d{2})\s*[~～∼〜–—-]\s*(\d{2})\s*\]/)
+    const m = l.match(/^\s*[\[［]\s*(\d{2})\s*[~～∼〜–—-]\s*(\d{2})\s*[\]］]/)
     // ⚠️ `[31~34]` `[36~37]` 같은 머리글도 있지만 그것은 **발문을 묶은 것**이지
     //    지문을 공유하는 것이 아니다. 지문을 공유하는 세트는 장문(41~45)뿐이다.
     //    이 구분을 놓치면 빈칸 55문항의 지문이 통째로 발문으로 바뀐다(실제로 겪었다).
@@ -246,12 +246,15 @@ export function passageOf(block, opts = {}) {
     let l = block[i].trim()
     if (!l) continue
     // 번호·세트 머리는 **떼고** 뒤를 본다 — 버리지 않는다
-    l = l.replace(/^\s*\d{1,2}\s*[.．]\s*/, '')
-    l = l.replace(/^\[\s*\d{1,2}\s*[~～∼〜–—-]\s*\d{1,2}\s*\]\s*/, '')
+    l = l.replace(/^\s*\d{1,2}\s*[.．](?!\d)\s*/, '')
+    l = l.replace(/^[\[［]\s*\d{1,2}\s*[~～∼〜–—-]\s*\d{1,2}\s*[\]］]\s*/, '')
     if (!l) continue
     // 각주 — `* monist: 일원론의` · `* be entitled to: (~할) 권한이 있다` · `** entail: 내포하다`.
     // 낱말에 공백이 있어 `\S+` 로는 안 잡힌다(실측: 2014A#33 의 `be entitled to`).
-    if (/^\*+\s/.test(l) || /^\*+[^:：]{1,40}[:：]/.test(l)) continue
+    const starred = /^\*+\s/.test(l) || /^\*+[^:：]{1,40}[:：]/.test(l)
+    // 학평 안내문은 * 뒤의 영어 운영 조건도 본문이다. 한국어 어휘 각주는 계속 제외한다.
+    const noticeNote = opts.keepEnglishNotes && /^\*+\s+[A-Z]/.test(l) && !/[가-힣]/.test(l)
+    if (starred && !noticeNote) continue
     if (koRatio(l) >= 0.3) continue // 발문·안내·배점 표기
     // 발문 꼬리가 문장 앞에 붙어 있으면 거기까지 떼어 낸다 (`적절한 것은? [3점] As we all know,`).
     // 고유명사가 섞인 발문(`Harmony Youth Orchestra Auditions에 관한 다음 안내문의`)은
@@ -283,6 +286,8 @@ function trimChoice(s) {
   let t = s
   const nx = t.search(NEXT_ITEM)
   if (nx > 0) t = t.slice(0, nx)
+  // A set instruction can share the last choice's line, with mixed-width brackets.
+  t = t.replace(/\s*[\[［]\s*\d{1,2}\s*[~～∼〜–—-]\s*\d{1,2}\s*[\]］]\s*(?:다음|주어진|윗글)[\s\S]*$/, '')
   // 지면 상투구 — 형별 표기 · 듣기 종료 안내 · 시험지 말미 확인 사항
   t = t.replace(/[,\s·]*(?:짝수형|홀수형)[\s\S]*$/, '')
   t = t.replace(/\s*이제\s*듣기[\s\S]*$/, '')
@@ -301,11 +306,15 @@ function trimChoice(s) {
   // 지면 표시 낱글자 — 실측: M2306#32 · 2022#32 · M2209#32 의 ⑤ 끝에 `K` 가 붙어 왔다.
   // 선지는 구·절이라 홀로 선 대문자 한 글자로 끝나는 일이 없다.
   t = t.replace(/\s+[A-Z]\s*$/, '')
-  return t.replace(/[\s,]+$/, '').trim()
+  return t.replace(/[\s,]+$/, '').replace(/\s*[＊※]\s*$/, '').trim()
 }
 
-export function choicesOf(block) {
+export function choicesOf(block, opts = {}) {
   const text = block.join('\n')
+  if (opts.positionsOnly) {
+    // In insertion questions these are locations, not the sentences following them.
+    return [...CIRC].every(marker => new RegExp(`[（(]\\s*${marker}\\s*[）)]`).test(text)) ? [...CIRC] : null
+  }
   const i = text.search(/[①②③④⑤]/)
   if (i < 0) return null
   const tail = text.slice(i).replace(/\n/g, ' ').replace(/\s+/g, ' ')

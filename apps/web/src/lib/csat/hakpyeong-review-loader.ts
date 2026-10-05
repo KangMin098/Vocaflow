@@ -85,6 +85,25 @@ export async function loadHakpyeongReview(
     const analyses = [...latest.values()]
     const ids = analyses.map((a) => a.id)
     const itemIds = analyses.map((a) => a.item_id)
+    const visualAssets = new Map<string, string | null>()
+    const visualReady = new Map<string, boolean>()
+    const charts = items.filter((it) => it.typeId === 'R-CHART')
+    for (let i = 0; i < charts.length; i += 8) {
+      const results = await Promise.all(charts.slice(i,i+8).map(async (it) => {
+        const r = await db.rpc('csat_current_chart_asset', {p_item:it.id})
+        // A deployment without the approved chart migration remains held.
+        if (r.error && r.error.code !== 'PGRST202' && r.error.code !== '42883') throw new Error(`도표 정본 조회(${it.id}): ${r.error.message}`)
+        const analysis=latest.get(it.id)
+        let ready=false
+        if (!r.error && r.data && analysis) {
+          const result=await db.rpc('csat_chart_analysis_ready',{p_analysis:analysis.id})
+          if (result.error) throw new Error(`도표 분석 연결 조회(${it.id}): ${result.error.message}`)
+          ready=result.data === true
+        }
+        return [it.id, r.error ? null : r.data as string | null,ready] as const
+      }))
+      for (const [id,asset,ready] of results) {visualAssets.set(id,asset);visualReady.set(id,ready)}
+    }
 
     const valid = new Map<string, Persona[]>()
     // 지금 근거 단위 목록 — 경계 해시와 지문 입력 해시 둘 다(경계가 같아도 지문 글자가 바뀌면 사전 검사는 낡는다)
@@ -149,7 +168,7 @@ export async function loadHakpyeongReview(
     const out: HakReviewItem[] = items.map((it) => {
       const a = latest.get(it.id)
       if (!a) {
-        return { itemId: it.id, typeId: it.typeId, analysisId: null, version: null, status: null, analystRun: null, unitsBased: false, validPersonas: [], verdicts: [], precheck: null }
+        return { itemId: it.id, typeId: it.typeId, analysisId: null, version: null, status: null, analystRun: null, unitsBased: false, validPersonas: [], verdicts: [], precheck: null, visualAssetId:visualAssets.get(it.id) ?? null }
       }
       const vp = valid.get(a.id) ?? []
       const pc = prechecks.get(a.id)
@@ -180,7 +199,7 @@ export async function loadHakpyeongReview(
         }))
       return {
         itemId: it.id, typeId: typeOf.get(it.id) ?? it.typeId, analysisId: a.id, version: a.version, status: a.status,
-        analystRun: a.analyst_run, unitsBased: Boolean(a.units_hash), validPersonas: vp, verdicts: vs, precheck,
+        analystRun: a.analyst_run, unitsBased: Boolean(a.units_hash), validPersonas: vp, verdicts: vs, precheck, visualAssetId:visualAssets.get(it.id) ?? null,visualAnalysisReady:visualReady.get(it.id) ?? false,
       }
     })
 

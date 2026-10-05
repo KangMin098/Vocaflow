@@ -202,8 +202,8 @@ export type PublicEvent =
 
 
   /**
-   * 문제지를 읽었다. `known` 은 해시가 색인에 있었나, `failed` 는 글로 못 뽑아 **종이 그대로**
-   * 보여 줘야 하는 문항 수 — 이것이 reflow 실패율이다(지시문 C6 · 관리자 evidence 쪽 수신처).
+   * 문제지를 읽었다. `known` 은 해시가 색인에 있었나, `failed` 는 글자 추출 실패 또는 필요한
+   * 원본 그림 렌더 실패 문항 수다. 두 실패가 겹치는 문항은 한 번만 센다.
    */
   | {
       name: 'csat_paper_read'
