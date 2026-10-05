@@ -28,7 +28,7 @@
 //      프로덕션(next start) → **12화면 7축 전부 0**, 게다가 8.7분 → 59초
 //    권장:  next build && next start -p 3240  후  PLAYWRIGHT_BASE_URL=http://localhost:3240
 
-import { expect, test, type ConsoleMessage, type Page } from '@playwright/test';
+import { expect, test, type ConsoleMessage } from '@playwright/test';
 
 import { crashKindOf } from './utils/crash-screen';
 import { describeNetFailure, watchNetwork } from './utils/net-watch';
