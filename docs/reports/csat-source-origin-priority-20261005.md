@@ -167,3 +167,5 @@ manifest의 book_lane_experiment에 retriever·candidate_rank·verification_dept
 두 행 preview ready→원천 변경 및 gap 591→589/next_action CAS를 같은 트랜잭션으로 적용→두 행 already_applied를 재검증했다. 전후 체크포인트는 회전 bloat 표본 대상 교체와 시간 지표 1분/0.01시간 변화 외 차이가 없었다. DB 통계 생성기 실행, 관련 회귀 **29/29 통과**. 마이그레이션·라우트 변경 없음.
 
 목적 리뷰 지적을 반영해 실행 전 고정 cohort identity SHA를 재계산한다. 질의 변경·대상 삭제 시 이전 SHA로 실행하지 않고 중단한다. 캐시만 사용한 재실행도 기존 로그의 누적 성과와 고정 분모·등록 완료·남은 대상 수를 출력한다. 질의 변조·대상 축소·캐시만 재개 회귀를 보강했고 29/29 통과했다.
+
+기존 미버전 plan은 legacy-body-map-v1 해시를 검증하고, 새 plan은 canonical-body-map-v2를 명시한다. 키 순서가 다른 기존 파일을 새 해시 방식으로 오판하지 않는다. 누적 집계는 고정 cohort 전체의 대상·현재 본문·질의 family·페이지·필터·페이지 크기가 일치하는 기록만 포함하며 다른 실험 기록은 제외 수를 출력한다. 이미 등록되어 이번 요청에서 빠진 고정 대상의 과거 성과는 유지한다. 캐시 identity에도 대상·family를 포함한다. 구형 해시·외부 로그 오염·다른 대상 캐시 회귀를 보강했고 29/29 통과했다.

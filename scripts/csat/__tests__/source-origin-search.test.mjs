@@ -2,7 +2,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { alternativeQueries, documentFrequencies, searchSegments, provenanceRequests, localAlignment, buildOriginIndex, searchOriginIndex, classifySearchResponse, runProvenanceSearch, extractOaDocument, loadOaDocument } from '../source-origin-search.mjs'
-import { classifyOriginLane, bookQueryFamilies, makeBookPlan, bookCandidate, runBookBatch, retrieverStatistics, searchBookInside, pendingBookPlan, summarizeBookRun } from '../source-origin-search.mjs'
+import { classifyOriginLane, bookQueryFamilies, makeBookPlan, bookCandidate, runBookBatch, retrieverStatistics, searchBookInside, pendingBookPlan, summarizeBookRun, bookCohortSha } from '../source-origin-search.mjs'
 
 test('routing treats notices and studies differently and never produces a source verdict', () => {
   assert.equal(classifyOriginLane({ passage: 'Dear visitors, register before the deadline and call us for admission tickets.' }).lane, 'report-web-likely')
@@ -43,6 +43,13 @@ test('book cohort is reproducible, unresolved only, and uses actual exam dates',
   assert.throws(() => pendingBookPlan(edited, rows), /cohort SHA mismatch/)
   const shrunk = { ...first, cohort: [] }
   assert.throws(() => pendingBookPlan(shrunk, rows), /cohort SHA mismatch/)
+  const legacy = structuredClone(first)
+  delete legacy.cohort_hash_format
+  legacy.cohort[0].body_sha256_by_item = { z: 'body-z', a: 'body-a' }
+  legacy.cohort_sha256 = bookCohortSha(legacy.cohort, { format: 'legacy-body-map-v1' })
+  const legacyRows = [{ ...rows[1], body_sha256_by_item: { a: 'body-a', z: 'body-z' } }]
+  assert.equal(pendingBookPlan(legacy, legacyRows).cohort.length, 1)
+  assert.notEqual(legacy.cohort_sha256, bookCohortSha(legacy.cohort))
 })
 
 test('candidate depth and later edition penalty never imply a reviewed attribution', () => {
@@ -75,6 +82,23 @@ test('bounded Books pagination and successful resume preserve request filters, r
   assert.equal(summary.pending_targets, 1)
   assert.equal(summary.cumulative_statistics[0].searched_targets, 1)
   assert.equal(summary.cumulative_statistics[0].candidate_count, 43)
+  const foreign = [
+    { ...out[0], representative_item_id: 'other' }, { ...out[0], passage_sha256: 'other-body' },
+    { ...out[0], query: 'unrelated' }, { ...out[0], filter: 'full' },
+    { ...out[0], body_sha256_by_item: { x: 'changed' } }, { ...out[0], startIndex: 80 },
+  ]
+  const scoped = summarizeBookRun(plan, [...out, ...foreign], [])
+  assert.equal(scoped.excluded_previous_records, 6)
+  assert.equal(scoped.cumulative_statistics[0].searched_targets, 1)
+  assert.equal(scoped.cumulative_statistics[0].candidate_count, 43)
+  const completed = summarizeBookRun({ ...plan, fixed_cohort: plan.cohort, cohort: [], fixed_cohort_size: 1, already_resolved: 1 }, out, [])
+  assert.equal(completed.cumulative_statistics[0].candidate_count, 43)
+  assert.equal(completed.pending_targets, 0)
+  let foreignResumeCalls = 0
+  await runBookBatch(plan, { now: () => 'fixed', previous: out.map(r => ({ ...r, representative_item_id: 'other' })), fetchImpl: async () => {
+    foreignResumeCalls++; return { status: 200, json: async () => ({ totalItems: 0 }) }
+  } })
+  assert.equal(foreignResumeCalls, 1)
   const changed = structuredClone(plan); changed.cohort[0].body_sha256_by_item.x = 'new'
   let retry = 0
   await runBookBatch(changed, { now: () => 'fixed', previous: out, fetchImpl: async () => { retry++; return { status: 429, json: async () => ({}) } } })

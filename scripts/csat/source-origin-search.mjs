@@ -169,13 +169,14 @@ export function makeBookPlan(rows, exams, { sampleSize = 50 } = {}) {
   }).sort((a, b) => b.book_priority_score - a.book_priority_score || a.representative_item_id.localeCompare(b.representative_item_id))
   const cohort = classified.filter(r => r.exam_kind === 'suneung' && r.lane === 'book-likely' && r.requests.length).slice(0, sampleSize)
   return { classification_version: 'book-routing-v2', reference_count: references.length, reference_labels: references.map(r => ({ item_id: r.representative_item_id, status: r.status, lane: referenceLane(r) })), classified,
-    cohort, cohort_sha256: bookCohortSha(cohort), sample_size_requested: sampleSize,
+    cohort, cohort_sha256: bookCohortSha(cohort), cohort_hash_format: 'canonical-body-map-v2', sample_size_requested: sampleSize,
     filter: 'partial', maxResults: 40, max_pages_per_query: 2,
     limitations: ['Heuristic routes overlap; no origin-type ground truth or held-out accuracy.', 'A and B references retain different verification status.', 'Missing name clues yield three families rather than fabricated names.', 'Preview filter excludes non-previewable candidates; no result does not establish absent source.'] }
 }
 
-export function bookCohortSha(cohort) {
-  const identity = cohort.map(r => ({ id: r.representative_item_id, registry: r.passage_sha256, bodies: Object.fromEntries(Object.entries(r.body_sha256_by_item ?? {}).sort(([a], [b]) => a.localeCompare(b))), exam_year: r.exam_year, exam_month: r.exam_month, requests: r.requests }))
+export function bookCohortSha(cohort, { format = 'canonical-body-map-v2' } = {}) {
+  if (!['canonical-body-map-v2', 'legacy-body-map-v1'].includes(format)) throw new Error('Unknown cohort hash format')
+  const identity = cohort.map(r => ({ id: r.representative_item_id, registry: r.passage_sha256, bodies: format === 'legacy-body-map-v1' ? r.body_sha256_by_item : Object.fromEntries(Object.entries(r.body_sha256_by_item ?? {}).sort(([a], [b]) => a.localeCompare(b))), exam_year: r.exam_year, exam_month: r.exam_month, requests: r.requests }))
   return createHash('sha256').update(JSON.stringify(identity)).digest('hex')
 }
 
@@ -195,7 +196,7 @@ export function bookCandidate(hit, row, candidateRank) {
 export async function runBookBatch(plan, { fetchImpl = fetch, now, key, onAttempt = () => {}, previous = [] } = {}) {
   if (typeof now !== 'function') throw new Error('Inject a clock')
   if (!['partial', 'full'].includes(plan.filter) || plan.maxResults !== 40 || !Number.isInteger(plan.max_pages_per_query) || plan.max_pages_per_query < 1 || plan.max_pages_per_query > 10) throw new Error('Invalid bounded book batch options')
-  const attemptKey = r => JSON.stringify([r.passage_sha256, Object.entries(r.body_sha256_by_item ?? {}).sort(), r.query, r.startIndex, plan.filter, plan.maxResults])
+  const attemptKey = r => JSON.stringify([r.representative_item_id, r.passage_sha256, Object.entries(r.body_sha256_by_item ?? {}).sort(), r.strategy ?? null, r.query, r.startIndex, plan.filter, plan.maxResults])
   const done = new Map(previous.filter(r => ['candidates', 'no_results'].includes(r.state) && r.retriever === 'google_books_api' && r.filter === plan.filter && r.maxResults === plan.maxResults).map(r => [attemptKey(r), r]))
   let blocked = null
   const attempts = []
@@ -225,7 +226,7 @@ export async function runBookBatch(plan, { fetchImpl = fetch, now, key, onAttemp
 }
 
 export function pendingBookPlan(plan, currentRows) {
-  if (plan.cohort_sha256 !== bookCohortSha(plan.cohort)) throw new Error('Frozen cohort SHA mismatch; restore the plan or create a new experiment')
+  if (plan.cohort_sha256 !== bookCohortSha(plan.cohort, { format: plan.cohort_hash_format ?? 'legacy-body-map-v1' })) throw new Error('Frozen cohort SHA mismatch; restore the plan or create a new experiment')
   const current = new Map(currentRows.map(r => [r.representative_item_id, r]))
   const pending = []
   for (const row of plan.cohort) {
@@ -233,13 +234,23 @@ export function pendingBookPlan(plan, currentRows) {
     if (!latest || latest.passage_sha256 !== row.passage_sha256 || !isDeepStrictEqual(latest.body_sha256_by_item, row.body_sha256_by_item)) throw new Error('Frozen cohort body changed: ' + row.representative_item_id)
     if (latest.status === 'unresolved') pending.push(row)
   }
-  return { ...plan, cohort: pending, fixed_cohort_size: plan.cohort.length, already_resolved: plan.cohort.length - pending.length }
+  return { ...plan, cohort: pending, fixed_cohort: plan.cohort, fixed_cohort_size: plan.cohort.length, already_resolved: plan.cohort.length - pending.length }
 }
 
 export function summarizeBookRun(plan, previous, attempts) {
+  const cohort = new Map((plan.fixed_cohort ?? plan.cohort).map(r => [r.representative_item_id, r]))
+  const belongs = r => {
+    const target = cohort.get(r.representative_item_id)
+    return target && r.retriever === 'google_books_api' && target.passage_sha256 === r.passage_sha256 && isDeepStrictEqual(target.body_sha256_by_item, r.body_sha256_by_item)
+      && target.requests.some(q => q.query === r.query && q.strategy === r.strategy) && r.filter === plan.filter && r.maxResults === plan.maxResults
+      && Number.isInteger(r.startIndex) && r.startIndex >= 0 && r.startIndex % 40 === 0 && r.startIndex < plan.max_pages_per_query * 40
+  }
+  const scopedPrevious = previous.filter(belongs)
+  if (!attempts.every(belongs)) throw new Error('New retrieval attempt outside the fixed experiment')
   return { cohort_sha256: plan.cohort_sha256, fixed_cohort_size: plan.fixed_cohort_size ?? plan.cohort.length,
     already_resolved: plan.already_resolved ?? 0, pending_targets: plan.cohort.length,
-    new_attempt_records: attempts.length, cumulative_statistics: retrieverStatistics([...previous, ...attempts]) }
+    new_attempt_records: attempts.length, excluded_previous_records: previous.length - scopedPrevious.length,
+    cumulative_statistics: retrieverStatistics([...scopedPrevious, ...attempts]) }
 }
 
 export function retrieverStatistics(attempts, outcomes = []) {
