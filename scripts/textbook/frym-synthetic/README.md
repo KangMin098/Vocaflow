@@ -1,5 +1,13 @@
 # F02 Synthetic Classroom Smoke v1
 
+## Provider API audit path
+
+`node scripts/textbook/frym-synthetic/f02-provider-run.mjs <fresh-exported-packet-dir> stage-a` makes one Anthropic Messages student → OpenAI Responses grader pair. `stage-b` makes two pairs, one in each provider direction. It requires `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `F02_ANTHROPIC_MODEL`, and `F02_OPENAI_MODEL` in the process environment; secrets are never stored in the output. Each call records the exact serialized request sent over HTTP, its SHA-256, the frozen packet/profile/system hashes, local IDs, provider request/response IDs, returned model, raw response/hash, parsed answer/hash, timestamps and terminal status. A grader starts only after a completed student response. Run folders must be fresh. Stage A/B are receipt smoke tests, not a 28-packet validation run.
+
+The verifier reconstructs the frozen student and grader requests and rejects changed hashes, responses, request IDs, returned models, packet IDs, mixed invocations, incomplete answers/scores and self-grading. A provider ID is a receipt attached to the returned response, **not a provider signature over the system prompt hash**. The exact submitted request/hash is local evidence. Stage C mutation tests currently use deterministic mocked HTTP responses; no live provider smoke has run because this environment has neither API credential. `audit_ready=false`, synthetic validation valid N=0, student N=0, Gold-S=0 and DB seed=0 remain fixed. A fresh 28-packet run is unavailable until live Stage A/B receipts and Stage C audit verification pass.
+
+API contract references: [Anthropic Messages and request IDs](https://platform.claude.com/docs/en/api/messages/create), [Anthropic error/request ID documentation](https://platform.claude.com/docs/en/api/errors), [OpenAI Responses API](https://github.com/openai/openai-node/blob/main/docs/responses.md), [OpenAI request ID documentation](https://github.com/openai/openai-node/blob/main/docs/configuration.md).
+
 ## Process audit experiment (v3)
 
 `node scripts/textbook/frym-synthetic/f02-audit-run.mjs <fresh-exported-packet-dir> [limit]` creates a new run ID and per-packet student/grader invocation logs. Each log records intended system/profile/payload and stdin hashes, command/argv, requested model, CLI version, process ID, timestamps, exit/signal, stdout/stderr and response hashes, and error reason. It refuses prior output caches and writes raw stdout/stderr beside the logs. `node scripts/textbook/frym-synthetic/f02-audit.mjs <run-dir>` rebinds the logs to frozen packets, scored rows and raw process bytes. Separate invocation IDs, processes, timing and model families are required.

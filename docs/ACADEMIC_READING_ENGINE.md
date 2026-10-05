@@ -1,5 +1,7 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+F02 Synthetic Classroom의 상태 전이는 `runner-built → local-audit-built → provider-audit-pending`(현재) `→ audit-ready → synthetic-batch-complete → benchmark-calibrated → TARGET_FIT/LEVEL_SEPARATION → Gold-S`로 둔다. Anthropic Messages 학생·OpenAI Responses 채점과 반대 방향을 위한 별도 API 실행 경로를 만들었으나, 실제 공급자 호출·receipt 검증은 아직 0건이다. CLI v1/v2 출력은 검증 데이터셋에서 제외하고 합성 검증 유효 N=0을 유지한다. [실행 계약](../scripts/textbook/frym-synthetic/README.md)을 참조한다.
+
 F02 합성 검증의 유효 N은 **0**이다. v1 28건은 exploratory, v2는 27건 채점·1건 거부로 실패한 진단 run이다. 새 v3 실행기는 패킷별 로컬 프로세스 호출·요청/출력 해시를 기록하지만 공급자가 실제로 받은 시스템 프롬프트와 채점 모델은 CLI 출력만으로 입증되지 않는다. 감사 검증기는 이 증거가 없으면 실패하며, 28건 재검증과 `TARGET_FIT`·`LEVEL_SEPARATION`은 열지 않는다.
 
 F02의 현재 운영 상태는 `synthetic-educational-validation-pending`이다. [Synthetic Classroom Smoke v1](./reports/academic-reading-f02-synthetic-smoke-20261005.md)의 28개 출력은 Windows 시스템 프롬프트 전달 여부가 불확실해 탐색 자료로만 보존한다. [수정 실행기 v2의 독립 28패킷 재실행](./reports/academic-reading-f02-synthetic-smoke-v2-20261005.md)은 유효 응답·독립 채점 27건과 역할 응답 거부 1건으로 실패 종료했다. 한 응답 모델 계열의 높은 점수와 난도 방향 미분리는 기술 관찰일 뿐이다. 기존 사람 pilot 제안본은 미봉인 상태로 보존하되 현재 실행 경로로 삼지 않는다. 합성 seal은 해시 동일성 검사이며 학년 타당도 승인이 아니다. 외부 benchmark와 다른 모델 계열 재현 전에는 `TARGET_FIT`·`LEVEL_SEPARATION`·Gold-S·DB seed를 판정하지 않는다. 실제 학생 N은 0이다.

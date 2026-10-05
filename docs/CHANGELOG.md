@@ -13,6 +13,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): F02 합성 검증용 Anthropic Messages/OpenAI Responses 직접 API 경로를 CLI smoke와 분리했다. 직렬화 요청·공급자 request/response ID·반환 모델·원출력 해시를 결속하고 양방향 모의 호출과 실패 주입을 검사한다. 실제 API 키가 없어 live Stage A/B는 미실행이며 audit-ready와 유효 합성 N은 0이다.
+
 - fix(textbook): F02 합성 실행의 학생·채점자 호출을 별도 프로세스 ID와 요청/출력 해시·종료 기록에 묶는 v3 감사 경로를 추가했다. CLI가 공급자 수신 프롬프트와 실제 채점 모델을 증명하지 못하면 fail-closed로 유효 합성 N=0을 유지한다.
 
 - fix(textbook): 수정된 Windows 호출로 F02 28개 blind 패킷을 새 run에서 재실행했다. 유효 응답·독립 채점 27건과 역할 응답 거부 1건을 각각 원출력으로 보존하고 실패 종료를 기록했다. 합성 자료는 교육적 타당성·Gold-S·DB seed 승격에 사용하지 않는다.
