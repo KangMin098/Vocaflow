@@ -28,7 +28,8 @@ if (!URL_.includes(DEV_REF) || !DB_URL.includes(DEV_REF)) { console.error('개�
 const APP = process.argv.includes('--app') ? process.argv[process.argv.indexOf('--app') + 1] : null
 const manifest = JSON.parse(fs.readFileSync(path.join(HERE, 'manifest.json'), 'utf8'))
 
-const EXAM = 'TEST_EC_CANARY', TYPE = 'TEST-CANARY-TYPE', TAX = 'v0.1'
+// 운영 시험 id 제약(모의 = M + 숫자 4자리 · kice · 고3)을 만족하는 충돌 없는 TEST 시험(2099년)
+const EXAM = 'M2099', TYPE = 'TEST-CANARY-TYPE', TAX = 'v0.1'
 const CANARY = `CANARY-${randomUUID().slice(0, 8)}`
 const ANSWER = (n) => ((n * 3) % 5) + 1
 const NOS = [18, 19, 20, 21, 22]
@@ -52,7 +53,13 @@ async function makeUser(role, admin = false) {
   users[role] = { id: data.user.id, client: c, token: session.access_token, session }
 }
 const leaks = (payload) => JSON.stringify(payload ?? null).includes(CANARY)
-const ANSWER_FIELDS = ['answer', 'answers', 'is_correct', 'correct', 'raw_score', 'grade', 'answer_key']
+// RPC 응답의 정답 · 정오 필드 — 재귀로 모든 위치의 값을 본다(null 이 하나 있어도 다른 행의 값을 놓치지 않게)
+const RPC_SENSITIVE = ['answer', 'answers', 'is_correct', 'correct', 'raw_score', 'answer_key', 'wrong']
+function sensitiveValues(x, out = []) {
+  if (Array.isArray(x)) for (const v of x) sensitiveValues(v, out)
+  else if (x && typeof x === 'object') for (const [k, v] of Object.entries(x)) { if (RPC_SENSITIVE.includes(k) && v != null) out.push(k); sensitiveValues(v, out) }
+  return out
+}
 
 // 학습자가 SELECT 할 수 있는 컬럼(표 단위 권한이면 전부) — 컬럼 권한이 일부만인 표를 「SELECT * 거부 = 통과」로 세지 않게
 async function learnerColumns(rel) {
@@ -79,7 +86,8 @@ try {
   if ((await db.query(`select 1 from supabase_migrations.schema_migrations where version = '20261005170000'`)).rowCount === 0) throw new Error('Reveal Gate ① 가 적용되지 않았다 — 적용 뒤 실행')
   // ── 준비: TEST 유형 · 시험 · 문항 · 정답표 · 분석(3인 pass 검수 뒤 발행) · 뼈대 · 유형 보고 ──
   await db.query(`insert into public.csat_types (id, name, section) values ($1, 'TEST canary 유형', '독해') on conflict do nothing`, [TYPE])
-  await db.query(`insert into public.csat_exams (id, label, kind, year, month, exam_year, has_answer_key, organizer) values ($1, 'TEST canary(Reveal Gate)', 'mock', 2099, 1, 2099, true, 'kice')`, [EXAM])
+  if ((await db.query(`select 1 from public.csat_exams where id = $1`, [EXAM])).rowCount) throw new Error(`${EXAM} 가 이미 있다 — 이전 검사 정리가 안 됐다`)
+  await db.query(`insert into public.csat_exams (id, label, kind, year, month, exam_year, has_answer_key, organizer, grade) values ($1, 'TEST canary(Reveal Gate)', 'mock', 2099, 1, 2098, true, 'kice', 3)`, [EXAM])
   for (const n of NOS) {
     const id = `${EXAM}#${n}`
     await db.query(`insert into public.csat_items (id, exam_id, no, section, stem, passage, choices, answer, type_id, body_ok) values ($1, $2, $3, '독해', 'TEST stem', 'TEST passage one. TEST passage two.', $4, $5, $6, true)`,
@@ -129,20 +137,26 @@ try {
     const expectRows = who === 'anon' ? 0 : 5
     record('canary', `${who} · GraphQL csat_items_public`, (who === 'anon' ? true : !gql.errors) && !leaks(gql) && gEdges.length === expectRows && gEdges.every((e) => e.node.answer == null), { errors: gql.errors?.[0]?.message, n: gEdges.length })
 
-    // 학습자 표면 함수 전부 — 시그니처에서 인자 생성. ADMIN · REVIEWER 는 거부가 정상, 나머지는 결과에 canary · 정답 필드가 없어야
+    // 학습자 표면 함수 전부 — 매니페스트의 호출 계약(call · args)대로. 계약이 없는 함수는 「미검사」로 실패
+    //   read = 성공해야 · write = 결과 무관(노출 · 정답 필드 없음) · refuse = 거부해야 · none = 사유와 함께 명시 제외
+    const ctx = actors.find((a) => a[0] === who)[2]
     for (const [fn, meta] of Object.entries(manifest.db_functions)) {
       if (meta.class === 'TRIGGER_FN') continue
-      for (const sig of await functionSignatures(fn)) {
-        const args = Object.fromEntries(sig.map(([n, t]) => [n, argFor(n, t, actors.find((a) => a[0] === who)[2])]))
+      const call = who === 'anon' ? 'refuse' : meta.call
+      if (!call) { record('rpc', `${who} · ${fn} — 호출 계약 없음(미검사)`, false, '매니페스트에 call · args 를 정의한다'); continue }
+      if (call === 'none') { record('rpc', `${who} · ${fn} — 명시 제외: ${meta.call_reason}`, !!meta.call_reason); continue }
+      const sigs = await functionSignatures(fn)
+      for (const sig of sigs) {
+        const fill = (v) => (v === '{SESSION}' ? ctx.session : v === '{UUID}' ? randomUUID() : v)
+        const args = meta.args && typeof meta.args === 'object'
+          ? Object.fromEntries(Object.entries(meta.args).filter(([k]) => sig.some(([n]) => n === k)).map(([k, v]) => [k, fill(v)]))
+          : Object.fromEntries(sig.map(([n, t]) => [n, argFor(n, t, ctx)]))
         const r = await c.rpc(fn, args)
-        const mustRefuse = ['ADMIN_ONLY', 'REVIEWER_INTERNAL'].includes(meta.class) || who === 'anon'
-        const body = JSON.stringify(r.data ?? null)
-        // 실행되지 않은 호출(인자 오류 · 함수 없음)을 통과로 세지 않는다 — 학습자 함수의 오류는 명시된 보류 · 소유 오류만 허용
-        const GATE_ERRORS = ['지금은 이 기록에 남길 수 없다', '수집은 끝났다', '풀이 수집 대상 기록이 아니다', '자기 기록', '자기 응답', '수집을 연 뒤']
-        const gateError = !!r.error && GATE_ERRORS.some((g) => (r.error.message ?? '').includes(g))
-        const okRes = mustRefuse ? !!r.error
-          : (r.error ? gateError : (!leaks(r.data) && !ANSWER_FIELDS.some((f) => body.includes(`"${f}":`) && !body.includes(`"${f}":null`))))
-        record('rpc', `${who} · ${fn}(${sig.map((s) => s[1]).join(',')})`, okRes && !leaks(r.error), { err: r.error?.message?.slice(0, 120), data: body.slice(0, 120) })
+        const hits = sensitiveValues(r.data)
+        const ok = call === 'refuse' ? !!r.error
+          : call === 'read' ? !r.error && !leaks(r.data) && hits.length === 0
+          : !leaks(r.data) && !leaks(r.error) && hits.length === 0   // write · any — 결과는 무관, 노출만 본다(oracle 은 아래에서)
+        record('rpc', `${who} · ${fn}(${sig.map((s) => s[1]).join(',')}) [${call}]`, ok, { err: r.error?.message?.slice(0, 120), hits })
       }
     }
     if (who !== 'anon') {
@@ -187,7 +201,8 @@ try {
         const ok = !redirected && !body.includes(CANARY) && (
           v.probe.expect === 'embargo' ? res.status === 423 && parsed?.held === 'exam_embargo' && noStore
           : v.probe.expect === 'held' ? res.ok && parsed?.held != null && parsed?.raw === undefined && parsed?.wrong === undefined
-          : res.status < 500)
+          // no_canary — 유효한 정상 응답(2xx)이어야 실행된 검사다(401 · 404 · 5xx 는 미실행으로 실패). JSON 이면 정답 · 정오 필드도 본다
+          : res.status >= 200 && res.status < 300 && sensitiveValues(parsed).length === 0)
         record('app', `${who} · ${kind} ${key} (${v.probe.expect})`, ok, { status: res.status, held: parsed?.held, noStore })
       }
     }

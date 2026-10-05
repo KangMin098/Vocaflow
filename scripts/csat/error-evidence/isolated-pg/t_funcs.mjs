@@ -52,7 +52,9 @@ export default async function funcs(admin, ctx) {
   record('함수', 'add_student_claim — 「잘 모르겠음」에 코드 거부', fails(r, /맞지 않는다/), r.err)
   const L1correct = 30
   r = await as(app, L1, `select public.csat_ec_add_student_claim($1, $2::smallint, $3, 'word', null, null)`, [S.L1, L1correct, TAX])
-  record('함수', 'add_student_claim — 정답 문항 거부(오답에만)', fails(r, /자기 오답에만/), r.err)
+  // 20261005170000(Reveal Gate) 뒤에는 정오 oracle 제거 — 정답 문항 보고도 저장된다. 그 전(기본 하네스)은 「오답에만」
+  const noOracle = !(await admin.query(`select pg_get_functiondef('public.csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid)'::regprocedure) d`)).rows[0].d.includes('오답에만')
+  record('함수', noOracle ? 'add_student_claim — 정답 문항도 저장(정오 oracle 없음)' : 'add_student_claim — 정답 문항 거부(오답에만)', noOracle ? r.ok : fails(r, /자기 오답에만/), r.err)
   const c1 = await as(app, L4, `select public.csat_ec_add_student_claim($1, 19::smallint, $2, 'word', null, null) as id`, [S.L4, TAX])
   const c2 = await as(app, L4, `select public.csat_ec_add_student_claim($1, 19::smallint, $2, 'flow', null, null) as id`, [S.L4, TAX])
   record('함수', 'add_student_claim — supersede 없이 두 번째 활성 보고 거부', c1.ok && fails(c2, /duplicate|unique/), [c1.err, c2.err])

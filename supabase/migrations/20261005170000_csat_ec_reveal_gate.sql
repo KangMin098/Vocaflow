@@ -415,7 +415,8 @@ revoke select on public.csat_ec_claim from authenticated;
 grant select (id, session_id, item_no, user_id, source, ai_run_id, taxonomy_version, code, student_group, role, confidence, evidence, supersedes_id, created_at) on public.csat_ec_claim to authenticated;
 
 -- ═══ 7. 기존 RPC 수정 ═══
--- 보류 중에는 정오와 무관하게 같은 오류(정오 oracle 차단) — 정오 검사보다 먼저
+-- 정오를 보지 않는다 — 「오답에만」 검사가 성공/실패로 정오를 드러냈다(참가자 capture 행이 빠진 버그에서도 새지 않게 검사 자체를 없앤다).
+-- 정답 문항의 범주 보고도 저장되고, 분석은 오답 응답과 join 해서 쓴다. 보류 · 미완료 capture 면 여전히 거부.
 create or replace function public.csat_ec_add_student_claim(p_session uuid, p_item_no smallint, p_taxonomy text, p_group text,
                                                             p_code text default null, p_supersedes uuid default null)
 returns uuid language plpgsql security definer set search_path = '' as $$
@@ -427,8 +428,8 @@ begin
     raise exception 'csat_ec: 지금은 이 기록에 남길 수 없다';
   end if;
   if not exists (select 1 from public.csat_dx_session s join public.csat_dx_response r on r.session_id = s.id
-                  where s.id = p_session and r.item_no = p_item_no and s.user_id = (select auth.uid()) and r.is_correct = false) then
-    raise exception 'csat_ec: 자기 오답에만 남길 수 있다';
+                  where s.id = p_session and r.item_no = p_item_no and s.user_id = (select auth.uid())) then
+    raise exception 'csat_ec: 자기 응답에만 남길 수 있다';
   end if;
   if not exists (select 1 from public.csat_ec_taxonomy_version where version = p_taxonomy and status = 'sealed') then
     raise exception 'csat_ec: 봉인된 taxonomy 로만 남긴다';

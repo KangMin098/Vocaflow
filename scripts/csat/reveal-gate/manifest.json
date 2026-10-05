@@ -645,7 +645,9 @@
    "gate": "커버리지 통계",
    "signatures": [
     "csat_coverage()"
-   ]
+   ],
+   "call": "read",
+   "args": {}
   },
   "csat_demote_on_review_change": {
    "class": "TRIGGER_FN",
@@ -666,14 +668,39 @@
    "gate": "본인 · 완료 뒤 쓰기 거부",
    "signatures": [
     "csat_ec_add_probe_response(uuid,smallint,jsonb,integer)"
-   ]
+   ],
+   "call": "write",
+   "args": {
+    "p_session": "{SESSION}",
+    "p_item_no": 18,
+    "p_value": {
+     "probe_key": "r6_derivation_probe",
+     "probe_version": "1.0.0",
+     "taxonomy_version": "v0.1",
+     "boundary_key": "r.inference__v.wrong_sense",
+     "prompt_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+     "option": "A",
+     "skipped": false
+    },
+    "p_session_cap": null
+   }
   },
   "csat_ec_add_process_evidence": {
    "class": "LEARNER_OWN",
    "gate": "본인 · 완료 뒤 쓰기 거부",
    "signatures": [
     "csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid)"
-   ]
+   ],
+   "call": "write",
+   "args": {
+    "p_session": "{SESSION}",
+    "p_item_no": 18,
+    "p_kind": "reason",
+    "p_value": {
+     "text": "캐너리 검사에서 남기는 이유입니다"
+    },
+    "p_supersedes": null
+   }
   },
   "csat_ec_add_student_claim": {
    "class": "CORRECTNESS_ORACLE",
@@ -681,56 +708,83 @@
    "oracle": true,
    "signatures": [
     "csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid)"
-   ]
+   ],
+   "call": "write",
+   "args": {
+    "p_session": "{SESSION}",
+    "p_item_no": 18,
+    "p_taxonomy": "v0.1",
+    "p_group": "word",
+    "p_code": null,
+    "p_supersedes": null
+   }
   },
   "csat_ec_blind_queue": {
    "class": "REVIEWER_INTERNAL",
    "gate": "배정 확인 · 비관리자 보류 문항 정답 null",
    "signatures": [
     "csat_ec_blind_queue(bigint)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_confirm_session": {
    "class": "LEARNER_OWN",
    "gate": "본인 · 완료 뒤 쓰기 거부",
    "signatures": [
     "csat_ec_confirm_session(uuid,boolean,boolean)"
-   ]
+   ],
+   "call": "write",
+   "args": {
+    "p_session": "{SESSION}",
+    "p_took_exam": true,
+    "p_judged_each": true
+   }
   },
   "csat_ec_my_pending_probes": {
    "class": "LEARNER_OWN",
    "gate": "본인",
    "signatures": [
     "csat_ec_my_pending_probes(uuid)"
-   ]
+   ],
+   "call": "read",
+   "args": {
+    "p_session": "{SESSION}"
+   }
   },
   "csat_ec_my_process_evidence": {
    "class": "LEARNER_OWN",
    "gate": "본인 · 해시 미포함",
    "signatures": [
     "csat_ec_my_process_evidence(uuid)"
-   ]
+   ],
+   "call": "read",
+   "args": {
+    "p_session": "{SESSION}"
+   }
   },
   "csat_ec_reveal_view": {
    "class": "REVIEWER_INTERNAL",
    "gate": "명시 필드(해시 없음) · 비관리자 보류 문항 근거 · 메모 null",
    "signatures": [
     "csat_ec_reveal_view(bigint)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_round_advance": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin()",
    "signatures": [
     "csat_ec_round_advance(bigint,text,text)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_round_assign": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin()",
    "signatures": [
     "csat_ec_round_assign(bigint,uuid,text,text[])"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_round_create": {
    "class": "ADMIN_ONLY",
@@ -738,35 +792,40 @@
    "signatures": [
     "csat_ec_round_create(text,text,text,jsonb,text)",
     "csat_ec_round_create(text,text,text,jsonb)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_round_material": {
    "class": "REVIEWER_INTERNAL",
    "gate": "배정 확인 · 비관리자 보류 문항 정답 null",
    "signatures": [
     "csat_ec_round_material(bigint)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_round_reveal": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin()",
    "signatures": [
     "csat_ec_round_reveal(bigint)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_round_set_targets": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin()",
    "signatures": [
     "csat_ec_round_set_targets(bigint,jsonb)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_round_start_blind": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin()",
    "signatures": [
     "csat_ec_round_start_blind(bigint)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_submit_adjudication": {
    "class": "REVIEWER_INTERNAL",
@@ -774,7 +833,8 @@
    "signatures": [
     "csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean)",
     "csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_submit_blind": {
    "class": "REVIEWER_INTERNAL",
@@ -782,102 +842,139 @@
    "signatures": [
     "csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean)",
     "csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_submit_verify": {
    "class": "REVIEWER_INTERNAL",
    "gate": "배정 판정자",
    "signatures": [
     "csat_ec_submit_verify(bigint,uuid,text,text)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_taxonomy_seal": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin()",
    "signatures": [
     "csat_ec_taxonomy_seal(text)"
-   ]
+   ],
+   "call": "refuse"
   },
   "csat_ec_my_capture_state": {
    "class": "LEARNER_OWN",
    "gate": "본인",
-   "since": "20261005170000"
+   "since": "20261005170000",
+   "call": "read",
+   "args": {
+    "p_session": "{SESSION}"
+   }
   },
   "csat_ec_capture_open": {
    "class": "LEARNER_OWN",
    "gate": "본인 · 전이 RPC",
-   "since": "20261005170000"
+   "since": "20261005170000",
+   "call": "write",
+   "args": {
+    "p_session": "{SESSION}"
+   }
   },
   "csat_ec_capture_finish": {
    "class": "LEARNER_OWN",
    "gate": "본인 · 서버 완료 조건",
-   "since": "20261005170000"
+   "since": "20261005170000",
+   "call": "write",
+   "args": {
+    "p_session": "{SESSION}"
+   }
   },
   "csat_ec_capture_close": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin() · 사유",
-   "since": "20261005170000"
+   "since": "20261005170000",
+   "call": "refuse"
   },
   "csat_ec_close_tombstone": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin() · 사유",
-   "since": "20261005170000"
+   "since": "20261005170000",
+   "call": "refuse"
   },
   "csat_source_eligibility_tally": {
    "class": "OPS_META",
    "gate": "출처 적격 집계",
    "signatures": [
     "csat_source_eligibility_tally()"
-   ]
+   ],
+   "call": "read",
+   "args": {}
   },
   "csat_source_inventory_live": {
    "class": "OPS_META",
    "gate": "출처 인벤토리",
    "signatures": [
     "csat_source_inventory_live()"
-   ]
+   ],
+   "call": "read",
+   "args": {}
   },
   "csat_source_is_eligible": {
    "class": "OPS_META",
    "gate": "출처 판정",
    "signatures": [
     "csat_source_is_eligible(uuid)"
-   ]
+   ],
+   "call": "read",
+   "args": {
+    "p_article_id": "{UUID}"
+   }
   },
   "csat_source_is_gradeable": {
    "class": "OPS_META",
    "gate": "출처 판정",
    "signatures": [
     "csat_source_is_gradeable(uuid)"
-   ]
+   ],
+   "call": "read",
+   "args": {
+    "p_article_id": "{UUID}"
+   }
   },
   "csat_source_live_rollup": {
    "class": "OPS_META",
    "gate": "출처 집계",
    "signatures": [
     "csat_source_live_rollup()"
-   ]
+   ],
+   "call": "read",
+   "args": {}
   },
   "csat_source_pipeline_live": {
    "class": "OPS_META",
    "gate": "출처 파이프라인",
    "signatures": [
     "csat_source_pipeline_live()"
-   ]
+   ],
+   "call": "read",
+   "args": {}
   },
   "csat_source_rollup": {
    "class": "OPS_META",
    "gate": "출처 집계",
    "signatures": [
     "csat_source_rollup()"
-   ]
+   ],
+   "call": "read",
+   "args": {}
   },
   "csat_source_snapshot_take": {
    "class": "OPS_META",
    "gate": "출처 스냅샷",
    "signatures": [
     "csat_source_snapshot_take(text)"
-   ]
+   ],
+   "call": "none",
+   "call_reason": "호출하면 출처 스냅샷 행을 만든다(쓰기 부작용). 출처 통계 · 문항 정답 없음 — 노출 검사에서 명시 제외"
   }
  },
  "private_schema": {
