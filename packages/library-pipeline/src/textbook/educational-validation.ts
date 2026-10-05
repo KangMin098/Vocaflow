@@ -249,13 +249,14 @@ export function expertBlindPacket(blindItemId: string, passage: string, research
   }
 }
 
-// Supply an actual current DB row to derive delivery state; a gold certificate alone is not production.
+// Legacy v1 diagnostics only. V2 requires productionV2 and independent replication.
 export function educationalDeliveryState(certificate: {
-  state: 'gold'; passage_hash: string; target_key: string; source_id: string
+  version?: 1; state: 'gold'; passage_hash: string; target_key: string; source_id: string
 }, article: {
   id: string; status: string; content: string; adapted_from_id: string;
   composed_spec: { academic_reading?: { target_key?: string } } | null
 } | null): 'gold' | 'production' {
+  if ('version' in certificate && certificate.version !== 1) return 'gold'
   return article?.status==='published' && article.adapted_from_id===certificate.source_id &&
     researchBodyHash(article.content)===certificate.passage_hash &&
     article.composed_spec?.academic_reading?.target_key===certificate.target_key ? 'production':'gold'

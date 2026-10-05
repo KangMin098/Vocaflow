@@ -166,6 +166,7 @@ describe('educational validation promotion',()=>{
     const article={id:'fixture-article',status:'published',content:text,adapted_from_id:r.source_id,composed_spec:{academic_reading:{target_key:r.target_key}}}
     expect(educationalDeliveryState(cert,null)).toBe('gold')
     expect(educationalDeliveryState(cert,article)).toBe('production')
+    expect(educationalDeliveryState({...cert,version:2} as any,article)).toBe('gold')
     for(const changed of [{...article,status:'queued'},{...article,content:text+' Changed.'},{...article,adapted_from_id:'other-parent'},{...article,composed_spec:null}])expect(educationalDeliveryState(cert,changed)).toBe('gold')
   })
 })
