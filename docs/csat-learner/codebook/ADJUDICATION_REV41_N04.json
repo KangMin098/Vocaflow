@@ -1,0 +1,34 @@
+{
+ "run_id": "xm41b-20261005-adj2",
+ "plan_commit": null,
+ "cases": [
+  {
+   "case_id": "N-04",
+   "run_final": "identified:V.wrong_sense",
+   "expected": "undetermined",
+   "independent": {
+    "claude": "GOLD_WRONG",
+    "codex": "GOLD_WRONG"
+   },
+   "final2": {
+    "claude": "GOLD_WRONG",
+    "codex": "GOLD_WRONG"
+   },
+   "final_category": "GOLD_WRONG",
+   "contributing": {
+    "claude": [],
+    "codex": []
+   },
+   "expected_fix_needed": true,
+   "rule_fix_needed": false,
+   "case_fix_needed": false,
+   "recommended_gold": {
+    "claude": "identified:V.wrong_sense",
+    "codex": "identified:V.wrong_sense"
+   }
+  }
+ ],
+ "decision": {
+  "R12": "adopt(기대 허용 범위가 좁았음 — R12 ② 가 옳게 옮김)"
+ }
+}

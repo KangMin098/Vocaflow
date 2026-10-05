@@ -24,6 +24,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { agreement, CODES, FAMILIES, OUTCOMES, PRIMARY_CODES } from './agreement.mjs'
+import { citesValidRule as citesValidRuleIn, makeRuleCheck, rulesFromCodebook } from './codebook-rules.mjs'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..')
 const DIR = path.join(ROOT, 'docs/csat-learner/codebook')
@@ -104,12 +105,9 @@ const VERDICT_FIELDS = `{
 }`
 
 const EVIDENCE_FIELDS = ['reason', 'blocked_span', 'interpretation', 'self_category', 'context']
-// 유효한 R 규칙 = **그 회차 코드북 본문의 §4-1 표에 있는 R 규칙**(2026-10-05 — R1–R11 을 박아 두어 rev4 의 R12 인용이 전부 거부됐다)
-const CODEBOOK_RULES = (() => { try { return new Set((fs.readFileSync(CODEBOOK_F, 'utf8').match(/^\| R(\d+) \|/gm) ?? []).map((m) => `R${m.match(/\d+/)[0]}`)) } catch { return new Set() } })()
-const RULE_TOKEN = { test: (t) => /^(Q-|Q[0-8]|Q4[ab])$/.test(t) || CODEBOOK_RULES.has(t) }
-const RULE_SCAN = /(?<![A-Za-z.])(Q-|Q\d+[a-z]?|R\d+)(?![\w.])/g
-// 코드북 규칙 식별자가 하나 이상 있고, 있는 것은 모두 유효한가
-const citesValidRule = (text) => { const t = (text ?? '').match(RULE_SCAN) ?? []; return t.length > 0 && t.every((x) => RULE_TOKEN.test(x)) }
+// 유효한 R 규칙 = **그 회차 코드북 본문의 §4-1 표에 있는 R 규칙** — codebook-rules.mjs(회귀 테스트 있음)
+const RULE_CHECK = (() => { try { return makeRuleCheck(rulesFromCodebook(fs.readFileSync(CODEBOOK_F, 'utf8'))) } catch { return makeRuleCheck(new Set()) } })()
+const citesValidRule = (text) => citesValidRuleIn(text, RULE_CHECK)
 function validateVerdict(v, ids, strict = false, caseData = null) {
   const e = []
   if (!ids.has(v.case_id)) e.push(`모르는 case_id ${v.case_id}`)
@@ -1486,20 +1484,23 @@ function adjV2Report() {
   writeJ(path.join(OP, 'adjudication-v2-full.json'), out)
   // 사용자 지시(2026-10-05)의 채택 규칙
   const cat = (id) => out.find((r) => r.case_id === id)?.final_category
-  const decide = {
-    R9_section6: cat('R4-H6') === 'GOLD_WRONG' ? 'adopt' : 'candidate',
-    R6: ['RULE_INSUFFICIENT', 'TAXONOMY_OVERLAP'].includes(cat('R4-H1')) ? 'candidate' : ['CASE_CONSTRUCTION', 'GENUINELY_UNRESOLVED'].includes(cat('R4-H1')) ? 're-evaluate(rule 자체 실패 아님 가능)' : 'candidate',
-    R12: ['RULE_INSUFFICIENT', 'TAXONOMY_OVERLAP'].includes(cat('N-13')) ? 'candidate' : cat('N-13') === 'GOLD_WRONG' ? 're-evaluate(기대 오류)' : 'candidate',
+  // 이 adjudication 에 든 사례의 규칙만 적용한다(사례마다 사용자 지시의 채택 규칙)
+  const RULES = {
+    'R4-H6': ['R9_section6', (c) => (c === 'GOLD_WRONG' ? 'adopt' : 'candidate')],
+    'R4-H1': ['R6', (c) => (['CASE_CONSTRUCTION', 'GENUINELY_UNRESOLVED'].includes(c) ? 're-evaluate(rule 자체 실패 아님 가능)' : 'candidate')],
+    'N-13': ['R12', (c) => (c === 'GOLD_WRONG' ? 're-evaluate(기대 오류)' : 'candidate')],
+    'N-04': ['R12', (c) => (c === 'GOLD_WRONG' ? 'adopt(기대 허용 범위가 좁았음 — R12 ② 가 옳게 옮김)' : 'candidate')],
   }
+  const decide = Object.fromEntries(man.cases.filter((id) => RULES[id]).map((id) => [RULES[id][0], RULES[id][1](cat(id))]))
   const outMd = path.resolve(arg('--out') ?? '')
-  if (!/ADJUDICATION_REV4\.md$/.test(outMd) || !inside(realOf(outMd), realOf(DIR)) || isLink(outMd)) { console.error('--out 은 docs/csat-learner/codebook/ADJUDICATION_REV4.md'); process.exit(2) }
+  if (!/ADJUDICATION_REV4[0-9A-Z_]*\.md$/.test(outMd) || !inside(realOf(outMd), realOf(DIR)) || isLink(outMd)) { console.error('--out 은 docs/csat-learner/codebook/ADJUDICATION_REV4*.md'); process.exit(2) }
   const pub = out.map(({ rationale, key_answers, ...r }) => ({ ...r, expected: vk({ outcome: r.expected.outcome, primary_cause: r.expected.primary, candidate_causes: r.expected.candidates ?? [] }) }))
   fs.writeFileSync(outMd.replace(/\.md$/, '.json'), JSON.stringify({ run_id: man.run_id, plan_commit: man.plan_commit, cases: pub, decision: decide }, null, 1) + '\n')
   const esc = (x) => String(x ?? '—').replace(/\|/g, '\\|')
   const L = [`# rev4 재검증 미달 3건 adjudication — ${man.run_id}`, '', '> 2단계(1단계 독립 분류 → 두 분류 공개 후 최종 분류) · Claude · Codex 새 context · 사람 판정 아님 · 원문 · 판정자 서술은 저장소 밖(operator/adjudication-v2-full.json). 원본 기대 판정 · rev4 결과는 고치지 않는다 — 정정은 이 기록으로만.', '',
     '| 사례 | 회차 최종 | 기대 | 독립 Claude / Codex | 최종 Claude / Codex | **최종 분류** | 기대 수정 | 규칙 수정 | 사례 수정 | 권장 기대 Claude / Codex |', '|---|---|---|---|---|---|---|---|---|---|',
     ...pub.map((r) => `| ${r.case_id} | ${esc(r.run_final)} | ${esc(r.expected)} | ${r.independent.claude} / ${r.independent.codex} | ${r.final2.claude} / ${r.final2.codex} | **${r.final_category}** | ${r.expected_fix_needed} | ${r.rule_fix_needed} | ${r.case_fix_needed} | ${esc(r.recommended_gold.claude)} / ${esc(r.recommended_gold.codex)} |`), '',
-    '## 채택 규칙 적용(2026-10-05 사용자 지시)', '', `- §6/R9: R4-H6 이 GOLD_WRONG 합의면 채택 → **${decide.R9_section6}**`, `- R6: R4-H1 이 RULE_INSUFFICIENT · TAXONOMY_OVERLAP 이면 candidate, CASE_CONSTRUCTION · GENUINELY_UNRESOLVED 면 재평가 → **${decide.R6}**`, `- R12: N-13 이 RULE_INSUFFICIENT · TAXONOMY_OVERLAP 이면 candidate → **${decide.R12}**`, '']
+    '## 채택 규칙 적용(2026-10-05 사용자 지시)', '', ...man.cases.filter((id) => RULES[id]).map((id) => `- ${RULES[id][0]}: ${id} 최종 분류 ${cat(id)} → **${decide[RULES[id][0]]}**`), '']
   fs.writeFileSync(outMd, L.join('\n'))
   console.log('v2 보고:', JSON.stringify(decide), out.map((r) => `${r.case_id}=${r.final_category}`).join(' '))
 }
