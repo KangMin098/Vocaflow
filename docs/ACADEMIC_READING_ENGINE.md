@@ -1,5 +1,7 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+F02 학생 pilot의 책임자 결정 기록은 [봉인 검토표](./reports/academic-reading-f02-lead-seal-sheet-20261005.md)를 사용한다. 현재 미봉인이며 모집·학생 평가·gold·DB seed는 시작하지 않았다.
+
 F02 교육적 calibration 사전등록 검토본(2026-10-05): 수정 후 고정 본문에 맞춘 중1·고1 각 12문항과 채점 기준을 분리하고 `passage_hash`·`item_set_hash`·`scoring_key_hash`·`pilot_protocol_hash` 후보 manifest를 만들었다. 이해도는 `TARGET_FIT` hard gate, 읽기시간·어휘/구문/추론 등은 supporting/diagnostic으로 사전 분류했다. 고1 학생의 두 arm에서 추론·문장 부담 증가와 양쪽 이해도 유지가 함께 필요하며, 사전 노출·중복 버전·짧은 읽기·장시간 이탈과 결측 처리를 제안했다. 이 manifest는 **미봉인**이고 사람 문항 검토·pass band 승인·학생 자료는 아직 없다. [책임자 검토본](./reports/academic-reading-f02-preregistration-20261005.md)을 참조한다. F06/F14/F18, gold, DB seed는 보류한다.
 
 2026-10-05 실제 콘텐츠 smoke: FYM F02 원문을 현재 DB에서 다시 읽어 중1·고1 각색 두 편의 source/target/draft 결속과 Claude Code·Codex 독립 검수를 실행했다. 완성된 분석·문항 계획까지 검수한 결과, 의미 보존은 양쪽이 유지했지만 Claude Code는 문항 근거·분석 결함으로 `reject`, Codex는 난도 근거 부족으로 `insufficient_evidence`를 기록했다. 실제 importer 예행은 두 편 모두 적재 0건으로 차단했다. 원문·target·각색 변경, 검수 후 절단, 권리 철회는 실제 F02 본문을 쓴 격리 gate 시뮬레이션에서 각각 거절됐다. 실제 문항 생성·DB seed·gold 승격은 수행하지 않았다. [입력·판정·실패 주입 결과](./reports/academic-reading-smoke-20261005.md).

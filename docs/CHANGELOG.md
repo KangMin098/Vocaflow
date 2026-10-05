@@ -13,6 +13,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(textbook): F02 학생 pilot의 현재 해시와 모집 전 책임자 결정·중지 조건을 봉인 검토표로 연결했다. 실제 승인·학생 관측·gold·DB seed는 없다.
+
 - docs(conventions): 임시 표지 기반 patch의 줄바꿈 정규화·표지 부재 hard fail과 파괴적 CLI의 명시적 verb 요구를 운영 규칙으로 기록했다. 로컬 scratchpad 수정은 저장소 tracked code 변경으로 계산하지 않는다.
 
 - fix(wordvault): 「학습 자산」에서 연 챕터 학습 모달이 「총 0개 단어」로 열리던 결함 — 행의 wordCount(내가 담은 수)를 모달(세트 전체 수 · 학습 계획 계산)에 넘기고 있었다. `hub-query` 가 `shared_word_sets.word_count` 를 `totalWords` 로 함께 싣고 `lib/wordvault/preview-set.ts` 가 모달 형태로 옮긴다. 단위 회귀 + e2e 06 단언 추가. 행의 「N개」 표시는 그대로.
