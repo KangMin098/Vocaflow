@@ -11,6 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(design): bespoke 11 재판정 — `/scriptquiz`(기능형 · `PageIntro compact`) · `/wordvault`(모듈 막대 아래 `PageIntro`, PC 에서 막대 제목은 이름표) 공용화, 특수 6(게임 스킨 2 · 진단 입구 · 편집 작업면 · 셸 안 학습 카드 2) · 보류 3(렌더에 매개변수/세션 결과 필요). 허브 글 카드 대비 회귀(4.3) 수정. 모바일 불변 · 라우트 변경 없음.
 - feat(design): bespoke 머리 이행 1차 — `/practice`(기능형 재분류 · `PageIntro compact`) · `/practice/dcp` · `/sitemap` 을 PC 에서 공용 `PageIntro` 로(모바일 기존 머리 유지, dcp 중복 배너 PC 숨김). 셸 `SectionSubNav` 를 `<main>` 밖으로(본문 링크 계약 회귀 수정 · 26-practice-chooser ③). e2e 26 ④ 복귀 링크를 본문 안 보이는 링크로 한정. bespoke 14→11.
 - feat(design): 학습자 화면 유형 정본 `lib/design/screen-types.ts` — 73 라우트를 발견형·기능형·세션·특수·별칭으로 고정하고 회귀 가드(분류 누락 · 머리 불일치 · 계층 혼용 · 세션↔전체화면)를 추가(보조 내비 세션 판정에 연결). 자체 머리 14개를 다음 정리 대상으로 명시. 화면 변경 없음.
 
