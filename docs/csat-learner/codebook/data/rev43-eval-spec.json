@@ -1,0 +1,13 @@
+{
+ "_note": "rev4.3 R6 마지막 targeted 재검증 채택 기준(사전 등록 — REV43_VALIDATION_PLAN.md). rev4-eval 이 이 파일을 그대로 기계 판정한다.",
+ "label": "rev4.3",
+ "changes": {
+  "R6": {
+   "holdout": ["R43-HA", "R43-HB", "R43-HC", "R43-HD"],
+   "regression_match": ["C4-11", "R42-H1", "R42-H2", "R42-H3", "R42-H4", "R42-H5", "R42-H6", "R42-H7", "H-13", "H-05", "C4-07", "R4-H2"],
+   "regression_converge": ["C2-02", "R4-H1"]
+  }
+ },
+ "regression_defined": ["R42-H1", "R42-H2", "R42-H3", "R42-H4", "R42-H5", "R42-H6", "R42-H7", "H-13", "H-05", "C4-07", "R4-H2"],
+ "baseline": { "match": 11, "of": 11, "label": "rev4.2 회차(holdout 7/7 · 기대 일치 regression 4/4)" }
+}

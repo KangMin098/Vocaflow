@@ -17,6 +17,8 @@ test('코드북 판본마다 규칙 집합이 본문 표와 같다', () => {
   assert.deepEqual(rulesFromCodebook(read('CODEBOOK.md')), range(11)) // rev3
   assert.deepEqual(rulesFromCodebook(read('CODEBOOK.rev4.md')), range(12))
   assert.deepEqual(rulesFromCodebook(read('CODEBOOK.rev4.1.md')), range(12))
+  assert.deepEqual(rulesFromCodebook(read('CODEBOOK.rev4.2.md')), range(12))
+  assert.deepEqual(rulesFromCodebook(read('CODEBOOK.rev4.3.md')), range(12))
 })
 
 test('현재 최대 규칙은 허용하고, 없는 규칙 · 흐름 단계는 거부한다', () => {
