@@ -10,19 +10,18 @@ const freeze = read('f02-calibration-freeze.json')
 const items = read('f02-items.proposed.json')
 const key = read('f02-scoring-key.proposed.json')
 const protocol = read('f02-student-pilot.proposed.json')
-const packetBytes = readFileSync(new URL('../../../.agent-logs/academic-reading-f02-r2/F02-review-packet.json', base))
-const packet = JSON.parse(packetBytes)
-if (sha256(packetBytes) !== freeze.packet_sha256 || packet.source_id !== freeze.source_id || packet.source_revision !== freeze.source_revision || packet.source_hash !== freeze.source_hash) throw Error('F02 source or review packet freeze mismatch')
+const passages = read('f02-passages.freeze.json')
+if (passages.pair_id !== freeze.pair_id || passages.source_id !== freeze.source_id || passages.source_revision !== freeze.source_revision || passages.source_hash !== freeze.source_hash) throw Error('F02 tracked passage source freeze mismatch')
 const instruments = {}
 
 for (const grade of ['middle_1', 'high_1']) {
-  const adaptation = packet.adaptations.find(a => a.target.age_band === grade)
+  const passage = passages.passages[grade]
   const variant = freeze.variants.find(v => v.grade === grade)
-  if (!adaptation || !variant || sha256(adaptation.text) !== variant.passage_sha256) throw Error(`F02 ${grade} passage freeze mismatch`)
+  if (!passage || !variant || sha256(passage) !== variant.passage_sha256) throw Error(`F02 ${grade} passage freeze mismatch`)
   const questions = items[grade], answers = key[grade]
   if (questions.length !== 12 || answers.length !== 12 || new Set(questions.map(i => i.id)).size !== 12 || canonical(questions.map(i => i.id).sort()) !== canonical(answers.map(i => i.id).sort())) throw Error(`F02 ${grade} item/key mismatch`)
   for (const axis of ['comprehension', 'lexical', 'syntax', 'reasoning']) if (questions.filter(i => i.axis === axis).length !== 3) throw Error(`F02 ${grade} ${axis} needs three items`)
-  for (const item of questions) if (!item.source_quote || !adaptation.text.includes(item.source_quote)) throw Error(`F02 ${item.id} quote absent from frozen passage`)
+  for (const item of questions) if (!item.source_quote || !passage.includes(item.source_quote)) throw Error(`F02 ${item.id} quote absent from frozen passage`)
   for (const answer of answers) if (['full', 'partial', 'zero'].some(field => typeof answer[field] !== 'string' || !answer[field].trim())) throw Error(`F02 ${answer.id} scoring rubric incomplete`)
   instruments[grade] = questions.map(item => {
     const answer = answers.find(a => a.id === item.id)

@@ -23,13 +23,13 @@ function reseal(bundle) {
   }
 }
 function v2Fixture(study) {
-  const packet = JSON.parse(readFileSync('.agent-logs/academic-reading-f02-r2/F02-review-packet.json'))
+  const packet = JSON.parse(readFileSync('scripts/textbook/frym-validation/f02-passages.freeze.json'))
   const experts = ['expert-one', 'expert-two', 'expert-third'].map(id => ({ id, kind: 'human_domain_expert', independent_of_author: true, credential_verified_by: 'lead-synthetic', qualification_evidence: 'Synthetic expert qualification for testing only.', screened_at: '2026-10-31T00:00:00Z', screened_by: 'lead-synthetic', prior_exposure: [], blind_eligible: true, screening_evidence: 'Synthetic blind screening for testing only.' }))
   const records = ['middle_1', 'high_1'].map(grade => {
-    const variant = freeze.variants.find(v => v.grade === grade), passage = packet.adaptations.find(a => a.target.age_band === grade).text
-    const quote = passage.slice(0, 30), originalQuote = packet.source_text.slice(0, 30), arm = grade === 'middle_1' ? 'middle_target' : 'high_target'
+    const variant = freeze.variants.find(v => v.grade === grade), passage = packet.passages[grade]
+    const quote = passage.slice(0, 30), originalQuote = packet.source_excerpt.slice(0, 30), arm = grade === 'middle_1' ? 'middle_target' : 'high_target'
     const instrument = ['comprehension', 'lexical', 'syntax', 'reasoning'].flatMap(axis => [1, 2, 3].map(n => ({ id: `${grade}-${axis}-${n}`, axis, prompt: 'Explain the stated relationship in this passage.', source_quote: quote, scoring_rubric: 'Preserve the relationship and stated limits.' })))
-    const record = { id: `F02-${grade}`, pair_id: 'F02', blind_item_id: `B-${grade}`, source_id: freeze.source_id, source_hash: freeze.source_hash, source_revision: freeze.source_revision, research_hash: 'a'.repeat(64), target_key: variant.target_key, grade, passage_hash: researchBodyHash(passage), link_confidence: 'high', provenance_verified: true, research_doi: '10.3389/frym.2021.548120', research_contexts: [packet.source_text], adapted_passage: passage, topic: 'synthetic-senses', source_family: 'synthetic-frym', expert_assignment: { initial_expert_ids: ['expert-one', 'expert-two'], adjudicator_id: 'expert-third' }, adjudication: null, instrument, expert_reviews: [], student_sessions: [] }
+    const record = { id: `F02-${grade}`, pair_id: 'F02', blind_item_id: `B-${grade}`, source_id: freeze.source_id, source_hash: freeze.source_hash, source_revision: freeze.source_revision, research_hash: 'a'.repeat(64), target_key: variant.target_key, grade, passage_hash: researchBodyHash(passage), link_confidence: 'high', provenance_verified: true, research_doi: '10.3389/frym.2021.548120', research_contexts: [packet.source_excerpt], adapted_passage: passage, topic: 'synthetic-senses', source_family: 'synthetic-frym', expert_assignment: { initial_expert_ids: ['expert-one', 'expert-two'], adjudicator_id: 'expert-third' }, adjudication: null, instrument, expert_reviews: [], student_sessions: [] }
     record.expert_reviews = ['expert-one', 'expert-two'].map(expert_id => ({ expert_id, blind_item_id: record.blind_item_id, passage_hash: record.passage_hash, packet_hash: 'a'.repeat(64), rated_at: '2026-11-01T00:00:10Z', ratings: Object.fromEntries(SEMANTIC_CRITERIA.map(k => [k, { score: 4, critical: false, passage_quote: quote, research_quote: originalQuote, reason: 'Synthetic faithful evidence comparison for testing.' }])), distortions: [], reason: 'Synthetic independent passing review for testing.' }))
     record.student_sessions = study.sessions.filter(s => s.arm === arm).map(s => ({ student_id: s.student_id, grade, packet_hash: 'a'.repeat(64), grade_verified_by: 'lead-synthetic', reading_started_at: s.reading_started_at, reading_finished_at: s.reading_finished_at, unknown_word_count: 0, lexical_burden: s.lexical_burden, sentence_burden: s.sentence_burden, reasoning_burden: s.reasoning_burden, perceived_difficulty: s.perceived_difficulty, answers: instrument.map(i => ({ item_id: i.id, response: 'Synthetic correct answer.', score: 1, scorer_id: 'expert-one' })) }))
     return record
@@ -173,7 +173,9 @@ test('the real CLI requires original research evidence before any decision', asy
     const studyPath = join(dir, 'study.json'), v2Path = join(dir, 'v2.json')
     writeFileSync(studyPath, JSON.stringify(study)); writeFileSync(v2Path, JSON.stringify(bundle))
     process.argv = [previousArgs[0], resolve('scripts/textbook/frym-validation/f02-pilot-evaluate.mjs'), studyPath, v2Path, join(dir, 'missing-precision-review.json'), dir]
-    await assert.rejects(import('./f02-pilot-evaluate.mjs?synthetic-cli-check'), /ENOENT/)
+    const cliUrl = new URL('./f02-pilot-evaluate.mjs', import.meta.url)
+    cliUrl.searchParams.set('synthetic-cli-check', '1')
+    await assert.rejects(import(cliUrl.href), /ENOENT/)
   } finally {
     process.argv = previousArgs
     if (resolve(dir).startsWith(resolve(tmpdir()))) rmSync(dir, { recursive: true, force: true })

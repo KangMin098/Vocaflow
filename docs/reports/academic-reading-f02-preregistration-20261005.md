@@ -6,7 +6,7 @@
 
 [`f02-preregistration.proposed.json`](../../scripts/textbook/frym-validation/f02-preregistration.proposed.json)은 현재 중1·고1 본문의 `passage_hash` 각각과 전체 `item_set_hash`, `scoring_key_hash`, `pilot_protocol_hash`를 따로 기록한다. [`f02-items.proposed.json`](../../scripts/textbook/frym-validation/f02-items.proposed.json)은 학생에게 제시할 12문항/버전(이해·어휘·구문·추론 각 3문항)의 질문과 정확한 본문 근거를 담는다. [`f02-scoring-key.proposed.json`](../../scripts/textbook/frym-validation/f02-scoring-key.proposed.json)은 학생 패킷과 분리된 1/0.5/0점 판정안이다. 기존 revision 3은 수정 **전** F02 본문이므로 사용하지 않는다. 두 파일의 결합으로 생성한 v2 형식의 중1·고1 instrument도 별도 SHA-256으로 묶는다.
 
-`node scripts/textbook/frym-validation/f02-preregistration.mjs --check`는 로컬 원본 F02 본문과 freeze 해시, 문항 인용, 각 축의 문항 수, 문항·채점 ID, 네 해시 및 생성 instrument를 대조한다. 문항이나 채점 기준을 수정하면 본문 해시는 유지되고 해당 해시와 등록 manifest만 새로 만들어야 한다. 이 검사 통과는 **사람 문항 검토가 끝났다는 뜻이 아니다.** 사람이 문항의 명료성·정답 타당성·두 버전의 공통 구성개념·힌트/순서효과를 검토한 뒤, 실제 등록 시각과 근거를 새 봉인 기록에 남겨야 한다.
+`node scripts/textbook/frym-validation/f02-preregistration.mjs --check`는 추적되는 [`f02-passages.freeze.json`](../../scripts/textbook/frym-validation/f02-passages.freeze.json)의 두 각색 본문과 기존 freeze 해시, 문항 인용, 각 축의 문항 수, 문항·채점 ID, 네 해시 및 생성 instrument를 대조한다. 문항이나 채점 기준을 수정하면 본문 해시는 유지되고 해당 해시와 등록 manifest만 새로 만들어야 한다. 이 검사 통과는 **사람 문항 검토가 끝났다는 뜻이 아니다.** 사람이 문항의 명료성·정답 타당성·두 버전의 공통 구성개념·힌트/순서효과를 검토한 뒤, 실제 등록 시각과 근거를 새 봉인 기록에 남겨야 한다.
 
 ## 사전 판정 규칙
 
