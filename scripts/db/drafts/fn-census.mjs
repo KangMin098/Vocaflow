@@ -18,6 +18,7 @@ const { rows } = await c.query(`
   (p.proacl is null or exists(select 1 from aclexplode(p.proacl) x where x.grantee=0)) via_public,
   exists(select 1 from aclexplode(p.proacl) x where x.grantee='anon'::regrole) anon_direct,
   exists(select 1 from aclexplode(p.proacl) x where x.grantee='authenticated'::regrole) au_direct,
+  exists(select 1 from aclexplode(p.proacl) x where x.grantee='service_role'::regrole) sr_direct,
   p.prosrc ~* '\\m(insert|update|delete|truncate|merge)\\M' writes,
   p.prosrc ~* '(is_admin|admin_users|is_admin_or_curator|video_is_admin)' admin_check,
   p.prosrc ~* '(auth\\.uid\\(\\)|auth\\.role\\(\\)|auth\\.jwt\\(\\))' uid_check
@@ -75,7 +76,7 @@ const out = rows.filter(r => r.anon || r.au).map(r => {
   const unexpectedAnon = r.anon && cls !== 'intended_public' && cls !== 'trigger_only'
   const unexpectedAu = r.au && (cls === 'service_only')
   return { name: r.n, args: r.a, oid: r.oid, owner: r.owner, secdef: r.sd, writes: r.writes, admin_check: r.admin_check, uid_check: r.uid_check,
-    anon: r.anon, authenticated: r.au, service_role: r.svc, via_public: r.via_public, anon_direct: r.anon_direct, au_direct: r.au_direct,
+    anon: r.anon, authenticated: r.au, service_role: r.svc, via_public: r.via_public, anon_direct: r.anon_direct, au_direct: r.au_direct, sr_direct: r.sr_direct, acl: r.acl,
     cls, unexpected_anon: unexpectedAnon, unexpected_authenticated: unexpectedAu, in_0920_baseline: baseNames.has(r.n),
     cron: cronNames.has(r.n), callers: kinds, caller_files: cs.map(x => `${x.kind}:${x.rel}`).slice(0, 6) }
 })

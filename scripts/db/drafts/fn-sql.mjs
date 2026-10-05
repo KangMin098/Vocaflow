@@ -24,16 +24,26 @@ alter default privileges in schema public revoke execute on functions from authe
 commit;
 `
 fs.writeFileSync(SQL, s)
-// 롤백: 지금 proacl 을 그대로 되살린다
-let r = `-- 위 초안의 정확 복원 — 적용 전 proacl(2026-10-05 실측)로 되돌린다.\nbegin;\nalter default privileges in schema public grant execute on functions to authenticated;\n`
+// 롤백: 정방향이 더한 GRANT 까지 지우고 측정 시점 proacl 의 직접 GRANT 만 되살린다(정확 복원).
+// 기본 ACL: 측정 시점 pg_default_acl(postgres, public, 'f') = {postgres=X, authenticated=X, service_role=X} — 정방향은 authenticated 하나만 뺐다.
+let r = `-- 위 초안의 정확 복원 — 적용 전 proacl(2026-10-05 실측)로 되돌린다. 함수마다 네 역할을 모두 회수한 뒤 원래 직접 GRANT 만 다시 준다.
+begin;
+alter default privileges in schema public grant execute on functions to authenticated;
+`
 for (const f of [...A, ...B]) {
+  r += `-- 원래 acl: ${f.acl}
+revoke execute on function ${sig(f)} from public, anon, authenticated, service_role;
+`
   const g = []
   if (f.via_public) g.push('public')
   if (f.anon_direct) g.push('anon')
   if (f.au_direct) g.push('authenticated')
-  if (g.length) r += `grant execute on function ${sig(f)} to ${g.join(', ')};\n`
+  if (f.sr_direct) g.push('service_role')
+  if (g.length) r += `grant execute on function ${sig(f)} to ${g.join(', ')};
+`
 }
-r += 'commit;\n'
+r += `commit;
+`
 fs.writeFileSync(RB, r)
 // manifest 초안
 const man = { note: '함수 EXECUTE 허용 목록 — 여기 없는 public 함수는 실패(기본 거부). review 항목은 사람이 확정한 뒤 class 를 고친다.', generated: '2026-10-05',
