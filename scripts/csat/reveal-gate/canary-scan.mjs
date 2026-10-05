@@ -86,11 +86,13 @@ function argFor(name, type, ctx) {
 try {
   if ((await db.query(`select 1 from supabase_migrations.schema_migrations where version = '20261005170000'`)).rowCount === 0) throw new Error('Reveal Gate ① 가 적용되지 않았다 — 적용 뒤 실행')
   // ── 준비: TEST 유형 · 시험 · 문항 · 정답표 · 분석(3인 pass 검수 뒤 발행) · 뼈대 · 유형 보고 ──
-  await db.query(`insert into public.csat_types (id, name, section) values ($1, 'TEST canary 유형', '독해') on conflict do nothing`, [TYPE])
+  // 존재 확인을 먼저 — 있으면 지우지 않고 멈춘다. 소유는 각 insert 가 성공한 뒤에만 기록(실패 시 남의 것을 정리하지 않게)
   if ((await db.query(`select 1 from public.csat_exams where id = $1`, [EXAM])).rowCount) throw new Error(`${EXAM} 가 이미 있다 — 이전 검사 정리가 안 됐다(지우지 않고 멈춘다)`)
   if ((await db.query(`select 1 from public.csat_types where id = $1`, [TYPE])).rowCount) throw new Error(`${TYPE} 가 이미 있다 — 지우지 않고 멈춘다`)
-  owned.exam = true; owned.type = true
+  await db.query(`insert into public.csat_types (id, name, section) values ($1, 'TEST canary 유형', '독해')`, [TYPE])
+  owned.type = true
   await db.query(`insert into public.csat_exams (id, label, kind, year, month, exam_year, has_answer_key, organizer, grade) values ($1, 'TEST canary(Reveal Gate)', 'mock', 2099, 1, 2098, true, 'kice', 3)`, [EXAM])
+  owned.exam = true
   for (const n of NOS) {
     const id = `${EXAM}#${n}`
     await db.query(`insert into public.csat_items (id, exam_id, no, section, stem, passage, choices, answer, type_id, body_ok) values ($1, $2, $3, '독해', 'TEST stem', 'TEST passage one. TEST passage two.', $4, $5, $6, true)`,
