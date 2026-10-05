@@ -13,6 +13,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): F02 합성 교실 28패킷에 Claude Haiku 응답·Codex 독립 채점을 실행하고 해시 결속된 원자료와 실행기를 보존했다. 평균 합성 점수 91.37%와 고1판−중1판 +1.79%p로 능력/난도 분리가 확인되지 않아 `TARGET_FIT`·`LEVEL_SEPARATION`·Gold-S·DB seed는 보류한다.
+
 - feat(textbook): F02 합성 교실 smoke v1을 별도 경로로 추가했다. 고정 본문·문항·채점·프로필 해시 기반 blind 패킷 28개와 독립 모델/채점 provenance 검사·문항 기술 통계를 제공한다. 외부 benchmark 전에는 IRT·학년 판정·Gold-S·DB seed를 차단한다.
 
 - docs(textbook): F02 학생 pilot의 현재 해시와 모집 전 책임자 결정·중지 조건을 봉인 검토표로 연결했다. 실제 승인·학생 관측·gold·DB seed는 없다.

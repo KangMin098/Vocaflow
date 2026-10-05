@@ -1,0 +1,3166 @@
+[
+  {
+    "packet_id": "1a47a5ce68730012aa789766292b2e4490b2406cb33a9bcd2a90f86e6fce63a5",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "b47e57d52c2d8d17f03178aefefbd5f0d26f7f23a68af7898b627a3c945bb4b9",
+    "scorer_prompt_sha256": "9c4205d2e865f1d54c4b8a33211c026d36eed6150a75a9a77b78f8cba3ad2dd2",
+    "respondent_raw_sha256": "fb0fcf38ccb61d97c8bdfce49f3b9e97769db94f2d5c7a7ec19331276b1f9ea5",
+    "scorer_raw_sha256": "489facce29b712a8200d4a23f0317c8bd65f531490adf7a4cb44ee5844ac6ca3",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "Eyes help you find the packet. Touch helps you feel if you are holding it firmly."
+      },
+      {
+        "id": "M-C2",
+        "answer": "Touch gives information about your body and its position."
+      },
+      {
+        "id": "M-C3",
+        "answer": "Because each sense does different things. One sense is not always the most important. Saying one is always most important hides what each sense does."
+      },
+      {
+        "id": "M-L1",
+        "answer": "Firmly means to hold something with a strong grip or to hold it tight."
+      },
+      {
+        "id": "M-L2",
+        "answer": "Position means where your body is or where your body parts are."
+      },
+      {
+        "id": "M-L3",
+        "answer": "Matter means 'are important.'"
+      },
+      {
+        "id": "M-S1",
+        "answer": "It refers to the packet of sweets."
+      },
+      {
+        "id": "M-S2",
+        "answer": "It means touch helps you even when you do not notice it is helping you."
+      },
+      {
+        "id": "M-S3",
+        "answer": "The passage suggests asking 'what information you need for a particular action.'"
+      },
+      {
+        "id": "M-R1",
+        "answer": "In both examples, vision helps you find things and touch tells you about your body. They do different jobs."
+      },
+      {
+        "id": "M-R2",
+        "answer": "No, we cannot say that. The passage says both senses give different information and both are useful. When you hold the packet, you need touch also, not just vision."
+      },
+      {
+        "id": "M-R3",
+        "answer": "We should look at what information you need for that action. Different actions need different senses."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 0.5
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "2cf31651e43239fbb6362b590821f84c593affb017ac36dd2b248b32346b15be",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "f26092978674c579b1d4742293823f3de83382ec298cb4899daafc3ff5260130",
+    "scorer_prompt_sha256": "e723b198dc4612184b6cb782391062ee08fbb457748f8ee1c41c22a31163e5fe",
+    "respondent_raw_sha256": "525e0b41e96f419f780614be9c08fa9229e0aeca001520b3be6e1cf7f8994d1a",
+    "scorer_raw_sha256": "b0a99cf9e6e666cf8af283f4a77e9c9a1fb2f226f33ae0cd69c5c0c2524cb525",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(vision)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "팔과 다리가 어디에 있는지 느낄 수 없었기 때문에"
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각은 서로 다른 역할을 한다. 시각은 우리가 길을 찾도록 돕고, 촉각은 우리 몸의 느낌을 돕는다. 둘 다 중요하지만 이유가 다르다."
+      },
+      {
+        "id": "H-L1",
+        "answer": "어떤 감각을 잃는 것이 가장 두렵냐는 질문"
+      },
+      {
+        "id": "H-L2",
+        "answer": "손가락으로 봉지를 강하게/견고하게 잡는 것"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 응답과 촉각 상실 사례"
+      },
+      {
+        "id": "H-S1",
+        "answer": "이유를 설명한다. 움직이기 어려운 이유가 신체 위치를 느낄 수 없었기 때문"
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각이 시각보다 더 중요하다는 결론을 막는다. 시각도 중요하다는 것을 보여준다."
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각. 대비: 시각은 길을 찾도록 돕는 반면, 촉각은 우리 몸을 느끼도록 돕는다."
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 잃기를 두려워하는 감각을 보여준다. 촉각 상실 사례는 촉각이 얼마나 필요한지를 보여준다. 어느 하나만으로는 결정할 수 없다. 왜냐하면 한 가지는 두려움을 보여주고 다른 하나는 신체적 필요를 보여주기 때문이다."
+      },
+      {
+        "id": "H-R2",
+        "answer": "온라인 응답 제시 → 시각이 가장 중요한지 질문 → 시각과 촉각의 다른 역할 설명 → 예시 제시 → 촉각 상실 사례 제시 → 두 감각이 다른 이유로 모두 중요하다는 결론"
+      },
+      {
+        "id": "H-R3",
+        "answer": "본문은 한 가지 사례만으로 감각의 중요성을 정할 수 없다는 것을 문제 삼는다. 촉각 상실 사례는 촉각의 필요성을 보여주지만, 시각도 중요하다. 어느 하나만 봐서는 올바른 판단을 할 수 없다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 0.5
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 1
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 0.5
+      },
+      {
+        "id": "H-R2",
+        "score": 0.5
+      },
+      {
+        "id": "H-R3",
+        "score": 0.5
+      }
+    ]
+  },
+  {
+    "packet_id": "b60bc6f2295cf66eab3c1786045a1c8890cc5648b6f963da6942111c7df98208",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "c147ddb099f28b3cd10d3fefbe36be6d4ab3fc19fa35993c9ebe14bec8ab6dd8",
+    "scorer_prompt_sha256": "7896d6bedb808c5301c40682958edf0b5995cf87e1fa89c83913b11f4d3c7855",
+    "respondent_raw_sha256": "597b9897cdbaae111ae21e6f654abf8ffa25fd4e114e2a74126bca5345c58486",
+    "scorer_raw_sha256": "07045ce5d99b41c2afa5d353df470dd6e5b0289acc2acded4118ff4b242bba5f",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "시각(눈)은 과자 봉지를 선반에서 찾는 데 도움을 주고, 촉각(손)은 단단히 잡았는지 확인하는 데 도움을 줍니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸과 그것의 위치에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 서로 다른 역할을 하기 때문입니다. 한 감각이 언제나 가장 중요하다고 말하면 이 차이를 무시하게 됩니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "Firmly는 과자 봉지를 힘 있게 또는 단단히 잡는 것을 뜻합니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "Position은 우리 몸이 어디에 있는지 또는 어떤 자세인지를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "Matter는 여러 감각이 중요하다 또는 필요하다는 뜻으로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "It은 과자 봉지를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "촉각이 우리가 생각하지 않거나 인식하지 않을 때에도 도움이 된다는 뜻입니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "어떤 감각이 이겨야 하는지 묻는 대신, 특정한 행동을 하기 위해 어떤 정보가 필요한지를 묻는 것입니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "촉각은 우리 몸에 관한 정보를 주고, 시각은 주변 세상에 관한 정보를 주는 다른 역할을 합니다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니요. 과자 봉지를 찾는 데 시각이 도움이 되지만, 그것을 단단히 잡는 데는 촉각이 필요합니다. 같은 행동에서 두 감각 모두 유용하고 다른 정보를 주므로, 한 감각이 언제나 가장 중요하다고 말할 수 없습니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 특정한 행동을 하기 위해 어떤 정보가 필요한지를 살펴봐야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 1
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "f97cc53fabccc7ce39d6397d2f941faf8e6c3ad1e9692f4a94d9ce3ef1bda216",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "e14ae4910d29d6838cd8b9496af86d6b4f8e6e2e102d41d2d83693a62a7f8024",
+    "scorer_prompt_sha256": "2a71f90af3a1e4ca560ce81118e2b88d0627ea437afee855cef0949b3d3272ab",
+    "respondent_raw_sha256": "171b5ae027c95da013eee4a20508a49fae9a62dd696c16ec629f43ac133cf030",
+    "scorer_raw_sha256": "0554696c11d9788774a628c38cff69cbbb4e7fbeb027f4863d3ce26d3d674b49",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(vision)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "팔과 다리가 어디에 있는지 느낄 수 없었기 때문입니다"
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각 둘 다 중요하지만, 이유가 다르다는 결론입니다"
+      },
+      {
+        "id": "H-L1",
+        "answer": "사람들이 잃는 것을 가장 두려워하는 감각이 무엇인지를 묻는 표현입니다"
+      },
+      {
+        "id": "H-L2",
+        "answer": "손가락이 봉지를 세게/꼭 잡는다는 뜻입니다"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 질문의 답변과 촉각을 잃은 사람의 이야기 두 사례를 가리킵니다"
+      },
+      {
+        "id": "H-S1",
+        "answer": "앞의 어려움(움직이기 어려웠다)의 이유를 설명하는 관계입니다"
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각만 중요한 것이 아니라 시각도 중요하다는 것을 보여주어 앞 질문을 제한합니다"
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각을 가리키며, 시각은 길을 찾는 것을 돕고 촉각은 우리 몸을 느끼는 것을 돕는다는 대비를 이룹니다"
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 감각을 보여주고, 촉각 상실 사례는 촉각이 얼마나 필요한지 보여줍니다. 두 감각이 다른 역할을 하기 때문에 어느 하나만으로 가장 중요한 감각을 정할 수 없습니다"
+      },
+      {
+        "id": "H-R2",
+        "answer": "사람들이 두려워하는 감각(시각)에서 시작해서, 각 감각이 하는 역할을 설명하고, 촉각을 잃은 사람의 이야기를 주고, 둘 다 다른 이유로 중요하다는 결론으로 전개합니다"
+      },
+      {
+        "id": "H-R3",
+        "answer": "한 가지 사례만 가지고는 한 감각이 다른 감각보다 더 중요하다고 말할 수 없다는 점을 문제 삼습니다. 두 감각 모두 다른 역할을 하고 둘 다 중요하기 때문입니다"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 0.5
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 0.5
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 0.5
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "562ecd8017142ca5b6c95668b11012a6ac0f9f90b3f2dd8ad777ba6975580cb8",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "7abd309664f3acf95b4c6b5f7b78a489fa90e8ade8cb6a7f161da883eb471ed4",
+    "scorer_prompt_sha256": "fac3a80b4737e75ca3e3f00953a7bdc9fe11de9bf9f5108485297527c81201b7",
+    "respondent_raw_sha256": "778aa73cdccb9f3c9af7a30f1db278902b467bfb2952af98a23ed7b146971dc7",
+    "scorer_raw_sha256": "afb76d84e82cf4258571e2959f91b22074b8ea0b2cd214bf44bf578e5c8ba525",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "과자 봉지를 선반에서 찾을 때는 시각(눈)이 도움이 되고, 단단히 잡았는지 확인할 때는 촉각(손)이 도움이 됩니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸과 그 위치에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 다른 역할을 하기 때문입니다. 한 감각을 가장 중요하다고 하면 그 차이를 무시하게 됩니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "Firmly는 과자 봉지를 단단하게 꽉 잡는다는 뜻입니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "Position은 우리 몸의 위치나 자세를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "Matter는 여러 감각이 중요하다는 뜻으로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "It은 과자 봉지를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "의식하지 못할 때에도 촉각이 도움이 된다는 뜻으로 한정합니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "어떤 특정한 행동을 위해 어떤 정보가 필요한가를 묻는 것입니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "시각은 외부 세상에 관한 정보(과자 봉지 위치, 갈 길)를 주고, 촉각은 우리 몸에 관한 정보(봉지를 잡은 것, 발의 위치)를 줍니다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아닙니다. 과자 봉지를 찾는 데는 시각이 필요하지만, 단단히 잡는 데는 촉각이 필요합니다. 같은 활동에서 두 감각이 다른 정보를 주므로 한 감각만 가장 중요하다고 말할 수 없습니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동에서 필요한 정보가 무엇인지를 먼저 살펴봐야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 1
+      },
+      {
+        "id": "M-R2",
+        "score": 1
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "9bfbed84f3a391203a74a3ff0b71b3dfaad37108a1b90bfa054b8b104f96c273",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "9a09fed447875c4d814888fddde07a628649521287ca5d936d33caaa386a64c8",
+    "scorer_prompt_sha256": "bd348c5b7f50184bf11eb1e2c4423150013d4829b6fc47010b6f63cf1c9c93f4",
+    "respondent_raw_sha256": "549b8be11561cb7c83c20ed5c0d8add8465f5ca8f7adb9b0fee75dd5b2efd90c",
+    "scorer_raw_sha256": "3cf9d2bf2eb73e7dccef1533d96631fe332e06e6d7c26cb3583079636044fb36",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각 (vision)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "그의 팔과 다리가 어디에 있는지 느낄 수 없었기 때문"
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각은 다른 일을 하고, 둘 다 중요하지만 다른 이유로 중요하다는 것. 하나의 승자를 선택하면 그 차이를 가리게 된다."
+      },
+      {
+        "id": "H-L1",
+        "answer": "사람들이 가장 잃기 두려워하는 감각이 무엇인지를 묻는 표현"
+      },
+      {
+        "id": "H-L2",
+        "answer": "강하게, 단단하게 잡는다는 뜻"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 응답과 촉각 상실 사례"
+      },
+      {
+        "id": "H-S1",
+        "answer": "움직이기 어려움의 원인(이유)을 보여주는 관계"
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각이 중요하더라도 시각도 중요하므로, 촉각이 시각보다 더 중요하다는 결론을 제한한다"
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각. 시각이 길을 찾는 것을 돕는 반면, 촉각은 우리 몸이 세계를 만나는 방식을 느끼게 해준다는 대비"
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 것을 보여주고, 촉각 사례는 우리가 필요로 하는 것을 보여준다. 어느 하나만으로는 어느 감각이 가장 중요한지 알 수 없다. 각각 다른 필요를 보여주기 때문"
+      },
+      {
+        "id": "H-R2",
+        "answer": "첫째, 시각이 가장 중요한지 질문한다. 둘째, 촉각도 중요한 일을 한다고 보여준다. 셋째, 촉각을 잃은 사람의 예를 든다. 넷째, 결론으로 두 감각 모두 다른 이유로 중요하다고 말한다"
+      },
+      {
+        "id": "H-R3",
+        "answer": "그 판단은 하나의 사례만 본 것이다. 본문은 다양한 관점(온라인 응답과 구체적 사례)을 봐야 하며, 어느 하나만으로는 가장 중요한 감각을 정할 수 없다고 본다"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 0.5
+      },
+      {
+        "id": "H-R3",
+        "score": 0.5
+      }
+    ]
+  },
+  {
+    "packet_id": "46d2ec1b162cb6ad92c0ad462d10f1828a22ee5eda93bd8b4a3f281676c917c7",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "d3800777435805585b4519cd0c3e9e3252af56ff7e8012207d88cfc9857c223a",
+    "scorer_prompt_sha256": "f7232a40f6f782bfdb43ce94d31c8aa0985fece21283b4923231c5a1d3d4d837",
+    "respondent_raw_sha256": "2bba837a96b19e8725e5ef93a57cd22fea6915080f862fd65ca5e27c57f04633",
+    "scorer_raw_sha256": "07045ce5d99b41c2afa5d353df470dd6e5b0289acc2acded4118ff4b242bba5f",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "시각이 과자 봉지를 찾는 데 도움을 주고, 촉각이 단단히 잡았는지 확인하는 데 도움을 줍니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸의 위치에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 다른 역할을 하기 때문입니다. 시각은 세상에 관한 정보를 주고, 촉각은 몸에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "firmly는 과자 봉지를 단단하고 꼭 잡는 방식을 뜻합니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "position은 우리 몸이 어디에 있는지, 우리 몸의 위치를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "matter는 '중요하다' 또는 '중요한 역할을 한다'는 뜻으로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "it은 과자 봉지를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "촉각이 우리가 의식하지 못할 때도 도움이 된다는 것을 뜻합니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "어떤 활동을 할 때 어떤 정보가 필요한가를 묻는 것입니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "두 경우 모두 시각이 외부 세상에서 목표를 찾는 데 도움이 되고, 촉각이 우리 몸의 움직임을 느끼는 데 도움이 됩니다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니요. 과자 봉지를 찾는 데는 시각이 중요하지만, 단단히 잡는 데는 촉각이 필요합니다. 본문에서 '두 감각은 다른 종류의 정보를 준다'고 했으므로, 한 감각을 언제나 가장 중요하다고 할 수 없습니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동을 할 때 어떤 정보가 필요한지 살펴봐야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 1
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "4e184c1a0b64590157476f0e9b663cdb031427a5e54a29dd67dd950c245477dd",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "aee785f700d068f8987634135b5d096550bdd7f7800ab1ea90ae55b318466274",
+    "scorer_prompt_sha256": "3804f2fe11db4177d30596a4e537d2341b2e90df87337e7e9c0d4a2629b8d222",
+    "respondent_raw_sha256": "72fc4a65a635f3ef13aa0d407d0fc6120298a9e88f75fc780358b98f85981d40",
+    "scorer_raw_sha256": "57414be107da54c40cec11683c9fe05cf5d32977a74491b6172a9900e55a8eb3",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각"
+      },
+      {
+        "id": "H-C2",
+        "answer": "자신의 팔과 다리가 어디에 있는지 느낄 수 없었기 때문에"
+      },
+      {
+        "id": "H-C3",
+        "answer": "두 감각 모두 중요하지만 이유가 다르며, 한 감각만 가장 중요하다고 정하면 그 차이를 숨기게 된다"
+      },
+      {
+        "id": "H-L1",
+        "answer": "잃고 싶지 않은 감각이 무엇인지를 묻는 것"
+      },
+      {
+        "id": "H-L2",
+        "answer": "단단하게 또는 꽉 잡는다는 뜻"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 응답과 촉각 상실 사례"
+      },
+      {
+        "id": "H-S1",
+        "answer": "움직이기 어려움의 원인을 설명한다"
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각이 시각보다 더 중요하다는 결론을 내릴 수 없다는 점을 보여준다"
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각이며, 시각이 우리 주변을 알아차리는 것을 돕는 반면 촉각은 우리 몸을 느끼는 것을 돕는다는 대비"
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 것을, 촉각 상실 사례는 실제로 필요한 것을 보여준다. 어느 하나만으로는 어느 감각이 가장 중요한지 알 수 없다"
+      },
+      {
+        "id": "H-R2",
+        "answer": "온라인 응답 결과 제시 → 중요성의 의미 질문 → 두 감각의 역할 설명 → 촉각 상실 사례 제시 → 각 근거의 한계 인식 → 최종 결론"
+      },
+      {
+        "id": "H-R3",
+        "answer": "한 가지 근거만으로는 어느 감각이 더 중요한지 정할 수 없다는 점을 놓쳤다. 두 감각은 다른 일을 하므로 단순히 비교할 수 없다"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 0.5
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 1
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 0.5
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "a783077fd06e1e559df50c20e8a9a5c7497aaa691a2997576e04359a0ca4eb05",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "f16e27bd8913094d071e1aae84991008cd840b63a8a304a8df6f1fe7175deea9",
+    "scorer_prompt_sha256": "8028fdb9e267c193b109f17588f028f8ffc9879b51370c85d843892b41d2b659",
+    "respondent_raw_sha256": "92aca945190c40f3623e4fc596a1eba67791f143c9a98311b9ca017ac5c06123",
+    "scorer_raw_sha256": "4ca8d196e46ebe49abc0ef6fb66a86ffea62517c38ea7357f347933feee0a8af",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "시각(눈)이 과자 봉지를 선반에서 찾는 데 도움을 주고, 촉각(손)이 단단히 잡았는지 확인하는 데 도움을 줍니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "우리 몸과 몸의 위치에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 하는 역할이 다르기 때문입니다. 또는 특정 행동에 필요한 정보가 다르기 때문입니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "단단히/확실하게 잡는 방식을 뜻합니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "우리 몸의 위치나 자세를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "중요하다는 뜻으로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "과자 봉지(packet of sweets)를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "우리가 의식하지 못할 때에도 촉각이 도움이 된다는 것을 보여줍니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "특정 행동을 위해 어떤 정보가 필요한가를 물어보는 것입니다. 또는 그 행동에 필요한 정보가 무엇인지를 묻는 것입니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "두 경우 모두 시각은 목표나 주변 환경을 찾는 데, 촉각은 우리 몸 자체에 관한 정보를 주는 역할을 합니다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니다. 과자 봉지를 찾을 때는 시각이 중요하지만, 단단히 잡을 때는 촉각이 중요합니다. 서로 다른 행동은 서로 다른 필요성을 가지기 때문에, 한 감각을 언제나 가장 중요하다고 말할 수 없습니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동에 필요한 정보가 무엇인지를 살펴봐야 합니다. 또는 각 활동이 요구하는 것이 무엇인지를 생각해야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 1
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 1
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "58b41aaf7e27cc961597e89fca0b5426359b3b98c1e04ba41bc6be8c4576fd89",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "f09b308160f2990e94bba9addcb251d3c3c2ec17736935afd86a0c2805429747",
+    "scorer_prompt_sha256": "09300029959d550347d4e82ee902be9f9219387399cadaa14be696530b5cab7a",
+    "respondent_raw_sha256": "10d5db4f7645f234b8e013c63b1022051b08e388952e18071b0579bb466a1710",
+    "scorer_raw_sha256": "dd3fa847afb66d3fe8489b0f4639b9246ec61543325451a56a4c20f50d6bb700",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(Vision) - 온라인 질문에 응답한 대다수가 잃는 것을 두려워한 감각은 시각입니다."
+      },
+      {
+        "id": "H-C2",
+        "answer": "촉각을 잃은 사람은 자신의 팔과 다리가 어디에 있는지 느낄 수 없었기 때문에 움직이기 어려웠습니다."
+      },
+      {
+        "id": "H-C3",
+        "answer": "어느 한 감각만으로는 가장 중요한 감각을 결정할 수 없습니다. 시각과 촉각은 각각 다른 역할을 하며, 둘 다 서로 다른 이유로 중요합니다."
+      },
+      {
+        "id": "H-L1",
+        "answer": "feared losing은 사람들이 어떤 감각을 잃는 것을 가장 두려워하는지를 묻는 표현입니다."
+      },
+      {
+        "id": "H-L2",
+        "answer": "firmly는 손가락이 봉지를 단단하게, 강하게, 확실하게 잡는다는 뜻입니다."
+      },
+      {
+        "id": "H-L3",
+        "answer": "Neither one은 온라인 응답들(사람들이 두려워하는 것)과 촉각 상실 사례(실제 필요성을 보여주는 이야기) 두 가지를 가리킵니다."
+      },
+      {
+        "id": "H-S1",
+        "answer": "because절은 앞의 '움직이기 어려웠다'는 어려움의 원인을 설명합니다. 왜 그런 어려움이 생겼는지를 보여주는 인과관계입니다."
+      },
+      {
+        "id": "H-S2",
+        "answer": "Vision is important too는 촉각이 시각보다 더 중요하다는 결론을 제한합니다. 시각도 중요하다는 점을 더해 촉각만이 특별히 중요하다는 주장에 반박합니다."
+      },
+      {
+        "id": "H-S3",
+        "answer": "the other는 촉각(touch)을 가리킵니다. 앞 절은 '시각이 우리가 길을 찾도록 돕는다'고 하고, the other가 있는 절은 '촉각이 우리 몸을 느끼도록 돕는다'고 하여 두 감각의 다른 역할을 대비시킵니다."
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 것을 보여주고, 촉각 상실 사례는 실제로 필요한 감각을 보여줍니다. 어느 하나만으로는 완전한 답을 줄 수 없는데, 왜냐하면 각 감각이 다른 목적으로 중요하기 때문이며, 하나만 중요하다는 결론을 내릴 수 없기 때문입니다."
+      },
+      {
+        "id": "H-R2",
+        "answer": "본문은 이렇게 전개됩니다: ① 온라인 응답에서 대부분이 시각 선택 ② '중요하다'는 말의 의미 질문 ③ 시각과 촉각의 다른 기능 설명 ④ 촉각 상실 사례 제시 ⑤ 이것이 촉각을 더 중요하게 만드는지 질문 ⑥ 두 감각 모두 다른 이유로 중요하다는 결론"
+      },
+      {
+        "id": "H-R3",
+        "answer": "본문은 그 판단이 하나의 사례(촉각 상실)만 사용하고 시각도 다른 이유로 중요하다는 점을 무시한다고 문제 삼습니다. 또한 서로 다른 역할을 하는 감각들을 '더 중요하다' 또는 '가장 중요하다'라는 순위로 비교하는 것 자체가 각 감각의 다른 가치를 놓친다고 지적합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 1
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "a6c4eb510abd5e6b68e6889e3048148924e222f91c1564f04af9b0e90f67f3f5",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "218161c587768edbdc8f2b41fa27cba9b3069ba9e739a87fd64f406a5f7fb381",
+    "scorer_prompt_sha256": "6d3ae55f60f5bde5f960758338c961ba78a67e49b4e6715fa41b431c4d70c1ee",
+    "respondent_raw_sha256": "834667fcf65527109c1e5b11155a4720d68a58ead9e707d3a977b8ed9a976914",
+    "scorer_raw_sha256": "6c37ac7e19d91fd991d87fd49063b5f8f180eaf095f20fbed3a80ad41bae8dba",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "과자 봉지를 선반에서 찾을 때는 시각(눈)이 도움을 주고, 단단히 잡았는지 확인할 때는 촉각(손/터치)이 도움을 준다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸과 그 위치(position)에 관한 정보를 준다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "시각과 촉각이 하는 일이 다르기 때문에 한 감각을 언제나 가장 중요하다고 정하기 어렵다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "firmly는 과자 봉지를 단단하게 또는 꽉 잡는 것을 의미한다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "position은 우리 몸이 어디에 있는지, 우리 몸의 위치를 가리킨다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "matter는 '중요하다' 또는 '의미가 있다'는 뜻으로 쓰였다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "it은 과자 봉지(packet of sweets)를 가리킨다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "even when we do not notice it은 우리가 촉각을 의식하지 못할 때에도 촉각이 도움이 된다는 뜻으로 촉각이 도움이 되는 때를 한정한다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "글이 권하는 질문은 '특정한 행동을 위해 어떤 정보가 필요한가(what information you need for a particular action)'이다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "시각은 찾거나 목표를 찾아보는 역할을 하고, 촉각은 우리 몸의 상태나 위치에 대한 정보를 주는 역할을 한다는 차이가 공통으로 나타난다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니오. 왜냐하면 시각과 촉각은 다른 역할을 하기 때문이다. 본문에서 '한 감각이 언제나 가장 중요하다고 말하면 이 차이를 숨기게 된다'고 했다. 따라서 과자 봉지를 찾는 데 시각이 도움이 된다는 사실만으로는 시각이 언제나 가장 중요하다고 말할 수 없다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동을 위해 어떤 정보가 필요한지를 먼저 살펴봐야 한다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 1
+      },
+      {
+        "id": "M-R2",
+        "score": 0.5
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "4494c6e43f5471657f8785b8d99b763d91b05dd8f78b3ee22abd14108bf3bba4",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "f8551b7334ce97865d9da92acdfc21eb8eed631cb6a4a97534e39e820dd45112",
+    "scorer_prompt_sha256": "2f2b5fe0a3987bbb069c6206d9b7711d9a61bc3a9b130018fcd959f072fba268",
+    "respondent_raw_sha256": "072105b9febb2a56bcb0f8a04096a8dadfea89afda6c561a107bf57de858cee8",
+    "scorer_raw_sha256": "2fddc24b8f96ada527ddb86d174de9f0c2c8ee01a6fa3663c6a36ee65df30046",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(vision)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "자신의 팔과 다리가 어디에 있는지 느낄 수 없었기 때문"
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각 모두 중요하지만 서로 다른 이유에서 중요하며, 하나만 선택하면 그 차이를 숨기게 된다는 결론"
+      },
+      {
+        "id": "H-L1",
+        "answer": "사람들이 가장 잃기를 두려워하는 감각이 무엇인지를 묻는 표현"
+      },
+      {
+        "id": "H-L2",
+        "answer": "손가락이 봉지를 단단하게/강하게/확실하게 잡는다는 뜻"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 응답(사람들의 두려움)과 촉각 상실 사례(그 사람의 어려움)"
+      },
+      {
+        "id": "H-S1",
+        "answer": "앞의 움직이기 어려웠다는 어려움의 원인/이유를 설명하는 관계"
+      },
+      {
+        "id": "H-S2",
+        "answer": "앞의 질문(촉각이 시각보다 더 중요한가?)의 결론을 제한하여, 시각도 중요하므로 촉각이 반드시 더 중요하다고 할 수 없음을 나타냄"
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각(touch). 시각은 길을 찾는 데 도움이 되고, 촉각은 우리 몸이 어떻게 느껴지는지 알려준다는 대비"
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 것을 보여주고, 촉각 상실 사례는 또 다른 필요성을 보여줌. 어느 하나만으로는 가장 중요한 감각을 정할 수 없는 이유는 서로 다른 정보를 보여주기 때문"
+      },
+      {
+        "id": "H-R2",
+        "answer": "온라인 응답 제시 → '중요함'의 의미 질문 → 시각과 촉각이 다르게 작동하는 예 제시 → 촉각 상실 사례 → 촉각이 더 중요한가 질문 → 둘 다 다른 이유에서 중요하다는 결론"
+      },
+      {
+        "id": "H-R3",
+        "answer": "본문은 그 판단이 하나의 사례만으로 결론을 내린다는 점을 문제 삼음. 하나의 이야기만으로는 어느 감각이 정말 가장 중요한지 알 수 없으며, 서로 다른 역할을 하기 때문에 단 하나의 답을 정할 수 없다고 주장"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "d7231d33d2ceb8b82554b05893eb3969166b0b84b08530b4f2d9339a5dc77085",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "850d95059623d30b8d33bbe880564608091accc4ecd8ca3806dfff88d1e194d3",
+    "scorer_prompt_sha256": "f4aaf3781c1ac11b1d7d0ffb786689445dbb09bd021526f694fda3a9d13529a4",
+    "respondent_raw_sha256": "b8f90aa54c833f80f3d17ef3630a7e798f845deb23d64a6d50c139fbe107f3b2",
+    "scorer_raw_sha256": "489facce29b712a8200d4a23f0317c8bd65f531490adf7a4cb44ee5844ac6ca3",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "과자 봉지를 선반에서 찾을 때는 시각(눈)이 도움을 주고, 단단히 잡았는지 확인할 때는 촉각(손의 감각)이 도움을 준다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸과 그 위치(신체의 위치)에 관한 정보를 준다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "시각과 촉각이 각각 다른 역할과 기능을 가지기 때문이다. 한 감각을 언제나 가장 중요하다고 정하면 이러한 차이를 무시하게 되기 때문이다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "Firmly는 과자 봉지를 강하게, 단단하게, 또는 확실하게 잡는 방식을 의미한다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "Position은 우리 몸의 위치, 즉 우리 몸이 어디에 있는지 또는 몸의 상태를 가리킨다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "Matter는 여러 감각이 중요하다, 또는 의미가 있다는 뜻으로 쓰였다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "It은 과자 봉지를 가리킨다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "촉각이 우리가 의식하지 못할 때에도 도움이 된다는 것을 보여준다. 즉, 자동적으로 또는 무의식적으로도 도움이 된다는 의미이다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "특정 활동에 필요한 정보가 무엇인지 묻는 질문을 권한다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "시각은 주변 세계에 관한 정보를 주고 어디로 가야 하는지 알게 해주지만, 촉각은 우리 몸에 관한 정보를 주고 우리 몸의 위치를 알게 해준다. 즉, 시각은 바깥쪽을, 촉각은 안쪽을 알려주는 차이가 있다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니다. 이유는 시각과 촉각이 각각 다른 종류의 정보를 주고 같은 활동에서 둘 다 유용하기 때문이다. 한 감각을 언제나 가장 중요하다고 하면 각 감각이 가진 서로 다른 역할의 중요성을 무시하는 것이 된다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "특정 활동에 필요한 정보가 무엇인지를 살펴봐야 한다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 0.5
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "c215b232a5f518cb0e67041736ee442fdd00e51e1cbc869d65a2140b13eaac01",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "8898e4fcadef6e69d7fc5c95829b15e39e5e6e558f986f8b099dc5e78e88b8b1",
+    "scorer_prompt_sha256": "304bec6c5b61e55be4758c26164e0892f2a4d4f31fd7a166dd3c7d4ec3db8756",
+    "respondent_raw_sha256": "4bf4b2e41093026c49febd0074d33cb22126c981b96ea38353992cd6a3837638",
+    "scorer_raw_sha256": "44a4aad946e95d425b0be13c347780a174c4e940a37b0359e7bc8bd417e580a9",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "Vision. The passage states 'Most chose vision' when answering the online question about which sense people fear losing most."
+      },
+      {
+        "id": "H-C2",
+        "answer": "He could not feel where his arms and legs were. The passage says 'A person who lost the sense of touch had trouble moving because he could not feel where his arms and legs were.'"
+      },
+      {
+        "id": "H-C3",
+        "answer": "Both vision and touch matter for different reasons. The text concludes that they have different jobs: vision helps us find our way, and touch helps us feel our bodies. A single winner would hide this difference."
+      },
+      {
+        "id": "H-L1",
+        "answer": "It asks which sense people are most afraid of losing."
+      },
+      {
+        "id": "H-L2",
+        "answer": "It means holding the packet with a strong grip or securely, without dropping it."
+      },
+      {
+        "id": "H-L3",
+        "answer": "The two cases: the online answers showing people fear losing vision, and the story about the person who lost touch."
+      },
+      {
+        "id": "H-S1",
+        "answer": "It gives the reason or cause for why the person had trouble moving."
+      },
+      {
+        "id": "H-S2",
+        "answer": "It prevents the reader from concluding that touch is more important than vision by reminding us that vision is also important."
+      },
+      {
+        "id": "H-S3",
+        "answer": "Touch. It contrasts with the first part: vision helps us find our way, while touch helps us feel our bodies."
+      },
+      {
+        "id": "H-R1",
+        "answer": "The online answers show what people fear losing. The touch story shows a real need for touch. Neither alone tells us which is most important because they show different things - what people fear versus what we actually need."
+      },
+      {
+        "id": "H-R2",
+        "answer": "It moves from: presenting the online question and answer (most fear losing vision), to questioning what 'important' means, to explaining that vision and touch do different jobs, to giving an example showing touch's importance, to concluding both matter but for different reasons."
+      },
+      {
+        "id": "H-R3",
+        "answer": "The problem is using a single piece of evidence to decide. The text shows that both senses have different important jobs that work together. One case alone cannot show which sense is most important."
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 0.5
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "526e4725fb27855fce351ccefbf4dc0b9e98ffbbc7a138ad79d12e6e4fbe457d",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "a7067018de78fc501e45afd78a59c5456e224f0286b8d56b86df0e9a6336d63f",
+    "scorer_prompt_sha256": "94c9f73cdd49f35294c01e25cc010e1ac663f66993740a2a35cc0960e9268051",
+    "respondent_raw_sha256": "00bec553cc255ee273819a295c3fec7e3ed99301196963e79357edd294a12af4",
+    "scorer_raw_sha256": "489facce29b712a8200d4a23f0317c8bd65f531490adf7a4cb44ee5844ac6ca3",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "시각이 과자 봉지를 찾는 데 도움을 주고, 촉각이 단단히 잡았는지 확인하는 데 도움을 줍니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸과 그 위치에 관해 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "시각과 촉각의 역할이 다르기 때문입니다. 한 감각을 언제나 가장 중요하다고 하면 이런 차이를 놓칩니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "firmly는 과자 봉지를 강하게 꼭 잡는 방식을 뜻합니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "position은 우리 몸이 어디에 있는지, 우리 몸의 위치를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "matter는 여러 감각이 중요하다는 뜻으로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "it은 과자 봉지를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "이 표현은 촉각이 우리가 주목하지 않을 때도 도움이 된다는 것을 보여줍니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "특정 활동을 위해 어떤 정보가 필요한지를 묻는 질문입니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "두 사례 모두에서 시각은 세상이나 가야 할 곳에 관한 정보를 주고, 촉각은 우리 몸에 관한 정보를 줍니다. 같은 활동에서 두 감각이 다른 목적으로 함께 일합니다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아닙니다. 과자 봉지를 찾는 데는 시각이 도움이 되지만, 그것을 단단히 잡으려면 촉각도 필요합니다. 본문에서 '두 감각은 다른 종류의 정보를 줍니다. 둘 다 같은 단순한 행동에서 유용합니다'라고 말합니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "새로운 활동에서 어떤 감각이 중요한지 판단하려면 먼저 그 활동에 필요한 정보가 무엇인지를 살펴봐야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 0.5
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "16a2113a4ae0ba5a57bcdf700413a45c9ae8437bbe71f26930999e9a92ef858d",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "bc13681a820de4d76369641c9343f9424e90409efd9b8a98eaff0d57078f61fa",
+    "scorer_prompt_sha256": "7a52a4a83f2992e671631afc653e84c07262e851123c8877cdc22f34d35c1b82",
+    "respondent_raw_sha256": "5ffb8bd794686aef86c58c0943eaf231031178430af43652f71e603d0894b21d",
+    "scorer_raw_sha256": "2fddc24b8f96ada527ddb86d174de9f0c2c8ee01a6fa3663c6a36ee65df30046",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(vision)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "팔과 다리가 어디에 있는지 느낄 수 없었기 때문에 움직이기 어려웠다."
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각이 모두 중요하지만 다른 역할을 하므로, 하나의 감각이 가장 중요하다고 정할 수 없다는 것이다."
+      },
+      {
+        "id": "H-L1",
+        "answer": "사람들이 가장 잃고 싶지 않은 감각이 무엇인지를 묻는 표현이다."
+      },
+      {
+        "id": "H-L2",
+        "answer": "단단히, 꼭 잡는다는 뜻이다."
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 응답과 촉각 상실 사례라는 두 가지를 가리킨다."
+      },
+      {
+        "id": "H-S1",
+        "answer": "앞의 어려움에 대한 까닭(원인)을 설명하는 관계로 이어진다."
+      },
+      {
+        "id": "H-S2",
+        "answer": "시각도 중요하다는 점으로 '촉각만이 더 중요하다'는 결론을 제한한다."
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각을 가리키며, '길을 찾는 것'(시각)과 '몸의 위치를 느끼는 것'(촉각)이라는 다른 역할의 대비를 이룬다."
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 감각을, 촉각 상실 사례는 우리가 실제로 필요로 하는 감각을 보여준다. 어느 하나만으로는 가장 중요한 감각을 정할 수 없다. 왜냐하면 두 감각이 서로 다른 역할을 하기 때문이다."
+      },
+      {
+        "id": "H-R2",
+        "answer": "온라인 질문 제시 → 온라인 답변 해석 → 각 감각의 역할 설명 → 촉각 상실 사례 제시 → 두 종류 증거의 비교 → 최종 결론 도출"
+      },
+      {
+        "id": "H-R3",
+        "answer": "하나의 사례나 증거만으로 판단하는 것을 문제 삼는다. 본문은 두 감각이 서로 다른 역할을 하므로, 하나의 사례만으로 어느 감각이 더 중요한지 말할 수 없음을 보여준다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "40e28dda3ea319446ca24ef38b7a0f9957efd166b8cd541fec41ede8ee274217",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "9c6a789b1b174404da84c6436755de7261f102d486c0402d4ca4873ceb375325",
+    "scorer_prompt_sha256": "ff8f6d2835733bb544c92fb9efd3c0f8a2e57d7a0cbd6ccc0b053d4395eebbc9",
+    "respondent_raw_sha256": "6632a5ef11e0242e9862d8bce1f9b0ae19f8d583564e7b518c13c1d55a4fba58",
+    "scorer_raw_sha256": "07045ce5d99b41c2afa5d353df470dd6e5b0289acc2acded4118ff4b242bba5f",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "시각이 과자 봉지를 선반에서 찾는 것을 도와주고, 촉각이 단단히 잡았는지 확인하는 것을 도와줍니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸과 우리 몸의 위치에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 다른 역할을 하기 때문입니다. 한 감각을 언제나 가장 중요하다고 말하면 이 차이를 숨기게 됩니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "firmly는 과자 봉지를 세게 꽉 잡는 것을 의미합니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "position은 우리 몸이 어디에 있는지, 우리 몸의 위치를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "matter는 여러 감각이 중요하다는 뜻으로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "it은 과자 봉지를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "촉각이 우리가 주의를 기울이지 않을 때에도 도움이 된다는 것을 한정합니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "어떤 활동을 위해 필요한 정보가 무엇인지 묻는 질문입니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "두 사례 모두에서 시각과 촉각이 다른 역할을 합니다. 시각은 찾거나 방향을 알려주고, 촉각은 우리 몸의 위치나 움직임을 알려줍니다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니요. 과자 봉지를 찾는 데 시각이 도움이 되지만, 단단히 잡았는지 확인하려면 촉각이 필요합니다. 같은 활동에서도 다른 감각이 다른 일을 하므로 시각이 언제나 가장 중요하다고 말할 수 없습니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동을 위해 필요한 정보가 무엇인지 먼저 살펴봐야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 1
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "631f576c83cfe18b8c8377b60adfefdb832da9b6aa104b73b8f4f6b4e8ed7b1f",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "59dfb5e0f0777c8be0bed3e6250b2d23bbce98576d2855ccd059a3aa36807e9c",
+    "scorer_prompt_sha256": "d3d03a7200850c7dcd853cb7dfb2b14cfd86de3c3794a7c8599a3cbed3317e34",
+    "respondent_raw_sha256": "36954c0877a0ceca17132c2321d0a1eb4dbbb27a5c865e1c752556acf4ac7abf",
+    "scorer_raw_sha256": "2fddc24b8f96ada527ddb86d174de9f0c2c8ee01a6fa3663c6a36ee65df30046",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(Vision)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "자신의 팔과 다리가 어디에 있는지 느낄 수 없었기 때문"
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각 모두 중요하지만 서로 다른 이유로 중요하며, 하나의 승자를 정하면 그 차이를 놓치게 된다는 것"
+      },
+      {
+        "id": "H-L1",
+        "answer": "사람들이 가장 잃고 싶지 않은 감각이 무엇인지를 묻는 표현"
+      },
+      {
+        "id": "H-L2",
+        "answer": "손가락이 봉지를 세게 또는 단단히 잡는 것"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 응답과 촉각 상실 사례라는 두 가지 근거"
+      },
+      {
+        "id": "H-S1",
+        "answer": "앞의 어려움(움직이기 어려웠던 것)의 원인을 설명하는 관계"
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각만 중요하다는 단순한 결론을 제한하고, 시각도 마찬가지로 중요함을 보여줌"
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각이며, 시각이 길을 찾는 것을 도와주는 것과 달리 우리 신체의 위치를 느끼는 것을 도와준다는 대비"
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 것을 보여주고, 촉각 상실 사례는 우리가 실제로 필요로 하는 것을 보여줍니다. 둘 다 같은 기준으로 측정하지 않기 때문에 어느 하나만으로는 가장 중요한 감각을 정할 수 없습니다."
+      },
+      {
+        "id": "H-R2",
+        "answer": "먼저 온라인 응답이 중요성을 나타내는지 질문하고, 시각과 촉각이 무엇을 하는지 설명하고, 구체적인 예를 들고, 촉각 상실 사례를 제시한 후, 마지막으로 두 감각 모두 서로 다른 이유로 중요하다고 결론짓는 순서"
+      },
+      {
+        "id": "H-R3",
+        "answer": "그 판단이 하나의 사례만 사용하며 시각도 중요하다는 사실을 무시하고, 각 감각이 서로 다른 역할을 한다는 점을 보지 못하고 단순히 하나의 승자를 정으로 하려고 한다는 점"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "e0b6fd9ff9d90ced844db6ec20f6c623eeb2573155cb277174319aa085fe58da",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "a6377cd5570f461ffcd75a218f28e658b7d37031d284e0453d1a6e8a523b83c3",
+    "scorer_prompt_sha256": "ee5500cdc4b4a0982f07c0428789620e213dde8361ea49b8529bf4b3c6cb92db",
+    "respondent_raw_sha256": "bd6c839dbbb2f8ad141b6044039f4669658bbe944e9aa5c075d0b7bb9d6e8f73",
+    "scorer_raw_sha256": "489facce29b712a8200d4a23f0317c8bd65f531490adf7a4cb44ee5844ac6ca3",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "과자 봉지를 찾을 때는 시각, 단단히 잡았는지 확인할 때는 촉각입니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "우리 몸과 그 위치에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 서로 다른 역할을 하기 때문입니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "과자 봉지를 단단하게 잡다는 뜻입니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "우리 몸이 어디에 있는지의 위치를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "중요하다는 뜻으로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "과자 봉지를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "우리가 촉각을 의식하지 못할 때도 도움이 된다는 때를 한정합니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "특정한 활동을 위해 어떤 정보가 필요한지 물어보는 질문입니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "두 감각이 각각 다른 정보를 제공한다는 것입니다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니다. 과자 봉지를 단단히 잡으려면 촉각이 필요하므로, 어느 한 감각이 언제나 가장 중요하다고 말할 수 없습니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동을 위해 필요한 정보가 무엇인지를 살펴봐야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 0.5
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "b81830d687d1101a62dfaa5a5db90894f655227f39351f8bb0a00c867f871b5d",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "bfe340e25c53a8e1e986b12ccc41ac84db469c53af0249d8ee219fb2cc8055a6",
+    "scorer_prompt_sha256": "10b6651f80fe61189ceebe45ab599fdecc7b090cb11c24763cc079f664682679",
+    "respondent_raw_sha256": "e036e08845073aa4fa3aeb7be80e208680ace826ce82ec86b3a46d550bb227f1",
+    "scorer_raw_sha256": "5efc14cc44310d5349f17a53c72b116c50356d9372011676b39a753d1e48cbb9",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(vision)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "자신의 팔과 다리가 어디에 있는지 느낄 수 없었기 때문에"
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각 모두 중요하지만 서로 다른 이유 때문이며, 하나를 우승자로 선택하면 그 차이를 숨긴다는 것"
+      },
+      {
+        "id": "H-L1",
+        "answer": "사람들이 가장 잃는 것을 두려워하는 감각이 무엇인가를 묻는 표현"
+      },
+      {
+        "id": "H-L2",
+        "answer": "손가락이 봉지를 단단하게/꽉 잡는다는 뜻"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 응답(사람들이 두려워하는 것)과 촉각 상실 사례(필요를 보여주는 것)"
+      },
+      {
+        "id": "H-S1",
+        "answer": "앞의 어려움(움직이기 어려웠음)에 대한 원인을 설명하는 관계"
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각만 중요하다는 결론을 제한하고 시각도 중요하다는 점을 추가함"
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각(touch)을 가리키며, 시각이 길을 찾는 것을 돕는다는 앞 절과 대비하여 촉각은 몸의 위치를 느끼게 한다는 차이를 나타냄"
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 것을 보여주고, 촉각 상실 사례는 실제적 필요를 보여준다. 어느 하나만으로는 가장 중요한 감각을 정할 수 없는 이유는 두 사례가 보여주는 것이 다르기 때문"
+      },
+      {
+        "id": "H-R2",
+        "answer": "온라인 질문과 응답 제시 → 중요도의 의미 질문 → 시각과 촉각의 구체적 역할 예시 → 촉각 상실 사례로 또 다른 필요 제시 → 양쪽 모두 다른 이유로 중요하다는 결론"
+      },
+      {
+        "id": "H-R3",
+        "answer": "시각과 촉각이 서로 다른 역할을 한다는 점을 무시하고 한 가지 사례만으로 중요도를 판단하는 것의 불완전성"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 1
+      },
+      {
+        "id": "H-S2",
+        "score": 0.5
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 0.5
+      },
+      {
+        "id": "H-R2",
+        "score": 0.5
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "a508e582227f2e93239772a348bdcba652ebbab4d76891f6c23d2de274782fce",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "cc651198d98a0b886e5b351e5f686dcde74898763893e6d3e65394d60d1d1a63",
+    "scorer_prompt_sha256": "71df0d216d956cc039c46105e39efcc75c02a2a418f4410a2429e6f3e8c96f80",
+    "respondent_raw_sha256": "b76e1b839388134ef34d8870ad7aa357873f2c858b0798efa95deb3721624350",
+    "scorer_raw_sha256": "ec7185587945f36137c0833750e8dac97662405811d37bf37739ae05131efe8c",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "시각과 촉각"
+      },
+      {
+        "id": "M-C2",
+        "answer": "우리 몸과 그 위치에 관한 정보"
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 하는 역할이 다르기 때문에"
+      },
+      {
+        "id": "M-L1",
+        "answer": "강하게, 단단하게"
+      },
+      {
+        "id": "M-L2",
+        "answer": "우리 몸의 위치"
+      },
+      {
+        "id": "M-L3",
+        "answer": "중요하다"
+      },
+      {
+        "id": "M-S1",
+        "answer": "과자 봉지"
+      },
+      {
+        "id": "M-S2",
+        "answer": "우리가 자각하지 못할 때도"
+      },
+      {
+        "id": "M-S3",
+        "answer": "특정한 활동을 위해 어떤 정보가 필요한지 묻는 것"
+      },
+      {
+        "id": "M-R1",
+        "answer": "시각은 세상/외부 정보를, 촉각은 몸/위치 정보를 제공한다"
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니다. 같은 활동에서 시각이 봉지를 찾는 데 도움이 되지만 봉지를 단단히 잡는 데는 촉각이 필요하기 때문이다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동에 필요한 정보가 무엇인지"
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 0.5
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 0.5
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "30326c7615402dafecb2442e50b8efcdd20540b0c048412e740c32a67504534c",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "5ff43538625d2a042803161f02b10394a5df6f7080ee416bbb0808f9d0ae541e",
+    "scorer_prompt_sha256": "6a005e1520411361417d6977f87ae6a14da0ca33874e19d721e7e5551e7c061b",
+    "respondent_raw_sha256": "403ec85c69137cc492e6238836a4de843cf875042e5b709166bf6b1436c09d94",
+    "scorer_raw_sha256": "2fddc24b8f96ada527ddb86d174de9f0c2c8ee01a6fa3663c6a36ee65df30046",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(시력)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "팔과 다리가 어디에 있는지 느낄 수 없었기 때문이다"
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각이 모두 중요하지만 각각 다른 이유로 필요하므로 한 가지 감각이 가장 중요하다고 말할 수 없다는 것이다"
+      },
+      {
+        "id": "H-L1",
+        "answer": "사람들이 가장 잃고 싶지 않은 감각이 무엇인지 묻는 표현이다"
+      },
+      {
+        "id": "H-L2",
+        "answer": "손가락이 봉지를 강하게 또는 단단히 잡는다는 뜻이다"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 질문에 대한 응답과 촉각을 잃은 사람의 사례를 가리킨다"
+      },
+      {
+        "id": "H-S1",
+        "answer": "앞의 어려움에 대한 이유를 설명하는 관계이다. 움직이기 어려웠던 원인을 나타낸다"
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각만이 시각보다 더 중요하다고 결론 내릴 수 없다는 것을 보여주며 앞 질문을 제한한다"
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각이다. 시각이 우리가 길을 찾도록 도와준다면 촉각은 우리 몸의 위치를 느끼도록 도와준다는 대비를 이룬다"
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 무엇을 잃을까봐 두려워하는지를 보여주고, 촉각 상실 사례는 우리가 촉각이 얼마나 필요한지를 보여준다. 이 둘은 다른 종류의 정보를 제시하므로 어느 것만으로도 가장 중요한 감각을 결정할 수 없다"
+      },
+      {
+        "id": "H-R2",
+        "answer": "온라인 응답 제시 → 중요성의 의미 질문 → 각 감각의 역할 설명 → 촉각 상실 사례 제시 → 각 감각이 다른 이유로 중요하다는 결론으로 전개된다"
+      },
+      {
+        "id": "H-R3",
+        "answer": "본문은 한 가지 사례만으로는 어느 감각이 더 중요한지를 증명할 수 없다는 점을 문제 삼는다. 왜냐하면 각 감각은 다른 역할을 하고 서로 다른 이유로 필요하기 때문이다"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "035cefd4afde0d7891f199998561c9dc26d88c921d09621ecfdf87975e759f5a",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "9a337bcb79ec0e53f94d880f4759f363ed54f1337a4a943561940ce31b40eb5e",
+    "scorer_prompt_sha256": "2c8f4a664ea90db19ec57787db63f3cf9e89f57418bd1ee86bd2b6e7f72c9be0",
+    "respondent_raw_sha256": "3eb48f0ee8c805cd8876f6c5812b158c2c8c6ff868c4a5de09bfcd2a0b55056f",
+    "scorer_raw_sha256": "afb76d84e82cf4258571e2959f91b22074b8ea0b2cd214bf44bf578e5c8ba525",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "과자 봉지를 선반에서 찾을 때는 시각(눈)이 도움을 주고, 단단히 잡았는지 확인할 때는 촉각(터치)이 도움을 줍니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸과 그 위치에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 다른 역할을 하기 때문입니다. 시각은 주변 세계에 관한 정보를 주고, 촉각은 우리 몸의 위치에 관한 정보를 주므로, 한 감각을 항상 가장 중요하다고 정하면 이러한 차이를 무시하게 됩니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "firmly는 과자 봉지를 단단히, 확실하게 잡는 방식을 의미합니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "position은 우리 몸이나 몸의 각 부분이 어디에 있는지를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "matter는 여러 감각이 중요하다는 뜻으로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "it은 과자 봉지를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "촉각이 우리가 의식하지 못하는 동안에도 도움이 된다는 것을 한정합니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "글이 권하는 질문은 \"어떤 행동에 어떤 정보가 필요한가?\"입니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "두 사례 모두에서 시각은 어디에 있는지를 찾는 데 도움을 주고(봉지 위치, 가야 할 방향), 촉각은 우리 몸에 관한 정보를 줍니다(봉지를 잡은 감각, 발의 위치)."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니요, 할 수 없습니다. 과자 봉지를 찾는 데 시각이 도움이 되지만, 그것을 단단히 잡았는지 확인하는 데는 촉각이 필요합니다. 본문에서도 \"한 감각을 항상 가장 중요하다고 말하는 것은 이러한 차이를 숨길 것\"이라고 했으므로, 단순한 행동에도 여러 감각이 모두 필요합니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "먼저 그 활동을 위해 어떤 정보가 필요한지를 살펴봐야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 1
+      },
+      {
+        "id": "M-R2",
+        "score": 1
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "b60244a40b2e199b317b4f665c413870f233b9c80cb8c00bc17a5f9039ff5875",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "eea184c7cf7df1c9eb9b9a7bb7b2eae980052aae4da1c8b456f6849687dbf05a",
+    "scorer_prompt_sha256": "3fee620617753e20767018b56cb81bb024cfc175f0528b893e126d97d20d9c13",
+    "respondent_raw_sha256": "9bf89d5e1479d90331cfd6b18a7cf809da81d0fba3f38cd537a9464870bd216b",
+    "scorer_raw_sha256": "2fddc24b8f96ada527ddb86d174de9f0c2c8ee01a6fa3663c6a36ee65df30046",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각(vision)"
+      },
+      {
+        "id": "H-C2",
+        "answer": "팔과 다리가 어디에 있는지 느낄 수 없었기 때문"
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각은 모두 중요하지만 서로 다른 이유로 중요하며, 단 하나의 감각을 우월하다고 선택하면 그 차이를 숨기게 된다"
+      },
+      {
+        "id": "H-L1",
+        "answer": "사람들이 잃는 것을 가장 두려워하는 감각이 무엇인지를 묻는 표현"
+      },
+      {
+        "id": "H-L2",
+        "answer": "손가락이 봉지를 단단하게, 확실하게 잡는다는 뜻"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 응답과 촉각 상실 사례라는 두 가지 증거"
+      },
+      {
+        "id": "H-S1",
+        "answer": "앞의 움직이기 어려움에 대한 원인과 이유를 설명하는 관계"
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각만이 더 중요하다는 결론을 제한하고, 시각도 마찬가지로 중요하다는 것을 나타냄"
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각(touch). 대비는 시각은 우리가 길을 찾는 것을 돕는 반면, 촉각은 우리 신체의 위치를 느끼는 것을 돕는다는 점"
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 것을 보여주고, 촉각 상실 사례는 우리가 필요로 하는 다른 종류의 것을 보여줌. 둘 다 감각의 중요성을 다르게 측정하므로 어느 하나만으로는 가장 중요한 감각을 결정할 수 없음"
+      },
+      {
+        "id": "H-R2",
+        "answer": "온라인 질문과 응답(시각이 우세) → '중요함'의 의미 질문 → 시각의 역할 설명 → 촉각의 역할 설명 → 촉각 상실 사례 제시 → 두 감각이 다른 역할을 하므로 모두 중요하다는 결론"
+      },
+      {
+        "id": "H-R3",
+        "answer": "그러한 판단이 단 하나의 증거에만 의존하며, 서로 다른 역할을 하는 감각들의 중요성을 전체적으로 고려하지 않는다는 점을 문제 삼음"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "aa478155adbb36f6659cf4778b0d87afd3a8a1f64812ce81f1f5b3bea7b04d54",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "7a40144d9b44028dbeedd3aa1b2635ebce597988cf1ebe1c66a47a23a16b17ab",
+    "scorer_prompt_sha256": "dd2e5ca5ab0868ce0ff8c2461a019a5dd380f6221e3475bea97ff51015fe5b90",
+    "respondent_raw_sha256": "cbb824cf3851921d50cb758747d951fe3fc8345611b18632059e5af4c027b516",
+    "scorer_raw_sha256": "07045ce5d99b41c2afa5d353df470dd6e5b0289acc2acded4118ff4b242bba5f",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "과자 봉지를 찾을 때는 시각이, 단단히 잡았는지 확인할 때는 촉각이 도움을 줍니다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "우리 몸과 그 위치에 관한 정보를 줍니다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 서로 다른 역할을 하기 때문입니다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "단단하게, 확실하게 잡는 것을 의미합니다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "우리 몸의 위치나 자세를 가리킵니다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "중요하다는 의미로 쓰였습니다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "과자 봉지를 가리킵니다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "우리가 의식하지 못하는 상황에서도 촉각이 도움이 된다는 것을 강조합니다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "특정 활동에 어떤 정보가 필요한지 묻는 질문을 권합니다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "시각은 외부 세계를 알려주고 방향을 찾는 데 도움이 되며, 촉각은 우리 몸의 위치를 알려줍니다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니오. 과자 봉지를 찾는 데 시각이 도움이 되지만, 단단히 잡기 위해서는 촉각이 필요합니다. 따라서 각 활동에 필요한 감각이 다르므로 시각이 언제나 가장 중요하다고 할 수 없습니다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동에 어떤 정보가 필요한지 살펴봐야 합니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 1
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 0.5
+      },
+      {
+        "id": "M-R2",
+        "score": 1
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "76b95469b04c4644a9313971f6f1ed1ddeb306f6125a72a876ff17f949dab066",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "f90a087b3728d375e829b821a58bf0a6cfa6b0104fe19428b88407b55f14a464",
+    "scorer_prompt_sha256": "816ac555cb2a37db1666c843a2f857a82228d11a4c223fa08545b3d669fb6c6d",
+    "respondent_raw_sha256": "007f41c328cbb611727fbf7780f49d5b671a0c4a150fffb90de09809b16f9a75",
+    "scorer_raw_sha256": "a957969fcb188d1c07636e9c11c0370d59b49a2cc9f4dad84c2e59ef2a79132e",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "시각"
+      },
+      {
+        "id": "H-C2",
+        "answer": "팔과 다리가 어디에 있는지 느낄 수 없었기 때문입니다."
+      },
+      {
+        "id": "H-C3",
+        "answer": "시각과 촉각은 다른 역할을 하므로 하나만 선택할 수 없다는 것입니다."
+      },
+      {
+        "id": "H-L1",
+        "answer": "잃고 싶지 않은 감각이 무엇인지를 묻는 표현"
+      },
+      {
+        "id": "H-L2",
+        "answer": "강하게 또는 튼튼하게"
+      },
+      {
+        "id": "H-L3",
+        "answer": "온라인 질문의 응답과 촉각을 잃은 사람의 사례"
+      },
+      {
+        "id": "H-S1",
+        "answer": "원인과 결과의 관계로, 촉각을 잃었기 때문에 움직이기 어려웠다는 뜻입니다."
+      },
+      {
+        "id": "H-S2",
+        "answer": "촉각이 중요하다고 해도 시각도 똑같이 중요하다는 뜻으로 앞 질문을 제한합니다."
+      },
+      {
+        "id": "H-S3",
+        "answer": "촉각을 가리키며, 앞 절의 '찾아가는 데 도움'과 대비하여 '신체의 위치를 느끼는 데 도움'이라는 다른 역할을 합니다."
+      },
+      {
+        "id": "H-R1",
+        "answer": "온라인 응답은 사람들이 두려워하는 감각을, 촉각 사례는 우리가 정말 필요한 감각을 보여줍니다. 다른 이유로 중요하기 때문에 하나만으로는 가장 중요한 감각을 정할 수 없습니다."
+      },
+      {
+        "id": "H-R2",
+        "answer": "온라인 질문의 응답 제시 → 중요성의 의미 질문 → 각 감각의 역할 설명 → 촉각 상실 사례 제시 → 어느 하나도 답이 아니라는 결론으로 전개합니다."
+      },
+      {
+        "id": "H-R3",
+        "answer": "한 가지 사례만으로는 어느 감각이 더 중요한지 결정할 수 없으며, 감각들이 서로 다른 목적과 역할을 하므로 직접 비교할 수 없다는 점을 문제 삼습니다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 0.5
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 0.5
+      },
+      {
+        "id": "H-S2",
+        "score": 0.5
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "2db2fc4a856c417aeb3d7a230d477253e75f42ecb3db0349a139c75d50c52365",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "ef08345fc0f25e745d5a96607bf0c97e566c35aeff2d047a888d02b5ec32e072",
+    "scorer_prompt_sha256": "0e7e03526f434babd1667fea91ba1ef191ca87ca2b40734e27c79fa305628f0b",
+    "respondent_raw_sha256": "ce25887262715d948b6f14d2aa211c2be614adae42dfac3f086d1fde3f208fb5",
+    "scorer_raw_sha256": "32cce2cbeb12ff6d20fd3b62a5a1221e8d0cac9727132df41fdd8fbb30f96c49",
+    "answers": [
+      {
+        "id": "M-C1",
+        "answer": "과자 봉지를 선반에서 찾을 때는 시각(눈)이 도움을 주고, 단단히 잡았는지 확인할 때는 촉각(손)이 도움을 준다."
+      },
+      {
+        "id": "M-C2",
+        "answer": "촉각은 우리 몸과 그 위치에 관한 정보를 준다."
+      },
+      {
+        "id": "M-C3",
+        "answer": "각 감각이 다른 역할을 하기 때문이다. 한 감각을 항상 가장 중요하다고 정하면 이러한 차이를 무시하게 되기 때문이다."
+      },
+      {
+        "id": "M-L1",
+        "answer": "Firmly는 과자 봉지를 단단하게, 또는 확실하게 잡는 것을 의미한다."
+      },
+      {
+        "id": "M-L2",
+        "answer": "Position은 우리 몸이 어디에 있는지, 즉 우리 몸의 위치를 가리킨다."
+      },
+      {
+        "id": "M-L3",
+        "answer": "Matter는 여러 감각이 일상생활에서 중요하다는 의미로 사용되었다."
+      },
+      {
+        "id": "M-S1",
+        "answer": "It은 과자 봉지를 가리킨다."
+      },
+      {
+        "id": "M-S2",
+        "answer": "촉각이 도움이 되는 때를 우리가 의식하지 못하는 경우로 한정한다."
+      },
+      {
+        "id": "M-S3",
+        "answer": "특정한 행동을 위해 어떤 정보가 필요한지를 물어보는 것이다."
+      },
+      {
+        "id": "M-R1",
+        "answer": "두 사례 모두에서 시각은 주변 세계에서 어디로 가야 할지를 알려주는 역할을 하고, 촉각은 우리의 몸과 그 위치에 관한 정보를 주는 역할을 한다는 차이이다."
+      },
+      {
+        "id": "M-R2",
+        "answer": "아니다. 과자 봉지를 찾는 데 시각이 도움이 되지만, 같은 행동에서 그것을 단단히 잡기 위해서는 촉각도 똑같이 중요하다. 또한 한 감각이 항상 가장 중요하다고 말하는 것은 각 감각의 다른 역할을 무시하게 된다."
+      },
+      {
+        "id": "M-R3",
+        "answer": "그 활동에서 어떤 정보가 필요한지를 먼저 살펴봐야 한다."
+      }
+    ],
+    "scores": [
+      {
+        "id": "M-C1",
+        "score": 1
+      },
+      {
+        "id": "M-C2",
+        "score": 1
+      },
+      {
+        "id": "M-C3",
+        "score": 0.5
+      },
+      {
+        "id": "M-L1",
+        "score": 1
+      },
+      {
+        "id": "M-L2",
+        "score": 1
+      },
+      {
+        "id": "M-L3",
+        "score": 1
+      },
+      {
+        "id": "M-S1",
+        "score": 1
+      },
+      {
+        "id": "M-S2",
+        "score": 0
+      },
+      {
+        "id": "M-S3",
+        "score": 1
+      },
+      {
+        "id": "M-R1",
+        "score": 1
+      },
+      {
+        "id": "M-R2",
+        "score": 1
+      },
+      {
+        "id": "M-R3",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "packet_id": "a574df011ac527ca323788db79df10e839cff792ebb5a44e3ac49380680af712",
+    "model": "claude-haiku-4-5-20251001",
+    "model_family": "anthropic",
+    "scorer_model": "gpt-6.1-sol",
+    "scorer_family": "openai",
+    "replica_id": "r1",
+    "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+    "student_prompt_sha256": "978d45c393e51b52dc7591fefb75a77539cce4dfe51c0edea1866c3aa3175d83",
+    "scorer_prompt_sha256": "de6f9c1d8432ba9b4ceaf882893c4d116951ea9bc9882942ab6ca1818d3e423b",
+    "respondent_raw_sha256": "affa084e2b3dc93d9419c4a76eee529b5d6690ac11ae0e485e09677f7da5e88f",
+    "scorer_raw_sha256": "dd3fa847afb66d3fe8489b0f4639b9246ec61543325451a56a4c20f50d6bb700",
+    "answers": [
+      {
+        "id": "H-C1",
+        "answer": "Vision"
+      },
+      {
+        "id": "H-C2",
+        "answer": "He could not feel where his arms and legs were positioned"
+      },
+      {
+        "id": "H-C3",
+        "answer": "Vision and touch have different jobs and both matter for different reasons; choosing a single winner would hide that important difference"
+      },
+      {
+        "id": "H-L1",
+        "answer": "It refers to asking which sense people are most afraid of losing"
+      },
+      {
+        "id": "H-L2",
+        "answer": "Firmly means holding the packet with a strong or tight grip"
+      },
+      {
+        "id": "H-L3",
+        "answer": "The online survey result (most people fear losing vision) and the story about losing touch sensation"
+      },
+      {
+        "id": "H-S1",
+        "answer": "It provides the reason or cause explaining why he had trouble moving"
+      },
+      {
+        "id": "H-S2",
+        "answer": "It restricts the previous question by acknowledging that vision is also important, preventing the conclusion that touch is more important"
+      },
+      {
+        "id": "H-S3",
+        "answer": "The other refers to touch, and it contrasts with vision—one helps us find our way (vision) while the other helps us feel our bodies (touch)"
+      },
+      {
+        "id": "H-R1",
+        "answer": "Online responses show what people fear losing; the touch story shows what we actually need to function. Neither alone works because they measure different things—fear versus actual functional need"
+      },
+      {
+        "id": "H-R2",
+        "answer": "The argument progresses from the online question result → questioning the meaning of importance → providing examples of different sense roles → presenting the touch loss story → concluding that multiple senses have different but equally important roles"
+      },
+      {
+        "id": "H-R3",
+        "answer": "The passage identifies that using a single piece of evidence to make an absolute judgment ignores the fact that different senses have different roles and both matter for different reasons"
+      }
+    ],
+    "scores": [
+      {
+        "id": "H-C1",
+        "score": 1
+      },
+      {
+        "id": "H-C2",
+        "score": 1
+      },
+      {
+        "id": "H-C3",
+        "score": 1
+      },
+      {
+        "id": "H-L1",
+        "score": 1
+      },
+      {
+        "id": "H-L2",
+        "score": 1
+      },
+      {
+        "id": "H-L3",
+        "score": 1
+      },
+      {
+        "id": "H-S1",
+        "score": 1
+      },
+      {
+        "id": "H-S2",
+        "score": 1
+      },
+      {
+        "id": "H-S3",
+        "score": 1
+      },
+      {
+        "id": "H-R1",
+        "score": 1
+      },
+      {
+        "id": "H-R2",
+        "score": 1
+      },
+      {
+        "id": "H-R3",
+        "score": 1
+      }
+    ]
+  }
+]

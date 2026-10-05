@@ -1,6 +1,6 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
-F02의 현재 운영 상태는 `synthetic-educational-validation-pending`이다. [Synthetic Classroom Smoke v1](./reports/academic-reading-f02-synthetic-smoke-20261005.md) 진단 경로를 추가했다. 기존 사람 pilot 제안본은 미봉인 상태로 보존하되 현재 실행 경로로 삼지 않는다. 합성 seal은 해시 동일성 검사이며 학년 타당도 승인이 아니다. 외부 benchmark와 독립 응답 검증 전에는 `TARGET_FIT`·`LEVEL_SEPARATION`·Gold-S·DB seed를 판정하지 않는다.
+F02의 현재 운영 상태는 `synthetic-educational-validation-pending`이다. [Synthetic Classroom Smoke v1](./reports/academic-reading-f02-synthetic-smoke-20261005.md)에서 28개 패킷의 Claude 응답·Codex 독립 채점을 실행해 모델 출력 28개를 얻었지만, 한 응답 모델 계열에서 높은 점수의 천장 효과와 의도한 지문 난도 방향의 미분리를 관찰했다. 기존 사람 pilot 제안본은 미봉인 상태로 보존하되 현재 실행 경로로 삼지 않는다. 합성 seal은 해시 동일성 검사이며 학년 타당도 승인이 아니다. 외부 benchmark와 다른 모델 계열 재현 전에는 `TARGET_FIT`·`LEVEL_SEPARATION`·Gold-S·DB seed를 판정하지 않는다. 실제 학생 N은 0이다.
 
 F02 학생 pilot의 책임자 결정 기록은 [봉인 검토표](./reports/academic-reading-f02-lead-seal-sheet-20261005.md)를 사용한다. 현재 미봉인이며 모집·학생 평가·gold·DB seed는 시작하지 않았다.
 

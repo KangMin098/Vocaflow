@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { spawnSync } from 'node:child_process'
-import { mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync } from 'node:fs'
+import { mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -17,6 +17,10 @@ const response = packet => ({
   scorer_family: 'scoring-family',
   replica_id: 'r1',
   scoring_key_hash: built.seal.scoring_key_hash,
+  student_prompt_sha256: 'a'.repeat(64),
+  scorer_prompt_sha256: 'b'.repeat(64),
+  respondent_raw_sha256: 'c'.repeat(64),
+  scorer_raw_sha256: 'd'.repeat(64),
   answers: packet.body.questions.map(({ id }) => ({ id, answer: 'A nonempty diagnostic response.' })),
   scores: packet.body.questions.map(({ id }) => ({ id, score: 0.5 }))
 })
@@ -58,6 +62,7 @@ test('response import rejects self-scoring, missing answers, altered keys, and d
   assert.throws(() => analyzeF02Synthetic([{ ...valid, scorer_family: valid.model_family }], built), /provenance/)
   assert.throws(() => analyzeF02Synthetic([{ ...valid, answers: valid.answers.slice(1) }], built), /incomplete/)
   assert.throws(() => analyzeF02Synthetic([{ ...valid, scoring_key_hash: '0'.repeat(64) }], built), /provenance/)
+  assert.throws(() => analyzeF02Synthetic([{ ...valid, student_prompt_sha256: undefined }], built), /provenance/)
   assert.throws(() => analyzeF02Synthetic([valid, valid], built), /Duplicate/)
   assert.throws(() => analyzeF02Synthetic([{ ...valid, packet_id: '0'.repeat(64) }], built), /provenance/)
 })
@@ -73,6 +78,21 @@ test('CLI exports only blind packet files and an identity seal to a new director
     const packet = JSON.parse(readFileSync(join(target, `${built.packets[0].packet_id}.json`), 'utf8'))
     assert.ok(!Object.hasOwn(packet, 'passage_variant'))
     assert.ok(!JSON.stringify(packet).includes('scoring_rubric'))
+    const packetPath = join(target, `${built.packets[0].packet_id}.json`)
+    writeFileSync(packetPath, JSON.stringify({ ...packet, passage: 'changed' }))
+    const runner = fileURLToPath(new URL('./f02-smoke-run.mjs', import.meta.url))
+    const changedPacket = spawnSync(process.execPath, [runner, target, '1'], { encoding: 'utf8' })
+    assert.notEqual(changedPacket.status, 0)
+    assert.match(changedPacket.stderr, /Blind packet .* changed/)
+    writeFileSync(packetPath, JSON.stringify(packet))
+    writeFileSync(join(target, `claude-${built.packets[0].packet_id}.json`), JSON.stringify({ prompt_sha256: '0'.repeat(64), result: '{"answers":[]}' }))
+    const stalePrompt = spawnSync(process.execPath, [runner, target, '1'], { encoding: 'utf8' })
+    assert.notEqual(stalePrompt.status, 0)
+    assert.match(stalePrompt.stderr, /Student prompt changed/)
+    writeFileSync(join(target, 'seal.json'), JSON.stringify({ ...built.seal, seal_sha256: '0'.repeat(64) }))
+    const changedSeal = spawnSync(process.execPath, [runner, target, '1'], { encoding: 'utf8' })
+    assert.notEqual(changedSeal.status, 0)
+    assert.match(changedSeal.stderr, /Synthetic seal changed/)
   } finally {
     const absoluteRoot = realpathSync(root)
     const absoluteTemp = realpathSync(tmpdir())
