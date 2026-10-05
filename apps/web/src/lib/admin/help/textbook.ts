@@ -244,7 +244,7 @@ export const TBP_HELP: HelpRegistry = {
       drain: {
         what: '조판 후보(`ready`·`published`) 전체를 일곱 축으로 판정한 스냅샷 — 등급 분포 · 탈락 축 · 학령별 적격 · 원천별 막힌 편수.',
         prerequisites: [
-          '사람 평가 v2는 protocol-2.draft.json의 4점/8항목·critical 탈락·제3 독립 판정 후 중재·학년당 15~30명/버전별 완전 측정 15명을 사용합니다. band 20개·책임자·배정은 미확정입니다. 사람이 먼저 검토하고 frym-validation-register.mjs --prepare로 새 manifest를 준비한 뒤 실제 사전 등록 증빙을 --approval로 봉인합니다. 기존 8편은 calibration으로 gold/DB seed가 될 수 없으며 새 seed는 v1 인증을 거절합니다. pass-bands-2.draft.json은 검토 양식이며 실행 인자가 아닙니다.',
+          '사람 평가 v2는 protocol-2.draft.json의 4점/8항목·critical 탈락·제3 독립 판정 후 중재·학년당 15~30명/버전별 완전 측정 15명을 사용합니다. band 20개·책임자·배정은 미확정입니다. 사람이 먼저 검토하고 frym-validation-register.mjs --prepare로 새 manifest를 준비한 뒤 실제 사전 등록 증빙을 --approval로 봉인하고 새 .packets 자료만 배포합니다. 수집은 전문가/학생 packet_hash도 검사하여 수정 전 초안 패킷의 응답을 거절합니다. 기존 8편은 calibration으로 gold/DB seed가 될 수 없으며 새 seed는 v1 인증을 거절합니다. pass-bands-2.draft.json은 검토 양식이며 실행 인자가 아닙니다.',
           'v2 collect/verify/import에는 --evidence-dir로 보존된 원본을 지정하고 실제 collect에는 --pilot도 지정합니다. 원 연구 문맥·배정·시각을 재검증하고 응답 충돌은 거절, 학생 null만 보충합니다. 모든 결과/receipt/등록 요청은 새 경로에 보존하므로 같은 경로 재실행은 실패합니다. verify는 읽기 전용이며 --report도 새 파일만 만듭니다. 실패한 출력도 보존하고 새 경로로 복구합니다. validation/replication 등록은 완료된 calibration --calibration-results를 요구합니다. production 확인은 별도 재현 자료와 현재 published DB 행을 읽을 뿐 DB를 쓰지 않습니다.',
           'FYM 보존 규칙을 쓰는 DB seed는 실제 사람의 교육적 gold 결과가 먼저 필요합니다. 전문가 자격·학생 학년을 사람이 확인하고 정확한 문항/프로토콜을 평가 전에 등록합니다. 초안 수치와 문항은 학년 규준이 아닙니다.',
           'DB 캐시는 승인된 eligibility SQL 적용이 전제입니다. 일괄 적재 전 최신 문항 연결 수·dry run diff·checkpoint·배치 백업을 확인합니다.',

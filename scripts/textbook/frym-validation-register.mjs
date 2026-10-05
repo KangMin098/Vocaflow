@@ -1,8 +1,9 @@
 // scripts/textbook/frym-validation-register.mjs
 import fs from 'node:fs'
+import path from 'node:path'
 import {digest} from './academic-reading-contract.mjs'
 import {currentEducationalEvidence} from './educational-validation-contract.mjs'
-import {bundleV2Schema,refreshV2Hashes,digestV2,manifestIdentityV2,registerV2,calibrationCompletedV2} from '@vocaflow/library-pipeline/educational-validation-v2'
+import {bundleV2Schema,refreshV2Hashes,digestV2,manifestIdentityV2,registerV2,calibrationCompletedV2,deliveryPacketV2} from '@vocaflow/library-pipeline/educational-validation-v2'
 const arg=n=>{const i=process.argv.indexOf(`--${n}`);return i<0?null:process.argv[i+1]}
 if(process.argv.includes('--commit'))throw Error('Registration has no DB commit mode')
 for(const n of ['input','output','precision-review','evidence-dir'])if(!arg(n))throw Error(`--${n} required`)
@@ -25,6 +26,15 @@ if(prepare){
  const request=arg('output')+'.registration-request.json'
  if(fs.existsSync(request))throw Error('Registration request exists')
  fs.writeFileSync(request,JSON.stringify({human_lead_id:null,approved_at:null,manifest_hash,registration_evidence:null},null,2)+'\n',{flag:'wx'})
-}else b=registerV2(b,JSON.parse(fs.readFileSync(arg('approval'),'utf8')),Date.now())
+}else{
+ b=registerV2(b,JSON.parse(fs.readFileSync(arg('approval'),'utf8')),Date.now())
+ if(b.records.some(r=>! /^[A-Za-z0-9_-]+$/.test(r.blind_item_id)))throw Error('Unsafe blind packet filename')
+ const packetDir=arg('output')+'.packets'
+ if(fs.existsSync(packetDir))throw Error('Registered packet directory exists; choose a new output path')
+ for(const role of ['expert','student']){
+  fs.mkdirSync(path.join(packetDir,role),{recursive:true})
+  for(const r of b.records)fs.writeFileSync(path.join(packetDir,role,r.blind_item_id+'.json'),JSON.stringify(deliveryPacketV2(b,r,role),null,2)+'\n',{flag:'wx'})
+ }
+}
 fs.writeFileSync(arg('output'),JSON.stringify(b,null,2)+'\n',{flag:'wx'})
 console.log(JSON.stringify({mode:prepare?'registration_request_only':'human_registered_protocol',manifest_hash,registered:!prepare,actual_responses:0,db_writes:0}))

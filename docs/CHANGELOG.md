@@ -12,6 +12,7 @@
 ## Unreleased (v06.34 → next)
 
 - feat(textbook): FYM 사람 평가 v2를 export/사전 등록/독립 4점 판정/critical/제3 중재/학생 표본/보고/적재 전 검사까지 연결했다. calibration gold 금지·v1 새 seed 거절·다른 주제/원천의 후속 재현과 published 행 대조를 추가하고 실제 8편 미봉인·평가/gold/DB 쓰기 0을 확인했다. 마이그레이션/새 라우트 없음.
+- fix(textbook): 봉인 후 배포 패킷을 다시 생성하고 전문가/학생 packet hash를 검사한다. 재현의 원 validation 전문가 재사용 정책과 고정 calibration UUID/DOI/본문 재사용 차단을 강화했다. v2 인증은 legacy 발행 helper로 production이 될 수 없다.
 
 - docs(textbook): FYM calibration8의 사람 평가 2차 프로토콜 초안을 추가했다. 전문가 4점/critical/제3 중재·학년별 15~30명·미확정 pass band/사전 봉인·새 단계·production 재현을 정리하고 기존 v1 실행기와의 격차를 명시했다. 사람 승인/평가·실행기 계약 변경·DB 적재/발행 없음.
 

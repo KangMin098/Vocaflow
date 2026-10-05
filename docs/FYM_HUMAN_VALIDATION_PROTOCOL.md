@@ -95,7 +95,7 @@ Calibration 결과를 본 뒤 수정한 문항이나 band는 **후속 새 valida
 
 v2는 위 4점/8항목·핵심 critical 거부·독립 제3 판정 후 중재·완전 측정 15명·봉인 manifest·단계/재현을 연결했다. 기존 v1 파일은 그대로 읽지만 새 DB seed에는 사용하지 못한다. [명령·복구](../scripts/textbook/frym-validation/README.md)와 `protocol-2.draft.json`이 실행 계약이며 `pass-bands-2.draft.json`은 사람 검토용 양식이다. 3점 척도 변경은 현재 v2 실행기에서 지원하지 않으며 새 계약을 데이터 전에 등록해야 한다.
 
-사람 책임자가 band·근거·운영 규칙·문항·expert_assignment·experts의 자격/사전 노출 확인·participants의 학년/균형 순서를 확정하고 `register --prepare`로 manifest를 준비한다. 외부의 실제 사전 등록 증빙과 시각을 `--approval`로 제공해야 봉인된다. JSON/hash는 사람 인증이나 신뢰할 수 있는 외부 등록 시각을 대신하지 않는다. 실제 8편은 여전히 band 20개 null·책임자/배정/등록 없음·사람 응답 0이다.
+사람 책임자가 band·근거·운영 규칙·문항·expert_assignment·experts의 자격/사전 노출 확인·participants의 학년/균형 순서를 확정하고 `register --prepare`로 manifest를 준비한다. 외부의 실제 사전 등록 증빙과 시각을 `--approval`로 제공해야 봉인된다. 등록 후 정확한 bundle에서 새 패킷을 생성하며 수집/평가에서 packet_hash를 대조한다. 초안 패킷에 대한 응답을 새 봉인 결과로 인정하지 않는다. JSON/hash는 사람 인증이나 신뢰할 수 있는 외부 등록 시각을 대신하지 않는다. 실제 8편은 여전히 band 20개 null·책임자/배정/등록 없음·사람 응답 0이다.
 
 최초/제3 리뷰와 중재는 각각 보존한다. 왜곡은 major/minor로 구분하고 중재에 `final_distortions`를 명시한다. 핵심 critical은 언제나 탈락이며 비치명 불일치는 중재로 최종 판정할 수 있다. 학생은 의미 통과 지문만 읽고, 앞 지문 생략은 확정된 의미 실패에만 허용한다. 시작/종료 중 하나가 없는 부분 기록도 보존하지만 측정에 포함하지 않는다. 보고서는 학생별 축 정확도 n/사분위, 문항별 응답, 순서 위치, 전문가 항목별 일치를 분리한다.
 

@@ -22,7 +22,7 @@ export const protocolV2Schema=z.object({
 const rating=z.object({score:z.number().int().min(1).max(4).nullable(),critical:z.boolean().nullable(),passage_quote:z.string().min(8).nullable(),research_quote:z.string().min(8).nullable(),reason:reason.nullable()}).strict()
 const ratings=z.object(Object.fromEntries(SEMANTIC_CRITERIA.map(k=>[k,rating])) as Record<typeof SEMANTIC_CRITERIA[number],typeof rating>).strict()
 const distortions=z.array(legacy.records.element.shape.expert_reviews.element.shape.distortions.element.extend({severity:z.enum(['major','minor'])}).strict())
-export const ordinalReviewSchema=z.object({expert_id:id,blind_item_id:id,passage_hash:hash,rated_at:date,ratings,
+export const ordinalReviewSchema=z.object({expert_id:id,blind_item_id:id,passage_hash:hash,packet_hash:hash,rated_at:date,ratings,
   distortions,reason}).strict()
 export const adjudicationV2Schema=z.object({
   adjudicator_id:id, initial_review_hashes:z.array(hash).length(2), adjudicator_independent_review_hash:hash,
@@ -45,6 +45,7 @@ export const bundleV2Schema=z.object({
     research_doi:z.string().min(1),research_contexts:z.array(z.string().min(8)).min(1),adapted_passage:z.string().min(8),topic:id,source_family:id,
     expert_assignment:z.object({initial_expert_ids:z.array(id).length(2),adjudicator_id:id}).strict().nullable(),
     expert_reviews:z.array(ordinalReviewSchema),adjudication:adjudicationV2Schema.nullable(),
+    student_sessions:z.array(studentSessionSchema.extend({packet_hash:hash}).strict()),
   }).strict()).min(1),
 }).strict().superRefine((b,ctx)=>{
   const unique=(xs:string[],label:string)=>{if(new Set(xs).size!==xs.length)ctx.addIssue({code:'custom',message:`Duplicate ${label}`})}
@@ -63,13 +64,21 @@ export type RecordV2=BundleV2['records'][number]
 export const digestV2=(value:unknown)=>researchBodyHash(canonicalJson(value))
 export function instrumentIdentityV2(records:RecordV2[]){return records.map(({expert_reviews: _e,student_sessions:_s,adjudication:_a,provenance_verified:_p,link_confidence:_l,...frozen})=>frozen)}
 export function manifestIdentityV2(b:BundleV2){return {version:2,study_id:b.study_id,taxonomy_version:b.taxonomy_version,pilot_hash:b.pilot_hash,review_hash:b.review_hash,rules_hash:b.rules_hash,protocol:b.protocol,records:instrumentIdentityV2(b.records),experts:b.experts,participants:b.participants,calibration_exclusions:b.calibration_exclusions}}
+export function deliveryPacketV2(b:BundleV2,r:RecordV2,role:'expert'|'student'){
+  const manifest_hash=digestV2(manifestIdentityV2(b))
+  const payload=role==='expert'?{blind_item_id:r.blind_item_id,passage_hash:r.passage_hash,instructions:'Independently rate all eight criteria against the original research. Flag critical failures separately. The third reviewer rates before disclosure of initial reviews. Target grade, producer and prior outcomes are withheld.',original_research_context:r.research_contexts,adapted_passage:r.adapted_passage,criteria:SEMANTIC_CRITERIA,score_anchors:b.protocol.score_anchors}:{blind_item_id:r.blind_item_id,passage_hash:r.passage_hash,instructions:'Read first and record reading start/end before answering. Mark unknown word occurrences. Answer in Korean or English. Do not access scoring rubrics.',passage:r.adapted_passage,questions:r.instrument.map(({id,axis,prompt})=>({id,axis,prompt}))}
+  const packet_hash=digestV2({manifest_hash,role,payload})
+  const response=role==='expert'?{expert_id:null,blind_item_id:r.blind_item_id,passage_hash:r.passage_hash,packet_hash,rated_at:null,ratings:Object.fromEntries(SEMANTIC_CRITERIA.map(k=>[k,{score:null,critical:null,passage_quote:null,research_quote:null,reason:null}])),distortions:[],reason:null}:{student_id:null,blind_item_id:r.blind_item_id,passage_hash:r.passage_hash,packet_hash,reading_started_at:null,reading_finished_at:null,unknown_word_count:null,lexical_burden:null,sentence_burden:null,reasoning_burden:null,perceived_difficulty:null,answers:r.instrument.map(i=>({item_id:i.id,response:null}))}
+  return {version:2,manifest_hash,packet_hash,payload,response}
+}
 export function refreshV2Hashes(b:BundleV2){b.protocol_hash=digestV2(b.protocol);b.instrument_hash=digestV2(instrumentIdentityV2(b.records));return b}
 const core=new Set<typeof SEMANTIC_CRITERIA[number]>(['core_claim','causal_direction','comparison_relation','conditions_and_scope','no_key_omission','no_epistemic_overstatement'])
 const complete=(x:z.infer<typeof ratings>)=>SEMANTIC_CRITERIA.every(k=>Object.values(x[k]).every(v=>v!==null))
 const passed=(x:z.infer<typeof ratings>)=>complete(x)&&SEMANTIC_CRITERIA.every(k=>x[k].score!>=3&&!x[k].critical)
 const critical=(x:z.infer<typeof ratings>)=>SEMANTIC_CRITERIA.some(k=>core.has(k)&&x[k].critical===true)
 function evidenceValid(r:RecordV2,x:z.infer<typeof ratings>,passage:string){return SEMANTIC_CRITERIA.every(k=>x[k].passage_quote!==null&&passage.includes(x[k].passage_quote!)&&x[k].research_quote!==null&&r.research_contexts.some(c=>c.includes(x[k].research_quote!)))}
-export function studentBindingV2(b:BundleV2,r:RecordV2,s:z.infer<typeof studentSessionSchema>,passage:string,now:number,passages:Record<string,string>={}){
+export function studentBindingV2(b:BundleV2,r:RecordV2,s:z.infer<typeof studentSessionSchema>&{packet_hash:string},passage:string,now:number,passages:Record<string,string>={}){
+  if(s.packet_hash!==deliveryPacketV2(b,r,'student').packet_hash)return false
   const a=b.protocol_approval,p=b.participants.find(p=>p.student_id===s.student_id),start=s.reading_started_at===null?null:Date.parse(s.reading_started_at),end=s.reading_finished_at===null?null:Date.parse(s.reading_finished_at)
   if(!a||!p||p.grade!==r.grade||!p.record_order.includes(r.id)||(s.grade!==null&&s.grade!==r.grade)||(s.grade_verified_by!==null&&s.grade_verified_by!==a.human_lead_id)||[start,end].some(t=>t!==null&&(t<Date.parse(a.approved_at)||t>now))||(end!==null&&start!==null&&end<=start)||s.answers.some(x=>!r.instrument.some(i=>i.id===x.item_id)||(x.scorer_id!==null&&!b.experts.some(e=>e.id===x.scorer_id)))||new Set(s.answers.map(x=>x.item_id)).size!==s.answers.length||s.unknown_word_count!==null&&s.unknown_word_count>passage.trim().split(/\s+/).length)return false
   if(start!==null){
@@ -112,7 +121,7 @@ export function registerV2(input:BundleV2,approval:NonNullable<BundleV2['protoco
 }
 export function expertOutcomeV2(b:BundleV2,r:RecordV2,passage:string,now:number){
   const blockers=registrationBlockersV2(b,now),a=b.protocol_approval,x=r.expert_assignment
-  const valid=(e:RecordV2['expert_reviews'][number])=>!!a&&!!x&&[...x.initial_expert_ids,x.adjudicator_id].includes(e.expert_id)&&e.blind_item_id===r.blind_item_id&&e.passage_hash===r.passage_hash&&Date.parse(e.rated_at)>=Date.parse(a.approved_at)&&Date.parse(e.rated_at)<=now&&complete(e.ratings)&&evidenceValid(r,e.ratings,passage)
+  const valid=(e:RecordV2['expert_reviews'][number])=>!!a&&!!x&&[...x.initial_expert_ids,x.adjudicator_id].includes(e.expert_id)&&e.packet_hash===deliveryPacketV2(b,r,'expert').packet_hash&&e.blind_item_id===r.blind_item_id&&e.passage_hash===r.passage_hash&&Date.parse(e.rated_at)>=Date.parse(a.approved_at)&&Date.parse(e.rated_at)<=now&&complete(e.ratings)&&evidenceValid(r,e.ratings,passage)
   if(r.expert_reviews.some(e=>!valid(e)))blockers.push('expert_review_invalid')
   const initial=x?x.initial_expert_ids.map(id=>r.expert_reviews.find(e=>e.expert_id===id)).filter((e):e is RecordV2['expert_reviews'][number]=>!!e&&valid(e)):[]
   if(initial.length!==2)blockers.push('independent_reviews_insufficient')
@@ -174,6 +183,7 @@ export function productionV2(b:BundleV2,r:RecordV2,passage:string,replication:Bu
   if(evaluateV2(b,r,passage,now,basePassages).state!=='gold'||!b.protocol_approval||replication.protocol.study_purpose!=='replication'||replication.study_id===b.study_id||!replication.protocol_approval||Date.parse(replication.protocol_approval.approved_at)<=Math.max(Date.parse(b.protocol_approval.approved_at),...b.records.flatMap(x=>x.student_sessions.flatMap(s=>s.reading_finished_at?[Date.parse(s.reading_finished_at)]:[]))))return false
   // Replication is independently evaluated; a published flag or a boolean assertion is insufficient.
   if(replication.records.some(x=>b.records.some(y=>x.source_id===y.source_id||x.research_doi.toLowerCase()===y.research_doi.toLowerCase()||x.passage_hash===y.passage_hash||x.topic===y.topic||x.source_family===y.source_family))||replication.participants.some(x=>b.participants.some(y=>x.student_id===y.student_id)))return false
+  if(!replication.protocol.expert_reuse_allowed&&replication.experts.some(x=>b.experts.some(y=>x.id===y.id)))return false
   return replication.records.every(x=>evaluateV2(replication,x,replicationPassages[x.id]??'',now,replicationPassages).state==='gold')&&article?.status==='published'&&article.adapted_from_id===r.source_id&&researchBodyHash(article.content)===r.passage_hash&&article.composed_spec?.academic_reading?.target_key===r.target_key
 }
 export function calibrationCompletedV2(b:BundleV2,now:number){

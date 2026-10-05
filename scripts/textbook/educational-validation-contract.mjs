@@ -5,8 +5,15 @@ import { canonical, digest } from './academic-reading-contract.mjs'
 import { validationBundleSchema, instrumentIdentity, evaluateEducationalRecord, matchEducationalBinding } from '@vocaflow/library-pipeline/educational-validation'
 import { precisionRoundSchema,validatePrecisionEvidence } from '../../packages/library-pipeline/src/textbook/parallel-precision.ts'
 import {bundleV2Schema,instrumentIdentityV2,evaluateV2,digestV2,manifestIdentityV2} from '@vocaflow/library-pipeline/educational-validation-v2'
+export function assertIndependentOfFixedCalibration(bundle){
+  if(bundle.version!==2||bundle.protocol.study_purpose==='calibration')return
+  const fixedPilot=JSON.parse(fs.readFileSync(new URL('./frym-precision/adaptation-pilot-1.json',import.meta.url),'utf8')),fixedRules=JSON.parse(fs.readFileSync(new URL('./frym-precision/preservation-rules-1.json',import.meta.url),'utf8'))
+  const sources=new Set(fixedRules.entries.map(e=>e.source_id)),dois=new Set(fixedRules.entries.map(e=>e.original_work_id.toLowerCase())),passages=new Set(fixedPilot.records.map(r=>digest(r.text)))
+  if(bundle.records.some(r=>sources.has(r.source_id)||dois.has(r.research_doi.toLowerCase())||passages.has(r.passage_hash)))throw Error('Fixed eight-passage calibration source/research/passage cannot be reused for validation or replication')
+}
 
 export function currentEducationalEvidence(bundle,reviewFile,evidenceDir){
+  assertIndependentOfFixedCalibration(bundle)
   if (!reviewFile) throw new Error('Educational validation requires --precision-review')
   const reviewRaw=fs.readFileSync(reviewFile,'utf8'),review=precisionRoundSchema.parse(JSON.parse(reviewRaw))
   if(digest(reviewRaw)!==bundle.review_hash)throw Error('Educational precision review changed')
@@ -49,6 +56,7 @@ export function validateEducationalPromotion(draft, task, validation, now) {
   if (!validation) return {ok:false,reason:'educational validation required before DB seed'}
   const b=validation.bundle
   if(b.version!==2)return {ok:false,reason:'legacy v1 retained for reading only; new DB seed requires sealed v2 validation'}
+  try{assertIndependentOfFixedCalibration(b)}catch(error){return {ok:false,reason:error.message}}
   if (b.review_hash!==task.review_hash || b.rules_hash!==task.rules_hash) return {ok:false,reason:'educational review/rules binding changed'}
   const matches=b.records.filter(r=>matchEducationalBinding(r,task,draft.text??'',draft.reading?.target_key))
   if (matches.length!==1) return {ok:false,reason:'educational passage/target/source binding missing or ambiguous'}

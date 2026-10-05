@@ -7,7 +7,8 @@ import { preservationPilotSchema } from '@vocaflow/library-pipeline/reading-pres
 import { validationProtocolSchema,validationBundleSchema,instrumentIdentity,expertBlindPacket,assertPilotGradeCoverage,DISTORTION_TAXONOMY,DISTORTION_TAXONOMY_VERSION } from '@vocaflow/library-pipeline/educational-validation'
 import { precisionRoundSchema,validatePrecisionEvidence } from '../../packages/library-pipeline/src/textbook/parallel-precision.ts'
 import { draftMeasurementItems } from './frym-validation/instruments.mjs'
-import {protocolV2Schema,bundleV2Schema,refreshV2Hashes,digestV2,manifestIdentityV2} from '@vocaflow/library-pipeline/educational-validation-v2'
+import {protocolV2Schema,bundleV2Schema,refreshV2Hashes,digestV2,manifestIdentityV2,deliveryPacketV2} from '@vocaflow/library-pipeline/educational-validation-v2'
+import {assertIndependentOfFixedCalibration} from './educational-validation-contract.mjs'
 
 const arg=(n)=>{const i=process.argv.indexOf(`--${n}`);return i<0?null:process.argv[i+1]}
 if(process.argv.includes('--commit'))throw Error('Educational validation export has no DB commit mode')
@@ -72,6 +73,7 @@ const bundleInput={version:v2?2:1,mode:'local_educational_validation',taxonomy_v
  pilot_hash:digest(pilotRaw),review_hash:pilot.review_hash,rules_hash:pilot.rules_hash,
  protocol_hash:digest(canonical(protocol)),instrument_hash:digest(canonical(instrumentIdentity(records))),protocol,protocol_approval:null,experts:[],records,...(v2?{study_id:arg('study-id'),participants:[],calibration_exclusions:[]}:{})}
 const bundle=v2?refreshV2Hashes(bundleV2Schema.parse(bundleInput)):validationBundleSchema.parse(bundleInput)
+if(v2){assertIndependentOfFixedCalibration(bundle);for(const p of packets){const r=bundle.records.find(r=>r.blind_item_id===p.blind_item_id);p.expert=deliveryPacketV2(bundle,r,'expert');p.student=deliveryPacketV2(bundle,r,'student')}}
 assertPilotGradeCoverage(records,[...tasks.values()].map(t=>t.entry.pair_id))
 const out=path.resolve(arg('output'))
 if(fs.existsSync(out))throw Error('Output already exists; preserve the old study and choose a new directory')
