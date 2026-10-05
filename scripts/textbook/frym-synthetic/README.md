@@ -4,7 +4,7 @@
 
 응답은 별도 JSON 배열로 수집한다. 각 행은 `packet_id`, 실제 `model`·`model_family`, 독립 채점에 쓴 `scorer_model`·`scorer_family`, `replica_id`, `scoring_key_hash`, 순서대로 `{id, answer}` 12개와 `{id, score}` 12개를 갖는다. 점수는 0/0.5/1 중 하나다. 생성 모델과 채점 모델 계열은 달라야 한다. 이 계열·모델 표기는 입력자의 기록이며 API attestation을 대신하지 않는다. 같은 모델 반복은 독립 학생이나 독립 모델 수로 세지 않는다. 문항별 점수는 blind 채점자가 현재 채점키에 따라 매긴 값이어야 하며, 자기 채점 출력이나 임의 점수는 유효 근거가 아니다.
 
-Windows에서 Claude Code·Codex CLI가 준비되어 있으면 `node scripts/textbook/frym-synthetic/f02-smoke-run.mjs <출력 폴더> [최대 패킷 수]`로 독립 학생 역할 응답과 blind 채점을 실행한다. 이 명령은 기존 seal과 모든 패킷을 다시 대조하고, 학생 역할을 별도 작업 폴더에서 Claude Haiku로, 채점을 다른 작업 폴더에서 Codex `gpt-6.1-sol`로 수행한다. 공급자 원출력·채점 출력과 응답 배열은 출력 폴더에 보존하며 같은 원출력은 재실행 시 재사용한다. 변경된 seal/패킷은 모델 호출 전에 실패한다. 이 도구는 로컬 CLI 로그인과 Windows `cmd.exe`가 필요하며 DB에 쓰지 않는다.
+Windows에서 Claude Code·Codex CLI가 준비되어 있으면 `node scripts/textbook/frym-synthetic/f02-smoke-run.mjs <출력 폴더> [최대 패킷 수]`로 독립 학생 역할 응답과 blind 채점을 실행한다. 이 명령은 기존 seal과 모든 패킷을 다시 대조하고, 학생 역할을 별도 작업 폴더에서 Claude Haiku로, 채점을 다른 작업 폴더에서 Codex `gpt-6.1-sol`로 수행한다. 공급자 원출력·채점 출력과 응답 배열은 출력 폴더에 보존하며 같은 원출력은 재실행 시 재사용한다. 캐시에는 학생 역할의 시스템·사용자 프롬프트와 모델 설정을 함께 묶고, 채점 모델 설정·프롬프트도 묶는다. 변경된 seal/패킷/호출 해시는 재사용을 거부한다. 이 도구는 로컬 CLI 로그인과 Windows `cmd.exe`가 필요하며 DB에 쓰지 않는다.
 
 `node scripts/textbook/frym-synthetic/f02-synthetic.mjs analyze <응답.json>`은 패킷 ID·키 해시·중복·응답/점수 완결성과 모델 계열 분리를 검사한다. 지문별 단어·문장·type/token 지표, 합성 문항 정답률, 보정 item-total 상관, 같은 프로필의 두 지문 간 관측 차이와 모델 계열별 평균·범위를 **기술 통계**로 낸다. [F02 smoke v1 응답 28행](./evidence/f02-smoke-v1.responses.json)과 [실행 요약](./evidence/f02-smoke-v1.run-summary.json)을 보존했다. 문항별 난도와 변별도는 합성 응답의 성질일 뿐 실제 학생 모수가 아니다. 외부 benchmark가 없으므로 IRT, `TARGET_FIT`, `LEVEL_SEPARATION`, Gold-S, DB seed는 판정하지 않는다. `seal.json`은 자동 산출된 입력 동일성 기록이며 교육적 승인 서명이 아니다.
 

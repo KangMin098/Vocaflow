@@ -19,6 +19,8 @@ const response = packet => ({
   scoring_key_hash: built.seal.scoring_key_hash,
   student_prompt_sha256: 'a'.repeat(64),
   scorer_prompt_sha256: 'b'.repeat(64),
+  student_invocation_sha256: 'e'.repeat(64),
+  scorer_invocation_sha256: 'f'.repeat(64),
   respondent_raw_sha256: 'c'.repeat(64),
   scorer_raw_sha256: 'd'.repeat(64),
   answers: packet.body.questions.map(({ id }) => ({ id, answer: 'A nonempty diagnostic response.' })),
@@ -88,7 +90,7 @@ test('CLI exports only blind packet files and an identity seal to a new director
     writeFileSync(join(target, `claude-${built.packets[0].packet_id}.json`), JSON.stringify({ prompt_sha256: '0'.repeat(64), result: '{"answers":[]}' }))
     const stalePrompt = spawnSync(process.execPath, [runner, target, '1'], { encoding: 'utf8' })
     assert.notEqual(stalePrompt.status, 0)
-    assert.match(stalePrompt.stderr, /Student prompt changed/)
+    assert.match(stalePrompt.stderr, /Student invocation changed/)
     writeFileSync(join(target, 'seal.json'), JSON.stringify({ ...built.seal, seal_sha256: '0'.repeat(64) }))
     const changedSeal = spawnSync(process.execPath, [runner, target, '1'], { encoding: 'utf8' })
     assert.notEqual(changedSeal.status, 0)

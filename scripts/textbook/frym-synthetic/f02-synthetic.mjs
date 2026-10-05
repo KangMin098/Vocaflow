@@ -77,7 +77,7 @@ export function analyzeF02Synthetic(rows, built = buildF02Synthetic()) {
   const seen = new Set(), scored = []
   for (const row of rows) {
     const packet = packets.get(row.packet_id)
-    if (!packet || !hex(row.packet_id) || typeof row.model !== 'string' || row.model.length < 2 || typeof row.model_family !== 'string' || row.model_family.length < 2 || typeof row.scorer_model !== 'string' || row.scorer_model.length < 2 || typeof row.scorer_family !== 'string' || row.scorer_family.length < 2 || row.model_family === row.scorer_family || typeof row.replica_id !== 'string' || !row.replica_id || row.scoring_key_hash !== built.seal.scoring_key_hash || !['student_prompt_sha256', 'scorer_prompt_sha256', 'respondent_raw_sha256', 'scorer_raw_sha256'].every(key => hex(row[key]))) throw Error('Synthetic response provenance invalid')
+    if (!packet || !hex(row.packet_id) || typeof row.model !== 'string' || row.model.length < 2 || typeof row.model_family !== 'string' || row.model_family.length < 2 || typeof row.scorer_model !== 'string' || row.scorer_model.length < 2 || typeof row.scorer_family !== 'string' || row.scorer_family.length < 2 || row.model_family === row.scorer_family || typeof row.replica_id !== 'string' || !row.replica_id || row.scoring_key_hash !== built.seal.scoring_key_hash || !['student_prompt_sha256', 'scorer_prompt_sha256', 'student_invocation_sha256', 'scorer_invocation_sha256', 'respondent_raw_sha256', 'scorer_raw_sha256'].every(key => hex(row[key]))) throw Error('Synthetic response provenance invalid')
     const identity = `${row.model_family}:${row.model}:${packet.profile_id}:${packet.passage_variant}:${row.replica_id}`
     if (seen.has(identity)) throw Error('Duplicate synthetic response')
     seen.add(identity)

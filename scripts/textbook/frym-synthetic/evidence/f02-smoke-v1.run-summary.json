@@ -5,6 +5,7 @@
   "errors": [],
   "student_system_sha256": "5ca26b194b729a125d1d7cc5a78b7738d0be45be4657e659d8b943f628494b7b",
   "student_instruction_sha256": "f530f771adda54207c8414e3815b6084aa1be28bb6ad19a99718b33b80aa54c8",
+  "student_command_sha256": "50159285b7d6cbecf56da2e812b18375cd3eb103d8588d5eebee18ed632e0a66",
   "scorer_instruction_sha256": "ccffc3f0a208e05a0b255da94904eb63f454e394381d60a6ecfdcec67296d2a0",
   "analysis_status": "synthetic_diagnostic_unbenchmarked"
 }
