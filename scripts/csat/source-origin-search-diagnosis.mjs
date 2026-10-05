@@ -10,7 +10,10 @@ const sorted=o=>Object.entries(o).sort(([a],[b])=>a.localeCompare(b))
 const equalHashes=(a,b)=>JSON.stringify(sorted(a))===JSON.stringify(sorted(b))
 const group=rows=>{
  const result=new Map()
- for(const r of rows){const list=result.get(r.representative_item_id)||[];list.push(r);result.set(r.representative_item_id,list)}
+ for(const [index,r] of rows.entries()){
+  if(!/^[a-f0-9]{64}$/.test(r.passage_sha256||'')||typeof r.representative_item_id!=='string'||typeof r.query!=='string'||typeof r.raw_search!=='string')throw new Error('Invalid search log identity/query/result')
+  const list=result.get(r.representative_item_id)||[];list.push({...r,record_number:index+1});result.set(r.representative_item_id,list)
+ }
  return result
 }
 
@@ -18,23 +21,29 @@ export function diagnoseOrigins({snapshot,generalLog,booksLog,decisions,auditedA
  if(!/^\d{4}-\d{2}-\d{2}$/.test(auditedAt||''))throw new Error('auditedAt must be an explicit date')
  const identities=new Set(),ids=new Set()
  for(const r of snapshot){
-  if(!STATUSES.includes(r.status)||identities.has(r.passage_sha256)||ids.has(r.representative_item_id))throw new Error('Invalid status or duplicate registry identity')
+  if(!STATUSES.includes(r.status)||!/^[a-f0-9]{64}$/.test(r.passage_sha256||'')||identities.has(r.passage_sha256)||ids.has(r.representative_item_id))throw new Error('Invalid status or duplicate registry identity')
   identities.add(r.passage_sha256);ids.add(r.representative_item_id)
   if(!Array.isArray(r.item_ids)||!r.item_ids.includes(r.representative_item_id)||new Set(r.item_ids).size!==r.item_ids.length)throw new Error('Invalid linked items')
   if(!r.body_sha256_by_item||Object.keys(r.body_sha256_by_item).length!==r.item_ids.length||r.item_ids.some(id=>!/^[a-f0-9]{64}$/.test(r.body_sha256_by_item[id]||'')))throw new Error('Missing current linked body hashes')
   if(typeof r.passage!=='string'||createHash('sha256').update(r.passage,'utf8').digest('hex')!==r.body_sha256_by_item[r.representative_item_id])throw new Error('Representative body hash mismatch')
  }
- const general=group(generalLog),books=group(booksLog),deep=new Map()
- for(const d of decisions){if(deep.has(d.passage_sha256))throw new Error('Duplicate deep decision');deep.set(d.passage_sha256,d)}
+ const general=group(generalLog),books=group(booksLog),deep=new Map(),deepById=new Map()
+ for(const d of decisions){if(deep.has(d.passage_sha256)||deepById.has(d.representative_item_id))throw new Error('Duplicate deep decision');deep.set(d.passage_sha256,d);deepById.set(d.representative_item_id,d)}
  const rows=snapshot.filter(r=>r.status==='unresolved').map(r=>{
-  const d=deep.get(r.passage_sha256),g=general.get(r.representative_item_id)||[],b=books.get(r.representative_item_id)||[]
-  if(d&&(d.representative_item_id!==r.representative_item_id||!d.body_sha256_by_item||!equalHashes(d.body_sha256_by_item,r.body_sha256_by_item)))throw new Error('Deep decision identity/body conflict: '+r.representative_item_id)
+  const d=deep.get(r.passage_sha256)||deepById.get(r.representative_item_id)
+  const allG=general.get(r.representative_item_id)||[],allB=books.get(r.representative_item_id)||[]
+  const g=allG.filter(x=>x.passage_sha256===r.passage_sha256),b=allB.filter(x=>x.passage_sha256===r.passage_sha256)
+  if(d&&(d.passage_sha256!==r.passage_sha256||d.representative_item_id!==r.representative_item_id||!d.body_sha256_by_item||!equalHashes(d.body_sha256_by_item,r.body_sha256_by_item)))throw new Error('Deep decision identity/body conflict: '+r.representative_item_id)
+  const searches=(records,input)=>records.map(x=>({passage_sha256:x.passage_sha256,query:x.query,record_reference:{input,record_number:x.record_number}}))
   // This is an explicit historical-record classification, not a causal model.
   // A scan is a format, not proof of access failure. Only the recorded 404 qualifies.
   const access=!!d&&r.representative_item_id==='2019#26'&&/404/.test(d.why)
   const provenance=!!d&&r.representative_item_id==='2014B#34'&&/재인용.*미확인/.test(d.why)
   return {passage_sha256:r.passage_sha256,representative_item_id:r.representative_item_id,item_ids:r.item_ids,body_sha256_by_item:r.body_sha256_by_item,
    scope:r.representative_item_id.startsWith('M')?'mock':'suneung',legacy_general_queries:g.length,legacy_book_queries:b.length,
+   legacy_general_searches:searches(g,'general-log'),legacy_book_searches:searches(b,'books-log'),
+   excluded_stale_general_searches:searches(allG.filter(x=>x.passage_sha256!==r.passage_sha256),'general-log'),
+   excluded_stale_book_searches:searches(allB.filter(x=>x.passage_sha256!==r.passage_sha256),'books-log'),
    legacy_books_empty:b.length?b.every(x=>String(x.raw_search).includes('Empty search results')):null,
    legacy_query_in_current_body:g.some(x=>{const phrase=String(x.query).match(/"([^"\n]+)"/)?.[1];return !!phrase&&norm(r.passage).includes(norm(phrase))}),
    deep_record:d?{why:d.why,checked_range:d.checked_range,checked_urls:d.checked_urls,body_bound:true}:null,

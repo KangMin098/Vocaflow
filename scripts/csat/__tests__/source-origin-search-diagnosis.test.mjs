@@ -21,4 +21,18 @@ test('stale linked bodies, changed representative text and duplicate identities 
  assert.throws(()=>run([{...r,passage:'changed'}]),/hash mismatch/)
  assert.throws(()=>run([{...r,item_ids:[r.representative_item_id,'2019#27']}]),/Missing current/)
  assert.throws(()=>run([r,r]),/duplicate/)
+ const changed={...r,passage_sha256:'1'.repeat(64),passage:'changed',body_sha256_by_item:{[r.representative_item_id]:createHash('sha256').update('changed').digest('hex')}}
+ assert.throws(()=>run([changed],[d]),/body conflict/)
+})
+test('searches for other registry hashes are excluded and query provenance is preserved',()=>{
+ const r=make('2019#26'),log={representative_item_id:r.representative_item_id,query:'"Distinctive example"',raw_search:'Empty search results'}
+ const result=diagnoseOrigins({snapshot:[r],decisions:[],auditedAt:'2026-10-05',booksLog:[],generalLog:[{...log,passage_sha256:r.passage_sha256},{...log,passage_sha256:'0'.repeat(64)}]})
+ const row=result.rows[0]
+ assert.equal(row.legacy_general_queries,1)
+ assert.equal(row.legacy_query_in_current_body,true)
+ assert.equal(row.excluded_stale_general_searches.length,1)
+ assert.equal(row.legacy_general_searches[0].query,log.query)
+ assert.equal(row.legacy_general_searches[0].record_reference.record_number,1)
+ assert.equal(row.excluded_stale_general_searches[0].record_reference.record_number,2)
+ assert.throws(()=>diagnoseOrigins({snapshot:[r],decisions:[],auditedAt:'2026-10-05',booksLog:[],generalLog:[log]}),/Invalid search log/)
 })
