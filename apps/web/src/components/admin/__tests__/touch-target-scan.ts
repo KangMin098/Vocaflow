@@ -535,7 +535,16 @@ export function judgeTag(
   tag: string,
   consts: Map<string, string> = new Map(),
 ): { verdict: Verdict; reason: string } {
-  const { tokens, hasDynamic } = collectClassTokens(rawTag, consts)
+  const collected = collectClassTokens(rawTag, consts)
+  const { hasDynamic } = collected
+  // 건너뛰기 링크처럼 **평소 숨김(sr-only) · 포커스 때만 나타나는(focus:not-sr-only)** 요소는 포커스 상태가
+  // 곧 유일한 탭 가능한 모습이다 → `focus:` 상태 클래스로 판정한다(2026-10-05: 관리자 셸의 「본문으로 이동」이
+  // focus:min-h-11 을 갖고도 판정 불가로 세어졌다). 숨김 짝이 없는 요소의 focus: 높이는 여전히 인정하지 않는다
+  // (평소 크기가 작은 버튼을 focus: 로 우회하지 못하게).
+  const revealOnFocus = collected.tokens.includes('sr-only') && collected.tokens.includes('focus:not-sr-only')
+  const tokens = revealOnFocus
+    ? collected.tokens.filter((t) => t.startsWith('focus:')).map((t) => t.slice('focus:'.length))
+    : collected.tokens
 
   let guaranteeToken: string | null = null
   let smallToken: string | null = null

@@ -10,7 +10,8 @@ import { BTN } from '@/components/ui/tines-kit'
 export function AdminShell({ children, reportsBadge }: { children: ReactNode; reportsBadge: number | null }) {
   return (
     <div data-area="admin" className="min-h-screen bg-[var(--bg)]">
-      <a href="#admin-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-[var(--p)] focus:p-4 focus:text-[var(--on-p)]">본문으로 이동</a>
+      {/* 건너뛰기 링크 — 포커스 때만 보인다. 탭 영역 44px 를 명시한다(학습자 셸의 같은 링크와 같은 규칙 · 정적 스캔이 읽을 수 있게). */}
+      <a href="#admin-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:inline-flex focus:min-h-11 focus:items-center focus:rounded-full focus:bg-[var(--p)] focus:p-4 focus:text-[var(--on-p)]">본문으로 이동</a>
       <header className="admin-site-header sticky top-0 z-30 hidden border-b border-[var(--bd)] bg-[var(--bg)] md:block">
         <div className="mx-auto flex min-h-[72px] max-w-[1440px] items-center justify-between gap-4 px-4 md:px-8">
           <Link href="/admin" className="flex min-h-11 items-center gap-3 rounded-full px-2 font-display text-[20px] font-[700] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--p)]">

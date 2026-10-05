@@ -174,6 +174,15 @@ describe('스캔이 실제로 돌았다', () => {
     expect(judgeTag('<button className="relative h-8 w-8 after:absolute after:h-11 after:w-11">', 'button').verdict).toBe('pass')
   })
 
+  it('포커스 때만 나타나는 건너뛰기 링크는 포커스 상태 높이로 판정한다', () => {
+    const skip = '<a href="#x" className="sr-only focus:not-sr-only focus:fixed focus:min-h-11 focus:p-4">'
+    expect(judgeTag(skip, 'a').verdict).toBe('pass')
+    const tinySkip = '<a href="#x" className="sr-only focus:not-sr-only focus:fixed focus:py-1">'
+    expect(judgeTag(tinySkip, 'a').verdict).toBe('violation')
+    // 숨김 짝이 없으면 focus: 높이는 우회로가 되지 못한다 — 평소 모습이 판정 대상이다
+    expect(judgeTag('<button className="px-3 focus:min-h-11">', 'button').verdict).toBe('undecidable')
+  })
+
   it('오탐을 내지 않는다 — 알 수 없으면 undecidable', () => {
     expect(judgeTag('<button className="px-3 text-sm">', 'button').verdict).toBe('undecidable')
     expect(judgeTag('<button className={cls}>', 'button').verdict).toBe('undecidable')
