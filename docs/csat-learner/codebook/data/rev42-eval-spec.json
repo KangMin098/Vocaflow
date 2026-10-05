@@ -3,7 +3,7 @@
  "label": "rev4.2",
  "changes": {
   "R6": {
-   "holdout": ["R42-H1", "R42-H2", "R42-H3", "R42-H4", "R42-H5", "R42-H6", "R42-H7", "R42-H8"],
+   "holdout": ["R42-H1", "R42-H2", "R42-H3", "R42-H4", "R42-H5", "R42-H6", "R42-H7"],
    "regression_match": ["C4-11", "H-13", "H-05", "C4-07", "R4-H2"],
    "regression_converge": ["C2-02", "R4-H1"]
   }
