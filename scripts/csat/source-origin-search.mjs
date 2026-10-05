@@ -554,7 +554,7 @@ function candidateId(hit) {
   return Number.isSafeInteger(corpusId) && corpusId > 0 ? `CorpusId:${corpusId}` : null
 }
 
-export function candidateReviewQueue(plan, attempts, { retriever, topN = 3, requireIdentification = false, apiKeyProject = null, readiness = null } = {}) {
+export function candidateReviewQueue(plan, attempts, { retriever, topN = 3, requireIdentification = false, apiKeyProject = null, readiness = null, excludeCandidate = () => false } = {}) {
   if (!Number.isInteger(topN) || topN < 1 || topN > 10) throw new Error('Bounded top-N required')
   const fixed = plan.fixed_cohort ?? plan.cohort
   return fixed.map(row => {
@@ -567,7 +567,7 @@ export function candidateReviewQueue(plan, attempts, { retriever, topN = 3, requ
     const byId = new Map()
     for (const hit of hits.sort((a, b) => (b.review_priority_score ?? 0) - (a.review_priority_score ?? 0) || (a.candidate_rank ?? 0) - (b.candidate_rank ?? 0))) {
       const id = candidateId(hit)
-      if (id && !byId.has(id)) byId.set(id, { ...hit, candidate_id: id, verdict: 'unreviewed' })
+      if (id && !byId.has(id) && !excludeCandidate({ ...hit, candidate_id: id }, row)) byId.set(id, { ...hit, candidate_id: id, verdict: 'unreviewed' })
     }
     return { representative_item_id: row.representative_item_id, passage_sha256: row.passage_sha256, body_sha256_by_item: row.body_sha256_by_item, topN, candidates: [...byId.values()].slice(0, topN) }
   })

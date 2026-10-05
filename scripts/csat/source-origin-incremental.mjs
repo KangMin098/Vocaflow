@@ -33,11 +33,11 @@ export function freezePublicBaseline(plan, closure, current, priorCandidates = [
 export function incrementalMetrics(plan, attempts, outcomes, metrics, baseline, options) {
   validatePublicBaseline(plan, baseline)
   const byId = new Map(baseline.rows.map(r => [r.representative_item_id, r]))
-  const selected = candidateReviewQueue(plan, attempts, { ...options, requireIdentification: true })
-  const eligible = selected.filter(r => byId.get(r.representative_item_id).status === 'unresolved').map(r => ({ ...r, candidates: r.candidates.filter(c => {
-    const b = byId.get(r.representative_item_id)
-    return !b.known_candidate_ids.includes(c.candidate_id) && !(c.canonical_work_id && b.known_work_ids.includes(c.canonical_work_id))
-  }) }))
+  const selected = candidateReviewQueue(plan, attempts, { ...options, requireIdentification: true, excludeCandidate: (c, row) => {
+    const b = byId.get(row.representative_item_id)
+    return b.status !== 'unresolved' || b.known_candidate_ids.includes(c.candidate_id) || Boolean(c.canonical_work_id && b.known_work_ids.includes(c.canonical_work_id))
+  } })
+  const eligible = selected.filter(r => byId.get(r.representative_item_id).status === 'unresolved')
   const keys = new Map(eligible.flatMap(r => r.candidates.map(c => [JSON.stringify([r.representative_item_id, c.candidate_id]), { row: r, candidate: c }])))
   const reviews = new Map()
   for (const o of outcomes.filter(o => o.retriever === options.retriever)) {
@@ -71,7 +71,7 @@ export function incrementalMetrics(plan, attempts, outcomes, metrics, baseline, 
 export function investigationState(baselineRow, readiness) {
   const registered = ['confirmed_exact', 'supported_candidate'].includes(baselineRow.status)
   return { public_state: registered ? 'REGISTERED' : baselineRow.disposition === 'exhausted' ? 'G_PUBLIC_EXHAUSTED' : baselineRow.disposition === 'plausible-but-unverified' ? 'G_STRONG_CANDIDATE_UNVERIFIED' : 'G_OPEN',
-    api_state: readiness.eligible ? 'ready' : 'G_API_PENDING', public_research_allowed: !registered && !['exhausted', 'plausible-but-unverified'].includes(baselineRow.disposition) }
+    api_state: readiness.eligible ? 'ready' : registered ? 'pending_credentials' : 'G_API_PENDING', public_research_allowed: !registered && !['exhausted', 'plausible-but-unverified'].includes(baselineRow.disposition) }
 }
 
 export function promotionEvidenceEvent(previous, incoming) {

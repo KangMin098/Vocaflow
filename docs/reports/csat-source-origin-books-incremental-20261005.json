@@ -611,7 +611,7 @@
     {
       "representative_item_id": "2021#37",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -623,7 +623,7 @@
     {
       "representative_item_id": "2014B#32",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -653,7 +653,7 @@
     {
       "representative_item_id": "2016#36",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -677,7 +677,7 @@
     {
       "representative_item_id": "2023#24",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -701,7 +701,7 @@
     {
       "representative_item_id": "2025#30",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -713,7 +713,7 @@
     {
       "representative_item_id": "2014B#25",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -737,7 +737,7 @@
     {
       "representative_item_id": "2024#30",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -761,13 +761,13 @@
     {
       "representative_item_id": "2016#32",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
       "representative_item_id": "2018#40",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -815,7 +815,7 @@
     {
       "representative_item_id": "2014B#27",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
@@ -827,13 +827,13 @@
     {
       "representative_item_id": "2019#37",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
       "representative_item_id": "2024#40",
       "public_state": "REGISTERED",
-      "api_state": "G_API_PENDING",
+      "api_state": "pending_credentials",
       "public_research_allowed": false
     },
     {
