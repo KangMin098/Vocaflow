@@ -6,7 +6,7 @@ import { mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFile
 import { tmpdir } from 'node:os'
 import { join, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { analyzeF02Synthetic, buildF02Synthetic } from './f02-synthetic.mjs'
+import { analyzeF02Synthetic, buildF02Synthetic, verifyF02SyntheticEvidence } from './f02-synthetic.mjs'
 
 const built = buildF02Synthetic()
 const response = packet => ({
@@ -69,6 +69,15 @@ test('response import rejects self-scoring, missing answers, altered keys, and d
   assert.throws(() => analyzeF02Synthetic([{ ...valid, packet_id: '0'.repeat(64) }], built), /provenance/)
 })
 
+test('the 28 recorded model outputs verify against original provider bytes', () => {
+  const rows = JSON.parse(readFileSync(new URL('./evidence/f02-smoke-v1.responses.json', import.meta.url), 'utf8'))
+  const bundle = JSON.parse(readFileSync(new URL('./evidence/f02-smoke-v1.raw.json', import.meta.url), 'utf8'))
+  assert.equal(verifyF02SyntheticEvidence(rows, bundle, built).verified_raw_outputs, 28)
+  const changed = structuredClone(bundle)
+  changed.entries[0].respondent_raw_base64 = `A${changed.entries[0].respondent_raw_base64.slice(1)}`
+  assert.throws(() => verifyF02SyntheticEvidence(rows, changed, built), /raw output hash mismatch/)
+})
+
 test('CLI exports only blind packet files and an identity seal to a new directory', () => {
   const root = mkdtempSync(join(tmpdir(), 'vocaflow-f02-synthetic-'))
   const target = join(root, 'packets')
@@ -80,12 +89,15 @@ test('CLI exports only blind packet files and an identity seal to a new director
     const packet = JSON.parse(readFileSync(join(target, `${built.packets[0].packet_id}.json`), 'utf8'))
     assert.ok(!Object.hasOwn(packet, 'passage_variant'))
     assert.ok(!JSON.stringify(packet).includes('scoring_rubric'))
+    if (process.platform !== 'win32') return
     const packetPath = join(target, `${built.packets[0].packet_id}.json`)
     writeFileSync(packetPath, JSON.stringify({ ...packet, passage: 'changed' }))
     const runner = fileURLToPath(new URL('./f02-smoke-run.mjs', import.meta.url))
     const changedPacket = spawnSync(process.execPath, [runner, target, '1'], { encoding: 'utf8' })
     assert.notEqual(changedPacket.status, 0)
     assert.match(changedPacket.stderr, /Blind packet .* changed/)
+    assert.deepEqual(JSON.parse(readFileSync(join(target, 'responses.json'), 'utf8')), [])
+    assert.equal(JSON.parse(readFileSync(join(target, 'run-summary.json'), 'utf8')).valid_rows, 0)
     writeFileSync(packetPath, JSON.stringify(packet))
     writeFileSync(join(target, `claude-${built.packets[0].packet_id}.json`), JSON.stringify({ prompt_sha256: '0'.repeat(64), result: '{"answers":[]}' }))
     const stalePrompt = spawnSync(process.execPath, [runner, target, '1'], { encoding: 'utf8' })

@@ -113,6 +113,28 @@ export function analyzeF02Synthetic(rows, built = buildF02Synthetic()) {
   }
 }
 
+export function verifyF02SyntheticEvidence(rows, bundle, built = buildF02Synthetic()) {
+  const analysis = analyzeF02Synthetic(rows, built)
+  if (bundle?.seal_sha256 !== built.seal.seal_sha256 || !Array.isArray(bundle.entries) || bundle.entries.length !== rows.length) throw Error('Synthetic raw evidence bundle mismatch')
+  const evidence = new Map()
+  for (const entry of bundle.entries) {
+    if (evidence.has(entry.packet_id)) throw Error('Duplicate synthetic raw evidence')
+    evidence.set(entry.packet_id, entry)
+  }
+  const parseOutput = value => JSON.parse(value.trim().replace(/^\x60\x60\x60(?:json)?\s*/i, '').replace(/\s*\x60\x60\x60$/, '').trim())
+  for (const row of rows) {
+    const entry = evidence.get(row.packet_id)
+    if (!entry || typeof entry.respondent_raw_base64 !== 'string' || typeof entry.scorer_raw_base64 !== 'string') throw Error('Synthetic raw output missing')
+    const respondent = Buffer.from(entry.respondent_raw_base64, 'base64')
+    const scorer = Buffer.from(entry.scorer_raw_base64, 'base64')
+    if (respondent.toString('base64') !== entry.respondent_raw_base64 || scorer.toString('base64') !== entry.scorer_raw_base64 || sha(respondent) !== row.respondent_raw_sha256 || sha(scorer) !== row.scorer_raw_sha256) throw Error('Synthetic raw output hash mismatch')
+    const original = JSON.parse(respondent.toString('utf8'))
+    const graded = parseOutput(scorer.toString('utf8'))
+    if (!Object.hasOwn(original.modelUsage ?? {}, row.model) || original.prompt_sha256 !== row.student_prompt_sha256 || original.invocation_sha256 !== row.student_invocation_sha256 || entry.scorer_invocation_sha256 !== row.scorer_invocation_sha256 || canonical(parseOutput(original.result).answers) !== canonical(row.answers) || canonical(graded.scores) !== canonical(row.scores)) throw Error('Synthetic raw output does not match scored row')
+  }
+  return { status: analysis.status, verified_raw_outputs: rows.length, seal_sha256: built.seal.seal_sha256, gold_s: false, db_seed: false }
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const [verb, path] = process.argv.slice(2)
   if (verb === 'export' && path) {
@@ -122,5 +144,6 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     for (const packet of built.packets) writeFileSync(resolve(path, `${packet.packet_id}.json`), `${JSON.stringify({ packet_id: packet.packet_id, ...packet.body }, null, 2)}\n`)
     console.log(`Exported ${built.packets.length} blind synthetic packets; no student responses or validation result`)
   } else if (verb === 'analyze' && path) console.log(JSON.stringify(analyzeF02Synthetic(JSON.parse(readFileSync(path, 'utf8'))), null, 2))
-  else throw Error('Usage: node f02-synthetic.mjs export <output-dir> | analyze <responses.json>')
+  else if (verb === 'verify-evidence' && path && process.argv[4]) console.log(JSON.stringify(verifyF02SyntheticEvidence(JSON.parse(readFileSync(path, 'utf8')), JSON.parse(readFileSync(process.argv[4], 'utf8'))), null, 2))
+  else throw Error('Usage: node f02-synthetic.mjs export <output-dir> | analyze <responses.json> | verify-evidence <responses.json> <raw-bundle.json>')
 }

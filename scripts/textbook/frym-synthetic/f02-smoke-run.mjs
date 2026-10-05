@@ -41,14 +41,16 @@ const run = (command, args, cwd, input) => new Promise((resolve, reject) => {
 const rows = []
 const errors = []
 const packets = built.packets.slice(0, limit)
+writeFileSync(join(root, 'responses.json'), '[]')
+writeFileSync(join(root, 'run-summary.json'), JSON.stringify({ status: 'running', seal_sha256: built.seal.seal_sha256, planned_packets: packets.length }))
 for (const packet of packets) {
-  if (JSON.stringify(JSON.parse(readFileSync(join(root, `${packet.packet_id}.json`), 'utf8'))) !== JSON.stringify({ packet_id: packet.packet_id, ...packet.body })) throw Error(`Blind packet ${packet.packet_id} changed`)
   const rawPath = join(root, `claude-${packet.packet_id}.json`)
   const scorePath = join(root, `codex-${packet.packet_id}.json`)
   const studentPayload = { profile: packet.body.profile, passage: packet.body.passage, questions: packet.body.questions }
   const studentPrompt = studentInstruction + JSON.stringify(studentPayload)
   const studentInvocationSha256 = sha(JSON.stringify({ command: studentCommand, prompt: studentPrompt, expected_model: expectedStudentModel }))
   try {
+    if (JSON.stringify(JSON.parse(readFileSync(join(root, `${packet.packet_id}.json`), 'utf8'))) !== JSON.stringify({ packet_id: packet.packet_id, ...packet.body })) throw Error(`Blind packet ${packet.packet_id} changed`)
     let outer
     if (existsSync(rawPath)) outer = JSON.parse(readFileSync(rawPath, 'utf8'))
     else {
@@ -88,5 +90,5 @@ for (const packet of packets) {
   }
 }
 const analysis = analyzeF02Synthetic(rows, built)
-writeFileSync(join(root, 'run-summary.json'), JSON.stringify({ seal_sha256: built.seal.seal_sha256, planned_packets: packets.length, valid_rows: rows.length, errors, student_system_sha256: sha(studentSystem), student_instruction_sha256: sha(studentInstruction), student_command_sha256: sha(studentCommand), scorer_instruction_sha256: sha(scorerInstruction), analysis_status: analysis.status }, null, 2))
+writeFileSync(join(root, 'run-summary.json'), JSON.stringify({ status: 'completed', seal_sha256: built.seal.seal_sha256, planned_packets: packets.length, valid_rows: rows.length, errors, student_system_sha256: sha(studentSystem), student_instruction_sha256: sha(studentInstruction), student_command_sha256: sha(studentCommand), scorer_instruction_sha256: sha(scorerInstruction), analysis_status: analysis.status }, null, 2))
 if (errors.length) process.exitCode = 1
