@@ -226,7 +226,8 @@ export async function runBookBatch(plan, { fetchImpl = fetch, now, key, onAttemp
 }
 
 export function pendingBookPlan(plan, currentRows) {
-  if (plan.cohort_sha256 !== bookCohortSha(plan.cohort, { format: plan.cohort_hash_format ?? 'legacy-body-map-v1' })) throw new Error('Frozen cohort SHA mismatch; restore the plan or create a new experiment')
+  const hashFormats = plan.cohort_hash_format ? [plan.cohort_hash_format] : ['legacy-body-map-v1', 'canonical-body-map-v2']
+  if (!hashFormats.some(format => plan.cohort_sha256 === bookCohortSha(plan.cohort, { format }))) throw new Error('Frozen cohort SHA mismatch; restore the plan or create a new experiment')
   const current = new Map(currentRows.map(r => [r.representative_item_id, r]))
   const pending = []
   for (const row of plan.cohort) {

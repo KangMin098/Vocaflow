@@ -50,6 +50,11 @@ test('book cohort is reproducible, unresolved only, and uses actual exam dates',
   const legacyRows = [{ ...rows[1], body_sha256_by_item: { a: 'body-a', z: 'body-z' } }]
   assert.equal(pendingBookPlan(legacy, legacyRows).cohort.length, 1)
   assert.notEqual(legacy.cohort_sha256, bookCohortSha(legacy.cohort))
+  // Frozen output from makeBookPlan at commit 6e2bf7d: canonical hash, no version field.
+  const transition = structuredClone(legacy)
+  transition.cohort_sha256 = '627ec48c39b55ba8dbc94513a651f6bfd7b6d828ecea3f75c178cd4f9de88346'
+  assert.equal(bookCohortSha(transition.cohort), transition.cohort_sha256)
+  assert.equal(pendingBookPlan(transition, legacyRows).cohort.length, 1)
 })
 
 test('candidate depth and later edition penalty never imply a reviewed attribution', () => {
