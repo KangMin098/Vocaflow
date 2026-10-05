@@ -1,0 +1,771 @@
+{
+  "ranAt": "2026-10-05",
+  "run": "5e908ced",
+  "pass": 109,
+  "fail": 0,
+  "results": [
+    {
+      "area": "boundary",
+      "name": "역순 쌍 거부(code_a < code_b)",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_boundary\" violates check constraint \"csat_ec_boundary_check\""
+    },
+    {
+      "area": "boundary",
+      "name": "accepted 경계에 probe 연결 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_boundary\" violates check constraint \"csat_ec_boundary_check2\""
+    },
+    {
+      "area": "boundary",
+      "name": "사전에 없는 코드 경계 거부(FK)",
+      "ok": true,
+      "detail": "insert or update on table \"csat_ec_boundary\" violates foreign key constraint \"csat_ec_boundary_version_code_b_fkey\""
+    },
+    {
+      "area": "boundary",
+      "name": "provisional(+probe) · accepted 경계 저장",
+      "ok": true
+    },
+    {
+      "area": "boundary",
+      "name": "taxonomy_seal — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "boundary",
+      "name": "taxonomy_seal — 관리자 성공 · 해시에 경계 포함(재계산 일치)",
+      "ok": true,
+      "detail": {
+        "got": "f5341110886ce2a51352d33536e387d7bff63e7022c4cd1c51640f3bdd73c045",
+        "expect": "f5341110886ce2a51352d33536e387d7bff63e7022c4cd1c51640f3bdd73c045"
+      }
+    },
+    {
+      "area": "boundary",
+      "name": "경계 없는 기존 v99.0 — 저장 해시 = 이전 공식 재계산",
+      "ok": true,
+      "detail": {
+        "legacyHash": "12e8ecb8f98d4d0f619b1980a047f11214cd4317b21a1f242641b6a72242e416",
+        "legacyRecalc": "12e8ecb8f98d4d0f619b1980a047f11214cd4317b21a1f242641b6a72242e416"
+      }
+    },
+    {
+      "area": "boundary",
+      "name": "봉인 뒤 경계 수정 거부",
+      "ok": true,
+      "detail": "csat_ec: 봉인된 taxonomy v99.1 의 경계는 바꿀 수 없다"
+    },
+    {
+      "area": "boundary",
+      "name": "봉인 뒤 경계 추가 거부",
+      "ok": true,
+      "detail": "csat_ec: 봉인된 taxonomy v99.1 에 경계를 더할 수 없다"
+    },
+    {
+      "area": "boundary",
+      "name": "봉인 뒤 경계 삭제 거부",
+      "ok": true,
+      "detail": "csat_ec: 봉인된 taxonomy v99.1 의 경계는 바꿀 수 없다"
+    },
+    {
+      "area": "준비",
+      "name": "학습자 3 · 확인 · 과정 증거(Pilot 적격) 저장",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary — 학습자 읽기(공개 정의)",
+      "ok": true,
+      "detail": "rows 2"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary — anon SELECT 거부",
+      "ok": true
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary — service_role SELECT 거부(GRANT 없음)",
+      "ok": true
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary — 학습자 INSERT 거부",
+      "ok": true
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary — 학습자 UPDATE 거부",
+      "ok": true
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary — 관리자 DELETE 거부",
+      "ok": true
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary_signal — 학습자 SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_boundary_signal"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary_signal — 판정자 SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_boundary_signal"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary_signal — 관리자 SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_boundary_signal"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary_signal — anon SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_boundary_signal"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary_signal — service_role SELECT 거부(RPC 전용)",
+      "ok": true,
+      "detail": "42501 permission denied for table csat_ec_boundary_signal"
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary_signal — service_role INSERT 거부",
+      "ok": true
+    },
+    {
+      "area": "table RLS",
+      "name": "csat_ec_boundary_signal — 학습자 INSERT 거부",
+      "ok": true
+    },
+    {
+      "area": "signal",
+      "name": "add_detector_signal — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "signal",
+      "name": "add_detector_signal — 관리자(authenticated) 거부",
+      "ok": true
+    },
+    {
+      "area": "signal",
+      "name": "add_detector_signal — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "signal",
+      "name": "accepted 경계에 probe 요구 거부",
+      "ok": true,
+      "detail": "csat_ec: probe 는 probe 가 정의된 미해결 경계에서만 요구한다"
+    },
+    {
+      "area": "signal",
+      "name": "사전에 없는 경계 관찰 거부",
+      "ok": true,
+      "detail": "csat_ec: 봉인된 taxonomy 의 경계가 아니다"
+    },
+    {
+      "area": "signal",
+      "name": "탐지기 버전 없으면 거부",
+      "ok": true,
+      "detail": "csat_ec: 탐지기 버전이 필요하다"
+    },
+    {
+      "area": "signal",
+      "name": "add_detector_signal — service_role 성공(한 응답에 경계 2개 · 다른 응답 2)",
+      "ok": true,
+      "detail": [
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "area": "signal",
+      "name": "관찰 행 — 출처 detector · 상태 스냅샷 · probe 필요 여부",
+      "ok": true,
+      "detail": [
+        {
+          "source": "detector",
+          "boundary_status": "provisional",
+          "probe_required": true,
+          "detector_version": "det-smoke-1"
+        },
+        {
+          "source": "detector",
+          "boundary_status": "accepted",
+          "probe_required": false,
+          "detector_version": "det-smoke-1"
+        }
+      ]
+    },
+    {
+      "area": "signal",
+      "name": "관찰 UPDATE 거부(덧붙이기 전용)",
+      "ok": true,
+      "detail": "csat_ec: csat_ec_boundary_signal 는 덧붙이기 전용이다(UPDATE 금지)"
+    },
+    {
+      "area": "probe",
+      "name": "my_pending_probes — 본인: probe 요구된 응답 2(n0 · n1)만",
+      "ok": true,
+      "detail": [
+        {
+          "item_no": 18,
+          "taxonomy_version": "v99.1",
+          "boundary_key": "r.inference__v.wrong_sense",
+          "probe_key": "test_boundary_probe"
+        },
+        {
+          "item_no": 19,
+          "taxonomy_version": "v99.1",
+          "boundary_key": "r.inference__v.wrong_sense",
+          "probe_key": "test_boundary_probe"
+        }
+      ]
+    },
+    {
+      "area": "probe",
+      "name": "my_pending_probes — 다른 학습자 세션은 0행",
+      "ok": true,
+      "detail": "rows 0"
+    },
+    {
+      "area": "probe",
+      "name": "my_pending_probes — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "probe",
+      "name": "my_pending_probes — service_role 거부",
+      "ok": true
+    },
+    {
+      "area": "probe",
+      "name": "targeted_probe — 본인 · 요구된 응답에 선택지 글자 저장",
+      "ok": true
+    },
+    {
+      "area": "probe",
+      "name": "probe 행 — 원인 라벨 없음(선택지 글자 · probe 판 · prompt_hash 만)",
+      "ok": true,
+      "detail": {
+        "option": "B",
+        "skipped": false,
+        "probe_key": "test_boundary_probe",
+        "prompt_hash": "af342e203321cd53054ec32db445f09a47fe81d7d8de8581acc09fb6b6e62b7a",
+        "boundary_key": "r.inference__v.wrong_sense",
+        "probe_version": "1.0.0",
+        "taxonomy_version": "v99.1"
+      }
+    },
+    {
+      "area": "probe",
+      "name": "같은 attempt · 같은 probe 두 번째 응답 거부",
+      "ok": true,
+      "detail": "duplicate key value violates unique constraint \"csat_ec_process_probe_once\""
+    },
+    {
+      "area": "probe",
+      "name": "supersede 정정 성공(첫 응답은 하나)",
+      "ok": true
+    },
+    {
+      "area": "probe",
+      "name": "요구되지 않은 attempt 의 probe 거부",
+      "ok": true,
+      "detail": "csat_ec: 이 응답에 요구된 probe 가 아니다"
+    },
+    {
+      "area": "probe",
+      "name": "경계의 probe_key 와 다른 probe 거부",
+      "ok": true,
+      "detail": "csat_ec: 사전에 정의된 미해결 경계의 probe 가 아니다"
+    },
+    {
+      "area": "probe",
+      "name": "accepted 경계의 probe 거부",
+      "ok": true,
+      "detail": "csat_ec: 사전에 정의된 미해결 경계의 probe 가 아니다"
+    },
+    {
+      "area": "probe",
+      "name": "형식 위반(선택지 두 글자) 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_process_evidence\" violates check constraint \"csat_ec_process_probe_check\""
+    },
+    {
+      "area": "probe",
+      "name": "건너뜀인데 선택 있음 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_process_evidence\" violates check constraint \"csat_ec_process_probe_check\""
+    },
+    {
+      "area": "probe",
+      "name": "다른 학습자 응답에 probe 거부",
+      "ok": true,
+      "detail": "csat_ec: 자기 응답에만 남길 수 있다"
+    },
+    {
+      "area": "probe",
+      "name": "anon probe 거부",
+      "ok": true
+    },
+    {
+      "area": "probe",
+      "name": "service_role probe 거부(실행 권한 없음)",
+      "ok": true
+    },
+    {
+      "area": "probe",
+      "name": "skip 저장(이벤트로 남음)",
+      "ok": true
+    },
+    {
+      "area": "probe",
+      "name": "응답 · 건너뜀 뒤 대기 probe 0",
+      "ok": true,
+      "detail": "rows 0"
+    },
+    {
+      "area": "interpretation",
+      "name": "interpretation 저장",
+      "ok": true
+    },
+    {
+      "area": "interpretation",
+      "name": "빈 interpretation 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_process_evidence\" violates check constraint \"csat_ec_process_interpretation_check\""
+    },
+    {
+      "area": "interpretation",
+      "name": "500자 초과 interpretation 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_process_evidence\" violates check constraint \"csat_ec_process_interpretation_check\""
+    },
+    {
+      "area": "RLS",
+      "name": "본인 probe · interpretation 읽기 · 다른 학습자 0행",
+      "ok": true,
+      "detail": {
+        "own": 4,
+        "other": 0
+      }
+    },
+    {
+      "area": "RLS",
+      "name": "anon 과정 증거 SELECT 거부",
+      "ok": true
+    },
+    {
+      "area": "round",
+      "name": "round_create(5인자) — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "round",
+      "name": "round_create(5인자) — service_role 거부",
+      "ok": true
+    },
+    {
+      "area": "round",
+      "name": "round_create — 없는 증거 범위 거부",
+      "ok": true,
+      "detail": "csat_ec: 증거 범위는 all | pre_probe"
+    },
+    {
+      "area": "round",
+      "name": "pre_probe · all 회차 생성",
+      "ok": true,
+      "detail": {
+        "roundPre": 5,
+        "roundAll": 6
+      }
+    },
+    {
+      "area": "round",
+      "name": "set_targets 성공(pre 42 · all 1)",
+      "ok": true,
+      "detail": [
+        42,
+        1
+      ]
+    },
+    {
+      "area": "pre/all",
+      "name": "pre_probe 봉인 증거에 probe 없음 · all 에는 있음",
+      "ok": true,
+      "detail": {
+        "pre": 3,
+        "all": 4,
+        "probe": 2
+      }
+    },
+    {
+      "area": "pre/all",
+      "name": "pre_probe · all 입력 해시가 다름",
+      "ok": true,
+      "detail": {
+        "pre": "44209238c4bf0d598905ce1f83ad9ce2c20e5aaec32519537cf3b7582e7e6ea3",
+        "all": "2bf509e02975a2c6d153e169cc5dde43c9d81b2769134d332e7e956da755359e"
+      }
+    },
+    {
+      "area": "pre/all",
+      "name": "all 회차 해시 = 이전 공식(2인자) 그대로",
+      "ok": true,
+      "detail": {
+        "all": "2bf509e02975a2c6d153e169cc5dde43c9d81b2769134d332e7e956da755359e",
+        "legacy": "2bf509e02975a2c6d153e169cc5dde43c9d81b2769134d332e7e956da755359e"
+      }
+    },
+    {
+      "area": "pre/all",
+      "name": "대상을 채운 뒤 증거 범위 변경 거부",
+      "ok": true,
+      "detail": "csat_ec: 대상을 채운 뒤에는 증거 범위를 바꿀 수 없다"
+    },
+    {
+      "area": "pre/all",
+      "name": "ai_export — pre_probe 입력에 probe 없음 · all 입력에 있음 · 해시는 봉인값과 같음",
+      "ok": true,
+      "detail": {
+        "pre": [
+          "reason",
+          "blocked_span",
+          "interpretation"
+        ],
+        "all": [
+          "reason",
+          "blocked_span",
+          "targeted_probe",
+          "interpretation"
+        ]
+      }
+    },
+    {
+      "area": "pre/all",
+      "name": "ai_export — 학생 범주 · 사람 판정 · 식별자 없음",
+      "ok": true
+    },
+    {
+      "area": "AI",
+      "name": "ai_taxonomy — 경계 2 포함 · 폐기 코드 제외",
+      "ok": true
+    },
+    {
+      "area": "AI",
+      "name": "multiple_plausible — 후보 1개 거부",
+      "ok": true,
+      "detail": "csat_ec: multiple_plausible 은 후보 2개 이상 · primary 없음"
+    },
+    {
+      "area": "AI",
+      "name": "multiple_plausible — primary 섞임 거부",
+      "ok": true,
+      "detail": "csat_ec: multiple_plausible 은 후보 2개 이상 · primary 없음"
+    },
+    {
+      "area": "AI",
+      "name": "사전에 없는 후보 코드(오타) 거부",
+      "ok": true,
+      "detail": "csat_ec: 사전에 없거나 폐기된 코드다(R.inferense)"
+    },
+    {
+      "area": "AI",
+      "name": "폐기된 후보 코드 거부",
+      "ok": true,
+      "detail": "csat_ec: 사전에 없거나 폐기된 코드다(V.old_sense)"
+    },
+    {
+      "area": "AI",
+      "name": "invalid outcome 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_ai_run\" violates check constraint \"csat_ec_ai_run_outcome_check\""
+    },
+    {
+      "area": "AI",
+      "name": "ai_import — 관리자(authenticated) 거부",
+      "ok": true
+    },
+    {
+      "area": "AI",
+      "name": "multiple_plausible 저장 — candidate 2 · primary 없음 · 경계 관찰(ai_run)",
+      "ok": true,
+      "detail": {
+        "c": [
+          "candidate:R.inference",
+          "candidate:V.wrong_sense"
+        ],
+        "s": 1
+      }
+    },
+    {
+      "area": "AI",
+      "name": "inconsistent_evidence 저장(후보 0)",
+      "ok": true
+    },
+    {
+      "area": "AI",
+      "name": "실패 실행의 경계 관찰 거부",
+      "ok": true,
+      "detail": "csat_ec: 실패한 실행에는 경계 관찰이 없어야 한다"
+    },
+    {
+      "area": "AI",
+      "name": "기존 proposed(identified) 경로 그대로",
+      "ok": true
+    },
+    {
+      "area": "AI",
+      "name": "service_role — 판정 표 직접 SELECT 거부(사람 판정 못 읽음)",
+      "ok": true
+    },
+    {
+      "area": "AI",
+      "name": "service_role — claim 표 직접 SELECT 거부(학생 범주 못 읽음)",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "pre_probe 회차 blind 시작(probe 있는 응답 포함)",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "multiple_plausible + primary 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_judgment\" violates check constraint \"csat_ec_judgment_check3\""
+    },
+    {
+      "area": "judgment",
+      "name": "multiple_plausible 후보 1개 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_judgment\" violates check constraint \"csat_ec_judgment_candidates_check\""
+    },
+    {
+      "area": "judgment",
+      "name": "inconsistent_evidence 후보 1개 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_judgment\" violates check constraint \"csat_ec_judgment_candidates_check\""
+    },
+    {
+      "area": "judgment",
+      "name": "사전에 없는 후보 코드(오타) 거부",
+      "ok": true,
+      "detail": "csat_ec: 사전에 없거나 폐기된 코드로 판정할 수 없다"
+    },
+    {
+      "area": "judgment",
+      "name": "다른 taxonomy 판본(v99.0)에만 있는 후보 거부",
+      "ok": true,
+      "detail": "csat_ec: 사전에 없거나 폐기된 코드로 판정할 수 없다"
+    },
+    {
+      "area": "judgment",
+      "name": "폐기된 후보 코드 거부",
+      "ok": true,
+      "detail": "csat_ec: 사전에 없거나 폐기된 코드로 판정할 수 없다"
+    },
+    {
+      "area": "judgment",
+      "name": "중복 후보 거부",
+      "ok": true,
+      "detail": "csat_ec: 후보 코드가 중복된다"
+    },
+    {
+      "area": "judgment",
+      "name": "identified(code)에 후보 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_judgment\" violates check constraint \"csat_ec_judgment_candidates_check\""
+    },
+    {
+      "area": "judgment",
+      "name": "invalid outcome 거부",
+      "ok": true,
+      "detail": "new row for relation \"csat_ec_judgment\" violates check constraint \"csat_ec_judgment_outcome_check\""
+    },
+    {
+      "area": "judgment",
+      "name": "사전에 없는 경계 연결 거부",
+      "ok": true,
+      "detail": "csat_ec: 봉인된 taxonomy 의 경계가 아니다"
+    },
+    {
+      "area": "judgment",
+      "name": "학습자 판정 거부",
+      "ok": true,
+      "detail": "csat_ec: 배정된 판정자가 아니다"
+    },
+    {
+      "area": "judgment",
+      "name": "관리자(미배정) 판정 거부",
+      "ok": true,
+      "detail": "csat_ec: 배정된 판정자가 아니다"
+    },
+    {
+      "area": "judgment",
+      "name": "anon 판정 거부",
+      "ok": true,
+      "detail": "permission denied for function csat_ec_submit_blind"
+    },
+    {
+      "area": "judgment",
+      "name": "multiple_plausible 저장 — primary 없음 · contributing 빈 · 후보 2 · 경계 2개 연결(probe 는 provisional 에만)",
+      "ok": true,
+      "detail": {
+        "outcome": "multiple_plausible",
+        "primary_code": null,
+        "contributing_codes": [],
+        "candidate_codes": [
+          "V.wrong_sense",
+          "R.inference"
+        ],
+        "sig": [
+          "e.option_check__s.modifier_scope:false",
+          "r.inference__v.wrong_sense:true"
+        ]
+      }
+    },
+    {
+      "area": "judgment",
+      "name": "inconsistent_evidence 저장(후보 2)",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "inconsistent_evidence 저장(후보 0)",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "기존 8인자 submit_blind(code) 호환",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "기존 8인자 submit_blind(no_cause) 호환",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "판정 표 직접 — 판정자 SELECT 거부",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "판정 표 직접 — 판정자 UPDATE 거부",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "판정 UPDATE 거부(postgres 도 — 덧붙이기 전용)",
+      "ok": true,
+      "detail": "csat_ec: csat_ec_judgment 는 덧붙이기 전용이다(UPDATE 금지)"
+    },
+    {
+      "area": "judgment",
+      "name": "B blind_queue — A 판정 · 후보 · 경계 관찰이 안 보임",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "attach_judgment_boundaries 직접 호출 — 판정자 거부(내부 함수)",
+      "ok": true
+    },
+    {
+      "area": "judgment",
+      "name": "csat_ec_outcomes 직접 호출 — 거부(내부 함수)",
+      "ok": true
+    },
+    {
+      "area": "Learning Map",
+      "name": "새 표 트리거 = 가드뿐(학습 지도 갱신 경로 없음)",
+      "ok": true,
+      "detail": [
+        {
+          "t": "csat_ec_boundary",
+          "tgname": "csat_ec_boundary_guard",
+          "proname": "csat_ec_boundary_guard"
+        },
+        {
+          "t": "csat_ec_boundary_signal",
+          "tgname": "csat_ec_boundary_signal_guard",
+          "proname": "csat_ec_boundary_signal_guard"
+        },
+        {
+          "t": "csat_ec_boundary_signal",
+          "tgname": "csat_ec_boundary_signal_no_update",
+          "proname": "csat_ec_forbid_update"
+        }
+      ]
+    },
+    {
+      "area": "Learning Map",
+      "name": "csat_map_* 표 행 · 쓰기 통계 변화 없음",
+      "ok": true,
+      "detail": {
+        "before": {
+          "n": "0",
+          "h": "b95812e938a84c9b64adb2ca5c599f05"
+        },
+        "after": {
+          "n": "0",
+          "h": "b95812e938a84c9b64adb2ca5c599f05"
+        }
+      }
+    },
+    {
+      "area": "meta",
+      "rounds": [
+        5,
+        6
+      ],
+      "judgments": [
+        189,
+        190
+      ]
+    },
+    {
+      "area": "정리",
+      "name": "기존 세션 · 응답 수 불변",
+      "ok": true,
+      "detail": {
+        "before": {
+          "s": 2,
+          "r": 90
+        },
+        "after": {
+          "s": 2,
+          "r": 90
+        }
+      }
+    },
+    {
+      "area": "정리",
+      "name": "테스트 계정 · 증거 · probe · 경계 관찰 · 판정 · AI 0 · 열린 회차 0 (TEST taxonomy v99.1 · 경계 · 회차만 남음)",
+      "ok": true,
+      "detail": {
+        "claim": 0,
+        "pe": 0,
+        "conf": 0,
+        "ai": 0,
+        "j": 0,
+        "sig": 0,
+        "live_assign": 0,
+        "smoke_users": 0,
+        "open_rounds": 0
+      }
+    }
+  ]
+}

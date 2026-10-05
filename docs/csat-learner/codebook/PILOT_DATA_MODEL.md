@@ -1,4 +1,10 @@
-# Pilot 데이터 모델 — 마이그레이션 초안 (2026-10-05 · 개발 DB 미적용)
+# Pilot 데이터 모델 — 마이그레이션 (2026-10-05 · 개발 DB 적용)
+
+> **적용 기록(2026-10-05)** — origin/main 병합(19cfb8a17) 뒤 격리 하네스 273/273 · rollback 11/11 재통과 → checkpoint `20261005130000` before → preflight(제약 이름 4 일치 · 이름 충돌 0) → 개발 DB 한 트랜잭션 적용(파일 sha256 `befdaec2…`, schema_migrations 버전 = 파일 번호) → after.
+> 적용 직후: 기존 행 · `v99.0` 해시 · 회차 해시 · 상태 불변, 새 표 0행, 기존 회차 `evidence_profile = all`. 객체 csat_ec 함수 40→52 · 정책 5→6 · 트리거 14→17 · 인덱스 26→33 · 제약 83→110.
+> 실제 PostgREST/Auth smoke `dev-smoke/smoke-pilot.mjs` **109/109**, 기존 smoke 139/142(실패 3 = v99.0 이 이미 봉인된 재실행 전제 문제, 마이그레이션 무관). Security Advisor ERROR 0 · csat_ec 경고 25→31(+6 모두 의도: 관찰 표 정책 없음 · 경계 GraphQL 노출 · authenticated definer RPC 4).
+> 개발 DB 에 TEST taxonomy `v99.1`(경계 2) 이 남아 `rollback-pilot.sql` 은 정리 전까지 거부된다.
+> 아래 본문은 적용 전 초안 그대로다.
 
 > SQL: [`supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql`](../../../supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql) · 되돌리기: [`scripts/csat/error-evidence/rollback-pilot.sql`](../../../scripts/csat/error-evidence/rollback-pilot.sql)
 > 상위 설계: [PILOT_SEED_DESIGN.md](./PILOT_SEED_DESIGN.md) · 기존 모델: `20261003230000_csat_error_evidence.sql`(테이블 9 · RPC 30+).

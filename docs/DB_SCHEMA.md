@@ -1880,7 +1880,18 @@ RPC `csat_map_seed(jsonb)`(service_role 전용 · 한 트랜잭션 · advisory l
 | `csat_ec_claim` | 원인 claim(학생 범주 보고 · AI 제안, 덧붙이기만) | 본인 학생 보고만 SELECT |
 | `csat_ec_ai_run` · `csat_ec_review_round` · `csat_ec_review_assignment` · `csat_ec_judgment` | AI 실행 · 검수 회차(draft → blind_review → reveal → adjudication → closed \| cancelled, 지울 수 없음) · 배정 · 판정 | 없음(RPC 전용, service_role 포함) |
 
-9표 모두 FORCE RLS · 어떤 역할에도 INSERT/UPDATE/DELETE 권한 없음. 쓰기는 SECURITY DEFINER RPC(`search_path=''`)만 — 학습자 `csat_ec_confirm_session` · `add_process_evidence` · `add_student_claim`, 관리자(`is_admin()`) `taxonomy_seal` · `round_create` · `round_set_targets` · `round_assign` · `round_start_blind` · `round_reveal` · `round_advance`, 배정 판정자 `blind_queue` · `submit_blind` · `reveal_view` · `round_material` · `submit_verify` · `submit_adjudication`, AI(service_role) `ai_export` · `ai_taxonomy` · `ai_import`. 기존 표 변경은 `csat_dx_response` BEFORE DELETE 트리거 `csat_ec_cancel_rounds_on_response_delete`(대상 응답이 지워지면 열린 회차 취소) 하나. 사전 시드 없음(개발 DB 에는 smoke 용 TEST taxonomy v99.0 과 TEST 회차 2개가 남아 있다). 되돌리기 `scripts/csat/error-evidence/rollback.sql`(행이 있으면 거부).
+9표 모두 FORCE RLS · 어떤 역할에도 INSERT/UPDATE/DELETE 권한 없음. 쓰기는 SECURITY DEFINER RPC(`search_path=''`)만 — 학습자 `csat_ec_confirm_session` · `add_process_evidence` · `add_student_claim`, 관리자(`is_admin()`) `taxonomy_seal` · `round_create` · `round_set_targets` · `round_assign` · `round_start_blind` · `round_reveal` · `round_advance`, 배정 판정자 `blind_queue` · `submit_blind` · `reveal_view` · `round_material` · `submit_verify` · `submit_adjudication`, AI(service_role) `ai_export` · `ai_taxonomy` · `ai_import`. 기존 표 변경은 `csat_dx_response` BEFORE DELETE 트리거 `csat_ec_cancel_rounds_on_response_delete`(대상 응답이 지워지면 열린 회차 취소) 하나. 사전 시드 없음(개발 DB 에는 smoke 용 TEST taxonomy v99.0 · v99.1(경계 2) 과 TEST 회차 6개가 남아 있다 — 모두 닫힘 · 취소). 되돌리기 `scripts/csat/error-evidence/rollback.sql`(행이 있으면 거부).
+
+**Pilot 데이터 모델([20261005130000](../supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql) — 개발 DB 적용 2026-10-05)** — 설계 [PILOT_DATA_MODEL](./csat-learner/codebook/PILOT_DATA_MODEL.md).
+
+| 객체 | 용도 | 직접 접근 |
+|---|---|---|
+| `csat_ec_boundary` | taxonomy 버전의 code-to-code 경계(accepted · provisional · retired, `boundary_key = lower(a)__lower(b)` 순서 고정, probe 는 provisional 만, 봉인 뒤 불변 · 봉인 해시에 포함) | authenticated SELECT |
+| `csat_ec_boundary_signal` | attempt 의 경계 관찰(detector · ai_run · judgment, 관찰 당시 상태 · probe 필요 여부, 덧붙이기만 · 「해소됨」 없음) | 없음(RPC 전용) |
+| `csat_ec_judgment.candidate_codes` | multiple_plausible(≥2) · inconsistent_evidence(0 또는 ≥2) 후보 — primary · contributing 과 별개, 사전 active 코드만 | — |
+| `csat_ec_review_round.evidence_profile` | `all`(이전과 같은 판정 입력) · `pre_probe`(targeted_probe 제외) — 대상 채운 뒤 불변 | — |
+
+outcome 허용값은 `csat_ec_outcomes(scope)` 단일 원천(+ `multiple_plausible` · `inconsistent_evidence`), claim role + `candidate`(AI 만), 과정 증거 kind + `interpretation` · `targeted_probe`(선택지 글자 · probe 판 · prompt_hash 만 — 원인 라벨 없음, attempt × probe 첫 응답 하나). 새 RPC: 학습자 `my_pending_probes`, service_role `add_detector_signal`, 관리자 5인자 `round_create`, 판정자 11인자 `submit_blind` · `submit_adjudication`(기존 8인자는 위임). 학습 지도 연결 없음. 되돌리기 `scripts/csat/error-evidence/rollback-pilot.sql`(경계 · 관찰 · 새 값 행이 있으면 거부 — 지금은 smoke 의 TEST 경계 2행 때문에 거부된다).
 
  — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
 
