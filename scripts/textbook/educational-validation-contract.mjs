@@ -8,8 +8,8 @@ import {bundleV2Schema,instrumentIdentityV2,evaluateV2,digestV2,manifestIdentity
 export function assertIndependentOfFixedCalibration(bundle){
   if(bundle.version!==2||bundle.protocol.study_purpose==='calibration')return
   const fixedPilot=JSON.parse(fs.readFileSync(new URL('./frym-precision/adaptation-pilot-1.json',import.meta.url),'utf8')),fixedRules=JSON.parse(fs.readFileSync(new URL('./frym-precision/preservation-rules-1.json',import.meta.url),'utf8'))
-  const sources=new Set(fixedRules.entries.map(e=>e.source_id)),dois=new Set(fixedRules.entries.map(e=>e.original_work_id.toLowerCase())),passages=new Set(fixedPilot.records.map(r=>digest(r.text)))
-  if(bundle.records.some(r=>sources.has(r.source_id)||dois.has(r.research_doi.toLowerCase())||passages.has(r.passage_hash)))throw Error('Fixed eight-passage calibration source/research/passage cannot be reused for validation or replication')
+  const sources=new Set(fixedRules.entries.map(e=>e.source_id.toLowerCase())),dois=new Set(fixedRules.entries.map(e=>e.original_work_id.toLowerCase())),passages=new Set(fixedPilot.records.map(r=>digest(r.text)))
+  if(bundle.records.some(r=>sources.has(r.source_id.toLowerCase())||dois.has(r.research_doi.toLowerCase())||passages.has(r.passage_hash)))throw Error('Fixed eight-passage calibration source/research/passage cannot be reused for validation or replication')
 }
 
 export function currentEducationalEvidence(bundle,reviewFile,evidenceDir){

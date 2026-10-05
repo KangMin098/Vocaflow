@@ -51,7 +51,7 @@ export const bundleV2Schema=z.object({
   const unique=(xs:string[],label:string)=>{if(new Set(xs).size!==xs.length)ctx.addIssue({code:'custom',message:`Duplicate ${label}`})}
   unique(b.experts.map(e=>e.id),'experts');unique(b.participants.map(p=>p.student_id),'participants')
   unique(b.records.map(r=>r.id),'records');unique(b.records.map(r=>r.blind_item_id),'blind IDs')
-  unique(b.records.map(r=>`${r.source_id}:${r.target_key}`),'source targets')
+  unique(b.records.map(r=>`${r.source_id.toLowerCase()}:${r.target_key}`),'source targets')
   const seen=new Set<string>()
   for(const r of b.records){
     unique(r.expert_reviews.map(e=>e.expert_id),'reviews');unique(r.instrument.map(i=>i.id),'items')
@@ -109,7 +109,7 @@ export function registrationBlockersV2(b:BundleV2,now:number){
   if(p.study_purpose!=='calibration'&&!b.calibration_exclusions.length)out.push('calibration_exclusion_evidence_missing')
   for(const e of b.calibration_exclusions){
     if(!a||Date.parse(e.completed_at)>=Date.parse(a.approved_at)||e.study_id===b.study_id)out.push('calibration_exclusion_chronology_invalid')
-    if(b.records.some(r=>e.source_ids.includes(r.source_id)||e.research_dois.includes(r.research_doi.toLowerCase())||e.passage_hashes.includes(r.passage_hash))||b.participants.some(s=>e.student_ids.includes(s.student_id))||(!p.expert_reuse_allowed&&b.experts.some(x=>e.expert_ids.includes(x.id))))out.push('calibration_validation_overlap')
+    if(b.records.some(r=>e.source_ids.some(id=>id.toLowerCase()===r.source_id.toLowerCase())||e.research_dois.some(doi=>doi.toLowerCase()===r.research_doi.toLowerCase())||e.passage_hashes.includes(r.passage_hash))||b.participants.some(s=>e.student_ids.includes(s.student_id))||(!p.expert_reuse_allowed&&b.experts.some(x=>e.expert_ids.includes(x.id))))out.push('calibration_validation_overlap')
   }
   return [...new Set(out)]
 }
@@ -182,7 +182,7 @@ export function evaluateV2(b:BundleV2,r:RecordV2,passage:string,now:number,passa
 export function productionV2(b:BundleV2,r:RecordV2,passage:string,replication:BundleV2,replicationPassages:Record<string,string>,article:{status:string;content:string;adapted_from_id:string;composed_spec:{academic_reading?:{target_key?:string}}|null}|null,now:number,basePassages:Record<string,string>={}){
   if(evaluateV2(b,r,passage,now,basePassages).state!=='gold'||!b.protocol_approval||replication.protocol.study_purpose!=='replication'||replication.study_id===b.study_id||!replication.protocol_approval||Date.parse(replication.protocol_approval.approved_at)<=Math.max(Date.parse(b.protocol_approval.approved_at),...b.records.flatMap(x=>x.student_sessions.flatMap(s=>s.reading_finished_at?[Date.parse(s.reading_finished_at)]:[]))))return false
   // Replication is independently evaluated; a published flag or a boolean assertion is insufficient.
-  if(replication.records.some(x=>b.records.some(y=>x.source_id===y.source_id||x.research_doi.toLowerCase()===y.research_doi.toLowerCase()||x.passage_hash===y.passage_hash||x.topic===y.topic||x.source_family===y.source_family))||replication.participants.some(x=>b.participants.some(y=>x.student_id===y.student_id)))return false
+  if(replication.records.some(x=>b.records.some(y=>x.source_id.toLowerCase()===y.source_id.toLowerCase()||x.research_doi.toLowerCase()===y.research_doi.toLowerCase()||x.passage_hash===y.passage_hash||x.topic===y.topic||x.source_family===y.source_family))||replication.participants.some(x=>b.participants.some(y=>x.student_id===y.student_id)))return false
   if(!replication.protocol.expert_reuse_allowed&&replication.experts.some(x=>b.experts.some(y=>x.id===y.id)))return false
   return replication.records.every(x=>evaluateV2(replication,x,replicationPassages[x.id]??'',now,replicationPassages).state==='gold')&&article?.status==='published'&&article.adapted_from_id===r.source_id&&researchBodyHash(article.content)===r.passage_hash&&article.composed_spec?.academic_reading?.target_key===r.target_key
 }
