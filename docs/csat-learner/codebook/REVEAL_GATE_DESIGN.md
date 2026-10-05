@@ -268,3 +268,16 @@ DB: `csat_ec_private.exam_answer_embargoed(exam)` · `item_answer_embargoed(item
 **캐시 테스트 계획**(앱 gate 구현 단계): ① 보류 시작 **전**에 카탈로그 · 뼈대 · 강의 캐시를 데운다 → 보류 → 요청에 보류 문항 · 파생 필드 없음 ② 보류 **중** 캐시 생성 → 해제 직후 요청에 곧바로 나타남(10분 지연 없음) ③ 정답 민감 응답의 `Cache-Control: no-store` 헤더 ④ outbox 를 끄고도 공개 판단 정확.
 
 **앱 단계에서 해야 하는 것**(SQL 적용 · Pilot 전): `lib/csat/reveal-gate`(단일 서버 gate — 상태 표를 직접 읽는 앱 파일은 이것 하나) · 저장 단일 진입(`saveExamSession` → `csat_ec_record_session_held`) · 결과 · 보고서 · 기록 상세 · 홈 · 스냅샷 · 수집 화면 · 문항 페이지 · 강의 · reveal · 카탈로그 · 함정 아틀라스 사례의 gate · 「건너뛰기」= skipped · 「나중에 하기」= 보류 유지 · 수집 API 접근 근거를 봉인된 capture 행으로 · 삭제 API 보류 중 거부 · 홈 카드 서버 경로(② 전제).
+
+### W-2. SQL · 보안 리뷰(Codex) 5회 반영 — 2026-10-05
+
+| 회차 | 고친 결함(요지) |
+|---|---|
+| 1 | 관리자 종료와 증거 쓰기 직렬화(세션 행 잠금 순서) · 같은 client_key 로 다른 시험 · 답안이면 거부 · 스캐너 오류 처리 · SSR 쿠키 · 의도된 회수 |
+| 2 | `round_material` · `reveal_view` 의 학생 범주 보고(존재 = 정오) 가림 · `csat_review_queue` 보류 · `csat_learner_state` ②회수 · rollback 컬럼 ACL · 스캐너 전수화(허용 컬럼 · 시그니처 · anon · 423 계약) |
+| 3 | **학생 claim 본인 조회 보류 — 정책 안 `NOT EXISTS` 가 그 표의 RLS 로 평가돼 보류 행이 열리던 fail-open**(정의자 함수 `session_embargoed` + 구조 가드 · 운영 DB 기존 0건 실측) · 매니페스트 전 경로 요청 fixture · 서버 파일 로더 · `--bundle` |
+| 4 | `add_student_claim` **정오 oracle 제거**(정답 문항 보고도 저장 — 참가자 capture 행이 빠져도 새지 않게) · 함수별 호출 계약 · 운영 제약 시험 id · 재귀 민감 필드 · rollback ACL 정렬 비교 |
+| 5 | `reveal_view` 학생 claim 을 가리키는 검증 판정도 비관리자에게서 제외 · canary 소유 객체만 정리 · 역할별 컬럼 · oracle 값 비교 · HTML/RSC 근접 검사 · **앱 DB 로더 31개 자동 수집 · 분류**(앱 단계 작업 목록) · `v99` 정규식 `[.]` |
+
+검증: 격리 PG 348/348 · 기본 225/225 · rollback(기본 6 · Pilot 11 · 수집 12 · Reveal 11) · 개발 DB 표면 검사 분류 누락 0(적용 전 실패 2 = 해시 컬럼, ① 이 막는다).
+**리뷰 운영 메모**: 5회 모두 새 지적이 나왔고 뒤로 갈수록 스캐너 품질(P2) 비중이 커졌다. DB 층의 P1 은 회차마다 줄었다(5회차 P1 2 = canary 정리 · 판정 claim_id). 남은 검증은 개발 DB 적용 뒤 canary · oracle 실측과 앱 gate 구현 뒤 `--app` · `--bundle` 실측이 맡는다 — 손 리뷰를 더 돌리기보다 실측으로 닫는다.

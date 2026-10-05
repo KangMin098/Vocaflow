@@ -55,7 +55,7 @@ create table public.csat_ec_capture_session (
   closed_by         uuid,
   seal              jsonb,                               -- 완료 · 종료 때 확인 revision · 대상별 유효 증거 id
   counts            jsonb,                               -- 대상 수 · 해석 상태별 수 · probe 응답 수
-  check (taxonomy_version !~ '^v99\.'),
+  check (taxonomy_version !~ '^v99[.]'),
   check ((status = 'held') or opened_at is not null or status = 'closed_incomplete'),
   check ((status = 'completed') = (completed_at is not null)),
   check ((status = 'closed_incomplete') = (closed_at is not null and coalesce(length(btrim(closed_reason)), 0) > 0)),
@@ -237,7 +237,7 @@ begin
     return jsonb_build_object('session_id', v_sid, 'held', false, 'status', null);
   end if;
   select * into v_tax from public.csat_ec_taxonomy_version where version = p_taxonomy;
-  if v_tax.status is distinct from 'sealed' or p_taxonomy ~ '^v99\.' or coalesce(v_tax.note, '') ~ 'TEST' then
+  if v_tax.status is distinct from 'sealed' or p_taxonomy ~ '^v99[.]' or coalesce(v_tax.note, '') ~ 'TEST' then
     raise exception 'csat_ec: Pilot taxonomy 가 아니다(봉인 · TEST 아님 필요)';
   end if;
   if exists (select 1 from unnest(coalesce(p_targets, '{}')) t
@@ -532,7 +532,9 @@ begin
                       'note', case when not v_admin and csat_ec_private.item_answer_embargoed(r.item_id) then null else j.note end)
                     order by j.id), '[]')
                     from public.csat_ec_judgment j join public.csat_dx_response r on r.session_id = j.session_id and r.item_no = j.item_no
-                   where j.round_id = p_round),
+                   where j.round_id = p_round
+                     and (v_admin or not (csat_ec_private.item_answer_embargoed(r.item_id)
+                                          and exists (select 1 from public.csat_ec_claim c where c.id = j.claim_id and c.source = 'student')))),
     'claims', (select coalesce(jsonb_agg(
                  jsonb_build_object('id', c.id, 'session_id', c.session_id, 'item_no', c.item_no, 'source', c.source, 'ai_run_id', c.ai_run_id,
                    'taxonomy_version', c.taxonomy_version, 'code', c.code, 'student_group', c.student_group, 'role', c.role, 'confidence', c.confidence,

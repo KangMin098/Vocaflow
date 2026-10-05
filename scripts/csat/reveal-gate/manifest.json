@@ -1224,5 +1224,131 @@
  },
  "bundle_scan": {
   "note": "앱 빌드 산출물(.next/static) 에서 문항 id(`연도#번호` · `M2509#33` 꼴)와 분석 키(why_tempting · how_to_reject · answer_locus)를 찾는다 — check-surfaces.mjs --bundle <.next 경로>. 하나라도 나오면 실패(함정 아틀라스 사례가 번들에 있으면 여기서 걸린다)"
+ },
+ "app_db_loaders": {
+  "lib/csat/browse.ts": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "해설 유무만(정답 · 해설 본문 없음) — 학습자 RLS 로 읽어 보류 문항은 정책이 이미 뺀다"
+  },
+  "lib/csat/client.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 정답 · 분석 · 유형 보고 — 학습자 RLS 경로면 정책이 보류 문항을 뺀다 · service role 경로면 isItemAnswerEmbargoed 필터"
+  },
+  "lib/csat/diagnosis/admin.ts": {
+   "class": "ADMIN_ONLY",
+   "gate": "관리자 진단 화면"
+  },
+  "lib/csat/diagnosis/learner.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: 홈 카드 점수 — canRevealExam(②로 학습자 직접 조회 불가 → 서버 경로)"
+  },
+  "lib/csat/diagnosis/report.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: service role 로 읽는다 — 보류 시험 세션 제외(canRevealExam)"
+  },
+  "lib/csat/diagnosis/server.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: 저장 단일 진입(record_session_held) · 스냅샷은 보류 세션 제외 · 응답은 canRevealExam"
+  },
+  "lib/csat/diagnosis/snapshot.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: 보류 세션 제외 · 공개 전이 뒤 outbox 처리"
+  },
+  "lib/csat/dissect-catalog.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 원본 캐시(service) 뒤 요청마다 보류 문항 · 파생 필드 제거"
+  },
+  "lib/csat/ec-pilot/server.ts": {
+   "class": "LEARNER_OWN",
+   "gate": "수집 화면 — 정오를 내보내지 않는다(대상 = 정오 무관 전체로 바꾼다)"
+  },
+  "lib/csat/evidence.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류 문항 근거 제외"
+  },
+  "lib/csat/factory-glossary.ts": {
+   "class": "OPS_META",
+   "gate": "출제 용어집(정답 없음) — 구현 때 확인"
+  },
+  "lib/csat/guide.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 유형 안내의 문항 사례 — 보류 문항 · 유형 사례 제외"
+  },
+  "lib/csat/hakpyeong-review-loader.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 학평 검수 자료 — 관리자 경로인지 확인, 학습자 경로면 보류 필터"
+  },
+  "lib/csat/heatmap.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 문항 지도 — 정답 포함 여부 확인 · 보류 문항 제외"
+  },
+  "lib/csat/item-count.ts": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "개수만"
+  },
+  "lib/csat/items.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 문항 정답 · 분석 — 보류 필터"
+  },
+  "lib/csat/learner.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 문항 해설 페이지(loadCsatItemExplain) — 보류면 정답 · 분석 · 뼈대 · 강의 개요 제외"
+  },
+  "lib/csat/map/evidence.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: 학습 지도 근거(정오 기반) — 보류 시험 세션 제외"
+  },
+  "lib/csat/map/load.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: 학습 지도(스냅샷 · 정오) — 보류 시험 세션 제외"
+  },
+  "lib/csat/my-traps.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: 본인 함정(정오 기반) — 보류 시험 제외"
+  },
+  "lib/csat/order-view.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류 필터"
+  },
+  "lib/csat/overlay.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류 필터"
+  },
+  "lib/csat/review-defects.ts": {
+   "class": "OPS_META",
+   "gate": "검수 결함 집계 — 구현 때 학습자 경로 여부 확인"
+  },
+  "lib/csat/session/catalog.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 연습 카탈로그 원본 캐시 뒤 요청마다 보류 필터"
+  },
+  "lib/csat/session/reveal.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: /api/csat/session/reveal — 데이터 읽기 전 isItemAnswerEmbargoed → 423"
+  },
+  "lib/csat/skeleton.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 뼈대 메모리 캐시 — 요청마다 보류 필터"
+  },
+  "lib/csat/workspace-index.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: Workspace 문항 묶음 — 보류 문항 해설 제외"
+  },
+  "lib/marketing/trust-signals.ts": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "공개 신뢰 지표(집계 수치) — 문항 정답 없음, 구현 때 확인"
+  },
+  "app/api/csat/diagnosis/sessions/[id]/result/route.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: canRevealExam → 423"
+  },
+  "app/api/csat/session/record/route.ts": {
+   "class": "CORRECTNESS_OWN_PRIOR",
+   "gate": "본인 연습 기록 — 정책이 보류 문항 제외"
+  },
+  "app/api/csat/state/route.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app: 서버 경로(②) · 보류 문항 키 제거"
+  }
  }
 }

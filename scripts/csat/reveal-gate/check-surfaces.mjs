@@ -99,6 +99,13 @@ compare('app_json_import', jsonLibs, manifest.app_json_imports)
 const fileLoaders = walk(path.join(WEB, 'lib/csat'), (p) => /\.(ts|tsx)$/.test(p) && !/__tests__/.test(p))
   .filter((p) => { const s = fs.readFileSync(p, 'utf8'); return s.includes('readFileSync') || s.includes('readFile(') }).map(rel)
 compare('app_file_loader', fileLoaders, manifest.app_file_loaders ?? {})
+// 앱 DB 로더 — 정답 민감 · 정오 관계(매니페스트 class 기준)나 그런 함수를 읽는 파일은 모두 분류돼 있어야 한다
+const sensitiveRels = Object.entries(manifest.db_relations).filter(([, v]) => ['ANSWER_SENSITIVE', 'CORRECTNESS', 'CORRECTNESS_OWN_PRIOR'].includes(v.class)).map(([k]) => k)
+const sensitiveFns = Object.entries(manifest.db_functions).filter(([, v]) => ['CORRECTNESS_ORACLE', 'REVIEWER_INTERNAL'].includes(v.class)).map(([k]) => k)
+const dbLoaders = [path.join(WEB, 'lib'), path.join(WEB, 'app'), path.join(WEB, 'components')].flatMap((d) => walk(d, (p) => /\.(ts|tsx)$/.test(p) && !/__tests__/.test(p)))
+  .filter((p) => { const s = fs.readFileSync(p, 'utf8'); return sensitiveRels.some((r) => s.includes(`'${r}'`)) || sensitiveFns.some((f) => s.includes(`'${f}'`)) })
+  .map(rel).filter((f) => !f.startsWith('app/admin') && !f.startsWith('app/api/admin') && !f.startsWith('lib/admin') && !f.startsWith('components/admin'))
+compare('app_db_loader', dbLoaders, manifest.app_db_loaders ?? {})
 // 빌드 산출물(선택 — --bundle <.next 경로>): 클라이언트 청크에 문항 id · 분석 키가 있으면 실패
 if (process.argv.includes('--bundle')) {
   const dir = process.argv[process.argv.indexOf('--bundle') + 1]

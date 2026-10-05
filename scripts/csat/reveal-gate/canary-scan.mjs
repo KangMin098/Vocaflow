@@ -41,6 +41,7 @@ await db.connect()
 const svc = createClient(URL_, SERVICE, opt)
 const anonClient = createClient(URL_, ANON, opt)
 const users = {}
+const owned = { exam: false, type: false }   // 이번 실행이 만든 것만 지운다(이미 있던 같은 id 는 건드리지 않는다)
 async function makeUser(role, admin = false) {
   const email = `ec-canary-${CANARY.slice(7)}-${role.toLowerCase()}@example.com`, password = randomUUID()
   const { data, error } = await svc.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { test: 'reveal gate canary' } })
@@ -62,9 +63,9 @@ function sensitiveValues(x, out = []) {
 }
 
 // 학습자가 SELECT 할 수 있는 컬럼(표 단위 권한이면 전부) — 컬럼 권한이 일부만인 표를 「SELECT * 거부 = 통과」로 세지 않게
-async function learnerColumns(rel) {
+async function learnerColumns(rel, role = 'authenticated') {
   const { rows } = await db.query(`select a.attname c from pg_attribute a where a.attrelid = ('public.' || $1)::regclass and a.attnum > 0 and not a.attisdropped
-                                      and has_column_privilege('authenticated', a.attrelid, a.attnum, 'SELECT') order by a.attnum`, [rel])
+                                      and has_column_privilege($2, a.attrelid, a.attnum, 'SELECT') order by a.attnum`, [rel, role])
   return rows.map((r) => r.c)
 }
 // 함수 인자 자동 생성(타입 · 이름 기반) — 학습자 표면 함수를 빠짐없이 부른다
@@ -86,7 +87,9 @@ try {
   if ((await db.query(`select 1 from supabase_migrations.schema_migrations where version = '20261005170000'`)).rowCount === 0) throw new Error('Reveal Gate ① 가 적용되지 않았다 — 적용 뒤 실행')
   // ── 준비: TEST 유형 · 시험 · 문항 · 정답표 · 분석(3인 pass 검수 뒤 발행) · 뼈대 · 유형 보고 ──
   await db.query(`insert into public.csat_types (id, name, section) values ($1, 'TEST canary 유형', '독해') on conflict do nothing`, [TYPE])
-  if ((await db.query(`select 1 from public.csat_exams where id = $1`, [EXAM])).rowCount) throw new Error(`${EXAM} 가 이미 있다 — 이전 검사 정리가 안 됐다`)
+  if ((await db.query(`select 1 from public.csat_exams where id = $1`, [EXAM])).rowCount) throw new Error(`${EXAM} 가 이미 있다 — 이전 검사 정리가 안 됐다(지우지 않고 멈춘다)`)
+  if ((await db.query(`select 1 from public.csat_types where id = $1`, [TYPE])).rowCount) throw new Error(`${TYPE} 가 이미 있다 — 지우지 않고 멈춘다`)
+  owned.exam = true; owned.type = true
   await db.query(`insert into public.csat_exams (id, label, kind, year, month, exam_year, has_answer_key, organizer, grade) values ($1, 'TEST canary(Reveal Gate)', 'mock', 2099, 1, 2098, true, 'kice', 3)`, [EXAM])
   for (const n of NOS) {
     const id = `${EXAM}#${n}`
@@ -115,7 +118,7 @@ try {
   const actors = [['P', users.P.client, { session: sid.P, user: users.P.id }], ['N', users.N.client, { session: sid.N, user: users.N.id }], ['anon', anonClient, { session: sid.P, user: users.P.id }]]
   for (const [who, c] of actors) {
     for (const rel of Object.keys(manifest.db_relations)) {
-      const cols = await learnerColumns(rel)
+      const cols = await learnerColumns(rel, who === 'anon' ? 'anon' : 'authenticated')
       if (cols.length === 0) { record('canary', `${who} · ${rel} — 학습자 SELECT 컬럼 없음(회수)`, true); continue }
       const rows = []; let r = { error: null }
       for (let from = 0; from < 200000; from += 1000) {
@@ -170,7 +173,7 @@ try {
     for (const who of ['P', 'N']) {
       const call = (no) => users[who].client.rpc(fn, { p_session: sid[who], p_item_no: no, p_taxonomy: TAX, p_group: 'word', p_code: null, p_supersedes: null })
       const wrong = await call(NOS[0]), right = await call(NOS[1])   // 18 오답 · 19 정답
-      const shape = (r) => JSON.stringify({ ok: !r.error, code: r.error?.code, msg: r.error?.message, status: r.status })
+      const shape = (r) => JSON.stringify({ ok: !r.error, code: r.error?.code, msg: r.error?.message, status: r.status, data: r.data ?? null })   // 값까지(같은 상태로 다른 값을 돌려주는 oracle)
       const rows = (await db.query(`select count(*)::int n from public.csat_ec_claim where session_id = $1`, [sid[who]])).rows[0].n
       record('oracle', `${who} · ${fn} — 오답 · 정답 응답 동일 · 행 생성 없음`, shape(wrong) === shape(right) && rows === 0, { wrong: shape(wrong), right: shape(right), rows })
     }
@@ -198,7 +201,16 @@ try {
         let parsed = null; try { parsed = JSON.parse(body) } catch {}
         const redirected = res.status >= 300 && res.status < 400
         const noStore = (res.headers.get('cache-control') ?? '').includes('no-store')
-        const ok = !redirected && !body.includes(CANARY) && (
+        // HTML · RSC 페이로드 — 보류 시험 문항 id 앞뒤 400자 안에 정답 · 정오 · 점수 값이 있으면 노출
+        const near = []
+        for (let i = body.indexOf(EXAM + '#'); i >= 0; i = body.indexOf(EXAM + '#', i + 1)) {
+          const win = body.slice(Math.max(0, i - 400), i + 400)
+          for (const key of ['"answer":', '\\"answer\\":', '"is_correct":', '"correct":', '"raw":', '"wrong":']) {
+            const j = win.indexOf(key)
+            if (j >= 0 && !win.slice(j + key.length, j + key.length + 4).startsWith('null')) near.push(key)
+          }
+        }
+        const ok = !redirected && !body.includes(CANARY) && near.length === 0 && (
           v.probe.expect === 'embargo' ? res.status === 423 && parsed?.held === 'exam_embargo' && noStore
           : v.probe.expect === 'held' ? res.ok && parsed?.held != null && parsed?.raw === undefined && parsed?.wrong === undefined
           // no_canary — 유효한 정상 응답(2xx)이어야 실행된 검사다(401 · 404 · 5xx 는 미실행으로 실패). JSON 이면 정답 · 정오 필드도 본다
@@ -212,10 +224,12 @@ try {
 } finally {
   try { if (users.ADM && users.P) await users.ADM.client.rpc('csat_ec_capture_close', { p_user: users.P.id, p_exam: EXAM, p_reason: `canary 검사 정리 ${CANARY}` }) } catch {}
   for (const u of Object.values(users)) await svc.auth.admin.deleteUser(u.id).catch(() => {})
-  await db.query(`delete from public.csat_type_reports where type_id = $1`, [TYPE]).catch(() => {})
-  await db.query(`delete from public.csat_dx_answer_key where exam_id = $1`, [EXAM]).catch(() => {})
-  await db.query(`delete from public.csat_exams where id = $1`, [EXAM]).catch((e) => record('정리', 'TEST 시험 삭제', false, e.message))
-  await db.query(`delete from public.csat_types where id = $1`, [TYPE]).catch(() => {})
+  if (owned.type) await db.query(`delete from public.csat_type_reports where type_id = $1`, [TYPE]).catch(() => {})
+  if (owned.exam) {
+    await db.query(`delete from public.csat_dx_answer_key where exam_id = $1`, [EXAM]).catch(() => {})
+    await db.query(`delete from public.csat_exams where id = $1`, [EXAM]).catch((e) => record('정리', 'TEST 시험 삭제', false, e.message))
+  }
+  if (owned.type) await db.query(`delete from public.csat_types where id = $1`, [TYPE]).catch(() => {})
   const left = (await db.query(`select (select count(*) from public.csat_ec_capture_tombstone where exam_id = $1 and closed_at is null)::int t, (select count(*) from public.csat_items where exam_id = $1)::int i`, [EXAM])).rows[0]
   record('정리', 'TEST 시험 · 활성 묘비 0', left.t === 0 && left.i === 0, left)
   await db.end()

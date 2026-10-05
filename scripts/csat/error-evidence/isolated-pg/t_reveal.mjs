@@ -62,6 +62,12 @@ export default async function reveal(admin, ctx) {
     [JSON.stringify({ user_id: P.P3, exam_id: EXAM, mode: 'live', taken_at: '2026-10-05', client_key: '33333333-3333-4333-8333-333333333333' }), JSON.stringify(resp(normal))])
   record('reveal', 'TEST taxonomy 로는 보류 행을 만들지 않고 기록 저장도 되돌린다(원자)', fails(badTax, /Pilot taxonomy/) &&
     Number((await admin.query(`select count(*) n from public.csat_dx_session where user_id = $1`, [P.P3])).rows[0].n) === 0, badTax.err)
+  await owner.query(`insert into public.csat_ec_taxonomy_version (version, note) values ('v99.7', 'sealed without marker') on conflict do nothing`)
+  await owner.query(`insert into public.csat_ec_code (version, code, axis, label, definition, inclusion, exclusion, student_group) values ('v99.7', 'V.word_sense', 'V', 'l', 'd', 'i', 'e', 'word') on conflict do nothing`)
+  await as(app, ADM, `select public.csat_ec_taxonomy_seal('v99.7')`)
+  const v99 = await as(app, SERVICE, `select public.csat_ec_record_session_held($1::jsonb, $2::jsonb, true, 'v99.7', '{}'::jsonb, '{}'::smallint[], false)`,
+    [JSON.stringify({ user_id: P.P3, exam_id: EXAM, mode: 'live', taken_at: '2026-10-05', client_key: '88888888-8888-4888-8888-888888888888' }), JSON.stringify(resp(normal))])
+  record('reveal', '봉인됐지만 TEST 표시 없는 v99.* 도 거부(정규식 [.])', fails(v99, /Pilot taxonomy/), v99.err)
   const learnerCall = await as(app, learner(P.P1), `select public.csat_ec_record_session_held('{}'::jsonb, '[]'::jsonb, true, $1, '{}'::jsonb, '{}'::smallint[], false)`, [TAX])
   record('reveal', 'record_session_held — 학습자 직접 호출 거부(service 전용)', fails(learnerCall, /permission denied/), learnerCall.err)
 
