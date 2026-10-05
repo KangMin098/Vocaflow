@@ -104,7 +104,9 @@ const VERDICT_FIELDS = `{
 }`
 
 const EVIDENCE_FIELDS = ['reason', 'blocked_span', 'interpretation', 'self_category', 'context']
-const RULE_TOKEN = /^(Q-|Q[0-8]|Q4[ab]|R(?:[1-9]|1[01]))$/
+// 유효한 R 규칙 = **그 회차 코드북 본문의 §4-1 표에 있는 R 규칙**(2026-10-05 — R1–R11 을 박아 두어 rev4 의 R12 인용이 전부 거부됐다)
+const CODEBOOK_RULES = (() => { try { return new Set((fs.readFileSync(CODEBOOK_F, 'utf8').match(/^\| R(\d+) \|/gm) ?? []).map((m) => `R${m.match(/\d+/)[0]}`)) } catch { return new Set() } })()
+const RULE_TOKEN = { test: (t) => /^(Q-|Q[0-8]|Q4[ab])$/.test(t) || CODEBOOK_RULES.has(t) }
 const RULE_SCAN = /(?<![A-Za-z.])(Q-|Q\d+[a-z]?|R\d+)(?![\w.])/g
 // 코드북 규칙 식별자가 하나 이상 있고, 있는 것은 모두 유효한가
 const citesValidRule = (text) => { const t = (text ?? '').match(RULE_SCAN) ?? []; return t.length > 0 && t.every((x) => RULE_TOKEN.test(x)) }
@@ -240,7 +242,8 @@ function auditRaw(stageDir, engine, tag, out = null, ids = null) {
     if (env.num_turns !== 1) e.push(`num_turns=${env.num_turns ?? '없음'}`)
     if (!env.session_id) e.push('session_id 없음')
     if (env.is_error) e.push('is_error')
-    if (out) {
+    // 채택 사례가 0건인 실행(응답이 깨져 재판정으로 넘어간 실행)은 응답 대조할 판정이 없다 — 누출 감사만
+    if (out && !(ids && ids.length === 0)) {
       if (out.meta?.session_id !== env.session_id) e.push('결과의 session_id 가 원본과 다르다')
       try { if (judgmentsDigest(pick(extractJson(env.result).judgments)) !== judgmentsDigest(out.judgments)) e.push('원본 최종 응답의 판정과 결과 파일이 다르다') } catch { e.push('원본 최종 응답 파싱 실패') }
     }
@@ -267,7 +270,7 @@ function auditRaw(stageDir, engine, tag, out = null, ids = null) {
   }
   if (st !== 'done') e.push('turn 이 완료 상태로 끝나지 않았다')
   if (events.some((x) => /^item\./.test(x.type) && (!x.item?.id || (x.item.type === 'agent_message' && x.type === 'item.completed' && typeof x.item.text !== 'string')))) e.push('항목 식별자 · 메시지 본문 누락')
-  if (out) {
+  if (out && !(ids && ids.length === 0)) {
     const tid = events.find((x) => x.type === 'thread.started')?.thread_id
     if (out.meta?.thread_id !== tid) e.push('결과의 thread_id 가 원본과 다르다')
     const last = [...events].reverse().find((x) => x.type === 'item.completed' && x.item?.type === 'agent_message')?.item?.text

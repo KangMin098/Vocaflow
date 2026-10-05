@@ -1,0 +1,165 @@
+{
+ "plan_commit": "b00403014",
+ "codebook_sha256": "f2bfcb6eca8cc9d7cf498f2b655ae13453572cd0cdf6838698c75602964c6dff",
+ "final_sha256": "d7cd2351a9efa90f28c978388736a19fac1ddce078f2655805bdb9208f558508",
+ "regression_defined_match": "8/9",
+ "baseline": "8/9 (rev4 회차(N-13 은 adjudication 정정 기대 V.wrong_sense 기준))",
+ "label": "rev4.1",
+ "no_regression": true,
+ "changes": {
+  "R6": {
+   "holdout": [
+    {
+     "id": "R41-H1",
+     "final": "identified:R.main_point",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 ④: punish themselves 는 고정 표현이 아닌 글쓴이의 구절이고, 학생이 고른 다른 사전 뜻(벌하다)을 넣으면 학생 해석이 나오므로 낱말 실패가 결정적이다 → R6 ① V.wrong_sense."
+     },
+     "pass": false
+    },
+    {
+     "id": "R41-H2",
+     "final": "identified:S.operator_scope",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "R.inference",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 ④: universe=우주를 구절에 그대로 넣어도 학생 해석이 나오지 않고 틀린 부분은 구절의 대상·대응에서 생겼으므로 R6 ② R.inference primary, 다른 사전 뜻은 기껏해야 contributing."
+     },
+     "pass": false
+    }
+   ],
+   "regression_match": [
+    {
+     "id": "C4-11",
+     "final": "identified:V.wrong_sense",
+     "pass": false
+    },
+    {
+     "id": "H-13",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "H-05",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "C4-07",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R4-H2",
+     "final": "identified:R.inference",
+     "pass": true
+    }
+   ],
+   "regression_converge": [
+    {
+     "id": "C2-02",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R4-H1",
+     "final": "identified:R.inference",
+     "pass": false
+    }
+   ],
+   "adopt": false
+  },
+  "R12": {
+   "holdout": [
+    {
+     "id": "R41-H3",
+     "final": "identified:V.wrong_sense",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [],
+      "why": "R12 ② 고정 표현 판별: 필요한 뜻이 구성 낱말 for 가 스스로 가진 사전 뜻(~대신에)으로 설명되므로 고정 표현이 아니다 → for 의 V.wrong_sense."
+     },
+     "pass": true
+    },
+    {
+     "id": "R41-H4",
+     "final": "identified:V.multiword",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.multiword",
+      "candidates": [],
+      "accept": [],
+      "why": "R12 ②: go along with 는 덩어리 전체가 따로 사전 뜻(동조하다·따르다)을 가진 구동사이고 학생은 이를 낱말 합으로 읽었으므로 V.multiword."
+     },
+     "pass": true
+    }
+   ],
+   "regression_match": [
+    {
+     "id": "R4-H3",
+     "final": "identified:V.unknown_word",
+     "pass": true
+    },
+    {
+     "id": "R4-H4",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "R4-H5",
+     "final": "identified:V.multiword",
+     "pass": true
+    },
+    {
+     "id": "N-13",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    }
+   ],
+   "regression_converge": [
+    {
+     "id": "H-17",
+     "final": "identified:V.unknown_word",
+     "pass": true
+    },
+    {
+     "id": "N-04",
+     "final": "identified:V.wrong_sense",
+     "pass": false
+    }
+   ],
+   "adopt": false
+  }
+ },
+ "surveillance": [],
+ "surveillance_absorbed_into_other_S": false,
+ "sets": {
+  "regression": {
+   "n": 13,
+   "verified": 13,
+   "unresolved": []
+  },
+  "holdout": {
+   "n": 4,
+   "verified": 4,
+   "unresolved": []
+  },
+  "surveillance": {
+   "n": 0,
+   "verified": 0,
+   "unresolved": []
+  }
+ }
+}

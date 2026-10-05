@@ -1,0 +1,735 @@
+{
+ "run_id": "xm41b-20261005",
+ "codebook_rev": "rev4.1-draft",
+ "codebook_sha256": "f2bfcb6eca8cc9d7cf498f2b655ae13453572cd0cdf6838698c75602964c6dff",
+ "final_sha256": "d7cd2351a9efa90f28c978388736a19fac1ddce078f2655805bdb9208f558508",
+ "n": 17,
+ "first_pass": {
+  "outcome": {
+   "n": 17,
+   "po": 1,
+   "kappa": null,
+   "ac1": 1
+  },
+  "insufficient": {
+   "n": 17,
+   "po": 1,
+   "kappa": null,
+   "ac1": 1
+  },
+  "family": {
+   "n": 17,
+   "po": 0.8235294117647058,
+   "kappa": 0.6382978723404253,
+   "ac1": 0.8049713193116634
+  },
+  "primary": {
+   "n": 17,
+   "po": 0.6470588235294118,
+   "kappa": 0.5384615384615384,
+   "ac1": 0.6309067688378034
+  },
+  "verdict_key": {
+   "n": 17,
+   "po": 0.6470588235294118,
+   "kappa": 0.5384615384615384,
+   "ac1": 0.6347061696239622
+  }
+ },
+ "training_score": {},
+ "gate1": {
+  "G1_initial_agreement": 11,
+  "G3_major_disagreement": 3,
+  "G2_boundary_disagreement": 3
+ },
+ "matrix": {
+  "GREEN-A_strong_consensus": 11,
+  "RED-A_family_conflict": 2,
+  "GREEN-B_independent_convergence": 3,
+  "YELLOW-B_same_family_boundary": 1
+ },
+ "grade": {
+  "verification_grade_4": 9,
+  "verification_grade_3": 4,
+  "verification_grade_2": 4
+ },
+ "final_status": {
+  "FINAL_VERIFIED": 17
+ },
+ "challenger_reversal": {
+  "initial_agreement": 11,
+  "challenger_changed": 0,
+  "final_changed": 0
+ },
+ "challenge_detail": {
+  "g1": 11,
+  "g1_closed": 11,
+  "retained": 11,
+  "hard_reversal": [],
+  "plausibility_expansion": [],
+  "open_set": 0,
+  "insufficient_falsified": [],
+  "a2_b2_same": 14,
+  "retest": {
+   "claude": 15,
+   "codex": 16
+  },
+  "vulnerable": {
+   "V.multiword": 1,
+   "V.wrong_sense": 1,
+   "V.unknown_word": 1
+  },
+  "adequacy": {
+   "claude": 0,
+   "codex": 0,
+   "a2b2_same": 17,
+   "a1b1_same": 17
+  },
+  "challenger": {
+   "claude_changed": 2,
+   "codex_changed": 1,
+   "claude_multi": 0,
+   "codex_multi": 0
+  }
+ },
+ "expected": {
+  "agree": 10,
+  "models_agree_expected_differs": [
+   {
+    "case_id": "C2-02",
+    "final": "identified:R.inference",
+    "expected": "undetermined",
+    "in_accept": true
+   },
+   {
+    "case_id": "C4-11",
+    "final": "identified:V.wrong_sense",
+    "expected": "identified:R.inference",
+    "in_accept": false
+   },
+   {
+    "case_id": "H-17",
+    "final": "identified:V.unknown_word",
+    "expected": "undetermined",
+    "in_accept": true
+   },
+   {
+    "case_id": "N-04",
+    "final": "identified:V.wrong_sense",
+    "expected": "undetermined",
+    "in_accept": false
+   },
+   {
+    "case_id": "R4-H1",
+    "final": "identified:R.inference",
+    "expected": "undetermined",
+    "in_accept": false
+   },
+   {
+    "case_id": "R41-H1",
+    "final": "identified:R.main_point",
+    "expected": "identified:V.wrong_sense",
+    "in_accept": false
+   },
+   {
+    "case_id": "R41-H2",
+    "final": "identified:S.operator_scope",
+    "expected": "identified:R.inference",
+    "in_accept": false
+   }
+  ],
+  "unresolved_expected_matches_one": []
+ },
+ "repeated_pairs": [],
+ "stage_shifts": {
+  "identified:V.multiword ↔ identified:V.wrong_sense": 1,
+  "identified:R.inference ↔ identified:V.wrong_sense": 1,
+  "identified:V.unknown_word ↔ identified:V.wrong_sense": 1
+ },
+ "legacy_shared_pairs": [],
+ "coverage": {
+  "V.unknown_word": {
+   "exposed": 5,
+   "tested": 5,
+   "contributing": 0,
+   "final_primary": 2,
+   "unresolved": 0
+  },
+  "V.wrong_sense": {
+   "exposed": 10,
+   "tested": 13,
+   "contributing": 2,
+   "final_primary": 7,
+   "unresolved": 0
+  },
+  "V.multiword": {
+   "exposed": 8,
+   "tested": 11,
+   "contributing": 0,
+   "final_primary": 2,
+   "unresolved": 0
+  },
+  "S.core_structure": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "S.attachment": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "S.operator_scope": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 1,
+   "unresolved": 0
+  },
+  "S.form_rule": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "R.reference": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "R.relation": {
+   "exposed": 3,
+   "tested": 3,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "R.main_point": {
+   "exposed": 6,
+   "tested": 6,
+   "contributing": 5,
+   "final_primary": 1,
+   "unresolved": 0
+  },
+  "R.inference": {
+   "exposed": 9,
+   "tested": 9,
+   "contributing": 4,
+   "final_primary": 4,
+   "unresolved": 0
+  },
+  "E.task_misread": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "E.evidence_location": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "E.option_mismatch": {
+   "exposed": 3,
+   "tested": 4,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "B.outside_knowledge": {
+   "exposed": 1,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "B.surface_match": {
+   "exposed": 2,
+   "tested": 2,
+   "contributing": 1,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "B.no_verification": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "X.time": {
+   "exposed": 0,
+   "tested": 1,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  },
+  "X.attention": {
+   "exposed": 0,
+   "tested": 0,
+   "contributing": 0,
+   "final_primary": 0,
+   "unresolved": 0
+  }
+ },
+ "boundaries": {
+  "V.wrong_sense ↔ R.inference": {
+   "n": 8,
+   "a1b1": 4,
+   "verified": 8,
+   "unresolved": 0,
+   "expected_match": 3
+  },
+  "identified ↔ multiple_plausible": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 0
+  },
+  "multiple_plausible ↔ insufficient_evidence": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "감시: V.multiword": {
+   "n": 1,
+   "a1b1": 0,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 0
+  },
+  "R.inference ↔ V.wrong_sense": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.unknown_word ↔ V.wrong_sense": {
+   "n": 1,
+   "a1b1": 1,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.wrong_sense ↔ R.relation": {
+   "n": 1,
+   "a1b1": 0,
+   "verified": 1,
+   "unresolved": 0,
+   "expected_match": 1
+  },
+  "V.multiword ↔ V.wrong_sense": {
+   "n": 3,
+   "a1b1": 3,
+   "verified": 3,
+   "unresolved": 0,
+   "expected_match": 3
+  }
+ },
+ "confidence": {
+  "low": {
+   "n": 3,
+   "agree": 1
+  },
+  "high": {
+   "n": 16,
+   "agree": 13
+  },
+  "medium": {
+   "n": 15,
+   "agree": 8
+  }
+ },
+ "models": {
+  "a1/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm41b-20261005:a1:1:1",
+   "leakage": 0
+  },
+  "a1/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm41b-20261005:a1:2:1",
+   "leakage": 0
+  },
+  "b1/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm41b-20261005:b1:1:1",
+   "leakage": 0
+  },
+  "b1/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm41b-20261005:b1:2:1",
+   "leakage": 0
+  },
+  "a2p/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm41b-20261005:a2p:1:1",
+   "leakage": 0
+  },
+  "a2p/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm41b-20261005:a2p:2:1",
+   "leakage": 0
+  },
+  "b2p/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm41b-20261005:b2p:1:1",
+   "leakage": 0
+  },
+  "b2p/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm41b-20261005:b2p:2:1",
+   "leakage": 0
+  },
+  "a2/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm41b-20261005:a2:1:1",
+   "leakage": 0
+  },
+  "a2/2": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm41b-20261005:a2:2:1",
+   "leakage": 0
+  },
+  "b2/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm41b-20261005:b2:1:1",
+   "leakage": 0
+  },
+  "b2/2": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm41b-20261005:b2:2:1",
+   "leakage": 0
+  },
+  "final-claude/1": {
+   "cli": "2.1.289 (Claude Code)",
+   "models": [
+    "claude-haiku-4-5-20251001",
+    "claude-opus-5-5"
+   ],
+   "run": "xm41b-20261005:final-claude:1:1",
+   "leakage": 0
+  },
+  "final-codex/1": {
+   "cli": "codex-cli 0.160.0",
+   "models": [
+    "gpt-6.1-sol"
+   ],
+   "run": "xm41b-20261005:final-codex:1:1",
+   "leakage": 0
+  }
+ },
+ "cases": [
+  {
+   "case_id": "C2-02",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "C4-11",
+   "gate1": "G3_major_disagreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:R.inference",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:R.inference",
+   "matrix": "RED-A_family_conflict",
+   "fc": "identified:V.wrong_sense",
+   "fx": "identified:V.wrong_sense",
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_3",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "H-13",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "H-05",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "C4-07",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "H-17",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.unknown_word",
+   "b1": "identified:V.unknown_word",
+   "a2": "identified:V.unknown_word",
+   "b2": "identified:V.unknown_word",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.unknown_word",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "N-13",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "N-04",
+   "gate1": "G2_boundary_disagreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.multiword",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-B_independent_convergence",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "R4-H1",
+   "gate1": "G3_major_disagreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-B_independent_convergence",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "undetermined"
+  },
+  {
+   "case_id": "R4-H2",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:R.inference",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.inference",
+   "b2": "identified:R.inference",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:R.inference",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R4-H3",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.unknown_word",
+   "b1": "identified:V.unknown_word",
+   "a2": "identified:V.unknown_word",
+   "b2": "identified:V.unknown_word",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.unknown_word",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.unknown_word"
+  },
+  {
+   "case_id": "R4-H4",
+   "gate1": "G2_boundary_disagreement",
+   "a1": "identified:V.unknown_word",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-B_independent_convergence",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_3",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R4-H5",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.multiword",
+   "b1": "identified:V.multiword",
+   "a2": "identified:V.multiword",
+   "b2": "identified:V.multiword",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.multiword",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:V.multiword"
+  },
+  {
+   "case_id": "R41-H1",
+   "gate1": "G2_boundary_disagreement",
+   "a1": "identified:R.main_point",
+   "b1": "identified:R.inference",
+   "a2": "identified:R.main_point",
+   "b2": "identified:R.inference",
+   "matrix": "YELLOW-B_same_family_boundary",
+   "fc": "identified:R.main_point",
+   "fx": "identified:R.main_point",
+   "final": "identified:R.main_point",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_3",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R41-H2",
+   "gate1": "G3_major_disagreement",
+   "a1": "identified:S.operator_scope",
+   "b1": "identified:R.inference",
+   "a2": "identified:S.operator_scope",
+   "b2": "identified:R.inference",
+   "matrix": "RED-A_family_conflict",
+   "fc": "identified:S.operator_scope",
+   "fx": "identified:S.operator_scope",
+   "final": "identified:S.operator_scope",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_3",
+   "expected": "identified:R.inference"
+  },
+  {
+   "case_id": "R41-H3",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.wrong_sense",
+   "b1": "identified:V.wrong_sense",
+   "a2": "identified:V.wrong_sense",
+   "b2": "identified:V.wrong_sense",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.wrong_sense",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_4",
+   "expected": "identified:V.wrong_sense"
+  },
+  {
+   "case_id": "R41-H4",
+   "gate1": "G1_initial_agreement",
+   "a1": "identified:V.multiword",
+   "b1": "identified:V.multiword",
+   "a2": "identified:V.multiword",
+   "b2": "identified:V.multiword",
+   "matrix": "GREEN-A_strong_consensus",
+   "fc": null,
+   "fx": null,
+   "final": "identified:V.multiword",
+   "status": "FINAL_VERIFIED",
+   "grade": "verification_grade_2",
+   "expected": "identified:V.multiword"
+  }
+ ]
+}

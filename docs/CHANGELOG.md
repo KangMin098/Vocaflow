@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(csat): 코드북 rev4.1 재검증(17건, 전부 확정 · 퇴행 없음) — R12 7/8(N-04 만 수렴 기준 밖) · R6 5/9(R6 ④ 가 C4-11 을 뒤집음) → 둘 다 candidate. 검증기 R1–R11 고정 결함 수정. `REV41_EVAL.md`
 - docs(csat): rev4 미달 3건 adjudication — R4-H6 · N-13 GOLD_WRONG 합의, R4-H1 판정 갈림 → §6/R9 채택 · R6 · R12 candidate(rev4.1 대상). `ADJUDICATION_REV4.md`
 - docs(csat): 코드북 rev4 재검증(Claude × Codex 4중 blind, 21건 = regression 12 · holdout 7 · surveillance 2) — 세 변경점(R6 · R12 · §6/R9) 모두 한 사례씩 미달로 candidate 유지 · 퇴행 없음(8/9 vs rev3 7/9) · S.attachment 감시 2건 모두 식별. `REV4_EVAL.md`
 - docs(csat): cross-model dry run adjudication 26건(사전 등록 a6e4670e4) — 두 판정자 합의 20 · GOLD_WRONG 15 · BOUNDARY_WEAK 3 · rev4 필요(조건 4: V.wrong_sense 인접 경계 C2-02 · N-04) · seed 후보 아님. `ADJUDICATION_RESULT.md`. Codex Stop 훅 루트 · 파일 선택 수정(저장소 밖)
