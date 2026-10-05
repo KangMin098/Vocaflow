@@ -1,0 +1,1167 @@
+{
+ "note": "함수 EXECUTE 허용 목록 — 여기 없는 public 함수는 실패(기본 거부). review 항목은 사람이 확정한 뒤 class 를 고친다.",
+ "generated": "2026-10-05",
+ "functions": {
+  "_extract_composite_score(p_frequency_rank integer, p_freq_in_unit integer, p_unit_max_freq integer, p_v_level smallint, p_verified boolean, p_example_en text, p_skill_level smallint, p_unit_v_level smallint)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "acp_apply_license_gate()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "acp_article_rollup()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "acp_batch_independent_lines(p_batch_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "acp_claim_compose_jobs(p_worker text, p_limit integer, p_stale_minutes integer)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "acp_classify_license(p_license text)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "acp_compose_shelf_candidates(p_batch_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "acp_prune_compose_candidates(p_days integer)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "admin_archive_article(p_article_id uuid)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_archive_book(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_bulk_requeue_articles(p_article_ids uuid[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "admin_bulk_requeue_books(p_book_ids uuid[])": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_bulk_set_books_curating(p_book_ids uuid[])": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_collect_content_gate_metrics()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "admin_collect_db_health_integrity()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_collect_db_health_metrics()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_collect_db_health_queues()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "admin_collect_quality_metrics()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_db_health_live()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_delete_article(p_article_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "admin_delete_book(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_delete_comic(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_enqueue_article(p_source text, p_source_id text, p_title text, p_author text, p_url text, p_published_at timestamp with time zone, p_license text, p_content text, p_audio_url text, p_feed_id text, p_feed_label text)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_enqueue_book(p_source text, p_source_id text, p_title text, p_author text, p_author_birth_year integer, p_author_death_year integer, p_license text)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_force_publish_article(p_article_id uuid)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_force_publish_book(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "admin_record_db_health_checkpoint(p_label text, p_phase text, p_note text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "admin_requeue_article(p_article_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_requeue_book(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_revert_published_article(p_article_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "admin_revert_published_book(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_run_db_health_action(p_action text, p_target text, p_reason text, p_finding_id bigint)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_set_comic_published(p_book_id uuid, p_published boolean)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_set_db_health_finding_status(p_id bigint, p_status text, p_note text)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_vrl_cron_jobs()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_vrl_cron_runs()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_vrl_diagnostic_use()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_vrl_snapshot_counts()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_vrl_track_distribution()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "admin_vrl_v_level_distribution()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "agg_daily_activity_from_learning_record()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "agg_daily_activity_from_score()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "analyze_and_apply_comprehensive_diagnostic_result(p_result_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "analyze_and_apply_diagnostic_result(p_result_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "analyze_and_apply_track_diagnostic_result(p_result_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "analyze_book_vrl(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "analyze_diagnostic_result(p_result_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "analyze_track_diagnostic_result(p_result_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "apply_diagnostic_result(p_diagnostic_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "apply_topic_categories(p_source_id text, p_min_doc_freq integer, p_min_salience numeric, p_max_words integer, p_dry_run boolean)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "archive_book_pipeline_messages(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "article_seed_set_updated_at()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "audit_book_extraction(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "auto_compute_freq_fields()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "auto_curate_book(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "auto_promote_track_level_for_user(p_user_id uuid, p_track_id text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "auto_promote_v_level_for_user(p_user_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "book_comic_available(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "book_quiz_coverage(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "books_needing_audit(p_limit integer)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "bulk_compute_cefrj_for_all_sources()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "calc_domain_level(p_word text, p_domain text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "calc_skill_level(p_word text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "calc_track_level(p_word text, p_track text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "calc_v_level(p_word text)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "calculate_next_review_due(p_source text, p_activity_score numeric, p_confidence numeric)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "calculate_next_review_due(p_user_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "calculate_user_v_level_from_mastery(p_user_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "claim_topic_corpus_batch(p_source_id text, p_limit integer)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "collect_archaic_candidates(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "collect_content_gate_metrics()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "commit_chapter_vocab(p_book_id uuid, p_chapter_idx integer)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "compute_article_syntax(p_article_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "compute_article_vrl(p_article_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "compute_book_cefrj(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "compute_book_chapter_v_levels(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "compute_book_coverage(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "compute_book_difficulty(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "compute_book_syntax(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "compute_book_vrl(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "compute_frequency_tier(p_raw_count integer)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "compute_syntax_score(p_content text)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "content_gate_publishable(p_scope text, p_id uuid)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "cron_auto_promote_all_users()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_coverage()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_demote_on_review_change()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_drain_runs_stamp_finished()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_add_probe_response(p_session uuid, p_item_no smallint, p_value jsonb, p_session_cap integer)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "csat_ec_add_process_evidence(p_session uuid, p_item_no smallint, p_kind text, p_value jsonb, p_supersedes uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "csat_ec_add_student_claim(p_session uuid, p_item_no smallint, p_taxonomy text, p_group text, p_code text, p_supersedes uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_blind_queue(p_round bigint)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_capture_close(p_user uuid, p_exam text, p_reason text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_capture_finish(p_session uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_capture_open(p_session uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_close_tombstone(p_id bigint, p_reason text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_confirm_session(p_session uuid, p_took_exam boolean, p_judged_each boolean)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "csat_ec_my_capture_state(p_session uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_my_pending_probes(p_session uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "csat_ec_my_process_evidence(p_session uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "csat_ec_reveal_view(p_round bigint)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_round_advance(p_round bigint, p_to text, p_reason text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_round_assign(p_round bigint, p_reviewer uuid, p_slot text, p_pre_disclosed text[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb, p_evidence_profile text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_round_material(p_round bigint)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_round_reveal(p_round bigint)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_round_set_targets(p_round bigint, p_refs jsonb)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_round_start_blind(p_round bigint)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_submit_adjudication(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_submit_adjudication(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text, p_candidates text[], p_boundary_keys text[], p_probe_required boolean)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_submit_blind(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_submit_blind(p_round bigint, p_session uuid, p_item_no smallint, p_outcome text, p_primary text, p_contributing text[], p_excluded text[], p_note text, p_candidates text[], p_boundary_keys text[], p_probe_required boolean)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_submit_verify(p_round bigint, p_claim uuid, p_verdict text, p_note text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_ec_taxonomy_seal(p_version text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_source_eligibility_tally()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_source_inventory_live()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "csat_source_is_eligible(p_article_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_source_is_gradeable(p_article_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_source_live_rollup()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "csat_source_pipeline_live()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "csat_source_rollup()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "csat_source_snapshot_take(p_by text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "curriculum_bands(p_words text[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "db_health_anomalies(p_window_days integer, p_min_samples integer)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "db_health_checkpoint_diff(p_label text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "decode_entities_in_stored_sentences(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "decode_html_entities(p_text text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "decr_chunk_refs(p_hashes text[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "deliver_chapter_vocab(p_book_id uuid, p_chapter_idx integer)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "derive_learner_stage(p_user_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "dict_categorical_distributions()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "dict_inflections_by_pos()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "dict_polysemy_count()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "dictation_overview()": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "dictation_recent_misses(p_limit integer)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "dictation_weakness(p_days integer)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "effective_confidence(p_meta jsonb)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "en_derivational_bases(p text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "en_inflection_bases(p text)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "en_negation_preserved(p_surface text, p_headword text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "en_spelling_variants(p text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "enforce_archaic_not_in_shared()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "enforce_base_word_depth1()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "enforce_domain_levels_keys()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "enforce_track_levels_keys()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "enqueue_comic_jobs(p_book_ids uuid[])": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "enqueue_curation_jobs(p_book_ids uuid[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "enqueue_quiz_jobs(p_book_ids uuid[])": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "enqueue_review_jobs(p_book_ids uuid[], p_task_type text)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "enqueue_topic_corpus_docs(p_source_id text, p_docs jsonb)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "enroll_library_book(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "extract_book_vocabulary_admin(p_book_id uuid, p_percentile smallint)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "extract_vocabulary_for_user(p_user_id uuid, p_words text[], p_level_strategy text)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "extract_vocabulary_for_user_v2(p_user_id uuid, p_words text[], p_level_strategy text, p_limit integer)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "fill_lbv_resolution(p_book_id uuid, p_only_new boolean)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "find_derivational_candidates()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "find_unbound_book_lemmas(p_book_id uuid, p_limit integer)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "find_unmatched_lemmas(p_words text[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "fix_chapter_html_entities(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "funnel_summary(p_days integer)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "game_leaderboard(p_module text, p_period text, p_limit integer)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "game_rank_alias(p_user_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "game_rank_summary(p_period text)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "game_rank_window(p_period text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "get_category_path(cat_id text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "get_chapter_content(p_text_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "get_comic_format(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "get_judgment_sample(p_source_kind text, p_source_id uuid, p_chapter_idx integer)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "get_lcp_config()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "grade_dcp_item(p_item_id uuid, p_answer jsonb)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "guard_ai_generated_license()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "guard_user_profiles_privileged_columns()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "handle_new_user()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "incr_chunk_refs(p_hashes text[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "infer_form_pos(p_surface text, p_base text)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "ingest_topic_corpus_doc(p_source_id text, p_external_id text, p_url text, p_content_hash text, p_counts jsonb, p_running_words integer, p_truncated integer, p_title text, p_speaker text, p_published_at timestamp with time zone, p_proper_nouns text[])": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "insert_book_analysis(p_book_id uuid, p_chapters jsonb, p_words jsonb)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "is_admin()": {
+   "class": "service_only",
+   "action": "revoke_public_anon(정책/뷰 의존)"
+  },
+  "is_admin_or_curator()": {
+   "class": "service_only",
+   "action": "revoke_public_anon(정책/뷰 의존)"
+  },
+  "is_class_member(p_class_id uuid, p_uid uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon(정책/뷰 의존)"
+  },
+  "is_class_teacher(p_class_id uuid, p_uid uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon(정책/뷰 의존)"
+  },
+  "is_quoted_foreign_citation(p_sentence text, p_word text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "is_valid_assignment_words(p_words jsonb)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "join_class_by_code(p_code text)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "lb_compute_kr_safe()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "lb_compute_search_vector()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "library_seed_dedup_key(p_title text, p_author text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon(정책/뷰 의존)"
+  },
+  "list_book_chapter_quiz_catalog()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "list_book_comic_catalog()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "list_book_support_vocab(p_book_id uuid, p_limit integer)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "list_comic_catalog()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "list_pd_comic_shelf()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "list_pd_comics(p_series_key text)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "lookup_lexicon_clean(p_surface text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "lookup_word_meaning(p_surface text)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "lsc_compute_composite()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "maintain_reference_stats()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "peek_class_by_code(p_code text)": {
+   "class": "intended_public",
+   "action": "keep"
+  },
+  "pgmq_archive(p_queue_name text, p_msg_id bigint)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "prescribe_today(p_user_id uuid, p_v_levels integer[])": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "preview_book_comic(p_book_id uuid, p_limit integer)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "publish_article_word_set(p_article_id uuid, p_cap integer)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "publish_book_word_sets(p_book_id uuid, p_cap integer)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "purge_ghost_vocab(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "queue_seed_catalog_for_curation(p_limit integer, p_source text, p_not_imported_only boolean)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "quiz_target_per_chapter(p_v_level smallint)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "recommend_word_sets_for_user(p_user_id uuid, p_interests text[])": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "record_funnel_event(p_event text, p_surface text, p_meta jsonb)": {
+   "class": "intended_public",
+   "action": "keep"
+  },
+  "record_pending_words(p_user_id uuid, p_lemmas text[], p_text_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "refresh_lemma_dominant_pos()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "refresh_textbook_shelf_stats()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "refresh_user_known_word_count(p_user_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "regexp_quote(p text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "release_topic_corpus_claim(p_id uuid, p_status text, p_error text)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "republish_article_word_set(p_article_id uuid, p_cap integer)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "republish_book_word_sets(p_book_id uuid, p_cap integer)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "resolve_dict_headword(p_surface text)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "run_content_quality_gate_details(p_scope text, p_id uuid)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "run_content_quality_gates(p_scope text, p_id uuid)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "save_comic_progress(p_book_id uuid, p_last_index integer, p_total integer, p_completed boolean)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "save_extraction_judgment(p_source_kind text, p_source_id uuid, p_chapter_idx integer, p_word text, p_verdict text, p_mode text, p_pair_word text, p_pair_wins boolean)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "select_article_vocab(p_article_id uuid)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "select_book_chapter_coverage(p_book_id uuid, p_chapter_idx integer)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "select_book_chapter_quiz(p_book_id uuid, p_chapter_idx integer)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "select_book_chapter_vocab(p_book_id uuid)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "select_book_comic(p_book_id uuid, p_chapter_idx integer)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "select_book_comic_all(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "select_coverage_for_words(p_words text[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "select_pd_comic(p_slug text)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "select_pd_comic_info(p_slug text)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "select_pd_comic_provenance(p_slug text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "set_updated_at()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "set_word_familiarity(p_lemma text, p_verdict text, p_v_level smallint)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "stage_book_dict_candidates(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "store_content_chunk(p_content text)": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "subscribe_article_word_set(p_article_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "surface_variants(s text)": {
+   "class": "service_only",
+   "action": "review(invoker 함수가 부름)",
+   "review": true
+  },
+  "sync_cefr_from_v_level()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "sync_published_set_examples(p_set_id uuid)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "textbook_curriculum_vocab_counts()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "textbook_practice_items(p_v_level smallint, p_limit integer)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "textbook_shelf_inventory()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "textbook_shelf_refreshed_at()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "textbook_shelf_sources()": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "textfit_resolve_levels(p_words text[])": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "textfit_resolve_levels_public(p_words text[])": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "tg_maintain_set_subscriber_count()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "tg_study_plan_items_touch()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "topic_corpus_overview()": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "trg_lb_enqueue_pipeline()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "trg_lbv_fill_lemma()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "trg_lcm_chunk_refs()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "trg_publish_article_word_set()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "trg_publish_book_word_sets()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "trg_require_article_audio()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "trg_require_compose_gates()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "trg_shared_words_sync_pronunciation()": {
+   "class": "trigger_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "unenroll_library_book(p_book_id uuid)": {
+   "class": "authenticated_only",
+   "action": "revoke_public_anon"
+  },
+  "unresolved_dict_words(p_words text[])": {
+   "class": "authenticated_only",
+   "action": "review(비로그인 공개 경로 확인)",
+   "review": true
+  },
+  "update_pending_word_status(p_id uuid, p_status text, p_admin_note text)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "update_user_v_level(p_user_id uuid, p_new_level smallint, p_source text, p_confidence numeric, p_reason text, p_diagnostic_id uuid, p_triggered_by text, p_trigger_details jsonb)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "validate_axis_level_entry(p_axis_type text, p_axis_id text, p_level smallint)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "video_eval_overview()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "video_is_admin()": {
+   "class": "service_only",
+   "action": "revoke_public_anon(정책/뷰 의존)"
+  },
+  "video_job_restart(p_video_id text, p_kind text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "video_jobs_overview()": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "video_request_add_revision(p_id uuid, p_plan jsonb, p_design jsonb, p_checks jsonb, p_author text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "video_request_advance(p_id uuid, p_phase text, p_video_id text, p_error text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "video_request_cancel(p_id uuid)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "video_request_create(p_domain text, p_target_key text, p_target_label text, p_purpose text, p_audience text, p_formats text[], p_memo text, p_mode text)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "video_request_record_evaluation(p_id uuid, p_spec jsonb, p_outcome jsonb)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "video_request_review(p_id uuid, p_rev integer, p_decision text, p_comment text)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "video_restore(p_video_id text)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "video_retire(p_video_id text, p_reason text)": {
+   "class": "admin_only",
+   "action": "revoke_public_anon"
+  },
+  "video_retire_mark_purged(p_video_id text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  },
+  "video_retire_rerendered(p_video_id text)": {
+   "class": "service_only",
+   "action": "revoke_public_anon_authenticated"
+  }
+ }
+}
