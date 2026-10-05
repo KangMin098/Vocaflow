@@ -1,7 +1,7 @@
 // scripts/csat/error-evidence/isolated-pg/t_concurrency.mjs
 // 동시성 — 실제 두 연결의 겹친 트랜잭션. 교착(40P01) · 중복 · 잘못된 전이 · 조기 노출 · 부분 커밋을 본다
 import { as, openTx, record, sleep } from './lib.mjs'
-import { TAX, TRAP_MAP, U, learner } from './seed.mjs'
+import { TAX, TRAP_MAP, U, learner , SERVICE } from './seed.mjs'
 
 const ADM = learner(U.ADM), RA = learner(U.RA), RB = learner(U.RB), ADJ = learner(U.ADJ)
 const deadlock = (r) => r && !r.ok && (r.code === '40P01' || /deadlock/i.test(r.err))
@@ -135,7 +135,7 @@ export default async function concurrency(admin, ctx) {
     const t3 = refs.find((r) => r.session_id === ctx.S.L3)
     const del = `delete from public.csat_dx_session where id = $1`
     // 5a. 제출이 먼저 세션 공유 잠금 → 삭제는 기다림 → 제출 커밋 후 삭제 → 그 판정 연쇄 삭제 · 회차 취소
-    const a = await overlap(app, RA, SUBMIT, [round, t3.session_id, t3.item_no], learner(U.L3), del, [ctx.S.L3])
+    const a = await overlap(app, RA, SUBMIT, [round, t3.session_id, t3.item_no], SERVICE, del, [ctx.S.L3])   // 삭제는 서버(service role) 경로
     const st = (await admin.query(`select status, cancel_reason from public.csat_ec_review_round where id = $1`, [round])).rows[0]
     const left = await count(`select count(*) n from public.csat_ec_judgment where session_id = $1`, [ctx.S.L3])
     record('동시성', '5a. 제출(진행 중) + 학습자 기록 삭제 — 교착 없음 · 삭제 성공 · 회차 취소 · 그 학생 판정 0', a.r1.ok && a.r2.ok && st.status === 'cancelled' && left === 0 && !deadlock(a.r2),
@@ -143,7 +143,7 @@ export default async function concurrency(admin, ctx) {
     // 5b. 반대 순서 — 학습자 L5 기록 삭제가 먼저 세션을 쥐고, 그동안 제출 → 제출은 기다렸다가 거부
     const round2 = await newRound(app, ctx.refsL5)
     const t5 = ctx.refsL5.find((r) => r.session_id === ctx.S.L5)
-    const b = await overlap(app, learner(U.L5), del, [ctx.S.L5], RA, SUBMIT, [round2, t5.session_id, t5.item_no])
+    const b = await overlap(app, SERVICE, del, [ctx.S.L5], RA, SUBMIT, [round2, t5.session_id, t5.item_no])
     const st2 = (await admin.query(`select status, cancel_reason from public.csat_ec_review_round where id = $1`, [round2])).rows[0]
     const other = await count(`select count(*) n from public.csat_ec_process_evidence where session_id = any($1::uuid[])`, [[ctx.S.L1, ctx.S.L2]])
     record('동시성', '5b. 학습자 기록 삭제(진행 중) + 제출 — 교착 없음 · 제출 거부 · 회차 취소 · 다른 학생 증거 유지', b.r1.ok && !b.r2.ok && !deadlock(b.r2) && st2.status === 'cancelled' && other > 0,

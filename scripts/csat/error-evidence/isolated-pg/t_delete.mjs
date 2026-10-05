@@ -1,7 +1,7 @@
 // scripts/csat/error-evidence/isolated-pg/t_delete.mjs
 // 삭제 경계 — 학습자 기록 삭제 · 계정 삭제 · 판정자 계정 삭제 · 관리자 계정 삭제. 시스템 데이터 · 다른 학생 데이터는 남아야 한다
 import { as, record } from './lib.mjs'
-import { U, learner } from './seed.mjs'
+import { U, learner , SERVICE } from './seed.mjs'
 
 export default async function del(admin, ctx) {
   const { S } = ctx
@@ -37,8 +37,8 @@ export default async function del(admin, ctx) {
   const cb = await n(`select count(*) n from public.csat_ec_review_round where created_by is not null`)
   record('삭제', '회차 생성자 계정 삭제 — 성공(닫힌 회차 포함) · created_by NULL', r.ok && cb === 0, r.err ?? cb)
 
-  // 1. 학습자가 자기 기록 삭제(앱의 deleteExamSession 경로 — RLS 로 자기 세션 삭제)
-  r = await as(ctx.app, learner(U.L1), `delete from public.csat_dx_session where id = $1`, [S.L1])
+  // 1. 학습자가 자기 기록 삭제(앱의 deleteExamSession 경로 — 서버가 소유 확인 뒤 service role 로 지운다. 학습자 직접 DELETE 정책은 운영에 없다)
+  r = await as(ctx.app, SERVICE, `delete from public.csat_dx_session where id = $1`, [S.L1])
   if (r.ok && !r.count) r = { ok: false, err: "삭제된 행 0(RLS)" }
   record('삭제', '학습자 기록 삭제 — 트리거가 삭제를 막지 않는다', r.ok, r.err)
   const L1after = {

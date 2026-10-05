@@ -9,6 +9,7 @@ create role service_role nologin noinherit bypassrls;
 create role authenticator login noinherit password 'auth';
 grant anon, authenticated, service_role to authenticator;
 grant anon, authenticated, service_role to postgres;
+grant create on database ec to postgres;   -- Supabase 와 같다(postgres 가 스키마를 만든다 — 20261005170000 csat_ec_private)
 
 create schema extensions;
 create extension pgcrypto with schema extensions;
@@ -55,7 +56,7 @@ create table public.csat_dx_session (
   exam_id text references public.csat_exams(id), mode text not null check (mode in ('live', 'retake', 'app', 'diagnostic')),
   taken_at date not null, total_minutes smallint, entered_by text not null default 'learner', client_key uuid not null,
   raw_score smallint, grade smallint, created_at timestamptz not null default now(),
-  check ((mode = 'diagnostic') = (exam_id is null)), unique (user_id, client_key)
+  check ((mode = 'diagnostic') = (exam_id is null)), constraint csat_dx_session_once unique (user_id, client_key)
 );
 create table public.csat_dx_response (
   session_id uuid not null references public.csat_dx_session(id) on delete cascade, item_no smallint not null check (item_no between 1 and 45),
@@ -73,7 +74,8 @@ create table public.csat_dx_option_trap (
   reviewed_by uuid references auth.users(id) on delete set null, primary key (item_id, option_no)
 );
 -- 앱 이벤트(허용 목록 CHECK 만 마이그레이션이 바꾼다 — 20261005150000)
-create table public.funnel_events (id bigserial primary key, event text not null, created_at timestamptz not null default now(),
+create table public.funnel_events (id bigserial primary key, occurred_at timestamptz not null default now(), user_id uuid references auth.users(id) on delete set null,
+  event text not null, surface text, meta jsonb not null default '{}', created_at timestamptz not null default now(),
   constraint funnel_events_event_check check (event = any (array[
         'teacher_hub_view', 'invite_shared',
         'fit_viewed', 'fit_analyzed', 'fit_shared', 'fit_share_opened', 'fit_signup_clicked',
@@ -100,12 +102,78 @@ create table public.user_profiles (
 );
 alter table public.csat_dx_session enable row level security;
 alter table public.csat_dx_response enable row level security;
-create policy own_session on public.csat_dx_session for all to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
-create policy own_response on public.csat_dx_response for all to authenticated using (exists (select 1 from public.csat_dx_session s where s.id = session_id and s.user_id = auth.uid()));
+-- 운영과 같은 이름 · SELECT 전용(2026-10-05 실측)
+create policy csat_dx_session_own_select on public.csat_dx_session for select to authenticated using (user_id = (select auth.uid()));
+create policy csat_dx_response_own_select on public.csat_dx_response for select to authenticated
+  using (exists (select 1 from public.csat_dx_session s where s.id = csat_dx_response.session_id and s.user_id = (select auth.uid())));
+alter table public.csat_items enable row level security;
+create policy csat_items_read on public.csat_items for select to authenticated using (false);
+-- 보류 대상(운영 정의의 요지 — 정책 이름 · 조건은 운영과 같다)
+create table public.csat_item_analyses (id bigserial primary key, item_id text not null references public.csat_items(id) on delete cascade,
+  status text not null default 'draft', answer_locus jsonb, choice_analysis jsonb, solve_procedure jsonb, design_intent jsonb);
+alter table public.csat_item_analyses enable row level security;
+create policy csat_analyses_read on public.csat_item_analyses for select to authenticated using (status = 'published');
+create table public.csat_item_skeletons (item_id text primary key references public.csat_items(id) on delete cascade, exam_id text, data jsonb not null default '{}');
+alter table public.csat_item_skeletons enable row level security;
+create policy csat_item_skeletons_read_published on public.csat_item_skeletons for select to authenticated
+  using (exists (select 1 from public.csat_item_analyses a where a.item_id = csat_item_skeletons.item_id and a.status = 'published'));
+create table public.csat_type_reports (type_id text primary key, status text not null default 'draft', failure_modes jsonb, open_questions jsonb,
+  recurring_traps jsonb, procedure_steps jsonb, answer_locus_pattern jsonb);
+alter table public.csat_type_reports enable row level security;
+create policy csat_type_reports_read on public.csat_type_reports for select to authenticated using (status = 'published');
+create table public.csat_dx_snapshot (id bigserial primary key, user_id uuid not null references auth.users(id) on delete cascade,
+  session_id uuid references public.csat_dx_session(id) on delete cascade, raw_score smallint, evidence jsonb not null default '{}');
+alter table public.csat_dx_snapshot enable row level security;
+create policy csat_dx_snapshot_own_select on public.csat_dx_snapshot for select to authenticated using (user_id = (select auth.uid()));
+create table public.csat_session_attempts (id uuid primary key default gen_random_uuid(), user_id uuid not null references auth.users(id) on delete cascade, item_id text not null, type_id text, correct boolean not null, answered_at timestamptz not null default now());
+alter table public.csat_session_attempts enable row level security;
+create policy csat_session_attempts_own on public.csat_session_attempts for all to authenticated using (user_id = (select auth.uid()));
+create table public.csat_trap_attempts (id uuid primary key default gen_random_uuid(), user_id uuid not null references auth.users(id) on delete cascade, item_id text not null, choice smallint, answer_trap text, picked_trap text, is_correct boolean not null, answered_at timestamptz not null default now());
+alter table public.csat_trap_attempts enable row level security;
+create policy csat_trap_attempts_own_insert on public.csat_trap_attempts for insert to authenticated with check (true);
+create policy csat_trap_attempts_own_select on public.csat_trap_attempts for select to authenticated using ((select auth.uid()) = user_id);
+create view public.csat_items_public as
+ select i.id, i.exam_id, i.no, i.section, i.in_scope, i.type_id, i.stem, i.answer, i.points, i.high_score, e.organizer, e.grade
+   from public.csat_items i join public.csat_exams e on e.id = i.exam_id
+  where e.organizer = 'kice' or (e.organizer = 'edu_office' and exists (select 1 from public.csat_item_analyses a where a.item_id = i.id and a.status = 'published'));
+revoke all on public.csat_items_public from anon, authenticated;
+grant select (id, exam_id, no, section, in_scope, type_id, answer, points, high_score, organizer, grade) on public.csat_items_public to authenticated;
 
 create function public.is_admin() returns boolean language sql stable security definer set search_path to 'public' as $$
   select exists (select 1 from user_profiles where user_id = auth.uid() and role = 'admin')
 $$;
 grant execute on function public.is_admin() to anon, authenticated, service_role;
+-- 기록 저장(운영 정의 그대로 — 2026-10-05 pg_get_functiondef). service_role 전용
+CREATE OR REPLACE FUNCTION public.csat_dx_record_session(p_session jsonb, p_responses jsonb)
+ RETURNS uuid
+ LANGUAGE plpgsql
+ SET search_path TO 'public'
+AS $function$
+DECLARE
+  v_id uuid;
+BEGIN
+  INSERT INTO csat_dx_session (user_id, exam_id, mode, taken_at, total_minutes, entered_by, client_key, raw_score, grade)
+  VALUES ((p_session->>'user_id')::uuid, p_session->>'exam_id', p_session->>'mode', (p_session->>'taken_at')::date,
+          (p_session->>'total_minutes')::smallint, coalesce(p_session->>'entered_by', 'learner'),
+          (p_session->>'client_key')::uuid, (p_session->>'raw_score')::smallint, (p_session->>'grade')::smallint)
+  ON CONFLICT ON CONSTRAINT csat_dx_session_once DO NOTHING
+  RETURNING id INTO v_id;
+
+  IF v_id IS NULL THEN
+    SELECT id INTO v_id FROM csat_dx_session
+     WHERE user_id = (p_session->>'user_id')::uuid AND client_key = (p_session->>'client_key')::uuid;
+    RETURN v_id;
+  END IF;
+
+  INSERT INTO csat_dx_response (session_id, item_no, item_id, chosen_option, is_correct, confidence)
+  SELECT v_id, (r->>'item_no')::smallint, r->>'item_id', (r->>'chosen_option')::smallint,
+         (r->>'is_correct')::boolean, coalesce(r->>'confidence', 'sure')
+    FROM jsonb_array_elements(p_responses) r;
+
+  RETURN v_id;
+END;
+$function$;
+revoke all on function public.csat_dx_record_session(jsonb,jsonb) from public, anon, authenticated;
+grant execute on function public.csat_dx_record_session(jsonb,jsonb) to service_role;
 
 reset role;

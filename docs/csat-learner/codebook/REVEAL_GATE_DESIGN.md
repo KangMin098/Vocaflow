@@ -206,3 +206,65 @@ N 갱신: + 번들 산출물에 사례 · 정답 문자열 없음 · 묘비 emba
 2. **자동 전수 노출 검사**(개발 DB smoke): 보류 상태를 만든 뒤 학습자 JWT 로 모든 노출 표 · 뷰 · RPC(목록은 `information_schema` · `pg_proc` 에서 자동 수집)와 앱 경로를 호출해, 보류 문항의 정답 번호 · 해설 문자열 · 정오 · 입력 해시가 응답에 나타나면 실패. 목록을 사람이 늘리지 않는다.
 
 구현 승인 전 남은 위험: 이 두 통제가 생기기 전에는 「다 막았다」고 말할 수 없다. 사용자 결정 1의 잔여 위험(다른 계정 채점 역산 · 외부 정답표)은 그대로.
+
+## V. 승인 조건 반영(사용자 2026-10-05) — SQL 초안의 기준
+
+> **결정 변경**: 조건 2가 Q의 사용자 결정 1(「비참가자 결과 흐름 불변」)을 대체한다. 활성 capture 가 있는 시험은 **요청자 무관 · 정답 민감 출력 전체**(점수 · 정오 · 정답 · 해설 · 근거 · 강의 · 파생 보고 · 정오 oracle · 정답 파생 통계 · 해시)를 보류한다. 비참가자도 그 시험 결과 공개가 잠시 늦어질 수 있다. 영향이 크면 장기적으로 Pilot 전용 시험 사본.
+
+### V1. 참가자는 capture 행이 없으면 fail-closed
+- 저장 진입점을 하나로: `saveExamSession`(학습자 라우트 · 관리자 대리 라우트 공통). 참가자면 `csat_ec_record_session_held`(서비스 RPC — 기록 저장 · 적격 확정 · held 행 생성을 한 트랜잭션)만 쓴다. `csat_dx_record_session` 직접 호출은 이 함수 안에서만(가드 테스트: 다른 호출처 0).
+- 서버 공개 판단: `참가자(설정) ∧ 행 없음` → **integrity error · 거부**(결과 공개 금지).
+- DB 계층: 학습자 JWT 는 정오 · 점수(`csat_dx_response.is_correct` · `csat_dx_session.raw_score/grade` · `csat_dx_snapshot` 전체)를 **영구적으로 직접 못 읽는다**(컬럼 권한 회수) — 앱 서버만 단일 gate 를 거쳐 준다. 그래서 행이 빠진 버그가 있어도 DB 직접 조회로는 새지 않는다.
+
+### V2. 시험 단위 전역 보류
+- `csat_ec_private.exam_answer_embargoed(exam_id)` = 그 시험에 활성 capture(held · collecting) 또는 활성 묘비가 있다. `item_answer_embargoed(item_id)` = 그 문항의 시험이 보류. `can_reveal_exam(exam_id)` = not embargoed(전역이므로 요청자 인자 없음 — 참가자 fail-closed 는 V1 의 서버 단계).
+- 비참가자 저장 응답 · 결과 API · 보고서 · 홈: 보류 시험이면 `{ held: 'exam_embargo' }` · 점수 없이 — 보류가 풀리면 다음 요청에 바로 보인다(상태 표 매 요청 계산).
+
+### V3. 캐시는 gate 뒤
+- 정답 민감 라우트는 `request → gate → data/cache` 순서. 해당 라우트만 `dynamic` · `no-store`. 공유 캐시는 **보류 무관 원본**만 담고(service role 로 채움), gate 는 요청마다 적용. 문항 본문 캐시는 유지.
+- outbox(스냅샷 갱신)는 성능 · 파생값용 — 없거나 늦어도 공개 판단은 상태 표만으로 정확하다.
+
+### V4. 자동 노출 검사 두 층
+- **Layer A — 정적 분류 매니페스트**(`scripts/csat/reveal-gate/manifest.json`): 학습자(anon · authenticated)가 닿는 CSAT 객체 전수 — 표 · 뷰 · 컬럼(권한 기준) · RPC(EXECUTE 기준) · GraphQL 노출 · API 라우트 · 서버 로더 · 번들 JSON — 를 `PUBLIC_CONTENT` · `ANSWER_SENSITIVE` · `CORRECTNESS_ORACLE` · `DERIVED_SECRET` · `REVIEWER_INTERNAL` 로 분류. 스캐너가 DB(`information_schema` · `pg_proc` · `pg_class`)와 저장소(app/api · lib/csat import · 번들 대상)에서 목록을 **자동 수집**해 매니페스트에 없으면 실패. `DERIVED_SECRET`(item_input_hash · input_hash 등) · `REVIEWER_INTERNAL` 은 Pilot 무관 학습자 접근 영구 차단.
+- **Layer B — 동적 canary 검사**: TEST 시험(`TEST_EC_CANARY`)에 고유 canary(정답 · 해설 · 근거 문자열)를 심고 활성 capture 를 만든 뒤, 학습자 JWT 로 모든 학습자 표면을 호출해 canary · 정답 파생 문자열이 나오면 실패.
+- **행동 oracle 검사**: 선지 · 문항을 입력으로 받는 학습자 RPC · API 를 보기 1–5 로 각각 호출해 HTTP 상태 · 오류 코드 · 응답 모양 · 행 생성 · 후속 상태가 정답 여부에 따라 달라지면 실패.
+- 성공 기준: 분류 누락 0 · canary 노출 0 · 행동 oracle 0 · 다른 계정 우회 0 · 오래된 캐시 우회 0. 「알려진 경로를 다 막았다」를 기준으로 쓰지 않는다.
+
+### V5–V7. 상태 · 동시성 · 감사
+- `held → collecting → completed`, 관리자 명시 종료 `closed_incomplete`(보류 해제에 쓰지만 분석에서는 attrition/exclusion — completed 와 동일 취급 금지). 역전 · 건너뛰기 · 완료 뒤 증거 쓰기 금지.
+- 완료(finish)와 마지막 증거 쓰기는 같은 잠금 순서: ① `(학습자, 시험)` advisory ② 세션 행 FOR UPDATE ③ 응답 advisory. 완료 봉인 뒤 늦게 온 재시도는 새 행을 만들지 못하고(거부) 멱등 응답은 기존 결과.
+- 상태 전이와 감사 이벤트(`funnel_events` 행: user_id · event · surface `csat_ec` · meta {session, from, to})는 **같은 트랜잭션**. 둘 중 하나만 남는 상태 없음.
+
+### V8. 새 표 필요성
+| 표 | 책임 | 수명 | FK · 삭제 | RLS · 권한 | 별도 표인 이유 |
+|---|---|---|---|---|---|
+| `csat_ec_capture_session` | 현재 상태(공개 판단의 원천) | 기록 저장 ~ completed/closed | `session_id` → `csat_dx_session` on delete cascade(+ 묘비 트리거) | FORCE RLS · 직접 권한 0 · RPC 전용 | 일반 진단 표와 Pilot 수명주기 분리 · 봉인 설정 · 대상 |
+| `csat_ec_capture_tombstone` | 계정 삭제 cascade 뒤에도 남는 **활성 보류** | 삭제 시점 ~ 관리자 종료 | FK 없음(부모가 지워진 뒤에도 남아야 한다) · exam_id · item_ids 만, 학습자 식별자 없음 | 직접 권한 0 | 상태 행은 cascade 로 사라진다 — 보류를 계정과 독립으로 |
+| `csat_ec_reveal_outbox` | 공개 뒤 파생값(스냅샷) 갱신 요청 | 전이 ~ 처리 | `session_id` on delete cascade | 직접 권한 0 · service | **선택 사항**(성능) — 공개 판단에 쓰지 않는다. 없어도 gate 는 정확 |
+
+### V9. 단일 predicate
+DB: `csat_ec_private.exam_answer_embargoed(exam)` · `item_answer_embargoed(item)` · `capture_state(session)`. 서버: `lib/csat/reveal-gate`(`canRevealExam(examId, userId)` · `isExamAnswerEmbargoed` · `isItemAnswerEmbargoed` · 참가자 fail-closed 포함). 라우트 · 로더는 상태 표를 직접 읽지 않는다(가드: `csat_ec_capture_session` 을 읽는 앱 파일은 reveal-gate 하나).
+
+### V10. DB 접근 구조 — 기본 거부
+학습자 JWT 의 정답 민감 객체 직접 접근을 **회수**하고, 학습자용 표면은 gate 를 내장한 **학습자 뷰**(`csat_learner_*`, 정의자 권한 · published · 보류 필터)만 둔다. 앱 로더 약 15파일(`csat_items_public` · `csat_item_analyses` · `csat_type_reports` · `csat_item_skeletons` · `csat_dx_*` 를 읽는 곳)을 학습자 뷰 또는 서버 gate 경로로 옮긴다. **적용 순서**: ① 앱 변경(뷰 · gate 경로 사용) 배포 ② 그 뒤 권한 회수 마이그레이션 — 거꾸로 하면 화면이 깨진다. SQL 은 ① 용(새 객체 · 뷰 · RPC)과 ② 용(회수)을 **두 파일**로 나눈다.
+
+## W. SQL 초안 단계 산출물 (2026-10-05 · 미적용)
+
+| 산출물 | 파일 | 상태 |
+|---|---|---|
+| migration ① 객체 · 정책 · RPC | `supabase/migrations/20261005170000_csat_ec_reveal_gate.sql` | 초안 · 격리 검증 |
+| migration ② 정오 · 점수 학습자 직접 조회 회수 | `supabase/migrations/20261005170100_csat_ec_reveal_gate_revoke.sql` | 초안 · **앱 홈 카드 변경 뒤 적용** |
+| rollback(②→①) | `scripts/csat/error-evidence/rollback-reveal-gate.sql`(원래 함수 원문 기계 추출) | 격리 검증 |
+| 분류 매니페스트(Layer A) | `scripts/csat/reveal-gate/manifest.json` — DB 관계 39 · 함수 35(적용 뒤 +5) · API 15 · 페이지 12 · JSON lib 5 | 개발 DB 실측 대조: 분류 누락 0, 실패 2 = 비밀 해시 컬럼(① 이 막는다) |
+| 표면 검사기 | `scripts/csat/reveal-gate/check-surfaces.mjs` | 동작 |
+| canary · 행동 oracle 스캐너(Layer B) | `scripts/csat/reveal-gate/canary-scan.mjs` | 작성 — ① ② 적용 뒤 실행(`--app` 은 앱 gate 구현 뒤) |
+| 격리 테스트 | `isolated-pg/t_reveal.mjs`(43) · `rollback-reveal.mjs`(11) | 통과 |
+
+**SQL diff 요지(기존 객체)** — 함수 본문 교체 5: `add_student_claim`(보류 · 미완료면 정오 검사 **전에** 같은 오류) · `blind_queue` · `round_material`(비관리자 보류 문항 answer null) · `reveal_view`(명시 필드 — 해시 없음 · 비관리자 보류 문항 evidence/note null) · `pilot_eligible`(capture 행이 있으면 completed 만). 정책 조건 8(`csat_item_analyses` · `csat_item_skeletons` · `csat_type_reports` · `csat_dx_session` · `csat_dx_response` · `csat_dx_snapshot` · `csat_session_attempts` · `csat_trap_attempts`). 뷰 1(`csat_items_public.answer`). 컬럼 권한 2(`item_input_hash`). 확인 · 증거 · probe RPC 3종은 본문을 고치지 않고 **쓰기 가드 트리거**(완료 · 종료 뒤 거부)로 — 본문 복제를 줄였다. `round_set_targets` 는 고치지 않았다: 보류 세션을 대상에 넣어도 `start_blind` · `ai_export` · `round_inputs_intact` 가 `pilot_eligible` 로 막는다.
+
+**격리 검증 결과**: 하네스 343/343(기존 300 + Reveal Gate 43) · 기본 하네스 225/225 · rollback 4종(기본 6 · Pilot 11 · 수집 12 · Reveal 11) 통과. 하네스 부트스트랩을 운영 정의로 맞췄다(진단 표 정책 이름 · SELECT 전용, `funnel_events` 컬럼, `csat_dx_record_session` 운영 원문, 보류 대상 표 요지, DB CREATE 권한) — 그 결과 기존 삭제 테스트 3건이 「학습자 직접 DELETE」에 기대고 있던 것을 운영 경로(service role)로 바로잡았다.
+
+**동시성 테스트 계획**(격리 완료 · 개발 추가): ① 완료 vs 마지막 증거 쓰기(완료됨 — 봉인 밖 유효 증거 0) ② 관리자 종료 vs 같은 학습자 · 시험 재기록((학습자, 시험) advisory — 개발 smoke 에서 두 연결 겹치기) ③ 두 참가자 같은 시험 동시 생성(보류 유지 · 행 2) ④ finish 재시도 멱등(완료됨).
+**캐시 테스트 계획**(앱 gate 구현 단계): ① 보류 시작 **전**에 카탈로그 · 뼈대 · 강의 캐시를 데운다 → 보류 → 요청에 보류 문항 · 파생 필드 없음 ② 보류 **중** 캐시 생성 → 해제 직후 요청에 곧바로 나타남(10분 지연 없음) ③ 정답 민감 응답의 `Cache-Control: no-store` 헤더 ④ outbox 를 끄고도 공개 판단 정확.
+
+**앱 단계에서 해야 하는 것**(SQL 적용 · Pilot 전): `lib/csat/reveal-gate`(단일 서버 gate — 상태 표를 직접 읽는 앱 파일은 이것 하나) · 저장 단일 진입(`saveExamSession` → `csat_ec_record_session_held`) · 결과 · 보고서 · 기록 상세 · 홈 · 스냅샷 · 수집 화면 · 문항 페이지 · 강의 · reveal · 카탈로그 · 함정 아틀라스 사례의 gate · 「건너뛰기」= skipped · 「나중에 하기」= 보류 유지 · 수집 API 접근 근거를 봉인된 capture 행으로 · 삭제 API 보류 중 거부 · 홈 카드 서버 경로(② 전제).

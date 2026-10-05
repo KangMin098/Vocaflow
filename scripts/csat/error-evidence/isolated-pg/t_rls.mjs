@@ -21,7 +21,8 @@ export default async function rls(admin, ctx) {
   let rlsFail = 0
   for (const t of TABLES) {
     for (const [name, actor] of Object.entries(ACTORS)) {
-      const sel = await as(app, actor, `select * from public.${t}`)
+      // 학습자 표면은 컬럼 단위(정답 포함 해시 item_input_hash 회수 — 20261005170000) — 허용 컬럼만 고른다
+      const sel = await as(app, actor, `select ${t === 'csat_ec_process_evidence' || t === 'csat_ec_claim' ? 'id, session_id, item_no, user_id' : '*'} from public.${t}`)
       const ins = await as(app, actor, `insert into public.${t} default values`)
       const upd = await as(app, actor, `update public.${t} set ${t === "csat_ec_code" ? "label = label" : "created_at = created_at"}`)
       const del = await as(app, actor, `delete from public.${t}`)
