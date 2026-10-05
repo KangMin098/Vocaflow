@@ -13,6 +13,7 @@
 
 - docs(design): **학습자 PC replica-first 기준선 고정**(2026-10-05 · 검증 커밋 `74aa664a5`) — 정적 학습자 라우트 73 = 발견형 6 · 기능형 11 · 세션 26 · 특수 20 · 별칭 9 · 미확정 1(`/dictate/results`). 라이트/다크 × 1440/1280 292장 전부 통과 · 가로 넘침 0. 모바일 재설계는 범위 밖(기존 동작 유지). 이후 학습자 UI 변경은 `screen-types` 가드와 이 기준선을 깨지 않아야 한다.
 - feat(design): 학습자 PC UI 마감 — `/wordvault` 본문 두 열(상태 | 다음 할 일) · `/practice/dcp` 왼쪽 머리 sticky + 읽기 폭 열, 특수 예외 재공용화 금지 가드, 보류 2개 실제 재현 후 특수 판정(`/dictate/setup` · `/pairflip/results`, 빈 배너 PC 숨김) · `/dictate/results` 미확정. 접근성: 다크 ios 잉크(red·blue·pink) · AreaHero 수치 알약 · TodayQueue 빈 칸 · Flashcard 시작 버튼 · PrimaryButton 배지 · 허브 글 카드(모바일 포함) 대비 AA. e2e 06 시드(시계 의존·비발행 고정 세트·옛 라벨) 정리. 라우트 변경 없음.
+- feat(textbook): F02 중1·고1 현재 draft와 양쪽 agent pass를 해시로 고정하고 전체 draft identity 재검사를 추가했다. 미승인 학생 pass band, 공통 학년 pilot 판정기와 기존 v2 의미·학생 세션별 검증 대조 어댑터·독립 CLI·합성 회귀를 마련했다. 비교 arm의 의미 검수 완료 시점과 v2 난도 경계 부동소수점 오차도 검증한다. 사람 평가·학생 응답·gold·DB seed는 0건이다.
 
 - docs(textbook): FYM F02 중1·고1 초안을 내용 분석·문항 근거·6축 난도 근거로 수정해 새 draft hash에 Claude Code·Codex 독립 검수를 묶었다. 두 초안 모두 agent review 통과, 변경/절단/권리 실패 주입 통과; 적재 예행은 교육적 검증 미완료로 0건 유지. 재현 스크립트와 결과 보고서를 추가했다.
 
