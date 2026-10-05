@@ -606,7 +606,11 @@ begin
     raise exception '이벤트 허용 목록이 기대와 다르다 — 지금 % 개 · 기대 % 개. 다른 작업의 이벤트를 지우지 않도록 멈춘다', cardinality(v_now), cardinality(v_expect);
   end if;
   execute 'alter table public.funnel_events drop constraint funnel_events_event_check';
-  execute format('alter table public.funnel_events add constraint funnel_events_event_check check (event = any (%L::text[]))', v_expect || array['csat_ec_capture_closed']);
+  -- 저장소 관례 형식(ARRAY['a'::text, …]) — 배열 리터럴('{a,b}')로 쓰면 다음 마이그레이션의 목록 preflight 가 0개로 읽는다
+  --   (2026-10-05 개발 DB 첫 적용은 리터럴 형식으로 들어가 같은 68개를 관례 형식으로 다시 썼다 — 의미 변화 없음)
+  execute 'alter table public.funnel_events add constraint funnel_events_event_check check (event = any (array['
+          || (select string_agg(quote_literal(x), ', ' order by o) from unnest(v_expect || array['csat_ec_capture_closed']) with ordinality u(x, o))
+          || ']::text[]))';
 end $$;
 
 commit;

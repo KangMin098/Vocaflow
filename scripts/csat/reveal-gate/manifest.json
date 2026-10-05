@@ -156,7 +156,6 @@
     "created_at",
     "evidence",
     "id",
-    "item_input_hash",
     "item_no",
     "role",
     "session_id",
@@ -191,7 +190,6 @@
    "learner_columns": [
     "created_at",
     "id",
-    "item_input_hash",
     "item_no",
     "kind",
     "session_id",
@@ -868,7 +866,10 @@
    "call": "read",
    "args": {
     "p_session": "{SESSION}"
-   }
+   },
+   "signatures": [
+    "csat_ec_my_capture_state(uuid)"
+   ]
   },
   "csat_ec_capture_open": {
    "class": "LEARNER_OWN",
@@ -877,7 +878,10 @@
    "call": "write",
    "args": {
     "p_session": "{SESSION}"
-   }
+   },
+   "signatures": [
+    "csat_ec_capture_open(uuid)"
+   ]
   },
   "csat_ec_capture_finish": {
    "class": "LEARNER_OWN",
@@ -886,19 +890,28 @@
    "call": "write",
    "args": {
     "p_session": "{SESSION}"
-   }
+   },
+   "signatures": [
+    "csat_ec_capture_finish(uuid)"
+   ]
   },
   "csat_ec_capture_close": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin() · 사유",
    "since": "20261005170000",
-   "call": "refuse"
+   "call": "refuse",
+   "signatures": [
+    "csat_ec_capture_close(uuid,text,text)"
+   ]
   },
   "csat_ec_close_tombstone": {
    "class": "ADMIN_ONLY",
    "gate": "is_admin() · 사유",
    "since": "20261005170000",
-   "call": "refuse"
+   "call": "refuse",
+   "signatures": [
+    "csat_ec_close_tombstone(bigint,text)"
+   ]
   },
   "csat_source_eligibility_tally": {
    "class": "OPS_META",
@@ -955,8 +968,9 @@
    "signatures": [
     "csat_source_pipeline_live()"
    ],
-   "call": "read",
-   "args": {}
+   "call": "any",
+   "args": {},
+   "call_note": "학습자 호출은 statement timeout(대량 집계) — 결과 무관, 노출만 본다"
   },
   "csat_source_rollup": {
    "class": "OPS_META",

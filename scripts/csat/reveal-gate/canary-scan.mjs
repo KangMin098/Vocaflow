@@ -122,6 +122,14 @@ try {
     for (const rel of Object.keys(manifest.db_relations)) {
       const cols = await learnerColumns(rel, who === 'anon' ? 'anon' : 'authenticated')
       if (cols.length === 0) { record('canary', `${who} · ${rel} — 학습자 SELECT 컬럼 없음(회수)`, true); continue }
+      // 관리자 전용 표 — 학습자 전체 조회는 정책이 행마다 관리자 함수를 평가해 statement timeout 이 난다(데이터는 안 나온다).
+      // 동적 대신 정적으로: 학습자에게 열린 SELECT 정책이 모두 관리자 조건뿐인지 확인한다
+      if (manifest.db_relations[rel].class === 'ADMIN_ONLY' || rel === 'csat_dcp_items') {
+        const pol = (await db.query(`select pg_get_expr(polqual, polrelid) q from pg_policy where polrelid = ('public.' || $1)::regclass and polcmd in ('r', '*')`, [rel])).rows
+        const adminOnly = pol.length > 0 && pol.every((p) => /is_admin(_or_curator)?\(\)/.test(p.q ?? '') && !/auth\.uid\(\)\s*=|=\s*\(\s*select auth\.uid/i.test(p.q ?? ''))
+        record('canary', `${who} · ${rel} — 관리자 전용 정책(정적 확인)`, adminOnly, pol.map((p) => p.q))
+        continue
+      }
       const rows = []; let r = { error: null }
       for (let from = 0; from < 200000; from += 1000) {
         r = await c.from(rel).select(cols.join(',')).range(from, from + 999)
@@ -135,21 +143,37 @@ try {
       const answerLeak = testRows.filter((x) => sensitive.some((f) => x[f] != null))
       record('canary', `${who} · ${rel}`, !leaks(rows) && answerLeak.length === 0, { rows: rows.length, testRows: testRows.length, answerLeak: answerLeak.length })
     }
-    // GraphQL — 오류는 검사 미실행이므로 실패
-    const gql = await fetch(`${URL_}/graphql/v1`, { method: 'POST', headers: { apikey: ANON, Authorization: `Bearer ${who === 'anon' ? ANON : users[who].token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: `{ csat_items_publicCollection(filter: { exam_id: { eq: "${EXAM}" } }) { edges { node { id answer } } } }` }) }).then((x) => x.json())
-    const gEdges = gql.data?.csat_items_publicCollection?.edges ?? []
-    const expectRows = who === 'anon' ? 0 : 5
-    record('canary', `${who} · GraphQL csat_items_public`, (who === 'anon' ? true : !gql.errors) && !leaks(gql) && gEdges.length === expectRows && gEdges.every((e) => e.node.answer == null), { errors: gql.errors?.[0]?.message, n: gEdges.length })
+    // GraphQL — 이 역할에게 노출된 csat 컬렉션을 introspection 으로 **자동** 수집해 모두 조회한다(이름을 손으로 고르지 않는다)
+    const gq = async (query) => fetch(`${URL_}/graphql/v1`, { method: 'POST', headers: { apikey: ANON, Authorization: `Bearer ${who === 'anon' ? ANON : users[who].token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }) }).then((x) => x.json())
+    const intro = await gq(`{ __type(name: "Query") { fields { name type { name ofType { name } } } } }`)
+    if (intro.errors) record('canary', `${who} · GraphQL introspection — 검사 미실행`, false, intro.errors[0]?.message)
+    const collections = (intro.data?.__type?.fields ?? []).filter((f) => /^csat.*Collection$/i.test(f.name))
+    for (const col of collections) {
+      const typeName = col.type?.name ?? col.type?.ofType?.name
+      const conn = await gq(`{ __type(name: "${typeName}") { fields { name type { ofType { ofType { ofType { name } } } } } } }`)
+      const nodeType = (await gq(`{ __type(name: "${typeName.replace(/Connection$/, '')}") { fields { name type { kind name ofType { kind name } } } } }`)).data?.__type
+      const scalars = (nodeType?.fields ?? []).filter((f) => ['SCALAR', 'ENUM'].includes(f.type.kind) || ['SCALAR', 'ENUM'].includes(f.type.ofType?.kind)).map((f) => f.name)
+      if (!scalars.length) { record('canary', `${who} · GraphQL ${col.name} — 필드 수집 실패(검사 미실행)`, false, conn.errors?.[0]?.message); continue }
+      const res = await gq(`{ ${col.name}(first: 1000) { edges { node { ${scalars.join(' ')} } } } }`)
+      const nodes = (res.data?.[col.name]?.edges ?? []).map((e) => e.node)
+      const sensitive = Object.values(manifest.db_relations).flatMap((v) => v.sensitive_columns ?? [])
+      const tests = nodes.filter((n) => JSON.stringify(n).includes(EXAM))
+      const hit = tests.filter((n) => Object.entries(n).some(([k, v]) => sensitive.some((s) => k.toLowerCase() === s.replace(/_/g, '').toLowerCase() || k === s) && v != null))
+      record('canary', `${who} · GraphQL ${col.name}`, !res.errors && !leaks(res) && hit.length === 0, { errors: res.errors?.[0]?.message, nodes: nodes.length, tests: tests.length, hit: hit.length })
+    }
+    record('canary', `${who} · GraphQL 노출 csat 컬렉션 ${collections.length}개 검사`, !intro.errors, collections.map((c) => c.name))
 
     // 학습자 표면 함수 전부 — 매니페스트의 호출 계약(call · args)대로. 계약이 없는 함수는 「미검사」로 실패
     //   read = 성공해야 · write = 결과 무관(노출 · 정답 필드 없음) · refuse = 거부해야 · none = 사유와 함께 명시 제외
     const ctx = actors.find((a) => a[0] === who)[2]
     for (const [fn, meta] of Object.entries(manifest.db_functions)) {
       if (meta.class === 'TRIGGER_FN') continue
-      const call = who === 'anon' ? 'refuse' : meta.call
+      // 명시 제외(쓰기 부작용)는 **모든 주체**에 먼저 적용 — anon 단계에서 무시하고 호출하던 결함(2026-10-05 실측: 스냅샷 1행 생성)
+      if (meta.call === 'none') { record('rpc', `${who} · ${fn} — 명시 제외: ${meta.call_reason}`, !!meta.call_reason); continue }
+      // anon: 학습자 · 판정자 · 관리자 · oracle 표면은 거부여야 한다. 운영 메타(OPS_META)는 원래 계약대로(정답 없음 — 공개 여부는 별도 권한 점검)
+      const call = who === 'anon' ? (meta.class === 'OPS_META' ? 'any' : 'refuse') : meta.call
       if (!call) { record('rpc', `${who} · ${fn} — 호출 계약 없음(미검사)`, false, '매니페스트에 call · args 를 정의한다'); continue }
-      if (call === 'none') { record('rpc', `${who} · ${fn} — 명시 제외: ${meta.call_reason}`, !!meta.call_reason); continue }
       const sigs = await functionSignatures(fn)
       for (const sig of sigs) {
         const fill = (v) => (v === '{SESSION}' ? ctx.session : v === '{UUID}' ? randomUUID() : v)

@@ -217,6 +217,9 @@ export default async function reveal(admin, ctx) {
   const ev = (await admin.query(`select event, count(*)::int n from public.funnel_events where surface = 'csat_ec' group by 1 order by 1`)).rows
   const evm = Object.fromEntries(ev.map((r) => [r.event, r.n]))
   record('reveal', '감사 이벤트 — 열기 · 끝내기 · 종료가 전이와 함께 기록', evm.csat_ec_capture_opened >= 2 && evm.csat_ec_capture_finished === 1 && evm.csat_ec_capture_closed >= 3, evm)
+  // 이벤트 제약은 관례 형식(ARRAY['a'::text …])이어야 다음 마이그레이션 preflight 가 읽는다 — 리터럴('{a,b}')이면 0개
+  const feN = Number((await admin.query("select count(*) n from pg_constraint c, regexp_matches(pg_get_constraintdef(c.oid), '''([a-z_]+)''', 'g') m where conname = 'funnel_events_event_check'")).rows[0].n)
+  record('reveal', '이벤트 제약 관례 형식 — 정규식으로 68개(65 + 수집 2 + 종료 1)', feN === 68, feN)
   const evBad = await admin.query(`insert into public.funnel_events (event) values ('csat_ec_capture_typo')`).then(() => true, () => false)
   record('reveal', '이벤트 목록 — closed 추가 · 오타 거부', !evBad)
   const anonState = await as(app, ANON, `select public.csat_ec_my_capture_state($1)`, [sid1])
