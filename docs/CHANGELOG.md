@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- CSAT 원문 출처: 고정 cohort 남은46개·146구절의 public_fulltext 범위를 종료해 신규 A4·B4, 전체133/713·G579. B6 승격검수0/6과 Cajal 영어근거 보강을 discovery closure와 분리하고 후보/깊이별 실측·SHA 검증 집계 CLI 및 회귀를 추가했다. 두 API eligible0·completed0/161 유지; origin8행·근거1행 전후 checkpoint·재실행 검증, 마이그레이션·라우트 변경 없음.
+
 - CSAT 원문 출처: Books 자격·Semantic 사용 목적/라이선스 gate와 eligible/차단 집계, 고정 smoke→canary→full/retry를 추가했다. public_fulltext 48개 탐색에서 B 2개를 독립 등록해 125/713·G 587. API completed 0/161·eligible 0 유지. 키 일부·hash·prefix도 보관하지 않는다. DB 2행 전후 checkpoint·본문 해시 검증, 회귀 42개 통과; 마이그레이션·라우트 변경 없음.
 
 - feat(csat): 고정 50개/161질의 benchmark에 Semantic 공용 직렬 1 RPS·Retry-After/backoff/재시작 cooldown·자격/프로젝트/시도 메타데이터·가용성/검색/검증 지표·body-bound top-3 종료조건을 추가. 기존 PDF A 2개는 API 대조군으로만 포함하며 새 질의/등록은 없다. 실제 자격 부재로 두 API 정상 완료 0/161·미실행 161, 미완료 수율은 null. 회귀 35/35, 마이그레이션·라우트 변경 없음.

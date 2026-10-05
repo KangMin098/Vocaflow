@@ -258,3 +258,72 @@ smoke는 기존 첫 질의 1개로 자격·JSON schema를 확인하며 **후보�
 두 신규 B는 **public_fulltext 성과**다. API 신규 A/B에 귀속하지 않았다. 현재 DB 실측은 **A 98 · B 27 · C 1 · G 587 = 713**, 등록 **125/713**, 고정 cohort 미확인 **46/50**다. 나머지 46개는 계속 미확인이며, 이번 탐색에서 원작 근거가 없었다는 기록을 보존했다.
 
 적용 전 preview ready 2, 적용 후 동일 preview already_applied 2를 확인했다. registry 전 상태·각 연결 지문 본문 SHA를 묶은 트랜잭션으로 2행만 변경했다. DB checkpoint `csat-public-fulltext-20261005` 전후 비교에서 고정 지표 소실은 없었다(회전 bloat 표본 교체·용량 0.1MB·기존 cron 지연 0.01시간만 변화). 원문 본문·정답·마이그레이션 변경 없음. DB 통계 생성기도 재실행했다. 회귀 **42/42**, 에이전트 설정 검사 **10/10**. 상세 질의·48개별 상태·등록 전후·API 준비 상태는 manifest `credential_license_followup`에 남겼다.
+
+## 공개 원문 46개 종료
+
+고정 cohort **50개·161질의**를 유지했다. 남은 46개에 배정된 **146개 기존 구절 family를 공개 웹 색인에서 모두 실행**하고 반환 결과를 검토했다. 이는 Books/Semantic API 요청이 아니다. 후보가 특정된 경우 기존 공개 원문·서지·판본 경로를 확인했고, 최대 3개 독립 원작 후보만 문항별 검수 대상으로 삼았다. 시험 재배포·주제만 유사한 문서·다른 분야 동명 제목은 검수 후보 수에서 제외했다. 원작 후보가 없으면 특정 책 내부 검증은 ‘해당 없음’으로 기록했다.
+
+46개 종료 판정은 **found 8 · plausible-but-unverified 1 · exhausted 37**이다. exhausted는 이번에 정한 구절 family와 적용 가능한 공개 경로 안에서 증거가 부족했다는 뜻이다. 출처가 없다는 뜻이나 전 세계 자료를 모두 검색했다는 뜻이 아니다. 검색 완료와 원천 확인 완료를 구분한다.
+
+| 문항 | 신규 등록 | 확인한 원문과 범위 |
+|---|---|---|
+| 2021#37 | G→A | Markandya·Labandeira·Ramos, *Policy Instruments to Foster Energy Efficiency*, 2014 WP 01/2014. [연구기관 공개 PDF](https://eforenergy.org/docpublicaciones/documentos-de-trabajo/WP01-2014.pdf)의 결론 pp14–15 전체. 시험 순서 C→B→A, 오기·접속어 편집 기록. 2015 재수록본과 구분. |
+| 2016#36 | G→A | Morris·Maisto, *Understanding Psychology*, 9판, Pearson/Prentice Hall 2010. [공개 교재 PDF](https://yourhomeworksolutions.com/wp-content/uploads/edd/2017/03/20131107182853understanding_psychology_9e_ch05.pdf) p166 문단과 판권. 시험 C→A→B, umbrella 추가·shun→dodge 등 편집 기록. |
+| 2018#40 | G→A | David·Foray, *Economic Fundamentals of the Knowledge Society*, 2003. [학술지 원문](https://journals.sagepub.com/doi/pdf/10.2304/pfie.2003.1.1.7) pp44–45 전체와 [Oxford 2001 WP](https://ora.ox.ac.uk/objects/uuid%3A7adccb5e-76d7-4e39-b6e7-ac8d75d9c1b0/files/m728ae455779655d1e2f59eb4a11d70f5) 비교. 재수록 계보·시험 생략 기록. |
+| 2025#30 | G→A | Haran·Bereby-Meyer, *The Oxford Handbook of the Psychology of Competition*, 2024, Chapter 2. [배포 미리보기 PDF](https://api.pageplace.de/preview/DT0400.9780190060817_A48290339/preview-9780190060817_A48290339.pdf)의 판권·장 저자·p22 문단 전체. 시험 오답 stronger의 원문은 lower. |
+| 2014B#27 | G→B | Carper, *Stop Aging Now!*, HarperCollins 1995. [공개 전자판 읽기 범위](https://www.everand.com/book/714818033/Stop-Aging-Now-The-Ultimate-Plan-for-Staying-Young-Reversing-the-Aging-Process)의 대상 문단 전체와 독립 서지. 1995/1996 인쇄판·2009 전자판 연결 및 p12 직접 이미지 미확인. |
+| 2024#30 | G→B | Deka, *Traders and Tinkers*, Stanford UP 2023. [독립 서지](https://books.google.com/books/about/Traders_and_Tinkers.html?id=YF-8EAAAQBAJ)와 제3자 전사 p74 전체. 원문 high와 시험 오답 low 구분. 정본 페이지 이미지·전사 무결성 미확인. |
+| 2019#37 | G→B | Reisberg, *Cognition: Exploring the Science of the Mind*, 6판 2016. 전사 p271 문단 전체와 [NII 도서관 서지](https://ci.nii.ac.jp/ncid/BB21685189). 시험 C→B→A 순서 대응. 직접 페이지·사용 판본 미확인. |
+| 2023#24 | G→B | Kalat, *Biological Psychology*, 11판 2013. [대학 공개 PDF](https://dspace.sxcjpr.edu.in/jspui/bitstream/123456789/719/1/Biological%20PSY.pdf) 판권과 p182의 고유 사례·문단 일부. 시험 마지막 역사 설명 두 문장과 직접 사용 판본은 미확인. 같은 저자의 다른 교재 가능성도 검토했지만 귀속 변경 근거는 부족했다. |
+
+미검증 후보 **2016#41**은 Seeds·Backman의 *Astronomy: The Solar System and Beyond*다. 기존 후보 PDF 접근 제한과 공개 reader 403을 보존했다. 후속 *The Solar System* 9판의 유사 문단은 확인했지만 제목·판본·시점이 다르므로 직접 시험 원문으로 등록하지 않았다. **2021#41의 Pinker 후보는 고유 대상 문단을 확인하지 못해 제외**했다.
+
+exhausted 37개: 2025#29, 2021#32, 2024#23, 2020#30, 2024#24, 2018#33, 2021#41, 2014B#40, 2016#31, 2024#39, 2018#35, 2020#40, 2023#33, 2023#41, 2025#22, 2014A#35, 2016#23, 2019#29, 2021#35, 2024#37, 2026#32, 2014A#26, 2019#20, 2019#22, 2020#38, 2014A#36, 2014A#38, 2014A#41, 2014B#24, 2015#36, 2025#34, 2025#40, 2025#41, 2026#30, 2014A#34, 2017#21, 2017#33. 문항별 고정 질의·종료 범위·후보 판정·본문 SHA는 manifest의 `public_fulltext_close.closure.items`에 보존했다.
+
+### 결과 고정 후 B→A 큐
+
+46개 discovery 결과를 먼저 고정했다. closure SHA는 `52a4b3eec48a4f84c7d8e3c09a7b6277c8bcdf0f7811e9f76180ba56af9dcdcb`다. 이후 cohort의 **B 6개를 별도 검수**했고, **A 승격 0 · B 유지 6 · 미처리 0**이다. ‘미처리 0’은 이번 공개 검수 회차 완료이며, 승격에 필요한 추가 증거가 모두 해결됐다는 뜻은 아니다.
+
+| 문항 | 우선순위 | 남은 promotion_reason |
+|---|---|---|
+| 2014B#25 | high | partial_context_only · page_not_verified · edition_uncertain |
+| 2024#40 | high | edition_uncertain · page_not_verified · text_match_partial |
+| 2014B#27 | high | edition_uncertain · page_not_verified |
+| 2024#30 | high | page_not_verified · edition_uncertain |
+| 2019#37 | high | page_not_verified · edition_uncertain |
+| 2023#24 | medium | edition_uncertain · text_match_partial · partial_context_only |
+
+priority는 확보된 근거와 남은 검증 범위에 따른 정성 순서이며 승격 확률이 아니다. 사유는 사용자 지정 6종의 닫힌 값으로 검사한다. Cajal은 [공개 영어 전사](https://dokument.pub/advice-for-a-young-investigator-flipbook-pdf.html)의 Swanson 서문과 Chapter 2 pp25–26 전체를 추가 확인했다. 영어 귀속 근거를 DB에 덧붙였으나 직접 페이지 이미지·1999/2004 판본 연결은 부족해 B를 유지했다. Levitin의 공개 전자판 미리보기에는 대상 구절이 없었고 대학 PDF 직접 다운로드는 timeout이었다. 이를 출처 부재나 A 승격으로 계산하지 않았다.
+
+### 실측 지표와 정책 판단
+
+| 경로 | 평가 범위 | A_new | B_new | B_to_A | unresolved | eligible / completed |
+|---|---|---:|---:|---:|---:|---|
+| public_fulltext 이번 종료 회차 | 남은 46개, 기존 구절 146개 | 4 | 4 | 0 | 38 | 공개 구절 146/146 평가 |
+| public_fulltext cohort 누적 | 고정 50개 | 6 | 6 | 0 | 38 | 공개 조사 범위 종료 |
+| books_api | 고정 50개·161질의 | 0 | 0 | 0 | 비교 불가 | 0 / 0 |
+| semantic | 고정 50개·161질의 | 0 | 0 | 0 | 비교 불가 | 0 / 0 |
+
+이번 46개에서 선택·검수한 독립 후보는 **10개**, 등록 가능한 후보는 **8개**다. 후보 기준 A+B는 **8/10=80%**, 문항당 평균 후보는 **10/46≈0.217개**, 신규 문항 확보율은 **8/46≈17.39%**다. 처음 조사한 4개에서 제외했던 후보 수는 완전히 계수하지 않았으므로 **50개 전체의 후보 precision·평균 후보 수는 null**이다. 관측한 양성 후보만 합쳐 전체 정밀도로 제시하지 않는다. cohort의 문항 기준 확보는 **12/50=24%**다. B→A는 이번 검수 분모 6개에 대해 **0/6=0%**이며, 미검수 B를 분모에 넣지 않았다. 시간 실측이 없으므로 분당 수율·작업시간은 null이다.
+
+아래는 이번 discovery의 실제 후보 판정 이벤트다. 각 후보를 최종 판정 한 번만 세며 DB 문항 수와 구분한다. 깊이는 그 판정에 사용한 확인 범위를 뜻하고, 전체 책을 읽었다는 뜻이 아니다.
+
+| verification_depth | 후보 분모 | G→A | G→B | G 유지 | 후보 제외 | A 비율 | B 비율 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| metadata_only | 0 | 0 | 0 | 0 | 0 | null | null |
+| indexed_text | 2 | 0 | 1 | 1 | 0 | 0/2 | 1/2 |
+| preview_text | 3 | 0 | 2 | 0 | 1 | 0/3 | 2/3 |
+| page_image | 0 | 0 | 0 | 0 | 0 | null | null |
+| full_context | 5 | 4 | 1 | 0 | 0 | 4/5 | 1/5 |
+
+별도 promotion 전이: indexed_text B→B 2/2, preview_text B→B 3/3, full_context B→B 1/1. B→A는 모두 0이다. 언어·판본·호스팅 신뢰성과 확인 깊이가 함께 필요하므로 **full_context도 B일 수 있고 depth만으로 자동 승격하지 않는다**. 작은 표본과 선택 후보에 대한 통계이며, 향후 579개에서의 확률·예상 확보량으로 외삽하지 않는다.
+
+cohort 종료 후 판단: 공개 원문 lane은 누적 12개를 확보했지만 API는 자격/라이선스로 미실행이므로 경로 간 우열·시간당 수율을 비교할 수 없다. 새 검색원을 추가하거나 미실행 API를 수율 0으로 처리하지 않는다. 다음 비교는 **Books 자격 확보 후 같은 50개·161질의 재개**, Semantic은 기존 license gate 통과 후 재개한다. 두 API `candidate_hits=0`은 실행 결과가 없는 상태이며 실제 ‘검색했지만 없음’이 아니다.
+
+재집계는 현재 DB snapshot을 읽어 본문 SHA와 고정 질의를 재검증한다. DB 쓰기 없는 명령이며 같은 입력으로 재실행 안전하다.
+
+```powershell
+node scripts/csat/source-origin-search.mjs --public-metrics <fixed-plan.json> <closure.json> <promotion-queue.json> <fresh-rows.json> <metrics.json>
+```
+
+최종 DB 재조회: **A 102 · B 31 · C 1 · G 579 = 713**, 등록 **133/713**. 신규 8행 적용과 Cajal 근거 1행 보강을 각각 전후 checkpoint로 측정했다. 같은 preview 재실행은 각각 already_applied 8/1이다. 회전 bloat 표본 외 고정 지표 소실은 없었으며 기존 cron 지연은 별도 상태로 보존했다. 본문·정답·마이그레이션·라우트 변경 없음. DB 통계 생성 재실행, 관련 회귀 44개 통과. API benchmark는 여전히 미완료다.

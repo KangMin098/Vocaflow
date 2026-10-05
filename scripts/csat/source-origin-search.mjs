@@ -7,6 +7,73 @@ import { createHash } from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
 
 export const sleepMs = ms => new Promise(resolve => setTimeout(resolve, ms))
+export function promotionMetrics(plan, closure, queue) {
+  publicFulltextMetrics(plan, closure)
+  const reasons = new Set(['edition_uncertain', 'partial_context_only', 'secondary_quote_only', 'page_not_verified', 'bibliography_only', 'text_match_partial'])
+  const targets = new Map(plan.cohort.map(r => [r.representative_item_id, r])), seen = new Set()
+  let attempted = 0, promoted = 0
+  const depthTransitions = {}
+  for (const r of queue) {
+    const t = targets.get(r.representative_item_id)
+    if (!t || seen.has(r.representative_item_id) || r.passage_sha256 !== t.passage_sha256 || !isDeepStrictEqual(r.body_sha256_by_item, t.body_sha256_by_item) || r.discovery_closure_sha256 !== createHash('sha256').update(JSON.stringify(closure, null, 2)).digest('hex')) throw new Error('Promotion identity or frozen closure mismatch')
+    seen.add(r.representative_item_id)
+    if (r.before_grade !== 'B' || !['A', 'B'].includes(r.after_grade) || !['high', 'medium', 'low'].includes(r.promotion_priority) || !r.promotion_reason?.length || r.promotion_reason.some(x => !reasons.has(x))) throw new Error('Invalid promotion policy')
+    if (!Array.isArray(r.checks) || !['pending', 'reviewed'].includes(r.state) || r.state === 'reviewed' && !r.checks.length || r.state === 'pending' && r.after_grade !== 'B') throw new Error('Invalid promotion attempt state')
+    attempted += Number(r.state === 'reviewed'); promoted += Number(r.state === 'reviewed' && r.after_grade === 'A')
+    if (r.state === 'reviewed') {
+      if (!['metadata_only', 'indexed_text', 'preview_text', 'page_image', 'full_context'].includes(r.verification_depth)) throw new Error('Promotion needs its actual reviewed depth')
+      const d = depthTransitions[r.verification_depth] ??= { attempted: 0, B_to_A: 0, B_to_B: 0 }
+      d.attempted++; d[r.after_grade === 'A' ? 'B_to_A' : 'B_to_B']++
+    }
+  }
+  return { queued: queue.length, attempted, B_to_A: promoted, retained_B: attempted - promoted, pending: queue.length - attempted, promotion_rate: attempted ? promoted / attempted : null, verification_depth_transitions: depthTransitions }
+}
+// Public closure is independent of API completion and remains bound to the frozen bodies.
+export function publicFulltextMetrics(plan, closure) {
+  pendingBookPlan(plan, plan.cohort, { includeResolved: true })
+  if (closure.cohort_sha256 !== plan.cohort_sha256) throw new Error('Public closure cohort mismatch')
+  const targets = new Map(plan.cohort.map(r => [r.representative_item_id, r]))
+  if (!Array.isArray(closure.scope_ids) || !closure.scope_ids.length || new Set(closure.scope_ids).size !== closure.scope_ids.length || closure.scope_ids.some(id => !targets.has(id)) || !Array.isArray(closure.items) || closure.items.length !== closure.scope_ids.length) throw new Error('Public measured scope is incomplete')
+  const seen = new Set(), candidates = new Map()
+  const dispositions = { found: 0, 'plausible-but-unverified': 0, exhausted: 0 }
+  const depths = Object.fromEntries(['metadata_only', 'indexed_text', 'preview_text', 'page_image', 'full_context'].map(d => [d, { reviewed: 0, A: 0, B: 0, G: 0, rejected: 0 }]))
+  let planned = 0, completed = 0, A_new = 0, B_new = 0
+  for (const row of closure.items) {
+    const target = targets.get(row.representative_item_id)
+    if (!target || !closure.scope_ids.includes(row.representative_item_id) || seen.has(row.representative_item_id) || row.passage_sha256 !== target.passage_sha256 || !isDeepStrictEqual(row.body_sha256_by_item, target.body_sha256_by_item)) throw new Error('Public closure identity/body mismatch')
+    seen.add(row.representative_item_id)
+    if (!Object.hasOwn(dispositions, row.disposition)) throw new Error('Invalid public disposition')
+    dispositions[row.disposition]++
+    const expected = new Set(target.requests.map(q => JSON.stringify([q.strategy, q.query])))
+    const actual = new Set()
+    for (const q of row.searches) {
+      const key = JSON.stringify([q.strategy, q.query])
+      if (!expected.has(key) || actual.has(key) || !['evaluated', 'no_index_hits'].includes(q.search_state)) throw new Error('Public search identity/state mismatch')
+      actual.add(key)
+    }
+    planned += expected.size; completed += actual.size
+    if (actual.size !== expected.size) throw new Error('Public item still has unevaluated query families')
+    if (row.candidates.length > 3) throw new Error('Public candidate cap exceeded')
+    for (const c of row.candidates) {
+      const key = JSON.stringify([row.representative_item_id, c.candidate_id])
+      if (!c.candidate_id || candidates.has(key) || !['A', 'B', 'G', 'rejected'].includes(c.verdict) || !depths[c.verification_depth] || !Array.isArray(c.route_checks) || !c.route_checks.length) throw new Error('Invalid/duplicate reviewed public candidate')
+      candidates.set(key, c)
+      const d = depths[c.verification_depth]; d.reviewed++; d[c.verdict]++
+    }
+    const found = row.candidates.some(c => ['A', 'B'].includes(c.verdict))
+    const held = row.candidates.some(c => c.verdict === 'G')
+    if (row.disposition !== (found ? 'found' : held ? 'plausible-but-unverified' : 'exhausted')) throw new Error('Public disposition disagrees with candidate reviews')
+    A_new += Number(row.candidates.some(c => c.verdict === 'A'))
+    B_new += Number(!row.candidates.some(c => c.verdict === 'A') && row.candidates.some(c => c.verdict === 'B'))
+  }
+  const reviewed = [...candidates.values()], useful = reviewed.filter(c => ['A', 'B'].includes(c.verdict)).length
+  return { cohort_sha256: plan.cohort_sha256, cohort_size: plan.cohort.length, measured_scope_size: seen.size,
+    planned, completed, dispositions, A_new, B_new, unresolved: seen.size - A_new - B_new,
+    candidates_reviewed: reviewed.length, useful_candidates: useful,
+    candidate_precision: reviewed.length ? useful / reviewed.length : null,
+    mean_candidates_per_item: seen.size ? reviewed.length / seen.size : null,
+    verification_depth: Object.fromEntries(Object.entries(depths).map(([d, n]) => [d, { ...n, A_rate: n.reviewed ? n.A / n.reviewed : null, B_rate: n.reviewed ? n.B / n.reviewed : null }])) }
+}
 export function apiReadiness(retriever, { credentialPresent = false, projectPresent = false, apiDisabled = false, usage = 'unresolved', licenseStatus = 'unresolved', expandedLicenseApproved = false } = {}) {
   if (!['google_books_api', 'semantic_snippet'].includes(retriever)) throw new Error('Unknown benchmark retriever')
   if (!['unresolved', 'internal_research', 'product_db'].includes(usage) || !['unresolved', 'research_allowed', 'expanded_license_required'].includes(licenseStatus)) throw new Error('Invalid closed license policy')
@@ -735,6 +802,19 @@ export async function runFixedSemanticBatch(plan, { previous = [], key, requireI
 
 // CLI writes an append-only local attempt log, never the attribution DB. Resume successes only.
 async function main() {
+  if (process.argv[2] === '--public-metrics') {
+    const [planPath, closurePath, promotionPath, currentPath, output] = process.argv.slice(3)
+    if (!output) throw new Error('Usage: --public-metrics <fixed-plan.json> <closure.json> <promotion-queue.json> <fresh-rows.json> <metrics.json>')
+    if ([planPath, closurePath, promotionPath, currentPath].some(p => path.resolve(p) === path.resolve(output))) throw new Error('Metrics output cannot overwrite evidence inputs')
+    const read = p => JSON.parse(fs.readFileSync(p, 'utf8'))
+    const plan = read(planPath), closure = read(closurePath), current = read(currentPath), queue = read(promotionPath).queue
+    pendingBookPlan(plan, current, { includeResolved: true })
+    const registered = new Map(current.map(r => [r.representative_item_id, r.status]))
+    for (const r of queue) if (r.state === 'reviewed' && registered.get(r.representative_item_id) !== (r.after_grade === 'A' ? 'confirmed_exact' : 'supported_candidate')) throw new Error('Promotion outcome is not reflected in the current registry')
+    const result = { public_fulltext: publicFulltextMetrics(plan, closure), promotion: promotionMetrics(plan, closure, queue) }
+    fs.mkdirSync(path.dirname(output), { recursive: true }); fs.writeFileSync(output, JSON.stringify(result, null, 2)); console.log(JSON.stringify(result))
+    return
+  }
     if (process.argv[2] === '--book-plan') {
       const [input, exams, output] = process.argv.slice(3)
       if (!input || !exams || !output) throw new Error('Usage: --book-plan <fresh-rows.json> <exams.json> <plan.json>')
