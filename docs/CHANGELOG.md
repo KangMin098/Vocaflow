@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 현재 F02 중1·고1 각 12문항과 분리 채점안을 제안하고 본문·문항·채점·pilot protocol 해시를 독립 결속했다. 핵심 이해도 hard gate, 추론·문장 부담 분리 판정, 사전 노출/중단/결측 사유 및 상태 보고를 calibration 판정기에 반영했다. 사람 사전등록·학생 검증·gold·DB seed는 미완료다.
+
 - feat(csat): 학평 P4 — `csat_type_reports` 기본 키를 (type_id, organizer, grade)로 확장(마이그레이션 20261002060000, 승인 후 적용). 학평 유형 리포트를 학년별로 평가원 행을 덮지 않고 쓸 수 있다. importer 의 upsert 충돌 대상도 같이 변경.
 
 > Vocaflow 변경 이력. 최신 3개 버전(v06.32~34) + 현재 작업 중인 마이그레이션 + 세션 변경 사항을 보존.

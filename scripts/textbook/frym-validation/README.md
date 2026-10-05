@@ -1,5 +1,7 @@
 # FYM 사람 평가 v2 실행 절차
 
+현재 F02만의 수정 후 본문 학생 pilot은 [사전등록 검토본](../../../docs/reports/academic-reading-f02-preregistration-20261005.md)과 `f02-preregistration.proposed.json`을 우선 확인한다. `node scripts/textbook/frym-validation/f02-preregistration.mjs --check`는 본문·문항·채점·protocol 후보 해시 및 현재 문항 인용을 대조한다. 통과는 사람 봉인이 아니다. `f02-middle_1-instrument.proposed.json`과 `f02-high_1-instrument.proposed.json`은 분리된 문항/채점안으로부터 생성한 v2 호환 검토본이며, 응답 수집 전에 책임자가 내용과 배정·결측 규칙을 승인해야 한다.
+
 [사람 운영 프로토콜](../../../docs/FYM_HUMAN_VALIDATION_PROTOCOL.md)을 실행기에 연결했다. 기존 4쌍×중1/고1 8편은 **calibration 전용**이다. band 20개·사람 책임자·배정·사전 등록·실제 응답은 미확정이며 candidate 8, gold/production/DB 쓰기 0이다. 가상 회귀 점수는 실제 평가 결과가 아니다.
 
 ## Calibration 문항 revision 3

@@ -3,7 +3,7 @@ import { bundleV2Schema, evaluateV2, expertOutcomeV2, METRIC_KEYS, registrationB
 import { judgeF02Pilot, sha256 } from './f02-pilot-judge.mjs'
 
 const canonical = value => JSON.stringify(value, (_, item) => item && !Array.isArray(item) && typeof item === 'object' ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item)
-const insufficient = reason => ({ target_fit: { middle_1: 'INSUFFICIENT_EVIDENCE', high_1: 'INSUFFICIENT_EVIDENCE' }, level_separation: 'INSUFFICIENT_EVIDENCE', reasons: [reason], gold: false, db_seed: false })
+const insufficient = reason => ({ target_fit: { middle_1: 'INSUFFICIENT_EVIDENCE', high_1: 'INSUFFICIENT_EVIDENCE' }, level_separation: 'INSUFFICIENT_EVIDENCE', outcome_statuses: [/(invalid|changed|failed)/.test(reason) ? 'measurement_invalid' : 'inconclusive_sample'], reasons: [reason], educationally_validated: false, gold: false, db_seed: false })
 
 // A companion anchor arm can be judged only when both target arms reconcile with the existing sealed v2 workflow.
 export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrumentFiles, now, provenance) {
@@ -38,12 +38,17 @@ export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrume
     if (!range || METRIC_KEYS.some(k => canonical(range[k]) !== canonical(proposed.target_fit[grade][k]))) return insufficient(`v2_F02_${grade}_band_changed`)
     const outcome = evaluateV2(bundle, r, r.adapted_passage, now, passages)
     const metrics = pilot.target_metrics[grade]
-    if (!metrics || outcome.student_count !== pilot.counts[arm] || METRIC_KEYS.some(k => outcome.metrics[k] === null || Math.abs(outcome.metrics[k] - metrics[k]) > 1e-10)) return insufficient(`v2_F02_${grade}_scores_changed`)
+    // Every raw session was compared above. The F02 preregistration may exclude
+    // an otherwise complete v2 session for prior exposure, carryover or timing.
+    // Compare aggregate values only when both analyses kept the same count.
+    if (!metrics || outcome.student_count < pilot.counts[arm] || outcome.student_count === pilot.counts[arm] && METRIC_KEYS.some(k => outcome.metrics[k] === null || Math.abs(outcome.metrics[k] - metrics[k]) > 1e-10)) return insufficient(`v2_F02_${grade}_scores_changed`)
     const nonBandBlockers = outcome.blockers.filter(k => !k.startsWith('target_range_failed_'))
-    if (nonBandBlockers.length || (pilot.target_fit[grade] === 'PASS') !== (outcome.state === 'student_validated')) return insufficient(`v2_F02_${grade}_validation_failed`)
+    // v2 still treats every range as a hard gate. F02 preregistration classifies
+    // comprehension as hard and reports other range misses without promotion.
+    if (nonBandBlockers.length) return insufficient(`v2_F02_${grade}_validation_failed`)
   }
   const middle = bundle.records.find(r => r.source_id === freeze.source_id && r.target_key === freeze.variants.find(v => v.grade === 'middle_1').target_key)
   const meaning = expertOutcomeV2(bundle, middle, middle.adapted_passage, now)
   if (!meaning.ok || study.sessions.some(s => s.arm === 'middle_anchor' && s.reading_started_at != null && Date.parse(s.reading_started_at) < meaning.completed_at)) return insufficient('anchor_started_before_meaning_review')
-  return { ...pilot, v2_reconciled: true }
+  return { ...pilot, v2_reconciled: true, educationally_validated: pilot.calibration_criteria_met }
 }

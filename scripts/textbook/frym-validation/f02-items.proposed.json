@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "pair_id": "F02",
+  "status": "proposed_unreviewed",
+  "middle_1": [
+    {"id":"M-C1","axis":"comprehension","prompt":"과자 봉지를 선반에서 찾을 때 도움을 주는 감각과 단단히 잡았는지 확인할 때 도움을 주는 감각은 각각 무엇인가요?","source_quote":"Your eyes help you find the packet and see where it is. When you reach for it, touch helps you feel whether you are holding it firmly."},
+    {"id":"M-C2","axis":"comprehension","prompt":"본문에서 촉각은 우리 몸에 관해 어떤 정보를 준다고 하나요?","source_quote":"Touch also gives information about your body and its position."},
+    {"id":"M-C3","axis":"comprehension","prompt":"글의 중심 생각에 따르면 한 감각을 언제나 가장 중요하다고 정하기 어려운 까닭은 무엇인가요?","source_quote":"The main idea is to look at what each sense does. Instead of asking only which sense should win a contest, ask what information you need for a particular action."},
+    {"id":"M-L1","axis":"lexical","prompt":"본문의 firmly는 과자 봉지를 잡는 방식에 관해 어떤 뜻인가요?","source_quote":"touch helps you feel whether you are holding it firmly."},
+    {"id":"M-L2","axis":"lexical","prompt":"본문의 position은 우리 몸에 관해 무엇을 가리키나요?","source_quote":"Touch also gives information about your body and its position."},
+    {"id":"M-L3","axis":"lexical","prompt":"본문에서 matter는 여러 감각에 관해 어떤 뜻으로 쓰였나요?","source_quote":"Thinking about those needs helps us understand why several senses matter in daily life."},
+    {"id":"M-S1","axis":"syntax","prompt":"When you reach for it에서 it이 가리키는 것은 무엇인가요?","source_quote":"When you reach for it, touch helps you feel whether you are holding it firmly."},
+    {"id":"M-S2","axis":"syntax","prompt":"even when we do not notice it은 촉각이 도움이 되는 때를 어떻게 한정하나요?","source_quote":"Touch can help us even when we do not notice it."},
+    {"id":"M-S3","axis":"syntax","prompt":"Instead of asking only which sense should win a contest 다음에 글이 권하는 질문은 무엇인가요?","source_quote":"Instead of asking only which sense should win a contest, ask what information you need for a particular action."},
+    {"id":"M-R1","axis":"reasoning","prompt":"걷기와 과자 봉지 사례에서 시각과 촉각의 역할에 공통으로 나타나는 차이는 무엇인가요?","source_quote":"We use both senses in a simple walk, just as we use both to find and hold a packet."},
+    {"id":"M-R2","axis":"reasoning","prompt":"과자 봉지를 찾는 데 시각이 도움이 된다는 사실만으로 시각이 언제나 가장 중요하다고 말할 수 있나요? 본문 근거를 들어 설명하세요.","source_quote":"Saying that one sense is always the most important would hide this difference."},
+    {"id":"M-R3","axis":"reasoning","prompt":"새로운 활동에서 어떤 감각이 중요한지 판단하려면 글에 따르면 먼저 무엇을 살펴야 하나요?","source_quote":"Finding an object and holding it involve different needs. Thinking about those needs helps us understand why several senses matter in daily life."}
+  ],
+  "high_1": [
+    {"id":"H-C1","axis":"comprehension","prompt":"온라인 질문의 응답자 다수가 잃는 것을 두려워한 감각은 무엇인가요?","source_quote":"An online question asked which sense people feared losing most. Most chose vision."},
+    {"id":"H-C2","axis":"comprehension","prompt":"촉각을 잃은 사람은 본문에서 왜 움직이기 어려웠나요?","source_quote":"A person who lost the sense of touch had trouble moving because he could not feel where his arms and legs were."},
+    {"id":"H-C3","axis":"comprehension","prompt":"글이 마지막에 내리는 감각의 중요성에 관한 결론은 무엇인가요?","source_quote":"Both matter, but for different reasons. A single winner would hide that difference."},
+    {"id":"H-L1","axis":"lexical","prompt":"본문의 feared losing은 온라인 질문에서 무엇을 묻는 표현인가요?","source_quote":"An online question asked which sense people feared losing most."},
+    {"id":"H-L2","axis":"lexical","prompt":"본문의 firmly는 손가락이 봉지를 어떻게 잡는다는 뜻인가요?","source_quote":"Touch helps us feel whether our fingers are holding it firmly."},
+    {"id":"H-L3","axis":"lexical","prompt":"본문의 Neither one alone에서 Neither one은 어떤 두 사례를 가리키나요?","source_quote":"The online answers show what people fear losing. The touch story shows another kind of need. Neither one alone can tell us which sense is most important."},
+    {"id":"H-S1","axis":"syntax","prompt":"because he could not feel where his arms and legs were는 앞의 어려움에 어떤 관계로 이어지나요?","source_quote":"A person who lost the sense of touch had trouble moving because he could not feel where his arms and legs were."},
+    {"id":"H-S2","axis":"syntax","prompt":"Does it make touch more important than vision? 다음의 Vision is important too가 앞 질문을 어떻게 제한하나요?","source_quote":"Does it make touch more important than vision? Vision is important too."},
+    {"id":"H-S3","axis":"syntax","prompt":"while the other helps us feel our bodies에서 the other가 가리키는 감각은 무엇이며 앞 절과 어떤 대비를 이루나요?","source_quote":"Vision and touch have different jobs: one helps us find our way, while the other helps us feel our bodies."},
+    {"id":"H-R1","axis":"reasoning","prompt":"온라인 응답과 촉각 상실 사례가 각각 보여 주는 것은 무엇이며 왜 어느 하나만으로 가장 중요한 감각을 정할 수 없나요?","source_quote":"The online answers show what people fear losing. The touch story shows another kind of need. Neither one alone can tell us which sense is most important."},
+    {"id":"H-R2","axis":"reasoning","prompt":"본문은 첫 문단의 온라인 응답에서 마지막 결론까지 주장을 어떤 순서로 전개하나요?","source_quote":"The online answers show what people fear losing. The touch story shows another kind of need. Neither one alone can tell us which sense is most important."},
+    {"id":"H-R3","axis":"reasoning","prompt":"한 독자가 '촉각 상실 사례가 있으니 촉각이 시각보다 반드시 중요하다'고 말한다면 본문은 그 판단의 무엇을 문제 삼나요?","source_quote":"That story shows how much we need touch. Does it make touch more important than vision? Vision is important too."}
+  ]
+}

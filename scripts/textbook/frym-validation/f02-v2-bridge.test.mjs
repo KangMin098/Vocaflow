@@ -61,7 +61,23 @@ test('matching sealed v2 target records reconcile with the common-grade anchor',
   assert.equal(result.v2_reconciled, true, JSON.stringify(result))
   assert.deepEqual(result.target_fit, { middle_1: 'PASS', high_1: 'PASS' })
   assert.equal(result.level_separation, 'PASS')
+  assert.equal(result.educationally_validated, true)
   assert.equal(result.gold, false)
+})
+
+test('a prior-exposed target session can be excluded while fifteen scored peers remain', () => {
+  const study = fixture()
+  for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
+  const source = study.sessions.find(s => s.arm === 'middle_target')
+  const student_id = 'middle_target-prior-exposure'
+  study.assignments.push({ ...study.assignments.find(a => a.arm === 'middle_target'), student_id })
+  study.sessions.push({ ...source, student_id, prior_exposure: true })
+  study.registration.manifest_sha256 = pilotManifestHash(study)
+  const { bundle, instruments } = v2Fixture(study)
+  const result = judgeF02PilotWithV2(study, freeze, proposed, bundle, instruments, now)
+  assert.equal(result.v2_reconciled, true, JSON.stringify(result))
+  assert.equal(result.counts.middle_target, 15)
+  assert.equal(result.exclusion_reasons.middle_target.prior_exposure, 1)
 })
 
 test('research provenance must be verified and high confidence for both v2 targets', () => {
@@ -147,18 +163,12 @@ test('an omitted answer in one extra target session is excluded without rejectin
 test('the real CLI requires original research evidence before any decision', async () => {
   const study = fixture()
   for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
-  const { bundle, instruments } = v2Fixture(study)
+  const { bundle } = v2Fixture(study)
   const dir = mkdtempSync(join(tmpdir(), 'vocaflow-f02-cli-'))
   const previousArgs = process.argv
   try {
     study.instrument_paths = {}
-    for (const grade of ['middle_1', 'high_1']) {
-      const file = join(dir, `${grade}.json`), bytes = JSON.stringify(instruments[grade])
-      writeFileSync(file, bytes)
-      study.instrument_paths[grade] = file
-      study.instrument_sha256[grade] = sha256(bytes)
-      for (const s of study.sessions.filter(s => s.arm === (grade === 'middle_1' ? 'middle_target' : 'high_target') || grade === 'middle_1' && s.arm === 'middle_anchor')) s.instrument_sha256 = study.instrument_sha256[grade]
-    }
+    for (const grade of ['middle_1', 'high_1']) study.instrument_paths[grade] = resolve(`scripts/textbook/frym-validation/f02-${grade}-instrument.proposed.json`)
     study.registration.manifest_sha256 = pilotManifestHash(study)
     const studyPath = join(dir, 'study.json'), v2Path = join(dir, 'v2.json')
     writeFileSync(studyPath, JSON.stringify(study)); writeFileSync(v2Path, JSON.stringify(bundle))
