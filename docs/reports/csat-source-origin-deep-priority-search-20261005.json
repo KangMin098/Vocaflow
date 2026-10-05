@@ -1,5 +1,13 @@
 [
   {
+    "item_id": "2022#31",
+    "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+    "item_ids": [
+      "2022#31"
+    ],
+    "body_sha256_by_item": {
+      "2022#31": "fb3b12703546c345285d4cc60c419444de190bfea04563d27fd477349df9f995"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Humour involves\" \"cognitive disengagement\"",
     "result_urls": [
@@ -24,6 +32,14 @@
     ]
   },
   {
+    "item_id": "2022#31",
+    "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+    "item_ids": [
+      "2022#31"
+    ],
+    "body_sha256_by_item": {
+      "2022#31": "fb3b12703546c345285d4cc60c419444de190bfea04563d27fd477349df9f995"
+    },
     "queried_on": "2026-10-05",
     "query": "\"spaghetti\" \"keyboard\" Morreall",
     "result_urls": [
@@ -48,6 +64,14 @@
     ]
   },
   {
+    "item_id": "2026#29",
+    "passage_sha256": "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab",
+    "item_ids": [
+      "2026#29"
+    ],
+    "body_sha256_by_item": {
+      "2026#29": "f957f6feae571ce2c5d14a85330293b6936b30a411d29efafc30b1f6a1b08b4d"
+    },
     "queried_on": "2026-10-05",
     "query": "\"We are exceptionally smart\" Boyd",
     "result_urls": [
@@ -70,6 +94,14 @@
     ]
   },
   {
+    "item_id": "2026#33",
+    "passage_sha256": "bfa5ddcea1c50e6c4fa42b2f353d86c0007abd95f955294c192dca1c728305e0",
+    "item_ids": [
+      "2026#33"
+    ],
+    "body_sha256_by_item": {
+      "2026#33": "8d309a345abf0aa57b7cfce619fd891e2387a4ea2131c4467a4b33ca2c4d606e"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Giving clients sufficient opportunity\"",
     "result_urls": [
@@ -94,6 +126,14 @@
     ]
   },
   {
+    "item_id": "2026#24",
+    "passage_sha256": "5a57a428c7a744591f0f17e375b7a90145ffac0dd4e0ecf647f55b2869d67e65",
+    "item_ids": [
+      "2026#24"
+    ],
+    "body_sha256_by_item": {
+      "2026#24": "89d41ece47d5b4ad97988c9d1775698b5e30b6ac5a143591ff7465e6a7fbceb3"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Culturtainment\" \"Moss\"",
     "result_urls": [
@@ -117,6 +157,14 @@
     ]
   },
   {
+    "item_id": "2026#31",
+    "passage_sha256": "f4e395749fea1db9483415b834156347369150f4bd5296085edce8e95497d311",
+    "item_ids": [
+      "2026#31"
+    ],
+    "body_sha256_by_item": {
+      "2026#31": "4f329aa6397d6e65dcb5aa0c67f7a32919fbb3eb946d7adae61e9507d2a31a72"
+    },
     "queried_on": "2026-10-05",
     "query": "\"early grain trade firms\"",
     "result_urls": [
@@ -139,6 +187,14 @@
     ]
   },
   {
+    "item_id": "2022#31",
+    "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+    "item_ids": [
+      "2022#31"
+    ],
+    "body_sha256_by_item": {
+      "2022#31": "fb3b12703546c345285d4cc60c419444de190bfea04563d27fd477349df9f995"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Humour and the Conduct of Politics\" full text",
     "result_urls": [
@@ -163,6 +219,14 @@
     ]
   },
   {
+    "item_id": "2026#29",
+    "passage_sha256": "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab",
+    "item_ids": [
+      "2026#29"
+    ],
+    "body_sha256_by_item": {
+      "2026#29": "f957f6feae571ce2c5d14a85330293b6936b30a411d29efafc30b1f6a1b08b4d"
+    },
     "queried_on": "2026-10-05",
     "query": "Robert Boyd \"A Different Kind of Animal\" pdf",
     "result_urls": [
@@ -186,6 +250,14 @@
     ]
   },
   {
+    "item_id": "2026#33",
+    "passage_sha256": "bfa5ddcea1c50e6c4fa42b2f353d86c0007abd95f955294c192dca1c728305e0",
+    "item_ids": [
+      "2026#33"
+    ],
+    "body_sha256_by_item": {
+      "2026#33": "8d309a345abf0aa57b7cfce619fd891e2387a4ea2131c4467a4b33ca2c4d606e"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Giving clients sufficient opportunity\" architecture book",
     "result_urls": [
@@ -210,6 +282,14 @@
     ]
   },
   {
+    "item_id": "2026#31",
+    "passage_sha256": "f4e395749fea1db9483415b834156347369150f4bd5296085edce8e95497d311",
+    "item_ids": [
+      "2026#31"
+    ],
+    "body_sha256_by_item": {
+      "2026#31": "4f329aa6397d6e65dcb5aa0c67f7a32919fbb3eb946d7adae61e9507d2a31a72"
+    },
     "queried_on": "2026-10-05",
     "query": "\"early grain trade\" Clapp",
     "result_urls": [
@@ -235,6 +315,14 @@
     ]
   },
   {
+    "item_id": "2026#21",
+    "passage_sha256": "44330868551015973d7b376a75a82438797f2eaee6823528e10f9ae4b4c838bd",
+    "item_ids": [
+      "2026#21"
+    ],
+    "body_sha256_by_item": {
+      "2026#21": "3e46290e8d57ee372392b7722ba39e4369bef4eeb7c8c3ed687a4945708f2a31"
+    },
     "queried_on": "2026-10-05",
     "query": "\"The Gig Economy\" \"Digital platforms\" \"sticky\"",
     "result_urls": [
@@ -257,6 +345,14 @@
     ]
   },
   {
+    "item_id": "2026#38",
+    "passage_sha256": "006179bcf07d82fd7bcd34d78da5fcedcb2abf51bc6b44fd79778a861cd5d9e9",
+    "item_ids": [
+      "2026#38"
+    ],
+    "body_sha256_by_item": {
+      "2026#38": "746fd57ed73ff70d6d850ccffca26c02a5d802b4eef2ee8240e8efb107562c3e"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Effective Data Storytelling\" \"internal narratives\"",
     "result_urls": [
@@ -275,6 +371,14 @@
     ]
   },
   {
+    "item_id": "2026#29",
+    "passage_sha256": "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab",
+    "item_ids": [
+      "2026#29"
+    ],
+    "body_sha256_by_item": {
+      "2026#29": "f957f6feae571ce2c5d14a85330293b6936b30a411d29efafc30b1f6a1b08b4d"
+    },
     "queried_on": "2026-10-05",
     "query": "\"A Different Kind of Animal\" \"We are exceptionally\"",
     "result_urls": [
@@ -293,6 +397,14 @@
     ]
   },
   {
+    "item_id": "2022#31",
+    "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+    "item_ids": [
+      "2022#31"
+    ],
+    "body_sha256_by_item": {
+      "2022#31": "fb3b12703546c345285d4cc60c419444de190bfea04563d27fd477349df9f995"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Beyond a Joke\" pdf Lockyer Pickering",
     "result_urls": [
@@ -313,6 +425,14 @@
     ]
   },
   {
+    "item_id": "2026#33",
+    "passage_sha256": "bfa5ddcea1c50e6c4fa42b2f353d86c0007abd95f955294c192dca1c728305e0",
+    "item_ids": [
+      "2026#33"
+    ],
+    "body_sha256_by_item": {
+      "2026#33": "8d309a345abf0aa57b7cfce619fd891e2387a4ea2131c4467a4b33ca2c4d606e"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Giving clients\" architecture \"source\"",
     "result_urls": [
@@ -336,6 +456,14 @@
     ]
   },
   {
+    "item_id": "2026#21",
+    "passage_sha256": "44330868551015973d7b376a75a82438797f2eaee6823528e10f9ae4b4c838bd",
+    "item_ids": [
+      "2026#21"
+    ],
+    "body_sha256_by_item": {
+      "2026#21": "3e46290e8d57ee372392b7722ba39e4369bef4eeb7c8c3ed687a4945708f2a31"
+    },
     "queried_on": "2026-10-05",
     "query": "\"digital platforms\" \"New Delhi\" \"Woodcock\"",
     "result_urls": [
@@ -359,6 +487,14 @@
     ]
   },
   {
+    "item_id": "2026#31",
+    "passage_sha256": "f4e395749fea1db9483415b834156347369150f4bd5296085edce8e95497d311",
+    "item_ids": [
+      "2026#31"
+    ],
+    "body_sha256_by_item": {
+      "2026#31": "4f329aa6397d6e65dcb5aa0c67f7a32919fbb3eb946d7adae61e9507d2a31a72"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Food\" \"Clapp\" pdf 2013",
     "result_urls": [
@@ -386,6 +522,14 @@
     ]
   },
   {
+    "item_id": "2026#24",
+    "passage_sha256": "5a57a428c7a744591f0f17e375b7a90145ffac0dd4e0ecf647f55b2869d67e65",
+    "item_ids": [
+      "2026#24"
+    ],
+    "body_sha256_by_item": {
+      "2026#24": "89d41ece47d5b4ad97988c9d1775698b5e30b6ac5a143591ff7465e6a7fbceb3"
+    },
     "queried_on": "2026-10-05",
     "query": "\"The Entertainment Industry\" Moss pdf 381",
     "result_urls": [
@@ -412,6 +556,14 @@
     ]
   },
   {
+    "item_id": "2022#31",
+    "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+    "item_ids": [
+      "2022#31"
+    ],
+    "body_sha256_by_item": {
+      "2022#31": "fb3b12703546c345285d4cc60c419444de190bfea04563d27fd477349df9f995"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Beyond a Joke\" \"keyboard\"",
     "result_urls": [
@@ -436,6 +588,14 @@
     ]
   },
   {
+    "item_id": "2026#29",
+    "passage_sha256": "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab",
+    "item_ids": [
+      "2026#29"
+    ],
+    "body_sha256_by_item": {
+      "2026#29": "f957f6feae571ce2c5d14a85330293b6936b30a411d29efafc30b1f6a1b08b4d"
+    },
     "queried_on": "2026-10-05",
     "query": "\"A Different Kind of Animal\" chapter one pdf Boyd",
     "result_urls": [
@@ -458,6 +618,14 @@
     ]
   },
   {
+    "item_id": "2026#22",
+    "passage_sha256": "0df714cfed308bfd6bf076636639bdc930c6c1fe146a0106ad9543b62950f6b8",
+    "item_ids": [
+      "2026#22"
+    ],
+    "body_sha256_by_item": {
+      "2026#22": "e52fe510c1752a7a5485fcaec6de297410ea6c951b85e9927bb1b07045201b4f"
+    },
     "queried_on": "2026-10-05",
     "query": "\"sport managers\" \"coopetition\" Ratten",
     "result_urls": [
@@ -479,6 +647,14 @@
     ]
   },
   {
+    "item_id": "2022#35",
+    "passage_sha256": "a5a644a118074123868d9b4eb0d166a54204f4d73f119aa77a08ee0f0b2a081c",
+    "item_ids": [
+      "2022#35"
+    ],
+    "body_sha256_by_item": {
+      "2022#35": "42f57e00eb71045bf9da95ff74b7a63e24cc4ae1d5d185c1f677394bb7492b11"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Immersive Internet\" \"value chains\"",
     "result_urls": [
@@ -501,6 +677,14 @@
     ]
   },
   {
+    "item_id": "2022#40",
+    "passage_sha256": "58934cddcc758148e75a0d57f032316baed4e4bcfd230546ae7895b852cb56f4",
+    "item_ids": [
+      "2022#40"
+    ],
+    "body_sha256_by_item": {
+      "2022#40": "98b31a28f0af60ceb456280d633a8cb31fca3d1b65d7c66e6843c46d5dab1308"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Adaptation and Environment\" \"Salmon\" Kitcher",
     "result_urls": [
@@ -526,6 +710,14 @@
     ]
   },
   {
+    "item_id": "2026#29",
+    "passage_sha256": "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab",
+    "item_ids": [
+      "2026#29"
+    ],
+    "body_sha256_by_item": {
+      "2026#29": "f957f6feae571ce2c5d14a85330293b6936b30a411d29efafc30b1f6a1b08b4d"
+    },
     "queried_on": "2026-10-05",
     "query": "\"A Different Kind of Animal\" site:dokumen.pub",
     "result_urls": [
@@ -544,6 +736,14 @@
     ]
   },
   {
+    "item_id": "2022#31",
+    "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+    "item_ids": [
+      "2022#31"
+    ],
+    "body_sha256_by_item": {
+      "2022#31": "fb3b12703546c345285d4cc60c419444de190bfea04563d27fd477349df9f995"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Beyond a Joke\" site:dokumen.pub",
     "result_urls": [
@@ -557,6 +757,14 @@
     ]
   },
   {
+    "item_id": "2026#38",
+    "passage_sha256": "006179bcf07d82fd7bcd34d78da5fcedcb2abf51bc6b44fd79778a861cd5d9e9",
+    "item_ids": [
+      "2026#38"
+    ],
+    "body_sha256_by_item": {
+      "2026#38": "746fd57ed73ff70d6d850ccffca26c02a5d802b4eef2ee8240e8efb107562c3e"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Effective Data Storytelling\" site:dokumen.pub",
     "result_urls": [
@@ -575,6 +783,16 @@
     ]
   },
   {
+    "item_id": "2026#41",
+    "passage_sha256": "393b2d45bdebff35b140e3a3f25abaf8b92137039a7c596fde2946554d5d7829",
+    "item_ids": [
+      "2026#41",
+      "2026#42"
+    ],
+    "body_sha256_by_item": {
+      "2026#41": "1326c1c67648b34484bd9c7bd369283a05f983b21ec641003d08ebe62c2ca5ea",
+      "2026#42": "1326c1c67648b34484bd9c7bd369283a05f983b21ec641003d08ebe62c2ca5ea"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Understanding Fashion History\" site:dokumen.pub",
     "result_urls": [
@@ -593,6 +811,14 @@
     ]
   },
   {
+    "item_id": "2026#22",
+    "passage_sha256": "0df714cfed308bfd6bf076636639bdc930c6c1fe146a0106ad9543b62950f6b8",
+    "item_ids": [
+      "2026#22"
+    ],
+    "body_sha256_by_item": {
+      "2026#22": "e52fe510c1752a7a5485fcaec6de297410ea6c951b85e9927bb1b07045201b4f"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Sport Entrepreneurial Ecosystems\" Ratten Emerald",
     "result_urls": [
@@ -615,6 +841,14 @@
     ]
   },
   {
+    "item_id": "2026#24",
+    "passage_sha256": "5a57a428c7a744591f0f17e375b7a90145ffac0dd4e0ecf647f55b2869d67e65",
+    "item_ids": [
+      "2026#24"
+    ],
+    "body_sha256_by_item": {
+      "2026#24": "89d41ece47d5b4ad97988c9d1775698b5e30b6ac5a143591ff7465e6a7fbceb3"
+    },
     "queried_on": "2026-10-05",
     "query": "\"The Entertainment Industry\" site:dokumen.pub",
     "result_urls": [
@@ -633,6 +867,14 @@
     ]
   },
   {
+    "item_id": "2026#31",
+    "passage_sha256": "f4e395749fea1db9483415b834156347369150f4bd5296085edce8e95497d311",
+    "item_ids": [
+      "2026#31"
+    ],
+    "body_sha256_by_item": {
+      "2026#31": "4f329aa6397d6e65dcb5aa0c67f7a32919fbb3eb946d7adae61e9507d2a31a72"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Food\" Clapp site:dokumen.pub",
     "result_urls": [
@@ -651,6 +893,14 @@
     ]
   },
   {
+    "item_id": "2026#33",
+    "passage_sha256": "bfa5ddcea1c50e6c4fa42b2f353d86c0007abd95f955294c192dca1c728305e0",
+    "item_ids": [
+      "2026#33"
+    ],
+    "body_sha256_by_item": {
+      "2026#33": "8d309a345abf0aa57b7cfce619fd891e2387a4ea2131c4467a4b33ca2c4d606e"
+    },
     "queried_on": "2026-10-05",
     "query": "\"Interior Design Illustrated\" \"patients\"",
     "result_urls": [
@@ -670,6 +920,215 @@
       "https://cajad.centralasianstudies.org/index.php/CAJAD/article/view/520",
       "https://www.researchgate.net/publication/363046825_twzyf_alfn_fy_thsyn_ada_almkfwfyn_bsrya_dakhl_byyt_alfda_aldakhly",
       "https://www.fnac.com/e62540/Wiley"
+    ]
+  },
+  {
+    "item_id": "2022#31",
+    "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+    "item_ids": [
+      "2022#31"
+    ],
+    "body_sha256_by_item": {
+      "2022#31": "fb3b12703546c345285d4cc60c419444de190bfea04563d27fd477349df9f995"
+    },
+    "queried_on": "2026-10-05",
+    "query": "John Morreall Comic Relief 2009 full text pdf \"72\"",
+    "result_urls": [
+      "https://www.researchgate.net/publication/299695616_The_Educational_Significance_of_Aesthetic_Humor",
+      "https://ijhss.thebrpi.org/journals/Vol_2_No_1_January_2012/6.pdf",
+      "https://ebuah.uah.es/dspace/bitstream/handle/10017/57982/Thesis%20Isabel%20Berzal%20Ayuso.pdf?isAllowed=y&sequence=1",
+      "https://zanotowane.pl/1183/7188/",
+      "https://www.scribd.com/doc/131662971/6",
+      "https://rucforsk.ruc.dk/ws/portalfiles/portal/57611659/El_documento_-_Dansk_Fagmodulsprojekt_F16_-_Humor_i_reklamer_-_158.329_anslag.pdf",
+      "https://www.degruyterbrill.com/document/doi/10.1525/9780520391345-011/pdf?licenseType=open-access",
+      "https://wedontdohumourstudies.blogspot.com/2010/05/morreall-john-comic-relief.html",
+      "https://www.thespoof.com/spoof-news/uk/49087/david-van-day-gatecrashes-kilimanjaro-triumph",
+      "https://www.comicrelief.com/news/self-deprecation-crowned-defining-part-of-british-humour-new-comic-relief/",
+      "https://citeseerx.ist.psu.edu/document?doi=8ea268b42af7c32088ee588078d0803e3d8f2922&repid=rep1&type=pdf",
+      "https://www.scribd.com/document/721701225/The-Art-of-Teaching-With-Humor-Crafting-Laughter",
+      "https://www.researchgate.net/publication/339944054_Introduction_to_%27Explorations_in_Humor_Studies_Humor_Research_Project%27",
+      "https://www.independent.co.uk/news/uk/how-to-lead-a-nation-by-the-nose-1611569.html",
+      "https://www.researchgate.net/publication/329127573_Humor_en_prediking",
+      "https://journals.ku.edu/jdtc/article/download/3571/3447/3910",
+      "https://www.dialogofilosofico.com/plugins/generic/pdfJsViewer/pdf.js/web/viewer.html?file=https%3A%2F%2Fwww.dialogofilosofico.com%2Findex.php%2Fdialogo%2Farticle%2Fdownload%2F224%2F229%2F921",
+      "https://www.researchgate.net/publication/323209560_Cultivate_Your_Funny_Bone_The_Case_against_Training_Amusement"
+    ]
+  },
+  {
+    "item_id": "2022#20",
+    "passage_sha256": "b37bfcf967ed3ae4af896d9cd4ed04cf3fbee043123cf514383b5a5fa721c888",
+    "item_ids": [
+      "2022#20"
+    ],
+    "body_sha256_by_item": {
+      "2022#20": "4d6b991618ce99c8147d233b6d28c3cd068c066e704d58d74c78092df3f44500"
+    },
+    "queried_on": "2026-10-05",
+    "query": "Olivier Blanchard Social Media ROI \"Aligning Social Media to Business Goals\"",
+    "result_urls": [
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/ch01.html",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/part01.html",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/pre01.html",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/part02.html",
+      "https://www.informit.com/store/social-media-roi-managing-and-measuring-social-media-9780789747419",
+      "https://sobrief.com/books/social-media-roi",
+      "https://www.informit.com/store/how-to-measure-social-media-a-step-by-step-guide-to-9780789749857",
+      "https://ptgmedia.pearsoncmg.com/images/9780789749857/samplepages/0789749858.pdf",
+      "https://search.worldcat.org/title/Social-media-ROI-%3A-managing-and-measuring-social-media-efforts-in-your-organization/oclc/740435584",
+      "https://library.kluniversity.in/cgi-bin/koha/opac-showmarc.pl?id=785345&viewas=html",
+      "https://www.fishpond.co.nz/Books/Social-Media-Roi-Olivier-Blanchard-Brian-Solis/9780789747419",
+      "https://elmhurst.ecampus.com/social-media-roi-managing-measuring/bk/9780789747419",
+      "https://www.pearson.de/media/muster/toc/toc_9780132678063.pdf",
+      "https://sisis.rz.htw-berlin.de/inh2012/12423365.pdf",
+      "https://lib.zu.edu.pk/ebookdata/Media%20Sciences/Marketing/Social%20Media%20ROI_%20Managing%20and%20Measuring%20Social%20Media%20Efforts%20in%20Your%20Organization-by%20Olivier%20Balanchard.pdf"
+    ]
+  },
+  {
+    "item_id": "2026#41",
+    "passage_sha256": "393b2d45bdebff35b140e3a3f25abaf8b92137039a7c596fde2946554d5d7829",
+    "item_ids": [
+      "2026#41",
+      "2026#42"
+    ],
+    "body_sha256_by_item": {
+      "2026#41": "1326c1c67648b34484bd9c7bd369283a05f983b21ec641003d08ebe62c2ca5ea",
+      "2026#42": "1326c1c67648b34484bd9c7bd369283a05f983b21ec641003d08ebe62c2ca5ea"
+    },
+    "queried_on": "2026-10-05",
+    "query": "Valerie Cumming Understanding Fashion History full text \"dress\"",
+    "result_urls": [
+      "https://www.batsfordbooks.com/book/understanding-fashion-history/",
+      "https://books.google.com/books/about/Understanding_Fashion_History.html?id=KxqUEAAAQBAJ",
+      "https://www.si.edu/object/understanding-fashion-history-valerie-cumming%3Asiris_sil_794389",
+      "https://books.google.com/books/about/Understanding_Fashion_History.html?id=afPZAAAAMAAJ",
+      "https://www.silmanjamespress.com/shop/costume-fashion/understanding-fashion-history/",
+      "https://books.google.co.uk/books?id=o77uAAAAMAAJ",
+      "https://valeriecumming.com/books/",
+      "https://books.google.co.uk/books?id=KxqUEAAAQBAJ",
+      "https://library.tcdc.or.th/record/view/b00002365",
+      "https://openlibrary.org/books/OL8255581M/Understanding_Fashion_History",
+      "https://openlibrary.org/books/OL7796255M/Understanding_Fashion_History",
+      "https://books.google.com/books/about/Understanding_Fashion_History.html?hl=pt-BR&id=KxqUEAAAQBAJ",
+      "https://media.bloomsbury.com/rep/files/va_catalogue.pdf",
+      "https://en.wikipedia.org/wiki/Dress_history",
+      "https://static1.squarespace.com/static/63feb2d74516671b726c25f6/t/63ffb8018aa7d5596537367c/1677703169907/VCC%2B390%2BH5S%2BWinter%2B2022%2BSyllabus.pdf",
+      "https://cris.brighton.ac.uk/ws/files/4753708/Final%20version%20with%20corrections%20FOR%20DIGITAL.pdf",
+      "https://dresshistorians.org/wp-content/uploads/2019/04/The-Journal-of-Dress-History-Winter-2018.pdf",
+      "https://theses.gla.ac.uk/4772/8/2013TaylorPhD%20vol%201.pdf",
+      "https://en.wikipedia.org/wiki/Dress",
+      "https://www.koshka-the-cat.com/regency_documentation.pdf",
+      "https://en.wikipedia.org/wiki/Fashion",
+      "https://en.wikipedia.org/wiki/Victorian_dress_reform",
+      "https://en.wikipedia.org/wiki/James_Laver",
+      "https://pt.wikipedia.org/wiki/Moda",
+      "https://www.reddit.com/r/fashionhistory/comments/15wdb0w",
+      "https://www.reddit.com/r/fashionhistory/comments/1dsdfqr",
+      "https://www.reddit.com/r/fashionhistory/comments/fkb2ec",
+      "https://time.com/91590/dressing-for-failure-how-the-death-of-home-ec-unraveled-american-fashion/",
+      "https://www.whowhatwear.com/fashion/us-open-tennis-player-outfits-sunita-kumar-nair-interview",
+      "https://elpais.com/eps/2025-10-21/una-exposicion-en-nueva-york-vincula-la-ropa-al-subconsciente-la-moda-mueve-millones-porque-es-importante.html",
+      "https://www.theatlantic.com/ideas/archive/2018/10/bicycle-bloomers-yoga-pants-how-sports-shaped-modern-fashion/574081/?utm_source=apple_news",
+      "https://time.com/4227670/history-oscar-costumes/",
+      "https://arxiv.org/abs/1908.11412",
+      "https://www.theatlantic.com/culture/2026/05/babydoll-dress-olivia-rodrigo/687206/?utm_source=apple_news",
+      "https://arxiv.org/abs/2603.22607",
+      "https://arxiv.org/abs/2208.00639"
+    ]
+  },
+  {
+    "item_id": "2026#38",
+    "passage_sha256": "006179bcf07d82fd7bcd34d78da5fcedcb2abf51bc6b44fd79778a861cd5d9e9",
+    "item_ids": [
+      "2026#38"
+    ],
+    "body_sha256_by_item": {
+      "2026#38": "746fd57ed73ff70d6d850ccffca26c02a5d802b4eef2ee8240e8efb107562c3e"
+    },
+    "queried_on": "2026-10-05",
+    "query": "Brent Dykes Effective Data Storytelling \"internal narratives\"",
+    "result_urls": [
+      "https://www.scribd.com/document/1050783701/17%EA%B0%95-%EB%84%88%EB%A5%B8%ED%84%B0",
+      "https://www.scribd.com/document/1025630645/N-2027%ED%95%99%EB%85%84%EB%8F%84-%EC%88%98%EB%8A%A5%EC%97%B0%EA%B3%84%EA%B5%90%EC%9E%AC-%EC%88%98%ED%8A%B9%EC%98%81%EC%96%B4-17%EA%B0%95-%ED%95%9C%EC%A4%84%ED%95%B4%EC%84%9D",
+      "https://www.scribd.com/document/1054937907/N-2027%ED%95%99%EB%85%84%EB%8F%84-%EC%88%98%EB%8A%A5%EC%97%B0%EA%B3%84%EA%B5%90%EC%9E%AC-%EC%88%98%ED%8A%B9%EC%98%81%EC%96%B4-17%EA%B0%95-%EB%B6%84%EC%84%9D",
+      "https://www.scribd.com/document/1056403317/n-2027%E1%84%92%E1%85%A1%E1%86%A8%E1%84%82%E1%85%A7%E1%86%AB%E1%84%83%E1%85%A9-%E1%84%89%E1%85%AE%E1%84%82%E1%85%B3%E1%86%BC%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%80%E1%85%A8%E1%84%80%E1%85%AD%E1%84%8C%E1%85%A2-%E1%84%89%E1%85%AE%E1%84%90%E1%85%B3%E1%86%A8%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%A5-17%E1%84%80%E1%85%A1%E1%86%BC-%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8",
+      "https://www.scribd.com/document/865276509/Storytelling-Relaunch-Your-Brand",
+      "https://nightingaledvs.com/HAS-DATA-STORYTELLING-REACHED-ITS-PEAK/",
+      "https://sobrief.com/nl/genres/psychology?page=12",
+      "https://sobrief.com/ja/genres/business?page=8",
+      "https://accountancyage.com/2025/10/22/the-power-of-financial-storytelling-transforming-data-into-strategic-insights/",
+      "https://txcouncil.com/wp-content/uploads/2025/06/Onsite-Program-Printer-Version.pdf",
+      "https://sobrief.com/es/genres/business?page=8",
+      "https://bryanjnoel.com/writing/your-internal-narrative-is-a-business-problem/",
+      "https://infosol.com.mx/wp-content/uploads/2025/07/ebook-digital-pr.pdf",
+      "https://www.influencers-time.com/uncover-hidden-stories-with-narrative-arbitrage-techniques/",
+      "https://www.mhorcollective.com/wp-content/uploads/2026/02/Connect-Hub-Case-Study.pdf",
+      "https://jfsdigital.org/wp-content/uploads/2014/04/183-A05.pdf",
+      "https://s30383.pcdn.co/wp-content/uploads/2025/11/NCSL25_Conference_Program.pdf",
+      "https://arxiv.org/abs/2509.11868",
+      "https://www.awissd.org/wp-content/uploads/2023/12/May_June_2014.pdf"
+    ]
+  },
+  {
+    "item_id": "2022#20",
+    "passage_sha256": "b37bfcf967ed3ae4af896d9cd4ed04cf3fbee043123cf514383b5a5fa721c888",
+    "item_ids": [
+      "2022#20"
+    ],
+    "body_sha256_by_item": {
+      "2022#20": "4d6b991618ce99c8147d233b6d28c3cd068c066e704d58d74c78092df3f44500"
+    },
+    "queried_on": "2026-10-05",
+    "query": "Olivier Blanchard Social Media ROI \"Aligning Social Media to Business Goals\" full text",
+    "result_urls": [
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/toc1.html",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/ch01.html",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/part01.html",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/part02.html",
+      "https://www.oreilly.com/library/view/social-media-roi/9780132678032/pre01.html",
+      "https://www.informit.com/store/how-to-measure-social-media-a-step-by-step-guide-to-9780789749857",
+      "https://www.informit.com/store/social-media-roi-managing-and-measuring-social-media-9780789747419",
+      "https://sobrief.com/books/social-media-roi",
+      "https://library.kluniversity.in/cgi-bin/koha/opac-showmarc.pl?id=785345&viewas=html",
+      "https://elmhurst.ecampus.com/social-media-roi-managing-measuring/bk/9780789747419",
+      "https://ptgmedia.pearsoncmg.com/images/9780789749857/samplepages/0789749858.pdf",
+      "https://api.pageplace.de/preview/DT0400.9780132678063_A23599710/preview-9780132678063_A23599710.pdf",
+      "https://www.pearson.de/media/muster/toc/toc_9780132678063.pdf",
+      "https://search.worldcat.org/title/Social-media-ROI-%3A-managing-and-measuring-social-media-efforts-in-your-organization/oclc/740435584",
+      "https://lib.zu.edu.pk/ebookdata/Media%20Sciences/Marketing/Social%20Media%20ROI_%20Managing%20and%20Measuring%20Social%20Media%20Efforts%20in%20Your%20Organization-by%20Olivier%20Balanchard.pdf"
+    ]
+  },
+  {
+    "item_id": "2022#24",
+    "passage_sha256": "f74dc7841169c7c6d885663dc2274ba631734b46eab7c92e326c4acc8ef4fb3d",
+    "item_ids": [
+      "2022#24"
+    ],
+    "body_sha256_by_item": {
+      "2022#24": "e25dae083fd4230609613c60fe7d0b1b468ed76cf8db5e17a2915a60e2b1fa71"
+    },
+    "queried_on": "2026-10-05",
+    "query": "Susan Strasser Waste and Want \"mending\" \"blacksmith\"",
+    "result_urls": [
+      "https://www.researchgate.net/publication/360640948_Auto-Select_Reading_Passages_in_English_Assessment_Tests",
+      "https://peshare.com/saying/view_saying.jsp?saying_id=155",
+      "https://era.library.ualberta.ca/items/8a49f09b-d693-4d14-abc0-f388814f28f9/view/5d656bcc-f761-4510-8dd8-2d0afe9e393a/Goertz_Anthony_202009_MA.pdf",
+      "https://tile.loc.gov/storage-services/service/ndnp/mdu/batch_mdu_indianhead_ver01/data/sn83016368/00415627609/1881021901/0388.pdf",
+      "https://data2.collectionscanada.gc.ca/080027/amicus-5564306_02.pdf",
+      "https://www.watersironworks.com/wp-content/uploads/2021/04/The_Blacksmith_Wheelwright-83_84.pdf",
+      "https://pieceworkmagazine.com/to-have-and-to-hold-mending-clothes-in-a-material-world/",
+      "https://www.watersironworks.com/wp-content/uploads/2021/04/The_Blacksmith_Wheelwright-79_80.pdf",
+      "https://bellevilleareaindependent.com/wp-content/uploads/1-28-16.pdf",
+      "https://dailylifehistory.com/professions/blacksmith",
+      "https://events.humanitix.com/connect-and-learn-tackling-textile-waste-mending-upcycling-and-repurposing-fabric",
+      "https://www.scribd.com/document/966343058/Geographies-of-Making-Craft-and-Creativity-Laura-Price-Harriet-Hawkins",
+      "https://hypixel.net/threads/what-should-i-grind-for.5568323/",
+      "https://www.scribd.com/document/975815585/TalkFile-%E1%84%89%E1%85%AE%E1%86%BC%E1%84%8B%E1%85%B41-%E1%84%86%E1%85%A1%E1%84%83%E1%85%A5%E1%84%90%E1%85%A5%E1%86%BC-16%E1%84%92%E1%85%AC-%E1%84%87%E1%85%A7%E1%86%AB%E1%84%92%E1%85%A7%E1%86%BC%E1%84%86%E1%85%AE%E1%86%AB%E1%84%8C%E1%85%A6-%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%BC%E1%84%8F%E1%85%A1-PDF",
+      "https://www.mountvernon.org/the-estate-gardens/location/blacksmith-shop",
+      "https://www.scribd.com/document/691962819/Technology-and-Expertise-in-Twentieth-Century-America-Studies-in-Industry-and-Society-PDFDrive",
+      "https://books.worksinprogress.co/book/maintenance-of-everything/communities-of-practice/least-village-has-its-blacksmith/3?mode=suggest",
+      "https://twonerdyhistorygirls.blogspot.com/2016/08/the-importance-of-mending-c1775.html"
     ]
   }
 ]

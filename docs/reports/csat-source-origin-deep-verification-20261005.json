@@ -684,6 +684,669 @@
     "db_stats_generation": "passed",
     "help_typecheck": "passed",
     "agent_config_checks": 10,
-    "goal_review": "pending"
-  }
+    "goal_review": "pending re-review after search-log coverage fix",
+    "artifact_coverage": "passed"
+  },
+  "priority_search_records": 37,
+  "priority_search_item_ids": [
+    "2022#31",
+    "2026#29",
+    "2026#33",
+    "2026#24",
+    "2026#31",
+    "2026#21",
+    "2026#38",
+    "2026#22",
+    "2022#35",
+    "2022#40",
+    "2026#41",
+    "2022#20",
+    "2022#24"
+  ],
+  "note_corrections": {
+    "reason": "PDF 이미지에서 세슘 주기 숫자가 사본 인쇄 자체의 차이임을 확인해 OCR 오류라는 메모를 정정",
+    "checkpoint_label": "csat-origin-deep-note-20261005",
+    "reviews": [
+      {
+        "passage_sha256": "6841010f372ca1b7fcfe6e8ba1ca0b29f516442bf0a5c04d1131f5f70a87c4b1",
+        "representative_item_id": "2017#41",
+        "item_ids": [
+          "2017#41"
+        ],
+        "body_sha256_by_item": {
+          "2017#41": "2c672893dc92810cd472037e1c4ce1fea06526c1c5ca85b9a10fd8abe9ac6e54"
+        },
+        "before": {
+          "status": "confirmed_exact",
+          "source_title": "A Geography of Time",
+          "source_authors": [
+            "Robert Levine"
+          ],
+          "source_publisher": "Oneworld Publications",
+          "source_year": 2006,
+          "source_part": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+          "evidence": [
+            {
+              "url": "https://rhuthmos.eu/IMG/pdf/robert_levine_a_geography_of_time.pdf",
+              "kind": "full_text_compared",
+              "label": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+              "body_sha256_by_item": {
+                "2017#41": "2c672893dc92810cd472037e1c4ce1fea06526c1c5ca85b9a10fd8abe9ac6e54"
+              }
+            },
+            {
+              "url": "https://books.google.com/books/about/A_Geography_of_Time.html?id=eVtzAAAACAAJ",
+              "kind": "bibliographic_metadata",
+              "label": "Author / publisher / edition cross-check"
+            }
+          ],
+          "note": "도서 판권(2006 Oneworld, 원저 1997)과 전체 지문을 대조했다. 예시 앞의 인물 언급, 시간 왜곡 설명·분수식·비율이 생략되거나 빈칸으로 바뀌었다. 세슘 주기 숫자의 사본 OCR 오류는 원문 수치를 검증한 것으로 쓰지 않았다.",
+          "audited_at": "2026-10-05",
+          "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+        },
+        "after": {
+          "status": "confirmed_exact",
+          "source_title": "A Geography of Time",
+          "source_authors": [
+            "Robert Levine"
+          ],
+          "source_publisher": "Oneworld Publications",
+          "source_year": 2006,
+          "source_part": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+          "evidence": [
+            {
+              "url": "https://rhuthmos.eu/IMG/pdf/robert_levine_a_geography_of_time.pdf",
+              "kind": "full_text_compared",
+              "label": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+              "body_sha256_by_item": {
+                "2017#41": "2c672893dc92810cd472037e1c4ce1fea06526c1c5ca85b9a10fd8abe9ac6e54"
+              }
+            },
+            {
+              "url": "https://books.google.com/books/about/A_Geography_of_Time.html?id=eVtzAAAACAAJ",
+              "kind": "bibliographic_metadata",
+              "label": "Author / publisher / edition cross-check"
+            }
+          ],
+          "note": "도서 판권(2006 Oneworld, 원저 1997)과 전체 지문을 대조했다. 예시 앞의 인물 언급, 시간 왜곡 설명·분수식·비율이 생략되거나 빈칸으로 바뀌었다. 추가 이미지 대조에서 열람 사본 자체의 인쇄 숫자 1,192,631,700과 시험의 9,192,631,770이 다름을 확인했다. 숫자 차이를 OCR 오류로 단정하지 않으며 시험 사용 판본은 미확정이다.",
+          "audited_at": "2026-10-05",
+          "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+        }
+      },
+      {
+        "passage_sha256": "c9817d24823f62c5955fa468f5afdb8e1f1bbb75f7a8f13cb8cd069cce2ed815",
+        "representative_item_id": "2017#42",
+        "item_ids": [
+          "2017#42"
+        ],
+        "body_sha256_by_item": {
+          "2017#42": "53c9c999e38afcd6feef2bf2afe1dc0955d5c786b93e7dc1aae4abb81cf12479"
+        },
+        "before": {
+          "status": "confirmed_exact",
+          "source_title": "A Geography of Time",
+          "source_authors": [
+            "Robert Levine"
+          ],
+          "source_publisher": "Oneworld Publications",
+          "source_year": 2006,
+          "source_part": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+          "evidence": [
+            {
+              "url": "https://rhuthmos.eu/IMG/pdf/robert_levine_a_geography_of_time.pdf",
+              "kind": "full_text_compared",
+              "label": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+              "body_sha256_by_item": {
+                "2017#42": "53c9c999e38afcd6feef2bf2afe1dc0955d5c786b93e7dc1aae4abb81cf12479"
+              }
+            },
+            {
+              "url": "https://books.google.com/books/about/A_Geography_of_Time.html?id=eVtzAAAACAAJ",
+              "kind": "bibliographic_metadata",
+              "label": "Author / publisher / edition cross-check"
+            }
+          ],
+          "note": "41번과 같은 본문이나 기존 등록부에는 별도 canonical 행이다. 이 행의 현재 본문 및 연결 문항 SHA도 별도로 대조했다. 뒤의 A/B 선택지 꼬리는 원문 대조에서 제외했다. 열람 사본은 2006 Oneworld 재판이다.",
+          "audited_at": "2026-10-05",
+          "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+        },
+        "after": {
+          "status": "confirmed_exact",
+          "source_title": "A Geography of Time",
+          "source_authors": [
+            "Robert Levine"
+          ],
+          "source_publisher": "Oneworld Publications",
+          "source_year": 2006,
+          "source_part": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+          "evidence": [
+            {
+              "url": "https://rhuthmos.eu/IMG/pdf/robert_levine_a_geography_of_time.pdf",
+              "kind": "full_text_compared",
+              "label": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+              "body_sha256_by_item": {
+                "2017#42": "53c9c999e38afcd6feef2bf2afe1dc0955d5c786b93e7dc1aae4abb81cf12479"
+              }
+            },
+            {
+              "url": "https://books.google.com/books/about/A_Geography_of_Time.html?id=eVtzAAAACAAJ",
+              "kind": "bibliographic_metadata",
+              "label": "Author / publisher / edition cross-check"
+            }
+          ],
+          "note": "41번과 같은 본문이나 기존 등록부에는 별도 canonical 행이다. 이 행의 현재 본문 및 연결 문항 SHA도 별도로 대조했다. 뒤의 A/B 선택지 꼬리는 원문 대조에서 제외했다. 열람 사본은 2006 Oneworld 재판이다. 추가 이미지 대조에서 인쇄 숫자 1,192,631,700과 시험의 9,192,631,770이 다름을 확인했으며 시험 사용 판본은 미확정이다.",
+          "audited_at": "2026-10-05",
+          "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+        }
+      }
+    ]
+  },
+  "review_findings": [
+    {
+      "severity": "P2",
+      "finding": "우선 대상 2022#20/#24의 검색 기록 미연결",
+      "fix": "초기 4개와 추가 2개 질의를 포함해 37개를 13개 문항 ID·현재 본문 SHA에 연결하고 판정 기록 검색 질의를 채움"
+    }
+  ],
+  "preview_after_final": [
+    {
+      "item_id": "2014B#35",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2014B#37",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2014B#41",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2015#31",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2015#39",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2020#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2020#24",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2020#31",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2021#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2021#33",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2023#34",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2023#39",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#24",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#26",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2017#41",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2017#42",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2015#21",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2018#34",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2022#40",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2023#23",
+      "state": "already_applied"
+    }
+  ],
+  "grades_after": [
+    {
+      "status": "confirmed_exact",
+      "grade": "A",
+      "registry_rows": 20
+    }
+  ],
+  "note_correction_preview_after": [
+    {
+      "item_id": "2017#41",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2017#42",
+      "state": "already_applied"
+    }
+  ],
+  "note_correction_checkpoint_diff": [
+    {
+      "axis": "capacity",
+      "metric": "bloat_sampled_pct",
+      "subject": "library_chapter_quiz",
+      "before_value": "2.20",
+      "after_value": null,
+      "delta": null,
+      "pct": null,
+      "status": "disappeared"
+    },
+    {
+      "axis": "capacity",
+      "metric": "bloat_sampled_pct",
+      "subject": "pd_comic_panels",
+      "before_value": null,
+      "after_value": "1.32",
+      "delta": null,
+      "pct": null,
+      "status": "appeared"
+    },
+    {
+      "axis": "advisor",
+      "metric": "rls_missing_tables",
+      "subject": null,
+      "before_value": "53",
+      "after_value": "53",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "advisor",
+      "metric": "exposed_secdef_funcs",
+      "subject": null,
+      "before_value": "180",
+      "after_value": "180",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "advisor",
+      "metric": "mutable_search_path_funcs",
+      "subject": null,
+      "before_value": "0",
+      "after_value": "0",
+      "delta": "0",
+      "pct": null,
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "db_size_mb",
+      "subject": null,
+      "before_value": "6314.9",
+      "after_value": "6314.9",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_dcp_items",
+      "before_value": "1578.5",
+      "after_value": "1578.5",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "library_articles",
+      "before_value": "1309.3",
+      "after_value": "1309.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "library_book_vocabularies",
+      "before_value": "1173.3",
+      "after_value": "1173.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "shared_words",
+      "before_value": "649.4",
+      "after_value": "649.4",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_source_eligibility_history",
+      "before_value": "267.8",
+      "after_value": "267.8",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "library_article_vocabularies",
+      "before_value": "257.2",
+      "after_value": "257.2",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "shared_dictionary",
+      "before_value": "238.4",
+      "after_value": "238.4",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_source_eligibility",
+      "before_value": "228.3",
+      "after_value": "228.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "content_chunks",
+      "before_value": "132.1",
+      "after_value": "132.1",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "lexicon_clean",
+      "before_value": "86.9",
+      "after_value": "86.9",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "topic_corpus_queue",
+      "before_value": "51.9",
+      "after_value": "51.9",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "spelling_norm",
+      "before_value": "35.6",
+      "after_value": "35.6",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_item_analyses",
+      "before_value": "32.3",
+      "after_value": "32.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "topic_word_stats",
+      "before_value": "19.4",
+      "after_value": "19.4",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "advisor",
+      "metric": "anon_exposed_tables",
+      "subject": null,
+      "before_value": "143",
+      "after_value": "143",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "dictionary_word_categories",
+      "before_value": "15.9",
+      "after_value": "15.9",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_independent_reviews",
+      "before_value": "12.8",
+      "after_value": "12.8",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "archaic_candidates",
+      "before_value": "12.5",
+      "after_value": "12.5",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "shared_word_sets",
+      "before_value": "12.0",
+      "after_value": "12.0",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_items",
+      "before_value": "11.3",
+      "after_value": "11.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_analysis_reviews",
+      "before_value": "9.6",
+      "after_value": "9.6",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_review_runs",
+      "before_value": "9.5",
+      "after_value": "9.5",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "pending_words",
+      "before_value": "8.0",
+      "after_value": "8.0",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "funnel_events",
+      "before_value": "7.8",
+      "after_value": "7.8",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_item_units",
+      "before_value": "5.8",
+      "after_value": "5.8",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "stats_stale_tables",
+      "subject": null,
+      "before_value": "0",
+      "after_value": "0",
+      "delta": "0",
+      "pct": null,
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "unused_index_mb",
+      "subject": null,
+      "before_value": "170.7",
+      "after_value": "170.7",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "stats_counter_age_min",
+      "subject": null,
+      "before_value": "2652",
+      "after_value": "2652",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "connections",
+      "metric": "conn_used_pct",
+      "subject": null,
+      "before_value": "46.7",
+      "after_value": "46.7",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "cron",
+      "metric": "cron_fail_24h",
+      "subject": null,
+      "before_value": "0",
+      "after_value": "0",
+      "delta": "0",
+      "pct": null,
+      "status": "same"
+    },
+    {
+      "axis": "cron",
+      "metric": "cron_stale_max_hours",
+      "subject": null,
+      "before_value": "32.45",
+      "after_value": "32.45",
+      "delta": "0.00",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "latency",
+      "metric": "slow_stmt_count",
+      "subject": null,
+      "before_value": "13",
+      "after_value": "13",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "library_chapters_master",
+      "before_value": "16.4",
+      "after_value": "16.4",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "advisor",
+      "metric": "anon_exposed_without_rls",
+      "subject": null,
+      "before_value": "0",
+      "after_value": "0",
+      "delta": "0",
+      "pct": null,
+      "status": "same"
+    }
+  ]
 }
