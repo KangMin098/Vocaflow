@@ -1,5 +1,9 @@
 # Library Pipeline
 
+2026-10-05 연합 검색: 현재 미확인 592행 전량을 Europe PMC에서 검색하고, 반환 후보가 있는 175행은 실제 시험 연월 이전 범위로 재검색했다. OA 본문 633개·문단 블록 33,297개를 로컬 역색인/편집 정렬로 592행에 대조했으나 이번 추가 A/B 등록은 0개다. Semantic Scholar snippet/Google Books API는 실제 429 후 미실행을 구분했다. snippet은 특수 exact/proximity 문법이 아닌 일반 텍스트 검색이다. [실행 범위·한계·재실행](./reports/csat-source-origin-priority-20261005.md#첨부-제안-적용-연합-검색-실험--추가-등록-0개).
+
+`source-origin-search.mjs <fresh-rows.json> <attempts.jsonl>`은 provider별 후보 로그만 기록한다. `--oa <oa-attempts.jsonl> <directory>`는 공개 OA PMCID 본문을 문단과 참고문헌 연결로 분리하고, `--local <fresh-rows.json> <documents.json> <ranking.json>`은 순위만 만든다. 질의·지문/연결 본문 해시가 같은 성공 로그만 건너뛰며 장애·미실행은 다음 실행에서 재시도한다. 새 로그 경로는 전량 재검색이다. 순위·인용 marker·후기 판본을 원작 확정으로 바꾸지 않는다. A/B 등록은 기존 검수·본문 SHA/CAS 경로를 사용한다.
+
 2026-10-05 권장순 후속 실행: 신규 원천 8등록행·9문항(A 3·B 5), 기존 B 1행 A 승격. 수능 A+B 106/338, 전체 120/713을 DB 재질의했다. 기존 미확인 600행에 2,397개 질의를 준비하고 수능 239행의 질의 239개 및 악센트 문자 보존 수정 후 3개 재검색을 실제 실행했다(242회·239개 대상). 모의평가 361행은 질의 준비만 했다. [확인 범위·보류·검증](./reports/csat-source-origin-priority-20261005.md), [검수 manifest](./reports/csat-source-origin-priority-review-20261005.json).
 
 `scripts/csat/source-origin-search.mjs`의 `alternativeQueries`는 문장·시험 블록 내부의 희소 네 단어 구절과 두 구절 조합을 생성한다. 질의 생성·실행·원천 판정은 각각 기록한다. 큐는 적용 전 스냅샷이므로 재실행 전에 DB 상태·연결 본문 SHA를 다시 읽어 등록된 A/B 행을 건너뛴다. 공개 미리보기의 색인·목차는 본문 확인이 아니며, 책 내부 검색 접근 오류도 결과 0건이 아니다. 스캔 PDF는 페이지 이미지로 확인한다. 도표는 데이터 원천을 유추한 범위와 설명문 발췌 원천의 미확인을 구분한다.
