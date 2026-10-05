@@ -39,8 +39,9 @@ export default async function DcpPracticePage({
   const backCta = backLabel ? backLabel + '로 돌아가기' : '돌아가기'
 
   return (
-    <Screen width="compact" background="bg2" padX="md">
-      <div className="flex flex-col gap-4 py-6 md:py-8">
+    <Screen width="content" background="bg2" padX="md">
+      {/* PC(lg↑) 두 열 — 왼쪽 머리(위에 붙어 따라온다) · 오른쪽 문항(읽기 폭). 모바일 한 줄은 그대로. */}
+      <div className="mx-auto flex max-w-[580px] flex-col gap-4 py-6 md:py-8 lg:grid lg:max-w-none lg:grid-cols-[300px_minmax(0,720px)] lg:items-start lg:justify-center lg:gap-x-14">
         {/* 모바일 머리 — 디자인 범위(PC 전용) 밖이라 그대로 둔다. PC 는 아래 공용 기능형 머리. */}
         <header className="flex flex-col gap-1 md:hidden">
           <Link
@@ -57,7 +58,7 @@ export default async function DcpPracticePage({
           </p>
         </header>
         <PageIntro
-          className="hidden md:flex"
+          className="hidden md:flex lg:sticky lg:top-[calc(var(--app-header-h,64px)+64px)] lg:flex-col lg:items-start lg:border-b-0"
           lead={
             <Link
               href={backHref}
@@ -72,6 +73,7 @@ export default async function DcpPracticePage({
           description="문장의 순서와 위치로 글의 논리 구조를 훈련해요."
         />
 
+        <div className="flex min-w-0 flex-col gap-4">
         {active && items.length > 0 ? (
           <DcpPlayer items={items} backHref={backHref} backCta={backCta} />
         ) : (
@@ -97,6 +99,7 @@ export default async function DcpPracticePage({
             </Link>
           </section>
         )}
+        </div>
       </div>
     </Screen>
   )

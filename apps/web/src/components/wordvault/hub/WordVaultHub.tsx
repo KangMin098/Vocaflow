@@ -75,7 +75,12 @@ export function WordVaultHub({ data, facets, state }: WordVaultHubProps) {
   }
 
   return (
-    <div className="mx-auto flex max-w-[820px] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
+    // PC(lg↑) 본문 구성(2026-10-05) — 820px 한 줄은 1440 에서 가운데 섬이었다. 넓히기만 하면 카드가 늘어지므로
+    // 성격대로 두 열로 나눈다: 왼쪽 「지금 상태」(자산 · 수준 지도 · 면) / 오른쪽 「다음 할 일」(학습 자산 · 권장 도서 · 단어장),
+    // 아래 28일 흐름은 전체 폭. 묶음 순서가 원래 DOM 순서와 같아 모바일 한 줄 순서 · 간격은 그대로다.
+    <div className="mx-auto flex max-w-[820px] flex-col gap-4 px-4 py-6 md:px-6 md:py-8 lg:max-w-[var(--ios-content-wide-max)]">
+      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-start lg:gap-6">
+      <div className="flex min-w-0 flex-col gap-4">
       {/* Section 1 — Identity Hero: 자산 + V-Level + 4 bucket + 주간 목표 + 단일 CTA */}
       <VaultIdentity
         total={data.total}
@@ -94,6 +99,9 @@ export function WordVaultHub({ data, facets, state }: WordVaultHubProps) {
           레벨 맵이 "어디까지 왔나" 라면 이쪽은 "어느 쪽으로 아는가" 다.
           준비 전/실패 시에는 렌더하지 않는다 — 빈 카드가 자리만 차지하는 것보다 낫다. */}
       {facets && facets.total > 0 && <FacetProgressSection summary={facets} />}
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-4">
 
       {/* Section 4 — Resource Portfolio: 도서 / 스크립트 / 공용 단어장 학습 이력 */}
       <ResourcePortfolio
@@ -111,6 +119,8 @@ export function WordVaultHub({ data, facets, state }: WordVaultHubProps) {
         status={data.recommendedSetsStatus}
         vLevel={data.currentVLevel}
       />
+      </div>
+      </div>
 
       {/* Section 7 — Flow: 28일 sparkline + 마지막 활동 */}
       <FlowStripe days={data.flow.days} lastActivity={data.flow.lastActivity} />
