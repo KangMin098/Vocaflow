@@ -39,3 +39,22 @@
 4. **사람 전문가 검증** — 이 경계만 좁혀서(약 20건) 사람 판정자 2명이 갈리는지 확인. 모델 둘이 같은 지점에서 갈린 것이 모델 편향인지 경계 자체의 모호함인지 가른다.
 
 권장: **2 + 4** — seed 는 R6 경계를 provisional 로 명시해 진행하고, 그 경계만 사람 전문가 검증을 병행한다. 이 경계는 처방이 다른 두 원인(어휘 확인 vs 함축 · 비유 구성)이라 seed 에서 빼면 Pilot 에서 임의로 한쪽에 몰리기 쉽다.
+
+## 제품 결정 (2026-10-05 · 사전 등록 결과와 분리)
+
+> **사전 등록 결과는 바꾸지 않는다: 「rev4 did not pass the preregistered v0.1 seed gate」.** R6 를 통과한 것처럼 소급 수정하지 않는다.
+
+사용자 결정: **2 + 3** — R6 의 `V.wrong_sense ↔ R.inference` 경계를 `provisional_boundary` 로 표시해 seed 에 포함하고, Pilot 에서도 provisional 을 유지한다. 사람 전문가 검증(4)은 지금 필수 게이트가 아니다.
+
+| 항목 | 결정 |
+|---|---|
+| 이름 | `v0.1 conditional seed candidate` — validated · verified taxonomy 표현 금지 |
+| 상태 | §6/R9 accepted · R12 accepted · R6 의 V.wrong_sense ↔ R.inference **경계** provisional(두 코드 자체는 accepted, retire 없음) |
+| 자동 확정 | 그 경계에서 증거가 「직접 선택 vs 도출」 을 가르지 못하면 다수결 · 모델 합의 · 단계 우선만으로 primary 를 만들지 않는다 → multiple_plausible 또는 insufficient_evidence |
+| 해결 경로 | 코드북 문구가 아니라 **증거 수집** — Pilot 에서 해석 입력 + R6 targeted probe |
+| R6 rev4.4 | 금지 — 다음 R6 변경은 Pilot 증거 결과로만 |
+| 사람 검증 | Pilot 의 개선된 증거에서도 반복해 갈리면 · Claude/Codex 체계적 불일치 · 처방 차이로 높은 확인이 필요할 때 좁게 설계 |
+
+이 실패의 의미: 여러 차례 blind test 가 **현재 학생 증거 형식으로는 V 와 R 을 구별할 수 없는 특정 경계**를 찾아냈다 — taxonomy 실패라기보다 증거 수집의 요구사항이다.
+
+설계: [PILOT_SEED_DESIGN.md](./PILOT_SEED_DESIGN.md) · 구성안 [data/seed-v0.1-conditional.json](./data/seed-v0.1-conditional.json). DB seed 적용 · 마이그레이션 · Pilot 실행은 별도 승인.

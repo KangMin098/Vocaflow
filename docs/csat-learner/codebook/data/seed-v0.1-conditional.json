@@ -1,0 +1,33 @@
+{
+ "_note": "v0.1 conditional seed candidate 구성안(설계 — DB 적용 아님). 사전 등록 결과는 FAIL 그대로이며 이것은 별도 제품 결정이다(SEED_DECISION.md). validated · verified taxonomy 라고 부르지 않는다.",
+ "name": "v0.1 conditional seed candidate",
+ "preregistered_result": "rev4 did not pass the preregistered v0.1 seed gate",
+ "product_decision": "2026-10-05 사용자 결정 — 2(R6 경계 provisional 로 seed 포함) + 3(Pilot 에서도 provisional 유지)",
+ "codebook_basis": {
+  "file": "CODEBOOK.rev4.2.md",
+  "sha256_12": "c7001aff97b0",
+  "why": "§6/R9(rev4) · R12 + R12 ② 고정 표현 판별(rev4.1) 채택분을 담고, R6 은 rev4 문구 그대로인 판. rev4.3 의 R6 의미 도달 경로 문구는 채택되지 않았다 — provisional 경계의 참고 자료로만 남긴다(CODEBOOK.rev4.3.md)."
+ },
+ "codes": {
+  "status_default": "accepted",
+  "note": "19개 코드 모두 accepted — V.wrong_sense · R.inference 도 코드 자체는 accepted(다른 경계에서는 holdout · regression 통과). provisional 은 아래 경계에만 붙는다.",
+  "retired": []
+ },
+ "rules": {
+  "accepted": ["§6/R9 (V vs S → R9)", "R12 (+ ② 고정 표현 판별)"],
+  "provisional": ["R6 (V.wrong_sense ↔ R.inference — 아래 경계)"]
+ },
+ "boundaries": [
+  {
+   "id": "V.wrong_sense|R.inference",
+   "codes": ["V.wrong_sense", "R.inference"],
+   "status": "provisional_boundary",
+   "pattern": "학생이 어떤 낱말의 뜻을 언급하면서 동시에 그 뜻에서 문맥 · 비유적 해석을 도출하는 형태의 설명(「X 가 Y 라는 뜻이니까 …」) — 이 증거로는 「사전 뜻을 직접 골랐다」 와 「기본 뜻에서 비유를 도출했다」 가 구별되지 않는다(rev4.3 HA · R4-H1 adjudication 이 같은 지점에서 반대로 갈림)",
+   "auto_confirm": false,
+   "on_undistinguished": "multiple_plausible(두 후보가 각각 최소 증거) 또는 insufficient_evidence(아니면) — 다수결 · 모델 합의 · 단계 우선(R3)만으로 primary 를 만들지 않는다",
+   "probe": "R6_derivation_probe",
+   "evidence": ["REV43_EVAL.md", "ADJUDICATION_REV43.md", "ADJUDICATION_REV42_C411.md", "REV42_EVAL.md", "REV41_EVAL.md", "REV4_EVAL.md"]
+  }
+ ],
+ "not_allowed_until_pilot": ["R6 rev4.4(같은 증거 형식에서 문구만 고치는 개정)", "provisional 경계 사례의 verified diagnosis", "taxonomy seed DB 적용(별도 승인)"]
+}
