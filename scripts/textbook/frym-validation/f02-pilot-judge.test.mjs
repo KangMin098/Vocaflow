@@ -8,6 +8,7 @@ test('synthetic target fit and common-grade separation pass remain calibration o
   const result = judgeF02Pilot(fixture(), freeze, proposed, now)
   assert.deepEqual(result.target_fit, { middle_1: 'PASS', high_1: 'PASS' })
   assert.equal(result.level_separation, 'PASS')
+  assert.equal(result.educationally_validated, false)
   assert.equal(result.gold, false)
   assert.equal(result.db_seed, false)
 })
@@ -64,13 +65,13 @@ test('empty lead and unapproved operations cannot seal the result', () => {
   missingOperations.registration.manifest_sha256 = pilotManifestHash(missingOperations)
   assert.equal(judgeF02Pilot(missingOperations, freeze, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
 })
-test('separation reads the predeclared numeric threshold', () => {
+test('post-registration threshold change invalidates the preregistration hash', () => {
   const stricter = structuredClone(proposed)
   stricter.level_separation.minimum_reasoning_burden_gap = 1.5
   const study = fixture()
   study.protocol.level_separation.minimum_reasoning_burden_gap = 1.5
   study.registration.manifest_sha256 = pilotManifestHash(study)
-  assert.equal(judgeF02Pilot(study, freeze, stricter, now).level_separation, 'FAIL')
+  assert.deepEqual(judgeF02Pilot(study, freeze, stricter, now).reasons, ['preregistration_hash_changed'])
 })
 test('inclusive accuracy band accepts a repeated decimal mean at its lower bound', () => {
   const study = fixture()
@@ -97,8 +98,53 @@ test('a changed instrument or different pair freeze cannot reuse F02 observation
   changedDraft.variants[0].draft_hash = 'c'.repeat(64)
   assert.equal(judgeF02Pilot(fixture(), changedDraft, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
 })
+test('item and scoring-key hashes are independent of the frozen passage', () => {
+  const study = fixture()
+  study.scoring_key_hash = 'd'.repeat(64)
+  study.registration.manifest_sha256 = pilotManifestHash(study)
+  assert.deepEqual(judgeF02Pilot(study, freeze, proposed, now).reasons, ['preregistration_hash_changed'])
+  const changedItems = fixture()
+  changedItems.item_set_hash = 'e'.repeat(64)
+  changedItems.registration.manifest_sha256 = pilotManifestHash(changedItems)
+  assert.deepEqual(judgeF02Pilot(changedItems, freeze, proposed, now).reasons, ['preregistration_hash_changed'])
+})
 test('burden ratings must be integer values on the sealed five-point scale', () => {
   const study = fixture()
   study.sessions.find(s => s.arm === 'middle_anchor').reasoning_burden = 2.5
   assert.deepEqual(judgeF02Pilot(study, freeze, proposed, now).reasons, ['session_invalid_or_unassigned'])
+})
+test('comprehension is a hard gate while a modest time overrun remains supporting', () => {
+  const slow = fixture()
+  for (const s of slow.sessions.filter(s => s.arm === 'middle_target')) {
+    s.reading_finished_at = new Date(Date.parse(s.reading_started_at) + 390_000).toISOString()
+    s.reading_seconds = 390
+  }
+  const slowResult = judgeF02Pilot(slow, freeze, proposed, now)
+  assert.equal(slowResult.target_fit.middle_1, 'PASS')
+  assert.deepEqual(slowResult.target_deviations.middle_1, [{ metric: 'reading_seconds', role: 'supporting' }])
+  const weak = fixture()
+  for (const s of weak.sessions.filter(s => s.arm === 'middle_target')) s.comprehension_accuracy = 0.5
+  const weakResult = judgeF02Pilot(weak, freeze, proposed, now)
+  assert.equal(weakResult.target_fit.middle_1, 'FAIL')
+  assert.equal(weakResult.educationally_validated, false)
+})
+test('a lexical-only separation signal cannot pass without sentence burden', () => {
+  const study = fixture()
+  for (const s of study.sessions.filter(s => s.arm === 'high_target')) s.sentence_burden = 2
+  const result = judgeF02Pilot(study, freeze, proposed, now)
+  assert.equal(result.level_separation, 'FAIL')
+  assert.ok(result.outcome_statuses.includes('separation_fail'))
+})
+test('prior exposure, second-version carryover, short reading and long gap are excluded with reasons', () => {
+  const study = fixture()
+  const rows = study.sessions.filter(s => s.arm === 'middle_target')
+  rows[0].prior_exposure = true
+  rows[1].second_version_exposure = true
+  rows[2].reading_finished_at = new Date(Date.parse(rows[2].reading_started_at) + 20_000).toISOString()
+  rows[2].reading_seconds = 20
+  rows[3].uninterrupted_gap_seconds = 301
+  const result = judgeF02Pilot(study, freeze, proposed, now)
+  assert.equal(result.target_fit.middle_1, 'INSUFFICIENT_EVIDENCE')
+  assert.deepEqual(result.exclusion_reasons.middle_target, { prior_exposure: 1, carryover: 1, short_reading: 1, long_gap: 1 })
+  assert.ok(result.outcome_statuses.includes('inconclusive_sample'))
 })
