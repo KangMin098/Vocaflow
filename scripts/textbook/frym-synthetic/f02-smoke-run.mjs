@@ -1,9 +1,9 @@
 // scripts/textbook/frym-synthetic/f02-smoke-run.mjs
-import { createHash } from 'node:crypto'
 import { spawn } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { analyzeF02Synthetic, buildF02Synthetic } from './f02-synthetic.mjs'
+import { SCORER_INSTRUCTION, SCORER_MODEL, STUDENT_COMMAND, STUDENT_INSTRUCTION, STUDENT_MODEL, STUDENT_SYSTEM, scorerCall, smokeHash as sha, studentCall } from './f02-smoke-identity.mjs'
 
 const [outputDir, limitInput] = process.argv.slice(2)
 if (!outputDir || process.platform !== 'win32') throw Error('Usage on Windows: node f02-smoke-run.mjs <exported-packet-dir> [limit 1..28]')
@@ -16,16 +16,10 @@ const studentCwd = join(root, 'student-isolated')
 const scorerCwd = join(root, 'scorer-isolated')
 mkdirSync(studentCwd, { recursive: true })
 mkdirSync(scorerCwd, { recursive: true })
-const studentSystem = 'Use only the current user message. Do not use tools, files, prior conversation, or external context. Return strict JSON without code fences.'
-const studentInstruction = 'Use only this packet. Respond as the constrained reader described by the profile. Do not use external knowledge, tools or files. Answer all questions in order. Return only valid JSON object {"answers":[{"id":"...","answer":"..."}]}. '
-const scorerInstruction = 'You are an independent blind scorer. Score each response using the supplied rubric, 0, 0.5, or 1. Return only valid JSON object {"scores":[{"id":"...","score":0.5}]} in question order. Do not use tools. '
-const studentCommand = `claude.cmd -p --model haiku --effort low --restricted --strict-mcp-config --system-prompt "${studentSystem}" --output-format json --no-session-persistence`
-const expectedStudentModel = 'claude-haiku-4-5-20251001'
-const sha = text => createHash('sha256').update(text).digest('hex')
 const stripFence = value => value.trim().replace(/^\x60\x60\x60(?:json)?\s*/i, '').replace(/\s*\x60\x60\x60$/, '').trim()
 const parseResult = value => JSON.parse(stripFence(value))
-const run = (command, args, cwd, input) => new Promise((resolve, reject) => {
-  const child = spawn(command, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'] })
+const run = (command, args, cwd, input, options = {}) => new Promise((resolve, reject) => {
+  const child = spawn(command, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'], ...options })
   let stdout = '', stderr = ''
   const timer = setTimeout(() => child.kill(), 120000)
   child.stdout.setEncoding('utf8').on('data', chunk => stdout += chunk)
@@ -46,42 +40,37 @@ writeFileSync(join(root, 'run-summary.json'), JSON.stringify({ status: 'running'
 for (const packet of packets) {
   const rawPath = join(root, `claude-${packet.packet_id}.json`)
   const scorePath = join(root, `codex-${packet.packet_id}.json`)
-  const studentPayload = { profile: packet.body.profile, passage: packet.body.passage, questions: packet.body.questions }
-  const studentPrompt = studentInstruction + JSON.stringify(studentPayload)
-  const studentInvocationSha256 = sha(JSON.stringify({ command: studentCommand, prompt: studentPrompt, expected_model: expectedStudentModel }))
+  const student = studentCall(packet)
   try {
     if (JSON.stringify(JSON.parse(readFileSync(join(root, `${packet.packet_id}.json`), 'utf8'))) !== JSON.stringify({ packet_id: packet.packet_id, ...packet.body })) throw Error(`Blind packet ${packet.packet_id} changed`)
     let outer
     if (existsSync(rawPath)) outer = JSON.parse(readFileSync(rawPath, 'utf8'))
     else {
-      const result = await run('cmd.exe', ['/d', '/s', '/c', studentCommand], studentCwd, studentPrompt)
-      outer = { ...JSON.parse(result.stdout), prompt_sha256: sha(studentPrompt), invocation_sha256: studentInvocationSha256 }
+      const result = await run('cmd.exe', ['/d', '/s', '/c', STUDENT_COMMAND], studentCwd, student.prompt, { windowsVerbatimArguments: true })
+      outer = { ...JSON.parse(result.stdout), prompt_sha256: student.prompt_sha256, invocation_sha256: student.invocation_sha256 }
       writeFileSync(rawPath, JSON.stringify(outer, null, 2))
     }
-    if (outer.prompt_sha256 !== sha(studentPrompt) || outer.invocation_sha256 !== studentInvocationSha256) throw Error('Student invocation changed after response')
+    if (outer.prompt_sha256 !== student.prompt_sha256 || outer.invocation_sha256 !== student.invocation_sha256) throw Error('Student invocation changed after response')
     const answer = parseResult(outer.result)
     const ids = packet.body.questions.map(question => question.id)
     if (!Array.isArray(answer.answers) || answer.answers.length !== ids.length || ids.some((id, i) => answer.answers[i]?.id !== id || typeof answer.answers[i]?.answer !== 'string' || !answer.answers[i].answer.trim())) throw Error('Claude answers invalid')
     const model = Object.keys(outer.modelUsage ?? {})[0]
-    if (model !== expectedStudentModel) throw Error('Claude model provenance changed')
-    const gradeKey = built.scoringKey[packet.passage_variant]
-    const scorerPayload = { passage: packet.body.passage, questions: packet.body.questions, answers: answer.answers, rubrics: gradeKey, general_rule: built.scoringKey.general_rule }
-    const scorerPrompt = scorerInstruction + JSON.stringify(scorerPayload)
+    if (model !== STUDENT_MODEL) throw Error('Claude model provenance changed')
+    const scorer = scorerCall(packet, answer.answers, built.scoringKey)
     const scorerPromptHashPath = join(root, `codex-prompt-hash-${packet.packet_id}.txt`)
-    const scorerArgs = ['exec', '-s', 'read-only', '--skip-git-repo-check', '-m', 'gpt-6.1-sol', '-o', scorePath, '-']
-    const scorerInvocationSha256 = sha(JSON.stringify({ command: 'codex', model: 'gpt-6.1-sol', sandbox: 'read-only', skip_git_repo_check: true, prompt: scorerPrompt }))
+    const scorerArgs = ['exec', '-s', 'read-only', '--skip-git-repo-check', '-m', SCORER_MODEL, '-o', scorePath, '-']
     let scores
     if (existsSync(scorePath)) {
-      if (!existsSync(scorerPromptHashPath) || readFileSync(scorerPromptHashPath, 'utf8') !== scorerInvocationSha256) throw Error('Scorer invocation changed after scoring')
+      if (!existsSync(scorerPromptHashPath) || readFileSync(scorerPromptHashPath, 'utf8') !== scorer.invocation_sha256) throw Error('Scorer invocation changed after scoring')
       scores = parseResult(readFileSync(scorePath, 'utf8'))
     }
     else {
-      await run('codex', scorerArgs, scorerCwd, scorerPrompt)
+      await run('codex', scorerArgs, scorerCwd, scorer.prompt)
       scores = parseResult(readFileSync(scorePath, 'utf8'))
-      writeFileSync(scorerPromptHashPath, scorerInvocationSha256)
+      writeFileSync(scorerPromptHashPath, scorer.invocation_sha256)
     }
     if (!Array.isArray(scores.scores) || scores.scores.length !== ids.length || ids.some((id, i) => scores.scores[i]?.id !== id || ![0, 0.5, 1].includes(scores.scores[i]?.score))) throw Error('Codex scores invalid')
-    rows.push({ packet_id: packet.packet_id, model, model_family: 'anthropic', scorer_model: 'gpt-6.1-sol', scorer_family: 'openai', replica_id: 'r1', scoring_key_hash: built.seal.scoring_key_hash, student_prompt_sha256: sha(studentPrompt), scorer_prompt_sha256: sha(scorerPrompt), student_invocation_sha256: studentInvocationSha256, scorer_invocation_sha256: scorerInvocationSha256, respondent_raw_sha256: sha(readFileSync(rawPath)), scorer_raw_sha256: sha(readFileSync(scorePath)), answers: answer.answers, scores: scores.scores })
+    rows.push({ packet_id: packet.packet_id, model, model_family: 'anthropic', scorer_model: SCORER_MODEL, scorer_family: 'openai', replica_id: 'r1', scoring_key_hash: built.seal.scoring_key_hash, student_prompt_sha256: student.prompt_sha256, scorer_prompt_sha256: scorer.prompt_sha256, student_invocation_sha256: student.invocation_sha256, scorer_invocation_sha256: scorer.invocation_sha256, respondent_raw_sha256: sha(readFileSync(rawPath)), scorer_raw_sha256: sha(readFileSync(scorePath)), answers: answer.answers, scores: scores.scores })
     writeFileSync(join(root, 'responses.json'), JSON.stringify(rows, null, 2))
     process.stdout.write(`OK ${rows.length}/${packets.length} ${packet.profile_id} ${packet.passage_variant} total=${scores.scores.reduce((sum, item) => sum + item.score, 0)}\n`)
   } catch (error) {
@@ -90,5 +79,5 @@ for (const packet of packets) {
   }
 }
 const analysis = analyzeF02Synthetic(rows, built)
-writeFileSync(join(root, 'run-summary.json'), JSON.stringify({ status: 'completed', seal_sha256: built.seal.seal_sha256, planned_packets: packets.length, valid_rows: rows.length, errors, student_system_sha256: sha(studentSystem), student_instruction_sha256: sha(studentInstruction), student_command_sha256: sha(studentCommand), scorer_instruction_sha256: sha(scorerInstruction), analysis_status: analysis.status }, null, 2))
+writeFileSync(join(root, 'run-summary.json'), JSON.stringify({ status: 'completed', execution_profile: 'windows_verbatim_v2', seal_sha256: built.seal.seal_sha256, planned_packets: packets.length, valid_rows: rows.length, errors, student_system_sha256: sha(STUDENT_SYSTEM), student_instruction_sha256: sha(STUDENT_INSTRUCTION), student_command_sha256: sha(STUDENT_COMMAND), scorer_instruction_sha256: sha(SCORER_INSTRUCTION), analysis_status: analysis.status }, null, 2))
 if (errors.length) process.exitCode = 1

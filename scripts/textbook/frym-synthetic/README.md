@@ -1,5 +1,7 @@
 # F02 Synthetic Classroom Smoke v1
 
+**v1 evidence limitation:** The recorded 28-response run used a Windows `cmd.exe` invocation that may have split the intended `--system-prompt` argument. Its hashes describe the intended call, not verified argv delivery. The outputs remain diagnostic only. The runner now uses `windowsVerbatimArguments: true` and a different invocation identity, so old cached Claude responses cannot be reused. A fresh v2 one-packet end-to-end run passed; 28-packet v2 evidence remains outstanding. `verify-evidence` checks model names and recomputes both prompt and invocation hashes against the frozen packet and scoring key.
+
 `node scripts/textbook/frym-synthetic/f02-synthetic.mjs export <출력 폴더>`는 F02의 고정 본문·문항·채점키와 [프로필 규칙](./f02-protocol.v1.json)을 해시로 결속한 `seal.json`, 그리고 14개 프로필(학년 2 × 능력 7) × 본문 2 = 28개 blind 패킷을 만든다. 재실행은 같은 입력에서 같은 패킷 ID를 만든다. 출력 폴더의 학생 역할 패킷에는 지문·질문·epistemic state만 있고 정답, 채점기준, 원문 분석, 출처 인용, 목표 지문 학년, 기존 검수 결과는 없다. 출력 폴더는 등록·응답 데이터로 간주하지 않는다.
 
 응답은 별도 JSON 배열로 수집한다. 각 행은 `packet_id`, 실제 `model`·`model_family`, 독립 채점에 쓴 `scorer_model`·`scorer_family`, `replica_id`, `scoring_key_hash`, 순서대로 `{id, answer}` 12개와 `{id, score}` 12개를 갖는다. 점수는 0/0.5/1 중 하나다. 생성 모델과 채점 모델 계열은 달라야 한다. 이 계열·모델 표기는 입력자의 기록이며 API attestation을 대신하지 않는다. 같은 모델 반복은 독립 학생이나 독립 모델 수로 세지 않는다. 문항별 점수는 blind 채점자가 현재 채점키에 따라 매긴 값이어야 하며, 자기 채점 출력이나 임의 점수는 유효 근거가 아니다.

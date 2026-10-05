@@ -76,6 +76,12 @@ test('the 28 recorded model outputs verify against original provider bytes', () 
   const changed = structuredClone(bundle)
   changed.entries[0].respondent_raw_base64 = `A${changed.entries[0].respondent_raw_base64.slice(1)}`
   assert.throws(() => verifyF02SyntheticEvidence(rows, changed, built), /raw output hash mismatch/)
+  const changedPrompt = structuredClone(rows)
+  changedPrompt[0].scorer_prompt_sha256 = '0'.repeat(64)
+  assert.throws(() => verifyF02SyntheticEvidence(changedPrompt, bundle, built), /model or prompt identity mismatch/)
+  const changedModel = structuredClone(rows)
+  changedModel[0].scorer_model = 'other-model'
+  assert.throws(() => verifyF02SyntheticEvidence(changedModel, bundle, built), /model or prompt identity mismatch/)
 })
 
 test('CLI exports only blind packet files and an identity seal to a new directory', () => {

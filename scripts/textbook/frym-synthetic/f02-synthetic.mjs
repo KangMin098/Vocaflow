@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { SCORER_MODEL, STUDENT_MODEL, scorerCall, studentCall } from './f02-smoke-identity.mjs'
 
 const dir = new URL('./', import.meta.url)
 const validation = new URL('../frym-validation/', dir)
@@ -115,7 +116,8 @@ export function analyzeF02Synthetic(rows, built = buildF02Synthetic()) {
 
 export function verifyF02SyntheticEvidence(rows, bundle, built = buildF02Synthetic()) {
   const analysis = analyzeF02Synthetic(rows, built)
-  if (bundle?.seal_sha256 !== built.seal.seal_sha256 || !Array.isArray(bundle.entries) || bundle.entries.length !== rows.length) throw Error('Synthetic raw evidence bundle mismatch')
+  if (![1, 2].includes(bundle?.version) || bundle.seal_sha256 !== built.seal.seal_sha256 || !Array.isArray(bundle.entries) || bundle.entries.length !== rows.length) throw Error('Synthetic raw evidence bundle mismatch')
+  const packets = new Map(built.packets.map(packet => [packet.packet_id, packet]))
   const evidence = new Map()
   for (const entry of bundle.entries) {
     if (evidence.has(entry.packet_id)) throw Error('Duplicate synthetic raw evidence')
@@ -124,7 +126,11 @@ export function verifyF02SyntheticEvidence(rows, bundle, built = buildF02Synthet
   const parseOutput = value => JSON.parse(value.trim().replace(/^\x60\x60\x60(?:json)?\s*/i, '').replace(/\s*\x60\x60\x60$/, '').trim())
   for (const row of rows) {
     const entry = evidence.get(row.packet_id)
+    const packet = packets.get(row.packet_id)
     if (!entry || typeof entry.respondent_raw_base64 !== 'string' || typeof entry.scorer_raw_base64 !== 'string') throw Error('Synthetic raw output missing')
+    const student = studentCall(packet, { windowsVerbatimArguments: bundle.version === 2 })
+    const scorerCallIdentity = scorerCall(packet, row.answers, built.scoringKey)
+    if (row.model !== STUDENT_MODEL || row.model_family !== 'anthropic' || row.scorer_model !== SCORER_MODEL || row.scorer_family !== 'openai' || row.student_prompt_sha256 !== student.prompt_sha256 || row.student_invocation_sha256 !== student.invocation_sha256 || row.scorer_prompt_sha256 !== scorerCallIdentity.prompt_sha256 || row.scorer_invocation_sha256 !== scorerCallIdentity.invocation_sha256) throw Error('Synthetic model or prompt identity mismatch')
     const respondent = Buffer.from(entry.respondent_raw_base64, 'base64')
     const scorer = Buffer.from(entry.scorer_raw_base64, 'base64')
     if (respondent.toString('base64') !== entry.respondent_raw_base64 || scorer.toString('base64') !== entry.scorer_raw_base64 || sha(respondent) !== row.respondent_raw_sha256 || sha(scorer) !== row.scorer_raw_sha256) throw Error('Synthetic raw output hash mismatch')
