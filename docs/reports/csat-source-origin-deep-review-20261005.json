@@ -1,0 +1,1006 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-05",
+  "scope": "suneung",
+  "reviews": [
+    {
+      "passage_sha256": "c208fa35625d5312da514ceeadb93d1d537c6f6c34f8c5c7fead726125bed3b9",
+      "representative_item_id": "2014B#35",
+      "item_ids": [
+        "2014B#35"
+      ],
+      "body_sha256_by_item": {
+        "2014B#35": "6a040564a8e94d1628aa897c82a832270b1918212de9e55b505654ecade67ed4"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Science and Non-Science in Liberal Education",
+        "source_authors": [
+          "Harvey C. Mansfield"
+        ],
+        "source_publisher": "The New Atlantis",
+        "source_year": 2013,
+        "source_part": "Summer 2013, What Science Needs from Non-Science; final paragraph",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.thenewatlantis.com/publications/science-and-non-science-in-liberal-education",
+            "label": "Summer 2013, What Science Needs from Non-Science; final paragraph",
+            "body_sha256_by_item": {
+              "2014B#35": "6a040564a8e94d1628aa897c82a832270b1918212de9e55b505654ecade67ed4"
+            }
+          }
+        ],
+        "note": "수학의 저항 극복부터 과학자의 수사적 모호함까지 지문 전체를 공식 기고문 문단과 대조했다. 서두의 the resistance, 중간의 as we have seen이 생략되고 마지막 절이 빈칸으로 바뀌었다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "5f3af2ca0a2681d413601066249a18074baf32e40383356c4b23be8884d39b54",
+      "representative_item_id": "2014B#37",
+      "item_ids": [
+        "2014B#37"
+      ],
+      "body_sha256_by_item": {
+        "2014B#37": "76f2f1b854f1a18dd3562cdb6a701856b7bd0e483c2340b7048224c31ede6317"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Climate Impacts on Energy Systems: Key Issues for Energy Sector Adaptation",
+        "source_authors": [
+          "Jane Ebinger",
+          "Walter Vergara"
+        ],
+        "source_publisher": "World Bank",
+        "source_year": 2011,
+        "source_part": "Chapter 3, Climate Impacts on Energy, Oil and Gas Resources, p. 30 (PDF p. 72)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://documents1.worldbank.org/curated/en/580481468331850839/pdf/600510PUB0ID181mpacts09780821386972.pdf",
+            "label": "Chapter 3, Climate Impacts on Energy, Oil and Gas Resources, p. 30 (PDF p. 72)",
+            "body_sha256_by_item": {
+              "2014B#37": "76f2f1b854f1a18dd3562cdb6a701856b7bd0e483c2340b7048224c31ede6317"
+            }
+          }
+        ],
+        "note": "공식 보고서 표제·판권과 석유·가스 문단 전체를 대조했다. 접속어 두 곳이 빈칸, 인용과 알래스카 사례가 생략되며 feasibility·contingent·delineate 등이 편집되었다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "1a9acb20596592d503b847f0b026c4cee1a94de7d81413d051bec52d31c76c12",
+      "representative_item_id": "2014B#41",
+      "item_ids": [
+        "2014B#41",
+        "2014B#42"
+      ],
+      "body_sha256_by_item": {
+        "2014B#41": "58552b5cb6ea2136fad72575e753c595ea87d6c79d6a94bb5178f17c2beed343",
+        "2014B#42": "f7ca6926297e22fef75121360cfa94df9d4156a25cbe5ad2fbb4a3bab3239ab3"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Alone Together: Why We Expect More from Technology and Less from Each Other",
+        "source_authors": [
+          "Sherry Turkle"
+        ],
+        "source_publisher": "Basic Books",
+        "source_year": 2011,
+        "source_part": "Conclusion: Necessary Conversations, pp. 284–285 (Stanford excerpt PDF p. 6)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://hci.stanford.edu/courses/cs047n/readings/Alone_Together.pdf",
+            "label": "Conclusion: Necessary Conversations, pp. 284–285 (Stanford excerpt PDF p. 6)",
+            "body_sha256_by_item": {
+              "2014B#41": "58552b5cb6ea2136fad72575e753c595ea87d6c79d6a94bb5178f17c2beed343",
+              "2014B#42": "f7ca6926297e22fef75121360cfa94df9d4156a25cbe5ad2fbb4a3bab3239ab3"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://books.google.com/books/about/Alone_Together.html?id=klMkALqSrU0C",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "스캔 PDF를 실제 이미지로 렌더링하여 지문 전체를 대조했다. Oedipus 서두를 일반 진술로, preponderance를 plenty로, Thoreau를 미국 작가로 바꾸고 끝 문장을 축약했다. OCR 공백을 원문 부재로 판정하지 않았다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "2e745ad35bffa6d65a79614e984c71201784e8528bc18ec2677b71eb21ff6359",
+      "representative_item_id": "2015#21",
+      "item_ids": [
+        "2015#21"
+      ],
+      "body_sha256_by_item": {
+        "2015#21": "6597eaaa51331ad17cd862f45e8b6c13e39e6e0677186efc00fff7e25b790049"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Importance of Play",
+        "source_authors": [
+          "Bruno Bettelheim"
+        ],
+        "source_publisher": "The Atlantic",
+        "source_year": 1987,
+        "source_part": "March 1987; paragraphs beginning with the most normal child (university reader p. 41 / PDF p. 1)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.theatlantic.com/magazine/archive/1987/03/the-importance-of-play/305129/",
+            "label": "March 1987; paragraphs beginning with the most normal child (university reader p. 41 / PDF p. 1)",
+            "body_sha256_by_item": {
+              "2015#21": "6597eaaa51331ad17cd862f45e8b6c13e39e6e0677186efc00fff7e25b790049"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://faculty.sfcc.spokane.edu/InetShare/AutoWebs/kimt/The%20Importance%20of%20Play.pdf",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "공식 기고문 두 문단 전체와 대학 리더 스캔을 함께 대조했다. 아이의 선택·행동 결과·몰입에 관한 짧은 절을 생략했다. 확인하지 않은 단행본에 귀속하지 않고 공식 1987년 기고문으로 기록했다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "5bcdee6bf032ee5d4d4e09a0b9a555e334a311ba508ce22519da023138c61e21",
+      "representative_item_id": "2015#31",
+      "item_ids": [
+        "2015#31"
+      ],
+      "body_sha256_by_item": {
+        "2015#31": "a9fae9d949051933d2c83df26a050be76e285b1236602772ddfcce8985b3c6de"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The ONE Thing: The Surprising Truth Behind Extraordinary Results",
+        "source_authors": [
+          "Gary Keller",
+          "Jay Papasan"
+        ],
+        "source_publisher": "Bard Press",
+        "source_year": 2013,
+        "source_part": "Chapter 5, Multitasking, Monkey Mind",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://studylib.net/doc/26274735/the-one-thing-gary-keller",
+            "label": "Chapter 5, Multitasking, Monkey Mind",
+            "body_sha256_by_item": {
+              "2015#31": "a9fae9d949051933d2c83df26a050be76e285b1236602772ddfcce8985b3c6de"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://bardpress.com/books/the-one-thing/",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "실제 도서 문단의 첫 문장부터 마지막 컴퓨터 비유까지 전체를 대조했다. 여러 일을 하는 표현과 용어 등장 표현을 편집했고 마지막 환상 관련 술어가 빈칸이다. 공식 출판사에서 공동 저자와 제목을 교차 확인했다. 사본은 ©2012·첫 인쇄 February 2013이며 source_year는 2013 인쇄 연도다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "d9f01b51aa5e7ec40bd77a5b561d7b1ab9e8f6e36287de7af3e9da04f1475845",
+      "representative_item_id": "2015#39",
+      "item_ids": [
+        "2015#39"
+      ],
+      "body_sha256_by_item": {
+        "2015#39": "923e7b07bbf541b2c25afb1f10d7d41da9ad4d690ec6d13dc392f957900032e4"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Quiet: The Power of Introverts in a World That Can't Stop Talking",
+        "source_authors": [
+          "Susan Cain"
+        ],
+        "source_publisher": "Crown",
+        "source_year": 2012,
+        "source_part": "Chapter 9, When Should You Act More Extroverted Than You Really Are?; Richard Lippa experiment",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://studylib.net/doc/28491545/cain-susan---cain-susan-quiet-the-power-of-introverts-in-...",
+            "label": "Chapter 9, When Should You Act More Extroverted Than You Really Are?; Richard Lippa experiment",
+            "body_sha256_by_item": {
+              "2015#39": "923e7b07bbf541b2c25afb1f10d7d41da9ad4d690ec6d13dc392f957900032e4"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://www.penguinrandomhouse.com/books/22821/quiet-by-susan-cain/9780307352149/",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "실제 도서의 Lippa 실험 두 문단 전체를 대조했다. 제시문을 원래 자리로 복원하고 research·측정 지표 일부·pseudo-extroverts 등의 편집을 확인했다. 연구 대상인 Lippa가 아니라 서술자인 Cain을 저자로 기록했다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "6841010f372ca1b7fcfe6e8ba1ca0b29f516442bf0a5c04d1131f5f70a87c4b1",
+      "representative_item_id": "2017#41",
+      "item_ids": [
+        "2017#41"
+      ],
+      "body_sha256_by_item": {
+        "2017#41": "2c672893dc92810cd472037e1c4ce1fea06526c1c5ca85b9a10fd8abe9ac6e54"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "A Geography of Time",
+        "source_authors": [
+          "Robert Levine"
+        ],
+        "source_publisher": "Oneworld Publications",
+        "source_year": 2006,
+        "source_part": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://rhuthmos.eu/IMG/pdf/robert_levine_a_geography_of_time.pdf",
+            "label": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+            "body_sha256_by_item": {
+              "2017#41": "2c672893dc92810cd472037e1c4ce1fea06526c1c5ca85b9a10fd8abe9ac6e54"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://books.google.com/books/about/A_Geography_of_Time.html?id=eVtzAAAACAAJ",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "도서 판권(2006 Oneworld, 원저 1997)과 전체 지문을 대조했다. 예시 앞의 인물 언급, 시간 왜곡 설명·분수식·비율이 생략되거나 빈칸으로 바뀌었다. 세슘 주기 숫자의 사본 OCR 오류는 원문 수치를 검증한 것으로 쓰지 않았다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "c9817d24823f62c5955fa468f5afdb8e1f1bbb75f7a8f13cb8cd069cce2ed815",
+      "representative_item_id": "2017#42",
+      "item_ids": [
+        "2017#42"
+      ],
+      "body_sha256_by_item": {
+        "2017#42": "53c9c999e38afcd6feef2bf2afe1dc0955d5c786b93e7dc1aae4abb81cf12479"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "A Geography of Time",
+        "source_authors": [
+          "Robert Levine"
+        ],
+        "source_publisher": "Oneworld Publications",
+        "source_year": 2006,
+        "source_part": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://rhuthmos.eu/IMG/pdf/robert_levine_a_geography_of_time.pdf",
+            "label": "Chapter 2, Duration: The Psychological Clock, pp. 27–28 (PDF pp. 49–50)",
+            "body_sha256_by_item": {
+              "2017#42": "53c9c999e38afcd6feef2bf2afe1dc0955d5c786b93e7dc1aae4abb81cf12479"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://books.google.com/books/about/A_Geography_of_Time.html?id=eVtzAAAACAAJ",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "41번과 같은 본문이나 기존 등록부에는 별도 canonical 행이다. 이 행의 현재 본문 및 연결 문항 SHA도 별도로 대조했다. 뒤의 A/B 선택지 꼬리는 원문 대조에서 제외했다. 열람 사본은 2006 Oneworld 재판이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "a2201805fba8692486286ba24be01ad42a9c25ac03555a983ab4d86fc6b359d0",
+      "representative_item_id": "2018#34",
+      "item_ids": [
+        "2018#34"
+      ],
+      "body_sha256_by_item": {
+        "2018#34": "f79cdb1b509fe60806be1ef9be521d94b7fd32afa19e6fa683c342d1af4c13f9"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Inevitable: Understanding the 12 Technological Forces That Will Shape Our Future",
+        "source_authors": [
+          "Kevin Kelly"
+        ],
+        "source_publisher": "Penguin Books",
+        "source_year": 2017,
+        "source_part": "Cognifying; authorized TED excerpt, paragraphs on human identity and AI",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://ideas.ted.com/why-we-need-to-create-ais-that-think-in-ways-that-we-cant-even-imagine/",
+            "label": "Cognifying; authorized TED excerpt, paragraphs on human identity and AI",
+            "body_sha256_by_item": {
+              "2018#34": "f79cdb1b509fe60806be1ef9be521d94b7fd32afa19e6fa683c342d1af4c13f9"
+            }
+          }
+        ],
+        "note": "TED의 출판사 허가 발췌문에서 지문 전체를 대조했다. 마지막 인간다움 정의 절이 빈칸이다. 해당 페이지의 출처 고지는 2017 Penguin paperback과 ©2016 저자를 구분한다. 시험 사용 판본 자체는 미확정이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "e625c6810d3e97b30abb0fc7885e2e80bd5339287b86e7b5b6fac51285f58ee9",
+      "representative_item_id": "2020#23",
+      "item_ids": [
+        "2020#23"
+      ],
+      "body_sha256_by_item": {
+        "2020#23": "b01e10c1ba33ffd7189b83271012762ea23e4ac44128da31f396aaee5423929d"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Moral Machines: Teaching Robots Right from Wrong",
+        "source_authors": [
+          "Wendell Wallach",
+          "Colin Allen"
+        ],
+        "source_publisher": "Oxford University Press",
+        "source_year": 2009,
+        "source_part": "Chapter 7, Bottom-Up and Developmental Approaches, Organic Morality, p. 99 (PDF p. 112)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.ims.ut.ee/www-public/www-public/Oxford.University.Press.USA.Moral.Machines.Teaching.Robots.Right.from.Wrong.Nov.2008.eBook-SQN.pdf",
+            "label": "Chapter 7, Bottom-Up and Developmental Approaches, Organic Morality, p. 99 (PDF p. 112)",
+            "body_sha256_by_item": {
+              "2020#23": "b01e10c1ba33ffd7189b83271012762ea23e4ac44128da31f396aaee5423929d"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://academic.oup.com/book/10768",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "대학 서버 도서의 판권·CIP와 지문 전체를 대조했다. modicum→bit, account→explanation 및 반사회적 성향 괄호 생략이 있다. 파일명 2008이 아니라 판권·공식 출판 기록의 2009를 기록했다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "6bf883b89fc9c1a1fe29d2f3e280071454ebe14d9610a3dc62682644007aa9bd",
+      "representative_item_id": "2020#24",
+      "item_ids": [
+        "2020#24"
+      ],
+      "body_sha256_by_item": {
+        "2020#24": "742cad64ab964a6aeaf6b35fc89ba91d91e31ef73333dae7975ccbe3f3c4e72c"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Animal Ecosystem Engineers Modulate the Diversity-Invasibility Relationship",
+        "source_authors": [
+          "Nico Eisenhauer",
+          "Alexandru Milcu",
+          "Alexander C. W. Sabais",
+          "Stefan Scheu"
+        ],
+        "source_publisher": "PLOS ONE",
+        "source_year": 2008,
+        "source_part": "3(10): e3489, Introduction, first paragraph; DOI 10.1371/journal.pone.0003489",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2565839/",
+            "label": "3(10): e3489, Introduction, first paragraph; DOI 10.1371/journal.pone.0003489",
+            "body_sha256_by_item": {
+              "2020#24": "742cad64ab964a6aeaf6b35fc89ba91d91e31ef73333dae7975ccbe3f3c4e72c"
+            }
+          }
+        ],
+        "note": "논문의 저자·날짜·DOI와 서론 첫 문단 전체를 대조했다. postulates→suggests, preclude→prevent, 번호 인용 제거 외에 지문 전 범위가 대응한다. 편집자는 저자 목록에서 제외했다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "55dde4620eedb548c7a6fe946e337f1a1afcfdee340ef10037327d6359bba9d6",
+      "representative_item_id": "2020#31",
+      "item_ids": [
+        "2020#31"
+      ],
+      "body_sha256_by_item": {
+        "2020#31": "190ab7c496fcd15aaa968bc349332d876d0c9f2d62a01fe80c22dfac996e3f35"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Philosophy of Science: Teach Yourself",
+        "source_authors": [
+          "Mel Thompson"
+        ],
+        "source_publisher": "Teach Yourself",
+        "source_year": 2012,
+        "source_part": "Chapter 1, Introduction to the Philosophy of Science; second pitfall concerning scientism",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.perlego.com/book/3179676/philosophy-of-science-teach-yourself-pdf",
+            "label": "Chapter 1, Introduction to the Philosophy of Science; second pitfall concerning scientism",
+            "body_sha256_by_item": {
+              "2020#31": "190ab7c496fcd15aaa968bc349332d876d0c9f2d62a01fe80c22dfac996e3f35"
+            }
+          }
+        ],
+        "note": "전자책의 공개 본문 미리보기에서 과학주의 문단 전체를 대조했다. exponents→advocates, account의 빈칸화 외에 모든 문장이 대응한다. 미리보기 범위 밖의 쪽수는 추정하지 않았다. ISBN 9781444157659/9781444157673.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "5e3da0a4675c315eba91be654d0041bfe275180cf454805d136ab23a232b71da",
+      "representative_item_id": "2021#23",
+      "item_ids": [
+        "2021#23"
+      ],
+      "body_sha256_by_item": {
+        "2021#23": "ac522871ed3b7e07d7d665fe6c6b4afb5c6eee5859d23fb99684f04e344f95b0"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Design of Everyday Things",
+        "source_authors": [
+          "Don Norman"
+        ],
+        "source_publisher": "Basic Books",
+        "source_year": 2013,
+        "source_part": "Revised and Expanded Edition, Chapter 5, Design Principles for Dealing with Error",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://studylib.net/doc/28128794/the-design-of-everyday-things-by-don-norman",
+            "label": "Revised and Expanded Edition, Chapter 5, Design Principles for Dealing with Error",
+            "body_sha256_by_item": {
+              "2021#23": "ac522871ed3b7e07d7d665fe6c6b4afb5c6eee5859d23fb99684f04e344f95b0"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://www.hachettebookgroup.com/titles/don-norman/the-design-of-everyday-things/9780465050659/",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "실제 도서 본문의 인간·기계 협업 문단 전체가 일치한다. 띄어쓰기·하이픈 외에 의미 있는 내용 변경을 찾지 않았다. 공식 출판 기록에서 2013 개정증보판을 확인했다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "4522966f07375282cc3d64ddd24b599315baf1d719dae53f1f171f8835fae69b",
+      "representative_item_id": "2021#33",
+      "item_ids": [
+        "2021#33"
+      ],
+      "body_sha256_by_item": {
+        "2021#33": "2a0a9249db6cf7cfa26fca56d7ec09a46db32c4f1701d42fd08027d71cd5ff5b"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Understanding How Young Children Learn: Bringing the Science of Child Development to the Classroom",
+        "source_authors": [
+          "Wendy L. Ostroff"
+        ],
+        "source_publisher": "ASCD",
+        "source_year": 2012,
+        "source_part": "Introduction to Learning, Teaching, and Developmental Science, p. 5 (PDF p. 16)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://sehthehfoundation.org/wp-content/uploads/2023/09/Wendy-L.-Ostroff-Understanding-How-Young-Children-Learn_-Bringing-the-Science-of-Child-Development-to-the-Classroom-ASCD-2012.pdf",
+            "label": "Introduction to Learning, Teaching, and Developmental Science, p. 5 (PDF p. 16)",
+            "body_sha256_by_item": {
+              "2021#33": "2a0a9249db6cf7cfa26fca56d7ec09a46db32c4f1701d42fd08027d71cd5ff5b"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://ascd.org/books/understanding-how-young-children-learn",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "판권·CIP·공식 서지 및 지문 전체를 대조했다. 연구 인용만 제거되고 마지막 경험에 의한 뇌 형성 절이 빈칸이다. 문단 끝 인용의 Wolfe는 도서 저자로 기록하지 않았다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "58934cddcc758148e75a0d57f032316baed4e4bcfd230546ae7895b852cb56f4",
+      "representative_item_id": "2022#40",
+      "item_ids": [
+        "2022#40"
+      ],
+      "body_sha256_by_item": {
+        "2022#40": "98b31a28f0af60ceb456280d633a8cb31fca3d1b65d7c66e6843c46d5dab1308"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Adaptation and Environment",
+        "source_authors": [
+          "Robert N. Brandon"
+        ],
+        "source_publisher": "Princeton University Press",
+        "source_year": 1990,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://search.worldcat.org/search?q=ti%3AAdaptation+and+Environment+au%3ARobert+Brandon",
+            "kind": "catalog_metadata",
+            "label": "WorldCat catalog search"
+          }
+        ],
+        "note": "The title is consistently attributed, but a stable primary exact-text page was not retained.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Adaptation and Environment",
+        "source_authors": [
+          "Robert N. Brandon"
+        ],
+        "source_publisher": "Princeton University Press",
+        "source_year": 1990,
+        "source_part": "Chapter 5, Mechanism and Teleology, §5.1 Two Concepts of Explanation, pp. 159–160",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://dokumen.pub/adaptation-and-environment-course-booknbsped-9781400860661.html",
+            "label": "Chapter 5, Mechanism and Teleology, §5.1 Two Concepts of Explanation, pp. 159–160",
+            "body_sha256_by_item": {
+              "2022#40": "98b31a28f0af60ceb456280d633a8cb31fca3d1b65d7c66e6843c46d5dab1308"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://obnb.uk/p11974924-adaptation-and-environment",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "전체 문단과 도서 표제·목차·판권을 대조했다. 서두의 viable→possible, 논문 인용·각주 제거 및 요약 문장 추가가 있다. 저자는 Brandon이며 Kitcher·Salmon은 인용 학자다. ©1990·1995 첫 paperback 인쇄를 구분한다. 시험 사용 판본은 미확정이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "f434f168d5e573e883f1da7e513bc8107168373d764e38c4f69294b608a5370d",
+      "representative_item_id": "2023#23",
+      "item_ids": [
+        "2023#23"
+      ],
+      "body_sha256_by_item": {
+        "2023#23": "405cee8a2b53e9fd79ab51e2f87225919f697174ad357b902110db6c7bcbdfeb"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Disclosure: Psychology Changes Everything",
+        "source_authors": [
+          "George Loewenstein",
+          "Cass R. Sunstein",
+          "Russell Golman"
+        ],
+        "source_publisher": "Annual Review of Economics",
+        "source_year": 2014,
+        "source_part": "Volume 6, pp. 391–419; Introduction, p. 392 (PDF p. 2), DOI 10.1146/annurev-economics-080213-041341",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://www.cmu.edu/dietrich/sds/docs/loewenstein/DisclosurePsychChgsEvery.pdf",
+            "label": "Volume 6, pp. 391–419; Introduction, p. 392 (PDF p. 2), DOI 10.1146/annurev-economics-080213-041341",
+            "body_sha256_by_item": {
+              "2023#23": "405cee8a2b53e9fd79ab51e2f87225919f697174ad357b902110db6c7bcbdfeb"
+            }
+          }
+        ],
+        "note": "저자 제공 논문 PDF의 첫 장 서지와 지문 전체를 대조했다. harder forms와 heterogeneity 등의 표현 변경, 인용 생략 및 식당·자동차 사례의 순서 바꿈이 있다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "fadf7b47bc8178dee0a8fa470478322ab0e2d5fc652f5f59ff5b2557f9e9fe61",
+      "representative_item_id": "2023#34",
+      "item_ids": [
+        "2023#34"
+      ],
+      "body_sha256_by_item": {
+        "2023#34": "92ab1ea888d4cb88f321f13fd99d7e4b30e4ff52e5188acfc12db02b7244f54f"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Pivotal Generation: Why We Have a Moral Responsibility to Slow Climate Change Right Now",
+        "source_authors": [
+          "Henry Shue"
+        ],
+        "source_publisher": "Princeton University Press",
+        "source_year": 2022,
+        "source_part": "Chapter 1, Illusions of Separation, p. 3 (publisher excerpt PDF p. 5)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://pup-assets.imgix.net/onix/images/9780691226262/9780691226262.pdf?fm=pdf",
+            "label": "Chapter 1, Illusions of Separation, p. 3 (publisher excerpt PDF p. 5)",
+            "body_sha256_by_item": {
+              "2023#34": "92ab1ea888d4cb88f321f13fd99d7e4b30e4ff52e5188acfc12db02b7244f54f"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://chooser.crossref.org/?doi=10.1515%2F9780691226255",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "출판사 공개 발췌 PDF에서 지문 전체를 대조했다. 서두의 To some degree와 Again을 생략하고 책임 부정 절이 빈칸이다. 전자판 DOI 등록일 2021-12-31과 인쇄본 서지 2022를 구분했다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "633f1636bec2077a1a7141f23ade7c979a80f38f57786b5c4fac290c63797890",
+      "representative_item_id": "2023#39",
+      "item_ids": [
+        "2023#39"
+      ],
+      "body_sha256_by_item": {
+        "2023#39": "74ad7e67d8ad62344680ab42eceb959a6b32aec0a94ec8b4985ade2647b38829"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Negotiation",
+        "source_authors": [
+          "Roy J. Lewicki",
+          "Bruce Barry",
+          "David M. Saunders"
+        ],
+        "source_publisher": "McGraw-Hill/Irwin",
+        "source_year": 2010,
+        "source_part": "Sixth edition, Chapter 17, Managing Negotiation Impasses, section 5, pp. 494–495 (chapter PDF pp. 21–22)",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://brainmass.com/file/359306/Negotiation_6e_Ch17.pdf",
+            "label": "Sixth edition, Chapter 17, Managing Negotiation Impasses, section 5, pp. 494–495 (chapter PDF pp. 21–22)",
+            "body_sha256_by_item": {
+              "2023#39": "74ad7e67d8ad62344680ab42eceb959a6b32aec0a94ec8b4985ade2647b38829"
+            }
+          },
+          {
+            "kind": "library_record",
+            "url": "https://libcatalog.roseman.edu/cgi-bin/koha/opac-ISBDdetail.pl?biblionumber=5598",
+            "label": "Sixth edition, authors, McGraw-Hill/Irwin c2010, ISBN 9780073381206"
+          }
+        ],
+        "note": "실제 6판 챕터 문단 전체를 두 쪽에 걸쳐 대조했다. 제시문은 time horizon 설명 뒤의 원래 자리로 복원했고 Fisher 인용은 생략됐다. 보조 문제집 Readings, Exercises and Cases가 아니라 본교재 Negotiation의 장이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "5a57a428c7a744591f0f17e375b7a90145ffac0dd4e0ecf647f55b2869d67e65",
+      "representative_item_id": "2026#24",
+      "item_ids": [
+        "2026#24"
+      ],
+      "body_sha256_by_item": {
+        "2026#24": "89d41ece47d5b4ad97988c9d1775698b5e30b6ac5a143591ff7465e6a7fbceb3"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "The Entertainment Industry: An Introduction",
+        "source_authors": [
+          "Stuart Moss"
+        ],
+        "source_publisher": "CABI",
+        "source_year": 2010,
+        "source_part": "Chapter 16, Culturtainment",
+        "evidence": [
+          {
+            "url": "https://books.google.com/books/about/The_Entertainment_Industry.html?id=n3Vi0RyXc5wC",
+            "kind": "book_metadata",
+            "label": "Google Books metadata and contents"
+          },
+          {
+            "url": "https://entplanet.blogspot.com/2009/10/entertainment-industry-introduction-new.html",
+            "kind": "author_context",
+            "label": "Editor announcement"
+          }
+        ],
+        "note": "The chapter title and rare term make the attribution strong; this corrects a different-title claim.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "The Entertainment Industry: An Introduction",
+        "source_authors": [
+          "Stuart Moss"
+        ],
+        "source_publisher": "CABI",
+        "source_year": 2009,
+        "source_part": "Chapter 16, Culturtainment, The Future, p. 310",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://dokumen.pub/the-entertainment-industry-an-introduction-cabi-tourism-texts-illustrated-9781845935511-1845935519.html",
+            "label": "Chapter 16, Culturtainment, The Future, p. 310",
+            "body_sha256_by_item": {
+              "2026#24": "89d41ece47d5b4ad97988c9d1775698b5e30b6ac5a143591ff7465e6a7fbceb3"
+            }
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://www.leedsbeckett.ac.uk/staff/stuart-moss/",
+            "label": "Author / publisher / edition cross-check"
+          }
+        ],
+        "note": "실제 도서 전체 문단과 ©2009 판권·해당 쪽을 대조했다. fragment→divide, fragile→delicate 등의 편집이 있다. 대학 공식 저자 목록에서 Culturtainment의 장 저자도 Moss임을 확인했다. 기존 2010 후보와 달리 열람 사본 ©2009를 기록하며 시험 사용 판본은 미확정이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "bb264fca348081f89c85160824a2cdf7cfe1ac972d4bfba06fea87471d77f31c",
+      "representative_item_id": "2026#26",
+      "item_ids": [
+        "2026#26"
+      ],
+      "body_sha256_by_item": {
+        "2026#26": "19bc44d4fbdc0ae7a477963a63f827ab6c79ea3444b75355079b86b5eb25d125"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "confirmed_exact",
+        "source_title": "Max Kleiber",
+        "source_authors": [
+          "UC Davis Department of Animal Science"
+        ],
+        "source_publisher": "University of California, Davis",
+        "source_year": null,
+        "source_part": "Memorial Book biography, education, arrival, honors, book, teaching and Kleiber Hall paragraphs",
+        "evidence": [
+          {
+            "kind": "full_text_compared",
+            "url": "https://animalscience.ucdavis.edu/about/alumni-and-friends/memorial-book/kleiber-max",
+            "label": "Memorial Book biography, education, arrival, honors, book, teaching and Kleiber Hall paragraphs",
+            "body_sha256_by_item": {
+              "2026#26": "19bc44d4fbdc0ae7a477963a63f827ab6c79ea3444b75355079b86b5eb25d125"
+            }
+          }
+        ],
+        "note": "공식 기관 전기의 모든 단락을 지문 전체와 대조했다. 생애 순서로 재배열하고 연구 세부를 생략했다. 졸업·학위·1929년 도착·수상·책 번역·교사 평판·건물 명명은 장문 표현까지 대응한다. 개인 저자·최초 게시 연도는 미표시이므로 기관 저자·연도 null, 페이지 마지막 갱신은 2018-08-01로 구분했다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-deep-20261005.md"
+      }
+    }
+  ]
+}

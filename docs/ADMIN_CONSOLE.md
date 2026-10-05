@@ -1,5 +1,7 @@
 # Admin Console
 
+기출 원천 심화 조사(2026-10-05): 미확인 수능 268등록행의 추가 구절 검색 완료 후 20등록행·21문항을 확정했다. 스캔·출판사/저자 PDF·기관 전기까지 직접 문단 대조했으며, 기존 후보와 충돌하는 대체 서지는 보류 기록으로 남겼다. 화면의 집계는 DB 실측으로 확인하며 검색 완료를 전체 출처 확보 완료로 읽지 않는다. [심화 결과·미확인 사유](./reports/csat-source-origin-deep-20261005.md).
+
 기출 원천 후속 검수(2026-10-04): `/admin/knowledge/sources/csat`는 최초 조사 이후의 판정도 표시한다. 책·논문 해당 문단 전체 대조와 연결 문항별 본문 SHA·변경 전후 행 검수 뒤 확정하며, 수능/모의평가와 지문/문항 수를 구분한다. 도움말의 과거 고정 수치를 제거하고 preview→적용 SQL 생성→한 트랜잭션 적용→재검사 순서를 명시했다. [후속 결과](./reports/csat-source-origin-followup-20261004.md), [운영 절차](./LIBRARY_PIPELINE.md#기출-지문-원천-후속-검수-2026-10-04).
 
 CSAT 원문 배치 운영(2026-09-19): `/admin/csat/sources`의 캐시 재검증과 내용 판정 드레인은 별개다. `csat-sources-audit.mjs`는 A–D 작업 후보와 사유별 ID를 내보내며 `source-policy-refresh --plan`은 실제 전후 값·연결 영향을 기록한다. 내용 판정은 UUID/revision/본문 해시를 확인하는 scoped importer를 사용한다. [자산 감사·실행 결과](./reports/csat-source-batch-discovery-20260919.md), [운영 절차](./LIBRARY_PIPELINE.md).

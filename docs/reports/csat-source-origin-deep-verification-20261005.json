@@ -1,0 +1,689 @@
+{
+  "audited_at": "2026-10-05",
+  "scope": "suneung",
+  "searched_registry_rows": 268,
+  "priority_candidates": 12,
+  "unique_reviewed_rows": 280,
+  "confirmed_rows": 20,
+  "confirmed_linked_items": 21,
+  "distinct_new_bodies": 19,
+  "held_rows": 260,
+  "before": [
+    {
+      "scope": "suneung",
+      "status": "unresolved",
+      "registry_rows": 268,
+      "linked_items": 309
+    },
+    {
+      "scope": "suneung",
+      "status": "confirmed_exact",
+      "registry_rows": 57,
+      "linked_items": 60
+    },
+    {
+      "scope": "suneung",
+      "status": "supported_candidate",
+      "registry_rows": 12,
+      "linked_items": 12
+    },
+    {
+      "scope": "suneung",
+      "status": "topic_lineage_only",
+      "registry_rows": 1,
+      "linked_items": 1
+    },
+    {
+      "scope": "mock",
+      "status": "confirmed_exact",
+      "registry_rows": 14,
+      "linked_items": 15
+    },
+    {
+      "scope": "mock",
+      "status": "unresolved",
+      "registry_rows": 361,
+      "linked_items": 405
+    }
+  ],
+  "after": [
+    {
+      "scope": "mock",
+      "status": "confirmed_exact",
+      "registry_rows": 14,
+      "linked_items": 15
+    },
+    {
+      "scope": "mock",
+      "status": "unresolved",
+      "registry_rows": 361,
+      "linked_items": 405
+    },
+    {
+      "scope": "suneung",
+      "status": "confirmed_exact",
+      "registry_rows": 77,
+      "linked_items": 81
+    },
+    {
+      "scope": "suneung",
+      "status": "supported_candidate",
+      "registry_rows": 10,
+      "linked_items": 10
+    },
+    {
+      "scope": "suneung",
+      "status": "topic_lineage_only",
+      "registry_rows": 1,
+      "linked_items": 1
+    },
+    {
+      "scope": "suneung",
+      "status": "unresolved",
+      "registry_rows": 250,
+      "linked_items": 290
+    }
+  ],
+  "preview_before": [
+    {
+      "item_id": "2014B#35",
+      "state": "ready"
+    },
+    {
+      "item_id": "2014B#37",
+      "state": "ready"
+    },
+    {
+      "item_id": "2014B#41",
+      "state": "ready"
+    },
+    {
+      "item_id": "2015#21",
+      "state": "ready"
+    },
+    {
+      "item_id": "2015#31",
+      "state": "ready"
+    },
+    {
+      "item_id": "2015#39",
+      "state": "ready"
+    },
+    {
+      "item_id": "2017#41",
+      "state": "ready"
+    },
+    {
+      "item_id": "2017#42",
+      "state": "ready"
+    },
+    {
+      "item_id": "2018#34",
+      "state": "ready"
+    },
+    {
+      "item_id": "2020#23",
+      "state": "ready"
+    },
+    {
+      "item_id": "2020#24",
+      "state": "ready"
+    },
+    {
+      "item_id": "2020#31",
+      "state": "ready"
+    },
+    {
+      "item_id": "2021#23",
+      "state": "ready"
+    },
+    {
+      "item_id": "2021#33",
+      "state": "ready"
+    },
+    {
+      "item_id": "2022#40",
+      "state": "ready"
+    },
+    {
+      "item_id": "2023#23",
+      "state": "ready"
+    },
+    {
+      "item_id": "2023#34",
+      "state": "ready"
+    },
+    {
+      "item_id": "2023#39",
+      "state": "ready"
+    },
+    {
+      "item_id": "2026#24",
+      "state": "ready"
+    },
+    {
+      "item_id": "2026#26",
+      "state": "ready"
+    }
+  ],
+  "preview_after": [
+    {
+      "item_id": "2014B#35",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2014B#37",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2014B#41",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2015#31",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2015#39",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2017#41",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2017#42",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2020#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2020#24",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2020#31",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2021#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2021#33",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2023#34",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2023#39",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#24",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#26",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2015#21",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2018#34",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2022#40",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2023#23",
+      "state": "already_applied"
+    }
+  ],
+  "checkpoint": {
+    "label": "csat-origin-deep-20261005",
+    "diff": [
+      {
+        "axis": "capacity",
+        "metric": "bloat_sampled_pct",
+        "subject": "csat_item_analyses",
+        "before_value": "0.88",
+        "after_value": null,
+        "delta": null,
+        "pct": null,
+        "status": "disappeared"
+      },
+      {
+        "axis": "capacity",
+        "metric": "bloat_sampled_pct",
+        "subject": "vocab_enrichment_queue",
+        "before_value": null,
+        "after_value": "0.40",
+        "delta": null,
+        "pct": null,
+        "status": "appeared"
+      },
+      {
+        "axis": "capacity",
+        "metric": "stats_counter_age_min",
+        "subject": null,
+        "before_value": "2637",
+        "after_value": "2638",
+        "delta": "1",
+        "pct": "0.04",
+        "status": "changed"
+      },
+      {
+        "axis": "cron",
+        "metric": "cron_stale_max_hours",
+        "subject": null,
+        "before_value": "32.21",
+        "after_value": "32.22",
+        "delta": "0.01",
+        "pct": "0.03",
+        "status": "changed"
+      },
+      {
+        "axis": "advisor",
+        "metric": "mutable_search_path_funcs",
+        "subject": null,
+        "before_value": "0",
+        "after_value": "0",
+        "delta": "0",
+        "pct": null,
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "db_size_mb",
+        "subject": null,
+        "before_value": "6314.9",
+        "after_value": "6314.9",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_dcp_items",
+        "before_value": "1578.5",
+        "after_value": "1578.5",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "library_articles",
+        "before_value": "1309.3",
+        "after_value": "1309.3",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "library_book_vocabularies",
+        "before_value": "1173.3",
+        "after_value": "1173.3",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "shared_words",
+        "before_value": "649.4",
+        "after_value": "649.4",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_source_eligibility_history",
+        "before_value": "267.8",
+        "after_value": "267.8",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "library_article_vocabularies",
+        "before_value": "257.2",
+        "after_value": "257.2",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "shared_dictionary",
+        "before_value": "238.4",
+        "after_value": "238.4",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_source_eligibility",
+        "before_value": "228.3",
+        "after_value": "228.3",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "content_chunks",
+        "before_value": "132.1",
+        "after_value": "132.1",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "lexicon_clean",
+        "before_value": "86.9",
+        "after_value": "86.9",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "topic_corpus_queue",
+        "before_value": "51.9",
+        "after_value": "51.9",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "spelling_norm",
+        "before_value": "35.6",
+        "after_value": "35.6",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_item_analyses",
+        "before_value": "32.3",
+        "after_value": "32.3",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "topic_word_stats",
+        "before_value": "19.4",
+        "after_value": "19.4",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "advisor",
+        "metric": "anon_exposed_tables",
+        "subject": null,
+        "before_value": "143",
+        "after_value": "143",
+        "delta": "0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "dictionary_word_categories",
+        "before_value": "15.9",
+        "after_value": "15.9",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_independent_reviews",
+        "before_value": "12.8",
+        "after_value": "12.8",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "archaic_candidates",
+        "before_value": "12.5",
+        "after_value": "12.5",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "shared_word_sets",
+        "before_value": "12.0",
+        "after_value": "12.0",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_items",
+        "before_value": "11.3",
+        "after_value": "11.3",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_analysis_reviews",
+        "before_value": "9.6",
+        "after_value": "9.6",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_review_runs",
+        "before_value": "9.5",
+        "after_value": "9.5",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "pending_words",
+        "before_value": "8.0",
+        "after_value": "8.0",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "funnel_events",
+        "before_value": "7.8",
+        "after_value": "7.8",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "csat_item_units",
+        "before_value": "5.8",
+        "after_value": "5.8",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "stats_stale_tables",
+        "subject": null,
+        "before_value": "0",
+        "after_value": "0",
+        "delta": "0",
+        "pct": null,
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "unused_index_mb",
+        "subject": null,
+        "before_value": "170.7",
+        "after_value": "170.7",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "connections",
+        "metric": "conn_used_pct",
+        "subject": null,
+        "before_value": "46.7",
+        "after_value": "46.7",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "cron",
+        "metric": "cron_fail_24h",
+        "subject": null,
+        "before_value": "0",
+        "after_value": "0",
+        "delta": "0",
+        "pct": null,
+        "status": "same"
+      },
+      {
+        "axis": "latency",
+        "metric": "slow_stmt_count",
+        "subject": null,
+        "before_value": "13",
+        "after_value": "13",
+        "delta": "0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "capacity",
+        "metric": "table_size_mb",
+        "subject": "library_chapters_master",
+        "before_value": "16.4",
+        "after_value": "16.4",
+        "delta": "0.0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "advisor",
+        "metric": "anon_exposed_without_rls",
+        "subject": null,
+        "before_value": "0",
+        "after_value": "0",
+        "delta": "0",
+        "pct": null,
+        "status": "same"
+      },
+      {
+        "axis": "advisor",
+        "metric": "rls_missing_tables",
+        "subject": null,
+        "before_value": "53",
+        "after_value": "53",
+        "delta": "0",
+        "pct": "0.00",
+        "status": "same"
+      },
+      {
+        "axis": "advisor",
+        "metric": "exposed_secdef_funcs",
+        "subject": null,
+        "before_value": "180",
+        "after_value": "180",
+        "delta": "0",
+        "pct": "0.00",
+        "status": "same"
+      }
+    ]
+  },
+  "gap": {
+    "before": {
+      "id": "4e309675-ce23-4127-8799-0e5af28ae0f8",
+      "skill_ids": [],
+      "layer": "essence",
+      "question": "수능·평가원 영어 지문의 미확인 원천(책·논문)을 추가 조사해야 한다",
+      "cause": "not_found",
+      "next_action": "수능 잔여 후보 12개와 서지 단서 1개 전문 확보 → 미확인 268개 추가 구절 검색. 모의평가 별도 조사. 2026-10-04 후속 검수 보고서 참조.",
+      "affected_count": 629,
+      "status": "open",
+      "created_at": "2026-09-27 17:17:59.132916+00",
+      "closed_at": null
+    },
+    "after": {
+      "id": "4e309675-ce23-4127-8799-0e5af28ae0f8",
+      "skill_ids": [],
+      "layer": "essence",
+      "question": "수능·평가원 영어 지문의 미확인 원천(책·논문)을 추가 조사해야 한다",
+      "cause": "not_found",
+      "next_action": "수능 미확인 250개와 후보 10개를 심화 조사한다. 268개 새 구절 검색은 완료. 보류 단서는 판본·장 원문 확보 후 재검수하며 모의평가 361개는 별도 조사한다. 2026-10-05 심화 보고서 참조.",
+      "affected_count": 611,
+      "status": "open",
+      "created_at": "2026-09-27 17:17:59.132916+00",
+      "closed_at": null
+    }
+  },
+  "checks": {
+    "review_sql_tests": 5,
+    "db_stats_generation": "passed",
+    "help_typecheck": "passed",
+    "agent_config_checks": 10,
+    "goal_review": "pending"
+  }
+}

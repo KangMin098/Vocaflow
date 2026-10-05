@@ -12,6 +12,8 @@
 
 초기 씨앗 import는 신규 원천만 넣으므로 후속 검수 덮어쓰기로 사용하지 않는다. 날짜가 들어간 보고서 수치는 회차 스냅샷이고 관리자 도움말은 현재 DB 집계를 확인하도록 안내한다.
 
+2026-10-05 심화 실행: 미확인 268등록행 전부에 기존과 다른 짧은 구절을 질의하고 기존 서지 후보 12개를 추적했다. 스캔은 이미지로 읽으며 공개 preview라도 해당 문단 전체가 있어야 확정한다. 인용 원작·장 저자·편집자를 구분하고 요청 실패/부분 인용은 보류한다. [심화 보고서](./reports/csat-source-origin-deep-20261005.md), [검수 manifest](./reports/csat-source-origin-deep-review-20261005.json), [268개 검색](./reports/csat-source-origin-deep-search-20261005.jsonl), [확정·보류 280행](./reports/csat-source-origin-deep-decisions-20261005.json)을 보존했다. 모든 보류도 현재 연결 문항별 본문 SHA에 묶어 재검색 시 변경 여부를 확인한다. 원천 확인과 서비스에서 원문을 재사용할 권리는 별도 판단이다.
+
 ## CSAT 파생 콘텐츠의 원문 정책 v3 (2026-09-18)
 
 최종 판정은 `source-eligibility.ts:evaluateSource` 한 벌이다. `judgeSource`는 기존 7축 진단이며 사용 허가에는 쓰지 않는다.

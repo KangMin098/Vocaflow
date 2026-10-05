@@ -155,6 +155,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
       cautions: [
         '씨앗 파일은 2026-09-28 시점 자료다. DB 에서 판정을 고친 뒤(예: A→B) 다시 돌려도 덮지 않고 「충돌」로만 보고한다 — 파일이 맞다고 판단되면 그 행만 사람이 고친다(재등급 트리거가 연결 근거와 채택 항목을 함께 처리한다).',
         '출처 소개·시험 재게시·서평은 탐색 단서다. 실제 도서·논문의 해당 문단 전체와 서지를 대조한 뒤 확정한다. 열람 사본의 발행 연도와 시험 사용 판본은 구분한다.',
+        '전체 검색 완료는 전체 원천 확인 완료가 아니다. 미리보기·부분 인용·접근 실패는 보류하고, 스캔 PDF는 실제 페이지를 읽는다. 장 저자와 편집자·인용 학자를 구분한다. 원천 확인은 원문 재사용 허가를 뜻하지 않는다.',
       ],
       drain: {
         what: 'Codex 원천 조사 결과를 등록부(knowledge_csat_origins)에 적재한다.',
@@ -162,6 +163,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
         procedure: [
           { title: '미리보기', detail: 'node scripts/knowledge/import-seed.mjs — 등급별 개수만 출력하고 쓰지 않는다.' },
           { title: '적재', detail: 'node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/knowledge/import-seed.mjs --commit', done: '「원천 새로 N · 같음 M · 충돌 0」 — 충돌이 0 이 아니면 아래 주의를 본다' },
+          { title: '새 구절로 조사한다', detail: '기존 질의 기록과 겹치지 않는 짧은 구절을 문장 안에서 골라 검색한다. 빈칸·순서·삽입문을 복원해 문단 전체를 대조하고, 확정·보류 모두 연결 문항별 현재 본문 SHA·URL·확인 범위를 남긴다. 검색은 DB를 쓰지 않으며 같은 본문에서는 재실행 안전하다. 본문이 바뀌면 재검수한다.' },
           { title: '후속 검수 미리보기', detail: '현재 원천 행의 변경 전후 값·연결 문항별 본문 SHA를 manifest에 넣고 node scripts/csat/source-origin-review.mjs --input <검수.json> --output <preview.sql>로 SQL을 만든다. 생성 단계는 DB를 쓰지 않으며 재실행 안전하다.' },
           { title: '후속 검수 적용', detail: 'preview SQL을 DB에서 확인해 모두 ready일 때 --commit-sql로 적용 SQL을 만든다. 생성만으로 적용되지 않는다. 체크포인트 전후를 찍고 승인된 DB 실행 도구로 한 트랜잭션을 실행한다. 이미 적용한 같은 검수는 건너뛰며 충돌은 전체를 중단한다.' },
         ],
