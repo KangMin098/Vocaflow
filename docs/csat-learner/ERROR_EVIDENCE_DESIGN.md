@@ -466,7 +466,7 @@ Pilot 뒤 등급별 reviewer 일치율을 재서 등급의 실제 뜻을 문서�
   단어 · 표현 / 문장 해석 / 글의 흐름 / 선지 판단 / 시간 · 집중 / 잘 모르겠음
 
 - **2단계(선택)** — 1단계를 고른 경우에만, 그 영역의 세부 2~4개를 「더 정확히 고르면 진단이 빨라져요」와 함께 펼친다. 안 골라도 저장된다.
-- **group ↔ 축 대응**(코드 사전 `student_group` 과 같다): 단어 · 표현 = V · 문장 해석 = S · 글의 흐름 = R · 선지 판단 = E · 시간 · 집중 = X. **B(행동) 코드는 group 이 없다**(학생이 「추측했다」를 원인으로 고르게 하지 않는다 — 행동은 관찰 근거로만) → 코드 사전에서 B 의 `student_group` 은 NULL 로 두고 CHECK 를 `axis = 'B' or student_group is not null` 로 바꾼다.
+- **group ↔ 축 대응**(코드 사전 `student_group` 과 같다): 단어 · 표현 = V · 문장 해석 = S · 글의 흐름 = R · 선지 판단 = E · 시간 · 집중 = X. (**E 축 superseded 2026-10-05** — v0.1 은 `E.evidence_location → evidence`(본문에서 근거를 찾는 단계) · `E.task_misread` · `E.option_mismatch → choice`(발문 · 선지 판단 단계). 학생 범주는 원인 라벨이 아니라 과정 증거 하나. 정본: [codebook/data/seed-v0.1-conditional.json](./codebook/data/seed-v0.1-conditional.json) `student_group_by_axis.decision`) **B(행동) 코드는 group 이 없다**(학생이 「추측했다」를 원인으로 고르게 하지 않는다 — 행동은 관찰 근거로만) → 코드 사전에서 B 의 `student_group` 은 NULL 로 두고 CHECK 를 `axis = 'B' or student_group is not null` 로 바꾼다.
 - **영역 일치 계산**: 자기보고에 세부 코드(2단계)가 있으면 그 코드의 축, 없으면 group 의 축. AI 쪽은 primary 코드의 축. B 는 역량 영역 일치 계산에서 뺀다.
 - **저장**: 1단계만 고르면 그 영역의 대표 코드가 아니라 **영역만** 남긴다 — `evidence.self_report.group` 에 넣고 `error_code` 는 2단계를 고른 경우에만 쓴다.  `error_code` 는 student 행에 한해 NULL 을 허용한다(§5-1 CHECK).
 - 「잘 모르겠음」은 새 행을 만들지 않는다 — 이벤트로만 센다.

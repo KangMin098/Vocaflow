@@ -1,13 +1,8 @@
 {
- "status": "PENDING_DECISION",
- "pass": 30,
+ "status": "PASS",
+ "pass": 32,
  "fail": 0,
- "pending": [
-  {
-   "what": "student_group",
-   "detail": "E.evidence_location → evidence(제안). §7 은 E 전체를 choice 로 두지만, 적용된 DB(20261003230000) · 코드북 rev4.2 §2 A1 은 학생 범주에 「근거(evidence)」를 따로 둔다 — §7 대로면 학생이 「근거」를 골랐을 때 대응 코드가 0 이 된다. 사용자 확인 전까지 seed 게이트 미통과"
-  }
- ],
+ "pending": [],
  "checks": [
   {
    "area": "정본",
@@ -110,6 +105,21 @@
    "name": "학생이 고를 수 있는 범주마다 대응 코드가 하나 이상(학생 범주 보고가 막히지 않게)",
    "ok": true,
    "detail": []
+  },
+  {
+   "area": "코드",
+   "name": "E 축 학생 범주 = 결정(evidence_location→evidence · task_misread · option_mismatch→choice)",
+   "ok": true,
+   "detail": {
+    "E.task_misread": "choice",
+    "E.evidence_location": "evidence",
+    "E.option_mismatch": "choice"
+   }
+  },
+  {
+   "area": "코드",
+   "name": "학생 범주는 원인 라벨이 아님 · task 범주 없음(결정 기록)",
+   "ok": true
   },
   {
    "area": "코드",

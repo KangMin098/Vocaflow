@@ -1,0 +1,90 @@
+{
+  "ranAt": "2026-10-05",
+  "pass": 12,
+  "fail": 0,
+  "results": [
+    {
+      "area": "learner",
+      "name": "v0.1 버전 읽기 — sealed · 해시 · conditional 표기",
+      "ok": true,
+      "detail": [
+        {
+          "version": "v0.1",
+          "status": "sealed",
+          "definitions_hash": "303e5140a2d54b2d58a8df99bc7be6c1c55cceaa63294111bf17f02aeb934ced",
+          "note": "v0.1 conditional seed candidate — rev4 did not pass the preregistered v0.1 seed gate. 제품 결정: 2026-10-05 사용자 결정 — 2(R6 경계 provisional 로 seed 포함) + 3(Pilot 에서도 provisional 유지). validated · verified taxonomy 가 아니다."
+        }
+      ]
+    },
+    {
+      "area": "learner",
+      "name": "코드 19 · 모두 active",
+      "ok": true,
+      "detail": 19
+    },
+    {
+      "area": "learner",
+      "name": "E 학생 범주 = 결정",
+      "ok": true,
+      "detail": {
+        "E.evidence_location": "evidence",
+        "E.option_mismatch": "choice",
+        "E.task_misread": "choice"
+      }
+    },
+    {
+      "area": "learner",
+      "name": "경계 1 — r.inference__v.wrong_sense · provisional · r6_derivation_probe",
+      "ok": true,
+      "detail": [
+        {
+          "boundary_key": "r.inference__v.wrong_sense",
+          "code_a": "R.inference",
+          "code_b": "V.wrong_sense",
+          "status": "provisional",
+          "probe_key": "r6_derivation_probe"
+        }
+      ]
+    },
+    {
+      "area": "learner",
+      "name": "경계 수정 거부(PostgREST)",
+      "ok": true
+    },
+    {
+      "area": "learner",
+      "name": "코드 수정 거부(PostgREST)",
+      "ok": true
+    },
+    {
+      "area": "anon",
+      "name": "코드 읽기 거부",
+      "ok": true
+    },
+    {
+      "area": "anon",
+      "name": "경계 읽기 거부",
+      "ok": true
+    },
+    {
+      "area": "AI",
+      "name": "ai_taxonomy(service_role) — V/S/R/E 14 · 경계 1 · 해시",
+      "ok": true
+    },
+    {
+      "area": "AI",
+      "name": "service_role — 코드 표 직접 거부(RPC 로만)",
+      "ok": true
+    },
+    {
+      "area": "learner",
+      "name": "ai_taxonomy — 학습자 거부",
+      "ok": true
+    },
+    {
+      "area": "정리",
+      "name": "테스트 계정 삭제",
+      "ok": true
+    }
+  ]
+}

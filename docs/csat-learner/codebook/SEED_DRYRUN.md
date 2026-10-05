@@ -1,4 +1,6 @@
-# v0.1 conditional seed — 준비 · dry-run (2026-10-05 · DB 미적용)
+# v0.1 conditional seed — 준비 · dry-run · 개발 DB 적용 (2026-10-05)
+
+> **적용 완료(2026-10-05)** — E 축 결정 반영 → build · validate **32/32 PASS** · dry-run **16/16**(diff 0) → 조건부 승인 조건 충족 → `seed/apply-seed.mjs` COMMITTED(write 버전 1 · 코드 19 · 경계 1 · 봉인 1 = 예상). 봉인 해시 `303e5140…` = dry-run = 재계산. 적용 후: 코드 19 active · E 매핑 일치 · 경계 1 provisional(`r6_derivation_probe`) · 봉인 뒤 경계 수정 · 추가, 코드 수정 · 추가, 버전 삭제 5종 거부 · v99.0/v99.1 해시 · 학습 기록 불변 · checkpoint `seed-v0.1` diff 는 회전 표본뿐 · seed smoke(PostgREST) 12/12 · Security Advisor ERROR 0 · csat_ec 31(변화 없음). 아래 본문은 결정 전 기록이다(§4 미결은 해소).
 
 > 사전 등록 결과는 그대로다: **「rev4 did not pass the preregistered v0.1 seed gate」**. 이것은 별도 제품 결정([SEED_DECISION.md](./SEED_DECISION.md) 「제품 결정」)의 seed 입력을 확정 · 검증한 기록이다. validated · verified taxonomy 가 아니다.
 > 이 단계에서 하지 않은 것: 실제 seed commit · Pilot 회차 · UI · 사용자 대상 실행 · DB 구조 변경.
@@ -42,11 +44,11 @@
 
 ## 4. 정적 검증 — `validate-seed.mjs` → [data/seed-v0.1-validation.json](./data/seed-v0.1-validation.json)
 
-**30 / 30 통과 · 미결 1** → 상태 `PENDING_DECISION`.
+결정 전 30/30 · 미결 1 → **결정 반영 뒤 32/32 PASS**(E 매핑 정확 일치 · 학생 범주는 원인 라벨 아님 · task 범주 없음 검사 추가).
 정본 해시 · 사전 등록 문구 · 규칙 상태 · rev4.4 없음 · 버전 형식 · TEST 버전 거부 · 코드 19(중복 · 형식 · 축 · 문구 · active · B 만 group 없음) · 학생 범주 6개 모두 대응 코드 · 정의 문구의 코드 참조가 모두 이 판에 있음(폐기된 `B.guess` · 다른 판 이름 없음) · 경계(코드 존재 · 순서 · 키 · 상태 · probe 는 provisional 만 · R6 하나뿐) · seed 에 런타임 값(outcome · candidate_codes · evidence_profile) 없음.
 outcome · candidate_codes · evidence_profile 은 seed 입력이 아니다 — DB 제약과 `smoke-pilot.mjs`(오타 · 다른 판본 · 폐기 · 중복 · 1개 후보 거부)가 검증한다.
 
-### 미결(사용자 결정 필요) — E 축 학생 범주
+### E 축 학생 범주 — **확정(2026-10-05 사용자 결정)**: `E.evidence_location → evidence`(본문에서 근거를 찾는 단계) · `E.task_misread` · `E.option_mismatch → choice`(발문 · 선지 판단 단계, 내부 key 유지 · UI 표시명 「문제·선지 판단」). 학생 범주는 원인 라벨이 아니라 과정 증거 하나(자동 확정 금지). v0.1 에 task 범주 없음(Pilot 뒤 재검토). 정본 우선순위: 이 결정 > CODEBOOK.rev4.2 > 적용 DB 의미 > ERROR_EVIDENCE_DESIGN §7(superseded). 아래는 결정 전 기록
 
 | 정본 | E 축 범주 |
 |---|---|
@@ -84,4 +86,12 @@ outcome · candidate_codes · evidence_profile 은 seed 입력이 아니다 — 
 | smoke 재실행 | `smoke-pilot.mjs` 104/104 |
 | Security Advisor | ERROR 0 · csat_ec 31(변화 없음) |
 
-**판정: 실행 불가(blocker 1) — E 축 학생 범주 결정.** 결정 뒤: 결정 JSON 반영 → `build-seed` → `validate-seed`(PASS) → `dryrun-seed`(PASS, 해시가 바뀌면 새 값 기록) → 실제 seed 승인. 실제 seed 는 같은 입력 · 같은 순서의 별도 실행 스크립트로 하고 schema_migrations 가 아닌 데이터 적용으로 기록한다.
+**판정(결정 전): 실행 불가(blocker 1) — E 축 학생 범주 결정. → 결정 뒤 해소 · 적용 완료(맨 위).** 결정 뒤: 결정 JSON 반영 → `build-seed` → `validate-seed`(PASS) → `dryrun-seed`(PASS, 해시가 바뀌면 새 값 기록) → 실제 seed 승인. 실제 seed 는 같은 입력 · 같은 순서의 별도 실행 스크립트로 하고 schema_migrations 가 아닌 데이터 적용으로 기록한다.
+
+## 7. Fixture 격리 요구(사용자 승인 2026-10-05)
+
+Pilot · seed 의 운영 유사 경로는 `v99.*` · note 「TEST」 · 회차 `eligibility.test` 를 명시적으로 걸러내고, 실제 Pilot 회차는 taxonomy `v0.1` 로 고정한다(UI · 운영 도구 단계의 구현 요구 — DB 구조 변경 없음).
+
+## 8. 다음 단계(사용자 지정 순서)
+
+seed smoke(완료) → 학생 interpretation 입력 UI → provisional 경계 감지 → R6 targeted probe UI → pre_probe / all 저장 검증 → end-to-end smoke → Pilot 규모 · 대상 · 기간 결정. 실제 Pilot 은 UI end-to-end 검증 전에는 시작하지 않는다. Learning Map · Evidence Anchor 동결 유지.

@@ -59,6 +59,13 @@ check('코드', 'student_group — B 는 NULL · 그 밖은 허용 범주', C.ev
 const covered = new Set(C.map((c) => c.student_group).filter(Boolean))
 check('코드', '학생이 고를 수 있는 범주마다 대응 코드가 하나 이상(학생 범주 보고가 막히지 않게)', GROUPS.every((g) => covered.has(g)), GROUPS.filter((g) => !covered.has(g)))
 if (decision.student_group_by_axis?.pending_decision) pending.push({ what: 'student_group', detail: decision.student_group_by_axis.pending_decision })
+// E 축 — 2026-10-05 사용자 결정과 정확히 같아야 한다(생성물 · 결정 기록 모두)
+const EXPECT_E = { 'E.evidence_location': 'evidence', 'E.task_misread': 'choice', 'E.option_mismatch': 'choice' }
+const eRows = Object.fromEntries(C.filter((c) => c.axis === 'E').map((c) => [c.code, c.student_group]))
+check('코드', 'E 축 학생 범주 = 결정(evidence_location→evidence · task_misread · option_mismatch→choice)',
+  JSON.stringify(eRows, Object.keys(EXPECT_E).sort()) === JSON.stringify(EXPECT_E, Object.keys(EXPECT_E).sort())
+  && JSON.stringify(decision.student_group_by_axis?.decision?.mapping, Object.keys(EXPECT_E).sort()) === JSON.stringify(EXPECT_E, Object.keys(EXPECT_E).sort()), eRows)
+check('코드', '학생 범주는 원인 라벨이 아님 · task 범주 없음(결정 기록)', /cause label 이 아니다/.test(decision.student_group_by_axis?.decision?.not_cause_label ?? '') && !covered.has('task'))
 // 정의 문구 안 코드 참조 — 이 판에 없는 코드(폐기된 B.guess · 다른 판 이름)를 가리키지 않는다
 const refs = C.flatMap((c) => [c.definition, c.inclusion, c.exclusion].join(' ').match(/`[VSREBX]\.[a-z_]+`/g)?.map((x) => [c.code, x.slice(1, -1)]) ?? [])
 const dangling = refs.filter(([, r]) => !codeSet.has(r))

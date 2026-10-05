@@ -1,0 +1,19 @@
+{
+ "ranAt": "2026-10-05T06:09:09.325Z",
+ "version": "v0.1",
+ "expected": {
+  "taxonomy_version": 1,
+  "code": 19,
+  "boundary": 1,
+  "seal_update": 1
+ },
+ "dry_run_hash": "303e5140a2d54b2d58a8df99bc7be6c1c55cceaa63294111bf17f02aeb934ced",
+ "actual": {
+  "taxonomy_version": 1,
+  "code": 19,
+  "boundary": 1,
+  "seal_update": 1
+ },
+ "seal": "303e5140a2d54b2d58a8df99bc7be6c1c55cceaa63294111bf17f02aeb934ced",
+ "status": "COMMITTED"
+}
