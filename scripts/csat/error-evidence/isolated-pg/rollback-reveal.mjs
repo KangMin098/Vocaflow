@@ -23,6 +23,7 @@ const schema = async (admin) => (await admin.query(`
     left join pg_attrdef d on d.adrelid = c.oid and d.adnum = a.attnum where n.nspname = 'public' and c.relname like 'csat\\_ec\\_%' and c.relkind = 'r'
   union all select 'fe:' || conname, md5(pg_get_constraintdef(oid)) from pg_constraint where conrelid = 'public.funnel_events'::regclass
   union all select 'colacl:' || table_name || '.' || column_name || ':' || grantee, privilege_type from information_schema.column_privileges where table_schema = 'public' and grantee in ('anon', 'authenticated', 'service_role') and (table_name like 'csat\_%' or table_name = 'funnel_events')
+  union all select 'attacl:' || c.relname || '.' || a.attname, coalesce(a.attacl::text, '') from pg_attribute a join pg_class c on c.oid = a.attrelid join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and (c.relname like 'csat\_%' or c.relname = 'funnel_events') and a.attnum > 0 and not a.attisdropped and a.attacl is not null
   union all select 'view:' || c.relname, md5(pg_get_viewdef(c.oid)) from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind = 'v' and c.relname like 'csat\_%'
   union all select 'schema:' || nspname, '' from pg_namespace where nspname like 'csat%'
   union all select 'pol2:' || polrelid::regclass || ':' || polname, md5(coalesce(pg_get_expr(polqual, polrelid), '')) from pg_policy where polrelid::regclass::text like 'csat\_%'

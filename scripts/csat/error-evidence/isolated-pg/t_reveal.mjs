@@ -26,6 +26,7 @@ export default async function reveal(admin, ctx) {
   await admin.query(`insert into public.csat_dx_snapshot (user_id, session_id, raw_score) select user_id, id, 50 from public.csat_dx_session where user_id = $1 limit 1`, [U.L2])
   await admin.query(`insert into public.csat_session_attempts (user_id, item_id, correct) values ($1, $2, true)`, [U.L2, `${EXAM}#20`])
   await admin.query(`insert into public.csat_trap_attempts (user_id, item_id, choice, is_correct) values ($1, $2, 3, false)`, [U.L2, `${EXAM}#21`])
+  await admin.query(`insert into public.csat_review_queue (user_id, item_id, stage) values ($1, $2, 1)`, [U.L2, `${EXAM}#22`])
 
   const seen = async (who) => {
     const q = async (sql, p = []) => { const r = await as(app, who, sql, p); return r.ok ? r.rows : `ERR ${r.err}` }
@@ -36,11 +37,11 @@ export default async function reveal(admin, ctx) {
       report: (await q(`select count(*)::int n from public.csat_type_reports where type_id = 'T-INFER'`))[0]?.n,
       sessions: (await q(`select count(*)::int n from public.csat_dx_session where exam_id = $1`, [EXAM]))[0]?.n,
       responses: (await q(`select count(*)::int n from public.csat_dx_response r join public.csat_dx_session s on s.id = r.session_id where s.exam_id = $1`, [EXAM]))[0]?.n,
-      practice: (await q(`select (select count(*) from public.csat_session_attempts) + (select count(*) from public.csat_trap_attempts) n`))[0]?.n,
+      practice: (await q(`select (select count(*) from public.csat_session_attempts) + (select count(*) from public.csat_trap_attempts) + (select count(*) from public.csat_review_queue) n`))[0]?.n,
     }
   }
   const pre = await seen(learner(U.L2))
-  record('reveal', '보류 전 — 비참가자가 해설 · 정답 · 뼈대 · 유형 보고 · 본인 기록 · 스냅샷을 본다', pre.analyses > 0 && pre.answers > 0 && pre.skeletons > 0 && pre.report === 1 && pre.sessions > 0 && Number(pre.practice) === 2, pre)
+  record('reveal', '보류 전 — 비참가자가 해설 · 정답 · 뼈대 · 유형 보고 · 본인 기록 · 스냅샷을 본다', pre.analyses > 0 && pre.answers > 0 && pre.skeletons > 0 && pre.report === 1 && pre.sessions > 0 && Number(pre.practice) === 3, pre)
 
   // ── 생성(원자 · 멱등) ──
   const resp = (choose) => Array.from({ length: 45 }, (_, i) => { const n = i + 1; const c = choose(n); return { item_no: n, item_id: `${EXAM}#${n}`, chosen_option: c, is_correct: c === answerOf(n) } })
@@ -87,11 +88,11 @@ export default async function reveal(admin, ctx) {
   // ── 판정자 자료 마스킹(비관리자) ──
   const rr = (await admin.query(`select r.id from public.csat_ec_review_round r join public.csat_ec_review_assignment a on a.round_id = r.id where r.revealed_at is not null and a.reviewer_id = $1 limit 1`, [U.RA])).rows[0]
   if (rr) {
-    const m = await as(app, learner(U.RA), `select answer from public.csat_ec_round_material($1)`, [rr.id])
-    record('reveal', 'round_material — 비관리자 판정자에게 보류 문항 정답 null', ok(m) && m.rows.length > 0 && m.rows.every((x) => x.answer === null), m.err)
+    const m = await as(app, learner(U.RA), `select answer, student_category from public.csat_ec_round_material($1)`, [rr.id])
+    record('reveal', 'round_material — 비관리자 판정자에게 보류 문항 정답 null · 학생 범주 보고 빈 목록(존재 = 정오)', ok(m) && m.rows.length > 0 && m.rows.every((x) => x.answer === null && JSON.stringify(x.student_category) === '[]'), m.err)
     const v = await as(app, learner(U.RA), `select public.csat_ec_reveal_view($1) v`, [rr.id])
     const vs = JSON.stringify(v.rows?.[0]?.v ?? {})
-    record('reveal', 'reveal_view — 해시 없음 · 보류 문항 근거 · 메모 null', ok(v) && !vs.includes('item_input_hash') && (v.rows[0].v.claims ?? []).every((c) => c.evidence === null), v.err)
+    record('reveal', 'reveal_view — 해시 없음 · 보류 문항 근거 · 메모 null · 학생 claim 없음', ok(v) && !vs.includes('item_input_hash') && (v.rows[0].v.claims ?? []).every((c) => c.evidence === null && c.source !== 'student'), v.err)
   } else record('reveal', '공개된 판정 회차가 없어 판정자 마스킹 검사 생략', false, '앞선 테스트의 회차가 필요하다')
 
   // ── 전이 · 완료 조건 ──
@@ -148,7 +149,7 @@ export default async function reveal(admin, ctx) {
   const elig = (await admin.query(`select public.csat_ec_pilot_eligible($1, 18::smallint) e`, [sid2])).rows[0].e
   record('reveal', 'closed_incomplete 세션은 Pilot 적격 아님(판정 · AI 입력에서 분리)', elig === false)
   const lifted = await seen(learner(U.L2))
-  record('reveal', '활성 0 — 보류 해제(해설 · 정답 · 본인 기록 다시 보임)', lifted.analyses > 0 && lifted.answers > 0 && lifted.sessions > 0 && Number(lifted.practice) === 2, lifted)
+  record('reveal', '활성 0 — 보류 해제(해설 · 정답 · 본인 기록 다시 보임)', lifted.analyses > 0 && lifted.answers > 0 && lifted.sessions > 0 && Number(lifted.practice) === 3, lifted)
 
   // 비참가자 · 활성 없음 → 행 없음(기존 동작)
   const n1 = await held(P.N1, '44444444-4444-4444-8444-444444444444', false)
@@ -214,7 +215,8 @@ export default async function reveal(admin, ctx) {
   const gr = await as(app, learner(U.L2), 'select grade from public.csat_dx_session limit 1')
   const ic = await as(app, learner(U.L2), 'select is_correct from public.csat_dx_response limit 1')
   const sn = await as(app, learner(U.L2), 'select id from public.csat_dx_snapshot limit 1')
+  const ls = await as(app, learner(U.L2), 'select record from public.csat_learner_state limit 1')
   const okCols = await as(app, learner(U.L2), 'select s.id, s.exam_id, r.chosen_option from public.csat_dx_session s join public.csat_dx_response r on r.session_id = s.id limit 1')
-  record('reveal', '② 학습자 직접 조회 — 점수 · 등급 · 정오 · 스냅샷 거부, 정답 무관 컬럼은 허용', fails(rs, /permission denied/) && fails(gr, /permission denied/) && fails(ic, /permission denied/) && fails(sn, /permission denied/) && ok(okCols), [rs.err, ic.err, sn.err, okCols.err])
+  record('reveal', '② 학습자 직접 조회 — 점수 · 등급 · 정오 · 스냅샷 거부, 정답 무관 컬럼은 허용', fails(rs, /permission denied/) && fails(gr, /permission denied/) && fails(ic, /permission denied/) && fails(sn, /permission denied/) && fails(ls, /permission denied/) && ok(okCols), [rs.err, ic.err, sn.err, ls.err, okCols.err])
   record('reveal', 'my_capture_state — 본인만(다른 학습자 null)', ok(myState) && myState.rows[0].s.status === 'completed' && ok(otherState) && otherState.rows[0].s === null)
 }

@@ -14,120 +14,954 @@
   "TRIGGER_FN": "트리거 함수(직접 호출 의미 없음)"
  },
  "db_relations": {
-  "csat_dcp_items": { "class": "ANSWER_SENSITIVE", "gate": "정책 dcp_admin = is_admin_or_curator() — 학습자 0행" },
-  "csat_dx_habit_feedback": { "class": "LEARNER_OWN", "gate": "본인 행" },
-  "csat_dx_profile_hist": { "class": "LEARNER_OWN", "gate": "본인 행" },
-  "csat_dx_response": { "class": "CORRECTNESS", "gate": "정책 보류 아님 + ② is_correct 회수" },
-  "csat_dx_session": { "class": "CORRECTNESS", "gate": "정책 보류 아님 + ② raw_score · grade 회수" },
-  "csat_dx_snapshot": { "class": "CORRECTNESS", "gate": "정책 보류 세션 없음 + ② 전체 회수", "revoked_by": "20261005170100" },
-  "csat_ec_boundary": { "class": "PUBLIC_CONTENT", "gate": "경계 정의(공개 사전)" },
-  "csat_ec_claim": { "class": "LEARNER_OWN", "gate": "본인 학생 claim · item_input_hash 컬럼 회수(DERIVED_SECRET)", "secret_columns": ["item_input_hash"] },
-  "csat_ec_code": { "class": "PUBLIC_CONTENT", "gate": "원인 사전" },
-  "csat_ec_process_evidence": { "class": "LEARNER_OWN", "gate": "본인 행 · item_input_hash 컬럼 회수(DERIVED_SECRET)", "secret_columns": ["item_input_hash"] },
-  "csat_ec_session_confirmation": { "class": "LEARNER_OWN", "gate": "본인 행 · answers_hash 는 본인이 고른 답의 해시(정답 아님)" },
-  "csat_ec_taxonomy_version": { "class": "PUBLIC_CONTENT", "gate": "원인 사전 버전" },
-  "csat_exams": { "class": "PUBLIC_CONTENT", "gate": "시험 목록(has_answer_key 는 여부만)" },
-  "csat_item_analyses": { "class": "ANSWER_SENSITIVE", "gate": "정책 published · 보류 문항 아님" },
-  "csat_item_attempts": { "class": "LEARNER_OWN", "gate": "본인 행 — DCP 문항(수능 시험 문항 아님)" },
-  "csat_item_skeletons": { "class": "ANSWER_SENSITIVE", "gate": "정책 published · 보류 문항 아님" },
-  "csat_items": { "class": "ANSWER_SENSITIVE", "gate": "정책 using(false) — 학습자 0행" },
-  "csat_items_public": { "class": "ANSWER_SENSITIVE", "gate": "뷰 — 보류 문항 answer = null" },
-  "csat_learner_state": { "class": "CORRECTNESS_OWN_PRIOR", "gate": "본인 연습 기록 jsonb(행 단위로 거를 수 없음) — 잔여 위험 O-3" },
-  "csat_map_edge": { "class": "PUBLIC_CONTENT", "gate": "학습 지도 구조" },
-  "csat_map_edge_source": { "class": "PUBLIC_CONTENT", "gate": "학습 지도 출처" },
-  "csat_map_goal": { "class": "LEARNER_OWN", "gate": "본인 목표" },
-  "csat_map_item_rate": { "class": "PUBLIC_CONTENT", "gate": "공식 오답률(정답 아님)" },
-  "csat_map_line_link": { "class": "PUBLIC_CONTENT", "gate": "학습 지도 연결" },
-  "csat_map_node": { "class": "PUBLIC_CONTENT", "gate": "학습 지도 노드" },
-  "csat_map_node_source": { "class": "PUBLIC_CONTENT", "gate": "학습 지도 출처" },
-  "csat_map_settings": { "class": "PUBLIC_CONTENT", "gate": "지도 설정" },
-  "csat_map_source": { "class": "PUBLIC_CONTENT", "gate": "지도 출처" },
-  "csat_map_task": { "class": "PUBLIC_CONTENT", "gate": "지도 과제" },
-  "csat_map_task_done": { "class": "LEARNER_OWN", "gate": "본인 과제 완료" },
-  "csat_review_queue": { "class": "CORRECTNESS_OWN_PRIOR", "gate": "본인 복습 큐(과거 연습 오답에서 생김) — 잔여 위험 O-3" },
-  "csat_session_attempts": { "class": "CORRECTNESS", "gate": "정책 본인 · 보류 문항 아님" },
-  "csat_source_eligibility": { "class": "ADMIN_ONLY", "gate": "정책 is_admin_or_curator()" },
-  "csat_source_eligibility_history": { "class": "ADMIN_ONLY", "gate": "정책 is_admin_or_curator()" },
-  "csat_stage_catalog": { "class": "PUBLIC_CONTENT", "gate": "단계 목록 뷰" },
-  "csat_stage_gates": { "class": "PUBLIC_CONTENT", "gate": "단계 공개 규칙" },
-  "csat_trap_attempts": { "class": "CORRECTNESS", "gate": "정책 본인 · 보류 문항 아님" },
-  "csat_type_reports": { "class": "ANSWER_SENSITIVE", "gate": "정책 published · 보류 문항이 속한 유형 아님" },
-  "csat_types": { "class": "PUBLIC_CONTENT", "gate": "유형 목록" }
+  "csat_dcp_items": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "정책 dcp_admin = is_admin_or_curator() — 학습자 0행",
+   "learner_columns": [
+    "answer_key",
+    "created_at",
+    "id",
+    "item_role",
+    "kind",
+    "paragraph_idx",
+    "payload",
+    "ref_id",
+    "type",
+    "v_level"
+   ]
+  },
+  "csat_dx_habit_feedback": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 행",
+   "learner_columns": [
+    "agreed",
+    "answered_at",
+    "habit_code",
+    "snapshot_id",
+    "user_id"
+   ]
+  },
+  "csat_dx_profile_hist": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 행",
+   "learner_columns": [
+    "background",
+    "entered_by",
+    "goal_detail",
+    "goal_type",
+    "grade_level",
+    "id",
+    "user_id",
+    "valid_from",
+    "weekly_hours"
+   ]
+  },
+  "csat_dx_response": {
+   "class": "CORRECTNESS",
+   "gate": "정책 보류 아님 + ② is_correct 회수",
+   "learner_columns": [
+    "chosen_option",
+    "confidence",
+    "is_correct",
+    "item_id",
+    "item_no",
+    "session_id"
+   ]
+  },
+  "csat_dx_session": {
+   "class": "CORRECTNESS",
+   "gate": "정책 보류 아님 + ② raw_score · grade 회수",
+   "learner_columns": [
+    "client_key",
+    "created_at",
+    "entered_by",
+    "exam_id",
+    "grade",
+    "id",
+    "mode",
+    "raw_score",
+    "taken_at",
+    "total_minutes",
+    "user_id"
+   ]
+  },
+  "csat_dx_snapshot": {
+   "class": "CORRECTNESS",
+   "gate": "정책 보류 세션 없음 + ② 전체 회수",
+   "revoked_by": "20261005170100",
+   "learner_columns": [
+    "adjusted_score",
+    "attribute_mastery",
+    "computed_at",
+    "confidence",
+    "engine_version",
+    "evidence",
+    "forecast",
+    "grade_est",
+    "habit_flags",
+    "id",
+    "inputs_as_of",
+    "raw_score",
+    "recommended_lines",
+    "session_id",
+    "settings_id",
+    "trap_vulnerability",
+    "trigger",
+    "user_id"
+   ]
+  },
+  "csat_ec_boundary": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "경계 정의(공개 사전)",
+   "learner_columns": [
+    "boundary_key",
+    "code_a",
+    "code_b",
+    "created_at",
+    "decision_note",
+    "probe_key",
+    "provenance",
+    "status",
+    "version"
+   ]
+  },
+  "csat_ec_claim": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 학생 claim · item_input_hash 컬럼 회수(DERIVED_SECRET)",
+   "secret_columns": [
+    "item_input_hash"
+   ],
+   "learner_columns": [
+    "ai_run_id",
+    "code",
+    "confidence",
+    "created_at",
+    "evidence",
+    "id",
+    "item_input_hash",
+    "item_no",
+    "role",
+    "session_id",
+    "source",
+    "student_group",
+    "supersedes_id",
+    "taxonomy_version",
+    "user_id"
+   ]
+  },
+  "csat_ec_code": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "원인 사전",
+   "learner_columns": [
+    "axis",
+    "code",
+    "definition",
+    "exclusion",
+    "inclusion",
+    "label",
+    "status",
+    "student_group",
+    "version"
+   ]
+  },
+  "csat_ec_process_evidence": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 행 · item_input_hash 컬럼 회수(DERIVED_SECRET)",
+   "secret_columns": [
+    "item_input_hash"
+   ],
+   "learner_columns": [
+    "created_at",
+    "id",
+    "item_input_hash",
+    "item_no",
+    "kind",
+    "session_id",
+    "supersedes_id",
+    "user_id",
+    "value"
+   ]
+  },
+  "csat_ec_session_confirmation": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 행 · answers_hash 는 본인이 고른 답의 해시(정답 아님)",
+   "learner_columns": [
+    "answers_hash",
+    "created_at",
+    "judged_each",
+    "revision",
+    "session_id",
+    "took_exam",
+    "user_id"
+   ]
+  },
+  "csat_ec_taxonomy_version": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "원인 사전 버전",
+   "learner_columns": [
+    "created_at",
+    "definitions_hash",
+    "note",
+    "sealed_at",
+    "status",
+    "version"
+   ]
+  },
+  "csat_exams": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "시험 목록(has_answer_key 는 여부만)",
+   "learner_columns": [
+    "created_at",
+    "diagnosis_ready",
+    "exam_year",
+    "form",
+    "grade",
+    "has_answer_key",
+    "id",
+    "item_count",
+    "kind",
+    "label",
+    "listening_end",
+    "month",
+    "official_grade1_ratio",
+    "official_stats_source",
+    "organizer",
+    "paper_form",
+    "source_note",
+    "year"
+   ]
+  },
+  "csat_item_analyses": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "정책 published · 보류 문항 아님",
+   "learner_columns": [
+    "analyst_run",
+    "answer_locus",
+    "answer_unknown",
+    "body_recovered",
+    "choice_analysis",
+    "created_at",
+    "design_intent",
+    "difficulty",
+    "id",
+    "item_id",
+    "measured_ability",
+    "required_vocab",
+    "solve_procedure",
+    "source",
+    "status",
+    "time_budget_sec",
+    "units_hash",
+    "units_version",
+    "updated_at",
+    "version"
+   ]
+  },
+  "csat_item_attempts": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 행 — DCP 문항(수능 시험 문항 아님)",
+   "learner_columns": [
+    "dcp_item_id",
+    "error_cause",
+    "id",
+    "is_correct",
+    "item_role",
+    "question_id",
+    "responded_at",
+    "text_id",
+    "user_id"
+   ]
+  },
+  "csat_item_skeletons": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "정책 published · 보류 문항 아님",
+   "learner_columns": [
+    "built_at",
+    "data",
+    "exam_id",
+    "exam_label",
+    "item_id",
+    "source_hash"
+   ]
+  },
+  "csat_items": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "정책 using(false) — 학습자 0행",
+   "learner_columns": [
+    "answer",
+    "answers",
+    "body_ok",
+    "choices",
+    "created_at",
+    "ebs_linked",
+    "exam_id",
+    "high_score",
+    "id",
+    "in_scope",
+    "no",
+    "official_error_rate",
+    "passage",
+    "points",
+    "raw_block",
+    "section",
+    "stem",
+    "type_id"
+   ]
+  },
+  "csat_items_public": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "뷰 — 보류 문항 answer = null",
+   "learner_columns": [
+    "answer",
+    "exam_id",
+    "grade",
+    "high_score",
+    "id",
+    "in_scope",
+    "no",
+    "organizer",
+    "points",
+    "section",
+    "type_id"
+   ]
+  },
+  "csat_learner_state": {
+   "class": "CORRECTNESS_OWN_PRIOR",
+   "gate": "본인 연습 기록 jsonb(행 단위로 거를 수 없음) — 잔여 위험 O-3",
+   "learner_columns": [
+    "record",
+    "updated_at",
+    "user_id"
+   ]
+  },
+  "csat_map_edge": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "학습 지도 구조",
+   "learner_columns": [
+    "basis",
+    "basis_claimed",
+    "from_code",
+    "id",
+    "kind",
+    "to_code"
+   ]
+  },
+  "csat_map_edge_source": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "학습 지도 출처",
+   "learner_columns": [
+    "edge_id",
+    "source_id"
+   ]
+  },
+  "csat_map_goal": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 목표",
+   "learner_columns": [
+    "target_score",
+    "updated_at",
+    "user_id"
+   ]
+  },
+  "csat_map_item_rate": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "공식 오답률(정답 아님)",
+   "learner_columns": [
+    "error_rate",
+    "exam_id",
+    "metric",
+    "no",
+    "rank",
+    "retrieved_at",
+    "source_id",
+    "unreported_choice_rate"
+   ]
+  },
+  "csat_map_line_link": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "학습 지도 연결",
+   "learner_columns": [
+    "line_code",
+    "link_kind",
+    "ref"
+   ]
+  },
+  "csat_map_node": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "학습 지도 노드",
+   "learner_columns": [
+    "axis",
+    "code",
+    "color_token",
+    "evidence_status",
+    "kind",
+    "name",
+    "signal",
+    "sort",
+    "summary",
+    "track",
+    "why"
+   ]
+  },
+  "csat_map_node_source": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "학습 지도 출처",
+   "learner_columns": [
+    "node_code",
+    "source_id"
+   ]
+  },
+  "csat_map_settings": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "지도 설정",
+   "learner_columns": [
+    "active",
+    "created_at",
+    "id",
+    "settings"
+   ]
+  },
+  "csat_map_source": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "지도 출처",
+   "learner_columns": [
+    "citation",
+    "created_at",
+    "id",
+    "status",
+    "supports",
+    "url"
+   ]
+  },
+  "csat_map_task": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "지도 과제",
+   "learner_columns": [
+    "cadence",
+    "done_when",
+    "how",
+    "id",
+    "line_code",
+    "material",
+    "method_line",
+    "ord",
+    "title"
+   ]
+  },
+  "csat_map_task_done": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 과제 완료",
+   "learner_columns": [
+    "done_at",
+    "task_id",
+    "user_id"
+   ]
+  },
+  "csat_review_queue": {
+   "class": "CORRECTNESS_OWN_PRIOR",
+   "gate": "본인 복습 큐(과거 연습 오답에서 생김) — 잔여 위험 O-3",
+   "learner_columns": [
+    "due_at",
+    "item_id",
+    "stage",
+    "type_id",
+    "updated_at",
+    "user_id"
+   ]
+  },
+  "csat_session_attempts": {
+   "class": "CORRECTNESS",
+   "gate": "정책 본인 · 보류 문항 아님",
+   "learner_columns": [
+    "answered_at",
+    "confused",
+    "correct",
+    "id",
+    "item_id",
+    "sec",
+    "type_id",
+    "user_id"
+   ]
+  },
+  "csat_source_eligibility": {
+   "class": "ADMIN_ONLY",
+   "gate": "정책 is_admin_or_curator()",
+   "learner_columns": [
+    "article_id",
+    "excerpt_evidence",
+    "input",
+    "linked_items",
+    "measured_at",
+    "policy_version",
+    "quality_flags",
+    "result",
+    "source",
+    "source_updated_at",
+    "uses"
+   ]
+  },
+  "csat_source_eligibility_history": {
+   "class": "ADMIN_ONLY",
+   "gate": "정책 is_admin_or_curator()",
+   "learner_columns": [
+    "article_id",
+    "id",
+    "previous",
+    "replaced_at"
+   ]
+  },
+  "csat_stage_catalog": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "단계 목록 뷰",
+   "learner_columns": [
+    "cefr_level",
+    "display_only",
+    "id",
+    "kind",
+    "lexical_noise",
+    "license_class",
+    "register",
+    "stage_band",
+    "syntax_score",
+    "title",
+    "v_level"
+   ]
+  },
+  "csat_stage_gates": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "단계 공개 규칙",
+   "learner_columns": [
+    "is_locked",
+    "metric",
+    "note",
+    "stage",
+    "threshold"
+   ]
+  },
+  "csat_trap_attempts": {
+   "class": "CORRECTNESS",
+   "gate": "정책 본인 · 보류 문항 아님",
+   "learner_columns": [
+    "answer_trap",
+    "answered_at",
+    "choice",
+    "id",
+    "is_correct",
+    "item_id",
+    "picked_trap",
+    "user_id"
+   ]
+  },
+  "csat_type_reports": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "정책 published · 보류 문항이 속한 유형 아님",
+   "learner_columns": [
+    "answer_locus_pattern",
+    "failure_modes",
+    "grade",
+    "n_analyzed",
+    "open_questions",
+    "organizer",
+    "procedure_steps",
+    "recurring_traps",
+    "status",
+    "time_budget_sec",
+    "type_id",
+    "updated_at"
+   ]
+  },
+  "csat_types": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "유형 목록",
+   "learner_columns": [
+    "created_at",
+    "id",
+    "in_scope",
+    "match_pattern",
+    "name",
+    "section",
+    "status"
+   ]
+  }
  },
  "db_functions": {
-  "csat_coverage": { "class": "OPS_META", "gate": "커버리지 통계" },
-  "csat_demote_on_review_change": { "class": "TRIGGER_FN", "gate": "트리거" },
-  "csat_drain_runs_stamp_finished": { "class": "TRIGGER_FN", "gate": "트리거" },
-  "csat_ec_add_probe_response": { "class": "LEARNER_OWN", "gate": "본인 · 완료 뒤 쓰기 거부" },
-  "csat_ec_add_process_evidence": { "class": "LEARNER_OWN", "gate": "본인 · 완료 뒤 쓰기 거부" },
-  "csat_ec_add_student_claim": { "class": "CORRECTNESS_ORACLE", "gate": "보류 · 미완료 capture 면 정오 검사 전에 같은 오류", "oracle": true },
-  "csat_ec_blind_queue": { "class": "REVIEWER_INTERNAL", "gate": "배정 확인 · 비관리자 보류 문항 정답 null" },
-  "csat_ec_confirm_session": { "class": "LEARNER_OWN", "gate": "본인 · 완료 뒤 쓰기 거부" },
-  "csat_ec_my_pending_probes": { "class": "LEARNER_OWN", "gate": "본인" },
-  "csat_ec_my_process_evidence": { "class": "LEARNER_OWN", "gate": "본인 · 해시 미포함" },
-  "csat_ec_reveal_view": { "class": "REVIEWER_INTERNAL", "gate": "명시 필드(해시 없음) · 비관리자 보류 문항 근거 · 메모 null" },
-  "csat_ec_round_advance": { "class": "ADMIN_ONLY", "gate": "is_admin()" },
-  "csat_ec_round_assign": { "class": "ADMIN_ONLY", "gate": "is_admin()" },
-  "csat_ec_round_create": { "class": "ADMIN_ONLY", "gate": "is_admin()" },
-  "csat_ec_round_material": { "class": "REVIEWER_INTERNAL", "gate": "배정 확인 · 비관리자 보류 문항 정답 null" },
-  "csat_ec_round_reveal": { "class": "ADMIN_ONLY", "gate": "is_admin()" },
-  "csat_ec_round_set_targets": { "class": "ADMIN_ONLY", "gate": "is_admin()" },
-  "csat_ec_round_start_blind": { "class": "ADMIN_ONLY", "gate": "is_admin()" },
-  "csat_ec_submit_adjudication": { "class": "REVIEWER_INTERNAL", "gate": "배정 adjudicator" },
-  "csat_ec_submit_blind": { "class": "REVIEWER_INTERNAL", "gate": "배정 판정자" },
-  "csat_ec_submit_verify": { "class": "REVIEWER_INTERNAL", "gate": "배정 판정자" },
-  "csat_ec_taxonomy_seal": { "class": "ADMIN_ONLY", "gate": "is_admin()" },
-  "csat_ec_my_capture_state": { "class": "LEARNER_OWN", "gate": "본인", "since": "20261005170000" },
-  "csat_ec_capture_open": { "class": "LEARNER_OWN", "gate": "본인 · 전이 RPC", "since": "20261005170000" },
-  "csat_ec_capture_finish": { "class": "LEARNER_OWN", "gate": "본인 · 서버 완료 조건", "since": "20261005170000" },
-  "csat_ec_capture_close": { "class": "ADMIN_ONLY", "gate": "is_admin() · 사유", "since": "20261005170000" },
-  "csat_ec_close_tombstone": { "class": "ADMIN_ONLY", "gate": "is_admin() · 사유", "since": "20261005170000" },
-  "csat_source_eligibility_tally": { "class": "OPS_META", "gate": "출처 적격 집계" },
-  "csat_source_inventory_live": { "class": "OPS_META", "gate": "출처 인벤토리" },
-  "csat_source_is_eligible": { "class": "OPS_META", "gate": "출처 판정" },
-  "csat_source_is_gradeable": { "class": "OPS_META", "gate": "출처 판정" },
-  "csat_source_live_rollup": { "class": "OPS_META", "gate": "출처 집계" },
-  "csat_source_pipeline_live": { "class": "OPS_META", "gate": "출처 파이프라인" },
-  "csat_source_rollup": { "class": "OPS_META", "gate": "출처 집계" },
-  "csat_source_snapshot_take": { "class": "OPS_META", "gate": "출처 스냅샷" }
+  "csat_coverage": {
+   "class": "OPS_META",
+   "gate": "커버리지 통계",
+   "signatures": [
+    "csat_coverage()"
+   ]
+  },
+  "csat_demote_on_review_change": {
+   "class": "TRIGGER_FN",
+   "gate": "트리거",
+   "signatures": [
+    "csat_demote_on_review_change()"
+   ]
+  },
+  "csat_drain_runs_stamp_finished": {
+   "class": "TRIGGER_FN",
+   "gate": "트리거",
+   "signatures": [
+    "csat_drain_runs_stamp_finished()"
+   ]
+  },
+  "csat_ec_add_probe_response": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 · 완료 뒤 쓰기 거부",
+   "signatures": [
+    "csat_ec_add_probe_response(uuid,smallint,jsonb,integer)"
+   ]
+  },
+  "csat_ec_add_process_evidence": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 · 완료 뒤 쓰기 거부",
+   "signatures": [
+    "csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid)"
+   ]
+  },
+  "csat_ec_add_student_claim": {
+   "class": "CORRECTNESS_ORACLE",
+   "gate": "보류 · 미완료 capture 면 정오 검사 전에 같은 오류",
+   "oracle": true,
+   "signatures": [
+    "csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid)"
+   ]
+  },
+  "csat_ec_blind_queue": {
+   "class": "REVIEWER_INTERNAL",
+   "gate": "배정 확인 · 비관리자 보류 문항 정답 null",
+   "signatures": [
+    "csat_ec_blind_queue(bigint)"
+   ]
+  },
+  "csat_ec_confirm_session": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 · 완료 뒤 쓰기 거부",
+   "signatures": [
+    "csat_ec_confirm_session(uuid,boolean,boolean)"
+   ]
+  },
+  "csat_ec_my_pending_probes": {
+   "class": "LEARNER_OWN",
+   "gate": "본인",
+   "signatures": [
+    "csat_ec_my_pending_probes(uuid)"
+   ]
+  },
+  "csat_ec_my_process_evidence": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 · 해시 미포함",
+   "signatures": [
+    "csat_ec_my_process_evidence(uuid)"
+   ]
+  },
+  "csat_ec_reveal_view": {
+   "class": "REVIEWER_INTERNAL",
+   "gate": "명시 필드(해시 없음) · 비관리자 보류 문항 근거 · 메모 null",
+   "signatures": [
+    "csat_ec_reveal_view(bigint)"
+   ]
+  },
+  "csat_ec_round_advance": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin()",
+   "signatures": [
+    "csat_ec_round_advance(bigint,text,text)"
+   ]
+  },
+  "csat_ec_round_assign": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin()",
+   "signatures": [
+    "csat_ec_round_assign(bigint,uuid,text,text[])"
+   ]
+  },
+  "csat_ec_round_create": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin()",
+   "signatures": [
+    "csat_ec_round_create(text,text,text,jsonb,text)",
+    "csat_ec_round_create(text,text,text,jsonb)"
+   ]
+  },
+  "csat_ec_round_material": {
+   "class": "REVIEWER_INTERNAL",
+   "gate": "배정 확인 · 비관리자 보류 문항 정답 null",
+   "signatures": [
+    "csat_ec_round_material(bigint)"
+   ]
+  },
+  "csat_ec_round_reveal": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin()",
+   "signatures": [
+    "csat_ec_round_reveal(bigint)"
+   ]
+  },
+  "csat_ec_round_set_targets": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin()",
+   "signatures": [
+    "csat_ec_round_set_targets(bigint,jsonb)"
+   ]
+  },
+  "csat_ec_round_start_blind": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin()",
+   "signatures": [
+    "csat_ec_round_start_blind(bigint)"
+   ]
+  },
+  "csat_ec_submit_adjudication": {
+   "class": "REVIEWER_INTERNAL",
+   "gate": "배정 adjudicator",
+   "signatures": [
+    "csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean)",
+    "csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text)"
+   ]
+  },
+  "csat_ec_submit_blind": {
+   "class": "REVIEWER_INTERNAL",
+   "gate": "배정 판정자",
+   "signatures": [
+    "csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean)",
+    "csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text)"
+   ]
+  },
+  "csat_ec_submit_verify": {
+   "class": "REVIEWER_INTERNAL",
+   "gate": "배정 판정자",
+   "signatures": [
+    "csat_ec_submit_verify(bigint,uuid,text,text)"
+   ]
+  },
+  "csat_ec_taxonomy_seal": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin()",
+   "signatures": [
+    "csat_ec_taxonomy_seal(text)"
+   ]
+  },
+  "csat_ec_my_capture_state": {
+   "class": "LEARNER_OWN",
+   "gate": "본인",
+   "since": "20261005170000"
+  },
+  "csat_ec_capture_open": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 · 전이 RPC",
+   "since": "20261005170000"
+  },
+  "csat_ec_capture_finish": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 · 서버 완료 조건",
+   "since": "20261005170000"
+  },
+  "csat_ec_capture_close": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin() · 사유",
+   "since": "20261005170000"
+  },
+  "csat_ec_close_tombstone": {
+   "class": "ADMIN_ONLY",
+   "gate": "is_admin() · 사유",
+   "since": "20261005170000"
+  },
+  "csat_source_eligibility_tally": {
+   "class": "OPS_META",
+   "gate": "출처 적격 집계",
+   "signatures": [
+    "csat_source_eligibility_tally()"
+   ]
+  },
+  "csat_source_inventory_live": {
+   "class": "OPS_META",
+   "gate": "출처 인벤토리",
+   "signatures": [
+    "csat_source_inventory_live()"
+   ]
+  },
+  "csat_source_is_eligible": {
+   "class": "OPS_META",
+   "gate": "출처 판정",
+   "signatures": [
+    "csat_source_is_eligible(uuid)"
+   ]
+  },
+  "csat_source_is_gradeable": {
+   "class": "OPS_META",
+   "gate": "출처 판정",
+   "signatures": [
+    "csat_source_is_gradeable(uuid)"
+   ]
+  },
+  "csat_source_live_rollup": {
+   "class": "OPS_META",
+   "gate": "출처 집계",
+   "signatures": [
+    "csat_source_live_rollup()"
+   ]
+  },
+  "csat_source_pipeline_live": {
+   "class": "OPS_META",
+   "gate": "출처 파이프라인",
+   "signatures": [
+    "csat_source_pipeline_live()"
+   ]
+  },
+  "csat_source_rollup": {
+   "class": "OPS_META",
+   "gate": "출처 집계",
+   "signatures": [
+    "csat_source_rollup()"
+   ]
+  },
+  "csat_source_snapshot_take": {
+   "class": "OPS_META",
+   "gate": "출처 스냅샷",
+   "signatures": [
+    "csat_source_snapshot_take(text)"
+   ]
+  }
  },
- "private_schema": { "name": "csat_ec_private", "must_not_be_exposed": true, "note": "PostgREST db-schemas · GraphQL 에 나오면 실패" },
+ "private_schema": {
+  "name": "csat_ec_private",
+  "must_not_be_exposed": true,
+  "note": "PostgREST db-schemas · GraphQL 에 나오면 실패"
+ },
  "app_api": {
-  "csat/dev-paper": { "class": "PUBLIC_CONTENT", "gate": "문항 본문 PDF(정답 없음)" },
-  "csat/diagnosis/map/goal": { "class": "LEARNER_OWN", "gate": "본인 목표" },
-  "csat/diagnosis/map/tasks/[id]": { "class": "LEARNER_OWN", "gate": "본인 과제" },
-  "csat/diagnosis/sessions": { "class": "CORRECTNESS", "gate": "app: 저장은 record_session_held 단일 진입 · 응답은 canRevealExam" },
-  "csat/diagnosis/sessions/[id]/result": { "class": "CORRECTNESS", "gate": "app: canRevealExam" },
-  "csat/ec/capture": { "class": "LEARNER_OWN", "gate": "app: 봉인된 capture 행 근거 · 정오 미포함" },
-  "csat/ec/confirm": { "class": "LEARNER_OWN", "gate": "본인" },
-  "csat/ec/evidence": { "class": "LEARNER_OWN", "gate": "본인" },
-  "csat/ec/probe": { "class": "LEARNER_OWN", "gate": "본인 · 봉인 설정의 판" },
-  "csat/ec/probes": { "class": "LEARNER_OWN", "gate": "본인" },
-  "csat/lecture": { "class": "ANSWER_SENSITIVE", "gate": "app: isItemAnswerEmbargoed → 거부 · no-store" },
-  "csat/paper": { "class": "PUBLIC_CONTENT", "gate": "문항 본문" },
-  "csat/session/record": { "class": "CORRECTNESS_OWN_PRIOR", "gate": "본인 연습 기록 — 정책 보류 문항 제외" },
-  "csat/session/reveal": { "class": "ANSWER_SENSITIVE", "gate": "app: isItemAnswerEmbargoed → 거부 · no-store" },
-  "csat/state": { "class": "CORRECTNESS_OWN_PRIOR", "gate": "본인 학습 상태 jsonb — 잔여 위험 O-3" }
+  "csat/dev-paper": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "문항 본문 PDF(정답 없음)"
+  },
+  "csat/diagnosis/map/goal": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 목표"
+  },
+  "csat/diagnosis/map/tasks/[id]": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 과제"
+  },
+  "csat/diagnosis/sessions": {
+   "class": "CORRECTNESS",
+   "gate": "app: 저장은 record_session_held 단일 진입 · 응답은 canRevealExam"
+  },
+  "csat/diagnosis/sessions/[id]/result": {
+   "class": "CORRECTNESS",
+   "gate": "app: canRevealExam"
+  },
+  "csat/ec/capture": {
+   "class": "LEARNER_OWN",
+   "gate": "app: 봉인된 capture 행 근거 · 정오 미포함"
+  },
+  "csat/ec/confirm": {
+   "class": "LEARNER_OWN",
+   "gate": "본인"
+  },
+  "csat/ec/evidence": {
+   "class": "LEARNER_OWN",
+   "gate": "본인"
+  },
+  "csat/ec/probe": {
+   "class": "LEARNER_OWN",
+   "gate": "본인 · 봉인 설정의 판"
+  },
+  "csat/ec/probes": {
+   "class": "LEARNER_OWN",
+   "gate": "본인"
+  },
+  "csat/lecture": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: isItemAnswerEmbargoed → 거부 · no-store"
+  },
+  "csat/paper": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "문항 본문"
+  },
+  "csat/session/record": {
+   "class": "CORRECTNESS_OWN_PRIOR",
+   "gate": "본인 연습 기록 — 정책 보류 문항 제외"
+  },
+  "csat/session/reveal": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: isItemAnswerEmbargoed → 거부 · no-store"
+  },
+  "csat/state": {
+   "class": "CORRECTNESS_OWN_PRIOR",
+   "gate": "본인 학습 상태 jsonb — 잔여 위험 O-3"
+  }
  },
  "app_pages": {
-  "app/(app)/csat": { "class": "CORRECTNESS", "gate": "app: 홈 카드 점수 — canRevealExam(②로 학습자 직접 조회 불가 → 서버 경로)" },
-  "app/(app)/csat/browse": { "class": "PUBLIC_CONTENT", "gate": "해설 유무만" },
-  "app/(app)/csat/diagnosis": { "class": "CORRECTNESS", "gate": "app: 보드 · 기록 상세 · 보고서 canRevealExam · 수집 모달" },
-  "app/(app)/csat/diagnosis/attempts/new": { "class": "PUBLIC_CONTENT", "gate": "리다이렉트" },
-  "app/(app)/csat/record": { "class": "LEARNER_OWN", "gate": "기록 화면" },
-  "app/(app)/csat/space": { "class": "ANSWER_SENSITIVE", "gate": "app: 문항 묶음 — 보류 문항 해설 제외(구현 때 확인)" },
-  "app/(app)/csat/workspace": { "class": "ANSWER_SENSITIVE", "gate": "app: 보류 문항 해설 제외(구현 때 확인)" },
-  "app/(app)/csat/workspace/[id]": { "class": "ANSWER_SENSITIVE", "gate": "app: 보류 문항 해설 제외(구현 때 확인)" },
-  "app/(app)/csat/workspace/new": { "class": "PUBLIC_CONTENT", "gate": "만들기" },
-  "app/(main)/csat/dissect": { "class": "ANSWER_SENSITIVE", "gate": "app: 카탈로그 원본 캐시 뒤 요청마다 보류 문항 · 파생 필드 제거" },
-  "app/(main)/csat/formulas": { "class": "ANSWER_SENSITIVE", "gate": "app: 위와 같음" },
-  "app/(main)/csat/item/[slug]": { "class": "ANSWER_SENSITIVE", "gate": "app: 보류면 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에서 뺀다" }
+  "app/(app)/csat": {
+   "class": "CORRECTNESS",
+   "gate": "app: 홈 카드 점수 — canRevealExam(②로 학습자 직접 조회 불가 → 서버 경로)"
+  },
+  "app/(app)/csat/browse": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "해설 유무만"
+  },
+  "app/(app)/csat/diagnosis": {
+   "class": "CORRECTNESS",
+   "gate": "app: 보드 · 기록 상세 · 보고서 canRevealExam · 수집 모달"
+  },
+  "app/(app)/csat/diagnosis/attempts/new": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "리다이렉트"
+  },
+  "app/(app)/csat/record": {
+   "class": "LEARNER_OWN",
+   "gate": "기록 화면"
+  },
+  "app/(app)/csat/space": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 문항 묶음 — 보류 문항 해설 제외(구현 때 확인)"
+  },
+  "app/(app)/csat/workspace": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류 문항 해설 제외(구현 때 확인)"
+  },
+  "app/(app)/csat/workspace/[id]": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류 문항 해설 제외(구현 때 확인)"
+  },
+  "app/(app)/csat/workspace/new": {
+   "class": "PUBLIC_CONTENT",
+   "gate": "만들기"
+  },
+  "app/(main)/csat/dissect": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 카탈로그 원본 캐시 뒤 요청마다 보류 문항 · 파생 필드 제거"
+  },
+  "app/(main)/csat/formulas": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 위와 같음"
+  },
+  "app/(main)/csat/item/[slug]": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류면 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에서 뺀다"
+  }
  },
  "app_json_imports": {
-  "lib/csat/dissect-catalog.ts": { "class": "ANSWER_SENSITIVE", "gate": "서버 전용 · 요청마다 보류 필터" },
-  "lib/csat/factory-pick.ts": { "class": "OPS_META", "gate": "관리자 출제 도구(구현 때 확인)" },
-  "lib/csat/factory.ts": { "class": "OPS_META", "gate": "관리자 출제 도구(구현 때 확인)" },
-  "lib/csat/items.ts": { "class": "ANSWER_SENSITIVE", "gate": "서버 전용 · 보류 필터(구현 때 확인)" },
-  "lib/csat/trap-atlas.ts": { "class": "ANSWER_SENSITIVE", "gate": "클라이언트 번들 — 사례(examples)를 서버 로더로 옮기고 보류 필터(번들 산출물 검사)" }
+  "lib/csat/dissect-catalog.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "서버 전용 · 요청마다 보류 필터"
+  },
+  "lib/csat/factory-pick.ts": {
+   "class": "OPS_META",
+   "gate": "관리자 출제 도구(구현 때 확인)"
+  },
+  "lib/csat/factory.ts": {
+   "class": "OPS_META",
+   "gate": "관리자 출제 도구(구현 때 확인)"
+  },
+  "lib/csat/items.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "서버 전용 · 보류 필터(구현 때 확인)"
+  },
+  "lib/csat/trap-atlas.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "클라이언트 번들 — 사례(examples)를 서버 로더로 옮기고 보류 필터(번들 산출물 검사)"
+  }
  }
 }

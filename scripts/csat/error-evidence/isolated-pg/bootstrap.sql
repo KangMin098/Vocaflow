@@ -132,6 +132,12 @@ create table public.csat_trap_attempts (id uuid primary key default gen_random_u
 alter table public.csat_trap_attempts enable row level security;
 create policy csat_trap_attempts_own_insert on public.csat_trap_attempts for insert to authenticated with check (true);
 create policy csat_trap_attempts_own_select on public.csat_trap_attempts for select to authenticated using ((select auth.uid()) = user_id);
+create table public.csat_review_queue (user_id uuid not null references auth.users(id) on delete cascade, item_id text not null, type_id text, due_at timestamptz, stage smallint, updated_at timestamptz default now(), primary key (user_id, item_id));
+alter table public.csat_review_queue enable row level security;
+create policy csat_review_queue_own on public.csat_review_queue for all to authenticated using (user_id = (select auth.uid()));
+create table public.csat_learner_state (user_id uuid primary key references auth.users(id) on delete cascade, record jsonb not null default '{}', updated_at timestamptz default now());
+alter table public.csat_learner_state enable row level security;
+create policy csat_learner_state_own on public.csat_learner_state for all to authenticated using (user_id = (select auth.uid()));
 create view public.csat_items_public as
  select i.id, i.exam_id, i.no, i.section, i.in_scope, i.type_id, i.stem, i.answer, i.points, i.high_score, e.organizer, e.grade
    from public.csat_items i join public.csat_exams e on e.id = i.exam_id

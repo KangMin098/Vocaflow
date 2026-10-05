@@ -25,15 +25,15 @@ declare v text;
 begin
   for v in select unnest(array['csat_item_analyses:csat_analyses_read', 'csat_item_skeletons:csat_item_skeletons_read_published', 'csat_type_reports:csat_type_reports_read',
                                'csat_dx_session:csat_dx_session_own_select', 'csat_dx_response:csat_dx_response_own_select', 'csat_dx_snapshot:csat_dx_snapshot_own_select',
-                               'csat_session_attempts:csat_session_attempts_own', 'csat_trap_attempts:csat_trap_attempts_own_select']) loop
+                               'csat_session_attempts:csat_session_attempts_own', 'csat_trap_attempts:csat_trap_attempts_own_select', 'csat_review_queue:csat_review_queue_own']) loop
     if not exists (select 1 from pg_policy where polrelid = ('public.' || split_part(v, ':', 1))::regclass and polname = split_part(v, ':', 2)) then
       raise exception 'reveal-gate: 정책 % 가 없다 — 정의를 다시 확인하고 적용한다', v;
     end if;
   end loop;
   if (select count(*) from pg_policy where polrelid in ('public.csat_item_analyses'::regclass, 'public.csat_item_skeletons'::regclass, 'public.csat_type_reports'::regclass,
         'public.csat_dx_session'::regclass, 'public.csat_dx_response'::regclass, 'public.csat_dx_snapshot'::regclass,
-        'public.csat_session_attempts'::regclass, 'public.csat_trap_attempts'::regclass) and polcmd in ('r', '*')) <> 8 then
-    raise exception 'reveal-gate: 학습자 SELECT 정책 수가 예상(8)과 다르다 — 다른 정책이 우회 경로가 될 수 있다';
+        'public.csat_session_attempts'::regclass, 'public.csat_trap_attempts'::regclass, 'public.csat_review_queue'::regclass) and polcmd in ('r', '*')) <> 9 then
+    raise exception 'reveal-gate: 학습자 SELECT 정책 수가 예상(9)과 다르다 — 다른 정책이 우회 경로가 될 수 있다';
   end if;
 end $$;
 
@@ -386,6 +386,9 @@ alter policy csat_session_attempts_own on public.csat_session_attempts
   using (user_id = (select auth.uid()) and not csat_ec_private.item_answer_embargoed(item_id));
 alter policy csat_trap_attempts_own_select on public.csat_trap_attempts
   using ((select auth.uid()) = user_id and not csat_ec_private.item_answer_embargoed(item_id));
+-- 복습 큐(과거 연습 오답에서 생김 — 들어 있다는 사실이 정오)
+alter policy csat_review_queue_own on public.csat_review_queue
+  using (user_id = (select auth.uid()) and not csat_ec_private.item_answer_embargoed(item_id));
 
 create or replace view public.csat_items_public as
  select i.id, i.exam_id, i.no, i.section, i.in_scope, i.type_id, i.stem,
@@ -487,9 +490,11 @@ begin
          coalesce((select jsonb_agg(jsonb_build_object('kind', p.kind, 'value', p.value) order by p.created_at)
                      from jsonb_array_elements_text(coalesce(t->'process_evidence_ids', '[]')) pid
                      join public.csat_ec_process_evidence p on p.id = pid::uuid), '[]'),
+         -- 학생 범주 보고는 오답에만 생긴다 — 있다는 사실만으로 정오가 드러나므로 비관리자에게 보류 문항은 빈 목록
+         case when not v_admin and csat_ec_private.item_answer_embargoed(r.item_id) then '[]'::jsonb else
          coalesce((select jsonb_agg(jsonb_build_object('group', c.student_group, 'code', c.code))
                      from jsonb_array_elements_text(coalesce(t->'claim_ids', '[]')) cid
-                     join public.csat_ec_claim c on c.id = cid::uuid and c.source = 'student'), '[]')
+                     join public.csat_ec_claim c on c.id = cid::uuid and c.source = 'student'), '[]') end
     from jsonb_array_elements(v.targets) t
     join public.csat_dx_response r on r.session_id = (t->>'session_id')::uuid and r.item_no = (t->>'item_no')::smallint
     left join public.csat_items i on i.id = r.item_id;
@@ -524,7 +529,8 @@ begin
                  from jsonb_array_elements(v.targets) t
                  cross join lateral jsonb_array_elements_text(coalesce(t->'claim_ids', '[]')) cid
                  join public.csat_ec_claim c on c.id = cid::uuid
-                 join public.csat_dx_response r on r.session_id = c.session_id and r.item_no = c.item_no));
+                 join public.csat_dx_response r on r.session_id = c.session_id and r.item_no = c.item_no
+                where v_admin or not (c.source = 'student' and csat_ec_private.item_answer_embargoed(r.item_id))));
 end $$;
 
 -- Pilot 적격 — capture 행이 있으면 completed 일 때만(closed_incomplete · 진행 중 증거는 판정 · AI 입력에서 빠진다)

@@ -2,7 +2,8 @@
 //
 // Reveal Gate Layer A — 학습자(anon · authenticated)가 닿는 CSAT 표면을 DB · 저장소에서 **자동 수집**해 manifest.json 과 대조한다.
 //   실패: ① 분류되지 않은 새 표면 ② 매니페스트에만 있는 낡은 항목(since 가 아직 적용 전이면 제외) ③ DERIVED_SECRET 컬럼이 학습자에게 SELECT 가능
-//         ④ csat_ec_private 스키마가 PostgREST 노출 스키마에 있음
+//         ④ csat_ec_private 스키마가 PostgREST 노출 스키마에 있음 ⑤ 분류된 관계에 **새 학습자 컬럼** · 분류된 함수에 **새 시그니처(오버로드)**
+//   --snapshot: 분류된 항목의 지금 컬럼 · 시그니처를 매니페스트에 기록한다(마이그레이션 적용 뒤 · diff 를 사람이 확인하고 커밋)
 // 결과: scripts/csat/reveal-gate/results-surfaces.json · 종료 코드 0 = 통과
 //
 //   node --tls-max-v1.2 --env-file=<apps/web/.env.local> scripts/csat/reveal-gate/check-surfaces.mjs
@@ -39,6 +40,12 @@ const fns = [...new Set((await db.query(`
   select p.proname n from pg_proc p join pg_namespace s on s.oid = p.pronamespace
    where s.nspname = 'public' and p.proname like 'csat%'
      and (has_function_privilege('authenticated', p.oid, 'EXECUTE') or has_function_privilege('anon', p.oid, 'EXECUTE')) order by 1`)).rows.map((r) => r.n))]
+// 컬럼(학습자 SELECT 가능) · 함수 시그니처
+const colsOf = async (rel) => (await db.query(`select a.attname c from pg_attribute a where a.attrelid = ('public.' || $1)::regclass and a.attnum > 0 and not a.attisdropped
+  and (has_column_privilege('authenticated', a.attrelid, a.attnum, 'SELECT') or has_column_privilege('anon', a.attrelid, a.attnum, 'SELECT')) order by 1`, [rel])).rows.map((r) => r.c)
+const sigsOf = async (fn) => (await db.query(`select p.oid::regprocedure::text s from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname = $1
+  and (has_function_privilege('authenticated', p.oid, 'EXECUTE') or has_function_privilege('anon', p.oid, 'EXECUTE')) order by 1`, [fn])).rows.map((r) => r.s)
+const SNAP = process.argv.includes('--snapshot')
 const applied = new Set((await db.query(`select version from supabase_migrations.schema_migrations`)).rows.map((r) => r.version))
 
 const compare = (kind, found, declared) => {
@@ -54,6 +61,19 @@ const compare = (kind, found, declared) => {
 }
 compare('db_relation', rels, manifest.db_relations)
 compare('db_function', fns, manifest.db_functions)
+for (const n of rels.filter((x) => manifest.db_relations[x])) {
+  const cols = await colsOf(n), known = manifest.db_relations[n].learner_columns
+  if (SNAP) manifest.db_relations[n].learner_columns = cols
+  else if (!known) problems.push({ kind: 'db_columns', name: n, problem: '학습자 컬럼 기준이 없다 — --snapshot 으로 기록하고 확인한다' })
+  else for (const c of cols.filter((x) => !known.includes(x))) problems.push({ kind: 'db_columns', name: `${n}.${c}`, problem: '새 학습자 컬럼(미분류)' })
+}
+for (const n of fns.filter((x) => manifest.db_functions[x])) {
+  const sigs = await sigsOf(n), known = manifest.db_functions[n].signatures
+  if (SNAP) manifest.db_functions[n].signatures = sigs
+  else if (!known) problems.push({ kind: 'db_signatures', name: n, problem: '시그니처 기준이 없다 — --snapshot 으로 기록하고 확인한다' })
+  else for (const s of sigs.filter((x) => !known.includes(x))) problems.push({ kind: 'db_signatures', name: s, problem: '새 시그니처(오버로드 · 미분류)' })
+}
+if (SNAP) fs.writeFileSync(path.join(HERE, 'manifest.json'), JSON.stringify(manifest, null, 1) + '\n')
 
 // DERIVED_SECRET 컬럼 — 학습자 SELECT 불가여야
 for (const [n, v] of Object.entries(manifest.db_relations)) for (const col of v.secret_columns ?? []) {

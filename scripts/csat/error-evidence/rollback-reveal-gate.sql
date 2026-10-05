@@ -16,9 +16,13 @@ begin
 end $$;
 
 -- ② 회수 되돌리기(적용돼 있지 않아도 안전 — 표 단위 GRANT 를 다시 준다)
+-- 컬럼 단위로 준 SELECT 를 먼저 거둔다(표 단위 GRANT 를 다시 줘도 컬럼 ACL 은 남는다 — pg_attribute.attacl)
+revoke select (id, user_id, exam_id, mode, taken_at, total_minutes, entered_by, client_key, created_at) on public.csat_dx_session from authenticated;
+revoke select (session_id, item_no, item_id, chosen_option, confidence) on public.csat_dx_response from authenticated;
 grant select on public.csat_dx_session to authenticated;
 grant select on public.csat_dx_response to authenticated;
 grant select on public.csat_dx_snapshot to authenticated;
+grant all on public.csat_learner_state to authenticated;
 
 -- ① 정책 원래 조건
 alter policy csat_analyses_read on public.csat_item_analyses using (status = 'published');
@@ -31,6 +35,7 @@ alter policy csat_dx_response_own_select on public.csat_dx_response
 alter policy csat_dx_snapshot_own_select on public.csat_dx_snapshot using (user_id = (select auth.uid()));
 alter policy csat_session_attempts_own on public.csat_session_attempts using (user_id = (select auth.uid()));
 alter policy csat_trap_attempts_own_select on public.csat_trap_attempts using ((select auth.uid()) = user_id);
+alter policy csat_review_queue_own on public.csat_review_queue using (user_id = (select auth.uid()));
 
 -- 공개 뷰 원래 정의
 create or replace view public.csat_items_public as
@@ -38,7 +43,9 @@ create or replace view public.csat_items_public as
    from public.csat_items i join public.csat_exams e on e.id = i.exam_id
   where e.organizer = 'kice' or (e.organizer = 'edu_office' and exists (select 1 from public.csat_item_analyses a where a.item_id = i.id and a.status = 'published'));
 
--- 해시 컬럼 권한 원래대로(표 단위)
+-- 해시 컬럼 권한 원래대로 — 컬럼 단위 GRANT 를 거두고 표 단위로
+revoke select (id, session_id, item_no, user_id, kind, value, supersedes_id, created_at) on public.csat_ec_process_evidence from authenticated;
+revoke select (id, session_id, item_no, user_id, source, ai_run_id, taxonomy_version, code, student_group, role, confidence, evidence, supersedes_id, created_at) on public.csat_ec_claim from authenticated;
 grant select on public.csat_ec_process_evidence to authenticated;
 grant select on public.csat_ec_claim to authenticated;
 

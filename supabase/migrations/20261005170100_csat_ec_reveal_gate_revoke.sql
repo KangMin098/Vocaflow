@@ -3,8 +3,8 @@
 -- Reveal Gate ② — 정오 · 점수의 학습자 직접 조회 **영구 회수**(2026-10-05 · 초안 · 미적용).
 -- 설계 V1: 참가자인데 capture 행이 빠진 버그가 있어도 학습자 JWT 로는 정오 · 점수가 새지 않게(fail-closed). 앱 서버만 단일 gate 를 거쳐 준다.
 --
--- ⚠️ 적용 순서: 앱이 이 컬럼을 학습자 클라이언트로 읽지 않게 바꾼 **뒤**(lib/csat/diagnosis/learner.ts 의 홈 카드 raw_score · grade —
---    서버 gate 경로로). 앞에 적용하면 홈 카드가 조회 오류로 「불러오지 못함」이 된다.
+-- ⚠️ 적용 순서: 앱이 이 컬럼 · 표를 학습자 클라이언트로 읽지 않게 바꾼 **뒤** — lib/csat/diagnosis/learner.ts 의 홈 카드 raw_score · grade,
+--    /api/csat/state · lib/csat/session/store.ts 의 csat_learner_state(서버 경로로). 앞에 적용하면 그 화면이 조회 오류가 된다.
 -- 되돌리기: scripts/csat/error-evidence/rollback-reveal-gate.sql 의 ② 절.
 
 begin;
@@ -19,5 +19,9 @@ grant select (session_id, item_no, item_id, chosen_option, confidence) on public
 
 -- csat_dx_snapshot: 전부 회수(점수 · 예측 · 함정 취약도 — 모두 정오 파생)
 revoke select on public.csat_dx_snapshot from authenticated;
+
+-- csat_learner_state: 연습 기록 jsonb(문항별 정오 — 행 단위로 거를 수 없다). 학습자 직접 읽기 · 쓰기 회수 —
+-- 앱의 /api/csat/state 가 서버(service role)로 읽고 쓰며 보류 문항 키를 빼고 내준다(⚠️ 앱 변경 뒤 적용)
+revoke all on public.csat_learner_state from authenticated;
 
 commit;
