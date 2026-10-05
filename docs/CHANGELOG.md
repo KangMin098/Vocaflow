@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(csat): 코드북 rev4.2 R6 재검증(14건) — holdout 7/7 · regression 6/7, C4-11 만 미해결(같은 R6 문구로 회차마다 결론이 뒤집힘). C4-11 adjudication 갈림(RULE_INSUFFICIENT / SHARED_MODEL_BIAS) → R6 candidate · seed 후보 아님. `REV42_EVAL.md` · `ADJUDICATION_REV42_C411.md`
 - docs(csat): N-04 adjudication(GOLD_WRONG 합의)로 코드북 R12 채택 · rev4.2 초안(R6 ④ 제거, R6 = rev4) · R6 재검증 사전 등록. 검증기 규칙 판별을 codebook-rules.mjs 로 분리 + 회귀 테스트(판본별 규칙 집합 · R12 · 새 규칙 자동 인식)
 - docs(csat): 코드북 rev4.1 재검증(17건, 전부 확정 · 퇴행 없음) — R12 7/8(N-04 만 수렴 기준 밖) · R6 5/9(R6 ④ 가 C4-11 을 뒤집음) → 둘 다 candidate. 검증기 R1–R11 고정 결함 수정. `REV41_EVAL.md`
 - docs(csat): rev4 미달 3건 adjudication — R4-H6 · N-13 GOLD_WRONG 합의, R4-H1 판정 갈림 → §6/R9 채택 · R6 · R12 candidate(rev4.1 대상). `ADJUDICATION_REV4.md`

@@ -1,0 +1,169 @@
+{
+ "plan_commit": "020dee019",
+ "codebook_sha256": "c7001aff97b05cfcfaf26e64a62fcc1883a919dd8be96a0f4f2ef7233bf8f137",
+ "final_sha256": "fa7afe3d1c73de0fb5f52212258605a2631261754987353bacbc53e2a7395694",
+ "regression_defined_match": "4/5",
+ "baseline": "5/5 (rev4 회차(R6 은 rev4 와 같은 규칙))",
+ "label": "rev4.2",
+ "no_regression": false,
+ "changes": {
+  "R6": {
+   "holdout": [
+    {
+     "id": "R42-H1",
+     "final": "identified:V.wrong_sense",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 ①: 고정 표현 밖 한 낱말(clear)에 실제 다른 사전 뜻을 넣었고 그 뜻 때문에 해석이 틀었다(R12 ①로 unknown_word 아님)."
+     },
+     "pass": true
+    },
+    {
+     "id": "R42-H2",
+     "final": "identified:V.wrong_sense",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 ①: 한 낱말(mediated)에 다른 실제 사전 뜻을 넣은 것이 해석·이유에 드러나고, 그 뜻이 오답 선택을 직접 이끌었다."
+     },
+     "pass": true
+    },
+    {
+     "id": "R42-H3",
+     "final": "identified:R.inference",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "R.inference",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 ②: 낱말 사전 뜻은 맞게 잡았다는 증거가 있고, 실패는 구절이 글에서 가리키는 대상을 잘못 옮긴 데 있다."
+     },
+     "pass": true
+    },
+    {
+     "id": "R42-H4",
+     "final": "identified:R.inference",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "R.inference",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 ②: 낱말 사전 뜻(diet=식단 조절)은 맞고, 글이 만든 비유의 대응(시간 규칙 → 내용 제거)을 잘못 옮겼다."
+     },
+     "pass": true
+    },
+    {
+     "id": "R42-H5",
+     "final": "identified:V.wrong_sense",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "V.wrong_sense",
+      "candidates": [],
+      "accept": [
+       "R.inference as contributing"
+      ],
+      "why": "R6 ③ · R3: 낱말 실패(pop=터뜨리다)와 구절 대응 실패가 함께 보이고 후자가 전자에서 나왔으므로 더 이른 V 를 primary, R.inference 는 contributing."
+     },
+     "pass": true
+    },
+    {
+     "id": "R42-H6",
+     "final": "identified:R.inference",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "identified",
+      "primary": "R.inference",
+      "candidates": [],
+      "accept": [],
+      "why": "R6 ②, R10: 학생이 짚은 낱말 뜻은 글과 맞아 V.wrong_sense 최소 증거가 없고(self_category word 는 R4 메모), 실패는 글 안 단서에서 구절 대응을 잘못 이은 데만 있다."
+     },
+     "pass": true
+    },
+    {
+     "id": "R42-H7",
+     "final": "insufficient_evidence",
+     "status": "FINAL_VERIFIED",
+     "expected": {
+      "outcome": "insufficient_evidence",
+      "primary": null,
+      "candidates": [],
+      "accept": [],
+      "why": "R9 · §2 A1: 내용 없는 이유('어려웠다' · '찍었다')뿐이고 막힌 곳 · 해석이 없어 어느 코드도 최소 증거가 없다(시간 언급도 단계 생략 진술이 아님, R1)."
+     },
+     "pass": true
+    }
+   ],
+   "regression_match": [
+    {
+     "id": "C4-11",
+     "final": null,
+     "pass": false
+    },
+    {
+     "id": "H-13",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "H-05",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "C4-07",
+     "final": "identified:R.inference",
+     "pass": true
+    },
+    {
+     "id": "R4-H2",
+     "final": "identified:R.inference",
+     "pass": true
+    }
+   ],
+   "regression_converge": [
+    {
+     "id": "C2-02",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    },
+    {
+     "id": "R4-H1",
+     "final": "identified:V.wrong_sense",
+     "pass": true
+    }
+   ],
+   "adopt": false
+  }
+ },
+ "surveillance": [],
+ "surveillance_absorbed_into_other_S": false,
+ "sets": {
+  "regression": {
+   "n": 7,
+   "verified": 6,
+   "unresolved": [
+    "C4-11"
+   ]
+  },
+  "holdout": {
+   "n": 7,
+   "verified": 7,
+   "unresolved": []
+  },
+  "surveillance": {
+   "n": 0,
+   "verified": 0,
+   "unresolved": []
+  }
+ }
+}
