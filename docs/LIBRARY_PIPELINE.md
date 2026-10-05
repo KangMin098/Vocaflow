@@ -4,13 +4,17 @@
 
 `/admin/knowledge/sources/csat`의 `knowledge_csat_origins`는 기출 지문이 발췌된 책·논문을 기록한다. 생성 콘텐츠의 `/admin/csat/sources` 적격 판정과 별개다. [후속 조사 결과·보류 대상](./reports/csat-source-origin-followup-20261004.md), [변경 전후 manifest](./reports/csat-source-origin-followup-review-20261004.json)를 함께 보존한다.
 
-1. 서지 단서에서 도서·논문의 해당 문단 전체를 찾아 시험 편집을 복원해 대조한다. 인용 연구자·편집자·장 저자를 구분하고 실제 열람 판본을 기록한다.
+1. 서지 단서에서 시험 편집을 복원해 대조한다. 원작 해당 문단을 직접 대조하면 A(`confirmed_exact`), 부분 근거와 서지가 원작을 특정하면 B(`supported_candidate`)로 등록한다. 인용 연구자·편집자·장 저자를 구분하고 확인한 판본과 시험 사용 판본을 구분한다.
 2. 기존 등록부 SHA·대표/연결 문항·각 현재 본문 SHA·변경 전후 10개 필드를 manifest에 담는다. 과거 정규화 SHA를 현재 raw SHA로 바꾸지 않는다.
 3. `node scripts/csat/source-origin-review.mjs --input <검수.json> --output <preview.sql>`로 읽기 전용 SQL을 만들고 DB에서 실행한다. 모두 `ready`인지 확인한다. 생성은 재실행 안전하고 DB 접속을 하지 않는다.
 4. 같은 입력에 `--commit-sql`을 붙여 적용 SQL을 생성한다. 생성만으로 적용되지 않는다. DB 체크포인트 전후를 찍고 허가된 DB 실행 도구로 한 트랜잭션을 실행한다. 연결 본문과 등록부 행을 잠그며 불일치가 하나라도 있으면 전체를 중단한다.
 5. 다시 preview하여 모두 `already_applied`인지 확인한다. 수능/모의평가 집계를 나누고 기존 원천 공백의 미확인 수·다음 작업도 갱신한다. 재실행은 동일 검수의 중복 쓰기를 건너뛰며 충돌은 강제 덮기 없이 재검수한다.
 
 초기 씨앗 import는 신규 원천만 넣으므로 후속 검수 덮어쓰기로 사용하지 않는다. 날짜가 들어간 보고서 수치는 회차 스냅샷이고 관리자 도움말은 현재 DB 집계를 확인하도록 안내한다.
+
+**현재 기준 — 2026-10-05 사용자 지정:** 수능·평가원 모의평가 등록부 전체에 부분 근거 유추를 허용한다. (1) 접근·미리보기 제한, (2) 단어 교체·생략·순서 변경, (3) 재인용·판본 차이, (4) 원작 검색 단서 부족은 그 자체로 보류 사유가 아니다. 고유 구절/특징적인 사례, 내용 전개, 서지 귀속을 종합해 차이를 합리적으로 설명할 수 있으면 B로 등록한다. 검색 단서가 적으면 저자 기고·학술 재인용·이전/후속 판본까지 연결해 판단하며 소재 유사성만으로 원작을 지정하지 않는다. 시험 후 판본은 원작 도서 귀속의 근거가 될 수 있지만 시험 사용 판본으로 지정하지 않는다.
+
+B 검수의 `evidence`에는 `kind: inferred_from_partial`과 `distinctive_match`, `content_sequence`, `bibliographic_link`, `checked_scope`, `explained_difference`, `remaining_uncertainty`를 모두 쓴다. 직접 읽은 문장/색인 발췌/재인용/공식 서지를 구분해 기록하고, 미확인 문장·판본을 밝힌다. SQL 생성기는 이 필드가 비어 있으면 거부하며 실제 근거의 타당성은 검수자가 판단한다. B 기존 후보 전부가 이 회차의 새 유추 검수를 받았다는 뜻은 아니다. [부분 근거 유추 회차](./reports/csat-source-origin-inferred-20261005.md), [변경 전후 manifest](./reports/csat-source-origin-inferred-review-20261005.json). 아래 심화 실행 기록은 이 기준 변경 전에 전체 문단 대조를 요구했던 회차의 기록이다.
 
 2026-10-05 심화 실행: 미확인 268등록행 전부에 기존과 다른 짧은 구절을 질의하고 기존 서지 후보 12개를 추적했다. 스캔은 이미지로 읽으며 공개 preview라도 해당 문단 전체가 있어야 확정한다. 인용 원작·장 저자·편집자를 구분하고 요청 실패/부분 인용은 보류한다. [심화 보고서](./reports/csat-source-origin-deep-20261005.md), [검수 manifest](./reports/csat-source-origin-deep-review-20261005.json), [268개 검색](./reports/csat-source-origin-deep-search-20261005.jsonl), [확정·보류 280행](./reports/csat-source-origin-deep-decisions-20261005.json)을 보존했다. 모든 보류도 현재 연결 문항별 본문 SHA에 묶어 재검색 시 변경 여부를 확인한다. 원천 확인과 서비스에서 원문을 재사용할 권리는 별도 판단이다.
 

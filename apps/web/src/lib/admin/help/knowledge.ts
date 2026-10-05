@@ -142,7 +142,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
           caption: '등급은 이 순서로 약해진다',
           nodes: [
             { label: 'A 직접 확인', actor: 'auto', says: '원문 위치까지 대조했다', state: 'pass' },
-            { label: 'B 유력 후보', actor: 'auto', says: '서지는 공식 확인, 해당 단락 대조 미완', state: 'short' },
+            { label: 'B 유력 후보', actor: 'auto', says: '부분 근거 유추 등록 포함 — 확인 범위·불확실성 기록', state: 'short' },
             { label: 'C 계보만', actor: 'auto', says: '같은 소재의 다른 원천', state: 'short' },
             { label: 'G 미확인', actor: 'auto', says: '검색으로 원천을 찾지 못했다', state: 'unmeasured' },
           ],
@@ -150,12 +150,12 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
       ],
       fields: [
         { label: '문항', detail: '같은 지문을 여러 문항이 쓰면(41–42번 등) 한 줄에 모두 적는다.' },
-        { label: '근거', detail: '출판사·학술 페이지 링크. 시험 재게시물·학원 자료는 근거로 쓰지 않았다.' },
+        { label: '근거', detail: '원작·출판사·저자 기고·학술 재인용·판본 링크. 시험 재게시물의 서지는 탐색 단서이며 그 자료만으로 귀속하지 않는다. 부분 근거 유추는 확인 범위·차이·불확실성을 함께 기록한다.' },
       ],
       cautions: [
         '씨앗 파일은 2026-09-28 시점 자료다. DB 에서 판정을 고친 뒤(예: A→B) 다시 돌려도 덮지 않고 「충돌」로만 보고한다 — 파일이 맞다고 판단되면 그 행만 사람이 고친다(재등급 트리거가 연결 근거와 채택 항목을 함께 처리한다).',
-        '출처 소개·시험 재게시·서평은 탐색 단서다. 실제 도서·논문의 해당 문단 전체와 서지를 대조한 뒤 확정한다. 열람 사본의 발행 연도와 시험 사용 판본은 구분한다.',
-        '전체 검색 완료는 전체 원천 확인 완료가 아니다. 미리보기·부분 인용·접근 실패는 보류하고, 스캔 PDF는 실제 페이지를 읽는다. 장 저자와 편집자·인용 학자를 구분한다. 원천 확인은 원문 재사용 허가를 뜻하지 않는다.',
+        '접근 제한·시험 편집·재인용과 판본 차이·검색 단서 부족은 자동 보류 사유가 아니다. 고유 구절·내용 전개·서지 연결로 차이를 설명할 수 있으면 B 유추 등록을 허용한다. 소재만 비슷하거나 귀속이 충돌하면 추가 조사한다.',
+        '전체 검색 완료는 전체 원천 확인 완료가 아니다. 직접 대조한 A와 부분 근거로 등록한 B를 구분한다. 확인 범위와 미확인 문장·판본을 남기며 시험 후 발행 판본을 시험 사용 판본으로 지정하지 않는다. 장 저자와 편집자·인용 학자를 구분한다. 원천 확인은 원문 재사용 허가를 뜻하지 않는다.',
       ],
       drain: {
         what: 'Codex 원천 조사 결과를 등록부(knowledge_csat_origins)에 적재한다.',
@@ -163,7 +163,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
         procedure: [
           { title: '미리보기', detail: 'node scripts/knowledge/import-seed.mjs — 등급별 개수만 출력하고 쓰지 않는다.' },
           { title: '적재', detail: 'node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/knowledge/import-seed.mjs --commit', done: '「원천 새로 N · 같음 M · 충돌 0」 — 충돌이 0 이 아니면 아래 주의를 본다' },
-          { title: '새 구절로 조사한다', detail: '기존 질의 기록과 겹치지 않는 짧은 구절을 문장 안에서 골라 검색한다. 빈칸·순서·삽입문을 복원해 문단 전체를 대조하고, 확정·보류 모두 연결 문항별 현재 본문 SHA·URL·확인 범위를 남긴다. 검색은 DB를 쓰지 않으며 같은 본문에서는 재실행 안전하다. 본문이 바뀌면 재검수한다.' },
+          { title: '새 구절로 조사한다', detail: '기존과 다른 짧은 구절을 검색하고 빈칸·순서·삽입문을 복원한다. 원문 직접 대조는 A, 부분 인용·저자 기고·판본을 연결한 유추는 B로 기록한다. B에는 distinctive_match·content_sequence·bibliographic_link·checked_scope·explained_difference·remaining_uncertainty를 모두 쓴다. 확정·유추·보류 모두 연결 문항별 현재 본문 SHA·URL·확인 범위를 남긴다. 검색은 DB를 쓰지 않으며 같은 본문에서는 재실행 안전하다. 본문이 바뀌면 재검수한다.' },
           { title: '후속 검수 미리보기', detail: '현재 원천 행의 변경 전후 값·연결 문항별 본문 SHA를 manifest에 넣고 node scripts/csat/source-origin-review.mjs --input <검수.json> --output <preview.sql>로 SQL을 만든다. 생성 단계는 DB를 쓰지 않으며 재실행 안전하다.' },
           { title: '후속 검수 적용', detail: 'preview SQL을 DB에서 확인해 모두 ready일 때 --commit-sql로 적용 SQL을 만든다. 생성만으로 적용되지 않는다. 체크포인트 전후를 찍고 승인된 DB 실행 도구로 한 트랜잭션을 실행한다. 이미 적용한 같은 검수는 건너뛰며 충돌은 전체를 중단한다.' },
         ],

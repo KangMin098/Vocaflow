@@ -1,0 +1,651 @@
+{
+  "audited_at": "2026-10-05",
+  "policy_scope": {
+    "registry_rows": 713,
+    "linked_items": 802,
+    "includes": [
+      "suneung",
+      "kice_mock"
+    ],
+    "limitations": "Policy applies to every source investigation; this round did not perform a new search of all 713 rows."
+  },
+  "reviewed_changes": 14,
+  "new_inferred_rows": 11,
+  "new_inferred_linked_items": 12,
+  "corrected_candidate_works": 2,
+  "strengthened_existing_candidates": 1,
+  "before": [
+    {
+      "scope": "suneung",
+      "status": "unresolved",
+      "registry_rows": 250,
+      "linked_items": 290
+    },
+    {
+      "scope": "suneung",
+      "status": "confirmed_exact",
+      "registry_rows": 77,
+      "linked_items": 81
+    },
+    {
+      "scope": "suneung",
+      "status": "supported_candidate",
+      "registry_rows": 10,
+      "linked_items": 10
+    },
+    {
+      "scope": "suneung",
+      "status": "topic_lineage_only",
+      "registry_rows": 1,
+      "linked_items": 1
+    },
+    {
+      "scope": "mock",
+      "status": "unresolved",
+      "registry_rows": 361,
+      "linked_items": 405
+    },
+    {
+      "scope": "mock",
+      "status": "confirmed_exact",
+      "registry_rows": 14,
+      "linked_items": 15
+    }
+  ],
+  "after": [
+    {
+      "scope": "mock",
+      "status": "confirmed_exact",
+      "grade": "A",
+      "registry_rows": 14,
+      "linked_items": 15
+    },
+    {
+      "scope": "mock",
+      "status": "unresolved",
+      "grade": "G",
+      "registry_rows": 361,
+      "linked_items": 405
+    },
+    {
+      "scope": "suneung",
+      "status": "confirmed_exact",
+      "grade": "A",
+      "registry_rows": 77,
+      "linked_items": 81
+    },
+    {
+      "scope": "suneung",
+      "status": "supported_candidate",
+      "grade": "B",
+      "registry_rows": 21,
+      "linked_items": 22
+    },
+    {
+      "scope": "suneung",
+      "status": "topic_lineage_only",
+      "grade": "C",
+      "registry_rows": 1,
+      "linked_items": 1
+    },
+    {
+      "scope": "suneung",
+      "status": "unresolved",
+      "grade": "G",
+      "registry_rows": 239,
+      "linked_items": 278
+    }
+  ],
+  "preview_before": [
+    {
+      "item_id": "2014A#27",
+      "state": "ready"
+    },
+    {
+      "item_id": "2015#18",
+      "state": "ready"
+    },
+    {
+      "item_id": "2017#36",
+      "state": "ready"
+    },
+    {
+      "item_id": "2018#20",
+      "state": "ready"
+    },
+    {
+      "item_id": "2018#23",
+      "state": "ready"
+    },
+    {
+      "item_id": "2019#23",
+      "state": "ready"
+    },
+    {
+      "item_id": "2019#33",
+      "state": "ready"
+    },
+    {
+      "item_id": "2020#35",
+      "state": "ready"
+    },
+    {
+      "item_id": "2021#20",
+      "state": "ready"
+    },
+    {
+      "item_id": "2021#39",
+      "state": "ready"
+    },
+    {
+      "item_id": "2022#24",
+      "state": "ready"
+    },
+    {
+      "item_id": "2022#31",
+      "state": "ready"
+    },
+    {
+      "item_id": "2026#29",
+      "state": "ready"
+    },
+    {
+      "item_id": "2026#41",
+      "state": "ready"
+    }
+  ],
+  "preview_after": [
+    {
+      "item_id": "2015#18",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2018#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2019#33",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2021#20",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2014A#27",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2017#36",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2018#20",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2019#23",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2020#35",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2021#39",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2022#24",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2022#31",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#29",
+      "state": "already_applied"
+    },
+    {
+      "item_id": "2026#41",
+      "state": "already_applied"
+    }
+  ],
+  "gap_before": {
+    "skill_ids": [],
+    "layer": "essence",
+    "question": "수능·평가원 영어 지문의 미확인 원천(책·논문)을 추가 조사해야 한다",
+    "cause": "not_found",
+    "next_action": "수능 미확인 250개와 후보 10개를 심화 조사한다. 268개 새 구절 검색은 완료. 보류 단서는 판본·장 원문 확보 후 재검수하며 모의평가 361개는 별도 조사한다. 2026-10-05 심화 보고서 참조.",
+    "affected_count": 611,
+    "status": "open",
+    "closed_at": null
+  },
+  "gap_after": {
+    "id": "4e309675-ce23-4127-8799-0e5af28ae0f8",
+    "skill_ids": [],
+    "layer": "essence",
+    "question": "수능·평가원 영어 지문의 미확인 원천(책·논문)을 추가 조사해야 한다",
+    "cause": "not_found",
+    "next_action": "전체 기출에서 부분 근거 유추(B)를 허용한다. 수능 미확인 239개·기존 후보 21개, 모의평가 미확인 361개를 조사한다. 고유 구절·내용 전개·서지 연결·확인 범위·차이·불확실성을 기록한다. 2026-10-05 부분 근거 유추 보고서 참조.",
+    "affected_count": 600,
+    "status": "open",
+    "created_at": "2026-09-27 17:17:59.132916+00",
+    "closed_at": null
+  },
+  "checkpoint_label": "csat-origin-inferred-20261005",
+  "checkpoint_diff": [
+    {
+      "axis": "capacity",
+      "metric": "bloat_sampled_pct",
+      "subject": "topic_corpus_docs",
+      "before_value": "0.00",
+      "after_value": null,
+      "delta": null,
+      "pct": null,
+      "status": "disappeared"
+    },
+    {
+      "axis": "capacity",
+      "metric": "bloat_sampled_pct",
+      "subject": "csat_items",
+      "before_value": null,
+      "after_value": "0.34",
+      "delta": null,
+      "pct": null,
+      "status": "appeared"
+    },
+    {
+      "axis": "capacity",
+      "metric": "stats_counter_age_min",
+      "subject": null,
+      "before_value": "2682",
+      "after_value": "2683",
+      "delta": "1",
+      "pct": "0.04",
+      "status": "changed"
+    },
+    {
+      "axis": "cron",
+      "metric": "cron_stale_max_hours",
+      "subject": null,
+      "before_value": "32.95",
+      "after_value": "32.96",
+      "delta": "0.01",
+      "pct": "0.03",
+      "status": "changed"
+    },
+    {
+      "axis": "advisor",
+      "metric": "mutable_search_path_funcs",
+      "subject": null,
+      "before_value": "0",
+      "after_value": "0",
+      "delta": "0",
+      "pct": null,
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "db_size_mb",
+      "subject": null,
+      "before_value": "6315.0",
+      "after_value": "6315.0",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_dcp_items",
+      "before_value": "1578.5",
+      "after_value": "1578.5",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "library_articles",
+      "before_value": "1309.3",
+      "after_value": "1309.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "library_book_vocabularies",
+      "before_value": "1173.3",
+      "after_value": "1173.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "shared_words",
+      "before_value": "649.4",
+      "after_value": "649.4",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_source_eligibility_history",
+      "before_value": "267.8",
+      "after_value": "267.8",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "library_article_vocabularies",
+      "before_value": "257.2",
+      "after_value": "257.2",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "shared_dictionary",
+      "before_value": "238.4",
+      "after_value": "238.4",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_source_eligibility",
+      "before_value": "228.3",
+      "after_value": "228.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "content_chunks",
+      "before_value": "132.1",
+      "after_value": "132.1",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "lexicon_clean",
+      "before_value": "86.9",
+      "after_value": "86.9",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "topic_corpus_queue",
+      "before_value": "51.9",
+      "after_value": "51.9",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "spelling_norm",
+      "before_value": "35.6",
+      "after_value": "35.6",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_item_analyses",
+      "before_value": "32.3",
+      "after_value": "32.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "topic_word_stats",
+      "before_value": "19.4",
+      "after_value": "19.4",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "advisor",
+      "metric": "anon_exposed_tables",
+      "subject": null,
+      "before_value": "143",
+      "after_value": "143",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "dictionary_word_categories",
+      "before_value": "15.9",
+      "after_value": "15.9",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_independent_reviews",
+      "before_value": "12.8",
+      "after_value": "12.8",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "archaic_candidates",
+      "before_value": "12.5",
+      "after_value": "12.5",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "shared_word_sets",
+      "before_value": "12.0",
+      "after_value": "12.0",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_items",
+      "before_value": "11.3",
+      "after_value": "11.3",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_analysis_reviews",
+      "before_value": "9.6",
+      "after_value": "9.6",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_review_runs",
+      "before_value": "9.5",
+      "after_value": "9.5",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "pending_words",
+      "before_value": "8.0",
+      "after_value": "8.0",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "funnel_events",
+      "before_value": "7.8",
+      "after_value": "7.8",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "csat_item_units",
+      "before_value": "5.8",
+      "after_value": "5.8",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "stats_stale_tables",
+      "subject": null,
+      "before_value": "0",
+      "after_value": "0",
+      "delta": "0",
+      "pct": null,
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "unused_index_mb",
+      "subject": null,
+      "before_value": "170.7",
+      "after_value": "170.7",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "connections",
+      "metric": "conn_used_pct",
+      "subject": null,
+      "before_value": "55.0",
+      "after_value": "55.0",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "cron",
+      "metric": "cron_fail_24h",
+      "subject": null,
+      "before_value": "0",
+      "after_value": "0",
+      "delta": "0",
+      "pct": null,
+      "status": "same"
+    },
+    {
+      "axis": "latency",
+      "metric": "slow_stmt_count",
+      "subject": null,
+      "before_value": "13",
+      "after_value": "13",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "capacity",
+      "metric": "table_size_mb",
+      "subject": "library_chapters_master",
+      "before_value": "16.4",
+      "after_value": "16.4",
+      "delta": "0.0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "advisor",
+      "metric": "anon_exposed_without_rls",
+      "subject": null,
+      "before_value": "0",
+      "after_value": "0",
+      "delta": "0",
+      "pct": null,
+      "status": "same"
+    },
+    {
+      "axis": "advisor",
+      "metric": "rls_missing_tables",
+      "subject": null,
+      "before_value": "53",
+      "after_value": "53",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    },
+    {
+      "axis": "advisor",
+      "metric": "exposed_secdef_funcs",
+      "subject": null,
+      "before_value": "180",
+      "after_value": "180",
+      "delta": "0",
+      "pct": "0.00",
+      "status": "same"
+    }
+  ],
+  "checkpoint_interpretation": "Only rotating bloat sample subject changed; counter/cron ages increased with elapsed time. Existing stale cron/counter metrics predate these writes. Other measured values unchanged.",
+  "checks": {
+    "review_tests": 6,
+    "help_typecheck": "passed",
+    "agent_config": "10/10 passed",
+    "db_stats": "executed successfully",
+    "diff_check": "passed"
+  },
+  "goal_review": {
+    "status": "pending"
+  }
+}

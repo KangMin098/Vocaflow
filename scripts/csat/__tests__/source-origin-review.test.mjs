@@ -8,6 +8,23 @@ const fixture = () => {
     body_sha256_by_item:{ 'fixture#41':'b'.repeat(64), 'fixture#42':'c'.repeat(64) }, before,
     after:{...before,status:'confirmed_exact',source_title:'Book',source_authors:['Author'],evidence:[{url:'https://example.org/book'}],audited_at:'2026-10-04'} }
 }
+
+test('partial attribution is B and requires matches, bibliography, scope, differences and uncertainty', () => {
+  const r=fixture()
+  r.after.status='supported_candidate'
+  r.after.evidence=[{url:'https://example.org/quotation',kind:'inferred_from_partial',
+    distinctive_match:'Unique example matches the passage',content_sequence:'Same example follows the same argument',
+    bibliographic_link:'Quotation cites author, title and page',checked_scope:'Two sentences and citation',
+    explained_difference:'Exam shortens the example',remaining_uncertainty:'Remaining sentences and exam edition not read'}]
+  assert.equal(validateReviews([r])[0].after.status,'supported_candidate')
+  for(const key of ['distinctive_match','content_sequence','bibliographic_link','checked_scope','explained_difference','remaining_uncertainty']) {
+    const bad=structuredClone(r);bad.after.evidence[0][key]='  '
+    assert.throws(()=>validateReviews([bad]),/Inferred review requires/)
+  }
+  const missing=structuredClone(r);missing.after.evidence=[{url:'https://example.org/metadata'}]
+  assert.throws(()=>validateReviews([missing]),/Inferred review requires/)
+  r.after.status='unresolved';assert.throws(()=>validateReviews([r]),/Source review requires/)
+})
 test('every linked item is bound to its own current body, including shared passages', () => {
   const r=fixture(); delete r.body_sha256_by_item['fixture#42']
   assert.throws(()=>validateReviews([r]),/Every linked item/)

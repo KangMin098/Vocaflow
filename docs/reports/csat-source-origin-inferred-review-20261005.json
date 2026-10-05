@@ -1,0 +1,805 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-05",
+  "policy_scope": "all_suneung_and_kice_mock_origins",
+  "registration_status": "supported_candidate",
+  "reviews": [
+    {
+      "passage_sha256": "aee7b23cba765f93a3be7e8d7d53add95806d001589332a28fe4200bf1258c71",
+      "representative_item_id": "2014A#27",
+      "item_ids": [
+        "2014A#27"
+      ],
+      "body_sha256_by_item": {
+        "2014A#27": "eb7dd78f3d489b2d6f162cdfbf8bdeb9b74b60bf5546290c924719bd8f78a611"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Business Communication: Concepts, Cases, and Applications",
+        "source_authors": [
+          "P. D. Chaturvedi",
+          "Mukesh Chaturvedi"
+        ],
+        "source_publisher": "Pearson India",
+        "source_year": 2011,
+        "source_part": "2nd edition, chapter 8: Written Business Communication, letter on p. 116",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://studylib.net/doc/27814976/business-communication--concepts--cases--and-applications...",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "세탁기 고장·제조 결함·기사 인건비 면제 요청이 같은 편지에서 연결된다.",
+            "content_sequence": "고장 통보→수리 요청→보증 조건→제조사 책임의 전개가 동일하다.",
+            "bibliographic_link": "온라인 도서 전사의 해당 편지와 Pearson 2011년 2판 저자·ISBN 서지를 연결했다.",
+            "checked_scope": "웹 도서 전사 8861–8877행과 p.116 표기, O’Reilly 서지.",
+            "explained_difference": "주소·서명은 생략됐고 rectify가 correct로 바뀌며 시험 어법 오류가 삽입됐다.",
+            "remaining_uncertainty": "해당 페이지 실물 이미지와 시험 사용 판본은 확인하지 않았다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://www.oreilly.com/library/view/business-communication-2nd/9788131718728/",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 웹 도서 전사 8861–8877행과 p.116 표기, O’Reilly 서지. 차이: 주소·서명은 생략됐고 rectify가 correct로 바뀌며 시험 어법 오류가 삽입됐다. 남은 불확실성: 해당 페이지 실물 이미지와 시험 사용 판본은 확인하지 않았다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "2bfec234402abc710dd00ed9625ab001823e71a2d7193435104daf22e8f61fe1",
+      "representative_item_id": "2015#18",
+      "item_ids": [
+        "2015#18"
+      ],
+      "body_sha256_by_item": {
+        "2015#18": "6d9049ac26e19054731a8c3950720f689f883676e38cb810cf9831a9b2376168"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Cultivate a Culture of Confidence",
+        "source_authors": [
+          "Rosabeth Moss Kanter"
+        ],
+        "source_publisher": "Harvard Business Review",
+        "source_year": 2011,
+        "source_part": "April 2011 article, product F1104E",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://store.hbr.org/product/cultivate-a-culture-of-confidence/F1104E",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "승자와 패자의 실패 대응, 경기 중 실수, 중간 단계 실패에 관한 Kanter의 법칙이 함께 맞는다.",
+            "content_sequence": "실패 경험→빠른 회복→중간 단계의 실패 가능성→성과의 논리가 이어진다.",
+            "bibliographic_link": "HBR 원 기사 서지·공식 상품 설명과 같은 저자의 2014년 재게재를 연결했다. 2019년 합본을 원작으로 지정하지 않았다.",
+            "checked_scope": "HBR 제목·저자·2011-04-01 발행 정보·상품 설명, O’Reilly 2019년 재수록 미리보기 도입부.",
+            "explained_difference": "원문의 중간 사례가 생략되고 자기 인용이 한 학자의 말로 바뀌었다.",
+            "remaining_uncertainty": "2011년 유료 원 기사 전 페이지와 시험이 사용한 재게재 경로는 미확인이다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://hbr.org/2011/04/column-cultivate-a-culture-of-confidence",
+            "label": "저자·제목·발행 정보 확인"
+          },
+          {
+            "kind": "author_reprint",
+            "url": "https://www.oreilly.com/library/view/confidence-hbr-emotional/9781633696655/xhtml/chapter9.xhtml",
+            "label": "2019년 재수록 미리보기 — 원작 연도와 구분"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: HBR 제목·저자·2011-04-01 발행 정보·상품 설명, O’Reilly 2019년 재수록 미리보기 도입부. 차이: 원문의 중간 사례가 생략되고 자기 인용이 한 학자의 말로 바뀌었다. 남은 불확실성: 2011년 유료 원 기사 전 페이지와 시험이 사용한 재게재 경로는 미확인이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "ed9900cb4f54677100c7b67a3bd44b57473557af22ffd16ecc60fa0a0bc672dc",
+      "representative_item_id": "2017#36",
+      "item_ids": [
+        "2017#36"
+      ],
+      "body_sha256_by_item": {
+        "2017#36": "585698c22e4cefdb92cf5094516880e35f27d2715a1829f5056d7790250377da"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Applying Psychology to Everyday Life: A Beginner’s Guide",
+        "source_authors": [
+          "Kenneth T. Strongman"
+        ],
+        "source_publisher": "Wiley",
+        "source_year": 2006,
+        "source_part": "Chapter 8: Social life: communicating in groups",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://exosomatic.net/ENTER/Philosophy-Psychology-Sociology%20-%20%26%20SEE%20Self%20Help/1%20-%20More%20Books%20on%20Psychology/Applying%20Psychology%20to%20Everyday%20Life%20-%20A%20Beginner%27s%20Guide%20.pdf",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "관찰받을 때 숙련 활동은 향상되고 새 활동은 저하되며 새 스포츠를 혼자 시작한다는 사례가 연결된다.",
+            "content_sequence": "두 관찰 효과→숙련도 조건→스포츠 학습 조언의 순서가 시험 B-C-A 복원과 맞는다.",
+            "bibliographic_link": "도서 PDF의 검색 색인 발췌와 Wiley의 저자·2006년 발행·8장 목차를 연결했다.",
+            "checked_scope": "검색 색인에 노출된 Communicating in groups 문단 후반과 공식 서지·목차.",
+            "explained_difference": "detracts/decreases, rehearsed/practiced, adept/skilled 교체와 순서 문제를 설명할 수 있다.",
+            "remaining_uncertainty": "PDF 전체 접근이 실패해 해당 페이지 이미지·문단 도입부·실제 사용 판본은 미확인이다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://www.wiley-vch.de/en/areas-interest/humanities-social-sciences/psychology-12ps/psychology-general-12ps0/applying-psychology-to-everyday-life-978-0-470-86989-5",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 검색 색인에 노출된 Communicating in groups 문단 후반과 공식 서지·목차. 차이: detracts/decreases, rehearsed/practiced, adept/skilled 교체와 순서 문제를 설명할 수 있다. 남은 불확실성: PDF 전체 접근이 실패해 해당 페이지 이미지·문단 도입부·실제 사용 판본은 미확인이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "02bd58fe9a45c8238b1fb0f31da160043db5ae345c7bb045ad957519b7229522",
+      "representative_item_id": "2018#20",
+      "item_ids": [
+        "2018#20"
+      ],
+      "body_sha256_by_item": {
+        "2018#20": "c5dec837ee8801e1444194db2db250b821665650c1aa34fbaca943360b3fccc5"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Learning Leadership: The Five Fundamentals of Becoming an Exemplary Leader",
+        "source_authors": [
+          "James M. Kouzes",
+          "Barry Z. Posner"
+        ],
+        "source_publisher": "Wiley",
+        "source_year": 2016,
+        "source_part": "Chapter 10: Challenge Is Your Leadership Training Ground",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://www.oreilly.com/library/view/learning-leadership/9781119144281/c10.xhtml",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "2015년 Fortune 행사에서 Ginni Rometty가 학습과 위험 경험을 연결하는 발언이 장 미리보기에 나온다.",
+            "content_sequence": "Rometty 사례 뒤 자기 한계를 넘어 도전하라는 전개를 독립 독서 노트의 후속 인용이 뒷받침한다.",
+            "bibliographic_link": "O’Reilly의 해당 장·저자·Wiley 2016년 서지와 같은 책의 인용 위치 2144를 연결했다.",
+            "checked_scope": "공식 장 미리보기의 Rometty 도입, leadwithyourlife 독서 노트의 뒤 문장들.",
+            "explained_difference": "도입 인용의 군더더기가 단축되며 동일한 자기 도전 논리가 유지된다.",
+            "remaining_uncertainty": "공식 장 미리보기는 인용 도중 끊겨 나머지는 독서 노트에 의존한다. 시험 판본과 인쇄 페이지 미확인."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://www.oreilly.com/library/view/learning-leadership/9781119144281/",
+            "label": "저자·제목·발행 정보 확인"
+          },
+          {
+            "kind": "secondary_quotation",
+            "url": "https://leadwithyourlife.com/book/?print=learning-leadership",
+            "label": "후속 문장 인용·전자책 위치 2144"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 공식 장 미리보기의 Rometty 도입, leadwithyourlife 독서 노트의 뒤 문장들. 차이: 도입 인용의 군더더기가 단축되며 동일한 자기 도전 논리가 유지된다. 남은 불확실성: 공식 장 미리보기는 인용 도중 끊겨 나머지는 독서 노트에 의존한다. 시험 판본과 인쇄 페이지 미확인.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "a7126e7f51a240fc810f258b9b355089d7b142892825a89570793f633a60b6e7",
+      "representative_item_id": "2018#23",
+      "item_ids": [
+        "2018#23"
+      ],
+      "body_sha256_by_item": {
+        "2018#23": "fcbf8462188fc29419f516cd56e3fc8dc80e18261902aa83cc2869e1da64bc08"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Media Now: Understanding Media, Culture, and Technology",
+        "source_authors": [
+          "Joseph Straubhaar",
+          "Robert LaRose",
+          "Lucinda Davenport"
+        ],
+        "source_publisher": "Wadsworth, Cengage Learning",
+        "source_year": 2012,
+        "source_part": "7th edition, copyright discussion; exact page unverified",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://lib.zu.edu.pk/ebookdata/Media%20Sciences/Media/Media%20Now_%20Understanding%20Media%2C%20Culture%2C%20and%20Technology%2C7th%20ed-by%20JOSEPH%20STRAUBHAAR.pdf",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "저자 사후 70년·125년 미만 출판물 점검·가난한 후손과 다국적 출판사의 대비가 함께 나타난다.",
+            "content_sequence": "권리 기간→1998년 연장→실제 수혜자 비판의 전개가 동일하다.",
+            "bibliographic_link": "대학 도서 PDF 색인에서 7판 제목·세 저자·©2012 Cengage 저작권면과 대상 문장들을 함께 확인했다.",
+            "checked_scope": "검색 색인의 서지 면 및 대상 문단 전반부. 직접 다운로드는 404였다.",
+            "explained_difference": "conglomerates가 companies로 바뀌는 등 문장 난도를 낮춘 편집으로 설명된다.",
+            "remaining_uncertainty": "문단 후반 전체·실제 페이지 이미지·시험 사용 판본은 미확인이다. 2012는 확인한 도서 저작권 연도다."
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 검색 색인의 서지 면 및 대상 문단 전반부. 직접 다운로드는 404였다. 차이: conglomerates가 companies로 바뀌는 등 문장 난도를 낮춘 편집으로 설명된다. 남은 불확실성: 문단 후반 전체·실제 페이지 이미지·시험 사용 판본은 미확인이다. 2012는 확인한 도서 저작권 연도다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "12b55f2becd591471ec59ab5f147fc0eff5580b47dee85fe34667ea936443f84",
+      "representative_item_id": "2019#23",
+      "item_ids": [
+        "2019#23"
+      ],
+      "body_sha256_by_item": {
+        "2019#23": "a540069c0eb98af59db454cba3432a3b9796697d8971a3a6de398fe3279131b7"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "An Introduction to Climate Change Economics and Policy",
+        "source_authors": [
+          "Felix R. FitzRoy",
+          "Elissaios Papyrakis"
+        ],
+        "source_publisher": "Earthscan",
+        "source_year": null,
+        "source_part": "Introduction, overview of chapter 6; edition/year unverified",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://citeseerx.ist.psu.edu/document?doi=e18ddfb3757fee8f282557353616a368600bd52a&repid=rep1&type=pdf",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "미래 세대·빈국의 정의, 열대 산림 탄소 20%, OECD 농업·화석연료 보조금 제거가 같은 발췌에 이어진다.",
+            "content_sequence": "정의→원조와 산림 보전→보조금 개혁→재생 에너지·보전 농업의 순서가 동일하다.",
+            "bibliographic_link": "CiteSeer 도서 제목과 검색 색인 문단을 저자 소속 대학의 두 저자·Earthscan 서지에 연결했다.",
+            "checked_scope": "검색 색인에 노출된 서문 문단과 대학 서지. PDF 직접 접근은 실패했다.",
+            "explained_difference": "장 안내를 생략하고 politically fraught 등을 단순화한 시험 편집으로 설명된다.",
+            "remaining_uncertainty": "서지에는 2009/2010 차이가 있고 2015년 개정판도 존재한다. 열람 사본 연도와 시험 판본은 확정하지 않았다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://research-portal.st-andrews.ac.uk/en/publications/an-introduction-to-climate-change-economics-and-policy/",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 검색 색인에 노출된 서문 문단과 대학 서지. PDF 직접 접근은 실패했다. 차이: 장 안내를 생략하고 politically fraught 등을 단순화한 시험 편집으로 설명된다. 남은 불확실성: 서지에는 2009/2010 차이가 있고 2015년 개정판도 존재한다. 열람 사본 연도와 시험 판본은 확정하지 않았다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "84bdd68f5f649188ad13e335327a0616ebf5a010e5d409b746365d9b20710ab8",
+      "representative_item_id": "2019#33",
+      "item_ids": [
+        "2019#33"
+      ],
+      "body_sha256_by_item": {
+        "2019#33": "188cab0ab83cc78150ed9585b2ca60e3ffed7bb65f5dd5486835aa717c2db15e"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Heritage as Knowledge: Capital or Culture?",
+        "source_authors": [
+          "Brian Graham"
+        ],
+        "source_publisher": "Urban Studies",
+        "source_year": 2002,
+        "source_part": "Volume 39, issue 5–6; DOI 10.1080/00420980220128426",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://scielo.org.za/pdf/hist/v58n2/02.pdf",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "선별된 유물이 현재의 자원이 되고 의미가 가치의 근거이며 잊기와 기억이 함께 작동한다는 설명이 맞는다.",
+            "content_sequence": "현재 수요→의미의 가치→사회 변화에 따른 배제→기억과 망각의 흐름이 학술 재인용과 맞는다.",
+            "bibliographic_link": "2013년 Historia 논문의 각주가 이 설명을 Graham의 2002년 논문에 귀속하며 SAGE 공식 서지가 저자·제목·DOI를 확인한다.",
+            "checked_scope": "Historia PDF p.4의 재서술과 각주 13, 별도 대학 보고서의 첫 문장 재인용, SAGE 서지·초록.",
+            "explained_difference": "재인용은 요약돼 있고 빈칸 결론은 기억/망각 논리로 복원 가능하다.",
+            "remaining_uncertainty": "Graham 공저·후속 장에도 유사 문장이 있어 시험이 이 논문을 직접 썼는지 또는 재수록을 썼는지는 미확인이다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://journals.sagepub.com/doi/10.1080/00420980220128426",
+            "label": "저자·제목·발행 정보 확인"
+          },
+          {
+            "kind": "scholarly_quotation",
+            "url": "https://eprints.glos.ac.uk/2702/1/Scoping%20study%20on%20the%20socio%20economic%20benefits%20of%20Heritage%20in%20the%20national%20parks.pdf",
+            "label": "Graham 2002 귀속·도입 명제 재인용"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: Historia PDF p.4의 재서술과 각주 13, 별도 대학 보고서의 첫 문장 재인용, SAGE 서지·초록. 차이: 재인용은 요약돼 있고 빈칸 결론은 기억/망각 논리로 복원 가능하다. 남은 불확실성: Graham 공저·후속 장에도 유사 문장이 있어 시험이 이 논문을 직접 썼는지 또는 재수록을 썼는지는 미확인이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "66f6030151d575afad61074f3101b3b097f073ade4ace57a38376e7aa32625ae",
+      "representative_item_id": "2020#35",
+      "item_ids": [
+        "2020#35"
+      ],
+      "body_sha256_by_item": {
+        "2020#35": "ccf64c50c7e359ffcd5cc7e96fe00e2c1529748b2a6143ada4c58fee82da2488"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Social Psychology",
+        "source_authors": [
+          "John D. DeLamater",
+          "Daniel J. Myers",
+          "Jessica L. Collett"
+        ],
+        "source_publisher": "Westview Press",
+        "source_year": 2015,
+        "source_part": "8th edition, chapter 1: Introduction to Social Psychology",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://miemagazine.com/sample/Psychology/PC101-200/PC138/sample%EF%BC%8DSocial%20Psychology%208th%208E%20John%20Delamater.pdf",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "비슷한 사람/다른 사람, 집단 지혜/과잉 참여, 모험/안전이라는 세 쌍의 대립 속담이 같은 순서로 나온다.",
+            "content_sequence": "상식의 모순→적용 조건 부재→결정 상황의 한계라는 전개가 맞는다.",
+            "bibliographic_link": "8판 도서 표지·©2015 서지와 같은 표본의 검색 색인 발췌를 연결했다. 2024년 10판의 변경된 공저자를 소급하지 않았다.",
+            "checked_scope": "8판 샘플 제목·세 저자·저작권면과 색인 문단 전반부, sociology.org.uk 발췌의 뒷부분.",
+            "explained_difference": "drawbacks/weaknesses 등의 교체와 시험에서 추가한 무관 문장을 제거하면 맞는다.",
+            "remaining_uncertainty": "표본 후반부 페이지와 사용 판본은 직접 대조하지 않았다. 2015년 8판이 실제 시험 사용 판본인지는 미확인이다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://search.worldcat.org/title/883566075",
+            "label": "저자·제목·발행 정보 확인"
+          },
+          {
+            "kind": "book_excerpt",
+            "url": "https://www.sociology.org.uk/psychology/socpsych.pdf",
+            "label": "대립 속담 발췌 — 판본은 별도 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 8판 샘플 제목·세 저자·저작권면과 색인 문단 전반부, sociology.org.uk 발췌의 뒷부분. 차이: drawbacks/weaknesses 등의 교체와 시험에서 추가한 무관 문장을 제거하면 맞는다. 남은 불확실성: 표본 후반부 페이지와 사용 판본은 직접 대조하지 않았다. 2015년 8판이 실제 시험 사용 판본인지는 미확인이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "75079b931b895e3e7902f3bd533b092af93f241fabe19986d000f24e622b9dd5",
+      "representative_item_id": "2021#20",
+      "item_ids": [
+        "2021#20"
+      ],
+      "body_sha256_by_item": {
+        "2021#20": "c4f5b8abb77d1b2aa17e0ff2cfa66a256aac44debed2ee886a4139852234f019"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "The Art of Choosing",
+        "source_authors": [
+          "Sheena Iyengar"
+        ],
+        "source_publisher": "Twelve",
+        "source_year": 2010,
+        "source_part": "Expertise and choice; exact book page unverified",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://pubspot.ibpa-online.org/article/this-one-that-one-one-of-those-other-ones-oh-never-mind-managing-overabundant-choice",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "전문성 개발 비용·언어와 음식 사례·영역 제한·다른 영역으로의 불완전 전이가 저자의 글에 함께 나온다.",
+            "content_sequence": "전문성 비용→자연스러운 학습과 훈련→영역 특수성의 흐름이 같다.",
+            "bibliographic_link": "IBPA 2010년 저자 기고문 말미가 이 책에서 파생됐음을 명시하며 출판사가 저자·Twelve·2010년을 확인한다.",
+            "checked_scope": "IBPA 기고문의 해당 네 문장·책 출처 명시 및 Hachette 서지.",
+            "explained_difference": "전이 문장을 풀어 쓰고 though를 생략한 변화가 설명된다.",
+            "remaining_uncertainty": "기고문에는 시험의 마지막 시간 비용·집중 영역 문장들이 없다. 도서 해당 페이지와 시험 판본은 미확인이다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://www.hachettebookgroup.com/titles/sheena-iyengar/the-art-of-choosing/9780446558716/",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: IBPA 기고문의 해당 네 문장·책 출처 명시 및 Hachette 서지. 차이: 전이 문장을 풀어 쓰고 though를 생략한 변화가 설명된다. 남은 불확실성: 기고문에는 시험의 마지막 시간 비용·집중 영역 문장들이 없다. 도서 해당 페이지와 시험 판본은 미확인이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "fe2416bf6707b2474505ae10837228a774301a03b0b9eff9c08028f6a2e148b0",
+      "representative_item_id": "2021#39",
+      "item_ids": [
+        "2021#39"
+      ],
+      "body_sha256_by_item": {
+        "2021#39": "e93501a6214d77171e3af7e382df17c9bcaf3e92bce2886f509a120f0d93b09e"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Interaction Design: Beyond Human-Computer Interaction",
+        "source_authors": [
+          "Helen Sharp",
+          "Jennifer Preece",
+          "Yvonne Rogers"
+        ],
+        "source_publisher": "Wiley",
+        "source_year": null,
+        "source_part": "Dilemma: Copying for Inspiration: Is It Legal?; exam edition unverified",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://studylib.net/doc/27811656/interaction-design-6th-ed",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "디자인 영감·표현과 아이디어의 구별·스마트폰 기능 사례·자동 저작권의 연결이 같은 도서 문단에 나온다.",
+            "content_sequence": "경험 기반 디자인→다른 창작의 영감→표현 보호→스마트폰 예시→자동 권리의 흐름을 삽입문 복원으로 설명한다.",
+            "bibliographic_link": "6판 온라인 전사의 해당 상자와 시험 전 발행된 2019년 5판의 Wiley 서지·같은 세 저자를 연결했다.",
+            "checked_scope": "2023년 6판 전사의 검색 색인에서 해당 상자 문장, Wiley 페이지 본문에 표시된 2019년 5판 서지.",
+            "explained_difference": "아이디어/표현 문장을 앞으로 옮겨 삽입문 문제를 만들고 전치사·접속사를 조정한 편집으로 설명된다.",
+            "remaining_uncertainty": "6판은 시험 후 발행돼 시험 사용 판본이 될 수 없다. 원작 도서 귀속만 유추하며 시험 전 판본의 대상 페이지·연도는 미확인이다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://uat.store.wiley.com/en-us/interaction-design-beyond-human-computer-interaction-6th-edition-p-9781119547259",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 2023년 6판 전사의 검색 색인에서 해당 상자 문장, Wiley 페이지 본문에 표시된 2019년 5판 서지. 차이: 아이디어/표현 문장을 앞으로 옮겨 삽입문 문제를 만들고 전치사·접속사를 조정한 편집으로 설명된다. 남은 불확실성: 6판은 시험 후 발행돼 시험 사용 판본이 될 수 없다. 원작 도서 귀속만 유추하며 시험 전 판본의 대상 페이지·연도는 미확인이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "393b2d45bdebff35b140e3a3f25abaf8b92137039a7c596fde2946554d5d7829",
+      "representative_item_id": "2026#41",
+      "item_ids": [
+        "2026#41",
+        "2026#42"
+      ],
+      "body_sha256_by_item": {
+        "2026#41": "1326c1c67648b34484bd9c7bd369283a05f983b21ec641003d08ebe62c2ca5ea",
+        "2026#42": "1326c1c67648b34484bd9c7bd369283a05f983b21ec641003d08ebe62c2ca5ea"
+      },
+      "before": {
+        "status": "unresolved",
+        "source_title": null,
+        "source_authors": [],
+        "source_publisher": null,
+        "source_year": null,
+        "source_part": null,
+        "evidence": [],
+        "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Understanding Fashion History",
+        "source_authors": [
+          "Valerie Cumming"
+        ],
+        "source_publisher": "Batsford",
+        "source_year": 2004,
+        "source_part": "2004 edition p.83 quoted by Julia Petrov; 2021 ebook also exists",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://studylib.net/doc/28016022/inventing-the-display-of-dress--j-petrov",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "옷은 살아 있는 몸의 움직임에서 봐야 하며 전시 마네킹은 육체적·지적 생기를 잃는다는 두 문장이 재인용된다.",
+            "content_sequence": "전시의 비활성성→움직이는 몸에서의 이해→큐레이션 어려움이라는 시험 중간부 논리가 같다.",
+            "bibliographic_link": "Petrov의 2019년 도서가 Cumming 2004 p.83으로 귀속한다. Batsford가 같은 저자·책의 2004년 초판과 2021년 전자책을 확인한다.",
+            "checked_scope": "Petrov 6장의 두 문장 인용(2004:83), 출판사의 초판·전자책 서지.",
+            "explained_difference": "시험 마지막 unlikely는 오류 찾기용 likely 변형이며 중간 인용은 그대로 연결된다.",
+            "remaining_uncertainty": "시험 전체의 앞뒤 문장과 2021년 전자책 해당 페이지는 미확인이다. 시험이 사용한 판본은 특정하지 않는다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://www.batsfordbooks.com/book/understanding-fashion-history/",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: Petrov 6장의 두 문장 인용(2004:83), 출판사의 초판·전자책 서지. 차이: 시험 마지막 unlikely는 오류 찾기용 likely 변형이며 중간 인용은 그대로 연결된다. 남은 불확실성: 시험 전체의 앞뒤 문장과 2021년 전자책 해당 페이지는 미확인이다. 시험이 사용한 판본은 특정하지 않는다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "4542783d338896234b53d7df8000f061172fa39e0f7eb85867f70471462a53cc",
+      "representative_item_id": "2022#31",
+      "item_ids": [
+        "2022#31"
+      ],
+      "body_sha256_by_item": {
+        "2022#31": "fb3b12703546c345285d4cc60c419444de190bfea04563d27fd477349df9f995"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Comic Relief: A Comprehensive Philosophy of Humor",
+        "source_authors": [
+          "John Morreall"
+        ],
+        "source_publisher": "Wiley-Blackwell",
+        "source_year": 2009,
+        "source_part": "Chapter 5, The Negative Ethics of Humor",
+        "evidence": [
+          {
+            "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/9781444307795",
+            "kind": "official_metadata",
+            "label": "Wiley book page and contents"
+          }
+        ],
+        "note": "Exact wording was found in a full-text copy; this corrects a weaker attribution to a different Morreall chapter.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Beyond a Joke: The Limits of Humour",
+        "source_authors": [
+          "John Morreall"
+        ],
+        "source_publisher": "Palgrave Macmillan",
+        "source_year": 2005,
+        "source_part": "Chapter: Humour and the Conduct of Politics; quoted p.70 (edition unverified)",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://kar.kent.ac.uk/86485/1/589966.pdf",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "스파게티를 키보드와 모니터에 쏟았는지 정정하는 청중 사례와 사실성에서 이탈하는 유머의 논리가 일치한다.",
+            "content_sequence": "인지적 이탈→사실 여부 무관→청중의 불필요한 정정이라는 흐름이 학위논문 인용과 같다.",
+            "bibliographic_link": "Kent 학위논문이 Morreall의 해당 장 p.70을 명시하고 Springer 목차가 책·장 저자를 확인한다.",
+            "checked_scope": "학위논문 검색 색인의 세 부분 인용과 각주, 공식 도서 목차·2005년 서지.",
+            "explained_difference": "anecdote/story, shut up/stop interrupting 교체 및 중간 문장 생략이 설명된다.",
+            "remaining_uncertainty": "원작 장 전체와 인용 판본은 직접 읽지 않았다. 2005년 장 페이지와 2009년 재판 페이지가 달라 시험 판본은 미확인이다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://link.springer.com/book/10.1057/9780230236776",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 학위논문 검색 색인의 세 부분 인용과 각주, 공식 도서 목차·2005년 서지. 차이: anecdote/story, shut up/stop interrupting 교체 및 중간 문장 생략이 설명된다. 남은 불확실성: 원작 장 전체와 인용 판본은 직접 읽지 않았다. 2005년 장 페이지와 2009년 재판 페이지가 달라 시험 판본은 미확인이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "f8203cbb81439587da8111702b0fa43d19adbf43dc1f46e5effcc9a882aa04ab",
+      "representative_item_id": "2026#29",
+      "item_ids": [
+        "2026#29"
+      ],
+      "body_sha256_by_item": {
+        "2026#29": "f957f6feae571ce2c5d14a85330293b6936b30a411d29efafc30b1f6a1b08b4d"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "The Secret of Our Success",
+        "source_authors": [
+          "Joseph Henrich"
+        ],
+        "source_publisher": "Princeton University Press",
+        "source_year": 2015,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://assets.press.princeton.edu/catalogs/F15InternationalD.pdf",
+            "kind": "publisher_metadata",
+            "label": "Princeton catalog"
+          },
+          {
+            "url": "https://assets.press.princeton.edu/chapters/s10543.pdf",
+            "kind": "publisher_preview",
+            "label": "Princeton chapter preview"
+          }
+        ],
+        "note": "The attribution is strong, but the retained publisher preview does not expose the exam paragraph.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "A Different Kind of Animal: How Culture Transformed Our Species",
+        "source_authors": [
+          "Robert Boyd"
+        ],
+        "source_publisher": "Princeton University Press",
+        "source_year": 2017,
+        "source_part": "p.16 as quoted in Leonardo/ISAST review; exam edition unverified",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://leonardo.info/review/2019/03/review-of-a-different-kind-of-animal-how-culture-transformed-our-species",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "모델의 이유를 모르더라도 타인을 배우려는 동기와 개인의 발명 능력을 넘는 적응 정보 축적이 두 문장에 함께 나온다.",
+            "content_sequence": "타인 학습 능력→이해 없는 모방 동기→집단 정보 축적의 시험 후반 흐름이 맞는다.",
+            "bibliographic_link": "Leonardo 서평은 Boyd 도서 p.16을 명시해 인용하고 Princeton 공식 목록은 저자·제목·2017년 발행을 확인한다.",
+            "checked_scope": "2019년 서평의 p.16 직접 인용과 Princeton 2019년 목록의 해당 책 서지.",
+            "explained_difference": "equally important가 생략되고 시험용 어법 오류가 앞부분에 삽입됐다.",
+            "remaining_uncertainty": "시험 앞부분과 원작 p.16 이미지 전체는 미확인이다. 2017 발행/2018 저작권 및 재판 차이는 실제 시험 판본 지정이 아니다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://assets.press.princeton.edu/catalogs/anthro19.pdf",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: 2019년 서평의 p.16 직접 인용과 Princeton 2019년 목록의 해당 책 서지. 차이: equally important가 생략되고 시험용 어법 오류가 앞부분에 삽입됐다. 남은 불확실성: 시험 앞부분과 원작 p.16 이미지 전체는 미확인이다. 2017 발행/2018 저작권 및 재판 차이는 실제 시험 판본 지정이 아니다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    },
+    {
+      "passage_sha256": "f74dc7841169c7c6d885663dc2274ba631734b46eab7c92e326c4acc8ef4fb3d",
+      "representative_item_id": "2022#24",
+      "item_ids": [
+        "2022#24"
+      ],
+      "body_sha256_by_item": {
+        "2022#24": "e25dae083fd4230609613c60fe7d0b1b468ed76cf8db5e17a2915a60e2b1fa71"
+      },
+      "before": {
+        "status": "supported_candidate",
+        "source_title": "Waste and Want: A Social History of Trash",
+        "source_authors": [
+          "Susan Strasser"
+        ],
+        "source_publisher": "Metropolitan Books",
+        "source_year": 1999,
+        "source_part": null,
+        "evidence": [
+          {
+            "url": "https://us.macmillan.com/books/9780805065121/wasteandwant/",
+            "kind": "official_metadata",
+            "label": "Macmillan metadata"
+          }
+        ],
+        "note": "Bibliographic attribution is plausible, but an independently accessible exact paragraph was not found.",
+        "audited_at": "2026-09-28",
+        "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+      },
+      "after": {
+        "status": "supported_candidate",
+        "source_title": "Waste and Want: A Social History of Trash",
+        "source_authors": [
+          "Susan Strasser"
+        ],
+        "source_publisher": "Metropolitan Books",
+        "source_year": 1999,
+        "source_part": "Repair and mending discussion; exact edition/page unverified",
+        "evidence": [
+          {
+            "kind": "inferred_from_partial",
+            "url": "https://jetty.klnpa.org/_flysystem/fedora/2024-12/Hemlock%204.4.pdf",
+            "label": "부분 근거로 원작 유추 — 확인 범위·판본 제한 기록",
+            "distinctive_match": "수리·복원이 생산보다 창의적이라는 도입 명제가 시험 전에 발행된 글에서 같은 저서로 귀속된다.",
+            "content_sequence": "수선의 창의성과 물건 관리의 역사라는 연결을 뒷받침하지만 시험 전체 전개 대조는 아니다.",
+            "bibliographic_link": "2011년 Hemlock 글이 Strasser의 이 책을 명시해 인용한다. Google Books는 2014년 재판 서지를 제공하며 기존 1999년 초판 후보를 유지한다.",
+            "checked_scope": "Hemlock 4.4호(2011년 2월)의 도입 문장 재인용과 Google Books 재판 서지.",
+            "explained_difference": "requires/require 문법 조정 및 발행/저작권/전자책 재판 연도 차이를 구분한다.",
+            "remaining_uncertainty": "대장장이·기계 노동·1896년 수선 설명서 인용 문장 전체와 실제 시험 판본은 미확인이다."
+          },
+          {
+            "kind": "bibliographic_metadata",
+            "url": "https://books.google.com/books/about/Waste_and_Want.html?id=5M9iAwAAQBAJ",
+            "label": "저자·제목·발행 정보 확인"
+          }
+        ],
+        "note": "부분 근거 유추 등록(B). 확인: Hemlock 4.4호(2011년 2월)의 도입 문장 재인용과 Google Books 재판 서지. 차이: requires/require 문법 조정 및 발행/저작권/전자책 재판 연도 차이를 구분한다. 남은 불확실성: 대장장이·기계 노동·1896년 수선 설명서 인용 문장 전체와 실제 시험 판본은 미확인이다.",
+        "audited_at": "2026-10-05",
+        "audit_ref": "docs/reports/csat-source-origin-inferred-20261005.md"
+      }
+    }
+  ]
+}

@@ -20,7 +20,12 @@ export function validateReviews(reviews) {
     for (const state of [r.before, r.after]) {
       if (fields.some(f => state?.[f] === undefined)) throw new Error('Incomplete before/after snapshot')
     }
-    if (r.after.status !== 'confirmed_exact' || !r.after.source_title || !Array.isArray(r.after.source_authors) || !r.after.source_authors.length || !Array.isArray(r.after.evidence) || !r.after.evidence.length || r.after.evidence.some(e => !/^https?:\/\//.test(e.url ?? ''))) throw new Error('Confirmed review requires bibliography and evidence')
+    if (!['confirmed_exact', 'supported_candidate'].includes(r.after.status) || !r.after.source_title || !Array.isArray(r.after.source_authors) || !r.after.source_authors.length || !Array.isArray(r.after.evidence) || !r.after.evidence.length || r.after.evidence.some(e => !/^https?:\/\//.test(e.url ?? ''))) throw new Error('Source review requires bibliography and evidence')
+    if (r.after.status === 'supported_candidate') {
+      const inference = r.after.evidence.filter(e => e.kind === 'inferred_from_partial')
+      const explained = ['distinctive_match', 'content_sequence', 'bibliographic_link', 'checked_scope', 'explained_difference', 'remaining_uncertainty']
+      if (!inference.length || inference.some(e => explained.some(key => typeof e[key] !== 'string' || !e[key].trim()))) throw new Error('Inferred review requires specific partial evidence, scope and uncertainty')
+    }
     if (isDeepStrictEqual(r.before, r.after)) throw new Error('Review has no change')
   }
   return reviews
