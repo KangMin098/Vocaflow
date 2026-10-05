@@ -169,7 +169,7 @@ export function evaluateV2(b:BundleV2,r:RecordV2,passage:string,now:number,passa
   const metrics=Object.fromEntries(METRIC_KEYS.map(k=>[k,k.endsWith('_accuracy')?mean(samples[k]):quantile(samples[k],.5)])) as Record<typeof METRIC_KEYS[number],number|null>
   const distributions=Object.fromEntries(METRIC_KEYS.map(k=>[k,{n:samples[k].length,min:quantile(samples[k],0),q1:quantile(samples[k],.25),median:quantile(samples[k],.5),q3:quantile(samples[k],.75),max:quantile(samples[k],1)}]))
   const range=b.protocol.ranges.find(x=>x.grade===r.grade)!
-  for(const k of METRIC_KEYS)if(range[k]===null||metrics[k]===null||metrics[k]!<range[k]!.min||metrics[k]!>range[k]!.max)blockers.push(`target_range_failed_${k}`)
+  for(const k of METRIC_KEYS)if(range[k]===null||metrics[k]===null||metrics[k]!+1e-10<range[k]!.min||metrics[k]!-1e-10>range[k]!.max)blockers.push(`target_range_failed_${k}`)
   const cohort=new Set(b.records.filter(x=>x.grade===r.grade).flatMap(x=>completeStudentsV2(b,x,passages[x.id]??(x.id===r.id?passage:x.adapted_passage),now,passages).map(s=>s.student_id)))
   if(eligible.length<b.protocol.minimum_students_per_variant)blockers.push('student_sample_insufficient')
   if(cohort.size<b.protocol.minimum_students_per_grade)blockers.push('grade_sample_insufficient')
