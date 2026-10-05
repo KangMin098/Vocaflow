@@ -6,7 +6,7 @@ const canonical = value => JSON.stringify(value, (_, item) => item && !Array.isA
 const insufficient = reason => ({ target_fit: { middle_1: 'INSUFFICIENT_EVIDENCE', high_1: 'INSUFFICIENT_EVIDENCE' }, level_separation: 'INSUFFICIENT_EVIDENCE', reasons: [reason], gold: false, db_seed: false })
 
 // A companion anchor arm can be judged only when both target arms reconcile with the existing sealed v2 workflow.
-export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrumentFiles, now) {
+export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrumentFiles, now, provenance) {
   const pilot = judgeF02Pilot(study, freeze, proposed, now)
   if (pilot.reasons.length) return pilot
   let bundle
@@ -18,6 +18,7 @@ export function judgeF02PilotWithV2(study, freeze, proposed, rawBundle, instrume
     const records = bundle.records.filter(r => r.source_id === freeze.source_id && r.target_key === frozen.target_key && r.grade === grade)
     if (records.length !== 1) return insufficient(`v2_F02_${grade}_record_missing`)
     const r = records[0], arm = grade === 'middle_1' ? 'middle_target' : 'high_target', sessions = study.sessions.filter(s => s.arm === arm)
+    if (provenance?.[r.id]?.verified !== true || provenance[r.id].confidence !== 'high') return insufficient(`v2_F02_${grade}_research_provenance_failed`)
     const currentIds = sessions.map(s => s.student_id).sort(), v2Ids = r.student_sessions.map(s => s.student_id).sort()
     if (r.pair_id !== freeze.pair_id || r.source_revision !== freeze.source_revision || r.source_hash !== freeze.source_hash || sha256(r.adapted_passage) !== frozen.passage_sha256 || canonical(currentIds) !== canonical(v2Ids) || canonical(r.instrument) !== canonical(instrumentFiles[grade])) return insufficient(`v2_F02_${grade}_identity_or_sessions_changed`)
     const meaning = expertOutcomeV2(bundle, r, r.adapted_passage, now)

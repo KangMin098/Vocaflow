@@ -97,3 +97,8 @@ test('a changed instrument or different pair freeze cannot reuse F02 observation
   changedDraft.variants[0].draft_hash = 'c'.repeat(64)
   assert.equal(judgeF02Pilot(fixture(), changedDraft, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
 })
+test('burden ratings must be integer values on the sealed five-point scale', () => {
+  const study = fixture()
+  study.sessions.find(s => s.arm === 'middle_anchor').reasoning_burden = 2.5
+  assert.deepEqual(judgeF02Pilot(study, freeze, proposed, now).reasons, ['session_invalid_or_unassigned'])
+})

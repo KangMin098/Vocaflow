@@ -1,7 +1,7 @@
 // scripts/textbook/frym-validation/f02-v2-bridge.test.mjs
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { judgeF02PilotWithV2 } from './f02-v2-bridge.mjs'
+import { judgeF02PilotWithV2 as reconcile } from './f02-v2-bridge.mjs'
 import { fixture, freeze, proposed, now } from './f02-pilot-fixture.mjs'
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -12,6 +12,8 @@ import { researchBodyHash } from '@vocaflow/library-pipeline/research-origin'
 import { pilotManifestHash, sha256 } from './f02-pilot-judge.mjs'
 
 const approved = '2026-11-01T00:00:00Z'
+const syntheticProvenance = { 'F02-middle_1': { verified: true, confidence: 'high' }, 'F02-high_1': { verified: true, confidence: 'high' } }
+const judgeF02PilotWithV2 = (study, freeze, proposed, bundle, instruments, now) => reconcile(study, freeze, proposed, bundle, instruments, now, syntheticProvenance)
 function reseal(bundle) {
   refreshV2Hashes(bundle)
   bundle.protocol_approval.manifest_hash = digestV2(manifestIdentityV2(bundle))
@@ -60,6 +62,14 @@ test('matching sealed v2 target records reconcile with the common-grade anchor',
   assert.deepEqual(result.target_fit, { middle_1: 'PASS', high_1: 'PASS' })
   assert.equal(result.level_separation, 'PASS')
   assert.equal(result.gold, false)
+})
+
+test('research provenance must be verified and high confidence for both v2 targets', () => {
+  const study = fixture()
+  for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
+  const { bundle, instruments } = v2Fixture(study)
+  const low = { ...syntheticProvenance, 'F02-middle_1': { verified: true, confidence: 'low' } }
+  assert.deepEqual(reconcile(study, freeze, proposed, bundle, instruments, now, low).reasons, ['v2_F02_middle_1_research_provenance_failed'])
 })
 
 test('a changed v2 scored answer cannot inherit the pilot target-fit result', () => {
@@ -134,12 +144,12 @@ test('an omitted answer in one extra target session is excluded without rejectin
   assert.equal(result.excluded.middle_target, 1)
 })
 
-test('the real CLI emits a structured decision without a module cycle', async () => {
+test('the real CLI requires original research evidence before any decision', async () => {
   const study = fixture()
   for (const session of study.sessions.filter(s => s.arm !== 'middle_anchor')) { session.comprehension_accuracy = 1; session.lexical_accuracy = 1; session.syntax_accuracy = 1; session.reasoning_accuracy = 1; session.unknown_word_fraction = 0 }
   const { bundle, instruments } = v2Fixture(study)
   const dir = mkdtempSync(join(tmpdir(), 'vocaflow-f02-cli-'))
-  const previousArgs = process.argv, previousLog = console.log
+  const previousArgs = process.argv
   try {
     study.instrument_paths = {}
     for (const grade of ['middle_1', 'high_1']) {
@@ -152,17 +162,10 @@ test('the real CLI emits a structured decision without a module cycle', async ()
     study.registration.manifest_sha256 = pilotManifestHash(study)
     const studyPath = join(dir, 'study.json'), v2Path = join(dir, 'v2.json')
     writeFileSync(studyPath, JSON.stringify(study)); writeFileSync(v2Path, JSON.stringify(bundle))
-    process.argv = [previousArgs[0], resolve('scripts/textbook/frym-validation/f02-pilot-evaluate.mjs'), studyPath, v2Path]
-    let output = ''
-    console.log = value => { output += value }
-    await import('./f02-pilot-evaluate.mjs?synthetic-cli-check')
-    const decision = JSON.parse(output)
-    assert.equal(decision.gold, false)
-    assert.equal(decision.db_seed, false)
-    assert.ok(['PASS', 'FAIL', 'INSUFFICIENT_EVIDENCE'].includes(decision.level_separation))
+    process.argv = [previousArgs[0], resolve('scripts/textbook/frym-validation/f02-pilot-evaluate.mjs'), studyPath, v2Path, join(dir, 'missing-precision-review.json'), dir]
+    await assert.rejects(import('./f02-pilot-evaluate.mjs?synthetic-cli-check'), /ENOENT/)
   } finally {
     process.argv = previousArgs
-    console.log = previousLog
     if (resolve(dir).startsWith(resolve(tmpdir()))) rmSync(dir, { recursive: true, force: true })
   }
 })

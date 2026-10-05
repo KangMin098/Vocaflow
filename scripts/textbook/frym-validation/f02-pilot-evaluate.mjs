@@ -2,9 +2,10 @@
 import { readFileSync } from 'node:fs'
 import { sha256 } from './f02-pilot-judge.mjs'
 import { judgeF02PilotWithV2 } from './f02-v2-bridge.mjs'
+import { readEducationalValidation } from '../educational-validation-contract.mjs'
 
-const [studyPath, v2Path] = process.argv.slice(2)
-if (!studyPath || !v2Path) throw Error('Usage: pnpm exec tsx f02-pilot-evaluate.mjs <ignored-local-study.json> <sealed-v2-bundle.json>')
+const [studyPath, v2Path, precisionReviewPath, evidenceDir] = process.argv.slice(2)
+if (!studyPath || !v2Path || !precisionReviewPath || !evidenceDir) throw Error('Usage: pnpm exec tsx f02-pilot-evaluate.mjs <ignored-local-study.json> <sealed-v2-bundle.json> <precision-review.json> <evidence-dir>')
 const freezeBytes = readFileSync(new URL('./f02-calibration-freeze.json', import.meta.url))
 const proposed = JSON.parse(readFileSync(new URL('./f02-student-pilot.proposed.json', import.meta.url)))
 const study = JSON.parse(readFileSync(studyPath, 'utf8'))
@@ -16,5 +17,7 @@ for (const grade of ['middle_1', 'high_1']) {
   if (study.instrument_sha256?.[grade] !== sha256(bytes)) throw Error(`F02 ${grade} instrument file changed`)
   instrumentFiles[grade] = JSON.parse(bytes)
 }
-const result = judgeF02PilotWithV2(study, JSON.parse(freezeBytes), proposed, JSON.parse(readFileSync(v2Path, 'utf8')), instrumentFiles, Date.now())
+const now = Date.now()
+const validation = readEducationalValidation(v2Path, now, precisionReviewPath, evidenceDir)
+const result = judgeF02PilotWithV2(study, JSON.parse(freezeBytes), proposed, validation.bundle, instrumentFiles, now, validation.provenance)
 console.log(JSON.stringify(result, null, 2))

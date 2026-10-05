@@ -14,7 +14,7 @@ const grades = { middle_1: 'middle_1', high_1: 'high_1' }
 const arms = ['middle_target', 'high_target', 'middle_anchor']
 const variant = arm => arm.startsWith('middle') ? 'middle_1' : 'high_1'
 const grade = arm => arm === 'middle_target' ? 'middle_1' : 'high_1'
-const acceptable = (value, key) => Number.isFinite(value) && (key.endsWith('_accuracy') || key === 'unknown_word_fraction' ? value >= 0 && value <= 1 : key === 'reading_seconds' ? value > 0 : value >= 1 && value <= 5)
+const acceptable = (value, key) => Number.isFinite(value) && (key.endsWith('_accuracy') || key === 'unknown_word_fraction' ? value >= 0 && value <= 1 : key === 'reading_seconds' ? value > 0 : Number.isInteger(value) && value >= 1 && value <= 5)
 const aggregate = sessions => Object.fromEntries(metrics.map(key => [key, key.endsWith('_accuracy') ? mean(sessions.map(s => s[key])) : median(sessions.map(s => s[key]))]))
 
 // The seal binds the frozen passages, instrument files, assigned pseudonyms and proposed bands before any response.
