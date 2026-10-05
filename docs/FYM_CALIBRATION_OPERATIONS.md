@@ -49,6 +49,6 @@ R3의 결론 쌍은 예시 정답에 한정하지 않는다. 핵심 설명/결�
 pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/frym-validation-export.mjs --pilot scripts/textbook/frym-precision/adaptation-pilot-1.json --preservation-rules scripts/textbook/frym-precision/preservation-rules-1.json --precision-review scripts/textbook/frym-precision/round-1.json --protocol scripts/textbook/frym-validation/protocol-2.draft.json --instruments scripts/textbook/frym-validation/calibration-instruments-3.draft.json --study-id fym-calibration-instruments-r3 --evidence-dir .agent-logs/frym-precision-r2 --output .agent-logs/frym-calibration-instruments-r3
 ~~~
 
-이 경로는 이번 예행에서 이미 사용했다. 실제 사람 검토본을 수정해 확정한 경우 새 문항 파일·study ID·출력 경로를 사용한다. [기존 등록/수집/보고 명령](../scripts/textbook/frym-validation/README.md)을 이어서 사용한다. 새 한국어 v2 안내도 packet_hash에 포함된다. 과거 초안 패킷이나 다른 안내의 응답을 새 패킷의 결과로 옮기지 않는다. 현재 자료는 미등록 초안이며 실제 봉인 후 재생성된 .packets가 배포 기준이다.
+이 경로는 이번 예행에서 이미 사용했다. 실제 사람 검토본을 수정해 확정한 경우 새 문항 파일·study ID·출력 경로를 사용한다. [기존 등록/수집/보고 명령](../scripts/textbook/frym-validation/README.md)을 이어서 사용한다. 새 protocol은 student_instructions_revision=2로 한국어 안내를 선택하며 필드가 없는 기존 v2/revision=1은 이전 영문 안내와 패킷을 유지한다. 안내 revision은 manifest에, 실제 안내는 packet_hash에 포함된다. 과거 초안 패킷이나 다른 안내의 응답을 새 패킷의 결과로 옮기지 않는다. 현재 자료는 미등록 초안이며 실제 봉인 후 재생성된 .packets가 배포 기준이다.
 
 문항 검토자와 blind 의미 평가자는 같은 자료를 공유하지 않는다. 문항/채점 기준과 관찰 판정을 본 사람을 해당 자료의 blind 평가자로 배정하지 않는다. 실명 대응·참여 동의·보관/철회 기록은 책임자 전용으로 관리한다. 도구는 자료를 발송하거나 DB에 넣지 않는다.

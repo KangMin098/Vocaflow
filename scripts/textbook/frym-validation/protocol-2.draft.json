@@ -3,6 +3,7 @@
   "description": "Human-led four-point semantic calibration and separately measured student difficulty. All bands remain unset pending prior human registration.",
   "study_purpose": "calibration",
   "scale_points": 4,
+  "student_instructions_revision": 2,
   "score_anchors": ["Major meaning change or a serious unsupported claim.", "Important omission or ambiguity prevents confidence in preservation.", "Meaning preserved with only minor expression problems.", "Meaning clearly and accurately preserved in this criterion."],
   "minimum_item_score": 3,
   "minimum_experts": 2,
