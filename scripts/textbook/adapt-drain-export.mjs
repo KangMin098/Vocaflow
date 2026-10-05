@@ -404,4 +404,6 @@ console.log(`  후보 ${usable.length}편 · 이 target에 이미 적재 ${alrea
 console.log(`  피드 ${feeds.length}종에서 돌아가며 뽑음 → **${picked.length}편** · 청크 ${chunks.length}개 (${SIZE}편씩)\n`)
 console.log(`  ${DIR}/chunk-NN.json`)
 console.log('  각 항목의 title·text 를 목표 학령으로 다시 써서 chunk-NN.out.json 으로 저장하면')
-console.log('  adapt-drain-import.mjs 가 게이트를 돌려 서가에 넣는다.\n')
+console.log(readingTarget
+  ? '  adapt-review-export.mjs --dir <위 폴더>로 Claude Code·Codex 독립 검수 파일을 만든다. 두 검수 통과 뒤 adapt-drain-import.mjs가 게이트를 돌린다.\n'
+  : '  adapt-drain-import.mjs 가 게이트를 돌려 서가에 넣는다.\n')

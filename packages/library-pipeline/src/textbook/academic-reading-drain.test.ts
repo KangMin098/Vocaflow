@@ -10,6 +10,8 @@ import {
 } from '../../../../scripts/textbook/academic-reading-contract.mjs'
 import { analysis, quote, rights, target } from './academic-reading-fixtures'
 import { extractFrymResearchOrigin } from '../ingest-article/research-origin'
+import { REVIEWERS, REVIEW_DIMENSIONS, reviewTemplate, prepareReviewRows, mergeReviewTemplates, validateAgentReviews, validateStoredAgentReview, canExportReadingItem, readingReviewAllowsItem, normalizeReviewedLongBody, reviewedPassageIsComplete, readingItemSourceFailure } from '../../../../scripts/textbook/academic-reading-review.mjs'
+import { buildPassage } from './csat-format'
 
 const now = Date.parse('2026-10-04T00:00:00Z')
 const current = {
@@ -138,6 +140,162 @@ describe('각색 드레인 계보와 재실행 계약', () => {
         now
       ).ok
     ).toBe(false)
+  })
+})
+
+describe('독립 에이전트 의미 검수 게이트', () => {
+  const approved = REVIEWERS.map(reviewer => ({
+    ...reviewTemplate(row, exported, reviewer),
+    verdict: 'pass',
+    dimensions: Object.fromEntries(REVIEW_DIMENSIONS.map(k => [k, true])),
+    source_quote: quote.slice(0, 24),
+    passage_quote: quote.slice(0, 24),
+    rationale: 'The causal claim and scope match the source passage.',
+  }))
+  it('두 에이전트가 같은 원천·목표·각색본을 독립 승인해야 한다', () => {
+    const result = validateAgentReviews(row, exported, approved.map(r => [r]))
+    expect(result.ok).toBe(true)
+    expect(result.ok && result.certificate.reviews.map(r => r.reviewer)).toEqual(REVIEWERS)
+    const validation = validateReadingDraft(row, exported, current, now)
+    expect(validation.ok).toBe(true)
+    if (!result.ok || !validation.ok) return
+    const article = {
+      title: row.title,
+      content: row.text,
+      adapted_from_id: current.id,
+      source_id: adaptationKey(current.id, target),
+      source: current.source,
+      license: current.license,
+      license_class: current.license_class,
+      display_only: false,
+      copyright_safe_in_kr: true,
+      article_v_level: 3,
+      composed_spec: { academic_reading: { ...validation.spec, state: 'agent_reviewed', content_review: result.certificate } },
+    }
+    expect(validateStoredAgentReview(article, current)).toBe(true)
+    expect(validateStoredAgentReview({ ...article, composed_spec: { academic_reading: { ...article.composed_spec.academic_reading, target: { ...target, resources: undefined } } } }, current)).toBe(false)
+    expect(validateStoredAgentReview({ ...article, license_class: 'restricted' }, current)).toBe(false)
+    expect(validateStoredAgentReview({ ...article, display_only: true }, current)).toBe(false)
+    expect(validateStoredAgentReview(article, { ...current, license_class: 'restricted' })).toBe(false)
+    expect(validateStoredAgentReview(article, { ...current, display_only: true })).toBe(false)
+    expect(validateStoredAgentReview(article, { ...current, license: 'Changed license' })).toBe(false)
+    expect(canExportReadingItem(article, current, 'topic')).toBe(true)
+    expect(canExportReadingItem(article, { ...current, copyright_safe_in_kr: false }, 'topic')).toBe(false)
+    expect(readingReviewAllowsItem(article, current, 'topic')).toBe(true)
+    expect(readingReviewAllowsItem({ ...article, composed_spec: null }, current, 'topic')).toBe(false)
+    expect(reviewedPassageIsComplete(article, article.content)).toBe(true)
+    expect(reviewedPassageIsComplete({ source_id: article.source_id, content: "Students don't assume every change has one cause." }, 'Students don’t assume every change has one cause.')).toBe(true)
+    expect(reviewedPassageIsComplete({ source_id: article.source_id, content: 'The report says “water changed”.' }, 'The report says "water changed".')).toBe(true)
+    expect(reviewedPassageIsComplete({ source_id: article.source_id, content: 'The report says “water changed”.' }, 'The report says "water disappeared".')).toBe(false)
+    const readyArticle = { ...article, status: 'ready', updated_at: '2026-10-04T01:00:00Z' }
+    const originalItem = { passage: quote, reading: { version: 1, target, source_hash: exported.reading.source_hash, source_revision: readyArticle.updated_at } }
+    const item = { passage: quote, reading: { ...originalItem.reading, skill: 'R4', passage_level: 4, item_reasoning_level: 7, item_difficulty: 5, difficulty_evidence: 'Main idea is supported by this passage.', evidence: [quote] } }
+    expect(readingItemSourceFailure(item, originalItem, readyArticle, current, 'topic', 3)).toBeNull()
+    expect(readingItemSourceFailure(item, originalItem, { ...readyArticle, license_class: 'restricted' }, current, 'topic', 3)).toMatch(/review/)
+    expect(readingItemSourceFailure(item, originalItem, readyArticle, { ...current, content: 'changed' }, 'topic', 3)).toMatch(/review/)
+    expect(readingItemSourceFailure(item, originalItem, readyArticle, { ...current, license_class: 'restricted' }, 'topic', 3)).toMatch(/review/)
+    expect(readingItemSourceFailure(item, { ...originalItem, passage: quote.slice(0, 18) }, readyArticle, current, 'topic', 3)).toMatch(/truncated/)
+    expect(readingItemSourceFailure({ passage: quote }, originalItem, readyArticle, current, 'topic', 3)).toMatch(/contract/)
+    expect(canExportReadingItem({ ...article, article_v_level: 4 }, current, 'topic')).toBe(false)
+    expect(canExportReadingItem(article, current, 'grammar_choice')).toBe(false)
+    expect(validateStoredAgentReview({ ...article, content: `${article.content} Changed.` }, current)).toBe(false)
+    expect(validateStoredAgentReview({ ...article, adapted_from_id: 'other' }, current)).toBe(false)
+    expect(validateStoredAgentReview(article, { ...current, content: 'changed source' })).toBe(false)
+    expect(validateStoredAgentReview({ ...article, composed_spec: { academic_reading: { ...article.composed_spec.academic_reading, target_key: 'changed' } } }, current)).toBe(false)
+    expect(validateStoredAgentReview({ ...article, composed_spec: { academic_reading: { ...article.composed_spec.academic_reading, content_review: { ...result.certificate, reviews: [result.certificate.reviews[0]] } } } }, current)).toBe(false)
+    expect(validateStoredAgentReview({ ...article, composed_spec: { academic_reading: { ...article.composed_spec.academic_reading, content_review: { ...result.certificate, reviews: [{ ...result.certificate.reviews[0], review: { ...result.certificate.reviews[0].review, rationale: 'tampered' } }, result.certificate.reviews[1]] } } } }, current)).toBe(false)
+    expect(validateStoredAgentReview({ ...article, composed_spec: { academic_reading: { ...article.composed_spec.academic_reading, state: 'awaiting_content_review' } } }, current)).toBe(false)
+  })
+  it('실제 제시문 창이 조건과 근거를 잘라내면 독립 검수 전체 승인으로 통과시키지 않는다', () => {
+    const source = [
+      'The first finding is that ocean water became warmer in the study region.',
+      ...Array.from({ length: 10 }, (_, i) => `Observation ${i + 1} records a different habitat in the same region during the survey.`),
+      'However, the change occurred only when shallow water remained warm for several weeks.',
+    ].join(' ')
+    const excerpt = buildPassage(source, { min: 50, max: 80 }, 5)
+    expect(excerpt).toBeTruthy()
+    expect(excerpt).not.toContain('only when shallow water')
+    expect(reviewedPassageIsComplete({ source_id: 'reading:source:target', content: source }, excerpt)).toBe(false)
+    expect(reviewedPassageIsComplete({ source_id: 'legacy', content: source }, excerpt)).toBe(true)
+    expect(reviewedPassageIsComplete({ source_id: 'reading:source:target', content: 'The count was [12] samples.' }, 'The count was samples.')).toBe(false)
+  })
+  it('장문 순서 문항의 네 문단 재배열은 전체 포함일 때만 허용한다', () => {
+    const paragraphs = ['First paragraph explains the research question.', 'Second paragraph describes the sample.', 'Third paragraph gives the finding.', 'Fourth paragraph states the condition.']
+    const article = { source_id: 'reading:source:target', content: paragraphs.join('\n\n') }
+    const parts = [
+      { label: '(A)', text: paragraphs[0] }, { label: '(B)', text: paragraphs[2] },
+      { label: '(C)', text: paragraphs[3] }, { label: '(D)', text: paragraphs[1] },
+    ]
+    const passage = [parts[0].text, ...parts.slice(1).map(p => `${p.label}\n${p.text}`)].join('\n\n')
+    expect(reviewedPassageIsComplete(article, article.content, 'long_match')).toBe(true)
+    expect(reviewedPassageIsComplete(article, article.content, 'long_order')).toBe(false)
+    expect(reviewedPassageIsComplete(article, passage, 'long_order', parts)).toBe(true)
+    expect(reviewedPassageIsComplete(article, passage, 'long_order', parts.map((p, i) => i === 2 ? { ...p, text: 'Missing condition.' } : p))).toBe(false)
+    expect(reviewedPassageIsComplete(article, passage.replace(paragraphs[3], 'Changed text.'), 'long_order', parts)).toBe(false)
+    const quoted = { ...article, content: article.content.replace('the sample', "don't exclude the sample") }
+    const normalized = normalizeReviewedLongBody(quoted.content)
+    expect(normalized.split(/\n\s*\n+/)).toHaveLength(4)
+    expect(reviewedPassageIsComplete(quoted, normalized, 'long_match')).toBe(true)
+    const normalizedParts = normalized.split(/\n\s*\n+/)
+    const quotedParts = [
+      { label: '(A)', text: normalizedParts[0] }, { label: '(B)', text: normalizedParts[2] },
+      { label: '(C)', text: normalizedParts[3] }, { label: '(D)', text: normalizedParts[1] },
+    ]
+    const quotedPassage = [quotedParts[0].text, ...quotedParts.slice(1).map(p => `${p.label}\n${p.text}`)].join('\n\n')
+    expect(reviewedPassageIsComplete(quoted, quotedPassage, 'long_order', quotedParts)).toBe(true)
+    const countArticle = { ...article, content: article.content.replace('the sample', 'the [8] samples') }
+    const lostCount = normalizeReviewedLongBody(countArticle.content)
+    expect(reviewedPassageIsComplete(countArticle, lostCount, 'long_match')).toBe(false)
+  })
+  it('누락·중복·바뀐 본문과 target을 거절한다', () => {
+    expect(validateAgentReviews(row, exported, [[approved[0]], null]).ok).toBe(false)
+    expect(validateAgentReviews({ ...row, text: `${quote} Changed.` }, exported, approved.map(r => [r])).ok).toBe(false)
+    expect(validateAgentReviews(row, { ...exported, reading: { ...exported.reading, target_key: 'changed' } }, approved.map(r => [r])).ok).toBe(false)
+    expect(validateAgentReviews(row, exported, [[approved[0], approved[0]], [approved[1]]]).ok).toBe(false)
+    expect(() => reviewTemplate(row, { ...exported, source_text: 'tampered source text' }, 'codex')).toThrow(/source body/)
+  })
+  it('결과 순서가 바뀌어도 UUID·target으로 결속하고 보류 행만 제외한다', () => {
+    const secondInput = { ...exported, adapted_from_id: 'source-2' }
+    const secondDraft = { ...row, adapted_from_id: 'source-2' }
+    const prepared = prepareReviewRows([exported, secondInput], [secondDraft, row])
+    expect(prepared.complete.map(pair => pair[1].adapted_from_id)).toEqual(['source-2', 'source-1'])
+    expect(prepareReviewRows([exported, secondInput], [{ ...secondDraft, text: '' }, row]).held).toHaveLength(1)
+    expect(prepareReviewRows([exported, secondInput], [{ ...secondDraft, reading: { ...secondDraft.reading, source_rights: null } }, row]).complete).toHaveLength(1)
+    expect(() => prepareReviewRows([exported], [row, row])).toThrow(/duplicate/)
+    expect(() => prepareReviewRows([exported], [{ ...row, adapted_from_id: 'other' }])).toThrow(/no source/)
+  })
+  it('기존 검수를 보존하고 완성·수정된 각색의 새 해시 양식만 더한다', () => {
+    const first = reviewTemplate(row, exported, 'codex')
+    const changed = { ...row, text: `${quote} More detail follows.` }
+    const firstMerge = mergeReviewTemplates([first], [[changed, exported]], 'codex')
+    expect(firstMerge.added).toBe(1)
+    expect(firstMerge.rows[0]).toEqual(first)
+    expect(firstMerge.rows[1].draft_hash).not.toBe(first.draft_hash)
+    expect(mergeReviewTemplates(firstMerge.rows, [[changed, exported]], 'codex').added).toBe(0)
+    const matching = [firstMerge.rows.map(r => ({ ...r, reviewer: 'claude_code', verdict: 'pass', dimensions: Object.fromEntries(REVIEW_DIMENSIONS.map(k => [k, true])), source_quote: quote, passage_quote: quote, rationale: 'The adapted claim preserves the condition and relationship.' })), firstMerge.rows.map(r => ({ ...r, verdict: 'pass', dimensions: Object.fromEntries(REVIEW_DIMENSIONS.map(k => [k, true])), source_quote: quote, passage_quote: quote, rationale: 'The adapted claim preserves the condition and relationship.' }))]
+    expect(validateAgentReviews(changed, exported, matching).ok).toBe(true)
+  })
+  it('중복 방지 키에서 빠진 추가 자료의 권리 변경도 검수 hash를 무효화한다', () => {
+    const resource = {
+      kind: 'text', canonical_source: 'noaa', canonical_url: rights.canonical_url,
+      content: quote, license_evidence: rights.evidence, license: rights.license,
+      license_url: rights.license_url, commercial_use: true, derivative_use: true,
+      ai_processing: 'allowed', third_party_text: false, share_alike: false,
+      attribution: 'NOAA original article', checked_at: rights.checked_at,
+    }
+    const a = { ...target, resources: [resource] }
+    const b = { ...target, resources: [{ ...resource, attribution: 'A changed attribution statement' }] }
+    expect(targetKey(a)).toBe(targetKey(b))
+    const withTarget = (t: typeof a) => ({ ...exported, reading: { ...exported.reading, target: t } })
+    expect(reviewTemplate(row, withTarget(a), 'codex').target_hash).not.toBe(reviewTemplate(row, withTarget(b), 'codex').target_hash)
+  })
+  it('치명 항목 실패·왜곡·거절·근거 부재를 평균으로 숨기지 않는다', () => {
+    for (const change of [
+      { dimensions: { ...approved[0].dimensions, scope_preserved: false } },
+      { distortions: ['SCOPE_EXPANSION'] },
+      { verdict: 'revise' },
+      { passage_quote: 'not in the draft' },
+    ]) expect(validateAgentReviews(row, exported, [[{ ...approved[0], ...change }], [approved[1]]]).ok).toBe(false)
   })
 })
 

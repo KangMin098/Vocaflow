@@ -280,8 +280,8 @@ export const TBP_HELP: HelpRegistry = {
           },
           {
             title: '연령·언어·사고 목표를 분리해 같은 원문을 교재화한다',
-            detail: 'Academic Reading 타깃은 R0~R13 능력·P01~P20 목적·독자 age_band·language_band·reasoning_band·시험·분량을 따로 지정합니다. scripts/textbook/targets의 JSON을 준비하고 `pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target <JSON> --source <원천> --limit 2`로 소량부터 뽑습니다. 읽기 전용·재실행 안전이며 같은 타깃의 DB/예약 청크를 건너뛰고 완료 입력/결과를 보존합니다. 에이전트는 academic-reading-brief.md를 읽고 원문별 권리 증거·열 분석축·명제 대응·본문 근거가 있는 문항/활동을 채웁니다. 같은 target으로 import 예행 후 checkpoint와 --commit을 실행하면 원문을 보존하고 queued 자식만 만듭니다. 기존 분석·내용 판정·적격 확인을 마쳐야 문항 제작·조판으로 넘어갑니다. 최초 소량 처리 시간은 본문 길이와 권리 확인에 따라 달라집니다.',
-            done: '새 각색의 composed_spec.academic_reading에 target·원문 UUID/hash/revision·권리·분석·문항 계획이 있고, 원문은 바뀌지 않았습니다. queued는 발행 완료가 아닙니다.',
+            detail: 'Academic Reading 타깃은 R0~R13 능력·P01~P20 목적·독자 age_band·language_band·reasoning_band·시험·분량을 따로 지정합니다. scripts/textbook/targets의 JSON을 준비하고 `pnpm exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target <JSON> --source <원천> --limit 2`로 소량부터 뽑습니다. 읽기 전용·재실행 안전이며 같은 타깃의 DB/예약 청크를 건너뛰고 완료 입력/결과를 보존합니다. 에이전트는 academic-reading-brief.md를 읽고 원문별 권리 증거·열 분석축·명제 대응·본문 근거가 있는 문항/활동을 채웁니다. `adapt-review-export.mjs --dir <청크 폴더>`로 양식을 만든 뒤 Claude Code와 Codex가 각각 원문·각색·권리·목표·문항 근거를 독립 검수합니다. 기존 판정은 보존하고 완성·수정된 각색에는 새 hash의 빈 양식을 추가하므로 재검수합니다. 12항목 모두 통과·왜곡 0·실제 양쪽 인용이 필요합니다. 같은 target으로 import 예행 후 checkpoint와 --commit을 실행하면 원문을 보존하고 검수된 queued 자식만 만듭니다. import는 삽입 직전 두 검수를 다시 확인합니다. 기존 분석·내용 판정·적격 확인을 마쳐야 문항 제작·조판으로 넘어갑니다. 문항 import도 과거 청크를 포함해 현재 부모 본문/권리 상태·검수 인증을 insert 직전에 재확인합니다. 최초 소량 처리 시간은 본문 길이와 권리 확인에 따라 달라집니다.',
+            done: '새 각색의 composed_spec.academic_reading에 target·원문 UUID/hash/revision·권리·분석·문항 계획·두 검수 원문·hash가 있고 state는 agent_reviewed입니다. 검수 누락·불일치·왜곡은 건너뛴 이유로 집계됩니다. queued는 발행 완료나 학생 난도 인증이 아닙니다.',
           },
           {
             title: '전수 판정 스캔',

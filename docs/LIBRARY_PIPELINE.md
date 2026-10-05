@@ -2,6 +2,8 @@
 
 ## Academic Reading 교재 타기팅·처리 (2026-10-04)
 
+에이전트 내용 검수(2026-10-05): target 각색 청크 완료 후 `adapt-review-export.mjs --dir <청크 폴더>`가 완성 행에만 Claude Code/Codex 별도 검수 파일을 새로 만든다. 보류 행은 집계하고 행 순서는 UUID·target으로 연결한다. 완성·수정 행에는 기존 검수 기록을 보존하면서 새 해시 양식을 추가한다. 두 에이전트가 원문·target·각색·권리·문항 근거를 독립 판정하고 12항목 전체 통과·왜곡 0건·양쪽 실제 인용을 남겨야 `adapt-drain-import.mjs`가 통과한다. 원천 revision/hash·target key·전체 target hash(추가 자료 권리 포함)·완성 각색 hash가 달라지면 재검수하며 적재 직전 검수 파일을 다시 읽는다. 적재한 자식은 `agent_reviewed`와 검수 원문·hash를 보존하고 문항 export는 현재 부모와 검수 원문/hash를 다시 확인하고 reading: 자식의 메타데이터 삭제도 차단한다. 장문은 문단별 정제로 네 문단을 유지하되 정제 중 수치·구절 삭제는 검수된 각색과 비교해 차단하며 target.resources 누락은 해당 지문만 제외한다. 문항 importer는 과거 청크라도 현재 각색·부모 본문/권리 상태·검수 인증을 다시 확인하고 insert 직전 재조회한다. 에이전트 판정은 사람/학생 인증이나 gold가 아니다. 기존 밴드 모드는 이 새 target 검수 계약의 대상이 아니다.
+
 사람 실행기 v2(2026-10-05): [프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/critical/제3 독립 판정 후 중재·학년별 15~30명/버전별 완전 측정 15명·manifest 봉인·새 승격/재현 조건을 export/register/collect/verify/import에 연결했다. 기존 8편은 calibration이며 gold/DB seed가 될 수 없다. 실행 초안은 `protocol-2.draft.json`이고 band 20개와 사람 등록은 미확정이다. `pass-bands-2.draft.json`은 사람 검토 양식이다. v1은 과거 결과 읽기만 지원하고 새 seed 인증으로는 거절한다.
 
 v2 수집은 위 명령에 `--evidence-dir <원본 폴더>`를, 실제 합치기에는 `--pilot <pilot.json>`도 요구한다. 등록된 manifest·배정·본문/원 연구·문항·학년·시각을 검사한다. 불일치는 제3 독립 리뷰 hash와 공개 후 중재를 요구하며 critical은 평균으로 상쇄하지 않는다. 응답 충돌은 거절하고 null만 보충한다. 완료된 calibration 파일에서 제외 명세를 추출하여 새 validation/replication을 사전 등록하며 원천/DOI/본문/학생 재사용을 차단한다. 수집/등록/보고는 로컬·새 출력만 쓰며 발송/DB 쓰기/자동 점수 생성은 없다([명령·복구](../scripts/textbook/frym-validation/README.md)).
