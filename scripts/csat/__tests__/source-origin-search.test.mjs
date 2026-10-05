@@ -78,17 +78,37 @@ test('credential and license eligibility block calls independently and never bec
   assert.ok(!JSON.stringify(attempts).includes('PRIVATE_FAKE_KEY'))
 })
 
+test('Semantic license changes invalidate successful cache and completion while preserving transport history', async () => {
+  const plan = tinyBenchmark(), previous = [], licensePolicy = { usage: 'internal_research', licenseStatus: 'research_allowed' }
+  const common = { key: 'dummy', now: () => 'fixed', retryOptions: { limiter: operation => operation(), nowMs: () => 1000 },
+    fetchImpl: async () => ({ status: 200, json: async () => ({ data: [] }) }) }
+  await runFixedSemanticBatch(plan, { ...common, licensePolicy, onAttempt: r => previous.push(r) })
+  const changed = { usage: 'product_db', licenseStatus: 'expanded_license_required', expandedLicenseApproved: true }
+  const readiness = apiReadiness('semantic_snippet', { ...changed, credentialPresent: true })
+  assert.equal(benchmarkMetrics(plan, previous, [], { retriever: 'semantic_snippet', readiness }).availability.queries_completed, 0)
+  let calls = 0
+  const next = await runFixedSemanticBatch(plan, { ...common, previous, licensePolicy: changed, fetchImpl: async () => { calls++; return { status: 200, json: async () => ({ data: [] }) } } })
+  assert.equal(calls, 2)
+  assert.equal(benchmarkMetrics(plan, [...previous, ...next], [], { retriever: 'semantic_snippet', readiness }).availability.queries_completed, 2)
+  const deferred = await runFixedSemanticBatch(plan, { ...common, previous: [{ ...previous[0], retry_not_before_ms: 120000 }], forceRefresh: true, licensePolicy: changed, fetchImpl: () => { throw Error('cooldown') } })
+  assert.ok(deferred.every(r => r.state === 'not_attempted_provider_blocked'))
+})
+
 test('smoke and five-query canary use only frozen queries and cannot be skipped when eligible', () => {
   const plan = tinyBenchmark(), ready = apiReadiness('google_books_api', { credentialPresent: true, projectPresent: true })
   assert.equal(benchmarkStage(plan, 'smoke', [], ready, 'google_books_api', 'vocaflow-books').cohort[0].requests.length, 1)
   assert.throws(() => benchmarkStage(plan, 'full', [], ready, 'google_books_api', 'vocaflow-books'), /smoke first/)
-  const smoke = { ...plan.cohort[0], ...plan.cohort[0].requests[0], phase: 'smoke', schema_valid: true, retriever: 'google_books_api', authenticated: true, credential_present: true, api_key_project: 'vocaflow-books' }
+  const smoke = { ...plan.cohort[0], ...plan.cohort[0].requests[0], phase: 'smoke', state: 'smoke_schema_valid', schema_valid: true, retriever: 'google_books_api', authenticated: true, credential_present: true, api_key_project: 'vocaflow-books', filter: plan.filter, maxResults: 40, startIndex: 0 }
   const canary = benchmarkStage(plan, 'canary', [smoke], ready, 'google_books_api', 'vocaflow-books')
   assert.deepEqual(canary.cohort[0].requests, plan.cohort[0].requests)
   assert.throws(() => benchmarkStage(plan, 'full', [smoke], ready, 'google_books_api', 'vocaflow-books'), /canary/)
   const previous = [smoke, ...plan.cohort[0].requests.map(q => ({ ...smoke, ...q, phase: 'canary', state: 'no_results', hits: [] }))]
   assert.equal(benchmarkStage(plan, 'full', previous, ready, 'google_books_api', 'vocaflow-books').cohort.length, 1)
   assert.throws(() => benchmarkStage(plan, 'full', previous, ready, 'google_books_api', 'different-project'), /smoke/)
+  const partialPage = previous.map(r => r.phase === 'canary' && r.query === smoke.query ? { ...r, state: 'candidates', hits: Array.from({ length: 40 }, (_, i) => ({ volume_id: String(i) })), reported_total: 60 } : r)
+  assert.throws(() => benchmarkStage(plan, 'full', partialPage, ready, 'google_books_api', 'vocaflow-books'), /canary/)
+  assert.equal(benchmarkStage(plan, 'full', [...partialPage, { ...partialPage[1], startIndex: 40, hits: [{ volume_id: 'last' }] }], ready, 'google_books_api', 'vocaflow-books').cohort.length, 1)
+  assert.equal(benchmarkMetrics(plan, [smoke], [], { retriever: 'google_books_api', apiKeyProject: 'vocaflow-books' }).availability.queries_other_error, 0)
 })
 
 test('disabled Books API has a closed error classification and no response body leaks to metadata', async () => {
@@ -108,7 +128,7 @@ test('retry cooldown survives a new batch and never sleeps beyond declared budge
     fetchImpl: async () => { calls++; return { status: 429, headers: { get: () => '120' }, json: async () => ({}) } } })
   assert.equal(calls, 1)
   assert.equal(previous[0].retry_not_before_ms, 120000)
-  const next = await runBookBatch(plan, { now: () => 'fixed', key: 'dummy', apiKeyProject: 'vocaflow-books', previous, retryOptions: { nowMs: () => 1000 }, fetchImpl: () => { throw Error('cooldown') } })
+  const next = await runBookBatch(plan, { now: () => 'fixed', key: 'dummy', apiKeyProject: 'vocaflow-books', previous, forceRefresh: true, retryOptions: { nowMs: () => 1000 }, fetchImpl: () => { throw Error('cooldown') } })
   assert.ok(next.every(r => r.state === 'not_attempted_provider_blocked'))
 })
 
@@ -153,7 +173,7 @@ test('official Semantic corpus IDs survive parsing, ranking and deduplication; m
   const plan = tinyBenchmark(), hit = { paper: { corpusId: 123, title: 'Paper' }, snippet: { text: 'target text' } }
   assert.equal(classifySearchResponse('semantic_scholar', 200, { data: [hit] }).state, 'candidates')
   assert.equal(classifySearchResponse('google_books', 200, { totalItems: 0, items: {} }).state, 'invalid_response')
-  const attempts = plan.cohort[0].requests.map(q => ({ ...plan.cohort[0], ...q, retriever: 'semantic_snippet', state: 'candidates', authenticated: true, hits: [hit] }))
+  const attempts = plan.cohort[0].requests.map(q => ({ ...plan.cohort[0], ...q, retriever: 'semantic_snippet', state: 'candidates', authenticated: true, usage: 'internal_research', license_status: 'research_allowed', expanded_license_approved: false, hits: [hit] }))
   assert.equal(candidateReviewQueue(plan, attempts, { retriever: 'semantic_snippet' })[0].candidates[0].candidate_id, 'CorpusId:123')
   assert.equal(benchmarkMetrics(plan, attempts, [], { retriever: 'semantic_snippet', readiness: apiReadiness('semantic_snippet', { credentialPresent: true, usage: 'internal_research', licenseStatus: 'research_allowed' }) }).retrieval.unique_candidates, 1)
 })

@@ -244,7 +244,7 @@ node --env-file=apps/web/.env.local scripts/csat/source-origin-search.mjs --book
 node --env-file=apps/web/.env.local scripts/csat/source-origin-search.mjs --semantic-fixed <fixed-plan.json> <semantic-log.jsonl> <fresh-rows.json> --stage smoke
 ```
 
-smoke는 기존 첫 질의 1개로 자격·JSON schema를 확인하며 **후보·snippet을 저장하지 않고 상태 metadata만** 남긴다. canary는 같은 고정 집합 앞 5개로 rate-limit·quota·로그를 확인한다. full/retry는 cohort·본문·프로젝트·Semantic 사용 정책에 맞는 smoke와 canary 성공 증거가 있어야 실행한다. 새 질의는 만들지 않으며 정상 완료 캐시만 재사용한다. schema smoke는 completed 검색 분자에 넣지 않는다. canary/full의 유효 결과는 동일 질의로 중복 제거하고 top-3 검수까지 완료해야 benchmark가 끝난다.
+smoke는 기존 첫 질의 1개로 자격·JSON schema를 확인하며 **후보·snippet을 저장하지 않고 상태 metadata만** 남긴다. 성공 캐시는 다시 조회하되 기존 전송 이력의 Retry-After는 모든 단계에서 유지한다. canary는 같은 고정 집합 앞 5개로 rate-limit·quota·로그를 확인하며 각 질의의 필수 다음 페이지까지 성공해야 통과한다. full/retry는 cohort·본문·프로젝트·Semantic 사용 정책에 맞는 smoke와 canary 성공 증거가 있어야 실행한다. 새 질의는 만들지 않으며 정상 완료 캐시만 재사용한다. 라이선스 정책이 바뀌면 이전 정책의 Semantic 성공 캐시·completed·검수 큐는 현재 성과에서 제외한다. 일반 조사 CLI도 같은 닫힌 환경 정책을 읽는다. schema smoke는 completed 검색 분자나 검색 오류 수에 넣지 않는다. canary/full의 유효 결과는 동일 질의로 중복 제거하고 top-3 검수까지 완료해야 benchmark가 끝난다.
 
 공개 원문 경로는 남은 **48개 전부를 한 차례 탐색**하고 일부 후보를 더 깊게 확인했다. 이 1회 탐색을 원문 전체 확인이나 exhaustive search로 부르지 않는다. 수능 문제·해설 재배포는 독립 원작 근거로 제외했다.
 
@@ -257,4 +257,4 @@ smoke는 기존 첫 질의 1개로 자격·JSON schema를 확인하며 **후보�
 
 두 신규 B는 **public_fulltext 성과**다. API 신규 A/B에 귀속하지 않았다. 현재 DB 실측은 **A 98 · B 27 · C 1 · G 587 = 713**, 등록 **125/713**, 고정 cohort 미확인 **46/50**다. 나머지 46개는 계속 미확인이며, 이번 탐색에서 원작 근거가 없었다는 기록을 보존했다.
 
-적용 전 preview ready 2, 적용 후 동일 preview already_applied 2를 확인했다. registry 전 상태·각 연결 지문 본문 SHA를 묶은 트랜잭션으로 2행만 변경했다. DB checkpoint `csat-public-fulltext-20261005` 전후 비교에서 고정 지표 소실은 없었다(회전 bloat 표본 교체·용량 0.1MB·기존 cron 지연 0.01시간만 변화). 원문 본문·정답·마이그레이션 변경 없음. DB 통계 생성기도 재실행했다. 회귀 **40/40**, 에이전트 설정 검사 **10/10**. 상세 질의·48개별 상태·등록 전후·API 준비 상태는 manifest `credential_license_followup`에 남겼다.
+적용 전 preview ready 2, 적용 후 동일 preview already_applied 2를 확인했다. registry 전 상태·각 연결 지문 본문 SHA를 묶은 트랜잭션으로 2행만 변경했다. DB checkpoint `csat-public-fulltext-20261005` 전후 비교에서 고정 지표 소실은 없었다(회전 bloat 표본 교체·용량 0.1MB·기존 cron 지연 0.01시간만 변화). 원문 본문·정답·마이그레이션 변경 없음. DB 통계 생성기도 재실행했다. 회귀 **41/41**, 에이전트 설정 검사 **10/10**. 상세 질의·48개별 상태·등록 전후·API 준비 상태는 manifest `credential_license_followup`에 남겼다.

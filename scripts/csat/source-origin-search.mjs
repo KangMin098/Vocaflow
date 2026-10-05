@@ -17,6 +17,8 @@ export function apiReadiness(retriever, { credentialPresent = false, projectPres
     eligible: credential_status === 'ready' && licenseAllowed, blocked_credentials: credential_status !== 'ready', blocked_license: !licenseAllowed,
     benchmark_status: !licenseAllowed ? 'pending_license' : credential_status !== 'ready' ? 'pending_credentials' : 'running' }
 }
+function licensePolicyFromEnv(env) { return { usage: env.SEMANTIC_SCHOLAR_USAGE ?? 'unresolved', licenseStatus: env.SEMANTIC_SCHOLAR_LICENSE_STATUS ?? 'unresolved', expandedLicenseApproved: env.SEMANTIC_SCHOLAR_EXPANDED_LICENSE_APPROVED === 'true' } }
+function sameLicense(record, readiness) { return record.usage === readiness.usage && record.license_status === readiness.license_status && record.expanded_license_approved === readiness.expanded_license_approved }
 
 function blockedBenchmarkAttempts(plan, retriever, readiness) {
   return plan.cohort.flatMap(row => row.requests.map(q => ({ representative_item_id: row.representative_item_id, passage_sha256: row.passage_sha256, body_sha256_by_item: row.body_sha256_by_item,
@@ -33,13 +35,18 @@ export function benchmarkStage(plan, stage, previous, readiness, retriever, apiK
   const requests = fixed.flatMap(row => row.requests.map(q => ({ row, q })))
   const key = (row, q) => JSON.stringify([row.representative_item_id, row.passage_sha256, q.strategy, q.query])
   const proof = previous.filter(r => r.retriever === retriever && r.authenticated === true && r.credential_present === true
-    && (retriever !== 'google_books_api' || apiKeyProject && r.api_key_project === apiKeyProject)
+    && (retriever !== 'google_books_api' || apiKeyProject && r.api_key_project === apiKeyProject && r.filter === plan.filter && r.maxResults === plan.maxResults)
     && r.cohort_sha256 === plan.cohort_sha256 && requests.some(({ row, q }) => key(row, q) === key(r, r) && isDeepStrictEqual(row.body_sha256_by_item, r.body_sha256_by_item))
-    && (retriever !== 'semantic_snippet' || r.usage === readiness.usage && r.license_status === readiness.license_status && r.expanded_license_approved === readiness.expanded_license_approved))
+    && (retriever !== 'semantic_snippet' || sameLicense(r, readiness)))
   if (readiness.eligible && stage !== 'smoke' && !proof.some(r => r.phase === 'smoke' && r.schema_valid === true)) throw new Error('Run a successful credential/schema smoke first')
   if (readiness.eligible && ['full', 'retry'].includes(stage)) {
-    const passed = new Set(proof.filter(r => r.phase === 'canary' && ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(candidateId)).map(r => key(r, r)))
-    if (!requests.slice(0, Math.min(5, requests.length)).every(({ row, q }) => passed.has(key(row, q)))) throw new Error('Run the fixed five-query canary successfully first')
+    const passed = proof.filter(r => r.phase === 'canary' && ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(candidateId))
+    if (!requests.slice(0, Math.min(5, requests.length)).every(({ row, q }) => {
+      const records = passed.filter(r => key(r, r) === key(row, q)), pages = new Map(records.map(r => [r.startIndex ?? 0, r])), first = pages.get(0)
+      if (!first) return false
+      const needed = retriever === 'google_books_api' && first.hits.length === 40 && first.reported_total > 40 ? Math.min(plan.max_pages_per_query, Math.ceil(first.reported_total / 40)) : 1
+      return Array.from({ length: needed }, (_, i) => retriever === 'google_books_api' ? i * 40 : 0).every(p => pages.has(p))
+    })) throw new Error('Run the fixed five-query canary successfully first')
   }
   const picked = stage === 'smoke' ? requests.slice(0, 1) : stage === 'canary' ? requests.slice(0, 5) : requests
   return { ...plan, fixed_cohort: fixed, cohort: fixed.map(row => ({ ...row, requests: picked.filter(p => p.row === row).map(p => p.q) })).filter(row => row.requests.length),
@@ -296,12 +303,12 @@ export function bookCandidate(hit, row, candidateRank) {
     candidate_confidence: 'unassessed', verdict: 'unreviewed', remaining_uncertainty: 'Volume match and edition timing require human attribution review; ranking never upgrades A/B.' }
 }
 
-export async function runBookBatch(plan, { fetchImpl = fetch, now, key, apiKeyProject = null, requireIdentification = false, retryOptions = {}, onAttempt = () => {}, previous = [] } = {}) {
+export async function runBookBatch(plan, { fetchImpl = fetch, now, key, apiKeyProject = null, requireIdentification = false, retryOptions = {}, onAttempt = () => {}, previous = [], forceRefresh = false, cachePhase = null } = {}) {
   if (typeof now !== 'function') throw new Error('Inject a clock')
   if (apiKeyProject !== null && !/^(?:[a-z][a-z0-9-]{4,28}[a-z0-9]|\d{6,20})$/.test(apiKeyProject)) throw new Error('Invalid project identifier; credentials cannot be metadata')
   if (!['partial', 'full'].includes(plan.filter) || plan.maxResults !== 40 || !Number.isInteger(plan.max_pages_per_query) || plan.max_pages_per_query < 1 || plan.max_pages_per_query > 10) throw new Error('Invalid bounded book batch options')
   const attemptKey = r => JSON.stringify([r.representative_item_id, r.passage_sha256, Object.entries(r.body_sha256_by_item ?? {}).sort(), r.strategy ?? null, r.query, r.startIndex, plan.filter, plan.maxResults])
-  const done = new Map(previous.filter(r => ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(candidateId) && r.retriever === 'google_books_api' && r.filter === plan.filter && r.maxResults === plan.maxResults
+  const done = new Map(previous.filter(r => !forceRefresh && (!cachePhase || r.phase === cachePhase) && ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(candidateId) && r.retriever === 'google_books_api' && r.filter === plan.filter && r.maxResults === plan.maxResults
     && (!requireIdentification || r.authenticated === true && r.api_key_project === apiKeyProject)).map(r => [attemptKey(r), r]))
   const clockMs = retryOptions.nowMs ?? Date.now
   const priorTransport = previous.filter(r => r.retriever === 'google_books_api' && r.authenticated === Boolean(key) && r.api_key_project === apiKeyProject && r.started_at != null).at(-1)
@@ -402,7 +409,7 @@ export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, req
   const wasAttempted = r => !r.state.startsWith('not_attempted')
   const scopedRecords = [...groups.values()].flat()
   const policy = readiness ?? apiReadiness(retriever, { credentialPresent: scopedRecords.some(r => r.authenticated === true), projectPresent: Boolean(apiKeyProject) })
-  const valid = r => policy.eligible && ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(h => candidateId(h)) && (!requireIdentification || r.authenticated === true && (retriever !== 'google_books_api' || apiKeyProject && r.api_key_project === apiKeyProject))
+  const valid = r => policy.eligible && (retriever !== 'semantic_snippet' || sameLicense(r, policy)) && ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(h => candidateId(h)) && (!requireIdentification || r.authenticated === true && (retriever !== 'google_books_api' || apiKeyProject && r.api_key_project === apiKeyProject))
   const completed = new Map()
   for (const [key, records] of groups) {
     const pages = new Map(records.filter(valid).map(r => [r.startIndex ?? 0, r]))
@@ -430,7 +437,7 @@ export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, req
   const availability = {
     queries_planned: expected.size, queries_attempted: [...groups.values()].filter(rs => rs.some(wasAttempted)).length, queries_completed: completed.size,
     queries_429: [...groups.values()].filter(rs => rs.some(r => r.http_status === 429)).length,
-    queries_other_error: [...groups.values()].filter(rs => rs.some(r => wasAttempted(r) && !['candidates', 'no_results', 'rate_limited'].includes(r.state))).length,
+    queries_other_error: [...groups.values()].filter(rs => rs.some(r => wasAttempted(r) && !['candidates', 'no_results', 'rate_limited', 'smoke_schema_valid'].includes(r.state))).length,
     http_attempts: scoped.filter(wasAttempted).length, http_429_attempts: scoped.filter(r => r.http_status === 429).length,
     queries_missing_auth: [...groups.values()].filter(rs => rs.some(r => ['not_attempted_missing_auth', 'not_attempted_missing_project'].includes(r.state))).length,
     targets_completed: completeItems, targets_planned: fixed.length, quarantined_records: quarantined.length,
@@ -465,12 +472,13 @@ function candidateId(hit) {
   return Number.isSafeInteger(corpusId) && corpusId > 0 ? `CorpusId:${corpusId}` : null
 }
 
-export function candidateReviewQueue(plan, attempts, { retriever, topN = 3, requireIdentification = false, apiKeyProject = null } = {}) {
+export function candidateReviewQueue(plan, attempts, { retriever, topN = 3, requireIdentification = false, apiKeyProject = null, readiness = null } = {}) {
   if (!Number.isInteger(topN) || topN < 1 || topN > 10) throw new Error('Bounded top-N required')
   const fixed = plan.fixed_cohort ?? plan.cohort
   return fixed.map(row => {
     const hits = attempts.filter(r => r.retriever === retriever && r.representative_item_id === row.representative_item_id && r.passage_sha256 === row.passage_sha256
       && isDeepStrictEqual(r.body_sha256_by_item, row.body_sha256_by_item) && row.requests.some(q => q.query === r.query && q.strategy === r.strategy) && r.state === 'candidates'
+      && (!readiness || readiness.eligible && (retriever !== 'semantic_snippet' || sameLicense(r, readiness)))
       && (!requireIdentification || r.authenticated === true && (retriever !== 'google_books_api' || apiKeyProject && r.api_key_project === apiKeyProject))
       && (retriever !== 'google_books_api' || r.filter === plan.filter && r.maxResults === plan.maxResults && Number.isInteger(r.startIndex) && r.startIndex >= 0 && r.startIndex % 40 === 0 && r.startIndex < plan.max_pages_per_query * 40))
       .flatMap(r => r.hits.map(hit => ({ ...hit, origin_query: r.query, origin_strategy: r.strategy })))
@@ -686,6 +694,7 @@ export async function runProvenanceSearch(queue, { fetchImpl = fetch, now, keys 
         attemptOffset: request.attempt_offset ?? 0, onResponse: (metadata, body) => {
           const result = classifySearchResponse(request.provider, metadata.http_status ?? 0, body)
           attempt = { ...base, ...result, ...metadata, state: metadata.availability_state === 'network_error' ? 'request_error' : result.state }
+          if (request.provider === 'semantic_scholar') Object.assign(attempt, apiReadiness('semantic_snippet', { ...licensePolicy, credentialPresent: Boolean(keys.semantic_scholar) }))
           if (request.provider === 'semantic_scholar' && attempt.hits) attempt.hits = attempt.hits.map((hit, i) => ({ ...hit, retriever: 'semantic_snippet', candidate_rank: i + 1,
             verification_depth: hit.snippet || hit.snippets || hit.text ? 'indexed_text' : 'metadata_only', verdict: 'unreviewed' }))
           attempts.push(attempt); onAttempt(attempt)
@@ -695,11 +704,11 @@ export async function runProvenanceSearch(queue, { fetchImpl = fetch, now, keys 
   return attempts
 }
 
-export async function runFixedSemanticBatch(plan, { previous = [], key, requireIdentification = true, onAttempt = () => {}, licensePolicy = {}, ...options } = {}) {
+export async function runFixedSemanticBatch(plan, { previous = [], key, requireIdentification = true, onAttempt = () => {}, licensePolicy = {}, forceRefresh = false, cachePhase = null, ...options } = {}) {
   const readiness = apiReadiness('semantic_snippet', { ...licensePolicy, credentialPresent: Boolean(key) })
   if (readiness.blocked_license) { const skipped = blockedBenchmarkAttempts(plan, 'semantic_snippet', readiness); skipped.forEach(onAttempt); return skipped }
   const identity = r => JSON.stringify([r.representative_item_id, r.passage_sha256, Object.entries(r.body_sha256_by_item ?? {}).sort(), r.strategy, r.query])
-  const done = new Set(previous.filter(r => r.retriever === 'semantic_snippet' && ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(candidateId) && (!requireIdentification || r.authenticated === true)).map(identity))
+  const done = new Set(previous.filter(r => !forceRefresh && (!cachePhase || r.phase === cachePhase) && sameLicense(r, readiness) && r.retriever === 'semantic_snippet' && ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(candidateId) && (!requireIdentification || r.authenticated === true)).map(identity))
   const queue = plan.cohort.map(row => ({ ...row, requests: row.requests.filter(q => !done.has(identity({ ...row, ...q }))).map(q => ({ ...q, provider: 'semantic_scholar', retriever: 'semantic_snippet',
     submitted_query: q.query.replace(/"/g, '').replace(/\s+/g, ' ').trim(),
     attempt_offset: Math.max(0, ...previous.filter(r => identity(r) === identity({ ...row, ...q })).map(r => r.attempt_no ?? 0)) })) }))
@@ -742,11 +751,11 @@ async function main() {
       const semantic = process.argv[2] === '--semantic-fixed'
       const retriever = semantic ? 'semantic_snippet' : 'google_books_api', project = semantic ? null : process.env.GOOGLE_BOOKS_API_PROJECT ?? null
       if (project !== null && !/^(?:[a-z][a-z0-9-]{4,28}[a-z0-9]|\d{6,20})$/.test(project)) throw new Error('Invalid project identifier; do not put credentials in metadata')
-      const licensePolicy = { usage: process.env.SEMANTIC_SCHOLAR_USAGE ?? 'unresolved', licenseStatus: process.env.SEMANTIC_SCHOLAR_LICENSE_STATUS ?? 'unresolved', expandedLicenseApproved: process.env.SEMANTIC_SCHOLAR_EXPANDED_LICENSE_APPROVED === 'true' }
+      const licensePolicy = licensePolicyFromEnv(process.env)
       let readiness = apiReadiness(retriever, { ...(semantic ? licensePolicy : {}), credentialPresent: Boolean(semantic ? process.env.SEMANTIC_SCHOLAR_API_KEY : process.env.GOOGLE_BOOKS_API_KEY), projectPresent: Boolean(project) })
       const stageAt = process.argv.indexOf('--stage'), stage = stageAt < 0 ? 'full' : process.argv[stageAt + 1]
       const phasePlan = benchmarkStage(plan, stage, previous, readiness, retriever, project), persisted = []
-      const common = { now: () => new Date().toISOString(), previous: stage === 'smoke' ? [] : stage === 'canary' ? previous.filter(r => r.phase === 'canary') : previous, onAttempt: record => {
+      const common = { now: () => new Date().toISOString(), previous, forceRefresh: stage === 'smoke', cachePhase: stage === 'canary' ? 'canary' : null, onAttempt: record => {
         const schemaValid = ['candidates', 'no_results'].includes(record.state)
         const r = { ...record, ...readiness, credential_present: readiness.credential_present, api_key_project: project, phase: stage, cohort_sha256: plan.cohort_sha256,
           ...(stage === 'smoke' ? { state: schemaValid ? 'smoke_schema_valid' : record.state, schema_valid: schemaValid, hits: null } : {}) }
@@ -762,7 +771,7 @@ async function main() {
       if (!Array.isArray(outcomes)) throw new Error('--reviews requires an outcomes array')
       const metrics = benchmarkMetrics(plan, all, outcomes, { retriever, apiKeyProject: project, readiness })
       fs.writeFileSync(output + '.metrics.json', JSON.stringify(metrics, null, 2))
-      fs.writeFileSync(output + '.review-queue.json', JSON.stringify(candidateReviewQueue(plan, all, { retriever, requireIdentification: true, apiKeyProject: semantic ? null : process.env.GOOGLE_BOOKS_API_PROJECT ?? null }), null, 2))
+      fs.writeFileSync(output + '.review-queue.json', JSON.stringify(candidateReviewQueue(plan, all, { retriever, requireIdentification: true, apiKeyProject: project, readiness }), null, 2))
       console.log(JSON.stringify({ fixed_cohort_size: plan.fixed_cohort_size, already_resolved: plan.already_resolved,
         pending_targets: plan.fixed_cohort_size - plan.already_resolved, queued_targets: plan.cohort.length,
         benchmark, phase: stage, metrics }))
@@ -809,7 +818,8 @@ async function main() {
   const queue = rows.filter(row => row.status === 'unresolved').map(row => ({ representative_item_id: row.representative_item_id, passage_sha256: row.passage_sha256, body_sha256_by_item: row.body_sha256_by_item, requests: provenanceRequests(row, frequencies, rows.length) }))
   const previous = fs.existsSync(output) ? fs.readFileSync(output, 'utf8').trim().split('\n').filter(Boolean).map(line => JSON.parse(line)) : []
   const key = row => JSON.stringify([row.passage_sha256, Object.entries(row.body_sha256_by_item ?? {}).sort(([a], [b]) => a.localeCompare(b)), row.provider, row.query])
-  const done = new Set(previous.filter(r => ['candidates', 'no_results'].includes(r.state)).map(key))
+  const licensePolicy = licensePolicyFromEnv(process.env), semanticReadiness = apiReadiness('semantic_snippet', { ...licensePolicy, credentialPresent: Boolean(process.env.SEMANTIC_SCHOLAR_API_KEY) })
+  const done = new Set(previous.filter(r => ['candidates', 'no_results'].includes(r.state) && (r.provider !== 'semantic_scholar' || semanticReadiness.eligible && sameLicense(r, semanticReadiness))).map(key))
   const pending = queue.map(row => ({ ...row, requests: row.requests.filter(request => !done.has(key({ ...row, ...request }))) }))
   fs.mkdirSync(path.dirname(output), { recursive: true })
   const planned = pending.reduce((n, row) => n + row.requests.length, 0)
@@ -818,7 +828,7 @@ async function main() {
   const circuit = new Map(), counts = {}
   const keys = { semantic_scholar: process.env.SEMANTIC_SCHOLAR_API_KEY, google_books: process.env.GOOGLE_BOOKS_API_KEY }
   for (let i = 0; i < pending.length; i++) {
-    await runProvenanceSearch([pending[i]], { now: () => new Date().toISOString(), keys, circuit, onAttempt: row => {
+    await runProvenanceSearch([pending[i]], { now: () => new Date().toISOString(), keys, licensePolicy, circuit, onAttempt: row => {
       fs.appendFileSync(output, JSON.stringify(row) + '\n'); counts[row.state] = (counts[row.state] ?? 0) + 1
     } })
     if ((i + 1) % 30 === 0) console.log(JSON.stringify({ processed: i + 1, counts }))
