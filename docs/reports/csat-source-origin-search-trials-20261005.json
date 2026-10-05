@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-05",
+  "general_search_queries": 14,
+  "targets": [
+    {
+      "target": "2014B#34",
+      "queries": [
+        "\"auditory looming\" \"self-protection\" Kenrick",
+        "Kenrick Griskevicius Rational Animal auditory looming rhinoceros",
+        "\"The Rational Animal\" \"rhinoceros\"",
+        "site:basicbooks.com \"The Rational Animal\"",
+        "Kenrick Griskevicius \"Rational Animal\" publisher 2013"
+      ],
+      "outcome": "bibliographic_lead_only",
+      "work": "The Rational Animal",
+      "urls": [
+        "https://www.hachettebookgroup.com/titles/douglas-t-kenrick/the-rational-animal/9780465040971/",
+        "https://books.google.com/books/about/The_Rational_Animal.html?id=4VEPAAAAQBAJ"
+      ],
+      "uncertainty": "No target paragraph checked. Native book query link returned an access error; table of contents and index alone do not establish attribution."
+    },
+    {
+      "target": "2015#33",
+      "queries": [
+        "\"science to germinate\" French scholar book",
+        "\"science to germinate\" \"Physics\"",
+        "\"Physics for the Inquiring Mind\" \"population\""
+      ],
+      "outcome": "attribution_not_established"
+    },
+    {
+      "target": "2016#20",
+      "queries": [
+        "counselor assertiveness \"racist joke\" book",
+        "\"assertive counselor\" repertoire book"
+      ],
+      "outcome": "attribution_not_established"
+    },
+    {
+      "target": "2023#20",
+      "queries": [
+        "probability \"junctions\" \"shortcut\" du Sautoy",
+        "Marcus du Sautoy \"Turning the uncertainty into numbers\"",
+        "site:edge.org Marcus du Sautoy 2011 probability uncertainty",
+        "site:edge.org \"du Sautoy\" \"2011\" \"risk\""
+      ],
+      "outcome": "attribution_not_established",
+      "uncertainty": "Author conjecture unverified; contributor index had no Sautoy text. Rovelli response does not match target."
+    }
+  ],
+  "controls": [
+    {
+      "book": "The Art of Choosing",
+      "title_query": "\"The Art of Choosing\" site:books.google.com",
+      "title_result": "found",
+      "phrase_query": "\"expertise carries costs\" site:books.google.com",
+      "phrase_result": "empty"
+    },
+    {
+      "book": "Understanding Fashion History",
+      "title_query": "\"Understanding Fashion History\" site:books.google.com",
+      "title_result": "found",
+      "phrase_query": "\"Garments should be seen\" site:books.google.com",
+      "phrase_result": "empty"
+    }
+  ],
+  "native_books_api": [
+    {
+      "query": "intitle:The Art of Choosing",
+      "http_status": 429,
+      "outcome": "request_failed_quota",
+      "zero_results": false
+    },
+    {
+      "query": "\"expertise carries costs\"",
+      "http_status": 429,
+      "outcome": "request_failed_quota",
+      "zero_results": false
+    },
+    {
+      "query": "\"Garments should be seen\"",
+      "http_status": 429,
+      "outcome": "request_failed_quota",
+      "zero_results": false
+    }
+  ],
+  "registered_changes": 0,
+  "limits": "Four selected unresolved passages and two positive-control books; no population recovery-rate estimate. No native full-text recovery rate measured."
+}
