@@ -28279,7 +28279,7 @@
       "suneung_total": 338
     },
     "tests": {
-      "passed": 35,
+      "passed": 36,
       "scope": "frozen 50/161, retry/1RPS, credential absence, status separation, cooldown, full query and top-N closure"
     },
     "official_sources": [

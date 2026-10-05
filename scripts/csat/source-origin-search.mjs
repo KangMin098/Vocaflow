@@ -9,7 +9,7 @@ import { isDeepStrictEqual } from 'node:util'
 export const sleepMs = ms => new Promise(resolve => setTimeout(resolve, ms))
 export function createSerialLimiter({ nowMs, sleep, intervalMs = 1000 }) {
   let tail = Promise.resolve(), nextStart = 0
-  return operation => {
+  const limit = operation => {
     const run = tail.then(async () => {
       const wait = nextStart - nowMs()
       if (wait > 0) await sleep(wait)
@@ -19,6 +19,8 @@ export function createSerialLimiter({ nowMs, sleep, intervalMs = 1000 }) {
     tail = run.catch(() => {})
     return run
   }
+  limit.deferUntil = deadline => { nextStart = Math.max(nextStart, deadline) }
+  return limit
 }
 // All Semantic requests in this Node process share one queue. Run one benchmark CLI.
 const semanticLimiter = createSerialLimiter({ nowMs: Date.now, sleep: sleepMs })
@@ -48,13 +50,15 @@ export async function requestWithRetry(url, { provider, fetchImpl = fetch, heade
       const retryMs = retryAfterMs(retryHeader, nowMs())
       let state = status === null ? 'network_error' : status === 429 ? '429_rate_limited' : [401, 403].includes(status) ? '403/401_auth' : status >= 500 ? '5xx_transient' : status < 200 || status >= 300 ? 'http_error' : parseFailed ? 'parse_failure' : 'success'
       if (state === 'success') { const parsed = classifySearchResponse(provider, status, body); state = parsed.state === 'invalid_response' ? 'parse_failure' : parsed.state === 'no_results' ? 'zero_result' : 'success' }
+      const retryWait = retryMs ?? Math.min(30000, 1000 * 2 ** (attempt - 1)) + Math.floor(random() * 250)
+      if (provider === 'semantic_scholar' && ['429_rate_limited', '5xx_transient', 'network_error'].includes(state)) limiter.deferUntil?.(nowMs() + retryWait)
       return { body, metadata: { authenticated, api_key_project: apiKeyProject, attempt_no: attemptOffset + attempt, http_status: status,
         retry_after: retryMs === null ? null : retryHeader, retry_after_ms: retryMs, started_at: startedAt, finished_at: now(),
-        query_hash: createHash('sha256').update(query).digest('hex'), availability_state: state } }
+        query_hash: createHash('sha256').update(query).digest('hex'), availability_state: state, retry_delay_ms: retryWait } }
     }
     last = provider === 'semantic_scholar' ? await limiter(execute) : await execute()
     const retryable = ['429_rate_limited', '5xx_transient', 'network_error'].includes(last.metadata.availability_state)
-    const wait = last.metadata.retry_after_ms ?? Math.min(30000, 1000 * 2 ** (attempt - 1)) + Math.floor(random() * 250)
+    const wait = last.metadata.retry_delay_ms
     const retry = retryable && attempt < maxAttempts && wait <= maxWaitMs
     last.metadata.will_retry = retry
     last.metadata.retry_deferred_ms = retryable && !retry ? wait : null
@@ -304,7 +308,7 @@ export function pendingBookPlan(plan, currentRows, { includeResolved = false } =
     if (latest.status !== 'unresolved') resolved++
     if (latest.status === 'unresolved' || includeResolved) pending.push(row)
   }
-  return { ...plan, cohort: pending, fixed_cohort: plan.cohort, fixed_cohort_size: plan.cohort.length, already_resolved: resolved, benchmark_all_targets: includeResolved }
+  return { ...plan, cohort: pending, fixed_cohort: plan.cohort.map(row => ({ ...row, current_status: current.get(row.representative_item_id).status })), fixed_cohort_size: plan.cohort.length, already_resolved: resolved, benchmark_all_targets: includeResolved }
 }
 
 export function summarizeBookRun(plan, previous, attempts) {
@@ -356,7 +360,7 @@ export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, req
     groups.get(key).push(r)
   }
   const wasAttempted = r => !r.state.startsWith('not_attempted')
-  const valid = r => ['candidates', 'no_results'].includes(r.state) && (!requireIdentification || r.authenticated === true && (retriever !== 'google_books_api' || r.api_key_project && (!apiKeyProject || r.api_key_project === apiKeyProject)))
+  const valid = r => ['candidates', 'no_results'].includes(r.state) && Array.isArray(r.hits) && r.hits.every(h => candidateId(h)) && (!requireIdentification || r.authenticated === true && (retriever !== 'google_books_api' || apiKeyProject && r.api_key_project === apiKeyProject))
   const completed = new Map()
   for (const [key, records] of groups) {
     const pages = new Map(records.filter(valid).map(r => [r.startIndex ?? 0, r]))
@@ -373,13 +377,14 @@ export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, req
   if (judged.some(o => !fixed.some(r => r.representative_item_id === o.representative_item_id && r.passage_sha256 === o.passage_sha256 && isDeepStrictEqual(r.body_sha256_by_item, o.body_sha256_by_item)))) throw new Error('Unbound benchmark candidate review')
   const uniqueJudged = [...new Map(judged.map(o => [JSON.stringify([o.representative_item_id, o.candidate_id]), o])).values()]
   if (uniqueJudged.some(o => !o.candidate_id)) throw new Error('Benchmark verification requires a stable candidate ID')
+  if (uniqueJudged.some(o => !['A', 'B', 'C', 'G'].includes(o.before) || !['A', 'B', 'C', 'G'].includes(o.after))) throw new Error('Invalid benchmark review grade')
   const useful = uniqueJudged.filter(o => ['A', 'B'].includes(o.after)), usefulItems = new Set(useful.map(o => o.representative_item_id))
   const hitItems = new Set(candidateRecords.map(r => r.representative_item_id))
   const completeItems = fixed.filter(row => row.requests.every(q => completed.has(JSON.stringify([row.representative_item_id, q.strategy, q.query])))).length
   const allComplete = completed.size === expected.size && fixed.length > 0
   const reviewedKeys = new Set(uniqueJudged.filter(o => ['A', 'B', 'C', 'G'].includes(o.after)).map(o => JSON.stringify([o.representative_item_id, o.candidate_id])))
   const verificationComplete = allComplete && [...selectedKeys].every(k => reviewedKeys.has(k))
-  const newAItems = new Set(uniqueJudged.filter(o => o.before === 'G' && o.after === 'A').map(o => o.representative_item_id))
+  const newAItems = new Set(uniqueJudged.filter(o => o.before === 'G' && o.after === 'A' && fixed.some(r => r.representative_item_id === o.representative_item_id && (r.current_status ?? r.status) === 'unresolved')).map(o => o.representative_item_id))
   const availability = {
     queries_planned: expected.size, queries_attempted: [...groups.values()].filter(rs => rs.some(wasAttempted)).length, queries_completed: completed.size,
     queries_429: [...groups.values()].filter(rs => rs.some(r => r.http_status === 429)).length,
@@ -400,13 +405,15 @@ export function benchmarkMetrics(plan, attempts, outcomes = [], { retriever, req
     limitation: 'Completed query counts deduplicate retries and require all predeclared pages. Final useful/A rates wait for frozen top-N review completion; status histories may overlap after retries.' }
 }
 
+function candidateId(hit) { return hit && (hit.volume_id ?? hit.paperId ?? hit.paper?.paperId ?? hit.paperInfo?.paperId ?? hit.id) }
+
 export function candidateReviewQueue(plan, attempts, { retriever, topN = 3, requireIdentification = false, apiKeyProject = null } = {}) {
   if (!Number.isInteger(topN) || topN < 1 || topN > 10) throw new Error('Bounded top-N required')
   const fixed = plan.fixed_cohort ?? plan.cohort
   return fixed.map(row => {
     const hits = attempts.filter(r => r.retriever === retriever && r.representative_item_id === row.representative_item_id && r.passage_sha256 === row.passage_sha256
       && isDeepStrictEqual(r.body_sha256_by_item, row.body_sha256_by_item) && row.requests.some(q => q.query === r.query && q.strategy === r.strategy) && r.state === 'candidates'
-      && (!requireIdentification || r.authenticated === true && (retriever !== 'google_books_api' || r.api_key_project && (!apiKeyProject || r.api_key_project === apiKeyProject)))
+      && (!requireIdentification || r.authenticated === true && (retriever !== 'google_books_api' || apiKeyProject && r.api_key_project === apiKeyProject))
       && (retriever !== 'google_books_api' || r.filter === plan.filter && r.maxResults === plan.maxResults && Number.isInteger(r.startIndex) && r.startIndex >= 0 && r.startIndex % 40 === 0 && r.startIndex < plan.max_pages_per_query * 40))
       .flatMap(r => r.hits.map(hit => ({ ...hit, origin_query: r.query, origin_strategy: r.strategy })))
     const byId = new Map()
@@ -592,6 +599,7 @@ export function classifySearchResponse(provider, status, body) {
   const items = arrays[provider]
   if (!Array.isArray(items) && reported !== 0) return { state: 'invalid_response', hits: null }
   if (reported > 0 && !(items?.length)) return { state: 'invalid_response', hits: null }
+  if (['google_books', 'semantic_scholar'].includes(provider) && items?.some(hit => !candidateId(hit))) return { state: 'invalid_response', hits: null }
   return { state: (items?.length ?? 0) ? 'candidates' : 'no_results', hits: items ?? [], reported_total: reported ?? items.length }
 }
 

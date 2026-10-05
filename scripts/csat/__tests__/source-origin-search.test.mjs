@@ -38,7 +38,7 @@ test('Retry-After seconds/date take precedence and errors never become zero resu
 })
 
 function tinyBenchmark() {
-  const row = { representative_item_id: 'x', passage_sha256: 'sha', body_sha256_by_item: { x: 'body' }, exam_year: 2025, exam_month: 11,
+  const row = { representative_item_id: 'x', status: 'unresolved', passage_sha256: 'sha', body_sha256_by_item: { x: 'body' }, exam_year: 2025, exam_month: 11,
     requests: [{ strategy: 'rare_exact_6_10', query: '"fixed phrase"' }, { strategy: 'edit_tolerant_anchor', query: '"short phrase"' }] }
   return { filter: 'partial', maxResults: 40, max_pages_per_query: 2, cohort: [row] }
 }
@@ -92,8 +92,25 @@ test('benchmark closes only after all fixed queries and bound top-N reviews; ret
   assert.equal(final.rates.useful_hit_rate, 1)
   assert.equal(final.rates.queries_per_useful_source, 2)
   assert.equal(final.termination.benchmark_complete, true)
+  assert.equal(final.rates.A_rate, 1)
+  const control = structuredClone(plan); control.cohort[0].current_status = 'confirmed_exact'
+  assert.equal(benchmarkMetrics(control, attempts, [outcome], options).rates.A_rate, 0)
+  assert.equal(benchmarkMetrics(plan, attempts, [], { retriever: 'google_books_api' }).availability.queries_completed, 0)
+  const broken = attempts.map(r => r.state === 'candidates' ? { ...r, hits: [{ title: 'No stable ID' }] } : r)
+  assert.equal(benchmarkMetrics(plan, broken, [], options).termination.benchmark_complete, false)
+  assert.equal(classifySearchResponse('semantic_scholar', 200, { data: [{ text: 'missing id' }] }).state, 'invalid_response')
   assert.throws(() => benchmarkMetrics(plan, attempts, [{ ...outcome, body_sha256_by_item: {} }], options), /Unbound/)
   assert.equal(candidateReviewQueue(plan, attempts, { ...options, requireIdentification: true })[0].candidates.length, 1)
+})
+
+test('Semantic Retry-After defers other queued requests before releasing the shared limiter', async () => {
+  let clock = 0
+  const starts = [], limiter = createSerialLimiter({ nowMs: () => clock, sleep: async ms => { clock += ms } })
+  await Promise.all([0, 1].map(i => requestWithRetry(new URL('https://example.org/?query=fixed'), {
+    provider: 'semantic_scholar', limiter, now: () => 'fixed', nowMs: () => clock, maxAttempts: 1,
+    fetchImpl: async () => { starts.push(clock); return i === 0 ? { status: 429, headers: { get: () => '120' }, json: async () => ({}) } : { status: 200, json: async () => ({ data: [] }) } },
+  })))
+  assert.deepEqual(starts, [0, 120000])
 })
 
 test('fixed real cohort remains 50/161, including two PDF successes as API controls', () => {
