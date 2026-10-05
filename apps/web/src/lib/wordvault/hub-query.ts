@@ -20,6 +20,7 @@
 // ⚠️ 전량이 필요한 조회는 반드시 `pagedSelect` 를 거친다 — PostgREST 는 1,000행에서
 //    조용히 끊는다. 이 저장소가 같은 결함을 세 번 겪었다(`lib/supabase/paged-select` 머리말).
 
+import { measuredSetWordCount } from '@/lib/wordvault/preview-set'
 import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -74,7 +75,10 @@ export interface ResourceSetEntry {
   bookId?: string | null
   title: string
   author?: string | null
+  /** 내가 이 세트(묶음)에서 담은 단어 수 — 행 오른쪽 「N개」 */
   wordCount: number
+  /** 세트 전체 단어 수(shared_word_sets.word_count) — 챕터 학습 모달 머리 · 학습 계획용. 모르면 null */
+  totalWords?: number | null
   chapters?: number
   href: string
   /** 단일 공용단어장이면 그 set_id — 있으면 행 탭 시 챕터 학습 모달이 열린다. */
@@ -172,6 +176,9 @@ interface SetRow {
   curation_query: Record<string, unknown> | null
   cefr_level: string | null
   cover_emoji: string | null
+  word_count: number | null
+  /** 실측 단어 수 임베드 집계 — 캐시 word_count 보다 우선(measuredSetWordCount) */
+  shared_words?: { count: number }[] | null
 }
 
 const emptyBuckets = (): HubBuckets => ({ stable: 0, shaky: 0, risk: 0, new: 0 })
@@ -466,7 +473,7 @@ async function buildResources(
   if (subscribedSetIds.length > 0) {
     const { data } = await supabase
       .from('shared_word_sets')
-      .select('id, title, category, curation_query, cefr_level, cover_emoji')
+      .select('id, title, category, curation_query, cefr_level, cover_emoji, word_count, shared_words(count)')
       .in('id', subscribedSetIds)
     setRows = (data ?? []) as SetRow[]
   }
@@ -597,7 +604,7 @@ async function buildResources(
       wordCount: wordsPerSet.get(s.id) ?? 0,
       href: `/wordvault/browse?filter=set:${s.id}`,
       ...(chaptered
-        ? { setId: s.id, coverEmoji: s.cover_emoji, category: s.category, cefrLevel: s.cefr_level }
+        ? { setId: s.id, coverEmoji: s.cover_emoji, category: s.category, cefrLevel: s.cefr_level, totalWords: measuredSetWordCount(s) }
         : {}),
     })
   }
