@@ -89,3 +89,20 @@ node scripts/csat/source-origin-search.mjs --local <fresh-rows.json> <paragraph-
 HTRC·Common Crawl은 후속 조사 경로로 남긴다. [Common Crawl URL Index](https://commoncrawl.org/url-index)는 구절 전문 검색 엔진이 아니므로 URL·도메인 후보 없이 전량 스캔을 시작하지 않았다. JSTOR 대량 TDM은 [공식 연구 요건](https://support.jstor.org/hc/en-us/articles/32479181127575-JSTOR-Text-Analysis-Support-Getting-Started)에 제품 제작 목적 제한이 있어 이 제품 파이프라인에서 요청하지 않았다. 기존 공개 장 발췌 열람과는 다른 경로다.
 
 목적 리뷰 후 총 건수/반환 배열 불일치는 재시도 대상으로 유지하고, 로컬 순위에 원문 해시·서지·인용 연결·미확인 시점·역할을 보존하며, 손상된 XML 캐시는 원격 본문으로 복구하도록 보완했다. 연합 검색·OA 추출·편집 정렬·오류/미실행 구분을 포함한 회귀 **22/22 통과**. 현재 DB 출처·공백 변경과 마이그레이션은 없다. 실측상 이번 OA 경로에서 추가 출처는 0개였으므로, 다음 확대는 도서 API의 정상 접근 확인과 출판사 공개 원문 중심으로 진행하며 OA 결과 수만 보고 대량 코퍼스 확대를 권하지 않는다.
+
+## 도서 접근 후속 — 신규 B 1개·기존 B 1개 A 승격
+
+2026-10-05 DB 직접 검증 결과: **전체 A+B 121/713행(A 96·B 25), 연결 문항 128/802개. 수능 A+B 107/338행(A 82·B 25), 연결 문항 113/382개**. 미확인은 전체 591행(수능 230·모의평가 361)이다. 위의 120/713·592행은 앞선 OA 실험 시점의 기록이다.
+
+| 대상 | 반영 | 읽은 근거와 남은 범위 |
+|---|---|---|
+| 2016#29 | G→B 신규 | Errol Fuller, *Lost Animals: Extinction and the Photographic Record*, 영국 Bloomsbury Natural History 2013. [공개 책 내부 검색](https://books.google.com/books?jscmd=SearchWithinVolume2&q=Pan%20Am&vid=4MKkAwAAQBAJ)의 19·21쪽 조각에서 비행 불능 새의 진화, 항공사 낚시 관광, 어종 도입, 먹이 경쟁과 새끼 포식의 고유 사건을 연결했다. 전체 페이지와 갈대 산업 부분은 직접 확인하지 못했다. 시험의 고유명 일반화·설명 압축·종명 추가 및 사용 판본 불확실성을 기록했다. [도서관 서지](https://catalog.mylakelibrary.org/bib/407343)는 원 영국 2013판과 미국 2014판을 구분한다. |
+| 2026#21 | B→A | Woodcock·Graham, *The Gig Economy: A Critical Introduction*, Polity. [도서 전사](https://studylib.net/doc/27923076/woodcock-and-graham-2020--gig-economy)의 표제·판권 및 Chapter 2 / The cloudwork model의 대상 문단 전체를 읽었다. 시험은 부사·인용·문단 끝을 생략하고 철자·동의 표현을 교체했다. 원서 이미지·시험 사용 쇄는 미확인이다. source_year 2020은 읽은 전자판 ISBN 9781509536375의 판권 연도이며, [출판사 컬렉션](https://www.wiley-vch.de/downloads/librarians/Wiley_Business_collection.pdf)의 2019 표기를 오기로 단정하지 않는다. |
+
+**접근 방식의 실측:** 현재 환경·Vault에는 관련 자격 이름이 없고 gcloud도 없다. 새 키·계정 없이 공개 Google Books reader의 SearchWithinVolume2 요청은 HTTP 200으로 응답했다. v1 volumes API의 이전 429가 해소된 것은 아니다. 알려진 volume ID와 고유 구절로 검색 조각의 위치를 얻었으며 비공개 페이지를 복원하거나 접근 제한을 우회하지 않았다. 자동 신규 귀속은 하지 않았다.
+
+기존 후보에 각각 1개 질의를 실행했다. *Effective Data Storytelling*은 목표 내용이 있는 29쪽 조각, *Sport Entrepreneurial Ecosystems*는 정의가 있는 14쪽 조각을 확인했다. *Interior Design Illustrated*는 관련 없는 22쪽 결과, *Social Media ROI*는 목표 문단이 아닌 다른 장의 결과였다. 목표 문단 전체를 읽지 않아 이 네 대상의 등급은 변경하지 않았다. 반환 페이지 수는 검색 조각 수일 뿐 원서 전체 확인 수가 아니다. 대상 네 개와 신규 사례를 남은 591개 전체의 확보율로 일반화하지 않는다.
+
+본문·연결 문항 SHA와 10개 원천 필드 스냅샷 CAS 검사는 두 행 모두 ready였다. 원천 변경과 공백 592→591을 한 트랜잭션으로 적용하고 두 행 모두 already_applied를 재확인했다. DB 체크포인트 csat-origin-books-20261005의 전후 비교에서 연결률은 55→60%, 회전식 bloat 표본 대상은 바뀌었고 손실 징후는 없었다. DB 통계 생성기를 실행했다. 마이그레이션·라우트·검색 코드 변경은 없다. 검수 원본·URL·검색 응답 해시·읽은 범위·잔여 불확실성은 기존 manifest의 book_followup에 보존했다.
+
+다음에는 이미 책이 특정된 후보의 목표 문단을 먼저 확인하고, 원작이 미식별인 지문은 서지 후보 확보 후 알려진 volume ID를 연결한다. 공개 검색 조각만 확보하면 B 근거로 검수하고 전체 대상 문단을 읽은 경우에만 A 승격한다.

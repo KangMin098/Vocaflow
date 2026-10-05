@@ -26321,5 +26321,344 @@
     ],
     "manual_screening": {"scope":"Read ten highest-coverage paragraph/exam pairs across the 592-target local ranking.","verdict":"No A/B registration","examples":["2020#25: generic rural/urban electricity measures, not the exam 1997/2017 graph data.","2024#33: shared Charles Le Brun historical detail, different thesis and paragraph progression.","M1809#27/2023#27: opening hours matched research sampling times.","M2309#26: Bruner source versus Festinger biography.","2026#19: prior-visit words in dental questionnaire versus childhood-house narrative."],"maximum_coverage":0.12698412698412698},
     "validation": {"tests":"22/22 node:test passed","db_writes":0,"cached_xml_validated":633,"invalid_cached_xml":0,"review_fixes":["Positive totals with empty result pages remain retryable.","Local ranking retains source metadata and uncertainty.","Invalid OA caches are refetched and replaced."],"final_local_targets":592,"numeric_ranking_unchanged":true,"positive_total_empty_pages_observed":0,"ranked_pairs_with_document_body_sha":2934,"final_local_ranking_sha256":"9c34027d30d39a84381c73d0e9b517b801e91dacfc37600acc4593dbf9ff8898"}
+  },
+  "book_followup": {
+    "date": "2026-10-05",
+    "scope": "knowledge_csat_origins",
+    "credential_check": {
+      "environment_related_names": [],
+      "vault_related_names": [],
+      "gcloud_installed": false,
+      "books_v1_recovery_verified": false
+    },
+    "reviews": [
+      {
+        "passage_sha256": "e39e141b14de312260148895685aafda45795f0369205a0222aa35e0c315d99d",
+        "representative_item_id": "2016#29",
+        "item_ids": [
+          "2016#29"
+        ],
+        "body_sha256_by_item": {
+          "2016#29": "86315340721fdb22c6615c68f767285e821ae95dc23601ce8d3abfe6dbfdb256"
+        },
+        "before": {
+          "status": "unresolved",
+          "source_title": null,
+          "source_authors": [],
+          "source_publisher": null,
+          "source_year": null,
+          "source_part": null,
+          "evidence": [],
+          "note": "서로 다른 짧은 구절을 이용한 웹·도서·학술 검색에서 독립 검증 가능한 서지 원천을 찾지 못했다.",
+          "audited_at": "2026-09-28",
+          "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+        },
+        "after": {
+          "status": "supported_candidate",
+          "source_title": "Lost Animals: Extinction and the Photographic Record",
+          "source_authors": [
+            "Errol Fuller"
+          ],
+          "source_publisher": "Bloomsbury Natural History",
+          "source_year": 2013,
+          "source_part": "Atitlán Giant Grebe; Google Books volume 4MKkAwAAQBAJ, pp.19,21 공개 검색 조각",
+          "evidence": [
+            {
+              "url": "https://books.google.com/books?jscmd=SearchWithinVolume2&q=Pan%20Am&vid=4MKkAwAAQBAJ",
+              "kind": "inferred_from_partial",
+              "distinctive_match": "Pan Am의 낚시 관광 개발, 적합한 스포츠 어종 부재, 얼룩무늬 새끼 포식의 고유 사건과 표현이 같은 21쪽 검색 조각에서 확인된다.",
+              "content_sequence": "19쪽 진화·비행 불능 설명에서 21쪽 항공사 관광 개발→어종 도입→먹이 경쟁→새끼 포식으로 연결된다. 갈대·산업 부분은 직접 조각으로 확인하지 않았다.",
+              "bibliographic_link": "volume 4MKkAwAAQBAJ의 Fuller·Lost Animals·A&C Black 2013·ISBN 9781408160022 서지와 Bloomsbury Natural History 상품 서지를 연결했다. 미국 Princeton 판은 2014이며 사용 판본을 뜻하지 않는다.",
+              "checked_scope": "공개 SearchWithinVolume2 HTTP 200: flightless(19쪽), Pan Am·competing·gobbled(21쪽). 검색 조각만 열람, 전체 페이지·본문 미열람.",
+              "explained_difference": "시험은 항공사 고유명을 일반화하고 비행 불능 설명을 압축하며, 새끼 표현에 종명을 추가했다. 갈대 설명과 중간 생략의 전량 대조는 미완료.",
+              "remaining_uncertainty": "원서 페이지 이미지·비공개 범위 및 시험 사용 판본은 미확인."
+            },
+            {
+              "url": "https://books.google.com/books?jscmd=SearchWithinVolume2&q=gobbled&vid=4MKkAwAAQBAJ",
+              "kind": "partial_text",
+              "label": "21쪽 포식 검색 조각"
+            },
+            {
+              "url": "https://www.bloomsbury.com/uk/lost-animals-9781408160022/",
+              "kind": "bibliographic_metadata",
+              "label": "2013 영국판 서지; 직접 요청은 403, 검색 색인 서지 확인"
+            },
+            {
+              "url": "https://catalog.mylakelibrary.org/bib/407343",
+              "kind": "library_metadata",
+              "label": "미국 2014판·원 영국 2013판 구분"
+            }
+          ],
+          "note": "부분 근거 유추(B): 고유 생태 사건·내용 순서·2013 서지 일치. 공개 도서 검색 조각으로 19·21쪽을 확인했으며 전체 원서 페이지 열람을 주장하지 않는다. 시험 사용 판본과 갈대 산업 설명의 전량 검증은 남아 있다.",
+          "audited_at": "2026-10-05",
+          "audit_ref": "docs/reports/csat-source-origin-priority-20261005.md"
+        }
+      },
+      {
+        "passage_sha256": "44330868551015973d7b376a75a82438797f2eaee6823528e10f9ae4b4c838bd",
+        "representative_item_id": "2026#21",
+        "item_ids": [
+          "2026#21"
+        ],
+        "body_sha256_by_item": {
+          "2026#21": "3e46290e8d57ee372392b7722ba39e4369bef4eeb7c8c3ed687a4945708f2a31"
+        },
+        "before": {
+          "status": "supported_candidate",
+          "source_title": "The Gig Economy: A Critical Introduction",
+          "source_authors": [
+            "Jamie Woodcock",
+            "Mark Graham"
+          ],
+          "source_publisher": "Polity",
+          "source_year": 2019,
+          "source_part": null,
+          "evidence": [
+            {
+              "url": "https://www.oii.ox.ac.uk/research/publications/the-gig-economy-a-critical-introduction/",
+              "kind": "institutional_metadata",
+              "label": "Oxford Internet Institute publication record"
+            }
+          ],
+          "note": "The attribution is strong and an exact-match copy was reported, but publisher-visible exact text was unavailable.",
+          "audited_at": "2026-09-28",
+          "audit_ref": "docs/reports/csat-source-origin-audit-20260928.md"
+        },
+        "after": {
+          "status": "confirmed_exact",
+          "source_title": "The Gig Economy: A Critical Introduction",
+          "source_authors": [
+            "Jamie Woodcock",
+            "Mark Graham"
+          ],
+          "source_publisher": "Polity Press",
+          "source_year": 2020,
+          "source_part": "Chapter 2: How does the gig economy work? / The cloudwork model; 열람 전자판 ISBN 9781509536375 (2020), 실물 쪽수 미확인",
+          "evidence": [
+            {
+              "url": "https://studylib.net/doc/27923076/woodcock-and-graham-2020--gig-economy",
+              "kind": "full_text",
+              "label": "도서 전사 본문 전체 대상 문단 직접 대조",
+              "checked_scope": "표제·판권·ISBN 및 The cloudwork model 대상 문단 전체(현재 웹 전사 1974–1993행) 직접 열람. 원서 페이지 이미지는 미열람.",
+              "explained_difference": "시험은 도입 부사·괄호 인용과 문단 끝 두 문장을 생략하고 철자를 영국식으로 바꾸며, 연결 단절과 규정 준수 표현을 동의 표현으로 교체했다.",
+              "remaining_uncertainty": "출처 문단은 직접 확인했지만 시험 사용 쇄·전자판/인쇄판은 미확인. 열람본 판권은 2020, 일부 출판사 컬렉션 목록과 저자 인용은 2019로 표기하므로 최초 발행 시점의 충돌은 해소하지 않았다."
+            },
+            {
+              "url": "https://uat.store.wiley.com/en-us/the-gig-economy-a-critical-introduction-p-9781509536375",
+              "kind": "publisher_metadata",
+              "label": "열람 ISBN 상품의 January 2020 표기"
+            },
+            {
+              "url": "https://www.wiley-vch.de/downloads/librarians/Wiley_Business_collection.pdf",
+              "kind": "publisher_metadata",
+              "label": "컬렉션 목록의 2019 표기를 불확실성으로 보존"
+            }
+          ],
+          "note": "A 승격: 웹 도서 전사의 대상 원문 문단 전체와 표제·판권 직접 확인. 시험의 생략·동의어 교체·철자 차이를 설명했다. source_year=2020은 열람 전자판의 판권/상품 연도이며, 2019 인용·목록 표기를 오기로 단정하지 않는다. 원서 이미지 및 시험 사용 판본 미확인.",
+          "audited_at": "2026-10-05",
+          "audit_ref": "docs/reports/csat-source-origin-priority-20261005.md"
+        }
+      }
+    ],
+    "reader_attempts": [
+      {
+        "item_id": "2026#38",
+        "volume_id": "NDq8DwAAQBAJ",
+        "query": "internal narratives",
+        "url": "https://books.google.com/books?jscmd=SearchWithinVolume2&q=internal+narratives&vid=NDq8DwAAQBAJ",
+        "http_status": 200,
+        "state": "public_reader_response",
+        "reported_results": 10,
+        "returned_pages": [
+          {
+            "page_id": "PA23",
+            "page_number": "23"
+          },
+          {
+            "page_id": "PA24",
+            "page_number": "24"
+          },
+          {
+            "page_id": "PA29",
+            "page_number": "29"
+          },
+          {
+            "page_id": "PA157",
+            "page_number": "157"
+          },
+          {
+            "page_id": "PA158",
+            "page_number": "158"
+          },
+          {
+            "page_id": "PA187",
+            "page_number": "187"
+          },
+          {
+            "page_id": "PA191",
+            "page_number": "191"
+          },
+          {
+            "page_id": "PA300",
+            "page_number": "300"
+          },
+          {
+            "page_id": "PA316",
+            "page_number": "316"
+          },
+          {
+            "page_id": "PA317",
+            "page_number": "317"
+          }
+        ],
+        "response_sha256": "edd0c5ffe8921182bfb70ca9d1ddf5f6ac9cd91be7d20c4313058c19f972024f",
+        "checked_scope": "공개 검색 조각만 읽음. 목표 문단 전체 및 원서 페이지 이미지 미열람."
+      },
+      {
+        "item_id": "2026#33",
+        "volume_id": "IY1FDwAAQBAJ",
+        "query": "sufficient opportunity",
+        "url": "https://books.google.com/books?jscmd=SearchWithinVolume2&q=sufficient+opportunity&vid=IY1FDwAAQBAJ",
+        "http_status": 200,
+        "state": "public_reader_response",
+        "reported_results": 1,
+        "returned_pages": [
+          {
+            "page_id": "PA22",
+            "page_number": "22"
+          }
+        ],
+        "response_sha256": "d79405bd5f3ff5fc4767a14cef48f5fc5297bbc5cd94da920b83a8c3fc6b928a",
+        "checked_scope": "공개 검색 조각만 읽음. 목표 문단 전체 및 원서 페이지 이미지 미열람."
+      },
+      {
+        "item_id": "2026#22",
+        "volume_id": "fYwzEQAAQBAJ",
+        "query": "coopetition",
+        "url": "https://books.google.com/books?jscmd=SearchWithinVolume2&q=coopetition&vid=fYwzEQAAQBAJ",
+        "http_status": 200,
+        "state": "public_reader_response",
+        "reported_results": 6,
+        "returned_pages": [
+          {
+            "page_id": "PR7",
+            "page_number": "vii"
+          },
+          {
+            "page_id": "PR9",
+            "page_number": "ix"
+          },
+          {
+            "page_id": "PA14",
+            "page_number": "14"
+          },
+          {
+            "page_id": "PA15",
+            "page_number": "15"
+          },
+          {
+            "page_id": "PA23",
+            "page_number": "23"
+          },
+          {
+            "page_id": "PA24",
+            "page_number": "24"
+          }
+        ],
+        "response_sha256": "f532d1e10d6a89310f25e4653cae6b287deaa8551beda3cdb877e205274f1749",
+        "checked_scope": "공개 검색 조각만 읽음. 목표 문단 전체 및 원서 페이지 이미지 미열람."
+      },
+      {
+        "item_id": "2022#20",
+        "volume_id": "EwVK4G5bkBwC",
+        "query": "skunkworks",
+        "url": "https://books.google.com/books?jscmd=SearchWithinVolume2&q=skunkworks&vid=EwVK4G5bkBwC",
+        "http_status": 200,
+        "state": "public_reader_response",
+        "reported_results": 10,
+        "returned_pages": [
+          {
+            "page_id": "PT17",
+            "page_number": null
+          },
+          {
+            "page_id": "PT119",
+            "page_number": null
+          },
+          {
+            "page_id": "PT126",
+            "page_number": null
+          },
+          {
+            "page_id": "PT129",
+            "page_number": null
+          },
+          {
+            "page_id": "PT130",
+            "page_number": null
+          },
+          {
+            "page_id": "PT137",
+            "page_number": null
+          },
+          {
+            "page_id": "PT457",
+            "page_number": null
+          },
+          {
+            "page_id": "PT458",
+            "page_number": null
+          },
+          {
+            "page_id": "PT468",
+            "page_number": null
+          },
+          {
+            "page_id": "PT479",
+            "page_number": null
+          }
+        ],
+        "response_sha256": "ee14c2c48257b1024f2e4df39e5386d69ed5bdeb49cb79317413f7f6825a277d",
+        "checked_scope": "공개 검색 조각만 읽음. 목표 문단 전체 및 원서 페이지 이미지 미열람."
+      }
+    ],
+    "verification": {
+      "preview": [
+        "ready",
+        "ready"
+      ],
+      "after": [
+        "already_applied",
+        "already_applied"
+      ],
+      "checkpoint_label": "csat-origin-books-20261005",
+      "gap_before": 592,
+      "gap_after": 591,
+      "registry_after": {
+        "total": 713,
+        "A": 96,
+        "B": 25,
+        "C": 1,
+        "G": 591,
+        "registered": 121,
+        "linked_total": 802,
+        "linked_registered": 128
+      },
+      "suneung_after": {
+        "total": 338,
+        "A": 82,
+        "B": 25,
+        "C": 1,
+        "G": 230,
+        "registered": 107,
+        "linked_total": 382,
+        "linked_registered": 113
+      }
+    },
+    "limitations": [
+      "전체 도서 후보/미확인 전량 검색 실험이 아니므로 수확률·확보 예상치를 일반화하지 않음.",
+      "Google Books 공개 reader 검색 성공은 v1 API 쿼터 회복이나 원서 전체 접근 성공을 뜻하지 않음.",
+      "기존 B 여섯 개 중 Gig만 이번 직접 대상 문단 열람으로 A 승격. 데이터/스포츠 후보의 부분 검색은 추가 A/B 등록이 아님."
+    ]
   }
 }
