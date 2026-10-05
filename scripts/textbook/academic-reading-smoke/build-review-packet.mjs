@@ -6,8 +6,25 @@ const base = path.resolve(process.argv[2] ?? '.agent-logs/academic-reading-e2e-s
 const rows = JSON.parse(fs.readFileSync(path.join(base, 'middle1/chunk-00.json'), 'utf8'))
 const source = rows.find(row => row.reading.preservation_rules?.entry?.pair_id === 'F02')
 if (!source) throw new Error('F02 source missing from current export')
-const adaptations = JSON.parse(fs.readFileSync('scripts/textbook/frym-precision/adaptation-pilot-1.json', 'utf8'))
-  .records.filter(row => row.pair_id === 'F02')
+const pilot = JSON.parse(fs.readFileSync('scripts/textbook/frym-precision/adaptation-pilot-1.json', 'utf8')).records
+const adaptations = ['middle1', 'high1'].map(dir => {
+  const input = JSON.parse(fs.readFileSync(path.join(base, dir, 'chunk-00.json'), 'utf8'))
+    .find(row => row.adapted_from_id === source.adapted_from_id)
+  const draft = JSON.parse(fs.readFileSync(path.join(base, dir, 'chunk-00.out.json'), 'utf8'))
+    .find(row => row.adapted_from_id === source.adapted_from_id)
+  const template = JSON.parse(fs.readFileSync(path.join(base, dir, 'chunk-00.claude_code.review.json'), 'utf8'))
+    .find(row => row.source_id === source.adapted_from_id)
+  const example = pilot.find(row => row.id === `F02-${dir}`)
+  if (!input || !draft || !template || !example || input.reading.target_key !== draft.reading.target_key ||
+      example.text !== draft.text || example.target_key !== draft.reading.target_key)
+    throw new Error(`F02 ${dir} export, completed draft, review template, or pilot mismatch`)
+  return {
+    id: example.id, target: draft.reading.target, target_key: draft.reading.target_key,
+    title: draft.title, text: draft.text, reading_analysis: draft.reading.reading_analysis,
+    source_rights: draft.reading.source_rights, source_attribution: example.source_attribution,
+    review_binding: Object.fromEntries(['source_id', 'source_revision', 'source_hash', 'target_key', 'target_hash', 'draft_hash'].map(key => [key, template[key]])),
+  }
+})
 if (adaptations.length !== 2) throw new Error('F02 middle1/high1 adaptations missing')
 const packet = {
   source_id: source.adapted_from_id, source_revision: source.reading.source_revision,

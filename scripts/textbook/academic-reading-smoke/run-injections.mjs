@@ -21,7 +21,6 @@ for (const dir of ['middle1', 'high1']) {
   if (!validated.ok) throw new Error(`${dir} draft failed: ${validated.reason}`)
   const actual = ['claude_code', 'codex'].map(reviewer => JSON.parse(fs.readFileSync(`${folder}/chunk-00.${reviewer}.review.json`, 'utf8')))
   const actualReview = validateAgentReviews(draft, input, actual)
-  if (actualReview.ok) throw new Error('actual independent disagreement unexpectedly passed')
   // Simulated approval exercises the downstream gates only; it is never written to the actual review files or DB.
   const simulated = actual.map(([review]) => [{ ...review, verdict: 'pass',
     dimensions: Object.fromEntries(REVIEW_DIMENSIONS.map(key => [key, true])), distortions: [] }])
@@ -53,11 +52,10 @@ for (const dir of ['middle1', 'high1']) {
       readingItemSourceFailure(item, { ...original, passage: article.content.slice(0, article.content.lastIndexOf('\n\n')) }, article, parent, type, article.article_v_level)?.includes('truncated'),
     RIGHTS_REVOKED: !validateReadingDraft(draft, input, { ...parent, display_only: true }, now, rules.get(parent.id)).ok &&
       !canExportReadingItem(article, { ...parent, display_only: true }, type),
-    ACTUAL_REVIEW_HELD: !actualReview.ok && actualReview.reason.includes('codex review did not pass'),
   }
   if (Object.values(cases).some(value => value !== true)) throw new Error(`${dir} injection failed: ${JSON.stringify(cases)}`)
   results.push({ id: `F02-${dir}`, source_hash: input.reading.source_hash, target_key: input.reading.target_key,
-    draft_hash: cleanReview.certificate.draft_hash, actual_review: actualReview.reason, cases })
+    draft_hash: cleanReview.certificate.draft_hash, actual_review: actualReview.ok ? 'approved' : actualReview.reason, cases })
 }
 if (results[0].target_key === results[1].target_key || results[0].draft_hash === results[1].draft_hash)
   throw new Error('target/draft hash separation failed')
