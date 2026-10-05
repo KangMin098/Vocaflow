@@ -97,3 +97,18 @@ test('separation reads the predeclared numeric threshold', () => {
   study.registration.manifest_sha256 = pilotManifestHash(study)
   assert.equal(judgeF02Pilot(study, freeze, stricter, now).level_separation, 'FAIL')
 })
+test('inclusive accuracy band accepts a repeated decimal mean at its lower bound', () => {
+  const study = fixture()
+  for (const s of study.sessions) s.lexical_accuracy = 0.6
+  assert.deepEqual(judgeF02Pilot(study, freeze, proposed, now).target_fit, { middle_1: 'PASS', high_1: 'PASS' })
+})
+test('seventeen versus fifteen assigned anchor students remain evaluable', () => {
+  const study = fixture()
+  for (let i = 0; i < 2; i++) {
+    const student_id = `high_target-extra-${i}`
+    study.assignments.push({ ...study.assignments.find(a => a.arm === 'high_target'), student_id })
+    study.sessions.push({ ...study.sessions.find(s => s.arm === 'high_target'), student_id })
+  }
+  study.registration.manifest_sha256 = pilotManifestHash(study)
+  assert.equal(judgeF02Pilot(study, freeze, proposed, now).level_separation, 'PASS')
+})

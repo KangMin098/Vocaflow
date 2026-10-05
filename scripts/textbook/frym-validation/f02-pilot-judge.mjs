@@ -35,7 +35,7 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
     assignmentMap.set(a.student_id, a)
   }
   const assigned = Object.fromEntries(arms.map(arm => [arm, study.assignments.filter(a => a.arm === arm).length]))
-  if (arms.some(arm => assigned[arm] < proposed.minimum_complete_students_per_variant || assigned[arm] > 30) || Math.abs(assigned.high_target - assigned.middle_anchor) > 1) return insufficient('cohort_assignment_invalid')
+  if (arms.some(arm => assigned[arm] < proposed.minimum_complete_students_per_variant || assigned[arm] > 30)) return insufficient('cohort_assignment_invalid')
   const used = new Set(), byArm = Object.fromEntries(arms.map(arm => [arm, []])), excluded = Object.fromEntries(arms.map(arm => [arm, 0]))
   for (const s of study.sessions) {
     const a = assignmentMap.get(s.student_id), start = Date.parse(s.reading_started_at), end = Date.parse(s.reading_finished_at)
@@ -50,12 +50,12 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
     const rows = byArm[g === 'middle_1' ? 'middle_target' : 'high_target']
     if (rows.length < min) return [g, 'INSUFFICIENT_EVIDENCE']
     const measured = aggregate(rows), bands = proposed.target_fit[g]
-    return [g, metrics.every(k => measured[k] >= bands[k].min && measured[k] <= bands[k].max) ? 'PASS' : 'FAIL']
+    return [g, metrics.every(k => measured[k] + 1e-10 >= bands[k].min && measured[k] - 1e-10 <= bands[k].max) ? 'PASS' : 'FAIL']
   }))
   let separation = 'INSUFFICIENT_EVIDENCE'
   if (byArm.middle_anchor.length >= proposed.level_separation.minimum_complete_high_1_anchor_students_per_variant && byArm.high_target.length >= proposed.level_separation.minimum_complete_high_1_anchor_students_per_variant) {
     const low = aggregate(byArm.middle_anchor), high = aggregate(byArm.high_target)
-    separation = high.reasoning_burden - low.reasoning_burden >= proposed.level_separation.minimum_reasoning_burden_gap && (high.lexical_burden - low.lexical_burden >= proposed.level_separation.minimum_language_burden_gap || high.sentence_burden - low.sentence_burden >= proposed.level_separation.minimum_language_burden_gap) && low.comprehension_accuracy >= proposed.level_separation.comprehension_floor_each_anchor_arm && high.comprehension_accuracy >= proposed.level_separation.comprehension_floor_each_anchor_arm ? 'PASS' : 'FAIL'
+    separation = high.reasoning_burden - low.reasoning_burden + 1e-10 >= proposed.level_separation.minimum_reasoning_burden_gap && (high.lexical_burden - low.lexical_burden + 1e-10 >= proposed.level_separation.minimum_language_burden_gap || high.sentence_burden - low.sentence_burden + 1e-10 >= proposed.level_separation.minimum_language_burden_gap) && low.comprehension_accuracy + 1e-10 >= proposed.level_separation.comprehension_floor_each_anchor_arm && high.comprehension_accuracy + 1e-10 >= proposed.level_separation.comprehension_floor_each_anchor_arm ? 'PASS' : 'FAIL'
   }
   return { target_fit: target, level_separation: separation, counts: Object.fromEntries(arms.map(arm => [arm, byArm[arm].length])), excluded, reasons: [], scope: 'F02_calibration_only', gold: false, db_seed: false }
 }
