@@ -411,7 +411,7 @@ export function benchmarkBaseline(plan, snapshot = null) {
   const identity = r => ({ representative_item_id: r.representative_item_id, passage_sha256: r.passage_sha256, body_sha256_by_item: r.body_sha256_by_item })
   const result = snapshot ?? { cohort_sha256: plan.cohort_sha256 ?? null, rows: fixed.map(r => ({ ...identity(r), status: r.current_status ?? r.status ?? null })) }
   if (result.cohort_sha256 !== (plan.cohort_sha256 ?? null) || !Array.isArray(result.rows) || result.rows.length !== fixed.length || !isDeepStrictEqual(result.rows.map(identity), fixed.map(identity))) throw new Error('Benchmark baseline identity mismatch')
-  if (result.rows.some(r => r.status !== null && !['unresolved', 'confirmed_exact', 'supported_candidate', 'hold'].includes(r.status))) throw new Error('Unknown benchmark baseline status')
+  if (result.rows.some(r => r.status !== null && !['unresolved', 'confirmed_exact', 'supported_candidate', 'topic_lineage_only'].includes(r.status))) throw new Error('Unknown benchmark baseline status')
   return result
 }
 

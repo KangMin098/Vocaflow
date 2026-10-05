@@ -95,6 +95,9 @@ test('benchmark closes only after all fixed queries and bound top-N reviews; ret
   assert.equal(final.rates.A_rate, 1)
   const control = structuredClone(plan); control.cohort[0].current_status = 'confirmed_exact'
   assert.equal(benchmarkMetrics(control, attempts, [outcome], options).rates.A_rate, 0)
+  control.cohort[0].current_status = 'topic_lineage_only'
+  assert.equal(benchmarkMetrics(control, attempts, [outcome], options).rates.A_rate, 0)
+  assert.equal(benchmarkBaseline(control).rows[0].status, 'topic_lineage_only')
   control.benchmark_baseline = benchmarkBaseline(plan)
   assert.equal(benchmarkMetrics(control, attempts, [outcome], options).rates.A_rate, 1)
   assert.throws(() => benchmarkBaseline(plan, { ...control.benchmark_baseline, rows: [] }), /baseline identity/)
