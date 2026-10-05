@@ -1,5 +1,9 @@
 # Library Pipeline
 
+2026-10-05 권장순 후속 실행: 신규 원천 8등록행·9문항(A 3·B 5), 기존 B 1행 A 승격. 수능 A+B 106/338, 전체 120/713을 DB 재질의했다. 기존 미확인 600행에 2,397개 질의를 준비하고 수능 239행의 질의 239개를 실제 실행했다. 모의평가 361행은 질의 준비만 했다. [확인 범위·보류·검증](./reports/csat-source-origin-priority-20261005.md), [검수 manifest](./reports/csat-source-origin-priority-review-20261005.json).
+
+`scripts/csat/source-origin-search.mjs`의 `alternativeQueries`는 문장·시험 블록 내부의 희소 네 단어 구절과 두 구절 조합을 생성한다. 질의 생성·실행·원천 판정은 각각 기록한다. 큐는 적용 전 스냅샷이므로 재실행 전에 DB 상태·연결 본문 SHA를 다시 읽어 등록된 A/B 행을 건너뛴다. 공개 미리보기의 색인·목차는 본문 확인이 아니며, 책 내부 검색 접근 오류도 결과 0건이 아니다. 스캔 PDF는 페이지 이미지로 확인한다. 도표는 데이터 원천을 유추한 범위와 설명문 발췌 원천의 미확인을 구분한다.
+
 ## 기출 지문 원천 후속 검수 (2026-10-04)
 
 `/admin/knowledge/sources/csat`의 `knowledge_csat_origins`는 기출 지문이 발췌된 책·논문을 기록한다. 생성 콘텐츠의 `/admin/csat/sources` 적격 판정과 별개다. [후속 조사 결과·보류 대상](./reports/csat-source-origin-followup-20261004.md), [변경 전후 manifest](./reports/csat-source-origin-followup-review-20261004.json)를 함께 보존한다.
