@@ -6,6 +6,8 @@
   "human_lead_id": null,
   "approved_at": null,
   "registration_evidence": null,
+  "operations": null,
+  "missing_data_policy": "Exclude a session with any missing timestamp or metric; preserve its record and report excluded counts. Never impute a score. Reject invalid, mismatched, duplicate, or unassigned sessions.",
   "purpose": "Calibration of F02 instruments and difficulty judgments; no gold or DB seed",
   "minimum_complete_students_per_variant": 15,
   "target_fit": {
@@ -38,8 +40,10 @@
   "level_separation": {
     "design": "Randomly assign high_1 students between high_target (frozen high_1 passage) and middle_anchor (frozen middle_1 passage); each student reads one F02 version only. The high_target arm serves target fit and common-grade comparison. Do not infer separation by comparing middle_1 and high_1 target cohorts.",
     "minimum_complete_high_1_anchor_students_per_variant": 15,
-    "primary": "Median reasoning_burden(high_1 passage) - median reasoning_burden(middle_1 passage) >= 0.5",
-    "secondary": "At least one of lexical_burden or sentence_burden median differences (high_1 minus middle_1 passage) >= 0.5",
+    "minimum_reasoning_burden_gap": 0.5,
+    "minimum_language_burden_gap": 0.5,
+    "primary": "Median reasoning_burden(high_1 passage) - median reasoning_burden(middle_1 passage) reaches minimum_reasoning_burden_gap",
+    "secondary": "At least one of lexical_burden or sentence_burden median differences reaches minimum_language_burden_gap",
     "comprehension_floor_each_anchor_arm": 0.65,
     "decision": "PASS only when primary, secondary, and both comprehension floors pass; FAIL when complete eligible arms violate any condition; otherwise INSUFFICIENT_EVIDENCE",
     "measurement_caveat": "Anchor cohorts need parallel, independently reviewed questions with common constructs and blinded scoring; version-specific item differences and sample uncertainty remain calibration findings. Do not claim generalizable level separation from this one pair."

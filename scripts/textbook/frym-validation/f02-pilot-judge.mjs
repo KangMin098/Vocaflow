@@ -24,9 +24,9 @@ export const pilotManifestHash = study => sha256(canonical(pilotManifest(study))
 export function judgeF02Pilot(study, freeze, proposed, now) {
   const insufficient = reason => ({ target_fit: { middle_1: 'INSUFFICIENT_EVIDENCE', high_1: 'INSUFFICIENT_EVIDENCE' }, level_separation: 'INSUFFICIENT_EVIDENCE', reasons: [reason], gold: false, db_seed: false })
   if (proposed.status !== 'proposed_unsealed' || study.protocol?.status !== 'sealed' || study.protocol?.pair_id !== 'F02' || !['middle_1', 'high_1'].every(g => freeze.variants.some(v => v.grade === g))) return insufficient('protocol_or_freeze_unavailable')
-  if (canonical({ ...study.protocol, status: 'proposed_unsealed', human_lead_id: null, approved_at: null, registration_evidence: null }) !== canonical(proposed)) return insufficient('protocol_changed_from_proposal')
+  if (canonical({ ...study.protocol, status: 'proposed_unsealed', human_lead_id: null, approved_at: null, registration_evidence: null, operations: null }) !== canonical(proposed)) return insufficient('protocol_changed_from_proposal')
   const approval = study.registration
-  if (!approval || !hash(study.freeze_sha256) || !hash(approval.manifest_sha256) || !hash(study.instrument_sha256?.middle_1) || !hash(study.instrument_sha256?.high_1) || !Array.isArray(study.assignments) || !Array.isArray(study.sessions) || approval.manifest_sha256 !== pilotManifestHash(study) || approval.human_lead_id !== study.protocol.human_lead_id || ['registration_evidence', 'instrument_review_evidence', 'allocation_evidence'].some(k => typeof approval[k] !== 'string' || approval[k].length < 12)) return insufficient('registration_not_sealed_or_changed')
+  if (!approval || typeof study.protocol.human_lead_id !== 'string' || study.protocol.human_lead_id.trim().length < 2 || typeof study.protocol.registration_evidence !== 'string' || study.protocol.registration_evidence.length < 12 || typeof study.protocol.operations !== 'string' || study.protocol.operations.length < 12 || !hash(study.freeze_sha256) || !hash(approval.manifest_sha256) || !hash(study.instrument_sha256?.middle_1) || !hash(study.instrument_sha256?.high_1) || !Array.isArray(study.assignments) || !Array.isArray(study.sessions) || approval.manifest_sha256 !== pilotManifestHash(study) || approval.human_lead_id !== study.protocol.human_lead_id || ['registration_evidence', 'instrument_review_evidence', 'allocation_evidence'].some(k => typeof approval[k] !== 'string' || approval[k].length < 12)) return insufficient('registration_not_sealed_or_changed')
   const approvedAt = Date.parse(approval.approved_at), proposedAt = Date.parse(study.protocol.approved_at)
   if (!Number.isFinite(approvedAt) || approvedAt !== proposedAt || approvedAt > now) return insufficient('approval_time_invalid')
   const assignmentMap = new Map()
@@ -36,11 +36,13 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
   }
   const assigned = Object.fromEntries(arms.map(arm => [arm, study.assignments.filter(a => a.arm === arm).length]))
   if (arms.some(arm => assigned[arm] < proposed.minimum_complete_students_per_variant || assigned[arm] > 30) || Math.abs(assigned.high_target - assigned.middle_anchor) > 1) return insufficient('cohort_assignment_invalid')
-  const used = new Set(), byArm = Object.fromEntries(arms.map(arm => [arm, []]))
+  const used = new Set(), byArm = Object.fromEntries(arms.map(arm => [arm, []])), excluded = Object.fromEntries(arms.map(arm => [arm, 0]))
   for (const s of study.sessions) {
     const a = assignmentMap.get(s.student_id), start = Date.parse(s.reading_started_at), end = Date.parse(s.reading_finished_at)
-    if (!a || used.has(s.student_id) || s.arm !== a.arm || s.grade !== a.grade || s.passage_sha256 !== freeze.variants.find(v => v.grade === variant(a.arm))?.passage_sha256 || !Number.isFinite(start) || !Number.isFinite(end) || start < approvedAt || end <= start || end > now || s.reading_seconds !== (end - start) / 1000 || metrics.some(k => !acceptable(s[k], k))) return insufficient('session_invalid_or_unassigned')
+    if (!a || used.has(s.student_id) || s.arm !== a.arm || s.grade !== a.grade || s.passage_sha256 !== freeze.variants.find(v => v.grade === variant(a.arm))?.passage_sha256) return insufficient('session_invalid_or_unassigned')
     used.add(s.student_id)
+    if (s.reading_started_at == null || s.reading_finished_at == null || metrics.some(k => s[k] == null)) { excluded[a.arm]++; continue }
+    if (!Number.isFinite(start) || !Number.isFinite(end) || start < approvedAt || end <= start || end > now || s.reading_seconds !== (end - start) / 1000 || metrics.some(k => !acceptable(s[k], k))) return insufficient('session_invalid_or_unassigned')
     byArm[a.arm].push(s)
   }
   const min = proposed.minimum_complete_students_per_variant
@@ -53,9 +55,9 @@ export function judgeF02Pilot(study, freeze, proposed, now) {
   let separation = 'INSUFFICIENT_EVIDENCE'
   if (byArm.middle_anchor.length >= proposed.level_separation.minimum_complete_high_1_anchor_students_per_variant && byArm.high_target.length >= proposed.level_separation.minimum_complete_high_1_anchor_students_per_variant) {
     const low = aggregate(byArm.middle_anchor), high = aggregate(byArm.high_target)
-    separation = high.reasoning_burden - low.reasoning_burden >= 0.5 && (high.lexical_burden - low.lexical_burden >= 0.5 || high.sentence_burden - low.sentence_burden >= 0.5) && low.comprehension_accuracy >= proposed.level_separation.comprehension_floor_each_anchor_arm && high.comprehension_accuracy >= proposed.level_separation.comprehension_floor_each_anchor_arm ? 'PASS' : 'FAIL'
+    separation = high.reasoning_burden - low.reasoning_burden >= proposed.level_separation.minimum_reasoning_burden_gap && (high.lexical_burden - low.lexical_burden >= proposed.level_separation.minimum_language_burden_gap || high.sentence_burden - low.sentence_burden >= proposed.level_separation.minimum_language_burden_gap) && low.comprehension_accuracy >= proposed.level_separation.comprehension_floor_each_anchor_arm && high.comprehension_accuracy >= proposed.level_separation.comprehension_floor_each_anchor_arm ? 'PASS' : 'FAIL'
   }
-  return { target_fit: target, level_separation: separation, counts: Object.fromEntries(arms.map(arm => [arm, byArm[arm].length])), reasons: [], scope: 'F02_calibration_only', gold: false, db_seed: false }
+  return { target_fit: target, level_separation: separation, counts: Object.fromEntries(arms.map(arm => [arm, byArm[arm].length])), excluded, reasons: [], scope: 'F02_calibration_only', gold: false, db_seed: false }
 }
 
 if (process.argv[1]?.endsWith('f02-pilot-judge.mjs')) {

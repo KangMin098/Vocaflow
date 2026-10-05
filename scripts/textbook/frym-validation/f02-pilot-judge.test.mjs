@@ -11,7 +11,7 @@ const proposed = JSON.parse(readFileSync(`${root}f02-student-pilot.proposed.json
 const now = Date.parse('2026-11-02T00:00:00Z')
 const approved_at = '2026-11-01T00:00:00Z'
 function fixture() {
-  const protocol = { ...structuredClone(proposed), status: 'sealed', human_lead_id: 'lead-synthetic', approved_at, registration_evidence: 'Synthetic protocol registration for tests only' }
+  const protocol = { ...structuredClone(proposed), status: 'sealed', human_lead_id: 'lead-synthetic', approved_at, registration_evidence: 'Synthetic protocol registration for tests only', operations: 'Synthetic fixed reading, scoring, allocation, and missing-data procedure' }
   const assignments = [], sessions = []
   for (const arm of ['middle_target', 'high_target', 'middle_anchor']) for (let i = 0; i < 15; i++) {
     const student_id = `${arm}-${i}`, grade = arm === 'middle_target' ? 'middle_1' : 'high_1'
@@ -53,4 +53,34 @@ test('unsealed, insufficient, changed-assignment and wrong-grade sessions cannot
   assert.equal(judgeF02Pilot(unsealed, freeze, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
   const wrong = fixture(); wrong.sessions.find(s => s.arm === 'middle_anchor').grade = 'middle_1'
   assert.equal(judgeF02Pilot(wrong, freeze, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
+})
+test('missing response is excluded without erasing fifteen complete students', () => {
+  const study = fixture()
+  const extra = { ...study.assignments[0], student_id: 'middle_target-incomplete' }
+  study.assignments.push(extra)
+  study.sessions.push({ ...study.sessions[0], student_id: extra.student_id, reasoning_accuracy: null })
+  study.registration.manifest_sha256 = pilotManifestHash(study)
+  const result = judgeF02Pilot(study, freeze, proposed, now)
+  assert.equal(result.target_fit.middle_1, 'PASS')
+  assert.equal(result.level_separation, 'PASS')
+  assert.equal(result.excluded.middle_target, 1)
+})
+test('empty lead and unapproved operations cannot seal the result', () => {
+  const study = fixture()
+  study.protocol.human_lead_id = null
+  study.registration.human_lead_id = null
+  study.assignments.forEach(a => { a.grade_verified_by = null })
+  study.registration.manifest_sha256 = pilotManifestHash(study)
+  assert.equal(judgeF02Pilot(study, freeze, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
+  const missingOperations = fixture(); missingOperations.protocol.operations = null
+  missingOperations.registration.manifest_sha256 = pilotManifestHash(missingOperations)
+  assert.equal(judgeF02Pilot(missingOperations, freeze, proposed, now).level_separation, 'INSUFFICIENT_EVIDENCE')
+})
+test('separation reads the predeclared numeric threshold', () => {
+  const stricter = structuredClone(proposed)
+  stricter.level_separation.minimum_reasoning_burden_gap = 1.5
+  const study = fixture()
+  study.protocol.level_separation.minimum_reasoning_burden_gap = 1.5
+  study.registration.manifest_sha256 = pilotManifestHash(study)
+  assert.equal(judgeF02Pilot(study, freeze, stricter, now).level_separation, 'FAIL')
 })
