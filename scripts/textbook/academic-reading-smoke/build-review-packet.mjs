@@ -1,6 +1,7 @@
 // scripts/textbook/academic-reading-smoke/build-review-packet.mjs
 import fs from 'node:fs'
 import path from 'node:path'
+import { reviewIdentity } from '../academic-reading-review.mjs'
 
 const base = path.resolve(process.argv[2] ?? '.agent-logs/academic-reading-e2e-smoke')
 const rows = JSON.parse(fs.readFileSync(path.join(base, 'middle1/chunk-00.json'), 'utf8'))
@@ -12,10 +13,14 @@ const adaptations = ['middle1', 'high1'].map(dir => {
     .find(row => row.adapted_from_id === source.adapted_from_id)
   const draft = JSON.parse(fs.readFileSync(path.join(base, dir, 'chunk-00.out.json'), 'utf8'))
     .find(row => row.adapted_from_id === source.adapted_from_id)
-  const template = JSON.parse(fs.readFileSync(path.join(base, dir, 'chunk-00.claude_code.review.json'), 'utf8'))
-    .find(row => row.source_id === source.adapted_from_id)
+  if (!input || !draft) throw new Error(`F02 ${dir} export or completed draft missing`)
+  const binding = reviewIdentity(draft, input)
+  const templates = JSON.parse(fs.readFileSync(path.join(base, dir, 'chunk-00.claude_code.review.json'), 'utf8'))
+    .filter(row => Object.entries(binding).every(([key, value]) => row?.[key] === value))
+  if (templates.length !== 1) throw new Error(`F02 ${dir} review template missing, duplicated, or stale`)
+  const template = templates[0]
   const example = pilot.find(row => row.id === `F02-${dir}`)
-  if (!input || !draft || !template || !example || input.reading.target_key !== draft.reading.target_key ||
+  if (!example || input.reading.target_key !== draft.reading.target_key ||
       example.text !== draft.text || example.target_key !== draft.reading.target_key)
     throw new Error(`F02 ${dir} export, completed draft, review template, or pilot mismatch`)
   return {

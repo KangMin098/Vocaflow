@@ -36,6 +36,6 @@ Claude Code는 공통 프로필에서 여러 축에 같은 문장을 근거로 �
 | `POST_REVIEW_TRUNCATION_INVALIDATES_REVIEW` | 제시문 마지막 문단 절단 | 문항 원천 gate에서 제외 |
 | `RIGHTS_REVOKED` | 현재 원문 `display_only=true` | 각색·문항 gate 모두 제외 |
 
-기존 [academic-reading-drain 회귀 테스트](../../packages/library-pipeline/src/textbook/academic-reading-drain.test.ts)는 위 해시·권리·절단 거절 경로를 작은 합성 fixture로 이미 다룬다. 이번 실행은 실제 F02 본문·현재 DB revision·두 target을 쓴 추가 smoke다. [추적된 재현 절차와 실행기](../../scripts/textbook/academic-reading-smoke/README.md)는 DOI 메타데이터와 기존 pilot에서 입력을 재구성하고 현재 원문은 DB에서 다시 읽는다. 새 작업 디렉터리에서 export·draft·review 양식을 재생성했을 때 원문·target·draft 해시가 원 실행과 일치했고 실패 주입도 모두 통과했다. 로컬 독립 검수 원문과 전체 FYM 본문은 ignored `.agent-logs/academic-reading-e2e-smoke/`에 남겨 두며, 통과 가정 검수를 실제 승인 파일로 커밋하지 않는다.
+기존 [academic-reading-drain 회귀 테스트](../../packages/library-pipeline/src/textbook/academic-reading-drain.test.ts)는 위 해시·권리·절단 거절 경로를 작은 합성 fixture로 이미 다룬다. 이번 실행은 실제 F02 본문·현재 DB revision·두 target을 쓴 추가 smoke다. [추적된 재현 절차와 실행기](../../scripts/textbook/academic-reading-smoke/README.md)는 DOI 메타데이터와 기존 pilot에서 입력을 재구성하고 현재 원문은 DB에서 다시 읽는다. 새 작업 디렉터리에서 export·draft·review 양식을 재생성했을 때 원문·target·draft 해시가 원 실행과 일치했고 실패 주입도 모두 통과했다. 재생성한 `.out.json`의 문항 계획 한 글자를 수정하고 이전 검수 양식으로 패킷 생성을 시도하자 `review template ... stale`로 거절됐으며 원본은 복원했다. 로컬 독립 검수 원문과 전체 FYM 본문은 ignored `.agent-logs/academic-reading-e2e-smoke/`에 남겨 두며, 통과 가정 검수를 실제 승인 파일로 커밋하지 않는다.
 
 다음 진입 조건은 지적된 item plan·인용 짝·발문·프로필 근거를 수정해 **새 draft hash로 이중검수**를 다시 받는 것이다. 학년 목표의 운영 rubric과 학생 pilot 범위도 사전 봉인해야 한다. 실제 두 검수와 교육적 검증이 모두 통과한 뒤에만 staging seed 및 실제 문항 export를 실행할 수 있다.
