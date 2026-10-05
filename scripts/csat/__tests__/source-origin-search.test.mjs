@@ -1,8 +1,111 @@
 // scripts/csat/__tests__/source-origin-search.test.mjs
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import fs from 'node:fs'
 import { alternativeQueries, documentFrequencies, searchSegments, provenanceRequests, localAlignment, buildOriginIndex, searchOriginIndex, classifySearchResponse, runProvenanceSearch, extractOaDocument, loadOaDocument } from '../source-origin-search.mjs'
 import { classifyOriginLane, bookQueryFamilies, makeBookPlan, bookCandidate, runBookBatch, retrieverStatistics, searchBookInside, pendingBookPlan, summarizeBookRun, bookCohortSha } from '../source-origin-search.mjs'
+import { createSerialLimiter, retryAfterMs, requestWithRetry, benchmarkMetrics, candidateReviewQueue, runFixedSemanticBatch } from '../source-origin-search.mjs'
+
+test('all concurrent Semantic operations share a serial one-second start queue', async () => {
+  let clock = 100, active = 0, peak = 0
+  const starts = [], limiter = createSerialLimiter({ nowMs: () => clock, sleep: async ms => { clock += ms } })
+  const task = async () => { starts.push(clock); active++; peak = Math.max(peak, active); await Promise.resolve(); clock += 200; active--; return clock }
+  await Promise.all([limiter(task), limiter(task), limiter(task)])
+  assert.deepEqual(starts, [100, 1100, 2100])
+  assert.equal(peak, 1)
+})
+
+test('Retry-After seconds/date take precedence and errors never become zero results', async () => {
+  let clock = 0, calls = 0
+  const records = [], waits = []
+  const result = await requestWithRetry(new URL('https://www.googleapis.com/books/v1/volumes?q=fixed'), { provider: 'google_books', now: () => 'fixed', nowMs: () => clock,
+    sleep: async ms => { waits.push(ms); clock += ms }, random: () => 0, authenticated: true, apiKeyProject: 'vocaflow-books',
+    fetchImpl: async () => ++calls === 1 ? { status: 429, headers: { get: () => '2' }, json: async () => ({}) } : { status: 200, json: async () => ({ totalItems: 0 }) },
+    onResponse: r => records.push(r) })
+  assert.deepEqual(waits, [2000])
+  assert.deepEqual(records.map(r => r.availability_state), ['429_rate_limited', 'zero_result'])
+  assert.equal(records[1].attempt_no, 2)
+  assert.equal(result.metadata.authenticated, true)
+  assert.match(result.metadata.query_hash, /^[a-f0-9]{64}$/)
+  assert.equal(retryAfterMs('Thu, 01 Jan 1970 00:00:05 GMT', 2000), 3000)
+  assert.equal(retryAfterMs('invalid', 0), null)
+  for (const [status, availability] of [[401, '403/401_auth'], [503, '5xx_transient']]) {
+    const r = await requestWithRetry(new URL('https://example.org/?q=fixed'), { provider: 'google_books', now: () => 'fixed', maxAttempts: 1, fetchImpl: async () => ({ status, json: async () => ({}) }) })
+    assert.equal(r.metadata.availability_state, availability)
+  }
+  const malformed = await requestWithRetry(new URL('https://example.org/?q=fixed'), { provider: 'google_books', now: () => 'fixed', fetchImpl: async () => ({ status: 200, json: async () => ({}) }) })
+  assert.equal(malformed.metadata.availability_state, 'parse_failure')
+})
+
+function tinyBenchmark() {
+  const row = { representative_item_id: 'x', passage_sha256: 'sha', body_sha256_by_item: { x: 'body' }, exam_year: 2025, exam_month: 11,
+    requests: [{ strategy: 'rare_exact_6_10', query: '"fixed phrase"' }, { strategy: 'edit_tolerant_anchor', query: '"short phrase"' }] }
+  return { filter: 'partial', maxResults: 40, max_pages_per_query: 2, cohort: [row] }
+}
+
+test('missing credentials issue no HTTP calls and keep planned/completed separate', async () => {
+  const plan = tinyBenchmark()
+  const book = await runBookBatch(plan, { now: () => 'fixed', requireIdentification: true, fetchImpl: () => { throw Error('must not call') } })
+  const s2 = await runFixedSemanticBatch(plan, { now: () => 'fixed', fetchImpl: () => { throw Error('must not call') } })
+  assert.equal(book.length, 2)
+  assert.equal(s2.length, 2)
+  assert.ok(book.every(r => r.state === 'not_attempted_missing_auth' && r.started_at === null && r.attempt_no === null))
+  assert.equal(s2[0].query, '"fixed phrase"')
+  assert.equal(s2[0].submitted_query, 'fixed phrase')
+  const m = benchmarkMetrics(plan, book, [], { retriever: 'google_books_api' })
+  assert.equal(m.availability.queries_planned, 2)
+  assert.equal(m.availability.queries_attempted, 0)
+  assert.equal(m.availability.queries_completed, 0)
+  assert.equal(m.availability.queries_missing_auth, 2)
+  assert.equal(m.rates.candidate_hit_rate, null)
+})
+
+test('retry cooldown survives a new batch and never sleeps beyond declared budget', async () => {
+  const plan = tinyBenchmark(), previous = []
+  let calls = 0
+  await runBookBatch(plan, { now: () => 'fixed', key: 'dummy', apiKeyProject: 'vocaflow-books', previous,
+    retryOptions: { nowMs: () => 0, maxWaitMs: 30000 }, onAttempt: r => previous.push(r),
+    fetchImpl: async () => { calls++; return { status: 429, headers: { get: () => '120' }, json: async () => ({}) } } })
+  assert.equal(calls, 1)
+  assert.equal(previous[0].retry_not_before_ms, 120000)
+  const next = await runBookBatch(plan, { now: () => 'fixed', key: 'dummy', apiKeyProject: 'vocaflow-books', previous, retryOptions: { nowMs: () => 1000 }, fetchImpl: () => { throw Error('cooldown') } })
+  assert.ok(next.every(r => r.state === 'not_attempted_provider_blocked'))
+})
+
+test('benchmark closes only after all fixed queries and bound top-N reviews; retries deduplicate', async () => {
+  const plan = tinyBenchmark(), attempts = []
+  let calls = 0, clock = 0
+  await runBookBatch(plan, { now: () => 'fixed', key: 'dummy', apiKeyProject: 'vocaflow-books', requireIdentification: true,
+    retryOptions: { nowMs: () => clock, sleep: async ms => { clock += ms }, random: () => 0 }, onAttempt: r => attempts.push(r),
+    fetchImpl: async () => { calls++; return calls === 1 ? { status: 429, json: async () => ({}) } : calls === 2 ? { status: 200, json: async () => ({ totalItems: 1, items: [{ id: 'book1', volumeInfo: { title: 'Title' } }] }) } : { status: 200, json: async () => ({ totalItems: 0 }) } } })
+  const options = { retriever: 'google_books_api', apiKeyProject: 'vocaflow-books' }
+  const beforeReview = benchmarkMetrics(plan, attempts, [], options)
+  assert.equal(beforeReview.availability.queries_attempted, 2)
+  assert.equal(beforeReview.availability.http_attempts, 3)
+  assert.equal(beforeReview.availability.queries_429, 1)
+  assert.equal(beforeReview.availability.queries_completed, 2)
+  assert.equal(beforeReview.rates.candidate_hit_rate, 1)
+  assert.equal(beforeReview.rates.useful_hit_rate, null)
+  assert.equal(beforeReview.termination.benchmark_complete, false)
+  const outcome = { ...plan.cohort[0], retriever: 'google_books_api', candidate_id: 'book1', before: 'G', after: 'A' }
+  const final = benchmarkMetrics(plan, attempts, [outcome], options)
+  assert.equal(final.rates.useful_hit_rate, 1)
+  assert.equal(final.rates.queries_per_useful_source, 2)
+  assert.equal(final.termination.benchmark_complete, true)
+  assert.throws(() => benchmarkMetrics(plan, attempts, [{ ...outcome, body_sha256_by_item: {} }], options), /Unbound/)
+  assert.equal(candidateReviewQueue(plan, attempts, { ...options, requireIdentification: true })[0].candidates.length, 1)
+})
+
+test('fixed real cohort remains 50/161, including two PDF successes as API controls', () => {
+  const manifest = JSON.parse(fs.readFileSync(new URL('../../../docs/reports/csat-source-origin-priority-review-20261005.json', import.meta.url), 'utf8'))
+  const frozen = manifest.book_lane_experiment.plan
+  assert.equal(frozen.cohort_sha256, '26e37b254b5500af979b25527bc94eb93e74b12e113a6d83781cb98ca8dcdb82')
+  const rows = frozen.cohort.map(r => ({ ...r, status: ['2016#32', '2014B#32'].includes(r.representative_item_id) ? 'confirmed_exact' : 'unresolved' }))
+  const controls = pendingBookPlan(frozen, rows, { includeResolved: true })
+  assert.equal(controls.cohort.length, 50)
+  assert.equal(controls.already_resolved, 2)
+  assert.equal(controls.cohort.reduce((n, r) => n + r.requests.length, 0), 161)
+})
 
 test('routing treats notices and studies differently and never produces a source verdict', () => {
   assert.equal(classifyOriginLane({ passage: 'Dear visitors, register before the deadline and call us for admission tickets.' }).lane, 'report-web-likely')
@@ -106,13 +209,13 @@ test('bounded Books pagination and successful resume preserve request filters, r
   assert.equal(foreignResumeCalls, 1)
   const changed = structuredClone(plan); changed.cohort[0].body_sha256_by_item.x = 'new'
   let retry = 0
-  await runBookBatch(changed, { now: () => 'fixed', previous: out, fetchImpl: async () => { retry++; return { status: 429, json: async () => ({}) } } })
+  await runBookBatch(changed, { now: () => 'fixed', previous: out, retryOptions: { maxAttempts: 1 }, fetchImpl: async () => { retry++; return { status: 429, json: async () => ({}) } } })
   assert.equal(retry, 1)
 })
 
 test('failed Books requests block remaining families, without false successful search denominators', async () => {
   const plan = { filter: 'full', maxResults: 40, max_pages_per_query: 2, cohort: [{ representative_item_id: 'x', passage_sha256: 'sha', body_sha256_by_item: { x: 'body' }, requests: [{ query: 'a' }, { query: 'b' }] }] }
-  const out = await runBookBatch(plan, { now: () => 'fixed', fetchImpl: async () => ({ status: 429, json: async () => ({}) }) })
+  const out = await runBookBatch(plan, { now: () => 'fixed', retryOptions: { maxAttempts: 1 }, fetchImpl: async () => ({ status: 429, json: async () => ({}) }) })
   assert.deepEqual(out.map(r => r.state), ['rate_limited', 'not_attempted_provider_blocked'])
   const stats = retrieverStatistics(out)[0]
   assert.equal(stats.searched_targets, 0)

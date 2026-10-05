@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): 고정 50개/161질의 benchmark에 Semantic 공용 직렬 1 RPS·Retry-After/backoff/재시작 cooldown·자격/프로젝트/시도 메타데이터·가용성/검색/검증 지표·body-bound top-3 종료조건을 추가. 기존 PDF A 2개는 API 대조군으로만 포함하며 새 질의/등록은 없다. 실제 자격 부재로 두 API 정상 완료 0/161·미실행 161, 미완료 수율은 null. 회귀 35/35, 마이그레이션·라우트 변경 없음.
+
 - feat(csat): 도서 retrieval lane에 G 전량 경로/근거·121행 참고 집합·수능 book-likely 고정 50개/161질의·Books 40건 bounded pagination·판본 시점 감점·known-volume reader·retriever/rank/depth/작업량 집계를 추가. Books/Semantic 429는 미실행으로 보존. 공개 PDF 문단/페이지 검수로 신규 A 2개·전체 123/713·수능 109/338, gap 589를 CAS 적용·재검증. 정상 API 수율/웹 우세 비교는 미완료로 명시; 회귀 29/29, 마이그레이션·라우트 변경 없음.
 
 - docs(csat): 도서 원천 후속으로 2016#29 신규 B 등록·2026#21 B→A 승격. 전체 A+B 121/713, 수능 107/338, 미확인 591행을 DB 재질의. 공개 reader 검색과 API 쿼터·전체 본문 열람을 구분하고 판본 불확실성을 보존. SHA/CAS·공백 갱신 트랜잭션·전후 체크포인트·재실행 검증 및 DB 통계 생성 완료.

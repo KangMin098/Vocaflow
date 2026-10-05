@@ -171,3 +171,49 @@ manifest의 book_lane_experiment에 retriever·candidate_rank·verification_dept
 목적 리뷰 지적을 반영해 실행 전 고정 cohort identity SHA를 재계산한다. 질의 변경·대상 삭제 시 이전 SHA로 실행하지 않고 중단한다. 캐시만 사용한 재실행도 기존 로그의 누적 성과와 고정 분모·등록 완료·남은 대상 수를 출력한다. 질의 변조·대상 축소·캐시만 재개 회귀를 보강했고 29/29 통과했다.
 
 버전 없는 기존 plan은 legacy-body-map-v1과 과도기의 canonical-body-map-v2 해시를 모두 검증하고, 새 plan은 canonical-body-map-v2를 명시한다. 키 순서가 다른 기존 파일을 새 해시 방식으로 오판하지 않는다. 누적 집계는 고정 cohort 전체의 대상·현재 본문·질의 family·페이지·필터·페이지 크기가 일치하는 기록만 포함하며 다른 실험 기록은 제외 수를 출력한다. 이미 등록되어 이번 요청에서 빠진 고정 대상의 과거 성과는 유지한다. 캐시 identity에도 대상·family를 포함한다. 구형 해시·외부 로그 오염·다른 대상 캐시 회귀를 보강했고 29/29 통과했다.
+
+## 고정 benchmark 종료 준비 — 자격 부재로 미완료
+
+이번 회차는 **새 대상·새 질의 0개**다. 기존 cohort SHA 26e37b254b5500af979b25527bc94eb93e74b12e113a6d83781cb98ca8dcdb82, 50개·161질의를 그대로 보존했다. 현재 등록 A+B 123/713·수능 109/338·G 589를 DB에서 재확인했으며 이번 신규 등록과 DB 쓰기는 없다.
+
+사용자 답변은 “ok”였지만 프로젝트 ID·키 보유 여부는 제공되지 않았다. 현재 환경과 Vault에 Books/Semantic 관련 자격 이름이 없는 것을 값 열람 없이 확인했다. Books는 API key와 프로젝트 ID, Semantic은 API key를 확보한 뒤 실행한다. 키를 만들거나 계정·프로젝트·유료 계약을 추가하지 않았다. 따라서 이번에 429가 관찰되지 않은 것은 정상화 증거가 아니라 **인증 없는 HTTP 요청을 보내지 않은 결과**다.
+
+| Lane | 계획 | 실제 HTTP 요청 | 정상 완료 | 자격 부재로 미실행 | 최종 수율 |
+|---|---:|---:|---:|---:|---|
+| books_api | 161질의·50개 | 0 | 0/161 | 161 | null·미평가 |
+| semantic_snippet | 같은 161질의·50개 | 0 | 0/161 | 161 | null·미평가 |
+| public_fulltext | 이전 PDF 대조 | 이전 기록 보존 | 기존 신규 A 2개 | API 성과로 귀속하지 않음 | API와 같은 예산 비교 없음 |
+
+과거 Books 1회·Semantic 1회의 429는 이전 진단으로 별도 보존했다. 당시 헤더·인증 메타데이터가 수집되지 않은 부분을 역으로 꾸며 채우지 않았다. 이전 Semantic 17개 학술 우선군은 고정 50개 비교에 포함하지 않는다. 신규 skipped record와 161 successfully evaluated를 혼용하지 않는다.
+
+### 실행기 보완과 같은 조건의 종료
+
+- 실제 API 요청마다 authenticated(자격 첨부 유무), api_key_project(Books 프로젝트 식별자·미확인 null), attempt_no, http_status, retry_after, started_at, finished_at, query_hash를 기록한다. API 키 값과 전체 인증 URL/헤더는 저장하지 않는다. 인증 없는 skipped record의 시도 번호·시작/종료는 null이다. authenticated=true는 서버가 자격을 승인했다는 뜻이 아니다.
+- 성공과 zero_result, 429_rate_limited, 403/401_auth, 5xx_transient, parse_failure, network_error를 availability_state로 구분한다. 기존 state와 호환되며 실패·미실행은 검색 분모에서 제외한다.
+- Semantic 요청은 **한 Node 프로세스의 공용 직렬 queue**를 통과하며 시작 간격 최소 1초다. 실험 CLI는 한 번에 하나만 실행한다. [공식 API 안내](https://webflow.semanticscholar.org/product/api)는 무인증 공동 pool·추가 throttling·키의 초기 1 RPS를 설명한다. limiter는 외부 공동 pool의 429가 사라졌음을 보장하지 않는다.
+- [공식 tutorial](https://webflow.semanticscholar.org/product/api/tutorial)의 429 의미에 따라 Retry-After 초/HTTP 날짜를 우선하고, 없으면 exponential backoff+jitter를 적용한다. 최대 3회 시도하며 회차 안의 대기 한도 30초를 넘으면 일찍 재요청하지 않고 retry_not_before_ms를 저장해 다음 회차로 넘긴다. 재실행도 provider cooldown을 지킨다. 인증 거부·파싱 오류는 반복하지 않는다.
+- Books의 임의 QPS를 정하지 않았다. 식별 가능한 기존 프로젝트의 실제 quota/usage 확인이 전제다. [공식 문서](https://developers.google.com/books/docs/v1/using)의 public-data 식별과 40건 pagination을 유지한다. 기존 partial·40건·최대 2페이지 설정을 바꾸지 않는다.
+- snippet 검색을 bulk metadata endpoint로 대체하지 않는다. 현재 후보 ID가 0개라 batch 상세 조회를 실행하지 않았다. 정상 후보 ID가 확보되면 가능한 상세 서지 조회만 공식 batch endpoint로 묶고, 고정 검색 질의 평가와 구분한다.
+
+일반 원천 조사 모드는 이미 등록된 두 대상을 건너뛰지만, **benchmark 모드는 두 PDF 성공을 API의 양성 대조 대상으로 포함해 50개·161질의를 모두 평가**한다. 그렇다고 기존 A 두 건을 API 신규 A로 세지는 않는다. 나머지 원천 조사 대상은 48개이며 API 평가 대상 50개와 구분한다. Semantic은 기존 query에서 quote 문법만 제거해 plain text로 제출하고, 원래 query·family와 제출 텍스트 hash를 함께 남긴다. 새로운 단어나 구절은 추가하지 않는다.
+
+~~~powershell
+# 현재 DB/연결 SHA를 새로 읽은 current-rows.json을 사용한다.
+# API 자격과 Books 프로젝트 ID는 기존 환경 또는 Vault를 통해 준비하고 값을 출력하지 않는다.
+node scripts/csat/source-origin-search.mjs --books <fixed-plan.json> <books.jsonl> <current-rows.json> --benchmark
+node scripts/csat/source-origin-search.mjs --semantic-fixed <fixed-plan.json> <semantic.jsonl> <current-rows.json>
+# 본문/판본 귀속을 직접 검수한 body-bound outcomes를 읽어 최종 지표를 집계한다.
+node scripts/csat/source-origin-search.mjs --books <fixed-plan.json> <books.jsonl> <current-rows.json> --benchmark --reviews <reviews.json>
+~~~
+
+Books 환경 이름은 GOOGLE_BOOKS_API_KEY·GOOGLE_BOOKS_API_PROJECT, Semantic은 SEMANTIC_SCHOLAR_API_KEY다. 같은 프로젝트/자격 정책과 선언한 요청 옵션의 성공 로그만 재개한다. 프로젝트 식별자가 키처럼 보이거나 형식이 틀리면 로그를 쓰기 전에 거부한다. 새 snapshot/질의는 실험 2로 분리한다.
+
+### 성과 집계와 종료조건
+
+availability는 planned/attempted/completed/429/other_error/missing_auth, retrieval은 valid_queries/candidate_queries/unique_candidates/reviewed, verification은 A/B/C/G/A_promotions를 분리했다. query 수는 retry HTTP 횟수가 아니라 고정 family 수다. 재시도 3회는 3개 완료 질의가 아니다. 한 질의가 429 후 정상화되면 이력의 429와 완료 양쪽에 나타날 수 있으므로 상태 이력을 단순 합산하지 않는다. Books 첫 페이지가 40건이고 추가 페이지가 필요한 경우 선언한 다음 페이지까지 정상이어야 완료다.
+
+**종료조건은 50개·161질의의 선언한 페이지 정상 완료 + 고정 top-3 candidate의 본문/SHA에 묶인 판정 완료**다. 전체 query 완료 전 candidate_hit_rate는 null, top-3 검수 완료 전 useful_hit_rate·A_rate·queries_per_useful_source는 null이다. 분모는 항상 고정 50이며, 검수 후보가 0개이거나 신규 유용 출처가 0이면 해당 정밀도/질의당 출처 비율은 null이다. verification A/B/C/G는 검수 candidate 판정 수, useful/A 비율은 문항별로 중복을 제거한다. 기존 PDF A가 API 대조군으로 다시 확인되어도 신규 A 비율에 포함하지 않는다.
+
+성과 lane은 books_api(기존 google_books_api), semantic_snippet, public_fulltext(기존 web_book_discovery→public_book_pdf의 연결), general_web, citation_backtrack으로 역할을 표시한다. public_fulltext A 2개는 이전 읽은 페이지·판본 불확실성·원문 해시를 그대로 유지한다. 전체 확보수에서 generator와 verifier의 성과를 중복 합산하지 않는다. 현재 모든 API 수율 비교와 다음 589개 우선순위 결정은 **미완료**다.
+
+manifest benchmark_close에 고정 SHA·161개씩의 실제 skipped record·새 지표·기존 429 진단·PDF 성과 경로·자격 의존성을 보존했다. 회귀 **35/35**, 지시 검사 **10/10**. DB·마이그레이션·라우트 변경 없음. 자격이 마련되면 같은 파일의 기존 질의를 재개하고 정상 후보 top-3만 검수한다.

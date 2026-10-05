@@ -1,5 +1,7 @@
 # Library Pipeline
 
+2026-10-05 고정 benchmark 마감 준비: 50개·161질의를 그대로 보존하고, API 비교 모드는 기존 PDF A 2개도 대조군으로 포함하되 신규 API A로 세지 않는다. Semantic 공용 직렬 1 RPS·bounded Retry-After/backoff·인증 메타데이터·가용성/검색/검증 및 top-3 종료조건을 추가했다. 현재 키/프로젝트 자격이 없어 각 API 정상 완료 0/161·미실행 161, benchmark는 미완료다. 이번 DB 등록 변화 없음. [실행·종료·의존성](./reports/csat-source-origin-priority-20261005.md#고정-benchmark-종료-준비--자격-부재로-미완료).
+
 2026-10-05 도서 lane 실험: 당시 G 591행을 검색 우선 경로로 분류(도서 427·학술 47·웹/보고서 117, 실제 장르 분포 아님), 수능 book-likely 50개/161질의 고정. Books/Semantic API는 각 첫 요청 429로 미실행을 보존했고 공개 도서 PDF 검수로 신규 A 2개 등록. 현재 전체 A+B 123/713·수능 109/338·G 589. 재실행은 고정 cohort의 현재 SHA/상태를 재검사해 등록된 2개를 건너뛰며 분모 50·남은 48을 구분한다. [실측·retriever·검수 깊이·한계](./reports/csat-source-origin-priority-20261005.md#도서-lane-고정-50건-실험--신규-a-2개).
 
 2026-10-05 도서 후속: 공개 Google Books reader의 책 내부 검색으로 2016#29 신규 B 등록, 도서 전사 문단 전체 대조로 2026#21 B→A 승격. DB 재질의 전체 A+B 121/713(A 96·B 25), 수능 107/338, 미확인 591행. 공개 reader 성공과 v1 API 쿼터 회복을 구분하며 검색 조각만 읽은 나머지 후보는 승격하지 않았다. [검수 범위·판본·검증](./reports/csat-source-origin-priority-20261005.md#도서-접근-후속--신규-b-1개기존-b-1개-a-승격).
