@@ -327,3 +327,5 @@ node scripts/csat/source-origin-search.mjs --public-metrics <fixed-plan.json> <c
 ```
 
 최종 DB 재조회: **A 102 · B 31 · C 1 · G 579 = 713**, 등록 **133/713**. 신규 8행 적용과 Cajal 근거 1행 보강을 각각 전후 checkpoint로 측정했다. 같은 preview 재실행은 각각 already_applied 8/1이다. 회전 bloat 표본 외 고정 지표 소실은 없었으며 기존 cron 지연은 별도 상태로 보존했다. 본문·정답·마이그레이션·라우트 변경 없음. DB 통계 생성 재실행, 관련 회귀 44개 통과. API benchmark는 여전히 미완료다.
+
+관리자 조사 공백 항목도 직접 질의했다. `knowledge_gaps.affected_count=589`와 실제 G579의 차이를 확인해 전 상태와 origin 실제 집계에 묶인 CAS로 **공백 1행을579로 동기화**했다. 아직 미확인579개가 있으므로 open을 유지하고 현재 다음 작업을 기록했다. `csat-public46-gap-20261005` 전후 checkpoint의 차이는 회전 bloat 표본만이었으며, 같은 트랜잭션 재실행은 변경 없는 성공이었다. 판정·원문과 별개인 조사 상태 동기화이며 확보 수를 늘리지 않는다. before/after는 manifest `registry_gap_sync`에 보존했다.

@@ -32444,6 +32444,24 @@
     "replay": {
       "new_registration_preview": "already_applied 8",
       "promotion_preview": "already_applied 1"
+    },
+    "registry_gap_sync": {
+      "before": {
+        "id": "4e309675-ce23-4127-8799-0e5af28ae0f8",
+        "status": "open",
+        "affected_count": 589,
+        "next_action": "2026-10-05 도서 lane: G 591행 검색 우선순위 분류 및 수능 book-likely 50개 고정(분류 당시 스냅샷). Books API와 Semantic snippet은 429로 성공 검색 0, 미실행 보존. 공개 도서 PDF로 2016#32·2014B#32 신규 A 등록. 현재 전체 A+B 123/713, 수능 미확인 228·모의평가 361. API 자격/쿼터 정상화 후 같은 고정 cohort 재실행, known-book 내부 검증과 공개 원문 대조 지속. retriever/rank/depth 및 판본 불확실성은 priority 보고서/manifest 참조."
+      },
+      "after": {
+        "id": "4e309675-ce23-4127-8799-0e5af28ae0f8",
+        "status": "open",
+        "affected_count": 579,
+        "next_action": "2026-10-05 고정 public_fulltext cohort 50개 종료: 누적 A6·B6 확보, 나머지 G38은 정의된 공개 경로에서 증거 부족(출처 부재 아님). 이번 남은46개·146구절에서 A4·B4 추가, 전체 등록133/713·G579. B6 별도 승격검수는 A승격0이며 Cajal 영어 전사 근거 보강. Books 자격 후 같은 50개·161질의 재개, Semantic 기존 사용 목적/라이선스 gate 통과 후 재개. 두 API eligible0·completed0/161은 검색 실패·0건이 아님. 원문 판본·부분 확인 범위·깊이 전이 지표는 priority 보고서/manifest의 public_fulltext_close 참조."
+      },
+      "actual_unresolved": 579,
+      "checkpoint_label": "csat-public46-gap-20261005",
+      "guard": "CAS on prior id/status/affected_count/next_action and actual origins total713, registered133, unresolved579. Same after-state is a no-op.",
+      "replay": "same transaction rerun succeeded, current affected_count=actual_unresolved=579; open preserved"
     }
   }
 }
