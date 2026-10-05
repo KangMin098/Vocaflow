@@ -18,6 +18,7 @@ import pg from 'pg'
 const DIR = path.dirname(fileURLToPath(import.meta.url))
 const DEV_REF = 'jajenrevcbmrpaliomxv'
 const TAX = 'v0.1', BKEY = 'r.inference__v.wrong_sense', PROBE = 'r6_derivation_probe'
+const TRAP_MAP = 'v0.1:1a90a6611e0cbc02e48e17db439a9fa9e61e608d84fb1d1f9307555a76096358'
 const EXAM = '2019', WRONG = [18, 19, 20, 21, 22, 23, 24, 25, 26, 27], TAKEN_AT = '2026-10-05'
 
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL, ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -62,7 +63,8 @@ async function recordSession(uid, key, items) {
 try {
   const tax = (await db.query(`select status, definitions_hash from public.csat_ec_taxonomy_version where version = $1`, [TAX])).rows[0]
   if (tax?.status !== 'sealed') throw new Error('v0.1 seed 가 봉인돼 있지 않다')
-  for (const role of ['L1', 'L2']) await makeUser(role)
+  for (const role of ['L1', 'L2', 'ADM']) await makeUser(role)
+  await db.query(`insert into public.user_profiles (user_id, role) values ($1, 'admin') on conflict (user_id) do update set role = 'admin'`, [users.ADM.id])
   const key = (await db.query(`select array_agg(answers[1] order by no) k from public.csat_dx_answer_key where exam_id = $1`, [EXAM])).rows[0].k
   const items = Object.fromEntries((await db.query(`select split_part(id, '#', 2)::int no, id from public.csat_items where id like $1`, [`${EXAM}#%`])).rows.map((r) => [r.no, r.id]))
   const S = { L1: await recordSession(users.L1.id, key, items), L2: await recordSession(users.L2.id, key, items) }
@@ -70,11 +72,22 @@ try {
   const [n0, n1, n2, n3] = WRONG
   const pe = (c, no, kind, value, sup = null) => c.rpc('csat_ec_add_process_evidence', { p_session: S.L1, p_item_no: no, p_kind: kind, p_value: value, p_supersedes: sup })
 
-  // ── 확인 — 재전송 멱등 ──
-  const c1 = await L1.rpc('csat_ec_confirm_session', { p_session: S.L1, p_took_exam: true, p_judged_each: true })
-  const c2 = await L1.rpc('csat_ec_confirm_session', { p_session: S.L1, p_took_exam: true, p_judged_each: true })
+  // ── 확인 — 재전송 멱등 · 실제 변경은 새 revision + 열린 회차 무효화 ──
+  // 열린 회차는 TEST taxonomy v99.0 으로 만든다(실제 v0.1 아래 TEST 회차를 남기지 않게) — 대상 응답이 지워지면 트리거가 취소한다
+  const ADM = users.ADM.client
+  const conf = (tk, je) => L1.rpc('csat_ec_confirm_session', { p_session: S.L1, p_took_exam: tk, p_judged_each: je })
+  const c1 = await conf(true, true)
+  const round = (await ADM.rpc('csat_ec_round_create', { p_taxonomy: 'v99.0', p_quality_rule: 'rq-1', p_choice_trap_map: TRAP_MAP, p_eligibility: { test: 'capture smoke — 확인 변경 무효화' } })).data
+  const st = await ADM.rpc('csat_ec_round_set_targets', { p_round: round, p_refs: [{ session_id: S.L1, item_no: n3 }] })
+  const roundStatus = async () => (await db.query(`select status, cancel_reason from public.csat_ec_review_round where id = $1`, [round])).rows[0]
+  const c2 = await conf(true, true)
   const nConf = (await db.query(`select count(*)::int n from public.csat_ec_session_confirmation where session_id = $1`, [S.L1])).rows[0].n
-  record('확인', '같은 확인 재전송 — 같은 revision · 1행', !c1.error && !c2.error && c1.data === c2.data && nConf === 1, { c1: c1.data, c2: c2.data, nConf })
+  const afterRetry = await roundStatus()
+  record('확인', '같은 확인 재전송 — 같은 revision · 1행 · 열린 회차 그대로(draft)', !c1.error && !c2.error && !st.error && c1.data === c2.data && nConf === 1 && afterRetry?.status === 'draft', { c1: c1.data, c2: c2.data, nConf, afterRetry, st: st.error?.message })
+  const c3 = await conf(true, false)
+  const afterChange = await roundStatus()
+  record('확인', '확인 내용 변경 — 새 revision · 열린 회차 취소(confirmation_changed)', !c3.error && c3.data === c1.data + 1 && afterChange?.status === 'cancelled' && afterChange?.cancel_reason === 'confirmation_changed', { c3: c3.data, afterChange })
+  await conf(true, true)
   record('확인', '다른 학습자 기록 확인 거부', denied(await L2.rpc('csat_ec_confirm_session', { p_session: S.L1, p_took_exam: true, p_judged_each: true })))
 
   // ── 증거 — 고른 이유 · 막힌 곳 · 해석 3상태 · 학생 범주 ──
@@ -92,7 +105,26 @@ try {
   const states = (await db.query(`select item_no, value->>'state' s from public.csat_ec_process_evidence where session_id = $1 and kind = 'interpretation' order by item_no`, [S.L1])).rows
   record('해석', '3상태가 DB 에서 구분된다(모름 ≠ 건너뜀)', JSON.stringify(states.map((r) => r.s)) === JSON.stringify(['answered', 'unknown', 'skipped']), states)
   record('해석', 'unknown 에 글 거부', denied(await pe(L1, n1, 'interpretation', { state: 'unknown', text: '모름' })))
+  record('해석', 'unknown 에 빈 문자열도 거부(빈 문자열 ≠ 글 없음)', denied(await pe(L1, n1, 'interpretation', { state: 'unknown', text: '' })))
+  record('해석', 'skipped 에 빈 문자열 거부', denied(await pe(L1, n2, 'interpretation', { state: 'skipped', text: '' })))
   record('해석', '없는 상태 거부', denied(await pe(L1, n1, 'interpretation', { state: 'maybe' })))
+  const n4 = WRONG[4], n5 = WRONG[5], n6 = WRONG[6], n7 = WRONG[7]
+  record('해석', 'answered 1자 허용', !(await pe(L1, n4, 'interpretation', { state: 'answered', text: '원' })).error)
+  record('해석', 'answered 500자 허용', !(await pe(L1, n5, 'interpretation', { state: 'answered', text: '가'.repeat(500) })).error)
+  record('해석', 'answered 501자 거부', denied(await pe(L1, n5, 'interpretation', { state: 'answered', text: '가'.repeat(501) })))
+  record('해석', 'answered 빈 값 · 공백만 거부', denied(await pe(L1, n6, 'interpretation', { state: 'answered', text: '' })) && denied(await pe(L1, n6, 'interpretation', { state: 'answered', text: '   ' })))
+  record('해석', '옛 형식 {text} = answered 로 허용', !(await pe(L1, n6, 'interpretation', { text: '옛 형식으로 남긴 해석입니다' })).error)
+  // 정정 — 다른 값은 supersede 로(앱 서버가 이전 유효 행 id 를 넘긴다)
+  const v1 = await pe(L1, n7, 'interpretation', { state: 'answered', text: '처음 적은 해석' })
+  const v2 = await pe(L1, n7, 'interpretation', { state: 'answered', text: '고쳐 적은 해석' }, v1.data)
+  const mineA = await L1.rpc('csat_ec_my_process_evidence', { p_session: S.L1 })
+  const mineIds = new Set((mineA.data ?? []).map((r) => r.id))
+  record('정정', '다른 값 정정 — 새 행 · 유효 증거에는 고친 값만(정정된 행 제외)', !v1.error && !v2.error && v1.data !== v2.data && mineIds.has(v2.data) && !mineIds.has(v1.data), [v1.error?.message, v2.error?.message])
+  record('정정', '비슷한 값은 같은 값이 아니다(공백 하나 차이 → 새 행)', (await pe(L1, n7, 'reason', { text: '이유 하나' })).data !== (await pe(L1, n7, 'reason', { text: '이유  하나' })).data)
+  record('유효 증거', 'my_process_evidence — 본인 행만 · 범주 포함', !mineA.error && mineA.data.length > 0 && mineA.data.some((r) => r.kind === 'interpretation'), mineA.error?.message)
+  const mineB = await L2.rpc('csat_ec_my_process_evidence', { p_session: S.L1 })
+  record('유효 증거', 'my_process_evidence — 다른 학습자 0행', !mineB.error && mineB.data.length === 0, mineB.error?.message)
+  record('유효 증거', 'my_process_evidence — anon 거부', denied(await anon.rpc('csat_ec_my_process_evidence', { p_session: S.L1 })))
   const claimsBefore = (await db.query(`select count(*)::int n from public.csat_ec_claim where session_id = $1`, [S.L1])).rows[0].n
   const ge = await pe(L1, n0, 'category', { group: 'evidence' }), gc = await pe(L1, n1, 'category', { group: 'choice' })
   const claimsAfter = (await db.query(`select count(*)::int n from public.csat_ec_claim where session_id = $1`, [S.L1])).rows[0].n
@@ -105,6 +137,8 @@ try {
   // ── 탐지기 관찰 → 대기 질문 → 응답 ──
   const preBefore = (await db.query(`select public.csat_ec_judgment_input_hash($1, $2::smallint, 'pre_probe') h`, [S.L1, n0])).rows[0].h
   const allBefore = (await db.query(`select public.csat_ec_judgment_input_hash($1, $2::smallint, 'all') h`, [S.L1, n0])).rows[0].h
+  const pend0 = await L1.rpc('csat_ec_my_pending_probes', { p_session: S.L1 })
+  record('질문', '관찰 없음 → 대기 질문 0', !pend0.error && pend0.data.length === 0, pend0.data)
   for (const no of [n0, n1, n2]) {
     const d = await svc.rpc('csat_ec_add_detector_signal', { p_session: S.L1, p_item_no: no, p_taxonomy: TAX, p_boundary_key: BKEY, p_detector_version: 'smoke-capture', p_probe_required: true, p_evidence_ids: [] })
     if (d.error) record('관찰', `탐지기 관찰(service_role) ${no}`, false, d.error.message)

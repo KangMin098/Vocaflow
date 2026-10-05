@@ -1884,6 +1884,8 @@ RPC `csat_map_seed(jsonb)`(service_role 전용 · 한 트랜잭션 · advisory l
 
 **Pilot 데이터 모델([20261005130000](../supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql) — 개발 DB 적용 2026-10-05)** — 설계 [PILOT_DATA_MODEL](./csat-learner/codebook/PILOT_DATA_MODEL.md).
 
+**학생 증거 수집 지원([20261005150000](../supabase/migrations/20261005150000_csat_ec_capture_support.sql) — 개발 DB 적용 2026-10-05, 표 · 컬럼 추가 없음)** — interpretation `state`(answered 1–500자 · unknown · skipped, 옛 `{text}` = answered) · `csat_ec_confirm_session` 같은 확인 재전송은 같은 revision(열린 회차 취소 안 함, 내용이 바뀌면 새 revision + 취소) · `csat_ec_add_process_evidence` 같은 kind · 같은 값 유효 행이면 그 id(jsonb 의미 비교) · `csat_ec_add_probe_response(session, item, value, cap)`(세션 잠금 안 누계 · 상한은 서비스가 넘김 · 같은 질문 첫 응답 반환) · `csat_ec_my_process_evidence(session)`(본인 유효 증거 — 지금 문항 해시 · 정정 안 됨, 범주 포함). 이벤트 `csat_ec_capture_opened` · `csat_ec_capture_finished`(적용 전 목록이 기대와 다르면 멈추는 preflight 포함). 되돌리기 `scripts/csat/error-evidence/rollback-capture.sql`.
+
 | 객체 | 용도 | 직접 접근 |
 |---|---|---|
 | `csat_ec_boundary` | taxonomy 버전의 code-to-code 경계(accepted · provisional · retired, `boundary_key = lower(a)__lower(b)` 순서 고정, probe 는 provisional 만, 봉인 뒤 불변 · 봉인 해시에 포함) | authenticated SELECT |

@@ -94,7 +94,7 @@ create table public.funnel_events (id bigserial primary key, event text not null
         'csat_dx_viewed', 'csat_dx_profile_saved', 'csat_dx_attempt_saved', 'csat_dx_test_submitted',
         'csat_dx_habit_answered', 'csat_dx_history_compared',
         'csat_map_viewed', 'csat_map_node_opened', 'csat_map_goal_set', 'csat_map_task_toggled'
-      ]::text[])));   -- 2026-10-05 라이브 목록(67) — 20261005150000 적용 전
+      ]::text[])));   -- 2026-10-05 라이브 목록(65) — 20261005150000 적용 전
 create table public.user_profiles (
   user_id uuid primary key references auth.users(id) on delete cascade, role text not null default 'user' check (role in ('user', 'admin', 'curator'))
 );

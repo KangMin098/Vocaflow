@@ -162,6 +162,20 @@ grant execute on function public.csat_ec_add_process_evidence(uuid,smallint,text
 grant execute on function public.csat_ec_add_probe_response(uuid,smallint,jsonb,int) to authenticated;
 
 -- ═══ 5. 이벤트 허용 목록 ═══
+-- 이벤트 목록 preflight — 적용 직전 DB 허용 목록이 기대(2026-10-05 라이브 65개, 또는 이미 새 2종 포함)와 정확히 같아야 한다.
+-- 다른 작업이 더한 이벤트가 있으면 아래 교체가 그것을 지우므로 **멈춘다**(목록을 다시 옮겨 적은 뒤 적용).
+do $$
+declare v_def text; v_now text[]; v_expect text[] := array['teacher_hub_view', 'invite_shared', 'fit_viewed', 'fit_analyzed', 'fit_shared', 'fit_share_opened', 'fit_signup_clicked', 'fit_worksheet_printed', 'fit_level_moved', 'fit_sheet_opened', 'landing_viewed', 'landing_cta_clicked', 'landing_demo_moved', 'landing_section_reached', 'hub_promo_clicked', 'hub_hero_moved', 'catalog_viewed', 'volume_previewed', 'wayfinder_opened', 'wayfinder_cta_clicked', 'screen_viewed', 'video_started', 'video_completed', 'csat_evidence_opened', 'csat_atlas_scoped', 'csat_plan_speed_set', 'csat_plan_ordered', 'csat_drill_answered', 'csat_drill_finished', 'csat_trap_opened', 'csat_overlay_loaded', 'csat_overlay_located', 'csat_overlay_answered', 'csat_overlay_revealed', 'csat_lecture_played', 'csat_lecture_ended', 'csat_session_started', 'csat_session_answered', 'csat_session_explained', 'csat_session_marked', 'csat_session_finished', 'csat_paper_read', 'csat_space_scoped', 'csat_space_opened', 'csat_home_viewed', 'csat_resume_clicked', 'csat_review_started', 'csat_review_done', 'csat_path_chosen', 'csat_item_back', 'csat_workspace_created', 'csat_workspace_opened', 'csat_workspace_session_started', 'csat_workspace_edited', 'csat_workspace_suggestion_applied', 'csat_dx_viewed', 'csat_dx_profile_saved', 'csat_dx_attempt_saved', 'csat_dx_test_submitted', 'csat_dx_habit_answered', 'csat_dx_history_compared', 'csat_map_viewed', 'csat_map_node_opened', 'csat_map_goal_set', 'csat_map_task_toggled']::text[];
+begin
+  select pg_get_constraintdef(oid) into v_def from pg_constraint where conname = 'funnel_events_event_check' and conrelid = 'public.funnel_events'::regclass;
+  if v_def is null then raise exception 'funnel_events_event_check 가 없다 — 이벤트 목록을 확인하고 적용한다'; end if;
+  select coalesce(array_agg(m[1] order by m[1]), '{}') into v_now from regexp_matches(v_def, '''([a-z_]+)''', 'g') m;
+  if (select array_agg(x order by x) from unnest(v_now) x where x not in ('csat_ec_capture_opened', 'csat_ec_capture_finished'))
+     is distinct from (select array_agg(x order by x) from unnest(v_expect) x) then
+    raise exception '이벤트 허용 목록이 기대와 다르다 — 지금 DB: % 개 · 기대: % 개(새 2종 제외). 다른 작업의 이벤트를 지우지 않도록 멈춘다',
+      cardinality(v_now), cardinality(v_expect);
+  end if;
+end $$;
 alter table public.funnel_events drop constraint if exists funnel_events_event_check;
 alter table public.funnel_events
   add constraint funnel_events_event_check check (

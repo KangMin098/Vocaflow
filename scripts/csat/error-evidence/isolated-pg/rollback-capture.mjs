@@ -30,6 +30,16 @@ try {
   if (s.ok) {
     await s.owner.query(fs.readFileSync(PILOT, 'utf8'))
     const before = await schema(s.admin)
+    // preflight — 다른 작업이 더한 이벤트가 있으면 지우지 않도록 적용 전체를 멈춘다
+    const liveDef = (await s.admin.query(`select pg_get_constraintdef(oid) d from pg_constraint where conname = 'funnel_events_event_check'`)).rows[0].d
+    await s.admin.query(`alter table public.funnel_events drop constraint funnel_events_event_check`)
+    await s.admin.query(`alter table public.funnel_events add constraint funnel_events_event_check ${liveDef.replace("'teacher_hub_view'::text", "'teacher_hub_view'::text, 'other_work_event'::text")}`)
+    let pre
+    try { await s.owner.query(fs.readFileSync(CAPTURE, 'utf8')); pre = { ok: false } } catch (e) { pre = { ok: true, err: e.message } }
+    const untouched = (await s.admin.query(`select count(*)::int n from pg_proc where proname = 'csat_ec_add_probe_response'`)).rows[0].n === 0
+    record('rollback-capture', '이벤트 목록이 기대와 다르면 적용 전체 중단(다른 작업 이벤트 보존)', pre.ok && /이벤트 허용 목록이 기대와 다르다/.test(pre.err) && untouched, pre.err)
+    await s.admin.query(`alter table public.funnel_events drop constraint funnel_events_event_check`)
+    await s.admin.query(`alter table public.funnel_events add constraint funnel_events_event_check ${liveDef}`)
     await s.owner.query(fs.readFileSync(CAPTURE, 'utf8'))
     record('rollback-capture', '수집 지원 적용', true)
     await s.admin.query(`insert into public.funnel_events (event) values ('csat_ec_capture_opened')`)

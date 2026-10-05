@@ -4,6 +4,8 @@
 > 적용 직후: 기존 행 · `v99.0` 해시 · 회차 해시 · 상태 불변, 새 표 0행, 기존 회차 `evidence_profile = all`. 객체 csat_ec 함수 40→52 · 정책 5→6 · 트리거 14→17 · 인덱스 26→33 · 제약 83→110.
 > 실제 PostgREST/Auth smoke `dev-smoke/smoke-pilot.mjs` **109/109**, 기존 smoke 139/142(실패 3 = v99.0 이 이미 봉인된 재실행 전제 문제, 마이그레이션 무관). Security Advisor ERROR 0 · csat_ec 경고 25→31(+6 모두 의도: 관찰 표 정책 없음 · 경계 GraphQL 노출 · authenticated definer RPC 4).
 > 개발 DB 에 TEST taxonomy `v99.1`(경계 2) 이 남아 `rollback-pilot.sql` 은 정리 전까지 거부된다.
+> **학생 증거 수집(2026-10-05)** — `20261005150000_csat_ec_capture_support` 적용(interpretation 3상태 · 재전송 멱등 · probe 세션 상한 · 본인 유효 증거). 수집 화면 · API 는 `lib/csat/ec-pilot` · `components/csat/diagnosis/capture`. 개발 Supabase smoke `dev-smoke/smoke-capture.mjs` 42/42 · e2e `tests/e2e/52-csat-ec-capture.spec.ts` 2/2.
+> **실제 Pilot 전 blocker** ① 결과 · 해설 · 보고서의 **서버 측** 보류(수집이 끝나지 않은 세션 — 지금은 수집 화면 단계 보류뿐이라 해설 URL · 보고서로 우회 가능) ② 경계 **탐지기**(interpretation · 과정 증거 → csat_ec_boundary_signal → 대기 질문 — 지금은 smoke 가 service_role RPC 로 넣는다). 둘 없이 실제 Pilot 을 시작하지 않는다.
 > 아래 본문은 적용 전 초안 그대로다.
 
 > SQL: [`supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql`](../../../supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql) · 되돌리기: [`scripts/csat/error-evidence/rollback-pilot.sql`](../../../scripts/csat/error-evidence/rollback-pilot.sql)

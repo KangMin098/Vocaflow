@@ -1,0 +1,341 @@
+{
+  "ranAt": "2026-10-05",
+  "run": "6ebd4a3e",
+  "pass": 42,
+  "fail": 0,
+  "results": [
+    {
+      "area": "확인",
+      "name": "같은 확인 재전송 — 같은 revision · 1행 · 열린 회차 그대로(draft)",
+      "ok": true,
+      "detail": {
+        "c1": 1,
+        "c2": 1,
+        "nConf": 1,
+        "afterRetry": {
+          "status": "draft",
+          "cancel_reason": null
+        }
+      }
+    },
+    {
+      "area": "확인",
+      "name": "확인 내용 변경 — 새 revision · 열린 회차 취소(confirmation_changed)",
+      "ok": true,
+      "detail": {
+        "c3": 2,
+        "afterChange": {
+          "status": "cancelled",
+          "cancel_reason": "confirmation_changed"
+        }
+      }
+    },
+    {
+      "area": "확인",
+      "name": "다른 학습자 기록 확인 거부",
+      "ok": true
+    },
+    {
+      "area": "증거",
+      "name": "고른 이유 재전송 — 같은 id(행이 늘지 않음)",
+      "ok": true,
+      "detail": [
+        null,
+        null
+      ]
+    },
+    {
+      "area": "증거",
+      "name": "막힌 곳(지문 첫 문장 — 서버 계산 범위 형식) 저장",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "answered · unknown · skipped 저장",
+      "ok": true,
+      "detail": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "area": "해석",
+      "name": "3상태가 DB 에서 구분된다(모름 ≠ 건너뜀)",
+      "ok": true,
+      "detail": [
+        {
+          "item_no": 18,
+          "s": "answered"
+        },
+        {
+          "item_no": 19,
+          "s": "unknown"
+        },
+        {
+          "item_no": 20,
+          "s": "skipped"
+        }
+      ]
+    },
+    {
+      "area": "해석",
+      "name": "unknown 에 글 거부",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "unknown 에 빈 문자열도 거부(빈 문자열 ≠ 글 없음)",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "skipped 에 빈 문자열 거부",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "없는 상태 거부",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "answered 1자 허용",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "answered 500자 허용",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "answered 501자 거부",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "answered 빈 값 · 공백만 거부",
+      "ok": true
+    },
+    {
+      "area": "해석",
+      "name": "옛 형식 {text} = answered 로 허용",
+      "ok": true
+    },
+    {
+      "area": "정정",
+      "name": "다른 값 정정 — 새 행 · 유효 증거에는 고친 값만(정정된 행 제외)",
+      "ok": true,
+      "detail": [
+        null,
+        null
+      ]
+    },
+    {
+      "area": "정정",
+      "name": "비슷한 값은 같은 값이 아니다(공백 하나 차이 → 새 행)",
+      "ok": true
+    },
+    {
+      "area": "유효 증거",
+      "name": "my_process_evidence — 본인 행만 · 범주 포함",
+      "ok": true
+    },
+    {
+      "area": "유효 증거",
+      "name": "my_process_evidence — 다른 학습자 0행",
+      "ok": true
+    },
+    {
+      "area": "유효 증거",
+      "name": "my_process_evidence — anon 거부",
+      "ok": true
+    },
+    {
+      "area": "범주",
+      "name": "evidence · choice 저장 — 원인 claim 0(E.evidence_location · E.task_misread · E.option_mismatch 자동 생성 없음)",
+      "ok": true,
+      "detail": {
+        "claimsBefore": 0,
+        "claimsAfter": 0
+      }
+    },
+    {
+      "area": "증거",
+      "name": "다른 학습자 응답에 증거 거부",
+      "ok": true
+    },
+    {
+      "area": "증거",
+      "name": "anon 거부",
+      "ok": true
+    },
+    {
+      "area": "적격",
+      "name": "확인 · 고른 이유 · 막힌 곳을 갖춘 오답 attempt = Pilot 적격",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "area": "질문",
+      "name": "관찰 없음 → 대기 질문 0",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "area": "질문",
+      "name": "대기 질문 — 관찰된 3문항 · v0.1 · r6_derivation_probe",
+      "ok": true,
+      "detail": [
+        {
+          "item_no": 18,
+          "taxonomy_version": "v0.1",
+          "boundary_key": "r.inference__v.wrong_sense",
+          "probe_key": "r6_derivation_probe"
+        },
+        {
+          "item_no": 19,
+          "taxonomy_version": "v0.1",
+          "boundary_key": "r.inference__v.wrong_sense",
+          "probe_key": "r6_derivation_probe"
+        },
+        {
+          "item_no": 20,
+          "taxonomy_version": "v0.1",
+          "boundary_key": "r.inference__v.wrong_sense",
+          "probe_key": "r6_derivation_probe"
+        }
+      ]
+    },
+    {
+      "area": "질문",
+      "name": "다른 학습자 — 0행",
+      "ok": true
+    },
+    {
+      "area": "질문",
+      "name": "관찰 없는 문항은 대기 목록에 없다",
+      "ok": true
+    },
+    {
+      "area": "질문",
+      "name": "응답 저장 — 선택지 글자만(원인 이름 없음)",
+      "ok": true
+    },
+    {
+      "area": "질문",
+      "name": "저장된 응답 = 글자 · 판 · 해시 · skipped(원인 코드 없음)",
+      "ok": true,
+      "detail": {
+        "option": "B",
+        "skipped": false,
+        "probe_key": "r6_derivation_probe",
+        "prompt_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "boundary_key": "r.inference__v.wrong_sense",
+        "probe_version": "1.0.0",
+        "taxonomy_version": "v0.1"
+      }
+    },
+    {
+      "area": "질문",
+      "name": "중복 제출 — 첫 응답 id 반환 · 선택 덮지 않음",
+      "ok": true
+    },
+    {
+      "area": "질문",
+      "name": "건너뜀 — 이벤트로 저장(skipped · 선택 없음)",
+      "ok": true
+    },
+    {
+      "area": "질문",
+      "name": "세션 상한(2) — 세 번째 질문 거부",
+      "ok": true,
+      "detail": "csat_ec: 이 기록의 추가 질문 상한에 닿았다"
+    },
+    {
+      "area": "질문",
+      "name": "요구되지 않은 질문 응답 거부",
+      "ok": true,
+      "detail": "csat_ec: 이 응답에 요구된 probe 가 아니다"
+    },
+    {
+      "area": "질문",
+      "name": "다른 학습자 응답 거부",
+      "ok": true
+    },
+    {
+      "area": "질문",
+      "name": "anon 거부",
+      "ok": true
+    },
+    {
+      "area": "질문",
+      "name": "응답 · 건너뜀 뒤 대기 1(n2)만",
+      "ok": true,
+      "detail": [
+        {
+          "item_no": 20,
+          "taxonomy_version": "v0.1",
+          "boundary_key": "r.inference__v.wrong_sense",
+          "probe_key": "r6_derivation_probe"
+        }
+      ]
+    },
+    {
+      "area": "pre/all",
+      "name": "probe 응답 뒤 pre_probe 해시 그대로 · all 해시 바뀜 · 둘이 다름",
+      "ok": true,
+      "detail": {
+        "preBefore": "15004523259a2b52ccfd23e353dac23fc7b53462346d76b61d2de557026a5ba3",
+        "preAfter": "15004523259a2b52ccfd23e353dac23fc7b53462346d76b61d2de557026a5ba3",
+        "allBefore": "3ff6bbb7337e2348784ee17286946b07a101f1a2e8826078f5f7f8cbb0ea2ea9",
+        "allAfter": "22298f9a93c6dfd747b9c872302a4ea7e20f7af51784b8354e2356bb282eb686"
+      }
+    },
+    {
+      "area": "pre/all",
+      "name": "pre_probe 입력 = 해석 포함 · probe 없음 / all = 둘 다",
+      "ok": true,
+      "detail": {
+        "pre": [
+          "reason",
+          "blocked_span",
+          "interpretation"
+        ],
+        "all": [
+          "reason",
+          "blocked_span",
+          "interpretation",
+          "targeted_probe"
+        ]
+      }
+    },
+    {
+      "area": "정리",
+      "name": "기존 세션 · 응답 수 불변",
+      "ok": true,
+      "detail": {
+        "before": {
+          "s": 2,
+          "r": 90
+        },
+        "after": {
+          "s": 2,
+          "r": 90
+        }
+      }
+    },
+    {
+      "area": "정리",
+      "name": "테스트 계정 · 증거 · 관찰 · 확인 0",
+      "ok": true,
+      "detail": {
+        "pe": 0,
+        "sig": 0,
+        "conf": 0,
+        "u": 0
+      }
+    }
+  ]
+}

@@ -68,9 +68,10 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
       track({ name: 'csat_ec_capture_finished', props: { targets: items.length, completed: st.completed, skipped: st.skipped, probes: st.probes, failures: st.failures, outcome } })
     }
     setResult(r.data)
+    // router.refresh() 를 부르지 않는다 — 서버 페이지가 다시 그려지며 이 모달이 새로 마운트되면 건너뛴 문항을 다시 띄운다(e2e 실측).
+    // 보드는 「완료」로 돌아갈 때 새로 읽는다
     setPhase('result')
-    router.refresh()
-  }, [sessionId, items.length, router])
+  }, [sessionId, items.length])
 
   // 지나간 문항(저장 · 건너뜀) · 이미 저장된 문항에 남은 추가 질문 — 다음 단계를 고를 때 쓴다(재개 · 새로고침 뒤에도)
   const visited = useRef(new Set<number>())
@@ -189,7 +190,7 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
             <span className={s.tint} aria-hidden="true"><ClipboardList size={16} /></span>
             <span className="min-w-0">
               <span id="dx-capture-title" className="block truncate">{phase === 'result' ? '이번 시험 결과' : '풀이를 조금만 더 알려 주세요'}</span>
-              <span className={s.modalSub}>{phase === 'result' ? '알려 준 풀이는 다음 분석에 쓰여요' : '정답을 보기 전에, 그때 어떻게 생각했는지 적어 주세요'}</span>
+              <span className={s.modalSub}>{phase === 'result' ? '알려 준 풀이는 다음 분석에 쓰여요' : '결과를 보기 전에, 그때 어떻게 생각했는지 적어 주세요'}</span>
             </span>
           </span>
           {phase === 'item' || phase === 'probe' ? <span className={c.progress} aria-live="polite">{idx + 1} / {items.length}</span> : <span aria-hidden="true" />}
