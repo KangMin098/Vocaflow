@@ -57,23 +57,28 @@ export async function findPublishedChapteredSet(): Promise<{ id: string; title: 
   if (!c) return null;
   // 발행 중인 공용 세트(도서 단어장 제외)부터 — 단어 테이블을 일부만 읽고 거르면 PostgREST 1,000행 상한 밖의
   // 적격 세트를 놓친다(Codex 리뷰 2026-10-05). 세트마다 챕터 행이 하나라도 있는지 head 로 확인한다.
-  const { data: sets, error } = await c
-    .from('shared_word_sets')
-    .select('id, title')
-    .eq('is_published', true)
-    .neq('category', 'library_book')
-    .order('title');
-  if (error) return null;
-  for (const row of (sets ?? []) as Array<{ id: string; title: string }>) {
+  const PAGE = 1000;
+  for (let from = 0; ; from += PAGE) {
+    const { data: sets, error } = await c
+      .from('shared_word_sets')
+      .select('id, title')
+      .eq('is_published', true)
+      .neq('category', 'library_book')
+      .order('title')
+      .range(from, from + PAGE - 1);
+    if (error) return null;
+    const page = (sets ?? []) as Array<{ id: string; title: string }>;
+    for (const row of page) {
     const { count, error: e } = await c
       .from('shared_words')
       .select('id', { count: 'exact', head: true })
       .eq('set_id', row.id)
       .not('chapter', 'is', null);
-    if (e) continue;
-    if ((count ?? 0) > 0) return { id: row.id, title: row.title };
+      if (e) continue;
+      if ((count ?? 0) > 0) return { id: row.id, title: row.title };
+    }
+    if (page.length < PAGE) return null;
   }
-  return null;
 }
 
 export async function ensureWordSetSubscription(userId: string, setId: string): Promise<boolean> {

@@ -41,7 +41,7 @@ export default async function DcpPracticePage({
   return (
     <Screen width="content" background="bg2" padX="md">
       {/* PC(lg↑) 두 열 — 왼쪽 머리(위에 붙어 따라온다) · 오른쪽 문항(읽기 폭). 모바일 한 줄은 그대로. */}
-      <div className="mx-auto flex max-w-[580px] flex-col gap-4 py-6 md:py-8 lg:grid lg:max-w-none lg:grid-cols-[300px_minmax(0,720px)] lg:items-start lg:justify-center lg:gap-x-14">
+      <div className="mx-auto flex w-full max-w-[548px] flex-col gap-4 py-6 md:py-8 lg:grid lg:max-w-none lg:grid-cols-[300px_minmax(0,720px)] lg:items-start lg:justify-center lg:gap-x-14">
         {/* 모바일 머리 — 디자인 범위(PC 전용) 밖이라 그대로 둔다. PC 는 아래 공용 기능형 머리. */}
         <header className="flex flex-col gap-1 md:hidden">
           <Link

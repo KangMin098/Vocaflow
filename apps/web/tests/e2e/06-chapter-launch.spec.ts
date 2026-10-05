@@ -73,7 +73,10 @@ test.describe('챕터 스코프 학습 런처', () => {
     // 시드 구독 세트 행(InsetRow onClick) → 모달
     // 시드 전제가 깨졌으면 건너뛰지 않고 실패한다 — skip 은 계약이 지켜진 것처럼 보이게 한다.
     expect(seeded, '시드 준비 실패 — service-role 키가 없거나 발행 중인 챕터 세트가 0개').not.toBeNull();
-    await page.getByRole('button', { name: seeded!.title }).first().click({ timeout: 15_000 });
+    // 화면은 Decks 상위 5개만 보인다 — 시드 제목이 아니라 실제로 보이는 챕터 단어장 행(모달을 여는 버튼)을 누른다.
+    // 챕터 없는 단어장 행은 링크라 여기 잡히지 않는다(ResourcePortfolio: setId 있으면 onClick).
+    const assets = page.getByRole('region', { name: '학습 자산' });
+    await assets.locator('button:not(nav button)').first().click({ timeout: 15_000 });
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible({ timeout: 15_000 });
     // 챕터 아코디언 — 첫 챕터를 **바로 학습하는 링크**가 있고, 게임에서 /wordvault 로 돌아온다.
