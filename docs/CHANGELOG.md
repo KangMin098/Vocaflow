@@ -13,6 +13,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(conventions): 임시 표지 기반 patch의 줄바꿈 정규화·표지 부재 hard fail과 파괴적 CLI의 명시적 verb 요구를 운영 규칙으로 기록했다. 로컬 scratchpad 수정은 저장소 tracked code 변경으로 계산하지 않는다.
+
 - fix(wordvault): 「학습 자산」에서 연 챕터 학습 모달이 「총 0개 단어」로 열리던 결함 — 행의 wordCount(내가 담은 수)를 모달(세트 전체 수 · 학습 계획 계산)에 넘기고 있었다. `hub-query` 가 `shared_word_sets.word_count` 를 `totalWords` 로 함께 싣고 `lib/wordvault/preview-set.ts` 가 모달 형태로 옮긴다. 단위 회귀 + e2e 06 단언 추가. 행의 「N개」 표시는 그대로.
 - docs(design): **학습자 PC replica-first 기준선 고정**(2026-10-05 · 검증 커밋 `74aa664a5`) — 정적 학습자 라우트 73 = 발견형 6 · 기능형 11 · 세션 26 · 특수 20 · 별칭 9 · 미확정 1(`/dictate/results`). 라이트/다크 × 1440/1280 292장 전부 통과 · 가로 넘침 0. 모바일 재설계는 범위 밖(기존 동작 유지). 이후 학습자 UI 변경은 `screen-types` 가드와 이 기준선을 깨지 않아야 한다.
 - feat(design): 학습자 PC UI 마감 — `/wordvault` 본문 두 열(상태 | 다음 할 일) · `/practice/dcp` 왼쪽 머리 sticky + 읽기 폭 열, 특수 예외 재공용화 금지 가드, 보류 2개 실제 재현 후 특수 판정(`/dictate/setup` · `/pairflip/results`, 빈 배너 PC 숨김) · `/dictate/results` 미확정. 접근성: 다크 ios 잉크(red·blue·pink) · AreaHero 수치 알약 · TodayQueue 빈 칸 · Flashcard 시작 버튼 · PrimaryButton 배지 · 허브 글 카드(모바일 포함) 대비 AA. e2e 06 시드(시계 의존·비발행 고정 세트·옛 라벨) 정리. 라우트 변경 없음.
