@@ -76,7 +76,7 @@ function ArticleCard({ article, index, tint }: { article: PortalArticle; index: 
             </span>
           )}
           {article.minutes ? (
-            <span className="inline-flex h-[22px] items-center rounded-full bg-[color-mix(in_srgb,var(--t1)_14%,transparent)] px-2.5 font-mono text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t1)]">
+            <span className="inline-flex h-[22px] items-center rounded-full bg-[color-mix(in_srgb,var(--t1)_14%,transparent)] px-2.5 md:bg-[color-mix(in_srgb,var(--bg)_70%,transparent)] font-mono text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t1)]">
               {article.minutes} min read
             </span>
           ) : null}
@@ -92,7 +92,7 @@ function ArticleCard({ article, index, tint }: { article: PortalArticle; index: 
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate font-display text-[13px] font-[600] text-[var(--t1)]">{source}</span>
-                <span className="block font-body text-[11px] text-[var(--t1)] opacity-80">원문 출처</span>
+                <span className="block font-body text-[11px] text-[var(--t1)] opacity-80 md:opacity-100">원문 출처</span>
               </span>
             </>
           ) : (

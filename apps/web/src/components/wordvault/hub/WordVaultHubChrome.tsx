@@ -27,9 +27,15 @@ export function WordVaultHubChrome({ activeView, children }: WordVaultHubChromeP
     <>
       <GlassBar
         leading={
-          <h1 className="font-editorial text-[18px] font-[500] tracking-[-0.012em] text-[var(--t1)]">
-            WordVault
-          </h1>
+          <>
+            {/* 모바일 h1 — PC 에서는 아래 공용 머리(PageIntro)가 h1 이라 여기서는 이름표만 보인다. */}
+            <h1 className="font-editorial text-[18px] font-[500] tracking-[-0.012em] text-[var(--t1)] md:hidden">
+              WordVault
+            </h1>
+            <span aria-hidden className="hidden font-editorial text-[18px] font-[500] tracking-[-0.012em] text-[var(--t1)] md:inline">
+              WordVault
+            </span>
+          </>
         }
         trailing={
           <>
