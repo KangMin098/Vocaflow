@@ -76,7 +76,11 @@ test.describe('챕터 스코프 학습 런처', () => {
     // 화면은 Decks 상위 5개만 보인다 — 시드 제목이 아니라 실제로 보이는 챕터 단어장 행(모달을 여는 버튼)을 누른다.
     // 챕터 없는 단어장 행은 링크라 여기 잡히지 않는다(ResourcePortfolio: setId 있으면 onClick).
     const assets = page.getByRole('region', { name: '학습 자산' });
-    await assets.locator('button:not(nav button)').first().click({ timeout: 15_000 });
+    const chapterRows = assets.locator('button:not(nav button)');
+    // 전제를 명시적으로 확인한다 — 상위 5개가 모두 챕터 없는 단어장이면 시간 초과가 아니라 이 메시지로 떨어진다.
+    // (시드 세트를 상위 5개에 반드시 올리려면 공용 검증 계정에 학습 단어 행을 대량으로 써야 해서 하지 않는다.)
+    await expect(chapterRows.first(), 'Decks 상위 5개에 챕터 단어장이 없다 — 검증 계정 구독/학습 단어 전제 확인').toBeVisible({ timeout: 15_000 });
+    await chapterRows.first().click();
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible({ timeout: 15_000 });
     // 챕터 아코디언 — 첫 챕터를 **바로 학습하는 링크**가 있고, 게임에서 /wordvault 로 돌아온다.
