@@ -27457,7 +27457,7 @@ psm 4 = "가변 크기 텍스트 한 열" — 말풍선은 세로로 쌓인 짧�
 - **무효 CSS 2건 추가 제거** — `TodayQueue` 의 `` `${meta.color}0D` `` (var() + 알파 hex)로 카드 배경·테두리가 실제로는 **투명**이었다. `color-mix()` 로 교체(ScriptQuiz 와 같은 유형, 세 번째 발견).
 - **공용 컴포넌트 교정** — `TodayQueue`(hub·flashcard·spellforge 3화면 공용) 색 구조를 `color/ink/tint/edge` 로 분리 · 분포 막대의 `aria-prohibited-attr` 제거 · `VocabSetCarousel` 활성 탭 accent 3종을 흰 글자 AA 기준으로 심화(csat 3.19→5.38 등) · `RecommendedSetsSection` 배지 팔레트 · `PlanClient` 의 `opacity-70` 이중 감광 제거.
 - **게이트 확장** — `14-learner-quality` 에 **hub·dashboard·dictate·arcade** 추가(라이트/다크 0 유지). 나머지 화면(wordvault·flashcard·scriptquiz·plan·settings·library/*)은 잔여가 남아 아직 넣지 않았다 — **0 이 되는 대로 배열에 한 줄씩 추가**하는 것이 이 루프의 진행 방식이고, 스펙 주석에 그렇게 적어두었다.
-- 검증: 14-learner-quality 5/5 · 11/12/13 포함 22/22 · 04-ui-smoke 5/5 · unit 229 · tsc 클린.
+- 검증: 14-learner-quality 5/5 · 11/12/13 포함 21/21 · 04-ui-smoke 5/5 · unit 229 · tsc 클린.
 
 ### 품질 루프 2회차 — 학습자 전 화면으로 확대, 접근성 위반 719 → 20 (2026-08-09)
 
