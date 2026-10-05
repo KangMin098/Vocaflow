@@ -1,0 +1,18 @@
+{
+ "_note": "rev4.1 재검증 채택 기준(사전 등록 — REV41_VALIDATION_PLAN.md). rev4-eval 이 이 파일을 그대로 기계 판정한다.",
+ "label": "rev4.1",
+ "changes": {
+  "R6": {
+   "holdout": ["R41-H1", "R41-H2"],
+   "regression_match": ["C4-11", "H-13", "H-05", "C4-07", "R4-H2"],
+   "regression_converge": ["C2-02", "R4-H1"]
+  },
+  "R12": {
+   "holdout": ["R41-H3", "R41-H4"],
+   "regression_match": ["R4-H3", "R4-H4", "R4-H5", "N-13"],
+   "regression_converge": ["H-17", "N-04"]
+  }
+ },
+ "regression_defined": ["C4-11", "H-13", "H-05", "C4-07", "R4-H2", "R4-H3", "R4-H4", "R4-H5", "N-13"],
+ "baseline": { "match": 8, "of": 9, "label": "rev4 회차(N-13 은 adjudication 정정 기대 V.wrong_sense 기준)" }
+}
