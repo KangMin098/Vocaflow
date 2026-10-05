@@ -1,0 +1,450 @@
+{
+ "id": "rev43-v1",
+ "created": "2026-10-05",
+ "codebook_rev": "rev4.3-draft",
+ "codebook_sha256": "b3090d5c84257372cd172a072509eed7a68edc820ae961c768ab7bf479e7028b",
+ "expected_sha256": "28e0932fec73495e9010dc0e31b1d61fc0de62ec478f79180218d53dd1dbf600",
+ "codes": [
+  "V.unknown_word",
+  "V.wrong_sense",
+  "V.multiword",
+  "S.core_structure",
+  "S.attachment",
+  "S.operator_scope",
+  "S.form_rule",
+  "R.reference",
+  "R.relation",
+  "R.main_point",
+  "R.inference",
+  "E.task_misread",
+  "E.evidence_location",
+  "E.option_mismatch",
+  "B.outside_knowledge",
+  "B.surface_match",
+  "B.no_verification",
+  "X.time",
+  "X.attention"
+ ],
+ "excluded": [],
+ "cases": [
+  {
+   "case_id": "C2-02",
+   "item_id": "H2303G1#21",
+   "exam": "2023년 3월 고1 학력평가",
+   "type": "R-IMPLY",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "divorce가 이혼이니까 사이가 틀어진다는 뜻 같았어요. 일하는 얘기니까 동료랑 사이 안 좋은 거라고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "The divorce of the hands from the head"
+   },
+   "interpretation": "손과 머리의 이혼 = 같이 일하는 사람들끼리 갈라서는 것",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "divorce 를 '이혼→인간관계 불화'라는 사전 첫 뜻으로만 받아들여, 여기서 '손(육체노동)과 머리(정신노동)의 분리'라는 비유적 의미를 놓쳤다. 앞 문장의 lowtech physical work 회피와 digital world 일자리 추구라는 대조를 밑줄과 연결하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "C4-11",
+   "item_id": "2026#21",
+   "exam": "2026학년도 수능",
+   "type": "R-IMPLY",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "sticky가 끈적끈적한 거니까 복잡하고 귀찮은 걸 뜻하는 것 같았어요. 플랫폼 때문에 고용이 덜 복잡해졌다는 거고요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "made a lot of work less sticky"
+   },
+   "interpretation": "많은 일을 덜 끈적거리게(덜 번거롭게) 만들었다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "sticky를 '복잡하고 번거로운'으로 해석해, 일이 특정 장소에 붙어 있는 정도(장소 고착성)라는 글 속 의미를 놓쳤다. 그 결과 지역적 연결이 끊긴다는 핵심 대신 고용 절차의 단순함을 말하는 5번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "H-13",
+   "item_id": "M2606#21",
+   "exam": "2026학년도 6월 모의평가",
+   "type": "R-IMPLY",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "fiction이 소설이니까 상상 속 목표 같은 걸 말하는 줄 알았어요. 큰 목표를 그리면 실력이 는다는 뜻 같았어요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "the boost is grounded in fiction"
+   },
+   "interpretation": "그 향상은 소설(상상)에 기반한다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "필자가 '근거 없는 착각'이라는 뜻으로 확장해 쓴 fiction을 문자 그대로 '이야기·상상'으로 읽었다. fiction의 사전 뜻은 알고 있으므로 낱말 무지가 아니라 필자의 비유적 확장 해석 실패.",
+   "chain": "문자적 해석 → 지문 밖 상식(목표 설정) 개입 → 5번",
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "H-05",
+   "item_id": "M2309#23",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-TOPIC",
+   "chosen_option": 3,
+   "confidence": "sure",
+   "reason": "농부들이 실험 가능성을 기준으로 판단한다니까 그게 중요하다는 글이라고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "that criterion of “trialability” turns out to be a real problem"
+   },
+   "interpretation": "실험 가능성이라는 기준은 실제로 중요한 사안으로 드러난다",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "a real problem을 '중요한 사안'으로 읽어 글이 trialability의 한계를 다룬다는 지문 내용 자체를 오해했다. 선택지 3은 그 오해를 그대로 반영한 것일 뿐 선택지 판단 단계의 결함은 없다(자가진단 choice와 불일치).",
+   "chain": "지문 오해 → 필요성 선택지",
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "C4-07",
+   "item_id": "H2104G3#21",
+   "exam": "2021년 4월 고3 학력평가",
+   "type": "R-IMPLY",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "mind's eye가 상상하는 눈, 마음의 눈이니까 상상이랑 관련된 1번이 맞는 것 같았어요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "the mind’s eye is blind"
+   },
+   "interpretation": "상상력은 눈이 멀었다 = 뇌는 상상과 경험을 연결해서만 본다",
+   "self_category": "word",
+   "context": "이 문항에 2분 30초",
+   "true_mechanism": "관용 표현 mind's eye를 '상상력'이라는 사전적 의미로만 해석하고, 글에서 그것이 뉴런이 입력의 의미를 모른 채 반응한다는 비유라는 점을 연결하지 못했다. 그래서 imagination이 들어간 1번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "R4-H1",
+   "set": "regression",
+   "item_id": "2019#21",
+   "type": "R-IMPLY",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "refining 이 정제한다는 뜻이니까 무지를 걸러서 없앤다는 말 같았고, 그러면 발견한 걸 완전하게 설명하는 ②가 맞는 것 같았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "the best science can really be seen as refining ignorance"
+   },
+   "interpretation": "최고의 과학은 무지를 정제하는 것, 즉 모르는 부분을 불순물처럼 걸러 내 없애는 것으로 볼 수 있다.",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "refine 의 사전 뜻 중 '정제하다(불순물 제거)'를 넣어 '무지를 제거한다'로 읽었고, 글에서 쓰인 '다듬다·정교하게 하다'를 못 잡아 구절 해석이 틀었다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R4-H2",
+   "set": "regression",
+   "item_id": "H1904G3#21",
+   "type": "R-IMPLY",
+   "chosen_option": 3,
+   "confidence": "sure",
+   "reason": "모든 사람이 아무도 아니다, 그러니까 독자마다 다 다른 사람이라는 뜻이라서 독자에 따라 반응이 다르다는 ③을 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "everyone is no one"
+   },
+   "interpretation": "모든 사람은 결국 누구도 같은 사람이 아니다 — 독자 한 명 한 명이 다 다르다는 말.",
+   "self_category": "option",
+   "context": null,
+   "true_mechanism": "everyone·no one 의 낱말 뜻은 맞게 잡았으나 글쓴이가 이 구절로 만든 대응(모두를 겨냥하면 아무도 만족시키지 못한다)을 '독자는 저마다 다르다'로 잘못 옮겼다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "R.inference ↔ V.wrong_sense"
+   ]
+  },
+  {
+   "case_id": "R42-H1",
+   "set": "regression",
+   "item_id": "M2706#30",
+   "type": "R-VOCAB",
+   "chosen_option": 2,
+   "confidence": "sure",
+   "reason": "여러 번 더 읽어야 뉘앙스가 clear해진다고 했는데, clear를 '깨끗이 치워진, 없어진'으로 읽으니까 다시 읽을수록 뉘앙스가 사라진다는 말이 돼서 앞뒤가 안 맞는다고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "in order for the nuance to become ② clear"
+   },
+   "interpretation": "복잡한 대본은 뉘앙스가 깨끗이 없어지도록(치워지도록) 몇 번 더 읽어야 할 수도 있다.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "clear 에 '(장애물이) 치워진 · 비어 있는'이라는 실제 사전 뜻을 넣어 '분명해지다'를 '사라지다'로 읽었고, 그래서 적절한 ②를 부적절하다고 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.relation",
+    "V.wrong_sense ↔ V.unknown_word"
+   ]
+  },
+  {
+   "case_id": "R42-H2",
+   "set": "regression",
+   "item_id": "2025#33",
+   "type": "R-BLANK",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "뒤 문장에 우리 창작 교류가 AI 추천 시스템에 의해 mediated 된다고 해서, mediate를 '중재하다'로 읽고 AI가 사람들 사이를 조정해 주는 중재자 같은 존재라고 생각했어요. 그래서 AI 친구 덕을 본다는 ⑤를 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "mediated by AI-based recommendation systems"
+   },
+   "interpretation": "다른 사람들과의 창작 교류를 AI 추천 시스템이 중간에서 중재(분쟁 조정)해 준다.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "mediate 의 실제 사전 뜻 '중재하다(분쟁 조정)'를 넣어 AI를 우리 편 조정자로 읽었고, 글에서 쓰인 '매개하다(사이에서 거쳐 가게 하다)'를 놓쳐 ⑤로 갔다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference",
+    "V.wrong_sense ↔ B.surface_match"
+   ]
+  },
+  {
+   "case_id": "R42-H3",
+   "set": "regression",
+   "item_id": "H2605G3#21",
+   "type": "R-IMPLY",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "scenes는 머릿속에 그려지는 장면, 그림 같은 것으로 이해했고 바로 앞에 머릿속 영화 얘기가 나와서 그 뜻이 맞다고 생각했어요. 그런데 앞에서 각 눈의 공간 해상도가 좋다고 했으니까 그림 자체는 잡히는 거고, '장면 없이 본다'는 그 그림들이 영화처럼 이어지지 않는다, 즉 움직임을 못 잡는다는 말이라고 연결했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "It sees without scenes."
+   },
+   "interpretation": "가리비 눈은 해상도가 좋아서 시각 이미지는 얻지만, 그 이미지들이 영화처럼 이어지는 '장면'이 되지 않는다 → 움직임은 포착하지 못한다.",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "scenes=머릿속 장면(시각 이미지)이라는 낱말 뜻은 글과 맞게 잡았다. 실패는 구절이 이 글에서 가리키는 것(움직임만 감지하고 이미지는 없음)을 '이미지는 있고 움직임이 없음'으로 거꾸로 대응시킨 데 있다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R42-H4",
+   "set": "regression",
+   "item_id": "H2111G2#21",
+   "type": "R-IMPLY",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "diet가 식단, 먹는 것을 관리하는 거라는 건 알았어요. 글에서 아침·점심·저녁을 챙기고 가끔 간식도 더할 수 있다고 하니까, 미디어 다이어트도 여러 끼를 고루 먹듯 여러 종류의 미디어를 골고루 섞어 쓰는 균형 잡힌 식단이라는 뜻이라고 봤어요. 그래서 전통 미디어와 온라인 미디어의 균형을 말하는 ①을 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "breakfast, lunch, and dinner"
+   },
+   "interpretation": "세 끼 + 간식을 고루 먹는 식단처럼, 뇌에도 여러 종류 미디어를 고루 배분해 주는 것.",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "diet=식단 관리라는 낱말 뜻은 맞다. 글이 식단 비유로 옮긴 핵심(정해진 시간표에 맞춰 규칙적으로)을, 같은 글의 세 끼 · 간식 단서에서 '종류를 고루 섞기'로 잘못 대응시켜 ①을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference",
+    "R.inference ↔ B.outside_knowledge"
+   ]
+  },
+  {
+   "case_id": "R42-H5",
+   "set": "regression",
+   "item_id": "H2410G2#21",
+   "type": "R-IMPLY",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "pop을 '펑 터뜨리다'로 읽었어요. 알약을 펑 터뜨린다니까 한순간에 확 터지는 행동, 그러니까 충동적인 행동을 말하는 것 같았고, 그런 충동적인 행동으로는 좋은 사람이 될 수 없다 = 충동적 행동이 평판을 해친다는 ①로 연결했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Popping a pill cannot make you a better person."
+   },
+   "interpretation": "알약을 펑 터뜨리는 것(한순간 터지는 충동적 행동)은 사람을 더 낫게 만들 수 없다 → 충동적인 행동은 오히려 평판을 해친다.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "pop 에 '터뜨리다'라는 실제 사전 뜻을 넣어(글은 '알약을 삼키다') 구절을 '한순간 터지는 충동 행동'으로 읽었고, 그 낱말 뜻에서 구절 비유를 충동/평판으로 잘못 옮겨 ①을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R42-H6",
+   "set": "regression",
+   "item_id": "H2006G1#21",
+   "type": "R-IMPLY",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "dictionary는 사전, reading은 읽기로 읽었고 글에서도 그 뜻 그대로였어요. 그런데 바로 뒤에서 이걸 프랑스어 사전을 읽어서 프랑스어를 말하려는 것과 나란히 놓으니까, 몸짓 언어 사전을 읽는다는 게 몸짓 언어를 프랑스어 같은 언어와 견주어 보는 방식을 가리킨다고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "by reading a body language dictionary"
+   },
+   "interpretation": "몸짓 언어 사전을 읽어서 = 몸짓 언어를 프랑스어(외국어)와 비교해 가며 익히는 방식으로.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "dictionary · reading 의 사전 뜻은 글에 맞게 잡았다. 글이 프랑스어 비유로 말하려던 '신호를 낱개로 암기하는, 사회적 맥락 없는 방식'을 '프랑스어와의 비교'로 잘못 대응시킨 구절 단위 실패다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R42-H7",
+   "set": "regression",
+   "item_id": "H2306G2#21",
+   "type": "R-IMPLY",
+   "chosen_option": 3,
+   "confidence": "guess",
+   "reason": "지문이 전체적으로 어려웠어요. 무슨 말인지 잘 모르겠어서 그냥 찍었어요.",
+   "blocked_span": {
+    "part": null,
+    "option": null,
+    "quote": null
+   },
+   "interpretation": null,
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "무엇을 어떻게 이해했는지 · 어디서 막혔는지 진술이 없다.",
+   "chain": null,
+   "evidence_design": "partial",
+   "boundaries": [
+    "V.multiword ↔ R.inference",
+    "insufficient_evidence ↔ X.time"
+   ]
+  },
+  {
+   "case_id": "R43-HA",
+   "set": "holdout",
+   "item_id": "M2706#20",
+   "type": "R-CLAIM",
+   "chosen_option": 4,
+   "confidence": "unsure",
+   "reason": "blindly가 '눈이 먼 채로, 앞을 못 보고'라는 뜻이니까, 이 문장은 참여자가 앞을 못 보는 채로 지시를 따르게 하면 안 된다는 말이다. 앞을 못 보고 따라간다는 건 다음에 뭘 할지 순서도 모른 채 무턱대고 이것저것 따라 한다는 비유라고 생각했다. 그래서 순서를 알 수 있게 프로그램을 단계적으로 짜야 한다는 ④를 골랐다.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "expect participants to blindly follow their directions"
+   },
+   "interpretation": "지도자가 참여자들이 앞을 못 보는 채로 지시를 따르기를 기대하는 것은 충분하지 않다 — 다음 순서도 모르고 무턱대고 따라 하게 하면 안 된다.",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "blindly의 기본 뜻(앞을 못 보고)으로 문장을 문자 그대로는 맞게 읽었으나, 거기서 '순서·계획 없이 무턱대고'라는 비유적 의미를 잘못 이끌어 냈다(글의 뜻은 '원리를 모른 채'). 도출 결과가 우연히 blindly의 다른 사전 뜻(무턱대고)과 겹치고, 그 도출이 곧바로 ④(단계적 계획)로 이어졌다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R43-HB",
+   "set": "holdout",
+   "item_id": "M2706#21",
+   "type": "R-IMPLY",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "unique는 '특별히 뛰어난, 남다른'이라는 뜻으로 알고 있어서, 인간을 특별히 뛰어나게 만드는 뇌 부위를 아무도 찾지 못했다고 읽었다. 그러니 버려야 할 것은 인간의 인지가 동물보다 뛰어나다는 생각이라고 보고 ④를 골랐다.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "no one had yet found any part of the brain unique to humans"
+   },
+   "interpretation": "신경과학이 발달했어도 인간을 특별히 뛰어나게 만드는 뇌 부위는 아직 아무도 찾지 못했다.",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "unique to(~에만 있는)의 문맥 뜻 대신 다른 사전 뜻 '뛰어난·남다른'을 그 자리에 직접 넣어, '인간에게만 있다(배타성)'가 아니라 '인간이 더 뛰어나다(우월성)'라는 명제로 읽고 ④에 이르렀다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R43-HC",
+   "set": "holdout",
+   "item_id": "H2210G3#30",
+   "type": "R-VOCAB",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "demands는 앞 문장의 demand for live music처럼 여기서도 '수요'라는 뜻이라고 알고 있어서, 방송사가 노조의 고용 수요를 거절했다고 읽었다. 방송사가 연주자 수요를 거절했다는 건 그만큼 라이브 연주자가 필요 없어졌다는 것이고, 그러면 녹음이 이미 라이브 연주를 대신하고 있었다는 뜻이라고 생각했다. 그런데 ③은 방송국이 라이브 연주자를 선호했다고 하니 이것과 맞지 않아서 ③을 골랐다.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "rejected union demands for employment and decent wages"
+   },
+   "interpretation": "방송사들은 고용과 괜찮은 임금에 대한 노조의 수요를 거절했다 — 라이브 연주자 수요가 줄었다.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "demands(요구)를 다른 사전 뜻 '수요'로 직접 골라 명제를 '연주자 수요 감소'로 바꿨고, 그 위에서 '녹음이 이미 라이브를 대체 중'이라는 함축을 잘못 이끌어 내어 ③을 부적절하다고 판단했다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R43-HD",
+   "set": "holdout",
+   "item_id": "M2706#34",
+   "type": "R-BLANK",
+   "chosen_option": 3,
+   "confidence": "guess",
+   "reason": "끝까지 읽어 봤는데 3번이 제일 그럴듯해 보였다.",
+   "blocked_span": null,
+   "interpretation": "미술품 수집가가 작품을 사는 것에 대한 이야기 같았다.",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "오답 ③에 이르렀으나 어느 낱말·구조·추론에서 실패했는지 드러나지 않는다.",
+   "chain": null,
+   "evidence_design": "partial",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  }
+ ]
+}

@@ -31,4 +31,6 @@
 
 ## 봉인 기록
 
-(사례 작성 · 증거 설계 검토 뒤, 실행 전에 채운다)
+- 2026-10-05 실행 전: 말뭉치 `data/rev43-corpus.json`(`rev43-v1`, 18건 = holdout 4 · regression 14) · 코드북 `b3090d5c8425…` · 기대 판정 `data/sealed/rev43-expected.json` `28e0932fec73…`.
+- 증거 설계 검토(Codex): 1차 OK 0 · WEAK 3 · FAIL 1 → 네 건 수정 → 2차 OK 3 · WEAK 1(HA) → HA 문항 · 낱말 교체(M2706#20 blindly) 후 봉인(3차 검토 없이 — 큰 단위 진행 지시).
+- **남은 약점(작성자 · 검토자)**: HA — 도출한 뜻(「무턱대고」)이 문맥 뜻(「맹목적으로」)과 가까워 결정적 실패를 선택지 판단에 두면 R.main_point 로 샐 수 있다 · HB — 「특별히 뛰어난」 이 unique 의 정식 사전 뜻인지 다툼(V.unknown_word 여지) · HC — 뒤쪽 함축이 R.inference / R.relation 사이 · HD — 너무 막연해 A1 로 볼 수도(결론은 같다).
