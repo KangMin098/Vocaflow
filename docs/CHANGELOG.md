@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): FYM calibration 8편·96문항의 전수 audit와 revision 3 개정안을 준비했다. 문항별 근거/부분점수·한국어 질문/v2 학생 안내·질문 단계 분리 운영 절차를 연결하고 기존 pilot/default/v1 자료를 보존했다. 사람 승인·평가·DB 쓰기/새 화면/마이그레이션 없음.
+
 - feat(textbook): FYM 사람 평가 v2를 export/사전 등록/독립 4점 판정/critical/제3 중재/학생 표본/보고/적재 전 검사까지 연결했다. calibration gold 금지·v1 새 seed 거절·다른 주제/원천의 후속 재현과 published 행 대조를 추가하고 실제 8편 미봉인·평가/gold/DB 쓰기 0을 확인했다. 마이그레이션/새 라우트 없음.
 - fix(textbook): 봉인 후 배포 패킷을 다시 생성하고 전문가/학생 packet hash를 검사한다. 재현의 원 validation 전문가 재사용 정책과 고정 calibration UUID/DOI/본문 재사용 차단을 강화했다. 원천 UUID는 대소문자를 정규화해 비교한다. v2 인증은 legacy 발행 helper로 production이 될 수 없다.
 

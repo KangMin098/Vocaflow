@@ -1,5 +1,7 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+Calibration 운영 준비(2026-10-05): 기존 8편·96문항을 전수 검토하여 [문항 revision 3 검토본](./reports/frym-calibration-instruments-3-review.md)과 [책임자 운영 안내](./FYM_CALIBRATION_OPERATIONS.md)를 준비했다. 문항별 정확한 근거와 1/0.5/0점 기준·한국어 질문을 작성하고 기존 default/v1/pilot을 보존했다. 새 문항은 export의 `--instruments`로 명시한다. 질문 간 힌트를 줄이기 위해 읽기/질문 단계를 분리하고 이전 답을 보존하는 사람 절차를 사전 확정해야 한다. 에이전트 전수 검토는 사람 인증이 아니며 실제 책임자/참여자·band·등록·평가·DB 쓰기는 여전히 미완료다.
+
 사람 평가 실행기 v2(2026-10-05): [사람 프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/8항목·핵심 차원의 critical 탈락·제3 독립 판정 후 중재·학년당 15~30명/버전별 완전 측정 15명·사전 manifest 봉인·calibration/validation 분리·다른 주제/원천 재현을 연결했다. [실행 절차](../scripts/textbook/frym-validation/README.md)의 `protocol-2.draft.json`을 사용한다. band·책임자·등록·실제 응답은 계속 미확정이며 실제 8편은 미봉인 calibration candidate다. v1 결과는 읽을 수 있으나 새 DB seed의 인증으로 사용할 수 없다.
 
 실제 응답 수집 후속(2026-10-05): `frym-validation-collect.mjs`는 등록된 사람의 blind 응답을 protocol/instrument·본문·opaque ID에 묶어 새 결과 파일로 합친다. 같은 응답은 skip, 충돌은 reject, 학생 부분 기록의 null/빈 값만 보충하며 원본·응답 파일은 보존한다. 현재 8편에 빈 입력 예행만 수행했고 실제 전문가/학생 결과와 gold는 계속 0이다. [수집 절차](../scripts/textbook/frym-validation/README.md) · [예행 결과](./reports/frym-response-collection-20261005.md).

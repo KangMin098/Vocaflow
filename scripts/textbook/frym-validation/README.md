@@ -2,6 +2,12 @@
 
 [사람 운영 프로토콜](../../../docs/FYM_HUMAN_VALIDATION_PROTOCOL.md)을 실행기에 연결했다. 기존 4쌍×중1/고1 8편은 **calibration 전용**이다. band 20개·사람 책임자·배정·사전 등록·실제 응답은 미확정이며 candidate 8, gold/production/DB 쓰기 0이다. 가상 회귀 점수는 실제 평가 결과가 아니다.
 
+## Calibration 문항 revision 3
+
+기존 96문항을 전수 검토한 [개정 문항/채점 검토본](../../../docs/reports/frym-calibration-instruments-3-review.md)과 [운영 안내](../../../docs/FYM_CALIBRATION_OPERATIONS.md)를 준비했다. `calibration-instruments-3.draft.json`은 record ID별 배열이며 export에 `--instruments scripts/textbook/frym-validation/calibration-instruments-3.draft.json`을 명시한다. 8편·96문항, 지문별 12문항·축별 3문항을 유지했다. 기존 default/v1 문항과 pilot 본문은 보존했다. 개정안은 사람 미승인 초안이다.
+
+v2 학생 안내와 개정 질문은 한국어이며 영어 본문/축별 측정값은 그대로다. 안내도 packet_hash에 포함되므로 새로운 회차·등록 후 재생성된 패킷을 사용한다. 학생 JSON은 전체 질문을 가진 진행자 원본이며 학생에게 한 번에 공개하지 않는다. 지문만 읽기 → 추론 → 명시 정보 → 어휘 → 문장 순서로 나누어 제시하고 매 단계 답을 회수한다. 문장 인용이 앞 문항의 답을 알려주지 않도록 이전 답의 수정을 막는 운영 방식·재열람·위반/결측 처리 규칙을 `protocol.operations`에 사전 확정한다. 현재 수집기는 단계 잠금/실제 열람 순서를 인증하지 않는다. 상세 자료 배포 구분과 절차는 운영 안내에 있다.
+
 ## 준비와 봉인
 
 실행 설정은 protocol-2.draft.json이다. pass-bands-2.draft.json은 사람 검토용이다. v2는 4점 척도만 지원한다. 원본 스냅샷은 ignored 증거 폴더에 보존한다. 다음 명령은 저장소 루트의 PowerShell에서 실행한다.

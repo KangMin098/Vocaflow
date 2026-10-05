@@ -93,6 +93,8 @@ Calibration 결과를 본 뒤 수정한 문항이나 band는 **후속 새 valida
 
 ## 실행기 v2와 사람 확정
 
+실제 calibration의 문항 검토는 [revision 3 전수 검토본](./reports/frym-calibration-instruments-3-review.md)과 [운영 안내](./FYM_CALIBRATION_OPERATIONS.md)를 사용한다. 기존 본문8편·96문항/축별3개를 유지하며 근거 인용·문항별 부분점수·한국어 질문을 개정했다. 정확한 어휘 번역을 짧다는 이유로 감점하지 않고, 열린 추론 결론의 다른 타당한 조합도 인정한다. 문장 인용이 다른 문항에 힌트를 주므로 지문만 먼저 읽고 추론/명시 정보/어휘/문장 단계를 나누어 이전 답을 보존하는 사람 시행 규칙을 데이터 전에 확정한다. 현재 JSON/수집기는 실제 단계 열람·답 잠금을 인증하지 않는다. 개정안의 에이전트 점검은 전문가 승인이나 학생 난도 검증이 아니다.
+
 v2는 위 4점/8항목·핵심 critical 거부·독립 제3 판정 후 중재·완전 측정 15명·봉인 manifest·단계/재현을 연결했다. 기존 v1 파일은 그대로 읽지만 새 DB seed에는 사용하지 못한다. [명령·복구](../scripts/textbook/frym-validation/README.md)와 `protocol-2.draft.json`이 실행 계약이며 `pass-bands-2.draft.json`은 사람 검토용 양식이다. 3점 척도 변경은 현재 v2 실행기에서 지원하지 않으며 새 계약을 데이터 전에 등록해야 한다.
 
 사람 책임자가 band·근거·운영 규칙·문항·expert_assignment·experts의 자격/사전 노출 확인·participants의 학년/균형 순서를 확정하고 `register --prepare`로 manifest를 준비한다. 외부의 실제 사전 등록 증빙과 시각을 `--approval`로 제공해야 봉인된다. 등록 후 정확한 bundle에서 새 패킷을 생성하며 수집/평가에서 packet_hash를 대조한다. 초안 패킷에 대한 응답을 새 봉인 결과로 인정하지 않는다. JSON/hash는 사람 인증이나 신뢰할 수 있는 외부 등록 시각을 대신하지 않는다. 실제 8편은 여전히 band 20개 null·책임자/배정/등록 없음·사람 응답 0이다.
