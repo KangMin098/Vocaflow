@@ -1,0 +1,152 @@
+{
+ "ranAt": "2026-10-05",
+ "version": "v0.1",
+ "validation": "PENDING_DECISION",
+ "pass": 16,
+ "fail": 0,
+ "results": [
+  {
+   "area": "write",
+   "name": "예상 write 수 = 실제(버전 1 · 코드 19 · 경계 1 · 봉인 1)",
+   "ok": true,
+   "detail": {
+    "expected": {
+     "taxonomy_version": 1,
+     "code": 19,
+     "boundary": 1,
+     "seal_update": 1
+    },
+    "actual": {
+     "taxonomy_version": 1,
+     "code": 19,
+     "boundary": 1,
+     "seal_update": 1
+    }
+   }
+  },
+  {
+   "area": "hash",
+   "name": "봉인 해시 = 코드 + 경계 재계산(경계가 해시에 반영됨)",
+   "ok": true,
+   "detail": {
+    "seal": "303e5140a2d54b2d58a8df99bc7be6c1c55cceaa63294111bf17f02aeb934ced",
+    "recompute": "303e5140a2d54b2d58a8df99bc7be6c1c55cceaa63294111bf17f02aeb934ced"
+   }
+  },
+  {
+   "area": "hash",
+   "name": "경계를 뺀 해시와 다름(경계 변경이 해시를 바꾼다)",
+   "ok": true
+  },
+  {
+   "area": "보존",
+   "name": "트랜잭션 안에서도 기존 봉인 해시(v99.0 · v99.1) 불변",
+   "ok": true,
+   "detail": {
+    "before": {
+     "v99.0": "12e8ecb8f98d4d0f619b1980a047f11214cd4317b21a1f242641b6a72242e416",
+     "v99.1": "f5341110886ce2a51352d33536e387d7bff63e7022c4cd1c51640f3bdd73c045"
+    },
+    "mid": {
+     "v99.0": "12e8ecb8f98d4d0f619b1980a047f11214cd4317b21a1f242641b6a72242e416",
+     "v99.1": "f5341110886ce2a51352d33536e387d7bff63e7022c4cd1c51640f3bdd73c045"
+    }
+   }
+  },
+  {
+   "area": "봉인",
+   "name": "봉인 뒤 경계 수정 거부",
+   "ok": true
+  },
+  {
+   "area": "봉인",
+   "name": "봉인 뒤 코드 수정 거부",
+   "ok": true
+  },
+  {
+   "area": "봉인",
+   "name": "봉인 뒤 경계 추가 거부",
+   "ok": true
+  },
+  {
+   "area": "RLS",
+   "name": "로그인 사용자 — v0.1 코드 19 · 경계 정의 읽기",
+   "ok": true,
+   "detail": {
+    "codes": 19,
+    "b": [
+     {
+      "k": "r.inference__v.wrong_sense",
+      "s": "provisional",
+      "p": "r6_derivation_probe"
+     }
+    ]
+   }
+  },
+  {
+   "area": "RLS",
+   "name": "로그인 사용자 — 경계 관찰 표 직접 읽기 거부",
+   "ok": true,
+   "detail": "permission denied for table csat_ec_boundary_signal"
+  },
+  {
+   "area": "RPC",
+   "name": "ai_taxonomy(service_role) — V/S/R/E 14코드 · 경계 1(provisional · probe) · 봉인 해시",
+   "ok": true,
+   "detail": {
+    "codes": 14,
+    "b": [
+     {
+      "code_a": "R.inference",
+      "code_b": "V.wrong_sense",
+      "status": "provisional",
+      "probe_key": "r6_derivation_probe",
+      "boundary_key": "r.inference__v.wrong_sense",
+      "decision_note": "학생이 어떤 낱말의 뜻을 언급하면서 동시에 그 뜻에서 문맥 · 비유적 해석을 도출하는 형태의 설명(「X 가 Y 라는 뜻이니까 …」) — 이 증거로는 「사전 뜻을 직접 골랐다」 와 「기본 뜻에서 비유를 도출했다」 가 구별되지 않는다(rev4.3 HA · R4-H1 adjudication 이 같은 지점에서 반대로 갈림)"
+     }
+    ]
+   }
+  },
+  {
+   "area": "RPC",
+   "name": "service_role — 코드 표 직접 읽기 거부(RPC 로만)",
+   "ok": true,
+   "detail": "permission denied for table csat_ec_code"
+  },
+  {
+   "area": "학생 범주",
+   "name": "학생 범주 6개 모두 대응 코드 있음(학생 범주 보고 경로가 막히지 않음)",
+   "ok": true,
+   "detail": {
+    "choice": 2,
+    "evidence": 1,
+    "flow": 4,
+    "sentence": 4,
+    "time": 2,
+    "word": 3
+   }
+  },
+  {
+   "area": "후보",
+   "name": "candidate_codes 로 쓸 R6 두 코드가 v0.1 에 active 로 존재(판정 가드가 받는 조건)",
+   "ok": true
+  },
+  {
+   "area": "Learning Map",
+   "name": "seed 대상 표에 csat_ec 밖 트리거 없음(학습 지도로 번지지 않음)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "area": "rollback",
+   "name": "ROLLBACK 뒤 스냅샷 = 시작 전(csat_ec 11표 행 해시 · 학습자 표 · 함수 정의 · 정책 · 트리거 · 제약 · 봉인 해시)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "area": "rollback",
+   "name": "v0.1 가 남지 않음",
+   "ok": true
+  }
+ ]
+}

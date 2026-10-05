@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): v0.1 conditional seed 입력 · 검증 준비(**DB 미적용**) — 정본(CODEBOOK.rev4.2 · 결정 JSON)에서 행 생성 `seed/build-seed.mjs` · 정적 검증 30/30(미결 1: E 축 학생 범주) · 개발 DB 트랜잭션 dry-run 16/16(ROLLBACK 뒤 diff 0 · 봉인 해시 303e5140…). TEST taxonomy v99.0 · v99.1 은 개발 DB 상시 fixture(유지). baseline 명시: 회차 intact=false 는 적용 전부터 · row-write 143 · REFLOW_VERSION 6. `SEED_DRYRUN.md`
 - feat(csat): 오답 원인 Pilot 데이터 모델 `20261005130000_csat_ec_pilot_evidence` **개발 Supabase DB 적용**(사용자 승인 · main 병합 뒤 격리 273/273 · rollback 11/11 재통과) — 기존 행 · v99.0 해시 · 회차 불변, 새 표 0행. 실제 PostgREST/Auth smoke `dev-smoke/smoke-pilot.mjs` 109/109(권한 · 후보 무결성 · 경계 · probe · pre_probe/all · 학습 지도 무변화), Security Advisor ERROR 0 · 신규 경고 6 모두 의도. seed · UI · Pilot 없음
 - feat(csat): 오답 원인 Pilot 데이터 모델 마이그레이션 초안 `20261005130000_csat_ec_pilot_evidence`(**개발 DB 미적용**) — outcome 단일 원천(+multiple_plausible · inconsistent_evidence) · taxonomy 경계 · 경계 관찰 · interpretation · targeted_probe · 회차 증거 범위(pre_probe). 격리 PG 273/273 · rollback 11/11(스키마 차이 0). `PILOT_DATA_MODEL.md`
 - docs(csat): 오답 원인 taxonomy 제품 결정 — 사전 등록 seed 게이트 FAIL 은 유지, 별도로 `v0.1 conditional seed candidate`(R6 의 V.wrong_sense ↔ R.inference 경계 provisional) · Pilot 증거 설계(해석 입력 · R6 probe · 경계 별도 집계) · 필요한 스키마 변경 목록. `PILOT_SEED_DESIGN.md`(설계, DB 적용 없음)

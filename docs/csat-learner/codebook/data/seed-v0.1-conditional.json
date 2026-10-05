@@ -26,8 +26,17 @@
    "auto_confirm": false,
    "on_undistinguished": "multiple_plausible(두 후보가 각각 최소 증거) 또는 insufficient_evidence(아니면) — 다수결 · 모델 합의 · 단계 우선(R3)만으로 primary 를 만들지 않는다",
    "probe": "R6_derivation_probe",
+   "probe_key": "r6_derivation_probe",
    "evidence": ["REV43_EVAL.md", "ADJUDICATION_REV43.md", "ADJUDICATION_REV42_C411.md", "REV42_EVAL.md", "REV41_EVAL.md", "REV4_EVAL.md"]
   }
  ],
+ "taxonomy_version": "v0.1",
+ "_machine_fields_note": "2026-10-05 DB 입력용 기계 필드 추가(결정 내용 변경 아님): taxonomy_version · boundaries[].probe_key(DB 형식 ^[a-z0-9_]+$ — probe 이름 R6_derivation_probe 의 소문자형) · student_group_by_axis. 생성: scripts/csat/error-evidence/seed/build-seed.mjs",
+ "student_group_by_axis": {
+  "source": "ERROR_EVIDENCE_DESIGN.md §7 group ↔ 축 대응(단어 · 표현 = V · 문장 해석 = S · 글의 흐름 = R · 선지 판단 = E · 시간 · 집중 = X · B 는 NULL)",
+  "axis": { "V": "word", "S": "sentence", "R": "flow", "E": "choice", "X": "time" },
+  "overrides": { "E.evidence_location": "evidence" },
+  "pending_decision": "E.evidence_location → evidence(제안). §7 은 E 전체를 choice 로 두지만, 적용된 DB(20261003230000) · 코드북 rev4.2 §2 A1 은 학생 범주에 「근거(evidence)」를 따로 둔다 — §7 대로면 학생이 「근거」를 골랐을 때 대응 코드가 0 이 된다. 사용자 확인 전까지 seed 게이트 미통과"
+ },
  "not_allowed_until_pilot": ["R6 rev4.4(같은 증거 형식에서 문구만 고치는 개정)", "provisional 경계 사례의 verified diagnosis", "taxonomy seed DB 적용(별도 승인)"]
 }

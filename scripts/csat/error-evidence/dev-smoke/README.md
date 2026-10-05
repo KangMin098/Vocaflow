@@ -20,7 +20,7 @@ node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/csat/error-evidence/d
 
 `20261005130000_csat_ec_pilot_evidence` 적용 뒤 실행한다(같은 준비 · 같은 명령에서 파일 이름만 바꾼다). 결과 `results-pilot.json`(2026-10-05 109/109).
 경계 정의 · 관찰 표 권한, 탐지기 관찰(service_role), 대기 probe · probe 응답 · skip · supersede · interpretation, pre_probe/all 회차 해시, AI multiple/inconsistent · 후보 무결성, blind 판정 후보 무결성(오타 · 다른 판본 · 폐기 · 중복 · 1개) · 경계 연결, 기존 8인자 호환, 학습 지도 무변화를 본다.
-TEST taxonomy `v99.1`(코드 7 · 경계 2, 봉인)은 남고 재실행 때 재사용한다. **이 경계 2행 때문에 `rollback-pilot.sql` 은 정리 전까지 거부된다**(의도된 안전장치).
+TEST taxonomy `v99.1`(코드 7 · 경계 2, 봉인)은 남고 재실행 때 재사용한다(재실행은 생성 · 봉인 검사 5건을 건너뛰어 104건). `v99.0` · `v99.1` 은 **개발 DB 상시 fixture** 다 — seed 대상이 아니고 지우지 않는다(근거 `docs/csat-learner/codebook/SEED_DRYRUN.md` §1). **이 경계 2행 때문에 `rollback-pilot.sql` 은 정리 전까지 거부된다**(의도된 안전장치).
 
 ## 남는 것 · 지워지는 것
 

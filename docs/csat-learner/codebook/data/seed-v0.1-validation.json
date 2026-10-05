@@ -1,0 +1,177 @@
+{
+ "status": "PENDING_DECISION",
+ "pass": 30,
+ "fail": 0,
+ "pending": [
+  {
+   "what": "student_group",
+   "detail": "E.evidence_location → evidence(제안). §7 은 E 전체를 choice 로 두지만, 적용된 DB(20261003230000) · 코드북 rev4.2 §2 A1 은 학생 범주에 「근거(evidence)」를 따로 둔다 — §7 대로면 학생이 「근거」를 골랐을 때 대응 코드가 0 이 된다. 사용자 확인 전까지 seed 게이트 미통과"
+  }
+ ],
+ "checks": [
+  {
+   "area": "정본",
+   "name": "생성물의 코드북 해시 = 지금 코드북 파일",
+   "ok": true
+  },
+  {
+   "area": "정본",
+   "name": "코드북 판 = 결정의 codebook_basis(rev4.2 · c7001aff97b0)",
+   "ok": true
+  },
+  {
+   "area": "정본",
+   "name": "생성물의 결정 JSON 해시 = 지금 결정 JSON(다시 생성하지 않은 낡은 생성물 거부)",
+   "ok": true
+  },
+  {
+   "area": "결정",
+   "name": "사전 등록 결과 문구 유지(「rev4 did not pass the preregistered v0.1 seed gate」) — JSON · SEED_DECISION 모두",
+   "ok": true
+  },
+  {
+   "area": "결정",
+   "name": "이름 = v0.1 conditional seed candidate(validated · verified 표현 없음)",
+   "ok": true
+  },
+  {
+   "area": "결정",
+   "name": "규칙 상태 — R9 · R12 accepted, R6 provisional",
+   "ok": true
+  },
+  {
+   "area": "결정",
+   "name": "R6 rev4.4 없음(파일 · 금지 목록)",
+   "ok": true
+  },
+  {
+   "area": "결정",
+   "name": "retire 코드 없음(결정 retired = [])",
+   "ok": true
+  },
+  {
+   "area": "taxonomy",
+   "name": "버전 형식 ^v숫자.숫자$(probe 증거 CHECK 와 같은 형식)",
+   "ok": true,
+   "detail": "v0.1"
+  },
+  {
+   "area": "taxonomy",
+   "name": "TEST fixture 버전이 아니다(v99.* 는 개발 DB smoke 전용)",
+   "ok": true,
+   "detail": "v0.1"
+  },
+  {
+   "area": "taxonomy",
+   "name": "note 에 TEST 표시 없음 · conditional · 사전 등록 FAIL 명시",
+   "ok": true
+  },
+  {
+   "area": "코드",
+   "name": "개수 = 코드북 선언(19) = 19",
+   "ok": true,
+   "detail": 19
+  },
+  {
+   "area": "코드",
+   "name": "중복 없음",
+   "ok": true
+  },
+  {
+   "area": "코드",
+   "name": "형식 ^[VSREBX]\\.[a-z_]+$ · 축 = 첫 글자",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "area": "코드",
+   "name": "라벨 · 정의 · 포함 · 제외 모두 비어 있지 않음",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "area": "코드",
+   "name": "상태 — 모두 active(결정: 19개 모두 accepted · deprecated 없음)",
+   "ok": true
+  },
+  {
+   "area": "코드",
+   "name": "V.wrong_sense · R.inference 코드 자체는 active(경계만 provisional)",
+   "ok": true
+  },
+  {
+   "area": "코드",
+   "name": "student_group — B 는 NULL · 그 밖은 허용 범주",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "area": "코드",
+   "name": "학생이 고를 수 있는 범주마다 대응 코드가 하나 이상(학생 범주 보고가 막히지 않게)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "area": "코드",
+   "name": "정의 · 포함 · 제외가 참조하는 코드가 모두 이 판에 있음(폐기 · 다른 판 참조 없음)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "area": "경계",
+   "name": "개수 1 — 결정의 provisional 경계 하나뿐",
+   "ok": true
+  },
+  {
+   "area": "경계",
+   "name": "키 중복 없음",
+   "ok": true
+  },
+  {
+   "area": "경계",
+   "name": "r.inference__v.wrong_sense — 두 코드가 이 판의 코드",
+   "ok": true
+  },
+  {
+   "area": "경계",
+   "name": "r.inference__v.wrong_sense — 순서 고정(code_a < code_b, C 정렬) · 키 = lower(a)__lower(b)",
+   "ok": true
+  },
+  {
+   "area": "경계",
+   "name": "r.inference__v.wrong_sense — 상태가 DB 값(accepted · provisional · retired)",
+   "ok": true,
+   "detail": "provisional"
+  },
+  {
+   "area": "경계",
+   "name": "r.inference__v.wrong_sense — probe 는 provisional 에만 · 형식 ^[a-z0-9_]+$",
+   "ok": true,
+   "detail": "r6_derivation_probe"
+  },
+  {
+   "area": "경계",
+   "name": "r.inference__v.wrong_sense — decision_note 비어 있지 않음",
+   "ok": true
+  },
+  {
+   "area": "경계",
+   "name": "R6 경계 = R.inference ↔ V.wrong_sense · provisional · probe r6_derivation_probe · 자동 확정 금지",
+   "ok": true,
+   "detail": {
+    "status": "provisional",
+    "probe": "r6_derivation_probe"
+   }
+  },
+  {
+   "area": "경계",
+   "name": "provisional 경계는 R6 하나뿐(그 밖 경계를 provisional 로 만들지 않음)",
+   "ok": true
+  },
+  {
+   "area": "범위",
+   "name": "seed 입력에 outcome · candidate_codes · evidence_profile · 회차 · 판정 없음(런타임 값 — DB 제약 · smoke 가 검증)",
+   "ok": true
+  }
+ ]
+}
