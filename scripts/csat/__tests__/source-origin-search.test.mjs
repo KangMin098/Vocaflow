@@ -2,7 +2,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { alternativeQueries, documentFrequencies, searchSegments, provenanceRequests, localAlignment, buildOriginIndex, searchOriginIndex, classifySearchResponse, runProvenanceSearch, extractOaDocument, loadOaDocument } from '../source-origin-search.mjs'
-import { classifyOriginLane, bookQueryFamilies, makeBookPlan, bookCandidate, runBookBatch, retrieverStatistics, searchBookInside, pendingBookPlan } from '../source-origin-search.mjs'
+import { classifyOriginLane, bookQueryFamilies, makeBookPlan, bookCandidate, runBookBatch, retrieverStatistics, searchBookInside, pendingBookPlan, summarizeBookRun } from '../source-origin-search.mjs'
 
 test('routing treats notices and studies differently and never produces a source verdict', () => {
   assert.equal(classifyOriginLane({ passage: 'Dear visitors, register before the deadline and call us for admission tickets.' }).lane, 'report-web-likely')
@@ -39,6 +39,10 @@ test('book cohort is reproducible, unresolved only, and uses actual exam dates',
   assert.equal(pending.cohort.length, 0)
   assert.equal(pending.fixed_cohort_size, 1)
   assert.throws(() => pendingBookPlan(first, rows.map(r => ({ ...r, body_sha256_by_item: {} }))), /body changed/)
+  const edited = structuredClone(first); edited.cohort[0].requests[0].query = 'changed'
+  assert.throws(() => pendingBookPlan(edited, rows), /cohort SHA mismatch/)
+  const shrunk = { ...first, cohort: [] }
+  assert.throws(() => pendingBookPlan(shrunk, rows), /cohort SHA mismatch/)
 })
 
 test('candidate depth and later edition penalty never imply a reviewed attribution', () => {
@@ -65,6 +69,12 @@ test('bounded Books pagination and successful resume preserve request filters, r
   assert.equal(out[1].hits[0].candidate_rank, 41)
   assert.ok(!JSON.stringify(out).includes('not-to-log'))
   assert.equal((await runBookBatch(plan, { now: () => 'fixed', previous: out, fetchImpl: () => { throw Error('should resume') } })).length, 0)
+  const summary = summarizeBookRun({ ...plan, fixed_cohort_size: 50, already_resolved: 49 }, out, [])
+  assert.equal(summary.fixed_cohort_size, 50)
+  assert.equal(summary.already_resolved, 49)
+  assert.equal(summary.pending_targets, 1)
+  assert.equal(summary.cumulative_statistics[0].searched_targets, 1)
+  assert.equal(summary.cumulative_statistics[0].candidate_count, 43)
   const changed = structuredClone(plan); changed.cohort[0].body_sha256_by_item.x = 'new'
   let retry = 0
   await runBookBatch(changed, { now: () => 'fixed', previous: out, fetchImpl: async () => { retry++; return { status: 429, json: async () => ({}) } } })

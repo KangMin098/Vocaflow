@@ -165,3 +165,5 @@ Open Library/IA 내부 검색은 [공식 search_inside 설명](https://openlibra
 manifest의 book_lane_experiment에 retriever·candidate_rank·verification_depth와 후보/원작 verdict를 보존했다. metadata_only→indexed_text→preview_text→page_image→full_context는 읽은 범위 표시이며 깊이만으로 A 승격하지 않는다. 검색 후보는 unreviewed, 귀속은 현재 본문 SHA에 묶인 검수다. 표본·고정 50개·G 전량 점수/근거·실행/미실행·API와 reader 분리·신규 두 리뷰·원문 해시를 보존했다.
 
 두 행 preview ready→원천 변경 및 gap 591→589/next_action CAS를 같은 트랜잭션으로 적용→두 행 already_applied를 재검증했다. 전후 체크포인트는 회전 bloat 표본 대상 교체와 시간 지표 1분/0.01시간 변화 외 차이가 없었다. DB 통계 생성기 실행, 관련 회귀 **29/29 통과**. 마이그레이션·라우트 변경 없음.
+
+목적 리뷰 지적을 반영해 실행 전 고정 cohort identity SHA를 재계산한다. 질의 변경·대상 삭제 시 이전 SHA로 실행하지 않고 중단한다. 캐시만 사용한 재실행도 기존 로그의 누적 성과와 고정 분모·등록 완료·남은 대상 수를 출력한다. 질의 변조·대상 축소·캐시만 재개 회귀를 보강했고 29/29 통과했다.
