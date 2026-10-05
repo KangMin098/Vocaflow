@@ -21,12 +21,29 @@ const adaptations = ['middle1', 'high1'].map(dir => {
   const template = templates[0]
   const example = pilot.find(row => row.id === `F02-${dir}`)
   if (!example || input.reading.target_key !== draft.reading.target_key ||
-      example.text !== draft.text || example.target_key !== draft.reading.target_key)
-    throw new Error(`F02 ${dir} export, completed draft, review template, or pilot mismatch`)
+      example.target_key !== draft.reading.target_key ||
+      input.reading.source_hash !== source.reading.source_hash ||
+      !binding.draft_hash)
+    throw new Error(`F02 ${dir} export, completed draft, review template, or source mismatch`)
+  const profile = draft.reading.reading_analysis.passage_profile
   return {
     id: example.id, target: draft.reading.target, target_key: draft.reading.target_key,
     title: draft.title, text: draft.text, reading_analysis: draft.reading.reading_analysis,
-    source_rights: draft.reading.source_rights, source_attribution: example.source_attribution,
+    source_rights: draft.reading.source_rights,
+    source_attribution: example.source_attribution.replace(
+      'Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question.',
+      dir === 'middle1'
+        ? 'Changes: shortened the vision/touch comparison with packet and walking examples; omitted survey, brain, and culture arguments; designed 3 target-specific question plans.'
+        : 'Changes: shortened the vision/touch comparison with online-response and touch-loss examples; omitted brain and culture arguments; designed 4 target-specific question plans.'
+    ),
+    difficulty_evidence_bundle: {
+      lexical: profile.lexical_level,
+      syntax: profile.syntax_level,
+      information_density: profile.information_density,
+      discourse_structure: profile.discourse_level,
+      inference_load: profile.inference_level,
+      background_knowledge: profile.background_knowledge,
+    },
     review_binding: Object.fromEntries(['source_id', 'source_revision', 'source_hash', 'target_key', 'target_hash', 'draft_hash'].map(key => [key, template[key]])),
   }
 })

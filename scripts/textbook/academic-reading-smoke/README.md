@@ -1,5 +1,23 @@
 # FYM F02 reading smoke 재현
 
+## F02 새 hash 재검수 (2026-10-05)
+
+[수정 층위·결과](../../../docs/reports/academic-reading-f02-revision-20261005.md). 아래 절차는 이전 smoke의 `replay` 원본 청크를 보존하고, 현재 DB 원문을 별도 작업 폴더에 다시 export한다. `revise-f02.mjs`는 원문 hash/revision과 두 target key가 이전 실행과 같지 않으면 중단한다. 원문이 바뀌었으면 임의로 기존 초안에 새 원문을 붙이지 말고 근거를 다시 분석한다.
+
+```powershell
+$work = '.agent-logs/academic-reading-f02-r2'
+$common = @('--source','frym','--research-origins','scripts/textbook/academic-reading-smoke/f02-origin.json','--preservation-rules','scripts/textbook/frym-precision/preservation-rules-1.json','--precision-review','scripts/textbook/frym-precision/round-1.json','--limit','4','--size','4')
+pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target scripts/textbook/targets/knowledge-middle1.json @common --dir "$work/middle1"
+pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-drain-export.mjs --target scripts/textbook/targets/knowledge-high1-simple.json @common --dir "$work/high1"
+node scripts/textbook/academic-reading-smoke/revise-f02.mjs $work
+pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/academic-reading-smoke/measure-f02-lexicon.mjs $work --apply
+pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-review-export.mjs --dir "$work/middle1"
+pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/adapt-review-export.mjs --dir "$work/high1"
+pnpm.cmd exec tsx --tsconfig apps/web/tsconfig.json scripts/textbook/academic-reading-smoke/build-review-packet.mjs $work
+```
+
+어휘 측정기는 DB의 `shared_dictionary`를 **읽기만** 한다. `--apply`는 `reading_analysis`에 측정 설명을 넣어 draft hash를 바꾸므로, 그 뒤 review export/packet을 다시 만들어야 한다. 중복 적용을 피하려면 `revise-f02.mjs`부터 다시 실행한다. 생성된 `F02-review-packet.json` 하나를 Claude Code와 Codex에 각각 독립적으로 전달하고 [동일한 판정 계약](./review-prompt.md)에 맞는 결과를 `$work/claude-f02-complete-review.txt`와 `$work/codex-f02-complete-review.txt`에 저장한다. 첫 smoke와 같은 `fill-reviews.mjs`, 두 target의 `adapt-drain-import.mjs`(**`--commit` 없이**), `run-injections.mjs` 순서로 확인한다. 원문 전문·검수 원문은 ignored 작업 폴더에만 둔다. `educational validation required before DB seed`는 정상적인 사람 평가 대기 상태다.
+
 이 디렉터리는 [2026-10-05 결과](../../../docs/reports/academic-reading-smoke-20261005.md)를 다시 만드는 입력 구성기와 실패 주입기다. 추적된 `f02-origin.json`은 DOI·인용·원천 hash/revision 메타데이터만 담는다. FYM 본문 전체는 현재 DB에서 읽어 ignored `.agent-logs` 아래에만 둔다. 원천이 바뀌면 기존 hash에 맞추어 고치지 말고 smoke를 새 회차로 다시 검수한다. 모든 명령은 읽기 전용 DB 접근 또는 로컬 파일 쓰기이며 `--commit`을 붙이지 않는다.
 
 PowerShell에서 저장소 루트를 현재 디렉터리로 놓고 **빈** 작업 디렉터리에 실행한다.
