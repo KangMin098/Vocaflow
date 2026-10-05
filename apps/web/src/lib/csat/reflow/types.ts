@@ -81,6 +81,10 @@ export interface ReflowItem {
   inline: boolean
   /** 쓸 만하게 뽑혔나. false 면 화면은 크롭 폴백으로 간다. */
   ok: boolean
+  /** 문자 추출에서 사라지는 밑줄 범위·도표를 원본 크롭과 함께 확인해야 하는가 */
+  needsOriginal?: boolean
+  /** 이 추출에서 원본 영역 렌더링도 실패했나(단순 탭 메모리 소실과 구분). */
+  originalUnavailable?: boolean
   /** ok=false 의 이유(닫힌 목록 — 계측으로 나간다) */
   reason: ReflowFailure | null
   boxes: ReflowBox[]

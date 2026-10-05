@@ -108,7 +108,20 @@ type Scanner = {
  *   셋 다 상한이 수십 행인 표의 수동 1회성 손질이다. 일괄 upsert 는 shared_word_sets 의 NOT NULL 열 때문에
  *   INSERT 경로가 깨질 수 있어 단건 UPDATE 가 더 안전하다(쓰기 폭주가 날 규모가 아니다).
  */
-const BASELINE = 140
+// 137 → 138 (2026-10-04): scripts/csat/corpus-sync.mjs 의 지정 원문 수리.
+// 전량 upsert 대신 정답·선지·raw_block을 보존하는 passage/body_ok PATCH가 필요하다.
+// --items 최대 100개, 순차 실행·매 쓰기 뒤 350ms 대기(초당 최대 2.86건),
+// 옛 passage CAS로 동시 수정 덮어쓰기를 거부한다. 이번 실측 대상은 31개다.
+// 138 → 139 (2026-10-04): scripts/csat/source-repair.mjs 의 PDF 대조 정본 수리.
+// 한 계획 최대100문항, CAS순차 PATCH 뒤350ms 대기(최대2.86건/초).
+// 정답·유형·원본블록을 유지하고 PDF해시와 기존모든필드가 일치할 때만 쓰므로
+// 전량동기화 대신 지정 수리를 쓴다. 실제 적용103문항·단위104행이며
+// 추가 수리로 대체된 옛 계획은 재실행에서 현재 입력 충돌로 거부한다.
+// 140 · 139 → 143 (2026-10-05, feat/ec-smoke 에 main 병합 — 스캐너로 양쪽과 병합 결과를 파일별로 다시 셈):
+//   공통 조상 137 · 이 브랜치 141(위 137 → 140 의 셋 + 아래 하나) · main 139(위 corpus-sync · source-repair) — 겹침 없음.
+//   +1  scripts/csat/error-evidence/dev-smoke/smoke.mjs  학습자 계정의 csat_ec_* 9표 DELETE 가 RLS 로 거부되는지 보는 확인 루프.
+//       실제로 지워지는 행은 0 이고 표 수(9)로 고정이다. 이 브랜치에서 들어왔는데 기준선을 안 올려 브랜치가 이미 141 > 140 이었다.
+const BASELINE = 143
 
 let scanner: Scanner
 
