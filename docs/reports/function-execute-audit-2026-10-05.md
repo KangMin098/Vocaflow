@@ -93,6 +93,15 @@ proacl: `{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_r
 - 보조: service_only 함수가 앱 학습자 경로(`lib/supabase/client|server`)에서 `.rpc()` 로 불리면 정적 검사 실패.
 - canary 쪽: `csat_source_snapshot_take` 계약을 manifest 에서 `none` 으로 유지(이미 반영) — 쓰기 함수는 탐침하지 않는다.
 
+## 리뷰 상태 (Codex Stop 훅)
+
+- 1~3회 수행 · 상한 3회 도달(14:28:50Z `round limit`) — **최종 clean review 미확인**. 「NO_FINDINGS」 로 기록하지 않는다.
+- 1회 P1(목적 이탈: 개발 DB 적용 스크립트) — `.agent-goal.md` 가 ① 승인 전 문구라 생긴 오탐, 목적 파일 갱신.
+- 1회 P2(롤백이 정방향 GRANT 를 남김) — 반영(758bfe1bb).
+- 2회 P1(로그인 세션 스크립트의 검수자 RPC 를 service_only 로 오분류) — 반영(13a8a52f3). P2(canary 소유 기록) — 현재 코드는 이미 insert 성공 뒤 기록, scratchpad 폐기 파일을 본 오탐.
+- 3회 P2(snapshot_take 의 `call: none` 해제) — 커밋된 manifest 는 `none` 유지, scratchpad 폐기 파일 `round4.cjs` 를 본 오탐. 폐기 `round*.cjs` 삭제 · 코드/manifest 변경 없음.
+- hook.log 에 위 세 회차 외 P0/P1 없음. 단 회차마다 파일 상한(MAX_FILES=8)으로 8~11개 파일이 **미리뷰**로 넘어갔다 — 권한 수정 마이그레이션 승인 전 `node agents/scripts/review.mjs` 로 전체를 한 번 더 본다.
+
 ## 함수 목록
 
 ### anon 실행 가능 · definer · 쓰기 — 예상 밖 (17)
