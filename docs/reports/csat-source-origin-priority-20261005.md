@@ -330,3 +330,23 @@ node scripts/csat/source-origin-search.mjs --public-metrics <fixed-plan.json> <c
 
 관리자 조사 공백 항목도 직접 질의했다. `knowledge_gaps.affected_count=589`와 실제 G579의 차이를 확인해 전 상태와 origin 실제 집계에 묶인 CAS로 **공백 1행을579로 동기화**했다. 아직 미확인579개가 있으므로 open을 유지하고 현재 다음 작업을 기록했다. `csat-public46-gap-20261005` 전후 checkpoint의 차이는 회전 bloat 표본만이었으며, 같은 트랜잭션 재실행은 변경 없는 성공이었다. 판정·원문과 별개인 조사 상태 동기화이며 확보 수를 늘리지 않는다. before/after는 manifest `registry_gap_sync`에 보존했다.
 집계 종료 검증을 보강했다: 후보의 모든 적용 경로가 checked/unavailable/not_applicable 상태여야 하며 pending 경로는 종료를 거부한다. discovery 판정도 최신 등록 상태와 대조하고, 승격 이벤트는 frozen discovery B 후보 ID 또는 본문 해시에 묶인 기존 B 서지 후보 ID와 대조한다. 보강 후 동일 수치 재집계 및 회귀 44개 통과.
+
+### Books 증분 실험 기준선
+
+공개 원문 종료 후 같은 50개·161질의를 보존했다. DB 재조회는 A+B133/713·G579로 이전 종료 상태와 같다(C1 별도). HTTP 호출 전 공개 종료 기준선과 연결 본문 SHA를 검증하며, 기준선 해시는 `839ff7134575746f6817abb40cc56d22fa8cc871f307b9a089903d9539c03c2b`이다. [고정 기준선·상태·미실행 집계](./csat-source-origin-books-incremental-20261005.json)를 저장했다. 키·키 일부·키 hash는 저장하지 않았다.
+
+- 등록12개는 검색 control이며 신규 발견/등록 성과에서 제외한다. G38 중 공개소진37개와 유력 미검증1개를 보존한다. API pending은 공개소진과 함께 존재하는 별도 속성으로 둔다. 이 상태는 로컬 실험 원장이고 DB 등급 변경이 아니다.
+- 같은 public_fulltext 구절은 재실행하지 않는다. Books/Semantic 등 새 허용 retriever는 동일50개를 조사하며, 예전 후보 ID·검수한 alias/work ID는 재발견으로 제외한다. 판본별 ID가 다른 경우 별도 원작 여부를 검수해 alias를 기록해야 한다. 메타데이터만으로 유력 판정/원작 동일성을 자동 확정하지 않는다.
+- Books 신규 후보 hit는 공개 미등록 문항 중 새 top-N 후보가 있는 문항/50이다. 신규 A/B는 해당 신규 후보 때문에 **실제 등록된 문항/50**이다. 검수 precision은 이 신규 후보 검수의 A+B/검수 후보이며 대조군 후보를 분모에 섞지 않는다. 질의당 추가 확보는 정상 완료 질의/신규 A+B 문항이다. 재시도는 질의 분모에서 중복 제외한다. 정상161질의 미완료이면 hit 비율은 null, 신규 후보 검수 미완료이면 A/B 비율은 null, 추가 A/B0이면 질의당 확보는 null이다.
+- `plausible_candidate`는 검수자가 기록한다. 신규 유력 후보 문항5개 이상은 Books 확장 검토, 2–4개는 학술 cohort 준비, 0–1개는 다음 허용 lane 검토로 둔다. 이 기준은 운영 임계값이며 자동 확장이나 전체579개 수율 예측이 아니다. 기존8/10은 선택된 후보10개의 관측치이며 ranking model 정확도가 아니다.
+- B 정기 재탐색은 중단했다. 동일 문항·본문 SHA·후보 ID에 새 edition/pdf/page_image/original_snippet evidence ID가 생길 때만 `promotionEvidenceEvent`로 적격을 판단한다. 이미 본 evidence ID는 재검수하지 않는다. 별도 스케줄러/DB queue는 추가하지 않았다.
+
+로컬 자격 점검은 `credential_present=false`, `project_present=false`였다. 아래 smoke 진입을 실제 CLI로 확인했으나 자격 gate에서 HTTP0으로 종료했다. **Books eligible0·completed0/161·증분 비율null**이며 smoke 성공이 아니다. Semantic은 기존 `pending_license`를 유지했다. 공개 도서 검색은 사용자 OAuth 없이 API key로 애플리케이션을 식별할 수 있다([공식 Books 문서](https://developers.google.com/books/docs/v1/using)); 현재 실행기는 감사 목적의 프로젝트 식별도 요구한다.
+
+키를 `.env.local`의 `GOOGLE_BOOKS_API_KEY`, 프로젝트 ID를 `GOOGLE_BOOKS_API_PROJECT`로 설정한 뒤 최신 본문을 재조회하고 같은 로그 경로로 실행한다. 첫 단계가 성공한 뒤 `--stage canary`, 이어 `full`, 실패 질의만 `retry`로 진행한다. 기준선은 새로 만들지 않는다.
+
+```powershell
+node --env-file=D:/workspace/Vocaflow/apps/web/.env.local scripts/csat/source-origin-search.mjs --books tmp/csat-origin-priority-20261005/book-lane-plan-v2.json tmp/csat-origin-priority-20261005/books-incremental-20261005.jsonl tmp/csat-origin-priority-20261005/books-incremental-fresh.json --benchmark --stage smoke --public-baseline docs/reports/csat-source-origin-books-incremental-20261005.json
+```
+
+`*.incremental-review-queue.json`만 신규 검수 대상으로 사용한다. 일반 `*.review-queue.json`은 대조군을 포함한 검색 검증용이다. 후속 원문 preview/PDF/공개 chapter에서 A/B가 나와도 discovery는 Books로 귀속하고 verification 경로를 따로 기록한다. 원문 등록은 기존 hash-bound preview→transaction→재검증을 유지하며 이번 작업에서 DB 쓰기·마이그레이션은 없다.

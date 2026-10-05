@@ -1,5 +1,7 @@
 # Library Pipeline
 
+2026-10-05 Books 증분 기준선: 공개 원문 종료 50개(등록12·공개소진37·유력미검증1)를 동결했다. 기존12개는 신규성과에서 제외하며 새 후보 ID/검수 alias·본문 SHA를 대조한다. Books key/project 미설정으로 HTTP0·eligible0·completed0/161, 증분 비율은 null이다. 공개소진 재검색은 반복하지 않고 B는 새 증거 이벤트에만 재검수한다. [증분 정의·재개](./reports/csat-source-origin-priority-20261005.md#books-증분-실험-기준선).
+
 2026-10-05 공개 원문 종료: 고정 50개·161질의를 보존하며 남은46개 기존구절146개를 전부 평가했다. A4·B4 신규등록으로 전체133/713(A102·B31)·G579, cohort 누적12/50. B6 승격검수는 A승격0이며 Cajal 영어전사 근거만 보강했다. 이번46개 후보10개 중8개 등록·평균10/46, 과거 후보 분모가 없는50개 전체 후보수율은null. Books/Semantic은 eligible0·completed0/161로 비교미완료다. [종료 범위·전이·재개](./reports/csat-source-origin-priority-20261005.md#공개-원문-46개-종료).
 
 2026-10-05 원문 출처 후속: 고정 50개·161질의와 기준선을 보존했다. Books는 API key로 공개 데이터를 검색하며 OAuth consent는 불필요하다. Semantic은 자격과 사용 목적·라이선스를 별도로 확인하고 unresolved이면 호출하지 않는다. smoke 1개(후보 저장 없음)→canary 5개→full/retry를 같은 고정 질의로 실행한다. eligible·blocked_credentials·blocked_license·completed를 분리했다. 두 API 모두 eligible 0·completed 0/161이며 Semantic blocked_license 161이다. public_fulltext 48개 탐색에서 독립 B 2개를 등록해 현재 125/713·G 587, cohort 미확인 46개다. API A/B 실적은 0이다. [상태·근거·재개 절차](./reports/csat-source-origin-priority-20261005.md#자격라이선스-분리와-공개-원문-후속-조사).

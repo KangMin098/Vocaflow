@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- CSAT Books 증분 benchmark: 공개 종료50개/기존등록12개 기준선을 SHA로 동결, 신규 후보·실제 신규 A/B·검수 precision·질의당 확보를 분리했다. 공개소진37개 재검색 방지와 새 증거 기반 B 승격 적격을 추가했다. 키 미설정으로 실제 API는 0/161 미실행이며 DB/마이그레이션 변경 없음.
+
 ### Added — 소스 후보(BulkFetch) 큐레이션 메타 배치 JOB (2026-06-01)
 
 - **목적**: `/admin/curation` "소스 GET(대량)" 탭의 `library_seed_catalog` 후보(1,484건, ingest 전)에 큐레이션 선택용 메타가 없음 — 유형·연령·인기도·학습 도움·난이도·줄거리. admin 큐잉 → Claude Code 배치 drain 패턴으로 추가.

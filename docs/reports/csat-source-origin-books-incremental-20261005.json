@@ -1,0 +1,978 @@
+{
+  "protocol": "books-incremental-v1",
+  "baseline": {
+    "cohort_sha256": "26e37b254b5500af979b25527bc94eb93e74b12e113a6d83781cb98ca8dcdb82",
+    "rows": [
+      {
+        "representative_item_id": "2025#29",
+        "passage_sha256": "094242797efd12e550e0cb5705c10f12411980d465d04ed830d4f0609491b9be",
+        "body_sha256_by_item": {
+          "2025#29": "9007204d32289e096d65a447ed4f1dbe340911d167946123c3397c3ad0e35709"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2021#32",
+        "passage_sha256": "76e98829c660d9c88034b3f20110bc38497fd07ef9cbd4f3e5207021edc3037c",
+        "body_sha256_by_item": {
+          "2021#32": "340b86cc338b90d4592fa13fb232afb75d163d327383840dd33b355536915e2b"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2024#23",
+        "passage_sha256": "9255f01819f873ff65b6dc975d77e5c918105388f91f05b0945805dcd963e246",
+        "body_sha256_by_item": {
+          "2024#23": "32d5009baa37bf8067606ee59a5908795a8641984157e307e5f7ea445e83c312"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2020#30",
+        "passage_sha256": "7fc4c9bb033342e89af4c63b501ef33f705c4d9bef144df4729629303f714384",
+        "body_sha256_by_item": {
+          "2020#30": "d5f2db2cd7a6047afc454b552c9fe80ae915d8bd53100c22e1ac2cf688cc6fa5"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2021#37",
+        "passage_sha256": "103c4bde8fe074d06030ff8ef0d16d7f4edef9e0b858b7757402fca1a38d5b27",
+        "body_sha256_by_item": {
+          "2021#37": "9539f4e4ba964e6018f7de2aa8bddce4d79cb666f11b695329c5ff9067c1e745"
+        },
+        "status": "confirmed_exact",
+        "disposition": "found",
+        "known_candidate_ids": [
+          "eforenergy:WP01-2014"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2024#24",
+        "passage_sha256": "59d82df509cfd425d55764863aac62f31eaf7fa5a9e35ce33db2d996f91a2c13",
+        "body_sha256_by_item": {
+          "2024#24": "cdab92872c70905307c3a667afec8593e0bb14183f58c07beb9857c91f88f5b0"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014B#32",
+        "passage_sha256": "4f701efbd9b9bc8a52f6741d750a9fc6c05f4419956fdee1c317263350bbe54a",
+        "body_sha256_by_item": {
+          "2014B#32": "3cb83736db1cbfbb178df824e11e9dbe50c6d9a60dd0ec4ecb66bf3c2529852e"
+        },
+        "status": "confirmed_exact",
+        "disposition": "found",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2018#33",
+        "passage_sha256": "28688a9cadbc0023778ec7d2b7c828dc3e28b442ecf047e0ac0770c9752b9a8d",
+        "body_sha256_by_item": {
+          "2018#33": "8d12ad2ae5f186e7b9c1c523d6dd950899bd6e05181ed02c1ac50709e99230b6"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2021#41",
+        "passage_sha256": "67d276c17539917fe1c85d31f14d459ddaf0844393d6e090e66e608c3cb1c899",
+        "body_sha256_by_item": {
+          "2021#41": "6cd7a7e323112aaae22df700a9ab62cef851d623028dc2ca6c05054974bd97bc",
+          "2021#42": "6cd7a7e323112aaae22df700a9ab62cef851d623028dc2ca6c05054974bd97bc"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [
+          "pinker:how-the-mind-works"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014B#40",
+        "passage_sha256": "56638cefc35ca63aba40b512eb633aeb84f9cac6736bbe3c3b89a10db460608e",
+        "body_sha256_by_item": {
+          "2014B#40": "687d24f557f53ea2b158c4c88344f6cf33aa4012742488c7942612eeb4f7f344"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2016#31",
+        "passage_sha256": "dc54370ae91b11139e647d78514c93160d56960ea0569b86f06cf7f108a332e5",
+        "body_sha256_by_item": {
+          "2016#31": "e6f7c35a0bac9361690d8ad84b0cc7b27760017aa98d4834e680ea667596eead"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2016#36",
+        "passage_sha256": "22d2cdfdb90d311d4721602b0e65606b1e896bbec310e3317fb3d1ef374a348a",
+        "body_sha256_by_item": {
+          "2016#36": "6b5b607631ef266cf060e823f0e0b4c0af4091ec117d658fa362c2c86e10dc7f"
+        },
+        "status": "confirmed_exact",
+        "disposition": "found",
+        "known_candidate_ids": [
+          "morris-maisto:understanding-psychology:9"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2024#39",
+        "passage_sha256": "3086545d059757755d2e45567c727a9e92abf128137f2924c4240e98434329c6",
+        "body_sha256_by_item": {
+          "2024#39": "b6dee9936bad982798b9d132a47b8ee72da276f63f1db09fe0b2dc7edcbb3714"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2018#35",
+        "passage_sha256": "19adb721155ae4d8d6109bb52429cf6b34673b24f7e3b585ba0c6a2c44debf33",
+        "body_sha256_by_item": {
+          "2018#35": "5ec348e5f155ff01bcc96446076fdd796afe656f0e449d3c0f8c918ef1b6b3fa"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2020#40",
+        "passage_sha256": "a89e85eb24c9eb78dbab648edee5847ae4b55ae3789c9ed880bc7a671ce46ba1",
+        "body_sha256_by_item": {
+          "2020#40": "adeb9485e12b1d54446d8265f967790966f2a14a2dc340bbd78271a50c9edd23"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2023#24",
+        "passage_sha256": "7b048a0db22efcc587b0427b1a3291e19986dd247b050a3b202a3ce13a87a41f",
+        "body_sha256_by_item": {
+          "2023#24": "d4decef8f0e3365c48d69878d4639134ef28eb5468df2f0bbb208b6d97356a32"
+        },
+        "status": "supported_candidate",
+        "disposition": "found",
+        "known_candidate_ids": [
+          "kalat:biological-psychology"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2023#33",
+        "passage_sha256": "ab86555189fca7382322dc427223126b969804abefa39d740392d4b35ed8e287",
+        "body_sha256_by_item": {
+          "2023#33": "f0c22ca56ded366812103802c81f156174761820beffd42b7b729f36ab1a2c69"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2023#41",
+        "passage_sha256": "29ba0da08fb93d5ea383d6b9fc14a1a4a6d54769edb740e67025428ccbabb411",
+        "body_sha256_by_item": {
+          "2023#41": "24d8206112698b831b9e99c60cfd09c12f3db3caf47a9a1fb9c46a1965182e08",
+          "2023#42": "24d8206112698b831b9e99c60cfd09c12f3db3caf47a9a1fb9c46a1965182e08"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2025#22",
+        "passage_sha256": "62275f3aa64d43cf85a9e43903a1b73317e4ead3af432fc928bcaa16d8c7b6ba",
+        "body_sha256_by_item": {
+          "2025#22": "93dad6b995aa7f91db1de4970f9a27d4c146356224cbd87e3373cbedde0450fa"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2025#30",
+        "passage_sha256": "98c6bba9619f4f3d38191740323b6755871bdebbf16ea11db4f15b230278ad07",
+        "body_sha256_by_item": {
+          "2025#30": "3a61942b7a443029f470c16295efb859acd62145d80ec61d2068d365223cc3ab"
+        },
+        "status": "confirmed_exact",
+        "disposition": "found",
+        "known_candidate_ids": [
+          "oxford:9780190060800:ch2"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014A#35",
+        "passage_sha256": "cf2f90fde16c574d28fb5681299101f12856531a973a3e9641aa9c494a34daf6",
+        "body_sha256_by_item": {
+          "2014A#35": "10b90fa221eb850c5d7ab34c2024f4e5deb36b839459f429d4c6c6be340f4e4a",
+          "2014B#31": "10b90fa221eb850c5d7ab34c2024f4e5deb36b839459f429d4c6c6be340f4e4a"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014B#25",
+        "passage_sha256": "3b463eb9d059cf39c731287c663e4abc8d136fd0444dc52106b5caf9e544680e",
+        "body_sha256_by_item": {
+          "2014B#25": "4029b6df44a81bed41e5ca3b72849d9de2ca636a6afd24e5e9a2546924e5dc32"
+        },
+        "status": "supported_candidate",
+        "disposition": "found",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2016#23",
+        "passage_sha256": "7b227864fe7e9f30e400c3e9dec8782d0308a711ed9b8485758f41443871bba0",
+        "body_sha256_by_item": {
+          "2016#23": "660e8be91a92332c1da319c1481c6a7e83ad15b368a70970a4d6dac7eb8579c6"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2019#29",
+        "passage_sha256": "edb7ecc3db22b69313910bf654d9ca3a2bc00ec643dc45a2540e5f628672c300",
+        "body_sha256_by_item": {
+          "2019#29": "a1896b854dfb4e593386f203bc1522aae8fff59132bbb110a5007451098ebe34"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2021#35",
+        "passage_sha256": "930f3805119f003540d008f5d8b16f50e9e46d27aa6c9cd0be0781ac75913529",
+        "body_sha256_by_item": {
+          "2021#35": "7a737545c849e4caccb92fc1adaadde0b903ff36d6491723596cf8da6461a866"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2024#30",
+        "passage_sha256": "d7b379cd5dac82514f5b6f50ae47fc90dc0449341f4a0d19306383355d310ab4",
+        "body_sha256_by_item": {
+          "2024#30": "d7134bc5fa4ac3e3317bc8bb8ef12a4b4139e1362a6f6acba44361e4d62c5562"
+        },
+        "status": "supported_candidate",
+        "disposition": "found",
+        "known_candidate_ids": [
+          "deka:traders-and-tinkers:2023"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2024#37",
+        "passage_sha256": "f1c3a33a21d4a32bc642d731c565a4fb157d19e5fde3ddd2c9c942274df29627",
+        "body_sha256_by_item": {
+          "2024#37": "cffeef7e0b4e2dc38d6d82cb171c11615281193c0c773d7781665d1d01b7a70f"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2026#32",
+        "passage_sha256": "6560bb686256b10234d21bb9c9c550ae286e02a220a1448bab6816e434469884",
+        "body_sha256_by_item": {
+          "2026#32": "9d812cca3218dba760e385f93a9fef4b2f17ffe447bd421c743fb616d2506963"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014A#26",
+        "passage_sha256": "ac288994bc2e79223c462cb94d1fd903f85150c22d05f0862b56ec71dcfe079a",
+        "body_sha256_by_item": {
+          "2014A#26": "060f4fbe740d482a5d4dc4cfc8e25dc70855573accc36aa2a845a705ca1b4489"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2016#32",
+        "passage_sha256": "8f4cbb701c09cef05ba709190e45e76172499fb760158dff2d2375b097b89110",
+        "body_sha256_by_item": {
+          "2016#32": "b955ce662a1d66ba6929364b907647b0e93e62e245e7ebb6b28e1b1d4a3049f0"
+        },
+        "status": "confirmed_exact",
+        "disposition": "found",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2018#40",
+        "passage_sha256": "357d69d71affe27f11bacfa63e209d7798a2ffe59a2b629dcb0750762bec0fc1",
+        "body_sha256_by_item": {
+          "2018#40": "b244def9bba41e25e7d9087fea47e53667a2a968d7ebb6c13a89f4f3b9c3b254"
+        },
+        "status": "confirmed_exact",
+        "disposition": "found",
+        "known_candidate_ids": [
+          "david-foray:knowledge-society:2003"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2019#20",
+        "passage_sha256": "85ce918ae9420c802c603890d4bffbd44b09d8206807ae90560979383bed7475",
+        "body_sha256_by_item": {
+          "2019#20": "32e41c7f394cc92eef08226c052bda5e486ce875e96cb4cdbdbe5130cf6db499"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2019#22",
+        "passage_sha256": "f756c1016adca308ca7a094afbff57033e8af25b9958941a78adb8253502528b",
+        "body_sha256_by_item": {
+          "2019#22": "e40c3cf6f9d2ac87af59c9bed0279b9999f92dee3cc368bce6c42303c826b75a"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2020#38",
+        "passage_sha256": "bb9a164fd53eedd9c28a50e541b573b0e7506200d163625431162cdc83ecdb0d",
+        "body_sha256_by_item": {
+          "2020#38": "11b3c92b8b72065595185aecb8b0868e158e776f905fa58d1a0535c195c75401"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014A#36",
+        "passage_sha256": "5b0721f07701286f7b59f46fd0b13ac397dc448edc72300796f019f499479f49",
+        "body_sha256_by_item": {
+          "2014A#36": "3c68be56465243372dd21fbbdab06d6efd4852958bd09f58fb7a2a177a326d10"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014A#38",
+        "passage_sha256": "40a87ec96079474ed296e5c082b4aa2632ee7e973843e7ad2af99b6dea8ae571",
+        "body_sha256_by_item": {
+          "2014A#38": "7a746c355560273bd2d2987c69a4d298be7959860a3ef9bc21a816e11aeb5ba3"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014A#41",
+        "passage_sha256": "c0374597c7ffee3f50e69f99de4fdd23a3a48382e9b587a52dd9da47a94253dc",
+        "body_sha256_by_item": {
+          "2014A#41": "e29d4b209df7370fee00de9228000298f643ef005c08261fec84f660f44a9c87",
+          "2014A#42": "81d922e511ec83c6f869b0c8a71d7558188695475736b2389ace406ad56b59b9"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014B#24",
+        "passage_sha256": "393260e9eeb1b4f9e404243c400a0eccc58b12beb4806558afb47dab3cf7bd6b",
+        "body_sha256_by_item": {
+          "2014B#24": "a6aa100e8c9abf61656b54cafd3a0bb692ccc7d8fd931875527f0f895fad3bf0"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014B#27",
+        "passage_sha256": "304a0cba20273c270e7acb668cbbbe3657b402b445a63532f129d0ecfc0b2941",
+        "body_sha256_by_item": {
+          "2014B#27": "e20c5f186609be5ed2a6a4998661554803f20ccf9893b41eddf70015ced8dc4c"
+        },
+        "status": "supported_candidate",
+        "disposition": "found",
+        "known_candidate_ids": [
+          "carper:stop-aging-now"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2015#36",
+        "passage_sha256": "bfeede0deba1d57968abf59948754e1ca5e91af749f049315a67a1be269decea",
+        "body_sha256_by_item": {
+          "2015#36": "7e7c6ab64bdba107f6bccf1cd387607b908a4da8fad53cac6e43120589e29a86"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2019#37",
+        "passage_sha256": "87cc46991cd73b834925e7eb2d5c6eca34e3dfe496eea36aca3a4d8b381d3cf7",
+        "body_sha256_by_item": {
+          "2019#37": "dbeff8dfbb91ac9e1082d67e11711a8477faf039274b44a33cec358d45b1e820"
+        },
+        "status": "supported_candidate",
+        "disposition": "found",
+        "known_candidate_ids": [
+          "reisberg:cognition:6"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2024#40",
+        "passage_sha256": "ac32ca2dbb494d73055dbbe9cb2e3929dcc40d2fde6d99554ac95cac9cc564b5",
+        "body_sha256_by_item": {
+          "2024#40": "dad2b837edac9ce91f9d90c6ff692d2ad1232f399981f6389c46027d8c5d292f"
+        },
+        "status": "supported_candidate",
+        "disposition": "found",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2025#34",
+        "passage_sha256": "e752f02be97235cd317e1e0a91b701798ec141225853aaff1a7296eab9bceb06",
+        "body_sha256_by_item": {
+          "2025#34": "af7800ff606a59278a9bebfe5495abc635164801d7b7bd5044075aba335b3903"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2025#40",
+        "passage_sha256": "ec3a23dbd894f6b328164706efe76a3516960b164f35660a8b87cc0866f33006",
+        "body_sha256_by_item": {
+          "2025#40": "bf117c0516dde82ca8366686254eb432d0eb1f73c3af442dc1d538cd41ae46b4"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2025#41",
+        "passage_sha256": "580a55efc0f2e85ec30c4878afe0d86fb5f5afbeef8eedc425eca56574a1b2c5",
+        "body_sha256_by_item": {
+          "2025#41": "a262ba7c2eea4b32003ca802cb7d3b97434ff3ad5771af44eb30977feea7c867",
+          "2025#42": "a262ba7c2eea4b32003ca802cb7d3b97434ff3ad5771af44eb30977feea7c867"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2026#30",
+        "passage_sha256": "7605bcaba6bed848372a951751dfcb9db0ee31cfd8ff2faa6c5b0635ef781269",
+        "body_sha256_by_item": {
+          "2026#30": "304f6ef28c1ae9340bc8d5d82625e28fdf6aa2f02b32736797b3c420408006c2"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2014A#34",
+        "passage_sha256": "c9c105e035532694e50b259fa8f6475753a8cdad5b899ea83de140ff929a9f27",
+        "body_sha256_by_item": {
+          "2014A#34": "d618318f398d91537f2e5acc625583c5ddf090f1f36f82534e42f1c54870db1f"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2016#41",
+        "passage_sha256": "e955bccb795984736ba3c85c9c77d1d32b0f6b429e50faaa60cfa3dd65d252da",
+        "body_sha256_by_item": {
+          "2016#41": "1caef9ea402a8b6d6af558b3e384b8b9651036a56bf5a9ccc8010e01be606a66",
+          "2016#42": "960122afb9efba7788ae383f7f4e1df0e23a02b3d1514ff10eaf380216dde42f"
+        },
+        "status": "unresolved",
+        "disposition": "plausible-but-unverified",
+        "known_candidate_ids": [
+          "seeds-backman:astronomy:6"
+        ],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2017#21",
+        "passage_sha256": "98aeaf6ca39b7ca3de5912c5596c6cef6fb260d5a5c73b15847e88649019a25e",
+        "body_sha256_by_item": {
+          "2017#21": "33b2e3c4832aed05335b1c9fe068d17e4b5d98928ca2b83b7c83269c1affc187"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      },
+      {
+        "representative_item_id": "2017#33",
+        "passage_sha256": "277b8ebe0ef15f86836cef54a5e167dde47cccf8b8d7d5ff0333f6436fd96761",
+        "body_sha256_by_item": {
+          "2017#33": "13279dc448dd70beb1aeb054fdeb06f8247b5c3604f900572777ced01ce3cc59"
+        },
+        "status": "unresolved",
+        "disposition": "exhausted",
+        "known_candidate_ids": [],
+        "known_work_ids": []
+      }
+    ],
+    "phase": "public_fulltext_closed_before_api",
+    "baseline_sha256": "839ff7134575746f6817abb40cc56d22fa8cc871f307b9a089903d9539c03c2b"
+  },
+  "states": [
+    {
+      "representative_item_id": "2025#29",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2021#32",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2024#23",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2020#30",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2021#37",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2024#24",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014B#32",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2018#33",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2021#41",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014B#40",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2016#31",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2016#36",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2024#39",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2018#35",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2020#40",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2023#24",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2023#33",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2023#41",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2025#22",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2025#30",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014A#35",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014B#25",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2016#23",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2019#29",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2021#35",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2024#30",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2024#37",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2026#32",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014A#26",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2016#32",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2018#40",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2019#20",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2019#22",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2020#38",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014A#36",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014A#38",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014A#41",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014B#24",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014B#27",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2015#36",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2019#37",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2024#40",
+      "public_state": "REGISTERED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2025#34",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2025#40",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2025#41",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2026#30",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2014A#34",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2016#41",
+      "public_state": "G_STRONG_CANDIDATE_UNVERIFIED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2017#21",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    },
+    {
+      "representative_item_id": "2017#33",
+      "public_state": "G_PUBLIC_EXHAUSTED",
+      "api_state": "G_API_PENDING",
+      "public_research_allowed": false
+    }
+  ],
+  "metrics": {
+    "retriever": "google_books_api",
+    "readiness": {
+      "credential_status": "missing_key",
+      "credential_present": false,
+      "eligible": false,
+      "blocked_credentials": true,
+      "blocked_license": false,
+      "benchmark_status": "pending_credentials"
+    },
+    "availability": {
+      "queries_planned": 161,
+      "queries_attempted": 0,
+      "queries_completed": 0,
+      "queries_429": 0,
+      "queries_other_error": 0,
+      "http_attempts": 0,
+      "http_429_attempts": 0,
+      "queries_missing_auth": 0,
+      "targets_completed": 0,
+      "targets_planned": 50,
+      "quarantined_records": 0,
+      "queries_eligible": 0,
+      "blocked_credentials": 161,
+      "blocked_license": 0
+    },
+    "retrieval": {
+      "valid_queries": 0,
+      "queries_with_candidate": 0,
+      "unique_candidates": 0,
+      "candidates_reviewed": 0
+    },
+    "verification": {
+      "unit": "candidate_decision",
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "G": 0,
+      "A_promotions": 0
+    },
+    "termination": {
+      "all_fixed_queries_completed": false,
+      "ranking_ready": false,
+      "verification_complete": false,
+      "benchmark_complete": false,
+      "topN": 3,
+      "selected_candidates": 0,
+      "all_candidates_verification_complete": false,
+      "verification_scope": "novel_public_unresolved"
+    },
+    "rates": {
+      "candidate_hit_rate": null,
+      "useful_hit_rate": null,
+      "A_rate": null,
+      "review_precision": null,
+      "queries_per_useful_source": null
+    },
+    "provisional_useful_items": 0,
+    "limitation": "Completed query counts deduplicate retries and require all predeclared pages. Final useful/A rates wait for frozen top-N review completion; status histories may overlap after retries.",
+    "incremental": {
+      "baseline_sha256": "839ff7134575746f6817abb40cc56d22fa8cc871f307b9a089903d9539c03c2b",
+      "cohort_size": 50,
+      "baseline_AB": 12,
+      "selected_novel_candidates": 0,
+      "candidates_reviewed": 0,
+      "incremental_candidate_items": 0,
+      "plausible_candidate_items": 0,
+      "incremental_AB_items": 0,
+      "books_incremental_candidate_hit": null,
+      "books_incremental_AB": null,
+      "books_candidate_precision": null,
+      "queries_per_incremental_AB": null,
+      "retrieval_complete": false,
+      "novel_verification_complete": false,
+      "decision": "pending",
+      "review_queue": [],
+      "limitation": "Top-N novel candidates on public-unresolved passages only. New IDs across editions need reviewed alias/work identities. Plausibility is reviewed, not inferred from metadata; thresholds are operational, not population yield estimates."
+    }
+  },
+  "credential_present": false,
+  "project_present": false,
+  "semantic_license_status": "unresolved",
+  "api_http_calls": 0,
+  "promotion_policy": "new_evidence_only",
+  "policy_thresholds": {
+    "strong_minimum": 5,
+    "medium_minimum": 2
+  },
+  "precision_scope": "Historical 8/10 only; not a ranking model accuracy or population yield estimate.",
+  "replay": "Preserve baseline and log; refresh bodies before every stage; smoke → canary → full → failed query retry; review novel candidates only; register before incremental AB aggregation."
+}

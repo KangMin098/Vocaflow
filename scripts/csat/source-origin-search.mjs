@@ -843,6 +843,14 @@ async function main() {
       if (!input || !output || !fresh) throw new Error('Usage: --books <plan.json> <attempts.jsonl> <current-rows.json>')
       const benchmark = process.argv.includes('--benchmark') || process.argv[2] === '--semantic-fixed'
       const plan = pendingBookPlan(JSON.parse(fs.readFileSync(input, 'utf8')), JSON.parse(fs.readFileSync(fresh, 'utf8')), { includeResolved: benchmark })
+      const publicAt = process.argv.indexOf('--public-baseline')
+      let publicBaseline = null
+      if (publicAt >= 0) {
+        if (!benchmark || !process.argv[publicAt + 1]) throw new Error('Public baseline requires fixed benchmark mode')
+        const { validatePublicBaseline } = await import('./source-origin-incremental.mjs')
+        const saved = JSON.parse(fs.readFileSync(process.argv[publicAt + 1], 'utf8'))
+        publicBaseline = validatePublicBaseline(plan, saved.baseline ?? saved)
+      }
       const previous = fs.existsSync(output) ? fs.readFileSync(output, 'utf8').trim().split('\n').filter(Boolean).map(l => JSON.parse(l)) : []
       fs.mkdirSync(path.dirname(output), { recursive: true })
       const baselinePath = output + '.baseline.json'
@@ -870,6 +878,16 @@ async function main() {
       const outcomes = reviewsAt < 0 ? [] : JSON.parse(fs.readFileSync(process.argv[reviewsAt + 1], 'utf8')).outcomes
       if (!Array.isArray(outcomes)) throw new Error('--reviews requires an outcomes array')
       const metrics = benchmarkMetrics(plan, all, outcomes, { retriever, apiKeyProject: project, readiness })
+      if (publicBaseline) {
+        const { incrementalMetrics } = await import('./source-origin-incremental.mjs')
+        metrics.incremental = incrementalMetrics(plan, all, outcomes, metrics, publicBaseline, { retriever, apiKeyProject: project, readiness, currentRows: JSON.parse(fs.readFileSync(fresh, 'utf8')) })
+        metrics.termination.all_candidates_verification_complete = metrics.termination.verification_complete
+        metrics.termination.verification_scope = 'novel_public_unresolved'
+        metrics.termination.verification_complete = metrics.incremental.novel_verification_complete
+        metrics.termination.benchmark_complete = readiness.eligible && metrics.incremental.novel_verification_complete
+        if (metrics.termination.benchmark_complete) metrics.readiness.benchmark_status = 'complete'
+        fs.writeFileSync(output + '.incremental-review-queue.json', JSON.stringify(metrics.incremental.review_queue, null, 2))
+      }
       fs.writeFileSync(output + '.metrics.json', JSON.stringify(metrics, null, 2))
       fs.writeFileSync(output + '.review-queue.json', JSON.stringify(candidateReviewQueue(plan, all, { retriever, requireIdentification: true, apiKeyProject: project, readiness }), null, 2))
       console.log(JSON.stringify({ fixed_cohort_size: plan.fixed_cohort_size, already_resolved: plan.already_resolved,
