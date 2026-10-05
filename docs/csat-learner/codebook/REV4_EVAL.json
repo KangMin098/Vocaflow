@@ -3,7 +3,8 @@
  "codebook_sha256": "f72c37c5840703c0b7c9a41e1164f60096fcf5fd1daea78d374a1a1c0ba18ffe",
  "final_sha256": "f2f2eb037ffa82981edc5e52b26762f9c97650d4ae5d37bfa2eb88f934446fa9",
  "regression_defined_match": "8/9",
- "rev3_baseline": "7/9",
+ "baseline": "7/9 (rev3)",
+ "label": "rev4",
  "no_regression": true,
  "changes": {
   "R6": {

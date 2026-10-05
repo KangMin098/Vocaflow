@@ -1353,14 +1353,21 @@ function rev4Eval() {
   const ok = (id) => verified(id) && match(byCase[id].final, exp[id])
   // 수렴 — 권장 기대가 갈린 regression 사례: FINAL_VERIFIED 이고 그 판정이 두 adjudicator 권장 중 하나(accept 에 담아 둠)
   const converged = (id) => verified(id) && (exp[id]?.accept ?? []).includes(byCase[id].final)
-  const CHANGES = {
-    R6: { holdout: ['R4-H1', 'R4-H2'], regression_match: ['C4-11', 'H-13', 'H-05', 'C4-07'], regression_converge: ['C2-02'] },
-    R12: { holdout: ['R4-H3', 'R4-H4', 'R4-H5'], regression_match: ['N-13'], regression_converge: ['H-17', 'N-04'] },
-    R9_section6: { holdout: ['R4-H6', 'R4-H7'], regression_match: ['N-15', 'N-05'], regression_converge: [] },
+  // 채택 기준 — --spec(코드북 폴더 기준 상대 경로, 사전 등록 커밋 파일)이 있으면 그것, 없으면 rev4 회차 기준(REV4_VALIDATION_PLAN)
+  const spec = arg('--spec') ? JSON.parse(readAny(path.join(DIR, arg('--spec')))) : {
+    label: 'rev4',
+    changes: {
+      R6: { holdout: ['R4-H1', 'R4-H2'], regression_match: ['C4-11', 'H-13', 'H-05', 'C4-07'], regression_converge: ['C2-02'] },
+      R12: { holdout: ['R4-H3', 'R4-H4', 'R4-H5'], regression_match: ['N-13'], regression_converge: ['H-17', 'N-04'] },
+      R9_section6: { holdout: ['R4-H6', 'R4-H7'], regression_match: ['N-15', 'N-05'], regression_converge: [] },
+    },
+    regression_defined: ['C4-11', 'H-13', 'H-05', 'C4-07', 'N-13', 'N-14', 'N-15', 'H-04', 'N-05'],
+    baseline: { match: 7, of: 9, label: 'rev3' },
   }
-  const regDefined = ['C4-11', 'H-13', 'H-05', 'C4-07', 'N-13', 'N-14', 'N-15', 'H-04', 'N-05']
+  const CHANGES = spec.changes
+  const regDefined = spec.regression_defined
   const regMatch = regDefined.filter(ok).length
-  const noRegression = regMatch >= 7
+  const noRegression = regMatch >= spec.baseline.match
   const result = {}
   for (const [name, c] of Object.entries(CHANGES)) {
     const h = c.holdout.map((id) => ({ id, final: byCase[id]?.final ?? null, status: byCase[id]?.final_status, expected: exp[id], pass: ok(id) }))
@@ -1370,16 +1377,16 @@ function rev4Eval() {
   }
   const surv = corpus.cases.filter((c) => c.set === 'surveillance').map((c) => ({ id: c.case_id, final: byCase[c.case_id]?.final ?? null, status: byCase[c.case_id]?.final_status }))
   const survAbsorbed = surv.length > 0 && surv.every((x) => x.final?.startsWith('identified:S.') && x.final !== 'identified:S.attachment')
-  const summary = { plan_commit: arg('--plan-commit') ?? null, codebook_sha256: readJ(manifestF).codebook_sha256, final_sha256: sha(finalText), regression_defined_match: `${regMatch}/9`, rev3_baseline: '7/9', no_regression: noRegression, changes: result, surveillance: surv, surveillance_absorbed_into_other_S: survAbsorbed,
+  const summary = { plan_commit: arg('--plan-commit') ?? null, codebook_sha256: readJ(manifestF).codebook_sha256, final_sha256: sha(finalText), regression_defined_match: `${regMatch}/${regDefined.length}`, baseline: `${spec.baseline.match}/${spec.baseline.of} (${spec.baseline.label})`, label: spec.label, no_regression: noRegression, changes: result, surveillance: surv, surveillance_absorbed_into_other_S: survAbsorbed,
     sets: Object.fromEntries(['regression', 'holdout', 'surveillance'].map((st) => [st, { n: rows.filter((r) => setOf[toCase[r.oid]] === st).length, verified: rows.filter((r) => setOf[toCase[r.oid]] === st && r.final_status === 'FINAL_VERIFIED').length, unresolved: rows.filter((r) => setOf[toCase[r.oid]] === st && r.final_status === 'UNRESOLVED').map((r) => toCase[r.oid]) }])) }
   const outMd = path.resolve(arg('--out') ?? '')
-  if (!/REV4_EVAL\.md$/.test(outMd) || !inside(realOf(outMd), realOf(DIR)) || isLink(outMd)) { console.error('--out 은 docs/csat-learner/codebook/REV4_EVAL.md'); process.exit(2) }
+  if (!/REV4[0-9]*_EVAL\.md$/.test(outMd) || !inside(realOf(outMd), realOf(DIR)) || isLink(outMd)) { console.error('--out 은 docs/csat-learner/codebook/REV4*_EVAL.md'); process.exit(2) }
   fs.writeFileSync(outMd.replace(/\.md$/, '.json'), JSON.stringify(summary, null, 1) + '\n')
   const esc = (x) => String(x ?? '—').replace(/\|/g, '\\|')
   const ek = (e) => (!e ? '—' : e.outcome === 'identified' ? `identified:${e.primary}` : e.outcome === 'multiple_plausible' ? `multiple_plausible:${(e.candidates ?? []).slice().sort().join('|')}` : e.outcome)
-  const L = [`# rev4 재검증 결과 — 변경점별 채택 판정`, '', `> 사전 등록: [REV4_VALIDATION_PLAN.md](./REV4_VALIDATION_PLAN.md)${summary.plan_commit ? ` (\`${summary.plan_commit}\`)` : ''} · 코드북 \`${summary.codebook_sha256.slice(0, 12)}\` · 최종 판정 봉인 \`${summary.final_sha256.slice(0, 12)}\` · Claude × Codex 4중 blind · 사람 검증 아님 · 원문 없음.`, '',
+  const L = [`# ${spec.label} 재검증 결과 — 변경점별 채택 판정`, '', `> 사전 등록: ${arg('--spec') ? `[${arg('--spec')}](./${arg('--spec')})` : '[REV4_VALIDATION_PLAN.md](./REV4_VALIDATION_PLAN.md)'}${summary.plan_commit ? ` (\`${summary.plan_commit}\`)` : ''} · 코드북 \`${summary.codebook_sha256.slice(0, 12)}\` · 최종 판정 봉인 \`${summary.final_sha256.slice(0, 12)}\` · Claude × Codex 4중 blind · 사람 검증 아님 · 원문 없음.`, '',
     '## 세트별(따로 본다)', '', '| 세트 | 건 | 최종 확정 | 미해결 |', '|---|---|---|---|', ...Object.entries(summary.sets).map(([k, v]) => `| ${k} | ${v.n} | ${v.verified} | ${v.unresolved.join(' ') || '—'} |`), '',
-    `퇴행 검사 — 기대가 정해진 Regression 9건 일치 **${summary.regression_defined_match}** (rev3 7/9) → ${noRegression ? '퇴행 없음' : '**퇴행 — rev4 전체 보류**'}`, '']
+    `퇴행 검사 — 기대가 정해진 Regression ${regDefined.length}건 일치 **${summary.regression_defined_match}** (기준 ${summary.baseline}) → ${noRegression ? '퇴행 없음' : `**퇴행 — ${spec.label} 전체 보류**`}`, '']
   for (const [name, r] of Object.entries(result)) {
     L.push(`## ${name} — ${r.adopt ? '**채택**' : '**candidate 유지**'}`, '', '| 사례 | 구분 | 최종 | 기대 / 기준 | 통과 |', '|---|---|---|---|---|',
       ...r.holdout.map((x) => `| ${x.id} | holdout | ${esc(x.final)} | ${esc(ek(x.expected))} | ${x.pass ? '예' : '아니오'} |`),

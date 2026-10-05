@@ -1,0 +1,133 @@
+{
+ "_note": "rev4.1 재검증 기대 판정 — 실행 전 봉인. 판정자에게 공개 금지. REV41_VALIDATION_PLAN.md",
+ "expected": {
+  "C4-11": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "H-13": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [],
+   "why": "adjudication 두 판정자 권장 합의"
+  },
+  "H-05": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "accept": [
+    "R.main_point"
+   ],
+   "why": "원래 기대(adjudication 대상 아님)"
+  },
+  "C4-07": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "accept": [
+    "V.multiword"
+   ],
+   "why": "원래 기대(adjudication 대상 아님)"
+  },
+  "R4-H2": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "candidates": [],
+   "accept": [],
+   "why": "낱말 사전 뜻은 맞게 잡았고 글쓴이가 만든 구절 단위 비유를 잘못 옮겼다 — R6 ②, 고정 표현도 아니므로 V 가 아니다."
+  },
+  "C2-02": {
+   "outcome": "undetermined",
+   "primary": null,
+   "accept": [
+    "identified:R.inference",
+    "identified:V.wrong_sense"
+   ],
+   "why": "권장 갈림 — 수렴 기준"
+  },
+  "R4-H1": {
+   "outcome": "undetermined",
+   "primary": null,
+   "candidates": [],
+   "accept": [
+    "identified:V.wrong_sense",
+    "multiple_plausible:R.inference|V.wrong_sense"
+   ],
+   "why": "ADJUDICATION_REV4 권장 갈림 — 수렴 기준"
+  },
+  "R4-H3": {
+   "outcome": "identified",
+   "primary": "V.unknown_word",
+   "candidates": [],
+   "accept": [],
+   "why": "채운 뜻 '예민한'은 indifferent 의 어떤 사전 뜻도 아닌 추측이다 — 확신도와 무관하게 R12 ①로 unknown_word, 실제 사전 뜻을 넣은 것이 아니므로 wrong_sense 아님."
+  },
+  "R4-H4": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "candidates": [],
+   "accept": [],
+   "why": "고정 표현 밖 한 낱말(medium)에 실제 다른 사전 뜻(중간)을 넣어 해석이 틀었다 — R12 ① 후단·R6 ①, 낱말 뜻을 맞게 안 상태의 흐름 오판이 아니므로 R.relation 아님."
+  },
+  "R4-H5": {
+   "outcome": "identified",
+   "primary": "V.multiword",
+   "candidates": [],
+   "accept": [],
+   "why": "사전에 하나의 뜻으로 오른 고정 표현 안 한 낱말에 다른 사전 뜻을 넣어 표현 전체를 낱말 합으로 읽었다 — R12 ②, 표현이 판정 단위라 wrong_sense 가 아니다."
+  },
+  "N-13": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "candidates": [],
+   "accept": [],
+   "why": "ADJUDICATION_REV4 — 두 adjudicator GOLD_WRONG 합의 · 권장 V.wrong_sense 일치"
+  },
+  "H-17": {
+   "outcome": "undetermined",
+   "primary": null,
+   "accept": [
+    "identified:V.unknown_word",
+    "identified:V.wrong_sense"
+   ],
+   "why": "권장 갈림 — 수렴 기준"
+  },
+  "N-04": {
+   "outcome": "undetermined",
+   "primary": null,
+   "accept": [
+    "identified:V.multiword",
+    "multiple_plausible:V.multiword|V.wrong_sense"
+   ],
+   "why": "권장 갈림 — 수렴 기준"
+  },
+  "R41-H1": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "candidates": [],
+   "accept": [],
+   "why": "R6 ④: punish themselves 는 고정 표현이 아닌 글쓴이의 구절이고, 학생이 고른 다른 사전 뜻(벌하다)을 넣으면 학생 해석이 나오므로 낱말 실패가 결정적이다 → R6 ① V.wrong_sense."
+  },
+  "R41-H2": {
+   "outcome": "identified",
+   "primary": "R.inference",
+   "candidates": [],
+   "accept": [],
+   "why": "R6 ④: universe=우주를 구절에 그대로 넣어도 학생 해석이 나오지 않고 틀린 부분은 구절의 대상·대응에서 생겼으므로 R6 ② R.inference primary, 다른 사전 뜻은 기껏해야 contributing."
+  },
+  "R41-H3": {
+   "outcome": "identified",
+   "primary": "V.wrong_sense",
+   "candidates": [],
+   "accept": [],
+   "why": "R12 ② 고정 표현 판별: 필요한 뜻이 구성 낱말 for 가 스스로 가진 사전 뜻(~대신에)으로 설명되므로 고정 표현이 아니다 → for 의 V.wrong_sense."
+  },
+  "R41-H4": {
+   "outcome": "identified",
+   "primary": "V.multiword",
+   "candidates": [],
+   "accept": [],
+   "why": "R12 ②: go along with 는 덩어리 전체가 따로 사전 뜻(동조하다·따르다)을 가진 구동사이고 학생은 이를 낱말 합으로 읽었으므로 V.multiword."
+  }
+ }
+}

@@ -26,4 +26,5 @@
 
 ## 봉인 기록
 
-(사례 작성 뒤, 실행 전에 채운다)
+- 2026-10-05 실행 전: 말뭉치 `data/rev41-corpus.json`(`rev41-v1`, 17건) · 코드북 `CODEBOOK.rev4.1.md` `f2bfcb6eca8c…` · 기대 판정 `data/sealed/rev41-expected.json` `24d4c058707e…`.
+- 새 사례: 새 context 작성 에이전트(Claude, rev4.1 코드북 · 문항 후보만 읽음). 봉인 전 R41-H1 교체(관용구 「Garbage in, garbage out」 안이라 R12 ② 로 샐 수 있어 고정 표현 아닌 문항으로). 작성자가 남긴 약점: H1 비유가 밑줄 아님 · H2 증거 설계 partial(R.reference 여지) · H3 막힌 곳이 선지(E 계열 여지).

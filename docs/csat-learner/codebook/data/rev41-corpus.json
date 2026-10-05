@@ -1,0 +1,430 @@
+{
+ "id": "rev41-v1",
+ "created": "2026-10-05",
+ "codebook_rev": "rev4.1-draft",
+ "codebook_sha256": "f2bfcb6eca8cc9d7cf498f2b655ae13453572cd0cdf6838698c75602964c6dff",
+ "expected_sha256": "24d4c058707edd0d1e4ef077350ff14f87e8295bbf30254c98587c0f1e96f3dd",
+ "codes": [
+  "V.unknown_word",
+  "V.wrong_sense",
+  "V.multiword",
+  "S.core_structure",
+  "S.attachment",
+  "S.operator_scope",
+  "S.form_rule",
+  "R.reference",
+  "R.relation",
+  "R.main_point",
+  "R.inference",
+  "E.task_misread",
+  "E.evidence_location",
+  "E.option_mismatch",
+  "B.outside_knowledge",
+  "B.surface_match",
+  "B.no_verification",
+  "X.time",
+  "X.attention"
+ ],
+ "excluded": [],
+ "cases": [
+  {
+   "case_id": "C2-02",
+   "item_id": "H2303G1#21",
+   "exam": "2023년 3월 고1 학력평가",
+   "type": "R-IMPLY",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "divorce가 이혼이니까 사이가 틀어진다는 뜻 같았어요. 일하는 얘기니까 동료랑 사이 안 좋은 거라고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "The divorce of the hands from the head"
+   },
+   "interpretation": "손과 머리의 이혼 = 같이 일하는 사람들끼리 갈라서는 것",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "divorce 를 '이혼→인간관계 불화'라는 사전 첫 뜻으로만 받아들여, 여기서 '손(육체노동)과 머리(정신노동)의 분리'라는 비유적 의미를 놓쳤다. 앞 문장의 lowtech physical work 회피와 digital world 일자리 추구라는 대조를 밑줄과 연결하지 않았다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "C4-11",
+   "item_id": "2026#21",
+   "exam": "2026학년도 수능",
+   "type": "R-IMPLY",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "sticky가 끈적끈적한 거니까 복잡하고 귀찮은 걸 뜻하는 것 같았어요. 플랫폼 때문에 고용이 덜 복잡해졌다는 거고요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "made a lot of work less sticky"
+   },
+   "interpretation": "많은 일을 덜 끈적거리게(덜 번거롭게) 만들었다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "sticky를 '복잡하고 번거로운'으로 해석해, 일이 특정 장소에 붙어 있는 정도(장소 고착성)라는 글 속 의미를 놓쳤다. 그 결과 지역적 연결이 끊긴다는 핵심 대신 고용 절차의 단순함을 말하는 5번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "H-13",
+   "item_id": "M2606#21",
+   "exam": "2026학년도 6월 모의평가",
+   "type": "R-IMPLY",
+   "chosen_option": 5,
+   "confidence": "unsure",
+   "reason": "fiction이 소설이니까 상상 속 목표 같은 걸 말하는 줄 알았어요. 큰 목표를 그리면 실력이 는다는 뜻 같았어요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "the boost is grounded in fiction"
+   },
+   "interpretation": "그 향상은 소설(상상)에 기반한다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "필자가 '근거 없는 착각'이라는 뜻으로 확장해 쓴 fiction을 문자 그대로 '이야기·상상'으로 읽었다. fiction의 사전 뜻은 알고 있으므로 낱말 무지가 아니라 필자의 비유적 확장 해석 실패.",
+   "chain": "문자적 해석 → 지문 밖 상식(목표 설정) 개입 → 5번",
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "H-05",
+   "item_id": "M2309#23",
+   "exam": "2023학년도 9월 모의평가",
+   "type": "R-TOPIC",
+   "chosen_option": 3,
+   "confidence": "sure",
+   "reason": "농부들이 실험 가능성을 기준으로 판단한다니까 그게 중요하다는 글이라고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "that criterion of “trialability” turns out to be a real problem"
+   },
+   "interpretation": "실험 가능성이라는 기준은 실제로 중요한 사안으로 드러난다",
+   "self_category": "choice",
+   "context": null,
+   "true_mechanism": "a real problem을 '중요한 사안'으로 읽어 글이 trialability의 한계를 다룬다는 지문 내용 자체를 오해했다. 선택지 3은 그 오해를 그대로 반영한 것일 뿐 선택지 판단 단계의 결함은 없다(자가진단 choice와 불일치).",
+   "chain": "지문 오해 → 필요성 선택지",
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "C4-07",
+   "item_id": "H2104G3#21",
+   "exam": "2021년 4월 고3 학력평가",
+   "type": "R-IMPLY",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "mind's eye가 상상하는 눈, 마음의 눈이니까 상상이랑 관련된 1번이 맞는 것 같았어요.",
+   "blocked_span": {
+    "part": "stem",
+    "option": null,
+    "quote": "the mind’s eye is blind"
+   },
+   "interpretation": "상상력은 눈이 멀었다 = 뇌는 상상과 경험을 연결해서만 본다",
+   "self_category": "word",
+   "context": "이 문항에 2분 30초",
+   "true_mechanism": "관용 표현 mind's eye를 '상상력'이라는 사전적 의미로만 해석하고, 글에서 그것이 뉴런이 입력의 의미를 모른 채 반응한다는 비유라는 점을 연결하지 못했다. 그래서 imagination이 들어간 1번을 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "H-17",
+   "item_id": "M2406#20",
+   "exam": "2024학년도 6월 모의평가",
+   "type": "R-CLAIM",
+   "chosen_option": 5,
+   "confidence": "sure",
+   "reason": "조기 전문화가 창의성의 핵심이라는 말로 시작해서 5번이 딱 맞았어요. 빨리 풀었어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "may lie in premature specialization"
+   },
+   "interpretation": "다면적 창의 활동의 핵심은 조기 전문화에 있다",
+   "self_category": "time",
+   "context": "20번 풀이 20초, 시험 종료 시 12분 남음",
+   "true_mechanism": "hindrances(장애)를 놓쳐 첫 문장을 정반대로 읽은 읽기 실패가 첫 원인이다. 20초 풀이 기록이 있지만 시간이 충분히 남아 시간 압박이 생략을 만든 것은 아니다(자가진단 time과 불일치).",
+   "chain": "첫 문장 오독 → 확신으로 후반 미검토",
+   "evidence_design": "conflicting",
+   "boundaries": [
+    "identified ↔ multiple_plausible"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "N-13",
+   "item_id": "M2209#24",
+   "exam": "2022학년도 9월 모의평가",
+   "type": "R-TITLE",
+   "chosen_option": 1,
+   "confidence": "guess",
+   "reason": "여기서 막혔어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Governmental substitution for citizen duty and involvement"
+   },
+   "interpretation": "시민의 의무와 참여를 위한 정부의 대체",
+   "self_category": "unsure",
+   "context": null,
+   "true_mechanism": "(작성 의도) 두 실패 지점이 똑같이 설명함: (가) substitution(대체)을 잘 모르고 'for'를 '~을 위한'으로 읽는 어휘 문제, 또는 (나) 'substitution for X'(X를 대신함) 구조와 'duty and involvement' 등위 묶음을 잘못 처리한 구조 문제. 해석 '의무와 참여를 위한 정부의 대체'는 둘 중 어느 쪽으로도 생기며, 결과적으로 정부와 시민 책임이 함께 간다고 보고 1번을 고름.",
+   "chain": "마지막 문장(재난 대응 저해)을 읽지 않음",
+   "evidence_design": "ambiguous",
+   "boundaries": [
+    "multiple_plausible ↔ insufficient_evidence"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "N-04",
+   "item_id": "M2606#21",
+   "exam": "2026학년도 6월 모의평가",
+   "type": "R-IMPLY",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "credit을 점수나 신용으로 생각했어요. 꾸준히 해서 얻는 거라고.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "not based on something you can take credit for"
+   },
+   "interpretation": "여러분이 신용(점수)을 얻을 수 있는 것에 근거하지 않는다",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "'take credit for'(~을 자기 공으로 삼다)라는 고정 표현을 take + credit(신용·학점)으로 낱낱이 읽음. 그 결과 '자기 공이 아닌 외부 요인에 기댄 느낌'이라는 핵심을 '노력으로 쌓는 점수'의 문제로 바꿔, 자신감은 꾸준한 노력의 결과라는 2번을 택함.",
+   "chain": "밑줄 'grounded in fiction'을 노력 부족으로 연결",
+   "evidence_design": "clear",
+   "boundaries": [
+    "감시: V.multiword"
+   ],
+   "set": "regression"
+  },
+  {
+   "case_id": "R4-H1",
+   "set": "regression",
+   "item_id": "2019#21",
+   "type": "R-IMPLY",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "refining 이 정제한다는 뜻이니까 무지를 걸러서 없앤다는 말 같았고, 그러면 발견한 걸 완전하게 설명하는 ②가 맞는 것 같았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "the best science can really be seen as refining ignorance"
+   },
+   "interpretation": "최고의 과학은 무지를 정제하는 것, 즉 모르는 부분을 불순물처럼 걸러 내 없애는 것으로 볼 수 있다.",
+   "self_category": "flow",
+   "context": null,
+   "true_mechanism": "refine 의 사전 뜻 중 '정제하다(불순물 제거)'를 넣어 '무지를 제거한다'로 읽었고, 글에서 쓰인 '다듬다·정교하게 하다'를 못 잡아 구절 해석이 틀었다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R4-H2",
+   "set": "regression",
+   "item_id": "H1904G3#21",
+   "type": "R-IMPLY",
+   "chosen_option": 3,
+   "confidence": "sure",
+   "reason": "모든 사람이 아무도 아니다, 그러니까 독자마다 다 다른 사람이라는 뜻이라서 독자에 따라 반응이 다르다는 ③을 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "everyone is no one"
+   },
+   "interpretation": "모든 사람은 결국 누구도 같은 사람이 아니다 — 독자 한 명 한 명이 다 다르다는 말.",
+   "self_category": "option",
+   "context": null,
+   "true_mechanism": "everyone·no one 의 낱말 뜻은 맞게 잡았으나 글쓴이가 이 구절로 만든 대응(모두를 겨냥하면 아무도 만족시키지 못한다)을 '독자는 저마다 다르다'로 잘못 옮겼다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "R.inference ↔ V.wrong_sense"
+   ]
+  },
+  {
+   "case_id": "R4-H3",
+   "set": "regression",
+   "item_id": "2014A#33",
+   "type": "R-BLANK",
+   "chosen_option": 1,
+   "confidence": "sure",
+   "reason": "indifferent 는 신경을 곤두세운다, 예민하다는 뜻이니까 높은 사람들이 시선에 예민하다는 거잖아요. 그래서 불안(anxiety)이 맞다고 봤어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "higher-status individuals can be indifferent"
+   },
+   "interpretation": "지위가 높은 사람들은 (시선에) 예민할 수 있다.",
+   "self_category": "evidence",
+   "context": null,
+   "true_mechanism": "indifferent 의 뜻을 몰라 문맥에서 '예민한·신경을 곤두세운'이라는, 어떤 사전 뜻(옛 뜻 포함: 무관심한·중립적인·평범한·대수롭지 않은)도 아닌 정반대 추측을 확신을 갖고 채웠고, 지배자의 시선이 자유롭다는 핵심을 놓쳤다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.unknown_word ↔ V.wrong_sense"
+   ]
+  },
+  {
+   "case_id": "R4-H4",
+   "set": "regression",
+   "item_id": "H1809G1#29",
+   "type": "R-VOCAB",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "storytelling 이 설득력이 중간 정도인 거라고 하는데, 앞에서 사람들이 원래 이야기를 만들려 한다고 했으니까 설득력이 중간이라는 건 안 맞는다고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "storytelling is such a ① persuasive medium"
+   },
+   "interpretation": "그것이 스토리텔링이 그렇게 설득력이 중간 정도인 이유 중 하나다.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "medium 을 사전의 다른 뜻 '중간(의)'으로 읽어 '설득력이 보통인'으로 해석했고, '매체'라는 뜻을 놓쳐 맞게 쓰인 ①을 틀린 쓰임으로 골랐다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.relation"
+   ]
+  },
+  {
+   "case_id": "R4-H5",
+   "set": "regression",
+   "item_id": "H1906G2#20",
+   "type": "R-GIST",
+   "chosen_option": 2,
+   "confidence": "unsure",
+   "reason": "firing on all cylinders 를 모든 걸 다 잘라 낸다는 말로 읽어서, 팔로워 수 같은 데 매달리지 말라는 얘기인 줄 알았어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "it’s really about firing on all cylinders"
+   },
+   "interpretation": "그건 사실 모든 실린더(부분)를 다 해고하는(잘라 내는) 것에 관한 것이다 — 인기 같은 건 다 쳐내라는 뜻.",
+   "self_category": "sentence",
+   "context": null,
+   "true_mechanism": "사전에 숙어로 오른 fire on all cylinders(전력을 다하다) 안의 fire 를 '해고하다'로 읽어 표현 전체를 낱말 합으로 처리했고, 실력과 온라인 인기를 모두 갖추라는 요지를 반대로 잡았다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.multiword ↔ V.wrong_sense"
+   ]
+  },
+  {
+   "case_id": "R41-H1",
+   "set": "holdout",
+   "item_id": "2014A#25",
+   "type": "R-TOPIC",
+   "chosen_option": 4,
+   "confidence": "sure",
+   "reason": "punish는 '벌을 주다'니까, 시간에 쫓기면 사람들이 죄책감 때문에 스스로에게 벌을 준다는 글로 읽었어요. 뒤에도 guilt가 나와서 죄책감이 정신 건강에 미치는 영향이 주제라고 생각했어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "Some people punish themselves when they are under time pressure."
+   },
+   "interpretation": "어떤 사람들은 시간 압박을 받으면 (죄책감에) 스스로에게 벌을 준다.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "글쓴이가 만든 구절 punish themselves 의 punish 를 '벌하다'라는 사전 뜻으로 잡아 '스스로를 혹사하다(즐거움을 끊다)'는 뜻을 놓쳤다. '벌하다'를 구절에 그대로 넣으면 죄책감·자기처벌이라는 학생 해석과 ④가 그대로 나온다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R41-H2",
+   "set": "holdout",
+   "item_id": "H2103G3#31",
+   "type": "R-BLANK",
+   "chosen_option": 3,
+   "confidence": "unsure",
+   "reason": "universe는 '우주'라는 뜻만 알아서 좀 이상했는데, 사람들과 상황이 나를 안 도와준다는 말 같았어요. 남들이 안 도와주니까 혼자 힘으로 해야 한다는 얘기라서 Independence를 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "the universe ― in the form of people and circumstances ― gives little or no help to you because you have cut yourself off from the whole"
+   },
+   "interpretation": "주변 사람들과 상황은 원래 나를 잘 도와주지 않으니, 전체에서 떨어져 나와 스스로 해내야 한다.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "'우주'라는 뜻을 넣어도 학생 해석이 나오지 않는다. 학생은 도움을 거두는 주체와 결과(내가 남을 돕지 않아서 세상도 나를 돕지 않음)를 '남들이 원래 안 도와주니 독립하라'로 잘못 대응시켜 구절이 가리키는 바를 틀렸다.",
+   "chain": null,
+   "evidence_design": "partial",
+   "boundaries": [
+    "V.wrong_sense ↔ R.inference"
+   ]
+  },
+  {
+   "case_id": "R41-H3",
+   "set": "holdout",
+   "item_id": "2024#33",
+   "type": "R-BLANK",
+   "chosen_option": 1,
+   "confidence": "unsure",
+   "reason": "⑤의 substituted for one another를 '서로를 위해 대체된다'로 읽었더니 무슨 말인지 몰라서 뺐어요. 그림이 감정을 그린 거니까 감정과 잘 맞는다는 ①이 무난해 보였어요.",
+   "blocked_span": {
+    "part": "option",
+    "option": 5,
+    "quote": "substituted for one another"
+   },
+   "interpretation": "얼굴 그림들이 서로를 위해서 바뀔 수 있다 — 뜻이 안 통하는 말.",
+   "self_category": "option",
+   "context": null,
+   "true_mechanism": "for 를 '~을 위해'로 읽어 '~ 대신에'라는 for 자체의 사전 뜻을 놓쳤고, 그래서 정답 ⑤를 이해하지 못해 버렸다. substitute A for B 의 for 는 낱말 하나의 뜻으로 설명되므로 고정 표현이 아니다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.multiword ↔ V.wrong_sense"
+   ]
+  },
+  {
+   "case_id": "R41-H4",
+   "set": "holdout",
+   "item_id": "2014A#24",
+   "type": "R-GIST",
+   "chosen_option": 2,
+   "confidence": "sure",
+   "reason": "going along with를 '~와 함께 가다'로 읽어서, 남들이 원하는 걸 같이 하면서 어울리려고 노력한다는 좋은 얘기로 봤어요. 그래서 타인 입장을 먼저 생각하라는 ②를 골랐어요.",
+   "blocked_span": {
+    "part": "passage",
+    "option": null,
+    "quote": "going along with whatever they want us to do"
+   },
+   "interpretation": "남들이 우리에게 원하는 것이 무엇이든 그들과 함께 가며(어울리며) 사람들을 기쁘게 하려 한다.",
+   "self_category": "word",
+   "context": null,
+   "true_mechanism": "go along with(~에 따르다, 순순히 동조하다)라는 사전에 오른 구동사를 '함께 가다'라는 낱말 합으로 읽어, 남에게 무작정 맞추는 '함정'이라는 부정적 의미를 놓치고 글을 협조 권장으로 받아들였다.",
+   "chain": null,
+   "evidence_design": "clear",
+   "boundaries": [
+    "V.multiword ↔ V.wrong_sense"
+   ]
+  }
+ ]
+}

@@ -10,7 +10,7 @@
 | holdout | 7 | 6 | R4-H1 |
 | surveillance | 2 | 2 | — |
 
-퇴행 검사 — 기대가 정해진 Regression 9건 일치 **8/9** (rev3 7/9) → 퇴행 없음
+퇴행 검사 — 기대가 정해진 Regression 9건 일치 **8/9** (기준 7/9 (rev3)) → 퇴행 없음
 
 ## R6 — **candidate 유지**
 
