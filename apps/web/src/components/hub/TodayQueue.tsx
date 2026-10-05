@@ -126,7 +126,8 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
               className="rounded-[var(--r-md)] border p-3 transition-all duration-[var(--dur-normal)]"
               style={
                 dim
-                  ? { borderColor: 'var(--bd)', background: 'var(--bg2)', opacity: 0.55 }
+                  ? // 비어 있음은 점선 테두리 + 흐린 바탕으로 말한다 — 예전 opacity 0.55 는 글자까지 흐려 대비 2.3 이었다(2026-10-05 axe).
+                    { borderColor: 'var(--bd)', borderStyle: 'dashed', background: 'var(--bg2)' }
                   : {
                       // 카드 active: color wash + border tint (Memory Decay 정체성)
                       borderColor: meta.edge,

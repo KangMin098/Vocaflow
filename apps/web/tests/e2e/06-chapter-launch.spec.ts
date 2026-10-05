@@ -8,15 +8,16 @@
 //   (계정은 진단 완료 V11 — 추천 RPC 가 primary/review 반환)
 import { test, expect, type Page } from '@playwright/test';
 
-import { ensureWordSetPlanItem, ensureWordSetSubscription, userIdByEmail } from './utils/db';
+import { ensureWordSetPlanItem, ensureWordSetSubscription, findPublishedChapteredSet, userIdByEmail } from './utils/db';
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? (() => { throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local (CI: 저장소 시크릿)') })(),
 };
 
-/** 교육과정 기본어휘 (고등) — 25 내부챕터(shared_words.chapter) 보유 세트 */
-const CHAPTERED_SET_ID = 'bcb61429-6261-4f7e-a7b4-5bd5f5e6a72f';
+/** 시드 세트 — 고정 ID 대신 **지금 발행 중인** 챕터 보유 세트를 고른다(beforeAll). 예전 고정 세트
+ *  '교육과정 기본어휘 (고등)'(bcb61429…) 은 2026-10-05 기준 비발행이라 학습자 화면에서 사라졌다. */
+let seeded: { id: string; title: string } | null = null;
 
 /** 로그인은 파일당 1회만 (auth rate-limit 회피) — storageState 로 각 테스트에 주입 */
 const STATE_PATH = 'playwright-auth/.auth-runtime-user.json';
@@ -39,8 +40,11 @@ test.describe('챕터 스코프 학습 런처', () => {
     // 멱등 자립 시드 — service-role 키 있을 때만(없으면 기존 영속 데이터 의존, 스킵).
     const uid = await userIdByEmail(RUNTIME_USER.email);
     if (uid) {
-      await ensureWordSetSubscription(uid, CHAPTERED_SET_ID);
-      await ensureWordSetPlanItem(uid, CHAPTERED_SET_ID);
+      seeded = await findPublishedChapteredSet();
+      if (seeded) {
+        await ensureWordSetSubscription(uid, seeded.id);
+        await ensureWordSetPlanItem(uid, seeded.id);
+      }
     }
   });
   test.use({ storageState: STATE_PATH });
@@ -64,12 +68,16 @@ test.describe('챕터 스코프 학습 런처', () => {
     await page.goto('/wordvault', { waitUntil: 'domcontentloaded' });
     // ResourcePortfolio(학습 자산) → '단어장' 세그먼트(자산 종류 nav)
     const seg = page.getByRole('navigation', { name: '자산 종류' });
-    await seg.getByRole('button', { name: /단어장/ }).click({ timeout: 20_000 });
+    // 라벨은 Tines 개편에서 영문 표면 이름(Books · Texts · Decks)으로 바뀌었다 — 둘 다 받는다.
+    await seg.getByRole('button', { name: /단어장|Decks/ }).click({ timeout: 20_000 });
     // 시드 구독 세트 행(InsetRow onClick) → 모달
-    await page.getByRole('button', { name: /교육과정 기본어휘/ }).click({ timeout: 15_000 });
+    test.skip(!seeded, '시드 키 없음 또는 발행 중인 챕터 세트 0 — 시드 전제를 만족하지 못한다');
+    await page.getByRole('button', { name: seeded!.title }).first().click({ timeout: 15_000 });
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible({ timeout: 15_000 });
-    // 챕터 아코디언(25챕터) — Chapter 1 헤더 (fromPath=/wordvault 로 게임 launch 복귀)
-    await expect(dialog.getByText(/Chapter\s*1/).first()).toBeVisible({ timeout: 20_000 });
+    // 챕터 아코디언 — 첫 챕터를 **바로 학습하는 링크**가 있고, 게임에서 /wordvault 로 돌아온다.
+    // 머리 표기는 「Chapter 1」 → 「V3 (1/10)」 처럼 바뀌어 왔다 — 라벨이 아니라 이 계약을 본다.
+    const firstChapter = dialog.locator('a[href*="chapter=1"][href*="from=%2Fwordvault"]').first();
+    await expect(firstChapter).toBeVisible({ timeout: 20_000 });
   });
 });

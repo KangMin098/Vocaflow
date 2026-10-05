@@ -564,13 +564,15 @@
 
   /* 다크에서는 tint 가 어두운 반투명이라 vivid 원색이 그대로 밝은 글자로 통한다
      (어두운 배경 위 밝은 색 = 대비 확보). 라이트처럼 어둡게 만들면 오히려 안 보인다. */
-  --ios-red-ink: var(--ios-red-vivid);
+  /* 2026-10-05 a11y — 빨강 · 파랑 · 분홍 원색은 15% 틴트 위에서 4.2~4.4 였다(axe /wordvault 다크). 흰색 20~22% 를 섞어
+     Tines 다크 카드 바탕 셋 위 최악값 ≥ 4.6 으로 올린다. 나머지 넷은 원색 그대로 이미 4.9 이상. */
+  --ios-red-ink: #FF6A61;
   --ios-orange-ink: var(--ios-orange-vivid);
   --ios-yellow-ink: var(--ios-yellow-vivid);
   --ios-green-ink: var(--ios-green-vivid);
-  --ios-blue-ink: var(--ios-blue-vivid);
+  --ios-blue-ink: #3B9DFF;
   --ios-purple-ink: var(--ios-purple-vivid);
-  --ios-pink-ink: var(--ios-pink-vivid);
+  --ios-pink-ink: #FF6382;
 
   /* Glass dark — v06.40 정제 */
   --mat-glass-bg-thin: rgba(35, 29, 23, .72);

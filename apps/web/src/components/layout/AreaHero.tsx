@@ -83,7 +83,7 @@ export function AreaHero({
           {stats && stats.length > 0 && (
             <dl className="mt-6 flex flex-wrap gap-2">
               {stats.map((s) => (
-                <div key={s.label} className="flex items-baseline gap-2 rounded-[50px] bg-[color-mix(in_srgb,var(--on-deep)_14%,transparent)] px-4 py-2">
+                <div key={s.label} className="flex items-baseline gap-2 rounded-[50px] bg-[color-mix(in_srgb,black_14%,transparent)] px-4 py-2">
                   <dt className="font-display text-[13px] font-[600]">{s.label}</dt>
                   <dd className="font-mono text-[15px] font-[700] tabular-nums">{s.value}</dd>
                 </div>

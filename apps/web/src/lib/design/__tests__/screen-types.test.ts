@@ -103,6 +103,19 @@ describe('학습자 화면 유형 정본', () => {
     expect(mixed).toEqual([])
   })
 
+  it('⑥ 특수(승인된 예외) 화면에는 공용 머리를 다시 넣지 않는다 — 2026-10-05 판정 종료', () => {
+    // 게임 스킨 · 진단 입구 · 편집 작업면 · 셸 안 학습 카드 · 허브 · 서가 · CSAT 는 자기 골격이 정본이다.
+    // 공용화를 다시 시도하려면 이 판정부터 바꾸고(screen-types.ts note) 근거를 남긴다.
+    const regressed: string[] = []
+    for (const [route, spec] of Object.entries(SCREEN_TYPES)) {
+      if (spec.type !== 'special') continue
+      const page = pages.get(route)
+      if (!page) continue
+      if (/<(PageIntro|ModuleHero)\b/.test(screenSource(page))) regressed.push(route)
+    }
+    expect(regressed).toEqual([])
+  })
+
   it('⑤ session 은 전체 화면 라우트와 정확히 같다', () => {
     const disagree = [...pages.keys()]
       .filter((r) => (SCREEN_TYPES[r]?.type === 'session') !== isFullScreenRoute(r))

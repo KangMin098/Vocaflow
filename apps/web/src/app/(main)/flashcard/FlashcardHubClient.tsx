@@ -105,6 +105,9 @@ export function FlashcardHubClient({ queue, streak }: { queue: SessionQueue; str
           label: '시작하기',
           href,
           accent: FLASHCARD_INK,
+          // 바탕이 테마와 무관한 고정 자홍이라 글자도 고정한다 — 기본 --ti 는 다크에서 어두운 글자가 돼 3.0 이었다(2026-10-05 axe).
+          // 흰 글자 5.6:1 · SpellForge 와 같은 처리.
+          accentText: '#FFFFFF',
           disabled: empty,
           disabledReason: '복습할 단어가 아직 없어요',
         }}

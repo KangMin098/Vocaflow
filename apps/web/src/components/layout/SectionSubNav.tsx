@@ -44,7 +44,7 @@ export function SectionSubNav() {
             </li>
             <li aria-hidden className="text-[var(--t3)]">›</li>
             <li>
-              <span aria-current="page" className="text-[var(--ju)] opacity-80">{here.label}</span>
+              <span aria-current="page" className="text-[var(--ju)]">{here.label}</span>
             </li>
           </ol>
           <ul className="ml-auto flex min-w-0 flex-wrap items-center justify-end gap-x-5">

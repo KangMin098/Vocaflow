@@ -46,6 +46,30 @@ export async function userIdByEmail(email: string): Promise<string | null> {
  * 공용단어장 구독 보장(멱등) — 06-chapter-launch 등 챕터 학습 검증의 데이터 전제.
  * 이미 있으면 no-op. service-role 키 없으면 false(호출부는 기존 영속 데이터에 의존).
  */
+/**
+ * 지금 **발행 중**이고 내부 챕터(shared_words.chapter)를 가진 공용 단어장 하나 — 도서 단어장(library_book)은 뺀다
+ * (그쪽은 WordVault 에서 도서 묶음으로 가고 챕터 학습 모달로 가지 않는다 · hub-query buildResources 와 같은 판정).
+ * 고정 ID 를 쓰면 큐레이션이 그 세트를 내리는 순간 테스트가 저절로 떨어진다(2026-10-05: 교육과정 기본어휘 비발행).
+ * 키가 없거나 후보가 없으면 null.
+ */
+export async function findPublishedChapteredSet(): Promise<{ id: string; title: string } | null> {
+  const c = serviceClient();
+  if (!c) return null;
+  const { data: words } = await c.from('shared_words').select('set_id').not('chapter', 'is', null).limit(5000);
+  const ids = [...new Set(((words ?? []) as Array<{ set_id: string }>).map((w) => w.set_id))].slice(0, 300);
+  if (ids.length === 0) return null;
+  const { data: sets } = await c
+    .from('shared_word_sets')
+    .select('id, title, category')
+    .in('id', ids)
+    .eq('is_published', true)
+    .neq('category', 'library_book')
+    .order('title')
+    .limit(1);
+  const row = ((sets ?? []) as Array<{ id: string; title: string }>)[0];
+  return row ? { id: row.id, title: row.title } : null;
+}
+
 export async function ensureWordSetSubscription(userId: string, setId: string): Promise<boolean> {
   const c = serviceClient();
   if (!c) return false;
@@ -67,17 +91,25 @@ export async function ensureWordSetSubscription(userId: string, setId: string): 
 export async function ensureWordSetPlanItem(userId: string, setId: string): Promise<boolean> {
   const c = serviceClient();
   if (!c) return false;
+  // KST(UTC+9) 요일 → ISO 1=월..7=일 (일=0→7)
+  const kstDow = new Date(Date.now() + 9 * 3600 * 1000).getUTCDay();
+  const isoDow = kstDow === 0 ? 7 : kstDow;
   const { data: existing } = await c
     .from('study_plan_items')
-    .select('id')
+    .select('id, weekdays')
     .eq('user_id', userId)
     .eq('material_type', 'word_set')
     .eq('material_id', setId)
     .limit(1);
-  if (existing && existing.length > 0) return true;
-  // KST(UTC+9) 요일 → ISO 1=월..7=일 (일=0→7)
-  const kstDow = new Date(Date.now() + 9 * 3600 * 1000).getUTCDay();
-  const isoDow = kstDow === 0 ? 7 : kstDow;
+  if (existing && existing.length > 0) {
+    // 있으면 오늘 요일만 보탠다 — 예전에는 「있으면 끝」이라 처음 만든 요일에만 오늘 계획이 생겼다
+    // (2026-10-05: 월요일에 /plan 런처 테스트가 저절로 떨어졌다 · 시계 의존 시드).
+    const row = existing[0] as { id: string; weekdays: number[] | null };
+    const days = row.weekdays ?? [];
+    if (days.includes(isoDow)) return true;
+    const { error } = await c.from('study_plan_items').update({ weekdays: [...days, isoDow].sort() }).eq('id', row.id);
+    return !error;
+  }
   const { error } = await c.from('study_plan_items').insert({
     user_id: userId,
     material_type: 'word_set',
