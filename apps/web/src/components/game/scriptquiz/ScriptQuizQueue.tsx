@@ -17,6 +17,7 @@
 
 'use client'
 
+import { PageIntro } from '@/components/ui/PageIntro'
 import { ArrowRight, BookOpen, Check, Languages } from 'lucide-react'
 import Link from 'next/link'
 import { SpotState } from '@/components/ui/SpotState'
@@ -57,7 +58,8 @@ export function ScriptQuizQueue({
     <div className="mx-auto flex max-w-[760px] flex-col gap-6 px-4 py-8 md:px-6 md:py-10">
       {/* 제목 — 그라디언트 히어로를 쓰지 않는다. 이 화면은 확인하러 오는 자리이지
           브랜드를 보러 오는 자리가 아니다(연습 진입면 v06.202 와 같은 판단). */}
-      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+      {/* 모바일 머리 — 그대로. PC 는 아래 공용 기능형 머리(낮은 변형 · /practice 와 같은 판단). */}
+      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1 md:hidden">
         <h1 className="font-editorial text-[30px] font-[500] leading-[1.15] tracking-[-0.014em] text-[var(--t1)] md:text-[36px]">
           읽은 것 확인하기
         </h1>
@@ -67,6 +69,19 @@ export function ScriptQuizQueue({
           </span>
         )}
       </header>
+      <PageIntro
+        className="hidden md:flex"
+        compact
+        kicker="Conquer · ScriptQuiz"
+        title="읽은 것 확인하기"
+        actions={
+          queue.readTotal > 0 ? (
+            <span className="font-mono text-[13px] tabular-nums text-[var(--ju)]">
+              읽은 {queue.readTotal}챕터 · 확인 안 한 {queue.unconfirmed}개
+            </span>
+          ) : undefined
+        }
+      />
 
       {queue.next ? (
         <NextStep

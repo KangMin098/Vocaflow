@@ -44,9 +44,6 @@ export const SCREEN_TYPES: Record<string, ScreenSpec> = {
   '/wordblitz': landing('ModuleHero', '게임 대기실(PC 만 · 모바일 슬림 머리 유지)'),
   '/text': landing('ModuleHero', '내 라이브러리 입구'),
   '/dictate': landing('ModuleHero', '받아쓰기 입구(University 히어로 변형)'),
-  '/arcade': landing('bespoke', 'Game Lab — 자체 어두운 게임 스킨'),
-  '/scriptquiz': landing('bespoke', '문항 대기실 — ModuleBanner + 자체 머리'),
-  '/diagnostic': landing('bespoke', '진단 입구 — 자체 가운데 히어로(솔루션형과 같은 문법, 부품 미공유)'),
 
   // ── 기능형 ──
   '/dashboard': functional('PageIntro', '성장 기록 — 승인된 비대칭(머리 | 기억 카드)'),
@@ -55,17 +52,14 @@ export const SCREEN_TYPES: Record<string, ScreenSpec> = {
   '/diagnostic/history': functional('PageIntro', 'V-Level 기록 — 왼쪽 열 sticky'),
   '/settings': functional('PageIntro', '설정'),
   '/my/books': functional('PageIntro', '내 책장(PC 만 · 모바일 기존 머리)'),
-  '/wordvault': functional('bespoke', '단어 보관함 — ModuleBanner + 자체 대시보드'),
-  '/arcade/ranking': functional('bespoke', '게임 순위 — 게임 스킨'),
-  '/text/new': functional('bespoke', '새 스크립트 추가 폼'),
-  '/dictate/setup': functional('bespoke', '받아쓰기 설정 — 입구 히어로 공유'),
-  '/dictate/results': functional('bespoke', '받아쓰기 결과(데이터 없으면 /dictate)'),
-  '/pairflip/results': functional('bespoke', 'PairFlip 결과(데이터 없으면 /pairflip)'),
+  '/wordvault': functional('PageIntro', '단어 보관함 — 모듈 막대(뷰 전환) 아래 PC 공용 머리 · 모바일 막대 제목만'),
+  '/scriptquiz': functional('PageIntro', '읽은 것 확인하기 — 고르기 화면(PageIntro compact · /practice 와 같은 판단, 코드 주석 「히어로 쓰지 않음」)'),
+  '/dictate/setup': functional('bespoke', '보류 — 고른 본문(매개변수) 없이는 /dictate 로 넘어가 검증 계정으로 렌더를 확인할 수 없다'),
+  '/dictate/results': functional('bespoke', '보류 — 세션 결과가 있어야 렌더(없으면 /dictate)'),
+  '/pairflip/results': functional('bespoke', '보류 — 세션 결과(sessionStorage)가 있어야 렌더(없으면 /pairflip)'),
   '/practice/dcp': functional('PageIntro', '구문 연습(PC 만 · 모바일 기존 머리)'),
   '/practice': functional('PageIntro', '연습 고르기 — 보라 추천 블록이 히어로 몫(PC 만 · 모바일 기존 머리)'),
   '/sitemap': functional('PageIntro', '학습자 화면 지도(PC 만 · 모바일 기존 머리)'),
-  '/wordvault/review': functional('bespoke', '단어 복습 카드 — 셸 안 학습(전체 화면 목록 밖)'),
-  '/wordvault/study': functional('bespoke', '단어 학습 카드 — 셸 안 학습(전체 화면 목록 밖)'),
 
   // ── 세션 ──
   '/flashcard/play': session(),
@@ -78,6 +72,12 @@ export const SCREEN_TYPES: Record<string, ScreenSpec> = {
   ...Object.fromEntries(PLAY_GAMES.map((g) => [`/play/${g}`, session('게임 판')])),
 
   // ── 특수 ──
+  '/arcade': special('Game Lab — 승인된 자체 어두운 게임 스킨(게임 판과 한 세계)'),
+  '/arcade/ranking': special('게임 순위 — 게임 스킨'),
+  '/diagnostic': special('진단 입구 — 승인된 자체 가운데 히어로(tines-adoption.md 「진단·설정·개별 게임」 변환 · 솔루션형과 같은 문법)'),
+  '/text/new': special('새 스크립트 편집 작업면 — 저장 상태를 보이는 60px 고정 도구 막대(편집기 골격 · PageIntro 로 바꾸면 사라진다)'),
+  '/wordvault/review': special('단어 복습 카드 — 셸 안 학습 세션(제목은 sr-only · 전체 화면 목록 밖)'),
+  '/wordvault/study': special('단어 학습 카드 — 셸 안 학습 세션(제목은 sr-only · 전체 화면 목록 밖)'),
   '/hub': special('허브 홈 — 참조 홈 골격(제품 액자 · 색 탭 · 통판 · 서가 벽)'),
   '/library/books': special('서가 — 구역 탭 + 서가 스킨'),
   '/library/scripts': special('서가 — 구역 탭 + 서가 스킨'),

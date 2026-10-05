@@ -20,6 +20,7 @@
 //
 // ⚠️ 허브 통계는 목업으로 폴백하지 않는다 — "못 셌다" 와 "세어보니 0" 을 화면이 구별한다.
 
+import { PageIntro } from '@/components/ui/PageIntro'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
 
@@ -69,6 +70,10 @@ export default async function WordVaultPage({ searchParams }: PageProps) {
     <WordVaultHubChrome activeView="hub">
       {/* 메인은 셸이 칠해진 **뒤에** 흘러 들어온다 — 아래 주석 참조 */}
       <main className="flex-1 overflow-y-auto bg-[var(--bg2)] pb-12">
+        {/* PC 전용 공용 기능형 머리 — 모바일은 위 모듈 막대 제목만(기존 그대로). */}
+        <div className="mx-auto hidden w-full max-w-[var(--ios-content-wide-max)] px-6 pt-8 md:block">
+          <PageIntro kicker="Words · WordVault" title="단어 보관함" description="만난 단어를 내 것으로 모아요 — 기억 네 색으로 지금 다시 볼 단어를 고릅니다." />
+        </div>
         <Suspense fallback={<WordVaultHubSkeleton />}>
           <HubSection />
         </Suspense>
