@@ -35,7 +35,7 @@ export default async function DiagnosisPage({ searchParams }: { searchParams: { 
   if (!userId) redirect('/login?next=/csat/diagnosis')
   const { tab, view } = parseBoardTab(searchParams.tab, searchParams.view, { map: true })
   const db = createAdminClient() as unknown as SupabaseClient
-  const pilot = await pilotOpen(db, userId)
+  const pilot = await pilotOpen(userId)
   if (pilot && searchParams.capture && UUID.test(searchParams.capture)) {
     // 결과(점수 · 틀린 문항)를 보기 전 — 보드 없이 수집 모달만
     return (

@@ -62,7 +62,7 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
     setBusy(true)
     const r = await call<SavedResult>(`/api/csat/diagnosis/sessions/${sessionId}/result`)
     setBusy(false)
-    if (!r.ok) { setError(r.error); return }
+    if (!r.ok) { setError(r.error); setPhase('error'); return }
     if (stats.current.opened) {
       const st = stats.current
       track({ name: 'csat_ec_capture_finished', props: { targets: items.length, completed: st.completed, skipped: st.skipped, probes: st.probes, failures: st.failures, outcome } })
@@ -145,9 +145,10 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
     const pieces: Record<string, unknown>[] = []
     if (form.blocked && form.blocked !== 'none') pieces.push({ kind: 'blocked_span', ...form.blocked })
     if (form.reason.trim()) pieces.push({ kind: 'reason', text: form.reason })
+    if (form.group) pieces.push({ kind: 'category', group: form.group })
+    // 해석은 맨 마지막 — 재개 때 「이유 + 해석」이 있으면 끝난 문항으로 보므로, 앞 조각이 모두 저장된 뒤에만 그 표시가 생기게
     if (form.mode === 'answered') pieces.push({ kind: 'interpretation', state: 'answered', text: form.text })
     if (form.mode === 'unknown' || form.mode === 'skipped') pieces.push({ kind: 'interpretation', state: form.mode })
-    if (form.group) pieces.push({ kind: 'category', group: form.group })
     setBusy(true); setError(null)
     for (const evidence of pieces) {
       // 같은 값 재전송은 같은 행 · 고친 값은 정정(서버) — 재시도해도 상충 증거가 남지 않는다
@@ -202,7 +203,7 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
             <section className={s.section}>
               <div className={s.sectionTitle}>불러오지 못했어요</div>
               <div className={s.sectionDesc}>{error}</div>
-              <button type="button" className={c.ghost} onClick={() => void showResult('later')}>결과 보기</button>
+              <button type="button" className={c.ghost} disabled={busy} onClick={() => void showResult('later')}>다시 시도</button>
             </section>
           )}
           {phase === 'confirm' && (

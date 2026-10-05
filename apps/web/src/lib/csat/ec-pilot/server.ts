@@ -24,14 +24,18 @@ export async function ecContext(): Promise<EcContext | NextResponse> {
   const { data: { user } } = await rls.auth.getUser()
   if (!user) return NextResponse.json({ error: '로그인이 필요해요' }, { status: 401 })
   const admin = createAdminClient() as unknown as SupabaseClient
-  if (!(await pilotOpen(admin, user.id))) return NextResponse.json({ error: '지금은 사용할 수 없어요' }, { status: 404 })
+  if (!(await pilotOpen(user.id, rls))) return NextResponse.json({ error: '지금은 사용할 수 없어요' }, { status: 404 })
   return { userId: user.id, rls, admin }
 }
 
-/** 참가자이고, 설정 taxonomy 가 TEST 가 아니며 DB 에 봉인돼 있을 때만 연다 */
-export async function pilotOpen(admin: SupabaseClient, userId: string): Promise<boolean> {
+/**
+ * 참가자이고, 설정 taxonomy 가 TEST 가 아니며 DB 에 봉인돼 있을 때만 연다.
+ * taxonomy 사전은 로그인 사용자(authenticated)만 읽는다 — service_role 은 표 권한이 없다(RPC 전용 설계) → 쿠키 클라이언트로 읽는다.
+ */
+export async function pilotOpen(userId: string, rls?: SupabaseClient): Promise<boolean> {
   if (!isPilotParticipant(userId) || !configTaxonomyAllowed(EC_PILOT.taxonomyVersion)) return false
-  const { data, error } = await admin.from('csat_ec_taxonomy_version').select('status, note').eq('version', EC_PILOT.taxonomyVersion).maybeSingle()
+  const db = rls ?? ((await createClient()) as unknown as SupabaseClient)
+  const { data, error } = await db.from('csat_ec_taxonomy_version').select('status, note').eq('version', EC_PILOT.taxonomyVersion).maybeSingle()
   if (error) { console.error('[csat-ec] taxonomy 확인 실패', error.message); return false }
   return data?.status === 'sealed' && !/TEST/.test((data.note as string | null) ?? '')
 }

@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   if (!body) return NextResponse.json({ error: '입력 형식이 맞지 않아요' }, { status: 400 })
   try {
     const out = await submitExamSession(ctx.db, { ...body, userId: ctx.userId, enteredBy: 'learner' }, now)
-    if (await pilotOpen(ctx.db, ctx.userId)) return NextResponse.json({ sessionId: out.sessionId, ready: out.ready, held: true })
+    if (await pilotOpen(ctx.userId)) return NextResponse.json({ sessionId: out.sessionId, ready: out.ready, held: true })
     return NextResponse.json(out)
   } catch (e) {
     return failure(e)
