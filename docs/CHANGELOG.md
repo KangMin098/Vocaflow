@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): 오답 원인 Pilot 데이터 모델 마이그레이션 초안 `20261005130000_csat_ec_pilot_evidence`(**개발 DB 미적용**) — outcome 단일 원천(+multiple_plausible · inconsistent_evidence) · taxonomy 경계 · 경계 관찰 · interpretation · targeted_probe · 회차 증거 범위(pre_probe). 격리 PG 273/273 · rollback 11/11(스키마 차이 0). `PILOT_DATA_MODEL.md`
 - docs(csat): 오답 원인 taxonomy 제품 결정 — 사전 등록 seed 게이트 FAIL 은 유지, 별도로 `v0.1 conditional seed candidate`(R6 의 V.wrong_sense ↔ R.inference 경계 provisional) · Pilot 증거 설계(해석 입력 · R6 probe · 경계 별도 집계) · 필요한 스키마 변경 목록. `PILOT_SEED_DESIGN.md`(설계, DB 적용 없음)
 - docs(csat): 코드북 rev4.3 R6 재검증(18건, 16 통과 · 퇴행 없음 · C4-11 4판정 일치) — R43-HA · R4-H1 adjudication 이 「기본 뜻 인식 vs 다른 사전 뜻 선택」 에서 갈림 → R6 미채택(마지막 패치). `SEED_DECISION.md`: 사전 기준상 seed 후보 아님, 선택지 4(권장 R6 provisional + 사람 검증)
 - docs(csat): 코드북 rev4.2 R6 재검증(14건) — holdout 7/7 · regression 6/7, C4-11 만 미해결(같은 R6 문구로 회차마다 결론이 뒤집힘). C4-11 adjudication 갈림(RULE_INSUFFICIENT / SHARED_MODEL_BIAS) → R6 candidate · seed 후보 아님. `REV42_EVAL.md` · `ADJUDICATION_REV42_C411.md`

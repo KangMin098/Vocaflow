@@ -7,7 +7,7 @@ import EmbeddedPostgres from 'embedded-postgres'
 import pg from 'pg'
 
 export const ROOT = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
-const REPO = path.resolve(ROOT, '../../../..')
+export const REPO = path.resolve(ROOT, '../../../..')
 export const MIGRATION = path.join(REPO, 'supabase/migrations/20261003230000_csat_error_evidence.sql')
 export const ROLLBACK = path.join(REPO, 'scripts/csat/error-evidence/rollback.sql')
 export const VERIFY = path.join(REPO, 'scripts/csat/error-evidence/verify-schema.sql')
