@@ -95,6 +95,24 @@ const jsonLibs = [path.join(WEB, 'components/csat'), path.join(WEB, 'lib/csat')]
 compare('app_api', apis, manifest.app_api)
 compare('app_page', pages, manifest.app_pages)
 compare('app_json_import', jsonLibs, manifest.app_json_imports)
+// 서버 파일 읽기(번들 JSON 이 아니라 런타임에 파일을 읽는 로더 — 강의 · 뼈대 등)
+const fileLoaders = walk(path.join(WEB, 'lib/csat'), (p) => /\.(ts|tsx)$/.test(p) && !/__tests__/.test(p))
+  .filter((p) => { const s = fs.readFileSync(p, 'utf8'); return s.includes('readFileSync') || s.includes('readFile(') }).map(rel)
+compare('app_file_loader', fileLoaders, manifest.app_file_loaders ?? {})
+// 빌드 산출물(선택 — --bundle <.next 경로>): 클라이언트 청크에 문항 id · 분석 키가 있으면 실패
+if (process.argv.includes('--bundle')) {
+  const dir = process.argv[process.argv.indexOf('--bundle') + 1]
+  const chunks = walk(path.join(dir, 'static'), (p) => p.endsWith('.js'))
+  const ITEM_ID = /\b(?:19|20)\d{2}#\d{1,2}\b|\b[MH]\d{4}#\d{1,2}\b/
+  const KEYS = ['why_tempting', 'how_to_reject', 'answer_locus', 'why_correct']
+  for (const c of chunks) {
+    const s = fs.readFileSync(c, 'utf8')
+    const hitKey = KEYS.find((k) => s.includes(`"${k}"`) || s.includes(`${k}:`))
+    const hitId = ITEM_ID.exec(s)?.[0]
+    if (hitKey || hitId) problems.push({ kind: 'bundle', name: path.relative(dir, c), problem: `클라이언트 번들에 정답 민감 데이터 흔적 — ${hitId ?? ''} ${hitKey ?? ''}`.trim() })
+  }
+  console.log(`번들 청크 ${chunks.length}개 검사`)
+}
 
 await db.end()
 const out = { checkedAt: new Date().toISOString(), counts: { relations: rels.length, functions: fns.length, apis: apis.length, pages: pages.length, jsonLibs: jsonLibs.length }, problems }

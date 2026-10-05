@@ -68,6 +68,7 @@ try {
   await server.stop()
   fs.writeFileSync(path.join(ROOT, 'results-rollback-reveal.json'), JSON.stringify(results, null, 1))
   const fail = results.filter((r) => !r.pass)
+  process.exitCode = fail.length ? 1 : 0
   console.log(`\n합계 ${results.length} · 통과 ${results.length - fail.length} · 실패 ${fail.length}`)
   for (const f of fail) console.log('FAIL', f.area, '·', f.name, '—', JSON.stringify(f.detail).slice(0, 400))
 }

@@ -89,11 +89,11 @@ try {
                                 values ($1, 'draft', $2, $2, $3, $3, $3) returning id`, [id, `TEST ${CANARY}`, JSON.stringify({ canary: CANARY })])).rows[0].id
     for (const persona of ['setter', 'analyst', 'tutor']) await db.query(`insert into public.csat_analysis_reviews (analysis_id, persona, verdict) values ($1, $2, 'pass')`, [a, persona])
     await db.query(`update public.csat_item_analyses set status = 'published' where id = $1`, [a])
-    await db.query(`insert into public.csat_item_skeletons (item_id, exam_id, exam_label, data, source_hash) values ($1, $2, 'TEST', $3, $4)`, [id, EXAM, JSON.stringify({ canary: CANARY }), 'test-' + CANARY])
+    // 뼈대는 운영 제약상 학평 문항(H…)만 — 수능형 TEST 시험에는 넣지 않는다(뼈대 보류는 격리 PG t_reveal 이 검증)
   }
   await db.query(`insert into public.csat_type_reports (type_id, status, failure_modes, open_questions) values ($1, 'published', $2, $2)`, [TYPE, JSON.stringify({ canary: CANARY })])
-  const ready = (await db.query(`select (select count(*) from public.csat_item_analyses where item_id like $1 and status = 'published')::int a, (select count(*) from public.csat_item_skeletons where exam_id = $2)::int s`, [`${EXAM}#%`, EXAM])).rows[0]
-  record('준비', 'canary fixture 발행 완료(분석 5 · 뼈대 5)', ready.a === 5 && ready.s === 5, ready)
+  const ready = (await db.query(`select (select count(*) from public.csat_item_analyses where item_id like $1 and status = 'published')::int a`, [`${EXAM}#%`])).rows[0]
+  record('준비', 'canary fixture 발행 완료(분석 5)', ready.a === 5, ready)
   for (const r of ['P', 'N', 'ADM']) await makeUser(r, r === 'ADM')
 
   const responses = NOS.map((n, i) => ({ item_no: n, item_id: `${EXAM}#${n}`, chosen_option: i % 2 ? ANSWER(n) : (ANSWER(n) % 5) + 1, is_correct: Boolean(i % 2) }))
@@ -117,7 +117,9 @@ try {
       }
       if (r.error && !(who === 'anon' && r.error.code === '42501')) { record('canary', `${who} · ${rel} — 조회 오류(검사 미실행)`, false, { code: r.error.code, msg: r.error.message }); continue }
       const testRows = rows.filter((x) => JSON.stringify(x).includes(EXAM) || Object.values(sid).includes(x.session_id) || Object.values(sid).includes(x.id))
-      const answerLeak = testRows.filter((x) => ANSWER_FIELDS.some((f) => x[f] != null))
+      // 관계별 민감 컬럼(매니페스트) — 공개 학년(grade) 같은 같은 이름의 무관 컬럼을 오탐하지 않게
+      const sensitive = manifest.db_relations[rel].sensitive_columns ?? []
+      const answerLeak = testRows.filter((x) => sensitive.some((f) => x[f] != null))
       record('canary', `${who} · ${rel}`, !leaks(rows) && answerLeak.length === 0, { rows: rows.length, testRows: testRows.length, answerLeak: answerLeak.length })
     }
     // GraphQL — 오류는 검사 미실행이므로 실패
@@ -135,7 +137,11 @@ try {
         const r = await c.rpc(fn, args)
         const mustRefuse = ['ADMIN_ONLY', 'REVIEWER_INTERNAL'].includes(meta.class) || who === 'anon'
         const body = JSON.stringify(r.data ?? null)
-        const okRes = mustRefuse ? !!r.error : (!leaks(r.data) && !ANSWER_FIELDS.some((f) => body.includes(`"${f}":`) && !body.includes(`"${f}":null`)))
+        // 실행되지 않은 호출(인자 오류 · 함수 없음)을 통과로 세지 않는다 — 학습자 함수의 오류는 명시된 보류 · 소유 오류만 허용
+        const GATE_ERRORS = ['지금은 이 기록에 남길 수 없다', '수집은 끝났다', '풀이 수집 대상 기록이 아니다', '자기 기록', '자기 응답', '수집을 연 뒤']
+        const gateError = !!r.error && GATE_ERRORS.some((g) => (r.error.message ?? '').includes(g))
+        const okRes = mustRefuse ? !!r.error
+          : (r.error ? gateError : (!leaks(r.data) && !ANSWER_FIELDS.some((f) => body.includes(`"${f}":`) && !body.includes(`"${f}":null`))))
         record('rpc', `${who} · ${fn}(${sig.map((s) => s[1]).join(',')})`, okRes && !leaks(r.error), { err: r.error?.message?.slice(0, 120), data: body.slice(0, 120) })
       }
     }
@@ -165,19 +171,24 @@ try {
       const cookie = parts.map(([k, v]) => `${k}=${v}`).join('; ')
       const probe = await fetch(`${APP}/api/csat/diagnosis/sessions/${sid[who]}/result`, { headers: { cookie }, redirect: 'manual' })
       if (probe.status === 401 || (probe.status >= 300 && probe.status < 400)) { record('app', `${who} · 앱 세션 인증 실패 — 앱 경로 검사 미실행`, false, { status: probe.status }); continue }
-      const slug = `${EXAM}-18`
-      for (const p of [`/api/csat/lecture?item=${slug}`, `/api/csat/diagnosis/sessions/${sid[who]}/result`, `/api/csat/session/reveal`]) {
-        const res = await fetch(APP + p, { method: p.endsWith('/reveal') ? 'POST' : 'GET', headers: { cookie, 'Content-Type': 'application/json' }, body: p.endsWith('/reveal') ? JSON.stringify({ item: slug }) : undefined, redirect: 'manual' })
+      // 매니페스트의 정답 민감 · 정오 경로 **전부** — 요청 fixture(probe)가 없는 민감 경로는 그 자체로 실패(미검사 금지)
+      const fill = (s) => s.replaceAll('{SLUG}', `${EXAM}-18`).replaceAll('{SESSION}', sid[who]).replaceAll('{EXAM}', EXAM).replaceAll('{UUID}', randomUUID()).replaceAll('{WORKSPACE}', randomUUID())
+      const fillBody = (b) => b && JSON.parse(fill(JSON.stringify(b)).replace('"{CHOICES}"', JSON.stringify(Object.fromEntries(Array.from({ length: 45 }, (_, i) => [i + 1, i + 1 >= 18 && i + 1 <= 22 ? 1 : null])))))
+      const sensitive = (v) => ['ANSWER_SENSITIVE', 'CORRECTNESS', 'CORRECTNESS_OWN_PRIOR'].includes(v.class)
+      const entries = [...Object.entries(manifest.app_api).map(([k, v]) => ['api', k, v]), ...Object.entries(manifest.app_pages).map(([k, v]) => ['page', k, v])]
+      for (const [kind, key, v] of entries.filter(([, , x]) => sensitive(x))) {
+        if (!v.probe) { record('app', `${who} · ${key} — 요청 fixture 없음(미검사)`, false, '매니페스트에 probe 를 정의한다'); continue }
+        const url = APP + (kind === 'api' ? '/api/' + fill(v.probe.path ?? key) : fill(v.probe.path))
+        const res = await fetch(url, { method: v.probe.method, headers: { cookie, 'Content-Type': 'application/json' }, body: v.probe.body ? JSON.stringify(fillBody(v.probe.body)) : undefined, redirect: 'manual' })
         const body = await res.text()
-        let held = null; try { held = JSON.parse(body).held } catch {}
-        record('app', `${who} · ${p} — 보류 응답 계약(423 · held=exam_embargo · no-store)`, res.status === 423 && held === 'exam_embargo' && /no-store/.test(res.headers.get('cache-control') ?? '') && !body.includes(CANARY),
-          { status: res.status, held, cache: res.headers.get('cache-control') })
-      }
-      for (const p of [`/csat/item/${slug}`, '/csat/dissect', '/csat/formulas', '/csat', '/csat/diagnosis']) {
-        const res = await fetch(APP + p, { headers: { cookie }, redirect: 'manual' })
-        const body = await res.text()
+        let parsed = null; try { parsed = JSON.parse(body) } catch {}
         const redirected = res.status >= 300 && res.status < 400
-        record('app', `${who} · ${p}`, !redirected && res.status < 500 && !body.includes(CANARY), { status: res.status })
+        const noStore = (res.headers.get('cache-control') ?? '').includes('no-store')
+        const ok = !redirected && !body.includes(CANARY) && (
+          v.probe.expect === 'embargo' ? res.status === 423 && parsed?.held === 'exam_embargo' && noStore
+          : v.probe.expect === 'held' ? res.ok && parsed?.held != null && parsed?.raw === undefined && parsed?.wrong === undefined
+          : res.status < 500)
+        record('app', `${who} · ${kind} ${key} (${v.probe.expect})`, ok, { status: res.status, held: parsed?.held, noStore })
       }
     }
   } else record('app', '앱 경로 검사 생략(--app 없음) — 앱 gate 구현 뒤 필수 · 미실행은 통과가 아니다', true)

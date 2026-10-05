@@ -28,6 +28,9 @@
     "ref_id",
     "type",
     "v_level"
+   ],
+   "sensitive_columns": [
+    "answer_key"
    ]
   },
   "csat_dx_habit_feedback": {
@@ -66,6 +69,9 @@
     "item_id",
     "item_no",
     "session_id"
+   ],
+   "sensitive_columns": [
+    "is_correct"
    ]
   },
   "csat_dx_session": {
@@ -83,6 +89,10 @@
     "taken_at",
     "total_minutes",
     "user_id"
+   ],
+   "sensitive_columns": [
+    "raw_score",
+    "grade"
    ]
   },
   "csat_dx_snapshot": {
@@ -108,6 +118,14 @@
     "trap_vulnerability",
     "trigger",
     "user_id"
+   ],
+   "sensitive_columns": [
+    "raw_score",
+    "adjusted_score",
+    "grade_est",
+    "evidence",
+    "trap_vulnerability",
+    "forecast"
    ]
   },
   "csat_ec_boundary": {
@@ -255,6 +273,12 @@
     "units_version",
     "updated_at",
     "version"
+   ],
+   "sensitive_columns": [
+    "answer_locus",
+    "choice_analysis",
+    "solve_procedure",
+    "design_intent"
    ]
   },
   "csat_item_attempts": {
@@ -282,6 +306,9 @@
     "exam_label",
     "item_id",
     "source_hash"
+   ],
+   "sensitive_columns": [
+    "data"
    ]
   },
   "csat_items": {
@@ -306,6 +333,10 @@
     "section",
     "stem",
     "type_id"
+   ],
+   "sensitive_columns": [
+    "answer",
+    "answers"
    ]
   },
   "csat_items_public": {
@@ -323,15 +354,22 @@
     "points",
     "section",
     "type_id"
+   ],
+   "sensitive_columns": [
+    "answer"
    ]
   },
   "csat_learner_state": {
-   "class": "CORRECTNESS_OWN_PRIOR",
-   "gate": "본인 연습 기록 jsonb(행 단위로 거를 수 없음) — 잔여 위험 O-3",
+   "class": "CORRECTNESS",
+   "gate": "② 학습자 직접 접근 회수 — 앱 /api/csat/state 가 서버 경로로 보류 문항 키를 빼고 준다",
    "learner_columns": [
     "record",
     "updated_at",
     "user_id"
+   ],
+   "revoked_by": "20261005170100",
+   "sensitive_columns": [
+    "record"
    ]
   },
   "csat_map_edge": {
@@ -467,6 +505,9 @@
     "type_id",
     "updated_at",
     "user_id"
+   ],
+   "sensitive_columns": [
+    "item_id"
    ]
   },
   "csat_session_attempts": {
@@ -481,6 +522,9 @@
     "sec",
     "type_id",
     "user_id"
+   ],
+   "sensitive_columns": [
+    "correct"
    ]
   },
   "csat_source_eligibility": {
@@ -550,6 +594,10 @@
     "item_id",
     "picked_trap",
     "user_id"
+   ],
+   "sensitive_columns": [
+    "is_correct",
+    "answer_trap"
    ]
   },
   "csat_type_reports": {
@@ -568,6 +616,13 @@
     "time_budget_sec",
     "type_id",
     "updated_at"
+   ],
+   "sensitive_columns": [
+    "failure_modes",
+    "open_questions",
+    "recurring_traps",
+    "procedure_steps",
+    "answer_locus_pattern"
    ]
   },
   "csat_types": {
@@ -845,11 +900,27 @@
   },
   "csat/diagnosis/sessions": {
    "class": "CORRECTNESS",
-   "gate": "app: 저장은 record_session_held 단일 진입 · 응답은 canRevealExam"
+   "gate": "app: 저장은 record_session_held 단일 진입 · 응답은 canRevealExam",
+   "probe": {
+    "method": "POST",
+    "body": {
+     "examId": "{EXAM}",
+     "mode": "live",
+     "takenAt": "2026-10-05",
+     "clientKey": "{UUID}",
+     "choices": "{CHOICES}"
+    },
+    "expect": "held"
+   }
   },
   "csat/diagnosis/sessions/[id]/result": {
    "class": "CORRECTNESS",
-   "gate": "app: canRevealExam"
+   "gate": "app: canRevealExam",
+   "probe": {
+    "method": "GET",
+    "path": "csat/diagnosis/sessions/{SESSION}/result",
+    "expect": "embargo"
+   }
   },
   "csat/ec/capture": {
    "class": "LEARNER_OWN",
@@ -873,7 +944,12 @@
   },
   "csat/lecture": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "app: isItemAnswerEmbargoed → 거부 · no-store"
+   "gate": "app: isItemAnswerEmbargoed → 거부 · no-store",
+   "probe": {
+    "method": "GET",
+    "path": "csat/lecture?item={SLUG}",
+    "expect": "embargo"
+   }
   },
   "csat/paper": {
    "class": "PUBLIC_CONTENT",
@@ -881,21 +957,41 @@
   },
   "csat/session/record": {
    "class": "CORRECTNESS_OWN_PRIOR",
-   "gate": "본인 연습 기록 — 정책 보류 문항 제외"
+   "gate": "본인 연습 기록 — 정책 보류 문항 제외",
+   "probe": {
+    "method": "GET",
+    "expect": "no_canary"
+   }
   },
   "csat/session/reveal": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "app: isItemAnswerEmbargoed → 거부 · no-store"
+   "gate": "app: isItemAnswerEmbargoed → 거부 · no-store",
+   "probe": {
+    "method": "POST",
+    "body": {
+     "item": "{SLUG}"
+    },
+    "expect": "embargo"
+   }
   },
   "csat/state": {
    "class": "CORRECTNESS_OWN_PRIOR",
-   "gate": "본인 학습 상태 jsonb — 잔여 위험 O-3"
+   "gate": "본인 학습 상태 jsonb — 잔여 위험 O-3",
+   "probe": {
+    "method": "GET",
+    "expect": "no_canary"
+   }
   }
  },
  "app_pages": {
   "app/(app)/csat": {
    "class": "CORRECTNESS",
-   "gate": "app: 홈 카드 점수 — canRevealExam(②로 학습자 직접 조회 불가 → 서버 경로)"
+   "gate": "app: 홈 카드 점수 — canRevealExam(②로 학습자 직접 조회 불가 → 서버 경로)",
+   "probe": {
+    "method": "GET",
+    "path": "/csat",
+    "expect": "no_canary"
+   }
   },
   "app/(app)/csat/browse": {
    "class": "PUBLIC_CONTENT",
@@ -903,7 +999,12 @@
   },
   "app/(app)/csat/diagnosis": {
    "class": "CORRECTNESS",
-   "gate": "app: 보드 · 기록 상세 · 보고서 canRevealExam · 수집 모달"
+   "gate": "app: 보드 · 기록 상세 · 보고서 canRevealExam · 수집 모달",
+   "probe": {
+    "method": "GET",
+    "path": "/csat/diagnosis",
+    "expect": "no_canary"
+   }
   },
   "app/(app)/csat/diagnosis/attempts/new": {
    "class": "PUBLIC_CONTENT",
@@ -915,15 +1016,30 @@
   },
   "app/(app)/csat/space": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "app: 문항 묶음 — 보류 문항 해설 제외(구현 때 확인)"
+   "gate": "app: 문항 묶음 — 보류 문항 해설 제외(구현 때 확인)",
+   "probe": {
+    "method": "GET",
+    "path": "/csat/space",
+    "expect": "no_canary"
+   }
   },
   "app/(app)/csat/workspace": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "app: 보류 문항 해설 제외(구현 때 확인)"
+   "gate": "app: 보류 문항 해설 제외(구현 때 확인)",
+   "probe": {
+    "method": "GET",
+    "path": "/csat/workspace",
+    "expect": "no_canary"
+   }
   },
   "app/(app)/csat/workspace/[id]": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "app: 보류 문항 해설 제외(구현 때 확인)"
+   "gate": "app: 보류 문항 해설 제외(구현 때 확인)",
+   "probe": {
+    "method": "GET",
+    "path": "/csat/workspace/{WORKSPACE}",
+    "expect": "no_canary"
+   }
   },
   "app/(app)/csat/workspace/new": {
    "class": "PUBLIC_CONTENT",
@@ -931,15 +1047,30 @@
   },
   "app/(main)/csat/dissect": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "app: 카탈로그 원본 캐시 뒤 요청마다 보류 문항 · 파생 필드 제거"
+   "gate": "app: 카탈로그 원본 캐시 뒤 요청마다 보류 문항 · 파생 필드 제거",
+   "probe": {
+    "method": "GET",
+    "path": "/csat/dissect",
+    "expect": "no_canary"
+   }
   },
   "app/(main)/csat/formulas": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "app: 위와 같음"
+   "gate": "app: 위와 같음",
+   "probe": {
+    "method": "GET",
+    "path": "/csat/formulas",
+    "expect": "no_canary"
+   }
   },
   "app/(main)/csat/item/[slug]": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "app: 보류면 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에서 뺀다"
+   "gate": "app: 보류면 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에서 뺀다",
+   "probe": {
+    "method": "GET",
+    "path": "/csat/item/{SLUG}",
+    "expect": "no_canary"
+   }
   }
  },
  "app_json_imports": {
@@ -963,5 +1094,38 @@
    "class": "ANSWER_SENSITIVE",
    "gate": "클라이언트 번들 — 사례(examples)를 서버 로더로 옮기고 보류 필터(번들 산출물 검사)"
   }
+ },
+ "app_file_loaders": {
+  "lib/csat/drill-loader.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "어느 라우트도 import 하지 않음(조사) — import 되면 보류 필터 필요"
+  },
+  "lib/csat/factory-bench.ts": {
+   "class": "OPS_META",
+   "gate": "관리자 출제 도구"
+  },
+  "lib/csat/lecture/store.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: /api/csat/lecture · 문항 페이지 — isItemAnswerEmbargoed 를 데이터 읽기 전에"
+  },
+  "lib/csat/order-view.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류 필터(구현 때 확인)"
+  },
+  "lib/csat/overlay.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류 필터(구현 때 확인)"
+  },
+  "lib/csat/skeleton.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 뼈대 JSON 메모리 캐시 — 요청마다 보류 필터"
+  },
+  "lib/csat/type-locus.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "app: 보류 필터(구현 때 확인)"
+  }
+ },
+ "bundle_scan": {
+  "note": "앱 빌드 산출물(.next/static) 에서 문항 id(`연도#번호` · `M2509#33` 꼴)와 분석 키(why_tempting · how_to_reject · answer_locus)를 찾는다 — check-surfaces.mjs --bundle <.next 경로>. 하나라도 나오면 실패(함정 아틀라스 사례가 번들에 있으면 여기서 걸린다)"
  }
 }

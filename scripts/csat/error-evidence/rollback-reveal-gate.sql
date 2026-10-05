@@ -36,6 +36,7 @@ alter policy csat_dx_snapshot_own_select on public.csat_dx_snapshot using (user_
 alter policy csat_session_attempts_own on public.csat_session_attempts using (user_id = (select auth.uid()));
 alter policy csat_trap_attempts_own_select on public.csat_trap_attempts using ((select auth.uid()) = user_id);
 alter policy csat_review_queue_own on public.csat_review_queue using (user_id = (select auth.uid()));
+alter policy csat_ec_claim_own_student on public.csat_ec_claim using (((user_id = ( SELECT auth.uid() AS uid)) AND (source = 'student'::text)));
 
 -- 공개 뷰 원래 정의
 create or replace view public.csat_items_public as

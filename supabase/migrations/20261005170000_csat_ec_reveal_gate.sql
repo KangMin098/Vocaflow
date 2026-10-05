@@ -25,15 +25,15 @@ declare v text;
 begin
   for v in select unnest(array['csat_item_analyses:csat_analyses_read', 'csat_item_skeletons:csat_item_skeletons_read_published', 'csat_type_reports:csat_type_reports_read',
                                'csat_dx_session:csat_dx_session_own_select', 'csat_dx_response:csat_dx_response_own_select', 'csat_dx_snapshot:csat_dx_snapshot_own_select',
-                               'csat_session_attempts:csat_session_attempts_own', 'csat_trap_attempts:csat_trap_attempts_own_select', 'csat_review_queue:csat_review_queue_own']) loop
+                               'csat_session_attempts:csat_session_attempts_own', 'csat_trap_attempts:csat_trap_attempts_own_select', 'csat_review_queue:csat_review_queue_own', 'csat_ec_claim:csat_ec_claim_own_student']) loop
     if not exists (select 1 from pg_policy where polrelid = ('public.' || split_part(v, ':', 1))::regclass and polname = split_part(v, ':', 2)) then
       raise exception 'reveal-gate: 정책 % 가 없다 — 정의를 다시 확인하고 적용한다', v;
     end if;
   end loop;
   if (select count(*) from pg_policy where polrelid in ('public.csat_item_analyses'::regclass, 'public.csat_item_skeletons'::regclass, 'public.csat_type_reports'::regclass,
         'public.csat_dx_session'::regclass, 'public.csat_dx_response'::regclass, 'public.csat_dx_snapshot'::regclass,
-        'public.csat_session_attempts'::regclass, 'public.csat_trap_attempts'::regclass, 'public.csat_review_queue'::regclass) and polcmd in ('r', '*')) <> 9 then
-    raise exception 'reveal-gate: 학습자 SELECT 정책 수가 예상(9)과 다르다 — 다른 정책이 우회 경로가 될 수 있다';
+        'public.csat_session_attempts'::regclass, 'public.csat_trap_attempts'::regclass, 'public.csat_review_queue'::regclass, 'public.csat_ec_claim'::regclass) and polcmd in ('r', '*')) <> 10 then
+    raise exception 'reveal-gate: 학습자 SELECT 정책 수가 예상(10)과 다르다 — 다른 정책이 우회 경로가 될 수 있다';
   end if;
 end $$;
 
@@ -132,6 +132,13 @@ language sql stable security definer set search_path = '' as $$
      and exists (select 1 from public.csat_dx_session s where s.user_id = p_user and csat_ec_private.exam_answer_embargoed(s.exam_id))
 $$;
 
+-- 세션 → 시험 보류(정의자 권한 — 정책 안 하위 조회가 학습자 RLS 로 평가되면 보류 세션이 안 보여 `not exists` 가 열린다(fail-open))
+create or replace function csat_ec_private.session_embargoed(p_session uuid) returns boolean
+language sql stable security definer set search_path = '' as $$
+  select csat_ec_private.any_embargo()
+     and exists (select 1 from public.csat_dx_session s where s.id = p_session and csat_ec_private.exam_answer_embargoed(s.exam_id))
+$$;
+
 create or replace function csat_ec_private.user_exam_active(p_user uuid, p_exam text) returns boolean
 language sql stable security definer set search_path = '' as $$
   select exists (select 1 from public.csat_ec_capture_session c join public.csat_dx_session s on s.id = c.session_id
@@ -141,7 +148,8 @@ $$;
 revoke all on all functions in schema csat_ec_private from public, anon, authenticated, service_role;
 -- 정책 · 뷰 평가에 필요한 실행 권한만(이 스키마는 REST · GraphQL 로 노출되지 않는다)
 grant execute on function csat_ec_private.exam_answer_embargoed(text), csat_ec_private.any_embargo(), csat_ec_private.item_answer_embargoed(text),
-                          csat_ec_private.type_answer_embargoed(text), csat_ec_private.user_has_embargoed_session(uuid) to anon, authenticated, service_role;
+                          csat_ec_private.type_answer_embargoed(text), csat_ec_private.user_has_embargoed_session(uuid),
+                          csat_ec_private.session_embargoed(uuid) to anon, authenticated, service_role;
 grant execute on function csat_ec_private.user_exam_active(uuid, text) to service_role;
 
 -- ═══ 3. 가드 트리거 ═══
@@ -386,6 +394,9 @@ alter policy csat_session_attempts_own on public.csat_session_attempts
   using (user_id = (select auth.uid()) and not csat_ec_private.item_answer_embargoed(item_id));
 alter policy csat_trap_attempts_own_select on public.csat_trap_attempts
   using ((select auth.uid()) = user_id and not csat_ec_private.item_answer_embargoed(item_id));
+-- 학생 범주 보고(claim)는 오답에만 생긴다 — 보류 시험이면 본인 행도 안 보인다
+alter policy csat_ec_claim_own_student on public.csat_ec_claim
+  using (user_id = (select auth.uid()) and source = 'student' and not csat_ec_private.session_embargoed(session_id));
 -- 복습 큐(과거 연습 오답에서 생김 — 들어 있다는 사실이 정오)
 alter policy csat_review_queue_own on public.csat_review_queue
   using (user_id = (select auth.uid()) and not csat_ec_private.item_answer_embargoed(item_id));

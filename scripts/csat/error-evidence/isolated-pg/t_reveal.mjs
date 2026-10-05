@@ -83,6 +83,8 @@ export default async function reveal(admin, ctx) {
   const L1s = ctx.S.L1
   const claim = (no) => as(app, learner(U.L1), `select public.csat_ec_add_student_claim($1, $2::smallint, $3, 'word', null)`, [L1s, no, TAX])
   const wrongC = await claim(WRONG[0]), rightC = await claim(40)
+  const ownClaims = await as(app, learner(U.L1), `select count(*)::int n from public.csat_ec_claim where session_id = $1`, [L1s])
+  record('reveal', '보류 중 — 본인 학생 claim 행도 안 보인다(오답에만 생김 = 정오)', ok(ownClaims) && ownClaims.rows[0].n === 0, ownClaims.rows?.[0] ?? ownClaims.err)
   record('reveal', 'add_student_claim — 보류 중 오답 · 정답 문항이 같은 오류(oracle 0)', !wrongC.ok && !rightC.ok && wrongC.err === rightC.err, [wrongC.err, rightC.err])
 
   // ── 판정자 자료 마스킹(비관리자) ──
@@ -170,6 +172,11 @@ export default async function reveal(admin, ctx) {
   for (const t of tomb) await as(app, ADM, `select public.csat_ec_close_tombstone($1, '계정 삭제 뒤 정리(테스트)')`, [t.id])
   const tombLifted = await seen(learner(U.L2))
   record('reveal', '관리자가 묘비를 닫으면 보류 해제', tombLifted.analyses > 0, tombLifted)
+
+  // ── 구조 가드: 학습자 정책 안의 NOT EXISTS 하위 조회는 그 표의 RLS 로 평가돼 보류 행이 안 보이면 거꾸로 열린다(fail-open · 2026-10-05 실측, 운영 DB 기존 0건) ──
+  const notExists = (await admin.query(`select polrelid::regclass::text t, polname from pg_policy
+      where polrelid::regclass::text like 'csat%' and pg_get_expr(polqual, polrelid) ilike '%not (exists%'`)).rows
+  record('reveal', '학습자 정책에 NOT EXISTS 하위 조회 없음(fail-open 구조 — 정의자 함수로)', notExists.length === 0, notExists)
 
   // ── client_key 재사용 — 다른 시험 · 다른 답안은 거부(엉뚱한 시험을 봉인하지 않는다) ──
   await admin.query(`insert into public.csat_exams (id, label, kind, year, month, exam_year, has_answer_key) values ('X-OTHER', 'other', 'mock', 2024, 6, 2023, true) on conflict do nothing`)
