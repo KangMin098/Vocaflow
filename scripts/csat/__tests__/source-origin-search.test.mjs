@@ -126,3 +126,15 @@ test('invalid XML caches are replaced by fetched body and valid caches avoid req
   assert.equal(calls, 1)
   assert.equal(extractOaDocument('<html><body><p>Error page</p></body></html>', 'PMC123'), null)
 })
+
+test('truncated bibliography and invalid numeric entities recover through a remote request', async () => {
+  const valid = '<article><body><p>Distinctive original words occur in this valid body paragraph.</p></body><back><ref-list/></back></article>'
+  for (const cache of [valid.slice(0, valid.indexOf('<back>')), valid.replace('Distinctive', '&#999999999;'), valid.replace('Distinctive', '&#0;'), valid.replace('Distinctive', '&#xD800;'), valid.replace('<back><ref-list/></back>', '<back><ref-list/></broken>')]) {
+    let calls = 0
+    const result = await loadOaDocument('PMC123', { cachedXml: cache, fetchImpl: async () => { calls++; return { ok: true, status: 200, text: async () => valid } } })
+    assert.equal(calls, 1)
+    assert.equal(result.state, 'downloaded')
+    assert.equal(result.xml, valid)
+  }
+  assert.ok(extractOaDocument('<?xml version="1.0"?><!DOCTYPE article [<!ENTITY example "text">]>' + valid, 'PMC123'))
+})

@@ -11,7 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- feat(csat): 원천 조사에 도서·학술 API adapter와 OA 문단 역색인·편집 정렬·참고문헌 연결을 추가. 미확인 592행 Europe PMC 검색 및 175행 시점 재검색, OA 본문 633개·33,297문단 로컬 대조 후 추가 등록 0개를 명시했다. snippet 특수 문법 전제를 정정하고 Books/snippet 429 및 미실행 범위를 보존했다. 기존 120개 출처의 빈도와 후기 판본을 확률 모델과 구분했다. 응답 불일치 재시도·근거 보존·손상 캐시 복구 포함 회귀 21/21, DB·마이그레이션·라우트 변경 없음. [연합 검색 결과](./reports/csat-source-origin-priority-20261005.md#첨부-제안-적용-연합-검색-실험--추가-등록-0개).
+- feat(csat): 원천 조사에 도서·학술 API adapter와 OA 문단 역색인·편집 정렬·참고문헌 연결을 추가. 미확인 592행 Europe PMC 검색 및 175행 시점 재검색, OA 본문 633개·33,297문단 로컬 대조 후 추가 등록 0개를 명시했다. snippet 특수 문법 전제를 정정하고 Books/snippet 429 및 미실행 범위를 보존했다. 기존 120개 출처의 빈도와 후기 판본을 확률 모델과 구분했다. 응답 불일치 재시도·근거 보존·손상 캐시 복구 포함 회귀 22/22, DB·마이그레이션·라우트 변경 없음. [연합 검색 결과](./reports/csat-source-origin-priority-20261005.md#첨부-제안-적용-연합-검색-실험--추가-등록-0개).
 
 - feat(csat): 권장순 원천 조사로 신규 8등록행·9문항(A 3·B 5)을 등록하고 기존 B 1행을 A로 승격. 수능 A+B 106/338, 전체 120/713. 미확인 600행의 짧은 구절 질의 2,397개 준비·수능 239개 대상 242회 검색(악센트 문자 수정 후 재검색 3회 포함) 범위를 구분하고 스캔·재인용·색인 근거와 접근 실패를 보존했다. 본문 SHA/CAS 및 공백 600→592를 한 트랜잭션으로 적용·재검사했다. 회귀 12/12 통과, 마이그레이션·라우트 변경 없음. [실행 결과](./reports/csat-source-origin-priority-20261005.md).
 
@@ -27457,7 +27457,7 @@ psm 4 = "가변 크기 텍스트 한 열" — 말풍선은 세로로 쌓인 짧�
 - **무효 CSS 2건 추가 제거** — `TodayQueue` 의 `` `${meta.color}0D` `` (var() + 알파 hex)로 카드 배경·테두리가 실제로는 **투명**이었다. `color-mix()` 로 교체(ScriptQuiz 와 같은 유형, 세 번째 발견).
 - **공용 컴포넌트 교정** — `TodayQueue`(hub·flashcard·spellforge 3화면 공용) 색 구조를 `color/ink/tint/edge` 로 분리 · 분포 막대의 `aria-prohibited-attr` 제거 · `VocabSetCarousel` 활성 탭 accent 3종을 흰 글자 AA 기준으로 심화(csat 3.19→5.38 등) · `RecommendedSetsSection` 배지 팔레트 · `PlanClient` 의 `opacity-70` 이중 감광 제거.
 - **게이트 확장** — `14-learner-quality` 에 **hub·dashboard·dictate·arcade** 추가(라이트/다크 0 유지). 나머지 화면(wordvault·flashcard·scriptquiz·plan·settings·library/*)은 잔여가 남아 아직 넣지 않았다 — **0 이 되는 대로 배열에 한 줄씩 추가**하는 것이 이 루프의 진행 방식이고, 스펙 주석에 그렇게 적어두었다.
-- 검증: 14-learner-quality 5/5 · 11/12/13 포함 21/21 · 04-ui-smoke 5/5 · unit 229 · tsc 클린.
+- 검증: 14-learner-quality 5/5 · 11/12/13 포함 22/22 · 04-ui-smoke 5/5 · unit 229 · tsc 클린.
 
 ### 품질 루프 2회차 — 학습자 전 화면으로 확대, 접근성 위반 719 → 20 (2026-08-09)
 

@@ -93,9 +93,52 @@ export function originTokens(value) {
   return String(value ?? '').normalize('NFC').toLowerCase().match(/[\p{Script=Latin}0-9][\p{Script=Latin}\p{M}0-9'’-]*/gu) ?? []
 }
 
+function completeXml(xml) {
+  const entityText = xml.replace(/<!\[CDATA\[[\s\S]*?\]\]>|<!--[\s\S]*?-->/g, '')
+  for (const match of entityText.matchAll(/&#([^;]*);/g)) {
+    if (!/^(?:x[0-9a-f]+|\d+)$/i.test(match[1])) return false
+    const n = /^x/i.test(match[1]) ? parseInt(match[1].slice(1), 16) : Number(match[1])
+    if (![9, 10, 13].includes(n) && !(n >= 32 && n <= 0xD7FF) && !(n >= 0xE000 && n <= 0xFFFD) && !(n >= 0x10000 && n <= 0x10FFFF)) return false
+  }
+  const stack = []
+  let position = 0, roots = 0
+  while (position < xml.length) {
+    const start = xml.indexOf('<', position)
+    const text = xml.slice(position, start < 0 ? xml.length : start)
+    if (!stack.length && text.trim()) return false
+    if (start < 0) break
+    const special = [['<!--', '-->'], ['<![CDATA[', ']]>'], ['<?', '?>']].find(([prefix]) => xml.startsWith(prefix, start))
+    if (special) {
+      const end = xml.indexOf(special[1], start + special[0].length)
+      if (end < 0) return false
+      position = end + special[1].length; continue
+    }
+    let end = start + 1, quote = '', brackets = 0
+    const declaration = xml.startsWith('<!DOCTYPE', start)
+    for (; end < xml.length; end++) {
+      const char = xml[end]
+      if (quote) { if (char === quote) quote = ''; continue }
+      if (char === '"' || char === "'") { quote = char; continue }
+      if (declaration && char === '[') brackets++
+      if (declaration && char === ']') brackets--
+      if (char === '>' && !brackets) break
+    }
+    if (end === xml.length || quote || brackets) return false
+    const tag = xml.slice(start + 1, end).trim()
+    if (!declaration) {
+      const closing = tag.startsWith('/'), name = tag.match(/^\/?([A-Za-z_][\w:.-]*)/)?.[1]
+      if (!name) return false
+      if (closing) { if (stack.pop() !== name || tag !== '/' + name) return false }
+      else { if (!stack.length && ++roots > 1) return false; if (!tag.endsWith('/')) stack.push(name) }
+    }
+    position = end + 1
+  }
+  return roots === 1 && !stack.length
+}
+
 // JATS body paragraphs are kept separate from bibliography; citation edges remain evidence only.
 export function extractOaDocument(xml, documentId) {
-  if (!/<article\b/i.test(xml) || /<html\b/i.test(xml)) return null
+  if (!completeXml(xml) || !/<article\b/i.test(xml) || /<html\b/i.test(xml)) return null
   const body = xml.match(/<body\b[^>]*>([\s\S]*?)<\/body>/)?.[1]
   if (!body) return null
   const decode = value => value.replace(/<[^>]+>/g, ' ').replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16))).replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ').trim()
@@ -119,11 +162,14 @@ export function extractOaDocument(xml, documentId) {
 
 export async function loadOaDocument(documentId, { cachedXml, fetchImpl = fetch } = {}) {
   if (!/^PMC\d+$/.test(documentId)) throw new Error('Invalid OA document ID')
-  const cached = cachedXml ? extractOaDocument(cachedXml, documentId) : null
+  let cached = null
+  try { cached = cachedXml ? extractOaDocument(cachedXml, documentId) : null } catch { /* Corrupt entity in cache: recover from the official endpoint. */ }
   if (cached) return { state: 'cached', xml: cachedXml, parsed: cached }
   const response = await fetchImpl(`https://www.ebi.ac.uk/europepmc/webservices/rest/${documentId}/fullTextXML`, { signal: AbortSignal.timeout(25000) })
   if (!response.ok) return { state: 'http_error', http_status: response.status }
-  const xml = await response.text(), parsed = extractOaDocument(xml, documentId)
+  const xml = await response.text()
+  let parsed = null
+  try { parsed = extractOaDocument(xml, documentId) } catch { /* Invalid remote XML is not a usable body. */ }
   return parsed ? { state: 'downloaded', xml, parsed } : { state: 'body_unavailable', http_status: response.status }
 }
 
