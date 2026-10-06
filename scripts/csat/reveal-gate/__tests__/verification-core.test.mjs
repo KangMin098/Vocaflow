@@ -18,6 +18,11 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   write('app/api/public-constant/route.ts','const TABLE="csat_items"; export const GET=(db)=>db.from(TABLE).select("answer")')
   assert.ok(scanLoaders(root,manifest).issues.some(i=>i.file==='app/api/public-constant/route.ts'&&i.kind==='unclassified_loader'))
   fs.unlinkSync(path.join(root,'app/api/public-constant/route.ts'))
+  write('app/api/alias/route.ts','export function GET(db){const {from}=db;return from.call(db,"csat_items").select("answer")}')
+  assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_db_method_alias'))
+  write('app/api/alias/route.ts','export function GET(db){const read=db.from.bind(db);return read("csat_items").select("answer")}')
+  assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_db_method_alias'))
+  fs.unlinkSync(path.join(root,'app/api/alias/route.ts'))
   write('lib/csat/unknown.ts','export const load=(db)=>db["rpc"]("csat_new_answer_rpc")')
   assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_csat_object'))
   fs.unlinkSync(path.join(root,'lib/csat/unknown.ts'))
@@ -80,6 +85,9 @@ test('mutation: production artifact and escaped literal canary detected; empty b
   assert.ok(secretLiterals('chunk.js','const a={item_id:"2026#18",answer:3}').includes('answer'))
   assert.ok(secretLiterals('data.json',JSON.stringify({item_id:'M2509#18',answers:[3]})).includes('answers'))
   assert.ok(secretLiterals('chunk.js','JSON.parse('+JSON.stringify(JSON.stringify({item_id:'M2509#18',answers:[3]}))+')').includes('answers'))
+  const analyzed={item_id:'M2509#18',choice_analysis:[{n:3,verdict:'correct'}]}
+  assert.ok(secretLiterals('data.json',JSON.stringify(analyzed)).includes('choice_analysis'))
+  assert.ok(secretLiterals('chunk.js','JSON.parse('+JSON.stringify(JSON.stringify(analyzed))+')').includes('choice_analysis'))
 }))
 test('paging sites ignore comments and retain changed call identity rather than a global count',()=>{
   assert.deepEqual(pagingLocations('// db.range(offset, end)\nconst x=db.range(0,99)','x.ts'),[])

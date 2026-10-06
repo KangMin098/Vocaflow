@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 const require = createRequire(new URL('../../../apps/web/package.json', import.meta.url))
 const ts = require('typescript')
-const SECRET = /^(correctAnswer|correct_answer|answerKey|expectedAnswer|answer_key|why_correct|why_tempting|how_to_reject|answer_locus)$/
+const SECRET = /^(correctAnswer|correct_answer|answerKey|expectedAnswer|answer_key|why_correct|why_tempting|how_to_reject|answer_locus|choice_analysis)$/
 const GATE = new Set(['canRevealExam','canRevealItem','canRevealSession','embargoedExamIds','embargoedItemIds','userHasHeldSession','loadRevealScope','assertRevealAllowed','revealHeldResponse','isItemHeld','isExamHeld','isTypeHeld'])
 const SENSITIVE = new Set(['ANSWER_SENSITIVE','CORRECTNESS','CORRECTNESS_OWN_PRIOR','CORRECTNESS_ORACLE','REVIEWER_INTERNAL','ADMIN_ONLY'])
 export const relative = (root, file) => path.relative(root,file).replace(/\\/g,'/')
@@ -28,6 +28,17 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
     const source=parse(file,fs.readFileSync(file,'utf8')), imported=new Set(), namespaces=new Set(), hits=[]
     let csatContext=/^app\/(?:[^/]+\/)?api\/csat\/|^lib\/csat\//.test(routePath)
     visit(source,n=>{if(ts.isStringLiteralLike(n)&&/^csat_/.test(n.text))csatContext=true})
+    const aliases=new Set()
+    visit(source,n=>{
+      if(!ts.isVariableDeclaration(n)||!n.initializer)return
+      if(ts.isObjectBindingPattern(n.name))for(const element of n.name.elements)if(ts.isIdentifier(element.name)&&['from','rpc'].includes(property(element.propertyName??element.name)))aliases.add(element.name.text)
+      if(ts.isIdentifier(n.name)) {
+        let value=n.initializer
+        while(ts.isAsExpression(value)||ts.isTypeAssertionExpression(value)||ts.isParenthesizedExpression(value)||ts.isNonNullExpression(value))value=value.expression
+        if(ts.isCallExpression(value)&&ts.isPropertyAccessExpression(value.expression)&&value.expression.name.text==='bind')value=value.expression.expression
+        if(ts.isPropertyAccessExpression(value)&&['from','rpc'].includes(value.name.text)||ts.isElementAccessExpression(value)&&ts.isStringLiteralLike(value.argumentExpression)&&['from','rpc'].includes(value.argumentExpression.text)||ts.isIdentifier(value)&&aliases.has(value.text))aliases.add(n.name.text)
+      }
+    })
     let callerClass=null
     const register=node=>{
       let owner=node
@@ -40,6 +51,14 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       functions.set(key,{key,file:rel,function:name,sha256:createHash('sha256').update(code+'\n'+context).digest('hex'),class:loader(rel)?.class??manifest.app_file_loaders?.[rel]?.class??manifest.app_json_imports?.[rel]?.class??manifest.app_pages?.[rel.replace(/\/page\.tsx$/,'')]?.class??policy?.page_classifications?.[rel]?.class??manifest.app_api?.[routePath.replace(/^app\/api\//,'').replace(/\/route\.[jt]sx?$/,'')]?.class??policy?.function_approvals?.[key]?.class??callerClass})
     }
     visit(source,n=>{
+      if(ts.isCallExpression(n)) {
+        const callee=n.expression
+        const alias=ts.isIdentifier(callee)&&aliases.has(callee.text)||ts.isPropertyAccessExpression(callee)&&['call','apply','bind'].includes(callee.name.text)&&(ts.isIdentifier(callee.expression)&&aliases.has(callee.expression.text)||ts.isPropertyAccessExpression(callee.expression)&&['from','rpc'].includes(callee.expression.name.text))
+        if(alias){let arg=n.arguments[0];if(ts.isPropertyAccessExpression(callee)&&['call','bind'].includes(callee.name.text))arg=n.arguments[1];if(ts.isPropertyAccessExpression(callee)&&callee.name.text==='apply')arg=n.arguments[1]&&ts.isArrayLiteralExpression(n.arguments[1])?n.arguments[1].elements[0]:null
+          const bindingOnly=ts.isPropertyAccessExpression(callee)&&callee.name.text==='bind'&&n.arguments.length<2
+          if(!bindingOnly&&(!arg||!ts.isStringLiteralLike(arg)||/^csat_/i.test(arg.text))){issues.push({file:rel,kind:'unclassified_db_method_alias',reason:'Indirect CSAT or unresolved DB method invocation requires an explicit wrapper with reviewed literal table/RPC names.'});register(n);register(source)}
+        }
+      }
       let dependency=null
       if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&!n.importClause?.isTypeOnly&&n.importClause){const bindings=n.importClause.namedBindings;if(!!n.importClause.name||!bindings||!ts.isNamedImports(bindings)||bindings.elements.some(e=>!e.isTypeOnly))dependency=n.moduleSpecifier.text}
       if(ts.isExportDeclaration(n)&&n.moduleSpecifier&&ts.isStringLiteral(n.moduleSpecifier)&&!n.isTypeOnly)dependency=n.moduleSpecifier.text
