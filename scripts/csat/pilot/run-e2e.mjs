@@ -186,4 +186,31 @@ const summary = {
 }
 fs.writeFileSync(OUT, `${JSON.stringify(summary, null, 2)}\n`)
 console.log(`\nE2E pass ${summary.totals.pass} · fail ${summary.totals.fail} · skipped ${summary.totals.skipped} · 잔여 계정 ${residual.accounts} · 잔여 세션 ${residual.sessions} · 보류 시험 ${JSON.stringify(residual.embargoedExams)} · 남긴 계정 ${residual.keptActive.length}`)
-process.exitCode = fatal || summary.totals.fail || summary.totals.skipped || phases.length !== PHASES.length || phases.some((p) => p.exitCode !== 0) || summary.totals.pass === 0 || residual.accounts !== 0 || residual.sessions !== 0 || residual.embargoedExams?.length !== 0 ? 1 : 0
+const ok = !(fatal || summary.totals.fail || summary.totals.skipped || phases.length !== PHASES.length || phases.some((p) => p.exitCode !== 0) || summary.totals.pass === 0 || residual.accounts !== 0 || residual.sessions !== 0 || residual.embargoedExams?.length !== 0)
+process.exitCode = ok ? 0 : 1
+
+// --run <id>: 게이트 형식 기록(docs/csat-learner/pilot-runs/<id>.e2e.json · README 형식 ec-pilot-e2e-1) — 통과 · 깨끗한 작업 트리일 때만
+const runIdx = process.argv.indexOf('--run')
+if (runIdx > 0) {
+  const runId = process.argv[runIdx + 1]
+  const dst = path.join(ROOT, 'docs/csat-learner/pilot-runs', `${runId}.e2e.json`)
+  // e2e-last-run.json 은 이 러너가 매번 다시 쓰는 요약이라 깨끗함 검사에서 뺀다(빼지 않으면 기록을 영영 못 쓴다 — 2026-10-07 리허설)
+  const dirty = git('status', '--porcelain', '--untracked-files=no', '--', '.', ':!scripts/csat/pilot/e2e-last-run.json')
+  if (!/^ec-pilot-run-\d{8}-\d+$/.test(runId ?? '')) { console.error('--run 형식: ec-pilot-run-<YYYYMMDD>-<n>'); process.exitCode = 2 }
+  else if (!ok) { console.error('E2E 가 통과하지 않아 게이트 기록을 쓰지 않는다'); process.exitCode = 1 }
+  else if (dirty) { console.error('작업 트리에 커밋 안 된 변경이 있다 — 기록의 commit 이 실제 코드와 달라지므로 쓰지 않는다'); process.exitCode = 1 }
+  else if (fs.existsSync(dst)) { console.error(`${path.relative(ROOT, dst)} 가 이미 있다 — 같은 run 기록을 덮어쓰지 않는다`); process.exitCode = 1 }
+  else {
+    // 리포트 원본(테스트 제목 · 시간)은 저장소 밖(test-results)에 두고 해시만 — 단계 순서대로 이어 붙인 바이트의 sha256
+    const h = crypto.createHash('sha256')
+    for (const p of PHASES) h.update(fs.readFileSync(path.join(WEB, 'test-results', `ec-pilot-e2e-${p.name}.json`)))
+    const rec = {
+      format: 'ec-pilot-e2e-1', runId, commit: summary.appCommit, build: 'production', specs: [...new Set(PHASES.flatMap((p) => p.specs))],
+      passed: summary.totals.pass, failed: 0, skipped: 0, at: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+      playwright: JSON.parse(fs.readFileSync(path.join(WEB, 'node_modules/@playwright/test/package.json'), 'utf8')).version, reportSha256: h.digest('hex'),
+    }
+    fs.mkdirSync(path.dirname(dst), { recursive: true })
+    fs.writeFileSync(dst, `${JSON.stringify(rec, null, 2)}\n`)
+    console.log(`게이트 기록 ${path.relative(ROOT, dst)} (reportSha256 ${rec.reportSha256.slice(0, 12)})`)
+  }
+}

@@ -41,7 +41,8 @@ const existing = ['json', 'md', 'e2e.json', 'pii-guard.json'].map((x) => path.jo
 if (existing.length) die(`이 run id 의 기록이 이미 있다(${existing.map((p) => path.relative(ROOT, p)).join(', ')}) — 새 run id 로(같은 run 을 고치지 않는다 · §16)`)
 
 step(1, '작업 트리 · 커밋')
-if (git('status', '--porcelain', '--untracked-files=no').length) die('커밋 안 된 변경이 있다 — 봉인 커밋이 실제 코드와 달라진다')
+// e2e-last-run.json 은 E2E 러너가 매번 다시 쓰는 요약 — 깨끗함 검사에서 뺀다
+if (git('status', '--porcelain', '--untracked-files=no', '--', '.', ':!scripts/csat/pilot/e2e-last-run.json').length) die('커밋 안 된 변경이 있다 — 봉인 커밋이 실제 코드와 달라진다')
 const commit = git('rev-parse', 'HEAD')
 console.log(`고정 커밋 ${commit} — production 배포를 이 커밋으로 고정해야 게이트가 열린다`)
 
