@@ -94,6 +94,7 @@ probe 가 판정을 억지로 한쪽으로 몰아가면(편향) 그 자체가 �
   2. 자유서술(이유 · 해석)에서 이름 · 학교 · 반 · 연락처 · 이메일 꼴을 검사해 걸리면 그 packet 을 보내지 않고 운영자가 가린 뒤 보낸다
   3. 보낸 packet 원본은 저장소에 남기지 않는다(판정 결과 · 입력 해시만 DB 에)
   이 스크립트와 그 가드(식별정보 꼴이 남은 packet 은 실패)는 G6 시작 체크리스트 항목이다 — DB 구조는 바꾸지 않는다.
+  **구현(2026-10-06)**: `scripts/csat/error-evidence/model-input/model-packets.mjs`(export · rehydrate · selftest) + `deidentify.mjs` · `pii-rules.mjs`. AI 판정 RPC 를 부르는 파일은 이 모듈을 import 하거나 모델을 부르지 않는 검증 하네스여야 한다(`ec-pilot/__tests__/model-input-enforcement.test.ts` 기본 거부).
 
 ## 10. cause_confirmed · verified_diagnosis 경계
 
@@ -187,6 +188,8 @@ run 마다 고유 id(`ec-pilot-run-<YYYYMMDD>-<n>`)와 아래를 시작 시 기�
 | 참가자 | **익명 key 목록**(P001…) 과 각 key 의 시험 assignment — 실제 계정 id 는 넣지 않는다 |
 
 run 메타는 저장소 `docs/csat-learner/pilot-runs/<run id>.md` 에 해시 · 익명 key · assignment · 집계만 둔다. 매일 감시(§12) 때 봉인 해시를 다시 계산해 바뀌었으면 중단 기준(무결성)으로 처리한다 — Evidence Anchor 연구의 원천 drift 문제를 되풀이하지 않는다.
+
+**구현(2026-10-06)**: 형식 · 해시 정의 · E2E 통과 기록 형식 · 개발/검증 모드는 [`../pilot-runs/README.md`](../pilot-runs/README.md). 봉인 `scripts/csat/pilot/seal-run.mjs`(json + md) · 점검 `start-check.mjs`(읽기 전용 · 매일 감시에도 사용). 앱은 `apps/web/src/lib/csat/ec-pilot/gate.ts` 가 활성 메타(배포 env `CSAT_EC_ACTIVE_RUN`)와 live 값 · 배포 빌드 커밋을 대조해 **모두 맞을 때만** 수집을 연다(fail-closed · 학습자 응답은 404).
 
 ## 17. 분석 단위
 

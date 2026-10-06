@@ -13,6 +13,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 
 import { EC_PILOT, configTaxonomyAllowed, isPilotParticipant } from './config'
+import { pilotMode, runGate } from './gate'
 import { currentProbe, studentProbe, type StudentProbe } from './probes'
 import { selectTargets, sentenceRanges, type InterpretationState, type TargetCandidate } from './targets'
 
@@ -29,12 +30,23 @@ export async function ecContext(): Promise<EcContext | NextResponse> {
 }
 
 /**
- * 참가자이고, 설정 taxonomy 가 TEST 가 아니며 DB 에 봉인돼 있을 때만 연다.
+ * 참가자이고, G6 게이트(gate.ts)를 통과할 때만 연다.
+ *   · run 모드: 봉인 run 메타 + live 해시 · 설정 · env 일치(fail-closed). examId 를 주면 run 의 시험인지도 본다.
+ *   · verification 모드: 활성 run 이 없고 CSAT_EC_PILOT_MODE=verification · 로그인 이메일 @example.com 일 때만(개발 · e2e).
+ *   · 두 모드 모두 설정 taxonomy 가 TEST 가 아니고 DB 에 봉인돼 있어야 한다.
  * taxonomy 사전은 로그인 사용자(authenticated)만 읽는다 — service_role 은 표 권한이 없다(RPC 전용 설계) → 쿠키 클라이언트로 읽는다.
  */
-export async function pilotOpen(userId: string, rls?: SupabaseClient): Promise<boolean> {
-  if (!isPilotParticipant(userId) || !configTaxonomyAllowed(EC_PILOT.taxonomyVersion)) return false
+export async function pilotOpen(userId: string, rls?: SupabaseClient, examId?: string): Promise<boolean> {
+  const mode = pilotMode()
+  if (mode === 'closed' || !isPilotParticipant(userId) || !configTaxonomyAllowed(EC_PILOT.taxonomyVersion)) return false
   const db = rls ?? ((await createClient()) as unknown as SupabaseClient)
+  if (mode === 'run') {
+    const g = await runGate(db)
+    return g.open && (examId === undefined || g.exams.includes(examId))
+  }
+  // verification — 테스트 계정만(실제 참가자는 @example.com 을 가질 수 없다 · PILOT_PROTOCOL §2)
+  const { data: { user } } = await db.auth.getUser()
+  if (!user || user.id !== userId || !/@example\.com$/i.test(user.email ?? '')) return false
   const { data, error } = await db.from('csat_ec_taxonomy_version').select('status, note').eq('version', EC_PILOT.taxonomyVersion).maybeSingle()
   if (error) { console.error('[csat-ec] taxonomy 확인 실패', error.message); return false }
   return data?.status === 'sealed' && !/TEST/.test((data.note as string | null) ?? '')
@@ -44,6 +56,8 @@ export async function ownSession(admin: SupabaseClient, userId: string, sessionI
   const { data, error } = await admin.from('csat_dx_session').select('id, user_id, mode, exam_id').eq('id', sessionId).maybeSingle()
   if (error) throw new Error(`세션 조회 실패: ${error.message}`)
   if (!data || data.user_id !== userId || !['live', 'retake'].includes(data.mode as string)) return null
+  // run 모드면 run 의 시험만 수집 경로로 다룬다(다른 시험 세션은 없는 것처럼)
+  if (pilotMode() === 'run' && !(await runGate((await createClient()) as unknown as SupabaseClient)).exams.includes(data.exam_id as string)) return null
   return data as { id: string; user_id: string; mode: string; exam_id: string }
 }
 
