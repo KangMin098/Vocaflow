@@ -8,6 +8,7 @@ import { spawnSync } from 'node:child_process'
 import { AXES, GRADES, hash, screenSample } from './benchmark.mjs'
 import { createHash } from 'node:crypto'
 import { identifyLocalFile, prepareAdmission } from './local-admission.mjs'
+import { dryRunAdmission, prepareSealedAdmission, verifyAdmission } from './local-admission-ledger.mjs'
 
 const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture', measurement_method: 'fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5, valid_min: 0, valid_max: 100, auxiliary_metrics: [], auxiliary_override_rule: 'none', rater_agreement_floor: .8, missing_priority: 'inconclusive' }]))
 const selection = { schema: 'frym-benchmark-selection/1', status: 'sealed', selected_sample_ids: ['sample-1'], representative_editions: { [JSON.stringify(['Fixture Press', 'Fixture Book'])]: '2026-1' } }
@@ -192,11 +193,61 @@ test('CLI creates separate metadata and audit files and will not overwrite', t =
   const { directory, candidate } = fixture()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   const protocolPath = join(directory, 'protocol.json'), candidatesPath = join(directory, 'candidates.json')
-  const samplesPath = join(directory, 'metadata-samples.json'), auditPath = join(directory, 'audit.json')
+  const samplesPath = join(directory, 'metadata-samples.json'), auditPath = join(directory, 'audit.json'), receiptPath = join(directory, 'receipt.json'), snapshotPath = join(directory, 'snapshot.json')
   writeFileSync(protocolPath, JSON.stringify(protocol))
   writeFileSync(candidatesPath, JSON.stringify([candidate]))
-  const args = ['scripts/textbook/frym-benchmark/local-admission-run.mjs', 'prepare', protocolPath, candidatesPath, samplesPath, auditPath]
+  const args = ['scripts/textbook/frym-benchmark/local-admission-run.mjs', 'prepare', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath]
   assert.equal(spawnSync(process.execPath, args).status, 0)
   assert.equal(JSON.parse(readFileSync(samplesPath, 'utf8')).length, 1)
+  const verify = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/local-admission-run.mjs', 'verify', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath], { encoding: 'utf8' })
+  assert.equal(verify.status, 0, verify.stderr)
+  assert.equal(JSON.parse(verify.stdout).ready_for_build, true)
+  const dryRun = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/local-admission-run.mjs', 'dry-run', protocolPath, candidatesPath], { encoding: 'utf8' })
+  assert.equal(dryRun.status, 0, dryRun.stderr)
+  assert.equal(JSON.parse(dryRun.stdout).sample_count, 1)
+  const directBuild = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'build', protocolPath, samplesPath, snapshotPath], { encoding: 'utf8' })
+  assert.equal(directBuild.status, 1)
+  assert.match(directBuild.stderr, /ADMISSION_RECEIPT_REQUIRED/)
+  const admittedBuild = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'build-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, snapshotPath], { encoding: 'utf8' })
+  assert.equal(admittedBuild.status, 0, admittedBuild.stderr)
+  const verifySnapshot = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'verify-admitted', protocolPath, snapshotPath, candidatesPath, samplesPath, auditPath, receiptPath], { encoding: 'utf8' })
+  assert.equal(verifySnapshot.status, 0, verifySnapshot.stderr)
   assert.equal(spawnSync(process.execPath, args).status, 1)
+})
+
+test('receipt binds candidates, source, outputs and benchmark version', t => {
+  const { directory, source, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const original = prepareSealedAdmission(protocol, [candidate])
+  assert.equal(original.receipt.state, 'admission-pass')
+  assert.equal(verifyAdmission(protocol, [candidate], original.samples, original.audit, original.receipt).ready_for_build, true)
+  const changedAnswer = structuredClone(candidate)
+  changedAnswer.extraction.questions[0].answer = 'different'
+  assert.equal(verifyAdmission(protocol, [changedAnswer], original.samples, original.audit, original.receipt).status, 'stale')
+  const changedProtocol = { ...protocol, version: 'fixture-v2' }
+  assert.ok(verifyAdmission(changedProtocol, [candidate], original.samples, original.audit, original.receipt).reasons.includes('BENCHMARK_VERSION_STALE'))
+  const changedSamples = structuredClone(original.samples)
+  changedSamples[0].metrics.lexical = 99
+  assert.ok(verifyAdmission(protocol, [candidate], changedSamples, original.audit, original.receipt).reasons.includes('METADATA_SAMPLES_STALE'))
+  const changedAudit = structuredClone(original.audit)
+  changedAudit.results[0].status = 'admission-hold'
+  assert.ok(verifyAdmission(protocol, [candidate], original.samples, changedAudit, original.receipt).reasons.includes('ADMISSION_AUDIT_STALE'))
+  const changedReceipt = { ...original.receipt, ready_for_build: false }
+  assert.ok(verifyAdmission(protocol, [candidate], original.samples, original.audit, changedReceipt).reasons.includes('RECEIPT_INVALID'))
+  writeFileSync(source, 'Changed synthetic original')
+  assert.ok(verifyAdmission(protocol, [candidate], original.samples, original.audit, original.receipt).reasons.includes('SOURCE_STALE'))
+})
+
+test('dry-run and sealed receipt keep held candidates out of build', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  candidate.extraction.boundary_confirmed = false
+  const dryRun = dryRunAdmission(protocol, [candidate])
+  assert.equal(dryRun.state, 'admission-hold')
+  assert.equal(dryRun.ready_for_build, false)
+  const sealed = prepareSealedAdmission(protocol, [candidate])
+  assert.equal(sealed.samples.length, 0)
+  const checked = verifyAdmission(protocol, [candidate], sealed.samples, sealed.audit, sealed.receipt)
+  assert.equal(checked.status, 'current')
+  assert.equal(checked.ready_for_build, false)
 })

@@ -1,28 +1,43 @@
 // scripts/textbook/frym-benchmark/local-admission-run.mjs
-import { existsSync, readFileSync, writeFileSync, unlinkSync, realpathSync } from 'node:fs'
-import { dirname, isAbsolute, relative, resolve, sep } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { prepareAdmission } from './local-admission.mjs'
+import { existsSync, readFileSync, writeFileSync, unlinkSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { dryRunAdmission, prepareSealedAdmission, verifyAdmission } from './local-admission-ledger.mjs'
+import { assertExternalCandidate } from './local-candidate-path.mjs'
 
-const [command, protocolPath, candidatesPath, samplesPath, auditPath] = process.argv.slice(2)
-if (command !== 'prepare' || !protocolPath || !candidatesPath || !samplesPath || !auditPath || samplesPath === auditPath) {
-  process.stderr.write('Usage: local-admission-run.mjs prepare <sealed-protocol.json> <local-candidates.json> <new-metadata-samples.json> <new-admission-audit.json>\n')
-  process.exitCode = 1
-} else {
+const [command, ...paths] = process.argv.slice(2)
+const read = path => JSON.parse(readFileSync(path, 'utf8'))
+const writeNewSet = entries => {
+  if (new Set(entries.map(([path]) => resolve(path))).size !== entries.length || entries.some(([path]) => existsSync(path))) throw Error('OUTPUT_EXISTS')
+  const created = []
   try {
-    const root = fileURLToPath(new URL('../../../', import.meta.url))
-    const inputLocation = relative(root, realpathSync(dirname(resolve(candidatesPath))))
-    if (inputLocation !== '..' && !inputLocation.startsWith(`..${sep}`) && !isAbsolute(inputLocation)) throw Error('RAW_CANDIDATES_MUST_STAY_OUTSIDE_REPOSITORY')
-    if (existsSync(samplesPath) || existsSync(auditPath)) throw Error('OUTPUT_EXISTS')
-    const protocol = JSON.parse(readFileSync(protocolPath, 'utf8'))
-    const candidates = JSON.parse(readFileSync(candidatesPath, 'utf8'))
-    const { samples, audit } = prepareAdmission(candidates, protocol)
-    writeFileSync(auditPath, `${JSON.stringify(audit, null, 2)}\n`, { flag: 'wx' })
-    try { writeFileSync(samplesPath, `${JSON.stringify(samples, null, 2)}\n`, { flag: 'wx' }) }
-    catch (error) { unlinkSync(auditPath); throw error }
-    process.stdout.write(`admission-pass=${samples.length} admission-hold=${audit.results.filter(row => row.status === 'admission-hold').length} admission-reject=${audit.results.filter(row => row.status === 'admission-reject').length}\n`)
+    for (const [path, value] of entries) {
+      writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx' })
+      created.push(path)
+    }
   } catch (error) {
-    process.stderr.write(`${error.message}\n`)
-    process.exitCode = 1
+    for (const path of created) unlinkSync(path)
+    throw error
   }
+}
+
+try {
+  if (command === 'dry-run' && paths.length === 2) {
+    assertExternalCandidate(paths[1])
+    process.stdout.write(`${JSON.stringify(dryRunAdmission(read(paths[0]), read(paths[1])))}\n`)
+  } else if (command === 'prepare' && paths.length === 5) {
+    assertExternalCandidate(paths[1])
+    const { samples, audit, receipt } = prepareSealedAdmission(read(paths[0]), read(paths[1]))
+    writeNewSet([[paths[2], samples], [paths[3], audit], [paths[4], receipt]])
+    process.stdout.write(`admission-pass=${receipt.counts.pass} admission-hold=${receipt.counts.hold} admission-reject=${receipt.counts.reject} ready-for-build=${receipt.ready_for_build}\n`)
+  } else if (command === 'verify' && paths.length === 5) {
+    assertExternalCandidate(paths[1])
+    const result = verifyAdmission(read(paths[0]), read(paths[1]), read(paths[2]), read(paths[3]), read(paths[4]))
+    process.stdout.write(`${JSON.stringify(result)}\n`)
+    if (result.status !== 'current') process.exitCode = 1
+  } else {
+    throw Error('Usage: local-admission-run.mjs dry-run <sealed-protocol.json> <local-candidates.json> | prepare <sealed-protocol.json> <local-candidates.json> <new-metadata-samples.json> <new-admission-audit.json> <new-receipt.json> | verify <sealed-protocol.json> <local-candidates.json> <metadata-samples.json> <admission-audit.json> <receipt.json>')
+  }
+} catch (error) {
+  process.stderr.write(`${error.message}\n`)
+  process.exitCode = 1
 }
