@@ -36,7 +36,11 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
     const source=parse(file,fs.readFileSync(file,'utf8')), imported=new Set(), namespaces=new Set(), hits=[]
     const adminBoundary=/^app\/api\/admin\/csat\//.test(routePath)||/^app\/admin\/(?:csat|kice)\//.test(routePath)||['app/admin/layout.tsx','lib/auth/require-admin.ts','lib/auth/require-admin-api.ts','lib/auth/account.ts','lib/auth/dev-bypass.ts'].includes(rel)
     const constants=new Map()
-    visit(source,n=>{if(ts.isVariableDeclaration(n)&&ts.isIdentifier(n.name))constants.set(n.name.text,constants.has(n.name.text)?null:n.initializer)})
+    const bind=(name,value)=>{if(ts.isIdentifier(name))constants.set(name.text,constants.has(name.text)?null:value);else if(name&&ts.isBindingPattern(name))for(const element of name.elements)if(ts.isBindingElement(element))bind(element.name,null)}
+    visit(source,n=>{
+      if(ts.isVariableDeclaration(n))bind(n.name,ts.isVariableDeclarationList(n.parent)&&(n.parent.flags&ts.NodeFlags.Const)?n.initializer:null)
+      if(ts.isParameter(n)||ts.isBindingElement(n)||ts.isImportSpecifier(n)||ts.isNamespaceImport(n)||ts.isImportClause(n)&&n.name||ts.isFunctionDeclaration(n)&&n.name||ts.isClassDeclaration(n)&&n.name)bind(n.name,null)
+    })
     let csatContext=/^app\/(?:[^/]+\/)?api\/csat\/|^lib\/csat\//.test(routePath)
     visit(source,n=>{if(ts.isStringLiteralLike(n)&&/^csat_/.test(n.text))csatContext=true})
     const aliases=new Set()
