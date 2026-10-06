@@ -11,7 +11,7 @@ vi.mock('@/lib/supabase/admin',()=>({createAdminClient:()=>({rpc:async(_fn:strin
 }})}))
 vi.mock('@/lib/csat/learner',()=>({loadCsatItemExplain:async()=>{fixture.secretReads++;return{item:{id:'2026#18',answer:3,answer_unknown:false,type_name:'fixture',type_id:null,procedure:[],evidence_reasoning:null,why_correct:'KNOWN_SECRET_CANARY_01',distractors:[],measured_ability:null,design_intent:null,required_vocab:[]},error:null}}}))
 vi.mock('@/lib/csat/lecture/store',()=>({lectureMeta:()=>null}))
-vi.mock('@/lib/csat/skeleton',()=>({loadRevealedSkeleton:async()=>null,primeLearnerHakpyeongSkeletons:async()=>{}}))
+vi.mock('@/lib/csat/skeleton',()=>({loadItemSkeleton:()=>null,primeLearnerHakpyeongSkeletons:async()=>{}}))
 import { POST } from '@/app/api/csat/session/reveal/route'
 import { canRevealExam,embargoedItemIds,canRevealSession } from '../embargo-gate'
 import { selectTargets } from '../ec-pilot/targets'

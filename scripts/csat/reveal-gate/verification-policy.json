@@ -28,19 +28,19 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "app/api/csat/diagnosis/sessions/route.ts::POST": {
-      "sha256": "b428feda448867f26c2e1aa12961e050551a097ddd8b22b4a4947b9b283da32a",
+      "sha256": "715c157637e054a65ecd2fa24b93e0910c4c64ecbf5ea8447c41fc3922560a28",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "app/api/csat/diagnosis/sessions/route.ts::DELETE": {
-      "sha256": "584b1d048ffb2fab74cfa0260062cf6ed8dd3d9f6d33090547b697ff8d87e4a3",
+      "sha256": "b5ab1abd99ac4cef83c6c60281012fe8b7bb82e8c2e6ab59d089b3584e979433",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "app/api/csat/diagnosis/sessions/[id]/result/route.ts::GET": {
-      "sha256": "e7cc1b3b64aad2f69e610967d6ce78aedb8b61c1046d25917c5dc42214c694f3",
+      "sha256": "bd4e4abf9ba975087f8dbb5fa84c9a617e4669a2d417869c58252a2888018e64",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "app/api/csat/ec/capture/route.ts::GET": {
       "sha256": "57f209cc59e9d1616f626f16353efb44dabf537233ac3a9645c89a333f61ffe5",
@@ -103,19 +103,19 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "app/api/csat/state/route.ts::GET": {
-      "sha256": "48f11ec5f7987c782ea3338a003941f4e9566773539d8118f8022c03b2896cba",
+      "sha256": "4db82c77b01ed718b78c321e2bbb7bba48617fc027ef8004fabfb1143744a7ef",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "app/api/csat/state/route.ts::PUT": {
-      "sha256": "851568a61f4a5016a77f3cb262b2ff78e9e146cbc914e1c2b375f6c59490214f",
+      "sha256": "729c0f3ebc8df4f63a9baf0a424492a2ed57d5177cd08b618abdafe6f19fd12e",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "app/api/csat/state/route.ts::DELETE": {
-      "sha256": "8ed44404cc82c33b1328e47da441cae268559dafa401edc2fb70736b419a4028",
+      "sha256": "ec974795c79218465622e27828424430d026465ee39c6574354c6a1b1cc63bd7",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/browse.ts::readBrowseCatalog": {
       "sha256": "b893cdfb27a7f400d6a89385b1354cf3ce188058e5a1eac9bfbb139be4750d1a",
@@ -163,44 +163,44 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "lib/csat/diagnosis/server.ts::loadExams": {
-      "sha256": "2b752bccc002049c38198b1d67cfc2ba550ad4f9778a48b5e847933981d842f8",
+      "sha256": "7209a6f25d7a1ed5c3acf15afbe3d474bb2abe18779411f7680cdf1ce1faae84",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::loadItems": {
-      "sha256": "41d61932e83ad47b8c11e626073d70df45561baa22159608b2bc0e958cd1a0af",
+      "sha256": "91878a94d04de54aa700051e2108f031e4202e6513bea18c251a707dbc9f322b",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::loadSessionsWithWatermark": {
-      "sha256": "f21179d2315dc80cbefd2544ccdf5b3c4d7b8a838b80a9e257e7540323ea5a8e",
+      "sha256": "6dec0d19ef23df344571abe03267d32fadc473b32fcbede0cb6bdf9d1f4c3db8",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::recomputeSnapshot": {
-      "sha256": "d0495ae0bf8f3e89a318877fad01b8dc9b24fbc236a84b7c757728af639f1f8c",
+      "sha256": "4467f297f78b4d9db46580107af0bb1acf96ea32aa5bdb0337b8d16cffa2790b",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::submitExamSession": {
-      "sha256": "177b85f1460cd28481378c259680dfa9bda7aa70aca9e5fae6bbc87ff373ac39",
+      "sha256": "8253b0735a1994319c6fa23f0bb57d766b9c862e9dcbb0dc0a89ab0b83313552",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::assertSameSubmission": {
-      "sha256": "d5246af026dbc02aca0f2c37c4644267d312fad128a764610376f0f35c261ad6",
+      "sha256": "35489c793bffbaabe07710a0c03cd04bbfd85c1019e3b0f7298cdb57d3728ae7",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::snapshotForSession": {
-      "sha256": "49d668a4877860429cce3aab3971812e34b6ae0a163ae8b166929d5a3acd2e14",
+      "sha256": "9ec385aedf94282eb9454473dd39fb5699410eb9d2792f0e5b4ff4c947c6f3df",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::deleteExamSession": {
-      "sha256": "97aefa8c523015bf9618cc1ecef6f93e68b496b252e38ca7333bce8b563e5ef7",
+      "sha256": "3a89f4bc0660f41c7a6053b7ae71bebc2409dcecc21bc879d0027b76fa024ebe",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/snapshot.ts::loadSnapshots": {
       "sha256": "06a7f6edeb204158a71aa4a9c4931a2e107b319ceb440ba6ce657d12b7d0c187",
@@ -228,14 +228,14 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "lib/csat/embargo-gate.ts::userHasHeldSession": {
-      "sha256": "fb2596beb00854284a1ffd711d72dab77df3521de07b61f0acb497fac8c8098d",
+      "sha256": "4c88c9260e6284daecc699bbf0464fe5166889b9ae79188bc41b9bf04d54696e",
       "class": "OPS_META",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/embargo-gate.ts::loadRevealScope": {
-      "sha256": "1d0c831315cfab88f6959bbca61352810f73279439acfcaee1c813810dd73a01",
+      "sha256": "813441721edfdeaea98de405d4fe5224baeaa80421c7643866d2510919bb8f27",
       "class": "OPS_META",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/evidence.ts::loadEvidence": {
       "sha256": "888e3d1435df64b593972d7023141f77464b2bbb1a806d8b8d928f06633bf88e",
@@ -303,14 +303,14 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "lib/csat/map/evidence.ts::mapEvidenceFor": {
-      "sha256": "187c9babb8b2eace2ffb248febaa0187ff04226a4a81560f3014c5b4ff22d484",
+      "sha256": "8be6d9fa5420f4fed00acd21efe9dc15a57f55df59827706f560328cafc79c70",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/map/load.ts::loadMapPage": {
-      "sha256": "dd49d7251694f3a71854f1bdf5efed33f8585b7bc790c5aebb22df7a92210c3b",
+      "sha256": "4b19a1d6dd939205627a8ca557092f69fd4b0d0cd5d723f98c371b8eb13a9cab",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/my-traps.ts::loadMyTraps": {
       "sha256": "929c149fa372775b5c3d2c48abc241dcf8891289f954d2adec618a6872a4628a",
@@ -343,9 +343,9 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "lib/csat/session/reveal.ts::loadReveal": {
-      "sha256": "41abf34461722a5b007bdf20d9d0ffb46f90cef368ec86ce6ba984dfb694301e",
+      "sha256": "19eae25884839a07cf642ae92bca728fc0a9035767a825241f72ac45cf0abcf8",
       "class": "ANSWER_SENSITIVE",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/skeleton.ts::primeLearnerHakpyeongSkeletons": {
       "sha256": "f42f556284ec9217440792d6f11386c3722cd9834885ab36aac4a61f3c1912aa",
@@ -438,9 +438,9 @@
       "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/trap-atlas.ts::<module>": {
-      "sha256": "9eea94936cbca58198b50dd1a2a6920992c8fbfe06a0e74fc1ed04696b1ca7b2",
+      "sha256": "e797ce73601d31b0ffa39ba606c160fff47d942bfcec09d24f544fe00b663cd8",
       "class": "ANSWER_SENSITIVE",
-      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/type-locus.ts::build": {
       "sha256": "3bb5e4be8e129d86a3956459884efcc2893c3016f85daea16e116941546d8ef6",
@@ -468,24 +468,24 @@
       "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
     },
     "lib/csat/diagnosis/server.ts::loadActiveSettings": {
-      "sha256": "19e4b5b2ee9149a670470e143ec71422b9d211d3e89bb0151d80b39c6141f0ea",
+      "sha256": "769c216263ae39bda02f87b6bd4f7bab80ecb282ee0a4cad6211432f8c6344c4",
       "class": "CORRECTNESS",
-      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::loadTrapFamily": {
-      "sha256": "c003f6f87befaa11ddd5ee1246c9ac4ec47b05f4a2a66c7efca3f819ac049a3c",
+      "sha256": "f1f66edefa1f0d6c8106044783baecf6f041393a872b0054796f091488558094",
       "class": "CORRECTNESS",
-      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::itemMetas": {
-      "sha256": "8f0689d77b008c0532bdb63541f0c67dd732395784f0a73bdb80bc6e5b431408",
+      "sha256": "03128d0de7dccf18d5235ce02cd130138a8ea58818976c00ab7f7d3a291e2aff",
       "class": "CORRECTNESS",
-      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/diagnosis/server.ts::listScorableExams": {
-      "sha256": "9c318c793577d5dfa249f5f46e6130864e8111fd9af257b45476644ce71f76f2",
+      "sha256": "6a0f7fdc5b85d624a3d00230db22f7982266a2e597b93d3f439ba5b90f88224c",
       "class": "CORRECTNESS",
-      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/drain-runs.ts::lastDrainRun": {
       "sha256": "36b2af93bf43fd236d95173cda6107c5f0a7944a441719075684f5b23f063088",
@@ -578,14 +578,14 @@
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     },
     "app/(main)/csat/item/[slug]/page.tsx::<module>": {
-      "sha256": "f04555499fb7e816bea125dc86a0f2b1c835ee391e594d8aa4287a0a774bf716",
+      "sha256": "ad7a76933933deb729e95a333f0dc05093d3774316c3679669240dd7286bcc4d",
       "class": "ANSWER_SENSITIVE",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "app/api/csat/diagnosis/sessions/route.ts::<module>": {
-      "sha256": "968b37597c3a7efc69f03b26fc0cb31c5777d2347501334f1fc7f1694b5b18df",
+      "sha256": "fe2f21e43350872e6325db18f40625f61cbdfe2a78ca5b7ed984f4960a1c1308",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "app/api/csat/lecture/route.ts::<module>": {
       "sha256": "275fbbbc6812dbb328ac7627b63993ffdebb9af8be18c9011892b88098bd4005",
@@ -658,9 +658,9 @@
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     },
     "lib/csat/diagnosis/server.ts::<module>": {
-      "sha256": "3a464c5a4f809ce9936b9fe6ea9162c83017d67b07d130b85863e1bc0770f535",
+      "sha256": "3403c25c51ea969fbe1ddb313c4fa3d7262ecb2290513278cadc1b6322ae7685",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/evidence-operations-loader.ts::<module>": {
       "sha256": "59f2a8484a6e8b35bf78360fa853878178fa4777a30514858dd7d81418de0bbf",
@@ -668,9 +668,9 @@
       "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
     },
     "lib/csat/map/load.ts::<module>": {
-      "sha256": "81a8f984e43ad5e74d18c937f0b4fd022986cb8f75191f9d0c8a811a7a9ac987",
+      "sha256": "56265728071e66d7def629ec3790a9e4b583753c86880ccbb0cc75d4d6511d6d",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/my-traps.ts::<module>": {
       "sha256": "d2a0888fe607c5372dd7861f07af04ca68248aa3e9c59f403b8bbedaffe3302c",
@@ -693,9 +693,9 @@
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     },
     "lib/csat/session/reveal.ts::<module>": {
-      "sha256": "77a0301b1e538313c2d0e0c5a30a737d4dca8ff366c16d5a5d1160a6e1f9afa0",
+      "sha256": "e6ae6a7c16b97a26ecfccf725831486ad8ea661ef54b7f85fd6a309565a6a7a5",
       "class": "ANSWER_SENSITIVE",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/space-model.ts::<module>": {
       "sha256": "ff8d0cf83e142eac106a9d9f0abe64183b55ad6c80bb6b112e1941a0b82647b3",
@@ -753,9 +753,9 @@
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     },
     "app/api/csat/diagnosis/sessions/[id]/result/route.ts::<module>": {
-      "sha256": "641292c58cdfe8af27d5597b0439192f503bdf1d568b77d6636170cfc5b7d30f",
+      "sha256": "118e36b95afab758ab3322e9c30b1db7ed87c3535f99fb6e51053ed16c9ec0ab",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "app/api/csat/ec/capture/route.ts::<module>": {
       "sha256": "f367bc4d1a53e5244495763844d719fc03fe1844bd51fe0fe40ea894cc7e2e50",
@@ -788,9 +788,9 @@
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     },
     "app/api/csat/state/route.ts::<module>": {
-      "sha256": "24c2bf9b0c1f52069038531bcd616fb8b42dbef6466e7109d5f2ef258dbd295d",
+      "sha256": "829649c27fd2b7e2b484bd26c4bae439b3b215d85740d4ed65ff08074ad16a67",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "components/csat/browse/CsatWorkspace.tsx::<module>": {
       "sha256": "c2c7c4b0acaa8b215b7ab5f7d8a6b1d643e44177474e7ab66e43810544bad84a",
@@ -858,9 +858,9 @@
       "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
     },
     "lib/csat/embargo-gate.ts::<module>": {
-      "sha256": "ecc27d25857cee38e76bd69481d87b780dbbc3de3e38b837ce2acf663675777e",
+      "sha256": "559841127178920c07604258cee236a263a519db4381125eab8cb0c72942b6c6",
       "class": "OPS_META",
-      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/factory-bench.ts::<module>": {
       "sha256": "b32078687ab9af72b03b7cd73c20c6ae85202db1783829f7718ce818e5c5615c",
@@ -888,9 +888,9 @@
       "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
     },
     "lib/csat/map/evidence.ts::<module>": {
-      "sha256": "a5cd9222d70201a50ca406ebd625968f78efafd4d8cfbb52e6a2b2a3572a09f6",
+      "sha256": "c1d61c0b06cc6ba4b8ef9eb4911a49fe91eac6aa45fe0db236b2b6c3cae8d337",
       "class": "CORRECTNESS",
-      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+      "review_basis": "Reviewed integration of EC security fixes through 0cf2de788: failure returns held423/no-store, diagnostic item embargo, final item gate, correctness-free eligibility, held state fields stripped, trap examples removed. Retains malformed RPC denial. JSON asset content is bound."
     },
     "lib/csat/order-view.ts::<module>": {
       "sha256": "6803a87637658bc71d3676d666d854d131823efb0a62789572abc5cd0c0508be",
