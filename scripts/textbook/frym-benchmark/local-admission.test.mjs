@@ -85,7 +85,7 @@ test('malformed sample ID cannot carry text into the audit', t => {
   assert.ok(!JSON.stringify(result.audit).includes('Untrusted passage'))
 })
 
-test('ordinal review output excludes unused adjudicator payload', t => {
+test('contradictory ordinal adjudication and path locator stay on hold', t => {
   const { directory, candidate } = fixture()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   const sealed = structuredClone(protocol)
@@ -94,8 +94,27 @@ test('ordinal review output excludes unused adjudicator payload', t => {
   candidate.analysis.codebook_hash = sealed.codebook_hash
   candidate.analysis.ordinal_reviews = { discourse: { rater_a_id: 'A', rater_b_id: 'B', rater_a: 5, rater_b: 5, adjudicator_id: { passage_text: 'Leaked text' } } }
   const result = prepareAdmission([candidate], sealed)
-  assert.equal(result.samples.length, 1)
+  assert.equal(result.samples.length, 0)
+  assert.deepEqual(result.audit.results[0].reasons, ['ORDINAL_REVIEW_INVALID'])
   assert.ok(!JSON.stringify(result).includes('Leaked text'))
+  delete candidate.analysis.ordinal_reviews.discourse.adjudicator_id
+  candidate.analysis.evidence_locator = 'D:\\private\\source.pdf'
+  assert.deepEqual(prepareAdmission([candidate], sealed).audit.results[0].reasons, ['EVIDENCE_LOCATOR_NOT_OPAQUE'])
+})
+
+test('whitespace-only passage variants cannot count as independent samples', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const second = structuredClone(candidate)
+  second.metadata.sample_id = 'sample-2'
+  const sealed = structuredClone(protocol)
+  sealed.selection_manifest.selected_sample_ids.push('sample-2')
+  sealed.selection_manifest_hash = hash(sealed.selection_manifest)
+  second.extraction.passage_text = second.extraction.passage_text.replace(' how ', '\n  how   ')
+  second.analysis.passage_hash = createHash('sha256').update(second.extraction.passage_text).digest('hex')
+  const result = prepareAdmission([candidate, second], sealed)
+  assert.equal(result.samples.length, 0)
+  assert.ok(result.audit.results.every(row => row.reasons.includes('DUPLICATE_SAMPLE_OR_PASSAGE')))
 })
 
 test('image source requires explicit OCR and verification regardless of tool name', t => {

@@ -76,6 +76,8 @@ export function admitCandidate(candidate, protocol) {
   if (!Array.isArray(extraction.questions) || !extraction.questions.length || extraction.questions.some(q => !q || typeof q !== 'object' || Array.isArray(q) || !present(q.id) || !present(q.stem) || !present(q.type) || !present(q.answer)) || new Set(extraction.questions.map(q => q.id)).size !== extraction.questions.length || extraction.question_boundary_confirmed !== true) return { audit: audit(candidate, file, 'admission-hold', ['QUESTION_EXTRACTION_INCOMPLETE'], stages) }
   stages.push('question-extracted')
   const analysis = candidate.analysis
+  if (!/^[a-z][a-z0-9_-]*:[a-z0-9:_-]+$/i.test(analysis?.evidence_locator ?? '')) return { audit: audit(candidate, file, 'admission-hold', ['EVIDENCE_LOCATOR_NOT_OPAQUE'], stages) }
+  if (AXES.some(axis => protocol.axes[axis].scale === 'ordinal' && analysis.ordinal_reviews?.[axis]?.rater_a === analysis.ordinal_reviews?.[axis]?.rater_b && (analysis.ordinal_reviews[axis].adjudicated != null || analysis.ordinal_reviews[axis].adjudicator_id != null))) return { audit: audit(candidate, file, 'admission-hold', ['ORDINAL_REVIEW_INVALID'], stages) }
   const questions = extraction.questions
   const passage_hash = sha256(extraction.passage_text)
   const item_set_hash = hash(questions.map(({ answer, ...item }) => item))
@@ -122,19 +124,19 @@ export function admitCandidate(candidate, protocol) {
   const reasons = screenSample(row, protocol)
   if (reasons.length) return { audit: audit(candidate, file, reasons.some(reason => ['RIGHTS_UNCONFIRMED', 'NOT_SELECTED', 'PROTOCOL_INPUT_MISMATCH', 'NON_REPRESENTATIVE_EDITION'].includes(reason)) ? 'admission-reject' : 'admission-hold', reasons, stages) }
   stages.push('admission-pass')
-  return { audit: audit(candidate, file, 'admission-pass', [], stages), sample: row }
+  return { audit: audit(candidate, file, 'admission-pass', [], stages), sample: row, duplicate_key: sha256(extraction.passage_text.normalize('NFC').replace(/\s+/g, ' ').trim()) }
 }
 
 export function prepareAdmission(candidates, protocol) {
   validateProtocol(protocol)
   if (!Array.isArray(candidates)) throw Error('CANDIDATES_NOT_ARRAY')
   const results = candidates.map(candidate => admitCandidate(candidate, protocol))
-  const ids = new Map(), passages = new Map()
+  const ids = new Map(), passages = new Map(), normalizedPassages = new Map()
   for (const result of results) {
     if (!result.sample) continue
-    for (const [map, key] of [[ids, result.sample.sample_id], [passages, result.sample.passage_hash]]) map.set(key, [...(map.get(key) ?? []), result])
+    for (const [map, key] of [[ids, result.sample.sample_id], [passages, result.sample.passage_hash], [normalizedPassages, result.duplicate_key]]) map.set(key, [...(map.get(key) ?? []), result])
   }
-  for (const group of [...ids.values(), ...passages.values()]) {
+  for (const group of [...ids.values(), ...passages.values(), ...normalizedPassages.values()]) {
     if (group.length < 2) continue
     for (const result of group) {
       result.audit.status = 'admission-reject'
