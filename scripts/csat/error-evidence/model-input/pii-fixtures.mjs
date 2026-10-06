@@ -1,0 +1,60 @@
+// scripts/csat/error-evidence/model-input/pii-fixtures.mjs
+//
+// 탐지 규칙 양성 · 음성 픽스처 — node:test(__tests__/deidentify.test.mjs)와 운영 자가검사(model-packets.mjs selftest)가 같은 목록을 쓴다.
+// 양성: 그 규칙이 반드시 잡아야 하는 꼴. 음성: 학생이 실제로 쓸 법한 풀이 서술 — 어떤 규칙에도 걸리면 안 된다(오탐 회귀).
+// 이름 · 연락처는 모두 지어낸 값이다.
+
+export const POSITIVE = [
+  ['email', '선생님께 물어보려면 student.kim@school.kr 로 보내요'],
+  ['email', 'mail me at abc_12 (at) gmail.com'],
+  ['phone_kr_mobile', '제 번호 010-1234-5678 이에요'],
+  ['phone_kr_mobile', '01098765432로 연락'],
+  ['phone_kr_mobile', '+82 10 1234 5678'],
+  ['phone_kr_landline', '집 전화 02-123-4567'],
+  ['phone_kr_landline', '031) 765-4321'],
+  ['phone_word', '카톡 아이디: minsu_0412'],
+  ['long_number', '학생 번호 20231234 기억해요'],
+  ['student_id', '학번은 2-0315 입니다'],
+  ['student_id', 'student id: S2024-17'],
+  ['school_ko', '한빛고등학교 다니는데 이 문제 어려웠어요'],
+  ['school_ko', '서울과학고 수업에서 배운 단어'],
+  ['school_abbrev_grade', '대성고 2학년인데요'],
+  ['class_ko', '2학년 3반에서 같이 풀었어요'],
+  ['class_ko', '우리 7반 선생님이'],
+  ['school_en', 'At Seoul Foreign Language School we read this'],
+  ['class_en', 'I am in class 2-3'],
+  ['address_ko', '서울특별시 강남구에 살아요'],
+  ['address_ko', '테헤란로 152 근처 학원'],
+  ['address_ko', '101동 1203호'],
+  ['address_ko', '래미안아파트 살아요'],
+  ['address_en', 'I live at 221 Baker Street'],
+  ['name_ko_intro', '제 이름은 민수예요'],
+  ['name_ko_intro', '저는 김민수입니다'],
+  ['name_ko_honorific', '김민수 선생님이 설명해 주셨어요'],
+  ['name_ko_honorific', '박지윤님 노트 보고'],
+  ['name_ko_signature', '— 이서준 올림'],
+  ['name_en_intro', 'my name is Jisoo'],
+  ['name_en_intro', 'Ms. Park told us'],
+  ['handle', '인스타 @minsu.reads 에 올렸어요'],
+  ['rrn', '080412-3123456'],
+]
+
+export const NEGATIVE = [
+  '두 번째 문장의 however 뒤에서 흐름이 바뀌는 걸 못 봤어요',
+  '선지 3번이 본문 표현을 그대로 써서 골랐어요',
+  'significant 를 「중요한」으로만 알아서 통계적으로 유의하다는 뜻을 놓쳤어요',
+  '이해가 안 돼서 정답은 2번이라고 생각했어요',
+  '조건이 두 개라서 헷갈렸어요',
+  '학교에서 배운 것과 달라서 틀렸어요',
+  '반대로 읽었어요 — 주어가 they 인 줄 알았어요',
+  '1960년대와 1970년대를 비교하는 부분',
+  '18번 지문 3번째 문장',
+  'The author argues that technology changes how people communicate',
+  'I thought the word meant to decrease, not to increase',
+  'this is hard because the passage is long',
+  '빈칸 앞 문장이 원인이고 뒤가 결과라고 봤어요',
+  '정답이 4번인지 5번인지 50 대 50 이었어요',
+  '시간이 부족해서 마지막 두 문제는 찍었어요',
+  '단어 뜻을 문맥에서 추론했는데 비유인 줄 몰랐어요',
+  '2-3 문장 정도 읽고 골랐어요',
+]

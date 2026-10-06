@@ -1303,6 +1303,10 @@
    "class": "ANSWER_SENSITIVE",
    "gate": "app 구현(2026-10-06): 원본 행 캐시 → 요청마다 loadRevealScope 로 보류 문항 · 파생(함정 빈도 · 의도 대안 · 이력) 제외"
   },
+  "lib/csat/ec-pilot/gate.ts": {
+    "class": "OPS_META",
+    "gate": "G6 시작 게이트(2026-10-06): 봉인 run 메타와 대조하려고 시험 문항 · 정답표 · 선지 함정을 service role 로 읽어 sha256 만 계산한다 — 원문 · 정답을 돌려주거나 학생 응답에 싣지 않는다(판정 결과는 열림/닫힘 + 시험 id)"
+  },
   "lib/csat/ec-pilot/server.ts": {
    "class": "LEARNER_OWN",
    "gate": "app 구현(2026-10-06): 대상 = 봉인 capture 대상(csat_ec_my_capture_state) ∩ 내용 적격 — 정오(is_correct) · 정답표 · 채점 결과를 읽지 않는다(targets-correctness-free 가드)"

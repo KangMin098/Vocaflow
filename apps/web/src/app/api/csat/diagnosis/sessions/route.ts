@@ -25,7 +25,8 @@ export async function POST(req: Request) {
   const body = parseExamPayload(await readJson(req), todayKst(now))
   if (!body) return NextResponse.json({ error: '입력 형식이 맞지 않아요' }, { status: 400 })
   try {
-    const participant = await pilotOpen(ctx.userId)
+    // run 모드면 run 의 시험일 때만 참가자 플래그(다른 시험은 일반 기록 — DB 의 요청자 무관 보류는 그대로)
+    const participant = await pilotOpen(ctx.userId, undefined, body.examId)
     const out = await submitExamSession(ctx.db, { ...body, userId: ctx.userId, enteredBy: 'learner', participant }, now)
     // 보류(참가자 capture 또는 그 시험의 요청자 무관 보류 — embargo-gate 판정은 submitExamSession 안)면 결과 없이
     // 관문 판정 실패 — 기록은 저장됐지만 결과를 열 수 없다: 공통 423(관문 실패를 보류 아님으로 삼키지 않는다)

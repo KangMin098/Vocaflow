@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): **G6 준비 — 모델 입력 비식별화 + 시작 게이트(fail-closed)** — `scripts/csat/error-evidence/model-input/`(attempt key `P001-E1-#21` 치환 · 자유서술 식별정보 19규칙 · 차단 → redaction 재실행 · 저장소 추적 경로 쓰기 거부 · 전/후 sha256 감사) + AI export/import 호출 파일 기본 거부 정적 가드. 앱 `ec-pilot/gate.ts` · `run-gate.ts`: 봉인 run 메타(`docs/csat-learner/pilot-runs/`) · live 해시(taxonomy · item set · 정답표 · 코퍼스 · probe config) · 감지기 판 · probe 상한 3 · 앱 커밋 · PII/E2E 기록이 모두 맞을 때만 열고 수집 시험을 run 의 2회차로 제한. 활성 run 없으면 `CSAT_EC_PILOT_MODE=verification` + `@example.com` 테스트 계정만(e2e 52). 점검 `scripts/csat/pilot/start-check.mjs` · 봉인 `seal-run.mjs`(읽기 전용). DB 변경 없음.
 - feat(csat): **G4 경계 감지기 종료(2026-10-06)** — `20261006120000` 개발 DB 적용. 서버 결정론 감지(정오 무관 · 원인 판정 없음) · 범주 없음/모름은 증거 부족 · 정정 시 미응답 취소/응답 obsolete. 흐름 스모크 17/17(원자성 포함) · canary 392/0 · Pilot 42/104/12 · Advisor ERROR 0. 미래 게이트: 경계 2개 이상 봉인 전 P2 수정.
 - feat(csat): **G4 경계 감지기 초안(개발 DB 미적용)** — `20261006120000_csat_ec_boundary_detector`: 과정 증거 트리거 → 서버 결정론 감지(정오 무관 · 범주 없음/unsure 는 감지 안 함 · 정정 재평가로 cancelled/obsolete · 재실행 멱등), 대기 probe 는 detector 출처만, capture `config.probes` 봉인. 격리 PG 381/381 · rollback 10/10 · 개발 DB 드라이런 10/10(ROLLBACK) · 정적 가드 15.
 - feat(csat): **Reveal Gate G3 종료(2026-10-06)** — ② `20261005170100` · ②b `20261006110000` 개발 DB 적용, 수집 상태 전이(open/finish) 앱 배선. 표면 0 · canary 392/0(앱 · 번들 · oracle) · 직접 조회 22/22 · Pilot 42/104/12 · Advisor ERROR 0. 제한(P2): 공개 뒤 스냅샷 보정은 앱 기준 시각 비교로 eventual.
