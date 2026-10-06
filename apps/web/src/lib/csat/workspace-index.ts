@@ -16,6 +16,7 @@ import { createClient } from '@/lib/supabase/server'
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
 import { loadBrowseCatalog } from './browse'
+import { isItemHeld, loadRevealScope, type RevealScope } from './embargo-gate'
 import { HAKPYEONG_ID_PREFIX, examOrder, isKiceExam, schoolYearOf } from './exam-id'
 import { TRAPS } from './trap-atlas'
 import type { WorkspaceIndexItem } from './workspace'
@@ -38,7 +39,9 @@ interface AnalysisRow {
 }
 
 const TTL_MS = 600_000
-let cache: { at: number; value: WorkspaceIndex } | null = null
+type BrowseCatalog = Awaited<ReturnType<typeof loadBrowseCatalog>>
+// 캐시는 **원본**(서가 카탈로그 · 문항별 함정)이다 — 보류 문항의 함정(정답 분석 파생)은 요청마다 embargo-gate 로 뺀다
+let cache: { at: number; browse: BrowseCatalog; traps: Map<string, string[]> } | null = null
 
 async function trapsByItem(db: SupabaseClient): Promise<Map<string, string[]>> {
   const named = new Set(TRAPS.map((t) => t.key))
@@ -68,10 +71,22 @@ async function trapsByItem(db: SupabaseClient): Promise<Map<string, string[]>> {
 }
 
 export async function loadWorkspaceIndex(): Promise<WorkspaceIndex> {
-  if (cache && Date.now() - cache.at < TTL_MS) return cache.value
-  const db = (await createClient()) as unknown as SupabaseClient
-  const [browse, traps] = await Promise.all([loadBrowseCatalog(), trapsByItem(db)])
-  if (browse.error) throw new Error(browse.error)
+  let browse: BrowseCatalog
+  let traps: Map<string, string[]>
+  if (cache && Date.now() - cache.at < TTL_MS) {
+    ;({ browse, traps } = cache)
+  } else {
+    const db = (await createClient()) as unknown as SupabaseClient
+    ;[browse, traps] = await Promise.all([loadBrowseCatalog(), trapsByItem(db)])
+    if (browse.error) throw new Error(browse.error)
+    // 함정을 하나도 못 읽었으면(로그인 만료 · RLS 빈 결과) 캐시하지 않는다 — 다음 요청이 다시 읽게
+    if (traps.size > 0) cache = { at: Date.now(), browse, traps }
+  }
+  return buildWorkspaceIndex(browse, traps, await loadRevealScope())
+}
+
+/** 요청마다 — 보류 시험 문항은 남기되 함정(오답 계열)을 비우고, 단위 수도 그 기준으로 다시 센다 */
+export function buildWorkspaceIndex(browse: BrowseCatalog, traps: Map<string, string[]>, scope: RevealScope): WorkspaceIndex {
 
   const items: WorkspaceIndexItem[] = browse.items
     .filter((it) => isKiceExam(it.id))
@@ -79,7 +94,7 @@ export async function loadWorkspaceIndex(): Promise<WorkspaceIndex> {
       id: it.id,
       type_id: it.type_id,
       exam_id: it.exam_id,
-      families: traps.get(it.id) ?? [],
+      families: isItemHeld(scope, it.id) ? [] : (traps.get(it.id) ?? []),
       mapped: it.map,
       year: schoolYearOf(it.exam_id),
     }))
@@ -103,8 +118,5 @@ export async function loadWorkspaceIndex(): Promise<WorkspaceIndex> {
     .map((e) => ({ id: e.id, label: e.label, n: examN.get(e.id)!, year: e.year }))
     .sort((a, b) => examOrder(b.id) - examOrder(a.id))
 
-  const value = { items, units: { types, traps: trapUnits, exams } }
-  // 함정을 하나도 못 읽었으면(로그인 만료 · RLS 빈 결과) 캐시하지 않는다 — 다음 요청이 다시 읽게
-  if (traps.size > 0) cache = { at: Date.now(), value }
-  return value
+  return { items, units: { types, traps: trapUnits, exams } }
 }

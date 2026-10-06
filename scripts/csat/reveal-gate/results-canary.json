@@ -1,0 +1,3497 @@
+{
+ "ranAt": "2026-10-06T04:08:08.406Z",
+ "canary": "CANARY-074a6677",
+ "pass": 369,
+ "fail": 0,
+ "results": [
+  {
+   "area": "준비",
+   "name": "canary fixture 발행 완료(분석 5)",
+   "ok": true,
+   "detail": {
+    "a": 5
+   }
+  },
+  {
+   "area": "준비",
+   "name": "참가자 held · 비참가자 같은 시험 저장",
+   "ok": true,
+   "detail": [
+    null,
+    null
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_dcp_items — 관리자 전용 정책(정적 확인)",
+   "ok": true,
+   "detail": [
+    "is_admin_or_curator()"
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_dx_habit_feedback",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_dx_profile_hist",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_dx_response",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_dx_session",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_dx_snapshot",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_ec_boundary",
+   "ok": true,
+   "detail": {
+    "rows": 3,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_ec_claim",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_ec_code",
+   "ok": true,
+   "detail": {
+    "rows": 32,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_ec_process_evidence",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_ec_session_confirmation",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_ec_taxonomy_version",
+   "ok": true,
+   "detail": {
+    "rows": 3,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_exams",
+   "ok": true,
+   "detail": {
+    "rows": 135,
+    "testRows": 1,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_item_analyses",
+   "ok": true,
+   "detail": {
+    "rows": 5746,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_item_attempts",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_item_skeletons",
+   "ok": true,
+   "detail": {
+    "rows": 37,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_items",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_items_public",
+   "ok": true,
+   "detail": {
+    "rows": 3413,
+    "testRows": 5,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_learner_state",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_edge",
+   "ok": true,
+   "detail": {
+    "rows": 160,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_edge_source",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_goal",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_item_rate",
+   "ok": true,
+   "detail": {
+    "rows": 450,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_line_link",
+   "ok": true,
+   "detail": {
+    "rows": 148,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_node",
+   "ok": true,
+   "detail": {
+    "rows": 72,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_node_source",
+   "ok": true,
+   "detail": {
+    "rows": 6,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_settings",
+   "ok": true,
+   "detail": {
+    "rows": 1,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_source",
+   "ok": true,
+   "detail": {
+    "rows": 9,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_task",
+   "ok": true,
+   "detail": {
+    "rows": 162,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_map_task_done",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_review_queue",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_session_attempts",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_source_eligibility — 관리자 전용 정책(정적 확인)",
+   "ok": true,
+   "detail": [
+    "is_admin_or_curator()"
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_source_eligibility_history — 관리자 전용 정책(정적 확인)",
+   "ok": true,
+   "detail": [
+    "is_admin_or_curator()"
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_stage_catalog",
+   "ok": true,
+   "detail": {
+    "rows": 562,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_stage_gates",
+   "ok": true,
+   "detail": {
+    "rows": 9,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_trap_attempts",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_type_reports",
+   "ok": true,
+   "detail": {
+    "rows": 96,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · csat_types",
+   "ok": true,
+   "detail": {
+    "rows": 27,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_analysis_reviewsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dcp_itemsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_drain_runsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_answer_keyCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_habit_feedbackCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_item_attributeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_option_trapCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_poolCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_profile_histCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_responseCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_sessionCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_settingsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_snapshotCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_trap_familyCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_dx_type_attributeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_ec_boundaryCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 3,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_ec_claimCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_ec_codeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_ec_process_evidenceCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_ec_session_confirmationCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_ec_taxonomy_versionCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 3,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_examsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_item_analysesCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_item_attemptsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_item_reviewsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_item_skeletonsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_item_stateCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_itemsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_learner_stateCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_edgeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_edge_sourceCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_goalCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_item_rateCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_line_linkCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_nodeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_node_sourceCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 6,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_settingsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 1,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_sourceCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 9,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_taskCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_map_task_doneCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_pipeline_approvalsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_review_queueCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_session_attemptsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_source_eligibilityCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_source_eligibility_historyCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_source_registryCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_source_snapshotsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_source_targetsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_stage_gatesCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 9,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_trap_attemptsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_type_reportsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL csat_typesCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 27,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "P · GraphQL 노출 csat 컬렉션 52개 검사",
+   "ok": true,
+   "detail": [
+    "csat_analysis_reviewsCollection",
+    "csat_dcp_itemsCollection",
+    "csat_drain_runsCollection",
+    "csat_dx_answer_keyCollection",
+    "csat_dx_habit_feedbackCollection",
+    "csat_dx_item_attributeCollection",
+    "csat_dx_option_trapCollection",
+    "csat_dx_poolCollection",
+    "csat_dx_profile_histCollection",
+    "csat_dx_responseCollection",
+    "csat_dx_sessionCollection",
+    "csat_dx_settingsCollection",
+    "csat_dx_snapshotCollection",
+    "csat_dx_trap_familyCollection",
+    "csat_dx_type_attributeCollection",
+    "csat_ec_boundaryCollection",
+    "csat_ec_claimCollection",
+    "csat_ec_codeCollection",
+    "csat_ec_process_evidenceCollection",
+    "csat_ec_session_confirmationCollection",
+    "csat_ec_taxonomy_versionCollection",
+    "csat_examsCollection",
+    "csat_item_analysesCollection",
+    "csat_item_attemptsCollection",
+    "csat_item_reviewsCollection",
+    "csat_item_skeletonsCollection",
+    "csat_item_stateCollection",
+    "csat_itemsCollection",
+    "csat_learner_stateCollection",
+    "csat_map_edgeCollection",
+    "csat_map_edge_sourceCollection",
+    "csat_map_goalCollection",
+    "csat_map_item_rateCollection",
+    "csat_map_line_linkCollection",
+    "csat_map_nodeCollection",
+    "csat_map_node_sourceCollection",
+    "csat_map_settingsCollection",
+    "csat_map_sourceCollection",
+    "csat_map_taskCollection",
+    "csat_map_task_doneCollection",
+    "csat_pipeline_approvalsCollection",
+    "csat_review_queueCollection",
+    "csat_session_attemptsCollection",
+    "csat_source_eligibilityCollection",
+    "csat_source_eligibility_historyCollection",
+    "csat_source_registryCollection",
+    "csat_source_snapshotsCollection",
+    "csat_source_targetsCollection",
+    "csat_stage_gatesCollection",
+    "csat_trap_attemptsCollection",
+    "csat_type_reportsCollection",
+    "csat_typesCollection"
+   ]
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_coverage() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_coverage",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_add_probe_response(uuid,smallint,jsonb,integer) [write]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 이 응답에 요구된 probe 가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid) [write]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid) [write]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 지금은 이 기록에 남길 수 없다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_blind_queue(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 회차가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_confirm_session(uuid,boolean,boolean) [write]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_my_pending_probes(uuid) [read]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_my_process_evidence(uuid) [read]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_reveal_view(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 회차가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_round_advance(bigint,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_round_assign(bigint,uuid,text,text[]) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_round_create(text,text,text,jsonb) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_round_create(text,text,text,jsonb,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 증거 범위는 all | pre_probe",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_round_material(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 회차가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_round_reveal(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_round_set_targets(bigint,jsonb) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_round_start_blind(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_adjudication",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 adjudicator 가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_blind",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 판정자가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_submit_verify(bigint,uuid,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 판정자가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_taxonomy_seal(text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_my_capture_state(uuid) [read]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_capture_open(uuid) [write]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_capture_finish(uuid) [write]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_capture_close(uuid,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_ec_close_tombstone(bigint,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_source_eligibility_tally() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_eligibility_tally",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_source_inventory_live() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_inventory_live",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_source_is_eligible(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_is_eligible",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_source_is_gradeable(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_is_gradeable",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_source_live_rollup() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_live_rollup",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_source_pipeline_live() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_pipeline_live",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_source_rollup() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_rollup",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "P · csat_source_snapshot_take — 명시 제외: 호출하면 출처 스냅샷 행을 만든다(쓰기 부작용). 출처 통계 · 문항 정답 없음 — 노출 검사에서 명시 제외",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "P · 비공개 스키마 RPC 호출 불가",
+   "ok": true,
+   "detail": "Invalid schema: csat_ec_private"
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_dcp_items — 관리자 전용 정책(정적 확인)",
+   "ok": true,
+   "detail": [
+    "is_admin_or_curator()"
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_dx_habit_feedback",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_dx_profile_hist",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_dx_response",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_dx_session",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_dx_snapshot",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_ec_boundary",
+   "ok": true,
+   "detail": {
+    "rows": 3,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_ec_claim",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_ec_code",
+   "ok": true,
+   "detail": {
+    "rows": 32,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_ec_process_evidence",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_ec_session_confirmation",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_ec_taxonomy_version",
+   "ok": true,
+   "detail": {
+    "rows": 3,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_exams",
+   "ok": true,
+   "detail": {
+    "rows": 135,
+    "testRows": 1,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_item_analyses",
+   "ok": true,
+   "detail": {
+    "rows": 5746,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_item_attempts",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_item_skeletons",
+   "ok": true,
+   "detail": {
+    "rows": 37,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_items",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_items_public",
+   "ok": true,
+   "detail": {
+    "rows": 3413,
+    "testRows": 5,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_learner_state",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_edge",
+   "ok": true,
+   "detail": {
+    "rows": 160,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_edge_source",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_goal",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_item_rate",
+   "ok": true,
+   "detail": {
+    "rows": 450,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_line_link",
+   "ok": true,
+   "detail": {
+    "rows": 148,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_node",
+   "ok": true,
+   "detail": {
+    "rows": 72,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_node_source",
+   "ok": true,
+   "detail": {
+    "rows": 6,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_settings",
+   "ok": true,
+   "detail": {
+    "rows": 1,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_source",
+   "ok": true,
+   "detail": {
+    "rows": 9,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_task",
+   "ok": true,
+   "detail": {
+    "rows": 162,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_map_task_done",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_review_queue",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_session_attempts",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_source_eligibility — 관리자 전용 정책(정적 확인)",
+   "ok": true,
+   "detail": [
+    "is_admin_or_curator()"
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_source_eligibility_history — 관리자 전용 정책(정적 확인)",
+   "ok": true,
+   "detail": [
+    "is_admin_or_curator()"
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_stage_catalog",
+   "ok": true,
+   "detail": {
+    "rows": 562,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_stage_gates",
+   "ok": true,
+   "detail": {
+    "rows": 9,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_trap_attempts",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_type_reports",
+   "ok": true,
+   "detail": {
+    "rows": 96,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · csat_types",
+   "ok": true,
+   "detail": {
+    "rows": 27,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_analysis_reviewsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dcp_itemsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_drain_runsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_answer_keyCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_habit_feedbackCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_item_attributeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_option_trapCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_poolCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_profile_histCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_responseCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_sessionCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_settingsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_snapshotCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_trap_familyCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_dx_type_attributeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_ec_boundaryCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 3,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_ec_claimCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_ec_codeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_ec_process_evidenceCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_ec_session_confirmationCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_ec_taxonomy_versionCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 3,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_examsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_item_analysesCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_item_attemptsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_item_reviewsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_item_skeletonsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_item_stateCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_itemsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_learner_stateCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_edgeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_edge_sourceCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_goalCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_item_rateCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_line_linkCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_nodeCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_node_sourceCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 6,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_settingsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 1,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_sourceCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 9,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_taskCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_map_task_doneCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_pipeline_approvalsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_review_queueCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_session_attemptsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_source_eligibilityCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_source_eligibility_historyCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_source_registryCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_source_snapshotsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_source_targetsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_stage_gatesCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 9,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_trap_attemptsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 0,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_type_reportsCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 30,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL csat_typesCollection",
+   "ok": true,
+   "detail": {
+    "nodes": 27,
+    "tests": 0,
+    "hit": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "N · GraphQL 노출 csat 컬렉션 52개 검사",
+   "ok": true,
+   "detail": [
+    "csat_analysis_reviewsCollection",
+    "csat_dcp_itemsCollection",
+    "csat_drain_runsCollection",
+    "csat_dx_answer_keyCollection",
+    "csat_dx_habit_feedbackCollection",
+    "csat_dx_item_attributeCollection",
+    "csat_dx_option_trapCollection",
+    "csat_dx_poolCollection",
+    "csat_dx_profile_histCollection",
+    "csat_dx_responseCollection",
+    "csat_dx_sessionCollection",
+    "csat_dx_settingsCollection",
+    "csat_dx_snapshotCollection",
+    "csat_dx_trap_familyCollection",
+    "csat_dx_type_attributeCollection",
+    "csat_ec_boundaryCollection",
+    "csat_ec_claimCollection",
+    "csat_ec_codeCollection",
+    "csat_ec_process_evidenceCollection",
+    "csat_ec_session_confirmationCollection",
+    "csat_ec_taxonomy_versionCollection",
+    "csat_examsCollection",
+    "csat_item_analysesCollection",
+    "csat_item_attemptsCollection",
+    "csat_item_reviewsCollection",
+    "csat_item_skeletonsCollection",
+    "csat_item_stateCollection",
+    "csat_itemsCollection",
+    "csat_learner_stateCollection",
+    "csat_map_edgeCollection",
+    "csat_map_edge_sourceCollection",
+    "csat_map_goalCollection",
+    "csat_map_item_rateCollection",
+    "csat_map_line_linkCollection",
+    "csat_map_nodeCollection",
+    "csat_map_node_sourceCollection",
+    "csat_map_settingsCollection",
+    "csat_map_sourceCollection",
+    "csat_map_taskCollection",
+    "csat_map_task_doneCollection",
+    "csat_pipeline_approvalsCollection",
+    "csat_review_queueCollection",
+    "csat_session_attemptsCollection",
+    "csat_source_eligibilityCollection",
+    "csat_source_eligibility_historyCollection",
+    "csat_source_registryCollection",
+    "csat_source_snapshotsCollection",
+    "csat_source_targetsCollection",
+    "csat_stage_gatesCollection",
+    "csat_trap_attemptsCollection",
+    "csat_type_reportsCollection",
+    "csat_typesCollection"
+   ]
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_coverage() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_coverage",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_add_probe_response(uuid,smallint,jsonb,integer) [write]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 이 응답에 요구된 probe 가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid) [write]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid) [write]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 지금은 이 기록에 남길 수 없다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_blind_queue(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 회차가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_confirm_session(uuid,boolean,boolean) [write]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_my_pending_probes(uuid) [read]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_my_process_evidence(uuid) [read]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_reveal_view(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 회차가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_round_advance(bigint,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_round_assign(bigint,uuid,text,text[]) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_round_create(text,text,text,jsonb) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_round_create(text,text,text,jsonb,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 증거 범위는 all | pre_probe",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_round_material(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 회차가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_round_reveal(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_round_set_targets(bigint,jsonb) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_round_start_blind(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_adjudication",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 adjudicator 가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_blind",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 판정자가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_submit_verify(bigint,uuid,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 배정된 판정자가 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_taxonomy_seal(text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_my_capture_state(uuid) [read]",
+   "ok": true,
+   "detail": {
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_capture_open(uuid) [write]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 풀이 수집 대상 기록이 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_capture_finish(uuid) [write]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 풀이 수집 대상 기록이 아니다",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_capture_close(uuid,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_ec_close_tombstone(bigint,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "csat_ec: 관리자만",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_source_eligibility_tally() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_eligibility_tally",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_source_inventory_live() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_inventory_live",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_source_is_eligible(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_is_eligible",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_source_is_gradeable(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_is_gradeable",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_source_live_rollup() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_live_rollup",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_source_pipeline_live() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_pipeline_live",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_source_rollup() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_rollup",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "N · csat_source_snapshot_take — 명시 제외: 호출하면 출처 스냅샷 행을 만든다(쓰기 부작용). 출처 통계 · 문항 정답 없음 — 노출 검사에서 명시 제외",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "N · 비공개 스키마 RPC 호출 불가",
+   "ok": true,
+   "detail": "Invalid schema: csat_ec_private"
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_dcp_items — 관리자 전용 정책(정적 확인)",
+   "ok": true,
+   "detail": [
+    "is_admin_or_curator()"
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_dx_habit_feedback",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_dx_profile_hist",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_dx_response",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_dx_session",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_dx_snapshot",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_ec_boundary — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_ec_claim — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_ec_code — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_ec_process_evidence — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_ec_session_confirmation — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_ec_taxonomy_version — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_exams",
+   "ok": true,
+   "detail": {
+    "rows": 135,
+    "testRows": 1,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_item_analyses",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_item_attempts",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_item_skeletons — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_items",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_items_public — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_learner_state",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_edge — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_edge_source — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_goal — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_item_rate — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_line_link — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_node — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_node_source — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_settings — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_source — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_task — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_map_task_done — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_review_queue — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_session_attempts — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_source_eligibility — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_source_eligibility_history — 관리자 전용 정책(정적 확인)",
+   "ok": true,
+   "detail": [
+    "is_admin_or_curator()"
+   ]
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_stage_catalog",
+   "ok": true,
+   "detail": {
+    "rows": 562,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_stage_gates",
+   "ok": true,
+   "detail": {
+    "rows": 9,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_trap_attempts",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_type_reports",
+   "ok": true,
+   "detail": {
+    "rows": 0,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · csat_types",
+   "ok": true,
+   "detail": {
+    "rows": 27,
+    "testRows": 0,
+    "answerLeak": 0
+   }
+  },
+  {
+   "area": "canary",
+   "name": "anon · GraphQL 노출 csat 컬렉션 0개 검사",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_coverage() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_coverage",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_add_probe_response(uuid,smallint,jsonb,integer) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_add_probe_response",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_add_process_evidence",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_add_student_claim",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_blind_queue(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_blind_queue",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_confirm_session(uuid,boolean,boolean) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_confirm_session",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_my_pending_probes(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_my_pending_probes",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_my_process_evidence(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_my_process_evidence",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_reveal_view(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_reveal_view",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_round_advance(bigint,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_round_advance",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_round_assign(bigint,uuid,text,text[]) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_round_assign",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_round_create(text,text,text,jsonb) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_round_create",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_round_create(text,text,text,jsonb,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_round_create",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_round_material(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_round_material",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_round_reveal(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_round_reveal",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_round_set_targets(bigint,jsonb) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_round_set_targets",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_round_start_blind(bigint) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_round_start_blind",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_adjudication",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_adjudication",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_blind",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text,text[],text[],boolean) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_blind",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_submit_verify(bigint,uuid,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_submit_verify",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_taxonomy_seal(text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_taxonomy_seal",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_my_capture_state(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_my_capture_state",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_capture_open(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_capture_open",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_capture_finish(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_capture_finish",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_capture_close(uuid,text,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_capture_close",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_ec_close_tombstone(bigint,text) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_ec_close_tombstone",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_source_eligibility_tally() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_eligibility_tally",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_source_inventory_live() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_inventory_live",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_source_is_eligible(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_is_eligible",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_source_is_gradeable(uuid) [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_is_gradeable",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_source_live_rollup() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_live_rollup",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_source_pipeline_live() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_pipeline_live",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_source_rollup() [refuse]",
+   "ok": true,
+   "detail": {
+    "err": "permission denied for function csat_source_rollup",
+    "hits": []
+   }
+  },
+  {
+   "area": "rpc",
+   "name": "anon · csat_source_snapshot_take — 명시 제외: 호출하면 출처 스냅샷 행을 만든다(쓰기 부작용). 출처 통계 · 문항 정답 없음 — 노출 검사에서 명시 제외",
+   "ok": true
+  },
+  {
+   "area": "oracle",
+   "name": "P · csat_ec_add_student_claim — 오답 · 정답 응답 동일 · 행 생성 없음",
+   "ok": true,
+   "detail": {
+    "wrong": "{\"ok\":false,\"code\":\"P0001\",\"msg\":\"csat_ec: 지금은 이 기록에 남길 수 없다\",\"status\":400,\"data\":null}",
+    "right": "{\"ok\":false,\"code\":\"P0001\",\"msg\":\"csat_ec: 지금은 이 기록에 남길 수 없다\",\"status\":400,\"data\":null}",
+    "rows": 0
+   }
+  },
+  {
+   "area": "oracle",
+   "name": "N · csat_ec_add_student_claim — 오답 · 정답 응답 동일 · 행 생성 없음",
+   "ok": true,
+   "detail": {
+    "wrong": "{\"ok\":false,\"code\":\"P0001\",\"msg\":\"csat_ec: 지금은 이 기록에 남길 수 없다\",\"status\":400,\"data\":null}",
+    "right": "{\"ok\":false,\"code\":\"P0001\",\"msg\":\"csat_ec: 지금은 이 기록에 남길 수 없다\",\"status\":400,\"data\":null}",
+    "rows": 0
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · api csat/diagnosis/sessions (held)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "held": true,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · api csat/diagnosis/sessions/[id]/result (embargo)",
+   "ok": true,
+   "detail": {
+    "status": 423,
+    "held": "exam_embargo",
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · api csat/lecture (embargo)",
+   "ok": true,
+   "detail": {
+    "status": 423,
+    "held": "exam_embargo",
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · api csat/session/record (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · api csat/session/reveal (embargo)",
+   "ok": true,
+   "detail": {
+    "status": 423,
+    "held": "exam_embargo",
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · api csat/state (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · page app/(app)/csat (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · page app/(app)/csat/diagnosis (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · page app/(app)/csat/space (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": false
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · page app/(app)/csat/workspace (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": false
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · page app/(app)/csat/workspace/[id] (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · page app/(main)/csat/dissect (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · page app/(main)/csat/formulas (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "P · page app/(main)/csat/item/[slug] (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · api csat/diagnosis/sessions (held)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "held": true,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · api csat/diagnosis/sessions/[id]/result (embargo)",
+   "ok": true,
+   "detail": {
+    "status": 423,
+    "held": "exam_embargo",
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · api csat/lecture (embargo)",
+   "ok": true,
+   "detail": {
+    "status": 423,
+    "held": "exam_embargo",
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · api csat/session/record (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · api csat/session/reveal (embargo)",
+   "ok": true,
+   "detail": {
+    "status": 423,
+    "held": "exam_embargo",
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · api csat/state (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · page app/(app)/csat (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · page app/(app)/csat/diagnosis (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · page app/(app)/csat/space (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": false
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · page app/(app)/csat/workspace (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": false
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · page app/(app)/csat/workspace/[id] (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · page app/(main)/csat/dissect (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · page app/(main)/csat/formulas (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "app",
+   "name": "N · page app/(main)/csat/item/[slug] (no_canary)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "noStore": true
+   }
+  },
+  {
+   "area": "oracle",
+   "name": "앱 경로 P · N 응답 모양 동일(14개)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "area": "bundle",
+   "name": "클라이언트 청크 382개 — canary · TEST 문항 · 분석 키 없음",
+   "ok": true,
+   "detail": {
+    "chunks": 382,
+    "hits": 0
+   }
+  },
+  {
+   "area": "정리",
+   "name": "TEST 시험 · 활성 묘비 0",
+   "ok": true,
+   "detail": {
+    "t": 0,
+    "i": 0
+   }
+  }
+ ]
+}

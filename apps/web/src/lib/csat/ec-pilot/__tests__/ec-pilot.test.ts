@@ -9,31 +9,25 @@ import { EC_PILOT, configTaxonomyAllowed, isPilotParticipant, pilotParticipants 
 import { PROBE_DEFINITIONS, currentProbe, findProbe, promptHash, studentProbe } from '../probes'
 import { STUDENT_GROUPS, evidenceValue, parseEvidence, selectTargets, sentenceRanges, type TargetCandidate } from '../targets'
 
-const cand = (itemNo: number, isCorrect: boolean, over: Partial<TargetCandidate> = {}): TargetCandidate => ({
-  itemNo, chosen: 2, isCorrect, stem: '다음 글의 요지로 가장 적절한 것은?', passage: 'One. Two.', choices: ['a', 'b', 'c', 'd', 'e'], bodyOk: true, ...over,
+const cand = (itemNo: number, over: Partial<TargetCandidate> = {}): TargetCandidate => ({
+  itemNo, chosen: 2, stem: '다음 글의 요지로 가장 적절한 것은?', passage: 'One. Two.', choices: ['a', 'b', 'c', 'd', 'e'], bodyOk: true, ...over,
 })
 
-describe('selectTargets', () => {
-  const pool = [cand(18, false), cand(19, true), cand(20, true), cand(21, false), cand(22, true), cand(23, true)]
-
-  it('오답 전부 · 정답 대조 없음(null) — wrong only 를 상수로 두지 않고 설정을 따른다', () => {
-    expect(selectTargets(pool, null, 's1')).toEqual([18, 21])
-    expect(selectTargets(pool, 0, 's1')).toEqual([18, 21])
+describe('selectTargets — 정오 독립(봉인 대상 ∩ 내용 적격)', () => {
+  it('봉인 대상만, 번호순', () => {
+    const pool = [cand(18), cand(19), cand(20), cand(21)]
+    expect(selectTargets(pool, [21, 18])).toEqual([18, 21])
   })
 
-  it('정답 대조 수만큼 더하고 번호순으로 섞어 정오가 드러나지 않는다', () => {
-    const t = selectTargets(pool, 2, 's1')
-    expect(t).toHaveLength(4)
-    expect([...t].sort((a, b) => a - b)).toEqual(t)
-    expect(t).toEqual(expect.arrayContaining([18, 21]))
-  })
-
-  it('정답 대조 선택은 세션마다 결정적(다시 열어도 같은 문항)', () => {
-    expect(selectTargets(pool, 2, 'abc')).toEqual(selectTargets(pool, 2, 'abc'))
+  it('P · N — 정답 · 오답만 다른 두 응답의 대상 집합이 같다(고른 답이 달라도)', () => {
+    const sealed = [18, 19, 20, 21, 22]
+    const P = [18, 19, 20, 21, 22].map((n) => cand(n, { chosen: 1 }))   // 예: 전부 오답
+    const N = [18, 19, 20, 21, 22].map((n) => cand(n, { chosen: ((n * 3) % 5) + 1 }))   // 예: 전부 정답
+    expect(selectTargets(P, sealed)).toEqual(selectTargets(N, sealed))
   })
 
   it('듣기(1–17) · 고른 답 없음 · 발문/선지 없음 · body_ok 거짓은 대상 밖', () => {
-    const t = selectTargets([cand(5, false), cand(18, false, { chosen: null }), cand(19, false, { stem: ' ' }), cand(20, false, { choices: null }), cand(21, false, { bodyOk: false }), cand(22, false)], 3, 's')
+    const t = selectTargets([cand(5), cand(18, { chosen: null }), cand(19, { stem: ' ' }), cand(20, { choices: null }), cand(21, { bodyOk: false }), cand(22)], [5, 18, 19, 20, 21, 22])
     expect(t).toEqual([22])
   })
 })

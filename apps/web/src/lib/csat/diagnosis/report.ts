@@ -8,6 +8,7 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { embargoedExamIds } from '@/lib/csat/embargo-gate'
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
 import { buildExamReport, type ExamReport, type ReportItem, type ReportSession } from './engine/exam-report'
@@ -54,15 +55,27 @@ interface SessionRow {
 }
 
 export async function loadExamReport(db: Db, userId: string): Promise<{ report: ExamReport; typeNames: Record<string, string> }> {
-  const sessions = await keysetSelect<SessionRow, string>(
+  // 기록 키만 먼저(점수 없이) → Reveal Gate 로 보류 시험(오답 원인 Pilot 수집 중 · 요청자 무관)의 기록을 뺀다 → 남은 기록의 점수 · 응답만 읽는다
+  const keys = await keysetSelect<Omit<SessionRow, 'raw_score' | 'grade'>, string>(
     (cursor, limit) => {
-      const q = db.from('csat_dx_session').select('id, exam_id, mode, taken_at, created_at, raw_score, grade')
+      const q = db.from('csat_dx_session').select('id, exam_id, mode, taken_at, created_at')
         .eq('user_id', userId).in('mode', ['live', 'retake']).not('exam_id', 'is', null).order('id').limit(limit)
       return cursor === null ? q : q.gt('id', cursor)
     },
     (row) => row.id,
     'csat_dx_session',
   )
+  const held = await embargoedExamIds(keys.map((k) => k.exam_id))
+  const visible = keys.filter((k) => !held.has(k.exam_id))
+  const scores = new Map(
+    (await selectByChunks<{ id: string; raw_score: number | null; grade: number | null }>(
+      visible.map((k) => k.id),
+      100,
+      (chunk) => db.from('csat_dx_session').select('id, raw_score, grade').eq('user_id', userId).in('id', chunk),
+      'csat_dx_session 점수',
+    )).map((r) => [r.id, r]),
+  )
+  const sessions: SessionRow[] = visible.map((k) => ({ ...k, raw_score: scores.get(k.id)?.raw_score ?? null, grade: scores.get(k.id)?.grade ?? null }))
   const examIds = [...new Set(sessions.map((s) => s.exam_id))]
   // 세션당 응답 45행 → 20세션 묶음 900행
   const [responses, exams, itemRows, trapFamily, typeNames] = await Promise.all([

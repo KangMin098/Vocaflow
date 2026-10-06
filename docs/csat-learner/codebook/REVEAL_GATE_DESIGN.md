@@ -281,3 +281,22 @@ DB: `csat_ec_private.exam_answer_embargoed(exam)` · `item_answer_embargoed(item
 
 검증: 격리 PG 348/348 · 기본 225/225 · rollback(기본 6 · Pilot 11 · 수집 12 · Reveal 11) · 개발 DB 표면 검사 분류 누락 0(적용 전 실패 2 = 해시 컬럼, ① 이 막는다).
 **리뷰 운영 메모**: 5회 모두 새 지적이 나왔고 뒤로 갈수록 스캐너 품질(P2) 비중이 커졌다. DB 층의 P1 은 회차마다 줄었다(5회차 P1 2 = canary 정리 · 판정 claim_id). 남은 검증은 개발 DB 적용 뒤 canary · oracle 실측과 앱 gate 구현 뒤 `--app` · `--bundle` 실측이 맡는다 — 손 리뷰를 더 돌리기보다 실측으로 닫는다.
+
+## X. 앱 계층 구현 (2026-10-06 · `feat/ec-reveal-app`)
+
+- **단일 관문** `apps/web/src/lib/csat/embargo-gate.ts`(server-only) — 판정은 서비스 RPC(`csat_ec_embargoed_exams` · `csat_ec_embargoed_items` · `csat_ec_reveal_state`)로만. `canRevealExam/Item/Session` · `embargoedExamIds/ItemIds` · `userHasHeldSession` · `loadRevealScope`(시험 → 문항 · 유형) · `assertRevealAllowed`(→ `RevealHeldError`) · `revealHeldResponse()`(423 · `{held:'exam_embargo'}` · no-store). **fail-closed**: RPC 오류 · 예외 = 보류.
+- **경로**: reveal · lecture · 기록 결과 API = 데이터 읽기 전 423. 문항 해설 페이지 = 보류 안내(정답 · 분석 · 뼈대 · 강의 개요 없음). 진단 저장 = `csat_ec_record_session_held` 단일 진입(대상 = 정오 무관 · 적격 아니면 대상 0) → 보류면 `{held:true}` 만. 진단 입력 · 스냅샷 · 지도 · 보고서 = 보류 시험 기록 제외.
+- **캐시**: 해부 카탈로그 · 세션 카탈로그 · Workspace 색인 · 뼈대 메모리 캐시는 **원본**을 담고 요청마다 `loadRevealScope` 로 거른다(파생 필드 — 함정 빈도 · 의도 대안 · 이력 — 도 거른 원본에서 다시 계산).
+- **② 준비**: 홈 카드(`diagnosis/learner.ts`) · `/api/csat/state` 는 쿠키로 로그인만 확인하고 service role 로 읽는다. 앱의 학습자 JWT 직접 조회 중 ② 대상 컬럼(dx_session raw_score · grade, dx_response is_correct, snapshot, learner_state)은 남지 않는다.
+- **분류 정정**(호출부 → 라우트 인증 근거): client · evidence · guide · hakpyeong-review-loader · heatmap · items · my-traps · order-view = 관리자 경로만 → `ADMIN_ONLY`(manifest 에 근거).
+- **가드**: `embargo-gate-coverage.test.ts` — ANSWER_SENSITIVE · CORRECTNESS 파일이 관문 함수를 import · 호출하지 않거나, 민감 표면을 읽는 미분류 파일이 생기면 **실패**(기본 거부 · 픽스처로 실패 증명).
+- **실측**(개발 DB · dev 서버): canary 기본 372/372 · `--app` 400/400(P · N 각 14 경로 + P·N 응답 모양 oracle) · `--bundle` 청크 382 통과. 남은 것: 공개 전이 뒤 스냅샷 재계산(`csat_ec_reveal_outbox` 처리기) 미구현 · `trap-atlas.json` 사례가 클라이언트 번들에 있다(check-surfaces `--bundle` 실패 2 — 하나는 관리자 도움말 문자열).
+
+### X-2. 후속(2026-10-06 · 사용자 결정 7항)
+
+- **ec-pilot 대상 = 정오 독립**: `selectTargets(cands, sealed)` — 봉인 capture 대상(`csat_ec_my_capture_state`) ∩ 내용 적격. `is_correct` · 정답표 · 채점 결과를 읽지 않는다(정적 가드 `targets-correctness-free.test.ts` + P/N 동일 대상 단위 테스트). 정답 대조군(`correctControls`)은 대상 결정에서 빠졌다.
+- **trap-atlas 번들 분리**: `trap-atlas.json`(번들)의 예시는 slug · 회차 이름 · 번호 · 유형만. 문항 id · 오답 선지 · 끌리는 이유 · 버리는 법은 `trap-atlas-examples.json` + `trap-atlas-examples.ts`(server-only · 보류 필터) → 관리자 kice 화면이 props 로 받는다. `build-trap-atlas.mjs` 가 두 파일을 함께 굽고 `--check` 도 둘 다 본다. 관리자 도움말의 `--redo 2026#30,M1809#30` 은 정답 단서가 아닌 CLI 예시라 자리표시자로 바꿨다.
+- **두 번들 검사는 다른 검사다**: `canary-scan --bundle` = TEST 시험 id · canary · 분석 키 / `check-surfaces --bundle` = 모든 문항 id 꼴 · 분석 키. 수정 뒤 둘 다 0.
+- **스냅샷 따라잡기**: `csat_ec_reveal_outbox` 는 service_role 권한도 없는 표(FORCE RLS)라 앱이 읽지 못한다(새 DB 객체 금지). 같은 일을 `diagnosis/reveal-sync.ts` 가 워터마크 비교로 한다 — 보류가 없을 때만, 실패해도 보류로 되돌리지 않음, 재실행 안전. outbox 를 실제로 소비하려면 서비스 RPC 가 필요하다(다음 마이그레이션 후보).
+- **관문 실패**: 판정 RPC 오류 · 시간 초과(4초) = 423 held · no-store. 로그는 `[reveal-gate] embargo`(info)와 `[reveal-gate] gate_failure`(error)로 가른다(`embargo-gate-failure.test.ts`).
+- **함수 실행 정책 마이그레이션**(`20261006100000`, 다른 세션)이 학습자 EXECUTE 11개를 회수 → manifest `revoked_by` 로 기록, canary 는 회수된 함수를 거부 기대로 본다.
