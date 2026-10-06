@@ -13,7 +13,7 @@ import { assertRevealAllowed, RevealHeldError } from '@/lib/csat/embargo-gate'
 import { loadCsatItemExplain } from '@/lib/csat/learner'
 import { lectureMeta } from '@/lib/csat/lecture/store'
 import type { AnchorOrigin } from '@/lib/csat/passage-skeleton'
-import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons } from '@/lib/csat/skeleton'
+import { loadItemSkeleton, primeLearnerHakpyeongSkeletons } from '@/lib/csat/skeleton'
 import { createClient } from '@/lib/supabase/server'
 
 import { firstSentences, oneLiner } from './text'
@@ -76,7 +76,9 @@ export async function loadReveal(itemId: string): Promise<{ payload: RevealPaylo
   }
 
   await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
-  const sk = await loadRevealedSkeleton(item.id)
+  // 골격 부재(null)와 보류를 섞지 않는다 — 내보내기 직전에 관문을 한 번 더 지나고(보류 · 판정 실패면 RevealHeldError → 423), 골격은 원본에서
+  await assertRevealAllowed({ itemId: item.id })
+  const sk = loadItemSkeleton(item.id)
   const skeleton = sk
     ? {
         sentences: sk.sentences.map((s) => s.chars),

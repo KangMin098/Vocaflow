@@ -263,3 +263,26 @@ export async function assertRevealAllowed(target: RevealTarget, deps?: GateDeps)
 export function revealHeldResponse(): NextResponse {
   return NextResponse.json({ held: HELD_REASON }, { status: 423, headers: { 'cache-control': 'no-store' } })
 }
+
+// ── 판정 + 실패 여부(응답을 가르는 경로용) ─────────────────────────────────
+// 보류(embargo)와 관문 실패(failure)를 응답이 다르게 다뤄야 하는 곳(예: 저장은 됐는데 결과를 못 여는 경우)만 쓴다.
+
+export type RevealDecision = 'open' | 'embargo' | 'failure'
+
+/** 시험 하나의 판정 — 실패면 'failure'(호출부는 423 으로 끝낸다) */
+export async function examRevealDecision(examId: string, deps?: GateDeps): Promise<RevealDecision> {
+  const r = await heldBy('csat_ec_embargoed_exams', [examId], deps)
+  return r.failed ? 'failure' : r.set.has(examId) ? 'embargo' : 'open'
+}
+
+/** 문항 id 들의 보류 집합 + 판정 실패 여부 */
+export async function itemRevealDecision(itemIds: readonly string[], deps?: GateDeps): Promise<{ held: Set<string>; failed: boolean }> {
+  const ids = [...new Set(itemIds.filter(Boolean))]
+  if (ids.length === 0) return { held: new Set(), failed: false }
+  const [byItem, byExam] = await Promise.all([
+    heldBy('csat_ec_embargoed_items', ids, deps),
+    heldBy('csat_ec_embargoed_exams', ids.map(examOfItem), deps),
+  ])
+  if (byItem.failed || byExam.failed) return { held: new Set(ids), failed: true }
+  return { held: new Set(ids.filter((id) => byItem.set.has(id) || byExam.set.has(examOfItem(id)))), failed: false }
+}

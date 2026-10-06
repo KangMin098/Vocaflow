@@ -292,26 +292,7 @@
         "X-TITLE": 8,
         "R-VOCAB": 1
       },
-      "examples": [
-        {
-          "slug": "2026-34",
-          "exam_label": "2026학년도 수능",
-          "no": 34,
-          "type_id": "R-BLANK"
-        },
-        {
-          "slug": "M2606-27",
-          "exam_label": "2026학년도 6월 모의평가",
-          "no": 27,
-          "type_id": "R-NOTICE"
-        },
-        {
-          "slug": "M2306-19",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 19,
-          "type_id": "R-MOOD"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "반대 진술",
@@ -351,26 +332,7 @@
         "R-TITLE": 6,
         "R-PURPOSE": 5
       },
-      "examples": [
-        {
-          "slug": "M2706-33",
-          "exam_label": "2027학년도 6월 모의평가",
-          "no": 33,
-          "type_id": "R-BLANK"
-        },
-        {
-          "slug": "M2706-28",
-          "exam_label": "2027학년도 6월 모의평가",
-          "no": 28,
-          "type_id": "R-NOTICE"
-        },
-        {
-          "slug": "M2409-19",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 19,
-          "type_id": "R-MOOD"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "부분 사실",
@@ -411,26 +373,7 @@
         "R-TOPIC": 5,
         "X-TITLE": 5
       },
-      "examples": [
-        {
-          "slug": "M2706-31",
-          "exam_label": "2027학년도 6월 모의평가",
-          "no": 31,
-          "type_id": "R-BLANK"
-        },
-        {
-          "slug": "M2409-28",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 28,
-          "type_id": "R-NOTICE"
-        },
-        {
-          "slug": "M2409-19",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 19,
-          "type_id": "R-MOOD"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "무관",
@@ -468,26 +411,7 @@
         "R-NOTICE": 5,
         "R-FACT": 2
       },
-      "examples": [
-        {
-          "slug": "2026-31",
-          "exam_label": "2026학년도 수능",
-          "no": 31,
-          "type_id": "R-BLANK"
-        },
-        {
-          "slug": "M2309-19",
-          "exam_label": "2023학년도 9월 모의평가",
-          "no": 19,
-          "type_id": "R-MOOD"
-        },
-        {
-          "slug": "M2506-18",
-          "exam_label": "2025학년도 6월 모의평가",
-          "no": 18,
-          "type_id": "R-PURPOSE"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "지문 밖 상식",
@@ -529,26 +453,7 @@
         "R-TOPIC": 4,
         "R-VOCAB": 1
       },
-      "examples": [
-        {
-          "slug": "2026-33",
-          "exam_label": "2026학년도 수능",
-          "no": 33,
-          "type_id": "R-BLANK"
-        },
-        {
-          "slug": "2025-28",
-          "exam_label": "2025학년도 수능",
-          "no": 28,
-          "type_id": "R-NOTICE"
-        },
-        {
-          "slug": "M2309-24",
-          "exam_label": "2023학년도 9월 모의평가",
-          "no": 24,
-          "type_id": "R-TITLE"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "주체 역전",
@@ -588,26 +493,7 @@
         "R-GIST": 1,
         "R-SUMMARY": 1
       },
-      "examples": [
-        {
-          "slug": "M2609-26",
-          "exam_label": "2026학년도 9월 모의평가",
-          "no": 26,
-          "type_id": "R-FACT"
-        },
-        {
-          "slug": "M2506-33",
-          "exam_label": "2025학년도 6월 모의평가",
-          "no": 33,
-          "type_id": "R-BLANK"
-        },
-        {
-          "slug": "M2606-23",
-          "exam_label": "2026학년도 6월 모의평가",
-          "no": 23,
-          "type_id": "R-TOPIC"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "범위 과대",
@@ -648,26 +534,7 @@
         "R-SUMMARY": 2,
         "X-FACT": 1
       },
-      "examples": [
-        {
-          "slug": "M2606-27",
-          "exam_label": "2026학년도 6월 모의평가",
-          "no": 27,
-          "type_id": "R-NOTICE"
-        },
-        {
-          "slug": "M2409-25",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "M2309-41",
-          "exam_label": "2023학년도 9월 모의평가",
-          "no": 41,
-          "type_id": "X-TITLE"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "범위 과소",
@@ -704,26 +571,7 @@
         "R-PURPOSE": 2,
         "R-CLAIM": 1
       },
-      "examples": [
-        {
-          "slug": "2026-28",
-          "exam_label": "2026학년도 수능",
-          "no": 28,
-          "type_id": "R-NOTICE"
-        },
-        {
-          "slug": "2026-23",
-          "exam_label": "2026학년도 수능",
-          "no": 23,
-          "type_id": "R-TOPIC"
-        },
-        {
-          "slug": "M2406-24",
-          "exam_label": "2024학년도 6월 모의평가",
-          "no": 24,
-          "type_id": "R-TITLE"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "인과 역전",
@@ -758,26 +606,7 @@
         "R-SUMMARY": 1,
         "R-VOCAB": 1
       },
-      "examples": [
-        {
-          "slug": "M2609-32",
-          "exam_label": "2026학년도 9월 모의평가",
-          "no": 32,
-          "type_id": "R-BLANK"
-        },
-        {
-          "slug": "2024-21",
-          "exam_label": "2024학년도 수능",
-          "no": 21,
-          "type_id": "R-IMPLY"
-        },
-        {
-          "slug": "M2306-41",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 41,
-          "type_id": "X-TITLE"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "지시어 선행사 절단",
@@ -796,26 +625,7 @@
         "R-INSERT": 8,
         "X-ORDER": 5
       },
-      "examples": [
-        {
-          "slug": "M2606-35",
-          "exam_label": "2026학년도 6월 모의평가",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        },
-        {
-          "slug": "M2706-38",
-          "exam_label": "2027학년도 6월 모의평가",
-          "no": 38,
-          "type_id": "R-INSERT"
-        },
-        {
-          "slug": "M2409-43",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 43,
-          "type_id": "X-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "마무리 문장 위치 오판",
@@ -834,26 +644,7 @@
         "X-ORDER": 10,
         "R-INSERT": 1
       },
-      "examples": [
-        {
-          "slug": "2023-35",
-          "exam_label": "2023학년도 수능",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        },
-        {
-          "slug": "M2509-43",
-          "exam_label": "2025학년도 9월 모의평가",
-          "no": 43,
-          "type_id": "X-ORDER"
-        },
-        {
-          "slug": "M2406-39",
-          "exam_label": "2024학년도 6월 모의평가",
-          "no": 39,
-          "type_id": "R-INSERT"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "어휘 반복 유인",
@@ -873,26 +664,7 @@
         "X-ORDER": 6,
         "R-IRRELEVANT": 3
       },
-      "examples": [
-        {
-          "slug": "2026-42",
-          "exam_label": "2026학년도 수능",
-          "no": 42,
-          "type_id": "X-VOCAB"
-        },
-        {
-          "slug": "2025-43",
-          "exam_label": "2025학년도 수능",
-          "no": 43,
-          "type_id": "X-ORDER"
-        },
-        {
-          "slug": "M2409-35",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "첫 등장 위반",
@@ -910,26 +682,7 @@
         "X-ORDER": 11,
         "R-INSERT": 6
       },
-      "examples": [
-        {
-          "slug": "M2706-39",
-          "exam_label": "2027학년도 6월 모의평가",
-          "no": 39,
-          "type_id": "R-INSERT"
-        },
-        {
-          "slug": "M2606-43",
-          "exam_label": "2026학년도 6월 모의평가",
-          "no": 43,
-          "type_id": "X-ORDER"
-        },
-        {
-          "slug": "2014A-37",
-          "exam_label": "2014학년도 수능 A형",
-          "no": 37,
-          "type_id": "R-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "총론-각론 역전",
@@ -948,26 +701,7 @@
         "R-INSERT": 4,
         "X-ORDER": 1
       },
-      "examples": [
-        {
-          "slug": "2025-39",
-          "exam_label": "2025학년도 수능",
-          "no": 39,
-          "type_id": "R-INSERT"
-        },
-        {
-          "slug": "M2609-35",
-          "exam_label": "2026학년도 9월 모의평가",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        },
-        {
-          "slug": "M2309-43",
-          "exam_label": "2023학년도 9월 모의평가",
-          "no": 43,
-          "type_id": "X-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "시간·인과 순서 역전",
@@ -984,26 +718,7 @@
         "X-ORDER": 9,
         "R-IRRELEVANT": 1
       },
-      "examples": [
-        {
-          "slug": "M2406-43",
-          "exam_label": "2024학년도 6월 모의평가",
-          "no": 43,
-          "type_id": "X-ORDER"
-        },
-        {
-          "slug": "2025-35",
-          "exam_label": "2025학년도 수능",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        },
-        {
-          "slug": "2014A-37",
-          "exam_label": "2014학년도 수능 A형",
-          "no": 37,
-          "type_id": "R-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "연결사 방향 충돌",
@@ -1022,26 +737,7 @@
         "R-INSERT": 3,
         "X-ORDER": 1
       },
-      "examples": [
-        {
-          "slug": "2024-35",
-          "exam_label": "2024학년도 수능",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        },
-        {
-          "slug": "2026-39",
-          "exam_label": "2026학년도 수능",
-          "no": 39,
-          "type_id": "R-INSERT"
-        },
-        {
-          "slug": "M2309-43",
-          "exam_label": "2023학년도 9월 모의평가",
-          "no": 43,
-          "type_id": "X-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "조건-귀결 절단",
@@ -1061,26 +757,7 @@
         "R-INSERT": 2,
         "R-ORDER": 1
       },
-      "examples": [
-        {
-          "slug": "M2306-35",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        },
-        {
-          "slug": "M2506-43",
-          "exam_label": "2025학년도 6월 모의평가",
-          "no": 43,
-          "type_id": "X-ORDER"
-        },
-        {
-          "slug": "M2509-38",
-          "exam_label": "2025학년도 9월 모의평가",
-          "no": 38,
-          "type_id": "R-INSERT"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "지시어 선행사 없음",
@@ -1094,26 +771,7 @@
       "by_type_recent": {
         "R-ORDER": 12
       },
-      "examples": [
-        {
-          "slug": "M2306-36",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 36,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "M2306-37",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 37,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "2026-36",
-          "exam_label": "2026학년도 수능",
-          "no": 36,
-          "type_id": "R-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "열거·병렬 절단",
@@ -1128,26 +786,7 @@
       "by_type_recent": {
         "R-IRRELEVANT": 6
       },
-      "examples": [
-        {
-          "slug": "M2609-35",
-          "exam_label": "2026학년도 9월 모의평가",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        },
-        {
-          "slug": "M2206-37",
-          "exam_label": "2022학년도 6월 모의평가",
-          "no": 37,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "M2506-35",
-          "exam_label": "2025학년도 6월 모의평가",
-          "no": 35,
-          "type_id": "R-IRRELEVANT"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "항목 짝 바꾸기",
@@ -1161,26 +800,7 @@
       "by_type_recent": {
         "R-CHART": 3
       },
-      "examples": [
-        {
-          "slug": "M2309-25",
-          "exam_label": "2023학년도 9월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "M2406-25",
-          "exam_label": "2024학년도 6월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "M2409-25",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "국소 어색함",
@@ -1194,26 +814,7 @@
       "by_type_recent": {
         "X-VOCAB": 12
       },
-      "examples": [
-        {
-          "slug": "2023-42",
-          "exam_label": "2023학년도 수능",
-          "no": 42,
-          "type_id": "X-VOCAB"
-        },
-        {
-          "slug": "2024-42",
-          "exam_label": "2024학년도 수능",
-          "no": 42,
-          "type_id": "X-VOCAB"
-        },
-        {
-          "slug": "M2506-42",
-          "exam_label": "2025학년도 6월 모의평가",
-          "no": 42,
-          "type_id": "X-VOCAB"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "단락 순서 교란",
@@ -1227,26 +828,7 @@
       "by_type_recent": {
         "X-FACT": 3
       },
-      "examples": [
-        {
-          "slug": "M2306-45",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 45,
-          "type_id": "X-FACT"
-        },
-        {
-          "slug": "2023-45",
-          "exam_label": "2023학년도 수능",
-          "no": 45,
-          "type_id": "X-FACT"
-        },
-        {
-          "slug": "M2309-45",
-          "exam_label": "2023학년도 9월 모의평가",
-          "no": 45,
-          "type_id": "X-FACT"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "예고–응답 분리",
@@ -1260,26 +842,7 @@
       "by_type_recent": {
         "R-ORDER": 11
       },
-      "examples": [
-        {
-          "slug": "2025-36",
-          "exam_label": "2025학년도 수능",
-          "no": 36,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "M2509-36",
-          "exam_label": "2025학년도 9월 모의평가",
-          "no": 36,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "M2706-37",
-          "exam_label": "2027학년도 6월 모의평가",
-          "no": 37,
-          "type_id": "R-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "등장인물 혼동",
@@ -1293,26 +856,7 @@
       "by_type_recent": {
         "X-FACT": 10
       },
-      "examples": [
-        {
-          "slug": "M2506-45",
-          "exam_label": "2025학년도 6월 모의평가",
-          "no": 45,
-          "type_id": "X-FACT"
-        },
-        {
-          "slug": "2024-45",
-          "exam_label": "2024학년도 수능",
-          "no": 45,
-          "type_id": "X-FACT"
-        },
-        {
-          "slug": "M2409-45",
-          "exam_label": "2024학년도 9월 모의평가",
-          "no": 45,
-          "type_id": "X-FACT"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "임계값 경계",
@@ -1326,26 +870,7 @@
       "by_type_recent": {
         "R-CHART": 8
       },
-      "examples": [
-        {
-          "slug": "M2406-25",
-          "exam_label": "2024학년도 6월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "M2509-25",
-          "exam_label": "2025학년도 9월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "2023-25",
-          "exam_label": "2023학년도 수능",
-          "no": 25,
-          "type_id": "R-CHART"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "전칭 검증 부담",
@@ -1359,26 +884,7 @@
       "by_type_recent": {
         "R-CHART": 8
       },
-      "examples": [
-        {
-          "slug": "2024-25",
-          "exam_label": "2024학년도 수능",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "2025-25",
-          "exam_label": "2025학년도 수능",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "2023-25",
-          "exam_label": "2023학년도 수능",
-          "no": 25,
-          "type_id": "R-CHART"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "첫 등장 뒤집힘",
@@ -1392,26 +898,7 @@
       "by_type_recent": {
         "R-ORDER": 2
       },
-      "examples": [
-        {
-          "slug": "M2306-37",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 37,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "M2306-36",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 36,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "M2206-36",
-          "exam_label": "2022학년도 6월 모의평가",
-          "no": 36,
-          "type_id": "R-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "지시어 선행사 앞당김",
@@ -1424,26 +911,7 @@
         "X-ORDER": 2
       },
       "by_type_recent": {},
-      "examples": [
-        {
-          "slug": "2020-36",
-          "exam_label": "2020학년도 수능",
-          "no": 36,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "M1809-43",
-          "exam_label": "2018학년도 9월 모의평가",
-          "no": 43,
-          "type_id": "X-ORDER"
-        },
-        {
-          "slug": "2018-37",
-          "exam_label": "2018학년도 수능",
-          "no": 37,
-          "type_id": "R-ORDER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "단락 순서 오판",
@@ -1455,26 +923,7 @@
         "X-REFER": 8
       },
       "by_type_recent": {},
-      "examples": [
-        {
-          "slug": "M2206-44",
-          "exam_label": "2022학년도 6월 모의평가",
-          "no": 44,
-          "type_id": "X-REFER"
-        },
-        {
-          "slug": "2018-44",
-          "exam_label": "2018학년도 수능",
-          "no": 44,
-          "type_id": "X-REFER"
-        },
-        {
-          "slug": "2017-44",
-          "exam_label": "2017학년도 수능",
-          "no": 44,
-          "type_id": "X-REFER"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "대소 비교 뒤집기",
@@ -1488,26 +937,7 @@
       "by_type_recent": {
         "R-CHART": 3
       },
-      "examples": [
-        {
-          "slug": "M2606-25",
-          "exam_label": "2026학년도 6월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "2026-25",
-          "exam_label": "2026학년도 수능",
-          "no": 25,
-          "type_id": "R-CHART"
-        },
-        {
-          "slug": "M2706-25",
-          "exam_label": "2027학년도 6월 모의평가",
-          "no": 25,
-          "type_id": "R-CHART"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "동어 반복 유인",
@@ -1522,26 +952,7 @@
       "by_type_recent": {
         "R-VOCAB": 1
       },
-      "examples": [
-        {
-          "slug": "M2306-30",
-          "exam_label": "2023학년도 6월 모의평가",
-          "no": 30,
-          "type_id": "R-VOCAB"
-        },
-        {
-          "slug": "2019-42",
-          "exam_label": "2019학년도 수능",
-          "no": 42,
-          "type_id": "X-VOCAB"
-        },
-        {
-          "slug": "2020-42",
-          "exam_label": "2020학년도 수능",
-          "no": 42,
-          "type_id": "X-VOCAB"
-        }
-      ]
+      "examples": []
     },
     {
       "key": "첫 등장 역전",
@@ -1555,26 +966,7 @@
       "by_type_recent": {
         "R-ORDER": 8
       },
-      "examples": [
-        {
-          "slug": "M2606-37",
-          "exam_label": "2026학년도 6월 모의평가",
-          "no": 37,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "2026-36",
-          "exam_label": "2026학년도 수능",
-          "no": 36,
-          "type_id": "R-ORDER"
-        },
-        {
-          "slug": "M2509-36",
-          "exam_label": "2025학년도 9월 모의평가",
-          "no": 36,
-          "type_id": "R-ORDER"
-        }
-      ]
+      "examples": []
     }
   ]
 }

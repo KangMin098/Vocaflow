@@ -16,7 +16,7 @@ import { NextResponse } from 'next/server'
 
 import { correctnessItemIds, mergeDissection, withoutHeldCorrectness } from '@/lib/csat/continuity'
 import type { DissectionRecord } from '@/lib/csat/dissect'
-import { embargoedItemIds } from '@/lib/csat/embargo-gate'
+import { itemRevealDecision, revealHeldResponse } from '@/lib/csat/embargo-gate'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 
@@ -58,7 +58,9 @@ export async function GET() {
   const record = (data as { record: unknown } | null)?.record ?? null
   if (!looksLikeRecord(record)) return NextResponse.json({ ok: true, record }, { headers: NO_STORE })
   const rec = record as unknown as DissectionRecord
-  const held = await embargoedItemIds(correctnessItemIds(rec))
+  const { held, failed } = await itemRevealDecision(correctnessItemIds(rec))
+  // 관문 판정 실패 — 기록을 내보내지 않고 공통 423(기기 기록으로 계속 돈다)
+  if (failed) return revealHeldResponse()
   return NextResponse.json({ ok: true, record: held.size ? withoutHeldCorrectness(rec, (id) => held.has(id)) : rec }, { headers: NO_STORE })
 }
 
