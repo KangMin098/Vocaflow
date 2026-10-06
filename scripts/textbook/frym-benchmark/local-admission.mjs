@@ -8,6 +8,7 @@ const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 const present = value => typeof value === 'string' && value.trim().length > 0
 const HEX = /^[a-f0-9]{64}$/
 const METADATA_KEYS = ['sample_id', 'publisher', 'series', 'title', 'grade', 'edition', 'publication_year', 'difficulty_step', 'ISBN', 'publisher_id', 'canonical_url', 'passage_id', 'page', 'genre', 'rights_basis', 'access_date']
+const safeMetadata = metadata => Object.fromEntries(METADATA_KEYS.filter(key => key === 'publication_year' ? Number.isInteger(metadata[key]) : present(metadata[key])).map(key => [key, metadata[key]]))
 
 export function identifyLocalFile(sourcePath) {
   const resolved = realpathSync(sourcePath)
@@ -48,7 +49,7 @@ export function identifyLocalFile(sourcePath) {
 }
 
 const audit = (candidate, file, status, reasons, stages) => ({
-  sample_id: candidate?.metadata?.sample_id ?? null,
+  sample_id: present(candidate?.metadata?.sample_id) ? candidate.metadata.sample_id : null,
   source_path_hash: file?.source_path_hash ?? null,
   file_hash: file?.file_hash ?? null,
   format: file?.format ?? null,
@@ -86,7 +87,7 @@ export function admitCandidate(candidate, protocol) {
   const auxiliary_metrics = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].auxiliary_metrics.length).map(axis => [axis, Object.fromEntries(protocol.axes[axis].auxiliary_metrics.filter(metric => analysis.auxiliary_metrics?.[axis]?.[metric] !== undefined).map(metric => [metric, analysis.auxiliary_metrics[axis][metric]]))]))
   const ordinal_reviews = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].scale === 'ordinal' && analysis.ordinal_reviews?.[axis]).map(axis => [axis, Object.fromEntries(['rater_a_id', 'rater_b_id', 'rater_a', 'rater_b', 'adjudicator_id', 'adjudicated'].filter(key => analysis.ordinal_reviews[axis][key] !== undefined).map(key => [key, analysis.ordinal_reviews[axis][key]]))]))
   const row = {
-    ...Object.fromEntries(METADATA_KEYS.filter(key => meta[key] !== undefined).map(key => [key, meta[key]])),
+    ...safeMetadata(meta),
     source_path_hash: file.source_path_hash,
     file_hash: file.file_hash,
     extraction_hash: hash(extraction),

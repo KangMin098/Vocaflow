@@ -36,6 +36,7 @@ test('selected and reviewed synthetic file becomes metadata-only benchmark sampl
   const before = readFileSync(source)
   candidate.metadata.passage_text = 'This must never appear in the output.'
   candidate.metadata.source_path = source
+  candidate.metadata.publisher_id = { passage_text: 'A secret passage in a typed field.' }
   candidate.analysis.metrics.passage_text = 'Nested raw passage must never appear.'
   const { samples, audit } = prepareAdmission([candidate], protocol)
   assert.equal(samples.length, 1)
@@ -46,6 +47,7 @@ test('selected and reviewed synthetic file becomes metadata-only benchmark sampl
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.source_path))
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.metadata.passage_text))
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.analysis.metrics.passage_text))
+  assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.metadata.publisher_id.passage_text))
   assert.deepEqual(readFileSync(source), before)
 })
 
@@ -71,6 +73,16 @@ test('analysis tied to an earlier passage or scoring key stays on hold', t => {
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   candidate.extraction.questions[0].answer = 'changed'
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NINE_AXIS_ANALYSIS_MISSING'])
+})
+
+test('malformed sample ID cannot carry text into the audit', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  candidate.metadata.sample_id = { passage_text: 'Untrusted passage' }
+  const result = prepareAdmission([candidate], protocol)
+  assert.equal(result.samples.length, 0)
+  assert.equal(result.audit.results[0].sample_id, null)
+  assert.ok(!JSON.stringify(result.audit).includes('Untrusted passage'))
 })
 
 test('OCR, missing axis, rights, selection and duplicates never enter samples', t => {
