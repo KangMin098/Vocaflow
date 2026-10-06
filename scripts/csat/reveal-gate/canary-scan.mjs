@@ -8,7 +8,10 @@
 //   앱 경로(--app <URL>, 앱 gate 구현 뒤 필수): 보류 응답 계약 = HTTP 423 · { held: 'exam_embargo' } 만 통과(400 · 404 · 로그인 리다이렉트는 실패).
 // 정리: 관리자 종료(묘비 없이) → 계정 · TEST 시험 · 유형 삭제. 감사 이벤트 행은 남는다(meta 에 canary).
 //
-//   node --tls-max-v1.2 --env-file=<apps/web/.env.local> scripts/csat/reveal-gate/canary-scan.mjs [--app http://localhost:3100]
+//   번들(--bundle <apps/web/.next>, 2026-10-06): 빌드된 클라이언트 청크에 canary · TEST 문항 id · 분석 키(why_tempting 등)가 있으면 실패.
+//   앱 oracle: --app 의 P · N 응답 모양(상태 · held · 키)이 같아야 한다.
+//
+//   node --tls-max-v1.2 --env-file=<apps/web/.env.local> scripts/csat/reveal-gate/canary-scan.mjs [--app http://localhost:3100] [--bundle apps/web/.next]
 
 import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
@@ -26,6 +29,8 @@ const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL, ANON = process.env.NEXT_PUBLI
 if (!URL_ || !ANON || !SERVICE || !DB_URL) { console.error('환경 변수 없음'); process.exit(2) }
 if (!URL_.includes(DEV_REF) || !DB_URL.includes(DEV_REF)) { console.error('개발 프로젝트가 아니다 — 중단'); process.exit(2) }
 const APP = process.argv.includes('--app') ? process.argv[process.argv.indexOf('--app') + 1] : null
+// --bundle <apps/web/.next>: 빌드된 클라이언트 번들(static)에 canary · TEST 시험 문항 id · 분석 키가 있으면 실패
+const BUNDLE = process.argv.includes('--bundle') ? process.argv[process.argv.indexOf('--bundle') + 1] : null
 const manifest = JSON.parse(fs.readFileSync(path.join(HERE, 'manifest.json'), 'utf8'))
 
 // 운영 시험 id 제약(모의 = M + 숫자 4자리 · kice · 고3)을 만족하는 충돌 없는 TEST 시험(2099년)
@@ -104,6 +109,8 @@ try {
     await db.query(`update public.csat_item_analyses set status = 'published' where id = $1`, [a])
     // 뼈대는 운영 제약상 학평 문항(H…)만 — 수능형 TEST 시험에는 넣지 않는다(뼈대 보류는 격리 PG t_reveal 이 검증)
   }
+  // 앱 저장 경로(POST /api/csat/diagnosis/sessions)는 45문항 정답표가 있어야 채점한다 — 나머지 번호의 정답표만(문항 행 없이). 정리는 exam_id 로 함께 지운다
+  if (APP) for (let n = 1; n <= 45; n++) if (!NOS.includes(n)) await db.query(`insert into public.csat_dx_answer_key (exam_id, no, answers, points, source) values ($1, $2, $3, 2, 'test')`, [EXAM, n, [ANSWER(n)]])
   await db.query(`insert into public.csat_type_reports (type_id, status, failure_modes, open_questions) values ($1, 'published', $2, $2)`, [TYPE, JSON.stringify({ canary: CANARY })])
   const ready = (await db.query(`select (select count(*) from public.csat_item_analyses where item_id like $1 and status = 'published')::int a`, [`${EXAM}#%`])).rows[0]
   record('준비', 'canary fixture 발행 완료(분석 5)', ready.a === 5, ready)
@@ -207,6 +214,8 @@ try {
 
   // ── 앱 경로(앱 gate 구현 뒤) ──
   if (APP) {
+    // 행동 oracle — 참가자(P)와 비참가자(N)의 응답 모양(상태 · held · 키 목록)이 같아야 한다(보류는 요청자 무관 · 정오가 모양으로 새지 않게)
+    const appShape = { P: {}, N: {} }
     for (const who of ['P', 'N']) {
       const raw = 'base64-' + Buffer.from(JSON.stringify(users[who].session)).toString('base64url')
       const name = `sb-${DEV_REF}-auth-token`
@@ -242,9 +251,31 @@ try {
           // no_canary — 유효한 정상 응답(2xx)이어야 실행된 검사다(401 · 404 · 5xx 는 미실행으로 실패). JSON 이면 정답 · 정오 필드도 본다
           : res.status >= 200 && res.status < 300 && sensitiveValues(parsed).length === 0)
         record('app', `${who} · ${kind} ${key} (${v.probe.expect})`, ok, { status: res.status, held: parsed?.held, noStore })
+        appShape[who][`${kind} ${key}`] = JSON.stringify({ status: res.status, held: parsed?.held ?? null, keys: parsed && typeof parsed === 'object' ? Object.keys(parsed).filter((k) => k !== 'sessionId' && k !== 'snapshotId').sort() : null })
       }
     }
+    const probed = Object.keys(appShape.P).filter((k) => k in appShape.N)
+    const differ = probed.filter((k) => appShape.P[k] !== appShape.N[k])
+    record('oracle', `앱 경로 P · N 응답 모양 동일(${probed.length}개)`, probed.length > 0 && differ.length === 0, differ.map((k) => ({ k, P: appShape.P[k], N: appShape.N[k] })))
   } else record('app', '앱 경로 검사 생략(--app 없음) — 앱 gate 구현 뒤 필수 · 미실행은 통과가 아니다', true)
+
+  // ── 번들(--bundle) — 클라이언트로 내려가는 정적 청크. 빌드 시점에 박힌 정답 · 분석이 있으면 보류와 무관하게 샌다 ──
+  if (BUNDLE) {
+    const dir = path.join(BUNDLE, 'static')
+    const walk = (d, out = []) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const q = path.join(d, e.name); if (e.isDirectory()) walk(q, out); else if (q.endsWith('.js')) out.push(q) } return out }
+    if (!fs.existsSync(dir)) record('bundle', `번들 없음(${dir}) — 검사 미실행`, false)
+    else {
+      const KEYS = ['why_tempting', 'how_to_reject', 'answer_locus', 'why_correct']
+      const chunks = walk(dir)
+      let hits = 0
+      for (const c of chunks) {
+        const src = fs.readFileSync(c, 'utf8')
+        const found = [src.includes(CANARY) && 'canary', src.includes(EXAM + '#') && EXAM, ...KEYS.filter((k) => src.includes(`"${k}"`) || src.includes(`${k}:`))].filter(Boolean)
+        if (found.length) { hits++; record('bundle', `클라이언트 청크 ${path.relative(BUNDLE, c)}`, false, found) }
+      }
+      record('bundle', `클라이언트 청크 ${chunks.length}개 — canary · TEST 문항 · 분석 키 없음`, chunks.length > 0 && hits === 0, { chunks: chunks.length, hits })
+    }
+  } else record('bundle', '번들 검사 생략(--bundle 없음) — 빌드 산출물 검사 · 미실행은 통과가 아니다', true)
 } catch (e) {
   record('실행', '예외', false, e.message)
 } finally {
