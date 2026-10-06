@@ -156,7 +156,7 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
     const variant = f02?.variants?.[grade]
     return variant && ['expository', 'argumentative', 'narrative'].includes(variant.genre) && Number.isInteger(variant.word_count) && variant.word_count > 0 && itemTypesValid(variant, protocol) && AXES.every(axis => {
       const value = variant.metrics?.[axis], def = protocol.axes[axis]
-      return Number.isFinite(value) && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length)))
+      return Number.isFinite(value) && Number.isFinite(variant.axis_agreement?.[axis]) && variant.axis_agreement[axis] >= def.rater_agreement_floor && variant.axis_agreement[axis] <= 1 && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length)))
     })
   })) fail('F02_ANALYSIS_INVALID')
   if (!isHex(f02?.source_freeze_sha256) || !isHex(f02?.item_set_hash) || !isHex(f02?.scoring_key_hash) || !['middle_1', 'high_1'].every(grade => isHex(f02?.variants?.[grade]?.passage_hash) && f02.variants[grade].passage_hash === e3?.seal?.passage_hash?.[grade]) || f02.item_set_hash !== e3?.seal?.item_set_hash || f02.scoring_key_hash !== e3?.seal?.scoring_key_hash || f02.source_freeze_sha256 !== e3?.seal?.source_freeze_sha256) fail('F02_INPUT_STALE')
@@ -187,8 +187,8 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
         itemTypes[type] = { status: value >= dist.p10 && value <= dist.p90 && share >= shareDist.p10 && share <= shareDist.p90 ? 'pass' : 'fail', n: typedRows.length, value, p10: dist.p10, p90: dist.p90, share, share_p10: shareDist.p10, share_p90: shareDist.p90 }
       }
     }
-    if (Object.values(itemTypes).some(result => result.status === 'inconclusive')) axes.item_difficulty = { status: 'inconclusive', reason: 'MISSING_ITEM_TYPE', types: itemTypes }
-    else if (Object.values(itemTypes).some(result => result.status === 'fail')) axes.item_difficulty = { status: 'fail', types: itemTypes }
+    if (Object.values(itemTypes).some(result => result.status === 'fail')) axes.item_difficulty = { status: 'fail', types: itemTypes }
+    else if (Object.values(itemTypes).some(result => result.status === 'inconclusive')) axes.item_difficulty = { status: 'inconclusive', reason: 'MISSING_ITEM_TYPE', types: itemTypes }
     else axes.item_difficulty = { ...axes.item_difficulty, types: itemTypes }
     const core = [...REQUIRED_AXES].every(axis => axes[axis].status === 'pass')
     const pass = Object.values(axes).filter(result => result.status === 'pass').length

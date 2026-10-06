@@ -28,7 +28,7 @@ const samples = (p = protocol()) => GRADES.flatMap(grade => Array.from({ length:
 }))
 const resealRows = rows => { for (const row of rows) row.analysis_hash = sampleAnalysisHash(row); return rows }
 const reseal = value => { const { analysis_hash, ...body } = value; return { ...body, analysis_hash: hash(body) } }
-const f02 = () => reseal({ codebook_hash: hash(axisDefs), source_freeze_sha256: H('freeze'), item_set_hash: H('f02-items'), scoring_key_hash: H('f02-key'), variants: Object.fromEntries(['middle_1', 'high_1'].map((grade, i) => [grade, { passage_hash: H(`f02-${grade}`), genre: 'expository', word_count: 100, item_count: 3, item_type_counts: { literal: 1, inference: 1, structure: 1 }, item_type_difficulty: { literal: i ? 7 : 5, inference: i ? 7 : 5, structure: i ? 7 : 5 }, metrics: Object.fromEntries(AXES.map(axis => [axis, i ? 7 : 5])) }])) })
+const f02 = () => reseal({ codebook_hash: hash(axisDefs), source_freeze_sha256: H('freeze'), item_set_hash: H('f02-items'), scoring_key_hash: H('f02-key'), variants: Object.fromEntries(['middle_1', 'high_1'].map((grade, i) => [grade, { passage_hash: H(`f02-${grade}`), genre: 'expository', word_count: 100, item_count: 3, item_type_counts: { literal: 1, inference: 1, structure: 1 }, item_type_difficulty: { literal: i ? 7 : 5, inference: i ? 7 : 5, structure: i ? 7 : 5 }, axis_agreement: Object.fromEntries(AXES.map(axis => [axis, 1])), metrics: Object.fromEntries(AXES.map(axis => [axis, i ? 7 : 5])) }])) })
 const e3 = (f = f02()) => ({ status: 'verified', valid_n: 28, run_id: 'fixture-run', evidence_hash: H('fixture-e3-audit-files'), seal: { source_freeze_sha256: f.source_freeze_sha256, item_set_hash: f.item_set_hash, scoring_key_hash: f.scoring_key_hash, passage_hash: Object.fromEntries(Object.entries(f.variants).map(([grade, variant]) => [grade, variant.passage_hash])) } })
 const judge = (p = protocol(), rows = samples(p), f = f02(), evidence = e3(f)) => judgeBenchmark({ protocol: p, snapshot: buildBenchmark(p, rows), samples: rows, f02: f, e3: evidence })
 
@@ -342,7 +342,10 @@ test('missing comparable item type blocks fit even with a passing aggregate', ()
     delete row.item_type_difficulty.inference
   }
   resealRows(rows)
-  const result = judge(p, rows, f)
+  f.variants.middle_1.item_count = 1
+  f.variants.middle_1.item_type_counts = { inference: 1 }
+  f.variants.middle_1.item_type_difficulty = { inference: 5 }
+  const result = judge(p, rows, reseal(f))
   assert.equal(result.target_fit.middle_1.status, 'inconclusive')
   assert.equal(result.target_fit.middle_1.axes.item_difficulty.reason, 'MISSING_ITEM_TYPE')
   assert.equal(result.gold_s_candidate, false)
@@ -373,8 +376,31 @@ test('a failed core axis wins over missing item-type comparison', () => {
     delete row.item_type_difficulty.inference
   }
   resealRows(rows)
+  f.variants.middle_1.item_count = 1
+  f.variants.middle_1.item_type_counts = { inference: 1 }
+  f.variants.middle_1.item_type_difficulty = { inference: 5 }
   f.variants.middle_1.metrics.lexical = 100
   const result = judge(p, rows, reseal(f))
   assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'inconclusive')
+  assert.equal(result.target_fit.middle_1.status, 'fail')
+})
+
+test('F02 low rater agreement cannot produce a candidate', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  f.variants.middle_1.axis_agreement.lexical = 0
+  assert.throws(() => judge(p, rows, reseal(f)), /F02_ANALYSIS_INVALID/)
+})
+
+test('failed item type outranks a different missing item type', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const row of rows.filter(row => row.grade === 'middle_1')) {
+    row.item_count = 2
+    delete row.item_type_counts.inference
+    delete row.item_type_difficulty.inference
+  }
+  resealRows(rows)
+  f.variants.middle_1.item_type_difficulty.literal = 100
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'fail')
   assert.equal(result.target_fit.middle_1.status, 'fail')
 })
