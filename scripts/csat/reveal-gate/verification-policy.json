@@ -936,6 +936,16 @@
       "sha256": "4fe528a4bbf106b07961cdb1e2183ad107dfce79a6f6cf0b34954fff06ac3f85",
       "class": "OPS_META",
       "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/ec-pilot/server.ts::pendingProbes": {
+      "sha256": "032c7cdd9981b270343fd8eb21450902550343c3e0daf56cf3124a2a348b1939",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/ec-pilot/server.ts::savedProbe": {
+      "sha256": "ffdf23dd93dca111dc3f09003c8a3550e18ab827f5ba37c9ffdd544b243fb38c",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     }
   },
   "loader_classifications": {

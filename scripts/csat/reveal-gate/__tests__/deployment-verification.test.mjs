@@ -1,7 +1,7 @@
 // scripts/csat/reveal-gate/__tests__/deployment-verification.test.mjs
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { permissionDiff,dbPreflight } from '../db-preflight.mjs'
+import { permissionDiff,dbPreflight,permanentPermissionIssues } from '../db-preflight.mjs'
 import { validateLiveReceipt,securityAdvisor,checkpointIssues } from '../live-verification.mjs'
 test('permission comparison covers policies, function ACL/body, and unordered keys',()=>{
   const before={permissions:[{object:'t',column:'answer',role:'anon',allowed:false}],policies:[{tablename:'t',policyname:'p',qual:'false'}],functions:[{signature:'f()',role:'anon',allowed:false,definition_hash:'a'}]}
@@ -12,6 +12,14 @@ test('permission comparison covers policies, function ACL/body, and unordered ke
   assert.equal(diff.unexpected.length,2)
   assert.equal(permissionDiff(before,after,diff.changes).unexpected.length,2)
   assert.equal(permissionDiff(before,after,diff.changes.map(r=>({...r,decision:'test approved migration',reason:'explicit expected changes'}))).unexpected.length,0)
+})
+test('unsafe grade access cannot pass through identical before/after grants',()=>{
+  const permissions=[['csat_dx_session','raw_score'],['csat_dx_session','grade'],['csat_dx_response','is_correct'],['csat_dx_snapshot','id'],['csat_dx_snapshot','forecast'],['csat_learner_state','record']].map(([object,column])=>({object,column,role:'authenticated',allowed:false}))
+  assert.deepEqual(permanentPermissionIssues(permissions),[])
+  permissions.find(r=>r.column==='grade').allowed=true
+  assert.deepEqual(permissionDiff({permissions},{permissions}).changes,[])
+  assert.ok(permanentPermissionIssues(permissions).some(r=>r.column==='grade'))
+  assert.ok(permanentPermissionIssues([]).some(r=>r.kind==='missing_permanent_revocation_relation'))
 })
 test('unexecuted, stale, skipped or incomplete live receipts cannot pass',()=>{
   assert.equal(validateLiveReceipt({results:[],pass:0,fail:0},null,'new').ok,false)

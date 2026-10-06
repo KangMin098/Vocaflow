@@ -6,6 +6,19 @@ import fs from 'node:fs'
 import path from 'node:path'
 const canonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b))):v)
 const snapshotHash = value => createHash('sha256').update(canonical(value)).digest('hex')
+// The permanent learner revocations in 20261005170100 are deployment requirements,
+// even when the migration is missing or the same unsafe grant is in both snapshots.
+export const PERMANENT_AUTH_REVOCATIONS={csat_dx_session:['raw_score','grade'],csat_dx_response:['is_correct'],csat_dx_snapshot:'*',csat_learner_state:'*'}
+export function permanentPermissionIssues(permissions) {
+  const issues=[]
+  for(const [object,columns]of Object.entries(PERMANENT_AUTH_REVOCATIONS)) {
+    const rows=permissions.filter(r=>r.object===object&&r.role==='authenticated')
+    if(!rows.length){issues.push({kind:'missing_permanent_revocation_relation',object});continue}
+    const expected=columns==='*'?rows.map(r=>r.column):columns
+    for(const column of expected)if(rows.find(r=>r.column===column)?.allowed!==false)issues.push({kind:'permanent_select_not_revoked',object,column,role:'authenticated'})
+  }
+  return issues
+}
 export function permissionDiff(before,after,expected=[]) {
   const rows=s=>[...s.permissions.map(r=>({key:canonical(['column',r.object,r.column,r.role]),value:r})),...(s.policies??[]).map(r=>({key:canonical(['policy',r.tablename,r.policyname]),value:r})),...(s.functions??[]).map(r=>({key:canonical(['function',r.signature,r.role]),value:r}))]
   const old=new Map(rows(before).map(r=>[r.key,r.value])),next=new Map(rows(after).map(r=>[r.key,r.value]))
@@ -32,6 +45,7 @@ export async function dbPreflight(repo,manifest,env,{before=null,expectedDiff=[]
     const hashes=fs.readdirSync(repo+'/supabase/migrations').filter(f=>/csat_ec_.*(?:reveal|pilot|capture)/.test(f)).sort().map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(repo+'/supabase/migrations/'+file)).digest('hex')}))
     const snapshot={permissions,policies,functions,migrations,migration_hashes:hashes}
     const issues=[]
+    issues.push(...permanentPermissionIssues(permissions))
     if(!authenticatedVerified&&!env.REVEAL_VERIFY_AUTH_TOKEN)issues.push({kind:'authenticated_actor_not_verified',missing:['REVEAL_VERIFY_AUTH_TOKEN'],reason:'Catalog baseline can be saved, but deployment cannot pass without a real authenticated actor.'})
     if(!before)issues.push({kind:'missing_before_snapshot',reason:'A deployment verdict requires a saved pre-deployment catalog snapshot.'})
     for(const [object,meta]of Object.entries(manifest.db_relations))for(const column of [...(meta.secret_columns??[]),...(meta.revoked_by&&migrations.includes(meta.revoked_by)?meta.sensitive_columns??[]:[])]) {
@@ -39,7 +53,7 @@ export async function dbPreflight(repo,manifest,env,{before=null,expectedDiff=[]
     }
     const smokes=[]
     // Column ACL probes do not fetch any learner rows (limit=0).
-    const probes=[['csat_dx_session','raw_score'],['csat_dx_response','is_correct'],['csat_dx_snapshot','id'],['csat_learner_state','record']]
+    const probes=[['csat_dx_session','raw_score'],['csat_dx_session','grade'],['csat_dx_response','is_correct'],...permissions.filter(r=>r.role==='authenticated'&&['csat_dx_snapshot','csat_learner_state'].includes(r.object)).map(r=>[r.object,r.column])]
     const actors=[['anon',env.NEXT_PUBLIC_SUPABASE_ANON_KEY,env.NEXT_PUBLIC_SUPABASE_ANON_KEY],...(env.REVEAL_VERIFY_AUTH_TOKEN?[['authenticated',env.NEXT_PUBLIC_SUPABASE_ANON_KEY,env.REVEAL_VERIFY_AUTH_TOKEN]]:[])]
     if(env.REVEAL_VERIFY_AUTH_TOKEN){const user=await fetch(new URL('/auth/v1/user',env.NEXT_PUBLIC_SUPABASE_URL),{headers:{apikey:env.NEXT_PUBLIC_SUPABASE_ANON_KEY,authorization:'Bearer '+env.REVEAL_VERIFY_AUTH_TOKEN},signal:AbortSignal.timeout(15000)});if(user.status!==200)issues.push({kind:'authenticated_token_not_verified',status:user.status})}
     for(const [actor,key,token]of actors)for(const [table,column]of probes) {

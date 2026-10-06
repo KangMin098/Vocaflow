@@ -23,6 +23,10 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   write('app/api/alias/route.ts','export function GET(db){const read=db.from.bind(db);return read("csat_items").select("answer")}')
   assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_db_method_alias'))
   fs.unlinkSync(path.join(root,'app/api/alias/route.ts'))
+  write('app/api/hash/route.ts','export const GET=(db)=>db.from("csat_ec_claim").select("item_input_hash")')
+  const hashes={...manifest,db_relations:{csat_ec_claim:{class:'LEARNER_OWN',secret_columns:['item_input_hash']}}}
+  assert.ok(scanLoaders(root,hashes).issues.some(i=>i.file==='app/api/hash/route.ts'&&i.kind==='unclassified_loader'))
+  fs.unlinkSync(path.join(root,'app/api/hash/route.ts'))
   write('lib/csat/unknown.ts','export const load=(db)=>db["rpc"]("csat_new_answer_rpc")')
   assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_csat_object'))
   fs.unlinkSync(path.join(root,'lib/csat/unknown.ts'))

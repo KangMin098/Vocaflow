@@ -8,7 +8,7 @@ const require = createRequire(new URL('../../../apps/web/package.json', import.m
 const ts = require('typescript')
 const SECRET = /^(correctAnswer|correct_answer|answerKey|expectedAnswer|answer_key|why_correct|why_tempting|how_to_reject|answer_locus|choice_analysis)$/
 const GATE = new Set(['canRevealExam','canRevealItem','canRevealSession','embargoedExamIds','embargoedItemIds','userHasHeldSession','loadRevealScope','assertRevealAllowed','revealHeldResponse','isItemHeld','isExamHeld','isTypeHeld'])
-const SENSITIVE = new Set(['ANSWER_SENSITIVE','CORRECTNESS','CORRECTNESS_OWN_PRIOR','CORRECTNESS_ORACLE','REVIEWER_INTERNAL','ADMIN_ONLY'])
+const SENSITIVE = new Set(['ANSWER_SENSITIVE','CORRECTNESS','CORRECTNESS_OWN_PRIOR','CORRECTNESS_ORACLE','REVIEWER_INTERNAL','ADMIN_ONLY','DERIVED_SECRET'])
 export const relative = (root, file) => path.relative(root,file).replace(/\\/g,'/')
 export function filesUnder(dir,all=false) {
   if (!fs.existsSync(dir)) return []
@@ -21,7 +21,7 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
   srcRoot=path.resolve(srcRoot)
   const objectNames=new Set([...Object.keys(manifest.db_relations),...Object.keys(manifest.db_functions).map(k=>k.split('(')[0])])
   const loader=file=>manifest.app_db_loaders?.[file]??policy?.loader_classifications?.[file]
-  const issues=[], discovered=[], functions=new Map(), names=new Set([...Object.entries(manifest.db_relations).filter(([,v])=>SENSITIVE.has(v.class)||(v.sensitive_columns??[]).length).map(([k])=>k),...Object.entries(manifest.db_functions).filter(([,v])=>SENSITIVE.has(v.class)).map(([k])=>k.split('(')[0])])
+  const issues=[], discovered=[], functions=new Map(), names=new Set([...Object.entries(manifest.db_relations).filter(([,v])=>SENSITIVE.has(v.class)||(v.sensitive_columns??[]).length||(v.secret_columns??[]).length).map(([k])=>k),...Object.entries(manifest.db_functions).filter(([,v])=>SENSITIVE.has(v.class)).map(([k])=>k.split('(')[0])])
   for(const file of filesUnder(srcRoot).filter(f=>/\.[jt]sx?$/.test(f)&&!f.endsWith('.d.ts'))) {
     const rel=relative(srcRoot,file),routePath=rel.replace(/\/\([^/]+\)/g,'')
     if(/^(app\/admin|app\/api\/admin|lib\/admin|components\/admin|test)\//.test(rel)) continue
