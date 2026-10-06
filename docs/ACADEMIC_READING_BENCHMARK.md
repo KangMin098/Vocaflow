@@ -1,5 +1,7 @@
 # 시중 독해 교재 기준 학년 난도 benchmark 계약 v0
 
+로컬 교재/미리보기 import·admission 경로는 [파일 어댑터 실행 계약](../scripts/textbook/frym-benchmark/README.md#local-file-admission-adapter)을 따른다. 원본은 읽기 전용이며 별도의 로컬 추출본에서 지문·문항 경계를 확인하고, 봉인 코드북의 9축 분석을 붙인 뒤에만 metadata-only 샘플을 만든다. 자동 추출 실패·경계 불명확·OCR 미검수·권리 불명확은 보류/거부한다. 어댑터의 합성 검증은 실제 교재 corpus 편입이 아니므로 현재 실제 corpus N=0, 9축 실분포=0, benchmark 판정 미개방, Gold-S=0, DB seed=0이다.
+
 상태: **선정·분석 규칙 초안**. 교재 표본, 학년별 분포, 통과 구간은 아직 생성·봉인되지 않았다. F02 E3 합성 응답 28건은 실행·감사와 문항 반응 시뮬레이션의 근거다. 이 benchmark는 교재에 대한 **상대적** 학년 적합성만 평가하며 실제 학생 수행을 대신하지 않는다. 이 문서의 판정은 `BENCHMARK_TARGET_FIT`·`BENCHMARK_LEVEL_SEPARATION`으로 기록한다. 기존 `f02-pilot-judge.mjs`의 실제 학생 기반 `TARGET_FIT`·`LEVEL_SEPARATION`과 동일한 결과 필드에 쓰지 않는다. 합성 E3와 교재 판정을 결합하는 `Gold-S candidate`는 학생 판정이 아니라 별도 합성·교재 경로이며, 실학생 학년 타당성이나 기존 사람 pilot의 `student_validated`를 의미하지 않는다.
 
 실행 계약과 합성 fixture 검증은 [benchmark 엔진](../scripts/textbook/frym-benchmark/README.md)에 둔다. 엔진은 봉인 protocol·선정 manifest·9축 metadata가 들어오면 분포와 F02 상대 판정을 계산하고, 현재 F02 seal 및 E3 원출력 감사 경로를 다시 확인한다. **현재 봉인된 실제 benchmark protocol/표본은 0건**이므로 엔진 구현이 학년 타당성 승인을 뜻하지 않는다.

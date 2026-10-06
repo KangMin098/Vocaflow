@@ -26,3 +26,28 @@ node scripts/textbook/frym-benchmark/benchmark-run.mjs verify-decision <sealed-p
 `workflowState` exposes `draft → sealed → insufficient_benchmark | benchmark_calibrated → fail | inconclusive | gold_s_candidate | stale`. It never returns Gold-S or a seed-eligible state. A benchmark revision starts again at a new sealed protocol; prior decisions are preserved and become stale when checked against that version.
 
 Run the synthetic regression suite with `node --test scripts/textbook/frym-benchmark/benchmark.test.mjs`. It does not read the commercial corpus or write to the database.
+
+## Local file admission adapter
+
+`local-admission-run.mjs` is the metadata-only bridge ahead of `benchmark-run.mjs`; it does not alter the benchmark decision engine. It reads local source files only to identify format and calculate SHA-256. The original files are never copied or rewritten. It accepts an **external, locally stored** candidate JSON array whose entries contain `source_path`, `expected_file_hash`, bibliographic `metadata`, reviewed `extraction`, and a separate 9-axis `analysis`. Keep candidate JSON and raw extracted text outside tracked repository paths; only the metadata output and audit may be retained. Neither output contains the source path, passage text, item stems, or answers.
+
+```text
+node scripts/textbook/frym-benchmark/local-admission-run.mjs prepare <sealed-protocol.json> <local-candidates.json> <new-metadata-samples.json> <new-admission-audit.json>
+node scripts/textbook/frym-benchmark/benchmark-run.mjs build <sealed-protocol.json> <new-metadata-samples.json> <new-snapshot.json>
+```
+
+The second command is for a future sealed **real** benchmark protocol and admitted corpus. Do not feed exploratory candidates into it. The adapter writes only passing samples to `metadata-samples.json`, and records every held/rejected candidate with reasons in the separate audit. Both output paths must be new. The source hash, selected sample ID, representative edition, grade, rights decision, passage and question boundaries, OCR verification, item keys, nine metrics, independent-rater agreement and codebook must pass. File edits cause `SOURCE_HASH_CHANGED`; uncertain boundaries cause `NEEDS_MANUAL_ADMISSION`; missing analysis causes `NINE_AXIS_ANALYSIS_MISSING`. A benchmark protocol change requires a new output revision.
+
+Candidate structure (illustrative keys only; values must be real reviewed evidence):
+
+```json
+{
+  "source_path": "<absolute local path, never in committed output>",
+  "expected_file_hash": "<sha256 of original file>",
+  "metadata": { "sample_id": "...", "publisher": "...", "series": "...", "title": "...", "grade": "middle_1", "edition": "...", "publication_year": 2026, "difficulty_step": "...", "ISBN": "...", "passage_id": "...", "page": "12", "genre": "expository", "rights_basis": "authorized_local_analysis", "access_date": "2026-10-06" },
+  "extraction": { "method": "pdftotext_or_reviewed_ocr", "source_file_hash": "<same original file sha256>", "page_range": "12", "passage_id": "...", "boundary_confirmed": true, "question_boundary_confirmed": true, "passage_text": "<local-only text>", "questions": [{ "id": "Q1", "stem": "<local-only text>", "type": "literal", "answer": "<local-only key>" }] },
+  "analysis": { "codebook_hash": "...", "passage_hash": "...", "item_set_hash": "...", "scoring_key_hash": "...", "analyzer_version": "...", "evidence_locator": "...", "metrics": { "lexical": 0 }, "axis_agreement": { "lexical": 1 }, "item_type_difficulty": { "literal": 0 } }
+}
+```
+
+All nine metric keys and all fields required by `screenSample` are required in practice; the short illustration is intentionally **not** admissible. The existing `scripts/textbook-corpus/extract.mjs` can supply page text from PDF, HTML/TXT and HWP, but its page output alone does not establish passage or question boundaries. It does not extract EPUB, DOCX or image text in this environment. For those formats, use an external reviewed converter/OCR result in the local candidate; `identifyLocalFile` can still hash and identify the original. OCR needs `ocr_verified=true`. A file extension/signature match identifies a container, not its contents or edition. No automatic filename-based publisher/grade inference is admission evidence. The existing corpus readability analyzer is not a complete nine-axis analyzer; the separate analysis record must use the sealed codebook. Run synthetic adapter tests with `node --test scripts/textbook/frym-benchmark/local-admission.test.mjs`.

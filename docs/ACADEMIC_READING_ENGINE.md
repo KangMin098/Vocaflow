@@ -1,5 +1,7 @@
 # Academic Reading Engine — 교재 타기팅·처리 설계
 
+시중 교재 benchmark의 파일 import·admission 어댑터는 [로컬 파일 입력 계약](../scripts/textbook/frym-benchmark/README.md#local-file-admission-adapter)으로 분리했다. 원본 파일은 읽기 전용으로 해시만 결속하고, 지문/문항 경계 확인과 별도 9축 분석이 끝난 후보만 기존 `benchmark-run.mjs`의 metadata 입력으로 보낸다. 실제 교재는 아직 편입하지 않았으며 benchmark corpus·실분포·Gold-S·DB seed는 계속 0이다.
+
 시중 교재 기준의 상대적 학년 타당성은 [benchmark 선정·분석 계약](./ACADEMIC_READING_BENCHMARK.md)을 따른다. 현재는 선정·rubric 초안만 있고 실제 교재 표본과 학년별 분포는 없다. F02 E3 합성 N=28은 실행·감사 근거로 유지하며, 교재 benchmark 실측 전 `TARGET_FIT`·`LEVEL_SEPARATION`은 열지 않는다.
 
 [로컬 교재 코퍼스 및 공식 카탈로그 탐색 점검](./reports/academic-reading-benchmark-source-inventory-20261006.md)은 기존 자료의 단일 학년·출판사·지문 경계 결손을 확인했다. 기존 문서·지문 추출 수를 유효 benchmark N으로 세지 않으며 실제 교재 9축 분포는 아직 0이다.
