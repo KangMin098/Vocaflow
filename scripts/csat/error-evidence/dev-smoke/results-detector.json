@@ -1,0 +1,384 @@
+{
+ "ranAt": "2026-10-06T08:18:36.093Z",
+ "run": "62408c6e",
+ "pass": 17,
+ "fail": 0,
+ "results": [
+  {
+   "area": "흐름",
+   "name": "interpretation → 신호 → 대기 probe(r.inference__v.wrong_sense)",
+   "ok": true,
+   "detail": [
+    {
+     "item_no": 23,
+     "probe_key": "r6_derivation_probe"
+    }
+   ]
+  },
+  {
+   "area": "흐름",
+   "name": "probe 응답 저장 → 대기에서 빠짐",
+   "ok": true,
+   "detail": {
+    "errs": [
+     "ok",
+     "ok",
+     "ok",
+     "ok",
+     "ok",
+     "ok",
+     "ok",
+     "ok",
+     "ok",
+     "ok",
+     "ok",
+     "ok"
+    ],
+    "pend": []
+   }
+  },
+  {
+   "area": "정정",
+   "name": "응답한 probe → 정정 뒤 신호 obsolete · 응답 기록 보존",
+   "ok": true,
+   "detail": {
+    "t1sig": [
+     {
+      "item_no": 23,
+      "boundary_key": "r.inference__v.wrong_sense",
+      "probe_required": true,
+      "source": "detector",
+      "reason": "obsolete"
+     }
+    ],
+    "kept": 1
+   }
+  },
+  {
+   "area": "증거 부족",
+   "name": "범주 없음 → insufficient_evidence · 신호 0",
+   "ok": true,
+   "detail": [
+    [
+     23,
+     "insufficient_evidence"
+    ],
+    [
+     23,
+     "boundary"
+    ],
+    [
+     23,
+     "no_boundary"
+    ],
+    [
+     24,
+     "insufficient_evidence"
+    ],
+    [
+     25,
+     "insufficient_evidence"
+    ],
+    [
+     25,
+     "insufficient_evidence"
+    ],
+    [
+     26,
+     "insufficient_evidence"
+    ],
+    [
+     26,
+     "boundary"
+    ],
+    [
+     26,
+     "no_boundary"
+    ],
+    [
+     27,
+     "insufficient_evidence"
+    ],
+    [
+     27,
+     "insufficient_evidence"
+    ]
+   ]
+  },
+  {
+   "area": "증거 부족",
+   "name": "unsure → insufficient_evidence · 신호 0",
+   "ok": true,
+   "detail": [
+    [
+     23,
+     "insufficient_evidence"
+    ],
+    [
+     23,
+     "boundary"
+    ],
+    [
+     23,
+     "no_boundary"
+    ],
+    [
+     24,
+     "insufficient_evidence"
+    ],
+    [
+     25,
+     "insufficient_evidence"
+    ],
+    [
+     25,
+     "insufficient_evidence"
+    ],
+    [
+     26,
+     "insufficient_evidence"
+    ],
+    [
+     26,
+     "boundary"
+    ],
+    [
+     26,
+     "no_boundary"
+    ],
+    [
+     27,
+     "insufficient_evidence"
+    ],
+    [
+     27,
+     "insufficient_evidence"
+    ]
+   ]
+  },
+  {
+   "area": "증거 부족",
+   "name": "해석 「모름」 → 신호 0 · 대기 0",
+   "ok": true,
+   "detail": [
+    {
+     "item_no": 23,
+     "boundary_key": "r.inference__v.wrong_sense",
+     "probe_required": true,
+     "source": "detector",
+     "reason": "obsolete"
+    },
+    {
+     "item_no": 26,
+     "boundary_key": "r.inference__v.wrong_sense",
+     "probe_required": true,
+     "source": "detector",
+     "reason": "cancelled"
+    }
+   ]
+  },
+  {
+   "area": "정정",
+   "name": "미응답 probe → 정정 뒤 cancelled · 대기에서 사라짐",
+   "ok": true,
+   "detail": {
+    "pendT4": [
+     {
+      "item_no": 26,
+      "probe_key": "r6_derivation_probe"
+     }
+    ],
+    "sig": [
+     {
+      "item_no": 26,
+      "boundary_key": "r.inference__v.wrong_sense",
+      "probe_required": true,
+      "source": "detector",
+      "reason": "cancelled"
+     }
+    ]
+   }
+  },
+  {
+   "area": "출처",
+   "name": "모든 신호가 detector 출처",
+   "ok": true,
+   "detail": [
+    {
+     "item_no": 23,
+     "boundary_key": "r.inference__v.wrong_sense",
+     "probe_required": true,
+     "source": "detector",
+     "reason": "obsolete"
+    },
+    {
+     "item_no": 26,
+     "boundary_key": "r.inference__v.wrong_sense",
+     "probe_required": true,
+     "source": "detector",
+     "reason": "cancelled"
+    }
+   ]
+  },
+  {
+   "area": "오라클",
+   "name": "정답 attempt(P) · 오답 attempt(W) — 응답 · 대기 · 신호 · 실행 결과 · 오류 동일",
+   "ok": true,
+   "detail": {
+    "P": [
+     [
+      23,
+      "insufficient_evidence"
+     ],
+     [
+      23,
+      "boundary"
+     ],
+     [
+      23,
+      "no_boundary"
+     ],
+     [
+      24,
+      "insufficient_evidence"
+     ],
+     [
+      25,
+      "insufficient_evidence"
+     ],
+     [
+      25,
+      "insufficient_evidence"
+     ],
+     [
+      26,
+      "insufficient_evidence"
+     ],
+     [
+      26,
+      "boundary"
+     ],
+     [
+      26,
+      "no_boundary"
+     ],
+     [
+      27,
+      "insufficient_evidence"
+     ],
+     [
+      27,
+      "insufficient_evidence"
+     ]
+    ],
+    "W": [
+     [
+      23,
+      "insufficient_evidence"
+     ],
+     [
+      23,
+      "boundary"
+     ],
+     [
+      23,
+      "no_boundary"
+     ],
+     [
+      24,
+      "insufficient_evidence"
+     ],
+     [
+      25,
+      "insufficient_evidence"
+     ],
+     [
+      25,
+      "insufficient_evidence"
+     ],
+     [
+      26,
+      "insufficient_evidence"
+     ],
+     [
+      26,
+      "boundary"
+     ],
+     [
+      26,
+      "no_boundary"
+     ],
+     [
+      27,
+      "insufficient_evidence"
+     ],
+     [
+      27,
+      "insufficient_evidence"
+     ]
+    ]
+   }
+  },
+  {
+   "area": "출처",
+   "name": "대기 probe 함수가 source = detector 만 고른다(정의)",
+   "ok": true
+  },
+  {
+   "area": "완료",
+   "name": "확인 + 대상 해석 모두 → completed",
+   "ok": true,
+   "detail": {
+    "status": "completed",
+    "remaining": []
+   }
+  },
+  {
+   "area": "완료",
+   "name": "completed 뒤 학생 증거 거부(감지기도 돌지 않음)",
+   "ok": true,
+   "detail": "csat_ec: 이 기록의 풀이 수집은 끝났다 — 더 남길 수 없다"
+  },
+  {
+   "area": "완료",
+   "name": "completed 뒤 service 의 새 detector 신호 거부",
+   "ok": true,
+   "detail": "csat_ec: 이 기록의 풀이 수집은 끝났다 — 더 남길 수 없다"
+  },
+  {
+   "area": "종료",
+   "name": "관리자 종료 → closed_incomplete",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "area": "종료",
+   "name": "closed_incomplete 뒤 학생 증거 · service 신호 모두 거부",
+   "ok": true,
+   "detail": [
+    "csat_ec: 이 기록의 풀이 수집은 끝났다 — 더 남길 수 없다",
+    "csat_ec: 이 기록의 풀이 수집은 끝났다 — 더 남길 수 없다"
+   ]
+  },
+  {
+   "area": "원자성",
+   "name": "감지기 실패 → 학생 증거 저장도 실패 · 부분 상태 0(증거 행 수 그대로)",
+   "ok": true,
+   "detail": {
+    "atomic": {
+     "failed": true,
+     "mid": 12
+    },
+    "before": 12,
+    "after": 12,
+    "defRestored": true
+   }
+  },
+  {
+   "area": "정리",
+   "name": "테스트 계정 0",
+   "ok": true,
+   "detail": 0
+  }
+ ]
+}

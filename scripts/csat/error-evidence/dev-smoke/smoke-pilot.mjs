@@ -371,7 +371,10 @@ try {
   // ── 7. 학습 지도 · 트리거 ───────────────────────────────────────────────────
   const trg = (await db.query(`select tgrelid::regclass::text t, tgname, p.proname from pg_trigger g join pg_proc p on p.oid = g.tgfoid
       where not tgisinternal and tgrelid in ('public.csat_ec_boundary'::regclass, 'public.csat_ec_boundary_signal'::regclass) order by 1, 2`)).rows
-  record('Learning Map', '새 표 트리거 = 가드뿐(학습 지도 갱신 경로 없음)', trg.length === 3 && trg.every((r) => r.proname.startsWith('csat_ec_') && /guard|forbid_update/.test(r.proname)), trg)
+  // 감지기(20261006120000)가 적용됐으면 신호 표에 수집 종료 가드(거부만 하는 트리거)가 하나 더 있다 — 이름을 정확히 고정한다
+  const detector = (await db.query(`select to_regclass('public.csat_ec_detector_run') is not null d`)).rows[0].d
+  const want = ['csat_ec_boundary_guard', 'csat_ec_boundary_signal_guard', 'csat_ec_boundary_signal_no_update', ...(detector ? ['csat_ec_capture_write_guard'] : [])].sort()
+  record('Learning Map', '새 표 트리거 = 가드뿐(학습 지도 갱신 경로 없음)', JSON.stringify(trg.map((r) => r.tgname).sort()) === JSON.stringify(want) && trg.every((r) => r.proname.startsWith('csat_ec_') && /guard|forbid_update/.test(r.proname)), trg)
   const mapAfter = await mapCounts()
   record('Learning Map', 'csat_map_* 표 행 · 쓰기 통계 변화 없음', mapAfter.n === mapBefore.n && mapAfter.h === mapBefore.h, { before: mapBefore, after: mapAfter })
 

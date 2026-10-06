@@ -217,3 +217,24 @@ create trigger csat_ec_capture_write_guard before insert on public.csat_ec_bound
 1. **AI 1차 판정으로 탐지할 것인가** — PILOT_SEED_DESIGN §3-3 은 「AI 1차 판정에서 경계 패턴이 감지되면 probe」라 썼고, 이번 결정은 서버 측 provisional 탐지기다. 이 설계는 결정론 규칙을 채택하고 AI 신호는 분석용으로만 둔다(대기 probe 에서 제외). AI 탐지로 바꾸려면 정답을 보지 않는 별도 export 가 먼저 필요하다.
 2. **범주 없음 · unsure 를 탐지로 볼 것인가** — 재현율(연구 질문: 경계 만남 수)과 학습자 부담(세션 상한 미정 `probeCapPerSession: null`)이 충돌한다. v1 은 포함. 상한 값이 정해지면 다시 본다.
 3. **신호 비철회** — 정정으로 조건이 깨진 뒤에도 probe 를 띄울지. 덧붙이기 전용 원칙(신호 표 머리 주석)과 「질문받은 이유가 사라진 질문」의 UX 가 충돌한다. v1 은 띄운다(건너뛰기 가능).
+
+
+## G4 종료 (2026-10-06)
+
+개발 DB 적용: `20261006120000_csat_ec_boundary_detector`(sha256 `97a97cd5…`, 적용 전 체크포인트 · 파일 해시 · 수정 대상 함수 live 정의 확인).
+
+| 종료 기준 | 결과 |
+|---|---|
+| 함수 권한 가드 3종 · 표면 검사 | 통과(함수 407) · 0건 |
+| 실제 supabase-js 흐름(`dev-smoke/smoke-detector.mjs`) | 17/17 — interpretation → 신호 → 대기 probe → 응답 → completed |
+| 범주 없음 · unsure · 해석 「모름」 | probe 없음(insufficient_evidence) |
+| 정정 — 미응답 probe / 응답한 probe | cancelled(대기에서 사라짐) / obsolete + 응답 기록 보존 |
+| 정답 · 오답 attempt | 응답 · 대기 · 신호 · 실행 결과 · 오류 동일 |
+| AI · 판정 출처 신호 | 대기 probe 함수가 detector 출처만(정의 · 격리 PG 행 단위) |
+| completed · closed_incomplete 뒤 | 학생 증거 · service 신호 모두 거부 |
+| 원자성 | 감지기 실패 → 학생 증거 저장도 함께 실패 · 부분 상태 0(같은 트랜잭션 트리거) |
+| canary(production · --app · --bundle) | 392/0 — leak 0 · oracle 0 |
+| Pilot 스모크 | capture 42 · pilot 104 · seed 12 |
+| Security Advisor | 새 ERROR 0(INFO 2 = 새 표 2개 RLS 정책 없음 — 의도: 어느 역할에도 권한 없음) |
+
+**미래 게이트(P2)**: 한 문항에서 경계가 둘 이상 감지된 뒤 probe 담당 경계만 정정으로 사라지면 남은 경계에 새 probe 가 뜨지 않는다. v0.1 provisional 경계는 1개라 지금은 생기지 않는다 — **두 번째 provisional 경계를 봉인하기 전에 고친다.**

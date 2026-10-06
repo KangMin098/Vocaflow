@@ -1,6 +1,6 @@
 {
- "ranAt": "2026-10-06T07:27:31.407Z",
- "canary": "CANARY-6e9b9e1f",
+ "ranAt": "2026-10-06T08:25:09.307Z",
+ "canary": "CANARY-48dd92eb",
  "pass": 392,
  "fail": 0,
  "results": [
@@ -149,7 +149,7 @@
    "name": "P · csat_item_analyses",
    "ok": true,
    "detail": {
-    "rows": 5746,
+    "rows": 5653,
     "testRows": 0,
     "answerLeak": 0
    }
@@ -380,7 +380,7 @@
    "name": "P · csat_type_reports",
    "ok": true,
    "detail": {
-    "rows": 96,
+    "rows": 25,
     "testRows": 0,
     "answerLeak": 0
    }
@@ -880,7 +880,7 @@
    "name": "P · GraphQL csat_type_reportsCollection",
    "ok": true,
    "detail": {
-    "nodes": 30,
+    "nodes": 25,
     "tests": 0,
     "hit": 0
    }
@@ -1399,7 +1399,7 @@
    "name": "N · csat_item_analyses",
    "ok": true,
    "detail": {
-    "rows": 5746,
+    "rows": 5653,
     "testRows": 0,
     "answerLeak": 0
    }
@@ -1630,7 +1630,7 @@
    "name": "N · csat_type_reports",
    "ok": true,
    "detail": {
-    "rows": 96,
+    "rows": 25,
     "testRows": 0,
     "answerLeak": 0
    }
@@ -2130,7 +2130,7 @@
    "name": "N · GraphQL csat_type_reportsCollection",
    "ok": true,
    "detail": {
-    "nodes": 30,
+    "nodes": 25,
     "tests": 0,
     "hit": 0
    }
