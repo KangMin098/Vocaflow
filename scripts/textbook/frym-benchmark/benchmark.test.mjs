@@ -50,6 +50,7 @@ test('missing item, multiple-grade label, and rights uncertainty stay out of dis
   middle[0].item_count = 0
   middle[1].grade = 'middle_1~middle_2'
   middle[2].rights_basis = 'unknown'
+  resealRows(rows)
   const snapshot = buildBenchmark(p, rows)
   assert.equal(snapshot.grades.middle_1.status, 'insufficient_benchmark')
   assert.equal(snapshot.grades.middle_1.n, 27)
@@ -176,6 +177,7 @@ test('sample access date is required provenance', () => {
 test('an ineligible row cannot reserve a selected passage or sample ID', () => {
   const p = protocol(), rows = samples(p)
   const rejected = { ...rows[0], rights_basis: 'unknown' }
+  rejected.analysis_hash = sampleAnalysisHash(rejected)
   const snapshot = buildBenchmark(p, [rejected, ...rows])
   assert.equal(snapshot.rejected.length, 1)
   assert.deepEqual(snapshot.rejected[0].reasons, ['RIGHTS_UNCONFIRMED'])
@@ -290,4 +292,32 @@ test('judge excludes a duplicate-passage rejection before a valid same-ID row', 
   const result = judgeBenchmark({ protocol: p, snapshot, samples: input, f02: f, e3: e3(f) })
   assert.equal(result.target_fit.middle_1.status, 'pass')
   assert.equal(result.level_separation.status, 'pass')
+})
+
+test('opposite F02 shifts count even when benchmark direction differs from expectation', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const row of rows.filter(row => row.grade === 'high_1')) for (const axis of AXES.slice(0, 3)) row.metrics[axis] -= 4
+  resealRows(rows)
+  const result = judge(p, rows, f)
+  assert.deepEqual(result.level_separation.opposite, AXES.slice(0, 3))
+  assert.equal(result.level_separation.status, 'fail')
+})
+
+test('analysis seal covers grade, genre, length, item count and evidence location', () => {
+  const p = protocol(), rows = samples(p)
+  rows[0].grade = 'middle_1'
+  rows[1].genre = 'argumentative'
+  rows[2].word_count = 999
+  rows[3].item_count = 9
+  rows[4].evidence_locator = 'changed:5'
+  const snapshot = buildBenchmark(p, rows)
+  for (const rejected of snapshot.rejected) assert.ok(rejected.reasons.includes('ANALYSIS_HASH_MISMATCH'))
+  assert.equal(snapshot.rejected.length, 5)
+})
+
+test('ordinal anchors require nonempty text', () => {
+  const p = protocol()
+  p.axes.discourse = { ...p.axes.discourse, scale: 'ordinal', resolution: 1, minimum_meaningful_delta: 1, levels: [null, false] }
+  p.codebook_hash = hash(p.axes)
+  assert.throws(() => buildBenchmark(p, []), /AXIS_DEFINITION_INVALID/)
 })

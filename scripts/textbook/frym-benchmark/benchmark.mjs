@@ -21,7 +21,10 @@ export function canonical(value) {
 }
 
 export const hash = value => createHash('sha256').update(JSON.stringify(canonical(value))).digest('hex')
-export const sampleAnalysisHash = sample => hash({ sample_id: sample.sample_id, analyzer_version: sample.analyzer_version, passage_hash: sample.passage_hash, item_set_hash: sample.item_set_hash, scoring_key_hash: sample.scoring_key_hash, codebook_hash: sample.codebook_hash, selection_manifest_hash: sample.selection_manifest_hash, metrics: sample.metrics, ordinal_reviews: sample.ordinal_reviews ?? null })
+export const sampleAnalysisHash = sample => {
+  const { analysis_hash, ...evidence } = sample
+  return hash(evidence)
+}
 const unique = values => new Set(values).size
 const quantile = (sorted, p) => {
   const at = (sorted.length - 1) * p
@@ -44,7 +47,7 @@ export function validateProtocol(protocol) {
   if (Object.keys(protocol.axes ?? {}).sort().join('|') !== [...AXES].sort().join('|') || hash(protocol.axes) !== protocol.codebook_hash) fail('AXES_INCOMPLETE')
   for (const axis of AXES) {
     const def = protocol.axes[axis]
-    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
+    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || def.levels.some(level => !isText(level)) || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
   }
   if (protocol.fit?.lower_quantile !== .1 || protocol.fit?.upper_quantile !== .9 || protocol.fit?.minimum_axes !== 7 || protocol.fit?.length_ratio_min !== .75 || protocol.fit?.length_ratio_max !== 1.25 || protocol.separation?.minimum_stable_axes !== 5 || protocol.separation?.minimum_matching_axes !== 3 || protocol.separation?.minimum_reference_ratio !== .5 || protocol.separation?.maximum_opposite_axes !== 1) fail('DECISION_RULES_INVALID')
   return hash(protocol)
@@ -185,7 +188,7 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       const def = protocol.axes[axis]
       const refDelta = stats(commonHighRows.map(row => row.metrics[axis])).median - stats(commonLowRows.map(row => row.metrics[axis])).median
       const f02Delta = high.metrics?.[axis] - middle.metrics?.[axis]
-      if (!Number.isFinite(f02Delta) || Math.abs(refDelta) < def.minimum_meaningful_delta || Math.sign(refDelta) !== def.direction) continue
+      if (!Number.isFinite(f02Delta) || Math.abs(refDelta) < def.minimum_meaningful_delta) continue
       const direction = Math.sign(refDelta)
       const publisherStable = [...new Set([...commonLowRows, ...commonHighRows].map(row => row.publisher))].every(publisher => {
         const lo = commonLowRows.filter(row => row.publisher !== publisher), hi = commonHighRows.filter(row => row.publisher !== publisher)
