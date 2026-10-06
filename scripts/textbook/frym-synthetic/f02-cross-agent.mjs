@@ -128,6 +128,7 @@ function assertIsolatedCwd(cwd) {
 function decode(engine, stdout, outputPath) {
   if (engine === 'claude') {
     const record = JSON.parse(stdout.toString('utf8'))
+    if (record.type !== 'result' || record.subtype !== 'success' || record.terminal_reason !== 'completed' || record.is_error !== false || typeof record.result !== 'string') throw Error('CLAUDE_TERMINAL_INCOMPLETE')
     const observed = Object.keys(record.modelUsage ?? {})[0] ?? null
     const remoteTools = Object.values(record.usage?.server_tool_use ?? {}).some(value => Number(value) > 0)
     return { text: record.structured_output ? json(record.structured_output) : record.result, session_id: record.session_id ?? null, observed_model: observed, refusal: record.is_error === true, tool_used: remoteTools || (record.subagent_stats?.spawned ?? 0) > 0 || (record.permission_denials?.length ?? 0) > 0 }
@@ -244,7 +245,7 @@ export function verifyStage(rootInput) {
   const run = JSON.parse(readFileSync(join(root, 'run.json'), 'utf8'))
   const built = buildF02Synthetic()
   const expectedPackets = run.stage === 'a' ? [built.packets[0].packet_id] : run.stage === 'b' ? [built.packets[0].packet_id, built.packets[1].packet_id] : run.stage === 'batch' ? built.packets.map(packet => packet.packet_id) : null
-  if (!expectedPackets || run.planned !== expectedPackets.length || run.seal_sha256 !== built.seal.seal_sha256 || run.pairs.length !== run.planned || run.pairs.some((pair, index) => pair.status !== 'completed' || pair.packet_id !== expectedPackets[index])) throw Error('RUN_INCOMPLETE')
+  if (!expectedPackets || run.status !== 'completed_unverified' || run.planned !== expectedPackets.length || run.seal_sha256 !== built.seal.seal_sha256 || run.pairs.length !== run.planned || run.pairs.some((pair, index) => pair.status !== 'completed' || pair.packet_id !== expectedPackets[index])) throw Error('RUN_INCOMPLETE')
   const packets = new Map(built.packets.map(packet => [packet.packet_id, packet]))
   const ids = new Set()
   for (const pair of run.pairs) {
@@ -256,7 +257,8 @@ export function verifyStage(rootInput) {
       const manifest = JSON.parse(readFileSync(join(root, `${stem}.manifest.json`), 'utf8'))
       const { command_manifest_sha256, ...unsigned } = manifest
       if (sha(json(unsigned)) !== command_manifest_sha256 || Object.entries(manifest).some(([key, value]) => json(record[key]) !== json(value))) throw Error('MANIFEST_CHANGED')
-      if (record.run_id !== run.run_id || record.packet_id !== packet.packet_id || record.role !== role || ids.has(record.invocation_id) || !record.session_id || !record.cli_version || record.status !== 'completed' || record.exit_code !== 0 || record.signal !== null || record.error !== null || !record.pid || record.tool_used) throw Error('INVOCATION_IDENTITY_INVALID')
+      const validTime = value => typeof value === 'string' && Number.isFinite(Date.parse(value)) && new Date(value).toISOString() === value
+      if (record.run_id !== run.run_id || record.packet_id !== packet.packet_id || record.role !== role || !/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/.test(record.invocation_id) || stem !== `${role}-${record.invocation_id}` || ids.has(record.invocation_id) || !record.session_id || !record.cli_version || record.status !== 'completed' || record.exit_code !== 0 || record.signal !== null || record.error !== null || !record.pid || record.tool_used || !validTime(record.started_at) || !validTime(record.ended_at) || record.started_at > record.ended_at) throw Error('INVOCATION_IDENTITY_INVALID')
       const studentEngine = run.stage === 'batch' ? (Math.floor(built.packets.findIndex(item => item.packet_id === pair.packet_id) / 2) % 2 === 0 ? 'claude' : 'codex') : (run.stage === 'a' || pair.packet_id === built.packets[0].packet_id ? 'claude' : 'codex')
       const expectedEngine = role === 'student' ? studentEngine : studentEngine === 'claude' ? 'codex' : 'claude'
       const recordedFinal = expectedEngine === 'codex' ? record.argv[record.argv.indexOf('-o') + 1] : join(root, `${stem}.final`)
@@ -320,7 +322,9 @@ export function stageC(stageA, stageB) {
     ['argv', 'student', 'manifest.json', obj => { obj.argv = ['wrong']; return obj }],
     ['refusal', 'student', 'record.json', obj => { obj.refusal = true; return obj }],
     ['provider_error', 'grader', 'record.json', obj => { obj.exit_code = 1; return obj }],
-    ['tool_use', 'student', 'record.json', obj => { obj.tool_used = true; return obj }]
+    ['tool_use', 'student', 'record.json', obj => { obj.tool_used = true; return obj }],
+    ['invocation_id_missing', 'student', 'record.json', obj => { obj.invocation_id = ''; return obj }],
+    ['time_reversed', 'grader', 'record.json', obj => { obj.started_at = new Date(Date.parse(obj.ended_at) + 1000).toISOString(); return obj }]
   ]
   for (const source of [stageA, stageB]) {
     const pairs = JSON.parse(readFileSync(join(source, 'run.json'), 'utf8')).pairs
@@ -334,7 +338,7 @@ export function stageC(stageA, stageB) {
         const input = suffix.endsWith('.json') ? JSON.parse(original) : original
         const output = mutate(input)
         writeFileSync(path, typeof output === 'string' ? output : json(output))
-        const manifestField = { packet_hash: 'packet_sha256', profile_hash: 'profile_sha256', run_id: 'run_id', self_grading: 'family', cli_version: 'cli_version', requested_model: 'model_requested', argv: 'argv' }[name]
+        const manifestField = { packet_hash: 'packet_sha256', profile_hash: 'profile_sha256', run_id: 'run_id', self_grading: 'family', cli_version: 'cli_version', requested_model: 'model_requested', argv: 'argv', invocation_id_missing: 'invocation_id' }[name]
         if (manifestField) {
           const otherSuffix = suffix === 'manifest.json' ? 'record.json' : 'manifest.json'
           const otherPath = join(temp, `${pair[role]}.${otherSuffix}`)
@@ -363,10 +367,10 @@ export function stageC(stageA, stageB) {
         if (!rejected) throw Error(`TAMPER_NOT_REJECTED:${name}`)
       } finally { rmSync(temp, { recursive: true, force: true }) }
     }
-    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output', 'global_instruction_file', 'terminal_event_removed']) {
+    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output', 'global_instruction_file', 'terminal_event_removed', 'claude_terminal_removed']) {
       const role = ['student', 'grader'].find(candidate => {
         const record = JSON.parse(readFileSync(join(source, `${pair[candidate]}.record.json`), 'utf8'))
-        return record.engine === (name === 'raw_refusal_with_rehashed_output' ? 'claude' : 'codex')
+        return record.engine === (['raw_refusal_with_rehashed_output', 'claude_terminal_removed'].includes(name) ? 'claude' : 'codex')
       })
       const stem = pair[role], temp = mkdtempSync(join(tmpdir(), 'f02-stage-c-'))
       try {
@@ -383,10 +387,11 @@ export function stageC(stageA, stageB) {
           record.final_sha256 = sha(Buffer.from(final))
           record.parsed = altered
           record.parsed_sha256 = sha(json(altered))
-        } else if (name === 'raw_refusal_with_rehashed_output') {
+        } else if (['raw_refusal_with_rehashed_output', 'claude_terminal_removed'].includes(name)) {
           const path = join(temp, `${stem}.stdout`)
           const raw = JSON.parse(readFileSync(path, 'utf8'))
-          raw.is_error = true
+          if (name === 'raw_refusal_with_rehashed_output') raw.is_error = true
+          else delete raw.terminal_reason
           const altered = json(raw)
           writeFileSync(path, altered)
           record.stdout_sha256 = sha(Buffer.from(altered))

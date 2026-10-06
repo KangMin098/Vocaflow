@@ -75,6 +75,14 @@ test('actual Stage A evidence rejects raw, request, identity and run mixing', { 
     writeFileSync(graderPath, JSON.stringify(grader))
     assert.doesNotThrow(() => verifyStage(reusedPid), 'PID reuse is not self-grading')
   } finally { rmSync(reusedPid, { recursive: true, force: true }) }
+  const invalidStatus = make()
+  try {
+    const path = join(invalidStatus, 'run.json')
+    const run = JSON.parse(readFileSync(path, 'utf8'))
+    run.status = 'invalidated_by_review'
+    writeFileSync(path, JSON.stringify(run))
+    assert.throws(() => verifyStage(invalidStatus), /RUN_INCOMPLETE/)
+  } finally { rmSync(invalidStatus, { recursive: true, force: true }) }
   for (const [label, file, mutate] of variants) {
     const temp = make()
     try {
@@ -89,6 +97,6 @@ test('actual Stage A evidence rejects raw, request, identity and run mixing', { 
 test('actual bidirectional CLI evidence rejects all Stage C mutations', { skip: !process.env.F02_STAGE_A_FIXTURE || !process.env.F02_STAGE_B_FIXTURE }, () => {
   const result = stageC(process.env.F02_STAGE_A_FIXTURE, process.env.F02_STAGE_B_FIXTURE)
   assert.equal(result.evidence_level, 'E3')
-  assert.equal(result.tamper_checks, 69)
+  assert.equal(result.tamper_checks, 78)
   assert.equal(result.synthetic_validation_valid_n, 0)
 })

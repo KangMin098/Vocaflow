@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): F02 로컬 감사에서 Claude 정상 종료 필드, 호출 UUID·파일명 결속, 개별 호출 시간 순서와 run 완료 상태를 필수로 확인한다. 해당 누락·역전 변조는 실제 산출물 기반 Stage C에서 차단한다.
+
 - fix(textbook): Windows의 Codex CLI가 npm 래퍼로 설치된 경우에도 네이티브 실행 파일을 찾아 호출한다. 순차 호출의 PID 재사용은 자기 채점으로 오인하지 않고 호출 ID·모델 계열·순서를 검증한다.
 
 - fix(textbook): F02 CLI 호출에서 Claude safe mode와 Codex 사용자 설정 무시를 명시해 비기록 지시 유입을 줄이고, Codex 이벤트의 정상 종료 순서를 검증한다. 종료 이벤트 삭제도 실제 출력 변조 검사에 포함한다.
