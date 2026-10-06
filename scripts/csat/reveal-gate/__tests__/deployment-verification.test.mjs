@@ -12,6 +12,11 @@ test('live PostgreSQL parsing cannot replace verified TLS with URL options',()=>
   assert.equal(client.connectionParameters.ssl.ca,'test-only-ca')
   assert.equal(new URL(verifiedDbConfig('postgresql://localhost/test?sslmode=disable').connectionString).searchParams.has('sslmode'),false)
   assert.equal(verifiedDbConfig('postgresql://localhost/test').ssl.rejectUnauthorized,true)
+  for(const option of ['no-verify','0']) {
+    const parsed=new pg.Client(verifiedDbConfig('postgresql://localhost/test?ssl='+option,'test-only-ca')).connectionParameters.ssl
+    assert.equal(parsed.rejectUnauthorized,true)
+    assert.equal(parsed.ca,'test-only-ca')
+  }
 })
 test('permission comparison covers policies, function ACL/body, and unordered keys',()=>{
   const before={permissions:[{object:'t',column:'answer',role:'anon',allowed:false}],policies:[{tablename:'t',policyname:'p',qual:'false'}],functions:[{signature:'f()',role:'anon',allowed:false,definition_hash:'a'}]}
