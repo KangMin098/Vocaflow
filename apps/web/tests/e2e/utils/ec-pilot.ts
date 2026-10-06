@@ -176,8 +176,9 @@ export async function nextPhase(page: Page, prev: number | null = null): Promise
     if (await result.isVisible()) out = 'result'
     else if (await probe.first().isVisible()) out = 'probe'
     else if ((await head.isVisible()) && (await d.getByRole('button', { name: '저장하는 중…' }).count()) === 0) {
-      const no = Number(((await head.textContent()) ?? '').replace('번', ''))
-      if (no !== prev) out = 'item'
+      // 마지막 문항 → 결과로 넘어가는 순간 머리글이 사라질 수 있다 — 짧게 읽고 못 읽으면 다음 회차에 다시 본다
+      const txt = await head.textContent({ timeout: 1000 }).catch(() => null)
+      if (txt !== null && Number(txt.replace('번', '')) !== prev) out = 'item'
     }
     return out
   }, { timeout: 30_000 }).not.toBeNull()
@@ -218,10 +219,16 @@ export async function completeViaApi(page: Page, sessionId: string): Promise<str
 
 /** 계정 정리 — 열린 수집이 있으면 먼저 completed 로 닫고(묘비 방지) 지운다. 닫기 실패는 숨기지 않는다 */
 export async function closeAndDrop(page: Page, a: Account, sessionId: string | null): Promise<void> {
-  const status = sessionId ? await learner(a).then((c) => captureStatus(c, sessionId)).catch(() => 'unknown') : null
-  if (sessionId && (status === 'held' || status === 'collecting' || status === 'unknown')) {
-    const st =await completeViaApi(page, sessionId).catch((e: unknown) => `오류 ${e instanceof Error ? e.message : String(e)}`)
-    if (st !== 'completed' && st !== 'none') throw new Error(`수집을 닫지 못했다(${st}) — 계정을 지우면 묘비가 남는다. 계정은 그대로 둔다`)
+  // 세션 id 를 못 얻은 채 실패했을 수도 있다 — 계정의 기록 세션을 모두 다시 읽는다(조회 실패면 지우지 않는다)
+  const { data: rows, error } = await svc().from('csat_dx_session').select('id').eq('user_id', a.id)
+  if (error) throw new Error(`세션 조회 실패 — 계정은 그대로 둔다: ${error.message}`)
+  const ids = [...new Set([...(sessionId ? [sessionId] : []), ...(rows ?? []).map((r) => r.id as string)])]
+  const c = await learner(a).catch(() => null)
+  for (const id of ids) {
+    const status = c ? await captureStatus(c, id).catch(() => 'unknown') : 'unknown'
+    if (status !== 'held' && status !== 'collecting' && status !== 'unknown') continue
+    const st = await completeViaApi(page, id).catch((e: unknown) => `오류 ${e instanceof Error ? e.message : String(e)}`)
+    if (st !== 'completed' && st !== 'none') throw new Error(`수집을 닫지 못했다(${st}) — 계정을 지우면 묘비가 남는다. 계정은 그대로 둔다(러너가 남긴 계정으로 보고)`)
   }
   await dropAccount(a)
 }

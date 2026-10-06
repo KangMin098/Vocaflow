@@ -78,7 +78,7 @@ function stopServer(s) {
 function runPlaywright(phase, jsonFile) {
   return new Promise((resolve) => {
     const env = { ...process.env, EC_E2E_PHASE: phase.name, EC_E2E_ACCOUNTS: JSON.stringify(accounts), PLAYWRIGHT_BASE_URL: `http://localhost:${PORT}`, PLAYWRIGHT_JSON_OUTPUT_NAME: jsonFile }
-    const child = spawn(process.execPath, ['node_modules/@playwright/test/cli.js', 'test', ...phase.specs, '--reporter=list,json', '--workers=1'], { cwd: WEB, env, stdio: ['ignore', 'inherit', 'inherit'] })
+    const child = spawn(process.execPath, ['node_modules/@playwright/test/cli.js', 'test', ...phase.specs, '--reporter=list,json', '--workers=1', `--output=test-results/ec-pilot-${phase.name}`], { cwd: WEB, env, stdio: ['ignore', 'inherit', 'inherit'] })
     child.on('exit', (code) => resolve(code ?? 1))
   })
 }
@@ -123,6 +123,8 @@ try {
       phases.push({ phase: phase.name, participantEnv: phase.participantEnv ? 'test-accounts' : 'empty', specs: phase.specs.map((s) => path.basename(s)), exitCode: code, ms: Date.now() - t0, tests })
     } finally {
       stopServer(server)
+      // 서버 로그는 원인 가르기용 로컬 파일(test-results 는 커밋하지 않는다)
+      fs.writeFileSync(path.join(WEB, 'test-results', `ec-pilot-${phase.name}-server.log`), redact(server.log.join('')))
     }
   }
 } catch (e) {
@@ -133,8 +135,8 @@ try {
   // 남긴 계정은 kept 로 보고하고, 관리자 종료(csat_ec_capture_close) 뒤 지운다
   const kept = []
   for (const [role, a] of Object.entries(accounts)) {
-    const { data: ss } = await svc.from('csat_dx_session').select('id').eq('user_id', a.id)
-    let active = false
+    const { data: ss, error: se } = await svc.from('csat_dx_session').select('id').eq('user_id', a.id)
+    let active = !!se   // 조회 실패면 활성으로 본다(지우지 않는다)
     for (const s of ss ?? []) {
       const { data: rs, error: re } = await svc.rpc('csat_ec_reveal_state', { p_session: s.id })
       if (re || rs?.exam_embargoed !== false) active = true
@@ -178,4 +180,4 @@ const summary = {
 }
 fs.writeFileSync(OUT, `${JSON.stringify(summary, null, 2)}\n`)
 console.log(`\nE2E pass ${summary.totals.pass} · fail ${summary.totals.fail} · skipped ${summary.totals.skipped} · 잔여 계정 ${residual.accounts} · 잔여 세션 ${residual.sessions} · 보류 시험 ${JSON.stringify(residual.embargoedExams)} · 남긴 계정 ${residual.keptActive.length}`)
-process.exitCode = fatal || summary.totals.fail || summary.totals.pass === 0 || residual.accounts !== 0 || residual.sessions !== 0 || residual.embargoedExams?.length !== 0 ? 1 : 0
+process.exitCode = fatal || summary.totals.fail || summary.totals.skipped || phases.length !== PHASES.length || phases.some((p) => p.exitCode !== 0) || summary.totals.pass === 0 || residual.accounts !== 0 || residual.sessions !== 0 || residual.embargoedExams?.length !== 0 ? 1 : 0
