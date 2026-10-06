@@ -40,6 +40,33 @@ export function examOfItem(itemId: string): string {
 }
 
 /** RPC 가 돌려준 보류 집합. failed = 판정 실패(이때 set 은 입력 전부 — fail-closed) */
+/** 판정 RPC 한 번의 상한 — 넘으면 판정 실패(= 보류). 학습자에게 오래 매달리지 않고 423 으로 끝낸다 */
+export const GATE_TIMEOUT_MS = 4000
+
+/**
+ * 운영 로그 — 실제 보류(`embargo`)와 관문 실패(`gate_failure`)를 다른 줄로 남긴다.
+ * 학습자 응답은 둘 다 같은 423 이다(실패를 500 이나 데이터로 바꾸지 않는다 · 응답으로 둘을 구분하지 않는다).
+ */
+export type GateLogKind = 'embargo' | 'gate_failure'
+export function gateLog(kind: GateLogKind, detail: Record<string, unknown>): void {
+  if (kind === 'gate_failure') console.error('[reveal-gate] gate_failure — 판정 실패를 보류로 본다', detail)
+  else console.info('[reveal-gate] embargo — 보류 시험', detail)
+}
+
+class GateTimeout extends Error {}
+async function withTimeout<T>(p: PromiseLike<T>): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  try {
+    return await Promise.race([
+      Promise.resolve(p),
+      new Promise<never>((_, reject) => { timer = setTimeout(() => reject(new GateTimeout(`판정 ${GATE_TIMEOUT_MS}ms 초과`)), GATE_TIMEOUT_MS) }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
+}
+
+/** RPC 가 돌려준 보류 집합. failed = 판정 실패(이때 set 은 입력 전부 — fail-closed) */
 async function heldBy(fn: 'csat_ec_embargoed_exams' | 'csat_ec_embargoed_items', ids: readonly string[], deps?: GateDeps): Promise<{ set: Set<string>; failed: boolean }> {
   const uniq = [...new Set(ids.filter((x) => typeof x === 'string' && x.length > 0))]
   if (uniq.length === 0) return { set: new Set(), failed: false }
@@ -49,18 +76,19 @@ async function heldBy(fn: 'csat_ec_embargoed_exams' | 'csat_ec_embargoed_items',
     for (let i = 0; i < uniq.length; i += RPC_CHUNK) {
       const chunk = uniq.slice(i, i + RPC_CHUNK)
       // 호출 이름은 리터럴로(권한 감사 rpc-call-sites 가 정적으로 모은다)
-      const { data, error } = fn === 'csat_ec_embargoed_items'
-        ? await db.rpc('csat_ec_embargoed_items', { p_items: chunk })
-        : await db.rpc('csat_ec_embargoed_exams', { p_exams: chunk })
+      const { data, error } = await withTimeout(fn === 'csat_ec_embargoed_items'
+        ? db.rpc('csat_ec_embargoed_items', { p_items: chunk })
+        : db.rpc('csat_ec_embargoed_exams', { p_exams: chunk }))
       if (error || !Array.isArray(data) || data.some((x) => typeof x !== 'string' || !chunk.includes(x))) {
-        console.error(`[reveal-gate] ${fn} 판정 실패 — 보류로 본다`, error?.message ?? '배열이 아님')
+        gateLog('gate_failure', { fn, reason: error?.message ?? '응답 형식 또는 요청 범위 불일치', n: uniq.length })
         return { set: new Set(uniq), failed: true }
       }
       for (const x of data) if (typeof x === 'string') out.add(x)
     }
+    if (out.size > 0) gateLog('embargo', { fn, held: out.size })
     return { set: out, failed: false }
   } catch (e) {
-    console.error(`[reveal-gate] ${fn} 판정 예외 — 보류로 본다`, e instanceof Error ? e.message : String(e))
+    gateLog('gate_failure', { fn, reason: e instanceof Error ? e.message : String(e), timeout: e instanceof GateTimeout, n: uniq.length })
     return { set: new Set(uniq), failed: true }
   }
 }
@@ -92,13 +120,19 @@ export async function canRevealItem(itemId: string | null | undefined, deps?: Ga
   return !(await embargoedItemIds([itemId], deps)).has(itemId)
 }
 
-/** 기록 한 회 — 그 시험이 보류면 false. 판정 실패 · 없는 세션도 false(fail-closed) */
+/** 기록 한 회 — 그 시험이 보류면 false. 판정 실패 · 시간 초과 · 없는 세션도 false(fail-closed) */
 export async function canRevealSession(sessionId: string, deps?: GateDeps): Promise<boolean> {
   try {
-    const { data, error } = await gateDb(deps).rpc('csat_ec_reveal_state', { p_session: sessionId })
-    if (error || !data || typeof data !== 'object') return false
-    return (data as { exam_embargoed?: unknown }).exam_embargoed === false
-  } catch {
+    const { data, error } = await withTimeout(gateDb(deps).rpc('csat_ec_reveal_state', { p_session: sessionId }))
+    if (error || !data || typeof data !== 'object') {
+      gateLog('gate_failure', { fn: 'csat_ec_reveal_state', reason: error?.message ?? '세션 없음' })
+      return false
+    }
+    const embargoed = (data as { exam_embargoed?: unknown }).exam_embargoed
+    if (embargoed === true) gateLog('embargo', { fn: 'csat_ec_reveal_state' })
+    return embargoed === false
+  } catch (e) {
+    gateLog('gate_failure', { fn: 'csat_ec_reveal_state', reason: e instanceof Error ? e.message : String(e), timeout: e instanceof GateTimeout })
     return false
   }
 }
@@ -173,7 +207,7 @@ export async function loadRevealScope(deps?: GateDeps): Promise<RevealScope> {
       types: new Set(items.map((i) => i.type_id).filter((x): x is string => Boolean(x))),
     }
   } catch (e) {
-    console.error('[reveal-gate] 보류 범위 판정 실패 — 전부 보류로 본다', e instanceof Error ? e.message : String(e))
+    gateLog('gate_failure', { fn: 'loadRevealScope', reason: e instanceof Error ? e.message : String(e) })
     return FAILED_SCOPE
   }
 }

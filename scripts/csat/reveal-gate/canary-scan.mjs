@@ -46,6 +46,7 @@ await db.connect()
 const svc = createClient(URL_, SERVICE, opt)
 const anonClient = createClient(URL_, ANON, opt)
 const users = {}
+let appliedMigrations = new Set()
 const owned = { exam: false, type: false }   // 이번 실행이 만든 것만 지운다(이미 있던 같은 id 는 건드리지 않는다)
 async function makeUser(role, admin = false) {
   const email = `ec-canary-${CANARY.slice(7)}-${role.toLowerCase()}@example.com`, password = randomUUID()
@@ -90,6 +91,7 @@ function argFor(name, type, ctx) {
 
 try {
   if ((await db.query(`select 1 from supabase_migrations.schema_migrations where version = '20261005170000'`)).rowCount === 0) throw new Error('Reveal Gate ① 가 적용되지 않았다 — 적용 뒤 실행')
+  appliedMigrations = new Set((await db.query('select version from supabase_migrations.schema_migrations')).rows.map((r) => r.version))
   // ── 준비: TEST 유형 · 시험 · 문항 · 정답표 · 분석(3인 pass 검수 뒤 발행) · 뼈대 · 유형 보고 ──
   // 존재 확인을 먼저 — 있으면 지우지 않고 멈춘다. 소유는 각 insert 가 성공한 뒤에만 기록(실패 시 남의 것을 정리하지 않게)
   if ((await db.query(`select 1 from public.csat_exams where id = $1`, [EXAM])).rowCount) throw new Error(`${EXAM} 가 이미 있다 — 이전 검사 정리가 안 됐다(지우지 않고 멈춘다)`)
@@ -179,7 +181,9 @@ try {
       // 명시 제외(쓰기 부작용)는 **모든 주체**에 먼저 적용 — anon 단계에서 무시하고 호출하던 결함(2026-10-05 실측: 스냅샷 1행 생성)
       if (meta.call === 'none') { record('rpc', `${who} · ${fn} — 명시 제외: ${meta.call_reason}`, !!meta.call_reason); continue }
       // anon: 학습자 · 판정자 · 관리자 · oracle 표면은 거부여야 한다. 운영 메타(OPS_META)는 원래 계약대로(정답 없음 — 공개 여부는 별도 권한 점검)
-      const call = who === 'anon' ? (meta.class === 'OPS_META' ? 'any' : 'refuse') : meta.call
+      // 의도된 회수(revoked_by 마이그레이션 적용 뒤) — 학습자 · anon 모두 거부여야 한다
+      const revoked = meta.revoked_by && appliedMigrations.has(meta.revoked_by)
+      const call = revoked ? 'refuse' : who === 'anon' ? (meta.class === 'OPS_META' ? 'any' : 'refuse') : meta.call
       if (!call) { record('rpc', `${who} · ${fn} — 호출 계약 없음(미검사)`, false, '매니페스트에 call · args 를 정의한다'); continue }
       const sigs = await functionSignatures(fn)
       for (const sig of sigs) {

@@ -20,6 +20,7 @@ import { learnerSession } from '@/lib/csat/diagnosis/learner'
 import { loadMapPage } from '@/lib/csat/map/load'
 import { todayKst } from '@/lib/csat/diagnosis/payload'
 import { loadExamReport, loadPickerExams } from '@/lib/csat/diagnosis/report'
+import { syncRevealedSnapshot } from '@/lib/csat/diagnosis/reveal-sync'
 import { pilotOpen } from '@/lib/csat/ec-pilot/server'
 import { railExams } from '@/lib/csat/rail-data'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -44,6 +45,8 @@ export default async function DiagnosisPage({ searchParams }: { searchParams: { 
       </DiagnosisShell>
     )
   }
+  // 공개 전이 뒤 스냅샷 따라잡기(비동기 후속 — 실패해도 화면 · 공개 판정은 그대로)
+  await syncRevealedSnapshot(db, userId, new Date())
   const [{ report, typeNames }, exams] = await Promise.all([
     loadExamReport(db, userId),
     searchParams.modal === 'new' ? loadPickerExams(db) : Promise.resolve(null),

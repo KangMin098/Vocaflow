@@ -645,21 +645,24 @@
     "csat_coverage()"
    ],
    "call": "read",
-   "args": {}
+   "args": {},
+   "revoked_by": "20261006100000"
   },
   "csat_demote_on_review_change": {
    "class": "TRIGGER_FN",
    "gate": "트리거",
    "signatures": [
     "csat_demote_on_review_change()"
-   ]
+   ],
+   "revoked_by": "20261006100000"
   },
   "csat_drain_runs_stamp_finished": {
    "class": "TRIGGER_FN",
    "gate": "트리거",
    "signatures": [
     "csat_drain_runs_stamp_finished()"
-   ]
+   ],
+   "revoked_by": "20261006100000"
   },
   "csat_ec_add_probe_response": {
    "class": "LEARNER_OWN",
@@ -920,7 +923,8 @@
     "csat_source_eligibility_tally()"
    ],
    "call": "read",
-   "args": {}
+   "args": {},
+   "revoked_by": "20261006100000"
   },
   "csat_source_inventory_live": {
    "class": "OPS_META",
@@ -929,7 +933,8 @@
     "csat_source_inventory_live()"
    ],
    "call": "read",
-   "args": {}
+   "args": {},
+   "revoked_by": "20261006100000"
   },
   "csat_source_is_eligible": {
    "class": "OPS_META",
@@ -940,7 +945,8 @@
    "call": "read",
    "args": {
     "p_article_id": "{UUID}"
-   }
+   },
+   "revoked_by": "20261006100000"
   },
   "csat_source_is_gradeable": {
    "class": "OPS_META",
@@ -951,7 +957,8 @@
    "call": "read",
    "args": {
     "p_article_id": "{UUID}"
-   }
+   },
+   "revoked_by": "20261006100000"
   },
   "csat_source_live_rollup": {
    "class": "OPS_META",
@@ -960,7 +967,8 @@
     "csat_source_live_rollup()"
    ],
    "call": "read",
-   "args": {}
+   "args": {},
+   "revoked_by": "20261006100000"
   },
   "csat_source_pipeline_live": {
    "class": "OPS_META",
@@ -970,7 +978,8 @@
    ],
    "call": "any",
    "args": {},
-   "call_note": "학습자 호출은 statement timeout(대량 집계) — 결과 무관, 노출만 본다"
+   "call_note": "학습자 호출은 statement timeout(대량 집계) — 결과 무관, 노출만 본다",
+   "revoked_by": "20261006100000"
   },
   "csat_source_rollup": {
    "class": "OPS_META",
@@ -979,7 +988,8 @@
     "csat_source_rollup()"
    ],
    "call": "read",
-   "args": {}
+   "args": {},
+   "revoked_by": "20261006100000"
   },
   "csat_source_snapshot_take": {
    "class": "OPS_META",
@@ -988,7 +998,8 @@
     "csat_source_snapshot_take(text)"
    ],
    "call": "none",
-   "call_reason": "호출하면 출처 스냅샷 행을 만든다(쓰기 부작용). 출처 통계 · 문항 정답 없음 — 노출 검사에서 명시 제외"
+   "call_reason": "호출하면 출처 스냅샷 행을 만든다(쓰기 부작용). 출처 통계 · 문항 정답 없음 — 노출 검사에서 명시 제외",
+   "revoked_by": "20261006100000"
   }
  },
  "private_schema": {
@@ -1201,9 +1212,13 @@
    "class": "ANSWER_SENSITIVE",
    "gate": "서버 전용 · 보류 필터(구현 때 확인)"
   },
+  "lib/csat/trap-atlas-examples.ts": {
+   "class": "ANSWER_SENSITIVE",
+   "gate": "서버 전용(server-only) — loadTrapExamples 가 loadRevealScope 로 보류 문항 예시 제외. 관리자 kice 화면만 props 로 받는다"
+  },
   "lib/csat/trap-atlas.ts": {
    "class": "ANSWER_SENSITIVE",
-   "gate": "클라이언트 번들 — 사례(examples)를 서버 로더로 옮기고 보류 필터(번들 산출물 검사)"
+   "gate": "클라이언트 번들 — 예시는 slug · 회차 이름 · 번호 · 유형만(2026-10-06). 오답 선지 · 해설은 trap-atlas-examples.ts(서버 전용 · 보류 필터)"
   }
  },
  "app_file_loaders": {
@@ -1272,6 +1287,10 @@
    "class": "CORRECTNESS",
    "gate": "app 구현(2026-10-06): 키 먼저 → embargoedExamIds 로 보류 시험 기록 제외 → 남은 기록 점수 · 응답"
   },
+  "lib/csat/diagnosis/reveal-sync.ts": {
+   "class": "CORRECTNESS",
+   "gate": "app 구현(2026-10-06): 공개 뒤 스냅샷 따라잡기 — userHasHeldSession 이면 아무것도 안 함, 워터마크 비교로 재계산(재실행 안전 · 실패해도 보류로 되돌리지 않음). outbox 표는 service_role 도 권한 없음 → 워터마크로 대신"
+  },
   "lib/csat/diagnosis/server.ts": {
    "class": "CORRECTNESS",
    "gate": "app 구현(2026-10-06): 저장 단일 진입 csat_ec_record_session_held · 진단 입력에서 보류 시험 기록 제외(embargoedExamIds) · 저장 응답은 held 또는 canRevealExam 뒤 점수"
@@ -1286,7 +1305,7 @@
   },
   "lib/csat/ec-pilot/server.ts": {
    "class": "LEARNER_OWN",
-   "gate": "수집 화면 — 정오를 내보내지 않는다(대상 = 정오 무관 전체로 바꾼다)"
+   "gate": "app 구현(2026-10-06): 대상 = 봉인 capture 대상(csat_ec_my_capture_state) ∩ 내용 적격 — 정오(is_correct) · 정답표 · 채점 결과를 읽지 않는다(targets-correctness-free 가드)"
   },
   "lib/csat/embargo-gate.ts": {
    "class": "OPS_META",

@@ -31,6 +31,7 @@ import { parseScope, withScope } from '@/lib/csat/scope'
 import { LocusBar } from '@/components/csat/LocusBar'
 import { ReportText } from '@/components/csat/ReportText'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
+import { loadTrapExamples } from '@/lib/csat/trap-atlas-examples'
 import { typeLocus } from '@/lib/csat/type-locus'
 import { loadCsatTypeDetail, loadCsatTypeItems } from '@/lib/csat/learner'
 import { rankFor } from '@/lib/csat/trap-atlas'
@@ -140,6 +141,7 @@ export default async function CsatTypePage({
               {traps.rows.length ? (
                 <TrapAtlas
                   chips={[]}
+                  details={await loadTrapExamples()}
                   initialTypeId={typeId}
                   showChips={false}
                   showLift
