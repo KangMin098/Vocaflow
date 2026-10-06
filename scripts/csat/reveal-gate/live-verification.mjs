@@ -6,6 +6,7 @@ import { randomUUID,createHash } from 'node:crypto'
 import pg from 'pg'
 export function validateLiveReceipt(receipt,previousHash,currentHash) {
   if(!receipt||!currentHash||currentHash===previousHash||!Array.isArray(receipt.results)||!receipt.results.length||receipt.pass!==receipt.results.length||receipt.fail!==0||receipt.results.some(r=>r.ok!==true))return{ok:false,reason:'stale_or_failed_canary'}
+  if(receipt.results.some(r=>['canary','rpc','oracle','app','bundle','정리'].includes(r.area)&&/생략|미실행|미검사|수집 실패|fixture 없음/.test(r.name??'')))return{ok:false,reason:'required_live_check_skipped'}
   for(const area of ['canary','rpc','oracle','app','bundle','정리'])if(!receipt.results.some(r=>r.area===area&&!/생략|미실행/.test(r.name??'')))return{ok:false,reason:'missing_live_area',area}
   for(const actor of ['P','N','anon'])if(!receipt.results.some(r=>r.area==='canary'&&r.name?.startsWith(actor+' ·')))return{ok:false,reason:'missing_live_actor',actor}
   return{ok:true,pass:receipt.pass,areas:['canary','rpc','oracle','app','bundle','정리'],authenticated_verified:true}

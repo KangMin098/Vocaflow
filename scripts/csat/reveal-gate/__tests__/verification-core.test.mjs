@@ -4,7 +4,9 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { scanLoaders,scanClient,scanBundle,pagingLocations,secretLiterals } from '../verification-core.mjs'
+import {spawnSync} from 'node:child_process'
+import {createHash} from 'node:crypto'
+import { scanLoaders,scanClient,scanBundle,pagingLocations,secretLiterals,migrationCoverage } from '../verification-core.mjs'
 import {attestBuild,checkBuild} from '../build-attestation.mjs'
 function fixture(run){const prefix=path.join(os.tmpdir(),'reveal-verify-'),root=fs.mkdtempSync(prefix);try{return run(root,(name,text)=>{const p=path.join(root,name);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,text)})}finally{if(!path.resolve(root).startsWith(path.resolve(prefix)))throw Error('Unexpected fixture path');fs.rmSync(root,{recursive:true,force:true})}}
 const manifest={db_relations:{csat_items:{class:'ANSWER_SENSITIVE'}},db_functions:{},app_db_loaders:{},app_api:{}}
@@ -35,6 +37,10 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   assert.ok(scanLoaders(root,m).issues.some(i=>i.kind==='unclassified_json_loader'))
   const classified={...m,app_api:{'csat/new':{class:'ANSWER_SENSITIVE'}}}
   assert.ok(scanLoaders(root,classified,{function_approvals:{}}).issues.some(i=>i.function==='GET'))
+  write('app/(main)/csat/leak/page.tsx','import {load} from "../../../../lib/csat/leak"; export default async function Page(){return <pre>{JSON.stringify(await load({}))}</pre>}')
+  const leakedPage=scanLoaders(root,m,{function_approvals:{}})
+  assert.ok(leakedPage.issues.some(i=>i.kind==='unclassified_page'))
+  assert.ok(leakedPage.issues.some(i=>i.file.endsWith('leak/page.tsx')&&i.function==='<module>'))
 }))
 test('mutation: renamed JSON and re-exported dynamic client imports expose answer literals',()=>fixture((root,write)=>{
   write('app/Client.tsx','"use client"; import("../lib/barrel");')
@@ -67,6 +73,7 @@ test('production attestation rejects stale source, modified artifact and missing
   write('apps/web/src/app.ts','export const n=1')
   write('apps/web/.next/BUILD_ID','test-build')
   write('apps/web/.next/static/chunks/main.js','const n=1')
+  write('apps/web/.next/server/app/api/route.js','const secret=1')
   attestBuild(root,'test-revision')
   assert.equal(checkBuild(root).ok,true)
   write('apps/web/src/app.ts','export const n=2')
@@ -74,4 +81,19 @@ test('production attestation rejects stale source, modified artifact and missing
   write('apps/web/src/app.ts','export const n=1')
   write('apps/web/.next/static/chunks/main.js','const n=2')
   assert.equal(checkBuild(root).ok,false)
+  write('apps/web/.next/static/chunks/main.js','const n=1')
+  write('apps/web/.next/server/app/api/route.js','const secret=2')
+  assert.equal(checkBuild(root).ok,false)
+}))
+test('new or changed CSAT migrations remain blocked until bound to the actual isolated runner',()=>fixture((root,write)=>{
+  const git=args=>{const result=spawnSync('git',args,{cwd:root,stdio:'ignore'});assert.equal(result.status,0)}
+  git(['init'])
+  git(['-c','user.name=Fixture','-c','user.email=fixture@example.invalid','-c','commit.gpgsign=false','commit','--allow-empty','-m','fixture'])
+  const file='supabase/migrations/20990101000000_gate.sql',sql='create function csat_new_secret() returns boolean language sql as $$select true$$;'
+  write(file,sql)
+  assert.equal(migrationCoverage(root,'HEAD').issues.length,1)
+  const approved={[file]:{sha256:createHash('sha256').update(sql).digest('hex'),review_basis:'test runner applies exact SQL'}}
+  assert.equal(migrationCoverage(root,'HEAD',approved).issues.length,0)
+  write(file,sql+' -- changed')
+  assert.equal(migrationCoverage(root,'HEAD',approved).issues.length,1)
 }))

@@ -4,7 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
 import { spawnSync } from 'node:child_process'
-import { scanLoaders,scanClient,scanBundle,pagingDiff } from './verification-core.mjs'
+import { scanLoaders,scanClient,scanBundle,pagingDiff,migrationCoverage } from './verification-core.mjs'
 import {attestBuild,checkBuild,startVerifiedApp,sourceFingerprint} from './build-attestation.mjs'
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..')
 const args=process.argv.slice(2),value=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1]}
@@ -65,6 +65,8 @@ try{
       record('V6 completion/recompute transition',result.ok,{...result,scope:'Snapshot worker failure/retry invariant; migration state transitions remain a deployment gate.'})
     }
     const sqlFile=path.join(ROOT,'scripts/csat/error-evidence/isolated-pg/results-pilot.json')
+    const migrations=migrationCoverage(ROOT,base,policy.applied_sql_migrations)
+    record('V6 changed migration execution coverage',migrations.issues.length===0,migrations)
     if(fs.existsSync(sqlFile))fs.unlinkSync(sqlFile)
     const requiredSQL=['stage1','t_flow','t_pilot','t_capture','t_reveal','t_rls','t_funcs','t_rq1','t_hash','t_seal','t_p1fix','t_p2fix','t_concurrency','t_delete']
     const missingSQL=requiredSQL.filter(name=>!fs.existsSync(path.join(ROOT,'scripts/csat/error-evidence/isolated-pg',name+'.mjs')))

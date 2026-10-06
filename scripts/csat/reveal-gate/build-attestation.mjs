@@ -6,6 +6,7 @@ import {spawn} from 'node:child_process'
 import {createHash} from 'node:crypto'
 import {filesUnder} from './verification-core.mjs'
 const digest=files=>{const hash=createHash('sha256');for(const file of files.sort())hash.update(file).update(fs.readFileSync(file));return hash.digest('hex')}
+const serverFiles=repo=>[...filesUnder(path.join(repo,'apps/web/.next/server'),true),...['required-server-files.json','routes-manifest.json','prerender-manifest.json','build-manifest.json','app-build-manifest.json'].map(name=>path.join(repo,'apps/web/.next',name)).filter(file=>fs.existsSync(file))]
 export function sourceFingerprint(repo) {
   const files=['apps/web/src','apps/web/public','packages'].flatMap(dir=>filesUnder(path.join(repo,dir),true))
   for(const name of ['pnpm-lock.yaml','package.json','apps/web/package.json','apps/web/tsconfig.json','apps/web/next.config.js','apps/web/next.config.mjs'])if(fs.existsSync(path.join(repo,name)))files.push(path.join(repo,name))
@@ -15,7 +16,7 @@ export function sourceFingerprint(repo) {
 export function attestBuild(repo,revision) {
   const directory=path.join(repo,'apps/web/.next/static'),id=path.join(repo,'apps/web/.next/BUILD_ID')
   if(!fs.existsSync(id)||!filesUnder(directory,true).length)throw Error('No production build')
-  const attestation={revision,source_sha256:sourceFingerprint(repo),build_id:fs.readFileSync(id,'utf8').trim(),static_sha256:digest(filesUnder(directory,true))}
+  const attestation={revision,source_sha256:sourceFingerprint(repo),build_id:fs.readFileSync(id,'utf8').trim(),static_sha256:digest(filesUnder(directory,true)),server_sha256:digest(serverFiles(repo))}
   fs.writeFileSync(path.join(repo,'tmp/reveal-production.json'),JSON.stringify(attestation,null,2)+'\n')
   return attestation
 }
@@ -23,7 +24,7 @@ export function checkBuild(repo) {
   try {
     const prior=JSON.parse(fs.readFileSync(path.join(repo,'tmp/reveal-production.json'),'utf8'))
     const id=fs.readFileSync(path.join(repo,'apps/web/.next/BUILD_ID'),'utf8').trim()
-    const ok=prior.source_sha256===sourceFingerprint(repo)&&prior.build_id===id&&prior.static_sha256===digest(filesUnder(path.join(repo,'apps/web/.next/static'),true))
+    const ok=prior.source_sha256===sourceFingerprint(repo)&&prior.build_id===id&&prior.static_sha256===digest(filesUnder(path.join(repo,'apps/web/.next/static'),true))&&prior.server_sha256===digest(serverFiles(repo))
     return{ok,reason:ok?null:'production_source_or_bundle_mismatch',build_id:id,source_sha256:prior.source_sha256}
   }catch{return{ok:false,reason:'missing_production_attestation'}}
 }

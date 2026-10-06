@@ -521,6 +521,191 @@
       "sha256": "b65fa850a49ba01245ea77a0c27b114c7212e46ba1af90b47c375d3994bf060a",
       "class": "OPS_META",
       "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "app/(app)/csat/browse/page.tsx::<module>": {
+      "sha256": "84fc24eee8ec7f12e9c86ef1e4f625188798f960c41ea41cab3019641eff320a",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(app)/csat/diagnosis/attempts/new/page.tsx::<module>": {
+      "sha256": "272165d3d89d22bd4cd5e691904e28061c2b68311998cf1ff653fd93c4e48c89",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(app)/csat/diagnosis/page.tsx::<module>": {
+      "sha256": "2ec297f4620efc34843ca0ec8302b9a81ba84344785d0d9c5e6b532bdb00c603",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(app)/csat/page.tsx::<module>": {
+      "sha256": "1d16dafaa982124b91a90159f14db3f5da88895b320ca380f6647977379948ce",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(app)/csat/record/page.tsx::<module>": {
+      "sha256": "5c7156ecc5e4998d39dfa25d418eaa79b622874ee48d90eb1258042ffd02404f",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(app)/csat/space/page.tsx::<module>": {
+      "sha256": "b3f020d38db6c67bb7b2afc5972dd25292c042250bb23858e4f2a8afa11bb371",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(app)/csat/workspace/new/page.tsx::<module>": {
+      "sha256": "1a5da00cf61bf5f93fe388e5401dbe8835e427477b8f555635a13082b9b82cc7",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(app)/csat/workspace/page.tsx::<module>": {
+      "sha256": "95ce943dadd2ad7de7213f1badd3dba8b2d19b03dd1d3362fa9f6baca70318a7",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(app)/csat/workspace/[id]/page.tsx::<module>": {
+      "sha256": "059976ef25cc3bf7ab69e295dcdacec74069625e4769a926e2ac39aab220080b",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(main)/csat/dissect/page.tsx::<module>": {
+      "sha256": "8d0f8146f2b43b6b8dcdefcc507bd37edb2ddfdb44a492ad773c2cb72341a7f3",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(main)/csat/formulas/page.tsx::<module>": {
+      "sha256": "c43c17e7b8d7093bd0fdd760264a29ebb22bf527a45dfacb417abc7a7cdd7b87",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/(main)/csat/item/[slug]/page.tsx::<module>": {
+      "sha256": "f04555499fb7e816bea125dc86a0f2b1c835ee391e594d8aa4287a0a774bf716",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/diagnosis/sessions/route.ts::<module>": {
+      "sha256": "968b37597c3a7efc69f03b26fc0cb31c5777d2347501334f1fc7f1694b5b18df",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/lecture/route.ts::<module>": {
+      "sha256": "275fbbbc6812dbb328ac7627b63993ffdebb9af8be18c9011892b88098bd4005",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/paper/route.ts::<module>": {
+      "sha256": "cca8da4f3f30b4fccfb1842c2d3ff03935f29bccd218ba4ce73c088ec7ce2e1a",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/session/reveal/route.ts::<module>": {
+      "sha256": "8a12166a17112d894f6dbe9f4c89782650eb5a6ab3b500e1d180b0e6e388a29b",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/home/ContinuePanel.tsx::<module>": {
+      "sha256": "50f6694c7b42833f607755515e69f3d620db4d51e99dd49f854807421b59751e",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/home/CsatRail.tsx::<module>": {
+      "sha256": "107999350258781ab3a02cb03ff2b0a480657d3b74f6b351854b2e7599c31b37",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/home/RecordScreen.tsx::<module>": {
+      "sha256": "39fa166bbbfa79124a7f83daa328bf5e5cc53b0c6ae6fe97c2fc5bc1319813c8",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/space/SpaceScreen.tsx::<module>": {
+      "sha256": "6ad0b22cb0fa10dfd1b02b573c746772c467c6487e1079d68e5f0147f1aae3cd",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/TrapAtlas.tsx::<module>": {
+      "sha256": "1e0ab6acce56293b8357ddafa2d97d4989e0ae9c388e52f5d892208375c798ae",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/workspace/WorkspaceCreate.tsx::<module>": {
+      "sha256": "d85756b2bab300326dce70110c7250ed828f7530104c5dd8cb503d5962015923",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/browse.ts::<module>": {
+      "sha256": "715514e5e6ae88a7b14193e4703fa3bf9bb3ae71bc553ad5adccb5049782e9fa",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/diagnosis/admin.ts::<module>": {
+      "sha256": "de2ba7580a212b18a52036cb7c1e58d6e25907f9ddbc86a1408a51824169df9e",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/diagnosis/report.ts::<module>": {
+      "sha256": "157264d9e27dfcbc445f390c718f967da03293660602045bc282377deb787e23",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/diagnosis/reveal-sync.ts::<module>": {
+      "sha256": "641c2d98e51122ecff0878ad13c458ff90bec7ad8d0893d3fd23df2238a2a6ea",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/diagnosis/route-helpers.ts::<module>": {
+      "sha256": "3865ff55ac4195ebeaaf5c3f2bbf7878ead27dc9de6d409a91e0f29c8e93d7c0",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/diagnosis/server.ts::<module>": {
+      "sha256": "3a464c5a4f809ce9936b9fe6ea9162c83017d67b07d130b85863e1bc0770f535",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/evidence-operations-loader.ts::<module>": {
+      "sha256": "59f2a8484a6e8b35bf78360fa853878178fa4777a30514858dd7d81418de0bbf",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/map/load.ts::<module>": {
+      "sha256": "81a8f984e43ad5e74d18c937f0b4fd022986cb8f75191f9d0c8a811a7a9ac987",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/my-traps.ts::<module>": {
+      "sha256": "d2a0888fe607c5372dd7861f07af04ca68248aa3e9c59f403b8bbedaffe3302c",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/plan-order.ts::<module>": {
+      "sha256": "9bd755272eaa62af1f18657e593bcaa5e70facbb5cf99f7cfee20b00571fd778",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/rail-data.ts::<module>": {
+      "sha256": "c814fc7b5a6b5fbcd5ac6c84506330f25adba780b482554f3a7c6583babdcccf",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/session/catalog.ts::<module>": {
+      "sha256": "f39c79451d316888f2fb3667eb76571e4d10fa62c6193864aad049f1cc75a479",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/session/reveal.ts::<module>": {
+      "sha256": "77a0301b1e538313c2d0e0c5a30a737d4dca8ff366c16d5a5d1160a6e1f9afa0",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/space-model.ts::<module>": {
+      "sha256": "ff8d0cf83e142eac106a9d9f0abe64183b55ad6c80bb6b112e1941a0b82647b3",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/workspace-index.ts::<module>": {
+      "sha256": "c274e6dfd958f45316b2b73772b02a091b5b88ee8b149b1c4a27378bb4d29f2d",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     }
   },
   "loader_classifications": {
@@ -657,6 +842,28 @@
     "csat_source_targets": {
       "class": "OPS_META",
       "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    }
+  },
+  "applied_sql_migrations": {
+    "supabase/migrations/20261003230000_csat_error_evidence.sql": {
+      "sha256": "824eabb4336512b4f4ec50577aa7eff7634c0a624b7ee6002d65d09566344f96",
+      "review_basis": "Applied by isolated run-pilot/stage1 and covered by 349 SQL state, ACL, integrity and concurrency checks."
+    },
+    "supabase/migrations/20261005130000_csat_ec_pilot_evidence.sql": {
+      "sha256": "befdaec2e2ec111d06852f2049db90aa43eb854a7ed8187512eb4b3029f0b4d3",
+      "review_basis": "Applied by isolated run-pilot/stage1 and covered by 349 SQL state, ACL, integrity and concurrency checks."
+    },
+    "supabase/migrations/20261005150000_csat_ec_capture_support.sql": {
+      "sha256": "ef9e446f49115cc61b8e628aedff7b7b5bd71bee6da44c483c36c3e9b0026023",
+      "review_basis": "Applied by isolated run-pilot/stage1 and covered by 349 SQL state, ACL, integrity and concurrency checks."
+    },
+    "supabase/migrations/20261005170000_csat_ec_reveal_gate.sql": {
+      "sha256": "40aa43c7873d406bb1cb015f1bb4b374972f51238bd2f8447708ff4a51ade4a6",
+      "review_basis": "Applied by isolated run-pilot/stage1 and covered by 349 SQL state, ACL, integrity and concurrency checks."
+    },
+    "supabase/migrations/20261005170100_csat_ec_reveal_gate_revoke.sql": {
+      "sha256": "5a141bd9fa85eb2246f8686fbe0cf5fb833ebc56c13e56ce425e44ad9c94ecea",
+      "review_basis": "Applied by isolated run-pilot/stage1 and covered by 349 SQL state, ACL, integrity and concurrency checks."
     }
   }
 }

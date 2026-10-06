@@ -22,6 +22,8 @@ test('unexecuted, stale, skipped or incomplete live receipts cannot pass',()=>{
   assert.equal(validateLiveReceipt(receipt,'same','same').ok,false)
   assert.equal(validateLiveReceipt({...receipt,results:results.filter(r=>r.area!=='app')},'old','new').ok,false)
   assert.equal(validateLiveReceipt({...receipt,pass:0},'old','new').ok,false)
+  const skipped=[...results,{area:'app',name:'앱 경로 생략',ok:true}]
+  assert.equal(validateLiveReceipt({...receipt,results:skipped,pass:skipped.length},'old','new').ok,false)
 })
 test('missing deployment credentials/advisor execution are blocked',async()=>{
   assert.equal((await dbPreflight('.',{},{})).status,'BLOCKED')

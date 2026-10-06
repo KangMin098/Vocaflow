@@ -3,6 +3,7 @@
 // → 기존 테스트 전부(회귀) → t_pilot → results-pilot.json
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { REPO, ROOT, record, results, startCluster } from './lib.mjs'
 import { stage1 } from './stage1.mjs'
 
@@ -35,6 +36,16 @@ try {
     try { await s.owner.query(fs.readFileSync(PILOT, 'utf8')); await s.owner.query(fs.readFileSync(CAPTURE, 'utf8')); await s.owner.query(fs.readFileSync(REVEAL, 'utf8')); await s.owner.query(fs.readFileSync(REVOKE, 'utf8')); applied = { ok: true } } catch (e) { applied = { ok: false, err: e.message, where: e.where } }
     record('pilot 적용', 'Pilot · 증거 수집 마이그레이션 적용(postgres 역할)', applied.ok, applied.err ?? '')
     if (applied.ok) {
+      // Reviewed additional CSAT SQL is applied only to this fresh local cluster.
+      const policyFile=path.join(REPO,'scripts/csat/reveal-gate/verification-policy.json')
+      const approved=fs.existsSync(policyFile)?JSON.parse(fs.readFileSync(policyFile,'utf8')).applied_sql_migrations??{}:{}
+      const baseline=new Set(['20261003230000_csat_error_evidence.sql',... [PILOT,CAPTURE,REVEAL,REVOKE].map(file=>path.basename(file))])
+      for(const [file,approval]of Object.entries(approved)) {
+        if(!/^supabase\/migrations\/\d+_[^/]+\.sql$/.test(file))throw Error('Invalid isolated migration path')
+        const sql=fs.readFileSync(path.join(REPO,file),'utf8')
+        if(createHash('sha256').update(sql).digest('hex')!==approval.sha256)throw Error('Isolated migration hash changed')
+        if(!baseline.has(path.basename(file))){await s.owner.query(sql);record('추가 SQL',file,true)}
+      }
       // 새 컬럼(candidate_codes · evidence_profile)은 기본값이 붙는다 — 그 컬럼을 뺀 나머지가 같아야 한다
       const after = await snap(['candidate_codes', 'evidence_profile'])
       const diff = tables.filter((t) => before[t].h !== after[t].h || before[t].n !== after[t].n)

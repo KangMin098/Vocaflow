@@ -18,6 +18,7 @@ const parse = (file, text) => ts.createSourceFile(file,text,ts.ScriptTarget.Late
 const visit = (node, fn) => { fn(node); ts.forEachChild(node,n=>visit(n,fn)) }
 const property = node => ts.isIdentifier(node) || ts.isStringLiteralLike(node) ? node.text : null
 export function scanLoaders(srcRoot, manifest, policy=null) {
+  srcRoot=path.resolve(srcRoot)
   const objectNames=new Set([...Object.keys(manifest.db_relations),...Object.keys(manifest.db_functions).map(k=>k.split('(')[0])])
   const loader=file=>manifest.app_db_loaders?.[file]??policy?.loader_classifications?.[file]
   const issues=[], discovered=[], functions=new Map(), names=new Set([...Object.entries(manifest.db_relations).filter(([,v])=>SENSITIVE.has(v.class)||(v.sensitive_columns??[]).length).map(([k])=>k),...Object.entries(manifest.db_functions).filter(([,v])=>SENSITIVE.has(v.class)).map(([k])=>k.split('(')[0])])
@@ -25,6 +26,7 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
     const rel=relative(srcRoot,file)
     if(/^(app\/admin|app\/api\/admin|lib\/admin|components\/admin|test)\//.test(rel)) continue
     const source=parse(file,fs.readFileSync(file,'utf8')), imported=new Set(), namespaces=new Set(), hits=[]
+    let callerClass=null
     const register=node=>{
       let owner=node
       while(owner.parent&&!ts.isFunctionDeclaration(owner)&&!(ts.isArrowFunction(owner)&&ts.isVariableDeclaration(owner.parent)))owner=owner.parent
@@ -33,9 +35,18 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       const printer=ts.createPrinter({removeComments:true})
       const context=source.statements.filter(n=>ts.isImportDeclaration(n)||ts.isExportDeclaration(n)||ts.isVariableStatement(n)).map(n=>printer.printNode(ts.EmitHint.Unspecified,n,source)).join('\n')
       const key=rel+'::'+name
-      functions.set(key,{key,file:rel,function:name,sha256:createHash('sha256').update(code+'\n'+context).digest('hex'),class:loader(rel)?.class??manifest.app_file_loaders?.[rel]?.class??manifest.app_json_imports?.[rel]?.class??manifest.app_api?.[rel.replace(/^app\/api\//,'').replace(/\/route\.ts$/,'')]?.class??null})
+      functions.set(key,{key,file:rel,function:name,sha256:createHash('sha256').update(code+'\n'+context).digest('hex'),class:loader(rel)?.class??manifest.app_file_loaders?.[rel]?.class??manifest.app_json_imports?.[rel]?.class??manifest.app_pages?.[rel.replace(/\/page\.tsx$/,'')]?.class??policy?.page_classifications?.[rel]?.class??manifest.app_api?.[rel.replace(/^app\/api\//,'').replace(/\/route\.ts$/,'')]?.class??callerClass})
     }
     visit(source,n=>{
+      if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&!n.importClause?.isTypeOnly&&n.importClause) {
+        const bindings=n.importClause.namedBindings
+        const values=!!n.importClause.name||!bindings||!ts.isNamedImports(bindings)||bindings.elements.some(e=>!e.isTypeOnly)
+        if(values){const module=ts.resolveModuleName(n.moduleSpecifier.text,file,{baseUrl:srcRoot,paths:{'@/*':['*']},moduleResolution:ts.ModuleResolutionKind.Bundler},ts.sys).resolvedModule
+          if(module){const target=relative(srcRoot,path.resolve(module.resolvedFileName)),classification=loader(target)?.class??manifest.app_file_loaders?.[target]?.class??manifest.app_json_imports?.[target]?.class
+            if(SENSITIVE.has(classification)){callerClass=classification;register(source)}
+          }
+        }
+      }
       if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&/(?:^|\/)embargo-gate$/.test(n.moduleSpecifier.text)&&!n.importClause?.isTypeOnly) {
         const bindings=n.importClause?.namedBindings
         if(bindings&&ts.isNamedImports(bindings)) for(const e of bindings.elements) if(!e.isTypeOnly&&GATE.has((e.propertyName??e.name).text)) imported.add(e.name.text)
@@ -60,6 +71,8 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       }
     })
     const route=rel.startsWith('app/api/csat/')&&rel.endsWith('/route.ts')
+    const page=rel.replace(/\/\([^/]+\)/g,'').startsWith('app/csat/')&&rel.endsWith('/page.tsx')
+    if(page){const classification=manifest.app_pages?.[rel.replace(/\/page\.tsx$/,'')]??policy?.page_classifications?.[rel];if(!classification)issues.push({file:rel,kind:'unclassified_page'});register(source)}
     if(route&&!manifest.app_api[rel.replace(/^app\/api\//,'').replace(/\/route\.ts$/,'')]) issues.push({file:rel,kind:'unclassified_route'})
     if(hits.length) {
       discovered.push({file:rel,surfaces:[...new Set(hits)]})
@@ -157,6 +170,14 @@ export function pagingLocations(text,file) {
   const out=[],source=parse(file,text)
   visit(source,n=>{if(ts.isCallExpression(n)&&ts.isPropertyAccessExpression(n.expression)&&n.expression.name.text==='range'&&n.arguments[0]&&!ts.isNumericLiteral(n.arguments[0]))out.push({file,line:source.getLineAndCharacterOfPosition(n.getStart(source)).line+1,key:file+'|'+n.getText(source).replace(/\s+/g,' ')})})
   return out
+}
+export function migrationCoverage(repo,baseRef,approved={}) {
+  const git=args=>{const r=spawnSync('git',args,{cwd:repo,encoding:'utf8'});if(r.status!==0)throw Error('Cannot discover migration changes');return r.stdout.trim().split(/\r?\n/).filter(Boolean)}
+  const files=[...new Set([...git(['diff','--name-only',baseRef,'HEAD','--','supabase/migrations']),...git(['diff','--name-only','HEAD','--','supabase/migrations']),...git(['ls-files','--others','--exclude-standard','supabase/migrations'])])]
+  const related=files.filter(file=>/\.sql$/.test(file)&&(!fs.existsSync(path.join(repo,file))||/csat_/i.test(fs.readFileSync(path.join(repo,file),'utf8'))))
+  const checked=[...new Set([...related,...Object.keys(approved)])]
+  const issues=checked.flatMap(file=>{if(!/^supabase\/migrations\/\d+_[^/]+\.sql$/.test(file)||!fs.existsSync(path.join(repo,file)))return[{file,reason:'related_migration_deleted_or_invalid'}];const hash=createHash('sha256').update(fs.readFileSync(path.join(repo,file))).digest('hex');return approved[file]?.sha256===hash&&approved[file]?.review_basis?[]:[{file,reason:'related_migration_not_bound_to_executed_sql_suite'}]})
+  return{base_ref:baseRef,related,issues,policy:'New/changed CSAT SQL cannot be green until its exact hash is bound to a runner that applies and tests it.'}
 }
 export function pagingDiff(repo,baseRef,allowlist=[]) {
   const git=args=>{const r=spawnSync('git',args,{cwd:repo,encoding:'utf8',maxBuffer:128*1024*1024});if(r.status!==0)throw Error('Cannot read paging base revision');return r.stdout}
