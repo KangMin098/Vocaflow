@@ -43,11 +43,12 @@ export function validateProtocol(protocol) {
   if (selection?.schema !== 'frym-benchmark-selection/1' || selection.status !== 'sealed' || !Array.isArray(selection.selected_sample_ids) || unique(selection.selected_sample_ids) !== selection.selected_sample_ids.length || selection.selected_sample_ids.some(id => !isText(id)) || hash(selection) !== protocol.selection_manifest_hash) fail('SELECTION_MANIFEST_INVALID')
   if (!Array.isArray(protocol.grades) || protocol.grades.join('|') !== GRADES.join('|')) fail('GRADES_INVALID')
   const m = protocol.minimum
-  if (!Number.isInteger(m?.per_grade) || m.per_grade < 30 || !Number.isInteger(m.publishers) || m.publishers < 3 || !Number.isInteger(m.series_per_publisher) || m.series_per_publisher < 2 || !(m.max_publisher_share > 0 && m.max_publisher_share <= .4) || !(m.max_series_share > 0 && m.max_series_share <= .2) || !Number.isInteger(m.comparison_n) || m.comparison_n < 12) fail('MINIMUM_INVALID')
+  if (!Number.isInteger(m?.per_grade) || m.per_grade < 30 || !Number.isInteger(m.publishers) || m.publishers < 3 || !Number.isInteger(m.series_per_publisher) || m.series_per_publisher < 2 || !(m.max_publisher_share > 0 && m.max_publisher_share <= .4) || !(m.max_series_share > 0 && m.max_series_share <= .2) || !Number.isInteger(m.comparison_n) || m.comparison_n < 12 || !Number.isInteger(m.item_type_comparison_n) || m.item_type_comparison_n < 12) fail('MINIMUM_INVALID')
+  if (!Array.isArray(protocol.item_types) || protocol.item_types.length < 2 || protocol.item_types.some(type => !isText(type)) || unique(protocol.item_types) !== protocol.item_types.length) fail('ITEM_TYPES_INVALID')
   if (Object.keys(protocol.axes ?? {}).sort().join('|') !== [...AXES].sort().join('|') || hash(protocol.axes) !== protocol.codebook_hash) fail('AXES_INCOMPLETE')
   for (const axis of AXES) {
     const def = protocol.axes[axis]
-    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || def.levels.some(level => !isText(level)) || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
+    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || !Array.isArray(def.auxiliary_metrics) || def.auxiliary_metrics.some(metric => !isText(metric)) || unique(def.auxiliary_metrics) !== def.auxiliary_metrics.length || !isText(def.auxiliary_override_rule) || !(Number.isFinite(def.rater_agreement_floor) && def.rater_agreement_floor > 0 && def.rater_agreement_floor <= 1) || !isText(def.missing_priority) || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || def.levels.some(level => !isText(level)) || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
   }
   if (protocol.fit?.lower_quantile !== .1 || protocol.fit?.upper_quantile !== .9 || protocol.fit?.minimum_axes !== 7 || protocol.fit?.length_ratio_min !== .75 || protocol.fit?.length_ratio_max !== 1.25 || protocol.separation?.minimum_stable_axes !== 5 || protocol.separation?.minimum_matching_axes !== 3 || protocol.separation?.minimum_reference_ratio !== .5 || protocol.separation?.maximum_opposite_axes !== 1) fail('DECISION_RULES_INVALID')
   return hash(protocol)
@@ -66,15 +67,22 @@ export function screenSample(sample, protocol) {
   if (!isHex(sample?.analysis_hash) || !isHex(sample?.passage_hash) || !isHex(sample?.item_set_hash) || !isHex(sample?.scoring_key_hash)) reasons.push('INPUT_HASH_MISSING')
   else if (sample.analysis_hash !== sampleAnalysisHash(sample)) reasons.push('ANALYSIS_HASH_MISMATCH')
   if (!Number.isInteger(sample?.word_count) || sample.word_count < 1 || !Number.isInteger(sample?.item_count) || sample.item_count < 1) reasons.push('PASSAGE_OR_ITEMS_MISSING')
+  if (!itemTypesValid(sample, protocol)) reasons.push('MISSING_ITEM_TYPE')
   if (sample?.codebook_hash !== protocol.codebook_hash || sample?.selection_manifest_hash !== protocol.selection_manifest_hash) reasons.push('PROTOCOL_INPUT_MISMATCH')
   if (!protocol.selection_manifest.selected_sample_ids.includes(sample?.sample_id)) reasons.push('NOT_SELECTED')
   for (const axis of AXES) {
     const value = sample?.metrics?.[axis]
     const def = protocol.axes[axis]
     if (!Number.isFinite(value) || (def.scale === 'ordinal' && (!Number.isInteger(value) || value < 0 || value >= def.levels.length))) reasons.push(`AXIS_MISSING:${axis}`)
+    if (!(Number.isFinite(sample?.axis_agreement?.[axis]) && sample.axis_agreement[axis] >= def.rater_agreement_floor && sample.axis_agreement[axis] <= 1)) reasons.push(`RATER_AGREEMENT_LOW:${axis}`)
     if (def.scale === 'ordinal' && !ordinalReviewValid(sample?.ordinal_reviews?.[axis], value, def.levels.length)) reasons.push(`ORDINAL_REVIEW_INVALID:${axis}`)
   }
   return [...new Set(reasons)]
+}
+
+function itemTypesValid(record, protocol) {
+  const counts = record?.item_type_counts, difficulty = record?.item_type_difficulty
+  return counts && difficulty && Object.keys(counts).every(type => protocol.item_types.includes(type)) && Object.keys(difficulty).every(type => protocol.item_types.includes(type)) && Object.values(counts).every(count => Number.isInteger(count) && count > 0) && Object.values(counts).reduce((sum, count) => sum + count, 0) === record.item_count && Object.keys(counts).every(type => Number.isFinite(difficulty[type]))
 }
 
 function ordinalReviewValid(review, value, levels) {
@@ -146,7 +154,7 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
   const { analysis_hash, ...f02Analysis } = f02 ?? {}
   if (f02?.codebook_hash !== protocol.codebook_hash || analysis_hash !== hash(f02Analysis) || !['middle_1', 'high_1'].every(grade => {
     const variant = f02?.variants?.[grade]
-    return variant && ['expository', 'argumentative', 'narrative'].includes(variant.genre) && Number.isInteger(variant.word_count) && variant.word_count > 0 && AXES.every(axis => {
+    return variant && ['expository', 'argumentative', 'narrative'].includes(variant.genre) && Number.isInteger(variant.word_count) && variant.word_count > 0 && itemTypesValid(variant, protocol) && AXES.every(axis => {
       const value = variant.metrics?.[axis], def = protocol.axes[axis]
       return Number.isFinite(value) && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length)))
     })
@@ -167,6 +175,19 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       const value = variant.metrics?.[axis]
       axes[axis] = Number.isFinite(value) ? { status: value >= dist.p10 && value <= dist.p90 ? 'pass' : 'fail', value, p10: dist.p10, p90: dist.p90 } : { status: 'inconclusive' }
     }
+    const itemTypes = {}
+    for (const type of Object.keys(variant.item_type_counts)) {
+      const typedRows = reference.filter(row => row.item_type_counts[type] > 0)
+      if (typedRows.length < protocol.minimum.item_type_comparison_n) itemTypes[type] = { status: 'inconclusive', reason: 'MISSING_ITEM_TYPE', n: typedRows.length }
+      else {
+        const dist = stats(typedRows.map(row => row.item_type_difficulty[type]))
+        const value = variant.item_type_difficulty[type]
+        itemTypes[type] = { status: value >= dist.p10 && value <= dist.p90 ? 'pass' : 'fail', n: typedRows.length, value, p10: dist.p10, p90: dist.p90 }
+      }
+    }
+    if (Object.values(itemTypes).some(result => result.status === 'inconclusive')) axes.item_difficulty = { status: 'inconclusive', reason: 'MISSING_ITEM_TYPE', types: itemTypes }
+    else if (Object.values(itemTypes).some(result => result.status === 'fail')) axes.item_difficulty = { status: 'fail', types: itemTypes }
+    else axes.item_difficulty = { ...axes.item_difficulty, types: itemTypes }
     const core = [...REQUIRED_AXES].every(axis => axes[axis].status === 'pass')
     const pass = Object.values(axes).filter(result => result.status === 'pass').length
     results[grade] = { status: Object.values(axes).some(result => result.status === 'inconclusive') ? 'inconclusive' : core && pass >= protocol.fit.minimum_axes ? 'pass' : 'fail', n: reference.length, axes }

@@ -9,11 +9,12 @@ import { fileURLToPath } from 'node:url'
 import { AXES, GRADES, buildBenchmark, hash, judgeBenchmark, sampleAnalysisHash, screenSample, verifyDecision, verifySnapshot, workflowState } from './benchmark.mjs'
 
 const H = text => hash(text)
-const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture_score', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5 }]))
+const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture_score', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5, auxiliary_metrics: [], auxiliary_override_rule: 'none', rater_agreement_floor: .8, missing_priority: 'inconclusive' }]))
 const selection = { schema: 'frym-benchmark-selection/1', status: 'sealed', selected_sample_ids: GRADES.flatMap(grade => Array.from({ length: 30 }, (_, index) => `${grade}-${index}`)) }
 const protocol = () => ({
   schema: 'frym-benchmark/1', status: 'sealed', version: 'fixture-v1', codebook_hash: hash(axisDefs), selection_manifest: structuredClone(selection), selection_manifest_hash: hash(selection), grades: [...GRADES],
-  minimum: { per_grade: 30, publishers: 3, series_per_publisher: 2, max_publisher_share: .4, max_series_share: .2, comparison_n: 12 },
+  minimum: { per_grade: 30, publishers: 3, series_per_publisher: 2, max_publisher_share: .4, max_series_share: .2, comparison_n: 12, item_type_comparison_n: 12 },
+  item_types: ['literal', 'inference', 'structure'],
   axes: structuredClone(axisDefs),
   fit: { lower_quantile: .1, upper_quantile: .9, minimum_axes: 7, length_ratio_min: .75, length_ratio_max: 1.25 },
   separation: { minimum_stable_axes: 5, minimum_matching_axes: 3, minimum_reference_ratio: .5, maximum_opposite_axes: 1 },
@@ -22,12 +23,12 @@ const samples = (p = protocol()) => GRADES.flatMap(grade => Array.from({ length:
   const id = `${grade}-${index}`
   const base = (grade === 'high_1' ? 7 : grade === 'middle_1' ? 5 : 4) + (index % 5 - 2) * .1
   const slot = index % 10
-  const row = { sample_id: id, publisher: `publisher-${Math.floor(index / 10)}`, series: `series-${Math.floor(index / 5)}`, title: `title-${id}`, grade, edition: 'fixture-1', publication_year: 2026, difficulty_step: 'fixture-level', ISBN: `fixture-isbn-${id}`, passage_id: `passage-${id}`, page: '1', genre: slot < 4 ? 'expository' : slot < 8 ? 'argumentative' : 'narrative', source_method: 'fixture', rights_basis: 'authorized_local_analysis', analyzer_version: 'fixture-v1', evidence_locator: `fixture:${id}`, access_date: '2026-10-06', passage_hash: H(`passage-${id}`), item_set_hash: H(`items-${id}`), scoring_key_hash: H(`key-${id}`), word_count: slot < 4 ? 100 : slot < 8 ? 200 : 300, item_count: 3, codebook_hash: p.codebook_hash, selection_manifest_hash: p.selection_manifest_hash, metrics: Object.fromEntries(AXES.map(axis => [axis, base])) }
+  const row = { sample_id: id, publisher: `publisher-${Math.floor(index / 10)}`, series: `series-${Math.floor(index / 5)}`, title: `title-${id}`, grade, edition: 'fixture-1', publication_year: 2026, difficulty_step: 'fixture-level', ISBN: `fixture-isbn-${id}`, passage_id: `passage-${id}`, page: '1', genre: slot < 4 ? 'expository' : slot < 8 ? 'argumentative' : 'narrative', source_method: 'fixture', rights_basis: 'authorized_local_analysis', analyzer_version: 'fixture-v1', evidence_locator: `fixture:${id}`, access_date: '2026-10-06', passage_hash: H(`passage-${id}`), item_set_hash: H(`items-${id}`), scoring_key_hash: H(`key-${id}`), word_count: slot < 4 ? 100 : slot < 8 ? 200 : 300, item_count: 3, item_type_counts: { literal: 1, inference: 1, structure: 1 }, item_type_difficulty: { literal: base, inference: base, structure: base }, axis_agreement: Object.fromEntries(AXES.map(axis => [axis, 1])), codebook_hash: p.codebook_hash, selection_manifest_hash: p.selection_manifest_hash, metrics: Object.fromEntries(AXES.map(axis => [axis, base])) }
   return { ...row, analysis_hash: sampleAnalysisHash(row) }
 }))
 const resealRows = rows => { for (const row of rows) row.analysis_hash = sampleAnalysisHash(row); return rows }
 const reseal = value => { const { analysis_hash, ...body } = value; return { ...body, analysis_hash: hash(body) } }
-const f02 = () => reseal({ codebook_hash: hash(axisDefs), source_freeze_sha256: H('freeze'), item_set_hash: H('f02-items'), scoring_key_hash: H('f02-key'), variants: Object.fromEntries(['middle_1', 'high_1'].map((grade, i) => [grade, { passage_hash: H(`f02-${grade}`), genre: 'expository', word_count: 100, metrics: Object.fromEntries(AXES.map(axis => [axis, i ? 7 : 5])) }])) })
+const f02 = () => reseal({ codebook_hash: hash(axisDefs), source_freeze_sha256: H('freeze'), item_set_hash: H('f02-items'), scoring_key_hash: H('f02-key'), variants: Object.fromEntries(['middle_1', 'high_1'].map((grade, i) => [grade, { passage_hash: H(`f02-${grade}`), genre: 'expository', word_count: 100, item_count: 3, item_type_counts: { literal: 1, inference: 1, structure: 1 }, item_type_difficulty: { literal: i ? 7 : 5, inference: i ? 7 : 5, structure: i ? 7 : 5 }, metrics: Object.fromEntries(AXES.map(axis => [axis, i ? 7 : 5])) }])) })
 const e3 = (f = f02()) => ({ status: 'verified', valid_n: 28, run_id: 'fixture-run', evidence_hash: H('fixture-e3-audit-files'), seal: { source_freeze_sha256: f.source_freeze_sha256, item_set_hash: f.item_set_hash, scoring_key_hash: f.scoring_key_hash, passage_hash: Object.fromEntries(Object.entries(f.variants).map(([grade, variant]) => [grade, variant.passage_hash])) } })
 const judge = (p = protocol(), rows = samples(p), f = f02(), evidence = e3(f)) => judgeBenchmark({ protocol: p, snapshot: buildBenchmark(p, rows), samples: rows, f02: f, e3: evidence })
 
@@ -126,7 +127,7 @@ test('selection manifest prevents unselected samples and mutation', () => {
 
 test('ordinal discourse uses ordered anchors rather than a ratio threshold', () => {
   const p = protocol(), rows = samples(p), f = f02()
-  p.axes.discourse = { metric: 'discourse_anchor', scale: 'ordinal', unit: 'anchor', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: 1, minimum_meaningful_delta: 1, levels: ['low', 'medium', 'high'] }
+  p.axes.discourse = { ...p.axes.discourse, metric: 'discourse_anchor', scale: 'ordinal', unit: 'anchor', resolution: 1, minimum_meaningful_delta: 1, levels: ['low', 'medium', 'high'] }
   p.codebook_hash = hash(p.axes)
   for (const row of rows) row.codebook_hash = p.codebook_hash
   for (const row of rows) row.metrics.discourse = row.grade === 'high_1' ? 2 : 1
@@ -198,7 +199,7 @@ test('changed analysis inputs or measurements invalidate the analysis seal', () 
 
 test('ordinal measurements require two independent matching reviews or adjudication', () => {
   const p = protocol(), rows = samples(p)
-  p.axes.discourse = { metric: 'discourse_anchor', scale: 'ordinal', unit: 'anchor', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: 1, minimum_meaningful_delta: 1, levels: ['low', 'medium', 'high'] }
+  p.axes.discourse = { ...p.axes.discourse, metric: 'discourse_anchor', scale: 'ordinal', unit: 'anchor', resolution: 1, minimum_meaningful_delta: 1, levels: ['low', 'medium', 'high'] }
   p.codebook_hash = hash(p.axes)
   for (const row of rows) { row.codebook_hash = p.codebook_hash; row.metrics.discourse = 1 }
   resealRows(rows)
@@ -320,4 +321,29 @@ test('ordinal anchors require nonempty text', () => {
   p.axes.discourse = { ...p.axes.discourse, scale: 'ordinal', resolution: 1, minimum_meaningful_delta: 1, levels: [null, false] }
   p.codebook_hash = hash(p.axes)
   assert.throws(() => buildBenchmark(p, []), /AXIS_DEFINITION_INVALID/)
+})
+
+test('codebook cannot seal without auxiliary and agreement rules', () => {
+  const p = protocol()
+  delete p.axes.lexical.auxiliary_override_rule
+  p.codebook_hash = hash(p.axes)
+  assert.throws(() => buildBenchmark(p, []), /AXIS_DEFINITION_INVALID/)
+  p.axes.lexical.auxiliary_override_rule = 'none'
+  p.axes.lexical.rater_agreement_floor = 1.2
+  p.codebook_hash = hash(p.axes)
+  assert.throws(() => buildBenchmark(p, []), /AXIS_DEFINITION_INVALID/)
+})
+
+test('missing comparable item type blocks fit even with a passing aggregate', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const row of rows.filter(row => row.grade === 'middle_1')) {
+    row.item_count = 2
+    delete row.item_type_counts.inference
+    delete row.item_type_difficulty.inference
+  }
+  resealRows(rows)
+  const result = judge(p, rows, f)
+  assert.equal(result.target_fit.middle_1.status, 'inconclusive')
+  assert.equal(result.target_fit.middle_1.axes.item_difficulty.reason, 'MISSING_ITEM_TYPE')
+  assert.equal(result.gold_s_candidate, false)
 })
