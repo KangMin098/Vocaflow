@@ -19,6 +19,8 @@ import path from 'node:path'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import { verifiedDbConfig } from './tls-config.mjs'
+import { watchLiveDb } from './live-db-watch.mjs'
+import { graphQLScope,graphQLResponse } from './graphql-probe.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const REPO = path.resolve(HERE, '../../..')
@@ -42,8 +44,9 @@ const NOS = [18, 19, 20, 21, 22]
 const results = []
 const record = (area, name, ok, detail) => { results.push({ area, name, ok: !!ok, ...(detail === undefined ? {} : { detail }) }); console.log(`${ok ? 'PASS' : 'FAIL'}  [${area}] ${name}${!ok && detail !== undefined ? ` — ${JSON.stringify(detail).slice(0, 300)}` : ''}`) }
 const opt = { auth: { persistSession: false, autoRefreshToken: false } }
-const db = new pg.Client(verifiedDbConfig(DB_URL, process.env.SUPABASE_DB_CA_CERT))
+let db = new pg.Client({...verifiedDbConfig(DB_URL, process.env.SUPABASE_DB_CA_CERT),statement_timeout:20000,connectionTimeoutMillis:15000})
 await db.connect()
+const watch=watchLiveDb(db,detail=>record('실행','DB 연결 단절',false,detail))
 const svc = createClient(URL_, SERVICE, opt)
 const anonClient = createClient(URL_, ANON, opt)
 const users = {}
@@ -97,6 +100,7 @@ try {
   // 존재 확인을 먼저 — 있으면 지우지 않고 멈춘다. 소유는 각 insert 가 성공한 뒤에만 기록(실패 시 남의 것을 정리하지 않게)
   if ((await db.query(`select 1 from public.csat_exams where id = $1`, [EXAM])).rowCount) throw new Error(`${EXAM} 가 이미 있다 — 이전 검사 정리가 안 됐다(지우지 않고 멈춘다)`)
   if ((await db.query(`select 1 from public.csat_types where id = $1`, [TYPE])).rowCount) throw new Error(`${TYPE} 가 이미 있다 — 지우지 않고 멈춘다`)
+  if ((await db.query(`select 1 from public.csat_ec_capture_tombstone where exam_id=$1 and closed_at is null`,[EXAM])).rowCount) throw new Error('TEST 시험에 기존 활성 묘비가 있다 — 지우지 않고 멈춘다')
   await db.query(`insert into public.csat_types (id, name, section) values ($1, 'TEST canary 유형', '독해')`, [TYPE])
   owned.type = true
   await db.query(`insert into public.csat_exams (id, label, kind, year, month, exam_year, has_answer_key, organizer, grade) values ($1, 'TEST canary(Reveal Gate)', 'mock', 2099, 1, 2098, true, 'kice', 3)`, [EXAM])
@@ -154,9 +158,10 @@ try {
       record('canary', `${who} · ${rel}`, !leaks(rows) && answerLeak.length === 0, { rows: rows.length, testRows: testRows.length, answerLeak: answerLeak.length })
     }
     // GraphQL — 이 역할에게 노출된 csat 컬렉션을 introspection 으로 **자동** 수집해 모두 조회한다(이름을 손으로 고르지 않는다)
-    const gq = async (query) => fetch(`${URL_}/graphql/v1`, { method: 'POST', headers: { apikey: ANON, Authorization: `Bearer ${who === 'anon' ? ANON : users[who].token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query }) }).then((x) => x.json())
+    const gq = async (query) => {await new Promise(resolve=>setTimeout(resolve,250));return graphQLResponse(fetch,`${URL_}/graphql/v1`, { method: 'POST', headers: { apikey: ANON, Authorization: `Bearer ${who === 'anon' ? ANON : users[who].token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }) })}
     const intro = await gq(`{ __type(name: "Query") { fields { name type { name ofType { name } } } } }`)
+    if(!intro.errors&&!Array.isArray(intro.data?.__type?.fields))intro.errors=[{message:'GraphQL Query fields were not verified'}]
     if (intro.errors) record('canary', `${who} · GraphQL introspection — 검사 미실행`, false, intro.errors[0]?.message)
     const collections = (intro.data?.__type?.fields ?? []).filter((f) => /^csat.*Collection$/i.test(f.name))
     for (const col of collections) {
@@ -165,12 +170,13 @@ try {
       const nodeType = (await gq(`{ __type(name: "${typeName.replace(/Connection$/, '')}") { fields { name type { kind name ofType { kind name } } } } }`)).data?.__type
       const scalars = (nodeType?.fields ?? []).filter((f) => ['SCALAR', 'ENUM'].includes(f.type.kind) || ['SCALAR', 'ENUM'].includes(f.type.ofType?.kind)).map((f) => f.name)
       if (!scalars.length) { record('canary', `${who} · GraphQL ${col.name} — 필드 수집 실패(검사 미실행)`, false, conn.errors?.[0]?.message); continue }
-      const res = await gq(`{ ${col.name}(first: 1000) { edges { node { ${scalars.join(' ')} } } } }`)
+      const scope=graphQLScope(scalars,{exam:EXAM,itemIds:NOS.map(n=>`${EXAM}#${n}`),type:TYPE,sessionIds:Object.values(sid),userIds:[users.P.id,users.N.id]})
+      const res = await gq(`{ ${col.name}(${scope.args}) { edges { node { ${scalars.join(' ')} } } } }`)
       const nodes = (res.data?.[col.name]?.edges ?? []).map((e) => e.node)
       const sensitive = Object.values(manifest.db_relations).flatMap((v) => v.sensitive_columns ?? [])
       const tests = nodes.filter((n) => JSON.stringify(n).includes(EXAM))
       const hit = tests.filter((n) => Object.entries(n).some(([k, v]) => sensitive.some((s) => k.toLowerCase() === s.replace(/_/g, '').toLowerCase() || k === s) && v != null))
-      record('canary', `${who} · GraphQL ${col.name}`, !res.errors && !leaks(res) && hit.length === 0, { errors: res.errors?.[0]?.message, nodes: nodes.length, tests: tests.length, hit: hit.length })
+      record('canary', `${who} · GraphQL ${col.name}`, !res.errors && !leaks(res) && hit.length === 0, { errors: res.errors?.[0]?.message, nodes: nodes.length, tests: tests.length, hit: hit.length, scope:scope.targeted?'owned_fixture':'unseeded_metadata' })
     }
     record('canary', `${who} · GraphQL 노출 csat 컬렉션 ${collections.length}개 검사`, !intro.errors, collections.map((c) => c.name))
 
@@ -284,20 +290,24 @@ try {
 } catch (e) {
   record('실행', '예외', false, e.message)
 } finally {
-  try { if (users.ADM && users.P) await users.ADM.client.rpc('csat_ec_capture_close', { p_user: users.P.id, p_exam: EXAM, p_reason: `canary 검사 정리 ${CANARY}` }) } catch {}
-  for (const [actor,u] of Object.entries(users)) {
+  watch.stop()
+  if(watch.failed()){await db.end().catch(()=>{});db=new pg.Client({...verifiedDbConfig(DB_URL,process.env.SUPABASE_DB_CA_CERT),statement_timeout:20000,connectionTimeoutMillis:15000});db.on('error',()=>record('정리','DB 재연결 단절',false));await db.connect().catch(()=>record('정리','DB 재연결 실패',false))}
+  for(const [actor,u] of Object.entries(users).filter(([actor])=>actor!=='ADM'))if(users.ADM){try{const closed=await users.ADM.client.rpc('csat_ec_capture_close',{p_user:u.id,p_exam:EXAM,p_reason:`owned canary cleanup ${CANARY}`});record('정리',`TEST 계정 ${actor} 활성 수집 종료`,!closed.error)}catch{record('정리',`TEST 계정 ${actor} 활성 수집 종료`,false)}}
+  for (const [actor,u] of Object.entries(users).filter(([actor])=>actor!=='ADM')) {
     try { const result=await svc.auth.admin.deleteUser(u.id);record('정리',`TEST 계정 ${actor} 삭제`,!result.error,result.error?{code:result.error.code,status:result.error.status}:undefined) }
     catch { record('정리',`TEST 계정 ${actor} 삭제`,false,'transport failure') }
   }
+  if(owned.exam&&users.ADM){const tombstones=await db.query('select id,item_ids from public.csat_ec_capture_tombstone where exam_id=$1 and closed_at is null',[EXAM]).then(r=>r.rows).catch(()=>null);if(!tombstones)record('정리','TEST 묘비 조회 실패',false);else for(const t of tombstones){if(t.item_ids.some(id=>!id.startsWith(EXAM+'#'))){record('정리','TEST 묘비 소유 범위 불일치',false);continue}const closed=await users.ADM.client.rpc('csat_ec_close_tombstone',{p_id:t.id,p_reason:`owned canary cleanup ${CANARY}`}).catch(()=>null);record('정리','TEST 활성 묘비 관리자 종료',!!closed&&!closed.error)}}
+  if(users.ADM){const removed=await svc.auth.admin.deleteUser(users.ADM.id).catch(()=>null);record('정리','TEST 계정 ADM 삭제',!!removed&&!removed.error)}
   if (owned.type) await db.query(`delete from public.csat_type_reports where type_id = $1`, [TYPE]).catch(() => record('정리','TEST 유형 리포트 삭제',false))
   if (owned.exam) {
     await db.query(`delete from public.csat_dx_answer_key where exam_id = $1`, [EXAM]).catch(() => {})
     await db.query(`delete from public.csat_exams where id = $1`, [EXAM]).catch((e) => record('정리', 'TEST 시험 삭제', false, e.message))
   }
   if (owned.type) await db.query(`delete from public.csat_types where id = $1`, [TYPE]).catch(() => record('정리','TEST 유형 삭제',false))
-  const left = (await db.query(`select (select count(*) from public.csat_ec_capture_tombstone where exam_id = $1 and closed_at is null)::int t, (select count(*) from public.csat_items where exam_id = $1)::int i`, [EXAM])).rows[0]
-  record('정리', 'TEST 시험 · 활성 묘비 0', left.t === 0 && left.i === 0, left)
-  await db.end()
+  const left = await db.query(`select (select count(*) from public.csat_ec_capture_tombstone where exam_id = $1 and closed_at is null)::int t, (select count(*) from public.csat_items where exam_id = $1)::int i`, [EXAM]).then(r=>r.rows[0]).catch(()=>null)
+  record('정리', 'TEST 시험 · 활성 묘비 0', !!left&&left.t === 0 && left.i === 0, left)
+  await db.end().catch(()=>record('정리','DB 종료 실패',false))
   const fail = results.filter((r) => !r.ok)
   fs.writeFileSync(path.join(HERE, 'results-canary.json'), JSON.stringify({ ranAt: new Date().toISOString(), canary: CANARY, pass: results.length - fail.length, fail: fail.length, results }, null, 1) + '\n')
   console.log(`\n합계 PASS ${results.length - fail.length} · FAIL ${fail.length}`)

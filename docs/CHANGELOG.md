@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(csat): 실 DB 검증의 유휴 연결 단절·묘비 정리 복구, GraphQL TEST 키 범위와 실패 응답 판정 보강.
 - fix(csat): DB deployment 검증에서 live canary의 TLS 검증 예외 제거, URL SSL 옵션의 검증 설정 덮어쓰기 차단.
 - feat(csat): Reveal Gate verification command and CI: AST loader/function classification, client/bundle content mutations, real-route fault/oracle tests, paging base diff, isolated SQL transitions and explicit live DB deployment gates. Malformed RPC arrays fail closed; deployment checks never apply live SQL. See `docs/csat-learner/codebook/REVEAL_GATE_VERIFICATION.md`.
 - fix(csat): Reveal Gate G3 후속 — ec-pilot 수집 대상 정오 독립(봉인 대상) · trap-atlas 예시의 정답 민감 부분을 서버 전용 파일로(번들 검사 2종 0) · 관문 실패 = 423 + 로그 분리 · 공개 뒤 스냅샷 따라잡기(reveal-sync) · OFFSET 예산 207→208(canary 검사기, 분기점부터)

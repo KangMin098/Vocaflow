@@ -5,6 +5,7 @@ import path from 'node:path'
 import { randomUUID,createHash } from 'node:crypto'
 import pg from 'pg'
 import { verifiedDbConfig } from './tls-config.mjs'
+import { watchLiveDb } from './live-db-watch.mjs'
 export function validateLiveReceipt(receipt,previousHash,currentHash) {
   if(!receipt||!currentHash||currentHash===previousHash||!Array.isArray(receipt.results)||!receipt.results.length||receipt.pass!==receipt.results.length||receipt.fail!==0||receipt.results.some(r=>r.ok!==true))return{ok:false,reason:'stale_or_failed_canary'}
   if(receipt.results.some(r=>['canary','rpc','oracle','app','bundle','정리'].includes(r.area)&&/생략|미실행|미검사|수집 실패|fixture 없음/.test(r.name??'')))return{ok:false,reason:'required_live_check_skipped'}
@@ -40,6 +41,7 @@ export async function liveCanary(repo,env,app,run,{maxActive=3,runtimeVerified=f
   const label='reveal-verify-'+randomUUID(),file=path.join(repo,'scripts/csat/reveal-gate/results-canary.json')
   const hash=()=>fs.existsSync(file)?createHash('sha256').update(fs.readFileSync(file)).digest('hex'):null
   let before=false,result={ok:false,reason:'not_executed'}
+  const watch=watchLiveDb(client,()=>{result={ok:false,reason:'live_db_connection_lost'}})
   try{
     await client.connect()
     const active=Number((await client.query("select count(*) n from pg_stat_activity where state='active'")).rows[0].n)
@@ -49,10 +51,11 @@ export async function liveCanary(repo,env,app,run,{maxActive=3,runtimeVerified=f
     const previous=hash(),command=await run(process.execPath,['--tls-max-v1.2','scripts/csat/reveal-gate/canary-scan.mjs','--app',url.origin,'--bundle','apps/web/.next'])
     const current=hash(),receipt=current?JSON.parse(fs.readFileSync(file,'utf8')):null
     result={...validateLiveReceipt(receipt,previous,current),command,checkpoint_label:label}
-    if(!command.ok)result.ok=false
+    if(!command.ok||watch.failed())result.ok=false
   }catch(error){result={ok:false,reason:'live_canary_execution_error',failure_code:typeof error.code==='string'&&/^[A-Z0-9_]+$/.test(error.code)?error.code:null,checkpoint_label:label}}
   finally{
-    if(before){try{await client.query('select record_db_health_checkpoint($1,$2,$3)',[label,'after','Reveal Gate canary complete or failed; inspect fixture cleanup and checkpoint diff']);const diff=(await client.query('select * from db_health_checkpoint_diff($1)',[label])).rows;result.checkpoint_diff=diff;result.checkpoint_after_recorded=true;const issues=checkpointIssues(diff);if(issues.length){result.ok=false;result.reason='checkpoint_metrics_missing';result.checkpoint_issues=issues}}catch{result.ok=false;result.reason='checkpoint_after_failed'}}
+    watch.stop()
+    if(before){const afterClient=new pg.Client({...verifiedDbConfig(env.SUPABASE_DB_URL,env.SUPABASE_DB_CA_CERT),statement_timeout:20000});afterClient.on('error',()=>{result.ok=false;result.reason='checkpoint_after_connection_lost'});try{await afterClient.connect();await afterClient.query('select record_db_health_checkpoint($1,$2,$3)',[label,'after','Reveal Gate canary complete or failed; inspect fixture cleanup and checkpoint diff']);const diff=(await afterClient.query('select * from db_health_checkpoint_diff($1)',[label])).rows;result.checkpoint_diff=diff;result.checkpoint_after_recorded=true;const issues=checkpointIssues(diff);if(issues.length){result.ok=false;result.reason='checkpoint_metrics_missing';result.checkpoint_issues=issues}}catch{result.ok=false;result.reason='checkpoint_after_failed'}finally{await afterClient.end().catch(()=>{})}}
     await client.end().catch(()=>{})
   }
   return result

@@ -5,6 +5,29 @@ import { permissionDiff,dbPreflight,permanentPermissionIssues,directSelectDenied
 import { validateLiveReceipt,securityAdvisor,checkpointIssues } from '../live-verification.mjs'
 import pg from 'pg'
 import { verifiedDbConfig } from '../tls-config.mjs'
+import {EventEmitter} from 'node:events'
+import {watchLiveDb} from '../live-db-watch.mjs'
+import {graphQLScope,graphQLResponse} from '../graphql-probe.mjs'
+
+test('live DB disconnects and heartbeat failures remain captured through cleanup',async()=>{
+  const client=new EventEmitter(),failures=[];let tick,stopped=false
+  client.query=async()=>{throw Object.assign(new Error('test reset'),{code:'ECONNRESET'})}
+  const watch=watchLiveDb(client,x=>failures.push(x),{schedule:fn=>{tick=fn;return{}},cancel:()=>{stopped=true}})
+  tick();await new Promise(resolve=>setImmediate(resolve))
+  assert.equal(watch.failed(),true);assert.equal(failures.length,1)
+  client.emit('error',new Error('late disconnect'));assert.equal(failures.length,1)
+  watch.stop();assert.equal(stopped,true)
+})
+
+test('GraphQL targets owned fixture keys and never counts invalid transport as zero exposure',async()=>{
+  const context={exam:'M2099',itemIds:['M2099#18'],type:'TEST',sessionIds:['fixture'],userIds:['fixture']}
+  assert.ok(graphQLScope(['exam_id','answer'],context).args.includes('M2099'))
+  assert.ok(graphQLScope(['itemId','answer'],context).args.includes('M2099#18'))
+  assert.equal(graphQLScope(['name'],context).targeted,false)
+  for(const response of [new Response('<html>upstream unavailable</html>',{status:503}),new Response('{}'),new Response('[]')])assert.ok((await graphQLResponse(async()=>response,'https://example.test',{})).errors)
+  assert.ok((await graphQLResponse(async()=>{throw Error('reset')},'https://example.test',{})).errors)
+  assert.deepEqual(await graphQLResponse(async()=>new Response('{"data":{"ok":true}}'),'https://example.test',{}),{data:{ok:true}})
+})
 
 test('live PostgreSQL parsing cannot replace verified TLS with URL options',()=>{
   const client=new pg.Client(verifiedDbConfig('postgresql://test:test@localhost/test?sslmode=no-verify&sslrootcert=ignored&uselibpqcompat=true','test-only-ca'))
