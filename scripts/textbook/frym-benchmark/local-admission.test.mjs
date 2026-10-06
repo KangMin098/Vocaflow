@@ -83,6 +83,8 @@ test('malformed sample ID cannot carry text into the audit', t => {
   assert.equal(result.samples.length, 0)
   assert.equal(result.audit.results[0].sample_id, null)
   assert.ok(!JSON.stringify(result.audit).includes('Untrusted passage'))
+  candidate.metadata.sample_id = 'Untrusted passage with spaces'
+  assert.equal(prepareAdmission([candidate], protocol).audit.results[0].sample_id, null)
 })
 
 test('contradictory ordinal adjudication and path locator stay on hold', t => {

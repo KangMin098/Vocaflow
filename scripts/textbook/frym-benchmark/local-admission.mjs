@@ -6,6 +6,7 @@ import { AXES, sampleAnalysisHash, screenSample, validateProtocol, hash } from '
 
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 const present = value => typeof value === 'string' && value.trim().length > 0
+const opaqueId = value => typeof value === 'string' && /^[a-z0-9][a-z0-9:_-]{0,127}$/i.test(value)
 const HEX = /^[a-f0-9]{64}$/
 const METADATA_KEYS = ['sample_id', 'publisher', 'series', 'title', 'grade', 'edition', 'publication_year', 'difficulty_step', 'ISBN', 'publisher_id', 'canonical_url', 'passage_id', 'page', 'genre', 'rights_basis', 'access_date']
 const safeMetadata = metadata => Object.fromEntries(METADATA_KEYS.filter(key => key === 'publication_year' ? Number.isInteger(metadata[key]) : present(metadata[key])).map(key => [key, metadata[key]]))
@@ -49,7 +50,7 @@ export function identifyLocalFile(sourcePath) {
 }
 
 const audit = (candidate, file, status, reasons, stages) => ({
-  sample_id: present(candidate?.metadata?.sample_id) ? candidate.metadata.sample_id : null,
+  sample_id: opaqueId(candidate?.metadata?.sample_id) ? candidate.metadata.sample_id : null,
   source_path_hash: file?.source_path_hash ?? null,
   file_hash: file?.file_hash ?? null,
   format: file?.format ?? null,
