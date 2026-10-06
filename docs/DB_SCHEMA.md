@@ -1900,6 +1900,15 @@ RPC `csat_map_seed(jsonb)`(service_role 전용 · 한 트랜잭션 · advisory l
 
 outcome 허용값은 `csat_ec_outcomes(scope)` 단일 원천(+ `multiple_plausible` · `inconsistent_evidence`), claim role + `candidate`(AI 만), 과정 증거 kind + `interpretation` · `targeted_probe`(선택지 글자 · probe 판 · prompt_hash 만 — 원인 라벨 없음, attempt × probe 첫 응답 하나). 새 RPC: 학습자 `my_pending_probes`, service_role `add_detector_signal`, 관리자 5인자 `round_create`, 판정자 11인자 `submit_blind` · `submit_adjudication`(기존 8인자는 위임). 학습 지도 연결 없음. 되돌리기 `scripts/csat/error-evidence/rollback-pilot.sql`(경계 · 관찰 · 새 값 행이 있으면 거부 — 지금은 smoke 의 TEST 경계 2행 때문에 거부된다).
 
+**경계 감지기 G4([20261006120000](../supabase/migrations/20261006120000_csat_ec_boundary_detector.sql) — 초안 · 개발 DB 미적용)** — 설계 [BOUNDARY_DETECTOR_DESIGN](./csat-learner/codebook/BOUNDARY_DETECTOR_DESIGN.md). 과정 증거 AFTER INSERT 트리거(`targeted_probe` 제외)가 같은 트랜잭션에서 `csat_ec_detect_boundaries`(감지기 `bd-0.1.0`)를 부른다. 입력은 capture 상태 · 봉인 대상 · `config.probes` · 봉인 taxonomy 의 provisional 경계 · `csat_ec_code.student_group` · 유효 과정 증거뿐(정오 · 정답 · 문항 · 판정 · AI 표를 읽지 않는다). 해석 answered + 범주 ∈ 경계 범주 → `boundary`, 범주 없음 · unsure → `insufficient_evidence`(자유서술 예외는 경계 `provenance.detector.free_text_patterns` 가 있을 때만 — v0.1 에는 없다). 경계가 사라지면 `csat_ec_boundary_signal_retraction` 한 줄(미응답 `cancelled` · 응답 뒤 `obsolete`), 다시 생기면 새 신호.
+
+| 객체 | 용도 | 직접 접근 |
+|---|---|---|
+| `csat_ec_detector_run` | 감지 실행 기록(result · 경계 · 입력 증거 id · probe 경계) — 직전과 같은 상태면 행을 만들지 않는다 · 덧붙이기만 | 없음(RLS · 권한 0) |
+| `csat_ec_boundary_signal_retraction` | detector 신호의 취소(`cancelled`) · 낡음(`obsolete`) — 신호 행은 고치지 않는다 · 덧붙이기만 | 없음(RLS · 권한 0) |
+
+함수: `csat_ec_detect_boundaries`(OWNER_ONLY) · `csat_ec_process_evidence_detect`(TRIGGER_ONLY) · `csat_ec_detect_boundaries_rerun`(SERVICE_ONLY · collecting 만). 수정: `csat_ec_my_pending_probes` 는 detector 출처 · 취소 안 된 신호 · 끝나지 않은 수집만, `csat_ec_add_process_evidence` 의 probe 응답은 활성 detector 신호가 요구한 것만. 신호 표에 `csat_ec_capture_write_guard`(detector 출처 · 완료/종료 뒤 거부). 되돌리기 `scripts/db/rollback-20261006120000.sql`(실행 기록이 있으면 거부).
+
  — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
 
 PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 행**이었다 — 어휘 권을 담으면

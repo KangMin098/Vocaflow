@@ -12,6 +12,7 @@ import { keysetSelect } from '@/lib/supabase/keyset-select'
 
 import { embargoedExamIds, embargoedItemIds, examRevealDecision } from '../embargo-gate'
 import { EC_PILOT } from '../ec-pilot/config'
+import { captureProbeConfig } from '../ec-pilot/probes'
 import { isContentEligible } from '../ec-pilot/targets'
 import { mapEvidenceFor } from '../map/evidence'
 import { recordQuality } from './engine/record-quality'
@@ -376,7 +377,7 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date):
   const { data: saved0, error } = await db.rpc('csat_ec_record_session_held', {
     p_participant: sub.participant === true,
     p_taxonomy: EC_PILOT.taxonomyVersion,
-    p_config: { probe_cap: EC_PILOT.probeCapPerSession, correct_controls: EC_PILOT.correctControls, entered_by: sub.enteredBy },
+    p_config: { probe_cap: EC_PILOT.probeCapPerSession, correct_controls: EC_PILOT.correctControls, entered_by: sub.enteredBy, probes: captureProbeConfig() },
     p_targets: targets,
     p_evidence_eligible: evidenceEligible,
     p_session: {

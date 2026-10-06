@@ -48,3 +48,11 @@ node rollback.mjs     # 새 클러스터에서 rollback 실행 검증 → result
 | `t_delete.mjs` | 삭제 경계(학습자 기록 · 계정 · 판정자 · 관리자) |
 | `rollback.mjs` | rollback 실행 · 객체 실제 개수 |
 | `results*.json` | 마지막 실행 결과(2026-10-03) |
+
+## G4 경계 감지기(20261006120000)
+
+| 파일 | 내용 |
+|---|---|
+| `run-detector.mjs` | 원래 · Pilot · 수집 · Reveal Gate ①②②b → G2 기본 권한 한 줄 → 감지기 적용 → 기존 테스트 전부(감지 트리거가 켜진 회귀) + `t_detector` → `results-detector.json` |
+| `t_detector.mjs` | 경계 충족 · 증거 부족(범주 없음 · unsure · 해석 unknown) · 멱등 · 정정 재평가(cancelled · obsolete · 재출현) · 여러 경계 probe 하나 · 정답/오답 P·N 쌍 동일 · AI/판정 출처 대기 제외 · 수집 종료 뒤 거부 · 데이터 구동(다른 키) · 자유서술 슬롯 · 권한 · 본문 정적 검사 · 판정/숙달 쓰기 0 |
+| `rollback-detector.mjs` | 감지기 rollback — 실행 기록 있으면 거부, 지운 뒤 rollback = 적용 전 스키마, 다시 적용 → `results-rollback-detector.json` |

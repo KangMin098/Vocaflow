@@ -1,0 +1,58 @@
+{
+ "ranAt": "2026-10-06T07:49:11.362Z",
+ "committed": false,
+ "pass": 10,
+ "fail": 0,
+ "out": [
+  {
+   "name": "감지기 마이그레이션 적용(트랜잭션 안)",
+   "pass": true,
+   "detail": "{\"caps\":\"0\",\"sigs\":\"0\",\"j\":\"0\",\"cl\":\"0\",\"m\":\"2\",\"sn\":\"2\"}"
+  },
+  {
+   "name": "함수 권한 정책 가드(check-function-exec) — 미분류 · 권한 · 본문 위반 0",
+   "pass": true,
+   "detail": "함수 407"
+  },
+  {
+   "name": "v0.1 경계 충족(flow) → 신호 1 · probe 필요 · 대기 probe 1",
+   "pass": true,
+   "detail": "{\"runs\":[{\"item_no\":23,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":23,\"result\":\"boundary\",\"boundary_keys\":[\"r.inference__v.wrong_sense\"],\"probe_boundary_key\":\"r.inference__v.wrong_sense\"},{\"item_no\":24,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":25,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":25,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":26,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":26,\"result\":\"no_boundary\",\"boundary_keys\":[],\"probe_boundary_key\":null}],\"sigs\":[{\"item_no\":23,\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_required\":true,\"reason\":null}],\"pend\":[{\"item_no\":23,\"probe_key\":\"r6_derivation_probe\"}]}"
+  },
+  {
+   "name": "범주 없음 · unsure → insufficient_evidence · 범주 경계 밖 → no_boundary · 신호 0",
+   "pass": true,
+   "detail": "[{\"item_no\":23,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":23,\"result\":\"boundary\",\"boundary_keys\":[\"r.inference__v.wrong_sense\"],\"probe_boundary_key\":\"r.inference__v.wrong_sense\"},{\"item_no\":24,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":25,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":25,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":26,\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null},{\"item_no\":26,\"result\":\"no_boundary\",\"boundary_keys\":[],\"probe_boundary_key\":null}]"
+  },
+  {
+   "name": "정정으로 경계 소멸 · 미응답 → 신호 cancelled · 대기 0",
+   "pass": true,
+   "detail": "[{\"item_no\":23,\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_required\":true,\"reason\":\"cancelled\"}]"
+  },
+  {
+   "name": "정답 attempt · 오답 attempt — 결과 · 신호 · 대기 · 오류 동일(오라클 0)",
+   "pass": true,
+   "detail": "{\"errs\":[\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\"],\"same\":true}"
+  },
+  {
+   "name": "rerun 2회 — 같은 결과 · 실행 기록 · 신호 행 그대로",
+   "pass": true,
+   "detail": "[\"no_boundary\",8,8]"
+  },
+  {
+   "name": "학습자 — 감지 함수 · rerun 호출 불가 · 실행 기록 조회 불가",
+   "pass": true,
+   "detail": "[\"permission denied for function csat_ec_detect_boundaries\",\"permission denied for function csat_ec_detect_boundaries_rerun\",\"permission denied for table csat_ec_detector_run\"]"
+  },
+  {
+   "name": "판정 · claim · 학습 상태 · 스냅샷 행 수 불변",
+   "pass": true,
+   "detail": "{\"live\":{\"caps\":\"0\",\"sigs\":\"0\",\"j\":\"0\",\"cl\":\"0\",\"m\":\"2\",\"sn\":\"2\"},\"live2\":{\"j\":\"0\",\"cl\":\"0\",\"m\":\"2\",\"sn\":\"2\"}}"
+  },
+  {
+   "name": "롤백 SQL — 두 함수 정의 · 권한 정확 복원 · 새 객체 0",
+   "pass": true,
+   "detail": "{\"fa\":[{\"sig\":\"csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid)\",\"h\":\"5443802e3584a17b30a05d3bb4aaa90d\",\"acl\":\"authenticated=X/postgres,postgres=X/postgres\"},{\"sig\":\"csat_ec_my_pending_probes(uuid)\",\"h\":\"2971cadc88120856541a5d6bc1c2cd5f\",\"acl\":\"authenticated=X/postgres,postgres=X/postgres\"}],\"gone\":{\"a\":null,\"b\":null,\"f\":\"0\",\"t\":\"0\"}}"
+  }
+ ]
+}

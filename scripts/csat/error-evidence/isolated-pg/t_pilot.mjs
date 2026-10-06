@@ -166,6 +166,9 @@ export default async function pilot(admin, ctx) {
   record('pilot', '판정은 덮어쓰지 않는다(UPDATE 거부)', !jUpd.ok, jUpd.err)
   // 학습 지도와 연결 없음 — 경계 · 판정 표에 트리거로 다른 표를 바꾸는 경로가 없다
   const trg = (await admin.query(`select tgname from pg_trigger where not tgisinternal and tgrelid in ('public.csat_ec_boundary'::regclass, 'public.csat_ec_boundary_signal'::regclass)`)).rows.map((r) => r.tgname).sort()
-  record('pilot', '새 표의 트리거는 가드뿐(다른 표 · 학습 지도 갱신 없음)', JSON.stringify(trg) === JSON.stringify(['csat_ec_boundary_guard', 'csat_ec_boundary_signal_guard', 'csat_ec_boundary_signal_no_update']), trg)
+  // 감지기(20261006120000)가 적용됐으면 신호 표에 수집 종료 가드(거부만 하는 트리거)가 하나 더 있다
+  const detector = (await admin.query(`select to_regclass('public.csat_ec_detector_run') is not null d`)).rows[0].d
+  const want = ['csat_ec_boundary_guard', 'csat_ec_boundary_signal_guard', 'csat_ec_boundary_signal_no_update', ...(detector ? ['csat_ec_capture_write_guard'] : [])].sort()
+  record('pilot', '새 표의 트리거는 가드뿐(다른 표 · 학습 지도 갱신 없음)', JSON.stringify(trg) === JSON.stringify(want), trg)
   ctx.pilotRounds = { pre: pre.id, post: post.id }
 }
