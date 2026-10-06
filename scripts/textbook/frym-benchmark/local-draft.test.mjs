@@ -3,8 +3,9 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { join, dirname, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
 import { identifyLocalFile } from './local-admission.mjs'
 import { draftLocalCandidates } from './local-draft.mjs'
 
@@ -40,6 +41,10 @@ test('stale extractor source, chunk pages and duplicate page IDs fail closed', t
   assert.throws(() => draftLocalCandidates(source, { ...meta, sourceHash: 'stale' }, pages), /EXTRACTION_SOURCE_CHANGED/)
   assert.throws(() => draftLocalCandidates(source, { ...meta, pageKind: 'chunk' }, pages), /EXTRACTION_NOT_PAGE_BOUND/)
   assert.throws(() => draftLocalCandidates(source, meta, pages + pages), /EXTRACTION_PAGES_INVALID/)
+  assert.throws(() => draftLocalCandidates(source, { ...meta, method: 'ocr', ocr_used: false }, pages), /OCR_MODE_CONFLICT/)
+  const reviewedOcr = draftLocalCandidates(source, { ...meta, method: 'ocr', ocr_used: true }, pages)
+  assert.equal(reviewedOcr.candidates[0].extraction.method, 'ocr')
+  assert.equal(reviewedOcr.candidates[0].extraction.ocr_used, true)
 })
 
 test('draft CLI writes raw review material only outside repository and never overwrites', t => {
@@ -54,4 +59,23 @@ test('draft CLI writes raw review material only outside repository and never ove
   assert.equal(first.status, 0, first.stderr)
   assert.equal(JSON.parse(readFileSync(outputPath, 'utf8')).length, 1)
   assert.equal(spawnSync(process.execPath, args).status, 1)
+})
+
+test('draft CLI rejects a repository directory whose name begins with two dots', t => {
+  const { directory, source, meta, pages } = fixture()
+  const root = resolve(fileURLToPath(new URL('../../../', import.meta.url)))
+  const inside = mkdtempSync(join(root, '..raw-'))
+  t.after(() => {
+    rmSync(directory, { recursive: true, force: true })
+    assert.equal(dirname(inside), root)
+    rmSync(inside, { recursive: true, force: true })
+  })
+  const metaPath = join(directory, 'meta.json'), pagesPath = join(directory, 'pages.jsonl'), hintsPath = join(directory, 'hints.json')
+  writeFileSync(metaPath, JSON.stringify(meta))
+  writeFileSync(pagesPath, pages)
+  writeFileSync(hintsPath, '{}')
+  const output = join(inside, 'candidates.json')
+  const run = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/local-draft-run.mjs', 'draft', source, metaPath, pagesPath, hintsPath, output], { encoding: 'utf8' })
+  assert.equal(run.status, 1)
+  assert.match(run.stderr, /RAW_CANDIDATES_MUST_STAY_OUTSIDE_REPOSITORY/)
 })

@@ -7,7 +7,7 @@ import { AXES, sampleAnalysisHash, screenSample, validateProtocol, hash } from '
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 const present = value => typeof value === 'string' && value.trim().length > 0
 const opaqueId = value => typeof value === 'string' && /^[a-z0-9][a-z0-9:_-]{0,127}$/i.test(value)
-const DIGITAL_TEXT_METHODS = new Set(['fixture', 'pdftotext', 'html_text', 'plain_text', 'hwp_text', 'epub_text', 'docx_text'])
+export const DIGITAL_TEXT_METHODS = new Set(['fixture', 'pdftotext', 'html_text', 'plain_text', 'hwp_text', 'epub_text', 'docx_text'])
 const HEX = /^[a-f0-9]{64}$/
 const METADATA_KEYS = ['sample_id', 'publisher', 'series', 'title', 'grade', 'edition', 'publication_year', 'difficulty_step', 'ISBN', 'publisher_id', 'canonical_url', 'passage_id', 'page', 'genre', 'rights_basis', 'access_date']
 const safeMetadata = metadata => Object.fromEntries(METADATA_KEYS.filter(key => key === 'publication_year' ? Number.isInteger(metadata[key]) : present(metadata[key])).map(key => [key, metadata[key]]))

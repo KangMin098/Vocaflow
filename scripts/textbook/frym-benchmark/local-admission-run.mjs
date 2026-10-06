@@ -1,6 +1,6 @@
 // scripts/textbook/frym-benchmark/local-admission-run.mjs
 import { existsSync, readFileSync, writeFileSync, unlinkSync, realpathSync } from 'node:fs'
-import { dirname, isAbsolute, relative, resolve } from 'node:path'
+import { dirname, isAbsolute, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { prepareAdmission } from './local-admission.mjs'
 
@@ -12,7 +12,7 @@ if (command !== 'prepare' || !protocolPath || !candidatesPath || !samplesPath ||
   try {
     const root = fileURLToPath(new URL('../../../', import.meta.url))
     const inputLocation = relative(root, realpathSync(dirname(resolve(candidatesPath))))
-    if (!inputLocation.startsWith('..') && !isAbsolute(inputLocation)) throw Error('RAW_CANDIDATES_MUST_STAY_OUTSIDE_REPOSITORY')
+    if (inputLocation !== '..' && !inputLocation.startsWith(`..${sep}`) && !isAbsolute(inputLocation)) throw Error('RAW_CANDIDATES_MUST_STAY_OUTSIDE_REPOSITORY')
     if (existsSync(samplesPath) || existsSync(auditPath)) throw Error('OUTPUT_EXISTS')
     const protocol = JSON.parse(readFileSync(protocolPath, 'utf8'))
     const candidates = JSON.parse(readFileSync(candidatesPath, 'utf8'))

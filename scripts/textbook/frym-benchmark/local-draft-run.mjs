@@ -1,6 +1,6 @@
 // scripts/textbook/frym-benchmark/local-draft-run.mjs
 import { existsSync, realpathSync, writeFileSync } from 'node:fs'
-import { dirname, relative, isAbsolute, resolve } from 'node:path'
+import { dirname, relative, isAbsolute, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { draftLocalCandidates, readLocalDraftInputs } from './local-draft.mjs'
 
@@ -13,7 +13,7 @@ if (command !== 'draft' || !sourcePath || !metaPath || !pagesPath || !hintsPath 
     const root = fileURLToPath(new URL('../../../', import.meta.url))
     const parent = realpathSync(dirname(resolve(outputPath)))
     const location = relative(root, parent)
-    if (!location.startsWith('..') && !isAbsolute(location)) throw Error('RAW_CANDIDATES_MUST_STAY_OUTSIDE_REPOSITORY')
+    if (location !== '..' && !location.startsWith(`..${sep}`) && !isAbsolute(location)) throw Error('RAW_CANDIDATES_MUST_STAY_OUTSIDE_REPOSITORY')
     if (existsSync(outputPath)) throw Error('OUTPUT_EXISTS')
     const inputs = readLocalDraftInputs(metaPath, pagesPath, hintsPath)
     const result = draftLocalCandidates(sourcePath, inputs.extractorMeta, inputs.pagesJsonl, inputs.metadataHints)
