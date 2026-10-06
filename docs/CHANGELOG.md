@@ -13,6 +13,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- design(illo): 학습 화면 히어로 그림 `LearningPathArt`(서가 Books · 진단 · 대시보드 · 진단 기록 · 계획 · 리포트 · Flashcard)를 손그림 SVG(구름 · 별 · 점선 궤적 — 사용자 지적 「유아틱」)에서 Tines 개념 삽화 `path-*.webp` 5장으로 교체. 화풍 `STYLE_CONCEPT`(개념 은유 · 짙은 윤곽 · 파스텔 평면 · 구름 · 반짝이 · 스티커 테두리 금지) 추가, 네 변 페이드 마스크로 잘린 끝을 감춘다.
+
 - design(illo): Tines 기준(평면 · 그라디언트 0 · 팔레트 안 색)에 못 미치던 삽화 5장을 Kaggle T4 무료 경로로 다시 그렸다 — spot-locked · spot-empty-shelf · tile-pairflip(격자 → 물건 하나) · tile-books · tile-video. `illo-kaggle.mjs --quality`(Lightning 끄고 20스텝 · cfg 4 — 부정 프롬프트가 먹는다) 추가, 장면 문장의 재질 낱말(brass · wooden · red apple)을 팔레트 색으로. 후보 12장 중 회색 바닥 그림자 · 바탕 패널 · 안쪽 액자가 남은 7장은 원본 유지.
 
 - fix(textbook): F02 합성 smoke의 공급자 원출력 28쌍을 별도 번들로 보존하고 응답·채점 행과 바이트 해시·내용을 재검증한다. 전건 실패 시 이전 응답이 남지 않도록 실행 상태를 먼저 초기화하고 Windows 실행기 회귀를 플랫폼별로 제한했다.
