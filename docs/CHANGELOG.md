@@ -13,6 +13,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- design(illo): 히어로 양옆 판 6장(허브 · My Library · 연습 모듈)을 STYLE_CONCEPT 로 재생성 — 구름 · 반짝이 · 점선 궤적 → 책 위 계단과 아치 · 기하 탑 · 톱니 컨베이어 · 타일 프레스 · 조명 아래 보석 받침 · 나선 경로. 오른쪽 판은 `hero-tower.webp` 로 새 이름(같은 이름이면 이미지 최적화 캐시가 옛 그림을 계속 내준다).
+
 - design(illo): 학습 화면 히어로 그림 `LearningPathArt`(서가 Books · 진단 · 대시보드 · 진단 기록 · 계획 · 리포트 · Flashcard)를 손그림 SVG(구름 · 별 · 점선 궤적 — 사용자 지적 「유아틱」)에서 Tines 개념 삽화 `path-*.webp` 5장으로 교체. 화풍 `STYLE_CONCEPT`(개념 은유 · 짙은 윤곽 · 파스텔 평면 · 구름 · 반짝이 · 스티커 테두리 금지) 추가, 네 변 페이드 마스크로 잘린 끝을 감춘다.
 
 - design(illo): Tines 기준(평면 · 그라디언트 0 · 팔레트 안 색)에 못 미치던 삽화 5장을 Kaggle T4 무료 경로로 다시 그렸다 — spot-locked · spot-empty-shelf · tile-pairflip(격자 → 물건 하나) · tile-books · tile-video. `illo-kaggle.mjs --quality`(Lightning 끄고 20스텝 · cfg 4 — 부정 프롬프트가 먹는다) 추가, 장면 문장의 재질 낱말(brass · wooden · red apple)을 팔레트 색으로. 후보 12장 중 회색 바닥 그림자 · 바탕 패널 · 안쪽 액자가 남은 7장은 원본 유지.

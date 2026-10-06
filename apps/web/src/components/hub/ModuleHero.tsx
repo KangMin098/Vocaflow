@@ -23,7 +23,7 @@ const FLANKS: Record<string, [string, string]> = {
   SpellForge: ['practice-iso-left', 'practice-iso-right'],
   PairFlip: ['practice-iso-right', 'practice-iso-left'],
   WordBlitz: ['practice-iso-left', 'practice-iso-right'],
-  'My Library': ['hero-iso-left', 'hero-iso-right'],
+  'My Library': ['hero-iso-left', 'hero-tower'],
 }
 
 export interface HeroStat {

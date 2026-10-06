@@ -41,7 +41,7 @@ export function HeroFlanks() {
         style={{ '--float-dur': '7s', '--float-y': '4%' } as CSSProperties}
       />
       <Image
-        src={`${ILLO}/hero-iso-right.webp`}
+        src={`${ILLO}/hero-tower.webp`}
         alt=""
         width={1328}
         height={1328}

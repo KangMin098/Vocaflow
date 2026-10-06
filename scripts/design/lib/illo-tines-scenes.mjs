@@ -43,7 +43,7 @@ export const SCENES = [
     scene: 'A wide low mound of densely packed flowers running along the bottom edge of the frame like a flower bed; the upper half of the image is completely empty plain background.' },
   // 허브 히어로 양옆(참조 솔루션 페이지의 떠 있는 아이소메트릭 판 한 쌍) — 2026-10-04
   { id: 'hero-iso-left', size: '1328*1328', style: STYLE_CONCEPT, scene: 'An open book lying flat whose pages rise into a short staircase of pastel geometric blocks that leads up to a tall arched doorway standing on the right page.' },
-  { id: 'hero-iso-right', size: '1328*1328', style: STYLE_CONCEPT, scene: 'A slender sculptural tower built from stacked geometric shapes - a cylinder, a cube, a cone and a half arch - balanced on a round low plinth.' },
+  { id: 'hero-tower', size: '1328*1328', style: STYLE_CONCEPT, scene: 'A slender sculptural tower built from stacked geometric shapes - a cylinder, a cube, a cone and a half arch - balanced on a round low plinth.' },
   // 학습 화면 공용 가운데 히어로 양옆(연습 · 성장 구역) — 2026-10-04
   { id: 'practice-iso-left', size: '1328*1328', style: STYLE_CONCEPT, scene: 'A small mechanical contraption of interlocking gears and a lever arm that moves a blank card from one low pedestal to another along a short conveyor belt.' },
   { id: 'practice-iso-right', size: '1328*1328', style: STYLE_CONCEPT, scene: 'A compact pastel machine with a crank handle and a coiled spring that presses blank square tiles into a neat tray.' },
