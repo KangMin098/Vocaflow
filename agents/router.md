@@ -14,7 +14,7 @@
 | 자동 리뷰 · CI 배치 | **Codex** (`codex review`) | 비대화형 |
 | 교차 검토 | **쓴 쪽의 반대** | 다른 모델이 다른 종류의 오류를 잡는다 |
 
-- 흐름의 기본형: **Claude 가 계획 → Codex 가 계획 리뷰 → 사용자 승인 → 실행 → 반대 에이전트가 코드 리뷰** (또는 그 역). 계획 리뷰는 `node agents/scripts/review.mjs --plan <파일>` — [goal-review.md §계획 리뷰](./goal-review.md).
+- 흐름의 기본형: **Claude 가 계획 → Codex 가 계획 리뷰 → 사용자 승인 → 실행 → 반대 에이전트가 코드 리뷰** (또는 그 역). 계획 리뷰는 `node agents/scripts/review.mjs --plan <파일>` — [goal-review.md §계획 리뷰](./goal-review.md). 횟수는 계획 리뷰 ≤1 · 차단 리뷰 1 · 재리뷰는 의미론/보안 구조가 바뀐 수정일 때만, 범위는 배치 목록으로 100% — AGENTS.md 「리뷰 횟수 · 범위」.
 - 교차 검토는 **기능 단위에서만** 한다(비용이 대략 두 배). 잔손질·문서 한 줄은 한쪽에서 끝낸다.
   - Claude 가 쓴 기능 → `codex review --uncommitted` 또는 `reviewer` 에이전트
   - Codex 가 쓴 기능 → Claude 세션에서 `/code-review`

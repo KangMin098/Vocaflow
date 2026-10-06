@@ -1,0 +1,97 @@
+{
+ "ranAt": "2026-10-06T00:35:27.709Z",
+ "pass": 15,
+ "fail": 0,
+ "results": [
+  {
+   "area": "G1 수정 전",
+   "name": "anon 실행 가능(취약점 재현 조건)",
+   "pass": true,
+   "detail": "{\"anon\":true,\"au\":true,\"svc\":true,\"pub\":true,\"h\":\"7ed2e076f24e3952d75010e198c83160\"}"
+  },
+  {
+   "area": "G1 수정 전",
+   "name": "anon 이 남(B)의 승급을 일으킨다",
+   "pass": true,
+   "detail": "V3 → V4 자동 상향 (mastered 20개 ≥ threshold 20, 최근 30일)"
+  },
+  {
+   "area": "G1 권한",
+   "name": "PUBLIC · anon EXECUTE 없음",
+   "pass": true,
+   "detail": "{\"anon\":false,\"au\":true,\"svc\":true,\"pub\":false,\"h\":\"5e48262d2aaed8dc68e1154147b251cd\"}"
+  },
+  {
+   "area": "G1 권한",
+   "name": "authenticated · service_role EXECUTE 있음",
+   "pass": true,
+   "detail": "{\"anon\":false,\"au\":true,\"svc\":true,\"pub\":false,\"h\":\"5e48262d2aaed8dc68e1154147b251cd\"}"
+  },
+  {
+   "area": "G1 매트릭스",
+   "name": "anon → 남(B)",
+   "pass": true,
+   "detail": "42501 permission denied for function auto_promote_v_level_for_user"
+  },
+  {
+   "area": "G1 매트릭스",
+   "name": "anon → 자기 sub 를 B 로 위장해도",
+   "pass": true,
+   "detail": "42501 permission denied for function auto_promote_v_level_for_user"
+  },
+  {
+   "area": "G1 매트릭스",
+   "name": "authenticated A → 남(B)",
+   "pass": true,
+   "detail": "42501 auto_promote_v_level_for_user: 본인 user_id 로만 호출할 수 있다"
+  },
+  {
+   "area": "G1 매트릭스",
+   "name": "authenticated A → 자기(A) 승급",
+   "pass": true,
+   "detail": "V3 → V4 자동 상향 (mastered 20개 ≥ threshold 20, 최근 30일)"
+  },
+  {
+   "area": "G1 매트릭스",
+   "name": "authenticated · JWT 없이(sub null) → A",
+   "pass": true,
+   "detail": "V3 → V4 자동 상향 (mastered 20개 ≥ threshold 20, 최근 30일)"
+  },
+  {
+   "area": "G1 매트릭스",
+   "name": "service_role JWT → 남(B)",
+   "pass": true,
+   "detail": "V3 → V4 자동 상향 (mastered 20개 ≥ threshold 20, 최근 30일)"
+  },
+  {
+   "area": "G1 매트릭스",
+   "name": "소유자 · JWT 없음(cron) → B",
+   "pass": true,
+   "detail": "V3 → V4 자동 상향 (mastered 20개 ≥ threshold 20, 최근 30일)"
+  },
+  {
+   "area": "G1 cron",
+   "name": "JWT 없는 cron 래퍼 → 2명 승급",
+   "pass": true,
+   "detail": "n=2"
+  },
+  {
+   "area": "G1 cron",
+   "name": "로그인 사용자가 래퍼로 우회 → 남 몫에서 42501",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "area": "G1 본문",
+   "name": "검사 블록 외 본문 동일",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "area": "G1 롤백",
+   "name": "정의 · ACL 정확 복원",
+   "pass": true,
+   "detail": "{\"anon\":true,\"au\":true,\"svc\":true,\"pub\":true,\"h\":\"7ed2e076f24e3952d75010e198c83160\"}"
+  }
+ ]
+}
