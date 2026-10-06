@@ -1,5 +1,7 @@
 # Admin Console
 
+2026-10-06 Books 웹 lane: API와 별도 고정50개·161질의 요청 원장을 만들었다. Books robots.txt의 검색/도서 내 검색 자동 접근 제한으로 smoke 전에 blocked_robots·completed0/161, 후보/수율 미측정을 기록했다. 자동 실행기나 새 DB 상태는 추가하지 않았다. 기존 성공 질의는 보존하고 접근 허용 확인 후 미완료 질의만 재개한다. [사전 점검](./reports/csat-source-origin-priority-20261005.md#books-웹-lane-사전-점검--2026-10-06).
+
 2026-10-05 Books 증분 기준선: 공개 원문 종료 50개(등록12·공개소진37·유력미검증1)를 동결했다. 기존12개는 신규성과에서 제외하며 새 후보 ID/검수 alias·본문 SHA를 대조한다. Books key/project 미설정으로 HTTP0·eligible0·completed0/161, 증분 비율은 null이다. 공개소진 재검색은 반복하지 않고 B는 새 증거 이벤트에만 재검수한다. [증분 정의·재개](./reports/csat-source-origin-priority-20261005.md#books-증분-실험-기준선).
 
 2026-10-05 공개 원문 종료: 고정 50개·161질의를 보존하며 남은46개 기존구절146개를 전부 평가했다. A4·B4 신규등록으로 전체133/713(A102·B31)·G579, cohort 누적12/50. B6 승격검수는 A승격0이며 Cajal 영어전사 근거만 보강했다. 이번46개 후보10개 중8개 등록·평균10/46, 과거 후보 분모가 없는50개 전체 후보수율은null. Books/Semantic은 eligible0·completed0/161로 비교미완료다. [종료 범위·전이·재개](./reports/csat-source-origin-priority-20261005.md#공개-원문-46개-종료).
