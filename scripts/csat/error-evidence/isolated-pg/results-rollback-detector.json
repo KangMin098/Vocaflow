@@ -21,7 +21,7 @@
   "area": "적용",
   "name": "마이그레이션 적용(postgres 역할)",
   "pass": true,
-  "detail": "209ms"
+  "detail": "140ms"
  },
  {
   "area": "적용",

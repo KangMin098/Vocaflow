@@ -87,6 +87,12 @@ export default async function detector(admin, ctx) {
   const r30 = await pe(A, sa, 30, 'interpretation', ANS())
   record('detector', '대상 밖 문항 → skipped_not_target · 신호 0', ok(r30) && await last(sa, 30) === 'skipped_not_target' && (await sigs(sa, 30)).length === 0, r30.err)
 
+  // 감지 대상 경계가 없는 taxonomy(t_reveal 의 v0.9 — 코드 1 · 경계 0)여도 범주 없음은 insufficient_evidence, 범주를 고르면 no_boundary
+  const s0 = await mk(D.H, 'v0.9', [])
+  await pe(D.H, s0, 18, 'interpretation', ANS())
+  await pe(D.H, s0, 19, 'category', { group: 'word' }); await pe(D.H, s0, 19, 'interpretation', ANS())
+  record('detector', '후보 경계 0 — 범주 없음 → insufficient_evidence · 범주 있음 → no_boundary', await last(s0, 18) === 'insufficient_evidence' && await last(s0, 19) === 'no_boundary', [await runs(s0, 18), await runs(s0, 19)])
+
   // ════ 2. 재실행 멱등 ════
   const n0 = { r: (await runs(sa, 18)).length, s: (await sigs(sa, 18)).length }
   const rr = []

@@ -5,6 +5,10 @@
 -- 그 경우는 데이터 처리(신호 보존 · 취소 반영)를 먼저 정하고 되돌린다.
 begin;
 
+-- 검사와 DROP 사이에 감지가 커밋하지 않게 — 과정 증거 쓰기(감지 트리거의 시작점)와 두 표를 먼저 잠근다
+lock table public.csat_ec_process_evidence in share mode;
+lock table public.csat_ec_detector_run, public.csat_ec_boundary_signal_retraction in access exclusive mode;
+
 do $$
 begin
   if exists (select 1 from public.csat_ec_detector_run) or exists (select 1 from public.csat_ec_boundary_signal_retraction) then

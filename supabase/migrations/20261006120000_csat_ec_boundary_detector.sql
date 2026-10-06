@@ -102,7 +102,6 @@ declare
   v_group    text;
   v_keys     text[] := '{}';
   v_probe    text;
-  v_cands    int := 0;
   v_last     public.csat_ec_detector_run;
   v_run      bigint;
   v_changes  boolean;
@@ -142,7 +141,6 @@ begin
                join public.csat_ec_code cb on cb.version = x.version and cb.code = x.code_b
               where x.version = v_c.taxonomy_version and x.status = 'provisional' and x.probe_key is not null
               order by x.boundary_key collate "C" loop
-      v_cands := v_cands + 1;
       if v_interp is null or coalesce(v_interp->>'state', 'answered') <> 'answered' then continue; end if;
       v_hit := false;
       if v_group is not null then
@@ -159,12 +157,12 @@ begin
       if v_hit then v_keys := v_keys || b.boundary_key; end if;
     end loop;
 
-    if v_cands = 0 then v_result := 'no_boundary';                                    -- 이 taxonomy 에 감지 대상 경계가 없다
-    elsif v_interp is null or coalesce(v_interp->>'state', 'answered') <> 'answered' then
+    -- 증거 부족을 먼저 가른다(후보 경계 유무와 무관하게 범주 없음 · 모름은 insufficient_evidence)
+    if v_interp is null or coalesce(v_interp->>'state', 'answered') <> 'answered' then
       v_result := 'insufficient_evidence';                                            -- 해석 글이 없으면 경계를 가를 재료가 없다
     elsif cardinality(v_keys) > 0 then v_result := 'boundary';
-    elsif v_group is not null then v_result := 'no_boundary';                         -- 범주를 골랐고 어느 경계에도 걸리지 않음
-    else v_result := 'insufficient_evidence';                                         -- 범주 없음 · 모름(자유서술 패턴도 없거나 안 맞음)
+    elsif v_group is null then v_result := 'insufficient_evidence';                   -- 범주 없음 · 모름(자유서술 패턴도 없거나 안 맞음)
+    else v_result := 'no_boundary';                                                   -- 범주를 골랐고 어느 경계에도 걸리지 않음(후보 0 포함)
     end if;
   end if;
 

@@ -48,7 +48,7 @@ attempt (session, item) 에 대해, 봉인 taxonomy T(= capture 행의 `taxonomy
 4. 범주가 없거나 `unsure` 면 **탐지하지 않는다** — 단 b 의 `provenance.detector.free_text_patterns` 가 있고 해석 글이 그중 하나에 맞으면(`~*`, 잘못된 패턴은 무시) 탐지(§0-2 슬롯).
 5. `evidence_ids` = 판단에 쓴 유효 증거 id 전부(interpretation · category · blocked_span · reason).
 
-결과: 후보 경계가 없거나 범주를 골랐는데 걸린 경계가 없으면 `no_boundary`, 해석이 answered 가 아니거나 범주 없음 · unsure(패턴 불일치)면 `insufficient_evidence`, capture 없음 · 수집 중 아님 · 대상 아님 · 봉인 안 됨이면 `skipped_*`(신호를 건드리지 않는다). **문항 · 선지 · 정답은 규칙에 들어가지 않는다**(문항 유형으로 거르는 것도 v1 에서는 하지 않는다 — 유형 표를 읽으면 금지 입력 경로가 늘어난다).
+결과: 해석이 answered 가 아니거나 범주 없음 · unsure(패턴 불일치)면 — 후보 경계 유무와 무관하게 — `insufficient_evidence`, 범주를 골랐는데 걸린 경계가 없으면(후보 0 포함) `no_boundary`, capture 없음 · 수집 중 아님 · 대상 아님 · 봉인 안 됨이면 `skipped_*`(신호를 건드리지 않는다). **문항 · 선지 · 정답은 규칙에 들어가지 않는다**(문항 유형으로 거르는 것도 v1 에서는 하지 않는다 — 유형 표를 읽으면 금지 입력 경로가 늘어난다).
 
 규칙을 바꾸면 `detector_version` 을 올린다. 같은 증거로 옛 판 · 새 판 결과를 나란히 남길 수 있다(§5 유일 키에 버전 포함).
 
@@ -209,6 +209,8 @@ create trigger csat_ec_capture_write_guard before insert on public.csat_ec_bound
 7. 격리 PG · dev smoke 통과 결과와 `review.mjs` 반대 에이전트 리뷰를 PR 본문에 붙임.
 
 ## 13. 열린 질문 (증거가 충돌하는 곳만)
+
+> **남은 P2(G4 리뷰 2026-10-06, 미수정 기록)** — 한 문항에 경계 둘 이상이 함께 감지된 뒤 probe 를 맡은 경계만 정정으로 사라지면, 남은 경계의 기존 신호는 `probe_required = false` 그대로라 그 문항에 새 probe 가 뜨지 않는다. v0.1 은 provisional 경계가 1개라 지금은 일어나지 않는다. 경계를 2개 이상 봉인하기 전에 「probe 담당이 바뀌면 남은 신호를 취소하고 새 신호로 다시 낸다」로 고친다.
 
 > 2026-10-06 사용자 결정(§0)으로 1 · 2 · 3 모두 닫혔다 — 1: 결정론 감지기 · AI 는 보조, 2: 범주 없음/unsure 는 감지 안 함(자유서술 슬롯만), 3: 철회한다(미응답 cancelled · 응답 뒤 obsolete). 아래는 당시 기록.
 

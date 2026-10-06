@@ -10,7 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
-- feat(csat): **G4 경계 감지기 초안(개발 DB 미적용)** — `20261006120000_csat_ec_boundary_detector`: 과정 증거 트리거 → 서버 결정론 감지(정오 무관 · 범주 없음/unsure 는 감지 안 함 · 정정 재평가로 cancelled/obsolete · 재실행 멱등), 대기 probe 는 detector 출처만, capture `config.probes` 봉인. 격리 PG 380/380 · rollback 10/10 · 개발 DB 드라이런 10/10(ROLLBACK) · 정적 가드 15.
+- feat(csat): **G4 경계 감지기 초안(개발 DB 미적용)** — `20261006120000_csat_ec_boundary_detector`: 과정 증거 트리거 → 서버 결정론 감지(정오 무관 · 범주 없음/unsure 는 감지 안 함 · 정정 재평가로 cancelled/obsolete · 재실행 멱등), 대기 probe 는 detector 출처만, capture `config.probes` 봉인. 격리 PG 381/381 · rollback 10/10 · 개발 DB 드라이런 10/10(ROLLBACK) · 정적 가드 15.
 - feat(csat): **Reveal Gate G3 종료(2026-10-06)** — ② `20261005170100` · ②b `20261006110000` 개발 DB 적용, 수집 상태 전이(open/finish) 앱 배선. 표면 0 · canary 392/0(앱 · 번들 · oracle) · 직접 조회 22/22 · Pilot 42/104/12 · Advisor ERROR 0. 제한(P2): 공개 뒤 스냅샷 보정은 앱 기준 시각 비교로 eventual.
 - fix(db): **함수 EXECUTE 정책 G1 · G2 개발 DB 적용(2026-10-06, 사용자 조건부 승인)** — 적용 뒤 가드 3종 통과 · 실제 API 역할 스모크 20/20 · Pilot 스모크 42/104/12 · Security Advisor ERROR 0(anon definer 79→21). — G1 `20261006090000_auto_promote_self_only`(비로그인이 남의 V-Level 승급을 일으키던 P0: 본인 검사 + anon 회수) · G2 `20261006100000_function_exec_policy`(public 함수 402개 class 별 권한 + 본문 검사 22개 + 신규 함수 authenticated 기본 EXECUTE 회수). 정본 `scripts/db/function-exec-manifest.json` · 기본 거부 가드 `scripts/db/check-function-exec.mjs` · 비로그인 경로 가드 `check-anon-callers.mjs`. 격리 PG 15/15 · 개발 DB 롤백 드라이런 20/20. 공개 만화 폴백이 전권 RPC 대신 5컷 미리보기를 쓴다(`lib/comic/catalog.ts`).
 - fix(csat): Reveal Gate G3 후속 — ec-pilot 수집 대상 정오 독립(봉인 대상) · trap-atlas 예시의 정답 민감 부분을 서버 전용 파일로(번들 검사 2종 0) · 관문 실패 = 423 + 로그 분리 · 공개 뒤 스냅샷 따라잡기(reveal-sync) · OFFSET 예산 207→208(canary 검사기, 분기점부터)

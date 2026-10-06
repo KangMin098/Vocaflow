@@ -21,7 +21,7 @@
   "area": "적용",
   "name": "마이그레이션 적용(postgres 역할)",
   "pass": true,
-  "detail": "1099ms"
+  "detail": "138ms"
  },
  {
   "area": "적용",
@@ -153,7 +153,7 @@
   "area": "수명주기",
   "name": "blind 시작",
   "pass": true,
-  "detail": "715c53dc363efc553e49436a3ab70ddeb61e1d3b4243be8dd686ff719c587728"
+  "detail": "f8afd32dbcdec113613ce33a0f583f9c1625502cc3efc0cc44ed655745dc9370"
  },
  {
   "area": "수명주기",
@@ -555,7 +555,7 @@
   "area": "pilot",
   "name": "'all' 해시 = 기존 2인자 해시(기존 회차 호환) · 'pre_probe' 는 다르고 probe 를 뺀다",
   "pass": true,
-  "detail": "{\"h2\":\"a59b25e1c5eabcc73e20e0d8d71706038def44136212c299283052679f2e146c\",\"ha\":\"a59b25e1c5eabcc73e20e0d8d71706038def44136212c299283052679f2e146c\",\"hp\":\"49afba57792df14fdc099779906dbca798822ea1841c04704876ba6b62895d92\",\"probe_in_pre\":null}"
+  "detail": "{\"h2\":\"767b32f442c485b55f47bcf2af60e21479f5465049fd849fef16f6775ea13dd9\",\"ha\":\"767b32f442c485b55f47bcf2af60e21479f5465049fd849fef16f6775ea13dd9\",\"hp\":\"15f651b5035328576d273e459387828fe83a3a6ea7b558e2ef4835bae4fdbe71\",\"probe_in_pre\":null}"
  },
  {
   "area": "pilot",
@@ -699,7 +699,7 @@
   "area": "capture",
   "name": "키 순서만 다른 같은 값 — 같은 id(jsonb 의미 비교)",
   "pass": true,
-  "detail": "{\"id\":\"6c03b451-050c-4f9f-baa8-46111e7e4fe4\"}"
+  "detail": "{\"id\":\"8998faea-64b2-4ef1-8b0c-9865ff1fca7e\"}"
  },
  {
   "area": "capture",
@@ -945,7 +945,7 @@
   "area": "reveal",
   "name": "완료 · 마지막 쓰기 동시 — 봉인 밖 유효 증거 0(쓰기 먼저면 봉인에 포함 · 완료 먼저면 쓰기 거부)",
   "pass": true,
-  "detail": "{\"late\":\"csat_ec: 이 기록의 풀이 수집은 끝났다 — 더 남길 수 없다\",\"outside\":[]}"
+  "detail": "{\"late\":\"ok\",\"outside\":[]}"
  },
  {
   "area": "reveal",
@@ -969,7 +969,7 @@
   "area": "reveal",
   "name": "완료 봉인 — 확인 revision · 대상별 증거 id · 수치",
   "pass": true,
-  "detail": "{\"seal\":{\"evidence\":{\"18\":[\"7f0e1658-c6e7-466e-8200-69ce3857da92\"],\"19\":[\"a9ebcc54-ff88-48b0-b81f-bda96d44fbcc\"],\"20\":[\"af763bb8-bee6-4a23-ad4d-3b6f4ce5ac2f\"],\"21\":[\"d701d194-6988-4509-bfee-d94a57a4f920\"],\"22\":[\"958e0c4f-f8df-49c5-8cfb-532224e50646\"],\"23\":[\"34065cc9-8f3c-4bf7-9eec-788dcb884f7d\"],\"24\":[\"c438ed85-8bc9-4f63-ada1-2d1fbf5788e6\"],\"25\":[\"0ce1a996-6580-4de2-bd02-fb6491f9fcec\"],\"26\":[\"2e3c985b-2b22-44f0-8506-26aa2c1a577a\"],\"27\":[\"ca972145-29a7-468e-9d59-ba0574646a18\"],\"28\":[\"bad7585b-ed48-4ce2-b3d0-fcb2bf609949\"],\"29\":[\"c12d7b06-0872-425b-89ac-aa068eb874be\"],\"30\":[\"3c0bf650-5fc3-43cb-bf77-e088c48709b5\"],\"31\":[\"cd1d89bb-12d3-4962-b373-d00870469c3b\"],\"32\":[\"47e3f3fd-96bf-4c5c-a22c-adb035589050\"],\"33\":[\"e6bb8bd3-9e38-4c63-bc20-740c456da8ed\"],\"34\":[\"4cb4853b-2048-4f1a-843a-8df3fcaa071c\"],\"35\":[\"727b7631-cb6b-44ec-b7df-2dd0e27ccc76\"],\"36\":[\"e51ccaa1-1786-40e6-b75c-d807e4faec97\"],\"37\":[\"b72e7224-c083-4742-bc03-800ead95f7e1\"],\"38\":[\"8b8c257e-b5b3-4a27-ba8b-f7ff792d04b1\"],\"39\":[\"5c0c825d-ce98-45f5-b7f9-e8d13da17cdb\"],\"40\":[\"c662fb47-5a6b-4587-8c41-cb7417a17c43\"],\"41\":[\"c4fc8a59-4b94-4437-aff2-eae1ca0c5aba\"],\"42\":[\"6c9b3c13-d84d-40e7-89d7-69b28a2a389f\"],\"43\":[\"b4187a75-5fe0-4979-b280-2dcd4b2d99ad\"],\"44\":[\"a2ed62b1-b51a-4038-ac0c-4fd597e96f1d\"],\"45\":[\"7c036fe4-c4af-47ab-be07-d0a5c3d9a6d6\"]},\"confirmation_revision\":1},\"counts\":{\"probes\":0,\"targets\":28,\"interpretation\":{\"skipped\":27,\"unknown\":1}}}"
+  "detail": "{\"seal\":{\"evidence\":{\"18\":[\"9e1e38b2-06e4-4741-a496-aad13cd9fa68\"],\"19\":[\"357a1049-7e48-4050-a27f-9a67be068249\",\"3fab1fdd-628a-4e13-abfe-1766b7429d61\"],\"20\":[\"a9041d00-e693-420c-b3d7-772b5a482b41\"],\"21\":[\"85e584dc-d51a-4a61-b36b-8aed98abd14c\"],\"22\":[\"f7052029-08db-4a20-8fd7-1570b5c8aeda\"],\"23\":[\"3b482ef3-f404-43f3-a5a1-319227608bc4\"],\"24\":[\"9135df76-56ce-413b-9c6f-92f0e9c48019\"],\"25\":[\"3b106e74-111d-4cff-97b8-f8ef6375dffe\"],\"26\":[\"2383d0d3-c4a9-4c0b-adbd-4ada27ee5d9b\"],\"27\":[\"f47c8b5b-0961-4abb-9b82-5e9011bc1d72\"],\"28\":[\"edaf8fc5-cb4d-427b-8b67-0856a361139a\"],\"29\":[\"b055f35a-0d53-492b-a2d9-7533aad81f81\"],\"30\":[\"0fb4dde0-88d8-4cda-a19d-bc58bc4d668b\"],\"31\":[\"b9654887-a83d-4b38-be2c-b17ed69f5776\"],\"32\":[\"37359654-d933-478d-b2a0-260355de1729\"],\"33\":[\"82886ea9-ffcf-414a-b035-4e495fe90e48\"],\"34\":[\"1516fac4-1dc9-4c89-bbb7-acbf0e049a3d\"],\"35\":[\"652bf711-7d85-47be-91e4-dc227dd49f56\"],\"36\":[\"9873fb9a-7f00-4296-b47f-fa00892314d3\"],\"37\":[\"168c2bed-6ead-4692-8038-d95058d30cb7\"],\"38\":[\"e62a4aba-14eb-4bc4-9a9e-3e6b4c5f8632\"],\"39\":[\"2aceefaf-7840-48d0-b2eb-6aa735761fc0\"],\"40\":[\"87daf8c3-d82d-4fd5-b4ca-f6cace89191f\"],\"41\":[\"e1c2fe25-e568-40bb-9fd2-8b24ad0458d8\"],\"42\":[\"55fd41b4-e557-46b9-8686-79bd2bc37c1a\"],\"43\":[\"358a79a8-f84c-443d-b842-07b42dadc271\"],\"44\":[\"65fe23ca-fd10-4c1d-af28-6dfb92774710\"],\"45\":[\"43519521-fea2-4acc-b426-b34dcbb4cd0e\"]},\"confirmation_revision\":1},\"counts\":{\"probes\":0,\"targets\":28,\"interpretation\":{\"skipped\":27,\"unknown\":1}}}"
  },
  {
   "area": "reveal",
@@ -1017,13 +1017,13 @@
   "area": "reveal",
   "name": "비참가자 · 활성 없음 — 보류 행 없음",
   "pass": true,
-  "detail": "{\"r\":{\"held\":false,\"status\":null,\"session_id\":\"d4e32b85-b488-4039-9032-55b6b7bd1e50\"}}"
+  "detail": "{\"r\":{\"held\":false,\"status\":null,\"session_id\":\"981339fb-9a31-4a51-aa80-7b8426d8aaf7\"}}"
  },
  {
   "area": "reveal",
   "name": "활성 capture 가 있는 학습자 · 시험의 재기록(설정상 비참가자 · 전부 1번) — 그래도 보류",
   "pass": true,
-  "detail": "{\"r\":{\"held\":true,\"status\":\"held\",\"session_id\":\"55e37471-56a2-4edd-9c94-4c79789add20\"}}"
+  "detail": "{\"r\":{\"held\":true,\"status\":\"held\",\"session_id\":\"435da47a-731b-41a6-8803-7d29be74fec3\"}}"
  },
  {
   "area": "reveal",
@@ -1119,37 +1119,43 @@
   "area": "detector",
   "name": "경계 충족(해석 answered + 범주 ∈ 경계 범주) → 신호 1 · probe 필요 · 대기 probe 1",
   "pass": true,
-  "detail": "{\"runs\":[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"23a2beb7-0a2b-4a9c-8356-25d5b0854005\"]},{\"result\":\"boundary\",\"boundary_keys\":[\"r.inference__v.wrong_sense\"],\"probe_boundary_key\":\"r.inference__v.wrong_sense\",\"input_evidence_ids\":[\"23a2beb7-0a2b-4a9c-8356-25d5b0854005\",\"628adb74-1442-403d-b3df-3ca723c3e7d6\"]}],\"s18\":[{\"id\":\"11\",\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_required\":true,\"source\":\"detector\",\"reason\":null}],\"p\":[{\"item_no\":18,\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_key\":\"pa_probe\"}]}"
+  "detail": "{\"runs\":[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"f715f1f4-e922-44ec-981d-b2c5c86a4f4a\"]},{\"result\":\"boundary\",\"boundary_keys\":[\"r.inference__v.wrong_sense\"],\"probe_boundary_key\":\"r.inference__v.wrong_sense\",\"input_evidence_ids\":[\"df9c66ea-9e59-4048-a5c4-8495aa4a6c1b\",\"f715f1f4-e922-44ec-981d-b2c5c86a4f4a\"]}],\"s18\":[{\"id\":\"11\",\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_required\":true,\"source\":\"detector\",\"reason\":null}],\"p\":[{\"item_no\":18,\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_key\":\"pa_probe\"}]}"
  },
  {
   "area": "detector",
   "name": "범주 없음 → insufficient_evidence · 신호 0",
   "pass": true,
-  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"8e45a589-dd67-4947-bac7-87a38cecfdd4\"]}]"
+  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"2ed95990-7f9d-4c41-b504-33d3a07e8632\"]}]"
  },
  {
   "area": "detector",
   "name": "범주 「모름」(unsure) → insufficient_evidence · 신호 0",
   "pass": true,
-  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"e74f6345-bd45-4662-a151-ab5254b2f041\"]},{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"307b6208-5084-41f8-b62a-3b5a2c279234\",\"e74f6345-bd45-4662-a151-ab5254b2f041\"]}]"
+  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"54c9dab6-4452-4241-a044-f6ca1fd8eb8a\"]},{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"086cec18-09f7-47e2-a418-9235b5b3a870\",\"54c9dab6-4452-4241-a044-f6ca1fd8eb8a\"]}]"
  },
  {
   "area": "detector",
   "name": "범주가 경계 밖(time) → no_boundary · 신호 0",
   "pass": true,
-  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"1dd7e679-04e2-40ce-87f5-ee4efe4eed86\"]},{\"result\":\"no_boundary\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"1dd7e679-04e2-40ce-87f5-ee4efe4eed86\",\"ef21011d-59b1-4333-bbc5-27b344b0ad6e\"]}]"
+  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"46204a2e-9611-44b3-b53c-52ab1cee89da\"]},{\"result\":\"no_boundary\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"46204a2e-9611-44b3-b53c-52ab1cee89da\",\"5f458250-2c96-459c-bbf6-602ba6c9228c\"]}]"
  },
  {
   "area": "detector",
   "name": "해석 unknown(범주 word 여도) → insufficient_evidence · 신호 0",
   "pass": true,
-  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"7e7b9f61-1300-4349-b043-5d5b0e6648dc\"]},{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"3b823e34-a54b-470d-bcc4-cd13c4a69381\",\"7e7b9f61-1300-4349-b043-5d5b0e6648dc\"]}]"
+  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"813d91d4-2a64-489c-ba63-c900681dfd55\"]},{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"813d91d4-2a64-489c-ba63-c900681dfd55\",\"d18d4c57-e597-48cd-98ce-ac8f86b0bde7\"]}]"
  },
  {
   "area": "detector",
   "name": "대상 밖 문항 → skipped_not_target · 신호 0",
   "pass": true,
   "detail": ""
+ },
+ {
+  "area": "detector",
+  "name": "후보 경계 0 — 범주 없음 → insufficient_evidence · 범주 있음 → no_boundary",
+  "pass": true,
+  "detail": "[[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"8fedd9ba-0245-41a6-bc77-7bf473ecbfbf\"]}],[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"2d62aad5-5f10-4dbd-97a2-26d445429cfb\"]},{\"result\":\"no_boundary\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"2d62aad5-5f10-4dbd-97a2-26d445429cfb\",\"ea9cb7d1-1898-4085-93aa-6dc9c4fae1dc\"]}]]"
  },
  {
   "area": "detector",
@@ -1227,7 +1233,7 @@
   "area": "detector",
   "name": "정답 attempt · 오답 attempt 쌍 — 결과 · 신호 · 대기 probe · 오류가 같다(오라클 0)",
   "pass": true,
-  "detail": "{\"correctness\":[{\"session_id\":\"09fb7267-f58c-423e-887f-b82642c29294\",\"a\":true,\"o\":true},{\"session_id\":\"71d67c59-d0cb-4f45-a2d2-037a9e5a768e\",\"a\":false,\"o\":false}],\"pc\":{\"errs\":[\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"new row for relation \\\"csat_ec_process_evidence\\\" violates check constraint \\\"csat_ec_process_interpretation_check\\\"\",\"ok\",\"ok\",\"ok\"],\"view\":{\"18\":{\"runs\":[[\"insufficient_evidence\",[],null,1],[\"boundary\",[\"r.inference__v.wrong_sense\"],\"r.inference__v.wrong_sense\",2],[\"no_boundary\",[],null,2],[\"boundary\",[\"r.inference__v.wrong_sense\"],\"r.inference__v.wrong_sense\",2]],\"sigs\":[[\"r.inference__v.wrong_sense\",true,\"cancelled\"],[\"r.inference__v.wrong_sense\",true,null]]},\"19\":{\"runs\":[[\"insufficient_evidence\",[],null,1]],\"sigs\":[]},\"20\":{\"runs\":[[\"insufficient_evidence\",[],null,1],[\"insufficient_evidence\",[],null,2]],\"sigs\":[]},\"21\":{\"runs\":[[\"insufficient_evidence\",[],null,1],[\"no_boundary\",[],null,2]],\"sigs\":[]},\"22\":{\"runs\":[],\"sigs\":[]},\"30\":{\"runs\":[[\"skipped_not_target\",[],null,0]],\"sigs\":[]}},\"pending\":[{\"item_no\":18,\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_key\":\"pa_probe\"}]},\"pw\":\"same\"}"
+  "detail": "{\"correctness\":[{\"session_id\":\"39fa94ae-7b68-40b8-87f6-1b7053d55568\",\"a\":true,\"o\":true},{\"session_id\":\"c661f37b-4d21-4a90-90d1-a77764016421\",\"a\":false,\"o\":false}],\"pc\":{\"errs\":[\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"ok\",\"new row for relation \\\"csat_ec_process_evidence\\\" violates check constraint \\\"csat_ec_process_interpretation_check\\\"\",\"ok\",\"ok\",\"ok\"],\"view\":{\"18\":{\"runs\":[[\"insufficient_evidence\",[],null,1],[\"boundary\",[\"r.inference__v.wrong_sense\"],\"r.inference__v.wrong_sense\",2],[\"no_boundary\",[],null,2],[\"boundary\",[\"r.inference__v.wrong_sense\"],\"r.inference__v.wrong_sense\",2]],\"sigs\":[[\"r.inference__v.wrong_sense\",true,\"cancelled\"],[\"r.inference__v.wrong_sense\",true,null]]},\"19\":{\"runs\":[[\"insufficient_evidence\",[],null,1]],\"sigs\":[]},\"20\":{\"runs\":[[\"insufficient_evidence\",[],null,1],[\"insufficient_evidence\",[],null,2]],\"sigs\":[]},\"21\":{\"runs\":[[\"insufficient_evidence\",[],null,1],[\"no_boundary\",[],null,2]],\"sigs\":[]},\"22\":{\"runs\":[],\"sigs\":[]},\"30\":{\"runs\":[[\"skipped_not_target\",[],null,0]],\"sigs\":[]}},\"pending\":[{\"item_no\":18,\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_key\":\"pa_probe\"}]},\"pw\":\"same\"}"
  },
  {
   "area": "detector",
@@ -1263,19 +1269,19 @@
   "area": "detector",
   "name": "다른 경계(e.option_check__s.modifier_scope · pb_probe) — 범주 choice 감지 · word 는 no_boundary",
   "pass": true,
-  "detail": "{\"b18\":[{\"id\":\"28\",\"boundary_key\":\"e.option_check__s.modifier_scope\",\"probe_required\":true,\"source\":\"detector\",\"reason\":null}],\"r19\":[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"40c830ca-ce68-4c84-a488-aad2f498dadb\"]},{\"result\":\"no_boundary\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"40c830ca-ce68-4c84-a488-aad2f498dadb\",\"ca67e079-fdff-4f60-90bd-e46dda47bab4\"]}]}"
+  "detail": "{\"b18\":[{\"id\":\"28\",\"boundary_key\":\"e.option_check__s.modifier_scope\",\"probe_required\":true,\"source\":\"detector\",\"reason\":null}],\"r19\":[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"fe438aeb-ed46-4408-ab01-7ffce97e72c1\"]},{\"result\":\"no_boundary\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"2788dfa1-be84-44ee-9e7a-ac614fa7d694\",\"fe438aeb-ed46-4408-ab01-7ffce97e72c1\"]}]}"
  },
  {
   "area": "detector",
   "name": "자유서술 슬롯 — 범주 없음 + 패턴 일치 → 감지 · 불일치 → insufficient · 잘못된 패턴은 무시",
   "pass": true,
-  "detail": "{\"f18\":[{\"id\":\"29\",\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_required\":true,\"source\":\"detector\",\"reason\":null}],\"r19\":[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"321f572f-a12c-4194-bd6a-ed7ecb58aa66\"]}],\"r20\":[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"bc216fc0-3d8a-47fc-87d2-d73c8d9d259c\"]},{\"result\":\"boundary\",\"boundary_keys\":[\"r.inference__v.wrong_sense\"],\"probe_boundary_key\":\"r.inference__v.wrong_sense\",\"input_evidence_ids\":[\"bc216fc0-3d8a-47fc-87d2-d73c8d9d259c\",\"cbef5a68-cfe7-45ad-a446-434c53cb85df\"]}]}"
+  "detail": "{\"f18\":[{\"id\":\"29\",\"boundary_key\":\"r.inference__v.wrong_sense\",\"probe_required\":true,\"source\":\"detector\",\"reason\":null}],\"r19\":[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"a7042457-345c-46b9-a20a-aa5cee8cb960\"]}],\"r20\":[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"e977c25f-f69e-4b7c-9244-499b80862909\"]},{\"result\":\"boundary\",\"boundary_keys\":[\"r.inference__v.wrong_sense\"],\"probe_boundary_key\":\"r.inference__v.wrong_sense\",\"input_evidence_ids\":[\"922b04b7-ac82-453f-ac19-76994b8d30b7\",\"e977c25f-f69e-4b7c-9244-499b80862909\"]}]}"
  },
  {
   "area": "detector",
   "name": "패턴 메타데이터 없는 taxonomy(v0.1 seed 와 같은 형태) → 같은 글이어도 insufficient(슬롯 비활성)",
   "pass": true,
-  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"1a739cde-8e6c-4de8-b087-dc241513a56a\"]}]"
+  "detail": "[{\"result\":\"insufficient_evidence\",\"boundary_keys\":[],\"probe_boundary_key\":null,\"input_evidence_ids\":[\"6d2f5e1b-04f5-457d-9937-96ba1f92f602\"]}]"
  },
  {
   "area": "detector",
@@ -1845,7 +1851,7 @@
   "area": "해시",
   "name": "같은 대상(입력 순서만 다름) — 대상 해시 같음 · 대상이 다르면 다름",
   "pass": true,
-  "detail": "{\"ha\":\"07205c6fad\",\"hb\":\"07205c6fad\",\"hc\":\"064e10be8d\"}"
+  "detail": "{\"ha\":\"71e4be33ac\",\"hb\":\"71e4be33ac\",\"hc\":\"4fce221334\"}"
  },
  {
   "area": "입력 변경",
@@ -2163,13 +2169,13 @@
   "area": "동시성",
   "name": "2b. reveal · 마지막 제출 동시 — 결과 일관(완전할 때만 공개)",
   "pass": true,
-  "detail": "{\"st\":\"reveal\",\"total\":96}"
+  "detail": "{\"rv\":\"csat_ec: 모든 대상에 A · B blind 판정이 있어야 공개한다\",\"st\":\"blind_review\",\"total\":96}"
  },
  {
   "area": "동시성",
   "name": "3. reveal 동시 2회 — 정확히 1회 성공",
   "pass": true,
-  "detail": "[null,\"csat_ec: blind 단계가 아니다\"]"
+  "detail": "[\"csat_ec: blind 단계가 아니다\",null]"
  },
  {
   "area": "동시성",
