@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 상업 독해 교재의 메타데이터 전용 8학년·9축 benchmark 엔진을 추가했다. 봉인 protocol/선정 manifest, 표본 다양성·장르·길이 gate, 분위 분포, F02 독립 fit/separation, E3 실출력 재감사와 version/hash stale 검사를 합성 fixture로 검증했다. 실제 corpus·분포·Gold-S·DB seed는 0이다.
+
 - docs(textbook): 로컬 시중교재 코퍼스의 학년·출판사·지문 추출 범위와 공식 출판사 카탈로그 후보를 탐색 보고서로 기록했다. 단일 학년·다출판사·판본/권리·9축 요건 미충족으로 benchmark 유효 N과 분포는 계속 0이다.
 
 - docs(textbook): 시중 독해 교재의 학년별 표본 선정·provenance·9축 분석과 F02 상대적 학년 적합성 판정 전이를 별도 benchmark 계약으로 정의했다. 실제 교재 실측·분포·TARGET_FIT·LEVEL_SEPARATION·Gold-S·DB seed는 아직 열지 않았다.
