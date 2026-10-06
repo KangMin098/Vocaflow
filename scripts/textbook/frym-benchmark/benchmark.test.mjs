@@ -15,6 +15,7 @@ const protocol = () => ({
   schema: 'frym-benchmark/1', status: 'sealed', version: 'fixture-v1', codebook_hash: hash(axisDefs), selection_manifest: structuredClone(selection), selection_manifest_hash: hash(selection), grades: [...GRADES],
   minimum: { per_grade: 30, publishers: 3, series_per_publisher: 2, max_publisher_share: .4, max_series_share: .2, comparison_n: 12, item_type_comparison_n: 12 },
   item_types: ['literal', 'inference', 'structure'],
+  item_type_difficulty: { scale: 'ratio', valid_min: 0, valid_max: 100 },
   axes: structuredClone(axisDefs),
   fit: { lower_quantile: .1, upper_quantile: .9, minimum_axes: 7, length_ratio_min: .75, length_ratio_max: 1.25 },
   separation: { minimum_stable_axes: 5, minimum_matching_axes: 3, minimum_reference_ratio: .5, maximum_opposite_axes: 1 },
@@ -530,4 +531,13 @@ test('selection manifest excludes a non-representative edition', () => {
   rows[0].edition = 'older-printing'
   resealRows(rows)
   assert.ok(buildBenchmark(p, rows).rejected[0].reasons.includes('NON_REPRESENTATIVE_EDITION'))
+})
+
+test('item-type difficulty uses its own sealed valid range', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  rows[0].item_type_difficulty.literal = -100
+  resealRows(rows)
+  assert.ok(buildBenchmark(p, rows).rejected[0].reasons.includes('MISSING_ITEM_TYPE'))
+  f.variants.middle_1.item_type_difficulty.literal = -100
+  assert.throws(() => judge(p, samples(p), reseal(f)), /F02_ANALYSIS_INVALID/)
 })

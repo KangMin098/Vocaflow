@@ -46,6 +46,7 @@ export function validateProtocol(protocol) {
   const m = protocol.minimum
   if (!Number.isInteger(m?.per_grade) || m.per_grade < 30 || !Number.isInteger(m.publishers) || m.publishers < 3 || !Number.isInteger(m.series_per_publisher) || m.series_per_publisher < 2 || !(m.max_publisher_share > 0 && m.max_publisher_share <= .4) || !(m.max_series_share > 0 && m.max_series_share <= .2) || !Number.isInteger(m.comparison_n) || m.comparison_n < 12 || !Number.isInteger(m.item_type_comparison_n) || m.item_type_comparison_n < 12) fail('MINIMUM_INVALID')
   if (!Array.isArray(protocol.item_types) || protocol.item_types.length < 2 || protocol.item_types.some(type => !isText(type)) || unique(protocol.item_types) !== protocol.item_types.length) fail('ITEM_TYPES_INVALID')
+  if (protocol.item_type_difficulty?.scale !== 'ratio' || !(Number.isFinite(protocol.item_type_difficulty.valid_min) && protocol.item_type_difficulty.valid_min >= 0 && Number.isFinite(protocol.item_type_difficulty.valid_max) && protocol.item_type_difficulty.valid_max > protocol.item_type_difficulty.valid_min)) fail('ITEM_TYPE_SCALE_INVALID')
   if (Object.keys(protocol.axes ?? {}).sort().join('|') !== [...AXES].sort().join('|') || hash(protocol.axes) !== protocol.codebook_hash) fail('AXES_INCOMPLETE')
   for (const axis of AXES) {
     const def = protocol.axes[axis]
@@ -91,7 +92,7 @@ export function screenSample(sample, protocol) {
 
 function itemTypesValid(record, protocol) {
   const counts = record?.item_type_counts, difficulty = record?.item_type_difficulty
-  return Number.isInteger(record?.item_count) && record.item_count > 0 && counts && difficulty && Object.keys(counts).length > 0 && Object.keys(counts).every(type => protocol.item_types.includes(type)) && Object.keys(difficulty).every(type => protocol.item_types.includes(type)) && Object.values(counts).every(count => Number.isInteger(count) && count > 0) && Object.values(counts).reduce((sum, count) => sum + count, 0) === record.item_count && Object.keys(counts).every(type => Number.isFinite(difficulty[type]))
+  return Number.isInteger(record?.item_count) && record.item_count > 0 && counts && difficulty && Object.keys(counts).length > 0 && Object.keys(counts).every(type => protocol.item_types.includes(type)) && Object.keys(difficulty).every(type => protocol.item_types.includes(type)) && Object.values(counts).every(count => Number.isInteger(count) && count > 0) && Object.values(counts).reduce((sum, count) => sum + count, 0) === record.item_count && Object.keys(counts).every(type => Number.isFinite(difficulty[type]) && difficulty[type] >= protocol.item_type_difficulty.valid_min && difficulty[type] <= protocol.item_type_difficulty.valid_max)
 }
 
 function ordinalReviewValid(review, value, levels) {

@@ -2,6 +2,8 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { join } from 'node:path'
+import { spawnSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
 import { buildBenchmark, judgeBenchmark, verifyDecision, verifySnapshot, hash } from './benchmark.mjs'
 import { buildF02Synthetic } from '../frym-synthetic/f02-synthetic.mjs'
 import { verifyStage } from '../frym-synthetic/f02-cross-agent.mjs'
@@ -24,6 +26,8 @@ const auditEvidenceHash = directory => {
   return hash({ batch: auditDirectoryHash(directory), stage_a: auditDirectoryHash(gate.stage_a_dir), stage_b: auditDirectoryHash(gate.stage_b_dir) })
 }
 const currentF02Seal = () => {
+  const reviewCheck = spawnSync(process.execPath, [fileURLToPath(new URL('../../../node_modules/tsx/dist/cli.mjs', import.meta.url)), '--tsconfig', fileURLToPath(new URL('../../../apps/web/tsconfig.json', import.meta.url)), fileURLToPath(new URL('../academic-reading-smoke/check-f02-freeze.mjs', import.meta.url))], { encoding: 'utf8', windowsHide: true })
+  if (reviewCheck.status !== 0) throw Error('F02_REVIEW_STALE')
   const built = buildF02Synthetic()
   const item_ids = Object.fromEntries(['middle_1', 'high_1'].map(grade => [grade, built.packets.find(packet => packet.passage_variant === grade).body.questions.map(question => question.id)]))
   return { ...built.seal, item_ids }
