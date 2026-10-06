@@ -47,7 +47,7 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
   "runId": "ec-pilot-run-20261020-1",
   "commit": "<테스트한 배포 커밋 40자 — run 메타 appCommit 과 같아야 한다>",
   "build": "production",
-  "specs": ["tests/e2e/52-csat-ec-capture.spec.ts"],
+  "specs": ["tests/e2e/60-csat-ec-pilot-flow.spec.ts", "tests/e2e/61-csat-ec-pilot-guards.spec.ts", "tests/e2e/62-csat-ec-pilot-start-gate.spec.ts"],
   "passed": 9,
   "failed": 0,
   "skipped": 0,
@@ -58,7 +58,7 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
 ```
 
 - `at` 은 초 단위 UTC(`YYYY-MM-DDTHH:MM:SSZ`). `failed` · `skipped` 가 0 이 아니면 봉인 · 게이트가 거부한다(건너뛴 테스트를 통과로 치지 않는다).
-- 봉인 · 점검이 원본을 검사한다(`scripts/csat/pilot/live.mjs recordFailures`): `format` · `runId` 일치 · `build = "production"` · `specs` 에 `tests/e2e/52-csat-ec-capture.spec.ts` 포함 · `reportSha256` 64자 hex(`--e2e-report-sha256` 를 주면 리포트와 대조) · PII 가드 기록과 같은 `commit`.
+- 봉인 · 점검이 원본을 검사한다(`scripts/csat/pilot/live.mjs recordFailures`): `format` · `runId` 일치 · `build = "production"` · `specs` 에 60 · 61 · 62 세 spec 모두 포함(`scripts/csat/pilot/run-e2e.mjs --run <id>` 가 통과 · 깨끗한 작업 트리일 때만 쓴다) · `reportSha256` 64자 hex(`--e2e-report-sha256` 를 주면 리포트와 대조) · PII 가드 기록과 같은 `commit`.
 - run 메타 `verification.e2e.recordSha256` = 이 파일 그대로의 sha256(줄바꿈 포함 — 봉인 뒤 파일을 다시 쓰지 않는다).
 
 ## 개발 · 검증 모드(활성 run 없음)

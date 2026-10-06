@@ -44,7 +44,8 @@ export const participantIdCount = (env = process.env.CSAT_EC_PILOT_USER_IDS) =>
 export const fileSha256 = (p) => sha256(fs.readFileSync(p, 'utf8'))
 export { rulesHash }
 
-export const E2E_REQUIRED_SPEC = 'tests/e2e/52-csat-ec-capture.spec.ts'
+// G6 E2E(run-e2e.mjs) — 참가자 흐름 · 가드 · 시작 게이트 세 spec 이 모두 돌아야 한다(52 는 수집 화면 단독 검사라 이 셋이 대신한다)
+export const E2E_REQUIRED_SPECS = ['tests/e2e/60-csat-ec-pilot-flow.spec.ts', 'tests/e2e/61-csat-ec-pilot-guards.spec.ts', 'tests/e2e/62-csat-ec-pilot-start-gate.spec.ts']
 const HEX64 = /^[0-9a-f]{64}$/, HEX40 = /^[0-9a-f]{40}$/, ISO = /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$/
 
 /**
@@ -68,7 +69,7 @@ export function recordFailures(runId, files, meta, opt = {}) {
     const j = e2e.json
     if (j.format !== 'ec-pilot-e2e-1' || j.runId !== runId || !HEX40.test(j.commit ?? '') || !ISO.test(j.at ?? '') || !(j.passed >= 1) || j.failed !== 0 || j.skipped !== 0) f.push('record:e2e.fields')
     if (j.build !== 'production') f.push('record:e2e.build')
-    if (!Array.isArray(j.specs) || !j.specs.includes(E2E_REQUIRED_SPEC)) f.push('record:e2e.specs')
+    if (!Array.isArray(j.specs) || !E2E_REQUIRED_SPECS.every((x) => j.specs.includes(x))) f.push('record:e2e.specs')
     if (!HEX64.test(j.reportSha256 ?? '')) f.push('record:e2e.reportSha256')
     else if (opt.e2eReportSha256 && opt.e2eReportSha256 !== j.reportSha256) f.push('record:e2e.report')
   }

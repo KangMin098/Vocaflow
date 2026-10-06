@@ -8,10 +8,11 @@
 //   5) 커밋 가능한 요약을 scripts/csat/pilot/e2e-last-run.json 에 남긴다(실행 시각 · 앱 커밋 · spec · pass/fail · 잔여). 비밀값 · 이메일 · 계정 id 없음.
 // 서버는 성공 · 실패와 무관하게 끈다. 빌드는 미리 해 둔다(apps/web/.next).
 //
-//   node --tls-max-v1.2 --env-file=<apps/web/.env.local> scripts/csat/pilot/run-e2e.mjs [--port 3100]
+//   node --tls-max-v1.2 --env-file=<apps/web/.env.local> scripts/csat/pilot/run-e2e.mjs [--port 3100] [--run ec-pilot-run-<YYYYMMDD>-<n>]
+//   --run 을 주면 통과했고 작업 트리가 깨끗할 때만 게이트 형식 기록 docs/csat-learner/pilot-runs/<run id>.e2e.json 을 쓴다(README 형식).
 
 import { execFileSync, spawn } from 'node:child_process'
-import { randomUUID } from 'node:crypto'
+import crypto, { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -32,9 +33,12 @@ if (!fs.existsSync(path.join(WEB, '.next/BUILD_ID'))) { console.error('productio
 const EXAMS = ['2024', '2025', '2026', '2016', '2015', '2017', '2022']
 const PARTICIPANTS = ['full', 'variants', 'correction', 'bypass', 'taxonomy']
 const OTHERS = ['other', 'nonparticipant', 'gate']
+// G6 게이트(gate.ts) 이후: 참가자 env 만으로는 열리지 않는다 — pilot 단계는 검증 모드(CSAT_EC_PILOT_MODE=verification · @example.com)로 연다.
+// gate 단계 둘: ① 참가자 env 비움 ② 참가자 env 는 있으나 모드 · 봉인 run 이 없음 — 둘 다 같은 404(fail-closed)여야 한다(62 spec 재사용).
 const PHASES = [
-  { name: 'pilot', specs: ['tests/e2e/60-csat-ec-pilot-flow.spec.ts', 'tests/e2e/61-csat-ec-pilot-guards.spec.ts'], participantEnv: true },
-  { name: 'gate', specs: ['tests/e2e/62-csat-ec-pilot-start-gate.spec.ts'], participantEnv: false },
+  { name: 'pilot', specs: ['tests/e2e/60-csat-ec-pilot-flow.spec.ts', 'tests/e2e/61-csat-ec-pilot-guards.spec.ts'], participants: PARTICIPANTS, mode: 'verification', specPhase: 'pilot' },
+  { name: 'gate', specs: ['tests/e2e/62-csat-ec-pilot-start-gate.spec.ts'], participants: [], mode: null, specPhase: 'gate' },
+  { name: 'gate-env-only', specs: ['tests/e2e/62-csat-ec-pilot-start-gate.spec.ts'], participants: [...PARTICIPANTS, 'gate'], mode: null, specPhase: 'gate' },
 ]
 
 const svc = createClient(URL_, SERVICE, { auth: { persistSession: false, autoRefreshToken: false } })
@@ -52,8 +56,10 @@ async function makeAccount(role) {
   accounts[role] = { email, password, id: data.user.id }
 }
 
-function startServer(participantIds) {
+function startServer(participantIds, mode) {
   const env = { ...process.env, CSAT_EC_PILOT_USER_IDS: participantIds.join(','), PORT: String(PORT) }
+  delete env.CSAT_EC_PILOT_MODE; delete env.CSAT_EC_ACTIVE_RUN   // 실행자 셸에 남은 값이 단계를 오염시키지 않게
+  if (mode) env.CSAT_EC_PILOT_MODE = mode
   const child = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-p', String(PORT)], { cwd: WEB, env, stdio: ['ignore', 'pipe', 'pipe'] })
   const log = []
   child.stdout.on('data', (d) => log.push(String(d)))
@@ -77,7 +83,7 @@ function stopServer(s) {
 
 function runPlaywright(phase, jsonFile) {
   return new Promise((resolve) => {
-    const env = { ...process.env, EC_E2E_PHASE: phase.name, EC_E2E_ACCOUNTS: JSON.stringify(accounts), PLAYWRIGHT_BASE_URL: `http://localhost:${PORT}`, PLAYWRIGHT_JSON_OUTPUT_NAME: jsonFile }
+    const env = { ...process.env, EC_E2E_PHASE: phase.specPhase, EC_E2E_ACCOUNTS: JSON.stringify(accounts), PLAYWRIGHT_BASE_URL: `http://localhost:${PORT}`, PLAYWRIGHT_JSON_OUTPUT_NAME: jsonFile }
     const child = spawn(process.execPath, ['node_modules/@playwright/test/cli.js', 'test', ...phase.specs, '--reporter=list,json', '--workers=1', `--output=test-results/ec-pilot-${phase.name}`], { cwd: WEB, env, stdio: ['ignore', 'inherit', 'inherit'] })
     child.on('exit', (code) => resolve(code ?? 1))
   })
@@ -111,8 +117,8 @@ const residual = { accounts: null, sessions: null, keptActive: [], embargoedExam
 try {
   for (const r of [...PARTICIPANTS, ...OTHERS]) await makeAccount(r)
   for (const phase of PHASES) {
-    const ids = phase.participantEnv ? PARTICIPANTS.map((r) => accounts[r].id) : []
-    const server = startServer(ids)
+    const ids = phase.participants.map((r) => accounts[r].id)
+    const server = startServer(ids, phase.mode)
     const jsonFile = path.join(WEB, 'test-results', `ec-pilot-e2e-${phase.name}.json`)
     fs.mkdirSync(path.dirname(jsonFile), { recursive: true })
     const t0 = Date.now()
@@ -120,7 +126,7 @@ try {
       await waitUp()
       const code = await runPlaywright(phase, jsonFile)
       const tests = fs.existsSync(jsonFile) ? summarize(jsonFile) : []
-      phases.push({ phase: phase.name, participantEnv: phase.participantEnv ? 'test-accounts' : 'empty', specs: phase.specs.map((s) => path.basename(s)), exitCode: code, ms: Date.now() - t0, tests })
+      phases.push({ phase: phase.name, participantEnv: phase.participants.length ? 'test-accounts' : 'empty', mode: phase.mode ?? 'none', specs: phase.specs.map((s) => path.basename(s)), exitCode: code, ms: Date.now() - t0, tests })
     } finally {
       stopServer(server)
       // 서버 로그는 원인 가르기용 로컬 파일(test-results 는 커밋하지 않는다)

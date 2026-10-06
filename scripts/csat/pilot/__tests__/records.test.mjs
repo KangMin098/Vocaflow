@@ -5,12 +5,12 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
 import { rulesHash } from '../../error-evidence/model-input/deidentify.mjs'
-import { E2E_REQUIRED_SPEC, envMetaState, recordFailures } from '../live.mjs'
+import { E2E_REQUIRED_SPECS, envMetaState, recordFailures } from '../live.mjs'
 
 const RUN = 'ec-pilot-run-20261020-1'
 const C = 'a'.repeat(40)
 const pii = (over = {}) => ({ sha256: '1'.repeat(64), json: { format: 'ec-pilot-pii-guard-1', runId: RUN, commit: C, rulesHash: rulesHash(), passed: 53, failed: 0, at: '2026-10-19T09:00:00Z', ...over } })
-const e2e = (over = {}) => ({ sha256: '2'.repeat(64), json: { format: 'ec-pilot-e2e-1', runId: RUN, commit: C, build: 'production', specs: [E2E_REQUIRED_SPEC], passed: 9, failed: 0, skipped: 0, at: '2026-10-19T10:00:00Z', playwright: '1.47.0', reportSha256: '3'.repeat(64), ...over } })
+const e2e = (over = {}) => ({ sha256: '2'.repeat(64), json: { format: 'ec-pilot-e2e-1', runId: RUN, commit: C, build: 'production', specs: [...E2E_REQUIRED_SPECS], passed: 9, failed: 0, skipped: 0, at: '2026-10-19T10:00:00Z', playwright: '1.47.0', reportSha256: '3'.repeat(64), ...over } })
 
 test('점검 · 봉인 스크립트가 쓰는 export 가 모두 있다(모듈 그래프 회귀)', async () => {
   const live = await import('../live.mjs')
