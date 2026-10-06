@@ -1,0 +1,331 @@
+{
+  "track_b_code": {
+    "status": "MERGEABLE / CLOSED",
+    "revision": "1977560c8f0ed09a38394062d5356615dc049b02",
+    "manifest": "code-reclosed-1977560c8.json",
+    "production_manifest": "production-reclosed-1977560c8.json",
+    "review": "NO_FINDINGS",
+    "review_file": "uuid-review.log",
+    "isolated_postgres": 349
+  },
+  "db_deployment": {
+    "status": "PASS_WITH_AUTHORIZED_WAIVER_AND_SCOPED_DISPOSITIONS",
+    "credential_present": true,
+    "credential_source": "user_environment",
+    "management_verified": true,
+    "tls_verified": true,
+    "hostname_verified": true,
+    "migrations": {
+      "status": "applied",
+      "versions": [
+        "20261005170000",
+        "20261005170100"
+      ],
+      "hash_evidence": "migration-hashes.json",
+      "semantic_evidence": "migration-semantics.json",
+      "raw_hash_equality_claimed": false
+    },
+    "direct_select": {
+      "status": "PASS",
+      "checks": 72,
+      "manifest": "real-direct-actors.json"
+    },
+    "actor_http_transition": {
+      "status": "PASS",
+      "checks": 55,
+      "failures": 0,
+      "manifest": "transition-manifest.json",
+      "provenance": "transition-provenance.json",
+      "scope": "Dedicated actual actor/HTTP transition proof; does not replace failed comprehensive GraphQL canary"
+    },
+    "comprehensive_live_canary": {
+      "status": "BLOCKED",
+      "pass": 357,
+      "fail": 14,
+      "manifest": "live-attempt-2-manifest.json",
+      "scope": "Failures retained; supplemental actor proof does not turn this receipt into PASS",
+      "resolution": "Original broad failed receipt preserved; scoped closure supported by targeted real probes and explicit non-blocking administrator bulk-query disposition"
+    },
+    "current_preflight": {
+      "status": "BLOCKED",
+      "issues": [
+        "missing_before_snapshot"
+      ],
+      "manifest": "current-preflight.json",
+      "resolution": "Only missing_before_snapshot issue explicitly waived; original strict CLI receipt preserved"
+    },
+    "historical_permission_diff": {
+      "status": "WAIVED_WITH_COMPENSATING_EVIDENCE",
+      "actual_before_snapshot_available": false,
+      "reconstruction_performed": false
+    },
+    "verification_permission_diff": {
+      "manifest": "verification-permission-diff.json",
+      "scope": "Both snapshots postdeployment; only verification-time changes"
+    },
+    "security_advisor": {
+      "status": "PASS",
+      "current_csAT_findings": 105,
+      "remaining_findings_triaged": 7,
+      "blocking": 0,
+      "disposition_complete": true,
+      "manifest": "advisor-closure-20261007.json",
+      "triage": "advisor-seven-triage-20261007.json",
+      "previous_98": "advisor-dispositions.json",
+      "historical_no_new_warning_claimed": false
+    },
+    "cleanup": {
+      "status": "PASS",
+      "checkpoint_issues": [],
+      "temp_folder_cleanup": "DEFERRED_NON_BLOCKING"
+    }
+  },
+  "g3": {
+    "status": "CLOSED",
+    "blockers": [],
+    "basis": "User-authorized historical evidence waiver plus demonstrated GraphQL scope/access and complete individual Advisor dispositions",
+    "no_live_migrations_applied": true,
+    "automatic_legacy_cli_status": "Original strict historical before/whole-surface checks may remain BLOCKED; no automatic policy silently weakened"
+  },
+  "evidence": {
+    "code-reclosed-1977560c8.json": "c20b06bdc652fe2c18e59e9d2ca184cdecb4788ee338620fd622e0e4775c3a02",
+    "transition-manifest.json": "ff1e0401ac4c5f6a8d676cb47989516814ed9a8d89f77608e54613eb8713364b",
+    "live-attempt-2-manifest.json": "1dec8dbf27e8a851ebd573dff9764e0b59b14014683e5bf4ae18ca23e8fb7122",
+    "advisor-final.json": "4397248b6edc0cc9b92ada1357b9a62475df0d378026bf2bcc95de8ac5e17fe7",
+    "current-preflight.json": "1710a3e2c477fe3ce9bfff59ac1b550d696451d7b557822cb82b88ff1870776e"
+  },
+  "supersedes": "g3-db-deployment-final.json (2026-10-06 OPEN evidence; preserved)",
+  "decision_date": "2026-10-07",
+  "pre_snapshot": {
+    "status": "WAIVED_WITH_COMPENSATING_EVIDENCE",
+    "availability": "unavailable",
+    "reason": "Migration applied before snapshot capture",
+    "reconstructed": false,
+    "authorization": "Explicit user instruction in 2026-10-07 conversation",
+    "compensating_evidence": {
+      "reviewed_migration_hashes": "PASS (raw differences retained; semantic explanation verified)",
+      "isolated_postgres": "349/349 PASS",
+      "live_db_permissions": "72/72 PASS",
+      "live_actor_api_fault_matrix": "55/55 PASS",
+      "test_data_cleanup": "PASS"
+    }
+  },
+  "graphql": {
+    "status": "PASS_FOR_IN_SCOPE / OUT_OF_SCOPE_WITH_EVIDENCE_FOR_ADMIN_BULK",
+    "app_usage": "No GraphQL client/endpoint call in apps/web/src or packages; two external TED robots documentation comments only",
+    "bypass_verification": "Held response scope verified; secret correctness column absent. Admin-only surfaces have service positive controls and real learner/anon zero-row proof.",
+    "proof": "seven-manifest.json",
+    "checks": 27,
+    "notes": "seven-notes.json",
+    "historical_timeouts": "PRESERVED_NOT_PASS_NOT_DENY",
+    "bulk_timeout_disposition": "Non-blocking administrator-only full-scan availability issue; not a student Reveal route or learner-readable answer surface"
+  },
+  "targeted_cleanup": {
+    "status": "PASS",
+    "manifest": "seven-manifest.json",
+    "checkpoint_issues": []
+  },
+  "evidence_closure": {
+    "seven-manifest.json": "cd93a06afe8000b7d2e37c3cd979bd58f39d707a933b208afda5c87e63a14468",
+    "seven-notes.json": "5490e6388aa03ca4cebcd6ccb769313bf1e6bc79395f442cf9b8bb062036f790",
+    "seven-provenance.json": "b35632a47cdc3c7b8a55f829f8cd82ec5661601201295a917a98cb3d708a0032",
+    "advisor-seven-triage-20261007.json": "4ce5decf57c92cac96c18ae67ac0131897cf6fc3b320a703480a8eb51633ad42",
+    "advisor-closure-20261007.json": "281d0c625cf012b5f8c3952e37e49db0731fd836d5050c92cc62483392c1b4d0"
+  },
+  "security_advisor_dispositions": [
+    {
+      "key": "pg_graphql_anon_table_exposed_public_csat_dcp_items",
+      "object": "csat_dcp_items",
+      "role": "anon",
+      "decision": "EXPECTED",
+      "blocking": false,
+      "reason": "Only administrator SELECT policy applies; actual learner administrator predicate is false. Service reads an existing row and the same primary-key query returns no row for anon/learner. Bulk timeout remains recorded and is not treated as DENY.",
+      "evidence": {
+        "actor": "anon",
+        "table": "csat_dcp_items",
+        "rls": {
+          "object": "csat_dcp_items",
+          "rls": true,
+          "policies": [
+            {
+              "cmd": "ALL",
+              "name": "dcp_admin",
+              "qual": "is_admin_or_curator()",
+              "roles": [
+                "public"
+              ]
+            }
+          ]
+        },
+        "positive_control": true,
+        "denied": true,
+        "scope": "LEARNER_UNREACHABLE_WITH_EVIDENCE",
+        "query_shape": "Primary key equality; all visible scalar fields; identifier values omitted"
+      },
+      "proof": "seven-manifest.json"
+    },
+    {
+      "key": "pg_graphql_authenticated_table_exposed_public_csat_dcp_items",
+      "object": "csat_dcp_items",
+      "role": "authenticated",
+      "decision": "EXPECTED",
+      "blocking": false,
+      "reason": "Only administrator SELECT policy applies; actual learner administrator predicate is false. Service reads an existing row and the same primary-key query returns no row for anon/learner. Bulk timeout remains recorded and is not treated as DENY.",
+      "evidence": {
+        "actor": "P",
+        "table": "csat_dcp_items",
+        "rls": {
+          "object": "csat_dcp_items",
+          "rls": true,
+          "policies": [
+            {
+              "cmd": "ALL",
+              "name": "dcp_admin",
+              "qual": "is_admin_or_curator()",
+              "roles": [
+                "public"
+              ]
+            }
+          ]
+        },
+        "positive_control": true,
+        "denied": true,
+        "scope": "LEARNER_UNREACHABLE_WITH_EVIDENCE",
+        "query_shape": "Primary key equality; all visible scalar fields; identifier values omitted"
+      },
+      "proof": "seven-manifest.json"
+    },
+    {
+      "key": "pg_graphql_authenticated_table_exposed_public_csat_dx_response",
+      "object": "csat_dx_response",
+      "role": "authenticated",
+      "decision": "EXPECTED",
+      "blocking": false,
+      "reason": "Learner GraphQL schema excludes is_correct; existing held own-response fixture returns zero rows under owner/embargo RLS.",
+      "evidence": {
+        "table": "csat_dx_response",
+        "scope": "IN_SCOPE_PASS",
+        "held_fixture": true,
+        "positive_control": true,
+        "correctness_column_hidden": true,
+        "rls": {
+          "object": "csat_dx_response",
+          "rls": true,
+          "policies": [
+            {
+              "cmd": "SELECT",
+              "name": "csat_dx_response_own_select",
+              "qual": "(EXISTS ( SELECT 1\n   FROM csat_dx_session s\n  WHERE ((s.id = csat_dx_response.session_id) AND (s.user_id = ( SELECT auth.uid() AS uid)) AND (NOT csat_ec_private.exam_answer_embargoed(s.exam_id)))))",
+              "roles": [
+                "authenticated"
+              ]
+            }
+          ]
+        }
+      },
+      "proof": "seven-manifest.json"
+    },
+    {
+      "key": "pg_graphql_authenticated_table_exposed_public_csat_item_reviews",
+      "object": "csat_item_reviews",
+      "role": "authenticated",
+      "decision": "EXPECTED",
+      "blocking": false,
+      "reason": "Enabled RLS has no applicable learner SELECT policy; valid real learner GraphQL query returns zero rows without the previous UUID/text filter mismatch.",
+      "evidence": {
+        "table": "csat_item_reviews",
+        "scope": "LEARNER_UNREACHABLE_WITH_EVIDENCE",
+        "rls": {
+          "object": "csat_item_reviews",
+          "rls": true,
+          "policies": []
+        },
+        "denied": true,
+        "query_shape": "No UUID/text item filter mismatch"
+      },
+      "proof": "seven-manifest.json"
+    },
+    {
+      "key": "pg_graphql_authenticated_table_exposed_public_csat_item_state",
+      "object": "csat_item_state",
+      "role": "authenticated",
+      "decision": "EXPECTED",
+      "blocking": false,
+      "reason": "Enabled RLS has no applicable learner SELECT policy; valid real learner GraphQL query returns zero rows without the previous UUID/text filter mismatch.",
+      "evidence": {
+        "table": "csat_item_state",
+        "scope": "LEARNER_UNREACHABLE_WITH_EVIDENCE",
+        "rls": {
+          "object": "csat_item_state",
+          "rls": true,
+          "policies": []
+        },
+        "denied": true,
+        "query_shape": "No UUID/text item filter mismatch"
+      },
+      "proof": "seven-manifest.json"
+    },
+    {
+      "key": "pg_graphql_authenticated_table_exposed_public_csat_source_eligibility",
+      "object": "csat_source_eligibility",
+      "role": "authenticated",
+      "decision": "IRRELEVANT_TO_G3",
+      "blocking": false,
+      "reason": "Administrator-only source operations outside student Reveal routes; service existing-row positive control and learner zero-row GraphQL proof establish access restriction.",
+      "evidence": {
+        "actor": "P",
+        "table": "csat_source_eligibility",
+        "rls": {
+          "object": "csat_source_eligibility",
+          "rls": true,
+          "policies": [
+            {
+              "cmd": "SELECT",
+              "name": "source_eligibility_admin_read",
+              "qual": "is_admin_or_curator()",
+              "roles": [
+                "authenticated"
+              ]
+            }
+          ]
+        },
+        "positive_control": true,
+        "denied": true,
+        "scope": "OUT_OF_SCOPE_ADMIN_SOURCE_OPERATIONS",
+        "query_shape": "Primary key equality; all visible scalar fields; identifier values omitted"
+      },
+      "proof": "seven-manifest.json"
+    },
+    {
+      "key": "pg_graphql_authenticated_table_exposed_public_csat_source_eligibility_history",
+      "object": "csat_source_eligibility_history",
+      "role": "authenticated",
+      "decision": "IRRELEVANT_TO_G3",
+      "blocking": false,
+      "reason": "Administrator-only source operations outside student Reveal routes; service existing-row positive control and learner zero-row GraphQL proof establish access restriction.",
+      "evidence": {
+        "actor": "P",
+        "table": "csat_source_eligibility_history",
+        "rls": {
+          "object": "csat_source_eligibility_history",
+          "rls": true,
+          "policies": [
+            {
+              "cmd": "SELECT",
+              "name": "source_eligibility_history_admin_read",
+              "qual": "is_admin_or_curator()",
+              "roles": [
+                "authenticated"
+              ]
+            }
+          ]
+        },
+        "positive_control": true,
+        "denied": true,
+        "scope": "OUT_OF_SCOPE_ADMIN_SOURCE_OPERATIONS",
+        "query_shape": "Primary key equality; all visible scalar fields; identifier values omitted"
+      },
+      "proof": "seven-manifest.json"
+    }
+  ]
+}

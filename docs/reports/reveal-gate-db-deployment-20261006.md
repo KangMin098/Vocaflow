@@ -2,6 +2,8 @@
 
 Track B code gate: **MERGEABLE / CLOSED**. DB deployment gate: **BLOCKED**. G3: **OPEN**.
 
+Historical status above is superseded by [G3 closure on 2026-10-07](reveal-gate-g3-closure-20261007.md): explicit snapshot waiver, targeted GraphQL proof and seven individual non-blocking Advisor dispositions. Original receipts and failures remain preserved.
+
 ## Verified
 
 - Existing Management API credential works (HTTP 200); only credential presence/source is recorded.

@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(csat): 사용자 승인 보완 증거로 pre-snapshot 면제, GraphQL/Advisor 잔여 7건 대상 27/27 검증·blocking 0 확인 후 G3 CLOSED.
 - docs(csat): Reveal Gate 실 DB direct SELECT 72/72·actor/API 55/55 검증 기록; GraphQL timeout·Advisor 7건·적용 전 snapshot 미확인으로 G3 OPEN 유지.
 - fix(csat): live GraphQL 검증의 UUID 필터 타입 불일치 수정, 실패 HTTP status 보존.
 - fix(csat): 실 DB 검증의 유휴 연결 단절·묘비 정리 복구, GraphQL TEST 키 범위와 실패 응답 판정 보강.
