@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
 import { spawnSync } from 'node:child_process'
 import { scanLoaders,scanClient,scanBundle,pagingDiff } from './verification-core.mjs'
-import {attestBuild,checkBuild,startVerifiedApp} from './build-attestation.mjs'
+import {attestBuild,checkBuild,startVerifiedApp,sourceFingerprint} from './build-attestation.mjs'
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..')
 const args=process.argv.slice(2),value=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1]}
 const phase=value('--phase','merge'),base=value('--base',process.env.REVEAL_VERIFY_BASE??'origin/main')
@@ -53,7 +53,8 @@ try{
   const budget=pagingDiff(ROOT,base,policy.paging_allowlist);record('V7 paging architecture diff',budget.issues.length===0,budget)
   if(phase==='merge') {
     const graph=scanClient(src,policy.canaries);record('V2 client source graph',graph.roots>0&&graph.files>0&&!graph.issues.length&&!graph.unresolved.length,graph)
-    const build=await packageCommand(['--filter','web','build']);record('production build',build.ok,build)
+    const sourceBefore=sourceFingerprint(ROOT)
+    const build=await packageCommand(['--filter','web','build']);build.ok=build.ok&&sourceBefore===sourceFingerprint(ROOT);record('production build',build.ok,build)
     if(build.ok){const bundle=scanBundle(path.join(ROOT,'apps/web/.next/static'),policy.canaries);record('V2 production bundle',!bundle.issues.length,bundle);if(!bundle.issues.length)record('production source attestation',true,attestBuild(ROOT,revision))}else record('V2 production bundle',false,{reason:'build_failed_not_executed'})
   }
   if(phase==='merge'||phase==='db') {

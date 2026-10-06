@@ -10,9 +10,9 @@ const SECRET = /^(correctAnswer|correct_answer|answerKey|expectedAnswer|answer_k
 const GATE = new Set(['canRevealExam','canRevealItem','canRevealSession','embargoedExamIds','embargoedItemIds','userHasHeldSession','loadRevealScope','assertRevealAllowed','revealHeldResponse','isItemHeld','isExamHeld','isTypeHeld'])
 const SENSITIVE = new Set(['ANSWER_SENSITIVE','CORRECTNESS','CORRECTNESS_OWN_PRIOR','CORRECTNESS_ORACLE','REVIEWER_INTERNAL'])
 export const relative = (root, file) => path.relative(root,file).replace(/\\/g,'/')
-export function filesUnder(dir) {
+export function filesUnder(dir,all=false) {
   if (!fs.existsSync(dir)) return []
-  return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e => e.isDirectory() ? /^(node_modules|\.next|\.git|dist|__tests__)$/.test(e.name) ? [] : filesUnder(path.join(dir,e.name)) : /\.(?:ts|tsx|mts|js|mjs|json)$/.test(e.name) && !/\.(test|spec)\./.test(e.name) ? [path.join(dir,e.name)] : [])
+  return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e => e.isDirectory() ? /^(node_modules|\.next|\.git|dist|__tests__)$/.test(e.name) ? [] : filesUnder(path.join(dir,e.name),all) : (all||/\.(?:ts|tsx|mts|js|mjs|json)$/.test(e.name)) && !/\.(test|spec)\./.test(e.name) ? [path.join(dir,e.name)] : [])
 }
 const parse = (file, text) => ts.createSourceFile(file,text,ts.ScriptTarget.Latest,true,file.endsWith('x')?ts.ScriptKind.TSX:ts.ScriptKind.TS)
 const visit = (node, fn) => { fn(node); ts.forEachChild(node,n=>visit(n,fn)) }
@@ -41,7 +41,7 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
         if(bindings&&ts.isNamedImports(bindings)) for(const e of bindings.elements) if(!e.isTypeOnly&&GATE.has((e.propertyName??e.name).text)) imported.add(e.name.text)
         if(bindings&&ts.isNamespaceImport(bindings)) namespaces.add(bindings.name.text)
       }
-      if(ts.isCallExpression(n)&&ts.isPropertyAccessExpression(n.expression)&&['from','rpc'].includes(n.expression.name.text)) {
+      if(ts.isCallExpression(n)&&((ts.isPropertyAccessExpression(n.expression)&&['from','rpc'].includes(n.expression.name.text))||(ts.isElementAccessExpression(n.expression)&&ts.isStringLiteralLike(n.expression.argumentExpression)&&['from','rpc'].includes(n.expression.argumentExpression.text)))) {
         if(ts.isIdentifier(n.expression.expression)&&/^(Array|Buffer|Uint\d+Array|Int\d+Array|Float\d+Array)$/.test(n.expression.expression.text))return
         const arg=n.arguments[0]
         if(arg&&ts.isStringLiteralLike(arg)&&/^csat_/.test(arg.text)&&!objectNames.has(arg.text)&&!policy?.object_approvals?.[arg.text]?.review_basis)issues.push({file:rel,kind:'unclassified_csat_object',object:arg.text})
@@ -148,7 +148,7 @@ export function scanClient(srcRoot, canaries=[]) {
   return {roots:graph.roots.length,files:graph.files.length,issues,unresolved:graph.unresolved}
 }
 export function scanBundle(directory,canaries=[]) {
-  const files=filesUnder(directory).filter(f=>/\.(js|json)$/.test(f)),issues=[]
+  const files=filesUnder(directory,true).filter(f=>/\.(js|mjs|json|css|svg|html|map)$/.test(f)),issues=[]
   if(!files.length)issues.push({kind:'BUNDLE_NOT_EXECUTED'})
   for(const file of files){const hits=secretLiterals(file,fs.readFileSync(file,'utf8'),canaries);if(hits.length)issues.push({file:relative(directory,file),kind:'CLIENT_SECRET_LEAK',keys:hits})}
   return {files:files.length,issues}

@@ -13,7 +13,7 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   assert.equal(scanLoaders(root,manifest).issues[0].kind,'unclassified_loader')
   write('lib/csat/unknown.ts','export const load=(db)=>db.from("csat_new_answer_keys").select("answer")')
   assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_csat_object'))
-  write('lib/csat/unknown.ts','export const load=(db)=>db.rpc("csat_new_answer_rpc")')
+  write('lib/csat/unknown.ts','export const load=(db)=>db["rpc"]("csat_new_answer_rpc")')
   assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_csat_object'))
   fs.unlinkSync(path.join(root,'lib/csat/unknown.ts'))
   const m={...manifest,app_db_loaders:{'lib/csat/leak.ts':{class:'ANSWER_SENSITIVE'}}}
@@ -48,6 +48,8 @@ test('mutation: production artifact and escaped literal canary detected; empty b
   assert.ok(scanBundle(root).issues.some(i=>i.kind==='BUNDLE_NOT_EXECUTED'))
   write('static/chunk.js','const a={expectedAnswer:"KNOWN_SECRET_CANARY_02"}')
   assert.ok(scanBundle(root,['KNOWN_SECRET_CANARY_02']).issues.some(i=>i.kind==='CLIENT_SECRET_LEAK'))
+  write('static/style.css',':root{--fixture:"KNOWN_SECRET_CANARY_01"}')
+  assert.ok(scanBundle(root,['KNOWN_SECRET_CANARY_01']).issues.some(i=>i.file.endsWith('.css')))
   assert.deepEqual(secretLiterals('app.ts','// const data={correctAnswer:2};\nconst schema={correctAnswer:value};'),[])
   assert.ok(secretLiterals('app.js','const a="\\u004bNOWN_SECRET_CANARY_01"',['KNOWN_SECRET_CANARY_01']).includes('canary'))
   assert.ok(secretLiterals('chunk.js','const a=JSON.parse('+JSON.stringify(JSON.stringify({answerKey:4}))+')').includes('answerKey'))
