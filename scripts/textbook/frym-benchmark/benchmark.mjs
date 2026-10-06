@@ -181,7 +181,7 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       const def = protocol.axes[axis]
       const refDelta = stats(commonHighRows.map(row => row.metrics[axis])).median - stats(commonLowRows.map(row => row.metrics[axis])).median
       const f02Delta = high.metrics?.[axis] - middle.metrics?.[axis]
-      if (!Number.isFinite(f02Delta) || Math.abs(refDelta) < def.minimum_meaningful_delta || Math.abs(f02Delta) < def.minimum_meaningful_delta || Math.sign(refDelta) !== def.direction) continue
+      if (!Number.isFinite(f02Delta) || Math.abs(refDelta) < def.minimum_meaningful_delta || Math.sign(refDelta) !== def.direction) continue
       const direction = Math.sign(refDelta)
       const publisherStable = [...new Set([...commonLowRows, ...commonHighRows].map(row => row.publisher))].every(publisher => {
         const lo = commonLowRows.filter(row => row.publisher !== publisher), hi = commonHighRows.filter(row => row.publisher !== publisher)
@@ -189,8 +189,8 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       })
       if (!publisherStable) continue
       stable.push(axis)
-      if (Math.sign(f02Delta) === direction && (def.scale === 'ordinal' || Math.abs(f02Delta) >= Math.abs(refDelta) * protocol.separation.minimum_reference_ratio)) matching.push(axis)
-      else if (Math.sign(f02Delta) === -direction) opposite.push(axis)
+      if (Math.sign(f02Delta) === direction && Math.abs(f02Delta) >= def.minimum_meaningful_delta && (def.scale === 'ordinal' || Math.abs(f02Delta) >= Math.abs(refDelta) * protocol.separation.minimum_reference_ratio)) matching.push(axis)
+      else if (Math.sign(f02Delta) === -direction && Math.abs(f02Delta) >= def.minimum_meaningful_delta) opposite.push(axis)
     }
     separation = stable.length < protocol.separation.minimum_stable_axes || (!stable.includes('discourse') && !stable.includes('inference')) ? { status: 'inconclusive', stable, matching, opposite } : { status: matching.length >= protocol.separation.minimum_matching_axes && matching.some(axis => axis === 'discourse' || axis === 'inference') && opposite.length <= protocol.separation.maximum_opposite_axes ? 'pass' : 'fail', stable, matching, opposite }
   }

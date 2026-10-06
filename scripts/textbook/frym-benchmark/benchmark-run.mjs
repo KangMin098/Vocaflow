@@ -41,7 +41,12 @@ try {
   } else if (command === 'verify-decision' && paths.length === 5) {
     const [protocol, snapshot, f02] = paths.slice(0, 3).map(read)
     const decision = read(paths[4])
-    verifySnapshot(snapshot, protocol)
+    try { verifySnapshot(snapshot, protocol) } catch (error) {
+      if (error.message !== 'BENCHMARK_STALE') throw error
+      process.stdout.write('STALE\n')
+      process.exitCode = 1
+      process.exit()
+    }
     const seal = buildF02Synthetic().seal
     if (f02.source_freeze_sha256 !== seal.source_freeze_sha256 || f02.item_set_hash !== seal.item_set_hash || f02.scoring_key_hash !== seal.scoring_key_hash || ['middle_1', 'high_1'].some(grade => f02.variants?.[grade]?.passage_hash !== seal.passage_hash[grade])) throw Error('F02_CURRENT_SEAL_MISMATCH')
     const audited = verifyStage(paths[3])

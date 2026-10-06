@@ -1,6 +1,11 @@
 // scripts/textbook/frym-benchmark/benchmark.test.mjs
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import { spawnSync } from 'node:child_process'
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { AXES, GRADES, buildBenchmark, hash, judgeBenchmark, sampleAnalysisHash, screenSample, verifyDecision, verifySnapshot, workflowState } from './benchmark.mjs'
 
 const H = text => hash(text)
@@ -217,7 +222,7 @@ test('a definite fit failure takes precedence over inconclusive separation', () 
   assert.equal(workflowState({ protocol: p, snapshot, decision: result, current: { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(sealed), e3_run_id: 'fixture-run', e3_evidence_hash: H('fixture-e3-audit-files') } }), 'fail')
 })
 
-test('sub-resolution grade shifts cannot prove level separation', () => {
+test('sub-resolution reference shifts cannot prove level separation', () => {
   const p = protocol(), rows = samples(p), f = f02()
   for (const row of rows.filter(row => row.grade === 'high_1')) for (const axis of AXES) row.metrics[axis] -= 2 - 1e-9
   resealRows(rows)
@@ -227,10 +232,35 @@ test('sub-resolution grade shifts cannot prove level separation', () => {
   assert.equal(result.gold_s_candidate, false)
 })
 
+test('stable reference shifts with identical F02 levels fail separation', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const axis of AXES) f.variants.high_1.metrics[axis] = f.variants.middle_1.metrics[axis]
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.level_separation.status, 'fail')
+  assert.equal(result.gold_s_candidate, false)
+})
+
 test('no shared length or genre is inconclusive rather than a sample shortage', () => {
   const p = protocol(), rows = samples(p), f = f02()
   f.variants.high_1.word_count = 1000
   const result = judge(p, rows, reseal(f))
   assert.equal(result.level_separation.status, 'inconclusive')
   assert.equal(result.level_separation.reason, 'NO_COMMON_LENGTH_RANGE')
+})
+
+test('CLI verify-decision reports a benchmark revision as STALE', () => {
+  const directory = mkdtempSync(join(tmpdir(), 'frym-benchmark-'))
+  try {
+    const p = protocol(), snapshot = buildBenchmark(p, samples(p)), f = f02()
+    p.version = 'fixture-v2'
+    const values = [p, snapshot, f, {}]
+    const paths = values.map((value, index) => {
+      const path = join(directory, `${index}.json`)
+      writeFileSync(path, JSON.stringify(value))
+      return path
+    })
+    const result = spawnSync(process.execPath, [fileURLToPath(new URL('./benchmark-run.mjs', import.meta.url)), 'verify-decision', paths[0], paths[1], paths[2], directory, paths[3]], { encoding: 'utf8' })
+    assert.equal(result.status, 1)
+    assert.equal(result.stdout.trim(), 'STALE')
+  } finally { rmSync(directory, { recursive: true, force: true }) }
 })
