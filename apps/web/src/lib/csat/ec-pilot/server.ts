@@ -65,7 +65,8 @@ export interface CaptureState {
 export async function loadCapture(ctx: EcContext, sessionId: string): Promise<CaptureState | null> {
   const s = await ownSession(ctx.admin, ctx.userId, sessionId)
   if (!s) return null
-  const { data: resp, error } = await ctx.admin.from('csat_dx_response').select('item_no, item_id, chosen_option, is_correct').eq('session_id', sessionId)
+  // 정오(is_correct)는 읽지 않는다 — 대상은 봉인된 capture 대상(정오 무관)으로만 정한다
+  const { data: resp, error } = await ctx.admin.from('csat_dx_response').select('item_no, item_id, chosen_option').eq('session_id', sessionId)
   if (error) throw new Error(`응답 조회 실패: ${error.message}`)
   const rows = resp ?? []
   if (recordQuality(rows.map((r) => ({ no: r.item_no as number, chosen: (r.chosen_option as number | null) ?? null }))).status !== 'trusted')
@@ -76,11 +77,14 @@ export async function loadCapture(ctx: EcContext, sessionId: string): Promise<Ca
   const byId = new Map((items ?? []).map((i) => [i.id as string, i]))
   const cands: TargetCandidate[] = rows.map((r) => {
     const it = r.item_id ? byId.get(r.item_id as string) : undefined
-    return { itemNo: r.item_no as number, chosen: (r.chosen_option as number | null) ?? null, isCorrect: !!r.is_correct,
+    return { itemNo: r.item_no as number, chosen: (r.chosen_option as number | null) ?? null,
       stem: (it?.stem as string | null) ?? null, passage: (it?.passage as string | null) ?? null,
       choices: Array.isArray(it?.choices) ? (it!.choices as string[]) : null, bodyOk: it?.body_ok === true }
   })
-  const targets = new Set(selectTargets(cands, EC_PILOT.correctControls, sessionId))
+  const { data: cap, error: ce } = await ctx.rls.rpc('csat_ec_my_capture_state', { p_session: sessionId })
+  if (ce) throw new Error(`수집 상태 조회 실패: ${ce.message}`)
+  const sealed = Array.isArray((cap as { targets?: unknown } | null)?.targets) ? ((cap as { targets: unknown[] }).targets.filter((x): x is number => typeof x === 'number')) : []
+  const targets = new Set(selectTargets(cands, sealed))
   const saved = await savedSummary(ctx, sessionId)
   const { data: conf } = await ctx.rls.from('csat_ec_session_confirmation').select('revision, took_exam, judged_each').eq('session_id', sessionId).order('revision', { ascending: false }).limit(1)
   const out: CaptureItem[] = []

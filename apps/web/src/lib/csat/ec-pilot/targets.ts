@@ -1,7 +1,8 @@
 // apps/web/src/lib/csat/ec-pilot/targets.ts
 //
 // 수집 대상 선정 · 증거 값 검증 — 순수 함수(서버 · 테스트 공용).
-//   대상 = 오답 전부 + 설정의 정답 대조 수(세션 id 로 결정적 선택). 번호순으로 내보내 정오가 드러나지 않게 한다.
+//   대상 = **봉인된 대상**(csat_ec_capture_session.targets — 저장 때 정오 무관으로 정해진 번호) ∩ 내용 적격. 정오 · 정답표 · 채점 결과는
+//   대상 결정에 들어가지 않는다(Reveal Gate G3 — 대상 집합이 정오를 드러내는 oracle 이 되지 않게). 번호순.
 //   제외: 고른 답 없음 · 듣기(1–17) · 발문 · 선지 없음 · body_ok 거짓(csat_ec_pilot_eligible 과 같은 조건).
 
 import { splitSentences } from '@/lib/csat/passage-skeleton'
@@ -9,7 +10,6 @@ import { splitSentences } from '@/lib/csat/passage-skeleton'
 export interface TargetCandidate {
   itemNo: number
   chosen: number | null
-  isCorrect: boolean
   stem: string | null
   passage: string | null
   choices: string[] | null
@@ -22,20 +22,10 @@ function eligible(c: TargetCandidate): boolean {
   return c.itemNo > LISTENING_LAST && c.chosen !== null && !!c.stem?.trim() && Array.isArray(c.choices) && c.choices.length > 0 && c.bodyOk
 }
 
-/** 문자열 → 0 이상 정수(결정적) — 정답 대조를 세션마다 고정해 다시 열어도 같은 문항이 나오게 */
-function seeded(seed: string, n: number): number {
-  let h = 2166136261
-  for (const ch of `${seed}|${n}`) h = Math.imul(h ^ ch.charCodeAt(0), 16777619)
-  return h >>> 0
-}
-
-export function selectTargets(cands: TargetCandidate[], correctControls: number | null, seed: string): number[] {
-  const ok = cands.filter(eligible)
-  const wrong = ok.filter((c) => !c.isCorrect).map((c) => c.itemNo)
-  const right = ok.filter((c) => c.isCorrect).map((c) => c.itemNo)
-  const k = Math.max(0, Math.min(correctControls ?? 0, right.length))
-  const controls = [...right].sort((a, b) => seeded(seed, a) - seeded(seed, b) || a - b).slice(0, k)
-  return [...wrong, ...controls].sort((a, b) => a - b)
+/** 봉인 대상 중 내용 적격인 번호(번호순). 정오를 받지 않는다 — 인자에 정오 칸이 없다 */
+export function selectTargets(cands: TargetCandidate[], sealed: readonly number[]): number[] {
+  const want = new Set(sealed)
+  return cands.filter((c) => want.has(c.itemNo) && eligible(c)).map((c) => c.itemNo).sort((a, b) => a - b)
 }
 
 // ── 학생 범주(student_group) — 원인 라벨이 아니다. 저장은 kind 'category' 과정 증거 하나 ──
