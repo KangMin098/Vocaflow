@@ -2,6 +2,8 @@
 
 시중 교재 기준의 상대적 학년 타당성은 [benchmark 선정·분석 계약](./ACADEMIC_READING_BENCHMARK.md)을 따른다. 현재는 선정·rubric 초안만 있고 실제 교재 표본과 학년별 분포는 없다. F02 E3 합성 N=28은 실행·감사 근거로 유지하며, 교재 benchmark 실측 전 `TARGET_FIT`·`LEVEL_SEPARATION`은 열지 않는다.
 
+[로컬 교재 코퍼스 및 공식 카탈로그 탐색 점검](./reports/academic-reading-benchmark-source-inventory-20261006.md)은 기존 자료의 단일 학년·출판사·지문 경계 결손을 확인했다. 기존 문서·지문 추출 수를 유효 benchmark N으로 세지 않으며 실제 교재 9축 분포는 아직 0이다.
+
 F02 Synthetic Classroom의 활성 경로는 Claude Code CLI 학생 → Codex CLI 독립 채점 및 반대 방향의 `cross-agent local audit`이다. API 키·공급자 receipt를 요구하는 이전 직접 API 경로는 비활성 진단 기록으로 보존한다. 상태 전이는 `runner-built → Stage A/B 실제 CLI 확인 → Stage C 실제 출력 변조 검사 → local-cross-agent-audit-ready → 28/28 batch → benchmark-calibrated → TARGET_FIT/LEVEL_SEPARATION → Gold-S`이다. 로컬 입력·argv·출력·세션 해시 결속은 공급자가 특정 프롬프트를 수신했다는 인증과 다르다. [실행 계약](../scripts/textbook/frym-synthetic/README.md)을 참조한다.
 
 F02의 **로컬 교차 에이전트 합성 검증 유효 N은 28(E3)**이다. [2026-10-06 실행 보고](./reports/academic-reading-f02-cross-agent-audit-20261006.md)의 새 run은 14개 프로필 × 2개 지문을 28/28 완주했고, 양방향 독립 채점·실제 산출물 변조 81건·배치 전체 해시 결속을 통과했다. v1 28건은 exploratory, v2는 27건 채점·1건 거부로 실패한 별도 진단 run이며 합산하지 않는다. E3는 로컬 CLI 입력·출력의 결속 수준이다. 공급자 수신 프롬프트나 Codex 반환 모델을 인증했다는 뜻이 아니며, 실제 학생 N=0과 교육적 난도 타당성 미판정은 그대로다.

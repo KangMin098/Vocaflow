@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): 로컬 시중교재 코퍼스의 학년·출판사·지문 추출 범위와 공식 출판사 카탈로그 후보를 탐색 보고서로 기록했다. 단일 학년·다출판사·판본/권리·9축 요건 미충족으로 benchmark 유효 N과 분포는 계속 0이다.
+
 - docs(textbook): 시중 독해 교재의 학년별 표본 선정·provenance·9축 분석과 F02 상대적 학년 적합성 판정 전이를 별도 benchmark 계약으로 정의했다. 실제 교재 실측·분포·TARGET_FIT·LEVEL_SEPARATION·Gold-S·DB seed는 아직 열지 않았다.
 
 - feat(textbook): F02 Claude Code × Codex 로컬 교차 감사 Stage A/B와 실제 출력 변조 81건을 통과하고, 새 28패킷 배치를 28/28 완료·재검증해 E3 유효 합성 N=28로 기록한다. 외부 benchmark·학생 N·TARGET_FIT·LEVEL_SEPARATION·Gold-S·DB seed는 미진행으로 유지한다.
