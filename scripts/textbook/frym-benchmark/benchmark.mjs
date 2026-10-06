@@ -48,7 +48,7 @@ export function validateProtocol(protocol) {
   if (Object.keys(protocol.axes ?? {}).sort().join('|') !== [...AXES].sort().join('|') || hash(protocol.axes) !== protocol.codebook_hash) fail('AXES_INCOMPLETE')
   for (const axis of AXES) {
     const def = protocol.axes[axis]
-    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || !Array.isArray(def.auxiliary_metrics) || def.auxiliary_metrics.some(metric => !isText(metric)) || unique(def.auxiliary_metrics) !== def.auxiliary_metrics.length || !isText(def.auxiliary_override_rule) || !(Number.isFinite(def.rater_agreement_floor) && def.rater_agreement_floor > 0 && def.rater_agreement_floor <= 1) || !isText(def.missing_priority) || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || def.levels.some(level => !isText(level)) || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
+    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || !Array.isArray(def.auxiliary_metrics) || def.auxiliary_metrics.some(metric => !isText(metric)) || unique(def.auxiliary_metrics) !== def.auxiliary_metrics.length || !['none', 'veto_if_outside_p10_p90'].includes(def.auxiliary_override_rule) || (def.auxiliary_override_rule === 'none') !== (def.auxiliary_metrics.length === 0) || !(Number.isFinite(def.rater_agreement_floor) && def.rater_agreement_floor > 0 && def.rater_agreement_floor <= 1) || def.missing_priority !== 'inconclusive' || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || def.levels.some(level => !isText(level)) || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
   }
   if (protocol.fit?.lower_quantile !== .1 || protocol.fit?.upper_quantile !== .9 || protocol.fit?.minimum_axes !== 7 || protocol.fit?.length_ratio_min !== .75 || protocol.fit?.length_ratio_max !== 1.25 || protocol.separation?.minimum_stable_axes !== 5 || protocol.separation?.minimum_matching_axes !== 3 || protocol.separation?.minimum_reference_ratio !== .5 || protocol.separation?.maximum_opposite_axes !== 1) fail('DECISION_RULES_INVALID')
   return hash(protocol)
@@ -75,6 +75,7 @@ export function screenSample(sample, protocol) {
     const def = protocol.axes[axis]
     if (!Number.isFinite(value) || (def.scale === 'ordinal' && (!Number.isInteger(value) || value < 0 || value >= def.levels.length))) reasons.push(`AXIS_MISSING:${axis}`)
     if (!(Number.isFinite(sample?.axis_agreement?.[axis]) && sample.axis_agreement[axis] >= def.rater_agreement_floor && sample.axis_agreement[axis] <= 1)) reasons.push(`RATER_AGREEMENT_LOW:${axis}`)
+    if (def.auxiliary_metrics.some(metric => !Number.isFinite(sample?.auxiliary_metrics?.[axis]?.[metric]))) reasons.push(`AUXILIARY_MISSING:${axis}`)
     if (def.scale === 'ordinal' && !ordinalReviewValid(sample?.ordinal_reviews?.[axis], value, def.levels.length)) reasons.push(`ORDINAL_REVIEW_INVALID:${axis}`)
   }
   return [...new Set(reasons)]
@@ -130,7 +131,7 @@ export function buildBenchmark(protocol, samples) {
     for (const series of new Set(rows.map(row => `${row.publisher}\u0000${row.series}`))) {
       if (rows.filter(row => `${row.publisher}\u0000${row.series}` === series).length / rows.length > protocol.minimum.max_series_share) reasons.push('SERIES_CONCENTRATION')
     }
-    const distribution = reasons.length ? null : Object.fromEntries(AXES.map(axis => [axis, stats(rows.map(row => row.metrics[axis]))]))
+    const distribution = reasons.length ? null : Object.fromEntries(AXES.map(axis => [axis, { ...stats(rows.map(row => row.metrics[axis])), auxiliary: Object.fromEntries(protocol.axes[axis].auxiliary_metrics.map(metric => [metric, stats(rows.map(row => row.auxiliary_metrics[axis][metric]))])) }]))
     grades[grade] = { status: reasons.length ? 'insufficient_benchmark' : 'calibrated', reasons: [...new Set(reasons)], n: rows.length, publishers: publishers.length, sample_ids: rows.map(row => row.sample_id).sort(), distribution }
   }
   const snapshot = { schema: 'frym-benchmark-snapshot/1', benchmark_version: protocol.version, protocol_hash, selection_manifest_hash: protocol.selection_manifest_hash, codebook_hash: protocol.codebook_hash, sample_set_hash: hash([...accepted].sort((a, b) => a.sample_id.localeCompare(b.sample_id))), rejected, grades }
@@ -156,7 +157,7 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
     const variant = f02?.variants?.[grade]
     return variant && ['expository', 'argumentative', 'narrative'].includes(variant.genre) && Number.isInteger(variant.word_count) && variant.word_count > 0 && itemTypesValid(variant, protocol) && AXES.every(axis => {
       const value = variant.metrics?.[axis], def = protocol.axes[axis]
-      return Number.isFinite(value) && Number.isFinite(variant.axis_agreement?.[axis]) && variant.axis_agreement[axis] >= def.rater_agreement_floor && variant.axis_agreement[axis] <= 1 && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length)))
+      return Number.isFinite(value) && Number.isFinite(variant.axis_agreement?.[axis]) && variant.axis_agreement[axis] >= def.rater_agreement_floor && variant.axis_agreement[axis] <= 1 && def.auxiliary_metrics.every(metric => Number.isFinite(variant.auxiliary_metrics?.[axis]?.[metric])) && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length)))
     })
   })) fail('F02_ANALYSIS_INVALID')
   if (!isHex(f02?.source_freeze_sha256) || !isHex(f02?.item_set_hash) || !isHex(f02?.scoring_key_hash) || !['middle_1', 'high_1'].every(grade => {
@@ -177,6 +178,14 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       const dist = stats(reference.map(row => row.metrics[axis]))
       const value = variant.metrics?.[axis]
       axes[axis] = Number.isFinite(value) ? { status: value >= dist.p10 && value <= dist.p90 ? 'pass' : 'fail', value, p10: dist.p10, p90: dist.p90 } : { status: 'inconclusive' }
+      const auxiliary = {}
+      for (const metric of protocol.axes[axis].auxiliary_metrics) {
+        const referenceAux = stats(reference.map(row => row.auxiliary_metrics[axis][metric]))
+        const observed = variant.auxiliary_metrics[axis][metric]
+        auxiliary[metric] = { value: observed, p10: referenceAux.p10, p90: referenceAux.p90, status: observed >= referenceAux.p10 && observed <= referenceAux.p90 ? 'pass' : 'fail' }
+      }
+      if (Object.values(auxiliary).some(result => result.status === 'fail')) axes[axis].status = 'fail'
+      if (Object.keys(auxiliary).length) axes[axis].auxiliary = auxiliary
     }
     const itemTypes = {}
     for (const type of Object.keys(variant.item_type_counts)) {
@@ -195,8 +204,9 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
     else axes.item_difficulty = { ...axes.item_difficulty, types: itemTypes }
     const core = [...REQUIRED_AXES].every(axis => axes[axis].status === 'pass')
     const pass = Object.values(axes).filter(result => result.status === 'pass').length
-    const hardFail = [...REQUIRED_AXES, 'item_difficulty'].some(axis => axes[axis].status === 'fail')
-    results[grade] = { status: hardFail ? 'fail' : Object.values(axes).some(result => result.status === 'inconclusive') ? 'inconclusive' : core && pass >= protocol.fit.minimum_axes ? 'pass' : 'fail', n: reference.length, axes }
+    const inconclusiveCount = Object.values(axes).filter(result => result.status === 'inconclusive').length
+    const hardFail = [...REQUIRED_AXES, 'item_difficulty'].some(axis => axes[axis].status === 'fail') || pass + inconclusiveCount < protocol.fit.minimum_axes
+    results[grade] = { status: hardFail ? 'fail' : inconclusiveCount ? 'inconclusive' : core && pass >= protocol.fit.minimum_axes ? 'pass' : 'fail', n: reference.length, axes }
   }
   const middle = f02.variants.middle_1, high = f02.variants.high_1
   let separation
