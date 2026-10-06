@@ -35,6 +35,11 @@ if (!/^ec-pilot-run-\d{8}-\d+$/.test(runId ?? '')) die('--run ec-pilot-run-<YYYY
 if (exams.length !== 2 || new Set(exams).size !== 2) die('--exams 서로 다른 시험 2개(쉼표)')
 if (!mapping) die('--mapping <대응표 파일>')
 
+// 같은 run id 로 다시 돌려 기존 기록을 조용히 덮어쓰지 않는다 — seal-run 은 봉인 json 만 막으므로, 앞 단계가 쓰는 기록 · env 초안까지 여기서 먼저 막는다
+const existing = ['json', 'md', 'e2e.json', 'pii-guard.json'].map((x) => path.join(ROOT, 'docs/csat-learner/pilot-runs', `${runId}.${x}`))
+  .concat(path.join(ROOT, '.pilot-private', `${runId}.env`)).filter((p) => fs.existsSync(p))
+if (existing.length) die(`이 run id 의 기록이 이미 있다(${existing.map((p) => path.relative(ROOT, p)).join(', ')}) — 새 run id 로(같은 run 을 고치지 않는다 · §16)`)
+
 step(1, '작업 트리 · 커밋')
 if (git('status', '--porcelain', '--untracked-files=no').length) die('커밋 안 된 변경이 있다 — 봉인 커밋이 실제 코드와 달라진다')
 const commit = git('rev-parse', 'HEAD')
