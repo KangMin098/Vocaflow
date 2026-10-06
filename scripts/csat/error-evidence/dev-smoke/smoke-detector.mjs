@@ -168,7 +168,25 @@ try {
 } catch (e) {
   record('실행', '스모크', false, e.message)
 } finally {
-  for (const u of Object.values(users)) { const d = await svc.auth.admin.deleteUser(u.id); if (d.error) record('정리', `계정 삭제 ${u.id.slice(0, 8)}`, false, d.error.message) }
+  // 활성 수집(held · collecting)이 남은 계정을 지우면 묘비가 남아 그 시험이 **모든 사용자에게** 보류된다(2026-10-06 실측 — 이 스크립트가 2014A 묘비 2개를 남겼다).
+  // 지우기 전에 관리자 종료(closed_incomplete)로 닫는다. 닫지 못한 계정은 지우지 않고 실패로 남긴다.
+  const tombBefore = (await db.query(`select coalesce(max(id), 0)::int m from public.csat_ec_capture_tombstone`)).rows[0].m
+  const keep = new Set()
+  for (const [role, u] of Object.entries(users)) {
+    if (role === 'ADM') continue
+    const act = (await db.query(`select c.exam_id from public.csat_ec_capture_session c join public.csat_dx_session s on s.id = c.session_id
+        where s.user_id = $1 and c.status in ('held', 'collecting') group by 1`, [u.id])).rows
+    for (const { exam_id } of act) {
+      const r = users.ADM ? await users.ADM.client.rpc('csat_ec_capture_close', { p_user: u.id, p_exam: exam_id, p_reason: 'TEST detector smoke 정리 — 계정 삭제 전 종료' }) : { error: { message: '관리자 계정 없음' } }
+      if (r.error) { keep.add(role); record('정리', `활성 수집 종료 ${role}`, false, r.error.message) }
+    }
+  }
+  for (const [role, u] of Object.entries(users)) {
+    if (keep.has(role)) continue
+    const d = await svc.auth.admin.deleteUser(u.id); if (d.error) record('정리', `계정 삭제 ${u.id.slice(0, 8)}`, false, d.error.message)
+  }
+  const newOpen = (await db.query(`select count(*)::int n from public.csat_ec_capture_tombstone where id > $1 and closed_at is null`, [tombBefore])).rows[0].n
+  record('정리', '새 열린 묘비 0(시험 전체 보류를 남기지 않음)', newOpen === 0, newOpen)
   const left = (await db.query(`select count(*)::int n from auth.users where email like $1`, [`ec-detector-${run}-%`])).rows[0].n
   record('정리', '테스트 계정 0', left === 0, left)
   await db.end()
