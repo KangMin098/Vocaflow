@@ -62,6 +62,8 @@ try {
     ['anon → 공개 사전 lookup_word_meaning 허용', 'anon', null, `select * from public.lookup_word_meaning('running')`, [], (r) => r.ok],
     ['anon → 도서 목록 SELECT(정책이 is_admin_or_curator 평가) 허용', 'anon', null, `select id from public.library_books where status = 'published' limit 3`, [], (r) => r.ok && r.n > 0],
     ['anon → select_book_comic_all 거부(5컷 상한 우회 차단)', 'anon', null, `select * from public.select_book_comic_all('00000000-0000-0000-0000-000000000000')`, [], (r) => !r.ok && r.code === '42501'],
+    ['학습자 → 책 퀴즈 list_book_chapter_quiz_catalog 허용(bind 호출 · Codex 리뷰)', 'authenticated', learner, `select * from public.list_book_chapter_quiz_catalog()`, [], (r) => r.ok],
+    ['anon → 책 퀴즈 카탈로그 거부', 'anon', null, `select * from public.list_book_chapter_quiz_catalog()`, [], (r) => !r.ok && r.code === '42501'],
     ['학습자 → 공개 학급 코드 peek_class_by_code 허용', 'authenticated', learner, `select * from public.peek_class_by_code('ZZZZZZ')`, [], (r) => r.ok],
   ]
   if (!admin || !learner || !other) rec('매트릭스 사용자', false, `admin=${!!admin} learner=${!!learner} other=${!!other}`)

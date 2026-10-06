@@ -1360,7 +1360,7 @@ grant execute on function auto_promote_v_level_for_user(uuid) to authenticated;
 revoke execute on function csat_ec_blind_queue(bigint) from public, anon, authenticated;
 grant execute on function csat_ec_blind_queue(bigint) to authenticated;
 revoke execute on function select_book_chapter_quiz(uuid,integer) from public, anon, authenticated;
-grant execute on function select_book_chapter_quiz(uuid,integer) to service_role;
+grant execute on function select_book_chapter_quiz(uuid,integer) to authenticated;
 revoke execute on function admin_vrl_diagnostic_use() from public, anon, authenticated;
 grant execute on function admin_vrl_diagnostic_use() to authenticated;
 revoke execute on function admin_delete_article(uuid) from public, anon, authenticated;
@@ -1482,7 +1482,7 @@ revoke execute on function commit_chapter_vocab(uuid,integer) from public, anon,
 grant execute on function commit_chapter_vocab(uuid,integer) to authenticated;
 revoke execute on function csat_ec_supersede_guard() from public, anon, authenticated;
 revoke execute on function list_book_chapter_quiz_catalog() from public, anon, authenticated;
-grant execute on function list_book_chapter_quiz_catalog() to service_role;
+grant execute on function list_book_chapter_quiz_catalog() to authenticated;
 revoke execute on function csat_ec_round_set_targets(bigint,jsonb) from public, anon, authenticated;
 grant execute on function csat_ec_round_set_targets(bigint,jsonb) to authenticated;
 revoke execute on function csat_review_sources_overlap(text,text) from public, anon, authenticated;

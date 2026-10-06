@@ -292,7 +292,8 @@
   },
   "claim_topic_corpus_batch(p_source_id text, p_limit integer)": {
    "class": "SERVICE_ONLY",
-   "why": "topic-corpus/drain → createAdminClient"
+   "why": "topic-corpus/drain → createAdminClient",
+   "service_caller_ok": "lib/topic-corpus/drain.ts 는 api/topic-corpus/drain 이 createTopicCorpusClient(=createAdminClient)로 부른다"
   },
   "classify_archaic_candidates()": {
    "class": "SERVICE_ONLY",
@@ -846,7 +847,8 @@
   },
   "csat_source_inventory_live()": {
    "class": "SERVICE_ONLY",
-   "why": "source-live.ts 는 admin/csat/sources page·route(service) 에서만 실행 · 브라우저는 타입 import 뿐"
+   "why": "source-live.ts 는 admin/csat/sources page·route(service) 에서만 실행 · 브라우저는 타입 import 뿐",
+   "service_caller_ok": "lib/textbook/source-live.ts 는 admin/csat/sources page · api route(서비스 client)에서만 실행, 브라우저는 타입 import"
   },
   "csat_source_is_eligible(p_article_id uuid)": {
    "class": "SERVICE_ONLY",
@@ -858,11 +860,13 @@
   },
   "csat_source_live_rollup()": {
    "class": "SERVICE_ONLY",
-   "why": "같음"
+   "why": "같음",
+   "service_caller_ok": "lib/textbook/source-live.ts 는 admin/csat/sources page · api route(서비스 client)에서만 실행, 브라우저는 타입 import"
   },
   "csat_source_pipeline_live()": {
    "class": "SERVICE_ONLY",
-   "why": "같음"
+   "why": "같음",
+   "service_caller_ok": "lib/textbook/source-live.ts 는 admin/csat/sources page · api route(서비스 client)에서만 실행, 브라우저는 타입 import"
   },
   "csat_source_rollup()": {
    "class": "SERVICE_ONLY",
@@ -1139,7 +1143,8 @@
   },
   "ingest_topic_corpus_doc(p_source_id text, p_external_id text, p_url text, p_content_hash text, p_counts jsonb, p_running_words integer, p_truncated integer, p_title text, p_speaker text, p_published_at timestamp with time zone, p_proper_nouns text[])": {
    "class": "SERVICE_ONLY",
-   "why": "harvest.ts · local-corpus.ts — 앱 내 importer 없음, 스크립트 service"
+   "why": "harvest.ts · local-corpus.ts — 앱 내 importer 없음, 스크립트 service",
+   "service_caller_ok": "harvest.ts · local-corpus.ts — 앱 importer 없음, 드레인은 서비스 client"
   },
   "insert_book_analysis(p_book_id uuid, p_chapters jsonb, p_words jsonb)": {
    "class": "SERVICE_ONLY",
@@ -1222,8 +1227,8 @@
    "why": "뷰/기본값이 부른다: library_seed_catalog"
   },
   "list_book_chapter_quiz_catalog()": {
-   "class": "SERVICE_ONLY",
-   "why": "학습자 경로 호출부 없음 · 호출부: 없음(SQL 내부 · cron)"
+   "class": "AUTH_READ_RPC",
+   "why": "scriptquiz(로그인 경로)가 사용자 세션으로 부른다 — questions.ts · grade-actions.ts 의 client.rpc.bind 호출(2026-10-06 Codex 리뷰가 찾음)"
   },
   "list_book_comic_catalog()": {
    "class": "PUBLIC_RPC",
@@ -1354,7 +1359,8 @@
   },
   "release_topic_corpus_claim(p_id uuid, p_status text, p_error text)": {
    "class": "SERVICE_ONLY",
-   "why": "topic-corpus/drain → createAdminClient"
+   "why": "topic-corpus/drain → createAdminClient",
+   "service_caller_ok": "lib/topic-corpus/drain.ts 는 api/topic-corpus/drain 이 createTopicCorpusClient(=createAdminClient)로 부른다"
   },
   "repair_vocab_first_sentences(p_table text, p_rows jsonb)": {
    "class": "SERVICE_ONLY",
@@ -1401,8 +1407,8 @@
    "why": "학습자 경로 호출부 없음 · 호출부: 없음(SQL 내부 · cron)"
   },
   "select_book_chapter_quiz(p_book_id uuid, p_chapter_idx integer)": {
-   "class": "SERVICE_ONLY",
-   "why": "학습자 경로 호출부 없음 · 호출부: 없음(SQL 내부 · cron)"
+   "class": "AUTH_READ_RPC",
+   "why": "scriptquiz(로그인 경로)가 사용자 세션으로 부른다 — questions.ts · grade-actions.ts 의 client.rpc.bind 호출(2026-10-06 Codex 리뷰가 찾음)"
   },
   "select_book_chapter_vocab(p_book_id uuid)": {
    "class": "SERVICE_ONLY",
@@ -1446,7 +1452,8 @@
   },
   "store_content_chunk(p_content text)": {
    "class": "SERVICE_ONLY",
-   "why": "함수 주석이 「service_role 전용」 · 앱 importer 없음"
+   "why": "함수 주석이 「service_role 전용」 · 앱 importer 없음",
+   "service_caller_ok": "lib/library/content-storage.ts 를 import 하는 앱 파일 없음 · 함수 주석 「service_role 전용」"
   },
   "subscribe_article_word_set(p_article_id uuid)": {
    "class": "AUTH_SELF_RPC",
@@ -1480,7 +1487,8 @@
   },
   "textbook_shelf_refreshed_at()": {
    "class": "SERVICE_ONLY",
-   "why": "csat/item-count ← textbook/freedom-load(service) 뿐 — 시각 하나라 노출 위험은 낮다"
+   "why": "csat/item-count ← textbook/freedom-load(service) 뿐 — 시각 하나라 노출 위험은 낮다",
+   "service_caller_ok": "lib/csat/item-count.ts 의 importer 는 textbook/freedom-load.ts(서비스 client) 뿐"
   },
   "textbook_shelf_sources()": {
    "class": "PUBLIC_RPC",

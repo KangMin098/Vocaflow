@@ -1,7 +1,7 @@
 {
- "ranAt": "2026-10-06T00:46:07.742Z",
+ "ranAt": "2026-10-06T00:54:19.889Z",
  "committed": false,
- "pass": 20,
+ "pass": 22,
  "fail": 0,
  "out": [
   {
@@ -98,6 +98,16 @@
    "name": "anon → select_book_comic_all 거부(5컷 상한 우회 차단)",
    "pass": true,
    "detail": "42501 permission denied for function select_book_comic_all"
+  },
+  {
+   "name": "학습자 → 책 퀴즈 list_book_chapter_quiz_catalog 허용(bind 호출 · Codex 리뷰)",
+   "pass": true,
+   "detail": "ok n=342"
+  },
+  {
+   "name": "anon → 책 퀴즈 카탈로그 거부",
+   "pass": true,
+   "detail": "42501 permission denied for function list_book_chapter_quiz_catalog"
   },
   {
    "name": "학습자 → 공개 학급 코드 peek_class_by_code 허용",

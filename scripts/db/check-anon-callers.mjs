@@ -53,7 +53,8 @@ for (const entry of entries) {
     const next = []
     for (const f of frontier) {
       const s = fs.readFileSync(f, 'utf8')
-      for (const m of s.matchAll(/\.rpc\(\s*['"]([a-z_0-9]+)['"]/g)) {
+      // .rpc('x') 와 bind 된 rpc('x') 둘 다 — 문법 매칭만으로는 래퍼를 놓칠 수 있어 check-revoked-callers 가 이름 문자열로 한 번 더 본다
+      for (const m of s.matchAll(/\brpc\s*(?:<[^>]*>)?\(\s*['"]([a-z_0-9]+)['"]/g)) {
         const n = m[1]
         if (known.has(n) && !anonOk.has(n)) fails.push({ route: routeOf(entry) ?? 'sitemap', file: path.relative(SRC, f).replace(/\\/g, '/'), rpc: n })
       }
