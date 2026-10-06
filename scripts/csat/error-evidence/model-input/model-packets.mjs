@@ -111,6 +111,7 @@ async function cmdExport(a) {
   fs.mkdirSync(path.join(outDir, 'aliases'), { recursive: true })
   const now = new Date().toISOString()
   const blocked = []
+  const seen = new Set()
   let sent = 0
   for (const t of targets) {
     const s = sess.get(t.session_id)
@@ -119,6 +120,9 @@ async function cmdExport(a) {
     const ord = (assign.get(pkey) ?? []).indexOf(s.exam_id) + 1
     if (ord < 1) die(`${pkey} 의 assignment 에 없는 시험이다 — run 밖 데이터를 보내지 않는다`)
     const key = attemptKey(pkey, ord, Number(t.item_no))
+    // 같은 참가자 · 시험 · 문항이 두 세션(재응시)이면 attempt key 가 겹친다 — 덮어쓰지 않고 멈춘다
+    if (seen.has(key)) die(`attempt key 중복(${key}) — 같은 시험을 두 번 응시한 세션이 회차에 함께 있다. 회차 대상을 나눈다`)
+    seen.add(key)
     const { data: packet, error: xe } = await db.rpc('csat_ec_ai_export', { p_round: Number(a.round), p_session: t.session_id, p_item_no: t.item_no })
     if (xe) die(`ai_export 실패(${key}): ${xe.message}`)
     const r = deidentifyPacket(packet, { sessionId: t.session_id, itemNo: Number(t.item_no), participantKey: pkey, examOrdinal: ord, redactions: redactions[key] ?? [] })

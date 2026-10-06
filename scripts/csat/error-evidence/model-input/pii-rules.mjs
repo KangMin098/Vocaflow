@@ -17,7 +17,7 @@ export const PII_RULES = [
   { name: 'phone_word', re: /(?:전화|연락처|핸드폰|휴대폰|폰\s?번호|카톡|카카오톡|인스타|instagram|kakao|phone|contact|whatsapp|telegram|discord)\s?(?:번호|아이디|id|number)?\s?[:：은는이가]?\s?(?=[@A-Za-z._-]*[0-9@])[@A-Za-z0-9._-]{3,}/i, note: '연락처 단서 + 값(숫자 · @ 가 섞인 값만)' },
   { name: 'long_number', re: /(?<![0-9A-Za-z.])[0-9]{5,}(?![0-9A-Za-z.])/, note: '5자리 이상 숫자(학번 · 전화 일부 · 주민번호 조각 — 보수적)' },
   { name: 'student_id', re: /(?:학번|수험\s?번호|출석\s?번호|student\s?(?:id|number|no\.?))\s?[:：은는이가]?\s?[0-9A-Za-z-]{2,}/i, note: '학번 · 수험번호' },
-  { name: 'school_ko', re: /[가-힣A-Za-z0-9]{1,15}(?:초등학교|중학교|고등학교|여자고등학교|여자중학교|여고|여중|남고|남중|외고|과학고|국제고|예고|체고|마이스터고|고교|대학교|초교|중교)(?![가-힣])/, note: '학교명' },
+  { name: 'school_ko', re: /[가-힣A-Za-z0-9]{1,15}(?:초등학교|중학교|고등학교|여자고등학교|여자중학교|대학교|학교)|[가-힣A-Za-z0-9]{1,15}(?:여고|여중|남고|남중|외고|과학고|국제고|예고|체고|마이스터고|고교|초교|중교)(?:(?![가-힣])|(?=에서|에|의|를|을|이|가|는|은|와|과|랑|로|도|생|학생))/, note: '학교명(조사가 붙어도 — 「한빛고등학교에서」)' },
   { name: 'school_abbrev_grade', re: /[가-힣]{1,10}(?:고|중|초)\s?[1-6]\s?학년/, note: '「OO고 2학년」 꼴' },
   { name: 'class_ko', re: /(?:[1-6]\s?학년\s?[0-9]{1,2}\s?반|(?<![0-9])[0-9]{1,2}\s?반(?![가-힣])|(?<![0-9])[1-6]\s?-\s?[0-9]{1,2}\s?반)/, note: '학년 · 반(「2-3 문장」 같은 범위 표기는 반이 붙을 때만)' },
   { name: 'school_en', re: /\b[A-Z][A-Za-z.'-]+(?:\s[A-Z][A-Za-z.'-]+)*\s(?:High|Middle|Elementary|Primary|Secondary|Girls'?|Boys'?|Foreign\sLanguage|Science)\s(?:School|Academy)\b/, note: '영문 학교명' },

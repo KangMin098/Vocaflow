@@ -22,7 +22,7 @@ run id 꼴: `ec-pilot-run-<YYYYMMDD>-<n>`. 봉인된 run 은 고치지 않는다
 | `taxonomy.version` · `definitionsHash` | `v0.1` 고정 · DB `csat_ec_taxonomy_version.definitions_hash` 와 같고 sealed · TEST 표기 없음 |
 | `detectorVersion` | `bd-0.1.0` — 앱 상수(`gate.ts DETECTOR_VERSION`, 최신 감지기 마이그레이션과 테스트로 대조) · 점검 스크립트는 live 함수 본문 |
 | `probe.capPerSession` · `configHash` | 3(결정 C) · `config.ts probeCapPerSession` 과 같아야 한다(지금 `null` 이면 닫힘) · `probeConfigHash(captureProbeConfig(), cap)` |
-| `appCommit` | 배포 커밋 40자 — 서버 env `CSAT_EC_APP_COMMIT`(없으면 `VERCEL_GIT_COMMIT_SHA`)와 같아야 한다 |
+| `appCommit` | **검증 커밋** 40자(PII 가드 · E2E 를 돌린 커밋). 앱은 세 값을 섞지 않고 대조한다: env `CSAT_EC_APP_COMMIT` = appCommit · 플랫폼이 주입한 빌드 커밋 `VERCEL_GIT_COMMIT_SHA`(운영자가 덮어쓰지 못한다) = appCommit **또는** env `CSAT_EC_ACTIVATION_COMMIT`. 빌드 커밋이 없거나 둘 다 아니면 닫힘(다른 코드가 배포되면 env 가 낡아도 닫힌다) |
 | `db.latestMigration` · `migrationCount` | 점검 스크립트만 대조(앱은 schema_migrations 를 못 읽는다) |
 | `exams[]` | 정확히 2개 · `examId` · `itemSetHash` · `answerKeyHash` · `corpusHash`(정의는 `run-gate.ts`) |
 | `participants[]` | `{ key: "P001", exams: [...] }` 3–8명(결정 A) — 개수가 서버 env `CSAT_EC_PILOT_USER_IDS` 의 유효 UUID 개수와 같아야 한다. 배열 순서가 attempt key 의 시험 순번(E1, E2) |
@@ -58,6 +58,7 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
 ```
 
 - `at` 은 초 단위 UTC(`YYYY-MM-DDTHH:MM:SSZ`). `failed` · `skipped` 가 0 이 아니면 봉인 · 게이트가 거부한다(건너뛴 테스트를 통과로 치지 않는다).
+- 봉인 · 점검이 원본을 검사한다(`scripts/csat/pilot/live.mjs recordFailures`): `format` · `runId` 일치 · `build = "production"` · `specs` 에 `tests/e2e/52-csat-ec-capture.spec.ts` 포함 · `reportSha256` 64자 hex(`--e2e-report-sha256` 를 주면 리포트와 대조) · PII 가드 기록과 같은 `commit`.
 - run 메타 `verification.e2e.recordSha256` = 이 파일 그대로의 sha256(줄바꿈 포함 — 봉인 뒤 파일을 다시 쓰지 않는다).
 
 ## 개발 · 검증 모드(활성 run 없음)
@@ -75,10 +76,11 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
 ## G6 시작 순서
 
 1. 참가자 · 시험 결정 → 저장소 밖 매핑(`{ "runId", "participants": { "P001": "<계정 id>" } }` — `.pilot-private/` 또는 저장소 밖 절대경로)
-2. `config.ts probeCapPerSession = 3` 커밋 · 배포(env `CSAT_EC_PILOT_USER_IDS` · `CSAT_EC_APP_COMMIT`)
+2. `config.ts probeCapPerSession = 3` 커밋 · 배포 = **검증 커밋**(env `CSAT_EC_PILOT_USER_IDS` · `CSAT_EC_APP_COMMIT=<검증 커밋>`)
 3. `node scripts/csat/error-evidence/model-input/model-packets.mjs selftest --run <run id>` → `.pii-guard.json`
 4. Playwright E2E(verification 모드 서버 · 같은 커밋) → `.e2e.json`
 5. `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/seal-run.mjs --run <run id> --exams A,B --participants "P001=A+B,…" --app-commit <sha> --activate` → 커밋 · 배포(배포 env 에서 `CSAT_EC_PILOT_MODE` 를 지운다)
-6. `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/start-check.mjs --run <run id> --app-commit <sha>` 전 항목 PASS → G6 시작 승인 요청
+6. 활성화 커밋(5의 산출물만) 배포 · env `CSAT_EC_ACTIVATION_COMMIT=<활성화 커밋>` · `CSAT_EC_PILOT_MODE` 제거
+7. `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/start-check.mjs --run <run id> --build-commit <플랫폼에 표시된 배포 커밋>` 전 항목 PASS → G6 시작 승인 요청
 
-**남은 결정(G6 시작 승인 때 확정)**: `active-run.ts` 활성화 커밋은 앱 커밋을 바꾼다. 메타 `appCommit`(검증한 커밋)과 배포 env `CSAT_EC_APP_COMMIT` 은 같아야 하므로, 활성화 커밋은 `active-run.ts` 한 파일만 바꾸고 env 에는 **검증한 커밋**을 둔다 — 운영자가 `git diff --stat <검증 커밋> <배포 커밋>` 이 `active-run.ts` 하나뿐임을 확인해 run 기록에 남긴다. 이 대조를 자동화할지는 승인 때 정한다.
+활성화 커밋 범위: 검증 커밋의 **후손**이고 차이가 `apps/web/src/lib/csat/ec-pilot/active-run.ts` 와 `docs/csat-learner/pilot-runs/<run id>.{json,md,pii-guard.json,e2e.json}` 뿐이어야 한다 — `start-check.mjs` 가 git 으로 확인한다(`activationDiffFailures`). 그 밖의 파일이 섞이면 실패(검증하지 않은 코드가 배포된 것이다).

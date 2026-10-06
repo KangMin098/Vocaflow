@@ -58,11 +58,16 @@ function baseLive(m: RunMeta = baseMeta()): LiveState {
     probeConfigHash: probeConfigHash(captureProbeConfig(), 3),
     participantIdCount: 3,
     appCommit: COMMIT,
+    buildCommit: 'd'.repeat(40),
+    activationCommit: 'd'.repeat(40),
     exams: Object.fromEntries(m.exams.map((e) => [e.examId, { ...e }])),
   }
 }
 
 describe('evaluateRunGate — 모두 있으면 열림', () => {
+  it('빌드 = 검증 커밋 그 자체여도 열림', () => {
+    expect(evaluateRunGate(baseMeta(), { ...baseLive(), buildCommit: COMMIT, activationCommit: null }).open).toBe(true)
+  })
   it('열림 · 수집 대상 시험 = run 의 exam ids', () => {
     const r = evaluateRunGate(baseMeta(), baseLive())
     expect(r.failures).toEqual([])
@@ -141,6 +146,9 @@ describe('live 와 다르면 닫힘', () => {
     ['참가자 env 비어 있음', (l) => ({ ...l, participantIdCount: 0 }), 'live:participants.count'],
     ['앱 커밋 다름', (l) => ({ ...l, appCommit: 'b'.repeat(40) }), 'live:app.commit'],
     ['앱 커밋 env 없음', (l) => ({ ...l, appCommit: null }), 'live:app.commit'],
+    ['배포 빌드 커밋 없음(플랫폼 값 없음)', (l) => ({ ...l, buildCommit: null }), 'live:app.build'],
+    ['다른 코드 배포(활성화 커밋과 다름 · env 는 낡은 그대로)', (l) => ({ ...l, buildCommit: 'e'.repeat(40) }), 'live:app.build'],
+    ['활성화 커밋 env 없음 · 빌드 ≠ 검증 커밋', (l) => ({ ...l, activationCommit: null }), 'live:app.build'],
     ['item set 해시', (l) => ({ ...l, exams: { ...l.exams, '2019': { ...l.exams['2019']!, itemSetHash: H('0') } } }), 'live:exam.2019.itemSetHash'],
     ['정답표 해시', (l) => ({ ...l, exams: { ...l.exams, '2020': { ...l.exams['2020']!, answerKeyHash: H('0') } } }), 'live:exam.2020.answerKeyHash'],
     ['코퍼스 해시', (l) => ({ ...l, exams: { ...l.exams, '2020': { ...l.exams['2020']!, corpusHash: H('0') } } }), 'live:exam.2020.corpusHash'],

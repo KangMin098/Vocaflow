@@ -39,7 +39,11 @@ export function pilotMode(run: RunMeta | null = ACTIVE_RUN, env: string | undefi
   return env === 'verification' ? 'verification' : 'closed'
 }
 
-export const appCommitEnv = (): string | null => (process.env.CSAT_EC_APP_COMMIT ?? process.env.VERCEL_GIT_COMMIT_SHA ?? '').trim() || null
+/** 운영자가 선언한 검증 커밋 · 활성화 커밋(env) · 플랫폼이 주입한 실제 빌드 커밋(덮어쓸 수 없다) — 셋을 섞지 않는다 */
+const envOf = (k: string): string | null => (process.env[k] ?? '').trim() || null
+export const appCommitEnv = () => envOf('CSAT_EC_APP_COMMIT')
+export const activationCommitEnv = () => envOf('CSAT_EC_ACTIVATION_COMMIT')
+export const buildCommitEnv = () => envOf('VERCEL_GIT_COMMIT_SHA')
 
 /** 한 시험의 live 봉인값(service role 읽기). 못 읽으면 null */
 export async function liveExamSeal(admin: SupabaseClient, examId: string): Promise<ExamSeal | null> {
@@ -71,17 +75,18 @@ async function readLive(run: RunMeta, rls: SupabaseClient): Promise<LiveState> {
     probeConfigHash: probeConfigHash(captureProbeConfig(), EC_PILOT.probeCapPerSession),
     participantIdCount: pilotParticipants().size,
     appCommit: appCommitEnv(),
+    buildCommit: buildCommitEnv(),
+    activationCommit: activationCommitEnv(),
     exams,
   }
 }
 
-const TTL_MS = 60_000
-let cache: { at: number; result: GateResult } | null = null
-
-/** run 모드 게이트 판정(60초 캐시 — live 해시 재계산 비용). 실패 항목은 서버 로그로만 */
-export async function runGate(rls: SupabaseClient, nowMs: number): Promise<GateResult> {
+/**
+ * run 모드 게이트 판정 — **요청마다 live 를 다시 읽는다**(캐시 없음: 봉인 해시가 바뀐 직후의 수집 요청도 닫혀야 한다).
+ * Pilot 규모(참가자 ≤ 8 · 시험 2)에서 요청당 질의 ~10개. 실패 항목은 서버 로그로만.
+ */
+export async function runGate(rls: SupabaseClient): Promise<GateResult> {
   if (!ACTIVE_RUN) return { open: false, failures: ['meta:missing'], exams: [] }
-  if (cache && nowMs - cache.at < TTL_MS) return cache.result
   let result: GateResult
   try {
     result = evaluateRunGate(ACTIVE_RUN, await readLive(ACTIVE_RUN, rls))
@@ -89,9 +94,5 @@ export async function runGate(rls: SupabaseClient, nowMs: number): Promise<GateR
     result = { open: false, failures: [`live:error:${e instanceof Error ? e.message.slice(0, 80) : 'unknown'}`], exams: [] }
   }
   if (!result.open) console.error('[csat-ec-gate] 닫힘', ACTIVE_RUN.runId, result.failures.join(','))
-  cache = { at: nowMs, result }
   return result
 }
-
-/** 테스트용 — 캐시 비우기 */
-export function resetGateCache() { cache = null }

@@ -159,13 +159,24 @@ const gitDefault = {
   toplevel(p) {
     let dir = path.dirname(path.resolve(p))
     while (!fs.existsSync(dir)) { const up = path.dirname(dir); if (up === dir) return null; dir = up }
-    try { return execFileSync('git', ['-C', dir, 'rev-parse', '--show-toplevel'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() || null } catch { return null }
+    // 「저장소 아님」만 null — git 을 못 돌리거나 다른 오류면 확인 불가로 거부한다(조회 실패를 저장소 밖으로 보지 않는다)
+    try { return execFileSync('git', ['-C', dir, 'rev-parse', '--show-toplevel'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim() || null } catch (e) {
+      if (/not a git repository/i.test(String(e?.stderr ?? ''))) return null
+      throw new Error(`git 으로 경로를 확인하지 못했다(확인 불가 — 쓰지 않는다): ${e?.code ?? e?.message ?? 'unknown'}`)
+    }
   },
+  // ls-files 는 추적 아님 = exit 1 · check-ignore 는 무시 아님 = exit 1. 그 밖의 종료(128 · 실행 불가)는 확인 불가로 거부
   tracked(root, rel) {
-    try { execFileSync('git', ['-C', root, 'ls-files', '--error-unmatch', '--', rel], { stdio: 'ignore' }); return true } catch { return false }
+    try { execFileSync('git', ['-C', root, 'ls-files', '--error-unmatch', '--', rel], { stdio: 'ignore' }); return true } catch (e) {
+      if (e?.status === 1) return false
+      throw new Error(`git ls-files 실패(확인 불가): ${e?.code ?? e?.status}`)
+    }
   },
   ignored(root, rel) {
-    try { execFileSync('git', ['-C', root, 'check-ignore', '-q', '--no-index', '--', rel], { stdio: 'ignore' }); return true } catch { return false }
+    try { execFileSync('git', ['-C', root, 'check-ignore', '-q', '--no-index', '--', rel], { stdio: 'ignore' }); return true } catch (e) {
+      if (e?.status === 1) return false
+      throw new Error(`git check-ignore 실패(확인 불가): ${e?.code ?? e?.status}`)
+    }
   },
 }
 

@@ -41,7 +41,7 @@ export async function pilotOpen(userId: string, rls?: SupabaseClient, examId?: s
   if (mode === 'closed' || !isPilotParticipant(userId) || !configTaxonomyAllowed(EC_PILOT.taxonomyVersion)) return false
   const db = rls ?? ((await createClient()) as unknown as SupabaseClient)
   if (mode === 'run') {
-    const g = await runGate(db, Date.now())
+    const g = await runGate(db)
     return g.open && (examId === undefined || g.exams.includes(examId))
   }
   // verification — 테스트 계정만(실제 참가자는 @example.com 을 가질 수 없다 · PILOT_PROTOCOL §2)
@@ -57,7 +57,7 @@ export async function ownSession(admin: SupabaseClient, userId: string, sessionI
   if (error) throw new Error(`세션 조회 실패: ${error.message}`)
   if (!data || data.user_id !== userId || !['live', 'retake'].includes(data.mode as string)) return null
   // run 모드면 run 의 시험만 수집 경로로 다룬다(다른 시험 세션은 없는 것처럼)
-  if (pilotMode() === 'run' && !(await runGate((await createClient()) as unknown as SupabaseClient, Date.now())).exams.includes(data.exam_id as string)) return null
+  if (pilotMode() === 'run' && !(await runGate((await createClient()) as unknown as SupabaseClient)).exams.includes(data.exam_id as string)) return null
   return data as { id: string; user_id: string; mode: string; exam_id: string }
 }
 

@@ -6,14 +6,14 @@
 // --activate 면 apps/web/src/lib/csat/ec-pilot/active-run.ts 에 같은 값을 쓴다(앱 게이트가 읽는 값 — 커밋 · 배포해야 열린다).
 //
 //   node --tls-max-v1.2 --env-file=<배포 env 파일> scripts/csat/pilot/seal-run.mjs --run ec-pilot-run-20261020-1 \
-//     --exams 2019,2020 --participants "P001=2019+2020,P002=2019+2020,P003=2020" --app-commit <배포 커밋 sha> [--activate]
+//     --exams 2019,2020 --participants "P001=2019+2020,P002=2019+2020,P003=2020" --app-commit <검증 커밋 sha> [--e2e-report-sha256 <sha>] [--activate]
 //   전제: <run id>.pii-guard.json(model-packets.mjs selftest) · <run id>.e2e.json(E2E 통과 기록) 이 같은 커밋으로 있어야 한다.
 
 import fs from 'node:fs'
 import path from 'node:path'
 
 import { PILOT_PROBE_CAP, RUN_META_FORMAT, metaSeal, validateRunMeta, evaluateRunGate } from '../../../apps/web/src/lib/csat/ec-pilot/run-gate.ts'
-import { ROOT, RUNS, fileSha256, readLive, rulesHash } from './live.mjs'
+import { ROOT, RUNS, readLive, readRecord, recordFailures } from './live.mjs'
 
 const a = Object.fromEntries(process.argv.slice(2).reduce((acc, x, i, arr) => (x.startsWith('--') ? [...acc, [x.slice(2), arr[i + 1] && !arr[i + 1].startsWith('--') ? arr[i + 1] : 'true']] : acc), []))
 const die = (m) => { console.error(m); process.exit(2) }
@@ -27,16 +27,15 @@ const participants = (a.participants ?? '').split(',').map((x) => x.trim()).filt
 const appCommit = (a['app-commit'] ?? '').trim().toLowerCase()
 if (!/^[0-9a-f]{40}$/.test(appCommit)) die('--app-commit <배포 커밋 40자 sha> 필요')
 
-const rec = (name) => {
-  const p = path.join(RUNS, name)
-  if (!fs.existsSync(p)) die(`검증 기록이 없다: ${path.relative(ROOT, p)}`)
-  return { sha256: fileSha256(p), json: JSON.parse(fs.readFileSync(p, 'utf8')) }
-}
-const pii = rec(`${a.run}.pii-guard.json`)
-const e2e = rec(`${a.run}.e2e.json`)
-if (pii.json.rulesHash !== rulesHash()) die('PII 가드 기록의 규칙 해시가 지금 규칙과 다르다 — selftest 를 다시 돌린다')
+const pii = readRecord(`${a.run}.pii-guard.json`)
+const e2e = readRecord(`${a.run}.e2e.json`)
+// 원본 기록 검사(형식 · run id · 통과 · production 빌드 · e2e 52 · 리포트 해시 · 두 기록 같은 커밋) — 점검 스크립트와 같은 검사기
+const recBad = recordFailures(a.run, { pii, e2e }, null, { e2eReportSha256: a['e2e-report-sha256'] ?? null })
+if (recBad.length) die(`검증 기록 실패 — 봉인하지 않는다: ${recBad.join(', ')}`)
+if (pii.json.commit !== appCommit) die('검증 기록의 커밋이 --app-commit 과 다르다')
 
-const live = await readLive(exams, { appCommit })
+// 봉인 시점의 빌드 = 검증 커밋(배포 뒤 활성화 커밋은 start-check 가 env · git 으로 확인한다)
+const live = { ...(await readLive(exams, { appCommit })), buildCommit: appCommit, activationCommit: null }
 if (live.probeCap !== PILOT_PROBE_CAP) die(`config.ts probeCapPerSession 이 ${PILOT_PROBE_CAP} 이 아니다(결정 C) — 먼저 커밋한다`)
 const missing = exams.filter((e) => !live.exams[e])
 if (missing.length) die(`live 시험을 읽지 못했다: ${missing.join(',')}`)
@@ -95,7 +94,7 @@ const md = [
   '|---|---|',
   ...meta.participants.map((p) => `| ${p.key} | ${p.exams.map((x, i) => `E${i + 1}=${x}`).join(' · ')} |`),
   '',
-  '점검: `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/start-check.mjs --run ' + a.run + ' --app-commit <배포 커밋>` — 모든 항목 PASS 여야 앱 게이트가 열린다.',
+  '점검: `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/start-check.mjs --run ' + a.run + ' --build-commit <배포 커밋>` — 모든 항목 PASS 여야 앱 게이트가 열린다.',
   '',
 ].join('\n')
 fs.writeFileSync(path.join(RUNS, `${a.run}.md`), md)

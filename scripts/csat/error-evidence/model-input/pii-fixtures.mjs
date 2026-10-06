@@ -18,6 +18,8 @@ export const POSITIVE = [
   ['student_id', 'student id: S2024-17'],
   ['school_ko', '한빛고등학교 다니는데 이 문제 어려웠어요'],
   ['school_ko', '서울과학고 수업에서 배운 단어'],
+  ['school_ko', '한빛고등학교에서 배운 단어예요'],
+  ['school_ko', '대성여고에서 같이 풀었어요'],
   ['school_abbrev_grade', '대성고 2학년인데요'],
   ['class_ko', '2학년 3반에서 같이 풀었어요'],
   ['class_ko', '우리 7반 선생님이'],

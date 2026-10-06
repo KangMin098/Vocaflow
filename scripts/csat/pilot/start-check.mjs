@@ -9,44 +9,24 @@
 //   · 앱 활성 메타(active-run.ts)와 docs 정본 일치
 // 매일 감시(PILOT_PROTOCOL §12)에서도 그대로 돌린다 — 실패하면 무결성 중단 기준.
 //
-//   node --tls-max-v1.2 --env-file=<배포 env 를 담은 파일> scripts/csat/pilot/start-check.mjs --run <run id> --app-commit <배포 커밋 sha>
-//   (CSAT_EC_PILOT_USER_IDS 는 env 로 읽어 개수만 본다 — 계정 id 는 출력하지 않는다)
+//   node --tls-max-v1.2 --env-file=<배포 env 를 담은 파일> scripts/csat/pilot/start-check.mjs --run <run id> --build-commit <플랫폼에 표시된 배포 커밋> [--e2e-report-sha256 <리포트 sha256>]
+//   배포 env 의 CSAT_EC_APP_COMMIT(검증 커밋) · CSAT_EC_ACTIVATION_COMMIT · CSAT_EC_PILOT_MODE · CSAT_EC_PILOT_USER_IDS(개수만 — 출력하지 않는다)를 읽는다.
 
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 
 import { canonicalJson, evaluateRunGate } from '../../../apps/web/src/lib/csat/ec-pilot/run-gate.ts'
-import { RUNS, ROOT, fileSha256, readLive, rulesHash } from './live.mjs'
+import { RUNS, ROOT, activationDiffFailures, readLive, readRecord, recordFailures } from './live.mjs'
 
 const a = Object.fromEntries(process.argv.slice(2).reduce((acc, x, i, arr) => (x.startsWith('--') ? [...acc, [x.slice(2), arr[i + 1]]] : acc), []))
 if (!/^ec-pilot-run-[0-9]{8}-[0-9]+$/.test(a.run ?? '')) { console.error('--run <ec-pilot-run-YYYYMMDD-n> 필요'); process.exit(2) }
-const appCommit = (a['app-commit'] ?? process.env.CSAT_EC_APP_COMMIT ?? '').trim().toLowerCase() || null
-
-/** 기록 파일 대조(앱이 못 보는 항목) — 실패 코드 목록 */
-export function recordFailures(meta, files) {
-  const f = []
-  const v = meta.verification ?? {}
-  const pii = files.pii, e2e = files.e2e
-  if (!pii) f.push('record:piiGuard.missing')
-  else {
-    if (pii.sha256 !== v.piiGuard?.recordSha256) f.push('record:piiGuard.sha256')
-    if (pii.json.rulesHash !== files.liveRulesHash || v.piiGuard?.rulesHash !== files.liveRulesHash) f.push('record:piiGuard.rulesHash')
-    if (pii.json.failed !== 0 || pii.json.passed !== v.piiGuard?.passed || pii.json.commit !== v.piiGuard?.commit || pii.json.runId !== meta.runId) f.push('record:piiGuard.fields')
-  }
-  if (!e2e) f.push('record:e2e.missing')
-  else {
-    if (e2e.sha256 !== v.e2e?.recordSha256) f.push('record:e2e.sha256')
-    const j = e2e.json
-    if (j.format !== 'ec-pilot-e2e-1' || j.runId !== meta.runId || j.commit !== v.e2e?.commit || j.passed !== v.e2e?.passed || j.failed !== 0 || j.skipped !== 0 || j.at !== v.e2e?.at) f.push('record:e2e.fields')
-  }
-  if (files.activeRun !== 'match') f.push(`app:active-run.${files.activeRun}`)
-  return f
-}
-
-function readRecord(name) {
-  const p = path.join(RUNS, name)
-  return fs.existsSync(p) ? { sha256: fileSha256(p), json: JSON.parse(fs.readFileSync(p, 'utf8')) } : null
-}
+// 커밋 셋은 섞지 않는다: 검증 커밋 · 활성화 커밋은 배포 env 값 그대로, 실제 배포 빌드 커밋은 플랫폼에서 확인한 값(--build-commit)
+const envOf = (k) => (process.env[k] ?? '').trim().toLowerCase() || null
+const appCommit = envOf('CSAT_EC_APP_COMMIT')
+const activationCommit = envOf('CSAT_EC_ACTIVATION_COMMIT')
+const buildCommit = (a['build-commit'] ?? '').trim().toLowerCase() || null
+const git = (args) => execFileSync('git', ['-C', ROOT, ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })
 
 /** active-run.ts 의 ACTIVE_RUN 이 메타와 같은지(소스를 import 해 비교) */
 async function activeRunState(meta) {
@@ -61,11 +41,17 @@ if (!meta) { console.log(`G6 시작 점검 — ${a.run}
 FAIL  run 메타 없음 — ${path.relative(ROOT, metaPath)}
 닫힘`); process.exit(1) }
 const examIds = Array.isArray(meta?.exams) ? meta.exams.map((e) => e?.examId).filter((x) => typeof x === 'string') : []
-const live = await readLive(examIds, { appCommit })
+const live = { ...(await readLive(examIds, { appCommit })), buildCommit, activationCommit }
 const gate = evaluateRunGate(meta, live)
-const extra = meta ? recordFailures(meta, {
-  pii: readRecord(`${a.run}.pii-guard.json`), e2e: readRecord(`${a.run}.e2e.json`), liveRulesHash: rulesHash(), activeRun: await activeRunState(meta),
-}) : []
+const activeRun = await activeRunState(meta)
+const mode = process.env.CSAT_EC_PILOT_MODE ?? ''
+const extra = [
+  ...recordFailures(a.run, { pii: readRecord(`${a.run}.pii-guard.json`), e2e: readRecord(`${a.run}.e2e.json`) }, meta, { e2eReportSha256: a['e2e-report-sha256'] ?? null }),
+  ...(activeRun === 'match' ? [] : [`app:active-run.${activeRun}`]),
+  // 앱과 같은 모드 판정 — 활성 run 에서 verification 등 다른 값이면 앱은 닫혀 있다
+  ...(mode === '' || mode === 'run' ? [] : [`app:mode.${mode}`]),
+  ...(appCommit ? activationDiffFailures(appCommit, activationCommit, a.run, git) : []),
+]
 const failures = [...gate.failures, ...extra]
 
 const CHECKS = [
@@ -76,7 +62,7 @@ const CHECKS = [
   ['taxonomy v0.1 definitions_hash', (x) => x.startsWith('taxonomy:') || x.startsWith('live:taxonomy')],
   ['감지기 판 bd-0.1.0', (x) => x.startsWith('detector:') || x === 'live:detector'],
   ['probe 상한 3 · config 해시', (x) => x.startsWith('probe:') || x.startsWith('live:probe')],
-  ['앱 커밋 · 활성 메타', (x) => x.startsWith('app:') || x === 'live:app.commit'],
+  ['앱 커밋 · 배포 빌드 · 활성화 차이 · 활성 메타 · 모드', (x) => x.startsWith('app:') || x.startsWith('live:app.') || x.startsWith('activation:')],
   ['DB 마이그레이션 상태', (x) => x === 'live:db.migrations'],
   ['PII 가드 통과 기록', (x) => x.includes('piiGuard')],
   ['E2E 통과 기록', (x) => x.includes('e2e')],
