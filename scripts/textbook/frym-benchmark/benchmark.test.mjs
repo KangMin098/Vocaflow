@@ -347,3 +347,34 @@ test('missing comparable item type blocks fit even with a passing aggregate', ()
   assert.equal(result.target_fit.middle_1.axes.item_difficulty.reason, 'MISSING_ITEM_TYPE')
   assert.equal(result.gold_s_candidate, false)
 })
+
+test('F02 needs positive item counts and nonempty type evidence', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  f.variants.middle_1.item_count = 0
+  f.variants.middle_1.item_type_counts = {}
+  f.variants.middle_1.item_type_difficulty = {}
+  assert.throws(() => judge(p, rows, reseal(f)), /F02_ANALYSIS_INVALID/)
+})
+
+test('item-type share drift fails fit despite matching type difficulty', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  f.variants.middle_1.item_count = 100
+  f.variants.middle_1.item_type_counts = { literal: 98, inference: 1, structure: 1 }
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'fail')
+  assert.equal(result.target_fit.middle_1.status, 'fail')
+})
+
+test('a failed core axis wins over missing item-type comparison', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const row of rows.filter(row => row.grade === 'middle_1')) {
+    row.item_count = 2
+    delete row.item_type_counts.inference
+    delete row.item_type_difficulty.inference
+  }
+  resealRows(rows)
+  f.variants.middle_1.metrics.lexical = 100
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'inconclusive')
+  assert.equal(result.target_fit.middle_1.status, 'fail')
+})

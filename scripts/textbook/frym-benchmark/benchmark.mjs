@@ -82,7 +82,7 @@ export function screenSample(sample, protocol) {
 
 function itemTypesValid(record, protocol) {
   const counts = record?.item_type_counts, difficulty = record?.item_type_difficulty
-  return counts && difficulty && Object.keys(counts).every(type => protocol.item_types.includes(type)) && Object.keys(difficulty).every(type => protocol.item_types.includes(type)) && Object.values(counts).every(count => Number.isInteger(count) && count > 0) && Object.values(counts).reduce((sum, count) => sum + count, 0) === record.item_count && Object.keys(counts).every(type => Number.isFinite(difficulty[type]))
+  return Number.isInteger(record?.item_count) && record.item_count > 0 && counts && difficulty && Object.keys(counts).length > 0 && Object.keys(counts).every(type => protocol.item_types.includes(type)) && Object.keys(difficulty).every(type => protocol.item_types.includes(type)) && Object.values(counts).every(count => Number.isInteger(count) && count > 0) && Object.values(counts).reduce((sum, count) => sum + count, 0) === record.item_count && Object.keys(counts).every(type => Number.isFinite(difficulty[type]))
 }
 
 function ordinalReviewValid(review, value, levels) {
@@ -182,7 +182,9 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       else {
         const dist = stats(typedRows.map(row => row.item_type_difficulty[type]))
         const value = variant.item_type_difficulty[type]
-        itemTypes[type] = { status: value >= dist.p10 && value <= dist.p90 ? 'pass' : 'fail', n: typedRows.length, value, p10: dist.p10, p90: dist.p90 }
+        const shareDist = stats(typedRows.map(row => row.item_type_counts[type] / row.item_count))
+        const share = variant.item_type_counts[type] / variant.item_count
+        itemTypes[type] = { status: value >= dist.p10 && value <= dist.p90 && share >= shareDist.p10 && share <= shareDist.p90 ? 'pass' : 'fail', n: typedRows.length, value, p10: dist.p10, p90: dist.p90, share, share_p10: shareDist.p10, share_p90: shareDist.p90 }
       }
     }
     if (Object.values(itemTypes).some(result => result.status === 'inconclusive')) axes.item_difficulty = { status: 'inconclusive', reason: 'MISSING_ITEM_TYPE', types: itemTypes }
@@ -190,7 +192,8 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
     else axes.item_difficulty = { ...axes.item_difficulty, types: itemTypes }
     const core = [...REQUIRED_AXES].every(axis => axes[axis].status === 'pass')
     const pass = Object.values(axes).filter(result => result.status === 'pass').length
-    results[grade] = { status: Object.values(axes).some(result => result.status === 'inconclusive') ? 'inconclusive' : core && pass >= protocol.fit.minimum_axes ? 'pass' : 'fail', n: reference.length, axes }
+    const hardFail = [...REQUIRED_AXES, 'item_difficulty'].some(axis => axes[axis].status === 'fail')
+    results[grade] = { status: hardFail ? 'fail' : Object.values(axes).some(result => result.status === 'inconclusive') ? 'inconclusive' : core && pass >= protocol.fit.minimum_axes ? 'pass' : 'fail', n: reference.length, axes }
   }
   const middle = f02.variants.middle_1, high = f02.variants.high_1
   let separation
