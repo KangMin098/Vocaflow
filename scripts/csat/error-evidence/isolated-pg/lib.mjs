@@ -1,6 +1,6 @@
 // scripts/csat/error-evidence/isolated-pg/lib.mjs
 // 격리 PostgreSQL 실행기 공통 — 클러스터 · 역할별 호출 · 결과 기록
-import { spawn, spawnSync } from 'node:child_process'
+import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import EmbeddedPostgres from 'embedded-postgres'

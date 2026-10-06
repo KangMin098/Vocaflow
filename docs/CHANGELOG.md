@@ -1,7 +1,5 @@
 # CHANGELOG
 
-- feat(csat): Reveal Gate verification command and CI: AST loader/function classification, client/bundle content mutations, real-route fault/oracle tests, paging base diff, isolated SQL transitions and explicit live DB deployment gates. Malformed RPC arrays fail closed; deployment checks never apply live SQL. See `docs/csat-learner/codebook/REVEAL_GATE_VERIFICATION.md`.
-
 - feat(csat): 학평 P4 — `csat_type_reports` 기본 키를 (type_id, organizer, grade)로 확장(마이그레이션 20261002060000, 승인 후 적용). 학평 유형 리포트를 학년별로 평가원 행을 덮지 않고 쓸 수 있다. importer 의 upsert 충돌 대상도 같이 변경.
 
 > Vocaflow 변경 이력. 최신 3개 버전(v06.32~34) + 현재 작업 중인 마이그레이션 + 세션 변경 사항을 보존.
@@ -12,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): Reveal Gate verification command and CI: AST loader/function classification, client/bundle content mutations, real-route fault/oracle tests, paging base diff, isolated SQL transitions and explicit live DB deployment gates. Malformed RPC arrays fail closed; deployment checks never apply live SQL. See `docs/csat-learner/codebook/REVEAL_GATE_VERIFICATION.md`.
 - fix(csat): Reveal Gate G3 후속 — ec-pilot 수집 대상 정오 독립(봉인 대상) · trap-atlas 예시의 정답 민감 부분을 서버 전용 파일로(번들 검사 2종 0) · 관문 실패 = 423 + 로그 분리 · 공개 뒤 스냅샷 따라잡기(reveal-sync) · OFFSET 예산 207→208(canary 검사기, 분기점부터)
 - feat(csat): **Reveal Gate 앱 계층** — 단일 관문 `lib/csat/embargo-gate.ts`(fail-closed · 423 계약)로 정답 민감 · 정오 로더 15개 라우팅(8개는 관리자 전용으로 재분류), 진단 저장 단일 진입 `csat_ec_record_session_held`, 홈 카드 · `/api/csat/state` 서버 경로(② 적용 전제 충족), 정적 가드 테스트 · canary `--app`(400/400) · `--bundle` 추가. ② 미적용
 - feat(csat): **Pilot evidence capture infrastructure implemented and verified in development**(실제 Pilot 미시작) — 마이그레이션 `20261005150000_csat_ec_capture_support` 개발 DB 적용(interpretation 3상태 · 확인/증거 재전송 멱등 · probe 세션 상한 RPC · 본인 유효 증거 RPC · 이벤트 2종 + 목록 preflight). 참가자 수집 화면 `?tab=records&capture=` · API 6개. 격리 PG 300/300 · rollback 12/12 · 개발 Supabase smoke 42/42 · 브라우저 e2e 2/2(참가자 · 비참가자) · Advisor ERROR 0. Pilot 전 blocker: 결과 · 해설 서버 측 보류, 경계 탐지기

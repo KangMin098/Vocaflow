@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
 import { spawnSync } from 'node:child_process'
 import { scanLoaders,scanClient,scanBundle,pagingDiff } from './verification-core.mjs'
+import {attestBuild,checkBuild,startVerifiedApp} from './build-attestation.mjs'
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..')
 const args=process.argv.slice(2),value=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1]}
 const phase=value('--phase','merge'),base=value('--base',process.env.REVEAL_VERIFY_BASE??'origin/main')
@@ -14,14 +15,24 @@ const policy=JSON.parse(fs.readFileSync(path.join(ROOT,'scripts/csat/reveal-gate
 const rows=[],src=path.join(ROOT,'apps/web/src')
 const tmp=path.join(ROOT,'tmp');fs.mkdirSync(tmp,{recursive:true})
 if(fs.realpathSync(tmp)!==tmp)throw Error('Report directory must not be a symlink')
+// Receipts and .next are shared within a worktree; phases must never overlap.
+const lockFile=path.join(tmp,'reveal-verification.lock')
+if(fs.existsSync(lockFile)) {
+  const pid=Number(fs.readFileSync(lockFile,'utf8'))
+  let active=false;try{if(Number.isInteger(pid)&&pid>0){process.kill(pid,0);active=true}}catch{}
+  if(active)throw Error('Another Reveal Gate verification is running in this worktree')
+  fs.unlinkSync(lockFile)
+}
+const lockHandle=fs.openSync(lockFile,'wx');fs.writeFileSync(lockHandle,String(process.pid));fs.closeSync(lockHandle)
+process.once('exit',()=>{if(fs.existsSync(lockFile)&&fs.readFileSync(lockFile,'utf8')===String(process.pid))fs.unlinkSync(lockFile)})
 const revision=spawnSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).stdout.trim()
 const record=(layer,ok,detail)=>{rows.push({layer,status:ok?'PASS':'BLOCKED',detail});console.log(`${ok?'PASS':'BLOCKED'} ${layer}`)}
 async function run(command,argv) {
   return new Promise(resolve=>{
-    const child=spawn(command,argv,{cwd:ROOT,stdio:['ignore','pipe','pipe'],shell:false});let bytes=0
-    child.stdout.on('data',data=>{bytes+=data.length});child.stderr.on('data',data=>{bytes+=data.length})
+    const child=spawn(command,argv,{cwd:ROOT,stdio:['ignore','pipe','pipe'],shell:false});let bytes=0,stdout=''
+    child.stdout.on('data',data=>{bytes+=data.length;stdout+=data.toString()});child.stderr.on('data',data=>{bytes+=data.length})
     child.on('error',()=>resolve({ok:false,exit_code:null,reason:'command_unavailable'}))
-    child.on('close',code=>resolve({ok:code===0,exit_code:code,output_bytes:bytes}))
+    child.on('close',code=>{const counts=Object.fromEntries(['tests','pass','fail','skipped','todo','cancelled'].map(key=>[key,Number(stdout.match(new RegExp('# '+key+' (\\d+)'))?.[1]??-1)]));resolve({ok:code===0,exit_code:code,output_bytes:bytes,test_counts:counts})})
   })
 }
 const pnpm=process.platform==='win32'?'pnpm.cmd':'pnpm'
@@ -35,15 +46,15 @@ async function runVitest(files,name) {
 }
 try{
   const loaders=scanLoaders(src,manifest,policy);record('V1 loader classification',loaders.discovered.length>0&&!loaders.issues.length,loaders)
-  const tests=await run(process.execPath,['--test','scripts/csat/reveal-gate/__tests__/verification-core.test.mjs','scripts/csat/reveal-gate/__tests__/deployment-verification.test.mjs'])
-  record('scanner mutation/canary',tests.ok,tests)
+  const tests=await run(process.execPath,['--test','--test-reporter=tap','scripts/csat/reveal-gate/__tests__/verification-core.test.mjs','scripts/csat/reveal-gate/__tests__/deployment-verification.test.mjs'])
+  record('scanner mutation/canary',tests.ok&&tests.test_counts.tests>0&&tests.test_counts.pass===tests.test_counts.tests&&tests.test_counts.skipped===0&&tests.test_counts.todo===0&&tests.test_counts.cancelled===0,tests)
   const unit=await runVitest(['src/lib/csat/__tests__/reveal-verification.test.ts','src/lib/csat/__tests__/embargo-gate.test.ts','src/lib/csat/__tests__/embargo-gate-coverage.test.ts','src/lib/csat/__tests__/embargo-gate-failure.test.ts','src/lib/csat/ec-pilot/__tests__/ec-pilot.test.ts'],'reveal-unit')
   record('V3/V4 correctness oracle and fault injection',unit.ok,{...unit,scope:'Real route/loaders and injected DB transport. Live accounts are a separate DB gate.'})
   const budget=pagingDiff(ROOT,base,policy.paging_allowlist);record('V7 paging architecture diff',budget.issues.length===0,budget)
   if(phase==='merge') {
     const graph=scanClient(src,policy.canaries);record('V2 client source graph',graph.roots>0&&graph.files>0&&!graph.issues.length&&!graph.unresolved.length,graph)
     const build=await packageCommand(['--filter','web','build']);record('production build',build.ok,build)
-    if(build.ok){const bundle=scanBundle(path.join(ROOT,'apps/web/.next/static'),policy.canaries);record('V2 production bundle',!bundle.issues.length,bundle)}else record('V2 production bundle',false,{reason:'build_failed_not_executed'})
+    if(build.ok){const bundle=scanBundle(path.join(ROOT,'apps/web/.next/static'),policy.canaries);record('V2 production bundle',!bundle.issues.length,bundle);if(!bundle.issues.length)record('production source attestation',true,attestBuild(ROOT,revision))}else record('V2 production bundle',false,{reason:'build_failed_not_executed'})
   }
   if(phase==='merge'||phase==='db') {
     const stateTest='apps/web/src/lib/csat/diagnosis/__tests__/reveal-sync.test.ts'
@@ -52,15 +63,22 @@ try{
       const result=await runVitest(['src/lib/csat/diagnosis/__tests__/reveal-sync.test.ts'],'reveal-state')
       record('V6 completion/recompute transition',result.ok,{...result,scope:'Snapshot worker failure/retry invariant; migration state transitions remain a deployment gate.'})
     }
-  }
-  if(phase==='db') {
     const sqlFile=path.join(ROOT,'scripts/csat/error-evidence/isolated-pg/results-pilot.json')
     if(fs.existsSync(sqlFile))fs.unlinkSync(sqlFile)
-    const sql=await run(process.execPath,['scripts/csat/error-evidence/isolated-pg/run-pilot.mjs'])
+    const requiredSQL=['stage1','t_flow','t_pilot','t_capture','t_reveal','t_rls','t_funcs','t_rq1','t_hash','t_seal','t_p1fix','t_p2fix','t_concurrency','t_delete']
+    const missingSQL=requiredSQL.filter(name=>!fs.existsSync(path.join(ROOT,'scripts/csat/error-evidence/isolated-pg',name+'.mjs')))
+    const sql=missingSQL.length?{ok:false,reason:'missing_sql_test_modules',missing:missingSQL}:await run(process.execPath,['scripts/csat/error-evidence/isolated-pg/run-pilot.mjs'])
     const sqlRows=sql.ok&&fs.existsSync(sqlFile)?JSON.parse(fs.readFileSync(sqlFile,'utf8')):[]
     record('V6 isolated SQL transitions and migration integrity',sql.ok&&sqlRows.length>0&&sqlRows.every(r=>r.pass===true),{...sql,checks:sqlRows.length,scope:'Migrations run only in a fresh local PostgreSQL cluster. No live SQL deployment.'})
+  }
+  if(phase==='db') {
     const {liveCanary,securityAdvisor}=await import('./live-verification.mjs')
-    const live=args.includes('--live')?await liveCanary(ROOT,process.env,value('--app',null),run):{ok:false,reason:'live_canary_requires_explicit_live_flag_and_local_app'}
+    let live={ok:false,reason:'live_canary_requires_explicit_live_flag'}
+    if(args.includes('--live')) {
+      const runtime=await startVerifiedApp(ROOT,process.env)
+      if(!runtime.ok)live=runtime
+      else try{live=await liveCanary(ROOT,process.env,runtime.url,run,{runtimeVerified:true});if(!checkBuild(ROOT).ok)live={ok:false,reason:'production_changed_during_live_verification'}}finally{await runtime.close()}
+    }
     record('live actor matrix and controlled fixture cleanup',live.ok,live)
     const {dbPreflight}=await import('./db-preflight.mjs')
     const beforeFile=value('--before',null),before=beforeFile?JSON.parse(fs.readFileSync(beforeFile,'utf8')):null

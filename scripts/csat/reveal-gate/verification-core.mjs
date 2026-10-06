@@ -18,7 +18,9 @@ const parse = (file, text) => ts.createSourceFile(file,text,ts.ScriptTarget.Late
 const visit = (node, fn) => { fn(node); ts.forEachChild(node,n=>visit(n,fn)) }
 const property = node => ts.isIdentifier(node) || ts.isStringLiteralLike(node) ? node.text : null
 export function scanLoaders(srcRoot, manifest, policy=null) {
-  const issues=[], discovered=[], functions=new Map(), names=new Set([...Object.entries(manifest.db_relations).filter(([,v])=>SENSITIVE.has(v.class)||(v.sensitive_columns??[]).length).map(([k])=>k),...Object.entries(manifest.db_functions).filter(([,v])=>SENSITIVE.has(v.class)).map(([k])=>k)])
+  const objectNames=new Set([...Object.keys(manifest.db_relations),...Object.keys(manifest.db_functions).map(k=>k.split('(')[0])])
+  const loader=file=>manifest.app_db_loaders?.[file]??policy?.loader_classifications?.[file]
+  const issues=[], discovered=[], functions=new Map(), names=new Set([...Object.entries(manifest.db_relations).filter(([,v])=>SENSITIVE.has(v.class)||(v.sensitive_columns??[]).length).map(([k])=>k),...Object.entries(manifest.db_functions).filter(([,v])=>SENSITIVE.has(v.class)).map(([k])=>k.split('(')[0])])
   for(const file of filesUnder(srcRoot).filter(f=>/\.[jt]sx?$/.test(f)&&!f.endsWith('.d.ts'))) {
     const rel=relative(srcRoot,file)
     if(/^(app\/admin|app\/api\/admin|lib\/admin|components\/admin|test)\//.test(rel)) continue
@@ -31,7 +33,7 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       const printer=ts.createPrinter({removeComments:true})
       const context=source.statements.filter(n=>ts.isImportDeclaration(n)||ts.isExportDeclaration(n)||ts.isVariableStatement(n)).map(n=>printer.printNode(ts.EmitHint.Unspecified,n,source)).join('\n')
       const key=rel+'::'+name
-      functions.set(key,{key,file:rel,function:name,sha256:createHash('sha256').update(code+'\n'+context).digest('hex'),class:manifest.app_db_loaders?.[rel]?.class??manifest.app_file_loaders?.[rel]?.class??manifest.app_json_imports?.[rel]?.class??manifest.app_api?.[rel.replace(/^app\/api\//,'').replace(/\/route\.ts$/,'')]?.class??null})
+      functions.set(key,{key,file:rel,function:name,sha256:createHash('sha256').update(code+'\n'+context).digest('hex'),class:loader(rel)?.class??manifest.app_file_loaders?.[rel]?.class??manifest.app_json_imports?.[rel]?.class??manifest.app_api?.[rel.replace(/^app\/api\//,'').replace(/\/route\.ts$/,'')]?.class??null})
     }
     visit(source,n=>{
       if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&/(?:^|\/)embargo-gate$/.test(n.moduleSpecifier.text)&&!n.importClause?.isTypeOnly) {
@@ -42,7 +44,8 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       if(ts.isCallExpression(n)&&ts.isPropertyAccessExpression(n.expression)&&['from','rpc'].includes(n.expression.name.text)) {
         if(ts.isIdentifier(n.expression.expression)&&/^(Array|Buffer|Uint\d+Array|Int\d+Array|Float\d+Array)$/.test(n.expression.expression.text))return
         const arg=n.arguments[0]
-        if(arg&&ts.isStringLiteralLike(arg)&&names.has(arg.text)){hits.push(arg.text);register(n)}
+        if(arg&&ts.isStringLiteralLike(arg)&&/^csat_/.test(arg.text)&&!objectNames.has(arg.text)&&!policy?.object_approvals?.[arg.text]?.review_basis)issues.push({file:rel,kind:'unclassified_csat_object',object:arg.text})
+        if(arg&&ts.isStringLiteralLike(arg)&&(names.has(arg.text)||/^csat_/.test(arg.text)&&!objectNames.has(arg.text))){hits.push(arg.text);register(n)}
         else if(arg&&!ts.isStringLiteralLike(arg)&&/^app\/api\/csat\/|^lib\/csat\//.test(rel)){hits.push('<dynamic-db-name>');register(n)}
       }
       if(rel.startsWith('app/api/csat/')&&ts.isFunctionDeclaration(n)&&n.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword)&&/^(GET|POST|PUT|PATCH|DELETE)$/.test(n.name?.text??''))register(n)
@@ -60,9 +63,9 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
     if(route&&!manifest.app_api[rel.replace(/^app\/api\//,'').replace(/\/route\.ts$/,'')]) issues.push({file:rel,kind:'unclassified_route'})
     if(hits.length) {
       discovered.push({file:rel,surfaces:[...new Set(hits)]})
-      if(!manifest.app_db_loaders?.[rel]) issues.push({file:rel,kind:'unclassified_loader',surfaces:[...new Set(hits)]})
+      if(!loader(rel)) issues.push({file:rel,kind:'unclassified_loader',surfaces:[...new Set(hits)]})
     }
-    if(['ANSWER_SENSITIVE','CORRECTNESS'].includes(manifest.app_db_loaders?.[rel]?.class)) {
+    if(['ANSWER_SENSITIVE','CORRECTNESS'].includes(loader(rel)?.class)) {
       let called=false
       visit(source,n=>{
         if(!ts.isCallExpression(n))return
@@ -85,13 +88,15 @@ export function secretLiterals(file,text,canaries=[]) {
   if(canaries.some(c=>text.includes(c)))found.push('canary')
   if(file.endsWith('.json')) {
     let value;try{value=JSON.parse(text)}catch{return ['invalid_json']}
-    const walk=v=>{if(!v||typeof v!=='object')return;if(typeof v.item_id==='string'&&v.item_id.includes('#')&&typeof v.choice==='number'&&(typeof v.tempting==='string'||typeof v.reject==='string'))found.push('trap_example');for(const[k,x]of Object.entries(v)){if(SECRET.test(k)&&x!==null&&(typeof x!=='object'||Object.keys(x).length))found.push(k);walk(x)}}
+    const walk=v=>{if(!v||typeof v!=='object')return;if(typeof v.item_id==='string'&&v.item_id.includes('#')&&typeof v.choice==='number'&&(typeof v.tempting==='string'||typeof v.reject==='string'))found.push('trap_example');if(typeof(v.item_id??v.id)==='string'&&(v.item_id??v.id).includes('#'))for(const key of ['answer','is_correct','raw_score'])if(v[key]!=null)found.push(key);for(const[k,x]of Object.entries(v)){if(SECRET.test(k)&&x!==null&&(typeof x!=='object'||Object.keys(x).length))found.push(k);walk(x)}}
     walk(value)
   } else {
     visit(parse(file,text),n=>{
       if(ts.isObjectLiteralExpression(n)) {
         const values=new Map(n.properties.filter(ts.isPropertyAssignment).map(p=>[property(p.name),p.initializer]))
         const item=values.get('item_id'),choice=values.get('choice')
+        const identifier=item??values.get('id')
+        if(identifier&&ts.isStringLiteralLike(identifier)&&identifier.text.includes('#'))for(const key of ['answer','is_correct','raw_score'])if(values.has(key))found.push(key)
         if(item&&ts.isStringLiteralLike(item)&&item.text.includes('#')&&choice&&ts.isNumericLiteral(choice)&&['tempting','reject'].some(k=>values.has(k)))found.push('trap_example')
       }
       if(ts.isPropertyAssignment(n)&&SECRET.test(property(n.name)??'')&&(ts.isStringLiteralLike(n.initializer)||ts.isNumericLiteral(n.initializer)||ts.isArrayLiteralExpression(n.initializer)||ts.isObjectLiteralExpression(n.initializer)))found.push(property(n.name))

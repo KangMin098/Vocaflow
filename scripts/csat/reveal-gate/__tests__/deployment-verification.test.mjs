@@ -2,7 +2,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { permissionDiff,dbPreflight } from '../db-preflight.mjs'
-import { validateLiveReceipt,securityAdvisor } from '../live-verification.mjs'
+import { validateLiveReceipt,securityAdvisor,checkpointIssues } from '../live-verification.mjs'
 test('permission comparison covers policies, function ACL/body, and unordered keys',()=>{
   const before={permissions:[{object:'t',column:'answer',role:'anon',allowed:false}],policies:[{tablename:'t',policyname:'p',qual:'false'}],functions:[{signature:'f()',role:'anon',allowed:false,definition_hash:'a'}]}
   const same={...before,permissions:[{allowed:false,role:'anon',column:'answer',object:'t'}]}
@@ -30,4 +30,10 @@ test('missing deployment credentials/advisor execution are blocked',async()=>{
   assert.equal((await securityAdvisor(env,async()=>({ok:true,json:async()=>({})}))).ok,false)
   assert.equal((await securityAdvisor(env,async()=>({ok:true,json:async()=>({lints:[{name:'bad',level:'ERROR'}]})}))).ok,false)
   assert.equal((await securityAdvisor(env,async()=>({ok:true,json:async()=>({lints:[]})}))).ok,true)
+})
+test('missing checkpoint axes block; rotating bloat subjects are explicitly distinguished',()=>{
+  assert.equal(checkpointIssues([]).length,1)
+  assert.equal(checkpointIssues([{metric:'rows',status:'disappeared'}]).length,1)
+  assert.deepEqual(checkpointIssues([{metric:'bloat_sampled_pct',subject:'a',status:'disappeared'},{metric:'bloat_sampled_pct',subject:'b',status:'appeared'}]),[])
+  assert.equal(checkpointIssues([{metric:'bloat_sampled_pct',subject:'a',status:'disappeared'},{metric:'bloat_sampled_pct',subject:'a',status:'appeared'}]).length,1)
 })

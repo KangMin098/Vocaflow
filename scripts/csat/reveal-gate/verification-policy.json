@@ -446,6 +446,217 @@
       "sha256": "3bb5e4be8e129d86a3956459884efcc2893c3016f85daea16e116941546d8ef6",
       "class": "ANSWER_SENSITIVE",
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/approvals.ts::loadApprovals": {
+      "sha256": "1b37ac0ad2c824051b343062bb79f81bf834a973614b10a38521ade1edbc63c9",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/approvals.ts::recordApproval": {
+      "sha256": "5d73d017d84b268dfb7814696fcdb84631baaace01b33fd593d8dd53161d0f5d",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/diagnosis/admin.ts::loadTrapOptions": {
+      "sha256": "4a7501a85046e0449ffeddfc7a959879a036426204446efbbed8b9952a3c2eae",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/diagnosis/report.ts::loadPickerExams": {
+      "sha256": "1df458282b2c70427eccb7649c00e1eece5b06b52316a722263b07633d4b6056",
+      "class": "CORRECTNESS",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/diagnosis/server.ts::loadActiveSettings": {
+      "sha256": "19e4b5b2ee9149a670470e143ec71422b9d211d3e89bb0151d80b39c6141f0ea",
+      "class": "CORRECTNESS",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/diagnosis/server.ts::loadTrapFamily": {
+      "sha256": "c003f6f87befaa11ddd5ee1246c9ac4ec47b05f4a2a66c7efca3f819ac049a3c",
+      "class": "CORRECTNESS",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/diagnosis/server.ts::itemMetas": {
+      "sha256": "8f0689d77b008c0532bdb63541f0c67dd732395784f0a73bdb80bc6e5b431408",
+      "class": "CORRECTNESS",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/diagnosis/server.ts::listScorableExams": {
+      "sha256": "9c318c793577d5dfa249f5f46e6130864e8111fd9af257b45476644ce71f76f2",
+      "class": "CORRECTNESS",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/drain-runs.ts::lastDrainRun": {
+      "sha256": "36b2af93bf43fd236d95173cda6107c5f0a7944a441719075684f5b23f063088",
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/embargo-gate.ts::heldBy": {
+      "sha256": "a568becc58abac7b0b864e6f577014e6531b272a64afb2fd6ede451e27d94f98",
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/embargo-gate.ts::canRevealSession": {
+      "sha256": "33c4b9cf869f1aa98bdba799d5390968208e7578cc0d4ed901cf36b06a51f20f",
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/factory.ts::loadFactoryLine": {
+      "sha256": "6ae31b2ca78d5ea7acca525e6938b5c00a61db3edf2f350c546cf208a3225702",
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/item-state.ts::loadItemState": {
+      "sha256": "72075344e7c5f5f135a1b290c07b58c1773195ace43a91964ce5c55f7f463b9f",
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/csat/source-console.ts::loadSourceConsole": {
+      "sha256": "54f878388ae6fedd504f77902720d47e5ae4e5f56c0dce64eb5786057984a2a4",
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    },
+    "lib/textbook/source-live.ts::loadSourceLive": {
+      "sha256": "b65fa850a49ba01245ea77a0c27b114c7212e46ba1af90b47c375d3994bf060a",
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+    }
+  },
+  "loader_classifications": {
+    "lib/csat/approvals.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Server-only pipeline approval records, consumed by admin factory actions."
+    },
+    "lib/csat/drain-runs.ts": {
+      "class": "OPS_META",
+      "review_basis": "Last-run counts/status/timestamps for admin StageFrame; no answer payload."
+    },
+    "lib/csat/factory.ts": {
+      "class": "OPS_META",
+      "review_basis": "Factory operational source-snapshot metadata; canonical JSON classification is OPS_META."
+    },
+    "lib/csat/item-state.ts": {
+      "class": "OPS_META",
+      "review_basis": "Server-only aggregate usability reasons for admin factory; no answer payload."
+    },
+    "lib/csat/source-console.ts": {
+      "class": "OPS_META",
+      "review_basis": "Source registry/target/snapshot dashboard metadata for admin source console."
+    },
+    "lib/textbook/source-live.ts": {
+      "class": "OPS_META",
+      "review_basis": "Live source inventory rollup and registry totals; operational admin panel."
+    }
+  },
+  "object_approvals": {
+    "csat_pipeline_approvals": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_analysis_reviews": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_dx_item_attribute": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_dx_answer_key": {
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_dx_option_trap": {
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_dx_trap_family": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_dx_settings": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_ec_record_session_held": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_drain_runs": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_ec_embargoed_items": {
+      "class": "GATE_PREDICATE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_ec_embargoed_exams": {
+      "class": "GATE_PREDICATE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_ec_reveal_state": {
+      "class": "GATE_PREDICATE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_source_snapshots": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_current_chart_asset": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_chart_analysis_ready": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_valid_review_personas_many": {
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_independent_reviews": {
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_review_prechecks": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_current_units_many": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_item_input_hash": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_item_answer_hash": {
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_review_batches": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_review_followups": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_item_state": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_item_reviews": {
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_source_registry": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_source_targets": {
+      "class": "OPS_META",
+      "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
     }
   }
 }

@@ -284,13 +284,16 @@ try {
   record('실행', '예외', false, e.message)
 } finally {
   try { if (users.ADM && users.P) await users.ADM.client.rpc('csat_ec_capture_close', { p_user: users.P.id, p_exam: EXAM, p_reason: `canary 검사 정리 ${CANARY}` }) } catch {}
-  for (const u of Object.values(users)) await svc.auth.admin.deleteUser(u.id).catch(() => {})
-  if (owned.type) await db.query(`delete from public.csat_type_reports where type_id = $1`, [TYPE]).catch(() => {})
+  for (const [actor,u] of Object.entries(users)) {
+    try { const result=await svc.auth.admin.deleteUser(u.id);record('정리',`TEST 계정 ${actor} 삭제`,!result.error,result.error?{code:result.error.code,status:result.error.status}:undefined) }
+    catch { record('정리',`TEST 계정 ${actor} 삭제`,false,'transport failure') }
+  }
+  if (owned.type) await db.query(`delete from public.csat_type_reports where type_id = $1`, [TYPE]).catch(() => record('정리','TEST 유형 리포트 삭제',false))
   if (owned.exam) {
     await db.query(`delete from public.csat_dx_answer_key where exam_id = $1`, [EXAM]).catch(() => {})
     await db.query(`delete from public.csat_exams where id = $1`, [EXAM]).catch((e) => record('정리', 'TEST 시험 삭제', false, e.message))
   }
-  if (owned.type) await db.query(`delete from public.csat_types where id = $1`, [TYPE]).catch(() => {})
+  if (owned.type) await db.query(`delete from public.csat_types where id = $1`, [TYPE]).catch(() => record('정리','TEST 유형 삭제',false))
   const left = (await db.query(`select (select count(*) from public.csat_ec_capture_tombstone where exam_id = $1 and closed_at is null)::int t, (select count(*) from public.csat_items where exam_id = $1)::int i`, [EXAM])).rows[0]
   record('정리', 'TEST 시험 · 활성 묘비 0', left.t === 0 && left.i === 0, left)
   await db.end()

@@ -5,11 +5,17 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { scanLoaders,scanClient,scanBundle,pagingLocations,secretLiterals } from '../verification-core.mjs'
+import {attestBuild,checkBuild} from '../build-attestation.mjs'
 function fixture(run){const prefix=path.join(os.tmpdir(),'reveal-verify-'),root=fs.mkdtempSync(prefix);try{return run(root,(name,text)=>{const p=path.join(root,name);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,text)})}finally{if(!path.resolve(root).startsWith(path.resolve(prefix)))throw Error('Unexpected fixture path');fs.rmSync(root,{recursive:true,force:true})}}
 const manifest={db_relations:{csat_items:{class:'ANSWER_SENSITIVE'}},db_functions:{},app_db_loaders:{},app_api:{}}
 test('mutation: new DB loader, alias, unused import and comment calls fail closed',()=>fixture((root,write)=>{
   write('lib/csat/leak.ts','export const load = (db) => db.from("csat_items").select("answer")')
   assert.equal(scanLoaders(root,manifest).issues[0].kind,'unclassified_loader')
+  write('lib/csat/unknown.ts','export const load=(db)=>db.from("csat_new_answer_keys").select("answer")')
+  assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_csat_object'))
+  write('lib/csat/unknown.ts','export const load=(db)=>db.rpc("csat_new_answer_rpc")')
+  assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_csat_object'))
+  fs.unlinkSync(path.join(root,'lib/csat/unknown.ts'))
   const m={...manifest,app_db_loaders:{'lib/csat/leak.ts':{class:'ANSWER_SENSITIVE'}}}
   write('lib/csat/leak.ts','import {canRevealItem as gate} from "./embargo-gate"; // gate("x");\nexport const load=(db)=>db.from("csat_items").select("answer")')
   assert.ok(scanLoaders(root,m).issues.some(i=>i.kind==='ungated_loader'))
@@ -45,9 +51,25 @@ test('mutation: production artifact and escaped literal canary detected; empty b
   assert.deepEqual(secretLiterals('app.ts','// const data={correctAnswer:2};\nconst schema={correctAnswer:value};'),[])
   assert.ok(secretLiterals('app.js','const a="\\u004bNOWN_SECRET_CANARY_01"',['KNOWN_SECRET_CANARY_01']).includes('canary'))
   assert.ok(secretLiterals('chunk.js','const a=JSON.parse('+JSON.stringify(JSON.stringify({answerKey:4}))+')').includes('answerKey'))
+  assert.ok(secretLiterals('data.json',JSON.stringify({item_id:'2026#18',answer:3})).includes('answer'))
+  assert.ok(secretLiterals('chunk.js','const a={item_id:"2026#18",answer:3}').includes('answer'))
 }))
 test('paging sites ignore comments and retain changed call identity rather than a global count',()=>{
   assert.deepEqual(pagingLocations('// db.range(offset, end)\nconst x=db.range(0,99)','x.ts'),[])
   const sites=pagingLocations('const x=db.range(offset, offset+99)','x.ts')
   assert.equal(sites.length,1);assert.equal(sites[0].line,1);assert.ok(sites[0].key.includes('offset'))
 })
+test('production attestation rejects stale source, modified artifact and missing build',()=>fixture((root,write)=>{
+  assert.equal(checkBuild(root).ok,false)
+  write('tmp/.keep','')
+  write('apps/web/src/app.ts','export const n=1')
+  write('apps/web/.next/BUILD_ID','test-build')
+  write('apps/web/.next/static/chunks/main.js','const n=1')
+  attestBuild(root,'test-revision')
+  assert.equal(checkBuild(root).ok,true)
+  write('apps/web/src/app.ts','export const n=2')
+  assert.equal(checkBuild(root).ok,false)
+  write('apps/web/src/app.ts','export const n=1')
+  write('apps/web/.next/static/chunks/main.js','const n=2')
+  assert.equal(checkBuild(root).ok,false)
+}))
