@@ -1,0 +1,86 @@
+{
+  "ranAt": "2026-10-06T09:48:13.434Z",
+  "durationMs": 390625,
+  "appCommit": "6ab6e5ad3342acd5f019fbff24c6e6543c8ea9f6",
+  "branch": "test/ec-pilot-e2e",
+  "build": "next build + next start (production)",
+  "viewport": "1440x900 (PC 데스크톱)",
+  "phases": [
+    {
+      "phase": "pilot",
+      "participantEnv": "test-accounts",
+      "specs": [
+        "60-csat-ec-pilot-flow.spec.ts",
+        "61-csat-ec-pilot-guards.spec.ts"
+      ],
+      "exitCode": 0,
+      "ms": 364398,
+      "tests": [
+        {
+          "spec": "60-csat-ec-pilot-flow.spec.ts",
+          "title": "① 전체 흐름 — 보류 → 수집 → 감지기 probe → 응답 → 완료 → 공개",
+          "status": "passed",
+          "ms": 98041
+        },
+        {
+          "spec": "60-csat-ec-pilot-flow.spec.ts",
+          "title": "② probe 건너뛰기 · 해석 「잘 모르겠어요」 · 범주 없음",
+          "status": "passed",
+          "ms": 97900
+        },
+        {
+          "spec": "60-csat-ec-pilot-flow.spec.ts",
+          "title": "③ 증거 정정 — 미응답 probe 가 사라진다 · 「나중에 하기」는 보류 유지",
+          "status": "passed",
+          "ms": 96394
+        },
+        {
+          "spec": "61-csat-ec-pilot-guards.spec.ts",
+          "title": "④ reveal 우회 차단 — 참가자 · 다른 계정 모두 423 · 보류 안내, 수집 완료 뒤 해제",
+          "status": "passed",
+          "ms": 34041
+        },
+        {
+          "spec": "61-csat-ec-pilot-guards.spec.ts",
+          "title": "⑤ TEST taxonomy — v0.1 만 열리고 v99 신호는 학생 화면에 나오지 않는다",
+          "status": "passed",
+          "ms": 23547
+        },
+        {
+          "spec": "61-csat-ec-pilot-guards.spec.ts",
+          "title": "⑥ 비참가자 — 저장 즉시 결과 · 수집 화면 없음 · 수집 API 404",
+          "status": "passed",
+          "ms": 7149
+        }
+      ]
+    },
+    {
+      "phase": "gate",
+      "participantEnv": "empty",
+      "specs": [
+        "62-csat-ec-pilot-start-gate.spec.ts"
+      ],
+      "exitCode": 0,
+      "ms": 23710,
+      "tests": [
+        {
+          "spec": "62-csat-ec-pilot-start-gate.spec.ts",
+          "title": "참가자 설정이 비어 있으면 수집이 열리지 않는다 — 저장 즉시 결과 · 수집 API 404",
+          "status": "passed",
+          "ms": 20446
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "pass": 7,
+    "fail": 0,
+    "skipped": 0
+  },
+  "residual": {
+    "accounts": 0,
+    "sessions": 0,
+    "keptActive": [],
+    "embargoedExams": []
+  }
+}
