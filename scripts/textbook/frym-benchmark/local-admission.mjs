@@ -69,9 +69,10 @@ export function admitCandidate(candidate, protocol) {
   if (!meta || !present(meta.sample_id) || !present(meta.publisher) || !present(meta.series) || !present(meta.title) || !present(meta.edition) || !present(meta.grade) || !present(meta.passage_id) || !present(meta.page) || !present(meta.ISBN) && !(present(meta.publisher_id) && present(meta.canonical_url))) return { audit: audit(candidate, file, 'admission-hold', ['METADATA_INCOMPLETE'], stages) }
   stages.push('metadata-extracted')
   const extraction = candidate.extraction
-  if (!present(extraction?.passage_text) || !present(extraction?.page_range) || !present(extraction?.passage_id) || extraction.source_file_hash !== file.file_hash || extraction.passage_id !== meta.passage_id || extraction.page_range !== meta.page || extraction.boundary_confirmed !== true || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(extraction.method ?? '') || /ocr/i.test(extraction.method) && extraction.ocr_verified !== true) return { audit: audit(candidate, file, 'admission-hold', ['NEEDS_MANUAL_ADMISSION'], stages) }
+  const imageSource = ['png', 'jpg', 'jpeg', 'tif', 'tiff'].includes(file.format)
+  if (!present(extraction?.passage_text) || !present(extraction?.page_range) || !present(extraction?.passage_id) || extraction.source_file_hash !== file.file_hash || extraction.passage_id !== meta.passage_id || extraction.page_range !== meta.page || extraction.boundary_confirmed !== true || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(extraction.method ?? '') || (imageSource || /ocr|tesseract|vision/i.test(extraction.method)) && extraction.ocr_verified !== true) return { audit: audit(candidate, file, 'admission-hold', ['NEEDS_MANUAL_ADMISSION'], stages) }
   stages.push('passage-extracted')
-  if (!Array.isArray(extraction.questions) || !extraction.questions.length || extraction.questions.some(q => !present(q.id) || !present(q.stem) || !present(q.type) || !present(q.answer)) || new Set(extraction.questions.map(q => q.id)).size !== extraction.questions.length || extraction.question_boundary_confirmed !== true) return { audit: audit(candidate, file, 'admission-hold', ['QUESTION_EXTRACTION_INCOMPLETE'], stages) }
+  if (!Array.isArray(extraction.questions) || !extraction.questions.length || extraction.questions.some(q => !q || typeof q !== 'object' || Array.isArray(q) || !present(q.id) || !present(q.stem) || !present(q.type) || !present(q.answer)) || new Set(extraction.questions.map(q => q.id)).size !== extraction.questions.length || extraction.question_boundary_confirmed !== true) return { audit: audit(candidate, file, 'admission-hold', ['QUESTION_EXTRACTION_INCOMPLETE'], stages) }
   stages.push('question-extracted')
   const analysis = candidate.analysis
   const questions = extraction.questions
@@ -81,6 +82,9 @@ export function admitCandidate(candidate, protocol) {
   if (analysis?.codebook_hash !== protocol.codebook_hash || analysis.passage_hash !== passage_hash || analysis.item_set_hash !== item_set_hash || analysis.scoring_key_hash !== scoring_key_hash || !present(analysis?.analyzer_version) || !present(analysis?.evidence_locator) || AXES.some(axis => !Number.isFinite(analysis?.metrics?.[axis]))) return { audit: audit(candidate, file, 'admission-hold', ['NINE_AXIS_ANALYSIS_MISSING'], stages) }
   stages.push('analysis-ready')
   const item_type_counts = Object.fromEntries([...new Set(questions.map(q => q.type))].map(type => [type, questions.filter(q => q.type === type).length]))
+  const axisValues = object => Object.fromEntries(AXES.filter(axis => object?.[axis] !== undefined).map(axis => [axis, object[axis]]))
+  const auxiliary_metrics = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].auxiliary_metrics.length).map(axis => [axis, Object.fromEntries(protocol.axes[axis].auxiliary_metrics.filter(metric => analysis.auxiliary_metrics?.[axis]?.[metric] !== undefined).map(metric => [metric, analysis.auxiliary_metrics[axis][metric]]))]))
+  const ordinal_reviews = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].scale === 'ordinal' && analysis.ordinal_reviews?.[axis]).map(axis => [axis, Object.fromEntries(['rater_a_id', 'rater_b_id', 'rater_a', 'rater_b', 'adjudicator_id', 'adjudicated'].filter(key => analysis.ordinal_reviews[axis][key] !== undefined).map(key => [key, analysis.ordinal_reviews[axis][key]]))]))
   const row = {
     ...Object.fromEntries(METADATA_KEYS.filter(key => meta[key] !== undefined).map(key => [key, meta[key]])),
     source_path_hash: file.source_path_hash,
@@ -95,11 +99,11 @@ export function admitCandidate(candidate, protocol) {
     word_count: extraction.passage_text.trim().split(/\s+/).length,
     item_count: questions.length,
     item_type_counts,
-    item_type_difficulty: analysis.item_type_difficulty,
-    metrics: analysis.metrics,
-    auxiliary_metrics: analysis.auxiliary_metrics,
-    axis_agreement: analysis.axis_agreement,
-    ordinal_reviews: analysis.ordinal_reviews,
+    item_type_difficulty: Object.fromEntries(protocol.item_types.filter(type => analysis.item_type_difficulty?.[type] !== undefined).map(type => [type, analysis.item_type_difficulty[type]])),
+    metrics: axisValues(analysis.metrics),
+    auxiliary_metrics,
+    axis_agreement: axisValues(analysis.axis_agreement),
+    ordinal_reviews,
     codebook_hash: protocol.codebook_hash,
     selection_manifest_hash: protocol.selection_manifest_hash,
   }

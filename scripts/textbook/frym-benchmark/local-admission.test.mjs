@@ -36,6 +36,7 @@ test('selected and reviewed synthetic file becomes metadata-only benchmark sampl
   const before = readFileSync(source)
   candidate.metadata.passage_text = 'This must never appear in the output.'
   candidate.metadata.source_path = source
+  candidate.analysis.metrics.passage_text = 'Nested raw passage must never appear.'
   const { samples, audit } = prepareAdmission([candidate], protocol)
   assert.equal(samples.length, 1)
   assert.equal(audit.results[0].status, 'admission-pass')
@@ -44,6 +45,7 @@ test('selected and reviewed synthetic file becomes metadata-only benchmark sampl
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.extraction.passage_text))
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.source_path))
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.metadata.passage_text))
+  assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.analysis.metrics.passage_text))
   assert.deepEqual(readFileSync(source), before)
 })
 
@@ -59,6 +61,9 @@ test('source change and uncertain passage/question boundary fail closed', t => {
   candidate.extraction.boundary_confirmed = true
   candidate.extraction.question_boundary_confirmed = false
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['QUESTION_EXTRACTION_INCOMPLETE'])
+  candidate.extraction.question_boundary_confirmed = true
+  candidate.extraction.questions = [null]
+  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['QUESTION_EXTRACTION_INCOMPLETE'])
 })
 
 test('analysis tied to an earlier passage or scoring key stays on hold', t => {
@@ -72,6 +77,8 @@ test('OCR, missing axis, rights, selection and duplicates never enter samples', 
   const { directory, candidate } = fixture()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   candidate.extraction.method = 'ocr'
+  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
+  candidate.extraction.method = 'tesseract'
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
   candidate.extraction.ocr_verified = true
   delete candidate.analysis.metrics.inference
