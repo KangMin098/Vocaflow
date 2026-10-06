@@ -107,8 +107,8 @@ describe('설정 관문', () => {
     expect(configTaxonomyAllowed('latest')).toBe(false)
   })
 
-  it('상한 · 정답 대조는 미정(null) — 코드에 숫자를 박지 않는다', () => {
-    expect(EC_PILOT.probeCapPerSession).toBeNull()
+  it('probe 상한 = G5 결정 C(3) · 정답 대조는 미정(null — 대상은 정오 무관 봉인)', () => {
+    expect(EC_PILOT.probeCapPerSession).toBe(3)
     expect(EC_PILOT.correctControls).toBeNull()
   })
 

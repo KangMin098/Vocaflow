@@ -25,9 +25,9 @@ const has = (k) => process.argv.includes(`--${k}`)
 const die = (m) => { console.error(`중단: ${m}`); process.exit(1) }
 const git = (...a) => execFileSync('git', a, { cwd: ROOT, encoding: 'utf8' }).trim()
 const step = (n, m) => console.log(`\n[${n}] ${m}`)
-function run(cmd, args, cwd = ROOT) {
+function run(label, cmd, args, cwd = ROOT) {
   const r = spawnSync(cmd, args, { cwd, stdio: 'inherit', env: process.env })
-  if (r.status !== 0) die(`${path.basename(args[args.length > 2 ? 2 : 0] ?? cmd)} 실패(exit ${r.status})`)
+  if (r.status !== 0) die(`${label} 실패(exit ${r.status})`)
 }
 
 const runId = arg('run'), exams = (arg('exams') ?? '').split(',').filter(Boolean), mapping = arg('mapping')
@@ -44,6 +44,9 @@ step(1, '작업 트리 · 커밋')
 // e2e-last-run.json 은 E2E 러너가 매번 다시 쓰는 요약 — 깨끗함 검사에서 뺀다
 if (git('status', '--porcelain', '--untracked-files=no', '--', '.', ':!scripts/csat/pilot/e2e-last-run.json').length) die('커밋 안 된 변경이 있다 — 봉인 커밋이 실제 코드와 달라진다')
 const commit = git('rev-parse', 'HEAD')
+// 봉인 조건 중 저장소 설정으로 정해지는 것은 긴 빌드 · E2E 전에 먼저 본다(seal-run 이 같은 검사를 다시 한다)
+const cap = fs.readFileSync(path.join(ROOT, 'apps/web/src/lib/csat/ec-pilot/config.ts'), 'utf8').match(/probeCapPerSession:\s*(null|[0-9]+)\s*,/)?.[1]
+if (cap !== '3') die(`config.ts probeCapPerSession = ${cap} — 결정 C(3)로 커밋한 뒤 실행`)
 console.log(`고정 커밋 ${commit} — production 배포를 이 커밋으로 고정해야 게이트가 열린다`)
 
 step(2, '대응표')
@@ -73,14 +76,14 @@ const pgDir = process.env.CSAT_PG_MODULE_DIR ?? path.join(ROOT, 'scripts/csat/er
 process.env.CSAT_PG_MODULE_DIR = pgDir
 
 step(3, '모델 입력 식별정보 가드 selftest')
-run(process.execPath, ['scripts/csat/error-evidence/model-input/model-packets.mjs', 'selftest', '--run', runId])
+run('식별정보 가드 selftest', process.execPath, ['scripts/csat/error-evidence/model-input/model-packets.mjs', 'selftest', '--run', runId])
 
 step(4, 'production 빌드 · E2E')
-if (!has('skip-build')) run(process.execPath, ['node_modules/next/dist/bin/next', 'build'], path.join(ROOT, 'apps/web'))
-run(process.execPath, ['--tls-max-v1.2', 'scripts/csat/pilot/run-e2e.mjs', '--run', runId])
+if (!has('skip-build')) run('production 빌드', process.execPath, ['node_modules/next/dist/bin/next', 'build'], path.join(ROOT, 'apps/web'))
+run('E2E(run-e2e.mjs)', process.execPath, ['--tls-max-v1.2', 'scripts/csat/pilot/run-e2e.mjs', '--run', runId])
 
 step(5, 'run 봉인')
-run(process.execPath, ['--tls-max-v1.2', 'scripts/csat/pilot/seal-run.mjs', '--run', runId, '--exams', exams.join(','), '--participants', assignment, '--app-commit', commit])
+run('run 봉인(seal-run.mjs)', process.execPath, ['--tls-max-v1.2', 'scripts/csat/pilot/seal-run.mjs', '--run', runId, '--exams', exams.join(','), '--participants', assignment, '--app-commit', commit])
 
 console.log(`\n준비 끝 — 다음:
   a) 봉인 파일 docs/csat-learner/pilot-runs/${runId}.json · .md · .e2e.json · .pii-guard.json 을 커밋하지 말고 그대로 둔 채(커밋하면 HEAD 가 바뀐다) 검토

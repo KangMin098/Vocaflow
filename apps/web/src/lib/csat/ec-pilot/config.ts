@@ -21,7 +21,7 @@ export interface EcPilotConfig {
 export const EC_PILOT: EcPilotConfig = {
   taxonomyVersion: 'v0.1',
   participants: [],
-  probeCapPerSession: null,
+  probeCapPerSession: 3,   // G5 결정 C(2026-10-06): 세션당 최대 3회 · 첫 run 이후에만 조정
   correctControls: null,
 }
 
