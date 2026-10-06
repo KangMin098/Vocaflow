@@ -12,6 +12,11 @@ const C = 'a'.repeat(40)
 const pii = (over = {}) => ({ sha256: '1'.repeat(64), json: { format: 'ec-pilot-pii-guard-1', runId: RUN, commit: C, rulesHash: rulesHash(), passed: 53, failed: 0, at: '2026-10-19T09:00:00Z', ...over } })
 const e2e = (over = {}) => ({ sha256: '2'.repeat(64), json: { format: 'ec-pilot-e2e-1', runId: RUN, commit: C, build: 'production', specs: [E2E_REQUIRED_SPEC], passed: 9, failed: 0, skipped: 0, at: '2026-10-19T10:00:00Z', playwright: '1.47.0', reportSha256: '3'.repeat(64), ...over } })
 
+test('점검 · 봉인 스크립트가 쓰는 export 가 모두 있다(모듈 그래프 회귀)', async () => {
+  const live = await import('../live.mjs')
+  for (const k of ['readLive', 'readRecord', 'recordFailures', 'envMetaState', 'loadPg', 'configProbeCap', 'rulesHash', 'ROOT', 'RUNS']) assert.ok(k in live, k)
+})
+
 test('정상 기록 — 실패 없음', () => assert.deepEqual(recordFailures(RUN, { pii: pii(), e2e: e2e() }, null), []))
 
 test('없는 기록 · 다른 run · 실패 · 건너뜀 → 실패', () => {

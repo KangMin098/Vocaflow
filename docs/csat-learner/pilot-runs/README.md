@@ -79,7 +79,7 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
 2. `config.ts probeCapPerSession = 3` 커밋 · 배포 = **검증 커밋**(env `CSAT_EC_PILOT_USER_IDS` · `CSAT_EC_APP_COMMIT=<검증 커밋>`)
 3. `node scripts/csat/error-evidence/model-input/model-packets.mjs selftest --run <run id>` → `.pii-guard.json`
 4. Playwright E2E(verification 모드 서버 · 같은 커밋) → `.e2e.json`
-5. `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/seal-run.mjs --run <run id> --exams A,B --participants "P001=A+B,…" --app-commit <sha> --activate` → 커밋 · 배포(배포 env 에서 `CSAT_EC_PILOT_MODE` 를 지운다)
+5. `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/seal-run.mjs --run <run id> --exams A,B --participants "P001=A+B,…" --app-commit <검증 커밋> [--e2e-report-sha256 <sha>]` → `<run id>.json` · `.md` 작성 + `CSAT_EC_ACTIVE_RUN` 에 넣을 한 줄 출력(코드 변경 · 재빌드 없음)
 6. 배포 env 에 `CSAT_EC_ACTIVE_RUN=<seal-run 이 출력한 한 줄>` 추가 · `CSAT_EC_PILOT_MODE` 제거 — **재배포 빌드 커밋은 검증 커밋 그대로**(코드 변경 없음). run 메타 · 기록 파일의 docs 커밋은 운영 브랜치에 남기되 run 기간 production 배포에 섞지 않는다(빌드 커밋이 바뀌면 게이트가 닫힌다)
 7. `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/start-check.mjs --run <run id> --build-commit <플랫폼에 표시된 배포 커밋>` 전 항목 PASS → G6 시작 승인 요청
 
