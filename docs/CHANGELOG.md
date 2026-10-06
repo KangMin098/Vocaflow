@@ -1,5 +1,31 @@
 # CHANGELOG
 
+- feat(textbook): 상업 독해 교재의 메타데이터 전용 8학년·9축 benchmark 엔진을 추가했다. 봉인 protocol/선정 manifest, 표본 다양성·장르·길이 gate, 분위 분포, F02 독립 fit/separation, E3 실출력 재감사와 version/hash stale 검사를 합성 fixture로 검증했다. 실제 corpus·분포·Gold-S·DB seed는 0이다.
+
+- docs(textbook): 로컬 시중교재 코퍼스의 학년·출판사·지문 추출 범위와 공식 출판사 카탈로그 후보를 탐색 보고서로 기록했다. 단일 학년·다출판사·판본/권리·9축 요건 미충족으로 benchmark 유효 N과 분포는 계속 0이다.
+
+- docs(textbook): 시중 독해 교재의 학년별 표본 선정·provenance·9축 분석과 F02 상대적 학년 적합성 판정 전이를 별도 benchmark 계약으로 정의했다. 실제 교재 실측·분포·TARGET_FIT·LEVEL_SEPARATION·Gold-S·DB seed는 아직 열지 않았다.
+
+- feat(textbook): F02 Claude Code × Codex 로컬 교차 감사 Stage A/B와 실제 출력 변조 81건을 통과하고, 새 28패킷 배치를 28/28 완료·재검증해 E3 유효 합성 N=28로 기록한다. 외부 benchmark·학생 N·TARGET_FIT·LEVEL_SEPARATION·Gold-S·DB seed는 미진행으로 유지한다.
+
+- fix(textbook): F02 Claude Code 호출 모델을 가변 `haiku` 별칭 대신 전체 모델 ID로 고정하고 반환 모델과 동일한 ID로 비교한다. 이전 별칭 호출의 감사 해시를 새 검증에 재사용하지 않는다.
+
+- fix(textbook): F02 Codex 전역 지시 manifest의 목록을 실제 보관된 파일 목록과 대조한다. 목록만 비워 해시를 다시 계산해도 Stage C가 거부하도록 보강한다.
+
+- fix(textbook): F02 로컬 감사에서 Claude 정상 종료 필드, 호출 UUID·파일명 결속, 개별 호출 시간 순서와 run 완료 상태를 필수로 확인한다. 해당 누락·역전 변조는 실제 산출물 기반 Stage C에서 차단한다.
+
+- fix(textbook): Windows의 Codex CLI가 npm 래퍼로 설치된 경우에도 네이티브 실행 파일을 찾아 호출한다. 순차 호출의 PID 재사용은 자기 채점으로 오인하지 않고 호출 ID·모델 계열·순서를 검증한다.
+
+- fix(textbook): F02 CLI 호출에서 Claude safe mode와 Codex 사용자 설정 무시를 명시해 비기록 지시 유입을 줄이고, Codex 이벤트의 정상 종료 순서를 검증한다. 종료 이벤트 삭제도 실제 출력 변조 검사에 포함한다.
+
+- fix(textbook): Codex의 실제 `CODEX_HOME`과 `AGENTS.override.md` 우선순위를 감사 입력에 반영하고 Claude CLI 실행 파일을 설치 환경에서 탐색한다. 환경별 지시 파일·실행 파일 결속이 달라지면 기존 합성 run을 재사용하지 않는다.
+
+- fix(textbook): F02 교차 에이전트 호출을 저장소 밖 임시 디렉터리에서 실행하고 Codex 전역 지시 파일의 복사본·해시를 감사 기록에 결속한다. Claude 내장 도구를 비활성화하고 학생 답변의 추가 필드 전달을 거부한다.
+
+- fix(textbook): F02 Codex CLI에 정책 지시를 실제 stdin으로 보내고 stdout 최종 메시지와 저장 파일을 교차 검증한다. 원출력 거부·오류·도구 사용 상태를 다시 대조하며 Stage C 실제 산출물 변조 검사를 63건으로 확장한다. 이전 불완전한 배치는 유효 합성 자료에서 제외한다.
+
+- feat(textbook): F02 synthetic classroom active path를 API key 호출 대신 Claude Code/Codex CLI 양방향 blind 실행으로 전환한다. 원입력·argv·raw 출력·세션 식별자·hash를 로컬 감사하고 실제 실행 산출물 변조 테스트를 별도 게이트로 둔다. 공급자 attestation, 학생 난도 타당성, Gold-S, DB seed는 주장하지 않는다.
+
 - feat(textbook): 현재 F02 중1·고1 각 12문항과 분리 채점안을 제안하고 본문·문항·채점·pilot protocol 해시를 독립 결속했다. 핵심 이해도 hard gate, 추론·문장 부담 분리 판정, 사전 노출/중단/결측 사유 및 상태 보고를 calibration 판정기에 반영했다. 사람 사전등록·학생 검증·gold·DB seed는 미완료다.
 
 - feat(csat): 학평 P4 — `csat_type_reports` 기본 키를 (type_id, organizer, grade)로 확장(마이그레이션 20261002060000, 승인 후 적용). 학평 유형 리포트를 학년별로 평가원 행을 덮지 않고 쓸 수 있다. importer 의 upsert 충돌 대상도 같이 변경.
@@ -20,6 +46,11 @@
 - design(illo): 학습 화면 히어로 그림 `LearningPathArt`(서가 Books · 진단 · 대시보드 · 진단 기록 · 계획 · 리포트 · Flashcard)를 손그림 SVG(구름 · 별 · 점선 궤적 — 사용자 지적 「유아틱」)에서 Tines 개념 삽화 `path-*.webp` 5장으로 교체. 화풍 `STYLE_CONCEPT`(개념 은유 · 짙은 윤곽 · 파스텔 평면 · 구름 · 반짝이 · 스티커 테두리 금지) 추가, 네 변 페이드 마스크로 잘린 끝을 감춘다.
 
 - design(illo): Tines 기준(평면 · 그라디언트 0 · 팔레트 안 색)에 못 미치던 삽화 5장을 Kaggle T4 무료 경로로 다시 그렸다 — spot-locked · spot-empty-shelf · tile-pairflip(격자 → 물건 하나) · tile-books · tile-video. `illo-kaggle.mjs --quality`(Lightning 끄고 20스텝 · cfg 4 — 부정 프롬프트가 먹는다) 추가, 장면 문장의 재질 낱말(brass · wooden · red apple)을 팔레트 색으로. 후보 12장 중 회색 바닥 그림자 · 바탕 패널 · 안쪽 액자가 남은 7장은 원본 유지.
+- feat(textbook): F02 합성 검증용 Anthropic Messages/OpenAI Responses 직접 API 경로를 CLI smoke와 분리했다. 직렬화 요청·공급자 request/response ID·반환 모델·원출력 해시를 결속하고 양방향 모의 호출과 실패 주입을 검사한다. 실제 API 키가 없어 live Stage A/B는 미실행이며 audit-ready와 유효 합성 N은 0이다.
+
+- fix(textbook): F02 합성 실행의 학생·채점자 호출을 별도 프로세스 ID와 요청/출력 해시·종료 기록에 묶는 v3 감사 경로를 추가했다. CLI가 공급자 수신 프롬프트와 실제 채점 모델을 증명하지 못하면 fail-closed로 유효 합성 N=0을 유지한다.
+
+- fix(textbook): 수정된 Windows 호출로 F02 28개 blind 패킷을 새 run에서 재실행했다. 유효 응답·독립 채점 27건과 역할 응답 거부 1건을 각각 원출력으로 보존하고 실패 종료를 기록했다. 합성 자료는 교육적 타당성·Gold-S·DB seed 승격에 사용하지 않는다.
 
 - fix(textbook): F02 합성 smoke의 공급자 원출력 28쌍을 별도 번들로 보존하고 응답·채점 행과 바이트 해시·내용을 재검증한다. 전건 실패 시 이전 응답이 남지 않도록 실행 상태를 먼저 초기화하고 Windows 실행기 회귀를 플랫폼별로 제한했다.
 
