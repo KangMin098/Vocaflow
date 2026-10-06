@@ -82,10 +82,10 @@ function versionOf(engine) {
 function cliSpec(engine, role, cwd, outputPath, system) {
   if (engine === 'claude') {
     const schema = role === 'student' ? answerSchema : scoreSchema
-    const args = ['-p', '--model', model.claude, '--effort', 'low', '--restricted', '--strict-mcp-config', '--tools', '', '--system-prompt', system, '--json-schema', json(schema), '--output-format', 'json', '--no-session-persistence']
+    const args = ['-p', '--model', model.claude, '--effort', 'low', '--safe-mode', '--restricted', '--strict-mcp-config', '--tools', '', '--system-prompt', system, '--json-schema', json(schema), '--output-format', 'json', '--no-session-persistence']
     return { command: claudeExecutable(), argv: args, options: {}, cwd }
   }
-  return { command: 'codex', argv: ['exec', '--json', '--ephemeral', '-s', 'read-only', '--skip-git-repo-check', '-c', 'project_doc_max_bytes=0', '-m', model.codex, '-o', outputPath, '-'], options: {}, cwd }
+  return { command: 'codex', argv: ['exec', '--json', '--ephemeral', '--ignore-user-config', '-s', 'read-only', '--skip-git-repo-check', '-c', 'project_doc_max_bytes=0', '-m', model.codex, '-o', outputPath, '-'], options: {}, cwd }
 }
 function assertIsolatedCwd(cwd) {
   if (!resolve(cwd).startsWith(resolve(tmpdir()) + sep)) throw Error('CWD_NOT_ISOLATED')
@@ -101,10 +101,15 @@ function decode(engine, stdout, outputPath) {
     return { text: record.structured_output ? json(record.structured_output) : record.result, session_id: record.session_id ?? null, observed_model: observed, refusal: record.is_error === true, tool_used: remoteTools || (record.subagent_stats?.spawned ?? 0) > 0 || (record.permission_denials?.length ?? 0) > 0 }
   }
   const events = stdout.toString('utf8').split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line))
-  const session = events.find(event => event.type === 'thread.started')?.thread_id ?? null
+  const threadIndex = events.findIndex(event => event.type === 'thread.started')
+  const startIndex = events.findIndex(event => event.type === 'turn.started')
+  const messageIndex = events.findLastIndex(event => event.type === 'item.completed' && event.item?.type === 'agent_message')
+  const completeIndex = events.findLastIndex(event => event.type === 'turn.completed')
+  if (threadIndex < 0 || startIndex <= threadIndex || messageIndex <= startIndex || completeIndex <= messageIndex || completeIndex !== events.length - 1) throw Error('TURN_TERMINAL_MISSING')
+  const session = events[threadIndex].thread_id ?? null
   const error = events.find(event => event.type === 'error' || event.type === 'turn.failed')
   const toolUsed = events.some(event => event.type?.startsWith('item.') && !['agent_message', 'reasoning'].includes(event.item?.type))
-  const message = events.filter(event => event.type === 'item.completed' && event.item?.type === 'agent_message').at(-1)?.item?.text ?? null
+  const message = events[messageIndex]?.item?.text ?? null
   const final = existsSync(outputPath) ? readFileSync(outputPath, 'utf8') : null
   if (!message || !final || message.trim() !== final.trim()) throw Error('FINAL_STDOUT_MISMATCH')
   return { text: message, session_id: session, observed_model: null, refusal: Boolean(error), tool_used: toolUsed }
@@ -326,7 +331,7 @@ export function stageC(stageA, stageB) {
         if (!rejected) throw Error(`TAMPER_NOT_REJECTED:${name}`)
       } finally { rmSync(temp, { recursive: true, force: true }) }
     }
-    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output', 'global_instruction_file']) {
+    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output', 'global_instruction_file', 'terminal_event_removed']) {
       const role = ['student', 'grader'].find(candidate => {
         const record = JSON.parse(readFileSync(join(source, `${pair[candidate]}.record.json`), 'utf8'))
         return record.engine === (name === 'raw_refusal_with_rehashed_output' ? 'claude' : 'codex')
@@ -353,7 +358,7 @@ export function stageC(stageA, stageB) {
           const altered = json(raw)
           writeFileSync(path, altered)
           record.stdout_sha256 = sha(Buffer.from(altered))
-        } else {
+        } else if (name === 'global_instruction_file') {
           const instruction = record.global_instructions[0]
           if (instruction) {
             const path = join(temp, `${stem}.global-${instruction.name}`)
@@ -369,6 +374,14 @@ export function stageC(stageA, stageB) {
             record.command_manifest_sha256 = manifest.command_manifest_sha256
             writeFileSync(manifestPath, json(manifest))
           }
+        } else {
+          const path = join(temp, `${stem}.stdout`)
+          const lines = readFileSync(path, 'utf8').split(/\r?\n/).filter(Boolean)
+          if (JSON.parse(lines.at(-1)).type !== 'turn.completed') throw Error('EXPECTED_TERMINAL_EVENT_MISSING')
+          lines.pop()
+          const altered = `${lines.join('\n')}\n`
+          writeFileSync(path, altered)
+          record.stdout_sha256 = sha(Buffer.from(altered))
         }
         writeFileSync(recordPath, json(record))
         let rejected = false

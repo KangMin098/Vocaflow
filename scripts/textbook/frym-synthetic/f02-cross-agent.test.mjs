@@ -80,6 +80,6 @@ test('actual Stage A evidence rejects raw, request, identity and run mixing', { 
 test('actual bidirectional CLI evidence rejects all Stage C mutations', { skip: !process.env.F02_STAGE_A_FIXTURE || !process.env.F02_STAGE_B_FIXTURE }, () => {
   const result = stageC(process.env.F02_STAGE_A_FIXTURE, process.env.F02_STAGE_B_FIXTURE)
   assert.equal(result.evidence_level, 'E3')
-  assert.equal(result.tamper_checks, 66)
+  assert.equal(result.tamper_checks, 69)
   assert.equal(result.synthetic_validation_valid_n, 0)
 })
