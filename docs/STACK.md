@@ -1,5 +1,7 @@
 # Tech Stack
 
+Reveal Gate verification tooling: root `pg` 8 for read-only catalog/JWT preflight and checkpointed dev canaries; `embedded-postgres` 18.4.0-beta.17 for independent local SQL migration/state tests. No live migration is applied by the verification command.
+
 > Vocaflow 모노레포 기술 스택 + 버전. `package.json` 직접 verified. 작성 시점: 2026-06-08.
 
 ---

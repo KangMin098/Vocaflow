@@ -300,3 +300,4 @@ DB: `csat_ec_private.exam_answer_embargoed(exam)` · `item_answer_embargoed(item
 - **스냅샷 따라잡기**: `csat_ec_reveal_outbox` 는 service_role 권한도 없는 표(FORCE RLS)라 앱이 읽지 못한다(새 DB 객체 금지). 같은 일을 `diagnosis/reveal-sync.ts` 가 워터마크 비교로 한다 — 보류가 없을 때만, 실패해도 보류로 되돌리지 않음, 재실행 안전. outbox 를 실제로 소비하려면 서비스 RPC 가 필요하다(다음 마이그레이션 후보).
 - **관문 실패**: 판정 RPC 오류 · 시간 초과(4초) = 423 held · no-store. 로그는 `[reveal-gate] embargo`(info)와 `[reveal-gate] gate_failure`(error)로 가른다(`embargo-gate-failure.test.ts`).
 - **함수 실행 정책 마이그레이션**(`20261006100000`, 다른 세션)이 학습자 EXECUTE 11개를 회수 → manifest `revoked_by` 로 기록, canary 는 회수된 함수를 거부 기대로 본다.
+<!-- Verification entry point: docs/csat-learner/codebook/REVEAL_GATE_VERIFICATION.md; pnpm reveal-gate:verify. Live deployment remains a separate required gate. -->

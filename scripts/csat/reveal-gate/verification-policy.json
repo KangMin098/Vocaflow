@@ -1,0 +1,451 @@
+{
+  "version": 1,
+  "canaries": [
+    "KNOWN_SECRET_CANARY_01",
+    "KNOWN_SECRET_CANARY_02"
+  ],
+  "paging_allowlist": [],
+  "db_expected_permission_diff": [],
+  "function_approvals": {
+    "app/api/csat/dev-paper/route.ts::GET": {
+      "sha256": "ff6c7fb61598a3c284de2b57f478fbc2bc67e066bf26d030cd35ab5367c9a3ab",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/diagnosis/map/goal/route.ts::PUT": {
+      "sha256": "93b83c7e434e3085b0ac021b68e93d20fc02a0e1b1beb2065b3c29dbbac7f21a",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/diagnosis/map/tasks/[id]/route.ts::POST": {
+      "sha256": "9d09189efaff4a3ab1b27c76a574e242e7e81c5754e2a74b74c2dc6d7d924139",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/diagnosis/map/tasks/[id]/route.ts::DELETE": {
+      "sha256": "31c7b4afdc606d1849f2e607af363877c9bc7f28348fa01862a94d0989a7d7a1",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/diagnosis/sessions/route.ts::POST": {
+      "sha256": "b428feda448867f26c2e1aa12961e050551a097ddd8b22b4a4947b9b283da32a",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/diagnosis/sessions/route.ts::DELETE": {
+      "sha256": "584b1d048ffb2fab74cfa0260062cf6ed8dd3d9f6d33090547b697ff8d87e4a3",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/diagnosis/sessions/[id]/result/route.ts::GET": {
+      "sha256": "e7cc1b3b64aad2f69e610967d6ce78aedb8b61c1046d25917c5dc42214c694f3",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/ec/capture/route.ts::GET": {
+      "sha256": "57f209cc59e9d1616f626f16353efb44dabf537233ac3a9645c89a333f61ffe5",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/ec/confirm/route.ts::POST": {
+      "sha256": "de26f147d22291a8b3b866574bce64967dca51e5a07665d2a44dc050fa4f9a08",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/ec/evidence/route.ts::POST": {
+      "sha256": "ef1bec6ca547497a6208a63284b5526b8d6b4ee1af471bfa7f9420d216f02a54",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/ec/probe/route.ts::POST": {
+      "sha256": "21c1e7d91ad6be05ded604fd86d03288f208d213e50f8233262a4edfbebf4003",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/ec/probes/route.ts::GET": {
+      "sha256": "c443def010b8b5b5335f61eba350feee0fd7fd8310efd034ca36e8232e0974c5",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/lecture/route.ts::GET": {
+      "sha256": "555bade29b0405ccbbe3e00511eaa05e25e1c2d42ec3e5a8b49bdc7708b602b4",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/paper/route.ts::POST": {
+      "sha256": "d23e24cf1fa5051dbd437b7b121f7befaba0c38e4141e35c39f5d42f745649a9",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/session/record/route.ts::readAttempts": {
+      "sha256": "f84c220142fb0c731a567ceea681dff9af1341b04751cc02361c768b9213ff12",
+      "class": "CORRECTNESS_OWN_PRIOR",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/session/record/route.ts::GET": {
+      "sha256": "131b0284baec09c47f2c22a5cfcda84bc5123eea2f355b3524c642431e3780a1",
+      "class": "CORRECTNESS_OWN_PRIOR",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/session/record/route.ts::DELETE": {
+      "sha256": "30246600b10ab442fc81983895f9081b54765bc77279c93dbf1c0cf6b4265918",
+      "class": "CORRECTNESS_OWN_PRIOR",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/session/record/route.ts::POST": {
+      "sha256": "ada77f2fd9d691e9f92520908d7707b968797d3ce7a4bc722d5863f64cb3ff6d",
+      "class": "CORRECTNESS_OWN_PRIOR",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/session/reveal/route.ts::POST": {
+      "sha256": "1dcb2ff06ec79506c9cbb852ee0fbaeca3c29df475b675777fba342b4cf12f9c",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/state/route.ts::GET": {
+      "sha256": "48f11ec5f7987c782ea3338a003941f4e9566773539d8118f8022c03b2896cba",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/state/route.ts::PUT": {
+      "sha256": "851568a61f4a5016a77f3cb262b2ff78e9e146cbc914e1c2b375f6c59490214f",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "app/api/csat/state/route.ts::DELETE": {
+      "sha256": "8ed44404cc82c33b1328e47da441cae268559dafa401edc2fb70736b419a4028",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/browse.ts::readBrowseCatalog": {
+      "sha256": "b893cdfb27a7f400d6a89385b1354cf3ce188058e5a1eac9bfbb139be4750d1a",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/client.ts::selectScopeItems": {
+      "sha256": "596856812690a531e16814fa0881aeafbbf0350334020703d6d01b4988bb6494",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/client.ts::loadCsatOverview": {
+      "sha256": "1acf6bcb4657855882825f095746ba5e597ec8b3f922539f80bd6b8864cce0a5",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/admin.ts::loadExamTagging": {
+      "sha256": "9b0e057ccd62c61cfaa2aa12f57d3442c9ad6b6dbac996ce1e8f72353b932940",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/admin.ts::loadExamItemsForTagging": {
+      "sha256": "01636444840ba7a76c34e8c88d79c7f922d475cc43b0155da9417cc3d6e0f647",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/admin.ts::byId": {
+      "sha256": "9caef0a686db10747f2eeef0b93209a705f614157c80eaaeb028a0835867ce6a",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/learner.ts::loadHomeDiagnosis": {
+      "sha256": "7213dcf1f905cfc7b58a1234519ddcb9b7a513f8d3e342d47c52f46a7568b9dd",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/report.ts::loadExamReport": {
+      "sha256": "e35d1db7fcc1352df0153a299a0f4331ab65a49b05dda3c808793d111fda1ea0",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/reveal-sync.ts::syncRevealedSnapshot": {
+      "sha256": "a7a93e719aa293fae674cafa599810fcf147b49d0406368135bc129950e7d576",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/server.ts::loadExams": {
+      "sha256": "2b752bccc002049c38198b1d67cfc2ba550ad4f9778a48b5e847933981d842f8",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/server.ts::loadItems": {
+      "sha256": "41d61932e83ad47b8c11e626073d70df45561baa22159608b2bc0e958cd1a0af",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/server.ts::loadSessionsWithWatermark": {
+      "sha256": "f21179d2315dc80cbefd2544ccdf5b3c4d7b8a838b80a9e257e7540323ea5a8e",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/server.ts::recomputeSnapshot": {
+      "sha256": "d0495ae0bf8f3e89a318877fad01b8dc9b24fbc236a84b7c757728af639f1f8c",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/server.ts::submitExamSession": {
+      "sha256": "177b85f1460cd28481378c259680dfa9bda7aa70aca9e5fae6bbc87ff373ac39",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/server.ts::assertSameSubmission": {
+      "sha256": "d5246af026dbc02aca0f2c37c4644267d312fad128a764610376f0f35c261ad6",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/server.ts::snapshotForSession": {
+      "sha256": "49d668a4877860429cce3aab3971812e34b6ae0a163ae8b166929d5a3acd2e14",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/server.ts::deleteExamSession": {
+      "sha256": "97aefa8c523015bf9618cc1ecef6f93e68b496b252e38ca7333bce8b563e5ef7",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/diagnosis/snapshot.ts::loadSnapshots": {
+      "sha256": "06a7f6edeb204158a71aa4a9c4931a2e107b319ceb440ba6ce657d12b7d0c187",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/dissect-catalog.ts::readRawRows": {
+      "sha256": "5fd9a425564d4a54f8d054a4295640e65c825d8e4d2f639db5bcdc39cb093882",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/ec-pilot/server.ts::ownSession": {
+      "sha256": "1bdd6733fe2793ec874125dfc13d6f22bb897c1933b0c1fcc23fc8607a242c26",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/ec-pilot/server.ts::loadCapture": {
+      "sha256": "25e41fc4cb30e27742d867bc0577c1aedbca5b80a6bf2e3c508291ef89c196c3",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/ec-pilot/server.ts::itemSource": {
+      "sha256": "402427b927c5468c52bcd04dd51fe7b0027fc575fc6991819c7b5b1d079c371f",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/embargo-gate.ts::userHasHeldSession": {
+      "sha256": "fb2596beb00854284a1ffd711d72dab77df3521de07b61f0acb497fac8c8098d",
+      "class": "OPS_META",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/embargo-gate.ts::loadRevealScope": {
+      "sha256": "1d0c831315cfab88f6959bbca61352810f73279439acfcaee1c813810dd73a01",
+      "class": "OPS_META",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/evidence.ts::loadEvidence": {
+      "sha256": "888e3d1435df64b593972d7023141f77464b2bbb1a806d8b8d928f06633bf88e",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/guide.ts::loadCsatGuideSource": {
+      "sha256": "744dc0a217d16cfe293e3ff47f37f47cb1e0969698701858a3c418b26f403243",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/hakpyeong-review-loader.ts::loadHakpyeongReview": {
+      "sha256": "7239e7313be63c888c697b83abc04b1a8fd86f28876efbf72d5f5b801927e009",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/heatmap.ts::loadHeatmap": {
+      "sha256": "a3dc628b66188102b67442a2a930bde431762a791f0bd4386d99e1bc1af670ee",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/item-count.ts::countItemCell": {
+      "sha256": "e1bbb753b433d1aa7f99f812a6cd7ef9f88709c5d529e627db66d8cc4925d6e6",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/item-count.ts::plannedItemTotal": {
+      "sha256": "2676c49073c24fc690b256beb542282e06d02e37349d3cf4b09f0328f2063ea7",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/items.ts::loadCsatItemAudit": {
+      "sha256": "81b1b899cf9fe075a73aeb60264acb1087bbc5241a71840b8f2686b5fb04bdf3",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/items.ts::loadCsatItemFull": {
+      "sha256": "4f5651b2c1d1a2a75d1d0834f1241294d5de57e086449926bbf73aee4eaa7346",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/learner.ts::loadCsatTypeCards": {
+      "sha256": "397c78c30b4951c6b87fa17531469ebb125729fbe97fc94378a60eac8f0a9f4a",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/learner.ts::loadCsatTypeDetail": {
+      "sha256": "e703dcbbfe72d678add0e80f8a804527259105363b91ceccee9e8e7161753a2c",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/learner.ts::loadCsatPlan": {
+      "sha256": "7cf1935e7d041dd483dae52b7bbbae5a855f0633b3c82b2886c796912b6c5bbf",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/learner.ts::loadCsatTypeItems": {
+      "sha256": "408fd882fa560365ea73582debd46b8cfc07545bba4eef4182b15f9c1cd92af7",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/learner.ts::loadCsatItemExplain": {
+      "sha256": "937e344ea9f163da84abfd87d9953f6ddff82fa220df38bc4a4c527f9ac9bb46",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/map/evidence.ts::mapEvidenceFor": {
+      "sha256": "187c9babb8b2eace2ffb248febaa0187ff04226a4a81560f3014c5b4ff22d484",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/map/load.ts::loadMapPage": {
+      "sha256": "dd49d7251694f3a71854f1bdf5efed33f8585b7bc790c5aebb22df7a92210c3b",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/my-traps.ts::loadMyTraps": {
+      "sha256": "929c149fa372775b5c3d2c48abc241dcf8891289f954d2adec618a6872a4628a",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/my-traps.ts::loadMyAttempts": {
+      "sha256": "ce835c3a869cf2f8afed55dce46bf8b3149f57307aeb54d89707594d7c8c86e9",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/order-view.ts::loadOrderView": {
+      "sha256": "2458f1243cfb3f56650f91e3bda68812a96f95f11b616a28d62bb8880cd31b17",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/overlay.ts::loadOverlayBySha256": {
+      "sha256": "f021af78805ffdb581de56ac32e9f4b40297eb0040fe87eadbc7d62b5a01c2c5",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/review-defects.ts::loadReviewDefects": {
+      "sha256": "b62577810ca68ea9f12138bedac678a1ef013ec113811216ec6aee88519d19e1",
+      "class": "OPS_META",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/session/catalog.ts::readSessionCatalog": {
+      "sha256": "ad5229d5bf605f774d1b18906391f8f747cab8697defabb44a84784ed371e1a2",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/session/reveal.ts::loadReveal": {
+      "sha256": "41abf34461722a5b007bdf20d9d0ffb46f90cef368ec86ce6ba984dfb694301e",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/skeleton.ts::primeLearnerHakpyeongSkeletons": {
+      "sha256": "f42f556284ec9217440792d6f11386c3722cd9834885ab36aac4a61f3c1912aa",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/skeleton.ts::loadHakpyeongSkeletonAdmin": {
+      "sha256": "58fd5f8520591ff4a7a3d5f0fd4eb6f90a4eca41381b1a0dbca3bbef242b38a0",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/workspace-index.ts::trapsByItem": {
+      "sha256": "287320d8adc7da01d3e1002f0e3fe4ef717a2b0114a91dbaa4c30f763500f18a",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+    },
+    "lib/csat/dissect-catalog.ts::<module>": {
+      "sha256": "c6b6a9a106506b9c8c40c0b87de208b70c343081d8847163d3ded876356407e7",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/drill-loader.ts::load": {
+      "sha256": "d09a2b9e953a9bbc4343b8ed3f22377a4927c3315c8827da6e8ab601be91ee49",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/factory-bench.ts::readBench": {
+      "sha256": "6bd72026cc806f7d5a23644eef380fd46b1154ae0bedf4a0231558c0d884de81",
+      "class": "OPS_META",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/factory-pick.ts::<module>": {
+      "sha256": "a1f74e24790d08697c29a6a9ec2eda02ad4000427c02f228d95e755765b24426",
+      "class": "OPS_META",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/factory.ts::<module>": {
+      "sha256": "732c3fdff6e1a33b829ef1bb3517c8b36cfb40a8b2601089bd14e29a21616d9b",
+      "class": "OPS_META",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/items.ts::<module>": {
+      "sha256": "74beea22e6ed5bf480ebc73549d95750ab608c8f35ea2a900d50bfc431af656b",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/lecture/store.ts::index": {
+      "sha256": "07a7961437abd22317ef53496898bad0649e5d37bb6444079eb87c16eebb8906",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/lecture/store.ts::loadLecture": {
+      "sha256": "1d0370dc0ca09ea49129d0d6c6441ebf77232c9c9a38f4af99d6122c01e8e77e",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/order-view.ts::repoRoot": {
+      "sha256": "94f6d10388afae248d563cd87afba42c93fc262103167ec17cac3eb56c102a13",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/order-view.ts::readMarket": {
+      "sha256": "1cdd8f75e391efef32143d2b9dec0650748c9013fa5ec49ad2ebe9c47375c7df",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/overlay.ts::anchorIndex": {
+      "sha256": "095c796e037307ee83d80ec15d16faa013cb9dc770efd0c9e0e2231d752e1f9b",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/overlay.ts::readAnchors": {
+      "sha256": "0faeb8f2387adcb77ee72840e435b573f18447d8e5711dda339e2303514eae1e",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/skeleton.ts::loadExam": {
+      "sha256": "1d7000cda1005bb6e909ec19a7d370ef61d3eb179ba6237162b8ae7da9094777",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/skeleton.ts::skeletonExams": {
+      "sha256": "9115a7d540840b5f7dfb6b182f11f54bb108aa2d5f24ebe170a3f46181e6ddfd",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/trap-atlas-examples.ts::<module>": {
+      "sha256": "1ea079bf074163c4bb864e478c923d09c383dd7b8818a85b9c6ea60cec15d703",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/trap-atlas.ts::<module>": {
+      "sha256": "e6e95bfaef0eb98f69b323f7f96a401fede23225b2586a960f47bbaf93342687",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/type-locus.ts::build": {
+      "sha256": "3bb5e4be8e129d86a3956459884efcc2893c3016f85daea16e116941546d8ef6",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    }
+  }
+}

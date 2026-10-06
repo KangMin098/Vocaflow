@@ -109,7 +109,7 @@ test('참가자 — 저장 → 수집(정오 · 점수 비노출) → 추가 질
   expect((await me.auth.signInWithPassword({ email: EMAIL, password: PASSWORD })).error).toBeNull()
   const { data: ev, error: ee } = await me.rpc('csat_ec_my_process_evidence', { p_session: sessionId })
   expect(ee).toBeNull()
-  const kinds = (ev ?? []).map((r) => `${r.item_no}:${r.kind}:${(r.value as { state?: string; option?: string; group?: string }).state ?? (r.value as { option?: string }).option ?? (r.value as { group?: string }).group ?? ''}`)
+  const kinds = (ev ?? []).map((r: { item_no: number; kind: string; value: { state?: string; option?: string; group?: string } }) => `${r.item_no}:${r.kind}:${r.value.state ?? r.value.option ?? r.value.group ?? ''}`)
   expect(kinds).toEqual(expect.arrayContaining([`${firstNo}:interpretation:answered`, `${firstNo}:category:evidence`, `${firstNo}:targeted_probe:B`, `${firstNo}:blocked_span:`]))
   expect(kinds.some((k) => k.endsWith(':interpretation:unknown'))).toBe(true)
   const { data: claims, error: ce } = await me.from('csat_ec_claim').select('id').eq('session_id', sessionId)

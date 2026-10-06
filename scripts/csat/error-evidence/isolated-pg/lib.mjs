@@ -5,30 +5,42 @@ import fs from 'node:fs'
 import path from 'node:path'
 import EmbeddedPostgres from 'embedded-postgres'
 import pg from 'pg'
+import net from 'node:net'
+import { createRequire } from 'node:module'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
-export const ROOT = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
+export const ROOT = path.dirname(fileURLToPath(import.meta.url))
 export const REPO = path.resolve(ROOT, '../../../..')
 export const MIGRATION = path.join(REPO, 'supabase/migrations/20261003230000_csat_error_evidence.sql')
 export const ROLLBACK = path.join(REPO, 'scripts/csat/error-evidence/rollback.sql')
 export const VERIFY = path.join(REPO, 'scripts/csat/error-evidence/verify-schema.sql')
-const PORT = 54329
+let PORT
 
 export async function startCluster() {
   // initdb 는 embedded-postgres 로, 기동은 pg_ctl 로(Windows 관리자 계정에서 postgres 직접 실행이 거부된다 — pg_ctl 은 제한 토큰으로 띄운다)
-  const dir = path.join(ROOT, 'data')
-  const bin = path.join(ROOT, 'node_modules/@embedded-postgres/windows-x64/native/bin/pg_ctl.exe')
-  spawnSync(bin, ['-D', dir, '-m', 'immediate', 'stop'], { stdio: 'ignore', timeout: 30000 })
-  fs.rmSync(dir, { recursive: true, force: true })
-  const server = new EmbeddedPostgres({ databaseDir: dir, user: 'supabase_admin', password: 'admin', port: PORT, persistent: false, onLog: () => {}, onError: () => {} })
+  // Each run owns a new directory and port; never stops another session's server.
+  const parent=path.join(REPO,'tmp','reveal-isolated-pg')
+  fs.mkdirSync(parent,{recursive:true})
+  const dir=fs.mkdtempSync(path.join(parent,'cluster-'))
+  const owned=()=>{if(!fs.realpathSync(dir).startsWith(fs.realpathSync(parent)+path.sep))throw Error('Unsafe isolated cluster path')}
+  owned()
+  PORT=await new Promise((resolve,reject)=>{const socket=net.createServer();socket.once('error',reject);socket.listen(0,'127.0.0.1',()=>{const port=socket.address().port;socket.close(()=>resolve(port))})})
+  const require=createRequire(import.meta.url)
+  const embeddedRequire=createRequire(require.resolve('embedded-postgres'))
+  const bin=process.platform==='win32'?(await import(pathToFileURL(embeddedRequire.resolve('@embedded-postgres/windows-x64')).href)).pg_ctl:null
+  const server = new EmbeddedPostgres({ databaseDir: dir, user: 'supabase_admin', password: 'admin', port: PORT, persistent: true, onLog: () => {}, onError: () => {} })
   await server.initialise()
-  spawn(bin, ['-D', dir, '-o', `-p ${PORT}`, '-l', path.join(ROOT, 'server.log'), 'start'], { detached: true, stdio: 'ignore' }).unref()
+  if(bin) {
+    const started=spawnSync(bin,['-D',dir,'-o',`-p ${PORT}`,'-l',path.join(dir,'server.log'),'-w','start'],{stdio:'ignore',timeout:60000,windowsHide:true})
+    if(started.status!==0)throw Error('Isolated PostgreSQL start failed')
+  } else await server.start()
   for (let i = 0; i < 60; i++) {
     try {
       const c = new pg.Client({ host: '127.0.0.1', port: PORT, database: 'postgres', user: 'supabase_admin', password: 'admin' })
       await c.connect(); await c.query('create database ec'); await c.end(); break
     } catch (e) { if (i === 59) throw e; await new Promise((r) => setTimeout(r, 1000)) }
   }
-  return { stop: async () => { spawnSync(bin, ['-D', dir, '-m', 'fast', 'stop'], { stdio: 'ignore', timeout: 60000 }) } }
+  return { stop: async () => { owned();if(bin){const stopped=spawnSync(bin,['-D',dir,'-m','fast','-w','stop'],{stdio:'ignore',timeout:60000,windowsHide:true});if(stopped.status!==0)throw Error('Isolated PostgreSQL stop failed')}else await server.stop();owned();fs.rmSync(dir,{recursive:true,force:true}) } }
 }
 
 export const conn = (user, password) => new pg.Pool({ host: '127.0.0.1', port: PORT, database: 'ec', user, password, max: 12 })

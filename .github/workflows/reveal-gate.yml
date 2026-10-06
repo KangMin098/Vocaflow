@@ -1,0 +1,34 @@
+name: Reveal Gate
+on:
+  pull_request:
+    branches: [main, feat/ec-reveal-app]
+  workflow_dispatch:
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Classification, mutation, oracle and actual production bundle
+        run: pnpm reveal-gate:verify --phase merge --base "$REVEAL_VERIFY_BASE"
+        env:
+          REVEAL_VERIFY_BASE: origin/${{ github.base_ref || 'main' }}
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+          SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role
+          OPENAI_API_KEY: sk-placeholder
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reveal-gate-verification
+          path: tmp/reveal-gate-verification.json
+          if-no-files-found: error
