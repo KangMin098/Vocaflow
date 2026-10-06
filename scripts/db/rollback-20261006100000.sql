@@ -1301,7 +1301,7 @@ grant execute on function derive_learner_stage(uuid) to public, anon, authentica
 revoke execute on function csat_analysis_hash(csat_item_analyses) from public, anon, authenticated, service_role;
 grant execute on function csat_analysis_hash(csat_item_analyses) to service_role;
 revoke execute on function auto_promote_v_level_for_user(uuid) from public, anon, authenticated, service_role;
-grant execute on function auto_promote_v_level_for_user(uuid) to public, anon, authenticated, service_role;
+grant execute on function auto_promote_v_level_for_user(uuid) to authenticated, service_role;
 revoke execute on function csat_ec_blind_queue(bigint) from public, anon, authenticated, service_role;
 grant execute on function csat_ec_blind_queue(bigint) to authenticated;
 revoke execute on function select_book_chapter_quiz(uuid,integer) from public, anon, authenticated, service_role;

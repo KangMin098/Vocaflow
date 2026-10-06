@@ -1,0 +1,107 @@
+{
+ "ranAt": "2026-10-06T01:53:48.675Z",
+ "pass": 20,
+ "fail": 0,
+ "out": [
+  {
+   "name": "anon · list_pd_comic_shelf(공개 서가) 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · lookup_word_meaning(공개 사전) 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · library_books 공개 SELECT 허용(정책이 is_admin_or_curator 평가)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · game_leaderboard(공개 순위) 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · auto_promote(남) 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · select_book_comic_all 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · recommend_word_sets_for_user 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · auto_promote(남) 거부(G1 본인 검사)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · auto_promote(자기) 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · insert_book_analysis 거부(감사 E)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · video_job_restart 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · admin_vrl_cron_jobs 거부(본문 관리자 검사)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · refresh_user_known_word_count(남) 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · refresh_user_known_word_count(자기) 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · list_book_chapter_quiz_catalog(책 퀴즈) 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · select_book_comic_all(로그인 만화) 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · csat_ec_submit_blind 8인자 구판 거부(G2 회수)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "service · admin_vrl_cron_jobs 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "service · topic_corpus_overview 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "임시 계정 정리",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}
