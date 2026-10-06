@@ -35,6 +35,9 @@ const FORCE = argv.includes('--force')
 const FETCH_ONLY = argv.includes('--fetch-only')
 /** 장면마다 시드 N개 — 바탕을 뺀 뒤 **투명 비율이 가장 높은 것**을 고른다(물건 뒤에 카드 면이 그려진 결과가 자동 탈락). */
 const VARIANTS = Number(arg('--variants', '1'))
+/** `--quality` — Lightning 을 빼고 20 스텝 · cfg 4. 부정 프롬프트(그림자 · 광택 · 액자)가 먹는다. 장당 수 분(4스텝의 약 8배).
+ *  4스텝 결과에 회색 바닥 그림자 · 광택 · 타일 안쪽 둥근 액자가 남았다(2026-10-05 12장 재생성) — 고르기로 못 거르는 결함용. */
+const QUALITY = argv.includes('--quality')
 // `--scenes <모듈>` — 다른 파이프라인이 자기 장면 목록(SCENES · NEG)을 넘긴다(예: scripts/vcb/editions/edition-scenes.mjs).
 //   없으면 tines 삽화. `--out` 은 산출 폴더(저장소 루트 기준).
 const SCENES_MOD = arg('--scenes', './lib/illo-tines-scenes.mjs')
@@ -104,14 +107,14 @@ for j in JOBS:
      "5":{"class_type":"CLIPTextEncode","inputs":{"text":j["neg"],"clip":["2",0]}},
      "6":{"class_type":"EmptySD3LatentImage","inputs":{"width":j["w"],"height":j["h"],"batch_size":1}},
      "11":{"class_type":"LoraLoaderModelOnly","inputs":{"lora_name":"Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors","strength_model":1,"model":["1",0]}},
-     "7":{"class_type":"ModelSamplingAuraFlow","inputs":{"shift":3.1,"model":["11",0]}},
-     "8":{"class_type":"KSampler","inputs":{"seed":j["seed"],"steps":4,"cfg":1,"sampler_name":"euler","scheduler":"simple","denoise":1,"model":["7",0],"positive":["4",0],"negative":["5",0],"latent_image":["6",0]}},
+     "7":{"class_type":"ModelSamplingAuraFlow","inputs":{"shift":3.1,"model":${QUALITY ? '["1",0]' : '["11",0]'}}},
+     "8":{"class_type":"KSampler","inputs":{"seed":j["seed"],"steps":${QUALITY ? 20 : 4},"cfg":${QUALITY ? 4 : 1},"sampler_name":"euler","scheduler":"simple","denoise":1,"model":["7",0],"positive":["4",0],"negative":["5",0],"latent_image":["6",0]}},
      "9":{"class_type":"VAEDecode","inputs":{"samples":["8",0],"vae":["3",0]}},
      "10":{"class_type":"SaveImage","inputs":{"images":["9",0],"filename_prefix":j["id"]}}}
     try:
         pid=call('/prompt',{'prompt':wf,'client_id':'illo'})['prompt_id']
         done=None
-        for _ in range(240):
+        for _ in range(${QUALITY ? 800 : 240}):
             h=call('/history/'+pid)
             if pid in h and h[pid].get('outputs'): done=h[pid]; break
             if pid in h and h[pid].get('status',{}).get('status_str')=='error': break
