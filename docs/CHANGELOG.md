@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): F02 Codex CLI에 정책 지시를 실제 stdin으로 보내고 stdout 최종 메시지와 저장 파일을 교차 검증한다. 원출력 거부·오류·도구 사용 상태를 다시 대조하며 Stage C 실제 산출물 변조 검사를 63건으로 확장한다. 이전 불완전한 배치는 유효 합성 자료에서 제외한다.
+
 - feat(textbook): F02 synthetic classroom active path를 API key 호출 대신 Claude Code/Codex CLI 양방향 blind 실행으로 전환한다. 원입력·argv·raw 출력·세션 식별자·hash를 로컬 감사하고 실제 실행 산출물 변조 테스트를 별도 게이트로 둔다. 공급자 attestation, 학생 난도 타당성, Gold-S, DB seed는 주장하지 않는다.
 
 - feat(textbook): 현재 F02 중1·고1 각 12문항과 분리 채점안을 제안하고 본문·문항·채점·pilot protocol 해시를 독립 결속했다. 핵심 이해도 hard gate, 추론·문장 부담 분리 판정, 사전 노출/중단/결측 사유 및 상태 보고를 calibration 판정기에 반영했다. 사람 사전등록·학생 검증·gold·DB seed는 미완료다.

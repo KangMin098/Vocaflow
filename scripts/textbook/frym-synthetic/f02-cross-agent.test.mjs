@@ -34,6 +34,10 @@ test('actual Stage A evidence rejects raw, request, identity and run mixing', { 
     return temp
   }
   const first = JSON.parse(readFileSync(join(source, 'run.json'), 'utf8')).pairs[0]
+  const graderInput = readFileSync(join(source, `${first.grader}.stdin`), 'utf8')
+  assert.ok(graderInput.startsWith('INSTRUCTIONS\n'))
+  assert.ok(graderInput.includes('Independently grade'))
+  assert.ok(!graderInput.includes('ability_constraints'))
   const variants = [
     ['packet hash', `${first.student}.record.json`, value => { value.packet_sha256 = '0'.repeat(64); return JSON.stringify(value) }],
     ['profile hash', `${first.student}.record.json`, value => { value.profile_sha256 = '0'.repeat(64); return JSON.stringify(value) }],
@@ -68,6 +72,6 @@ test('actual Stage A evidence rejects raw, request, identity and run mixing', { 
 test('actual bidirectional CLI evidence rejects all Stage C mutations', { skip: !process.env.F02_STAGE_A_FIXTURE || !process.env.F02_STAGE_B_FIXTURE }, () => {
   const result = stageC(process.env.F02_STAGE_A_FIXTURE, process.env.F02_STAGE_B_FIXTURE)
   assert.equal(result.evidence_level, 'E3')
-  assert.equal(result.tamper_checks, 57)
+  assert.equal(result.tamper_checks, 63)
   assert.equal(result.synthetic_validation_valid_n, 0)
 })

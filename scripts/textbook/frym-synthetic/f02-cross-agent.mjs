@@ -30,6 +30,9 @@ export function requestFor(packet, role, answers, scoringKey) {
   }
   throw Error('Invalid blind role')
 }
+function effectiveStdin(engine, request) {
+  return engine === 'codex' ? `INSTRUCTIONS\n${request.system}\n\nPACKET\n${request.stdin}` : request.stdin
+}
 
 function stripFence(value) { return value.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim() }
 function parseAnswers(text, packet) {
@@ -69,7 +72,10 @@ function decode(engine, stdout, outputPath) {
   const session = events.find(event => event.type === 'thread.started')?.thread_id ?? null
   const error = events.find(event => event.type === 'error' || event.type === 'turn.failed')
   const toolUsed = events.some(event => event.type?.startsWith('item.') && !['agent_message', 'reasoning'].includes(event.item?.type))
-  return { text: existsSync(outputPath) ? readFileSync(outputPath, 'utf8') : null, session_id: session, observed_model: null, refusal: Boolean(error), tool_used: toolUsed }
+  const message = events.filter(event => event.type === 'item.completed' && event.item?.type === 'agent_message').at(-1)?.item?.text ?? null
+  const final = existsSync(outputPath) ? readFileSync(outputPath, 'utf8') : null
+  if (!message || !final || message.trim() !== final.trim()) throw Error('FINAL_STDOUT_MISMATCH')
+  return { text: message, session_id: session, observed_model: null, refusal: Boolean(error), tool_used: toolUsed }
 }
 function callCli(spec, stdin, timeoutMs = 180000) {
   return new Promise(resolveCall => {
@@ -97,18 +103,19 @@ function callCli(spec, stdin, timeoutMs = 180000) {
 
 async function invoke(root, runId, packet, role, engine, answers, scoringKey, version) {
   const request = requestFor(packet, role, answers, scoringKey)
+  const stdin = effectiveStdin(engine, request)
   const invocationId = randomUUID()
   const stem = `${role}-${invocationId}`
   const cwd = join(root, `${role}-${engine}-cwd`)
   mkdirSync(cwd, { recursive: true })
   const outputPath = join(root, `${stem}.final`)
   const spec = cliSpec(engine, role, cwd, outputPath, request.system)
-  const manifest = { schema_version: 1, run_id: runId, invocation_id: invocationId, packet_id: packet.packet_id, role, engine, family: family[engine], model_requested: model[engine], cli_version: version, cwd, command: spec.command, argv: spec.argv, packet_sha256: sha(json({ packet_id: packet.packet_id, ...packet.body })), profile_sha256: sha(json(packet.body.profile)), system_sha256: sha(request.system), stdin_sha256: sha(request.stdin), grader_answers_sha256: role === 'grader' ? sha(json(answers)) : null, credential_source: 'cli_account', provider_attested: false }
+  const manifest = { schema_version: 1, run_id: runId, invocation_id: invocationId, packet_id: packet.packet_id, role, engine, family: family[engine], model_requested: model[engine], cli_version: version, cwd, command: spec.command, argv: spec.argv, packet_sha256: sha(json({ packet_id: packet.packet_id, ...packet.body })), profile_sha256: sha(json(packet.body.profile)), system_sha256: sha(request.system), stdin_sha256: sha(stdin), grader_answers_sha256: role === 'grader' ? sha(json(answers)) : null, credential_source: 'cli_account', provider_attested: false }
   manifest.command_manifest_sha256 = sha(json(manifest))
   writeFileSync(join(root, `${stem}.manifest.json`), json(manifest))
   writeFileSync(join(root, `${stem}.system`), request.system)
-  writeFileSync(join(root, `${stem}.stdin`), request.stdin)
-  const result = await callCli(spec, request.stdin)
+  writeFileSync(join(root, `${stem}.stdin`), stdin)
+  const result = await callCli(spec, stdin)
   writeFileSync(join(root, `${stem}.stdout`), result.stdout)
   writeFileSync(join(root, `${stem}.stderr`), result.stderr)
   const record = { ...manifest, ...Object.fromEntries(['pid', 'started_at', 'ended_at', 'exit_code', 'signal', 'error'].map(key => [key, result[key]])), stdout_sha256: sha(result.stdout), stderr_sha256: sha(result.stderr), final_sha256: existsSync(outputPath) ? sha(readFileSync(outputPath)) : null }
@@ -177,7 +184,7 @@ export function verifyStage(rootInput) {
       const manifest = JSON.parse(readFileSync(join(root, `${stem}.manifest.json`), 'utf8'))
       const { command_manifest_sha256, ...unsigned } = manifest
       if (sha(json(unsigned)) !== command_manifest_sha256 || Object.entries(manifest).some(([key, value]) => json(record[key]) !== json(value))) throw Error('MANIFEST_CHANGED')
-      if (record.run_id !== run.run_id || record.packet_id !== packet.packet_id || record.role !== role || ids.has(record.invocation_id) || !record.session_id || !record.cli_version || record.status !== 'completed' || record.exit_code !== 0 || !record.pid || record.tool_used) throw Error('INVOCATION_IDENTITY_INVALID')
+      if (record.run_id !== run.run_id || record.packet_id !== packet.packet_id || record.role !== role || ids.has(record.invocation_id) || !record.session_id || !record.cli_version || record.status !== 'completed' || record.exit_code !== 0 || record.signal !== null || record.error !== null || !record.pid || record.tool_used) throw Error('INVOCATION_IDENTITY_INVALID')
       const studentEngine = run.stage === 'batch' ? (Math.floor(built.packets.findIndex(item => item.packet_id === pair.packet_id) / 2) % 2 === 0 ? 'claude' : 'codex') : (run.stage === 'a' || pair.packet_id === built.packets[0].packet_id ? 'claude' : 'codex')
       const expectedEngine = role === 'student' ? studentEngine : studentEngine === 'claude' ? 'codex' : 'claude'
       const recordedFinal = expectedEngine === 'codex' ? record.argv[record.argv.indexOf('-o') + 1] : join(root, `${stem}.final`)
@@ -187,14 +194,14 @@ export function verifyStage(rootInput) {
       if (record.packet_sha256 !== sha(json({ packet_id: packet.packet_id, ...packet.body })) || record.profile_sha256 !== sha(json(packet.body.profile))) throw Error('PACKET_OR_PROFILE_CHANGED')
       const answers = role === 'grader' ? records[0].parsed : null
       const request = requestFor(packet, role, answers, built.scoringKey)
-      if (record.system_sha256 !== sha(readFileSync(join(root, `${stem}.system`))) || record.system_sha256 !== sha(request.system) || record.stdin_sha256 !== sha(readFileSync(join(root, `${stem}.stdin`))) || record.stdin_sha256 !== sha(request.stdin) || record.grader_answers_sha256 !== (role === 'grader' ? sha(json(answers)) : null)) throw Error('REQUEST_CHANGED')
+      if (record.system_sha256 !== sha(readFileSync(join(root, `${stem}.system`))) || record.system_sha256 !== sha(request.system) || record.stdin_sha256 !== sha(readFileSync(join(root, `${stem}.stdin`))) || record.stdin_sha256 !== sha(effectiveStdin(record.engine, request)) || record.grader_answers_sha256 !== (role === 'grader' ? sha(json(answers)) : null)) throw Error('REQUEST_CHANGED')
       const stdout = readFileSync(join(root, `${stem}.stdout`)), stderr = readFileSync(join(root, `${stem}.stderr`))
       if (record.stdout_sha256 !== sha(stdout) || record.stderr_sha256 !== sha(stderr)) throw Error('RAW_OUTPUT_CHANGED')
       const outputPath = join(root, `${stem}.final`)
       if (record.final_sha256 !== (existsSync(outputPath) ? sha(readFileSync(outputPath)) : null)) throw Error('FINAL_OUTPUT_CHANGED')
       const decoded = decode(record.engine, stdout, outputPath)
       const parsed = role === 'student' ? parseAnswers(decoded.text, packet) : parseScores(decoded.text, packet)
-      if (record.session_id !== decoded.session_id || record.model_observed !== decoded.observed_model || record.refusal || decoded.tool_used || record.parsed_sha256 !== sha(json(parsed)) || json(record.parsed) !== json(parsed)) throw Error('PARSED_OUTPUT_CHANGED')
+      if (record.session_id !== decoded.session_id || record.model_observed !== decoded.observed_model || record.refusal !== decoded.refusal || decoded.refusal || record.tool_used !== decoded.tool_used || record.parsed_sha256 !== sha(json(parsed)) || json(record.parsed) !== json(parsed)) throw Error('PARSED_OUTPUT_CHANGED')
       if (record.engine === 'claude' && record.model_observed !== 'claude-haiku-4-5-20251001') throw Error('MODEL_MISMATCH')
       if (record.engine === 'codex' && !record.argv.includes(model.codex)) throw Error('MODEL_MISMATCH')
       records.push(record)
@@ -269,6 +276,41 @@ export function stageC(stageA, stageB) {
             writeFileSync(path, json(output))
           }
         }
+        let rejected = false
+        try { verifyStage(temp) } catch { rejected = true }
+        checks.push({ run_id: source === stageA ? a.run_id : b.run_id, packet_id: pair.packet_id, mutation: name, rejected })
+        if (!rejected) throw Error(`TAMPER_NOT_REJECTED:${name}`)
+      } finally { rmSync(temp, { recursive: true, force: true }) }
+    }
+    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output']) {
+      const role = ['student', 'grader'].find(candidate => {
+        const record = JSON.parse(readFileSync(join(source, `${pair[candidate]}.record.json`), 'utf8'))
+        return record.engine === (name === 'final_stdout_mismatch' ? 'codex' : 'claude')
+      })
+      const stem = pair[role], temp = mkdtempSync(join(tmpdir(), 'f02-stage-c-'))
+      try {
+        cpSync(source, temp, { recursive: true })
+        verifyStage(temp)
+        const recordPath = join(temp, `${stem}.record.json`)
+        const record = JSON.parse(readFileSync(recordPath, 'utf8'))
+        if (name === 'final_stdout_mismatch') {
+          const altered = structuredClone(record.parsed)
+          if (role === 'student') altered[0].answer += ' altered'
+          else altered[0].score = altered[0].score === 0 ? 1 : 0
+          const final = role === 'student' ? json({ answers: altered }) : json({ scores: altered })
+          writeFileSync(join(temp, `${stem}.final`), final)
+          record.final_sha256 = sha(Buffer.from(final))
+          record.parsed = altered
+          record.parsed_sha256 = sha(json(altered))
+        } else {
+          const path = join(temp, `${stem}.stdout`)
+          const raw = JSON.parse(readFileSync(path, 'utf8'))
+          raw.is_error = true
+          const altered = json(raw)
+          writeFileSync(path, altered)
+          record.stdout_sha256 = sha(Buffer.from(altered))
+        }
+        writeFileSync(recordPath, json(record))
         let rejected = false
         try { verifyStage(temp) } catch { rejected = true }
         checks.push({ run_id: source === stageA ? a.run_id : b.run_id, packet_id: pair.packet_id, mutation: name, rejected })
