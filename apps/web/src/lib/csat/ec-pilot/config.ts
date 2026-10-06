@@ -2,7 +2,9 @@
 //
 // 오답 원인 Pilot — 학생 증거 수집 설정(저장소 설정 · 2026-10-05 사용자 결정). DB 상수가 아니라 서비스 설정이다.
 //   · taxonomyVersion 은 고정한다 — 「최신 봉인 버전」을 고르는 로직을 만들지 않는다(TEST 버전 v99.* 이 섞이지 않게).
-//   · participants 가 비어 있으면 기능이 꺼진다(실제 Pilot 모집 전). 개발 · 검증용으로 env CSAT_EC_PILOT_USER_IDS(쉼표 구분)를 더한다.
+//   · 실제 참가자 계정 id 는 **저장소에 넣지 않는다**(G5 프로토콜 · 2026-10-06 — 계정 id 도 식별정보다). 배포 환경의 서버 env
+//     CSAT_EC_PILOT_USER_IDS(쉼표 구분, 저장소 밖)로만 등록한다. participants 는 비워 둔다 — 둘 다 비어 있으면 기능이 꺼진다.
+//     저장소에는 익명 key(P001…)만 run 메타에 남긴다(docs/csat-learner/codebook/PILOT_PROTOCOL.md §2 · §16).
 //   · probeCapPerSession · correctControls 는 Pilot 규모 · UX 승인 때 정한다 — null = 미정(probe 는 문항당 1개만 · 정답 대조 없음).
 
 import 'server-only'
