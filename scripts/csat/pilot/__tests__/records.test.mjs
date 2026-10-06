@@ -1,11 +1,11 @@
 // scripts/csat/pilot/__tests__/records.test.mjs
 //   node --no-warnings --test scripts/csat/pilot/__tests__/records.test.mjs
-// G6 점검 · 봉인 공용 검사기 — 검증 기록(PII 가드 · E2E) 원본 검사 · 활성화 커밋 차이 범위.
+// G6 점검 · 봉인 공용 검사기 — 검증 기록(PII 가드 · E2E) 원본 검사 · 배포 env 메타 = docs 정본.
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
 import { rulesHash } from '../../error-evidence/model-input/deidentify.mjs'
-import { E2E_REQUIRED_SPEC, activationDiffFailures, recordFailures } from '../live.mjs'
+import { E2E_REQUIRED_SPEC, envMetaState, recordFailures } from '../live.mjs'
 
 const RUN = 'ec-pilot-run-20261020-1'
 const C = 'a'.repeat(40)
@@ -42,17 +42,10 @@ test('메타 요약과 파일이 다르면 실패', () => {
   assert.ok(f.includes('record:e2e.meta'))
 })
 
-test('활성화 커밋 — run 메타 · 기록 · active-run.ts 만 허용', () => {
-  const A = 'c'.repeat(40)
-  const git = (files, ancestor = true) => (args) => {
-    if (args[0] === 'diff') return files.join('\n') + '\n'
-    if (args[0] === 'merge-base' && !ancestor) throw new Error('not ancestor')
-    return ''
-  }
-  const ok = ['apps/web/src/lib/csat/ec-pilot/active-run.ts', `docs/csat-learner/pilot-runs/${RUN}.json`, `docs/csat-learner/pilot-runs/${RUN}.md`]
-  assert.deepEqual(activationDiffFailures(C, A, RUN, git(ok)), [])
-  assert.deepEqual(activationDiffFailures(C, null, RUN, git(ok)), [])
-  assert.deepEqual(activationDiffFailures(C, A, RUN, git([...ok, 'apps/web/src/lib/csat/ec-pilot/gate.ts'])), ['activation:extra-files(1)'])
-  assert.deepEqual(activationDiffFailures(C, A, RUN, git(ok, false)), ['activation:not-descendant'])
-  assert.deepEqual(activationDiffFailures(C, 'zz', RUN, git(ok)), ['activation:format'])
+test('배포 env 메타 = docs 정본', () => {
+  const meta = { runId: RUN, b: 1, a: [1, 2] }
+  assert.equal(envMetaState(meta, ''), 'missing')
+  assert.equal(envMetaState(meta, '{oops'), 'invalid')
+  assert.equal(envMetaState(meta, JSON.stringify({ a: [1, 2], b: 1, runId: RUN })), 'match')
+  assert.equal(envMetaState(meta, JSON.stringify({ ...meta, b: 2 })), 'differs')
 })

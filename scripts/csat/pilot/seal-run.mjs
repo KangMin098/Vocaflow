@@ -3,10 +3,10 @@
 // G6 run 메타 봉인(PILOT_PROTOCOL §16) — live DB(읽기 전용) · 저장소 · 검증 기록에서 run 메타를 만들어
 //   docs/csat-learner/pilot-runs/<run id>.json (기계용 · 앱 게이트 정본) + <run id>.md (사람이 읽는 요약)를 쓴다.
 // 담는 것: 익명 key · assignment · 해시 · 판 · 커밋 · 검증 기록 요약. 계정 id · 이름 · 이메일은 넣지 않는다(가드가 막는다).
-// --activate 면 apps/web/src/lib/csat/ec-pilot/active-run.ts 에 같은 값을 쓴다(앱 게이트가 읽는 값 — 커밋 · 배포해야 열린다).
+// 활성화는 출력된 한 줄을 배포 env CSAT_EC_ACTIVE_RUN 에 넣는 것이다(코드 커밋 없음 — 배포 빌드는 검증 커밋 그대로).
 //
 //   node --tls-max-v1.2 --env-file=<배포 env 파일> scripts/csat/pilot/seal-run.mjs --run ec-pilot-run-20261020-1 \
-//     --exams 2019,2020 --participants "P001=2019+2020,P002=2019+2020,P003=2020" --app-commit <검증 커밋 sha> [--e2e-report-sha256 <sha>] [--activate]
+//     --exams 2019,2020 --participants "P001=2019+2020,P002=2019+2020,P003=2020" --app-commit <검증 커밋 sha> [--e2e-report-sha256 <sha>]
 //   전제: <run id>.pii-guard.json(model-packets.mjs selftest) · <run id>.e2e.json(E2E 통과 기록) 이 같은 커밋으로 있어야 한다.
 
 import fs from 'node:fs'
@@ -34,8 +34,8 @@ const recBad = recordFailures(a.run, { pii, e2e }, null, { e2eReportSha256: a['e
 if (recBad.length) die(`검증 기록 실패 — 봉인하지 않는다: ${recBad.join(', ')}`)
 if (pii.json.commit !== appCommit) die('검증 기록의 커밋이 --app-commit 과 다르다')
 
-// 봉인 시점의 빌드 = 검증 커밋(배포 뒤 활성화 커밋은 start-check 가 env · git 으로 확인한다)
-const live = { ...(await readLive(exams, { appCommit })), buildCommit: appCommit, activationCommit: null }
+// 봉인 시점의 빌드 = 검증 커밋(배포 빌드 커밋은 start-check 가 --build-commit 으로 확인한다)
+const live = { ...(await readLive(exams, { appCommit })), buildCommit: appCommit }
 if (live.probeCap !== PILOT_PROBE_CAP) die(`config.ts probeCapPerSession 이 ${PILOT_PROBE_CAP} 이 아니다(결정 C) — 먼저 커밋한다`)
 const missing = exams.filter((e) => !live.exams[e])
 if (missing.length) die(`live 시험을 읽지 못했다: ${missing.join(',')}`)
@@ -98,18 +98,7 @@ const md = [
   '',
 ].join('\n')
 fs.writeFileSync(path.join(RUNS, `${a.run}.md`), md)
-if (a.activate === 'true') {
-  const ts = [
-    '// apps/web/src/lib/csat/ec-pilot/active-run.ts',
-    '//',
-    `// 지금 활성인 Pilot run 메타 — 정본 docs/csat-learner/pilot-runs/${a.run}.json 과 글자 그대로 같아야 한다(run-gate.test.ts 가 지킨다).`,
-    '// scripts/csat/pilot/seal-run.mjs --activate 가 썼다. 끄려면 null 로 되돌린다(게이트 fail-closed).',
-    '',
-    "import type { RunMeta } from './run-gate'",
-    '',
-    `export const ACTIVE_RUN: RunMeta | null = ${JSON.stringify(meta, null, 2)}`,
-    '',
-  ].join('\n')
-  fs.writeFileSync(path.join(ROOT, 'apps/web/src/lib/csat/ec-pilot/active-run.ts'), ts)
-}
-console.log(`봉인 — ${path.relative(ROOT, path.join(RUNS, a.run + '.json'))} (seal ${meta.seal.slice(0, 12)})${a.activate === 'true' ? ' · active-run.ts 갱신' : ''}`)
+console.log(`봉인 — ${path.relative(ROOT, path.join(RUNS, a.run + '.json'))} (seal ${meta.seal.slice(0, 12)})`)
+// 활성화 = 배포 env 에 메타 한 줄(코드 커밋이 아니다 — 배포 빌드 커밋은 검증 커밋 그대로). 메타에는 식별정보가 없어 출력해도 된다
+console.log('배포 env 에 넣을 값(CSAT_EC_ACTIVE_RUN):')
+console.log(JSON.stringify(meta))

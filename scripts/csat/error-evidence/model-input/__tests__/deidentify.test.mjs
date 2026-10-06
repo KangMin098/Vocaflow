@@ -8,7 +8,7 @@ import { test } from 'node:test'
 import { fileURLToPath } from 'node:url'
 
 import { assertPrivatePath, attemptKey, auditLine, deidentifyPacket, detectPii, rehydrate, residualIdentifiers, rulesHash } from '../deidentify.mjs'
-import { syntheticPacket, selftest } from '../model-packets.mjs'
+import { syntheticPacket, selftest } from '../selftest.mjs'
 import { NEGATIVE, POSITIVE } from '../pii-fixtures.mjs'
 import { PII_RULES } from '../pii-rules.mjs'
 

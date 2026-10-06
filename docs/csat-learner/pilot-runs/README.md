@@ -22,7 +22,7 @@ run id 꼴: `ec-pilot-run-<YYYYMMDD>-<n>`. 봉인된 run 은 고치지 않는다
 | `taxonomy.version` · `definitionsHash` | `v0.1` 고정 · DB `csat_ec_taxonomy_version.definitions_hash` 와 같고 sealed · TEST 표기 없음 |
 | `detectorVersion` | `bd-0.1.0` — 앱 상수(`gate.ts DETECTOR_VERSION`, 최신 감지기 마이그레이션과 테스트로 대조) · 점검 스크립트는 live 함수 본문 |
 | `probe.capPerSession` · `configHash` | 3(결정 C) · `config.ts probeCapPerSession` 과 같아야 한다(지금 `null` 이면 닫힘) · `probeConfigHash(captureProbeConfig(), cap)` |
-| `appCommit` | **검증 커밋** 40자(PII 가드 · E2E 를 돌린 커밋). 앱은 세 값을 섞지 않고 대조한다: env `CSAT_EC_APP_COMMIT` = appCommit · 플랫폼이 주입한 빌드 커밋 `VERCEL_GIT_COMMIT_SHA`(운영자가 덮어쓰지 못한다) = appCommit **또는** env `CSAT_EC_ACTIVATION_COMMIT`. 빌드 커밋이 없거나 둘 다 아니면 닫힘(다른 코드가 배포되면 env 가 낡아도 닫힌다) |
+| `appCommit` | **검증 커밋** 40자(PII 가드 · E2E 를 돌린 커밋). 앱은 두 값을 섞지 않고 대조한다: env `CSAT_EC_APP_COMMIT` = appCommit · 플랫폼이 주입한 빌드 커밋 `VERCEL_GIT_COMMIT_SHA`(운영자가 덮어쓰지 못한다) = appCommit. 빌드 커밋이 없거나 다르면 닫힘 — run 기간에 다른 코드가 배포되면 env 가 낡아 있어도 닫힌다(§16 앱 커밋 봉인) |
 | `db.latestMigration` · `migrationCount` | 점검 스크립트만 대조(앱은 schema_migrations 를 못 읽는다) |
 | `exams[]` | 정확히 2개 · `examId` · `itemSetHash` · `answerKeyHash` · `corpusHash`(정의는 `run-gate.ts`) |
 | `participants[]` | `{ key: "P001", exams: [...] }` 3–8명(결정 A) — 개수가 서버 env `CSAT_EC_PILOT_USER_IDS` 의 유효 UUID 개수와 같아야 한다. 배열 순서가 attempt key 의 시험 순번(E1, E2) |
@@ -65,8 +65,8 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
 
 | 모드 | 조건 | 열리는 대상 |
 |---|---|---|
-| `run` | `active-run.ts` 의 `ACTIVE_RUN` 이 있고 env `CSAT_EC_PILOT_MODE` 가 비었거나 `run` · 게이트 전 항목 통과 | env 참가자 · run 의 두 시험만(다른 시험은 참가자 플래그를 세우지 않고 수집 경로도 404) |
-| `verification` | `ACTIVE_RUN = null` + env `CSAT_EC_PILOT_MODE=verification` | env 참가자 중 로그인 이메일이 `@example.com` 인 테스트 계정만 · 시험 제한 없음 |
+| `run` | 배포 env `CSAT_EC_ACTIVE_RUN`(봉인 메타 JSON 한 줄 — 깨진 JSON 도 「있음」으로 보고 게이트에서 닫는다)이 있고 env `CSAT_EC_PILOT_MODE` 가 비었거나 `run` · 게이트 전 항목 통과 | env 참가자 · run 의 두 시험만(다른 시험은 참가자 플래그를 세우지 않고 수집 경로도 404) |
+| `verification` | `CSAT_EC_ACTIVE_RUN` 없음 + env `CSAT_EC_PILOT_MODE=verification` | env 참가자 중 로그인 이메일이 `@example.com` 인 테스트 계정만 · 시험 제한 없음 |
 | `closed` | 그 밖 전부(메타 없음 + env 없음 · 메타 있음 + verification) | 아무도 |
 
 - 근거: e2e 52 와 §18 마지막 smoke 는 **production 빌드 + 개발 DB**(Pilot 이 실제로 쓰는 DB)에서 돈다 — NODE_ENV · DB 로는 실제 run 과 구별할 수 없다. `@example.com` 은 §2 가 실제 참가자에서 제외한 테스트 계정이고 §12 가 run 데이터 혼입을 감시한다. 활성 run 이 있으면 verification 을 거부해 run 기간에 테스트 계정이 v0.1 수집 경로를 열지 못하게 한다.
@@ -80,7 +80,9 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
 3. `node scripts/csat/error-evidence/model-input/model-packets.mjs selftest --run <run id>` → `.pii-guard.json`
 4. Playwright E2E(verification 모드 서버 · 같은 커밋) → `.e2e.json`
 5. `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/seal-run.mjs --run <run id> --exams A,B --participants "P001=A+B,…" --app-commit <sha> --activate` → 커밋 · 배포(배포 env 에서 `CSAT_EC_PILOT_MODE` 를 지운다)
-6. 활성화 커밋(5의 산출물만) 배포 · env `CSAT_EC_ACTIVATION_COMMIT=<활성화 커밋>` · `CSAT_EC_PILOT_MODE` 제거
+6. 배포 env 에 `CSAT_EC_ACTIVE_RUN=<seal-run 이 출력한 한 줄>` 추가 · `CSAT_EC_PILOT_MODE` 제거 — **재배포 빌드 커밋은 검증 커밋 그대로**(코드 변경 없음). run 메타 · 기록 파일의 docs 커밋은 운영 브랜치에 남기되 run 기간 production 배포에 섞지 않는다(빌드 커밋이 바뀌면 게이트가 닫힌다)
 7. `node --tls-max-v1.2 --env-file=<배포 env> scripts/csat/pilot/start-check.mjs --run <run id> --build-commit <플랫폼에 표시된 배포 커밋>` 전 항목 PASS → G6 시작 승인 요청
 
-활성화 커밋 범위: 검증 커밋의 **후손**이고 차이가 `apps/web/src/lib/csat/ec-pilot/active-run.ts` 와 `docs/csat-learner/pilot-runs/<run id>.{json,md,pii-guard.json,e2e.json}` 뿐이어야 한다 — `start-check.mjs` 가 git 으로 확인한다(`activationDiffFailures`). 그 밖의 파일이 섞이면 실패(검증하지 않은 코드가 배포된 것이다).
+활성 메타를 코드가 아니라 env 로 두는 이유: 메타를 코드에 넣으면 활성화가 새 커밋이 되어 「검증한 커밋 = 배포 빌드 커밋」을 지킬 수 없다. env 메타의 진위는 봉인 해시 · live 대조(앱)와 docs 정본 대조(`start-check.mjs` 의 `envMetaState`)가 지킨다.
+
+감지기 판의 한계: 앱은 DB 함수 본문을 읽을 수 없다(DB 구조를 바꾸지 않는다) — 앱은 저장소 상수 `DETECTOR_VERSION`(최신 마이그레이션과 테스트로 대조), `start-check.mjs` 는 live 함수 본문을 본다. 매일 감시(§12)에서 start-check 가 실패하면 수집을 멈춘다(앱 env `CSAT_EC_ACTIVE_RUN` 제거).

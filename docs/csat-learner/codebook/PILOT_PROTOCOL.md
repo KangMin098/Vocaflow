@@ -189,7 +189,7 @@ run 마다 고유 id(`ec-pilot-run-<YYYYMMDD>-<n>`)와 아래를 시작 시 기�
 
 run 메타는 저장소 `docs/csat-learner/pilot-runs/<run id>.md` 에 해시 · 익명 key · assignment · 집계만 둔다. 매일 감시(§12) 때 봉인 해시를 다시 계산해 바뀌었으면 중단 기준(무결성)으로 처리한다 — Evidence Anchor 연구의 원천 drift 문제를 되풀이하지 않는다.
 
-**구현(2026-10-06)**: 형식 · 해시 정의 · E2E 통과 기록 형식 · 개발/검증 모드는 [`../pilot-runs/README.md`](../pilot-runs/README.md). 봉인 `scripts/csat/pilot/seal-run.mjs`(json + md) · 점검 `start-check.mjs`(읽기 전용 · 매일 감시에도 사용). 앱은 `apps/web/src/lib/csat/ec-pilot/gate.ts` 가 활성 메타(`active-run.ts`)와 live 값을 대조해 **모두 맞을 때만** 수집을 연다(fail-closed · 학습자 응답은 404).
+**구현(2026-10-06)**: 형식 · 해시 정의 · E2E 통과 기록 형식 · 개발/검증 모드는 [`../pilot-runs/README.md`](../pilot-runs/README.md). 봉인 `scripts/csat/pilot/seal-run.mjs`(json + md) · 점검 `start-check.mjs`(읽기 전용 · 매일 감시에도 사용). 앱은 `apps/web/src/lib/csat/ec-pilot/gate.ts` 가 활성 메타(배포 env `CSAT_EC_ACTIVE_RUN`)와 live 값 · 배포 빌드 커밋을 대조해 **모두 맞을 때만** 수집을 연다(fail-closed · 학습자 응답은 404).
 
 ## 17. 분석 단위
 

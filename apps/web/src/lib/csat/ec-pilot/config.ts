@@ -7,7 +7,7 @@
 //     저장소에는 익명 key(P001…)만 run 메타에 남긴다(docs/csat-learner/codebook/PILOT_PROTOCOL.md §2 · §16).
 //   · probeCapPerSession · correctControls 는 Pilot 규모 · UX 승인 때 정한다 — null = 미정(probe 는 문항당 1개만 · 정답 대조 없음).
 //     G6 게이트(gate.ts)는 probeCapPerSession 이 run 메타 값(결정 C = 3)과 같을 때만 연다 — null 이면 실제 run 은 닫혀 있다.
-//   · 참가자 env 만으로는 열리지 않는다 — 봉인 run 메타(active-run.ts) 또는 검증 모드(CSAT_EC_PILOT_MODE=verification · @example.com)가 있어야 한다.
+//   · 참가자 env 만으로는 열리지 않는다 — 봉인 run 메타(배포 env CSAT_EC_ACTIVE_RUN — active-run.ts) 또는 검증 모드(CSAT_EC_PILOT_MODE=verification · @example.com)가 있어야 한다.
 
 import 'server-only'
 

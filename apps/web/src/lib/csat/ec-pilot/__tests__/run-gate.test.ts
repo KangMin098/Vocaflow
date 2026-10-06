@@ -8,7 +8,7 @@ import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
-import { ACTIVE_RUN } from '../active-run'
+import { activeRun } from '../active-run'
 import { DETECTOR_VERSION, pilotMode } from '../gate'
 import { captureProbeConfig } from '../probes'
 import {
@@ -58,15 +58,14 @@ function baseLive(m: RunMeta = baseMeta()): LiveState {
     probeConfigHash: probeConfigHash(captureProbeConfig(), 3),
     participantIdCount: 3,
     appCommit: COMMIT,
-    buildCommit: 'd'.repeat(40),
-    activationCommit: 'd'.repeat(40),
+    buildCommit: COMMIT,
     exams: Object.fromEntries(m.exams.map((e) => [e.examId, { ...e }])),
   }
 }
 
 describe('evaluateRunGate — 모두 있으면 열림', () => {
-  it('빌드 = 검증 커밋 그 자체여도 열림', () => {
-    expect(evaluateRunGate(baseMeta(), { ...baseLive(), buildCommit: COMMIT, activationCommit: null }).open).toBe(true)
+  it('빌드 커밋 대소문자 무관', () => {
+    expect(evaluateRunGate(baseMeta(), { ...baseLive(), buildCommit: COMMIT.toUpperCase() }).open).toBe(true)
   })
   it('열림 · 수집 대상 시험 = run 의 exam ids', () => {
     const r = evaluateRunGate(baseMeta(), baseLive())
@@ -147,8 +146,7 @@ describe('live 와 다르면 닫힘', () => {
     ['앱 커밋 다름', (l) => ({ ...l, appCommit: 'b'.repeat(40) }), 'live:app.commit'],
     ['앱 커밋 env 없음', (l) => ({ ...l, appCommit: null }), 'live:app.commit'],
     ['배포 빌드 커밋 없음(플랫폼 값 없음)', (l) => ({ ...l, buildCommit: null }), 'live:app.build'],
-    ['다른 코드 배포(활성화 커밋과 다름 · env 는 낡은 그대로)', (l) => ({ ...l, buildCommit: 'e'.repeat(40) }), 'live:app.build'],
-    ['활성화 커밋 env 없음 · 빌드 ≠ 검증 커밋', (l) => ({ ...l, activationCommit: null }), 'live:app.build'],
+    ['다른 코드 배포(env 는 낡은 그대로)', (l) => ({ ...l, buildCommit: 'e'.repeat(40) }), 'live:app.build'],
     ['item set 해시', (l) => ({ ...l, exams: { ...l.exams, '2019': { ...l.exams['2019']!, itemSetHash: H('0') } } }), 'live:exam.2019.itemSetHash'],
     ['정답표 해시', (l) => ({ ...l, exams: { ...l.exams, '2020': { ...l.exams['2020']!, answerKeyHash: H('0') } } }), 'live:exam.2020.answerKeyHash'],
     ['코퍼스 해시', (l) => ({ ...l, exams: { ...l.exams, '2020': { ...l.exams['2020']!, corpusHash: H('0') } } }), 'live:exam.2020.corpusHash'],
@@ -212,25 +210,30 @@ describe('정규화 해시 — 결정적 · 순서 무관', () => {
 })
 
 describe('모드 분리 — run · verification 은 서로 배타', () => {
+  const none = activeRun(undefined)
+  const some = activeRun(JSON.stringify(baseMeta()))
   it('메타 없음 + env 없음 → 닫힘(실제 v0.1 은 게이트 없이 열리지 않는다)', () => {
-    expect(pilotMode(null, undefined)).toBe('closed')
-    expect(pilotMode(null, 'run')).toBe('closed')
+    expect(pilotMode(none, undefined)).toBe('closed')
+    expect(pilotMode(none, 'run')).toBe('closed')
   })
-  it('메타 없음 + verification → 검증 모드', () => expect(pilotMode(null, 'verification')).toBe('verification'))
+  it('메타 없음 + verification → 검증 모드', () => expect(pilotMode(none, 'verification')).toBe('verification'))
   it('메타 있음 → run, verification env 가 있으면 닫힘(테스트 계정이 run 기간에 열지 못하게)', () => {
-    expect(pilotMode(baseMeta(), undefined)).toBe('run')
-    expect(pilotMode(baseMeta(), 'verification')).toBe('closed')
+    expect(pilotMode(some, undefined)).toBe('run')
+    expect(pilotMode(some, 'verification')).toBe('closed')
+  })
+  it('깨진 메타 env → run 모드로 남아 게이트에서 닫힘(검증 모드로 빠지지 않는다)', () => {
+    const broken = activeRun('{not json')
+    expect(broken.present).toBe(true)
+    expect(pilotMode(broken, 'verification')).toBe('closed')
+    expect(evaluateRunGate(broken.meta, baseLive()).open).toBe(false)
+  })
+  it('env 메타 = 봉인 메타 그대로 열림 · 빈 env 는 없음', () => {
+    expect(evaluateRunGate(some.meta, baseLive()).open).toBe(true)
+    expect(activeRun('  ').present).toBe(false)
   })
 })
 
 describe('저장소 정합', () => {
-  it('ACTIVE_RUN 은 null 이거나 docs/csat-learner/pilot-runs/<run id>.json 과 같고 가드를 통과한다', () => {
-    if (ACTIVE_RUN === null) return
-    const file = path.join(ROOT, 'docs/csat-learner/pilot-runs', `${ACTIVE_RUN.runId}.json`)
-    expect(fs.existsSync(file)).toBe(true)
-    expect(canonicalJson(JSON.parse(fs.readFileSync(file, 'utf8')))).toBe(canonicalJson(ACTIVE_RUN))
-    expect(validateRunMeta(ACTIVE_RUN)).toEqual([])
-  })
   it('pilot-runs 의 모든 메타가 식별정보 가드를 통과한다', () => {
     const dir = path.join(ROOT, 'docs/csat-learner/pilot-runs')
     if (!fs.existsSync(dir)) return

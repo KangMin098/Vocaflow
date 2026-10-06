@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url'
 
 import { rulesHash } from '../error-evidence/model-input/deidentify.mjs'
 import { captureProbeConfig } from '../../../apps/web/src/lib/csat/ec-pilot/probes.ts'
-import { examSeal, probeConfigHash, sha256 } from '../../../apps/web/src/lib/csat/ec-pilot/run-gate.ts'
+import { canonicalJson, examSeal, probeConfigHash, sha256 } from '../../../apps/web/src/lib/csat/ec-pilot/run-gate.ts'
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 export const RUNS = path.join(ROOT, 'docs/csat-learner/pilot-runs')
@@ -86,57 +86,11 @@ export function readRecord(name) {
   return fs.existsSync(p) ? { sha256: fileSha256(p), json: JSON.parse(fs.readFileSync(p, 'utf8')) } : null
 }
 
-/** 활성화 커밋이 검증 커밋 위에 run 메타 · 기록 · active-run.ts 만 더했는지(git) — 실패 코드 목록 */
-export function activationDiffFailures(appCommit, activationCommit, runId, git) {
-  if (!activationCommit) return []
-  if (!HEX40.test(activationCommit)) return ['activation:format']
-  let names
-  try { names = git(['diff', '--name-only', appCommit, activationCommit]).split(/\r?\n/).map((x) => x.trim()).filter(Boolean) } catch { return ['activation:unknown-commit'] }
-  try { git(['merge-base', '--is-ancestor', appCommit, activationCommit]) } catch { return ['activation:not-descendant'] }
-  const allowed = new Set(['apps/web/src/lib/csat/ec-pilot/active-run.ts', ...['json', 'md', 'pii-guard.json', 'e2e.json'].map((x) => `docs/csat-learner/pilot-runs/${runId}.${x}`)])
-  const extra = names.filter((n) => !allowed.has(n))
-  return extra.length ? [`activation:extra-files(${extra.length})`] : []
-}
-
-/** live 상태(LiveState + db) — 시험은 examIds 만 */
-export async function readLive(examIds, { appCommit }) {
-  const url = process.env.SUPABASE_DB_URL
-  if (!url) throw new Error('SUPABASE_DB_URL 없음 — --env-file 로 실행')
-  if (!url.includes(DEV_REF)) throw new Error(`Pilot DB(${DEV_REF})가 아니다`)
-  const pg = await loadPg()
-  const c = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } })
-  await c.connect()
-  try {
-    await c.query('begin transaction read only')
-    const tax = configTaxonomy()
-    const t = (await c.query('select status, note, definitions_hash from public.csat_ec_taxonomy_version where version = $1', [tax])).rows[0]
-    const fn = (await c.query(`select pg_get_functiondef('public.csat_ec_detect_boundaries(uuid, smallint, uuid)'::regprocedure) d`)).rows[0]?.d ?? ''
-    const detector = fn.match(/c_version constant text := '(bd-[0-9.]+)'/)?.[1] ?? null
-    const mig = (await c.query('select max(version) v, count(*)::int n from supabase_migrations.schema_migrations')).rows[0]
-    const exams = {}
-    for (const id of examIds) {
-      const ex = (await c.query('select id, organizer, source_note, item_count, listening_end from public.csat_exams where id = $1', [id])).rows[0]
-      const items = (await c.query('select id, no, section, in_scope, type_id, stem, passage, choices, body_ok, raw_block from public.csat_items where exam_id = $1', [id])).rows
-      const key = (await c.query('select no, answers, points from public.csat_dx_answer_key where exam_id = $1', [id])).rows
-      const traps = (await c.query('select item_id, option_no, trap_key, source, analysis_version from public.csat_dx_option_trap where item_id = any($1)', [items.map((i) => i.id)])).rows
-      exams[id] = ex && items.length && key.length ? examSeal(ex, items, key, traps) : null
-    }
-    await c.query('rollback')
-    const cap = configProbeCap()
-    return {
-      configTaxonomyVersion: tax,
-      dbTaxonomy: t ? { status: t.status, note: t.note, definitionsHash: t.definitions_hash } : null,
-      detectorVersion: detector,
-      probeCap: cap,
-      probeConfigHash: probeConfigHash(captureProbeConfig(), cap),
-      participantIdCount: participantIdCount(),
-      appCommit: appCommit ?? null,
-      buildCommit: null,
-      activationCommit: null,
-      exams,
-      db: mig ? { latestMigration: mig.v, migrationCount: mig.n } : null,
-    }
-  } finally {
-    await c.end()
-  }
+/** 배포 env CSAT_EC_ACTIVE_RUN(앱이 읽는 메타)이 docs 정본과 같은지 — 'missing' | 'invalid' | 'differs' | 'match' */
+export function envMetaState(meta, env = process.env.CSAT_EC_ACTIVE_RUN) {
+  const raw = (env ?? '').trim()
+  if (!raw) return 'missing'
+  let v
+  try { v = JSON.parse(raw) } catch { return 'invalid' }
+  return canonicalJson(v) === canonicalJson(meta) ? 'match' : 'differs'
 }

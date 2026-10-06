@@ -32,6 +32,9 @@ const HARNESSES = new Set([
 const MODULE = 'scripts/csat/error-evidence/model-input/deidentify.mjs'
 const WRAPPER = 'scripts/csat/error-evidence/model-input/model-packets.mjs'
 
+/** 주석 제거(문자열 안의 // 는 남긴다 — URL 등) */
+const stripComments = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:'"`\\])\/\/[^\n]*/g, '$1')
+
 function walk(dir: string, out: string[]) {
   if (!fs.existsSync(dir)) return
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -61,17 +64,24 @@ describe('AI 판정 입력 경로는 비식별화 모듈을 거친다(기본 거
     expect(bad).toEqual([])
   })
 
-  it('운영 래퍼 — export 결과는 deidentifyPacket 을 거치고, 쓰는 packet 은 차단이 아닌 r.packet 뿐', () => {
+  it('운영 래퍼 — 원본 packet 은 deidentifyPacket 에만 넘기고, 쓰는 것은 차단이 아닌 r.packet 뿐(여러 줄 우회 포함)', () => {
     const w = files.find((f) => f.rel === WRAPPER)!.text
     expect(DEID_IMPORT.test(w)).toBe(true)
-    expect(w).toMatch(/const \{ data: packet[^}]*\} = await db\.rpc\('csat_ec_ai_export'/)
-    expect(w).toMatch(/deidentifyPacket\(packet,/)
-    expect(w).toMatch(/if \(r\.status !== 'ok'\) \{[^\n]*continue \}/)
-    // packet 을 쓰는 곳은 r.packet 하나 — 원본(packet) · canonical_input 을 직접 쓰지 않는다
-    const writes = [...w.matchAll(/writeFileSync\(([^\n]*)\)/g)].map((m) => m[1])
-    expect(writes.some((x) => /JSON\.stringify\(r\.packet,/.test(x))).toBe(true)
-    expect(writes.some((x) => /JSON\.stringify\(packet\b|canonical_input/.test(x))).toBe(false)
+    const code = stripComments(w)
+    // RPC 는 한 번 · 결과 이름은 packet 하나
+    expect(code.match(/csat_ec_ai_export/g)?.length).toBe(1)
+    expect(code).toMatch(/const \{ data: packet, error: [a-z]+ \} = await db\.rpc\('csat_ec_ai_export'/)
+    // 원본 식별자 packet 은 정확히 두 번 — 받는 곳 · deidentifyPacket(packet, …). 다른 곳(쓰기 · 출력 · 전송)에 쓰이면 실패
+    expect(code.match(/(?<![.\w$])packet\b/g)?.length).toBe(2)
+    expect(code).toMatch(/deidentifyPacket\(packet,/)
+    expect(code).toMatch(/if \(r\.status !== 'ok'\) \{[^\n]*continue \}/)
+    expect(code).not.toMatch(/canonical_input/)
     expect(MODEL_CALL.test(w)).toBe(false)
+  })
+
+  it('검사 규칙 자체 — 여러 줄로 원본을 쓰는 래퍼는 걸린다', () => {
+    const bad = "const { data: packet, error: xe } = await db.rpc('csat_ec_ai_export', {})\nconst r = deidentifyPacket(packet, {})\nfs.writeFileSync(\n  p,\n  JSON.stringify(\n    packet,\n  ),\n)\n"
+    expect(stripComments(bad).match(/(?<![.\w$])packet\b/g)?.length).toBe(3)
   })
 
   it('검증 하네스는 모델 SDK · CLI 를 부르지 않는다', () => {

@@ -225,8 +225,6 @@ export interface LiveState {
   appCommit: string | null
   /** 실제 배포 빌드 커밋(플랫폼 주입 VERCEL_GIT_COMMIT_SHA — 운영자가 덮어쓸 수 없는 값). 없으면 닫힘 */
   buildCommit: string | null
-  /** 활성화 커밋(env CSAT_EC_ACTIVATION_COMMIT) — 검증 커밋 위에 run 메타 · active-run.ts 만 더한 커밋. start-check 가 차이 범위를 확인한다 */
-  activationCommit: string | null
   exams: Record<string, ExamSeal | null>
   /** 점검 스크립트만 채운다(앱은 DB 메타 표를 못 읽는다) — undefined 면 비교하지 않는다 */
   db?: { latestMigration: string; migrationCount: number } | null
@@ -247,9 +245,8 @@ export function evaluateRunGate(meta: unknown, live: LiveState): GateResult {
   if (!live.probeConfigHash || live.probeConfigHash !== m.probe?.configHash) failures.push('live:probe.config')
   if (live.participantIdCount !== (Array.isArray(m.participants) ? m.participants.length : -1)) failures.push('live:participants.count')
   if (!live.appCommit || live.appCommit.toLowerCase() !== m.appCommit) failures.push('live:app.commit')
-  // 배포 빌드 = 검증 커밋 그 자체이거나, 선언된 활성화 커밋이어야 한다(다른 코드가 배포되면 env 가 낡아도 닫힌다)
-  const build = live.buildCommit?.toLowerCase() ?? null
-  if (!build || !(build === m.appCommit || (!!live.activationCommit && build === live.activationCommit.toLowerCase()))) failures.push('live:app.build')
+  // 배포 빌드 = 검증 커밋 그 자체(§16 앱 커밋 봉인). 다른 코드가 배포되면 env 가 낡아 있어도 닫힌다
+  if (!live.buildCommit || live.buildCommit.toLowerCase() !== m.appCommit) failures.push('live:app.build')
   for (const e of Array.isArray(m.exams) ? m.exams : []) {
     const l = live.exams[e?.examId]
     if (!l) { failures.push(`live:exam.${e?.examId}.missing`); continue }
