@@ -170,13 +170,14 @@ try {
       const nodeType = (await gq(`{ __type(name: "${typeName.replace(/Connection$/, '')}") { fields { name type { kind name ofType { kind name } } } } }`)).data?.__type
       const scalars = (nodeType?.fields ?? []).filter((f) => ['SCALAR', 'ENUM'].includes(f.type.kind) || ['SCALAR', 'ENUM'].includes(f.type.ofType?.kind)).map((f) => f.name)
       if (!scalars.length) { record('canary', `${who} · GraphQL ${col.name} — 필드 수집 실패(검사 미실행)`, false, conn.errors?.[0]?.message); continue }
-      const scope=graphQLScope(scalars,{exam:EXAM,itemIds:NOS.map(n=>`${EXAM}#${n}`),type:TYPE,sessionIds:Object.values(sid),userIds:[users.P.id,users.N.id]})
+      const fieldTypes=Object.fromEntries((nodeType?.fields??[]).map(f=>[f.name,f.type.kind==='NON_NULL'?f.type.ofType?.name:f.type.name]))
+      const scope=graphQLScope(scalars,{exam:EXAM,itemIds:NOS.map(n=>`${EXAM}#${n}`),type:TYPE,sessionIds:Object.values(sid),userIds:[users.P.id,users.N.id]},fieldTypes)
       const res = graphQLCollection(await gq(`{ ${col.name}(${scope.args}) { edges { node { ${scalars.join(' ')} } } } }`),col.name,scalars)
       const nodes = (res.data?.[col.name]?.edges ?? []).map((e) => e.node)
       const sensitive = Object.values(manifest.db_relations).flatMap((v) => v.sensitive_columns ?? [])
       const tests = nodes.filter((n) => JSON.stringify(n).includes(EXAM))
       const hit = tests.filter((n) => Object.entries(n).some(([k, v]) => sensitive.some((s) => k.toLowerCase() === s.replace(/_/g, '').toLowerCase() || k === s) && v != null))
-      record('canary', `${who} · GraphQL ${col.name}`, !res.errors && !leaks(res) && hit.length === 0, { errors: res.errors?.[0]?.message, nodes: nodes.length, tests: tests.length, hit: hit.length, scope:scope.targeted?'owned_fixture':'unseeded_metadata' })
+      record('canary', `${who} · GraphQL ${col.name}`, !res.errors && !leaks(res) && hit.length === 0, { errors: res.errors?.[0]?.message, http_status:res.http_status, nodes: nodes.length, tests: tests.length, hit: hit.length, scope:scope.targeted?'owned_fixture':'unseeded_metadata' })
     }
     record('canary', `${who} · GraphQL 노출 csat 컬렉션 ${collections.length}개 검사`, !intro.errors, collections.map((c) => c.name))
 

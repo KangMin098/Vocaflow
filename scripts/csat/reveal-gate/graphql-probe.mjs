@@ -1,8 +1,11 @@
 // scripts/csat/reveal-gate/graphql-probe.mjs
-export function graphQLScope(fields,{exam,itemIds,type,sessionIds,userIds}) {
+export function graphQLScope(fields,{exam,itemIds,type,sessionIds,userIds},fieldTypes={}) {
   for(const [names,value] of [[['exam_id','examId'],exam],[['item_id','itemId'],itemIds],[['type_id','typeId'],type],[['session_id','sessionId'],sessionIds],[['user_id','userId'],userIds]]) {
     const field=names.find(x=>fields.includes(x))
-    if(field)return{args:`first: 1000, filter: { ${field}: { ${Array.isArray(value)?'in':'eq'}: ${JSON.stringify(value)} } }`,targeted:true}
+    if(field){
+      if(/^uuid$/i.test(fieldTypes[field]??'')&&!(Array.isArray(value)?value:[value]).every(v=>/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v)))continue
+      return{args:`first: 1000, filter: { ${field}: { ${Array.isArray(value)?'in':'eq'}: ${JSON.stringify(value)} } }`,targeted:true}
+    }
   }
   return{args:'first: 1',targeted:false}
 }
