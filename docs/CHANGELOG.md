@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): F02 Claude Code 호출 모델을 가변 `haiku` 별칭 대신 전체 모델 ID로 고정하고 반환 모델과 동일한 ID로 비교한다. 이전 별칭 호출의 감사 해시를 새 검증에 재사용하지 않는다.
+
 - fix(textbook): F02 Codex 전역 지시 manifest의 목록을 실제 보관된 파일 목록과 대조한다. 목록만 비워 해시를 다시 계산해도 Stage C가 거부하도록 보강한다.
 
 - fix(textbook): F02 로컬 감사에서 Claude 정상 종료 필드, 호출 UUID·파일명 결속, 개별 호출 시간 순서와 run 완료 상태를 필수로 확인한다. 해당 누락·역전 변조는 실제 산출물 기반 Stage C에서 차단한다.

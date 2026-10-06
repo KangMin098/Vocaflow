@@ -11,7 +11,7 @@ const sha = value => createHash('sha256').update(value).digest('hex')
 const json = value => JSON.stringify(value)
 const studentSystem = 'Use only the supplied packet. Do not use tools, files, prior conversation, or outside facts. Simulate only the stated reading capacities. Return a JSON object with answers in question order.'
 const graderSystem = 'Independently grade the candidate answers against the supplied rubric. Do not use tools or outside facts. Return a JSON object with scores in question order. Every score must be exactly 0, 0.5, or 1; use 0 for missing or unsupported evidence. Never return null.'
-const model = { claude: 'haiku', codex: 'gpt-6.1-sol' }
+const model = { claude: 'claude-haiku-4-5-20251001', codex: 'gpt-6.1-sol' }
 const family = { claude: 'anthropic', codex: 'openai' }
 function findClaudeExecutable() {
   const configured = process.env.F02_CLAUDE_EXECUTABLE
@@ -288,7 +288,7 @@ export function verifyStage(rootInput) {
       const decoded = decode(record.engine, stdout, outputPath)
       const parsed = role === 'student' ? parseAnswers(decoded.text, packet) : parseScores(decoded.text, packet)
       if (record.session_id !== decoded.session_id || record.model_observed !== decoded.observed_model || record.refusal !== decoded.refusal || decoded.refusal || record.tool_used !== decoded.tool_used || record.parsed_sha256 !== sha(json(parsed)) || json(record.parsed) !== json(parsed)) throw Error('PARSED_OUTPUT_CHANGED')
-      if (record.engine === 'claude' && record.model_observed !== 'claude-haiku-4-5-20251001') throw Error('MODEL_MISMATCH')
+      if (record.engine === 'claude' && record.model_observed !== model.claude) throw Error('MODEL_MISMATCH')
       if (record.engine === 'codex' && !record.argv.includes(model.codex)) throw Error('MODEL_MISMATCH')
       records.push(record)
     }
