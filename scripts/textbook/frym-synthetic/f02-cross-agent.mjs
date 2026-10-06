@@ -2,8 +2,8 @@
 import { createHash, randomUUID } from 'node:crypto'
 import { spawn, spawnSync } from 'node:child_process'
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { tmpdir } from 'node:os'
-import { basename, join, resolve } from 'node:path'
+import { homedir, tmpdir } from 'node:os'
+import { basename, dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { analyzeF02Synthetic, buildF02Synthetic } from './f02-synthetic.mjs'
 
@@ -14,6 +14,7 @@ const graderSystem = 'Independently grade the candidate answers against the supp
 const model = { claude: 'haiku', codex: 'gpt-6.1-sol' }
 const family = { claude: 'anthropic', codex: 'openai' }
 const claudeExecutable = process.platform === 'win32' ? join(process.env.APPDATA ?? '', 'npm', 'node_modules', '@anthropic-ai', 'claude-code', 'bin', 'claude.exe') : 'claude'
+const globalCodexInstructions = join(homedir(), '.codex', 'AGENTS.md')
 const answerSchema = { type: 'object', properties: { answers: { type: 'array', items: { type: 'object', properties: { id: { type: 'string' }, answer: { type: 'string' } }, required: ['id', 'answer'], additionalProperties: false } } }, required: ['answers'], additionalProperties: false }
 const scoreSchema = { type: 'object', properties: { scores: { type: 'array', items: { type: 'object', properties: { id: { type: 'string' }, score: { type: 'number', enum: [0, 0.5, 1] } }, required: ['id', 'score'], additionalProperties: false } } }, required: ['scores'], additionalProperties: false }
 
@@ -35,11 +36,11 @@ function effectiveStdin(engine, request) {
 }
 
 function stripFence(value) { return value.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim() }
-function parseAnswers(text, packet) {
+export function parseAnswers(text, packet) {
   const parsed = JSON.parse(stripFence(text))
   const ids = packet.body.questions.map(question => question.id)
-  if (!Array.isArray(parsed.answers) || parsed.answers.length !== ids.length || ids.some((id, i) => parsed.answers[i]?.id !== id || typeof parsed.answers[i]?.answer !== 'string' || !parsed.answers[i].answer.trim())) throw Error('STUDENT_ANSWERS_INVALID')
-  return parsed.answers
+  if (!Array.isArray(parsed.answers) || parsed.answers.length !== ids.length || ids.some((id, i) => parsed.answers[i]?.id !== id || typeof parsed.answers[i]?.answer !== 'string' || !parsed.answers[i].answer.trim() || json(Object.keys(parsed.answers[i]).sort()) !== json(['answer', 'id']))) throw Error('STUDENT_ANSWERS_INVALID')
+  return parsed.answers.map(({ id, answer }) => ({ id, answer }))
 }
 function parseScores(text, packet) {
   const parsed = JSON.parse(stripFence(text))
@@ -56,10 +57,16 @@ function versionOf(engine) {
 function cliSpec(engine, role, cwd, outputPath, system) {
   if (engine === 'claude') {
     const schema = role === 'student' ? answerSchema : scoreSchema
-    const args = ['-p', '--model', model.claude, '--effort', 'low', '--restricted', '--strict-mcp-config', '--system-prompt', system, '--json-schema', json(schema), '--output-format', 'json', '--no-session-persistence']
+    const args = ['-p', '--model', model.claude, '--effort', 'low', '--restricted', '--strict-mcp-config', '--tools', '', '--system-prompt', system, '--json-schema', json(schema), '--output-format', 'json', '--no-session-persistence']
     return { command: claudeExecutable, argv: args, options: {}, cwd }
   }
-  return { command: 'codex', argv: ['exec', '--json', '--ephemeral', '-s', 'read-only', '--skip-git-repo-check', '-m', model.codex, '-o', outputPath, '-'], options: {}, cwd }
+  return { command: 'codex', argv: ['exec', '--json', '--ephemeral', '-s', 'read-only', '--skip-git-repo-check', '-c', 'project_doc_max_bytes=0', '-m', model.codex, '-o', outputPath, '-'], options: {}, cwd }
+}
+function assertIsolatedCwd(cwd) {
+  if (!resolve(cwd).startsWith(resolve(tmpdir()) + sep)) throw Error('CWD_NOT_ISOLATED')
+  for (let path = cwd; path !== dirname(path); path = dirname(path)) {
+    if (['AGENTS.md', 'AGENTS.override.md', 'CLAUDE.md'].some(name => existsSync(join(path, name)))) throw Error('CWD_INSTRUCTIONS_PRESENT')
+  }
 }
 function decode(engine, stdout, outputPath) {
   if (engine === 'claude') {
@@ -106,16 +113,19 @@ async function invoke(root, runId, packet, role, engine, answers, scoringKey, ve
   const stdin = effectiveStdin(engine, request)
   const invocationId = randomUUID()
   const stem = `${role}-${invocationId}`
-  const cwd = join(root, `${role}-${engine}-cwd`)
-  mkdirSync(cwd, { recursive: true })
+  const cwd = mkdtempSync(join(tmpdir(), `f02-${role}-${engine}-`))
+  assertIsolatedCwd(cwd)
   const outputPath = join(root, `${stem}.final`)
   const spec = cliSpec(engine, role, cwd, outputPath, request.system)
-  const manifest = { schema_version: 1, run_id: runId, invocation_id: invocationId, packet_id: packet.packet_id, role, engine, family: family[engine], model_requested: model[engine], cli_version: version, cwd, command: spec.command, argv: spec.argv, packet_sha256: sha(json({ packet_id: packet.packet_id, ...packet.body })), profile_sha256: sha(json(packet.body.profile)), system_sha256: sha(request.system), stdin_sha256: sha(stdin), grader_answers_sha256: role === 'grader' ? sha(json(answers)) : null, credential_source: 'cli_account', provider_attested: false }
+  const globalBytes = engine === 'codex' && existsSync(globalCodexInstructions) ? readFileSync(globalCodexInstructions) : Buffer.alloc(0)
+  const manifest = { schema_version: 1, run_id: runId, invocation_id: invocationId, packet_id: packet.packet_id, role, engine, family: family[engine], model_requested: model[engine], cli_version: version, cwd, cwd_isolated: true, global_instruction_sha256: engine === 'codex' ? sha(globalBytes) : null, command: spec.command, argv: spec.argv, packet_sha256: sha(json({ packet_id: packet.packet_id, ...packet.body })), profile_sha256: sha(json(packet.body.profile)), system_sha256: sha(request.system), stdin_sha256: sha(stdin), grader_answers_sha256: role === 'grader' ? sha(json(answers)) : null, credential_source: 'cli_account', provider_attested: false }
   manifest.command_manifest_sha256 = sha(json(manifest))
   writeFileSync(join(root, `${stem}.manifest.json`), json(manifest))
   writeFileSync(join(root, `${stem}.system`), request.system)
   writeFileSync(join(root, `${stem}.stdin`), stdin)
+  if (engine === 'codex') writeFileSync(join(root, `${stem}.global-agents`), globalBytes)
   const result = await callCli(spec, stdin)
+  rmSync(cwd, { recursive: true, force: true })
   writeFileSync(join(root, `${stem}.stdout`), result.stdout)
   writeFileSync(join(root, `${stem}.stderr`), result.stderr)
   const record = { ...manifest, ...Object.fromEntries(['pid', 'started_at', 'ended_at', 'exit_code', 'signal', 'error'].map(key => [key, result[key]])), stdout_sha256: sha(result.stdout), stderr_sha256: sha(result.stderr), final_sha256: existsSync(outputPath) ? sha(readFileSync(outputPath)) : null }
@@ -189,7 +199,8 @@ export function verifyStage(rootInput) {
       const expectedEngine = role === 'student' ? studentEngine : studentEngine === 'claude' ? 'codex' : 'claude'
       const recordedFinal = expectedEngine === 'codex' ? record.argv[record.argv.indexOf('-o') + 1] : join(root, `${stem}.final`)
       const expectedSpec = cliSpec(expectedEngine, role, record.cwd, recordedFinal, requestFor(packet, role, role === 'grader' ? records[0].parsed : null, built.scoringKey).system)
-      if (record.engine !== expectedEngine || record.family !== family[expectedEngine] || record.model_requested !== model[expectedEngine] || record.command !== expectedSpec.command || json(record.argv) !== json(expectedSpec.argv) || basename(record.cwd) !== `${role}-${expectedEngine}-cwd` || (expectedEngine === 'codex' && basename(recordedFinal) !== `${stem}.final`) || !/^\d{4}-\d\d-\d\dT/.test(record.started_at) || !/^\d{4}-\d\d-\d\dT/.test(record.ended_at)) throw Error('COMMAND_OR_MODEL_CHANGED')
+      if (record.engine !== expectedEngine || record.family !== family[expectedEngine] || record.model_requested !== model[expectedEngine] || record.command !== expectedSpec.command || json(record.argv) !== json(expectedSpec.argv) || !basename(record.cwd).startsWith(`f02-${role}-${expectedEngine}-`) || !resolve(record.cwd).startsWith(resolve(tmpdir()) + sep) || record.cwd_isolated !== true || (expectedEngine === 'codex' && basename(recordedFinal) !== `${stem}.final`) || !/^\d{4}-\d\d-\d\dT/.test(record.started_at) || !/^\d{4}-\d\d-\d\dT/.test(record.ended_at)) throw Error('COMMAND_OR_MODEL_CHANGED')
+      if (expectedEngine === 'codex' && record.global_instruction_sha256 !== sha(readFileSync(join(root, `${stem}.global-agents`)))) throw Error('GLOBAL_INSTRUCTIONS_CHANGED')
       ids.add(record.invocation_id)
       if (record.packet_sha256 !== sha(json({ packet_id: packet.packet_id, ...packet.body })) || record.profile_sha256 !== sha(json(packet.body.profile))) throw Error('PACKET_OR_PROFILE_CHANGED')
       const answers = role === 'grader' ? records[0].parsed : null
@@ -282,10 +293,10 @@ export function stageC(stageA, stageB) {
         if (!rejected) throw Error(`TAMPER_NOT_REJECTED:${name}`)
       } finally { rmSync(temp, { recursive: true, force: true }) }
     }
-    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output']) {
+    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output', 'global_instruction_file']) {
       const role = ['student', 'grader'].find(candidate => {
         const record = JSON.parse(readFileSync(join(source, `${pair[candidate]}.record.json`), 'utf8'))
-        return record.engine === (name === 'final_stdout_mismatch' ? 'codex' : 'claude')
+        return record.engine === (name === 'raw_refusal_with_rehashed_output' ? 'claude' : 'codex')
       })
       const stem = pair[role], temp = mkdtempSync(join(tmpdir(), 'f02-stage-c-'))
       try {
@@ -302,13 +313,16 @@ export function stageC(stageA, stageB) {
           record.final_sha256 = sha(Buffer.from(final))
           record.parsed = altered
           record.parsed_sha256 = sha(json(altered))
-        } else {
+        } else if (name === 'raw_refusal_with_rehashed_output') {
           const path = join(temp, `${stem}.stdout`)
           const raw = JSON.parse(readFileSync(path, 'utf8'))
           raw.is_error = true
           const altered = json(raw)
           writeFileSync(path, altered)
           record.stdout_sha256 = sha(Buffer.from(altered))
+        } else {
+          const path = join(temp, `${stem}.global-agents`)
+          writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from(' changed')]))
         }
         writeFileSync(recordPath, json(record))
         let rejected = false

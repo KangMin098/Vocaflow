@@ -5,7 +5,7 @@ import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:f
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { buildF02Synthetic } from './f02-synthetic.mjs'
-import { evidencePolicy, requestFor, stageC, verifyStage } from './f02-cross-agent.mjs'
+import { evidencePolicy, parseAnswers, requestFor, stageC, verifyStage } from './f02-cross-agent.mjs'
 
 test('student packet excludes scoring key and grader excludes profile', () => {
   const built = buildF02Synthetic(), packet = built.packets[0]
@@ -16,6 +16,14 @@ test('student packet excludes scoring key and grader excludes profile', () => {
   assert.ok(grader.stdin.includes('rubrics'))
   assert.ok(!grader.stdin.includes('ability_constraints'))
   assert.equal(evidencePolicy.provider_attested, false)
+})
+
+test('student answer cannot smuggle profile fields into blind grading', () => {
+  const packet = buildF02Synthetic().packets[0]
+  const answers = packet.body.questions.map(question => ({ id: question.id, answer: 'unsure' }))
+  assert.equal(parseAnswers(JSON.stringify({ answers }), packet).length, 12)
+  answers[0].ability_constraints = { inference: 'high' }
+  assert.throws(() => parseAnswers(JSON.stringify({ answers }), packet), /STUDENT_ANSWERS_INVALID/)
 })
 
 test('incomplete local audit never counts as synthetic validation', () => {
@@ -72,6 +80,6 @@ test('actual Stage A evidence rejects raw, request, identity and run mixing', { 
 test('actual bidirectional CLI evidence rejects all Stage C mutations', { skip: !process.env.F02_STAGE_A_FIXTURE || !process.env.F02_STAGE_B_FIXTURE }, () => {
   const result = stageC(process.env.F02_STAGE_A_FIXTURE, process.env.F02_STAGE_B_FIXTURE)
   assert.equal(result.evidence_level, 'E3')
-  assert.equal(result.tamper_checks, 63)
+  assert.equal(result.tamper_checks, 66)
   assert.equal(result.synthetic_validation_valid_n, 0)
 })

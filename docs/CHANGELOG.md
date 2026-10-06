@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): F02 교차 에이전트 호출을 저장소 밖 임시 디렉터리에서 실행하고 Codex 전역 지시 파일의 복사본·해시를 감사 기록에 결속한다. Claude 내장 도구를 비활성화하고 학생 답변의 추가 필드 전달을 거부한다.
+
 - fix(textbook): F02 Codex CLI에 정책 지시를 실제 stdin으로 보내고 stdout 최종 메시지와 저장 파일을 교차 검증한다. 원출력 거부·오류·도구 사용 상태를 다시 대조하며 Stage C 실제 산출물 변조 검사를 63건으로 확장한다. 이전 불완전한 배치는 유효 합성 자료에서 제외한다.
 
 - feat(textbook): F02 synthetic classroom active path를 API key 호출 대신 Claude Code/Codex CLI 양방향 blind 실행으로 전환한다. 원입력·argv·raw 출력·세션 식별자·hash를 로컬 감사하고 실제 실행 산출물 변조 테스트를 별도 게이트로 둔다. 공급자 attestation, 학생 난도 타당성, Gold-S, DB seed는 주장하지 않는다.
