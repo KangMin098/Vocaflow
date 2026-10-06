@@ -6,7 +6,7 @@
 
 import { NextResponse } from 'next/server'
 
-import { canRevealExam, revealHeldResponse } from '@/lib/csat/embargo-gate'
+import { canRevealExam, itemRevealDecision, revealHeldResponse } from '@/lib/csat/embargo-gate'
 import { learnerContext } from '@/lib/csat/diagnosis/route-helpers'
 
 export const runtime = 'nodejs'
@@ -23,7 +23,15 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
   const { data: s, error } = await ctx.db.from('csat_dx_session').select('id, user_id, exam_id').eq('id', params.id).maybeSingle()
   if (error) return NextResponse.json({ error: '불러오지 못했어요' }, { status: 500 })
   if (!s || s.user_id !== ctx.userId) return NextResponse.json({ error: '기록을 찾지 못했어요' }, { status: 404 })
-  if (!(await canRevealExam(s.exam_id as string | null))) return revealHeldResponse()
+  if (s.exam_id) {
+    if (!(await canRevealExam(s.exam_id as string))) return revealHeldResponse()
+  } else {
+    // 진단 테스트(시험 id 없음) — 응답 문항 단위로 판정(보류 문항이 하나라도 · 판정 실패면 423)
+    const { data: items, error: ie } = await ctx.db.from('csat_dx_response').select('item_id').eq('session_id', params.id)
+    if (ie) return revealHeldResponse()
+    const { held, failed } = await itemRevealDecision((items ?? []).map((r) => r.item_id as string | null).filter((x): x is string => Boolean(x)))
+    if (failed || held.size > 0) return revealHeldResponse()
+  }
   const [{ data: score, error: se }, { data: rows, error: we }] = await Promise.all([
     ctx.db.from('csat_dx_session').select('raw_score, grade').eq('id', params.id).maybeSingle(),
     ctx.db.from('csat_dx_response').select('item_no').eq('session_id', params.id).eq('is_correct', false),

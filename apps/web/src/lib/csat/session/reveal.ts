@@ -9,7 +9,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { assertRevealAllowed, RevealHeldError } from '@/lib/csat/embargo-gate'
+import { assertRevealAllowed, isTypeHeld, loadRevealScope, RevealHeldError } from '@/lib/csat/embargo-gate'
 import { loadCsatItemExplain } from '@/lib/csat/learner'
 import { lectureMeta } from '@/lib/csat/lecture/store'
 import type { AnchorOrigin } from '@/lib/csat/passage-skeleton'
@@ -62,7 +62,8 @@ export async function loadReveal(itemId: string): Promise<{ payload: RevealPaylo
 
   // 유형 첫 절차 — 「한 줄」의 재료. 못 읽으면 문항 절차의 첫 줄로 대신한다
   let firstStep: string | null = null
-  if (item.type_id) {
+  // 유형 보고는 유형 단위 보류(그 유형 문항이 보류 시험에 있으면) — 앱 관문으로 먼저 거른다(판정 실패도 보류 → 문항 절차로 대신)
+  if (item.type_id && !isTypeHeld(await loadRevealScope(), item.type_id)) {
     // `Database` 타입에 `csat_*` 가 없다 — `learner.ts` 의 `csatDb()` 와 같은 완화(한 줄)
     const db = (await createClient()) as unknown as SupabaseClient
     const { data } = await db

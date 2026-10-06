@@ -12,7 +12,7 @@ import { selectByChunks, selectSmall } from '../diagnosis/fetch'
 import { ENGINE_VERSION } from '../diagnosis/engine/rule-v1'
 import { computeSnapshotNow } from '../diagnosis/server'
 import { loadSnapshots } from '../diagnosis/snapshot'
-import { userHasHeldSession } from '../embargo-gate'
+import { embargoedExamIds, userHasHeldSession } from '../embargo-gate'
 
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
@@ -124,7 +124,9 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   )
   const keyByExam: Record<string, { no: number; points: number }[]> = {}
   for (const k of keyRows) (keyByExam[k.exam_id] ??= []).push({ no: k.no, points: k.points })
-  const candidates: ExamCandidate[] = examRows.map((e) => ({
+  // Reveal Gate — 보류 시험(오답 원인 Pilot 수집 중)은 기준 시험 후보에서 뺀다(문항별 함정 계열 연결이 지도에 실리지 않게 · 판정 실패면 전부 빠져 지도는 준비 중)
+  const heldExams = await embargoedExamIds(examRows.map((e) => e.id))
+  const candidates: ExamCandidate[] = examRows.filter((e) => !heldExams.has(e.id)).map((e) => ({
     id: e.id,
     label: e.label,
     held: (e.exam_year ?? 0) * 100 + (e.month ?? 0),

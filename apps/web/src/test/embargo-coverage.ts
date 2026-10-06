@@ -27,6 +27,15 @@ export const GATE_FUNCTIONS = [
 const IMPORT = /import\s+(?:type\s+)?\{([^}]*)\}\s+from\s+'(?:@\/lib\/csat\/|\.\/|\.\.\/)embargo-gate'/g
 const EXCLUDED = /^(app\/admin|app\/api\/admin|lib\/admin|components\/admin)\//
 
+/** 주석을 뺀 코드 — 주석 속 `canRevealItem(id)` 같은 글로 가드를 통과하지 못하게. 줄 주석은 `://`(URL) 뒤가 아닌 것만 */
+export function stripComments(src: string): string {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .split('\n')
+    .map((l) => l.replace(/(^|[^:])\/\/.*$/, '$1'))
+    .join('\n')
+}
+
 function walk(dir: string, out: string[] = []): string[] {
   if (!fs.existsSync(dir)) return out
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -52,8 +61,9 @@ export function checkGateCoverage(srcRoot: string, m: GateManifest): CoveragePro
   for (const file of ['lib', 'app', 'components'].flatMap((d) => walk(path.join(srcRoot, d)))) {
     const r = rel(file)
     if (EXCLUDED.test(r)) continue
-    const s = fs.readFileSync(file, 'utf8')
-    const hit = names.find((n) => s.includes(`'${n}'`))
+    const s = stripComments(fs.readFileSync(file, 'utf8'))
+    // 따옴표 종류와 무관하게(' " `) — 큰따옴표 · 템플릿 리터럴로 쓴 표 이름도 잡는다
+    const hit = names.find((n) => ["'", '"', '`'].some((q) => s.includes(`${q}${n}${q}`)))
     if (hit && !m.app_db_loaders[r]) problems.push({ file: r, problem: `정답 민감 · 정오 표면 '${hit}' 을 읽는데 manifest.app_db_loaders 에 없다(미분류 — 기본 거부)` })
   }
   for (const [r, v] of Object.entries(m.app_db_loaders)) {
@@ -62,7 +72,7 @@ export function checkGateCoverage(srcRoot: string, m: GateManifest): CoveragePro
     if (!fs.existsSync(file)) { problems.push({ file: r, problem: '매니페스트에만 있다(파일 없음)' }); continue }
     if (!(GATED_CLASSES as readonly string[]).includes(v.class)) continue
     // ① 관문 사용
-    const s = fs.readFileSync(file, 'utf8')
+    const s = stripComments(fs.readFileSync(file, 'utf8'))
     const imported = [...s.matchAll(IMPORT)].flatMap((x) => x[1].split(',').map((t) => t.replace(/^\s*type\s+/, '').trim().split(/\s+as\s+/).pop() ?? '').filter(Boolean))
     const fns = imported.filter((n) => GATE_FUNCTIONS.includes(n))
     if (fns.length === 0) { problems.push({ file: r, problem: `${v.class} 인데 embargo-gate 의 관문 함수를 import 하지 않는다` }); continue }
