@@ -1,0 +1,77 @@
+{
+ "ranAt": "2026-10-06T07:16:17.598Z",
+ "pass": 14,
+ "fail": 0,
+ "out": [
+  {
+   "name": "dx_session.raw_score 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_session.grade 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_session select * 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_session 남긴 컬럼 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_response.is_correct 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_response select * 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_response 남긴 컬럼 허용",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_snapshot 직접 읽기 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "learner_state 직접 읽기 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "learner_state 직접 쓰기 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_response WHERE is_correct 필터 거부(오라클)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_session WHERE raw_score 필터 거부(오라클)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "dx_session ORDER BY grade 거부(오라클)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "임시 계정 정리",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}

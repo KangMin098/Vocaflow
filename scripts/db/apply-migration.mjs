@@ -17,8 +17,12 @@ if (sha !== arg('--sha')) { console.log(`중단: 파일 해시 ${sha} ≠ 승인
 const m = path.basename(file).match(/^(\d{14})_(.+)\.sql$/)
 if (!m) { console.log('중단: 파일 이름이 <version>_<name>.sql 이 아니다'); process.exit(1) }
 const [, version, name] = m
-const body = fs.readFileSync(file, 'utf8')
-if (/^\s*(begin|commit)\s*;\s*$/im.test(body)) { console.log('중단: 파일 안에 begin/commit 이 있다 — 스크립트가 트랜잭션을 잡는다'); process.exit(1) }
+// 파일의 최상위 begin; … commit; 한 쌍은 떼고 스크립트가 트랜잭션을 잡는다(적용 + 이력 기록을 한 트랜잭션에). 해시는 원본 파일로 검사했다
+const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/)
+const bi = lines.findIndex((l) => /^\s*begin\s*;\s*$/i.test(l))
+const ci = lines.findLastIndex((l) => /^\s*commit\s*;\s*$/i.test(l))
+if ((bi < 0) !== (ci < 0) || lines.filter((l) => /^\s*(begin|commit)\s*;\s*$/i.test(l)).length > (bi < 0 ? 0 : 2)) { console.log('중단: begin/commit 짝이 하나가 아니다'); process.exit(1) }
+const body = (bi < 0 ? lines : lines.filter((_, i) => i !== bi && i !== ci)).join('\n')
 
 const c = new pg.Client({ connectionString: process.env.SUPABASE_DB_URL, ssl: { rejectUnauthorized: false } })
 await c.connect()
