@@ -1,6 +1,6 @@
 # CHANGELOG
 
-- feat(textbook): 로컬 교재 파일의 해시·출처와 검수된 지문/문항 추출·별도 9축 분석을 기존 benchmark metadata 입력에 잇는 fail-closed admission 어댑터를 추가했다. 합성 fixture만 검증했으며 실제 교재 corpus·분포·Gold-S·DB seed는 0이다.
+- feat(textbook): 기존 교재 추출기의 페이지 결과를 저장소 밖 검토 후보로 만드는 초안 bridge와, 로컬 파일 해시·검수된 지문/문항·별도 9축 분석을 benchmark metadata 입력에 잇는 fail-closed admission 어댑터를 추가했다. 합성 fixture만 검증했으며 실제 교재 corpus·분포·Gold-S·DB seed는 0이다.
 
 - feat(textbook): 상업 독해 교재의 메타데이터 전용 8학년·9축 benchmark 엔진을 추가했다. 봉인 protocol/선정 manifest, 표본 다양성·장르·길이 gate, 분위 분포, F02 독립 fit/separation, E3 실출력 재감사와 version/hash stale 검사를 합성 fixture로 검증했다. 실제 corpus·분포·Gold-S·DB seed는 0이다.
 

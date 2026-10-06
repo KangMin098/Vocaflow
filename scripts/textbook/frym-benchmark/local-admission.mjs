@@ -17,6 +17,7 @@ export function identifyLocalFile(sourcePath) {
   if (!statSync(resolved).isFile()) throw Error('SOURCE_NOT_FILE')
   const fd = openSync(resolved, 'r')
   const digest = createHash('sha256')
+  const legacyDigest = createHash('sha1')
   const chunk = Buffer.alloc(1024 * 1024)
   let first = Buffer.alloc(0)
   try {
@@ -25,6 +26,7 @@ export function identifyLocalFile(sourcePath) {
       if (!n) break
       if (!first.length) first = Buffer.from(chunk.subarray(0, Math.min(n, 16)))
       digest.update(chunk.subarray(0, n))
+      legacyDigest.update(chunk.subarray(0, n))
     }
   } finally { closeSync(fd) }
   const extension = extname(resolved).toLowerCase()
@@ -45,6 +47,7 @@ export function identifyLocalFile(sourcePath) {
   return {
     source_path_hash: sha256(normalize(resolved).toLowerCase()),
     file_hash: digest.digest('hex'),
+    source_sha1: legacyDigest.digest('hex'),
     format: extension.slice(1) || 'unknown',
     file_identified: signatures[extension] === true,
   }
