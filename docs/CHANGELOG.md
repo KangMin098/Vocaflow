@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): **Reveal Gate G3 종료(2026-10-06)** — ② `20261005170100` · ②b `20261006110000` 개발 DB 적용, 수집 상태 전이(open/finish) 앱 배선. 표면 0 · canary 392/0(앱 · 번들 · oracle) · 직접 조회 22/22 · Pilot 42/104/12 · Advisor ERROR 0. 제한(P2): 공개 뒤 스냅샷 보정은 앱 기준 시각 비교로 eventual.
 - fix(db): **함수 EXECUTE 정책 G1 · G2 개발 DB 적용(2026-10-06, 사용자 조건부 승인)** — 적용 뒤 가드 3종 통과 · 실제 API 역할 스모크 20/20 · Pilot 스모크 42/104/12 · Security Advisor ERROR 0(anon definer 79→21). — G1 `20261006090000_auto_promote_self_only`(비로그인이 남의 V-Level 승급을 일으키던 P0: 본인 검사 + anon 회수) · G2 `20261006100000_function_exec_policy`(public 함수 402개 class 별 권한 + 본문 검사 22개 + 신규 함수 authenticated 기본 EXECUTE 회수). 정본 `scripts/db/function-exec-manifest.json` · 기본 거부 가드 `scripts/db/check-function-exec.mjs` · 비로그인 경로 가드 `check-anon-callers.mjs`. 격리 PG 15/15 · 개발 DB 롤백 드라이런 20/20. 공개 만화 폴백이 전권 RPC 대신 5컷 미리보기를 쓴다(`lib/comic/catalog.ts`).
 - fix(csat): Reveal Gate G3 후속 — ec-pilot 수집 대상 정오 독립(봉인 대상) · trap-atlas 예시의 정답 민감 부분을 서버 전용 파일로(번들 검사 2종 0) · 관문 실패 = 423 + 로그 분리 · 공개 뒤 스냅샷 따라잡기(reveal-sync) · OFFSET 예산 207→208(canary 검사기, 분기점부터)
 - feat(csat): **Reveal Gate 앱 계층** — 단일 관문 `lib/csat/embargo-gate.ts`(fail-closed · 423 계약)로 정답 민감 · 정오 로더 15개 라우팅(8개는 관리자 전용으로 재분류), 진단 저장 단일 진입 `csat_ec_record_session_held`, 홈 카드 · `/api/csat/state` 서버 경로(② 적용 전제 충족), 정적 가드 테스트 · canary `--app`(400/400) · `--bundle` 추가. ② 미적용

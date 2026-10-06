@@ -1,7 +1,7 @@
 {
- "ranAt": "2026-10-06T04:37:20.280Z",
- "canary": "CANARY-4e302ba5",
- "pass": 400,
+ "ranAt": "2026-10-06T07:27:31.407Z",
+ "canary": "CANARY-6e9b9e1f",
+ "pass": 392,
  "fail": 0,
  "results": [
   {
@@ -71,13 +71,8 @@
   },
   {
    "area": "canary",
-   "name": "P · csat_dx_snapshot",
-   "ok": true,
-   "detail": {
-    "rows": 0,
-    "testRows": 0,
-    "answerLeak": 0
-   }
+   "name": "P · csat_dx_snapshot — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
   },
   {
    "area": "canary",
@@ -201,13 +196,8 @@
   },
   {
    "area": "canary",
-   "name": "P · csat_learner_state",
-   "ok": true,
-   "detail": {
-    "rows": 0,
-    "testRows": 0,
-    "answerLeak": 0
-   }
+   "name": "P · csat_learner_state — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
   },
   {
    "area": "canary",
@@ -527,16 +517,6 @@
   },
   {
    "area": "canary",
-   "name": "P · GraphQL csat_dx_snapshotCollection",
-   "ok": true,
-   "detail": {
-    "nodes": 0,
-    "tests": 0,
-    "hit": 0
-   }
-  },
-  {
-   "area": "canary",
    "name": "P · GraphQL csat_dx_trap_familyCollection",
    "ok": true,
    "detail": {
@@ -678,16 +658,6 @@
   {
    "area": "canary",
    "name": "P · GraphQL csat_itemsCollection",
-   "ok": true,
-   "detail": {
-    "nodes": 0,
-    "tests": 0,
-    "hit": 0
-   }
-  },
-  {
-   "area": "canary",
-   "name": "P · GraphQL csat_learner_stateCollection",
    "ok": true,
    "detail": {
     "nodes": 0,
@@ -927,7 +897,7 @@
   },
   {
    "area": "canary",
-   "name": "P · GraphQL 노출 csat 컬렉션 52개 검사",
+   "name": "P · GraphQL 노출 csat 컬렉션 50개 검사",
    "ok": true,
    "detail": [
     "csat_analysis_reviewsCollection",
@@ -942,7 +912,6 @@
     "csat_dx_responseCollection",
     "csat_dx_sessionCollection",
     "csat_dx_settingsCollection",
-    "csat_dx_snapshotCollection",
     "csat_dx_trap_familyCollection",
     "csat_dx_type_attributeCollection",
     "csat_ec_boundaryCollection",
@@ -958,7 +927,6 @@
     "csat_item_skeletonsCollection",
     "csat_item_stateCollection",
     "csat_itemsCollection",
-    "csat_learner_stateCollection",
     "csat_map_edgeCollection",
     "csat_map_edge_sourceCollection",
     "csat_map_goalCollection",
@@ -1353,13 +1321,8 @@
   },
   {
    "area": "canary",
-   "name": "N · csat_dx_snapshot",
-   "ok": true,
-   "detail": {
-    "rows": 0,
-    "testRows": 0,
-    "answerLeak": 0
-   }
+   "name": "N · csat_dx_snapshot — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
   },
   {
    "area": "canary",
@@ -1483,13 +1446,8 @@
   },
   {
    "area": "canary",
-   "name": "N · csat_learner_state",
-   "ok": true,
-   "detail": {
-    "rows": 0,
-    "testRows": 0,
-    "answerLeak": 0
-   }
+   "name": "N · csat_learner_state — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
   },
   {
    "area": "canary",
@@ -1809,16 +1767,6 @@
   },
   {
    "area": "canary",
-   "name": "N · GraphQL csat_dx_snapshotCollection",
-   "ok": true,
-   "detail": {
-    "nodes": 0,
-    "tests": 0,
-    "hit": 0
-   }
-  },
-  {
-   "area": "canary",
    "name": "N · GraphQL csat_dx_trap_familyCollection",
    "ok": true,
    "detail": {
@@ -1960,16 +1908,6 @@
   {
    "area": "canary",
    "name": "N · GraphQL csat_itemsCollection",
-   "ok": true,
-   "detail": {
-    "nodes": 0,
-    "tests": 0,
-    "hit": 0
-   }
-  },
-  {
-   "area": "canary",
-   "name": "N · GraphQL csat_learner_stateCollection",
    "ok": true,
    "detail": {
     "nodes": 0,
@@ -2209,7 +2147,7 @@
   },
   {
    "area": "canary",
-   "name": "N · GraphQL 노출 csat 컬렉션 52개 검사",
+   "name": "N · GraphQL 노출 csat 컬렉션 50개 검사",
    "ok": true,
    "detail": [
     "csat_analysis_reviewsCollection",
@@ -2224,7 +2162,6 @@
     "csat_dx_responseCollection",
     "csat_dx_sessionCollection",
     "csat_dx_settingsCollection",
-    "csat_dx_snapshotCollection",
     "csat_dx_trap_familyCollection",
     "csat_dx_type_attributeCollection",
     "csat_ec_boundaryCollection",
@@ -2240,7 +2177,6 @@
     "csat_item_skeletonsCollection",
     "csat_item_stateCollection",
     "csat_itemsCollection",
-    "csat_learner_stateCollection",
     "csat_map_edgeCollection",
     "csat_map_edge_sourceCollection",
     "csat_map_goalCollection",
@@ -2617,33 +2553,18 @@
   },
   {
    "area": "canary",
-   "name": "anon · csat_dx_response",
-   "ok": true,
-   "detail": {
-    "rows": 0,
-    "testRows": 0,
-    "answerLeak": 0
-   }
+   "name": "anon · csat_dx_response — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
   },
   {
    "area": "canary",
-   "name": "anon · csat_dx_session",
-   "ok": true,
-   "detail": {
-    "rows": 0,
-    "testRows": 0,
-    "answerLeak": 0
-   }
+   "name": "anon · csat_dx_session — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
   },
   {
    "area": "canary",
-   "name": "anon · csat_dx_snapshot",
-   "ok": true,
-   "detail": {
-    "rows": 0,
-    "testRows": 0,
-    "answerLeak": 0
-   }
+   "name": "anon · csat_dx_snapshot — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
   },
   {
    "area": "canary",
@@ -2727,13 +2648,8 @@
   },
   {
    "area": "canary",
-   "name": "anon · csat_learner_state",
-   "ok": true,
-   "detail": {
-    "rows": 0,
-    "testRows": 0,
-    "answerLeak": 0
-   }
+   "name": "anon · csat_learner_state — 학습자 SELECT 컬럼 없음(회수)",
+   "ok": true
   },
   {
    "area": "canary",
@@ -2955,37 +2871,7 @@
   },
   {
    "area": "canary",
-   "name": "anon · GraphQL csat_dx_responseCollection",
-   "ok": true,
-   "detail": {
-    "nodes": 0,
-    "tests": 0,
-    "hit": 0
-   }
-  },
-  {
-   "area": "canary",
-   "name": "anon · GraphQL csat_dx_sessionCollection",
-   "ok": true,
-   "detail": {
-    "nodes": 0,
-    "tests": 0,
-    "hit": 0
-   }
-  },
-  {
-   "area": "canary",
    "name": "anon · GraphQL csat_dx_settingsCollection",
-   "ok": true,
-   "detail": {
-    "nodes": 0,
-    "tests": 0,
-    "hit": 0
-   }
-  },
-  {
-   "area": "canary",
-   "name": "anon · GraphQL csat_dx_snapshotCollection",
    "ok": true,
    "detail": {
     "nodes": 0,
@@ -3066,16 +2952,6 @@
   {
    "area": "canary",
    "name": "anon · GraphQL csat_itemsCollection",
-   "ok": true,
-   "detail": {
-    "nodes": 0,
-    "tests": 0,
-    "hit": 0
-   }
-  },
-  {
-   "area": "canary",
-   "name": "anon · GraphQL csat_learner_stateCollection",
    "ok": true,
    "detail": {
     "nodes": 0,
@@ -3175,7 +3051,7 @@
   },
   {
    "area": "canary",
-   "name": "anon · GraphQL 노출 csat 컬렉션 31개 검사",
+   "name": "anon · GraphQL 노출 csat 컬렉션 27개 검사",
    "ok": true,
    "detail": [
     "csat_analysis_reviewsCollection",
@@ -3187,10 +3063,7 @@
     "csat_dx_option_trapCollection",
     "csat_dx_poolCollection",
     "csat_dx_profile_histCollection",
-    "csat_dx_responseCollection",
-    "csat_dx_sessionCollection",
     "csat_dx_settingsCollection",
-    "csat_dx_snapshotCollection",
     "csat_dx_trap_familyCollection",
     "csat_dx_type_attributeCollection",
     "csat_examsCollection",
@@ -3199,7 +3072,6 @@
     "csat_item_reviewsCollection",
     "csat_item_stateCollection",
     "csat_itemsCollection",
-    "csat_learner_stateCollection",
     "csat_pipeline_approvalsCollection",
     "csat_source_eligibility_historyCollection",
     "csat_source_registryCollection",

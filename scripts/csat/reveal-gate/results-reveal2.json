@@ -1,8 +1,48 @@
 {
- "ranAt": "2026-10-06T07:16:17.598Z",
- "pass": 14,
+ "ranAt": "2026-10-06T07:24:13.188Z",
+ "pass": 22,
  "fail": 0,
  "out": [
+  {
+   "name": "anon · csat_dx_session 읽기 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · csat_dx_response 읽기 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · csat_dx_snapshot 읽기 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · csat_learner_state 읽기 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "anon · csat_learner_state 쓰기 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · dx_session 직접 INSERT 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · dx_response 직접 UPDATE 거부",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "학습자 · dx_snapshot 직접 DELETE 거부",
+   "pass": true,
+   "detail": ""
+  },
   {
    "name": "dx_session.raw_score 거부",
    "pass": true,

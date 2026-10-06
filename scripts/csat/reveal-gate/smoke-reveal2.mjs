@@ -27,6 +27,17 @@ try {
   const si = await me.auth.signInWithPassword({ email, password })
   if (si.error) throw si.error
 
+  // ②b(20261006110000): anon 은 네 표 어디에도 표 권한이 없다 — 읽기 · 쓰기 모두 42501
+  const anon = createClient(URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, opt)
+  for (const t of ['csat_dx_session', 'csat_dx_response', 'csat_dx_snapshot', 'csat_learner_state']) {
+    rec(`anon · ${t} 읽기 거부`, denied(await anon.from(t).select('*').limit(1)))
+  }
+  rec('anon · csat_learner_state 쓰기 거부', denied(await anon.from('csat_learner_state').insert({ user_id: uid, record: {} })))
+  // ②b: 학습자 직접 쓰기(INSERT · UPDATE · DELETE) 권한 없음 — 앱은 service 경로로만 쓴다
+  rec('학습자 · dx_session 직접 INSERT 거부', denied(await me.from('csat_dx_session').insert({ user_id: uid, mode: 'live' })))
+  rec('학습자 · dx_response 직접 UPDATE 거부', denied(await me.from('csat_dx_response').update({ chosen_option: 1 }).eq('item_no', -1)))
+  rec('학습자 · dx_snapshot 직접 DELETE 거부', denied(await me.from('csat_dx_snapshot').delete().eq('user_id', uid)))
+
   rec('dx_session.raw_score 거부', denied(await me.from('csat_dx_session').select('raw_score').limit(1)))
   rec('dx_session.grade 거부', denied(await me.from('csat_dx_session').select('grade').limit(1)))
   rec('dx_session select * 거부', denied(await me.from('csat_dx_session').select('*').limit(1)))

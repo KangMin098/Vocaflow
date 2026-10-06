@@ -300,3 +300,19 @@ DB: `csat_ec_private.exam_answer_embargoed(exam)` · `item_answer_embargoed(item
 - **스냅샷 따라잡기**: `csat_ec_reveal_outbox` 는 service_role 권한도 없는 표(FORCE RLS)라 앱이 읽지 못한다(새 DB 객체 금지). 같은 일을 `diagnosis/reveal-sync.ts` 가 워터마크 비교로 한다 — 보류가 없을 때만, 실패해도 보류로 되돌리지 않음, 재실행 안전. outbox 를 실제로 소비하려면 서비스 RPC 가 필요하다(다음 마이그레이션 후보).
 - **관문 실패**: 판정 RPC 오류 · 시간 초과(4초) = 423 held · no-store. 로그는 `[reveal-gate] embargo`(info)와 `[reveal-gate] gate_failure`(error)로 가른다(`embargo-gate-failure.test.ts`).
 - **함수 실행 정책 마이그레이션**(`20261006100000`, 다른 세션)이 학습자 EXECUTE 11개를 회수 → manifest `revoked_by` 로 기록, canary 는 회수된 함수를 거부 기대로 본다.
+
+
+## G3 종료 (2026-10-06)
+
+개발 DB 적용: ① `20261005170000` · ② `20261005170100` · ②b `20261006110000`(②가 남긴 anon 기본 표 권한 · authenticated 쓰기 권한 회수 — RLS 로 실제 노출은 0 이었으나 기본 거부를 권한 단위로 맞춤). 앱 계층(`lib/csat/embargo-gate.ts`)과 수집 상태 전이(open · finish) 배선 포함.
+
+| 종료 기준 | 결과 |
+|---|---|
+| 표면 검사(분류 누락 · 낡은 항목 · 비밀 컬럼 · 비공개 스키마 · 번들 정적) | 0건 |
+| 네 표(dx_session · dx_response · dx_snapshot · learner_state) anon 표 권한 · authenticated 금지 쓰기 권한 | 0 · 0 |
+| ② 가 남긴 학습자 읽기 컬럼 | 정상(실제 API 스모크 22/22 — WHERE · ORDER BY 오라클 우회 거부 포함) |
+| canary(production · --app · --bundle) | 392 PASS · 0 FAIL — leak 0 · oracle 0 · 참가자/비참가자 회귀 0 |
+| Pilot 스모크 | capture 42 · pilot 104 · seed 12 |
+| Security Advisor | 새 ERROR 0 |
+
+**알려진 제한(P2 · 비차단)**: Snapshot correction is eventual, based on app-side reference-time comparison rather than a DB outbox; immediate snapshot consistency is not guaranteed. — 공개 전이 뒤 스냅샷 보정은 DB outbox 가 아니라 앱의 기준 시각 비교(`diagnosis/reveal-sync.ts`)로 나중에 맞춰진다. 「항상 즉시 일관된 스냅샷」을 보장하지 않는다. 그 밖의 리뷰 P2 6건은 Track B 보고에 기록.
