@@ -7,7 +7,7 @@ import pg from 'pg'
 import { verifiedDbConfig } from '../tls-config.mjs'
 import {EventEmitter} from 'node:events'
 import {watchLiveDb} from '../live-db-watch.mjs'
-import {graphQLScope,graphQLResponse} from '../graphql-probe.mjs'
+import {graphQLScope,graphQLResponse,graphQLCollection} from '../graphql-probe.mjs'
 
 test('live DB disconnects and heartbeat failures remain captured through cleanup',async()=>{
   const client=new EventEmitter(),failures=[];let tick,stopped=false
@@ -27,6 +27,9 @@ test('GraphQL targets owned fixture keys and never counts invalid transport as z
   for(const response of [new Response('<html>upstream unavailable</html>',{status:503}),new Response('{}'),new Response('[]')])assert.ok((await graphQLResponse(async()=>response,'https://example.test',{})).errors)
   assert.ok((await graphQLResponse(async()=>{throw Error('reset')},'https://example.test',{})).errors)
   assert.deepEqual(await graphQLResponse(async()=>new Response('{"data":{"ok":true}}'),'https://example.test',{}),{data:{ok:true}})
+  for(const response of [{data:{}},{data:{items:null}},{data:{items:{edges:null}}},{data:{items:{edges:[{node:null}]}}},{data:{items:{edges:[{node:{}}]}}}])assert.ok(graphQLCollection(response,'items',['id']).errors)
+  assert.deepEqual(graphQLCollection({data:{items:{edges:[]}}},'items',['id']),{data:{items:{edges:[]}}})
+  assert.deepEqual(graphQLCollection({data:{items:{edges:[{node:{id:'owned'}}]}}},'items',['id']),{data:{items:{edges:[{node:{id:'owned'}}]}}})
 })
 
 test('live PostgreSQL parsing cannot replace verified TLS with URL options',()=>{

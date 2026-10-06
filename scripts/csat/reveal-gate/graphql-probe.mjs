@@ -13,3 +13,9 @@ export async function graphQLResponse(fetchImpl,url,options) {
     return body
   }catch{return{errors:[{message:'GraphQL transport failed'}]}}
 }
+export function graphQLCollection(response,name,fields) {
+  if(response?.errors)return response
+  const edges=response?.data?.[name]?.edges
+  if(!Array.isArray(edges)||edges.some(edge=>!edge||!edge.node||typeof edge.node!=='object'||Array.isArray(edge.node)||fields.some(field=>!Object.hasOwn(edge.node,field))))return{errors:[{message:'GraphQL collection schema was not verified'}]}
+  return response
+}

@@ -20,7 +20,7 @@ import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import { verifiedDbConfig } from './tls-config.mjs'
 import { watchLiveDb } from './live-db-watch.mjs'
-import { graphQLScope,graphQLResponse } from './graphql-probe.mjs'
+import { graphQLScope,graphQLResponse,graphQLCollection } from './graphql-probe.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const REPO = path.resolve(HERE, '../../..')
@@ -171,7 +171,7 @@ try {
       const scalars = (nodeType?.fields ?? []).filter((f) => ['SCALAR', 'ENUM'].includes(f.type.kind) || ['SCALAR', 'ENUM'].includes(f.type.ofType?.kind)).map((f) => f.name)
       if (!scalars.length) { record('canary', `${who} · GraphQL ${col.name} — 필드 수집 실패(검사 미실행)`, false, conn.errors?.[0]?.message); continue }
       const scope=graphQLScope(scalars,{exam:EXAM,itemIds:NOS.map(n=>`${EXAM}#${n}`),type:TYPE,sessionIds:Object.values(sid),userIds:[users.P.id,users.N.id]})
-      const res = await gq(`{ ${col.name}(${scope.args}) { edges { node { ${scalars.join(' ')} } } } }`)
+      const res = graphQLCollection(await gq(`{ ${col.name}(${scope.args}) { edges { node { ${scalars.join(' ')} } } } }`),col.name,scalars)
       const nodes = (res.data?.[col.name]?.edges ?? []).map((e) => e.node)
       const sensitive = Object.values(manifest.db_relations).flatMap((v) => v.sensitive_columns ?? [])
       const tests = nodes.filter((n) => JSON.stringify(n).includes(EXAM))
