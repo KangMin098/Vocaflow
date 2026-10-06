@@ -8,6 +8,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { EngineInput, EngineSettings } from '../../diagnosis/engine/types'
 import { mapEvidenceFor } from '../evidence'
 
+// 보류 판정(embargo-gate)은 service role RPC — 여기서는 보류 없음으로 둔다(판정 자체는 embargo-gate.test.ts)
+vi.mock('../../embargo-gate', () => ({ embargoedExamIds: async () => new Set<string>() }))
+
 type Resp = { data: unknown; error: { message: string; code?: string } | null }
 
 /** 표 이름별 응답을 돌려주는 가짜 클라이언트(체인은 전부 같은 응답으로 끝난다) */

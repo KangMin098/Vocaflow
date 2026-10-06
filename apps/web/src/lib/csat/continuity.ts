@@ -204,3 +204,20 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
     (a.active?.items.join(',') ?? '') === (b.active?.items.join(',') ?? '')
   )
 }
+
+/**
+ * Reveal Gate — 정오가 실린 칸(예측 `hit` · 초안 `answers[].hit`)의 문항 id. 서버가 보류 판정에 넘긴다.
+ * 완료 · 열람 · 진행 중 세트는 정오를 싣지 않으므로 대상이 아니다.
+ */
+export function correctnessItemIds(record: DissectionRecord): string[] {
+  return [...new Set([...record.predictions.map((p) => p.item), ...Object.keys(record.drafts ?? {})])]
+}
+
+/**
+ * Reveal Gate — 보류 시험 문항의 정오 칸을 뺀 사본(순수). `/api/csat/state` GET 이 내보내기 직전에 쓴다.
+ * 서버 사본은 그대로 둔다 — PUT 의 병합은 합집합이라 뺀 채로 돌아와도 서버의 항목이 지워지지 않는다(`mergeDissection`).
+ */
+export function withoutHeldCorrectness(record: DissectionRecord, isHeld: (itemId: string) => boolean): DissectionRecord {
+  const drafts = record.drafts ? Object.fromEntries(Object.entries(record.drafts).filter(([id]) => !isHeld(id))) : undefined
+  return { ...record, predictions: record.predictions.filter((p) => !isHeld(p.item)), ...(drafts ? { drafts } : {}) }
+}

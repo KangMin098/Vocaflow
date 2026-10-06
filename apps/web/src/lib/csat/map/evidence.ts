@@ -9,6 +9,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { selectByChunks, selectSmall } from '../diagnosis/fetch'
+import { embargoedExamIds } from '../embargo-gate'
 import { computeMapEvidence, type MapEvidence, type MapLineInput } from '../diagnosis/engine/map-evidence'
 import type { EngineInput } from '../diagnosis/engine/types'
 
@@ -24,6 +25,9 @@ export async function mapEvidenceFor(
   input: EngineInput,
 ): Promise<{ status: MapEvidenceStatus; evidence: MapEvidence | null }> {
   try {
+    // Reveal Gate — 입력(buildInput)은 이미 보류 시험 기록을 뺐다. 그래도 섞였으면 정오 파생 지표를 계산하지 않는다(embargo-gate · 판정 실패도 보류)
+    const sessionExams = input.sessions.map((s) => s.examId).filter((x): x is string => Boolean(x))
+    if ((await embargoedExamIds(sessionExams)).size > 0) return { status: 'off', evidence: null }
     // 게이트 — 오류를 0 으로 삼키지 않는다: 테이블 없음(미설치)과 그 밖의 오류를 가른다
     const probe = await db.from('csat_map_line_link').select('line_code').limit(1)
     if (probe.error) {

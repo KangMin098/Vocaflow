@@ -10,7 +10,10 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
+import { canRevealExam, embargoedExamIds } from '../embargo-gate'
+import { EC_PILOT } from '../ec-pilot/config'
 import { mapEvidenceFor } from '../map/evidence'
+import { recordQuality } from './engine/record-quality'
 import { selectByChunks, selectSmall } from './fetch'
 
 import { ruleEngineV1 } from './engine/rule-v1'
@@ -170,7 +173,7 @@ export async function loadSessions(db: Db, userId: string): Promise<SessionIn[]>
  * 동시에 두 기록이 저장돼 계산이 엇갈려도 **더 많은 기록을 본 스냅샷**이 최신으로 정렬된다.
  */
 export async function loadSessionsWithWatermark(db: Db, userId: string): Promise<{ sessions: SessionIn[]; watermark: string | null }> {
-  const sessions = (
+  const sessionsAll = (
     await keysetSelect<SessionRow, string>(
       (cursor, limit) => {
         const q = db.from('csat_dx_session').select('id, exam_id, mode, taken_at, raw_score, created_at').eq('user_id', userId).order('id').limit(limit)
@@ -180,6 +183,9 @@ export async function loadSessionsWithWatermark(db: Db, userId: string): Promise
       'csat_dx_session',
     )
   ).sort((a, b) => a.taken_at.localeCompare(b.taken_at) || a.created_at.localeCompare(b.created_at) || a.id.localeCompare(b.id))
+  // Reveal Gate — 보류 시험(오답 원인 Pilot 수집 중)의 기록은 진단 입력에서 뺀다. 스냅샷 · 지도가 그 정오 · 점수를 품지 않게(판정 실패면 전부 보류)
+  const held = await embargoedExamIds(sessionsAll.map((s) => s.exam_id).filter((x): x is string => Boolean(x)))
+  const sessions = sessionsAll.filter((s) => !s.exam_id || !held.has(s.exam_id))
   // 세션당 응답 ≤ 45행 → 20세션 묶음이면 900행
   const responses = await selectByChunks<ResponseRow>(
     sessions.map((s) => s.id),
@@ -317,12 +323,23 @@ export interface ExamSubmission {
   enteredBy: 'learner' | 'admin'
   choices: Record<number, number | null>
   flags: Record<number, ResponseConfidence>
+  /** 오답 원인 Pilot 참가자(설정 · taxonomy 관문 통과 — ec-pilot/server pilotOpen). 아니어도 그 시험에 활성 capture 가 있으면 DB 가 보류 행을 만든다 */
+  participant?: boolean
 }
 
 export class SubmissionError extends Error {}
 
-/** 시험 기록 한 회를 채점해 저장하고 스냅샷을 쌓는다 */
-export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date) {
+/** 저장 결과. held 면 점수 · 등급 · 틀린 문항을 싣지 않는다(Reveal Gate — 요청자 무관 시험 보류 포함) */
+export type SubmitResult =
+  | { held: false; sessionId: string; raw: number; grade: number | null; ready: boolean; snapshotId: string; wrong: number[] }
+  | { held: true; sessionId: string; ready: boolean; snapshotId: string }
+
+/**
+ * 시험 기록 한 회를 채점해 저장하고 스냅샷을 쌓는다.
+ * 저장은 **단일 진입** `csat_ec_record_session_held`(서비스) — 기록 저장과 보류(capture) 행 생성이 한 트랜잭션이다.
+ * 결과(점수 · 정오)는 embargo-gate 를 지난 뒤에만 읽는다.
+ */
+export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date): Promise<SubmitResult> {
   const exams = await loadExams(db, [sub.examId])
   const exam = exams[sub.examId]
   if (!exam) throw new SubmissionError('없는 시험이다')
@@ -337,7 +354,16 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date) 
     is_correct: a.isCorrect,
     confidence: a.confidence,
   }))
-  const { data: sessionId, error } = await db.rpc('csat_dx_record_session', {
+  // 봉인 대상 = 정오 무관(고른 답이 있고 문항 id 가 있는 번호 전부). 증거 적격 = 기록 품질 trusted(정오를 보지 않는다)
+  //   표 제약(evidence_eligible or 대상 0)에 맞춰 적격이 아니면 대상을 비운다 — 보류 행은 그래도 생긴다
+  const evidenceEligible = recordQuality(responses.map((r) => ({ no: r.item_no, chosen: r.chosen_option }))).status === 'trusted'
+  const targets = evidenceEligible ? responses.filter((r) => r.item_id && r.chosen_option !== null).map((r) => r.item_no) : []
+  const { data: saved0, error } = await db.rpc('csat_ec_record_session_held', {
+    p_participant: sub.participant === true,
+    p_taxonomy: EC_PILOT.taxonomyVersion,
+    p_config: { probe_cap: EC_PILOT.probeCapPerSession, correct_controls: EC_PILOT.correctControls, entered_by: sub.enteredBy },
+    p_targets: targets,
+    p_evidence_eligible: evidenceEligible,
     p_session: {
       user_id: sub.userId,
       exam_id: sub.examId,
@@ -351,16 +377,29 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date) 
     },
     p_responses: responses,
   })
-  if (error) throw new Error(`기록 저장 실패: ${error.message}`)
+  if (error) {
+    if (error.message.includes('같은 기록 키로')) throw new SubmissionError('이 기록은 이미 다른 내용으로 저장됐어요. 「새 기록 입력」으로 다시 넣어 주세요')
+    throw new Error(`기록 저장 실패: ${error.message}`)
+  }
+  const sessionId = (saved0 as { session_id?: string } | null)?.session_id
+  if (!sessionId) throw new Error('기록 저장 실패: 세션 id 가 없다')
   // 같은 clientKey 재전송이면 RPC 는 처음 저장한 세션을 돌려준다 — 이번 요청의 채점이 아니라 저장된 값을 답한다
-  const { data: saved, error: se } = await db.from('csat_dx_session').select('raw_score, grade, exam_id, mode, taken_at').eq('id', sessionId as string).single()
+  const { data: saved, error: se } = await db.from('csat_dx_session').select('exam_id, mode, taken_at').eq('id', sessionId).single()
   if (se) throw new Error(`저장 확인 실패: ${se.message}`)
-  await assertSameSubmission(db, sessionId as string, responses, saved.exam_id === sub.examId && saved.mode === sub.mode && saved.taken_at === sub.takenAt)
-  const snapshot = await snapshotForSession(db, sub.userId, sessionId as string, now)
-  const { data: wrongRows, error: we } = await db.from('csat_dx_response').select('item_no').eq('session_id', sessionId as string).eq('is_correct', false)
+  await assertSameSubmission(db, sessionId, responses, saved.exam_id === sub.examId && saved.mode === sub.mode && saved.taken_at === sub.takenAt)
+  const snapshot = await snapshotForSession(db, sub.userId, sessionId, now)
+  // Reveal Gate — 이 기록이 보류(capture)이거나 그 시험이 보류(요청자 무관)면 점수 · 정오를 읽지 않고 돌려준다
+  if ((saved0 as { held?: boolean }).held === true || !(await canRevealExam(sub.examId))) {
+    return { held: true, sessionId, ready: exam.ready, snapshotId: snapshot.id }
+  }
+  const [{ data: score, error: ge }, { data: wrongRows, error: we }] = await Promise.all([
+    db.from('csat_dx_session').select('raw_score, grade').eq('id', sessionId).single(),
+    db.from('csat_dx_response').select('item_no').eq('session_id', sessionId).eq('is_correct', false),
+  ])
+  if (ge) throw new Error(`저장 확인 실패: ${ge.message}`)
   if (we) throw new Error(`오답 조회 실패: ${we.message}`)
   const wrong = (wrongRows ?? []).map((r) => r.item_no as number).sort((x, y) => x - y)
-  return { sessionId: sessionId as string, raw: saved.raw_score as number, grade: saved.grade as number | null, ready: exam.ready, snapshotId: snapshot.id, wrong }
+  return { held: false, sessionId, raw: score.raw_score as number, grade: score.grade as number | null, ready: exam.ready, snapshotId: snapshot.id, wrong }
 }
 
 /**

@@ -24,9 +24,14 @@ export async function POST(req: Request) {
   const body = parseExamPayload(await readJson(req), todayKst(now))
   if (!body) return NextResponse.json({ error: '입력 형식이 맞지 않아요' }, { status: 400 })
   try {
-    const out = await submitExamSession(ctx.db, { ...body, userId: ctx.userId, enteredBy: 'learner' }, now)
-    if (await pilotOpen(ctx.userId)) return NextResponse.json({ sessionId: out.sessionId, ready: out.ready, held: true })
-    return NextResponse.json(out)
+    const participant = await pilotOpen(ctx.userId)
+    const out = await submitExamSession(ctx.db, { ...body, userId: ctx.userId, enteredBy: 'learner', participant }, now)
+    // 보류(참가자 capture 또는 그 시험의 요청자 무관 보류 — embargo-gate 판정은 submitExamSession 안)면 결과 없이
+    if (out.held) return NextResponse.json({ sessionId: out.sessionId, ready: out.ready, held: true }, { headers: { 'cache-control': 'no-store' } })
+    return NextResponse.json(
+      { sessionId: out.sessionId, raw: out.raw, grade: out.grade, ready: out.ready, snapshotId: out.snapshotId, wrong: out.wrong },
+      { headers: { 'cache-control': 'no-store' } },
+    )
   } catch (e) {
     return failure(e)
   }

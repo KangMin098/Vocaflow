@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): **Reveal Gate 앱 계층** — 단일 관문 `lib/csat/embargo-gate.ts`(fail-closed · 423 계약)로 정답 민감 · 정오 로더 15개 라우팅(8개는 관리자 전용으로 재분류), 진단 저장 단일 진입 `csat_ec_record_session_held`, 홈 카드 · `/api/csat/state` 서버 경로(② 적용 전제 충족), 정적 가드 테스트 · canary `--app`(400/400) · `--bundle` 추가. ② 미적용
 - feat(csat): **Pilot evidence capture infrastructure implemented and verified in development**(실제 Pilot 미시작) — 마이그레이션 `20261005150000_csat_ec_capture_support` 개발 DB 적용(interpretation 3상태 · 확인/증거 재전송 멱등 · probe 세션 상한 RPC · 본인 유효 증거 RPC · 이벤트 2종 + 목록 preflight). 참가자 수집 화면 `?tab=records&capture=` · API 6개. 격리 PG 300/300 · rollback 12/12 · 개발 Supabase smoke 42/42 · 브라우저 e2e 2/2(참가자 · 비참가자) · Advisor ERROR 0. Pilot 전 blocker: 결과 · 해설 서버 측 보류, 경계 탐지기
 - feat(csat): 오답 원인 **v0.1 conditional seed 개발 DB 적용**(사용자 조건부 승인) — E 축 학생 범주 확정(evidence_location→evidence · task_misread · option_mismatch→choice, 학생 범주 ≠ 원인 라벨, ERROR_EVIDENCE_DESIGN §7 superseded) · validate 32/32 · dry-run 16/16 · apply 예상 write 그대로(버전 1 · 코드 19 · 경계 1 · 봉인) · 해시 303e5140… · 봉인 뒤 변경 5종 거부 · seed smoke 12/12 · Advisor ERROR 0. 사전 등록 결과 FAIL 유지 · UI · Pilot 없음
 - feat(csat): v0.1 conditional seed 입력 · 검증 준비(**DB 미적용**) — 정본(CODEBOOK.rev4.2 · 결정 JSON)에서 행 생성 `seed/build-seed.mjs` · 정적 검증 30/30(미결 1: E 축 학생 범주) · 개발 DB 트랜잭션 dry-run 16/16(ROLLBACK 뒤 diff 0 · 봉인 해시 303e5140…). TEST taxonomy v99.0 · v99.1 은 개발 DB 상시 fixture(유지). baseline 명시: 회차 intact=false 는 적용 전부터 · row-write 143 · REFLOW_VERSION 6. `SEED_DRYRUN.md`

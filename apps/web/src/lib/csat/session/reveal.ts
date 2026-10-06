@@ -9,10 +9,11 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { assertRevealAllowed, RevealHeldError } from '@/lib/csat/embargo-gate'
 import { loadCsatItemExplain } from '@/lib/csat/learner'
 import { lectureMeta } from '@/lib/csat/lecture/store'
 import type { AnchorOrigin } from '@/lib/csat/passage-skeleton'
-import { loadItemSkeleton, primeLearnerHakpyeongSkeletons } from '@/lib/csat/skeleton'
+import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons } from '@/lib/csat/skeleton'
 import { createClient } from '@/lib/supabase/server'
 
 import { firstSentences, oneLiner } from './text'
@@ -51,8 +52,11 @@ export interface RevealPayload {
   lecture: { sec: number; cues: number } | null
 }
 
+/** ⚠️ 보류 시험 문항이면 데이터를 읽기 **전에** RevealHeldError 를 던진다(embargo-gate) — 라우트가 423 으로 바꾼다 */
 export async function loadReveal(itemId: string): Promise<{ payload: RevealPayload | null; error: string | null }> {
-  const { item, error } = await loadCsatItemExplain(itemId)
+  await assertRevealAllowed({ itemId })
+  const { item, error, held } = await loadCsatItemExplain(itemId)
+  if (held) throw new RevealHeldError()
   if (error) return { payload: null, error }
   if (!item) return { payload: null, error: null }
 
@@ -72,7 +76,7 @@ export async function loadReveal(itemId: string): Promise<{ payload: RevealPaylo
   }
 
   await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
-  const sk = loadItemSkeleton(item.id)
+  const sk = await loadRevealedSkeleton(item.id)
   const skeleton = sk
     ? {
         sentences: sk.sentences.map((s) => s.chars),

@@ -17,6 +17,7 @@ import path from 'node:path'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { canRevealItem, isItemHeld, type RevealScope } from './embargo-gate'
 import { HAKPYEONG_ID_PREFIX } from './exam-id'
 import type { AnchorOrigin, SkeletonSentence } from './passage-skeleton'
 
@@ -200,4 +201,18 @@ export function skeletonExamMeta(): { exam_id: string; label: string; items: num
     label: loadExam(e.exam_id)?.exam_label ?? e.exam_id,
     items: e.items,
   }))
+}
+
+// ── Reveal Gate — 메모리 캐시(커밋 파일 · 학평 prime) 뒤에서 요청마다 거른다 ─────────
+// 골격의 앵커 · 인용은 정답 근거다. 캐시는 원본 그대로 두고, 학습자에게 내보낼 때는 아래 둘을 지난다(embargo-gate).
+
+/** 한 문항 골격 — 보류 시험 문항(판정 실패 포함)이면 null */
+export async function loadRevealedSkeleton(itemId: string): Promise<ItemSkeleton | null> {
+  if (!(await canRevealItem(itemId))) return null
+  return loadItemSkeleton(itemId)
+}
+
+/** 같은 유형의 골격 보유 문항 — 이번 요청의 보류 범위(`loadRevealScope`)에 든 문항을 뺀다 */
+export function revealedSkeletonSiblings(typeId: string, scope: RevealScope): SkeletonSibling[] {
+  return skeletonSiblings(typeId).filter((s) => !isItemHeld(scope, s.id))
 }
