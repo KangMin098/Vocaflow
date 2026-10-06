@@ -210,6 +210,7 @@ export function workflowState({ protocol, snapshot, decision, current } = {}) {
   if (!protocol || protocol.status !== 'sealed') return 'draft'
   validateProtocol(protocol)
   if (!snapshot) return 'sealed'
+  if (decision && (decision.benchmark_version !== protocol.version || decision.benchmark_snapshot_hash !== snapshot.snapshot_hash)) return 'stale'
   if (decision && verifyDecision(decision, current ?? {}).status === 'stale') return 'stale'
   try { verifySnapshot(snapshot, protocol) } catch (error) {
     if (error.message === 'BENCHMARK_STALE') return 'stale'

@@ -262,5 +262,19 @@ test('CLI verify-decision reports a benchmark revision as STALE', () => {
     const result = spawnSync(process.execPath, [fileURLToPath(new URL('./benchmark-run.mjs', import.meta.url)), 'verify-decision', paths[0], paths[1], paths[2], directory, paths[3]], { encoding: 'utf8' })
     assert.equal(result.status, 1)
     assert.equal(result.stdout.trim(), 'STALE')
+    writeFileSync(paths[0], JSON.stringify(protocol()))
+    const staleSeal = spawnSync(process.execPath, [fileURLToPath(new URL('./benchmark-run.mjs', import.meta.url)), 'verify-decision', paths[0], paths[1], paths[2], directory, paths[3]], { encoding: 'utf8' })
+    assert.equal(staleSeal.status, 1)
+    assert.equal(staleSeal.stdout.trim(), 'STALE')
   } finally { rmSync(directory, { recursive: true, force: true }) }
+})
+
+test('workflow checks decision against supplied snapshot even with an old current pointer', () => {
+  const p = protocol(), rows = samples(p), oldSnapshot = buildBenchmark(p, rows), f = f02()
+  const decision = judgeBenchmark({ protocol: p, snapshot: oldSnapshot, samples: rows, f02: f, e3: e3(f) })
+  rows[0].metrics.lexical += 1
+  resealRows(rows)
+  const newSnapshot = buildBenchmark(p, rows)
+  const oldCurrent = { benchmark_version: p.version, benchmark_snapshot_hash: oldSnapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: 'fixture-run', e3_evidence_hash: H('fixture-e3-audit-files') }
+  assert.equal(workflowState({ protocol: p, snapshot: newSnapshot, decision, current: oldCurrent }), 'stale')
 })
