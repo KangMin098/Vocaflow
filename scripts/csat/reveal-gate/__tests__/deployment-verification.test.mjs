@@ -3,6 +3,16 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { permissionDiff,dbPreflight,permanentPermissionIssues } from '../db-preflight.mjs'
 import { validateLiveReceipt,securityAdvisor,checkpointIssues } from '../live-verification.mjs'
+import pg from 'pg'
+import { verifiedDbConfig } from '../tls-config.mjs'
+
+test('live PostgreSQL parsing cannot replace verified TLS with URL options',()=>{
+  const client=new pg.Client(verifiedDbConfig('postgresql://test:test@localhost/test?sslmode=no-verify&sslrootcert=ignored&uselibpqcompat=true','test-only-ca'))
+  assert.equal(client.connectionParameters.ssl.rejectUnauthorized,true)
+  assert.equal(client.connectionParameters.ssl.ca,'test-only-ca')
+  assert.equal(new URL(verifiedDbConfig('postgresql://localhost/test?sslmode=disable').connectionString).searchParams.has('sslmode'),false)
+  assert.equal(verifiedDbConfig('postgresql://localhost/test').ssl.rejectUnauthorized,true)
+})
 test('permission comparison covers policies, function ACL/body, and unordered keys',()=>{
   const before={permissions:[{object:'t',column:'answer',role:'anon',allowed:false}],policies:[{tablename:'t',policyname:'p',qual:'false'}],functions:[{signature:'f()',role:'anon',allowed:false,definition_hash:'a'}]}
   const same={...before,permissions:[{allowed:false,role:'anon',column:'answer',object:'t'}]}

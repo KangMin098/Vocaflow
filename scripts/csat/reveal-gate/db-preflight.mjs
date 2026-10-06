@@ -4,6 +4,7 @@ import pg from 'pg'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
+import { verifiedDbConfig } from './tls-config.mjs'
 const canonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b))):v)
 const snapshotHash = value => createHash('sha256').update(canonical(value)).digest('hex')
 // The permanent learner revocations in 20261005170100 are deployment requirements,
@@ -31,7 +32,7 @@ export async function dbPreflight(repo,manifest,env,{before=null,expectedDiff=[]
   const missing=required.filter(k=>!env[k])
   if(missing.length)return{status:'BLOCKED',reason:'missing_credentials',missing}
   if(!env.NEXT_PUBLIC_SUPABASE_URL.includes('jajenrevcbmrpaliomxv')||!env.SUPABASE_DB_URL.includes('jajenrevcbmrpaliomxv'))return{status:'BLOCKED',reason:'not_development_project'}
-  const client=new pg.Client({connectionString:env.SUPABASE_DB_URL,ssl:{rejectUnauthorized:true,...(env.SUPABASE_DB_CA_CERT?{ca:env.SUPABASE_DB_CA_CERT}:{})},statement_timeout:15000})
+  const client=new pg.Client({...verifiedDbConfig(env.SUPABASE_DB_URL,env.SUPABASE_DB_CA_CERT),statement_timeout:15000})
   try{
     await client.connect();await client.query('begin read only')
     const relations=Object.keys(manifest.db_relations)

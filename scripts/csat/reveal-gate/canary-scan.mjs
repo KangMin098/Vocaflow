@@ -18,6 +18,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
+import { verifiedDbConfig } from './tls-config.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const REPO = path.resolve(HERE, '../../..')
@@ -41,7 +42,7 @@ const NOS = [18, 19, 20, 21, 22]
 const results = []
 const record = (area, name, ok, detail) => { results.push({ area, name, ok: !!ok, ...(detail === undefined ? {} : { detail }) }); console.log(`${ok ? 'PASS' : 'FAIL'}  [${area}] ${name}${!ok && detail !== undefined ? ` — ${JSON.stringify(detail).slice(0, 300)}` : ''}`) }
 const opt = { auth: { persistSession: false, autoRefreshToken: false } }
-const db = new pg.Client({ connectionString: DB_URL, ssl: { rejectUnauthorized: false } })
+const db = new pg.Client(verifiedDbConfig(DB_URL, process.env.SUPABASE_DB_CA_CERT))
 await db.connect()
 const svc = createClient(URL_, SERVICE, opt)
 const anonClient = createClient(URL_, ANON, opt)

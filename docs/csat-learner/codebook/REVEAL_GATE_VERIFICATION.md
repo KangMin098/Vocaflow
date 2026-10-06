@@ -43,4 +43,6 @@ Live prerequisites rechecked on 2026-10-06: the Node DB connection rejected an u
 
 On a fresh checkout, merge verification materializes the app's existing ignored ONNX assets before freezing the classification/build source fingerprint. The preparation script is included in verifier hashes. Subsequent source or asset changes during verification still block attestation.
 
+DB deployment follow-up found and removed a legacy TLS exception inside the live canary. Every CLI DB connection now uses `verifiedDbConfig`: CA/hostname verification remains enabled, and URL SSL parameters cannot replace the explicit TLS configuration. A parsing regression and actual authorized TLS socket verify this boundary. The deployment manifest remains separate and references the closed code manifest; new code defects reopen only their affected gate.
+
 Reruns are safe for PR/merge and isolated SQL. A per-worktree process lock prevents overlapping verification phases from invalidating shared receipts/build output. Avoid concurrent live canaries across worktrees because the inherited live fixture uses the fixed TEST exam `M2099`. Production builds and DB reports are separate from source-origin Books experiments. Configure the GitHub Reveal Gate verification check as a required branch-protection status before relying on it to prevent merges.

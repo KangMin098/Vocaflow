@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(csat): DB deployment 검증에서 live canary의 TLS 검증 예외 제거, URL SSL 옵션의 검증 설정 덮어쓰기 차단.
 - feat(csat): Reveal Gate verification command and CI: AST loader/function classification, client/bundle content mutations, real-route fault/oracle tests, paging base diff, isolated SQL transitions and explicit live DB deployment gates. Malformed RPC arrays fail closed; deployment checks never apply live SQL. See `docs/csat-learner/codebook/REVEAL_GATE_VERIFICATION.md`.
 - fix(csat): Reveal Gate G3 후속 — ec-pilot 수집 대상 정오 독립(봉인 대상) · trap-atlas 예시의 정답 민감 부분을 서버 전용 파일로(번들 검사 2종 0) · 관문 실패 = 423 + 로그 분리 · 공개 뒤 스냅샷 따라잡기(reveal-sync) · OFFSET 예산 207→208(canary 검사기, 분기점부터)
 - feat(csat): **Reveal Gate 앱 계층** — 단일 관문 `lib/csat/embargo-gate.ts`(fail-closed · 423 계약)로 정답 민감 · 정오 로더 15개 라우팅(8개는 관리자 전용으로 재분류), 진단 저장 단일 진입 `csat_ec_record_session_held`, 홈 카드 · `/api/csat/state` 서버 경로(② 적용 전제 충족), 정적 가드 테스트 · canary `--app`(400/400) · `--bundle` 추가. ② 미적용

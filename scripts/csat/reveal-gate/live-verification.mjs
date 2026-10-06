@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { randomUUID,createHash } from 'node:crypto'
 import pg from 'pg'
+import { verifiedDbConfig } from './tls-config.mjs'
 export function validateLiveReceipt(receipt,previousHash,currentHash) {
   if(!receipt||!currentHash||currentHash===previousHash||!Array.isArray(receipt.results)||!receipt.results.length||receipt.pass!==receipt.results.length||receipt.fail!==0||receipt.results.some(r=>r.ok!==true))return{ok:false,reason:'stale_or_failed_canary'}
   if(receipt.results.some(r=>['canary','rpc','oracle','app','bundle','정리'].includes(r.area)&&/생략|미실행|미검사|수집 실패|fixture 없음/.test(r.name??'')))return{ok:false,reason:'required_live_check_skipped'}
@@ -35,7 +36,7 @@ export async function liveCanary(repo,env,app,run,{maxActive=3,runtimeVerified=f
   const required=['SUPABASE_DB_URL','NEXT_PUBLIC_SUPABASE_URL','NEXT_PUBLIC_SUPABASE_ANON_KEY','SUPABASE_SERVICE_ROLE_KEY']
   if(required.some(k=>!env[k])||!env.SUPABASE_DB_URL.includes('jajenrevcbmrpaliomxv')||!env.NEXT_PUBLIC_SUPABASE_URL.includes('jajenrevcbmrpaliomxv'))return{ok:false,reason:'missing_dev_credentials'}
   if(!fs.existsSync(path.join(repo,'apps/web/.next/static')))return{ok:false,reason:'missing_production_build'}
-  const client=new pg.Client({connectionString:env.SUPABASE_DB_URL,ssl:{rejectUnauthorized:true,...(env.SUPABASE_DB_CA_CERT?{ca:env.SUPABASE_DB_CA_CERT}:{})},statement_timeout:20000})
+  const client=new pg.Client({...verifiedDbConfig(env.SUPABASE_DB_URL,env.SUPABASE_DB_CA_CERT),statement_timeout:20000})
   const label='reveal-verify-'+randomUUID(),file=path.join(repo,'scripts/csat/reveal-gate/results-canary.json')
   const hash=()=>fs.existsSync(file)?createHash('sha256').update(fs.readFileSync(file)).digest('hex'):null
   let before=false,result={ok:false,reason:'not_executed'}
