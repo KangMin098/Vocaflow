@@ -14,6 +14,8 @@
 
 import { describe, expect, it } from 'vitest'
 
+import DETAIL from '../trap-atlas-examples.json'
+
 import { ATLAS_TYPES, TRAPS, UNIVERSAL_MIN_TYPES } from '../trap-atlas'
 import {
   EMPTY_SPACE_FILTER,
@@ -161,7 +163,7 @@ describe('작업 공간 — 펼친 줄', () => {
 
 describe('작업 공간 — 지문은 이 화면에 오지 않는다', () => {
   it('줄과 카드 어디에도 예시의 인용문이 실리지 않는다', () => {
-    const quotes = TRAPS.flatMap((trap) => trap.examples.flatMap((e) => [e.tempting, e.reject]))
+    const quotes = Object.values((DETAIL as { traps: Record<string, { tempting: string; reject: string }[]> }).traps).flat().flatMap((e) => [e.tempting, e.reject])
       .map((s) => s.trim())
       .filter((s) => s.length > 12)
     const surface = [...types, ...traps]
