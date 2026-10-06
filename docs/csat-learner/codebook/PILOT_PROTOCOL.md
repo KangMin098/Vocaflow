@@ -1,21 +1,21 @@
 # 오답 원인 Pilot 프로토콜 — G5 (v0.1 operational pilot)
 
-> 2026-10-06 초안 · **승인 전 · 실제 Pilot 미시작**. G1~G4 는 완료 상태로 고정한다(함수 권한 · Reveal Gate · 경계 감지기 — DB/UI/Reveal Gate/Detector 구조는 새 증거 없이 바꾸지 않는다).
-> 이 문서가 승인돼야 G6(실제 Pilot)을 시작한다. 근거 자료: `PILOT_DATA_MODEL.md` · `PILOT_SEED_DESIGN.md` · `REVEAL_GATE_DESIGN.md`(§G3 종료) · `BOUNDARY_DETECTOR_DESIGN.md`(§G4 종료).
+> **2026-10-06 승인(조건부 수정 반영) · 실제 Pilot 미시작.** G1~G4 는 완료 상태로 고정한다(함수 권한 · Reveal Gate · 경계 감지기 — DB/UI/Reveal Gate/Detector 구조는 새 증거 없이 바꾸지 않는다).
+> G6(실제 Pilot)은 §20 체크리스트를 마치고 **별도 시작 승인**을 받은 뒤에 연다. 근거 자료: `PILOT_DATA_MODEL.md` · `PILOT_SEED_DESIGN.md` · `REVEAL_GATE_DESIGN.md`(§G3 종료) · `BOUNDARY_DETECTOR_DESIGN.md`(§G4 종료).
 > 상태 표현은 끝까지 **「v0.1 operational pilot evidence」** 로 제한한다.
 
-## 0. 승인할 결정 (A–H)
+## 0. 승인된 결정 (A–H · 2026-10-06)
 
-| | 결정(제안) | 근거 |
-|---|---|---|
-| **A. 참가자 수** | 1차 run **5명**(최소 3명 · 최대 8명). 영어 수준이 한쪽으로 몰리지 않게 모집하되 점수대 분포를 강제하지 않는다 | 통계 검증이 아니라 실제 학생 증거가 들어올 때 파이프라인이 도는지 보는 단계 |
-| **B. 시험 회차** | 평가원(kice · 고3) **2회차** 고정 — 참가자가 **아직 풀지 않은** 회차를 사전 설문으로 고른다(후보: 2023~2024 6·9월 · 수능). 독해 28문항(18–45번) · 정답표 · 원문은 DB 실측으로 모두 있음 | 이미 푼 회차는 「처음 읽은 해석」이 아니라 기억이 들어가 증거가 오염된다. `took_exam` 확인 질문이 보조 관문 |
-| **C. probe 상한** | attempt 당 같은 probe **1회**(현재 구현) · 세션당 **3회**(`probeCapPerSession = 3`). 건너뛰기 허용 | 대상 문항 수 대비 부담 · 첫 run 뒤 건너뜀 비율로 다시 정한다(다음 run 에서만 변경) |
-| **D. 판정 운영** | 적응형 교차 모델: 모든 대상 attempt 를 Claude · Codex **독립 2판정** → 일치하면 provisional accept, 불일치 · 경계(R6) 사례만 4-way(challenger 포함) → 그래도 갈리면 final adjudication 또는 **unresolved 유지** | 모든 attempt 4~6중 판정은 비용 대비 이득이 없다. 모델 판정은 human validation 이라 부르지 않는다 |
-| **E. 기간 · 종료** | 기간은 상한만 둔다(**최대 3주**). 종료는 §11 조건을 **모두** 만족할 때 — 「N명 끝남」 만으로 종료하지 않는다 | 종료 조건 우선 |
-| **F. 중단 기준** | §12 중 하나라도 발생하면 즉시 중단 · 수정 · 새 run | Reveal Gate · 감지기 계약 |
-| **G. 데이터 보존** | 원 증거는 개발 DB 안에만(append-only). 저장소에는 집계 · 코드 분포 · 경계 통계 · 운영 실패 · 판정 요약만. 학생 자유서술 원문 · raw packet 은 저장소에 넣지 않는다 | §19 |
-| **H. 성공/실패** | 한 숫자로 정하지 않는다 — §13 네 층 각각 「다음 run 으로 갈 수 있음 / 고쳐야 함」 판정 | §13 |
+| | 결정 |
+|---|---|
+| **A. 참가자** | 목표 5명 · 최소 3 · 최대 8. 영어 수준이 한쪽으로 몰리지 않게 모집(점수대 분포 강제 없음). **완료 참가자 3명 미만이면 exploratory run 으로 종료하고 결과를 일반화하지 않는다** |
+| **B. 시험** | 참가 전 미응시 여부 조사. 우선순위 ① 참가자 **모두**에게 처음인 평가원 공통 2회차 → ② 불가하면 최대 다수에게 공통인 2회차 → ③ 그래도 안 되면 작은 고정 pool 에서 block assignment. ③이면 결과를 **exam_id 별로 분리**하고 서로 다른 시험을 같은 조건으로 합쳐 해석하지 않는다. 시작 뒤 시험 · 문항 · 정답 변경 금지 |
+| **C. probe** | attempt 당 같은 probe 1회 · 세션당 최대 3회(`probeCapPerSession = 3`) · 건너뛰기 허용. 첫 run 이후에만 조정 |
+| **D. 판정** | Claude · Codex 독립 2-way → 불일치 또는 provisional 경계(R6)만 4-way → 최종 불일치는 unresolved. human validation 이라 부르지 않는다. **모델 입력에서 학생 식별정보를 제거한다**(§9) |
+| **E. 기간 · 종료** | 최대 3주. 모든 evidence target 충족 → `COMPLETED`. 3주 도달 시 일부 미충족 → `TIMEBOX_EXHAUSTED`(실패가 아니라 「운영은 끝났고 일부 연구 질문은 증거 부족」). **같은 run 을 연장하거나 참가자를 추가하지 않는다** — 추가 모집은 새 run |
+| **F. 중단** | critical incident 1건이면 즉시 중단(§12) · 수정 뒤 새 run id 로 다시 시작 |
+| **G. 데이터** | 저장소: 익명 participant key · 집계 · 해시 · config · 판정 요약. 저장소 밖: 실제 계정 매핑 · 이름/이메일/학교 등 식별정보 · 학생 자유서술 원문 · raw reviewer/model packet. **실제 참가자 identity(계정 id 포함)는 저장소에 커밋하지 않는다** |
+| **H. 평가** | 네 층 각각 판정(§13). **Pilot 전체(운영) 판정과 R6 evidence 충분성은 따로 판정한다** |
 
 ## 1. 목적 — 네 가지로 제한
 
@@ -28,15 +28,17 @@
 
 ## 2. 참가자
 
-- 모집 대상은 실제 학생(고등학생 이상). **모집 · 동의 절차는 운영자(사용자) 몫**이다 — 이 문서는 §15 안내 항목만 정한다. 학교 · 기관에서 진행하면 그 기관의 동의 절차를 별도로 확인한다.
+- 실제 학생(미성년자일 수 있다). **모집 · 동의 절차는 운영자(사용자) 몫** — 이 문서는 §15 안내 항목만 정한다. 학교 · 기관이면 그 기관의 동의 절차를 별도로 확인한다.
 - 참가자는 각자 독립적으로 푼다(함께 풀거나 답을 공유하지 않는다).
-- 등록: `EC_PILOT.participants`(저장소 설정)에 user id 를 넣는다. env `CSAT_EC_PILOT_USER_IDS` 는 개발 · 검증 전용 — **실제 run 에서는 쓰지 않는다**(누가 참가자였는지가 커밋에 남아야 한다).
-- 제외: 운영자 · 개발 계정 · 테스트 계정(`@example.com`) · 이전 DB 의 일괄 입력(전부 ②/③ 같은 입력) — Pilot 대상 아님. 기록 품질 관문(`recordQuality` = trusted)이 일괄 입력을 걸러낸다.
+- **익명 key**: 저장소에는 `P001`, `P002`, … 만 남긴다. `P00n ↔ 실제 계정` 매핑은 **저장소 밖**(운영자 보관)에만 둔다.
+- **등록 경로**: 실제 계정 id 는 배포 환경의 서버 env `CSAT_EC_PILOT_USER_IDS`(저장소 밖)로만 넣는다. 저장소 설정 `EC_PILOT.participants` 는 **비워 둔다**(계정 id 도 식별정보다). 어떤 run 에 누가 참가했는지는 운영자 매핑 + run 메타의 익명 key 로 재구성한다.
+- 제외: 운영자 · 개발 계정 · 테스트 계정(`@example.com`) · 이전 DB 의 일괄 입력(전부 ②/③ 같은 입력) — 기록 품질 관문(`recordQuality` = trusted)이 일괄 입력을 걸러낸다.
 
 ## 3. 시험 자료 · 고정
 
-- run 시작 전에 회차 2개를 정하고 run 메타데이터에 봉인한다(§16). 회차는 `csat_exams.organizer = 'kice'` Gold 원천만.
-- run 중 바꾸지 않는 것: 문항 원문 · 정답 · taxonomy version · probe 정의(판 · prompt_hash) · capture config. 하나라도 바뀌어야 하면 **새 run** 으로 분리한다(문항 입력 해시가 바뀌면 기존 증거는 판정 입력에서 자동으로 무효가 된다 — 그 상태로 같은 run 을 이어가지 않는다).
+- 회차 선택은 결정 B 우선순위를 따른다. 원천은 `csat_exams.organizer = 'kice'` Gold 만(최근 12회차 모두 독해 18–45번 28문항 · 정답표 · 원문 DB 실측 확인).
+- 시작 전에 회차와 **시험 내용 identity**(§16 — exam id · item set 해시 · 정답표 해시 · 원문/코퍼스 판)를 봉인한다.
+- run 중 바꾸지 않는 것: 문항 원문 · 정답 · taxonomy version · probe 정의(판 · prompt_hash) · capture config. 하나라도 바뀌면 같은 run 으로 계속하지 않는다(문항 입력 해시가 바뀌면 기존 증거는 판정 입력에서 자동 무효 — 그 상태로 이어가지 않는다).
 
 ## 4. taxonomy 고정
 
@@ -85,11 +87,13 @@ probe 가 판정을 억지로 한쪽으로 몰아가면(편향) 그 자체가 �
 ## 9. 판정 운영
 
 - 판정자: Claude · Codex 독립(서로의 판정을 보지 않음 — blind 회차). 결과는 `csat_ec_judgment` 에 모델 · 판 · 입력 해시와 함께.
-- 적응형 단계(결정 D):
-  - 명확 — 2-way 일치 → provisional accept
-  - 경계(R6) 또는 불일치 → 4-way(challenger 2 추가)
-  - 그래도 불일치 → final adjudication 또는 unresolved 유지(억지로 닫지 않는다)
-- 표현: 「모델 판정」 · 「교차 모델 일치」. **human validation 이라고 부르지 않는다.**
+- 단계(결정 D): 명확 → 2-way 일치면 provisional adjudication / 불일치 · R6 경계 → 4-way(challenger 2) / 그래도 불일치 → unresolved(억지로 닫지 않는다).
+- 표현: 「모델 판정」 · 「교차 모델 일치」. 모델 합의율을 human reliability 라 부르지 않는다.
+- **식별정보 제거(모델 입력)**: 현재 내보내기(`csat_ec_ai_export`)에는 이름 · 이메일 · user id 가 없지만 `session_id`(계정과 이어지는 UUID)와 학생 자유서술이 들어간다. 모델에 보내기 직전 운영 스크립트가
+  1. `session_id` · 증거 id 를 익명 attempt key(`P001-E1-#21` 꼴)로 바꾸고 매핑은 저장소 밖에 둔다
+  2. 자유서술(이유 · 해석)에서 이름 · 학교 · 반 · 연락처 · 이메일 꼴을 검사해 걸리면 그 packet 을 보내지 않고 운영자가 가린 뒤 보낸다
+  3. 보낸 packet 원본은 저장소에 남기지 않는다(판정 결과 · 입력 해시만 DB 에)
+  이 스크립트와 그 가드(식별정보 꼴이 남은 packet 은 실패)는 G6 시작 체크리스트 항목이다 — DB 구조는 바꾸지 않는다.
 
 ## 10. cause_confirmed · verified_diagnosis 경계
 
@@ -97,18 +101,33 @@ probe 가 판정을 억지로 한쪽으로 몰아가면(편향) 그 자체가 �
 - `cause_confirmed` 는 **Learning Map 을 바꾸지 않는다.** verified_diagnosis 가 없으면 학습 지도 mastery · 상태를 건드리지 않는다(G4 가드가 감지기의 판정 · mastery 쓰기를 막는다).
 - 이번 Pilot 에서 verified_diagnosis 는 구현하지 않는다.
 
-## 11. 종료 조건 (모두 만족)
+## 11. 종료 상태 · evidence target
 
-| 조건 | 기준 |
+**종료 상태 두 가지**(결정 E):
+
+| 상태 | 뜻 |
 |---|---|
-| 참가자 | 완료 참가자 ≥ 5(최소 3 이면 「축소 종료」로 표기) |
-| 수집량 | completed 세션 ≥ 참가자 수 × 1, 대상 attempt ≥ 60 |
-| 해석 증거 | answered 해석 비율을 측정할 수 있을 것(분모 ≥ 60) |
-| R6 경계 | 경계 encounter ≥ **8** attempt, 그중 probe answered ≥ **5** |
-| 경로 확인 | 감지기 · probe · pre/post 회차 · 교차 판정이 실제 데이터로 각 1회 이상 돈 기록 |
-| 안전 | critical leak 0 · reveal 우회 0 · 데이터 무결성 결함 0(§12 미발생) |
+| `COMPLETED` | 아래 evidence target 을 **모두** 충족 |
+| `TIMEBOX_EXHAUSTED` | 3주 도달 · 일부 target 미충족 — 실패가 아니라 「운영은 끝났지만 일부 연구 질문은 증거 부족」. 같은 run 연장 · 참가자 추가 금지(새 run) |
 
-기간 상한 3주 안에 R6 조건을 못 채우면 「R6 미충족 종료」로 기록하고 경계 통계는 기술만 한다(확대 해석 금지).
+완료 참가자가 3명 미만이면 위 상태와 별개로 **exploratory run** 으로 표기하고 결과를 일반화하지 않는다(결정 A).
+
+**evidence target**:
+
+| target | 기준 |
+|---|---|
+| 완료 참가자 | ≥ 5 |
+| 대상 attempt | ≥ 60 |
+| R6 경계 encounter | ≥ 8 |
+| R6 probe answered | ≥ 5 |
+| critical incident | = 0 |
+
+R6 두 target 은 첫 Pilot 이라 발생률을 모른다 — **R6 분석 가능성의 최소 target** 이지 Pilot 전체 성공의 절대 조건이 아니다. 미달이면 보고를 둘로 나눈다:
+
+```
+Operational pilot: pass | fail
+R6 evidence target: sufficient | insufficient
+```
 
 ## 12. 즉시 중단 기준
 
@@ -123,16 +142,20 @@ probe 가 판정을 억지로 한쪽으로 몰아가면(편향) 그 자체가 �
 
 감시: run 중 매일 canary(`canary-scan --app --bundle`) · 표면 검사 · 함수 권한 가드 · `smoke-detector` 를 돌린다(운영 데이터에 쓰지 않는 TEST 시험 M2099 / 임시 계정만 — 스크립트가 자기 객체만 정리).
 
-## 13. 성공 판정 — 네 층 (결정 H)
+## 13. 평가 — 네 층 (결정 H)
 
-| 층 | 지표 | 「다음 run 가능」 기준(제안) |
+**Pilot 전체(Operational) 판정과 R6 evidence 충분성은 따로 판정한다.** 하나의 숫자로 성공을 선언하지 않는다.
+
+| 층 | 지표 | 기준 |
 |---|---|---|
-| Operational | 수집 완료율 · probe 완료율 · UI 실패율 · 재시도/오류율 | 완료율 ≥ 70% · 저장 실패 오류율 ≤ 2% |
-| Evidence | usable(answered) 해석률 · insufficient · skipped 비율 | answered ≥ 50% |
-| Taxonomy | 코드 coverage · 반복 unresolved 경계 · 원인 분포 · 교차 모델 일치 | 미설명(no code fits) 사례가 특정 영역에 몰리면 v0.2 후보로 기록 |
-| R6 | pre/post 해소 개선 · V/R 분리 · probe 유도 충돌률 | 개선 방향 · 편향 여부를 기술(유의성 주장 없음) |
+| Operational | 수집 완료율 · probe 완료율 · 재시도로 복구된 일시 오류(비율 별도 보고) | **critical integrity error = 0 (필수)** · 완료율은 보고(목표 ≥ 70%) |
+| Evidence | answered 해석률 · unknown · skipped 각각 | **answered 해석률 = 대상 attempt 의 interpretation 중 `answered` 상태 비율 ≥ 50%** (unknown · skipped 는 answered 로 세지 않고 따로 보고) · **복구되지 않은 증거 유실 = 0 (필수)** |
+| Taxonomy | 코드 coverage · unresolved 분포 · 교차 모델 일치 | 기술 보고(미설명 사례가 특정 영역에 몰리면 v0.2 후보) |
+| R6 | 경계 encounter · probe 응답 · pre/post 해소 · V/R 분리 · probe 유도 편향 | §11 target 충족 여부 + 기술 보고(유의성 주장 없음) |
 
-기준 미달은 실패가 아니라 「고쳐야 할 곳」 목록이다. 하나의 숫자로 성공을 선언하지 않는다.
+- **critical integrity error**: append-only 위반 · 부분 상태(증거 저장 · 감지 · 봉인 중 일부만 남음) · 봉인 해시 불일치 · 다른 학생 행 노출.
+- **복구되지 않은 증거 유실**: 학생이 저장 성공을 본 증거가 DB 에 없거나, 저장 실패 뒤 재시도로도 남지 않은 것. 소표본(60 attempt 이면 1건 = 1.7%)에서 비율 기준은 흔들리므로 **건수 0** 으로 본다.
+- 재시도로 복구된 일시 오류(네트워크 등)는 실패로 세지 않고 운영 지표로 따로 보고한다.
 
 ## 14. 일반화 금지
 
@@ -151,20 +174,19 @@ probe 가 판정을 억지로 한쪽으로 몰아가면(편향) 그 자체가 �
 
 ## 16. run identity — 봉인 항목
 
-run 마다 고유 id(`ec-pilot-run-<YYYYMMDD>-<n>`)와 아래를 시작 시 기록한다. 하나라도 바뀌면 같은 run 으로 계속하지 않는다.
+run 마다 고유 id(`ec-pilot-run-<YYYYMMDD>-<n>`)와 아래를 시작 시 기록한다. **하나라도 바뀌면 같은 run 으로 계속하지 않는다.**
 
 | 항목 | 출처 |
 |---|---|
 | taxonomy 해시 | `csat_ec_taxonomy_version.definitions_hash`(v0.1) |
-| capture config 해시 | `csat_ec_capture_session.config`(probes · probe_cap) 정규화 sha256 |
-| probe config 해시 | `captureProbeConfig()` 의 key · version · prompt_hash |
+| capture · probe config 해시 | capture config(probes · probe_cap) 정규화 sha256 · `captureProbeConfig()` 의 key · version · prompt_hash |
 | detector 판 | `csat_ec_detector_run.detector_version`(bd-0.1.0) |
 | 앱 커밋 | 배포 커밋 해시 |
 | DB 마이그레이션 상태 | `schema_migrations` 최신 버전 · 개수 |
-| 시험 회차 | 2개 id · 문항 입력 해시 |
-| 참가자 목록 | `EC_PILOT.participants` 를 담은 커밋 |
+| **시험 내용 identity** | exam id · **item set 해시**(문항 id · 입력 해시 정렬 sha256) · **정답표 해시**(`csat_dx_answer_key`) · 원문/코퍼스 판(문항 원문 입력 해시 · 원천 판) |
+| 참가자 | **익명 key 목록**(P001…) 과 각 key 의 시험 assignment — 실제 계정 id 는 넣지 않는다 |
 
-(run 메타는 저장소 `docs/csat-learner/pilot-runs/<run id>.md` 에 집계 · 해시만 — 학생 원문 없음.)
+run 메타는 저장소 `docs/csat-learner/pilot-runs/<run id>.md` 에 해시 · 익명 key · assignment · 집계만 둔다. 매일 감시(§12) 때 봉인 해시를 다시 계산해 바뀌었으면 중단 기준(무결성)으로 처리한다 — Evidence Anchor 연구의 원천 drift 문제를 되풀이하지 않는다.
 
 ## 17. 분석 단위
 
@@ -176,12 +198,18 @@ student · exam/session · attempt/item 을 따로 보고한다. 전체 집계�
 
 ## 19. 종료 후 산출물
 
-run 메타데이터 · 집계 통계 · 코드 coverage · 경계/probe 통계 · unresolved 요약 · 운영 실패 · 판정 요약 · 다음 revision 제안. **학생 자유서술 원문 · raw packet 은 공개 저장소에 넣지 않는다.**
+저장소에 남기는 것: run 메타(§16) · 종료 상태(`COMPLETED` | `TIMEBOX_EXHAUSTED` · exploratory 여부) · 집계 통계(학생 · 시험 · attempt 단위) · 코드 coverage · 경계/probe 통계 · unresolved 요약 · 운영 실패 · 판정 요약 · 다음 revision 제안 — 모두 **익명 key** 로.
 
-## 20. G6 시작 체크리스트 (승인 뒤)
+저장소에 넣지 않는 것: 이름 · 이메일 · 학교/반 · 계정 id · 학생 자유서술 원문 · raw reviewer/model packet · 익명 key ↔ 계정 매핑.
 
-1. 이 문서 결정 A–H 승인
-2. 참가자 모집 · 동의 완료(운영자) → `EC_PILOT.participants` 커밋 · `probeCapPerSession = 3` 커밋
-3. 회차 2개 확정(참가자 미응시 설문) · run 메타 봉인(§16)
-4. production 배포 커밋 고정 · §18 e2e(화면 포함) 통과
-5. 감시 일정(§12) 시작 → 수집 시작
+## 20. G6 시작 체크리스트
+
+G5 는 이 문서로 닫는다. 아래를 마친 뒤 **G6 시작 승인**을 따로 받는다.
+
+1. 참가자 모집 · 동의(운영자)
+2. 미응시 회차 조사 → 공통 2회차 결정(결정 B 우선순위)
+3. 익명 participant mapping(P00n ↔ 계정, 저장소 밖) · 배포 env `CSAT_EC_PILOT_USER_IDS` 설정 · `probeCapPerSession = 3` 커밋
+4. 모델 입력 식별정보 제거 스크립트 + 가드(§9)
+5. run metadata 봉인(§16 — 시험 내용 identity 포함)
+6. production 배포 커밋 고정 · 마지막 Playwright E2E(§18)
+7. G6 시작 승인 → 감시(§12) 시작 → 수집 시작
