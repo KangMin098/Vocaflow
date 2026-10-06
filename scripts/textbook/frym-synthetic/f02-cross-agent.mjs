@@ -267,6 +267,9 @@ export function verifyStage(rootInput) {
       if (expectedEngine === 'codex') {
         if (!record.codex_home || !Array.isArray(record.global_instructions) || record.global_instructions.length > 2 || record.global_instructions.filter(item => item.active).length > 1) throw Error('GLOBAL_INSTRUCTIONS_INVALID')
         const names = record.global_instructions.map(item => item.name)
+        const storedCopies = readdirSync(root).filter(name => name.startsWith(`${stem}.global-`) && name.endsWith('.md')).sort()
+        const declaredCopies = names.map(name => `${stem}.global-${name}`).sort()
+        if (json(storedCopies) !== json(declaredCopies)) throw Error('GLOBAL_INSTRUCTION_INVENTORY_CHANGED')
         const active = names.includes('AGENTS.override.md') ? 'AGENTS.override.md' : names.includes('AGENTS.md') ? 'AGENTS.md' : null
         if (new Set(names).size !== names.length || record.global_instructions.some(item => item.active !== (item.name === active))) throw Error('GLOBAL_INSTRUCTIONS_PRIORITY_CHANGED')
         for (const instruction of record.global_instructions) {
@@ -367,7 +370,7 @@ export function stageC(stageA, stageB) {
         if (!rejected) throw Error(`TAMPER_NOT_REJECTED:${name}`)
       } finally { rmSync(temp, { recursive: true, force: true }) }
     }
-    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output', 'global_instruction_file', 'terminal_event_removed', 'claude_terminal_removed']) {
+    for (const pair of pairs) for (const name of ['final_stdout_mismatch', 'raw_refusal_with_rehashed_output', 'global_instruction_file', 'terminal_event_removed', 'claude_terminal_removed', 'global_inventory_erased']) {
       const role = ['student', 'grader'].find(candidate => {
         const record = JSON.parse(readFileSync(join(source, `${pair[candidate]}.record.json`), 'utf8'))
         return record.engine === (['raw_refusal_with_rehashed_output', 'claude_terminal_removed'].includes(name) ? 'claude' : 'codex')
@@ -395,6 +398,16 @@ export function stageC(stageA, stageB) {
           const altered = json(raw)
           writeFileSync(path, altered)
           record.stdout_sha256 = sha(Buffer.from(altered))
+        } else if (name === 'global_inventory_erased') {
+          const changed = record.global_instructions.length ? [] : [{ name: 'AGENTS.md', path: join(record.codex_home, 'AGENTS.md'), active: true, sha256: '0'.repeat(64) }]
+          record.global_instructions = changed
+          const manifestPath = join(temp, `${stem}.manifest.json`)
+          const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
+          manifest.global_instructions = changed
+          const { command_manifest_sha256, ...unsigned } = manifest
+          manifest.command_manifest_sha256 = sha(json(unsigned))
+          record.command_manifest_sha256 = manifest.command_manifest_sha256
+          writeFileSync(manifestPath, json(manifest))
         } else if (name === 'global_instruction_file') {
           const instruction = record.global_instructions[0]
           if (instruction) {

@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): F02 Codex 전역 지시 manifest의 목록을 실제 보관된 파일 목록과 대조한다. 목록만 비워 해시를 다시 계산해도 Stage C가 거부하도록 보강한다.
+
 - fix(textbook): F02 로컬 감사에서 Claude 정상 종료 필드, 호출 UUID·파일명 결속, 개별 호출 시간 순서와 run 완료 상태를 필수로 확인한다. 해당 누락·역전 변조는 실제 산출물 기반 Stage C에서 차단한다.
 
 - fix(textbook): Windows의 Codex CLI가 npm 래퍼로 설치된 경우에도 네이티브 실행 파일을 찾아 호출한다. 순차 호출의 PID 재사용은 자기 채점으로 오인하지 않고 호출 ID·모델 계열·순서를 검증한다.
