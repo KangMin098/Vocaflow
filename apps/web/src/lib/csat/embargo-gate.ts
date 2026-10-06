@@ -52,7 +52,7 @@ async function heldBy(fn: 'csat_ec_embargoed_exams' | 'csat_ec_embargoed_items',
       const { data, error } = fn === 'csat_ec_embargoed_items'
         ? await db.rpc('csat_ec_embargoed_items', { p_items: chunk })
         : await db.rpc('csat_ec_embargoed_exams', { p_exams: chunk })
-      if (error || !Array.isArray(data)) {
+      if (error || !Array.isArray(data) || data.some((x) => typeof x !== 'string' || !chunk.includes(x))) {
         console.error(`[reveal-gate] ${fn} 판정 실패 — 보류로 본다`, error?.message ?? '배열이 아님')
         return { set: new Set(uniq), failed: true }
       }
