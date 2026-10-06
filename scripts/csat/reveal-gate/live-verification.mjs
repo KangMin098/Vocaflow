@@ -49,7 +49,7 @@ export async function liveCanary(repo,env,app,run,{maxActive=3,runtimeVerified=f
     const current=hash(),receipt=current?JSON.parse(fs.readFileSync(file,'utf8')):null
     result={...validateLiveReceipt(receipt,previous,current),command,checkpoint_label:label}
     if(!command.ok)result.ok=false
-  }catch{result={ok:false,reason:'live_canary_execution_error',checkpoint_label:label}}
+  }catch(error){result={ok:false,reason:'live_canary_execution_error',failure_code:typeof error.code==='string'&&/^[A-Z0-9_]+$/.test(error.code)?error.code:null,checkpoint_label:label}}
   finally{
     if(before){try{await client.query('select record_db_health_checkpoint($1,$2,$3)',[label,'after','Reveal Gate canary complete or failed; inspect fixture cleanup and checkpoint diff']);const diff=(await client.query('select * from db_health_checkpoint_diff($1)',[label])).rows;result.checkpoint_diff=diff;result.checkpoint_after_recorded=true;const issues=checkpointIssues(diff);if(issues.length){result.ok=false;result.reason='checkpoint_metrics_missing';result.checkpoint_issues=issues}}catch{result.ok=false;result.reason='checkpoint_after_failed'}}
     await client.end().catch(()=>{})

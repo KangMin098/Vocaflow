@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { spawn } from 'node:child_process'
 import { spawnSync } from 'node:child_process'
 import { scanLoaders,scanClient,scanBundle,pagingDiff,migrationCoverage } from './verification-core.mjs'
-import {attestBuild,checkBuild,startVerifiedApp,sourceFingerprint} from './build-attestation.mjs'
+import {attestBuild,checkBuild,startVerifiedApp,sourceFingerprint,verificationFingerprint} from './build-attestation.mjs'
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..')
 const args=process.argv.slice(2),value=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1]}
 const phase=value('--phase','merge'),base=value('--base',process.env.REVEAL_VERIFY_BASE??'origin/main')
@@ -26,6 +26,10 @@ if(fs.existsSync(lockFile)) {
 const lockHandle=fs.openSync(lockFile,'wx');fs.writeFileSync(lockHandle,String(process.pid));fs.closeSync(lockHandle)
 process.once('exit',()=>{if(fs.existsSync(lockFile)&&fs.readFileSync(lockFile,'utf8')===String(process.pid))fs.unlinkSync(lockFile)})
 const revision=spawnSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).stdout.trim()
+const verificationBefore=verificationFingerprint(ROOT)
+const output=path.resolve(ROOT,value('--output','tmp/reveal-gate-verification.json'))
+if(!output.startsWith(path.join(ROOT,'tmp')+path.sep)||!output.endsWith('.json'))throw Error('Report target must be tmp/*.json')
+if(phase==='merge'&&fs.existsSync(path.join(tmp,'reveal-production.json')))fs.unlinkSync(path.join(tmp,'reveal-production.json'))
 const record=(layer,ok,detail)=>{rows.push({layer,status:ok?'PASS':'BLOCKED',detail});console.log(`${ok?'PASS':'BLOCKED'} ${layer}`)}
 async function run(command,argv) {
   return new Promise(resolve=>{
@@ -55,7 +59,7 @@ try{
     const graph=scanClient(src,policy.canaries);record('V2 client source graph',graph.roots>0&&graph.files>0&&!graph.issues.length&&!graph.unresolved.length,graph)
     const sourceBefore=sourceFingerprint(ROOT)
     const build=await packageCommand(['--filter','web','build']);build.ok=build.ok&&sourceBefore===sourceFingerprint(ROOT);record('production build',build.ok,build)
-    if(build.ok){const bundle=scanBundle(path.join(ROOT,'apps/web/.next/static'),policy.canaries);record('V2 production bundle',!bundle.issues.length,bundle);if(!bundle.issues.length)record('production source attestation',true,attestBuild(ROOT,revision))}else record('V2 production bundle',false,{reason:'build_failed_not_executed'})
+    if(build.ok){const bundle=scanBundle(path.join(ROOT,'apps/web/.next/static'),policy.canaries);record('V2 production bundle',!bundle.issues.length,bundle)}else record('V2 production bundle',false,{reason:'build_failed_not_executed'})
   }
   if(phase==='merge'||phase==='db') {
     const stateTest='apps/web/src/lib/csat/diagnosis/__tests__/reveal-sync.test.ts'
@@ -91,10 +95,12 @@ try{
     const advisor=await securityAdvisor(process.env,fetch,policy.security_advisor_allowlist??[]);record('Security Advisor',advisor.ok,advisor)
   }
 }catch{record('verification execution',false,{reason:'execution_failed'})}
+if(phase==='merge') {
+  const eligible=rows.every(r=>r.status==='PASS')&&verificationBefore===verificationFingerprint(ROOT)
+  record('production source attestation',eligible,eligible?attestBuild(ROOT,revision,output):{reason:'merge_checks_failed_or_verifier_changed'})
+}
 const blocked=rows.some(r=>r.status!=='PASS'),result=blocked?'BLOCKED':phase==='pr'?'PR_READY':phase==='db'?'DB_READY':'MERGEABLE'
 const report={phase,revision,base_ref:base,result,layers:rows,limitations:['Static coverage is a discovery/classification guard, not a complete interprocedural proof.','Timing is not asserted as security-equivalent by deterministic unit tests.','DB SQL is never applied by this command.']}
-const output=path.resolve(ROOT,value('--output','tmp/reveal-gate-verification.json'))
-if(!output.startsWith(path.join(ROOT,'tmp')+path.sep)||!output.endsWith('.json'))throw Error('Report target must be tmp/*.json')
 fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n')
 console.log(`RESULT: ${result}`)
 process.exitCode=blocked?1:0

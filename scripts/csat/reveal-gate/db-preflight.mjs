@@ -14,7 +14,7 @@ export function permissionDiff(before,after,expected=[]) {
   return {changes,unexpected:changes.filter(r=>!allowed.has(canonical(r))),missing:expected.filter(({decision,reason,...r})=>!changes.some(c=>canonical(c)===canonical(r)))}
 }
 export async function dbPreflight(repo,manifest,env,{before=null,expectedDiff=[],snapshotOut=null,authenticatedVerified=false}={}) {
-  const required=['SUPABASE_DB_URL','NEXT_PUBLIC_SUPABASE_URL','NEXT_PUBLIC_SUPABASE_ANON_KEY','SUPABASE_SERVICE_ROLE_KEY',...(!authenticatedVerified?['REVEAL_VERIFY_AUTH_TOKEN']:[])]
+  const required=['SUPABASE_DB_URL','NEXT_PUBLIC_SUPABASE_URL','NEXT_PUBLIC_SUPABASE_ANON_KEY','SUPABASE_SERVICE_ROLE_KEY']
   const missing=required.filter(k=>!env[k])
   if(missing.length)return{status:'BLOCKED',reason:'missing_credentials',missing}
   if(!env.NEXT_PUBLIC_SUPABASE_URL.includes('jajenrevcbmrpaliomxv')||!env.SUPABASE_DB_URL.includes('jajenrevcbmrpaliomxv'))return{status:'BLOCKED',reason:'not_development_project'}
@@ -32,6 +32,7 @@ export async function dbPreflight(repo,manifest,env,{before=null,expectedDiff=[]
     const hashes=fs.readdirSync(repo+'/supabase/migrations').filter(f=>/csat_ec_.*(?:reveal|pilot|capture)/.test(f)).sort().map(file=>({file,sha256:createHash('sha256').update(fs.readFileSync(repo+'/supabase/migrations/'+file)).digest('hex')}))
     const snapshot={permissions,policies,functions,migrations,migration_hashes:hashes}
     const issues=[]
+    if(!authenticatedVerified&&!env.REVEAL_VERIFY_AUTH_TOKEN)issues.push({kind:'authenticated_actor_not_verified',missing:['REVEAL_VERIFY_AUTH_TOKEN'],reason:'Catalog baseline can be saved, but deployment cannot pass without a real authenticated actor.'})
     if(!before)issues.push({kind:'missing_before_snapshot',reason:'A deployment verdict requires a saved pre-deployment catalog snapshot.'})
     for(const [object,meta]of Object.entries(manifest.db_relations))for(const column of [...(meta.secret_columns??[]),...(meta.revoked_by&&migrations.includes(meta.revoked_by)?meta.sensitive_columns??[]:[])]) {
       for(const role of ['anon','authenticated'])if(permissions.find(r=>r.object===object&&r.column===column&&r.role===role)?.allowed!==false)issues.push({kind:'direct_select',object,column,role})
@@ -55,5 +56,5 @@ export async function dbPreflight(repo,manifest,env,{before=null,expectedDiff=[]
     if(diff&&(diff.unexpected.length||diff.missing.length))issues.push({kind:'unexpected_permission_diff',diff})
     if(snapshotOut){const target=path.resolve(repo,snapshotOut);if(!target.startsWith(path.join(repo,'tmp')+path.sep)||!target.endsWith('.json'))throw Error('Unsafe snapshot path');fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,JSON.stringify(snapshot,null,2)+'\n')}
     return{status:issues.length?'BLOCKED':'PASS',snapshot_sha256:snapshotHash(snapshot),snapshot,smokes,diff,issues,authenticated_via_live_canary:authenticatedVerified,limitation:'Read-only catalog and real JWT column permissions. Does not apply SQL or replace the held/completed actor canary.'}
-  }catch{return{status:'BLOCKED',reason:'db_preflight_execution_error'}}finally{await client.end().catch(()=>{})}
+  }catch(error){return{status:'BLOCKED',reason:'db_preflight_execution_error',failure_code:typeof error.code==='string'&&/^[A-Z0-9_]+$/.test(error.code)?error.code:null}}finally{await client.end().catch(()=>{})}
 }

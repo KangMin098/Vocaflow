@@ -7,7 +7,7 @@ import path from 'node:path'
 import {spawnSync} from 'node:child_process'
 import {createHash} from 'node:crypto'
 import { scanLoaders,scanClient,scanBundle,pagingLocations,secretLiterals,migrationCoverage } from '../verification-core.mjs'
-import {attestBuild,checkBuild} from '../build-attestation.mjs'
+import {attestBuild,checkBuild,REQUIRED_MERGE_LAYERS} from '../build-attestation.mjs'
 function fixture(run){const prefix=path.join(os.tmpdir(),'reveal-verify-'),root=fs.mkdtempSync(prefix);try{return run(root,(name,text)=>{const p=path.join(root,name);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,text)})}finally{if(!path.resolve(root).startsWith(path.resolve(prefix)))throw Error('Unexpected fixture path');fs.rmSync(root,{recursive:true,force:true})}}
 const manifest={db_relations:{csat_items:{class:'ANSWER_SENSITIVE'}},db_functions:{},app_db_loaders:{},app_api:{}}
 test('mutation: new DB loader, alias, unused import and comment calls fail closed',()=>fixture((root,write)=>{
@@ -41,6 +41,10 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   const leakedPage=scanLoaders(root,m,{function_approvals:{}})
   assert.ok(leakedPage.issues.some(i=>i.kind==='unclassified_page'))
   assert.ok(leakedPage.issues.some(i=>i.file.endsWith('leak/page.tsx')&&i.function==='<module>'))
+  write('lib/csat/admin-secret.ts','export const loadCsatItemFull=()=>({answer:3})')
+  write('app/public/page.tsx','import {loadCsatItemFull} from "../../lib/csat/admin-secret"; export default function Page(){return <pre>{loadCsatItemFull().answer}</pre>}')
+  const admin={...m,app_db_loaders:{...m.app_db_loaders,'lib/csat/admin-secret.ts':{class:'ADMIN_ONLY'}}}
+  assert.ok(scanLoaders(root,admin,{function_approvals:{}}).issues.some(i=>i.file==='app/public/page.tsx'&&i.function==='<module>'))
 }))
 test('mutation: renamed JSON and re-exported dynamic client imports expose answer literals',()=>fixture((root,write)=>{
   write('app/Client.tsx','"use client"; import("../lib/barrel");')
@@ -61,6 +65,8 @@ test('mutation: production artifact and escaped literal canary detected; empty b
   assert.ok(secretLiterals('chunk.js','const a=JSON.parse('+JSON.stringify(JSON.stringify({answerKey:4}))+')').includes('answerKey'))
   assert.ok(secretLiterals('data.json',JSON.stringify({item_id:'2026#18',answer:3})).includes('answer'))
   assert.ok(secretLiterals('chunk.js','const a={item_id:"2026#18",answer:3}').includes('answer'))
+  assert.ok(secretLiterals('data.json',JSON.stringify({item_id:'M2509#18',answers:[3]})).includes('answers'))
+  assert.ok(secretLiterals('chunk.js','JSON.parse('+JSON.stringify(JSON.stringify({item_id:'M2509#18',answers:[3]}))+')').includes('answers'))
 }))
 test('paging sites ignore comments and retain changed call identity rather than a global count',()=>{
   assert.deepEqual(pagingLocations('// db.range(offset, end)\nconst x=db.range(0,99)','x.ts'),[])
@@ -74,8 +80,15 @@ test('production attestation rejects stale source, modified artifact and missing
   write('apps/web/.next/BUILD_ID','test-build')
   write('apps/web/.next/static/chunks/main.js','const n=1')
   write('apps/web/.next/server/app/api/route.js','const secret=1')
+  const report={phase:'merge',result:'MERGEABLE',revision:'test-revision',layers:REQUIRED_MERGE_LAYERS.map(layer=>({layer,status:'PASS'}))}
+  write('tmp/reveal-gate-verification.json',JSON.stringify(report))
   attestBuild(root,'test-revision')
   assert.equal(checkBuild(root).ok,true)
+  write('tmp/reveal-gate-verification.json',JSON.stringify({...report,result:'BLOCKED'}))
+  assert.equal(checkBuild(root).ok,false)
+  write('tmp/reveal-gate-verification.json',JSON.stringify({...report,layers:report.layers.filter(r=>r.layer!=='V2 client source graph')}))
+  assert.equal(checkBuild(root).ok,false)
+  write('tmp/reveal-gate-verification.json',JSON.stringify(report))
   write('apps/web/src/app.ts','export const n=2')
   assert.equal(checkBuild(root).ok,false)
   write('apps/web/src/app.ts','export const n=1')

@@ -8,7 +8,7 @@ const require = createRequire(new URL('../../../apps/web/package.json', import.m
 const ts = require('typescript')
 const SECRET = /^(correctAnswer|correct_answer|answerKey|expectedAnswer|answer_key|why_correct|why_tempting|how_to_reject|answer_locus)$/
 const GATE = new Set(['canRevealExam','canRevealItem','canRevealSession','embargoedExamIds','embargoedItemIds','userHasHeldSession','loadRevealScope','assertRevealAllowed','revealHeldResponse','isItemHeld','isExamHeld','isTypeHeld'])
-const SENSITIVE = new Set(['ANSWER_SENSITIVE','CORRECTNESS','CORRECTNESS_OWN_PRIOR','CORRECTNESS_ORACLE','REVIEWER_INTERNAL'])
+const SENSITIVE = new Set(['ANSWER_SENSITIVE','CORRECTNESS','CORRECTNESS_OWN_PRIOR','CORRECTNESS_ORACLE','REVIEWER_INTERNAL','ADMIN_ONLY'])
 export const relative = (root, file) => path.relative(root,file).replace(/\\/g,'/')
 export function filesUnder(dir,all=false) {
   if (!fs.existsSync(dir)) return []
@@ -101,15 +101,15 @@ export function secretLiterals(file,text,canaries=[]) {
   if(canaries.some(c=>text.includes(c)))found.push('canary')
   if(file.endsWith('.json')) {
     let value;try{value=JSON.parse(text)}catch{return ['invalid_json']}
-    const walk=v=>{if(!v||typeof v!=='object')return;if(typeof v.item_id==='string'&&v.item_id.includes('#')&&typeof v.choice==='number'&&(typeof v.tempting==='string'||typeof v.reject==='string'))found.push('trap_example');if(typeof(v.item_id??v.id)==='string'&&(v.item_id??v.id).includes('#'))for(const key of ['answer','is_correct','raw_score'])if(v[key]!=null)found.push(key);for(const[k,x]of Object.entries(v)){if(SECRET.test(k)&&x!==null&&(typeof x!=='object'||Object.keys(x).length))found.push(k);walk(x)}}
+    const walk=v=>{if(!v||typeof v!=='object')return;if(typeof v.item_id==='string'&&v.item_id.includes('#')&&typeof v.choice==='number'&&(typeof v.tempting==='string'||typeof v.reject==='string'))found.push('trap_example');const identity=v.item_id??v.id??v.exam_id;if(typeof identity==='string'&&(identity.includes('#')||/^[A-Za-z]?\d{4}[A-Za-z]?$/.test(identity)))for(const key of ['answer','answers','answer_key','is_correct','raw_score','correct','wrong'])if(v[key]!=null)found.push(key);for(const[k,x]of Object.entries(v)){if(SECRET.test(k)&&x!==null&&(typeof x!=='object'||Object.keys(x).length))found.push(k);walk(x)}}
     walk(value)
   } else {
     visit(parse(file,text),n=>{
       if(ts.isObjectLiteralExpression(n)) {
         const values=new Map(n.properties.filter(ts.isPropertyAssignment).map(p=>[property(p.name),p.initializer]))
         const item=values.get('item_id'),choice=values.get('choice')
-        const identifier=item??values.get('id')
-        if(identifier&&ts.isStringLiteralLike(identifier)&&identifier.text.includes('#'))for(const key of ['answer','is_correct','raw_score'])if(values.has(key))found.push(key)
+        const identifier=item??values.get('id')??values.get('exam_id')
+        if(identifier&&ts.isStringLiteralLike(identifier)&&(identifier.text.includes('#')||/^[A-Za-z]?\d{4}[A-Za-z]?$/.test(identifier.text)))for(const key of ['answer','answers','answer_key','is_correct','raw_score','correct','wrong'])if(values.has(key))found.push(key)
         if(item&&ts.isStringLiteralLike(item)&&item.text.includes('#')&&choice&&ts.isNumericLiteral(choice)&&['tempting','reject'].some(k=>values.has(k)))found.push('trap_example')
       }
       if(ts.isPropertyAssignment(n)&&SECRET.test(property(n.name)??'')&&(ts.isStringLiteralLike(n.initializer)||ts.isNumericLiteral(n.initializer)||ts.isArrayLiteralExpression(n.initializer)||ts.isObjectLiteralExpression(n.initializer)))found.push(property(n.name))
