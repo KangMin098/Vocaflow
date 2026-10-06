@@ -17,7 +17,7 @@ const samples = (p = protocol()) => GRADES.flatMap(grade => Array.from({ length:
   const id = `${grade}-${index}`
   const base = (grade === 'high_1' ? 7 : grade === 'middle_1' ? 5 : 4) + (index % 5 - 2) * .1
   const slot = index % 10
-  return { sample_id: id, publisher: `publisher-${Math.floor(index / 10)}`, series: `series-${Math.floor(index / 5)}`, title: `title-${id}`, grade, edition: 'fixture-1', publication_year: 2026, difficulty_step: 'fixture-level', ISBN: `fixture-isbn-${id}`, passage_id: `passage-${id}`, page: '1', genre: slot < 4 ? 'expository' : slot < 8 ? 'argumentative' : 'narrative', source_method: 'fixture', rights_basis: 'authorized_local_analysis', analyzer_version: 'fixture-v1', evidence_locator: `fixture:${id}`, analysis_hash: H(`analysis-${id}`), passage_hash: H(`passage-${id}`), item_set_hash: H(`items-${id}`), scoring_key_hash: H(`key-${id}`), word_count: slot < 4 ? 100 : slot < 8 ? 200 : 300, item_count: 3, codebook_hash: p.codebook_hash, selection_manifest_hash: p.selection_manifest_hash, metrics: Object.fromEntries(AXES.map(axis => [axis, base])) }
+  return { sample_id: id, publisher: `publisher-${Math.floor(index / 10)}`, series: `series-${Math.floor(index / 5)}`, title: `title-${id}`, grade, edition: 'fixture-1', publication_year: 2026, difficulty_step: 'fixture-level', ISBN: `fixture-isbn-${id}`, passage_id: `passage-${id}`, page: '1', genre: slot < 4 ? 'expository' : slot < 8 ? 'argumentative' : 'narrative', source_method: 'fixture', rights_basis: 'authorized_local_analysis', analyzer_version: 'fixture-v1', evidence_locator: `fixture:${id}`, access_date: '2026-10-06', analysis_hash: H(`analysis-${id}`), passage_hash: H(`passage-${id}`), item_set_hash: H(`items-${id}`), scoring_key_hash: H(`key-${id}`), word_count: slot < 4 ? 100 : slot < 8 ? 200 : 300, item_count: 3, codebook_hash: p.codebook_hash, selection_manifest_hash: p.selection_manifest_hash, metrics: Object.fromEntries(AXES.map(axis => [axis, base])) }
 }))
 const reseal = value => { const { analysis_hash, ...body } = value; return { ...body, analysis_hash: hash(body) } }
 const f02 = () => reseal({ codebook_hash: hash(axisDefs), source_freeze_sha256: H('freeze'), item_set_hash: H('f02-items'), scoring_key_hash: H('f02-key'), variants: Object.fromEntries(['middle_1', 'high_1'].map((grade, i) => [grade, { passage_hash: H(`f02-${grade}`), genre: 'expository', word_count: 100, metrics: Object.fromEntries(AXES.map(axis => [axis, i ? 7 : 5])) }])) })
@@ -124,6 +124,8 @@ test('ordinal discourse uses ordered anchors rather than a ratio threshold', () 
   f.codebook_hash = p.codebook_hash
   const result = judge(p, rows, reseal(f))
   assert.equal(result.level_separation.status, 'pass')
+  f.variants.high_1.metrics.discourse = 100
+  assert.throws(() => judge(p, rows, reseal(f)), /F02_ANALYSIS_INVALID/)
 })
 
 test('E3 failure blocks candidate and modified decisions become stale', () => {
@@ -144,4 +146,16 @@ test('workflow states never promote a draft, missing sample, or stale decision',
   assert.equal(workflowState({ protocol: p }), 'sealed')
   assert.equal(workflowState({ protocol: p, snapshot }), 'benchmark_calibrated')
   assert.equal(workflowState({ protocol: p, snapshot, decision: result, current: { benchmark_version: 'new-version', benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: 'fixture-run' } }), 'stale')
+  const newProtocol = { ...p, version: 'fixture-v2' }
+  assert.equal(workflowState({ protocol: newProtocol, snapshot, decision: result, current: { benchmark_version: newProtocol.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: 'fixture-run' } }), 'stale')
+})
+
+test('sample access date is required provenance', () => {
+  const p = protocol(), rows = samples(p)
+  delete rows[0].access_date
+  rows[1].access_date = '2026-02-30'
+  const snapshot = buildBenchmark(p, rows)
+  assert.ok(snapshot.rejected[0].reasons.includes('ACCESS_DATE_INVALID'))
+  assert.ok(snapshot.rejected[1].reasons.includes('ACCESS_DATE_INVALID'))
+  assert.equal(snapshot.grades.elementary_5.status, 'insufficient_benchmark')
 })

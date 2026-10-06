@@ -51,8 +51,10 @@ export function validateProtocol(protocol) {
 
 export function screenSample(sample, protocol) {
   const reasons = []
-  const required = ['sample_id', 'publisher', 'series', 'title', 'edition', 'difficulty_step', 'passage_id', 'page', 'genre', 'source_method', 'rights_basis', 'analyzer_version', 'evidence_locator']
+  const required = ['sample_id', 'publisher', 'series', 'title', 'edition', 'difficulty_step', 'passage_id', 'page', 'genre', 'source_method', 'rights_basis', 'analyzer_version', 'evidence_locator', 'access_date']
   if (required.some(key => !isText(sample?.[key])) || !(isText(sample?.ISBN) || (isText(sample?.publisher_id) && isText(sample?.canonical_url)))) reasons.push('PROVENANCE_INCOMPLETE')
+  const accessDate = sample?.access_date
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(accessDate ?? '') || Number.isNaN(Date.parse(`${accessDate}T00:00:00Z`)) || new Date(`${accessDate}T00:00:00Z`).toISOString().slice(0, 10) !== accessDate) reasons.push('ACCESS_DATE_INVALID')
   if (!Number.isInteger(sample?.publication_year) || sample.publication_year < 1900) reasons.push('PUBLICATION_YEAR_INVALID')
   if (!protocol.grades.includes(sample?.grade) || sample?.grade?.includes('~')) reasons.push('GRADE_NOT_SINGLE')
   if (!['expository', 'argumentative', 'narrative'].includes(sample?.genre)) reasons.push('GENRE_INVALID')
@@ -124,7 +126,10 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
   const { analysis_hash, ...f02Analysis } = f02 ?? {}
   if (f02?.codebook_hash !== protocol.codebook_hash || analysis_hash !== hash(f02Analysis) || !['middle_1', 'high_1'].every(grade => {
     const variant = f02?.variants?.[grade]
-    return variant && ['expository', 'argumentative', 'narrative'].includes(variant.genre) && Number.isInteger(variant.word_count) && variant.word_count > 0 && AXES.every(axis => Number.isFinite(variant.metrics?.[axis]))
+    return variant && ['expository', 'argumentative', 'narrative'].includes(variant.genre) && Number.isInteger(variant.word_count) && variant.word_count > 0 && AXES.every(axis => {
+      const value = variant.metrics?.[axis], def = protocol.axes[axis]
+      return Number.isFinite(value) && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length))
+    })
   })) fail('F02_ANALYSIS_INVALID')
   if (!isHex(f02?.source_freeze_sha256) || !isHex(f02?.item_set_hash) || !isHex(f02?.scoring_key_hash) || !['middle_1', 'high_1'].every(grade => isHex(f02?.variants?.[grade]?.passage_hash) && f02.variants[grade].passage_hash === e3?.seal?.passage_hash?.[grade]) || f02.item_set_hash !== e3?.seal?.item_set_hash || f02.scoring_key_hash !== e3?.seal?.scoring_key_hash || f02.source_freeze_sha256 !== e3?.seal?.source_freeze_sha256) fail('F02_INPUT_STALE')
   const results = {}
@@ -191,10 +196,13 @@ export function workflowState({ protocol, snapshot, decision, current } = {}) {
   if (!protocol || protocol.status !== 'sealed') return 'draft'
   validateProtocol(protocol)
   if (!snapshot) return 'sealed'
-  verifySnapshot(snapshot, protocol)
+  if (decision && verifyDecision(decision, current ?? {}).status === 'stale') return 'stale'
+  try { verifySnapshot(snapshot, protocol) } catch (error) {
+    if (error.message === 'BENCHMARK_STALE') return 'stale'
+    throw error
+  }
   if (Object.values(snapshot.grades).some(grade => grade.status !== 'calibrated')) return 'insufficient_benchmark'
   if (!decision) return 'benchmark_calibrated'
-  if (verifyDecision(decision, current ?? {}).status === 'stale') return 'stale'
   if (decision.target_fit.middle_1.status === 'insufficient_benchmark' || decision.target_fit.high_1.status === 'insufficient_benchmark' || decision.level_separation.status === 'insufficient_benchmark') return 'insufficient_benchmark'
   if (decision.target_fit.middle_1.status === 'inconclusive' || decision.target_fit.high_1.status === 'inconclusive' || decision.level_separation.status === 'inconclusive') return 'inconclusive'
   if (decision.target_fit.middle_1.status === 'fail' || decision.target_fit.high_1.status === 'fail' || decision.level_separation.status === 'fail') return 'fail'
