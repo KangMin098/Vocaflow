@@ -81,9 +81,7 @@ function ordinalReviewValid(review, value, levels) {
   return isText(review.adjudicator_id) && ![review.rater_a_id, review.rater_b_id].includes(review.adjudicator_id) && validRating(review.adjudicated) && review.adjudicated === value
 }
 
-export function buildBenchmark(protocol, samples) {
-  const protocol_hash = validateProtocol(protocol)
-  if (!Array.isArray(samples)) fail('SAMPLES_NOT_ARRAY')
+function partitionSamples(protocol, samples) {
   const seen = new Set(), passageHashes = new Set()
   const rejected = [], accepted = []
   for (const sample of samples) {
@@ -97,6 +95,13 @@ export function buildBenchmark(protocol, samples) {
       accepted.push(sample)
     }
   }
+  return { accepted, rejected }
+}
+
+export function buildBenchmark(protocol, samples) {
+  const protocol_hash = validateProtocol(protocol)
+  if (!Array.isArray(samples)) fail('SAMPLES_NOT_ARRAY')
+  const { accepted, rejected } = partitionSamples(protocol, samples)
   const grades = {}
   for (const grade of protocol.grades) {
     const rows = accepted.filter(row => row.grade === grade)
@@ -134,8 +139,7 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
   verifySnapshot(snapshot, protocol)
   const rebuilt = buildBenchmark(protocol, samples)
   if (rebuilt.snapshot_hash !== snapshot.snapshot_hash) fail('BENCHMARK_SAMPLE_CHANGED')
-  const acceptedIds = new Set(Object.values(snapshot.grades).flatMap(grade => grade.sample_ids))
-  const accepted = samples.filter(row => acceptedIds.has(row.sample_id) && screenSample(row, protocol).length === 0).filter((row, index, array) => array.findIndex(other => other.sample_id === row.sample_id) === index)
+  const { accepted } = partitionSamples(protocol, samples)
   const { analysis_hash, ...f02Analysis } = f02 ?? {}
   if (f02?.codebook_hash !== protocol.codebook_hash || analysis_hash !== hash(f02Analysis) || !['middle_1', 'high_1'].every(grade => {
     const variant = f02?.variants?.[grade]

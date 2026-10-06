@@ -278,3 +278,16 @@ test('workflow checks decision against supplied snapshot even with an old curren
   const oldCurrent = { benchmark_version: p.version, benchmark_snapshot_hash: oldSnapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: 'fixture-run', e3_evidence_hash: H('fixture-e3-audit-files') }
   assert.equal(workflowState({ protocol: p, snapshot: newSnapshot, decision, current: oldCurrent }), 'stale')
 })
+
+test('judge excludes a duplicate-passage rejection before a valid same-ID row', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  const rejected = { ...rows[61], passage_hash: rows[60].passage_hash, metrics: Object.fromEntries(AXES.map(axis => [axis, 100])) }
+  rejected.analysis_hash = sampleAnalysisHash(rejected)
+  const input = [...rows.slice(0, 61), rejected, ...rows.slice(61)]
+  const snapshot = buildBenchmark(p, input)
+  assert.ok(snapshot.rejected[0].reasons.includes('DUPLICATE_PASSAGE'))
+  assert.equal(snapshot.grades.middle_1.n, 30)
+  const result = judgeBenchmark({ protocol: p, snapshot, samples: input, f02: f, e3: e3(f) })
+  assert.equal(result.target_fit.middle_1.status, 'pass')
+  assert.equal(result.level_separation.status, 'pass')
+})
