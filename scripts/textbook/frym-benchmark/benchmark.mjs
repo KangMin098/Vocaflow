@@ -44,7 +44,7 @@ export function validateProtocol(protocol) {
   if (Object.keys(protocol.axes ?? {}).sort().join('|') !== [...AXES].sort().join('|') || hash(protocol.axes) !== protocol.codebook_hash) fail('AXES_INCOMPLETE')
   for (const axis of AXES) {
     const def = protocol.axes[axis]
-    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || unique(def.levels) !== def.levels.length))) fail('AXIS_DEFINITION_INVALID')
+    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
   }
   if (protocol.fit?.lower_quantile !== .1 || protocol.fit?.upper_quantile !== .9 || protocol.fit?.minimum_axes !== 7 || protocol.fit?.length_ratio_min !== .75 || protocol.fit?.length_ratio_max !== 1.25 || protocol.separation?.minimum_stable_axes !== 5 || protocol.separation?.minimum_matching_axes !== 3 || protocol.separation?.minimum_reference_ratio !== .5 || protocol.separation?.maximum_opposite_axes !== 1) fail('DECISION_RULES_INVALID')
   return hash(protocol)
@@ -165,11 +165,12 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
     results[grade] = { status: Object.values(axes).some(result => result.status === 'inconclusive') ? 'inconclusive' : core && pass >= protocol.fit.minimum_axes ? 'pass' : 'fail', n: reference.length, axes }
   }
   const middle = f02.variants.middle_1, high = f02.variants.high_1
-  let separation = { status: 'insufficient_benchmark' }
+  let separation
   const lowRows = comparisonRows(accepted, 'middle_1', middle, protocol)
   const highRows = comparisonRows(accepted, 'high_1', high, protocol)
   const commonGenre = middle.genre === high.genre
   const commonLength = Math.max(middle.word_count * .75, high.word_count * .75) <= Math.min(middle.word_count * 1.25, high.word_count * 1.25)
+  separation = { status: commonGenre && commonLength ? 'insufficient_benchmark' : 'inconclusive', reason: !commonGenre ? 'GENRE_MISMATCH' : !commonLength ? 'NO_COMMON_LENGTH_RANGE' : 'REFERENCE_SAMPLE_SHORTAGE' }
   const lowBound = Math.max(middle.word_count * .75, high.word_count * .75)
   const highBound = Math.min(middle.word_count * 1.25, high.word_count * 1.25)
   const commonLowRows = lowRows.filter(row => row.word_count >= lowBound && row.word_count <= highBound)
@@ -180,11 +181,11 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       const def = protocol.axes[axis]
       const refDelta = stats(commonHighRows.map(row => row.metrics[axis])).median - stats(commonLowRows.map(row => row.metrics[axis])).median
       const f02Delta = high.metrics?.[axis] - middle.metrics?.[axis]
-      if (!Number.isFinite(f02Delta) || refDelta === 0 || Math.sign(refDelta) !== def.direction) continue
+      if (!Number.isFinite(f02Delta) || Math.abs(refDelta) < def.minimum_meaningful_delta || Math.abs(f02Delta) < def.minimum_meaningful_delta || Math.sign(refDelta) !== def.direction) continue
       const direction = Math.sign(refDelta)
       const publisherStable = [...new Set([...commonLowRows, ...commonHighRows].map(row => row.publisher))].every(publisher => {
         const lo = commonLowRows.filter(row => row.publisher !== publisher), hi = commonHighRows.filter(row => row.publisher !== publisher)
-        return lo.length && hi.length && Math.sign(stats(hi.map(row => row.metrics[axis])).median - stats(lo.map(row => row.metrics[axis])).median) === direction
+        return lo.length && hi.length && (stats(hi.map(row => row.metrics[axis])).median - stats(lo.map(row => row.metrics[axis])).median) * direction >= def.minimum_meaningful_delta
       })
       if (!publisherStable) continue
       stable.push(axis)

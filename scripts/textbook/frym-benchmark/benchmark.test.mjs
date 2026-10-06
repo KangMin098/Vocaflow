@@ -4,7 +4,7 @@ import test from 'node:test'
 import { AXES, GRADES, buildBenchmark, hash, judgeBenchmark, sampleAnalysisHash, screenSample, verifyDecision, verifySnapshot, workflowState } from './benchmark.mjs'
 
 const H = text => hash(text)
-const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture_score', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1 }]))
+const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture_score', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5 }]))
 const selection = { schema: 'frym-benchmark-selection/1', status: 'sealed', selected_sample_ids: GRADES.flatMap(grade => Array.from({ length: 30 }, (_, index) => `${grade}-${index}`)) }
 const protocol = () => ({
   schema: 'frym-benchmark/1', status: 'sealed', version: 'fixture-v1', codebook_hash: hash(axisDefs), selection_manifest: structuredClone(selection), selection_manifest_hash: hash(selection), grades: [...GRADES],
@@ -120,7 +120,7 @@ test('selection manifest prevents unselected samples and mutation', () => {
 
 test('ordinal discourse uses ordered anchors rather than a ratio threshold', () => {
   const p = protocol(), rows = samples(p), f = f02()
-  p.axes.discourse = { metric: 'discourse_anchor', scale: 'ordinal', unit: 'anchor', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, levels: ['low', 'medium', 'high'] }
+  p.axes.discourse = { metric: 'discourse_anchor', scale: 'ordinal', unit: 'anchor', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: 1, minimum_meaningful_delta: 1, levels: ['low', 'medium', 'high'] }
   p.codebook_hash = hash(p.axes)
   for (const row of rows) row.codebook_hash = p.codebook_hash
   for (const row of rows) row.metrics.discourse = row.grade === 'high_1' ? 2 : 1
@@ -191,7 +191,7 @@ test('changed analysis inputs or measurements invalidate the analysis seal', () 
 
 test('ordinal measurements require two independent matching reviews or adjudication', () => {
   const p = protocol(), rows = samples(p)
-  p.axes.discourse = { metric: 'discourse_anchor', scale: 'ordinal', unit: 'anchor', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, levels: ['low', 'medium', 'high'] }
+  p.axes.discourse = { metric: 'discourse_anchor', scale: 'ordinal', unit: 'anchor', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: 1, minimum_meaningful_delta: 1, levels: ['low', 'medium', 'high'] }
   p.codebook_hash = hash(p.axes)
   for (const row of rows) { row.codebook_hash = p.codebook_hash; row.metrics.discourse = 1 }
   resealRows(rows)
@@ -215,4 +215,22 @@ test('a definite fit failure takes precedence over inconclusive separation', () 
   assert.equal(result.target_fit.middle_1.status, 'fail')
   assert.equal(result.level_separation.status, 'inconclusive')
   assert.equal(workflowState({ protocol: p, snapshot, decision: result, current: { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(sealed), e3_run_id: 'fixture-run', e3_evidence_hash: H('fixture-e3-audit-files') } }), 'fail')
+})
+
+test('sub-resolution grade shifts cannot prove level separation', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const row of rows.filter(row => row.grade === 'high_1')) for (const axis of AXES) row.metrics[axis] -= 2 - 1e-9
+  resealRows(rows)
+  for (const axis of AXES) f.variants.high_1.metrics[axis] = 5 + 1e-9
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.level_separation.status, 'inconclusive')
+  assert.equal(result.gold_s_candidate, false)
+})
+
+test('no shared length or genre is inconclusive rather than a sample shortage', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  f.variants.high_1.word_count = 1000
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.level_separation.status, 'inconclusive')
+  assert.equal(result.level_separation.reason, 'NO_COMMON_LENGTH_RANGE')
 })
