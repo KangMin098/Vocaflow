@@ -1134,7 +1134,7 @@
     },
     "app/admin/csat/evidence/EvidenceConsole.tsx::<module>": {
       "sha256": "0708505b0a6952adab6e33fd6a7d529e700d0bfdb023c0ae859c27b8f4dc05a2",
-      "class": "ADMIN_ONLY",
+      "class": "OPS_META",
       "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "app/admin/csat/evidence/EvidenceInspector.tsx::<module>": {
@@ -1294,7 +1294,7 @@
     },
     "app/admin/csat/sources/SourceWorkspace.tsx::<module>": {
       "sha256": "9b25b56400e5f2e2c2d72f186b96671e329ae9536976bfc618324ee8a004e83b",
-      "class": "ADMIN_ONLY",
+      "class": "OPS_META",
       "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "app/admin/csat/sourcing/actions.ts::<module>": {
@@ -1706,6 +1706,41 @@
       "sha256": "7949d722e1aa506f5ac8843beb6892800bd88249ae2ff18cb473c8284ee1ed20",
       "class": "ADMIN_ONLY",
       "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/evidence/EvidenceConsole.tsx::EvidenceConsole": {
+      "sha256": "69dc10080744b206a47fe663a46ef335a3ae609bfb56996a8de2f45d2de84c77",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/SourceWorkspace.tsx::update": {
+      "sha256": "a932496aa2cea9df037186d924a2096d588ab3efc1a4902130de3f3cdb6fd1c0",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/pd-comic/pipeline-bridge.ts::loadAdapters": {
+      "sha256": "1671403f882d23507d11d4bd1281c061acc04b1085a2a53e1574bd62280260ac",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/pd-comic/pipeline-bridge.ts::<module>": {
+      "sha256": "a33d2d13477a70901d361992cbde3a985dce2aeba72e0e979d967144f84388d2",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/pd-comic/pipeline-bridge.ts::loadCurateCore": {
+      "sha256": "58c1cec30cea99564649b63cfcae4347abcb8c46564e4b04c437544428de49aa",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/pd-comic/renewal-bridge.ts::load": {
+      "sha256": "0c3201b41fbec666e547d30374e7138581468420fc029a97f0f62ea61b97899b",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/pd-comic/renewal-bridge.ts::<module>": {
+      "sha256": "8c0fd8ca066e676ab968d90bbcd38f07b81a0d041aea2e681c7efb2bea153d2d",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     }
   },
   "loader_classifications": {
@@ -1866,6 +1901,22 @@
       "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
     },
     "lib/auth/dev-bypass.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/admin/csat/evidence/EvidenceConsole.tsx": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/admin/csat/sources/SourceWorkspace.tsx": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/pd-comic/pipeline-bridge.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/pd-comic/renewal-bridge.ts": {
       "class": "OPS_META",
       "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
     }

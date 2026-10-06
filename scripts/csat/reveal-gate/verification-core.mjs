@@ -75,7 +75,7 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       let dependency=null
       if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&!n.importClause?.isTypeOnly&&n.importClause){const bindings=n.importClause.namedBindings;if(!!n.importClause.name||!bindings||!ts.isNamedImports(bindings)||bindings.elements.some(e=>!e.isTypeOnly))dependency=n.moduleSpecifier.text}
       if(ts.isExportDeclaration(n)&&n.moduleSpecifier&&ts.isStringLiteral(n.moduleSpecifier)&&!n.isTypeOnly)dependency=n.moduleSpecifier.text
-      if(ts.isCallExpression(n)&&(n.expression.kind===ts.SyntaxKind.ImportKeyword||ts.isIdentifier(n.expression)&&n.expression.text==='require')&&n.arguments[0]&&ts.isStringLiteralLike(n.arguments[0]))dependency=n.arguments[0].text
+      if(ts.isCallExpression(n)&&(n.expression.kind===ts.SyntaxKind.ImportKeyword||ts.isIdentifier(n.expression)&&n.expression.text==='require')){dependency=constantString(n.arguments[0],constants);if(dependency===null){register(n);register(source);if(!loader(rel))issues.push({file:rel,kind:'unclassified_dynamic_server_import'})}}
       if(dependency) {
         const module=ts.resolveModuleName(dependency,file,{baseUrl:srcRoot,paths:{'@/*':['*']},moduleResolution:ts.ModuleResolutionKind.Bundler},ts.sys).resolvedModule
           if(module){const target=relative(srcRoot,path.resolve(module.resolvedFileName)),classification=loader(target)?.class??manifest.app_file_loaders?.[target]?.class??manifest.app_json_imports?.[target]?.class
@@ -88,7 +88,8 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
         if(bindings&&ts.isNamedImports(bindings)) for(const e of bindings.elements) if(!e.isTypeOnly&&GATE.has((e.propertyName??e.name).text)) imported.add(e.name.text)
         if(bindings&&ts.isNamespaceImport(bindings)) namespaces.add(bindings.name.text)
       }
-      if(ts.isCallExpression(n)&&((ts.isPropertyAccessExpression(n.expression)&&['from','rpc'].includes(n.expression.name.text))||(ts.isElementAccessExpression(n.expression)&&ts.isStringLiteralLike(n.expression.argumentExpression)&&['from','rpc'].includes(n.expression.argumentExpression.text)))) {
+      if(ts.isCallExpression(n)&&ts.isElementAccessExpression(n.expression)&&constantString(n.expression.argumentExpression,constants)===null){register(n);register(source);if(!loader(rel))issues.push({file:rel,kind:'unclassified_computed_server_call'})}
+      if(ts.isCallExpression(n)&&((ts.isPropertyAccessExpression(n.expression)&&['from','rpc'].includes(n.expression.name.text))||(ts.isElementAccessExpression(n.expression)&&['from','rpc'].includes(constantString(n.expression.argumentExpression,constants))))) {
         if(ts.isIdentifier(n.expression.expression)&&/^(Array|Buffer|Uint\d+Array|Int\d+Array|Float\d+Array)$/.test(n.expression.expression.text))return
         const arg=n.arguments[0]
         const target=constantString(arg,constants)
