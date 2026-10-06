@@ -20,12 +20,22 @@ export interface CoverageProblem { file: string; problem: string }
 export const GATED_CLASSES = ['ANSWER_SENSITIVE', 'CORRECTNESS'] as const
 const SENSITIVE_REL_CLASSES = ['ANSWER_SENSITIVE', 'CORRECTNESS', 'CORRECTNESS_OWN_PRIOR']
 const SENSITIVE_FN_CLASSES = ['CORRECTNESS_ORACLE', 'REVIEWER_INTERNAL']
+// 판정을 실제로 하는 함수만(DB 판정 RPC 를 부른다). revealHeldResponse · isItemHeld 같은 응답 · 순수 함수는 관문으로 세지 않는다
 export const GATE_FUNCTIONS = [
   'canRevealExam', 'canRevealItem', 'canRevealSession', 'embargoedExamIds', 'embargoedItemIds', 'userHasHeldSession',
-  'loadRevealScope', 'assertRevealAllowed', 'revealHeldResponse', 'isItemHeld', 'isExamHeld', 'isTypeHeld',
+  'loadRevealScope', 'assertRevealAllowed', 'examRevealDecision', 'itemRevealDecision',
 ]
 const IMPORT = /import\s+(?:type\s+)?\{([^}]*)\}\s+from\s+'(?:@\/lib\/csat\/|\.\/|\.\.\/)embargo-gate'/g
 const EXCLUDED = /^(app\/admin|app\/api\/admin|lib\/admin|components\/admin)\//
+
+/** 주석을 뺀 코드 — 주석 속 `canRevealItem(id)` 같은 글로 가드를 통과하지 못하게. 줄 주석은 `://`(URL) 뒤가 아닌 것만 */
+export function stripComments(src: string): string {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .split('\n')
+    .map((l) => l.replace(/(^|[^:])\/\/.*$/, '$1'))
+    .join('\n')
+}
 
 function walk(dir: string, out: string[] = []): string[] {
   if (!fs.existsSync(dir)) return out
@@ -49,11 +59,13 @@ export function checkGateCoverage(srcRoot: string, m: GateManifest): CoveragePro
   const rel = (p: string) => path.relative(srcRoot, p).replace(/\\/g, '/')
   const names = sensitiveNames(m)
   // ② 기본 거부 — 민감 관계 · 함수 이름을 문자열로 쓰는 파일은 분류돼 있어야 한다
-  for (const file of ['lib', 'app', 'components'].flatMap((d) => walk(path.join(srcRoot, d)))) {
+  // src 전체(hooks · stores 포함) — 테스트 도우미 디렉터리(test/)만 뺀다
+  for (const file of walk(srcRoot).filter((f) => !rel(f).startsWith('test/'))) {
     const r = rel(file)
     if (EXCLUDED.test(r)) continue
-    const s = fs.readFileSync(file, 'utf8')
-    const hit = names.find((n) => s.includes(`'${n}'`))
+    const s = stripComments(fs.readFileSync(file, 'utf8'))
+    // 따옴표 종류와 무관하게(' " `) — 큰따옴표 · 템플릿 리터럴로 쓴 표 이름도 잡는다
+    const hit = names.find((n) => ["'", '"', '`'].some((q) => s.includes(`${q}${n}${q}`)))
     if (hit && !m.app_db_loaders[r]) problems.push({ file: r, problem: `정답 민감 · 정오 표면 '${hit}' 을 읽는데 manifest.app_db_loaders 에 없다(미분류 — 기본 거부)` })
   }
   for (const [r, v] of Object.entries(m.app_db_loaders)) {
@@ -62,7 +74,7 @@ export function checkGateCoverage(srcRoot: string, m: GateManifest): CoveragePro
     if (!fs.existsSync(file)) { problems.push({ file: r, problem: '매니페스트에만 있다(파일 없음)' }); continue }
     if (!(GATED_CLASSES as readonly string[]).includes(v.class)) continue
     // ① 관문 사용
-    const s = fs.readFileSync(file, 'utf8')
+    const s = stripComments(fs.readFileSync(file, 'utf8'))
     const imported = [...s.matchAll(IMPORT)].flatMap((x) => x[1].split(',').map((t) => t.replace(/^\s*type\s+/, '').trim().split(/\s+as\s+/).pop() ?? '').filter(Boolean))
     const fns = imported.filter((n) => GATE_FUNCTIONS.includes(n))
     if (fns.length === 0) { problems.push({ file: r, problem: `${v.class} 인데 embargo-gate 의 관문 함수를 import 하지 않는다` }); continue }

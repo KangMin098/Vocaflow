@@ -9,11 +9,11 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { assertRevealAllowed, RevealHeldError } from '@/lib/csat/embargo-gate'
+import { assertRevealAllowed, isTypeHeld, loadRevealScope, RevealHeldError } from '@/lib/csat/embargo-gate'
 import { loadCsatItemExplain } from '@/lib/csat/learner'
 import { lectureMeta } from '@/lib/csat/lecture/store'
 import type { AnchorOrigin } from '@/lib/csat/passage-skeleton'
-import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons } from '@/lib/csat/skeleton'
+import { loadItemSkeleton, primeLearnerHakpyeongSkeletons } from '@/lib/csat/skeleton'
 import { createClient } from '@/lib/supabase/server'
 
 import { firstSentences, oneLiner } from './text'
@@ -62,7 +62,8 @@ export async function loadReveal(itemId: string): Promise<{ payload: RevealPaylo
 
   // 유형 첫 절차 — 「한 줄」의 재료. 못 읽으면 문항 절차의 첫 줄로 대신한다
   let firstStep: string | null = null
-  if (item.type_id) {
+  // 유형 보고는 유형 단위 보류(그 유형 문항이 보류 시험에 있으면) — 앱 관문으로 먼저 거른다(판정 실패도 보류 → 문항 절차로 대신)
+  if (item.type_id && !isTypeHeld(await loadRevealScope(), item.type_id)) {
     // `Database` 타입에 `csat_*` 가 없다 — `learner.ts` 의 `csatDb()` 와 같은 완화(한 줄)
     const db = (await createClient()) as unknown as SupabaseClient
     const { data } = await db
@@ -76,7 +77,9 @@ export async function loadReveal(itemId: string): Promise<{ payload: RevealPaylo
   }
 
   await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
-  const sk = await loadRevealedSkeleton(item.id)
+  // 골격 부재(null)와 보류를 섞지 않는다 — 내보내기 직전에 관문을 한 번 더 지나고(보류 · 판정 실패면 RevealHeldError → 423), 골격은 원본에서
+  await assertRevealAllowed({ itemId: item.id })
+  const sk = loadItemSkeleton(item.id)
   const skeleton = sk
     ? {
         sentences: sk.sentences.map((s) => s.chars),

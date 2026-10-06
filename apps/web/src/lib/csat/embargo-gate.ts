@@ -141,17 +141,27 @@ export async function canRevealSession(sessionId: string, deps?: GateDeps): Prom
 export async function userHasHeldSession(userId: string, deps?: GateDeps): Promise<boolean> {
   try {
     const db = gateDb(deps)
-    const rows = await keysetSelect<{ id: string; exam_id: string | null }, string>(
+    const rows = await withTimeout(keysetSelect<{ id: string; exam_id: string | null }, string>(
       (cursor, limit) => {
-        const q = db.from('csat_dx_session').select('id, exam_id').eq('user_id', userId).not('exam_id', 'is', null).order('id').limit(limit)
+        const q = db.from('csat_dx_session').select('id, exam_id').eq('user_id', userId).order('id').limit(limit)
         return cursor === null ? q : q.gt('id', cursor)
       },
       (r) => r.id,
       'reveal-gate 본인 기록',
-    )
+    ))
     const exams = rows.map((r) => r.exam_id).filter((x): x is string => Boolean(x))
-    return (await embargoedExamIds(exams, deps)).size > 0
-  } catch {
+    if ((await embargoedExamIds(exams, deps)).size > 0) return true
+    // 진단 테스트(시험 id 없음) — 응답 문항 단위로 본다(보류 시험 문항이 섞였으면 그 정오로 만든 스냅샷도 보류)
+    const diag = rows.filter((r) => !r.exam_id).map((r) => r.id)
+    for (let i = 0; i < diag.length; i += 20) {
+      const { data, error } = await withTimeout(db.from('csat_dx_response').select('item_id').in('session_id', diag.slice(i, i + 20)))
+      if (error) throw new Error(error.message)
+      const items = (data ?? []).map((r) => r.item_id as string | null).filter((x): x is string => Boolean(x))
+      if ((await embargoedItemIds(items, deps)).size > 0) return true
+    }
+    return false
+  } catch (e) {
+    gateLog('gate_failure', { fn: 'userHasHeldSession', reason: e instanceof Error ? e.message : String(e) })
     return true
   }
 }
@@ -187,19 +197,19 @@ export async function loadRevealScope(deps?: GateDeps): Promise<RevealScope> {
       (r) => r.id,
       'reveal-gate 시험 목록',
     )
-    const exams = (await Promise.all([page(true), page(false)])).flat()
+    const exams = (await withTimeout(Promise.all([page(true), page(false)]))).flat()
     const held = await heldBy('csat_ec_embargoed_exams', exams.map((e) => e.id), deps)
     if (held.failed) return FAILED_SCOPE
     if (held.set.size === 0) return { failed: false, exams: held.set, items: new Set(), types: new Set() }
     const heldExams = [...held.set]
-    const items = await keysetSelect<{ id: string; type_id: string | null }, string>(
+    const items = await withTimeout(keysetSelect<{ id: string; type_id: string | null }, string>(
       (cursor, limit) => {
         const q = db.from('csat_items').select('id, type_id').in('exam_id', heldExams).order('id').limit(limit)
         return cursor === null ? q : q.gt('id', cursor)
       },
       (r) => r.id,
       'reveal-gate 보류 문항',
-    )
+    ))
     return {
       failed: false,
       exams: held.set,
@@ -262,4 +272,27 @@ export async function assertRevealAllowed(target: RevealTarget, deps?: GateDeps)
 /** 앱 계약 — 423 · { held: 'exam_embargo' } · no-store. 본문에 다른 키를 싣지 않는다(시험 · 문항 id 도) */
 export function revealHeldResponse(): NextResponse {
   return NextResponse.json({ held: HELD_REASON }, { status: 423, headers: { 'cache-control': 'no-store' } })
+}
+
+// ── 판정 + 실패 여부(응답을 가르는 경로용) ─────────────────────────────────
+// 보류(embargo)와 관문 실패(failure)를 응답이 다르게 다뤄야 하는 곳(예: 저장은 됐는데 결과를 못 여는 경우)만 쓴다.
+
+export type RevealDecision = 'open' | 'embargo' | 'failure'
+
+/** 시험 하나의 판정 — 실패면 'failure'(호출부는 423 으로 끝낸다) */
+export async function examRevealDecision(examId: string, deps?: GateDeps): Promise<RevealDecision> {
+  const r = await heldBy('csat_ec_embargoed_exams', [examId], deps)
+  return r.failed ? 'failure' : r.set.has(examId) ? 'embargo' : 'open'
+}
+
+/** 문항 id 들의 보류 집합 + 판정 실패 여부 */
+export async function itemRevealDecision(itemIds: readonly string[], deps?: GateDeps): Promise<{ held: Set<string>; failed: boolean }> {
+  const ids = [...new Set(itemIds.filter(Boolean))]
+  if (ids.length === 0) return { held: new Set(), failed: false }
+  const [byItem, byExam] = await Promise.all([
+    heldBy('csat_ec_embargoed_items', ids, deps),
+    heldBy('csat_ec_embargoed_exams', ids.map(examOfItem), deps),
+  ])
+  if (byItem.failed || byExam.failed) return { held: new Set(ids), failed: true }
+  return { held: new Set(ids.filter((id) => byItem.set.has(id) || byExam.set.has(examOfItem(id)))), failed: false }
 }

@@ -11,6 +11,11 @@ vi.mock('@/lib/supabase/server', () => ({
 }))
 vi.mock('@/lib/supabase/admin', () => ({
   createAdminClient: () => ({
+    // /api/csat/state 의 서버 읽기 — 정오가 실린 기록 한 벌
+    from: () => {
+      const q = { select: () => q, eq: () => q, maybeSingle: async () => ({ data: { record: { version: 1, seed: 1, onboarded: true, predictions: [{ item: 'M2509#18', type: 'T', step: 1, hit: true, at: 1 }], formulas: [], queue: [], completed: [] } }, error: null }) }
+      return q
+    },
     rpc: (_fn: string, args: Record<string, string[]>) => {
       if (gate.mode === 'hang') return new Promise(() => {})
       if (gate.mode === 'error') return Promise.resolve({ data: null, error: { message: 'connection reset' } })
@@ -24,6 +29,7 @@ const loader = vi.hoisted(() => ({ lecture: vi.fn(() => ({ cues: [{ text: 'SECRE
 vi.mock('@/lib/csat/lecture/store', () => ({ loadLecture: loader.lecture }))
 
 import { GET as lectureGET } from '@/app/api/csat/lecture/route'
+import { GET as stateGET } from '@/app/api/csat/state/route'
 import { GATE_TIMEOUT_MS } from '../embargo-gate'
 
 const req = () => new Request('http://x/api/csat/lecture?item=M2509-18')
@@ -75,5 +81,20 @@ describe('관문 실패 = 423 held · no-store', () => {
     const res = await lectureGET(req())
     expect(res.status).toBe(200)
     expect(loader.lecture).toHaveBeenCalled()
+  })
+
+  it('/api/csat/state — 판정 실패면 기록(정오) 대신 423', async () => {
+    gate.mode = 'error'
+    const res = await stateGET()
+    expect(res.status).toBe(423)
+    expect(res.headers.get('cache-control')).toBe('no-store')
+    expect(await res.text()).not.toContain('M2509#18')
+  })
+
+  it('/api/csat/state — 보류 문항의 예측(정오)을 뺀다', async () => {
+    gate.mode = 'held'
+    const res = await stateGET()
+    expect(res.status).toBe(200)
+    expect((await res.json()).record.predictions).toEqual([])
   })
 })

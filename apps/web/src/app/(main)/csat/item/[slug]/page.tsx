@@ -26,8 +26,8 @@ import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/catalog'
 import { examOrder } from '@/lib/csat/session/model'
 import { isKiceExam } from '@/lib/csat/exam-id'
-import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings } from '@/lib/csat/skeleton'
-import { loadRevealScope } from '@/lib/csat/embargo-gate'
+import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings } from '@/lib/csat/skeleton'
+import { canRevealItem, loadRevealScope } from '@/lib/csat/embargo-gate'
 import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
@@ -48,13 +48,12 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   const itemId = fromItemSlug(slug)
   const { item, error, held } = await loadCsatItemExplain(itemId)
   // 보류 시험 문항(오답 원인 Pilot 수집 중) — 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에 싣지 않는다(embargo-gate)
-  if (held) {
-    return (
-      <p className="mx-auto max-w-2xl break-keep py-10 text-sm leading-relaxed text-[var(--t2)]">
-        이 회차의 해설은 지금 잠시 닫혀 있어요. 풀이 기록을 모으는 기간이 끝나면 다시 열려요.
-      </p>
-    )
-  }
+  const heldNotice = (
+    <p className="mx-auto max-w-2xl break-keep py-10 text-sm leading-relaxed text-[var(--t2)]">
+      이 회차의 해설은 지금 잠시 닫혀 있어요. 풀이 기록을 모으는 기간이 끝나면 다시 열려요.
+    </p>
+  )
+  if (held) return heldNotice
   if (!error && !item) notFound()
 
   if (error || !item) {
@@ -68,7 +67,10 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   // 지도는 **구워 둔 골격**에서만 온다(DB 의 지문을 런타임에 만지는 경로가 없어야 한다).
   // 학평 골격은 DB 의 구운 행(발행분만 · 학습자 RLS) — 지문 원본이 아니라 문장 길이와 해설 인용뿐이다
   await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
-  const skeleton = await loadRevealedSkeleton(item.id)
+  // 화면 데이터를 만들기 직전에 관문을 한 번 더 — 그 사이 보류가 시작됐거나 판정이 실패하면 읽은 해설도 내보내지 않는다
+  // (골격 부재와 보류를 섞지 않는다: 보류면 안내만, 골격은 원본에서)
+  if (!(await canRevealItem(item.id))) return heldNotice
+  const skeleton = loadItemSkeleton(item.id)
   const anchors: MapAnchor[] = [
     ...(item.answer != null && !item.answer_unknown && item.why_correct
       ? [{ id: 'answer', label: CIRCLED[item.answer] ?? String(item.answer), kind: 'answer' as const, detail: item.why_correct }]

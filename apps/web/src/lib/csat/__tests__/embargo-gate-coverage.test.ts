@@ -30,6 +30,10 @@ describe('Reveal Gate 앱 가드', () => {
       fs.writeFileSync(path.join(root, 'lib/csat/idle.ts'), "import { canRevealItem } from './embargo-gate'\nexport const q = (db: any) => db.from('csat_dx_response').select('is_correct')\nvoid canRevealItem\n")
       // 분류 안 된 새 민감 로더(기본 거부)
       fs.writeFileSync(path.join(root, 'lib/csat/new-loader.ts'), "export const q = (db: any) => db.from('csat_dx_session').select('raw_score')\n")
+      // 큰따옴표로 쓴 미분류 민감 로더
+      fs.writeFileSync(path.join(root, 'lib/csat/dq-loader.ts'), 'export const q = (db: any) => db.from("csat_dx_response").select("is_correct")\n')
+      // 관문 호출이 주석에만 있음
+      fs.writeFileSync(path.join(root, 'lib/csat/comment-only.ts'), "import { canRevealItem } from './embargo-gate'\n// canRevealItem(id) 로 거른다\nexport const q = (db: any) => db.from('csat_dx_response').select('is_correct')\nvoid canRevealItem\n")
       // 정상
       fs.writeFileSync(path.join(root, 'lib/csat/ok.ts'), "import { canRevealExam } from './embargo-gate'\nexport const q = async (db: any) => (await canRevealExam('X')) ? db.from('csat_dx_session').select('raw_score') : null\n")
       const m: GateManifest = {
@@ -39,10 +43,11 @@ describe('Reveal Gate 앱 가드', () => {
           'lib/csat/idle.ts': { class: 'CORRECTNESS' },
           'lib/csat/ok.ts': { class: 'CORRECTNESS' },
           'lib/csat/gone.ts': { class: 'CORRECTNESS' },
+          'lib/csat/comment-only.ts': { class: 'CORRECTNESS' },
         },
       }
       const files = checkGateCoverage(root, m).map((p) => p.file).sort()
-      expect(files).toEqual(['lib/csat/gone.ts', 'lib/csat/idle.ts', 'lib/csat/new-loader.ts', 'lib/csat/unrouted.ts'])
+      expect(files).toEqual(['lib/csat/comment-only.ts', 'lib/csat/dq-loader.ts', 'lib/csat/gone.ts', 'lib/csat/idle.ts', 'lib/csat/new-loader.ts', 'lib/csat/unrouted.ts'])
     } finally {
       fs.rmSync(root, { recursive: true, force: true })
     }

@@ -303,9 +303,9 @@ console.log('')
 
 // Reveal Gate G3(2026-10-06): 예시의 정답 민감 부분(문항 id · 오답 선지 번호 · 끌리는 이유 · 버리는 법)은 클라이언트 번들로 가는
 // `trap-atlas.json` 에 넣지 않는다 — 서버 전용 `trap-atlas-examples.json`(lib/csat/trap-atlas-examples.ts 가 보류 필터 뒤 내보낸다).
-// 번들 쪽 예시에는 문항으로 가는 비민감 메타(slug · 회차 이름 · 번호 · 유형)만 남는다.
+// 번들 쪽 예시는 비운다 — 문항 slug 와 함정 key 의 연결만으로도 보류 문항의 오답 계열이 복원된다(리뷰 P1 · 2026-10-06).
 function splitAtlas(full) {
-  const pub = { ...full, traps: full.traps.map((t) => ({ ...t, examples: t.examples.map((e) => ({ slug: e.slug, exam_label: e.exam_label, no: e.no, type_id: e.type_id })) })) }
+  const pub = { ...full, traps: full.traps.map((t) => ({ ...t, examples: [] })) }
   const detail = { built_at: full.built_at, traps: Object.fromEntries(full.traps.map((t) => [t.key, t.examples])) }
   return { pub, detail }
 }

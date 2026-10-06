@@ -13,6 +13,7 @@ import { parseExamPayload, todayKst } from '@/lib/csat/diagnosis/payload'
 import { failure, learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
 import { deleteExamSession, submitExamSession } from '@/lib/csat/diagnosis/server'
 import { pilotOpen } from '@/lib/csat/ec-pilot/server'
+import { revealHeldResponse } from '@/lib/csat/embargo-gate'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -27,6 +28,8 @@ export async function POST(req: Request) {
     const participant = await pilotOpen(ctx.userId)
     const out = await submitExamSession(ctx.db, { ...body, userId: ctx.userId, enteredBy: 'learner', participant }, now)
     // 보류(참가자 capture 또는 그 시험의 요청자 무관 보류 — embargo-gate 판정은 submitExamSession 안)면 결과 없이
+    // 관문 판정 실패 — 기록은 저장됐지만 결과를 열 수 없다: 공통 423(관문 실패를 보류 아님으로 삼키지 않는다)
+    if (out.held && out.gateFailure) return revealHeldResponse()
     if (out.held) return NextResponse.json({ sessionId: out.sessionId, ready: out.ready, held: true }, { headers: { 'cache-control': 'no-store' } })
     return NextResponse.json(
       { sessionId: out.sessionId, raw: out.raw, grade: out.grade, ready: out.ready, snapshotId: out.snapshotId, wrong: out.wrong },

@@ -206,11 +206,15 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
 }
 
 /**
- * Reveal Gate — 정오가 실린 칸(예측 `hit` · 초안 `answers[].hit`)의 문항 id. 서버가 보류 판정에 넘긴다.
- * 완료 · 열람 · 진행 중 세트는 정오를 싣지 않으므로 대상이 아니다.
+ * Reveal Gate — 정답 · 정오가 실린 칸의 문항 id: 예측 `hit` · 초안 `answers[].hit` · 진행 중 세트의 근거 자리(`active.loci`) ·
+ * 공식(분석에서 뽑은 문장 — `formulas[].sources`). 서버가 보류 판정에 넘긴다. 완료 · 열람은 정오를 싣지 않는다.
  */
 export function correctnessItemIds(record: DissectionRecord): string[] {
-  return [...new Set([...record.predictions.map((p) => p.item), ...Object.keys(record.drafts ?? {})])]
+  return [...new Set([
+    ...record.predictions.map((p) => p.item), ...Object.keys(record.drafts ?? {}),
+    ...(record.active?.items ?? []), ...Object.keys(record.active?.loci ?? {}),
+    ...record.formulas.flatMap((f) => f.sources),
+  ])]
 }
 
 /**
@@ -219,5 +223,14 @@ export function correctnessItemIds(record: DissectionRecord): string[] {
  */
 export function withoutHeldCorrectness(record: DissectionRecord, isHeld: (itemId: string) => boolean): DissectionRecord {
   const drafts = record.drafts ? Object.fromEntries(Object.entries(record.drafts).filter(([id]) => !isHeld(id))) : undefined
-  return { ...record, predictions: record.predictions.filter((p) => !isHeld(p.item)), ...(drafts ? { drafts } : {}) }
+  // 진행 중 세트에 보류 문항이 있으면 세트째 뺀다(근거 자리 loci 가 정답 근거다) · 보류 문항에서 나온 공식도 뺀다
+  const activeHeld = record.active ? [...record.active.items, ...Object.keys(record.active.loci ?? {})].some(isHeld) : false
+  const { active, ...rest } = record
+  return {
+    ...rest,
+    ...(active && !activeHeld ? { active } : {}),
+    predictions: record.predictions.filter((p) => !isHeld(p.item)),
+    formulas: record.formulas.filter((f) => !f.sources.some(isHeld)),
+    ...(drafts ? { drafts } : {}),
+  }
 }

@@ -16,7 +16,7 @@ import { NextResponse } from 'next/server'
 
 import { correctnessItemIds, mergeDissection, withoutHeldCorrectness } from '@/lib/csat/continuity'
 import type { DissectionRecord } from '@/lib/csat/dissect'
-import { embargoedItemIds } from '@/lib/csat/embargo-gate'
+import { itemRevealDecision, revealHeldResponse } from '@/lib/csat/embargo-gate'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 
@@ -56,9 +56,13 @@ export async function GET() {
   const { data, error } = await db.from('csat_learner_state').select('record').eq('user_id', user.id).maybeSingle()
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 503, headers: NO_STORE })
   const record = (data as { record: unknown } | null)?.record ?? null
-  if (!looksLikeRecord(record)) return NextResponse.json({ ok: true, record }, { headers: NO_STORE })
+  if (record === null) return NextResponse.json({ ok: true, record: null }, { headers: NO_STORE })
+  // 모양을 검증할 수 없는 기록은 거를 수도 없다 — 원문을 내지 않고 공통 423(fail-closed)
+  if (!looksLikeRecord(record)) return revealHeldResponse()
   const rec = record as unknown as DissectionRecord
-  const held = await embargoedItemIds(correctnessItemIds(rec))
+  const { held, failed } = await itemRevealDecision(correctnessItemIds(rec))
+  // 관문 판정 실패 — 기록을 내보내지 않고 공통 423(기기 기록으로 계속 돈다)
+  if (failed) return revealHeldResponse()
   return NextResponse.json({ ok: true, record: held.size ? withoutHeldCorrectness(rec, (id) => held.has(id)) : rec }, { headers: NO_STORE })
 }
 

@@ -18,14 +18,15 @@ export interface TargetCandidate {
 
 const LISTENING_LAST = 17
 
-function eligible(c: TargetCandidate): boolean {
+/** 내용 적격(정오 무관) — 저장 때 봉인 대상과 수집 화면이 같은 조건을 쓴다 */
+export function isContentEligible(c: TargetCandidate): boolean {
   return c.itemNo > LISTENING_LAST && c.chosen !== null && !!c.stem?.trim() && Array.isArray(c.choices) && c.choices.length > 0 && c.bodyOk
 }
 
 /** 봉인 대상 중 내용 적격인 번호(번호순). 정오를 받지 않는다 — 인자에 정오 칸이 없다 */
 export function selectTargets(cands: TargetCandidate[], sealed: readonly number[]): number[] {
   const want = new Set(sealed)
-  return cands.filter((c) => want.has(c.itemNo) && eligible(c)).map((c) => c.itemNo).sort((a, b) => a - b)
+  return cands.filter((c) => want.has(c.itemNo) && isContentEligible(c)).map((c) => c.itemNo).sort((a, b) => a - b)
 }
 
 // ── 학생 범주(student_group) — 원인 라벨이 아니다. 저장은 kind 'category' 과정 증거 하나 ──

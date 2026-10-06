@@ -92,21 +92,16 @@ describe('작업 공간 — 거르기는 AND 다', () => {
   })
 
   it('찾기는 낱말을 전부 만족해야 한다(하나라도 없으면 뺀다)', () => {
-    const first = types.find((row) => row.example)!
+    const first = types[0]
     const hit = filterRows(types, { ...EMPTY_SPACE_FILTER, query: first.name })
     expect(hit.map((row) => row.name)).toContain(first.name)
     const miss = filterRows(types, { ...EMPTY_SPACE_FILTER, query: `${first.name} 그런낱말은없다` })
     expect(miss).toHaveLength(0)
   })
 
-  it('회차 이름으로도 찾힌다 — 레일의 회차 목록이 실제로 거른다', () => {
-    const row = traps.find((r) => r.example)!
-    const hit = filterRows(traps, { ...EMPTY_SPACE_FILTER, query: row.example!.label })
-    expect(hit.length).toBeGreaterThan(0)
-    // 낱말 AND 다 — 「2026학년도 수능」은 두 낱말이고, 두 낱말을 **다** 가진 줄만 남는다
-    // (같은 회차가 아니어도 두 낱말을 다 가지면 남는 것이 이 규칙의 정의다).
-    const words = row.example!.label.toLowerCase().split(/\s+/)
-    expect(hit.every((r) => words.every((w) => r.search.includes(w)))).toBe(true)
+  it('Reveal Gate G3 — 번들에는 문항 예시가 없어 줄에 예시 · 회차 검색어가 실리지 않는다', () => {
+    // 함정 ↔ 문항 연결은 서버 전용(trap-atlas-examples.ts)으로 옮겼다(2026-10-06)
+    expect([...types, ...traps].every((r) => r.example === null)).toBe(true)
   })
 })
 

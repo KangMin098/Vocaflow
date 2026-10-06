@@ -10,8 +10,9 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
-import { canRevealExam, embargoedExamIds } from '../embargo-gate'
+import { embargoedExamIds, embargoedItemIds, examRevealDecision } from '../embargo-gate'
 import { EC_PILOT } from '../ec-pilot/config'
+import { isContentEligible } from '../ec-pilot/targets'
 import { mapEvidenceFor } from '../map/evidence'
 import { recordQuality } from './engine/record-quality'
 import { selectByChunks, selectSmall } from './fetch'
@@ -194,6 +195,9 @@ export async function loadSessionsWithWatermark(db: Db, userId: string): Promise
     'csat_dx_response',
   )
   responses.sort((a, b) => a.item_no - b.item_no)
+  // 진단 테스트(시험 id 없음) 응답도 문항 단위로 — 보류 시험 문항의 정오는 입력에 넣지 않는다(판정 실패면 전부 뺀다)
+  const heldItems = await embargoedItemIds(responses.map((r) => r.item_id).filter((x): x is string => Boolean(x)))
+  if (heldItems.size) responses.splice(0, responses.length, ...responses.filter((r) => !r.item_id || !heldItems.has(r.item_id)))
   const bySession = new Map<string, SessionIn>()
   for (const s of sessions) {
     bySession.set(s.id, { id: s.id, examId: s.exam_id, mode: s.mode, takenAt: s.taken_at, rawScore: s.raw_score, responses: [] })
@@ -332,7 +336,7 @@ export class SubmissionError extends Error {}
 /** 저장 결과. held 면 점수 · 등급 · 틀린 문항을 싣지 않는다(Reveal Gate — 요청자 무관 시험 보류 포함) */
 export type SubmitResult =
   | { held: false; sessionId: string; raw: number; grade: number | null; ready: boolean; snapshotId: string; wrong: number[] }
-  | { held: true; sessionId: string; ready: boolean; snapshotId: string }
+  | { held: true; sessionId: string; ready: boolean; snapshotId: string; gateFailure: boolean }
 
 /**
  * 시험 기록 한 회를 채점해 저장하고 스냅샷을 쌓는다.
@@ -357,7 +361,18 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date):
   // 봉인 대상 = 정오 무관(고른 답이 있고 문항 id 가 있는 번호 전부). 증거 적격 = 기록 품질 trusted(정오를 보지 않는다)
   //   표 제약(evidence_eligible or 대상 0)에 맞춰 적격이 아니면 대상을 비운다 — 보류 행은 그래도 생긴다
   const evidenceEligible = recordQuality(responses.map((r) => ({ no: r.item_no, chosen: r.chosen_option }))).status === 'trusted'
-  const targets = evidenceEligible ? responses.filter((r) => r.item_id && r.chosen_option !== null).map((r) => r.item_no) : []
+  //   대상은 수집 화면과 **같은 내용 적격**(isContentEligible — 듣기 · 무응답 · 발문/선지 없음 · body_ok 거짓 제외)으로 봉인한다.
+  //   다르면 화면이 못 보여 주는 대상이 남아 완료 RPC 가 보류를 풀지 못한다
+  let targets: number[] = []
+  if (evidenceEligible) {
+    const { data: bodies, error: be } = await db.from('csat_items').select('no, stem, choices, body_ok').eq('exam_id', sub.examId)
+    if (be) throw new Error(`문항 조회 실패: ${be.message}`)
+    const byNo = new Map((bodies ?? []).map((b) => [b.no as number, b]))
+    targets = responses.filter((r) => r.item_id).map((r) => {
+      const b = byNo.get(r.item_no)
+      return { itemNo: r.item_no, chosen: r.chosen_option, stem: (b?.stem as string | null) ?? null, passage: null, choices: Array.isArray(b?.choices) ? (b.choices as string[]) : null, bodyOk: b?.body_ok === true }
+    }).filter(isContentEligible).map((c) => c.itemNo)
+  }
   const { data: saved0, error } = await db.rpc('csat_ec_record_session_held', {
     p_participant: sub.participant === true,
     p_taxonomy: EC_PILOT.taxonomyVersion,
@@ -389,9 +404,9 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date):
   await assertSameSubmission(db, sessionId, responses, saved.exam_id === sub.examId && saved.mode === sub.mode && saved.taken_at === sub.takenAt)
   const snapshot = await snapshotForSession(db, sub.userId, sessionId, now)
   // Reveal Gate — 이 기록이 보류(capture)이거나 그 시험이 보류(요청자 무관)면 점수 · 정오를 읽지 않고 돌려준다
-  if ((saved0 as { held?: boolean }).held === true || !(await canRevealExam(sub.examId))) {
-    return { held: true, sessionId, ready: exam.ready, snapshotId: snapshot.id }
-  }
+  const capture = (saved0 as { held?: boolean }).held === true
+  const decision = capture ? 'embargo' : await examRevealDecision(sub.examId)
+  if (decision !== 'open') return { held: true, sessionId, ready: exam.ready, snapshotId: snapshot.id, gateFailure: decision === 'failure' }
   const [{ data: score, error: ge }, { data: wrongRows, error: we }] = await Promise.all([
     db.from('csat_dx_session').select('raw_score, grade').eq('id', sessionId).single(),
     db.from('csat_dx_response').select('item_no').eq('session_id', sessionId).eq('is_correct', false),
