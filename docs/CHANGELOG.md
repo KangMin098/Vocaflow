@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): F02 Claude Code × Codex 로컬 교차 감사 Stage A/B와 실제 출력 변조 81건을 통과하고, 새 28패킷 배치를 28/28 완료·재검증해 E3 유효 합성 N=28로 기록한다. 외부 benchmark·학생 N·TARGET_FIT·LEVEL_SEPARATION·Gold-S·DB seed는 미진행으로 유지한다.
+
 - fix(textbook): F02 Claude Code 호출 모델을 가변 `haiku` 별칭 대신 전체 모델 ID로 고정하고 반환 모델과 동일한 ID로 비교한다. 이전 별칭 호출의 감사 해시를 새 검증에 재사용하지 않는다.
 
 - fix(textbook): F02 Codex 전역 지시 manifest의 목록을 실제 보관된 파일 목록과 대조한다. 목록만 비워 해시를 다시 계산해도 Stage C가 거부하도록 보강한다.
