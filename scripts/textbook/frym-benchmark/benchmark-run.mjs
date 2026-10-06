@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url'
 import { buildBenchmark, judgeBenchmark, verifyDecision, verifySnapshot, hash } from './benchmark.mjs'
 import { verifyAdmission } from './local-admission-ledger.mjs'
 import { assertExternalCandidate } from './local-candidate-path.mjs'
+import { sealAdmittedSnapshot, verifyAdmittedSnapshot } from './admitted-snapshot.mjs'
 import { buildF02Synthetic } from '../frym-synthetic/f02-synthetic.mjs'
 import { verifyStage } from '../frym-synthetic/f02-cross-agent.mjs'
 
@@ -49,14 +50,15 @@ try {
   } else if (command === 'build-admitted' && paths.length === 6) {
     assertExternalCandidate(paths[1])
     const [protocol, candidates, samples, audit, receipt] = paths.slice(0, 5).map(read)
-    requireAdmission(protocol, candidates, samples, audit, receipt)
-    write(paths[5], buildBenchmark(protocol, samples))
+    const admissionReceiptHash = requireAdmission(protocol, candidates, samples, audit, receipt)
+    write(paths[5], sealAdmittedSnapshot(protocol, samples, admissionReceiptHash))
   } else if ((command === 'judge' && paths.length === 6) || (command === 'judge-admitted' && paths.length === 9)) {
     const admitted = command === 'judge-admitted'
     if (admitted) assertExternalCandidate(paths[2])
-    const [protocol, snapshot, samples, f02] = (admitted ? [paths[0], paths[1], paths[3], paths[6]] : paths.slice(0, 4)).map(read)
+    const [protocol, storedSnapshot, samples, f02] = (admitted ? [paths[0], paths[1], paths[3], paths[6]] : paths.slice(0, 4)).map(read)
     if (!admitted && fileBacked(samples)) throw Error('ADMISSION_RECEIPT_REQUIRED')
     const admissionReceiptHash = admitted ? requireAdmission(protocol, read(paths[2]), samples, read(paths[4]), read(paths[5])) : null
+    const snapshot = admitted ? verifyAdmittedSnapshot(storedSnapshot, protocol, samples, admissionReceiptHash) : storedSnapshot
     const seal = currentF02Seal()
     if (f02.source_freeze_sha256 !== seal.source_freeze_sha256 || f02.item_set_hash !== seal.item_set_hash || f02.scoring_key_hash !== seal.scoring_key_hash || ['middle_1', 'high_1'].some(grade => f02.variants?.[grade]?.passage_hash !== seal.passage_hash[grade])) throw Error('F02_CURRENT_SEAL_MISMATCH')
     const audited = verifyStage(admitted ? paths[7] : paths[4])
@@ -70,27 +72,26 @@ try {
       write(paths[8], { ...body, decision_hash: hash(body) })
     } else write(paths[5], decision)
   } else if (command === 'verify' && paths.length === 2) {
-    verifySnapshot(read(paths[1]), read(paths[0]))
+    const snapshot = read(paths[1])
+    if (snapshot?.schema === 'frym-admitted-benchmark-snapshot/1') throw Error('ADMISSION_RECEIPT_REQUIRED')
+    verifySnapshot(snapshot, read(paths[0]))
     process.stdout.write('BENCHMARK_SNAPSHOT_CURRENT\n')
   } else if (command === 'verify-admitted' && paths.length === 6) {
     assertExternalCandidate(paths[2])
     const [protocol, snapshot, candidates, samples, audit, receipt] = paths.map(read)
-    requireAdmission(protocol, candidates, samples, audit, receipt)
-    verifySnapshot(snapshot, protocol)
-    if (buildBenchmark(protocol, samples).snapshot_hash !== snapshot.snapshot_hash) throw Error('BENCHMARK_SAMPLE_CHANGED')
+    const admissionReceiptHash = requireAdmission(protocol, candidates, samples, audit, receipt)
+    verifyAdmittedSnapshot(snapshot, protocol, samples, admissionReceiptHash)
     process.stdout.write('BENCHMARK_ADMITTED_SNAPSHOT_CURRENT\n')
   } else if ((command === 'verify-decision' && paths.length === 5) || (command === 'verify-decision-admitted' && paths.length === 9)) {
     try {
       const admitted = command === 'verify-decision-admitted'
       if (admitted) assertExternalCandidate(paths[2])
-      const [protocol, snapshot, f02] = (admitted ? [paths[0], paths[1], paths[6]] : paths.slice(0, 3)).map(read)
+      const [protocol, storedSnapshot, f02] = (admitted ? [paths[0], paths[1], paths[6]] : paths.slice(0, 3)).map(read)
       const decision = read(admitted ? paths[8] : paths[4])
       if (!admitted && decision.admission_receipt_hash) throw Error('ADMISSION_RECEIPT_REQUIRED')
-      if (admitted) {
-        const samples = read(paths[3])
-        if (decision.admission_receipt_hash !== requireAdmission(protocol, read(paths[2]), samples, read(paths[4]), read(paths[5]))) throw Error('ADMISSION_RECEIPT_STALE')
-        if (buildBenchmark(protocol, samples).snapshot_hash !== snapshot.snapshot_hash) throw Error('BENCHMARK_SAMPLE_CHANGED')
-      }
+      const admissionReceiptHash = admitted ? requireAdmission(protocol, read(paths[2]), read(paths[3]), read(paths[4]), read(paths[5])) : null
+      if (admitted && decision.admission_receipt_hash !== admissionReceiptHash) throw Error('ADMISSION_RECEIPT_STALE')
+      const snapshot = admitted ? verifyAdmittedSnapshot(storedSnapshot, protocol, read(paths[3]), admissionReceiptHash) : storedSnapshot
       verifySnapshot(snapshot, protocol)
       const seal = currentF02Seal()
       if (f02.source_freeze_sha256 !== seal.source_freeze_sha256 || f02.item_set_hash !== seal.item_set_hash || f02.scoring_key_hash !== seal.scoring_key_hash || ['middle_1', 'high_1'].some(grade => f02.variants?.[grade]?.passage_hash !== seal.passage_hash[grade])) throw Error('F02_CURRENT_SEAL_MISMATCH')

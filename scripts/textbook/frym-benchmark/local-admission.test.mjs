@@ -9,6 +9,7 @@ import { AXES, GRADES, hash, screenSample } from './benchmark.mjs'
 import { createHash } from 'node:crypto'
 import { identifyLocalFile, prepareAdmission } from './local-admission.mjs'
 import { dryRunAdmission, prepareSealedAdmission, verifyAdmission } from './local-admission-ledger.mjs'
+import { sealAdmittedSnapshot, verifyAdmittedSnapshot } from './admitted-snapshot.mjs'
 
 const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture', measurement_method: 'fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5, valid_min: 0, valid_max: 100, auxiliary_metrics: [], auxiliary_override_rule: 'none', rater_agreement_floor: .8, missing_priority: 'inconclusive' }]))
 const selection = { schema: 'frym-benchmark-selection/1', status: 'sealed', selected_sample_ids: ['sample-1'], representative_editions: { [JSON.stringify(['Fixture Press', 'Fixture Book'])]: '2026-1' } }
@@ -212,7 +213,48 @@ test('CLI creates separate metadata and audit files and will not overwrite', t =
   assert.equal(admittedBuild.status, 0, admittedBuild.stderr)
   const verifySnapshot = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'verify-admitted', protocolPath, snapshotPath, candidatesPath, samplesPath, auditPath, receiptPath], { encoding: 'utf8' })
   assert.equal(verifySnapshot.status, 0, verifySnapshot.stderr)
+  const directVerify = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'verify', protocolPath, snapshotPath], { encoding: 'utf8' })
+  assert.equal(directVerify.status, 1)
+  assert.match(directVerify.stderr, /ADMISSION_RECEIPT_REQUIRED/)
   assert.equal(spawnSync(process.execPath, args).status, 1)
+})
+
+test('admitted snapshot binds the exact receipt and rejects mixed runs', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const original = prepareSealedAdmission(protocol, [candidate])
+  const sealed = sealAdmittedSnapshot(protocol, original.samples, original.receipt.receipt_hash)
+  assert.equal(verifyAdmittedSnapshot(sealed, protocol, original.samples, original.receipt.receipt_hash).snapshot_hash, sealed.benchmark_snapshot.snapshot_hash)
+  assert.throws(() => verifyAdmittedSnapshot(sealed, protocol, original.samples, 'other-run'), /ADMITTED_SNAPSHOT_STALE/)
+  assert.throws(() => verifyAdmittedSnapshot({ ...sealed, admission_receipt_hash: 'other-run' }, protocol, original.samples, original.receipt.receipt_hash), /ADMITTED_SNAPSHOT_STALE/)
+  const changed = structuredClone(sealed)
+  changed.benchmark_snapshot.grades.middle_1.n = 99
+  assert.throws(() => verifyAdmittedSnapshot(changed, protocol, original.samples, original.receipt.receipt_hash), /ADMITTED_SNAPSHOT_STALE/)
+  const changedSamples = structuredClone(original.samples)
+  changedSamples[0].metrics.lexical = 99
+  assert.throws(() => verifyAdmittedSnapshot(sealed, protocol, changedSamples, original.receipt.receipt_hash), /BENCHMARK_SAMPLE_CHANGED/)
+})
+
+test('CLI admission snapshot turns stale after source, candidate, or protocol revision', t => {
+  const { directory, source, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const paths = Object.fromEntries(['protocol', 'candidates', 'samples', 'audit', 'receipt', 'snapshot'].map(name => [name, join(directory, `${name}.json`)]))
+  writeFileSync(paths.protocol, JSON.stringify(protocol))
+  writeFileSync(paths.candidates, JSON.stringify([candidate]))
+  const run = (script, command, args) => spawnSync(process.execPath, [`scripts/textbook/frym-benchmark/${script}`, command, ...args], { encoding: 'utf8' })
+  assert.equal(run('local-admission-run.mjs', 'prepare', [paths.protocol, paths.candidates, paths.samples, paths.audit, paths.receipt]).status, 0)
+  const verifyArgs = [paths.protocol, paths.snapshot, paths.candidates, paths.samples, paths.audit, paths.receipt]
+  assert.equal(run('benchmark-run.mjs', 'build-admitted', [paths.protocol, paths.candidates, paths.samples, paths.audit, paths.receipt, paths.snapshot]).status, 0)
+  assert.equal(run('benchmark-run.mjs', 'verify-admitted', verifyArgs).status, 0)
+  writeFileSync(source, 'Modified original fixture')
+  assert.match(run('benchmark-run.mjs', 'verify-admitted', verifyArgs).stderr, /SOURCE_STALE/)
+  writeFileSync(source, 'Synthetic source file used only by the admission test.\n')
+  const changedCandidate = { ...candidate, metadata: { ...candidate.metadata, difficulty_step: 'revision-2' } }
+  writeFileSync(paths.candidates, JSON.stringify([changedCandidate]))
+  assert.match(run('benchmark-run.mjs', 'verify-admitted', verifyArgs).stderr, /CANDIDATE_INPUT_STALE/)
+  writeFileSync(paths.candidates, JSON.stringify([candidate]))
+  writeFileSync(paths.protocol, JSON.stringify({ ...protocol, version: 'fixture-v2' }))
+  assert.match(run('benchmark-run.mjs', 'verify-admitted', verifyArgs).stderr, /BENCHMARK_VERSION_STALE/)
 })
 
 test('receipt binds candidates, source, outputs and benchmark version', t => {

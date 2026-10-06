@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): admitted benchmark snapshot을 admission receipt와 별도 seal로 결속하고, 다른 실행의 receipt·snapshot 혼합과 원본·후보·protocol 변경을 CLI 단계에서 stale 처리한다. 합성 fixture만 사용했으며 실제 corpus·Gold-S·DB seed는 0이다.
+
 - feat(textbook): 로컬 교재 admission에 읽기 전용 dry-run, version/hash 결속 receipt, 원본·후보·분석 증거의 재검증과 stale 차단을 연결했다. 실제 교재 corpus·분포·Gold-S·DB seed는 0이다.
 
 - feat(textbook): 기존 교재 추출기의 페이지 결과를 저장소 밖 검토 후보로 만드는 초안 bridge와, 로컬 파일 해시·검수된 지문/문항·별도 9축 분석을 benchmark metadata 입력에 잇는 fail-closed admission 어댑터를 추가했다. 합성 fixture만 검증했으며 실제 교재 corpus·분포·Gold-S·DB seed는 0이다.
