@@ -9,8 +9,8 @@ import { fileURLToPath } from 'node:url'
 import { AXES, GRADES, buildBenchmark, hash, judgeBenchmark, sampleAnalysisHash, screenSample, verifyDecision, verifySnapshot, workflowState } from './benchmark.mjs'
 
 const H = text => hash(text)
-const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture_score', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5, auxiliary_metrics: [], auxiliary_override_rule: 'none', rater_agreement_floor: .8, missing_priority: 'inconclusive' }]))
-const selection = { schema: 'frym-benchmark-selection/1', status: 'sealed', selected_sample_ids: GRADES.flatMap(grade => Array.from({ length: 30 }, (_, index) => `${grade}-${index}`)) }
+const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture_score', measurement_method: 'synthetic_fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5, valid_min: 0, valid_max: 100, auxiliary_metrics: [], auxiliary_override_rule: 'none', rater_agreement_floor: .8, missing_priority: 'inconclusive' }]))
+const selection = { schema: 'frym-benchmark-selection/1', status: 'sealed', selected_sample_ids: GRADES.flatMap(grade => Array.from({ length: 30 }, (_, index) => `${grade}-${index}`)), representative_editions: Object.fromEntries(GRADES.flatMap(grade => Array.from({ length: 30 }, (_, index) => [JSON.stringify([`publisher-${Math.floor(index / 10)}`, `title-${grade}-${index}`]), 'fixture-1']))) }
 const protocol = () => ({
   schema: 'frym-benchmark/1', status: 'sealed', version: 'fixture-v1', codebook_hash: hash(axisDefs), selection_manifest: structuredClone(selection), selection_manifest_hash: hash(selection), grades: [...GRADES],
   minimum: { per_grade: 30, publishers: 3, series_per_publisher: 2, max_publisher_share: .4, max_series_share: .2, comparison_n: 12, item_type_comparison_n: 12 },
@@ -499,4 +499,35 @@ test('meaningful delta accepts the exact decimal threshold despite float roundin
   for (const type of p.item_types) f.variants.high_1.item_type_difficulty[type] = 5.3
   const result = judge(p, rows, reseal(f))
   assert.equal(result.level_separation.status, 'pass')
+})
+
+test('digital source URL must be canonical and parseable', () => {
+  const p = protocol(), rows = samples(p)
+  delete rows[0].ISBN
+  rows[0].publisher_id = 'publisher-0'
+  rows[0].canonical_url = 'not-a-url'
+  rows[0].analysis_hash = sampleAnalysisHash(rows[0])
+  assert.ok(buildBenchmark(p, rows).rejected[0].reasons.includes('CANONICAL_URL_INVALID'))
+  rows[0].canonical_url = 'https://EXAMPLE.com/book#fragment'
+  rows[0].analysis_hash = sampleAnalysisHash(rows[0])
+  assert.ok(buildBenchmark(p, rows).rejected[0].reasons.includes('CANONICAL_URL_INVALID'))
+  rows[0].canonical_url = 'https://example.com/book'
+  rows[0].analysis_hash = sampleAnalysisHash(rows[0])
+  assert.equal(buildBenchmark(p, rows).rejected.length, 0)
+})
+
+test('sealed ratio bounds reject negative sample and F02 measurements', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  rows[0].metrics.lexical = -1
+  resealRows(rows)
+  assert.ok(buildBenchmark(p, rows).rejected[0].reasons.includes('AXIS_MISSING:lexical'))
+  f.variants.middle_1.metrics.lexical = -1
+  assert.throws(() => judge(p, samples(p), reseal(f)), /F02_ANALYSIS_INVALID/)
+})
+
+test('selection manifest excludes a non-representative edition', () => {
+  const p = protocol(), rows = samples(p)
+  rows[0].edition = 'older-printing'
+  resealRows(rows)
+  assert.ok(buildBenchmark(p, rows).rejected[0].reasons.includes('NON_REPRESENTATIVE_EDITION'))
 })

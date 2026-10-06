@@ -41,7 +41,7 @@ const stats = values => {
 export function validateProtocol(protocol) {
   if (protocol?.schema !== 'frym-benchmark/1' || protocol.status !== 'sealed' || !isText(protocol.version) || !isHex(protocol.codebook_hash) || !isHex(protocol.selection_manifest_hash)) fail('PROTOCOL_UNSEALED')
   const selection = protocol.selection_manifest
-  if (selection?.schema !== 'frym-benchmark-selection/1' || selection.status !== 'sealed' || !Array.isArray(selection.selected_sample_ids) || unique(selection.selected_sample_ids) !== selection.selected_sample_ids.length || selection.selected_sample_ids.some(id => !isText(id)) || hash(selection) !== protocol.selection_manifest_hash) fail('SELECTION_MANIFEST_INVALID')
+  if (selection?.schema !== 'frym-benchmark-selection/1' || selection.status !== 'sealed' || !Array.isArray(selection.selected_sample_ids) || unique(selection.selected_sample_ids) !== selection.selected_sample_ids.length || selection.selected_sample_ids.some(id => !isText(id)) || !selection.representative_editions || Array.isArray(selection.representative_editions) || typeof selection.representative_editions !== 'object' || Object.values(selection.representative_editions).some(edition => !isText(edition)) || hash(selection) !== protocol.selection_manifest_hash) fail('SELECTION_MANIFEST_INVALID')
   if (!Array.isArray(protocol.grades) || protocol.grades.join('|') !== GRADES.join('|')) fail('GRADES_INVALID')
   const m = protocol.minimum
   if (!Number.isInteger(m?.per_grade) || m.per_grade < 30 || !Number.isInteger(m.publishers) || m.publishers < 3 || !Number.isInteger(m.series_per_publisher) || m.series_per_publisher < 2 || !(m.max_publisher_share > 0 && m.max_publisher_share <= .4) || !(m.max_series_share > 0 && m.max_series_share <= .2) || !Number.isInteger(m.comparison_n) || m.comparison_n < 12 || !Number.isInteger(m.item_type_comparison_n) || m.item_type_comparison_n < 12) fail('MINIMUM_INVALID')
@@ -49,7 +49,7 @@ export function validateProtocol(protocol) {
   if (Object.keys(protocol.axes ?? {}).sort().join('|') !== [...AXES].sort().join('|') || hash(protocol.axes) !== protocol.codebook_hash) fail('AXES_INCOMPLETE')
   for (const axis of AXES) {
     const def = protocol.axes[axis]
-    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || !Array.isArray(def.auxiliary_metrics) || def.auxiliary_metrics.some(metric => !isText(metric)) || unique(def.auxiliary_metrics) !== def.auxiliary_metrics.length || !['none', 'veto_if_outside_p10_p90'].includes(def.auxiliary_override_rule) || (def.auxiliary_override_rule === 'none') !== (def.auxiliary_metrics.length === 0) || !(Number.isFinite(def.rater_agreement_floor) && def.rater_agreement_floor > 0 && def.rater_agreement_floor <= 1) || def.missing_priority !== 'inconclusive' || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || def.levels.some(level => !isText(level)) || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
+    if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || (def.scale === 'ratio' && !(Number.isFinite(def.valid_min) && def.valid_min >= 0 && Number.isFinite(def.valid_max) && def.valid_max > def.valid_min)) || !Array.isArray(def.auxiliary_metrics) || def.auxiliary_metrics.some(metric => !isText(metric)) || unique(def.auxiliary_metrics) !== def.auxiliary_metrics.length || !['none', 'veto_if_outside_p10_p90'].includes(def.auxiliary_override_rule) || (def.auxiliary_override_rule === 'none') !== (def.auxiliary_metrics.length === 0) || !(Number.isFinite(def.rater_agreement_floor) && def.rater_agreement_floor > 0 && def.rater_agreement_floor <= 1) || def.missing_priority !== 'inconclusive' || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || def.levels.some(level => !isText(level)) || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
   }
   if (protocol.fit?.lower_quantile !== .1 || protocol.fit?.upper_quantile !== .9 || protocol.fit?.minimum_axes !== 7 || protocol.fit?.length_ratio_min !== .75 || protocol.fit?.length_ratio_max !== 1.25 || protocol.separation?.minimum_stable_axes !== 5 || protocol.separation?.minimum_matching_axes !== 3 || protocol.separation?.minimum_reference_ratio !== .5 || protocol.separation?.maximum_opposite_axes !== 1) fail('DECISION_RULES_INVALID')
   return hash(protocol)
@@ -59,6 +59,12 @@ export function screenSample(sample, protocol) {
   const reasons = []
   const required = ['sample_id', 'publisher', 'series', 'title', 'edition', 'difficulty_step', 'passage_id', 'page', 'genre', 'source_method', 'rights_basis', 'analyzer_version', 'evidence_locator', 'access_date']
   if (required.some(key => !isText(sample?.[key])) || !(isText(sample?.ISBN) || (isText(sample?.publisher_id) && isText(sample?.canonical_url)))) reasons.push('PROVENANCE_INCOMPLETE')
+  if (!isText(sample?.ISBN)) {
+    try {
+      const parsed = new URL(sample.canonical_url)
+      if (!['http:', 'https:'].includes(parsed.protocol) || parsed.hash || parsed.toString() !== sample.canonical_url) reasons.push('CANONICAL_URL_INVALID')
+    } catch { reasons.push('CANONICAL_URL_INVALID') }
+  }
   const accessDate = sample?.access_date
   if (!/^\d{4}-\d{2}-\d{2}$/.test(accessDate ?? '') || Number.isNaN(Date.parse(`${accessDate}T00:00:00Z`)) || new Date(`${accessDate}T00:00:00Z`).toISOString().slice(0, 10) !== accessDate) reasons.push('ACCESS_DATE_INVALID')
   if (!Number.isInteger(sample?.publication_year) || sample.publication_year < 1900) reasons.push('PUBLICATION_YEAR_INVALID')
@@ -71,10 +77,11 @@ export function screenSample(sample, protocol) {
   if (!itemTypesValid(sample, protocol)) reasons.push('MISSING_ITEM_TYPE')
   if (sample?.codebook_hash !== protocol.codebook_hash || sample?.selection_manifest_hash !== protocol.selection_manifest_hash) reasons.push('PROTOCOL_INPUT_MISMATCH')
   if (!protocol.selection_manifest.selected_sample_ids.includes(sample?.sample_id)) reasons.push('NOT_SELECTED')
+  if (protocol.selection_manifest.representative_editions[JSON.stringify([sample?.publisher, sample?.title])] !== sample?.edition) reasons.push('NON_REPRESENTATIVE_EDITION')
   for (const axis of AXES) {
     const value = sample?.metrics?.[axis]
     const def = protocol.axes[axis]
-    if (!Number.isFinite(value) || (def.scale === 'ordinal' && (!Number.isInteger(value) || value < 0 || value >= def.levels.length))) reasons.push(`AXIS_MISSING:${axis}`)
+    if (!Number.isFinite(value) || (def.scale === 'ratio' && (value < def.valid_min || value > def.valid_max)) || (def.scale === 'ordinal' && (!Number.isInteger(value) || value < 0 || value >= def.levels.length))) reasons.push(`AXIS_MISSING:${axis}`)
     if (!(Number.isFinite(sample?.axis_agreement?.[axis]) && sample.axis_agreement[axis] >= def.rater_agreement_floor && sample.axis_agreement[axis] <= 1)) reasons.push(`RATER_AGREEMENT_LOW:${axis}`)
     if (def.auxiliary_metrics.some(metric => !Number.isFinite(sample?.auxiliary_metrics?.[axis]?.[metric]))) reasons.push(`AUXILIARY_MISSING:${axis}`)
     if (def.scale === 'ordinal' && !ordinalReviewValid(sample?.ordinal_reviews?.[axis], value, def.levels.length)) reasons.push(`ORDINAL_REVIEW_INVALID:${axis}`)
@@ -158,7 +165,7 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
     const variant = f02?.variants?.[grade]
     return variant && ['expository', 'argumentative', 'narrative'].includes(variant.genre) && Number.isInteger(variant.word_count) && variant.word_count > 0 && itemTypesValid(variant, protocol) && AXES.every(axis => {
       const value = variant.metrics?.[axis], def = protocol.axes[axis]
-      return Number.isFinite(value) && Number.isFinite(variant.axis_agreement?.[axis]) && variant.axis_agreement[axis] >= def.rater_agreement_floor && variant.axis_agreement[axis] <= 1 && def.auxiliary_metrics.every(metric => Number.isFinite(variant.auxiliary_metrics?.[axis]?.[metric])) && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length)))
+      return Number.isFinite(value) && Number.isFinite(variant.axis_agreement?.[axis]) && variant.axis_agreement[axis] >= def.rater_agreement_floor && variant.axis_agreement[axis] <= 1 && def.auxiliary_metrics.every(metric => Number.isFinite(variant.auxiliary_metrics?.[axis]?.[metric])) && (def.scale === 'ratio' ? value >= def.valid_min && value <= def.valid_max : Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length))
     })
   })) fail('F02_ANALYSIS_INVALID')
   if (!isHex(f02?.source_freeze_sha256) || !isHex(f02?.item_set_hash) || !isHex(f02?.scoring_key_hash) || !['middle_1', 'high_1'].every(grade => {
