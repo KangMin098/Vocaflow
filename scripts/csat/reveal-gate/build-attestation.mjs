@@ -11,6 +11,7 @@ export const REQUIRED_MERGE_LAYERS=['V1 loader classification','scanner mutation
 export function verificationFingerprint(repo) {
   const dirs=['scripts/csat/reveal-gate','scripts/csat/reveal-gate/__tests__','scripts/csat/error-evidence/isolated-pg','apps/web/src/lib/csat/__tests__','apps/web/src/lib/csat/ec-pilot/__tests__','apps/web/src/lib/csat/diagnosis/__tests__']
   const files=dirs.flatMap(dir=>{const full=path.join(repo,dir);return fs.existsSync(full)?fs.readdirSync(full,{withFileTypes:true}).filter(e=>e.isFile()&&!/^results-/.test(e.name)&&/\.(mjs|json|ts|sql)$/.test(e.name)).map(e=>path.join(full,e.name)):[]})
+  const preparation=path.join(repo,'apps/web/scripts/ensure-onnx-runtime.mjs');if(fs.existsSync(preparation))files.push(preparation)
   return digest(files)
 }
 export function sourceFingerprint(repo) {

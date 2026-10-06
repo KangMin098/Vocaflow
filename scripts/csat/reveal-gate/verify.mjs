@@ -26,6 +26,11 @@ if(fs.existsSync(lockFile)) {
 const lockHandle=fs.openSync(lockFile,'wx');fs.writeFileSync(lockHandle,String(process.pid));fs.closeSync(lockHandle)
 process.once('exit',()=>{if(fs.existsSync(lockFile)&&fs.readFileSync(lockFile,'utf8')===String(process.pid))fs.unlinkSync(lockFile)})
 const revision=spawnSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).stdout.trim()
+// The app prebuild materializes ignored ONNX assets. Prepare them before freezing sources.
+if(phase==='merge') {
+  const prepared=spawnSync(process.execPath,['apps/web/scripts/ensure-onnx-runtime.mjs'],{cwd:ROOT,stdio:'ignore',windowsHide:true})
+  if(prepared.status!==0)throw Error('Production asset preparation failed')
+}
 const verificationBefore=verificationFingerprint(ROOT)
 const sourceAtStart=sourceFingerprint(ROOT)
 const output=path.resolve(ROOT,value('--output',`tmp/reveal-gate-${phase}-verification.json`))
