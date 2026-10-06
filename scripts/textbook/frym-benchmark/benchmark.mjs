@@ -21,6 +21,7 @@ export function canonical(value) {
 }
 
 export const hash = value => createHash('sha256').update(JSON.stringify(canonical(value))).digest('hex')
+export const sampleAnalysisHash = sample => hash({ sample_id: sample.sample_id, analyzer_version: sample.analyzer_version, passage_hash: sample.passage_hash, item_set_hash: sample.item_set_hash, scoring_key_hash: sample.scoring_key_hash, codebook_hash: sample.codebook_hash, selection_manifest_hash: sample.selection_manifest_hash, metrics: sample.metrics, ordinal_reviews: sample.ordinal_reviews ?? null })
 const unique = values => new Set(values).size
 const quantile = (sorted, p) => {
   const at = (sorted.length - 1) * p
@@ -60,6 +61,7 @@ export function screenSample(sample, protocol) {
   if (!['expository', 'argumentative', 'narrative'].includes(sample?.genre)) reasons.push('GENRE_INVALID')
   if (sample?.rights_basis !== 'authorized_local_analysis') reasons.push('RIGHTS_UNCONFIRMED')
   if (!isHex(sample?.analysis_hash) || !isHex(sample?.passage_hash) || !isHex(sample?.item_set_hash) || !isHex(sample?.scoring_key_hash)) reasons.push('INPUT_HASH_MISSING')
+  else if (sample.analysis_hash !== sampleAnalysisHash(sample)) reasons.push('ANALYSIS_HASH_MISMATCH')
   if (!Number.isInteger(sample?.word_count) || sample.word_count < 1 || !Number.isInteger(sample?.item_count) || sample.item_count < 1) reasons.push('PASSAGE_OR_ITEMS_MISSING')
   if (sample?.codebook_hash !== protocol.codebook_hash || sample?.selection_manifest_hash !== protocol.selection_manifest_hash) reasons.push('PROTOCOL_INPUT_MISMATCH')
   if (!protocol.selection_manifest.selected_sample_ids.includes(sample?.sample_id)) reasons.push('NOT_SELECTED')
@@ -67,8 +69,16 @@ export function screenSample(sample, protocol) {
     const value = sample?.metrics?.[axis]
     const def = protocol.axes[axis]
     if (!Number.isFinite(value) || (def.scale === 'ordinal' && (!Number.isInteger(value) || value < 0 || value >= def.levels.length))) reasons.push(`AXIS_MISSING:${axis}`)
+    if (def.scale === 'ordinal' && !ordinalReviewValid(sample?.ordinal_reviews?.[axis], value, def.levels.length)) reasons.push(`ORDINAL_REVIEW_INVALID:${axis}`)
   }
   return [...new Set(reasons)]
+}
+
+function ordinalReviewValid(review, value, levels) {
+  const validRating = rating => Number.isInteger(rating) && rating >= 0 && rating < levels
+  if (!isText(review?.rater_a_id) || !isText(review?.rater_b_id) || review.rater_a_id === review.rater_b_id || !validRating(review.rater_a) || !validRating(review.rater_b)) return false
+  if (review.rater_a === review.rater_b) return review.rater_a === value && review.adjudicated == null
+  return isText(review.adjudicator_id) && ![review.rater_a_id, review.rater_b_id].includes(review.adjudicator_id) && validRating(review.adjudicated) && review.adjudicated === value
 }
 
 export function buildBenchmark(protocol, samples) {
@@ -122,15 +132,16 @@ function comparisonRows(samples, grade, variant, protocol) {
 
 export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
   verifySnapshot(snapshot, protocol)
+  const rebuilt = buildBenchmark(protocol, samples)
+  if (rebuilt.snapshot_hash !== snapshot.snapshot_hash) fail('BENCHMARK_SAMPLE_CHANGED')
   const acceptedIds = new Set(Object.values(snapshot.grades).flatMap(grade => grade.sample_ids))
-  const accepted = samples.filter(row => acceptedIds.has(row.sample_id))
-  if (accepted.length !== acceptedIds.size || hash([...accepted].sort((a, b) => a.sample_id.localeCompare(b.sample_id))) !== snapshot.sample_set_hash || accepted.some(row => screenSample(row, protocol).length)) fail('BENCHMARK_SAMPLE_CHANGED')
+  const accepted = samples.filter(row => acceptedIds.has(row.sample_id) && screenSample(row, protocol).length === 0).filter((row, index, array) => array.findIndex(other => other.sample_id === row.sample_id) === index)
   const { analysis_hash, ...f02Analysis } = f02 ?? {}
   if (f02?.codebook_hash !== protocol.codebook_hash || analysis_hash !== hash(f02Analysis) || !['middle_1', 'high_1'].every(grade => {
     const variant = f02?.variants?.[grade]
     return variant && ['expository', 'argumentative', 'narrative'].includes(variant.genre) && Number.isInteger(variant.word_count) && variant.word_count > 0 && AXES.every(axis => {
       const value = variant.metrics?.[axis], def = protocol.axes[axis]
-      return Number.isFinite(value) && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length))
+      return Number.isFinite(value) && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length)))
     })
   })) fail('F02_ANALYSIS_INVALID')
   if (!isHex(f02?.source_freeze_sha256) || !isHex(f02?.item_set_hash) || !isHex(f02?.scoring_key_hash) || !['middle_1', 'high_1'].every(grade => isHex(f02?.variants?.[grade]?.passage_hash) && f02.variants[grade].passage_hash === e3?.seal?.passage_hash?.[grade]) || f02.item_set_hash !== e3?.seal?.item_set_hash || f02.scoring_key_hash !== e3?.seal?.scoring_key_hash || f02.source_freeze_sha256 !== e3?.seal?.source_freeze_sha256) fail('F02_INPUT_STALE')
