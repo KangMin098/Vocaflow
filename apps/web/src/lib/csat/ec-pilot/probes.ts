@@ -58,6 +58,16 @@ export function findProbe(key: string, version: string, hash: string): ProbeDefi
   return def && promptHash(def) === hash ? def : null
 }
 
+/**
+ * capture 생성 때 config.probes 로 봉인하는 허용 probe 목록 — key 별 최신 판 · 해시.
+ * DB 감지기는 경계의 probe_key 가 이 목록에 있을 때만 probe 를 요구한다(저장소 문구가 없는 질문을 띄우지 않게).
+ */
+export function captureProbeConfig(): { key: string; version: string; prompt_hash: string }[] {
+  const keys = [...new Set(PROBE_DEFINITIONS.map((d) => d.key))]
+  return keys.map((k) => currentProbe(k)).filter((d): d is ProbeDefinition => d !== null)
+    .map((d) => ({ key: d.key, version: d.version, prompt_hash: promptHash(d) }))
+}
+
 /** 학생에게 보내는 형태 — analysis 는 빼고 판 · 해시를 묶는다 */
 export function studentProbe(def: ProbeDefinition) {
   return { key: def.key, version: def.version, promptHash: promptHash(def), intro: def.intro, question: def.question, options: def.options }

@@ -556,6 +556,18 @@
    "class": "AUTH_SELF_RPC",
    "why": "로그인 학습자 호출 · 본문 auth.uid(): "
   },
+  "csat_ec_detect_boundaries(p_session uuid, p_item_no smallint, p_trigger uuid)": {
+   "class": "OWNER_ONLY",
+   "why": "G4 경계 감지기 본체(20261006120000) — 과정 증거 트리거와 rerun(SECURITY DEFINER) 안에서만 부른다. 학습자 · service 직접 호출 없음"
+  },
+  "csat_ec_detect_boundaries_rerun(p_session uuid, p_item_no smallint)": {
+   "class": "SERVICE_ONLY",
+   "why": "G4 감지기 다시 돌림(collecting 만) — 감지기 판 올림 · 장애 복구용 서비스 경로"
+  },
+  "csat_ec_process_evidence_detect()": {
+   "class": "TRIGGER_ONLY",
+   "why": "트리거 함수 — csat_ec_process_evidence AFTER INSERT(targeted_probe 제외)에서 감지기를 부른다"
+  },
   "csat_ec_code_guard()": {
    "class": "TRIGGER_ONLY",
    "why": "트리거 함수(이미 닫힘)"

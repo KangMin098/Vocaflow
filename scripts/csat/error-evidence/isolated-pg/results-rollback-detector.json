@@ -1,0 +1,62 @@
+[
+ {
+  "area": "적용",
+  "name": "PRE-1 이름 충돌 없음",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "적용",
+  "name": "PRE-2 같은 이름 트리거 없음",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "적용",
+  "name": "PRE-3 의존 함수(is_admin · digest)",
+  "pass": true,
+  "detail": "{\"is_admin\":\"1\",\"digest\":\"2\"}"
+ },
+ {
+  "area": "적용",
+  "name": "마이그레이션 적용(postgres 역할)",
+  "pass": true,
+  "detail": "140ms"
+ },
+ {
+  "area": "적용",
+  "name": "기존 객체 비의도 변경 없음(추가는 응답 삭제 트리거 1개뿐)",
+  "pass": true,
+  "detail": "{\"diff\":[],\"responseTriggers\":[\"csat_ec_cancel_rounds_on_response_delete\"]}"
+ },
+ {
+  "area": "rollback-detector",
+  "name": "감지기 적용",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rollback-detector",
+  "name": "실행 기록이 있으면 rollback 거부 · 트랜잭션째 취소",
+  "pass": true,
+  "detail": "rollback-20261006120000: 감지 실행 기록이 있다 — 데이터 처리 결정 뒤 되돌린다"
+ },
+ {
+  "area": "rollback-detector",
+  "name": "rollback 실행",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rollback-detector",
+  "name": "rollback 뒤 = 적용 전(함수 정의 · 함수 권한 · 표 권한 · 제약 · 인덱스 · 트리거 · 정책)",
+  "pass": true,
+  "detail": "{\"n\":389,\"diff\":[]}"
+ },
+ {
+  "area": "rollback-detector",
+  "name": "다시 적용 가능",
+  "pass": true,
+  "detail": ""
+ }
+]
