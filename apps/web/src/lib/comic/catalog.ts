@@ -176,7 +176,11 @@ export async function fetchComicCatalog(
   return (await fetchComicCatalogResult(client, options)).items
 }
 
-/** 폴백 전용 — 도서별 첫 컷 URL. 실패한 책은 map 에서 빠짐(호출부가 null 폴백). */
+/**
+ * 폴백 전용 — 도서별 첫 컷 URL. 실패한 책은 map 에서 빠짐(호출부가 null 폴백).
+ * 비로그인 경로라 공개 미리보기 RPC(서버 5컷 상한)의 첫 컷만 쓴다 — 전권 RPC(select_book_comic_all)는
+ * 2026-10-06 부터 로그인 전용이다(G2 · docs/reports/function-execute-decisions-2026-10-06.md).
+ */
 async function fetchComicCovers(
   client: SupabaseClient,
   bookIds: string[],
@@ -185,7 +189,7 @@ async function fetchComicCovers(
   const results = await Promise.all(
     bookIds.map(async (bookId) => {
       try {
-        const { data } = await client.rpc('select_book_comic_all', { p_book_id: bookId })
+        const { data } = await client.rpc('preview_book_comic', { p_book_id: bookId, p_limit: 1 })
         const first = Array.isArray(data)
           ? (data[0] as { image_url?: string } | undefined)
           : undefined
@@ -217,7 +221,8 @@ export interface ComicPreviewPanel {
 }
 
 /**
- * 미등록/비로그인 프리뷰 컷. preview_book_comic(P1) 우선, 미적용 시 전권 RPC 앞부분으로 폴백.
+ * 미등록/비로그인 프리뷰 컷. preview_book_comic(서버 5컷 상한)만 쓴다 — 전권 RPC 폴백은 상한을 우회하므로
+ * 두지 않는다(전권 RPC 는 2026-10-06 부터 로그인 전용). 실패하면 빈 목록.
  * 대사(bubbles)는 의도적으로 버린다 — 프리뷰는 유입용이고, 정본 대사/vocab 은 리더의 학습 자산.
  */
 export async function fetchComicPreview(
@@ -233,13 +238,6 @@ export async function fetchComicPreview(
       p_limit: cap,
     })
     if (!error && Array.isArray(data)) return mapPanels(data)
-  } catch {
-    // 미적용 — 폴백
-  }
-
-  try {
-    const { data, error } = await client.rpc('select_book_comic_all', { p_book_id: bookId })
-    if (!error && Array.isArray(data)) return mapPanels(data.slice(0, cap))
   } catch {
     return []
   }

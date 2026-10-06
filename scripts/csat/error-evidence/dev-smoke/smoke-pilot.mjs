@@ -355,9 +355,10 @@ try {
   const jB0 = await subm(RB, 'inconsistent_evidence', null, [], [], false, n1)
   record('judgment', 'inconsistent_evidence 저장(후보 0)', !jB0.error, jB0.error?.message)
   const old8 = await RA.rpc('csat_ec_submit_blind', { p_round: roundPre, p_session: S.L1, p_item_no: n1, p_outcome: 'code', p_primary: 'S.modifier_scope', p_contributing: [], p_excluded: [], p_note: 'TEST 8인자' })
-  record('judgment', '기존 8인자 submit_blind(code) 호환', !old8.error, old8.error?.message)
+  // 2026-10-06 G2(20261006100000): 8인자 구판은 앱 호출부가 없어 보존하되 authenticated EXECUTE 를 회수했다 — 검수자 호출은 거부돼야 한다
+  record('judgment', '기존 8인자 submit_blind(code) — 검수자 호출 거부(G2 회수)', perm(old8), old8.error?.message)
   const old8n = await RA.rpc('csat_ec_submit_blind', { p_round: roundPre, p_session: S.L1, p_item_no: n2, p_outcome: 'no_cause', p_primary: null, p_contributing: [], p_excluded: [], p_note: 'TEST 8인자' })
-  record('judgment', '기존 8인자 submit_blind(no_cause) 호환', !old8n.error, old8n.error?.message)
+  record('judgment', '기존 8인자 submit_blind(no_cause) — 검수자 호출 거부(G2 회수)', perm(old8n), old8n.error?.message)
   record('judgment', '판정 표 직접 — 판정자 SELECT 거부', perm(await RA.from('csat_ec_judgment').select('id').limit(1)))
   record('judgment', '판정 표 직접 — 판정자 UPDATE 거부', perm(await RA.from('csat_ec_judgment').update({ note: 'x' }).eq('round_id', roundPre)))
   const jUpd = await db.query(`update public.csat_ec_judgment set candidate_codes = '{}' where id = $1`, [jA.data]).then(() => null, (e) => e.message)
