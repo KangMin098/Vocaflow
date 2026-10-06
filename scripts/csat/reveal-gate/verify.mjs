@@ -27,6 +27,7 @@ const lockHandle=fs.openSync(lockFile,'wx');fs.writeFileSync(lockHandle,String(p
 process.once('exit',()=>{if(fs.existsSync(lockFile)&&fs.readFileSync(lockFile,'utf8')===String(process.pid))fs.unlinkSync(lockFile)})
 const revision=spawnSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).stdout.trim()
 const verificationBefore=verificationFingerprint(ROOT)
+const sourceAtStart=sourceFingerprint(ROOT)
 const output=path.resolve(ROOT,value('--output',`tmp/reveal-gate-${phase}-verification.json`))
 if(!output.startsWith(path.join(ROOT,'tmp')+path.sep)||!output.endsWith('.json'))throw Error('Report target must be tmp/*.json')
 if(phase!=='merge'&&fs.existsSync(path.join(tmp,'reveal-production.json'))&&JSON.parse(fs.readFileSync(path.join(tmp,'reveal-production.json'),'utf8')).report_file===output)throw Error('Output must not overwrite the merge receipt')
@@ -59,7 +60,7 @@ try{
   if(phase==='merge') {
     const graph=scanClient(src,policy.canaries);record('V2 client source graph',graph.roots>0&&graph.files>0&&!graph.issues.length&&!graph.unresolved.length,graph)
     const sourceBefore=sourceFingerprint(ROOT)
-    const build=await packageCommand(['--filter','web','build']);build.ok=build.ok&&sourceBefore===sourceFingerprint(ROOT);record('production build',build.ok,build)
+    const build=await packageCommand(['--filter','web','build']);build.ok=build.ok&&sourceBefore===sourceAtStart&&sourceAtStart===sourceFingerprint(ROOT);record('production build',build.ok,build)
     if(build.ok){const bundle=scanBundle(path.join(ROOT,'apps/web/.next/static'),policy.canaries);record('V2 production bundle',!bundle.issues.length,bundle)}else record('V2 production bundle',false,{reason:'build_failed_not_executed'})
   }
   if(phase==='merge'||phase==='db') {
@@ -97,8 +98,8 @@ try{
   }
 }catch{record('verification execution',false,{reason:'execution_failed'})}
 if(phase==='merge') {
-  const eligible=rows.every(r=>r.status==='PASS')&&verificationBefore===verificationFingerprint(ROOT)
-  record('production source attestation',eligible,eligible?attestBuild(ROOT,revision,output):{reason:'merge_checks_failed_or_verifier_changed'})
+  const eligible=rows.every(r=>r.status==='PASS')&&verificationBefore===verificationFingerprint(ROOT)&&sourceAtStart===sourceFingerprint(ROOT)
+  record('production source attestation',eligible,eligible?attestBuild(ROOT,revision,output,sourceAtStart):{reason:'merge_checks_failed_or_source_or_verifier_changed'})
 }
 const blocked=rows.some(r=>r.status!=='PASS'),result=blocked?'BLOCKED':phase==='pr'?'PR_READY':phase==='db'?'DB_READY':'MERGEABLE'
 const report={phase,revision,base_ref:base,result,layers:rows,limitations:['Static coverage is a discovery/classification guard, not a complete interprocedural proof.','Timing is not asserted as security-equivalent by deterministic unit tests.','DB SQL is never applied by this command.']}

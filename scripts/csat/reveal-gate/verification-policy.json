@@ -946,6 +946,26 @@
       "sha256": "ffdf23dd93dca111dc3f09003c8a3550e18ab827f5ba37c9ffdd544b243fb38c",
       "class": "LEARNER_OWN",
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/lcp/dev-process/route.ts::POST": {
+      "sha256": "f0509b0ee9015f9d84ce7b3687f21bd103bbeaaffbb4da902f1ec055fdc627f5",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing closed LCP procedure loop, frozen with full source and imports. Not a CSAT answer producer."
+    },
+    "app/api/lcp/dev-process/route.ts::<module>": {
+      "sha256": "7d32a2a7677bd09c219d5f87a05744b23797974b052b51bf1cba5eecbca0d667",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing closed LCP procedure loop, frozen with full source and imports. Not a CSAT answer producer."
+    },
+    "app/api/lcp/process/route.ts::POST": {
+      "sha256": "1b3ed659a8dcaa8a0918ea01ab12e7ab1f710388021af88cc86a6887f17ab560",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing closed LCP procedure loop, frozen with full source and imports. Not a CSAT answer producer."
+    },
+    "app/api/lcp/process/route.ts::<module>": {
+      "sha256": "582c510cb2bd22df781d53122f674957ba3f0143a4264ddf8668d91e7f285e78",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing closed LCP procedure loop, frozen with full source and imports. Not a CSAT answer producer."
     }
   },
   "loader_classifications": {
@@ -972,6 +992,14 @@
     "lib/textbook/source-live.ts": {
       "class": "OPS_META",
       "review_basis": "Live source inventory rollup and registry totals; operational admin panel."
+    },
+    "app/api/lcp/dev-process/route.ts": {
+      "class": "OPS_META",
+      "review_basis": "Existing LCP book processing routes; variable RPC target comes from a closed literal list of book VRL/chapter/CEFRJ procedures. Entire source and handler are frozen; any new/changed dynamic target requires review."
+    },
+    "app/api/lcp/process/route.ts": {
+      "class": "OPS_META",
+      "review_basis": "Existing LCP book processing routes; variable RPC target comes from a closed literal list of book VRL/chapter/CEFRJ procedures. Entire source and handler are frozen; any new/changed dynamic target requires review."
     }
   },
   "object_approvals": {

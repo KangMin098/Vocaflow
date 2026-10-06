@@ -17,6 +17,14 @@ export function filesUnder(dir,all=false) {
 const parse = (file, text) => ts.createSourceFile(file,text,ts.ScriptTarget.Latest,true,file.endsWith('x')?ts.ScriptKind.TSX:ts.ScriptKind.TS)
 const visit = (node, fn) => { fn(node); ts.forEachChild(node,n=>visit(n,fn)) }
 const property = node => ts.isIdentifier(node) || ts.isStringLiteralLike(node) ? node.text : null
+function constantString(node,bindings,seen=new Set()) {
+  if(!node)return null
+  if(ts.isStringLiteralLike(node))return node.text
+  if(ts.isParenthesizedExpression(node)||ts.isAsExpression(node)||ts.isTypeAssertionExpression(node)||ts.isNonNullExpression(node))return constantString(node.expression,bindings,seen)
+  if(ts.isIdentifier(node)&&bindings.has(node.text)&&!seen.has(node.text))return constantString(bindings.get(node.text),bindings,new Set([...seen,node.text]))
+  if(ts.isBinaryExpression(node)&&node.operatorToken.kind===ts.SyntaxKind.PlusToken){const a=constantString(node.left,bindings,seen),b=constantString(node.right,bindings,seen);return a!==null&&b!==null?a+b:null}
+  return null
+}
 export function scanLoaders(srcRoot, manifest, policy=null) {
   srcRoot=path.resolve(srcRoot)
   const objectNames=new Set([...Object.keys(manifest.db_relations),...Object.keys(manifest.db_functions).map(k=>k.split('(')[0])])
@@ -26,6 +34,8 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
     const rel=relative(srcRoot,file),routePath=rel.replace(/\/\([^/]+\)/g,'')
     if(/^(app\/admin|app\/api\/admin|lib\/admin|components\/admin|test)\//.test(rel)) continue
     const source=parse(file,fs.readFileSync(file,'utf8')), imported=new Set(), namespaces=new Set(), hits=[]
+    const constants=new Map()
+    visit(source,n=>{if(ts.isVariableDeclaration(n)&&ts.isIdentifier(n.name))constants.set(n.name.text,constants.has(n.name.text)?null:n.initializer)})
     let csatContext=/^app\/(?:[^/]+\/)?api\/csat\/|^lib\/csat\//.test(routePath)
     visit(source,n=>{if(ts.isStringLiteralLike(n)&&/^csat_/.test(n.text))csatContext=true})
     const aliases=new Set()
@@ -78,9 +88,10 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       if(ts.isCallExpression(n)&&((ts.isPropertyAccessExpression(n.expression)&&['from','rpc'].includes(n.expression.name.text))||(ts.isElementAccessExpression(n.expression)&&ts.isStringLiteralLike(n.expression.argumentExpression)&&['from','rpc'].includes(n.expression.argumentExpression.text)))) {
         if(ts.isIdentifier(n.expression.expression)&&/^(Array|Buffer|Uint\d+Array|Int\d+Array|Float\d+Array)$/.test(n.expression.expression.text))return
         const arg=n.arguments[0]
-        if(arg&&ts.isStringLiteralLike(arg)&&/^csat_/.test(arg.text)&&!objectNames.has(arg.text)&&!policy?.object_approvals?.[arg.text]?.review_basis)issues.push({file:rel,kind:'unclassified_csat_object',object:arg.text})
-        if(arg&&ts.isStringLiteralLike(arg)&&(names.has(arg.text)||/^csat_/.test(arg.text)&&!objectNames.has(arg.text))){hits.push(arg.text);register(n)}
-        else if(arg&&!ts.isStringLiteralLike(arg)&&csatContext){hits.push('<dynamic-db-name>');register(n)}
+        const target=constantString(arg,constants)
+        if(target!==null&&/^csat_/i.test(target)&&!objectNames.has(target)&&!policy?.object_approvals?.[target]?.review_basis)issues.push({file:rel,kind:'unclassified_csat_object',object:target})
+        if(target!==null&&(names.has(target)||/^csat_/i.test(target)&&!objectNames.has(target))){hits.push(target);register(n)}
+        else if(target===null){hits.push('<dynamic-db-name>');register(n)}
       }
       if(rel.startsWith('app/api/csat/')&&ts.isFunctionDeclaration(n)&&n.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword)&&/^(GET|POST|PUT|PATCH|DELETE)$/.test(n.name?.text??''))register(n)
       if(rel.startsWith('app/api/csat/')&&ts.isVariableDeclaration(n)&&ts.isIdentifier(n.name)&&/^(GET|POST|PUT|PATCH|DELETE)$/.test(n.name.text)&&n.initializer&&ts.isArrowFunction(n.initializer)&&n.parent.parent.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword))register(n.initializer)
@@ -199,7 +210,7 @@ export function pagingLocations(text,file) {
 export function migrationCoverage(repo,baseRef,approved={}) {
   const git=args=>{const r=spawnSync('git',args,{cwd:repo,encoding:'utf8'});if(r.status!==0)throw Error('Cannot discover migration changes');return r.stdout.trim().split(/\r?\n/).filter(Boolean)}
   const files=[...new Set([...git(['diff','--name-only',baseRef,'HEAD','--','supabase/migrations']),...git(['diff','--name-only','HEAD','--','supabase/migrations']),...git(['ls-files','--others','--exclude-standard','supabase/migrations'])])]
-  const related=files.filter(file=>/\.sql$/.test(file)&&(!fs.existsSync(path.join(repo,file))||/csat_/i.test(fs.readFileSync(path.join(repo,file),'utf8'))))
+  const related=files.filter(file=>/\.sql$/.test(file)&&(!fs.existsSync(path.join(repo,file))||/csat_|\b(?:grant|revoke)\b[^;]*\ball\s+(?:tables|functions|procedures|sequences|routines)\s+in\s+schema\b|\balter\s+default\s+privileges\b|\b(?:alter|create|drop)\s+role\b|\bgrant\s+(?:service_role|authenticated|anon)\s+to\b/i.test(fs.readFileSync(path.join(repo,file),'utf8').replace(/"/g,''))))
   const checked=[...new Set([...related,...Object.keys(approved)])]
   const issues=checked.flatMap(file=>{if(!/^supabase\/migrations\/\d+_[^/]+\.sql$/.test(file)||!fs.existsSync(path.join(repo,file)))return[{file,reason:'related_migration_deleted_or_invalid'}];const hash=createHash('sha256').update(fs.readFileSync(path.join(repo,file))).digest('hex');return approved[file]?.sha256===hash&&approved[file]?.review_basis?[]:[{file,reason:'related_migration_not_bound_to_executed_sql_suite'}]})
   return{base_ref:baseRef,related,issues,policy:'New/changed CSAT SQL cannot be green until its exact hash is bound to a runner that applies and tests it.'}
