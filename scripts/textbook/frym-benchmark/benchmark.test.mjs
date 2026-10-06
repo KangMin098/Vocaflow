@@ -28,8 +28,8 @@ const samples = (p = protocol()) => GRADES.flatMap(grade => Array.from({ length:
 }))
 const resealRows = rows => { for (const row of rows) row.analysis_hash = sampleAnalysisHash(row); return rows }
 const reseal = value => { const { analysis_hash, ...body } = value; return { ...body, analysis_hash: hash(body) } }
-const f02 = () => reseal({ codebook_hash: hash(axisDefs), source_freeze_sha256: H('freeze'), item_set_hash: H('f02-items'), scoring_key_hash: H('f02-key'), variants: Object.fromEntries(['middle_1', 'high_1'].map((grade, i) => [grade, { passage_hash: H(`f02-${grade}`), genre: 'expository', word_count: 100, item_count: 3, item_type_counts: { literal: 1, inference: 1, structure: 1 }, item_type_difficulty: { literal: i ? 7 : 5, inference: i ? 7 : 5, structure: i ? 7 : 5 }, axis_agreement: Object.fromEntries(AXES.map(axis => [axis, 1])), metrics: Object.fromEntries(AXES.map(axis => [axis, i ? 7 : 5])) }])) })
-const e3 = (f = f02()) => ({ status: 'verified', valid_n: 28, run_id: 'fixture-run', evidence_hash: H('fixture-e3-audit-files'), seal: { source_freeze_sha256: f.source_freeze_sha256, item_set_hash: f.item_set_hash, scoring_key_hash: f.scoring_key_hash, passage_hash: Object.fromEntries(Object.entries(f.variants).map(([grade, variant]) => [grade, variant.passage_hash])) } })
+const f02 = () => reseal({ codebook_hash: hash(axisDefs), source_freeze_sha256: H('freeze'), item_set_hash: H('f02-items'), scoring_key_hash: H('f02-key'), variants: Object.fromEntries(['middle_1', 'high_1'].map((grade, i) => [grade, { passage_hash: H(`f02-${grade}`), genre: 'expository', word_count: 100, item_count: 3, item_ids: [`${grade}-1`, `${grade}-2`, `${grade}-3`], item_type_counts: { literal: 1, inference: 1, structure: 1 }, item_type_difficulty: { literal: i ? 7 : 5, inference: i ? 7 : 5, structure: i ? 7 : 5 }, axis_agreement: Object.fromEntries(AXES.map(axis => [axis, 1])), metrics: Object.fromEntries(AXES.map(axis => [axis, i ? 7 : 5])) }])) })
+const e3 = (f = f02()) => ({ status: 'verified', valid_n: 28, run_id: 'fixture-run', evidence_hash: H('fixture-e3-audit-files'), seal: { source_freeze_sha256: f.source_freeze_sha256, item_set_hash: f.item_set_hash, scoring_key_hash: f.scoring_key_hash, passage_hash: Object.fromEntries(Object.entries(f.variants).map(([grade, variant]) => [grade, variant.passage_hash])), item_ids: Object.fromEntries(Object.entries(f.variants).map(([grade, variant]) => [grade, variant.item_ids])) } })
 const judge = (p = protocol(), rows = samples(p), f = f02(), evidence = e3(f)) => judgeBenchmark({ protocol: p, snapshot: buildBenchmark(p, rows), samples: rows, f02: f, e3: evidence })
 
 test('fixture alone builds complete distributions and a Gold-S candidate, never Gold-S', () => {
@@ -343,6 +343,7 @@ test('missing comparable item type blocks fit even with a passing aggregate', ()
   }
   resealRows(rows)
   f.variants.middle_1.item_count = 1
+  f.variants.middle_1.item_ids = ['middle_1-1']
   f.variants.middle_1.item_type_counts = { inference: 1 }
   f.variants.middle_1.item_type_difficulty = { inference: 5 }
   const result = judge(p, rows, reseal(f))
@@ -362,6 +363,7 @@ test('F02 needs positive item counts and nonempty type evidence', () => {
 test('item-type share drift fails fit despite matching type difficulty', () => {
   const p = protocol(), rows = samples(p), f = f02()
   f.variants.middle_1.item_count = 100
+  f.variants.middle_1.item_ids = Array.from({ length: 100 }, (_, index) => `middle_1-${index + 1}`)
   f.variants.middle_1.item_type_counts = { literal: 98, inference: 1, structure: 1 }
   const result = judge(p, rows, reseal(f))
   assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'fail')
@@ -377,6 +379,7 @@ test('a failed core axis wins over missing item-type comparison', () => {
   }
   resealRows(rows)
   f.variants.middle_1.item_count = 1
+  f.variants.middle_1.item_ids = ['middle_1-1']
   f.variants.middle_1.item_type_counts = { inference: 1 }
   f.variants.middle_1.item_type_difficulty = { inference: 5 }
   f.variants.middle_1.metrics.lexical = 100
@@ -403,4 +406,20 @@ test('failed item type outranks a different missing item type', () => {
   const result = judge(p, rows, reseal(f))
   assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'fail')
   assert.equal(result.target_fit.middle_1.status, 'fail')
+})
+
+test('F02 item analysis must match the sealed item ID list and count', () => {
+  const p = protocol(), rows = samples(p), f = f02(), evidence = e3(f)
+  evidence.seal.item_ids.middle_1 = Array.from({ length: 12 }, (_, index) => `middle_1-${index + 1}`)
+  assert.throws(() => judge(p, rows, f, evidence), /F02_INPUT_STALE/)
+})
+
+test('definite target-fit failure outranks another grade with insufficient benchmark', () => {
+  const p = protocol(), rows = samples(p).filter(row => row.grade !== 'high_1' || row.publisher !== 'publisher-2'), f = f02()
+  f.variants.middle_1.metrics.lexical = 100
+  const sealed = reseal(f), snapshot = buildBenchmark(p, rows)
+  const result = judgeBenchmark({ protocol: p, snapshot, samples: rows, f02: sealed, e3: e3(sealed) })
+  assert.equal(result.target_fit.middle_1.status, 'fail')
+  assert.equal(result.target_fit.high_1.status, 'insufficient_benchmark')
+  assert.equal(workflowState({ protocol: p, snapshot, decision: result, current: { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(sealed), e3_run_id: 'fixture-run', e3_evidence_hash: H('fixture-e3-audit-files') } }), 'fail')
 })

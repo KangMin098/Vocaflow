@@ -23,13 +23,18 @@ const auditEvidenceHash = directory => {
   const gate = read(join(directory, 'stage-c-gate.json'))
   return hash({ batch: auditDirectoryHash(directory), stage_a: auditDirectoryHash(gate.stage_a_dir), stage_b: auditDirectoryHash(gate.stage_b_dir) })
 }
+const currentF02Seal = () => {
+  const built = buildF02Synthetic()
+  const item_ids = Object.fromEntries(['middle_1', 'high_1'].map(grade => [grade, built.packets.find(packet => packet.passage_variant === grade).body.questions.map(question => question.id)]))
+  return { ...built.seal, item_ids }
+}
 
 try {
   if (command === 'build' && paths.length === 3) {
     write(paths[2], buildBenchmark(read(paths[0]), read(paths[1])))
   } else if (command === 'judge' && paths.length === 6) {
     const [protocol, snapshot, samples, f02] = paths.slice(0, 4).map(read)
-    const seal = buildF02Synthetic().seal
+    const seal = currentF02Seal()
     if (f02.source_freeze_sha256 !== seal.source_freeze_sha256 || f02.item_set_hash !== seal.item_set_hash || f02.scoring_key_hash !== seal.scoring_key_hash || ['middle_1', 'high_1'].some(grade => f02.variants?.[grade]?.passage_hash !== seal.passage_hash[grade])) throw Error('F02_CURRENT_SEAL_MISMATCH')
     const audited = verifyStage(paths[4])
     if (audited.stage !== 'batch' || audited.synthetic_validation_valid_n !== 28) throw Error('E3_BATCH_NOT_VERIFIED')
@@ -43,7 +48,7 @@ try {
       const [protocol, snapshot, f02] = paths.slice(0, 3).map(read)
       const decision = read(paths[4])
       verifySnapshot(snapshot, protocol)
-      const seal = buildF02Synthetic().seal
+      const seal = currentF02Seal()
       if (f02.source_freeze_sha256 !== seal.source_freeze_sha256 || f02.item_set_hash !== seal.item_set_hash || f02.scoring_key_hash !== seal.scoring_key_hash || ['middle_1', 'high_1'].some(grade => f02.variants?.[grade]?.passage_hash !== seal.passage_hash[grade])) throw Error('F02_CURRENT_SEAL_MISMATCH')
       const audited = verifyStage(paths[3])
       if (audited.stage !== 'batch' || audited.synthetic_validation_valid_n !== 28) throw Error('E3_BATCH_NOT_VERIFIED')

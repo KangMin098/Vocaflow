@@ -159,7 +159,10 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       return Number.isFinite(value) && Number.isFinite(variant.axis_agreement?.[axis]) && variant.axis_agreement[axis] >= def.rater_agreement_floor && variant.axis_agreement[axis] <= 1 && (def.scale !== 'ordinal' || (Number.isInteger(value) && value >= 0 && value < def.levels.length && ordinalReviewValid(variant.ordinal_reviews?.[axis], value, def.levels.length)))
     })
   })) fail('F02_ANALYSIS_INVALID')
-  if (!isHex(f02?.source_freeze_sha256) || !isHex(f02?.item_set_hash) || !isHex(f02?.scoring_key_hash) || !['middle_1', 'high_1'].every(grade => isHex(f02?.variants?.[grade]?.passage_hash) && f02.variants[grade].passage_hash === e3?.seal?.passage_hash?.[grade]) || f02.item_set_hash !== e3?.seal?.item_set_hash || f02.scoring_key_hash !== e3?.seal?.scoring_key_hash || f02.source_freeze_sha256 !== e3?.seal?.source_freeze_sha256) fail('F02_INPUT_STALE')
+  if (!isHex(f02?.source_freeze_sha256) || !isHex(f02?.item_set_hash) || !isHex(f02?.scoring_key_hash) || !['middle_1', 'high_1'].every(grade => {
+    const variant = f02?.variants?.[grade], sealedIds = e3?.seal?.item_ids?.[grade]
+    return isHex(variant?.passage_hash) && variant.passage_hash === e3?.seal?.passage_hash?.[grade] && Array.isArray(variant.item_ids) && Array.isArray(sealedIds) && variant.item_ids.length === variant.item_count && variant.item_ids.length === sealedIds.length && variant.item_ids.every((id, index) => isText(id) && id === sealedIds[index]) && unique(variant.item_ids) === variant.item_ids.length
+  }) || f02.item_set_hash !== e3?.seal?.item_set_hash || f02.scoring_key_hash !== e3?.seal?.scoring_key_hash || f02.source_freeze_sha256 !== e3?.seal?.source_freeze_sha256) fail('F02_INPUT_STALE')
   const results = {}
   for (const grade of ['middle_1', 'high_1']) {
     const variant = f02.variants[grade]
@@ -247,10 +250,9 @@ export function workflowState({ protocol, snapshot, decision, current } = {}) {
     if (error.message === 'BENCHMARK_STALE') return 'stale'
     throw error
   }
-  if (Object.values(snapshot.grades).some(grade => grade.status !== 'calibrated')) return 'insufficient_benchmark'
-  if (!decision) return 'benchmark_calibrated'
-  if (decision.target_fit.middle_1.status === 'insufficient_benchmark' || decision.target_fit.high_1.status === 'insufficient_benchmark' || decision.level_separation.status === 'insufficient_benchmark') return 'insufficient_benchmark'
+  if (!decision) return Object.values(snapshot.grades).some(grade => grade.status !== 'calibrated') ? 'insufficient_benchmark' : 'benchmark_calibrated'
   if (decision.target_fit.middle_1.status === 'fail' || decision.target_fit.high_1.status === 'fail' || decision.level_separation.status === 'fail') return 'fail'
+  if (Object.values(snapshot.grades).some(grade => grade.status !== 'calibrated') || decision.target_fit.middle_1.status === 'insufficient_benchmark' || decision.target_fit.high_1.status === 'insufficient_benchmark' || decision.level_separation.status === 'insufficient_benchmark') return 'insufficient_benchmark'
   if (decision.target_fit.middle_1.status === 'inconclusive' || decision.target_fit.high_1.status === 'inconclusive' || decision.level_separation.status === 'inconclusive') return 'inconclusive'
   return decision.gold_s_candidate ? 'gold_s_candidate' : 'evaluated_not_candidate'
 }
