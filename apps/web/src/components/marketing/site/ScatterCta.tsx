@@ -17,7 +17,7 @@ export function ScatterCta({ title = '오늘 읽을 글부터.' }: { title?: str
     <section aria-label="시작하기" className="relative mx-auto w-full max-w-[1360px] overflow-hidden px-4 py-10 lg:px-10 lg:py-16">
       <div className="relative">
         <Image
-          src="/illustrations/tines/band-scatter.webp"
+          src="/illustrations/tines/band-geo.webp"
           alt=""
           width={1664}
           height={928}

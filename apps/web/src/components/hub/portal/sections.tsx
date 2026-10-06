@@ -68,7 +68,7 @@ export function SectionHead({ kicker, title, byline, align = 'left' }: {
 export function HeroGarden() {
   return (
     <div className="hub-garden hidden md:block" aria-hidden>
-      <Image src={`${ILLO}/hero-book-field.webp`} alt="" width={1664} height={928} sizes="(min-width: 1440px) 1360px, 100vw" className="select-none" />
+      <Image src={`${ILLO}/hub-hero-field.webp`} alt="" width={1344} height={768} sizes="(min-width: 1440px) 1360px, 100vw" className="select-none" />
     </div>
   )
 }
@@ -768,7 +768,7 @@ export function FinalCta({ primary }: { primary: { label: string; href: string }
       <div aria-hidden className="pointer-events-none absolute inset-0 hidden overflow-hidden md:block">
         <div className="h-full w-full scale-[1.06]">
           <Image
-            src={`${ILLO}/band-scatter.webp`}
+            src={`${ILLO}/band-geo.webp`}
             alt=""
             width={1664}
             height={928}
