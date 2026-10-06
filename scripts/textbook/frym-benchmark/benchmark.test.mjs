@@ -455,3 +455,21 @@ test('seven-axis fit is a fail when remaining unknown axes cannot reach seven', 
   assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'inconclusive')
   assert.equal(result.target_fit.middle_1.status, 'fail')
 })
+
+test('failed item primary metric wins over missing type comparison', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const row of rows.filter(row => row.grade === 'middle_1')) {
+    row.item_count = 2
+    delete row.item_type_counts.inference
+    delete row.item_type_difficulty.inference
+  }
+  resealRows(rows)
+  f.variants.middle_1.item_count = 1
+  f.variants.middle_1.item_ids = ['middle_1-1']
+  f.variants.middle_1.item_type_counts = { inference: 1 }
+  f.variants.middle_1.item_type_difficulty = { inference: 5 }
+  f.variants.middle_1.metrics.item_difficulty = 100
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'fail')
+  assert.equal(result.target_fit.middle_1.status, 'fail')
+})

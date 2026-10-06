@@ -199,7 +199,7 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
         itemTypes[type] = { status: value >= dist.p10 && value <= dist.p90 && share >= shareDist.p10 && share <= shareDist.p90 ? 'pass' : 'fail', n: typedRows.length, value, p10: dist.p10, p90: dist.p90, share, share_p10: shareDist.p10, share_p90: shareDist.p90 }
       }
     }
-    if (Object.values(itemTypes).some(result => result.status === 'fail')) axes.item_difficulty = { status: 'fail', types: itemTypes }
+    if (axes.item_difficulty.status === 'fail' || Object.values(itemTypes).some(result => result.status === 'fail')) axes.item_difficulty = { ...axes.item_difficulty, status: 'fail', types: itemTypes }
     else if (Object.values(itemTypes).some(result => result.status === 'inconclusive')) axes.item_difficulty = { status: 'inconclusive', reason: 'MISSING_ITEM_TYPE', types: itemTypes }
     else axes.item_difficulty = { ...axes.item_difficulty, types: itemTypes }
     const core = [...REQUIRED_AXES].every(axis => axes[axis].status === 'pass')
