@@ -85,6 +85,20 @@ test('malformed sample ID cannot carry text into the audit', t => {
   assert.ok(!JSON.stringify(result.audit).includes('Untrusted passage'))
   candidate.metadata.sample_id = 'Untrusted passage with spaces'
   assert.equal(prepareAdmission([candidate], protocol).audit.results[0].sample_id, null)
+  assert.equal(prepareAdmission([candidate], protocol).audit.results[0].sample_id_hash, createHash('sha256').update(candidate.metadata.sample_id).digest('hex'))
+})
+
+test('selected ID with a slash remains audit-linkable by hash', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const sealed = structuredClone(protocol)
+  sealed.selection_manifest.selected_sample_ids = ['sample/1']
+  sealed.selection_manifest_hash = hash(sealed.selection_manifest)
+  candidate.metadata.sample_id = 'sample/1'
+  const result = prepareAdmission([candidate], sealed)
+  assert.equal(result.samples.length, 1)
+  assert.equal(result.audit.results[0].sample_id, null)
+  assert.equal(result.audit.results[0].sample_id_hash, createHash('sha256').update(result.samples[0].sample_id).digest('hex'))
 })
 
 test('contradictory ordinal adjudication and path locator stay on hold', t => {
@@ -152,6 +166,8 @@ test('OCR, missing axis, rights, selection and duplicates never enter samples', 
   const { directory, candidate } = fixture()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   candidate.extraction.method = 'ocr'
+  candidate.extraction.ocr_used = false
+  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
   candidate.extraction.ocr_used = true
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
   candidate.extraction.method = 'abbyy'
