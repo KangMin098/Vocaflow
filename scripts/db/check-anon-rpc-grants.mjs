@@ -1,5 +1,12 @@
 // scripts/db/check-anon-rpc-grants.mjs
 //
+// **폐기(2026-10-06)** — 정본은 scripts/db/check-function-exec.mjs(manifest 기본 거부 · 기준선 자동 갱신 없음)와
+// check-anon-callers.mjs · check-revoked-callers.mjs 다(`pnpm db:function-exec`). 이 스크립트는 「현재 상태」를 기준선으로
+// 굳히는 방식이라 결함 84개를 정상으로 통과시켰다(감사 docs/reports/function-execute-audit-2026-10-05.md 원인 4).
+// 아래 원문은 기록용으로 남기고, 실행하면 새 가드로 안내만 한다.
+console.log('폐기됨 — pnpm db:function-exec 를 쓴다(scripts/db/check-function-exec.mjs)')
+process.exit(0)
+//
 // **anon 이 실행할 수 있는 SECURITY DEFINER 함수 목록을 양방향으로 고정한다.**
 //
 // 왜 필요한가 — 2026-09-20 에 기본 권한을 고쳤다(마이그레이션 20260919231528·232557).

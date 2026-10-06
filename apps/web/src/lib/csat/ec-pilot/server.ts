@@ -65,7 +65,8 @@ export interface CaptureState {
 export async function loadCapture(ctx: EcContext, sessionId: string): Promise<CaptureState | null> {
   const s = await ownSession(ctx.admin, ctx.userId, sessionId)
   if (!s) return null
-  const { data: resp, error } = await ctx.admin.from('csat_dx_response').select('item_no, item_id, chosen_option, is_correct').eq('session_id', sessionId)
+  // 정오(is_correct)는 읽지 않는다 — 대상은 봉인된 capture 대상(정오 무관)으로만 정한다
+  const { data: resp, error } = await ctx.admin.from('csat_dx_response').select('item_no, item_id, chosen_option').eq('session_id', sessionId)
   if (error) throw new Error(`응답 조회 실패: ${error.message}`)
   const rows = resp ?? []
   if (recordQuality(rows.map((r) => ({ no: r.item_no as number, chosen: (r.chosen_option as number | null) ?? null }))).status !== 'trusted')
@@ -76,11 +77,20 @@ export async function loadCapture(ctx: EcContext, sessionId: string): Promise<Ca
   const byId = new Map((items ?? []).map((i) => [i.id as string, i]))
   const cands: TargetCandidate[] = rows.map((r) => {
     const it = r.item_id ? byId.get(r.item_id as string) : undefined
-    return { itemNo: r.item_no as number, chosen: (r.chosen_option as number | null) ?? null, isCorrect: !!r.is_correct,
+    return { itemNo: r.item_no as number, chosen: (r.chosen_option as number | null) ?? null,
       stem: (it?.stem as string | null) ?? null, passage: (it?.passage as string | null) ?? null,
       choices: Array.isArray(it?.choices) ? (it!.choices as string[]) : null, bodyOk: it?.body_ok === true }
   })
-  const targets = new Set(selectTargets(cands, EC_PILOT.correctControls, sessionId))
+  const { data: cap, error: ce } = await ctx.rls.rpc('csat_ec_my_capture_state', { p_session: sessionId })
+  if (ce) throw new Error(`수집 상태 조회 실패: ${ce.message}`)
+  // 수집 화면을 처음 열면 held → collecting(capture_open · 멱등 — 이미 열렸거나 끝났으면 상태만 돌려준다).
+  // 보류(정답 · 정오 비공개)는 collecting 에서도 그대로다 — 풀리는 것은 finishCapture(completed) 뒤다
+  if ((cap as { status?: string } | null)?.status === 'held') {
+    const { error: oe } = await ctx.rls.rpc('csat_ec_capture_open', { p_session: sessionId })
+    if (oe) throw new Error(`수집 열기 실패: ${oe.message}`)
+  }
+  const sealed = Array.isArray((cap as { targets?: unknown } | null)?.targets) ? ((cap as { targets: unknown[] }).targets.filter((x): x is number => typeof x === 'number')) : []
+  const targets = new Set(selectTargets(cands, sealed))
   const saved = await savedSummary(ctx, sessionId)
   const { data: conf } = await ctx.rls.from('csat_ec_session_confirmation').select('revision, took_exam, judged_each').eq('session_id', sessionId).order('revision', { ascending: false }).limit(1)
   const out: CaptureItem[] = []
@@ -97,6 +107,39 @@ export async function loadCapture(ctx: EcContext, sessionId: string): Promise<Ca
     })
   }
   return { status: 'open', confirmed: !!(conf?.[0]?.took_exam && conf?.[0]?.judged_each), items: out }
+}
+
+export type FinishResult =
+  | { status: 'completed' | 'closed_incomplete' }
+  | { status: 'collecting'; missing: 'confirmation' }
+  | { status: 'collecting'; missing: 'interpretation'; remaining: number[] }
+  | { status: 'none' }
+
+/**
+ * 수집을 끝낸다(collecting → completed, capture_finish · 멱등). 끝나야 그 시험의 보류가 풀린다.
+ * 확인 · 해석이 빠졌으면 끝내지 않고 무엇이 남았는지만 돌려준다(정오는 담지 않는다 — 남은 문항 번호는 봉인된 대상 안의 번호다).
+ * 수집 대상이 아닌 기록(capture 행 없음)은 'none'.
+ */
+export async function finishCapture(ctx: EcContext, sessionId: string): Promise<FinishResult | null> {
+  if (!(await ownSession(ctx.admin, ctx.userId, sessionId))) return null
+  const { data: cap, error: ce } = await ctx.rls.rpc('csat_ec_my_capture_state', { p_session: sessionId })
+  if (ce) throw new Error(`수집 상태 조회 실패: ${ce.message}`)
+  const status = (cap as { status?: string } | null)?.status
+  if (!status) return { status: 'none' }
+  if (status === 'held') {
+    const { error: oe } = await ctx.rls.rpc('csat_ec_capture_open', { p_session: sessionId })
+    if (oe) throw new Error(`수집 열기 실패: ${oe.message}`)
+  }
+  const { data, error } = await ctx.rls.rpc('csat_ec_capture_finish', { p_session: sessionId })
+  if (error) throw new Error(`수집 끝내기 실패: ${error.message}`)
+  const r = (data ?? {}) as { status?: string; missing?: string; remaining?: unknown }
+  if (r.status === 'completed' || r.status === 'closed_incomplete') return { status: r.status }
+  if (r.missing === 'confirmation') return { status: 'collecting', missing: 'confirmation' }
+  if (r.missing === 'interpretation') {
+    const remaining = Array.isArray(r.remaining) ? r.remaining.filter((x): x is number => typeof x === 'number') : []
+    return { status: 'collecting', missing: 'interpretation', remaining }
+  }
+  throw new Error(`수집 끝내기 응답을 해석하지 못했다: ${JSON.stringify(r).slice(0, 120)}`)
 }
 
 export interface OwnEvidence { id: string; item_no: number; kind: string; value: Record<string, unknown>; created_at: string }

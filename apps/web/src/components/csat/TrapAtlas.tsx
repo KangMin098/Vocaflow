@@ -28,6 +28,7 @@ import { useMemo, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
 import { MIN_SEEN, MIN_TOTAL, myMissCounts, type MyTrapSummary } from '@/lib/csat/my-traps'
+import type { TrapExampleDetail } from '@/lib/csat/trap-atlas-examples'
 import {
   CORPUS,
   baselineShare,
@@ -77,6 +78,11 @@ export interface TrapAtlasProps {
    * 비어 있으면 칩을 그리지 않는다 — 기록이 없는 사람에게 빈 칩을 내밀지 않는다.
    */
   mine?: MyTrapSummary | null
+  /**
+   * 함정별 예시의 정답 민감 부분(오답 선지 · 끌리는 이유 · 버리는 법) — 서버가 `loadTrapExamples`(보류 필터)로 읽어 넘긴다.
+   * 번들 JSON 에는 없다(Reveal Gate G3). 없으면 예시를 그리지 않는다.
+   */
+  details?: Record<string, TrapExampleDetail[]>
 }
 
 /** 막대 한 칸의 최소 폭 — 1%짜리도 「있다」가 보여야 한다(0px 막대는 없는 것과 같다). */
@@ -92,6 +98,7 @@ export function TrapAtlas({
   showLift = false,
   as: Heading = 'h2',
   mine = null,
+  details = {},
 }: TrapAtlasProps) {
   const [typeId, setTypeId] = useState<string | null>(initialTypeId)
   const [recentOnly, setRecentOnly] = useState(false)
@@ -286,7 +293,7 @@ export function TrapAtlas({
                 )}
               </button>
 
-              {open ? <TrapDetail row={row} /> : null}
+              {open ? <TrapDetail row={row} examples={examplesFor(details[row.key] ?? [], typeId)} /> : null}
             </li>
           )
         })}
@@ -392,7 +399,14 @@ function Lift({ share, base }: { share: number; base: number }) {
 }
 
 /** 펼친 줄 — 「어떻게 잡는가」 한 줄과 **실제 기출 예시**. 예시가 없으면 장담도 안 한다. */
-function TrapDetail({ row }: { row: RankRow }) {
+/** 유형을 골랐으면 그 유형 예시만(없으면 전체) — rankFor 의 예시 규칙과 같다 */
+function examplesFor(list: TrapExampleDetail[], typeId: string | null): TrapExampleDetail[] {
+  if (typeId === null) return list
+  const own = list.filter((e) => e.type_id === typeId)
+  return own.length ? own : list
+}
+
+function TrapDetail({ row, examples }: { row: RankRow; examples: TrapExampleDetail[] }) {
   return (
     <div className="mb-2 ml-6 mt-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
       {row.detector ? (
@@ -402,9 +416,9 @@ function TrapDetail({ row }: { row: RankRow }) {
         </p>
       ) : null}
 
-      {row.examples.length ? (
+      {examples.length ? (
         <ul className="mt-3 space-y-3">
-          {row.examples.map((ex) => (
+          {examples.map((ex) => (
             <li key={`${ex.item_id}-${ex.choice}`} className="border-l-2 border-[var(--bd)] pl-3">
               <a
                 href={`/admin/kice/item/${ex.slug}`}

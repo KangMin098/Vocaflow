@@ -15,6 +15,7 @@ import path from 'node:path'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { canRevealExam } from '@/lib/csat/embargo-gate'
 import { createClient } from '@/lib/supabase/server'
 
 const DATA_DIR = path.join(process.cwd(), 'src/lib/csat/anchor-data')
@@ -158,9 +159,11 @@ import { toItemSlug } from './item-slug'
  */
 export async function loadOverlayBySha256(
   sha256: string,
-): Promise<{ payload: OverlayPayload | null; error: string | null }> {
+): Promise<{ payload: OverlayPayload | null; error: string | null; held?: true }> {
   const examId = examBySha256(sha256)
   if (!examId) return { payload: null, error: null } // 모르는 파일 — 오류가 아니다
+  // 보류 시험(오답 원인 Pilot 수집 중)이면 정답 · 분석을 읽기 전에 멈춘다(embargo-gate · 판정 실패도 보류)
+  if (!(await canRevealExam(examId))) return { payload: null, error: null, held: true }
 
   const anchors = readAnchors(examId)
   if (!anchors) return { payload: null, error: '좌표를 찾지 못했어요' }

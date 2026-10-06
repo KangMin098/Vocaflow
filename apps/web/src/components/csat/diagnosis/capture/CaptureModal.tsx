@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
-import type { CaptureItem, CaptureState, PendingProbe } from '@/lib/csat/ec-pilot/server'
+import type { CaptureItem, CaptureState, FinishResult, PendingProbe } from '@/lib/csat/ec-pilot/server'
 import { STUDENT_GROUPS, type InterpretationState, type StudentGroup } from '@/lib/csat/ec-pilot/targets'
 
 import s from '../board.module.css'
@@ -60,8 +60,30 @@ export function CaptureModal({ sessionId, closeHref, diagnosisBase }: { sessionI
 
   const showResult = useCallback(async (outcome: 'done' | 'later') => {
     setBusy(true)
+    // 다 마쳤으면 수집을 끝낸다(collecting → completed) — 끝나야 이 회차의 정답 · 점수가 열린다.
+    // 「나중에」는 끝내지 않는다(수집은 열린 채로, 보류도 그대로). 수집 대상이 아닌 기록은 'none'
+    if (outcome === 'done' && stats.current.opened) {
+      const f = await call<FinishResult>('/api/csat/ec/capture', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ session: sessionId, action: 'finish' }) })
+      if (!f.ok) { setBusy(false); setError(f.error); setPhase('error'); return }
+      if (f.data.status === 'collecting') {
+        setBusy(false)
+        if (f.data.missing === 'confirmation') { setError('결과를 보려면 먼저 아래 두 질문에 답해 주세요.'); setPhase('confirm'); return }
+        // 해석이 빠진 문항으로 돌아간다 — 「모르겠어요」를 골라도 된다
+        for (const no of f.data.remaining) visited.current.delete(no)
+        const back = itemsRef.current.findIndex((i) => f.data.status === 'collecting' && f.data.missing === 'interpretation' && f.data.remaining.includes(i.itemNo))
+        if (back >= 0) {
+          resetStep(); setIdx(back); setPhase('item')
+          setError('결과를 보려면 이 문항의 「읽은 뜻」을 남겨 주세요. 모르겠으면 「모르겠어요」를 골라도 돼요.')
+          return
+        }
+      }
+    }
     const r = await call<SavedResult>(`/api/csat/diagnosis/sessions/${sessionId}/result`)
     setBusy(false)
+    if (!r.ok && r.status === 423) {
+      // 아직 수집 중인 회차(보류) — 오류가 아니라 안내
+      setError('이 회차의 결과는 풀이 기록을 다 남긴 뒤에 열려요. 이어서 하려면 다시 열어 주세요.'); setPhase('error'); return
+    }
     if (!r.ok) { setError(r.error); setPhase('error'); return }
     if (stats.current.opened) {
       const st = stats.current

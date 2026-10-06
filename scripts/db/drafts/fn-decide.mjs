@@ -2,12 +2,13 @@
 import fs from 'node:fs'
 const [IN, OUT_MD, OUT_JSON] = process.argv.slice(2)
 const facts = JSON.parse(fs.readFileSync(IN, 'utf8'))
+const AR = 'AUTH_READ_RPC'   // 로그인만 요구 · 본인 데이터 아님(공용 콘텐츠 · 사전) — 사용자 5등급에 더한 등급
 const P = 'PUBLIC_RPC', SELF = 'AUTH_SELF_RPC', REV = 'REVIEWER_RPC', ADM = 'ADMIN_RPC', SVC = 'SERVICE_ONLY'
 const PURE = '부작용 없는 순수/사전 조회 보조 함수 — SECURITY INVOKER 상위(공개 조회 함수)가 호출자 권한으로 부르므로 상위와 같은 대상에 열려 있어야 한다'
 // name(+argc) → [class, intended caller, 근거, 본문 수정 필요]
 const D = {
   _extract_composite_score: [P, '공개 어휘 조회의 하위 계산', PURE],
-  acp_classify_license: [SVC, '라이선스 게이트(서비스 배치)', 'acp_apply_license_gate(트리거/배치) 하위 · 순수 함수. 상위가 서비스 경로뿐 — 다만 상위가 트리거라 DML 주체가 authenticated 면 막힌다: 적용 전 library_articles 쓰기 주체 확인'],
+  acp_classify_license: [P, '라이선스 게이트 하위 순수 함수', '판정(2026-10-06 증거): trg_acp_license_gate 가 library_articles 쓰기 주체 권한으로 돈다 — app/admin/compose/actions.ts 가 관리자 **사용자 세션**으로 library_articles 를 발행한다. 데이터 접근 없는 순수 함수라 공개 무해'],
   acp_article_rollup: [ADM, '관리자 ACP 커버리지 화면', 'admin-queries.ts(requireAdmin 뒤 · 사용자 세션 client 경로 있음). 발행분 집계 수치만'],
   analyze_and_apply_comprehensive_diagnostic_result: [SELF, '진단을 마친 본인(/diagnostic 로그인 화면 브라우저)', 'DiagnosticClient.tsx 브라우저 호출', '본인 검사 없음 — 아무 로그인 사용자가 타인 p_result_id 로 남의 user_profiles 레벨을 덮을 수 있다. auth.uid() = 결과 소유자 검사 추가'],
   analyze_and_apply_diagnostic_result: [SELF, '진단 본인', 'DiagnosticClient.tsx', '같음 — 소유자 검사 추가'],
@@ -23,10 +24,10 @@ const D = {
   compute_book_cefrj: [SVC, '배치', '상위 bulk_compute_cefrj_for_all_sources(초안에서 service 전용) 만 부른다'],
   compute_frequency_tier: [P, '트리거 하위 계산', 'auto_compute_freq_fields(트리거, invoker) 하위 순수 함수 — 트리거는 DML 주체 권한으로 돈다'],
   compute_syntax_score: [P, '구문 점수 하위 계산', 'compute_article_syntax/compute_book_syntax 하위 순수 함수. 상위를 SERVICE 로 닫으면 이것도 SERVICE 로 내려도 된다(2단계)'],
-  content_gate_publishable: [ADM, '발행 경로(관리자 세션 또는 서비스)', 'publish_*_word_set(invoker) 하위 · 상위는 발행 트리거가 DML 주체 권한으로 부른다 — 관리자 세션 발행이 있으면 authenticated 필요'],
+  content_gate_publishable: [ADM, '관리자 세션 또는 JWT 없는 서비스/트리거', '판정: compose/actions.ts(관리자 세션) 발행 → trg_la_publish_word_set → publish_article_word_set(invoker) → 이 함수. authenticated 필요 · 본문은 관리자 또는 JWT 없음만 통과시켜야 한다'],
   csat_ec_round_create: [ADM, '관리자(검수 회차 생성)', '5인자판은 4인자판(is_admin 검사)을 부른다 · 스모크는 관리자 JWT'],
-  csat_ec_submit_adjudication: [REV, '배정된 검수자', '8인자 구판 — 본문이 11인자판을 위임 호출(검수자 배정 검사는 11인자판) · 스모크 검수자 JWT', '구판 overload 유지 필요 여부 확인 — 쓰는 곳이 smoke.mjs 뿐이면 제거 후보'],
-  csat_ec_submit_blind: [REV, '배정된 검수자', '8인자 구판 — 위와 같음', '같음'],
+  csat_ec_submit_adjudication: [SVC, '호환 보존(앱 호출부 없음)', '판정: 앱 호출부 0 · 스크립트도 smoke.mjs(구 스모크) 뿐 — 사용자 규칙대로 삭제하지 않고 anon/authenticated 회수 후 보존'],
+  csat_ec_submit_blind: [SVC, '호환 보존(앱 호출부 없음)', '판정: 앱 호출부 0 · smoke-pilot.mjs 의 「기존 8인자 호환」 확인 2건뿐 — 회수 후 그 확인을 「authenticated 거부」로 바꾼다', '스모크: smoke-pilot.mjs 8인자 호환 2건 → 거부 기대로'],
   csat_source_inventory_live: [SVC, '관리자 화면 서버(서비스 client)', 'source-live.ts 는 admin/csat/sources page·route(service) 에서만 실행 · 브라우저는 타입 import 뿐'],
   csat_source_live_rollup: [SVC, '같음', '같음'],
   csat_source_pipeline_live: [SVC, '같음', '같음'],
@@ -35,7 +36,7 @@ const D = {
   enqueue_topic_corpus_docs: [SVC, '관리자 API 뒤 서비스 client', 'topic-corpus/enqueue → createAdminClient'],
   extract_vocabulary_for_user: [SELF, '본인(읽기 화면 서버)', 'chapter-words-queries ← /text/[id] layout(사용자 세션)', 'p_user_id 임의 지정 가능 + anon 실행 가능 — 타인 레벨 · 단어장 정보를 읽는다. auth.uid() 로 고정'],
   extract_vocabulary_for_user_v2: [SELF, '본인(추출 패널 브라우저)', 'ExtractionPanel.tsx', '같음'],
-  get_comic_format: [SELF, '로그인 학습자(/text/[id]/comic)', '/text 는 로그인 필수 · 발행 만화 메타만 — 학습자 데이터 아님(AUTH 열람용)'],
+  get_comic_format: [AR, '로그인 학습자(/text/[id]/comic)', '/text 로그인 필수 · 발행 만화 메타'],
   infer_form_pos: [P, '어휘 조회 하위', 'select_*_vocab(invoker) 하위 순수 함수'],
   ingest_topic_corpus_doc: [SVC, '서비스(코퍼스 수집)', 'harvest.ts · local-corpus.ts — 앱 내 importer 없음, 스크립트 service'],
   list_book_comic_catalog: [P, '비로그인 /comics 카탈로그', 'comic/catalog.ts ← /comics/adapted(공개)'],
@@ -46,16 +47,16 @@ const D = {
   lookup_word_meaning: [P, '비로그인 /library 책 읽기 · 만화 리더', 'reader-queries ← /library/books/[bookId](공개) · ComicReader'],
   pgmq_archive: [SVC, 'LCP 처리(서비스 키)', 'api/lcp/process serviceKey · 임의 큐 메시지 보관(삭제) 가능 — anon 실행 중'],
   preview_book_comic: [P, '비로그인 /comics 미리보기', '서버 하드캡 5컷 · 발행 게이트'],
-  publish_article_word_set: [ADM, '발행 트리거(DML 주체)', 'trg_publish_article_word_set(invoker 트리거) 하위 — 관리자 세션 발행이면 authenticated 필요. invoker 라 RLS 가 쓰기를 거른다'],
-  publish_book_word_sets: [ADM, '발행 트리거', '같음'],
-  recommend_word_sets_for_user: [SELF, '본인(/library/vocab · WordVault · 진단)', 'library/vocab page(사용자 세션 — /library 공개라 비로그인도 렌더) · hub-query', 'p_user_id 임의 + anon 실행 — 타인 레벨 기반 추천 노출. auth.uid() 고정, 비로그인은 앱이 부르지 않게'],
+  publish_article_word_set: [ADM, '관리자 세션 또는 JWT 없는 서비스/트리거', '판정: 위와 같은 경로(관리자 세션 기사 발행 트리거)'],
+  publish_book_word_sets: [SVC, '서비스(도서 발행 트리거)', '판정: library_books 쓰기 주체 전수(앱 9곳)가 서비스 키 — 관리자 세션 쓰기 없음. 세션 쓰기가 생기면 트리거가 42501 로 닫힌 채 실패(안전 방향)'],
+  recommend_word_sets_for_user: [SELF, '본인(진단 완료 로그인 사용자)', '판정: library/vocab page · hub-query 모두 user 존재 + 진단 완료일 때 자기 user.id 로만 부른다', 'p_user_id 임의 + anon 실행 — auth.uid() 고정'],
   record_pending_words: [SELF, '본인(추출 패널)', 'ExtractionPanel.tsx 브라우저', 'p_user_id 임의 지정 쓰기 — auth.uid() 고정'],
   refresh_user_known_word_count: [SELF, '본인(SRS flush 서버 액션)', 'srs/flush-actions.ts 사용자 세션', 'p_user_id 임의 지정 쓰기 — auth.uid() 고정'],
   release_topic_corpus_claim: [SVC, '관리자 API 뒤 서비스 client', 'topic-corpus/drain → createAdminClient'],
   resolve_dict_headword: [P, '사전 조회 하위', 'select_*_vocab · unresolved_dict_words · textfit(공개/학습자 조회) 하위 · 읽기만'],
-  select_book_chapter_vocab: [ADM, '발행 경로 · 스크립트', 'publish_book_word_sets(invoker) 하위 · scripts service · 사전 읽기만'],
-  select_book_comic: [SELF, '로그인 학습자(/text/[id]/comic)', '/text 로그인 필수'],
-  select_book_comic_all: [P, '비로그인 /comics 상세', 'comic/catalog.ts ← /comics/adapted/[bookId](공개) — 발행분 전 컷. 미리보기 5컷 하드캡과 충돌: 공개 화면이 전체를 받는지 확인 필요', '공개 경로에서 전 컷 노출이 의도인지 확인'],
+  select_book_chapter_vocab: [SVC, '서비스(도서 발행 · 스크립트)', 'publish_book_word_sets 하위 + scripts service — 위 판정을 따른다'],
+  select_book_comic: [AR, '로그인 학습자(/text/[id]/comic)', '/text 로그인 필수 · 발행 만화 내용(본인 데이터 아님)'],
+  select_book_comic_all: [AR, '로그인 학습자(/text/[id]/comic)', '판정: 비로그인 경로의 호출은 catalog.ts 폴백 두 곳뿐(preview_book_comic · list_comic_catalog 실패 시) — 직접 호출하면 5컷 미리보기 상한을 우회해 전권이 나간다. anon 회수 + 폴백 제거(앱 변경)', '앱: lib/comic/catalog.ts 의 anon 폴백 2곳 제거'],
   select_pd_comic: [P, '비로그인 /comics/restored/[slug]', 'pd-comic/queries.ts'],
   select_pd_comic_info: [P, '비로그인 정보 팝업', 'api/comics/pd/[slug]/info(사용자 세션 · 공개 경로)'],
   store_content_chunk: [SVC, '서비스(본문 저장)', '함수 주석이 「service_role 전용」 · 앱 importer 없음'],
@@ -64,10 +65,11 @@ const D = {
   textbook_shelf_inventory: [P, '비로그인 /library/textbooks', '같음 · 개수만'],
   textbook_shelf_refreshed_at: [SVC, '서버(서비스)', 'csat/item-count ← textbook/freedom-load(service) 뿐 — 시각 하나라 노출 위험은 낮다'],
   textbook_shelf_sources: [P, '비로그인 /library/textbooks', 'shelf-query.ts · 개수만'],
-  textfit_resolve_levels: [SELF, '로그인 학습자(추출 패널)', 'textfit/queries ← ExtractionPanel(/text 로그인) · 사전 읽기만 — PUBLIC 으로 둬도 데이터 위험 없음'],
-  unresolved_dict_words: [SELF, '로그인 학습자 · 관리자 · 스크립트', 'ExtractionPanel(로그인) · admin pending-words(사용자 세션 관리자) · scripts service · 사전 읽기만'],
+  textfit_resolve_levels: [AR, '로그인 학습자(추출 패널)', 'textfit/queries ← ExtractionPanel(/text 로그인) · 사전 읽기만'],
+  unresolved_dict_words: [AR, '로그인 학습자 · 관리자 · 스크립트', 'ExtractionPanel(로그인) · admin pending-words(관리자 세션) · scripts service · 사전 읽기만'],
 }
 const target = {
+  [AR]: { PUBLIC: 'n', anon: 'n', authenticated: 'Y', service_role: 'Y' },
   [P]: { PUBLIC: 'n', anon: 'Y', authenticated: 'Y', service_role: 'Y' },
   [SELF]: { PUBLIC: 'n', anon: 'n', authenticated: 'Y', service_role: 'Y' },
   [REV]: { PUBLIC: 'n', anon: 'n', authenticated: 'Y(+본문 검수자 배정 검사)', service_role: 'Y' },
@@ -116,7 +118,7 @@ PostgreSQL 역할은 anon / authenticated / service_role 셋뿐이라 REVIEWER �
 
 | 등급 | 수 |
 |---|---|
-${[P, SELF, REV, ADM, SVC].map(c => `| ${c} | ${cnt('cls', c)} |`).join('\n')}
+${[P, AR, SELF, REV, ADM, SVC].map(c => `| ${c} | ${cnt('cls', c)} |`).join('\n')}
 
 | 우선순위 | 기준 | 수 |
 |---|---|---|
@@ -146,4 +148,4 @@ md += `
 - 다음 게이트(사용자 지정 순서): 60 확정 · 미분류 0 → live 대비 intended diff → \`review.mjs\` 전체 → 권한 마이그레이션 + 롤백(PUBLIC 명시 회수 → 필요한 역할만 GRANT) → 격리 PG 권한 매트릭스 → 실제 Supabase anon/authenticated/service_role 스모크 계획.
 `
 fs.writeFileSync(OUT_MD, md)
-console.log({ cls: Object.fromEntries([P, SELF, REV, ADM, SVC].map(c => [c, cnt('cls', c)])), pri: Object.fromEntries(['P0', 'P1', 'P2', '—'].map(p => [p, cnt('priority', p)])) })
+console.log({ cls: Object.fromEntries([P, AR, SELF, REV, ADM, SVC].map(c => [c, cnt('cls', c)])), pri: Object.fromEntries(['P0', 'P1', 'P2', '—'].map(p => [p, cnt('priority', p)])) })

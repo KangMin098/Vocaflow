@@ -11,6 +11,8 @@
 
 import { describe, expect, it } from 'vitest'
 
+import DETAIL from '../trap-atlas-examples.json'
+
 import {
   ATLAS_TYPES,
   CORPUS,
@@ -50,15 +52,21 @@ describe('오답 지도 — 구운 값의 정합', () => {
     }
   })
 
-  it('예시는 실재하는 유형을 가리키고 슬러그가 문항 id 와 일관된다', () => {
+  it('예시는 실재하는 유형을 가리키고 슬러그가 문항 id 와 일관된다(정답 민감 부분은 서버 전용 파일)', () => {
     const typeIds = new Set(ATLAS_TYPES.map((t) => t.id))
+    const detail = (DETAIL as { traps: Record<string, { item_id: string; slug: string; type_id: string; reject: string }[]> }).traps
     for (const t of TRAPS) {
-      for (const ex of t.examples) {
+      expect(t.examples).toEqual([])
+      for (const ex of detail[t.key] ?? []) {
         expect(typeIds.has(ex.type_id)).toBe(true)
         expect(ex.slug).toBe(ex.item_id.replace('#', '-'))
         expect(ex.reject.length).toBeGreaterThan(10)
       }
     }
+  })
+
+  it('Reveal Gate G3 — 번들 JSON 에는 예시(문항 ↔ 함정 연결)가 없다', () => {
+    for (const t of TRAPS) for (const ex of t.examples) expect(Object.keys(ex).sort()).toEqual(['exam_label', 'no', 'slug', 'type_id'])
   })
 })
 

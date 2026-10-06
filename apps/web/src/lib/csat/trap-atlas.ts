@@ -25,15 +25,15 @@
 
 import raw from './trap-atlas.json'
 
+/**
+ * 번들로 가는 예시 — **비어 있다**(Reveal Gate G3 · 2026-10-06 — 문항 ↔ 함정 연결 자체가 보류 문항의 오답 계열을 드러낸다).
+ * 오답 선지 번호 · 끌리는 이유 · 버리는 법은 서버 전용 `trap-atlas-examples.ts` 가 보류 필터 뒤 내보낸다.
+ */
 export interface TrapExample {
-  item_id: string
   slug: string
   exam_label: string
   no: number
   type_id: string
-  choice: number
-  tempting: string
-  reject: string
 }
 
 export interface TrapEntry {
