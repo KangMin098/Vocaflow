@@ -31,6 +31,7 @@ const quantile = (sorted, p) => {
   const lo = Math.floor(at), hi = Math.ceil(at)
   return sorted[lo] + (sorted[hi] - sorted[lo]) * (at - lo)
 }
+const meetsDelta = (value, minimum) => value + Number.EPSILON * 8 * Math.max(1, Math.abs(value), Math.abs(minimum)) >= minimum
 const stats = values => {
   const sorted = [...values].sort((a, b) => a - b)
   const p25 = quantile(sorted, .25), p75 = quantile(sorted, .75)
@@ -199,14 +200,17 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
         itemTypes[type] = { status: value >= dist.p10 && value <= dist.p90 && share >= shareDist.p10 && share <= shareDist.p90 ? 'pass' : 'fail', n: typedRows.length, value, p10: dist.p10, p90: dist.p90, share, share_p10: shareDist.p10, share_p90: shareDist.p90 }
       }
     }
-    if (axes.item_difficulty.status === 'fail' || Object.values(itemTypes).some(result => result.status === 'fail')) axes.item_difficulty = { ...axes.item_difficulty, status: 'fail', types: itemTypes }
-    else if (Object.values(itemTypes).some(result => result.status === 'inconclusive')) axes.item_difficulty = { status: 'inconclusive', reason: 'MISSING_ITEM_TYPE', types: itemTypes }
+    const itemPrimaryFailed = axes.item_difficulty.status === 'fail'
+    const itemTypeFailed = Object.values(itemTypes).some(result => result.status === 'fail')
+    const itemTypeMissing = Object.values(itemTypes).some(result => result.status === 'inconclusive')
+    if (itemPrimaryFailed || itemTypeFailed) axes.item_difficulty = { ...axes.item_difficulty, status: 'fail', types: itemTypes }
+    else if (itemTypeMissing) axes.item_difficulty = { status: 'inconclusive', reason: 'MISSING_ITEM_TYPE', types: itemTypes }
     else axes.item_difficulty = { ...axes.item_difficulty, types: itemTypes }
     const core = [...REQUIRED_AXES].every(axis => axes[axis].status === 'pass')
     const pass = Object.values(axes).filter(result => result.status === 'pass').length
     const inconclusiveCount = Object.values(axes).filter(result => result.status === 'inconclusive').length
-    const hardFail = [...REQUIRED_AXES, 'item_difficulty'].some(axis => axes[axis].status === 'fail') || pass + inconclusiveCount < protocol.fit.minimum_axes
-    results[grade] = { status: hardFail ? 'fail' : inconclusiveCount ? 'inconclusive' : core && pass >= protocol.fit.minimum_axes ? 'pass' : 'fail', n: reference.length, axes }
+    const hardFail = [...REQUIRED_AXES].some(axis => axes[axis].status === 'fail') || itemTypeFailed || (itemPrimaryFailed && itemTypeMissing) || pass + inconclusiveCount < protocol.fit.minimum_axes
+    results[grade] = { status: hardFail ? 'fail' : inconclusiveCount || itemTypeMissing ? 'inconclusive' : core && pass >= protocol.fit.minimum_axes ? 'pass' : 'fail', n: reference.length, axes }
   }
   const middle = f02.variants.middle_1, high = f02.variants.high_1
   let separation
@@ -225,16 +229,16 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
       const def = protocol.axes[axis]
       const refDelta = stats(commonHighRows.map(row => row.metrics[axis])).median - stats(commonLowRows.map(row => row.metrics[axis])).median
       const f02Delta = high.metrics?.[axis] - middle.metrics?.[axis]
-      if (!Number.isFinite(f02Delta) || Math.abs(refDelta) < def.minimum_meaningful_delta) continue
+      if (!Number.isFinite(f02Delta) || !meetsDelta(Math.abs(refDelta), def.minimum_meaningful_delta)) continue
       const direction = Math.sign(refDelta)
       const publisherStable = [...new Set([...commonLowRows, ...commonHighRows].map(row => row.publisher))].every(publisher => {
         const lo = commonLowRows.filter(row => row.publisher !== publisher), hi = commonHighRows.filter(row => row.publisher !== publisher)
-        return lo.length && hi.length && (stats(hi.map(row => row.metrics[axis])).median - stats(lo.map(row => row.metrics[axis])).median) * direction >= def.minimum_meaningful_delta
+        return lo.length && hi.length && meetsDelta((stats(hi.map(row => row.metrics[axis])).median - stats(lo.map(row => row.metrics[axis])).median) * direction, def.minimum_meaningful_delta)
       })
       if (!publisherStable) continue
       stable.push(axis)
-      if (Math.sign(f02Delta) === direction && Math.abs(f02Delta) >= def.minimum_meaningful_delta && (def.scale === 'ordinal' || Math.abs(f02Delta) >= Math.abs(refDelta) * protocol.separation.minimum_reference_ratio)) matching.push(axis)
-      else if (Math.sign(f02Delta) === -direction && Math.abs(f02Delta) >= def.minimum_meaningful_delta) opposite.push(axis)
+      if (Math.sign(f02Delta) === direction && meetsDelta(Math.abs(f02Delta), def.minimum_meaningful_delta) && (def.scale === 'ordinal' || meetsDelta(Math.abs(f02Delta), Math.abs(refDelta) * protocol.separation.minimum_reference_ratio))) matching.push(axis)
+      else if (Math.sign(f02Delta) === -direction && meetsDelta(Math.abs(f02Delta), def.minimum_meaningful_delta)) opposite.push(axis)
     }
     separation = stable.length < protocol.separation.minimum_stable_axes || (!stable.includes('discourse') && !stable.includes('inference')) ? { status: 'inconclusive', stable, matching, opposite } : { status: matching.length >= protocol.separation.minimum_matching_axes && matching.some(axis => axis === 'discourse' || axis === 'inference') && opposite.length <= protocol.separation.maximum_opposite_axes ? 'pass' : 'fail', stable, matching, opposite }
   }

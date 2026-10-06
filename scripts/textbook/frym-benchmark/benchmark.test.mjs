@@ -473,3 +473,30 @@ test('failed item primary metric wins over missing type comparison', () => {
   assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'fail')
   assert.equal(result.target_fit.middle_1.status, 'fail')
 })
+
+test('item primary failure alone follows the sealed seven-of-nine rule', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  f.variants.middle_1.metrics.item_difficulty = 100
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.target_fit.middle_1.axes.item_difficulty.status, 'fail')
+  assert.equal(result.target_fit.middle_1.status, 'pass')
+})
+
+test('meaningful delta accepts the exact decimal threshold despite float rounding', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const axis of AXES) { p.axes[axis].minimum_meaningful_delta = .3; p.axes[axis].resolution = .1 }
+  p.codebook_hash = hash(p.axes)
+  for (const row of rows) {
+    row.codebook_hash = p.codebook_hash
+    if (row.grade === 'high_1') {
+      for (const axis of AXES) row.metrics[axis] -= 1.7
+      for (const type of p.item_types) row.item_type_difficulty[type] -= 1.7
+    }
+  }
+  resealRows(rows)
+  f.codebook_hash = p.codebook_hash
+  for (const axis of AXES) f.variants.high_1.metrics[axis] = 5.3
+  for (const type of p.item_types) f.variants.high_1.item_type_difficulty[type] = 5.3
+  const result = judge(p, rows, reseal(f))
+  assert.equal(result.level_separation.status, 'pass')
+})
