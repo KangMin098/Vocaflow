@@ -80,10 +80,12 @@ export function buildBenchmark(protocol, samples) {
     const reasons = screenSample(sample, protocol)
     if (seen.has(sample?.sample_id)) reasons.push('DUPLICATE_SAMPLE_ID')
     if (isHex(sample?.passage_hash) && passageHashes.has(sample.passage_hash)) reasons.push('DUPLICATE_PASSAGE')
-    seen.add(sample?.sample_id)
-    if (isHex(sample?.passage_hash)) passageHashes.add(sample.passage_hash)
     if (reasons.length) rejected.push({ sample_id: sample?.sample_id ?? null, reasons })
-    else accepted.push(sample)
+    else {
+      seen.add(sample.sample_id)
+      passageHashes.add(sample.passage_hash)
+      accepted.push(sample)
+    }
   }
   const grades = {}
   for (const grade of protocol.grades) {
@@ -180,15 +182,15 @@ export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
     }
     separation = stable.length < protocol.separation.minimum_stable_axes || (!stable.includes('discourse') && !stable.includes('inference')) ? { status: 'inconclusive', stable, matching, opposite } : { status: matching.length >= protocol.separation.minimum_matching_axes && matching.some(axis => axis === 'discourse' || axis === 'inference') && opposite.length <= protocol.separation.maximum_opposite_axes ? 'pass' : 'fail', stable, matching, opposite }
   }
-  const e3Valid = e3?.status === 'verified' && e3?.valid_n === 28 && isText(e3?.run_id)
+  const e3Valid = e3?.status === 'verified' && e3?.valid_n === 28 && isText(e3?.run_id) && isHex(e3?.evidence_hash)
   const candidate = e3Valid && Object.values(snapshot.grades).every(grade => grade.status === 'calibrated') && results.middle_1.status === 'pass' && results.high_1.status === 'pass' && separation.status === 'pass'
-  const basis = { benchmark_version: snapshot.benchmark_version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f02), e3_run_id: e3?.run_id ?? null, target_fit: results, level_separation: separation, gold_s_candidate: candidate, gold_s: false, db_seed: false }
+  const basis = { benchmark_version: snapshot.benchmark_version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f02), e3_run_id: e3?.run_id ?? null, e3_evidence_hash: e3?.evidence_hash ?? null, target_fit: results, level_separation: separation, gold_s_candidate: candidate, gold_s: false, db_seed: false }
   return { ...basis, decision_hash: hash(basis) }
 }
 
 export function verifyDecision(decision, current) {
   const { decision_hash, ...body } = decision
-  if (decision_hash !== hash(body) || decision.benchmark_version !== current.benchmark_version || decision.benchmark_snapshot_hash !== current.benchmark_snapshot_hash || decision.f02_input_hash !== current.f02_input_hash || decision.e3_run_id !== current.e3_run_id) return { status: 'stale' }
+  if (decision_hash !== hash(body) || decision.benchmark_version !== current.benchmark_version || decision.benchmark_snapshot_hash !== current.benchmark_snapshot_hash || decision.f02_input_hash !== current.f02_input_hash || decision.e3_run_id !== current.e3_run_id || !isHex(decision.e3_evidence_hash) || decision.e3_evidence_hash !== current.e3_evidence_hash) return { status: 'stale' }
   return { status: 'current' }
 }
 
@@ -204,7 +206,7 @@ export function workflowState({ protocol, snapshot, decision, current } = {}) {
   if (Object.values(snapshot.grades).some(grade => grade.status !== 'calibrated')) return 'insufficient_benchmark'
   if (!decision) return 'benchmark_calibrated'
   if (decision.target_fit.middle_1.status === 'insufficient_benchmark' || decision.target_fit.high_1.status === 'insufficient_benchmark' || decision.level_separation.status === 'insufficient_benchmark') return 'insufficient_benchmark'
-  if (decision.target_fit.middle_1.status === 'inconclusive' || decision.target_fit.high_1.status === 'inconclusive' || decision.level_separation.status === 'inconclusive') return 'inconclusive'
   if (decision.target_fit.middle_1.status === 'fail' || decision.target_fit.high_1.status === 'fail' || decision.level_separation.status === 'fail') return 'fail'
+  if (decision.target_fit.middle_1.status === 'inconclusive' || decision.target_fit.high_1.status === 'inconclusive' || decision.level_separation.status === 'inconclusive') return 'inconclusive'
   return decision.gold_s_candidate ? 'gold_s_candidate' : 'evaluated_not_candidate'
 }

@@ -21,7 +21,7 @@ const samples = (p = protocol()) => GRADES.flatMap(grade => Array.from({ length:
 }))
 const reseal = value => { const { analysis_hash, ...body } = value; return { ...body, analysis_hash: hash(body) } }
 const f02 = () => reseal({ codebook_hash: hash(axisDefs), source_freeze_sha256: H('freeze'), item_set_hash: H('f02-items'), scoring_key_hash: H('f02-key'), variants: Object.fromEntries(['middle_1', 'high_1'].map((grade, i) => [grade, { passage_hash: H(`f02-${grade}`), genre: 'expository', word_count: 100, metrics: Object.fromEntries(AXES.map(axis => [axis, i ? 7 : 5])) }])) })
-const e3 = (f = f02()) => ({ status: 'verified', valid_n: 28, run_id: 'fixture-run', seal: { source_freeze_sha256: f.source_freeze_sha256, item_set_hash: f.item_set_hash, scoring_key_hash: f.scoring_key_hash, passage_hash: Object.fromEntries(Object.entries(f.variants).map(([grade, variant]) => [grade, variant.passage_hash])) } })
+const e3 = (f = f02()) => ({ status: 'verified', valid_n: 28, run_id: 'fixture-run', evidence_hash: H('fixture-e3-audit-files'), seal: { source_freeze_sha256: f.source_freeze_sha256, item_set_hash: f.item_set_hash, scoring_key_hash: f.scoring_key_hash, passage_hash: Object.fromEntries(Object.entries(f.variants).map(([grade, variant]) => [grade, variant.passage_hash])) } })
 const judge = (p = protocol(), rows = samples(p), f = f02(), evidence = e3(f)) => judgeBenchmark({ protocol: p, snapshot: buildBenchmark(p, rows), samples: rows, f02: f, e3: evidence })
 
 test('fixture alone builds complete distributions and a Gold-S candidate, never Gold-S', () => {
@@ -34,7 +34,7 @@ test('fixture alone builds complete distributions and a Gold-S candidate, never 
   assert.equal(result.gold_s_candidate, true)
   assert.equal(result.gold_s, false)
   assert.equal(result.db_seed, false)
-  assert.equal(workflowState({ protocol: p, snapshot, decision: result, current: { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f02()), e3_run_id: 'fixture-run' } }), 'gold_s_candidate')
+  assert.equal(workflowState({ protocol: p, snapshot, decision: result, current: { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f02()), e3_run_id: 'fixture-run', e3_evidence_hash: H('fixture-e3-audit-files') } }), 'gold_s_candidate')
 })
 
 test('missing item, multiple-grade label, and rights uncertainty stay out of distributions', () => {
@@ -84,7 +84,8 @@ test('genre and length concentration prevent calibration', () => {
 
 test('benchmark version, sealed codebook, sample measurements and F02 seal invalidate decisions', () => {
   const p = protocol(), rows = samples(p), snapshot = buildBenchmark(p, rows), f = f02(), result = judge(p, rows, f)
-  assert.equal(verifyDecision(result, { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: 'fixture-run' }).status, 'current')
+  assert.equal(verifyDecision(result, { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: 'fixture-run', e3_evidence_hash: H('fixture-e3-audit-files') }).status, 'current')
+  assert.equal(verifyDecision(result, { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: 'fixture-run', e3_evidence_hash: H('changed-e3-audit-files') }).status, 'stale')
   assert.equal(verifyDecision(result, { benchmark_version: 'fixture-v2', benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: 'fixture-run' }).status, 'stale')
   assert.throws(() => verifySnapshot(snapshot, { ...p, version: 'fixture-v2' }), /BENCHMARK_STALE/)
   rows[0].metrics.lexical += 1
@@ -135,7 +136,7 @@ test('E3 failure blocks candidate and modified decisions become stale', () => {
   assert.equal(result.gold_s_candidate, false)
   const altered = { ...result, gold_s_candidate: true }
   const snapshot = buildBenchmark(p, rows)
-  assert.equal(verifyDecision(altered, { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: evidence.run_id }).status, 'stale')
+  assert.equal(verifyDecision(altered, { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f), e3_run_id: evidence.run_id, e3_evidence_hash: evidence.evidence_hash }).status, 'stale')
   const tamperedSnapshot = { ...snapshot, grades: { ...snapshot.grades, middle_1: { ...snapshot.grades.middle_1, n: 99 } } }
   assert.throws(() => verifySnapshot(tamperedSnapshot, p), /BENCHMARK_STALE/)
 })
@@ -158,4 +159,25 @@ test('sample access date is required provenance', () => {
   assert.ok(snapshot.rejected[0].reasons.includes('ACCESS_DATE_INVALID'))
   assert.ok(snapshot.rejected[1].reasons.includes('ACCESS_DATE_INVALID'))
   assert.equal(snapshot.grades.elementary_5.status, 'insufficient_benchmark')
+})
+
+test('an ineligible row cannot reserve a selected passage or sample ID', () => {
+  const p = protocol(), rows = samples(p)
+  const rejected = { ...rows[0], rights_basis: 'unknown' }
+  const snapshot = buildBenchmark(p, [rejected, ...rows])
+  assert.equal(snapshot.rejected.length, 1)
+  assert.deepEqual(snapshot.rejected[0].reasons, ['RIGHTS_UNCONFIRMED'])
+  assert.equal(snapshot.grades.elementary_5.n, 30)
+})
+
+test('a definite fit failure takes precedence over inconclusive separation', () => {
+  const p = protocol(), rows = samples(p), f = f02()
+  for (const row of rows.filter(row => row.grade === 'high_1')) for (const axis of AXES) row.metrics[axis] -= 2
+  for (const axis of AXES) f.variants.high_1.metrics[axis] -= 2
+  f.variants.middle_1.metrics.lexical = 100
+  const snapshot = buildBenchmark(p, rows), sealed = reseal(f)
+  const result = judgeBenchmark({ protocol: p, snapshot, samples: rows, f02: sealed, e3: e3(sealed) })
+  assert.equal(result.target_fit.middle_1.status, 'fail')
+  assert.equal(result.level_separation.status, 'inconclusive')
+  assert.equal(workflowState({ protocol: p, snapshot, decision: result, current: { benchmark_version: p.version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(sealed), e3_run_id: 'fixture-run', e3_evidence_hash: H('fixture-e3-audit-files') } }), 'fail')
 })

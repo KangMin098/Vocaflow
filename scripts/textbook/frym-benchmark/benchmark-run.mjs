@@ -1,5 +1,7 @@
 // scripts/textbook/frym-benchmark/benchmark-run.mjs
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { join } from 'node:path'
 import { buildBenchmark, judgeBenchmark, verifyDecision, verifySnapshot, hash } from './benchmark.mjs'
 import { buildF02Synthetic } from '../frym-synthetic/f02-synthetic.mjs'
 import { verifyStage } from '../frym-synthetic/f02-cross-agent.mjs'
@@ -7,6 +9,20 @@ import { verifyStage } from '../frym-synthetic/f02-cross-agent.mjs'
 const [command, ...paths] = process.argv.slice(2)
 const read = path => JSON.parse(readFileSync(path, 'utf8'))
 const write = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx' })
+const auditDirectoryHash = directory => {
+  const digest = createHash('sha256')
+  const files = readdirSync(directory, { withFileTypes: true }).filter(entry => entry.isFile()).map(entry => entry.name).sort()
+  if (!files.includes('run.json')) throw Error('E3_AUDIT_FILES_MISSING')
+  for (const name of files) {
+    const bytes = readFileSync(join(directory, name))
+    digest.update(name).update('\0').update(String(bytes.length)).update('\0').update(bytes)
+  }
+  return digest.digest('hex')
+}
+const auditEvidenceHash = directory => {
+  const gate = read(join(directory, 'stage-c-gate.json'))
+  return hash({ batch: auditDirectoryHash(directory), stage_a: auditDirectoryHash(gate.stage_a_dir), stage_b: auditDirectoryHash(gate.stage_b_dir) })
+}
 
 try {
   if (command === 'build' && paths.length === 3) {
@@ -17,7 +33,7 @@ try {
     if (f02.source_freeze_sha256 !== seal.source_freeze_sha256 || f02.item_set_hash !== seal.item_set_hash || f02.scoring_key_hash !== seal.scoring_key_hash || ['middle_1', 'high_1'].some(grade => f02.variants?.[grade]?.passage_hash !== seal.passage_hash[grade])) throw Error('F02_CURRENT_SEAL_MISMATCH')
     const audited = verifyStage(paths[4])
     if (audited.stage !== 'batch' || audited.synthetic_validation_valid_n !== 28) throw Error('E3_BATCH_NOT_VERIFIED')
-    const e3 = { status: 'verified', valid_n: audited.synthetic_validation_valid_n, run_id: audited.run_id, seal }
+    const e3 = { status: 'verified', valid_n: audited.synthetic_validation_valid_n, run_id: audited.run_id, evidence_hash: auditEvidenceHash(paths[4]), seal }
     write(paths[5], judgeBenchmark({ protocol, snapshot, samples, f02, e3 }))
   } else if (command === 'verify' && paths.length === 2) {
     verifySnapshot(read(paths[1]), read(paths[0]))
@@ -29,7 +45,7 @@ try {
     const seal = buildF02Synthetic().seal
     if (f02.source_freeze_sha256 !== seal.source_freeze_sha256 || f02.item_set_hash !== seal.item_set_hash || f02.scoring_key_hash !== seal.scoring_key_hash || ['middle_1', 'high_1'].some(grade => f02.variants?.[grade]?.passage_hash !== seal.passage_hash[grade])) throw Error('F02_CURRENT_SEAL_MISMATCH')
     const audited = verifyStage(paths[3])
-    const current = { benchmark_version: snapshot.benchmark_version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f02), e3_run_id: audited.run_id }
+    const current = { benchmark_version: snapshot.benchmark_version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f02), e3_run_id: audited.run_id, e3_evidence_hash: auditEvidenceHash(paths[3]) }
     const result = verifyDecision(decision, current)
     process.stdout.write(`${result.status.toUpperCase()}\n`)
     if (result.status !== 'current') process.exitCode = 1
