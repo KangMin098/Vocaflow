@@ -1,3 +1,4 @@
+# .github/workflows/reveal-gate.yml
 name: Reveal Gate
 on:
   pull_request:
@@ -30,5 +31,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: reveal-gate-verification
-          path: tmp/reveal-gate-verification.json
+          path: tmp/reveal-gate-merge-verification.json
           if-no-files-found: error

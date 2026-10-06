@@ -3,6 +3,8 @@
 
 `pnpm reveal-gate:verify` runs classification, mutation tests, behavioral tests, paging diff, a fresh production build and actual client bundle inspection. It exits nonzero and reports `BLOCKED` if any required layer cannot run. Reports are written under ignored `tmp/`; credentials are never copied into reports.
 
+Default reports are separated by phase: `tmp/reveal-gate-pr-verification.json`, `tmp/reveal-gate-merge-verification.json`, `tmp/reveal-gate-db-verification.json`. PR/DB outputs cannot overwrite the merge receipt used by live verification. Sensitive imports, re-exports and literal dynamic imports are traced; approved loader modules are frozen as a whole so helper/control-flow edits cannot escape a per-function hash.
+
 ```sh
 pnpm reveal-gate:verify --phase pr --base origin/main
 pnpm reveal-gate:verify --phase merge --base origin/main

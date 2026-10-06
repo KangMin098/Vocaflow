@@ -27,8 +27,9 @@ const lockHandle=fs.openSync(lockFile,'wx');fs.writeFileSync(lockHandle,String(p
 process.once('exit',()=>{if(fs.existsSync(lockFile)&&fs.readFileSync(lockFile,'utf8')===String(process.pid))fs.unlinkSync(lockFile)})
 const revision=spawnSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).stdout.trim()
 const verificationBefore=verificationFingerprint(ROOT)
-const output=path.resolve(ROOT,value('--output','tmp/reveal-gate-verification.json'))
+const output=path.resolve(ROOT,value('--output',`tmp/reveal-gate-${phase}-verification.json`))
 if(!output.startsWith(path.join(ROOT,'tmp')+path.sep)||!output.endsWith('.json'))throw Error('Report target must be tmp/*.json')
+if(phase!=='merge'&&fs.existsSync(path.join(tmp,'reveal-production.json'))&&JSON.parse(fs.readFileSync(path.join(tmp,'reveal-production.json'),'utf8')).report_file===output)throw Error('Output must not overwrite the merge receipt')
 if(phase==='merge'&&fs.existsSync(path.join(tmp,'reveal-production.json')))fs.unlinkSync(path.join(tmp,'reveal-production.json'))
 const record=(layer,ok,detail)=>{rows.push({layer,status:ok?'PASS':'BLOCKED',detail});console.log(`${ok?'PASS':'BLOCKED'} ${layer}`)}
 async function run(command,argv) {

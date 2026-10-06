@@ -736,6 +736,206 @@
       "sha256": "b761a633d6180dde5e229a19649533e1111be3db8463f220a3ab93418e200c2a",
       "class": "ADMIN_ONLY",
       "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "app/api/csat/dev-paper/route.ts::<module>": {
+      "sha256": "324c7617c8ff5f0a00f4a9272a7bef06aeaf442e5e75b587697c77e508027f9d",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/diagnosis/map/goal/route.ts::<module>": {
+      "sha256": "d15f5301d2357424745be03a2f717bdaf2b52fa1de71278bff04b112c146a62e",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/diagnosis/map/tasks/[id]/route.ts::<module>": {
+      "sha256": "3b89a9ba5d6551296d87ef6665aa5f5f5a1153d0023c9b356543f14bdff4b8d7",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/diagnosis/sessions/[id]/result/route.ts::<module>": {
+      "sha256": "641292c58cdfe8af27d5597b0439192f503bdf1d568b77d6636170cfc5b7d30f",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/ec/capture/route.ts::<module>": {
+      "sha256": "f367bc4d1a53e5244495763844d719fc03fe1844bd51fe0fe40ea894cc7e2e50",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/ec/confirm/route.ts::<module>": {
+      "sha256": "fecd906609806572ea7203408ff148a47865a331c079bcdad2520e678a463fbd",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/ec/evidence/route.ts::<module>": {
+      "sha256": "2dc456a41e17bee5b271c04bb776433433b1c9133ed0480990a9b9a04749e832",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/ec/probe/route.ts::<module>": {
+      "sha256": "f9970a4c71edef61b77e1e7d93f76350ed36c4bfce34863eeeaeccbe112b672e",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/ec/probes/route.ts::<module>": {
+      "sha256": "ccb1f61ef46e26bab7845c4c26bdb6afe1c5702f6242fdbf586bb1d3b4e17957",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/session/record/route.ts::<module>": {
+      "sha256": "c8d04e2026a5a9189dbc83e3ec4376612c4e920cd35bcf51ae0defa713dad3a2",
+      "class": "CORRECTNESS_OWN_PRIOR",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "app/api/csat/state/route.ts::<module>": {
+      "sha256": "24c2bf9b0c1f52069038531bcd616fb8b42dbef6466e7109d5f2ef258dbd295d",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/browse/CsatWorkspace.tsx::<module>": {
+      "sha256": "c2c7c4b0acaa8b215b7ab5f7d8a6b1d643e44177474e7ab66e43810544bad84a",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/diagnosis/DiagnosisShell.tsx::<module>": {
+      "sha256": "6ba020248dafc545b8b8e8b555b54a68147e8b62566d07d99fa3486857e74ee9",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/space/PatternBand.tsx::<module>": {
+      "sha256": "d3dc6933a8311b736a682b08110beca0ae14ff59aac4e66b02cd54008594a756",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/workspace/WorkspaceFrame.tsx::<module>": {
+      "sha256": "bdf679116602e10bc7351e492c2633734c24a4939c5d41d2f9055091ee519704",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/workspace/WorkspaceTable.tsx::<module>": {
+      "sha256": "9d60b3a70ea400b9d52e285034423a5fb4517dfcd9a1155cd8fcc2898edca6c5",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "components/csat/workspace/WorkspaceDetail.tsx::<module>": {
+      "sha256": "d8674f205ffeecc208fc80db0c3f5b4ed53f098c767d4f44dcb9594d1343bf73",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+    },
+    "lib/csat/approvals.ts::<module>": {
+      "sha256": "8b5711b1ba2bd4bb7f0f9c30150595378483a911c24091a9bbd4c28baddb5fa0",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/client.ts::<module>": {
+      "sha256": "1db927d8e118a56602de4e4c0e827046bc18c961ee698d1144c2986c96aa9449",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/diagnosis/learner.ts::<module>": {
+      "sha256": "6c63b7ad014744cc90f36c4d03960f6e17ce58d5f87c5ff15a074d54042e4550",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/diagnosis/snapshot.ts::<module>": {
+      "sha256": "de09e19aa72788f7adc4f339e9dd89b0027922b918fdca380a7fa30e23ca1715",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/drain-runs.ts::<module>": {
+      "sha256": "967759fe637df25efaeaabd80b07319c2830a07c0ea56c6659293724d69f9f7e",
+      "class": "OPS_META",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/drill-loader.ts::<module>": {
+      "sha256": "8741c7fc19df39f6add6224d2257cf248422224309c423ad0657fc0c8e9fede7",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/ec-pilot/server.ts::<module>": {
+      "sha256": "be836a158e82a0cc5d9f3f50785727f3644d2623d347e16a4d2da67e65d35b96",
+      "class": "LEARNER_OWN",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/embargo-gate.ts::<module>": {
+      "sha256": "ecc27d25857cee38e76bd69481d87b780dbbc3de3e38b837ce2acf663675777e",
+      "class": "OPS_META",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/factory-bench.ts::<module>": {
+      "sha256": "b32078687ab9af72b03b7cd73c20c6ae85202db1783829f7718ce818e5c5615c",
+      "class": "OPS_META",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/factory-glossary.ts::<module>": {
+      "sha256": "8e1f6ecd2908f506d76f63b03a9e9b2a34cfe739e86e8e44b761872766e2e168",
+      "class": "OPS_META",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/item-count.ts::<module>": {
+      "sha256": "5e8399019db718a21ca002bdcbbab90074060a68360efa703b58868c3bfc5246",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/item-state.ts::<module>": {
+      "sha256": "ddcca84157ffc2059f71615da2689d99530eb0b3ba160bd46237f246e1cf528d",
+      "class": "OPS_META",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/lecture/store.ts::<module>": {
+      "sha256": "497d680ced0786dd579b697cafc18cfd5c6a51d1f51004baf7f37d4e1a0d6820",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/map/evidence.ts::<module>": {
+      "sha256": "a5cd9222d70201a50ca406ebd625968f78efafd4d8cfbb52e6a2b2a3572a09f6",
+      "class": "CORRECTNESS",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/order-view.ts::<module>": {
+      "sha256": "6803a87637658bc71d3676d666d854d131823efb0a62789572abc5cd0c0508be",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/overlay.ts::<module>": {
+      "sha256": "0fb2e529c5452b160824824cdd61ee94f9c28279cb317921b07b4ec02888ed12",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/review-defects.ts::<module>": {
+      "sha256": "9b7854d2f289c7f0b98377d0b0b3db41039e18d388d52ef91916da54fd35cd84",
+      "class": "OPS_META",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/skeleton.ts::<module>": {
+      "sha256": "b4733d177130f59683ea5f049e6d802425fbf488afaf21108985b35eb8682717",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/source-console.ts::<module>": {
+      "sha256": "51c5dff0afb90f9d22dea3a656082182b667b6e626eefa7e7e2b71d38af2ec7a",
+      "class": "OPS_META",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/csat/type-locus.ts::<module>": {
+      "sha256": "ab4fc4bd86deef9490e56e5e533bac83e7db061a8afc33e36828950986938714",
+      "class": "ANSWER_SENSITIVE",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/marketing/trust-signals.ts::countOf": {
+      "sha256": "8dccc2882975de71e9f9cba6a51bd76708829d0af5a6cdf7812c18dd103a9485",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/marketing/trust-signals.ts::<module>": {
+      "sha256": "99ed8650d67a77dbda7121e923cb2a3313a60bbf7b2c249f528b2826374a0b39",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
+    },
+    "lib/textbook/source-live.ts::<module>": {
+      "sha256": "4fe528a4bbf106b07961cdb1e2183ad107dfce79a6f6cf0b34954fff06ac3f85",
+      "class": "OPS_META",
+      "review_basis": "Inherited canonical loader/caller boundary, extended to ADMIN_ONLY dependencies. Exact module/function body and bindings frozen; authorization behavioral proof remains separate."
     }
   },
   "loader_classifications": {

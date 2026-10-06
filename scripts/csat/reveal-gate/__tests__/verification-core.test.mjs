@@ -15,6 +15,9 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   assert.equal(scanLoaders(root,manifest).issues[0].kind,'unclassified_loader')
   write('lib/csat/unknown.ts','export const load=(db)=>db.from("csat_new_answer_keys").select("answer")')
   assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_csat_object'))
+  write('app/api/public-constant/route.ts','const TABLE="csat_items"; export const GET=(db)=>db.from(TABLE).select("answer")')
+  assert.ok(scanLoaders(root,manifest).issues.some(i=>i.file==='app/api/public-constant/route.ts'&&i.kind==='unclassified_loader'))
+  fs.unlinkSync(path.join(root,'app/api/public-constant/route.ts'))
   write('lib/csat/unknown.ts','export const load=(db)=>db["rpc"]("csat_new_answer_rpc")')
   assert.ok(scanLoaders(root,manifest).issues.some(i=>i.kind==='unclassified_csat_object'))
   fs.unlinkSync(path.join(root,'lib/csat/unknown.ts'))
@@ -26,6 +29,8 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   const functions=scanLoaders(root,m).functions
   const policy={function_approvals:Object.fromEntries(functions.map(r=>[r.key,{sha256:r.sha256,class:r.class,review_basis:'fixture approved body'}]))}
   assert.deepEqual(scanLoaders(root,m,policy).issues,[])
+  write('lib/csat/leak.ts','import {canRevealItem as gate} from "./embargo-gate"; export const load=async(db)=>(await gate("x"))?db.from("csat_items").select("answer"):null; export function hiddenBypass(){return load({})}')
+  assert.ok(scanLoaders(root,m,policy).issues.some(i=>i.function==='<module>'))
   write('lib/csat/leak.ts','import {canRevealItem as gate} from "./other/embargo-gate"; export const load=async(db)=>(await gate("x"))?db.from("csat_items").select("answer"):null; export const bypass=(db)=>db.from("csat_items").select("answer")')
   assert.ok(scanLoaders(root,m,policy).issues.some(i=>i.kind==='unclassified_or_changed_sensitive_function'&&i.function==='bypass'))
   assert.ok(scanLoaders(root,m,policy).issues.some(i=>i.kind==='unclassified_or_changed_sensitive_function'&&i.function==='load'))
@@ -45,6 +50,14 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   write('app/public/page.tsx','import {loadCsatItemFull} from "../../lib/csat/admin-secret"; export default function Page(){return <pre>{loadCsatItemFull().answer}</pre>}')
   const admin={...m,app_db_loaders:{...m.app_db_loaders,'lib/csat/admin-secret.ts':{class:'ADMIN_ONLY'}}}
   assert.ok(scanLoaders(root,admin,{function_approvals:{}}).issues.some(i=>i.file==='app/public/page.tsx'&&i.function==='<module>'))
+  write('lib/csat/public-barrel.ts','export {loadCsatItemFull} from "./admin-secret"')
+  write('app/api/public/route.ts','import {loadCsatItemFull} from "../../../lib/csat/public-barrel"; export const GET=()=>Response.json(loadCsatItemFull())')
+  assert.ok(scanLoaders(root,admin,{function_approvals:{}}).issues.some(i=>i.file==='lib/csat/public-barrel.ts'&&i.function==='<module>'))
+  const inherited=scanLoaders(root,admin).functions
+  const approved={function_approvals:Object.fromEntries(inherited.filter(r=>r.file==='lib/csat/public-barrel.ts').map(r=>[r.key,{sha256:r.sha256,class:r.class,review_basis:'fixture approved admin barrel'}]))}
+  assert.ok(scanLoaders(root,admin,approved).issues.some(i=>i.file==='app/api/public/route.ts'&&i.function==='<module>'))
+  write('app/api/public/route.ts','export const GET=async()=>Response.json((await import("../../../lib/csat/public-barrel")).loadCsatItemFull())')
+  assert.ok(scanLoaders(root,admin,approved).issues.some(i=>i.file==='app/api/public/route.ts'&&i.function==='<module>'))
 }))
 test('mutation: renamed JSON and re-exported dynamic client imports expose answer literals',()=>fixture((root,write)=>{
   write('app/Client.tsx','"use client"; import("../lib/barrel");')
@@ -81,14 +94,14 @@ test('production attestation rejects stale source, modified artifact and missing
   write('apps/web/.next/static/chunks/main.js','const n=1')
   write('apps/web/.next/server/app/api/route.js','const secret=1')
   const report={phase:'merge',result:'MERGEABLE',revision:'test-revision',layers:REQUIRED_MERGE_LAYERS.map(layer=>({layer,status:'PASS'}))}
-  write('tmp/reveal-gate-verification.json',JSON.stringify(report))
+  write('tmp/reveal-gate-merge-verification.json',JSON.stringify(report))
   attestBuild(root,'test-revision')
   assert.equal(checkBuild(root).ok,true)
-  write('tmp/reveal-gate-verification.json',JSON.stringify({...report,result:'BLOCKED'}))
+  write('tmp/reveal-gate-merge-verification.json',JSON.stringify({...report,result:'BLOCKED'}))
   assert.equal(checkBuild(root).ok,false)
-  write('tmp/reveal-gate-verification.json',JSON.stringify({...report,layers:report.layers.filter(r=>r.layer!=='V2 client source graph')}))
+  write('tmp/reveal-gate-merge-verification.json',JSON.stringify({...report,layers:report.layers.filter(r=>r.layer!=='V2 client source graph')}))
   assert.equal(checkBuild(root).ok,false)
-  write('tmp/reveal-gate-verification.json',JSON.stringify(report))
+  write('tmp/reveal-gate-merge-verification.json',JSON.stringify(report))
   write('apps/web/src/app.ts','export const n=2')
   assert.equal(checkBuild(root).ok,false)
   write('apps/web/src/app.ts','export const n=1')

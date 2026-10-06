@@ -19,7 +19,7 @@ export function sourceFingerprint(repo) {
   // No .env, token, credential or credential-derived hash is ever read.
   return digest(files)
 }
-export function attestBuild(repo,revision,reportFile=path.join(repo,'tmp/reveal-gate-verification.json')) {
+export function attestBuild(repo,revision,reportFile=path.join(repo,'tmp/reveal-gate-merge-verification.json')) {
   const directory=path.join(repo,'apps/web/.next/static'),id=path.join(repo,'apps/web/.next/BUILD_ID')
   if(!fs.existsSync(id)||!filesUnder(directory,true).length)throw Error('No production build')
   const attestation={revision,verification_sha256:verificationFingerprint(repo),report_file:reportFile,source_sha256:sourceFingerprint(repo),build_id:fs.readFileSync(id,'utf8').trim(),static_sha256:digest(filesUnder(directory,true)),server_sha256:digest(serverFiles(repo))}

@@ -23,9 +23,11 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
   const loader=file=>manifest.app_db_loaders?.[file]??policy?.loader_classifications?.[file]
   const issues=[], discovered=[], functions=new Map(), names=new Set([...Object.entries(manifest.db_relations).filter(([,v])=>SENSITIVE.has(v.class)||(v.sensitive_columns??[]).length).map(([k])=>k),...Object.entries(manifest.db_functions).filter(([,v])=>SENSITIVE.has(v.class)).map(([k])=>k.split('(')[0])])
   for(const file of filesUnder(srcRoot).filter(f=>/\.[jt]sx?$/.test(f)&&!f.endsWith('.d.ts'))) {
-    const rel=relative(srcRoot,file)
+    const rel=relative(srcRoot,file),routePath=rel.replace(/\/\([^/]+\)/g,'')
     if(/^(app\/admin|app\/api\/admin|lib\/admin|components\/admin|test)\//.test(rel)) continue
     const source=parse(file,fs.readFileSync(file,'utf8')), imported=new Set(), namespaces=new Set(), hits=[]
+    let csatContext=/^app\/(?:[^/]+\/)?api\/csat\/|^lib\/csat\//.test(routePath)
+    visit(source,n=>{if(ts.isStringLiteralLike(n)&&/^csat_/.test(n.text))csatContext=true})
     let callerClass=null
     const register=node=>{
       let owner=node
@@ -35,17 +37,19 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       const printer=ts.createPrinter({removeComments:true})
       const context=source.statements.filter(n=>ts.isImportDeclaration(n)||ts.isExportDeclaration(n)||ts.isVariableStatement(n)).map(n=>printer.printNode(ts.EmitHint.Unspecified,n,source)).join('\n')
       const key=rel+'::'+name
-      functions.set(key,{key,file:rel,function:name,sha256:createHash('sha256').update(code+'\n'+context).digest('hex'),class:loader(rel)?.class??manifest.app_file_loaders?.[rel]?.class??manifest.app_json_imports?.[rel]?.class??manifest.app_pages?.[rel.replace(/\/page\.tsx$/,'')]?.class??policy?.page_classifications?.[rel]?.class??manifest.app_api?.[rel.replace(/^app\/api\//,'').replace(/\/route\.ts$/,'')]?.class??callerClass})
+      functions.set(key,{key,file:rel,function:name,sha256:createHash('sha256').update(code+'\n'+context).digest('hex'),class:loader(rel)?.class??manifest.app_file_loaders?.[rel]?.class??manifest.app_json_imports?.[rel]?.class??manifest.app_pages?.[rel.replace(/\/page\.tsx$/,'')]?.class??policy?.page_classifications?.[rel]?.class??manifest.app_api?.[routePath.replace(/^app\/api\//,'').replace(/\/route\.[jt]sx?$/,'')]?.class??policy?.function_approvals?.[key]?.class??callerClass})
     }
     visit(source,n=>{
-      if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&!n.importClause?.isTypeOnly&&n.importClause) {
-        const bindings=n.importClause.namedBindings
-        const values=!!n.importClause.name||!bindings||!ts.isNamedImports(bindings)||bindings.elements.some(e=>!e.isTypeOnly)
-        if(values){const module=ts.resolveModuleName(n.moduleSpecifier.text,file,{baseUrl:srcRoot,paths:{'@/*':['*']},moduleResolution:ts.ModuleResolutionKind.Bundler},ts.sys).resolvedModule
+      let dependency=null
+      if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&!n.importClause?.isTypeOnly&&n.importClause){const bindings=n.importClause.namedBindings;if(!!n.importClause.name||!bindings||!ts.isNamedImports(bindings)||bindings.elements.some(e=>!e.isTypeOnly))dependency=n.moduleSpecifier.text}
+      if(ts.isExportDeclaration(n)&&n.moduleSpecifier&&ts.isStringLiteral(n.moduleSpecifier)&&!n.isTypeOnly)dependency=n.moduleSpecifier.text
+      if(ts.isCallExpression(n)&&(n.expression.kind===ts.SyntaxKind.ImportKeyword||ts.isIdentifier(n.expression)&&n.expression.text==='require')&&n.arguments[0]&&ts.isStringLiteralLike(n.arguments[0]))dependency=n.arguments[0].text
+      if(dependency) {
+        const module=ts.resolveModuleName(dependency,file,{baseUrl:srcRoot,paths:{'@/*':['*']},moduleResolution:ts.ModuleResolutionKind.Bundler},ts.sys).resolvedModule
           if(module){const target=relative(srcRoot,path.resolve(module.resolvedFileName)),classification=loader(target)?.class??manifest.app_file_loaders?.[target]?.class??manifest.app_json_imports?.[target]?.class
-            if(SENSITIVE.has(classification)){callerClass=classification;register(source)}
+            const inherited=classification??policy?.function_approvals?.[target+'::<module>']?.class
+            if(SENSITIVE.has(inherited)){callerClass=inherited;register(source)}
           }
-        }
       }
       if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&/(?:^|\/)embargo-gate$/.test(n.moduleSpecifier.text)&&!n.importClause?.isTypeOnly) {
         const bindings=n.importClause?.namedBindings
@@ -57,7 +61,7 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
         const arg=n.arguments[0]
         if(arg&&ts.isStringLiteralLike(arg)&&/^csat_/.test(arg.text)&&!objectNames.has(arg.text)&&!policy?.object_approvals?.[arg.text]?.review_basis)issues.push({file:rel,kind:'unclassified_csat_object',object:arg.text})
         if(arg&&ts.isStringLiteralLike(arg)&&(names.has(arg.text)||/^csat_/.test(arg.text)&&!objectNames.has(arg.text))){hits.push(arg.text);register(n)}
-        else if(arg&&!ts.isStringLiteralLike(arg)&&/^app\/api\/csat\/|^lib\/csat\//.test(rel)){hits.push('<dynamic-db-name>');register(n)}
+        else if(arg&&!ts.isStringLiteralLike(arg)&&csatContext){hits.push('<dynamic-db-name>');register(n)}
       }
       if(rel.startsWith('app/api/csat/')&&ts.isFunctionDeclaration(n)&&n.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword)&&/^(GET|POST|PUT|PATCH|DELETE)$/.test(n.name?.text??''))register(n)
       if(rel.startsWith('app/api/csat/')&&ts.isVariableDeclaration(n)&&ts.isIdentifier(n.name)&&/^(GET|POST|PUT|PATCH|DELETE)$/.test(n.name.text)&&n.initializer&&ts.isArrowFunction(n.initializer)&&n.parent.parent.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword))register(n.initializer)
@@ -70,10 +74,12 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
         if(!manifest.app_json_imports?.[rel])issues.push({file:rel,kind:'unclassified_json_loader'})
       }
     })
-    const route=rel.startsWith('app/api/csat/')&&rel.endsWith('/route.ts')
-    const page=rel.replace(/\/\([^/]+\)/g,'').startsWith('app/csat/')&&rel.endsWith('/page.tsx')
-    if(page){const classification=manifest.app_pages?.[rel.replace(/\/page\.tsx$/,'')]??policy?.page_classifications?.[rel];if(!classification)issues.push({file:rel,kind:'unclassified_page'});register(source)}
-    if(route&&!manifest.app_api[rel.replace(/^app\/api\//,'').replace(/\/route\.ts$/,'')]) issues.push({file:rel,kind:'unclassified_route'})
+    // Protect helper/control-flow edits within an approved loader, not only its IO line.
+    if(loader(rel)||manifest.app_file_loaders?.[rel]||manifest.app_json_imports?.[rel]||hits.length)register(source)
+    const route=routePath.startsWith('app/api/csat/')&&/\/route\.[jt]sx?$/.test(rel)
+    const page=routePath.startsWith('app/csat/')&&/\/page\.[jt]sx?$/.test(rel)
+    if(page){const classification=manifest.app_pages?.[rel.replace(/\/page\.[jt]sx?$/,'')]??policy?.page_classifications?.[rel];if(!classification)issues.push({file:rel,kind:'unclassified_page'});register(source)}
+    if(route){register(source);if(!manifest.app_api[routePath.replace(/^app\/api\//,'').replace(/\/route\.[jt]sx?$/,'')])issues.push({file:rel,kind:'unclassified_route'})}
     if(hits.length) {
       discovered.push({file:rel,surfaces:[...new Set(hits)]})
       if(!loader(rel)) issues.push({file:rel,kind:'unclassified_loader',surfaces:[...new Set(hits)]})
