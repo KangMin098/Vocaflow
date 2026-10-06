@@ -86,3 +86,21 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
 활성 메타를 코드가 아니라 env 로 두는 이유: 메타를 코드에 넣으면 활성화가 새 커밋이 되어 「검증한 커밋 = 배포 빌드 커밋」을 지킬 수 없다. env 메타의 진위는 봉인 해시 · live 대조(앱)와 docs 정본 대조(`start-check.mjs` 의 `envMetaState`)가 지킨다.
 
 감지기 판의 한계: 앱은 DB 함수 본문을 읽을 수 없다(DB 구조를 바꾸지 않는다) — 앱은 저장소 상수 `DETECTOR_VERSION`(최신 마이그레이션과 테스트로 대조), `start-check.mjs` 는 live 함수 본문을 본다. 매일 감시(§12)에서 start-check 가 실패하면 수집을 멈춘다(앱 env `CSAT_EC_ACTIVE_RUN` 제거).
+
+
+## 운영 규칙 (2026-10-07 · G6 준비 완료 시점)
+
+- **참가자 제거 · 탈락 · 중도 종료**: 참가자를 제거(계정 삭제 · env 에서 빼기)하기 전에 진행 중인 capture 를 관리자 종료(`csat_ec_capture_close` → `closed_incomplete`, 사유 기록)로 정상 종료하고, **열린 묘비 · 보류 시험이 0** 인지 확인한다. 수집 중 계정을 지우면 묘비가 남아 그 시험이 모든 사용자에게 보류된다(2026-10-06 테스트에서 6개 시험이 묶였다 — `scripts/csat/pilot/close-test-tombstones.mjs` 로 승인 뒤 정리).
+- **production deploy freeze**: run 기간에는 production 재배포를 하지 않는다. 문서만 고친 커밋이라도 재배포하면 빌드 커밋이 바뀌어 게이트가 닫힌다. app 커밋과 docs 커밋을 분리하는 방안은 다음 run 전에 검토(이번 run 에서는 바꾸지 않는다).
+
+## 알려진 P2 처리 상태 (G6 시작 승인 요청에 그대로 옮긴다)
+
+| P2 | 상태 |
+|---|---|
+| E2E 의 경계 밖 범주를 코드 상수(`STUDENT_GROUPS`)에서 고름 | v0.1 에서는 허용. 다음 taxonomy/probe 변경 전에 DB/seed 기반으로 옮길지 재검토 |
+| v99 신호 주입 오류를 「거부」로 통과 | 실제 run 은 v0.1 로 봉인되고 TEST taxonomy 는 게이트가 막아 비차단. smoke 판정의 「정상 거부」와 「예상 밖 오류」 분리는 장기 과제 |
+| 앱이 감지기 판을 DB 함수 본문으로 직접 확인하지 못함 | `start-check.mjs` 실행 결과(live 감지기 본문 확인 PASS)를 run 시작의 **필수 증거**로 둔다. 다음 버전에서 DB 가 detector version 을 직접 노출하는 방법 검토 |
+
+## G6 남은 순서
+
+1. 참가자 모집 · 동의(운영자) 2. 공통 미응시 시험 2회 확정 3. 익명 participant mapping(저장소 밖) 4. probe 상한 3 포함 run config 봉인(`seal-run.mjs`) 5. 배포 env `CSAT_EC_ACTIVE_RUN` · `CSAT_EC_APP_COMMIT` · 참가자 id 설정(검증 모드 제거) 6. 같은 배포 커밋으로 `run-e2e.mjs --run <id>` 7. `start-check.mjs` PASS 8. G6 시작 승인.
