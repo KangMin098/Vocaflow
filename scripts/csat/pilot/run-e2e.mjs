@@ -32,13 +32,13 @@ if (!fs.existsSync(path.join(WEB, '.next/BUILD_ID'))) { console.error('productio
 // 시나리오 시험(tests/e2e/utils/ec-pilot.ts EXAMS 와 같게) — 잔여 보류 확인용
 const EXAMS = ['2024', '2025', '2026', '2016', '2015', '2017', '2022']
 const PARTICIPANTS = ['full', 'variants', 'correction', 'bypass', 'taxonomy']
-const OTHERS = ['other', 'nonparticipant', 'gate']
+const OTHERS = ['other', 'nonparticipant', 'gate', 'gate2']   // 62 spec 은 끝에 자기 계정을 지운다 — gate 단계마다 다른 계정
 // G6 게이트(gate.ts) 이후: 참가자 env 만으로는 열리지 않는다 — pilot 단계는 검증 모드(CSAT_EC_PILOT_MODE=verification · @example.com)로 연다.
 // gate 단계 둘: ① 참가자 env 비움 ② 참가자 env 는 있으나 모드 · 봉인 run 이 없음 — 둘 다 같은 404(fail-closed)여야 한다(62 spec 재사용).
 const PHASES = [
   { name: 'pilot', specs: ['tests/e2e/60-csat-ec-pilot-flow.spec.ts', 'tests/e2e/61-csat-ec-pilot-guards.spec.ts'], participants: PARTICIPANTS, mode: 'verification', specPhase: 'pilot' },
-  { name: 'gate', specs: ['tests/e2e/62-csat-ec-pilot-start-gate.spec.ts'], participants: [], mode: null, specPhase: 'gate' },
-  { name: 'gate-env-only', specs: ['tests/e2e/62-csat-ec-pilot-start-gate.spec.ts'], participants: [...PARTICIPANTS, 'gate'], mode: null, specPhase: 'gate' },
+  { name: 'gate', specs: ['tests/e2e/62-csat-ec-pilot-start-gate.spec.ts'], participants: [], mode: null, specPhase: 'gate', gateRole: 'gate' },
+  { name: 'gate-env-only', specs: ['tests/e2e/62-csat-ec-pilot-start-gate.spec.ts'], participants: [...PARTICIPANTS, 'gate2'], mode: null, specPhase: 'gate', gateRole: 'gate2' },
 ]
 
 const svc = createClient(URL_, SERVICE, { auth: { persistSession: false, autoRefreshToken: false } })
@@ -83,7 +83,7 @@ function stopServer(s) {
 
 function runPlaywright(phase, jsonFile) {
   return new Promise((resolve) => {
-    const env = { ...process.env, EC_E2E_PHASE: phase.specPhase, EC_E2E_ACCOUNTS: JSON.stringify(accounts), PLAYWRIGHT_BASE_URL: `http://localhost:${PORT}`, PLAYWRIGHT_JSON_OUTPUT_NAME: jsonFile }
+    const env = { ...process.env, EC_E2E_PHASE: phase.specPhase, EC_E2E_GATE_ROLE: phase.gateRole ?? 'gate', EC_E2E_ACCOUNTS: JSON.stringify(accounts), PLAYWRIGHT_BASE_URL: `http://localhost:${PORT}`, PLAYWRIGHT_JSON_OUTPUT_NAME: jsonFile }
     const child = spawn(process.execPath, ['node_modules/@playwright/test/cli.js', 'test', ...phase.specs, '--reporter=list,json', '--workers=1', `--output=test-results/ec-pilot-${phase.name}`], { cwd: WEB, env, stdio: ['ignore', 'inherit', 'inherit'] })
     child.on('exit', (code) => resolve(code ?? 1))
   })

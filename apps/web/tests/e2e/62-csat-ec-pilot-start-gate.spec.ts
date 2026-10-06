@@ -14,7 +14,8 @@ test.use({ viewport: { width: 1440, height: 900 } })
 
 test('참가자 설정이 비어 있으면 수집이 열리지 않는다 — 저장 즉시 결과 · 수집 API 404', async ({ page }) => {
   test.setTimeout(200_000)
-  const me = account('gate')!
+  // 러너가 gate 단계마다 다른 계정을 준다(이 spec 은 끝에 계정을 지운다) — gate: 참가자 env 비움 · gate2: env 에 있으나 모드 · 봉인 run 없음
+  const me = account(process.env.EC_E2E_GATE_ROLE ?? 'gate')!
   try {
     await login(page, me)
     await submitRecord(page, EXAMS.gate)
