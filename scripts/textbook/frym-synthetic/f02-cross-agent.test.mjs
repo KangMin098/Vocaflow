@@ -66,6 +66,15 @@ test('actual Stage A evidence rejects raw, request, identity and run mixing', { 
     ['grader request', `${first.grader}.stdin`, value => value + ' changed']
   ]
   assert.doesNotThrow(() => verifyStage(source))
+  const reusedPid = make()
+  try {
+    const student = JSON.parse(readFileSync(join(reusedPid, `${first.student}.record.json`), 'utf8'))
+    const graderPath = join(reusedPid, `${first.grader}.record.json`)
+    const grader = JSON.parse(readFileSync(graderPath, 'utf8'))
+    grader.pid = student.pid
+    writeFileSync(graderPath, JSON.stringify(grader))
+    assert.doesNotThrow(() => verifyStage(reusedPid), 'PID reuse is not self-grading')
+  } finally { rmSync(reusedPid, { recursive: true, force: true }) }
   for (const [label, file, mutate] of variants) {
     const temp = make()
     try {

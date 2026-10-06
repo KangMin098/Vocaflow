@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): Windows의 Codex CLI가 npm 래퍼로 설치된 경우에도 네이티브 실행 파일을 찾아 호출한다. 순차 호출의 PID 재사용은 자기 채점으로 오인하지 않고 호출 ID·모델 계열·순서를 검증한다.
+
 - fix(textbook): F02 CLI 호출에서 Claude safe mode와 Codex 사용자 설정 무시를 명시해 비기록 지시 유입을 줄이고, Codex 이벤트의 정상 종료 순서를 검증한다. 종료 이벤트 삭제도 실제 출력 변조 검사에 포함한다.
 
 - fix(textbook): Codex의 실제 `CODEX_HOME`과 `AGENTS.override.md` 우선순위를 감사 입력에 반영하고 Claude CLI 실행 파일을 설치 환경에서 탐색한다. 환경별 지시 파일·실행 파일 결속이 달라지면 기존 합성 run을 재사용하지 않는다.

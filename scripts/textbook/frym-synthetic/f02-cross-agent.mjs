@@ -1,7 +1,7 @@
 // scripts/textbook/frym-synthetic/f02-cross-agent.mjs
 import { createHash, randomUUID } from 'node:crypto'
 import { spawn, spawnSync } from 'node:child_process'
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { homedir, tmpdir } from 'node:os'
 import { basename, dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -34,6 +34,36 @@ function findClaudeExecutable() {
 }
 let cachedClaudeExecutable
 const claudeExecutable = () => cachedClaudeExecutable ??= findClaudeExecutable()
+function findCodexLaunch() {
+  if (process.platform !== 'win32') return { command: 'codex', prefix: [] }
+  const locate = name => {
+    const result = spawnSync('where.exe', [name], { encoding: 'utf8', windowsHide: true })
+    return result.status === 0 ? result.stdout.split(/\r?\n/).map(path => path.trim()).find(path => path && existsSync(path)) : null
+  }
+  if (locate('codex.exe')) return { command: 'codex', prefix: [] }
+  const wrapper = locate('codex.cmd')
+  if (!wrapper) throw Error('Codex CLI executable unavailable')
+  const packageRoot = join(dirname(wrapper), 'node_modules', '@openai', 'codex')
+  const findNative = (folder, depth) => {
+    if (depth < 0 || !existsSync(folder)) return null
+    for (const entry of readdirSync(folder, { withFileTypes: true })) {
+      const path = join(folder, entry.name)
+      if (entry.isFile() && entry.name.toLowerCase() === 'codex.exe') return path
+      if (entry.isDirectory()) {
+        const found = findNative(path, depth - 1)
+        if (found) return found
+      }
+    }
+    return null
+  }
+  const native = findNative(packageRoot, 5)
+  if (native) return { command: native, prefix: [] }
+  const js = join(packageRoot, 'bin', 'codex.js')
+  if (existsSync(js)) return { command: process.execPath, prefix: [js] }
+  throw Error('Codex CLI native package unavailable')
+}
+let cachedCodexLaunch
+const codexLaunch = () => cachedCodexLaunch ??= findCodexLaunch()
 const codexHome = resolve(process.env.CODEX_HOME ?? join(homedir(), '.codex'))
 function globalInstructionInventory() {
   const override = join(codexHome, 'AGENTS.override.md')
@@ -74,7 +104,8 @@ function parseScores(text, packet) {
   return parsed.scores
 }
 function versionOf(engine) {
-  const spec = engine === 'claude' ? [claudeExecutable(), ['--version']] : ['codex', ['--version']]
+  const launch = engine === 'claude' ? { command: claudeExecutable(), prefix: [] } : codexLaunch()
+  const spec = [launch.command, [...launch.prefix, '--version']]
   const call = spawnSync(spec[0], spec[1], { encoding: 'utf8', windowsHide: true })
   if (call.status !== 0) throw Error(`${engine} CLI unavailable`)
   return (call.stdout || call.stderr).trim()
@@ -85,7 +116,8 @@ function cliSpec(engine, role, cwd, outputPath, system) {
     const args = ['-p', '--model', model.claude, '--effort', 'low', '--safe-mode', '--restricted', '--strict-mcp-config', '--tools', '', '--system-prompt', system, '--json-schema', json(schema), '--output-format', 'json', '--no-session-persistence']
     return { command: claudeExecutable(), argv: args, options: {}, cwd }
   }
-  return { command: 'codex', argv: ['exec', '--json', '--ephemeral', '--ignore-user-config', '-s', 'read-only', '--skip-git-repo-check', '-c', 'project_doc_max_bytes=0', '-m', model.codex, '-o', outputPath, '-'], options: {}, cwd }
+  const launch = codexLaunch()
+  return { command: launch.command, argv: [...launch.prefix, 'exec', '--json', '--ephemeral', '--ignore-user-config', '-s', 'read-only', '--skip-git-repo-check', '-c', 'project_doc_max_bytes=0', '-m', model.codex, '-o', outputPath, '-'], options: {}, cwd }
 }
 function assertIsolatedCwd(cwd) {
   if (!resolve(cwd).startsWith(resolve(tmpdir()) + sep)) throw Error('CWD_NOT_ISOLATED')
@@ -255,7 +287,7 @@ export function verifyStage(rootInput) {
       if (record.engine === 'codex' && !record.argv.includes(model.codex)) throw Error('MODEL_MISMATCH')
       records.push(record)
     }
-    if (records[0].family === records[1].family || records[0].invocation_id === records[1].invocation_id || records[0].ended_at > records[1].started_at || records[0].pid === records[1].pid) throw Error('SELF_GRADE_OR_ORDER_INVALID')
+    if (records[0].family === records[1].family || records[0].invocation_id === records[1].invocation_id || records[0].ended_at > records[1].started_at) throw Error('SELF_GRADE_OR_ORDER_INVALID')
   }
   if (run.stage === 'batch') {
     const gate = JSON.parse(readFileSync(join(root, 'stage-c-gate.json'), 'utf8'))
