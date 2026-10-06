@@ -21,7 +21,7 @@ function fixture() {
     source_path: source,
     expected_file_hash: identifyLocalFile(source).file_hash,
     metadata: { sample_id: 'sample-1', publisher: 'Fixture Press', series: 'Fixture Series', title: 'Fixture Book', grade: 'middle_1', edition: '2026-1', publication_year: 2026, difficulty_step: 'level-1', ISBN: 'fixture-isbn', passage_id: 'P1', page: '12', genre: 'expository', rights_basis: 'authorized_local_analysis', access_date: '2026-10-06' },
-    extraction: { method: 'fixture', source_file_hash: identifyLocalFile(source).file_hash, page_range: '12', passage_id: 'P1', boundary_confirmed: true, question_boundary_confirmed: true, passage_text: 'A synthetic passage explains how plants use sunlight to make food.', questions: [{ id: 'Q1', stem: 'What do plants use?', type: 'literal', answer: 'sunlight' }, { id: 'Q2', stem: 'Why is this useful?', type: 'inference', answer: 'food' }] },
+    extraction: { method: 'fixture', ocr_used: false, source_file_hash: identifyLocalFile(source).file_hash, page_range: '12', passage_id: 'P1', boundary_confirmed: true, question_boundary_confirmed: true, passage_text: 'A synthetic passage explains how plants use sunlight to make food.', questions: [{ id: 'Q1', stem: 'What do plants use?', type: 'literal', answer: 'sunlight' }, { id: 'Q2', stem: 'Why is this useful?', type: 'inference', answer: 'food' }] },
     analysis: { codebook_hash: protocol.codebook_hash, analyzer_version: 'fixture-1', evidence_locator: 'fixture:analysis:1', metrics: Object.fromEntries(AXES.map(axis => [axis, 5])), axis_agreement: Object.fromEntries(AXES.map(axis => [axis, 1])), item_type_difficulty: { literal: 5, inference: 6 } },
   }
   candidate.analysis.passage_hash = createHash('sha256').update(candidate.extraction.passage_text).digest('hex')
@@ -85,12 +85,41 @@ test('malformed sample ID cannot carry text into the audit', t => {
   assert.ok(!JSON.stringify(result.audit).includes('Untrusted passage'))
 })
 
+test('ordinal review output excludes unused adjudicator payload', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const sealed = structuredClone(protocol)
+  sealed.axes.discourse = { ...sealed.axes.discourse, scale: 'ordinal', resolution: 1, minimum_meaningful_delta: 1, levels: ['low', 'mid', 'high', 'higher', 'very high', 'highest'] }
+  sealed.codebook_hash = hash(sealed.axes)
+  candidate.analysis.codebook_hash = sealed.codebook_hash
+  candidate.analysis.ordinal_reviews = { discourse: { rater_a_id: 'A', rater_b_id: 'B', rater_a: 5, rater_b: 5, adjudicator_id: { passage_text: 'Leaked text' } } }
+  const result = prepareAdmission([candidate], sealed)
+  assert.equal(result.samples.length, 1)
+  assert.ok(!JSON.stringify(result).includes('Leaked text'))
+})
+
+test('image source requires explicit OCR and verification regardless of tool name', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const source = join(directory, 'fixture.png')
+  writeFileSync(source, Buffer.from([137, 80, 78, 71, 13, 10, 26, 10, 1, 2]))
+  candidate.source_path = source
+  candidate.expected_file_hash = identifyLocalFile(source).file_hash
+  candidate.extraction.source_file_hash = candidate.expected_file_hash
+  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
+  candidate.extraction.ocr_used = true
+  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
+  candidate.extraction.ocr_verified = true
+  assert.equal(prepareAdmission([candidate], protocol).samples.length, 1)
+})
+
 test('OCR, missing axis, rights, selection and duplicates never enter samples', t => {
   const { directory, candidate } = fixture()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   candidate.extraction.method = 'ocr'
+  candidate.extraction.ocr_used = true
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
-  candidate.extraction.method = 'tesseract'
+  candidate.extraction.method = 'abbyy'
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
   candidate.extraction.ocr_verified = true
   delete candidate.analysis.metrics.inference
@@ -103,7 +132,8 @@ test('OCR, missing axis, rights, selection and duplicates never enter samples', 
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NOT_SELECTED'])
   candidate.metadata.sample_id = 'sample-1'
   const result = prepareAdmission([candidate, structuredClone(candidate)], protocol)
-  assert.equal(result.samples.length, 1)
+  assert.equal(result.samples.length, 0)
+  assert.deepEqual(result.audit.results[0].reasons, ['DUPLICATE_SAMPLE_OR_PASSAGE'])
   assert.deepEqual(result.audit.results[1].reasons, ['DUPLICATE_SAMPLE_OR_PASSAGE'])
 })
 

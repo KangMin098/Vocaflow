@@ -71,7 +71,7 @@ export function admitCandidate(candidate, protocol) {
   stages.push('metadata-extracted')
   const extraction = candidate.extraction
   const imageSource = ['png', 'jpg', 'jpeg', 'tif', 'tiff'].includes(file.format)
-  if (!present(extraction?.passage_text) || !present(extraction?.page_range) || !present(extraction?.passage_id) || extraction.source_file_hash !== file.file_hash || extraction.passage_id !== meta.passage_id || extraction.page_range !== meta.page || extraction.boundary_confirmed !== true || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(extraction.method ?? '') || (imageSource || /ocr|tesseract|vision/i.test(extraction.method)) && extraction.ocr_verified !== true) return { audit: audit(candidate, file, 'admission-hold', ['NEEDS_MANUAL_ADMISSION'], stages) }
+  if (!present(extraction?.passage_text) || !present(extraction?.page_range) || !present(extraction?.passage_id) || extraction.source_file_hash !== file.file_hash || extraction.passage_id !== meta.passage_id || extraction.page_range !== meta.page || extraction.boundary_confirmed !== true || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(extraction.method ?? '') || typeof extraction.ocr_used !== 'boolean' || (imageSource || extraction.ocr_used) && extraction.ocr_verified !== true || imageSource && !extraction.ocr_used) return { audit: audit(candidate, file, 'admission-hold', ['NEEDS_MANUAL_ADMISSION'], stages) }
   stages.push('passage-extracted')
   if (!Array.isArray(extraction.questions) || !extraction.questions.length || extraction.questions.some(q => !q || typeof q !== 'object' || Array.isArray(q) || !present(q.id) || !present(q.stem) || !present(q.type) || !present(q.answer)) || new Set(extraction.questions.map(q => q.id)).size !== extraction.questions.length || extraction.question_boundary_confirmed !== true) return { audit: audit(candidate, file, 'admission-hold', ['QUESTION_EXTRACTION_INCOMPLETE'], stages) }
   stages.push('question-extracted')
@@ -85,7 +85,17 @@ export function admitCandidate(candidate, protocol) {
   const item_type_counts = Object.fromEntries([...new Set(questions.map(q => q.type))].map(type => [type, questions.filter(q => q.type === type).length]))
   const axisValues = object => Object.fromEntries(AXES.filter(axis => object?.[axis] !== undefined).map(axis => [axis, object[axis]]))
   const auxiliary_metrics = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].auxiliary_metrics.length).map(axis => [axis, Object.fromEntries(protocol.axes[axis].auxiliary_metrics.filter(metric => analysis.auxiliary_metrics?.[axis]?.[metric] !== undefined).map(metric => [metric, analysis.auxiliary_metrics[axis][metric]]))]))
-  const ordinal_reviews = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].scale === 'ordinal' && analysis.ordinal_reviews?.[axis]).map(axis => [axis, Object.fromEntries(['rater_a_id', 'rater_b_id', 'rater_a', 'rater_b', 'adjudicator_id', 'adjudicated'].filter(key => analysis.ordinal_reviews[axis][key] !== undefined).map(key => [key, analysis.ordinal_reviews[axis][key]]))]))
+  const ordinal_reviews = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].scale === 'ordinal' && analysis.ordinal_reviews?.[axis]).map(axis => {
+    const review = analysis.ordinal_reviews[axis]
+    const safe = {}
+    for (const key of ['rater_a_id', 'rater_b_id']) if (present(review[key])) safe[key] = review[key]
+    for (const key of ['rater_a', 'rater_b']) if (Number.isInteger(review[key])) safe[key] = review[key]
+    if (review.rater_a !== review.rater_b) {
+      if (present(review.adjudicator_id)) safe.adjudicator_id = review.adjudicator_id
+      if (Number.isInteger(review.adjudicated)) safe.adjudicated = review.adjudicated
+    }
+    return [axis, safe]
+  }))
   const row = {
     ...safeMetadata(meta),
     source_path_hash: file.source_path_hash,
@@ -119,18 +129,18 @@ export function prepareAdmission(candidates, protocol) {
   validateProtocol(protocol)
   if (!Array.isArray(candidates)) throw Error('CANDIDATES_NOT_ARRAY')
   const results = candidates.map(candidate => admitCandidate(candidate, protocol))
-  const seenIds = new Set(), seenPassages = new Set()
+  const ids = new Map(), passages = new Map()
   for (const result of results) {
     if (!result.sample) continue
-    const duplicate = seenIds.has(result.sample.sample_id) || seenPassages.has(result.sample.passage_hash)
-    if (duplicate) {
+    for (const [map, key] of [[ids, result.sample.sample_id], [passages, result.sample.passage_hash]]) map.set(key, [...(map.get(key) ?? []), result])
+  }
+  for (const group of [...ids.values(), ...passages.values()]) {
+    if (group.length < 2) continue
+    for (const result of group) {
       result.audit.status = 'admission-reject'
-      result.audit.reasons.push('DUPLICATE_SAMPLE_OR_PASSAGE')
-      result.audit.stages.pop()
+      if (!result.audit.reasons.includes('DUPLICATE_SAMPLE_OR_PASSAGE')) result.audit.reasons.push('DUPLICATE_SAMPLE_OR_PASSAGE')
+      if (result.audit.stages.at(-1) === 'admission-pass') result.audit.stages.pop()
       delete result.sample
-    } else {
-      seenIds.add(result.sample.sample_id)
-      seenPassages.add(result.sample.passage_hash)
     }
   }
   return {
