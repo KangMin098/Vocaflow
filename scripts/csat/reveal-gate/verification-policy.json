@@ -9,8 +9,8 @@
   "function_approvals": {
     "app/api/csat/dev-paper/route.ts::GET": {
       "sha256": "ff6c7fb61598a3c284de2b57f478fbc2bc67e066bf26d030cd35ab5367c9a3ab",
-      "class": "PUBLIC_CONTENT",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "app/api/csat/diagnosis/map/goal/route.ts::PUT": {
       "sha256": "93b83c7e434e3085b0ac021b68e93d20fc02a0e1b1beb2065b3c29dbbac7f21a",
@@ -208,9 +208,9 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "lib/csat/dissect-catalog.ts::readRawRows": {
-      "sha256": "5fd9a425564d4a54f8d054a4295640e65c825d8e4d2f639db5bcdc39cb093882",
+      "sha256": "29fe0b3f5cffa748834045444aee6e76f1bbd23632173902c3a60258842b38b3",
       "class": "ANSWER_SENSITIVE",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/ec-pilot/server.ts::ownSession": {
       "sha256": "1bdd6733fe2793ec874125dfc13d6f22bb897c1933b0c1fcc23fc8607a242c26",
@@ -268,14 +268,14 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "lib/csat/items.ts::loadCsatItemAudit": {
-      "sha256": "81b1b899cf9fe075a73aeb60264acb1087bbc5241a71840b8f2686b5fb04bdf3",
+      "sha256": "2da87898dd2642a04aadec9fb2c9060694f7c28957e45ddf64b30706b6821352",
       "class": "ADMIN_ONLY",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/items.ts::loadCsatItemFull": {
-      "sha256": "4f5651b2c1d1a2a75d1d0834f1241294d5de57e086449926bbf73aee4eaa7346",
+      "sha256": "ea7d6bcacbdf538db346b53824b11d72f742fea3523368ea3f0935aaa8340c54",
       "class": "ADMIN_ONLY",
-      "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/learner.ts::loadCsatTypeCards": {
       "sha256": "397c78c30b4951c6b87fa17531469ebb125729fbe97fc94378a60eac8f0a9f4a",
@@ -363,9 +363,9 @@
       "review_basis": "Inherited Reveal Gate manifest classification at d72c3c161; AST body and import/binding context are frozen. Behavior coverage is reported separately."
     },
     "lib/csat/dissect-catalog.ts::<module>": {
-      "sha256": "c6b6a9a106506b9c8c40c0b87de208b70c343081d8847163d3ded876356407e7",
+      "sha256": "4b9221002b61a2d72b171eb521fb53e81d50633c9a72b7de1f66e9456c94de96",
       "class": "ANSWER_SENSITIVE",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/drill-loader.ts::load": {
       "sha256": "d09a2b9e953a9bbc4343b8ed3f22377a4927c3315c8827da6e8ab601be91ee49",
@@ -378,19 +378,19 @@
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     },
     "lib/csat/factory-pick.ts::<module>": {
-      "sha256": "a1f74e24790d08697c29a6a9ec2eda02ad4000427c02f228d95e755765b24426",
+      "sha256": "4448c4d756068fd166d2a708829161cfbc1aff0eb247ac23666975f2db141385",
       "class": "OPS_META",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/factory.ts::<module>": {
-      "sha256": "732c3fdff6e1a33b829ef1bb3517c8b36cfb40a8b2601089bd14e29a21616d9b",
+      "sha256": "82bc871c77928b881ba2738a6d3746419c000b7b2c1f562a56199e1f3e92f358",
       "class": "OPS_META",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/items.ts::<module>": {
-      "sha256": "74beea22e6ed5bf480ebc73549d95750ab608c8f35ea2a900d50bfc431af656b",
+      "sha256": "823f49d669210e81c7c84b1132c7aa5b347c257bb4aa3cb020f31588accd7be3",
       "class": "ADMIN_ONLY",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/lecture/store.ts::index": {
       "sha256": "07a7961437abd22317ef53496898bad0649e5d37bb6444079eb87c16eebb8906",
@@ -433,14 +433,14 @@
       "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
     },
     "lib/csat/trap-atlas-examples.ts::<module>": {
-      "sha256": "1ea079bf074163c4bb864e478c923d09c383dd7b8818a85b9c6ea60cec15d703",
+      "sha256": "ac9a22b224f75c4ec22bd31fa60f0cdc178b26c345e56e85ed5bbbe3982f81ad",
       "class": "ANSWER_SENSITIVE",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/trap-atlas.ts::<module>": {
-      "sha256": "e6e95bfaef0eb98f69b323f7f96a401fede23225b2586a960f47bbaf93342687",
+      "sha256": "9eea94936cbca58198b50dd1a2a6920992c8fbfe06a0e74fc1ed04696b1ca7b2",
       "class": "ANSWER_SENSITIVE",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/type-locus.ts::build": {
       "sha256": "3bb5e4be8e129d86a3956459884efcc2893c3016f85daea16e116941546d8ef6",
@@ -503,9 +503,9 @@
       "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
     },
     "lib/csat/factory.ts::loadFactoryLine": {
-      "sha256": "6ae31b2ca78d5ea7acca525e6938b5c00a61db3edf2f350c546cf208a3225702",
+      "sha256": "f68257c0f35ce10a0c9a7e2380c3b8b3e0879458dc8eb72dc799662a78c4caa1",
       "class": "OPS_META",
-      "review_basis": "Existing d72c3c161 named CSAT read; manifest/explicit loader class and full AST body/import bindings frozen. Behavioral checks remain separate."
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "lib/csat/item-state.ts::loadItemState": {
       "sha256": "72075344e7c5f5f135a1b290c07b58c1773195ace43a91964ce5c55f7f463b9f",
@@ -739,8 +739,8 @@
     },
     "app/api/csat/dev-paper/route.ts::<module>": {
       "sha256": "324c7617c8ff5f0a00f4a9272a7bef06aeaf442e5e75b587697c77e508027f9d",
-      "class": "PUBLIC_CONTENT",
-      "review_basis": "Inherited d72c3c161 manifest file/JSON/route classification frozen with AST body/binding context; behavioral validation remains separate."
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     },
     "app/api/csat/diagnosis/map/goal/route.ts::<module>": {
       "sha256": "d15f5301d2357424745be03a2f717bdaf2b52fa1de71278bff04b112c146a62e",
@@ -966,6 +966,746 @@
       "sha256": "582c510cb2bd22df781d53122f674957ba3f0143a4264ddf8668d91e7f285e78",
       "class": "OPS_META",
       "review_basis": "Reviewed existing closed LCP procedure loop, frozen with full source and imports. Not a CSAT answer producer."
+    },
+    "app/admin/analytics/page.tsx::<module>": {
+      "sha256": "b1fa45e61b55cb95dfe5f8380b1966672cf094ecad097fcbe280aa5a171df038",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/comic/actions.ts::deleteComicAction": {
+      "sha256": "e5cf6a7b7126d8de5ecb0304a2feb70ab20d61a44381ed6797e2db6d6e666107",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/comic/actions.ts::<module>": {
+      "sha256": "1e803b30c4d5bec69850db88d59ad8496aad1ed87fdf2197a6212d9c9b0d4997",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/comic/AdminComicClient.tsx::<module>": {
+      "sha256": "ced259be0bcb3f93217b8f6ce94ccd3c88b32db9fcb4f06f4871d05225b37432",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/comic/[bookId]/ComicReviewClient.tsx::<module>": {
+      "sha256": "6e9e560f43d9a75f96c0cb44d8fefe923d3d7d911817b55d5319c75731093d7a",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/compose/page.tsx::safeRows": {
+      "sha256": "090605a17d8099ac4e1e9bde9ce9665c8a1f55d07cc74c0bc883cbd07ea98c59",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/compose/page.tsx::safeCount": {
+      "sha256": "6c530c73d544b9c474369e8f899541056958682d32b48422916fcd8d7b10b2ce",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/compose/page.tsx::AdminComposePage": {
+      "sha256": "0407bd2e15422fc3b9b4b68c4b79360c96f7d200a6f5e459366c64883c0a8e87",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/compose/page.tsx::<module>": {
+      "sha256": "608bc773e3d54ff662f3b8405cf63d17ba7e2fa4f77ed880ef081463eb648977",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/authoring/AuthorClient.tsx::<module>": {
+      "sha256": "1c27315913f70ab286553cfa9779baedddbd68dff814d4c6c4c9b762aeddc075",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/authoring/page.tsx::<module>": {
+      "sha256": "14b8fc75235a72f11c3094700a353487d56ab3f02223a7cd26052e45cadb6ca7",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/blueprint/BlueprintClient.tsx::<module>": {
+      "sha256": "8efababbd181acb43a4d982293742dfe32956c1177fb5f51c35b2d411f1e7bfd",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/blueprint/page.tsx::<module>": {
+      "sha256": "24acd2f0a6864a2bb8fe681be1f096a83c6965c601a86498115c42008086332a",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/catalog/page.tsx::<module>": {
+      "sha256": "153fd3c7f05fcabfe55071a65e701e35d9677574d25dbb83347be7479c822ee1",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/catalog/SeriesShelf.tsx::<module>": {
+      "sha256": "0cbead3f1331ccdd711edf6368bf56dfba684ae771c9e4e61c678b7d2c3bd7f7",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/details/page.tsx::<module>": {
+      "sha256": "c3ec13c03ef3cfaa345ce55fc9bac24de1cb72ca8623e6493f933f7f2dd78770",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/actions.ts::setExamReadyAction": {
+      "sha256": "fe6002851b518c24db7efd9cfad70b18c60369a68263f734e6d5e4dceab50f83",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/actions.ts::saveItemTaggingAction": {
+      "sha256": "31b817278932ab1756d7a89b7f9352e1fe347ba2a3e08146127f4c45e863c054",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/actions.ts::setPoolItemAction": {
+      "sha256": "f02c193f503fb1e3ab54502e7bd5573739d2529b53f03fa4e5e4043ac6272233",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/actions.ts::scorableExamIds": {
+      "sha256": "efb4d2306de8872d5f041779303542e2978ac74e854ae86f9843ee4b9a8dc0b2",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/actions.ts::activateSettings": {
+      "sha256": "7a84b5be266bbe22faf7fcf224a51163cdbc6a9578c255c0299b5d97a1d5574f",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/actions.ts::<module>": {
+      "sha256": "a7c1d7ea4ac03871f588d31a755492500c24fdfbff02ec675749fe931601eb17",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/exams/ExamsTable.tsx::<module>": {
+      "sha256": "a9a79a776b1d1edf9502811ff0dcba4f4ef7f2edca51d28396c44c9b95bc00c8",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/exams/page.tsx::<module>": {
+      "sha256": "4c649b2d0f44c5c4db30899e5e91198d798d51c3fd13f2b250dd01850d01e49b",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/exams/[examId]/page.tsx::<module>": {
+      "sha256": "c9e4a710d13735721d301f88a3c9f53c2f55050c00ce22d81217e7eadc9181ca",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/exams/[examId]/TaggingBoard.tsx::<module>": {
+      "sha256": "a33301cb22ddd8e4665eb876daad045509a4d5e516787136df713e1b1c8c0db7",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/learners/page.tsx::<module>": {
+      "sha256": "858154a2a81fef4632d69a9f60fc8afae42ea744c9e2cb723750d41190df1c3b",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/learners/[id]/page.tsx::<module>": {
+      "sha256": "1d8323235b3a6d082954f92e176977dfdcbb5af5fa23afa7a28903230a96f437",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/page.tsx::<module>": {
+      "sha256": "1a78f400827cfdb5ef64fae84a68b09f3d93553ac8812293464689200ca61323",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/settings/page.tsx::<module>": {
+      "sha256": "cac08af60a6666120e5a9c200061bae1493deb176264d209c4d6b6b1533d44a0",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/settings/page.tsx::DiagnosisSettingsPage": {
+      "sha256": "b573b83d5a719bc7aa30116a837b571f1bf7171265fb56a811eccb47c98dc8f9",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/diagnosis/settings/SettingsEditor.tsx::<module>": {
+      "sha256": "f4bf4618ae42aff2711b68f9ffdb563f62424f5cd2e0260e724417faa13f42f1",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/evidence/EvidenceAxisPanel.tsx::<module>": {
+      "sha256": "206e9d69e2f4c08415149f3068a3b2a25be0ed27d0f7584d89399cf7a2ca39e6",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/evidence/EvidenceConsole.tsx::<module>": {
+      "sha256": "0708505b0a6952adab6e33fd6a7d529e700d0bfdb023c0ae859c27b8f4dc05a2",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/evidence/EvidenceInspector.tsx::<module>": {
+      "sha256": "a125060c730f30166ec1bdfe04b60b463586421b434a4b7ad323135d8a5cadd4",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/evidence/EvidenceMatrix.tsx::<module>": {
+      "sha256": "c4ea827f850a9ea95686b8439ee063592eeab5e04f44233c1f18febafb4e9ee8",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/evidence/HakpyeongReviewPanel.tsx::<module>": {
+      "sha256": "7c071dcf542c1bd3260c62be51bc53ddf15eb3374abfd7d3e6385f2d9b5a4de4",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/evidence/page.tsx::<module>": {
+      "sha256": "97b1225a9cededaefde973de408aa193476274f00d324793e1c84250e5c696a3",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/explain/ExplainClient.tsx::<module>": {
+      "sha256": "74b29621497becbb164a2acf01093e325cf54a658ae7dc02dab441aec23ebdc1",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/explain/page.tsx::<module>": {
+      "sha256": "eb1b78ac8302b5ec1d08124057d2ea65ed2a88b8ed7c77ffc776816f128dd868",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/FactoryLineClient.tsx::<module>": {
+      "sha256": "9fbc90294d106a8da93608bc685ff359c91e6b660f89a02b4f2dacf5cb0c1621",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/FactoryLineDiagram.tsx::<module>": {
+      "sha256": "bd8697bb079971a139ab0055731c8a228bbe8741bf4ae6b351818f69c0173e11",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/help/page.tsx::<module>": {
+      "sha256": "979e56fabffbc722299c66243e9828de02de323f10c00ed20d56156247872a5b",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/layout.tsx::<module>": {
+      "sha256": "95d63ffaf8835f2be44416c6852a99657ba566cb50ab09ad8b3cff4b131cbbdc",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/new/MakeGuide.tsx::<module>": {
+      "sha256": "95dec9d684346268f7d00f6bcff1c95b7da0feb83c60c919eaa8d836584a8a73",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/new/OrderWizard.tsx::<module>": {
+      "sha256": "a817e99a55ebea4e78a98fe0cd500aac6b321bf3a3f778447174002c03397963",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/new/page.tsx::<module>": {
+      "sha256": "da98df023b7552e314b91e59fb914f45727e3780f7f181fa8b1697bf0a04c6ac",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/page.tsx::<module>": {
+      "sha256": "c2e702c24718fa7f8156420b04c3b01862ab0b63c99c1cd932accfa00f052e97",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/press/actions.ts::<module>": {
+      "sha256": "dacf4d1cf2de79172a8cc1ba82599c7b8c1bb44debc755766c54926428039b0f",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/press/LadderFill.tsx::<module>": {
+      "sha256": "81de34305dbe28f382995f4726cb2cd6e49245112647a01ceb8b70a688270aa7",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/press/page.tsx::<module>": {
+      "sha256": "150b8df5b4248b4f23d77c1876b89af004b6a40de1d05f5193092e1bf7999c02",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/press/PressClient.tsx::<module>": {
+      "sha256": "137da8c0a913320eed3cd987c81955006165c1f0bed4b5408c5e81c678c0bb56",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/review/page.tsx::<module>": {
+      "sha256": "649c580730144bd800ec20eeaf11a6121abb0a80cf2a99613d3bc8f7ee5b2389",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/review/ReviewClient.tsx::<module>": {
+      "sha256": "b922de1ada301a97f5dee3d334052dc21f5e4a01388520ce58b73e6b4d7058cb",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/review/ReviewStack.tsx::<module>": {
+      "sha256": "3582eeda8aedc4fb98c6f82469e676b8687d105072bf80521f1bad19aff49d25",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/LiveOverview.tsx::<module>": {
+      "sha256": "de0d7dec168633c0e16699e6c4911a5dbc9e3a3bffdc78ea643d06da86b0f7de",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/NextStepPipeline.tsx::<module>": {
+      "sha256": "dc1d33dcfa4618d974712505a55fc44564d54b615326a8b50318f7591ebe00b9",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/page.tsx::<module>": {
+      "sha256": "f0a8a18e9df32ba28a738882d23d625acf5b44f608a7357f7a776b65c90126d3",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/PipelineBoard.tsx::<module>": {
+      "sha256": "d2768ff68c40b67c931b8d964cc078f3c349da23578c0df9b970e0edc794c959",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/SourceEligibilityClient.tsx::<module>": {
+      "sha256": "3d123f7aab4f5288ad5c40b1c860c10b829b8c4a3456843e2ecab6f45857a06d",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/SourceGetGuide.tsx::<module>": {
+      "sha256": "d49cab6e28397238ee0307f57c0b26f5b80f94b15736806b83f2cb0859ede626",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/SourceInventoryTable.tsx::<module>": {
+      "sha256": "9928119154c31a1e18ebcbfd88fa6befee5952dc9c107fe474f0e51173eaef27",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/SourceOperations.tsx::<module>": {
+      "sha256": "271306b25f66703eea9c0f39bb4ecab78f2dc05f4adc6a91801d9e35aa5f6c76",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/SourceProcess.tsx::<module>": {
+      "sha256": "d37c333f102fc33961ded0a228fd204c2b5a60a711e5e1239f7866473579d027",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/SourceQueryConsole.tsx::<module>": {
+      "sha256": "9836c29d25da858902e16773fa34957ba670d3489793e3081b40ed715d828756",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sources/SourceWorkspace.tsx::<module>": {
+      "sha256": "9b25b56400e5f2e2c2d72f186b96671e329ae9536976bfc618324ee8a004e83b",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sourcing/actions.ts::<module>": {
+      "sha256": "1ef50816c1d59f32ffb22e08bb63e7c0cac22f0ffc7810def7391a19a3f3c54a",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sourcing/BandStrip.tsx::<module>": {
+      "sha256": "2f81f695366bcbcde6920003cc947852f28ff614372dc8311689448d2275da8c",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sourcing/page.tsx::<module>": {
+      "sha256": "de00e45b25e657f1ec7bd98f253b96e7fe20410d064d4b7676fcb8318af5691a",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/sourcing/SourceClient.tsx::<module>": {
+      "sha256": "9987a56f05a7448e140aff730a7979d8e157a01f278326f9dbedc1e23de06197",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/strategy/AxisBullet.tsx::<module>": {
+      "sha256": "c0d939aa36a411a5462fa3e0af34bf469319638a0ebc1d6dedc81e4eaa033887",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/strategy/EvalChecklist.tsx::<module>": {
+      "sha256": "4a9aa03c92dc780e004499c382ce2c5aa791fcce405d6d34847afc6d9f69b3a5",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/strategy/MarketClient.tsx::<module>": {
+      "sha256": "59adfb17e3f271e1fa0720e1a0a54dc0c25d339eaa9feedab4ecc6c87dcf071c",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/csat/strategy/page.tsx::<module>": {
+      "sha256": "22187cfe668389d124a6f7c9ac86e0df0a6ff6184f50ad524d8e27f7953466e6",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/item/[slug]/page.tsx::<module>": {
+      "sha256": "f289832994f4f7a00772ea61e9f7ebea08e2005197208d4415baa152d04e0eb0",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/layout.tsx::<module>": {
+      "sha256": "f8de32b790b0135ed331b52c0666727844538145e6a01b89d589b451f57f35dd",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/map/MapClient.tsx::<module>": {
+      "sha256": "e106b964a1b7d3f4fe7fe4366320a4d51a2df80c7a145b6ce43b7fd985fff981",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/map/page.tsx::<module>": {
+      "sha256": "dd41dcc3837f7d133b8175bfc2f7cad3df52895cced94fd60d0b5d2c3473a439",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/page.tsx::<module>": {
+      "sha256": "7196a48bbc52a8681ad2e6bf5f4a2e84961c9cc98be95c002b0d5a06751bec56",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/plan/page.tsx::<module>": {
+      "sha256": "4f4164936b86328b1db7dc78d9d63b68be7708b5fd49e76705dc7e1e2369eec4",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/plan/PlanList.tsx::<module>": {
+      "sha256": "35fa05877dc7f8734ae4652d85e180e4b368ce844ada3accc50620ff515bbee6",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/predict/page.tsx::<module>": {
+      "sha256": "1c8a769d7f78ca08d81c7aaf76b17a7180f6f097cccf259faf9078473159e5a3",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/predict/PriorityClient.tsx::<module>": {
+      "sha256": "bf947e18910006b7b5aa5b3704587bb4ad37a9d23a97f1a98dd0ff76d8d85914",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/kice/[typeId]/page.tsx::<module>": {
+      "sha256": "cff594ba841e8d2bfcd51b419eab83c81a2b36711cbe0bf92de987f26e6a8f38",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/layout.tsx::<module>": {
+      "sha256": "34d0eb1fff04852692d08de597941774d5d6111f6586881d7cf6fea59145663b",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/page.tsx::<module>": {
+      "sha256": "efa3e56ce013f10a1875ef61c430d0ad146ac8459f810f8657a4496b79a53477",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/users/page.tsx::<module>": {
+      "sha256": "b3c8246dc17fe841568c1f12781ba7be26ec2694d27d54d8cf29e9b79c5a2e0b",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/video/page.tsx::<module>": {
+      "sha256": "50bde20b42532fb7db38bc3f13cc5b57d6b919ead5e65220cc7acb6637358bd2",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/vrl/page.tsx::<module>": {
+      "sha256": "cb55e8c3cf058d66cb6505b1040aa3bb2dbba6c47154ad3bc79806e5ddf5cbdc",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/diagnosis/sessions/route.ts::<module>": {
+      "sha256": "0246d647f9a5f1391eabdbe2c120be970ccb70af861c265236ae78b471caf698",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/evidence/route.ts::<module>": {
+      "sha256": "9828b9a1c96b780af9c472baa87817789872a2e2234b6ea30d51e647839475de",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/guide/route.ts::<module>": {
+      "sha256": "636115a0ab1cb8c55f8bbc591bf9cf3a175e8e46a001a33650e5c78211b5f941",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/items/route.ts::<module>": {
+      "sha256": "4fb8f578088a7c431d4718b57b27bf2ae0d145ce4d5152ad68d66a136259b8ea",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/sources/route.ts::filterQueue": {
+      "sha256": "6b81e4f838d5860f38d7756a6602bc3fac040378d2c840af78c4ee675f3b0035",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/sources/route.ts::currentSource": {
+      "sha256": "b282aebcca2e0b50dfd448646f3500ef82925d3167527e26f16e1d31eaa94a3e",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/sources/route.ts::GET": {
+      "sha256": "606b84e9a90f2e634161db0691353e5f7663829cc6b26fc0df905af3d6e42d92",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/sources/route.ts::POST": {
+      "sha256": "9f69c93eafcab6b1b956ff4fc1137146b5b2942b3f8ba75132ac4f6822e9399e",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/csat/sources/route.ts::<module>": {
+      "sha256": "bcd6e712fa63c7aebfd6f494bad8954c2d0bba08f6cdbcd29fe8507477105191",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/sources/[source]/profile/route.ts::cache": {
+      "sha256": "1987aa1850ec219e06c012b6317cf921157fb036c08460c053bab4dd7555a0a7",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/admin/sources/[source]/profile/route.ts::<module>": {
+      "sha256": "c320d94cd9206ab45baf25b6af3b917253f70c5e40a181f0119e2924317d9da0",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/artifact/route.ts::GET": {
+      "sha256": "c09b703de20061edfff43f4d22a49c37e63de3bdb305d1391ab4ad4a273df6cc",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/artifact/route.ts::<module>": {
+      "sha256": "b45a5a0fd6d9a134a0449768415e0db85d5cb27f93475eecfe5b5b27405d5cd6",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/drain/route.ts::readJson": {
+      "sha256": "c9a3b0669f874b96909839e08cad679dce66ec1fb548beb33a367a3d5402f594",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/drain/route.ts::<module>": {
+      "sha256": "a7370a34ca20eed3fbd2a2b81614b774bfe2e041190d517a4640a509e512023f",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/oplog/route.ts::GET": {
+      "sha256": "df5ab10d4cba7d958214008dd26c85f5b815ebb9cb31f35c0d946cf9d9a800a3",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/oplog/route.ts::<module>": {
+      "sha256": "3ee66012029827591f312cce931b9072df5154e9546bdc7dda94eda23d221c7e",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/progress/route.ts::GET": {
+      "sha256": "4186821537cf1cf7206968c4f3bae84d1b27cf0603d105409c5eb28043d866b9",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/progress/route.ts::<module>": {
+      "sha256": "b1518bf3a5f72b9ba8dc4651d48162c81607d9b390d9d422206d08f88767f8e1",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/reader/route.ts::GET": {
+      "sha256": "9e9313a0df0b5313e0beceaf703f2fb9fa04873038b440d3723a9d433ee8bd16",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/api/pdcp/reader/route.ts::<module>": {
+      "sha256": "870fa59bc13a3de4b1a4034aeb5dd83ff697bcd20a7417f066db2d2885e340e2",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/dev/replica/blueprint.ts::read": {
+      "sha256": "5e9a1176c1b5680ceb232238ab3ea50517f902b3d0f1b29572d4fb31ea8525e9",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/dev/replica/blueprint.ts::<module>": {
+      "sha256": "a95c2f392863a2cfe60563edb7bda5d5a8f7471b781f5041611020260786df46",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/dev/replica/ours.ts::colorFn": {
+      "sha256": "21cf7385e4a7b2dad41b819b814783080d62fa14e3aab19601cb2d890f089ac3",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/dev/replica/ours.ts::<module>": {
+      "sha256": "79a1b2630ae67b1268711cb7b59927cf5f3b35223331eca52dfce0564c8ead12",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/dev/replica/ours.ts::readSvgs": {
+      "sha256": "cbf4f49dae02a6d86364cb48630b74a3691f92b10d1aec9ac892304b2e1b0763",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/dev/replica/ours.ts::screens": {
+      "sha256": "97d6788936ddff2b171000ffc3d6b8d335db4ea21ccd3cda1731e62521efb2ab",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "components/admin/curation/SeedTab.tsx::<module>": {
+      "sha256": "a16fab10a984a8732fa8060f5312907d83b82204b5fb0eec209ebcd9fcca9593",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/admin/dashboard-stats.ts::head": {
+      "sha256": "0f609605b77afd03761ea0c574b0ff6b5dd6ad5464d7da5b5f1c07e02a838e41",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/admin/dashboard-stats.ts::recentQuery": {
+      "sha256": "21f7847b665587f2633b52a7fb7657f72e911f813f1b04b334caec2801faa5f4",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/admin/dashboard-stats.ts::<module>": {
+      "sha256": "b8f974f82f5f860f9b71f316d59e63e5a9730ac614ce788bcd768712e8d8d794",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/admin/dict/queries.ts::countRows": {
+      "sha256": "163d7a6c1e824596e774a1d32efb76e7d86e5494c83b52bbd4b89e56311a23e8",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/admin/dict/queries.ts::<module>": {
+      "sha256": "a08144acffacc80b9b2ce01384ab41d6c450cea290bef284472c1f5c84b0c15d",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/admin/video-console.ts::<module>": {
+      "sha256": "8ba1eac4faa54316284c74f665ad9854480af69b261fdf787b9803caf8c1de3c",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/admin/video-console.ts::count": {
+      "sha256": "2de53fb97d1f301fc3e517b50ac1d77fdd48c05f8a505e6e42a0d99b2bda661c",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/auth/account.ts::<module>": {
+      "sha256": "d1a2c36353d271ed882903e23b622b5b0ed7cdc618ed1afbad5c9d37637ba982",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/auth/dev-bypass.ts::<module>": {
+      "sha256": "ac4911584e8e02d458b8535cb7e5a9ce16cb13970125442c76b30b702e1b8397",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/auth/require-admin-api.ts::<module>": {
+      "sha256": "e1b8eb2768e9ecb4f73350857e8428bdc497ebaa6a626a5175ca4995f8e4f420",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/auth/require-admin.ts::<module>": {
+      "sha256": "f9a149e3002b373d9984851e97bd2a4413ad5ab7a93043031770c33c30574845",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/methodology/research-seed.ts::<module>": {
+      "sha256": "b63dc55c68d8685258a5decacef1b7d24b5ee4d754138c2b3d66af4193393659",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/textbook/source-eligibility-view.ts::<module>": {
+      "sha256": "b801370c37a8ba7eaed0d7372f01af1212f5857999132de19ec42e014e578f7a",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/textbook/source-inventory-view.ts::<module>": {
+      "sha256": "c148b1f294134a44cfe599caf5063dfb914e2fca55aa6d57d34c2f95b3c8e2e0",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/textbook/source-rounds.ts::loadSourceRounds": {
+      "sha256": "c25e73301c763b70fb907346a3dc889bd7ba4bbf0e33f6ddd9b9d4086630566a",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/textbook/source-rounds.ts::<module>": {
+      "sha256": "bb00ccde4938dd2f3dc0399a583c8a37962ea069de47a52bdef51ac670a30975",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/textbook/volume-contents.ts::<module>": {
+      "sha256": "649aed66387a9f0d8a764d1b43188913b9525dbd069c064a11dbc79b61be2dcd",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/enrich.ts::countLines": {
+      "sha256": "1536566b02d3b715716dbd40a1c6ce9b461063562e7919396ed0e00951e149c5",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/enrich.ts::<module>": {
+      "sha256": "7794d6f1663c3ac572da6c994354fef864dd6278473e52187259a00ca1bee0ee",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/enrich.ts::checkEnrichmentStatus": {
+      "sha256": "2ac9e08679ec8e1f8ca5f6c5a34e43a679e82b2bb4b4df12ff457455ea5563a6",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/market-status.ts::repoRoot": {
+      "sha256": "6d600eed927e636c4d1051081ca7351d290709e441a1cf28ceccaeeb8e8d1008",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/market-status.ts::<module>": {
+      "sha256": "97767a768f6fc16aae13d73b6aa6530285cae17349bc8eb2cf24afebbceedffd",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/market-status.ts::readVcbMarketStatus": {
+      "sha256": "0767f8202dba51faee3193827549d1149413049bcdaea8e7b5a55165fbf11459",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/seed.ts::checkSeedJobStatus": {
+      "sha256": "b8d1a63161836554f81255a104b72f2bdc179429290c06ac2852662fefeb34d4",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/seed.ts::<module>": {
+      "sha256": "b9dccf9d5444c511b0712c15664bc5c16d68e6a499dc4fa2a477f5585b3e5a01",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/seed.ts::runSeedListCommand": {
+      "sha256": "d6e107dd4a234406cb8210d8638485dfa5c64bdf88ab582d3e9f217f09f80994",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/seed.ts::loadSeedPreview": {
+      "sha256": "93ba110d73608c4aeda4f1bcb4f7e134c5ba05de56abea94b481fcc5cba37590",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/vcb/server/seed.ts::importSeedList": {
+      "sha256": "83d2f48ef82d796695ae29979df11f2f783922afc5264f9168d7847e482a1b59",
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "lib/video/catalog.ts::<module>": {
+      "sha256": "1cc5555505b83683d7c16151910b9ff6a1a196c9700171d5231b265192258d25",
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/comic/page.tsx::<module>": {
+      "sha256": "bc693d5c238380010fb40511c7b9c256e3e2aea0b1e7a458c11ddba526639e0a",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
+    },
+    "app/admin/comic/[bookId]/page.tsx::<module>": {
+      "sha256": "7949d722e1aa506f5ac8843beb6892800bd88249ae2ff18cb473c8284ee1ed20",
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing administrator CSAT paths and auth boundary, or existing non-CSAT file/JSON IO. Full module/JSON asset hashes now bind this approval. New or changed callers remain blocked."
     }
   },
   "loader_classifications": {
@@ -1000,6 +1740,134 @@
     "app/api/lcp/process/route.ts": {
       "class": "OPS_META",
       "review_basis": "Existing LCP book processing routes; variable RPC target comes from a closed literal list of book VRL/chapter/CEFRJ procedures. Entire source and handler are frozen; any new/changed dynamic target requires review."
+    },
+    "app/admin/comic/actions.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/admin/compose/page.tsx": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/admin/csat/diagnosis/actions.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/admin/csat/diagnosis/settings/page.tsx": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/api/admin/csat/sources/route.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/api/admin/sources/[source]/profile/route.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/api/csat/dev-paper/route.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/api/pdcp/artifact/route.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/api/pdcp/drain/route.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/api/pdcp/oplog/route.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/api/pdcp/progress/route.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/api/pdcp/reader/route.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/dev/replica/blueprint.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/dev/replica/ours.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "components/admin/curation/SeedTab.tsx": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/admin/dashboard-stats.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/admin/dict/queries.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/admin/video-console.ts": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/methodology/research-seed.ts": {
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/textbook/source-eligibility-view.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/textbook/source-inventory-view.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/textbook/source-rounds.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/textbook/volume-contents.ts": {
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/vcb/server/enrich.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/vcb/server/market-status.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/vcb/server/seed.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/video/catalog.ts": {
+      "class": "PUBLIC_CONTENT",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "app/admin/layout.tsx": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/auth/require-admin.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/auth/require-admin-api.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/auth/account.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
+    },
+    "lib/auth/dev-bypass.ts": {
+      "class": "OPS_META",
+      "review_basis": "Reviewed existing IO targets and caller authorization. Administrative service reads use admin guards; non-CSAT assets are book/source inventories, video/research metadata, comic artifacts, VCB jobs or design reference files. Full module and JSON dependencies are frozen; changes require review."
     }
   },
   "object_approvals": {
@@ -1110,6 +1978,18 @@
     "csat_source_targets": {
       "class": "OPS_META",
       "review_basis": "Existing d72c3c161 named object in reviewed frozen loader registry; sensitive reads retain their existing loader trust boundary. New objects require new explicit approval."
+    },
+    "csat_dx_save_item_tagging": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Existing diagnosis admin actions: tagging/pool/settings, requireAdmin before mutation. Frozen full caller."
+    },
+    "csat_dx_pool": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Existing diagnosis admin actions: tagging/pool/settings, requireAdmin before mutation. Frozen full caller."
+    },
+    "csat_dx_activate_settings": {
+      "class": "ADMIN_ONLY",
+      "review_basis": "Existing diagnosis admin actions: tagging/pool/settings, requireAdmin before mutation. Frozen full caller."
     }
   },
   "applied_sql_migrations": {

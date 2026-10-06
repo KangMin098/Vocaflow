@@ -32,8 +32,9 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
   const issues=[], discovered=[], functions=new Map(), names=new Set([...Object.entries(manifest.db_relations).filter(([,v])=>SENSITIVE.has(v.class)||(v.sensitive_columns??[]).length||(v.secret_columns??[]).length).map(([k])=>k),...Object.entries(manifest.db_functions).filter(([,v])=>SENSITIVE.has(v.class)).map(([k])=>k.split('(')[0])])
   for(const file of filesUnder(srcRoot).filter(f=>/\.[jt]sx?$/.test(f)&&!f.endsWith('.d.ts'))) {
     const rel=relative(srcRoot,file),routePath=rel.replace(/\/\([^/]+\)/g,'')
-    if(/^(app\/admin|app\/api\/admin|lib\/admin|components\/admin|test)\//.test(rel)) continue
+    if(/^test\//.test(rel)) continue
     const source=parse(file,fs.readFileSync(file,'utf8')), imported=new Set(), namespaces=new Set(), hits=[]
+    const adminBoundary=/^app\/api\/admin\/csat\//.test(routePath)||/^app\/admin\/(?:csat|kice)\//.test(routePath)||['app/admin/layout.tsx','lib/auth/require-admin.ts','lib/auth/require-admin-api.ts','lib/auth/account.ts','lib/auth/dev-bypass.ts'].includes(rel)
     const constants=new Map()
     visit(source,n=>{if(ts.isVariableDeclaration(n)&&ts.isIdentifier(n.name))constants.set(n.name.text,constants.has(n.name.text)?null:n.initializer)})
     let csatContext=/^app\/(?:[^/]+\/)?api\/csat\/|^lib\/csat\//.test(routePath)
@@ -56,7 +57,9 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       const name=ts.isFunctionDeclaration(owner)?owner.name?.text??'<anonymous>':ts.isArrowFunction(owner)&&ts.isIdentifier(owner.parent.name)?owner.parent.name.text:'<module>'
       const code=ts.createPrinter({removeComments:true}).printNode(ts.EmitHint.Unspecified,owner,source)
       const printer=ts.createPrinter({removeComments:true})
-      const context=source.statements.filter(n=>ts.isImportDeclaration(n)||ts.isExportDeclaration(n)||ts.isVariableStatement(n)).map(n=>printer.printNode(ts.EmitHint.Unspecified,n,source)).join('\n')
+      const assets=[]
+      visit(source,n=>{const spec=(ts.isImportDeclaration(n)||ts.isExportDeclaration(n))?n.moduleSpecifier:ts.isCallExpression(n)&&(n.expression.kind===ts.SyntaxKind.ImportKeyword||ts.isIdentifier(n.expression)&&n.expression.text==='require')?n.arguments[0]:null;if(spec&&ts.isStringLiteralLike(spec)&&spec.text.endsWith('.json')){const resolved=ts.resolveModuleName(spec.text,file,{baseUrl:srcRoot,paths:{'@/*':['*']},resolveJsonModule:true,moduleResolution:ts.ModuleResolutionKind.Bundler},ts.sys).resolvedModule;if(resolved)assets.push(spec.text+':'+createHash('sha256').update(fs.readFileSync(resolved.resolvedFileName)).digest('hex'))}})
+      const context=source.statements.filter(n=>ts.isImportDeclaration(n)||ts.isExportDeclaration(n)||ts.isVariableStatement(n)).map(n=>printer.printNode(ts.EmitHint.Unspecified,n,source)).join('\n')+(assets.length?'\n'+assets.sort().join('\n'):'')
       const key=rel+'::'+name
       functions.set(key,{key,file:rel,function:name,sha256:createHash('sha256').update(code+'\n'+context).digest('hex'),class:loader(rel)?.class??manifest.app_file_loaders?.[rel]?.class??manifest.app_json_imports?.[rel]?.class??manifest.app_pages?.[rel.replace(/\/page\.tsx$/,'')]?.class??policy?.page_classifications?.[rel]?.class??manifest.app_api?.[routePath.replace(/^app\/api\//,'').replace(/\/route\.[jt]sx?$/,'')]?.class??policy?.function_approvals?.[key]?.class??callerClass})
     }
@@ -95,16 +98,19 @@ export function scanLoaders(srcRoot, manifest, policy=null) {
       }
       if(rel.startsWith('app/api/csat/')&&ts.isFunctionDeclaration(n)&&n.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword)&&/^(GET|POST|PUT|PATCH|DELETE)$/.test(n.name?.text??''))register(n)
       if(rel.startsWith('app/api/csat/')&&ts.isVariableDeclaration(n)&&ts.isIdentifier(n.name)&&/^(GET|POST|PUT|PATCH|DELETE)$/.test(n.name.text)&&n.initializer&&ts.isArrowFunction(n.initializer)&&n.parent.parent.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword))register(n.initializer)
-      if(/^lib\/csat\//.test(rel)&&ts.isCallExpression(n)&&((ts.isIdentifier(n.expression)&&/^(readFile|readFileSync)$/.test(n.expression.text))||(ts.isPropertyAccessExpression(n.expression)&&/^(readFile|readFileSync)$/.test(n.expression.name.text)))) {
+      if(ts.isCallExpression(n)&&((ts.isIdentifier(n.expression)&&/^(readFile|readFileSync)$/.test(n.expression.text))||(ts.isPropertyAccessExpression(n.expression)&&/^(readFile|readFileSync)$/.test(n.expression.name.text)))) {
         register(n)
-        if(!manifest.app_file_loaders?.[rel])issues.push({file:rel,kind:'unclassified_file_loader'})
+        register(source)
+        if(!manifest.app_file_loaders?.[rel]&&!loader(rel))issues.push({file:rel,kind:'unclassified_file_loader'})
       }
-      if(/^lib\/csat\//.test(rel)&&ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&n.moduleSpecifier.text.endsWith('.json')) {
+      if(dependency?.endsWith('.json')) {
         register(n)
-        if(!manifest.app_json_imports?.[rel])issues.push({file:rel,kind:'unclassified_json_loader'})
+        register(source)
+        if(!manifest.app_json_imports?.[rel]&&!loader(rel))issues.push({file:rel,kind:'unclassified_json_loader'})
       }
     })
     // Protect helper/control-flow edits within an approved loader, not only its IO line.
+    if(adminBoundary){callerClass='ADMIN_ONLY';register(source)}
     if(loader(rel)||manifest.app_file_loaders?.[rel]||manifest.app_json_imports?.[rel]||hits.length)register(source)
     const route=routePath.startsWith('app/api/csat/')&&/\/route\.[jt]sx?$/.test(rel)
     const page=routePath.startsWith('app/csat/')&&/\/page\.[jt]sx?$/.test(rel)

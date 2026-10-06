@@ -72,6 +72,15 @@ test('mutation: new DB loader, alias, unused import and comment calls fail close
   assert.ok(scanLoaders(root,admin,approved).issues.some(i=>i.file==='app/api/public/route.ts'&&i.function==='<module>'))
   write('app/api/public/route.ts','export const GET=async()=>Response.json((await import("../../../lib/csat/public-barrel")).loadCsatItemFull())')
   assert.ok(scanLoaders(root,admin,approved).issues.some(i=>i.file==='app/api/public/route.ts'&&i.function==='<module>'))
+  write('app/api/admin/csat/items/route.ts','import {loadCsatItemFull} from "../../../../../lib/csat/admin-secret"; export const GET=async()=>{await requireAdminApi();return Response.json(loadCsatItemFull())}')
+  const guarded=scanLoaders(root,admin).functions
+  const authPolicy={function_approvals:Object.fromEntries(guarded.map(r=>[r.key,{sha256:r.sha256,class:r.class,review_basis:'fixture authenticated administrator handler'}]))}
+  write('app/api/admin/csat/items/route.ts','import {loadCsatItemFull} from "../../../../../lib/csat/admin-secret"; export const GET=async()=>Response.json(loadCsatItemFull())')
+  assert.ok(scanLoaders(root,admin,authPolicy).issues.some(i=>i.file==='app/api/admin/csat/items/route.ts'&&i.kind==='unclassified_or_changed_sensitive_function'))
+  write('app/api/file-leak/route.ts','import fs from "node:fs"; export const GET=()=>Response.json(JSON.parse(fs.readFileSync("skeleton-data/M2509.json","utf8")))')
+  assert.ok(scanLoaders(root,admin).issues.some(i=>i.file==='app/api/file-leak/route.ts'&&i.kind==='unclassified_file_loader'))
+  write('app/api/json-leak/route.ts','import data from "../../../skeleton-data/M2509.json";export const GET=()=>Response.json(data)')
+  assert.ok(scanLoaders(root,admin).issues.some(i=>i.file==='app/api/json-leak/route.ts'&&i.kind==='unclassified_json_loader'))
 }))
 test('mutation: renamed JSON and re-exported dynamic client imports expose answer literals',()=>fixture((root,write)=>{
   write('app/Client.tsx','"use client"; import("../lib/barrel");')
