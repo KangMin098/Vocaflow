@@ -1,7 +1,7 @@
 // scripts/csat/reveal-gate/__tests__/deployment-verification.test.mjs
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { permissionDiff,dbPreflight,permanentPermissionIssues } from '../db-preflight.mjs'
+import { permissionDiff,dbPreflight,permanentPermissionIssues,directSelectDenied } from '../db-preflight.mjs'
 import { validateLiveReceipt,securityAdvisor,checkpointIssues } from '../live-verification.mjs'
 import pg from 'pg'
 import { verifiedDbConfig } from '../tls-config.mjs'
@@ -19,6 +19,12 @@ test('live PostgreSQL parsing cannot replace verified TLS with URL options',()=>
   }
 })
 test('permission comparison covers policies, function ACL/body, and unordered keys',()=>{
+  assert.equal(directSelectDenied('anon',401,{code:'42501'}),true)
+  assert.equal(directSelectDenied('authenticated',403,{code:'42501'}),true)
+  assert.equal(directSelectDenied('authenticated',401,{code:'42501'}),false)
+  assert.equal(directSelectDenied('anon',401,{code:'PGRST301'}),false)
+  assert.equal(directSelectDenied('authenticated',403,{code:'PGRST301'}),false)
+  assert.equal(directSelectDenied('anon',200,{code:'42501'}),false)
   const before={permissions:[{object:'t',column:'answer',role:'anon',allowed:false}],policies:[{tablename:'t',policyname:'p',qual:'false'}],functions:[{signature:'f()',role:'anon',allowed:false,definition_hash:'a'}]}
   const same={...before,permissions:[{allowed:false,role:'anon',column:'answer',object:'t'}]}
   assert.deepEqual(permissionDiff(before,same).changes,[])

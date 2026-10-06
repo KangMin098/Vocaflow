@@ -10,6 +10,7 @@ const snapshotHash = value => createHash('sha256').update(canonical(value)).dige
 // The permanent learner revocations in 20261005170100 are deployment requirements,
 // even when the migration is missing or the same unsafe grant is in both snapshots.
 export const PERMANENT_AUTH_REVOCATIONS={csat_dx_session:['raw_score','grade'],csat_dx_response:['is_correct'],csat_dx_snapshot:'*',csat_learner_state:'*'}
+export const directSelectDenied=(actor,status,payload)=>payload?.code==='42501'&&(status===403||actor==='anon'&&status===401)
 export function permanentPermissionIssues(permissions) {
   const issues=[]
   for(const [object,columns]of Object.entries(PERMANENT_AUTH_REVOCATIONS)) {
@@ -60,8 +61,8 @@ export async function dbPreflight(repo,manifest,env,{before=null,expectedDiff=[]
     for(const [actor,key,token]of actors)for(const [table,column]of probes) {
       const url=new URL('/rest/v1/'+table,env.NEXT_PUBLIC_SUPABASE_URL);url.search=new URLSearchParams({select:column,limit:'0'})
       const response=await fetch(url,{headers:{apikey:key,authorization:'Bearer '+token},signal:AbortSignal.timeout(15000)})
-      const denied=response.status===403
-      smokes.push({actor,table,column,http_status:response.status,ok:denied})
+      const errorPayload=await response.json().catch(()=>null),denied=directSelectDenied(actor,response.status,errorPayload)
+      smokes.push({actor,table,column,http_status:response.status,error_code:errorPayload?.code??null,ok:denied})
       if(!denied)issues.push({kind:'jwt_direct_select_not_denied',actor,table,column,status:response.status})
     }
     const response=await fetch(new URL('/rest/v1/rpc/csat_ec_embargoed_exams',env.NEXT_PUBLIC_SUPABASE_URL),{method:'POST',headers:{apikey:env.SUPABASE_SERVICE_ROLE_KEY,authorization:'Bearer '+env.SUPABASE_SERVICE_ROLE_KEY,'content-type':'application/json'},body:JSON.stringify({p_exams:[]}),signal:AbortSignal.timeout(15000)})
