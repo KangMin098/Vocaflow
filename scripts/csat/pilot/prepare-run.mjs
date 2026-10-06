@@ -83,6 +83,10 @@ if (!has('skip-build')) run('production 빌드', process.execPath, ['node_module
 run('E2E(run-e2e.mjs)', process.execPath, ['--tls-max-v1.2', 'scripts/csat/pilot/run-e2e.mjs', '--run', runId])
 
 step(5, 'run 봉인')
+// seal-run 은 「배포 env」 기준으로 live 를 대조한다(참가자 수 = env 계정 수). 배포 env 초안과 같은 값을 이 자식 프로세스에만 준다 — 출력하지 않는다
+process.env.CSAT_EC_PILOT_USER_IDS = ids.join(',')
+process.env.CSAT_EC_APP_COMMIT = commit
+delete process.env.CSAT_EC_PILOT_MODE
 run('run 봉인(seal-run.mjs)', process.execPath, ['--tls-max-v1.2', 'scripts/csat/pilot/seal-run.mjs', '--run', runId, '--exams', exams.join(','), '--participants', assignment, '--app-commit', commit])
 
 console.log(`\n준비 끝 — 다음:
