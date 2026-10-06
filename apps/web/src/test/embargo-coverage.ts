@@ -20,9 +20,10 @@ export interface CoverageProblem { file: string; problem: string }
 export const GATED_CLASSES = ['ANSWER_SENSITIVE', 'CORRECTNESS'] as const
 const SENSITIVE_REL_CLASSES = ['ANSWER_SENSITIVE', 'CORRECTNESS', 'CORRECTNESS_OWN_PRIOR']
 const SENSITIVE_FN_CLASSES = ['CORRECTNESS_ORACLE', 'REVIEWER_INTERNAL']
+// 판정을 실제로 하는 함수만(DB 판정 RPC 를 부른다). revealHeldResponse · isItemHeld 같은 응답 · 순수 함수는 관문으로 세지 않는다
 export const GATE_FUNCTIONS = [
   'canRevealExam', 'canRevealItem', 'canRevealSession', 'embargoedExamIds', 'embargoedItemIds', 'userHasHeldSession',
-  'loadRevealScope', 'assertRevealAllowed', 'revealHeldResponse', 'isItemHeld', 'isExamHeld', 'isTypeHeld',
+  'loadRevealScope', 'assertRevealAllowed', 'examRevealDecision', 'itemRevealDecision',
 ]
 const IMPORT = /import\s+(?:type\s+)?\{([^}]*)\}\s+from\s+'(?:@\/lib\/csat\/|\.\/|\.\.\/)embargo-gate'/g
 const EXCLUDED = /^(app\/admin|app\/api\/admin|lib\/admin|components\/admin)\//
@@ -58,7 +59,8 @@ export function checkGateCoverage(srcRoot: string, m: GateManifest): CoveragePro
   const rel = (p: string) => path.relative(srcRoot, p).replace(/\\/g, '/')
   const names = sensitiveNames(m)
   // ② 기본 거부 — 민감 관계 · 함수 이름을 문자열로 쓰는 파일은 분류돼 있어야 한다
-  for (const file of ['lib', 'app', 'components'].flatMap((d) => walk(path.join(srcRoot, d)))) {
+  // src 전체(hooks · stores 포함) — 테스트 도우미 디렉터리(test/)만 뺀다
+  for (const file of walk(srcRoot).filter((f) => !rel(f).startsWith('test/'))) {
     const r = rel(file)
     if (EXCLUDED.test(r)) continue
     const s = stripComments(fs.readFileSync(file, 'utf8'))
