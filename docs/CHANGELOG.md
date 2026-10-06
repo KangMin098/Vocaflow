@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): Codex의 실제 `CODEX_HOME`과 `AGENTS.override.md` 우선순위를 감사 입력에 반영하고 Claude CLI 실행 파일을 설치 환경에서 탐색한다. 환경별 지시 파일·실행 파일 결속이 달라지면 기존 합성 run을 재사용하지 않는다.
+
 - fix(textbook): F02 교차 에이전트 호출을 저장소 밖 임시 디렉터리에서 실행하고 Codex 전역 지시 파일의 복사본·해시를 감사 기록에 결속한다. Claude 내장 도구를 비활성화하고 학생 답변의 추가 필드 전달을 거부한다.
 
 - fix(textbook): F02 Codex CLI에 정책 지시를 실제 stdin으로 보내고 stdout 최종 메시지와 저장 파일을 교차 검증한다. 원출력 거부·오류·도구 사용 상태를 다시 대조하며 Stage C 실제 산출물 변조 검사를 63건으로 확장한다. 이전 불완전한 배치는 유효 합성 자료에서 제외한다.

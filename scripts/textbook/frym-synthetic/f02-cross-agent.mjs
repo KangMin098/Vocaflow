@@ -13,8 +13,33 @@ const studentSystem = 'Use only the supplied packet. Do not use tools, files, pr
 const graderSystem = 'Independently grade the candidate answers against the supplied rubric. Do not use tools or outside facts. Return a JSON object with scores in question order. Every score must be exactly 0, 0.5, or 1; use 0 for missing or unsupported evidence. Never return null.'
 const model = { claude: 'haiku', codex: 'gpt-6.1-sol' }
 const family = { claude: 'anthropic', codex: 'openai' }
-const claudeExecutable = process.platform === 'win32' ? join(process.env.APPDATA ?? '', 'npm', 'node_modules', '@anthropic-ai', 'claude-code', 'bin', 'claude.exe') : 'claude'
-const globalCodexInstructions = join(homedir(), '.codex', 'AGENTS.md')
+function findClaudeExecutable() {
+  const configured = process.env.F02_CLAUDE_EXECUTABLE
+  if (configured) {
+    const path = resolve(configured)
+    if (!existsSync(path)) throw Error('F02_CLAUDE_EXECUTABLE unavailable')
+    return path
+  }
+  if (process.platform !== 'win32') return 'claude'
+  const locate = name => {
+    const result = spawnSync('where.exe', [name], { encoding: 'utf8', windowsHide: true })
+    return result.status === 0 ? result.stdout.split(/\r?\n/).map(path => path.trim()).find(path => path && existsSync(path)) : null
+  }
+  const native = locate('claude.exe')
+  if (native) return native
+  const wrapper = locate('claude.cmd')
+  const npmNative = wrapper && join(dirname(wrapper), 'node_modules', '@anthropic-ai', 'claude-code', 'bin', 'claude.exe')
+  if (npmNative && existsSync(npmNative)) return npmNative
+  throw Error('Claude Code executable unavailable')
+}
+let cachedClaudeExecutable
+const claudeExecutable = () => cachedClaudeExecutable ??= findClaudeExecutable()
+const codexHome = resolve(process.env.CODEX_HOME ?? join(homedir(), '.codex'))
+function globalInstructionInventory() {
+  const override = join(codexHome, 'AGENTS.override.md')
+  const active = existsSync(override) ? 'AGENTS.override.md' : existsSync(join(codexHome, 'AGENTS.md')) ? 'AGENTS.md' : null
+  return ['AGENTS.override.md', 'AGENTS.md'].filter(name => existsSync(join(codexHome, name))).map(name => ({ name, path: join(codexHome, name), active: name === active, sha256: sha(readFileSync(join(codexHome, name))) }))
+}
 const answerSchema = { type: 'object', properties: { answers: { type: 'array', items: { type: 'object', properties: { id: { type: 'string' }, answer: { type: 'string' } }, required: ['id', 'answer'], additionalProperties: false } } }, required: ['answers'], additionalProperties: false }
 const scoreSchema = { type: 'object', properties: { scores: { type: 'array', items: { type: 'object', properties: { id: { type: 'string' }, score: { type: 'number', enum: [0, 0.5, 1] } }, required: ['id', 'score'], additionalProperties: false } } }, required: ['scores'], additionalProperties: false }
 
@@ -49,7 +74,7 @@ function parseScores(text, packet) {
   return parsed.scores
 }
 function versionOf(engine) {
-  const spec = engine === 'claude' ? [claudeExecutable, ['--version']] : ['codex', ['--version']]
+  const spec = engine === 'claude' ? [claudeExecutable(), ['--version']] : ['codex', ['--version']]
   const call = spawnSync(spec[0], spec[1], { encoding: 'utf8', windowsHide: true })
   if (call.status !== 0) throw Error(`${engine} CLI unavailable`)
   return (call.stdout || call.stderr).trim()
@@ -58,7 +83,7 @@ function cliSpec(engine, role, cwd, outputPath, system) {
   if (engine === 'claude') {
     const schema = role === 'student' ? answerSchema : scoreSchema
     const args = ['-p', '--model', model.claude, '--effort', 'low', '--restricted', '--strict-mcp-config', '--tools', '', '--system-prompt', system, '--json-schema', json(schema), '--output-format', 'json', '--no-session-persistence']
-    return { command: claudeExecutable, argv: args, options: {}, cwd }
+    return { command: claudeExecutable(), argv: args, options: {}, cwd }
   }
   return { command: 'codex', argv: ['exec', '--json', '--ephemeral', '-s', 'read-only', '--skip-git-repo-check', '-c', 'project_doc_max_bytes=0', '-m', model.codex, '-o', outputPath, '-'], options: {}, cwd }
 }
@@ -117,13 +142,13 @@ async function invoke(root, runId, packet, role, engine, answers, scoringKey, ve
   assertIsolatedCwd(cwd)
   const outputPath = join(root, `${stem}.final`)
   const spec = cliSpec(engine, role, cwd, outputPath, request.system)
-  const globalBytes = engine === 'codex' && existsSync(globalCodexInstructions) ? readFileSync(globalCodexInstructions) : Buffer.alloc(0)
-  const manifest = { schema_version: 1, run_id: runId, invocation_id: invocationId, packet_id: packet.packet_id, role, engine, family: family[engine], model_requested: model[engine], cli_version: version, cwd, cwd_isolated: true, global_instruction_sha256: engine === 'codex' ? sha(globalBytes) : null, command: spec.command, argv: spec.argv, packet_sha256: sha(json({ packet_id: packet.packet_id, ...packet.body })), profile_sha256: sha(json(packet.body.profile)), system_sha256: sha(request.system), stdin_sha256: sha(stdin), grader_answers_sha256: role === 'grader' ? sha(json(answers)) : null, credential_source: 'cli_account', provider_attested: false }
+  const globalInstructions = engine === 'codex' ? globalInstructionInventory() : []
+  const manifest = { schema_version: 1, run_id: runId, invocation_id: invocationId, packet_id: packet.packet_id, role, engine, family: family[engine], model_requested: model[engine], cli_version: version, cwd, cwd_isolated: true, codex_home: engine === 'codex' ? codexHome : null, global_instructions: globalInstructions, command: spec.command, argv: spec.argv, packet_sha256: sha(json({ packet_id: packet.packet_id, ...packet.body })), profile_sha256: sha(json(packet.body.profile)), system_sha256: sha(request.system), stdin_sha256: sha(stdin), grader_answers_sha256: role === 'grader' ? sha(json(answers)) : null, credential_source: 'cli_account', provider_attested: false }
   manifest.command_manifest_sha256 = sha(json(manifest))
   writeFileSync(join(root, `${stem}.manifest.json`), json(manifest))
   writeFileSync(join(root, `${stem}.system`), request.system)
   writeFileSync(join(root, `${stem}.stdin`), stdin)
-  if (engine === 'codex') writeFileSync(join(root, `${stem}.global-agents`), globalBytes)
+  for (const instruction of globalInstructions) writeFileSync(join(root, `${stem}.global-${instruction.name}`), readFileSync(instruction.path))
   const result = await callCli(spec, stdin)
   rmSync(cwd, { recursive: true, force: true })
   writeFileSync(join(root, `${stem}.stdout`), result.stdout)
@@ -200,7 +225,15 @@ export function verifyStage(rootInput) {
       const recordedFinal = expectedEngine === 'codex' ? record.argv[record.argv.indexOf('-o') + 1] : join(root, `${stem}.final`)
       const expectedSpec = cliSpec(expectedEngine, role, record.cwd, recordedFinal, requestFor(packet, role, role === 'grader' ? records[0].parsed : null, built.scoringKey).system)
       if (record.engine !== expectedEngine || record.family !== family[expectedEngine] || record.model_requested !== model[expectedEngine] || record.command !== expectedSpec.command || json(record.argv) !== json(expectedSpec.argv) || !basename(record.cwd).startsWith(`f02-${role}-${expectedEngine}-`) || !resolve(record.cwd).startsWith(resolve(tmpdir()) + sep) || record.cwd_isolated !== true || (expectedEngine === 'codex' && basename(recordedFinal) !== `${stem}.final`) || !/^\d{4}-\d\d-\d\dT/.test(record.started_at) || !/^\d{4}-\d\d-\d\dT/.test(record.ended_at)) throw Error('COMMAND_OR_MODEL_CHANGED')
-      if (expectedEngine === 'codex' && record.global_instruction_sha256 !== sha(readFileSync(join(root, `${stem}.global-agents`)))) throw Error('GLOBAL_INSTRUCTIONS_CHANGED')
+      if (expectedEngine === 'codex') {
+        if (!record.codex_home || !Array.isArray(record.global_instructions) || record.global_instructions.length > 2 || record.global_instructions.filter(item => item.active).length > 1) throw Error('GLOBAL_INSTRUCTIONS_INVALID')
+        const names = record.global_instructions.map(item => item.name)
+        const active = names.includes('AGENTS.override.md') ? 'AGENTS.override.md' : names.includes('AGENTS.md') ? 'AGENTS.md' : null
+        if (new Set(names).size !== names.length || record.global_instructions.some(item => item.active !== (item.name === active))) throw Error('GLOBAL_INSTRUCTIONS_PRIORITY_CHANGED')
+        for (const instruction of record.global_instructions) {
+          if (!['AGENTS.md', 'AGENTS.override.md'].includes(instruction.name) || instruction.path !== join(record.codex_home, instruction.name) || instruction.sha256 !== sha(readFileSync(join(root, `${stem}.global-${instruction.name}`)))) throw Error('GLOBAL_INSTRUCTIONS_CHANGED')
+        }
+      }
       ids.add(record.invocation_id)
       if (record.packet_sha256 !== sha(json({ packet_id: packet.packet_id, ...packet.body })) || record.profile_sha256 !== sha(json(packet.body.profile))) throw Error('PACKET_OR_PROFILE_CHANGED')
       const answers = role === 'grader' ? records[0].parsed : null
@@ -321,8 +354,21 @@ export function stageC(stageA, stageB) {
           writeFileSync(path, altered)
           record.stdout_sha256 = sha(Buffer.from(altered))
         } else {
-          const path = join(temp, `${stem}.global-agents`)
-          writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from(' changed')]))
+          const instruction = record.global_instructions[0]
+          if (instruction) {
+            const path = join(temp, `${stem}.global-${instruction.name}`)
+            writeFileSync(path, Buffer.concat([readFileSync(path), Buffer.from(' changed')]))
+          } else {
+            const fake = { name: 'AGENTS.md', path: join(record.codex_home, 'AGENTS.md'), active: true, sha256: '0'.repeat(64) }
+            record.global_instructions = [fake]
+            const manifestPath = join(temp, `${stem}.manifest.json`)
+            const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
+            manifest.global_instructions = [fake]
+            const { command_manifest_sha256, ...unsigned } = manifest
+            manifest.command_manifest_sha256 = sha(json(unsigned))
+            record.command_manifest_sha256 = manifest.command_manifest_sha256
+            writeFileSync(manifestPath, json(manifest))
+          }
         }
         writeFileSync(recordPath, json(record))
         let rejected = false
