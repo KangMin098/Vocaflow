@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- CSAT Books 웹 lane 사전 점검(2026-10-06): API와 분리한 고정50개·161질의 원장과 공개 기준선을 보존했다. robots의 검색/도서 내 검색 자동 접근 제한으로 smoke 전 blocked_robots·completed0을 기록하고 미실행 수율을 null로 유지했다. DB/마이그레이션 변경 없음.
+
 - CSAT Books 증분 benchmark: 공개 종료50개/기존등록12개 기준선을 SHA로 동결, 신규 후보·실제 신규 A/B·검수 precision·질의당 확보를 분리했다. 공개소진37개 재검색 방지와 새 증거 기반 B 승격 적격을 추가했다. 키 미설정으로 실제 API는 0/161 미실행이며 DB/마이그레이션 변경 없음.
 
 ### Added — 소스 후보(BulkFetch) 큐레이션 메타 배치 JOB (2026-06-01)

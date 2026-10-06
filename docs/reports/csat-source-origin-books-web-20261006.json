@@ -1,0 +1,2428 @@
+{
+  "retriever": "books_web",
+  "checked_on": "2026-10-06",
+  "status": "blocked_robots",
+  "cohort_sha256": "26e37b254b5500af979b25527bc94eb93e74b12e113a6d83781cb98ca8dcdb82",
+  "baseline_sha256": "839ff7134575746f6817abb40cc56d22fa8cc871f307b9a089903d9539c03c2b",
+  "baseline_reference": "docs/reports/csat-source-origin-books-incremental-20261005.json",
+  "cohort": [
+    {
+      "representative_item_id": "2025#29",
+      "passage_sha256": "094242797efd12e550e0cb5705c10f12411980d465d04ed830d4f0609491b9be",
+      "body_sha256_by_item": {
+        "2025#29": "9007204d32289e096d65a447ed4f1dbe340911d167946123c3397c3ad0e35709"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2021#32",
+      "passage_sha256": "76e98829c660d9c88034b3f20110bc38497fd07ef9cbd4f3e5207021edc3037c",
+      "body_sha256_by_item": {
+        "2021#32": "340b86cc338b90d4592fa13fb232afb75d163d327383840dd33b355536915e2b"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2024#23",
+      "passage_sha256": "9255f01819f873ff65b6dc975d77e5c918105388f91f05b0945805dcd963e246",
+      "body_sha256_by_item": {
+        "2024#23": "32d5009baa37bf8067606ee59a5908795a8641984157e307e5f7ea445e83c312"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2020#30",
+      "passage_sha256": "7fc4c9bb033342e89af4c63b501ef33f705c4d9bef144df4729629303f714384",
+      "body_sha256_by_item": {
+        "2020#30": "d5f2db2cd7a6047afc454b552c9fe80ae915d8bd53100c22e1ac2cf688cc6fa5"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2021#37",
+      "passage_sha256": "103c4bde8fe074d06030ff8ef0d16d7f4edef9e0b858b7757402fca1a38d5b27",
+      "body_sha256_by_item": {
+        "2021#37": "9539f4e4ba964e6018f7de2aa8bddce4d79cb666f11b695329c5ff9067c1e745"
+      },
+      "status_at_public_closure": "confirmed_exact"
+    },
+    {
+      "representative_item_id": "2024#24",
+      "passage_sha256": "59d82df509cfd425d55764863aac62f31eaf7fa5a9e35ce33db2d996f91a2c13",
+      "body_sha256_by_item": {
+        "2024#24": "cdab92872c70905307c3a667afec8593e0bb14183f58c07beb9857c91f88f5b0"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014B#32",
+      "passage_sha256": "4f701efbd9b9bc8a52f6741d750a9fc6c05f4419956fdee1c317263350bbe54a",
+      "body_sha256_by_item": {
+        "2014B#32": "3cb83736db1cbfbb178df824e11e9dbe50c6d9a60dd0ec4ecb66bf3c2529852e"
+      },
+      "status_at_public_closure": "confirmed_exact"
+    },
+    {
+      "representative_item_id": "2018#33",
+      "passage_sha256": "28688a9cadbc0023778ec7d2b7c828dc3e28b442ecf047e0ac0770c9752b9a8d",
+      "body_sha256_by_item": {
+        "2018#33": "8d12ad2ae5f186e7b9c1c523d6dd950899bd6e05181ed02c1ac50709e99230b6"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2021#41",
+      "passage_sha256": "67d276c17539917fe1c85d31f14d459ddaf0844393d6e090e66e608c3cb1c899",
+      "body_sha256_by_item": {
+        "2021#41": "6cd7a7e323112aaae22df700a9ab62cef851d623028dc2ca6c05054974bd97bc",
+        "2021#42": "6cd7a7e323112aaae22df700a9ab62cef851d623028dc2ca6c05054974bd97bc"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014B#40",
+      "passage_sha256": "56638cefc35ca63aba40b512eb633aeb84f9cac6736bbe3c3b89a10db460608e",
+      "body_sha256_by_item": {
+        "2014B#40": "687d24f557f53ea2b158c4c88344f6cf33aa4012742488c7942612eeb4f7f344"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2016#31",
+      "passage_sha256": "dc54370ae91b11139e647d78514c93160d56960ea0569b86f06cf7f108a332e5",
+      "body_sha256_by_item": {
+        "2016#31": "e6f7c35a0bac9361690d8ad84b0cc7b27760017aa98d4834e680ea667596eead"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2016#36",
+      "passage_sha256": "22d2cdfdb90d311d4721602b0e65606b1e896bbec310e3317fb3d1ef374a348a",
+      "body_sha256_by_item": {
+        "2016#36": "6b5b607631ef266cf060e823f0e0b4c0af4091ec117d658fa362c2c86e10dc7f"
+      },
+      "status_at_public_closure": "confirmed_exact"
+    },
+    {
+      "representative_item_id": "2024#39",
+      "passage_sha256": "3086545d059757755d2e45567c727a9e92abf128137f2924c4240e98434329c6",
+      "body_sha256_by_item": {
+        "2024#39": "b6dee9936bad982798b9d132a47b8ee72da276f63f1db09fe0b2dc7edcbb3714"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2018#35",
+      "passage_sha256": "19adb721155ae4d8d6109bb52429cf6b34673b24f7e3b585ba0c6a2c44debf33",
+      "body_sha256_by_item": {
+        "2018#35": "5ec348e5f155ff01bcc96446076fdd796afe656f0e449d3c0f8c918ef1b6b3fa"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2020#40",
+      "passage_sha256": "a89e85eb24c9eb78dbab648edee5847ae4b55ae3789c9ed880bc7a671ce46ba1",
+      "body_sha256_by_item": {
+        "2020#40": "adeb9485e12b1d54446d8265f967790966f2a14a2dc340bbd78271a50c9edd23"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2023#24",
+      "passage_sha256": "7b048a0db22efcc587b0427b1a3291e19986dd247b050a3b202a3ce13a87a41f",
+      "body_sha256_by_item": {
+        "2023#24": "d4decef8f0e3365c48d69878d4639134ef28eb5468df2f0bbb208b6d97356a32"
+      },
+      "status_at_public_closure": "supported_candidate"
+    },
+    {
+      "representative_item_id": "2023#33",
+      "passage_sha256": "ab86555189fca7382322dc427223126b969804abefa39d740392d4b35ed8e287",
+      "body_sha256_by_item": {
+        "2023#33": "f0c22ca56ded366812103802c81f156174761820beffd42b7b729f36ab1a2c69"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2023#41",
+      "passage_sha256": "29ba0da08fb93d5ea383d6b9fc14a1a4a6d54769edb740e67025428ccbabb411",
+      "body_sha256_by_item": {
+        "2023#41": "24d8206112698b831b9e99c60cfd09c12f3db3caf47a9a1fb9c46a1965182e08",
+        "2023#42": "24d8206112698b831b9e99c60cfd09c12f3db3caf47a9a1fb9c46a1965182e08"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2025#22",
+      "passage_sha256": "62275f3aa64d43cf85a9e43903a1b73317e4ead3af432fc928bcaa16d8c7b6ba",
+      "body_sha256_by_item": {
+        "2025#22": "93dad6b995aa7f91db1de4970f9a27d4c146356224cbd87e3373cbedde0450fa"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2025#30",
+      "passage_sha256": "98c6bba9619f4f3d38191740323b6755871bdebbf16ea11db4f15b230278ad07",
+      "body_sha256_by_item": {
+        "2025#30": "3a61942b7a443029f470c16295efb859acd62145d80ec61d2068d365223cc3ab"
+      },
+      "status_at_public_closure": "confirmed_exact"
+    },
+    {
+      "representative_item_id": "2014A#35",
+      "passage_sha256": "cf2f90fde16c574d28fb5681299101f12856531a973a3e9641aa9c494a34daf6",
+      "body_sha256_by_item": {
+        "2014A#35": "10b90fa221eb850c5d7ab34c2024f4e5deb36b839459f429d4c6c6be340f4e4a",
+        "2014B#31": "10b90fa221eb850c5d7ab34c2024f4e5deb36b839459f429d4c6c6be340f4e4a"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014B#25",
+      "passage_sha256": "3b463eb9d059cf39c731287c663e4abc8d136fd0444dc52106b5caf9e544680e",
+      "body_sha256_by_item": {
+        "2014B#25": "4029b6df44a81bed41e5ca3b72849d9de2ca636a6afd24e5e9a2546924e5dc32"
+      },
+      "status_at_public_closure": "supported_candidate"
+    },
+    {
+      "representative_item_id": "2016#23",
+      "passage_sha256": "7b227864fe7e9f30e400c3e9dec8782d0308a711ed9b8485758f41443871bba0",
+      "body_sha256_by_item": {
+        "2016#23": "660e8be91a92332c1da319c1481c6a7e83ad15b368a70970a4d6dac7eb8579c6"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2019#29",
+      "passage_sha256": "edb7ecc3db22b69313910bf654d9ca3a2bc00ec643dc45a2540e5f628672c300",
+      "body_sha256_by_item": {
+        "2019#29": "a1896b854dfb4e593386f203bc1522aae8fff59132bbb110a5007451098ebe34"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2021#35",
+      "passage_sha256": "930f3805119f003540d008f5d8b16f50e9e46d27aa6c9cd0be0781ac75913529",
+      "body_sha256_by_item": {
+        "2021#35": "7a737545c849e4caccb92fc1adaadde0b903ff36d6491723596cf8da6461a866"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2024#30",
+      "passage_sha256": "d7b379cd5dac82514f5b6f50ae47fc90dc0449341f4a0d19306383355d310ab4",
+      "body_sha256_by_item": {
+        "2024#30": "d7134bc5fa4ac3e3317bc8bb8ef12a4b4139e1362a6f6acba44361e4d62c5562"
+      },
+      "status_at_public_closure": "supported_candidate"
+    },
+    {
+      "representative_item_id": "2024#37",
+      "passage_sha256": "f1c3a33a21d4a32bc642d731c565a4fb157d19e5fde3ddd2c9c942274df29627",
+      "body_sha256_by_item": {
+        "2024#37": "cffeef7e0b4e2dc38d6d82cb171c11615281193c0c773d7781665d1d01b7a70f"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2026#32",
+      "passage_sha256": "6560bb686256b10234d21bb9c9c550ae286e02a220a1448bab6816e434469884",
+      "body_sha256_by_item": {
+        "2026#32": "9d812cca3218dba760e385f93a9fef4b2f17ffe447bd421c743fb616d2506963"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014A#26",
+      "passage_sha256": "ac288994bc2e79223c462cb94d1fd903f85150c22d05f0862b56ec71dcfe079a",
+      "body_sha256_by_item": {
+        "2014A#26": "060f4fbe740d482a5d4dc4cfc8e25dc70855573accc36aa2a845a705ca1b4489"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2016#32",
+      "passage_sha256": "8f4cbb701c09cef05ba709190e45e76172499fb760158dff2d2375b097b89110",
+      "body_sha256_by_item": {
+        "2016#32": "b955ce662a1d66ba6929364b907647b0e93e62e245e7ebb6b28e1b1d4a3049f0"
+      },
+      "status_at_public_closure": "confirmed_exact"
+    },
+    {
+      "representative_item_id": "2018#40",
+      "passage_sha256": "357d69d71affe27f11bacfa63e209d7798a2ffe59a2b629dcb0750762bec0fc1",
+      "body_sha256_by_item": {
+        "2018#40": "b244def9bba41e25e7d9087fea47e53667a2a968d7ebb6c13a89f4f3b9c3b254"
+      },
+      "status_at_public_closure": "confirmed_exact"
+    },
+    {
+      "representative_item_id": "2019#20",
+      "passage_sha256": "85ce918ae9420c802c603890d4bffbd44b09d8206807ae90560979383bed7475",
+      "body_sha256_by_item": {
+        "2019#20": "32e41c7f394cc92eef08226c052bda5e486ce875e96cb4cdbdbe5130cf6db499"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2019#22",
+      "passage_sha256": "f756c1016adca308ca7a094afbff57033e8af25b9958941a78adb8253502528b",
+      "body_sha256_by_item": {
+        "2019#22": "e40c3cf6f9d2ac87af59c9bed0279b9999f92dee3cc368bce6c42303c826b75a"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2020#38",
+      "passage_sha256": "bb9a164fd53eedd9c28a50e541b573b0e7506200d163625431162cdc83ecdb0d",
+      "body_sha256_by_item": {
+        "2020#38": "11b3c92b8b72065595185aecb8b0868e158e776f905fa58d1a0535c195c75401"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014A#36",
+      "passage_sha256": "5b0721f07701286f7b59f46fd0b13ac397dc448edc72300796f019f499479f49",
+      "body_sha256_by_item": {
+        "2014A#36": "3c68be56465243372dd21fbbdab06d6efd4852958bd09f58fb7a2a177a326d10"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014A#38",
+      "passage_sha256": "40a87ec96079474ed296e5c082b4aa2632ee7e973843e7ad2af99b6dea8ae571",
+      "body_sha256_by_item": {
+        "2014A#38": "7a746c355560273bd2d2987c69a4d298be7959860a3ef9bc21a816e11aeb5ba3"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014A#41",
+      "passage_sha256": "c0374597c7ffee3f50e69f99de4fdd23a3a48382e9b587a52dd9da47a94253dc",
+      "body_sha256_by_item": {
+        "2014A#41": "e29d4b209df7370fee00de9228000298f643ef005c08261fec84f660f44a9c87",
+        "2014A#42": "81d922e511ec83c6f869b0c8a71d7558188695475736b2389ace406ad56b59b9"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014B#24",
+      "passage_sha256": "393260e9eeb1b4f9e404243c400a0eccc58b12beb4806558afb47dab3cf7bd6b",
+      "body_sha256_by_item": {
+        "2014B#24": "a6aa100e8c9abf61656b54cafd3a0bb692ccc7d8fd931875527f0f895fad3bf0"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014B#27",
+      "passage_sha256": "304a0cba20273c270e7acb668cbbbe3657b402b445a63532f129d0ecfc0b2941",
+      "body_sha256_by_item": {
+        "2014B#27": "e20c5f186609be5ed2a6a4998661554803f20ccf9893b41eddf70015ced8dc4c"
+      },
+      "status_at_public_closure": "supported_candidate"
+    },
+    {
+      "representative_item_id": "2015#36",
+      "passage_sha256": "bfeede0deba1d57968abf59948754e1ca5e91af749f049315a67a1be269decea",
+      "body_sha256_by_item": {
+        "2015#36": "7e7c6ab64bdba107f6bccf1cd387607b908a4da8fad53cac6e43120589e29a86"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2019#37",
+      "passage_sha256": "87cc46991cd73b834925e7eb2d5c6eca34e3dfe496eea36aca3a4d8b381d3cf7",
+      "body_sha256_by_item": {
+        "2019#37": "dbeff8dfbb91ac9e1082d67e11711a8477faf039274b44a33cec358d45b1e820"
+      },
+      "status_at_public_closure": "supported_candidate"
+    },
+    {
+      "representative_item_id": "2024#40",
+      "passage_sha256": "ac32ca2dbb494d73055dbbe9cb2e3929dcc40d2fde6d99554ac95cac9cc564b5",
+      "body_sha256_by_item": {
+        "2024#40": "dad2b837edac9ce91f9d90c6ff692d2ad1232f399981f6389c46027d8c5d292f"
+      },
+      "status_at_public_closure": "supported_candidate"
+    },
+    {
+      "representative_item_id": "2025#34",
+      "passage_sha256": "e752f02be97235cd317e1e0a91b701798ec141225853aaff1a7296eab9bceb06",
+      "body_sha256_by_item": {
+        "2025#34": "af7800ff606a59278a9bebfe5495abc635164801d7b7bd5044075aba335b3903"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2025#40",
+      "passage_sha256": "ec3a23dbd894f6b328164706efe76a3516960b164f35660a8b87cc0866f33006",
+      "body_sha256_by_item": {
+        "2025#40": "bf117c0516dde82ca8366686254eb432d0eb1f73c3af442dc1d538cd41ae46b4"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2025#41",
+      "passage_sha256": "580a55efc0f2e85ec30c4878afe0d86fb5f5afbeef8eedc425eca56574a1b2c5",
+      "body_sha256_by_item": {
+        "2025#41": "a262ba7c2eea4b32003ca802cb7d3b97434ff3ad5771af44eb30977feea7c867",
+        "2025#42": "a262ba7c2eea4b32003ca802cb7d3b97434ff3ad5771af44eb30977feea7c867"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2026#30",
+      "passage_sha256": "7605bcaba6bed848372a951751dfcb9db0ee31cfd8ff2faa6c5b0635ef781269",
+      "body_sha256_by_item": {
+        "2026#30": "304f6ef28c1ae9340bc8d5d82625e28fdf6aa2f02b32736797b3c420408006c2"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2014A#34",
+      "passage_sha256": "c9c105e035532694e50b259fa8f6475753a8cdad5b899ea83de140ff929a9f27",
+      "body_sha256_by_item": {
+        "2014A#34": "d618318f398d91537f2e5acc625583c5ddf090f1f36f82534e42f1c54870db1f"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2016#41",
+      "passage_sha256": "e955bccb795984736ba3c85c9c77d1d32b0f6b429e50faaa60cfa3dd65d252da",
+      "body_sha256_by_item": {
+        "2016#41": "1caef9ea402a8b6d6af558b3e384b8b9651036a56bf5a9ccc8010e01be606a66",
+        "2016#42": "960122afb9efba7788ae383f7f4e1df0e23a02b3d1514ff10eaf380216dde42f"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2017#21",
+      "passage_sha256": "98aeaf6ca39b7ca3de5912c5596c6cef6fb260d5a5c73b15847e88649019a25e",
+      "body_sha256_by_item": {
+        "2017#21": "33b2e3c4832aed05335b1c9fe068d17e4b5d98928ca2b83b7c83269c1affc187"
+      },
+      "status_at_public_closure": "unresolved"
+    },
+    {
+      "representative_item_id": "2017#33",
+      "passage_sha256": "277b8ebe0ef15f86836cef54a5e167dde47cccf8b8d7d5ff0333f6436fd96761",
+      "body_sha256_by_item": {
+        "2017#33": "13279dc448dd70beb1aeb054fdeb06f8247b5c3604f900572777ced01ce3cc59"
+      },
+      "status_at_public_closure": "unresolved"
+    }
+  ],
+  "availability": {
+    "queries_planned": 161,
+    "queries_attempted": 0,
+    "queries_completed": 0,
+    "search_http_requests": 0,
+    "preflight_robots_request_http_status": 200
+  },
+  "phase": {
+    "smoke": "blocked_preflight",
+    "canary": "not_started",
+    "batch20": "not_started",
+    "remaining": "not_started"
+  },
+  "measured": {
+    "candidate_passages": null,
+    "incremental_A": null,
+    "incremental_B": null,
+    "reviewed_candidates": null,
+    "incremental_AB_precision": null
+  },
+  "preflight": {
+    "cua_browser_available": false,
+    "chrome_installed": true,
+    "edge_installed": true,
+    "playwright_installed": true,
+    "robots_url": "https://books.google.com/robots.txt",
+    "robots_sha256": "1aba570a1b32deb66941e0c29d4f37be71ee58aa1a624aa20754b3639538cf2c",
+    "matched_rules": [
+      "Disallow: /search",
+      "Disallow: /books?*dq=",
+      "Disallow: /books?*q=",
+      "Disallow: /books?*jscmd="
+    ]
+  },
+  "preserved_lanes": {
+    "books_api": {
+      "status": "blocked_credentials",
+      "completed": 0,
+      "planned": 161
+    },
+    "semantic": {
+      "status": "pending_license",
+      "completed": 0,
+      "planned": 161
+    }
+  },
+  "query_states": [
+    "completed",
+    "zero_result",
+    "candidate_found",
+    "blocked_captcha",
+    "blocked_rate_limit",
+    "blocked_login",
+    "ui_changed"
+  ],
+  "candidate_access_states": [
+    "preview_unavailable",
+    "search_inside_unavailable"
+  ],
+  "candidate_record_fields": [
+    "book_title",
+    "author",
+    "publisher",
+    "publication_year",
+    "isbn",
+    "google_books_url",
+    "view_mode",
+    "search_inside_available",
+    "snippet_match",
+    "candidate_rank",
+    "verification_depth",
+    "incremental_vs_public_baseline",
+    "verdict",
+    "checked_scope",
+    "evidence_sha256",
+    "page_or_screen_location"
+  ],
+  "policy": "No automatic navigation to disallowed search/inside routes. Human manual searches may use the same manifest; preparing URLs never counts as completed searches. Candidate access errors do not erase discovery or imply zero results. Depth alone never assigns A/B. Existing public12 are controls. This is a frozen request ledger, not an implemented browser executor.",
+  "requests": [
+    {
+      "representative_item_id": "2025#29",
+      "passage_sha256": "094242797efd12e550e0cb5705c10f12411980d465d04ed830d4f0609491b9be",
+      "strategy": "rare_exact_6_10",
+      "query": "\"slow as patients recovering from a brain injury\"",
+      "query_hash": "0701e07970a97394481a6e940f422bff56d665cdffee8fe4d93848a62697f2b3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22slow+as+patients+recovering+from+a+brain+injury%22"
+    },
+    {
+      "representative_item_id": "2025#29",
+      "passage_sha256": "094242797efd12e550e0cb5705c10f12411980d465d04ed830d4f0609491b9be",
+      "strategy": "two_anchors_and",
+      "query": "\"slow as patients recovering\" \"abilities like talking reading\"",
+      "query_hash": "32b0240f63ac52d4fae6eff4365a59b760ea69efc7f5f7593726e271147c1785",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22slow+as+patients+recovering%22+%22abilities+like+talking+reading%22"
+    },
+    {
+      "representative_item_id": "2025#29",
+      "passage_sha256": "094242797efd12e550e0cb5705c10f12411980d465d04ed830d4f0609491b9be",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"slow as patients recovering\"",
+      "query_hash": "80cb09086805266c582800eed90325d5b143641962a34cb4e358704c710c08c5",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22slow+as+patients+recovering%22"
+    },
+    {
+      "representative_item_id": "2021#32",
+      "passage_sha256": "76e98829c660d9c88034b3f20110bc38497fd07ef9cbd4f3e5207021edc3037c",
+      "strategy": "rare_exact_6_10",
+      "query": "\"A rational strategy would therefore sometimes be to\"",
+      "query_hash": "ca7566e311f3192390c723f1d03217d0b140087b7bddd9b25c1ded6982bb7fbd",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22A+rational+strategy+would+therefore+sometimes+be+to%22"
+    },
+    {
+      "representative_item_id": "2021#32",
+      "passage_sha256": "76e98829c660d9c88034b3f20110bc38497fd07ef9cbd4f3e5207021edc3037c",
+      "strategy": "two_anchors_and",
+      "query": "\"rational strategy would therefore\" \"associate with similar individuals\"",
+      "query_hash": "cf77c8fd59cd9bfecbca131a48c136ea1288c8602ff4756c7d82e2b07a377d68",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22rational+strategy+would+therefore%22+%22associate+with+similar+individuals%22"
+    },
+    {
+      "representative_item_id": "2021#32",
+      "passage_sha256": "76e98829c660d9c88034b3f20110bc38497fd07ef9cbd4f3e5207021edc3037c",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"rational strategy would therefore\"",
+      "query_hash": "6597fb6061fa6b01e06b7b620388f65cea2cb9a709ec5929f4608c5ba3e03301",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22rational+strategy+would+therefore%22"
+    },
+    {
+      "representative_item_id": "2024#23",
+      "passage_sha256": "9255f01819f873ff65b6dc975d77e5c918105388f91f05b0945805dcd963e246",
+      "strategy": "rare_exact_6_10",
+      "query": "\"ecosystem services provided by tropical forests including climate\"",
+      "query_hash": "633e2fdc1b342bd5c98895839dc5897827d5daefb4080965fd2d881235096444",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22ecosystem+services+provided+by+tropical+forests+including+climate%22"
+    },
+    {
+      "representative_item_id": "2024#23",
+      "passage_sha256": "9255f01819f873ff65b6dc975d77e5c918105388f91f05b0945805dcd963e246",
+      "strategy": "two_anchors_and",
+      "query": "\"climate regulation water purification\" \"carbon capture wildlife habitat\"",
+      "query_hash": "02bde19be01a5884016163110318fcb5938000bd1f0cb8a9a80b9aa376f446d1",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22climate+regulation+water+purification%22+%22carbon+capture+wildlife+habitat%22"
+    },
+    {
+      "representative_item_id": "2024#23",
+      "passage_sha256": "9255f01819f873ff65b6dc975d77e5c918105388f91f05b0945805dcd963e246",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"climate regulation water purification\"",
+      "query_hash": "32184466025c21aaf3cbca86a0d40ea0e4933005f045be7dd75239419c35839b",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22climate+regulation+water+purification%22"
+    },
+    {
+      "representative_item_id": "2024#23",
+      "passage_sha256": "9255f01819f873ff65b6dc975d77e5c918105388f91f05b0945805dcd963e246",
+      "strategy": "name_and_anchor",
+      "query": "\"United Nations\" \"climate regulation water purification\"",
+      "query_hash": "6d9c5b17f751ee4d37f5c5b4b4567f717f26033707849dd51de6b732d4abdeac",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22United+Nations%22+%22climate+regulation+water+purification%22"
+    },
+    {
+      "representative_item_id": "2020#30",
+      "passage_sha256": "7fc4c9bb033342e89af4c63b501ef33f705c4d9bef144df4729629303f714384",
+      "strategy": "rare_exact_6_10",
+      "query": "\"false choice misleads when we're insufficiently attentive to\"",
+      "query_hash": "72c5f659143cc4761a3237895266826c985407ebaa8efa63c85cbeefc2baf00e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22false+choice+misleads+when+we%27re+insufficiently+attentive+to%22"
+    },
+    {
+      "representative_item_id": "2020#30",
+      "passage_sha256": "7fc4c9bb033342e89af4c63b501ef33f705c4d9bef144df4729629303f714384",
+      "strategy": "two_anchors_and",
+      "query": "\"misleads when we're insufficiently\" \"Paula's fear really does\"",
+      "query_hash": "0a49ef77919c02bcb54084e7ad9b7f6643cc02c7dfc780168d4cec9e38679232",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22misleads+when+we%27re+insufficiently%22+%22Paula%27s+fear+really+does%22"
+    },
+    {
+      "representative_item_id": "2020#30",
+      "passage_sha256": "7fc4c9bb033342e89af4c63b501ef33f705c4d9bef144df4729629303f714384",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"misleads when we're insufficiently\"",
+      "query_hash": "a842a83aef489cba8b6081214967345c881fcb2570c4abbe0f018a62eb395a68",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22misleads+when+we%27re+insufficiently%22"
+    },
+    {
+      "representative_item_id": "2021#37",
+      "passage_sha256": "103c4bde8fe074d06030ff8ef0d16d7f4edef9e0b858b7757402fca1a38d5b27",
+      "strategy": "rare_exact_6_10",
+      "query": "\"energy dependence climate change health national competitiveness and\"",
+      "query_hash": "29f97b07a96f015b9ac938be502d6f8ab3fdbdc403bd547872fcf0d778d0f08f",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22energy+dependence+climate+change+health+national+competitiveness+and%22"
+    },
+    {
+      "representative_item_id": "2021#37",
+      "passage_sha256": "103c4bde8fe074d06030ff8ef0d16d7f4edef9e0b858b7757402fca1a38d5b27",
+      "strategy": "two_anchors_and",
+      "query": "\"competitiveness and reducing fuel\" \"effects on macroeconomic issues\"",
+      "query_hash": "3daef1341f31ddb9be9e914c9d7f9f52805eb3a58264f59c069886e23135cd0d",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22competitiveness+and+reducing+fuel%22+%22effects+on+macroeconomic+issues%22"
+    },
+    {
+      "representative_item_id": "2021#37",
+      "passage_sha256": "103c4bde8fe074d06030ff8ef0d16d7f4edef9e0b858b7757402fca1a38d5b27",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"competitiveness and reducing fuel\"",
+      "query_hash": "d16affe4f94c2bd4f523651db1572d291e1d04b73156614acf4c97b0039ca692",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22competitiveness+and+reducing+fuel%22"
+    },
+    {
+      "representative_item_id": "2024#24",
+      "passage_sha256": "59d82df509cfd425d55764863aac62f31eaf7fa5a9e35ce33db2d996f91a2c13",
+      "strategy": "rare_exact_6_10",
+      "query": "\"framed as bounded social actors either playing the\"",
+      "query_hash": "5042d2f924f38fea9bfdc61bfaca346723794153acb13f75d19b4b65ab37549f",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22framed+as+bounded+social+actors+either+playing+the%22"
+    },
+    {
+      "representative_item_id": "2024#24",
+      "passage_sha256": "59d82df509cfd425d55764863aac62f31eaf7fa5a9e35ce33db2d996f91a2c13",
+      "strategy": "two_anchors_and",
+      "query": "\"bounded social actors either\" \"being promoted as destinations\"",
+      "query_hash": "948d33023a912da3f9e35aaa365f842b4b583552ce4429d317ee242138b32734",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22bounded+social+actors+either%22+%22being+promoted+as+destinations%22"
+    },
+    {
+      "representative_item_id": "2024#24",
+      "passage_sha256": "59d82df509cfd425d55764863aac62f31eaf7fa5a9e35ce33db2d996f91a2c13",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"bounded social actors either\"",
+      "query_hash": "cd525ef891dbfed2aa6f58880f2ffc69b0b01dfe371e952a421c0662934b19dc",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22bounded+social+actors+either%22"
+    },
+    {
+      "representative_item_id": "2024#24",
+      "passage_sha256": "59d82df509cfd425d55764863aac62f31eaf7fa5a9e35ce33db2d996f91a2c13",
+      "strategy": "name_and_anchor",
+      "query": "\"Eiffel Tower\" \"bounded social actors either\"",
+      "query_hash": "9c3071dde6901f11b155ad3fe330a414d961171a2893ec0c50b426dec50d9d07",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Eiffel+Tower%22+%22bounded+social+actors+either%22"
+    },
+    {
+      "representative_item_id": "2014B#32",
+      "passage_sha256": "4f701efbd9b9bc8a52f6741d750a9fc6c05f4419956fdee1c317263350bbe54a",
+      "strategy": "rare_exact_6_10",
+      "query": "\"Australia was colonized 45 000 years ago by\"",
+      "query_hash": "6cfa71f087378e2b1b119c00331553db0e3d8285e7a16dcdc21227cb62ad963c",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Australia+was+colonized+45+000+years+ago+by%22"
+    },
+    {
+      "representative_item_id": "2014B#32",
+      "passage_sha256": "4f701efbd9b9bc8a52f6741d750a9fc6c05f4419956fdee1c317263350bbe54a",
+      "strategy": "two_anchors_and",
+      "query": "\"colonized 45 000 years\" \"explain why Australian aboriginal\"",
+      "query_hash": "adb4772739aec92c4712e21050d21d19553070f0cd55d7848109ae91fd980b4d",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22colonized+45+000+years%22+%22explain+why+Australian+aboriginal%22"
+    },
+    {
+      "representative_item_id": "2014B#32",
+      "passage_sha256": "4f701efbd9b9bc8a52f6741d750a9fc6c05f4419956fdee1c317263350bbe54a",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"colonized 45 000 years\"",
+      "query_hash": "1c58cd0f669a30e8148038a2f25d86df3de4d8b051ee4e570e7e8945275d54ae",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22colonized+45+000+years%22"
+    },
+    {
+      "representative_item_id": "2014B#32",
+      "passage_sha256": "4f701efbd9b9bc8a52f6741d750a9fc6c05f4419956fdee1c317263350bbe54a",
+      "strategy": "name_and_anchor",
+      "query": "\"Red Sea\" \"colonized 45 000 years\"",
+      "query_hash": "9833e75c56c22c1c1efcc63bbf4799e67cb589902cc7e6606b4ecfb60948eb9a",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Red+Sea%22+%22colonized+45+000+years%22"
+    },
+    {
+      "representative_item_id": "2018#33",
+      "passage_sha256": "28688a9cadbc0023778ec7d2b7c828dc3e28b442ecf047e0ac0770c9752b9a8d",
+      "strategy": "rare_exact_6_10",
+      "query": "\"commercial agriculturalists are technologically advanced while the vast\"",
+      "query_hash": "9a1aaf228837115d5c4aaef13f5f42b193932806449a24769e8ef8947a39f524",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22commercial+agriculturalists+are+technologically+advanced+while+the+vast%22"
+    },
+    {
+      "representative_item_id": "2018#33",
+      "passage_sha256": "28688a9cadbc0023778ec7d2b7c828dc3e28b442ecf047e0ac0770c9752b9a8d",
+      "strategy": "two_anchors_and",
+      "query": "\"agriculturalists are technologically advanced\" \"Kenya farmers are actively\"",
+      "query_hash": "c15eed4e5d59ab3f65b813813c8c5caaf6092f194aece1bfc7ecd57b3117deb6",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22agriculturalists+are+technologically+advanced%22+%22Kenya+farmers+are+actively%22"
+    },
+    {
+      "representative_item_id": "2018#33",
+      "passage_sha256": "28688a9cadbc0023778ec7d2b7c828dc3e28b442ecf047e0ac0770c9752b9a8d",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"agriculturalists are technologically advanced\"",
+      "query_hash": "560ec7545bdacf1ae96e0f6ca96adefc52b9ce4e1bae37773783a9edf07ef2b3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22agriculturalists+are+technologically+advanced%22"
+    },
+    {
+      "representative_item_id": "2021#41",
+      "passage_sha256": "67d276c17539917fe1c85d31f14d459ddaf0844393d6e090e66e608c3cb1c899",
+      "strategy": "rare_exact_6_10",
+      "query": "\"Herbert Simon's parable of the ant makes this\"",
+      "query_hash": "67751221853e92c8ece621044831ffd420aa89022a4ab9d9af52255da27a5917",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Herbert+Simon%27s+parable+of+the+ant+makes+this%22"
+    },
+    {
+      "representative_item_id": "2021#41",
+      "passage_sha256": "67d276c17539917fe1c85d31f14d459ddaf0844393d6e090e66e608c3cb1c899",
+      "strategy": "two_anchors_and",
+      "query": "\"Herbert Simon's parable of\" \"attributing complex human motives\"",
+      "query_hash": "8f043cfe18b5f6369f20f2042695419b8cb8d612a7c9e8d93ef1c96c7effa9fe",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Herbert+Simon%27s+parable+of%22+%22attributing+complex+human+motives%22"
+    },
+    {
+      "representative_item_id": "2021#41",
+      "passage_sha256": "67d276c17539917fe1c85d31f14d459ddaf0844393d6e090e66e608c3cb1c899",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"Herbert Simon's parable of\"",
+      "query_hash": "4cfd7b4cc616d5ab5379989f9388cd35ab6444898cce29f4d5f280fa7ac28814",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Herbert+Simon%27s+parable+of%22"
+    },
+    {
+      "representative_item_id": "2014B#40",
+      "passage_sha256": "56638cefc35ca63aba40b512eb633aeb84f9cac6736bbe3c3b89a10db460608e",
+      "strategy": "rare_exact_6_10",
+      "query": "\"Low-balling describes the technique where two individuals arrive\"",
+      "query_hash": "3c143540771accf00344435ba93d0ddb979c501bcab55b82d311523f349b1806",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Low-balling+describes+the+technique+where+two+individuals+arrive%22"
+    },
+    {
+      "representative_item_id": "2014B#40",
+      "passage_sha256": "56638cefc35ca63aba40b512eb633aeb84f9cac6736bbe3c3b89a10db460608e",
+      "strategy": "two_anchors_and",
+      "query": "\"Low-balling describes the technique\" \"an irresponsible consumer unaware\"",
+      "query_hash": "fc2d101cc9d077f90a558196e8a3c1344129ea6a52020f2d012a73d5dde6ffbf",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Low-balling+describes+the+technique%22+%22an+irresponsible+consumer+unaware%22"
+    },
+    {
+      "representative_item_id": "2014B#40",
+      "passage_sha256": "56638cefc35ca63aba40b512eb633aeb84f9cac6736bbe3c3b89a10db460608e",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"Low-balling describes the technique\"",
+      "query_hash": "53755e953275f4c461cc7bfe35ce14881bc3400da090c484c94f82f4c5487190",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Low-balling+describes+the+technique%22"
+    },
+    {
+      "representative_item_id": "2016#31",
+      "passage_sha256": "dc54370ae91b11139e647d78514c93160d56960ea0569b86f06cf7f108a332e5",
+      "strategy": "rare_exact_6_10",
+      "query": "\"men's hair dyes designed to get out the\"",
+      "query_hash": "3bdd120d7b73ec00fc96c6196bfccf3c9f91b2876dda4db78e59c1392d32c152",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22men%27s+hair+dyes+designed+to+get+out+the%22"
+    },
+    {
+      "representative_item_id": "2016#31",
+      "passage_sha256": "dc54370ae91b11139e647d78514c93160d56960ea0569b86f06cf7f108a332e5",
+      "strategy": "two_anchors_and",
+      "query": "\"men's hair dyes designed\" \"elevated with advancing years\"",
+      "query_hash": "05f19c19b02ac693068451ee84bd31471d708360ab95d9335723b570a899f3ed",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22men%27s+hair+dyes+designed%22+%22elevated+with+advancing+years%22"
+    },
+    {
+      "representative_item_id": "2016#31",
+      "passage_sha256": "dc54370ae91b11139e647d78514c93160d56960ea0569b86f06cf7f108a332e5",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"men's hair dyes designed\"",
+      "query_hash": "70d71dcf984552f626317ac1dd77d395401d93f73fe57cf8c8162b06c9a53c4f",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22men%27s+hair+dyes+designed%22"
+    },
+    {
+      "representative_item_id": "2016#31",
+      "passage_sha256": "dc54370ae91b11139e647d78514c93160d56960ea0569b86f06cf7f108a332e5",
+      "strategy": "name_and_anchor",
+      "query": "\"United States\" \"men's hair dyes designed\"",
+      "query_hash": "4d2cb26d1a2bf8173648bbb22b6de416642800a6eacf09f6420b9c00f3ecdf62",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22United+States%22+%22men%27s+hair+dyes+designed%22"
+    },
+    {
+      "representative_item_id": "2016#36",
+      "passage_sha256": "22d2cdfdb90d311d4721602b0e65606b1e896bbec310e3317fb3d1ef374a348a",
+      "strategy": "rare_exact_6_10",
+      "query": "\"repeatedly criticized for poor performance on math may\"",
+      "query_hash": "afd998ff8563937b7bde2174e72bc8e6546cbdd66f77de32e83f77c31cc65e87",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22repeatedly+criticized+for+poor+performance+on+math+may%22"
+    },
+    {
+      "representative_item_id": "2016#36",
+      "passage_sha256": "22d2cdfdb90d311d4721602b0e65606b1e896bbec310e3317fb3d1ef374a348a",
+      "strategy": "two_anchors_and",
+      "query": "\"repeatedly criticized for poor\" \"punishment has been administered\"",
+      "query_hash": "2121dd4f16484fab90b66cebc00063f15a8595f04853c63003df865c5c05a34d",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22repeatedly+criticized+for+poor%22+%22punishment+has+been+administered%22"
+    },
+    {
+      "representative_item_id": "2016#36",
+      "passage_sha256": "22d2cdfdb90d311d4721602b0e65606b1e896bbec310e3317fb3d1ef374a348a",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"repeatedly criticized for poor\"",
+      "query_hash": "684d07178e263dae4b21044ddc3e868f8636dc8a741691c488823b08a79b5426",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22repeatedly+criticized+for+poor%22"
+    },
+    {
+      "representative_item_id": "2024#39",
+      "passage_sha256": "3086545d059757755d2e45567c727a9e92abf128137f2924c4240e98434329c6",
+      "strategy": "rare_exact_6_10",
+      "query": "\"accidental failure to reproduce the text of the\"",
+      "query_hash": "b46ab21c9ecc7e0a285105013f6de34b8b173e75f9d3ab78fea42f6f1cdbdceb",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22accidental+failure+to+reproduce+the+text+of+the%22"
+    },
+    {
+      "representative_item_id": "2024#39",
+      "passage_sha256": "3086545d059757755d2e45567c727a9e92abf128137f2924c4240e98434329c6",
+      "strategy": "two_anchors_and",
+      "query": "\"accidental failure to reproduce\" \"mutation may occur that\"",
+      "query_hash": "14ef35153a75113cdddd698785618359c9c98eee0f25d5089ebf6d6e45a3abd7",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22accidental+failure+to+reproduce%22+%22mutation+may+occur+that%22"
+    },
+    {
+      "representative_item_id": "2024#39",
+      "passage_sha256": "3086545d059757755d2e45567c727a9e92abf128137f2924c4240e98434329c6",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"accidental failure to reproduce\"",
+      "query_hash": "9d92e642224d1e526569e85197f0b02b5214ef3ad88ae457407bb5f624185b14",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22accidental+failure+to+reproduce%22"
+    },
+    {
+      "representative_item_id": "2018#35",
+      "passage_sha256": "19adb721155ae4d8d6109bb52429cf6b34673b24f7e3b585ba0c6a2c44debf33",
+      "strategy": "rare_exact_6_10",
+      "query": "\"Children's SNS activities should be encouraged when we\"",
+      "query_hash": "3e233d0b06d0d9c810e76e0a88acae4a036223c7d0cadf9112203e527d5cefe3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Children%27s+SNS+activities+should+be+encouraged+when+we%22"
+    },
+    {
+      "representative_item_id": "2018#35",
+      "passage_sha256": "19adb721155ae4d8d6109bb52429cf6b34673b24f7e3b585ba0c6a2c44debf33",
+      "strategy": "two_anchors_and",
+      "query": "\"Children's SNS activities should\" \"or reinforce human rights\"",
+      "query_hash": "19a28dcc4c068cbdcd94739d0299c27e63dc29668924193ae0ebd19558b88dd1",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Children%27s+SNS+activities+should%22+%22or+reinforce+human+rights%22"
+    },
+    {
+      "representative_item_id": "2018#35",
+      "passage_sha256": "19adb721155ae4d8d6109bb52429cf6b34673b24f7e3b585ba0c6a2c44debf33",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"Children's SNS activities should\"",
+      "query_hash": "9495a2c84d6b3f3eaa5a9e681453a2bba26082128d5a176da1b2b55e266b7c5c",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Children%27s+SNS+activities+should%22"
+    },
+    {
+      "representative_item_id": "2020#40",
+      "passage_sha256": "a89e85eb24c9eb78dbab648edee5847ae4b55ae3789c9ed880bc7a671ce46ba1",
+      "strategy": "rare_exact_6_10",
+      "query": "\"simply by reaching their trunks into each other's\"",
+      "query_hash": "de7af729642cf3a729649a6a6c63e4a16a8cc9f6e40c6c81308e46ebd334154f",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22simply+by+reaching+their+trunks+into+each+other%27s%22"
+    },
+    {
+      "representative_item_id": "2020#40",
+      "passage_sha256": "a89e85eb24c9eb78dbab648edee5847ae4b55ae3789c9ed880bc7a671ce46ba1",
+      "strategy": "two_anchors_and",
+      "query": "\"other's mouths possibly equivalent\" \"with incredibly theatrical displays\"",
+      "query_hash": "951363b2c7515c4c6a259b9a1ad59db9aaeb319ccd090cbc611f5a846c12fa37",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22other%27s+mouths+possibly+equivalent%22+%22with+incredibly+theatrical+displays%22"
+    },
+    {
+      "representative_item_id": "2020#40",
+      "passage_sha256": "a89e85eb24c9eb78dbab648edee5847ae4b55ae3789c9ed880bc7a671ce46ba1",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"other's mouths possibly equivalent\"",
+      "query_hash": "6e7f36d991dc2f72e5f731cb778bd815f117fb19c39dd03d2f2c3eaf836cd16c",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22other%27s+mouths+possibly+equivalent%22"
+    },
+    {
+      "representative_item_id": "2023#24",
+      "passage_sha256": "7b048a0db22efcc587b0427b1a3291e19986dd247b050a3b202a3ce13a87a41f",
+      "strategy": "rare_exact_6_10",
+      "query": "\"shape another sees color another detects location and\"",
+      "query_hash": "dae1c5b52cd3ba52b9a8460532b750be331a823e502d4561cfb559be8a6b137f",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22shape+another+sees+color+another+detects+location+and%22"
+    },
+    {
+      "representative_item_id": "2023#24",
+      "passage_sha256": "7b048a0db22efcc587b0427b1a3291e19986dd247b050a3b202a3ce13a87a41f",
+      "strategy": "two_anchors_and",
+      "query": "\"sees color another detects\" \"recognize people's faces need\"",
+      "query_hash": "b21de996c8698ac08439a942dd4847262d50c81b042cf257a1e94967a02cad8f",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22sees+color+another+detects%22+%22recognize+people%27s+faces+need%22"
+    },
+    {
+      "representative_item_id": "2023#24",
+      "passage_sha256": "7b048a0db22efcc587b0427b1a3291e19986dd247b050a3b202a3ce13a87a41f",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"sees color another detects\"",
+      "query_hash": "ffbada58e91b3d76ab02330e65e61c4f506c0a0e55424151a9f6d2fbe7f6ff59",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22sees+color+another+detects%22"
+    },
+    {
+      "representative_item_id": "2023#33",
+      "passage_sha256": "ab86555189fca7382322dc427223126b969804abefa39d740392d4b35ed8e287",
+      "strategy": "rare_exact_6_10",
+      "query": "\"hive honeybees that have collected water search out\"",
+      "query_hash": "7c7f7c062f14864c4cc89eadaff17c96c98afd5a68765043420276f42a0619f4",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22hive+honeybees+that+have+collected+water+search+out%22"
+    },
+    {
+      "representative_item_id": "2023#33",
+      "passage_sha256": "ab86555189fca7382322dc427223126b969804abefa39d740392d4b35ed8e287",
+      "strategy": "two_anchors_and",
+      "query": "\"collected water search out\" \"brood this unloading time\"",
+      "query_hash": "af0fc021651cd1183dd37512fb266288aca2c5c0e801c178fb2bed5692704b70",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22collected+water+search+out%22+%22brood+this+unloading+time%22"
+    },
+    {
+      "representative_item_id": "2023#33",
+      "passage_sha256": "ab86555189fca7382322dc427223126b969804abefa39d740392d4b35ed8e287",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"collected water search out\"",
+      "query_hash": "157c58b83051d7571c43d6bc3d5400b59bf498eb761c3465e83bf1c754c75f53",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22collected+water+search+out%22"
+    },
+    {
+      "representative_item_id": "2023#41",
+      "passage_sha256": "29ba0da08fb93d5ea383d6b9fc14a1a4a6d54769edb740e67025428ccbabb411",
+      "strategy": "rare_exact_6_10",
+      "query": "\"range of medical contexts from preventing live infections\"",
+      "query_hash": "ca659c932ad929e553c2d37ac324d587cc5c06d6f616fa90fc6e5d9d40a196db",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22range+of+medical+contexts+from+preventing+live+infections%22"
+    },
+    {
+      "representative_item_id": "2023#41",
+      "passage_sha256": "29ba0da08fb93d5ea383d6b9fc14a1a4a6d54769edb740e67025428ccbabb411",
+      "strategy": "two_anchors_and",
+      "query": "\"infections to reducing pneumonia\" \"can outperform expert judgement\"",
+      "query_hash": "1bd9f28b13708fed3905b13fefd702b6d6896e97a34c21b620d33250fe089bbc",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22infections+to+reducing+pneumonia%22+%22can+outperform+expert+judgement%22"
+    },
+    {
+      "representative_item_id": "2023#41",
+      "passage_sha256": "29ba0da08fb93d5ea383d6b9fc14a1a4a6d54769edb740e67025428ccbabb411",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"infections to reducing pneumonia\"",
+      "query_hash": "2c4ec4a81228a6171b2faa35bd469b5e36606c4ce2bb95ea3a9d519ffcac94f9",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22infections+to+reducing+pneumonia%22"
+    },
+    {
+      "representative_item_id": "2025#22",
+      "passage_sha256": "62275f3aa64d43cf85a9e43903a1b73317e4ead3af432fc928bcaa16d8c7b6ba",
+      "strategy": "rare_exact_6_10",
+      "query": "\"open communication and promotes constructive conflict resolution and\"",
+      "query_hash": "4f8a9fa9ac9ec8624af7bec24c0bece8fda509f8996a347b8165034e4731294c",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22open+communication+and+promotes+constructive+conflict+resolution+and%22"
+    },
+    {
+      "representative_item_id": "2025#22",
+      "passage_sha256": "62275f3aa64d43cf85a9e43903a1b73317e4ead3af432fc928bcaa16d8c7b6ba",
+      "strategy": "two_anchors_and",
+      "query": "\"promotes constructive conflict resolution\" \"feelings and moods accurately\"",
+      "query_hash": "25dbbb8b9232b55cce3ecc6f4e5846ab2559ce680be20b0f7285370e34a2dcb0",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22promotes+constructive+conflict+resolution%22+%22feelings+and+moods+accurately%22"
+    },
+    {
+      "representative_item_id": "2025#22",
+      "passage_sha256": "62275f3aa64d43cf85a9e43903a1b73317e4ead3af432fc928bcaa16d8c7b6ba",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"promotes constructive conflict resolution\"",
+      "query_hash": "c66f66a3d6d1ed1ab40aab0d2ee606e62026ef449bb3984082a5b15790566929",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22promotes+constructive+conflict+resolution%22"
+    },
+    {
+      "representative_item_id": "2025#30",
+      "passage_sha256": "98c6bba9619f4f3d38191740323b6755871bdebbf16ea11db4f15b230278ad07",
+      "strategy": "rare_exact_6_10",
+      "query": "\"making envious comparisons with them people feel uneasiness\"",
+      "query_hash": "94b9fcb1246583502a9218141a1c361d5b1e76816c808686bb59119ee4d59bbd",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22making+envious+comparisons+with+them+people+feel+uneasiness%22"
+    },
+    {
+      "representative_item_id": "2025#30",
+      "passage_sha256": "98c6bba9619f4f3d38191740323b6755871bdebbf16ea11db4f15b230278ad07",
+      "strategy": "two_anchors_and",
+      "query": "\"uneasiness distress or sorrow\" \"which competitive incentives resulted\"",
+      "query_hash": "321fb60a60abb68874ed258c3453ac75b3c39933544ad2f85544cc5cb30649ca",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22uneasiness+distress+or+sorrow%22+%22which+competitive+incentives+resulted%22"
+    },
+    {
+      "representative_item_id": "2025#30",
+      "passage_sha256": "98c6bba9619f4f3d38191740323b6755871bdebbf16ea11db4f15b230278ad07",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"uneasiness distress or sorrow\"",
+      "query_hash": "8ec4fec2696dc29bb7a8ca8ec3c6a66c1ed3fde69d5b4d196041d688663790d0",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22uneasiness+distress+or+sorrow%22"
+    },
+    {
+      "representative_item_id": "2014A#35",
+      "passage_sha256": "cf2f90fde16c574d28fb5681299101f12856531a973a3e9641aa9c494a34daf6",
+      "strategy": "rare_exact_6_10",
+      "query": "\"situation customers request new features but reject the\"",
+      "query_hash": "a7db630a8ffb0a4c2c282f6247920160b93db7b2b0fc100192cfa85633e16d29",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22situation+customers+request+new+features+but+reject+the%22"
+    },
+    {
+      "representative_item_id": "2014A#35",
+      "passage_sha256": "cf2f90fde16c574d28fb5681299101f12856531a973a3e9641aa9c494a34daf6",
+      "strategy": "two_anchors_and",
+      "query": "\"customers request new features\" \"request a lightweight circular\"",
+      "query_hash": "a11384724fea7d58c341a3fae34a7fae82fe90cb6fe2b326de450568656e8606",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22customers+request+new+features%22+%22request+a+lightweight+circular%22"
+    },
+    {
+      "representative_item_id": "2014A#35",
+      "passage_sha256": "cf2f90fde16c574d28fb5681299101f12856531a973a3e9641aa9c494a34daf6",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"customers request new features\"",
+      "query_hash": "61ef98d905f4d599e5121c14abefd6bc2249ec36751ad3eb6412bf0573e448d2",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22customers+request+new+features%22"
+    },
+    {
+      "representative_item_id": "2014B#25",
+      "passage_sha256": "3b463eb9d059cf39c731287c663e4abc8d136fd0444dc52106b5caf9e544680e",
+      "strategy": "rare_exact_6_10",
+      "query": "\"purists insist on hearing baroque music on period\"",
+      "query_hash": "73d0ccc44e868eecc824de828b89978730efa895e7960b93c8a056d8e49930da",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22purists+insist+on+hearing+baroque+music+on+period%22"
+    },
+    {
+      "representative_item_id": "2014B#25",
+      "passage_sha256": "3b463eb9d059cf39c731287c663e4abc8d136fd0444dc52106b5caf9e544680e",
+      "strategy": "two_anchors_and",
+      "query": "\"insist on hearing baroque\" \"70s often tuned their\"",
+      "query_hash": "8234f0d4d24c0f43d043840daca07737af54b9cdc3275fe171fb7253092c0eab",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22insist+on+hearing+baroque%22+%2270s+often+tuned+their%22"
+    },
+    {
+      "representative_item_id": "2014B#25",
+      "passage_sha256": "3b463eb9d059cf39c731287c663e4abc8d136fd0444dc52106b5caf9e544680e",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"insist on hearing baroque\"",
+      "query_hash": "de0492ffe7543fac2abc2e10de06cf3d0c101809839870c98f4127f9da0892cd",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22insist+on+hearing+baroque%22"
+    },
+    {
+      "representative_item_id": "2014B#25",
+      "passage_sha256": "3b463eb9d059cf39c731287c663e4abc8d136fd0444dc52106b5caf9e544680e",
+      "strategy": "name_and_anchor",
+      "query": "\"Led Zeppelin\" \"insist on hearing baroque\"",
+      "query_hash": "0d8e17d3d6a396bb2252f91b40ffb35ee8ba799a15abce2559bb1cf6a1c823c7",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Led+Zeppelin%22+%22insist+on+hearing+baroque%22"
+    },
+    {
+      "representative_item_id": "2016#23",
+      "passage_sha256": "7b227864fe7e9f30e400c3e9dec8782d0308a711ed9b8485758f41443871bba0",
+      "strategy": "rare_exact_6_10",
+      "query": "\"youthful qualities than does another eighty-year-old who may\"",
+      "query_hash": "1ff923ff74f711dfbb7b84cab689cf2b264eb7b02beb753e43a979f378e07045",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22youthful+qualities+than+does+another+eighty-year-old+who+may%22"
+    },
+    {
+      "representative_item_id": "2016#23",
+      "passage_sha256": "7b227864fe7e9f30e400c3e9dec8782d0308a711ed9b8485758f41443871bba0",
+      "strategy": "two_anchors_and",
+      "query": "\"youthful qualities than does\" \"among various cells tissues\"",
+      "query_hash": "2ab279ba905aa814745612b35453e34cb3e7f44194c3d5bd5eda01aeb7368a4f",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22youthful+qualities+than+does%22+%22among+various+cells+tissues%22"
+    },
+    {
+      "representative_item_id": "2016#23",
+      "passage_sha256": "7b227864fe7e9f30e400c3e9dec8782d0308a711ed9b8485758f41443871bba0",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"youthful qualities than does\"",
+      "query_hash": "12b95ee6d83a41f46f9bcaf55a4f487b3b5b07544f4cf73384a60954751d3600",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22youthful+qualities+than+does%22"
+    },
+    {
+      "representative_item_id": "2019#29",
+      "passage_sha256": "edb7ecc3db22b69313910bf654d9ca3a2bc00ec643dc45a2540e5f628672c300",
+      "strategy": "rare_exact_6_10",
+      "query": "\"massiveness of their works although the Egyptians admittedly\"",
+      "query_hash": "ad0a18817d75a5a3ca72074f499b16bc324f77d38989c9419483a91b952057c5",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22massiveness+of+their+works+although+the+Egyptians+admittedly%22"
+    },
+    {
+      "representative_item_id": "2019#29",
+      "passage_sha256": "edb7ecc3db22b69313910bf654d9ca3a2bc00ec643dc45a2540e5f628672c300",
+      "strategy": "two_anchors_and",
+      "query": "\"Egyptians admittedly achieved some\" \"Egyptian sculpture no bigger\"",
+      "query_hash": "0e9945d8520441fd148f532d93383662a4428e604a77d4b883c2c2fe58a158d3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Egyptians+admittedly+achieved+some%22+%22Egyptian+sculpture+no+bigger%22"
+    },
+    {
+      "representative_item_id": "2019#29",
+      "passage_sha256": "edb7ecc3db22b69313910bf654d9ca3a2bc00ec643dc45a2540e5f628672c300",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"Egyptians admittedly achieved some\"",
+      "query_hash": "84a11fb3157d36dfe7fb371f5360d706a05233fbc669240188ebbe818c8018cb",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Egyptians+admittedly+achieved+some%22"
+    },
+    {
+      "representative_item_id": "2019#29",
+      "passage_sha256": "edb7ecc3db22b69313910bf654d9ca3a2bc00ec643dc45a2540e5f628672c300",
+      "strategy": "name_and_anchor",
+      "query": "\"An Egyptian\" \"Egyptians admittedly achieved some\"",
+      "query_hash": "d71bccc01fc194dd7f601991c7ab9eea38417a7c4ea311194e4bac52d4457cca",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22An+Egyptian%22+%22Egyptians+admittedly+achieved+some%22"
+    },
+    {
+      "representative_item_id": "2021#35",
+      "passage_sha256": "930f3805119f003540d008f5d8b16f50e9e46d27aa6c9cd0be0781ac75913529",
+      "strategy": "rare_exact_6_10",
+      "query": "\"Repeatedly recounting humorous incidents reinforces unity based on\"",
+      "query_hash": "6d10a8d3db694586c21ee4bbc90b452f31a132a5aed3561fcdcb8e9ec4a7a9f0",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Repeatedly+recounting+humorous+incidents+reinforces+unity+based+on%22"
+    },
+    {
+      "representative_item_id": "2021#35",
+      "passage_sha256": "930f3805119f003540d008f5d8b16f50e9e46d27aa6c9cd0be0781ac75913529",
+      "strategy": "two_anchors_and",
+      "query": "\"recounting humorous incidents reinforces\" \"capture people's attention commercials\"",
+      "query_hash": "fa43fc802a1a6d119660559f005bef14550bbb3cf46236504b743bb3bca10dbb",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22recounting+humorous+incidents+reinforces%22+%22capture+people%27s+attention+commercials%22"
+    },
+    {
+      "representative_item_id": "2021#35",
+      "passage_sha256": "930f3805119f003540d008f5d8b16f50e9e46d27aa6c9cd0be0781ac75913529",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"recounting humorous incidents reinforces\"",
+      "query_hash": "981ae031fcbee7a4f5b4ad82306e98b053b208ccef830b005ae93dec5aa34570",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22recounting+humorous+incidents+reinforces%22"
+    },
+    {
+      "representative_item_id": "2024#30",
+      "passage_sha256": "d7b379cd5dac82514f5b6f50ae47fc90dc0449341f4a0d19306383355d310ab4",
+      "strategy": "rare_exact_6_10",
+      "query": "\"Bazaar economies feature an apparently flexible price-setting mechanism\"",
+      "query_hash": "c4e2cfe3173eda77bfa0b7eb0d4a9edc23cdd9d2c7b90e1c86c3f625c22d07ef",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Bazaar+economies+feature+an+apparently+flexible+price-setting+mechanism%22"
+    },
+    {
+      "representative_item_id": "2024#30",
+      "passage_sha256": "d7b379cd5dac82514f5b6f50ae47fc90dc0449341f4a0d19306383355d310ab4",
+      "strategy": "two_anchors_and",
+      "query": "\"apparently flexible price-setting mechanism\" \"establishes a price consensus\"",
+      "query_hash": "04a53ea87d8e0a78b351a3b39188072e99a97404748b09a09aeebf06ead11055",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22apparently+flexible+price-setting+mechanism%22+%22establishes+a+price+consensus%22"
+    },
+    {
+      "representative_item_id": "2024#30",
+      "passage_sha256": "d7b379cd5dac82514f5b6f50ae47fc90dc0449341f4a0d19306383355d310ab4",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"apparently flexible price-setting mechanism\"",
+      "query_hash": "6d42ca054cc2c96ec76f902b5f001ef4bb1b39755ef00681ff7a50a93925da1e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22apparently+flexible+price-setting+mechanism%22"
+    },
+    {
+      "representative_item_id": "2024#30",
+      "passage_sha256": "d7b379cd5dac82514f5b6f50ae47fc90dc0449341f4a0d19306383355d310ab4",
+      "strategy": "name_and_anchor",
+      "query": "\"In Delhi\" \"apparently flexible price-setting mechanism\"",
+      "query_hash": "7220b1bc1c6fe023d220aa74c3afcf12088d00be603d6852e1a9d116dfe70264",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22In+Delhi%22+%22apparently+flexible+price-setting+mechanism%22"
+    },
+    {
+      "representative_item_id": "2024#37",
+      "passage_sha256": "f1c3a33a21d4a32bc642d731c565a4fb157d19e5fde3ddd2c9c942274df29627",
+      "strategy": "rare_exact_6_10",
+      "query": "\"performed the initial action may think that others\"",
+      "query_hash": "ffb9cc2d967eb3fb3fab6ac906ad42467ce82c8284ca1d2224bfa5b3bf1680e2",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22performed+the+initial+action+may+think+that+others%22"
+    },
+    {
+      "representative_item_id": "2024#37",
+      "passage_sha256": "f1c3a33a21d4a32bc642d731c565a4fb157d19e5fde3ddd2c9c942274df29627",
+      "strategy": "two_anchors_and",
+      "query": "\"performed the initial action\" \"behaving as she wishes\"",
+      "query_hash": "c265e111cfb03a1aa96a3153b5e4b78ad9172bb8cd3ae333e0b5497c89fc7f9e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22performed+the+initial+action%22+%22behaving+as+she+wishes%22"
+    },
+    {
+      "representative_item_id": "2024#37",
+      "passage_sha256": "f1c3a33a21d4a32bc642d731c565a4fb157d19e5fde3ddd2c9c942274df29627",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"performed the initial action\"",
+      "query_hash": "8711670a8e37c6c91a011d42b6f9d1c31ce9e539b8aa3ea441b34f0d86e9d348",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22performed+the+initial+action%22"
+    },
+    {
+      "representative_item_id": "2026#32",
+      "passage_sha256": "6560bb686256b10234d21bb9c9c550ae286e02a220a1448bab6816e434469884",
+      "strategy": "rare_exact_6_10",
+      "query": "\"sense of exchanges and a polished practical style\"",
+      "query_hash": "4f1da82d4523c68610cba722b639c340f33eac17e515aa3a22115e4c5110e9a3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22sense+of+exchanges+and+a+polished+practical+style%22"
+    },
+    {
+      "representative_item_id": "2026#32",
+      "passage_sha256": "6560bb686256b10234d21bb9c9c550ae286e02a220a1448bab6816e434469884",
+      "strategy": "two_anchors_and",
+      "query": "\"polished practical style makes\" \"in conversation clarity relevance\"",
+      "query_hash": "62c3e3b5eb262c835facfa9036f22d48abae218577c5a84a898282c387590eae",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22polished+practical+style+makes%22+%22in+conversation+clarity+relevance%22"
+    },
+    {
+      "representative_item_id": "2026#32",
+      "passage_sha256": "6560bb686256b10234d21bb9c9c550ae286e02a220a1448bab6816e434469884",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"polished practical style makes\"",
+      "query_hash": "cc47b8da1c3e4d72715f8d56db625f69378b40d94c1f0d6f921d7376a608eb26",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22polished+practical+style+makes%22"
+    },
+    {
+      "representative_item_id": "2014A#26",
+      "passage_sha256": "ac288994bc2e79223c462cb94d1fd903f85150c22d05f0862b56ec71dcfe079a",
+      "strategy": "rare_exact_6_10",
+      "query": "\"people lose their lives from allergic reactions to\"",
+      "query_hash": "3c0d1aae513ab8e359b8e8984605dbea8853782c8eef55ccdee7b5ada6f39af4",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22people+lose+their+lives+from+allergic+reactions+to%22"
+    },
+    {
+      "representative_item_id": "2014A#26",
+      "passage_sha256": "ac288994bc2e79223c462cb94d1fd903f85150c22d05f0862b56ec71dcfe079a",
+      "strategy": "two_anchors_and",
+      "query": "\"lives from allergic reactions\" \"have developed useful weapons\"",
+      "query_hash": "11010eaf1c2bb0a62cc54b781effa226ad197721d9aa2f60ed3c367878db92d2",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22lives+from+allergic+reactions%22+%22have+developed+useful+weapons%22"
+    },
+    {
+      "representative_item_id": "2014A#26",
+      "passage_sha256": "ac288994bc2e79223c462cb94d1fd903f85150c22d05f0862b56ec71dcfe079a",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"lives from allergic reactions\"",
+      "query_hash": "fd6657f38a762a6f81fdc72cda76f8cd18a68b1e9237bdceb1664cff40b656cf",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22lives+from+allergic+reactions%22"
+    },
+    {
+      "representative_item_id": "2016#32",
+      "passage_sha256": "8f4cbb701c09cef05ba709190e45e76172499fb760158dff2d2375b097b89110",
+      "strategy": "rare_exact_6_10",
+      "query": "\"cold night inadequately dressed for the pouring rain\"",
+      "query_hash": "69a7e9e7e50a529f50f3980baf28b65c3928426cc5e32f0491b4a2a936dbd04a",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22cold+night+inadequately+dressed+for+the+pouring+rain%22"
+    },
+    {
+      "representative_item_id": "2016#32",
+      "passage_sha256": "8f4cbb701c09cef05ba709190e45e76172499fb760158dff2d2375b097b89110",
+      "strategy": "two_anchors_and",
+      "query": "\"cold night inadequately dressed\" \"renewed suffering to seek\"",
+      "query_hash": "b48aad3714f31c21d0570c9e2640ae243d33073d0bb77593ccbc285b192cd43e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22cold+night+inadequately+dressed%22+%22renewed+suffering+to+seek%22"
+    },
+    {
+      "representative_item_id": "2016#32",
+      "passage_sha256": "8f4cbb701c09cef05ba709190e45e76172499fb760158dff2d2375b097b89110",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"cold night inadequately dressed\"",
+      "query_hash": "807085af7e50058e72784d3c4b97a4df6cf9f232075e4f21cfda256af53a6450",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22cold+night+inadequately+dressed%22"
+    },
+    {
+      "representative_item_id": "2016#32",
+      "passage_sha256": "8f4cbb701c09cef05ba709190e45e76172499fb760158dff2d2375b097b89110",
+      "strategy": "name_and_anchor",
+      "query": "\"Michel Cabanac\" \"cold night inadequately dressed\"",
+      "query_hash": "baf75c0f338220ec1861bc10caa0ec7d6f3507bf75f671355f1992e330f3b89a",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Michel+Cabanac%22+%22cold+night+inadequately+dressed%22"
+    },
+    {
+      "representative_item_id": "2018#40",
+      "passage_sha256": "357d69d71affe27f11bacfa63e209d7798a2ffe59a2b629dcb0750762bec0fc1",
+      "strategy": "rare_exact_6_10",
+      "query": "\"scientific communication therefore allows individuals to filter the\"",
+      "query_hash": "9cf2c79c846d89a1e3f5ca1695060b654987f63529f70fbffa396f85df449be1",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22scientific+communication+therefore+allows+individuals+to+filter+the%22"
+    },
+    {
+      "representative_item_id": "2018#40",
+      "passage_sha256": "357d69d71affe27f11bacfa63e209d7798a2ffe59a2b629dcb0750762bec0fc1",
+      "strategy": "two_anchors_and",
+      "query": "\"filter the potentially overwhelming\" \"today's distributed virtual archives\"",
+      "query_hash": "0bd4be59d4b4622b7927ea7028aea5eaa603a4d9087676ce0eec79f1a901b29c",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22filter+the+potentially+overwhelming%22+%22today%27s+distributed+virtual+archives%22"
+    },
+    {
+      "representative_item_id": "2018#40",
+      "passage_sha256": "357d69d71affe27f11bacfa63e209d7798a2ffe59a2b629dcb0750762bec0fc1",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"filter the potentially overwhelming\"",
+      "query_hash": "f167f751975aaff92ed395cbf9c8355aae6502c892b0d9311699c93ae75200c6",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22filter+the+potentially+overwhelming%22"
+    },
+    {
+      "representative_item_id": "2019#20",
+      "passage_sha256": "85ce918ae9420c802c603890d4bffbd44b09d8206807ae90560979383bed7475",
+      "strategy": "rare_exact_6_10",
+      "query": "\"follows from feelings of hatred' wrote Carl Schmitt\"",
+      "query_hash": "31a247d401e9352fccb8d29f652f0ae29b5d1302b4c06a5dddb9d41e5ce6b33a",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22follows+from+feelings+of+hatred%27+wrote+Carl+Schmitt%22"
+    },
+    {
+      "representative_item_id": "2019#20",
+      "passage_sha256": "85ce918ae9420c802c603890d4bffbd44b09d8206807ae90560979383bed7475",
+      "strategy": "two_anchors_and",
+      "query": "\"hatred' wrote Carl Schmitt\" \"of war basic aim\"",
+      "query_hash": "6916dd64b8485681bee58435aa500bd099875074ca73ecaeeb853878e0b28e16",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22hatred%27+wrote+Carl+Schmitt%22+%22of+war+basic+aim%22"
+    },
+    {
+      "representative_item_id": "2019#20",
+      "passage_sha256": "85ce918ae9420c802c603890d4bffbd44b09d8206807ae90560979383bed7475",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"hatred' wrote Carl Schmitt\"",
+      "query_hash": "3341e92e860e587c9121ccbe3f0f462ac7eed4410cf8bae000a40e1203b16063",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22hatred%27+wrote+Carl+Schmitt%22"
+    },
+    {
+      "representative_item_id": "2019#22",
+      "passage_sha256": "f756c1016adca308ca7a094afbff57033e8af25b9958941a78adb8253502528b",
+      "strategy": "rare_exact_6_10",
+      "query": "\"the highest-quality information are likely to prosper economically\"",
+      "query_hash": "92aaaa7d9b9032aa59e9a5756720975ddf43073ca67a23426bef0f71f8b313ca",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22the+highest-quality+information+are+likely+to+prosper+economically%22"
+    },
+    {
+      "representative_item_id": "2019#22",
+      "passage_sha256": "f756c1016adca308ca7a094afbff57033e8af25b9958941a78adb8253502528b",
+      "strategy": "two_anchors_and",
+      "query": "\"to prosper economically socially\" \"economics of information encompass\"",
+      "query_hash": "f2256f019472ccd38bfd87319af51cd1a636a20863458a8c3e9566fd7d775287",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22to+prosper+economically+socially%22+%22economics+of+information+encompass%22"
+    },
+    {
+      "representative_item_id": "2019#22",
+      "passage_sha256": "f756c1016adca308ca7a094afbff57033e8af25b9958941a78adb8253502528b",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"to prosper economically socially\"",
+      "query_hash": "71c04ba8434a1ac42ccc8cab6a343205b830b23a45d1521907b5d218f2b3f369",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22to+prosper+economically+socially%22"
+    },
+    {
+      "representative_item_id": "2020#38",
+      "passage_sha256": "bb9a164fd53eedd9c28a50e541b573b0e7506200d163625431162cdc83ecdb0d",
+      "strategy": "rare_exact_6_10",
+      "query": "\"nonbreeding survivorship by remaining in the specific habitat\"",
+      "query_hash": "ff83ae41027eaf735b280156e9d2fbb1b7db5325f5c0e188326a2d27db1d54e3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22nonbreeding+survivorship+by+remaining+in+the+specific+habitat%22"
+    },
+    {
+      "representative_item_id": "2020#38",
+      "passage_sha256": "bb9a164fd53eedd9c28a50e541b573b0e7506200d163625431162cdc83ecdb0d",
+      "strategy": "two_anchors_and",
+      "query": "\"nonbreeding survivorship by remaining\" \"optimal habitat for survival\"",
+      "query_hash": "48b1d154c3ab3d7e7a0b7e0a20b02d7638e5bcf59996a89722d56803c2ca2b80",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22nonbreeding+survivorship+by+remaining%22+%22optimal+habitat+for+survival%22"
+    },
+    {
+      "representative_item_id": "2020#38",
+      "passage_sha256": "bb9a164fd53eedd9c28a50e541b573b0e7506200d163625431162cdc83ecdb0d",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"nonbreeding survivorship by remaining\"",
+      "query_hash": "6a6e3f0df9393ee7593ff1c1a67e1474caf4002e3cebf590f3e8f032f7f5c9fb",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22nonbreeding+survivorship+by+remaining%22"
+    },
+    {
+      "representative_item_id": "2014A#36",
+      "passage_sha256": "5b0721f07701286f7b59f46fd0b13ac397dc448edc72300796f019f499479f49",
+      "strategy": "rare_exact_6_10",
+      "query": "\"low self-monitoring are not very sensitive to signals\"",
+      "query_hash": "42342ccf84e82d57ca4125f33376600a8a0a35086ac2ca91d6e3e76cd46fa2c5",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22low+self-monitoring+are+not+very+sensitive+to+signals%22"
+    },
+    {
+      "representative_item_id": "2014A#36",
+      "passage_sha256": "5b0721f07701286f7b59f46fd0b13ac397dc448edc72300796f019f499479f49",
+      "strategy": "two_anchors_and",
+      "query": "\"signals indicating socially acceptable\" \"indicates appropriate or inappropriate\"",
+      "query_hash": "29dbc3d81f98032b14956f69c373fc0d18cc16bf471a4eab37f32be2c05bd592",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22signals+indicating+socially+acceptable%22+%22indicates+appropriate+or+inappropriate%22"
+    },
+    {
+      "representative_item_id": "2014A#36",
+      "passage_sha256": "5b0721f07701286f7b59f46fd0b13ac397dc448edc72300796f019f499479f49",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"signals indicating socially acceptable\"",
+      "query_hash": "88c953746dbab5f151b46d479f3827cfc03b802228ebc9cde94d0db18bad05d5",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22signals+indicating+socially+acceptable%22"
+    },
+    {
+      "representative_item_id": "2014A#38",
+      "passage_sha256": "40a87ec96079474ed296e5c082b4aa2632ee7e973843e7ad2af99b6dea8ae571",
+      "strategy": "rare_exact_6_10",
+      "query": "\"are ups and downs fast and slow parts\"",
+      "query_hash": "39741a7eb22976c5bceab1d24b30359af04e304db5ba0d640bbe9ea42271b845",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22are+ups+and+downs+fast+and+slow+parts%22"
+    },
+    {
+      "representative_item_id": "2014A#38",
+      "passage_sha256": "40a87ec96079474ed296e5c082b4aa2632ee7e973843e7ad2af99b6dea8ae571",
+      "strategy": "two_anchors_and",
+      "query": "\"ups and downs fast\" \"carefully consider the location\"",
+      "query_hash": "6934f46b93af7084f43871637966d5af45cb3a5935e71c4ac75ae14213910fed",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22ups+and+downs+fast%22+%22carefully+consider+the+location%22"
+    },
+    {
+      "representative_item_id": "2014A#38",
+      "passage_sha256": "40a87ec96079474ed296e5c082b4aa2632ee7e973843e7ad2af99b6dea8ae571",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"ups and downs fast\"",
+      "query_hash": "48d34e6538b20963633c959dfe26c102aa3581b9ac2ebd4cfef5c084c006604a",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22ups+and+downs+fast%22"
+    },
+    {
+      "representative_item_id": "2014A#41",
+      "passage_sha256": "c0374597c7ffee3f50e69f99de4fdd23a3a48382e9b587a52dd9da47a94253dc",
+      "strategy": "rare_exact_6_10",
+      "query": "\"analysis found that the player hit 60 percent\"",
+      "query_hash": "b5a2559d83f6b7622d19d028359cfc6d4dc6da6d853f7ce2e33fc7701a088f21",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22analysis+found+that+the+player+hit+60+percent%22"
+    },
+    {
+      "representative_item_id": "2014A#41",
+      "passage_sha256": "c0374597c7ffee3f50e69f99de4fdd23a3a48382e9b587a52dd9da47a94253dc",
+      "strategy": "two_anchors_and",
+      "query": "\"player hit 60 percent\" \"humidity also affect whether\"",
+      "query_hash": "12a9d50e465e3e613964a148c1b916dd8339a9fc891dba302f8039413e67301e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22player+hit+60+percent%22+%22humidity+also+affect+whether%22"
+    },
+    {
+      "representative_item_id": "2014A#41",
+      "passage_sha256": "c0374597c7ffee3f50e69f99de4fdd23a3a48382e9b587a52dd9da47a94253dc",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"player hit 60 percent\"",
+      "query_hash": "6b6064bda841b40821d41498ec4a35cb6840b1b86f7c5fd5e24a51a9d2f09b77",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22player+hit+60+percent%22"
+    },
+    {
+      "representative_item_id": "2014B#24",
+      "passage_sha256": "393260e9eeb1b4f9e404243c400a0eccc58b12beb4806558afb47dab3cf7bd6b",
+      "strategy": "rare_exact_6_10",
+      "query": "\"successfully release himself unless he knows exactly where\"",
+      "query_hash": "135e08f3e97f4225f3350b7e88c2ca6176148d3a7bbf29bb71f4a49b98691ac5",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22successfully+release+himself+unless+he+knows+exactly+where%22"
+    },
+    {
+      "representative_item_id": "2014B#24",
+      "passage_sha256": "393260e9eeb1b4f9e404243c400a0eccc58b12beb4806558afb47dab3cf7bd6b",
+      "strategy": "two_anchors_and",
+      "query": "\"successfully release himself unless\" \"whenever he feels threatened\"",
+      "query_hash": "846c6b8b459f9565e859c99d8b99dfe004fbcb1eb6a9100551a434760b0a7659",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22successfully+release+himself+unless%22+%22whenever+he+feels+threatened%22"
+    },
+    {
+      "representative_item_id": "2014B#24",
+      "passage_sha256": "393260e9eeb1b4f9e404243c400a0eccc58b12beb4806558afb47dab3cf7bd6b",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"successfully release himself unless\"",
+      "query_hash": "a291fe0bb02733505df02b5f4ab33a9ea565543cb7a327d4a85c28263b72954d",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22successfully+release+himself+unless%22"
+    },
+    {
+      "representative_item_id": "2014B#27",
+      "passage_sha256": "304a0cba20273c270e7acb668cbbbe3657b402b445a63532f129d0ecfc0b2941",
+      "strategy": "rare_exact_6_10",
+      "query": "\"body attacking cells rusting their proteins piercing their\"",
+      "query_hash": "6eb7fc6a69d80390b5219f23d4b675444f5d55d1ee0c68647bdc10b81c2a54fd",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22body+attacking+cells+rusting+their+proteins+piercing+their%22"
+    },
+    {
+      "representative_item_id": "2014B#27",
+      "passage_sha256": "304a0cba20273c270e7acb668cbbbe3657b402b445a63532f129d0ecfc0b2941",
+      "strategy": "two_anchors_and",
+      "query": "\"body attacking cells rusting\" \"fight off infectious agents\"",
+      "query_hash": "f5b86253e29674fdf6cfd124f80927e9cdc3d391d6950649c9c901c1b5587bc5",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22body+attacking+cells+rusting%22+%22fight+off+infectious+agents%22"
+    },
+    {
+      "representative_item_id": "2014B#27",
+      "passage_sha256": "304a0cba20273c270e7acb668cbbbe3657b402b445a63532f129d0ecfc0b2941",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"body attacking cells rusting\"",
+      "query_hash": "b0159058c228a472c51fcc8cd385201c65f5eee474bb8e365f702f579a73c47c",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22body+attacking+cells+rusting%22"
+    },
+    {
+      "representative_item_id": "2015#36",
+      "passage_sha256": "bfeede0deba1d57968abf59948754e1ca5e91af749f049315a67a1be269decea",
+      "strategy": "rare_exact_6_10",
+      "query": "\"locker rooms used for half-time breaks were reportedly\"",
+      "query_hash": "0ace40093aa9cd0f386694bdd914d7ac5ac87ed0c39993507a2facaea36f7655",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22locker+rooms+used+for+half-time+breaks+were+reportedly%22"
+    },
+    {
+      "representative_item_id": "2015#36",
+      "passage_sha256": "bfeede0deba1d57968abf59948754e1ca5e91af749f049315a67a1be269decea",
+      "strategy": "two_anchors_and",
+      "query": "\"half-time breaks were reportedly\" \"home-team room was painted\"",
+      "query_hash": "5e1de664253bb5fae3487b0b528fc09cfc5926a8d225dc0321ff7515f4c927eb",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22half-time+breaks+were+reportedly%22+%22home-team+room+was+painted%22"
+    },
+    {
+      "representative_item_id": "2015#36",
+      "passage_sha256": "bfeede0deba1d57968abf59948754e1ca5e91af749f049315a67a1be269decea",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"half-time breaks were reportedly\"",
+      "query_hash": "0264eeab20ae55058c3c133b18bc13aa1ea20631c2e21b35eeb4e561560459b0",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22half-time+breaks+were+reportedly%22"
+    },
+    {
+      "representative_item_id": "2015#36",
+      "passage_sha256": "bfeede0deba1d57968abf59948754e1ca5e91af749f049315a67a1be269decea",
+      "strategy": "name_and_anchor",
+      "query": "\"Notre Dame\" \"half-time breaks were reportedly\"",
+      "query_hash": "3a425cde41285aa4f177a01ee211249a3a1ca90852157c4b875776ebb2085d37",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Notre+Dame%22+%22half-time+breaks+were+reportedly%22"
+    },
+    {
+      "representative_item_id": "2019#37",
+      "passage_sha256": "87cc46991cd73b834925e7eb2d5c6eca34e3dfe496eea36aca3a4d8b381d3cf7",
+      "strategy": "rare_exact_6_10",
+      "query": "\"quite predictable Bear in mind that schemata summarize\"",
+      "query_hash": "c35ac8d861a09d5caa08bbe48c6f407819cf3e880c6dd699e48a3020c4c2ebe2",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22quite+predictable+Bear+in+mind+that+schemata+summarize%22"
+    },
+    {
+      "representative_item_id": "2019#37",
+      "passage_sha256": "87cc46991cd73b834925e7eb2d5c6eca34e3dfe496eea36aca3a4d8b381d3cf7",
+      "strategy": "two_anchors_and",
+      "query": "\"schemata summarize the broad\" \"hurt you promoting errors\"",
+      "query_hash": "7c813d53a40e7e31b1bbc6532e76d0f6b4c136ec66a976799fd3064c66d2f82d",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22schemata+summarize+the+broad%22+%22hurt+you+promoting+errors%22"
+    },
+    {
+      "representative_item_id": "2019#37",
+      "passage_sha256": "87cc46991cd73b834925e7eb2d5c6eca34e3dfe496eea36aca3a4d8b381d3cf7",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"schemata summarize the broad\"",
+      "query_hash": "90e3203c9ee2b504442541448c6f464e5f55a8ead97bac37d7b8b72bee24b4b3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22schemata+summarize+the+broad%22"
+    },
+    {
+      "representative_item_id": "2024#40",
+      "passage_sha256": "ac32ca2dbb494d73055dbbe9cb2e3929dcc40d2fde6d99554ac95cac9cc564b5",
+      "strategy": "rare_exact_6_10",
+      "query": "\"have become simplified by condensing into formulas or\"",
+      "query_hash": "67087f207cd06f75b8ce19e9dc1f11770f68bab6466e4ae90d716b09595fe90e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22have+become+simplified+by+condensing+into+formulas+or%22"
+    },
+    {
+      "representative_item_id": "2024#40",
+      "passage_sha256": "ac32ca2dbb494d73055dbbe9cb2e3929dcc40d2fde6d99554ac95cac9cc564b5",
+      "strategy": "two_anchors_and",
+      "query": "\"formulas or greatly abbreviated\" \"different scientific fields realize\"",
+      "query_hash": "2e0d9c81698ae4c8261da5704cfa08ead6ceea365716185dcecdad4685328437",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22formulas+or+greatly+abbreviated%22+%22different+scientific+fields+realize%22"
+    },
+    {
+      "representative_item_id": "2024#40",
+      "passage_sha256": "ac32ca2dbb494d73055dbbe9cb2e3929dcc40d2fde6d99554ac95cac9cc564b5",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"formulas or greatly abbreviated\"",
+      "query_hash": "c84859aaa521c3e3c715b9b8a33d332bc4ec79400ad63b971db2e4e40ab5a864",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22formulas+or+greatly+abbreviated%22"
+    },
+    {
+      "representative_item_id": "2025#34",
+      "passage_sha256": "e752f02be97235cd317e1e0a91b701798ec141225853aaff1a7296eab9bceb06",
+      "strategy": "rare_exact_6_10",
+      "query": "\"within the legal system such as judges trustees\"",
+      "query_hash": "6c69c716a68bdc156075e73db2681ddd28b50d1765f0097d924506a1c2bbd8bc",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22within+the+legal+system+such+as+judges+trustees%22"
+    },
+    {
+      "representative_item_id": "2025#34",
+      "passage_sha256": "e752f02be97235cd317e1e0a91b701798ec141225853aaff1a7296eab9bceb06",
+      "strategy": "two_anchors_and",
+      "query": "\"trustees partners and guardians\" \"trusts that create negotiable\"",
+      "query_hash": "0766bc04dc1fde01db3cd2c4be9e8ede00cb6fddb7cc409ac21d1ecdef73ab6e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22trustees+partners+and+guardians%22+%22trusts+that+create+negotiable%22"
+    },
+    {
+      "representative_item_id": "2025#34",
+      "passage_sha256": "e752f02be97235cd317e1e0a91b701798ec141225853aaff1a7296eab9bceb06",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"trustees partners and guardians\"",
+      "query_hash": "466fd0edad464bfc130db0df4b09329c2eee9f7fbd701b6e91e8402d89ecb3a1",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22trustees+partners+and+guardians%22"
+    },
+    {
+      "representative_item_id": "2025#40",
+      "passage_sha256": "ec3a23dbd894f6b328164706efe76a3516960b164f35660a8b87cc0866f33006",
+      "strategy": "rare_exact_6_10",
+      "query": "\"precisely controlled fashion and have well-defined compositions and\"",
+      "query_hash": "b6d6d7902ed4c34f6fd95618495c1d8513b938a8efc972e9b5053c2199a1dec3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22precisely+controlled+fashion+and+have+well-defined+compositions+and%22"
+    },
+    {
+      "representative_item_id": "2025#40",
+      "passage_sha256": "ec3a23dbd894f6b328164706efe76a3516960b164f35660a8b87cc0866f33006",
+      "strategy": "two_anchors_and",
+      "query": "\"well-defined compositions and properties\" \"ingredients often vary appreciably\"",
+      "query_hash": "0516d1334c2fa83ed844d16e1978f53552f72fc1e75589827fc976777b875752",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22well-defined+compositions+and+properties%22+%22ingredients+often+vary+appreciably%22"
+    },
+    {
+      "representative_item_id": "2025#40",
+      "passage_sha256": "ec3a23dbd894f6b328164706efe76a3516960b164f35660a8b87cc0866f33006",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"well-defined compositions and properties\"",
+      "query_hash": "60687c3d79a6a3baa8bef072f9ff683a3b57a162d701e83b8b88f484af617dd7",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22well-defined+compositions+and+properties%22"
+    },
+    {
+      "representative_item_id": "2025#41",
+      "passage_sha256": "580a55efc0f2e85ec30c4878afe0d86fb5f5afbeef8eedc425eca56574a1b2c5",
+      "strategy": "rare_exact_6_10",
+      "query": "\"excludes strong grips constant rotation and repositioning and\"",
+      "query_hash": "b05f8cfbf2d012f76db42b7576d575e853e3262a76ca24cbd5badcb2a4de1221",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22excludes+strong+grips+constant+rotation+and+repositioning+and%22"
+    },
+    {
+      "representative_item_id": "2025#41",
+      "passage_sha256": "580a55efc0f2e85ec30c4878afe0d86fb5f5afbeef8eedc425eca56574a1b2c5",
+      "strategy": "two_anchors_and",
+      "query": "\"excludes strong grips constant\" \"including our flat nails\"",
+      "query_hash": "5004c9dca5d6c2357533802e2df5c1e3dad377a8ccfa980da577bebd9198fb65",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22excludes+strong+grips+constant%22+%22including+our+flat+nails%22"
+    },
+    {
+      "representative_item_id": "2025#41",
+      "passage_sha256": "580a55efc0f2e85ec30c4878afe0d86fb5f5afbeef8eedc425eca56574a1b2c5",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"excludes strong grips constant\"",
+      "query_hash": "931080a9bd1a6e54e436a8f4e28dc657308e1ad71a76a833b38346d0826d871e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22excludes+strong+grips+constant%22"
+    },
+    {
+      "representative_item_id": "2026#30",
+      "passage_sha256": "7605bcaba6bed848372a951751dfcb9db0ee31cfd8ff2faa6c5b0635ef781269",
+      "strategy": "rare_exact_6_10",
+      "query": "\"following contrasting realities can help illustrate the application\"",
+      "query_hash": "727732fa4fc1389317b2c74e1eede0f897ee8f86bc4d0f3b720358a1c5ad86b9",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22following+contrasting+realities+can+help+illustrate+the+application%22"
+    },
+    {
+      "representative_item_id": "2026#30",
+      "passage_sha256": "7605bcaba6bed848372a951751dfcb9db0ee31cfd8ff2faa6c5b0635ef781269",
+      "strategy": "two_anchors_and",
+      "query": "\"following contrasting realities can\" \"fouls or acknowledge knocking\"",
+      "query_hash": "61b961ebaeb88bfa4be5635259270eea3cdd280cbebc982a5975dffc5a08bf4d",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22following+contrasting+realities+can%22+%22fouls+or+acknowledge+knocking%22"
+    },
+    {
+      "representative_item_id": "2026#30",
+      "passage_sha256": "7605bcaba6bed848372a951751dfcb9db0ee31cfd8ff2faa6c5b0635ef781269",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"following contrasting realities can\"",
+      "query_hash": "a4a7afd1ba6aa9b5402d1531d28ae1b9da67dda435407cdebad51e8527ce21f3",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22following+contrasting+realities+can%22"
+    },
+    {
+      "representative_item_id": "2014A#34",
+      "passage_sha256": "c9c105e035532694e50b259fa8f6475753a8cdad5b899ea83de140ff929a9f27",
+      "strategy": "rare_exact_6_10",
+      "query": "\"is very useful to ensure that scientific measurements\"",
+      "query_hash": "a8d72f61ca46ac0d2a2fc1248ff5fe1015f87932cb945d3598d3c496f4dd8d62",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22is+very+useful+to+ensure+that+scientific+measurements%22"
+    },
+    {
+      "representative_item_id": "2014A#34",
+      "passage_sha256": "c9c105e035532694e50b259fa8f6475753a8cdad5b899ea83de140ff929a9f27",
+      "strategy": "two_anchors_and",
+      "query": "\"measurements are taken accurately\" \"turning the color off\"",
+      "query_hash": "49a2cf2ed568070e8a29ba8bb8fac4fb55690e902aa27bbdc5fc88206d6c647e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22measurements+are+taken+accurately%22+%22turning+the+color+off%22"
+    },
+    {
+      "representative_item_id": "2014A#34",
+      "passage_sha256": "c9c105e035532694e50b259fa8f6475753a8cdad5b899ea83de140ff929a9f27",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"measurements are taken accurately\"",
+      "query_hash": "ea4920adf130d7260b25b324b357fc09e70b215b5cc506ebf28f02f4a34fbe39",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22measurements+are+taken+accurately%22"
+    },
+    {
+      "representative_item_id": "2016#41",
+      "passage_sha256": "e955bccb795984736ba3c85c9c77d1d32b0f6b429e50faaa60cfa3dd65d252da",
+      "strategy": "rare_exact_6_10",
+      "query": "\"century Queen Victoria is supposed to have asked\"",
+      "query_hash": "6aecfb08df94d20c9d38c4f20710db4d8014a4ac8958e17189de2c91ce49ecc1",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22century+Queen+Victoria+is+supposed+to+have+asked%22"
+    },
+    {
+      "representative_item_id": "2016#41",
+      "passage_sha256": "e955bccb795984736ba3c85c9c77d1d32b0f6b429e50faaa60cfa3dd65d252da",
+      "strategy": "two_anchors_and",
+      "query": "\"asked physicist Michael Faraday\" \"transistors vaccines plastics began\"",
+      "query_hash": "1c9fb1da3fa5b7d1ba1deffc9f30e75cf7fded27efd4257faf01e9521029e54c",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22asked+physicist+Michael+Faraday%22+%22transistors+vaccines+plastics+began%22"
+    },
+    {
+      "representative_item_id": "2016#41",
+      "passage_sha256": "e955bccb795984736ba3c85c9c77d1d32b0f6b429e50faaa60cfa3dd65d252da",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"asked physicist Michael Faraday\"",
+      "query_hash": "1d6b1b2102bf87280545a3cf69fab806220db1b15e62bb61447dff49dd9db8e7",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22asked+physicist+Michael+Faraday%22"
+    },
+    {
+      "representative_item_id": "2016#41",
+      "passage_sha256": "e955bccb795984736ba3c85c9c77d1d32b0f6b429e50faaa60cfa3dd65d252da",
+      "strategy": "name_and_anchor",
+      "query": "\"Queen Victoria\" \"asked physicist Michael Faraday\"",
+      "query_hash": "053bc663e3e1369b848b4e0d4c55d12b1633881534a4f88af6432f3f649d66dc",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Queen+Victoria%22+%22asked+physicist+Michael+Faraday%22"
+    },
+    {
+      "representative_item_id": "2017#21",
+      "passage_sha256": "98aeaf6ca39b7ca3de5912c5596c6cef6fb260d5a5c73b15847e88649019a25e",
+      "strategy": "rare_exact_6_10",
+      "query": "\"objectivity inspires is what makes maps such powerful\"",
+      "query_hash": "a775d434ac63416dbe601a4250262682ee4a0896f3446895d1d9c53c44ce727a",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22objectivity+inspires+is+what+makes+maps+such+powerful%22"
+    },
+    {
+      "representative_item_id": "2017#21",
+      "passage_sha256": "98aeaf6ca39b7ca3de5912c5596c6cef6fb260d5a5c73b15847e88649019a25e",
+      "strategy": "two_anchors_and",
+      "query": "\"maps such powerful carriers\" \"express an authoritative truth\"",
+      "query_hash": "b484f76f601fb73576be1c7a2664fcf65ad0caf6e58f560efb1b11554d449d5e",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22maps+such+powerful+carriers%22+%22express+an+authoritative+truth%22"
+    },
+    {
+      "representative_item_id": "2017#21",
+      "passage_sha256": "98aeaf6ca39b7ca3de5912c5596c6cef6fb260d5a5c73b15847e88649019a25e",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"maps such powerful carriers\"",
+      "query_hash": "49b8955d6d691bdb05c6672c8e13c2d6ff5659b3abcec64f676b379b9c9b5d17",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22maps+such+powerful+carriers%22"
+    },
+    {
+      "representative_item_id": "2017#33",
+      "passage_sha256": "277b8ebe0ef15f86836cef54a5e167dde47cccf8b8d7d5ff0333f6436fd96761",
+      "strategy": "rare_exact_6_10",
+      "query": "\"Spinoza said of regret that whoever feels it\"",
+      "query_hash": "99ecc0e31813334e62ef01e9bc5649e4110f58524b5c1e27cf38096955491d83",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Spinoza+said+of+regret+that+whoever+feels+it%22"
+    },
+    {
+      "representative_item_id": "2017#33",
+      "passage_sha256": "277b8ebe0ef15f86836cef54a5e167dde47cccf8b8d7d5ff0333f6436fd96761",
+      "strategy": "two_anchors_and",
+      "query": "\"regret that whoever feels\" \"negative emotions like grief\"",
+      "query_hash": "a1f8685d2cb07d0d51fce02f27914589fa1f22142a905615cae417081569e7b9",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22regret+that+whoever+feels%22+%22negative+emotions+like+grief%22"
+    },
+    {
+      "representative_item_id": "2017#33",
+      "passage_sha256": "277b8ebe0ef15f86836cef54a5e167dde47cccf8b8d7d5ff0333f6436fd96761",
+      "strategy": "edit_tolerant_anchor",
+      "query": "\"regret that whoever feels\"",
+      "query_hash": "3e483f494d15d450d5270635638415217eb935830cbb1d6ab332341a10e24eee",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22regret+that+whoever+feels%22"
+    },
+    {
+      "representative_item_id": "2017#33",
+      "passage_sha256": "277b8ebe0ef15f86836cef54a5e167dde47cccf8b8d7d5ff0333f6436fd96761",
+      "strategy": "name_and_anchor",
+      "query": "\"Laurence Thomas\" \"regret that whoever feels\"",
+      "query_hash": "00a103c71e503264f327e601ec4fe85d3305b5212abcd5193ed3443618ce1bf7",
+      "retriever": "books_web",
+      "state": "not_attempted",
+      "searched_at": null,
+      "candidates": [],
+      "manual_search_url": "https://books.google.com/books?q=%22Laurence+Thomas%22+%22regret+that+whoever+feels%22"
+    }
+  ]
+}

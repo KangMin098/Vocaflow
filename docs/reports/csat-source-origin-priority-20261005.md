@@ -333,6 +333,18 @@ node scripts/csat/source-origin-search.mjs --public-metrics <fixed-plan.json> <c
 
 ### Books 증분 실험 기준선
 
+### Books 웹 lane 사전 점검 — 2026-10-06
+
+`books_web`를 `books_api`와 분리한 [고정 요청 원장](./csat-source-origin-books-web-20261006.json)을 만들었다. 동일50개·161질의·각 query hash·연결 본문 SHA·공개 종료 baseline hash를 보존했으며 질의 추가/교체는 없다. 원장은 수동 조사 입력을 준비한 것이며 브라우저 자동 실행기를 구현했다는 뜻이 아니다.
+
+CUA inventory는 브라우저0개이고 Books 브라우저 선택도 `No browser is available`이었다. 대안 점검에서 로컬 Chrome·Edge와 기존 web 프로젝트의 Playwright 설치를 확인했다. 그러나 Books 호스트의 robots.txt를 직접 받아 HTTP200과 원문 hash를 기록했고 `Disallow: /search`, `Disallow: /books?*q=`, `Disallow: /books?*dq=`, `Disallow: /books?*jscmd=`를 확인했다([실제 robots 지시](https://books.google.com/robots.txt)). 요청한 robots 준수 조건에 따라 자동 검색 smoke 전에 중단했다. 자동 브라우저를 바꾸거나 세션을 위장해 검색하지 않았다.
+
+현재 `books_web.status=blocked_robots`, attempted0·completed0/161이다. 질의 검색/도서 내 검색 HTTP는0이며 robots 점검은 검색 완료가 아니다. 따라서 후보 문항·신규 A/B·검수 precision은0% 대신 **null(미측정)**로 둔다. API0/161 blocked_credentials와 Semantic0/161 pending_license는 그대로다. 이 작업은 DB를 쓰지 않았으며 기존 등록133/713는 이전 회차 기준 상태다.
+
+사람이 직접 검색하는 경우 원장의 동일 질의와 공개12개 기준선을 사용해 검색시각·URL·서지·짧은 확인 범위와 hash·쪽/화면 위치를 기록할 수 있다. 로봇 제한은 자동 검색 중단 사유이며 사람의 검색 결과 부재를 뜻하지 않는다. 사람이 실행한 결과를 받거나 자동 접근에 대한 명시적 허용 경로가 확인될 때만 후속 조사한다. 허용 조건이 마련되면 smoke1→canary5→20질의→나머지 단계로 진행하고 UI 차단/로그인/CAPTCHA는 미완료로 둔다. 후보 발견과 preview_unavailable/search_inside_unavailable는 별도 상태로 기록한다. snippet/미리보기 발견만으로 A/B를 부여하지 않으며 기존 판정과 증분 등록 검증 절차를 유지한다.
+
+### Books API 재개 기준선
+
 등록 evidence에는 실제 발견 후보의 `discovery_candidate_id`와 `discovery_retriever`를 남겨 DB와 연결한다. API에서 알려진 제목·저자·출판사·연도와 등록 서지가 같아야 한다. 판본/표제 차이가 있으면 registration의 `bibliographic_identity`에 same_work=true, baseline_sha256, candidate_id, passage_sha256, body_sha256_by_item, candidate_bibliography(title/authors/publisher/publishedDate), registered_bibliography(title/authors/publisher/year), checked_scope, explained_difference를 검수해 기록한다. 이 동일성 검수 없이 다른 책을 같은 등급으로 등록한 기록은 신규 성과가 아니다. 한 파일의 registrations는 현재 retriever에 해당하는 기록만 대조한다.
 
 공개 원문 종료 후 같은 50개·161질의를 보존했다. DB 재조회는 A+B133/713·G579로 이전 종료 상태와 같다(C1 별도). HTTP 호출 전 공개 종료 기준선과 연결 본문 SHA를 검증하며, 기준선 해시는 `839ff7134575746f6817abb40cc56d22fa8cc871f307b9a089903d9539c03c2b`이다. [고정 기준선·상태·미실행 집계](./csat-source-origin-books-incremental-20261005.json)를 저장했다. 키·키 일부·키 hash는 저장하지 않았다.
