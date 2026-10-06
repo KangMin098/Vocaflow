@@ -100,6 +100,20 @@ test('contradictory ordinal adjudication and path locator stay on hold', t => {
   delete candidate.analysis.ordinal_reviews.discourse.adjudicator_id
   candidate.analysis.evidence_locator = 'D:\\private\\source.pdf'
   assert.deepEqual(prepareAdmission([candidate], sealed).audit.results[0].reasons, ['EVIDENCE_LOCATOR_NOT_OPAQUE'])
+  candidate.analysis.evidence_locator = 'fixture:analysis:1'
+  delete candidate.analysis.ordinal_reviews
+  assert.deepEqual(prepareAdmission([candidate], sealed).audit.results[0].reasons, ['ORDINAL_REVIEW_INVALID:discourse'])
+})
+
+test('unused item difficulty cannot leak arbitrary nested content', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  candidate.analysis.item_type_difficulty.unused = { passage_text: 'Hidden original text' }
+  const result = prepareAdmission([candidate], protocol)
+  assert.equal(result.samples.length, 1)
+  assert.ok(!JSON.stringify(result).includes('Hidden original text'))
+  candidate.analysis.item_type_difficulty.literal = { passage_text: 'Invalid value' }
+  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['ITEM_DIFFICULTY_INVALID'])
 })
 
 test('whitespace-only passage variants cannot count as independent samples', t => {

@@ -77,7 +77,10 @@ export function admitCandidate(candidate, protocol) {
   stages.push('question-extracted')
   const analysis = candidate.analysis
   if (!/^[a-z][a-z0-9_-]*:[a-z0-9:_-]+$/i.test(analysis?.evidence_locator ?? '')) return { audit: audit(candidate, file, 'admission-hold', ['EVIDENCE_LOCATOR_NOT_OPAQUE'], stages) }
-  if (AXES.some(axis => protocol.axes[axis].scale === 'ordinal' && analysis.ordinal_reviews?.[axis]?.rater_a === analysis.ordinal_reviews?.[axis]?.rater_b && (analysis.ordinal_reviews[axis].adjudicated != null || analysis.ordinal_reviews[axis].adjudicator_id != null))) return { audit: audit(candidate, file, 'admission-hold', ['ORDINAL_REVIEW_INVALID'], stages) }
+  if (AXES.some(axis => {
+    const review = analysis.ordinal_reviews?.[axis]
+    return protocol.axes[axis].scale === 'ordinal' && review && review.rater_a === review.rater_b && (review.adjudicated != null || review.adjudicator_id != null)
+  })) return { audit: audit(candidate, file, 'admission-hold', ['ORDINAL_REVIEW_INVALID'], stages) }
   const questions = extraction.questions
   const passage_hash = sha256(extraction.passage_text)
   const item_set_hash = hash(questions.map(({ answer, ...item }) => item))
@@ -85,6 +88,7 @@ export function admitCandidate(candidate, protocol) {
   if (analysis?.codebook_hash !== protocol.codebook_hash || analysis.passage_hash !== passage_hash || analysis.item_set_hash !== item_set_hash || analysis.scoring_key_hash !== scoring_key_hash || !present(analysis?.analyzer_version) || !present(analysis?.evidence_locator) || AXES.some(axis => !Number.isFinite(analysis?.metrics?.[axis]))) return { audit: audit(candidate, file, 'admission-hold', ['NINE_AXIS_ANALYSIS_MISSING'], stages) }
   stages.push('analysis-ready')
   const item_type_counts = Object.fromEntries([...new Set(questions.map(q => q.type))].map(type => [type, questions.filter(q => q.type === type).length]))
+  if (Object.keys(item_type_counts).some(type => !protocol.item_types.includes(type) || !Number.isFinite(analysis.item_type_difficulty?.[type]) || analysis.item_type_difficulty[type] < protocol.item_type_difficulty.valid_min || analysis.item_type_difficulty[type] > protocol.item_type_difficulty.valid_max)) return { audit: audit(candidate, file, 'admission-hold', ['ITEM_DIFFICULTY_INVALID'], stages) }
   const axisValues = object => Object.fromEntries(AXES.filter(axis => object?.[axis] !== undefined).map(axis => [axis, object[axis]]))
   const auxiliary_metrics = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].auxiliary_metrics.length).map(axis => [axis, Object.fromEntries(protocol.axes[axis].auxiliary_metrics.filter(metric => analysis.auxiliary_metrics?.[axis]?.[metric] !== undefined).map(metric => [metric, analysis.auxiliary_metrics[axis][metric]]))]))
   const ordinal_reviews = Object.fromEntries(AXES.filter(axis => protocol.axes[axis].scale === 'ordinal' && analysis.ordinal_reviews?.[axis]).map(axis => {
@@ -112,7 +116,7 @@ export function admitCandidate(candidate, protocol) {
     word_count: extraction.passage_text.trim().split(/\s+/).length,
     item_count: questions.length,
     item_type_counts,
-    item_type_difficulty: Object.fromEntries(protocol.item_types.filter(type => analysis.item_type_difficulty?.[type] !== undefined).map(type => [type, analysis.item_type_difficulty[type]])),
+    item_type_difficulty: Object.fromEntries(Object.keys(item_type_counts).map(type => [type, analysis.item_type_difficulty[type]])),
     metrics: axisValues(analysis.metrics),
     auxiliary_metrics,
     axis_agreement: axisValues(analysis.axis_agreement),
