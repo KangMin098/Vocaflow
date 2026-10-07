@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): 저장소 밖 Gold-S 정책 경로의 파일 심볼릭 링크까지 실제 경로로 검증하여 저장소 내부 대상 우회를 차단했다. 실제 corpus·Gold-S·DB seed는 0이다.
+
 - fix(textbook): 일반 ACP 외 관리자 강제 게시의 `reading:` 각색 자식 우회도 409로 차단했다. RPC·직접 UPDATE 차단용 DB trigger migration을 준비했으며 아직 적용하지 않았다. 실제 corpus·Gold-S·DB seed는 0이다.
 
 - fix(textbook): Gold-S 폐기 해시의 서명 Base64 정규형을 강제하고 ACP 개발용 배치·단건 경로에서 `reading:` 자식의 일반 승격을 막았다. 중단된 seed 감사 로그의 손상된 마지막 행은 검증된 prefix와 미완료 batch를 보고한다. 실제 corpus·Gold-S·DB seed는 0이다.
@@ -6227,6 +6229,8 @@ V1 은 5편뿐이지만 **그 학년은 지문을 안 쓴다** — 즉 **지문 
   그중 「꼬리를 머리보다 먼저 자르기」가 photojournal 을 실제로 죽이는 것을 회귀가 잡는다.
 - **usgs** — `usa-sr-only` 라벨 제거 + `# CHANGELOG
 
+- fix(textbook): 저장소 밖 Gold-S 정책 경로의 파일 심볼릭 링크까지 실제 경로로 검증하여 저장소 내부 대상 우회를 차단했다. 실제 corpus·Gold-S·DB seed는 0이다.
+
 > Vocaflow 변경 이력. 최신 3개 버전(v06.32~34) + 현재 작업 중인 마이그레이션 + 세션 변경 사항을 보존.
 > 이전 v06.0~v06.31 의 누적 변경은 git 이력 (`git log`) 으로만 추적.
 >
@@ -6236,6 +6240,8 @@ V1 은 5편뿐이지만 **그 학년은 지문을 안 쓴다** — 즉 **지문 
 ---
 
  → `# CHANGELOG
+
+- fix(textbook): 저장소 밖 Gold-S 정책 경로의 파일 심볼릭 링크까지 실제 경로로 검증하여 저장소 내부 대상 우회를 차단했다. 실제 corpus·Gold-S·DB seed는 0이다.
 
 > Vocaflow 변경 이력. 최신 3개 버전(v06.32~34) + 현재 작업 중인 마이그레이션 + 세션 변경 사항을 보존.
 > 이전 v06.0~v06.31 의 누적 변경은 git 이력 (`git log`) 으로만 추적.
