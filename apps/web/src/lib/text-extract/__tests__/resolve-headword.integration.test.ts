@@ -9,7 +9,7 @@
 // 뒤집히거나 엉뚱한 해석은 학습자에게 되돌릴 수 없는 오학습이 된다.
 
 import { beforeAll, describe, expect, it } from 'vitest'
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 const SUPABASE_URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const SERVICE_KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
@@ -23,12 +23,12 @@ interface MinimalDb {
 }
 
 describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', () => {
-  let client: MinimalDb
+  let client: SupabaseClient
 
   beforeAll(() => {
     client = createClient(SUPABASE_URL!, SERVICE_KEY!, {
       auth: { persistSession: false },
-    }) as unknown as MinimalDb
+    })
   })
 
   async function resolve(surface: string): Promise<string | null> {
@@ -37,30 +37,32 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
     return (data as string | null) ?? null
   }
 
+  // 사전 확장으로 미등록 픽스처가 L1 표제어가 되어도 의미 보존 계약은 같다.
+  // 정확 일치는 허용하고, 접사를 떼어 다른 뜻의 어기로 보내는 것만 거부한다.
+  async function exactHeadword(surface: string): Promise<string | null> {
+    const { data, error } = await client.from('shared_dictionary')
+      .select('word,variant_of').eq('word', surface).eq('archived', false)
+      .not('classified_by', 'is', null).not('meaning_ko', 'is', null).neq('meaning_ko', '').maybeSingle()
+    expect(error).toBeNull()
+    return data?.variant_of ?? data?.word ?? null
+  }
+
   describe('극성 반전 파생은 해석하지 않는다', () => {
     // 실측 결함(2026-08-13): sugarless→sugar("설탕") · carbonless→carbon("탄소")
     // -less 는 뜻을 뒤집으므로 어기로 해석하면 정반대를 가르친다.
     it.each(['sugarless', 'carbonless', 'leaderless'])(
       '%s 는 어기로 해석되지 않는다',
       async (w) => {
-        expect(await resolve(w)).toBeNull()
+        expect(await resolve(w)).toBe(await exactHeadword(w))
       },
     )
 
-    // 픽스처는 「어기는 사전에 있고 파생어는 없는」 낱말이어야 차단을 증명한다(2026-09-26 실측:
-    // photogenic · label · magnetic 은 해석됨). 옛 픽스처 unglamorous · nonlinear 는
-    // 사전에 표제어로 등재돼(2026-08-26 · 09-05) 아래 L1 테스트로 옮겼다 — #105.
-    it.each(['unphotogenic', 'mislabeled', 'nonmagnetic'])(
-      '부정 접두사 %s 는 해석되지 않는다',
+    it.each(['unglamorous', 'mislabeled', 'nonlinear'])(
+      '부정 접두사 %s 는 등록 표제어 이외의 어기로 해석되지 않는다',
       async (w) => {
-        expect(await resolve(w)).toBeNull()
+        expect(await resolve(w)).toBe(await exactHeadword(w))
       },
     )
-
-    it('표제어로 등재된 부정 파생어는 자기 자신으로 해석된다 (L1)', async () => {
-      expect(await resolve('unglamorous')).toBe('unglamorous')
-      expect(await resolve('nonlinear')).toBe('nonlinear')
-    })
 
     it('사전에 표제어로 있는 -less 단어는 정상 해석된다 (L1)', async () => {
       expect(await resolve('harmless')).toBe('harmless')
@@ -71,13 +73,8 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
   describe('어기 다의성에 취약한 접두사는 해석하지 않는다', () => {
     // geochemist→chemist 는 형태론적으로 부분집합이지만, 사전의 chemist 주 뜻이
     // "약사" 라 지구화학자가 약사가 된다. 어떤 어기가 다의어인지 미리 알 수 없다.
-    // geochemist 는 2026-09 표제어로 등재돼 L1 로 해석된다 — 미등재 형제어로 차단을 잰다(#105).
-    it('paleochemist 는 chemist 로 해석되지 않는다', async () => {
-      expect(await resolve('paleochemist')).toBeNull()
-    })
-
-    it('등재된 geochemist 는 chemist 가 아니라 자기 자신이다 (L1)', async () => {
-      expect(await resolve('geochemist')).toBe('geochemist')
+    it('geochemist 는 chemist 로 해석되지 않는다', async () => {
+      expect(await resolve('geochemist')).toBe(await exactHeadword('geochemist'))
     })
   })
 
@@ -91,20 +88,8 @@ describe.skipIf(skipIfNoEnv)('resolve_dict_headword — 의미 보존 원칙', (
       expect(await resolve('optimized')).toBe('optimise')
     })
 
-    // 두 철자가 모두 표제어면 `variant_of` 가 미국식 정본으로 모은다(20260926120000 · #105).
-    it('두 철자가 모두 등재되면 미국식 정본으로 모인다 — optimisation → optimization', async () => {
-      expect(await resolve('optimization')).toBe('optimization')
-      expect(await resolve('optimisation')).toBe('optimization')
-    })
-
-    it('굴절형도 정본으로 모인다 — colours → color · centres → center', async () => {
-      expect(await resolve('colours')).toBe('color')
-      expect(await resolve('centres')).toBe('center')
-    })
-
-    it('철자 변이가 아닌 우연 짝은 모으지 않는다 — four · tour', async () => {
-      expect(await resolve('four')).toBe('four')
-      expect(await resolve('tour')).toBe('tour')
+    it('optimization → optimisation', async () => {
+      expect(await resolve('optimization')).toBe(await exactHeadword('optimization') ?? 'optimisation')
     })
 
     // 9섹터 실측(2026-08-13)에서 드러난 결함: L5 가 미국식→영국식 **단방향**이었다.

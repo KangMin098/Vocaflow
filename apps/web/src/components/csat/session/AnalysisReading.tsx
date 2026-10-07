@@ -7,6 +7,7 @@ import type { DissectionItem } from '@/lib/csat/dissect'
 import { LecturePlayer, type PlayerState } from '@/lib/csat/lecture/player'
 import { loadVoices, pickVoice, SilentAdapter, WebSpeechAdapter } from '@/lib/csat/lecture/tts'
 import type { ReflowItem } from '@/lib/csat/reflow/types'
+import { cropOf } from '@/lib/csat/reflow/read-paper'
 import { buildDissectionPassage } from '@/lib/csat/dissection-passage'
 import styles from './session.module.css'
 import { AnalysisWorkbench } from './AnalysisWorkbench'
@@ -58,9 +59,17 @@ export function AnalysisReading({ item, paper, onReadAgain }: { item: Dissection
   }
   const stop = () => { generation.current++; player.current?.destroy(); player.current = null; setState(null); setLoading(false) }
   const locate = () => root.current?.querySelector(`[data-analysis="${active}"]`)?.scrollIntoView({ block: 'center', behavior: 'auto' })
+  const crop = paper.needsOriginal ? cropOf(item.exam_id, item.no) : null
+  if (paper.needsOriginal && !crop) return <section className={styles.empty}><p>{paper.originalUnavailable ? '원본 문제 영역을 표시하지 못했어요. PDF를 직접 열어 확인하거나 다른 문제지를 놓아 주세요.' : '밑줄·도표를 원본으로 확인하려면 문제지를 다시 놓아 주세요.'}</p><button className={styles.primary} onClick={onReadAgain}>문제지 다시 놓기</button></section>
   if (!paper.ok || !model.sentences.some(s => s.marks.some(m => m.anchorId === 'answer'))) return <section className={styles.empty}><p>분석의 근거 문장 위치를 확인하지 못했어요. 문제지를 다시 놓아 주세요.</p><button className={styles.primary} onClick={onReadAgain}>문제지 다시 놓기</button></section>
   return <article ref={root} className={styles.reading} data-testid="analysis-reading">
     <header className={styles.itemHeader}><p className={styles.eyebrow}>{item.exam_id} · {item.no}번 · 분석 읽기</p><h1>{item.topic}</h1><p className={styles.description}>{item.format}</p></header>
+    {crop && <>
+      <p className={styles.quiet}>밑줄의 전체 범위와 도표는 아래 원본에서 확인해 주세요.</p>
+      {/* The local data URL remains in this tab; do not send it to image optimization. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={crop} alt={`${item.no}번 원본 문제 — 밑줄·도표 포함`} className={styles.crop} />
+    </>}
     <div className={styles.listening} aria-label="분석 듣기">
       <button className={styles.textButton} disabled={loading} onClick={() => state && state.status !== 'ended' ? player.current?.toggle() : void play(0)}>{loading ? '음성 준비 중…' : state?.status === 'playing' ? '일시정지' : state?.status === 'paused' ? '이어서 듣기' : '분석 듣기'}</button>
       {active && <><button className={styles.textButton} onClick={locate}>현재 설명 위치</button><button className={styles.textButton} onClick={stop}>듣기 종료</button></>}

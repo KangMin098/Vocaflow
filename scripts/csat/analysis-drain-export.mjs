@@ -172,12 +172,18 @@ for (const [f, input] of inputs) {
   }
 }
 const reexport = (id) => REDO.has(id) || recovery.has(id)
-const pool = corpus.items
+const candidatePool = corpus.items
   .filter((it) => it.in_scope)
   .filter((it) => (ONLY_TYPE ? it.type_id === ONLY_TYPE : true))
   .filter((it) => (ONLY_EXAM ? it.exam === ONLY_EXAM : true))
   .filter((it) => !done.has(it.id))
   .filter((it) => REDO.has(it.id) || !reserved.has(it.id))
+
+// A missing passage has no evidence units; hold that item before packing a chunk.
+const missingPassage = SET === 'hakpyeong' ? candidatePool.filter((it) => !String(it.passage ?? '').trim()) : []
+const missingIds = new Set(missingPassage.map((it) => it.id))
+const pool = candidatePool.filter((it) => !missingIds.has(it.id))
+console.log(`  원문 없음 ${missingPassage.length}${missingPassage.length ? ' — 보류: ' + missingPassage.map((it) => it.id).join(', ') : ''}`)
 
 // 유형별 → 최신 회차 먼저
 const byType = new Map()

@@ -29,6 +29,7 @@ import { createRequire } from 'node:module'
 
 import { classify, stemsOf, threePointSet, CIRC } from './lib-mock-parse.mjs'
 import { parseExamId } from './lib-exam-id.mjs'
+import { blankRuleItems, inBlankQuestion, visibleBlankText } from './lib-pdf-blank-lines.mjs'
 
 const args = process.argv.slice(2)
 const argOf = (k) => {
@@ -48,7 +49,7 @@ const COL = path.join(DIR, 'columns2')
 // ── pdfjs ─────────────────────────────────────────────────────────────
 const require = createRequire(import.meta.url)
 const pdfjsRoot = path.dirname(require.resolve('pdfjs-dist/package.json')).split(path.sep).join('/')
-const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs')
+const { getDocument, OPS } = await import('pdfjs-dist/legacy/build/pdf.mjs')
 
 async function openPdf(file) {
   const data = new Uint8Array(fs.readFileSync(path.join(SRC, file)))
@@ -143,7 +144,7 @@ async function columnText(file) {
     const page = await doc.getPage(p)
     const { width, height } = page.getViewport({ scale: 1 })
     const tc = await page.getTextContent()
-    const items = tc.items
+    const extracted = tc.items
       .filter((i) => typeof i.str === 'string' && i.str.length)
       .map((i) => ({ str: i.str, x: i.transform[4], y: i.transform[5], w: i.width ?? 0 }))
       // 쪽 머리말(«고 3 영어 영역»·구분선)과 꼬리말(쪽 번호)은 위·아래 띠에만 있다. 줄로 거르면
@@ -151,6 +152,11 @@ async function columnText(file) {
       // (2026-09-28 실측 선지 567건). 좌표로 먼저 버린다. 경계: 105회차 중 15회차 표본에서
       // 본문은 쪽 높이의 0.096~0.849, 띠 안 글자는 쪽번호·«영어 영역»·«고 N»·구분선·1쪽 제목뿐이었다
       .filter((i) => i.y / height <= 0.86 && i.y / height >= 0.09)
+    // A drawn blank can fill the rest of a line and end at a full stop. In that
+    // case the old gap heuristic has no following word from which to infer it.
+    const operators = await page.getOperatorList()
+    const items = visibleBlankText(operators, OPS, extracted, { width })
+    items.push(...blankRuleItems(operators, OPS, items, { width, height }).filter((b) => inBlankQuestion(b, items, width)))
     const mid = width / 2
     const left = items.filter((i) => i.x < mid)
     const right = items.filter((i) => i.x >= mid)

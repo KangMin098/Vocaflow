@@ -30,12 +30,17 @@
 // text === passage.slice(start, end) · 단위 사이 틈은 공백뿐(글자 누락 0).
 
 import crypto from 'node:crypto'
+import { analysisRuleErrors } from './lib-analysis-rules.mjs'
 
-// v2(2026-10-01): 규칙 2b. 경계가 v1 과 같은 문항은 v2 행을 만들지 않는다(units-build) — 해시에 버전이 들어가 발행분이 자동 보류되지 않게
-export const UNITS_VERSION = 2
+// v3(2026-10-04): 이름 앞 이니셜(F. Carson), 연속 이니셜(A. Y.), 붙여 쓴 이니셜(A.L. Parker)도 보존한다.
+// 실제 문장 끝의 vitamin C. / Room A. / Gen X. 등은 유지한다. 경계가 같으면 옛 버전 행을 유지한다(units-build).
+// v4: 붙어 인쇄된 삽입 위치 표지와 전각 여는 괄호도 종결 뒤 다음 단위에 붙인다.
+export const UNITS_VERSION = 4
 /** 사전 검사(precheckAnalysis·checkUnitRefs) 규칙 버전 — 검사 기준이 바뀌면 올린다(기록된 결과를 어느 기준으로 냈는지 남기려고) */
 // v2(2026-10-01): DB 행 사전 검사가 풀이 절차·측정 능력·설계 의도의 [uN] 도 본다(v1 은 정답 근거·선지 해설만 읽어 놓쳤다 — Codex 리뷰)
-export const PRECHECK_VERSION = 2
+// v3: V10 rejects the confirmed unconditional named-referent exclusion rule.
+// v4: V11 rejects the confirmed repeated internal repair memo in design_intent.
+export const PRECHECK_VERSION = 4
 
 const ABBREV = /\b(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|Mt|vs|etc|e\.g|i\.e|U\.S|U\.K|a\.m|p\.m|No|Fig|approx|cf|Inc|Ltd|Co)\.$/
 const CLOSERS = /["'’”)\]]/
@@ -51,7 +56,19 @@ function middleInitial(unit, next) {
   const s = next.match(SURNAME_HEAD)
   return !!s && !COMMON_FIRST.has(s[1])
 }
-const STARTERS = /[A-Z“"('‘[①②③④⑤∙•▪▰※]/
+/** v3: leading / consecutive name initials, including compact A.L. surnames. */
+function nameInitial(unit, next) {
+  const m = unit.match(/(?:^|[^A-Za-z.])((?:[A-Z]\.\s*)+)$/)
+  if (!m) return false
+  const prefix = unit.slice(0, unit.length - m[1].length)
+  const previous = prefix.match(/([A-Za-z]+)\s*$/)?.[1]
+  if (previous && NOT_NAME.has(previous[0].toUpperCase() + previous.slice(1))) return false
+  // A. Y. may be used alone (followed by a verb or a closing parenthesis).
+  if (/^[A-Z]\.(?:\s|[),]|$)/.test(next)) return true
+  const surname = next.match(SURNAME_HEAD)
+  return !!surname && !COMMON_FIRST.has(surname[1])
+}
+const STARTERS = /[A-Z“"('‘[（①②③④⑤∙•▪▰※]/
 const BULLETS = new Set(['∙', '•', '▪', '▰', '※'])
 const OPEN_Q = '“'
 const CLOSE_Q = '”'
@@ -95,14 +112,16 @@ function boundaries(p, typeId) {
     if (ch !== '.' && ch !== '!' && ch !== '?') continue
     let j = i + 1
     while (j < p.length && CLOSERS.test(p[j])) j += 1
-    if (j < p.length && !/\s/.test(p[j])) continue // 소수점·약어 내부
+    // 추출본에서 종결과 삽입 표지 사이 공백이 없어도 표지를 앞 문장에 삼키지 않는다.
+    const insertMarker = typeId === 'R-INSERT' && /^[（(]\s*[①②③④⑤]\s*[）)]/.test(p.slice(j))
+    if (j < p.length && !/\s/.test(p[j]) && !insertMarker) continue // 소수점·약어 내부
     if (ABBREV.test(p.slice(unitStart, j))) continue
     if (inside(spans, j - 1) && !(j > i + 1 && p.slice(i + 1, j).includes(CLOSE_Q))) continue // 규칙 3
     let k = j
     while (k < p.length && /\s/.test(p[k])) k += 1
     if (k >= p.length) break
     if (!STARTERS.test(p[k])) continue
-    if (middleInitial(p.slice(unitStart, j), p.slice(k, k + 40))) continue // 규칙 2b
+    if (middleInitial(p.slice(unitStart, j), p.slice(k, k + 40)) || nameInitial(p.slice(unitStart, j), p.slice(k, k + 80))) continue // 규칙 2b/v3
     cuts.add(k)
     unitStart = k
     i = k - 1
@@ -211,7 +230,7 @@ export function checkUnitRefs(a, units, bad, warn, id) {
  */
 export function precheckAnalysis(row, units) {
   const a = { ...row, choices: row.choices ?? row.choice_analysis ?? [] }
-  const errors = []
+  const errors = analysisRuleErrors(a)
   const warnings = []
   if (!units?.length) return { errors: ['근거 단위 목록 없음 — units-build 필요'], warnings }
   checkUnitRefs(a, units, (_, m) => errors.push(m), (_, m) => warnings.push(m), a.item_id ?? '')
