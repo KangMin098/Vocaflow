@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 교재 공장 Phase 2의 order별 관리자 승인, 현재 trust/benchmark 판본, 단일 트랜잭션 `queued → ready` 승격·감사 계약을 개발 DB에 적용했다. 합성 성공·우회 차단·재시도를 롤백형 fixture로 검증했고 실데이터 승격은 0건이다.
+
 - feat(textbook): Academic Reading과 기존 9공정이 공유할 Product Order v1, P01~P20 보수적 기능표, 원천 직접사용/각색 라우팅, 주문·원문·권리·benchmark·인증서 증거 결속과 상태→공정 대응을 추가했다. 합성 두 학년 주문·변조 실패 주입으로 검증하며 실제 승격·교재 corpus·Gold-S·DB seed는 열지 않는다.
 
 - fix(textbook): 개발 DB에 `reading:` 각색 승격 차단 트리거를 적용하고, 검색 경로를 `pg_catalog`로 고정했다. DB 체크포인트 전후 비교와 임시 테이블 거부/허용 시험을 통과했다. 실제 교재 corpus·Gold-S·DB seed는 0건이다.

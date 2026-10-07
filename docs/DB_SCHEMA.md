@@ -1,5 +1,7 @@
 # DB Schema
 
+교재 공장 Phase 2의 `reading_promotion_audit`/`permit`/`authority`/`approval` 및 `reading_product_order_revision` 테이블, 관리자 승인·전용 승격 RPC, 일회용 permit을 확인하는 `reading:` 트리거를 개발 DB에 적용했다(`20261007120000_reading_controlled_promotion.sql`). [통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md) §Phase 2에 운영 순서와 rollback을 기록한다. 현재 registry·승인·실데이터 승격은 0건이다.
+
 Applied on 2026-10-07 to development DB `jajenrevcbmrpaliomxv`: `20261007102816_reading_adaptation_promotion_gate.sql` adds a `library_articles` trigger that rejects `reading:` children entering `ready` or `published` through INSERT, RPC, or direct UPDATE and prevents changing an existing reading child's `source_id` to bypass that hold. `20261007102922_reading_gate_pin_search_path.sql` pins the trigger function search path to `pg_catalog`. These names match the actual Supabase migration history. Both migrations are applied only to the development DB; no promotion function is installed, and the separate promotion contract is required before those children can become learner-visible.
 
 적용 승인 검토 자료: [실측·역할·재실행·실패·롤백 계약](./reports/reading-adaptation-promotion-gate-preapply-20261007.md).

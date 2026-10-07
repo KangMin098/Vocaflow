@@ -2,6 +2,8 @@
 
 교재 공장 Phase 1 공통 주문·원천 라우팅·제품군 기능표·증거 판본·상태→9공정 연결은 [통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md)을 따른다. 순수 계약은 DB 승격이나 교재 완주가 아니다.
 
+Phase 2 `reading:` 자식의 order별 관리자 승인·현재 authority 판본·전용 DB 승격/감사 경로는 [통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md) §Phase 2를 따른다. 개발 DB migration은 적용됐으나 authority·order·승인 registry가 비어 있어 실데이터 승격은 차단된다.
+
 ## Academic Reading 교재 타기팅·처리 (2026-10-04)
 
 에이전트 내용 검수(2026-10-05): target 각색 청크 완료 후 `adapt-review-export.mjs --dir <청크 폴더>`가 완성 행에만 Claude Code/Codex 별도 검수 파일을 새로 만든다. 보류 행은 집계하고 행 순서는 UUID·target으로 연결한다. 완성·수정 행에는 기존 검수 기록을 보존하면서 새 해시 양식을 추가한다. 두 에이전트가 원문·target·각색·권리·문항 근거를 독립 판정하고 12항목 전체 통과·왜곡 0건·양쪽 실제 인용을 남겨야 `adapt-drain-import.mjs`가 통과한다. 원천 revision/hash·target key·전체 target hash(추가 자료 권리 포함)·완성 각색 hash가 달라지면 재검수하며 적재 직전 검수 파일을 다시 읽는다. 적재한 자식은 `agent_reviewed`와 검수 원문·hash를 보존하고 문항 export는 현재 부모와 검수 원문/hash를 다시 확인하고 reading: 자식의 메타데이터 삭제도 차단한다. 장문은 문단별 정제로 네 문단을 유지하되 정제 중 수치·구절 삭제는 검수된 각색과 비교해 차단하며 target.resources 누락은 해당 지문만 제외한다. 문항 importer는 과거 청크라도 현재 각색·부모 본문/권리 상태·검수 인증을 다시 확인하고 insert 직전 재조회한다. 에이전트 판정은 사람/학생 인증이나 gold가 아니다. 기존 밴드 모드는 이 새 target 검수 계약의 대상이 아니다.

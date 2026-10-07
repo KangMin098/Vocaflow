@@ -416,7 +416,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `GET /api/admin/csat/items` | 문항 감사 802행 — 검수 통과와 별개로 여섯 칸(정답 근거·근거 인용·오답 배제·절차·어휘·시간)이 찼는지 판정한다. `?item=<id>` 는 그 문항의 분석 전문. 평가원 지문·선지 원문은 조회 컬럼에 없다 |
 | `GET /api/admin/csat/guide` | 기출 분석 → **학습 가이드 원천 자료**. `?format=json`(기본, 콘솔 탭이 읽는다) · `?format=md`(교재 집필용) · `&download=1`(파일로). 화면과 파일이 **같은 조회**에서 나온다. 평가원 지문 원문은 조회 컬럼에서 이미 빠져 있다 |
 
-### `/api/admin/articles/*` (21)
+### `/api/admin/articles/*` (기존 21 + Phase 2 승격 승인 1)
 
 > 실측 2026-08-21 (`find apps/web/src/app/api/admin/articles -name route.ts`).
 > 이전 판은 **4개만 적고 있었고 그중 `arxiv-feed` 는 플랫폼에서 삭제된 소스**였다.
@@ -444,13 +444,14 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 ⚠️ `the_conversation` 은 ND 라 본문을 변형할 수 없어 **문항이 0개** 나온다.
 수집은 되지만 교재에는 못 실린다 — 자세한 것은 [LIBRARY_PIPELINE.md](./LIBRARY_PIPELINE.md).
 
-**운영 (6)**
+**운영 (기존 6 + Phase 2 승인 1)**
 
 | 경로 | 비고 |
 |---|---|
 | `POST …/seed` · `GET …/seed-list` | seed_catalog 적재·조회 |
 | `POST …/bulk-requeue` | 선택분 큐 재투입 |
 | `POST …/force-publish` | 검수 건너뛰고 발행; reading: adaptation children return 409 |
+| `POST …/reading-promotion` | 실제 활성 admin 세션 전용. `register-order`/`register-authority`/`approve` RPC만 호출한다. 개발용 admin bypass와 curator는 거부하고 service_role을 사용하지 않는다. 개발 DB에는 migration이 적용됐으나 실제 authority·order 등록은 0건이다. 화면 액션은 아직 없다. |
 | `POST …/revert` | 발행 되돌리기 |
 | `POST …/delete` | 삭제 (+ seed unlock) |
 

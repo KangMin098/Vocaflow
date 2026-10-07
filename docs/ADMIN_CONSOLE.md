@@ -1,5 +1,7 @@
 # Admin Console
 
+`reading:` 각색 자식의 Phase 2 제한 승격은 [교재 공장 통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md) §Phase 2의 관리자 authority·주문 판본 등록, 주문별 승인 API, 전용 실행기와 개발 DB permit 트리거로 연결했다. 일반 ACP·강제 게시는 계속 차단되며, 관리자 화면 액션은 아직 제공하지 않는다.
+
 교재 공장 Phase 1에서 Academic Reading 주문의 증거 상태를 기존 `/admin/csat` 9공정에 대응시키는 순수 계약을 추가했다([통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md)). 새 관리자 실행 화면이나 DB 집계 눈금은 아직 없으며 `queued` 각색을 집필 재고로 세지 않는다.
 
 FYM 사람 실행기 v2(2026-10-05): [2차 프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/critical·제3 독립 판정 후 중재·학년별/버전별 15명·manifest 봉인·calibration/validation 구분·재현을 등록/수집/보고/적재 전 검사에 연결했다. 소재 적격 도움말에 실행 초안·새 출력/복구·원 연구 재검증·새 seed의 v1 거절·production 읽기 전용 대조를 함께 갱신했다. 새 화면/라우트/DB 액션은 없다. 실제 8편은 미봉인 candidate, 사람 응답/gold/DB 쓰기 0이다.

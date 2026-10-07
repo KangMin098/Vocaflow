@@ -37,6 +37,10 @@ const SCRIPTS_DIR = resolve(process.cwd(), '..', '..', 'scripts')
  * 키는 `src/app/api/` 기준 상대 경로(디렉터리), POSIX 구분자.
  */
 const EXTERNAL: ReadonlyArray<{ route: string; why: string }> = [
+  {
+    route: 'admin/articles/reading-promotion',
+    why: '승격 주문 등록·승인에 쓰는 인증된 관리자 수동 요청 경로다. 현재 관리자 화면 호출부는 없고 외부 운영자가 세션으로 호출한다.',
+  },
   { route: 'csat/session/reveal', why: '기존 풀이 클라이언트 호환 API. /csat 해부는 정답 선공개지만 사용자 지시에 따라 기존 인증·API 계약은 보존한다. 신규 UI 호출은 없다.' },
   {
     route: 'auth/callback',
