@@ -43,7 +43,7 @@ describe('coreSummary', () => {
     expect(s.candidates).toEqual(['R', 'V'])
     const s2 = coreSummary({ nodes: { A1: v(0.2), A2: v(0.3), A8: v(0.3) } }, SETTINGS)
     expect(s2.candidates).toEqual(['V', 'S'])
-    expect(s2.nextDiagnosis).toBe('어휘와 문장해석 중 실제 원인을 구분하기 위한 추가 진단 필요')
+    expect(s2.nextDiagnosis).toBe('어휘 · 표현과 문장 이해 중 실제 원인을 구분하기 위한 추가 진단 필요')
   })
 
   it('근거가 모두 없으면 시험 기록을 더하라는 진단, 후보가 없으면 후보 없음', () => {

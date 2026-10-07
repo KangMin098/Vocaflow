@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-map): 학습 지도 vNext 정렬(Phase 1 화면) — 카드 표시명(문장 이해 · 글 이해 · 근거 · 선지 판단 · 실전 수행) · 기존 라인 대응 「현재 계산」 표시와 A4 · A6 이동 예정 · 「기존 상세 지도」 · 구분선 = 표시 기준 · 오답 원인 ≠ 카드 상태 · 성장 경로 8단계 · B/C/D/I/J 「능력 아님」 라벨 · 팝업 「학습 활동」 탭 · 목표율 = 시험 전략. DB 변경 없음, 회귀 `vnext-alignment.test.ts`.
+
 - docs(csat): 학습 지도 vNext rev2.1 — 설계 동결(미구현). cause 상태 세 단위(cause_adjudicated = attempt · cause_confirmed = student×axis 누적 근거 · verified_diagnosis) + 구조도, X 원인 우선순위 자동화 보류, X 에서 Processing Fluency 제거(가로 측정 차원), E-O1 관찰 조건, A6 legacy proxy 분리, Evidence Anchor 원문 정체성 · 승격 순서, 영구 ID = semantic slug. Codex 리뷰 → NO_FINDINGS
 
 - docs(csat): 학습 지도 vNext 설계 rev2(미구현) — 통합 관찰 *-O1 namespace · S7 흡수 · R5/R6 병합 · A6 → K(축 밖) · Performance Context · 54라인 상태(retain_core 7 · facet 1 · move 40 · alias 2 · retire 4 — 데이터 보존과 개념 보존 분리) · cause_adjudicated(응답)/cause_confirmed(축, 기존 §9) → Diagnostic Priority Signal · authoring/learning namespace · Evidence Anchor 전제(기존 좌표는 legacy_candidate). Codex 설계 리뷰 6회 → NO_FINDINGS

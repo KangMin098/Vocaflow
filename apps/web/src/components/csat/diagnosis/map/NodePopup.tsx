@@ -2,7 +2,7 @@
 //
 // 학습 지도 팝업 — 노드를 누르면 하나만 열린다. 참조(3B 앱)의 팝업 패턴으로 구성한다(부품: PopupParts · 패턴 표: popup-patterns.md):
 //   머리(타일 · 이름 · 알약 탭 · 닫기) · 배너(경로 보기) · 카드 · 검색창 · 목록 박스(타일 + 두 줄 + 칩) · 바닥 알약 버튼.
-//   탭 넷 = 섹션 넷: 목표(목표율 · 계산 근거 문항 — 역량만) · 관찰(규칙 기반 관찰값 · 근거량) · 현 상태(차이 · 과제) · 근거(설명 · 설계 근거 P · 처방 접근 T · 출처 · 연결선)
+//   탭 넷 = 섹션 넷: 목표(목표율 · 계산 근거 문항 — 역량만) · 관찰(규칙 기반 관찰값 · 근거량) · 학습 활동(차이 · 과제 — 능력 상태와 분리) · 근거(설명 · 설계 근거 P · 처방 접근 T · 출처 · 연결선)
 // 역량(A)만 목표율 · 차이를 보인다. 문항유형 · 선지 함정 · 행동 · 방법 노드는 역할 카드와 관찰 지표만(목표 100% 개념 없음).
 // P · T 는 숙달 노드가 아니라 이 팝업의 「근거」 탭 한 곳에만 나온다(2026-10-03 결정).
 // 같은 정보를 두 곳에 두지 않는다 — 지도의 노드는 막대와 상태만, 근거 문장과 과제는 여기에만.
@@ -12,7 +12,7 @@
 import { BookOpen, BookOpenCheck, CalendarDays, FileText, Gauge, Link2, ListChecks, Network, Sprout, Target, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { AXIS_ROLE, roleOf } from '@/lib/csat/map/core'
+import { AXIS_ROLE, GOAL_STRATEGY_NOTE, TASK_NOTE, roleOf } from '@/lib/csat/map/core'
 import type { MapPageData } from '@/lib/csat/map/load'
 
 import { useModalFocus } from '../useModalFocus'
@@ -27,7 +27,8 @@ type TabKey = 'goal' | 'reached' | 'now' | 'basis'
 const TABS: { key: TabKey; label: string; Icon: typeof Target }[] = [
   { key: 'goal', label: '목표', Icon: Target },
   { key: 'reached', label: '관찰', Icon: Gauge },
-  { key: 'now', label: '현 상태', Icon: ListChecks },
+  // 「학습 활동」 — 과제 완료는 능력 상태와 다른 계층(2026-10-07 vNext 정렬 · 이전 라벨 「현 상태」)
+  { key: 'now', label: '학습 활동', Icon: ListChecks },
   { key: 'basis', label: '근거', Icon: BookOpenCheck },
 ]
 
@@ -154,7 +155,7 @@ export function NodePopup({
                 </Card>
               )}
               {usesTarget && (
-              <Card title="목표율" desc={isLine ? '반드시 맞혀야 하는 문항의 배점 비율이에요.' : '연결된 라인의 배점 가중 평균이에요.'}>
+              <Card title="목표율" desc={`${isLine ? '반드시 맞혀야 하는 문항의 배점 비율이에요.' : '연결된 라인의 배점 가중 평균이에요.'} ${GOAL_STRATEGY_NOTE}`}>
                 {hasTarget ? (
                   <div className={p.bigRow}>
                     <span className={p.big}>{pct(value.target)}</span>
@@ -263,6 +264,7 @@ export function NodePopup({
 
           {tab === 'now' && (
             <>
+              <Card title="학습 활동" desc={TASK_NOTE} />
               {usesTarget && (
                 <Card title="지금 관찰" desc="목표 점수와 역량 수준의 직접 연결은 목표율 보정(calibration) 뒤에 다시 보여 줘요.">
                   <div className={p.bigRow}>

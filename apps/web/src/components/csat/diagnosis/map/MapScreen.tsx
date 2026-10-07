@@ -6,6 +6,7 @@
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
+import { LEGACY_DETAIL_NOTE } from '@/lib/csat/map/core'
 import type { MapPageData } from '@/lib/csat/map/load'
 
 import c from './core.module.css'
@@ -29,7 +30,7 @@ export function MapScreen({ data, view, base }: { data: MapPageData; view: MapVi
               <ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" />
               핵심 지도로
             </Link>
-            <span>전체 지도 — 역량(A) 막대는 규칙 기반 관찰값이에요(목표율 연결은 보정 뒤). 문항유형 · 선지 함정 · 행동 · 방법은 목표율을 두지 않아요.</span>
+            <span data-testid="map-legacy-note">기존 상세 지도 — {LEGACY_DETAIL_NOTE} 역량(A) 막대는 규칙 기반 관찰값이고, 측정 정보 · 문항 특성 · 학습 · 행동 정보 · 실전 · 상황은 능력이 아니라서 목표율을 두지 않아요.</span>
           </div>
           <LearningMap data={data} />
         </>

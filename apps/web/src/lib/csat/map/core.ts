@@ -22,18 +22,22 @@ export interface CoreAxisDef {
   code: CoreCode
   name: string
   question: string
-  /** 임시 대응(DB 변경 없음) — 기존 역량 라인 */
+  /** 임시 대응(DB 변경 없음) — 기존 역량 라인. **legacy proxy 계산일 뿐 vNext 능력 정의가 아니다** */
   lines: string[]
   group: 'core' | 'performance'
+  /** vNext 와 다른 점(학생 화면 한 줄) — 기존 라인 대응이 미래 구조로 굳지 않게 */
+  legacyNote?: string
 }
 
 export const CORE_AXES: CoreAxisDef[] = [
-  { code: 'V', name: '어휘', question: '단어 · 표현이 의미로 바로 연결되는가', lines: ['A1'], group: 'core' },
-  { code: 'S', name: '문장해석', question: '문장의 구조와 의미를 정확하게 처리하는가', lines: ['A2', 'A8'], group: 'core' },
-  { code: 'R', name: '독해', question: '여러 문장을 이어 글 전체의 의미와 논리를 만드는가', lines: ['A3', 'A6'], group: 'core' },
-  { code: 'E', name: '근거판단', question: '글의 의미를 선지와 이어 정답 · 오답을 가리는가', lines: ['A4', 'A5'], group: 'core' },
+  // 표시명은 vNext 이름(2026-10-07 사용자 결정) — 문장 이해 = 구조로 문장 의미를 만드는 능력(번역 · 구문 분석 아님),
+  // 글 이해 = 문장 관계 → 글 구조 → 중심 의미 → 추론. 「재진술」 카드는 만들지 않는다(V · R · E 로 나뉘어 들어간다)
+  { code: 'V', name: '어휘 · 표현', question: '단어 · 표현이 의미로 바로 연결되는가', lines: ['A1'], group: 'core' },
+  { code: 'S', name: '문장 이해', question: '문장의 구조와 의미를 정확하게 처리하는가', lines: ['A2', 'A8'], group: 'core' },
+  { code: 'R', name: '글 이해', question: '여러 문장을 이어 글 전체의 의미와 논리를 만드는가', lines: ['A3', 'A6'], group: 'core', legacyNote: 'A6(배경지식)은 앞으로 글 이해가 아니라 맥락 자원으로 옮겨요 — 지금은 기존 계산과 맞추려고 임시로 더해요' },
+  { code: 'E', name: '근거 · 선지 판단', question: '글의 의미를 선지와 이어 정답 · 오답을 가리는가', lines: ['A4', 'A5'], group: 'core', legacyNote: 'A4 는 앞으로 다른 항목으로 나뉘어요 — 지금은 기존 계산과 맞추려고 임시로 더해요' },
   { code: 'L', name: '듣기', question: '음성을 실시간으로 단어 · 문장 · 의미로 바꾸는가', lines: ['A7'], group: 'core' },
-  { code: 'X', name: '실전 실행', question: '처리 속도 · 시간 배분 · 풀이 순서 · 집중', lines: ['A9'], group: 'performance' },
+  { code: 'X', name: '실전 수행', question: '처리 속도 · 시간 배분 · 풀이 순서 · 집중', lines: ['A9'], group: 'performance' },
 ]
 
 /**
@@ -42,17 +46,48 @@ export const CORE_AXES: CoreAxisDef[] = [
  */
 export const NO_DATA_ATTRIBUTES: readonly string[] = ['A7']
 
+/** 현재 계산이 legacy proxy 임을 밝히는 문구 — 카드 · 상세 지도가 함께 쓴다 */
+export const LEGACY_PROXY_LABEL = '현재 계산(기존 라인 대응)'
+export const LEGACY_DETAIL_NOTE = '기존 54라인은 지금 데이터 · 기능과 이어 쓰려고 남긴 상세 분석이에요. 앞으로의 핵심 학습 지도의 하위 능력 구조가 아니에요.'
+
+/** 관찰 수준 구분선(core.weak · core.watch)의 성격 — 교육적으로 검증된 기준이 아니다 */
+export const THRESHOLD_NOTE = '관찰 낮음 · 중간 · 높음을 가르는 선은 교육적으로 검증된 기준이 아니라, 지금의 규칙 기반 관찰을 화면에서 세 칸으로 나누려고 정한 표시 기준이에요.'
+
+/** 오답 원인 판정과 지도 상태의 관계 — 원인 확인은 다음 진단 순서만 정한다 */
+export const CAUSE_NOTE = '풀이 기록으로 오답 원인이 확인돼도 이 카드는 바로 바뀌지 않아요. 원인 확인은 다음에 할 진단의 순서만 정하고, 카드 상태는 직접 진단으로 확인된 결과만 바꿔요.'
+
+/** 목표 점수 계산의 성격 — 능력 목표가 아니라 시험 수행 전략 */
+export const GOAL_STRATEGY_NOTE = '목표 점수에서 나온 「반드시 맞혀야 하는 문항」은 시험 수행 전략 계산이에요. 능력 목표가 아니에요.'
+
+/** 과제와 능력 상태의 분리 */
+export const TASK_NOTE = '학습 활동은 능력 상태와 따로 기록해요. 활동을 마쳐도 관찰 상태는 바뀌지 않아요.'
+
+/**
+ * 성장 경로(Learning Progression) — 별도 점수 카드가 아니라 V · S · R · E · X 를 관통하는 순서(2026-10-07 사용자 결정).
+ * 화면에는 순서만 보이고 단계별 값은 내지 않는다(측정 근거 없음).
+ */
+export const LEARNING_PROGRESSION: readonly { step: string; axes: CoreCode[] }[] = [
+  { step: '어휘 · 표현', axes: ['V'] },
+  { step: '문장 의미', axes: ['S'] },
+  { step: '문장 관계', axes: ['R'] },
+  { step: '글 구조', axes: ['R'] },
+  { step: '중심 의미', axes: ['R'] },
+  { step: '본문 ↔ 선지', axes: ['E'] },
+  { step: '근거 판단', axes: ['E'] },
+  { step: '시간 내 통합', axes: ['X'] },
+]
+
 /** 영역(축) 역할 — 학생 숙달 노드인지, 측정 렌즈 · 오답 분류 · 행동 진단 · 방법 도구인지 */
 export type AxisRole = 'ability_proxy' | 'lens' | 'error' | 'behavior' | 'method' | 'performance'  // 'error' = 선지 함정(Choice Trap) — 이름은 호환을 위해 유지
 export const AXIS_ROLE: Record<string, { role: AxisRole; label: string; desc: string }> = {
   A: { role: 'ability_proxy', label: '역량 관찰(규칙 기반)', desc: '유형 → 역량 대응표에서 상속된 관찰값이에요. 실제 실력 수준이 아니에요.' },
-  B: { role: 'lens', label: '측정 렌즈', desc: '문항유형은 능력이 아니라, 학생 능력이 관찰되는 조건이에요.' },
+  B: { role: 'lens', label: '측정 정보(능력 아님)', desc: '문항 유형 렌즈예요. 문항유형은 능력이 아니라, 학생 능력이 관찰되는 조건이에요.' },
   // C = Choice Trap — 오답 선지가 지문을 비튼 방식(문항 · 선지 특성). 학생이 왜 틀렸는지(Learner Error Cause)는 지도 노드가 아니라
   // Attempt Evidence Layer 에서 다룬다(2026-10-03 사용자 결정 · docs/csat-learner/ERROR_EVIDENCE_DESIGN.md).
-  C: { role: 'error', label: '선지 함정 · 문항 특성', desc: '오답 선지가 지문을 어떻게 비틀었는지예요. 학생이 왜 틀렸는지는 이 노드가 말하지 않아요 — 원인은 풀이 기록으로 따로 확인해요.' },
-  D: { role: 'behavior', label: '행동 진단', desc: '풀이 습관 신호예요. 능력이 아니라 행동을 봐요.' },
-  I: { role: 'method', label: '학습 방법', desc: '진단 결과에 따라 꺼내 쓰는 방법 도구예요. 달성할 대상이 아니에요.' },
-  J: { role: 'performance', label: '시험 운영', desc: '실전 실행(시간 · 순서 · 집중)에 속해요.' },
+  C: { role: 'error', label: '문항 특성(능력 아님)', desc: '선지 함정 · 문항 특성이에요. 오답 선지가 지문을 어떻게 비틀었는지예요. 학생이 왜 틀렸는지는 이 노드가 말하지 않아요 — 원인은 풀이 기록으로 따로 확인해요.' },
+  D: { role: 'behavior', label: '학습 · 행동 정보', desc: '풀이 습관 신호예요. 능력이 아니라 행동을 봐요.' },
+  I: { role: 'method', label: '학습 · 행동 정보', desc: '진단 결과에 따라 꺼내 쓰는 학습 방법 도구예요. 능력이 아니에요.' },
+  J: { role: 'performance', label: '실전 · 상황', desc: '실전 수행(시간 · 순서 · 집중)과 시험 상황 정보예요. 능력 카드가 아니에요.' },
 }
 export const roleOf = (axisCode: string | null | undefined) => (axisCode ? AXIS_ROLE[axisCode]?.role ?? null : null)
 
@@ -137,7 +172,7 @@ export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSe
 
   const nameOf = (c: CoreCode) => CORE_AXES.find((a) => a.code === c)?.name ?? c
   let nextDiagnosis: string
-  if (candidates.includes('V') && candidates.includes('S')) nextDiagnosis = '어휘와 문장해석 중 실제 원인을 구분하기 위한 추가 진단 필요'
+  if (candidates.includes('V') && candidates.includes('S')) nextDiagnosis = '어휘 · 표현과 문장 이해 중 실제 원인을 구분하기 위한 추가 진단 필요'
   else if (candidates.length === 2) nextDiagnosis = `${nameOf(candidates[0])}와(과) ${nameOf(candidates[1])} 중 실제 원인을 구분하기 위한 추가 진단 필요`
   else if (candidates.length === 1) nextDiagnosis = `${nameOf(candidates[0])} 후보의 실제 원인을 확인하기 위한 추가 진단 필요`
   else if (axes.every((a) => a.status === 'insufficient' || a.status === 'no_data')) nextDiagnosis = '진단 근거가 부족해요 — 시험 기록을 더하면 확인할 수 있어요'

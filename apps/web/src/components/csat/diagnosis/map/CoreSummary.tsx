@@ -1,13 +1,14 @@
 // apps/web/src/components/csat/diagnosis/map/CoreSummary.tsx
 //
-// 핵심 지도 요약(첫 화면) — Core V/S/R/E/L + 별도 X 실전 실행 · 우선 확인 후보(≤2) · 지금 필요한 진단(≤1) · 전체 지도 보기.
+// 핵심 지도 요약(첫 화면) — Core V/S/R/E/L + 별도 X 실전 수행 · 성장 경로 · 우선 확인 후보(≤2) · 지금 필요한 진단(≤1) · 기존 상세 지도 보기.
+// 2026-10-07 vNext 정렬: 표시명 vNext · 기존 라인 대응은 「현재 계산」으로 표시 · 구분선 · 오답 원인 ≠ 카드 상태 · 성장 경로.
 // 원칙: 현재 데이터가 증명하지 못하는 것을 숙달도처럼 표현하지 않는다 — 관찰값을 %로 내지 않고 상태 글자만,
 // 카드마다 근거 수준(규칙 기반 · 정밀 진단 미실시)을 적는다. 학습 Route 는 고르지 않고 진단을 처방한다.
 
 import { ArrowRight, Stethoscope } from 'lucide-react'
 import Link from 'next/link'
 
-import { CORE_STATUS_LABEL, coreSummary, type CoreAxisView, type CoreStatus } from '@/lib/csat/map/core'
+import { CAUSE_NOTE, CORE_AXES, CORE_STATUS_LABEL, LEARNING_PROGRESSION, LEGACY_DETAIL_NOTE, LEGACY_PROXY_LABEL, THRESHOLD_NOTE, coreSummary, type CoreAxisView, type CoreStatus } from '@/lib/csat/map/core'
 import type { MapPageData } from '@/lib/csat/map/load'
 
 import c from './core.module.css'
@@ -32,7 +33,7 @@ export function CoreSummary({ data, fullHref }: { data: MapPageData; fullHref: s
   return (
     <div className={c.wrap} data-testid="csat-core-map" data-basis={sum.basis}>
       <div className={c.notice}>
-        지금 보이는 상태는 기출 문항유형에서 이어 받은 <strong>규칙 기반 관찰</strong>이에요. 실제 어휘 · 문장해석 실력을 잰 값이 아니라서, 숫자 대신 잠정 상태로만 보여 줘요.
+        지금 보이는 상태는 기출 문항유형에서 이어 받은 <strong>규칙 기반 관찰</strong>이에요. 실제 어휘 · 표현이나 문장 이해 실력을 잰 값이 아니라서, 숫자 대신 잠정 상태로만 보여 줘요.
       </div>
 
       <section aria-labelledby="core-h">
@@ -42,10 +43,23 @@ export function CoreSummary({ data, fullHref }: { data: MapPageData; fullHref: s
             <AxisCard key={a.code} a={a} />
           ))}
         </div>
+        <p className={c.note} data-testid="core-threshold-note">{THRESHOLD_NOTE}</p>
+      </section>
+
+      <section aria-labelledby="prog-h" data-testid="core-progression">
+        <h3 id="prog-h" className={c.h}>성장 경로 <span className={c.hNote}>따로 매기는 점수가 아니라 카드들을 꿰는 순서예요</span></h3>
+        <ol className={c.prog}>
+          {LEARNING_PROGRESSION.map((p) => (
+            <li key={p.step} className={c.progStep}>
+              <span>{p.step}</span>
+              <span className={c.progAxes}>{p.axes.map((x) => CORE_AXES.find((a) => a.code === x)?.name ?? x).join(' · ')}</span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section aria-labelledby="perf-h">
-        <h3 id="perf-h" className={c.h}>실전 실행 <span className={c.hNote}>핵심 실력과 따로 봐요</span></h3>
+        <h3 id="perf-h" className={c.h}>실전 수행 <span className={c.hNote}>핵심 실력과 따로 봐요</span></h3>
         <div className={c.gridPerf}>
           {perf.map((a) => (
             <AxisCard key={a.code} a={a} />
@@ -79,13 +93,15 @@ export function CoreSummary({ data, fullHref }: { data: MapPageData; fullHref: s
             {sum.nextDiagnosis}
           </p>
           <p className={c.muted}>학습 경로는 {sum.route.note.replace('Route 미정 — ', '')}해요.</p>
+          <p className={c.note} data-testid="core-cause-note">{CAUSE_NOTE}</p>
         </section>
       </div>
 
       <Link href={fullHref} className={c.fullLink} data-testid="map-full-link">
-        전체 지도 보기 <span className={c.muted}>영역 · 학습 라인 {data.nodes.filter((n) => n.kind === 'line').length}개</span>
+        기존 상세 지도 보기 <span className={c.muted}>영역 · 기존 라인 {data.nodes.filter((n) => n.kind === 'line').length}개</span>
         <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />
       </Link>
+      <p className={c.note}>{LEGACY_DETAIL_NOTE}</p>
     </div>
   )
 }
@@ -101,8 +117,9 @@ function AxisCard({ a }: { a: CoreAxisView }) {
       <p className={c.q}>{a.question}</p>
       <p className={`${c.status} ${TONE[a.status]}`}>{CORE_STATUS_LABEL[a.status]}</p>
       <p className={c.meta}>
-        {a.status === 'no_data' ? '문항 태그 없음' : `라인별 기여 건수 ${a.contributions}(중복 포함)`} · 기존 {a.lines.join('+')}
+        {a.status === 'no_data' ? '문항 태그 없음' : `라인별 기여 건수 ${a.contributions}(중복 포함)`} · {LEGACY_PROXY_LABEL} {a.lines.join('+')}
       </p>
+      {a.legacyNote && <p className={c.legacy}>{a.legacyNote}</p>}
       <p className={c.basis}>{BASIS_TEXT[a.basis]}</p>
     </article>
   )
