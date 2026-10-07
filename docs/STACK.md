@@ -172,6 +172,8 @@ export const tokens = {
 
 ### `@vocaflow/library-pipeline`
 
+교재 공장 공통 주문·출처 라우팅·증거 결속은 `./factory-order`, 브라우저 안전 상태→공정 대응은 `./factory-order-stage` export를 사용한다. 이 계약은 DB 쓰기나 Gold-S 발급 기능이 아니다.
+
 LCP 파이프라인 코어 — `ingestFromGutenberg` / `ingestFromStandardEbooks` / `ingestFromWikibooks` / `ingestFromWikisource` / `ingestFromLibriVox` / `ingestFromOpenStax` / `ingestFromSimpleWikipedia` / `normalizeBook` / `segmentBook` / `analyzeBook`.
 
 ### `@vocaflow/vcb-core` + `vcb-curate-core`

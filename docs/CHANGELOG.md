@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Academic Reading과 기존 9공정이 공유할 Product Order v1, P01~P20 보수적 기능표, 원천 직접사용/각색 라우팅, 주문·원문·권리·benchmark·인증서 증거 결속과 상태→공정 대응을 추가했다. 합성 두 학년 주문·변조 실패 주입으로 검증하며 실제 승격·교재 corpus·Gold-S·DB seed는 열지 않는다.
+
 - fix(textbook): 개발 DB에 `reading:` 각색 승격 차단 트리거를 적용하고, 검색 경로를 `pg_catalog`로 고정했다. DB 체크포인트 전후 비교와 임시 테이블 거부/허용 시험을 통과했다. 실제 교재 corpus·Gold-S·DB seed는 0건이다.
 
 - fix(textbook): 미적용 `reading:` DB 보호 migration에 명시적 트랜잭션과 재실행 가능한 트리거 재생성을 추가했다. 개발 DB 읽기 전용 조회에서 대상 자식·트리거·함수 모두 0건을 확인했다. DB 적용은 하지 않았다.

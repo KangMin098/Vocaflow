@@ -1,5 +1,7 @@
 # Admin Console
 
+교재 공장 Phase 1에서 Academic Reading 주문의 증거 상태를 기존 `/admin/csat` 9공정에 대응시키는 순수 계약을 추가했다([통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md)). 새 관리자 실행 화면이나 DB 집계 눈금은 아직 없으며 `queued` 각색을 집필 재고로 세지 않는다.
+
 FYM 사람 실행기 v2(2026-10-05): [2차 프로토콜](./FYM_HUMAN_VALIDATION_PROTOCOL.md)의 4점/critical·제3 독립 판정 후 중재·학년별/버전별 15명·manifest 봉인·calibration/validation 구분·재현을 등록/수집/보고/적재 전 검사에 연결했다. 소재 적격 도움말에 실행 초안·새 출력/복구·원 연구 재검증·새 seed의 v1 거절·production 읽기 전용 대조를 함께 갱신했다. 새 화면/라우트/DB 액션은 없다. 실제 8편은 미봉인 candidate, 사람 응답/gold/DB 쓰기 0이다.
 
 Calibration 운영 준비: [문항 revision 3](./reports/frym-calibration-instruments-3-review.md) 96개를 전수 점검하고 explicit --instruments 선택·한국어 안내·질문 단계 분리/앞 답 회수·책임자 전용 채점 자료를 도움말과 [운영 안내](./FYM_CALIBRATION_OPERATIONS.md)에 연결했다. 단계 열람/잠금은 사람 절차이며 새 화면·전송·DB 액션은 없다.
