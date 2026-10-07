@@ -218,6 +218,8 @@ test('CLI creates separate metadata and audit files and will not overwrite', t =
   assert.equal(status.status, 0, status.stderr)
   assert.equal(JSON.parse(status.stdout).state, 'insufficient_benchmark')
   assert.equal(JSON.parse(status.stdout).seed_eligible, false)
+  assert.equal(JSON.parse(status.stdout).promotion.gold_s_review, 'blocked')
+  assert.equal(JSON.parse(status.stdout).promotion.seed_eligibility, 'blocked')
   const missingSnapshot = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, join(directory, 'missing-snapshot.json'), '-', '-', '-'], { encoding: 'utf8' })
   assert.equal(missingSnapshot.status, 1)
   assert.deepEqual(JSON.parse(missingSnapshot.stdout).reasons, ['SNAPSHOT_UNREADABLE'])

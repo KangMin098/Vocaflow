@@ -14,6 +14,11 @@ const result = (state, reasons = [], evidence = {}) => ({
 })
 
 const shortageReasons = snapshot => Object.entries(snapshot.grades).flatMap(([grade, row]) => row.status === 'calibrated' ? [] : row.reasons.map(reason => `${grade}:${reason}`))
+const verifiedCandidates = new WeakMap()
+export const isVerifiedCandidateStatus = (status, decision) => {
+  const proof = status && typeof status === 'object' ? verifiedCandidates.get(status) : null
+  return Boolean(proof && proof.status_hash === hash(status) && proof.decision_hash === decision?.decision_hash)
+}
 
 export function inspectPipeline({ protocol, candidates, samples, audit, receipt, envelope, decision, currentDecision, f02, e3, decisionEvidenceError }) {
   let admission
@@ -42,5 +47,7 @@ export function inspectPipeline({ protocol, candidates, samples, audit, receipt,
   if (decision.decision_hash !== hash(expectedBody) || decision.admission_receipt_hash !== admission.receipt_hash || verifyDecision(decision, currentDecision).status !== 'current') return result('stale', ['DECISION_STALE'], evidence)
   const state = workflowState({ protocol, snapshot, decision, current: currentDecision })
   const reasons = state === 'insufficient_benchmark' ? [...shortageReasons(snapshot), ...Object.entries(decision.target_fit).filter(([, value]) => value.status === 'insufficient_benchmark').map(([grade]) => `TARGET_FIT:${grade}:INSUFFICIENT_BENCHMARK`), ...(decision.level_separation.status === 'insufficient_benchmark' ? [`LEVEL_SEPARATION:${decision.level_separation.reason ?? 'INSUFFICIENT_BENCHMARK'}`] : [])] : []
-  return result(state, reasons, evidence)
+  const outcome = result(state, reasons, evidence)
+  if (state === 'gold_s_candidate') verifiedCandidates.set(outcome, { status_hash: hash(outcome), decision_hash: decision.decision_hash })
+  return outcome
 }

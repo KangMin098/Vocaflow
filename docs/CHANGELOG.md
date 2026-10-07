@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 현재 benchmark 후보의 decision·snapshot·admission receipt 해시를 묶은 Gold-S 책임자 검토 준비 preview를 추가했다. 누락·혼합·stale 증거는 보류하며 Gold-S 인증·seed eligibility·DB seed는 계속 닫는다.
+
 - feat(textbook): 로컬 교재 admission부터 benchmark snapshot·판정까지 read-only 상태 점검을 연결하고, current F02/E3 증거로 판정을 재계산한다. hold·reject·stale은 후속 gate를 닫고 Gold-S 후보와 seed eligibility를 분리한다. 실제 corpus·Gold-S·DB seed는 0이다.
 
 - feat(textbook): admitted benchmark snapshot을 admission receipt와 별도 seal로 결속하고, 다른 실행의 receipt·snapshot 혼합과 원본·후보·protocol 변경을 CLI 단계에서 stale 처리한다. 합성 fixture만 사용했으며 실제 corpus·Gold-S·DB seed는 0이다.

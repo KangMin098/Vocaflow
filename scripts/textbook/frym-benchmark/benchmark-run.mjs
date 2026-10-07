@@ -9,6 +9,7 @@ import { verifyAdmission } from './local-admission-ledger.mjs'
 import { assertExternalCandidate } from './local-candidate-path.mjs'
 import { sealAdmittedSnapshot, verifyAdmittedSnapshot } from './admitted-snapshot.mjs'
 import { inspectPipeline } from './pipeline-state.mjs'
+import { previewPromotion } from './promotion-preview.mjs'
 import { buildF02Synthetic } from '../frym-synthetic/f02-synthetic.mjs'
 import { verifyStage } from '../frym-synthetic/f02-cross-agent.mjs'
 
@@ -85,6 +86,7 @@ try {
     verifyAdmittedSnapshot(snapshot, protocol, samples, admissionReceiptHash)
     process.stdout.write('BENCHMARK_ADMITTED_SNAPSHOT_CURRENT\n')
   } else if (command === 'status-admitted' && paths.length === 9) {
+    let verifiedDecision
     const inspectStatus = () => {
       try { assertExternalCandidate(paths[1]) } catch { return statusFailure('RAW_CANDIDATES_LOCATION_INVALID') }
       let protocol, candidates, samples, audit, receipt
@@ -112,10 +114,12 @@ try {
         e3 = { status: 'verified', valid_n: 28, run_id: audited.run_id, evidence_hash: e3EvidenceHash, seal }
         currentDecision = { benchmark_version: snapshot.benchmark_version, benchmark_snapshot_hash: snapshot.snapshot_hash, f02_input_hash: hash(f02), e3_run_id: audited.run_id, e3_evidence_hash: e3EvidenceHash }
       } catch (error) { decisionEvidenceError = ['F02_CURRENT_SEAL_MISMATCH', 'E3_BATCH_NOT_VERIFIED'].includes(error.message) ? error.message : 'DECISION_EVIDENCE_STALE' }
-      return inspectPipeline({ ...input, envelope, decision, currentDecision, f02, e3, decisionEvidenceError })
+      const state = inspectPipeline({ ...input, envelope, decision, currentDecision, f02, e3, decisionEvidenceError })
+      if (state.state === 'gold_s_candidate') verifiedDecision = decision
+      return state
     }
     const state = inspectStatus()
-    process.stdout.write(`${JSON.stringify(state)}\n`)
+    process.stdout.write(`${JSON.stringify({ ...state, promotion: previewPromotion(state, verifiedDecision) })}\n`)
     if (state.state === 'stale' || state.state === 'decision-unverified') process.exitCode = 1
   } else if ((command === 'verify-decision' && paths.length === 5) || (command === 'verify-decision-admitted' && paths.length === 9)) {
     try {
