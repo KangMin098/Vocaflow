@@ -25,9 +25,18 @@ SELECT now(),
 
 The migration creates `public.trg_hold_reading_adaptation()` and a `BEFORE INSERT OR UPDATE OF status, source_id` trigger on `public.library_articles`. It rejects a `reading:` child entering `ready` or `published`. It also rejects changing an existing `reading:` child's `source_id`, so a two-step rewrite cannot bypass the hold. Other articles and queued reading children are unaffected. There is no admin or `service_role` exception: RLS bypass does not exempt a normal write from this trigger. A database superuser able to disable triggers remains outside this application gate.
 
-The migration has explicit `BEGIN`/`COMMIT`. Function replacement and trigger recreation happen in one transaction. Reapplying the same SQL is intended to recreate the same trigger without duplicates. An error before `COMMIT` rolls back the migration transaction, including a dropped prior trigger. PostgreSQL raises `check_violation` for a rejected row; the statement fails and its transaction follows the caller's usual rollback behavior. The migration does not rewrite or delete existing rows. It also does not supply the later separate promotion function, so it deliberately holds all reading children in `queued`.
+The migration has explicit `BEGIN`/`COMMIT`. Function replacement and trigger recreation happen in one transaction. Reapplying the same SQL is intended to recreate the same trigger without duplicates. An error before `COMMIT` rolls back the migration transaction, including a dropped prior trigger. PostgreSQL raises `check_violation` for a rejected row; the statement fails and its transaction follows the caller's usual rollback behavior. The migration does not rewrite or delete existing rows. It also does not supply the later separate promotion function: it blocks entry into `ready`/`published` but does not force other statuses to `queued`.
 
-Before any approved application, rerun the two baseline queries, inspect the complete SQL file and confirm that no other migration version or trigger has taken its name. After application, verify one active trigger and one function, then test queued insertion succeeds while ready/published insertion, queued-to-ready update, and source-ID rewrite fail in a rollback-only test transaction. No actual reading child is required for these tests.
+Before any approved application, rerun the two baseline queries, inspect the complete SQL file and confirm that no other migration version or trigger has taken its name. After application, verify exactly one trigger with `tgenabled IN ('O','A')`, `tgfoid = 'public.trg_hold_reading_adaptation()'::regprocedure`, and the expected definition; also verify the function body. Use a transaction-local table with `id`, `status`, and `source_id` columns and attach the installed function as a trigger for a rollback-only behavioral test. Insert a queued `reading:` row, then use a separate `SAVEPOINT` for each expected failure: queued→ready, queued→published, and source-ID rewrite. Confirm SQLSTATE `23514` and the expected gate message after each failure; `ROLLBACK TO SAVEPOINT` before the next case. End with `ROLLBACK`. A failed statement without savepoint recovery aborts the transaction and cannot validate later cases. No real article row is needed for these tests.
+
+```sql
+SELECT t.tgname, t.tgenabled, t.tgfoid::regprocedure AS trigger_function,
+       pg_get_triggerdef(t.oid) AS trigger_definition,
+       pg_get_functiondef(t.tgfoid) AS function_definition
+FROM pg_trigger t
+WHERE t.tgrelid = 'public.library_articles'::regclass
+  AND t.tgname = 'trg_la_hold_reading_adaptation' AND NOT t.tgisinternal;
+```
 
 ## Rollback requiring separate approval
 
