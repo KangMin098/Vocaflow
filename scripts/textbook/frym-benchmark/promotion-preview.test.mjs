@@ -12,7 +12,7 @@ import { sealAdmittedSnapshot } from './admitted-snapshot.mjs'
 import { inspectPipeline } from './pipeline-state.mjs'
 import { previewPromotion } from './promotion-preview.mjs'
 import { assessGoldSContract, inspectGoldSCertificate, issueGoldSCertificate } from './gold-s-contract.mjs'
-import { previewSeedEligibility } from './seed-preview.mjs'
+import { previewSeedEligibility, issueSeedEligibility, inspectSeedEligibility } from './seed-preview.mjs'
 import { generateKeyPairSync, sign } from 'node:crypto'
 
 const current = { schema: 'frym-benchmark-pipeline-state/1', state: 'gold_s_candidate', benchmark_version: 'fixture-v1', admission_receipt_hash: hash('receipt'), benchmark_snapshot_hash: hash('snapshot') }
@@ -118,7 +118,7 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   assert.equal(inspectGoldSCertificate({ certificate, current: { ...currentCertificate, content_hash: hash('new') }, authority }).status, 'stale')
   assert.equal(inspectGoldSCertificate({ certificate, current: { ...currentCertificate, rights_status: 'denied' }, authority }).status, 'invalidated')
   assert.equal(inspectGoldSCertificate({ certificate: { ...certificate, revoked: true }, current: currentCertificate, authority }).status, 'invalidated')
-  const operationsBody = { certificate_hash: hash(certificate), review_evidence_hash: pending.review_evidence_hash, decision_hash: certifiedDecision.decision_hash, content_hash: currentCertificate.content_hash, rights_hash: currentCertificate.rights_hash, rights_status: 'permitted', review_status: 'approved', provenance_hash: hash('provenance'), item_set_hash: hash('items'), revision: 'fixture-r1' }
+  const operationsBody = { reviewer_id: 'fixture-operations', certificate_hash: hash(certificate), review_evidence_hash: pending.review_evidence_hash, decision_hash: certifiedDecision.decision_hash, content_hash: currentCertificate.content_hash, rights_hash: currentCertificate.rights_hash, rights_status: 'permitted', review_status: 'approved', provenance_hash: hash('provenance'), item_set_hash: hash('items'), revision: 'fixture-r1' }
   const operations = { ...operationsBody, operations_hash: hash(operationsBody) }
   const seedInput = { status, decision: certifiedDecision, certificate, current: currentCertificate, authority, operations }
   assert.equal(previewSeedEligibility(seedInput).status, 'ready_for_seed_review')
@@ -127,6 +127,17 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   assert.equal(previewSeedEligibility({ ...seedInput, operations: { ...operations, rights_hash: hash('changed') } }).status, 'blocked')
   assert.equal(previewSeedEligibility({ ...seedInput, certificate: { ...certificate, signature: 'invalid' } }).status, 'blocked')
   assert.equal(previewSeedEligibility({ ...seedInput, status: JSON.parse(JSON.stringify(status)) }).status, 'blocked')
+  const operationsKey = generateKeyPairSync('ed25519'), approverKey = generateKeyPairSync('ed25519'), seedIssuer = generateKeyPairSync('ed25519')
+  const approval = { decision: 'approve', seed_evidence_hash: previewSeedEligibility(seedInput).seed_evidence_hash, approver_id: 'fixture-seed-approver', rationale: 'Synthetic fixture authorization' }
+  const seedArgs = { packet: seedInput, operationsSignature: attest(operations, operationsKey.privateKey), approval, approvalSignature: attest(approval, approverKey.privateKey), keys: { operations_id: operations.reviewer_id, approver_id: approval.approver_id, issuer_id: 'fixture-seed-issuer', operationsPublicKey: operationsKey.publicKey, approverPublicKey: approverKey.publicKey }, issuerPrivateKey: seedIssuer.privateKey, issuedAt: '2026-10-07T00:00:00Z' }
+  assert.throws(() => issueSeedEligibility({ ...seedArgs, approvalSignature: null }), /APPROVAL_SIGNATURE/)
+  assert.throws(() => issueSeedEligibility({ ...seedArgs, packet: { ...seedInput, operations: { ...operations, rights_hash: hash('changed') } } }), /PREVIEW_BLOCKED/)
+  const eligibility = issueSeedEligibility(seedArgs)
+  const seedAuthority = { issuer_id: 'fixture-seed-issuer', issuerPublicKey: seedIssuer.publicKey }
+  assert.equal(inspectSeedEligibility({ eligibility, packet: seedInput, authority: seedAuthority }).status, 'current')
+  assert.equal(inspectSeedEligibility({ eligibility, packet: seedInput, authority: seedAuthority }).db_seed, false)
+  assert.equal(inspectSeedEligibility({ eligibility, packet: { ...seedInput, current: { ...currentCertificate, rights_status: 'denied' } }, authority: seedAuthority }).status, 'stale')
+  assert.equal(inspectSeedEligibility({ eligibility: { ...eligibility, issued_at: 'changed' }, packet: seedInput, authority: seedAuthority }).status, 'unverified')
   assert.equal(previewPromotion(JSON.parse(JSON.stringify(status)), certifiedDecision).gold_s_review, 'blocked')
   assert.equal(assessGoldSContract({ status: JSON.parse(JSON.stringify(status)), decision: certifiedDecision, corpus, review }).status, 'hold')
   const truncated = { ...decisionBody }

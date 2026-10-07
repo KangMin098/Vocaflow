@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 독립 운영 검수자·seed 승인자·발급자 서명으로 seed eligibility의 발급·재검증 경로를 추가했다. 실제 eligibility와 DB seed는 0이며 DB 쓰기 경로는 열지 않았다.
+
 - feat(textbook): 서명된 Gold-S 인증서와 현재 decision·권리·본문·provenance·문항 증거를 재확인하는 seed 사전 점검을 추가했다. 실제 seed eligibility와 DB 적재는 열지 않았다.
 
 - feat(textbook): 독립 큐레이터·책임자 Ed25519 서명과 발급자 서명으로 Gold-S 인증서 발급·재검증 경로를 연결했다. 운영 키와 실제 교재 실분포는 아직 없어 Gold-S·seed·DB 적재는 0이다.
