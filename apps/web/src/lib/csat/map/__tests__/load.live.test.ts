@@ -31,7 +31,7 @@ describe.skipIf(!USER)('loadMapPage (live)', () => {
     expect(lines).toHaveLength(54)
     // 처방 단계 대응표(prescription.ts) = DB 의 과제 id 전부 — 시드가 바뀌면 대응표도 고친다
     expect(d.tasks.map((t) => t.id).sort()).toEqual(Object.keys(TASK_STAGE).sort())
-    expect(d.tasks).toHaveLength(162)
+    expect(d.tasks).toHaveLength(182)   // 162 + FIND 보강 20(2026-10-07)
     expect(m.reference.exams.length).toBeGreaterThan(0)
     // 만점 목표(기본값)에서 연결 문항이 있는 라인의 목표율은 1
     expect(m.nodes.B1.target).toBe(1)

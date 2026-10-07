@@ -1,7 +1,7 @@
 // apps/web/src/lib/csat/map/prescription.ts
 //
 // 처방 모델 — 관찰 → 진단 필요 → 처방, 그리고 처방 안의 FIND → REPAIR → TRANSFER → CHECK(LEARNING_MAP_VNEXT §14 · 2026-10-07 구현).
-// 순수 함수 · 상수(DB · 시계 없음). DB 변경 없음 — 과제 단계는 이 파일의 대응표가 정본이다(과제 162 = 라인 54 × ord 1–3).
+// 순수 함수 · 상수(DB · 시계 없음). 과제 단계는 이 파일의 대응표가 정본이다(과제 182 = 라인 54 × ord 1–3 + FIND 보강 ord 4 × 20).
 //
 // 책임 경계(층을 섞지 않는다):
 //   관찰(observation)      — 지금 데이터에서 무엇이 보이는가(rule_proxy 카드 상태). 처방을 고르지 않는다.
@@ -130,6 +130,12 @@ export const TASK_STAGE: Readonly<Record<string, PrescriptionStage>> = {
   'J3-1': 'FIND', 'J3-2': 'TRANSFER', 'J3-3': 'CHECK',
   'J4-1': 'FIND', 'J4-2': 'REPAIR', 'J4-3': 'CHECK',
   'J5-1': 'TRANSFER', 'J5-2': 'REPAIR', 'J5-3': 'CHECK',
+  // 2026-10-07 FIND 보강(ord 4) — 찾기 과제가 없던 라인 20개. 정본 scripts/csat/map/source/find-tasks-20261007.json(목적 · 관찰 신호 · 다음 단계)
+  // 범위: Phase 1 · 기존 54라인용 보강이다 — A4 · D · I · J 일부는 vNext 에서 해체 · 이동 · 퇴출 대상이라 vNext 핵심 능력 정의로 읽지 않는다
+  'A3-4': 'FIND', 'A4-4': 'FIND', 'A5-4': 'FIND', 'B2-4': 'FIND', 'B4-4': 'FIND',
+  'B7-4': 'FIND', 'B8-4': 'FIND', 'B11-4': 'FIND', 'B12-4': 'FIND', 'B13-4': 'FIND',
+  'C8-4': 'FIND', 'D1-4': 'FIND', 'D3-4': 'FIND', 'D9-4': 'FIND', 'I5-4': 'FIND',
+  'I7-4': 'FIND', 'I10-4': 'FIND', 'J1-4': 'FIND', 'J2-4': 'FIND', 'J5-4': 'FIND',
 }
 
 /**

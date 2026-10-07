@@ -1159,6 +1159,15 @@
         "doneWhen": "순서·삽입 오답 감소",
         "material": "past",
         "methodLine": "B11"
+      },
+      {
+        "ord": 4,
+        "title": "흐름 놓친 단서 찾기",
+        "how": "틀린 순서·삽입 문항 하나에서 흐름을 놓친 문장 사이를 표시하고, 놓친 단서가 연결어·지시어·내용 전개 중 무엇인지 하나 고릅니다.",
+        "cadence": "오답 문항마다, 5분",
+        "doneWhen": "놓친 단서 종류 기록",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "A4": [
@@ -1188,6 +1197,15 @@
         "doneWhen": "단어 재활용 함정 선택률 감소",
         "material": "past",
         "methodLine": "B10"
+      },
+      {
+        "ord": 4,
+        "title": "바뀐 표현 대응 찾기",
+        "how": "틀린 빈칸·요약 문항에서 정답 선지가 본문의 어느 표현을 바꿔 말했는지 찾고, 찾았는지 못 찾았는지 적습니다.",
+        "cadence": "오답 문항마다, 5분",
+        "doneWhen": "대응 표현 찾음·못 찾음 기록",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "A5": [
@@ -1217,6 +1235,15 @@
         "doneWhen": "상식 개입 선택률 감소",
         "material": "past",
         "methodLine": "C7"
+      },
+      {
+        "ord": 4,
+        "title": "고른 이유 출처 확인",
+        "how": "틀린 문항에서 고른 선지의 이유가 지문 문장이었는지, 상식·느낌이었는지 하나 고릅니다.",
+        "cadence": "오답 문항마다, 3분",
+        "doneWhen": "이유 출처 기록",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "A6": [
@@ -1391,6 +1418,15 @@
         "doneWhen": "번복 표현 목록",
         "material": "past",
         "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "놓친 정보 위치 확인",
+        "how": "틀린 그림·할 일·이유 문항의 대본에서 답 정보가 나온 줄을 찾고, 그 줄이 안 들렸는지 들었지만 다른 정보와 헷갈렸는지 고릅니다.",
+        "cadence": "오답 문항마다, 5분",
+        "doneWhen": "놓친 이유 기록",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "B3": [
@@ -1447,6 +1483,15 @@
         "how": "응답 유형만 모아 풉니다.",
         "cadence": "2주마다",
         "doneWhen": "오답 0",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "마지막 발화 받아쓰기 확인",
+        "how": "틀린 12·13번에서 마지막 발화만 다시 듣고 받아쓴 뒤 대본과 비교합니다.",
+        "cadence": "오답 문항마다, 3분",
+        "doneWhen": "받아쓰기 일치 여부 기록",
         "material": "past",
         "methodLine": null
       }
@@ -1536,6 +1581,15 @@
         "doneWhen": "정답률 80%",
         "material": "past",
         "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "밑줄 해석 방향 확인",
+        "how": "틀린 21번에서 밑줄 표현을 내 말로 한 줄 적고, 글의 주제와 같은 방향인지 확인합니다.",
+        "cadence": "오답 문항마다, 5분",
+        "doneWhen": "방향 일치 여부 기록",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "B8": [
@@ -1563,6 +1617,15 @@
         "how": "25~28번 세트를 풉니다.",
         "cadence": "주 1세트",
         "doneWhen": "2회 연속 만점",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "어긋난 줄 대조 확인",
+        "how": "틀린 25~28번에서 고른 선지가 지문의 어느 줄과 어긋나는지 찾고, 대조를 건너뛰었는지 대조했는데 잘못 읽었는지 고릅니다.",
+        "cadence": "오답 문항마다, 3분",
+        "doneWhen": "어긋난 이유 기록",
         "material": "past",
         "methodLine": null
       }
@@ -1652,6 +1715,15 @@
         "doneWhen": "35~39번 오답 감소",
         "material": "core",
         "methodLine": "A3"
+      },
+      {
+        "ord": 4,
+        "title": "흐름 오답 결정 단서 분류",
+        "how": "틀린 35~39번 문항마다 답을 정하는 단서가 연결어·지시어·관사·내용 중 무엇이었는지 적습니다.",
+        "cadence": "시험 1회마다, 10분",
+        "doneWhen": "문항별 단서 분류",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "B12": [
@@ -1681,6 +1753,15 @@
         "doneWhen": "40번 오답 감소",
         "material": "core",
         "methodLine": "A4"
+      },
+      {
+        "ord": 4,
+        "title": "요약 빈칸 실패 위치 확인",
+        "how": "틀린 40번에서 (A)·(B) 중 어느 칸이 틀렸는지, 그 칸의 본문 근거 표현을 찾았는지 적습니다.",
+        "cadence": "오답 문항마다, 5분",
+        "doneWhen": "틀린 칸 · 근거 찾음 여부 기록",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "B13": [
@@ -1708,6 +1789,15 @@
         "how": "장문 쉬운 문항의 실수를 점검합니다.",
         "cadence": "실전 모의고사마다",
         "doneWhen": "실수 0",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "장문 실점 원인 구분",
+        "how": "41~45번에서 잃은 문항마다 시간이 모자라 못 풀었는지(미응답·찍음) 읽고 틀렸는지 표시합니다.",
+        "cadence": "시험 1회마다, 5분",
+        "doneWhen": "문항별 실점 원인 표시",
         "material": "past",
         "methodLine": null
       }
@@ -1739,6 +1829,15 @@
         "doneWhen": "선택률 감소",
         "material": "past",
         "methodLine": "C1"
+      },
+      {
+        "ord": 4,
+        "title": "예상 답 유무 표시",
+        "how": "틀린 문항마다 선지를 보기 전에 예상 답이 있었는지 '있음·없음'으로 표시합니다.",
+        "cadence": "오답 문항마다, 1분",
+        "doneWhen": "있음·없음 표시",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "D2": [
@@ -1797,6 +1896,15 @@
         "doneWhen": "설명 막힘 0",
         "material": "past",
         "methodLine": "I9"
+      },
+      {
+        "ord": 4,
+        "title": "근거 문장 번호 적어 보기",
+        "how": "틀린 문항에서 고른 답의 근거 문장 번호를 적을 수 있는지 확인하고, 못 적으면 '근거 없음'으로 표시합니다.",
+        "cadence": "오답 문항마다, 2분",
+        "doneWhen": "번호 · 근거 없음 표시",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "D4": [
@@ -1971,6 +2079,15 @@
         "doneWhen": "2회 연속 만점",
         "material": "past",
         "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "듣기 공백 대조",
+        "how": "최근 시험 2~3회의 1~17번 오답 수와 그 사이 매일 들었는지를 나란히 적습니다.",
+        "cadence": "시험 1회마다, 3분",
+        "doneWhen": "오답 수 · 듣기 여부 대조",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "I1": [
@@ -2116,6 +2233,15 @@
         "doneWhen": "반대 논지 작성",
         "material": "core",
         "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "EBS 지문 기억 방식 확인",
+        "how": "공부한 EBS 지문 하나를 보지 않고 떠올려, 논지 한 줄이 나오는지 문장만 기억나는지 구분합니다.",
+        "cadence": "2주 1회, 3분",
+        "doneWhen": "기억 방식 기록",
+        "material": "core",
+        "methodLine": null
       }
     ],
     "I6": [
@@ -2172,6 +2298,15 @@
         "how": "1.2~1.5배속으로 듣습니다.",
         "cadence": "주 2회",
         "doneWhen": "정속에서 만점",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "받아쓰기 막힘 구간 표시",
+        "how": "짧은 대화 하나를 받아쓰고, 빠진 곳이 연음·속도·모르는 단어 중 무엇 때문인지 표시합니다.",
+        "cadence": "주 1회, 5분",
+        "doneWhen": "막힘 원인 표시",
         "material": "core",
         "methodLine": null
       }
@@ -2261,6 +2396,15 @@
         "doneWhen": "방향 일치",
         "material": "past",
         "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "예상 답 방향 비교",
+        "how": "틀린 빈칸 문항 하나를 선지를 가리고 다시 읽어 예상 답을 적고, 정답과 방향이 같은지 비교합니다.",
+        "cadence": "오답 문항마다, 5분",
+        "doneWhen": "방향 일치 여부 기록",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "J1": [
@@ -2290,6 +2434,15 @@
         "doneWhen": "미응답 0",
         "material": "past",
         "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "버린 문항 위치 확인",
+        "how": "최근 실전 한 회에서 미응답·찍은 문항이 어느 묶음(듣기 중·18~30·31~40·41~45)에 몰렸는지 표시합니다.",
+        "cadence": "실전 1회마다, 3분",
+        "doneWhen": "묶음별 미응답·찍음 표시",
+        "material": "past",
+        "methodLine": null
       }
     ],
     "J2": [
@@ -2317,6 +2470,15 @@
         "how": "순서 때문에 잃은 점수가 있는지 확인합니다.",
         "cadence": "실전 모의고사마다",
         "doneWhen": "순서로 인한 손실 0",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "실제 풀이 순서 기록",
+        "how": "최근 실전 한 회에서 실제로 푼 순서를 적고, 순서 때문에 못 풀거나 서두른 문항을 표시합니다.",
+        "cadence": "실전 1회마다, 3분",
+        "doneWhen": "순서 · 손실 문항 표시",
         "material": "past",
         "methodLine": null
       }
@@ -2404,6 +2566,15 @@
         "how": "듣기 구간 실수가 컨디션과 관련 있는지 확인합니다.",
         "cadence": "실전 모의고사마다",
         "doneWhen": "듣기 실수 0",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 4,
+        "title": "집중 끊긴 구간 기록",
+        "how": "실전 한 회 뒤 집중이 끊긴 구간(듣기·독해 앞·독해 뒤)과 전날 수면 시간을 적습니다.",
+        "cadence": "실전 1회마다, 2분",
+        "doneWhen": "끊긴 구간 · 수면 시간 기록",
         "material": "past",
         "methodLine": null
       }
@@ -2638,6 +2809,15 @@
         "doneWhen": "비유 선지 선택률 감소",
         "material": "core",
         "methodLine": "A4"
+      },
+      {
+        "ord": 4,
+        "title": "비유 선지 풀어 보기",
+        "how": "고른 비유 선지를 문자 그대로의 뜻으로 한 줄 적고, 그 뜻이 지문과 맞는지 확인합니다.",
+        "cadence": "비유 선지를 고를 때마다, 3분",
+        "doneWhen": "풀어 쓰기 가능 여부 · 일치 여부 기록",
+        "material": "past",
+        "methodLine": null
       }
     ]
   }

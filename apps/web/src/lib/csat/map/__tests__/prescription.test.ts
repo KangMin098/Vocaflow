@@ -2,6 +2,9 @@
 //
 // 처방 모델 회귀 — 관찰 → 진단 필요 → 처방 순서(건너뛰기 금지) · verified_diagnosis 전에는 처방이 아님 ·
 // 과제 162 의 FIND/REPAIR/TRANSFER/CHECK 대응표가 빠짐없이 · 대응표에 없는 과제도 화면에서 사라지지 않음.
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import { FORBIDDEN_WORDS, type DiagnosisBasis } from '../core'
@@ -43,22 +46,39 @@ describe('관찰 → 진단 필요 → 처방', () => {
   })
 })
 
-describe('과제 162 → 단계 대응표', () => {
+describe('과제 182 → 단계 대응표', () => {
   const ids = Object.keys(TASK_STAGE)
-  it('라인 54 × ord 1–3 = 162, 빠짐 · 중복 없음', () => {
-    expect(ids).toHaveLength(162)
+  it('라인 54 × ord 1–3 = 162 + FIND 보강 ord 4 × 20 = 182, 빠짐 · 중복 없음', () => {
+    expect(ids).toHaveLength(182)
     const lines = new Set(ids.map((id) => id.split('-')[0]))
     expect(lines.size).toBe(54)
     for (const l of lines) for (const o of [1, 2, 3]) expect(TASK_STAGE[`${l}-${o}`]).toBeDefined()
+    const ord4 = ids.filter((id) => id.endsWith('-4'))
+    expect(ord4).toHaveLength(20)
+    for (const id of ord4) expect(TASK_STAGE[id]).toBe('FIND')
   })
   it('네 단계가 모두 쓰인다 — 분포(2026-10-07 판정 v1)', () => {
     const n = Object.fromEntries(STAGE_ORDER.map((s) => [s, Object.values(TASK_STAGE).filter((v) => v === s).length]))
-    expect(n).toEqual({ FIND: 38, REPAIR: 72, TRANSFER: 32, CHECK: 20 })
+    expect(n).toEqual({ FIND: 58, REPAIR: 72, TRANSFER: 32, CHECK: 20 })
   })
-  it('찾기 과제가 없는 라인 수를 고정한다 — 진단 전에 「지금 해 볼」 활동이 없는 라인(콘텐츠 공백, 과제 추가는 시드 변경)', () => {
+  it('모든 라인에 찾기 과제가 있다 — 진단 전에도 「지금 해 볼」 확인 활동이 하나는 있다(2026-10-07 FIND 보강 20 → 0)', () => {
     const lines = [...new Set(ids.map((id) => id.split('-')[0]))]
-    const noFind = lines.filter((l) => ![1, 2, 3].some((o) => TASK_STAGE[`${l}-${o}`] === 'FIND'))
-    expect(noFind).toHaveLength(20)
+    const noFind = lines.filter((l) => ![1, 2, 3, 4].some((o) => TASK_STAGE[`${l}-${o}`] === 'FIND'))
+    expect(noFind).toEqual([])
+  })
+  it('FIND 보강 정본 — 라인당 하나 · 목적 · 관찰 신호 · 다음 단계 두 갈래 이상(실제 과제 id) · 대응표와 같은 id', () => {
+    const src = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../../../../../../scripts/csat/map/source/find-tasks-20261007.json'), 'utf8')) as {
+      ord: number
+      tasks: { line: string; purpose: string; signal: string; next: Record<string, string> }[]
+    }
+    expect(src.tasks.map((t) => `${t.line}-${src.ord}`).sort()).toEqual(ids.filter((id) => id.endsWith('-4')).sort())
+    for (const t of src.tasks) {
+      expect(t.purpose.trim()).not.toBe('')
+      expect(t.signal.trim()).not.toBe('')
+      const nx = Object.values(t.next)
+      expect(nx.length).toBeGreaterThanOrEqual(2)
+      for (const id of nx) expect(TASK_STAGE[id]).toBeDefined()
+    }
   })
   it('연결 과제는 대응표 안에 있고, 연결 대상은 실제 라인이거나 「원인에 맞는 라인」(null)', () => {
     const lines = new Set(ids.map((id) => id.split('-')[0]))
