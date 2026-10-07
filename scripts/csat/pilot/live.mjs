@@ -19,7 +19,11 @@ export const RUNS = path.join(ROOT, 'docs/csat-learner/pilot-runs')
 const DEV_REF = 'jajenrevcbmrpaliomxv'
 
 export function liveConnectionOptions(url, env = process.env) {
-  return verifiedDbConfig(url, env.SUPABASE_DB_CA_CERT)
+  let parsed
+  try { parsed = new URL(url) } catch { throw new Error('Invalid PostgreSQL connection URL') }
+  // This pg option can otherwise replace the explicit SSL object and discard its CA.
+  parsed.searchParams.delete('sslnegotiation')
+  return verifiedDbConfig(parsed.href, env.SUPABASE_DB_CA_CERT)
 }
 
 export async function loadPg() {
