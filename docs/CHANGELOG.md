@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): 개발 DB의 Phase 2 승격 증거 테이블 5개에 RLS를 활성화했다. 직접 권한은 그대로 차단되고 롤백형 승격 DB 스모크가 재통과했다. 명시적 거부 policy는 별도 검토 중이다.
+
 - feat(textbook): 교재 공장 Phase 2의 order별 관리자 승인, 현재 trust/benchmark 판본, 단일 트랜잭션 `queued → ready` 승격·감사 계약을 개발 DB에 적용했다. 합성 성공·우회 차단·재시도를 롤백형 fixture로 검증했고 실데이터 승격은 0건이다.
 
 - feat(textbook): Academic Reading과 기존 9공정이 공유할 Product Order v1, P01~P20 보수적 기능표, 원천 직접사용/각색 라우팅, 주문·원문·권리·benchmark·인증서 증거 결속과 상태→공정 대응을 추가했다. 합성 두 학년 주문·변조 실패 주입으로 검증하며 실제 승격·교재 corpus·Gold-S·DB seed는 열지 않는다.
