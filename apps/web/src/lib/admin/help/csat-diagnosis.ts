@@ -20,6 +20,8 @@ export const CSAT_DIAGNOSIS_HELP: HelpRegistry = {
       cautions: [
         '학평 104회는 원본 해설지에서 뽑은 45문항 정답표로 채점해요(scripts/csat/diagnosis/load-answer-keys.mjs --set hakpyeong). 원본 PDF 가 있는 PC 에서만 다시 만들 수 있어요.',
         '2014학년도 A·B형은 DB 문항이 23개뿐이라 정답표 대조를 통과하지 못해 빠졌어요(scripts/csat/diagnosis/load-answer-keys.mjs).',
+        '진단 반영 시험이 0회면 학습자 학습 지도는 누구에게도 「먼저 확인할 단계」를 보여 줄 수 없어요 — 기록해도 「분석 준비 중」에 머물러요(2026-10-07 실측: 태깅 10,266행 · 검수 0행 · 반영 시험 0).',
+        '진단 반영을 켜려면 모든 문항에 검수된 A1 태그가 있어야 하는데, 태깅은 A1 을 일부 문항에만 붙여요(예: M2409 28문항 중 11). 검수를 다 끝내도 켜지지 않을 수 있어요 — 조건과 태깅 정책을 함께 정해야 해요(2026-10-07 학습 지도 봉인 검증에서 발견).',
       ],
       seeAlso: [
         { label: '시험·태깅', href: '/admin/csat/diagnosis/exams' },

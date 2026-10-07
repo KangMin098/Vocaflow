@@ -17,7 +17,7 @@ import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
 import { useModalFocus } from '../useModalFocus'
 
-import { AXIS_ICON } from './icons'
+import { STEP_ICON } from './icons'
 import p from './popup.module.css'
 import l from './learner.module.css'
 import type { useTaskDone } from './useTaskDone'
@@ -37,7 +37,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   const find = lineTasks.filter((t) => stageOf(t.id) === 'FIND')
   const later = STAGE_ORDER.filter((s) => s !== 'FIND').map((s) => ({ stage: s, tasks: lineTasks.filter((t) => stageOf(t.id) === s) }))
   const nameOf = (code: string) => data.nodes.find((n) => n.code === code)?.name ?? code
-  const Icon = AXIS_ICON[step.axis]
+  const Icon = STEP_ICON[step.key]
   const a = step.axisView
   const observed =
     step.evidence === 'none'

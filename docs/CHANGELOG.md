@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- test(csat-map): 학습 지도 Phase 1 봉인 검증 — 상태 E2E `scripts/csat/map/e2e-map-states.mjs`(실제 DB · 엔진 · 브라우저, 상태 C 는 실행 동안만 있는 TEST 시험 M2098 fixture) 32 단언 통과 · `diagnosis_ready` 0 원인(검수 0 + A1 조건 불일치)을 화면도움말에 기록 · main 병합 뒤 전체 vitest 0 fail.
+
 - feat(csat-map): 학습 지도 학습자 관점 재구성 — 첫 화면 = 읽기 길 7단계 + 듣기 보조 트랙 + 「지금 먼저 확인할 것」 하나 · CTA, 내부 용어(라인 코드 · 현재 계산 · 0.6/0.8 · 54라인 호환 · FIND 등)는 단계 시트 「상세 근거」 · 기출 상세 분석으로. 학생 말: 기출에서 보인 모습 / 먼저 확인할 것 / 원인 확인 / 맞춤 학습 · 확인하기 / 바로잡기 / 다른 문제에 적용하기 / 다시 확인하기. 기록은 있는데 분석 준비 안 된 시험뿐이면 「분석 준비 중」(더 기록하라고 하지 않음). verified_diagnosis 게이트 · 182 과제 · DB 불변. 회귀 `learner-path.test`.
 
 - feat(csat): 3B 참조 수준 다듬기 — /csat 글자 크기 = 참조 실측 비율 0.92(같은 문자 잉크 높이 비교 · spec.json `type` · 모듈 CSS 415곳을 `max(최소 10px, 원래값 × 비율)` 로, 가드 `type-scale.test`) · 학습 지도: 목표 점수는 상단 줄 대신 최종 목표 카드 · 노드에서(팝오버) · 노드에 마우스 → 연결선 강조 + 오른쪽 ⋯ → 상세(노드 클릭 = 경로 강조) · 제목 · 카드 아이콘 · 긴 문장은 안내 팁(InfoTip) · 성장 경로 단계 트랙. ref-compare 16항목 통과. 측정 도구 `ref-scan --ink` · `ours-text-metrics.mjs`.
