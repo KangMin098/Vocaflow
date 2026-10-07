@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): 실제 교재 intake의 규칙 봉인과 선정 ID manifest 봉인을 분리하고, 현 엔진이 두 봉인의 결속을 아직 검증하지 않는 한계를 명시한다.
+
 - feat(textbook): `reading:` 문항부터 해설·편집 검수·주문별 단원/권·조판 manifest까지 Product Order/promotion evidence lineage를 전달하고 현재 authority·권리·철회·본문 판을 재확인한다. 기존 밴드 공용 권에는 각색 자식을 섞지 않는다. 합성 계약·조판 게이트를 검증했으며 실제 CLI E2E·승격·Gold-S·DB seed는 0건이다.
 
 - fix(textbook): 개발 DB의 Phase 2 승격 증거 테이블 5개에 RLS와 restrictive `false` policy를 적용했다. 직접 권한은 그대로 차단되고 롤백형 승격 DB 스모크가 재통과했다. 새 no-policy INFO 5건은 사라졌고 기존 관리자 RPC 경고 3건은 별도 기록한다.
