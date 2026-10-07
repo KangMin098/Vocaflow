@@ -20,7 +20,16 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { applyShard, parseShardArg, shardIndexOf } from '../../acp/process-queue.mjs'
+import { applyShard, excludeReadingAdaptations, parseShardArg, shardIndexOf } from '../../acp/process-queue.mjs'
+
+describe('ACP queue excludes signed reading adaptations', () => {
+  it('keeps ordinary queued articles and holds reading children for their own promotion gate', () => {
+    const ordinary = { id: 'ordinary', source_id: 'news:1' }
+    const reading = { id: 'reading', source_id: 'reading:source:target' }
+    const missing = { id: 'missing', source_id: null }
+    expect(excludeReadingAdaptations([ordinary, reading, missing])).toEqual([ordinary, missing])
+  })
+})
 
 /**
  * 결정론적 UUID 꼴 행 만들기 — 매 실행 같은 값이라야 실패를 재현할 수 있다.

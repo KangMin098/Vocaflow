@@ -149,7 +149,8 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   const eligibility = issueSeedEligibility(seedArgs)
   const seedAuthority = { issuer_id: 'fixture-seed-issuer', issuerPublicKey: seedIssuer.publicKey }
   assert.equal(inspectSeedEligibility({ eligibility, packet: seedInput, authority: seedAuthority }).status, 'current')
-  assert.equal(validateGoldSImport({ draft, targetKey: binding.target_key, source: liveSource, bundle: { certificate, eligibility }, keys: { goldIssuer: issuer.publicKey, seedIssuer: seedIssuer.publicKey, goldIssuerId: authority.issuer_id, seedIssuerId: seedAuthority.issuer_id } }).ok, true)
+  const policy = { schema: 'frym-gold-s-operational-policy/1', revision: 'fixture-r1', gold_issuers: [{ id: authority.issuer_id, public_key: issuer.publicKey.export({ type: 'spki', format: 'pem' }), valid_from: '2026-10-01T00:00:00Z', valid_until: '2026-11-01T00:00:00Z' }], seed_issuers: [{ id: seedAuthority.issuer_id, public_key: seedIssuer.publicKey.export({ type: 'spki', format: 'pem' }), valid_from: '2026-10-01T00:00:00Z', valid_until: '2026-11-01T00:00:00Z' }], gold_max_age_days: 30, seed_max_age_days: 7, revoked: { certificate_hashes: [], eligibility_hashes: [], issuer_ids: [] } }
+  assert.equal(validateGoldSImport({ draft, targetKey: binding.target_key, source: liveSource, bundle: { certificate, eligibility }, policy, now: '2026-10-07T12:00:00Z' }).ok, true)
   assert.equal(inspectSeedEligibility({ eligibility, packet: seedInput, authority: seedAuthority }).db_seed, false)
   assert.equal(inspectSeedEligibility({ eligibility, packet: { ...seedInput, current: { ...currentCertificate, rights_status: 'denied' } }, authority: seedAuthority }).status, 'stale')
   assert.equal(inspectSeedEligibility({ eligibility: { ...eligibility, issued_at: 'changed' }, packet: seedInput, authority: seedAuthority }).status, 'unverified')

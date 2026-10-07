@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Gold-S 적재에 저장소 밖 발급자 신뢰 정책과 새 감사 저널을 요구한다. 키 유효기간·인증서 최대 연령·철회·실행 중 정책 변경을 차단하고, 배치 중단 뒤 source_id 대조·새 감사 경로 재실행 절차를 연결했다. 일반 ACP 큐가 `reading:` 자식을 ready로 올리는 우회 경로도 막았다. 실제 교재 corpus·Gold-S·DB seed는 0건이다.
+
 - fix(textbook): Gold-S/seed 발급의 역할·서명키 독립성과 DB 적재 인증서 필수 필드를 검사한다. 공급자 모의 테스트의 예시 키를 변수로 전달해 기존 비밀값 스캐너 오탐을 없애되 검사 규칙은 유지한다. 실제 corpus·Gold-S·DB seed는 0건이다.
 
 - feat(textbook): 각색 importer에 시중 교재 Gold-S/seed eligibility 서명 경로를 연결하고 현재 원천·타겟·본문·권리 해시를 dry-run과 insert 직전에 재검증한다. 학생 v2 경로는 유지하며 실제 DB 적재는 0건이다.
