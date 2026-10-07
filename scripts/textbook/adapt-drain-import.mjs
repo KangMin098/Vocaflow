@@ -323,6 +323,8 @@ if (!commit) {
 }
 
 let wrote = 0
+const skippedBeforeCommit = stats.skipped
+const reasonsBeforeCommit = { ...reasons }
 const seedAudit = goldSSeed ? openSeedAudit(goldSAuditFile, { policyHash: goldSPolicyHash, bundleHash: benchmarkHash([...goldSSeed.values()]), candidateCount: inserts.length, startedAt: new Date().toISOString() }) : null
 for (let i = 0; i < inserts.length; i += 100) {
   let entries = inserts.slice(i, i + 100)
@@ -373,6 +375,11 @@ for (let i = 0; i < inserts.length; i += 100) {
 }
 seedAudit?.append('run_complete')
 seedAudit?.close()
+console.log(`최종 재검증 건너뜀 ${stats.skipped - skippedBeforeCommit}편`)
+for (const [why, n] of Object.entries(reasons)) {
+  const finalCount = n - (reasonsBeforeCommit[why] ?? 0)
+  if (finalCount > 0) console.log(`  · ${why}: ${finalCount}건`)
+}
 console.log(`\n적재 완료 ${wrote}편`)
 console.log('이어서 확인할 것:')
 console.log('  npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/render-volume.mjs --band 1 --units 20\n')

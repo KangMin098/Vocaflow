@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): 제안된 DB 승격 트리거에서 `reading:` 자식의 source_id 변경 우회를 막고, Gold-S 적재 직전 재검증으로 제외된 건수와 사유를 최종 결과에 분리해 출력한다. 마이그레이션은 미적용이며 실제 corpus·Gold-S·DB seed는 0이다.
+
 - fix(textbook): 저장소 밖 Gold-S 정책 경로의 파일 심볼릭 링크까지 실제 경로로 검증하여 저장소 내부 대상 우회를 차단했다. 실제 corpus·Gold-S·DB seed는 0이다.
 
 - fix(textbook): 일반 ACP 외 관리자 강제 게시의 `reading:` 각색 자식 우회도 409로 차단했다. RPC·직접 UPDATE 차단용 DB trigger migration을 준비했으며 아직 적용하지 않았다. 실제 corpus·Gold-S·DB seed는 0이다.

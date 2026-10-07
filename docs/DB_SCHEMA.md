@@ -1,6 +1,6 @@
 # DB Schema
 
-Pending migration `20261007190000_reading_adaptation_promotion_gate.sql` adds a `library_articles` trigger that rejects `reading:` children entering `ready` or `published` through INSERT, RPC, or direct UPDATE. The SQL is prepared only; it has not been applied to the development DB. The separate promotion contract must be implemented before those children can become learner-visible.
+Pending migration `20261007190000_reading_adaptation_promotion_gate.sql` adds a `library_articles` trigger that rejects `reading:` children entering `ready` or `published` through INSERT, RPC, or direct UPDATE and prevents changing an existing reading child's `source_id` to bypass that hold. The SQL is prepared only; it has not been applied to the development DB. The separate promotion contract must be implemented before those children can become learner-visible.
 
 ## Academic Reading JSONB 계약 (2026-10-04, 마이그레이션 없음)
 

@@ -13,6 +13,10 @@ BEGIN
       USING ERRCODE = 'check_violation';
   END IF;
   IF TG_OP = 'UPDATE' THEN
+    IF OLD.source_id LIKE 'reading:%' AND NEW.source_id IS DISTINCT FROM OLD.source_id THEN
+      RAISE EXCEPTION 'Reading adaptation source_id is immutable (article_id=%)', NEW.id
+        USING ERRCODE = 'check_violation';
+    END IF;
     IF NEW.status IN ('ready', 'published') AND OLD.source_id LIKE 'reading:%' THEN
       RAISE EXCEPTION 'Reading adaptation requires separate promotion gate (article_id=%)', NEW.id
         USING ERRCODE = 'check_violation';
