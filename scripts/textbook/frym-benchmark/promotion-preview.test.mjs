@@ -112,6 +112,8 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   const issuance = { status, decision: certifiedDecision, corpus, review, corpusSignature: attest(corpus, curator.privateKey), ownerSignature: attest(review, owner.privateKey), current: currentCertificate, keys: { curator_id: corpus.curator_id, owner_id: review.owner_id, issuer_id: 'fixture-issuer', curator: curator.publicKey, owner: owner.publicKey }, issuerPrivateKey: issuer.privateKey, issuedAt: '2026-10-07T00:00:00Z' }
   assert.throws(() => issueGoldSCertificate({ ...issuance, corpusSignature: null }), /ATTESTATION/)
   assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, owner_id: 'other' } }), /ATTESTATION/)
+  assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, owner: curator.publicKey } }), /ATTESTATION/)
+  assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, owner_id: corpus.curator_id } }), /ATTESTATION/)
   assert.throws(() => issueGoldSCertificate({ ...issuance, corpus: { ...corpus, admitted_n: 0 } }), /PREFLIGHT_HOLD/)
   const certificate = issueGoldSCertificate(issuance)
   const authority = { issuer_id: 'fixture-issuer', issuerPublicKey: issuer.publicKey }
@@ -130,12 +132,17 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   assert.equal(previewSeedEligibility(seedInput).seed_eligible, false)
   assert.equal(previewSeedEligibility(seedInput).db_seed, false)
   assert.equal(previewSeedEligibility({ ...seedInput, operations: { ...operations, rights_hash: hash('changed') } }).status, 'blocked')
+  const { reviewer_id, ...anonymousOperationsBody } = operationsBody
+  assert.equal(previewSeedEligibility({ ...seedInput, operations: { ...anonymousOperationsBody, operations_hash: hash(anonymousOperationsBody) } }).status, 'blocked')
   assert.equal(previewSeedEligibility({ ...seedInput, certificate: { ...certificate, signature: 'invalid' } }).status, 'blocked')
   assert.equal(previewSeedEligibility({ ...seedInput, status: JSON.parse(JSON.stringify(status)) }).status, 'blocked')
   const operationsKey = generateKeyPairSync('ed25519'), approverKey = generateKeyPairSync('ed25519'), seedIssuer = generateKeyPairSync('ed25519')
   const approval = { decision: 'approve', seed_evidence_hash: previewSeedEligibility(seedInput).seed_evidence_hash, approver_id: 'fixture-seed-approver', rationale: 'Synthetic fixture authorization' }
   const seedArgs = { packet: seedInput, operationsSignature: attest(operations, operationsKey.privateKey), approval, approvalSignature: attest(approval, approverKey.privateKey), keys: { operations_id: operations.reviewer_id, approver_id: approval.approver_id, issuer_id: 'fixture-seed-issuer', operationsPublicKey: operationsKey.publicKey, approverPublicKey: approverKey.publicKey }, issuerPrivateKey: seedIssuer.privateKey, issuedAt: '2026-10-07T00:00:00Z' }
   assert.throws(() => issueSeedEligibility({ ...seedArgs, approvalSignature: null }), /APPROVAL_SIGNATURE/)
+  assert.throws(() => issueSeedEligibility({ ...seedArgs, keys: { ...seedArgs.keys, approverPublicKey: operationsKey.publicKey } }), /INDEPENDENT_AUTHORITY/)
+  assert.throws(() => issueSeedEligibility({ ...seedArgs, keys: { ...seedArgs.keys, approver_id: operations.reviewer_id } }), /INDEPENDENT_AUTHORITY/)
+  assert.throws(() => issueSeedEligibility({ ...seedArgs, keys: { ...seedArgs.keys, approver_id: '' } }), /INDEPENDENT_AUTHORITY/)
   assert.throws(() => issueSeedEligibility({ ...seedArgs, packet: { ...seedInput, operations: { ...operations, rights_hash: hash('changed') } } }), /PREVIEW_BLOCKED/)
   const eligibility = issueSeedEligibility(seedArgs)
   const seedAuthority = { issuer_id: 'fixture-seed-issuer', issuerPublicKey: seedIssuer.publicKey }

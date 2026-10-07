@@ -5,6 +5,7 @@ import { buildF02Synthetic } from './f02-synthetic.mjs'
 import { callProvider, graderSpec, hash, studentSpec, verifyProviderBatch, verifyProviderPair } from './f02-provider.mjs'
 
 const built = buildF02Synthetic()
+const mockCredential = 'test-only'
 const runIds = ['11111111-1111-4111-8111-111111111111', '22222222-2222-4222-8222-222222222222', '33333333-3333-4333-8333-333333333333']
 const makeClock = () => {
   let seconds = 0
@@ -34,8 +35,8 @@ const pair = async (packet, studentProvider, graderProvider) => {
   const models = { anthropic: 'claude-fixed-version', openai: 'gpt-fixed-version' }
   const assignment = { student_provider: studentProvider, grader_provider: graderProvider, student_model: models[studentProvider], grader_model: models[graderProvider] }
   const mock = makeFetch(packet), clock = makeClock()
-  const student = await callProvider({ ...studentSpec(packet, studentProvider, assignment.student_model), runId: runIds[0], apiKey: 'test-only', fetchImpl: mock.fetchImpl, clock })
-  const grader = await callProvider({ ...graderSpec(packet, student.parsed_output.answers, built.scoringKey, graderProvider, assignment.grader_model), runId: runIds[0], apiKey: 'test-only', fetchImpl: mock.fetchImpl, clock })
+  const student = await callProvider({ ...studentSpec(packet, studentProvider, assignment.student_model), runId: runIds[0], apiKey: mockCredential, fetchImpl: mock.fetchImpl, clock })
+  const grader = await callProvider({ ...graderSpec(packet, student.parsed_output.answers, built.scoringKey, graderProvider, assignment.grader_model), runId: runIds[0], apiKey: mockCredential, fetchImpl: mock.fetchImpl, clock })
   return { student, grader, assignment, calls: mock.calls }
 }
 
@@ -49,7 +50,7 @@ test('both cross-provider directions bind exact requests to provider receipts an
     assert.notEqual(result.student.provider, result.grader.provider)
     assert.ok(!result.calls[0].options.body.includes('rubrics'))
     assert.ok(result.calls[1].options.body.includes('rubrics'))
-    assert.ok(!JSON.stringify(result.student).includes('test-only'))
+    assert.ok(!JSON.stringify(result.student).includes(mockCredential))
     assert.equal(result.student.raw_response_sha256, hash(Buffer.from(result.student.raw_response_base64, 'base64')))
   }
 })
@@ -94,10 +95,10 @@ test('receipt and hash failure injection fails closed', async () => {
 test('model mismatch and refusal preserve terminal failure without a score', async () => {
   const packet = built.packets[0], clock = makeClock()
   const mismatch = makeFetch(packet, { returnedModel: 'different-model' })
-  const changed = await callProvider({ ...studentSpec(packet, 'anthropic', 'claude-fixed-version'), runId: runIds[1], apiKey: 'test-only', fetchImpl: mismatch.fetchImpl, clock })
+  const changed = await callProvider({ ...studentSpec(packet, 'anthropic', 'claude-fixed-version'), runId: runIds[1], apiKey: mockCredential, fetchImpl: mismatch.fetchImpl, clock })
   assert.equal(changed.status, 'audit_failure')
   const refusal = makeFetch(packet, { refusal: true })
-  const refused = await callProvider({ ...studentSpec(packet, 'anthropic', 'claude-fixed-version'), runId: runIds[2], apiKey: 'test-only', fetchImpl: refusal.fetchImpl, clock })
+  const refused = await callProvider({ ...studentSpec(packet, 'anthropic', 'claude-fixed-version'), runId: runIds[2], apiKey: mockCredential, fetchImpl: refusal.fetchImpl, clock })
   assert.equal(refused.status, 'parse_error')
   assert.equal(refused.parsed_output_sha256, null)
 })

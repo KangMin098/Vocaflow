@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): Gold-S/seed 발급의 역할·서명키 독립성과 DB 적재 인증서 필수 필드를 검사한다. 공급자 모의 테스트의 예시 키를 변수로 전달해 기존 비밀값 스캐너 오탐을 없애되 검사 규칙은 유지한다. 실제 corpus·Gold-S·DB seed는 0건이다.
+
 - feat(textbook): 각색 importer에 시중 교재 Gold-S/seed eligibility 서명 경로를 연결하고 현재 원천·타겟·본문·권리 해시를 dry-run과 insert 직전에 재검증한다. 학생 v2 경로는 유지하며 실제 DB 적재는 0건이다.
 
 - feat(textbook): 독립 운영 검수자·seed 승인자·발급자 서명으로 seed eligibility의 발급·재검증 경로를 추가했다. 실제 eligibility와 DB seed는 0이며 DB 쓰기 경로는 열지 않았다.

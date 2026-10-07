@@ -1,13 +1,19 @@
 // scripts/textbook/frym-benchmark/gold-s-contract.mjs
 import { hash } from './benchmark.mjs'
 import { previewPromotion } from './promotion-preview.mjs'
-import { randomUUID, sign, verify } from 'node:crypto'
+import { createPublicKey, randomUUID, sign, verify } from 'node:crypto'
 
 const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
 const nonempty = value => typeof value === 'string' && Boolean(value.trim())
 const signed = (value, signature, publicKey) => {
   try { return Boolean(publicKey && nonempty(signature) && verify(null, Buffer.from(hash(value)), publicKey, Buffer.from(signature, 'base64'))) }
   catch { return false }
+}
+const distinctKeys = (...keys) => {
+  try {
+    const encoded = keys.map(key => (key?.type === 'public' ? key : createPublicKey(key)).export({ type: 'spki', format: 'der' }).toString('base64'))
+    return new Set(encoded).size === encoded.length
+  } catch { return false }
 }
 const failure = (status, reasons, evidenceHash = null) => ({
   schema: 'frym-gold-s-certification-contract/1',
@@ -44,7 +50,7 @@ export function assessGoldSContract({ status, decision, corpus, review } = {}) {
 export function issueGoldSCertificate({ status, decision, corpus, review, corpusSignature, ownerSignature, current, keys, issuerPrivateKey, issuedAt } = {}) {
   const preflight = assessGoldSContract({ status, decision, corpus, review })
   if (preflight.status !== 'reviewable') throw Error(`GOLD_S_PREFLIGHT_${preflight.status.toUpperCase()}`)
-  if (!nonempty(corpus?.curator_id) || corpus.curator_id !== keys?.curator_id || review.owner_id !== keys?.owner_id || !nonempty(keys?.issuer_id) || !signed(corpus, corpusSignature, keys?.curator) || !signed(review, ownerSignature, keys?.owner)) throw Error('GOLD_S_INDEPENDENT_ATTESTATION_REQUIRED')
+  if (!nonempty(corpus?.curator_id) || corpus.curator_id !== keys?.curator_id || review.owner_id !== keys?.owner_id || new Set([keys?.curator_id, keys?.owner_id, keys?.issuer_id]).size !== 3 || !distinctKeys(keys?.curator, keys?.owner, issuerPrivateKey) || !signed(corpus, corpusSignature, keys?.curator) || !signed(review, ownerSignature, keys?.owner)) throw Error('GOLD_S_INDEPENDENT_ATTESTATION_REQUIRED')
   if (current?.rights_status !== 'permitted' || !hex(current?.rights_hash) || !hex(current?.content_hash) || !nonempty(current?.source_id) || !nonempty(current?.target_key) || !hex(current?.passage_hash) || !nonempty(issuedAt) || !issuerPrivateKey) throw Error('GOLD_S_CURRENT_RIGHTS_OR_ISSUER_MISSING')
   const body = { schema: 'frym-gold-s-certificate/1', certificate_id: randomUUID(), issuer_id: keys.issuer_id, curator_id: keys.curator_id, owner_id: keys.owner_id, issued_at: issuedAt, review_evidence_hash: preflight.review_evidence_hash, decision_hash: decision.decision_hash, distribution_hash: corpus.distribution_hash, review_hash: review.review_hash, benchmark_version: status.benchmark_version, admission_receipt_hash: status.admission_receipt_hash, benchmark_snapshot_hash: status.benchmark_snapshot_hash, source_id: current.source_id, target_key: current.target_key, passage_hash: current.passage_hash, content_hash: current.content_hash, rights_hash: current.rights_hash }
   return { ...body, signature: sign(null, Buffer.from(hash(body)), issuerPrivateKey).toString('base64') }
