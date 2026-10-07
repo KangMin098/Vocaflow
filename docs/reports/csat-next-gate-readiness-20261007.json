@@ -1,0 +1,63 @@
+{
+  "source_ref": "feat/ec-smoke",
+  "source_commit": "da2b177309ba2798a01a056b96e7d2ddf335d9c2",
+  "source_is_current_worktree": true,
+  "g4_closure_commit": "9990c3886f2ac0740ea1f5cb3411516839dc9349",
+  "g5_closure_commit": "eacb01e6f75d6f618d4275e42b92619bbd986b62",
+  "g6_implementation_commit": "ce50ee8b092996e578dbf45d9bfd49e743d01710",
+  "sealed_run_files_present": 0,
+  "default_private_mapping_present": false,
+  "environment_presence": {
+    "DEV_ADMIN_USER_ID": true,
+    "CSAT_EC_ACTIVE_RUN": false,
+    "CSAT_EC_APP_COMMIT": false,
+    "CSAT_EC_PILOT_USER_IDS": false
+  },
+  "environment_scope": "Locally loaded apps/web/.env.local; not a production deployment claim",
+  "existing_e2e": {
+    "app_commit": "c9c5584ba0d35751555c0d3adbf9b3bd40a6c252",
+    "totals": {
+      "pass": 8,
+      "fail": 0,
+      "skipped": 0
+    },
+    "residual": {
+      "accounts": 0,
+      "sessions": 0,
+      "keptActive": [],
+      "embargoedExams": []
+    },
+    "scope": "Historical verification-mode/test-account report; not a sealed actual-run E2E report",
+    "matches_current_source_commit": false
+  },
+  "implementation_files": [
+    {
+      "file": "scripts/csat/pilot/prepare-run.mjs",
+      "present": true
+    },
+    {
+      "file": "scripts/csat/pilot/seal-run.mjs",
+      "present": true
+    },
+    {
+      "file": "scripts/csat/pilot/start-check.mjs",
+      "present": true
+    },
+    {
+      "file": "scripts/csat/pilot/run-e2e.mjs",
+      "present": true
+    },
+    {
+      "file": "apps/web/src/lib/csat/ec-pilot/run-gate.ts",
+      "present": true
+    },
+    {
+      "file": "scripts/csat/error-evidence/model-input/model-packets.mjs",
+      "present": true
+    },
+    {
+      "file": "docs/csat-learner/pilot-runs/OPERATOR_KIT.md",
+      "present": true
+    }
+  ]
+}

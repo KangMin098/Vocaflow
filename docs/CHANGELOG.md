@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(csat): 전체 브랜치에서 G4·G5 종료 근거 복원, 실제 다음 게이트 G6 준비 상태·운영 blocker 정리. G6 TLS 예외·URL 오류 정보 노출은 feat/ec-smoke에서 수정·11/11 및 실 DB 검증.
 - docs(csat): 사용자 승인 보완 증거로 pre-snapshot 면제, GraphQL/Advisor 잔여 7건 대상 27/27 검증·blocking 0 확인 후 G3 CLOSED.
 - docs(csat): Reveal Gate 실 DB direct SELECT 72/72·actor/API 55/55 검증 기록; GraphQL timeout·Advisor 7건·적용 전 snapshot 미확인으로 G3 OPEN 유지.
 - fix(csat): live GraphQL 검증의 UUID 필터 타입 불일치 수정, 실패 HTTP status 보존.
