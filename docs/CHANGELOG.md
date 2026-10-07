@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Gold-S 인증 심사의 실제 교재 분포·책임자 결정·hash/revision 결속과 hold/reject/stale 계약을 추가했다. 신원 인증과 증명서 발급은 열지 않으며 실제 corpus·Gold-S·DB seed는 0이다.
+
 - feat(textbook): 현재 benchmark 후보의 decision·snapshot·admission receipt 해시를 묶은 Gold-S 책임자 검토 준비 preview를 추가했다. 누락·혼합·stale 증거는 보류하며 Gold-S 인증·seed eligibility·DB seed는 계속 닫는다.
 
 - feat(textbook): 로컬 교재 admission부터 benchmark snapshot·판정까지 read-only 상태 점검을 연결하고, current F02/E3 증거로 판정을 재계산한다. hold·reject·stale은 후속 gate를 닫고 Gold-S 후보와 seed eligibility를 분리한다. 실제 corpus·Gold-S·DB seed는 0이다.
