@@ -80,3 +80,38 @@ export function prepareReviewLedgers(metrics, followups, now) {
   if (errors.length) throw new Error(`장부 값 오류 ${errors.length}건 — 아무것도 쓰지 않았다:\n    ${errors.join('\n    ')}`)
   return { batches: [...batches.values()], followups: [...follow.values()], notes }
 }
+
+/** One data-only statement: both natural-key upserts share a transaction. */
+export function reviewLedgerSql({ batches, followups }) {
+  const literal = (rows) => {
+    const body = JSON.stringify(rows)
+    let tag = '$csat_ledger$'
+    while (body.includes(tag)) tag = tag.slice(0, -1) + '_$'
+    return `${tag}${body}${tag}::jsonb`
+  }
+  return `-- Validated review ledgers; no schema changes. Re-running upserts the same natural keys.
+with batch_write as (
+  insert into public.csat_review_batches
+    (batch, run_date, kind, chunk_size, items, agents, tokens, published, refused, re_rejected, detail, note)
+  select batch, run_date, kind, chunk_size, items, agents, tokens, published, refused, re_rejected,
+         coalesce(detail, '{}'::jsonb), note
+  from jsonb_populate_recordset(null::public.csat_review_batches, ${literal(batches)})
+  on conflict (batch) do update set
+    run_date = excluded.run_date, kind = excluded.kind, chunk_size = excluded.chunk_size,
+    items = excluded.items, agents = excluded.agents, tokens = excluded.tokens,
+    published = excluded.published, refused = excluded.refused, re_rejected = excluded.re_rejected,
+    detail = excluded.detail, note = excluded.note
+  returning 1
+), followup_write as (
+  insert into public.csat_review_followups
+    (item_id, source, finding_key, finding, severity, status, noted_on, updated_at)
+  select item_id, source, finding_key, finding, severity, status, noted_on, coalesce(updated_at, now())
+  from jsonb_populate_recordset(null::public.csat_review_followups, ${literal(followups)})
+  on conflict (item_id, source, finding_key) do update set
+    finding = excluded.finding, severity = excluded.severity, status = excluded.status,
+    noted_on = excluded.noted_on, updated_at = excluded.updated_at
+  returning 1
+)
+select (select count(*) from batch_write) as batches, (select count(*) from followup_write) as followups;
+`
+}

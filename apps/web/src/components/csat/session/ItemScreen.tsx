@@ -58,13 +58,19 @@ function DissectionBody({ draft, onDraft, item, paper, crop, seed, seq, typeName
   }
   const question = step === 1 ? '정답 근거는 어느 문장에 심었을까요?' : step === 2 ? '이 오답은 어떤 제조법일까요?' : '이 문항의 설계를 추정해 볼까요?'
   const summary = [ ['소재', item.topic], ['형식', item.format], ['근거 자리', evidenceLabel], ['함정 계열', item.distractor.family], ['의도', item.intent] ]
-  if (!paper.ok || !evidence.length || trapSentence === undefined) return <section className={styles.empty}>
+  if (!paper.ok || !evidence.length || trapSentence === undefined || (paper.needsOriginal && !crop)) return <section className={styles.empty}>
     {/* Local blob URL; Next image optimization would send learner material to a server. */}
     {/* eslint-disable-next-line @next/next/no-img-element */}
     {crop && <img src={crop} alt="이 기기에서 추출한 문항 영역" className={styles.crop} />}
-    <p>문장 위치를 확인하지 못했어요. 문제지 텍스트를 다시 읽어 주세요.</p><button className={styles.primary} onClick={onReadAgain}>문제지 다시 놓기</button>
+    <p>{paper.originalUnavailable ? '원본 문제 영역을 표시하지 못했어요. PDF를 직접 열어 확인하거나 다른 문제지를 놓아 주세요.' : paper.needsOriginal && !crop ? '밑줄·도표를 원본으로 확인하려면 문제지를 다시 놓아 주세요.' : '문장 위치를 확인하지 못했어요. 문제지 텍스트를 다시 읽어 주세요.'}</p><button className={styles.primary} onClick={onReadAgain}>문제지 다시 놓기</button>
   </section>
   return <article className={styles.item} data-testid="item-screen" data-phase={phase}>
+    {paper.needsOriginal && crop && <>
+      <p className={styles.quiet}>밑줄의 전체 범위와 도표는 아래 원본에서 확인해 주세요.</p>
+      {/* Local data URL; image optimization must not receive learner material. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={crop} alt="원본 문제 — 밑줄·도표 포함" className={styles.crop} />
+    </>}
     <header className={styles.itemHeader}>
       <p className={styles.eyebrow}>{seq} / 3 · {typeName}{seq === 3 ? ' · 전이' : ''}</p>
       <h1 ref={heading} tabIndex={-1}>{phase === 'scan' ? '정답을 알고, 지문을 봅니다.' : predict || compare ? question : phase === 'blueprint' ? (seq === 3 ? '이 공식이 여기서도?' : '역분석한 설계') : '다음 지문에 남길 한 줄'}</h1>

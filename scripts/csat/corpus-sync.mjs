@@ -22,8 +22,10 @@
 //   node scripts/csat/corpus-sync.mjs --commit
 //   node scripts/csat/corpus-sync.mjs --commit --prune-listening
 //   node scripts/csat/corpus-sync.mjs --commit --prune-stale        (코퍼스에서 빠진 문항 · 분석 0건일 때만)
+//   node scripts/csat/corpus-sync.mjs --set hakpyeong --items H2603G1#31,... [--commit] (지정 원문만 · 유형/회차 불변)
 
 import fs from 'node:fs'
+import { isDeepStrictEqual } from 'node:util'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { examMetaOf, isKiceExam, listeningEndOf, parseExamId } from './lib-exam-id.mjs'
@@ -42,7 +44,10 @@ const DIR = path.resolve('scripts/csat/data')
  * 이걸 안 가르면 학평을 올리는 순간 평가원 802문항이 «코퍼스에 없는 문항» 이 된다.
  */
 const SET = process.argv.includes('--set') ? process.argv[process.argv.indexOf('--set') + 1] : 'kice'
+const ONLY = process.argv.includes('--items') ? new Set((process.argv[process.argv.indexOf('--items') + 1] ?? '').split(',')) : null
 if (!['kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 kice | hakpyeong: ${SET}`)
+if (ONLY && (ONLY.has('') || PRUNE_LISTENING || PRUNE_STALE)) throw new Error('--items 는 비어 있거나 삭제 옵션과 함께 쓸 수 없다')
+if (ONLY && ONLY.size > 100) throw new Error('--items 원문 수리는 회당 최대 100문항이다 — 범위를 나눠 대조 후 실행한다')
 const inSet = (id) => (SET === 'kice' ? isKiceExam(id) : !isKiceExam(id))
 // 미리보기에서도 거부한다 — 잘못된 조합을 --commit 을 붙이는 순간에야 알게 하지 않는다
 if (PRUNE_LISTENING && SET !== 'kice') {
@@ -76,7 +81,9 @@ const typeTable = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 
 //    올려 두면 `csat_items` 를 세는 모든 화면·질의가 우리가 손대지도 않는 520문항을 함께 세고,
 //    유형 목록에는 학습자가 영원히 못 볼 듣기 유형 18개가 남는다.
 //    원장(corpus.json)에는 남겨 둔다 — 거기서는 "45문항 중 28을 떴다" 를 확인하는 자리 표시다.
-const scopeItems = corpus.items.filter((i) => i.in_scope)
+const available = corpus.items.filter((i) => i.in_scope)
+if (ONLY && [...ONLY].some((id) => !available.some((i) => i.id === id))) throw new Error('--items 에 현재 집합의 사정권 원장에 없는 문항이 있다')
+const scopeItems = available.filter((i) => !ONLY || ONLY.has(i.id))
 const usedTypes = new Set(scopeItems.map((i) => i.type_id).filter(Boolean))
 const recentTypes = new Set(scopeItems.filter((i) => i.year >= 2023 && i.type_id).map((i) => i.type_id))
 const types = typeTable
@@ -141,6 +148,7 @@ const items = scopeItems.map((it) => ({
 console.log(`  유형 ${types.length} · 회차 ${exams.length} · 사정권 문항 ${items.length} (듣기 ${corpus.items.length - items.length}문항 제외)`)
 console.log(`  정답 보유 ${items.filter((i) => i.answer != null).length}`)
 console.log(`  현행 유형 ${types.filter((t) => t.status === 'active').length} · 폐지 ${types.filter((t) => t.status === 'retired').length}`)
+if (ONLY) console.log('  지정 문항 원문만 갱신 — 유형·회차·다른 문항·기존 분석을 쓰거나 삭제하지 않는다')
 
 if (!COMMIT) {
   console.log('\n  미리보기다 — 아무것도 쓰지 않았다. 올리려면 --commit')
@@ -156,6 +164,30 @@ async function upsert(table, rows, chunk = 500) {
   process.stdout.write('\n')
 }
 
+if (ONLY) {
+  const { data: current, error: readError } = await db.from('csat_items').select('id,type_id,stem,choices,answer,answers,passage,body_ok').in('id', items.map((i) => i.id))
+  if (readError) throw new Error(readError.message)
+  const byId = new Map(current.map((i) => [i.id, i]))
+  // A source repair must not overwrite manually restored choices, answers or
+  // raw blocks with a regenerated corpus's older fields.
+  for (const it of items) {
+    const old = byId.get(it.id)
+    if (!old || ['type_id', 'stem', 'choices', 'answer', 'answers'].some((k) => !isDeepStrictEqual(old[k], it[k]))) throw new Error(`${it.id}: 기존 문항 정보가 원장과 다르다 — 지정 원문 동기화 전에 대조 필요(쓰기 없음)`)
+  }
+  let changed = 0
+  for (const it of items) {
+    const old = byId.get(it.id)
+    if (old.passage === it.passage && old.body_ok === it.body_ok) continue
+    let write = db.from('csat_items').update({ passage: it.passage, body_ok: it.body_ok }).eq('id', it.id)
+    write = old.passage == null ? write.is('passage', null) : write.eq('passage', old.passage)
+    const { data: written, error } = await write.select('id')
+    if (error || written?.length !== 1) throw new Error(`${it.id}: ${error?.message ?? '갱신 대상이 없다'} — 이미 갱신된 원문은 유지되며 같은 범위로 재실행한다`)
+    changed += 1
+    await new Promise((resolve) => setTimeout(resolve, 350))
+  }
+  console.log(`  지정 원문 ${changed}건 갱신 · ${items.length - changed}건 동일 — 정답·선지·raw_block 보존, 해시가 바뀐 분석은 DB 게이트가 자동 보류한다`)
+  process.exit(0)
+}
 if (SET === 'kice') {
   await upsert('csat_types', types)
 } else {

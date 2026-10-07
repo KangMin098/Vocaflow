@@ -30,8 +30,15 @@ import { blankFrags } from './pdf-frags'
 /** 추출기 판. 규칙을 바꾸면 올린다 — 기기에 남은 옛 추출을 버리게 한다.
  *  2 (2026-09-25): 그린 선으로 된 빈칸을 `______` 로 복원한다(`pdf-frags.blankFrags`).
  *  3 (2026-09-25): 줄 끝에 걸린 빈칸(문장 부호 없이 일찍 끝나고 다음 줄이 이어짐)을 복원한다.
- *  4 (2026-09-28): 요약문 — 화살표 글리프를 문단 경계로, 지문 꼬리의 선지 표 머리 「(A) (B) (A) (B)」 를 뗀다. */
-export const REFLOW_VERSION = 4
+ *  4 (2026-09-28): 요약문 화살표를 문단 경계로, 지문 꼬리의 선지 표 머리를 제거한다.
+ *  5 (2026-10-05): 밑줄 범위·도표·함축 의미 유형은 원본 크롭으로 표시한다.
+ *  6 (2026-10-08): 두 분기의 요약문 정제와 원본 크롭 규칙을 함께 적용한다. */
+export const REFLOW_VERSION = 6
+
+/** 문자 목록에는 밑줄의 끝과 도표가 없다. 추출된 글이 온전해도 원본을 보여야 한다. */
+export const VISUAL_PAPER_TYPES: ReadonlySet<string> = new Set([
+  'R-REFER', 'X-REFER', 'R-GRAMMAR', 'R-VOCAB', 'X-VOCAB', 'R-CHART', 'R-IMPLY',
+])
 
 const CIRC = '①②③④⑤'
 
@@ -475,6 +482,7 @@ export function reflowExam(
       choices: choices.map(unGap),
       inline,
       ok: reason !== 'empty-passage',
+      needsOriginal: type != null && VISUAL_PAPER_TYPES.has(type),
       reason,
       boxes: boxesOf([...setLines, ...region]),
     })

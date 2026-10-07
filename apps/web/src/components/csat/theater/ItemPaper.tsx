@@ -122,7 +122,7 @@ export function ItemPaper({ catalog, examId, no, onPassageChange }: {
     </button>
   )
 
-  if (!item.ok) {
+  if (!item.ok || item.needsOriginal) {
     const crop = cropOf(examId, no)
     return (
       <div data-testid="item-paper-crop">
@@ -130,7 +130,11 @@ export function ItemPaper({ catalog, examId, no, onPassageChange }: {
           // eslint-disable-next-line @next/next/no-img-element -- 탭 메모리의 data URL(서버 이미지 아님)
           <img className={styles.paperCrop} src={crop} alt={`${no}번 문항 — 문제지 그대로`} />
         ) : (
-          <p className={styles.quiet}>이 문항은 글자를 온전히 뽑지 못했어요. 문제지를 다시 놓으면 종이 그대로 보여 줘요.</p>
+          <p className={styles.quiet}>{item.originalUnavailable
+            ? '원본 문제 영역을 표시하지 못했어요. PDF를 직접 열어 확인하거나 다른 문제지를 놓아 주세요.'
+            : item.needsOriginal
+              ? '밑줄·도표를 원본으로 확인하려면 문제지를 다시 놓아 주세요.'
+              : '이 문항은 글자를 온전히 뽑지 못했어요. 문제지를 다시 놓으면 종이 그대로 보여 줘요.'}</p>
         )}
         {again}
       </div>

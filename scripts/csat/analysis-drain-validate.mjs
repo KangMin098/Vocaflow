@@ -18,6 +18,7 @@ import path from 'node:path'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 import { analysisWinners, chunkArgs, DrainSelectError, replacesOutput, selectOutFiles } from './lib-drain-select.mjs'
 import { checkUnitRefs } from './lib-evidence-units.mjs'
+import { analysisRuleErrors } from './lib-analysis-rules.mjs'
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -258,6 +259,8 @@ for (const f of files) {
     const id = a.item_id ?? '(item_id 없음)'
     const it = itemOf.get(a.item_id)
     if (!it) { bad(id, '코퍼스에 없는 item_id'); continue }
+
+    for (const error of analysisRuleErrors(a)) bad(id, error)
 
     // V1 필수 서술
     const analystRun = a.analyst_run ?? j.analyst_run

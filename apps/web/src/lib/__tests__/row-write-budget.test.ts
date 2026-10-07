@@ -108,7 +108,18 @@ type Scanner = {
  *   셋 다 상한이 수십 행인 표의 수동 1회성 손질이다. 일괄 upsert 는 shared_word_sets 의 NOT NULL 열 때문에
  *   INSERT 경로가 깨질 수 있어 단건 UPDATE 가 더 안전하다(쓰기 폭주가 날 규모가 아니다).
  */
-const BASELINE = 140
+// 137 → 138 (2026-10-04): scripts/csat/corpus-sync.mjs 의 지정 원문 수리.
+// 전량 upsert 대신 정답·선지·raw_block을 보존하는 passage/body_ok PATCH가 필요하다.
+// --items 최대 100개, 순차 실행·매 쓰기 뒤 350ms 대기(초당 최대 2.86건),
+// 옛 passage CAS로 동시 수정 덮어쓰기를 거부한다. 이번 실측 대상은 31개다.
+// 138 → 139 (2026-10-04): scripts/csat/source-repair.mjs 의 PDF 대조 정본 수리.
+// 한 계획 최대100문항, CAS순차 PATCH 뒤350ms 대기(최대2.86건/초).
+// 정답·유형·원본블록을 유지하고 PDF해시와 기존모든필드가 일치할 때만 쓰므로
+// 전량동기화 대신 지정 수리를 쓴다. 실제 적용103문항·단위104행이며
+// 추가 수리로 대체된 옛 계획은 재실행에서 현재 입력 충돌로 거부한다.
+// 140 → 142 (2026-10-08 병합): 두 분기의 지정 원문 수리 경로를 함께 센다.
+// 위 corpus-sync/source-repair 는 지정 최대 100건·CAS·순차 350ms 지연을 유지한다.
+const BASELINE = 142
 
 let scanner: Scanner
 

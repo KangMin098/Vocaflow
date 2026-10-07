@@ -24,6 +24,14 @@ describe('reviewBlock — 막힌 이유 우선순위', () => {
   it('analyst_run 없음 → 분석 없음', () => {
     expect(reviewBlock(base({ analystRun: null })).state).toBe('noAnalysis')
   })
+  it('현재 이미지 정본이 있어도 유효 독립 승인이 없으면 검수 대기다', () => {
+    expect(reviewBlock(base({typeId:'R-CHART',visualAssetId:'current-image',visualAnalysisReady:true})).state).toBe('waiting')
+    expect(reviewBlock(base({typeId:'R-CHART',visualAssetId:'current-image',visualAnalysisReady:true,validPersonas:['setter','analyst','tutor']})).reason).toContain('발행 대기')
+    expect(reviewCounts([base({typeId:'R-CHART',visualAssetId:'current-image'})]).published).toBe(0)
+  })
+  it('옛 도표 분석은 이미지와 승인3개가 있어도 재작성 먼저 표시한다',()=>{
+    expect(reviewBlock(base({typeId:'R-CHART',visualAssetId:'current-image',validPersonas:['setter','analyst','tutor']})).state).toBe('fixFirst')
+  })
   it('현재 해시와 맞는 사전 검사 실패 → 교정 먼저(반려·검수 대기보다 먼저)', () => {
     const b = reviewBlock(base({ precheck: { ...base().precheck!, errors: ['인용이 걸친 단위 [u6] 가 …'] }, verdicts: [{ ...pass('setter'), verdict: 'revise' }] }))
     expect(b.state).toBe('fixFirst')

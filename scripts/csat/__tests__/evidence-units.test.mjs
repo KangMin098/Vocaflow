@@ -36,6 +36,27 @@ test('circled numbers start a unit after terminal punctuation (position / chart 
   assert.deepEqual(u, ['The graph shows usage.', '① Teens used it most.', '② Adults used it least.'])
 })
 
+test('v4: attached ASCII/fullwidth insertion markers start the next unit without changing source offsets', () => {
+  for (const marker of ['（ ④ ）', '( ④ )']) {
+    const passage = `The old system changed.${marker}More land was used. ( ⑤ ) Thus, exports rose.`
+    const built = buildUnits(passage, { typeId: 'R-INSERT' })
+    assert.deepEqual(built.units.map(u => u.text), ['The old system changed.', `${marker}More land was used.`, '( ⑤ ) Thus, exports rose.'])
+    assert.doesNotThrow(() => checkUnits(passage, built.units))
+  }
+  assert.deepEqual(texts('The old system changed. （ ④ ） More land was used.', { typeId: 'R-INSERT' }), ['The old system changed.', '（ ④ ） More land was used.'])
+  assert.deepEqual(texts('It costs 3.5 dollars. Dr. Kim paid.', { typeId: 'R-INSERT' }), ['It costs 3.5 dollars.', 'Dr. Kim paid.'])
+})
+
+test('v3: leading and multiple name initials stay together without swallowing ordinary letter endings', () => {
+  assert.deepEqual(texts('F. Carson studies birds. He writes.'), ['F. Carson studies birds.', 'He writes.'])
+  assert.deepEqual(texts('A. Y. Morgan paints. A. Y. travels.'), ['A. Y. Morgan paints.', 'A. Y. travels.'])
+  assert.deepEqual(texts('T. S. Carter spoke with A.L. Parker and A.F. Miller.'), ['T. S. Carter spoke with A.L. Parker and A.F. Miller.'])
+  assert.deepEqual(texts('We called him (A. Y.) and he painted. He traveled.'), ['We called him (A. Y.) and he painted.', 'He traveled.'])
+  for (const p of ['Try vitamin C. Vegetarians agree.', 'Meeting Room A. After lunch.', 'World War I. By then.', 'You got a C. What now?', 'The sign is B. But words differ.', 'The English I. Different forms.']) {
+    assert.equal(texts(p).length, 2, p)
+  }
+})
+
 test('sentences inside curly quotes stay one unit; a unit may end right after the closing quote', () => {
   // H2304G3#32 모양(따옴표 안 두 문장) — 검수자가 7·8문장으로 갈렸던 경계를 규칙으로 고정
   assert.deepEqual(texts('He wrote, “Art is play. Play is art.” Critics agreed.'), ['He wrote, “Art is play. Play is art.”', 'Critics agreed.'])
