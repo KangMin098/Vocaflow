@@ -30,6 +30,8 @@ import { loadEnv, fetchAllIn } from './volume-pool.mjs'
 import { adaptationKey, readTarget, targetKey, validateReadingDraft, readPreservationRules, READING_SOURCE_COLUMNS, canonical } from './academic-reading-contract.mjs'
 import { readAgentReviews, validateAgentReviews } from './academic-reading-review.mjs'
 import { readEducationalValidation, validateEducationalPromotion } from './educational-validation-contract.mjs'
+import { validateGoldSImport } from './frym-benchmark/gold-s-import-gate.mjs'
+import { hash as benchmarkHash } from './frym-benchmark/benchmark.mjs'
 
 // 등급 슬러그가 `license`(원문 표기) 칸에 들어가는 사고를 막는 정본 — 재고 80편 사고(2026-09-23).
 const { licenseTextOf } = await import('@vocaflow/library-pipeline')
@@ -43,6 +45,23 @@ const commit = process.argv.includes('--commit')
 const readingTarget = readTarget(arg('target'))
 const preservationRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
 const educationalValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
+const goldSFile = arg('gold-s-seed')
+if (goldSFile && (educationalValidation || !readingTarget)) throw new Error('--gold-s-seed requires --target and cannot be combined with --educational-validation')
+const readGoldSSeed = () => {
+  if (!goldSFile) return null
+  const bundle = JSON.parse(fs.readFileSync(goldSFile, 'utf8'))
+  if (bundle?.schema !== 'frym-gold-s-seed-bundle/1' || !Array.isArray(bundle.entries)) throw new Error('GOLD_S_SEED_BUNDLE_INVALID')
+  const entries = new Map()
+  for (const entry of bundle.entries) {
+    const key = `${entry.source_id}:${entry.target_key}:${entry.passage_hash}`
+    if (entries.has(key)) throw new Error('GOLD_S_SEED_BUNDLE_DUPLICATE')
+    entries.set(key, entry)
+  }
+  return entries
+}
+const goldSSeed = readGoldSSeed()
+const goldSKeys = { goldIssuer: process.env.F02_GOLD_S_ISSUER_PUBLIC_KEY, seedIssuer: process.env.F02_SEED_ISSUER_PUBLIC_KEY, goldIssuerId: process.env.F02_GOLD_S_ISSUER_ID, seedIssuerId: process.env.F02_SEED_ISSUER_ID }
+const goldSEntry = (entries, draft) => entries?.get(`${draft.adapted_from_id}:${targetKey(readingTarget)}:${benchmarkHash(typeof draft.text === 'string' ? draft.text.trim() : '')}`)
 if (preservationRules && !readingTarget) throw new Error('--preservation-rules requires --target')
 const BAND = readingTarget?.language_band ?? arg('band') ?? 'elementary'
 // export 와 **같은 규칙**으로 폴더를 찾는다. 어긋나면 채운 청크를 못 읽고
@@ -158,9 +177,16 @@ for (const r of rows) {
     if (!agentReview.ok) { skip(agentReview.reason); continue }
     reading.spec.content_review = agentReview.certificate
     reading.spec.state = 'agent_reviewed'
-    const education = validateEducationalPromotion(r, original.reading.preservation_rules ?? null, educationalValidation, now)
-    if (!education.ok) { skip(education.reason); continue }
-    if (education.certificate) reading.spec.provenance.educational_validation = education.certificate
+    if (goldSSeed) {
+      const entry = goldSEntry(goldSSeed, r)
+      const gold = validateGoldSImport({ draft: r, targetKey: targetKey(readingTarget), source: currentSources.get(r.adapted_from_id), bundle: entry, keys: goldSKeys })
+      if (!gold.ok) { skip(gold.reason); continue }
+      reading.spec.provenance.gold_s = gold.certificate
+    } else {
+      const education = validateEducationalPromotion(r, original.reading.preservation_rules ?? null, educationalValidation, now)
+      if (!education.ok) { skip(education.reason); continue }
+      if (education.certificate) reading.spec.provenance.educational_validation = education.certificate
+    }
   }
   const current = currentSources.get(r.adapted_from_id)
   if (!current || current.source !== r.source_feed || !['cc_by','cc0','public_domain', ...(readingTarget?.share_alike ? ['cc_by_sa'] : [])].includes(current.license_class) || current.display_only !== false || current.copyright_safe_in_kr !== true || ['archived','failed'].includes(current.status)) { skip('current source is missing or rights/status block adaptation'); continue }
@@ -288,7 +314,8 @@ for (let i = 0; i < inserts.length; i += 100) {
   if (readingTarget) {
     const latest = new Map((await fetchAllIn(db,'library_articles',READING_SOURCE_COLUMNS,'id',entries.map(x => x.row.adapted_from_id),['id'])).map(r => [r.id,r]))
     const latestRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
-    const latestValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
+    const latestValidation = goldSSeed ? null : readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
+    const latestGoldSSeed = readGoldSSeed()
     entries = entries.filter(x => {
       const original = exportsByFile.get(x.draft.__file)?.find(r => r.adapted_from_id === x.draft.adapted_from_id)
       const result = validateReadingDraft(x.draft,original,latest.get(x.draft.adapted_from_id),Date.now(),latestRules?.get(x.draft.adapted_from_id) ?? null)
@@ -296,6 +323,13 @@ for (let i = 0; i < inserts.length; i += 100) {
         const agentReview = validateAgentReviews(x.draft, original, readAgentReviews(DIR, x.draft.__file))
         if (!agentReview.ok || canonical(agentReview.certificate) !== canonical(x.row.composed_spec?.academic_reading?.content_review)) {
           skip(agentReview.ok ? 'agent review changed during import; run again' : agentReview.reason); return false
+        }
+        if (latestGoldSSeed) {
+          const gold = validateGoldSImport({ draft: x.draft, targetKey: targetKey(readingTarget), source: latest.get(x.draft.adapted_from_id), bundle: goldSEntry(latestGoldSSeed, x.draft), keys: goldSKeys })
+          if (!gold.ok || canonical(gold.certificate) !== canonical(x.row.composed_spec?.academic_reading?.provenance.gold_s)) {
+            skip(gold.ok ? 'Gold-S seed evidence changed during import; run again' : gold.reason); return false
+          }
+          return true
         }
         const education = validateEducationalPromotion(x.draft, latestRules?.get(x.draft.adapted_from_id) ?? null, latestValidation, Date.now())
         if (education.ok) {

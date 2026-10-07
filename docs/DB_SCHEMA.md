@@ -2,7 +2,9 @@
 
 ## Academic Reading JSONB 계약 (2026-10-04, 마이그레이션 없음)
 
-2026-10-05 [사람 실행기 v2](./FYM_HUMAN_VALIDATION_PROTOCOL.md)는 4점/중재·expert_validated/student_validated·사전 봉인·calibration 제외·후속 재현을 연결했다. 새 seed는 v2 gold만 허용한다. 기존 8편은 미봉인 calibration candidate로 DB에 적재하지 않았다. 테이블/마이그레이션/실제 DB 변경은 없다.
+2026-10-05 [사람 실행기 v2](./FYM_HUMAN_VALIDATION_PROTOCOL.md)는 4점/중재·expert_validated/student_validated·사전 봉인·calibration 제외·후속 재현을 연결했다. 학생 검증 경로의 seed는 v2 gold만 허용한다. 시중 교재 비교 경로는 별도 서명된 Gold-S와 seed eligibility를 요구한다. 기존 8편은 미봉인 calibration candidate로 DB에 적재하지 않았다. 새 테이블/마이그레이션은 필요 없으며 실제 DB 변경은 아직 없다.
+
+시중 교재 경로의 `--gold-s-seed` bundle은 `certificate`와 `eligibility`를 원천 UUID·target key·각색 본문 SHA256에 결속한다. importer는 신뢰된 발급자 공개키 환경변수로 두 서명을 확인하고 현재 원천의 본문·URL·연구 계보·권리·revision을 다시 해시한다. 통과한 queued 자식에만 `composed_spec.academic_reading.provenance.gold_s`를 추가하며 certificate/eligibility hash·benchmark version·decision/distribution/receipt/snapshot hash·source/target/passage/rights hash·`production=false`를 저장한다. dry-run과 insert 직전 동일 검증을 반복하고 기존 학생 기반 `educational_validation` 경로는 유지한다. 실제 corpus/Gold-S/seed eligibility가 없으므로 적재는 0건이다.
 
 보존 규칙을 사용한 완성 각색의 importer는 실제 교육적 gold 검증 후 `composed_spec.academic_reading.provenance.educational_validation`에 version(2)/state(gold)·study_id/study_purpose·manifest_hash·validation/protocol/instrument/pilot/review/rules SHA256·passage_hash·target_key·source_id·전문가별 5개 보존 차원·final_semantic_dimensions·final_distortions·adjudication_hash(nullable)·분리된 학생 측정·유효 전문가/학생 수·scope(`exact_passage_target_protocol_only`)·production(false)를 넣는다. 동일 본문/target/source만 허용하고 batch 직전 원 연구 문맥과 최신 인증을 대조한다. 사람 실명·학생 원응답은 DB 필드에 넣지 않는다. production은 후속 독립 주제/원천의 gold 재현과 실제 published 행의 본문/부모/target/저장 인증 일치를 읽기 전용으로 확인한다. 과거 v1 결과를 새 seed에 사용할 수 없다.
 

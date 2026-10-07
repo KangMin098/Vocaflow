@@ -271,7 +271,7 @@ export const TBP_HELP: HelpRegistry = {
           {
             title: '사람의 blind 의미 평가와 학생 측정을 거친다',
             detail: '`frym-validation-export.mjs --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --protocol scripts/textbook/frym-validation/protocol-2.draft.json --study-id <고유ID> --evidence-dir <증거폴더> --output <새폴더>`를 tsx로 실행합니다. 로컬 읽기만 하며 수초 걸립니다. coordinator는 비공개로 보관합니다. 사람이 band/문항/배정/자격/학년을 확정하고 register로 사전 봉인한 뒤 독립 전문가 2명의 4점 평가 또는 제3 독립 판정 후 중재를 수집합니다. 최종 8항목≥3·핵심 critical 없음·중대한 왜곡 0인 버전만 학생에게 제시하고 학년당 15~30명/버전별 완전 측정 15명을 요구합니다. 같은 학생은 pair의 두 버전을 보지 않습니다. 도구는 응답 생성·패킷 전송을 하지 않습니다.',
-            done: '`frym-validation-verify.mjs --input <results.json> --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --evidence-dir <증거폴더>`는 반복 안전·읽기 전용입니다. calibration은 student_validated까지만 가능하며 독립 validation만 gold가 됩니다. --report <새.json>은 학생별 분포/문항/순서/평가자 일치를 보존합니다. 완성 청크 import에는 --educational-validation <v2 results.json> --evidence-dir <증거폴더>가 필요합니다. production은 별도 후속 재현과 현재 published 행을 읽어 검증합니다.',
+            done: '`frym-validation-verify.mjs --input <results.json> --pilot <pilot.json> --preservation-rules <규칙.json> --precision-review <회차.json> --evidence-dir <증거폴더>`는 반복 안전·읽기 전용입니다. 학생 검증 경로의 완성 청크 import에는 --educational-validation <v2 results.json> --evidence-dir <증거폴더>가 필요합니다. 시중 교재 비교 경로는 별도 --gold-s-seed <bundle.json>과 신뢰된 발급자 공개키 환경변수를 요구하며, dry-run에서 건너뛴 사유를 확인하고 --commit 직전 원천·권리·서명·본문을 재검증합니다. 두 경로를 함께 지정할 수 없고 실제 benchmark corpus가 없으면 0건 적재됩니다. production은 후속 재현과 현재 published 행을 별도로 확인합니다.',
           },
           {
             title: '돌아온 실제 응답을 새 결과에 수집한다',

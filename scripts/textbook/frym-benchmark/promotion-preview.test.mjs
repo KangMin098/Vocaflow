@@ -13,6 +13,7 @@ import { inspectPipeline } from './pipeline-state.mjs'
 import { previewPromotion } from './promotion-preview.mjs'
 import { assessGoldSContract, inspectGoldSCertificate, issueGoldSCertificate } from './gold-s-contract.mjs'
 import { previewSeedEligibility, issueSeedEligibility, inspectSeedEligibility } from './seed-preview.mjs'
+import { sourceRightsHash, validateGoldSImport } from './gold-s-import-gate.mjs'
 import { generateKeyPairSync, sign } from 'node:crypto'
 
 const current = { schema: 'frym-benchmark-pipeline-state/1', state: 'gold_s_candidate', benchmark_version: 'fixture-v1', admission_receipt_hash: hash('receipt'), benchmark_snapshot_hash: hash('snapshot') }
@@ -101,7 +102,10 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   assert.equal(assess(corpus, { ...review, review_evidence_hash: hash('other') }).status, 'stale')
   assert.equal(assess(corpus, { ...review, decision: 'reject' }).status, 'reject')
   assert.equal(assess(corpus, { ...review, rationale: '' }).status, 'hold')
-  const binding = { review_evidence_hash: pending.review_evidence_hash, decision_hash: certifiedDecision.decision_hash, distribution_hash: corpus.distribution_hash, review_hash: review.review_hash, benchmark_version: status.benchmark_version, admission_receipt_hash: status.admission_receipt_hash, benchmark_snapshot_hash: status.benchmark_snapshot_hash, content_hash: hash('content'), rights_hash: hash('rights') }
+  const liveSource = { id: 'fixture-source', source_id: 'frym-full:fixture', content: 'Current source text', license: 'CC BY 4.0', license_class: 'cc_by', display_only: false, copyright_safe_in_kr: true, status: 'ready', updated_at: '2026-10-07T00:00:00Z' }
+  const draft = { adapted_from_id: liveSource.id, text: 'A reviewed student adaptation.', reading: { target: { share_alike: false } } }
+  const passageHash = hash(draft.text)
+  const binding = { review_evidence_hash: pending.review_evidence_hash, decision_hash: certifiedDecision.decision_hash, distribution_hash: corpus.distribution_hash, review_hash: review.review_hash, benchmark_version: status.benchmark_version, admission_receipt_hash: status.admission_receipt_hash, benchmark_snapshot_hash: status.benchmark_snapshot_hash, source_id: liveSource.id, target_key: 'middle_1', passage_hash: passageHash, content_hash: hash({ source_id: liveSource.id, target_key: 'middle_1', passage_hash: passageHash }), rights_hash: sourceRightsHash(liveSource) }
   const currentCertificate = { ...binding, rights_status: 'permitted' }
   const curator = generateKeyPairSync('ed25519'), owner = generateKeyPairSync('ed25519'), issuer = generateKeyPairSync('ed25519')
   const attest = (value, key) => sign(null, Buffer.from(hash(value)), key).toString('base64')
@@ -116,9 +120,10 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   assert.equal(inspectGoldSCertificate({ certificate, current: currentCertificate, authority: { issuerPublicKey: owner.publicKey } }).status, 'unverified')
   assert.equal(inspectGoldSCertificate({ certificate: { ...certificate, issued_at: 'changed' }, current: currentCertificate, authority }).status, 'unverified')
   assert.equal(inspectGoldSCertificate({ certificate, current: { ...currentCertificate, content_hash: hash('new') }, authority }).status, 'stale')
+  assert.equal(inspectGoldSCertificate({ certificate, current: { ...currentCertificate, target_key: 'high_1' }, authority }).status, 'stale')
   assert.equal(inspectGoldSCertificate({ certificate, current: { ...currentCertificate, rights_status: 'denied' }, authority }).status, 'invalidated')
   assert.equal(inspectGoldSCertificate({ certificate: { ...certificate, revoked: true }, current: currentCertificate, authority }).status, 'invalidated')
-  const operationsBody = { reviewer_id: 'fixture-operations', certificate_hash: hash(certificate), review_evidence_hash: pending.review_evidence_hash, decision_hash: certifiedDecision.decision_hash, content_hash: currentCertificate.content_hash, rights_hash: currentCertificate.rights_hash, rights_status: 'permitted', review_status: 'approved', provenance_hash: hash('provenance'), item_set_hash: hash('items'), revision: 'fixture-r1' }
+  const operationsBody = { reviewer_id: 'fixture-operations', certificate_hash: hash(certificate), review_evidence_hash: pending.review_evidence_hash, decision_hash: certifiedDecision.decision_hash, source_id: currentCertificate.source_id, target_key: currentCertificate.target_key, passage_hash: currentCertificate.passage_hash, content_hash: currentCertificate.content_hash, rights_hash: currentCertificate.rights_hash, rights_status: 'permitted', review_status: 'approved', provenance_hash: hash('provenance'), item_set_hash: hash('items'), revision: 'fixture-r1' }
   const operations = { ...operationsBody, operations_hash: hash(operationsBody) }
   const seedInput = { status, decision: certifiedDecision, certificate, current: currentCertificate, authority, operations }
   assert.equal(previewSeedEligibility(seedInput).status, 'ready_for_seed_review')
@@ -135,6 +140,7 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   const eligibility = issueSeedEligibility(seedArgs)
   const seedAuthority = { issuer_id: 'fixture-seed-issuer', issuerPublicKey: seedIssuer.publicKey }
   assert.equal(inspectSeedEligibility({ eligibility, packet: seedInput, authority: seedAuthority }).status, 'current')
+  assert.equal(validateGoldSImport({ draft, targetKey: binding.target_key, source: liveSource, bundle: { certificate, eligibility }, keys: { goldIssuer: issuer.publicKey, seedIssuer: seedIssuer.publicKey, goldIssuerId: authority.issuer_id, seedIssuerId: seedAuthority.issuer_id } }).ok, true)
   assert.equal(inspectSeedEligibility({ eligibility, packet: seedInput, authority: seedAuthority }).db_seed, false)
   assert.equal(inspectSeedEligibility({ eligibility, packet: { ...seedInput, current: { ...currentCertificate, rights_status: 'denied' } }, authority: seedAuthority }).status, 'stale')
   assert.equal(inspectSeedEligibility({ eligibility: { ...eligibility, issued_at: 'changed' }, packet: seedInput, authority: seedAuthority }).status, 'unverified')

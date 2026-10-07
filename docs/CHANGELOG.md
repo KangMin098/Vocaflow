@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 각색 importer에 시중 교재 Gold-S/seed eligibility 서명 경로를 연결하고 현재 원천·타겟·본문·권리 해시를 dry-run과 insert 직전에 재검증한다. 학생 v2 경로는 유지하며 실제 DB 적재는 0건이다.
+
 - feat(textbook): 독립 운영 검수자·seed 승인자·발급자 서명으로 seed eligibility의 발급·재검증 경로를 추가했다. 실제 eligibility와 DB seed는 0이며 DB 쓰기 경로는 열지 않았다.
 
 - feat(textbook): 서명된 Gold-S 인증서와 현재 decision·권리·본문·provenance·문항 증거를 재확인하는 seed 사전 점검을 추가했다. 실제 seed eligibility와 DB 적재는 열지 않았다.

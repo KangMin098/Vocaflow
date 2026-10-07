@@ -45,8 +45,8 @@ export function issueGoldSCertificate({ status, decision, corpus, review, corpus
   const preflight = assessGoldSContract({ status, decision, corpus, review })
   if (preflight.status !== 'reviewable') throw Error(`GOLD_S_PREFLIGHT_${preflight.status.toUpperCase()}`)
   if (!nonempty(corpus?.curator_id) || corpus.curator_id !== keys?.curator_id || review.owner_id !== keys?.owner_id || !nonempty(keys?.issuer_id) || !signed(corpus, corpusSignature, keys?.curator) || !signed(review, ownerSignature, keys?.owner)) throw Error('GOLD_S_INDEPENDENT_ATTESTATION_REQUIRED')
-  if (current?.rights_status !== 'permitted' || !hex(current?.rights_hash) || !hex(current?.content_hash) || !nonempty(issuedAt) || !issuerPrivateKey) throw Error('GOLD_S_CURRENT_RIGHTS_OR_ISSUER_MISSING')
-  const body = { schema: 'frym-gold-s-certificate/1', certificate_id: randomUUID(), issuer_id: keys.issuer_id, curator_id: keys.curator_id, owner_id: keys.owner_id, issued_at: issuedAt, review_evidence_hash: preflight.review_evidence_hash, decision_hash: decision.decision_hash, distribution_hash: corpus.distribution_hash, review_hash: review.review_hash, benchmark_version: status.benchmark_version, admission_receipt_hash: status.admission_receipt_hash, benchmark_snapshot_hash: status.benchmark_snapshot_hash, content_hash: current.content_hash, rights_hash: current.rights_hash }
+  if (current?.rights_status !== 'permitted' || !hex(current?.rights_hash) || !hex(current?.content_hash) || !nonempty(current?.source_id) || !nonempty(current?.target_key) || !hex(current?.passage_hash) || !nonempty(issuedAt) || !issuerPrivateKey) throw Error('GOLD_S_CURRENT_RIGHTS_OR_ISSUER_MISSING')
+  const body = { schema: 'frym-gold-s-certificate/1', certificate_id: randomUUID(), issuer_id: keys.issuer_id, curator_id: keys.curator_id, owner_id: keys.owner_id, issued_at: issuedAt, review_evidence_hash: preflight.review_evidence_hash, decision_hash: decision.decision_hash, distribution_hash: corpus.distribution_hash, review_hash: review.review_hash, benchmark_version: status.benchmark_version, admission_receipt_hash: status.admission_receipt_hash, benchmark_snapshot_hash: status.benchmark_snapshot_hash, source_id: current.source_id, target_key: current.target_key, passage_hash: current.passage_hash, content_hash: current.content_hash, rights_hash: current.rights_hash }
   return { ...body, signature: sign(null, Buffer.from(hash(body)), issuerPrivateKey).toString('base64') }
 }
 
@@ -56,7 +56,7 @@ export function inspectGoldSCertificate({ certificate, current, authority } = {}
   const output = (status, reasons) => ({ schema: 'frym-gold-s-certificate-check/1', status, reasons, gold_s: status === 'current', seed_eligible: false, db_seed: false })
   if (!certificate || certificate.schema !== 'frym-gold-s-certificate/1' || !nonempty(certificate.certificate_id)) return output('unverified', ['CERTIFICATE_MISSING'])
   if (certificate.revoked === true || current?.rights_status !== 'permitted') return output('invalidated', ['CERTIFICATE_REVOKED_OR_RIGHTS_LOST'])
-  const bound = ['review_evidence_hash', 'decision_hash', 'distribution_hash', 'review_hash', 'benchmark_version', 'admission_receipt_hash', 'benchmark_snapshot_hash', 'content_hash', 'rights_hash']
+  const bound = ['review_evidence_hash', 'decision_hash', 'distribution_hash', 'review_hash', 'benchmark_version', 'admission_receipt_hash', 'benchmark_snapshot_hash', 'source_id', 'target_key', 'passage_hash', 'content_hash', 'rights_hash']
   if (bound.some(key => !nonempty(certificate[key]) || certificate[key] !== current?.[key])) return output('stale', ['CERTIFICATE_EVIDENCE_CHANGED'])
   const { signature, ...body } = certificate
   if (certificate.issuer_id !== authority?.issuer_id || !signed(body, signature, authority?.issuerPublicKey)) return output('unverified', ['AUTHORITY_SIGNATURE_REQUIRED'])
