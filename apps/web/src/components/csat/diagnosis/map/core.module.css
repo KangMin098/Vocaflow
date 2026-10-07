@@ -15,17 +15,20 @@
   border-radius: 10px;
   background: var(--m-near-bg);
   color: var(--m-near-ink);
-  font-size: 12.5px;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
   line-height: 1.6;
 }
 .h {
-  margin: 0 0 10px;
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   font-weight: 600;
 }
 .hNote {
   margin-left: 6px;
-  font-size: 11.5px;
+  font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
   font-weight: 400;
   color: var(--m-ink2);
 }
@@ -40,10 +43,12 @@
   gap: 12px;
 }
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 16px;
+  gap: 8px;
+  padding: 16px 16px 14px;
+  transition: box-shadow var(--dur-fast, 0.15s), border-color var(--dur-fast, 0.15s);
   background: var(--m-bg);
   border: 1px solid #0d0d1714;
   border-radius: 12px;
@@ -62,11 +67,11 @@
   height: 28px;
   border-radius: 8px;
   background: #f4f2ef;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   font-weight: 600;
 }
 .name {
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 600;
 }
 .candTag {
@@ -75,19 +80,19 @@
   border-radius: 999px;
   background: var(--m-ink);
   color: #fcf9f5;
-  font-size: 10.5px;
+  font-size: max(var(--csat-fs-min), calc(10.5px * var(--csat-fs-scale)));
   white-space: nowrap;
 }
 .q {
   margin: 0;
   min-height: 3.2em;
-  font-size: 11.5px;
+  font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
   line-height: 1.55;
   color: var(--m-ink2);
 }
 .status {
   margin: 4px 0 0;
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   font-weight: 600;
 }
 .tObs {
@@ -99,7 +104,7 @@
 .meta,
 .basis {
   margin: 0;
-  font-size: 11px;
+  font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale)));
   line-height: 1.5;
   color: var(--m-ink2);
 }
@@ -131,7 +136,7 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 12.5px;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
   line-height: 1.6;
 }
 .dx {
@@ -139,7 +144,7 @@
   align-items: flex-start;
   gap: 8px;
   margin: 0 0 8px;
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   font-weight: 500;
   line-height: 1.6;
 }
@@ -149,7 +154,7 @@
 }
 .muted {
   margin: 0;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   color: var(--m-ink2);
   font-weight: 400;
 }
@@ -164,7 +169,7 @@
   background: var(--m-bg);
   box-shadow: 0 0 0 1px #0d0d1714;
   color: var(--m-ink);
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   font-weight: 500;
   text-decoration: none;
 }
@@ -182,7 +187,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 10px var(--g-pad-x) 0;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   color: var(--m-ink2);
 }
 .backLink {
@@ -197,41 +202,279 @@
   text-decoration: none;
   border-radius: 8px;
 }
-/* 2026-10-07 vNext 정렬 — 성장 경로 · 표시 기준 · 기존 계산 안내 */
-.note {
-  margin: 8px 0 0;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--m-ink2);
-  word-break: keep-all;
-}
-.legacy {
-  margin: 4px 0 0;
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--m-ink2);
-  word-break: keep-all;
-}
-.prog {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* ── 2026-10-07 참조 수준 다듬기: 아이콘 제목 · 목표 카드 · 성장 경로 트랙 · 안내 팁 ── */
+.hRow {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
 }
-.progStep {
+.h svg {
+  color: var(--m-ink2);
+}
+.card:hover {
+  border-color: #0d0d1729;
+  box-shadow: 0 10px 22px -10px #0d0d1726, var(--m-elev);
+}
+.tile {
+  color: var(--m-ink);
+  background: linear-gradient(180deg, #f8f6f3, #efece8);
+  box-shadow: inset 0 0 0 1px #0d0d170d;
+}
+.code {
+  margin-left: auto;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: max(var(--csat-fs-min), calc(10.5px * var(--csat-fs-scale)));
+  color: var(--m-g600);
+  letter-spacing: 0.04em;
+}
+.status {
   display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--m-ink);
+  flex: none;
+}
+.statusDot[data-s='obs_low'] {
+  background: transparent;
+}
+.statusDot[data-s='obs_mid'] {
+  background: linear-gradient(90deg, var(--m-ink) 50%, transparent 50%);
+}
+.statusDot[data-s='obs_high'] {
+  background: var(--m-ink);
+}
+.statusDot[data-s='insufficient'],
+.statusDot[data-s='no_data'] {
+  border-style: dashed;
+  border-color: var(--m-g600);
+}
+.cardFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #0d0d170f;
+}
+.basisChip {
+  font-size: max(var(--csat-fs-min), calc(10.5px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 최종 목표 카드 */
+.goalCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffffff 0%, #fbf9f7 100%);
+  border: 1px solid #0d0d1714;
+  box-shadow: var(--m-elev);
+}
+.goalIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--m-ink);
+  color: #fcf9f5;
+  flex: none;
+}
+.goalText {
+  display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 8px 12px;
-  border: 1px solid var(--m-line);
-  border-radius: 8px;
-  font-size: 13px;
-  color: var(--m-ink);
-  word-break: keep-all;
+  min-width: 0;
+  margin-right: auto;
 }
-.progAxes {
-  font-size: 11px;
+.goalLabel {
+  font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale)));
   color: var(--m-ink2);
+  letter-spacing: 0.02em;
+}
+.goalValue {
+  font-size: max(var(--csat-fs-min), calc(15px * var(--csat-fs-scale)));
+  font-weight: 500;
+}
+.goalValue strong {
+  font-size: max(var(--csat-fs-min), calc(20px * var(--csat-fs-scale)));
+  font-weight: 700;
+  margin-left: 4px;
+}
+.goalSub {
+  font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+}
+.goalTips {
+  display: inline-flex;
+}
+.goalBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--m-ink);
+  color: #fcf9f5;
+  font: inherit;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
+  font-weight: 500;
+  cursor: pointer;
+}
+.goalBtn:hover {
+  background: #2a2a36;
+}
+/* 성장 경로 — 단계 트랙 */
+.track {
+  list-style: none;
+  margin: 0;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0;
+  background: var(--m-bg);
+  border: 1px solid #0d0d1714;
+  border-radius: 12px;
+}
+.trackStep {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  padding: 0 6px;
+  min-width: 0;
+}
+.trackStep::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 100%;
+  height: 1px;
+  background: #0d0d171f;
+  z-index: 0;
+}
+.trackStep:last-child::before {
+  display: none;
+}
+.trackDot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #0d0d1726;
+  color: var(--m-ink);
+}
+.trackStep[data-axis='X'] .trackDot {
+  background: var(--m-ink);
+  color: #fcf9f5;
+}
+.trackName {
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  font-weight: 600;
+  line-height: 1.35;
+}
+.trackAxes {
+  font-size: max(var(--csat-fs-min), calc(10.5px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+}
+.trackArrow {
+  display: none;
+}
+/* 후보 · 진단 패널 */
+.panel {
+  box-shadow: var(--m-elev);
+}
+.emptyRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--m-canvas);
+  color: var(--m-ink2);
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
+}
+.rank {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--m-ink);
+  color: #fcf9f5;
+  font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale)));
+  font-weight: 700;
+  flex: none;
+}
+.cand {
+  align-items: center;
+}
+.routeChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--m-canvas);
+  color: var(--m-ink2);
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+}
+.footRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fullLink {
+  box-shadow: 0 0 0 1px #0d0d1714, var(--m-elev);
+}
+.linkMeta {
+  color: var(--m-ink2);
+  font-weight: 400;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+}
+/* 상세 지도 머리 줄 — 문장 대신 칩 */
+.viewChips {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
+.basisSub {
+  color: var(--m-g600);
+}
+.legacyTag {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--m-near-bg);
+  color: var(--m-near-ink);
+  font-size: max(var(--csat-fs-min), calc(10px * var(--csat-fs-scale)));
 }

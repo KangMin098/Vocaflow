@@ -23,14 +23,14 @@
 }
 
 .title {
-  font-size: 22px;
+  font-size: max(var(--csat-fs-min), calc(22px * var(--csat-fs-scale)));
   font-weight: 800;
   letter-spacing: -0.01em;
 }
 
 .lead {
   margin-top: 4px;
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   color: var(--t2);
 }
 
@@ -50,12 +50,12 @@
 }
 
 .cardTitle {
-  font-size: 15px;
+  font-size: max(var(--csat-fs-min), calc(15px * var(--csat-fs-scale)));
   font-weight: 800;
 }
 
 .cardNote {
-  font-size: 12.5px;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
   color: var(--t2);
 }
 
@@ -81,7 +81,7 @@
   gap: 6px;
   padding: 0 18px;
   border-radius: var(--r-md);
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 700;
   white-space: nowrap;
   transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
@@ -121,14 +121,14 @@
 }
 
 .scoreBig {
-  font-size: 44px;
+  font-size: max(var(--csat-fs-min), calc(44px * var(--csat-fs-scale)));
   font-weight: 800;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 
 .scoreUnit {
-  font-size: 16px;
+  font-size: max(var(--csat-fs-min), calc(16px * var(--csat-fs-scale)));
   font-weight: 700;
   margin-left: 2px;
 }
@@ -141,19 +141,19 @@
   border-radius: 999px;
   background: var(--t1);
   color: var(--bg);
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   font-weight: 800;
 }
 
 .delta {
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 700;
   color: var(--t2);
 }
 
 .scoreLabel {
   width: 100%;
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   color: var(--t2);
 }
 
@@ -177,13 +177,13 @@
 }
 
 .rowName {
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 700;
 }
 
 .rowSub {
   display: block;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   font-weight: 500;
   color: var(--t2);
 }
@@ -205,13 +205,13 @@
 
 .rowValue {
   text-align: right;
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
 
 .rowLink {
-  font-size: 12.5px;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
   color: var(--t2);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -234,7 +234,7 @@
   padding: 0 12px;
   border: 1px solid var(--bd);
   border-radius: var(--r-md);
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
@@ -244,7 +244,7 @@ a.chip:hover {
 }
 
 .chipSub {
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   font-weight: 500;
   color: var(--t2);
 }
@@ -262,7 +262,7 @@ a.chip:hover {
   gap: 12px;
   min-height: 48px;
   border-top: 1px solid var(--bd);
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
 }
 
 .record:first-child {
@@ -280,7 +280,7 @@ a.chip:hover {
 }
 
 .tag {
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   color: var(--t2);
 }
 
@@ -306,20 +306,20 @@ a.chip:hover {
 }
 
 .stepNum {
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   font-weight: 800;
   color: var(--t2);
 }
 
 .stepTitle {
   margin-top: 4px;
-  font-size: 15px;
+  font-size: max(var(--csat-fs-min), calc(15px * var(--csat-fs-scale)));
   font-weight: 800;
 }
 
 .stepText {
   margin-top: 4px;
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   color: var(--t2);
 }
 
@@ -336,7 +336,7 @@ a.chip:hover {
   min-height: 40px;
   padding: 0 16px;
   border-radius: var(--r-sm);
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 700;
   color: var(--t2);
 }
@@ -366,7 +366,7 @@ a.chip:hover {
 }
 
 .yearName {
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 800;
 }
 
@@ -377,7 +377,7 @@ a.chip:hover {
   padding: 0 14px;
   border: 1px solid var(--bd);
   border-radius: var(--r-md);
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   font-weight: 600;
 }
 
@@ -398,7 +398,7 @@ a.chip:hover {
   align-items: center;
   gap: 12px 20px;
   margin-bottom: 16px;
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
 }
 
 .sheetMeta input[type='date'] {
@@ -431,7 +431,7 @@ a.chip:hover {
   justify-content: space-between;
   padding: 0 4px 6px;
   border-bottom: 2px solid var(--t1);
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   font-weight: 800;
   color: var(--t2);
 }
@@ -451,7 +451,7 @@ a.chip:hover {
 
 .lineNo {
   text-align: center;
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
@@ -477,7 +477,7 @@ a.chip:hover {
   justify-content: center;
   border: 1.5px solid var(--t2);
   border-radius: 999px;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   font-weight: 700;
   color: var(--t2);
   transition: background var(--dur-fast) var(--ease);
@@ -504,13 +504,13 @@ a.chip:hover {
 }
 
 .progress {
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   color: var(--t2);
   font-variant-numeric: tabular-nums;
 }
 
 .error {
-  font-size: 14px;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
   color: var(--t1);
   font-weight: 700;
 }

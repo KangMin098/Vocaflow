@@ -23,6 +23,9 @@
    ══════════════════════════════════════════════════════════════ */
 @layer base {
   :root {
+    /* /csat 글자 크기 비율 — 참조 3B 캡처 실측(docs/design/refs/3b/access-map/spec.json type). 고치려면 spec.json 부터(geometry.test 가 지킨다) */
+    --csat-fs-scale: 0.92;
+    --csat-fs-min: 10px;
     /* v07 — `--font-body` 는 `--font-display` 의 **별칭**이다.
        둘은 같은 글꼴(IBM Plex Sans KR)을 가리키므로 next/font 로 두 번 선언하면
        같은 파일을 두 벌 내려받는다(실측 2026-09-16: 폰트 요청 37건 · 373KB).

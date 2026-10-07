@@ -9,7 +9,7 @@
 
 'use client'
 
-import { BookOpen, BookOpenCheck, CalendarDays, FileText, Gauge, Link2, ListChecks, Network, Sprout, Target, X } from 'lucide-react'
+import { Activity, BookOpen, BookOpenCheck, CalendarDays, CheckSquare, Database, Eye, FileText, Footprints, Gauge, Lightbulb, Link2, ListChecks, ListOrdered, Network, Route, Shapes, Sprout, Target, TrendingUp, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
 import { AXIS_ROLE, CURRENT_BASIS, GOAL_STRATEGY_NOTE, TASK_NOTE, roleOf } from '@/lib/csat/map/core'
@@ -153,12 +153,12 @@ export function NodePopup({
                 onAction={onShowPath}
               />
               {!usesTarget && roleInfo && (
-                <Card title={roleInfo.label} desc="이 노드의 역할이에요." right={<Chip>목표율 없음</Chip>}>
+                <Card icon={<Shapes size={14} strokeWidth={1.9} />} title={roleInfo.label} desc="이 노드의 역할이에요." right={<Chip>목표율 없음</Chip>}>
                   <p className={p.p}>{roleInfo.desc}</p>
                 </Card>
               )}
               {usesTarget && (
-              <Card title="목표율" desc={`${isLine ? '반드시 맞혀야 하는 문항의 배점 비율이에요.' : '연결된 라인의 배점 가중 평균이에요.'} ${GOAL_STRATEGY_NOTE}`}>
+              <Card icon={<Target size={14} strokeWidth={1.9} />} title="목표율" desc={`${isLine ? '반드시 맞혀야 하는 문항의 배점 비율이에요.' : '연결된 라인의 배점 가중 평균이에요.'} ${GOAL_STRATEGY_NOTE}`}>
                 {hasTarget ? (
                   <div className={p.bigRow}>
                     <span className={p.big}>{pct(value.target)}</span>
@@ -178,7 +178,7 @@ export function NodePopup({
                 </div>
               )}
               {usesTarget && (
-              <Card title="기준 시험" desc="정답표가 완전한 평가원 시험 중 최근 순이에요.">
+              <Card icon={<CalendarDays size={14} strokeWidth={1.9} />} title="기준 시험" desc="정답표가 완전한 평가원 시험 중 최근 순이에요.">
                 {model.reference.exams.length === 0 ? (
                   <Empty>기준 시험이 없어요.</Empty>
                 ) : (
@@ -201,7 +201,7 @@ export function NodePopup({
               </Card>
               )}
               {usesTarget && isLine && value.mustItems.length > 0 && (
-                <Card title={`반드시 맞혀야 하는 문항 ${value.mustItems.length}개`} desc="목표율 계산에 들어간 문항이에요.">
+                <Card icon={<ListChecks size={14} strokeWidth={1.9} />} title={`반드시 맞혀야 하는 문항 ${value.mustItems.length}개`} desc="목표율 계산에 들어간 문항이에요.">
                   <SearchBox value={qMust} onChange={setQMust} placeholder="시험 · 번호로 찾기…" label="반드시 맞혀야 하는 문항 찾기" />
                   <ListBox head={['시험 · 번호', '배점 · 오답률']}>
                     <div className={p.scroll}>
@@ -232,7 +232,7 @@ export function NodePopup({
 
           {tab === 'reached' && (
             <>
-              <Card title="기출 관찰 정답률" desc="최신 진단 기록에서 문항유형 → 역량 대응표로 이어 받은 값이에요. 실제 숙련 정도를 잰 값이 아니에요." right={<Chip tone="warn">규칙 기반 · 정밀 진단 미실시</Chip>}>
+              <Card icon={<Gauge size={14} strokeWidth={1.9} />} title="기출 관찰 정답률" desc="최신 진단 기록에서 문항유형 → 역량 대응표로 이어 받은 값이에요. 실제 숙련 정도를 잰 값이 아니에요." right={<Chip tone="warn">규칙 기반 · 정밀 진단 미실시</Chip>}>
                 <div className={p.bigRow}>
                   <span className={p.big}>{value.achieved !== null ? pct(value.achieved) : '—'}</span>
                   {usesTarget ? <Chip>{obs}</Chip> : roleInfo && <Chip>{roleInfo.label}</Chip>}
@@ -241,18 +241,18 @@ export function NodePopup({
                 </div>
                 {(value.achieved !== null || hasTarget) && <BigMeter rate={value.achieved} target={null} tone="muted" />}
               </Card>
-              <Card title="근거 데이터" desc="이 값이 얼마나 쌓인 기록에서 나왔는지예요.">
+              <Card icon={<Database size={14} strokeWidth={1.9} />} title="근거 데이터" desc="이 값이 얼마나 쌓인 기록에서 나왔는지예요.">
                 <ListBox>
                   <ListRow tile={<Gauge size={16} strokeWidth={1.8} />} title={isLine ? '관측 건수' : '라인별 기여 건수(중복 포함)'} sub={isLine ? '이 지표에 실제로 들어간 응답' : '연결 라인 관측 건수의 합 — 서로 다른 응답 수가 아니에요'} right={<Chip>{value.n !== null ? `${value.n}건` : '없음'}</Chip>} />
                   {model.evidence && <ListRow tile={<FileText size={16} strokeWidth={1.8} />} title="기록 전체" sub="노드별 시험 수는 저장하지 않아요" right={<Chip>시험 {model.evidence.examSessions}회 · 응답 {model.evidence.responses}개</Chip>} />}
                   {value.coverage !== null && <ListRow tile={<ListChecks size={16} strokeWidth={1.8} />} title="진단 범위" sub="진단된 라인의 배점 비율" right={<Chip>{Math.round(value.coverage * 100)}%</Chip>} />}
                 </ListBox>
               </Card>
-              <Card title="추세" desc="진단이 쌓이면 보여요." right={<Chip>준비 중</Chip>}>
+              <Card icon={<TrendingUp size={14} strokeWidth={1.9} />} title="추세" desc="진단이 쌓이면 보여요." right={<Chip>준비 중</Chip>}>
                 <p className={`${p.p} ${p.muted}`}>지도 지표를 담은 진단이 둘 이상일 때 변화를 보여 줘요.</p>
               </Card>
               {value.tasks.total > 0 && (
-                <Card title="과제 체크" desc="이 노드에 연결된 과제 중 체크한 것이에요.">
+                <Card icon={<CheckSquare size={14} strokeWidth={1.9} />} title="과제 체크" desc="이 노드에 연결된 과제 중 체크한 것이에요.">
                   <div className={p.bigRow}>
                     <span className={p.big}>
                       {value.tasks.done}/{value.tasks.total}
@@ -268,7 +268,7 @@ export function NodePopup({
           {tab === 'now' && (
             <>
               {usesTarget && (
-                <Card title="지금 관찰" desc="목표 점수와 역량 수준의 직접 연결은 목표율 보정(calibration) 뒤에 다시 보여 줘요.">
+                <Card icon={<Eye size={14} strokeWidth={1.9} />} title="지금 관찰" desc="목표 점수와 역량 수준의 직접 연결은 목표율 보정(calibration) 뒤에 다시 보여 줘요.">
                   <div className={p.bigRow}>
                     <Chip>{obs}</Chip>
                     <Chip tone="warn">규칙 기반 · 정밀 진단 미실시</Chip>
@@ -276,7 +276,7 @@ export function NodePopup({
                 </Card>
               )}
               {isLine && value.habit !== null && (
-                <Card title="행동 신호" desc="풀이 습관 신호예요. 능력이 아니라 행동을 봐요.">
+                <Card icon={<Activity size={14} strokeWidth={1.9} />} title="행동 신호" desc="풀이 습관 신호예요. 능력이 아니라 행동을 봐요.">
                   <div className={p.bigRow}>
                     <Chip tone={value.habit === 'active' ? 'bad' : value.habit === 'resolved' ? 'good' : 'neutral'}>
                       {value.habit === 'active' ? '신호 있음' : value.habit === 'resolved' ? '해소됨' : '판단 불가'}
@@ -288,7 +288,7 @@ export function NodePopup({
               {isLine ? (
                 lineTasks.length > 0 && (
                   // 관찰 → 진단 필요 → 처방: 진단 전에는 「처방」이라 부르지 않고, 찾기만 「지금 해 볼 수 있는」 단계로 연다(prescription.ts)
-                  <Card title={frame.title} desc={`${frame.note} ${TASK_NOTE}`} right={<Chip>{value.tasks.done}/{value.tasks.total} 완료</Chip>}>
+                  <Card icon={<Footprints size={14} strokeWidth={1.9} />} title={frame.title} desc={`${frame.note} ${TASK_NOTE}`} right={<Chip>{value.tasks.done}/{value.tasks.total} 완료</Chip>}>
                     <div data-testid="popup-stages" data-phase={frame.phase}>
                       {groupByStage(lineTasks, frame).map((g) => (
                         <section key={g.stage ?? 'none'} className={p.stageGroup} aria-label={g.stage ? STAGE_LABEL[g.stage] : '단계 미정'}>
@@ -338,7 +338,7 @@ export function NodePopup({
                   </Card>
                 )
               ) : (
-                <Card title="우선 확인 후보" desc="영역 · 목표 단위의 확인 후보는 핵심 지도에서 봐요.">
+                <Card icon={<ListOrdered size={14} strokeWidth={1.9} />} title="우선 확인 후보" desc="영역 · 목표 단위의 확인 후보는 핵심 지도에서 봐요.">
                   <Empty>격차 순 추천은 하지 않아요 — 규칙 기반 관찰이라 진단을 먼저 해요.</Empty>
                 </Card>
               )}
@@ -348,13 +348,13 @@ export function NodePopup({
           {tab === 'basis' && (
             <>
               {(isLine ? node.why : node.summary) && (
-                <Card title={isLine ? '왜 이렇게 분류했나' : '설명'}>
+                <Card icon={<BookOpen size={14} strokeWidth={1.9} />} title={isLine ? '왜 이렇게 분류했나' : '설명'}>
                   <p className={p.p}>{(isLine ? node.why : node.summary)!.split('\n').map((l, i) => <span key={i}>{l}<br /></span>)}</p>
                   {isLine && node.signal && <p className={`${p.p} ${p.muted}`}>진단에서 보는 지표: {node.signal}</p>}
                 </Card>
               )}
               {principles.length > 0 && (
-                <Card title="설계 근거" desc="이 라인을 이렇게 짠 학습 원리예요. 학생 실력을 재는 노드가 아니에요.">
+                <Card icon={<Lightbulb size={14} strokeWidth={1.9} />} title="설계 근거" desc="이 라인을 이렇게 짠 학습 원리예요. 학생 실력을 재는 노드가 아니에요.">
                   <ListBox>
                     {principles.map((n) => (
                       <ListRow key={n.code} tile={n.code} tileTone="teal" title={n.name} sub={n.summary ?? ''} right={<Chip>{BADGE_LABEL[evidenceBadge(data.nodeSources[n.code], data.sources)]}</Chip>} />
@@ -363,13 +363,13 @@ export function NodePopup({
                 </Card>
               )}
               {isLine && trackName && (
-                <Card title="처방 접근" desc="진단 뒤 고를 수 있는 학습 경로(Route) 후보예요. 지금은 정하지 않아요." right={<Chip tone="warn">Route 미정</Chip>}>
+                <Card icon={<Route size={14} strokeWidth={1.9} />} title="처방 접근" desc="진단 뒤 고를 수 있는 학습 경로(Route) 후보예요. 지금은 정하지 않아요." right={<Chip tone="warn">Route 미정</Chip>}>
                   <ListBox>
                     <ListRow tile={node.track} tileTone={rowTone(node.track)} title={trackName} sub="추가 진단 뒤 결정" />
                   </ListBox>
                 </Card>
               )}
-              <Card title="출처와 연결선" desc="출처가 없으면 보류로 둬요. 연결선도 출처가 있어야 직접 근거 · 추론이 돼요.">
+              <Card icon={<Link2 size={14} strokeWidth={1.9} />} title="출처와 연결선" desc="출처가 없으면 보류로 둬요. 연결선도 출처가 있어야 직접 근거 · 추론이 돼요.">
                 <SearchBox value={qSrc} onChange={setQSrc} placeholder="출처 · 연결선 찾기…" label="출처와 연결선 찾기" />
                 <div className={p.cardTitle} style={{ margin: '4px 0 8px' }}>이 노드의 출처 {nodeSrcIds.length}</div>
                 {nodeSrcIds.length === 0 ? (

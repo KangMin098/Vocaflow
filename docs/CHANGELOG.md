@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): 3B 참조 수준 다듬기 — /csat 글자 크기 = 참조 실측 비율 0.92(같은 문자 잉크 높이 비교 · spec.json `type` · 모듈 CSS 415곳을 `max(최소 10px, 원래값 × 비율)` 로, 가드 `type-scale.test`) · 학습 지도: 목표 점수는 상단 줄 대신 최종 목표 카드 · 노드에서(팝오버) · 노드에 마우스 → 연결선 강조 + 오른쪽 ⋯ → 상세(노드 클릭 = 경로 강조) · 제목 · 카드 아이콘 · 긴 문장은 안내 팁(InfoTip) · 성장 경로 단계 트랙. ref-compare 16항목 통과. 측정 도구 `ref-scan --ink` · `ours-text-metrics.mjs`.
+
 - feat(csat-map): FIND 과제 보강 — 찾기 과제가 없던 라인 20개에 ord 4 하나씩(개발 DB 적용 2026-10-07 · 시드 `scripts/db/seed-20261007-find-tasks.sql` sha `0c6d…010d`). 과제 162 → 182 · 찾기 없는 라인 20 → 0 · 기존 162행 불변(md5) · DB = 정본 JSON = 대응표. Phase 1 · legacy 54라인용(vNext 핵심 능력 정의 아님).
 
 - feat(csat-map): 처방 모델 — 관찰 → 진단 필요 → 처방(verified_diagnosis 전에는 처방 아님) · FIND/REPAIR/TRANSFER/CHECK, 과제 162 단계 대응표(38 · 72 · 32 · 20) · 팝업 「학습 활동」을 단계별로 묶고 진단 전에는 찾기만 열림. 찾기 없는 라인 20개는 콘텐츠 공백으로 기록. `ref-compare` 열 수 상수 가드. DB 변경 없음.

@@ -29,6 +29,13 @@
 
 PNG 를 이 폴더에 넣고 2–5 를 반복한다. 화면마다 `spec.json` 에 키를 하나 더한다(예: `modal` · `panel`). 측정이 안 되는 것(글자 크기 · 굵기 · 그림자 · 모서리 반경)은 아직 눈대중이다 — 아래 「한계」.
 
+## 글자 크기 (2026-10-07)
+
+참조 캡처에는 DOM 이 없어 font-size 를 바로 못 읽는다. 대신 **같은 문자 체계 · 같은 역할의 글자 잉크 높이**를 참조와 우리 화면(같은 뷰포트 · DPR 1)에서 같은 도구로 재서 비율을 낸다.
+1. 참조: `node scripts/design/ref-scan.mjs <png> --ink x0,y0 x1,y1` (사이드바 Recents · 노드 이름 서준 강)
+2. 우리: `node --env-file=<.env.local> scripts/design/ours-text-metrics.mjs` → 같은 글자의 DOM font-size + 화면 위치 → 같은 `--ink` 로 잰다
+3. 비율을 spec.json `type` 에 적고 globals.css `--csat-fs-scale` · `--csat-fs-min` 으로만 쓴다. `type-scale.test.ts` 가 명세 = 토큰 · /csat 모듈 CSS 에 고정 px font-size 0 을 지킨다.
+
 ## 한계와 더 정확한 길
 
 - 스크린샷 측정은 **크기·간격·색**까지다. **글자 크기 · 굵기 · 모서리 반경 · 그림자**는 DOM 이 없어 눈대중이다.

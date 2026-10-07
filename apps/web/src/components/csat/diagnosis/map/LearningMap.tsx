@@ -3,6 +3,8 @@
 // 내 진단 「학습 지도」 기존 상세 보기(?view=full) — 최종 목표 | 핵심 능력 | 측정 정보 | 문항 특성 | 학습 · 행동 | 실전 · 상황.
 // 종류마다 한 열(참조 3B Access map 의 종류별 열 · spec.json layout, 2026-10-07): 영역 노드는 자기 열 묶음의 머리, 라인은 그 아래.
 // 같은 열 안의 영역 → 라인 연결은 열 묶음이 대신하므로 선을 그리지 않는다(경로 강조 계산에는 그대로 쓴다).
+// 2026-10-07: 마우스를 노드에 올리면 그 노드의 연결선이 드러나고(참조 3B), 오른쪽에 ⋯ 버튼 — 노드 클릭 = 경로 강조, ⋯ = 상세 팝업.
+// 목표 점수는 최종 목표 노드의 ⋯ 에서 정한다(상단 줄 없음).
 // 근거 원리(P) · 접근 트랙(T)은 학생 숙달 노드가 아니라 노드로 그리지 않는다 — 팝업 「근거」 탭에만(2026-10-03 결정).
 // 막대(관찰값 채움 + 목표율 눈금)는 역량(A) 노드에만 — 문항유형 · 선지 함정 · 행동 · 방법은 역할만 보인다(목표 100% 개념 없음).
 // 상태는 글자로도 보인다. 노드를 누르면 연결 경로만 강조하고
@@ -11,7 +13,7 @@
 
 'use client'
 
-import { Layers, X } from 'lucide-react'
+import { Layers, MoreHorizontal, Target, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useTransition } from 'react'
 
@@ -22,6 +24,7 @@ import { pathOf } from '@/lib/csat/map/graph'
 import type { MapNodeRow, MapSettings, NodeValue } from '@/lib/csat/map/model'
 
 import { obsLabel, pct } from './format'
+import { GoalPopover, scoreLine, useGoal } from './GoalBar'
 import s from './map.module.css'
 import { NodePopup, tileClass } from './NodePopup'
 
@@ -36,6 +39,9 @@ export function LearningMap({ data }: { data: MapPageData }) {
   const router = useRouter()
   const { model, nodes, edges } = data
   const [selected, setSelected] = useState<string | null>(null)
+  /** 마우스가 올라간 노드 — 그 노드의 연결선을 드러낸다(선택이 없을 때) */
+  const [hovered, setHovered] = useState<string | null>(null)
+  const g = useGoal(data)
   /** 팝업 열림 — 닫아도 선택(경로 강조)은 남는다 */
   const [open, setOpen] = useState(false)
   /** 접기 — 선택한 경로의 노드만 보인다 */
@@ -106,20 +112,28 @@ export function LearningMap({ data }: { data: MapPageData }) {
     else els.current.delete(code)
   }
 
-  const path = useMemo(() => (selected ? pathOf(selected, edges.filter((e) => e.kind === 'goal' || e.kind === 'member').map((e) => ({ id: e.id, from: e.from_code, to: e.to_code }))) : null), [selected, edges])
+  const graph = useMemo(() => edges.filter((e) => e.kind === 'goal' || e.kind === 'member').map((e) => ({ id: e.id, from: e.from_code, to: e.to_code })), [edges])
+  const path = useMemo(() => (selected ? pathOf(selected, graph) : null), [selected, graph])
+  const hoverPath = useMemo(() => (hovered && !selected ? pathOf(hovered, graph) : null), [hovered, selected, graph])
 
+  // 노드 클릭 = 경로 강조(다시 누르면 해제) · ⋯ = 상세 팝업
   const choose = (code: string) => {
     setTaskErr(null)
-    if (selected === code && !open) {
+    if (selected === code) {
       setSelected(null)
       setCollapsed(false)
       return
     }
     setSelected(code)
+  }
+  const openDetail = (code: string) => {
+    setTaskErr(null)
+    setSelected(code)
     setOpen(true)
     const kind = nodes.find((n) => n.code === code)?.kind
     if (kind) track({ name: 'csat_map_node_opened', props: { kind } })
   }
+  const hover = (code: string | null) => setHovered(code)
   const clearSelection = () => {
     setSelected(null)
     setOpen(false)
@@ -163,13 +177,13 @@ export function LearningMap({ data }: { data: MapPageData }) {
   return (
     <div data-testid="csat-learning-map">
       <div className={s.panel}>
-        <div ref={stageRef} className={`${s.stage} ${path ? s.hasSel : ''}`}>
+        <div ref={stageRef} className={`${s.stage} ${path ? s.hasSel : ''} ${hoverPath ? s.hasHover : ''}`}>
           <svg className={s.edges} width="100%" height="100%" aria-hidden="true">
             {drawn.map((e) => (
               <path
                 key={e.id}
                 d={e.d}
-                className={`${s.edge} ${e.basis === 'inferred' ? s.edgeInferred : e.basis === 'pending' ? s.edgePending : ''} ${path?.edges.has(e.id) ? s.edgeOn : ''}`}
+                className={`${s.edge} ${e.basis === 'inferred' ? s.edgeInferred : e.basis === 'pending' ? s.edgePending : ''} ${path?.edges.has(e.id) ? s.edgeOn : ''} ${hoverPath?.edges.has(e.id) ? s.edgeHover : ''}`}
               />
             ))}
           </svg>
@@ -184,19 +198,36 @@ export function LearningMap({ data }: { data: MapPageData }) {
             {/* 목표 · 원리 · 트랙은 스크롤을 따라와 긴 라인 열 옆에 계속 보인다 */}
             <div className={s.sticky} style={{ gridColumn: 1 }}>
               {byKind.goal && (
-                <button
-                  ref={register(byKind.goal.code)}
-                  type="button"
-                  data-map-node={byKind.goal.code}
-                  className={`${s.goal} ${selected === byKind.goal.code ? s.goalSel : ''} ${path && !path.nodes.has(byKind.goal.code) ? s.nodeDim : ''} ${isHidden(byKind.goal.code) ? s.nodeHidden : ''}`}
-                  aria-pressed={selected === byKind.goal.code}
-                  aria-label="최종 목표 — 영역 · 학습 라인 경로"
-                  onClick={() => choose(byKind.goal.code)}
-                >
-                  <span className={s.goalLabel}>최종 목표</span>
-                  {/* 점수는 위 목표 점수 줄에만 — 같은 숫자를 두 곳에 두지 않는다 */}
-                  <span className={s.goalNow}>수능 영어 · 영역 {byKind.axes.length} · 라인 {byKind.lines.length}</span>
-                </button>
+                <div className={`${s.nodeWrap} ${isHidden(byKind.goal.code) ? s.nodeHidden : ''}`} onMouseEnter={() => hover(byKind.goal!.code)} onMouseLeave={() => hover(null)}>
+                  <button
+                    ref={register(byKind.goal.code)}
+                    type="button"
+                    data-map-node={byKind.goal.code}
+                    className={`${s.goal} ${selected === byKind.goal.code ? s.goalSel : ''} ${path && !path.nodes.has(byKind.goal.code) ? s.nodeDim : ''}`}
+                    aria-pressed={selected === byKind.goal.code}
+                    aria-label={`최종 목표 — 목표 ${g.goal}점 · 영역 · 학습 라인 경로`}
+                    onClick={() => choose(byKind.goal!.code)}
+                  >
+                    <span className={s.goalLabel}>
+                      <Target size={13} strokeWidth={1.9} aria-hidden="true" />
+                      최종 목표
+                    </span>
+                    {/* 목표 점수는 여기서 — ⋯ 로 바꾼다 */}
+                    <span className={s.goalScore}>
+                      수능 영어 <strong>{g.goal}점</strong>
+                    </span>
+                    <span className={s.goalNow}>{scoreLine(data)}</span>
+                  </button>
+                  <GoalPopover
+                    data={data}
+                    g={g}
+                    trigger={({ open: on, toggle, id }) => (
+                      <button type="button" className={`${s.more} ${on ? s.moreOn : ''}`} onClick={toggle} aria-expanded={on} aria-controls={id} aria-label="목표 점수 정하기" data-testid="map-goal-node-edit">
+                        <MoreHorizontal size={16} aria-hidden="true" />
+                      </button>
+                    )}
+                  />
+                </div>
               )}
             </div>
 
@@ -204,9 +235,9 @@ export function LearningMap({ data }: { data: MapPageData }) {
               <div key={col.key} className={s.layerCol} style={{ gridColumn: ci + 2 }} data-map-layer={col.key}>
                 {groups.map(({ axis, lines }) => (
                   <div key={axis.code} className={s.layerGroup}>
-                    <MapNode node={axis} value={model.nodes[axis.code]} roleAxis={axis.code} core={data.settings.core} selected={selected === axis.code} dim={Boolean(path) && !path?.nodes.has(axis.code)} hidden={isHidden(axis.code)} register={register(axis.code)} onClick={() => choose(axis.code)} />
+                    <MapNode node={axis} value={model.nodes[axis.code]} roleAxis={axis.code} core={data.settings.core} selected={selected === axis.code} dim={Boolean(path) && !path?.nodes.has(axis.code)} hidden={isHidden(axis.code)} register={register(axis.code)} onClick={() => choose(axis.code)} onMore={() => openDetail(axis.code)} onHover={hover} hot={Boolean(hoverPath?.nodes.has(axis.code))} />
                     {lines.map((n) => (
-                      <MapNode key={n.code} node={n} value={model.nodes[n.code]} roleAxis={n.axis} core={data.settings.core} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
+                      <MapNode key={n.code} node={n} value={model.nodes[n.code]} roleAxis={n.axis} core={data.settings.core} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} onMore={() => openDetail(n.code)} onHover={hover} hot={Boolean(hoverPath?.nodes.has(n.code))} trackCode={n.track} />
                     ))}
                   </div>
                 ))}
@@ -282,6 +313,9 @@ function MapNode({
   hidden,
   register,
   onClick,
+  onMore,
+  onHover,
+  hot,
   trackCode,
   badge,
   roleAxis,
@@ -294,6 +328,11 @@ function MapNode({
   hidden?: boolean
   register: (el: HTMLElement | null) => void
   onClick: () => void
+  /** ⋯ — 상세 팝업 */
+  onMore: () => void
+  onHover: (code: string | null) => void
+  /** 마우스가 올라간 노드의 경로에 있음 */
+  hot?: boolean
   trackCode?: string | null
   badge?: string | null
   /** 노드가 속한 영역 코드 — 역량(A)만 관찰 막대를 보인다 */
@@ -305,11 +344,12 @@ function MapNode({
   const rate = value ? (value.status === 'tasks_only' ? value.tasks.rate : value.achieved) : null
   const showBar = value && value.status !== 'no_items'
   return (
+    <div className={`${s.nodeWrap} ${hidden ? s.nodeHidden : ''}`} onMouseEnter={() => onHover(node.code)} onMouseLeave={() => onHover(null)}>
     <button
       ref={register}
       type="button"
       data-map-node={node.code}
-      className={`${s.node} ${selected ? s.nodeSel : ''} ${dim ? s.nodeDim : ''} ${hidden ? s.nodeHidden : ''}`}
+      className={`${s.node} ${selected ? s.nodeSel : ''} ${dim ? s.nodeDim : ''} ${hot ? s.nodeHot : ''}`}
       aria-pressed={selected}
       aria-label={`${node.code} ${node.name}${value ? ` — ${obsLabel(value, core)}` : ''}`}
       onClick={onClick}
@@ -329,5 +369,9 @@ function MapNode({
         </span>
       )}
     </button>
+    <button type="button" className={s.more} onClick={onMore} aria-label={`${node.name} 자세히`}>
+      <MoreHorizontal size={16} aria-hidden="true" />
+    </button>
+    </div>
   )
 }

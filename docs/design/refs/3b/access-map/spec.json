@@ -114,5 +114,39 @@
     "headerPitch": 272,
     "count": 5,
     "emptyColumnKeepsHeader": true
+  },
+  "type": {
+    "method": "같은 문자 체계 · 같은 역할의 글자 잉크 높이를 참조 캡처와 우리 화면(같은 뷰포트 2094×950 · DPR 1)에서 같은 도구(ref-scan --ink, 배경 대비 60 문턱)로 잰 비율. 우리 쪽 font-size 는 DOM 계산값(ours-text-metrics.mjs). 2026-10-07",
+    "pairs": [
+      {
+        "role": "사이드바 항목 · 라틴 대문자",
+        "ref": {
+          "text": "Recents",
+          "ink": 9
+        },
+        "ours": {
+          "text": "W(Workspace 만들기)",
+          "fontSize": 13,
+          "ink": 10
+        },
+        "refFontEst": 11.7
+      },
+      {
+        "role": "지도 노드 이름 · 한글",
+        "ref": {
+          "text": "서준 강",
+          "ink": 10
+        },
+        "ours": {
+          "text": "어(어휘)",
+          "fontSize": 12,
+          "ink": 11
+        },
+        "refFontEst": 10.9
+      }
+    ],
+    "scale": 0.92,
+    "minPx": 10,
+    "note": "두 쌍 모두 참조/우리 ≈ 0.92(13→12 · 12→11). /csat 모듈 CSS 의 고정 font-size 는 max(minPx, 원래값 × scale) 로만 쓴다. 탭 · 열 머리는 참조가 라틴 · 우리가 한글이라 직접 비교하지 않고 같은 비율을 따른다."
   }
 }

@@ -5,8 +5,8 @@
 
 'use client'
 
-import { Search } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { Info, Search } from 'lucide-react'
+import { useId, type ReactNode } from 'react'
 
 import p from './popup.module.css'
 
@@ -23,13 +23,21 @@ export function Chip({ tone = 'neutral', icon, children, title }: { tone?: ChipT
 }
 
 /** 카드 — 제목 + 작은 회색 설명 + 본문(참조의 옅은 바탕 둥근 카드) */
-export function Card({ title, desc, right, children }: { title: string; desc?: string; right?: ReactNode; children?: ReactNode }) {
+/** 카드 설명이 이보다 길면 문장으로 나열하지 않고 제목 옆 안내 팁으로(2026-10-07 「텍스트 나열 지양」) */
+export const CARD_DESC_INLINE_MAX = 32
+
+export function Card({ title, desc, right, children, icon }: { title: string; desc?: string; right?: ReactNode; children?: ReactNode; icon?: ReactNode }) {
+  const long = desc !== undefined && desc.length > CARD_DESC_INLINE_MAX
   return (
     <section className={p.card} data-map-card="">
       <div className={p.cardHead}>
-        <div>
-          <div className={p.cardTitle}>{title}</div>
-          {desc && <div className={p.cardDesc}>{desc}</div>}
+        <div className={p.cardHeadMain}>
+          <div className={p.cardTitleRow}>
+            {icon && <span className={p.cardIcon} aria-hidden="true">{icon}</span>}
+            <div className={p.cardTitle}>{title}</div>
+            {long && <InfoTip label="설명">{desc}</InfoTip>}
+          </div>
+          {desc && !long && <div className={p.cardDesc}>{desc}</div>}
         </div>
         {right}
       </div>
@@ -146,4 +154,23 @@ export function BigMeter({ rate, target, tone }: { rate: number | null; target: 
 
 export function Empty({ children }: { children: ReactNode }) {
   return <p className={p.empty}>{children}</p>
+}
+
+/**
+ * 안내 팁 — 긴 설명 문장을 화면에 나열하지 않고 아이콘 + 짧은 라벨로 두고, 마우스를 올리거나 포커스하면 전문을 띄운다(2026-10-07).
+ * 전문은 aria-describedby 로 읽힌다(화면 낭독기에는 늘 전달).
+ */
+export function InfoTip({ label, children, icon, align = 'start', compact = false }: { label: string; children: ReactNode; icon?: ReactNode; align?: 'start' | 'end'; compact?: boolean }) {
+  const id = useId()
+  return (
+    <span className={p.tip}>
+      <button type="button" className={`${p.tipBtn} ${compact ? p.tipCompact : ''}`} aria-describedby={id} aria-label={compact ? label : undefined}>
+        {icon ?? <Info size={13} strokeWidth={1.9} aria-hidden="true" />}
+        {!compact && <span>{label}</span>}
+      </button>
+      <span id={id} role="tooltip" className={`${p.tipBody} ${align === 'end' ? p.tipEnd : ''}`}>
+        {children}
+      </span>
+    </span>
+  )
 }

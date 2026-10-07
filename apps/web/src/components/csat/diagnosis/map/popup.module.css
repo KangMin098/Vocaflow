@@ -58,13 +58,13 @@
   height: 32px;
   border-radius: 8px;
   background: #f4f2ef;
-  font-size: 10.5px;
+  font-size: max(var(--csat-fs-min), calc(10.5px * var(--csat-fs-scale)));
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 .title {
   margin: 0;
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   font-weight: 500;
   line-height: 1.3;
   white-space: nowrap;
@@ -93,7 +93,7 @@
   height: 30px;
   padding: 0 12px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
 }
 .tab:hover .tabIn {
   background: var(--m-hover);
@@ -151,7 +151,7 @@
   border: 0;
   border-radius: 999px;
   font: inherit;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   font-weight: 500;
   cursor: pointer;
 }
@@ -194,12 +194,12 @@
   gap: 12px;
 }
 .cardTitle {
-  font-size: 12.5px;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
   font-weight: 500;
 }
 .cardDesc {
   margin-top: 2px;
-  font-size: 11px;
+  font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale)));
   line-height: 1.5;
   color: var(--m-ink2);
 }
@@ -263,7 +263,7 @@
   outline: 0;
   background: none;
   font: inherit;
-  font-size: 12.5px;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
   color: var(--m-ink);
 }
 .search input::placeholder {
@@ -283,7 +283,7 @@
   align-items: center;
   height: 40px;
   padding: 0 16px;
-  font-size: 11px;
+  font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale)));
   color: var(--m-ink2);
 }
 .row {
@@ -318,7 +318,7 @@
   border-radius: 8px;
   background: #f4f2ef;
   color: var(--m-ink);
-  font-size: 11px;
+  font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale)));
   font-weight: 600;
 }
 .tileTeal {
@@ -345,12 +345,12 @@
   gap: 1px;
 }
 .rowTitle {
-  font-size: 13px;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
   font-weight: 500;
   line-height: 1.4;
 }
 .rowSub {
-  font-size: 11px;
+  font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale)));
   line-height: 1.45;
   color: var(--m-ink2);
 }
@@ -392,7 +392,7 @@
   border-radius: 999px;
   background: #f1efec;
   color: #3b3a42;
-  font-size: 11px;
+  font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale)));
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -415,7 +415,7 @@
 
 /* ── 큰 숫자 · 막대 · 글 ── */
 .big {
-  font-size: 28px;
+  font-size: max(var(--csat-fs-min), calc(28px * var(--csat-fs-scale)));
   line-height: 1.1;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -462,7 +462,7 @@
 }
 .p {
   margin: 8px 0 0;
-  font-size: 12.5px;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
   line-height: 1.65;
 }
 .muted {
@@ -474,19 +474,19 @@
   border-radius: 10px;
   background: var(--m-near-bg);
   color: var(--m-near-ink);
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   line-height: 1.6;
 }
 .empty {
   margin: 0;
   padding: 18px 16px;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   color: var(--m-ink2);
   text-align: center;
 }
 .err {
   margin-top: 8px;
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   color: var(--m-short-ink);
 }
 .scroll {
@@ -515,7 +515,98 @@
   gap: 8px;
 }
 .stageDesc {
-  font-size: 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
   color: #5e5f6b;
   word-break: keep-all;
+}
+/* 안내 팁 — 아이콘 + 짧은 라벨, 마우스 · 포커스에 전문(2026-10-07) */
+.tip {
+  position: relative;
+  display: inline-flex;
+}
+.tipBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid #0d0d1714;
+  border-radius: 999px;
+  background: #fff;
+  color: #5e5f6b;
+  font: inherit;
+  font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
+  cursor: help;
+}
+.tipBtn:hover {
+  color: #0d0d17;
+  border-color: #0d0d1729;
+}
+.tipBody {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  width: max-content;
+  max-width: 320px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #0d0d17;
+  color: #f4f2ef;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  line-height: 1.6;
+  font-weight: 400;
+  white-space: normal;
+  word-break: keep-all;
+  box-shadow: 0 10px 24px -6px #0d0d1740;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-2px);
+  transition: opacity var(--dur-fast, 0.15s), transform var(--dur-fast, 0.15s), visibility var(--dur-fast, 0.15s);
+  pointer-events: none;
+}
+.tipEnd {
+  left: auto;
+  right: 0;
+}
+.tip:hover .tipBody,
+.tip:focus-within .tipBody {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tipBody { transform: none; }
+}
+/* 카드 제목 줄 — 아이콘 타일 + 제목 + (긴 설명은) 안내 팁 */
+.cardHeadMain {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.cardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cardIcon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f8f6f3, #efece8);
+  box-shadow: inset 0 0 0 1px #0d0d170d;
+  color: #0d0d17;
+  flex: none;
+}
+.tipCompact {
+  width: 28px;
+  padding: 0;
+  justify-content: center;
+}
+.tipBtn span {
+  white-space: nowrap;
 }

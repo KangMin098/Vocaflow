@@ -67,8 +67,10 @@ const ours = await page.evaluate(() => {
   const layerXs = [...document.querySelectorAll('[data-map-layer]')].map((el) => el.getBoundingClientRect().left + window.scrollX)
   return { nodes, heads: heads ? rect(heads) : null, cols: cols ? rect(cols) : null, headText, layerXs }
 })
-// 팝업 — 첫 라인 노드를 눌러 모달 기하를 잰다
-await page.locator('[data-map-node="A1"]').click()
+// 팝업 — 첫 라인 노드의 ⋯ 를 눌러 모달 기하를 잰다
+// 노드 클릭 = 경로 강조, 상세 팝업은 오른쪽 ⋯(2026-10-07)
+await page.locator('[data-map-node="A1"]').hover()
+await page.locator('[data-map-node="A1"] + button').click()
 await page.waitForSelector('[data-map-modal]')
 await page.waitForTimeout(500)
 const modal = await page.evaluate(() => {
