@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): 미적용 `reading:` DB 보호 migration에 명시적 트랜잭션과 재실행 가능한 트리거 재생성을 추가했다. 개발 DB 읽기 전용 조회에서 대상 자식·트리거·함수 모두 0건을 확인했다. DB 적용은 하지 않았다.
+
 - fix(textbook): 제안된 DB 승격 트리거에서 `reading:` 자식의 source_id 변경 우회를 막고, Gold-S 적재 직전 재검증으로 제외된 건수와 사유를 최종 결과에 분리해 출력한다. 마이그레이션은 미적용이며 실제 corpus·Gold-S·DB seed는 0이다.
 
 - fix(textbook): 저장소 밖 Gold-S 정책 경로의 파일 심볼릭 링크까지 실제 경로로 검증하여 저장소 내부 대상 우회를 차단했다. 실제 corpus·Gold-S·DB seed는 0이다.

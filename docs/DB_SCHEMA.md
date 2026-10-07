@@ -2,6 +2,10 @@
 
 Pending migration `20261007190000_reading_adaptation_promotion_gate.sql` adds a `library_articles` trigger that rejects `reading:` children entering `ready` or `published` through INSERT, RPC, or direct UPDATE and prevents changing an existing reading child's `source_id` to bypass that hold. The SQL is prepared only; it has not been applied to the development DB. The separate promotion contract must be implemented before those children can become learner-visible.
 
+적용 전 읽기 전용 확인(2026-10-07): 개발 DB의 `reading:` 자식 0건, 해당 트리거·함수 0건. 트리거에는 관리자·service_role 예외가 없다. 기존 행을 수정하지 않으며, 적용 후 `reading:` 자식의 `ready`/`published` 진입 및 `source_id` 변경을 거부한다. 같은 SQL을 다시 실행하면 한 트랜잭션 안에서 함수 교체와 트리거 재생성을 수행한다. 오류가 나면 트랜잭션 전체가 롤백된다. 되돌리기가 승인된 경우에만 `BEGIN; DROP TRIGGER IF EXISTS trg_la_hold_reading_adaptation ON public.library_articles; DROP FUNCTION IF EXISTS public.trg_hold_reading_adaptation(); COMMIT;`을 실행한다. 되돌리면 직접 UPDATE 방어가 사라지므로 적용 전에 실제 자식 상태를 다시 확인해야 한다.
+
+실측 질의의 핵심 조건: `SELECT count(*) FROM public.library_articles WHERE source_id LIKE 'reading:%'`; `pg_trigger`에서 `tgrelid='public.library_articles'::regclass AND tgname='trg_la_hold_reading_adaptation' AND NOT tgisinternal`; `pg_proc`에서 `pronamespace='public'::regnamespace AND proname='trg_hold_reading_adaptation'`. 각각 0을 반환했다. 적용 직전 같은 질의를 다시 실행해 상태가 바뀌지 않았는지 확인한다.
+
 ## Academic Reading JSONB 계약 (2026-10-04, 마이그레이션 없음)
 
 2026-10-05 [사람 실행기 v2](./FYM_HUMAN_VALIDATION_PROTOCOL.md)는 4점/중재·expert_validated/student_validated·사전 봉인·calibration 제외·후속 재현을 연결했다. 학생 검증 경로의 seed는 v2 gold만 허용한다. 시중 교재 비교 경로는 별도 서명된 Gold-S와 seed eligibility를 요구한다. 기존 8편은 미봉인 calibration candidate로 DB에 적재하지 않았다. 새 테이블/마이그레이션은 필요 없으며 실제 DB 변경은 아직 없다.

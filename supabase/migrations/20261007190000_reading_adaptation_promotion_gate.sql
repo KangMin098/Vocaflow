@@ -3,6 +3,8 @@
 -- updates must not make them learner-visible before a separate promotion contract.
 -- Apply only after explicit user approval; no promotion function is installed here.
 
+BEGIN;
+
 CREATE OR REPLACE FUNCTION public.trg_hold_reading_adaptation()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -25,6 +27,10 @@ BEGIN
   RETURN NEW;
 END $$;
 
+DROP TRIGGER IF EXISTS trg_la_hold_reading_adaptation ON public.library_articles;
+
 CREATE TRIGGER trg_la_hold_reading_adaptation
   BEFORE INSERT OR UPDATE OF status, source_id ON public.library_articles
   FOR EACH ROW EXECUTE FUNCTION public.trg_hold_reading_adaptation();
+
+COMMIT;
