@@ -188,13 +188,20 @@ export const AXIS_LINES: Readonly<Record<string, AttributeCode[]>> = { V: ['A1']
 export interface TaggedItem { no: number; points: number; weights: Weights }
 export interface Ranking {
   attr: Partial<Record<AttributeCode, number>>
-  axes: { axis: string; observed: number }[]
+  /** 역량별 연결 문항 수(근거 부족 역량 포함) */
+  attrN: Partial<Record<AttributeCode, number>>
+  /** n =축에 연결된 문항 수(역량별 합 — 한 문항이 두 역량이면 둘로 센다) */
+  axes: { axis: string; observed: number; n: number }[]
   candidates: string[]
   /** 1위와 2위 축 관찰값 차(2위 축이 없으면 null) */
   gap: number | null
 }
 
-export function rank(items: TaggedItem[], wrong: ReadonlySet<number>, weak = 0.6, minObs = 5): Ranking {
+/**
+ * weighted = 비교 실험용(제품 경로 아님): 역량값 = Σ(가중치 × 배점 × 정답) / Σ(가중치 × 배점), 축 가중도 Σ(가중치 × 배점).
+ * 기본(binary)은 지금 엔진과 같다.
+ */
+export function rank(items: TaggedItem[], wrong: ReadonlySet<number>, weak = 0.6, minObs = 5, weighted = false): Ranking {
   const num: Record<string, number> = {}
   const den: Record<string, number> = {}
   const n: Record<string, number> = {}
@@ -203,28 +210,30 @@ export function rank(items: TaggedItem[], wrong: ReadonlySet<number>, weak = 0.6
     for (const c of ATTRIBUTE_CODES) {
       const w = it.weights[c]
       if (!w || c === 'A7') continue
-      num[c] = (num[c] ?? 0) + it.points * (wrong.has(it.no) ? 0 : 1)
-      den[c] = (den[c] ?? 0) + it.points
+      const k = weighted ? w : 1
+      num[c] = (num[c] ?? 0) + k * it.points * (wrong.has(it.no) ? 0 : 1)
+      den[c] = (den[c] ?? 0) + k * it.points
       n[c] = (n[c] ?? 0) + 1
-      pts[c] = (pts[c] ?? 0) + it.points
+      pts[c] = (pts[c] ?? 0) + k * it.points
     }
   }
   const attr: Ranking['attr'] = {}
   for (const c of ATTRIBUTE_CODES) if ((n[c] ?? 0) >= minObs && den[c] > 0) attr[c] = num[c] / den[c]
   const axes: Ranking['axes'] = []
   for (const [axis, lines] of Object.entries(AXIS_LINES)) {
-    let wsum = 0, esum = 0
+    let wsum = 0, esum = 0, cnt = 0
     for (const c of lines) {
       const v = attr[c]
       if (v === undefined) continue
       wsum += pts[c]
       esum += pts[c] * v
+      cnt += n[c]
     }
-    if (wsum > 0) axes.push({ axis, observed: esum / wsum })
+    if (wsum > 0) axes.push({ axis, observed: esum / wsum, n: cnt })
   }
   axes.sort((a, b) => a.observed - b.observed)
   const candidates = axes.filter((a) => a.observed < weak).slice(0, 2).map((a) => a.axis)
-  return { attr, axes, candidates, gap: axes.length >= 2 ? axes[1].observed - axes[0].observed : null }
+  return { attr, attrN: n as Ranking['attrN'], axes, candidates, gap: axes.length >= 2 ? axes[1].observed - axes[0].observed : null }
 }
 
 export interface Perturbation { no: number; code: AttributeCode; from: number; to: number; kind: 'secondary_add' | 'secondary_remove' | 'core_change' }

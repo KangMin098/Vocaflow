@@ -145,6 +145,30 @@ export interface CoreAxisView extends CoreAxisDef {
   basis: DiagnosisBasis
   /** 관찰값(0~1) — 화면에 숫자로 내지 않는다(후보 순서에만 쓴다) */
   observed: number | null
+  /** 관찰값을 낸 라인 중 가장 적은 관측 수 — 순위 안정 판정용(관찰값이 없으면 null) */
+  minLineN: number | null
+}
+
+/**
+ * 「먼저 확인」 1위를 믿을 수 있는 조건(2026-10-08 보정 — scripts/csat/diagnosis/ranking-calibrate.mts ·
+ * docs/csat-learner/pilot-runs/ranking-stability-20261008.md). 합성 학습자 2생성기 × 1,000명에서 태그 하나 바꾸기 ·
+ * 문항 하나 빼기에 1위가 유지되는 비율이 조건 없이 41~46% → 세 조건 모두일 때 94~95%. 하나라도 어긋나면 1위를 확정하지 않는다.
+ *   margin   — 1위와 2위(관찰값이 있는 축) 관찰값 차
+ *   headroom — 1위 관찰값이 「관찰 낮음」 선(core.weak)보다 얼마나 아래인가(선 바로 아래면 문항 하나로 후보에서 빠진다)
+ *   minLineN — 1위 축의 각 라인 관측 수(최소 관측 5 바로 위면 문항 하나로 근거 부족이 된다)
+ */
+export const RANKING_GATE = { margin: 0.05, headroom: 0.05, minLineN: 6 } as const
+
+/**
+ * 순위 판정 — clear: 1위를 「먼저 확인」으로 보인다 · unstable: 1위와 경쟁 축(rival)을 가르는 확인 하나로 보낸다 ·
+ * none: 후보 없음. 근거 부족 축은 순위에 들어오지 않는다(status insufficient — 「문제 없음」이 아니라 「판단할 기록 부족」).
+ */
+export interface Ranking {
+  kind: 'clear' | 'unstable' | 'none'
+  top: CoreCode | null
+  rival: CoreCode | null
+  /** unstable 인 이유(여럿일 수 있다) */
+  reasons: ('near_tie' | 'near_line' | 'thin_evidence')[]
 }
 
 export interface CoreSummary {
@@ -153,6 +177,8 @@ export interface CoreSummary {
   candidates: CoreCode[]
   /** 지금 필요한 진단(최대 1) — 과제를 처방하지 않는다 */
   nextDiagnosis: string
+  /** 1위를 믿을 수 있는가 — RANKING_GATE */
+  ranking: Ranking
   /** 처방 Route — verified_diagnosis 전에는 선택하지 않는다 */
   route: { chosen: null; note: string }
   basis: DiagnosisBasis
@@ -165,11 +191,12 @@ export interface CoreSummary {
 export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSettings, 'core' | 'min_coverage'>): CoreSummary {
   const axes: CoreAxisView[] = CORE_AXES.map((def) => {
     const lines = def.lines.filter((c) => !NO_DATA_ATTRIBUTES.includes(c))
-    if (lines.length === 0) return { ...def, status: 'no_data', contributions: 0, basis: CURRENT_BASIS, observed: null }
+    if (lines.length === 0) return { ...def, status: 'no_data', contributions: 0, basis: CURRENT_BASIS, observed: null, minLineN: null }
     let weight = 0
     let seenWeight = 0
     let earned = 0
     let contributions = 0
+    let minLineN: number | null = null
     for (const code of lines) {
       const v = model.nodes[code]
       if (!v) continue
@@ -178,13 +205,14 @@ export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSe
       if (v.achieved !== null && v.points > 0) {
         seenWeight += v.points
         earned += v.points * v.achieved
+        minLineN = Math.min(minLineN ?? Infinity, v.n ?? 0)
       }
     }
     const coverage = weight > 0 ? seenWeight / weight : 0
-    if (seenWeight === 0 || coverage < settings.min_coverage) return { ...def, status: 'insufficient', contributions, basis: CURRENT_BASIS, observed: null }
+    if (seenWeight === 0 || coverage < settings.min_coverage) return { ...def, status: 'insufficient', contributions, basis: CURRENT_BASIS, observed: null, minLineN: null }
     const observed = earned / seenWeight
     const status: CoreStatus = observedLevel(observed, settings.core) as ObservedLevel
-    return { ...def, status, contributions, basis: CURRENT_BASIS, observed }
+    return { ...def, status, contributions, basis: CURRENT_BASIS, observed, minLineN }
   })
 
   const candidates = axes
@@ -193,6 +221,7 @@ export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSe
     .slice(0, 2)
     .map((a) => a.code)
 
+  const ranking = rankingOf(axes, settings.core.weak)
   const nameOf = (c: CoreCode) => CORE_AXES.find((a) => a.code === c)?.name ?? c
   let nextDiagnosis: string
   if (candidates.includes('V') && candidates.includes('S')) nextDiagnosis = '어휘 · 표현과 문장 이해 중 실제 원인을 구분하기 위한 추가 진단 필요'
@@ -204,10 +233,26 @@ export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSe
   return {
     axes,
     candidates,
+    ranking,
     nextDiagnosis,
     route: { chosen: null, note: 'Route 미정 — 추가 진단 뒤 결정' },
     basis: CURRENT_BASIS,
   }
+}
+
+/** 1위 안정 판정 — 관찰값이 있는 축만 본다(듣기 · 근거 부족 축 제외). 순수 함수 */
+export function rankingOf(axes: readonly Pick<CoreAxisView, 'code' | 'status' | 'observed' | 'minLineN'>[], weak: number): Ranking {
+  const seen = axes.filter((a) => a.observed !== null).sort((a, b) => (a.observed as number) - (b.observed as number))
+  const top = seen[0]
+  if (!top || top.status !== 'obs_low') return { kind: 'none', top: null, rival: null, reasons: [] }
+  const second = seen[1] ?? null
+  const reasons: Ranking['reasons'] = []
+  if (second && (second.observed as number) - (top.observed as number) < RANKING_GATE.margin) reasons.push('near_tie')
+  if (weak - (top.observed as number) < RANKING_GATE.headroom) reasons.push('near_line')
+  if ((top.minLineN ?? 0) < RANKING_GATE.minLineN) reasons.push('thin_evidence')
+  // 경쟁 축이 없으면(관찰된 축이 하나뿐) 가를 상대가 없다 — 1위를 그대로 보이되 이유는 남긴다
+  if (reasons.length === 0 || !second) return { kind: 'clear', top: top.code, rival: null, reasons }
+  return { kind: 'unstable', top: top.code, rival: second.code, reasons }
 }
 
 /** 금지 어휘 — rule_proxy 화면 라벨 · 문구 회귀 검사용(판정 · 숙달 · 수치 능력 · 병목) */

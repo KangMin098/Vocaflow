@@ -350,6 +350,36 @@
   font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
   cursor: pointer;
 }
+.distBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 56ch;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #ffffff12;
+}
+.distList {
+  margin: 0;
+  list-style: decimal;
+  padding-left: 1.2em;
+  font-size: max(var(--csat-fs-min), calc(13.5px * var(--csat-fs-scale)));
+  line-height: 1.7;
+  color: #f4f2ef;
+  word-break: keep-all;
+}
+.distRead {
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
+  line-height: 1.65;
+  color: #dcd9d3;
+  word-break: keep-all;
+}
+.distTime {
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  color: #c9c6c0;
+}
 .nextCand strong {
   color: #fff;
 }

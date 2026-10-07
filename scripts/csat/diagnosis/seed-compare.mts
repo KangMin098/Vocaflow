@@ -130,8 +130,16 @@ const synthStats = (() => {
   }
 })()
 
+// 문항별 추천 민감도 — 그 문항만 검수안 → 시드 v2 로 바꿨을 때 1위(후보 첫째)가 바뀌는 합성 학습자 수(후보 있는 학습자 중)
+const withCand = synth.filter((w) => top(T['review-v2'], w) !== null)
+const itemImpact: Record<number, number> = {}
+for (const d of d2.filter((x) => x.tier !== 1)) {
+  const swapped = T['review-v2'].map((it) => (it.no === d.no ? { ...it, weights: d.seed } : it))
+  itemImpact[d.no] = withCand.filter((w) => top(swapped, w) !== top(T['review-v2'], w)).length
+}
+
 // ── 3. 결과 · 사람 검수 패킷 ──
-const result = { exam: EXAM, at: '2026-10-08', 'seed-v1': s1, 'seed-v2': s2, ruleEffect, profiles: profileRows, synthetic: synthStats }
+const result = { exam: EXAM, at: '2026-10-08', 'seed-v1': s1, 'seed-v2': s2, ruleEffect, profiles: profileRows, synthetic: synthStats, itemImpact, withCandidate: withCand.length }
 fs.mkdirSync(path.join(ROOT, 'tmp/pilot'), { recursive: true })
 fs.writeFileSync(path.join(ROOT, `tmp/pilot/${EXAM}-seed-compare.json`), JSON.stringify({ ...result, diffs: d2 }, null, 1))
 fs.writeFileSync(path.join(ROOT, `tmp/pilot/${EXAM}-seed-v2-as-review.json`), JSON.stringify({
@@ -141,7 +149,7 @@ fs.writeFileSync(path.join(ROOT, `tmp/pilot/${EXAM}-seed-v2-as-review.json`), JS
 
 const fmtW = (w: Weights, hi: Set<string> = new Set()) => ATTRIBUTE_CODES.map((c) => (hi.has(c) ? `**${c}:${w[c]}**` : `${c}:${w[c]}`)).join(' ')
 const whyOf = (no: number) => review.items.find((r) => r.no === no)!.why
-const tierName = { 3: 'Tier 3 — 역량 추가/삭제가 다름(정밀 확인)', 2: 'Tier 2 — 가중치만 다름(집중 확인)', 1: 'Tier 1 — 시드와 검수안 완전 일치(빠른 확인)' }
+const tierName = { 3: 'Tier 3 — 역량 추가/삭제가 다름(정밀 확인 · 지금 추천에 영향)', 2: 'Tier 2 — 가중치만 다름(지금 추천 영향 없음 · 데이터 의미 · 리포트 숙달)', 1: 'Tier 1 — 시드와 검수안 완전 일치(빠른 확인)' }
 const lines: string[] = [
   `# ${EXAM} 사람 검수 패킷 — 시드 v2 · 에이전트 검수안 v2 대조 (2026-10-08)`,
   '',
@@ -149,21 +157,23 @@ const lines: string[] = [
   '> 정본 저장은 사람이 문항마다 승인/수정한 결과로, 관리자 태깅 화면(`/admin/csat/diagnosis/exams/' + EXAM + '`)의 「검수 저장」(csat_dx_save_item_tagging)으로만 한다.',
   '> 굵은 글씨 = 시드 v2 와 검수안 v2 가 다른 역량. 0 = 이 문항에서 진단 근거로 쓰지 않음 · 1 = 보조 · 2 = 핵심.',
   '> 보조(1) 기준: 「그 역량만으로도 이 문항을 틀릴 수 있다」고 설명될 때만.',
-  '> 우선순위: 학습 지도 추천은 역량이 **붙었는지(0 ↔ 1 이상)**만 본다 → Tier 3(추가/삭제)이 추천을 바꾼다. Tier 2(1 ↔ 2)는 진단 리포트의 역량 숙달(rule-v1)에만 들어간다.',
+  '> 우선순위(2026-10-08 순위 안정성 결정 뒤): ① Tier 3 — 역량이 **붙었는지(0 ↔ 1 이상)**가 달라 지금 학습 지도 추천을 바꿀 수 있다. 추천 민감도(그 문항 하나를 시드 값으로 두면 합성 학습자 몇 명의 1위가 바뀌나) 큰 순.',
+  '>   ② Tier 2 — 1 ↔ 2 만 다르다. **지금 학습 지도 추천에는 영향이 없다**(지도는 연결 여부만 본다). 진단 리포트의 역량 숙달(rule-v1 · 가중치를 곱한다)과 데이터 의미 보존을 위한 검수다. ③ Tier 1 — 훑기.',
   '',
   `| Tier | 문항 수 | 확인 방법 |`, '|---|---|---|',
   `| 3 | ${s2.tiers[3]} | 지문을 읽고 역량을 더하거나 빼는 이유가 맞는지 |`,
-  `| 2 | ${s2.tiers[2]} | 보조(1)와 핵심(2) 중 어느 쪽인지 |`,
+  `| 2 | ${s2.tiers[2]} | 보조(1)와 핵심(2) 중 어느 쪽인지 — 지금 추천에는 영향 없음 |`,
   `| 1 | ${s2.tiers[1]} | 시드 그대로 승인 가능한지 훑기 |`,
   '',
 ]
 for (const tier of [3, 2, 1] as const) {
   lines.push(`## ${tierName[tier]}`, '')
-  for (const d of d2.filter((x) => x.tier === tier)) {
+  for (const d of d2.filter((x) => x.tier === tier).sort((a, b) => (itemImpact[b.no] ?? 0) - (itemImpact[a.no] ?? 0) || a.no - b.no)) {
     const hi = new Set(d.diffs.map((x) => x.code as string))
     lines.push(`### ${d.no}번 · ${TYPE_KO[d.type] ?? d.type} (${d.type})`)
     lines.push(`- 시드 v2: ${fmtW(d.seed, hi)}${d.rules.length ? ` — 적용 규칙 ${d.rules.join(', ')}` : ''}`)
     if (tier !== 1) {
+      lines.push(`- 추천 민감도: 이 문항을 시드 값으로 두면 합성 학습자 ${withCand.length}명 중 **${itemImpact[d.no]}명**의 「먼저 확인」 1위가 바뀐다${tier === 2 ? ' (Tier 2 — 0 이어야 정상)' : ''}`)
       lines.push(`- 검수안 v2: ${fmtW(d.review, hi)}`)
       lines.push(`- 차이: ${d.diffs.map((x) => `${x.code} ${x.seed}→${x.review}(${x.kind === 'add' ? '추가' : x.kind === 'remove' ? '제거' : '가중치'})`).join(' · ')}`)
       const why = whyOf(d.no).filter((w) => !w.includes('파일럿 v2'))

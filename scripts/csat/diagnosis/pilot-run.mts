@@ -136,7 +136,7 @@ try {
     await page.waitForTimeout(1500)
     const focusKind = await page.locator('[data-testid="focus-card"]').getAttribute('data-focus')
     const card = await page.locator('[data-testid="focus-card"]').innerText()
-    const focusStep = await page.locator('[data-testid="read-path"] li[data-e="focus"] [data-step]').getAttribute('data-step').catch(() => null)
+    const focusStep = (await page.locator('[data-testid="read-path"] li[data-e="focus"] [data-step]').evaluateAll((els) => els.map((e) => e.getAttribute('data-step')))).join('+') || null
     const badges = await page.locator('[data-testid="read-path"] [data-step]').allInnerTexts()
     await page.screenshot({ path: path.join(OUT, `${p.tag}-map.png`), fullPage: true })
     let findShown: string[] = []
@@ -146,6 +146,12 @@ try {
       await page.waitForTimeout(400)
       findShown = await page.locator('#step-check li strong').allInnerTexts()
       await page.screenshot({ path: path.join(OUT, `${p.tag}-find.png`) })
+    } else if (focusKind === 'distinguish') {
+      // 1위를 확정하지 않는 경우(RANKING_GATE) — 두 후보를 가르는 확인 하나
+      await page.locator('[data-testid="focus-cta"]').click()
+      await page.waitForSelector('[data-testid="distinguish-activity"]')
+      findShown = await page.locator('[data-testid="distinguish-activity"] li').allInnerTexts()
+      await page.screenshot({ path: path.join(OUT, `${p.tag}-distinguish.png`) })
     }
     rec(`${p.tag} · 학습 지도 「먼저 확인」 결과`, true, { focusKind, focusStep, card: card.replace(/\s+/g, ' ').slice(0, 120), findShown })
     // 원인 사슬: 오답 문항 → 검수 태그 → 역량별 기여

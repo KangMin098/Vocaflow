@@ -12,6 +12,7 @@
 import { coreSummary, type CoreAxisView, type CoreCode, type CoreSummary, type DiagnosisBasis } from './core'
 import type { MapModel, MapSettings } from './model'
 import type { PrescriptionStage } from './prescription'
+import { distinguishActivity, distinguishTitle, type DistinguishActivity } from './distinguish'
 
 export type StepKey = 'vocab' | 'sentence' | 'relation' | 'structure' | 'option' | 'evidence' | 'integrate' | 'l-sound' | 'l-sentence' | 'l-retain' | 'l-respond'
 
@@ -94,6 +95,8 @@ export interface StepView extends PathStep {
 /** 지금 먼저 확인할 것 — 하나만(+ 다음 후보 하나). 원인 확정이 아니다 */
 export type Focus =
   | { kind: 'step'; step: StepKey; next: StepKey | null }
+  /** 1위를 믿을 수 없다(core RANKING_GATE) — 두 단계를 가르는 확인 하나. 약점을 정하지 않는다 */
+  | { kind: 'distinguish'; step: StepKey; rival: StepKey; activity: DistinguishActivity; title: string }
   | { kind: 'record' }            // 기록이 없다 — 시험 기록부터
   | { kind: 'more'; step: StepKey } // 기록은 있지만 이 단계 근거가 모자라다 — 기록을 더 쌓는다
   | { kind: 'pending' }           // 기록은 받았지만 그 시험들의 단계별 분석이 아직 준비되지 않았다 — 더 기록해도 바뀌지 않는다
@@ -133,7 +136,10 @@ export function learnerPath(model: Pick<MapModel, 'nodes' | 'currentScore'>, set
   const analyzable = summary.axes.some((a) => a.contributions > 0)
 
   let focus: Focus
-  if (cand.length > 0) focus = { kind: 'step', step: cand[0], next: cand[1] ?? null }
+  const r = summary.ranking
+  const pair = r.kind === 'unstable' && r.top && r.rival ? { a: firstStepOf(r.top), b: firstStepOf(r.rival), act: distinguishActivity(r.top, r.rival) } : null
+  if (pair && pair.a && pair.b && pair.act) focus = { kind: 'distinguish', step: pair.a, rival: pair.b, activity: pair.act, title: distinguishTitle(r.top as CoreCode, r.rival as CoreCode) }
+  else if (cand.length > 0) focus = { kind: 'step', step: cand[0], next: cand[1] ?? null }
   else if (!hasRecords) focus = { kind: 'record' }
   else if (!analyzable) focus = { kind: 'pending' }
   else {
@@ -142,10 +148,10 @@ export function learnerPath(model: Pick<MapModel, 'nodes' | 'currentScore'>, set
   }
   const view = (s: PathStep): StepView => {
     const axisView = byAxis.get(s.axis) as CoreAxisView
-    const focused = focus.kind === 'step' && focus.step === s.key
+    const focused = (focus.kind === 'step' && focus.step === s.key) || (focus.kind === 'distinguish' && (focus.step === s.key || focus.rival === s.key))
     return { ...s, axisView, evidence: focused ? 'focus' : evidenceOf(axisView, hasRecords, analyzable) }
   }
-  const journey = summary.basis === 'verified_diagnosis' ? 'verified_diagnosis' : focus.kind === 'step' ? 'diagnostic_need' : 'observation'
+  const journey = summary.basis === 'verified_diagnosis' ? 'verified_diagnosis' : focus.kind === 'step' || focus.kind === 'distinguish' ? 'diagnostic_need' : 'observation'
   return { read: READ_PATH.map(view), listen: LISTEN_PATH.map(view), focus, journey, basis: summary.basis, summary }
 }
 

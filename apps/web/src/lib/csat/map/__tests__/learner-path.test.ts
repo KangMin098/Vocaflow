@@ -44,8 +44,9 @@ describe('상태 · 먼저 확인할 것', () => {
     expect(p.focus).toEqual({ kind: 'record' })
     expect(p.journey).toBe('observation')
   })
-  it('관찰이 낮은 축이 있으면 — 그 축의 첫 단계 하나만 「먼저 확인」, 다음 후보 하나', () => {
-    const vals = { A1: v(0.9), A2: v(0.85), A8: v(0.85), A3: v(0.4), A6: v(0.4), A4: v(0.5), A5: v(0.5), A9: v(0.7) }
+  it('관찰이 낮은 축이 있고 1위가 안정적이면(RANKING_GATE) — 그 축의 첫 단계 하나만 「먼저 확인」, 다음 후보 하나', () => {
+    const w = (x: number) => v(x, 10, 8)
+    const vals = { A1: w(0.9), A2: w(0.85), A8: w(0.85), A3: w(0.4), A6: w(0.4), A4: w(0.5), A5: w(0.5), A9: w(0.7) }
     const p = learnerPath(model(vals), SETTINGS)
     expect(p.focus).toEqual({ kind: 'step', step: 'relation', next: 'option' })
     expect(p.read.filter((s) => s.evidence === 'focus').map((s) => s.key)).toEqual(['relation'])

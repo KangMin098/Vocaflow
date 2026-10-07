@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-map): 「먼저 확인」 1위 안정 판정 `RANKING_GATE`(1·2위 차 ≥ 0.05 · 관찰 낮음 선 아래 여유 ≥ 0.05 · 1위 축 라인 관측 ≥ 6 — 합성 학습자 2생성기 × 1,000명 보정, `scripts/csat/diagnosis/ranking-calibrate.mts`). 못 넘으면 약점을 고르지 않고 두 후보를 가르는 확인 하나(`lib/csat/map/distinguish.ts`, focus `distinguish`). M2409 P1 → 어휘·표현 ↔ 문장 이해 구분 확인 · P2 문장 관계 유지. 확정한 1위 중 보조 태그 하나로 뒤집히는 비율 60% → 17%. 가중(1/2) 순위는 비교 결과 채택 안 함. 검수 패킷 Tier 3 를 추천 민감도 순으로. DB 변경 없음.
+
 - feat(csat-diagnosis): 시드 규칙 v2(`lib/csat/diagnosis/seed-rules.ts`) — 흐름 유형 보조 A2 제거 · 빈칸/요약 낱말 선지 A1=2 · 문맥 어휘 A3=2 · 대의 계열 A3≥1. M2409 그대로 승인 9/28 → 16/28, Tier 3/2/1 = 7/5/16 사람 검수 패킷. 추천은 역량 연결 여부(>0)만 보고, 보조 태그 하나로 1위가 바뀌는 합성 학습자 60% — 순위 안정성 과제로 기록. DB · 실제 M2409 불변. `seed-compare` · `pilot-items-export`.
 
 - docs(csat-diagnosis): M2409 태깅 검수 파일럿 — 에이전트 검수안 v2(28문항 · 252판정) 을 실행 동안만 있는 TEST 시험에 실제 RPC 로 저장 → 진단 반영 → 학생 2명 기록 → 학습 지도 「먼저 확인」(P1 어휘·표현 · P2 문장 관계) → 확인하기. 시드 그대로 승인 32% · 보조 A2 가 흐름 오답을 「문장 이해」로 끄는 문제 발견 · 검수 지침을 태깅 도움말에. 실제 M2409 는 바꾸지 않음. `pilot-export` · `pilot-run`.

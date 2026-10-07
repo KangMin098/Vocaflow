@@ -8,10 +8,11 @@
 
 'use client'
 
-import { ArrowRight, ChevronRight, ClipboardList, FileBarChart2, Headphones, Pencil, PlayCircle, Route, Target } from 'lucide-react'
+import { ArrowRight, ChevronRight, GitCompareArrows, ClipboardList, FileBarChart2, Headphones, Pencil, PlayCircle, Route, Target } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
+import type { DistinguishActivity } from '@/lib/csat/map/distinguish'
 import { EVIDENCE_LABEL, JOURNEY, learnerPath, stepByKey, type StepKey, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
 
@@ -93,6 +94,8 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
           <h2 id="focus-h" className={l.focusEyebrow}>지금 먼저 확인할 것</h2>
           {focus.kind === 'step' ? (
             <FocusStep s={viewOf(focus.step)} onStart={() => setOpen({ key: focus.step, startAt: 'check' })} />
+          ) : focus.kind === 'distinguish' ? (
+            <FocusDistinguish title={focus.title} activity={focus.activity} />
           ) : focus.kind === 'record' ? (
             <>
               <p className={l.focusTitle}>
@@ -208,6 +211,40 @@ function FocusStep({ s, onStart }: { s: StepView; onStart: () => void }) {
         <PlayCircle size={16} strokeWidth={1.9} aria-hidden="true" />
         확인 시작
       </button>
+    </>
+  )
+}
+
+/** 1위를 믿을 수 없을 때 — 두 후보를 가르는 확인 하나(행동 하나 원칙 그대로). 약점을 정하지 않는다 */
+function FocusDistinguish({ title, activity }: { title: string; activity: DistinguishActivity }) {
+  const [started, setStarted] = useState(false)
+  return (
+    <>
+      <p className={l.focusTitle}>
+        <span className={l.focusIcon} aria-hidden="true">
+          <GitCompareArrows size={18} strokeWidth={1.9} aria-hidden={true} />
+        </span>
+        {title}
+      </p>
+      <p className={l.focusWhy}>
+        최근 기출 기록에서 두 단계가 비슷하게 보였어요. <strong>어느 쪽이 먼저인지 한 번 가려 보고 정할게요.</strong>
+      </p>
+      {started ? (
+        <div className={l.distBox} data-testid="distinguish-activity">
+          <ol className={l.distList}>
+            {activity.how.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ol>
+          <p className={l.distRead}>{activity.read}</p>
+          <p className={l.distTime}>{activity.time}</p>
+        </div>
+      ) : (
+        <button type="button" className={l.cta} onClick={() => setStarted(true)} data-testid="focus-cta">
+          <PlayCircle size={16} strokeWidth={1.9} aria-hidden="true" />
+          확인 시작
+        </button>
+      )}
     </>
   )
 }
