@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 로컬 교재 31파일의 1차 선정 규칙과 2차 빈 표본 manifest를 hash-chain으로 봉인했다. 30개 고유 파일은 권리·학년·판본·본문/문항 경계 근거 부족으로 전량 보류하며 corpus·Gold-S·DB seed는 0건이다.
+
 - test(textbook): promotion preview의 파일 기반 합성 fixture를 v2 선정·screening·manifest 봉인 계약으로 갱신해 benchmark 스크립트 전체 검사를 복구한다.
 
 - feat(textbook): 봉인된 교재 benchmark 선정 목록을 해시 순위·표본 제약으로 독립 재계산하고, 제외 사유와 문항 유형 screening 일치를 검증한다. 실제 corpus·Gold-S·DB seed는 0건이다.

@@ -49,7 +49,11 @@ export function validateTwoStageSeal(protocol) {
   const rules = protocol.selection_protocol
   if (rules?.schema !== 'frym-selection-protocol/1' || rules.status !== 'sealed' ||
       !validDate(rules.search_cutoff) ||
-      !Array.isArray(rules.search_sources) || !rules.search_sources.length ||
+      !Array.isArray(rules.search_sources) || (!rules.search_sources.length && (
+        rules.inventory_scope !== 'preexisting_local_31_file_snapshot_only' ||
+        rules.inventory_file_count !== 31 || rules.inventory_file_hashes?.length !== 30 ||
+        protocol.metadata_screening?.candidates?.length !== 0 ||
+        protocol.selection_manifest?.selected_sample_ids?.length !== 0)) ||
       rules.search_sources.some(source => !validSource(source)) ||
       typeof rules.run_id !== 'string' || !rules.run_id || typeof rules.seed !== 'string' || !rules.seed ||
       rules.selection_algorithm !== 'hash_rank_feasible_v1' ||
