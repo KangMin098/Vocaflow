@@ -12,7 +12,8 @@
 import { BookOpen, BookOpenCheck, CalendarDays, FileText, Gauge, Link2, ListChecks, Network, Sprout, Target, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { AXIS_ROLE, GOAL_STRATEGY_NOTE, TASK_NOTE, roleOf } from '@/lib/csat/map/core'
+import { AXIS_ROLE, CURRENT_BASIS, GOAL_STRATEGY_NOTE, TASK_NOTE, roleOf } from '@/lib/csat/map/core'
+import { LINKS, STAGE_DESC, STAGE_LABEL, activityFrame, groupByStage } from '@/lib/csat/map/prescription'
 import type { MapPageData } from '@/lib/csat/map/load'
 
 import { useModalFocus } from '../useModalFocus'
@@ -93,6 +94,8 @@ export function NodePopup({
   const roleInfo = roleAxis ? AXIS_ROLE[roleAxis] : undefined
   const hasTarget = usesTarget && value.target !== null
   const obs = obsLabel(value, data.settings.core)
+  // 학습 활동 틀 — 근거 수준(지금 rule_proxy)으로 처방 여부를 정한다
+  const frame = activityFrame(CURRENT_BASIS)
   const lineTasks = data.tasks.filter((t) => t.line_code === code)
   const edges = data.edges.filter((e) => e.from_code === code || e.to_code === code)
   const trackName = node.track ? nameOf(node.track) : null
@@ -264,7 +267,6 @@ export function NodePopup({
 
           {tab === 'now' && (
             <>
-              <Card title="학습 활동" desc={TASK_NOTE} />
               {usesTarget && (
                 <Card title="지금 관찰" desc="목표 점수와 역량 수준의 직접 연결은 목표율 보정(calibration) 뒤에 다시 보여 줘요.">
                   <div className={p.bigRow}>
@@ -285,40 +287,53 @@ export function NodePopup({
               )}
               {isLine ? (
                 lineTasks.length > 0 && (
-                  <Card title="이 라인의 과제" desc="끝낸 것은 체크해요. 진단 결과에 따라 꺼내 쓰는 도구예요." right={<Chip>{value.tasks.done}/{value.tasks.total} 완료</Chip>}>
-                    <ListBox>
-                      {lineTasks.map((t) => {
-                        const checked = done.has(t.id)
-                        return (
-                          <div key={t.id} className={checked ? p.rowDone : ''}>
-                            <ListRow
-                              leading={
-                                <label className={p.check}>
-                                  <input type="checkbox" checked={checked} onChange={(e) => onToggle(t.id, e.target.checked)} aria-label={`${t.title} 완료`} />
-                                </label>
-                              }
-                              tile={t.material === 'past' ? <FileText size={16} strokeWidth={1.8} /> : <Sprout size={16} strokeWidth={1.8} />}
-                              tileTone={t.material === 'past' ? 'sky' : 'pink'}
-                              title={`${t.ord}. ${t.title}`}
-                              sub={
-                                <>
-                                  {t.how}
-                                  <br />
-                                  완료 기준: {t.done_when}
-                                  {t.method_line ? ` · 방법: ${nameOf(t.method_line)}` : ''}
-                                </>
-                              }
-                              right={
-                                <>
-                                  <Chip>{t.cadence}</Chip>
-                                  <Chip tone={t.material === 'past' ? 'neutral' : 'warn'}>{t.material === 'past' ? '기출' : '본질'}</Chip>
-                                </>
-                              }
-                            />
+                  // 관찰 → 진단 필요 → 처방: 진단 전에는 「처방」이라 부르지 않고, 찾기만 「지금 해 볼 수 있는」 단계로 연다(prescription.ts)
+                  <Card title={frame.title} desc={`${frame.note} ${TASK_NOTE}`} right={<Chip>{value.tasks.done}/{value.tasks.total} 완료</Chip>}>
+                    <div data-testid="popup-stages" data-phase={frame.phase}>
+                      {groupByStage(lineTasks, frame).map((g) => (
+                        <section key={g.stage ?? 'none'} className={p.stageGroup} aria-label={g.stage ? STAGE_LABEL[g.stage] : '단계 미정'}>
+                          <div className={p.stageHead}>
+                            <Chip tone={g.open ? 'good' : 'neutral'}>{g.stage ? STAGE_LABEL[g.stage] : '단계 미정'}</Chip>
+                            <span className={p.stageDesc}>{g.stage ? STAGE_DESC[g.stage] : '아직 단계를 정하지 않은 활동이에요'}{g.open ? '' : frame.phase === 'prescription' ? '' : ' · 진단 뒤'}</span>
                           </div>
-                        )
-                      })}
-                    </ListBox>
+                          <ListBox>
+                        {g.tasks.map((t) => {
+                          const checked = done.has(t.id)
+                          const link = t.id in LINKS ? LINKS[t.id] : undefined
+                          return (
+                            <div key={t.id} className={checked ? p.rowDone : ''} data-task-stage={g.stage ?? 'none'}>
+                              <ListRow
+                                leading={
+                                  <label className={p.check}>
+                                    <input type="checkbox" checked={checked} onChange={(e) => onToggle(t.id, e.target.checked)} aria-label={`${t.title} 완료`} />
+                                  </label>
+                                }
+                                tile={t.material === 'past' ? <FileText size={16} strokeWidth={1.8} /> : <Sprout size={16} strokeWidth={1.8} />}
+                                tileTone={t.material === 'past' ? 'sky' : 'pink'}
+                                title={t.title}
+                                sub={
+                                  <>
+                                    {t.how}
+                                    <br />
+                                    완료 기준: {t.done_when}
+                                    {t.method_line ? ` · 방법: ${nameOf(t.method_line)}` : ''}
+                                    {link !== undefined ? ` · 연결: ${link ? nameOf(link) : '원인에 맞는 라인'}` : ''}
+                                  </>
+                                }
+                                right={
+                                  <>
+                                    <Chip>{t.cadence}</Chip>
+                                    <Chip tone={t.material === 'past' ? 'neutral' : 'warn'}>{t.material === 'past' ? '기출' : '본질'}</Chip>
+                                  </>
+                                }
+                              />
+                            </div>
+                          )
+                        })}
+                          </ListBox>
+                        </section>
+                      ))}
+                    </div>
                     {taskError && <div className={p.err} role="alert">{taskError}</div>}
                   </Card>
                 )

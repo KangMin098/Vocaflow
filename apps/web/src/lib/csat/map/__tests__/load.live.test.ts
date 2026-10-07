@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 import { loadMapPage } from '../load'
+import { TASK_STAGE } from '../prescription'
 
 const USER = process.env.MAP_LIVE_USER
 
@@ -28,6 +29,8 @@ describe.skipIf(!USER)('loadMapPage (live)', () => {
     }
     for (const code of ['GOAL', 'A', 'B', 'C', 'D', 'A1', 'A7', 'B1', 'B4', 'B6', 'B10', 'C1', 'C8', 'D1', 'D9', 'T1', 'P1']) console.log(row(code))
     expect(lines).toHaveLength(54)
+    // 처방 단계 대응표(prescription.ts) = DB 의 과제 id 전부 — 시드가 바뀌면 대응표도 고친다
+    expect(d.tasks.map((t) => t.id).sort()).toEqual(Object.keys(TASK_STAGE).sort())
     expect(d.tasks).toHaveLength(162)
     expect(m.reference.exams.length).toBeGreaterThan(0)
     // 만점 목표(기본값)에서 연결 문항이 있는 라인의 목표율은 1

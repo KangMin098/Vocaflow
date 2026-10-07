@@ -82,7 +82,7 @@ describe('학습 지도 vNext 정렬', () => {
     const popup = read('NodePopup.tsx')
     expect(popup).toContain("label: '학습 활동'")
     expect(popup).not.toContain("label: '현 상태'")
-    expect(popup).toContain('desc={TASK_NOTE}')
+    expect(popup).toContain('${TASK_NOTE}')
     expect(popup).toContain('GOAL_STRATEGY_NOTE')
     expect(TASK_NOTE).toMatch(/바뀌지 않아요/)
     expect(GOAL_STRATEGY_NOTE).toMatch(/시험 수행 전략/)

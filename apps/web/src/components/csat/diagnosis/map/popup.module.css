@@ -500,3 +500,22 @@
     transition: none !important;
   }
 }
+/* 학습 활동 — 처방 단계 묶음(찾기 · 고치기 · 옮기기 · 확인, 2026-10-07) */
+.stageGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stageGroup + .stageGroup {
+  margin-top: 16px;
+}
+.stageHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stageDesc {
+  font-size: 12px;
+  color: #5e5f6b;
+  word-break: keep-all;
+}

@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-map): 처방 모델 — 관찰 → 진단 필요 → 처방(verified_diagnosis 전에는 처방 아님) · FIND/REPAIR/TRANSFER/CHECK, 과제 162 단계 대응표(38 · 72 · 32 · 20) · 팝업 「학습 활동」을 단계별로 묶고 진단 전에는 찾기만 열림. 찾기 없는 라인 20개는 콘텐츠 공백으로 기록. `ref-compare` 열 수 상수 가드. DB 변경 없음.
+
 - feat(csat-map): 기존 상세 지도를 종류별 열로 — 최종 목표 | 핵심 능력 | 측정 정보 | 문항 특성 | 학습 · 행동 | 실전 · 상황. 참조 3B Access map 의 「종류마다 한 열 · 빈 열도 머리 유지」를 재측정해 spec.json `layout` 에 기록(`ref-scan --text` 추가), 가드 geometry.test(열 수 · 머리 피치 · 머리 글자 오프셋) + ref-compare 3항목. 노드 크기 · 피치 불변, DB 변경 없음.
 
 - feat(csat-map): 학습 지도 vNext 정렬(Phase 1 화면) — 카드 표시명(문장 이해 · 글 이해 · 근거 · 선지 판단 · 실전 수행) · 기존 라인 대응 「현재 계산」 표시와 A4 · A6 이동 예정 · 「기존 상세 지도」 · 구분선 = 표시 기준 · 오답 원인 ≠ 카드 상태 · 성장 경로 8단계 · B/C/D/I/J 「능력 아님」 라벨 · 팝업 「학습 활동」 탭 · 목표율 = 시험 전략. DB 변경 없음, 회귀 `vnext-alignment.test.ts`.

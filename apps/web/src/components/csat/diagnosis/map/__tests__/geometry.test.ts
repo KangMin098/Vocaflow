@@ -58,6 +58,9 @@ describe('학습 지도 기하 = 참조 측정 명세', () => {
     expect(LAYER_COLUMNS[0].axes).toEqual(['A'])
     for (const a of ['B', 'C', 'D', 'I', 'J']) expect(layerIndexOf(a)).toBeGreaterThan(0)
     expect(layerIndexOf('Z')).toBe(LAYER_COLUMNS.length - 1)
+    // 실측 대조 스크립트의 열 수 상수도 같은 정의를 따른다(.mjs 라 core.ts 를 못 읽는다 — 여기서 맞춘다)
+    const compare = fs.readFileSync(path.join(ROOT, 'scripts/design/ref-compare.mjs'), 'utf8')
+    expect(Number(compare.match(/const LAYERS = (\d+)/)?.[1])).toBe(LAYER_COLUMNS.length)
   })
 
   it('팝업 모달 크기 · 머리/바닥 · 카드 간격 · 카드 안쪽 여백', () => {
