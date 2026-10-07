@@ -11,7 +11,8 @@ import { prepareSealedAdmission } from './local-admission-ledger.mjs'
 import { sealAdmittedSnapshot } from './admitted-snapshot.mjs'
 import { inspectPipeline } from './pipeline-state.mjs'
 import { previewPromotion } from './promotion-preview.mjs'
-import { assessGoldSContract, inspectGoldSCertificate } from './gold-s-contract.mjs'
+import { assessGoldSContract, inspectGoldSCertificate, issueGoldSCertificate } from './gold-s-contract.mjs'
+import { generateKeyPairSync, sign } from 'node:crypto'
 
 const current = { schema: 'frym-benchmark-pipeline-state/1', state: 'gold_s_candidate', benchmark_version: 'fixture-v1', admission_receipt_hash: hash('receipt'), benchmark_snapshot_hash: hash('snapshot') }
 const decisionBody = { gold_s_candidate: true, gold_s: false, db_seed: false, benchmark_version: current.benchmark_version, admission_receipt_hash: current.admission_receipt_hash, benchmark_snapshot_hash: current.benchmark_snapshot_hash }
@@ -87,7 +88,7 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   const pending = assessGoldSContract({ status, decision: certifiedDecision })
   assert.equal(pending.status, 'hold')
   assert.ok(pending.reasons.includes('REAL_BENCHMARK_DISTRIBUTION_REQUIRED'))
-  const corpus = { kind: 'real_commercial_textbooks', fixture: false, admitted_n: 240, distribution_hash: hash('distribution'), benchmark_version: status.benchmark_version, snapshot_hash: status.benchmark_snapshot_hash, admission_receipt_hash: status.admission_receipt_hash }
+  const corpus = { kind: 'real_commercial_textbooks', fixture: false, curator_id: 'fixture-curator', admitted_n: 240, distribution_hash: hash('distribution'), benchmark_version: status.benchmark_version, snapshot_hash: status.benchmark_snapshot_hash, admission_receipt_hash: status.admission_receipt_hash }
   const reviewBody = { decision: 'approve', owner_id: 'fixture-owner', decided_at: '2026-10-07T00:00:00Z', rationale: 'Synthetic contract fixture', revision: 'r1', review_evidence_hash: pending.review_evidence_hash, benchmark_version: status.benchmark_version, decision_hash: certifiedDecision.decision_hash, distribution_hash: corpus.distribution_hash }
   const review = { ...reviewBody, review_hash: hash(reviewBody) }
   const assess = (currentCorpus = corpus, currentReview = review) => assessGoldSContract({ status, decision: certifiedDecision, corpus: currentCorpus, review: currentReview })
@@ -100,11 +101,19 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   assert.equal(assess(corpus, { ...review, decision: 'reject' }).status, 'reject')
   assert.equal(assess(corpus, { ...review, rationale: '' }).status, 'hold')
   const binding = { review_evidence_hash: pending.review_evidence_hash, decision_hash: certifiedDecision.decision_hash, distribution_hash: corpus.distribution_hash, review_hash: review.review_hash, benchmark_version: status.benchmark_version, admission_receipt_hash: status.admission_receipt_hash, benchmark_snapshot_hash: status.benchmark_snapshot_hash, content_hash: hash('content'), rights_hash: hash('rights') }
-  const certificate = { schema: 'frym-gold-s-certificate/1', certificate_id: 'fixture-certificate', ...binding }
   const currentCertificate = { ...binding, rights_status: 'permitted' }
-  const authority = { certificate_id: certificate.certificate_id, certificate_hash: hash(certificate), status: 'verified' }
+  const curator = generateKeyPairSync('ed25519'), owner = generateKeyPairSync('ed25519'), issuer = generateKeyPairSync('ed25519')
+  const attest = (value, key) => sign(null, Buffer.from(hash(value)), key).toString('base64')
+  const issuance = { status, decision: certifiedDecision, corpus, review, corpusSignature: attest(corpus, curator.privateKey), ownerSignature: attest(review, owner.privateKey), current: currentCertificate, keys: { curator_id: corpus.curator_id, owner_id: review.owner_id, issuer_id: 'fixture-issuer', curator: curator.publicKey, owner: owner.publicKey }, issuerPrivateKey: issuer.privateKey, issuedAt: '2026-10-07T00:00:00Z' }
+  assert.throws(() => issueGoldSCertificate({ ...issuance, corpusSignature: null }), /ATTESTATION/)
+  assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, owner_id: 'other' } }), /ATTESTATION/)
+  assert.throws(() => issueGoldSCertificate({ ...issuance, corpus: { ...corpus, admitted_n: 0 } }), /PREFLIGHT_HOLD/)
+  const certificate = issueGoldSCertificate(issuance)
+  const authority = { issuer_id: 'fixture-issuer', issuerPublicKey: issuer.publicKey }
   assert.equal(inspectGoldSCertificate({ certificate, current: currentCertificate }).status, 'unverified')
   assert.equal(inspectGoldSCertificate({ certificate, current: currentCertificate, authority }).status, 'current')
+  assert.equal(inspectGoldSCertificate({ certificate, current: currentCertificate, authority: { issuerPublicKey: owner.publicKey } }).status, 'unverified')
+  assert.equal(inspectGoldSCertificate({ certificate: { ...certificate, issued_at: 'changed' }, current: currentCertificate, authority }).status, 'unverified')
   assert.equal(inspectGoldSCertificate({ certificate, current: { ...currentCertificate, content_hash: hash('new') }, authority }).status, 'stale')
   assert.equal(inspectGoldSCertificate({ certificate, current: { ...currentCertificate, rights_status: 'denied' }, authority }).status, 'invalidated')
   assert.equal(inspectGoldSCertificate({ certificate: { ...certificate, revoked: true }, current: currentCertificate, authority }).status, 'invalidated')

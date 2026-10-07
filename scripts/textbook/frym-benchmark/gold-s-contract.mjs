@@ -1,9 +1,14 @@
 // scripts/textbook/frym-benchmark/gold-s-contract.mjs
 import { hash } from './benchmark.mjs'
 import { previewPromotion } from './promotion-preview.mjs'
+import { randomUUID, sign, verify } from 'node:crypto'
 
 const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
 const nonempty = value => typeof value === 'string' && Boolean(value.trim())
+const signed = (value, signature, publicKey) => {
+  try { return Boolean(publicKey && nonempty(signature) && verify(null, Buffer.from(hash(value)), publicKey, Buffer.from(signature, 'base64'))) }
+  catch { return false }
+}
 const failure = (status, reasons, evidenceHash = null) => ({
   schema: 'frym-gold-s-certification-contract/1',
   status,
@@ -34,14 +39,26 @@ export function assessGoldSContract({ status, decision, corpus, review } = {}) {
   return failure('reviewable', ['OWNER_IDENTITY_AUTHENTICATION_REQUIRED', 'GOLD_S_CERTIFICATE_NOT_ISSUED'], evidenceHash)
 }
 
-// A certificate is never trusted by its own local hash. The caller must supply
-// an independently verified authority verdict for this exact certificate ID.
+// Key material is injected at runtime, never persisted in a repo artifact.
+// A caller must pin the independent curator, owner and issuer public keys.
+export function issueGoldSCertificate({ status, decision, corpus, review, corpusSignature, ownerSignature, current, keys, issuerPrivateKey, issuedAt } = {}) {
+  const preflight = assessGoldSContract({ status, decision, corpus, review })
+  if (preflight.status !== 'reviewable') throw Error(`GOLD_S_PREFLIGHT_${preflight.status.toUpperCase()}`)
+  if (!nonempty(corpus?.curator_id) || corpus.curator_id !== keys?.curator_id || review.owner_id !== keys?.owner_id || !nonempty(keys?.issuer_id) || !signed(corpus, corpusSignature, keys?.curator) || !signed(review, ownerSignature, keys?.owner)) throw Error('GOLD_S_INDEPENDENT_ATTESTATION_REQUIRED')
+  if (current?.rights_status !== 'permitted' || !hex(current?.rights_hash) || !hex(current?.content_hash) || !nonempty(issuedAt) || !issuerPrivateKey) throw Error('GOLD_S_CURRENT_RIGHTS_OR_ISSUER_MISSING')
+  const body = { schema: 'frym-gold-s-certificate/1', certificate_id: randomUUID(), issuer_id: keys.issuer_id, curator_id: keys.curator_id, owner_id: keys.owner_id, issued_at: issuedAt, review_evidence_hash: preflight.review_evidence_hash, decision_hash: decision.decision_hash, distribution_hash: corpus.distribution_hash, review_hash: review.review_hash, benchmark_version: status.benchmark_version, admission_receipt_hash: status.admission_receipt_hash, benchmark_snapshot_hash: status.benchmark_snapshot_hash, content_hash: current.content_hash, rights_hash: current.rights_hash }
+  return { ...body, signature: sign(null, Buffer.from(hash(body)), issuerPrivateKey).toString('base64') }
+}
+
+// A certificate is never trusted by its own local hash or a caller-supplied
+// "verified" flag. The issuer signature must verify with a pinned public key.
 export function inspectGoldSCertificate({ certificate, current, authority } = {}) {
   const output = (status, reasons) => ({ schema: 'frym-gold-s-certificate-check/1', status, reasons, gold_s: status === 'current', seed_eligible: false, db_seed: false })
   if (!certificate || certificate.schema !== 'frym-gold-s-certificate/1' || !nonempty(certificate.certificate_id)) return output('unverified', ['CERTIFICATE_MISSING'])
   if (certificate.revoked === true || current?.rights_status !== 'permitted') return output('invalidated', ['CERTIFICATE_REVOKED_OR_RIGHTS_LOST'])
   const bound = ['review_evidence_hash', 'decision_hash', 'distribution_hash', 'review_hash', 'benchmark_version', 'admission_receipt_hash', 'benchmark_snapshot_hash', 'content_hash', 'rights_hash']
   if (bound.some(key => !nonempty(certificate[key]) || certificate[key] !== current?.[key])) return output('stale', ['CERTIFICATE_EVIDENCE_CHANGED'])
-  if (authority?.certificate_id !== certificate.certificate_id || authority?.status !== 'verified' || authority?.certificate_hash !== hash(certificate)) return output('unverified', ['AUTHORITY_VERIFICATION_REQUIRED'])
+  const { signature, ...body } = certificate
+  if (certificate.issuer_id !== authority?.issuer_id || !signed(body, signature, authority?.issuerPublicKey)) return output('unverified', ['AUTHORITY_SIGNATURE_REQUIRED'])
   return output('current', [])
 }

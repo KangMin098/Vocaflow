@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 독립 큐레이터·책임자 Ed25519 서명과 발급자 서명으로 Gold-S 인증서 발급·재검증 경로를 연결했다. 운영 키와 실제 교재 실분포는 아직 없어 Gold-S·seed·DB 적재는 0이다.
+
 - feat(textbook): Gold-S 인증 심사의 실제 교재 분포·책임자 결정·hash/revision 결속과 hold/reject/stale 계약을 추가했다. 신원 인증과 증명서 발급은 열지 않으며 실제 corpus·Gold-S·DB seed는 0이다.
 
 - feat(textbook): 현재 benchmark 후보의 decision·snapshot·admission receipt 해시를 묶은 Gold-S 책임자 검토 준비 preview를 추가했다. 누락·혼합·stale 증거는 보류하며 Gold-S 인증·seed eligibility·DB seed는 계속 닫는다.
