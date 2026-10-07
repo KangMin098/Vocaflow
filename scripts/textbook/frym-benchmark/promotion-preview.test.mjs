@@ -114,6 +114,8 @@ test('an inspected full synthetic benchmark opens review but resists serializati
   assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, owner_id: 'other' } }), /ATTESTATION/)
   assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, owner: curator.publicKey } }), /ATTESTATION/)
   assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, owner_id: corpus.curator_id } }), /ATTESTATION/)
+  assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, issuer_id: '' } }), /ATTESTATION/)
+  assert.throws(() => issueGoldSCertificate({ ...issuance, keys: { ...issuance.keys, issuer_id: undefined } }), /ATTESTATION/)
   assert.throws(() => issueGoldSCertificate({ ...issuance, corpus: { ...corpus, admitted_n: 0 } }), /PREFLIGHT_HOLD/)
   const certificate = issueGoldSCertificate(issuance)
   const authority = { issuer_id: 'fixture-issuer', issuerPublicKey: issuer.publicKey }
