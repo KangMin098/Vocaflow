@@ -1,0 +1,13 @@
+{
+  "note": "G6-S 합성 학습자 — 실제 사람 아님. 오류 경향(true_cause 분포)과 응답 습관만 정한다. 이름 · 학교 등 식별정보 없음.",
+  "exams": ["M2409", "M2406"],
+  "targets": [21, 24, 30, 31, 32, 33, 34, 40],
+  "personas": [
+    { "key": "S01", "level": "중위권(독해 28문항 중 정답 17~20)", "profile": "다의어 · 1차 뜻에 기대는 경향. 아는 뜻으로 바로 읽고 문맥 확인을 덜 한다.", "cause_mix": { "V.wrong_sense": 0.55, "V.unknown_word": 0.15, "R.inference": 0.1, "B.surface_match": 0.1, "S.operator_scope": 0.1 }, "habits": { "interp_unknown": 0.1, "interp_skipped": 0.05, "category_mislabel": 0.2 } },
+    { "key": "S02", "level": "중상위권(정답 21~24)", "profile": "낱말 뜻은 알지만 함축 · 비유를 문자 그대로 읽거나 근거에서 결론을 잘못 끌어낸다.", "cause_mix": { "R.inference": 0.55, "R.main_point": 0.15, "V.wrong_sense": 0.1, "E.option_mismatch": 0.1, "R.relation": 0.1 }, "habits": { "interp_unknown": 0.05, "interp_skipped": 0.05, "category_mislabel": 0.25 } },
+    { "key": "S03", "level": "중위권(정답 18~21)", "profile": "V/R 경계 혼재 — 낱말의 다른 뜻을 고른 것인지, 기본 뜻에서 비유를 잘못 따라간 것인지 학생 서술만으로는 갈리지 않는 오답이 많다.", "cause_mix": { "V.wrong_sense": 0.4, "R.inference": 0.4, "V.multiword": 0.1, "R.reference": 0.1 }, "habits": { "interp_unknown": 0.1, "interp_skipped": 0.05, "category_mislabel": 0.3 } },
+    { "key": "S04", "level": "중하위권(정답 13~16)", "profile": "긴 문장의 주어 · 동사 경계와 부정 · 비교 범위를 놓친다. 시간도 빠듯하다.", "cause_mix": { "S.core_structure": 0.35, "S.operator_scope": 0.25, "S.attachment": 0.1, "X.time": 0.15, "V.unknown_word": 0.15 }, "habits": { "interp_unknown": 0.2, "interp_skipped": 0.1, "category_mislabel": 0.25 } },
+    { "key": "S05", "level": "중위권(정답 18~21)", "profile": "글은 대체로 읽지만 선지 대조가 약하다 — 같은 낱말에 끌리거나 범위 · 강도 차이를 놓친다.", "cause_mix": { "E.option_mismatch": 0.35, "B.surface_match": 0.25, "E.evidence_location": 0.2, "B.no_verification": 0.1, "E.task_misread": 0.1 }, "habits": { "interp_unknown": 0.05, "interp_skipped": 0.05, "category_mislabel": 0.2 } },
+    { "key": "S06", "level": "상위권(정답 25~27)", "profile": "오답이 적고 대부분 실수 · 시간. 해석은 대체로 맞다.", "cause_mix": { "X.attention": 0.4, "X.time": 0.3, "B.no_verification": 0.15, "R.inference": 0.15 }, "habits": { "interp_unknown": 0.05, "interp_skipped": 0.1, "category_mislabel": 0.15 } }
+  ]
+}
