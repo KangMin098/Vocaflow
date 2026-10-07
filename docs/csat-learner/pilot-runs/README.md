@@ -103,4 +103,10 @@ Playwright E2E(§18 — production 빌드 · 테스트 계정)를 돌린 쪽이 
 
 ## G6 남은 순서
 
+### G6 DB 연결 검증 (2026-10-07)
+
+`live.mjs`의 봉인·시작 점검 연결은 인증서와 호스트 검증을 켠다. 기존 Reveal 검증의 `verifiedDbConfig`를 같은 내용으로 재사용하며 URL의 SSL 옵션이 명시적인 검증 설정을 덮어쓰지 못한다. 신뢰 CA가 필요하면 `SUPABASE_DB_CA_CERT`에 공개 CA 인증서 PEM을 로컬 환경변수로 설정한다. 인증서 오류는 시작 점검 실패로 남긴다. 키·DB URL·관리자 식별자의 값·일부·해시는 출력하지 않고 존재 여부만 기록한다.
+
+회귀: `node --no-warnings --test scripts/csat/pilot/__tests__/records.test.mjs scripts/csat/pilot/__tests__/live-tls.test.mjs` (pg 설치 또는 기존 `CSAT_PG_MODULE_DIR` 설정 필요). 10/10 통과. 실 DB 읽기 전용 확인: TLS authorized=true, 잘못된 CA는 SELF_SIGNED_CERT_IN_CHAIN으로 거부, `readLive` 성공, 감지기 bd-0.1.0·taxonomy 봉인·probe 상한 3 확인. 실제 run 시작·참가자 활성화·DB 변경은 하지 않았다. 로컬 상세 근거는 `tmp/g6-readiness-20261007/live-probe.json`.
+
 1. 참가자 모집 · 동의(운영자) 2. 공통 미응시 시험 2회 확정 3. 익명 participant mapping(저장소 밖) 4. probe 상한 3 포함 run config 봉인(`seal-run.mjs`) 5. 배포 env `CSAT_EC_ACTIVE_RUN` · `CSAT_EC_APP_COMMIT` · 참가자 id 설정(검증 모드 제거) 6. 같은 배포 커밋으로 `run-e2e.mjs --run <id>` 7. `start-check.mjs` PASS 8. G6 시작 승인.

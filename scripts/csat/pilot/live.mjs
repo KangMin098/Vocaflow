@@ -8,6 +8,7 @@ import fs from 'node:fs'
 import { createRequire } from 'node:module'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { verifiedDbConfig } from '../reveal-gate/tls-config.mjs'
 
 import { rulesHash } from '../error-evidence/model-input/deidentify.mjs'
 import { captureProbeConfig } from '../../../apps/web/src/lib/csat/ec-pilot/probes.ts'
@@ -16,6 +17,10 @@ import { canonicalJson, examSeal, probeConfigHash, sha256 } from '../../../apps/
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 export const RUNS = path.join(ROOT, 'docs/csat-learner/pilot-runs')
 const DEV_REF = 'jajenrevcbmrpaliomxv'
+
+export function liveConnectionOptions(url, env = process.env) {
+  return verifiedDbConfig(url, env.SUPABASE_DB_CA_CERT)
+}
 
 export async function loadPg() {
   try { return (await import('pg')).default } catch {
@@ -102,9 +107,9 @@ export async function readLive(examIds, { appCommit }) {
   if (!url) throw new Error('SUPABASE_DB_URL 없음 — --env-file 로 실행')
   if (!url.includes(DEV_REF)) throw new Error(`Pilot DB(${DEV_REF})가 아니다`)
   const pg = await loadPg()
-  const c = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } })
-  await c.connect()
+  const c = new pg.Client(liveConnectionOptions(url))
   try {
+    await c.connect()
     await c.query('begin transaction read only')
     const tax = configTaxonomy()
     const t = (await c.query('select status, note, definitions_hash from public.csat_ec_taxonomy_version where version = $1', [tax])).rows[0]
