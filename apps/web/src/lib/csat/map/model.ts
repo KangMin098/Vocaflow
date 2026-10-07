@@ -69,6 +69,8 @@ export interface MapStat {
 
 export interface SnapshotInput {
   attributePoints: Record<string, MapStat>
+  /** 틀린 V 문항의 다른 축 겹침(map-evidence VOverlap) — 옛 스냅샷에는 없다 */
+  vOverlap?: { wrongV: number; R: number; E: number; X: number } | null
   lineAccuracy: Record<string, MapStat>
   trapAvoidance: Record<string, MapStat>
   /** 활성 습관 신호 코드(habit_flags[].code) */
@@ -142,6 +144,8 @@ export interface MapModel {
   /** 진단 근거 수준 — 지금은 전부 규칙 기반 proxy(core.ts DiagnosisBasis) */
   diagnosisBasis: 'rule_proxy' | 'item_tagged' | 'verified_diagnosis'
   nodes: Record<string, NodeValue>
+  /** 틀린 V 문항의 다른 축 겹침 — 축 관측 특성 routing(axis-routing.ts)이 V 를 무엇과 가를지 고른다. 없으면 null */
+  vOverlap?: { wrongV: number; R: number; E: number; X: number } | null
 }
 
 const prefix = (code: string) => code.charAt(0)
@@ -268,6 +272,7 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
     mayOverstate,
     evidence: raw.snapshot ? { examSessions: raw.snapshot.examSessions, responses: raw.snapshot.responses } : null,
     diagnosisBasis: 'rule_proxy',
+    vOverlap: raw.snapshot?.vOverlap ?? null,
     nodes,
   }
 }

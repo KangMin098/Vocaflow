@@ -12,7 +12,8 @@
 import { coreSummary, type CoreAxisView, type CoreCode, type CoreSummary, type DiagnosisBasis } from './core'
 import type { MapModel, MapSettings } from './model'
 import type { PrescriptionStage } from './prescription'
-import { distinguishActivity, distinguishTitle, type DistinguishActivity } from './distinguish'
+import { routeAction } from './axis-routing'
+import { S_DIRECT, S_DIRECT_TITLE, V_TITLE, V_VS_RE, V_VS_RE_TITLE, X_TITLE, distinguishActivity, distinguishTitle, type DistinguishActivity } from './distinguish'
 
 export type StepKey = 'vocab' | 'sentence' | 'relation' | 'structure' | 'option' | 'evidence' | 'integrate' | 'l-sound' | 'l-sentence' | 'l-retain' | 'l-respond'
 
@@ -97,7 +98,9 @@ export type Focus =
   /** provisional = 현재 근거상 단독 우선 후보 — 비교할 수 없는 단계(unobserved)가 있다. 행동은 같고 문구만 확신을 낮춘다 */
   | { kind: 'step'; step: StepKey; next: StepKey | null; provisional?: { unobserved: StepKey[] } }
   /** 1위를 믿을 수 없다(core RANKING_GATE) — 두 단계를 가르는 확인 하나. 약점을 정하지 않는다 */
-  | { kind: 'distinguish'; step: StepKey; rival: StepKey; activity: DistinguishActivity; title: string }
+  | { kind: 'distinguish'; step: StepKey; rival: StepKey; also?: StepKey; activity: DistinguishActivity; title: string }
+  /** 기출로 관측되지 않는 핵심 단계(S)의 직접 확인 — 다른 행동이 없을 때(axis-routing) */
+  | { kind: 'direct'; step: StepKey; activity: DistinguishActivity; title: string }
   | { kind: 'record' }            // 기록이 없다 — 시험 기록부터
   | { kind: 'more'; step: StepKey } // 기록은 있지만 이 단계 근거가 모자라다 — 기록을 더 쌓는다
   | { kind: 'pending' }           // 기록은 받았지만 그 시험들의 단계별 분석이 아직 준비되지 않았다 — 더 기록해도 바뀌지 않는다
@@ -127,24 +130,33 @@ const evidenceOf = (a: CoreAxisView, hasRecords: boolean, analyzable: boolean): 
  * 학습자 길 계산. 먼저 확인할 단계는 핵심 지도의 「우선 확인 후보」(관찰값 기준 · 목표 점수와 무관)를 그대로 쓴다 —
  * 축 → 그 축의 읽기 길 첫 단계. 후보가 없으면 기록 여부로 「시험 기록」 · 「기록 더 쌓기」 · 「없음」.
  */
-export function learnerPath(model: Pick<MapModel, 'nodes' | 'currentScore'>, settings: Pick<MapSettings, 'core' | 'min_coverage'>): LearnerPath {
+export function learnerPath(model: Pick<MapModel, 'nodes' | 'currentScore'> & Partial<Pick<MapModel, 'vOverlap'>>, settings: Pick<MapSettings, 'core' | 'min_coverage'>): LearnerPath {
   const summary = coreSummary(model, settings)
   const byAxis = new Map(summary.axes.map((a) => [a.code, a]))
   const firstStepOf = (axis: CoreCode) => READ_PATH.find((s) => s.axis === axis)?.key ?? null
-  const cand = summary.candidates.map(firstStepOf).filter((k): k is StepKey => k !== null)
   const hasRecords = model.currentScore !== null
   // 기록이 있어도 단계별 분석에 쓰인 문항이 0 이면(분석 준비 안 된 시험만 기록) — 더 기록하라고 하지 않는다
   const analyzable = summary.axes.some((a) => a.contributions > 0)
 
+  // 순위(무엇이 의심되는가) → 축 관측 특성(axis-routing) → 행동 하나
   let focus: Focus
   const r = summary.ranking
-  const pair = r.kind === 'unstable' && r.top && r.rival ? { a: firstStepOf(r.top), b: firstStepOf(r.rival), act: distinguishActivity(r.top, r.rival) } : null
-  if (pair && pair.a && pair.b && pair.act) focus = { kind: 'distinguish', step: pair.a, rival: pair.b, activity: pair.act, title: distinguishTitle(r.top as CoreCode, r.rival as CoreCode) }
-  else if (cand.length > 0) {
-    const unobserved = r.unobserved.map(firstStepOf).filter((k): k is StepKey => k !== null)
-    focus = r.confidence === 'provisional'
-      ? { kind: 'step', step: cand[0], next: cand[1] ?? null, provisional: { unobserved } }
-      : { kind: 'step', step: cand[0], next: cand[1] ?? null }
+  const route = routeAction(summary, model.vOverlap, { analyzable, watch: settings.core.watch })
+  const unobserved = r.unobserved.map(firstStepOf).filter((k): k is StepKey => k !== null)
+  if (route.kind === 'distinguish') {
+    const a = firstStepOf(route.axis)
+    const b = firstStepOf(route.rival)
+    const also = route.also ? firstStepOf(route.also) : null
+    const act = route.reason === 'assisted_v' && route.also ? V_VS_RE : distinguishActivity(route.axis, route.rival)
+    const title = route.reason === 'assisted_v' ? (route.also ? V_VS_RE_TITLE : (V_TITLE[route.rival] ?? distinguishTitle('V', route.rival)))
+      : route.reason === 'assisted_x' ? X_TITLE : distinguishTitle(route.axis, route.rival)
+    focus = a && b && act ? { kind: 'distinguish', step: a, rival: b, ...(also ? { also } : {}), activity: act, title } : { kind: 'none' }
+  } else if (route.kind === 'step') {
+    const step = firstStepOf(route.axis) as StepKey
+    const next = route.next ? firstStepOf(route.next) : null
+    focus = route.provisional ? { kind: 'step', step, next, provisional: { unobserved } } : { kind: 'step', step, next }
+  } else if (route.kind === 'direct') {
+    focus = { kind: 'direct', step: firstStepOf(route.axis) as StepKey, activity: S_DIRECT, title: S_DIRECT_TITLE }
   }
   else if (!hasRecords) focus = { kind: 'record' }
   else if (!analyzable) focus = { kind: 'pending' }
@@ -154,10 +166,11 @@ export function learnerPath(model: Pick<MapModel, 'nodes' | 'currentScore'>, set
   }
   const view = (s: PathStep): StepView => {
     const axisView = byAxis.get(s.axis) as CoreAxisView
-    const focused = (focus.kind === 'step' && focus.step === s.key) || (focus.kind === 'distinguish' && (focus.step === s.key || focus.rival === s.key))
+    const focused = (focus.kind === 'step' && focus.step === s.key) || (focus.kind === 'direct' && focus.step === s.key)
+      || (focus.kind === 'distinguish' && (focus.step === s.key || focus.rival === s.key || focus.also === s.key))
     return { ...s, axisView, evidence: focused ? 'focus' : evidenceOf(axisView, hasRecords, analyzable) }
   }
-  const journey = summary.basis === 'verified_diagnosis' ? 'verified_diagnosis' : focus.kind === 'step' || focus.kind === 'distinguish' ? 'diagnostic_need' : 'observation'
+  const journey = summary.basis === 'verified_diagnosis' ? 'verified_diagnosis' : focus.kind === 'step' || focus.kind === 'distinguish' || focus.kind === 'direct' ? 'diagnostic_need' : 'observation'
   return { read: READ_PATH.map(view), listen: LISTEN_PATH.map(view), focus, journey, basis: summary.basis, summary }
 }
 

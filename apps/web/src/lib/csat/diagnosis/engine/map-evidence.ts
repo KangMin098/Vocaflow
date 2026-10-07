@@ -43,9 +43,16 @@ export interface HabitEvaluable {
   need: number
 }
 
+/**
+ * 틀린 V(A1) 문항이 다른 축 태그와 함께 붙은 수(2026-10-08 · 축 관측 특성 routing) — V 는 기출에 단독 문항이 없어(평가원 29/29 회)
+ * V 가 낮게 보이면 그 근거 문항이 R · E · X 와 얼마나 겹치는지로 「무엇과 가를지」를 고른다. 가중 0 기록 · 메타 없는 응답 제외. 옛 스냅샷에는 없다.
+ */
+export interface VOverlap { wrongV: number; R: number; E: number; X: number }
+
 export interface MapEvidence {
   lineAccuracy: Record<string, LineStat>
   attributePoints: Record<string, LineStat>
+  vOverlap?: VOverlap
   trapAvoidance: Record<string, LineStat>
   habitEvaluable: Record<string, HabitEvaluable>
 }
@@ -112,6 +119,7 @@ export function computeMapEvidence(raw: EngineInput, lines: MapLineInput): MapEv
   // A · C — 기존 진단과 같은 응답 범위(준비된 시험 + 진단 테스트)
   const a: Record<string, Acc> = {}
   const c: Record<string, Acc> = {}
+  const vOverlap: VOverlap = { wrongV: 0, R: 0, E: 0, X: 0 }
   const { listening } = input.settings
   for (const row of diagnosedResponses(input)) {
     const w = weightOf(row.session)
@@ -125,6 +133,13 @@ export function computeMapEvidence(raw: EngineInput, lines: MapLineInput): MapEv
         ? [listening.attribute]
         : []
     for (const code of codes) add(a, code, w, points, row.response.isCorrect)
+    if (row.meta && !row.response.isCorrect && (row.meta.attributes.A1 ?? 0) > 0) {
+      const at = row.meta.attributes
+      vOverlap.wrongV++
+      if ((at.A3 ?? 0) > 0 || (at.A6 ?? 0) > 0) vOverlap.R++
+      if ((at.A4 ?? 0) > 0 || (at.A5 ?? 0) > 0) vOverlap.E++
+      if ((at.A9 ?? 0) > 0) vOverlap.X++
+    }
 
     // 무응답 · 시간 초과로 비운 답은 함정을 「피했다」로 세지 않는다 — 관측에서 뺀다
     if (row.meta && row.response.chosen !== null && row.response.confidence !== 'timeout') {
@@ -142,6 +157,7 @@ export function computeMapEvidence(raw: EngineInput, lines: MapLineInput): MapEv
   return {
     lineAccuracy: finish(b, minObs),
     attributePoints: finish(a, minObs),
+    vOverlap,
     trapAvoidance: finish(c, input.settings.trap.min_exposure),
     habitEvaluable: habitEvaluable(input),
   }

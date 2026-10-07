@@ -61,9 +61,9 @@ describe('학습자 길 — 불안정하면 구분 확인 하나', () => {
     expect(p.read.filter((s) => s.evidence === 'focus').map((s) => s.key)).toEqual(['vocab', 'sentence'])
     expect(p.journey).toBe('diagnostic_need')
   })
-  it('단독 우선 후보 — 행동은 그 단계 하나, 비교 못 한 단계를 함께 알린다', () => {
-    const p = learnerPath({ nodes: { A1: v(0.3), A3: v(0.9), A6: v(0.9), A4: v(0.85), A5: v(0.85), A9: v(0.9) }, currentScore: 70 }, SETTINGS)
-    expect(p.focus).toMatchObject({ kind: 'step', step: 'vocab', provisional: { unobserved: ['sentence'] } })
+  it('단독 우선 후보 — 행동은 그 단계 하나, 비교 못 한 단계를 함께 알린다(exam_observable 축 R)', () => {
+    const p = learnerPath({ nodes: { A1: v(0.9), A3: v(0.3), A4: v(0.85), A5: v(0.85), A9: v(0.9) }, currentScore: 70 }, SETTINGS)
+    expect(p.focus).toMatchObject({ kind: 'step', step: 'relation', provisional: { unobserved: ['sentence'] } })
   })
   it('명확하면 지금처럼 단계 하나', () => {
     const p = learnerPath({ nodes: { A1: v(0.9), A2: v(0.9), A8: v(0.9), A3: v(0.4), A6: v(0.4), A4: v(0.75), A5: v(0.75), A9: v(0.9) }, currentScore: 70 }, SETTINGS)

@@ -42,6 +42,8 @@ export interface SnapshotView {
     /** 학습 지도용 성취율(가산 키 — 옛 스냅샷에는 없다) */
     lineAccuracy?: Record<string, MapLineStat>
     attributePoints?: Record<string, MapLineStat>
+    /** 틀린 V 문항의 다른 축 겹침(map-evidence VOverlap · 2026-10-08) */
+    vOverlap?: { wrongV: number; R: number; E: number; X: number }
     trapAvoidance?: Record<string, MapLineStat>
     habitEvaluable?: Record<string, { evaluable: boolean; n: number; need: number }>
     mapStatus?: 'ok' | 'off' | 'failed'

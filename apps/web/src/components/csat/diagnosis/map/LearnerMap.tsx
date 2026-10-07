@@ -95,7 +95,9 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
           {focus.kind === 'step' ? (
             <FocusStep s={viewOf(focus.step)} unobserved={focus.provisional?.unobserved.map((k) => stepByKey(k).name) ?? null} onStart={() => setOpen({ key: focus.step, startAt: 'check' })} />
           ) : focus.kind === 'distinguish' ? (
-            <FocusDistinguish title={focus.title} activity={focus.activity} />
+            <FocusDistinguish title={focus.title} activity={focus.activity} why={DISTINGUISH_WHY} />
+          ) : focus.kind === 'direct' ? (
+            <FocusDistinguish title={focus.title} activity={focus.activity} why={DIRECT_WHY} />
           ) : focus.kind === 'record' ? (
             <>
               <p className={l.focusTitle}>
@@ -224,7 +226,18 @@ function FocusStep({ s, unobserved, onStart }: { s: StepView; unobserved: string
 }
 
 /** 1위를 믿을 수 없을 때 — 두 후보를 가르는 확인 하나(행동 하나 원칙 그대로). 약점을 정하지 않는다 */
-function FocusDistinguish({ title, activity }: { title: string; activity: DistinguishActivity }) {
+const DISTINGUISH_WHY = (
+  <>
+    최근 기출 기록만으로는 어느 쪽이 먼저인지 가르기 어려웠어요. <strong>한 번 가려 보고 정할게요.</strong>
+  </>
+)
+const DIRECT_WHY = (
+  <>
+    기출 오답만으로는 이 단계를 따로 볼 수 없어요. <strong>약점으로 정한 것이 아니라, 직접 확인해서 알아보려는 거예요.</strong>
+  </>
+)
+
+function FocusDistinguish({ title, activity, why }: { title: string; activity: DistinguishActivity; why: React.ReactNode }) {
   const [started, setStarted] = useState(false)
   return (
     <>
@@ -234,9 +247,7 @@ function FocusDistinguish({ title, activity }: { title: string; activity: Distin
         </span>
         {title}
       </p>
-      <p className={l.focusWhy}>
-        최근 기출 기록에서 두 단계가 비슷하게 보였어요. <strong>어느 쪽이 먼저인지 한 번 가려 보고 정할게요.</strong>
-      </p>
+      <p className={l.focusWhy}>{why}</p>
       {started ? (
         <div className={l.distBox} data-testid="distinguish-activity">
           <ol className={l.distList}>

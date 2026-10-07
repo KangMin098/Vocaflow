@@ -202,6 +202,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
         // 데이터 없음으로 고정한 역량(A7)은 모델을 만들기 전에 입력에서 뺀다 — 영역 집계 · 근거량 · coverage 에도 남지 않게
         attributePoints: Object.fromEntries(Object.entries(ev?.attributePoints ?? {}).filter(([code]) => !NO_DATA_ATTRIBUTES.includes(code))),
         lineAccuracy: ev?.lineAccuracy ?? {},
+        vOverlap: ev?.vOverlap ?? null,
         trapAvoidance: ev?.trapAvoidance ?? {},
         habitCodes: (snap.habitFlags ?? []).map((h) => h.code),
         habitEvaluable: ev?.habitEvaluable,
