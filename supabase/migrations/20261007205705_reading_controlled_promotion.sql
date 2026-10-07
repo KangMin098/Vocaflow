@@ -1,4 +1,4 @@
--- supabase/migrations/20261007120000_reading_controlled_promotion.sql
+-- supabase/migrations/20261007205705_reading_controlled_promotion.sql
 -- Phase 2: only the service-role promotion RPC may create a one-transaction
 -- permit for one queued reading child. Existing generic routes remain blocked.
 -- Apply to development DB only after explicit user approval and checkpoint.
