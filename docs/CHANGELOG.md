@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 봉인된 교재 benchmark 선정 목록을 해시 순위·표본 제약으로 독립 재계산하고, 제외 사유와 문항 유형 screening 일치를 검증한다. 실제 corpus·Gold-S·DB seed는 0건이다.
+
 - feat(textbook): 실제 파일 benchmark 경로에 v2 선택 규칙·metadata screening·sample manifest hash 결속을 강제하고, 합성 v1 fixture는 분리한다. 실제 봉인·corpus·Gold-S·seed는 여전히 0건이다.
 
 - docs(textbook): 실제 교재 intake의 규칙 봉인과 선정 ID manifest 봉인을 분리하고, 현 엔진이 두 봉인의 결속을 아직 검증하지 않는 한계를 명시한다.

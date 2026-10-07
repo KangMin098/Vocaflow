@@ -11,7 +11,8 @@ import { identifyLocalFile, prepareAdmission } from './local-admission.mjs'
 import { dryRunAdmission, prepareSealedAdmission, verifyAdmission } from './local-admission-ledger.mjs'
 import { sealAdmittedSnapshot, verifyAdmittedSnapshot } from './admitted-snapshot.mjs'
 import { inspectPipeline } from './pipeline-state.mjs'
-import { cohortComposition, cohortCoverage, screeningInventoryHash } from './two-stage-seal.mjs'
+import { cohortComposition, cohortCoverage, screeningInventoryHash, normalizedPassageHash } from './two-stage-seal.mjs'
+import { recomputeSelection } from './selection-audit.mjs'
 
 const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture', measurement_method: 'fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5, valid_min: 0, valid_max: 100, auxiliary_metrics: [], auxiliary_override_rule: 'none', rater_agreement_floor: .8, missing_priority: 'inconclusive' }]))
 const fixtureText = 'Synthetic source file used only by the admission test.\n'
@@ -24,11 +25,11 @@ function twoStageProtocol() {
   result.version = 'fixture-v2'
   result.selection_protocol = { schema: 'frym-selection-protocol/1', status: 'sealed', run_id: 'fixture-run', seed: 'fixture-seed', search_cutoff: '2026-10-06', search_sources: ['https://example.invalid/catalog'], inventory_file_hashes: [fixtureHash], inventory_snapshot_hash: screeningInventoryHash([fixtureHash]), selection_algorithm: 'hash_rank_feasible_v1', genre_quota: { expository: 12, argumentative: 12, narrative: 6 }, length_bins: { short_max: 149, medium_max: 299, minimum_each: 6 }, grade_policy: 'single_grade_only', rights_policy: 'authorized_local_analysis_only', preview_policy: 'sample_only_flagged', duplicate_policy: 'one_per_normalized_passage_hash', codebook_hash: result.codebook_hash, rules_hash: hash({ minimum: result.minimum, item_types: result.item_types, item_type_difficulty: result.item_type_difficulty, fit: result.fit, separation: result.separation }) }
   result.selection_protocol_hash = hash(result.selection_protocol)
-  result.metadata_screening = { schema: 'frym-metadata-screening/1', status: 'frozen', run_id: 'fixture-run', selection_protocol_hash: result.selection_protocol_hash, candidates: [{ candidate_id: 'sample-1', file_hash: fixtureHash, status: 'metadata_eligible', publisher: 'Fixture Press', series: 'Fixture Series', title: 'Fixture Book', grade: 'middle_1', edition: '2026-1', publication_year: 2026, rights_basis: 'authorized_local_analysis', difficulty_step: 'level-1', access_date: '2026-10-06', passage_id: 'P1', page: '12', genre: 'expository', ISBN: 'fixture-isbn', word_count: 11 }] }
+  result.metadata_screening = { schema: 'frym-metadata-screening/1', status: 'frozen', run_id: 'fixture-run', selection_protocol_hash: result.selection_protocol_hash, candidates: [{ candidate_id: 'sample-1', file_hash: fixtureHash, status: 'metadata_eligible', publisher: 'Fixture Press', series: 'Fixture Series', title: 'Fixture Book', grade: 'middle_1', edition: '2026-1', publication_year: 2026, rights_basis: 'authorized_local_analysis', difficulty_step: 'level-1', access_date: '2026-10-06', passage_id: 'P1', page: '12', genre: 'expository', ISBN: 'fixture-isbn', word_count: 11, normalized_passage_hash: normalizedPassageHash('A synthetic passage explains how plants use sunlight to make food.'), item_type_counts: { literal: 1, inference: 1 } }] }
   result.metadata_screening.inventory_snapshot_hash = result.selection_protocol.inventory_snapshot_hash
   result.metadata_screening.held_file_hashes = []
   result.metadata_screening_hash = hash(result.metadata_screening)
-  Object.assign(result.selection_manifest, { run_id: 'fixture-run', selection_protocol_hash: result.selection_protocol_hash, metadata_screening_hash: result.metadata_screening_hash, inventory_snapshot_hash: result.metadata_screening.inventory_snapshot_hash, excluded_candidate_ids: [], cohort_composition: cohortComposition(result.metadata_screening, ['sample-1']) })
+  Object.assign(result.selection_manifest, { run_id: 'fixture-run', selection_protocol_hash: result.selection_protocol_hash, metadata_screening_hash: result.metadata_screening_hash, inventory_snapshot_hash: result.metadata_screening.inventory_snapshot_hash, ...recomputeSelection(result), cohort_composition: cohortComposition(result.metadata_screening, ['sample-1']) })
   result.selection_manifest.coverage_status = cohortCoverage(result.selection_manifest.cohort_composition, result.minimum, result.selection_protocol)
   result.selection_manifest_hash = hash(result.selection_manifest)
   return result
@@ -46,6 +47,7 @@ function rebindProtocol(p) {
   p.selection_manifest.metadata_screening_hash = p.metadata_screening_hash
   p.selection_manifest.inventory_snapshot_hash = p.metadata_screening.inventory_snapshot_hash
   p.selection_manifest.excluded_candidate_ids = p.metadata_screening.candidates.map(row => row.candidate_id).filter(id => !p.selection_manifest.selected_sample_ids.includes(id))
+  p.selection_manifest.excluded_reasons = recomputeSelection(p).excluded_reasons
   p.selection_manifest.cohort_composition = cohortComposition(p.metadata_screening, p.selection_manifest.selected_sample_ids)
   p.selection_manifest.coverage_status = cohortCoverage(p.selection_manifest.cohort_composition, p.minimum, p.selection_protocol)
   p.selection_manifest_hash = hash(p.selection_manifest)
@@ -110,6 +112,22 @@ test('two-stage seal rejects changed rules, inventory, screening, candidate IDs,
   }
 })
 
+test('v2 manifest rejects a rehashed selection that ignores sealed ranking', () => {
+  const changed = twoStageProtocol()
+  changed.selection_manifest.selected_sample_ids = []
+  changed.selection_manifest.excluded_candidate_ids = ['sample-1']
+  changed.selection_manifest.excluded_reasons = { 'sample-1': 'not_selected_by_sealed_ranking' }
+  changed.selection_manifest.cohort_composition = cohortComposition(changed.metadata_screening, [])
+  changed.selection_manifest.coverage_status = 'insufficient_benchmark'
+  changed.selection_manifest_hash = hash(changed.selection_manifest)
+  assert.throws(() => validateProtocol(changed), /SAMPLE_MANIFEST_SELECTION_INVALID/)
+
+  const reasonTamper = twoStageProtocol()
+  reasonTamper.selection_manifest.excluded_reasons = { 'sample-1': 'hold_metadata:invented' }
+  reasonTamper.selection_manifest_hash = hash(reasonTamper.selection_manifest)
+  assert.throws(() => validateProtocol(reasonTamper), /SAMPLE_MANIFEST_SELECTION_INVALID/)
+})
+
 test('v2 file admission rejects metadata that diverges from the frozen screening row', t => {
   const { directory, candidate } = fixture()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
@@ -124,6 +142,9 @@ test('v2 file admission rejects metadata that diverges from the frozen screening
   candidate.extraction.passage_text += ' Additional'
   assert.deepEqual(prepareAdmission([candidate], realProtocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
   candidate.extraction.passage_text = 'A synthetic passage explains how plants use sunlight to make food.'
+  candidate.extraction.questions[0].type = 'inference'
+  assert.deepEqual(prepareAdmission([candidate], realProtocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
+  candidate.extraction.questions[0].type = 'literal'
   const swapped = join(directory, 'swapped.txt')
   writeFileSync(swapped, 'Different source file.\n')
   candidate.source_path = swapped
@@ -263,9 +284,7 @@ test('whitespace-only passage variants cannot count as independent samples', t =
   rebindProtocol(sealed)
   second.extraction.passage_text = second.extraction.passage_text.replace(' how ', '\n  how   ')
   second.analysis.passage_hash = createHash('sha256').update(second.extraction.passage_text).digest('hex')
-  const result = prepareAdmission([candidate, second], sealed)
-  assert.equal(result.samples.length, 0)
-  assert.ok(result.audit.results.every(row => row.reasons.includes('DUPLICATE_SAMPLE_OR_PASSAGE')))
+  assert.throws(() => prepareAdmission([candidate, second], sealed), /METADATA_DUPLICATE_PASSAGE/)
 })
 
 test('image source requires explicit OCR and verification regardless of tool name', t => {

@@ -1,5 +1,6 @@
 // scripts/textbook/frym-benchmark/two-stage-seal.mjs
 import { GRADES, hash } from './benchmark.mjs'
+import { recomputeSelection } from './selection-audit.mjs'
 
 const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
 const fail = code => { throw Error(code) }
@@ -17,6 +18,7 @@ const forbiddenAnalysis = value => {
 }
 const counts = values => Object.fromEntries([...new Set(values)].sort().map(value => [value, values.filter(item => item === value).length]))
 export const screeningInventoryHash = fileHashes => hash([...fileHashes].sort())
+export const normalizedPassageHash = passage => hash(passage.trim().replace(/\s+/g, ' ').normalize('NFC'))
 
 export function cohortComposition(screening, selectedIds) {
   const candidates = new Map(screening.candidates.map(row => [row.candidate_id, row]))
@@ -81,7 +83,7 @@ export function validateTwoStageSeal(protocol) {
   const candidates = new Map()
   for (const row of screening.candidates) {
     if (!hex(row.file_hash) || !['metadata_eligible', 'hold_metadata', 'reject_metadata'].includes(row.status) ||
-        (row.status !== 'metadata_eligible' && (!Array.isArray(row.reasons) || !row.reasons.length)) ||
+        (row.status !== 'metadata_eligible' && (!Array.isArray(row.reasons) || !row.reasons.length || row.reasons.some(reason => typeof reason !== 'string' || !reason))) ||
         (row.status === 'metadata_eligible' && (typeof row.publisher !== 'string' || !row.publisher ||
           typeof row.series !== 'string' || !row.series || !GRADES.includes(row.grade) ||
           typeof row.title !== 'string' || !row.title || typeof row.passage_id !== 'string' || !row.passage_id ||
@@ -93,9 +95,15 @@ export function validateTwoStageSeal(protocol) {
           row.rights_basis !== 'authorized_local_analysis' ||
           typeof row.difficulty_step !== 'string' || !row.difficulty_step || !validDate(row.access_date) || row.access_date > rules.search_cutoff ||
           !['expository', 'argumentative', 'narrative'].includes(row.genre) ||
-          !Number.isInteger(row.word_count) || row.word_count < 1))) fail('METADATA_CANDIDATE_INVALID')
+          !Number.isInteger(row.word_count) || row.word_count < 1 ||
+          !hex(row.normalized_passage_hash) ||
+          !row.item_type_counts || Array.isArray(row.item_type_counts) ||
+          Object.keys(row.item_type_counts).some(type => !protocol.item_types.includes(type) || !Number.isInteger(row.item_type_counts[type]) || row.item_type_counts[type] < 1) ||
+          !Object.keys(row.item_type_counts).length))) fail('METADATA_CANDIDATE_INVALID')
     candidates.set(row.candidate_id, row)
   }
+  const passageKeys = screening.candidates.filter(row => row.status === 'metadata_eligible').map(row => row.normalized_passage_hash)
+  if (new Set(passageKeys).size !== passageKeys.length) fail('METADATA_DUPLICATE_PASSAGE')
 
   const manifest = protocol.selection_manifest
   if (manifest?.run_id !== rules.run_id || forbiddenAnalysis(manifest) || manifest.selection_protocol_hash !== protocol.selection_protocol_hash ||
@@ -109,5 +117,9 @@ export function validateTwoStageSeal(protocol) {
   const composition = cohortComposition(screening, manifest.selected_sample_ids)
   if (hash(composition) !== hash(manifest.cohort_composition)) fail('SAMPLE_MANIFEST_COMPOSITION_INVALID')
   if (manifest.coverage_status !== cohortCoverage(composition, protocol.minimum, rules)) fail('SAMPLE_MANIFEST_COVERAGE_INVALID')
+  const recomputed = recomputeSelection(protocol)
+  if (hash(manifest.selected_sample_ids) !== hash(recomputed.selected_sample_ids) ||
+      hash(manifest.excluded_candidate_ids) !== hash(recomputed.excluded_candidate_ids) ||
+      hash(manifest.excluded_reasons) !== hash(recomputed.excluded_reasons)) fail('SAMPLE_MANIFEST_SELECTION_INVALID')
   return { selection_protocol_hash: protocol.selection_protocol_hash, metadata_screening_hash: protocol.metadata_screening_hash, sample_manifest_hash: protocol.selection_manifest_hash }
 }

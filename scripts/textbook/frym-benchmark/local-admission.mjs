@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import { openSync, readSync, closeSync, realpathSync, statSync } from 'node:fs'
 import { extname, normalize } from 'node:path'
 import { AXES, sampleAnalysisHash, screenSample, validateProtocol, hash } from './benchmark.mjs'
+import { normalizedPassageHash } from './two-stage-seal.mjs'
 
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 const present = value => typeof value === 'string' && value.trim().length > 0
@@ -88,6 +89,11 @@ export function admitCandidate(candidate, protocol) {
   if (!present(extraction?.passage_text) || !present(extraction?.page_range) || !present(extraction?.passage_id) || extraction.source_file_hash !== file.file_hash || extraction.passage_id !== meta.passage_id || extraction.page_range !== meta.page || extraction.boundary_confirmed !== true || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(extraction.method ?? '') || typeof extraction.ocr_used !== 'boolean' || (imageSource || !DIGITAL_TEXT_METHODS.has(extraction.method)) && !extraction.ocr_used || extraction.ocr_used && extraction.ocr_verified !== true) return { audit: audit(candidate, file, 'admission-hold', ['NEEDS_MANUAL_ADMISSION'], stages) }
   const screenedWordCount = protocol.metadata_screening.candidates.find(row => row.candidate_id === meta.sample_id).word_count
   if (extraction.passage_text.trim().split(/\s+/).length !== screenedWordCount) return { audit: audit(candidate, file, 'admission-reject', ['METADATA_SCREENING_MISMATCH'], stages) }
+  if (protocol.schema === 'frym-benchmark/2' && normalizedPassageHash(extraction.passage_text) !== protocol.metadata_screening.candidates.find(row => row.candidate_id === meta.sample_id).normalized_passage_hash) return { audit: audit(candidate, file, 'admission-reject', ['METADATA_SCREENING_MISMATCH'], stages) }
+  const screenedItemTypes = protocol.metadata_screening.candidates.find(row => row.candidate_id === meta.sample_id).item_type_counts
+  if (!Array.isArray(extraction.questions) || extraction.questions.some(question => !question || typeof question.type !== 'string')) return { audit: audit(candidate, file, 'admission-hold', ['QUESTION_EXTRACTION_INCOMPLETE'], stages) }
+  const extractedItemTypes = Object.fromEntries([...new Set(extraction.questions.map(question => question.type))].sort().map(type => [type, extraction.questions.filter(question => question.type === type).length]))
+  if (protocol.schema === 'frym-benchmark/2' && hash(screenedItemTypes) !== hash(extractedItemTypes)) return { audit: audit(candidate, file, 'admission-reject', ['METADATA_SCREENING_MISMATCH'], stages) }
   stages.push('passage-extracted')
   if (!Array.isArray(extraction.questions) || !extraction.questions.length || extraction.questions.some(q => !q || typeof q !== 'object' || Array.isArray(q) || !present(q.id) || !present(q.stem) || !present(q.type) || !present(q.answer)) || new Set(extraction.questions.map(q => q.id)).size !== extraction.questions.length || extraction.question_boundary_confirmed !== true) return { audit: audit(candidate, file, 'admission-hold', ['QUESTION_EXTRACTION_INCOMPLETE'], stages) }
   stages.push('question-extracted')
