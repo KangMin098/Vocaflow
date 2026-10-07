@@ -21,7 +21,7 @@ const ax = (code: CoreAxisView['code'], observed: number | null, minLineN: numbe
 
 describe('rankingOf — 세 조건', () => {
   it('충분한 근거 + 명확한 1위 → clear', () => {
-    expect(rankingOf([ax('R', 0.45), ax('E', 0.6), ax('V', 0.8)], 0.6)).toEqual({ kind: 'clear', top: 'R', rival: null, reasons: [] })
+    expect(rankingOf([ax('R', 0.45), ax('E', 0.6), ax('V', 0.8)], 0.6)).toEqual({ kind: 'clear', top: 'R', rival: null, reasons: [], confidence: 'stable', unobserved: [] })
   })
   it('사실상 동률(margin < 0.05) → unstable · near_tie · 경쟁 축 = 2위', () => {
     expect(rankingOf([ax('V', 0.37), ax('S', 0.385), ax('R', 0.65)], 0.6)).toMatchObject({ kind: 'unstable', top: 'V', rival: 'S', reasons: ['near_tie'] })
@@ -39,7 +39,13 @@ describe('rankingOf — 세 조건', () => {
   })
   it('근거 부족 축(관찰값 없음)은 순위 · 경쟁 축에 들어오지 않는다 — 「문제 없음」으로 읽지 않는다', () => {
     const r = rankingOf([ax('V', 0.3), ax('S', null), ax('R', 0.9)], 0.6)
-    expect(r).toEqual({ kind: 'clear', top: 'V', rival: null, reasons: [] })
+    expect(r).toEqual({ kind: 'clear', top: 'V', rival: null, reasons: [], confidence: 'provisional', unobserved: ['S'] })
+  })
+  it('단독 우선 후보 — 비교할 축이 근거 부족이면 clear 여도 확신은 provisional(근거가 강해서 1위가 아니다) · 듣기(L)는 세지 않는다', () => {
+    expect(rankingOf([ax('V', 0.3), ax('R', 0.9), ax('L', null)], 0.6).confidence).toBe('stable')
+    expect(rankingOf([ax('V', 0.3), ax('S', null), ax('R', 0.9)], 0.6).confidence).toBe('provisional')
+    expect(rankingOf([ax('V', 0.3)], 0.6).confidence).toBe('provisional') // 비교할 축 자체가 없다
+    expect(rankingOf([ax('V', 0.37), ax('S', 0.385)], 0.6).confidence).toBeNull() // unstable
   })
   it('후보 없음 → none', () => {
     expect(rankingOf([ax('V', 0.7), ax('S', 0.9)], 0.6).kind).toBe('none')
@@ -54,6 +60,10 @@ describe('학습자 길 — 불안정하면 구분 확인 하나', () => {
     expect(p.focus).toMatchObject({ kind: 'distinguish', step: 'vocab', rival: 'sentence', title: '어휘·표현 때문인지 문장 이해 때문인지 먼저 확인해 볼게요' })
     expect(p.read.filter((s) => s.evidence === 'focus').map((s) => s.key)).toEqual(['vocab', 'sentence'])
     expect(p.journey).toBe('diagnostic_need')
+  })
+  it('단독 우선 후보 — 행동은 그 단계 하나, 비교 못 한 단계를 함께 알린다', () => {
+    const p = learnerPath({ nodes: { A1: v(0.3), A3: v(0.9), A6: v(0.9), A4: v(0.85), A5: v(0.85), A9: v(0.9) }, currentScore: 70 }, SETTINGS)
+    expect(p.focus).toMatchObject({ kind: 'step', step: 'vocab', provisional: { unobserved: ['sentence'] } })
   })
   it('명확하면 지금처럼 단계 하나', () => {
     const p = learnerPath({ nodes: { A1: v(0.9), A2: v(0.9), A8: v(0.9), A3: v(0.4), A6: v(0.4), A4: v(0.75), A5: v(0.75), A9: v(0.9) }, currentScore: 70 }, SETTINGS)
@@ -90,6 +100,19 @@ describe('M2409 파일럿 회귀', () => {
   })
   it('P2(흐름 · 선지) — 문장 관계 1위 확정(차 0.14)', () => {
     expect(gateOf(ITEMS, new Set([20, 23, 32, 33, 35, 36, 37, 38, 39, 43, 44]))).toMatchObject({ kind: 'clear', top: 'R' })
+  })
+})
+
+describe('M2409 최종 태그(Claude Code · Codex 이중 검수 · 둘 다 붙인 태그만)', () => {
+  const fin = pilot('M2409-review-final.json') as { items: { no: number; w: Weights }[] }
+  const F: TaggedItem[] = meta.items.map((m) => ({ no: m.no, points: m.points, weights: fin.items.find((r) => r.no === m.no)!.w }))
+  it('A2 연결 1문항 · A6 0문항 → 이 시험만으로는 문장 이해(S) 축을 관찰하지 않는다', () => {
+    expect(F.filter((i) => i.weights.A2 > 0).length).toBe(1)
+    expect(F.filter((i) => i.weights.A6 > 0).length).toBe(0)
+  })
+  it('P1 — 어휘·표현 단독 우선 후보(provisional · 문장 이해 미관찰) / P2 — 문장 관계', () => {
+    expect(gateOf(F, new Set([19, 24, 29, 30, 31, 34, 40, 42]))).toMatchObject({ kind: 'clear', top: 'V', confidence: 'provisional', unobserved: ['S'] })
+    expect(gateOf(F, new Set([20, 23, 32, 33, 35, 36, 37, 38, 39, 43, 44]))).toMatchObject({ top: 'R' })
   })
 })
 

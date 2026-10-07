@@ -170,6 +170,15 @@ export interface Ranking {
   rival: CoreCode | null
   /** unstable 인 이유(여럿일 수 있다) */
   reasons: ('near_tie' | 'near_line' | 'thin_evidence')[]
+  /**
+   * clear 일 때 판정 확신(2026-10-08 사용자 결정 — 행동 선택과 판정 확신을 분리):
+   * stable = 관찰된 축들과 비교해 1위 · provisional = 1위지만 비교할 수 없는 축(관찰값 없음)이 있다 —
+   * 「현재 근거상 단독 우선 후보」(single_eligible_candidate). 경쟁 축이 근거 부족으로 빠져서 1위가 된 것이지 근거가 강해서가 아니다.
+   * unstable · none 이면 null.
+   */
+  confidence: 'stable' | 'provisional' | null
+  /** 관찰값이 없어 비교에서 빠진 축(듣기 L 제외) */
+  unobserved: CoreCode[]
 }
 
 export interface CoreSummary {
@@ -244,16 +253,19 @@ export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSe
 /** 1위 안정 판정 — 관찰값이 있는 축만 본다(듣기 · 근거 부족 축 제외). 순수 함수 */
 export function rankingOf(axes: readonly Pick<CoreAxisView, 'code' | 'status' | 'observed' | 'minLineN'>[], weak: number): Ranking {
   const seen = axes.filter((a) => a.observed !== null).sort((a, b) => (a.observed as number) - (b.observed as number))
+  const unobserved = axes.filter((a) => a.observed === null && a.code !== 'L').map((a) => a.code)
   const top = seen[0]
-  if (!top || top.status !== 'obs_low') return { kind: 'none', top: null, rival: null, reasons: [] }
+  if (!top || top.status !== 'obs_low') return { kind: 'none', top: null, rival: null, reasons: [], confidence: null, unobserved }
   const second = seen[1] ?? null
   const reasons: Ranking['reasons'] = []
   if (second && (second.observed as number) - (top.observed as number) < RANKING_GATE.margin) reasons.push('near_tie')
   if (weak - (top.observed as number) < RANKING_GATE.headroom) reasons.push('near_line')
   if ((top.minLineN ?? 0) < RANKING_GATE.minLineN) reasons.push('thin_evidence')
   // 경쟁 축이 없으면(관찰된 축이 하나뿐) 가를 상대가 없다 — 1위를 그대로 보이되 이유는 남긴다
-  if (reasons.length === 0 || !second) return { kind: 'clear', top: top.code, rival: null, reasons }
-  return { kind: 'unstable', top: top.code, rival: second.code, reasons }
+  if (reasons.length === 0 || !second) {
+    return { kind: 'clear', top: top.code, rival: null, reasons, confidence: unobserved.length > 0 || !second || reasons.length > 0 ? 'provisional' : 'stable', unobserved }
+  }
+  return { kind: 'unstable', top: top.code, rival: second.code, reasons, confidence: null, unobserved }
 }
 
 /** 금지 어휘 — rule_proxy 화면 라벨 · 문구 회귀 검사용(판정 · 숙달 · 수치 능력 · 병목) */

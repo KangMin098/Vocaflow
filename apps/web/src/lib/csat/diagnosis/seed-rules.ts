@@ -200,8 +200,10 @@ export interface Ranking {
 /**
  * weighted = 비교 실험용(제품 경로 아님): 역량값 = Σ(가중치 × 배점 × 정답) / Σ(가중치 × 배점), 축 가중도 Σ(가중치 × 배점).
  * 기본(binary)은 지금 엔진과 같다.
+ * shrink = 비교 실험용(제품 경로 아님): 역량값을 학습자 전체 정답률(배점 가중) 쪽으로 shrink 배점만큼 당긴다 —
+ *   (Σ배점×정답 + shrink × 전체정답률) / (Σ배점 + shrink). 문항이 적은 역량의 우연한 극단값을 덜 믿는다(벌점이 아니다).
  */
-export function rank(items: TaggedItem[], wrong: ReadonlySet<number>, weak = 0.6, minObs = 5, weighted = false): Ranking {
+export function rank(items: TaggedItem[], wrong: ReadonlySet<number>, weak = 0.6, minObs = 5, weighted = false, shrink = 0): Ranking {
   const num: Record<string, number> = {}
   const den: Record<string, number> = {}
   const n: Record<string, number> = {}
@@ -218,7 +220,9 @@ export function rank(items: TaggedItem[], wrong: ReadonlySet<number>, weak = 0.6
     }
   }
   const attr: Ranking['attr'] = {}
-  for (const c of ATTRIBUTE_CODES) if ((n[c] ?? 0) >= minObs && den[c] > 0) attr[c] = num[c] / den[c]
+  const totPts = items.reduce((t, it) => t + it.points, 0)
+  const overall = totPts ? items.reduce((t, it) => t + it.points * (wrong.has(it.no) ? 0 : 1), 0) / totPts : 0
+  for (const c of ATTRIBUTE_CODES) if ((n[c] ?? 0) >= minObs && den[c] > 0) attr[c] = (num[c] + shrink * overall) / (den[c] + shrink)
   const axes: Ranking['axes'] = []
   for (const [axis, lines] of Object.entries(AXIS_LINES)) {
     let wsum = 0, esum = 0, cnt = 0

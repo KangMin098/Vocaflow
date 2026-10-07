@@ -93,7 +93,7 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
         <section className={l.focus} aria-labelledby="focus-h" data-testid="focus-card" data-focus={focus.kind}>
           <h2 id="focus-h" className={l.focusEyebrow}>지금 먼저 확인할 것</h2>
           {focus.kind === 'step' ? (
-            <FocusStep s={viewOf(focus.step)} onStart={() => setOpen({ key: focus.step, startAt: 'check' })} />
+            <FocusStep s={viewOf(focus.step)} unobserved={focus.provisional?.unobserved.map((k) => stepByKey(k).name) ?? null} onStart={() => setOpen({ key: focus.step, startAt: 'check' })} />
           ) : focus.kind === 'distinguish' ? (
             <FocusDistinguish title={focus.title} activity={focus.activity} />
           ) : focus.kind === 'record' ? (
@@ -194,7 +194,7 @@ function StepNode({ s, i, last, onOpen }: { s: StepView; i: number; last: boolea
   )
 }
 
-function FocusStep({ s, onStart }: { s: StepView; onStart: () => void }) {
+function FocusStep({ s, unobserved, onStart }: { s: StepView; unobserved: string[] | null; onStart: () => void }) {
   const Icon = STEP_ICON[s.key]
   return (
     <>
@@ -204,9 +204,16 @@ function FocusStep({ s, onStart }: { s: StepView; onStart: () => void }) {
         </span>
         {s.name}
       </p>
-      <p className={l.focusWhy}>
-        최근 기출 기록에서 {s.name} 단계를 확인할 필요가 보였어요. <strong>아직 약점으로 확정된 것은 아니에요.</strong>
-      </p>
+      {unobserved ? (
+        // 현재 근거상 단독 우선 후보 — 비교할 단계가 근거 부족으로 빠져 1위가 된 경우(확신을 낮춘 문구 · 행동은 같다)
+        <p className={l.focusWhy} data-testid="focus-provisional">
+          현재 기록에서는 {josa(s.name, '을', '를')} 먼저 확인해 볼게요. {josa(unobserved.join(' · '), '은', '는')} 아직 판단할 기록이 부족해요. <strong>약점으로 확정된 것은 아니에요.</strong>
+        </p>
+      ) : (
+        <p className={l.focusWhy}>
+          최근 기출 기록에서 {s.name} 단계를 확인할 필요가 보였어요. <strong>아직 약점으로 확정된 것은 아니에요.</strong>
+        </p>
+      )}
       <button type="button" className={l.cta} onClick={onStart} data-testid="focus-cta">
         <PlayCircle size={16} strokeWidth={1.9} aria-hidden="true" />
         확인 시작
@@ -247,4 +254,11 @@ function FocusDistinguish({ title, activity }: { title: string; activity: Distin
       )}
     </>
   )
+}
+
+/** 받침에 맞는 조사(한글이 아니면 뒤 것) */
+function josa(word: string, withFinal: string, without: string) {
+  const c = word.charCodeAt(word.length - 1)
+  const has = c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 !== 0
+  return word + (has ? withFinal : without)
 }

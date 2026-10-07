@@ -94,7 +94,8 @@ export interface StepView extends PathStep {
 
 /** 지금 먼저 확인할 것 — 하나만(+ 다음 후보 하나). 원인 확정이 아니다 */
 export type Focus =
-  | { kind: 'step'; step: StepKey; next: StepKey | null }
+  /** provisional = 현재 근거상 단독 우선 후보 — 비교할 수 없는 단계(unobserved)가 있다. 행동은 같고 문구만 확신을 낮춘다 */
+  | { kind: 'step'; step: StepKey; next: StepKey | null; provisional?: { unobserved: StepKey[] } }
   /** 1위를 믿을 수 없다(core RANKING_GATE) — 두 단계를 가르는 확인 하나. 약점을 정하지 않는다 */
   | { kind: 'distinguish'; step: StepKey; rival: StepKey; activity: DistinguishActivity; title: string }
   | { kind: 'record' }            // 기록이 없다 — 시험 기록부터
@@ -139,7 +140,12 @@ export function learnerPath(model: Pick<MapModel, 'nodes' | 'currentScore'>, set
   const r = summary.ranking
   const pair = r.kind === 'unstable' && r.top && r.rival ? { a: firstStepOf(r.top), b: firstStepOf(r.rival), act: distinguishActivity(r.top, r.rival) } : null
   if (pair && pair.a && pair.b && pair.act) focus = { kind: 'distinguish', step: pair.a, rival: pair.b, activity: pair.act, title: distinguishTitle(r.top as CoreCode, r.rival as CoreCode) }
-  else if (cand.length > 0) focus = { kind: 'step', step: cand[0], next: cand[1] ?? null }
+  else if (cand.length > 0) {
+    const unobserved = r.unobserved.map(firstStepOf).filter((k): k is StepKey => k !== null)
+    focus = r.confidence === 'provisional'
+      ? { kind: 'step', step: cand[0], next: cand[1] ?? null, provisional: { unobserved } }
+      : { kind: 'step', step: cand[0], next: cand[1] ?? null }
+  }
   else if (!hasRecords) focus = { kind: 'record' }
   else if (!analyzable) focus = { kind: 'pending' }
   else {
