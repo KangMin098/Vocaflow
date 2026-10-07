@@ -15,6 +15,8 @@ import { assessGoldSContract, inspectGoldSCertificate, issueGoldSCertificate } f
 import { previewSeedEligibility, issueSeedEligibility, inspectSeedEligibility } from './seed-preview.mjs'
 import { sourceRightsHash, validateGoldSImport } from './gold-s-import-gate.mjs'
 import { generateKeyPairSync, sign } from 'node:crypto'
+import { cohortComposition, cohortCoverage, normalizedPassageHash, screeningInventoryHash } from './two-stage-seal.mjs'
+import { recomputeSelection } from './selection-audit.mjs'
 
 const current = { schema: 'frym-benchmark-pipeline-state/1', state: 'gold_s_candidate', benchmark_version: 'fixture-v1', admission_receipt_hash: hash('receipt'), benchmark_snapshot_hash: hash('snapshot') }
 const decisionBody = { gold_s_candidate: true, gold_s: false, db_seed: false, benchmark_version: current.benchmark_version, admission_receipt_hash: current.admission_receipt_hash, benchmark_snapshot_hash: current.benchmark_snapshot_hash }
@@ -69,6 +71,41 @@ test('an inspected full synthetic benchmark opens review but resists serializati
     const passage = [`id-${id}`, ...Array(words - 1).fill('word')].join(' ')
     return { source_path: source, expected_file_hash: fileHash, metadata: { sample_id: id, publisher: `publisher-${Math.floor(index / 10)}`, series: `series-${Math.floor(index / 5)}`, title: `title-${id}`, grade, edition: 'fixture-1', publication_year: 2026, difficulty_step: 'fixture-level', ISBN: `fixture-isbn-${id}`, passage_id: `passage-${id}`, page: '1', genre, rights_basis: 'authorized_local_analysis', access_date: '2026-10-06' }, extraction: { method: 'fixture', ocr_used: false, source_file_hash: fileHash, page_range: '1', passage_id: `passage-${id}`, boundary_confirmed: true, question_boundary_confirmed: true, passage_text: passage, questions }, analysis: { codebook_hash: protocol.codebook_hash, analyzer_version: 'fixture-1', evidence_locator: `fixture:${id}`, passage_hash: createHash('sha256').update(passage).digest('hex'), item_set_hash: hash(questions.map(({ answer, ...item }) => item)), scoring_key_hash: hash(questions.map(({ id: questionId, answer }) => ({ id: questionId, answer }))), metrics: Object.fromEntries(AXES.map(axis => [axis, base])), axis_agreement: Object.fromEntries(AXES.map(axis => [axis, 1])), item_type_difficulty: { literal: base, inference: base } } }
   }))
+  protocol.schema = 'frym-benchmark/2'
+  protocol.version = 'promotion-fixture-v2'
+  protocol.selection_protocol = {
+    schema: 'frym-selection-protocol/1', status: 'sealed', run_id: 'promotion-fixture-run',
+    seed: 'promotion-fixture-seed', search_cutoff: '2026-10-06', search_sources: ['https://example.invalid/catalog'],
+    inventory_file_hashes: [fileHash], inventory_snapshot_hash: screeningInventoryHash([fileHash]),
+    selection_algorithm: 'hash_rank_feasible_v1', genre_quota: { expository: 12, argumentative: 12, narrative: 6 },
+    length_bins: { short_max: 149, medium_max: 299, minimum_each: 6 }, grade_policy: 'single_grade_only',
+    rights_policy: 'authorized_local_analysis_only', preview_policy: 'sample_only_flagged',
+    duplicate_policy: 'one_per_normalized_passage_hash', codebook_hash: protocol.codebook_hash,
+    rules_hash: hash({ minimum: protocol.minimum, item_types: protocol.item_types, item_type_difficulty: protocol.item_type_difficulty, fit: protocol.fit, separation: protocol.separation }),
+  }
+  protocol.selection_protocol_hash = hash(protocol.selection_protocol)
+  protocol.metadata_screening = {
+    schema: 'frym-metadata-screening/1', status: 'frozen', run_id: protocol.selection_protocol.run_id,
+    selection_protocol_hash: protocol.selection_protocol_hash, inventory_snapshot_hash: protocol.selection_protocol.inventory_snapshot_hash,
+    held_file_hashes: [],
+    candidates: candidates.map(candidate => ({
+      candidate_id: candidate.metadata.sample_id, file_hash: fileHash, status: 'metadata_eligible',
+      ...candidate.metadata, word_count: candidate.extraction.passage_text.split(' ').length,
+      normalized_passage_hash: normalizedPassageHash(candidate.extraction.passage_text),
+      item_type_counts: { literal: 1, inference: 1 },
+    })),
+  }
+  protocol.metadata_screening_hash = hash(protocol.metadata_screening)
+  Object.assign(selection, {
+    run_id: protocol.selection_protocol.run_id, selection_protocol_hash: protocol.selection_protocol_hash,
+    metadata_screening_hash: protocol.metadata_screening_hash,
+    inventory_snapshot_hash: protocol.selection_protocol.inventory_snapshot_hash,
+    ...recomputeSelection(protocol),
+  })
+  assert.deepEqual([...selection.selected_sample_ids].sort(), [...ids].sort())
+  selection.cohort_composition = cohortComposition(protocol.metadata_screening, selection.selected_sample_ids)
+  selection.coverage_status = cohortCoverage(selection.cohort_composition, protocol.minimum, protocol.selection_protocol)
+  protocol.selection_manifest_hash = hash(selection)
   const admission = prepareSealedAdmission(protocol, candidates)
   assert.equal(admission.samples.length, 240)
   const envelope = sealAdmittedSnapshot(protocol, admission.samples, admission.receipt.receipt_hash)

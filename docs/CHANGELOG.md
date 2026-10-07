@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- test(textbook): promotion preview의 파일 기반 합성 fixture를 v2 선정·screening·manifest 봉인 계약으로 갱신해 benchmark 스크립트 전체 검사를 복구한다.
+
 - feat(textbook): 봉인된 교재 benchmark 선정 목록을 해시 순위·표본 제약으로 독립 재계산하고, 제외 사유와 문항 유형 screening 일치를 검증한다. 실제 corpus·Gold-S·DB seed는 0건이다.
 
 - feat(textbook): 실제 파일 benchmark 경로에 v2 선택 규칙·metadata screening·sample manifest hash 결속을 강제하고, 합성 v1 fixture는 분리한다. 실제 봉인·corpus·Gold-S·seed는 여전히 0건이다.
