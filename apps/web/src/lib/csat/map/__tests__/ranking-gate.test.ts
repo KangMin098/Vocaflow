@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest'
 
 import { applyPerturbation, lcg, rank, singlePerturbations, type TaggedItem, type Weights } from '../../diagnosis/seed-rules'
 import { ATTRIBUTE_CODES, type AttributeCode } from '../../diagnosis/engine/types'
-import { RANKING_GATE, rankingOf, type CoreAxisView } from '../core'
+import { RANKING_GATE, RANKING_SHRINK, coreSummary, rankingOf, type CoreAxisView } from '../core'
 import { DISTINGUISH, distinguishActivity } from '../distinguish'
 import { learnerPath } from '../learner-path'
 import type { NodeValue } from '../model'
@@ -143,5 +143,49 @@ describe('합성 학습자 300명 — 확정한 1위는 태그 하나에 잘 뒤
     expect(withCand.length).toBe(137)
     expect(Math.round(before * 100)).toBe(60)
     expect(after).toBeLessThanOrEqual(before / 2)
+  })
+})
+
+describe('축소 추정 RANKING_SHRINK(ranking calibration v1 · k=8) — 순위에만', () => {
+  const nv = (achieved: number | null, n: number, den: number | null, points = 10): NodeValue => ({ target: 1, achieved, status: 'short', coverage: null, n, den, points } as unknown as NodeValue)
+  it('k=8 · 버전 표기(교육 기준이 아닌 내부 안정성 파라미터)', () => {
+    expect(RANKING_SHRINK).toEqual({ k: 8, version: 'ranking-calibration-v1' })
+  })
+  it('관찰값(observed)은 그대로 · 순위 추정만 학습자 전체 값 쪽으로 당겨진다', () => {
+    const s = coreSummary({ nodes: { A1: nv(0.3, 10, 20), A3: nv(0.8, 20, 40), A4: nv(0.8, 15, 30), A5: nv(0.8, 8, 15), A9: nv(0.8, 8, 15) } }, SETTINGS)
+    const V = s.axes.find((a) => a.code === 'V')!
+    expect(V.observed).toBeCloseTo(0.3, 6)
+    // 전체 값 = (0.3·20 + 0.8·(40+30+15+15)) / 120 = 0.7167 → V 추정 = (0.3·20 + 8·0.7167) / 28
+    expect(V.rankingEstimate).toBeCloseTo((0.3 * 20 + 8 * (86 / 120)) / 28, 6)
+  })
+  it('관측(분모)이 적은 축일수록 더 당겨진다 — 벌점이 아니라 극단값 신뢰 조정', () => {
+    const s = coreSummary({ nodes: { A1: nv(0.3, 6, 10), A3: nv(0.3, 30, 60), A4: nv(0.9, 15, 30), A5: nv(0.9, 8, 15), A9: nv(0.9, 8, 15) } }, SETTINGS)
+    const V = s.axes.find((a) => a.code === 'V')!
+    const R = s.axes.find((a) => a.code === 'R')!
+    expect((V.rankingEstimate as number) - 0.3).toBeGreaterThan((R.rankingEstimate as number) - 0.3)
+    expect(s.candidates[0]).toBe('R') // 같은 관찰값 0.3 이면 관측이 많은 쪽을 먼저
+  })
+  it('분모가 없는 옛 스냅샷 라인은 관찰값 그대로(추정 = 관찰)', () => {
+    const s = coreSummary({ nodes: { A1: nv(0.3, 10, null), A3: nv(0.8, 20, null) } }, SETTINGS)
+    for (const a of s.axes.filter((x) => x.observed !== null)) expect(a.rankingEstimate).toBeCloseTo(a.observed as number, 9)
+  })
+  it('기존 게이트는 그대로 — 관측 적음(thin_evidence) · 근거 부족 축 · provisional', () => {
+    const thin = coreSummary({ nodes: { A1: nv(0.2, 5, 10), A3: nv(0.9, 20, 40), A4: nv(0.9, 15, 30) } }, SETTINGS)
+    expect(thin.ranking).toMatchObject({ kind: 'unstable', top: 'V', reasons: expect.arrayContaining(['thin_evidence']) })
+    const prov = coreSummary({ nodes: { A1: nv(0.2, 10, 20), A3: nv(0.9, 20, 40), A4: nv(0.9, 15, 30), A5: nv(0.9, 8, 15), A9: nv(0.9, 8, 15) } }, SETTINGS)
+    expect(prov.ranking).toMatchObject({ kind: 'clear', top: 'V', confidence: 'provisional', unobserved: ['S'] })
+  })
+})
+
+describe('M2409 최종 태그 + k=8 회귀(오프라인 근사 · 제품 정의와 같다)', () => {
+  const fin = pilot('M2409-review-final.json') as { items: { no: number; w: Weights }[] }
+  const F: TaggedItem[] = meta.items.map((m) => ({ no: m.no, points: m.points, weights: fin.items.find((r) => r.no === m.no)!.w }))
+  it('P1 어휘·표현 · P2 문장 관계 — 둘 다 1위 유지(축소 후에도) · 2위와 차 0.17 이상', () => {
+    const p1 = rank(F, new Set([19, 24, 29, 30, 31, 34, 40, 42]), 0.6, 5, false, RANKING_SHRINK.k)
+    const p2 = rank(F, new Set([20, 23, 32, 33, 35, 36, 37, 38, 39, 43, 44]), 0.6, 5, false, RANKING_SHRINK.k)
+    expect(p1.candidates[0]).toBe('V')
+    expect(p2.candidates[0]).toBe('R')
+    expect(p1.gap as number).toBeGreaterThan(0.17)
+    expect(p2.gap as number).toBeGreaterThan(0.17)
   })
 })

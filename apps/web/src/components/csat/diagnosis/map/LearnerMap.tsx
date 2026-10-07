@@ -180,7 +180,8 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
 function StepNode({ s, i, last, onOpen }: { s: StepView; i: number; last: boolean; onOpen: () => void }) {
   const Icon = STEP_ICON[s.key]
   return (
-    <li className={l.step} data-e={s.evidence}>
+    // data-observed · data-estimate — 관리자 · 디버그 추적용(관찰값 vs 순위 추정 RANKING_SHRINK). 화면에는 내지 않는다
+    <li className={l.step} data-e={s.evidence} data-observed={s.axisView.observed?.toFixed(3)} data-estimate={s.axisView.rankingEstimate?.toFixed(3)}>
       <button type="button" className={l.stepBtn} data-step={s.key} onClick={onOpen} aria-label={`${i + 1}단계 ${s.name} — ${EVIDENCE_LABEL[s.evidence]}`}>
         <span className={l.stepNum} aria-hidden="true">{i + 1}</span>
         <span className={l.stepIcon} aria-hidden="true">

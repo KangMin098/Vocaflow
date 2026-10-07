@@ -138,6 +138,8 @@ try {
     const card = await page.locator('[data-testid="focus-card"]').innerText()
     const focusStep = (await page.locator('[data-testid="read-path"] li[data-e="focus"] [data-step]').evaluateAll((els) => els.map((e) => e.getAttribute('data-step')))).join('+') || null
     const badges = await page.locator('[data-testid="read-path"] [data-step]').allInnerTexts()
+    // 관찰값 · 순위 추정(RANKING_SHRINK) — 단계 노드의 디버그 속성
+    const trace = await page.locator('[data-testid="read-path"] li[data-e]').evaluateAll((els) => els.map((e) => ({ step: e.querySelector('[data-step]')?.getAttribute('data-step'), e: e.getAttribute('data-e'), observed: e.getAttribute('data-observed'), estimate: e.getAttribute('data-estimate') })))
     await page.screenshot({ path: path.join(OUT, `${p.tag}-map.png`), fullPage: true })
     let findShown: string[] = []
     if (focusKind === 'step') {
@@ -153,7 +155,7 @@ try {
       findShown = await page.locator('[data-testid="distinguish-activity"] li').allInnerTexts()
       await page.screenshot({ path: path.join(OUT, `${p.tag}-distinguish.png`) })
     }
-    rec(`${p.tag} · 학습 지도 「먼저 확인」 결과`, true, { focusKind, focusStep, card: card.replace(/\s+/g, ' ').slice(0, 120), findShown })
+    rec(`${p.tag} · 학습 지도 「먼저 확인」 결과`, true, { focusKind, focusStep, card: card.replace(/\s+/g, ' ').slice(0, 120), findShown, trace: trace.filter((x) => x.observed) })
     // 원인 사슬: 오답 문항 → 검수 태그 → 역량별 기여
     const wrongTags = p.wrong.map((no) => ({ no, tags: Object.fromEntries(Object.entries(review.items.find((x) => x.no === no)!.w).filter(([, v]) => v > 0)) }))
     const contrib: Record<string, { wrongW: number; totalW: number }> = {}
@@ -163,7 +165,7 @@ try {
       contrib[c].totalW += v
       if (p.wrong.includes(it.no)) contrib[c].wrongW += v
     }
-    chains.push({ pattern: p.tag, label: p.label, wrong: wrongTags, weightedMissByAttribute: Object.fromEntries(Object.entries(contrib).map(([c, x]) => [c, `${x.wrongW}/${x.totalW} (정답률 ${(1 - x.wrongW / x.totalW).toFixed(2)})`])), engineAttributePoints: ev.attributePoints ?? null, map: { focusKind, focusStep, badges: badges.map((b) => b.replace(/\s+/g, ' ')), findShown } })
+    chains.push({ pattern: p.tag, label: p.label, wrong: wrongTags, weightedMissByAttribute: Object.fromEntries(Object.entries(contrib).map(([c, x]) => [c, `${x.wrongW}/${x.totalW} (정답률 ${(1 - x.wrongW / x.totalW).toFixed(2)})`])), engineAttributePoints: ev.attributePoints ?? null, map: { trace, focusKind, focusStep, badges: badges.map((b) => b.replace(/\s+/g, ' ')), findShown } })
     await ctx.close()
   }
 } catch (e) {

@@ -30,6 +30,8 @@ export interface LineStat {
   status: 'ok' | 'insufficient'
   /** 배점을 못 찾아 빠진 응답 수 */
   unweighted: number
+  /** value 의 분모(배점 × 감쇠 가중 합) — 학습 지도 순위의 축소 추정(core RANKING_SHRINK)이 쓴다. 2026-10-08 이전 스냅샷에는 없다 */
+  den?: number
 }
 
 /** 습관 신호 하나를 지금 근거로 판정할 수 있는가 — 신호가 없을 때 「해소됨」과 「판단 불가」를 가른다 */
@@ -72,7 +74,7 @@ function finish(map: Record<string, Acc>, minObservations: number): Record<strin
   const out: Record<string, LineStat> = {}
   for (const [code, a] of Object.entries(map)) {
     const ok = a.n >= minObservations && a.den > 0
-    out[code] = { n: a.n, value: ok ? a.num / a.den : null, status: ok ? 'ok' : 'insufficient', unweighted: a.unweighted }
+    out[code] = { n: a.n, value: ok ? a.num / a.den : null, status: ok ? 'ok' : 'insufficient', unweighted: a.unweighted, den: a.den }
   }
   return out
 }

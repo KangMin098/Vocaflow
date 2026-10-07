@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-map): 학습 지도 순위 축소 추정 `RANKING_SHRINK`(k=8 · ranking-calibration-v1 — 내부 안정성 파라미터). 관찰값(observed)과 순위 추정(rankingEstimate)을 분리, 스냅샷 `attributePoints[*].den` 새 키 · 단계 노드 디버그 속성. 봉인 검증 `shrink-validate.mts`(A/B/C · k 곡선 · 부트스트랩) → NEEDS_ADJUSTMENT(V 쏠림이 k 로 안 풀림 — 이중 검수에서 빠진 A2/A6 결손이 A1 로 흡수). 정본 diff `canon-prepare.mts` · 시드 v2 SQL 제안(미실행 · 133회 · 1,697문항). DB 쓰기 없음.
+
 - feat(csat-map): 「먼저 확인」 단독 우선 후보 분리(`Ranking.confidence` provisional — 비교 못 한 축이 있으면 확신을 낮춘 문구, 행동은 같다). M2409 태그 이중 검수(Claude Code · Codex 독립, 둘 다 붙인 태그만 — `pilot/M2409-review-final.json`, 일치 9/28 · A2 1 · A6 0 · A9 5). 관측량 편향 분석 `xbias-analyze.mts`: X 쏠림은 작은 표본 극단값 문제(게이트가 X 를 막자 V 로 이동) · 축소 추정 k=8 권고(제품 미적용). DB 변경 없음.
 
 - feat(csat-map): 「먼저 확인」 1위 안정 판정 `RANKING_GATE`(1·2위 차 ≥ 0.05 · 관찰 낮음 선 아래 여유 ≥ 0.05 · 1위 축 라인 관측 ≥ 6 — 합성 학습자 2생성기 × 1,000명 보정, `scripts/csat/diagnosis/ranking-calibrate.mts`). 못 넘으면 약점을 고르지 않고 두 후보를 가르는 확인 하나(`lib/csat/map/distinguish.ts`, focus `distinguish`). M2409 P1 → 어휘·표현 ↔ 문장 이해 구분 확인 · P2 문장 관계 유지. 확정한 1위 중 보조 태그 하나로 뒤집히는 비율 60% → 17%. 가중(1/2) 순위는 비교 결과 채택 안 함. 검수 패킷 Tier 3 를 추천 민감도 순으로. DB 변경 없음.

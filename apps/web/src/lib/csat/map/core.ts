@@ -147,7 +147,21 @@ export interface CoreAxisView extends CoreAxisDef {
   observed: number | null
   /** 관찰값을 낸 라인 중 가장 적은 관측 수 — 순위 안정 판정용(관찰값이 없으면 null) */
   minLineN: number | null
+  /**
+   * 순위 추정값(0~1) — 순위 · 후보 · RANKING_GATE 는 이 값으로 정한다(observed 는 실제 기록 값 그대로, 카드 상태는 observed).
+   * 축소 추정(RANKING_SHRINK)을 라인마다 적용해 축으로 모은 값. 화면에 숫자로 내지 않는다(관리자 · 디버그 추적용).
+   */
+  rankingEstimate: number | null
 }
+
+/**
+ * 순위 축소 추정 — ranking calibration v1(2026-10-08 사용자 승인). **교육적 기준(cut score)이 아니라 내부 안정성 파라미터**다.
+ * 라인 순위 추정 = (관찰값 × 분모 + k × 학습자 전체 값) / (분모 + k). 학습자 전체 값 = 관찰된 A 라인들의 배점 가중 합 정답률.
+ * 관측 문항이 적은 축의 우연한 극단값을 덜 믿게 해 작은 축으로 1위가 몰리는 현상을 줄인다(벌점이 아니다 — 관측이 많으면 거의 그대로).
+ * 근거: scripts/csat/diagnosis/xbias-analyze.mts · docs/csat-learner/pilot-runs/ranking-stability-20261008.md §10–11.
+ * 데이터 규모(시험 수 · 학습자 수)가 바뀌면 같은 스크립트로 다시 잰다. 분모가 없는 옛 스냅샷 라인은 관찰값 그대로 쓴다.
+ */
+export const RANKING_SHRINK = { k: 8, version: 'ranking-calibration-v1' } as const
 
 /**
  * 「먼저 확인」 1위를 믿을 수 있는 조건(2026-10-08 보정 — scripts/csat/diagnosis/ranking-calibrate.mts ·
@@ -199,14 +213,27 @@ export interface CoreSummary {
  * 목표 점수를 바꿔도 결과가 같다. 근거 라인 배점이 min_coverage 미만이면 「진단 근거 부족」.
  */
 export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSettings, 'core' | 'min_coverage'>): CoreSummary {
+  // 학습자 전체 값(축소 추정의 당김 목표) — 관찰된 A 라인의 배점 가중 합
+  let priorNum = 0
+  let priorDen = 0
+  for (const [code, v] of Object.entries(model.nodes)) {
+    if (!/^A[1-9]$/.test(code) || NO_DATA_ATTRIBUTES.includes(code) || v.achieved === null || !v.den) continue
+    priorNum += v.achieved * v.den
+    priorDen += v.den
+  }
+  const prior = priorDen > 0 ? priorNum / priorDen : null
+  const estimateOf = (v: { achieved: number | null; den?: number | null }) =>
+    v.achieved === null ? null : prior === null || !v.den ? v.achieved : (v.achieved * v.den + RANKING_SHRINK.k * prior) / (v.den + RANKING_SHRINK.k)
+
   const axes: CoreAxisView[] = CORE_AXES.map((def) => {
     const lines = def.lines.filter((c) => !NO_DATA_ATTRIBUTES.includes(c))
-    if (lines.length === 0) return { ...def, status: 'no_data', contributions: 0, basis: CURRENT_BASIS, observed: null, minLineN: null }
+    if (lines.length === 0) return { ...def, status: 'no_data', contributions: 0, basis: CURRENT_BASIS, observed: null, minLineN: null, rankingEstimate: null }
     let weight = 0
     let seenWeight = 0
     let earned = 0
     let contributions = 0
     let minLineN: number | null = null
+    let estimated = 0
     for (const code of lines) {
       const v = model.nodes[code]
       if (!v) continue
@@ -215,23 +242,31 @@ export function coreSummary(model: Pick<MapModel, 'nodes'>, settings: Pick<MapSe
       if (v.achieved !== null && v.points > 0) {
         seenWeight += v.points
         earned += v.points * v.achieved
+        estimated += v.points * (estimateOf(v) as number)
         minLineN = Math.min(minLineN ?? Infinity, v.n ?? 0)
       }
     }
     const coverage = weight > 0 ? seenWeight / weight : 0
-    if (seenWeight === 0 || coverage < settings.min_coverage) return { ...def, status: 'insufficient', contributions, basis: CURRENT_BASIS, observed: null, minLineN: null }
+    if (seenWeight === 0 || coverage < settings.min_coverage) return { ...def, status: 'insufficient', contributions, basis: CURRENT_BASIS, observed: null, minLineN: null, rankingEstimate: null }
     const observed = earned / seenWeight
     const status: CoreStatus = observedLevel(observed, settings.core) as ObservedLevel
-    return { ...def, status, contributions, basis: CURRENT_BASIS, observed, minLineN }
+    return { ...def, status, contributions, basis: CURRENT_BASIS, observed, minLineN, rankingEstimate: estimated / seenWeight }
   })
 
-  const candidates = axes
+  // 순위는 순위 추정값으로(RANKING_SHRINK) — 관찰 상태(status · observed)는 바꾸지 않는다
+  const forRanking = axes.map((a) => ({
+    code: a.code,
+    minLineN: a.minLineN,
+    observed: a.rankingEstimate,
+    status: (a.rankingEstimate === null ? a.status : observedLevel(a.rankingEstimate, settings.core)) as CoreStatus,
+  }))
+  const candidates = forRanking
     .filter((a) => a.status === 'obs_low')
     .sort((a, b) => (a.observed as number) - (b.observed as number))
     .slice(0, 2)
     .map((a) => a.code)
 
-  const ranking = rankingOf(axes, settings.core.weak)
+  const ranking = rankingOf(forRanking, settings.core.weak)
   const nameOf = (c: CoreCode) => CORE_AXES.find((a) => a.code === c)?.name ?? c
   let nextDiagnosis: string
   if (candidates.includes('V') && candidates.includes('S')) nextDiagnosis = '어휘 · 표현과 문장 이해 중 실제 원인을 구분하기 위한 추가 진단 필요'

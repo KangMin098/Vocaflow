@@ -63,6 +63,8 @@ export interface MapStat {
   n: number
   value: number | null
   status: 'ok' | 'insufficient'
+  /** 분모(배점 × 감쇠 합) — 순위 축소 추정용, 옛 스냅샷에는 없다 */
+  den?: number
 }
 
 export interface SnapshotInput {
@@ -114,6 +116,8 @@ export interface NodeValue {
   coverage: number | null
   /** 지표가 저장한 기여 건수. 집계 노드는 연결 라인 건수의 합(중복 포함) — 서로 다른 응답 수가 아니다 */
   n: number | null
+  /** 관찰값의 분모(배점 × 감쇠 합) — 순위 축소 추정용. 옛 스냅샷 · 관찰 없음이면 null */
+  den?: number | null
   points: number
   /** 과제 완료 */
   tasks: { done: number; total: number; rate: number | null }
@@ -202,6 +206,7 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
       } else {
         v.achieved = stat.value
         v.n = stat.n
+        v.den = stat.den ?? null
         v.status = lineStatus(stat.value, t.rate, near)
       }
     } else {
