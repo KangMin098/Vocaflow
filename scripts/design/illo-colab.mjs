@@ -63,10 +63,15 @@ const cells = [
   md(`# Vocaflow 삽화 생성 (Colab T4)\n\n1. **런타임 → 런타임 유형 변경 → T4 GPU**\n2. **런타임 → 모두 실행** — 처음에 Google Drive 연결 허용 창이 한 번 뜹니다\n3. 결과는 **내 드라이브/vocaflow-illo-out** 에 한 장씩 바로 저장됩니다(세션이 끊겨도 남음)\n4. 끊기면 **모두 실행**을 다시 누르면 이미 만든 장은 건너뛰고 이어서 만듭니다\n\n작업 ${jobs.length}장 · 장당 약 18분.`),
   code(`
 # 0) Google Drive 연결 — 결과를 세션 밖에 남긴다
-from google.colab import drive
-drive.mount('/content/drive')
+# 연결이 안 되면(허용 창을 닫음 · 계정 불일치 — 2026-10-07 실측 「mount failed」) Colab 디스크에 쓰고 마지막 셀이 zip 을 내려준다
 import os
-OUTDIR = '/content/drive/MyDrive/vocaflow-illo-out'
+from google.colab import drive
+try:
+    drive.mount('/content/drive')
+    OUTDIR = '/content/drive/MyDrive/vocaflow-illo-out'
+except Exception as e:
+    print('Drive 연결 실패 — Colab 디스크에 저장합니다(세션이 끊기면 사라짐):', e)
+    OUTDIR = '/content/out'
 os.makedirs(OUTDIR, exist_ok=True)
 print('저장 위치', OUTDIR, '· 이미 있는 장', len([f for f in os.listdir(OUTDIR) if f.endswith('.png')]))
 `),
@@ -177,9 +182,14 @@ for j in JOBS:
         break
 `),
   code(`
-# 4) 결과 확인 — 파일은 이미 내 드라이브/vocaflow-illo-out 에 있다(내려받기 불필요)
+# 4) 결과 — Drive 에 썼으면 그대로 두고, Colab 디스크에 썼으면 zip 으로 내려받는다
 done_ids = sorted(f for f in os.listdir(OUTDIR) if f.endswith('.png'))
 print(len(done_ids), '/', len(JOBS), '장 완료'); print('\\n'.join(done_ids))
+if not OUTDIR.startswith('/content/drive') and done_ids:
+    import shutil
+    from google.colab import files
+    shutil.make_archive('/content/illo-out', 'zip', OUTDIR)
+    files.download('/content/illo-out.zip')
 `),
 ]
 
