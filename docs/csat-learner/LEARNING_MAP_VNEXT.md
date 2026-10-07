@@ -649,3 +649,11 @@ Phase 1 핵심 지도 계산 · rule_proxy 관찰 로직 · 학생 기록 · Rec
 | 1 | P1 1 · P3 2 | 목적 파일이 rev2 표현(「cause_confirmed = Attempt Evidence 상태」)을 그대로 갖고 있었다 → 사용자 정정에 맞춰 목적 파일을 고침 · 짝 문서 집계의 J5 → X5 잔존 → X4 · §2 X 정의의 「자동화 관찰 자리」 → 시험 실행으로 |
 | 2 | P1 1 | 경로를 `cause_adjudicated → cause_confirmed` 하나로 써서 §9 의 영역 확인 · 영역 일치가 빠짐 → `cause_adjudicated` 는 코드 확인 입력 하나, `cause_confirmed` 는 §9 ② 확인 · 영역 확인 · 영역 일치 합산 |
 | 3 | **NO_FINDINGS** | |
+
+## 학습자 화면 표현(2026-10-07 · Phase 1 구현)
+
+학생 첫 화면은 이 문서의 층을 그대로 보여 주지 않는다 — 학생이 설명 없이 이해하도록 **표현 층**(`apps/web/src/lib/csat/map/learner-path.ts`)으로 옮긴다. 새 taxonomy 가 아니다.
+- 읽기 길 7단계(어휘·표현 → 문장 이해 → 문장 관계 → 글 구조·핵심 → 본문↔선지 → 근거 판단 → 시간 내 통합) + 듣기 보조 4단계(소리 인식 → 문장 이해 → 정보 유지 → 응답 판단). 단계 상태는 핵심 축 관찰에서 빌려 오고, 과제는 단계마다 기존 라인 묶음에서 꺼낸다(라인 하나는 한 단계).
+- 판정 순서(observation → diagnostic_need → verified_diagnosis → prescription)는 그대로 — 학생 말로 「기출에서 보인 모습 → 먼저 확인할 것 → 원인 확인 → 맞춤 학습」. FIND/REPAIR/TRANSFER/CHECK = 확인하기 / 바로잡기 / 다른 문제에 적용하기 / 다시 확인하기.
+- 낮음/중간/높음은 학생 메인에 내지 않는다(표시 기준이 교육적 기준이 아니므로). 근거 상태만: 기록 없음 · 분석 준비 중 · 기록 더 필요 · 기출에서 관찰됨 · 먼저 확인 · 직접 확인됨(verified 뒤에만).
+- 2026-10-07 개발 DB 실측: `csat_exams.diagnosis_ready = true` 인 시험이 0 — 기록을 남겨도 단계 관찰값이 생기지 않는다. 그래서 「분석 준비 중」 상태를 두고, 더 기록하라고 하지 않는다.

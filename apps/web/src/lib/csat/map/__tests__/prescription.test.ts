@@ -28,12 +28,14 @@ describe('관찰 → 진단 필요 → 처방', () => {
     expect(nextPhase('diagnostic_need', 'item_tagged')).toBe('diagnostic_need')
     expect(reachablePhase('verified_diagnosis')).toBe('prescription')
   })
-  it('진단 전 학습 활동 — 「처방이 아니에요」, 지금 여는 단계는 찾기뿐', () => {
+  it('진단 전 학습 활동 — 원인 확인 전 · 지금 여는 단계는 확인하기뿐', () => {
     for (const b of ['rule_proxy', 'item_tagged'] as const) {
       const f = activityFrame(b)
       expect(f.phase).toBe('diagnostic_need')
       expect(f.open).toEqual(['FIND'])
-      expect(f.note).toMatch(/처방이 아니에요/)
+      // 학생 말(2026-10-07): 원인 확인 전임을 말하고 「처방」이라는 낱말은 쓰지 않는다
+      expect(f.note).toMatch(/원인을 확인하기 전/)
+      expect(f.note).not.toMatch(/처방/)
       expect(f.title).not.toMatch(/처방/)
     }
     const v = activityFrame('verified_diagnosis')

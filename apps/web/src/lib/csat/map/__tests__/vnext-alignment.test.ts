@@ -33,28 +33,29 @@ describe('학습 지도 vNext 정렬', () => {
     expect(E.legacyNote).toMatch(/A4/)
     // 학생 화면에 내부 용어(vNext)를 쓰지 않는다
     for (const a of CORE_AXES) expect(a.legacyNote ?? '').not.toMatch(/vNext/)
-    // 카드는 「기존 A3+A6」 이 아니라 현재 계산 라벨로 라인을 보인다
-    expect(read('CoreSummary.tsx')).toContain('{LEGACY_PROXY_LABEL} {a.lines.join(\'+\')}')
+    // 현재 계산 라벨은 학생 메인이 아니라 단계 시트의 「상세 근거」 안에만(2026-10-07 학습자 관점 재구성)
+    expect(read('StepSheet.tsx')).toContain('{LEGACY_PROXY_LABEL}')
+    expect(read('LearnerMap.tsx')).not.toContain('LEGACY_PROXY_LABEL')
   })
 
-  it('③ 54라인 상세 지도는 「기존 상세 지도」 — vNext 하위 능력 구조가 아님을 밝힌다', () => {
-    expect(LEGACY_DETAIL_NOTE).toMatch(/기존 54라인/)
-    expect(LEGACY_DETAIL_NOTE).toMatch(/하위 능력 구조가 아니에요/)
-    const summary = read('CoreSummary.tsx')
-    expect(summary).toContain('기존 상세 지도 보기')
-    expect(summary).not.toContain('전체 지도 보기')
+  it('③ 54라인 화면은 「기출 상세 분석」 — 학습 순서가 아니라 판단 근거를 보는 곳', () => {
+    expect(LEGACY_DETAIL_NOTE).toMatch(/기출 상세 분석/)
+    expect(LEGACY_DETAIL_NOTE).toMatch(/학습 순서는 아니에요/)
+    const main = read('LearnerMap.tsx')
+    expect(main).toContain('기출 상세 분석')
+    expect(main).not.toMatch(/기존 상세 지도|전체 지도 보기/)
     expect(read('MapScreen.tsx')).toContain('{LEGACY_DETAIL_NOTE}')
   })
 
-  it('④ 관찰 구분선은 교육적 기준이 아닌 표시 기준이라고 화면에 적는다', () => {
+  it('④ 관찰 구분선은 표시 기준 — 학생 메인에 내지 않고 상세 근거에만', () => {
     expect(THRESHOLD_NOTE).toMatch(/검증된 기준이 아니라/)
-    expect(read('CoreSummary.tsx')).toContain('{THRESHOLD_NOTE}')
+    expect(read('StepSheet.tsx')).toContain('{THRESHOLD_NOTE}')
+    expect(read('LearnerMap.tsx')).not.toContain('THRESHOLD_NOTE')
   })
 
-  it('⑤ 오답 원인 확인은 카드 상태를 바꾸지 않는다고 적는다', () => {
+  it('⑤ 원인 확인 전에는 약점 · 처방을 확정하지 않는다 — 학생 말로', () => {
     expect(CAUSE_NOTE).toMatch(/바로 바뀌지 않아요/)
-    expect(CAUSE_NOTE).toMatch(/직접 진단으로 확인된 결과만/)
-    expect(read('CoreSummary.tsx')).toContain('{CAUSE_NOTE}')
+    expect(read('LearnerMap.tsx')).toContain('아직 약점으로 확정된 것은 아니에요')
   })
 
   it('⑥ 성장 경로 — 8단계 순서, 핵심 축 V · S · R · E · X 를 모두 지나고 값은 없다', () => {
@@ -64,7 +65,6 @@ describe('학습 지도 vNext 정렬', () => {
     const covered = new Set(LEARNING_PROGRESSION.flatMap((p) => p.axes))
     for (const c of ['V', 'S', 'R', 'E', 'X'] as const) expect(covered.has(c)).toBe(true)
     for (const p of LEARNING_PROGRESSION) expect(Object.keys(p).sort()).toEqual(['axes', 'step'])
-    expect(read('CoreSummary.tsx')).toContain('LEARNING_PROGRESSION.map')
   })
 
   it('B · C · D · I · J 영역은 능력 라벨을 달지 않는다', () => {

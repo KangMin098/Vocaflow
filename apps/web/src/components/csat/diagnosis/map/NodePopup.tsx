@@ -294,7 +294,7 @@ export function NodePopup({
                         <section key={g.stage ?? 'none'} className={p.stageGroup} aria-label={g.stage ? STAGE_LABEL[g.stage] : '단계 미정'}>
                           <div className={p.stageHead}>
                             <Chip tone={g.open ? 'good' : 'neutral'}>{g.stage ? STAGE_LABEL[g.stage] : '단계 미정'}</Chip>
-                            <span className={p.stageDesc}>{g.stage ? STAGE_DESC[g.stage] : '아직 단계를 정하지 않은 활동이에요'}{g.open ? '' : frame.phase === 'prescription' ? '' : ' · 진단 뒤'}</span>
+                            <span className={p.stageDesc}>{g.stage ? STAGE_DESC[g.stage] : '아직 단계를 정하지 않은 활동이에요'}{g.open ? '' : frame.phase === 'prescription' ? '' : ' · 원인 확인 뒤'}</span>
                           </div>
                           <ListBox>
                         {g.tasks.map((t) => {

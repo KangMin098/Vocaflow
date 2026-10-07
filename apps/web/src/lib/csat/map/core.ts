@@ -48,7 +48,7 @@ export const NO_DATA_ATTRIBUTES: readonly string[] = ['A7']
 
 /** 현재 계산이 legacy proxy 임을 밝히는 문구 — 카드 · 상세 지도가 함께 쓴다 */
 export const LEGACY_PROXY_LABEL = '현재 계산(기존 라인 대응)'
-export const LEGACY_DETAIL_NOTE = '기존 54라인은 지금 데이터 · 기능과 이어 쓰려고 남긴 상세 분석이에요. 앞으로의 핵심 학습 지도의 하위 능력 구조가 아니에요.'
+export const LEGACY_DETAIL_NOTE = '기출 상세 분석은 내 기록을 54개 항목으로 나눠 왜 이런 판단이 나왔는지 보여 줘요. 무엇을 어떤 순서로 키울지는 학습 지도에서 봐요 — 54개 항목이 학습 순서는 아니에요.'
 
 /** 관찰 수준 구분선(core.weak · core.watch)의 성격 — 교육적으로 검증된 기준이 아니다 */
 export const THRESHOLD_NOTE = '관찰 낮음 · 중간 · 높음을 가르는 선은 교육적으로 검증된 기준이 아니라, 지금의 규칙 기반 관찰을 화면에서 세 칸으로 나누려고 정한 표시 기준이에요.'

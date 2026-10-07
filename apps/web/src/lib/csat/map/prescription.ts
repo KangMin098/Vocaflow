@@ -20,7 +20,8 @@ import type { DiagnosisBasis } from './core'
 
 export type PrescriptionStage = 'FIND' | 'REPAIR' | 'TRANSFER' | 'CHECK'
 export const STAGE_ORDER: readonly PrescriptionStage[] = ['FIND', 'REPAIR', 'TRANSFER', 'CHECK']
-export const STAGE_LABEL: Record<PrescriptionStage, string> = { FIND: '찾기', REPAIR: '고치기', TRANSFER: '옮기기', CHECK: '확인' }
+// 학생 말(2026-10-07 학습자 관점 재구성) — 내부 코드 FIND/REPAIR/TRANSFER/CHECK 는 그대로
+export const STAGE_LABEL: Record<PrescriptionStage, string> = { FIND: '확인하기', REPAIR: '바로잡기', TRANSFER: '다른 문제에 적용하기', CHECK: '다시 확인하기' }
 export const STAGE_DESC: Record<PrescriptionStage, string> = {
   FIND: '어디서 막혔는지 근거로 찾아요',
   REPAIR: '잘못 처리한 부분을 고쳐요',
@@ -59,12 +60,12 @@ export interface ActivityFrame {
 /** 학습 활동 탭의 틀 — 처방이 확정 치료처럼 보이지 않게 근거 수준으로 문구 · 열린 단계를 정한다 */
 export function activityFrame(basis: DiagnosisBasis): ActivityFrame {
   if (reachablePhase(basis) === 'prescription') {
-    return { phase: 'prescription', title: '진단에 따른 학습 활동', note: '직접 진단으로 확인된 필요에 맞춘 활동이에요. 찾기 → 고치기 → 옮기기 → 확인 순서로 해요.', open: STAGE_ORDER }
+    return { phase: 'prescription', title: '맞춤 학습', note: '원인이 확인된 단계에 맞춘 활동이에요. 확인하기 → 바로잡기 → 다른 문제에 적용하기 → 다시 확인하기 순서로 해요.', open: STAGE_ORDER }
   }
   return {
     phase: 'diagnostic_need',
-    title: '학습 활동 — 진단 전',
-    note: '아직 진단 전이라 처방이 아니에요. 「찾기」는 어디서 막히는지 확인하는 데 지금 써 볼 수 있고, 고치기 · 옮기기 · 확인은 진단으로 필요가 확인된 뒤에 쓰는 활동이에요.',
+    title: '지금 할 수 있는 것',
+    note: '아직 원인을 확인하기 전이에요. 「확인하기」부터 해 보세요 — 원인이 확인되면 바로잡기 → 다른 문제에 적용하기 → 다시 확인하기로 이어져요.',
     open: ['FIND'],
   }
 }
