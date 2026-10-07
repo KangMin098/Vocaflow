@@ -10,6 +10,7 @@ import { headers } from 'next/headers'
 import { createClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { isReadingAdaptationSourceId } from '@/lib/articles/reading-queue'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -63,15 +64,16 @@ export async function POST(request: Request): Promise<NextResponse> {
   // status='queued' 글 N개 (오래된 순)
   const { data: rows, error: pickErr } = await client
     .from('library_articles')
-    .select('id, title')
+    .select('id, title, source_id')
     .eq('status', 'queued')
+    .or('source_id.is.null,source_id.not.like.reading:%')
     .order('updated_at', { ascending: true })
     .limit(max)
 
   if (pickErr) {
     return NextResponse.json({ error: `Pick queued articles failed: ${pickErr.message}` }, { status: 500 })
   }
-  const queued = (rows ?? []) as Array<{ id: string; title: string }>
+  const queued = ((rows ?? []) as Array<{ id: string; title: string; source_id: string | null }>).filter(a => !isReadingAdaptationSourceId(a.source_id))
 
   if (queued.length === 0) {
     return NextResponse.json({
@@ -126,6 +128,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     .from('library_articles')
     .select('id', { count: 'exact', head: true })
     .eq('status', 'queued')
+    .or('source_id.is.null,source_id.not.like.reading:%')
 
   return NextResponse.json({
     ok: true,

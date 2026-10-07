@@ -16,10 +16,12 @@ const publicKey = value => {
   }
   catch { return null }
 }
+const canonicalSignature = value => typeof value === 'string' && /^[A-Za-z0-9+/]+={0,2}$/.test(value) && Buffer.from(value, 'base64').toString('base64') === value
 
 export function inspectOperationalPolicy({ policy, certificate, eligibility, now } = {}) {
   const fail = reason => ({ ok: false, reason })
   if (!certificate || typeof certificate !== 'object' || Array.isArray(certificate) || !eligibility || typeof eligibility !== 'object' || Array.isArray(eligibility)) return fail('CERTIFICATION_EVIDENCE_MISSING')
+  if (!canonicalSignature(certificate.signature) || !canonicalSignature(eligibility.signature)) return fail('CERTIFICATION_SIGNATURE_NONCANONICAL')
   if (policy?.schema !== 'frym-gold-s-operational-policy/1' || !exactKeys(policy, ['schema', 'revision', 'gold_issuers', 'seed_issuers', 'gold_max_age_days', 'seed_max_age_days', 'revoked']) || !present(policy.revision) || !instant(now) || !Array.isArray(policy.gold_issuers) || !Array.isArray(policy.seed_issuers) || !exactKeys(policy.revoked, ['certificate_hashes', 'eligibility_hashes', 'issuer_ids']) || !Array.isArray(policy.revoked.certificate_hashes) || !Array.isArray(policy.revoked.eligibility_hashes) || !Array.isArray(policy.revoked.issuer_ids) || !Number.isSafeInteger(policy.gold_max_age_days) || policy.gold_max_age_days < 1 || policy.gold_max_age_days > 365 || !Number.isSafeInteger(policy.seed_max_age_days) || policy.seed_max_age_days < 1 || policy.seed_max_age_days > 30) return fail('TRUST_POLICY_INVALID')
   const entries = [...policy.gold_issuers, ...policy.seed_issuers]
   if (!entries.length || entries.some(entry => !exactKeys(entry, ['id', 'public_key', 'valid_from', 'valid_until']) || !present(entry.id) || !present(entry.public_key) || !publicKey(entry.public_key) || !instant(entry.valid_from) || !instant(entry.valid_until) || Date.parse(entry.valid_from) >= Date.parse(entry.valid_until)) || !unique(entries.map(entry => entry.id)) || !unique(entries.map(entry => publicKey(entry.public_key))) || !unique(policy.revoked.certificate_hashes) || !unique(policy.revoked.eligibility_hashes) || !unique(policy.revoked.issuer_ids) || [...policy.revoked.certificate_hashes, ...policy.revoked.eligibility_hashes].some(value => !hex(value)) || policy.revoked.issuer_ids.some(value => !present(value))) return fail('TRUST_POLICY_INVALID')

@@ -455,6 +455,8 @@ Client 전환. 표 행 `role="button"` + Enter/Space 키보드 + `ChapterWordSet
 
 ## /admin/articles — ACP 큐레이션 콘솔
 
+일반 ACP 개발용 큐 처리와 단건 처리에서 `reading:` 각색 자식은 제외한다. 단건 API는 별도 승격 gate 전까지 409를 반환하므로, 일반 큐 처리로 Gold-S 적재 자식을 `ready`로 승격할 수 없다.
+
 **`CurationConsole` (v06.87)** — 소스별 탭 → **4단계 파이프라인 + SourcePolicy 분기 단일 화면**. VOA/The Conversation 등 소스 차이는 정책 4축(supply/media/derivation/attribution)으로만 분기 — `if(source==='voa')` 하드코딩 금지(`useSourcePolicy`/`resolveSourcePolicy` 단일 출처).
 
 | 단계 | 컴포넌트 | 내용 |

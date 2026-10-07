@@ -33,7 +33,10 @@ export function verifySeedAudit(path) {
   const committed = new Set()
   for (const [index, line] of lines.entries()) {
     let row
-    try { row = JSON.parse(line) } catch { return { valid: false, status: 'invalid' } }
+    try { row = JSON.parse(line) } catch {
+      if (index === lines.length - 1 && previousHash) return { valid: false, status: 'invalid_tail', run_id: runId, pending_batches: [...pending.keys()].sort((a, b) => a - b), verified_prefix_hash: previousHash }
+      return { valid: false, status: 'invalid' }
+    }
     const { event_hash, ...body } = row
     if (body.schema !== 'frym-gold-s-seed-audit/1' || !hex(event_hash) || event_hash !== hash(body) || body.previous_hash !== previousHash || (runId && body.run_id !== runId) || (index === 0 && body.event !== 'run_start') || (completes > 0 && body.event !== 'run_complete')) return { valid: false, status: 'invalid' }
     runId = body.run_id

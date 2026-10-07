@@ -390,7 +390,8 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 경로 | 비고 |
 |---|---|
-| `POST /api/acp/dev-process` | article 단권 처리 |
+| `POST /api/acp/dev-process` | article 단권 처리; `reading:` 각색 자식은 별도 승격 전 409 |
+| `POST /api/acp/dev-drain-queue` | 개발용 큐 처리; `reading:` 각색 자식 제외 |
 | `POST /api/acp/enqueue` | article 큐 등록 |
 
 ### `/api/admin/library/*` (11)

@@ -41,6 +41,7 @@ test('signed Gold-S and seed eligibility bind the exact current source, target a
   assert.equal(validateGoldSImport({ ...input, policy: null }).reason, 'TRUST_POLICY_INVALID')
   assert.equal(validateGoldSImport({ ...input, policy: { ...policy, revoked: { ...policy.revoked, certificate_hashes: [hash(bundle.certificate)] } } }).reason, 'CERTIFICATION_REVOKED')
   assert.equal(validateGoldSImport({ ...input, policy: { ...policy, revoked: { ...policy.revoked, eligibility_hashes: [hash(bundle.eligibility)] } } }).reason, 'CERTIFICATION_REVOKED')
+  assert.equal(validateGoldSImport({ ...input, bundle: { ...bundle, eligibility: { ...bundle.eligibility, signature: `${bundle.eligibility.signature}\n` } }, policy: { ...policy, revoked: { ...policy.revoked, eligibility_hashes: [hash(bundle.eligibility)] } } }).reason, 'CERTIFICATION_SIGNATURE_NONCANONICAL')
   assert.equal(validateGoldSImport({ ...input, policy: { ...policy, revoked: { ...policy.revoked, issuer_ids: [keys.seedIssuerId] } } }).reason, 'CERTIFICATION_REVOKED')
   assert.equal(validateGoldSImport({ ...input, now: '2026-11-01T00:00:00Z' }).reason, 'CERTIFICATION_EXPIRED_OR_KEY_INACTIVE')
   assert.equal(validateGoldSImport({ ...input, now: '2026-10-06T23:59:00Z' }).reason, 'CERTIFICATION_EXPIRED_OR_KEY_INACTIVE')

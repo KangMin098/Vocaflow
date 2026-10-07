@@ -640,7 +640,7 @@ pnpm dlx tsx scripts/acp/process-queue.mjs  --source plos --commit --limit 900
 ### 처리
 - `/api/acp/enqueue` (article 큐 등록) → `/api/acp/dev-process` (article 처리)
 - Status 흐름: `queued → normalizing → analyzing → ready → published` (LCP 미러, 글=단일 섹션)
-- `source_id`가 `reading:`으로 시작하는 학술 독해 각색 자식은 일반 ACP `process-queue` 대상에서 제외한다. 이 자식은 서명된 Gold-S/seed 정책과 현재 원천·권리를 별도 검증한 뒤에만 다음 상태로 승격할 수 있다. 일반 큐 처리가 `queued → ready`로 우회하지 않도록 한다.
+- `source_id`가 `reading:`으로 시작하는 학술 독해 각색 자식은 일반 ACP `process-queue` 및 개발용 `dev-drain-queue` 대상에서 제외하고, `dev-process` 단건 호출도 409로 차단한다. 이 자식은 서명된 Gold-S/seed 정책과 현재 원천·권리를 별도 검증한 뒤에만 다음 상태로 승격할 수 있다. 일반 큐 처리가 `queued → ready`로 우회하지 않도록 한다.
 
 ### 검수 (v06.51) — LCP 책 검수 4패널 미러
 `/admin/articles/preview/[id]`: 본문 리더 + 게시 게이트 / 보이스 연결(`audio_url`) / 학습 단어 추출 / 검수 팝업. (ADMIN_CONSOLE.md §/admin/articles 참조)

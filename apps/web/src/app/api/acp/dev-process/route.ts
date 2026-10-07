@@ -20,6 +20,7 @@ import {
 import type { RawArticle, NormalizedArticle } from '@vocaflow/library-pipeline'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { isReadingAdaptationSourceId } from '@/lib/articles/reading-queue'
 
 // ACP §18 §4-B — register 는 (source, feed_id) 단위로 산정 (resolveArticleRegister).
 //   VOA 처럼 피드마다 글 유형이 다른 소스의 오분류 교정 (american-stories=narrative 등).
@@ -77,6 +78,9 @@ export async function POST(request: Request): Promise<NextResponse> {
       .single()
     if (fetchErr || !article) {
       throw new Error(`Article not found: ${body.article_id} (${fetchErr?.message ?? 'no row'})`)
+    }
+    if (isReadingAdaptationSourceId(article.source_id)) {
+      return NextResponse.json({ error: 'Reading adaptations require their separate promotion gate' }, { status: 409 })
     }
 
     const updateStatus = async (s: string): Promise<void> => {
