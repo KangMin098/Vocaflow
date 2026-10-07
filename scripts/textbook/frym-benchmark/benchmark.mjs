@@ -1,5 +1,6 @@
 // scripts/textbook/frym-benchmark/benchmark.mjs
 import { createHash } from 'node:crypto'
+import { validateTwoStageSeal } from './two-stage-seal.mjs'
 
 export const AXES = Object.freeze([
   'lexical', 'syntax', 'information_density', 'discourse', 'inference',
@@ -25,6 +26,9 @@ export const sampleAnalysisHash = sample => {
   const { analysis_hash, ...evidence } = sample
   return hash(evidence)
 }
+const requireTwoStageForFiles = (protocol, samples) => {
+  if (protocol?.schema === 'frym-benchmark/1' && samples?.some(sample => sample?.file_hash || sample?.source_path_hash)) fail('TWO_STAGE_PROTOCOL_REQUIRED')
+}
 const unique = values => new Set(values).size
 const quantile = (sorted, p) => {
   const at = (sorted.length - 1) * p
@@ -39,7 +43,7 @@ const stats = values => {
 }
 
 export function validateProtocol(protocol) {
-  if (protocol?.schema !== 'frym-benchmark/1' || protocol.status !== 'sealed' || !isText(protocol.version) || !isHex(protocol.codebook_hash) || !isHex(protocol.selection_manifest_hash)) fail('PROTOCOL_UNSEALED')
+  if (!['frym-benchmark/1', 'frym-benchmark/2'].includes(protocol?.schema) || protocol.status !== 'sealed' || !isText(protocol.version) || !isHex(protocol.codebook_hash) || !isHex(protocol.selection_manifest_hash)) fail('PROTOCOL_UNSEALED')
   const selection = protocol.selection_manifest
   if (selection?.schema !== 'frym-benchmark-selection/1' || selection.status !== 'sealed' || !Array.isArray(selection.selected_sample_ids) || unique(selection.selected_sample_ids) !== selection.selected_sample_ids.length || selection.selected_sample_ids.some(id => !isText(id)) || !selection.representative_editions || Array.isArray(selection.representative_editions) || typeof selection.representative_editions !== 'object' || Object.values(selection.representative_editions).some(edition => !isText(edition)) || hash(selection) !== protocol.selection_manifest_hash) fail('SELECTION_MANIFEST_INVALID')
   if (!Array.isArray(protocol.grades) || protocol.grades.join('|') !== GRADES.join('|')) fail('GRADES_INVALID')
@@ -53,6 +57,7 @@ export function validateProtocol(protocol) {
     if (!['ratio', 'ordinal'].includes(def?.scale) || !isText(def.metric) || !isText(def.unit) || !isText(def.measurement_method) || !isText(def.missing_rule) || !isText(def.rater_policy) || ![1, -1].includes(def.direction) || !(Number.isFinite(def.resolution) && def.resolution > 0) || !(Number.isFinite(def.minimum_meaningful_delta) && def.minimum_meaningful_delta >= def.resolution) || (def.scale === 'ratio' && !(Number.isFinite(def.valid_min) && def.valid_min >= 0 && Number.isFinite(def.valid_max) && def.valid_max > def.valid_min)) || !Array.isArray(def.auxiliary_metrics) || def.auxiliary_metrics.some(metric => !isText(metric)) || unique(def.auxiliary_metrics) !== def.auxiliary_metrics.length || !['none', 'veto_if_outside_p10_p90'].includes(def.auxiliary_override_rule) || (def.auxiliary_override_rule === 'none') !== (def.auxiliary_metrics.length === 0) || !(Number.isFinite(def.rater_agreement_floor) && def.rater_agreement_floor > 0 && def.rater_agreement_floor <= 1) || def.missing_priority !== 'inconclusive' || (def.scale === 'ordinal' && (!Array.isArray(def.levels) || def.levels.length < 2 || def.levels.some(level => !isText(level)) || unique(def.levels) !== def.levels.length || def.resolution !== 1 || def.minimum_meaningful_delta < 1))) fail('AXIS_DEFINITION_INVALID')
   }
   if (protocol.fit?.lower_quantile !== .1 || protocol.fit?.upper_quantile !== .9 || protocol.fit?.minimum_axes !== 7 || protocol.fit?.length_ratio_min !== .75 || protocol.fit?.length_ratio_max !== 1.25 || protocol.separation?.minimum_stable_axes !== 5 || protocol.separation?.minimum_matching_axes !== 3 || protocol.separation?.minimum_reference_ratio !== .5 || protocol.separation?.maximum_opposite_axes !== 1) fail('DECISION_RULES_INVALID')
+  if (protocol.schema === 'frym-benchmark/2') validateTwoStageSeal(protocol)
   return hash(protocol)
 }
 
@@ -120,6 +125,7 @@ function partitionSamples(protocol, samples) {
 }
 
 export function buildBenchmark(protocol, samples) {
+  requireTwoStageForFiles(protocol, samples)
   const protocol_hash = validateProtocol(protocol)
   if (!Array.isArray(samples)) fail('SAMPLES_NOT_ARRAY')
   const { accepted, rejected } = partitionSamples(protocol, samples)
@@ -157,6 +163,7 @@ function comparisonRows(samples, grade, variant, protocol) {
 }
 
 export function judgeBenchmark({ protocol, snapshot, samples, f02, e3 }) {
+  requireTwoStageForFiles(protocol, samples)
   verifySnapshot(snapshot, protocol)
   const rebuilt = buildBenchmark(protocol, samples)
   if (rebuilt.snapshot_hash !== snapshot.snapshot_hash) fail('BENCHMARK_SAMPLE_CHANGED')

@@ -6,6 +6,11 @@ import { assertExternalCandidate } from './local-candidate-path.mjs'
 
 const [command, ...paths] = process.argv.slice(2)
 const read = path => JSON.parse(readFileSync(path, 'utf8'))
+const readRealProtocol = path => {
+  const protocol = read(path)
+  if (protocol?.schema !== 'frym-benchmark/2') throw Error('TWO_STAGE_PROTOCOL_REQUIRED')
+  return protocol
+}
 const writeNewSet = entries => {
   if (new Set(entries.map(([path]) => resolve(path))).size !== entries.length || entries.some(([path]) => existsSync(path))) throw Error('OUTPUT_EXISTS')
   const created = []
@@ -23,15 +28,15 @@ const writeNewSet = entries => {
 try {
   if (command === 'dry-run' && paths.length === 2) {
     assertExternalCandidate(paths[1])
-    process.stdout.write(`${JSON.stringify(dryRunAdmission(read(paths[0]), read(paths[1])))}\n`)
+    process.stdout.write(`${JSON.stringify(dryRunAdmission(readRealProtocol(paths[0]), read(paths[1])))}\n`)
   } else if (command === 'prepare' && paths.length === 5) {
     assertExternalCandidate(paths[1])
-    const { samples, audit, receipt } = prepareSealedAdmission(read(paths[0]), read(paths[1]))
+    const { samples, audit, receipt } = prepareSealedAdmission(readRealProtocol(paths[0]), read(paths[1]))
     writeNewSet([[paths[2], samples], [paths[3], audit], [paths[4], receipt]])
     process.stdout.write(`admission-pass=${receipt.counts.pass} admission-hold=${receipt.counts.hold} admission-reject=${receipt.counts.reject} ready-for-build=${receipt.ready_for_build}\n`)
   } else if (command === 'verify' && paths.length === 5) {
     assertExternalCandidate(paths[1])
-    const result = verifyAdmission(read(paths[0]), read(paths[1]), read(paths[2]), read(paths[3]), read(paths[4]))
+    const result = verifyAdmission(readRealProtocol(paths[0]), read(paths[1]), read(paths[2]), read(paths[3]), read(paths[4]))
     process.stdout.write(`${JSON.stringify(result)}\n`)
     if (result.status !== 'current') process.exitCode = 1
   } else {

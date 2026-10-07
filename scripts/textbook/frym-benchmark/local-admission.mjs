@@ -65,6 +65,7 @@ const audit = (candidate, file, status, reasons, stages) => ({
 })
 
 export function admitCandidate(candidate, protocol) {
+  if (protocol?.schema !== 'frym-benchmark/2') throw Error('TWO_STAGE_PROTOCOL_REQUIRED')
   validateProtocol(protocol)
   const stages = ['source-discovered']
   let file
@@ -74,10 +75,19 @@ export function admitCandidate(candidate, protocol) {
   if (candidate.expected_file_hash !== file.file_hash || !HEX.test(candidate.expected_file_hash ?? '')) return { audit: audit(candidate, file, 'admission-reject', ['SOURCE_HASH_CHANGED'], stages) }
   const meta = candidate.metadata
   if (!meta || !present(meta.sample_id) || !present(meta.publisher) || !present(meta.series) || !present(meta.title) || !present(meta.edition) || !present(meta.grade) || !present(meta.passage_id) || !present(meta.page) || !present(meta.ISBN) && !(present(meta.publisher_id) && present(meta.canonical_url))) return { audit: audit(candidate, file, 'admission-hold', ['METADATA_INCOMPLETE'], stages) }
+  if (protocol.schema === 'frym-benchmark/2') {
+    const screened = protocol.metadata_screening.candidates.find(row => row.candidate_id === meta.sample_id)
+    if (!screened || screened.status !== 'metadata_eligible' || screened.file_hash !== file.file_hash ||
+        ['publisher', 'series', 'title', 'grade', 'edition', 'publication_year', 'passage_id', 'page', 'genre', 'ISBN', 'publisher_id', 'canonical_url', 'rights_basis', 'difficulty_step', 'access_date'].some(key => screened[key] !== meta[key])) {
+      return { audit: audit(candidate, file, 'admission-reject', ['METADATA_SCREENING_MISMATCH'], stages) }
+    }
+  }
   stages.push('metadata-extracted')
   const extraction = candidate.extraction
   const imageSource = ['png', 'jpg', 'jpeg', 'tif', 'tiff'].includes(file.format)
   if (!present(extraction?.passage_text) || !present(extraction?.page_range) || !present(extraction?.passage_id) || extraction.source_file_hash !== file.file_hash || extraction.passage_id !== meta.passage_id || extraction.page_range !== meta.page || extraction.boundary_confirmed !== true || !/^[a-z0-9][a-z0-9_-]{0,63}$/i.test(extraction.method ?? '') || typeof extraction.ocr_used !== 'boolean' || (imageSource || !DIGITAL_TEXT_METHODS.has(extraction.method)) && !extraction.ocr_used || extraction.ocr_used && extraction.ocr_verified !== true) return { audit: audit(candidate, file, 'admission-hold', ['NEEDS_MANUAL_ADMISSION'], stages) }
+  const screenedWordCount = protocol.metadata_screening.candidates.find(row => row.candidate_id === meta.sample_id).word_count
+  if (extraction.passage_text.trim().split(/\s+/).length !== screenedWordCount) return { audit: audit(candidate, file, 'admission-reject', ['METADATA_SCREENING_MISMATCH'], stages) }
   stages.push('passage-extracted')
   if (!Array.isArray(extraction.questions) || !extraction.questions.length || extraction.questions.some(q => !q || typeof q !== 'object' || Array.isArray(q) || !present(q.id) || !present(q.stem) || !present(q.type) || !present(q.answer)) || new Set(extraction.questions.map(q => q.id)).size !== extraction.questions.length || extraction.question_boundary_confirmed !== true) return { audit: audit(candidate, file, 'admission-hold', ['QUESTION_EXTRACTION_INCOMPLETE'], stages) }
   stages.push('question-extracted')

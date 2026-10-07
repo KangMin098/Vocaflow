@@ -18,6 +18,7 @@ const read = path => JSON.parse(readFileSync(path, 'utf8'))
 const write = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx' })
 const fileBacked = samples => samples.some(sample => sample?.file_hash || sample?.source_path_hash)
 const requireAdmission = (protocol, candidates, samples, audit, receipt) => {
+  if (protocol?.schema !== 'frym-benchmark/2') throw Error('TWO_STAGE_PROTOCOL_REQUIRED')
   const result = verifyAdmission(protocol, candidates, samples, audit, receipt)
   if (!result.ready_for_build) throw Error(`ADMISSION_NOT_CURRENT_OR_INCOMPLETE:${result.reasons.join(',') || result.state}`)
   return result.receipt_hash
@@ -91,6 +92,7 @@ try {
       try { assertExternalCandidate(paths[1]) } catch { return statusFailure('RAW_CANDIDATES_LOCATION_INVALID') }
       let protocol, candidates, samples, audit, receipt
       try { [protocol, candidates, samples, audit, receipt] = paths.slice(0, 5).map(read) } catch { return statusFailure('ADMISSION_ARTIFACT_UNREADABLE') }
+      if (protocol?.schema !== 'frym-benchmark/2') return statusFailure('TWO_STAGE_PROTOCOL_REQUIRED')
       const input = { protocol, candidates, samples, audit, receipt }
       const admissionState = inspectPipeline(input)
       if (admissionState.state !== 'admission-pass' || paths[5] === '-') return paths[5] === '-' && paths[8] !== '-' && admissionState.state === 'admission-pass' ? statusFailure('SNAPSHOT_MISSING') : admissionState

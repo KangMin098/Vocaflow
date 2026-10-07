@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 실제 파일 benchmark 경로에 v2 선택 규칙·metadata screening·sample manifest hash 결속을 강제하고, 합성 v1 fixture는 분리한다. 실제 봉인·corpus·Gold-S·seed는 여전히 0건이다.
+
 - docs(textbook): 실제 교재 intake의 규칙 봉인과 선정 ID manifest 봉인을 분리하고, 현 엔진이 두 봉인의 결속을 아직 검증하지 않는 한계를 명시한다.
 
 - feat(textbook): `reading:` 문항부터 해설·편집 검수·주문별 단원/권·조판 manifest까지 Product Order/promotion evidence lineage를 전달하고 현재 authority·권리·철회·본문 판을 재확인한다. 기존 밴드 공용 권에는 각색 자식을 섞지 않는다. 합성 계약·조판 게이트를 검증했으며 실제 CLI E2E·승격·Gold-S·DB seed는 0건이다.

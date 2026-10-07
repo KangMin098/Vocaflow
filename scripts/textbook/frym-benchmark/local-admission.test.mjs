@@ -5,21 +5,139 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
-import { AXES, GRADES, hash, judgeBenchmark, screenSample } from './benchmark.mjs'
+import { AXES, GRADES, hash, judgeBenchmark, screenSample, validateProtocol } from './benchmark.mjs'
 import { createHash } from 'node:crypto'
 import { identifyLocalFile, prepareAdmission } from './local-admission.mjs'
 import { dryRunAdmission, prepareSealedAdmission, verifyAdmission } from './local-admission-ledger.mjs'
 import { sealAdmittedSnapshot, verifyAdmittedSnapshot } from './admitted-snapshot.mjs'
 import { inspectPipeline } from './pipeline-state.mjs'
+import { cohortComposition, cohortCoverage, screeningInventoryHash } from './two-stage-seal.mjs'
 
 const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture', measurement_method: 'fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5, valid_min: 0, valid_max: 100, auxiliary_metrics: [], auxiliary_override_rule: 'none', rater_agreement_floor: .8, missing_priority: 'inconclusive' }]))
+const fixtureText = 'Synthetic source file used only by the admission test.\n'
+const fixtureHash = createHash('sha256').update(fixtureText).digest('hex')
 const selection = { schema: 'frym-benchmark-selection/1', status: 'sealed', selected_sample_ids: ['sample-1'], representative_editions: { [JSON.stringify(['Fixture Press', 'Fixture Book'])]: '2026-1' } }
-const protocol = { schema: 'frym-benchmark/1', status: 'sealed', version: 'fixture-v1', codebook_hash: hash(axisDefs), selection_manifest: selection, selection_manifest_hash: hash(selection), grades: [...GRADES], minimum: { per_grade: 30, publishers: 3, series_per_publisher: 2, max_publisher_share: .4, max_series_share: .2, comparison_n: 12, item_type_comparison_n: 12 }, item_types: ['literal', 'inference'], item_type_difficulty: { scale: 'ratio', valid_min: 0, valid_max: 100 }, axes: axisDefs, fit: { lower_quantile: .1, upper_quantile: .9, minimum_axes: 7, length_ratio_min: .75, length_ratio_max: 1.25 }, separation: { minimum_stable_axes: 5, minimum_matching_axes: 3, minimum_reference_ratio: .5, maximum_opposite_axes: 1 } }
+const baseProtocol = { schema: 'frym-benchmark/1', status: 'sealed', version: 'fixture-v1', codebook_hash: hash(axisDefs), selection_manifest: selection, selection_manifest_hash: hash(selection), grades: [...GRADES], minimum: { per_grade: 30, publishers: 3, series_per_publisher: 2, max_publisher_share: .4, max_series_share: .2, comparison_n: 12, item_type_comparison_n: 12 }, item_types: ['literal', 'inference'], item_type_difficulty: { scale: 'ratio', valid_min: 0, valid_max: 100 }, axes: axisDefs, fit: { lower_quantile: .1, upper_quantile: .9, minimum_axes: 7, length_ratio_min: .75, length_ratio_max: 1.25 }, separation: { minimum_stable_axes: 5, minimum_matching_axes: 3, minimum_reference_ratio: .5, maximum_opposite_axes: 1 } }
+function twoStageProtocol() {
+  const result = structuredClone(baseProtocol)
+  result.schema = 'frym-benchmark/2'
+  result.version = 'fixture-v2'
+  result.selection_protocol = { schema: 'frym-selection-protocol/1', status: 'sealed', run_id: 'fixture-run', seed: 'fixture-seed', search_cutoff: '2026-10-06', search_sources: ['https://example.invalid/catalog'], inventory_file_hashes: [fixtureHash], inventory_snapshot_hash: screeningInventoryHash([fixtureHash]), selection_algorithm: 'hash_rank_feasible_v1', genre_quota: { expository: 12, argumentative: 12, narrative: 6 }, length_bins: { short_max: 149, medium_max: 299, minimum_each: 6 }, grade_policy: 'single_grade_only', rights_policy: 'authorized_local_analysis_only', preview_policy: 'sample_only_flagged', duplicate_policy: 'one_per_normalized_passage_hash', codebook_hash: result.codebook_hash, rules_hash: hash({ minimum: result.minimum, item_types: result.item_types, item_type_difficulty: result.item_type_difficulty, fit: result.fit, separation: result.separation }) }
+  result.selection_protocol_hash = hash(result.selection_protocol)
+  result.metadata_screening = { schema: 'frym-metadata-screening/1', status: 'frozen', run_id: 'fixture-run', selection_protocol_hash: result.selection_protocol_hash, candidates: [{ candidate_id: 'sample-1', file_hash: fixtureHash, status: 'metadata_eligible', publisher: 'Fixture Press', series: 'Fixture Series', title: 'Fixture Book', grade: 'middle_1', edition: '2026-1', publication_year: 2026, rights_basis: 'authorized_local_analysis', difficulty_step: 'level-1', access_date: '2026-10-06', passage_id: 'P1', page: '12', genre: 'expository', ISBN: 'fixture-isbn', word_count: 11 }] }
+  result.metadata_screening.inventory_snapshot_hash = result.selection_protocol.inventory_snapshot_hash
+  result.metadata_screening.held_file_hashes = []
+  result.metadata_screening_hash = hash(result.metadata_screening)
+  Object.assign(result.selection_manifest, { run_id: 'fixture-run', selection_protocol_hash: result.selection_protocol_hash, metadata_screening_hash: result.metadata_screening_hash, inventory_snapshot_hash: result.metadata_screening.inventory_snapshot_hash, excluded_candidate_ids: [], cohort_composition: cohortComposition(result.metadata_screening, ['sample-1']) })
+  result.selection_manifest.coverage_status = cohortCoverage(result.selection_manifest.cohort_composition, result.minimum, result.selection_protocol)
+  result.selection_manifest_hash = hash(result.selection_manifest)
+  return result
+}
+const protocol = twoStageProtocol()
+function rebindProtocol(p) {
+  p.selection_protocol.codebook_hash = p.codebook_hash
+  p.selection_protocol.inventory_file_hashes = [...new Set(p.metadata_screening.candidates.map(row => row.file_hash))].sort()
+  p.selection_protocol.inventory_snapshot_hash = screeningInventoryHash(p.selection_protocol.inventory_file_hashes)
+  p.selection_protocol_hash = hash(p.selection_protocol)
+  p.metadata_screening.selection_protocol_hash = p.selection_protocol_hash
+  p.metadata_screening.inventory_snapshot_hash = p.selection_protocol.inventory_snapshot_hash
+  p.metadata_screening_hash = hash(p.metadata_screening)
+  p.selection_manifest.selection_protocol_hash = p.selection_protocol_hash
+  p.selection_manifest.metadata_screening_hash = p.metadata_screening_hash
+  p.selection_manifest.inventory_snapshot_hash = p.metadata_screening.inventory_snapshot_hash
+  p.selection_manifest.excluded_candidate_ids = p.metadata_screening.candidates.map(row => row.candidate_id).filter(id => !p.selection_manifest.selected_sample_ids.includes(id))
+  p.selection_manifest.cohort_composition = cohortComposition(p.metadata_screening, p.selection_manifest.selected_sample_ids)
+  p.selection_manifest.coverage_status = cohortCoverage(p.selection_manifest.cohort_composition, p.minimum, p.selection_protocol)
+  p.selection_manifest_hash = hash(p.selection_manifest)
+  return p
+}
+
+test('two-stage seal rejects changed rules, inventory, screening, candidate IDs, mixed runs and early analysis', () => {
+  const original = twoStageProtocol()
+  assert.equal(typeof validateProtocol(original), 'string')
+  const changedRules = structuredClone(original)
+  changedRules.selection_protocol.seed = 'changed'
+  changedRules.selection_protocol_hash = hash(changedRules.selection_protocol)
+  assert.throws(() => validateProtocol(changedRules), /SELECTION_PROTOCOL_STALE_OR_INVALID|METADATA_SCREENING_STALE_OR_INVALID/)
+
+  const changedInventory = structuredClone(original)
+  changedInventory.metadata_screening.inventory_snapshot_hash = hash({ source: 'changed' })
+  changedInventory.metadata_screening_hash = hash(changedInventory.metadata_screening)
+  assert.throws(() => validateProtocol(changedInventory), /METADATA_SCREENING_STALE_OR_INVALID|SAMPLE_MANIFEST_STALE_OR_MIXED/)
+
+  const changedScreening = structuredClone(original)
+  changedScreening.metadata_screening.candidates[0].status = 'hold_metadata'
+  changedScreening.metadata_screening.candidates[0].reasons = ['GRADE_UNCONFIRMED']
+  changedScreening.metadata_screening_hash = hash(changedScreening.metadata_screening)
+  assert.throws(() => validateProtocol(changedScreening), /SAMPLE_MANIFEST_STALE_OR_MIXED/)
+  const omittedFile = structuredClone(original)
+  omittedFile.metadata_screening.candidates = []
+  omittedFile.metadata_screening_hash = hash(omittedFile.metadata_screening)
+  omittedFile.selection_manifest.selected_sample_ids = []
+  omittedFile.selection_manifest.excluded_candidate_ids = []
+  omittedFile.selection_manifest.metadata_screening_hash = omittedFile.metadata_screening_hash
+  omittedFile.selection_manifest.cohort_composition = cohortComposition(omittedFile.metadata_screening, [])
+  omittedFile.selection_manifest.coverage_status = 'insufficient_benchmark'
+  omittedFile.selection_manifest_hash = hash(omittedFile.selection_manifest)
+  assert.throws(() => validateProtocol(omittedFile), /METADATA_SCREENING_STALE_OR_INVALID/)
+
+  for (const ids of [[], ['sample-1', 'injected']]) {
+    const changedIds = structuredClone(original)
+    changedIds.selection_manifest.selected_sample_ids = ids
+    changedIds.selection_manifest_hash = hash(changedIds.selection_manifest)
+    assert.throws(() => validateProtocol(changedIds), /SAMPLE_MANIFEST_STALE_OR_MIXED|SAMPLE_MANIFEST_COMPOSITION_INVALID/)
+  }
+  const mixedRun = structuredClone(original)
+  mixedRun.selection_manifest.run_id = 'other-run'
+  mixedRun.selection_manifest_hash = hash(mixedRun.selection_manifest)
+  assert.throws(() => validateProtocol(mixedRun), /SAMPLE_MANIFEST_STALE_OR_MIXED/)
+  const falseCoverage = structuredClone(original)
+  falseCoverage.selection_manifest.coverage_status = 'complete'
+  falseCoverage.selection_manifest_hash = hash(falseCoverage.selection_manifest)
+  assert.throws(() => validateProtocol(falseCoverage), /SAMPLE_MANIFEST_COVERAGE_INVALID/)
+  const lateSource = structuredClone(original)
+  lateSource.metadata_screening.candidates[0].access_date = '2026-10-07'
+  lateSource.metadata_screening_hash = hash(lateSource.metadata_screening)
+  assert.throws(() => validateProtocol(lateSource), /METADATA_CANDIDATE_INVALID/)
+
+  for (const section of ['selection_protocol', 'metadata_screening', 'selection_manifest']) {
+    const earlyAnalysis = structuredClone(original)
+    earlyAnalysis[section].metrics = { lexical: 42 }
+    if (section === 'selection_protocol') earlyAnalysis.selection_protocol_hash = hash(earlyAnalysis.selection_protocol)
+    if (section === 'metadata_screening') earlyAnalysis.metadata_screening_hash = hash(earlyAnalysis.metadata_screening)
+    if (section === 'selection_manifest') earlyAnalysis.selection_manifest_hash = hash(earlyAnalysis.selection_manifest)
+    assert.throws(() => validateProtocol(earlyAnalysis), /SELECTION_PROTOCOL_STALE_OR_INVALID|METADATA_SCREENING_STALE_OR_INVALID|SAMPLE_MANIFEST_STALE_OR_MIXED/)
+  }
+})
+
+test('v2 file admission rejects metadata that diverges from the frozen screening row', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const realProtocol = twoStageProtocol()
+  assert.equal(prepareAdmission([candidate], realProtocol).audit.results[0].status, 'admission-pass')
+  candidate.metadata.title = 'Changed after screening'
+  assert.deepEqual(prepareAdmission([candidate], realProtocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
+  candidate.metadata.title = 'Fixture Book'
+  candidate.metadata.access_date = '2026-10-07'
+  assert.deepEqual(prepareAdmission([candidate], realProtocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
+  candidate.metadata.access_date = '2026-10-06'
+  candidate.extraction.passage_text += ' Additional'
+  assert.deepEqual(prepareAdmission([candidate], realProtocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
+  candidate.extraction.passage_text = 'A synthetic passage explains how plants use sunlight to make food.'
+  const swapped = join(directory, 'swapped.txt')
+  writeFileSync(swapped, 'Different source file.\n')
+  candidate.source_path = swapped
+  candidate.expected_file_hash = identifyLocalFile(swapped).file_hash
+  candidate.extraction.source_file_hash = candidate.expected_file_hash
+  assert.deepEqual(prepareAdmission([candidate], realProtocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
+  candidate.metadata.sample_id = 'not-screened'
+  assert.deepEqual(prepareAdmission([candidate], realProtocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
+})
 
 function fixture() {
   const directory = mkdtempSync(join(tmpdir(), 'frym-admission-'))
   const source = join(directory, 'fixture.txt')
-  writeFileSync(source, 'Synthetic source file used only by the admission test.\n')
+  writeFileSync(source, fixtureText)
   const candidate = {
     source_path: source,
     expected_file_hash: identifyLocalFile(source).file_hash,
@@ -39,10 +157,9 @@ test('selected and reviewed synthetic file becomes metadata-only benchmark sampl
   const before = readFileSync(source)
   candidate.metadata.passage_text = 'This must never appear in the output.'
   candidate.metadata.source_path = source
-  candidate.metadata.publisher_id = { passage_text: 'A secret passage in a typed field.' }
   candidate.analysis.metrics.passage_text = 'Nested raw passage must never appear.'
   const { samples, audit } = prepareAdmission([candidate], protocol)
-  assert.equal(samples.length, 1)
+  assert.equal(samples.length, 1, JSON.stringify(audit))
   assert.equal(audit.results[0].status, 'admission-pass')
   assert.deepEqual(screenSample(samples[0], protocol), [])
   assert.equal(samples[0].file_hash, candidate.expected_file_hash)
@@ -50,7 +167,6 @@ test('selected and reviewed synthetic file becomes metadata-only benchmark sampl
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.source_path))
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.metadata.passage_text))
   assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.analysis.metrics.passage_text))
-  assert.ok(!JSON.stringify({ samples, audit }).includes(candidate.metadata.publisher_id.passage_text))
   assert.deepEqual(readFileSync(source), before)
 })
 
@@ -59,8 +175,7 @@ test('source change and uncertain passage/question boundary fail closed', t => {
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   writeFileSync(source, 'Changed source')
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['SOURCE_HASH_CHANGED'])
-  candidate.expected_file_hash = identifyLocalFile(source).file_hash
-  candidate.extraction.source_file_hash = candidate.expected_file_hash
+  writeFileSync(source, fixtureText)
   candidate.extraction.boundary_confirmed = false
   assert.equal(prepareAdmission([candidate], protocol).audit.results[0].status, 'admission-hold')
   candidate.extraction.boundary_confirmed = true
@@ -96,7 +211,8 @@ test('selected ID with a slash remains audit-linkable by hash', t => {
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   const sealed = structuredClone(protocol)
   sealed.selection_manifest.selected_sample_ids = ['sample/1']
-  sealed.selection_manifest_hash = hash(sealed.selection_manifest)
+  sealed.metadata_screening.candidates[0].candidate_id = 'sample/1'
+  rebindProtocol(sealed)
   candidate.metadata.sample_id = 'sample/1'
   const result = prepareAdmission([candidate], sealed)
   assert.equal(result.samples.length, 1)
@@ -110,6 +226,7 @@ test('contradictory ordinal adjudication and path locator stay on hold', t => {
   const sealed = structuredClone(protocol)
   sealed.axes.discourse = { ...sealed.axes.discourse, scale: 'ordinal', resolution: 1, minimum_meaningful_delta: 1, levels: ['low', 'mid', 'high', 'higher', 'very high', 'highest'] }
   sealed.codebook_hash = hash(sealed.axes)
+  rebindProtocol(sealed)
   candidate.analysis.codebook_hash = sealed.codebook_hash
   candidate.analysis.ordinal_reviews = { discourse: { rater_a_id: 'A', rater_b_id: 'B', rater_a: 5, rater_b: 5, adjudicator_id: { passage_text: 'Leaked text' } } }
   const result = prepareAdmission([candidate], sealed)
@@ -142,7 +259,8 @@ test('whitespace-only passage variants cannot count as independent samples', t =
   second.metadata.sample_id = 'sample-2'
   const sealed = structuredClone(protocol)
   sealed.selection_manifest.selected_sample_ids.push('sample-2')
-  sealed.selection_manifest_hash = hash(sealed.selection_manifest)
+  sealed.metadata_screening.candidates.push({ ...sealed.metadata_screening.candidates[0], candidate_id: 'sample-2' })
+  rebindProtocol(sealed)
   second.extraction.passage_text = second.extraction.passage_text.replace(' how ', '\n  how   ')
   second.analysis.passage_hash = createHash('sha256').update(second.extraction.passage_text).digest('hex')
   const result = prepareAdmission([candidate, second], sealed)
@@ -158,11 +276,14 @@ test('image source requires explicit OCR and verification regardless of tool nam
   candidate.source_path = source
   candidate.expected_file_hash = identifyLocalFile(source).file_hash
   candidate.extraction.source_file_hash = candidate.expected_file_hash
-  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
+  const imageProtocol = structuredClone(protocol)
+  imageProtocol.metadata_screening.candidates[0].file_hash = candidate.expected_file_hash
+  rebindProtocol(imageProtocol)
+  assert.deepEqual(prepareAdmission([candidate], imageProtocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
   candidate.extraction.ocr_used = true
-  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
+  assert.deepEqual(prepareAdmission([candidate], imageProtocol).audit.results[0].reasons, ['NEEDS_MANUAL_ADMISSION'])
   candidate.extraction.ocr_verified = true
-  assert.equal(prepareAdmission([candidate], protocol).samples.length, 1)
+  assert.equal(prepareAdmission([candidate], imageProtocol).samples.length, 1)
 })
 
 test('OCR, missing axis, rights, selection and duplicates never enter samples', t => {
@@ -180,10 +301,10 @@ test('OCR, missing axis, rights, selection and duplicates never enter samples', 
   assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NINE_AXIS_ANALYSIS_MISSING'])
   candidate.analysis.metrics.inference = 5
   candidate.metadata.rights_basis = 'unknown'
-  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['RIGHTS_UNCONFIRMED'])
+  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
   candidate.metadata.rights_basis = 'authorized_local_analysis'
   candidate.metadata.sample_id = 'not-selected'
-  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['NOT_SELECTED'])
+  assert.deepEqual(prepareAdmission([candidate], protocol).audit.results[0].reasons, ['METADATA_SCREENING_MISMATCH'])
   candidate.metadata.sample_id = 'sample-1'
   const result = prepareAdmission([candidate, structuredClone(candidate)], protocol)
   assert.equal(result.samples.length, 0)
@@ -193,12 +314,17 @@ test('OCR, missing axis, rights, selection and duplicates never enter samples', 
 
 test('CLI creates separate metadata and audit files and will not overwrite', t => {
   const { directory, candidate } = fixture()
+  const realProtocol = twoStageProtocol()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   const protocolPath = join(directory, 'protocol.json'), candidatesPath = join(directory, 'candidates.json')
   const samplesPath = join(directory, 'metadata-samples.json'), auditPath = join(directory, 'audit.json'), receiptPath = join(directory, 'receipt.json'), snapshotPath = join(directory, 'snapshot.json')
-  writeFileSync(protocolPath, JSON.stringify(protocol))
+  writeFileSync(protocolPath, JSON.stringify(baseProtocol))
   writeFileSync(candidatesPath, JSON.stringify([candidate]))
   const args = ['scripts/textbook/frym-benchmark/local-admission-run.mjs', 'prepare', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath]
+  const legacy = spawnSync(process.execPath, args, { encoding: 'utf8' })
+  assert.equal(legacy.status, 1)
+  assert.match(legacy.stderr, /TWO_STAGE_PROTOCOL_REQUIRED/)
+  writeFileSync(protocolPath, JSON.stringify(realProtocol))
   assert.equal(spawnSync(process.execPath, args).status, 0)
   assert.equal(JSON.parse(readFileSync(samplesPath, 'utf8')).length, 1)
   const verify = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/local-admission-run.mjs', 'verify', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath], { encoding: 'utf8' })
@@ -269,9 +395,10 @@ test('admitted snapshot binds the exact receipt and rejects mixed runs', t => {
 
 test('CLI admission snapshot turns stale after source, candidate, or protocol revision', t => {
   const { directory, source, candidate } = fixture()
+  const realProtocol = twoStageProtocol()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   const paths = Object.fromEntries(['protocol', 'candidates', 'samples', 'audit', 'receipt', 'snapshot'].map(name => [name, join(directory, `${name}.json`)]))
-  writeFileSync(paths.protocol, JSON.stringify(protocol))
+  writeFileSync(paths.protocol, JSON.stringify(realProtocol))
   writeFileSync(paths.candidates, JSON.stringify([candidate]))
   const run = (script, command, args) => spawnSync(process.execPath, [`scripts/textbook/frym-benchmark/${script}`, command, ...args], { encoding: 'utf8' })
   assert.equal(run('local-admission-run.mjs', 'prepare', [paths.protocol, paths.candidates, paths.samples, paths.audit, paths.receipt]).status, 0)
@@ -285,7 +412,7 @@ test('CLI admission snapshot turns stale after source, candidate, or protocol re
   writeFileSync(paths.candidates, JSON.stringify([changedCandidate]))
   assert.match(run('benchmark-run.mjs', 'verify-admitted', verifyArgs).stderr, /CANDIDATE_INPUT_STALE/)
   writeFileSync(paths.candidates, JSON.stringify([candidate]))
-  writeFileSync(paths.protocol, JSON.stringify({ ...protocol, version: 'fixture-v2' }))
+  writeFileSync(paths.protocol, JSON.stringify({ ...realProtocol, version: 'fixture-v3' }))
   assert.match(run('benchmark-run.mjs', 'verify-admitted', verifyArgs).stderr, /BENCHMARK_VERSION_STALE/)
 })
 
@@ -298,7 +425,7 @@ test('receipt binds candidates, source, outputs and benchmark version', t => {
   const changedAnswer = structuredClone(candidate)
   changedAnswer.extraction.questions[0].answer = 'different'
   assert.equal(verifyAdmission(protocol, [changedAnswer], original.samples, original.audit, original.receipt).status, 'stale')
-  const changedProtocol = { ...protocol, version: 'fixture-v2' }
+  const changedProtocol = { ...protocol, version: 'fixture-v3' }
   assert.ok(verifyAdmission(changedProtocol, [candidate], original.samples, original.audit, original.receipt).reasons.includes('BENCHMARK_VERSION_STALE'))
   const changedSamples = structuredClone(original.samples)
   changedSamples[0].metrics.lexical = 99
@@ -314,19 +441,20 @@ test('receipt binds candidates, source, outputs and benchmark version', t => {
 
 test('dry-run and sealed receipt keep held candidates out of build', t => {
   const { directory, candidate } = fixture()
+  const realProtocol = twoStageProtocol()
   t.after(() => rmSync(directory, { recursive: true, force: true }))
   candidate.extraction.boundary_confirmed = false
-  const dryRun = dryRunAdmission(protocol, [candidate])
+  const dryRun = dryRunAdmission(realProtocol, [candidate])
   assert.equal(dryRun.state, 'admission-hold')
   assert.equal(dryRun.ready_for_build, false)
-  const sealed = prepareSealedAdmission(protocol, [candidate])
+  const sealed = prepareSealedAdmission(realProtocol, [candidate])
   assert.equal(sealed.samples.length, 0)
-  const checked = verifyAdmission(protocol, [candidate], sealed.samples, sealed.audit, sealed.receipt)
+  const checked = verifyAdmission(realProtocol, [candidate], sealed.samples, sealed.audit, sealed.receipt)
   assert.equal(checked.status, 'current')
   assert.equal(checked.ready_for_build, false)
   const protocolPath = join(directory, 'protocol.json'), candidatesPath = join(directory, 'candidates.json')
   const samplesPath = join(directory, 'samples.json'), auditPath = join(directory, 'audit.json'), receiptPath = join(directory, 'receipt.json')
-  for (const [path, value] of [[protocolPath, protocol], [candidatesPath, [candidate]], [samplesPath, sealed.samples], [auditPath, sealed.audit], [receiptPath, sealed.receipt]]) writeFileSync(path, JSON.stringify(value))
+  for (const [path, value] of [[protocolPath, realProtocol], [candidatesPath, [candidate]], [samplesPath, sealed.samples], [auditPath, sealed.audit], [receiptPath, sealed.receipt]]) writeFileSync(path, JSON.stringify(value))
   const status = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, join(directory, 'missing-snapshot.json'), '-', '-', '-'], { encoding: 'utf8' })
   assert.equal(status.status, 0, status.stderr)
   assert.equal(JSON.parse(status.stdout).state, 'admission-hold')
@@ -349,7 +477,7 @@ test('pipeline state keeps admission, benchmark and downstream gates distinct', 
   assert.equal(inspectPipeline({ ...base, envelope, decision: {} }).state, 'decision-unverified')
   const mixed = { ...envelope, admission_receipt_hash: 'other-run' }
   assert.equal(inspectPipeline({ ...base, envelope: mixed }).state, 'stale')
-  const revised = { ...base, protocol: { ...protocol, version: 'fixture-v2' } }
+  const revised = { ...base, protocol: { ...protocol, version: 'fixture-v3' } }
   assert.equal(inspectPipeline({ ...revised, envelope }).state, 'stale')
   const heldCandidate = structuredClone(candidate)
   heldCandidate.extraction.boundary_confirmed = false
