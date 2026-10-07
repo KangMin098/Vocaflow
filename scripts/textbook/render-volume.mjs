@@ -23,6 +23,8 @@ import { createHash } from 'node:crypto'
 import { ELIGIBILITY_SPEC_VERSION } from '../../packages/library-pipeline/src/textbook/source-eligibility.ts'
 
 import { ELEMENTARY_TYPES, SCHOOL_TYPES, loadEnv, loadVolume } from './volume-pool.mjs'
+import { verifyOrderRenderItems } from './factory-lineage.mjs'
+import { assertExternalCandidate } from './frym-benchmark/local-candidate-path.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -32,11 +34,16 @@ const arg = (n) => {
 const BAND = Number(arg('band') ?? 5)
 // 어느 시리즈의 권인가. 기본은 독해 — 옛 명령이 그대로 돈다.
 const SERIES = arg('series') ?? 'reading'
+const PRODUCT_ORDER_ID = arg('product-order')
+const PROMOTION_REQUESTS = arg('promotion-requests')
+const CURRENT_POLICY = arg('policy')
+if (PRODUCT_ORDER_ID && (!PROMOTION_REQUESTS || !CURRENT_POLICY)) throw Error('RENDER_PROMOTION_PROOF_REQUIRED')
 const OUT = arg('out') ?? `volume-v${BAND}.html`
 // ⚠️ **기본값이 false 여야 게이트다.** 해설이 빠졌거나 자동 검수가 떨어진 권은 조판물을
 //   내지 않는다(실측 2026-09-12 이전에는 전부 그냥 나왔다). 그래도 내야 할 때만 이 플래그로
 //   명시한다 — 그때는 조판 기록에 `gate.forced` 로 남아 통과한 권과 구별된다.
 const ALLOW_DEFECTS = process.argv.includes('--allow-defects')
+if (PRODUCT_ORDER_ID && ALLOW_DEFECTS) throw Error('ORDER_RENDER_DEFECT_OVERRIDE_FORBIDDEN')
 
 const { createClient } = await import('@supabase/supabase-js')
 const {
@@ -146,8 +153,10 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 const MARKET_MIX = !process.argv.includes('--no-market-mix')
 const { units, stoppedBecause, articles: byId, pool, mix, verdictByRef, seriesTypes } =
   await loadVolume(db, {
+  validationNow: new Date().toISOString(),
   band: BAND,
   seriesId: SERIES,
+  productOrderId: PRODUCT_ORDER_ID,
   unitCount: UNITS,
   marketMix: MARKET_MIX,
 })
@@ -900,7 +909,7 @@ if (!gate.pass && !ALLOW_DEFECTS) {
   // `colophon.review.personaReview` **한 칸만** 갱신한다:
   //   · `render_count`·`out_path`·`rendered_at` 은 **건드리지 않는다** — 조판을 주장하지 않는다.
   //   · 행이 없으면 아무것도 만들지 않는다 — 없는 조판을 지어내지 않는다.
-  if (reviewedItems != null) {
+  if (reviewedItems != null && !PRODUCT_ORDER_ID) {
     const { data: row } = await db
       .from('textbook_volume_renders')
       .select('colophon')
@@ -977,7 +986,21 @@ const html = renderVolumeDocument({
   answers: answerRows,
 })
 
-fs.writeFileSync(path.resolve(OUT), html, 'utf8')
+let renderedOrder = null
+let renderedEvidence = null
+if (PRODUCT_ORDER_ID) {
+  if (!units.length) throw Error('FACTORY_ORDER_INSUFFICIENT_ITEMS')
+  assertExternalCandidate(PROMOTION_REQUESTS)
+  assertExternalCandidate(CURRENT_POLICY)
+  const requestsRaw = fs.readFileSync(PROMOTION_REQUESTS, 'utf8')
+  const policyRaw = fs.readFileSync(CURRENT_POLICY, 'utf8')
+  const checked = await verifyOrderRenderItems(db, printedItems, PRODUCT_ORDER_ID, JSON.parse(requestsRaw), JSON.parse(policyRaw), new Date().toISOString())
+  renderedOrder = checked.order
+  renderedEvidence = checked.itemEvidence
+  renderedOrder.promotionProofSha256 = createHash('sha256').update(requestsRaw).digest('hex')
+  renderedOrder.currentPolicySha256 = createHash('sha256').update(policyRaw).digest('hex')
+}
+fs.writeFileSync(path.resolve(OUT), html, { encoding: 'utf8', flag: PRODUCT_ORDER_ID ? 'wx' : 'w' })
 // Immutable sidecar survives replacement of the latest DB render record.
 const sourceManifest = {
   policyVersion: ELIGIBILITY_SPEC_VERSION,
@@ -985,6 +1008,7 @@ const sourceManifest = {
   htmlSha256: createHash('sha256').update(html).digest('hex'),
   itemIds: [...new Set(printedItems.map(item => item.id))].sort(),
   sourceIds: [...new Set(printedItems.map(item => item.ref_id).filter(id => /^[0-9a-f-]{36}$/i.test(id)))].sort(),
+  ...(renderedOrder ? { productOrder: renderedOrder, itemEvidence: renderedEvidence } : {}),
 }
 fs.writeFileSync(`${path.resolve(OUT)}.manifest-${sourceManifest.renderedAt.replace(/[:.]/g, '-')}.json`, JSON.stringify(sourceManifest, null, 2) + '\n', { flag: 'wx' })
 
@@ -1185,7 +1209,7 @@ const record = {
 //    것뿐이다. 둘을 같은 말로 찍으면 관리자가 있지도 않은 마이그레이션 문제를 확인하러 간다.
 //    실측 2026-09-06: `VOCAFLOW_SOURCE_STRICT=1` 로 V4 를 돌리면 판정 통과 원문이 2편뿐이라
 //    문항 풀이 12,344 → 54 로 줄어 0단원이 된다. 그것이 그 규칙의 정직한 결과다.
-const { data: prior, error: priorErr } = record.units === 0
+const { data: prior, error: priorErr } = record.units === 0 || PRODUCT_ORDER_ID
   ? { data: null, error: null }
   : await db
       .from('textbook_volume_renders')
@@ -1201,7 +1225,9 @@ const { data: prior, error: priorErr } = record.units === 0
 //   「Vocaflow Vocab Advanced」로 바뀌며 발행 중인 시리즈의 기록을 잃었다.
 //   마이그레이션 `textbook_volume_renders_series` 가 `series` 열과 `(series, band)` 복합 키를
 //   넣어 그 자리를 막았다. 아래 upsert 가 **반드시 `series` 를 실어야** 그 보호가 작동한다.
-if (record.units === 0) {
+if (PRODUCT_ORDER_ID) {
+  console.log('주문별 조판은 HTML과 불변 lineage manifest만 남긴다. 밴드 공용 조판 기록은 덮어쓰지 않는다.')
+} else if (record.units === 0) {
   console.log(
     `조판 기록  건너뜀 — 0단원이라 남길 권이 없다 (재료 부족). ` +
       `실패가 아니다 — 재고가 규격을 못 채운 것이다.`,

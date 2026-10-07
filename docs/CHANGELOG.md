@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): `reading:` 문항부터 해설·편집 검수·주문별 단원/권·조판 manifest까지 Product Order/promotion evidence lineage를 전달하고 현재 authority·권리·철회·본문 판을 재확인한다. 기존 밴드 공용 권에는 각색 자식을 섞지 않는다. 합성 계약·조판 게이트를 검증했으며 실제 CLI E2E·승격·Gold-S·DB seed는 0건이다.
+
 - fix(textbook): 개발 DB의 Phase 2 승격 증거 테이블 5개에 RLS와 restrictive `false` policy를 적용했다. 직접 권한은 그대로 차단되고 롤백형 승격 DB 스모크가 재통과했다. 새 no-policy INFO 5건은 사라졌고 기존 관리자 RPC 경고 3건은 별도 기록한다.
 
 - feat(textbook): 교재 공장 Phase 2의 order별 관리자 승인, 현재 trust/benchmark 판본, 단일 트랜잭션 `queued → ready` 승격·감사 계약을 개발 DB에 적용했다. 합성 성공·우회 차단·재시도를 롤백형 fixture로 검증했고 실데이터 승격은 0건이다.

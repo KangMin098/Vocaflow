@@ -326,6 +326,7 @@ export const TBP_HELP: HelpRegistry = {
               '③ **에이전트(Claude Code 또는 Codex)가 `chunk-NN.json` 을 읽고 `chunk-NN.out.json` 으로 채운다.** 집필 규격의 정본은 `scripts/textbook/item-drain-brief.md` 한 벌이다 — 규칙을 새로 짜지 말 것(손으로 짠 검사기가 없는 규칙을 만들어 멀쩡한 요약 문항 넷을 헛되이 다시 쓰게 한 일이 있다). **이미 `.out.json` 이 있는 청크는 건너뛴다 — 재실행 안전.** ' +
               '④ `pnpm dlx tsx scripts/textbook/item-selfcheck.mjs --file <청크>.out.json --type <유형> --band <학년>` — 적재 관문(`item-gate.ts`)과 **같은 함수**를 부르므로 여기서 통과하면 적재에서도 통과한다. **DB 를 안 타고 아무것도 안 쓴다 — 재실행 안전.** ' +
               '⑤ `pnpm dlx tsx scripts/textbook/item-drain-import.mjs --dir scripts/textbook/item-drain/<유형>-v<학년> --commit` — 유일키가 `(kind, ref_id, type, paragraph_idx)` 라 **이미 있으면 건너뛴다 — 재실행 안전.** ⚠️ `--commit` 없이 먼저 돌려 건너뛴 수와 이유를 본다. ' +
+              '`reading:` 각색 지문은 현재 promotion 감사·주문 revision·권리·철회 상태가 맞아야 뽑히며, 문항에도 그 계보를 저장한다. 해설·검수 청크는 생성 당시 계보와 현재 문항 판이 어긋나면 적재하지 않는다. 주문별 권은 `--product-order <ID>`로만 조합하고, 조판에는 저장소 밖의 `--promotion-requests <JSON 배열>`와 `--policy <현재 JSON>`가 필요하다. 재실행할 때는 현재 증거를 다시 읽으며, 오래된 청크는 새로 뽑아야 한다. 주문별 HTML은 `--out`으로 새 경로를 지정해야 하며 기존 파일이 있으면 실패한다. promotion 요청은 인쇄 지문마다 정확히 하나여야 한다. 기존 밴드 공용 조판 기록은 덮지 않는다. ' +
               '⚠️ **폴더 이름이 정본이다** — `--dir` 만 주고 유형·학년을 기본값으로 두었다가 요지 9문항이 `topic`/V3 로 잘못 적힌 일이 있다(2026-08-31). 지금은 어긋나면 넣기 전에 멈춘다.',
             done: '`item-fill-plan.mjs` 를 다시 돌리면 그 칸의 「써야 할 문항」이 줄고, 재고 스캔 뒤 그 밴드의 「만들 수 있는 권」이 오른다.',
           },

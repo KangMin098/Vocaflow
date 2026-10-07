@@ -1,4 +1,4 @@
-# 교재 공장 통합 계약 — Phase 1
+# 교재 공장 통합 계약 — Phase 1–3
 
 기존 `/admin/csat` 9공정과 Academic Reading의 공통 입력은 `textbook-product-order/1`이다. 정본은 `packages/library-pipeline/src/textbook/factory-order.ts`, 브라우저에서 안전하게 읽는 상태→공정 대응은 `factory-order-stage.ts`다. 이 계약은 생산·인증·DB 승격을 실행하지 않는다. 현재 실제 시중 교재 benchmark corpus, Gold-S, DB seed는 모두 0이다.
 
@@ -18,9 +18,9 @@
 
 ## 공정과 전이의 경계
 
-`FACTORY_STATE_STAGE`는 주문 증거 상태를 기존 `factory-model.ts`의 9공정에 연결한다. 화면이 숫자나 통과 여부를 이 매핑에서 추정하지 않는다. `planFactoryTransition`은 같은 판의 증거와 인접 단계 및 직접사용/각색 분기만 검사하고 `{ proposed_state, required_gate, authorized:false }`를 반환한다. 임의 인증서 hash만으로 Gold-S를 인증할 수 없도록 **상태를 실제로 전이하지 않는다**. 각 게이트의 현재 증거 검증은 해당 운영 모듈이 책임진다. 직접 사용은 별도 내용 검토·benchmark 뒤 기존 ready 원문의 재확인을 요구하며 새 DB 승격을 주장하지 않는다. 실제 `reading:` 자식은 현재 DB 트리거에 의해 `queued`에 머물며, 별도 승인된 승격 계약·migration 이전에는 생산 라인에 편입되지 않는다.
+`FACTORY_STATE_STAGE`는 주문 증거 상태를 기존 `factory-model.ts`의 9공정에 연결한다. 화면이 숫자나 통과 여부를 이 매핑에서 추정하지 않는다. `planFactoryTransition`은 같은 판의 증거와 인접 단계 및 직접사용/각색 분기만 검사하고 `{ proposed_state, required_gate, authorized:false }`를 반환한다. 임의 인증서 hash만으로 Gold-S를 인증할 수 없도록 **상태를 실제로 전이하지 않는다**. 각 게이트의 현재 증거 검증은 해당 운영 모듈이 책임진다. 직접 사용은 별도 내용 검토·benchmark 뒤 기존 ready 원문의 재확인을 요구하며 새 DB 승격을 주장하지 않는다. `reading:` 자식의 `queued → ready`는 Phase 2 전용 승인·감사 RPC만 허용한다.
 
-직접 사용 경로의 실제 DB·문항 생산 연결, 발급자 신원, Gold-S 심사, 시중 교재 실분포, 문항→해설→권 조판의 주문 ID 전파, 관리자 조작 화면은 후속 Phase 범위다. Phase 1의 기능은 공통 용어·증거 결속·실패 폐쇄를 제공하는 것이며 전체 공장 E2E 완료를 뜻하지 않는다.
+직접 사용 경로의 실제 DB·문항 생산 연결, 시중 교재 실분포, 관리자 조작 화면은 후속 범위다. Phase 1의 기능은 공통 용어·증거 결속·실패 폐쇄를 제공하며 전체 공장 E2E 완료를 뜻하지 않는다.
 
 ## Phase 2 — reading 자식의 제한된 승격 계약
 
@@ -37,3 +37,11 @@ Migration 검토 기록: 신규 테이블 5개(`reading_promotion_audit`, `permi
 5개 승격 증거 테이블의 RLS는 승인받은 `20261007211638_reading_promotion_tables_rls.sql`로 개발 DB에서 활성화하고, 별도 승인받은 `20261007213310_reading_promotion_explicit_deny_policies.sql`로 각각 `AS RESTRICTIVE FOR ALL TO PUBLIC USING (false) WITH CHECK (false)` policy를 추가했다. anon/authenticated의 직접 접근 권한은 없고, service_role은 permit 외 4개 테이블의 SELECT만 유지한다. postgres 소유의 관리자·승격 RPC와 트리거는 RLS 우회 신원/증거 검사 경로를 유지한다. 적용 전후 checkpoint는 `reading-promotion-rls-20261008`과 `reading-promotion-deny-policy-20261008`이다. 정책 적용 후 `rls_missing_tables`는 65→60, 새 `rls_enabled_no_policy` INFO 5건은 사라졌으며 롤백형 DB 스모크가 재통과했다. 정책만 되돌릴 경우 승격을 중지하고 5개 테이블에서 `DROP POLICY reading_promotion_private_deny`를 한 트랜잭션으로 실행한다. RLS 자체는 계속 켜져 기본 거부를 유지한다. RLS 활성화까지 되돌려야 한다면 승격을 중지한 상태에서 5개 정책을 제거하고 5개 테이블의 RLS를 비활성화하는 절차를 한 트랜잭션으로 수행한 뒤 ACL·RPC 권한을 재확인하고 롤백형 DB 스모크를 다시 실행한다. 이 되돌리기는 보호 수준을 낮추므로 별도 승인 후에만 수행한다. DB 적용 버전과 검증 결과는 [Phase 2 종료 증거](./reports/reading-promotion-phase2-closure-20261008.md)에 기록했다.
 
 Security Advisor의 관리자 `SECURITY DEFINER` RPC 3건 경고는 이 정책 적용 전후 동일하다. signed-in 역할이 함수 EXECUTE 권한을 가지기 때문이며, 각 함수는 고정 `pg_catalog` search path와 현재 인증 사용자·활성 관리자 검사를 수행한다. 실제 비관리자 신원으로 세 함수 호출 거부를 롤백형 시험에서 확인했다. 전용 승격 함수는 service_role 전용이고 일반 로그인 사용자는 호출할 수 없다. 이 경고는 [Supabase linter 0029](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable)의 접근 가능성 알림으로 기록하며, 관리자 경로의 역할·신원 검사 자체를 통과했다는 증거로 해석하지 않는다.
+
+## Phase 3 — 주문별 생산 계보
+
+`scripts/textbook/factory-lineage.mjs`는 각 `reading:` 자식의 현재 본문·부모·권리, 유일하게 현재 유효한 promotion audit, Product Order revision과 현재 authority의 trust/benchmark 판본·만료·인증서/eligibility 철회를 대조한다. 오래된 감사 행은 현재 판으로 승격하지 않는다. item export는 유효한 자식만 청크에 넣고, import는 원본 청크·출력·현재 증거를 다시 비교하여 `csat_dcp_items.payload.factory_lineage`에 주문·원문·각색·감사·인증 근거를 저장한다. `reading:`이 아닌 기존 문항 경로에는 이 필드를 강제하지 않는다.
+
+해설 export/import는 문항의 현재 lineage를 재검증하고 청크의 lineage가 바뀌면 적재를 거부한다. 편집 검수의 `reviewed_digest`는 문항 payload와 answer key 판에 묶이며, `reading:` 검수는 현재 lineage와 digest가 모두 있어야 한다. 대량 적재는 첫 쓰기 전에 대상 전체를 검사하고 각 배치에서 다시 검사한다. 여러 배치 사이의 동시 변경까지 원자적으로 묶는 DB RPC는 아직 없으므로 중단 시 이미 적재된 배치는 이후 재검증 대상이다.
+
+밴드 전체를 사용하는 기존 권 조판에서는 `reading:` 각색 자식을 제외한다. 주문별 `build-volume.mjs`, `build-unit.mjs`, 해설·검수 export는 `--product-order <ID>`로 감사 기록에 속한 자식만 선택하며 현재 lineage를 다시 확인한다. 주문별 `render-volume.mjs`는 추가로 저장소 밖 `--promotion-requests <JSON 배열>`과 `--policy <현재 JSON>`를 요구한다. 요청 배열은 인쇄될 지문과 정확히 1:1이어야 한다. 조판 직전 원래 승격 요청을 현재 원문·권리·Gold-S/seed·신뢰정책으로 다시 검증하고, 동일 주문 revision의 문항만 쓴다. HTML은 운영자가 `--out`으로 지정한 새 경로에만 만들며 기존 파일은 덮어쓰지 않는다. 이어서 주문·문항별 lineage 및 사용한 증거 파일 hash를 sidecar manifest에 남긴다. 주문별 조판은 `(series, band)` 하나뿐인 기존 `textbook_volume_renders` 행을 덮어쓰지 않는다. 이 산출물은 DB 발행 기록이나 실제 Gold-S 인증을 뜻하지 않는다. 합성 계약 테스트는 실제 단원 조립·HTML 렌더 함수와 조판 직전 DB 재조회 게이트를 모의 DB로 검증했다. 실제 DB에 승격된 `reading:` 콘텐츠를 통한 전체 CLI E2E는 아직 0건이다.

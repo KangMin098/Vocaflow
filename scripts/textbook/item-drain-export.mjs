@@ -31,6 +31,7 @@ import { pickFreeSlots, readReservedTasks } from './chunk-slots.mjs'
 import { readingSkillsForType } from '@vocaflow/library-pipeline/academic-reading-contract'
 import { digest } from './academic-reading-contract.mjs'
 import { READING_REVIEW_PARENT_COLUMNS, normalizeReviewedLongBody, readingReviewAllowsItem, reviewedPassageIsComplete } from './academic-reading-review.mjs'
+import { loadCurrentReadingLineages } from './factory-lineage.mjs'
 import { peopleRatio, speechCount, SPEECH_FLOOR } from '../csat/lib-narrative.mjs'
 
 loadEnv()
@@ -317,11 +318,13 @@ const BATCH_FILTER = (arg('batch') ?? '')
 
 const readingParentIds = [...new Set((arts ?? []).filter(a => a.source_id?.startsWith('reading:') || a.composed_spec?.academic_reading).map(a => a.adapted_from_id).filter(Boolean))]
 const readingParents = new Map((await fetchAllIn(db, 'library_articles', READING_REVIEW_PARENT_COLUMNS, 'id', readingParentIds, ['id'])).map(a => [a.id, a]))
+const readingLineages = await loadCurrentReadingLineages(db, arts ?? [], readingParents, new Date().toISOString())
 const withBody = (arts ?? [])
   // 철회된 논문은 지문으로 쓰지 않는다 — 판정은 volume-pool 한 곳에 있다(조판과 같은 잣대).
   .filter((a) => !a.display_only && !isRetractedTitle(a.title) && String(a.content ?? '').trim())
   .filter((a) => !BATCH_FILTER.length || BATCH_FILTER.includes(String(a.compose_batch_id)))
   .filter((a) => readingReviewAllowsItem(a, readingParents.get(a.adapted_from_id), TYPE))
+  .filter((a) => !a.source_id?.startsWith('reading:') || readingLineages.has(a.id))
 
 /** 이 유형이 장문 묶음(43~45)인가 — 지문을 자르지 않고 통째로 쓴다. */
 const IS_LONG = spec.long === true
@@ -670,6 +673,7 @@ const tasks = todo.slice(0, need).map((a) => ({
     passage_level:a.composed_spec.academic_reading.analysis.passage_profile.overall_level.level,
     allowed_skills:readingSkillsForType(TYPE,a.composed_spec.academic_reading.target),
     source_hash:digest(a.content), source_revision:a.updated_at,
+    factory_lineage:readingLineages.get(a.id),
     item_reasoning_level:null, item_difficulty:null, difficulty_evidence:'', skill:null, evidence:[],
   } } : {}),
   // 짧은 유형은 **창(90~200어)에 맞게 자른 구간**, 장문은 **글 전체**다 — 위 `passageOf` 주석 참조.

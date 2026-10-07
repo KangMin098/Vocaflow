@@ -392,7 +392,7 @@ for (const band of BANDS) {
   process.stdout.write(`${SERIES} band ${band} … `)
   let loaded
   try {
-    loaded = await loadVolume(db, { band, unitCount: UNITS, seriesId: SERIES })
+    loaded = await loadVolume(db, { band, unitCount: UNITS, seriesId: SERIES, validationNow: new Date().toISOString() })
   } catch (e) {
     problems.push({ band, series: SERIES, error: String(e?.message ?? e) })
     console.log(`실패 — ${e?.message ?? e}`)

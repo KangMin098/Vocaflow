@@ -4,6 +4,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { generateKeyPairSync, sign } from 'node:crypto'
 import { bindFactoryEvidence, sealProductOrder } from '@vocaflow/library-pipeline/factory-order'
+import { reviewDigest } from '@vocaflow/library-pipeline'
 import { hash } from '../frym-benchmark/benchmark.mjs'
 import { sourceRightsHash, validateGoldSImport } from '../frym-benchmark/gold-s-import-gate.mjs'
 import { adaptationKey, canonical, digest, targetKey } from '../academic-reading-contract.mjs'
@@ -11,6 +12,7 @@ import { READING_ENGINE_VERSION } from '@vocaflow/library-pipeline/academic-read
 import { REVIEWERS, REVIEW_DIMENSIONS, reviewTemplate, validateAgentReviews } from '../academic-reading-review.mjs'
 import { prepareReadingPromotion } from './preflight.mjs'
 import { assessPromotionAuthorization } from './authorization.mjs'
+import { currentReadingLineage, verifyOrderRenderItems, verifyRenderPromotionProofs } from '../factory-lineage.mjs'
 
 const target = JSON.parse(readFileSync(new URL('../targets/knowledge-middle1.json', import.meta.url), 'utf8'))
 const sourceId = '11111111-1111-4111-8111-111111111111'
@@ -109,4 +111,47 @@ test('an independent, current administrator approval binds the exact order and e
   assert.equal(assess(rpc, approval, null).ok, false)
   assert.equal(assess(rpc, approval, authority, now, { ...currentOrder, order_revision: 2 }).ok, false)
   assert.equal(assess(rpc, approval, authority, now, { ...currentOrder, order_hash: h('9') }).ok, false)
+})
+
+test('order render rechecks signed promotion proof against live source and current policy', async () => {
+  const input = fixture()
+  const prepared = prepareReadingPromotion({ ...input, now, requestedBy: 'fixture-operator' })
+  assert.equal(prepared.ok, true)
+  const child = { ...input.child, status: 'ready' }
+  const audit = { request_id: input.request.request_id, requested_by: 'fixture-operator', request_hash: prepared.rpc.request_hash, evidence_hash: prepared.rpc.evidence_hash }
+  const item = { ref_id: child.id, payload: { factory_lineage: { promotion_request_id: audit.request_id, promotion_request_hash: audit.request_hash, evidence_hash: audit.evidence_hash } } }
+  const db = { from: table => ({ select: () => ({ eq: (_column, value) => ({ single: async () => ({ data: table === 'reading_promotion_audit' ? audit : value === child.id ? child : input.source, error: null }) }) }) }) }
+  await verifyRenderPromotionProofs(db, [item], [input.request], input.request.policy, now)
+  await assert.rejects(verifyRenderPromotionProofs(db, [item], [input.request], { ...input.request.policy, revision: 'changed' }, now), /RENDER_TRUST_POLICY_STALE/)
+  const revoked = { ...input.request, policy: { ...input.request.policy, revoked: { ...input.request.policy.revoked, certificate_hashes: [hash(input.request.bundle.certificate)] } } }
+  await assert.rejects(verifyRenderPromotionProofs(db, [item], [revoked], revoked.policy, now), /RENDER_PROMOTION_PROOF_STALE/)
+})
+
+test('the render script gate reloads item, authority, and proof before emitting lineage', async () => {
+  const input = fixture()
+  const rpc = prepareReadingPromotion({ ...input, now, requestedBy: 'fixture-operator' }).rpc
+  const child = { ...input.child, status: 'ready' }
+  const order = { order_id: rpc.product_order_id, order_revision: rpc.order_revision, order_hash: rpc.order_hash }
+  const authority = { singleton: true, trust_policy_hash: rpc.trust_policy_hash, benchmark_version: rpc.benchmark_version, benchmark_snapshot_hash: rpc.benchmark_snapshot_hash, revoked_certificate_hashes: [], revoked_eligibility_hashes: [], valid_until: '2026-10-08T00:00:00Z' }
+  const audit = { request_id: rpc.request_id, article_id: child.id, source_id: input.source.id, requested_by: 'fixture-operator', request_hash: rpc.request_hash, order_id: rpc.product_order_id, order_revision: rpc.order_revision, order_hash: rpc.order_hash, evidence_hash: rpc.evidence_hash, certificate_hash: rpc.certificate_hash, eligibility_hash: rpc.eligibility_hash, trust_policy_hash: rpc.trust_policy_hash, benchmark_version: rpc.benchmark_version, benchmark_snapshot_hash: rpc.benchmark_snapshot_hash, request_payload: rpc, result_status: 'ready', promoted_at: now }
+  const lineage = currentReadingLineage({ article: child, parent: input.source, audit, order, authority, now })
+  const item = { id: '55555555-5555-4555-8555-555555555555', ref_id: child.id, payload: { passage: child.content, factory_lineage: lineage }, answer_key: { answer: 1, explanation_ko: 'This explanation is supported by the article.' } }
+  item.source_item_digest = reviewDigest(item.payload, item.answer_key)
+  const printedItem = { ...item, answer_key: { ...item.answer_key } }
+  const tables = { csat_dcp_items: [item], library_articles: [child, input.source], reading_promotion_audit: [audit], reading_product_order_revision: [order] }
+  const db = { from: table => ({ select: () => ({
+    in: (column, values) => Promise.resolve({ data: (tables[table] ?? []).filter(row => values.includes(row[column])), error: null }),
+    eq: (column, value) => ({
+      maybeSingle: () => Promise.resolve({ data: table === 'reading_promotion_authority' && value === true ? authority : null, error: null }),
+      single: () => Promise.resolve({ data: (tables[table] ?? []).find(row => row[column] === value) ?? null, error: null }),
+    }),
+  }) }) }
+  const checked = await verifyOrderRenderItems(db, [printedItem], order.order_id, [input.request], input.request.policy, now)
+  assert.equal(checked.order.order_hash, rpc.order_hash)
+  assert.equal(checked.itemEvidence[0].lineage.evidence_hash, rpc.evidence_hash)
+  item.answer_key = { ...item.answer_key, explanation_ko: 'Changed after review.' }
+  await assert.rejects(verifyOrderRenderItems(db, [printedItem], order.order_id, [input.request], input.request.policy, now), /RENDER_ITEM_OR_EXPLANATION_STALE/)
+  item.answer_key = printedItem.answer_key
+  authority.revoked_certificate_hashes.push(rpc.certificate_hash)
+  await assert.rejects(verifyOrderRenderItems(db, [printedItem], order.order_id, [input.request], input.request.policy, now), /FACTORY_LINEAGE_MISSING/)
 })

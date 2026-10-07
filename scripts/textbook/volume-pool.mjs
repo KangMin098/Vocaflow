@@ -23,6 +23,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { assertSameLineage, loadCurrentReadingLineages } from './factory-lineage.mjs'
 
 /**
  * PostgREST 는 **한 응답에 1000행까지만** 준다 — `.limit(20000)` 을 붙여도 넘지 못한다(실측).
@@ -732,7 +733,7 @@ export async function pickArticles(db, all, cap) {
  */
 export async function loadVolume(
   db,
-  { band, unitCount, marketMix = true, maxArticles = null, seriesId = 'reading' },
+  { band, unitCount, marketMix = true, maxArticles = null, seriesId = 'reading', productOrderId = null, validationNow = null },
 ) {
   const timer = makeTimer()
   const { SERIES_CATALOG } = await import('@vocaflow/library-pipeline/textbook-series-catalog')
@@ -787,7 +788,7 @@ export async function loadVolume(
     //   `csat_fit->gate->>...` 넷을 더했더니 V4(856편) 조판이 **statement timeout 으로 죽었다.**
     //   밴드 전체를 훑으면서 jsonb 를 행마다 detoast 하기 때문이다. 판정에 필요한 열은
     //   **문항이 붙은 원글에만** 따로 받는다(아래 `적격 판정` 절) — 그쪽은 pk `IN` 이라 싸다.
-    'id, title, source, article_v_level, display_only, license_class, copyright_safe_in_kr, cefr_level',
+    'id, title, source, source_id, article_v_level, display_only, license_class, copyright_safe_in_kr, cefr_level',
     'id',
     1000,
     (q) => q.in('status', ['ready', 'published']).eq('article_v_level', band),
@@ -823,13 +824,23 @@ export async function loadVolume(
   //   근거와 한계는 `assemble-unit.HIGH_BAND_MAX_CEFR` 머리 주석 참조
   //   (시중 고등 교재는 아직 실측이 없어 **잠정 상한**이다).
   const levelBlocked = (arts ?? []).filter((a) => !cefrFitsBand(a.cefr_level, band))
-  const all = (arts ?? []).filter(
+  let all = (arts ?? []).filter(
     (a) =>
       isLegallyUsable(a) &&
       !isRetractedTitle(a.title) &&
       !hasSensitiveTopic(a.title) &&
       cefrFitsBand(a.cefr_level, band),
   )
+  // Reading adaptations enter a volume only through an explicit Product Order.
+  // The legacy band-wide render has no current Gold-S proof packet to recheck.
+  if (!productOrderId) all = all.filter(article => !article.source_id?.startsWith('reading:'))
+  if (productOrderId) {
+    const { data: audits, error: auditError } = await db.from('reading_promotion_audit')
+      .select('article_id').eq('order_id', productOrderId)
+    if (auditError) throw Error(`PRODUCT_ORDER_AUDIT_READ_FAILED: ${auditError.message}`)
+    const allowed = new Set((audits ?? []).map(audit => audit.article_id))
+    all = all.filter(article => article.source_id?.startsWith('reading:') && allowed.has(article.id))
+  }
   if (levelBlocked.length) {
     const byLevel = {}
     for (const a of levelBlocked) byLevel[a.cefr_level ?? '?'] = (byLevel[a.cefr_level ?? '?'] ?? 0) + 1
@@ -868,7 +879,7 @@ export async function loadVolume(
   //     없을 때  Seq Scan 656,988행 · buffers 95,790 · 99.3초
   //     있을 때  Index Scan          · buffers  9,513 · (같은 부하에서 10분의 1 버퍼)
   //   결과는 같다 — 아래에서 어차피 `kind === 'article'` 로 걸렀다.
-  const itemRows = (
+  let itemRows = (
     await fetchAllIn(
       db,
       'csat_dcp_items',
@@ -884,6 +895,32 @@ export async function loadVolume(
     (r) => r.kind === 'article'
       && (CORE_TYPES.has(r.type) || EXTRA_TYPES.has(r.type) || SCHOOL_TYPES.has(r.type)),
   )
+  // A reading child may enter the common pool only with the exact current
+  // promotion/order evidence carried by every item. Recheck before assembly;
+  // an item that was valid at import can become stale later.
+  const readingIds = [...new Set(itemRows.map(row => row.ref_id).filter(id => byId.get(id)?.source_id?.startsWith('reading:')))]
+  if (readingIds.length) {
+    const children = await fetchAllIn(db, 'library_articles',
+      'id, source_id, adapted_from_id, content, updated_at, status, source, license, license_class, display_only, copyright_safe_in_kr',
+      'id', readingIds, ['id'])
+    const parentIds = [...new Set(children.map(child => child.adapted_from_id).filter(Boolean))]
+    const parents = new Map((await fetchAllIn(db, 'library_articles',
+      'id, source_id, source_url, content, csat_fit, status, updated_at, source, license, license_class, display_only, copyright_safe_in_kr',
+      'id', parentIds, ['id'])).map(parent => [parent.id, parent]))
+    const lineages = await loadCurrentReadingLineages(db, children, parents, validationNow)
+    const staleItems = new Set()
+    for (const row of itemRows) {
+      const expected = lineages.get(row.ref_id)
+      if (!readingIds.includes(row.ref_id)) continue
+      try {
+        assertSameLineage(expected, row.payload?.factory_lineage)
+        if (productOrderId && expected.product_order_id !== productOrderId) throw Error('FACTORY_ORDER_MIXED')
+      } catch { staleItems.add(row.id) }
+    }
+    if (productOrderId && staleItems.size) throw Error(`FACTORY_ORDER_STALE_ITEMS: ${staleItems.size}`)
+    if (staleItems.size) console.log(`  ⚠ reading 증거가 낡거나 없는 문항 ${staleItems.size}건을 조합에서 제외했다`)
+    itemRows = itemRows.filter(row => !staleItems.has(row.id))
+  }
   // ── 절 이름 정제 ──────────────────────────────────────────────────
   // 학술 원문의 절 이름은 자기 줄에 홀로 서 있다가, 문장으로 자른 뒤 공백으로 다시
   // 이으면 첫 문장에 붙는다 — "Abstract The coexistence of…". 실측 2026-08-31:
@@ -1156,7 +1193,8 @@ export async function loadVolume(
       lose(r.type, 'badUnderline')
       continue
     }
-    const p = cleanPayload(r.payload ?? {})
+    // `reading:` 본문은 검수/승격된 정확한 판이다. 인쇄용 정제로 다시 쓰지 않는다.
+    const p = a.source_id?.startsWith('reading:') ? (r.payload ?? {}) : cleanPayload(r.payload ?? {})
     // ── 학습자 경로와 **같은 위생 판정**을 건다 ────────────────────────
     //
     // ⚠️ 조합기는 지금껏 **원글 제목**만 걸렀다(철회·소재·라이선스). 문항 자체의 지문은
@@ -1291,9 +1329,15 @@ export async function loadVolume(
   //   "전에 잰 값과 다르다" 만으로는 원인을 못 가른다.
   timer.mark('문항 조회 + 손질 (csat_dcp_items)')
   // 초등 저학년 3종은 사전에서 나온다 — 원글 풀과 합친다.
-  const { items: elementary, meanings: elementaryMeaning } = await loadElementaryPool(db, band)
+  const { items: elementary, meanings: elementaryMeaning } = productOrderId
+    ? { items: [], meanings: new Map() }
+    : await loadElementaryPool(db, band)
   timer.mark('초등 풀 (shared_dictionary)')
   pool.push(...elementary)
+  if (productOrderId) {
+    const sourceDigest = new Map(itemRows.map(row => [row.id, reviewDigest(row.payload, row.answer_key)]))
+    for (const item of pool) item.source_item_digest = sourceDigest.get(item.id)
+  }
 
   // ── 시리즈로 풀을 좁힌다 ────────────────────────────────────────────
   // **단의 유형 구성이 곧 그 책의 정체다.** 안 좁히면 밴드가 가진 모든 유형이 섞여 들어와

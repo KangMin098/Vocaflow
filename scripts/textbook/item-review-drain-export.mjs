@@ -50,6 +50,7 @@ const SIZE = Number(arg('size') ?? 8)
  * 을 전부 읽어 밴드가 섞인다(해설 드레인이 겪은 일이다).
  */
 const DIR = path.resolve(arg('dir') ?? `scripts/textbook/item-review-drain/${SERIES}-v${BAND}`)
+const PRODUCT_ORDER_ID = arg('product-order')
 
 const { createClient } = await import('@supabase/supabase-js')
 // ⚠️ **순서·삽입은 payload 를 그대로 넘기면 검수가 불가능하다** (실측 2026-09-12, 첫 청크에서
@@ -66,6 +67,8 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 
 // ── 그 권에 실릴 문항 ───────────────────────────────────────────────
 const { pool, itemIds } = await loadVolume(db, {
+  validationNow: new Date().toISOString(),
+  productOrderId: PRODUCT_ORDER_ID,
   band: BAND,
   seriesId: SERIES,
   unitCount: VOLUME_UNITS,
@@ -205,6 +208,7 @@ for (const r of printed) {
   }
   const task = {
     id: r.id,
+    ...(r.payload?.factory_lineage ? { factory_lineage: r.payload.factory_lineage } : {}),
     type: r.type,
     v_level: r.v_level ?? BAND,
     // **그때 읽은 판.** 적재가 이 값을 검수 행에 그대로 적고, 게이트는 지금 판과 같은 판정만

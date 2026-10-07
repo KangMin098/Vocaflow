@@ -28,6 +28,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv } from './volume-pool.mjs'
+import { assertSameLineage, verifyCurrentItemLineages } from './factory-lineage.mjs'
+import { reviewDigest } from '@vocaflow/library-pipeline'
 
 loadEnv()
 const arg = (n) => {
@@ -65,6 +67,7 @@ if (!outFiles.length) {
 
 const rows = []
 const skipped = []
+const taskLineages = new Map()
 let items = 0
 let itemsWith3Pass = 0
 /** 판 기록이 없는 검수 행 — 판 열이 생기기(2026-09-14) 전에 뽑힌 청크다. */
@@ -85,6 +88,12 @@ for (const f of outFiles) {
       skipped.push(`${f}: id 없는 항목`)
       continue
     }
+    if (taskLineages.has(t.id)) {
+      const earlier = taskLineages.get(t.id)
+      const incoming = t.factory_lineage ?? null
+      if (earlier || incoming) assertSameLineage(earlier, incoming)
+    }
+    taskLineages.set(t.id, t.factory_lineage ?? null)
     const seen = new Set()
     let passes = 0
     for (const r of Array.isArray(t.reviews) ? t.reviews : []) {
@@ -164,9 +173,41 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 
+// Full-set preflight before the first upsert. Each batch is checked again at write time.
+for (let i = 0; i < rows.length; i += 200) {
+  const slice = rows.slice(i, i + 200)
+  const ids = [...new Set(slice.map(row => row.item_id))]
+  const { data, error } = await db.from('csat_dcp_items')
+    .select('id, ref_id, payload, answer_key').in('id', ids)
+  if (error || (data ?? []).length !== ids.length) throw Error('ITEM_REVIEW_PREFLIGHT_ITEMS_UNAVAILABLE')
+  await verifyCurrentItemLineages(db, data, new Date().toISOString())
+  for (const item of data) {
+    const lineage = taskLineages.get(item.id)
+    if (lineage || item.payload?.factory_lineage) assertSameLineage(item.payload?.factory_lineage, lineage)
+    for (const row of slice.filter(row => row.item_id === item.id)) {
+      if (item.payload?.factory_lineage && !row.reviewed_digest) throw Error('ITEM_REVIEW_DIGEST_MISSING')
+      if (item.payload?.factory_lineage && row.reviewed_digest !== reviewDigest(item.payload, item.answer_key)) throw Error('ITEM_REVIEW_DIGEST_STALE')
+    }
+  }
+}
+
 let written = 0
 for (let i = 0; i < rows.length; i += 200) {
   const slice = rows.slice(i, i + 200)
+  const { data: currentItems, error: itemError } = await db.from('csat_dcp_items')
+    .select('id, ref_id, payload, answer_key').in('id', [...new Set(slice.map(row => row.item_id))])
+  if (itemError) throw Error(`ITEM_REVIEW_SOURCE_READ_FAILED: ${itemError.message}`)
+  if ((currentItems ?? []).length !== new Set(slice.map(row => row.item_id)).size) throw Error('ITEM_REVIEW_SOURCE_MISSING')
+  await verifyCurrentItemLineages(db, currentItems, new Date().toISOString())
+  for (const item of currentItems) {
+    const lineage = taskLineages.get(item.id)
+    if (lineage || item.payload?.factory_lineage) assertSameLineage(item.payload?.factory_lineage, lineage)
+    const digest = reviewDigest(item.payload, item.answer_key)
+    for (const row of slice.filter(row => row.item_id === item.id)) {
+      if (item.payload?.factory_lineage && !row.reviewed_digest) throw Error('ITEM_REVIEW_DIGEST_MISSING')
+      if (item.payload?.factory_lineage && row.reviewed_digest !== digest) throw Error('ITEM_REVIEW_DIGEST_STALE')
+    }
+  }
   const { error } = await db
     .from('csat_item_reviews')
     .upsert(slice, { onConflict: 'item_id,persona' })

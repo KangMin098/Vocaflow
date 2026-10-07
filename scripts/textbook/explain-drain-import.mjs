@@ -20,6 +20,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv } from './volume-pool.mjs'
+import { assertSameLineage, verifyCurrentItemLineages } from './factory-lineage.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -71,11 +72,12 @@ for (const f of outFiles) {
       skippedShort++
       continue
     }
-    ready.push({ id: r.id, text })
+    ready.push({ id: r.id, text, factory_lineage: r.factory_lineage ?? null })
   }
 }
 
 console.log(`청크 ${outFiles.length}개 · 해설 ${ready.length}건`)
+if (new Set(ready.map(row => row.id)).size !== ready.length) throw Error('EXPLANATION_DUPLICATE_ITEM_ID')
 if (skippedEmpty) console.log(`  건너뜀 — 비어 있음 ${skippedEmpty}`)
 if (skippedShort) console.log(`  건너뜀 — 너무 짧음(${MIN_LENGTH}자 미만) ${skippedShort}`)
 
@@ -85,20 +87,38 @@ if (!commit) {
 }
 
 // 기존 answer_key 를 읽어 **키 하나만 더한다** — 통째로 덮으면 정답 키가 날아간다.
+// 먼저 전체 대상을 검사한다. 낡은 청크 하나 때문에 앞 배치만 기록되는 일을 줄인다.
+for (let i = 0; i < ready.length; i += 100) {
+  const batch = ready.slice(i, i + 100)
+  const { data, error } = await db.from('csat_dcp_items')
+    .select('id, ref_id, payload, answer_key').in('id', batch.map(row => row.id))
+  if (error || (data ?? []).length !== batch.length) throw Error('EXPLANATION_PREFLIGHT_ITEMS_UNAVAILABLE')
+  await verifyCurrentItemLineages(db, data, new Date().toISOString())
+  const byId = new Map(data.map(item => [item.id, item]))
+  for (const row of batch) {
+    const lineage = byId.get(row.id)?.payload?.factory_lineage
+    if (lineage || row.factory_lineage) assertSameLineage(lineage, row.factory_lineage)
+  }
+}
 let written = 0
 for (let i = 0; i < ready.length; i += 50) {
   const batch = ready.slice(i, i + 50)
   const { data, error } = await db
     .from('csat_dcp_items')
-    .select('id, answer_key')
+    .select('id, ref_id, payload, answer_key')
     .in('id', batch.map((b) => b.id))
   if (error) throw new Error('기존 정답 키 조회 실패: ' + error.message)
+  await verifyCurrentItemLineages(db, data ?? [], new Date().toISOString())
+  const itemById = new Map((data ?? []).map(r => [r.id, r]))
   const keyById = new Map((data ?? []).map((r) => [r.id, r.answer_key ?? {}]))
 
   for (const b of batch) {
     const prev = keyById.get(b.id)
     // 없는 문항에 쓰지 않는다 — 조용히 만들어 내면 출처 없는 행이 생긴다.
     if (!prev) throw new Error(`문항을 찾을 수 없다: ${b.id}`)
+    if (itemById.get(b.id)?.payload?.factory_lineage || b.factory_lineage) {
+      assertSameLineage(itemById.get(b.id)?.payload?.factory_lineage, b.factory_lineage)
+    }
     const { error: e } = await db
       .from('csat_dcp_items')
       // ⚠️ **누가 썼는지 함께 적는다** (2026-09-14). 이것이 없던 동안 배치가 쓴 해설이

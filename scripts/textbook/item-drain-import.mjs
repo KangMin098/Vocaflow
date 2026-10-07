@@ -25,6 +25,7 @@ import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
 import { READING_REVIEW_PARENT_COLUMNS, readingItemSourceFailure } from './academic-reading-review.mjs'
+import { assertSameLineage, loadCurrentReadingLineages } from './factory-lineage.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -86,6 +87,7 @@ const ok = []
 const readingSources = new Map((await fetchAllIn(db,'library_articles','id, title, content, source, source_id, adapted_from_id, license, license_class, copyright_safe_in_kr, display_only, composed_spec, updated_at, article_v_level, status','id',[...new Set(rows.map(r => r.article_id).filter(Boolean))],['id'])).map(a => [a.id,a]))
 const readingParentIds = [...new Set([...readingSources.values()].filter(a => a.source_id?.startsWith('reading:') || a.composed_spec?.academic_reading).map(a => a.adapted_from_id).filter(Boolean))]
 const readingParents = new Map((await fetchAllIn(db,'library_articles',READING_REVIEW_PARENT_COLUMNS,'id',readingParentIds,['id'])).map(a => [a.id,a]))
+const readingLineages = await loadCurrentReadingLineages(db, [...readingSources.values()], readingParents, new Date().toISOString())
 const originalChunks = new Map(outFiles.map(f => {
   const p = path.join(DIR,f.replace('.out.json','.json'))
   return [f,fs.existsSync(p) ? JSON.parse(fs.readFileSync(p,'utf8')) : []]
@@ -97,6 +99,12 @@ for (const r of rows) {
     const original = originalChunks.get(r.__file)?.find(x => x.article_id === r.article_id)
     const fail = readingItemSourceFailure(r, original, source, readingParents.get(source?.adapted_from_id), TYPE, BAND)
     if (fail) { skipped.push([r.source_title ?? r.article_id,fail]); continue }
+    if (source?.source_id?.startsWith('reading:')) {
+      try {
+        assertSameLineage(readingLineages.get(r.article_id), original?.reading?.factory_lineage)
+        assertSameLineage(readingLineages.get(r.article_id), r.reading?.factory_lineage)
+      } catch (error) { skipped.push([r.source_title ?? r.article_id,error.message]); continue }
+    }
     r.__evidence_passage = original.passage
   }
   // 관문 한 벌. 밴드를 함께 넘긴다 — 안 넘기면 초등 몫을 고등 창으로 재게 된다.
@@ -218,12 +226,24 @@ for (let i = 0; i < freshUnique.length; i += 100) {
   const latestSources = new Map((await fetchAllIn(db,'library_articles','id, title, content, source, source_id, adapted_from_id, license, license_class, copyright_safe_in_kr, display_only, composed_spec, updated_at, article_v_level, status','id',candidates.map(r => r.article_id),['id'])).map(a => [a.id,a]))
   const latestParentIds = [...new Set([...latestSources.values()].filter(a => a.source_id?.startsWith('reading:') || a.composed_spec?.academic_reading).map(a => a.adapted_from_id).filter(Boolean))]
   const latestParents = new Map((await fetchAllIn(db,'library_articles',READING_REVIEW_PARENT_COLUMNS,'id',latestParentIds,['id'])).map(a => [a.id,a]))
+  const latestLineages = await loadCurrentReadingLineages(db, [...latestSources.values()], latestParents, new Date().toISOString())
   const verified = candidates.filter(r => {
     const source = latestSources.get(r.article_id)
     if (!(r.reading || source?.source_id?.startsWith('reading:') || source?.composed_spec?.academic_reading)) return true
     const original = originalChunks.get(r.__file)?.find(x => x.article_id === r.article_id)
     const fail = readingItemSourceFailure(r, original, source, latestParents.get(source?.adapted_from_id), TYPE, BAND)
-    if (!fail) return true
+    if (!fail) {
+      try {
+        if (source?.source_id?.startsWith('reading:')) {
+          assertSameLineage(latestLineages.get(r.article_id), original?.reading?.factory_lineage)
+          assertSameLineage(latestLineages.get(r.article_id), r.reading?.factory_lineage)
+        }
+        return true
+      } catch (error) {
+        console.log(`  최종 확인에서 건너뜀: ${String(r.source_title ?? r.article_id).slice(0, 40)} — ${error.message}`)
+        return false
+      }
+    }
     console.log(`  최종 확인에서 건너뜀: ${String(r.source_title ?? r.article_id).slice(0, 40)} — ${fail}`)
     return false
   })
@@ -241,6 +261,7 @@ for (let i = 0; i < freshUnique.length; i += 100) {
       // 유형별로만 쓰는 것 — 없으면 null 로 남는다.
       underline: r.underline ?? null,
       summary_sentence: r.summary_sentence ?? null,
+      ...(r.reading?.factory_lineage ? { factory_lineage: r.reading.factory_lineage } : {}),
       ...(r.reading ? { academic_reading:{ version:r.reading.version, target:r.reading.target, skill:r.reading.skill, passage_level:r.reading.passage_level, item_reasoning_level:r.reading.item_reasoning_level, item_difficulty:r.reading.item_difficulty, difficulty_evidence:r.reading.difficulty_evidence, evidence:r.reading.evidence, evidence_passage:r.__evidence_passage, source_hash:r.reading.source_hash, source_revision:r.reading.source_revision } } : {}),
     },
     answer_key: { answer: r.answer, rationale_ko: String(r.rationale_ko).trim() },
