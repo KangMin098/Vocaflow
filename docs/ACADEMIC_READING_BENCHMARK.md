@@ -1,5 +1,7 @@
 # 시중 독해 교재 기준 학년 난도 benchmark 계약 v0
 
+> **타겟 정정(2026-10-08):** 교재 생성은 단일 학년과 복수 학년 범위를 모두 지원해야 한다. 아래 `single_grade_only`는 이미 봉인된 benchmark v2의 현행 제약이지 최종 제품 요건이 아니다. 출판사가 복수 학년을 표기했다는 이유만으로 교재 후보를 탈락시키지 않는다. 새 protocol revision에서 출판사 학년 범위를 그대로 보존하고, 동일 지문을 여러 단일 학년 분포에 독립 표본으로 중복 계수하지 않으며, 복수 학년 Product Order의 fit 판정을 별도로 정의해야 한다. 기존 봉인본은 수정하지 않는다.
+
 로컬 교재/미리보기 import·admission 경로는 [파일 어댑터 실행 계약](../scripts/textbook/frym-benchmark/README.md#local-file-admission-adapter)을 따른다. 원본은 읽기 전용이며 기존 추출기의 페이지 결과를 저장소 밖 검토 후보로 만든다. [실제 파일 evidence enrichment](./reports/benchmark-evidence-enrichment-20261008.md)에서는 31개 파일을 기존 로컬 코퍼스와 대조했지만, 서지·학년·권리·지문/문항 경계의 확정 근거는 여전히 0건이다. 별도의 로컬 추출본에서 지문·문항 경계를 확인하고, 봉인 코드북의 9축 분석을 붙인 뒤에만 metadata-only 샘플을 만든다. 자동 추출 실패·경계 불명확·OCR 미검수·권리 불명확은 보류/거부한다. 현재 실제 교재 corpus N=0, 9축 실분포=0, benchmark 판정 미개방, Gold-S=0, DB seed=0이다.
 
 상태: **로컬 31파일 선정 규칙 봉인·전량 보류**. 교재 표본, 학년별 분포, 통과 구간은 아직 생성·봉인되지 않았다. F02 E3 합성 응답 28건은 실행·감사와 문항 반응 시뮬레이션의 근거다. 이 benchmark는 교재에 대한 **상대적** 학년 적합성만 평가하며 실제 학생 수행을 대신하지 않는다. 이 문서의 판정은 `BENCHMARK_TARGET_FIT`·`BENCHMARK_LEVEL_SEPARATION`으로 기록한다. 기존 `f02-pilot-judge.mjs`의 실제 학생 기반 `TARGET_FIT`·`LEVEL_SEPARATION`과 동일한 결과 필드에 쓰지 않는다. 합성 E3와 교재 판정을 결합하는 `Gold-S candidate`는 학생 판정이 아니라 별도 합성·교재 경로이며, 실학생 학년 타당성이나 기존 사람 pilot의 `student_validated`를 의미하지 않는다.

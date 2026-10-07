@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Link 26 local textbook file rows to provisional official catalog candidates in a hash-bound external ledger; keep all 30 unique files on hold pending rights, exact-edition, grade-scope, and passage/item boundary evidence. Record multi-grade targeting as a required contract revision. No new benchmark seal, Gold-S, or DB seed.
+
 - feat(textbook): Reconcile 31 local textbook files with the byte-verified platform corpus, bind an external page-hint ledger to screening revision 2, and independently reseal the still-empty benchmark manifest. Rights, exact edition, grade, and passage/item boundaries remain on hold; corpus, Gold-S, and DB seed stay at zero.
 
 - feat(textbook): 로컬 교재 31파일의 1차 선정 규칙과 2차 빈 표본 manifest를 hash-chain으로 봉인했다. 30개 고유 파일은 권리·학년·판본·본문/문항 경계 근거 부족으로 전량 보류하며 corpus·Gold-S·DB seed는 0건이다.
