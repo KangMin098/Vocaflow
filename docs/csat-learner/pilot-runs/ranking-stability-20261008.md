@@ -4,6 +4,15 @@
 > 구현: `lib/csat/map/core.ts` `RANKING_GATE` · `rankingOf` · `lib/csat/map/distinguish.ts` · `learner-path.ts` focus `distinguish` · `LearnerMap.tsx`.
 > 보정: `scripts/csat/diagnosis/ranking-calibrate.mts`(합성 학습자 2생성기 × 1,000명, 결과 `tmp/pilot/ranking-calibrate.json`) · 회귀 `map/__tests__/ranking-gate.test.ts` 13개.
 
+## 0. 순위 판정 계약(2026-10-08 사용자 승인 — 숫자가 아니라 원칙을 승인)
+- **근거 부족**: 최소 관측을 못 채운 축은 순위 경쟁에서 「낮은 능력」으로 읽지 않는다(insufficient — 「기록 더 필요」).
+- **안정적 1위**: 근거가 충분하고, 문항 · 태그 하나를 바꾸는 작은 흔들림에도 1위가 유지될 때만 「먼저 확인」의 단일 후보.
+- **불안정 · 사실상 동률**: 약점처럼 확정하지 않는다 — 두 후보를 가르는 확인하기 하나.
+- **가중치 1/2**: 공식 의미(보조/핵심)가 있어도, binary 대비 안정성 · 설명력이 실제로 좋아진다는 근거가 있을 때만 순위에 반영한다. 2 라서 2배로 세지 않는다.
+- **margin 등 숫자(RANKING_GATE)**: 교육적 기준이 아니라 **내부 안정성 기준**이다. 흔들림 · 하나 빼기 결과로 보정하고, 시험 · 검수 데이터가 바뀌면 `ranking-calibrate.mts` 로 다시 잰다.
+- **학생 화면**: 언제나 지금 할 행동 하나 — 안정적이면 그 단계 확인, 불안정하면 구분 확인.
+- **verified_diagnosis 전**에는 어디까지나 「먼저 확인」 — 약점 확정 · 처방으로 올리지 않는다.
+
 ## 1. 0 / 1 / 2 의 계약
 | 질문 | 답(코드 · 문서 근거) |
 |---|---|

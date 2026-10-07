@@ -153,6 +153,7 @@ export interface CoreAxisView extends CoreAxisDef {
  * 「먼저 확인」 1위를 믿을 수 있는 조건(2026-10-08 보정 — scripts/csat/diagnosis/ranking-calibrate.mts ·
  * docs/csat-learner/pilot-runs/ranking-stability-20261008.md). 합성 학습자 2생성기 × 1,000명에서 태그 하나 바꾸기 ·
  * 문항 하나 빼기에 1위가 유지되는 비율이 조건 없이 41~46% → 세 조건 모두일 때 94~95%. 하나라도 어긋나면 1위를 확정하지 않는다.
+ * **교육적 기준이 아니라 내부 안정성 기준**이다(2026-10-08 사용자 승인 계약) — 시험 · 검수 데이터가 바뀌면 같은 스크립트로 다시 잰다.
  *   margin   — 1위와 2위(관찰값이 있는 축) 관찰값 차
  *   headroom — 1위 관찰값이 「관찰 낮음」 선(core.weak)보다 얼마나 아래인가(선 바로 아래면 문항 하나로 후보에서 빠진다)
  *   minLineN — 1위 축의 각 라인 관측 수(최소 관측 5 바로 위면 문항 하나로 근거 부족이 된다)
