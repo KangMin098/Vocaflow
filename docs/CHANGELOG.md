@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-diagnosis): 진단축 관측가능성 · 식별성 감사 `observability.ts`(축 상태 · 단독 문항 · 독립 정보 1−R²₀ · 축 쌍 관계 · 거짓 1위 F1/F2/F3 재분류) + `observability-audit.mts` · `kice-items-export.mts`(평가원 29회 메타). V 는 29/29 회 단독 문항 0(confounded) · S 는 29/29 회 관측 미달 · 거짓 V 1위의 식별 가능 오류 0(혼동 F3 · 관측 불가 F2). 순위 재설계 불필요 · 축↔기출 증거 계약(exam-observable/assisted/direct) 필요. DB 쓰기 없음.
+
 - docs(csat-map): M2409 태그 존재가 갈린 22칸 블라인드 3차 판정(Sonnet 서브에이전트 — tri-model adjudicated, `pilot/M2409-review-tri.json`). 21칸 Codex 쪽 · 바뀐 칸 2 · A2 1 · A6 0 그대로 · taxonomy_ambiguous 10(A6 7 · A9 3). 같은 표본 비교에서 거짓 V 1위 안 줄어듦 → 태깅 합의가 아니라 순위 모델 · 축 정의 층 문제로 판정(NEEDS_ADJUSTMENT). 4차 투표 안 함. DB 변경 없음.
 
 - feat(csat-map): 학습 지도 순위 축소 추정 `RANKING_SHRINK`(k=8 · ranking-calibration-v1 — 내부 안정성 파라미터). 관찰값(observed)과 순위 추정(rankingEstimate)을 분리, 스냅샷 `attributePoints[*].den` 새 키 · 단계 노드 디버그 속성. 봉인 검증 `shrink-validate.mts`(A/B/C · k 곡선 · 부트스트랩) → NEEDS_ADJUSTMENT(V 쏠림이 k 로 안 풀림 — 이중 검수에서 빠진 A2/A6 결손이 A1 로 흡수). 정본 diff `canon-prepare.mts` · 시드 v2 SQL 제안(미실행 · 133회 · 1,697문항). DB 쓰기 없음.
