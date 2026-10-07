@@ -22,7 +22,9 @@ const tagSet = (f: string): TaggedItem[] => {
   const r = read(f) as { items: { no: number; w: Weights }[] }
   return meta.items.map((m) => ({ no: m.no, points: m.points, weights: r.items.find((x) => x.no === m.no)!.w }))
 }
-const FINAL = tagSet('M2409-review-final.json')
+// --tags <pilot 파일>(기본 이중검수 교집합) · --out <이름>(기본 shrink-validate) — 같은 표본으로 태그 세트만 바꿔 비교한다
+const arg = (k: string, d: string) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : d)
+const FINAL = tagSet(arg('--tags', 'M2409-review-final.json'))
 const GEN_TAGS = tagSet('M2409-review.json') // 응답 생성은 검수안 v2 기준(학습자의 「진짜」 약점 구조 — 판정 태그와 분리)
 const AXIS_OF: Record<string, string> = { A1: 'V', A2: 'S', A8: 'S', A3: 'R', A6: 'R', A4: 'E', A5: 'E', A9: 'X' }
 const AXES = ['V', 'S', 'R', 'E', 'X'] as const
@@ -82,7 +84,9 @@ function evaluate(items: TaggedItem[], students: Student[], mode: Mode, k = K, h
   const q = (p: number) => Math.round((margins[Math.floor(p * (margins.length - 1))] ?? 0) * 1000) / 1000
   const perAxis = Object.fromEntries(AXES.map((a) => {
     const tops = step.filter((r) => r.top === a)
+    const falseShare = pct(tops.filter((r) => !r.truth).length, step.length)
     return [a, {
+      falseOfAllSteps: falseShare,
       items: Object.fromEntries((AXIS_LINES[a] as AttributeCode[]).map((c) => [c, items.filter((i) => i.weights[c] > 0).length])),
       stepTop: pct(tops.length, step.length),
       weakShare: pct(students.filter((s) => s.weak.some((c) => AXIS_OF[c] === a)).length, students.length),
@@ -160,5 +164,5 @@ for (const [name, w] of [['P1', [19, 24, 29, 30, 31, 34, 40, 42]], ['P2', [20, 2
   }
 }
 fs.mkdirSync(path.join(ROOT, 'tmp/pilot'), { recursive: true })
-fs.writeFileSync(path.join(ROOT, 'tmp/pilot/shrink-validate.json'), JSON.stringify(out, null, 1))
+fs.writeFileSync(path.join(ROOT, `tmp/pilot/${arg('--out', 'shrink-validate')}.json`), JSON.stringify(out, null, 1))
 for (const [k, v] of Object.entries(out)) console.log(k, JSON.stringify(v))

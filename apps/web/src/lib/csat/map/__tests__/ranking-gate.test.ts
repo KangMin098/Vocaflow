@@ -189,3 +189,38 @@ describe('M2409 최종 태그 + k=8 회귀(오프라인 근사 · 제품 정의�
     expect(p2.gap as number).toBeGreaterThan(0.17)
   })
 })
+
+describe('M2409 tri-model 태그(존재가 갈린 22칸 블라인드 3차 판정 · human verified 아님)', () => {
+  type Cell = { no: number; code: string; claude: { value: number }; codex: { value: number }; third: { value: number; q: string[]; why: string }; exists: boolean; final: number; taxonomy_ambiguous: boolean }
+  const tri = pilot('M2409-review-tri.json') as { status: string; items: { no: number; w: Weights; claude: Weights; codex: Weights; cells: Cell[] }[] }
+  const cells = tri.items.flatMap((i) => i.cells)
+  const med = (xs: number[]) => [...xs].sort((a, b) => a - b)[1]
+  it('대상은 Claude · Codex 의 존재 판단이 갈린 칸 전부(22) · 출처 완전', () => {
+    const disputed = tri.items.flatMap((i) => ATTRIBUTE_CODES.filter((c) => (i.claude[c] > 0) !== (i.codex[c] > 0)).map((c) => `${i.no}${c}`))
+    expect(cells.map((c) => `${c.no}${c.code}`).sort()).toEqual(disputed.sort())
+    expect(cells).toHaveLength(22)
+    for (const c of cells) {
+      expect(c.third.q).toHaveLength(3)
+      expect(c.third.why.length).toBeGreaterThan(10)
+      expect(typeof c.taxonomy_ambiguous).toBe('boolean')
+    }
+    expect(tri.status).toMatch(/human verified 아님/)
+  })
+  it('합성 규칙 재현 — 존재 = 3 중 2 이상 > 0 · 값 = 중앙값 · 최종 태그에 그대로 반영', () => {
+    for (const c of cells) {
+      const vals = [c.claude.value, c.codex.value, c.third.value]
+      expect(c.exists).toBe(vals.filter((v) => v > 0).length >= 2)
+      expect(c.final).toBe(c.exists ? med(vals) : 0)
+      expect(tri.items.find((i) => i.no === c.no)!.w[c.code as AttributeCode]).toBe(c.final)
+    }
+  })
+  it('정의 해석 칸(taxonomy_ambiguous)은 A6 · A9 뿐 — 다수결 값은 taxonomy 결정 근거가 아니다', () => {
+    const amb = cells.filter((c) => c.taxonomy_ambiguous)
+    expect(amb.length).toBe(10)
+    expect(new Set(amb.map((c) => c.code))).toEqual(new Set(['A6', 'A9']))
+  })
+  it('A2 1 · A6 0 · A9 5 — 3차 판정 뒤에도 문장 이해(S) 축은 이 시험만으로 관찰하지 않는다', () => {
+    const n = (c: AttributeCode) => tri.items.filter((i) => i.w[c] > 0).length
+    expect([n('A2'), n('A6'), n('A9')]).toEqual([1, 0, 5])
+  })
+})

@@ -34,7 +34,7 @@ const must = async <T = Row[],>(q: PromiseLike<{ data: unknown; error: { message
 }
 fs.mkdirSync(OUT, { recursive: true })
 const REVIEW = arg('--review', path.join(ROOT, `scripts/csat/diagnosis/pilot/${SRC}-review.json`))
-const review = JSON.parse(fs.readFileSync(REVIEW, 'utf8')) as { items: { no: number; w: Record<string, number>; why: string[] }[] }
+const review = JSON.parse(fs.readFileSync(REVIEW, 'utf8')) as { items: { no: number; w: Record<string, number>; why?: string[] }[] }
 let fail = 0
 const log: string[] = []
 const rec = (name: string, ok: boolean, detail: unknown = '') => { if (!ok) fail++; const l = `[${ok ? 'PASS' : 'FAIL'}] ${name}${detail === '' ? '' : ' — ' + JSON.stringify(detail).slice(0, 300)}`; log.push(l); console.log(l) }
@@ -65,7 +65,7 @@ for (const it of review.items) {
   if (rm) diff.removed++
   if (rw) diff.reweighted++
   diff.changes += n
-  for (const r of it.why) diff.reasons[r.split(':')[0]] = (diff.reasons[r.split(':')[0]] ?? 0) + 1
+  for (const r of it.why ?? []) diff.reasons[r.split(':')[0]] = (diff.reasons[r.split(':')[0]] ?? 0) + 1
 }
 console.log('시드 → 검수', JSON.stringify(diff))
 
