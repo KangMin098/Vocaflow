@@ -12,7 +12,7 @@
 // 함정(2026-10-07 실측 넷): ① requirements 의 torch 를 따라 깔면 CUDA 가 깨진다 — 이름이 정확히 torch* 인 셋만 뺀다
 //   (앞글자 비교는 torchsde 까지 빼 서버가 안 뜬다) ② 일반 VAEDecode 에서 서버가 죽었다 → VAEDecodeTiled
 //   ③ 모델을 올리는 동안 연결 거절 — 서버가 살아 있으면 기다린다 ④ 셀 2 재실행이 둘째 서버를 띄워 「서버 종료」로 오판 —
-//   떠 있으면 다시 띄우지 않는다. 결과는 Drive 에 바로 써서 세션이 끊겨도 남고, 다시 실행하면 이어서 만든다.
+//   떠 있으면 다시 띄우지 않는다. ⑤ 조각 디코드로도 VAE 단계에서 -9(메모리 부족) — 계산(latent 저장)과 그리기를 나누고 그 사이 서버를 다시 띄운다. 결과는 Drive 에 바로 써서 세션이 끊겨도 남고, 다시 실행하면 이어서 만든다.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -107,79 +107,108 @@ for url, sub in FILES:
     print(sub, os.path.basename(dst), round(os.path.getsize(dst) / 1e9, 2), 'GB')
 `),
   code(`
-# 2) ComfyUI 서버 띄우기(백그라운드)
-import time, urllib.request
+# 2) ComfyUI 서버 도구 — 계산과 그리기 사이에 서버를 다시 띄워 메모리를 비운다
+# (한 서버에서 계산 뒤 VAE 를 올리면 본 모델 8.5GB 를 RAM 으로 내리다 무료 Colab RAM 12GB 를 넘겨 -9 로 죽었다 — 2026-10-07 실측 둘)
+import time, urllib.request, json, base64, shutil
 def up():
     try: urllib.request.urlopen('http://127.0.0.1:8188/system_stats', timeout=3); return True
     except Exception: return False
-# 이미 떠 있으면 새로 띄우지 않는다(같은 포트에 둘째 서버를 띄우면 그쪽이 바로 죽어 「서버 종료」로 오판했다)
-if not (globals().get('proc') and proc.poll() is None and up()):
+def start():
+    global proc
+    if globals().get('proc') is not None and proc.poll() is None and up(): return
+    if up(): sh('pkill', '-f', 'main.py --listen 127.0.0.1 --port 8188'); time.sleep(5)
     proc = subprocess.Popen([sys.executable, '-u', 'main.py', '--listen', '127.0.0.1', '--port', '8188', '--lowvram', '--output-directory', '/content/comfy-out'],
                             cwd=COMFY, stdout=open('/content/comfy.log', 'w'), stderr=subprocess.STDOUT)
-for _ in range(120):
-    if up(): break
-    time.sleep(5)
-print('comfy up', up())
-if not up():
-    print(open('/content/comfy.log').read()[-3000:])
-    raise SystemExit('ComfyUI 가 뜨지 않았다 — 위 로그를 알려 주세요')
-`),
-  code(`
-# 3) 생성 — 이미 만든 파일은 건너뛴다(다시 실행하면 이어서)
-import json, base64
-JOBS = json.loads(base64.b64decode("${Buffer.from(JSON.stringify(jobs)).toString('base64')}").decode())
+    for _ in range(120):
+        if up(): break
+        time.sleep(5)
+    if not up():
+        print(open('/content/comfy.log').read()[-3000:])
+        raise SystemExit('ComfyUI 가 뜨지 않았다 — 위 로그를 알려 주세요')
+def stop():
+    global proc
+    if globals().get('proc') is not None and proc.poll() is None:
+        proc.terminate()
+        try: proc.wait(60)
+        except Exception: proc.kill()
+    for _ in range(30):
+        if not up(): break
+        time.sleep(2)
 def call(p, data=None):
     req = urllib.request.Request('http://127.0.0.1:8188' + p, data=(json.dumps(data).encode() if data is not None else None), headers={'Content-Type': 'application/json'})
     return json.loads(urllib.request.urlopen(req, timeout=300).read())
-for j in JOBS:
-    dst = OUTDIR + '/' + j['id'] + '.png'
-    if os.path.exists(dst): print('skip', j['id']); continue
+def alive_or_raise(ce):
+    if proc.poll() is not None: raise Exception(f'서버 종료(코드 {proc.poll()}, -9 = 메모리 부족): {ce}')
+def run(wf, minutes=45):
+    pid = None
+    for _ in range(60):
+        try: pid = call('/prompt', {'prompt': wf, 'client_id': 'illo'})['prompt_id']; break
+        except Exception as ce: alive_or_raise(ce); time.sleep(10)
+    if not pid: raise Exception('작업을 넣지 못했다(10분)')
+    refused, deadline = 0, time.time() + minutes * 60
+    while time.time() < deadline:
+        # 모델을 올리는 동안 연결을 잠깐 못 받는다 — 살아 있으면 기다리되 5분 연속이면 멈춘다
+        try: h = call('/history/' + pid); refused = 0
+        except Exception as ce:
+            alive_or_raise(ce); refused += 1
+            if refused >= 30: raise Exception(f'5분 연속 연결 거절: {ce}')
+            time.sleep(10); continue
+        if pid in h and h[pid].get('outputs'): return h[pid]['outputs']
+        st = h.get(pid, {}).get('status', {})
+        if st.get('status_str') == 'error': raise Exception('ComfyUI 오류: ' + json.dumps(st.get('messages', []), ensure_ascii=False)[-1500:])
+        time.sleep(3)
+    raise Exception(f'{minutes}분 안에 끝나지 않았다')
+def report(j, e):
+    print('fail', j['id'], e, flush=True)
+    print(open('/content/comfy.log').read()[-2000:])
+print('도구 준비 끝')
+`),
+  code(`
+# 3) 생성 — A) 계산(latent 만 저장) → 서버 재기동 → B) 그리기. 이미 만든 단계는 건너뛴다(다시 실행하면 이어서)
+JOBS = json.loads(base64.b64decode("${Buffer.from(JSON.stringify(jobs)).toString('base64')}").decode())
+INPUT = COMFY + '/input'; os.makedirs(INPUT, exist_ok=True)
+png = lambda j: f"{OUTDIR}/{j['id']}.png"
+lat = lambda j: f"{OUTDIR}/{j['id']}.latent"
+todo = [j for j in JOBS if not os.path.exists(png(j)) and not os.path.exists(lat(j))]
+print('A) 계산할 장', len(todo))
+if todo: start()
+for j in todo:
     t = time.time()
     wf = {
      "1": {"class_type": "UnetLoaderGGUF", "inputs": {"unet_name": "qwen-image-Q3_K_S.gguf"}},
      "2": {"class_type": "CLIPLoaderGGUF", "inputs": {"clip_name": "qwen2.5-vl-7b-it-q4_k_m.gguf", "type": "qwen_image"}},
-     "3": {"class_type": "VAELoader", "inputs": {"vae_name": "qwen_image_vae.safetensors"}},
      "4": {"class_type": "CLIPTextEncode", "inputs": {"text": j["prompt"], "clip": ["2", 0]}},
      "5": {"class_type": "CLIPTextEncode", "inputs": {"text": j["neg"], "clip": ["2", 0]}},
      "6": {"class_type": "EmptySD3LatentImage", "inputs": {"width": j["w"], "height": j["h"], "batch_size": 1}},
      "7": {"class_type": "ModelSamplingAuraFlow", "inputs": {"shift": 3.1, "model": ["1", 0]}},
      "8": {"class_type": "KSampler", "inputs": {"seed": j["seed"], "steps": 20, "cfg": 4, "sampler_name": "euler", "scheduler": "simple", "denoise": 1, "model": ["7", 0], "positive": ["4", 0], "negative": ["5", 0], "latent_image": ["6", 0]}},
-     # 조각 디코드 — 일반 VAEDecode 는 본 모델(8.5GB)을 RAM 으로 내리다 무료 Colab RAM(12GB)을 넘겨 서버가 죽었다(2026-10-07)
-     "9": {"class_type": "VAEDecodeTiled", "inputs": {"samples": ["8", 0], "vae": ["3", 0], "tile_size": 512, "overlap": 64, "temporal_size": 64, "temporal_overlap": 8}},
-     "10": {"class_type": "SaveImage", "inputs": {"images": ["9", 0], "filename_prefix": j["id"]}}}
+     "9": {"class_type": "SaveLatent", "inputs": {"samples": ["8", 0], "filename_prefix": "lat/" + j["id"]}}}
     try:
-        pid = None
-        for _ in range(60):
-            try:
-                pid = call('/prompt', {'prompt': wf, 'client_id': 'illo'})['prompt_id']; break
-            except Exception as ce:
-                if proc.poll() is not None: raise Exception(f'서버 종료(코드 {proc.poll()}): {ce}')
-                time.sleep(10)
-        if not pid: raise Exception('작업을 넣지 못했다(10분)')
-        done, refused, deadline = None, 0, time.time() + 45 * 60
-        while time.time() < deadline:
-            # 모델을 올리는 동안 서버가 잠깐 연결을 받지 못한다(Connection refused, 2026-10-07 실측) — 살아 있으면 기다리되 5분 연속이면 멈춘다
-            try:
-                h = call('/history/' + pid); refused = 0
-            except Exception as ce:
-                if proc.poll() is not None: raise Exception(f'서버 종료(코드 {proc.poll()}): {ce}')
-                refused += 1
-                if refused >= 30: raise Exception(f'5분 연속 연결 거절: {ce}')
-                time.sleep(10); continue
-            if pid in h and h[pid].get('outputs'): done = h[pid]; break
-            st = h.get(pid, {}).get('status', {})
-            if st.get('status_str') == 'error':
-                raise Exception('ComfyUI 오류: ' + json.dumps(st.get('messages', []), ensure_ascii=False)[-1500:])
-            time.sleep(3)
-        if not done: raise Exception('45분 안에 끝나지 않았다')
-        im = done['outputs']['10']['images'][0]
-        src = os.path.join('/content/comfy-out', im.get('subfolder', ''), im['filename'])
-        with open(src, 'rb') as a, open(dst, 'wb') as b: b.write(a.read())
-        print('ok', j['id'], round(time.time() - t), 's', flush=True)
+        out = run(wf)
+        lt = out['9']['latents'][0]
+        shutil.copy(os.path.join('/content/comfy-out', lt.get('subfolder', ''), lt['filename']), lat(j))
+        print('A ok', j['id'], round(time.time() - t), 's', flush=True)
     except Exception as e:
-        print('fail', j['id'], e, '· 서버 종료 코드', proc.poll(), '(None = 살아 있음, -9 = 메모리 부족으로 강제 종료)', flush=True)
-        print(open('/content/comfy.log').read()[-2000:])
-        break
+        report(j, e); break
+pending = [j for j in JOBS if os.path.exists(lat(j)) and not os.path.exists(png(j))]
+print('B) 그릴 장', len(pending))
+if pending: stop(); start()
+for j in pending:
+    t = time.time()
+    name = j['id'] + '.latent'
+    shutil.copy(lat(j), f'{INPUT}/{name}')
+    wf = {
+     "1": {"class_type": "LoadLatent", "inputs": {"latent": name}},
+     "2": {"class_type": "VAELoader", "inputs": {"vae_name": "qwen_image_vae.safetensors"}},
+     "3": {"class_type": "VAEDecodeTiled", "inputs": {"samples": ["1", 0], "vae": ["2", 0], "tile_size": 512, "overlap": 64, "temporal_size": 64, "temporal_overlap": 8}},
+     "4": {"class_type": "SaveImage", "inputs": {"images": ["3", 0], "filename_prefix": j["id"]}}}
+    try:
+        out = run(wf, minutes=15)
+        im = out['4']['images'][0]
+        shutil.copy(os.path.join('/content/comfy-out', im.get('subfolder', ''), im['filename']), png(j))
+        print('B ok', j['id'], round(time.time() - t), 's', flush=True)
+    except Exception as e:
+        report(j, e); break
 `),
   code(`
 # 4) 결과 — Drive 에 썼으면 그대로 두고, Colab 디스크에 썼으면 zip 으로 내려받는다
