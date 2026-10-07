@@ -6,6 +6,7 @@
 //   node scripts/design/ref-scan.mjs <png> --lines                 # 긴 가로선 · 세로선(패널 테두리 · 머리 구분선)과 색
 //   node scripts/design/ref-scan.mjs <png> --box <x>,<y>           # (x,y) 에서 이어지는 밝은 영역의 바깥 사각형(모달 · 패널)
 //   node scripts/design/ref-scan.mjs <png> --color <x>,<y> [...]   # 그 점의 색(여러 개)
+//   node scripts/design/ref-scan.mjs <png> --text <y0>,<y1>        # 가로 띠(y0~y1)에서 글자 덩어리의 왼쪽 · 오른쪽 x(열 머리 글자 위치)
 //
 // --box 는 밝은 점(≥240)이 이어지는 범위라 구분선에서 끊긴다 — 머리 · 바닥 높이는 머리/바닥의 빈 곳에서 각각 재면 된다.
 // 결과는 docs/design/refs/3b/access-map/spec.json 에 손으로 옮긴다(명세가 정본).
@@ -26,7 +27,7 @@ const pts = (k) => {
   const i = flag(k)
   return i < 0 ? [] : argv.slice(i + 1).filter((a) => /^\d+,\d+$/.test(a)).map((a) => a.split(',').map(Number))
 }
-const mode = flag('--lines') >= 0 ? 'lines' : flag('--box') >= 0 ? 'box' : flag('--color') >= 0 ? 'color' : null
+const mode = flag('--lines') >= 0 ? 'lines' : flag('--box') >= 0 ? 'box' : flag('--color') >= 0 ? 'color' : flag('--text') >= 0 ? 'text' : null
 if (!mode) {
   console.error('--lines | --box x,y | --color x,y 중 하나가 필요하다')
   process.exit(1)
@@ -54,6 +55,22 @@ const out = await page.evaluate(
       return [d[i], d[i + 1], d[i + 2]]
     }
     const hex = (c) => '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('')
+    if (mode === 'text') {
+      // 띠 안에서 어두운 점(글자)이 있는 열 → 40px 넘게 비면 다른 덩어리
+      const [y0, y1] = points[0]
+      const dark = (c) => c[0] < 170 && c[1] < 170 && c[2] < 170
+      const runs = []
+      let cur = null
+      for (let x = 0; x < W; x++) {
+        let hit = false
+        for (let y = y0; y <= y1 && !hit; y++) hit = dark(px(x, y))
+        if (hit) {
+          if (cur && x - cur.r <= 40) cur.r = x
+          else { cur = { l: x, r: x }; runs.push(cur) }
+        }
+      }
+      return { size: [W, H], band: [y0, y1], runs }
+    }
     if (mode === 'color') return { size: [W, H], colors: points.map(([x, y]) => ({ x, y, color: hex(px(x, y)) })) }
     if (mode === 'box') {
       const light = (c) => c[0] >= 240 && c[1] >= 240 && c[2] >= 240
@@ -94,7 +111,7 @@ const out = await page.evaluate(
     const dedupe = (a, key) => a.filter((e, i) => i === 0 || Math.abs(e[key] - a[i - 1][key]) > 1)
     return { size: [W, H], hLines: dedupe(h, 'y'), vLines: dedupe(v, 'x') }
   },
-  { b64: png.toString('base64'), mode, points: pts(mode === 'lines' ? '--lines' : mode === 'box' ? '--box' : '--color') },
+  { b64: png.toString('base64'), mode, points: pts(mode === 'lines' ? '--lines' : mode === 'box' ? '--box' : mode === 'text' ? '--text' : '--color') },
 )
 await browser.close()
 console.log(JSON.stringify(out, null, 2))

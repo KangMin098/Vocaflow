@@ -92,5 +92,27 @@
     "cardPadX": 31,
     "cardPadY": 26,
     "note": "ref-measure --color fbf9f7 로 카드 사각형, modal-box 스캔으로 바깥 사각형 · 머리/바닥 줄을 잼"
+  },
+  "layout": {
+    "pattern": "columns-by-type",
+    "note": "참조 Access map 은 종류마다 한 열(Members · Groups · Spaces · Connectors · Skills) — 상자 모양이 아니라 열과 열 머리로 종류를 가른다. 비어 있는 열(Connectors)도 머리를 남긴다. 2026-10-07 ref-scan --text 140,160 로 잼",
+    "headerTextXs": [
+      269,
+      541,
+      813,
+      1085,
+      1357
+    ],
+    "nodeColumnXs": [
+      261,
+      533,
+      805,
+      1077,
+      1349
+    ],
+    "headerTextOffset": 8,
+    "headerPitch": 272,
+    "count": 5,
+    "emptyColumnKeepsHeader": true
   }
 }

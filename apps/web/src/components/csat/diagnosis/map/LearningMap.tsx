@@ -1,6 +1,8 @@
 // apps/web/src/components/csat/diagnosis/map/LearningMap.tsx
 //
-// 내 진단 「학습 지도」 전체 보기(?view=full) — 최종 목표 → 영역 → 학습 라인(왼쪽 → 오른쪽).
+// 내 진단 「학습 지도」 기존 상세 보기(?view=full) — 최종 목표 | 핵심 능력 | 측정 정보 | 문항 특성 | 학습 · 행동 | 실전 · 상황.
+// 종류마다 한 열(참조 3B Access map 의 종류별 열 · spec.json layout, 2026-10-07): 영역 노드는 자기 열 묶음의 머리, 라인은 그 아래.
+// 같은 열 안의 영역 → 라인 연결은 열 묶음이 대신하므로 선을 그리지 않는다(경로 강조 계산에는 그대로 쓴다).
 // 근거 원리(P) · 접근 트랙(T)은 학생 숙달 노드가 아니라 노드로 그리지 않는다 — 팝업 「근거」 탭에만(2026-10-03 결정).
 // 막대(관찰값 채움 + 목표율 눈금)는 역량(A) 노드에만 — 문항유형 · 선지 함정 · 행동 · 방법은 역할만 보인다(목표 100% 개념 없음).
 // 상태는 글자로도 보인다. 노드를 누르면 연결 경로만 강조하고
@@ -15,7 +17,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, use
 
 import { track } from '@/lib/analytics/client'
 import type { MapPageData } from '@/lib/csat/map/load'
-import { AXIS_ROLE, roleOf } from '@/lib/csat/map/core'
+import { AXIS_ROLE, LAYER_COLUMNS, layerIndexOf, roleOf } from '@/lib/csat/map/core'
 import { pathOf } from '@/lib/csat/map/graph'
 import type { MapNodeRow, MapSettings, NodeValue } from '@/lib/csat/map/model'
 
@@ -53,7 +55,12 @@ export function LearningMap({ data }: { data: MapPageData }) {
     const pick = (k: MapNodeRow['kind']) => nodes.filter((n) => n.kind === k)
     const axes = pick('axis')
     const lines = pick('line')
-    return { goal: pick('goal')[0], axes, lines, lineGroups: axes.map((a) => lines.filter((l) => l.axis === a.code)) }
+    // 열마다 [영역 머리 + 그 라인] 묶음 — 영역 순서는 DB sort 그대로
+    const layers = LAYER_COLUMNS.map((col, i) => ({
+      col,
+      groups: axes.filter((a) => layerIndexOf(a.code) === i).map((a) => ({ axis: a, lines: lines.filter((l) => l.axis === a.code) })),
+    }))
+    return { goal: pick('goal')[0], axes, lines, layers }
   }, [nodes])
 
   // ── 연결선 위치(노드 실측) ──
@@ -66,7 +73,8 @@ export function LearningMap({ data }: { data: MapPageData }) {
     const base = stage.getBoundingClientRect()
     const out: DrawnEdge[] = []
     for (const e of edges) {
-      if (e.kind !== 'goal' && e.kind !== 'member') continue
+      // 같은 열 안의 영역 → 라인(member)은 열 묶음으로 보인다 — 선은 목표 → 영역만
+      if (e.kind !== 'goal') continue
       const a = els.current.get(e.from_code)
       const b = els.current.get(e.to_code)
       if (!a || !b) continue
@@ -167,14 +175,14 @@ export function LearningMap({ data }: { data: MapPageData }) {
           </svg>
 
           <div className={s.heads} data-map-heads="">
-            {['최종 목표', '영역', '학습 라인'].map((h) => (
+            {['최종 목표', ...LAYER_COLUMNS.map((c) => c.label)].map((h) => (
               <div key={h} className={s.colHead}>{h}</div>
             ))}
           </div>
 
           <div className={`${s.cols} ${collapsed ? s.colsCollapsed : ''}`} data-map-cols="">
             {/* 목표 · 원리 · 트랙은 스크롤을 따라와 긴 라인 열 옆에 계속 보인다 */}
-            <div className={s.sticky} style={{ gridRow: `1 / span ${byKind.lineGroups.length}`, gridColumn: 1 }}>
+            <div className={s.sticky} style={{ gridColumn: 1 }}>
               {byKind.goal && (
                 <button
                   ref={register(byKind.goal.code)}
@@ -192,16 +200,15 @@ export function LearningMap({ data }: { data: MapPageData }) {
               )}
             </div>
 
-            {/* 영역은 자기 라인 묶음의 가운데에 — 연결선이 한 점에서 부채꼴로 퍼지지 않게 */}
-            {byKind.axes.map((n, gi) => (
-              <div key={n.code} className={s.axisCell} style={{ gridRow: gi + 1, gridColumn: 2 }}>
-                <MapNode node={n} value={model.nodes[n.code]} roleAxis={n.code} core={data.settings.core} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} />
-              </div>
-            ))}
-            {byKind.lineGroups.map((group, gi) => (
-              <div key={gi} className={s.groupLines} style={{ gridRow: gi + 1, gridColumn: 3 }}>
-                {group.map((n) => (
-                  <MapNode key={n.code} node={n} value={model.nodes[n.code]} roleAxis={n.axis} core={data.settings.core} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
+            {byKind.layers.map(({ col, groups }, ci) => (
+              <div key={col.key} className={s.layerCol} style={{ gridColumn: ci + 2 }} data-map-layer={col.key}>
+                {groups.map(({ axis, lines }) => (
+                  <div key={axis.code} className={s.layerGroup}>
+                    <MapNode node={axis} value={model.nodes[axis.code]} roleAxis={axis.code} core={data.settings.core} selected={selected === axis.code} dim={Boolean(path) && !path?.nodes.has(axis.code)} hidden={isHidden(axis.code)} register={register(axis.code)} onClick={() => choose(axis.code)} />
+                    {lines.map((n) => (
+                      <MapNode key={n.code} node={n} value={model.nodes[n.code]} roleAxis={n.axis} core={data.settings.core} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
+                    ))}
+                  </div>
                 ))}
               </div>
             ))}

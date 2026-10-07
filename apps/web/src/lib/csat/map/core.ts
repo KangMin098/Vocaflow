@@ -92,6 +92,29 @@ export const AXIS_ROLE: Record<string, { role: AxisRole; label: string; desc: st
 export const roleOf = (axisCode: string | null | undefined) => (axisCode ? AXIS_ROLE[axisCode]?.role ?? null : null)
 
 /**
+ * 기존 상세 지도의 열 — 종류마다 한 열(참조 3B Access map 의 「종류별 열」 구조 · spec.json layout).
+ * 핵심 능력(A)만 첫 열에 두고, 측정 정보 · 문항 특성 · 학습 · 행동 · 실전 · 상황은 각자 열로 떼어 능력 노드처럼 읽히지 않게 한다
+ * (2026-10-07 vNext 정렬 1단계). 비어 있는 열도 머리는 남긴다. 여기에 없는 영역은 마지막 열로 간다(조용히 사라지지 않게).
+ */
+export interface LayerColumn {
+  key: 'core' | 'measure' | 'item' | 'learning' | 'context'
+  label: string
+  axes: string[]
+}
+export const LAYER_COLUMNS: readonly LayerColumn[] = [
+  { key: 'core', label: '핵심 능력', axes: ['A'] },
+  { key: 'measure', label: '측정 정보', axes: ['B'] },
+  { key: 'item', label: '문항 특성', axes: ['C'] },
+  { key: 'learning', label: '학습 · 행동', axes: ['D', 'I'] },
+  { key: 'context', label: '실전 · 상황', axes: ['J'] },
+]
+/** 영역 코드 → 열 순번(LAYER_COLUMNS 기준). 모르는 영역은 마지막 열 */
+export function layerIndexOf(axisCode: string): number {
+  const i = LAYER_COLUMNS.findIndex((c) => c.axes.includes(axisCode))
+  return i >= 0 ? i : LAYER_COLUMNS.length - 1
+}
+
+/**
  * 핵심 축 관찰 상태 — rule_proxy 에서는 관찰값 수준만 말한다(2026-10-03 사용자 결정).
  * 취약 · 양호 · 숙달 · 부족 역량 · 핵심 병목 같은 판정 어휘는 verified_diagnosis 전에는 쓰지 않는다.
  * 「우선 확인 후보」는 카드가 아니라 별도 추천 영역에만 — 관찰값과 진단 결론을 UI 에서 분리한다.

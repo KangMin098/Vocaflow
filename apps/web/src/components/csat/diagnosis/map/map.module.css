@@ -15,6 +15,8 @@
   --g-pad-x: 26px;
   --g-head-h: 49px;
   --g-first-y: 25px;
+  /* 열 수 — 최종 목표 + 종류별 열 5(spec.json layout · core LAYER_COLUMNS) */
+  --g-cols: 6;
   /* 팝업(참조 모달) — spec.json 의 modal */
   --p-w: 680px;
   --p-h: 760px;
@@ -423,7 +425,7 @@
   z-index: 3;
   background: var(--m-canvas);
   display: grid;
-  grid-template-columns: repeat(3, var(--g-node-w));
+  grid-template-columns: repeat(var(--g-cols), var(--g-node-w));
   column-gap: calc(var(--g-pitch) - var(--g-node-w));
   align-items: center;
   height: var(--g-head-h);
@@ -439,7 +441,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, var(--g-node-w));
+  grid-template-columns: repeat(var(--g-cols), var(--g-node-w));
   column-gap: calc(var(--g-pitch) - var(--g-node-w));
   row-gap: calc(var(--g-row-gap) * 2);
   align-items: start;
@@ -453,10 +455,13 @@
   flex-direction: column;
   gap: var(--g-row-gap);
 }
-.axisCell {
-  align-self: center;
+/* 종류별 열 — 영역 머리 + 그 라인. 같은 묶음은 행 피치, 묶음 사이는 두 배(참조 행 간격 기준) */
+.layerCol {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--g-row-gap) * 2);
 }
-.groupLines {
+.layerGroup {
   display: flex;
   flex-direction: column;
   gap: var(--g-row-gap);

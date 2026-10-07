@@ -25,6 +25,8 @@ const BASE = arg('--base', process.env.CAPTURE_BASE_URL || 'http://localhost:300
 const TOL = Number(arg('--tol', 2))
 const shot = arg('--shot', null)
 
+// 그리는 종류별 열 수(코드 core.ts LAYER_COLUMNS 와 같아야 한다 — 비어 있어도 열은 남는다)
+const LAYERS = 5
 const spec = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/design/refs/3b/access-map/spec.json'), 'utf8'))
 const email = process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev'
 const password = process.env.PLAYWRIGHT_RUNTIME_PASSWORD
@@ -56,7 +58,14 @@ const ours = await page.evaluate(() => {
   const nodes = [...document.querySelectorAll('[data-map-node]')].map((el) => ({ code: el.getAttribute('data-map-node'), ...rect(el) }))
   const heads = document.querySelector('[data-map-heads]')
   const cols = document.querySelector('[data-map-cols]')
-  return { nodes, heads: heads ? rect(heads) : null, cols: cols ? rect(cols) : null }
+  // 열 머리 글자의 실제 왼쪽(Range) · 종류별 열의 왼쪽 — 참조의 「머리 글자는 노드 열보다 일정하게 안쪽」을 잰다(spec.layout)
+  const headText = [...document.querySelectorAll('[data-map-heads] > *')].map((el) => {
+    const r = document.createRange()
+    r.selectNodeContents(el)
+    return r.getBoundingClientRect().left + window.scrollX
+  })
+  const layerXs = [...document.querySelectorAll('[data-map-layer]')].map((el) => el.getBoundingClientRect().left + window.scrollX)
+  return { nodes, heads: heads ? rect(heads) : null, cols: cols ? rect(cols) : null, headText, layerXs }
 })
 // 팝업 — 첫 라인 노드를 눌러 모달 기하를 잰다
 await page.locator('[data-map-node="A1"]').click()
@@ -93,6 +102,16 @@ const rows = [
   ['머리 줄 높이', spec.panel?.headH ?? 49, ours.heads?.h ?? NaN],
   ['머리 줄 → 첫 노드', spec.panel?.firstGap ?? 25, firstLine && ours.heads ? firstLine.y - (ours.heads.y + ours.heads.h) : NaN],
 ]
+if (spec.layout) {
+  // 머리 0 은 최종 목표 — 종류별 열(머리 1..)과 짝지어 잰다
+  const offs = ours.layerXs.map((x, i) => ours.headText[i + 1] - x)
+  const hp = ours.headText.slice(1).map((x, i) => x - ours.headText[i])
+  rows.push(
+    ['열 머리 글자 → 노드 열', spec.layout.headerTextOffset, median(offs)],
+    ['열 머리 피치', spec.layout.headerPitch, median(hp)],
+    ['종류별 열 수', LAYERS, ours.layerXs.length],
+  )
+}
 const m = spec.modal
 if (m && modal.box && modal.head && modal.foot && modal.cards.length >= 2) {
   const [c0, c1] = modal.cards

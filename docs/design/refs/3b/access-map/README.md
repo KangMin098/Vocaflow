@@ -14,7 +14,7 @@
 
 1. **캡처 저장** — 사용자가 준 스크린샷을 이 폴더에 둔다. **PNG 는 gitignore**(참조 앱 화면이라 저장소에 남기지 않는다 — 저장소에 남는 것은 spec.json 의 수치뿐). 다른 작업 트리에서 다시 재려면 같은 캡처를 사용자에게 다시 받는다. 가능하면 뷰포트 폭을 함께 적는다(이 캡처들은 2094px 폭, DPR 1 로 본다 — 본문 12px 과 맞는다).
 2. **측정** — `pnpm design:ref-measure <png> [--color fbf9f7 --min-w … --max-w …]`. 흰 카드 · 옅은 면의 사각형을 픽셀 단위로 잰다(노드 폭·높이·열 피치·행 피치·카드 간격).
-   패널 테두리 · 구분선 · 모달 바깥 사각형 · 대표 색은 `node scripts/design/ref-scan.mjs <png> --lines | --box x,y | --color x,y` 로 잰다.
+   패널 테두리 · 구분선 · 모달 바깥 사각형 · 대표 색은 `node scripts/design/ref-scan.mjs <png> --lines | --box x,y | --color x,y` 로, 열 머리 글자의 x 는 `--text y0,y1`(가로 띠의 글자 덩어리)로 잰다.
 3. **명세** — 잰 숫자를 [spec.json](./spec.json) 에 적는다(노드 · 열 · 행 · 패널 · 모달). **코드를 먼저 고치지 않는다.**
 4. **변수** — `map.module.css` 의 `.root` 맨 위 `--g-*`(지도) · `--p-*`(팝업)가 spec.json 의 값이다. 다른 곳에 크기 숫자를 다시 쓰지 않는다.
 5. **가드(CI)** — `geometry.test.ts` 가 CSS 변수와 spec.json 이 같은지 본다. 눈대중으로 고치면 떨어진다.

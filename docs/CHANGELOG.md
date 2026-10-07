@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-map): 기존 상세 지도를 종류별 열로 — 최종 목표 | 핵심 능력 | 측정 정보 | 문항 특성 | 학습 · 행동 | 실전 · 상황. 참조 3B Access map 의 「종류마다 한 열 · 빈 열도 머리 유지」를 재측정해 spec.json `layout` 에 기록(`ref-scan --text` 추가), 가드 geometry.test(열 수 · 머리 피치 · 머리 글자 오프셋) + ref-compare 3항목. 노드 크기 · 피치 불변, DB 변경 없음.
+
 - feat(csat-map): 학습 지도 vNext 정렬(Phase 1 화면) — 카드 표시명(문장 이해 · 글 이해 · 근거 · 선지 판단 · 실전 수행) · 기존 라인 대응 「현재 계산」 표시와 A4 · A6 이동 예정 · 「기존 상세 지도」 · 구분선 = 표시 기준 · 오답 원인 ≠ 카드 상태 · 성장 경로 8단계 · B/C/D/I/J 「능력 아님」 라벨 · 팝업 「학습 활동」 탭 · 목표율 = 시험 전략. DB 변경 없음, 회귀 `vnext-alignment.test.ts`.
 
 - docs(csat): 학습 지도 vNext rev2.1 — 설계 동결(미구현). cause 상태 세 단위(cause_adjudicated = attempt · cause_confirmed = student×axis 누적 근거 · verified_diagnosis) + 구조도, X 원인 우선순위 자동화 보류, X 에서 Processing Fluency 제거(가로 측정 차원), E-O1 관찰 조건, A6 legacy proxy 분리, Evidence Anchor 원문 정체성 · 승격 순서, 영구 ID = semantic slug. Codex 리뷰 → NO_FINDINGS
