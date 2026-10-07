@@ -1,4 +1,4 @@
--- supabase/migrations/20261007190000_reading_adaptation_promotion_gate.sql
+-- supabase/migrations/20261007102816_reading_adaptation_promotion_gate.sql
 -- Gold-S seed admission stores reading children as queued. Generic ACP/RPC/direct
 -- updates must not make them learner-visible before a separate promotion contract.
 -- Apply only after explicit user approval; no promotion function is installed here.

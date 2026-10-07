@@ -1,6 +1,12 @@
 # Reading adaptation DB promotion gate: pre-application review
 
-Status: **approval pending; SQL not applied**. Target: Vocaflow development Supabase project `jajenrevcbmrpaliomxv`, database `postgres`. Proposed SQL: [`20261007190000_reading_adaptation_promotion_gate.sql`](../../supabase/migrations/20261007190000_reading_adaptation_promotion_gate.sql) at commit `b9a4cc202`.
+Status: **applied and verified on the development DB, 2026-10-07**. Target: Vocaflow development Supabase project `jajenrevcbmrpaliomxv`, database `postgres`. SQL: [`20261007102816_reading_adaptation_promotion_gate.sql`](../../supabase/migrations/20261007102816_reading_adaptation_promotion_gate.sql), followed by [`20261007102922_reading_gate_pin_search_path.sql`](../../supabase/migrations/20261007102922_reading_gate_pin_search_path.sql). File versions were aligned to the actual Supabase migration history after applying through its migration tool.
+
+## Applied outcome
+
+The first migration was recorded as version `20261007102816` (`reading_adaptation_promotion_gate`), and the search-path correction as `20261007102922` (`reading_gate_pin_search_path`). Post-application inspection found one enabled trigger (`tgenabled='O'`) on `public.library_articles`, the expected trigger function, and `proconfig=['search_path=pg_catalog']`. Actual `reading:` children remained zero. A transaction-local temporary-table probe passed: queued reading insertion and ordinary ready insertion succeeded; reading ready/published entry and reading `source_id` rewrite raised the expected `check_violation` (`23514`). No permanent probe row was inserted.
+
+DB health checkpoints: `reading-gate-20261007` before 10:28:07 UTC / after 10:28:28 UTC; `reading-gate-search-path-20261007` before 10:29:17 UTC / after 10:29:25 UTC. The first diff showed `mutable_search_path_funcs` 0→1, which the follow-up migration restored to 0. Sampled bloat subjects changed between snapshots, as expected for sampled metrics; article table size and DB size were unchanged in the first diff. No benchmark corpus, Gold-S certificate, or seed row was created.
 
 ## Read-only baseline
 
