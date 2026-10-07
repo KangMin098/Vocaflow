@@ -66,6 +66,8 @@ export function routeAction(summary: Pick<CoreSummary, 'ranking' | 'candidates' 
       const p = vPartner(overlap, est)
       return { kind: 'distinguish', axis: 'V', rival: p.rival, also: p.also, reason: 'assisted_v' }
     }
+    // direct_diagnostic 축(S)이 관찰돼 1위인 경우(여러 회 누적 — 어법 문항이 쌓임): 기출 신호는 어법 쪽이라 문장 이해 자체는 직접 확인으로 잰다
+    if (ev === 'direct_diagnostic') return { kind: 'direct', axis: r.top }
     if (r.top === 'X') {
       // 「내용 이해」 쪽 = 관찰값이 있는 다른 축 중 순위 추정이 가장 낮은 축
       const other = summary.axes

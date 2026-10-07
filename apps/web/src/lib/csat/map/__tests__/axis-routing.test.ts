@@ -65,6 +65,11 @@ describe('routing', () => {
   it('S 가 관측되면(누적 기록) 직접 확인을 띄우지 않는다', () => {
     expect(path_({ ...base, A3: v(0.7), A2: v(0.9), A8: v(0.9) }).focus.kind).toBe('none')
   })
+  it('누적 기록으로 S 가 관찰돼 분명한 1위면 → S 직접 확인(행동이 사라지지 않는다 — Codex 리뷰 회귀)', () => {
+    const w = (x: number) => v(x, 8, 20)
+    const p = path_({ A1: w(0.9), A2: w(0.2), A8: w(0.2), A3: w(0.4), A6: w(0.4), A4: w(0.9), A5: w(0.9), A9: w(0.9) })
+    expect(p.focus).toMatchObject({ kind: 'direct', step: 'sentence', activity: S_DIRECT })
+  })
   it('관찰된 축이 없으면(기록 얇음) 직접 확인보다 「기록 더」 · 기록이 없으면 「시험 기록」', () => {
     expect(path_({ A1: v(null, 3), A3: v(null, 3) }).focus.kind).toBe('more')
     expect(path_({}, null, null).focus).toEqual({ kind: 'record' })
