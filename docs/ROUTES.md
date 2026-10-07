@@ -450,7 +450,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 |---|---|
 | `POST …/seed` · `GET …/seed-list` | seed_catalog 적재·조회 |
 | `POST …/bulk-requeue` | 선택분 큐 재투입 |
-| `POST …/force-publish` | 검수 건너뛰고 발행 |
+| `POST …/force-publish` | 검수 건너뛰고 발행; reading: adaptation children return 409 |
 | `POST …/revert` | 발행 되돌리기 |
 | `POST …/delete` | 삭제 (+ seed unlock) |
 

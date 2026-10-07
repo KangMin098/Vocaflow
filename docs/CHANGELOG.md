@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): 일반 ACP 외 관리자 강제 게시의 `reading:` 각색 자식 우회도 409로 차단했다. RPC·직접 UPDATE 차단용 DB trigger migration을 준비했으며 아직 적용하지 않았다. 실제 corpus·Gold-S·DB seed는 0이다.
+
 - fix(textbook): Gold-S 폐기 해시의 서명 Base64 정규형을 강제하고 ACP 개발용 배치·단건 경로에서 `reading:` 자식의 일반 승격을 막았다. 중단된 seed 감사 로그의 손상된 마지막 행은 검증된 prefix와 미완료 batch를 보고한다. 실제 corpus·Gold-S·DB seed는 0이다.
 
 - feat(textbook): Gold-S 적재에 저장소 밖 발급자 신뢰 정책과 새 감사 저널을 요구한다. 키 유효기간·인증서 최대 연령·철회·실행 중 정책 변경을 차단하고, 배치 중단 뒤 source_id 대조·새 감사 경로 재실행 절차를 연결했다. 일반 ACP 큐가 `reading:` 자식을 ready로 올리는 우회 경로도 막았다. 실제 교재 corpus·Gold-S·DB seed는 0건이다.

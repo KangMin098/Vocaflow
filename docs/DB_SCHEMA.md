@@ -1,5 +1,7 @@
 # DB Schema
 
+Pending migration `20261007190000_reading_adaptation_promotion_gate.sql` adds a `library_articles` trigger that rejects `reading:` children entering `ready` or `published` through INSERT, RPC, or direct UPDATE. The SQL is prepared only; it has not been applied to the development DB. The separate promotion contract must be implemented before those children can become learner-visible.
+
 ## Academic Reading JSONB 계약 (2026-10-04, 마이그레이션 없음)
 
 2026-10-05 [사람 실행기 v2](./FYM_HUMAN_VALIDATION_PROTOCOL.md)는 4점/중재·expert_validated/student_validated·사전 봉인·calibration 제외·후속 재현을 연결했다. 학생 검증 경로의 seed는 v2 gold만 허용한다. 시중 교재 비교 경로는 별도 서명된 Gold-S와 seed eligibility를 요구한다. 기존 8편은 미봉인 calibration candidate로 DB에 적재하지 않았다. 새 테이블/마이그레이션은 필요 없으며 실제 DB 변경은 아직 없다.

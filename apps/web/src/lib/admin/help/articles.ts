@@ -71,6 +71,7 @@ export const ACP_HELP: HelpRegistry = {
         },
       ],
       cautions: [
+        'reading: 각색 자식은 일반 ACP 처리·강제 게시에서 차단된다. 별도 Gold-S 승격 gate 전에는 queued 상태로 보존한다.',
         '“큐 처리 (dev)” · “지금 처리” · “Dev 일괄 처리”는 개발 환경 전용이다 — 프로덕션에서는 403 으로 막혀 아무 일도 일어나지 않는다.',
         '분석 한 건마다 Claude Haiku 호출 비용이 붙고 llm_cost_usd 에 누적된다. 같은 글을 재분석하면 다시 과금된다.',
       ],
