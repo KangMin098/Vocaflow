@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat-diagnosis): M2409 태깅 검수 파일럿 — 에이전트 검수안 v2(28문항 · 252판정) 을 실행 동안만 있는 TEST 시험에 실제 RPC 로 저장 → 진단 반영 → 학생 2명 기록 → 학습 지도 「먼저 확인」(P1 어휘·표현 · P2 문장 관계) → 확인하기. 시드 그대로 승인 32% · 보조 A2 가 흐름 오답을 「문장 이해」로 끄는 문제 발견 · 검수 지침을 태깅 도움말에. 실제 M2409 는 바꾸지 않음. `pilot-export` · `pilot-run`.
+
 - fix(csat-diagnosis): 진단 반영 판정을 명시 규칙으로 — 문항 검수 = 역량 9개 모두 검수(0 = 해당 없음 포함) · 시드/행 없음 = 미검수 · 정답표 45 · 정답 없음 = 구조 문제(`readiness.ts`, 관리자 목록 · 켜기 액션 공용, A1 표지 규칙 제거). 관리자 시험표에 검수 n/m · 남음 · 구조 문제 · 켤 수 있는지 이유. 실측 평가원 30회 중 27회 검수만 끝내면 가능 · 3회 정답표 없음. DB 변경 없음, smoke · dry-run 스크립트.
 
 - test(csat-map): 학습 지도 Phase 1 봉인 검증 — 상태 E2E `scripts/csat/map/e2e-map-states.mjs`(실제 DB · 엔진 · 브라우저, 상태 C 는 실행 동안만 있는 TEST 시험 M2098 fixture) 32 단언 통과 · `diagnosis_ready` 0 원인(검수 0 + A1 조건 불일치)을 화면도움말에 기록 · main 병합 뒤 전체 vitest 0 fail.
