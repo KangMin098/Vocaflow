@@ -5,6 +5,7 @@ import { relative, resolve } from 'node:path'
 import { AXES, GRADES, hash, validateProtocol } from './benchmark.mjs'
 import { cohortComposition, cohortCoverage, screeningInventoryHash } from './two-stage-seal.mjs'
 import { recomputeSelection } from './selection-audit.mjs'
+import { buildEvidenceLedger } from './real-intake-enrich.mjs'
 
 const [command, ...args] = process.argv.slice(2)
 const fail = code => { throw Error(code) }
@@ -12,6 +13,43 @@ const read = path => JSON.parse(readFileSync(path, 'utf8').replace(/^\uFEFF/, ''
 const writeNew = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx' })
 const sha256 = value => createHash('sha256').update(value).digest('hex')
 const fileHash = path => sha256(readFileSync(path))
+const validateEvidenceLedger = (supplied, stage1, stage1Path, checked, inventory, inventoryPath, ledgerPath, catalogPath, dbPath) => {
+  const enriched = supplied.screening_scope === 'file_level_enriched_hints_no_confirmed_passage_candidates'
+  if (!enriched && supplied.screening_scope !== 'file_level_metadata_only_no_confirmed_passage_candidates') fail('SCREENING_SCOPE_INVALID')
+  if (!enriched) {
+    if (supplied.revision !== undefined || supplied.evidence_ledger_hash || ledgerPath || catalogPath || dbPath ||
+        Object.values(supplied.held_files ?? {}).some(held => 'catalog_match' in held || 'catalog_doc_id' in held ||
+          'catalog_role_hint' in held || 'catalog_grade_hint' in held || 'extracted_page_count' in held ||
+          'possible_passage_page_count' in held || 'possible_item_page_count' in held ||
+          'page_lists_truncated' in held)) fail('EVIDENCE_LEDGER_UNEXPECTED')
+    return
+  }
+  if (supplied.revision !== 2 || supplied.candidates?.length !== 0 || supplied.held_file_hashes?.length !== 30) fail('EVIDENCE_SCREENING_SCOPE_INVALID')
+  if (![ledgerPath, catalogPath, dbPath].every(Boolean)) fail('EVIDENCE_LEDGER_MISSING')
+  const ledger = read(ledgerPath)
+  const rebuilt = buildEvidenceLedger(stage1Path, inventoryPath, catalogPath, dbPath)
+  if (ledger.schema !== 'frym-local-evidence-ledger/1' || ledger.status !== 'unreviewed_hints' ||
+      ledger.selection_protocol_hash !== stage1.selection_protocol_hash ||
+      ledger.inventory_snapshot_hash !== stage1.selection_protocol.inventory_snapshot_hash ||
+      ledger.catalog_file_hash !== fileHash(catalogPath) || ledger.corpus_db_file_hash !== fileHash(dbPath) ||
+      supplied.evidence_ledger_hash !== hash(ledger) || hash(ledger) !== hash(rebuilt) || !Array.isArray(ledger.entries) ||
+      ledger.entries.length !== inventory.length ||
+      hash(ledger.entries.map(entry => [entry.file_hash, entry.source_path_hash]).sort()) !==
+        hash(inventory.map(row => [row.sha256, sha256(row.source_path.normalize('NFC'))]).sort()) ||
+      hash(ledger.entries.map(entry => entry.file_hash).sort()) !== hash(checked.map(row => row.file_hash).sort()) ||
+      ledger.entries.some(entry => entry.rights_evidence !== null || entry.confirmed_publisher_edition !== null ||
+        entry.confirmed_single_grade !== null || entry.confirmed_passage_item_boundary !== null)) fail('EVIDENCE_LEDGER_STALE')
+  for (const fileHashValue of stage1.selection_protocol.inventory_file_hashes) {
+    const entry = ledger.entries.find(row => row.file_hash === fileHashValue)
+    const held = supplied.held_files?.[fileHashValue]
+    if (!entry || !held || held.catalog_match !== entry.catalog_match || held.catalog_doc_id !== entry.catalog_doc_id ||
+        held.catalog_role_hint !== entry.catalog_role_hint || held.catalog_grade_hint !== entry.catalog_grade_hint ||
+        held.extracted_page_count !== entry.extracted_page_count ||
+        held.possible_passage_page_count !== entry.possible_passage_page_count ||
+        held.possible_item_page_count !== entry.possible_item_page_count ||
+        held.page_lists_truncated !== entry.page_lists_truncated) fail('EVIDENCE_SCREENING_MISMATCH')
+  }
+}
 const relativeSource = (root, sourcePath) => {
   const result = relative(resolve(root), resolve(sourcePath)).replaceAll('\\', '/')
   if (!result || result === '..' || result.startsWith('../') || result.includes(':')) fail('INVENTORY_PATH_OUTSIDE_ROOT')
@@ -91,7 +129,7 @@ function selection(inventoryPath, root, outputPath, seedPath, cutoff) {
   return { run_id: runId, file_count: checked.length, unique_files: inventoryFileHashes.length, selection_protocol_hash: stage1.selection_protocol_hash }
 }
 
-function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, seedPath, outputPath) {
+function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, seedPath, outputPath, ledgerPath, catalogPath, dbPath) {
   const stage1 = read(stage1Path)
   const seedRecord = read(seedPath)
   if (stage1?.status !== 'selection_sealed' || hash(stage1.selection_protocol) !== stage1.selection_public_hash ||
@@ -104,6 +142,7 @@ function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, see
       screeningInventoryHash(new Set(checked.map(row => row.file_hash))) !== stage1.selection_protocol.inventory_snapshot_hash) fail('INVENTORY_SOURCE_CHANGED')
   const supplied = read(screeningPath)
   const probe = read(probePath)
+  validateEvidenceLedger(supplied, stage1, stage1Path, checked, read(inventoryPath), inventoryPath, ledgerPath, catalogPath, dbPath)
   const inventoryHashes = new Set(stage1.selection_protocol.inventory_file_hashes)
   if (supplied.selection_protocol_hash !== stage1.selection_protocol_hash ||
       supplied.inventory_snapshot_hash !== rules.inventory_snapshot_hash ||
@@ -122,11 +161,13 @@ function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, see
         supplied.held_files[fileHash].reasons.some(reason => !['HOLD_RIGHTS', 'HOLD_GRADE', 'HOLD_EDITION', 'HOLD_BOUNDARY', 'HOLD_OCR', 'HOLD_FORMAT', 'HOLD_DUPLICATE'].includes(reason)))) fail('SCREENING_INPUT_INVALID')
   const screening = {
     schema: 'frym-metadata-screening/1', status: 'frozen', run_id: rules.run_id,
+    ...(supplied.revision ? { revision: supplied.revision } : {}),
     selection_protocol_hash: stage1.selection_protocol_hash,
     inventory_snapshot_hash: rules.inventory_snapshot_hash,
     candidates: supplied.candidates, held_file_hashes: supplied.held_file_hashes,
     held_files: supplied.held_files, probe_hash: supplied.probe_hash,
     screening_input_hash: hash(supplied), screening_scope: supplied.screening_scope,
+    ...(supplied.evidence_ledger_hash ? { evidence_ledger_hash: supplied.evidence_ledger_hash } : {}),
   }
   const { selection_public_hash, seed_commitment, ...base } = stage1
   const protocol = { ...base, status: 'sealed', selection_protocol: rules, metadata_screening: screening, metadata_screening_hash: hash(screening) }
@@ -134,6 +175,7 @@ function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, see
   const representativeEditions = Object.fromEntries(screening.candidates.filter(row => selected.selected_sample_ids.includes(row.candidate_id)).map(row => [JSON.stringify([row.publisher, row.title]), row.edition]))
   const manifest = {
     schema: 'frym-benchmark-selection/1', status: 'sealed', run_id: stage1.selection_protocol.run_id,
+    ...(supplied.revision ? { revision: supplied.revision } : {}),
     selection_protocol_hash: stage1.selection_protocol_hash, metadata_screening_hash: protocol.metadata_screening_hash,
     inventory_snapshot_hash: stage1.selection_protocol.inventory_snapshot_hash,
     ...selected, representative_editions: representativeEditions,
@@ -147,7 +189,7 @@ function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, see
   return { run_id: protocol.version, selected_n: selected.selected_sample_ids.length, coverage: manifest.coverage_status, sample_manifest_hash: protocol.selection_manifest_hash }
 }
 
-function verify(stage1Path, screeningPath, probePath, inventoryPath, root, protocolPath) {
+function verify(stage1Path, screeningPath, probePath, inventoryPath, root, protocolPath, ledgerPath, catalogPath, dbPath) {
   const stage1 = read(stage1Path)
   const screeningInput = read(screeningPath)
   const probe = read(probePath)
@@ -163,15 +205,18 @@ function verify(stage1Path, screeningPath, probePath, inventoryPath, root, proto
       probe.inventory_count !== 31 || probe.inspected_count !== 31 || probe.records?.length !== 31) fail('REAL_INTAKE_STALE')
   const expectedScreening = {
     schema: 'frym-metadata-screening/1', status: 'frozen', run_id: protocol.selection_protocol.run_id,
+    ...(screeningInput.revision ? { revision: screeningInput.revision } : {}),
     selection_protocol_hash: stage1.selection_protocol_hash,
     inventory_snapshot_hash: stage1.selection_protocol.inventory_snapshot_hash,
     candidates: screeningInput.candidates, held_file_hashes: screeningInput.held_file_hashes,
     held_files: screeningInput.held_files, probe_hash: screeningInput.probe_hash,
     screening_input_hash: hash(screeningInput), screening_scope: screeningInput.screening_scope,
+    ...(screeningInput.evidence_ledger_hash ? { evidence_ledger_hash: screeningInput.evidence_ledger_hash } : {}),
   }
   if (hash(protocol.metadata_screening) !== hash(expectedScreening) ||
       protocol.metadata_screening_hash !== hash(expectedScreening)) fail('SCREENING_EVIDENCE_STALE')
   const checked = checkedInventory(inventoryPath, root)
+  validateEvidenceLedger(screeningInput, stage1, stage1Path, checked, read(inventoryPath), inventoryPath, ledgerPath, catalogPath, dbPath)
   if (hash(checked.map(row => sha256(row.relative_path)).sort()) !== hash(stage1.selection_protocol.inventory_path_hashes) ||
       screeningInventoryHash(new Set(checked.map(row => row.file_hash))) !== stage1.selection_protocol.inventory_snapshot_hash) fail('INVENTORY_SOURCE_CHANGED')
   if (hash(probe.records.map(row => row.file_hash).sort()) !== hash(checked.map(row => row.file_hash).sort())) fail('PROBE_INVENTORY_MISMATCH')
@@ -185,7 +230,7 @@ function verify(stage1Path, screeningPath, probePath, inventoryPath, root, proto
 try {
   const result = command === 'seal-selection' ? selection(...args) :
     command === 'seal-manifest' ? finalize(...args) :
-      command === 'verify' ? verify(...args) : fail('USAGE: seal-selection <inventory> <root> <new-stage1> <new-seed-file> <cutoff> | seal-manifest <stage1> <screening> <probe> <inventory> <root> <seed-file> <new-protocol> | verify <stage1> <screening> <probe> <inventory> <root> <sealed-protocol>')
+      command === 'verify' ? verify(...args) : fail('USAGE: seal-selection <inventory> <root> <new-stage1> <new-seed-file> <cutoff> | seal-manifest <stage1> <screening> <probe> <inventory> <root> <seed-file> <new-protocol> [ledger catalog db] | verify <stage1> <screening> <probe> <inventory> <root> <sealed-protocol> [ledger catalog db]')
   process.stdout.write(`${JSON.stringify(result)}\n`)
 } catch (error) {
   process.stderr.write(`${error.message}\n`)
