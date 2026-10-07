@@ -27,6 +27,18 @@ node scripts/textbook/frym-benchmark/benchmark-run.mjs verify-decision <sealed-p
 
 Run the synthetic regression suite with `node --test scripts/textbook/frym-benchmark/benchmark.test.mjs`. It does not read the commercial corpus or write to the database.
 
+## Pre-intake pipeline status
+
+`status-admitted` is a read-only, metadata-only check across current admission, admitted snapshot, and optional benchmark decision:
+
+```text
+node scripts/textbook/frym-benchmark/benchmark-run.mjs status-admitted <sealed-protocol.json> <local-candidates.json> <metadata-samples.json> <admission-audit.json> <receipt.json> <snapshot-or-dash> <f02-or-dash> <e3-dir-or-dash> <decision-or-dash>
+```
+
+Use `-` for each not-yet-created downstream artifact. Candidate JSON stays outside the repository. The check recomputes admission against current source bytes; `admission-hold` or `admission-reject` stops there. An all-pass admission without a snapshot reports `admission-pass`. A present snapshot must be sealed to the same receipt and rebuilt against current samples; missing grade coverage reports `insufficient_benchmark`. A decision requires the current F02 freeze, the 28/28 E3 batch and Stage A/B source records, its recorded 81/81 Stage C gate, and recomputation of the benchmark result. Status checks read the recorded Stage C result without rerunning mutation tests or writing files; the dedicated E3 verifier still replays Stage C. Missing or mismatched evidence reports `decision-unverified` or `stale` with a nonzero exit code. Other read-only states are `benchmark_calibrated`, `fail`, `inconclusive`, `evaluated_not_candidate`, and `gold_s_candidate`.
+
+`gold_s_candidate` is only a benchmark decision status. Every output keeps `gold_s=false`, `seed_eligible=false`, and `db_seed=false`. Gold-S certification and seed eligibility need separate future authority and operating gates. Hold/reject needs corrected candidate evidence in a new output revision. Stale source, protocol, receipt, snapshot, F02, or E3 evidence requires a new revision and re-evaluation; the previous artifact remains for audit. No real benchmark corpus has been admitted.
+
 ## Local file admission adapter
 
 `local-admission-run.mjs` is the metadata-only bridge ahead of `benchmark-run.mjs`; it does not alter the benchmark decision engine. It reads local source files only to identify format and calculate SHA-256. The original files are never copied or rewritten. It accepts an **external, locally stored** candidate JSON array whose entries contain `source_path`, `expected_file_hash`, bibliographic `metadata`, reviewed `extraction`, and a separate 9-axis `analysis`. The CLI requires candidate JSON and raw extracted text outside the repository; only the metadata output and audit may be retained. Neither output contains the source path, passage text, item stems, or answers.

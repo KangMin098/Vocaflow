@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 로컬 교재 admission부터 benchmark snapshot·판정까지 read-only 상태 점검을 연결하고, current F02/E3 증거로 판정을 재계산한다. hold·reject·stale은 후속 gate를 닫고 Gold-S 후보와 seed eligibility를 분리한다. 실제 corpus·Gold-S·DB seed는 0이다.
+
 - feat(textbook): admitted benchmark snapshot을 admission receipt와 별도 seal로 결속하고, 다른 실행의 receipt·snapshot 혼합과 원본·후보·protocol 변경을 CLI 단계에서 stale 처리한다. 합성 fixture만 사용했으며 실제 corpus·Gold-S·DB seed는 0이다.
 
 - feat(textbook): 로컬 교재 admission에 읽기 전용 dry-run, version/hash 결속 receipt, 원본·후보·분석 증거의 재검증과 stale 차단을 연결했다. 실제 교재 corpus·분포·Gold-S·DB seed는 0이다.

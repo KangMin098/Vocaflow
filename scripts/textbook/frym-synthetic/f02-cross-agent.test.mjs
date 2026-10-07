@@ -5,7 +5,16 @@ import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:f
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { buildF02Synthetic } from './f02-synthetic.mjs'
-import { evidencePolicy, parseAnswers, requestFor, stageC, verifyStage } from './f02-cross-agent.mjs'
+import { evidencePolicy, parseAnswers, requestFor, stageC, verifyRecordedStageCGate, verifyStage } from './f02-cross-agent.mjs'
+
+test('recorded Stage C gate can be checked without replaying mutations', () => {
+  const a = { stage: 'a', run_id: 'a-run', checked_pairs: 1 }
+  const b = { stage: 'b', run_id: 'b-run', checked_pairs: 2 }
+  const gate = { evidence_level: 'E3', all_rejected: true, tamper_checks: 81 }
+  assert.deepEqual(verifyRecordedStageCGate(gate, a, b), { all_rejected: true, stage_a_run_id: 'a-run', stage_b_run_id: 'b-run' })
+  assert.throws(() => verifyRecordedStageCGate({ ...gate, tamper_checks: 80 }, a, b), /STAGE_C_GATE_STALE/)
+  assert.throws(() => verifyRecordedStageCGate(gate, a, { ...b, run_id: 'a-run' }), /STAGE_C_GATE_STALE/)
+})
 
 test('student packet excludes scoring key and grader excludes profile', () => {
   const built = buildF02Synthetic(), packet = built.packets[0]

@@ -240,7 +240,12 @@ export async function runStage(rootInput, stage, stageA, stageB) {
   return run
 }
 
-export function verifyStage(rootInput) {
+export function verifyRecordedStageCGate(gate, a, b) {
+  if (a.stage !== 'a' || b.stage !== 'b' || a.checked_pairs !== 1 || b.checked_pairs !== 2 || a.run_id === b.run_id || gate.evidence_level !== 'E3' || gate.all_rejected !== true || gate.tamper_checks !== 81) throw Error('STAGE_C_GATE_STALE')
+  return { all_rejected: true, stage_a_run_id: a.run_id, stage_b_run_id: b.run_id }
+}
+
+export function verifyStage(rootInput, { readOnlyStageC = false } = {}) {
   const root = resolve(rootInput)
   const run = JSON.parse(readFileSync(join(root, 'run.json'), 'utf8'))
   const built = buildF02Synthetic()
@@ -296,7 +301,13 @@ export function verifyStage(rootInput) {
   }
   if (run.stage === 'batch') {
     const gate = JSON.parse(readFileSync(join(root, 'stage-c-gate.json'), 'utf8'))
-    const live = stageC(gate.stage_a_dir, gate.stage_b_dir)
+    const live = readOnlyStageC
+      ? (() => {
+        const stageOf = directory => JSON.parse(readFileSync(join(directory, 'run.json'), 'utf8')).stage
+        if (stageOf(gate.stage_a_dir) !== 'a' || stageOf(gate.stage_b_dir) !== 'b') throw Error('STAGE_C_GATE_STALE')
+        return verifyRecordedStageCGate(gate, verifyStage(gate.stage_a_dir, { readOnlyStageC: true }), verifyStage(gate.stage_b_dir, { readOnlyStageC: true }))
+      })()
+      : stageC(gate.stage_a_dir, gate.stage_b_dir)
     if (!gate.local_cross_agent_audit_ready || !live.all_rejected || live.stage_a_run_id !== gate.stage_a_run_id || live.stage_b_run_id !== gate.stage_b_run_id) throw Error('STAGE_C_GATE_STALE')
   }
   return { stage: run.stage, run_id: run.run_id, checked_pairs: run.pairs.length, evidence_level: run.stage === 'batch' ? 'E3' : 'E2', local_cross_agent_audit_ready: run.stage === 'batch', synthetic_validation_valid_n: run.stage === 'batch' ? run.pairs.length : 0 }

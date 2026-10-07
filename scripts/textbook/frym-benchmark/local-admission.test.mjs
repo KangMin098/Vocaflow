@@ -5,11 +5,12 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
-import { AXES, GRADES, hash, screenSample } from './benchmark.mjs'
+import { AXES, GRADES, hash, judgeBenchmark, screenSample } from './benchmark.mjs'
 import { createHash } from 'node:crypto'
 import { identifyLocalFile, prepareAdmission } from './local-admission.mjs'
 import { dryRunAdmission, prepareSealedAdmission, verifyAdmission } from './local-admission-ledger.mjs'
 import { sealAdmittedSnapshot, verifyAdmittedSnapshot } from './admitted-snapshot.mjs'
+import { inspectPipeline } from './pipeline-state.mjs'
 
 const axisDefs = Object.fromEntries(AXES.map(axis => [axis, { metric: `${axis}_score`, scale: 'ratio', unit: 'fixture', measurement_method: 'fixture', missing_rule: 'inconclusive', rater_policy: 'independent', direction: 1, resolution: .1, minimum_meaningful_delta: .5, valid_min: 0, valid_max: 100, auxiliary_metrics: [], auxiliary_override_rule: 'none', rater_agreement_floor: .8, missing_priority: 'inconclusive' }]))
 const selection = { schema: 'frym-benchmark-selection/1', status: 'sealed', selected_sample_ids: ['sample-1'], representative_editions: { [JSON.stringify(['Fixture Press', 'Fixture Book'])]: '2026-1' } }
@@ -213,6 +214,35 @@ test('CLI creates separate metadata and audit files and will not overwrite', t =
   assert.equal(admittedBuild.status, 0, admittedBuild.stderr)
   const verifySnapshot = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'verify-admitted', protocolPath, snapshotPath, candidatesPath, samplesPath, auditPath, receiptPath], { encoding: 'utf8' })
   assert.equal(verifySnapshot.status, 0, verifySnapshot.stderr)
+  const status = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, snapshotPath, '-', '-', '-'], { encoding: 'utf8' })
+  assert.equal(status.status, 0, status.stderr)
+  assert.equal(JSON.parse(status.stdout).state, 'insufficient_benchmark')
+  assert.equal(JSON.parse(status.stdout).seed_eligible, false)
+  const missingSnapshot = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, join(directory, 'missing-snapshot.json'), '-', '-', '-'], { encoding: 'utf8' })
+  assert.equal(missingSnapshot.status, 1)
+  assert.deepEqual(JSON.parse(missingSnapshot.stdout).reasons, ['SNAPSHOT_UNREADABLE'])
+  const invalidSnapshotPath = join(directory, 'invalid-snapshot.json')
+  writeFileSync(invalidSnapshotPath, 'null')
+  const invalidSnapshot = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, invalidSnapshotPath, '-', '-', '-'], { encoding: 'utf8' })
+  assert.equal(invalidSnapshot.status, 1)
+  assert.deepEqual(JSON.parse(invalidSnapshot.stdout).reasons, ['SNAPSHOT_INVALID'])
+  const decisionPath = join(directory, 'decision.json')
+  writeFileSync(decisionPath, JSON.stringify({ decision_hash: 'unverified' }))
+  const missingDecision = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, snapshotPath, '-', '-', join(directory, 'missing-decision.json')], { encoding: 'utf8' })
+  assert.equal(missingDecision.status, 1)
+  assert.deepEqual(JSON.parse(missingDecision.stdout).reasons, ['DECISION_UNREADABLE'])
+  writeFileSync(decisionPath, 'false')
+  const invalidDecision = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, snapshotPath, '-', '-', decisionPath], { encoding: 'utf8' })
+  assert.equal(invalidDecision.status, 1)
+  assert.deepEqual(JSON.parse(invalidDecision.stdout).reasons, ['DECISION_INVALID'])
+  writeFileSync(decisionPath, JSON.stringify({ decision_hash: 'unverified' }))
+  const missingEvidence = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, snapshotPath, '-', '-', decisionPath], { encoding: 'utf8' })
+  assert.equal(missingEvidence.status, 1)
+  assert.equal(JSON.parse(missingEvidence.stdout).state, 'decision-unverified')
+  const invalidEvidence = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, snapshotPath, protocolPath, directory, decisionPath], { encoding: 'utf8' })
+  assert.equal(invalidEvidence.status, 1)
+  assert.equal(JSON.parse(invalidEvidence.stdout).state, 'stale')
+  assert.deepEqual(JSON.parse(invalidEvidence.stdout).reasons, ['DECISION_EVIDENCE_STALE'])
   const directVerify = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'verify', protocolPath, snapshotPath], { encoding: 'utf8' })
   assert.equal(directVerify.status, 1)
   assert.match(directVerify.stderr, /ADMISSION_RECEIPT_REQUIRED/)
@@ -292,4 +322,61 @@ test('dry-run and sealed receipt keep held candidates out of build', t => {
   const checked = verifyAdmission(protocol, [candidate], sealed.samples, sealed.audit, sealed.receipt)
   assert.equal(checked.status, 'current')
   assert.equal(checked.ready_for_build, false)
+  const protocolPath = join(directory, 'protocol.json'), candidatesPath = join(directory, 'candidates.json')
+  const samplesPath = join(directory, 'samples.json'), auditPath = join(directory, 'audit.json'), receiptPath = join(directory, 'receipt.json')
+  for (const [path, value] of [[protocolPath, protocol], [candidatesPath, [candidate]], [samplesPath, sealed.samples], [auditPath, sealed.audit], [receiptPath, sealed.receipt]]) writeFileSync(path, JSON.stringify(value))
+  const status = spawnSync(process.execPath, ['scripts/textbook/frym-benchmark/benchmark-run.mjs', 'status-admitted', protocolPath, candidatesPath, samplesPath, auditPath, receiptPath, join(directory, 'missing-snapshot.json'), '-', '-', '-'], { encoding: 'utf8' })
+  assert.equal(status.status, 0, status.stderr)
+  assert.equal(JSON.parse(status.stdout).state, 'admission-hold')
+})
+
+test('pipeline state keeps admission, benchmark and downstream gates distinct', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const original = prepareSealedAdmission(protocol, [candidate])
+  const base = { protocol, candidates: [candidate], samples: original.samples, audit: original.audit, receipt: original.receipt }
+  assert.equal(inspectPipeline(base).state, 'admission-pass')
+  const envelope = sealAdmittedSnapshot(protocol, original.samples, original.receipt.receipt_hash)
+  const insufficient = inspectPipeline({ ...base, envelope })
+  assert.equal(insufficient.state, 'insufficient_benchmark')
+  assert.ok(insufficient.reasons.some(reason => reason.startsWith('middle_1:INSUFFICIENT_SAMPLE')))
+  assert.equal(insufficient.gold_s, false)
+  assert.equal(insufficient.seed_eligible, false)
+  assert.equal(insufficient.db_seed, false)
+  assert.equal(inspectPipeline({ ...base, decision: {} }).state, 'decision-unverified')
+  assert.equal(inspectPipeline({ ...base, envelope, decision: {} }).state, 'decision-unverified')
+  const mixed = { ...envelope, admission_receipt_hash: 'other-run' }
+  assert.equal(inspectPipeline({ ...base, envelope: mixed }).state, 'stale')
+  const revised = { ...base, protocol: { ...protocol, version: 'fixture-v2' } }
+  assert.equal(inspectPipeline({ ...revised, envelope }).state, 'stale')
+  const heldCandidate = structuredClone(candidate)
+  heldCandidate.extraction.boundary_confirmed = false
+  const held = prepareSealedAdmission(protocol, [heldCandidate])
+  assert.equal(inspectPipeline({ protocol, candidates: [heldCandidate], ...held }).state, 'admission-hold')
+  const rejectedCandidate = structuredClone(candidate)
+  rejectedCandidate.metadata.rights_basis = 'unknown'
+  const rejected = prepareSealedAdmission(protocol, [rejectedCandidate])
+  assert.equal(inspectPipeline({ protocol, candidates: [rejectedCandidate], ...rejected }).state, 'admission-reject')
+})
+
+test('pipeline recomputes a sealed decision before reporting its state', t => {
+  const { directory, candidate } = fixture()
+  t.after(() => rmSync(directory, { recursive: true, force: true }))
+  const admission = prepareSealedAdmission(protocol, [candidate])
+  const envelope = sealAdmittedSnapshot(protocol, admission.samples, admission.receipt.receipt_hash)
+  const variants = Object.fromEntries(['middle_1', 'high_1'].map(grade => [grade, { passage_hash: hash(`f02-${grade}`), genre: 'expository', word_count: 100, item_count: 2, item_ids: [`${grade}-1`, `${grade}-2`], item_type_counts: { literal: 1, inference: 1 }, item_type_difficulty: { literal: 5, inference: 5 }, axis_agreement: Object.fromEntries(AXES.map(axis => [axis, 1])), metrics: Object.fromEntries(AXES.map(axis => [axis, 5])) }]))
+  const f02Body = { codebook_hash: protocol.codebook_hash, source_freeze_sha256: hash('freeze'), item_set_hash: hash('items'), scoring_key_hash: hash('key'), variants }
+  const f02 = { ...f02Body, analysis_hash: hash(f02Body) }
+  const e3 = { status: 'verified', valid_n: 28, run_id: 'fixture-run', evidence_hash: hash('e3'), seal: { source_freeze_sha256: f02.source_freeze_sha256, item_set_hash: f02.item_set_hash, scoring_key_hash: f02.scoring_key_hash, passage_hash: Object.fromEntries(Object.entries(variants).map(([grade, variant]) => [grade, variant.passage_hash])), item_ids: Object.fromEntries(Object.entries(variants).map(([grade, variant]) => [grade, variant.item_ids])) } }
+  const judged = judgeBenchmark({ protocol, snapshot: envelope.benchmark_snapshot, samples: admission.samples, f02, e3 })
+  const { decision_hash, ...body } = judged
+  body.admission_receipt_hash = admission.receipt.receipt_hash
+  const decision = { ...body, decision_hash: hash(body) }
+  const currentDecision = { benchmark_version: protocol.version, benchmark_snapshot_hash: envelope.benchmark_snapshot.snapshot_hash, f02_input_hash: hash(f02), e3_run_id: e3.run_id, e3_evidence_hash: e3.evidence_hash }
+  const input = { protocol, candidates: [candidate], ...admission, envelope, decision, currentDecision, f02, e3 }
+  assert.equal(inspectPipeline(input).state, 'insufficient_benchmark')
+  const forgedBody = { ...body, gold_s_candidate: true }
+  assert.equal(inspectPipeline({ ...input, decision: { ...forgedBody, decision_hash: hash(forgedBody) } }).state, 'stale')
+  assert.equal(inspectPipeline({ ...input, decisionEvidenceError: 'E3_BATCH_NOT_VERIFIED' }).state, 'stale')
+  assert.deepEqual(inspectPipeline({ ...input, decisionEvidenceError: 'E3_BATCH_NOT_VERIFIED' }).reasons, ['E3_BATCH_NOT_VERIFIED'])
 })
