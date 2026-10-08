@@ -14,7 +14,7 @@ const PG_DIR = process.argv.includes('--pg-dir') ? process.argv[process.argv.ind
 const { startCluster, conn } = await import(pathToFileURL(path.join(PG_DIR, 'lib.mjs')).href)
 const pg = (await import(pathToFileURL(path.join(PG_DIR, 'node_modules/pg/lib/index.js')).href)).default
 const M = (f) => fs.readFileSync(path.join(REPO, 'supabase/migrations', f), 'utf8')
-const F7 = '_pending_20261008190000_learning_records_append_only.sql'
+const F7 = '20261008190000_learning_records_append_only.sql'
 let fail = 0
 const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail ? ' — ' + String(typeof detail === 'string' ? detail : JSON.stringify(detail)).slice(0, 220) : ''}`) }
 const uuid = () => crypto.randomUUID()
