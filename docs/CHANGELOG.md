@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Clarify that synthetic pipeline-contract completion does not mean all P01–P20 products or real book production are complete; resolve the Gold-S row's contradictory PARTIAL label.
+
 - docs(textbook): Close the synthetic/code textbook-factory implementation audit after runtime revision-impact integration; keep operational verification, persisted catalog labels, and per-order UI explicitly separate.
 
 - feat(textbook): Compare an earlier sealed production manifest with a newly captured one in the atomic runner; report read-only source-to-render revision impact without treating it as catalog state mutation.
