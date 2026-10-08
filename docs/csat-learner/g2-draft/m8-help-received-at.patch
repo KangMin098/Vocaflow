@@ -1,0 +1,128 @@
+diff --git a/scripts/knowledge/build-g2-integrated.mjs b/scripts/knowledge/build-g2-integrated.mjs
+index 190d0a801..ec7ddb374 100644
+--- a/scripts/knowledge/build-g2-integrated.mjs
++++ b/scripts/knowledge/build-g2-integrated.mjs
+@@ -235,6 +235,34 @@ s = s.slice(0, rbAt) + rollback + '\n'
+   if (!s.includes(a3)) throw new Error('M7 a3')
+   s = s.replace(a3, () => "  (a.synthetic or coalesce(s.synthetic, false)) as synthetic   -- M7 시도 · 세션 어느 쪽이든 합성이면 합성\n" + a2)
+ }
++// M8 (사용자 결정 2026-10-08 · f5 재심사) 도움 노출 「시각」 으로 독립을 판정한다 — 세션의 도움 수준은 보수적으로 합치되(M5a′),
++// 도움을 받기 **전에** 낸 판단까지 비독립으로 바꾸지 않는다. 시도 행은 덮어쓰지 않고, 첫 시도 뷰가 판단 시각과 도움 받은 시각을 비교한다.
++{
++  const once = (name, a, b) => {
++    const n = s.split(a).length - 1
++    if (n !== 1) throw new Error(`M8 ${name}: ${n}곳`)
++    s = s.replace(a, () => b)
++  }
++  once('column',
++    '  explanation_viewed_at timestamptz,                               -- M1(B8) 판단 뒤 해설 열람 시각 — 먼저 정한 값 유지\n',
++    '  explanation_viewed_at timestamptz,                               -- M1(B8) 판단 뒤 해설 열람 시각 — 먼저 정한 값 유지\n' +
++      '  help_received_at timestamptz,                                    -- M8 처음 도움(viewed_first · hint)을 받은 가장 이른 시각 — 그 전 판단은 독립\n')
++  once('update',
++    '    explanation_viewed_at = least(s.explanation_viewed_at, p_explanation_viewed_at),  -- M1 · M5a 가장 이른 열람(least 는 NULL 을 건너뛴다)\n',
++    '    explanation_viewed_at = least(s.explanation_viewed_at, p_explanation_viewed_at),  -- M1 · M5a 가장 이른 열람(least 는 NULL 을 건너뛴다)\n' +
++      "    help_received_at = case when v_rank_new >= 1 and p_help_level in ('viewed_first', 'hint') then least(s.help_received_at, p_at) else s.help_received_at end,  -- M8 가장 이른 도움 시각(도착순 아님)\n")
++  const eff =
++    "case when s.id is null then a.help_level when s.help_received_at is not null and a.answered_at >= s.help_received_at then s.help_level else 'independent' end"
++  once('view help',
++    '  coalesce(s.help_level, a.help_level) as help_level,   -- M5b 실효 도움 수준(세션이 정본)\n',
++    `  ${eff} as help_level,   -- M5b · M8 실효 도움 수준 — 도움을 받은 시각 이후의 판단에만 세션 도움 수준(그 전 판단은 독립 · 시도 행은 덮지 않는다)\n`)
++  once('view viewed_first',
++    "  (coalesce(s.help_level, a.help_level) = 'viewed_first') as after_viewed_first,\n",
++    `  (${eff} = 'viewed_first') as after_viewed_first,\n`)
++  once('freeze',
++    '      or new.explanation_viewed_at is distinct from old.explanation_viewed_at)',
++    '      or new.explanation_viewed_at is distinct from old.explanation_viewed_at or new.help_received_at is distinct from old.help_received_at)  -- M8')
++}
+ fs.writeFileSync(OUT, s)
+ const outSha = crypto.createHash('sha256').update(s).digest('hex')
+ console.log(JSON.stringify({ out: path.relative(ROOT, OUT), sha256: outSha, draft: DRAFT_SHA }))
+diff --git a/scripts/knowledge/g2-integrated-test.mjs b/scripts/knowledge/g2-integrated-test.mjs
+index 488a5e7fa..2c1f80640 100644
+--- a/scripts/knowledge/g2-integrated-test.mjs
++++ b/scripts/knowledge/g2-integrated-test.mjs
+@@ -160,6 +160,44 @@ try {
+   await sess(B, uuid(), cs6, 'revealed', { help: 'hint', at: '2026-10-07T09:30:00Z' })
+   rec('M5a′ 덜 도움받은 값(hint)이 와도 viewed_first 유지', (await q('select help_level from learning_sessions where id = $1', [s6.session_id])).rows[0].help_level === 'viewed_first')
+ 
++  // M8 도움 노출 「시각」 으로 독립 판정(사용자 결정 2026-10-08) — 문항마다 따로(첫 시도 묶음이 겹치지 않게)
++  {
++    const sessI = (mut, cs, item, help, at) =>
++      q(`select * from learning_session_apply($1,$2,$3,'theater','post',$4,'revealed',0,10,$5,$6,null,false,false,'claim-support',null,null,null)`, [A, mut, cs, item, help, at])
++    const attI = (sid, at) => q(`select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,null,null,'h','{}',true,1,false,null,null,$4)`, [A, uuid(), sid, at])
++    const first = async (item) => (await q(`select help_level, after_viewed_first from learning_first_attempts where item_ref = $1`, [item])).rows[0]
++    const sessRow = async (sid) => (await q(`select help_level, revealed_at, help_received_at from learning_sessions where id = $1`, [sid])).rows[0]
++    // A(심사 P1 재현): B 가 10:02 해설 먼저 → 10:03 판단 저장 → A 의 10:01 독립 공개가 늦게 도착
++    const csA = uuid()
++    const sA = (await sessI(uuid(), csA, 'g2#m8a', 'viewed_first', '2026-10-08T10:02:00Z')).rows[0]
++    await attI(sA.session_id, '2026-10-08T10:03:00Z')
++    await sessI(uuid(), csA, 'g2#m8a', 'independent', '2026-10-08T10:01:00Z')
++    const rA = await sessRow(sA.session_id), fA = await first('g2#m8a')
++    rec('M8-A 늦게 온 이른 독립 공개 뒤에도 세션 viewed_first', rA.help_level === 'viewed_first', rA)
++    rec('M8-A 해설 노출 뒤 판단은 독립 첫 시도가 아니다', fA.help_level === 'viewed_first' && fA.after_viewed_first === true, fA)
++    // B(순서 교환): 같은 두 공개가 반대 순서로 도착 → 세션 상태 동일
++    const csB = uuid()
++    const sB = (await sessI(uuid(), csB, 'g2#m8b', 'independent', '2026-10-08T10:01:00Z')).rows[0]
++    await sessI(uuid(), csB, 'g2#m8b', 'viewed_first', '2026-10-08T10:02:00Z')
++    await attI(sB.session_id, '2026-10-08T10:03:00Z')
++    const rB = await sessRow(sB.session_id), fB = await first('g2#m8b')
++    const same = (x, y) => x.help_level === y.help_level && x.revealed_at.getTime() === y.revealed_at.getTime() && x.help_received_at?.getTime() === y.help_received_at?.getTime()
++    rec('M8-B 도착 순서를 바꿔도 세션 병합 결과 동일(도움 수준 · 공개 시각 · 도움 시각)', same(rA, rB), { rA, rB })
++    rec('M8-B 순서 교환에서도 해설 뒤 판단은 비독립', fB.help_level === 'viewed_first' && fB.after_viewed_first === true, fB)
++    // C(시간 순서): A 가 10:01 독립 공개 → 10:01:30 독립 판단, B 의 10:02 해설 먼저가 늦게 도착 → A 판단은 독립 유지 · 시도 행 불변
++    const csC = uuid()
++    const sC = (await sessI(uuid(), csC, 'g2#m8c', 'independent', '2026-10-08T10:01:00Z')).rows[0]
++    const aC = (await attI(sC.session_id, '2026-10-08T10:01:30Z')).rows[0]
++    await sessI(uuid(), csC, 'g2#m8c', 'viewed_first', '2026-10-08T10:02:00Z')
++    const fC = await first('g2#m8c')
++    const rowC = (await q(`select help_level, answered_at from learning_task_attempts where id = $1`, [aC.attempt_id])).rows[0]
++    rec('M8-C 도움 받기 전 판단은 독립 유지(세션은 viewed_first 로 보수 병합)', fC.help_level === 'independent' && fC.after_viewed_first === false && (await sessRow(sC.session_id)).help_level === 'viewed_first', fC)
++    rec('M8-C 시도 행은 덮어쓰지 않는다(help · 판단 시각 그대로)', rowC.help_level === 'independent' && rowC.answered_at.toISOString() === '2026-10-08T10:01:30.000Z', rowC)
++    // 같은 공개 반복 적용 → 결과 불변(멱등은 키로 · 의미는 단조)
++    await sessI(uuid(), csC, 'g2#m8c', 'viewed_first', '2026-10-08T10:02:00Z')
++    rec('M8 같은 상태를 반복 적용해도 도움 시각 불변', (await sessRow(sC.session_id)).help_received_at.toISOString() === '2026-10-08T10:02:00.000Z')
++  }
++
+   // M3 효과 게이트 — 실제 독립 첫 시도만 센다
+   const it = (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ('practice','task','g2-t','t','s','in_review','t','t') returning id`)).rows[0].id
+   await q(`insert into knowledge_evidence (item_id, grade, attribution, source_type, external_url, external_title, created_by) values ($1,'B','stated','external','https://e.x/g2','t','t')`, [it])
+diff --git a/supabase/migrations/_pending_20261008160000_learning_sessions_integrated.sql b/supabase/migrations/_pending_20261008160000_learning_sessions_integrated.sql
+index 90e0c8e7f..6161c76a2 100644
+--- a/supabase/migrations/_pending_20261008160000_learning_sessions_integrated.sql
++++ b/supabase/migrations/_pending_20261008160000_learning_sessions_integrated.sql
+@@ -54,6 +54,7 @@ create table public.learning_sessions (
+   finished_at timestamptz,
+   review_at timestamptz,
+   explanation_viewed_at timestamptz,                               -- M1(B8) 판단 뒤 해설 열람 시각 — 먼저 정한 값 유지
++  help_received_at timestamptz,                                    -- M8 처음 도움(viewed_first · hint)을 받은 가장 이른 시각 — 그 전 판단은 독립
+   deleted_at timestamptz,                                           -- 삭제 표시(tombstone) — 행은 지우지 않는다
+   client_kind text not null default 'web' check (client_kind in ('web', 'agent', 'import')),
+   synthetic boolean not null default false,
+@@ -150,6 +151,7 @@ begin
+     finished_at = coalesce(s.finished_at, case when v_rank_new = 2 then p_at end),
+     review_at = coalesce(s.review_at, p_review_at),
+     explanation_viewed_at = least(s.explanation_viewed_at, p_explanation_viewed_at),  -- M1 · M5a 가장 이른 열람(least 는 NULL 을 건너뛴다)
++    help_received_at = case when v_rank_new >= 1 and p_help_level in ('viewed_first', 'hint') then least(s.help_received_at, p_at) else s.help_received_at end,  -- M8 가장 이른 도움 시각(도착순 아님)
+     step = case when p_at >= s.last_active_at and s.stage <> 'finished' then p_step else s.step end,
+     steps = case when p_at >= s.last_active_at then p_steps else s.steps end,
+     last_active_at = greatest(s.last_active_at, p_at),
+@@ -226,8 +228,8 @@ create view public.learning_first_attempts with (security_invoker = true) as
+ select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
+   a.id as attempt_id, a.user_id, a.task_key, a.item_ref, a.phase, a.activity, a.session_id, a.is_correct, a.answered_at,
+   -- 세션이 있으면 세션의 도움 수준이 정본(시도는 상속값) — 세션 없는 시도만 자기 값
+-  coalesce(s.help_level, a.help_level) as help_level,   -- M5b 실효 도움 수준(세션이 정본)
+-  (coalesce(s.help_level, a.help_level) = 'viewed_first') as after_viewed_first,
++  case when s.id is null then a.help_level when s.help_received_at is not null and a.answered_at >= s.help_received_at then s.help_level else 'independent' end as help_level,   -- M5b · M8 실효 도움 수준 — 도움을 받은 시각 이후의 판단에만 세션 도움 수준(그 전 판단은 독립 · 시도 행은 덮지 않는다)
++  (case when s.id is null then a.help_level when s.help_received_at is not null and a.answered_at >= s.help_received_at then s.help_level else 'independent' end = 'viewed_first') as after_viewed_first,
+   -- M2 해설을 연 뒤의 판단은 독립 판단이 아니다(B8 — 세션의 열람 시각보다 늦은 판단)
+   (s.explanation_viewed_at is not null and a.answered_at >= s.explanation_viewed_at) as after_explanation,
+   (a.synthetic or coalesce(s.synthetic, false)) as synthetic   -- M7 시도 · 세션 어느 쪽이든 합성이면 합성
+@@ -282,7 +284,7 @@ create function public.learning_trial_sample_frozen_session() returns trigger
+ language plpgsql set search_path = public as $$
+ begin
+   if (new.help_level is distinct from old.help_level or new.revealed_at is distinct from old.revealed_at
+-      or new.explanation_viewed_at is distinct from old.explanation_viewed_at)
++      or new.explanation_viewed_at is distinct from old.explanation_viewed_at or new.help_received_at is distinct from old.help_received_at)  -- M8
+      and exists (select 1 from public.learning_task_attempts a join public.knowledge_trials t on t.id = a.trial_id
+                  where a.session_id = new.id and t.status = 'analyzed' and not t.synthetic for share of t) then
+     raise exception '분석 완료된 검증 표본의 세션은 공개 · 도움 · 해설 시각을 바꿀 수 없다';
