@@ -8,7 +8,7 @@
 
 | 파일 | sha256 | 상태 |
 |---|---|---|
-| `supabase/migrations/_pending_20261008160000_learning_sessions_integrated.sql` | `da627938c469f71db0c839c8bca670862b46786b9e0469f8aae1eddb088cc057` | **승인 대상** |
+| `supabase/migrations/_pending_20261008160000_learning_sessions_integrated.sql` | `9786b92f7ceddc9b1279300ca25c05e366f99859448dff626ed4b651606b2bf4` | **승인 대상** |
 | 원본 초안(기출 쪽 · `origin/feat/csat-learning-loop-g1` `docs/csat-learner/g2-draft/…`) | `779eb9bb0812719702e16e4fcf34fe5813ed6f9adaa8173cc81a1f7aa4182a01` | 입력(조립기가 해시 확인) |
 | 조립기 `scripts/knowledge/build-g2-integrated.mjs` | — | 초안에 M1–M5 만 정확한 치환으로 얹는다(나머지 바이트 동일) |
 | `_pending_20261008140100_learning_task_attempts_idempotency.sql` | `3b7df58a…47e2` | **폐기** — client_mutation_id 로 흡수(파일 삭제) |
@@ -64,6 +64,8 @@ B6′(동시 중복 제출)은 ① 뒤 실제 DB 에서 동시 요청 멱등을 
 
 ## 8. 남은 결정 · blocker
 
-- B7 P1 2건은 practice 이식 코드에서 고친다(RPC 검증을 완화하지 않는다 — 격리 검증이 거부를 확인).
+- B7 P1 2건은 practice 이식 코드에서 고쳤다(`8b9d66620` · RPC 검증은 완화하지 않는다 — 격리 검증이 거부를 확인).
+- **f5 독립 심사(2026-10-08 · CONDITIONAL) P1 반영**: ① 도움 수준은 **더 많이 도움받은 쪽**이 이긴다(viewed_first > hint > independent · M5a′) — 공개 · 해설 열람 시각은 가장 이른 것. ② B8 해설 열람 시각은 practice 공개와 **다른 client_mutation_id** 로 보낸다(같은 id 면 payload 가 달라 conflict → 열람 시각 유실). 격리 테스트 38/38.
+- f5 P2(기록만 · 이 세트에서 고치지 않음): 고정 트리거 예외가 claim 까지 되돌림 · 직접 INSERT 행은 첫 시도 집계 밖 · 표본 행 DELETE 는 막지 않음.
 - B8 은 M1 · M2 로 반영 — practice 는 ③ 단계에서 해설 열람 시각을 `learning_session_apply(p_explanation_viewed_at)` 로 보낸다.
 - 상태 E(직접 확인된 원인)를 만드는 기록 경로는 이 세트 밖이다.

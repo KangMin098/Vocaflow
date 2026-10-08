@@ -145,7 +145,7 @@ begin
   update public.learning_sessions s set
     stage = case when v_rank_new > (case s.stage when 'open' then 0 when 'revealed' then 1 else 2 end) then p_stage else s.stage end,
     -- M5a 가장 이른 공개가 이긴다(도착순 아님 — 오프라인 동기화 순서와 무관)
-    help_level = case when v_rank_new >= 1 and (s.revealed_at is null or p_at < s.revealed_at) then p_help_level else s.help_level end,
+    help_level = case when v_rank_new >= 1 and (case p_help_level when 'viewed_first' then 2 when 'hint' then 1 when 'independent' then 0 else -1 end) > (case s.help_level when 'viewed_first' then 2 when 'hint' then 1 when 'independent' then 0 else -1 end) then p_help_level else s.help_level end,  -- M5a′ 도움 수준 = 더 많이 도움받은 쪽(viewed_first > hint > independent) — 여러 기기가 한 세션을 공유해도 해설 먼저가 독립으로 둔갑하지 않는다(G2 심사 P1)
     revealed_at = case when v_rank_new >= 1 and (s.revealed_at is null or p_at < s.revealed_at) then p_at else s.revealed_at end,
     finished_at = coalesce(s.finished_at, case when v_rank_new = 2 then p_at end),
     review_at = coalesce(s.review_at, p_review_at),

@@ -112,7 +112,7 @@ rep('M4 rollback',
 // M5a 공개 시각 · 도움 수준 · 해설 열람 시각 = **가장 이른 시각**이 이긴다(도착순 아님) — 늦게 동기화된 더 이른 「해설 먼저」 · 열람이 버려지지 않게
 rep('M5a help/revealed',
   '    help_level = coalesce(s.help_level, case when v_rank_new >= 1 then p_help_level end),\n    revealed_at = coalesce(s.revealed_at, case when v_rank_new >= 1 then p_at end),\n',
-  '    -- M5a 가장 이른 공개가 이긴다(도착순 아님 — 오프라인 동기화 순서와 무관)\n    help_level = case when v_rank_new >= 1 and (s.revealed_at is null or p_at < s.revealed_at) then p_help_level else s.help_level end,\n    revealed_at = case when v_rank_new >= 1 and (s.revealed_at is null or p_at < s.revealed_at) then p_at else s.revealed_at end,\n')
+  '    -- M5a 가장 이른 공개가 이긴다(도착순 아님 — 오프라인 동기화 순서와 무관)\n    help_level = case when v_rank_new >= 1 and (case p_help_level when \'viewed_first\' then 2 when \'hint\' then 1 when \'independent\' then 0 else -1 end) > (case s.help_level when \'viewed_first\' then 2 when \'hint\' then 1 when \'independent\' then 0 else -1 end) then p_help_level else s.help_level end,  -- M5a′ 도움 수준 = 더 많이 도움받은 쪽(viewed_first > hint > independent) — 여러 기기가 한 세션을 공유해도 해설 먼저가 독립으로 둔갑하지 않는다(G2 심사 P1)\n    revealed_at = case when v_rank_new >= 1 and (s.revealed_at is null or p_at < s.revealed_at) then p_at else s.revealed_at end,\n')
 rep('M5a explanation',
   '    explanation_viewed_at = coalesce(s.explanation_viewed_at, p_explanation_viewed_at),  -- M1 먼저 정한 값\n',
   '    explanation_viewed_at = least(s.explanation_viewed_at, p_explanation_viewed_at),  -- M1 · M5a 가장 이른 열람(least 는 NULL 을 건너뛴다)\n')

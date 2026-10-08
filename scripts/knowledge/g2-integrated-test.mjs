@@ -126,7 +126,15 @@ try {
   const s5 = (await sess(B, uuid(), cs5, 'revealed', { help: 'independent', at: '2026-10-07T09:10:00Z' })).rows[0]
   await sess(B, uuid(), cs5, 'revealed', { help: 'viewed_first', at: '2026-10-07T09:05:00Z' })
   const r5 = (await q(`select help_level, revealed_at from learning_sessions where id = $1`, [s5.session_id])).rows[0]
-  rec('M5a 공개 · 도움 수준 = 가장 이른 공개(늦게 온 이른 viewed_first 가 이김)', r5.help_level === 'viewed_first' && r5.revealed_at.toISOString() === '2026-10-07T09:05:00.000Z', r5)
+  rec('M5a 공개 시각 = 가장 이른 공개 · 도움 수준 viewed_first(늦게 온 이른 해설 먼저)', r5.help_level === 'viewed_first' && r5.revealed_at.toISOString() === '2026-10-07T09:05:00.000Z', r5)
+  // M5a′ 두 기기가 한 세션을 공유 — 09:20 해설 먼저가 먼저 도착하고 09:10 독립 공개가 늦게 와도 도움 수준은 viewed_first(G2 심사 P1)
+  const cs6 = uuid()
+  const s6 = (await sess(B, uuid(), cs6, 'revealed', { help: 'viewed_first', at: '2026-10-07T09:20:00Z' })).rows[0]
+  await sess(B, uuid(), cs6, 'revealed', { help: 'independent', at: '2026-10-07T09:10:00Z' })
+  const r6 = (await q('select help_level, revealed_at from learning_sessions where id = $1', [s6.session_id])).rows[0]
+  rec('M5a′ 도움 수준 = 더 많이 도움받은 쪽 · 공개 시각 = 가장 이른 것', r6.help_level === 'viewed_first' && r6.revealed_at.toISOString() === '2026-10-07T09:10:00.000Z', r6)
+  await sess(B, uuid(), cs6, 'revealed', { help: 'hint', at: '2026-10-07T09:30:00Z' })
+  rec('M5a′ 덜 도움받은 값(hint)이 와도 viewed_first 유지', (await q('select help_level from learning_sessions where id = $1', [s6.session_id])).rows[0].help_level === 'viewed_first')
 
   // M3 효과 게이트 — 실제 독립 첫 시도만 센다
   const it = (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ('practice','task','g2-t','t','s','in_review','t','t') returning id`)).rows[0].id
