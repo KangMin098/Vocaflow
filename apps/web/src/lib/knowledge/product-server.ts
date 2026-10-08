@@ -1,0 +1,179 @@
+// apps/web/src/lib/knowledge/product-server.ts
+// Phase 3 제품 게이트(2026-10-08) — 학습자 화면이 「채택된 원리에서 나온 과제」를 보여도 되는지 서버에서만 판단한다.
+//
+// 노출 조건(하나라도 빠지면 학습자에게 없다):
+//   ① 그 표면 · 과제 키의 적용이 active(켜기는 DB 가 「채택 항목 + 검증 계획」일 때만 받는다 — 20261008120000)
+//   ② 적용 항목(실행 과제)부터 방법 · 처리 기제까지 사슬 전체가 adopted/applied(live-chain.resolveChain)
+//   ③ 문항 주석이 있고 지금 골격과 서명이 같다(문장 경계가 바뀌었으면 채점하지 않는다)
+// 학습자에게는 적용 id · 항목 slug · 상태 같은 내부 값을 넘기지 않는다 — 화면용 문구만.
+import 'server-only'
+
+import type { SupabaseClient } from '@supabase/supabase-js'
+
+import { fromItemSlug, toItemSlug } from '@/lib/csat/item-slug'
+import { createAdminClient } from '@/lib/supabase/admin'
+
+import { currentItemTask, ITEM_TASKS } from './item-tasks'
+import { resolveChain, type ChainItem, type ChainLink, type ChainVerdict } from './live-chain'
+
+/** 첫 수직 경로의 과제 키(호환) — 과제 키 목록은 item-tasks 레지스트리가 정본 */
+export const CLAIM_SUPPORT_TASK = 'claim-support'
+/** 적용 surface_ref = 「과제 키:문항 슬러그」 — learning_task_attempts.task_key 와 같은 과제 키 */
+export const itemTaskRef = (taskKey: string, itemId: string) => `${taskKey}:${toItemSlug(itemId)}`
+/** surface_ref → 과제 키 · 문항 id(레지스트리에 있는 과제만) */
+export function parseItemTaskRef(ref: string): { taskKey: string; itemId: string } | null {
+  for (const t of ITEM_TASKS) if (ref.startsWith(`${t.key}:`)) return { taskKey: t.key, itemId: fromItemSlug(ref.slice(t.key.length + 1)) }
+  return null
+}
+
+function db(): SupabaseClient {
+  return createAdminClient() as unknown as SupabaseClient
+}
+
+async function must<T>(what: string, q: PromiseLike<{ data: unknown; error: { message?: string } | null }>): Promise<T[]> {
+  const { data, error } = await q
+  if (error) throw new Error(`${what} 읽기 실패: ${error.message ?? ''}`)
+  return (data ?? []) as T[]
+}
+
+export interface ApplicationRow {
+  id: string
+  item_id: string
+  surface: string
+  surface_ref: string
+  version: number
+  status: string
+  audience: Record<string, unknown>
+  released_at: string | null
+}
+
+const CAP = 1000
+
+export async function loadChainGraph(client: SupabaseClient = db()): Promise<{ items: ChainItem[]; links: ChainLink[] }> {
+  const [items, links] = await Promise.all([
+    must<ChainItem>('항목', client.from('knowledge_items').select('id, slug, title, layer, kind, status, version, efficacy').limit(CAP)),
+    must<ChainLink>('연결', client.from('knowledge_links').select('from_id, to_id, kind').eq('kind', 'implements').limit(CAP)),
+  ])
+  // 상한에 닿으면 잘린 것이다 — 사슬을 끝까지 못 따라가 게이트가 잘못 판정하지 않게 실패로 알린다(2026-10-08 항목 156 · 연결 수십)
+  if (items.length >= CAP || links.length >= CAP) throw new Error(`학습 원리 등록부가 ${CAP} 행을 넘었다 — 페이징이 필요하다`)
+  return { items, links }
+}
+
+export interface LiveApplication {
+  app: ApplicationRow
+  chain: ChainVerdict
+}
+
+/** 표면 · 과제 키의 active 적용 중 사슬이 살아 있는 것(최신 버전 우선). 없으면 null — 학습자 화면은 아무것도 그리지 않는다 */
+export async function loadLiveApplication(surface: string, ref: string, client: SupabaseClient = db()): Promise<LiveApplication | null> {
+  const apps = await must<ApplicationRow>('적용', client.from('knowledge_applications')
+    .select('id, item_id, surface, surface_ref, version, status, audience, released_at')
+    .eq('surface', surface).eq('surface_ref', ref).eq('status', 'active').order('version', { ascending: false }))
+  if (apps.length === 0) return null
+  const graph = await loadChainGraph(client)
+  for (const app of apps) {
+    const chain = resolveChain(app.item_id, graph.items, graph.links)
+    if (chain.live) return { app, chain }
+  }
+  return null
+}
+
+/** 학습자 문항 화면이 받는 것 — 내부 id · 상태 없음. 과제 모양(panel)은 과제마다 다르다(정답 없음) */
+export interface ItemPrinciplePanel {
+  taskKey: string
+  /** 학습자에게 보이는 원리 이름 */
+  principle: string
+  /** 왜 필요한지(과제 쪽 고정 문구) */
+  why: string
+  panel: Record<string, unknown>
+}
+
+export async function loadItemPrinciple(itemId: string): Promise<ItemPrinciplePanel | null> {
+  const task = currentItemTask(itemId)
+  if (!task) return null
+  const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId))
+  if (!live) return null
+  if (!live.chain.path.some((p) => p.layer === 'principle')) return null
+  // 학습자 문구는 과제 쪽 고정 문구 — 관리자 항목 문장(효과 미확인 · 처리 후보 같은 연구 단서)을 학습자에게 넘기지 않는다
+  return { taskKey: task.def.key, principle: task.def.learner.title, why: task.def.learner.why, panel: task.def.panel(task.ann) }
+}
+
+/** 주석이 있고 지금 골격과 같은 문장 경계일 때만(과제 종류 무관) */
+export function currentAnnotation(itemId: string) {
+  return currentItemTask(itemId)?.ann ?? null
+}
+
+/** 과제 기록 거부 사유(닫힌 열거) — 화면 문구와 별개로 호출자 · 테스트가 이유를 구분한다 */
+export type TaskRejectCode = 'no_task' | 'not_live' | 'invalid_input'
+
+export class TaskInputError extends Error {
+  constructor(message: string, readonly code: TaskRejectCode) {
+    super(message)
+  }
+}
+
+export interface AttemptResult {
+  grade: Record<string, unknown> & { isCorrect: boolean }
+  attempts: number
+}
+
+/**
+ * 수행 기록 한 건 — userId 는 세션에서만(라우트가 넘긴다). 채점은 서버에서 주석으로 한다(클라이언트 판정을 믿지 않는다).
+ * 이 기록은 **과제 수행**이지 효과 판정이 아니다 — 항목 efficacy 는 건드리지 않는다(DB 가드도 막는다).
+ */
+export async function recordItemTaskAttempt(client: SupabaseClient, userId: string, itemId: string, raw: unknown, sec: unknown): Promise<AttemptResult> {
+  const task = currentItemTask(itemId)
+  if (!task) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요', 'no_task')
+  const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId), client)
+  // 주석은 있지만 제품 적용이 켜져 있지 않다(초안 · 중단 · 사슬 미채택) — 노출 게이트가 막은 것
+  if (!live) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요', 'not_live')
+  const graded = task.def.grade(task.ann, raw)
+  if (!graded) throw new TaskInputError('고른 답을 다시 확인해 주세요', 'invalid_input')
+  const seconds = Number.isInteger(sec) && (sec as number) >= 0 && (sec as number) <= 7200 ? (sec as number) : null
+  const { error } = await client.from('learning_task_attempts').insert({
+    user_id: userId,
+    task_key: task.def.key,
+    application_id: live.app.id,
+    item_ref: itemId,
+    content_hash: task.def.hash(task.ann),
+    phase: 'practice',
+    response: { ...(graded.response as object), annotation: task.ann.version, appVersion: live.app.version, grade: graded.summary },
+    is_correct: graded.grade.isCorrect,
+    sec: seconds,
+  })
+  if (error) throw new Error(`수행 기록 저장 실패: ${error.message}`)
+  const { count } = await client.from('learning_task_attempts').select('id', { count: 'exact', head: true })
+    .eq('user_id', userId).eq('task_key', task.def.key).eq('item_ref', itemId)
+  return { grade: graded.grade, attempts: count ?? 1 }
+}
+
+/** @deprecated 첫 수직 경로 이름(호환) — recordItemTaskAttempt 를 쓴다 */
+export const recordClaimSupportAttempt = recordItemTaskAttempt
+
+/** 학습 지도 FIND 과제 → 같은 실행 과제로 가는 명시적 연결(learning_map_find 적용 행). 사슬이 죽었으면 빠진다 */
+export interface MapPracticeLink {
+  href: string
+  label: string
+}
+
+export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promise<Record<string, MapPracticeLink>> {
+  const apps = await must<ApplicationRow>('적용', client.from('knowledge_applications')
+    .select('id, item_id, surface, surface_ref, version, status, audience, released_at')
+    .eq('surface', 'learning_map_find').eq('status', 'active'))
+  if (apps.length === 0) return {}
+  const graph = await loadChainGraph(client)
+  const out: Record<string, MapPracticeLink> = {}
+  for (const app of apps.sort((a, b) => b.version - a.version)) {
+    // 적용 키는 소문자만 받는다(b6-3) — 지도 과제 id(B6-3)로 되돌린다
+    const taskId = app.surface_ref.toUpperCase()
+    if (out[taskId]) continue
+    const target = typeof app.audience?.item === 'string' ? app.audience.item : null
+    if (!target || !resolveChain(app.item_id, graph.items, graph.links).live) continue
+    // 지도 쪽 연결도 그 문항 쪽 적용이 살아 있어야 한다 — 문항에서 과제가 내려갔는데 지도 링크만 남으면 빈 화면으로 보낸다
+    const task = currentItemTask(target)
+    if (!task || !(await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, target), client))) continue
+    const [exam, no] = target.split('#')
+    out[taskId] = { href: `/csat/item/${toItemSlug(target)}#principle`, label: `${/^\d{4}$/.test(exam) ? `${exam}학년도 수능` : exam} ${no}번으로 직접 확인` }
+  }
+  return out
+}

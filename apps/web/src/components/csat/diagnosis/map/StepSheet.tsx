@@ -119,6 +119,11 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                           <ClipboardCheck size={12} strokeWidth={1.9} aria-hidden="true" />
                           {t.done_when} · {t.cadence}
                         </span>
+                        {data.practiceLinks?.[t.id] && (
+                          <a href={data.practiceLinks[t.id].href} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="find-practice-link" data-task={t.id}>
+                            {data.practiceLinks[t.id].label} →
+                          </a>
+                        )}
                       </span>
                     </li>
                   )

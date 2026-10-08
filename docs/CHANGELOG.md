@@ -11,6 +11,33 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(api): `POST /api/csat/item/[slug]/task` 거부 응답에 `code`(no_task · not_live · invalid_input) — 노출 게이트 거부를 입력 오류와 구분. 응집 게이트 E2E 9/9(정상 입력 → not_live · 대조 invalid_input)
+
+- migration `20261008170000_knowledge_trial_evidence_guard` **개발 DB 적용**(sha 38fb5a5b… · 실제 DB 롤백 smoke 3/3) · 응집 사슬 `--no-activate` 빌드(항목 +1 · 근거 +3 · 연결 +1 · 검토 기록 +4 · 적용 초안 2 · 검증 계획 2 · **노출 0**, 노출 게이트 E2E `vertical-cohesion-link-gate-e2e.mts` 8/8)
+
+- docs(methodology): 잔여 2건 승인 패키지 [APPROVAL_REMAINING_2026-10-08](./methodology/APPROVAL_REMAINING_2026-10-08.md) — 170000(sha 38fb5a5b…) 을 실제 원장 순서(160000 위)로 격리 재검증 20/20 · 실제 DB 읽기 점검 · 응집 사슬 빌드가 바꿀 정본 행 실측 · 빌더 `--no-activate`(노출 없이 빌드). DB 쓰기 없음
+
+- migration `20261008160000_learning_sessions_integrated` **개발 DB 적용**(sha 8d1d0624… · vocaflow-18) — `learning_sessions` · `learning_mutations` · 뷰 `learning_first_attempts` · RPC `learning_mutation_claim` · `learning_session_apply` · `learning_attempt_record`(service_role) · funnel CHECK 83종 · 효과 게이트 = 실학습자 독립 첫 시도. 후속 M8 별도 승인 대기. [G2_INTEGRATED_SQL](./methodology/G2_INTEGRATED_SQL.md)
+
+- feat(methodology): 두 번째 수직 경로 「문장 관계 — 연결어 · 지시어 / 순서」 코드 — 문항 과제 레지스트리 `lib/knowledge/item-tasks.ts`(게이트 · 기록 API · 지도 링크 · 추적이 과제 종류와 무관) · `cohesion-link` 채점 · `CohesionPanel` · 2022#36 블라인드 합의 주석 · 사슬 P/M 2차 블라인드 양측 채택. **DB 빌드 미실행(정본 변경 승인 대기) — 노출 0**. 빌더 검토 이력 조회 실패 시 중단(Codex P1). [vertical/cohesion-link](./methodology/vertical/cohesion-link.md)
+
+- feat(db-design): G2 통합 SQL `_pending_20261008160000_learning_sessions_integrated`(sha256 8d1d0624… · **미적용 · 적용 담당 vocaflow-18**) — 기출 쪽 초안(779eb9bb…)에 methodology 계약(B8 해설 열람 시각 · 해설 뒤 판단 표시 · 효과 게이트 = 독립 첫 시도 · 가장 이른 공개 · 분석 표본 고정 · 실행 가능한 롤백)을 얹음. 격리 36/36(두 연결 동시성 · 롤백 실행 포함). 멱등 키 후보 140100 은 흡수 · 삭제. 승인 요청서 `docs/methodology/G2_INTEGRATED_SQL.md`.
+
+- fix(methodology): PR 머지 리뷰 P1 — 빌더가 REVIEW_HOLD 사슬을 다시 채택 · 켜지 않게 · DB 후보 `_pending_20261008170000_knowledge_trial_evidence_guard`(합성 여부 불변 · 근거 출처 변경도 재검토, sha256 38fb5a5b… · 미적용 · 적용 담당 vocaflow-18).
+
+- chore(methodology): 「주장과 근거」 3항목 REVIEW_HOLD → Claude(맹검 서브에이전트) · Codex(맹검) 독립 재검토 3회 → 모두 adopt 뒤 재개. 주석 v2(6번째 문장 채점 제외) · 방법 문장 v2(①/② 갈림 표시). 기록 `docs/methodology/vertical/reviews/claim-support-2022-20.json` · efficacy 미확정.
+
+- fix(db): `20261008150000_knowledge_statement_review_fix` 적용(사용자 승인 sha256 78baa027… · 체크포인트 `knowledge-guard-fix-20261008`) — 140000 가드의 구멍 3(문장+상태 한 UPDATE 우회 · 근거 이동 시 옛 주인 누락 · 검토 중 중간 층에서 연쇄 멈춤) 닫음. 실제 DB 롤백 smoke 28/28.
+
+- feat(db): `20261008140000_knowledge_review_cascade_guard` 적용(사용자 승인 sha256 e97f5852… · 체크포인트 `knowledge-guard-20261008`) — 근거 추가 · 축 변경 · 철회 / 문장 변경 / 재검토 · 반려 연쇄를 DB 트리거로(관리자 화면 밖 SQL 변경도 학습자 노출이 내려간다). 실제 DB 롤백 smoke 18/18 · 격리 13/13. 멱등 키 후보(140100)는 미적용 — 통합 SQL 로 흡수 예정.
+
+- feat(methodology): Phase 3 첫 수직 경로 「주장과 근거 관계」 — 2022 수능 20번. 관리자 화면으로 실제 사슬(탐구 질문 · 기출 관찰 근거 · 기제 `claim-support-relation` · 방법 · 과제 채택, Codex 독립 검토 3회 끝 adopt · 연구 근거 없음 유지) · 문항 주석(문장 번호 · Claude/Codex 맹검 · 정답 근거와 별개) · `/csat/item/[slug]` 「이 문항에서 확인할 읽기 원리」(`PrinciplePanel`) · `POST /api/csat/item/[slug]/task` → `learning_task_attempts` · 학습 지도 FIND B6-3 명시 연결 · 관리자 사슬 추적 `/admin/knowledge/product/[id]` · 재검토 전파(문장 고치기 · 근거 추가 · 축 변경, 앱 경로). efficacy 미확정. 새 마이그레이션 적용 0 — 후보 `_pending_20261008140000_knowledge_review_cascade_guard`(DB 가드) · `_pending_20261008140100_learning_task_attempts_idempotency`(멱등 키) 격리 검증만. [vertical/claim-support](./methodology/vertical/claim-support.md)
+
+- feat(admin/knowledge): 학습 원리 vNext 5개 업무 공간 — A 원리 운영실(순환 단계 · 병목 · 우선 큐) · B 역량 · 원리 지도(`/map` 종류별 열 · 노드 판) · C 탐구 · 근거 연구소(`/lab` 탐구 질문 · 주장 비교 · `/lab/research` 연구 서지) · D 학습 설계 · 검증(`/design` 적용 초안 · 검증 계획) · E 제품 적용 · 품질(`/product` 켜기 · 중단 · 롤백 · 근거 변경 영향). 기존 8 URL 은 하위 탭(WorkspaceNav) · 사이드바 5개로 재편 · 항목 상세에 종류 · 근거 세 축 · 연구 근거 · 적용. Server Actions `vnext-actions.ts` · 로더 `vnext-server.ts` · 규칙 `vnext-rules.ts` · 화면도움말 7개. 브라우저 검증 21/21(`scripts/knowledge/vnext-admin-e2e.mts` · 시험 데이터 정리 0).
+
+- feat(db): `20261008120000_knowledge_vnext` 적용(사용자 승인 sha256 5053c5ba… · 해시 게이트 실행기 `scripts/db/apply-approved-sql.mjs --record` · 앞뒤 체크포인트 · 원장 기록) — 학습 원리 vNext 새 표 6 · kind · 근거 세 축. 기존 행 삭제 0(항목 · 근거 · 검토 id 동일) · 실제 DB 계약 37/37(롤백) · 공부법 118 `evidence_version` 1→2(근거 백필 부수효과).
+
+- docs(methodology): 영어 학습 원리 시스템 vNext Phase 1 — 현행 감사(DB 실측 · 코드) · 통합 아키텍처 정본 `docs/methodology/VNEXT_ARCHITECTURE.md`(구조 결함 8 · 지식 객체 6 + 탐구 · 적용 · 검증 · 근거 세 축 · 기존→새 매핑 · 관리자 5개 업무 공간 · 학습자 계약 · 첫 수직 경로 「주장과 근거 관계 이해」) · Phase 2 추가형 스키마 초안 `_pending_20261008120000_knowledge_vnext.sql`(미적용 · Codex 계획 리뷰 P0 1 · P1 7 반영 · 격리 PostgreSQL 검증 36/36 `scripts/knowledge/vnext-schema-test.mjs`). DB 변경 없음.
 - feat(csat-map): 학습 지도 목표 중심 재설계 — 첫 화면 「내 목표 · 현재 위치」 바(목표 · 등급 구간 · 목표 미설정 구분 · 실제 최근 기록 · 이전↔최근 · 목표까지 · 단계 근거 상태) → 가운데 「목표 N점으로 가는 영어 독해의 길」 → 오른쪽 「지금 먼저 할 일」 하나. 단계 시트에 「목표와의 관계」(기준 시험 문항 · 배점 사실) · 「아직 모르는 것」. 목표 달성률 · 숙달 역산 · 점수 상승 약속 없음 · 진단 계약 그대로 · DB 변경 없음. 상태 E2E `e2e-map-goal.mjs`.
 
 - feat(csat-map): 학습 지도 vNext 를 main 에 clean integration — 원본 `feat/map-vnext`(커밋 100 · 파일 451)에서 지도에 필요한 것만(마이그레이션 `20261002120000_csat_map` · `20261002120100_funnel_allow_csat_map` · `20261002130000_csat_map_item_rate_ledger`, 지도 코드 · 진단 판정 · API 2 · 이벤트 4 · 검증 스크립트). Workspace · 어휘 표지 · 사전 · 오답 원인 Evidence · seed v2 제외. 목록·동등성 [MAP_INTEGRATION_MANIFEST](./csat-learner/MAP_INTEGRATION_MANIFEST.md) · 빈 DB 검증 `scripts/csat/map/fresh-db-check.mjs`.

@@ -16,6 +16,7 @@ import {
   type ItemStatus,
   type Layer,
 } from './labels'
+import { isApplicability, isEvidenceLevel, isKind, type Applicability, type EvidenceLevel, type Kind } from './vnext-labels'
 
 function db(): SupabaseClient {
   return createAdminClient() as unknown as SupabaseClient
@@ -83,6 +84,8 @@ function byKeys(...keys: { key: string; desc?: boolean }[]) {
 export interface KnowledgeItem {
   id: string
   layer: Layer
+  /** vNext 종류(20261008120000) — essence · principle 은 아직 분류 안 됐으면 null */
+  kind: Kind | null
   slug: string
   title: string
   statement: string
@@ -100,7 +103,7 @@ export interface KnowledgeItem {
 }
 
 const ITEM_COLUMNS =
-  'id,layer,slug,title,statement,skill_ids,condition_ids,status,status_reason,efficacy,product_modules,version,evidence_version,updated_by,updated_at'
+  'id,layer,kind,slug,title,statement,skill_ids,condition_ids,status,status_reason,efficacy,product_modules,version,evidence_version,updated_by,updated_at'
 
 function toItem(r: Record<string, unknown>): KnowledgeItem {
   if (!isLayer(r.layer) || !isStatus(r.status)) {
@@ -109,6 +112,7 @@ function toItem(r: Record<string, unknown>): KnowledgeItem {
   return {
     id: String(r.id),
     layer: r.layer,
+    kind: isKind(r.kind) ? r.kind : null,
     slug: String(r.slug),
     title: String(r.title),
     statement: String(r.statement),
@@ -141,7 +145,12 @@ export interface EvidenceRow {
   itemId: string
   grade: Exclude<Grade, 'G'>
   attribution: Attribution
-  sourceType: 'methodology' | 'csat_origin' | 'external'
+  sourceType: 'methodology' | 'csat_origin' | 'external' | 'research'
+  /** 연구 근거 수준 · 적용 적합성(vNext — 출처 확인도 grade 와 독립) */
+  evidenceLevel: EvidenceLevel
+  applicability: Applicability
+  applicabilityNote: string | null
+  researchSourceId: string | null
   title: string
   url: string | null
   locator: string | null
@@ -154,7 +163,7 @@ export async function listEvidence(itemIds: string[]): Promise<EvidenceRow[]> {
     let q = db()
       .from('knowledge_evidence')
       .select(
-        'id,item_id,grade,attribution,source_type,source_id,csat_passage_sha256,external_url,external_title,locator,note'
+        'id,item_id,grade,attribution,source_type,source_id,csat_passage_sha256,external_url,external_title,locator,note,evidence_level,applicability,applicability_note,research_source_id'
       )
       .in('item_id', chunk)
       .order('id')
@@ -168,7 +177,11 @@ export async function listEvidence(itemIds: string[]): Promise<EvidenceRow[]> {
     grade: r.grade as EvidenceRow['grade'],
     attribution: r.attribution as EvidenceRow['attribution'],
     sourceType: r.source_type as EvidenceRow['sourceType'],
-    title: String(r.external_title ?? r.source_id ?? r.csat_passage_sha256 ?? ''),
+    evidenceLevel: isEvidenceLevel(r.evidence_level) ? r.evidence_level : 'not_rated',
+    applicability: isApplicability(r.applicability) ? r.applicability : 'unknown',
+    applicabilityNote: (r.applicability_note as string | null) ?? null,
+    researchSourceId: (r.research_source_id as string | null) ?? null,
+    title: String(r.external_title ?? r.source_id ?? r.csat_passage_sha256 ?? r.research_source_id ?? ''),
     url: (r.external_url as string | null) ?? null,
     locator: (r.locator as string | null) ?? null,
     note: (r.note as string | null) ?? null,

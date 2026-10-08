@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
+import { WorkspaceNav } from './WorkspaceNav'
+
 interface KnowledgeFrameProps {
   title: string
   /** 이 화면이 답하는 질문 한 줄 — 제목을 되풀이하지 않는다. */
@@ -20,13 +22,14 @@ interface KnowledgeFrameProps {
 export function KnowledgeFrame({ title, question, help, back, children }: KnowledgeFrameProps) {
   return (
     <div className="break-keep p-4 md:p-8">
+      <WorkspaceNav />
       <header className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <Link
             href={back?.href ?? '/admin/knowledge'}
             className="inline-flex min-h-11 items-center text-sm text-[var(--t2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
           >
-            ← {back?.label ?? '원리 지도'}
+            ← {back?.label ?? '원리 운영실'}
           </Link>
           <h1 className="text-2xl font-semibold text-[var(--t1)]">{title}</h1>
           <p className="mt-1 text-[var(--t2)]">{question}</p>
