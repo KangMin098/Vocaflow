@@ -78,3 +78,22 @@ they are not replayed as current calibration outputs. The new decision therefore
 `KOREAN_GRADE_EQUIVALENCE_UNVERIFIED`, and rating `RATING_REVIEW_MISSING`. The parent calibration
 decision is stale for the revised admission. No calibrated cohort or distribution was opened;
 Gold-S and DB seed remain 0.
+
+## New receipt blind rating and adjudication
+
+The revised receipt `cf64d602aa88a9bc29d1612dcf5813d95f5dd60608a4c8bae9dca9b4725d5d4e`
+was rated from fresh, separated A/B packet copies. Claude Code and Codex CLI returned the
+respective packet hashes and all nine ratings. Seven axes agreed. The two disputed axes were
+`discourse` (2 versus 1) and `background_knowledge` (1 versus 0). The adjudicator retained
+`discourse=2` because two questions require cross-span application despite explicit local
+organization, and `background_knowledge=1` because explanations limit but do not entirely
+remove the benefit of basic force-balance intuition. It did not average the scores.
+
+The create-only decision in `calibration-work-r4/decision-r3.json` has zero missing outputs.
+Its rating-independence stage is `pass`; source/passage rights remain
+`RIGHTS_NOT_DOCUMENTED_FOR_CALIBRATION` and Korean-grade mapping remains
+`KOREAN_GRADE_EQUIVALENCE_UNVERIFIED`. The two CLI outputs and operator-reviewed invocation
+records are local audit evidence, not provider-certified prompt receipts. Codex CLI encountered
+an initial shell-helper error and used an alternate local read path; its returned packet hash
+matched the sealed B packet. No old-receipt rating output was imported into this decision.
+`calibration-eligible N=0`, calibrated grade distribution 0, Gold-S 0, and DB seed 0 remain.
