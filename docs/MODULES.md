@@ -1068,6 +1068,15 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
+## 기출 주장과 근거 연습 — `/csat/practice` (2026-10-08 이식)
+
+- 화면 `components/knowledge/ClaimPractice.tsx`. 규칙(순수) `lib/knowledge/practice.ts` · `protocol.ts`, 서버 `practice-server.ts`, 쓰기 어댑터 `practice-writer.ts`.
+- 채점은 정본 `claim-support.ts` `gradeClaimSupport`(주석 문항)다. 골격 정답 근거 앵커로 만든 키(골격 문항)는 효과 계산에서 뺀다.
+- 기록은 `learning_task_attempts`에 남긴다: `task_key` `claim-support` / `claim-support-skeleton` · phase practice/transfer · `response.activity='practice'`.
+- 상세 · 수용 기준 대응은 [PRACTICE_PORT](./csat-learner/PRACTICE_PORT.md).
+
+---
+
 ## 기출 해부 — 예측 · 대조 · 공식 (2026-09-17)
 
 학습자 라우트는 /csat, /csat/dissect, /csat/formulas 세 개다. 정답을 처음부터 공개하고
