@@ -116,8 +116,10 @@ PGlite 0.2.17 메모리 Postgres에 정본 `learning_task_attempts` DDL과 권�
 | B2 | 정본 소유 세션의 이 초안 검토 · 채택. `_pending_20261008140100`(client_attempt_id) 철회 또는 명칭 통일 합의 | vocaflow-18 + 사용자 |
 | B3 | ~~Practice 이식 담당~~ → **신규 세션(별도 worktree) 지정** · 인계서 PRACTICE_PORT_BRIEF — 이식 때 쓰기 경로를 어댑터 뒤에 두고 G2 뒤 `learning_attempt_record` 로 | 해소(지정) |
 | B4 | `phase='review'`를 효과 프로토콜(pre/post/delayed/transfer)과 같은 축에 둘지 최종 확인 | vocaflow-18 |
-| B5 | 효과 측정에서 `after_viewed_first` 시도를 뺄지 · 합성 계정 판정 주체(서버 목록) 확정 | vocaflow-18 + 사용자 |
+| B5 | 효과 측정에서 `after_viewed_first` 시도를 뺄지 · **합성 계정 = 서버 관리 검증 계정 목록**(사용자 권고 2026-10-08 · 이메일 도메인 판정 금지 · 클라이언트가 synthetic=false 지정 불가) — 최종 확정 | vocaflow-18 + 사용자 |
 | B6 | Supabase 실환경 검증(브랜치 DB 또는 적용 트랜잭션 사전 검사) — 오프라인 하네스의 한계 보완 | DB 쓰기 담당 |
+| B6′ | **동시 중복 제출**(사용자 결정 2026-10-08): G2 유일 제약 전까지 임시 수용(정상 승인 아님) · 학습자 진입 링크 미연결 · 그 기간 기록은 효과 집계 제외 · G2 적용 뒤 실제 DB 동시 요청 멱등 검증 · 근거 [PRACTICE_PORT_VERIFICATION](./PRACTICE_PORT_VERIFICATION.md) | vocaflow-18 |
+| B7 | **Practice 이식 g2 모드 P1 2건**(help 상속 모순 → 500 · g2 기록 읽기 단절) — G2 적용 뒤 g2 를 켜기 전에 이식 쪽 수정 | 이식 세션 |
 
 ## 10. DB 적용 승인 요청 사항 (지금 요청하지 않음 · B1–B3 해소 뒤)
 승인 요청서에는 다음을 넣습니다.

@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat-learner): /csat/practice 이식(1ce738924) 독립 검증 — tsc · lint 0 오류 · 전체 unit 3,916 통과 · 실패 0(DB 자격 증명 없이). **E2E 미실행**(실 DB 키 환경 · 로그인 auth 서버 쓰기 · 새 탭 가로채기 누수). P1 3건(스펙 1 · g2 모드 2) 보고 · 코드/DB 변경 0. [검증 보고](./csat-learner/PRACTICE_PORT_VERIFICATION.md) · G2 B5/B6′/B7 반영.
+
 - docs(csat-learner): G2 담당 결정 기록 — 단일 DB 쓰기 담당 vocaflow-18(적용 승인은 별도) · /csat/practice 이식은 신규 세션 [인계서](./csat-learner/PRACTICE_PORT_BRIEF.md).
 
 - docs(csat-learner): G2 통합 데이터 계약 검토 — [보고서](./csat-learner/G2_INTEGRATION_REVIEW.md) · 통합 SQL 초안(서버 세션 표 · 요청 멱등 원장 · 시도 표 확장 · 첫 시도 뷰 · 이벤트 83종, sha256 779eb9bb…, 미적용) · PGlite 오프라인 검증 44/44. 소유권 근거: 공유 스키마 = methodology-vnext 세션(지정은 사용자 승인 대기). DB 쓰기 0.
