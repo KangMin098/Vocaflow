@@ -201,7 +201,8 @@ begin
        or (p_phase is not null and p_phase <> v_s.phase)
        or (p_item_ref is not null and p_item_ref <> v_s.item_ref)
        or (p_task_key is not null and v_s.task_key is not null and p_task_key <> v_s.task_key)
-       or (p_help_level is not null and p_help_level <> v_s.help_level) then
+       or (p_help_level is not null and p_help_level <> v_s.help_level)
+       or (coalesce(p_synthetic, false) <> v_s.synthetic) then  -- M7 합성 표시는 세션과 같아야 한다
       raise exception 'attempt metadata contradicts session %', p_session_id;
     end if;
     v_activity := v_s.activity;
@@ -229,7 +230,7 @@ select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
   (coalesce(s.help_level, a.help_level) = 'viewed_first') as after_viewed_first,
   -- M2 해설을 연 뒤의 판단은 독립 판단이 아니다(B8 — 세션의 열람 시각보다 늦은 판단)
   (s.explanation_viewed_at is not null and a.answered_at >= s.explanation_viewed_at) as after_explanation,
-  a.synthetic
+  (a.synthetic or coalesce(s.synthetic, false)) as synthetic   -- M7 시도 · 세션 어느 쪽이든 합성이면 합성
 from public.learning_task_attempts a
 left join public.learning_sessions s on s.id = a.session_id
 order by a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase, a.answered_at, a.id;

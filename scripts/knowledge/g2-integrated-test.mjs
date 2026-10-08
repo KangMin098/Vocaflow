@@ -80,6 +80,18 @@ try {
     rec('M6 세션 도움 수준 상승 뒤 재전송(도움 명시) → duplicate(모순 예외 아님)', (await q("select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,'independent',null,'h','{}',true,1,false,null,null,'2026-10-07T10:01:00Z')", [A, m7b, s7.session_id])).rows[0].outcome === 'duplicate')
     rec('M6 새 id 로 옛 도움 수준을 보내면 여전히 거부', /contradicts/.test(await err("select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,'independent',null,'h','{}',true,1,false,null,null,'2026-10-07T10:03:00Z')", [A, uuid(), s7.session_id]) ?? ''))
   }
+  // M7 합성 세션 + 합성 아님 시도 → 거부 · 뷰는 세션 합성을 반영
+  {
+    const cs8 = uuid()
+    const s8 = (await q("select * from learning_session_apply($1,$2,$3,'theater','post','2022#98','revealed',0,10,'independent','2026-10-07T11:00:00Z',null,false,true,'claim-support',null,null,null)", [A, uuid(), cs8]).catch((e) => ({ rows: [{ err: e.message }] }))).rows[0]
+    if (s8.err) rec('M7 합성 세션 만들기', false, s8.err)
+    else {
+      rec('M7 합성 세션에 합성 아님 시도 거부', /contradicts/.test(await err("select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,null,null,'h','{}',true,1,false,null,null,'2026-10-07T11:01:00Z')", [A, uuid(), s8.session_id]) ?? ''))
+      await q("select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,null,null,'h','{}',true,1,true,null,null,'2026-10-07T11:02:00Z')", [A, uuid(), s8.session_id])
+      await q(`update learning_task_attempts set synthetic = false where session_id = '${s8.session_id}'`)
+      rec('M7 뷰 — 세션이 합성이면 시도 표시와 무관하게 합성', (await q('select bool_and(synthetic) b from learning_first_attempts where session_id = $1', [s8.session_id])).rows[0].b === true)
+    }
+  }
   // 두 연결 동시 요청(B6′) — 같은 mutation id 를 두 트랜잭션이 동시에: 하나 inserted · 하나 duplicate · 행 1
   const mc = uuid()
   const c1 = await pool.connect(), c2 = await pool.connect()

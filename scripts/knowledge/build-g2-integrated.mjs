@@ -224,6 +224,17 @@ s = s.slice(0, rbAt) + rollback + '\n'
   claim = '  -- M6 재전송은 요청 원문으로 비교(세션 상속 전 · Codex P1)\n' + claim
   s = s.slice(0, i0) + claim + s.slice(i0, c0) + s.slice(c2)
 }
+// M7 (Codex 리뷰 P1 · 2026-10-08) 합성 세션의 시도가 실제 표본으로 세지지 않게 — 기록 때 세션과 다른 합성 표시는 거부하고,
+//    첫 시도 뷰의 synthetic 은 시도 · 세션 둘 중 하나라도 합성이면 합성(이미 들어간 행도 막는다)
+{
+  const a1 = "       or (p_help_level is not null and p_help_level <> v_s.help_level) then"
+  if (!s.includes(a1)) throw new Error('M7 a1')
+  s = s.replace(a1, () => "       or (p_help_level is not null and p_help_level <> v_s.help_level)\n       or (coalesce(p_synthetic, false) <> v_s.synthetic) then  -- M7 합성 표시는 세션과 같아야 한다")
+  const a2 = "from public.learning_task_attempts a\nleft join public.learning_sessions s on s.id = a.session_id"
+  const a3 = "  a.synthetic\n" + a2
+  if (!s.includes(a3)) throw new Error('M7 a3')
+  s = s.replace(a3, () => "  (a.synthetic or coalesce(s.synthetic, false)) as synthetic   -- M7 시도 · 세션 어느 쪽이든 합성이면 합성\n" + a2)
+}
 fs.writeFileSync(OUT, s)
 const outSha = crypto.createHash('sha256').update(s).digest('hex')
 console.log(JSON.stringify({ out: path.relative(ROOT, OUT), sha256: outSha, draft: DRAFT_SHA }))
