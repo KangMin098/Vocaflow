@@ -103,7 +103,14 @@ export function currentAnnotation(itemId: string) {
   return currentItemTask(itemId)?.ann ?? null
 }
 
-export class TaskInputError extends Error {}
+/** 과제 기록 거부 사유(닫힌 열거) — 화면 문구와 별개로 호출자 · 테스트가 이유를 구분한다 */
+export type TaskRejectCode = 'no_task' | 'not_live' | 'invalid_input'
+
+export class TaskInputError extends Error {
+  constructor(message: string, readonly code: TaskRejectCode) {
+    super(message)
+  }
+}
 
 export interface AttemptResult {
   grade: Record<string, unknown> & { isCorrect: boolean }
@@ -116,11 +123,12 @@ export interface AttemptResult {
  */
 export async function recordItemTaskAttempt(client: SupabaseClient, userId: string, itemId: string, raw: unknown, sec: unknown): Promise<AttemptResult> {
   const task = currentItemTask(itemId)
-  if (!task) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
+  if (!task) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요', 'no_task')
   const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId), client)
-  if (!live) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
+  // 주석은 있지만 제품 적용이 켜져 있지 않다(초안 · 중단 · 사슬 미채택) — 노출 게이트가 막은 것
+  if (!live) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요', 'not_live')
   const graded = task.def.grade(task.ann, raw)
-  if (!graded) throw new TaskInputError('고른 답을 다시 확인해 주세요')
+  if (!graded) throw new TaskInputError('고른 답을 다시 확인해 주세요', 'invalid_input')
   const seconds = Number.isInteger(sec) && (sec as number) >= 0 && (sec as number) <= 7200 ? (sec as number) : null
   const { error } = await client.from('learning_task_attempts').insert({
     user_id: userId,

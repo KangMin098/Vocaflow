@@ -1,7 +1,7 @@
 // scripts/knowledge/vertical-cohesion-link-gate-e2e.mts
 //
 // 두 번째 수직 경로 「노출 0」 브라우저 E2E(2026-10-08) — `vertical-cohesion-link-build.mts --no-activate` 뒤 상태를 확인한다.
-//   A 학습자: /csat/item/2022-36 에 응집 과제 칸이 없다 · 과제 기록 API 가 거부한다(적용이 draft)
+//   A 학습자: /csat/item/2022-36 에 응집 과제 칸이 없다 · 정상 입력도 기록 API 가 code=not_live 로 거부한다(적용이 draft) · 대조로 2022-20 형식 오류는 invalid_input
 //   B 기존 사슬: /csat/item/2022-20 의 claim-support 칸은 그대로 보인다
 //   C 학습 지도: 지도 화면 어디에도 응집 과제(2022-36#principle) 링크가 없다
 // 쓰기: 테스트 학습자 1(끝에 삭제). 지식 행은 읽기만 한다.
@@ -47,7 +47,13 @@ try {
   rec('A 응집 과제 칸 없음(노출 0)', (await page.locator('[data-task="cohesion-link"]').count()) === 0)
   rec('A 다른 원리 칸도 없음', (await page.locator('[data-testid="principle-panel"]').count()) === 0)
   const res = await page.request.post(`${BASE}/api/csat/item/2022-36/task`, { data: { response: { picks: { cue1: 3, cue2: 2 }, order: 1 }, sec: 10 } })
-  rec('A 과제 기록 API 거부(적용 꺼짐)', res.status() >= 400 && res.status() !== 500, res.status())
+  // 정답 형식 그대로의 정상 입력 — 거부 이유가 「입력 오류」가 아니라 「적용이 켜져 있지 않음」(not_live) 이어야 한다
+  const body = await res.json().catch(() => ({}))
+  rec('A 정상 입력 기록 API 거부 — 사유 not_live(노출 게이트)', res.status() === 400 && body.code === 'not_live', { status: res.status(), body })
+  // 대조: 켜진 2022-20 에 형식이 틀린 답 → invalid_input(게이트는 통과 · 입력에서 막힘 · 기록 없음)
+  const bad = await page.request.post(`${BASE}/api/csat/item/2022-20/task`, { data: { response: { nonsense: true }, sec: 1 } })
+  const badBody = await bad.json().catch(() => ({}))
+  rec('대조 2022-20 형식 오류 → invalid_input', bad.status() === 400 && badBody.code === 'invalid_input', { status: bad.status(), body: badBody })
 
   await page.goto(`${BASE}/csat/item/2022-20`, { waitUntil: 'networkidle' })
   rec('B 기존 claim-support 칸 그대로', (await page.locator('[data-testid="principle-panel"]').count()) === 1)
