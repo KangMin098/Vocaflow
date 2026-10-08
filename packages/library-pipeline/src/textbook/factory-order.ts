@@ -92,6 +92,7 @@ export const productOrderSchema = z.object({
   product_variant: id,
   target: readingTargetSchema,
   grade_target: z.enum(AGE_BANDS),
+  grade_detail_target: z.enum(['elementary_5', 'elementary_6']).optional(),
   reading_skill_targets: z.array(z.enum(skillIds)).min(1),
   purposes: nonemptyIds,
   exam_alignment: z.array(id),
@@ -123,6 +124,8 @@ export const productOrderSchema = z.object({
   const cap = PRODUCT_CAPABILITIES[order.product_family]
   if (order.product_family !== order.target.family || order.grade_target !== order.target.age_band)
     ctx.addIssue({ code: 'custom', message: 'order target and family mismatch' })
+  if (order.grade_detail_target && order.grade_target !== 'upper_elementary')
+    ctx.addIssue({ code: 'custom', message: 'elementary grade detail requires upper_elementary target' })
   if (canonicalJson([...order.reading_skill_targets].sort()) !== canonicalJson([...order.target.skills].sort()))
     ctx.addIssue({ code: 'custom', message: 'order and target skills mismatch' })
   if (order.target.exam === 'none' ? order.exam_alignment.length !== 0 : !order.exam_alignment.includes(order.target.exam))

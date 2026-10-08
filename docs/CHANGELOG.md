@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Add a multi-grade Product Order group with distinct per-grade evidence and mixed-unit lineage checks, plus a separate synthetic benchmark contract for per-grade fit, shared core, adjacent separation, and item compatibility. Real admission and production integration remain closed; Gold-S and DB seed stay at zero.
+
 - docs(textbook): Link 26 local textbook file rows to provisional official catalog candidates in a hash-bound external ledger; keep all 30 unique files on hold pending rights, exact-edition, grade-scope, and passage/item boundary evidence. Record multi-grade targeting as a required contract revision. No new benchmark seal, Gold-S, or DB seed.
 
 - feat(textbook): Reconcile 31 local textbook files with the byte-verified platform corpus, bind an external page-hint ledger to screening revision 2, and independently reseal the still-empty benchmark manifest. Rights, exact edition, grade, and passage/item boundaries remain on hold; corpus, Gold-S, and DB seed stay at zero.

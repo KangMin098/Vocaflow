@@ -346,10 +346,12 @@ describe('조판이 적격 판정을 건다 (규격 v2)', () => {
 
   it('**문항을 받은 뒤에** 판정한다 — 그전에는 hasItems 를 모른다', () => {
     // 순서를 뒤집으면 긴 글이 전부 excerpt-blind 로 떨어져 상위 밴드가 통째로 사라진다.
-    const itemFetch = POOL.indexOf('const itemRows =')
+    const itemFetch = POOL.search(/\b(?:const|let) itemRows\s*=/)
+    const staleFilter = POOL.indexOf('itemRows = itemRows.filter(row => !staleItems.has(row.id))')
     const judge = POOL.indexOf('const withItems = new Set(itemRows.map')
     expect(itemFetch).toBeGreaterThan(0)
-    expect(judge).toBeGreaterThan(itemFetch)
+    expect(staleFilter).toBeGreaterThan(itemFetch)
+    expect(judge).toBeGreaterThan(staleFilter)
   })
 
   it('판정에 필요한 열을 실제로 받아 온다 — 안 받으면 전부 unknown 이 된다', () => {
