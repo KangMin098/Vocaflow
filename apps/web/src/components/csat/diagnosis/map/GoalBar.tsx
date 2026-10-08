@@ -27,6 +27,8 @@ export function useGoal(data: MapPageData) {
   const [err, setErr] = useState<string | null>(null)
   const [refreshing, startTransition] = useTransition()
   const [saving, setSaving] = useState(false)
+  /** 이번 화면에서 목표 저장이 성공했는가 — 「목표를 정했다」는 저장 성공으로만 판정한다(낙관적 선택값으로 하지 않는다) */
+  const [saved, setSaved] = useState(false)
   const pending = saving || refreshing
 
   // 서버가 목표를 다시 계산해 내려오면 입력을 맞춘다
@@ -49,6 +51,7 @@ export function useGoal(data: MapPageData) {
     try {
       const res = await fetch('/api/csat/diagnosis/map/goal', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ target: next }) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error ?? '저장하지 못했어요')
+      setSaved(true)
       track({ name: 'csat_map_goal_set', props: { goal: next } })
       startTransition(() => router.refresh())
     } catch (e) {
@@ -59,7 +62,7 @@ export function useGoal(data: MapPageData) {
       setSaving(false)
     }
   }
-  return { goal, draft, setDraft, err, pending, apply }
+  return { goal, draft, setDraft, err, pending, apply, saved }
 }
 
 export type GoalState = ReturnType<typeof useGoal>
