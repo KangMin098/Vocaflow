@@ -178,10 +178,16 @@ begin
   end if;
 
   if new.status = 'deployed' and old.status is distinct from 'deployed' then
-    -- 연결 항목 행을 잠가 채택 해제와 경합하지 않게 한다(채택 해제는 FOR UPDATE 를 잡는다)
-    perform 1 from public.knowledge_items i
-      join public.knowledge_design_items d on d.item_id = i.id
-      where d.design_id = new.id order by i.id for share of i;
+    -- 연결 항목 행을 잠가 채택 해제와 경합하지 않게 한다(채택 해제는 FOR UPDATE 를 잡는다).
+    -- NOWAIT: 채택 해제는 항목 → 설계, 배포는 설계 → 항목 순으로 잠그므로 기다리면 교착이 난다.
+    -- 그 대신 즉시 「다시 시도」 오류를 낸다(Codex 게이트 2026-10-08).
+    begin
+      perform 1 from public.knowledge_items i
+        join public.knowledge_design_items d on d.item_id = i.id
+        where d.design_id = new.id order by i.id for share of i nowait;
+    exception when lock_not_available then
+      raise exception 'knowledge_designs: 연결 항목의 상태가 지금 바뀌는 중이다 — 잠시 뒤 다시 배포한다' using errcode = 'lock_not_available';
+    end;
     select count(*) filter (where i.status not in ('adopted','applied')),
            count(*) filter (where d.role in ('capability','method'))
       into v_bad, v_core
@@ -277,6 +283,8 @@ create function public.knowledge_evidence_axes_rereview() returns trigger
 language plpgsql set search_path = public as $$
 begin
   if new.research_level is distinct from old.research_level or new.fit is distinct from old.fit then
+    -- 상태와 무관하게 먼저 잠근다 — 커밋 전 채택을 지나치지 않게(다음 문장은 새 스냅샷으로 상태를 본다)
+    perform 1 from public.knowledge_items where id = new.item_id for update;
     update public.knowledge_items
        set status = 'in_review',
            status_reason = left(format('근거 축 변경: 연구 수준 %s→%s · 적합성 %s→%s', old.research_level, new.research_level, old.fit, new.fit), 500),
