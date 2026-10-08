@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Recheck BC Reads 2015 item wording and key against archived PDFs; record two source-level grounding mismatches and the still-empty Korean comparison cohort without changing admission or calibration state.
+
 - docs(textbook): Run two blind, file-bound BC Reads nine-axis reviews and a separate disagreement adjudication, then independently review Korean-grade mapping evidence. Preserve preliminary ratings while mapping and item grounding remain held; no admission, calibration, Gold-S, or seed opened.
 
 - docs(textbook): Bind paired 2015 BC Reads Reader/Course Pack PDFs to file and passage/item/key interval hashes outside Git. Keep publisher-version equivalence, passage-level rights, Korean-grade mapping, independent rating, admission, and calibration gates closed.
