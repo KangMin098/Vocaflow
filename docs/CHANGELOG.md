@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Apply the approved atomic production snapshot migration to development DB (SHA-256 `bfdff3a4ecf12c69f6216eb463abac2c00bcba793da5f8c7a849c40d7a32eea8`). Rollback-only signed-evidence and publication smoke, cross-runtime signature checks, RLS/role checks, and zero residual synthetic rows pass. Real multi-grade and concurrent DB E2E remain pending; corpus/Gold-S/seed remain zero.
+
 - feat(textbook): Route single-grade render and multi-grade dry-run through a shared live production evidence resolver. It re-reads current DB order, item, source/rights, promotion authority and signed Gold-S/seed proof twice, blocks a changed grade, and records a non-atomic evidence snapshot; actual publication and DB seed remain closed.
 
 - feat(textbook): Add a multi-grade synthetic factory runner and CLI that compares caller-supplied per-grade promotion snapshots, item/explanation/editorial digests, unit hashes, and group evidence before using the existing volume renderer. Its atomic HTML/manifest output is marked unverified; real admission, Gold-S, publication and DB seed remain closed.

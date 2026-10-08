@@ -35,6 +35,8 @@ const BAND = Number(arg('band') ?? 5)
 // 어느 시리즈의 권인가. 기본은 독해 — 옛 명령이 그대로 돈다.
 const SERIES = arg('series') ?? 'reading'
 const PRODUCT_ORDER_ID = arg('product-order')
+if (process.argv.includes('--production') || process.argv.includes('--publish'))
+  throw Error('ATOMIC_PRODUCTION_CLI_REQUIRED')
 const PROMOTION_REQUESTS = arg('promotion-requests')
 const CURRENT_POLICY = arg('policy')
 if (PRODUCT_ORDER_ID && (!PROMOTION_REQUESTS || !CURRENT_POLICY)) throw Error('RENDER_PROMOTION_PROOF_REQUIRED')
@@ -1003,12 +1005,15 @@ if (PRODUCT_ORDER_ID) {
   renderedOrder.promotionProofSha256 = createHash('sha256').update(requestsRaw).digest('hex')
   renderedOrder.currentPolicySha256 = createHash('sha256').update(policyRaw).digest('hex')
 }
-fs.writeFileSync(path.resolve(OUT), html, { encoding: 'utf8', flag: PRODUCT_ORDER_ID ? 'wx' : 'w' })
+const outputHtml = PRODUCT_ORDER_ID
+  ? '<!-- LIVE REVALIDATED NON-ATOMIC DRY RUN; NOT APPROVED FOR PUBLICATION -->\n' + html
+  : html
+fs.writeFileSync(path.resolve(OUT), outputHtml, { encoding: 'utf8', flag: PRODUCT_ORDER_ID ? 'wx' : 'w' })
 // Immutable sidecar survives replacement of the latest DB render record.
 const sourceManifest = {
   policyVersion: ELIGIBILITY_SPEC_VERSION,
   renderedAt: new Date().toISOString(),
-  htmlSha256: createHash('sha256').update(html).digest('hex'),
+  htmlSha256: createHash('sha256').update(outputHtml).digest('hex'),
   itemIds: [...new Set(printedItems.map(item => item.id))].sort(),
   sourceIds: [...new Set(printedItems.map(item => item.ref_id).filter(id => /^[0-9a-f-]{36}$/i.test(id)))].sort(),
   ...(renderedOrder ? { productOrder: renderedOrder, itemEvidence: renderedEvidence,

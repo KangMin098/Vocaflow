@@ -1,0 +1,50 @@
+﻿// scripts/textbook/atomic-production-run.mjs
+import fs from 'node:fs'
+import path from 'node:path'
+import { createClient } from '@supabase/supabase-js'
+import { assertExternalCandidate } from './frym-benchmark/local-candidate-path.mjs'
+import { loadEnv } from './volume-pool.mjs'
+import { publishAtomicProductionArtifact, runAtomicMultiGradeFactoryDryRun } from './atomic-production-snapshot.mjs'
+
+const usage = 'Usage: pnpm exec tsx scripts/textbook/atomic-production-run.mjs <dry-run|publish> --group-id ID --stages PATH --render PATH [--out PATH (dry-run only)]'
+if (process.argv.includes('--help')) {
+  console.log(usage)
+  process.exit(0)
+}
+const [action, ...args] = process.argv.slice(2)
+if (!['dry-run', 'publish'].includes(action) || args.length % 2 !== 0) throw Error(usage)
+const options = new Map()
+for (let index = 0; index < args.length; index += 2) {
+  const key = args[index]
+  if (!['--group-id', '--stages', '--render', '--out'].includes(key) || options.has(key) ||
+      !args[index + 1] || args[index + 1].startsWith('--')) throw Error(usage)
+  options.set(key, args[index + 1])
+}
+if (!options.get('--group-id') || !options.get('--stages') || !options.get('--render') ||
+    (action === 'dry-run' && !options.get('--out')) ||
+    (action === 'publish' && options.has('--out'))) throw Error(usage)
+for (const key of ['--stages', '--render', ...(action === 'dry-run' ? ['--out'] : [])])
+  assertExternalCandidate(options.get(key))
+const stages = JSON.parse(fs.readFileSync(options.get('--stages'), 'utf8'))
+const render = JSON.parse(fs.readFileSync(options.get('--render'), 'utf8'))
+loadEnv()
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY)
+  throw Error('SUPABASE_SERVICE_CREDENTIALS_MISSING')
+const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY,
+  { auth: { persistSession: false } })
+const result = await runAtomicMultiGradeFactoryDryRun(db, {
+  groupId: options.get('--group-id'), stages, render,
+})
+if (action === 'publish') {
+  const published = await publishAtomicProductionArtifact(db, result)
+  console.log(JSON.stringify({ status: published.status, snapshot_id: published.snapshot_id,
+    snapshot_hash: published.snapshot_hash, output_hash: published.output_hash }))
+} else {
+  const output = path.resolve(options.get('--out'))
+  if (fs.existsSync(output) || fs.existsSync(`${output}.manifest.json`))
+    throw Error('ATOMIC_DRY_RUN_OUTPUT_EXISTS')
+  fs.writeFileSync(output, result.html, { encoding: 'utf8', flag: 'wx' })
+  fs.writeFileSync(`${output}.manifest.json`, JSON.stringify(result.manifest, null, 2) + '\n', { flag: 'wx' })
+  console.log(JSON.stringify({ status: 'atomic_snapshot_unpublished', snapshot_id: result.manifest.snapshot_id,
+    snapshot_hash: result.manifest.snapshot_hash, output_hash: result.manifest.html_sha256 }))
+}

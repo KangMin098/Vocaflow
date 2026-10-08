@@ -15,6 +15,9 @@ import { prepareReadingPromotion } from './preflight.mjs'
 import { assessPromotionAuthorization } from './authorization.mjs'
 import { currentReadingLineage, verifyOrderRenderItems, verifyRenderPromotionProofs } from '../factory-lineage.mjs'
 import { resolveProductionEvidence, runLiveMultiGradeFactoryDryRun } from '../production-evidence-resolver.mjs'
+import { approveTrustedProductionOutput, captureTrustedProductionSnapshot, registerTrustedProductionGroup,
+  runAtomicMultiGradeFactoryDryRun, publishAtomicProductionArtifact,
+  serveAtomicProductionArtifact } from '../atomic-production-snapshot.mjs'
 
 const globalTarget = JSON.parse(readFileSync(new URL('../targets/knowledge-middle1.json', import.meta.url), 'utf8'))
 const sourceId = '11111111-1111-4111-8111-111111111111'
@@ -199,7 +202,8 @@ test('one live resolver revalidates both grade sections and blocks stale members
       benchmark_snapshot_hash: rpc.benchmark_snapshot_hash, request_payload: rpc, result_status: 'ready', promoted_at: now }
     const lineage = currentReadingLineage({ article: child, parent: first.source, audit, order, authority, now })
     const item = { id: `66666666-6666-4666-8666-66666666666${index}`, ref_id: child.id,
-      payload: { passage: child.content, factory_lineage: lineage }, answer_key: { answer: index + 1 } }
+      payload: { passage: child.content, factory_lineage: lineage },
+      answer_key: { answer: index + 1, explanation_ko: `Synthetic explanation for ${input.request.order.grade_target}.` } }
     item.source_item_digest = reviewDigest(item.payload, item.answer_key)
     tables.csat_dcp_items.push(item)
     tables.library_articles.push(child)
@@ -265,6 +269,119 @@ test('one live resolver revalidates both grade sections and blocks stale members
   assert.equal(liveRender.manifest.production_verified, false)
   assert.equal(liveRender.manifest.production_evidence_snapshot.sections.length, 2)
   assert.equal(liveRender.manifest.html_sha256, rawSha(liveRender.html))
+  const approvedHtml = '<!-- ATOMIC SNAPSHOT DRY RUN; UNPUBLISHED -->' +
+    liveRender.html.slice('<!-- LIVE REVALIDATED NON-ATOMIC DRY RUN; NOT APPROVED FOR PUBLICATION -->'.length)
+  const atomicEvidence = { schema: 'reading-production-evidence/1', group_id: group.group_id,
+    group_revision: group.group_revision, group_document: group, evidence_document: evidence,
+    approved_output_hash: rawSha(approvedHtml),
+    sections: sections.map(section => {
+      const sourceItem = section.printedItems[0]
+      const rpc = prepared.find(row => row.rpc.product_order_id === section.orderId).rpc
+      return { grade: section.grade, order_id: section.orderId, order_revision: 1,
+        order_hash: rpc.order_hash, article_id: sourceItem.ref_id,
+        article_content: sourceItem.payload.passage, source_id: first.source.id,
+        source_content_hash: rawSha(first.source.content), source_evidence: first.source,
+        gold_s: inputs.find(input => input.child.id === sourceItem.ref_id)
+          .child.composed_spec.academic_reading.provenance.gold_s,
+        audit_id: rpc.request_id,
+        certificate_hash: rpc.certificate_hash, eligibility_hash: rpc.eligibility_hash,
+        benchmark_snapshot_hash: rpc.benchmark_snapshot_hash,
+        items: [{ id: sourceItem.id, ref_id: sourceItem.ref_id,
+          payload: sourceItem.payload, answer_key: sourceItem.answer_key, state: null,
+          reviews: ['setter', 'analyst', 'tutor'].map(persona => ({ persona,
+            verdict: 'pass', reviewed_digest: sourceItem.source_item_digest })) }] }
+    }) }
+  const captured = { snapshot_id: '77777777-7777-4777-8777-777777777777',
+    snapshot_hash: h('9'), captured_at: now, expires_at: '2026-10-08T00:00:00Z', evidence: atomicEvidence }
+  const atomicDb = { rpc: async (name, params) => name === 'capture_reading_production_snapshot'
+    ? { data: captured, error: null }
+    : { data: { status: 'rendered_unpublished', snapshot_id: captured.snapshot_id,
+      snapshot_hash: captured.snapshot_hash, output_hash: params.p_output_hash }, error: null } }
+  const registration = await registerTrustedProductionGroup({ rpc: async (name, params) => {
+    assert.equal(name, 'register_reading_production_group')
+    assert.equal(params.p_group_document.group_id, group.group_id)
+    return { data: { group_id: group.group_id, group_revision: group.group_revision } }
+  } }, { group, evidence, sections: sections.map(section => ({ grade: section.grade,
+    order_id: section.orderId, article_id: section.printedItems[0].ref_id,
+    audit_id: section.printedItems[0].payload.factory_lineage.promotion_request_id,
+    item_ids: section.printedItems.map(item => item.id) })) })
+  assert.equal(registration.group_id, group.group_id)
+  const approval = await approveTrustedProductionOutput({ rpc: async (name, params) => {
+    assert.equal(name, 'approve_reading_production_output')
+    assert.equal(params.p_snapshot_id, captured.snapshot_id)
+    assert.equal(params.p_snapshot_hash, captured.snapshot_hash)
+    return { data: { approved_output_hash: params.p_output_hash, approved_evidence_hash: h('8') } }
+  } }, { snapshotId: captured.snapshot_id, snapshotHash: captured.snapshot_hash, html: approvedHtml })
+  assert.equal(approval.approved_output_hash, atomicEvidence.approved_output_hash)
+  const atomic = await runAtomicMultiGradeFactoryDryRun(atomicDb, { groupId: group.group_id, stages, render })
+  assert.match(atomic.html, /ATOMIC SNAPSHOT DRY RUN; UNPUBLISHED/)
+  assert.equal(atomic.manifest.evidence_level, 'atomic_snapshot_unpublished')
+  assert.equal(atomic.manifest.production_verified, false)
+  assert.equal(atomic.manifest.group_contract_source, 'db_registered')
+  const singleGroup = { ...group, group_id: 'fixture-m1-only',
+    grade_scope: { mode: 'single_grade', grades: ['middle_1'] },
+    delivery_mode: 'single_grade', orders: [group.orders[0]] }
+  const singleEvidence = { ...evidence, group_id: singleGroup.group_id,
+    group_hash: sealMultiGradeProductOrder(singleGroup).group_hash, variants: [evidence.variants[0]] }
+  const singleSnapshot = { ...captured, evidence: { ...atomicEvidence,
+    group_id: singleGroup.group_id, group_document: singleGroup,
+    evidence_document: singleEvidence, approved_output_hash: null,
+    sections: [atomicEvidence.sections[0]] } }
+  const singleDb = { rpc: async (name, params) => name === 'capture_reading_production_snapshot'
+    ? { data: singleSnapshot } : { data: { status: 'rendered_unpublished',
+      snapshot_id: singleSnapshot.snapshot_id, snapshot_hash: singleSnapshot.snapshot_hash,
+      output_hash: params.p_output_hash } } }
+  const single = await runAtomicMultiGradeFactoryDryRun(singleDb, { groupId: singleGroup.group_id,
+    stages: [stages[0]], render: { ...render, proof: { passages: 1, defective: 0 } } })
+  assert.equal(single.manifest.evidence_level, 'atomic_snapshot_unpublished')
+  const published = await publishAtomicProductionArtifact({ rpc: async (name, params) => {
+    assert.equal(name, 'publish_reading_production_artifact')
+    return { data: { status: 'published_current', snapshot_id: params.p_snapshot_id,
+      snapshot_hash: params.p_snapshot_hash, output_hash: rawSha(params.p_html) } }
+  } }, atomic)
+  assert.equal(published.production_verified, false)
+  const served = await serveAtomicProductionArtifact({ rpc: async () => ({ data: {
+    snapshot_id: captured.snapshot_id, snapshot_hash: captured.snapshot_hash,
+    output_hash: rawSha(atomic.html), html: atomic.html } }) }, captured.snapshot_id)
+  assert.equal(served.html, atomic.html)
+  await assert.rejects(publishAtomicProductionArtifact(atomicDb,
+    { ...atomic, html: atomic.html + ' changed' }), /PUBLICATION_INPUT_STALE/)
+  await assert.rejects(serveAtomicProductionArtifact({ rpc: async () => ({ error: Error('rights revoked') }) },
+    captured.snapshot_id), /SERVE_REJECTED/)
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun(atomicDb,
+    { groupId: group.group_id, group, stages, render }), /CALLER_EVIDENCE_FORBIDDEN/)
+  const mixedStage = structuredClone(stages)
+  mixedStage[1].items[0].answer_key.answer = 99
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun(atomicDb,
+    { groupId: group.group_id, stages: mixedStage, render }), /STAGE_STALE_OR_MIXED/)
+  const inventedExplanation = structuredClone(stages)
+  inventedExplanation[1].explanations[0].text = 'Invented after DB capture.'
+  inventedExplanation[1].reviews[0].explanation_hash = rawSha('Invented after DB capture.')
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun(atomicDb,
+    { groupId: group.group_id, stages: inventedExplanation, render }), /STAGE_STALE_OR_MIXED/)
+  const alteredUnit = structuredClone(stages)
+  alteredUnit[0].unit.html = '<section class="unit">A different visible passage.</section>'
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun(atomicDb,
+    { groupId: group.group_id, stages: alteredUnit, render }), /UNIT_SET_STALE/)
+  const changedSnapshot = structuredClone(captured)
+  changedSnapshot.evidence.sections[1].items[0].answer_key.answer = 99
+  await assert.rejects(captureTrustedProductionSnapshot({ rpc: async () => ({ data: changedSnapshot }) },
+    group.group_id), /GRADE_EVIDENCE_MIXED/)
+  const blockedItem = structuredClone(captured)
+  blockedItem.evidence.sections[0].items[0].state = { status: 'blocked' }
+  await assert.rejects(captureTrustedProductionSnapshot({ rpc: async () => ({ data: blockedItem }) },
+    group.group_id), /GRADE_EVIDENCE_MIXED/)
+  const staleReview = structuredClone(captured)
+  staleReview.evidence.sections[0].items[0].reviews[0].reviewed_digest = h('1')
+  await assert.rejects(captureTrustedProductionSnapshot({ rpc: async () => ({ data: staleReview }) },
+    group.group_id), /GRADE_EVIDENCE_MIXED/)
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun({ rpc: async (name) => name ===
+    'capture_reading_production_snapshot' ? { data: captured } : { error: Error('rights revoked') } },
+    { groupId: group.group_id, stages, render }), /FINALIZATION_FAILED/)
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun({ rpc: async (name) => name ===
+    'capture_reading_production_snapshot' ? { data: captured } : { data: { status: 'rendered_unpublished',
+      snapshot_id: captured.snapshot_id, snapshot_hash: captured.snapshot_hash, output_hash: h('0') } } },
+    { groupId: group.group_id, stages, render }), /FINALIZATION_FAILED/)
   let authorityReads = 0
   const changingAuthorityDb = { from(table) {
     if (table === 'csat_dcp_items' && ++authorityReads === 3)
