@@ -11,7 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- fix(db): 후보 `_pending_20261008150000_knowledge_statement_review_fix`(미적용 · sha256 15808d67…fc98) — 140000 가드의 「문장 + 상태 한 UPDATE」 우회(Codex P1)를 막는 함수 본문 교체. 격리 검증 통과, 승인 대기.
+- fix(db): 후보 `_pending_20261008150000_knowledge_statement_review_fix`(미적용 · sha256 78baa027…2486) — 140000 가드의 구멍 3(문장+상태 한 UPDATE 우회 · 근거 이동 시 옛 주인 누락 · 검토 중 중간 층에서 연쇄 멈춤, Codex 커밋 리뷰)을 막는 함수 본문 교체. 격리 검증 통과, 승인 대기.
 
 - feat(db): `20261008140000_knowledge_review_cascade_guard` 적용(사용자 승인 sha256 e97f5852… · 체크포인트 `knowledge-guard-20261008`) — 근거 추가 · 축 변경 · 철회 / 문장 변경 / 재검토 · 반려 연쇄를 DB 트리거로(관리자 화면 밖 SQL 변경도 학습자 노출이 내려간다). 실제 DB 롤백 smoke 18/18 · 격리 13/13. 멱등 키 후보(140100)는 미적용 — 통합 SQL 로 흡수 예정.
 

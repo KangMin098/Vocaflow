@@ -80,6 +80,26 @@ try {
   await q(`update knowledge_items set statement = 'reject-it', status = 'rejected', status_reason = 'r', updated_by = 'sql' where id = $1`, [c8.P])
   rec('I2 · 요청 상태가 이미 살아 있지 않으면(반려) 그대로 반려', (await status([c8.P]))[c8.P] === 'rejected')
 
+  // ② 근거 이동(Codex P1): 채택 기제의 근거 하나를 다른 채택 항목으로 — 옛 주인 · 새 주인 둘 다 검토 중
+  const c10 = await chain('c10'), c11 = await chain('c11')
+  await ev(c10.P)
+  await q(`update knowledge_items set status = 'adopted', updated_by = 't' where id = $1`, [c10.P])
+  await q(`update knowledge_items set status = 'adopted', updated_by = 't' where id = any($1) and status = 'in_review'`, [[c10.M]])
+  const mv = (await q(`select id from knowledge_evidence where item_id = $1 order by created_at desc limit 1`, [c10.P])).rows[0].id
+  await q(`update knowledge_evidence set item_id = $2 where id = $1`, [mv, c11.P])
+  const s10 = await status([c10.P, c11.P])
+  rec('② 근거 이동 → 옛 주인 · 새 주인 모두 검토 중', s10[c10.P] === 'in_review' && s10[c11.P] === 'in_review', s10)
+  // ③ 중간 층이 이미 검토 중이어도 연쇄(Codex P2): 기제 adopted · 방법 in_review · 과제 applied → 기제 문장 변경 → 과제 검토 중 · 적용 중단
+  const c12 = await chain('c12')
+  await q(`update knowledge_items set status = 'in_review', updated_by = 't' where id = $1`, [c12.M])
+  // 방법을 검토 중으로 돌리면 과제도 연쇄된다 — 과제만 다시 채택 · 적용 켜기 · applied 로 살려 「중간 층만 검토 중」을 만든다
+  await q(`update knowledge_items set status = 'adopted', updated_by = 't' where id = $1`, [c12.T])
+  await q(`update knowledge_applications set status = 'active', status_reason = null, released_at = now(), updated_by = 't' where id = $1`, [c12.app])
+  await q(`update knowledge_items set status = 'applied', updated_by = 't' where id = $1`, [c12.T])
+  const pre = await status([c12.T])
+  await q(`update knowledge_items set statement = 'p-changed', updated_by = 'sql' where id = $1`, [c12.P])
+  rec('③ 중간 층 검토 중이어도 과제까지 연쇄 · 적용 중단', pre[c12.T] === 'applied' && (await status([c12.M]))[c12.M] === 'in_review' && (await status([c12.T]))[c12.T] === 'in_review' && (await appStatus(c12.app)) === 'paused', { pre })
+
   // I1: 근거 추가 · 축 변경 · 철회(SQL)
   const c2 = await chain('c2')
   await ev(c2.M)

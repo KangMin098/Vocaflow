@@ -85,7 +85,7 @@
 `20261008140000_knowledge_review_cascade_guard`(사용자 승인 sha256 `e97f5852386121b48c3541f87003efb4f19b805f38265939f2f5bcfbdec895d2`) — SQL 편집기 · 드레인 스크립트 · 다른 service_role 쓰기로 근거 · 문장 · 상태를 바꿔도 같은 전파가 DB 에서 일어난다(I1 근거 추가 · 축 변경 · 철회 / I2 문장 변경 / I3 재귀 연쇄 → 적용 자동 중단).
 - 격리 PostgreSQL 13/13(`scripts/knowledge/pending-guards-test.mjs`)
 - 실제 개발 DB 롤백 smoke 18/18(`scripts/knowledge/guard-db-smoke.mts`) — 실제 사슬에 기제 문장 직접 변경 · 방법에 근거 직접 추가 · 기제 근거 축 직접 변경 → 각각 대상 + 아래 층 검토 중 · 문항 · 지도 적용 중단 · 학습자 게이트(문항 원리 칸 · 지도 링크) 닫힘 · 수행 기록 보존 · 검토 기록 이유. 끝에 전체 롤백 — 실제 사슬 그대로.
-- ⚠️ 남은 구멍(Codex 커밋 리뷰 P1): **문장과 상태를 한 UPDATE 로 함께 바꾸면**(예: adopted → applied + 문장 변경) 140000 의 I2 가 건너뛴다(`new.status = old.status` 조건). 관리자 화면 경로는 문장 고치기가 상태를 따로 다루지 않아 해당 없음 — SQL 직접 변경에서만. 수정 후보 `_pending_20261008150000_knowledge_statement_review_fix.sql`(sha256 `15808d67c27024f5ef4d5001e9a541c18312db7877b1167052b19bca7ae5fc98` · 함수 본문 교체만 · **미적용 · 승인 대기**) — 격리 검증에 정확한 우회 경로 포함 통과.
+- ⚠️ 남은 구멍 3(Codex 커밋 리뷰 · SQL 직접 변경에서만 — 관리자 화면 경로는 해당 없음): ① 문장 + 상태를 한 UPDATE 로 바꾸면(adopted → applied + 문장 변경) I2 를 건너뜀 ② 근거를 다른 항목으로 옮기면(item_id UPDATE) 옛 주인이 재검토되지 않음 ③ 연쇄가 이미 검토 중인 중간 층에서 멈춰 그 아래 적용 중 과제가 남음. 수정 후보 `_pending_20261008150000_knowledge_statement_review_fix.sql`(sha256 `78baa0279e5c282f250fe5316997586046d342399f6c6fa7ceeb77607eba2486` · 함수 본문 3개 교체만 · **미적용 · 승인 대기**) — 격리 검증에 세 경로 모두 포함 통과.
 - 앱 경로의 전파(`review-cascade.ts`)는 남겨 둔다 — DB 가드와 같은 결과(조건부 UPDATE 가 0행)라 무해하고, 화면에 「연쇄 재검토: …」를 보여 준다.
 
 ## 8. 효과 상태
