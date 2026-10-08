@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Compare an earlier sealed production manifest with a newly captured one in the atomic runner; report read-only source-to-render revision impact without treating it as catalog state mutation.
+
 - docs(textbook): Record the ten-check audit as in progress: catalog impact lacks a runtime caller and one continuous synthetic candidate-to-publication fixture remains; add single-grade publish/serve coverage.
 
 - fix(textbook): Reject occupied atomic dry-run output paths before snapshot capture and report the consumed snapshot for recovery if filesystem writing fails after finalization.
