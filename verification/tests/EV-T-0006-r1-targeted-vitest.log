@@ -1,0 +1,16 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+◇ injected env (0) from ..\..\.env.local // tip: ⌘ override existing { override: true }
+◇ injected env (0) from .env.local // tip: ⌘ suppress logs { quiet: true }
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mD:/workspace/Vocaflow-wf4-d102/apps/web[39m
+
+ [32m✓[39m src/components/admin/__tests__/RetentionPanel.test.tsx [2m ([22m[2m13 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/account-classification.test.ts [2m ([22m[2m24 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-classification.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-math.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[32m56 passed[39m[22m[90m (56)[39m
+[2m   Start at [22m 08:03:18
+[2m   Duration [22m 1.29s[2m (transform 92ms, setup 1ms, collect 236ms, tests 45ms, environment 1ms, prepare 351ms)[22m
+

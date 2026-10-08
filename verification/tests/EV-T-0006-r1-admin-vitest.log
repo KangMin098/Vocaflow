@@ -1,0 +1,160 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+◇ injected env (0) from ..\..\.env.local // tip: ⌘ enable debugging { debug: true }
+◇ injected env (0) from .env.local // tip: ⌘ override existing { override: true }
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mD:/workspace/Vocaflow-wf4-d102/apps/web[39m
+
+ [32m✓[39m src/app/admin/csat/__tests__/sources-screen.test.tsx [2m ([22m[2m50 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/line-screens.test.tsx [2m ([22m[2m64 tests[22m[2m)[22m[90m 119[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/sidebar-screen-titles.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+[90mstdout[2m | src/components/admin/__tests__/sidebar-screen-titles.test.tsx[2m > [22m[2m메뉴 이름 ↔ 화면 제목[2m > [22m[2m실측을 표로 남긴다 — 기준을 고칠 때 근거를 눈으로 본다[22m[39m
+
+/admin                   메뉴[대시보드] h1 1 ✓ 대시보드
+/admin/csat              메뉴[교재 공장] h1 1 ✓ 
+/admin/csat/new          메뉴[무엇을 만들까 ①] h1 1 ✓ 무엇을 만들까
+/admin/csat/sources      메뉴[글감 모으기 · 고르기 ②③] h1 1 ✓ 글감 고르기 / 글감 모으기
+/admin/csat/sourcing     메뉴[지문 채우기 ④] h1 1 ✓ 소재 각 칸에 쓸 지문이 있는가 / 지문 채우기
+/admin/csat/authoring    메뉴[문제 만들기 ⑤] h1 1 ✓ 집필 각 칸에 문항이 있는가 / 문제 만들기
+/admin/csat/explain      메뉴[해설 달기 ⑥] h1 1 ✓ 해설 문항마다 해설이 붙었는가 / 해설 달기
+/admin/csat/review       메뉴[확인하기 ⑦] h1 1 ✓ 검수 다층 검수를 통과했는가 / 확인하기
+/admin/csat/press        메뉴[책으로 내기 ⑧] h1 1 ✓ 조판 · 발행 권으로 나왔는가 / 책으로 내기
+/admin/csat/catalog      메뉴[낸 뒤 살피기 ↺] h1 1 ✓ 낸 뒤 살피기
+/admin/csat/evidence     메뉴[기출 살펴보기] h1 1 ✓ 기출 살펴보기
+/admin/csat/strategy     메뉴[시중 교재와 견주기] h1 1 ✓ 기획 시중 교재를 이기는가, 어디서 지는가 / 시중 교재와 견주기
+/admin/csat/blueprint    메뉴[학년 계단 설계] h1 1 ✓ 설계 연령 × 수준 × 유형 칸이 규격대로 정의됐는가 / 학년 계단 설계
+/admin/csat/help         메뉴[용어집] h1 1 ✓ 
+/admin/csat/details      메뉴[숫자로 자세히] h1 1 ✓ 
+/admin/kice              메뉴[기출 분석 뷰] h1 1 ✓ 기출 분석 뷰
+/admin/csat/diagnosis    메뉴[영어 진단] h1 1 ✓ 
+/admin/knowledge         메뉴[원리 운영실] h1 1 ✓ 원리 운영실 / 원리 운영실
+/admin/knowledge/map     메뉴[역량 · 원리 지도] h1 1 ✓ 역량 · 원리 지도 / 역량 · 원리 지도
+/admin/knowledge/principles 메뉴[본질 · 원리] h1 1 ✓ 본질 · 원리 / 본질 · 원리
+/admin/knowledge/methods 메뉴[방법론 · 공부법] h1 1 ✓ 방법론 · 공부법 / 방법론 · 공부법
+/admin/knowledge/lab     메뉴[탐구 · 근거 연구소] h1 1 ✓ 탐구 · 근거 연구소 / 탐구 · 근거 연구소
+/admin/knowledge/lab/research 메뉴[연구 서지] h1 1 ✓ 연구 서지 / 연구 서지
+/admin/knowledge/review  메뉴[검토 대기] h1 1 ✓ 검토 대기 / 검토 대기
+/admin/knowledge/sources 메뉴[근거 · 출처] h1 1 ✓ 근거 · 출처 / 근거 · 출처
+/admin/knowledge/sources/csat 메뉴[기출 원천] h1 1 ✓ 기출 원천 / 기출 원천
+/admin/knowledge/experts 메뉴[전문가 · 채널] h1 1 ✓ 전문가 · 채널 / 전문가 · 채널
+/admin/knowledge/gaps    메뉴[공백] h1 1 ✓ 공백 / 공백
+/admin/methodology       메뉴[가져오기 원장] h1 1 ✓ 가져오기 원장
+/admin/knowledge/design  메뉴[학습 설계 · 검증] h1 1 ✓ 학습 설계 · 검증 / 학습 설계 · 검증
+/admin/knowledge/product 메뉴[제품 적용 · 품질] h1 1 ✓ 제품 적용 · 품질 / 제품 적용 · 품질
+/admin/library           메뉴[콘텐츠] h1 1 ✓ 콘텐츠 관리
+/admin/curation          메뉴[도서 수집 LCP] h1 1 ✗ 📚 라이브러리 큐레이션
+/admin/articles          메뉴[짧은 글 ACP] h1 1 ✗ 📰 Article Curation Pipeline
+/admin/compose           메뉴[사실 재저작 Compose] h1 1 ✓ 재저작 파이프라인 (Compose)
+/admin/comic             메뉴[만화 CCP] h1 1 ✗ Comic Pipeline
+/admin/pd-comics         메뉴[스캔 만화 PDCP] h1 1 ✗ PD Comic Pipeline
+/admin/topic-corpus      메뉴[주제 코퍼스 TCP] h1 1 ✓ 주제 코퍼스 (TCP)
+/admin/vocabulary        메뉴[단어장 마스터] h1 1 ✗ 사전 DB 직접 관리
+/admin/vocab             메뉴[어휘 빌드 VCB] h1 1 ✓ VCB Pipeline Runs
+/admin/vrl               메뉴[어휘 레벨 VRL] h1 1 ✓ 어휘 레벨
+/admin/vrl/taxonomy      메뉴[분류 기준표] h1 1 ✗ VRL Taxonomy
+/admin/vrl/diagnostic    메뉴[진단] h1 1 ✗ VRL Diagnostic System
+/admin/vrl/users         메뉴[사용자 레벨] h1 1 ✗ VRL User Levels
+/admin/vrl/concerns      메뉴[의심 단어] h1 1 ✗ VRL Concerns
+/admin/vrl/snapshots     메뉴[변경 이력] h1 1 ✗ VRL Level Snapshots
+/admin/vrl/automation    메뉴[자동화] h1 1 ✗ VRL Automation Dashboard
+/admin/pending-words     메뉴[대기 단어] h1 1 ✗ Pending Words
+/admin/users             메뉴[사용자] h1 1 ✓ 사용자 관리
+/admin/analytics         메뉴[플랫폼 분석] h1 1 ✓ 플랫폼 분석
+/admin/video             메뉴[영상 공장 VFP] h1 1 ✓ 영상 공장
+/admin/reports           메뉴[신고/문의] h1 1 ✓ 신고/문의
+/admin/billing           메뉴[결제/구독] h1 1 ✓ 결제/구독
+/admin/quality           메뉴[품질 지표] h1 1 ✓ 품질 지표
+/admin/quality/gates     메뉴[품질 게이트] h1 1 ✓ 품질 게이트
+/admin/quality/judge     메뉴[추출 판정] h1 1 ✓ 추출 판정
+/admin/db                메뉴[DB 헬스] h1 1 ✓ DB 헬스
+/admin/settings          메뉴[시스템 설정] h1 1 ✓ 시스템 설정
+
+화면 58 · h1 없음 0 · 이름 못 알아봄 12 · 판정 불가 0
+
+ [32m✓[39m src/app/admin/csat/__tests__/density.test.tsx [2m ([22m[2m12 tests[22m[2m)[22m[90m 107[2mms[22m[39m
+[90mstdout[2m | src/app/admin/csat/__tests__/density.test.tsx[2m > [22m[2m화면 밀집도[2m > [22m[2m실측을 표로 남긴다 — 예산을 고칠 때 근거를 눈으로 본다[22m[39m
+
+카탈로그   덩어리  152 · 글자  1278 · 조작  27 · svg   9
+현황판    덩어리  101 · 글자   503 · 조작  12 · svg  14
+기획     덩어리  163 · 글자  2045 · 조작   9 · svg   8
+설계     덩어리  131 · 글자  1128 · 조작   5 · svg   8
+소재     덩어리  129 · 글자  1838 · 조작  18 · svg  13
+집필     덩어리  213 · 글자  1496 · 조작  16 · svg  14
+검수     덩어리  154 · 글자  1581 · 조작  13 · svg  18
+조판     덩어리  205 · 글자  2310 · 조작  20 · svg  13
+
+ [32m✓[39m src/app/admin/db/__tests__/page.test.tsx [2m ([22m[2m39 tests[22m[2m)[22m[90m 147[2mms[22m[39m
+[90mstdout[2m | src/components/admin/__tests__/sidebar-readability.test.tsx[2m > [22m[2m관리자 사이드바 가독성[2m > [22m[2m실측을 표로 남긴다 — 기준을 고칠 때 근거를 눈으로 본다[22m[39m
+
+1차 항목 30 · 묶음 7 · 최대 묶음 7
+글자 크기 11 / 13 / 14 / 15px
+링크 45
+비활성 t3 대비 4.77 · t2 대비 7.12
+
+ [32m✓[39m src/components/admin/__tests__/sidebar-readability.test.tsx [2m ([22m[2m16 tests[22m[2m)[22m[90m 87[2mms[22m[39m
+ [32m✓[39m src/app/admin/compose/__tests__/console-render.test.tsx [2m ([22m[2m31 tests[22m[2m)[22m[90m 58[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/lab-screens.test.tsx [2m ([22m[2m29 tests[22m[2m)[22m[90m 66[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/catalog.test.tsx [2m ([22m[2m25 tests[22m[2m)[22m[90m 54[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/touch-target.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/help-diagram.test.ts [2m ([22m[2m40 tests[22m[2m)[22m[90m 174[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/evidence/__tests__/console-render.test.tsx [2m ([22m[2m18 tests[22m[2m)[22m[90m 62[2mms[22m[39m
+ [32m✓[39m src/lib/admin/pending-words/__tests__/queue.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/app/admin/db/__tests__/density.test.tsx [2m ([22m[2m6 tests[22m[2m)[22m[90m 183[2mms[22m[39m
+[90mstdout[2m | src/app/admin/db/__tests__/density.test.tsx[2m > [22m[2m텍스트 분량 — 읽어야 할 것이 아니라 봐야 할 것이 있다[2m > [22m[2m전체 가시 텍스트가 라쳇 안에 있다[22m[39m
+[after] total=2061 prose=90 ratio=0.044
+
+[90mstdout[2m | src/app/admin/db/__tests__/density.test.tsx[2m > [22m[2m텍스트 분량 — 읽어야 할 것이 아니라 봐야 할 것이 있다[2m > [22m[2m같은 데이터에서 재설계 전보다 적다 — 기준선을 함께 잰다[22m[39m
+[before] total=9498 prose=403
+[after ] total=2061 prose=90
+
+[90mstdout[2m | src/app/admin/db/__tests__/density.test.tsx[2m > [22m[2m텍스트 분량 — 읽어야 할 것이 아니라 봐야 할 것이 있다[2m > [22m[2m가장 긴 덩어리가 200자를 넘지 않는다 — 한 문단이 화면을 밀어내지 않는다[22m[39m
+[after] longest chunk=48자
+
+[90mstdout[2m | src/app/admin/db/__tests__/density.test.tsx[2m > [22m[2m텍스트 분량 — 읽어야 할 것이 아니라 봐야 할 것이 있다[2m > [22m[2m설명을 지운 것이 아니라 옮긴 것이다 — 풍선말이 화면에 있다[22m[39m
+[after] 풍선말 16개
+
+ [32m✓[39m src/app/admin/db/__tests__/snapshot-html.test.tsx [2m ([22m[2m2 tests[22m[2m)[22m[90m 39[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/help-registry.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 115[2mms[22m[39m
+ [32m✓[39m src/lib/admin/db-health/__tests__/live-signals.test.ts [2m ([22m[2m28 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/order-wizard.test.tsx [2m ([22m[2m18 tests[22m[2m)[22m[90m 25[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/factory-line.test.tsx [2m ([22m[2m16 tests[22m[2m)[22m[90m 62[2mms[22m[39m
+ [32m✓[39m src/lib/admin/db-health/__tests__/derive.test.ts [2m ([22m[2m23 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/video-queue.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m src/app/admin/kice/__tests__/phase2-screens.test.tsx [2m ([22m[2m17 tests[22m[2m)[22m[90m 67[2mms[22m[39m
+ [32m✓[39m src/app/admin/__tests__/mock-data-banner.test.tsx [2m ([22m[2m11 tests[22m[2m)[22m[33m 364[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/video-requests.test.tsx [2m ([22m[2m10 tests[22m[2m)[22m[90m 29[2mms[22m[39m
+ [32m✓[39m src/app/admin/__tests__/page.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 63[2mms[22m[39m
+ [32m✓[39m src/app/admin/compose/__tests__/transitions.test.ts [2m ([22m[2m24 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/no-raw-object.test.tsx [2m ([22m[2m11 tests[22m[2m)[22m[90m 91[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/RetentionPanel.test.tsx [2m ([22m[2m13 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/admin/db-health/__tests__/queries.integration.test.ts [2m ([22m[2m9 tests[22m [2m|[22m [33m9 skipped[39m[2m)[22m
+ [32m✓[39m src/app/admin/csat/__tests__/sources-inventory.test.tsx [2m ([22m[2m4 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+[90mstderr[2m | src/app/admin/quality/__tests__/page.test.tsx[2m > [22m[2mAdminQualityPage[2m > [22m[2mfetch 오류 → throw 없이 빈 상태 폴백[22m[39m
+[admin/quality] quality_metrics fetch failed: permission denied
+
+ [32m✓[39m src/app/admin/quality/__tests__/page.test.tsx [2m ([22m[2m4 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m src/app/admin/__tests__/help-links.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 34[2mms[22m[39m
+ [32m✓[39m src/app/admin/compose/__tests__/publish-gate.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/admin/db-health/__tests__/silent-noop.integration.test.ts [2m ([22m[2m4 tests[22m [2m|[22m [33m4 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/admin/__tests__/account-classification.test.ts [2m ([22m[2m24 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/dashboard-stats.integration.test.ts [2m ([22m[2m6 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-classification.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/admin/pending-words/__tests__/triage.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-math.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/components/admin/textbook/__tests__/production-panel.test.tsx [2m ([22m[2m9 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/video-console.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/app/admin/db/__tests__/hydration-safety.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/admin-color-tokens.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 99[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/pool-vocabulary.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 60[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/freedom-panel.test.tsx [2m ([22m[2m9 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/video-drift.integration.test.ts [2m ([22m[2m2 tests[22m [2m|[22m [33m1 skipped[39m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/compose-help.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/admin/db-health/__tests__/advisor-hygiene.integration.test.ts [2m ([22m[2m2 tests[22m [2m|[22m [33m2 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/admin/__tests__/source-profile.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/admin/dict/__tests__/health-score-null.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/TeacherFunnelPanel.test.tsx [2m ([22m[2m3 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m48 passed[39m[22m[2m | [22m[33m3 skipped[39m[90m (51)[39m
+[2m      Tests [22m [1m[32m705 passed[39m[22m[2m | [22m[33m19 skipped[39m[90m (724)[39m
+[2m   Start at [22m 08:02:11
+[2m   Duration [22m 33.48s[2m (transform 3.42s, setup 3ms, collect 19.05s, tests 2.33s, environment 10ms, prepare 5.42s)[22m
+

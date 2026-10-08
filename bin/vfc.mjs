@@ -94,6 +94,7 @@ const HELP = `vfc — Vocaflow AI Control
   task approve <id> --by user --ref "근거" [--sql-sha256 H]
   task start <id> --owner O --agent A --session L [--pid N]
   task evidence <id> --file ev.json --by O  ev: type command_or_protocol result skip_count artifact_path_or_url observed_at covers[]
+  task set-acceptance <id> --file acc.json --decision <APPROVED DL-id> --by O   READY 에서만 · 옛 조건은 history
   task assign-worktree <id> <path> --by O [--branch b]   작업 위치(owner 에 묶인 worktree 만)
   task submit <id> --by O                 이번 run 증거 ≥1 필요 · 잠금은 커밋 후 반납
   task complete <id> --by R --review verification/reviews/<파일>   R = 등록된 다른 owner
@@ -108,7 +109,7 @@ const HELP = `vfc — Vocaflow AI Control
 ChatGPT (파일 교환 · API 없음)
   planning request --topic .. --question-file q.md [--kind review|plan] [--task T-..] [--goals VG-..] [--attach f1,f2] --by O
   planning validate <REQ-id>
-  planning import <REQ-id>                검증 통과 시 DECISION_LOG 에 PROPOSED/OPEN_QUESTION 으로만 기록
+  planning import <REQ-id> [--normalize-approval]   검증 통과 시 PROPOSED/OPEN_QUESTION 으로만 기록 · 정규화는 requires_user_approval→true 만(기록 남김)
 `
 
 function main() {
@@ -222,6 +223,10 @@ function main() {
       return out(loadState().state.taskQueue.tasks.find((t) => t.task_id === pos[0]) ?? `작업 ${pos[0]} 없음`, opt)
     case 'task approve':
       return out(withState((s) => T.recordApproval(s, pos[0], { by: opt.by, reference: opt.ref, kinds: opt.kinds ? list(opt.kinds) : undefined, sql_sha256: opt['sql-sha256'] }), { event: 'task.approve', task: pos[0], by: opt.by }), opt)
+    case 'task set-acceptance': {
+      const acc = readJson(opt.file)
+      return out(withState((s) => T.setAcceptance(s, pos[0], { caller: caller(opt), acceptance: acc, decision_id: opt.decision }), { event: 'task.set_acceptance', task: pos[0], decision: opt.decision, by }), opt)
+    }
     case 'task assign-worktree':
       return out(withState((s) => T.assignWorktree(s, pos[0], { caller: caller(opt), worktree: pos[1], branch: opt.branch }), { event: 'task.assign_worktree', task: pos[0], by }), opt)
     case 'task start': {
@@ -310,9 +315,21 @@ function main() {
       } catch (e) {
         throw new T.RuleError('BAD_RESPONSE', `응답 구조를 읽지 못했다: ${e.message}`)
       }
+      // --normalize-approval: proposed_decisions 의 requires_user_approval 을 **true 로만** 바꾼다(엄격화).
+      // ChatGPT 는 결정을 승인할 수 없으므로 false 는 의미가 없다 — 승인 요구를 늘리는 방향의 변환만 허용하고, 무엇을 바꿨는지 기록한다.
+      // 원문 파일은 그대로 보관한다(sha256 은 원문 기준).
+      const normalized = []
+      if (opt['normalize-approval']) {
+        ;(resp.proposed_decisions || []).forEach((d, i) => {
+          if (d && d.requires_user_approval !== true) {
+            normalized.push(`proposed_decisions[${i}].requires_user_approval ${JSON.stringify(d.requires_user_approval)}→true`)
+            d.requires_user_approval = true
+          }
+        })
+      }
       const v = P.validateResponse(resp, { expectRequestId: id })
       if (!v.ok) throw new T.RuleError('BAD_RESPONSE', `응답 검증 실패:\n  ${v.errors.join('\n  ')}`)
-      if (sub === 'validate') return out({ ok: true, request_id: id, verdict: resp.verdict, findings: resp.findings.length, proposals: resp.proposed_decisions.length }, opt)
+      if (sub === 'validate') return out({ ok: true, request_id: id, verdict: resp.verdict, findings: resp.findings.length, proposals: resp.proposed_decisions.length, normalized }, opt)
       fs.mkdirSync(p.archive(), { recursive: true })
       const dest = path.join(p.archive(), path.basename(f))
       const hash = sha256File(f)
@@ -331,8 +348,8 @@ function main() {
             throw new T.RuleError('ALREADY_IMPORTED', `${id} 응답은 이미 가져왔다(다른 내용 sha256 ${prev.sha256.slice(0, 12)}…) — 새 검토는 새 요청으로`)
           }
           const rel = path.relative(root(), dest).split(path.sep).join('/')
-          const entries = P.toDecisionEntries(resp, rel).map((e) => T.logDecision(s, { ...e, response_sha256: hash, by }))
-          s.decisionLog.imported_responses[id] = { sha256: hash, at: new Date().toISOString(), decision_ids: entries.map((e) => e.decision_id) }
+          const entries = P.toDecisionEntries(resp, rel).map((e) => T.logDecision(s, { ...e, response_sha256: hash, by, ...(normalized.length ? { normalized } : {}) }))
+          s.decisionLog.imported_responses[id] = { sha256: hash, at: new Date().toISOString(), decision_ids: entries.map((e) => e.decision_id), normalized }
           ctx.afterCommit(archiveFiles)
           return { entries }
         },

@@ -1,0 +1,10 @@
+[
+  "분류 순수 함수 테스트: 명시적 내부 ID · 개인 도메인 admin · unknown · 검증된 외부 ID · role=user 내부 계정 · 내부 도메인 힌트만 있는 계정 · ID 충돌/형식 오류/설정 누락",
+  "external_verified 만 signups/activated/eligible/returned/active/median 계산에 들어가고 내부·unknown 학습은 분자·분모 양쪽에서 빠진다(단위 테스트)",
+  "외부 학습자가 확인되지 않으면 실사용 0 과 내부·미분류 인원을 따로 보인다 — 특정 계정 수 하드코딩 없음",
+  "분류 설정 오류는 0 으로 바꾸지 않고 「계산 불가 + 사유」로, 설정 부재는 「미설정」 경고로 보인다 · /admin 500 없음",
+  "RetentionPanel 이 실사용·내부·미분류를 나눠 보이고 20명 미만 퍼센트 숨김 · 경과 분모 · 못 쟀음 상태가 회귀하지 않는다(컴포넌트 테스트)",
+  "계정 ID·이메일·registry 내용이 클라이언트 props/화면에 나가지 않는다(server-only 경계 테스트)",
+  "DB 스키마·데이터 변경 0 · 관련 vitest · typecheck · lint 통과",
+  "퍼널·효과 지표의 같은 오염은 읽기 전용 감사 기록으로 남기고 VG-L3-D1-02-AC1 은 PARTIAL 로 보고한다"
+]

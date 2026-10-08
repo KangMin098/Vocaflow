@@ -696,3 +696,31 @@ test('기획 요청(plan): plan 필드가 빠지면 거부, 다 있으면 PROPOS
   assert.equal(e.status, 'PROPOSED')
   assert.deepEqual(e.plan, plan)
 })
+
+test('응답 정규화: requires_user_approval false 는 기본 거부, --normalize-approval 은 true 로만 바꾸고 기록한다', () => {
+  const { root, req, good, respPath } = chatgptSetup()
+  const bad = { ...good, proposed_decisions: [{ ...good.proposed_decisions[0], requires_user_approval: false }] }
+  fs.writeFileSync(respPath, wrap(bad))
+  assert.match(run(root, ['planning', 'import', req.id]).err, /requires_user_approval/)
+  const v = JSON.parse(run(root, ['planning', 'validate', req.id, '--normalize-approval', '--json']).out)
+  assert.deepEqual(v.normalized, ['proposed_decisions[0].requires_user_approval false→true'])
+  assert.equal(run(root, ['planning', 'import', req.id, '--normalize-approval', '--by', 'platform-goal']).code, 0)
+  const e = state(root, 'DECISION_LOG.json').entries.find((x) => x.request_id === req.id && x.kind === 'proposal')
+  assert.equal(e.status, 'PROPOSED')
+  assert.equal(e.requires_user_approval, true)
+  assert.deepEqual(e.normalized, ['proposed_decisions[0].requires_user_approval false→true'])
+  const arch = fs.readFileSync(path.join(root, 'planning', 'archive', `${req.id}.response.md`), 'utf8')
+  assert.match(arch, /"requires_user_approval": false/, '원문은 그대로 보관')
+})
+
+test('완료 조건 변경은 READY · owner · 사용자 APPROVED 결정이 있어야 하고 옛 조건을 남긴다', () => {
+  const { root } = setup()
+  const t = addTask(root)
+  const f = writeJson(root, 'acc.json', ['새 조건 0'])
+  assert.match(run(root, ['task', 'set-acceptance', t.task_id, '--file', f, '--decision', 'DL-0001', '--by', OWNER]).err, /APPROVAL_REQUIRED/)
+  assert.match(run(root, ['task', 'set-acceptance', t.task_id, '--file', f, '--decision', 'SD-R0-01', '--by', 'content-pipeline']).err, /NOT_OWNER/)
+  assert.equal(run(root, ['task', 'set-acceptance', t.task_id, '--file', f, '--decision', 'SD-R0-01', '--by', OWNER]).code, 0)
+  const tt = state(root, 'TASK_QUEUE.json').tasks.find((x) => x.task_id === t.task_id)
+  assert.deepEqual(tt.acceptance, ['새 조건 0'])
+  assert.deepEqual(tt.history.at(-1).previous_acceptance, ['조건 0', '조건 1'])
+})
