@@ -9,7 +9,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { track } from '@/lib/analytics/client'
 import { toItemSlug } from '@/lib/csat/item-slug'
-import type { ClaimFeedback } from '@/lib/knowledge/practice'
+import { pickNext, type ClaimFeedback } from '@/lib/knowledge/practice'
 import type { CapabilityJudgement, ProcedureStep } from '@/lib/knowledge/vnext'
 import styles from './practice.module.css'
 
@@ -44,6 +44,8 @@ export function ClaimPractice(props: {
   initialItemId: string | null
   recommendedItemId: string | null
   history: { phase: 'train' | 'transfer'; claimHit: boolean | null }[]
+  /** 이 버전에서 끝낸 훈련 문항 수(전체) — 전이 추천 주기 계산 */
+  trainDone: number
 }) {
   const { design, preview, judgement, pool, bars, recommendedItemId } = props
   const router = useRouter()
@@ -56,6 +58,8 @@ export function ClaimPractice(props: {
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const started = useRef<number>(Date.now())
+  // 이 화면에서 새로 끝낸 문항·훈련 수 — 서버 기록과 합쳐 다음 추천(전이 포함)을 고른다
+  const [doneHere, setDoneHere] = useState<{ ids: string[]; train: number }>({ ids: [], train: 0 })
 
   const entry = pool.find((p) => p.itemId === itemId) ?? null
   const sentenceBars = useMemo(() => (itemId ? (bars[itemId] ?? []) : []), [bars, itemId])
@@ -66,6 +70,7 @@ export function ClaimPractice(props: {
   }, [preview, judgement.state])
 
   function choose(id: string) {
+    if (busy) return
     setItemId(id)
     setClaim(null)
     setEvidence([])
@@ -88,6 +93,7 @@ export function ClaimPractice(props: {
 
   async function submit() {
     if (!entry || claim === null || option === null || confidence === null) return
+    const asked = entry.itemId
     setBusy(true)
     setError(null)
     try {
@@ -109,7 +115,10 @@ export function ClaimPractice(props: {
       })
       const j = (await res.json()) as { ok: boolean; error?: string; phase?: 'train' | 'transfer'; feedback?: ClaimFeedback }
       if (!j.ok || !j.feedback || !j.phase) throw new Error(j.error ?? '기록하지 못했어요')
+      // 제출 중 문항 전환은 막혀 있지만, 응답이 요청한 문항의 것일 때만 보인다
+      if (asked !== itemId) return
       setFeedback({ ...j.feedback, phase: j.phase })
+      setDoneHere((d) => ({ ids: [...d.ids, asked], train: d.train + (j.phase === 'train' ? 1 : 0) }))
       track({ name: 'knowledge_task_submitted', props: { preview, phase: j.phase, claim_hit: j.feedback.claimHit } })
     } catch (e) {
       setError(e instanceof Error ? e.message : '기록하지 못했어요')
@@ -120,8 +129,14 @@ export function ClaimPractice(props: {
 
   function goNext() {
     router.refresh()
-    const fresh = pool.find((p) => !p.done && p.itemId !== itemId && p.phase === 'train') ?? pool.find((p) => !p.done && p.itemId !== itemId)
-    if (fresh) choose(fresh.itemId)
+    const done = new Set([...pool.filter((p) => p.done).map((p) => p.itemId), ...doneHere.ids])
+    const trainDone = props.trainDone + doneHere.train
+    const next = pickNext(
+      { train: pool.filter((p) => p.phase === 'train').map((p) => p.itemId), transfer: pool.filter((p) => p.phase === 'transfer').map((p) => p.itemId) },
+      done,
+      trainDone,
+    )
+    if (next) choose(next.itemId)
   }
 
   const step = feedback ? 4 : claim === null ? 1 : option === null || confidence === null ? 3 : 4
@@ -181,7 +196,7 @@ export function ClaimPractice(props: {
         <h2 id="pick">문항 고르기</h2>
         <label className={styles.selectLabel}>
           <span>풀 문항</span>
-          <select value={itemId ?? ''} onChange={(e) => choose(e.target.value)}>
+          <select value={itemId ?? ''} disabled={busy} onChange={(e) => choose(e.target.value)}>
             <optgroup label="연습(주장·요지)">
               {train.map((p) => (
                 <option key={p.itemId} value={p.itemId}>

@@ -95,6 +95,12 @@ await db.exec(`update knowledge_items set status='adopted', updated_by='h' where
 await db.exec(`update knowledge_designs set status='deployed', updated_by='h' where slug='d1'`)
 await db.exec(`update knowledge_designs set status='paused', status_reason='운영자 중단', updated_by='h' where slug='d1'`)
 console.log('  수동 중단', await one(`select end_reason, design_version from knowledge_deployments order by started_at desc, design_version desc limit 1`))
+// 근거 축 변경 → 채택 항목 재검토 → 배포 자동 중단
+await db.exec(`update knowledge_designs set status='ready', status_reason=null, updated_by='h' where slug='d1'`)
+await db.exec(`update knowledge_designs set status='deployed', updated_by='h' where slug='d1'`)
+await db.exec(`update knowledge_evidence set fit='weak' where item_id=(select id from knowledge_items where slug='pr-x')`)
+const ax = await one(`select (select status from knowledge_items where slug='pr-x') item, (select status from knowledge_designs where slug='d1') design, (select end_reason from knowledge_deployments order by started_at desc, design_version desc limit 1) er`)
+if (ax.item === 'in_review' && ax.design === 'paused' && ax.er === 'evidence_changed') { pass++; console.log('✓ 근거 축 하향 → 재검토 → 배포 중단', ax) } else { fail++; console.log('✗ 근거 축 경로', ax) }
 await expect('합성은 효과 판정 금지', `insert into knowledge_validation_runs (design_id,design_version,synthetic,n_learners,n_runs,metrics,verdict,computed_by)
   values ('${dep.design_id}',1,true,30,300,'{}','positive','t')`, true)
 await expect('결론엔 불확실성 필수', `insert into knowledge_inquiries (slug,question,status,conclusion,created_by,updated_by) values ('q','?','concluded','c','t','t')`, true)

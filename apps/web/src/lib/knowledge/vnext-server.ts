@@ -370,7 +370,7 @@ export async function listRuns(designId: string): Promise<RunRow[]> {
   for (;;) {
     let q = db()
       .from('knowledge_task_runs')
-      .select('id,user_id,phase,claim_hit,option_correct,created_at,design_version,preview,synthetic,deployment_id')
+      .select('id,user_id,item_id,phase,claim_hit,option_correct,created_at,design_version,preview,synthetic,deployment_id')
       .eq('design_id', designId)
       .order('id')
       .limit(PAGE)
@@ -384,6 +384,7 @@ export async function listRuns(designId: string): Promise<RunRow[]> {
   }
   return out.map((r) => ({
     userId: String(r.user_id),
+    itemId: String(r.item_id),
     phase: r.phase === 'transfer' ? 'transfer' : 'train',
     claimHit: (r.claim_hit as boolean | null) ?? null,
     optionCorrect: (r.option_correct as boolean | null) ?? null,

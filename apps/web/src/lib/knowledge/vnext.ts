@@ -228,6 +228,8 @@ export function parseThresholds(assessment: unknown): ProtocolThresholds {
 // ── 효과 검증 프로토콜 ────────────────────────────────────────────────
 export interface RunRecord {
   userId: string
+  /** 있으면 (학습자, 문항)마다 **첫 시도만** 센다 — 정답 근거를 본 뒤 다시 낸 응답이 향상으로 잡히지 않게 */
+  itemId?: string
   phase: 'train' | 'transfer'
   claimHit: boolean | null
   optionCorrect: boolean | null
@@ -298,7 +300,13 @@ export function evaluateProtocol(runs: readonly RunRecord[], th: ProtocolThresho
   if (versions.size > 1) throw new Error('evaluateProtocol: 설계 버전이 섞였다 — 한 버전의 수행만 넣는다')
 
   const byUser = new Map<string, RunRecord[]>()
-  for (const r of runs) {
+  const seen = new Set<string>()
+  for (const r of [...runs].sort((a, b) => a.at - b.at)) {
+    if (r.itemId !== undefined) {
+      const k = `${r.userId} ${r.itemId}`
+      if (seen.has(k)) continue
+      seen.add(k)
+    }
     const xs = byUser.get(r.userId) ?? []
     xs.push(r)
     byUser.set(r.userId, xs)
@@ -374,7 +382,7 @@ export function evaluateProtocol(runs: readonly RunRecord[], th: ProtocolThresho
     verdict,
     nLearners: byUser.size,
     nQualified,
-    nRuns: runs.length,
+    nRuns: [...byUser.values()].reduce((a, xs) => a + xs.length, 0),
     metrics: {
       preHit: round3(rate(pre)),
       postHit: round3(rate(post)),

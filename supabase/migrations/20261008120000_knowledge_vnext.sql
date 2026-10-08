@@ -260,6 +260,23 @@ end $$;
 create trigger knowledge_items_pause_designs after update of status on public.knowledge_items
   for each row execute function public.knowledge_items_pause_designs();
 
+-- 5-2b 근거 축(연구 수준·적용 적합성)이 바뀌면 그 근거로 채택된 항목은 재검토로 돌아간다.
+--      채택 해제는 위 5-2 트리거를 거쳐 배포 중인 설계를 멈춘다(「근거 변화 → 추천 중단」의 축 변경 경로).
+create function public.knowledge_evidence_axes_rereview() returns trigger
+language plpgsql set search_path = public as $$
+begin
+  if new.research_level is distinct from old.research_level or new.fit is distinct from old.fit then
+    update public.knowledge_items
+       set status = 'in_review',
+           status_reason = left(format('근거 축 변경: 연구 수준 %s→%s · 적합성 %s→%s', old.research_level, new.research_level, old.fit, new.fit), 500),
+           updated_by = 'trigger:evidence-axes'
+     where id = new.item_id and status in ('adopted','applied');
+  end if;
+  return null;
+end $$;
+create trigger knowledge_evidence_axes_rereview after update of research_level, fit on public.knowledge_evidence
+  for each row execute function public.knowledge_evidence_axes_rereview();
+
 -- 5-3 수행 기록: 실학습 기록은 그 설계의 열린 배포 구간에만, 버전도 배포 버전과 같아야 한다
 create function public.knowledge_task_runs_guard() returns trigger
 language plpgsql set search_path = public as $$
@@ -309,6 +326,7 @@ revoke all on function public.knowledge_designs_insert_guard() from public, anon
 revoke all on function public.knowledge_design_items_guard() from public, anon, authenticated;
 revoke all on function public.knowledge_items_pause_designs() from public, anon, authenticated;
 revoke all on function public.knowledge_task_runs_guard() from public, anon, authenticated;
+revoke all on function public.knowledge_evidence_axes_rereview() from public, anon, authenticated;
 revoke all on function public.knowledge_inquiries_touch() from public, anon, authenticated;
 
 -- ── 7. 관측 이벤트 2종 (AGENTS D2) — 현재 DB 제약 목록을 읽어 덧붙인다(다른 브랜치 항목을 잃지 않게) ──

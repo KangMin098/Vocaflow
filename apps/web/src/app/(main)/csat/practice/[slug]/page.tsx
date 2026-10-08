@@ -27,7 +27,7 @@ export default async function PracticePage({
   const design = await loadPracticeDesign(params.slug, { preview })
   if (!design) notFound()
 
-  const { userId, runs } = await loadMyRuns(design.id)
+  const { userId, runs } = await loadMyRuns(design.id, design.deploymentVersion ?? design.version)
   if (!userId) redirect(loginUrlWithReturn(`/csat/practice/${params.slug}${wantPreview ? '?preview=1' : ''}`))
 
   const pool = practicePool(design)
@@ -56,6 +56,7 @@ export default async function PracticePage({
       bars={tasks}
       initialItemId={chosen}
       recommendedItemId={next?.itemId ?? null}
+      trainDone={trainHits.length}
       history={runs.slice(-10).map((r) => ({ phase: r.phase, claimHit: r.claimHit }))}
     />
   )

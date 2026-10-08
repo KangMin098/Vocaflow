@@ -123,6 +123,13 @@ describe('evaluateProtocol', () => {
     expect(r.metrics.nTransfer).toBe(1)
     expect(r.metrics.transferHit).toBe(0.5)
   })
+  it('같은 문항을 다시 낸 응답은 세지 않는다(정답 공개 뒤 재제출)', () => {
+    const base = learner('a', [false, false, false, true, true, true, true, true]).map((r, i) => ({ ...r, itemId: `i${i}` }))
+    const retries = base.slice(0, 3).map((r) => ({ ...r, claimHit: true, at: r.at + 10 * DAY }))
+    const r = evaluateProtocol([...base, ...retries])
+    expect(r.nRuns).toBe(8)
+    expect(r.metrics.preHit).toBe(0)
+  })
   it('설계 버전이 섞이면 거부', () => {
     expect(() => evaluateProtocol([...learner('a', [true], { version: 1 }), ...learner('b', [true], { version: 2 })])).toThrow('버전')
   })

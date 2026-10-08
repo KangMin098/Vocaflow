@@ -108,8 +108,11 @@ export interface MyRun {
   at: string
 }
 
-/** 내 기록(RLS) — 이 설계의 실학습 기록만. 미리보기 기록은 관리자 자신의 것이라도 판정에 넣지 않는다. */
-export async function loadMyRuns(designId: string): Promise<{ userId: string | null; runs: MyRun[] }> {
+/**
+ * 내 기록(RLS) — 이 설계·이 버전의 실학습 기록, 문항마다 첫 시도만(정답을 본 뒤 다시 낸 것은 판정에 넣지 않는다).
+ * 미리보기 기록은 관리자 자신의 것이라도 넣지 않는다.
+ */
+export async function loadMyRuns(designId: string, version: number): Promise<{ userId: string | null; runs: MyRun[] }> {
   const db = (await createClient()) as unknown as SupabaseClient
   const {
     data: { user },
@@ -120,13 +123,17 @@ export async function loadMyRuns(designId: string): Promise<{ userId: string | n
     .select('item_id,phase,claim_hit,option_correct,created_at,preview,synthetic')
     .eq('design_id', designId)
     .eq('user_id', user.id)
+    // 재배포로 버전이 바뀌면 새로 시작한다 — 옛 버전 기록으로 완료·판정을 이어받지 않는다
+    .eq('design_version', version)
     .order('created_at')
     .limit(1000)
   if (error) throw new Error(`내 기록 읽기 실패: ${error.message}`)
+  const first = new Set<string>()
   return {
     userId: user.id,
     runs: ((data ?? []) as Record<string, unknown>[])
       .filter((r) => r.preview !== true && r.synthetic !== true)
+      .filter((r) => (first.has(String(r.item_id)) ? false : (first.add(String(r.item_id)), true)))
       .map((r) => ({
         itemId: String(r.item_id),
         phase: r.phase === 'transfer' ? 'transfer' : 'train',
