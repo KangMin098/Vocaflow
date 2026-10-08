@@ -22,7 +22,8 @@
 -- ── 열 ─────────────────────────────────────────────────────────────────
 alter table public.learning_sessions add column help_received_at timestamptz;   -- M8 첫 도움(hint · viewed_first) 노출 시각 — 가장 이른 값
 alter table public.learning_sessions add column help_server_at timestamptz;     -- M8-G 첫 도움 변경의 서버 수신 시각(가장 이른 값 · 기존 행 NULL)
-alter table public.learning_sessions add column help_clock_suspect boolean not null default false;  -- M8-G 도움 기록 기기의 시계가 서버보다 2분 넘게 미래였다
+alter table public.learning_sessions add column help_clock_suspect boolean not null default false;  -- M8-G 도움 · 해설 열람 기록 기기의 시계가 서버보다 2분 넘게 미래였다
+alter table public.learning_sessions add column explanation_server_at timestamptz;  -- M8-G 첫 해설 열람의 서버 수신 시각(가장 이른 값 · 기존 행 NULL)
 alter table public.learning_task_attempts add column received_at timestamptz;    -- M8 서버 수신 시각(기존 행 NULL)
 alter table public.learning_task_attempts alter column received_at set default now();
 
@@ -66,7 +67,9 @@ begin
     help_received_at = case when v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') then least(s.help_received_at, p_at) else s.help_received_at end,
     -- M8-G 도움 쪽 기기 시계 검사 — 서버 수신 시각과 「미래로 2분 넘게 앞선 도움 시각」 표시(뒤로 늦은 시각은 오프라인 지연과 구별할 수 없어 아래 뷰 규칙이 맡는다)
     help_server_at = case when v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') then least(s.help_server_at, now()) else s.help_server_at end,
-    help_clock_suspect = s.help_clock_suspect or (v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') and p_at > now() + interval '2 minutes'),
+    help_clock_suspect = s.help_clock_suspect or (v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') and p_at > now() + interval '2 minutes')
+                         or (p_explanation_viewed_at is not null and p_explanation_viewed_at > now() + interval '2 minutes'),
+    explanation_server_at = case when p_explanation_viewed_at is not null then least(s.explanation_server_at, now()) else s.explanation_server_at end,
     revealed_at = case when v_rank_new >= 1 and (s.revealed_at is null or p_at < s.revealed_at) then p_at else s.revealed_at end,
     finished_at = coalesce(s.finished_at, case when v_rank_new = 2 then p_at end),
     review_at = coalesce(s.review_at, p_review_at),
@@ -102,7 +105,10 @@ select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
     or coalesce(s.help_clock_suspect, false)
     -- M8-G 서버는 도움을 먼저 받았는데 판단이 그보다 이르다고 주장한다(판단 기기 시계가 늦거나 오프라인) — 독립으로 세지 않고 보류
     or (s.help_server_at is not null and a.received_at is not null and a.received_at > s.help_server_at
-        and s.help_received_at is not null and a.answered_at < s.help_received_at)) as timing_uncertain
+        and s.help_received_at is not null and a.answered_at < s.help_received_at)
+    -- 해설 열람도 같은 규칙(Codex P1 — independent 세션의 판단 뒤 열람)
+    or (s.explanation_server_at is not null and a.received_at is not null and a.received_at > s.explanation_server_at
+        and s.explanation_viewed_at is not null and a.answered_at < s.explanation_viewed_at)) as timing_uncertain
 from public.learning_task_attempts a
 left join public.learning_sessions s on s.id = a.session_id
 order by a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase, a.answered_at, a.id;
@@ -133,7 +139,8 @@ begin
   end if;
   if (new.help_level is distinct from old.help_level or new.revealed_at is distinct from old.revealed_at
       or new.explanation_viewed_at is distinct from old.explanation_viewed_at or new.help_received_at is distinct from old.help_received_at
-      or new.help_server_at is distinct from old.help_server_at or new.help_clock_suspect is distinct from old.help_clock_suspect)
+      or new.help_server_at is distinct from old.help_server_at or new.help_clock_suspect is distinct from old.help_clock_suspect
+      or new.explanation_server_at is distinct from old.explanation_server_at)
      and exists (select 1 from public.learning_task_attempts a join public.knowledge_trials t on t.id = a.trial_id
                  where a.session_id = new.id and t.status = 'analyzed' and not t.synthetic for share of t) then
     raise exception '분석 완료된 검증 표본의 세션은 공개 · 도움 · 해설 시각을 바꿀 수 없다';
@@ -185,9 +192,39 @@ begin
   return new;
 end $$;
 
+-- ── M8-H 판단 제출 원자화 — 같은 제출 id 의 동시 요청이 세션을 먼저 바꾸고 시도에서 거부되던 경쟁(Codex P1) ──────────
+-- 같은 (학습자 · 제출 id) 를 트랜잭션 권고 잠금으로 직렬화 → 이미 원장에 있으면 세션을 건드리지 않고 시도 RPC 의 원문 비교(duplicate/conflict)만,
+-- 처음이면 공개 → 시도를 한 트랜잭션에서. 시도가 conflict 면 예외로 공개까지 되돌린다.
+create function public.learning_attempt_submit(
+  p_user uuid, p_mutation uuid, p_reveal_mutation uuid, p_client_session_id uuid, p_activity text, p_phase text, p_item_ref text,
+  p_help_level text, p_answered_at timestamptz, p_synthetic boolean, p_task_key text, p_application_id uuid,
+  p_content_hash text, p_response jsonb, p_is_correct boolean, p_sec integer, p_trial_id uuid default null
+) returns table (session_id uuid, attempt_id bigint, outcome text)
+language plpgsql security invoker set search_path = '' as $$
+declare
+  v_sid uuid;
+  v_rev text;
+begin
+  perform pg_advisory_xact_lock(hashtext('learning_attempt_submit:' || p_user::text || ':' || p_mutation::text));
+  if exists (select 1 from public.learning_mutations m where m.user_id = p_user and m.client_mutation_id = p_mutation) then
+    select a.session_id into v_sid from public.learning_task_attempts a where a.user_id = p_user and a.client_mutation_id = p_mutation;
+  else
+    select r.session_id, r.outcome into v_sid, v_rev from public.learning_session_apply(p_user, p_reveal_mutation, p_client_session_id, p_activity, p_phase, p_item_ref,
+      'revealed', 0, 1, p_help_level, p_answered_at, null, false, p_synthetic, p_task_key, p_application_id, p_trial_id, null) r;
+    if v_rev not in ('applied', 'duplicate') then raise exception 'session reveal %', v_rev; end if;
+  end if;
+  select r.attempt_id, r.outcome into attempt_id, outcome from public.learning_attempt_record(p_user, p_mutation, v_sid, p_task_key, p_activity, p_phase, null,
+    p_item_ref, p_content_hash, p_response, p_is_correct, p_sec, p_synthetic, p_application_id, p_trial_id, p_answered_at) r;
+  session_id := v_sid;
+  return next;
+end $$;
+revoke all on function public.learning_attempt_submit(uuid, uuid, uuid, uuid, text, text, text, text, timestamptz, boolean, text, uuid, text, jsonb, boolean, integer, uuid) from public, anon, authenticated;
+grant execute on function public.learning_attempt_submit(uuid, uuid, uuid, uuid, text, text, text, text, timestamptz, boolean, text, uuid, text, jsonb, boolean, integer, uuid) to service_role;
+
 -- ── 되돌리기(한 트랜잭션 · 각 줄 앞의 「-- 」를 벗겨 실행) ────────────────────
 -- 검증: scripts/knowledge/g2-m8-test.mjs 가 이 블록을 격리 DB 에서 실제로 실행한다.
 -- begin;
+-- drop function public.learning_attempt_submit(uuid, uuid, uuid, uuid, text, text, text, text, timestamptz, boolean, text, uuid, text, jsonb, boolean, integer, uuid);
 -- create or replace function public.learning_trial_sample_frozen_attempt() returns trigger
 -- language plpgsql set search_path = public as $$
 -- begin
@@ -289,4 +326,5 @@ end $$;
 -- alter table public.learning_sessions drop column help_received_at;
 -- alter table public.learning_sessions drop column help_server_at;
 -- alter table public.learning_sessions drop column help_clock_suspect;
+-- alter table public.learning_sessions drop column explanation_server_at;
 -- commit;

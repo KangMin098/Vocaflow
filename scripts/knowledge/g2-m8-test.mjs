@@ -169,6 +169,34 @@ try {
     const r3 = await fa(sid3)
     rec('M8-G 판단 먼저 도착 · 도움 나중 → 확실한 독립(과소 집계 없음)', r3.help_level === 'independent' && !r3.timing_uncertain, r3)
   }
+  // M8-H 원자 제출 — 같은 제출 id 동시 요청(하나는 도움 수준만 다름): 한 건 inserted · 나머지는 duplicate/conflict, 거부된 요청은 세션을 바꾸지 않는다
+  {
+    const cs = uuid(), m = uuid(), at = '2026-10-03T09:00:00Z'
+    const submit = (help) => q(`select * from learning_attempt_submit($1,$2,$3,$4,'theater','practice','atomic',$5,$6,false,'claim-support',null,'h','{"claim":1}',true,10)`,
+      [D, m, crypto.createHash('sha256').update(`${cs}|${help}|${at}`).digest('hex').replace(/^(.{8})(.{4}).(.{3}).(.{3})(.{12}).*$/, '$1-$2-5$3-8$4-$5'), cs, help, at])
+    const res = await Promise.allSettled([submit('independent'), submit('viewed_first'), submit('independent'), submit('viewed_first')])
+    const outs = res.map((x) => (x.status === 'fulfilled' ? x.value.rows[0].outcome : 'error'))
+    const ses = (await q('select help_level from learning_sessions where user_id = $1 and client_session_id = $2', [D, cs])).rows[0]
+    const first = (await q('select help_level from learning_task_attempts where user_id = $1 and client_mutation_id = $2', [D, m])).rows[0]
+    rec('M8-H 동시 4요청 → inserted 1 · 나머지 duplicate/conflict · 오류 0', outs.filter((o) => o === 'inserted').length === 1 && outs.every((o) => ['inserted', 'duplicate', 'conflict'].includes(o)), outs)
+    rec('M8-H 거부된 요청은 세션 도움 수준을 바꾸지 않는다(세션 = 저장된 시도의 수준)', ses.help_level === first.help_level, { ses, first })
+  }
+  // M8-G 해설 열람 기기 시계 — independent 세션, 서버가 열람을 먼저 받은 뒤 도착한 판단이 열람보다 이르다고 주장 → 보류
+  {
+    const nowMs = Date.parse((await q('select now() t')).rows[0].t)
+    const iso = (ms) => new Date(ms).toISOString()
+    const cs = uuid()
+    const sid = (await q(`select * from learning_session_apply($1,$2,$3,'theater','practice','expl-clock','revealed',0,1,'independent',$4,null,false,false,'claim-support',null,null,null)`, [E, uuid(), cs, iso(nowMs - 30 * 60_000)])).rows[0].session_id
+    await q(`select * from learning_session_apply($1,$2,$3,'theater','practice','expl-clock','revealed',0,1,'independent',$4,null,false,false,'claim-support',null,null,$4)`, [E, uuid(), cs, iso(nowMs)])
+    await att(E, uuid(), sid, iso(nowMs - 10 * 60_000))
+    const r = await fa(sid)
+    rec('M8-G 해설 열람 수신 뒤 도착한 「더 이른」 판단 → 보류', r.help_level === 'independent' && r.timing_uncertain, r)
+    const cs2 = uuid()
+    const sid2 = (await q(`select * from learning_session_apply($1,$2,$3,'theater','practice','expl-fut','revealed',0,1,'independent',$4,null,false,false,'claim-support',null,null,null)`, [E, uuid(), cs2, iso(nowMs - 30 * 60_000)])).rows[0].session_id
+    await att(E, uuid(), sid2, iso(nowMs - 20 * 60_000))
+    await q(`select * from learning_session_apply($1,$2,$3,'theater','practice','expl-fut','revealed',0,1,'independent',$4,null,false,false,'claim-support',null,null,$4)`, [E, uuid(), cs2, iso(nowMs + 4 * 60_000)])
+    rec('M8-G 해설 기기 시계 +4분 → 그 세션 판단 보류', (await fa(sid2)).timing_uncertain)
+  }
   // 재전송 — 같은 mutation 은 한 행 · 뷰 한 줄
   {
     const s = await mk(D, 'dup')

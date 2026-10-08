@@ -155,22 +155,26 @@ describe('direct 어댑터(지금) — 정본 13열에 INSERT · response 안에
   })
 })
 
-describe('g2 어댑터(G2 적용 뒤) — 세션 공개 RPC → 시도 RPC', () => {
-  it('공개를 먼저 적용하고 그 세션 id 로 시도를 기록 · 판단 시각을 넘긴다', async () => {
+describe('g2 어댑터(G2 적용 뒤) — 원자 제출 RPC(M8-H)', () => {
+  it('M8-H: 공개 · 시도를 원자 RPC 한 번으로 — reveal 은 쓰지 않고 record 가 learning_attempt_submit(판단 시각 · 공개 id 포함)', async () => {
     const f = fakeDb([])
     const w = g2Writer(f.db)
     const sid = await w.reveal(W)
+    expect(sid).toBeNull()
     expect(await w.record(W, sid)).toBe('inserted')
-    expect(f.rpcs.map((r) => r.fn)).toEqual(['learning_session_apply', 'learning_attempt_record'])
-    expect(f.rpcs[0].args).toMatchObject({ p_client_session_id: W.clientSessionId, p_stage: 'revealed', p_help_level: 'independent', p_activity: 'practice' })
-    expect(f.rpcs[1].args).toMatchObject({ p_mutation: W.clientMutationId, p_session_id: 'sess-1', p_answered_at: W.answeredAt })
+    expect(f.rpcs.map((r) => r.fn)).toEqual(['learning_attempt_submit'])
+    expect(f.rpcs[0].args).toMatchObject({
+      p_mutation: W.clientMutationId, p_client_session_id: W.clientSessionId, p_help_level: 'independent', p_activity: 'practice', p_answered_at: W.answeredAt,
+      p_reveal_mutation: stableUuid(W.clientSessionId, 'reveal', 'independent', W.answeredAt),
+    })
     expect(f.inserted).toHaveLength(0)
   })
-  it('P1: 시도는 도움 수준을 보내지 않는다(NULL → 세션 상속) — viewed_first 를 실어도 세션과 모순되지 않는다', async () => {
+  it('공개 id 는 도움 수준 · 판단 시각마다 다르다 — 해설을 본 뒤의 새 판단은 새 공개(도움 상승이 적용된다)', async () => {
     const f = fakeDb([])
     const w = g2Writer(f.db)
-    await w.record({ ...W, helpLevel: 'viewed_first' }, 'sess-1')
-    expect(f.rpcs[0].args.p_help_level).toBeNull()
+    await w.record(W, null)
+    await w.record({ ...W, helpLevel: 'viewed_first', clientMutationId: '00000000-0000-4000-8000-0000000000ff' }, null)
+    expect(f.rpcs[1].args.p_reveal_mutation).not.toBe(f.rpcs[0].args.p_reveal_mutation)
   })
   it('P1: g2 response 에도 activity · help_level · client ids 사본 — direct 와 같은 모양', async () => {
     const f = fakeDb([])
@@ -189,11 +193,10 @@ describe('g2 어댑터(G2 적용 뒤) — 세션 공개 RPC → 시도 RPC', () 
     expect(selectWriter({} as SupabaseClient, 'g2').kind).toBe('g2')
     expect(selectWriter({} as SupabaseClient, 'direct').kind).toBe('direct')
   })
-  it('이미 기록된 판단(같은 제출 id)의 재전송은 세션 공개를 다시 적용하지 않는다 — 거부될 요청이 세션을 바꾸지 않게', async () => {
-    const { db, rpcs } = fakeDb([{ user_id: 'u1', client_mutation_id: W.clientMutationId, session_id: 'sess-0' }])
-    const sid = await g2Writer(db).reveal({ ...W, helpLevel: 'viewed_first' })
-    expect(sid).toBe('sess-0')
-    expect(rpcs.filter((r) => r.fn === 'learning_session_apply')).toHaveLength(0)
+  it('M8-H: reveal 은 따로 세션을 쓰지 않는다 — 같은 제출 id 의 동시 · 재전송 판정은 서버 원자 RPC 가 잠금으로 한다', async () => {
+    const { db, rpcs } = fakeDb([])
+    await g2Writer(db).reveal({ ...W, helpLevel: 'viewed_first' })
+    expect(rpcs).toHaveLength(0)
   })
 
   it('B8: 해설 열람은 공개 · 판단과 다른 mutation id 로 learning_session_apply(p_explanation_viewed_at) · 같은 열람 재전송은 같은 id', async () => {
@@ -204,10 +207,10 @@ describe('g2 어댑터(G2 적용 뒤) — 세션 공개 RPC → 시도 RPC', () 
     await w.noteExplanationView(W, '2026-10-08T06:10:00.000Z', 'sess-1')
     await w.noteExplanationView(W, '2026-10-08T06:10:00.000Z', 'sess-1')
     const applies = f.rpcs.filter((r) => r.fn === 'learning_session_apply')
-    const reveal = applies[0].args, explain = applies[1].args, again = applies[2].args
-    const attempt = f.rpcs.find((r) => r.fn === 'learning_attempt_record')!.args
+    const explain = applies[0].args, again = applies[1].args
+    const attempt = f.rpcs.find((r) => r.fn === 'learning_attempt_submit')!.args
     expect(explain.p_explanation_viewed_at).toBe('2026-10-08T06:10:00.000Z')
-    expect(explain.p_mutation).not.toBe(reveal.p_mutation)
+    expect(explain.p_mutation).not.toBe(attempt.p_reveal_mutation)
     expect(explain.p_mutation).not.toBe(attempt.p_mutation)
     expect(again.p_mutation).toBe(explain.p_mutation)
     expect(explain.p_client_session_id).toBe(W.clientSessionId)
@@ -250,7 +253,7 @@ describe('판단을 보낸 뒤 해설 열람 — 도움 수준이 아니라 별�
     const deps2 = { db: f.db, writer: w, pool: async () => [ENTRY], answer: async () => 5 }
     await submitPractice(deps2, { userId: 'u1', synthetic: false }, SUB)
     await submitPractice(deps2, { userId: 'u1', synthetic: false }, { ...SUB, explanationViewedAt: '2026-10-08T05:59:30.000Z' })
-    const attempts = f.rpcs.filter((r) => r.fn === 'learning_attempt_record')
+    const attempts = f.rpcs.filter((r) => r.fn === 'learning_attempt_submit')
     expect(attempts).toHaveLength(2)
     expect(attempts[1].args).toEqual(attempts[0].args)
   })
