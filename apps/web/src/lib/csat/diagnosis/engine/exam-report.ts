@@ -7,6 +7,8 @@
 //   · 선지 함정: csat_dx_option_trap(분석된 문항만)      → 틀린 답이 끌려간 함정
 // 순수 함수 — DB·시계를 모른다. 서버가 표를 읽어 넘긴다.
 
+import { isDiagnosable, recordQuality, type RecordQuality, type RecordQualityStatus } from './record-quality'
+
 export const LISTENING_TYPE = 'LISTEN'
 
 export interface ReportItem {
@@ -55,7 +57,7 @@ export interface WrongItem {
 }
 
 export interface ExamReport {
-  trend: { sessionId: string; examId: string; label: string; takenAt: string; raw: number; grade: number | null; mode: 'live' | 'retake'; wrong: number; listening: number; reading: number; answers: ReportSession['answers'] }[]
+  trend: { sessionId: string; examId: string; label: string; takenAt: string; raw: number; grade: number | null; mode: 'live' | 'retake'; wrong: number; listening: number; reading: number; answers: ReportSession['answers']; quality: RecordQualityStatus; qualityReasons: string[] }[]
   latest: { sessionId: string; label: string; raw: number; grade: number | null; delta: number | null } | null
   sections: { listening: number | null; reading: number | null }
   types: TypeStat[]
@@ -67,6 +69,8 @@ export interface ExamReport {
   gradeCounts: Record<number, number>
   traps: { family: string; count: number }[]
   totalAnswered: number
+  /** 입력 신뢰도로 유형 · 함정 집계에서 뺀 기록 수 */
+  qualityExcluded: number
 }
 
 const rate = (c: number, n: number) => (n > 0 ? Math.round((c / n) * 1000) / 1000 : 0)
@@ -100,10 +104,13 @@ export function buildExamReport(
   let readC = 0
   const trapCount = new Map<string, number>()
 
+  const qualityBy = new Map(ordered.map((s) => [s.id, recordQuality(s.answers)]))
   for (const s of ordered) {
     const map = items[s.examId] ?? {}
     // 다시 푼 기출은 점수 흐름에는 보이되 유형 진단에는 넣지 않는다 — 이미 본 문항이라 실력이 부풀려진다
     if (s.mode === 'retake') continue
+    // 입력 신뢰도(Record Quality Layer) — 일괄 입력 · 의심 기록은 유형 · 영역 · 함정 집계에서 뺀다(기록 · 점수 · 오답 표는 그대로)
+    if (!isDiagnosable(qualityBy.get(s.id) as RecordQuality)) continue
     for (const a of s.answers) {
       const it = map[a.no]
       // 영역(듣기 · 독해)은 문항 번호로 센다 — 유형 정보가 없는 문항도 정답률에 들어가야 한다(빼면 정답률이 부풀려진다)
@@ -177,6 +184,8 @@ export function buildExamReport(
       sessionId: s.id, examId: s.examId, label: s.examLabel, takenAt: s.takenAt, raw: s.raw, grade: s.grade, mode: s.mode,
       wrong: s.answers.filter((a) => !a.correct).length, listening: share(s, 1, 17), reading: share(s, 18, 45),
       answers: s.answers,
+      quality: (qualityBy.get(s.id) as RecordQuality).status,
+      qualityReasons: (qualityBy.get(s.id) as RecordQuality).reasons,
     })),
     latest: newest
       ? { sessionId: newest.id, label: newest.examLabel, raw: newest.raw, grade: newest.grade, delta: prevLive ? newest.raw - prevLive.raw : null }
@@ -189,5 +198,6 @@ export function buildExamReport(
     gradeCounts,
     traps: [...trapCount.entries()].map(([family, count]) => ({ family, count })).sort((a, b) => b.count - a.count),
     totalAnswered: listenN + readN,
+    qualityExcluded: [...qualityBy.values()].filter((q) => !isDiagnosable(q)).length,
   }
 }

@@ -1,0 +1,559 @@
+{
+  "approvedAt": "2026-10-02",
+  "scope": "명시된 6회만. 다른 회차에는 공통 적용하지 않는다.",
+  "note": "B4 = 11~15번(대화 응답 · 상황에 적절한 말). 대본으로 확인하지 않은 대화 길이는 유형에 넣지 않는다.",
+  "exams": [
+    {
+      "examId": "M2706",
+      "label": "2027학년도 6월 모의평가",
+      "sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+      "items": [
+        {
+          "no": 1,
+          "line": "B1",
+          "verifiedType": "목적"
+        },
+        {
+          "no": 2,
+          "line": "B1",
+          "verifiedType": "의견"
+        },
+        {
+          "no": 3,
+          "line": "B1",
+          "verifiedType": "요지"
+        },
+        {
+          "no": 4,
+          "line": "B2",
+          "verifiedType": "그림 내용 불일치"
+        },
+        {
+          "no": 5,
+          "line": "B2",
+          "verifiedType": "할 일"
+        },
+        {
+          "no": 6,
+          "line": "B3",
+          "verifiedType": "지불 금액"
+        },
+        {
+          "no": 7,
+          "line": "B2",
+          "verifiedType": "이유"
+        },
+        {
+          "no": 8,
+          "line": "B2",
+          "verifiedType": "언급되지 않은 내용"
+        },
+        {
+          "no": 9,
+          "line": "B2",
+          "verifiedType": "담화 내용 불일치"
+        },
+        {
+          "no": 10,
+          "line": "B2",
+          "verifiedType": "도표 선택"
+        },
+        {
+          "no": 11,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 12,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 13,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 14,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 15,
+          "line": "B4",
+          "verifiedType": "상황에 적절한 말"
+        },
+        {
+          "no": 16,
+          "line": "B5",
+          "verifiedType": "세트 주제"
+        },
+        {
+          "no": 17,
+          "line": "B5",
+          "verifiedType": "세트 언급되지 않은 내용"
+        }
+      ]
+    },
+    {
+      "examId": "2026",
+      "label": "2026학년도 수능",
+      "sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+      "items": [
+        {
+          "no": 1,
+          "line": "B1",
+          "verifiedType": "목적"
+        },
+        {
+          "no": 2,
+          "line": "B1",
+          "verifiedType": "의견"
+        },
+        {
+          "no": 3,
+          "line": "B1",
+          "verifiedType": "요지"
+        },
+        {
+          "no": 4,
+          "line": "B2",
+          "verifiedType": "그림 내용 불일치"
+        },
+        {
+          "no": 5,
+          "line": "B2",
+          "verifiedType": "할 일"
+        },
+        {
+          "no": 6,
+          "line": "B3",
+          "verifiedType": "지불 금액"
+        },
+        {
+          "no": 7,
+          "line": "B2",
+          "verifiedType": "이유"
+        },
+        {
+          "no": 8,
+          "line": "B2",
+          "verifiedType": "언급되지 않은 내용"
+        },
+        {
+          "no": 9,
+          "line": "B2",
+          "verifiedType": "담화 내용 불일치"
+        },
+        {
+          "no": 10,
+          "line": "B2",
+          "verifiedType": "도표 선택"
+        },
+        {
+          "no": 11,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 12,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 13,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 14,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 15,
+          "line": "B4",
+          "verifiedType": "상황에 적절한 말"
+        },
+        {
+          "no": 16,
+          "line": "B5",
+          "verifiedType": "세트 주제"
+        },
+        {
+          "no": 17,
+          "line": "B5",
+          "verifiedType": "세트 언급되지 않은 내용"
+        }
+      ]
+    },
+    {
+      "examId": "M2609",
+      "label": "2026학년도 9월 모의평가",
+      "sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3",
+      "items": [
+        {
+          "no": 1,
+          "line": "B1",
+          "verifiedType": "목적"
+        },
+        {
+          "no": 2,
+          "line": "B1",
+          "verifiedType": "의견"
+        },
+        {
+          "no": 3,
+          "line": "B1",
+          "verifiedType": "요지"
+        },
+        {
+          "no": 4,
+          "line": "B2",
+          "verifiedType": "그림 내용 불일치"
+        },
+        {
+          "no": 5,
+          "line": "B2",
+          "verifiedType": "할 일"
+        },
+        {
+          "no": 6,
+          "line": "B3",
+          "verifiedType": "지불 금액"
+        },
+        {
+          "no": 7,
+          "line": "B2",
+          "verifiedType": "이유"
+        },
+        {
+          "no": 8,
+          "line": "B2",
+          "verifiedType": "언급되지 않은 내용"
+        },
+        {
+          "no": 9,
+          "line": "B2",
+          "verifiedType": "담화 내용 불일치"
+        },
+        {
+          "no": 10,
+          "line": "B2",
+          "verifiedType": "도표 선택"
+        },
+        {
+          "no": 11,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 12,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 13,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 14,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 15,
+          "line": "B4",
+          "verifiedType": "상황에 적절한 말"
+        },
+        {
+          "no": 16,
+          "line": "B5",
+          "verifiedType": "세트 주제"
+        },
+        {
+          "no": 17,
+          "line": "B5",
+          "verifiedType": "세트 언급되지 않은 내용"
+        }
+      ]
+    },
+    {
+      "examId": "M2606",
+      "label": "2026학년도 6월 모의평가",
+      "sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+      "items": [
+        {
+          "no": 1,
+          "line": "B1",
+          "verifiedType": "목적"
+        },
+        {
+          "no": 2,
+          "line": "B1",
+          "verifiedType": "의견"
+        },
+        {
+          "no": 3,
+          "line": "B1",
+          "verifiedType": "요지"
+        },
+        {
+          "no": 4,
+          "line": "B2",
+          "verifiedType": "그림 내용 불일치"
+        },
+        {
+          "no": 5,
+          "line": "B2",
+          "verifiedType": "할 일"
+        },
+        {
+          "no": 6,
+          "line": "B3",
+          "verifiedType": "지불 금액"
+        },
+        {
+          "no": 7,
+          "line": "B2",
+          "verifiedType": "이유"
+        },
+        {
+          "no": 8,
+          "line": "B2",
+          "verifiedType": "언급되지 않은 내용"
+        },
+        {
+          "no": 9,
+          "line": "B2",
+          "verifiedType": "담화 내용 불일치"
+        },
+        {
+          "no": 10,
+          "line": "B2",
+          "verifiedType": "도표 선택"
+        },
+        {
+          "no": 11,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 12,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 13,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 14,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 15,
+          "line": "B4",
+          "verifiedType": "상황에 적절한 말"
+        },
+        {
+          "no": 16,
+          "line": "B5",
+          "verifiedType": "세트 주제"
+        },
+        {
+          "no": 17,
+          "line": "B5",
+          "verifiedType": "세트 언급되지 않은 내용"
+        }
+      ]
+    },
+    {
+      "examId": "2025",
+      "label": "2025학년도 수능(짝수형)",
+      "sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+      "items": [
+        {
+          "no": 1,
+          "line": "B1",
+          "verifiedType": "목적"
+        },
+        {
+          "no": 2,
+          "line": "B1",
+          "verifiedType": "의견"
+        },
+        {
+          "no": 3,
+          "line": "B1",
+          "verifiedType": "요지"
+        },
+        {
+          "no": 4,
+          "line": "B2",
+          "verifiedType": "그림 내용 불일치"
+        },
+        {
+          "no": 5,
+          "line": "B2",
+          "verifiedType": "할 일"
+        },
+        {
+          "no": 6,
+          "line": "B3",
+          "verifiedType": "지불 금액"
+        },
+        {
+          "no": 7,
+          "line": "B2",
+          "verifiedType": "이유"
+        },
+        {
+          "no": 8,
+          "line": "B2",
+          "verifiedType": "언급되지 않은 내용"
+        },
+        {
+          "no": 9,
+          "line": "B2",
+          "verifiedType": "담화 내용 불일치"
+        },
+        {
+          "no": 10,
+          "line": "B2",
+          "verifiedType": "도표 선택"
+        },
+        {
+          "no": 11,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 12,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 13,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 14,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 15,
+          "line": "B4",
+          "verifiedType": "상황에 적절한 말"
+        },
+        {
+          "no": 16,
+          "line": "B5",
+          "verifiedType": "세트 주제"
+        },
+        {
+          "no": 17,
+          "line": "B5",
+          "verifiedType": "세트 언급되지 않은 내용"
+        }
+      ]
+    },
+    {
+      "examId": "M2509",
+      "label": "2025학년도 9월 모의평가",
+      "sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+      "items": [
+        {
+          "no": 1,
+          "line": "B1",
+          "verifiedType": "목적"
+        },
+        {
+          "no": 2,
+          "line": "B1",
+          "verifiedType": "의견"
+        },
+        {
+          "no": 3,
+          "line": "B1",
+          "verifiedType": "요지"
+        },
+        {
+          "no": 4,
+          "line": "B2",
+          "verifiedType": "그림 내용 불일치"
+        },
+        {
+          "no": 5,
+          "line": "B2",
+          "verifiedType": "할 일"
+        },
+        {
+          "no": 6,
+          "line": "B3",
+          "verifiedType": "지불 금액"
+        },
+        {
+          "no": 7,
+          "line": "B2",
+          "verifiedType": "이유"
+        },
+        {
+          "no": 8,
+          "line": "B2",
+          "verifiedType": "언급되지 않은 내용"
+        },
+        {
+          "no": 9,
+          "line": "B2",
+          "verifiedType": "담화 내용 불일치"
+        },
+        {
+          "no": 10,
+          "line": "B2",
+          "verifiedType": "도표 선택"
+        },
+        {
+          "no": 11,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 12,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 13,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 14,
+          "line": "B4",
+          "verifiedType": "대화 응답"
+        },
+        {
+          "no": 15,
+          "line": "B4",
+          "verifiedType": "상황에 적절한 말"
+        },
+        {
+          "no": 16,
+          "line": "B5",
+          "verifiedType": "세트 주제"
+        },
+        {
+          "no": 17,
+          "line": "B5",
+          "verifiedType": "세트 언급되지 않은 내용"
+        }
+      ]
+    }
+  ]
+}

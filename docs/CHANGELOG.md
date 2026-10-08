@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-map): 학습 지도 vNext 를 main 에 clean integration — 원본 `feat/map-vnext`(커밋 100 · 파일 451)에서 지도에 필요한 것만(마이그레이션 `20261002120000_csat_map` · `20261002120100_funnel_allow_csat_map` · `20261002130000_csat_map_item_rate_ledger`, 지도 코드 · 진단 판정 · API 2 · 이벤트 4 · 검증 스크립트). Workspace · 어휘 표지 · 사전 · 오답 원인 Evidence · seed v2 제외. 목록·동등성 [MAP_INTEGRATION_MANIFEST](./csat-learner/MAP_INTEGRATION_MANIFEST.md) · 빈 DB 검증 `scripts/csat/map/fresh-db-check.mjs`.
+
 - docs(csat): 남은 의미 보류 2문항의 원전 조사와 별도 3인 출처 품질 감사를 기록했다. 원전 확인·담화 설명만으로 양립 가능한 해석을 배제하지 못해 보류를 유지하며, 재개 조건과 발행 승인과의 구분을 명시했다. DB 원문·검수·평가원 데이터 변경 없음.
 
 - fix(csat): 상세 분석 프롬프트에 남은 이름 등장만으로 지칭 후보를 제외하는 옛 규칙을 제거하고 전체 프롬프트 V10 회귀를 추가했다. 함축 의미(R-IMPLY)의 밑줄 범위도 원본 크롭으로 표시하고 추출기 5판으로 옛 캐시를 무효화한다. 실제 렌더·누락·예외 경로를 검증하며 DB 원문·평가원 데이터는 바꾸지 않는다.

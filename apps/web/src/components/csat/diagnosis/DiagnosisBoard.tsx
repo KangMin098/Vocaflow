@@ -1,10 +1,11 @@
 // apps/web/src/components/csat/diagnosis/DiagnosisBoard.tsx
 //
-// 내 진단 — 모니터링 보드. 판 하나 안에 알약 탭(개요 · 유형 · 오답 함정 · 틀린 문항 · 시험 기록)과
-// 오른쪽 「+ 시험 기록」. 개요는 벤토 격자: 최근 점수 게이지 · 등급 분포 도넛 · 점수 흐름 막대 ·
-// 듣기/독해 · 유형 레이더 · 작은 지표 셋. 나머지 탭은 표. 데이터는 기록한 답안에서만 온다.
+// 내 진단 — 모니터링 보드. 판 하나 안에 알약 탭(개요 · 시험 기록)과 오른쪽 「+ 시험 기록」.
+// 개요는 벤토 격자: 최근 점수 게이지 · 등급 분포 도넛 · 점수 흐름 막대 · 듣기/독해 · 유형 레이더 · 작은 지표 셋.
+// 시험 기록 안에 보조 전환(기록 · 유형 · 오답 함정 · 틀린 문항, ?view=) — 세부 표는 전부 여기 모인다.
+// 예전 ?tab=types|traps|wrong 주소는 parseBoardTab 이 시험 기록의 같은 보기로 옮긴다. 데이터는 기록한 답안에서만 온다.
 
-import { ClipboardList, Crosshair, LayoutGrid, Layers, ListX, Plus } from 'lucide-react'
+import { ClipboardList, Crosshair, LayoutGrid, Layers, ListX, Network, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 import type { ExamReport } from '@/lib/csat/diagnosis/engine/exam-report'
@@ -16,15 +17,41 @@ import s from './board.module.css'
 import { Bars, Donut, Radar, Sparkline, seriesColor } from './charts'
 import { RecordsList } from './RecordsList'
 
-export type BoardTab = 'overview' | 'types' | 'traps' | 'wrong' | 'records'
+export type BoardTab = 'overview' | 'records' | 'map'
+/** 화면 기능 — 학습 지도는 학습자 화면에만 있다(Admin 학습자 보기에는 없다) */
+export interface BoardFeatures {
+  map?: boolean
+}
+export type RecordsView = 'list' | 'types' | 'traps' | 'wrong'
 
 const TABS: { key: BoardTab; label: string; Icon: typeof LayoutGrid }[] = [
   { key: 'overview', label: '개요', Icon: LayoutGrid },
+  { key: 'records', label: '시험 기록', Icon: ClipboardList },
+  { key: 'map', label: '학습 지도', Icon: Network },
+]
+
+const VIEWS: { key: RecordsView; label: string; Icon: typeof LayoutGrid }[] = [
+  { key: 'list', label: '기록', Icon: ClipboardList },
   { key: 'types', label: '유형', Icon: Layers },
   { key: 'traps', label: '오답 함정', Icon: Crosshair },
   { key: 'wrong', label: '틀린 문항', Icon: ListX },
-  { key: 'records', label: '시험 기록', Icon: ClipboardList },
 ]
+
+/** ?tab= · ?view= 를 읽는다. 예전 상단 탭(types · traps · wrong)은 시험 기록의 같은 보기로 옮긴다. */
+export function parseBoardTab(tab?: string, view?: string, features: BoardFeatures = {}): { tab: BoardTab; view: RecordsView } {
+  if (tab === 'map') return { tab: features.map ? 'map' : 'overview', view: 'list' }
+  const legacy = VIEWS.find((v) => v.key !== 'list' && v.key === tab)
+  if (legacy) return { tab: 'records', view: legacy.key }
+  if (tab !== 'records') return { tab: 'overview', view: 'list' }
+  return { tab: 'records', view: VIEWS.find((v) => v.key === view)?.key ?? 'list' }
+}
+
+/** 모달을 닫고 돌아갈 주소 — 지금 보던 탭 · 보기 그대로 */
+export function boardHref(base: string, tab: BoardTab, view: RecordsView) {
+  if (tab === 'overview') return base
+  if (tab === 'map') return `${base}?tab=map`
+  return view === 'list' ? `${base}?tab=records` : `${base}?tab=records&view=${view}`
+}
 
 const pct = (v: number | null) => (v === null ? '—' : `${Math.round(v * 100)}%`)
 const short = (d: string) => d.slice(2).replace(/-/g, '.')
@@ -34,19 +61,21 @@ export function BoardFrame({
   tab,
   counts,
   addHref,
+  features = {},
   children,
 }: {
   base: string
   tab: BoardTab | 'add'
   counts?: Partial<Record<BoardTab, number>>
   addHref: string
+  features?: BoardFeatures
   children: React.ReactNode
 }) {
   return (
     <div className={s.board}>
       <div className={s.tabbar}>
         <nav className={s.tabs} aria-label="내 진단">
-          {TABS.map(({ key, label, Icon }) => (
+          {TABS.filter(({ key }) => key !== 'map' || features.map).map(({ key, label, Icon }) => (
             <Link key={key} href={key === 'overview' ? base : `${base}?tab=${key}`} className={s.tab} aria-current={tab === key ? 'page' : undefined}>
               <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
               {label}
@@ -87,6 +116,11 @@ function Overview({ report, name, focus }: { report: ExamReport; name: (id: stri
 
   return (
     <div className={s.bento}>
+      {report.qualityExcluded > 0 && (
+        <p className={`${s.card} ${s.span4} ${s.qualityNote}`} role="note" data-testid="quality-note">
+          한 번호로 입력된 기록 {report.qualityExcluded}회는 유형 · 함정 · 학습 지도 진단에서 뺐어요. 점수와 기록은 그대로 남아 있어요.
+        </p>
+      )}
       <section className={`${s.card} ${s.span1} ${s.row2}`} aria-label="최근 점수">
         <div className={s.label}>최근 점수</div>
         <div className={s.big} style={{ fontSize: 24 }}>{latest.raw}</div>
@@ -317,40 +351,63 @@ export function DiagnosisBoard({
   report,
   typeNames,
   tab,
+  view = 'list',
   base,
   addHref,
   modal,
   focus,
+  features,
+  mapSlot,
 }: {
   report: ExamReport
   typeNames: Record<string, string>
   tab: BoardTab
+  view?: RecordsView
   base: string
   addHref: string
   /** 열려 있는 모달(새 기록 · 기록 상세) — 페이지가 그려 넘긴다 */
   modal?: React.ReactNode
   /** 팝업의 「진단에서 보기」로 온 시험 — 개요에서 강조하고 바닥에 선택 표시 */
   focus?: string
+  features?: BoardFeatures
+  /** 학습 지도 탭의 본문 — 페이지가 서버에서 로드해 그려 넘긴다 */
+  mapSlot?: React.ReactNode
 }) {
   const focused = focus ? report.trend.find((t) => t.sessionId === focus) : undefined
   const name = (id: string) => typeNames[id] ?? id
-  const counts = { wrong: report.wrongAll.length, records: report.trend.length }
+  const counts = { records: report.trend.length }
+  const viewCounts: Partial<Record<RecordsView, number>> = { list: report.trend.length, types: report.types.length, wrong: report.wrongAll.length }
   return (
-    <BoardFrame base={base} tab={tab} counts={counts} addHref={addHref}>
-      {!report.latest ? (
+    <BoardFrame base={base} tab={tab} counts={counts} addHref={addHref} features={features}>
+      {tab === 'map' && mapSlot ? (
+        mapSlot
+      ) : !report.latest ? (
         <Empty
           title="아직 기록한 시험이 없어요"
           text="학력평가 · 모의평가 · 수능 중 푼 시험을 고르고 내 답만 적으면, 점수 흐름과 약한 유형이 여기에 나와요."
           action={<Link href={addHref} className={s.primary} style={{ marginTop: 12 }}><Plus size={16} aria-hidden="true" />첫 시험 기록</Link>}
         />
-      ) : tab === 'types' ? (
-        <TypesTab report={report} name={name} />
-      ) : tab === 'traps' ? (
-        <TrapsTab report={report} />
-      ) : tab === 'wrong' ? (
-        <WrongTab report={report} name={name} />
       ) : tab === 'records' ? (
-        <RecordsList trend={report.trend} base={base} addHref={addHref} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <nav className={s.tabs} aria-label="시험 기록 보기">
+            {VIEWS.map(({ key, label, Icon }) => (
+              <Link key={key} href={boardHref(base, 'records', key)} className={s.tab} aria-current={view === key ? 'page' : undefined}>
+                <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
+                {label}
+                {viewCounts[key] ? <span className={s.tabCount}>{viewCounts[key]}</span> : null}
+              </Link>
+            ))}
+          </nav>
+          {view === 'types' ? (
+            <TypesTab report={report} name={name} />
+          ) : view === 'traps' ? (
+            <TrapsTab report={report} />
+          ) : view === 'wrong' ? (
+            <WrongTab report={report} name={name} />
+          ) : (
+            <RecordsList trend={report.trend} base={base} addHref={addHref} />
+          )}
+        </div>
       ) : (
         <Overview report={report} name={name} focus={focused?.sessionId} />
       )}

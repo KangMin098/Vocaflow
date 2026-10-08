@@ -276,6 +276,7 @@ guard · nomock) + 전역 검사. `--fail-under=<점수>` 로 게이트(`pnpm ad
 | `/settings` | 엔진 설정 JSON 검사 후 새 버전 활성(이전 버전 보존) |
 
 쓰기는 `app/admin/csat/diagnosis/actions.ts`, 도움말 `lib/admin/help/csat-diagnosis.ts`(7화면). 엔진은 학습자 화면과 공유(`lib/csat/diagnosis`).
+진단 반영 판정(2026-10-07): `lib/csat/diagnosis/readiness.ts` 하나 — 시험표 「검수」 칸에 검수 n/m · 남음 · 구조 문제, 「진단 반영」 버튼 아래 이유(검수 완료 후 가능 · 진단 반영 불가 — …). 켜기는 판정 통과 때만, 끄기는 언제나. 보고 `scripts/csat/diagnosis/readiness-report.mts` · DB smoke `readiness-smoke.mts`(TEST 시험 M2097, 실행 뒤 삭제).
 
 ## /admin/video — VFP (영상 공장) · 2026-09-13 신설
 
