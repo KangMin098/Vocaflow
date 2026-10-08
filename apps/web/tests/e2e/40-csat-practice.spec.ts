@@ -64,7 +64,9 @@ async function device(browser: Browser): Promise<Probe> {
   const page = await ctx.newPage()
   const probe: Probe = { page, ctx, submits: [], writes: [], failNext: 0 }
   const stored = new Map<string, string>()
-  await page.route('**/*', async (route) => {
+  // 컨텍스트 전체를 가로챈다 — 「해설 보기」 가 여는 새 탭도 같은 그물 안이다(PRACTICE_PORT_VERIFICATION §5 P1).
+  // 쓰기 계수도 컨텍스트 단위다(probe.writes 는 이 컨텍스트의 모든 페이지 합)
+  await ctx.route('**/*', async (route) => {
     const req = route.request()
     const url = req.url()
     if (!isWrite(req.method())) return route.continue()
@@ -141,13 +143,37 @@ test('학습자: 해설 먼저 보기는 시도가 아니다 — 그 세션의 �
   const d = await device(browser)
   await d.page.goto(PRACTICE)
   const [popup] = await Promise.all([d.ctx.waitForEvent('page'), d.page.getByRole('link', { name: /해설 먼저 보기/ }).click()])
+  await popup.waitForLoadState('networkidle').catch(() => null)
   await popup.close()
+  // 새 탭의 쓰기도 가로채졌고(가짜 응답) 분석 이벤트 외 쓰기는 없다
+  expect(d.writes.filter((w) => !w.includes('/api/analytics/event'))).toEqual([])
   expect(d.submits).toHaveLength(0)
   await expect(d.page.getByText(/해설을 먼저 봤어요/)).toBeVisible()
   await answer(d.page)
   await d.page.getByRole('button', { name: '맞춰 보기' }).click()
   await expect(d.page.getByText(/판단에는 넣지 않아요/)).toBeVisible({ timeout: 20_000 })
   expect(d.submits[0].helpLevel).toBe('viewed_first')
+  await d.ctx.close()
+})
+
+test('학습자: 판단을 보낸 뒤 연 해설은 도움 수준을 바꾸지 않고 별도 행동으로 간다(실패 뒤 재시도도 같은 세션 · 같은 id)', async ({ browser }) => {
+  const d = await device(browser)
+  d.failNext = 1
+  await d.page.goto(PRACTICE)
+  await answer(d.page)
+  await d.page.getByRole('button', { name: '맞춰 보기' }).click()
+  await expect(d.page.getByRole('alert')).toBeVisible()
+  // 판단을 보낸 세션 — 링크는 「해설 먼저 보기」 가 아니다
+  await expect(d.page.getByRole('link', { name: /해설 먼저 보기/ })).toHaveCount(0)
+  const [popup] = await Promise.all([d.ctx.waitForEvent('page'), d.page.getByRole('link', { name: '해설 보기' }).first().click()])
+  await popup.close()
+  await d.page.getByRole('button', { name: '맞춰 보기' }).click()
+  await expect(d.page.getByRole('status').filter({ hasText: '주장 문장을 찾았어요' })).toBeVisible({ timeout: 20_000 })
+  expect(d.submits).toHaveLength(2)
+  expect(d.submits.map((x) => x.helpLevel)).toEqual(['independent', 'independent'])
+  expect(d.submits[1].clientMutationId).toBe(d.submits[0].clientMutationId)
+  expect(d.submits[0].explanationViewedAt).toBeNull()
+  expect(typeof d.submits[1].explanationViewedAt).toBe('string')
   await d.ctx.close()
 })
 

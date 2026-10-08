@@ -101,6 +101,12 @@ describe('제출 검사', () => {
     }
     expect(parseSubmission({ ...base, answeredAt: '2026-10-08T07:00:00Z' }, NOW).ok).toBe(false)
   })
+  it('판단 뒤 해설 열람 시각은 선택 · 있으면 시각 검사', () => {
+    expect(parseSubmission(base, NOW).ok && (parseSubmission(base, NOW) as { value: { explanationViewedAt: unknown } }).value.explanationViewedAt).toBeNull()
+    expect(parseSubmission({ ...base, explanationViewedAt: 'x' }, NOW).ok).toBe(false)
+    const r = parseSubmission({ ...base, explanationViewedAt: '2026-10-08T05:59:30Z' }, NOW)
+    expect(r.ok && r.value.explanationViewedAt).toBe('2026-10-08T05:59:30.000Z')
+  })
   it('근거 4개 · 선지 6 · 확신 0 · 모르는 관계 · 도움 수준 hint 는 거부', () => {
     expect(parseSubmission({ ...base, support: [0, 2, 3, 4] }, NOW).ok).toBe(false)
     expect(parseSubmission({ ...base, option: 6 }, NOW).ok).toBe(false)

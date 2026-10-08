@@ -60,6 +60,10 @@ export function ClaimPractice(props: {
   const [itemId, setItemId] = useState<string | null>(props.initialItemId)
   const [sessionId, setSessionId] = useState<string>(uuid)
   const [helpLevel, setHelpLevel] = useState<HelpLevel>('independent')
+  // 이 세션에서 판단을 한 번이라도 보냈나(성공 · 실패 무관). 보낸 뒤에는 도움 수준을 바꾸지 않는다
+  const submitted = useRef(false)
+  // 판단을 보낸 뒤 해설을 연 시각 — 도움 수준이 아니라 별도 행동으로 기록한다
+  const [explanationViewedAt, setExplanationViewedAt] = useState<string | null>(null)
   const [claim, setClaim] = useState<number | null>(null)
   const [support, setSupport] = useState<number[]>([])
   const [relation, setRelation] = useState<Relation | null>(null)
@@ -84,6 +88,8 @@ export function ClaimPractice(props: {
     setItemId(id)
     setSessionId(uuid())
     setHelpLevel('independent')
+    submitted.current = false
+    setExplanationViewedAt(null)
     setClaim(null)
     setSupport([])
     setRelation(null)
@@ -105,14 +111,18 @@ export function ClaimPractice(props: {
     setSupport((xs) => (xs.includes(i) ? xs.filter((x) => x !== i) : xs.length >= 3 ? xs : [...xs, i].sort((a, b) => a - b)))
   }
 
-  function viewFirst() {
-    // 시도가 아니다 — 이 세션의 도움 수준만 바뀐다(되돌리지 않는다). 해설은 새 탭에서 연다
-    setHelpLevel('viewed_first')
+  function openExplanation() {
+    // 시도가 아니다. 판단을 내기 전이면 이 세션의 도움 수준이 viewed_first 가 된다(되돌리지 않는다).
+    // 판단을 이미 보낸 세션은 도움 수준을 바꾸지 않는다 — 공개는 이미 independent 로 적용됐을 수 있다(G2 세션 단조 규칙).
+    // 그때의 열람은 별도 행동(explanationViewedAt)으로 남긴다. 해설은 새 탭에서 연다
+    if (submitted.current) setExplanationViewedAt((t) => t ?? new Date().toISOString())
+    else setHelpLevel('viewed_first')
   }
 
   async function submit() {
     if (!entry || claim === null || option === null || confidence === null || (needsRelation && relation === null) || lock.current) return
     lock.current = true
+    submitted.current = true
     const asked = entry.itemId
     const answer = { claim, support, relation: needsRelation ? relation : null, option: option === 'unknown' ? null : option, confidence }
     const sig = JSON.stringify([asked, sessionId, helpLevel, answer])
@@ -131,6 +141,7 @@ export function ClaimPractice(props: {
           clientSessionId: sessionId,
           answeredAt: pending.current.at,
           helpLevel,
+          explanationViewedAt,
           preview,
         }),
       })
@@ -255,8 +266,12 @@ export function ClaimPractice(props: {
             <p className={styles.note}>
               {helpLevel === 'viewed_first' ? (
                 <span role="status">해설을 먼저 봤어요 — 이번 판단은 스스로 푼 기록과 따로 세요.</span>
+              ) : submitted.current ? (
+                <a className={styles.link} href={`/csat/item/${toItemSlug(entry.itemId)}`} target="_blank" rel="noreferrer" onClick={openExplanation}>
+                  해설 보기
+                </a>
               ) : (
-                <a className={styles.link} href={`/csat/item/${toItemSlug(entry.itemId)}`} target="_blank" rel="noreferrer" onClick={viewFirst}>
+                <a className={styles.link} href={`/csat/item/${toItemSlug(entry.itemId)}`} target="_blank" rel="noreferrer" onClick={openExplanation}>
                   모르겠어요 — 해설 먼저 보기
                 </a>
               )}

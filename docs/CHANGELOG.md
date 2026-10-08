@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(csat): `/csat/practice` 이식 검증 P1 3건을 고쳤다. E2E는 새 탭까지 컨텍스트 단위로 쓰기를 가로챈다. g2 시도는 도움 수준을 세션에서 상속하며, 판단을 보낸 뒤의 해설 열람은 `viewed_first`가 아닌 별도 행동으로 기록한다. g2 기록도 「내 기록」 읽기에 잡히도록 response 모양을 direct와 맞췄다.
+
 - feat(csat): `/csat/practice/claim-support` 「주장과 근거」 연습 이식 — 동결 knowledge-vnext 화면 위에 정본(methodology-vnext) 채점 `gradeClaimSupport` · 적용 게이트 · `learning_task_attempts`를 연결했다. 라우트 `POST /api/csat/practice/attempt` 를 추가했고 마이그레이션 · DB 쓰기는 없다. 쓰기 어댑터(direct · G2 RPC 교체형) · 요청 멱등 키 · 해설 먼저 보기 = `viewed_first` · 골격 115문항 미리보기 전용 · 효과 프로토콜 입력 필터를 넣었고 이벤트는 보내지 않는다([PRACTICE_PORT](./csat-learner/PRACTICE_PORT.md)).
 
 - fix(csat): 검수 원장 적재는 유효한 `{date, note}` 메모 전용 줄을 건너뛰고 수를 표시한다. 빈 객체·불완전한 메모·배치 이름 누락은 DB 요청 전에 계속 거부하며 회귀 테스트와 관리자 도움말을 보강했다(PR #147).

@@ -42,6 +42,9 @@
   - **한계**: 유일 키가 없어서, 동시에 도착한 두 요청 사이의 틈은 화면의 제출 잠금으로만 막는다. 틈을 닫는 것은 G2의 `(user_id, client_mutation_id)` 유일 인덱스다.
   - 세션 표가 없어 reveal은 기록하지 않는다.
 - **g2(적용 뒤)** — `learning_session_apply`(stage=revealed, 결정론적 mutation id)로 세션을 공개한 뒤, 받은 세션 id로 `learning_attempt_record`를 부른다. G2 규칙(공개 전 시도 거부 · 세션 메타데이터 상속)을 따르는 순서다.
+- **두 어댑터의 response 모양은 같다**(`responseOf`). g2도 열 값의 사본(`activity` · `help_level` · client ids)을 response에 넣어, 「내 기록」 · 완료 · 판정 읽기가 어느 모드의 기록이든 같은 칸으로 읽는다.
+- g2 시도는 `p_help_level`을 **보내지 않는다**(NULL → 세션 상속). 세션과 다른 값을 보내면 RPC가 영구 거부하기 때문이다.
+- **판단을 한 번 보낸 세션의 도움 수준은 바꾸지 않는다**(성공 · 실패 무관). 그 뒤의 해설 열람은 `explanationViewedAt` → 기록 `response.explanation_viewed_at`인 별도 행동이다. 재시도의 같은 id · 같은 판단 시각은 유지된다.
 - 클라이언트가 보내는 값:
   - 문항을 열 때마다 새 `clientSessionId`
   - 제출마다 새 `clientMutationId`. 같은 답의 재시도만 같은 id와 같은 `answeredAt`을 쓴다
@@ -56,6 +59,7 @@
 | 단위 `src/lib/knowledge` (6파일) | 74/74 통과. 정본 수직 경로 14 · 이식 규칙 · 골격 115 회귀 20 · 제출 · 어댑터 12 포함 |
 | `src/app/api/__tests__` (라우트 가드 · 호출부) | 통과. 새 라우트를 PUBLIC 목록에 사유와 함께 넣었다 |
 | `tsc --noEmit` · eslint(바뀐 파일) | 통과 |
+| P1 3건 수정(2026-10-08, 근거 `PRACTICE_PORT_VERIFICATION.md` §5) | ① E2E를 컨텍스트 단위로 가로챈다(새 탭 포함) · 쓰기 계수도 컨텍스트 단위 ② g2 `p_help_level` NULL + 판단 뒤 해설 열람은 별도 행동 ③ g2 response 사본. 단위 79/79 |
 | E2E `40-csat-practice.spec.ts` | **실행하지 않았다.** 이 worktree에는 `.env.local`이 없다(비밀값을 복사하지 않는다). 실행하려면 env가 있는 worktree에서 `pnpm --filter web exec playwright test 40-csat-practice` |
 | 개발 DB(SELECT) | `learning_task_attempts` 13열 · 0행. `claim-support:2022-20` 적용 active v1. `learning_sessions` · `learning_attempt_record` 없음 |
 

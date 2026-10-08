@@ -190,6 +190,7 @@ export async function submitPractice(
     answer: { claim: s.claim, support: s.support, relation: s.relation, option: s.option, confidence: s.confidence },
     extra: {
       preview: s.preview,
+      explanation_viewed_at: s.explanationViewedAt,
       pool: entry.kind,
       annotation: entry.kind === 'annotated' ? annotationFor(s.itemId)?.version ?? null : null,
       appVersion: entry.appVersion,

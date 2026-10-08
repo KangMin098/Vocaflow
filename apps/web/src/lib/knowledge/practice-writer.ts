@@ -70,6 +70,18 @@ export function sameAttempt(row: { item_ref: unknown; phase: unknown; task_key: 
   )
 }
 
+/** 두 어댑터가 같은 모양으로 남기는 response — G2 열(activity · help_level · client ids)의 사본을 담는다 */
+export function responseOf(w: AttemptWrite): Record<string, unknown> {
+  return {
+    ...w.answer,
+    ...w.extra,
+    activity: w.activity,
+    help_level: w.helpLevel,
+    client_mutation_id: w.clientMutationId,
+    client_session_id: w.clientSessionId,
+  }
+}
+
 export function directWriter(db: SupabaseClient): AttemptWriter {
   return {
     kind: 'direct',
@@ -97,14 +109,7 @@ export function directWriter(db: SupabaseClient): AttemptWriter {
         sec: w.sec,
         answered_at: w.answeredAt,
         // G2 열(activity · help_level · client_mutation_id · session)이 생기기 전까지는 response 안에 둔다 — 이전 때 그대로 옮긴다
-        response: {
-          ...w.answer,
-          ...w.extra,
-          activity: w.activity,
-          help_level: w.helpLevel,
-          client_mutation_id: w.clientMutationId,
-          client_session_id: w.clientSessionId,
-        },
+        response: responseOf(w),
       })
       if (error) throw new Error(`수행 기록 저장 실패: ${error.message}`)
       return 'inserted'
@@ -136,7 +141,8 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
       if (error) throw new Error(`세션 공개 실패: ${error.message}`)
       const row = (Array.isArray(data) ? data[0] : data) as { session_id?: string; outcome?: string } | null
       if (!row?.session_id) throw new Error('세션 공개 실패: 세션 id 가 없다')
-      // 공개가 conflict 여도 세션은 이미 있다(먼저 공개한 값이 이긴다) — 시도는 세션의 도움 수준을 상속한다
+      // 공개가 conflict 여도 세션은 이미 있다(먼저 공개한 값이 이긴다) — 시도는 p_help_level 을 비워 세션 값을 상속한다.
+      // 화면은 판단을 한 번 낸 세션의 도움 수준을 바꾸지 않으므로(해설 열람은 별도 행동) 같은 세션의 공개 내용은 바뀌지 않는다
       return row.session_id
     },
     async record(w, sessionId) {
@@ -147,10 +153,12 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
         p_task_key: w.taskKey,
         p_activity: w.activity,
         p_phase: w.phase,
-        p_help_level: w.helpLevel,
+        // 보내지 않는다(NULL → 세션 상속). 세션과 다른 값을 보내면 RPC 가 「metadata contradicts session」 으로 영구 거부한다
+        p_help_level: null,
         p_item_ref: w.itemRef,
         p_content_hash: w.contentHash,
-        p_response: { ...w.answer, ...w.extra },
+        // 열과 같은 값을 response 에도 둔다 — 「내 기록」 읽기가 direct · g2 어느 쪽 기록이든 같은 칸으로 읽게(PRACTICE_PORT §4)
+        p_response: responseOf(w),
         p_is_correct: w.isCorrect,
         p_sec: w.sec,
         p_synthetic: w.synthetic,

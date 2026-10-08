@@ -5,8 +5,8 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { annotationFor, annotationHash } from '../claim-support'
 import { PRACTICE_TASK, SKELETON_TASK, keyFromAnnotation, type PracticeSubmission } from '../practice'
-import { PracticeInputError, submitPractice, type ServerEntry, type SubmitDeps } from '../practice-server'
-import { directWriter, g2Writer, selectWriter, stableUuid, type AttemptWrite, type AttemptWriter, type WriteOutcome } from '../practice-writer'
+import { PracticeInputError, loadMyAttempts, submitPractice, type ServerEntry, type SubmitDeps } from '../practice-server'
+import { directWriter, g2Writer, responseOf, selectWriter, stableUuid, type AttemptWrite, type AttemptWriter, type WriteOutcome } from '../practice-writer'
 
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: () => ({}) }))
 
@@ -22,7 +22,7 @@ const SK: ServerEntry = {
 const SUB: PracticeSubmission = {
   itemId: '2022#20', claim: 1, support: [3, 4], relation: 'reason', option: 5, confidence: 3, sec: 30,
   clientMutationId: '7f1d2c3b-4a5e-4f60-8a7b-9c0d1e2f3a4b', clientSessionId: '0a1b2c3d-4e5f-4a6b-9c7d-8e9f0a1b2c3d',
-  answeredAt: '2026-10-08T05:59:00.000Z', helpLevel: 'independent', preview: false,
+  answeredAt: '2026-10-08T05:59:00.000Z', helpLevel: 'independent', explanationViewedAt: null, preview: false,
 }
 
 function fakeWriter(outcome: WriteOutcome = 'inserted') {
@@ -159,6 +159,20 @@ describe('g2 어댑터(G2 적용 뒤) — 세션 공개 RPC → 시도 RPC', () 
     expect(f.rpcs[1].args).toMatchObject({ p_mutation: W.clientMutationId, p_session_id: 'sess-1', p_answered_at: W.answeredAt })
     expect(f.inserted).toHaveLength(0)
   })
+  it('P1: 시도는 도움 수준을 보내지 않는다(NULL → 세션 상속) — viewed_first 를 실어도 세션과 모순되지 않는다', async () => {
+    const f = fakeDb([])
+    const w = g2Writer(f.db)
+    await w.record({ ...W, helpLevel: 'viewed_first' }, 'sess-1')
+    expect(f.rpcs[0].args.p_help_level).toBeNull()
+  })
+  it('P1: g2 response 에도 activity · help_level · client ids 사본 — direct 와 같은 모양', async () => {
+    const f = fakeDb([])
+    await g2Writer(f.db).record(W, 'sess-1')
+    const d = fakeDb([])
+    await directWriter(d.db).record(W, null)
+    expect(f.rpcs[0].args.p_response).toEqual(responseOf(W))
+    expect(d.inserted[0].response).toEqual(responseOf(W))
+  })
   it('공개 변경 id 는 세션마다 결정론적 uuid', () => {
     expect(stableUuid('s', 'reveal')).toBe(stableUuid('s', 'reveal'))
     expect(stableUuid('s', 'reveal')).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
@@ -166,5 +180,29 @@ describe('g2 어댑터(G2 적용 뒤) — 세션 공개 RPC → 시도 RPC', () 
   it('기본은 direct — G2 SQL 적용 전에는 g2 를 켜지 않는다', () => {
     expect(selectWriter({} as SupabaseClient, undefined).kind).toBe('direct')
     expect(selectWriter({} as SupabaseClient, 'g2').kind).toBe('g2')
+  })
+})
+
+describe('P1: 내 기록 읽기 — direct · g2 어느 기록이든 같은 칸으로', () => {
+  function learnerDb(rows: Record<string, unknown>[]) {
+    const q = { select: () => q, eq: () => q, in: () => q, order: () => q, limit: async () => ({ data: rows, error: null }) }
+    return { from: () => q } as unknown as SupabaseClient
+  }
+  it('g2 로 쓴 기록(응답 사본)도 완료 · 판정에 들어간다 · 해설 먼저는 viewed_first', async () => {
+    const row = (help: 'independent' | 'viewed_first', item: string) => ({
+      item_ref: item, phase: 'practice', answered_at: '2026-10-08T05:00:00Z',
+      response: responseOf({ ...W, itemRef: item, helpLevel: help, extra: { preview: false, grade: { claim: true } } }),
+    })
+    const got = await loadMyAttempts(learnerDb([row('independent', 'A'), row('viewed_first', 'B')]), 'u1', { preview: false })
+    expect(got.map((g) => [g.itemId, g.helpLevel, g.claimHit])).toEqual([['A', 'independent', true], ['B', 'viewed_first', true]])
+  })
+})
+
+describe('판단을 보낸 뒤 해설 열람 — 도움 수준이 아니라 별도 행동', () => {
+  it('explanationViewedAt 은 기록 extra 에만 남고 helpLevel 은 그대로', async () => {
+    const f = fakeWriter()
+    await submitPractice(deps(f.writer), { userId: 'u1', synthetic: false }, { ...SUB, explanationViewedAt: '2026-10-08T05:59:30.000Z' })
+    expect(f.writes[0].helpLevel).toBe('independent')
+    expect(f.writes[0].extra.explanation_viewed_at).toBe('2026-10-08T05:59:30.000Z')
   })
 })

@@ -174,6 +174,8 @@ export interface PracticeSubmission extends PracticeAnswer {
   /** 판단한 시각(기기) — 필수. 첫 시도 순서는 도착이 아니라 이 값으로 정한다 */
   answeredAt: string
   helpLevel: HelpLevel
+  /** 판단을 보낸 뒤 해설을 연 시각 — 도움 수준과 별개인 행동 기록(없으면 null) */
+  explanationViewedAt: string | null
   preview: boolean
 }
 
@@ -194,6 +196,8 @@ export function parseSubmission(v: unknown, now: number): ParseResult<PracticeSu
   if (!Number.isFinite(at)) return { ok: false, error: '판단 시각이 없어요' }
   if (at > now + SKEW_MS || at < now - MAX_AGE_MS) return { ok: false, error: '판단 시각이 맞지 않아요 — 기기 시계를 확인해 주세요' }
   if (o.helpLevel !== 'independent' && o.helpLevel !== 'viewed_first') return { ok: false, error: '도움 수준이 맞지 않아요' }
+  const ev = o.explanationViewedAt === null || o.explanationViewedAt === undefined ? null : typeof o.explanationViewedAt === 'string' ? Date.parse(o.explanationViewedAt) : Number.NaN
+  if (ev !== null && (!Number.isFinite(ev) || ev > now + SKEW_MS || ev < now - MAX_AGE_MS)) return { ok: false, error: '해설 열람 시각이 맞지 않아요' }
   if (!Number.isInteger(o.claim)) return { ok: false, error: '주장 문장을 골라 주세요' }
   const support = Array.isArray(o.support) ? o.support : null
   if (!support || support.length > 3 || !support.every((x) => Number.isInteger(x))) return { ok: false, error: '근거 문장은 0~3개예요' }
@@ -218,6 +222,7 @@ export function parseSubmission(v: unknown, now: number): ParseResult<PracticeSu
       clientSessionId: o.clientSessionId.toLowerCase(),
       answeredAt: new Date(at).toISOString(),
       helpLevel: o.helpLevel,
+      explanationViewedAt: ev === null ? null : new Date(ev).toISOString(),
       preview: o.preview === true,
     },
   }
