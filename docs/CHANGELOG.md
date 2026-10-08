@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(db-design): G2 통합 SQL `_pending_20261008160000_learning_sessions_integrated`(sha256 da627938… · **미적용 · 적용 담당 vocaflow-18**) — 기출 쪽 초안(779eb9bb…)에 methodology 계약(B8 해설 열람 시각 · 해설 뒤 판단 표시 · 효과 게이트 = 독립 첫 시도 · 가장 이른 공개 · 분석 표본 고정 · 실행 가능한 롤백)을 얹음. 격리 36/36(두 연결 동시성 · 롤백 실행 포함). 멱등 키 후보 140100 은 흡수 · 삭제. 승인 요청서 `docs/methodology/G2_INTEGRATED_SQL.md`.
+
 - fix(methodology): PR 머지 리뷰 P1 — 빌더가 REVIEW_HOLD 사슬을 다시 채택 · 켜지 않게 · DB 후보 `_pending_20261008170000_knowledge_trial_evidence_guard`(합성 여부 불변 · 근거 출처 변경도 재검토, sha256 38fb5a5b… · 미적용 · 적용 담당 vocaflow-18).
 
 - chore(methodology): 「주장과 근거」 3항목 REVIEW_HOLD → Claude(맹검 서브에이전트) · Codex(맹검) 독립 재검토 3회 → 모두 adopt 뒤 재개. 주석 v2(6번째 문장 채점 제외) · 방법 문장 v2(①/② 갈림 표시). 기록 `docs/methodology/vertical/reviews/claim-support-2022-20.json` · efficacy 미확정.
