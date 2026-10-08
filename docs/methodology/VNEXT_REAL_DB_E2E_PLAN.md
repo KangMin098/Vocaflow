@@ -48,6 +48,12 @@
 
 동시성(실제 DB): `scripts/knowledge/real-db-concurrency.mjs`(R1 같은 id 동시 · R2 다른 내용 conflict · R3 다른 id 동시 · R4 첫 시도 뷰 · R5 증가분 상한) — 개발 DB 가 아니면 · 통합 워크트리 잠금이 잡혀 있으면 · `--target-sha` 를 포함하지 않으면 시작 전에 거부, `--commit` 없으면 점검만. 2026-10-08 점검 실행: 잠금 때문에 거부됨(정상). 격리 시험 `scripts/knowledge/g2-concurrency-test.mjs` 의 C1·C2·C4 를 실제 DB 에서 두 연결(서비스 역할 REST 두 개 동시 호출)로 다시 — 같은 범위(§3) 안에서.
 
+### 도구 장애 주입 시험(공유 DB 없이)
+
+`node --test scripts/knowledge/__tests__/real-db-concurrency.test.mjs` — 메모리 가짜 클라이언트(기록 RPC 멱등 규칙 재현 + 장애 주입) **6/6(2026-10-08)**:
+① 기록 뒤 행 수 조회 실패 → 예외 기록 · 정리 실행 · 합성 행 0 · 종료 코드 1 ② 정리 삭제 실패 → 남은 PK · 원인 · 미해결 mutation 보고, 원장 보존, `cleanup()` 재시도로 0 ③ 사후 집계 실패 → `after.error` · 종료 코드 1 ④ RPC 응답 유실(커밋됨) → mutation id 로 복구해 삭제 ⑤ 정상 → 기준선 복귀 · 종료 코드 0 ⑥ 다른 사용자 행 무변경.
+한계: PostgREST 의 실제 오류 모양·네트워크 재시도 동작은 흉내일 뿐이다 — 실제 DB 실행 기록(§6)이 최종 근거.
+
 ## 5. 하지 않는 것
 
 - 마이그레이션 · 스키마 · 권한 변경, 지식 등록부 · 적용 상태 변경(E10 은 관찰만), 실학습자 행 접근.

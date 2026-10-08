@@ -17,12 +17,17 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import { execFileSync } from 'node:child_process'
+import { pathToFileURL } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 
 const arg = (k, d = null) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : d)
 const COMMIT = process.argv.includes('--commit')
 const CLEANUP_ONLY = arg('--cleanup')
-const RUN_DIR = path.resolve('scripts/knowledge/runs')
+let RUN_DIR = path.resolve('scripts/knowledge/runs')
+/** 시험용 — 매니페스트 폴더 바꾸기 */
+export function useRunDir(dir) {
+  RUN_DIR = dir
+}
 
 // 승인 상한 — 넘기는 계획은 시작 전에 거부한다
 export const CAPS = { sessions: 60, attempts: 120, mutations: 200 }
@@ -33,11 +38,18 @@ function fail(msg) {
   process.exit(1)
 }
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY
-if (!url || !key) fail('NEXT_PUBLIC_SUPABASE_URL · SUPABASE_SERVICE_ROLE_KEY 가 없다(--env-file 로 .env.local 을 넘긴다)')
-if (!url.includes('jajenrevcbmrpaliomxv')) fail('개발 DB(jajenrevcbmrpaliomxv)가 아니다 — 승인 대상 DB 만 쓴다')
-const db = createClient(url, key, { auth: { persistSession: false } })
+let db = null
+/** 시험용 — 장애를 흉내 내는 클라이언트를 넣는다(scripts/knowledge/__tests__/real-db-concurrency.test.mjs) */
+export function useDb(client) {
+  db = client
+}
+function connectFromEnv() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) fail('NEXT_PUBLIC_SUPABASE_URL · SUPABASE_SERVICE_ROLE_KEY 가 없다(--env-file 로 .env.local 을 넘긴다)')
+  if (!url.includes('jajenrevcbmrpaliomxv')) fail('개발 DB(jajenrevcbmrpaliomxv)가 아니다 — 승인 대상 DB 만 쓴다')
+  db = createClient(url, key, { auth: { persistSession: false } })
+}
 
 /** 테스트 계정 — 픽스처의 이메일로 찾는다(새 계정을 만들지 않는다) */
 async function testUserId() {
@@ -54,7 +66,7 @@ async function testUserId() {
   fail(`테스트 계정(${email})이 없다 — 새로 만들지 않는다`)
 }
 
-async function counts(userId) {
+export async function counts(userId) {
   const out = {}
   for (const t of TABLES) {
     const all = await db.from(t).select('*', { count: 'exact', head: true })
@@ -193,7 +205,102 @@ const RPC = (userId, mutation, item, response, correct, answeredAt) =>
     p_answered_at: answeredAt,
   })
 
+/**
+ * 쓰기 단계 — 매니페스트를 먼저 남기고 R1~R5 를 돌린 뒤, 성공·실패·예외와 무관하게 이번 실행이 만든 PK 만 정리한다.
+ * 안에서는 process.exit 하지 않는다(정리가 반드시 돈다). 검사 실패 · 예외 · 잔여 · 사후 집계 실패면 process.exitCode = 1.
+ */
+export async function executeRun({ userId, before, head }) {
+  const m = {
+    testRunId: crypto.randomUUID(),
+    startedAt: new Date().toISOString(),
+    userId,
+    integrationHead: head,
+    approval: 'docs/methodology/VNEXT_REAL_DB_E2E_PLAN.md §3 (2026-10-08 조건부 승인)',
+    before,
+    created: { sessions: [], attempts: [], mutations: [] },
+    results: [],
+  }
+  save(m) // 쓰기 전에 매니페스트부터 남긴다(중간에 죽어도 정리 대상이 남는다)
+  const track = (mutation, res) => {
+    if (!m.created.mutations.includes(mutation)) m.created.mutations.push(mutation)
+    for (const row of res.data ?? []) if (row.attempt_id && !m.created.attempts.includes(Number(row.attempt_id))) m.created.attempts.push(Number(row.attempt_id))
+    save(m)
+  }
+  const rec = (name, pass, detail) => {
+    m.results.push({ name, pass, detail })
+    save(m)
+    console.log(`[${pass ? 'PASS' : 'FAIL'}] ${name} — ${JSON.stringify(detail).slice(0, 220)}`)
+  }
+
+  try {
+    // R1 같은 id 동시 두 번
+    const m1 = crypto.randomUUID()
+    m.created.mutations.push(m1)
+    save(m)
+    const [a, b] = await Promise.all([
+      RPC(userId, m1, '2022#20', { claim: 3, testRunId: m.testRunId }, true, '2026-10-08T10:00:00Z'),
+      RPC(userId, m1, '2022#20', { claim: 3, testRunId: m.testRunId }, true, '2026-10-08T10:00:00Z'),
+    ])
+    track(m1, a)
+    track(m1, b)
+    const outs = [a.data?.[0]?.outcome, b.data?.[0]?.outcome].sort()
+    rec('R1 같은 id 동시 — inserted 1 · duplicate 1 · 같은 attempt_id', !a.error && !b.error && outs[0] === 'duplicate' && outs[1] === 'inserted' && String(a.data[0].attempt_id) === String(b.data[0].attempt_id), { a: a.data ?? a.error, b: b.data ?? b.error })
+
+    // R2 같은 id · 다른 내용
+    const r2 = await RPC(userId, m1, '2022#20', { claim: 5, testRunId: m.testRunId }, false, '2026-10-08T10:00:00Z')
+    track(m1, r2)
+    rec('R2 같은 id · 다른 내용 — conflict', !r2.error && r2.data?.[0]?.outcome === 'conflict', r2.data ?? r2.error)
+
+    // R3 다른 id 둘 동시
+    const m2 = crypto.randomUUID()
+    const m3 = crypto.randomUUID()
+    m.created.mutations.push(m2, m3)
+    save(m)
+    const [c, d] = await Promise.all([
+      RPC(userId, m2, '2022#20', { claim: 3, testRunId: m.testRunId }, true, '2026-10-08T10:01:00Z'),
+      RPC(userId, m3, '2022#20', { claim: 4, testRunId: m.testRunId }, false, '2026-10-08T10:00:30Z'),
+    ])
+    track(m2, c)
+    track(m3, d)
+    rec('R3 다른 id 동시 — 둘 다 inserted', c.data?.[0]?.outcome === 'inserted' && d.data?.[0]?.outcome === 'inserted', { c: c.data ?? c.error, d: d.data ?? d.error })
+
+    // R4 첫 시도 뷰 — 이 계정 · 문항 · 단계에서 판단 시각이 가장 이른 것(10:00:00 의 m1)
+    const fa = await db.from('learning_first_attempts').select('attempt_id,answered_at,synthetic').eq('user_id', userId).eq('item_ref', '2022#20').eq('phase', 'practice').eq('task_key', 'claim-support')
+    const firstOk = !fa.error && fa.data.length === 1 && Date.parse(fa.data[0].answered_at) === Date.parse('2026-10-08T10:00:00Z') && fa.data[0].synthetic === true
+    rec('R4 첫 시도 뷰 — 1행 · 가장 이른 판단 · synthetic', firstOk, fa.data ?? fa.error)
+
+    // R5 상한 · 다른 표 무변경
+    const mid = await counts(userId)
+    const delta = Object.fromEntries(TABLES.map((t) => [t, mid[t].all - before[t].all]))
+    rec('R5 증가분이 계획 안(시도 ≤4 · 원장 ≤4 · 세션 0)', delta.learning_task_attempts <= 4 && delta.learning_mutations <= 4 && delta.learning_sessions === 0, delta)
+  } catch (e) {
+    // 쓰기 단계의 예외(조회 실패 등)도 기록하고 정리로 간다 — 종료는 정리 뒤
+    m.error = e instanceof Error ? e.message : String(e)
+    save(m)
+  } finally {
+    const r = await cleanup(m)
+    m.cleanup = r
+    save(m) // 사후 집계가 실패해도 정리 결과·잔여 PK 는 먼저 남는다
+    try {
+      m.after = await counts(userId)
+    } catch (e) {
+      m.after = { error: e.message }
+    }
+    m.finishedAt = new Date().toISOString()
+    save(m)
+    const back = !m.after.error && TABLES.every((t) => m.after[t].all === m.before[t].all)
+    console.log(`정리: 남음 ${JSON.stringify(r.still)} · 거부 ${r.refused.length} · 기준선 복귀 ${back}`)
+    console.log(`매니페스트 ${path.join(RUN_DIR, `${m.testRunId}.json`)}`)
+    const residual = [...r.still.attempts, ...r.still.sessions, ...r.still.mutations].length + r.unresolved.length + r.errors.length
+    // 검사 실패 · 정리 잔여가 있으면 종료 코드 1(매니페스트 저장 뒤) — 호출자가 성공으로 오판하지 않게
+    if (m.results.some((x) => !x.pass) || residual > 0 || m.after.error || m.error) process.exitCode = 1
+    if (!back) console.log('⚠️ 기준선과 다르다 — 이번 실행이 만든 PK 는 위 「남음」만 확인하고, 다른 행(다른 세션 · 실사용)은 건드리지 않는다')
+  }
+  return m
+}
+
 async function main() {
+  connectFromEnv()
   const user = await testUserId()
 
   if (CLEANUP_ONLY) {
@@ -245,88 +352,8 @@ async function main() {
     return
   }
 
-  const m = {
-    testRunId: crypto.randomUUID(),
-    startedAt: new Date().toISOString(),
-    userId: user.id,
-    integrationHead: head,
-    approval: 'docs/methodology/VNEXT_REAL_DB_E2E_PLAN.md §3 (2026-10-08 조건부 승인)',
-    before,
-    created: { sessions: [], attempts: [], mutations: [] },
-    results: [],
-  }
-  save(m) // 쓰기 전에 매니페스트부터 남긴다(중간에 죽어도 정리 대상이 남는다)
-  const track = (mutation, res) => {
-    if (!m.created.mutations.includes(mutation)) m.created.mutations.push(mutation)
-    for (const row of res.data ?? []) if (row.attempt_id && !m.created.attempts.includes(Number(row.attempt_id))) m.created.attempts.push(Number(row.attempt_id))
-    save(m)
-  }
-  const rec = (name, pass, detail) => {
-    m.results.push({ name, pass, detail })
-    save(m)
-    console.log(`[${pass ? 'PASS' : 'FAIL'}] ${name} — ${JSON.stringify(detail).slice(0, 220)}`)
-  }
-
-  try {
-    // R1 같은 id 동시 두 번
-    const m1 = crypto.randomUUID()
-    m.created.mutations.push(m1)
-    save(m)
-    const [a, b] = await Promise.all([
-      RPC(user.id, m1, '2022#20', { claim: 3, testRunId: m.testRunId }, true, '2026-10-08T10:00:00Z'),
-      RPC(user.id, m1, '2022#20', { claim: 3, testRunId: m.testRunId }, true, '2026-10-08T10:00:00Z'),
-    ])
-    track(m1, a)
-    track(m1, b)
-    const outs = [a.data?.[0]?.outcome, b.data?.[0]?.outcome].sort()
-    rec('R1 같은 id 동시 — inserted 1 · duplicate 1 · 같은 attempt_id', !a.error && !b.error && outs[0] === 'duplicate' && outs[1] === 'inserted' && a.data[0].attempt_id === b.data[0].attempt_id, { a: a.data ?? a.error, b: b.data ?? b.error })
-
-    // R2 같은 id · 다른 내용
-    const r2 = await RPC(user.id, m1, '2022#20', { claim: 5, testRunId: m.testRunId }, false, '2026-10-08T10:00:00Z')
-    track(m1, r2)
-    rec('R2 같은 id · 다른 내용 — conflict', !r2.error && r2.data?.[0]?.outcome === 'conflict', r2.data ?? r2.error)
-
-    // R3 다른 id 둘 동시
-    const m2 = crypto.randomUUID()
-    const m3 = crypto.randomUUID()
-    m.created.mutations.push(m2, m3)
-    save(m)
-    const [c, d] = await Promise.all([
-      RPC(user.id, m2, '2022#20', { claim: 3, testRunId: m.testRunId }, true, '2026-10-08T10:01:00Z'),
-      RPC(user.id, m3, '2022#20', { claim: 4, testRunId: m.testRunId }, false, '2026-10-08T10:00:30Z'),
-    ])
-    track(m2, c)
-    track(m3, d)
-    rec('R3 다른 id 동시 — 둘 다 inserted', c.data?.[0]?.outcome === 'inserted' && d.data?.[0]?.outcome === 'inserted', { c: c.data ?? c.error, d: d.data ?? d.error })
-
-    // R4 첫 시도 뷰 — 이 계정 · 문항 · 단계에서 판단 시각이 가장 이른 것(10:00:00 의 m1)
-    const fa = await db.from('learning_first_attempts').select('attempt_id,answered_at,synthetic').eq('user_id', user.id).eq('item_ref', '2022#20').eq('phase', 'practice').eq('task_key', 'claim-support')
-    const firstOk = !fa.error && fa.data.length === 1 && Date.parse(fa.data[0].answered_at) === Date.parse('2026-10-08T10:00:00Z') && fa.data[0].synthetic === true
-    rec('R4 첫 시도 뷰 — 1행 · 가장 이른 판단 · synthetic', firstOk, fa.data ?? fa.error)
-
-    // R5 상한 · 다른 표 무변경
-    const mid = await counts(user.id)
-    const delta = Object.fromEntries(TABLES.map((t) => [t, mid[t].all - before[t].all]))
-    rec('R5 증가분이 계획 안(시도 ≤4 · 원장 ≤4 · 세션 0)', delta.learning_task_attempts <= 4 && delta.learning_mutations <= 4 && delta.learning_sessions === 0, delta)
-  } finally {
-    const r = await cleanup(m)
-    m.cleanup = r
-    save(m) // 사후 집계가 실패해도 정리 결과·잔여 PK 는 먼저 남는다
-    try {
-      m.after = await counts(user.id)
-    } catch (e) {
-      m.after = { error: e.message }
-    }
-    m.finishedAt = new Date().toISOString()
-    save(m)
-    const back = !m.after.error && TABLES.every((t) => m.after[t].all === m.before[t].all)
-    console.log(`정리: 남음 ${JSON.stringify(r.still)} · 거부 ${r.refused.length} · 기준선 복귀 ${back}`)
-    console.log(`매니페스트 ${path.join(RUN_DIR, `${m.testRunId}.json`)}`)
-    const residual = [...r.still.attempts, ...r.still.sessions, ...r.still.mutations].length + r.unresolved.length + r.errors.length
-    // 검사 실패 · 정리 잔여가 있으면 종료 코드 1(매니페스트 저장 뒤) — 호출자가 성공으로 오판하지 않게
-    if (m.results.some((x) => !x.pass) || residual > 0 || m.after.error) process.exitCode = 1
-    if (!back) console.log('⚠️ 기준선과 다르다 — 이번 실행이 만든 PK 는 위 「남음」만 확인하고, 다른 행(다른 세션 · 실사용)은 건드리지 않는다')
-  }
+  await executeRun({ userId: user.id, before, head })
 }
 
-await main()
+// 직접 실행할 때만 main — 시험이 import 할 때는 돌지 않는다
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) await main()
