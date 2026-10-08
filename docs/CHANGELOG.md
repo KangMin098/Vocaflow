@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Run two blind, file-bound BC Reads nine-axis reviews and a separate disagreement adjudication, then independently review Korean-grade mapping evidence. Preserve preliminary ratings while mapping and item grounding remain held; no admission, calibration, Gold-S, or seed opened.
+
 - docs(textbook): Bind paired 2015 BC Reads Reader/Course Pack PDFs to file and passage/item/key interval hashes outside Git. Keep publisher-version equivalence, passage-level rights, Korean-grade mapping, independent rating, admission, and calibration gates closed.
 
 - docs(textbook): Screen a matched CC BY BC Reads Level 5 reader passage and Course Pack item/key as a prospective open reference. Local publisher artifact retrieval was blocked, and Korean-grade mapping remains unverified; no selection, admission, calibration, Gold-S, or seed state changed.
