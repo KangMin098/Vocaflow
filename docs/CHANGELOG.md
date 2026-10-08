@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- migration `20261008170000_knowledge_trial_evidence_guard` **개발 DB 적용**(sha 38fb5a5b… · 실제 DB 롤백 smoke 3/3) · 응집 사슬 `--no-activate` 빌드(항목 +1 · 근거 +3 · 연결 +1 · 검토 기록 +4 · 적용 초안 2 · 검증 계획 2 · **노출 0**, 노출 게이트 E2E `vertical-cohesion-link-gate-e2e.mts` 8/8)
+
 - docs(methodology): 잔여 2건 승인 패키지 [APPROVAL_REMAINING_2026-10-08](./methodology/APPROVAL_REMAINING_2026-10-08.md) — 170000(sha 38fb5a5b…) 을 실제 원장 순서(160000 위)로 격리 재검증 20/20 · 실제 DB 읽기 점검 · 응집 사슬 빌드가 바꿀 정본 행 실측 · 빌더 `--no-activate`(노출 없이 빌드). DB 쓰기 없음
 
 - migration `20261008160000_learning_sessions_integrated` **개발 DB 적용**(sha 8d1d0624… · vocaflow-18) — `learning_sessions` · `learning_mutations` · 뷰 `learning_first_attempts` · RPC `learning_mutation_claim` · `learning_session_apply` · `learning_attempt_record`(service_role) · funnel CHECK 83종 · 효과 게이트 = 실학습자 독립 첫 시도. 후속 M8 별도 승인 대기. [G2_INTEGRATED_SQL](./methodology/G2_INTEGRATED_SQL.md)
