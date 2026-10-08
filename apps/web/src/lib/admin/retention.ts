@@ -103,8 +103,10 @@ async function computeFromDb(parsed: Exclude<ReturnType<typeof parseAccountRegis
     ),
     // 운영 역할(admin·curator)은 내부로만 판정한다. 읽기 실패는 throw → 상위 catch → null(못 쟀음).
     // 역할을 못 읽은 채 계속하면 운영자가 미분류로 남아 수는 맞아 보여도 근거가 틀린다.
+    // ⚠️ 고유 키로 **정렬**한다 — 정렬 없는 range 페이지는 페이지마다 순서가 달라질 수 있어, 1,000행을 넘으면
+    //    운영자 프로필이 빠지고 「외부 목록에 오른 운영자」 충돌을 놓친다(Codex T-0006 r1 P2-1).
     pagedSelect<{ user_id: string; role: string | null }>(
-      (lo, hi) => admin.from('user_profiles').select('user_id, role').range(lo, hi),
+      (lo, hi) => admin.from('user_profiles').select('user_id, role').order('user_id', { ascending: true }).range(lo, hi),
       'retention user_profiles',
     ),
   ])

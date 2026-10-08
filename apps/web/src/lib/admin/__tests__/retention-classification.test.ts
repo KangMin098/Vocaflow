@@ -16,17 +16,31 @@ let tables: Record<string, Row[]> = {}
 let users: Array<{ id: string; created_at: string; email: string }> = []
 let failProfiles = false
 
+// 정렬 없는 range 는 페이지마다 순서가 달라질 수 있다(PostgREST 는 order 없이 순서를 보장하지 않는다).
+// 모의 DB 는 그것을 흉내 낸다: order 가 없으면 페이지마다 다른 순서(첫 페이지 역순 · 이후 정순)로 잘라 준다.
+let pageCall = 0
 vi.mock('@/lib/supabase/admin', () => ({
   createAdminClient: () => ({
     auth: { admin: { listUsers: async () => ({ data: { users }, error: null }) } },
-    from: (table: string) => ({
-      select: () => ({
+    from: (table: string) => {
+      let ordered = false
+      const q = {
+        order: () => {
+          ordered = true
+          return q
+        },
         range: async (lo: number, hi: number) => {
           if (table === 'user_profiles' && failProfiles) return { data: null, error: { message: 'denied' } }
-          return { data: (tables[table] ?? []).slice(lo, hi + 1), error: null }
+          const rows = [...(tables[table] ?? [])]
+          if (table === 'user_profiles') {
+            if (ordered) rows.sort((a, b) => String(a.user_id).localeCompare(String(b.user_id)))
+            else if (pageCall++ % 2 === 0) rows.reverse()
+          }
+          return { data: rows.slice(lo, hi + 1), error: null }
         },
-      }),
-    }),
+      }
+      return { select: () => q }
+    },
   }),
 }))
 
@@ -96,6 +110,19 @@ describe('fetchRetention — 검증된 외부 계정만 계산한다', () => {
   it('역할을 못 읽으면 null(못 쟀음) — 운영자를 미분류로 잘못 둔 채 계속하지 않는다', async () => {
     failProfiles = true
     expect(await fetchRetention({})).toBeNull()
+  })
+
+  it('프로필이 1,000개를 넘어도 역할 조회가 정렬돼 운영자를 놓치지 않는다(외부 목록 충돌 → 내부)', async () => {
+    // 운영자 + 일반 1,000명. 운영자를 외부 목록에도 잘못 올렸다 — 역할을 놓치면 실사용 1로 부풀어 오른다.
+    const filler = Array.from({ length: 1000 }, (_, i) => `55555555-5555-4555-8555-${String(i).padStart(12, '0')}`)
+    tables.user_profiles = [{ user_id: ADMIN, role: 'admin' }, ...filler.map((id) => ({ user_id: id, role: 'user' }))]
+    users = [{ id: ADMIN, created_at: '2026-01-01T00:00:00Z', email: 'owner@personal-mail.com' }]
+    pageCall = 0
+    const r = await fetchRetention({ VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS: ADMIN })
+    expect(r?.status).toBe('ok')
+    if (r?.status !== 'ok') return
+    expect(r.accounts).toMatchObject({ externalVerified: 0, internal: 1, conflicts: 1 })
+    expect(r.report.signups).toBe(0)
   })
 
   it('결과에는 계정 ID·이메일이 없다', async () => {
