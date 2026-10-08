@@ -10,6 +10,7 @@ import { AXES, hash } from './benchmark.mjs'
 import { normalizedPassageHash } from './two-stage-seal.mjs'
 import { admitReference, verifyReferenceSelection } from './reference-admission.mjs'
 import { assessReferenceCalibration, buildCalibrationPackets, buildAdjudicationPacket } from './reference-calibration.mjs'
+import { reviseReferenceAnalysis } from './reference-analysis-revision.mjs'
 import { evaluateAdmittedMultiGradeBenchmark, evaluateMultiGradeBenchmark } from './multi-grade-benchmark.mjs'
 
 const sha = value => createHash('sha256').update(value).digest('hex')
@@ -305,6 +306,14 @@ test('calibration eligibility separates rights, Korean grade mapping, and rater 
   revisedAnalysisNeeded.rating.axis_reviews.processing_load = { rater_a: 1, rater_b: 1 }
   assert.equal(assessReferenceCalibration({ admission, evidence: revisedAnalysisNeeded })
     .stages.rating_independence_eligible.reason, 'RATING_ANALYSIS_REVISION_REQUIRED')
+  const revised = reviseReferenceAnalysis(admission, revisedAnalysisNeeded)
+  assert.equal(input.analysis.metrics.processing_load, 2)
+  assert.equal(revised.input.analysis.metrics.processing_load, 1)
+  assert.deepEqual(revised.lineage.changed_axes, ['processing_load'])
+  assert.equal(revised.lineage.parent_admission_receipt_hash, admitted.reference.admission_receipt_hash)
+  assert.notEqual(revised.reference.admission_receipt_hash, admitted.reference.admission_receipt_hash)
+  assert.equal(revised.lineage.calibration_eligible, false)
+  assert.throws(() => reviseReferenceAnalysis(admission, evidence), /REVISION_RATING_EVIDENCE_REQUIRED/)
   assert.equal(pass.benchmark_cohort_eligible, false)
   assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
     contract: { reference_cohort: 'open_reference' },

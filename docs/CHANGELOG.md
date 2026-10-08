@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Derive a create-only NASA nine-axis analysis revision from verified independent ratings and adjudication, link old/new admission hashes, and re-export revision-bound calibration packets. Two axis values changed; rights, Korean-grade mapping, calibration, Gold-S, and DB seed remain held.
+
 - fix(textbook): Preserve the first NASA two-model blind ratings and evidence-bound adjudication; distinguish a completed rating that conflicts with sealed admission analysis from missing adjudication. Rights and Korean-grade mapping remain held, so calibration N=0, Gold-S=0, and DB seed=0.
 
 - feat(textbook): Add a two-stage, external-only calibration evidence drain: blind rights/grade/rater packets, then an adjudication packet bound to both verified rater outputs. Import rechecks receipt, packet, rights, grade anchors, invocation and response hashes; missing reviews remain hold. NASA calibration N=0, Gold-S and DB seed remain zero.

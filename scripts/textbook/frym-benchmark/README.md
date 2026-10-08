@@ -34,6 +34,11 @@ If the resolved independent rating differs from the sealed admission analysis, t
 `RATING_ANALYSIS_REVISION_REQUIRED`. The earlier analysis and admission receipt must remain intact;
 the operator must create a new analysis/admission revision and re-export bound packets. A completed
 adjudication is never re-labelled as missing merely because its result disagrees with old analysis.
+`reference-analysis-revise.mjs` checks the old receipt and create-only decision, re-verifies both
+raters' local invocation/output records and adjudication, derives all nine resolved metrics and
+ordinal reviews, then writes a new external bundle, admission receipt, and lineage record with
+parent hashes. It never overwrites the parent. A new calibration packet set must be exported
+against the revised receipt; old rater outputs carry the old analysis hash and cannot be replayed.
 Eligibility decisions carry `evidence_level=operator_reviewed_local`; the runner does not
 authenticate the human reviewer or the external model provider.
 `import` re-admits the original and rechecks all packet/output/evidence hashes, writes a new

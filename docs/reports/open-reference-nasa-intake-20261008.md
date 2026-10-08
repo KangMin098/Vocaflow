@@ -57,3 +57,24 @@ therefore has no missing outputs and returns `RIGHTS_NOT_DOCUMENTED_FOR_CALIBRAT
 `KOREAN_GRADE_EQUIVALENCE_UNVERIFIED`, and `RATING_ANALYSIS_REVISION_REQUIRED` as three independent
 holds. `admitted N=1`, `calibration-eligible N=0`, real grade distribution 0, Gold-S 0, and DB
 seed 0 remain unchanged. Raw outputs and review records remain outside Git.
+
+## New sealed analysis revision
+
+Reviewing all nine resolved axes found two differences from the original analysis, not one:
+`background_knowledge 2→1` and `processing_load 1→2`. Both are unanimous in the new blind
+ratings. The original bundle and admission receipt `c9dd4a6865acb2cbaa341174210c41ce523247e00bf5cdd9b188ec2b0814796f`
+remain unchanged. The create-only analysis revision derives its metrics, agreement and ordinal
+review rows from the verified two-rater/adjudicator record, then re-admits the same selected
+passage with new receipt `cf64d602aa88a9bc29d1612dcf5813d95f5dd60608a4c8bae9dca9b4725d5d4e`.
+An external lineage record binds both admission and analysis hashes, the rating evidence hash,
+and the changed-axis list. Selection rules, screening, manifest, source and items remain sealed
+at their earlier versions.
+
+The revised receipt generated a new packet set in `calibration-work-r4`. Prior rights and grade
+reviews were carried forward only as explicit, parent-hash-linked hold records against unchanged
+source/grade evidence. Old A/B ratings and adjudication still belong to the parent analysis hash;
+they are not replayed as current calibration outputs. The new decision therefore reports rights
+`RIGHTS_NOT_DOCUMENTED_FOR_CALIBRATION`, grade mapping
+`KOREAN_GRADE_EQUIVALENCE_UNVERIFIED`, and rating `RATING_REVIEW_MISSING`. The parent calibration
+decision is stale for the revised admission. No calibrated cohort or distribution was opened;
+Gold-S and DB seed remain 0.
