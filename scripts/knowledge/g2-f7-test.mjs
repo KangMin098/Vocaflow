@@ -41,7 +41,7 @@ try {
   await q('delete from funnel_events')
   await q(M('20261008160000_learning_sessions_integrated.sql'))
   await q(M('20261008170000_knowledge_trial_evidence_guard.sql'))
-  await q(M('_pending_20261008180000_learning_help_timing.sql'))
+  await q(M('20261008180000_learning_help_timing.sql'))
   // 개발 DB 실측과 같은 기본 GRANT(Supabase 기본 권한) — F7 이 이것을 회수하는지 본다
   await q('grant all on public.learning_mutations, public.learning_sessions, public.learning_task_attempts to service_role')
   await q(M(F7))
