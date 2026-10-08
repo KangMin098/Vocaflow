@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(db): 후보 `_pending_20261008150000_knowledge_statement_review_fix`(미적용 · sha256 15808d67…fc98) — 140000 가드의 「문장 + 상태 한 UPDATE」 우회(Codex P1)를 막는 함수 본문 교체. 격리 검증 통과, 승인 대기.
+
 - feat(db): `20261008140000_knowledge_review_cascade_guard` 적용(사용자 승인 sha256 e97f5852… · 체크포인트 `knowledge-guard-20261008`) — 근거 추가 · 축 변경 · 철회 / 문장 변경 / 재검토 · 반려 연쇄를 DB 트리거로(관리자 화면 밖 SQL 변경도 학습자 노출이 내려간다). 실제 DB 롤백 smoke 18/18 · 격리 13/13. 멱등 키 후보(140100)는 미적용 — 통합 SQL 로 흡수 예정.
 
 - feat(methodology): Phase 3 첫 수직 경로 「주장과 근거 관계」 — 2022 수능 20번. 관리자 화면으로 실제 사슬(탐구 질문 · 기출 관찰 근거 · 기제 `claim-support-relation` · 방법 · 과제 채택, Codex 독립 검토 3회 끝 adopt · 연구 근거 없음 유지) · 문항 주석(문장 번호 · Claude/Codex 맹검 · 정답 근거와 별개) · `/csat/item/[slug]` 「이 문항에서 확인할 읽기 원리」(`PrinciplePanel`) · `POST /api/csat/item/[slug]/task` → `learning_task_attempts` · 학습 지도 FIND B6-3 명시 연결 · 관리자 사슬 추적 `/admin/knowledge/product/[id]` · 재검토 전파(문장 고치기 · 근거 추가 · 축 변경, 앱 경로). efficacy 미확정. 새 마이그레이션 적용 0 — 후보 `_pending_20261008140000_knowledge_review_cascade_guard`(DB 가드) · `_pending_20261008140100_learning_task_attempts_idempotency`(멱등 키) 격리 검증만. [vertical/claim-support](./methodology/vertical/claim-support.md)

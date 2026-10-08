@@ -30,7 +30,8 @@ try {
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql',
-    '20261008140000_knowledge_review_cascade_guard.sql', '_pending_20261008140100_learning_task_attempts_idempotency.sql']) await q(M(f))
+    '20261008140000_knowledge_review_cascade_guard.sql', '_pending_20261008140100_learning_task_attempts_idempotency.sql',
+    '_pending_20261008150000_knowledge_statement_review_fix.sql']) await q(M(f))
   rec('등록부 7 + vNext + 후보 2 적용', true)
 
   const item = async (layer, kind, slug) => (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ($1,$2,$3,$3,'s','in_review','t','t') returning id`, [layer, kind, slug])).rows[0].id
@@ -58,6 +59,26 @@ try {
   rec('I3 뒤 · 과제 적용 자동 중단(기존 트리거)', (await appStatus(c1.app)) === 'paused')
   const rv = (await q(`select item_id, reason from knowledge_reviews where item_id = any($1) and to_status = 'in_review' and reason like '%연쇄%'`, [[c1.M, c1.T]])).rows
   rec('검토 기록에 연쇄 이유', rv.length === 2, rv.length)
+
+  // I2 구멍(Codex P1): 문장 + 상태(adopted → applied)를 한 UPDATE 로 — 150000 이 막는다
+  // 정확히 리뷰가 짚은 경로: adopted(적용 active) 과제의 문장을 바꾸며 동시에 applied 로
+  const c5 = await chain('c5')
+  await q(`update knowledge_items set status = 'adopted', updated_by = 't' where id = $1`, [c5.T])
+  await q(`update knowledge_items set statement = 'sneak0', status = 'applied', updated_by = 'sql' where id = $1`, [c5.T])
+  rec('I2 · adopted → applied + 문장 변경 한 UPDATE → 검토 중 · 적용 자동 중단(Codex P1 경로)', (await status([c5.T]))[c5.T] === 'in_review' && (await appStatus(c5.app)) === 'paused')
+  const c6 = await chain('c6')
+  await q(`update knowledge_applications set status = 'paused', status_reason = 'x', updated_by = 't' where id = $1`, [c6.app]).catch(() => {})
+  const m6 = (await status([c6.M]))[c6.M]
+  await q(`update knowledge_items set statement = 'sneak', status = 'adopted', updated_by = 'sql' where id = $1`, [c6.P])
+  const s6 = await status([c6.P, c6.M])
+  rec('I2 · 문장 + 상태를 한 UPDATE 로 바꿔도 검토 중(150000)', s6[c6.P] === 'in_review' && (m6 !== 'adopted' || s6[c6.M] === 'in_review'), { s6, m6 })
+  const c7 = await chain('c7')
+  await q(`update knowledge_items set statement = 'sneak2', status = 'applied', updated_by = 'sql' where id = $1`, [c7.T]).catch((e) => e)
+  const s7 = (await status([c7.T]))[c7.T]
+  rec('I2 · applied 과제 문장 + applied 재지정 → 검토 중 · 적용 자동 중단', s7 === 'in_review' && (await appStatus(c7.app)) === 'paused', { s7 })
+  const c8 = await chain('c8')
+  await q(`update knowledge_items set statement = 'reject-it', status = 'rejected', status_reason = 'r', updated_by = 'sql' where id = $1`, [c8.P])
+  rec('I2 · 요청 상태가 이미 살아 있지 않으면(반려) 그대로 반려', (await status([c8.P]))[c8.P] === 'rejected')
 
   // I1: 근거 추가 · 축 변경 · 철회(SQL)
   const c2 = await chain('c2')
