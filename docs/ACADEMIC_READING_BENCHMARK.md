@@ -87,3 +87,9 @@ The rating stage requires different model families, each rater's hashed axis vec
 and adjudication for disagreements. Only three passes yield `calibration_eligible`; cohort
 composition is a further independent gate. NASA remains `admitted_uncalibrated` with
 `calibration-eligible N=0`.
+
+The external-only evidence drain exports rights, grade-mapping, and two blind rating packets.
+Only after two independently recorded rating outputs are present does it export an adjudication
+packet bound to those outputs. Its metadata-only import rechecks the current admission and
+records missing or stale evidence without opening calibration. The first NASA drain run has
+four initial packets, no completed reviews, and all three eligibility stages on `hold`.

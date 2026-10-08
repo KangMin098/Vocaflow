@@ -26,3 +26,11 @@ new evidence. Admission re-verification passed. The three new stages returned `h
 The earlier rights inference and same-family ratings remain in the admission audit, but do not
 meet the more demanding calibration evidence contract. The decision is stored outside Git with
 the raw audit materials; calibration-eligible N remains 0.
+
+The revised evidence-supply run exported four receipt-bound review packets outside Git under
+the same NASA audit archive: rights, grade mapping, and two blind rater packets. The adjudicator
+packet is deliberately withheld until both rater outputs exist, so it can include the actual
+two output hashes and rating vectors. No review outputs exist yet. Import recorded five missing
+outputs and the same three `hold` decisions. Earlier packet revisions remain in their
+own folders; the current packets are in `calibration-work-r3`. They are work requests, not
+completed rights, mapping, or rating evidence.

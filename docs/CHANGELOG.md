@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Add a two-stage, external-only calibration evidence drain: blind rights/grade/rater packets, then an adjudication packet bound to both verified rater outputs. Import rechecks receipt, packet, rights, grade anchors, invocation and response hashes; missing reviews remain hold. NASA calibration N=0, Gold-S and DB seed remain zero.
+
 - feat(textbook): Separate open-reference admission from rights, Korean-grade mapping, and independent nine-axis calibration eligibility; recheck current evidence at benchmark entry. NASA stays admitted but calibration-ineligible, with no real grade distribution or DB seed.
 
 - feat(textbook): Admit one NASA open-reference passage with sealed selection, file-bound rights/grade/item/key evidence and two-call nine-axis ratings. Preserve metadata-only N=1 as uncalibrated; commercial corpus, fit/separation, Gold-S and DB seed remain zero/unopened.

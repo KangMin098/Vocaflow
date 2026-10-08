@@ -13,6 +13,36 @@ using an open-reference sample. It still applies cohort-size and composition rul
 The NASA admission has no documented employee authorship, Korean-grade mapping, or independent
 model-family rating, so its calibration status remains held and it cannot open a distribution.
 
+`reference-calibration-run.mjs export` writes four receipt-bound packets to an existing directory
+outside Git: rights, grade mapping, and two blind rater packets. After both rater outputs and
+their invocation receipts exist, `export-adjudication` writes a fifth packet containing the
+passage, questions, codebook, both rating vectors, and both output hashes. The rater packets
+contain the selected passage, item stems/options, and nine-axis codebook, but omit answers. Re-export skips byte-identical
+packets and fails on changed packets; it never overwrites `.out.json` reviews. Operators provide
+the external rights documents, a mapping document with at least two distinct anchor sources,
+two independent rater outputs with operator-reviewed invocation receipts, and adjudication
+output. Each `.out.json` must carry its packet hash, kind, and candidate ID. Rater outputs also
+carry reviewer ID,
+invocation ID, model family, current passage/analysis/codebook hashes, and all nine axis ratings.
+The invocation receipts bind reviewer, model family, and request/response hashes. They are
+operator evidence, not provider-attested prompt delivery.
+The two rater invocation IDs and output hashes must differ. When ratings disagree, the
+adjudication output binds both rater-output hashes and needs its own operator-reviewed invocation
+receipt. Blind packets contain passage text, the codebook, and item ID, type, stem, and option text; answer,
+explanation, rationale, and any other item fields are excluded.
+Eligibility decisions carry `evidence_level=operator_reviewed_local`; the runner does not
+authenticate the human reviewer or the external model provider.
+`import` re-admits the original and rechecks all packet/output/evidence hashes, writes a new
+metadata-only decision, and reports missing outputs. Re-import uses a new output filename;
+an existing output fails rather than silently changing a prior decision. Missing or uncertain
+evidence stays `hold`; no command certifies rights or Korean equivalence on behalf of a reviewer.
+
+```text
+node scripts/textbook/frym-benchmark/reference-calibration-run.mjs export <rules> <screening> <manifest> <external-bundle> <admission-receipt> <external-workdir>
+node scripts/textbook/frym-benchmark/reference-calibration-run.mjs export-adjudication <rules> <screening> <manifest> <external-bundle> <admission-receipt> <external-workdir>
+node scripts/textbook/frym-benchmark/reference-calibration-run.mjs import <rules> <screening> <manifest> <external-bundle> <admission-receipt> <external-workdir> <new-decision-output>
+```
+
 This directory contains the **metadata-only** benchmark contract, distribution builder, F02 comparator, and stale checks. No commercial passage or item text is stored here. The commercial-textbook corpus remains **N=0**; one NASA **open-reference** passage has now been admitted as `admitted_uncalibrated`, N=1, with no grade distribution. The earlier 31-file commercial inventory still has an empty sample manifest and `insufficient_benchmark`. See [the first commercial intake report](../../../docs/reports/benchmark-intake-20261008.md), [NASA admission audit](../../../docs/reports/open-reference-nasa-intake-20261008.md), and [metadata-only corpus](../../../docs/reports/open-reference-nasa-corpus-20261008.json). The open-reference admission branch permits `US-GOV-PUBLIC-DOMAIN` for `nasa.gov` origins only, with separate passage, item, and scoring origin URL and hash evidence; it verifies that the passage/item origin hashes equal the current source file and reads the separate `scoring_source_path` to verify its byte hash. It records the source-specific `nasa_analysis_reviewed` decision separately from `open_license_verified`; this is not proof of employee authorship or redistribution rights. A government-hosted file alone never supplies those decisions; other federal domains need their own reviewed policy extension, and state/local `.gov` domains are not accepted.
 
 `multi-grade-benchmark.mjs` is the **new multi-grade comparison contract**, separate from the previously sealed single-grade v2 corpus. It requires a sealed order-group hash, distinct grade-specific evidence and analyses, at least 30 comparable single-grade references per grade and 12 references labeled for the full grade range, and three publishers in each comparison. It reports lower/upper fit, every grade's sub-fit, shared-core fit, item compatibility, and each adjacent grade-span separation. Range-labeled passages are never copied into individual-grade pools. Its local receipt hashes are declarations, not independently verified admission receipts; results carry `evidence_level=contract_only`, `admissible=false`, and `gold_s_candidate=false` even when synthetic fixture math passes. Real admission, receipt verification, codebook binding, and the production gate remain separate work. The existing v2 seal is immutable.

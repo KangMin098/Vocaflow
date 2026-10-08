@@ -9,7 +9,7 @@ import { spawnSync } from 'node:child_process'
 import { AXES, hash } from './benchmark.mjs'
 import { normalizedPassageHash } from './two-stage-seal.mjs'
 import { admitReference, verifyReferenceSelection } from './reference-admission.mjs'
-import { assessReferenceCalibration } from './reference-calibration.mjs'
+import { assessReferenceCalibration, buildCalibrationPackets, buildAdjudicationPacket } from './reference-calibration.mjs'
 import { evaluateAdmittedMultiGradeBenchmark, evaluateMultiGradeBenchmark } from './multi-grade-benchmark.mjs'
 
 const sha = value => createHash('sha256').update(value).digest('hex')
@@ -239,6 +239,8 @@ test('calibration eligibility separates rights, Korean grade mapping, and rater 
         source_hash: admitted.receipt.grade_source_hash,
         labels: admitted.receipt.grade_scope.grades }, status: 'verified',
       mapping_evidence_hash: sha('Korean curriculum mapping'), reviewer_id: 'human-reviewer',
+      anchor_sources: [{ source_id: 'anchor-a', evidence_hash: sha('anchor one') },
+        { source_id: 'anchor-b', evidence_hash: sha('anchor two') }],
       korean_target_mapping: admitted.receipt.grade_scope.grades.map(grade =>
         ({ source_grade: grade, korean_grade: grade })) },
     rating: { analysis_hash: admitted.receipt.analysis_hash,
@@ -258,14 +260,26 @@ test('calibration eligibility separates rights, Korean grade mapping, and rater 
   writeFileSync(evidence.rights.source_evidence_path, 'source permission')
   writeFileSync(evidence.rights.passage_evidence_path, 'passage permission')
   writeFileSync(evidence.grade_mapping.mapping_evidence_path, 'Korean curriculum mapping')
+  evidence.grade_mapping.anchor_sources.forEach((anchor, index) => {
+    anchor.evidence_path = join(dir, `anchor-${index}.txt`)
+    writeFileSync(anchor.evidence_path, index === 0 ? 'anchor one' : 'anchor two')
+  })
   evidence.rating.reviewers.forEach((reviewer, index) => {
     reviewer.output_path = join(dir, `rater-${index}.json`)
-    const raw = JSON.stringify({ invocation_id: reviewer.invocation_id,
+    reviewer.invocation_evidence_path = join(dir, `invocation-${index}.json`)
+    const raw = JSON.stringify({ reviewer_id: reviewer.id, invocation_id: reviewer.invocation_id,
       model_family: reviewer.model_family, ratings: reviewer.ratings,
       passage_hash: admitted.receipt.passage_hash, analysis_hash: admitted.receipt.analysis_hash,
       codebook_hash: admitted.receipt.codebook_hash })
     writeFileSync(reviewer.output_path, raw)
     reviewer.output_hash = sha(raw)
+    const packet = buildCalibrationPackets(input, admitted)[index === 0 ? 'rater-a' : 'rater-b']
+    const invocation = JSON.stringify({ invocation_id: reviewer.invocation_id,
+      reviewer_id: reviewer.id, model_family: reviewer.model_family, operator_reviewed: true,
+      packet_hash: packet.packet_hash,
+      request_hash: sha(`${JSON.stringify(packet, null, 2)}\n`), response_hash: reviewer.output_hash })
+    writeFileSync(reviewer.invocation_evidence_path, invocation)
+    reviewer.invocation_evidence_hash = sha(invocation)
   })
   const pass = assessReferenceCalibration({ admission, evidence })
   assert.equal(pass.calibration_eligible, true)
@@ -278,6 +292,10 @@ test('calibration eligibility separates rights, Korean grade mapping, and rater 
   sameFamily.rating.reviewers[1].model_family = 'family-a'
   assert.equal(assessReferenceCalibration({ admission, evidence: sameFamily }).stages.rating_independence_eligible.reason,
     'RATERS_SAME_MODEL_FAMILY')
+  const replayedInvocation = structuredClone(evidence)
+  replayedInvocation.rating.reviewers[1].invocation_id = replayedInvocation.rating.reviewers[0].invocation_id
+  assert.throws(() => assessReferenceCalibration({ admission, evidence: replayedInvocation }),
+    /CALIBRATION_RATER_INDEPENDENCE_INVALID/)
   const weakRights = structuredClone(evidence)
   weakRights.rights.rights_confidence = 'reviewed_inference'
   assert.equal(assessReferenceCalibration({ admission, evidence: weakRights }).stages.rights_eligible.status, 'hold')
@@ -299,26 +317,66 @@ test('calibration eligibility separates rights, Korean grade mapping, and rater 
   writeFileSync(evidence.rating.reviewers[0].output_path, '{}')
   assert.throws(() => assessReferenceCalibration({ admission, evidence }), /CALIBRATION_RATER_OUTPUT_CHANGED/)
   const originalRater = evidence.rating.reviewers[0]
-  writeFileSync(originalRater.output_path, JSON.stringify({ invocation_id: originalRater.invocation_id,
+  writeFileSync(originalRater.output_path, JSON.stringify({ reviewer_id: originalRater.id, invocation_id: originalRater.invocation_id,
     model_family: originalRater.model_family, ratings: originalRater.ratings,
     passage_hash: admitted.receipt.passage_hash, analysis_hash: admitted.receipt.analysis_hash,
     codebook_hash: admitted.receipt.codebook_hash }))
-  const wrongPassage = JSON.stringify({ invocation_id: originalRater.invocation_id,
+  const wrongPassage = JSON.stringify({ reviewer_id: originalRater.id, invocation_id: originalRater.invocation_id,
     model_family: originalRater.model_family, ratings: originalRater.ratings,
     passage_hash: sha('other passage'), analysis_hash: admitted.receipt.analysis_hash,
     codebook_hash: admitted.receipt.codebook_hash })
   writeFileSync(originalRater.output_path, wrongPassage)
   const staleRater = structuredClone(evidence)
   staleRater.rating.reviewers[0].output_hash = sha(wrongPassage)
+  const staleInvocation = JSON.parse(readFileSync(originalRater.invocation_evidence_path, 'utf8'))
+  staleInvocation.response_hash = sha(wrongPassage)
+  staleRater.rating.reviewers[0].invocation_evidence_path = join(dir, 'invocation-stale.json')
+  writeFileSync(staleRater.rating.reviewers[0].invocation_evidence_path, JSON.stringify(staleInvocation))
+  staleRater.rating.reviewers[0].invocation_evidence_hash = sha(JSON.stringify(staleInvocation))
   assert.throws(() => assessReferenceCalibration({ admission, evidence: staleRater }),
     /CALIBRATION_RATER_OUTPUT_STALE/)
-  writeFileSync(originalRater.output_path, JSON.stringify({ invocation_id: originalRater.invocation_id,
+  writeFileSync(originalRater.output_path, JSON.stringify({ reviewer_id: originalRater.id, invocation_id: originalRater.invocation_id,
     model_family: originalRater.model_family, ratings: originalRater.ratings,
     passage_hash: admitted.receipt.passage_hash, analysis_hash: admitted.receipt.analysis_hash,
     codebook_hash: admitted.receipt.codebook_hash }))
   const forgedRating = structuredClone(evidence)
   forgedRating.rating.reviewers[0].ratings.lexical = 4
   assert.throws(() => assessReferenceCalibration({ admission, evidence: forgedRating }), /CALIBRATION_RATER_OUTPUT_INVALID/)
+  const disputed = structuredClone(evidence)
+  const second = disputed.rating.reviewers[1]
+  second.ratings.processing_load = 3
+  second.output_path = join(dir, 'rater-1-disputed.json')
+  const secondRaw = JSON.stringify({ reviewer_id: second.id, invocation_id: second.invocation_id,
+    model_family: second.model_family, ratings: second.ratings,
+    passage_hash: admitted.receipt.passage_hash, analysis_hash: admitted.receipt.analysis_hash,
+    codebook_hash: admitted.receipt.codebook_hash })
+  writeFileSync(second.output_path, secondRaw)
+  second.output_hash = sha(secondRaw)
+  second.invocation_evidence_path = join(dir, 'invocation-1-disputed.json')
+  const secondInvocation = JSON.parse(readFileSync(evidence.rating.reviewers[1].invocation_evidence_path, 'utf8'))
+  secondInvocation.response_hash = second.output_hash
+  writeFileSync(second.invocation_evidence_path, JSON.stringify(secondInvocation))
+  second.invocation_evidence_hash = sha(JSON.stringify(secondInvocation))
+  disputed.rating.axis_reviews.processing_load = { rater_a: 2, rater_b: 3,
+    adjudicator_id: 'arbiter', adjudicated: 2 }
+  const arbPacket = buildAdjudicationPacket(input, admitted, disputed.rating.reviewers)
+  const arbRaw = JSON.stringify({ adjudicator_id: 'arbiter', packet_hash: arbPacket.packet_hash,
+    rater_a_output_hash: disputed.rating.reviewers[0].output_hash,
+    rater_b_output_hash: second.output_hash, axis_reviews: disputed.rating.axis_reviews })
+  const arbOutput = join(dir, 'arbiter.json'), arbInvocationPath = join(dir, 'arbiter-invocation.json')
+  writeFileSync(arbOutput, arbRaw)
+  const arbInvocation = JSON.stringify({ reviewer_id: 'arbiter', invocation_id: 'arb-call',
+    packet_hash: arbPacket.packet_hash, operator_reviewed: true,
+    request_hash: sha(`${JSON.stringify(arbPacket, null, 2)}\n`), response_hash: sha(arbRaw) })
+  writeFileSync(arbInvocationPath, arbInvocation)
+  disputed.rating.adjudication = { id: 'arbiter', invocation_id: 'arb-call',
+    output_path: arbOutput, output_hash: sha(arbRaw),
+    invocation_evidence_path: arbInvocationPath, invocation_evidence_hash: sha(arbInvocation) }
+  assert.equal(assessReferenceCalibration({ admission, evidence: disputed }).calibration_eligible, true)
+  const wrongArbiter = structuredClone(disputed)
+  wrongArbiter.rating.reviewers[0].output_hash = sha('other rater output')
+  assert.throws(() => assessReferenceCalibration({ admission, evidence: wrongArbiter }),
+    /CALIBRATION_INVOCATION_EVIDENCE_INVALID/)
   assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
     contract: { reference_cohort: 'open_reference' },
     admitted: [{ ...admission, calibration_evidence: sameFamily,
@@ -353,4 +411,82 @@ test('CLI writes a create-only metadata receipt without textbook text', t => {
   assert.equal(saved.includes(input.candidate.passage_text), false)
   assert.equal(saved.includes(input.candidate.questions[0].stem), false)
   assert.deepEqual(JSON.parse(saved).reference.grade_scope, input.candidate.grade_scope)
+})
+
+test('calibration drain exports create-only bound packets and imports missing reviews as hold', t => {
+  const input = fixture(t)
+  input.candidate.questions[0].explanation = 'SECRET_ANSWER_EXPLANATION'
+  input.candidate.questions[0].options = [{ text: 'visible option', correct: true }]
+  input.screening.candidates[0].item_set_hash = hash(input.candidate.questions.map(({ answer, ...item }) => item))
+  input.analysis.item_set_hash = input.screening.candidates[0].item_set_hash
+  input.manifest.screening_hash = hash(input.screening)
+  const dir = mkdtempSync(join(tmpdir(), 'reference-calibration-drain-'))
+  t.after(() => rmSync(dir, { recursive: true, force: true }))
+  const paths = Object.fromEntries(['rules', 'screening', 'manifest'].map(key => {
+    const path = join(dir, `${key}.json`)
+    writeFileSync(path, JSON.stringify(input[key]))
+    return [key, path]
+  }))
+  const bundle = join(dir, 'bundle.json'), receipt = join(dir, 'receipt.json')
+  writeFileSync(bundle, JSON.stringify({ source_path: input.source_path,
+    candidate: input.candidate, evidence: input.evidence, analysis: input.analysis,
+    codebook: input.codebook }))
+  writeFileSync(receipt, JSON.stringify(admitReference(input)))
+  const script = join(import.meta.dirname, 'reference-calibration-run.mjs')
+  const run = (command, output) => spawnSync(process.execPath,
+    [script, command, paths.rules, paths.screening, paths.manifest, bundle, receipt, dir,
+      ...(output ? [output] : [])], { encoding: 'utf8' })
+  assert.equal(run('export').status, 0)
+  assert.equal(readFileSync(join(dir, 'rater-a.packet.json'), 'utf8').includes('SECRET_ANSWER_EXPLANATION'), false)
+  assert.equal(readFileSync(join(dir, 'rater-a.packet.json'), 'utf8').includes('"correct"'), false)
+  const leakingCodebook = structuredClone(input)
+  leakingCodebook.codebook.axes.lexical.answer = 'secret'
+  assert.throws(() => buildCalibrationPackets(leakingCodebook, admitReference(input)),
+    /CALIBRATION_CODEBOOK_ANSWER_LEAK/)
+  assert.match(run('export').stdout, /"unchanged":4/)
+  assert.match(run('export-adjudication').stderr, /CALIBRATION_RATER_OUTPUTS_REQUIRED/)
+  const decisionPath = join(dir, 'decision.json')
+  assert.equal(run('import', decisionPath).status, 0)
+  const saved = JSON.parse(readFileSync(decisionPath, 'utf8'))
+  assert.equal(saved.calibration_eligible, false)
+  assert.equal(saved.missing_outputs.length, 5)
+  assert.equal(readFileSync(decisionPath, 'utf8').includes(input.candidate.passage_text), false)
+  assert.notEqual(run('import', decisionPath).status, 0)
+  for (const [index, kind] of ['rater-a', 'rater-b'].entries()) {
+    const packet = JSON.parse(readFileSync(join(dir, `${kind}.packet.json`), 'utf8'))
+    const raw = JSON.stringify({ kind, candidate_id: input.candidate.candidate_id,
+      packet_hash: packet.packet_hash, reviewer_id: `reviewer-${index}`,
+      invocation_id: `call-${index}`, model_family: `family-${index}`,
+      passage_hash: packet.passage_hash, analysis_hash: packet.analysis_hash,
+      codebook_hash: packet.codebook_hash,
+      ratings: Object.fromEntries(AXES.map(axis => [axis, 2])) })
+    writeFileSync(join(dir, `${kind}.out.json`), raw)
+    const invocation = { reviewer_id: `reviewer-${index}`, invocation_id: `call-${index}`,
+      model_family: `family-${index}`, operator_reviewed: true,
+      packet_hash: packet.packet_hash, request_hash: sha(readFileSync(join(dir, `${kind}.packet.json`))),
+      response_hash: sha(raw) }
+    writeFileSync(join(dir, `${kind}.invocation.json`), JSON.stringify(invocation))
+  }
+  assert.equal(run('export-adjudication').status, 0)
+  const arbPacket = JSON.parse(readFileSync(join(dir, 'adjudication.packet.json'), 'utf8'))
+  assert.equal(arbPacket.rater_a.output_hash, sha(readFileSync(join(dir, 'rater-a.out.json'))))
+  assert.equal(arbPacket.rater_b.output_hash, sha(readFileSync(join(dir, 'rater-b.out.json'))))
+  writeFileSync(join(dir, 'adjudication.out.json'), JSON.stringify({ kind: 'adjudication',
+    candidate_id: input.candidate.candidate_id, packet_hash: arbPacket.packet_hash,
+    axis_reviews: Object.fromEntries(AXES.map(axis => [axis, { rater_a: 2, rater_b: 2 }])) }))
+  const partialDecision = join(dir, 'decision-with-ratings.json')
+  assert.equal(run('import', partialDecision).status, 0)
+  const partial = JSON.parse(readFileSync(partialDecision, 'utf8'))
+  assert.equal(partial.stages.rating_independence_eligible.status, 'pass')
+  assert.equal(partial.calibration_eligible, false)
+  const secondOutput = join(dir, 'rater-b.out.json')
+  const alteredRater = JSON.parse(readFileSync(secondOutput, 'utf8'))
+  alteredRater.ratings.lexical = 4
+  writeFileSync(secondOutput, JSON.stringify(alteredRater))
+  assert.notEqual(run('export-adjudication').status, 0)
+  const packetPath = join(dir, 'grade.packet.json')
+  const altered = JSON.parse(readFileSync(packetPath, 'utf8'))
+  altered.grade_source_hash = sha('different guide')
+  writeFileSync(packetPath, JSON.stringify(altered))
+  assert.match(run('export').stderr, /CALIBRATION_PACKET_STALE:grade/)
 })
