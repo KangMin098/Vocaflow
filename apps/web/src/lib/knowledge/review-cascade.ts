@@ -51,3 +51,18 @@ export async function reviewAfterEvidenceChange(client: SupabaseClient, itemId: 
   refresh(String(item.slug))
   return [String(item.slug), ...(await cascadeReview(client, itemId, `상위 「${item.slug}」 ${what} — 연쇄 재검토`, who, refresh))]
 }
+
+/** 변경 **전에** 부른다 — 지금 살아 있는 아래 층(재검토 대상 후보). DB 트리거(20261008140000)가 먼저 전파해도 보고할 목록을 잃지 않게 */
+export async function liveDescendants(client: SupabaseClient, itemId: string): Promise<{ id: string; slug: string }[]> {
+  const graph = await loadChainGraph(client)
+  return cascadeTargets(itemId, graph.items, graph.links).map((i) => ({ id: i.id, slug: i.slug }))
+}
+
+/** 변경 뒤 — 후보 중 실제로 살아 있지 않게 된 것(DB 트리거든 앱 전파든) */
+export async function reviewedNow(client: SupabaseClient, before: { id: string; slug: string }[]): Promise<string[]> {
+  if (before.length === 0) return []
+  const { data, error } = await client.from('knowledge_items').select('id, status').in('id', before.map((b) => b.id))
+  if (error) throw new Error(`전파 결과 확인 실패: ${error.message}`)
+  const dead = new Set((data ?? []).filter((r) => !isLive(String(r.status))).map((r) => String(r.id)))
+  return before.filter((b) => dead.has(b.id)).map((b) => b.slug)
+}

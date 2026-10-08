@@ -77,6 +77,12 @@ try {
   rec('active 적용의 마지막 trial 삭제 거부', !(await ok(`delete from knowledge_trials where application_id=$1`, [aid])))
   rec('applied 진입(활성 적용 있음)', await ok(`update knowledge_items set status='applied', updated_by='t' where id=$1`, [cid]))
   rec('applied 항목에 근거 추가 가능(근거 버전 증가가 막히지 않음)', await ok(`insert into knowledge_evidence (item_id, grade, attribution, source_type, external_url, external_title, created_by) values ($1,'A','stated','external','https://x.y/2','t','t')`, [cid]))
+  // 20261008140000 가드 — 적용 중 항목에 근거가 늘면 재검토 + 적용 자동 중단(학습자에게서 내려감). 아래 단언을 위해 다시 채택 · 켠다
+  rec('가드 · applied 항목에 근거 추가 → 검토 중 + 적용 자동 중단', (await one(`select status from knowledge_items where id=$1`, [cid]))[0].status === 'in_review'
+    && (await one(`select status from knowledge_applications where id=$1`, [aid]))[0].status === 'paused')
+  rec('다시 채택 · 켜기 · applied', await ok(`update knowledge_items set status='adopted', updated_by='t' where id=$1`, [cid])
+    && await ok(`update knowledge_applications set status='active', status_reason=null, released_at=now() where id=$1`, [aid])
+    && await ok(`update knowledge_items set status='applied', updated_by='t' where id=$1`, [cid]))
   rec('중단에 이유 없으면 거부', !(await ok(`update knowledge_applications set status='paused' where id=$1`, [aid])))
   rec('마지막 active 적용 중단 → applied 항목 재검토', (await ok(`update knowledge_applications set status='paused', status_reason='시험', updated_by='t' where id=$1`, [aid]))
     && (await one(`select status from knowledge_items where id=$1`, [cid]))[0].status === 'in_review')

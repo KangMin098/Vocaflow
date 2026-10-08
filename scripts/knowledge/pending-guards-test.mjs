@@ -1,7 +1,7 @@
 // scripts/knowledge/pending-guards-test.mjs
 //
 // 미적용 SQL 후보 2개의 격리 검증(2026-10-08 · Phase 3) — **공유 개발 DB 를 쓰지 않는다.**
-//   _pending_20261008140000_knowledge_review_cascade_guard.sql  — 관리자 화면을 거치지 않는 변경에도 재검토 불변식(I1 · I2 · I3)
+//   20261008140000_knowledge_review_cascade_guard.sql  — 관리자 화면을 거치지 않는 변경에도 재검토 불변식(I1 · I2 · I3)
 //   _pending_20261008140100_learning_task_attempts_idempotency.sql — 같은 제출 두 번 → 한 행
 // 격리 PostgreSQL(embedded-postgres · Supabase 역할 bootstrap)에 등록부 마이그레이션 7개 + vNext(20261008120000) → 후보 2개 적용.
 // 각 단언은 **앱 경로가 아닌 SQL 직접 변경**으로 한다(그게 이 가드가 막으려는 경로다).
@@ -30,7 +30,7 @@ try {
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql',
-    '_pending_20261008140000_knowledge_review_cascade_guard.sql', '_pending_20261008140100_learning_task_attempts_idempotency.sql']) await q(M(f))
+    '20261008140000_knowledge_review_cascade_guard.sql', '_pending_20261008140100_learning_task_attempts_idempotency.sql']) await q(M(f))
   rec('등록부 7 + vNext + 후보 2 적용', true)
 
   const item = async (layer, kind, slug) => (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ($1,$2,$3,$3,'s','in_review','t','t') returning id`, [layer, kind, slug])).rows[0].id

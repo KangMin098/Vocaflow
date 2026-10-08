@@ -21,7 +21,7 @@ import {
 import { listTaxonomy } from '@/lib/knowledge/server'
 import { KINDS_BY_LAYER, isKind } from '@/lib/knowledge/vnext-labels'
 import { isLive } from '@/lib/knowledge/live-chain'
-import { cascadeReview, reviewAfterEvidenceChange } from '@/lib/knowledge/review-cascade'
+import { cascadeReview, liveDescendants, reviewAfterEvidenceChange, reviewedNow } from '@/lib/knowledge/review-cascade'
 
 export interface ActionResult<T = unknown> {
   ok: boolean
@@ -98,6 +98,7 @@ export async function setItemStatusAction(
     const from = item.status as ItemStatus
     const rule = checkTransition({ from, to, reason, evidenceCount: await evidenceCount(client, itemId) })
     if (!rule.ok) return rule
+    const below = to === 'in_review' || to === 'rejected' ? await liveDescendants(client, itemId) : []
     const { data: changed, error: e2 } = await client
       .from('knowledge_items')
       .update({ status: to, status_reason: reason.trim() || null, updated_by: who })
@@ -116,8 +117,9 @@ export async function setItemStatusAction(
     }
     refresh(String(item.slug))
     if (to === 'in_review' || to === 'rejected') {
-      const moved = await cascadeReview(client, itemId, `상위 「${item.slug}」 ${to === 'rejected' ? '반려' : '재검토'} — 연쇄 재검토`, who, refresh)
-      return { ok: true, data: { cascaded: moved } }
+      // DB 트리거(20261008140000)가 같은 UPDATE 안에서 이미 전파했다 — 앱 전파는 남은 것만(대개 0행), 보고는 변경 전 후보 기준
+      await cascadeReview(client, itemId, `상위 「${item.slug}」 ${to === 'rejected' ? '반려' : '재검토'} — 연쇄 재검토`, who, refresh)
+      return { ok: true, data: { cascaded: await reviewedNow(client, below) } }
     }
     return { ok: true }
   } catch (e) {
@@ -140,6 +142,7 @@ export async function editStatementAction(itemId: string, statement: string, see
     if (Number(item.version) !== seenVersion) return { ok: false, error: '그 사이 문장이 바뀌었습니다 — 새로 고친 뒤 다시' }
     if (String(item.statement) === text) return { ok: false, error: '바뀐 곳이 없습니다' }
     const live = isLive(String(item.status))
+    const below = await liveDescendants(client, itemId)
     const patch: Record<string, unknown> = { statement: text, updated_by: who }
     if (live) { patch.status = 'in_review'; patch.status_reason = '문장 변경 — 채택한 문장이 아니다(재검토)' }
     // 읽은 상태 · 버전 그대로일 때만 — 그 사이 누가 채택했으면(상태 변경) 「검토 중 전환 없는 문장 변경」이 되지 않게 실패시킨다(Codex P1)
@@ -147,8 +150,8 @@ export async function editStatementAction(itemId: string, statement: string, see
     if (e2) return { ok: false, error: `저장 실패: ${e2.message}` }
     if (!changed?.length) return { ok: false, error: '그 사이 문장이나 상태가 바뀌었습니다 — 새로 고친 뒤 다시' }
     refresh(String(item.slug))
-    const cascaded = await cascadeReview(client, itemId, `상위 「${item.slug}」 문장 변경 — 연쇄 재검토`, who, refresh)
-    return { ok: true, data: { cascaded } }
+    await cascadeReview(client, itemId, `상위 「${item.slug}」 문장 변경 — 연쇄 재검토`, who, refresh)
+    return { ok: true, data: { cascaded: await reviewedNow(client, below) } }
   } catch (e) {
     return { ok: false, error: message(e, '문장 저장 실패') }
   }
