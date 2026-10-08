@@ -8,6 +8,17 @@
 | 기준 | G1 `00b16d639`, [G2_SESSION_CONTRACT](./G2_SESSION_CONTRACT.md)(사용자 결정), 정본 `origin/feat/methodology-vnext` `07ddb2e06` |
 | 산출물 | 통합 SQL 초안 [`g2-draft/20261008160000_learning_sessions_integrated.sql`](./g2-draft/20261008160000_learning_sessions_integrated.sql) · 오프라인 검증 [`pglite-harness.mjs`](./g2-draft/pglite-harness.mjs) + [결과](./g2-draft/pglite-harness.result.json) |
 
+## 0. 사용자 결정 (2026-10-08 · 이 보고서 검토 뒤)
+| 업무 | 담당 | 권한 |
+|---|---|---|
+| G2 통합 SQL 검토 · 적용 | **vocaflow-18** (methodology-vnext) | **단일 DB 쓰기 담당으로 지정** — 지정만으로 적용 승인은 아니다. SQL 전문 · sha256 · 변경 객체 · 영향 · 롤백을 보고하고 명시적 승인 뒤 적용. 다른 세션이 DB 쓰기 중이면 적용하지 않는다 |
+| `/csat/practice` 이식 | **별도 깨끗한 worktree 의 신규 세션** (b5 종료로 재배정 · 51 재사용 안 함) | 코드 이식 · 검증. 실제 DB · 다른 브랜치 변경 금지 — 인계서 [PRACTICE_PORT_BRIEF](./PRACTICE_PORT_BRIEF.md) |
+| G1 학습 루프 | `feat/csat-learning-loop-g1` | 완료 상태 유지 |
+| 공통 계약 변경 | vocaflow-18 중심 조정 | 상호 검토 후 적용 |
+| Workspace | map-vnext 담당 | 병합 보류 유지 |
+
+**G2 적용 전 필수 조건**: sha256 `779eb9bb…4182a01` 일치(이전 `179d884b…` · `5f3f108f…` 제외) · 최신 마이그레이션 충돌 없음 · 실제 개발 DB 스키마 · RLS · RPC · 이벤트 CHECK 확인 · 세션 공개 전 시도 거부 동작 · Practice 이관 · API 계약 호환 · 트랜잭션 · 롤백 · 영향 범위 · 테스트 계정 · 합성 이벤트 격리. 현재 승인 범위는 **검토 · 검증 · 적용 준비까지**.
+
 ## 1. 담당 세션과 소유권 확인
 세션 이름이 아니라 아래 네 가지 근거로 판단했습니다. **DB 쓰기 담당은 지정하지 않았습니다**(사용자 승인 대기).
 
@@ -101,9 +112,9 @@ PGlite 0.2.17 메모리 Postgres에 정본 `learning_task_attempts` DDL과 권�
 ## 9. 남은 차단 요인
 | # | 차단 요인 | 누가 |
 |---|---|---|
-| B1 | **DB 쓰기 담당 지정**(근거상 1순위 vocaflow-18 / methodology-vnext) | 사용자 |
+| B1 | ~~DB 쓰기 담당 지정~~ → **vocaflow-18 지정(2026-10-08)** · 적용 승인은 별도 | 해소(지정) |
 | B2 | 정본 소유 세션의 이 초안 검토 · 채택. `_pending_20261008140100`(client_attempt_id) 철회 또는 명칭 통일 합의 | vocaflow-18 + 사용자 |
-| B3 | `/csat/practice` 이식 코드 담당(51 또는 cd 계열) — 이식 때 직접 INSERT를 `learning_attempt_record`로 바꾸는 것이 멱등의 전제 | 사용자 |
+| B3 | ~~Practice 이식 담당~~ → **신규 세션(별도 worktree) 지정** · 인계서 PRACTICE_PORT_BRIEF — 이식 때 쓰기 경로를 어댑터 뒤에 두고 G2 뒤 `learning_attempt_record` 로 | 해소(지정) |
 | B4 | `phase='review'`를 효과 프로토콜(pre/post/delayed/transfer)과 같은 축에 둘지 최종 확인 | vocaflow-18 |
 | B5 | 효과 측정에서 `after_viewed_first` 시도를 뺄지 · 합성 계정 판정 주체(서버 목록) 확정 | vocaflow-18 + 사용자 |
 | B6 | Supabase 실환경 검증(브랜치 DB 또는 적용 트랜잭션 사전 검사) — 오프라인 하네스의 한계 보완 | DB 쓰기 담당 |
