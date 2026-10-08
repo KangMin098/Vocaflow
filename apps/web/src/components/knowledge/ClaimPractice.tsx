@@ -101,8 +101,12 @@ export function ClaimPractice(props: {
     started.current = Date.now()
   }
 
+  // 판단을 보낸 뒤 해설을 열었으면 답을 잠근다 — 같은 답의 재전송만 남는다. 해설을 보고 바꾼 답이
+  // 독립 수행(이 세션의 independent)으로 저장되는 길을 막는다(Codex P1). 바꾸려면 다른 문항 · 새 세션으로 간다
+  const frozen = explanationViewedAt !== null
+
   function tapSentence(i: number) {
-    if (feedback || lock.current) return
+    if (feedback || lock.current || frozen) return
     if (claim === null) return setClaim(i)
     if (i === claim) {
       setClaim(null)
@@ -303,7 +307,7 @@ export function ClaimPractice(props: {
                     data-key={isClaim || isSupport || undefined}
                     data-trap={isTrap || undefined}
                     aria-pressed={mine || myEv}
-                    disabled={!!feedback || busy}
+                    disabled={!!feedback || busy || frozen}
                     onClick={() => tapSentence(i)}
                   >
                     <span className={styles.barNo}>문장 {i + 1}</span>
@@ -321,7 +325,7 @@ export function ClaimPractice(props: {
                   <legend>문장 {entry.relationSentence + 1}은 주장과 어떤 관계예요?</legend>
                   <div className={styles.chips}>
                     {RELATIONS.map((r) => (
-                      <button key={r} type="button" aria-pressed={relation === r} disabled={busy} onClick={() => setRelation(r)}>
+                      <button key={r} type="button" aria-pressed={relation === r} disabled={busy || frozen} onClick={() => setRelation(r)}>
                         {RELATION_LABEL[r]}
                       </button>
                     ))}
@@ -332,11 +336,11 @@ export function ClaimPractice(props: {
                 <legend>문제지에서 고른 답</legend>
                 <div className={styles.chips}>
                   {[1, 2, 3, 4, 5].map((n) => (
-                    <button key={n} type="button" aria-pressed={option === n} disabled={busy} onClick={() => setOption(n)}>
+                    <button key={n} type="button" aria-pressed={option === n} disabled={busy || frozen} onClick={() => setOption(n)}>
                       {n}번
                     </button>
                   ))}
-                  <button type="button" aria-pressed={option === 'unknown'} disabled={busy} onClick={() => setOption('unknown')}>
+                  <button type="button" aria-pressed={option === 'unknown'} disabled={busy || frozen} onClick={() => setOption('unknown')}>
                     아직 안 골랐어요
                   </button>
                 </div>
@@ -345,7 +349,7 @@ export function ClaimPractice(props: {
                 <legend>주장 문장, 얼마나 확신해요?</legend>
                 <div className={styles.chips}>
                   {([1, 2, 3] as const).map((n) => (
-                    <button key={n} type="button" aria-pressed={confidence === n} disabled={busy} onClick={() => setConfidence(n)}>
+                    <button key={n} type="button" aria-pressed={confidence === n} disabled={busy || frozen} onClick={() => setConfidence(n)}>
                       {n === 1 ? '잘 모르겠어요' : n === 2 ? '아마도' : '확실해요'}
                     </button>
                   ))}
@@ -360,6 +364,12 @@ export function ClaimPractice(props: {
                 {busy ? '기록하는 중…' : '맞춰 보기'}
               </button>
             </div>
+          )}
+
+          {frozen && !feedback && (
+            <p className={styles.note} role="status">
+              해설을 열어서 답을 고칠 수 없어요 — 보낸 답 그대로 다시 맞춰 볼 수 있어요.
+            </p>
           )}
 
           {error && (

@@ -167,9 +167,13 @@ test('학습자: 판단을 보낸 뒤 연 해설은 도움 수준을 바꾸지 �
   await expect(d.page.getByRole('link', { name: /해설 먼저 보기/ })).toHaveCount(0)
   const [popup] = await Promise.all([d.ctx.waitForEvent('page'), d.page.getByRole('link', { name: '해설 보기' }).first().click()])
   await popup.close()
+  // 해설을 본 뒤에는 답을 바꿀 수 없다 — 같은 답 재전송만
+  await expect(d.page.getByRole('button', { name: /^문장 3/ })).toBeDisabled()
+  await expect(d.page.getByRole('button', { name: '1번', exact: true })).toBeDisabled()
   await d.page.getByRole('button', { name: '맞춰 보기' }).click()
   await expect(d.page.getByRole('status').filter({ hasText: '주장 문장을 찾았어요' })).toBeVisible({ timeout: 20_000 })
   expect(d.submits).toHaveLength(2)
+  expect(d.submits[1].claim).toBe(d.submits[0].claim)
   expect(d.submits.map((x) => x.helpLevel)).toEqual(['independent', 'independent'])
   expect(d.submits[1].clientMutationId).toBe(d.submits[0].clientMutationId)
   expect(d.submits[0].explanationViewedAt).toBeNull()
