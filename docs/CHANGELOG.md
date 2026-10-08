@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat-learner): /csat/practice 17bb7c93f 독립 재검증 — P1-1 PASS · P1-2 FAIL(g2 응답 유실 뒤 해설 열람 재전송이 explanation_viewed_at 때문에 409) · P1-3 PASS(response 사본) · unit 3,921 통과 실패 0 · E2E 미실행(환경 격리 미확보) · G3 미완. [보고](./csat-learner/PRACTICE_PORT_REVERIFY_17bb7c93f.md)
+
 - docs(csat-learner): /csat/practice 이식(1ce738924) 독립 검증 — tsc · lint 0 오류 · 전체 unit 3,916 통과 · 실패 0(DB 자격 증명 없이). **E2E 미실행**(실 DB 키 환경 · 로그인 auth 서버 쓰기 · 새 탭 가로채기 누수). P1 3건(스펙 1 · g2 모드 2) 보고 · 코드/DB 변경 0. [검증 보고](./csat-learner/PRACTICE_PORT_VERIFICATION.md) · G2 B5/B6′/B7 반영.
 
 - docs(csat-learner): G2 담당 결정 기록 — 단일 DB 쓰기 담당 vocaflow-18(적용 승인은 별도) · /csat/practice 이식은 신규 세션 [인계서](./csat-learner/PRACTICE_PORT_BRIEF.md).
