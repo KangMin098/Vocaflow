@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- test(textbook): Verify atomic production snapshot closure in development DB. A rollback-only M1/M2 group rejects mixed, stale order and changed explanation evidence; two actual DB sessions race on the same approved capture and snapshot publication, yielding one success and a locked/consumed or duplicate rejection. Guarded cleanup leaves zero synthetic rows. `live_revalidated_atomic=true` for synthetic DB boundary; actual corpus/Gold-S/seed and `production_verified` remain unopened.
+
 - feat(textbook): Apply the approved atomic production snapshot migration to development DB (SHA-256 `bfdff3a4ecf12c69f6216eb463abac2c00bcba793da5f8c7a849c40d7a32eea8`). Rollback-only signed-evidence and publication smoke, cross-runtime signature checks, RLS/role checks, and zero residual synthetic rows pass. Real multi-grade and concurrent DB E2E remain pending; corpus/Gold-S/seed remain zero.
 
 - feat(textbook): Route single-grade render and multi-grade dry-run through a shared live production evidence resolver. It re-reads current DB order, item, source/rights, promotion authority and signed Gold-S/seed proof twice, blocks a changed grade, and records a non-atomic evidence snapshot; actual publication and DB seed remain closed.
