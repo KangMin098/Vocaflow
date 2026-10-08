@@ -11,6 +11,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { revalidatePath } from 'next/cache'
 
 import { getAdminUser, requireAdmin } from '@/lib/auth/require-admin'
+import { loadReadiness } from '@/lib/csat/diagnosis/admin'
 import { validateSettings } from '@/lib/csat/diagnosis/engine/settings'
 import { ATTRIBUTE_CODES, type AttributeCode } from '@/lib/csat/diagnosis/engine/types'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -49,18 +50,10 @@ export async function setExamReadyAction(examId: string, ready: boolean): Promis
   await requireAdmin(`${BASE}/exams`)
   const c = db()
   if (ready) {
-    const { count: keyCount, error: ke } = await c.from('csat_dx_answer_key').select('no', { count: 'exact', head: true }).eq('exam_id', examId)
-    if (ke) return { ok: false, error: ke.message }
-    if (keyCount !== 45) return { ok: false, error: `정답표가 45문항이 아니다(${keyCount ?? '?'})` }
-    const { data: items, error: ie } = await c.from('csat_items').select('id').eq('exam_id', examId)
-    if (ie) return { ok: false, error: ie.message }
-    const ids = (items ?? []).map((i) => i.id as string)
-    if (ids.length === 0) return { ok: false, error: '문항이 없다' }
-    const { data: reviewed, error: re } = await c.from('csat_dx_item_attribute').select('item_id')
-      .in('item_id', ids).eq('attribute_code', 'A1').not('reviewed_at', 'is', null)
-    if (re) return { ok: false, error: re.message }
-    const missing = ids.length - new Set((reviewed ?? []).map((r) => r.item_id)).size
-    if (missing > 0) return { ok: false, error: `검수 안 된 문항 ${missing}개 — 태깅을 먼저 끝낸다` }
+    // 판정은 관리자 목록과 같은 함수 — 문항마다 역량 9개 검수(0 = 해당 없음 포함) · 정답표 45 · 문항 정답(readiness.ts)
+    const r = (await loadReadiness(c, [examId])).get(examId)
+    if (!r) return { ok: false, error: '없는 시험' }
+    if (!r.canEnable) return { ok: false, error: r.reason }
   }
   const { error } = await c.from('csat_exams').update({ diagnosis_ready: ready }).eq('id', examId)
   if (error) return { ok: false, error: error.message }

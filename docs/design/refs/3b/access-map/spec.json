@@ -1,0 +1,152 @@
+{
+  "source": "access-map-page.png",
+  "image": {
+    "w": 2094,
+    "h": 950
+  },
+  "node": {
+    "w": 206,
+    "h": 46
+  },
+  "columns": {
+    "count": 5,
+    "xs": [
+      261,
+      533,
+      805,
+      1349,
+      1707
+    ],
+    "pitch": 272,
+    "gapBetween": 152,
+    "note": "4열(Connectors)은 비어 있어 측정 피치 358 은 오류 — 실제 피치 272(261,533,805,[1077],1349)"
+  },
+  "rows": {
+    "pitch": 60,
+    "gap": 14
+  },
+  "firstNodeY": 82,
+  "rects": [
+    {
+      "x": 261,
+      "y": 200,
+      "w": 206,
+      "h": 46
+    },
+    {
+      "x": 533,
+      "y": 200,
+      "w": 206,
+      "h": 46
+    },
+    {
+      "x": 533,
+      "y": 260,
+      "w": 206,
+      "h": 46
+    },
+    {
+      "x": 805,
+      "y": 200,
+      "w": 206,
+      "h": 46
+    },
+    {
+      "x": 1349,
+      "y": 200,
+      "w": 206,
+      "h": 46
+    },
+    {
+      "x": 1707,
+      "y": 82,
+      "w": 320,
+      "h": 32
+    }
+  ],
+  "panel": {
+    "headH": 49,
+    "firstGap": 25,
+    "note": "ref-measure 의 선 측정 — 안쪽 패널 y126~935, 머리 줄 구분선 y175(#eeeceb), 첫 노드 y200",
+    "innerBorder": "#e2e1e0",
+    "divider": "#eeeceb",
+    "bg": "#fbf9f7",
+    "nodeFill": "#ffffff",
+    "groupTile": "#ddf1ed",
+    "memberAvatar": "#ec407a"
+  },
+  "measuredFrom": {
+    "file": "access-map-page.png",
+    "viewport": "2094x950 (DPR 1 로 가정 — 본문 12px 과 일치)"
+  },
+  "modal": {
+    "source": "skill-modal.png (2091×1033)",
+    "w": 680,
+    "h": 760,
+    "headH": 56,
+    "footH": 56,
+    "sideGap": 17,
+    "cardGap": 18,
+    "firstCardGap": 18,
+    "cardW": 646,
+    "cardPadX": 31,
+    "cardPadY": 26,
+    "note": "ref-measure --color fbf9f7 로 카드 사각형, modal-box 스캔으로 바깥 사각형 · 머리/바닥 줄을 잼"
+  },
+  "layout": {
+    "pattern": "columns-by-type",
+    "note": "참조 Access map 은 종류마다 한 열(Members · Groups · Spaces · Connectors · Skills) — 상자 모양이 아니라 열과 열 머리로 종류를 가른다. 비어 있는 열(Connectors)도 머리를 남긴다. 2026-10-07 ref-scan --text 140,160 로 잼",
+    "headerTextXs": [
+      269,
+      541,
+      813,
+      1085,
+      1357
+    ],
+    "nodeColumnXs": [
+      261,
+      533,
+      805,
+      1077,
+      1349
+    ],
+    "headerTextOffset": 8,
+    "headerPitch": 272,
+    "count": 5,
+    "emptyColumnKeepsHeader": true
+  },
+  "type": {
+    "method": "같은 문자 체계 · 같은 역할의 글자 잉크 높이를 참조 캡처와 우리 화면(같은 뷰포트 2094×950 · DPR 1)에서 같은 도구(ref-scan --ink, 배경 대비 60 문턱)로 잰 비율. 우리 쪽 font-size 는 DOM 계산값(ours-text-metrics.mjs). 2026-10-07",
+    "pairs": [
+      {
+        "role": "사이드바 항목 · 라틴 대문자",
+        "ref": {
+          "text": "Recents",
+          "ink": 9
+        },
+        "ours": {
+          "text": "W(Workspace 만들기)",
+          "fontSize": 13,
+          "ink": 10
+        },
+        "refFontEst": 11.7
+      },
+      {
+        "role": "지도 노드 이름 · 한글",
+        "ref": {
+          "text": "서준 강",
+          "ink": 10
+        },
+        "ours": {
+          "text": "어(어휘)",
+          "fontSize": 12,
+          "ink": 11
+        },
+        "refFontEst": 10.9
+      }
+    ],
+    "scale": 0.92,
+    "minPx": 10,
+    "note": "두 쌍 모두 참조/우리 ≈ 0.92(13→12 · 12→11). /csat 모듈 CSS 의 고정 font-size 는 max(minPx, 원래값 × scale) 로만 쓴다. 탭 · 열 머리는 참조가 라틴 · 우리가 한글이라 직접 비교하지 않고 같은 비율을 따른다."
+  }
+}

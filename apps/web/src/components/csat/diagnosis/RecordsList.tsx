@@ -49,6 +49,7 @@ export function RecordsList({ trend, base, addHref }: { trend: ExamReport['trend
                     {t.label}
                   </Link>
                   {t.mode === 'retake' && <span className={s.chip} style={{ marginLeft: 8 }}>다시 푼 기출</span>}
+                  {t.quality !== 'trusted' && <span className={s.chip} style={{ marginLeft: 8 }} title={t.qualityReasons.join(' · ')}>진단 제외 · 입력 확인 필요</span>}
                 </td>
                 <td className={s.num}>{t.takenAt}</td>
                 <td className={s.num}>{t.raw}</td>

@@ -143,6 +143,9 @@ export interface DiagnosisResult {
     diagnosticSessions: number
     responses: number
     diagnosedResponses: number
+    /** Record Quality Layer 로 진단 집계에서 뺀 기록 수(rule-v1.1~) */
+    qualityExcludedSessions?: number
+    qualityRules?: string
     scoreOnlySessions: number
   }
   /** 점수 흐름 그래프용 — 회차별 원점수·보정 점수 */
