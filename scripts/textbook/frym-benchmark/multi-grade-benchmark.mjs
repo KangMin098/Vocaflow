@@ -1,6 +1,7 @@
 // scripts/textbook/frym-benchmark/multi-grade-benchmark.mjs
 import { AXES, GRADES, hash } from './benchmark.mjs'
 import { admitReference } from './reference-admission.mjs'
+import { assessReferenceCalibration } from './reference-calibration.mjs'
 
 const CORE = ['lexical', 'syntax', 'information_density', 'discourse', 'inference']
 const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
@@ -282,10 +283,16 @@ export function evaluateAdmittedMultiGradeBenchmark({ admitted, ...input }) {
     const verified = admitReference(bundle.input)
     if (!same(bundle.receipt, verified.receipt) || !same(bundle.reference, verified.reference))
       fail('ADMITTED_REFERENCE_STALE_OR_MIXED')
-    return verified.reference
+    if (input.contract.reference_cohort !== 'open_reference') return verified.reference
+    if (!bundle.calibration_evidence || !bundle.calibration_decision)
+      fail('REFERENCE_CALIBRATION_EVIDENCE_REQUIRED')
+    const decision = assessReferenceCalibration({ admission: {
+      input: bundle.input, receipt: bundle.receipt, reference: bundle.reference,
+    }, evidence: bundle.calibration_evidence })
+    if (!same(decision, bundle.calibration_decision) || !decision.calibration_eligible)
+      fail('REFERENCE_CALIBRATION_INELIGIBLE')
+    return { ...verified.reference, calibration_eligible: true,
+      calibration_decision_hash: decision.decision_hash }
   })
-  if (input.contract.reference_cohort === 'open_reference' &&
-      references.some(reference => reference.calibration_eligible !== true))
-    fail('REFERENCE_CALIBRATION_INELIGIBLE')
   return evaluateMultiGradeCore({ ...input, references })
 }

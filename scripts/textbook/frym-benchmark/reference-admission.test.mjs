@@ -9,6 +9,7 @@ import { spawnSync } from 'node:child_process'
 import { AXES, hash } from './benchmark.mjs'
 import { normalizedPassageHash } from './two-stage-seal.mjs'
 import { admitReference, verifyReferenceSelection } from './reference-admission.mjs'
+import { assessReferenceCalibration } from './reference-calibration.mjs'
 import { evaluateAdmittedMultiGradeBenchmark, evaluateMultiGradeBenchmark } from './multi-grade-benchmark.mjs'
 
 const sha = value => createHash('sha256').update(value).digest('hex')
@@ -136,7 +137,7 @@ test('government public-domain reference requires specific passage and item orig
   assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
     contract: { reference_cohort: 'open_reference' },
     admitted: [{ input, ...admitted }],
-  }), /REFERENCE_CALIBRATION_INELIGIBLE/)
+  }), /REFERENCE_CALIBRATION_EVIDENCE_REQUIRED/)
   writeFileSync(input.scoring_source_path, 'changed answer guide')
   assert.throws(() => admitReference(input), /REFERENCE_SCORING_SOURCE_CHANGED/)
   writeFileSync(input.scoring_source_path, 'educator guide answers')
@@ -216,7 +217,118 @@ test('multi-grade evaluation re-admits file-backed references before reading the
   }), /ADMITTED_REFERENCE_STALE_OR_MIXED/)
   assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
     contract, admitted: [{ input, receipt, reference }],
+  }), /REFERENCE_CALIBRATION_EVIDENCE_REQUIRED/)
+})
+
+test('calibration eligibility separates rights, Korean grade mapping, and rater independence', t => {
+  const input = fixture(t)
+  const admitted = admitReference(input)
+  const admission = { input, ...admitted }
+  const blank = assessReferenceCalibration({ admission })
+  assert.equal(blank.calibration_eligible, false)
+  assert.equal(blank.stages.rights_eligible.reason, 'RIGHTS_EVIDENCE_MISSING')
+  const evidence = {
+    rights: { source_file_hash: admitted.receipt.file_hash,
+      passage_hash: admitted.receipt.passage_hash, item_set_hash: admitted.receipt.item_set_hash,
+      source_rights: 'authorized', passage_rights: 'authorized', third_party_content: 'absent',
+      rights_confidence: 'documented', source_evidence_hash: sha('source permission'),
+      passage_evidence_hash: sha('passage permission') },
+    grade_mapping: { source_grade_scope_hash: hash(admitted.receipt.grade_scope),
+      grade_source_hash: admitted.receipt.grade_source_hash,
+      source_grade_scope: { label_system: admitted.receipt.grade_label_system,
+        source_hash: admitted.receipt.grade_source_hash,
+        labels: admitted.receipt.grade_scope.grades }, status: 'verified',
+      mapping_evidence_hash: sha('Korean curriculum mapping'), reviewer_id: 'human-reviewer',
+      korean_target_mapping: admitted.receipt.grade_scope.grades.map(grade =>
+        ({ source_grade: grade, korean_grade: grade })) },
+    rating: { analysis_hash: admitted.receipt.analysis_hash,
+      codebook_hash: admitted.receipt.codebook_hash,
+      reviewers: [{ id: 'r1', model_family: 'family-a', invocation_id: 'call-a',
+        ratings: Object.fromEntries(AXES.map(axis => [axis, 2])),
+        output_hash: hash(Object.fromEntries(AXES.map(axis => [axis, 2]))) },
+      { id: 'r2', model_family: 'family-b', invocation_id: 'call-b',
+        ratings: Object.fromEntries(AXES.map(axis => [axis, 2])),
+        output_hash: hash(Object.fromEntries(AXES.map(axis => [axis, 2]))) }],
+      axis_reviews: Object.fromEntries(AXES.map(axis => [axis, { rater_a: 2, rater_b: 2 }])) },
+  }
+  const dir = join(input.source_path, '..')
+  evidence.rights.source_evidence_path = join(dir, 'source-permission.txt')
+  evidence.rights.passage_evidence_path = join(dir, 'passage-permission.txt')
+  evidence.grade_mapping.mapping_evidence_path = join(dir, 'grade-mapping.txt')
+  writeFileSync(evidence.rights.source_evidence_path, 'source permission')
+  writeFileSync(evidence.rights.passage_evidence_path, 'passage permission')
+  writeFileSync(evidence.grade_mapping.mapping_evidence_path, 'Korean curriculum mapping')
+  evidence.rating.reviewers.forEach((reviewer, index) => {
+    reviewer.output_path = join(dir, `rater-${index}.json`)
+    const raw = JSON.stringify({ invocation_id: reviewer.invocation_id,
+      model_family: reviewer.model_family, ratings: reviewer.ratings,
+      passage_hash: admitted.receipt.passage_hash, analysis_hash: admitted.receipt.analysis_hash,
+      codebook_hash: admitted.receipt.codebook_hash })
+    writeFileSync(reviewer.output_path, raw)
+    reviewer.output_hash = sha(raw)
+  })
+  const pass = assessReferenceCalibration({ admission, evidence })
+  assert.equal(pass.calibration_eligible, true)
+  assert.equal(pass.benchmark_cohort_eligible, false)
+  assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
+    contract: { reference_cohort: 'open_reference' },
+    admitted: [{ ...admission, calibration_evidence: evidence, calibration_decision: pass }],
   }), /MULTI_GRADE_CONTRACT_INVALID/)
+  const sameFamily = structuredClone(evidence)
+  sameFamily.rating.reviewers[1].model_family = 'family-a'
+  assert.equal(assessReferenceCalibration({ admission, evidence: sameFamily }).stages.rating_independence_eligible.reason,
+    'RATERS_SAME_MODEL_FAMILY')
+  const weakRights = structuredClone(evidence)
+  weakRights.rights.rights_confidence = 'reviewed_inference'
+  assert.equal(assessReferenceCalibration({ admission, evidence: weakRights }).stages.rights_eligible.status, 'hold')
+  const noMapping = structuredClone(evidence)
+  noMapping.grade_mapping.status = 'unverified'
+  assert.equal(assessReferenceCalibration({ admission, evidence: noMapping }).stages.grade_anchor_eligible.status, 'hold')
+  const inventedLabels = structuredClone(evidence)
+  inventedLabels.grade_mapping.source_grade_scope.labels = ['X', 'Y']
+  inventedLabels.grade_mapping.korean_target_mapping = ['X', 'Y'].map(source_grade =>
+    ({ source_grade, korean_grade: 'middle_1' }))
+  assert.throws(() => assessReferenceCalibration({ admission, evidence: inventedLabels }),
+    /CALIBRATION_GRADE_MAPPING_INVALID/)
+  const stale = structuredClone(evidence)
+  stale.rating.analysis_hash = sha('other analysis')
+  assert.throws(() => assessReferenceCalibration({ admission, evidence: stale }), /CALIBRATION_RATING_STALE/)
+  writeFileSync(evidence.rights.source_evidence_path, 'revoked source permission')
+  assert.throws(() => assessReferenceCalibration({ admission, evidence }), /CALIBRATION_SOURCE_RIGHTS_CHANGED/)
+  writeFileSync(evidence.rights.source_evidence_path, 'source permission')
+  writeFileSync(evidence.rating.reviewers[0].output_path, '{}')
+  assert.throws(() => assessReferenceCalibration({ admission, evidence }), /CALIBRATION_RATER_OUTPUT_CHANGED/)
+  const originalRater = evidence.rating.reviewers[0]
+  writeFileSync(originalRater.output_path, JSON.stringify({ invocation_id: originalRater.invocation_id,
+    model_family: originalRater.model_family, ratings: originalRater.ratings,
+    passage_hash: admitted.receipt.passage_hash, analysis_hash: admitted.receipt.analysis_hash,
+    codebook_hash: admitted.receipt.codebook_hash }))
+  const wrongPassage = JSON.stringify({ invocation_id: originalRater.invocation_id,
+    model_family: originalRater.model_family, ratings: originalRater.ratings,
+    passage_hash: sha('other passage'), analysis_hash: admitted.receipt.analysis_hash,
+    codebook_hash: admitted.receipt.codebook_hash })
+  writeFileSync(originalRater.output_path, wrongPassage)
+  const staleRater = structuredClone(evidence)
+  staleRater.rating.reviewers[0].output_hash = sha(wrongPassage)
+  assert.throws(() => assessReferenceCalibration({ admission, evidence: staleRater }),
+    /CALIBRATION_RATER_OUTPUT_STALE/)
+  writeFileSync(originalRater.output_path, JSON.stringify({ invocation_id: originalRater.invocation_id,
+    model_family: originalRater.model_family, ratings: originalRater.ratings,
+    passage_hash: admitted.receipt.passage_hash, analysis_hash: admitted.receipt.analysis_hash,
+    codebook_hash: admitted.receipt.codebook_hash }))
+  const forgedRating = structuredClone(evidence)
+  forgedRating.rating.reviewers[0].ratings.lexical = 4
+  assert.throws(() => assessReferenceCalibration({ admission, evidence: forgedRating }), /CALIBRATION_RATER_OUTPUT_INVALID/)
+  assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
+    contract: { reference_cohort: 'open_reference' },
+    admitted: [{ ...admission, calibration_evidence: sameFamily,
+      calibration_decision: assessReferenceCalibration({ admission, evidence: sameFamily }) }],
+  }), /REFERENCE_CALIBRATION_INELIGIBLE/)
+  assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
+    contract: { reference_cohort: 'open_reference' },
+    admitted: [{ ...admission, calibration_evidence: evidence,
+      calibration_decision: { ...pass, decision_hash: sha('tampered') } }],
+  }), /REFERENCE_CALIBRATION_INELIGIBLE/)
 })
 
 test('CLI writes a create-only metadata receipt without textbook text', t => {

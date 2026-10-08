@@ -77,3 +77,13 @@ Separation의 두 학년 참조군은 **같은 장르와 F02 각 버전의 75–
 ## 2026-10-08 open-reference intake update
 
 A NASA middle-school reader has one **metadata-only, file-backed open-reference admission**: [intake audit](./reports/open-reference-nasa-intake-20261008.md) and [N=1 receipt/corpus metadata](./reports/open-reference-nasa-corpus-20261008.json). The earlier 31-file commercial-textbook inventory still has zero eligible/admitted passages. The NASA passage is labelled for a US grade range, has no calibrated Korean grade distribution, and cannot be counted as a commercial market reference. `BENCHMARK_TARGET_FIT`, `BENCHMARK_LEVEL_SEPARATION`, Gold-S, and DB seed remain unopened/zero.
+
+Admission and calibration are separate decisions. The calibration contract rechecks the current
+admission receipt, then records `rights_eligible`, `grade_anchor_eligible`, and
+`rating_independence_eligible` separately. The rights stage distinguishes source permission,
+passage permission, third-party content, and confidence; a NASA-origin inference remains held.
+The grade stage keeps the source label system and receipt-bound normalized grade tokens separate from the Korean target mapping, and requires reviewed evidence for that mapping.
+The rating stage requires different model families, each rater's hashed axis vector,
+and adjudication for disagreements. Only three passes yield `calibration_eligible`; cohort
+composition is a further independent gate. NASA remains `admitted_uncalibrated` with
+`calibration-eligible N=0`.

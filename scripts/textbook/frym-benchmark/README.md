@@ -1,5 +1,18 @@
 # FYM commercial textbook benchmark engine
 
+## Admission to calibration contract
+
+`reference-calibration.mjs` re-admits the current source before evaluating three independent
+eligibility stages: documented source/passage rights with third-party clearance, a reviewed
+mapping from native source-grade labels to Korean target grades, and nine-axis ratings from
+different model families with output hashes and adjudication. Missing evidence produces `hold`;
+excluded rights or rejected mapping produces `reject`; changed admission or evidence hashes fail
+as stale. A passing eligibility decision is bound to the admission receipt and evidence hash.
+`evaluateAdmittedMultiGradeBenchmark` requires that current decision and recomputes it before
+using an open-reference sample. It still applies cohort-size and composition rules separately.
+The NASA admission has no documented employee authorship, Korean-grade mapping, or independent
+model-family rating, so its calibration status remains held and it cannot open a distribution.
+
 This directory contains the **metadata-only** benchmark contract, distribution builder, F02 comparator, and stale checks. No commercial passage or item text is stored here. The commercial-textbook corpus remains **N=0**; one NASA **open-reference** passage has now been admitted as `admitted_uncalibrated`, N=1, with no grade distribution. The earlier 31-file commercial inventory still has an empty sample manifest and `insufficient_benchmark`. See [the first commercial intake report](../../../docs/reports/benchmark-intake-20261008.md), [NASA admission audit](../../../docs/reports/open-reference-nasa-intake-20261008.md), and [metadata-only corpus](../../../docs/reports/open-reference-nasa-corpus-20261008.json). The open-reference admission branch permits `US-GOV-PUBLIC-DOMAIN` for `nasa.gov` origins only, with separate passage, item, and scoring origin URL and hash evidence; it verifies that the passage/item origin hashes equal the current source file and reads the separate `scoring_source_path` to verify its byte hash. It records the source-specific `nasa_analysis_reviewed` decision separately from `open_license_verified`; this is not proof of employee authorship or redistribution rights. A government-hosted file alone never supplies those decisions; other federal domains need their own reviewed policy extension, and state/local `.gov` domains are not accepted.
 
 `multi-grade-benchmark.mjs` is the **new multi-grade comparison contract**, separate from the previously sealed single-grade v2 corpus. It requires a sealed order-group hash, distinct grade-specific evidence and analyses, at least 30 comparable single-grade references per grade and 12 references labeled for the full grade range, and three publishers in each comparison. It reports lower/upper fit, every grade's sub-fit, shared-core fit, item compatibility, and each adjacent grade-span separation. Range-labeled passages are never copied into individual-grade pools. Its local receipt hashes are declarations, not independently verified admission receipts; results carry `evidence_level=contract_only`, `admissible=false`, and `gold_s_candidate=false` even when synthetic fixture math passes. Real admission, receipt verification, codebook binding, and the production gate remain separate work. The existing v2 seal is immutable.

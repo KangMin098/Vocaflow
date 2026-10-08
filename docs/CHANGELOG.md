@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Separate open-reference admission from rights, Korean-grade mapping, and independent nine-axis calibration eligibility; recheck current evidence at benchmark entry. NASA stays admitted but calibration-ineligible, with no real grade distribution or DB seed.
+
 - feat(textbook): Admit one NASA open-reference passage with sealed selection, file-bound rights/grade/item/key evidence and two-call nine-axis ratings. Preserve metadata-only N=1 as uncalibrated; commercial corpus, fit/separation, Gold-S and DB seed remain zero/unopened.
 
 - feat(textbook): Add a public-domain open-reference admission branch that requires passage and item origin evidence, and keep its rights basis distinct from CC-licensed samples. Inspect a NASA grade 6–8 reader, its questions, and educator key as a held real intake candidate; no benchmark admission, distribution, Gold-S, or seed was opened.

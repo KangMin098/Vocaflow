@@ -19,3 +19,10 @@ A single NASA reader passed the file-backed open-reference admission path. The m
 5. `reference-admit.mjs` re-read the source and separate scoring/grade PDF, verified current hashes and the manifest, and produced receipt `c9dd4a6865acb2cbaa341174210c41ce523247e00bf5cdd9b188ec2b0814796f`. Eight changed-source, score, grade, rights, manifest, agreement and scope inputs were blocked in a separate failure-injection audit.
 
 The corpus contains exactly one range-labelled open-reference passage. It does not fill any individual-grade pool or the minimum publisher, series, genre and passage quotas. `BENCHMARK_TARGET_FIT` and `BENCHMARK_LEVEL_SEPARATION` remain unopened; real calibrated nine-axis distribution is 0. Commercial benchmark corpus remains 0, Gold-S remains 0, DB seed remains 0, and `production_verified=false`.
+
+The later calibration contract was run against this exact admission receipt without inventing
+new evidence. Admission re-verification passed. The three new stages returned `hold`:
+`RIGHTS_EVIDENCE_MISSING`, `GRADE_MAPPING_MISSING`, and `RATING_REVIEW_MISSING`.
+The earlier rights inference and same-family ratings remain in the admission audit, but do not
+meet the more demanding calibration evidence contract. The decision is stored outside Git with
+the raw audit materials; calibration-eligible N remains 0.
