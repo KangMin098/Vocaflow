@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Add an admin-only structural planning API that revalidates external N=2 source, rights, excerpt, and profile hashes before offering opt-in Product Order notes. Empty selection explicitly ignores references; grade targets, fit, Gold-S, and DB state remain unchanged.
+
 - feat(textbook): Characterize the two hash-bound structural references with non-grade HTML interval counts and an advisory-only Product Order planning note. Real N=2 profiles stay outside calibration, target fit, Gold-S, and seed paths.
 
 - feat(textbook): Apply hash-checked reference roles to NASA, FYM, African Storybook, and EIA using an external, create-only metadata screen. FYM and African Storybook form a structural-only corpus of two; calibration, Korean-grade distribution, Gold-S, and DB seed remain zero.

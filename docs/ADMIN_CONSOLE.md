@@ -1,5 +1,7 @@
 # Admin Console
 
+`GET/POST /api/admin/csat/structural-planning`은 관리자 전용 구조 참고 경로다. 서버에 `TEXTBOOK_STRUCTURAL_REFERENCE_DIR`로 외부 증거 폴더가 구성되어야 하며, 매 요청마다 원본·권리·구간·프로필 해시를 재검증한다. `GET`은 본문 없는 구조 프로필을 반환하고 `POST`는 정식 Product Order와 명시적으로 선택한 출처 ID(빈 배열이면 무시)를 받아 비구속 참고 기록만 반환한다. `/admin/csat/new` 화면에는 아직 이 선택 UI가 없으며, 주문 저장·발주 명령·학년·난도·Gold-S·DB 상태는 바꾸지 않는다. 입력이나 현재 증거가 불완전하면 실패한다.
+
 `reading:` 각색 자식의 Phase 2 제한 승격은 [교재 공장 통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md) §Phase 2의 관리자 authority·주문 판본 등록, 주문별 승인 API, 전용 실행기와 개발 DB permit 트리거로 연결했다. 일반 ACP·강제 게시는 계속 차단되며, 관리자 화면 액션은 아직 제공하지 않는다.
 
 교재 공장 Phase 1에서 Academic Reading 주문의 증거 상태를 기존 `/admin/csat` 9공정에 대응시키는 순수 계약을 추가했다([통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md)). 새 관리자 실행 화면이나 DB 집계 눈금은 아직 없으며 `queued` 각색을 집필 재고로 세지 않는다.
