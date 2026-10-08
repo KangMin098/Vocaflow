@@ -127,19 +127,20 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
   type Row = { id: number; task_key: string; item_ref: string | null; phase: string; answered_at: string; activity: string | null; help_level: string | null; response: Record<string, unknown> | null }
   const rows = (data ?? []) as Row[]
   // 첫 시도는 **활동과 무관하게** (과제 · 문항 · 단계)의 가장 이른 판단이다(DB 뷰 learning_first_attempts 와 같다 — 이미 answered_at · id 순).
-  // 그 첫 판단이 해설 극장(theater) 등 다른 활동이면, Practice 재풀이는 첫 시도가 아니므로 그 묶음을 Practice 기록에서 뺀다(Codex P2)
+  // 그 첫 판단이 해설 극장(theater) 등 다른 활동이면, Practice 재풀이는 첫 시도가 아니다 — 역량 판정에서만 뺀다(Codex P2).
+  // 완료 · 이력은 수행 기록을 그대로 둔다(빼면 연습을 마쳐도 새로고침 뒤 미완료로 보인다)
   const firstActivity = new Map<string, string | undefined>()
   for (const r of rows) {
     const k = `${r.task_key} ${r.item_ref ?? ''} ${r.phase}`
     if (!firstActivity.has(k)) firstActivity.set(k, (r.activity ?? r.response?.activity) as string | undefined)
   }
   return rows
-    .filter((r) => firstActivity.get(`${r.task_key} ${r.item_ref ?? ''} ${r.phase}`) === 'practice')
     .filter((r) => (r.activity ?? r.response?.activity) === 'practice' && (r.response?.preview === true) === opts.preview)
     .filter((r) => r.item_ref && (r.phase === 'practice' || r.phase === 'transfer'))
     .map((r) => ({
       id: r.id,
       taskKey: r.task_key,
+      firstElsewhere: firstActivity.get(`${r.task_key} ${r.item_ref ?? ''} ${r.phase}`) !== 'practice',
       itemId: r.item_ref as string,
       phase: r.phase as PracticePhase,
       // hint 도 독립이 아니다 — 「지금 내 상태」 판단에서 viewed_first 와 같이 뺀다(보수적)

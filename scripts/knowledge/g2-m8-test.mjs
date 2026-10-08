@@ -49,8 +49,20 @@ try {
   // 160000 상태에서 만든 기존 기록 — 백필 · 행 보존 확인용
   const sess = (user, cs, help, at, extra = {}) => q(`select * from learning_session_apply($1,$2,$3,'theater','practice','2022#20','revealed',0,1,$4,$5,null,false,$6,'claim-support',null,$7,null)`,
     [user, uuid(), cs, help, at, extra.synthetic ?? false, extra.trial ?? null])
-  const att = (user, mut, sid, at, extra = {}) => q(`select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,null,null,'h',$4,true,10,$5,null,$6,$7)`,
-    [user, mut, sid, JSON.stringify(extra.resp ?? { claim: 1 }), extra.synthetic ?? false, extra.trial ?? null, at])
+  // 고정 날짜 픽스처(이틀 넘게 지난 판단)는 「곧바로 도착」으로 둔다(수신 = 판단 + 5초) — 아니면 실제 시계와의 차이가 며칠짜리 지연으로 보여
+  // 지연 폭 규칙(M8-G)이 모든 픽스처를 보류한다. 현재 시각 근처 판단(시계 단언)은 실제 수신 시각 그대로
+  const promptly = async (attemptId, at) => {
+    if (!attemptId || Math.abs(Date.parse(at) - Date.now()) <= 2 * 86_400_000) return
+    // M8 적용 전(160000 상태)에 만든 기존 기록에는 열이 없다 — 그 기록은 received_at NULL 이 정답(M8-D)
+    if (!(await q(`select 1 from information_schema.columns where table_name = 'learning_task_attempts' and column_name = 'received_at'`)).rowCount) return
+    await q(`update learning_task_attempts set received_at = answered_at + interval '5 seconds' where id = $1`, [attemptId])
+  }
+  const att = async (user, mut, sid, at, extra = {}) => {
+    const r = await q(`select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,null,null,'h',$4,true,10,$5,null,$6,$7)`,
+      [user, mut, sid, JSON.stringify(extra.resp ?? { claim: 1 }), extra.synthetic ?? false, extra.trial ?? null, at])
+    if (r.rows[0]?.outcome === 'inserted') await promptly(r.rows[0].attempt_id, at)
+    return r
+  }
   const csOld = uuid()
   const old = (await sess(A, csOld, 'viewed_first', '2026-10-01T08:00:00Z')).rows[0]
   await att(A, uuid(), old.session_id, '2026-10-01T08:01:00Z')
@@ -161,13 +173,27 @@ try {
     const r2 = await fa(sid2)
     rec('M8-G 도움 수신 뒤 도착한 「더 이른」 판단 → 독립으로 세지 않고 보류', r2.help_level === 'independent' && r2.timing_uncertain, r2)
     // 정상: 판단이 서버에 먼저 도착하고 도움이 나중 → 확실한 독립
+    // 정상: 판단이 바로 도착(지연 1분 < 2분)하고 도움은 2분 반 뒤 → 확실한 독립(과소 집계 없음)
     const s3 = await mk(E, 'clock-ok')
     const sid3 = (await s3.sess('independent', iso(nowMs - 30 * 60_000))).rows[0].session_id
-    await att(E, uuid(), sid3, iso(nowMs - 20 * 60_000))
-    await new Promise((res) => setTimeout(res, 20))
-    await s3.sess('viewed_first', iso(nowMs))
+    await att(E, uuid(), sid3, iso(nowMs - 60_000))
+    await s3.sess('viewed_first', iso(nowMs + 90_000))
     const r3 = await fa(sid3)
-    rec('M8-G 판단 먼저 도착 · 도움 나중 → 확실한 독립(과소 집계 없음)', r3.help_level === 'independent' && !r3.timing_uncertain, r3)
+    rec('M8-G 판단 곧바로 도착 · 도움 나중 → 확실한 독립(과소 집계 없음)', r3.help_level === 'independent' && !r3.timing_uncertain, r3)
+    // methodology m8-clock-probe 반례: 판단 기기 9분 늦음 · 판단이 먼저 도착 · 정확한 시계의 도움(1분 전)이 늦게 도착 → 보류
+    const s4 = await mk(E, 'clock-late-help')
+    const sid4 = (await s4.sess('independent', iso(nowMs - 30 * 60_000))).rows[0].session_id
+    await att(E, uuid(), sid4, iso(nowMs - 9 * 60_000))
+    await s4.sess('viewed_first', iso(nowMs - 60_000))
+    const r4 = await fa(sid4)
+    rec('M8-G 판단 기기 지연 폭 안에 늦게 도착한 도움 → 보류(반례)', r4.help_level === 'independent' && r4.timing_uncertain, r4)
+    // 오프라인 지연이 커도 그 폭 안에 도움이 없으면 보류하지 않는다(과소 집계 방지)
+    const s5 = await mk(E, 'clock-offline')
+    const sid5 = (await s5.sess('independent', iso(nowMs - 3 * 3_600_000))).rows[0].session_id
+    await att(E, uuid(), sid5, iso(nowMs - 2 * 3_600_000))
+    await s5.sess('viewed_first', iso(nowMs + 60_000))
+    const r5 = await fa(sid5)
+    rec('M8-G 오프라인 2시간 지연 · 도움은 그 뒤 → 독립 유지', r5.help_level === 'independent' && !r5.timing_uncertain, r5)
   }
   // M8-H 원자 제출 — 같은 제출 id 동시 요청(하나는 도움 수준만 다름): 한 건 inserted · 나머지는 duplicate/conflict, 거부된 요청은 세션을 바꾸지 않는다
   {
@@ -227,7 +253,8 @@ try {
     const cs = uuid()
     let sid
     for (const [help, at] of steps.reveals) sid = (await q(`select * from learning_session_apply($1,$2,$3,'practice',$4,'x1','revealed',0,1,$5,$6,null,false,false,'g2',null,$7,null)`, [user, uuid(), cs, phase, help, at, trial])).rows[0].session_id
-    await q(`select * from learning_attempt_record($1,$2,$3,'g2',null,null,null,null,'h','{}',true,10,false,null,$4,$5)`, [user, uuid(), sid, trial, steps.answered])
+    const r = (await q(`select * from learning_attempt_record($1,$2,$3,'g2',null,null,null,null,'h','{}',true,10,false,null,$4,$5)`, [user, uuid(), sid, trial, steps.answered])).rows[0]
+    await promptly(r.attempt_id, steps.answered)
     for (const [help, at] of steps.after ?? []) await q(`select * from learning_session_apply($1,$2,$3,'practice',$4,'x1','revealed',0,1,$5,$6,null,false,false,'g2',null,$7,null)`, [user, uuid(), cs, phase, help, at, trial])
     return sid
   }
@@ -256,6 +283,20 @@ try {
       await c2.query('rollback')
       rec('M8-F 커밋 전 시도가 있으면 분석 전환이 잠금에서 기다린다', blocked)
     } finally { await c1.query('rollback'); c1.release(); c2.release() }
+  }
+  // M8-H 잠금 순서 — 표본 세션에 원자 제출을 하는 동시에 분석 전환을 걸어도 교착(deadlock)이 나지 않는다(Codex P2)
+  {
+    const csL = uuid()
+    const trial2 = (await q(`insert into knowledge_trials (application_id, design, created_by) values ($1, '{"pre":true,"post":true,"min_n":1}', 't') returning id`, [app])).rows[0].id
+    await q(`select * from learning_session_apply($1,$2,$3,'practice','pre','lk','revealed',0,1,'independent','2026-10-04T09:00:00Z',null,false,false,'g2',null,$4,null)`, [E, uuid(), csL, trial2])
+    const runs = []
+    for (let i = 0; i < 6; i++) {
+      runs.push(q(`select * from learning_attempt_submit($1,$2,$3,$4,'practice','pre','lk','independent',$5,false,'g2',null,'h','{}',true,5,$6)`, [E, uuid(), uuid(), csL, `2026-10-04T09:0${i}:30Z`, trial2]))
+      runs.push(q(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial2]))
+    }
+    const res = await Promise.allSettled(runs)
+    const dead = res.filter((x) => x.status === 'rejected' && /deadlock/.test(x.reason.message))
+    rec('M8-H 원자 제출 ∥ 분석 전환 — 교착 0', dead.length === 0, res.filter((x) => x.status === 'rejected').map((x) => x.reason.message.slice(0, 60)))
   }
   const analyze = () => err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial])
   // E: 판단 30초 뒤 도움 → 독립이지만 불확실 → 세지 않음

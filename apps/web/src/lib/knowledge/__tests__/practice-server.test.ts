@@ -4,7 +4,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { describe, expect, it, vi } from 'vitest'
 
 import { annotationFor, annotationHash } from '../claim-support'
-import { PRACTICE_TASK, SKELETON_TASK, keyFromAnnotation, type PracticeSubmission } from '../practice'
+import { PRACTICE_TASK, SKELETON_TASK, capabilityHits, keyFromAnnotation, type PracticeSubmission } from '../practice'
 import { PracticeInputError, loadMyAttempts, submitPractice, type ServerEntry, type SubmitDeps } from '../practice-server'
 import { directWriter, g2Writer, responseOf, selectWriter, stableUuid, type AttemptWrite, type AttemptWriter, type WriteOutcome } from '../practice-writer'
 
@@ -158,7 +158,7 @@ describe('direct 어댑터(지금) — 정본 13열에 INSERT · response 안에
 describe('g2 어댑터(G2 적용 뒤) — 원자 제출 RPC(M8-H)', () => {
   it('M8-H: 공개 · 시도를 원자 RPC 한 번으로 — reveal 은 쓰지 않고 record 가 learning_attempt_submit(판단 시각 · 공개 id 포함)', async () => {
     const f = fakeDb([])
-    const w = g2Writer(f.db)
+    const w = g2Writer(f.db, { atomic: true })
     const sid = await w.reveal(W)
     expect(sid).toBeNull()
     expect(await w.record(W, sid)).toBe('inserted')
@@ -171,14 +171,14 @@ describe('g2 어댑터(G2 적용 뒤) — 원자 제출 RPC(M8-H)', () => {
   })
   it('공개 id 는 도움 수준 · 판단 시각마다 다르다 — 해설을 본 뒤의 새 판단은 새 공개(도움 상승이 적용된다)', async () => {
     const f = fakeDb([])
-    const w = g2Writer(f.db)
+    const w = g2Writer(f.db, { atomic: true })
     await w.record(W, null)
     await w.record({ ...W, helpLevel: 'viewed_first', clientMutationId: '00000000-0000-4000-8000-0000000000ff' }, null)
     expect(f.rpcs[1].args.p_reveal_mutation).not.toBe(f.rpcs[0].args.p_reveal_mutation)
   })
   it('P1: g2 response 에도 activity · help_level · client ids 사본 — direct 와 같은 모양', async () => {
     const f = fakeDb([])
-    await g2Writer(f.db).record(W, 'sess-1')
+    await g2Writer(f.db, { atomic: true }).record(W, 'sess-1')
     const d = fakeDb([])
     await directWriter(d.db).record(W, null)
     expect(f.rpcs[0].args.p_response).toEqual(responseOf(W))
@@ -193,15 +193,29 @@ describe('g2 어댑터(G2 적용 뒤) — 원자 제출 RPC(M8-H)', () => {
     expect(selectWriter({} as SupabaseClient, 'g2').kind).toBe('g2')
     expect(selectWriter({} as SupabaseClient, 'direct').kind).toBe('direct')
   })
+  it('M8 적용 전 기본(g2 · 두 RPC)은 160000 계약만 부른다 — 미적용 learning_attempt_submit 을 부르지 않는다(Codex P1)', async () => {
+    const f = fakeDb([])
+    const w = selectWriter(f.db, undefined)
+    const sid = await w.reveal(W)
+    expect(await w.record(W, sid)).toBe('inserted')
+    expect(f.rpcs.map((r) => r.fn)).toEqual(['learning_session_apply', 'learning_attempt_record'])
+    expect(f.rpcs[1].args).toMatchObject({ p_session_id: 'sess-1', p_help_level: null, p_answered_at: W.answeredAt })
+  })
+  it('g2-atomic 설정에서만 원자 RPC', async () => {
+    const f = fakeDb([])
+    const w = selectWriter(f.db, 'g2-atomic')
+    await w.record(W, await w.reveal(W))
+    expect(f.rpcs.map((r) => r.fn)).toEqual(['learning_attempt_submit'])
+  })
   it('M8-H: reveal 은 따로 세션을 쓰지 않는다 — 같은 제출 id 의 동시 · 재전송 판정은 서버 원자 RPC 가 잠금으로 한다', async () => {
     const { db, rpcs } = fakeDb([])
-    await g2Writer(db).reveal({ ...W, helpLevel: 'viewed_first' })
+    await g2Writer(db, { atomic: true }).reveal({ ...W, helpLevel: 'viewed_first' })
     expect(rpcs).toHaveLength(0)
   })
 
   it('B8: 해설 열람은 공개 · 판단과 다른 mutation id 로 learning_session_apply(p_explanation_viewed_at) · 같은 열람 재전송은 같은 id', async () => {
     const f = fakeDb([])
-    const w = g2Writer(f.db)
+    const w = g2Writer(f.db, { atomic: true })
     await w.reveal(W)
     await w.record(W, 'sess-1')
     await w.noteExplanationView(W, '2026-10-08T06:10:00.000Z', 'sess-1')
@@ -234,7 +248,9 @@ describe('P1: 내 기록 읽기 — direct · g2 어느 기록이든 같은 칸�
       { ...base, id: 2, answered_at: '2026-10-08T05:00:00Z', activity: 'practice' },
       { ...base, id: 3, item_ref: 'B', answered_at: '2026-10-08T05:00:00Z', activity: 'practice' },
     ]), 'u1', { preview: false })
-    expect(got.map((g) => g.itemId)).toEqual(['B'])
+    // 완료 · 이력에는 둘 다 남고, A 는 첫 판단이 극장이라 역량 판정에서만 빠진다
+    expect(got.map((g) => [g.itemId, g.firstElsewhere])).toEqual([['A', true], ['B', false]])
+    expect(capabilityHits(got)).toEqual([true])
   })
   it('g2 로 쓴 기록(응답 사본)도 완료 · 판정에 들어간다 · 해설 먼저는 viewed_first', async () => {
     const row = (help: 'independent' | 'viewed_first', item: string) => ({
@@ -258,7 +274,7 @@ describe('판단을 보낸 뒤 해설 열람 — 도움 수준이 아니라 별�
   })
   it('P1-2: g2 — 저장 성공 · 응답 유실 뒤 열람 재전송도 같은 p_response(RPC conflict 없음)', async () => {
     const f = fakeDb([])
-    const w = g2Writer(f.db)
+    const w = g2Writer(f.db, { atomic: true })
     const deps2 = { db: f.db, writer: w, pool: async () => [ENTRY], answer: async () => 5 }
     await submitPractice(deps2, { userId: 'u1', synthetic: false }, SUB)
     await submitPractice(deps2, { userId: 'u1', synthetic: false }, { ...SUB, explanationViewedAt: '2026-10-08T05:59:30.000Z' })

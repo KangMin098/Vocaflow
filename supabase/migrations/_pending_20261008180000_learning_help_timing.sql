@@ -106,6 +106,11 @@ select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
     -- M8-G 서버는 도움을 먼저 받았는데 판단이 그보다 이르다고 주장한다(판단 기기 시계가 늦거나 오프라인) — 독립으로 세지 않고 보류
     or (s.help_server_at is not null and a.received_at is not null and a.received_at > s.help_server_at
         and s.help_received_at is not null and a.answered_at < s.help_received_at)
+    -- 판단 기기 시계 지연(서버 수신 − 판단 시각 > 2분)의 폭 안에 도움 · 해설 시각이 있으면 순서를 믿지 않는다 —
+    -- 도움 기록이 늦게 도착하면 서버 도착 순서도 실제 순서를 보장하지 않는다(methodology m8-clock-probe 반례)
+    or (a.received_at is not null and (a.received_at - a.answered_at) > interval '2 minutes'
+        and ((s.help_received_at is not null and abs(extract(epoch from (a.answered_at - s.help_received_at))) < extract(epoch from (a.received_at - a.answered_at)))
+          or (s.explanation_viewed_at is not null and abs(extract(epoch from (a.answered_at - s.explanation_viewed_at))) < extract(epoch from (a.received_at - a.answered_at)))))
     -- 해설 열람도 같은 규칙(Codex P1 — independent 세션의 판단 뒤 열람)
     or (s.explanation_server_at is not null and a.received_at is not null and a.received_at > s.explanation_server_at
         and s.explanation_viewed_at is not null and a.answered_at < s.explanation_viewed_at)) as timing_uncertain
@@ -205,6 +210,8 @@ declare
   v_sid uuid;
   v_rev text;
 begin
+  -- 잠금 순서를 분석 전환과 맞춘다: 표본 공유 잠금 → (세션 행). 분석은 표본 배타 → 세션 행이라, 순서가 엇갈리면 교착(Codex P2)
+  perform pg_advisory_xact_lock_shared(hashtext('learning_trial_sample'));
   perform pg_advisory_xact_lock(hashtext('learning_attempt_submit:' || p_user::text || ':' || p_mutation::text));
   if exists (select 1 from public.learning_mutations m where m.user_id = p_user and m.client_mutation_id = p_mutation) then
     select a.session_id into v_sid from public.learning_task_attempts a where a.user_id = p_user and a.client_mutation_id = p_mutation;

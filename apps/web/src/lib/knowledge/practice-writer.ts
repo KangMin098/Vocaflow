@@ -134,13 +134,41 @@ export function directWriter(db: SupabaseClient): AttemptWriter {
 }
 
 /** G2 통합 SQL(sha256 779eb9bb…) 적용 뒤에만 — 함수 시그니처는 그 초안 그대로 */
-export function g2Writer(db: SupabaseClient): AttemptWriter {
+// atomic = M8(learning_attempt_submit) 적용 뒤에만 켠다(PRACTICE_ATTEMPT_WRITER=g2-atomic). 끄면 160000 의 공개 → 시도 두 RPC 계약.
+// 두 RPC 경로는 같은 제출 id 의 **동시** 요청에서 거부될 요청이 세션을 먼저 바꿀 수 있다 — 그 경쟁은 M8-H 원자 RPC 만 닫는다(그래서 M8 적용 뒤 전환)
+export function g2Writer(db: SupabaseClient, opts: { atomic?: boolean } = {}): AttemptWriter {
+  const revealMutation = (w: AttemptWrite) => stableUuid(w.clientSessionId, 'reveal', w.helpLevel, w.answeredAt)
   return {
     kind: 'g2',
-    async reveal() {
-      // 공개는 record 의 원자 RPC(learning_attempt_submit · M8-H)가 시도와 한 트랜잭션에서 한다 — 같은 제출 id 의 동시 요청이
-      // 세션을 먼저 바꾸고 시도에서 거부되던 경쟁을 서버가 잠금으로 닫는다(Codex P1). 여기서는 아무것도 쓰지 않는다
-      return null
+    async reveal(w) {
+      // 원자 경로: 공개는 record 의 learning_attempt_submit 이 시도와 한 트랜잭션에서 한다 — 여기서는 쓰지 않는다
+      if (opts.atomic) return null
+      // 두 RPC 경로: 이미 기록된 판단(같은 제출 id)의 재전송이면 세션을 건드리지 않는다(순차 재전송 오염 방지)
+      const prior = await db.from('learning_task_attempts').select('session_id')
+        .eq('user_id', w.userId).eq('client_mutation_id', w.clientMutationId).maybeSingle()
+      if (prior.error) throw new Error(`세션 공개 실패: ${prior.error.message}`)
+      if (prior.data) return (prior.data as { session_id: string | null }).session_id
+      const { data, error } = await db.rpc('learning_session_apply', {
+        p_user: w.userId,
+        p_mutation: revealMutation(w),
+        p_client_session_id: w.clientSessionId,
+        p_activity: w.activity,
+        p_phase: w.phase,
+        p_item_ref: w.itemRef,
+        p_stage: 'revealed',
+        p_step: 0,
+        p_steps: 1,
+        p_help_level: w.helpLevel,
+        p_at: w.answeredAt,
+        p_synthetic: w.synthetic,
+        p_task_key: w.taskKey,
+        p_application_id: w.applicationId,
+      })
+      if (error) throw new Error(`세션 공개 실패: ${error.message}`)
+      const row = (Array.isArray(data) ? data[0] : data) as { session_id?: string; outcome?: string } | null
+      if (!row?.session_id) throw new Error('세션 공개 실패: 세션 id 가 없다')
+      if (row.outcome !== 'applied' && row.outcome !== 'duplicate') throw new Error(`세션 공개 실패: ${String(row.outcome)}`)
+      return row.session_id
     },
     async noteExplanationView(w, viewedAt) {
       // B8 — 판단과 **다른** mutation id. 같은 열람(같은 세션 · 같은 시각)의 재전송만 같은 id 를 쓴다(공개 · 판단 id 재사용 금지 —
@@ -168,28 +196,18 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
       if (row?.outcome !== 'applied' && row?.outcome !== 'duplicate') throw new Error(`해설 열람 기록 실패: ${String(row?.outcome)}`)
       return true
     },
-    async record(w) {
-      // 제출 id 예약 · 세션 공개 · 시도 저장을 한 RPC 로(M8-H). 이미 원장에 있는 제출이면 세션은 그대로 두고 원문 비교만 한다
-      const { data, error } = await db.rpc('learning_attempt_submit', {
-        p_user: w.userId,
-        p_mutation: w.clientMutationId,
-        // 공개 id = 세션 · 도움 수준 · 판단 시각 — 같은 판단의 재전송만 같은 id. 해설을 본 뒤의 새 판단(도움 상승)은 새 공개다
-        p_reveal_mutation: stableUuid(w.clientSessionId, 'reveal', w.helpLevel, w.answeredAt),
-        p_client_session_id: w.clientSessionId,
-        p_activity: w.activity,
-        p_phase: w.phase,
-        p_item_ref: w.itemRef,
-        p_help_level: w.helpLevel,
-        p_answered_at: w.answeredAt,
-        p_synthetic: w.synthetic,
-        p_task_key: w.taskKey,
-        p_application_id: w.applicationId,
-        p_content_hash: w.contentHash,
-        // 열과 같은 값을 response 에도 둔다 — 「내 기록」 읽기가 direct · g2 어느 쪽 기록이든 같은 칸으로 읽게(PRACTICE_PORT §4)
-        p_response: responseOf(w),
-        p_is_correct: w.isCorrect,
-        p_sec: w.sec,
-      })
+    async record(w, sessionId) {
+      // 열과 같은 값을 response 에도 둔다 — 「내 기록」 읽기가 direct · g2 어느 쪽 기록이든 같은 칸으로 읽게(PRACTICE_PORT §4)
+      const common = {
+        p_user: w.userId, p_mutation: w.clientMutationId, p_activity: w.activity, p_phase: w.phase, p_item_ref: w.itemRef,
+        p_task_key: w.taskKey, p_application_id: w.applicationId, p_content_hash: w.contentHash, p_response: responseOf(w),
+        p_is_correct: w.isCorrect, p_sec: w.sec, p_synthetic: w.synthetic, p_answered_at: w.answeredAt,
+      }
+      const { data, error } = opts.atomic
+        // 제출 id 예약 · 세션 공개 · 시도 저장을 한 RPC 로(M8-H). 이미 원장에 있는 제출이면 세션은 그대로 두고 원문 비교만 한다
+        ? await db.rpc('learning_attempt_submit', { ...common, p_reveal_mutation: revealMutation(w), p_client_session_id: w.clientSessionId, p_help_level: w.helpLevel })
+        // 도움 수준은 보내지 않는다(NULL → 세션 상속). 세션과 다른 값을 보내면 RPC 가 「metadata contradicts session」 으로 영구 거부한다
+        : await db.rpc('learning_attempt_record', { ...common, p_session_id: sessionId, p_help_level: null })
       if (error) throw new Error(`수행 기록 저장 실패: ${error.message}`)
       const row = (Array.isArray(data) ? data[0] : data) as { outcome?: string } | null
       const o = row?.outcome
@@ -200,6 +218,7 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
 }
 
 export function selectWriter(db: SupabaseClient, env: string | undefined = process.env.PRACTICE_ATTEMPT_WRITER): AttemptWriter {
-  // G2 SQL(20261008160000)이 개발 DB 에 적용됐다 — 기본은 g2(배포 순서 ③). direct 는 되돌림용으로만 남긴다
-  return env === 'direct' ? directWriter(db) : g2Writer(db)
+  // G2 SQL(20261008160000)이 개발 DB 에 적용됐다 — 기본은 g2(두 RPC). g2-atomic 은 M8 적용 확인 뒤에만. direct 는 되돌림용
+  if (env === 'direct') return directWriter(db)
+  return g2Writer(db, { atomic: env === 'g2-atomic' })
 }

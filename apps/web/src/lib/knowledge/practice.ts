@@ -304,6 +304,8 @@ export interface MyAttempt {
   /** 과제 키 · 행 id — DB 뷰 learning_first_attempts 와 같은 첫 시도 키 · 동률 순서(answered_at, id)를 쓰려고 */
   taskKey?: string
   id?: number
+  /** 같은 (과제 · 문항 · 단계)의 첫 판단이 다른 활동(해설 극장)이었다 — 완료 · 이력에는 남고 역량 판정에서만 빠진다 */
+  firstElsewhere?: boolean
 }
 
 /**
@@ -326,7 +328,8 @@ export function firstAttempts<T extends { itemId: string; phase: string; answere
 /** 역량 판정 입력 — 첫 시도 중 연습 단계 · 독립 수행만(해설 먼저 본 시도는 독립 수행과 분리 · G0 §2) */
 export function capabilityHits(rows: readonly MyAttempt[]): (boolean | null)[] {
   return firstAttempts(rows)
-    .filter((r) => r.phase === 'practice' && r.helpLevel === 'independent')
+    // 첫 판단이 다른 활동(해설 극장)이었던 묶음은 독립 첫 시도가 아니다
+    .filter((r) => r.phase === 'practice' && r.helpLevel === 'independent' && !r.firstElsewhere)
     .map((r) => r.claimHit)
 }
 
