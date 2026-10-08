@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Record the ten-check audit as in progress: catalog impact lacks a runtime caller and one continuous synthetic candidate-to-publication fixture remains; add single-grade publish/serve coverage.
+
 - fix(textbook): Reject occupied atomic dry-run output paths before snapshot capture and report the consumed snapshot for recovery if filesystem writing fails after finalization.
 
 - docs(textbook): Audit the Product Order-to-serving synthetic pipeline against completion criteria and separate implementation closure from real-data operational validation.

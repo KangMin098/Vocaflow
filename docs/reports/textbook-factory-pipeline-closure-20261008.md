@@ -16,3 +16,20 @@ Scope: **design and implementation with synthetic evidence**. This report does n
 Validation for the serving connection: focused API/orphan tests **15/15**; synthetic promotion/atomic preflight and output-failure injection **8/8**; `node agents/scripts/check.mjs` **11/11**; fresh `pnpm turbo run lint typecheck test` before the later CLI recovery fix **15/15 tasks**, web **4,034 passed / 250 skipped / 0 failed**. The first full run started before the route-audit exception was added and failed two orphan-route tests; the fresh rerun passed. The later CLI fix was verified by the focused tests and final review; it was not followed by another full web run.
 
 **Implementation scope:** the end-to-end synthetic pipeline and atomic publish-to-admin-download contract are connected. Per-order operational blocker visibility in the admin UI and automatic retry after post-finalization filesystem failure are not established; the latter requires a new approval, and neither is represented as complete here. **Operational state remains separate:** real Korean textbook benchmark corpus 0, calibration-eligible 0, Gold-S 0, DB seed 0, actual student N=0, `production_verified=false`. A future real-data run must pass current rights, benchmark, identity and approval gates before any operational claim; no such run is represented here.
+
+## Decision against the ten agreed completion checks
+
+| Check | Verdict | Boundary |
+|---|---|---|
+| Cross-stage connection | PASS: order, promotion, item/review and atomic renderer are exercised | Synthetic evidence |
+| Order/evidence lineage | PASS: mixed hashes and order revisions are rejected | Synthetic and development DB smoke |
+| Single/multi-grade E2E | PASS: both modes reach render, publish and serve in the focused synthetic preflight | Real-content E2E deferred |
+| Gold-S through publish states | PARTIAL: separate fixtures cover candidate/approval, promotion and production; a single continuous fixture is still missing | No actual issuance or seed |
+| Stale, mixed, rights and revision gates | PASS: preflight, DB smoke and serve checks fail closed | Rights acquisition excluded |
+| Atomic snapshot to production | PASS: capture, output hash finalization, publish and guarded serving connect | Learner-facing delivery deferred |
+| Catalog/revision impact | OPEN: `planFactoryImpact` is unit tested but has no runtime/catalog caller | Runtime connection required |
+| Synthetic E2E and failure injection | PARTIAL: focused order and atomic tests pass, but continuous candidate-to-publication evidence is missing | No real benchmark fit claimed |
+| Core stage/blocker observability | PASS for general `/admin/csat` stage blockers; per-order inspection is non-blocking for this scope | No per-order UI visibility claimed |
+| Failure recovery | PASS for fail-closed outcome and explicit consumed-snapshot recovery instructions | Automatic retry intentionally unsupported |
+
+**Verdict:** `Textbook Factory Pipeline Design & Implementation IN PROGRESS`. Connect catalog/revision impact to a real runtime path and prove one continuous synthetic candidate-to-publication chain before declaring scoped completion. Operational rights, admission, calibration, Gold-S, seed and real-content E2E remain deferred; `production_verified=false`.

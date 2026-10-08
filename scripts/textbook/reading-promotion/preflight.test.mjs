@@ -331,9 +331,27 @@ test('one live resolver revalidates both grade sections and blocks stale members
     ? { data: singleSnapshot } : { data: { status: 'rendered_unpublished',
       snapshot_id: singleSnapshot.snapshot_id, snapshot_hash: singleSnapshot.snapshot_hash,
       output_hash: params.p_output_hash } } }
+  const singlePreview = await runAtomicMultiGradeFactoryDryRun(singleDb, { groupId: singleGroup.group_id,
+    stages: [stages[0]], render: { ...render, proof: { passages: 1, defective: 0 } } })
+  singleSnapshot.evidence.approved_output_hash = rawSha(singlePreview.html)
   const single = await runAtomicMultiGradeFactoryDryRun(singleDb, { groupId: singleGroup.group_id,
     stages: [stages[0]], render: { ...render, proof: { passages: 1, defective: 0 } } })
   assert.equal(single.manifest.evidence_level, 'atomic_snapshot_unpublished')
+  const publishedSingle = await publishAtomicProductionArtifact({ rpc: async (name, params) => {
+    assert.equal(name, 'publish_reading_production_artifact')
+    assert.equal(params.p_snapshot_id, singleSnapshot.snapshot_id)
+    return { data: { status: 'published_current', snapshot_id: params.p_snapshot_id,
+      snapshot_hash: params.p_snapshot_hash, output_hash: rawSha(params.p_html) } }
+  } }, single)
+  assert.equal(publishedSingle.snapshot_id, singleSnapshot.snapshot_id)
+  const servedSingle = await serveAtomicProductionArtifact({ rpc: async (name, params) => {
+    assert.equal(name, 'serve_reading_production_artifact')
+    assert.equal(params.p_snapshot_id, singleSnapshot.snapshot_id)
+    return { data: { snapshot_id: singleSnapshot.snapshot_id,
+      snapshot_hash: singleSnapshot.snapshot_hash,
+      output_hash: rawSha(single.html), html: single.html } }
+  } }, singleSnapshot.snapshot_id)
+  assert.equal(servedSingle.html, single.html)
   const published = await publishAtomicProductionArtifact({ rpc: async (name, params) => {
     assert.equal(name, 'publish_reading_production_artifact')
     return { data: { status: 'published_current', snapshot_id: params.p_snapshot_id,
