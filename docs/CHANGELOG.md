@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Rehash six Korean textbook files and batch-screen seven open-reference leads against current rights, edition, grade, boundary and grounding gates. Record common blockers; no new eligibility, screening, manifest, admission, Gold-S or seed state opened.
+
 - docs(textbook): Audit BC Reads 2015 PDF/rating lexical fidelity and all 15 keyed items, hold three grounding gaps, re-evaluate admission without altering prior seals, and screen an actual Korean full-textbook candidate against official edition/rights evidence; both calibration and seed remain closed.
 
 - docs(textbook): Recheck BC Reads 2015 item wording and key against archived PDFs; record two source-level grounding mismatches and the still-empty Korean comparison cohort without changing admission or calibration state.
