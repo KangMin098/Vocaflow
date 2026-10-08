@@ -56,6 +56,10 @@ create function public.learning_records_delete_guard() returns trigger
 language plpgsql security definer set search_path = public, pg_temp as $$
 declare v_trial uuid;
 begin
+  -- 잠금 순서 = 재분석과 같게(검증 행 → 표본 권고 잠금): 재분석은 검증 행 UPDATE 뒤 표본 배타 잠금을 잡는다 — 순서가 엇갈리면 교착(P2)
+  if tg_table_name = 'learning_task_attempts' and old.trial_id is not null then
+    perform 1 from public.knowledge_trials where id = old.trial_id for update;
+  end if;
   -- M8 표본 공유 잠금 — 진행 중인 분석 전환(배타)과 직렬화해, 겹쳐도 재검토 표시가 빠지지 않게(Codex P1)
   perform pg_advisory_xact_lock_shared(hashtext('learning_trial_sample'));
   -- F7-4 계정 삭제 cascade — 허용하되, 분석 완료 실검증 표본이 줄면 그 검증을 재검토 필요로 표시
@@ -99,10 +103,43 @@ begin
   end if;
   return new;
 end $$;
-create trigger learning_task_attempts_owner_immutable before update of user_id on public.learning_task_attempts
-  for each row execute function public.learning_records_owner_immutable();
 create trigger learning_sessions_owner_immutable before update of user_id on public.learning_sessions
   for each row execute function public.learning_records_owner_immutable();
+
+-- F7-8 실제 수행 기록은 고칠 수 없다 — 계정이 살아 있는 동안 기록 임의 수정 불가(사용자 계약 · Codex P1 · f7-review-probe ⑥).
+-- 시도는 서버가 INSERT 만 한다(learning_attempt_record · submit). 합성 시도의 user_id · synthetic 도 불변(위 · M8)
+create function public.learning_task_attempts_update_guard() returns trigger
+language plpgsql set search_path = public as $$
+begin
+  if new.user_id is distinct from old.user_id then
+    raise exception '학습 기록의 학습자(user_id)는 바꿀 수 없다';
+  end if;
+  if not old.synthetic then
+    raise exception '실제 학습자의 수행 기록은 고칠 수 없다(추가 전용)';
+  end if;
+  return new;
+end $$;
+create trigger learning_task_attempts_update_guard before update on public.learning_task_attempts
+  for each row execute function public.learning_task_attempts_update_guard();
+
+-- F7-9 재검토 필요 표시는 재분석으로만 해제 — 분석 완료가 아닌 상태에서 analyzed 로 다시 들어오면(게이트가 표본을 재검사) 그때 지운다.
+-- 그 밖의 해제 · 변경은 거부(Codex P1 · f7-review-probe ⑦)
+create function public.knowledge_trials_review_required_guard() returns trigger
+language plpgsql set search_path = public as $$
+begin
+  if old.review_required_at is not null then
+    if new.status = 'analyzed' and old.status is distinct from 'analyzed' then
+      new.review_required_at := null;
+      new.review_required_reason := null;
+    elsif new.review_required_at is distinct from old.review_required_at or new.review_required_reason is distinct from old.review_required_reason then
+      raise exception '재계산 필요 표시는 재분석(분석 완료 재전환)으로만 해제된다';
+    end if;
+  end if;
+  return new;
+end $$;
+-- 이름 순서상 analyzed_guard(표본 재검사) 뒤에 돈다 — 재검사를 통과한 재분석에서만 표시가 지워진다
+create trigger knowledge_trials_review_required_guard before update on public.knowledge_trials
+  for each row execute function public.knowledge_trials_review_required_guard();
 
 -- ── F7-5 세션 변경 — M8 본문 + 기존 세션과 다른 synthetic 거부 한 줄 ──────────────────────────
 create or replace function public.learning_session_apply(
@@ -238,8 +275,11 @@ end $$;
 --   where s.id = v_id;
 --   session_id := v_id; outcome := 'applied'; return next;
 -- end $$;
+-- drop trigger knowledge_trials_review_required_guard on public.knowledge_trials;
+-- drop function public.knowledge_trials_review_required_guard();
+-- drop trigger learning_task_attempts_update_guard on public.learning_task_attempts;
+-- drop function public.learning_task_attempts_update_guard();
 -- drop trigger learning_sessions_owner_immutable on public.learning_sessions;
--- drop trigger learning_task_attempts_owner_immutable on public.learning_task_attempts;
 -- drop function public.learning_records_owner_immutable();
 -- drop trigger learning_sessions_delete_guard on public.learning_sessions;
 -- drop trigger learning_task_attempts_delete_guard on public.learning_task_attempts;

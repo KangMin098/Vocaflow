@@ -106,6 +106,9 @@ try {
 
   // F7-7 소유자 불변 — 실제 기록을 임시 계정으로 옮겨 지우는 길(f7-review-probe ⑤)
   rec('F7-7 실제 시도 user_id 변경 거부', /user_id/.test(await err('update learning_task_attempts set user_id = $1 where id = $2', [B, realAtt.rows[0].attempt_id]) ?? ''))
+  for (const [col, val] of [['is_correct', 'false'], ['response', `'{"x":1}'::jsonb`], ['answered_at', `now()`]]) {
+    rec(`F7-8 실제 시도 ${col} 변경 거부(service_role)`, /고칠 수 없다/.test((await svc(`update learning_task_attempts set ${col} = ${val} where id = $1`, [realAtt.rows[0].attempt_id])).err ?? ''))
+  }
   rec('F7-7 실제 세션 user_id 변경 거부', /user_id/.test(await err('update learning_sessions set user_id = $1 where id = $2', [B, real.rows[0].session_id]) ?? ''))
 
   // F7-4 계정 삭제 — 실제 · 합성이 섞인 계정도 cascade 로 지워진다 · 분석 표본이 줄면 검증에 재검토 필요 표시
@@ -120,6 +123,12 @@ try {
     const tr = (await q('select status, review_required_at, review_required_reason from knowledge_trials where id = $1', [trial])).rows[0]
     rec('F7-4 분석 표본 학습자 계정 삭제 → 결과 행은 analyzed 그대로 · 재검토 필요 표시', tr.status === 'analyzed' && tr.review_required_at !== null && /재계산/.test(tr.review_required_reason ?? ''), tr)
     rec('F7-6 재검토 필요 검증은 효과 판정 근거가 아니다(efficacy 갱신 거부)', /뒷받침하는/.test(await err(`update knowledge_items set efficacy = 'research_supported', updated_by = 't' where id = $1`, [it]) ?? ''))
+    rec('F7-9 재계산 필요 표시를 직접 지우기 거부', /재분석/.test(await err(`update knowledge_trials set review_required_at = null where id = $1`, [trial]) ?? ''))
+    // 재분석: analyzed → running → analyzed(게이트가 남은 표본을 재검사) — 통과하면 표시가 지워진다
+    await q(`update knowledge_trials set status = 'running' where id = $1`, [trial])
+    const reErr = await err(`update knowledge_trials set status = 'analyzed', analyzed_at = now() where id = $1`, [trial])
+    const tr2 = (await q('select status, review_required_at from knowledge_trials where id = $1', [trial])).rows[0]
+    rec('F7-9 재분석(표본 재검사 통과)으로만 표시 해제', !reErr && tr2.status === 'analyzed' && tr2.review_required_at === null, reErr ?? tr2)
     rec('F7-4 계정이 살아 있으면 실제 기록 삭제는 여전히 거부', /실제 학습자 기록/.test((await svc('delete from learning_sessions where id = $1', [real.rows[0].session_id])).err ?? ''))
   }
 

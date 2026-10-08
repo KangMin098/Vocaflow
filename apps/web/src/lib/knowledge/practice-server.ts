@@ -134,6 +134,19 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
     const k = `${r.task_key} ${r.item_ref ?? ''} ${r.phase}`
     if (!firstActivity.has(k)) firstActivity.set(k, (r.activity ?? r.response?.activity) as string | undefined)
   }
+  // 실효 도움(M8): 첫 시도 뷰의 판단 시각 기준 도움 · 판단 뒤 해설 · 시각 불확실을 읽는다 — 저장 당시 help_level 은 늦게 도착한 도움을 모른다(Codex P2).
+  // 뷰에 없는 행(첫 시도가 아님 · 뷰를 못 읽음)은 저장값으로 판단한다
+  const { data: firsts, error: fErr } = await learnerDb
+    .from('learning_first_attempts')
+    .select('attempt_id, help_level, after_explanation, timing_uncertain')
+    .eq('user_id', userId)
+    .in('task_key', [PRACTICE_TASK, SKELETON_TASK])
+    .limit(1000)
+  if (fErr) throw new Error(`첫 시도 읽기 실패: ${fErr.message}`)
+  const effective = new Map<number, boolean>()
+  for (const f of (firsts ?? []) as { attempt_id?: number; help_level?: string | null; after_explanation?: boolean | null; timing_uncertain?: boolean | null }[]) {
+    if (typeof f.attempt_id === 'number') effective.set(f.attempt_id, f.help_level === 'independent' && !f.after_explanation && !f.timing_uncertain)
+  }
   return rows
     .filter((r) => (r.activity ?? r.response?.activity) === 'practice' && (r.response?.preview === true) === opts.preview)
     .filter((r) => r.item_ref && (r.phase === 'practice' || r.phase === 'transfer'))
@@ -144,7 +157,9 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
       itemId: r.item_ref as string,
       phase: r.phase as PracticePhase,
       // hint 도 독립이 아니다 — 「지금 내 상태」 판단에서 viewed_first 와 같이 뺀다(보수적)
-      helpLevel: ((r.help_level ?? r.response?.help_level ?? 'independent') === 'independent' ? 'independent' : 'viewed_first') as HelpLevel,
+      helpLevel: (effective.has(r.id)
+        ? (effective.get(r.id) ? 'independent' : 'viewed_first')
+        : (r.help_level ?? r.response?.help_level ?? 'independent') === 'independent' ? 'independent' : 'viewed_first') as HelpLevel,
       claimHit: typeof (r.response?.grade as Record<string, unknown> | undefined)?.claim === 'boolean' ? ((r.response!.grade as Record<string, boolean>).claim) : null,
       answeredAt: r.answered_at,
     }))

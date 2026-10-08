@@ -237,10 +237,23 @@ describe('g2 어댑터(G2 적용 뒤) — 원자 제출 RPC(M8-H)', () => {
 })
 
 describe('P1: 내 기록 읽기 — direct · g2 어느 기록이든 같은 칸으로', () => {
-  function learnerDb(rows: Record<string, unknown>[]) {
-    const q = { select: () => q, eq: () => q, in: () => q, order: () => q, limit: async () => ({ data: rows, error: null }) }
-    return { from: () => q } as unknown as SupabaseClient
+  function learnerDb(rows: Record<string, unknown>[], firsts: Record<string, unknown>[] = []) {
+    const mk = (data: Record<string, unknown>[]) => { const q = { select: () => q, eq: () => q, in: () => q, order: () => q, limit: async () => ({ data, error: null }) }; return q }
+    return { from: (t: string) => mk(t === 'learning_first_attempts' ? firsts : rows) } as unknown as SupabaseClient
   }
+  it('M8 실효 도움 — 저장값이 independent 여도 첫 시도 뷰가 도움 뒤 · 해설 뒤 · 시각 불확실이면 역량 판정에서 독립이 아니다', async () => {
+    const base = { task_key: PRACTICE_TASK, phase: 'practice', activity: 'practice', help_level: 'independent', answered_at: '2026-10-08T05:00:00Z', response: { grade: { claim: true } } }
+    const got = await loadMyAttempts(learnerDb(
+      [{ ...base, id: 1, item_ref: 'A' }, { ...base, id: 2, item_ref: 'B' }, { ...base, id: 3, item_ref: 'C' }, { ...base, id: 4, item_ref: 'D' }],
+      [
+        { attempt_id: 1, help_level: 'viewed_first', after_explanation: false, timing_uncertain: false },
+        { attempt_id: 2, help_level: 'independent', after_explanation: true, timing_uncertain: false },
+        { attempt_id: 3, help_level: 'independent', after_explanation: false, timing_uncertain: true },
+        { attempt_id: 4, help_level: 'independent', after_explanation: false, timing_uncertain: false },
+      ],
+    ), 'u1', { preview: false })
+    expect(got.map((g) => [g.itemId, g.helpLevel])).toEqual([['A', 'viewed_first'], ['B', 'viewed_first'], ['C', 'viewed_first'], ['D', 'independent']])
+  })
   it('같은 과제 · 문항 · 단계의 첫 판단이 해설 극장이면 Practice 재풀이는 첫 시도가 아니다(DB 뷰와 같은 키)', async () => {
     const base = { task_key: PRACTICE_TASK, item_ref: 'A', phase: 'practice', help_level: 'independent', response: { grade: { claim: true } } }
     const got = await loadMyAttempts(learnerDb([

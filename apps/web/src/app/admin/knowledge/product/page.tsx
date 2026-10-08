@@ -68,7 +68,7 @@ export default async function KnowledgeProductPage() {
                       </p>
                       <p className="text-xs text-[var(--t2)]">
                         학습 결과: 수행 기록 실제 {a.attempts.real} · 합성 {a.attempts.synthetic} · 검증 {a.trials.length}(실제 {real.length})
-                        {a.trials.map((t) => ` · ${t.synthetic ? '합성' : '실제'} ${TRIAL_STATUS_LABEL[t.status]}${t.result ? ` ${TRIAL_RESULT_LABEL[t.result]}` : ''}`).join('')}
+                        {a.trials.map((t) => ` · ${t.synthetic ? '합성' : '실제'} ${TRIAL_STATUS_LABEL[t.status]}${t.reviewRequiredAt ? ' 재계산 필요' : t.result ? ` ${TRIAL_RESULT_LABEL[t.result]}` : ''}`).join('')}
                         {a.statusReason && ` · 사유: ${a.statusReason}`}
                       </p>
                       <ApplicationStatusForm id={a.id} from={a.status} />
