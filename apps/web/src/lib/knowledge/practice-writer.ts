@@ -140,7 +140,9 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
     async reveal(w) {
       const { data, error } = await db.rpc('learning_session_apply', {
         p_user: w.userId,
-        p_mutation: stableUuid(w.clientSessionId, 'reveal'),
+        // 공개 id = 세션 · 도움 수준 · 판단 시각 — 같은 판단의 재전송만 같은 id. 해설을 본 뒤의 새 판단(도움 상승)은 새 공개로
+        // 적용돼 세션 도움 수준 · 첫 노출 시각이 오른다(같은 id 로 묶으면 conflict 가 무시돼 도움받은 판단이 독립으로 남는다 — Codex P1)
+        p_mutation: stableUuid(w.clientSessionId, 'reveal', w.helpLevel, w.answeredAt),
         p_client_session_id: w.clientSessionId,
         p_activity: w.activity,
         p_phase: w.phase,
@@ -157,8 +159,8 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
       if (error) throw new Error(`세션 공개 실패: ${error.message}`)
       const row = (Array.isArray(data) ? data[0] : data) as { session_id?: string; outcome?: string } | null
       if (!row?.session_id) throw new Error('세션 공개 실패: 세션 id 가 없다')
-      // 공개가 conflict 여도 세션은 이미 있다(먼저 공개한 값이 이긴다) — 시도는 p_help_level 을 비워 세션 값을 상속한다.
-      // 화면은 판단을 한 번 낸 세션의 도움 수준을 바꾸지 않으므로(해설 열람은 별도 행동) 같은 세션의 공개 내용은 바뀌지 않는다
+      // conflict = 같은 판단의 공개인데 다른 내용(대상 · 단계 등) — 무시하고 시도를 기록하면 세션 값을 잘못 상속한다
+      if (row.outcome !== 'applied' && row.outcome !== 'duplicate') throw new Error(`세션 공개 실패: ${String(row.outcome)}`)
       return row.session_id
     },
     async noteExplanationView(w, viewedAt) {

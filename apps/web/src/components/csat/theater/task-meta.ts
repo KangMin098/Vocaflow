@@ -21,6 +21,8 @@ export interface TaskMeta {
   clientMutationId: string
   answeredAt: string
   helpLevel: TaskHelpLevel
+  /** 판단 소요 — 첫 전송 값으로 고정(재전송에서 바뀌면 서버가 conflict 로 거부한다) */
+  sec: number | null
 }
 
 const newId = () => globalThis.crypto.randomUUID()
@@ -40,13 +42,14 @@ export function useTaskMeta(slug: string) {
   const pending = useRef<{ key: string; meta: TaskMeta } | null>(null)
   return {
     /** answerKey = 이번 답의 정규화된 표현. 같은 답의 재전송이면 같은 메타를 돌려준다 */
-    async meta(answerKey: string): Promise<TaskMeta> {
+    async meta(answerKey: string, sec: number | null): Promise<TaskMeta> {
       if (pending.current?.key === answerKey) return pending.current.meta
       const meta: TaskMeta = {
         clientSessionId: session.current,
         clientMutationId: newId(),
         answeredAt: new Date().toISOString(),
         helpLevel: await theaterHelpLevel(slug),
+        sec,
       }
       pending.current = { key: answerKey, meta }
       return meta

@@ -8,7 +8,7 @@
 --        세션 안에서 독립으로 판단한 뒤 해설을 먼저 본 기록이 나중에 오면(다른 기기 · 오프라인 동기화) 앞선 독립 판단까지 viewed_first 가 된다.
 --        → 세션에 「첫 도움 노출 시각」 help_received_at 을 두고, 시도별 실효 도움 = 판단 시각 ≥ 첫 노출 시각일 때만 세션 도움 수준.
 --   M8-B 오염 방지: 도움 노출이 판단보다 같거나 이르면(동시 포함) 도움받은 판단이다 — 동률은 도움 쪽(보수적).
---   M8-C 시각 불확실 보류: 판단 시각은 기기 시각이다. ① 판단 시각과 첫 도움 노출이 2분 안 ② 판단 시각이 서버 수신 시각보다 2분 넘게 미래
+--   M8-C 시각 불확실 보류: 판단 시각은 기기 시각이다. ① 판단 시각과 첫 도움 노출 또는 해설 열람이 2분 안 ② 판단 시각이 서버 수신 시각보다 2분 넘게 미래
 --        → timing_uncertain. 효과 게이트(M3)는 이 표본을 세지 않는다(판정 보류 · 행은 그대로).
 --   M8-D 소급 재작성 없음: 시도 행은 고치지 않는다. 실효 도움은 뷰가 계산한다. 서버 수신 시각 received_at 은 새 행부터(기존 행 NULL = 서버 now() 로 판단 시각이 찍힌 직접 기록).
 --   M8-E 표본 고정 확장: 분석 완료 표본 세션의 help_received_at 도 바꿀 수 없다. **세션 synthetic 은 언제나 불변**(170000 trial synthetic 불변과 같은 원칙 · Codex P1 2026-10-08 vocaflow-18 전달).
@@ -89,6 +89,7 @@ select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
   (s.explanation_viewed_at is not null and a.answered_at >= s.explanation_viewed_at) as after_explanation,
   (a.synthetic or coalesce(s.synthetic, false)) as synthetic,
   ((s.help_received_at is not null and abs(extract(epoch from (a.answered_at - s.help_received_at))) < 120)
+    or (s.explanation_viewed_at is not null and abs(extract(epoch from (a.answered_at - s.explanation_viewed_at))) < 120)
     or (a.received_at is not null and a.answered_at > a.received_at + interval '2 minutes')) as timing_uncertain
 from public.learning_task_attempts a
 left join public.learning_sessions s on s.id = a.session_id

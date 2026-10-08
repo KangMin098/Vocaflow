@@ -105,6 +105,15 @@ try {
     const r = await fa(sid)
     rec('2분 안 도움 노출 → independent 이지만 timing_uncertain', r.help_level === 'independent' && r.timing_uncertain, r)
   }
+  // 독립 세션의 판단 뒤 해설 열람이 2분 안 — 불확실(Codex P2)
+  {
+    const cs = uuid()
+    const sid = (await q(`select * from learning_session_apply($1,$2,$3,'theater','practice','expl','revealed',0,1,'independent','2026-10-02T09:00:00Z',null,false,false,'claim-support',null,null,null)`, [B, uuid(), cs])).rows[0].session_id
+    await att(B, uuid(), sid, '2026-10-02T09:00:00Z')
+    await q(`select * from learning_session_apply($1,$2,$3,'theater','practice','expl','revealed',0,1,'independent','2026-10-02T09:00:30Z',null,false,false,'claim-support',null,null,'2026-10-02T09:00:30Z')`, [B, uuid(), cs])
+    const r = await fa(sid)
+    rec('판단 30초 뒤 해설 열람 → independent 이지만 timing_uncertain', r.help_level === 'independent' && r.timing_uncertain, r)
+  }
   // 순서 뒤바뀜 — 09:10 도움이 먼저 도착 · 09:03 hint 가 늦게 도착 → 첫 노출 09:03 · 도움 수준 viewed_first 유지 · 09:05 판단은 도움
   {
     const s = await mk(C, 'ooo')

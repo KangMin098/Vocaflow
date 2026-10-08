@@ -39,11 +39,11 @@ export function CohesionPanel({ slug, principle, why, sentenceCount, probes, ord
     setPending(true); setError(null)
     try {
       const response = { picks, order }
-      const meta = await task.meta(JSON.stringify(response))
+      const meta = await task.meta(JSON.stringify(response), started.current ? Math.min(7200, Math.round((performance.now() - started.current) / 1000)) : null)
       const res = await fetch(`/api/csat/item/${slug}/task`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ response, sec: started.current ? Math.min(7200, Math.round((performance.now() - started.current) / 1000)) : null, ...meta }),
+        body: JSON.stringify({ response, ...meta }),
       })
       if (res.status === 401) { setNeedLogin(true); return }
       const body = await res.json().catch(() => ({}))

@@ -75,7 +75,10 @@ export function ClaimPractice(props: {
   const lock = useRef(false)
   const started = useRef<number>(Date.now())
   // 같은 답의 재시도만 같은 제출 id · 판단 시각을 쓴다(G2 요청 멱등). 답이 바뀌면 새 id
-  const pending = useRef<{ sig: string; id: string; at: string } | null>(null)
+  // 판단 소요(sec)도 첫 전송 값으로 고정한다 — 재전송에서 sec 가 바뀌면 서버가 같은 id 의 다른 요청(conflict)으로 거부한다(Codex P1)
+  const pending = useRef<{ sig: string; id: string; at: string; sec: number } | null>(null)
+  // 마지막으로 보낸 판단 본문(해설 열람 시각 제외) — 해설 열람은 이 본문 그대로 + 열람 시각을 따로 보낸다
+  const lastBody = useRef<Record<string, unknown> | null>(null)
   const [doneHere, setDoneHere] = useState<string[]>([])
 
   const entry = pool.find((p) => p.itemId === itemId) ?? null
@@ -98,6 +101,7 @@ export function ClaimPractice(props: {
     setFeedback(null)
     setError(null)
     pending.current = null
+    lastBody.current = null
     started.current = Date.now()
   }
 
@@ -119,8 +123,28 @@ export function ClaimPractice(props: {
     // 시도가 아니다. 판단을 내기 전이면 이 세션의 도움 수준이 viewed_first 가 된다(되돌리지 않는다).
     // 판단을 이미 보낸 세션은 도움 수준을 바꾸지 않는다 — 공개는 이미 independent 로 적용됐을 수 있다(G2 세션 단조 규칙).
     // 그때의 열람은 별도 행동(explanationViewedAt)으로 남긴다. 해설은 새 탭에서 연다
-    if (submitted.current) setExplanationViewedAt((t) => t ?? new Date().toISOString())
+    if (submitted.current) noteView()
     else setHelpLevel('viewed_first')
+  }
+
+  // 판단 뒤 해설 열람 — 열람하는 그 순간 따로 보낸다(별도 mutation · 서버가 판단과 다른 id 로 learning_session_apply).
+  // 본문은 마지막 판단 그대로(재전송 = duplicate) + 열람 시각. 판단 저장이 실패했었다면 이 요청이 그 판단도 함께 남긴다
+  function noteView() {
+    const t = explanationViewedAt ?? new Date().toISOString()
+    setExplanationViewedAt(t)
+    const body = lastBody.current
+    if (!body) return
+    void fetch('/api/csat/practice/attempt', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ ...body, explanationViewedAt: t }),
+      keepalive: true,
+    })
+      .then(async (res) => {
+        const j = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null
+        if (!j?.ok) setError(j?.error ?? '해설 열람을 기록하지 못했어요')
+      })
+      .catch(() => setError('해설 열람을 기록하지 못했어요'))
   }
 
   async function submit() {
@@ -130,24 +154,25 @@ export function ClaimPractice(props: {
     const asked = entry.itemId
     const answer = { claim, support, relation: needsRelation ? relation : null, option: option === 'unknown' ? null : option, confidence }
     const sig = JSON.stringify([asked, sessionId, helpLevel, answer])
-    if (!pending.current || pending.current.sig !== sig) pending.current = { sig, id: uuid(), at: new Date().toISOString() }
+    if (!pending.current || pending.current.sig !== sig) pending.current = { sig, id: uuid(), at: new Date().toISOString(), sec: (Date.now() - started.current) / 1000 }
+    const body = {
+      itemId: asked,
+      ...answer,
+      sec: pending.current.sec,
+      clientMutationId: pending.current.id,
+      clientSessionId: sessionId,
+      answeredAt: pending.current.at,
+      helpLevel,
+      preview,
+    }
+    lastBody.current = body
     setBusy(true)
     setError(null)
     try {
       const res = await fetch('/api/csat/practice/attempt', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          itemId: asked,
-          ...answer,
-          sec: (Date.now() - started.current) / 1000,
-          clientMutationId: pending.current.id,
-          clientSessionId: sessionId,
-          answeredAt: pending.current.at,
-          helpLevel,
-          explanationViewedAt,
-          preview,
-        }),
+        body: JSON.stringify({ ...body, explanationViewedAt }),
       })
       const j = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; feedback?: PracticeFeedback } | null
       if (!j?.ok || !j.feedback) throw new Error(j?.error ?? '기록하지 못했어요')
@@ -394,7 +419,7 @@ export function ClaimPractice(props: {
                 <button type="button" className={styles.primary} onClick={goNext}>
                   다음 문항
                 </button>
-                <a className={styles.link} href={`/csat/item/${toItemSlug(entry.itemId)}`}>
+                <a className={styles.link} href={`/csat/item/${toItemSlug(entry.itemId)}`} onClick={noteView}>
                   이 문항 해설 보기
                 </a>
               </div>
