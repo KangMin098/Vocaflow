@@ -96,6 +96,23 @@ try {
   rec('B7-6 중단하면 승인이 지워진다', after.release_approved_by === null && after.release_approved_at === null && after.release_note === null, JSON.stringify(after))
   await rejects(pool, 'B7-7 중단 뒤 다시 켜려면 새 승인이 필요하다', ON, [app], '출시 승인')
 
+  // 승인 → 켜기 → 적용 중 대상 바꾸기 시도
+  const APPROVE = `update public.knowledge_applications set release_approved_by = 'admin:kangmin', release_approved_at = now(), release_note = '재승인' where id = $1`
+  await pool.query(APPROVE, [app])
+  await pool.query(ON, [app])
+  await rejects(pool, 'B7-8 적용 중에는 과제 키(surface_ref)를 바꿀 수 없다',
+    `update public.knowledge_applications set surface_ref = 'claim-support:2026-20' where id = $1`, [app], '대상')
+  await rejects(pool, 'B7-9 적용 중에는 대상 조건(audience)을 바꿀 수 없다',
+    `update public.knowledge_applications set audience = '{"item":"2026#20"}' where id = $1`, [app], '대상')
+
+  // 꺼진 상태에서 승인 뒤 대상을 바꾸면 승인이 지워진다
+  await pool.query(`update public.knowledge_applications set status = 'paused', status_reason = '대상 변경', updated_by = 'test' where id = $1`, [app])
+  await pool.query(APPROVE, [app])
+  await pool.query(`update public.knowledge_applications set surface_ref = 'claim-support:2026-20' where id = $1`, [app])
+  const moved = (await pool.query('select release_approved_at from public.knowledge_applications where id = $1', [app])).rows[0]
+  rec('B7-10 꺼진 상태에서 대상을 바꾸면 이전 승인이 지워진다', moved.release_approved_at === null)
+  await rejects(pool, 'B7-11 대상 변경 뒤에는 새 승인 없이 못 켠다', ON, [app], '출시 승인')
+
   await pool.end()
 } catch (e) {
   rec('예외', false, e.message)

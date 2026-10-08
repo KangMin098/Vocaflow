@@ -25,6 +25,20 @@ begin
     new.release_note := null;
   end if;
 
+  -- 승인은 그 대상(항목 · 화면 · 과제 키 · 버전 · 대상 조건 · 제외 조건)에 대한 것이다
+  if tg_op = 'UPDATE'
+     and (new.item_id is distinct from old.item_id or new.surface is distinct from old.surface
+          or new.surface_ref is distinct from old.surface_ref or new.version is distinct from old.version
+          or new.audience is distinct from old.audience or new.exclusions is distinct from old.exclusions) then
+    if old.status = 'active' then
+      raise exception '적용 중에는 대상(항목 · 화면 · 과제 · 버전 · 대상 조건)을 바꿀 수 없다 — 중단한 뒤 바꾸고 다시 승인한다';
+    end if;
+    -- 꺼진 상태에서 대상이 바뀌면 이전 승인은 새 대상을 승인하지 않는다
+    new.release_approved_by := null;
+    new.release_approved_at := null;
+    new.release_note := null;
+  end if;
+
   -- 켜져 있는 동안 승인 기록 고정
   if tg_op = 'UPDATE' and old.status = 'active' and new.status = 'active'
      and (new.release_approved_by is distinct from old.release_approved_by
