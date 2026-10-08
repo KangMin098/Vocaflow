@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(methodology): M8 후속 SQL 독립 검토 [M8_REVIEW_2026-10-08](./methodology/M8_REVIEW_2026-10-08.md) — 실제 원장 순서 probe(`scripts/knowledge/m8-review-probe.mjs`) **P1: 세션 없는 합성 시도 synthetic 뒤집기로 효과 게이트 우회**(160000 부터 · f5 전달) · 응집 실제 기록 E2E `vertical-cohesion-link-e2e.mts` 준비(노출 · G2 계약 전엔 exit 2)
+
 - feat(api): `POST /api/csat/item/[slug]/task` 거부 응답에 `code`(no_task · not_live · invalid_input) — 노출 게이트 거부를 입력 오류와 구분. 응집 게이트 E2E 9/9(정상 입력 → not_live · 대조 invalid_input)
 
 - migration `20261008170000_knowledge_trial_evidence_guard` **개발 DB 적용**(sha 38fb5a5b… · 실제 DB 롤백 smoke 3/3) · 응집 사슬 `--no-activate` 빌드(항목 +1 · 근거 +3 · 연결 +1 · 검토 기록 +4 · 적용 초안 2 · 검증 계획 2 · **노출 0**, 노출 게이트 E2E `vertical-cohesion-link-gate-e2e.mts` 8/8)
