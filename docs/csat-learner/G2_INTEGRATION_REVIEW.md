@@ -120,6 +120,7 @@ PGlite 0.2.17 메모리 Postgres에 정본 `learning_task_attempts` DDL과 권�
 | B6 | Supabase 실환경 검증(브랜치 DB 또는 적용 트랜잭션 사전 검사) — 오프라인 하네스의 한계 보완 | DB 쓰기 담당 |
 | B6′ | **동시 중복 제출**(사용자 결정 2026-10-08): G2 유일 제약 전까지 임시 수용(정상 승인 아님) · 학습자 진입 링크 미연결 · 그 기간 기록은 효과 집계 제외 · G2 적용 뒤 실제 DB 동시 요청 멱등 검증 · 근거 [PRACTICE_PORT_VERIFICATION](./PRACTICE_PORT_VERIFICATION.md) | vocaflow-18 |
 | B7 | **Practice 이식 g2 모드 P1 2건**(help 상속 모순 → 500 · g2 기록 읽기 단절) — G2 적용 뒤 g2 를 켜기 전에 이식 쪽 수정 | 이식 세션 |
+| B8 | **판단 뒤 해설 열람의 저장처**(2026-10-08 · Practice 54aa73186): 시도 payload 밖 별도 행동이어야 함(넣으면 재전송 conflict) — 세션 쪽 칸(먼저 정한 값 유지) 또는 별도 행동 mutation 중 결정 · 저장되면 「해설 뒤 새 판단은 독립 아님」의 서버 쪽 판정 근거 · [재검증](./PRACTICE_PORT_REVERIFY_54aa73186.md) | vocaflow-18 + 사용자 |
 
 ## 10. DB 적용 승인 요청 사항 (지금 요청하지 않음 · B1–B3 해소 뒤)
 승인 요청서에는 다음을 넣습니다.
