@@ -203,7 +203,13 @@ export async function setApplicationStatusAction(input: { id: string; from: stri
     const bad = checkAppTransition(input.from, input.to as AppStatus, input.reason)
     if (bad) return { ok: false, error: bad }
     const patch: Record<string, unknown> = { status: input.to, status_reason: input.reason.trim() || null, updated_by: who }
-    if (input.to === 'active') patch.released_at = new Date().toISOString()
+    if (input.to === 'active') {
+      // B7 출시 승인 — 승인자 · 시각 · 사유를 켜는 같은 갱신에 남긴다(중단하면 DB 가 지운다)
+      patch.released_at = new Date().toISOString()
+      patch.release_approved_by = who
+      patch.release_approved_at = patch.released_at
+      patch.release_note = input.reason.trim()
+    }
     const { data, error } = await db().from('knowledge_applications').update(patch).eq('id', input.id).eq('status', input.from).select('id')
     if (error) return { ok: false, error: dbError(error, '저장 실패') }
     if (!data?.length) return { ok: false, error: '그 사이 다른 사람이 상태를 바꿨습니다 — 새로 고친 뒤 다시' }
