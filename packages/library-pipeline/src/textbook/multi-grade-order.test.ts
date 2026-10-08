@@ -1,9 +1,15 @@
 // packages/library-pipeline/src/textbook/multi-grade-order.test.ts
 import { describe, expect, it } from 'vitest'
-import { readFileSync } from 'node:fs'
+import { mkdtempSync, readFileSync, writeFileSync, unlinkSync, rmdirSync } from 'node:fs'
 import { createHash } from 'node:crypto'
+import { spawnSync } from 'node:child_process'
+import { tmpdir } from 'node:os'
+import { join, resolve } from 'node:path'
 import { sealProductOrder } from './factory-order'
 import { canonicalJson } from './review-digest'
+import { reviewDigest } from './review-digest'
+import { buildColophon } from './brand'
+import { runMultiGradeFactoryDryRun } from './multi-grade-production'
 import {
   assessMultiGradeEvidence, bindMultiGradeEvidence, planMultiGradeVolume,
   sealMultiGradeProductOrder,
@@ -118,5 +124,107 @@ describe('multi-grade Product Order', () => {
     const reusedUnits = evidence(unitSpecific)
     reusedUnits.variants[1].unit_set_hash = reusedUnits.variants[0].unit_set_hash
     expect(() => bindMultiGradeEvidence(unitSpecific, reusedUnits)).toThrow('GRADE_UNIT_SET_REUSED')
+  })
+})
+
+const rawSha = (value: string) => createHash('sha256').update(value).digest('hex')
+function productionFixture(mode: 'shared_passage_grade_specific_items' | 'grade_specific_adaptations' | 'grade_specific_units') {
+  const g = group(mode)
+  const e = evidence(g)
+  const stages = e.variants.map((variant, index) => {
+    const passage = index && mode === 'grade_specific_adaptations' ? 'A more complex grade-two passage.' : 'A shared research passage.'
+    const lineage = { product_order_id: variant.product_order_id, order_revision: variant.order_revision,
+      order_hash: variant.order_hash, source_hash: e.source_hash, rights_hash: e.rights_hash,
+      adaptation_hash: variant.adaptation_hash, benchmark_snapshot_hash: variant.benchmark_snapshot_hash,
+      promotion_request_hash: h(index ? '1' : '2'), evidence_hash: h(index ? '3' : '4'),
+      certificate_hash: h(index ? '5' : '6'), eligibility_hash: h(index ? '7' : '8'), trust_policy_hash: h('9') }
+    if (index && mode === 'grade_specific_adaptations') variant.adaptation_hash = rawSha(passage)
+    lineage.adaptation_hash = variant.adaptation_hash
+    const item = { id: `item-${index}`, ref_id: `article-${index}`,
+      payload: { passage, factory_lineage: lineage }, answer_key: { answer: index + 1 } }
+    const itemDigest = reviewDigest(item.payload, item.answer_key)
+    const text = `Grade ${index + 1} explanation.`
+    const unit = { unit_id: `unit-${index}`, html: `<section class="unit"><p>${passage}</p><p>Item ${index + 1}</p></section>` }
+    variant.passage_hash = rawSha(passage)
+    variant.item_set_hash = digest([[item.id, itemDigest]])
+    variant.activity_hash = null
+    variant.analysis_hash = digest({ grade: variant.grade })
+    variant.unit_set_hash = digest([[unit.unit_id, rawSha(unit.html)]])
+    return { grade: variant.grade, article_id: `article-${index}`, passage, lineage, items: [item],
+      explanations: [{ item_id: item.id, text, item_digest: itemDigest, factory_lineage: lineage }],
+      reviews: [{ item_id: item.id, decision: 'approved' as const, item_digest: itemDigest,
+        explanation_hash: rawSha(text), factory_lineage: lineage }],
+      activities: [], analysis: { grade: variant.grade }, unit }
+  })
+  const render = { colophon: buildColophon({ title: 'Synthetic Multi Grade', step: null,
+    schoolBand: null, vLevel: 5, issued: new Date('2026-10-08T00:00:00Z'), autoPassed: 2, autoTotal: 2 }),
+    step: null, schoolBand: null, vLevel: 5, totalSteps: 7, totalMinutes: 20, autoPassed: 2,
+    autoTotal: 2, passageChip: 'research', answerBias: { chi2: 0, cramersV: 0, biased: false },
+    proof: { passages: 2, defective: 0 } }
+  const currentLineages = stages.map(stage => ({ grade: stage.grade, article_id: stage.article_id, source_id: e.source_id,
+    lineage: structuredClone(stage.lineage) }))
+  return { group: g, evidence: e, currentEvidence: structuredClone(e), currentLineages, stages, render }
+}
+
+describe('multi-grade synthetic factory E2E', () => {
+  for (const mode of ['shared_passage_grade_specific_items', 'grade_specific_adaptations', 'grade_specific_units'] as const) {
+    it(`renders ${mode} through ready, item, explanation, review, unit and volume`, () => {
+      const input = productionFixture(mode)
+      const output = runMultiGradeFactoryDryRun(input)
+      expect(output.html).toContain('Synthetic Multi Grade')
+      expect(output.html).toContain('Grade 1 explanation.')
+      expect(output.html).toContain('Grade 2 explanation.')
+      expect(output.manifest.units.map(unit => unit.grade)).toEqual(['middle_1', 'middle_2'])
+      expect(output.manifest.item_evidence).toHaveLength(2)
+      expect(output.manifest.evidence_level).toBe('caller_supplied_unverified')
+      expect(output.html).toContain('SYNTHETIC DRY RUN')
+      expect(output.manifest.render_eligible).toBe(false)
+      expect(output.manifest.seed_eligible).toBe(false)
+    })
+  }
+
+  it('rejects grade mixing, stale item/explanation/review, changed rights and unit output', () => {
+    const input = productionFixture('shared_passage_grade_specific_items')
+    const check = (edit: (value: ReturnType<typeof productionFixture>) => void, reason: RegExp) => {
+      const copy = structuredClone(input)
+      edit(copy)
+      expect(() => runMultiGradeFactoryDryRun(copy)).toThrow(reason)
+    }
+    check(value => { value.stages[1].lineage.order_hash = value.stages[0].lineage.order_hash }, /PROMOTION_STALE/)
+    check(value => { value.currentLineages[1].lineage.certificate_hash = h('0') }, /PROMOTION_STALE/)
+    check(value => { value.currentLineages[1].source_id = 'other-source' }, /PROMOTION_STALE/)
+    check(value => { value.currentLineages[1].article_id = value.currentLineages[0].article_id }, /READING_CHILD_REUSED/)
+    check(value => { value.stages[1].items[0].payload.passage = 'Changed.' }, /ITEM_LINEAGE/)
+    check(value => { value.stages[1].items[0].ref_id = value.stages[0].article_id }, /ITEM_LINEAGE/)
+    check(value => { value.stages[1].explanations[0].text = 'Changed.' }, /EDITORIAL_STALE/)
+    check(value => { value.stages[1].reviews[0].decision = 'rejected' as 'approved' }, /Invalid literal/)
+    check(value => { value.currentEvidence.rights_hash = h('0') }, /PRODUCTION_STALE/)
+    check(value => { value.stages[1].unit.html = '<section>Changed</section>' }, /UNIT_SET_STALE/)
+    check(value => { value.stages[1].items[0].id = value.stages[0].items[0].id }, /ITEM_DUPLICATE/)
+    check(value => { value.render.proof.passages = 99 }, /RENDER_PROOF_MISMATCH/)
+  })
+
+  it('runs the factory CLI and writes an immutable HTML plus lineage sidecar', () => {
+    const root = mkdtempSync(join(tmpdir(), 'vocaflow-multi-grade-'))
+    const inputPath = join(root, 'input.json')
+    const outputDir = join(root, 'output')
+    const script = resolve(import.meta.dirname, '../../../../scripts/textbook/multi-grade-factory-dry-run.mjs')
+    try {
+      writeFileSync(inputPath, JSON.stringify(productionFixture('shared_passage_grade_specific_items')))
+      const run = spawnSync(process.execPath, ['--import', 'tsx', script, inputPath, outputDir],
+        { cwd: resolve(import.meta.dirname, '../../../..'), encoding: 'utf8' })
+      expect(run.status, run.stderr).toBe(0)
+      const manifest = JSON.parse(readFileSync(join(outputDir, 'lineage-manifest.json'), 'utf8'))
+      expect(rawSha(readFileSync(join(outputDir, 'volume.html'), 'utf8'))).toBe(manifest.html_sha256)
+      expect(manifest.item_evidence).toHaveLength(2)
+      expect(spawnSync(process.execPath, ['--import', 'tsx', script, inputPath, outputDir],
+        { cwd: resolve(import.meta.dirname, '../../../..'), encoding: 'utf8' }).status).not.toBe(0)
+    } finally {
+      for (const file of [join(outputDir, 'volume.html'), join(outputDir, 'lineage-manifest.json'), inputPath]) {
+        try { unlinkSync(file) } catch { /* A failed CLI may not have created the file. */ }
+      }
+      try { rmdirSync(outputDir) } catch { /* A failed CLI may not have created the directory. */ }
+      rmdirSync(root)
+    }
   })
 })

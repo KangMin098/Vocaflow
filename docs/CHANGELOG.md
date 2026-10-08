@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Add a multi-grade synthetic factory runner and CLI that compares caller-supplied per-grade promotion snapshots, item/explanation/editorial digests, unit hashes, and group evidence before using the existing volume renderer. Its atomic HTML/manifest output is marked unverified; real admission, Gold-S, publication and DB seed remain closed.
+
 - feat(textbook): Add a multi-grade Product Order group with distinct per-grade evidence and mixed-unit lineage checks, plus a separate synthetic benchmark contract for per-grade fit, shared core, adjacent separation, and item compatibility. Real admission and production integration remain closed; Gold-S and DB seed stay at zero.
 
 - docs(textbook): Link 26 local textbook file rows to provisional official catalog candidates in a hash-bound external ledger; keep all 30 unique files on hold pending rights, exact-edition, grade-scope, and passage/item boundary evidence. Record multi-grade targeting as a required contract revision. No new benchmark seal, Gold-S, or DB seed.
