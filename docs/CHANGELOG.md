@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Audit BC Reads 2015 PDF/rating lexical fidelity and all 15 keyed items, hold three grounding gaps, re-evaluate admission without altering prior seals, and screen an actual Korean full-textbook candidate against official edition/rights evidence; both calibration and seed remain closed.
+
 - docs(textbook): Recheck BC Reads 2015 item wording and key against archived PDFs; record two source-level grounding mismatches and the still-empty Korean comparison cohort without changing admission or calibration state.
 
 - docs(textbook): Run two blind, file-bound BC Reads nine-axis reviews and a separate disagreement adjudication, then independently review Korean-grade mapping evidence. Preserve preliminary ratings while mapping and item grounding remain held; no admission, calibration, Gold-S, or seed opened.
