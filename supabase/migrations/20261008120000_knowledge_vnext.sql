@@ -226,17 +226,28 @@ end $$;
 create trigger knowledge_designs_insert_guard before insert on public.knowledge_designs
   for each row execute function public.knowledge_designs_insert_guard();
 
--- 배포 중인 설계의 연결 항목은 바꿀 수 없다
+-- 배포 중인 설계의 연결 항목은 바꿀 수 없다. UPDATE 는 옮기기 전(old)·옮긴 뒤(new) 설계를 **둘 다** 본다
+-- (new 만 보면 배포 중 설계에서 연결을 다른 설계로 옮겨 빼낼 수 있다 — Codex 게이트 2026-10-08).
 create function public.knowledge_design_items_guard() returns trigger
 language plpgsql set search_path = public as $$
-declare v_status text;
+declare v_deployed int;
 begin
-  select status into v_status from public.knowledge_designs
-   where id = coalesce(new.design_id, old.design_id) for update;
-  if v_status = 'deployed' then
+  select count(*) into v_deployed from (
+    select status from public.knowledge_designs
+     where id in (
+       select x from unnest(array[
+         case when tg_op in ('UPDATE','DELETE') then old.design_id end,
+         case when tg_op in ('UPDATE','INSERT') then new.design_id end
+       ]) as x where x is not null)
+     order by id for update
+  ) d where d.status = 'deployed';
+  if v_deployed > 0 then
     raise exception 'knowledge_design_items: 배포 중인 설계의 연결은 바꿀 수 없다 — 먼저 중단한다' using errcode = 'check_violation';
   end if;
-  return coalesce(new, old);
+  if tg_op = 'DELETE' then
+    return old;
+  end if;
+  return new;
 end $$;
 create trigger knowledge_design_items_guard before insert or update or delete on public.knowledge_design_items
   for each row execute function public.knowledge_design_items_guard();

@@ -65,6 +65,8 @@ console.log('  열린 배포', await one(`select count(*)::int n, max(design_ver
 await expect('배포 중 내용 변경 거부', `update knowledge_designs set learner_summary='x' where slug='d1'`, true, '배포 중')
 await expect('배포 중 연결 변경 거부', `delete from knowledge_design_items where design_id=(select id from knowledge_designs where slug='d1') and role='method'`, true, '배포 중')
 
+await db.exec(`insert into knowledge_designs (slug,title,learner_summary,procedure,module_key,assessment,created_by,updated_by) values ('d2','t','s','[{"title":"a"}]','csat_claim_evidence','{}','t','t')`)
+await expect('배포 중 설계에서 연결을 다른 설계로 옮기기 거부', `update knowledge_design_items set design_id=(select id from knowledge_designs where slug='d2') where design_id=(select id from knowledge_designs where slug='d1') and role='method'`, true, '배포 중')
 const dep = await one(`select id, design_id from knowledge_deployments where ended_at is null`)
 const uid = '00000000-0000-0000-0000-000000000001'
 await expect('열린 배포에 실기록', `insert into knowledge_task_runs (user_id,design_id,design_version,deployment_id,item_id,phase,response,claim_hit)
