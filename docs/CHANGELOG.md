@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Close the synthetic/code textbook-factory implementation audit after runtime revision-impact integration; keep operational verification, persisted catalog labels, and per-order UI explicitly separate.
+
 - feat(textbook): Compare an earlier sealed production manifest with a newly captured one in the atomic runner; report read-only source-to-render revision impact without treating it as catalog state mutation.
 
 - docs(textbook): Record the ten-check audit as in progress: catalog impact lacks a runtime caller and one continuous synthetic candidate-to-publication fixture remains; add single-grade publish/serve coverage.
