@@ -1,6 +1,7 @@
 // apps/web/src/app/api/csat/item/[slug]/task/route.ts
 //
 // POST /api/csat/item/[slug]/task — 문항의 확인 과제 응답 한 건(Phase 3 · 과제 종류는 item-tasks 레지스트리 — 주장과 근거 · 이어 주는 단서).
+// 거부(400)는 { error, code } — code: no_task(주석 없음) · not_live(적용이 켜져 있지 않음 — 노출 게이트) · invalid_input(답 · 메타 형식 · 같은 id 다른 요청).
 // 본문: { response, sec, clientSessionId, clientMutationId, answeredAt, helpLevel } (G2 기록 계약). 응답: { grade, attempts, outcome }.
 // userId 는 세션에서만 온다(learnerContext). 채점 · 게이트(채택 사슬 · 적용 active · 주석 서명)는 서버가 한다.
 // 쓰기는 service_role 로만 — 학습자 키는 learning_task_attempts 에 쓰기 권한이 없다(본인 SELECT 만).
@@ -23,7 +24,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
     const body = await readJson(req)
     return NextResponse.json(await recordItemTaskAttempt(ctx.db, { id: ctx.userId, email: ctx.email }, fromItemSlug(slug), body, Date.now()))
   } catch (e) {
-    if (e instanceof TaskInputError) return NextResponse.json({ error: e.message }, { status: 400 })
+    if (e instanceof TaskInputError) return NextResponse.json({ error: e.message, code: e.code }, { status: 400 })
     return failure(e)
   }
 }

@@ -13,6 +13,11 @@
 
 - feat(csat): 문항 확인 과제 `POST /api/csat/item/[slug]/task` 를 G2 계약(`learning_session_apply` → `learning_attempt_record`)으로 — 요청 멱등 id · 판단 시각 · 도움 수준 필수, 해설 열람은 별도 mutation. practice 쓰기 기본 g2(direct 는 롤백 전용).
 - migration 후보 `_pending_20261008180000_learning_help_timing`(M8 · **미적용 · 승인 대기** · sha256 2d750f08…) — `learning_sessions.help_received_at` · `learning_task_attempts.received_at` · 첫 시도 뷰 실효 도움 = 판단 시각 기준 + `timing_uncertain`(효과 게이트 제외) · 세션 synthetic 불변. 격리 PG `scripts/knowledge/g2-m8-test.mjs` 30/30.
+- feat(api): `POST /api/csat/item/[slug]/task` 거부 응답에 `code`(no_task · not_live · invalid_input) — 노출 게이트 거부를 입력 오류와 구분. 응집 게이트 E2E 9/9(정상 입력 → not_live · 대조 invalid_input)
+
+- migration `20261008170000_knowledge_trial_evidence_guard` **개발 DB 적용**(sha 38fb5a5b… · 실제 DB 롤백 smoke 3/3) · 응집 사슬 `--no-activate` 빌드(항목 +1 · 근거 +3 · 연결 +1 · 검토 기록 +4 · 적용 초안 2 · 검증 계획 2 · **노출 0**, 노출 게이트 E2E `vertical-cohesion-link-gate-e2e.mts` 8/8)
+
+- docs(methodology): 잔여 2건 승인 패키지 [APPROVAL_REMAINING_2026-10-08](./methodology/APPROVAL_REMAINING_2026-10-08.md) — 170000(sha 38fb5a5b…) 을 실제 원장 순서(160000 위)로 격리 재검증 20/20 · 실제 DB 읽기 점검 · 응집 사슬 빌드가 바꿀 정본 행 실측 · 빌더 `--no-activate`(노출 없이 빌드). DB 쓰기 없음
 
 - migration `20261008160000_learning_sessions_integrated` **개발 DB 적용**(sha 8d1d0624… · vocaflow-18) — `learning_sessions` · `learning_mutations` · 뷰 `learning_first_attempts` · RPC `learning_mutation_claim` · `learning_session_apply` · `learning_attempt_record`(service_role) · funnel CHECK 83종 · 효과 게이트 = 실학습자 독립 첫 시도. 후속 M8 별도 승인 대기. [G2_INTEGRATED_SQL](./methodology/G2_INTEGRATED_SQL.md)
 

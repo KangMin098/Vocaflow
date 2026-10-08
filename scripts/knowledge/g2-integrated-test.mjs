@@ -32,7 +32,7 @@ try {
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql', '20261008140000_knowledge_review_cascade_guard.sql',
-    '20261008150000_knowledge_statement_review_fix.sql', '_pending_20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
+    '20261008150000_knowledge_statement_review_fix.sql', '20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
   // funnel_events — 개발 DB 와 같은 68종 CHECK 와 기존 행(대표 이벤트)
   // bootstrap 의 funnel_events 에 개발 DB 의 현재 68종 CHECK 를 다시 건다(실측 2026-10-08)
   await q(`delete from funnel_events`)

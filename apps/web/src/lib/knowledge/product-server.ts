@@ -105,7 +105,14 @@ export function currentAnnotation(itemId: string) {
   return currentItemTask(itemId)?.ann ?? null
 }
 
-export class TaskInputError extends Error {}
+/** 과제 기록 거부 사유(닫힌 열거) — 화면 문구와 별개로 호출자 · 테스트가 이유를 구분한다 */
+export type TaskRejectCode = 'no_task' | 'not_live' | 'invalid_input'
+
+export class TaskInputError extends Error {
+  constructor(message: string, readonly code: TaskRejectCode) {
+    super(message)
+  }
+}
 
 export interface AttemptResult {
   grade: Record<string, unknown> & { isCorrect: boolean }
@@ -128,13 +135,14 @@ export async function recordItemTaskAttempt(
 ): Promise<AttemptResult & { outcome: WriteOutcome }> {
   const o = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>
   const meta = parseClientMeta(o, now)
-  if (!meta.ok) throw new TaskInputError(meta.error)
+  if (!meta.ok) throw new TaskInputError(meta.error, 'invalid_input')
   const task = currentItemTask(itemId)
-  if (!task) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
+  if (!task) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요', 'no_task')
   const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId), client)
-  if (!live) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
+  // 주석은 있지만 제품 적용이 켜져 있지 않다(초안 · 중단 · 사슬 미채택) — 노출 게이트가 막은 것
+  if (!live) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요', 'not_live')
   const graded = task.def.grade(task.ann, o.response)
-  if (!graded) throw new TaskInputError('고른 답을 다시 확인해 주세요')
+  if (!graded) throw new TaskInputError('고른 답을 다시 확인해 주세요', 'invalid_input')
   const sec = Number.isInteger(o.sec) && (o.sec as number) >= 0 && (o.sec as number) <= 7200 ? (o.sec as number) : null
   const w: AttemptWrite = {
     userId: user.id,
@@ -156,7 +164,7 @@ export async function recordItemTaskAttempt(
   }
   const sessionId = await writer.reveal(w)
   const outcome = await writer.record(w, sessionId)
-  if (outcome === 'conflict') throw new TaskInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요')
+  if (outcome === 'conflict') throw new TaskInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요', 'invalid_input')
   const { count, error } = await client.from('learning_task_attempts').select('id', { count: 'exact', head: true })
     .eq('user_id', user.id).eq('task_key', task.def.key).eq('item_ref', itemId)
   // count 는 오류를 0 으로 삼키지 않는다(AGENTS 「두 번 이상 고친 실수」) — 화면용 보조 수치라 실패해도 기록 결과는 그대로

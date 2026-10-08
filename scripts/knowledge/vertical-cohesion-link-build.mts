@@ -39,6 +39,8 @@ const INQUIRY = {
 }
 
 const log = (s: string) => console.log(`· ${s}`)
+const NO_ACTIVATE = process.argv.includes('--no-activate')
+if (NO_ACTIVATE) console.log('· --no-activate: 적용은 초안으로 남긴다(노출 0)')
 const one = async <T,>(q: PromiseLike<{ data: T | null; error: { message: string } | null }>) => { const { data, error } = await q; if (error) throw new Error(error.message); return data }
 const itemRow = (slug: string) => one(db.from('knowledge_items').select('id, slug, status, title, layer').eq('slug', slug).maybeSingle())
 
@@ -53,7 +55,20 @@ const expectText = async (t: string | RegExp) => {
   await Promise.race([ok.waitFor(), bad.waitFor().then(async () => { throw new Error(`화면 오류: ${await bad.innerText()}`) })])
 }
 
+// --no-activate 의 「노출 0」 은 새로 켜지 않는 것만으로는 부족하다 — 이미 켜진 적용 · applied 과제가 있으면 그대로 노출된다(Codex P1).
+// 그래서 쓰기 전에 기존 노출 상태를 거부하고, 끝나면 노출이 없는지 다시 확인한다.
+const exposure = async () => {
+  const t = await one(db.from('knowledge_items').select('id, status').eq('slug', 'task-cohesion-link').maybeSingle()) as { id: string; status: string } | null
+  if (!t) return { taskApplied: false, active: 0 }
+  const { count, error } = await db.from('knowledge_applications').select('id', { count: 'exact', head: true }).eq('item_id', t.id).eq('status', 'active')
+  if (error || count === null) throw new Error(`적용 상태 조회 실패 — 노출 여부를 알 수 없어 중단: ${error?.message ?? 'count=null'}`)
+  return { taskApplied: t.status === 'applied', active: count }
+}
 try {
+  if (NO_ACTIVATE) {
+    const e = await exposure()
+    if (e.active || e.taskApplied) throw new Error(`--no-activate 인데 이미 노출 중(active 적용 ${e.active} · 과제 applied ${e.taskApplied}) — 노출 0 을 보장할 수 없어 쓰기 전에 중단`)
+  }
   const origin = await one(db.from('knowledge_csat_origins').select('passage_sha256, grade').contains('item_ids', [ITEM]).maybeSingle()) as { passage_sha256: string; grade: string } | null
   if (!origin || origin.grade === 'G') throw new Error('2022#36 원천이 A·B·C 가 아니다 — 근거로 쓸 수 없다')
 
@@ -226,7 +241,8 @@ try {
       log(`검증 계획 ${a.ref}`)
     }
     // 중단된 적용(사유가 있는 paused)은 빌더가 켜지 않는다 — 처음 만든 draft 만
-    if (app.status === 'draft' && firstBuild) {
+    // --no-activate: 사슬 · 적용 초안 · 검증 계획까지만 만들고 학습자 노출은 켜지 않는다(사용자 승인 범위가 「켜기 없이 빌드」일 때)
+    if (app.status === 'draft' && firstBuild && !NO_ACTIVATE) {
       await go('/admin/knowledge/product')
       await page.locator(`[data-testid="app-status-${app.id}"]`).getByRole('button', { name: '학습자에게 켜기' }).click()
       await expectText('저장했습니다')
@@ -234,7 +250,7 @@ try {
     }
   }
   const tNow = await itemRow(T.slug) as { status: string }
-  if (tNow.status === 'adopted' && firstBuild) {
+  if (tNow.status === 'adopted' && firstBuild && !NO_ACTIVATE) {
     await go(`/admin/knowledge/item/${T.slug}`)
     await page.locator('#status-reason').fill('문항 과제(2022 수능 36번) · 학습 지도 FIND(A3-4) 적용이 켜졌다')
     await page.getByRole('button', { name: '제품 적용(으)로' }).click()
@@ -244,6 +260,11 @@ try {
   await page.screenshot({ path: path.join(OUT, 'build-final.png'), fullPage: true })
   const final = await one(db.from('knowledge_items').select('slug, status, efficacy, version').in('slug', CHAIN.map((c) => c.slug)))
   console.log(JSON.stringify(final))
+  if (NO_ACTIVATE) {
+    const e = await exposure()
+    if (e.active || e.taskApplied) throw new Error(`--no-activate 검증 실패 — 끝난 뒤 노출 중(active ${e.active} · applied ${e.taskApplied})`)
+    log('노출 0 확인(active 적용 0 · 과제 applied 아님)')
+  }
 } finally {
   await browser.close()
 }

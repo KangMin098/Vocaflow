@@ -40,7 +40,7 @@ try {
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql', '20261008140000_knowledge_review_cascade_guard.sql',
-    '20261008150000_knowledge_statement_review_fix.sql', '_pending_20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
+    '20261008150000_knowledge_statement_review_fix.sql', '20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
   // funnel_events CHECK 은 160000 이 다시 건다 — 기존 행을 비워 둔다(이 하네스의 관심 밖)
   await q('delete from funnel_events')
   await q(M('20261008160000_learning_sessions_integrated.sql'))

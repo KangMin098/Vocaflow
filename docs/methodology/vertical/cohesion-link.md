@@ -1,10 +1,10 @@
 # 두 번째 수직 경로 — 문장 관계: 연결어 · 지시어 / 순서 (2026-10-08)
 
-> 상태: **코드 · 주석 · 심사 완료 · DB 빌드 미실행(승인 대기)**. 학습자 노출 0 — 게이트가 적용 행(`cohesion-link:2022-36`)이 없으면 막는다.
+> 상태: **DB 비활성 빌드 완료(2026-10-08 · `--no-activate`)** — 사슬 3 항목 adopted · 적용 2개 draft · **학습자 노출 0**(게이트 E2E 9/9 — 정상 입력 기록 요청이 `code: not_live` 로 거부). 노출 켜기는 별도 승인.
 
 ## 사슬
 
-탐구 질문 `cohesion-relation-csat` → 근거(기출 관찰 1건 · 원천 B · 연구 근거 아님) → 기제 `cohesion-cues`(재사용) → 방법 `method-cohesion-tracking` → 과제 `task-cohesion-link` → 문항 주석 `cohesion-link-2022-36.v1` → 문항 화면 `CohesionPanel` → 학습 지도 FIND A3-4(relation 단계).
+탐구 질문 `cohesion-relation-csat` → 근거(기출 관찰 1건 · 원천 등급 A(knowledge_csat_origins 조회값) · 연구 근거 아님) → 기제 `cohesion-cues`(재사용) → 방법 `method-cohesion-tracking` → 과제 `task-cohesion-link` → 문항 주석 `cohesion-link-2022-36.v1` → 문항 화면 `CohesionPanel` → 학습 지도 FIND A3-4(relation 단계).
 
 ## 문항 선택(Claude Code 위임)
 
