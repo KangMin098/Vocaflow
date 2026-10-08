@@ -179,6 +179,15 @@ try {
   await tsess(C, 'pre', 'hint', 'x1', null)
   await tsess(C, 'post', 'hint', 'x1', null)
   rec('M5c 힌트 사용 기록은 독립 표본이 아니다 — 분석 완료 거부', /독립\(independent\)/.test(await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial]) ?? ''))
+  // M7 합성 세션의 독립 첫 시도만으로는(시도 행을 「합성 아님」으로 오염시켜도) 실학습자 최소 표본을 못 채운다
+  const D = '00000000-0000-4000-8000-0000000000d4'
+  { const su3 = new pg.Client({ host: '127.0.0.1', port: 54329, database: 'ec', user: 'supabase_admin', password: 'admin' }); await su3.connect(); await su3.query(`insert into auth.users (id) values ('${D}')`); await su3.end() }
+  for (const phase of ['pre', 'post']) {
+    const sid = (await q("select * from learning_session_apply($1,$2,$3,'practice',$4,'x1','revealed',0,1,'independent','2026-10-05T09:00:00Z',null,false,true,'g2',null,$5,null)", [D, uuid(), uuid(), phase, trial])).rows[0].session_id
+    await q("select * from learning_attempt_record($1,$2,$3,'g2',null,null,null,null,'h','{}',true,10,true,null,$4,'2026-10-05T09:01:00Z')", [D, uuid(), sid, trial])
+  }
+  await q('update learning_task_attempts set synthetic = false where user_id = $1', [D])
+  rec('M7 합성 세션(오염된 시도 행 포함)만으로는 실학습자 최소 표본 미달 — 분석 완료 거부', /첫 시도|독립/.test(await err("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trial]) ?? ''))
   await tsess(B, 'pre', 'independent', 'x1', null)
   await tsess(B, 'post', 'independent', 'x1', null)
   rec('M3 실제 독립 첫 시도(사전 · 사후 각 1)면 분석 완료 허용', !(await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial])))

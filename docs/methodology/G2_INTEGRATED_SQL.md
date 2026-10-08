@@ -35,12 +35,29 @@
 - `learning_sessions` · `learning_mutations` 없음(새로 만든다) · 원장 최신 `20261008150000` — 번호 충돌 없음
 - 기존 데이터 변경 · 삭제 · 백필 **없음**. 잠금: `funnel_events` CHECK 재정의가 표 스캔(21,000행 · 짧음)
 
-## 4. 검증(격리 PostgreSQL · `scripts/knowledge/g2-integrated-test.mjs` — 36/36)
+## 4. 검증(격리 PostgreSQL · `scripts/knowledge/g2-integrated-test.mjs` — 44/44)
 
 기존 스키마 전부(등록부 7 · vNext · 가드 140000 · 150000 · 후보 170000 · 현재 68종 CHECK 의 funnel_events) 위에 적용한 뒤:
 세션 열기 · 재전송 duplicate · 같은 키 다른 내용 conflict(빈 세션 없음) · 공개 전 시도 거부 · 남의 세션 시도 거부 · 세션과 다른 도움 수준 거부(B7 서버 검증 유지) · 상속(activity · phase · item · help · task) · 시도 재전송 duplicate · 같은 키 다른 응답 conflict ·
 **두 연결 동시 같은 요청 → inserted 1 · duplicate 1 · 행 1(B6′)** · 동시 다른 요청 둘 다 inserted · 첫 시도 = 판단 시각 순 · 해설 먼저 표시 · 해설 열람 시각 먼저 값 유지(M1) · 해설 뒤 판단 표시(M2) · 효과 게이트가 독립 첫 시도만 셈(M3 거부 · 허용) · 이벤트(기존 유지 · 새 15 허용 · 목록 밖 거부) · phase review · 학습자 권한(세션 본인만 · 직접 쓰기 거부 · 원장 거부 · RPC 거부 · 첫 시도 뷰 본인만) ·
 **M5(통합 리뷰 Codex P1 4건)**: 늦게 온 더 이른 해설 열람 · 「해설 먼저」 공개가 이김 · 힌트 기록은 독립 표본 아님 · 분석 완료 뒤 표본 세션 시각 변경 · 시도 추가 거부 · 같은 묶음(학습자 · 과제 · 문항 · 단계)에 표본보다 이른 시도(검증 없는 시도 포함) 거부 · 늦은 반복 시도는 허용 · **되돌리기 블록을 그대로 실행 → 새 표 · 열 없음 · 효과 게이트 원래 본문 · 이벤트 68종 복원**.
+
+## 4-1. 최종 preflight(2026-10-08 · 사용자 조건부 승인 뒤 · DB 쓰기 없음)
+
+검토 기준 커밋 `e80ea5491` · **SHA-256 `8d1d06249b8d649442da4cd007a857b65668dc7a56f42824fcd94aefc21327b5`**(재계산 일치). 이전 `c3167ae9…` · `9786b92f…` · `da627938…` 는 폐기 — 적용 대상 아님.
+
+| # | 점검 | 결과 |
+|---|---|---|
+| 1 | SQL diff · 승인 범위 | 기출 쪽 초안(779eb9bb…)에서 빌더 `build-g2-integrated.mjs` 가 더한 것만: M1 해설 열람 시각 · M2 뷰 after_explanation · M3 효과 게이트 = 실학습자 독립 첫 시도 · M4 머리말/되돌리기 · M5a/a′ 공개 시각 · 도움 수준 병합 · M5b 뷰 실효 도움 수준 · M5c 잠금 · M5d 분석 뒤 표본 고정 · M6 재전송 원문 비교 · M7 합성 일치. 이 세트 밖 객체 없음(170000 · 응집 빌드 미포함) |
+| 2 | SHA-256 재계산 | 일치 |
+| 3 | 격리 테스트 | **44/44**(43 + M7 최소 표본 우회 단언 1 추가 · SQL 변경 없음 → SHA 그대로) |
+| 4 | 합성 세션 + 합성 아님 시도 | RPC 거부(`contradicts`) — **저장 차단** |
+| 5 | 과거 오염 행 | 시도 행을 synthetic=false 로 덮어도 첫 시도 뷰는 세션 합성을 따라 합성 — **집계 제외**(두 겹 유지) |
+| 6 | 최소 표본 우회 | 합성 세션(오염 행 포함)만으로 `analyzed` 전환 거부 |
+| 7 | 실제 DB(읽기만) | 원장 최신 `20261008150000`(이 SQL 은 그 뒤 — 순서 충돌 없음) · `learning_sessions` · `learning_mutations` · `learning_first_attempts` 없음 · 새 RPC 3종 없음 · `learning_task_attempts` 13열(격리 환경 사전 상태와 같음) · **기존 시도 0행 · trial 2 · analyzed 0 · 검토 이력 165** · funnel CHECK 68종(새 SQL 이 83종으로) · 권한: authenticated SELECT · service_role 전체 · 활성 연결 1/13. checkpoint 기록은 DB 쓰기라 적용자(vocaflow-18)가 5절 절차로 찍는다 |
+| 8 | 적용 뒤 smoke · 되돌리기 | 5절 ⑤(한 트랜잭션 롤백 smoke) · 7절(실행 가능한 되돌리기 — 격리에서 실제 실행 검증) |
+
+**영향 범위 결론**: 기존 시도 0행이라 과거 오염 행은 실제 DB 에 없다(5번은 격리 실증). 기존 검토 이력 165 · trial 2 행은 이 SQL 이 삭제 · 변경하지 않는다 — 적용 뒤 같은 수인지 사후 검사에서 다시 센다. 바뀌는 것은 새 표 2 · 뷰 1 · RPC 3 · `learning_task_attempts` 열 추가(NULL 허용) · 트리거 함수 교체 · funnel CHECK 확장.
 
 ## 5. 적용 절차(vocaflow-18)
 
