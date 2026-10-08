@@ -126,6 +126,30 @@ end $f$`)
   if (!mv) { try { await su.query(`delete from auth.users where id = '${TMP}'`) } catch (e) { dl = e.message } }
   const left5 = (await q('select count(*)::int n from learning_task_attempts where user_id = any($1)', [[U5, TMP]])).rows[0].n
   rec('⑤ 실제 기록의 user_id 를 옮겨 계정 cascade 로 지우기 불가', !!mv || !!dl || left5 > 0, { 옮기기: mv ?? '허용', 임시계정삭제: dl ?? '허용', 남은실제기록: left5 })
+  // ⑥ 계정이 살아 있는 동안 실제 시도의 의미 열(is_correct · response · answered_at) 수정 거부(사용자 F7 계약)
+  const U6 = '00000000-0000-4000-8000-0000000000e9'
+  await su.query(`insert into auth.users (id) values ('${U6}')`)
+  await q(`select * from learning_attempt_record($1,$2,null,'f7p','practice','pre','independent','u6','h','{}',false,5,false,null,null,now() - interval '1 minute')`, [U6, uuid()])
+  const e6a = await err('update learning_task_attempts set is_correct = true where user_id = $1', [U6])
+  const e6b = await err(`update learning_task_attempts set response = '{"x":1}' where user_id = $1`, [U6])
+  const e6c = await err(`update learning_task_attempts set answered_at = now() - interval '1 day' where user_id = $1`, [U6])
+  rec('⑥ 실제 시도 의미 열 수정 거부(is_correct · response · answered_at)', !!e6a && !!e6b && !!e6c, { is_correct: e6a ?? '허용', response: e6b ?? '허용', answered_at: e6c ?? '허용' })
+  // ⑦ 재검토 표시는 임의로 지울 수 없다(재분석으로만)
+  const has7 = (await q(`select count(*)::int n from information_schema.columns where table_name = 'knowledge_trials' and column_name = 'review_required_at'`)).rows[0].n
+  if (has7) {
+    const it7 = (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ('practice','task','f7p-t','t','s','in_review','t','t') returning id`)).rows[0].id
+    await q(`insert into knowledge_evidence (item_id, grade, attribution, source_type, external_url, external_title, created_by) values ($1,'B','stated','external','https://e.x/f7p','t','t')`, [it7])
+    await q(`update knowledge_items set status = 'adopted', updated_by = 't' where id = $1`, [it7])
+    const app7 = (await q(`insert into knowledge_applications (item_id, surface, surface_ref, created_by, updated_by) values ($1,'module_task','f7p','t','t') returning id`, [it7])).rows[0].id
+    await q(`insert into knowledge_trials (application_id, design, created_by) values ($1, '{"pre":true,"post":true,"min_n":1}', 't')`, [app7])
+    const t7 = (await q('select id from knowledge_trials limit 1')).rows[0]
+    if (t7) {
+      await su.query(`update knowledge_trials set review_required_at = now(), review_required_reason = 'probe' where id = '${t7.id}'`).catch(() => {})
+      const marked = (await q('select review_required_at from knowledge_trials where id = $1', [t7.id])).rows[0].review_required_at
+      const e7 = marked ? await err('update knowledge_trials set review_required_at = null, review_required_reason = null where id = $1', [t7.id]) : 'skip'
+      rec('⑦ 재검토 표시 임의 해제 거부', !marked || !!e7, { 표시: !!marked, 해제: e7 ?? '허용' })
+    } else rec('⑦ 검증 행 없음 — 건너뜀', true)
+  }
   void syn
 } catch (e) {
   rec('실행 오류 없이 끝남', false, e.message)
