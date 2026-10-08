@@ -28,6 +28,16 @@ main 은 위 공유 파일들을 merge-base 이후 고친 적이 없다(각 파�
 | `package.json` | `design:ref-measure` · `design:ref-compare`(AGENTS 가 요구하는 측정 명령) | — |
 | `(app)/csat/diagnosis/page.tsx` 의 `DiagnosisShell` 레일 | — | `railWorkspaces`(Workspace 레일) — 셸 파일은 main 그대로 |
 
+## A''. 통합 리뷰(Codex) P1 수정 — 원본에도 있던 결함이라 원본과 일부러 다르다
+
+| P1 | 수정 |
+|---|---|
+| 같은 엔진 버전이면 저장된 지도 지표를 다시 계산하지 않음 — 시드 전 `mapStatus=off` 스냅샷이 「분석 준비 중」에 갇히고, `den` 없는 옛 지표는 k=8 축소를 건너뜀 | `lib/csat/map/stale.ts` `staleMapEvidence` — 버전 · `mapStatus` · 판정 지표의 `den` 중 하나라도 어긋나면 저장 없이 재계산(+ `stale.test.ts`) |
+| 상세 지도 팝업에서 원인 확인 전 바로잡기 · 적용 · 다시 확인 과제를 완료 저장할 수 있음 | `NodePopup` 체크박스를 `activityFrame` 의 열린 단계에서만 활성(단계 시트와 같은 게이트) |
+| 제외한 seed v2 SQL 을 다시 만드는 기능이 `canon-prepare.mts` 에 남음 | SQL 생성 부분 삭제 — M2409 정본 diff 만 만든다 |
+
+P2(참고, 이 PR 에서 고치지 않음): 지도 E2E 상태 C 가 개발 DB 의 M2409 pilot 태그를 복사해 전제 · 기본 학습 지도 화면의 진입/노드 열기 이벤트 누락 · FIND 보강 SQL 의 전체 과제 수 182 고정(S 과제 설치 뒤 재실행 실패).
+
 ## B. DB 기반
 
 | 마이그레이션 | 의존 | 판정 |
@@ -77,4 +87,5 @@ main 은 위 공유 파일들을 merge-base 이후 고친 적이 없다(각 파�
 | 진단 반영 판정(readiness) | yes | yes | `readiness.test` · `readiness-smoke` 5/5 |
 | verified 전 확정 금지 · 처방 게이트 · CTA 하나 | yes | yes | 지도 E2E C · D 게이트 |
 | M2409 회귀(fixture) | yes | yes | `seed-rules.test` · `ranking-gate.test` |
+| 상세 팝업 처방 단계 잠금 · 같은 버전 재계산 | no(결함) | **yes** | 위 P1 |
 | /csat 전체 글자 비율 변환 | yes | **no** | 디자인 작업(design/replica-first) — 지도 CSS 는 이미 비율 사용 |

@@ -305,7 +305,8 @@ export function NodePopup({
                               <ListRow
                                 leading={
                                   <label className={p.check}>
-                                    <input type="checkbox" checked={checked} onChange={(e) => onToggle(t.id, e.target.checked)} aria-label={`${t.title} 완료`} />
+                                    {/* 원인 확인 전에는 열린 단계(FIND)만 완료로 저장한다 — 단계 시트와 같은 게이트(prescription.activityFrame) */}
+                                    <input type="checkbox" checked={checked} disabled={!g.open} onChange={(e) => onToggle(t.id, e.target.checked)} aria-label={g.open ? `${t.title} 완료` : `${t.title} — 원인 확인 뒤 열림`} />
                                   </label>
                                 }
                                 tile={t.material === 'past' ? <FileText size={16} strokeWidth={1.8} /> : <Sprout size={16} strokeWidth={1.8} />}

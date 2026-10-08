@@ -9,12 +9,12 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { selectByChunks, selectSmall } from '../diagnosis/fetch'
-import { ENGINE_VERSION } from '../diagnosis/engine/rule-v1'
 import { computeSnapshotNow } from '../diagnosis/server'
 import { loadSnapshots } from '../diagnosis/snapshot'
 
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
+import { staleMapEvidence } from './stale'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 
@@ -187,11 +187,12 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     listening: { attribute: dx.listening?.attribute ?? 'A7', weight: dx.listening?.weight ?? 0, toNo: dx.habits?.listening?.to_no ?? 17 },
   })
 
-  // 최신 스냅샷 → 현재 관찰값. 옛 엔진 버전(예: Record Quality Layer 전 rule-v1)이면 그 값을 쓰지 않고
-  // 저장 없이 지금 입력으로 다시 계산한다 — 일괄 입력 기록이 섞인 관찰값이 지도에 남지 않게
+  // 최신 스냅샷 → 현재 관찰값. 저장된 지도 지표를 그대로 믿을 수 없으면 저장 없이 지금 입력으로 다시 계산한다:
+  //   옛 엔진 버전(예: Record Quality Layer 전 rule-v1) · 지도 계산이 꺼졌거나 실패한 채 저장(mapStatus ≠ ok — 시드 전 기록 등) ·
+  //   순위 축소 추정의 분모(den)가 없는 2026-10-08 이전 지표(없으면 k=8 보정을 건너뛰어 행동이 달라진다)
   const [stored] = await loadSnapshots(db, userId, 1)
   let snap = stored
-  if (stored && stored.engineVersion !== ENGINE_VERSION) {
+  if (stored && staleMapEvidence(stored)) {
     const fresh = await computeSnapshotNow(db, userId, now)
     snap = { ...stored, engineVersion: fresh.result.engineVersion, rawScore: fresh.result.rawScore, habitFlags: fresh.result.habitFlags, evidence: fresh.evidence as typeof stored.evidence }
   }
