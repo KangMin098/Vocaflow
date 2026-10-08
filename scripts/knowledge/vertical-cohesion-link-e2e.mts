@@ -45,14 +45,23 @@ if (apps.length !== 2 || apps.some((a) => a.status !== 'active') || !itemApp) {
   process.exit(2)
 }
 
+// ② G2 계약 확인 — **계정을 만들기 전에**(Codex P1: 옛 계약도 답을 INSERT 하므로 제출로 확인하면 「쓰기 없음」이 거짓이 된다).
+//    개발 서버는 이 워크트리 코드를 띄우므로 서버 기록 함수가 learning_attempt_record 를 부르는지 원본으로 본다.
+const serverSrc = fs.readFileSync(path.join(ROOT, 'apps/web/src/lib/knowledge/product-server.ts'), 'utf8')
+if (!serverSrc.includes("learning_attempt_record")) {
+  console.log('BLOCKED — 문항 과제 기록이 아직 G2 계약이 아니다(product-server 에 learning_attempt_record 경로 없음). f5 통합 머지 뒤 다시 돌린다. 아무것도 쓰지 않았다.')
+  process.exit(2)
+}
+
 const email = `vertical-coh-${Date.now()}@example.com`
 const password = `Vc-${crypto.randomBytes(9).toString('base64url')}-Aa1`
 const { data: created, error: ce } = await db.auth.admin.createUser({ email, password, email_confirm: true })
 if (ce) throw ce
 const uid = created.user.id
-const browser = await chromium.launch()
+let browser: { close: () => Promise<void>; newContext: (o: object) => Promise<any> } | null = null
 try {
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 1000 } })
+  browser = await chromium.launch()
+  const ctx = await browser!.newContext({ viewport: { width: 1440, height: 1000 } })
   const page = await ctx.newPage()
   page.setDefaultTimeout(240_000)
   const go = async (url: string) => { await page.goto(`${BASE}${url}`, { waitUntil: 'domcontentloaded' }); await page.waitForLoadState('networkidle').catch(() => {}) }
@@ -125,7 +134,7 @@ try {
     rec('B · 링크 → 문항 화면의 응집 과제', true)
 
     // ── C 관리자 추적 ──
-    const admin = await (await browser.newContext({ viewport: { width: 1440, height: 1000 } })).newPage()
+    const admin = await (await browser!.newContext({ viewport: { width: 1440, height: 1000 } })).newPage()
     admin.setDefaultTimeout(240_000)
     await admin.goto(`${BASE}/admin/knowledge/product/${itemApp.id}`, { waitUntil: 'domcontentloaded' })
     const breaks = admin.locator('[data-testid="trace-breaks"]')
@@ -139,7 +148,9 @@ try {
     rec('efficacy not_assessed · 검증 계획 planned 그대로', eff.efficacy === 'not_assessed' && trials.every((t) => t.status === 'planned'), { eff, trials })
   }
 } finally {
-  await browser.close()
-  await db.auth.admin.deleteUser(uid)
+  // 정리는 브라우저 종료 실패와 무관하게 — 삭제 오류는 숨기지 않는다(Codex P2)
+  await browser?.close().catch((e: Error) => console.log(`브라우저 종료 실패: ${e.message}`))
+  const { error: de } = await db.auth.admin.deleteUser(uid)
+  rec('정리 — 테스트 계정 삭제(세션 · 기록 cascade)', !de, de?.message ?? '')
 }
 if (fail) { console.log(`실패 ${fail}`); process.exitCode = 1 } else if (process.exitCode !== 2) console.log('모든 단언 통과')
