@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(audit): 플랫폼 전수 조사 STEP 1/6 — `docs/platform-audit/` 산출물 10종(기능 74항목 8단계 상태 · 학습 환경 24 · 파이프라인 지도 · 연결 지도 · 목표 결정 이력 · L0~L4 목표 후보 64개 JSON · 빈틈 분석). DB SELECT 전용 · Codex 독립 리뷰 17건 반영. 목표 확정 없음(STEP 2)
+
 - feat(map): 학습 지도 결과 환류 — FIND 과제 아래 「내가 한 확인」(횟수 · 처음/최근 결과 · 다른 지문 적용 · 다시 보기 예약 · 다음 행동 · 도움 여부는 기록에 있을 때만 · 실력 판정 아님). `MapPracticeLink` 에 itemId · taskKey(화면 비노출). 단위 7 · E2E 10/10 · 기존 지도 E2E 회귀 없음
 
 - feat(api): `POST /api/csat/item/[slug]/task` 거부 응답에 `code`(no_task · not_live · invalid_input) — 노출 게이트 거부를 입력 오류와 구분. 응집 게이트 E2E 9/9(정상 입력 → not_live · 대조 invalid_input)

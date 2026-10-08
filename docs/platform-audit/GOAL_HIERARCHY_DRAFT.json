@@ -1,0 +1,912 @@
+{
+  "meta": {
+    "step": "1/6",
+    "status": "DRAFT — 후보이며 확정 아님(확정은 STEP 2, 사용자 결정)",
+    "baseline": "origin/main a7c986469",
+    "measured_at": "2026-10-09",
+    "levels": {
+      "L0": "전체 플랫폼 비전",
+      "L1": "핵심 제품·교육 영역",
+      "L2": "개별 학습·콘텐츠·운영 파이프라인",
+      "L3": "사용자 경험과 실제 기능",
+      "L4": "구현·검증 작업"
+    },
+    "status_vocab": [
+      "VERIFIED_WORKING",
+      "IMPLEMENTED_UNVERIFIED",
+      "PARTIAL",
+      "DESIGN_ONLY",
+      "EXPERIMENTAL",
+      "UNMERGED",
+      "DEPRECATED",
+      "UNKNOWN"
+    ],
+    "evidence_root": "docs/platform-audit/",
+    "note": "L0 은 서로 배타적인 후보 3개를 둔다. L1 이하는 세 후보 모두에 공통으로 필요한 목표이며, 후보별 우선순위만 달라진다(GOAL_CANDIDATES.md §2). L1 의 parent \"L0\" 은 STEP 2 에서 선택될 L0 후보를 가리킨다.",
+    "review": "Codex 독립 리뷰 17건 반영(2026-10-09) — 결과 조건으로 완료 기준을 다시 씀, 저장 경로 있는 기록 0 은 결함으로 단정하지 않음"
+  },
+  "goals": [
+    {
+      "id": "L0-A",
+      "level": "L0",
+      "parent": null,
+      "title": "검증된 통합 영어 학습 루프 — 원문을 만나 어휘·구문·독해·듣기를 장기 기억과 실전 전이까지 이끄는 한 사이클을, 실제 학습자의 재방문으로 증명한다",
+      "evidence": [
+        "docs/PROJECT.md 미션",
+        "docs/LEARNING_MODEL.md v3.2",
+        "LEARNING_ENVIRONMENTS.md §1"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "외부 학습자 30명 이상이 L0~L7 루프를 1회 이상 완주",
+        "D7 재방문 측정 가능(분모 20 이상)"
+      ]
+    },
+    {
+      "id": "L0-B",
+      "level": "L0",
+      "parent": null,
+      "title": "수능·학평 영어 독해 전문 플랫폼 — 출제자 읽기·오답 원인·전이로 수능 영어 점수를 올린다",
+      "evidence": [
+        "docs/LEARNER_MANAGEMENT.md 2026-06-28 수능 단일 집중",
+        "docs/csat-learner-brief.md",
+        "커밋 scope csat 652 · CSAT 이벤트가 funnel 상위"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "CSAT 세션 루프 완주 학습자 30명",
+        "재평가에서 예측 적중률 상승 측정"
+      ]
+    },
+    {
+      "id": "L0-C",
+      "level": "L0",
+      "parent": null,
+      "title": "교사용 영어 수업 도구 — 교사가 지문·단어를 학급에 내려보내고 수행을 본다(10만 = 교사 3,500 × 30)",
+      "evidence": [
+        "docs/PLATFORM_AUDIT.md §6 결론",
+        "F3 BYO/TextFit",
+        "class_assignments 마이그레이션 20260817130204"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "교사 10명 실사용",
+        "과제가 학생에게 전달·수행 기록 1건 이상"
+      ]
+    },
+    {
+      "id": "G1",
+      "level": "L1",
+      "parent": "L0",
+      "title": "실수요 검증 — 외부 학습자 확보·활성화·리텐션",
+      "evidence": [
+        "_raw/db-demand.md: users 5(전부 검증 계정) · 30일 학습자 2 · 익명 이벤트 2,847(출처 판별 불가)",
+        "PLATFORM_AUDIT F1·F4"
+      ],
+      "status": "DESIGN_ONLY",
+      "done_candidates": [
+        "외부 학습자 ≥30",
+        "가입→첫 학습 중앙값 ≤1일",
+        "D7 판독 가능"
+      ]
+    },
+    {
+      "id": "G2",
+      "level": "L1",
+      "parent": "L0",
+      "title": "통합 학습 루프 — 읽기→담기→재인→생성→정복→완성→회고가 기록상 닫힌다",
+      "evidence": [
+        "PLATFORM_INTEGRATION_MAP I2·I3"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "각 학습 계층(L0~L7) 활동이 1회 이상 기록되고 회고에 반영",
+        "읽기 완료(texts.status=completed) 1건 이상"
+      ]
+    },
+    {
+      "id": "G3",
+      "level": "L1",
+      "parent": "L0",
+      "title": "시험 독해(CSAT·학평·모의평가) 학습",
+      "evidence": [
+        "F-L14",
+        "csat_items 3,714"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "진단→지도→세션→재평가 완주 기록",
+        "CSAT 학습이 공용 기록·복습에 합류"
+      ]
+    },
+    {
+      "id": "G4",
+      "level": "L1",
+      "parent": "L0",
+      "title": "콘텐츠 공급이 학습자에게 도달한다",
+      "evidence": [
+        "CONTENT_PIPELINE_ATLAS §2: ACP ready 84,715 · published 250"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "공급:수요 비 개선(PLATFORM_AUDIT §3)",
+        "F6: published ≥60 중 절반 이상 V6–8 논설·설명문"
+      ]
+    },
+    {
+      "id": "G5",
+      "level": "L1",
+      "parent": "L0",
+      "title": "학습자가 보는 「내 학습」이 하나다 — 기록·수준·목표가 모든 표면에서 회고에 반영된다",
+      "evidence": [
+        "PLATFORM_SHARED_SYSTEMS §3 중복 1~6"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "모든 표면의 학습 활동이 Dashboard/Reports 에 반영",
+        "저장소·척도·스케줄러 통합 여부는 별도 설계 후보(척도가 다르면 통합하지 않을 수 있다)"
+      ]
+    },
+    {
+      "id": "G6",
+      "level": "L1",
+      "parent": "L0",
+      "title": "교사·학급 채널",
+      "evidence": [
+        "classes 1 · members 0 · assignments 0",
+        "교사 권한은 classes.teacher_id 소유로 판정(lib/teacher/class-actions.ts:41) — role enum 에 teacher 없음은 결함 근거 아님"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "교사 10명 실사용",
+        "학급 과제 수행 기록"
+      ]
+    },
+    {
+      "id": "G7",
+      "level": "L1",
+      "parent": "L0",
+      "title": "플랫폼 정합 — 저장소=DB=배포",
+      "evidence": [
+        "REPOSITORY_INVENTORY §3: DB 적용·main 밖 마이그레이션 ≥17",
+        "deploy.yml 배포 건너뜀"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "main 만으로 DB 스키마 재현",
+        "main → 프로덕션 실제 배포",
+        "2주 초과 브랜치 0"
+      ]
+    },
+    {
+      "id": "G8",
+      "level": "L1",
+      "parent": "L0",
+      "title": "운영 자동화와 운영 부담 축소",
+      "evidence": [
+        "드레인 11쌍 전부 수동",
+        "pg_cron 15 중 14 활성 · 마이그레이션에 없는 job 2개",
+        "csat-source-audit 3회 연속 실패 무알림"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "실패하는 예약 작업 0 또는 알림",
+        "cron 정의 전부 마이그레이션"
+      ]
+    },
+    {
+      "id": "G9",
+      "level": "L1",
+      "parent": "L0",
+      "title": "학습 원리가 학습 행동을 결정하고 효과를 검증한다",
+      "evidence": [
+        "docs/methodology/VNEXT_ARCHITECTURE.md",
+        "methodology_* 8/10 0행"
+      ],
+      "status": "EXPERIMENTAL",
+      "done_candidates": [
+        "원리 → 9 모듈 이상 배선",
+        "효과 검증 표본 존재"
+      ]
+    },
+    {
+      "id": "G10",
+      "level": "L1",
+      "parent": "L0",
+      "title": "지속 가능한 수익 모델",
+      "evidence": [
+        "PLATFORM_AUDIT §6 ARPU ₩9,900",
+        "결제 테이블 0 · 가격 화면 「전부 무료」"
+      ],
+      "status": "DESIGN_ONLY",
+      "done_candidates": [
+        "가격표 각 행에 코드 게이트(F9)",
+        "유료 전환 1건 실측"
+      ]
+    },
+    {
+      "id": "G1.1",
+      "level": "L2",
+      "parent": "G1",
+      "title": "획득 경로(교사·검색·직접) 하나를 실제로 연다",
+      "evidence": [
+        "landing_viewed 181 — 전부 익명(user_id null), 외부 여부 판별 불가",
+        "api/analytics/event/route.ts:85"
+      ],
+      "status": "DESIGN_ONLY",
+      "done_candidates": [
+        "외부 유입으로 확인되는 가입 1건(출처 식별 방법 포함)"
+      ]
+    },
+    {
+      "id": "G1.2",
+      "level": "L2",
+      "parent": "G1",
+      "title": "활성화·리텐션 계측 판독",
+      "evidence": [
+        "lib/admin/retention.ts",
+        "funnel_events 21,081"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "분모 20 이상 판독"
+      ]
+    },
+    {
+      "id": "G1.3",
+      "level": "L2",
+      "parent": "G1",
+      "title": "학습자 표면 집중(22+ → 4)",
+      "evidence": [
+        "PLATFORM_AUDIT F5",
+        "page 194"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "학습자 진입 표면 ≤4(플래그 off)"
+      ]
+    },
+    {
+      "id": "G2.1",
+      "level": "L2",
+      "parent": "G2",
+      "title": "읽기(TextViewer·라이브러리) 세션 완료",
+      "evidence": [
+        "texts completed 0 (lib/library/complete-chapter.ts:58)",
+        "reading_sessions 287 pending"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "texts completed 1건 이상"
+      ]
+    },
+    {
+      "id": "G2.2",
+      "level": "L2",
+      "parent": "G2",
+      "title": "어휘 재인·자동화(Flashcard·WordBlitz·PairFlip·아케이드)",
+      "evidence": [
+        "F-L03 F-L04 F-L05 F-L13"
+      ],
+      "status": "VERIFIED_WORKING",
+      "done_candidates": [
+        "외부 학습자 기록"
+      ]
+    },
+    {
+      "id": "G2.3",
+      "level": "L2",
+      "parent": "G2",
+      "title": "생성(SpellForge 철자 · EchoMatch 발음)",
+      "evidence": [
+        "저장 경로: SpellForge.tsx:199 → lib/srs/flush-actions.ts:164 · lib/echo/record-sound.ts:86",
+        "측정 기록 0"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "두 모듈 각각 기록 1건 이상(또는 0 의 원인 확인)"
+      ]
+    },
+    {
+      "id": "G2.4",
+      "level": "L2",
+      "parent": "G2",
+      "title": "정복·완성(ScriptQuiz · Dictation)",
+      "evidence": [
+        "F-L08 F-L09"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "외부 학습자 기록"
+      ]
+    },
+    {
+      "id": "G2.5",
+      "level": "L2",
+      "parent": "G2",
+      "title": "회고·복습(Dashboard · FSRS)",
+      "evidence": [
+        "lib/srs/fsrs.ts",
+        "lib/learner 가 learning_task_attempts 미독"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "모든 모듈 기록이 Dashboard 에 반영"
+      ]
+    },
+    {
+      "id": "G2.6",
+      "level": "L2",
+      "parent": "G2",
+      "title": "듣기·강의·TTS",
+      "evidence": [
+        "/video marketing 그룹 + 교재 화면 삽입(ShelfScreen.tsx:70)",
+        "CSAT 강의 재생 LectureStage.tsx:140",
+        "저장 오디오 없음"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "영상·강의 시청이 학습 기록에 연결"
+      ]
+    },
+    {
+      "id": "G3.1",
+      "level": "L2",
+      "parent": "G3",
+      "title": "CSAT 원문 확보·적격·내용 판정",
+      "evidence": [
+        "F-C09",
+        "csat-source-audit.yml 실패"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "일일 감사 성공"
+      ]
+    },
+    {
+      "id": "G3.2",
+      "level": "L2",
+      "parent": "G3",
+      "title": "문항 분석·해설",
+      "evidence": [
+        "csat_items 3,714"
+      ],
+      "status": "VERIFIED_WORKING",
+      "done_candidates": [
+        "학습자 열람 기록"
+      ]
+    },
+    {
+      "id": "G3.3",
+      "level": "L2",
+      "parent": "G3",
+      "title": "진단→학습 지도→세션→전이·재평가 루프",
+      "evidence": [
+        "지도 과제 21 · 완료 0 · learning_task_attempts 0"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "transfer phase 기록 1건 이상"
+      ]
+    },
+    {
+      "id": "G3.4",
+      "level": "L2",
+      "parent": "G3",
+      "title": "구문 연습(CTP/DCP — 일반 기사·도서 기반)",
+      "evidence": [
+        "csat_dcp_items 약 834k · 시도 20 · scripts/generate-article-dcp.mts:3",
+        "소비 경로 lib/learner/dcp-actions.ts:249"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "소비량 대비 생성량 상한 결정"
+      ]
+    },
+    {
+      "id": "G3.5",
+      "level": "L2",
+      "parent": "G3",
+      "title": "오답 원인 캡처(EC)",
+      "evidence": [
+        "F-L15 · 마이그레이션 10건 main 밖"
+      ],
+      "status": "UNMERGED",
+      "done_candidates": [
+        "main 병합 + 세션 기록"
+      ]
+    },
+    {
+      "id": "G4.1",
+      "level": "L2",
+      "parent": "G4",
+      "title": "도서(LCP)",
+      "evidence": [
+        "published 312"
+      ],
+      "status": "VERIFIED_WORKING",
+      "done_candidates": [
+        "완독 기록"
+      ]
+    },
+    {
+      "id": "G4.2",
+      "level": "L2",
+      "parent": "G4",
+      "title": "기사(ACP)",
+      "evidence": [
+        "ready 84,715 · published 250 · collect-daily 예약 없음"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "발행 기준 결정 · 적체 해소 또는 수집 중단"
+      ]
+    },
+    {
+      "id": "G4.3",
+      "level": "L2",
+      "parent": "G4",
+      "title": "어휘 자원(VCB · 사전 · lexicon · pending_words)",
+      "evidence": [
+        "shared_dictionary 49,244 · pending_words 26,322"
+      ],
+      "status": "VERIFIED_WORKING",
+      "done_candidates": [
+        "어휘 자원 정본 1개로 정리"
+      ]
+    },
+    {
+      "id": "G4.4",
+      "level": "L2",
+      "parent": "G4",
+      "title": "교재 공장",
+      "evidence": [
+        "main: 창작 집필·각색·문항·해설·조립(scripts/textbook/write-drain-export.mjs:31)",
+        "시중 교재 추출 phase1 은 UNMERGED · 마이그레이션 5건 DB 적용·main 밖",
+        "연습 생성형 9유형 미지원"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "phase1 병합 결정",
+        "학습자 도달 지표 정의"
+      ]
+    },
+    {
+      "id": "G4.5",
+      "level": "L2",
+      "parent": "G4",
+      "title": "만화(CCP · PDCP)",
+      "evidence": [
+        "CCP comic_books 1~2 · PDCP pd_comic_issues 969(별도 계통)",
+        "comic_read_progress 2",
+        "ADR 0007"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "ADR 0007 실행 또는 철회 결정"
+      ]
+    },
+    {
+      "id": "G4.6",
+      "level": "L2",
+      "parent": "G4",
+      "title": "영상 팩토리",
+      "evidence": [
+        "video_jobs 73"
+      ],
+      "status": "VERIFIED_WORKING",
+      "done_candidates": [
+        "학습 루프 연결 여부 결정"
+      ]
+    },
+    {
+      "id": "G4.7",
+      "level": "L2",
+      "parent": "G4",
+      "title": "topic corpus 소비처",
+      "evidence": [
+        "topic 큐 약 97k · 학습자 소비처 없음",
+        "WLP 는 NLP·QA 공용 패키지로 재분류(소비처 extract-lemmas.ts:280 · method-a.ts:376)"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "소비처 확정 또는 은퇴"
+      ]
+    },
+    {
+      "id": "G5.1",
+      "level": "L2",
+      "parent": "G5",
+      "title": "CSAT 학습의 공용 회고 반영",
+      "evidence": [
+        "lib/learner/recent-activity-query.ts:113 는 learning_records·scores 만 읽음",
+        "CSAT 는 자체 복습 큐(lib/csat/session/model.ts)"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "CSAT 활동이 공용 회고에 표시"
+      ]
+    },
+    {
+      "id": "G5.2",
+      "level": "L2",
+      "parent": "G5",
+      "title": "레벨 표시 일관성(VRL 어휘 수준 · CSAT 성취/취약성)",
+      "evidence": [
+        "VRL 스냅샷 22 · csat_dx_snapshot — 척도가 다름"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "학습자에게 보이는 수준 표시의 정의 1개(척도 통합은 선택)"
+      ]
+    },
+    {
+      "id": "G5.3",
+      "level": "L2",
+      "parent": "G5",
+      "title": "목표·계획 단일화(study_plan ↔ csat_map_goal) · i+1 추천",
+      "evidence": [
+        "추천 70/30 구현 위치 미발견"
+      ],
+      "status": "DESIGN_ONLY",
+      "done_candidates": [
+        "추천 근거가 화면에 노출"
+      ]
+    },
+    {
+      "id": "G6.1",
+      "level": "L2",
+      "parent": "G6",
+      "title": "교사 역할·학급·과제 실사용",
+      "evidence": [
+        "teacher/page.tsx · join/[code]"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "교사 1명이 과제 1건 배포·회수"
+      ]
+    },
+    {
+      "id": "G7.1",
+      "level": "L2",
+      "parent": "G7",
+      "title": "마이그레이션 정합(main=DB)",
+      "evidence": [
+        "≥17건 main 밖 · 번호 충돌"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "DB 적용분 전부 main 에 존재"
+      ]
+    },
+    {
+      "id": "G7.2",
+      "level": "L2",
+      "parent": "G7",
+      "title": "브랜치·worktree 정리",
+      "evidence": [
+        "55 ahead · 34 수명 초과 · dirty worktree 27"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "2주 초과 브랜치 0"
+      ]
+    },
+    {
+      "id": "G7.3",
+      "level": "L2",
+      "parent": "G7",
+      "title": "프로덕션 배포·e2e 실행",
+      "evidence": [
+        "deploy.yml run 2026-10-08 「배포 건너뜀 — VERCEL_TOKEN / VERCEL_PROJECT_ID 미설정」",
+        "ci.yml e2e 「e2e 건너뜀 — 저장소 시크릿 미설정」"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "의도 확인 후 실제 배포 1회",
+        "CI e2e 실제 실행 1회"
+      ]
+    },
+    {
+      "id": "G8.1",
+      "level": "L2",
+      "parent": "G8",
+      "title": "드레인·예약 작업 자동화",
+      "evidence": [
+        "드레인 11쌍 수동 · collect-daily 미예약"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "필수 작업 예약 + 실패 알림"
+      ]
+    },
+    {
+      "id": "G8.2",
+      "level": "L2",
+      "parent": "G8",
+      "title": "Admin 콘솔 실데이터화",
+      "evidence": [
+        "목업 6화면"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "목업 0 또는 숨김"
+      ]
+    },
+    {
+      "id": "G8.3",
+      "level": "L2",
+      "parent": "G8",
+      "title": "DB 헬스 조치 순환",
+      "evidence": [
+        "미해결 발견 26"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "미해결 발견 감소 추세"
+      ]
+    },
+    {
+      "id": "G9.1",
+      "level": "L2",
+      "parent": "G9",
+      "title": "지식 등록부 단일화(knowledge ↔ methodology)",
+      "evidence": [
+        "두 계보 · 브랜치 분기"
+      ],
+      "status": "UNMERGED",
+      "done_candidates": [
+        "정본 1개(사용자 결정)"
+      ]
+    },
+    {
+      "id": "G10.1",
+      "level": "L2",
+      "parent": "G10",
+      "title": "요금제·결제",
+      "evidence": [
+        "admin/billing 안내 화면"
+      ],
+      "status": "DESIGN_ONLY",
+      "done_candidates": [
+        "결제 연동 또는 무료 전략 명시"
+      ]
+    },
+    {
+      "id": "L3-01",
+      "level": "L3",
+      "parent": "G2.1",
+      "title": "학습자가 지문을 끝까지 읽고 완료가 기록된다",
+      "evidence": [
+        "texts completed 0"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "완료 이벤트·상태 1건"
+      ]
+    },
+    {
+      "id": "L3-02",
+      "level": "L3",
+      "parent": "G2.3",
+      "title": "SpellForge 기록 0 의 원인이 확인된다",
+      "evidence": [
+        "저장 경로 있음 · 진입 145 · 기록 0"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "재현 결과(결함 또는 미완주)"
+      ]
+    },
+    {
+      "id": "L3-03",
+      "level": "L3",
+      "parent": "G2.3",
+      "title": "EchoMatch 기록 0 의 원인이 확인된다",
+      "evidence": [
+        "record-sound.ts:86 · 대상 단어 없으면 정상 무기록"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "재현 결과"
+      ]
+    },
+    {
+      "id": "L3-04",
+      "level": "L3",
+      "parent": "G2.5",
+      "title": "CSAT 학습이 Dashboard 에 보인다",
+      "evidence": [
+        "recent-activity-query.ts:113 — Codex 리뷰가 코드로 확인"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "Dashboard 에 CSAT 항목 표시"
+      ]
+    },
+    {
+      "id": "L3-05",
+      "level": "L3",
+      "parent": "G3.3",
+      "title": "학습 지도 과제 완료·전이 판정",
+      "evidence": [
+        "과제 21 · 완료 0"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "완료 1 · transfer 1"
+      ]
+    },
+    {
+      "id": "L3-06",
+      "level": "L3",
+      "parent": "G1.3",
+      "title": "학습자가 처음 보는 진입점이 하나로 정리된다",
+      "evidence": [
+        "Hub · /csat · /play · 라이브러리 병렬"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "첫 진입 표면 1개"
+      ]
+    },
+    {
+      "id": "L3-07",
+      "level": "L3",
+      "parent": "G6.1",
+      "title": "교사가 학급 코드로 학생을 모으고 과제를 보낸다",
+      "evidence": [
+        "join/[code]"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "members > 0 · assignments > 0"
+      ]
+    },
+    {
+      "id": "L3-08",
+      "level": "L3",
+      "parent": "G10.1",
+      "title": "가격 화면이 실제 제공 기능과 일치한다",
+      "evidence": [
+        "PricingClient.tsx 「지금은 전부 무료」 · no-unbuilt-claims 회귀"
+      ],
+      "status": "VERIFIED_WORKING",
+      "done_candidates": [
+        "회귀 유지"
+      ]
+    },
+    {
+      "id": "L4-01",
+      "level": "L4",
+      "parent": "L3-02",
+      "title": "SpellForge 완주 → flush → learning_records 경로 재현",
+      "evidence": [
+        "flush-actions.ts:164"
+      ],
+      "status": "UNKNOWN",
+      "done_candidates": [
+        "재현 테스트"
+      ]
+    },
+    {
+      "id": "L4-02",
+      "level": "L4",
+      "parent": "L3-01",
+      "title": "읽기 완료(texts.status) 경로 재현",
+      "evidence": [
+        "complete-chapter.ts:58 · texts completed 0"
+      ],
+      "status": "UNKNOWN",
+      "done_candidates": [
+        "원인 기록"
+      ]
+    },
+    {
+      "id": "L4-03",
+      "level": "L4",
+      "parent": "G7.1",
+      "title": "DB 적용·main 밖 마이그레이션 17건 목록 대조",
+      "evidence": [
+        "_raw/area-git.md"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "대조표 + 병합 순서"
+      ]
+    },
+    {
+      "id": "L4-04",
+      "level": "L4",
+      "parent": "G8.1",
+      "title": "csat-source-audit 워크플로 실패 원인",
+      "evidence": [
+        "최근 3회 failure"
+      ],
+      "status": "UNKNOWN",
+      "done_candidates": [
+        "원인 기록"
+      ]
+    },
+    {
+      "id": "L4-05",
+      "level": "L4",
+      "parent": "G7.3",
+      "title": "Vercel 비밀값 미설정이 의도인지 사용자 확인",
+      "evidence": [
+        "deploy.yml 로그"
+      ],
+      "status": "UNKNOWN",
+      "done_candidates": [
+        "사용자 답"
+      ]
+    },
+    {
+      "id": "L4-06",
+      "level": "L4",
+      "parent": "G1.2",
+      "title": "분기 진단 3회차(2026-10) 실행",
+      "evidence": [
+        "PLATFORM_AUDIT §7 마지막 08-29"
+      ],
+      "status": "DESIGN_ONLY",
+      "done_candidates": [
+        "§7 한 행 추가"
+      ]
+    },
+    {
+      "id": "L4-07",
+      "level": "L4",
+      "parent": "G4.5",
+      "title": "ADR 0007(PDCP 제거) 실행/철회 결정",
+      "evidence": [
+        "/api/pdcp 22개 잔존"
+      ],
+      "status": "DESIGN_ONLY",
+      "done_candidates": [
+        "사용자 결정"
+      ]
+    },
+    {
+      "id": "L4-08",
+      "level": "L4",
+      "parent": "G7.1",
+      "title": "main 문서 정합: 2026-10-03 범위 결정·00_project_brief 낡음·깨진 SKILL 링크",
+      "evidence": [
+        "GOAL_DECISION_HISTORY C7 · _raw/area-admin-ops.md"
+      ],
+      "status": "PARTIAL",
+      "done_candidates": [
+        "main 반영"
+      ]
+    },
+    {
+      "id": "L3-09",
+      "level": "L3",
+      "parent": "G1.1",
+      "title": "비로그인 TextFit 진단 → 가입 → 학습으로 이어진다",
+      "evidence": [
+        "PublicFitClient.tsx:270 · fit_viewed 270",
+        "TextFit 결과가 학습 기록과 연결 안 됨"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "TextFit 경유 가입 1건"
+      ]
+    },
+    {
+      "id": "G4.8",
+      "level": "L2",
+      "parent": "G4",
+      "title": "Compose 재저작(취재→사실 원장→작성→독립성 검수→발행)",
+      "evidence": [
+        "app/admin/compose/page.tsx:2 · lib/admin/help/compose.ts:25"
+      ],
+      "status": "IMPLEMENTED_UNVERIFIED",
+      "done_candidates": [
+        "단계별 산출량 측정",
+        "발행물의 학습자 도달"
+      ]
+    }
+  ]
+}
