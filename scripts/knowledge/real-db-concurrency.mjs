@@ -8,7 +8,9 @@
 //
 // 실행(착수 조건 충족 뒤에만):
 //   node --tls-max-v1.2 --env-file=<.env.local> scripts/knowledge/real-db-concurrency.mjs \
-//        --integration-worktree D:/workspace/Vocaflow-g2-int --target-sha <첫 시도 키 수정이 들어간 커밋> --commit
+//        --integration-worktree D:/workspace/Vocaflow-g2-int --target-sha <첫 시도 키 수정이 들어간 커밋> \n//        --deployed-evidence <적용 이력 증거 JSON> --commit
+//   증거 JSON = { "checkedAt": ISO, "migrations": { "<버전>_<이름>.sql": "<schema_migrations.statements 의 UTF-8 sha256>" } } —
+//   DB 관리 도구(execute_sql)로 실행 직전에 뽑는다. 통합 HEAD 의 같은 파일 sha256 과 하나라도 다르면 쓰지 않는다(로컬 커밋 ≠ 설치된 SQL).
 //   --commit 이 없으면 사전 점검만 하고 아무것도 쓰지 않는다.
 //   --cleanup <매니페스트 경로>  : 이전 실행이 남긴 PK 만 다시 정리한다(정리 재시도).
 import fs from 'node:fs'
@@ -77,9 +79,32 @@ function save(m) {
  * 정리 — 매니페스트에 적힌 PK 만. 지우기 전에 각 행이 (테스트 계정 · synthetic · 실행 시작 이후)인지 다시 확인하고,
  * 하나라도 아니면 그 행은 건드리지 않고 보고한다. 순서: 시도 → 세션 → 원장(FK).
  */
+/**
+ * 응답을 잃은 RPC 의 시도 복구 — DB 가 커밋했는데 응답이 끊기면 attempt_id 가 매니페스트에 없다.
+ * 기록해 둔 mutation id 로 실제 시도를 찾아 합친다. 조회가 실패하면 미해결로 남긴다(조용히 넘기지 않는다).
+ */
+export async function recoverAttempts(m) {
+  if (!m.created.mutations.length) return { recovered: 0, unresolved: [] }
+  const { data, error } = await db.from('learning_task_attempts').select('id').eq('user_id', m.userId).in('client_mutation_id', m.created.mutations)
+  if (error) return { recovered: 0, unresolved: [...m.created.mutations] }
+  let n = 0
+  for (const r of data) {
+    if (!m.created.attempts.includes(Number(r.id))) {
+      m.created.attempts.push(Number(r.id))
+      n++
+    }
+  }
+  return { recovered: n, unresolved: [] }
+}
+
 export async function cleanup(m) {
+  const recovery = await recoverAttempts(m)
+  m.recovery = [...(m.recovery ?? []), { at: new Date().toISOString(), ...recovery }]
+  save(m)
   const left = { attempts: [], sessions: [], mutations: [] }
   const refused = []
+  // 복구 조회가 실패한 mutation 의 원장은 지우지 않는다 — 시도가 남아 있을 수 있어 원장을 먼저 지우면 다시 못 찾는다
+  const unresolved = new Set(recovery.unresolved)
   if (m.created.attempts.length) {
     const { data, error } = await db.from('learning_task_attempts').select('id,user_id,synthetic,answered_at').in('id', m.created.attempts)
     if (error) fail(`시도 확인 실패: ${error.message}`)
@@ -103,7 +128,7 @@ export async function cleanup(m) {
   if (m.created.mutations.length) {
     const { data, error } = await db.from('learning_mutations').select('client_mutation_id,user_id,created_at').eq('user_id', m.userId).in('client_mutation_id', m.created.mutations)
     if (error) fail(`원장 확인 실패: ${error.message}`)
-    const ok = data.filter((r) => Date.parse(r.created_at) >= Date.parse(m.startedAt)).map((r) => r.client_mutation_id)
+    const ok = data.filter((r) => Date.parse(r.created_at) >= Date.parse(m.startedAt) && !unresolved.has(r.client_mutation_id)).map((r) => r.client_mutation_id)
     refused.push(...data.filter((r) => !ok.includes(r.client_mutation_id)).map((r) => ({ table: 'learning_mutations', id: r.client_mutation_id })))
     if (ok.length) {
       const del = await db.from('learning_mutations').delete().eq('user_id', m.userId).in('client_mutation_id', ok).select('client_mutation_id')
@@ -118,7 +143,7 @@ export async function cleanup(m) {
       ? (await db.from('learning_mutations').select('client_mutation_id').eq('user_id', m.userId).in('client_mutation_id', m.created.mutations)).data?.map((r) => r.client_mutation_id) ?? ['조회 실패']
       : [],
   }
-  return { left, refused, still }
+  return { left, refused, still, unresolved: [...unresolved] }
 }
 
 const RPC = (userId, mutation, item, response, correct, answeredAt) =>
@@ -158,7 +183,27 @@ async function main() {
   const sha = arg('--target-sha')
   if (!integ || !sha) fail('--integration-worktree 와 --target-sha(첫 시도 키 수정 커밋)가 필요하다')
   const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: integ, encoding: 'utf8' }).trim()
-  if (!head.startsWith(sha) && !execFileSync('git', ['branch', '--contains', sha], { cwd: integ, encoding: 'utf8' }).trim()) fail(`통합 워크트리 HEAD(${head})가 ${sha} 를 포함하지 않는다`)
+  // 통합 워크트리의 **현재 HEAD** 가 그 커밋을 조상으로 갖는가(다른 브랜치가 갖고 있는 것은 소용없다)
+  try {
+    execFileSync('git', ['merge-base', '--is-ancestor', sha, 'HEAD'], { cwd: integ, stdio: 'ignore' })
+  } catch {
+    fail(`통합 워크트리 HEAD(${head})가 ${sha} 를 조상으로 갖지 않는다`)
+  }
+  // 설치된 SQL — 증거 JSON 의 sha256 이 통합 HEAD 의 같은 마이그레이션 파일과 같아야 한다
+  const evPath = arg('--deployed-evidence')
+  if (!evPath) fail('--deployed-evidence(적용 이력 sha256 증거)가 필요하다 — 로컬 커밋만으로 DB 상태를 가정하지 않는다')
+  const ev = JSON.parse(fs.readFileSync(evPath, 'utf8'))
+  if (!ev.checkedAt || Date.now() - Date.parse(ev.checkedAt) > 60 * 60 * 1000) fail('증거가 1시간보다 오래됐다 — 실행 직전에 다시 뽑는다')
+  const needed = Object.keys(ev.migrations ?? {})
+  if (!needed.some((f) => f.startsWith('20261008160000'))) fail('증거에 통합 SQL(20261008160000)이 없다')
+  for (const f of needed) {
+    const body = execFileSync('git', ['show', `HEAD:supabase/migrations/${f}`], { cwd: integ, maxBuffer: 64 << 20 })
+    const h = crypto.createHash('sha256').update(body).digest('hex')
+    if (h !== ev.migrations[f]) fail(`설치된 ${f}(${String(ev.migrations[f]).slice(0, 12)}…)와 통합 HEAD 파일(${h.slice(0, 12)}…)이 다르다`)
+  }
+  // 실제 DB 에 RPC · 첫 시도 뷰가 있는가(쓰지 않는 조회)
+  const probe = await db.from('learning_first_attempts').select('attempt_id', { head: true, count: 'exact' }).limit(1)
+  if (probe.error) fail(`첫 시도 뷰를 읽을 수 없다: ${probe.error.message}`)
   if (!lockFree(integ)) fail('통합 세션의 DB 쓰기 잠금이 잡혀 있다 — 착수 조건 ② 미충족')
 
   // 계획 — 상한 안인지 먼저 본다(세션 0 · 시도 최대 4 · 원장 최대 4)
