@@ -56,7 +56,6 @@ export default async function PracticePage({
       bars={tasks}
       initialItemId={chosen}
       recommendedItemId={next?.itemId ?? null}
-      trainDone={trainHits.length}
       history={runs.slice(-10).map((r) => ({ phase: r.phase, claimHit: r.claimHit }))}
     />
   )

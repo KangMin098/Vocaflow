@@ -44,8 +44,6 @@ export function ClaimPractice(props: {
   initialItemId: string | null
   recommendedItemId: string | null
   history: { phase: 'train' | 'transfer'; claimHit: boolean | null }[]
-  /** 이 버전에서 끝낸 훈련 문항 수(전체) — 전이 추천 주기 계산 */
-  trainDone: number
 }) {
   const { design, preview, judgement, pool, bars, recommendedItemId } = props
   const router = useRouter()
@@ -59,7 +57,7 @@ export function ClaimPractice(props: {
   const [busy, setBusy] = useState(false)
   const started = useRef<number>(Date.now())
   // 이 화면에서 새로 끝낸 문항·훈련 수 — 서버 기록과 합쳐 다음 추천(전이 포함)을 고른다
-  const [doneHere, setDoneHere] = useState<{ ids: string[]; train: number }>({ ids: [], train: 0 })
+  const [doneHere, setDoneHere] = useState<string[]>([])
 
   const entry = pool.find((p) => p.itemId === itemId) ?? null
   const sentenceBars = useMemo(() => (itemId ? (bars[itemId] ?? []) : []), [bars, itemId])
@@ -118,7 +116,7 @@ export function ClaimPractice(props: {
       // 제출 중 문항 전환은 막혀 있지만, 응답이 요청한 문항의 것일 때만 보인다
       if (asked !== itemId) return
       setFeedback({ ...j.feedback, phase: j.phase })
-      setDoneHere((d) => ({ ids: [...d.ids, asked], train: d.train + (j.phase === 'train' ? 1 : 0) }))
+      setDoneHere((d) => (d.includes(asked) ? d : [...d, asked]))
       track({ name: 'knowledge_task_submitted', props: { preview, phase: j.phase, claim_hit: j.feedback.claimHit } })
     } catch (e) {
       setError(e instanceof Error ? e.message : '기록하지 못했어요')
@@ -129,8 +127,9 @@ export function ClaimPractice(props: {
 
   function goNext() {
     router.refresh()
-    const done = new Set([...pool.filter((p) => p.done).map((p) => p.itemId), ...doneHere.ids])
-    const trainDone = props.trainDone + doneHere.train
+    const done = new Set([...pool.filter((p) => p.done).map((p) => p.itemId), ...doneHere])
+    // 새로고침된 서버 기록(pool.done)과 이 화면 기록이 겹치므로 수를 더하지 않고 문항 id 합집합으로 센다
+    const trainDone = pool.filter((p) => p.phase === 'train' && done.has(p.itemId)).length
     const next = pickNext(
       { train: pool.filter((p) => p.phase === 'train').map((p) => p.itemId), transfer: pool.filter((p) => p.phase === 'transfer').map((p) => p.itemId) },
       done,
