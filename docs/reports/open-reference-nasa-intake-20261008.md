@@ -34,3 +34,26 @@ two output hashes and rating vectors. No review outputs exist yet. Import record
 outputs and the same three `hold` decisions. Earlier packet revisions remain in their
 own folders; the current packets are in `calibration-work-r3`. They are work requests, not
 completed rights, mapping, or rating evidence.
+
+## Calibration review revision 3
+
+The four receipt-bound packets were answered without changing the admitted sample. A Claude Code
+blind rating and a separate Codex-agent blind rating used different model families; local
+operator-reviewed invocation records bind the packet, normalized output, and recorded model
+family. These records are local audit evidence, not provider attestation of prompt delivery.
+The raters agreed on seven of nine axes. They differed on information density (3 versus 2)
+and discourse (2 versus 1). The adjudicator chose 2 for both: the dense opening is offset by
+repeated concrete physics explanations across the whole passage, while the item set requires
+some cross-paragraph integration despite mostly explicit organization. Both raters scored
+processing load 2, whereas the earlier sealed admission analysis recorded 1. That old receipt
+remains unchanged; a new analysis and admission revision is required before the ratings can
+support calibration.
+
+The rights reviewer found no passage-level proof of NASA employee authorship or complete
+third-party clearance; general NASA use guidance is insufficient for calibration rights.
+The grade reviewer retained the US grade labels but found no validated Korean equivalence or
+two independent mapping anchors. The create-only decision `calibration-work-r3/decision-r3.json`
+therefore has no missing outputs and returns `RIGHTS_NOT_DOCUMENTED_FOR_CALIBRATION`,
+`KOREAN_GRADE_EQUIVALENCE_UNVERIFIED`, and `RATING_ANALYSIS_REVISION_REQUIRED` as three independent
+holds. `admitted N=1`, `calibration-eligible N=0`, real grade distribution 0, Gold-S 0, and DB
+seed 0 remain unchanged. Raw outputs and review records remain outside Git.

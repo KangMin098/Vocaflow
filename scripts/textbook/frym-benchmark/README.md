@@ -30,6 +30,10 @@ The two rater invocation IDs and output hashes must differ. When ratings disagre
 adjudication output binds both rater-output hashes and needs its own operator-reviewed invocation
 receipt. Blind packets contain passage text, the codebook, and item ID, type, stem, and option text; answer,
 explanation, rationale, and any other item fields are excluded.
+If the resolved independent rating differs from the sealed admission analysis, the stage returns
+`RATING_ANALYSIS_REVISION_REQUIRED`. The earlier analysis and admission receipt must remain intact;
+the operator must create a new analysis/admission revision and re-export bound packets. A completed
+adjudication is never re-labelled as missing merely because its result disagrees with old analysis.
 Eligibility decisions carry `evidence_level=operator_reviewed_local`; the runner does not
 authenticate the human reviewer or the external model provider.
 `import` re-admits the original and rechecks all packet/output/evidence hashes, writes a new

@@ -283,6 +283,28 @@ test('calibration eligibility separates rights, Korean grade mapping, and rater 
   })
   const pass = assessReferenceCalibration({ admission, evidence })
   assert.equal(pass.calibration_eligible, true)
+  const revisedAnalysisNeeded = structuredClone(evidence)
+  revisedAnalysisNeeded.rating.reviewers.forEach((reviewer, index) => {
+    reviewer.ratings.processing_load = 1
+    reviewer.output_path = join(dir, `rater-analysis-revision-${index}.json`)
+    const raw = JSON.stringify({ reviewer_id: reviewer.id, invocation_id: reviewer.invocation_id,
+      model_family: reviewer.model_family, ratings: reviewer.ratings,
+      passage_hash: admitted.receipt.passage_hash, analysis_hash: admitted.receipt.analysis_hash,
+      codebook_hash: admitted.receipt.codebook_hash })
+    writeFileSync(reviewer.output_path, raw)
+    reviewer.output_hash = sha(raw)
+    reviewer.invocation_evidence_path = join(dir, `invocation-analysis-revision-${index}.json`)
+    const packet = buildCalibrationPackets(input, admitted)[index === 0 ? 'rater-a' : 'rater-b']
+    const invocation = JSON.stringify({ invocation_id: reviewer.invocation_id,
+      reviewer_id: reviewer.id, model_family: reviewer.model_family, operator_reviewed: true,
+      packet_hash: packet.packet_hash, request_hash: sha(`${JSON.stringify(packet, null, 2)}\n`),
+      response_hash: reviewer.output_hash })
+    writeFileSync(reviewer.invocation_evidence_path, invocation)
+    reviewer.invocation_evidence_hash = sha(invocation)
+  })
+  revisedAnalysisNeeded.rating.axis_reviews.processing_load = { rater_a: 1, rater_b: 1 }
+  assert.equal(assessReferenceCalibration({ admission, evidence: revisedAnalysisNeeded })
+    .stages.rating_independence_eligible.reason, 'RATING_ANALYSIS_REVISION_REQUIRED')
   assert.equal(pass.benchmark_cohort_eligible, false)
   assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
     contract: { reference_cohort: 'open_reference' },

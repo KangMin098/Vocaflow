@@ -197,12 +197,16 @@ function ratingStatus(rating, admission) {
     const review = rating.axis_reviews[axis]
     return !review || review.rater_a !== rating.reviewers[0].ratings[axis] ||
       review.rater_b !== rating.reviewers[1].ratings[axis] ||
-      (review.rater_a === review.rater_b && review.rater_a !== admission.input.analysis.metrics[axis]) ||
       (review.rater_a !== review.rater_b &&
         (!filled(review.adjudicator_id) || review.adjudicator_id !== rating.adjudication?.id ||
-          review.adjudicated !== admission.input.analysis.metrics[axis] ||
+          !Number.isFinite(review.adjudicated) ||
           rating.reviewers.some(row => row.id === review.adjudicator_id)))
   })) return { status: 'hold', reason: 'RATING_ADJUDICATION_INCOMPLETE' }
+  if (AXES.some(axis => {
+    const review = rating.axis_reviews[axis]
+    const resolved = review.rater_a === review.rater_b ? review.rater_a : review.adjudicated
+    return resolved !== admission.input.analysis.metrics[axis]
+  })) return { status: 'hold', reason: 'RATING_ANALYSIS_REVISION_REQUIRED' }
   return { status: 'pass', reason: null }
 }
 
