@@ -259,6 +259,12 @@ export type PublicEvent =
    * 영어 진단(/csat/diagnosis) — 진입과 내부 상호작용(D2). 수치·불리언·닫힌 열거형만(D3).
    * 질문: 진단 화면에 온 사람이 시험 기록까지 가는가.
    */
+  /**
+   * 학습 원리 과제(/csat/practice/[slug]) — 배포된 설계가 학습자에게 닿는가(질문: 추천을 본 사람이 수행까지 가는가).
+   * preview 는 관리자 미리보기. 문항·문장 번호는 보내지 않는다.
+   */
+  | { name: 'knowledge_task_viewed'; props: { preview: boolean; state: 'unconfirmed' | 'confirmed' | 'needs_practice' } }
+  | { name: 'knowledge_task_submitted'; props: { preview: boolean; phase: 'train' | 'transfer'; claim_hit: boolean } }
   | { name: 'csat_dx_viewed'; props: { screen: 'attempt' | 'report' } }
   | { name: 'csat_dx_attempt_saved'; props: { ready: boolean; retake: boolean; answered: number } }
   /**
@@ -556,6 +562,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_item_back: true,
   csat_dx_viewed: true,
   csat_dx_attempt_saved: true,
+  knowledge_task_viewed: true,
+  knowledge_task_submitted: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

@@ -202,6 +202,16 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     kind: 'screen',
   },
   {
+    path: '/csat/practice/[slug]',
+    screen: 'csat-practice',
+    label: '주장과 근거',
+    says: '배포된 학습 설계의 과제 — 문제지를 보며 주장·근거 문장을 번호로 고르고 정답 근거와 맞춘다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+    section: '학습 관리',
+  },
+  {
     path: '/csat/formulas',
     screen: 'csat-formulas',
     label: '내 공식',

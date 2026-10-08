@@ -1,0 +1,63 @@
+/* apps/web/src/components/knowledge/practice.module.css */
+/* 학습 원리 과제 — /csat 학습 판면(learning-home .shell, 42rem) 안의 차분한 한 단. 색은 토큰만. */
+.page { color: var(--t1); word-break: keep-all; display: grid; gap: 28px; padding-bottom: 48px; }
+.page :is(button, a, select):focus-visible { outline: 2px solid var(--p); outline-offset: 3px; }
+.page h1, .page h2, .page h3 { font-family: var(--font-ko-display), serif; font-weight: 400; letter-spacing: -.02em; }
+.page h1 { font-size: clamp(28px, 3.2vw, 40px); line-height: 1.2; }
+.page h2 { font-size: 20px; line-height: 1.4; margin-bottom: 10px; }
+.page h3 { font-size: 18px; }
+
+.preview { font-size: 13px; line-height: 1.6; padding: 10px 14px; border: 1px dashed var(--bd); border-radius: 10px; background: var(--bg2); }
+.head { display: grid; gap: 10px; padding-top: 16px; }
+.eyebrow { font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--t2); }
+.why { font-size: 15px; line-height: 1.8; color: var(--t2); max-width: 34em; }
+
+.state { border: 1px solid var(--bd); border-radius: 12px; padding: 18px 20px; display: grid; gap: 10px; }
+.state p { font-size: 14px; line-height: 1.75; }
+.badge { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid var(--bd); background: var(--bg2); }
+.badge[data-state='confirmed'] { background: var(--tint-lavender); color: var(--tint-lavender-ink); border-color: transparent; }
+.history { display: flex; flex-wrap: wrap; gap: 6px; }
+.history li { font-size: 12px; padding: 2px 8px; border-radius: 6px; border: 1px dashed var(--bd); color: var(--t2); }
+.history li[data-hit='true'] { border-style: solid; color: var(--t1); }
+
+.steps { display: grid; gap: 8px; }
+.steps li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 10px; border: 1px solid transparent; }
+.steps li[aria-current='step'] { border-color: var(--bd); background: var(--bg2); }
+.stepNo { flex-shrink: 0; display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: color-mix(in srgb, var(--t1) 12%, var(--bg)); font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 700; }
+.steps b { display: block; font-size: 14px; font-weight: 600; }
+.detail { display: block; font-size: 13px; line-height: 1.7; color: var(--t2); margin-top: 2px; }
+
+.picker { display: grid; gap: 8px; }
+.selectLabel { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
+.selectLabel select { min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--bd); background: var(--bg); color: var(--t1); font-size: 14px; }
+.note { font-size: 13px; line-height: 1.7; color: var(--t2); }
+
+.task { display: grid; gap: 14px; border-top: 1px solid var(--bd); padding-top: 24px; }
+.bars { display: grid; gap: 6px; }
+.bar { --w: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; width: var(--w); min-width: 132px; min-height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--bd); background: var(--bg); color: var(--t1); font-size: 13px; text-align: left; cursor: pointer; transition: background var(--dur-quick) var(--ease), border-color var(--dur-quick) var(--ease); }
+.bar:hover:not(:disabled) { background: var(--bg2); }
+.bar:disabled { cursor: default; }
+.bar[data-evidence] { border-style: solid; border-width: 2px; border-color: color-mix(in srgb, var(--p) 55%, var(--bd)); }
+.bar[data-claim] { border-width: 2px; border-color: var(--p); background: color-mix(in srgb, var(--p) 10%, var(--bg)); }
+.bar[data-trap] { border-style: dashed; border-width: 2px; }
+.bar[data-key] { border-width: 2px; border-color: var(--t1); box-shadow: inset 4px 0 0 var(--t1); }
+.barNo { font-family: var(--font-mono), monospace; font-size: 12px; font-weight: 700; }
+.barTags { font-size: 12px; font-weight: 600; color: var(--t2); }
+
+.answer { display: grid; gap: 14px; }
+.answer fieldset { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; }
+.answer legend { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chips button { min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--bd); background: var(--bg); color: var(--t1); font-size: 14px; cursor: pointer; }
+.chips button[aria-pressed='true'] { background: var(--t1); color: var(--bg); border-color: var(--t1); }
+.primary { min-height: 44px; padding: 0 20px; border-radius: 999px; border: 0; background: var(--p); color: var(--on-p); font-size: 14px; font-weight: 700; cursor: pointer; justify-self: start; }
+.primary:disabled { opacity: .5; cursor: not-allowed; }
+.link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; color: var(--t1); }
+.error { font-size: 13px; color: var(--t1); border-left: 3px solid var(--t1); padding-left: 10px; }
+.result { display: grid; gap: 10px; border: 1px solid var(--bd); border-radius: 12px; padding: 18px 20px; background: var(--bg2); }
+.result p { font-size: 14px; line-height: 1.75; }
+.next { font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bar { transition: none; }
+}
