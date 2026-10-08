@@ -891,7 +891,7 @@ export type { BrandSpecRow, Colophon, ColophonInput, VolumePalette } from './tex
 
 /** 한 권의 완성 HTML — 순수 함수. 조판 스크립트가 이것만 부른다. */
 export { renderVolumeDocument } from './textbook/volume-document'
-export { runMultiGradeFactoryDryRun } from './textbook/multi-grade-production'
+export { runMultiGradeFactoryDryRun, MULTI_GRADE_DRY_RUN_MARKER } from './textbook/multi-grade-production'
 export type { VolumeAnswer, VolumeDocumentInput } from './textbook/volume-document'
 
 /** 표지 — 매대와 조판기가 **같은 표지**를 쓴다(문자열이라 React·Node 양쪽에서 그대로). */

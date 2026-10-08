@@ -23,7 +23,7 @@ import { createHash } from 'node:crypto'
 import { ELIGIBILITY_SPEC_VERSION } from '../../packages/library-pipeline/src/textbook/source-eligibility.ts'
 
 import { ELEMENTARY_TYPES, SCHOOL_TYPES, loadEnv, loadVolume } from './volume-pool.mjs'
-import { verifyOrderRenderItems } from './factory-lineage.mjs'
+import { resolveProductionEvidence } from './production-evidence-resolver.mjs'
 import { assertExternalCandidate } from './frym-benchmark/local-candidate-path.mjs'
 
 loadEnv()
@@ -988,15 +988,18 @@ const html = renderVolumeDocument({
 
 let renderedOrder = null
 let renderedEvidence = null
+let renderedProductionSnapshot = null
 if (PRODUCT_ORDER_ID) {
   if (!units.length) throw Error('FACTORY_ORDER_INSUFFICIENT_ITEMS')
   assertExternalCandidate(PROMOTION_REQUESTS)
   assertExternalCandidate(CURRENT_POLICY)
   const requestsRaw = fs.readFileSync(PROMOTION_REQUESTS, 'utf8')
   const policyRaw = fs.readFileSync(CURRENT_POLICY, 'utf8')
-  const checked = await verifyOrderRenderItems(db, printedItems, PRODUCT_ORDER_ID, JSON.parse(requestsRaw), JSON.parse(policyRaw), new Date().toISOString())
-  renderedOrder = checked.order
-  renderedEvidence = checked.itemEvidence
+  renderedProductionSnapshot = await resolveProductionEvidence(db, { sections: [{ grade: 'single', orderId: PRODUCT_ORDER_ID,
+    printedItems, requests: JSON.parse(requestsRaw) }], policy: JSON.parse(policyRaw), now: new Date().toISOString() })
+  const checked = renderedProductionSnapshot.sections[0]
+  renderedOrder = { ...checked.order }
+  renderedEvidence = checked.item_evidence
   renderedOrder.promotionProofSha256 = createHash('sha256').update(requestsRaw).digest('hex')
   renderedOrder.currentPolicySha256 = createHash('sha256').update(policyRaw).digest('hex')
 }
@@ -1008,7 +1011,8 @@ const sourceManifest = {
   htmlSha256: createHash('sha256').update(html).digest('hex'),
   itemIds: [...new Set(printedItems.map(item => item.id))].sort(),
   sourceIds: [...new Set(printedItems.map(item => item.ref_id).filter(id => /^[0-9a-f-]{36}$/i.test(id)))].sort(),
-  ...(renderedOrder ? { productOrder: renderedOrder, itemEvidence: renderedEvidence } : {}),
+  ...(renderedOrder ? { productOrder: renderedOrder, itemEvidence: renderedEvidence,
+    productionEvidenceSnapshot: renderedProductionSnapshot } : {}),
 }
 fs.writeFileSync(`${path.resolve(OUT)}.manifest-${sourceManifest.renderedAt.replace(/[:.]/g, '-')}.json`, JSON.stringify(sourceManifest, null, 2) + '\n', { flag: 'wx' })
 

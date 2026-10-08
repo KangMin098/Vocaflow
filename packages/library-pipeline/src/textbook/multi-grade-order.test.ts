@@ -138,8 +138,8 @@ function productionFixture(mode: 'shared_passage_grade_specific_items' | 'grade_
       adaptation_hash: variant.adaptation_hash, benchmark_snapshot_hash: variant.benchmark_snapshot_hash,
       promotion_request_hash: h(index ? '1' : '2'), evidence_hash: h(index ? '3' : '4'),
       certificate_hash: h(index ? '5' : '6'), eligibility_hash: h(index ? '7' : '8'), trust_policy_hash: h('9') }
-    if (index && mode === 'grade_specific_adaptations') variant.adaptation_hash = rawSha(passage)
-    lineage.adaptation_hash = variant.adaptation_hash
+    variant.adaptation_hash = digest(passage.trim())
+    lineage.adaptation_hash = rawSha(passage)
     const item = { id: `item-${index}`, ref_id: `article-${index}`,
       payload: { passage, factory_lineage: lineage }, answer_key: { answer: index + 1 } }
     const itemDigest = reviewDigest(item.payload, item.answer_key)

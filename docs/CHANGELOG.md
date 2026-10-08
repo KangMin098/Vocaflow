@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Route single-grade render and multi-grade dry-run through a shared live production evidence resolver. It re-reads current DB order, item, source/rights, promotion authority and signed Gold-S/seed proof twice, blocks a changed grade, and records a non-atomic evidence snapshot; actual publication and DB seed remain closed.
+
 - feat(textbook): Add a multi-grade synthetic factory runner and CLI that compares caller-supplied per-grade promotion snapshots, item/explanation/editorial digests, unit hashes, and group evidence before using the existing volume renderer. Its atomic HTML/manifest output is marked unverified; real admission, Gold-S, publication and DB seed remain closed.
 
 - feat(textbook): Add a multi-grade Product Order group with distinct per-grade evidence and mixed-unit lineage checks, plus a separate synthetic benchmark contract for per-grade fit, shared core, adjacent separation, and item compatibility. Real admission and production integration remain closed; Gold-S and DB seed stay at zero.

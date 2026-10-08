@@ -7,6 +7,7 @@ import { renderVolumeDocument, type VolumeDocumentInput } from './volume-documen
 
 const sha = (value: string) => createHash('sha256').update(value, 'utf8').digest('hex')
 const digest = (value: unknown) => sha(canonicalJson(value))
+export const MULTI_GRADE_DRY_RUN_MARKER = '<!-- SYNTHETIC DRY RUN: CALLER-SUPPLIED EVIDENCE; NOT APPROVED FOR PUBLICATION -->'
 const hex = z.string().regex(/^[a-f0-9]{64}$/)
 const id = z.string().trim().min(1)
 const lineageSchema = z.object({
@@ -71,8 +72,10 @@ export function runMultiGradeFactoryDryRun(input: {
     if (stage.grade !== child.grade || stage.lineage.product_order_id !== child.order.product_order_id ||
       stage.lineage.order_revision !== child.order.order_revision || stage.lineage.order_hash !== sealed.child_order_hashes[child.grade] ||
       stage.lineage.source_hash !== recorded.evidence.source_hash || stage.lineage.rights_hash !== recorded.evidence.rights_hash ||
-      stage.lineage.adaptation_hash !== variant.adaptation_hash || stage.lineage.benchmark_snapshot_hash !== variant.benchmark_snapshot_hash ||
-      sha(stage.passage) !== variant.passage_hash) throw Error('MULTI_GRADE_READY_LINEAGE_STALE_OR_MIXED')
+      stage.lineage.adaptation_hash !== variant.passage_hash || stage.lineage.benchmark_snapshot_hash !== variant.benchmark_snapshot_hash ||
+      sha(stage.passage) !== variant.passage_hash ||
+      (variant.adaptation_hash !== null && digest(stage.passage.trim()) !== variant.adaptation_hash))
+      throw Error('MULTI_GRADE_READY_LINEAGE_STALE_OR_MIXED')
     if (new Set(stage.items.map(item => item.id)).size !== stage.items.length ||
       stage.explanations.length !== stage.items.length || stage.reviews.length !== stage.items.length)
       throw Error('MULTI_GRADE_ITEM_COUNT_MISMATCH')
@@ -115,7 +118,7 @@ export function runMultiGradeFactoryDryRun(input: {
   if (render.proof.passages !== units.length) throw Error('MULTI_GRADE_RENDER_PROOF_MISMATCH')
   const rendered = renderVolumeDocument({ ...render, unitCount: units.length, itemCount: answers.length,
     unitsHtml: stages.map(stage => stage.unit.html).join('\n'), answers })
-  const html = '<!-- SYNTHETIC DRY RUN: CALLER-SUPPLIED EVIDENCE; NOT APPROVED FOR PUBLICATION -->\n' + rendered
+  const html = MULTI_GRADE_DRY_RUN_MARKER + '\n' + rendered
   const manifest = { schema: 'textbook-multi-grade-factory-dry-run/1', evidence_level: 'caller_supplied_unverified',
     render_eligible: false, seed_eligible: false, group_id: sealed.group.group_id,
     group_hash: sealed.group_hash, evidence_hash: recorded.evidence_hash, plan_hash: plan.plan_hash,

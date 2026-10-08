@@ -1236,3 +1236,4 @@ SE 는 자연형(`Charles Dickens`), StoryWeaver 는 이중공백·후행공백(
 발행 13권 중 11권에서 한 단계 어긋나지만, 카드가 쓰는 `cefr_band` 가 학술 정합 값이고
 `cefr_level` 은 폴백이다 — 의도된 설계다. 그림책 표지도 `object-contain` 으로 여백이
 크지만, 삽화를 64% 잘라내는 것보다 정직하다.
+The textbook render path shares `resolveProductionEvidence` across single-grade and multi-grade orders. It re-reads current `reading:` child/source, promotion audit, authority, order revision, item/explanation digest and signed certificate/eligibility request immediately before output. Multi-grade groups fail as a whole when one child fails. The two-pass REST resolver records `live_revalidated_non_atomic` and does not authorize publication; a transactional production gate remains required.
