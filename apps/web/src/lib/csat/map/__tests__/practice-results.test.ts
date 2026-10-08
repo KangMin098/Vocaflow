@@ -66,6 +66,10 @@ describe('practiceResultsFor', () => {
     expect(out['B6-3']).toMatchObject({ attempts: 1, transfer: { attempts: 1, latestCorrect: false } })
     expect(out['A3-4'].transfer).toBeNull()
   })
+  it('골격 문항(<key>-skeleton)의 전이도 「다른 지문에 적용」 으로 센다 — Practice 의 전이 문항은 대부분 골격이다', () => {
+    const rows = [row(true, '2026-10-08T10:00:00Z'), { ...row(true, '2026-10-08T11:00:00Z', 'claim-support-skeleton', '2024#23'), phase: 'transfer' }]
+    expect(practiceResultsFor(links, rows, [])['B6-3'].transfer).toEqual({ attempts: 1, latestCorrect: true })
+  })
   it('같은 문항의 transfer 는 「다른 지문」 이 아니다 · 첫 시도는 transfer 줄을 쓰지 않는다', () => {
     const rows = [row(true, '2026-10-08T10:00:00Z'), { ...row(false, '2026-10-08T09:00:00Z'), phase: 'transfer' }]
     const firsts = [{ task_key: 'claim-support', item_ref: '2022#20', is_correct: false, help_level: 'viewed_first', after_explanation: false, phase: 'transfer' }, { task_key: 'claim-support', item_ref: '2022#20', is_correct: true, help_level: 'independent', after_explanation: false, phase: 'practice' }]
