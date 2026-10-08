@@ -30,7 +30,7 @@ const MIGRATIONS = [
   '20261008150000_knowledge_statement_review_fix.sql',
   '20261008160000_learning_sessions_integrated.sql',
   '20261008170000_knowledge_trial_evidence_guard.sql',
-  '_pending_20261008200000_knowledge_release_approval.sql',
+  '20261008144206_knowledge_release_approval.sql',
 ]
 
 let fail = 0

@@ -11,6 +11,9 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(db): B7 학습자 출시 승인 가드 `20261008144206_knowledge_release_approval`(개발 DB) — 채택 ≠ 출시 승인, 중단·대상 변경 시 승인 무효. 학습 원리 적용 2건(claim-support:2022-20 · b6-3) 노출 중단(paused).
+- feat(knowledge): 주장·근거 확인 문항 9개(맹검 이중 주석) · 학습 지도 FIND 다문항 연결(audience.items) · 실DB 동시성 E2E 5/5(생성 행 전부 정리).
+
 - feat(csat-map): 학습 지도 「직접 확인(FIND)」 결과 → 확인된 학습 요구(트랙 B) — 확인 문항에서의 내 독립 첫 시도(DB 뷰 `learning_first_attempts`, RLS 본인 행)를 `find-outcome` 으로 판정해 확인하기 시트에 표시. 서로 다른 확인 문항 2개 이상이 모두 막혀야 「연습이 필요해 보여요」, 한 문항으로는 확정하지 않음. `MapPracticeLink` 에 target · taskKey. SQL 없음.
 
 - feat(knowledge): 성과 검토 신호 `/admin/knowledge/signals`(트랙 E) — 학습 결과 → 원리·방법 재검토의 첫 연결. 적용별 적격 첫 시도(실제·독립·해설 전·시각 확실)로 검토 필요/표본 부족/결과 상충/데이터 품질 신호를 내고, 아무것도 바꾸지 않는다(efficacy·상태 불변, 재검토는 사람이 항목 화면에서). SQL 없음.
