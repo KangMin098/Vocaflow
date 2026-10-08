@@ -765,7 +765,11 @@ test('범위 글롭: **/ 는 온전한 디렉터리 구간만 — src/**/test.ts
     ['src/a/b.ts', 'src/**', true],
     ['srcx/a.ts', 'src/**', false],
     ['apps/web/src/lib/admin/x.ts', 'apps/web/src/lib/admin/**', true],
+    // 저장소 루트의 src/x.ts 는 apps/web/src/** 범위가 아니다(Git 변경 파일 검사 — Codex Stop P1 2차)
+    ['src/x.ts', 'apps/web/src/**', false],
   ]) assert.equal(pathInScope(p, [g]), want, `${p} vs ${g}`)
+  // apps/web 기준 테스트 증거 경로는 명시적으로 webRelative 일 때만 접두를 본다
+  assert.equal(pathInScope('src/x.ts', ['apps/web/src/**'], { webRelative: true }), true)
 })
 
 test('기획 재개는 그 요청을 가리키는 사용자 승인만 — 다른 요청의 승인으로는 재개 불가(Codex Stop P1)', () => {
