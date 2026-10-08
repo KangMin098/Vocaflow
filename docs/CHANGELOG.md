@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(knowledge): 학습 원리 vNext — 설계→배포→수행→검증 층. 마이그레이션 `20261008120000_knowledge_vnext`(승인 대기, 추가만) · 관리자 다섯 공간(운영실 `/admin/knowledge` · 지도 `/map` · 연구소 `/lab` · 설계 `/design` · 품질 `/quality`, 옛 원리 지도는 `/map` 으로) · 학습자 과제 `/csat/practice/[slug]` + `POST /api/knowledge/runs` · 효과 검증 프로토콜 `evaluateProtocol`(표본 부족이면 판정 안 함) · 이벤트 2종 · 시범 시드 `scripts/knowledge/vnext-pilot-seed.sql`(승인 대기). 정본 docs/methodology/VNEXT.md.
+
 - docs(csat): 남은 의미 보류 2문항의 원전 조사와 별도 3인 출처 품질 감사를 기록했다. 원전 확인·담화 설명만으로 양립 가능한 해석을 배제하지 못해 보류를 유지하며, 재개 조건과 발행 승인과의 구분을 명시했다. DB 원문·검수·평가원 데이터 변경 없음.
 
 - fix(csat): 상세 분석 프롬프트에 남은 이름 등장만으로 지칭 후보를 제외하는 옛 규칙을 제거하고 전체 프롬프트 V10 회귀를 추가했다. 함축 의미(R-IMPLY)의 밑줄 범위도 원본 크롭으로 표시하고 추출기 5판으로 옛 캐시를 무효화한다. 실제 렌더·누락·예외 경로를 검증하며 DB 원문·평가원 데이터는 바꾸지 않는다.

@@ -207,22 +207,33 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
       // 층(본질·원리·방법론·공부법)과 근거 등급은 docs/methodology/SYSTEM.md 가 정본.
       label: '학습 원리',
       color: 'var(--p)',
+      // vNext(2026-10-08, docs/methodology/VNEXT.md §4) — 다섯 업무 공간. 옛 8화면은 경로 그대로 하위 메뉴.
       items: [
-        { href: '/admin/knowledge', label: '원리 지도', Icon: Compass },
-        { href: '/admin/knowledge/principles', label: '본질 · 원리', Icon: Lightbulb },
-        { href: '/admin/knowledge/methods', label: '방법론 · 공부법', Icon: Workflow },
-        { href: '/admin/knowledge/review', label: '검토 대기', Icon: ListChecks },
+        { href: '/admin/knowledge', label: '원리 운영실', Icon: Gauge },
         {
-          href: '/admin/knowledge/sources',
-          label: '근거 · 출처',
-          Icon: Quote,
+          href: '/admin/knowledge/map',
+          label: '역량·원리 지도',
+          Icon: Compass,
           children: [
+            { href: '/admin/knowledge/principles', label: '본질 · 원리', Icon: Lightbulb },
+            { href: '/admin/knowledge/methods', label: '방법론 · 공부법', Icon: Workflow },
+            { href: '/admin/knowledge/review', label: '검토 대기', Icon: ListChecks },
+          ],
+        },
+        {
+          href: '/admin/knowledge/lab',
+          label: '탐구·근거 연구소',
+          Icon: Brain,
+          children: [
+            { href: '/admin/knowledge/sources', label: '근거 · 출처', Icon: Quote },
             { href: '/admin/knowledge/sources/csat', label: '기출 원천', Icon: ScanLine },
+            { href: '/admin/knowledge/experts', label: '전문가 · 채널', Icon: Users },
+            { href: '/admin/knowledge/gaps', label: '공백', Icon: CircleHelp },
             { href: '/admin/methodology', label: '가져오기 원장', Icon: History },
           ],
         },
-        { href: '/admin/knowledge/experts', label: '전문가 · 채널', Icon: Users },
-        { href: '/admin/knowledge/gaps', label: '공백', Icon: CircleHelp },
+        { href: '/admin/knowledge/design', label: '학습 설계·검증', Icon: ClipboardCheck },
+        { href: '/admin/knowledge/quality', label: '제품 적용·품질', Icon: Activity },
       ],
     },
     {

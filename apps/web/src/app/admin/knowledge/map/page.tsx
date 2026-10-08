@@ -1,0 +1,139 @@
+// apps/web/src/app/admin/knowledge/map/page.tsx
+// B 역량·원리 지도 — 영역 × 층 격자, 역량에서 기제·방법론·공부법·학습 설계까지 내려가는 관계 트리, 노드 상세 패널(근거 세 축).
+// 2026-10-08 vNext 로 /admin/knowledge(운영실 자리)에서 옮겨 왔다 — 격자·상태표·공백·원천은 그대로다.
+// 수치는 열 때마다 DB 를 다시 센 값이다(I5 — 상수 금지).
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import Link from 'next/link'
+import { EmptyState, GradeMark, KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
+import { requireAdmin } from '@/lib/auth/require-admin'
+import {
+  GRADES,
+  GRADE_LABEL,
+  LAYERS,
+  LAYER_LABEL,
+  LAYER_QUESTION,
+  LAYER_RANK,
+  STATUSES,
+  STATUS_LABEL,
+} from '@/lib/knowledge/labels'
+import { KnowledgeGrid } from '@/components/admin/knowledge/KnowledgeGrid'
+import { buildGrid } from '@/lib/knowledge/grid'
+import { RelationTree, NodePanel } from '@/components/admin/knowledge/RelationTree'
+import { loadEvidenceForItem, loadMapGraph } from '@/lib/knowledge/vnext-server'
+import { countByGrade, countByLayerStatus, listCsatOrigins, listGaps, listItems, listTaxonomy } from '@/lib/knowledge/server'
+
+export const dynamic = 'force-dynamic'
+
+export default async function KnowledgeMapPage({ searchParams }: { searchParams: { node?: string } }) {
+  await requireAdmin('/admin/knowledge/map')
+  let data
+  try {
+    const [items, gaps, origins, taxonomy, graph] = await Promise.all([listItems(), listGaps(), listCsatOrigins(), listTaxonomy(), loadMapGraph()])
+    const focus = graph.nodes.find((n) => n.slug === searchParams.node) ?? null
+    const focusEvidence = focus ? await loadEvidenceForItem(focus.id) : []
+    data = { items, gaps, origins, taxonomy, graph, focus, focusEvidence }
+  } catch {
+    return (
+      <KnowledgeFrame title="역량·원리 지도" question="역량은 어떤 기제와 방법으로 받쳐지고, 어디가 비었는가" help={<AdminScreenHelp screen="knowledge" />} back={{ href: '/admin/knowledge', label: '원리 운영실' }}>
+        <LoadFailed what="학습 원리 등록부" href="/admin/knowledge/map" />
+      </KnowledgeFrame>
+    )
+  }
+
+  const grid = countByLayerStatus(data.items)
+  const grades = countByGrade(data.origins)
+  const openGaps = data.gaps.filter((g) => g.status === 'open')
+  const skills = data.taxonomy.filter((t) => t.dimension === 'skill')
+  const map = buildGrid(data.items, skills.map((s) => s.id))
+  const knownEssence = Object.values(map.essenceKnown).filter(Boolean).length
+
+  return (
+    <KnowledgeFrame title="역량·원리 지도" question="역량은 어떤 기제와 방법으로 받쳐지고, 어디가 비었는가" help={<AdminScreenHelp screen="knowledge" />} back={{ href: '/admin/knowledge', label: '원리 운영실' }}>
+      <RelationTree nodes={data.graph.nodes} links={data.graph.links} focusSlug={data.focus?.slug ?? null} />
+      {data.focus && <NodePanel node={data.focus} evidence={data.focusEvidence} />}
+      <section aria-labelledby="map" className="mb-10">
+        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id="map" className="text-lg font-semibold text-[var(--t1)]">영역 × 층</h2>
+          <p className="text-sm text-[var(--t2)]">
+            본질을 채택한 영역 <b className="tabular-nums text-[var(--t1)]">{knownEssence}</b> / {skills.length}
+          </p>
+        </div>
+        <KnowledgeGrid
+          columns={map.columns}
+          cells={map.cells}
+          columnLabel={Object.fromEntries(skills.map((s) => [s.id, s.label]))}
+        />
+      </section>
+
+      <section aria-labelledby="layers" className="mb-10">
+        <h2 id="layers" className="mb-3 text-lg font-semibold text-[var(--t1)]">상태별</h2>
+        {data.items.length === 0 ? (
+          <EmptyState title="등록된 항목이 없습니다" next="씨앗 가져오기(scripts/knowledge/import-seed.mjs --commit)를 먼저 실행하세요." />
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[40rem] border-collapse text-sm">
+              <caption className="sr-only">층 × 상태별 항목 수</caption>
+              <thead>
+                <tr className="border-b border-[var(--bd)] text-left text-[var(--t2)]">
+                  <th scope="col" className="py-2 pr-4 font-medium">층</th>
+                  {STATUSES.map((s) => (
+                    <th key={s} scope="col" className="px-3 py-2 text-right font-medium">{STATUS_LABEL[s]}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {LAYERS.map((l) => (
+                  <tr key={l} className="border-b border-[var(--bd)]">
+                    <th scope="row" className="py-3 pr-4 text-left font-normal">
+                      <span className="font-mono text-xs text-[var(--t3)]">L{LAYER_RANK[l]}</span>{' '}
+                      <span className="font-semibold text-[var(--t1)]">{LAYER_LABEL[l]}</span>
+                      <span className="block text-xs text-[var(--t3)]">{LAYER_QUESTION[l]}</span>
+                    </th>
+                    {STATUSES.map((s) => (
+                      <td key={s} className="px-3 py-3 text-right tabular-nums text-[var(--t1)]">
+                        {grid[l][s] === 0 ? <span className="text-[var(--t3)]">·</span> : grid[l][s]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <div className="grid gap-8 md:grid-cols-2">
+        <section aria-labelledby="gaps">
+          <h2 id="gaps" className="mb-3 text-lg font-semibold text-[var(--t1)]">
+            열린 공백 <span className="tabular-nums text-[var(--t2)]">{openGaps.length}</span>
+          </h2>
+          <ul className="divide-y divide-[var(--bd)] border-y border-[var(--bd)]">
+            {openGaps.slice(0, 5).map((g) => (
+              <li key={g.id} className="py-3 text-sm text-[var(--t1)]">{g.question}</li>
+            ))}
+          </ul>
+          <Link href="/admin/knowledge/gaps" className="mt-2 inline-flex min-h-11 items-center text-sm underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
+            공백 전체
+          </Link>
+        </section>
+
+        <section aria-labelledby="origins">
+          <h2 id="origins" className="mb-3 text-lg font-semibold text-[var(--t1)]">
+            기출 원천 <span className="tabular-nums text-[var(--t2)]">{data.origins.length} 지문</span>
+          </h2>
+          <ul className="space-y-2">
+            {GRADES.map((g) => (
+              <li key={g} className="flex items-center justify-between gap-3 text-sm">
+                <GradeMark grade={g} label={GRADE_LABEL[g]} />
+                <span className="tabular-nums text-[var(--t1)]">{grades[g]}</span>
+              </li>
+            ))}
+          </ul>
+          <Link href="/admin/knowledge/sources/csat" className="mt-2 inline-flex min-h-11 items-center text-sm underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
+            기출 원천 보기
+          </Link>
+        </section>
+      </div>
+    </KnowledgeFrame>
+  )
+}

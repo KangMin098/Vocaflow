@@ -294,7 +294,13 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/admin/knowledge` | `admin/knowledge/page.tsx` | 원리 지도 — 층 × 상태 개수 · 열린 공백 · 기출 원천 등급 |
+| `/admin/knowledge` | `admin/knowledge/page.tsx` | **A 원리 운영실**(vNext 2026-10-08) — 탐구→근거→채택→설계→수행→검증 단계 수 · 앞에서부터 막힌 곳과 그 화면 링크 · 최근 검증 판정 (`lib/knowledge/vnext-server.ts`) |
+| `/admin/knowledge/map` | `…/map/page.tsx` | **B 역량·원리 지도** — 역량→기제(언어/학습)→방법론→공부법·설계 관계 트리 · `?node=<slug>` 노드 상세(근거 세 축 · 면 고르기) · 영역 × 층 격자·상태표·공백·원천(옛 `/admin/knowledge`) |
+| `/admin/knowledge/lab` | `…/lab/page.tsx` | **C 탐구·근거 연구소** — 탐구 질문 · 입장 수(지지·반박·조건부·반례) · 새 질문 |
+| `/admin/knowledge/lab/[slug]` | `…/lab/[slug]/page.tsx` | 탐구 질문 상세 — 입장 네 칸 비교 · 결론 후보·불확실성 · 입장 더하기 |
+| `/admin/knowledge/design` | `…/design/page.tsx` | **D 학습 설계·검증** — 설계 목록 · 새 초안 |
+| `/admin/knowledge/design/[slug]` | `…/design/[slug]/page.tsx` | 설계 상세 — 학습자 노출 내용 · 역할별 연결 항목 · 배포 문턱 · 효과 검증 수치 · 배포 구간·롤백 · 학습자 화면 미리보기 링크 (Server Actions `admin/knowledge/vnext-actions.ts`) |
+| `/admin/knowledge/quality` | `…/quality/page.tsx` | **E 제품 적용·품질** — 배포 구간 · 실/미리보기/합성 기록 · 현재·저장 판정 · 근거 변경 영향 · 검증 실행 남기기 |
 | `/admin/knowledge/principles` | `…/principles/page.tsx` | L1 본질 · L2 원리 목록 |
 | `/admin/knowledge/methods` | `…/methods/page.tsx` | L3 방법론 · L4 공부법 목록 (조건 칩) |
 | `/admin/knowledge/review` | `…/review/page.tsx` | 추출됨·검토 중 항목 |
@@ -303,6 +309,8 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/knowledge/experts` | `…/experts/page.tsx` | 가져오기 원장 최신 스냅샷의 전문가·채널 |
 | `/admin/knowledge/gaps` | `…/gaps/page.tsx` | 공백 — 원인 · 다음 행동 · 영향 수 |
 | `/admin/knowledge/item/[slug]` | `…/item/[slug]/page.tsx` | 항목 상세 — 위/아래 층 연결 · 근거 · 검토 기록 + 상태 변경·연결·근거 추가(Server Actions `admin/knowledge/actions.ts`) |
+
+학습자 과제(vNext): `/csat/practice/[slug]` — `app/(main)/csat/practice/[slug]/page.tsx` · 배포 중 설계만 열림(관리자는 `?preview=1`) · 지문 글자 없이 문장 번호로 응답 · 기록 `POST /api/knowledge/runs`(`app/api/knowledge/runs/route.ts`) · 이벤트 `knowledge_task_viewed`/`knowledge_task_submitted`.
 | `/admin/methodology` | `admin/methodology/page.tsx` | 가져오기 원장(Codex 2026-09-19 워크벤치) — 메뉴상 「근거 · 출처」 하위 |
 
 ---

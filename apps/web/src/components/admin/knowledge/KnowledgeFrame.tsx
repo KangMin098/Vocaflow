@@ -26,7 +26,7 @@ export function KnowledgeFrame({ title, question, help, back, children }: Knowle
             href={back?.href ?? '/admin/knowledge'}
             className="inline-flex min-h-11 items-center text-sm text-[var(--t2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
           >
-            ← {back?.label ?? '원리 지도'}
+            ← {back?.label ?? '원리 운영실'}
           </Link>
           <h1 className="text-2xl font-semibold text-[var(--t1)]">{title}</h1>
           <p className="mt-1 text-[var(--t2)]">{question}</p>
