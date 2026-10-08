@@ -3,7 +3,7 @@
 // M8 적용 **뒤** 실제 개발 DB 독립 smoke(methodology · 2026-10-08 준비). 한 트랜잭션 안에서만 쓰고 끝에 반드시 ROLLBACK 한다 — 행이 남지 않는다.
 // M8 이 아직 적용되지 않았으면(learning_sessions.help_received_at 없음) 아무것도 하지 않고 exit 2.
 // 확인: 원장에 M8 기록 · 새 열 · 뷰 timing_uncertain · 세션 synthetic 양방향 불변 · 시도 synthetic 양방향 불변(세션 있음 · 없음) ·
-//       합성 불일치 기록 거부 · 정상 기록 inserted → 재전송 duplicate · 롤백 뒤 세션 · 시도 · 원장 행 수가 시작과 같다.
+//       합성 불일치 기록 거부 · 정상 기록 inserted → 재전송 duplicate · 롤백 뒤 세션 · 시도 · 원장 · 검토 이력 · 검증 · 켜진 적용 수가 시작과 같다.
 //   node --tls-max-v1.2 --env-file=<.env.local> scripts/knowledge/m8-post-apply-smoke.mjs
 import crypto from 'node:crypto'
 import fs from 'node:fs'
@@ -20,7 +20,7 @@ const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? '
 const q = async (s, p) => (await c.query(s, p)).rows
 const err = async (s, p) => { await c.query('savepoint s'); try { await c.query(s, p); await c.query('release savepoint s'); return null } catch (e) { await c.query('rollback to savepoint s'); return e.message } }
 const uuid = () => crypto.randomUUID()
-const counts = async () => (await q(`select (select count(*)::int from public.learning_sessions) s, (select count(*)::int from public.learning_task_attempts) a, (select count(*)::int from public.learning_mutations) m`))[0]
+const counts = async () => (await q(`select (select count(*)::int from public.learning_sessions) s, (select count(*)::int from public.learning_task_attempts) a, (select count(*)::int from public.learning_mutations) m, (select count(*)::int from public.knowledge_reviews) reviews, (select count(*)::int from public.knowledge_trials) trials, (select count(*)::int from public.knowledge_applications where status = 'active') active_apps`))[0]
 
 try {
   const has = (await q(`select count(*)::int n from information_schema.columns where table_schema='public' and table_name='learning_sessions' and column_name='help_received_at'`))[0].n
