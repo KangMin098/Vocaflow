@@ -178,6 +178,19 @@ declare
   v_help text := p_help_level;
   v_item text := p_item_ref;
 begin
+  -- M6 재전송은 요청 원문으로 비교(세션 상속 전 · Codex P1)
+  -- 저장하는 모든 의미 입력을 비교한다 — application · trial · 판단 시각 포함(Codex 리뷰 P1)
+  v_claim := public.learning_mutation_claim(p_user, p_mutation, 'attempt', coalesce(p_session_id, '00000000-0000-0000-0000-000000000000'::uuid),
+    jsonb_build_object('task', p_task_key, 'activity', p_activity, 'phase', p_phase, 'help', p_help_level, 'item', p_item_ref,
+                       'hash', p_content_hash, 'response', coalesce(p_response, '{}'::jsonb), 'correct', p_is_correct, 'sec', p_sec,
+                       'synthetic', coalesce(p_synthetic, false), 'application', p_application_id, 'trial', p_trial_id,
+                       -- 기기가 보낸 판단 시각만 비교한다 — 서버가 채운 now() 는 재시도마다 달라 멱등을 깬다(하네스 실측).
+                       -- 그래서 클라이언트는 판단 시각을 **반드시** 보낸다(첫 시도 순서의 근거)
+                       'answered_at', p_answered_at));
+  if v_claim <> 'new' then
+    select id into attempt_id from public.learning_task_attempts where user_id = p_user and client_mutation_id = p_mutation;
+    outcome := v_claim; return next; return;
+  end if;
   -- 세션에 붙는 시도는 세션의 활동 · 단계 · 대상 · 과제 · 도움 수준을 **상속**한다. 다른 값을 보내면 거부한다 —
   -- 그렇지 않으면 viewed_first 세션의 시도가 independent 로 기록돼 「해설 먼저」 제외가 사라진다(Codex 리뷰 P1)
   if p_session_id is not null then
@@ -196,18 +209,6 @@ begin
     v_item := v_s.item_ref;
     v_task := coalesce(v_s.task_key, p_task_key);
     v_help := v_s.help_level;
-  end if;
-  -- 저장하는 모든 의미 입력을 비교한다 — application · trial · 판단 시각 포함(Codex 리뷰 P1)
-  v_claim := public.learning_mutation_claim(p_user, p_mutation, 'attempt', coalesce(p_session_id, '00000000-0000-0000-0000-000000000000'::uuid),
-    jsonb_build_object('task', v_task, 'activity', v_activity, 'phase', v_phase, 'help', v_help, 'item', v_item,
-                       'hash', p_content_hash, 'response', coalesce(p_response, '{}'::jsonb), 'correct', p_is_correct, 'sec', p_sec,
-                       'synthetic', coalesce(p_synthetic, false), 'application', p_application_id, 'trial', p_trial_id,
-                       -- 기기가 보낸 판단 시각만 비교한다 — 서버가 채운 now() 는 재시도마다 달라 멱등을 깬다(하네스 실측).
-                       -- 그래서 클라이언트는 판단 시각을 **반드시** 보낸다(첫 시도 순서의 근거)
-                       'answered_at', p_answered_at));
-  if v_claim <> 'new' then
-    select id into attempt_id from public.learning_task_attempts where user_id = p_user and client_mutation_id = p_mutation;
-    outcome := v_claim; return next; return;
   end if;
   insert into public.learning_task_attempts
     (user_id, client_mutation_id, session_id, task_key, activity, phase, help_level, item_ref, content_hash, response, is_correct, sec,

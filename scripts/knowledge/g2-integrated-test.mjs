@@ -68,6 +68,18 @@ try {
   rec('시도 재전송 → duplicate(한 행)', (await att(A, ma, s1.session_id)).rows[0].outcome === 'duplicate' && (await q(`select count(*)::int n from learning_task_attempts where client_mutation_id = $1`, [ma])).rows[0].n === 1)
   rec('같은 키 · 다른 응답 → conflict(덮지 않음)', (await att(A, ma, s1.session_id, { resp: { claim: 2 } })).rows[0].outcome === 'conflict')
 
+  // M6 첫 기록 뒤 세션 도움 수준이 올라가도 같은 재전송은 duplicate(생략 · 명시 둘 다) — 요청 원문 비교(Codex P1)
+  {
+    const cs7 = uuid()
+    const s7 = (await sess(A, uuid(), cs7, 'revealed', { help: 'independent', at: '2026-10-07T10:00:00Z' })).rows[0]
+    const m7a = uuid(), m7b = uuid()
+    await att(A, m7a, s7.session_id)
+    await q("select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,'independent',null,'h','{}',true,1,false,null,null,'2026-10-07T10:01:00Z')", [A, m7b, s7.session_id])
+    await sess(A, uuid(), cs7, 'revealed', { help: 'viewed_first', at: '2026-10-07T10:02:00Z' })
+    rec('M6 세션 도움 수준 상승 뒤 재전송(도움 생략) → duplicate', (await att(A, m7a, s7.session_id)).rows[0].outcome === 'duplicate')
+    rec('M6 세션 도움 수준 상승 뒤 재전송(도움 명시) → duplicate(모순 예외 아님)', (await q("select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,'independent',null,'h','{}',true,1,false,null,null,'2026-10-07T10:01:00Z')", [A, m7b, s7.session_id])).rows[0].outcome === 'duplicate')
+    rec('M6 새 id 로 옛 도움 수준을 보내면 여전히 거부', /contradicts/.test(await err("select * from learning_attempt_record($1,$2,$3,'claim-support',null,null,'independent',null,'h','{}',true,1,false,null,null,'2026-10-07T10:03:00Z')", [A, uuid(), s7.session_id]) ?? ''))
+  }
   // 두 연결 동시 요청(B6′) — 같은 mutation id 를 두 트랜잭션이 동시에: 하나 inserted · 하나 duplicate · 행 1
   const mc = uuid()
   const c1 = await pool.connect(), c2 = await pool.connect()

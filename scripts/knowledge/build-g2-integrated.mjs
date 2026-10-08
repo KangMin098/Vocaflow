@@ -206,6 +206,24 @@ const rollback = [
 ].map((l, i) => (i < 3 ? l : `-- ${l}`)).join('\n')
 s = s.slice(0, rbAt) + rollback + '\n'
 
+// M6 (Codex 리뷰 P1 · 2026-10-08) 재전송 비교는 **요청 원문**으로 — 세션 상속값으로 비교하면 첫 기록 뒤 세션 도움 수준이
+//    바뀌었을 때 같은 재전송이 conflict(생략 시) · 모순 예외(명시 시)가 된다. claim 을 세션 검증 · 상속보다 앞에 둔다.
+//    claim 이 new 인데 뒤 검증이 예외면 함수 전체가 되돌려져 claim 행도 남지 않는다.
+{
+  const i0 = s.indexOf('  -- 세션에 붙는 시도는 세션의')
+  const c0 = s.indexOf('  -- 저장하는 모든 의미 입력을 비교한다')
+  const c1 = s.indexOf('  if v_claim <> \'new\' then', c0)
+  const c2 = s.indexOf('  end if;\n', c1) + '  end if;\n'.length
+  if (i0 < 0 || c0 < i0 || c1 < 0) throw new Error('M6 anchor')
+  let claim = s.slice(c0, c2)
+  for (const [a, b] of [['v_task', 'p_task_key'], ['v_activity', 'p_activity'], ['v_phase', 'p_phase'], ['v_help', 'p_help_level'], ['v_item', 'p_item_ref']]) {
+    claim = claim.split("'" + a.slice(2) + "', " + a + ',').join("'" + a.slice(2) + "', " + b + ',')
+  }
+  claim = claim.replace("'task', v_task,", () => "'task', p_task_key,").replace("'help', v_help,", () => "'help', p_help_level,").replace("'item', v_item,", () => "'item', p_item_ref,")
+  if (/'(task|activity|phase|help|item)', v_/.test(claim)) throw new Error('M6 payload')
+  claim = '  -- M6 재전송은 요청 원문으로 비교(세션 상속 전 · Codex P1)\n' + claim
+  s = s.slice(0, i0) + claim + s.slice(i0, c0) + s.slice(c2)
+}
 fs.writeFileSync(OUT, s)
 const outSha = crypto.createHash('sha256').update(s).digest('hex')
 console.log(JSON.stringify({ out: path.relative(ROOT, OUT), sha256: outSha, draft: DRAFT_SHA }))

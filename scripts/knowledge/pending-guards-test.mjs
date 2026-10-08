@@ -2,7 +2,7 @@
 //
 // 미적용 SQL 후보 2개의 격리 검증(2026-10-08 · Phase 3) — **공유 개발 DB 를 쓰지 않는다.**
 //   20261008140000_knowledge_review_cascade_guard.sql  — 관리자 화면을 거치지 않는 변경에도 재검토 불변식(I1 · I2 · I3)
-//   _pending_20261008140100_learning_task_attempts_idempotency.sql — 같은 제출 두 번 → 한 행
+//   (140100 멱등 키는 G2 통합 SQL 로 흡수 — 검증은 scripts/knowledge/g2-integrated-test.mjs)
 // 격리 PostgreSQL(embedded-postgres · Supabase 역할 bootstrap)에 등록부 마이그레이션 7개 + vNext(20261008120000) → 후보 2개 적용.
 // 각 단언은 **앱 경로가 아닌 SQL 직접 변경**으로 한다(그게 이 가드가 막으려는 경로다).
 //   node scripts/knowledge/pending-guards-test.mjs [--pg-dir <isolated-pg 경로>]
@@ -30,7 +30,7 @@ try {
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql',
-    '20261008140000_knowledge_review_cascade_guard.sql', '_pending_20261008140100_learning_task_attempts_idempotency.sql',
+    '20261008140000_knowledge_review_cascade_guard.sql',
     '20261008150000_knowledge_statement_review_fix.sql', '_pending_20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
   rec('등록부 7 + vNext + 후보 2 적용', true)
 
@@ -143,16 +143,6 @@ try {
   await q(`update knowledge_evidence set note = 'memo', locator = 'p.3' where id = $1`, [e15])
   rec('170000 ② 메모 · 위치만 바꾸면 그대로', (await status([c15.P]))[c15.P] === 'adopted')
 
-  // 멱등 키
-  const su = new pg.Client({ host: '127.0.0.1', port: 54329, database: 'ec', user: 'supabase_admin', password: 'admin' })
-  await su.connect(); await su.query(`insert into auth.users (id) values ('00000000-0000-4000-8000-0000000000aa')`); await su.end()
-  const key = '11111111-1111-4111-8111-111111111111'
-  await q(`insert into learning_task_attempts (user_id, task_key, phase, client_attempt_id) values ('00000000-0000-4000-8000-0000000000aa','k','practice',$1)`, [key])
-  let dup = null
-  try { await q(`insert into learning_task_attempts (user_id, task_key, phase, client_attempt_id) values ('00000000-0000-4000-8000-0000000000aa','k','practice',$1)`, [key]) } catch (e) { dup = e.code }
-  rec('멱등 · 같은 (학습자, client_attempt_id) 두 번째 INSERT 거부(23505)', dup === '23505', dup)
-  const nul = await q(`insert into learning_task_attempts (user_id, task_key, phase) values ('00000000-0000-4000-8000-0000000000aa','k','practice'), ('00000000-0000-4000-8000-0000000000aa','k','practice') returning id`)
-  rec('멱등 · 키 없는 기존 방식(null)은 그대로 여러 행', nul.rowCount === 2)
   await pool.end()
 } catch (e) {
   rec('실행 오류 없이 끝남', false, e.message)
