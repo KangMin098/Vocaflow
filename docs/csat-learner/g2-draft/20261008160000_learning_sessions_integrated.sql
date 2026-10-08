@@ -152,13 +152,35 @@ language plpgsql security invoker set search_path = '' as $$
 declare
   v_claim text;
   v_answered timestamptz := coalesce(p_answered_at, now());
+  v_s public.learning_sessions%rowtype;
+  v_task text := p_task_key;
+  v_activity text := p_activity;
+  v_phase text := p_phase;
+  v_help text := p_help_level;
+  v_item text := p_item_ref;
 begin
-  if p_session_id is not null and not exists (select 1 from public.learning_sessions where id = p_session_id and user_id = p_user) then
-    raise exception 'session % does not belong to user', p_session_id;
+  -- 세션에 붙는 시도는 세션의 활동 · 단계 · 대상 · 과제 · 도움 수준을 **상속**한다. 다른 값을 보내면 거부한다 —
+  -- 그렇지 않으면 viewed_first 세션의 시도가 independent 로 기록돼 「해설 먼저」 제외가 사라진다(Codex 리뷰 P1)
+  if p_session_id is not null then
+    select * into v_s from public.learning_sessions where id = p_session_id and user_id = p_user;
+    if not found then raise exception 'session % does not belong to user', p_session_id; end if;
+    if v_s.help_level is null then raise exception 'session % is not revealed — apply the reveal before recording an attempt', p_session_id; end if;
+    if (p_activity is not null and p_activity <> v_s.activity)
+       or (p_phase is not null and p_phase <> v_s.phase)
+       or (p_item_ref is not null and p_item_ref <> v_s.item_ref)
+       or (p_task_key is not null and v_s.task_key is not null and p_task_key <> v_s.task_key)
+       or (p_help_level is not null and p_help_level <> v_s.help_level) then
+      raise exception 'attempt metadata contradicts session %', p_session_id;
+    end if;
+    v_activity := v_s.activity;
+    v_phase := v_s.phase;
+    v_item := v_s.item_ref;
+    v_task := coalesce(v_s.task_key, p_task_key);
+    v_help := v_s.help_level;
   end if;
   -- 저장하는 모든 의미 입력을 비교한다 — application · trial · 판단 시각 포함(Codex 리뷰 P1)
   v_claim := public.learning_mutation_claim(p_user, p_mutation, 'attempt', coalesce(p_session_id, '00000000-0000-0000-0000-000000000000'::uuid),
-    jsonb_build_object('task', p_task_key, 'activity', p_activity, 'phase', p_phase, 'help', p_help_level, 'item', p_item_ref,
+    jsonb_build_object('task', v_task, 'activity', v_activity, 'phase', v_phase, 'help', v_help, 'item', v_item,
                        'hash', p_content_hash, 'response', coalesce(p_response, '{}'::jsonb), 'correct', p_is_correct, 'sec', p_sec,
                        'synthetic', coalesce(p_synthetic, false), 'application', p_application_id, 'trial', p_trial_id,
                        -- 기기가 보낸 판단 시각만 비교한다 — 서버가 채운 now() 는 재시도마다 달라 멱등을 깬다(하네스 실측).
@@ -171,7 +193,7 @@ begin
   insert into public.learning_task_attempts
     (user_id, client_mutation_id, session_id, task_key, activity, phase, help_level, item_ref, content_hash, response, is_correct, sec,
      synthetic, application_id, trial_id, answered_at)
-  values (p_user, p_mutation, p_session_id, p_task_key, p_activity, p_phase, p_help_level, p_item_ref, p_content_hash,
+  values (p_user, p_mutation, p_session_id, v_task, v_activity, v_phase, v_help, v_item, p_content_hash,
           coalesce(p_response, '{}'::jsonb), p_is_correct, p_sec, coalesce(p_synthetic, false), p_application_id, p_trial_id, v_answered)
   returning id into attempt_id;
   outcome := 'inserted'; return next;
@@ -182,7 +204,8 @@ end $$;
 create view public.learning_first_attempts with (security_invoker = true) as
 select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
   a.id as attempt_id, a.user_id, a.task_key, a.item_ref, a.phase, a.activity, a.session_id, a.is_correct, a.answered_at,
-  (coalesce(a.help_level, s.help_level) = 'viewed_first') as after_viewed_first,
+  -- 세션이 있으면 세션의 도움 수준이 정본(시도는 상속값) — 세션 없는 시도만 자기 값
+  (coalesce(s.help_level, a.help_level) = 'viewed_first') as after_viewed_first,
   a.synthetic
 from public.learning_task_attempts a
 left join public.learning_sessions s on s.id = a.session_id

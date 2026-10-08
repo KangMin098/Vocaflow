@@ -163,6 +163,36 @@
       "detail": ""
     },
     {
+      "name": "viewed_first 세션에 independent 시도 → 거부",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "세션과 다른 activity 시도 → 거부",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "세션과 다른 대상(item_ref) 시도 → 거부",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "공개 전(open) 세션에 시도 → 거부",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "빈 메타데이터는 세션에서 상속",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "상속된 시도도 해설 먼저 표시 유지",
+      "pass": true,
+      "detail": ""
+    },
+    {
       "name": "다른 학습자는 내 세션을 못 본다(RLS)",
       "pass": true,
       "detail": ""

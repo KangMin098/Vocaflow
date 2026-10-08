@@ -180,6 +180,25 @@ d = await one(db, 'select * from public.learning_session_apply($1,$2,$3,$4,$5,$6
 ok('세션: 이미 쓴 mutation 으로 다른 세션 → conflict', d.outcome === 'conflict')
 ok('conflict 는 빈 세션조차 만들지 않는다', (await one(db, 'select count(*)::int n from public.learning_sessions where client_session_id=$1', [uuid(950)])).n === 0)
 
+// (4) 시도는 세션 메타데이터를 상속 — 모순 값은 거부(Codex 리뷰 2회차 P1)
+const rejects = async (name, args) => {
+  try {
+    await db.query('select * from public.learning_attempt_record($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)', args)
+    ok(name, false)
+  } catch {
+    ok(name, true)
+  }
+}
+await rejects('viewed_first 세션에 independent 시도 → 거부', [A, uuid(90), s3, 'csat_theater_gate', 'theater', 'practice', 'independent', '2026#19', 'v4', '{}', true, 5, false, null, null, '2026-10-08T08:00:00Z'])
+await rejects('세션과 다른 activity 시도 → 거부', [A, uuid(91), s3, 'csat_theater_gate', 'dissect', 'practice', null, '2026#19', 'v4', '{}', true, 5, false, null, null, '2026-10-08T08:00:00Z'])
+await rejects('세션과 다른 대상(item_ref) 시도 → 거부', [A, uuid(92), s3, 'csat_theater_gate', null, null, null, '2026#99', 'v4', '{}', true, 5, false, null, null, '2026-10-08T08:00:00Z'])
+const sOpen = (await one(db, 'select * from public.learning_session_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)', [A, uuid(95), uuid(960), 'theater', 'practice', '2026#41', 'open', 0, 14, null, T(40)])).session_id
+await rejects('공개 전(open) 세션에 시도 → 거부', [A, uuid(96), sOpen, 'csat_theater_gate', null, null, null, null, 'v4', '{}', true, 5, false, null, null, '2026-10-08T08:00:00Z'])
+const inh = await one(db, 'select * from public.learning_attempt_record($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)', [A, uuid(97), s3, 'csat_theater_gate', null, null, null, null, 'v4', '{}', true, 5, false, null, null, '2026-10-08T08:01:00Z'])
+const row = await one(db, 'select activity, phase, help_level, item_ref from public.learning_task_attempts where id=$1', [inh.attempt_id])
+ok('빈 메타데이터는 세션에서 상속', row.activity === 'theater' && row.phase === 'practice' && row.help_level === 'viewed_first' && row.item_ref === '2026#19')
+ok('상속된 시도도 해설 먼저 표시 유지', (await one(db, "select after_viewed_first from public.learning_first_attempts where item_ref='2026#19'")).after_viewed_first === true)
+
 // ── 권한(RLS · RPC) ──
 await db.exec(`set test.uid = '${B}'; set role authenticated;`)
 ok('다른 학습자는 내 세션을 못 본다(RLS)', (await one(db, 'select count(*)::int n from public.learning_sessions')).n === 0)
