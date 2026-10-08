@@ -14,7 +14,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { annotationFor, annotationHash, gradeClaimSupport } from './claim-support'
+import { annotationFor, annotationHash, gradeClaimSupport, type ClaimSupportAnnotation } from './claim-support'
+import { currentItemTask } from './item-tasks'
 import {
   PRACTICE_TASK,
   SKELETON_TASK,
@@ -35,7 +36,7 @@ import {
   type PracticeSubmission,
 } from './practice'
 import { selectWriter, type AttemptWriter } from './practice-writer'
-import { currentAnnotation, itemTaskRef, loadLiveApplication } from './product-server'
+import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication } from './product-server'
 
 /** 정본 주석이 있는 문항 — claim-support.ts 의 ANNOTATIONS 와 같은 목록(시험이 대조한다) */
 export const ANNOTATED_ITEM_IDS = ['2022#20'] as const
@@ -74,9 +75,11 @@ async function serverPool(opts: { preview: boolean }, client?: SupabaseClient): 
       if (!sk) continue
       const bars = sk.sentences.map((x) => x.chars)
       if (annotated.has(s.id)) {
-        const ann = currentAnnotation(s.id)
-        if (!ann) continue
-        const live = await loadLiveApplication('csat_item_task', itemTaskRef(s.id), client)
+        // 정본 레지스트리(item-tasks)가 과제 종류를 일반화했다 — 이 연습은 「주장과 근거」 만 채점하므로 그 과제의 살아 있는 주석만 쓴다
+        const task = currentItemTask(s.id)
+        if (!task || task.def.key !== CLAIM_SUPPORT_TASK) continue
+        const ann = task.ann as unknown as ClaimSupportAnnotation
+        const live = await loadLiveApplication('csat_item_task', itemTaskRef(CLAIM_SUPPORT_TASK, s.id), client)
         if (!live && !opts.preview) continue
         out.push({
           itemId: s.id, no: s.no, examLabel: s.exam_label, typeId, phase, kind: 'annotated', bars,
