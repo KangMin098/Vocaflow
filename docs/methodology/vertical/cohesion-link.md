@@ -4,7 +4,7 @@
 
 ## 사슬
 
-탐구 질문 `cohesion-relation-csat` → 근거(기출 관찰 1건 · 원천 B · 연구 근거 아님) → 기제 `cohesion-cues`(재사용) → 방법 `method-cohesion-tracking` → 과제 `task-cohesion-link` → 문항 주석 `cohesion-link-2022-36.v1` → 문항 화면 `CohesionPanel` → 학습 지도 FIND A3-4(relation 단계).
+탐구 질문 `cohesion-relation-csat` → 근거(기출 관찰 1건 · 원천 등급 A(knowledge_csat_origins 조회값) · 연구 근거 아님) → 기제 `cohesion-cues`(재사용) → 방법 `method-cohesion-tracking` → 과제 `task-cohesion-link` → 문항 주석 `cohesion-link-2022-36.v1` → 문항 화면 `CohesionPanel` → 학습 지도 FIND A3-4(relation 단계).
 
 ## 문항 선택(Claude Code 위임)
 

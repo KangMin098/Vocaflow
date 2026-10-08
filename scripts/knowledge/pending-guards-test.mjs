@@ -31,8 +31,10 @@ try {
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql',
     '20261008140000_knowledge_review_cascade_guard.sql',
-    '20261008150000_knowledge_statement_review_fix.sql', '_pending_20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
-  rec('등록부 7 + vNext + 후보 2 적용', true)
+    '20261008150000_knowledge_statement_review_fix.sql',
+    // 실제 원장 순서 — 160000(G2 · 2026-10-08 개발 DB 적용) 위에 170000 후보
+    '20261008160000_learning_sessions_integrated.sql', '_pending_20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
+  rec('등록부 7 + vNext + 140000 · 150000 · 160000(적용분) + 170000 후보 순서대로 적용', true)
 
   const item = async (layer, kind, slug) => (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ($1,$2,$3,$3,'s','in_review','t','t') returning id`, [layer, kind, slug])).rows[0].id
   const ev = (id) => q(`insert into knowledge_evidence (item_id, grade, attribution, source_type, external_url, external_title, created_by) values ($1,'B','stated','external','https://e.x/a','t','t') returning id`, [id])
