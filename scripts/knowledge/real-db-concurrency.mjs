@@ -105,34 +105,60 @@ export async function cleanup(m) {
   const refused = []
   // 복구 조회가 실패한 mutation 의 원장은 지우지 않는다 — 시도가 남아 있을 수 있어 원장을 먼저 지우면 다시 못 찾는다
   const unresolved = new Set(recovery.unresolved)
+  // 정리는 확인 조회가 실패해도 프로세스를 끝내지 않는다 — 실패한 단계의 PK 는 left/unresolved 로 남기고, 독립적으로 안전한 단계는 계속한다.
+  const errors = []
   if (m.created.attempts.length) {
     const { data, error } = await db.from('learning_task_attempts').select('id,user_id,synthetic,answered_at').in('id', m.created.attempts)
-    if (error) fail(`시도 확인 실패: ${error.message}`)
-    const ok = data.filter((r) => r.user_id === m.userId && r.synthetic === true).map((r) => r.id)
-    refused.push(...data.filter((r) => !ok.includes(r.id)).map((r) => ({ table: 'learning_task_attempts', id: r.id })))
-    if (ok.length) {
-      const del = await db.from('learning_task_attempts').delete().in('id', ok).eq('user_id', m.userId).select('id')
-      if (del.error) left.attempts.push(...ok)
+    if (error) {
+      errors.push(`시도 확인 실패: ${error.message}`)
+      left.attempts.push(...m.created.attempts)
+      // 시도를 확인·삭제하지 못했으면 그 원장도 지우지 않는다(다음 --cleanup 이 mutation id 로 시도를 다시 찾게)
+      for (const x of m.created.mutations) unresolved.add(x)
+    } else {
+      const ok = data.filter((r) => r.user_id === m.userId && r.synthetic === true).map((r) => r.id)
+      refused.push(...data.filter((r) => !ok.includes(r.id)).map((r) => ({ table: 'learning_task_attempts', id: r.id })))
+      if (ok.length) {
+        const del = await db.from('learning_task_attempts').delete().in('id', ok).eq('user_id', m.userId).select('id')
+        if (del.error) {
+          errors.push(`시도 삭제 실패: ${del.error.message}`)
+          left.attempts.push(...ok)
+          for (const x of m.created.mutations) unresolved.add(x)
+        }
+      }
     }
   }
   if (m.created.sessions.length) {
     const { data, error } = await db.from('learning_sessions').select('id,user_id,synthetic').in('id', m.created.sessions)
-    if (error) fail(`세션 확인 실패: ${error.message}`)
-    const ok = data.filter((r) => r.user_id === m.userId && r.synthetic === true).map((r) => r.id)
-    refused.push(...data.filter((r) => !ok.includes(r.id)).map((r) => ({ table: 'learning_sessions', id: r.id })))
-    if (ok.length) {
-      const del = await db.from('learning_sessions').delete().in('id', ok).eq('user_id', m.userId).select('id')
-      if (del.error) left.sessions.push(...ok)
+    if (error) {
+      errors.push(`세션 확인 실패: ${error.message}`)
+      left.sessions.push(...m.created.sessions)
+    } else {
+      const ok = data.filter((r) => r.user_id === m.userId && r.synthetic === true).map((r) => r.id)
+      refused.push(...data.filter((r) => !ok.includes(r.id)).map((r) => ({ table: 'learning_sessions', id: r.id })))
+      if (ok.length) {
+        const del = await db.from('learning_sessions').delete().in('id', ok).eq('user_id', m.userId).select('id')
+        if (del.error) {
+          errors.push(`세션 삭제 실패: ${del.error.message}`)
+          left.sessions.push(...ok)
+        }
+      }
     }
   }
   if (m.created.mutations.length) {
     const { data, error } = await db.from('learning_mutations').select('client_mutation_id,user_id,created_at').eq('user_id', m.userId).in('client_mutation_id', m.created.mutations)
-    if (error) fail(`원장 확인 실패: ${error.message}`)
-    const ok = data.filter((r) => Date.parse(r.created_at) >= Date.parse(m.startedAt) && !unresolved.has(r.client_mutation_id)).map((r) => r.client_mutation_id)
-    refused.push(...data.filter((r) => !ok.includes(r.client_mutation_id)).map((r) => ({ table: 'learning_mutations', id: r.client_mutation_id })))
-    if (ok.length) {
-      const del = await db.from('learning_mutations').delete().eq('user_id', m.userId).in('client_mutation_id', ok).select('client_mutation_id')
-      if (del.error) left.mutations.push(...ok)
+    if (error) {
+      errors.push(`원장 확인 실패: ${error.message}`)
+      left.mutations.push(...m.created.mutations)
+    } else {
+      const ok = data.filter((r) => Date.parse(r.created_at) >= Date.parse(m.startedAt) && !unresolved.has(r.client_mutation_id)).map((r) => r.client_mutation_id)
+      refused.push(...data.filter((r) => !ok.includes(r.client_mutation_id) && !unresolved.has(r.client_mutation_id)).map((r) => ({ table: 'learning_mutations', id: r.client_mutation_id })))
+      if (ok.length) {
+        const del = await db.from('learning_mutations').delete().eq('user_id', m.userId).in('client_mutation_id', ok).select('client_mutation_id')
+        if (del.error) {
+          errors.push(`원장 삭제 실패: ${del.error.message}`)
+          left.mutations.push(...ok)
+        }
+      }
     }
   }
   // 남았는지 다시 센다(지운 것이 실제로 사라졌는가)
@@ -143,7 +169,7 @@ export async function cleanup(m) {
       ? (await db.from('learning_mutations').select('client_mutation_id').eq('user_id', m.userId).in('client_mutation_id', m.created.mutations)).data?.map((r) => r.client_mutation_id) ?? ['조회 실패']
       : [],
   }
-  return { left, refused, still, unresolved: [...unresolved] }
+  return { left, refused, still, unresolved: [...unresolved], errors }
 }
 
 const RPC = (userId, mutation, item, response, correct, answeredAt) =>
@@ -176,6 +202,7 @@ async function main() {
     m.cleanupRetries = [...(m.cleanupRetries ?? []), { at: new Date().toISOString(), ...r }]
     save(m)
     console.log(JSON.stringify(r, null, 2))
+    if ([...r.still.attempts, ...r.still.sessions, ...r.still.mutations].length + r.unresolved.length + r.errors.length > 0) process.exitCode = 1
     return
   }
 
@@ -283,12 +310,16 @@ async function main() {
   } finally {
     const r = await cleanup(m)
     m.cleanup = r
+    save(m) // 사후 집계가 실패해도 정리 결과·잔여 PK 는 먼저 남는다
     m.after = await counts(user.id)
     m.finishedAt = new Date().toISOString()
     save(m)
     const back = TABLES.every((t) => m.after[t].all === m.before[t].all)
     console.log(`정리: 남음 ${JSON.stringify(r.still)} · 거부 ${r.refused.length} · 기준선 복귀 ${back}`)
     console.log(`매니페스트 ${path.join(RUN_DIR, `${m.testRunId}.json`)}`)
+    const residual = [...r.still.attempts, ...r.still.sessions, ...r.still.mutations].length + r.unresolved.length + r.errors.length
+    // 검사 실패 · 정리 잔여가 있으면 종료 코드 1(매니페스트 저장 뒤) — 호출자가 성공으로 오판하지 않게
+    if (m.results.some((x) => !x.pass) || residual > 0) process.exitCode = 1
     if (!back) console.log('⚠️ 기준선과 다르다 — 이번 실행이 만든 PK 는 위 「남음」만 확인하고, 다른 행(다른 세션 · 실사용)은 건드리지 않는다')
   }
 }
