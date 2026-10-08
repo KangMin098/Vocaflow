@@ -185,17 +185,34 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-
 const SKEW_MS = 5 * 60_000
 const MAX_AGE_MS = 30 * 86_400_000
 
-/** 요청 본문의 모양 검사(숫자 · uuid · 시각만). 문항 범위 검사는 키를 안 뒤 checkAnswerRange 로 한다 */
-export function parseSubmission(v: unknown, now: number): ParseResult<PracticeSubmission> {
-  if (!v || typeof v !== 'object') return { ok: false, error: '응답이 비었어요' }
-  const o = v as Record<string, unknown>
-  if (typeof o.itemId !== 'string' || !/^[A-Za-z0-9]{1,16}#\d{1,2}$/.test(o.itemId)) return { ok: false, error: '문항을 찾지 못했어요' }
+/** G2 기록 계약의 클라이언트 메타(요청 멱등 id · 세션 id · 판단 시각 · 도움 수준) — practice 와 문항 확인 과제가 같은 규칙을 쓴다 */
+export interface ClientMeta {
+  clientMutationId: string
+  clientSessionId: string
+  answeredAt: string
+  helpLevel: HelpLevel
+}
+
+export function parseClientMeta(o: Record<string, unknown>, now: number): ParseResult<ClientMeta> {
   if (typeof o.clientMutationId !== 'string' || !UUID.test(o.clientMutationId)) return { ok: false, error: '제출 id 가 없어요' }
   if (typeof o.clientSessionId !== 'string' || !UUID.test(o.clientSessionId)) return { ok: false, error: '세션 id 가 없어요' }
   const at = typeof o.answeredAt === 'string' ? Date.parse(o.answeredAt) : Number.NaN
   if (!Number.isFinite(at)) return { ok: false, error: '판단 시각이 없어요' }
   if (at > now + SKEW_MS || at < now - MAX_AGE_MS) return { ok: false, error: '판단 시각이 맞지 않아요 — 기기 시계를 확인해 주세요' }
   if (o.helpLevel !== 'independent' && o.helpLevel !== 'viewed_first') return { ok: false, error: '도움 수준이 맞지 않아요' }
+  return {
+    ok: true,
+    value: { clientMutationId: o.clientMutationId.toLowerCase(), clientSessionId: o.clientSessionId.toLowerCase(), answeredAt: new Date(at).toISOString(), helpLevel: o.helpLevel },
+  }
+}
+
+/** 요청 본문의 모양 검사(숫자 · uuid · 시각만). 문항 범위 검사는 키를 안 뒤 checkAnswerRange 로 한다 */
+export function parseSubmission(v: unknown, now: number): ParseResult<PracticeSubmission> {
+  if (!v || typeof v !== 'object') return { ok: false, error: '응답이 비었어요' }
+  const o = v as Record<string, unknown>
+  if (typeof o.itemId !== 'string' || !/^[A-Za-z0-9]{1,16}#\d{1,2}$/.test(o.itemId)) return { ok: false, error: '문항을 찾지 못했어요' }
+  const meta = parseClientMeta(o, now)
+  if (!meta.ok) return meta
   const ev = o.explanationViewedAt === null || o.explanationViewedAt === undefined ? null : typeof o.explanationViewedAt === 'string' ? Date.parse(o.explanationViewedAt) : Number.NaN
   if (ev !== null && (!Number.isFinite(ev) || ev > now + SKEW_MS || ev < now - MAX_AGE_MS)) return { ok: false, error: '해설 열람 시각이 맞지 않아요' }
   if (!Number.isInteger(o.claim)) return { ok: false, error: '주장 문장을 골라 주세요' }
@@ -218,10 +235,7 @@ export function parseSubmission(v: unknown, now: number): ParseResult<PracticeSu
       option: option as number | null,
       confidence: o.confidence,
       sec,
-      clientMutationId: o.clientMutationId.toLowerCase(),
-      clientSessionId: o.clientSessionId.toLowerCase(),
-      answeredAt: new Date(at).toISOString(),
-      helpLevel: o.helpLevel,
+      ...meta.value,
       explanationViewedAt: ev === null ? null : new Date(ev).toISOString(),
       preview: o.preview === true,
     },

@@ -119,7 +119,8 @@ function fakeDb(rows: Record<string, unknown>[]) {
     },
     rpc: async (fn: string, args: Record<string, unknown>) => {
       rpcs.push({ fn, args })
-      return fn === 'learning_session_apply' ? { data: [{ session_id: 'sess-1', outcome: 'inserted' }], error: null } : { data: [{ attempt_id: 1, outcome: 'inserted' }], error: null }
+      // 실제 RPC 의 결과 어휘: 세션 변경 = applied · duplicate · conflict / 시도 = inserted · duplicate · conflict(G2 20261008160000)
+      return fn === 'learning_session_apply' ? { data: [{ session_id: 'sess-1', outcome: 'applied' }], error: null } : { data: [{ attempt_id: 1, outcome: 'inserted' }], error: null }
     },
   }
   return { db: db as unknown as SupabaseClient, inserted, rpcs }
@@ -181,9 +182,31 @@ describe('g2 어댑터(G2 적용 뒤) — 세션 공개 RPC → 시도 RPC', () 
     expect(stableUuid('s', 'reveal')).toBe(stableUuid('s', 'reveal'))
     expect(stableUuid('s', 'reveal')).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
   })
-  it('기본은 direct — G2 SQL 적용 전에는 g2 를 켜지 않는다', () => {
-    expect(selectWriter({} as SupabaseClient, undefined).kind).toBe('direct')
+  it('기본은 g2 — G2 SQL(20261008160000) 적용 뒤 배포 순서 ③ · direct 는 되돌림용 명시 설정만', () => {
+    expect(selectWriter({} as SupabaseClient, undefined).kind).toBe('g2')
     expect(selectWriter({} as SupabaseClient, 'g2').kind).toBe('g2')
+    expect(selectWriter({} as SupabaseClient, 'direct').kind).toBe('direct')
+  })
+  it('B8: 해설 열람은 공개 · 판단과 다른 mutation id 로 learning_session_apply(p_explanation_viewed_at) · 같은 열람 재전송은 같은 id', async () => {
+    const f = fakeDb([])
+    const w = g2Writer(f.db)
+    await w.reveal(W)
+    await w.record(W, 'sess-1')
+    await w.noteExplanationView(W, '2026-10-08T06:10:00.000Z', 'sess-1')
+    await w.noteExplanationView(W, '2026-10-08T06:10:00.000Z', 'sess-1')
+    const applies = f.rpcs.filter((r) => r.fn === 'learning_session_apply')
+    const reveal = applies[0].args, explain = applies[1].args, again = applies[2].args
+    const attempt = f.rpcs.find((r) => r.fn === 'learning_attempt_record')!.args
+    expect(explain.p_explanation_viewed_at).toBe('2026-10-08T06:10:00.000Z')
+    expect(explain.p_mutation).not.toBe(reveal.p_mutation)
+    expect(explain.p_mutation).not.toBe(attempt.p_mutation)
+    expect(again.p_mutation).toBe(explain.p_mutation)
+    expect(explain.p_client_session_id).toBe(W.clientSessionId)
+    expect(JSON.stringify(attempt.p_response)).not.toContain('explanation')
+  })
+  it('B8: 해설 열람 기록이 conflict · 오류면 조용히 넘기지 않는다(예외)', async () => {
+    const db = { rpc: async () => ({ data: [{ session_id: 's', outcome: 'conflict' }], error: null }) } as unknown as SupabaseClient
+    await expect(g2Writer(db).noteExplanationView(W, '2026-10-08T06:10:00.000Z', 's')).rejects.toThrow('해설 열람 기록 실패')
   })
 })
 

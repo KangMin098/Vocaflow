@@ -1,8 +1,8 @@
 // apps/web/src/lib/knowledge/practice-writer.ts
-// /csat/practice 시도 기록의 **쓰기 어댑터 하나**(PRACTICE_PORT_BRIEF §4). 호출자는 이 인터페이스만 안다.
-//   direct(지금 · 기본) = 정본 learning_task_attempts 에 직접 INSERT(현재 개발 DB 13열 계약). 세션 표가 없어 reveal 은 기록하지 않는다.
-//   g2(G2 적용 뒤)      = learning_session_apply(reveal) → learning_attempt_record RPC. **G2 SQL 이 적용되기 전에는 켜지 않는다.**
-// 고르는 것: 환경 변수 PRACTICE_ATTEMPT_WRITER=g2 일 때만 g2. 그 밖은 direct.
+// 수행 기록의 **쓰기 어댑터 하나** — /csat/practice 와 문항 확인 과제(/api/csat/item/[slug]/task)가 같이 쓴다. 호출자는 이 인터페이스만 안다.
+//   g2(기본 · G2 20261008160000 개발 DB 적용 뒤) = learning_session_apply(공개) → learning_attempt_record RPC · 해설 열람은 별도 공개 변경.
+//   direct(되돌림용)                               = 정본 learning_task_attempts 에 직접 INSERT(세션 · 멱등 인덱스 없이). 세션 표가 없어 reveal 은 기록하지 않는다.
+// 고르는 것: 환경 변수 PRACTICE_ATTEMPT_WRITER=direct 일 때만 direct. 그 밖은 g2(배포 순서 ③ · G2_INTEGRATED_SQL §6).
 //
 // 요청 멱등(G2 §2): 같은 (user, client_mutation_id) 가 다시 오면 duplicate, 의미 필드가 다르면 conflict(덮어쓰지 않는다).
 //   direct 는 유일 키가 없어 response->>client_mutation_id 를 먼저 읽고 넣는다 — 동시에 도착한 두 요청 사이의 틈은 남는다
@@ -20,7 +20,8 @@ export interface AttemptWrite {
   applicationId: string | null
   itemRef: string
   contentHash: string
-  activity: 'practice'
+  /** 학습 활동 — practice(원리 연습) · theater(기출 문항 화면의 확인 과제) */
+  activity: 'practice' | 'theater'
   phase: PracticePhase
   helpLevel: HelpLevel
   synthetic: boolean
@@ -29,8 +30,8 @@ export interface AttemptWrite {
   answeredAt: string
   sec: number | null
   isCorrect: boolean
-  /** 학습자 응답 · 채점 요약(정답 키 아님) */
-  answer: { claim: number; support: number[]; relation: string | null; option: number | null; confidence: number }
+  /** 학습자 응답(정답 키 아님) — 과제마다 모양이 다르다(주장과 근거 · 이어 주는 단서 …) */
+  answer: Record<string, unknown>
   extra: Record<string, unknown>
 }
 
@@ -43,8 +44,8 @@ export interface AttemptWriter {
   record(w: AttemptWrite, sessionId: string | null): Promise<WriteOutcome>
   /**
    * 판단을 보낸 뒤의 해설 열람 — **시도와 별개인 행동**. 시도 payload 에 넣으면 같은 제출의 재전송이 첫 제출과 달라져
-   * G2 멱등 비교에서 conflict 가 된다(REVERIFY_17bb7c93f §P1-2). 지금은 두 모드 모두 담을 곳이 없어 기록하지 않는다 —
-   * 행동 원장(세션 쪽 칸 또는 별도 mutation)이 승인 · 적용되면 여기서 쓴다. 저장하지 않았음을 false 로 알린다
+   * G2 멱등 비교에서 conflict 가 된다(REVERIFY_17bb7c93f §P1-2). g2 는 세션의 explanation_viewed_at 에 별도 mutation 으로 쓰고
+   * (실패는 예외 — 조용히 넘기지 않는다), direct 는 담을 곳이 없어 false(미저장)를 돌려준다
    */
   noteExplanationView(w: AttemptWrite, viewedAt: string, sessionId: string | null): Promise<boolean>
 }
@@ -55,7 +56,17 @@ export function stableUuid(...parts: string[]): string {
   return `${h.slice(0, 8)}-${h.slice(8, 12)}-5${h.slice(13, 16)}-${((parseInt(h[16], 16) & 0x3) | 0x8).toString(16)}${h.slice(17, 20)}-${h.slice(20, 32)}`
 }
 
-const sameNums = (a: unknown, b: readonly number[]) => Array.isArray(a) && a.length === b.length && a.every((x, i) => x === b[i])
+/** 응답 칸 비교 — 원시값 · 배열 · 평면 객체(jsonb 는 키 순서를 바꾸므로 문자열 비교 금지). null · undefined 는 같게 본다 */
+function sameValue(a: unknown, b: unknown): boolean {
+  if ((a ?? null) === null || (b ?? null) === null) return (a ?? null) === (b ?? null)
+  if (Array.isArray(a) || Array.isArray(b)) return Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((x, i) => sameValue(x, b[i]))
+  if (typeof a === 'object' && typeof b === 'object') {
+    const ka = Object.keys(a as object)
+    const kb = Object.keys(b as object)
+    return ka.length === kb.length && ka.every((k) => sameValue((a as Record<string, unknown>)[k], (b as Record<string, unknown>)[k]))
+  }
+  return a === b
+}
 
 /** 저장된 response 와 새 요청의 의미 필드가 같은가 */
 export function sameAttempt(row: { item_ref: unknown; phase: unknown; task_key: unknown; answered_at: unknown; response: unknown }, w: AttemptWrite): boolean {
@@ -68,11 +79,7 @@ export function sameAttempt(row: { item_ref: unknown; phase: unknown; task_key: 
     Date.parse(row.answered_at) === Date.parse(w.answeredAt) &&
     r.client_session_id === w.clientSessionId &&
     r.help_level === w.helpLevel &&
-    r.claim === w.answer.claim &&
-    sameNums(r.support, w.answer.support) &&
-    (r.relation ?? null) === w.answer.relation &&
-    (r.option ?? null) === w.answer.option &&
-    r.confidence === w.answer.confidence
+    Object.keys(w.answer).every((k) => sameValue(r[k], w.answer[k]))
   )
 }
 
@@ -154,8 +161,31 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
       // 화면은 판단을 한 번 낸 세션의 도움 수준을 바꾸지 않으므로(해설 열람은 별도 행동) 같은 세션의 공개 내용은 바뀌지 않는다
       return row.session_id
     },
-    async noteExplanationView() {
-      return false
+    async noteExplanationView(w, viewedAt) {
+      // B8 — 판단과 **다른** mutation id. 같은 열람(같은 세션 · 같은 시각)의 재전송만 같은 id 를 쓴다(공개 · 판단 id 재사용 금지 —
+      // 재사용하면 payload 가 달라 conflict 로 조용히 유실된다: G2_SQL_REVIEW_da627938 (b)). 해설 시각은 서버가 가장 이른 값을 지킨다.
+      const { data, error } = await db.rpc('learning_session_apply', {
+        p_user: w.userId,
+        p_mutation: stableUuid(w.clientSessionId, 'explain', viewedAt),
+        p_client_session_id: w.clientSessionId,
+        p_activity: w.activity,
+        p_phase: w.phase,
+        p_item_ref: w.itemRef,
+        p_stage: 'revealed',
+        p_step: 0,
+        p_steps: 1,
+        p_help_level: w.helpLevel,
+        p_at: viewedAt,
+        p_synthetic: w.synthetic,
+        p_task_key: w.taskKey,
+        p_application_id: w.applicationId,
+        p_explanation_viewed_at: viewedAt,
+      })
+      if (error) throw new Error(`해설 열람 기록 실패: ${error.message}`)
+      const row = (Array.isArray(data) ? data[0] : data) as { outcome?: string } | null
+      // conflict = 같은 id 에 다른 내용 — 조용히 넘기지 않는다(저장 실패를 숨기지 않는다)
+      if (row?.outcome !== 'applied' && row?.outcome !== 'duplicate') throw new Error(`해설 열람 기록 실패: ${String(row?.outcome)}`)
+      return true
     },
     async record(w, sessionId) {
       const { data, error } = await db.rpc('learning_attempt_record', {
@@ -187,5 +217,6 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
 }
 
 export function selectWriter(db: SupabaseClient, env: string | undefined = process.env.PRACTICE_ATTEMPT_WRITER): AttemptWriter {
-  return env === 'g2' ? g2Writer(db) : directWriter(db)
+  // G2 SQL(20261008160000)이 개발 DB 에 적용됐다 — 기본은 g2(배포 순서 ③). direct 는 되돌림용으로만 남긴다
+  return env === 'direct' ? directWriter(db) : g2Writer(db)
 }

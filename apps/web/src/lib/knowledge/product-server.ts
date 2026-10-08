@@ -14,6 +14,8 @@ import { fromItemSlug, toItemSlug } from '@/lib/csat/item-slug'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 import { currentItemTask, ITEM_TASKS } from './item-tasks'
+import { isSyntheticEmail, parseClientMeta } from './practice'
+import { selectWriter, type AttemptWrite, type AttemptWriter, type WriteOutcome } from './practice-writer'
 import { resolveChain, type ChainItem, type ChainLink, type ChainVerdict } from './live-chain'
 
 /** 첫 수직 경로의 과제 키(호환) — 과제 키 목록은 item-tasks 레지스트리가 정본 */
@@ -111,32 +113,54 @@ export interface AttemptResult {
 }
 
 /**
- * 수행 기록 한 건 — userId 는 세션에서만(라우트가 넘긴다). 채점은 서버에서 주석으로 한다(클라이언트 판정을 믿지 않는다).
+ * 수행 기록 한 건 — userId · 이메일은 세션에서만(라우트가 넘긴다). 채점은 서버에서 주석으로 한다(클라이언트 판정을 믿지 않는다).
  * 이 기록은 **과제 수행**이지 효과 판정이 아니다 — 항목 efficacy 는 건드리지 않는다(DB 가드도 막는다).
+ * 기록은 G2 계약(공유 쓰기 어댑터 · practice 와 같다): 세션 공개 → learning_attempt_record(요청 멱등 · 판단 시각 · 세션 상속).
+ * 본문: { response, sec, clientSessionId, clientMutationId, answeredAt, helpLevel }. `now` 는 라우트가 넘긴다(시계를 직접 읽지 않는다).
  */
-export async function recordItemTaskAttempt(client: SupabaseClient, userId: string, itemId: string, raw: unknown, sec: unknown): Promise<AttemptResult> {
+export async function recordItemTaskAttempt(
+  client: SupabaseClient,
+  user: { id: string; email: string | null },
+  itemId: string,
+  body: unknown,
+  now: number,
+  writer: AttemptWriter = selectWriter(client),
+): Promise<AttemptResult & { outcome: WriteOutcome }> {
+  const o = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>
+  const meta = parseClientMeta(o, now)
+  if (!meta.ok) throw new TaskInputError(meta.error)
   const task = currentItemTask(itemId)
   if (!task) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
   const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId), client)
   if (!live) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
-  const graded = task.def.grade(task.ann, raw)
+  const graded = task.def.grade(task.ann, o.response)
   if (!graded) throw new TaskInputError('고른 답을 다시 확인해 주세요')
-  const seconds = Number.isInteger(sec) && (sec as number) >= 0 && (sec as number) <= 7200 ? (sec as number) : null
-  const { error } = await client.from('learning_task_attempts').insert({
-    user_id: userId,
-    task_key: task.def.key,
-    application_id: live.app.id,
-    item_ref: itemId,
-    content_hash: task.def.hash(task.ann),
+  const sec = Number.isInteger(o.sec) && (o.sec as number) >= 0 && (o.sec as number) <= 7200 ? (o.sec as number) : null
+  const w: AttemptWrite = {
+    userId: user.id,
+    taskKey: task.def.key,
+    applicationId: live.app.id,
+    itemRef: itemId,
+    contentHash: task.def.hash(task.ann),
+    activity: 'theater',
     phase: 'practice',
-    response: { ...(graded.response as object), annotation: task.ann.version, appVersion: live.app.version, grade: graded.summary },
-    is_correct: graded.grade.isCorrect,
-    sec: seconds,
-  })
-  if (error) throw new Error(`수행 기록 저장 실패: ${error.message}`)
-  const { count } = await client.from('learning_task_attempts').select('id', { count: 'exact', head: true })
-    .eq('user_id', userId).eq('task_key', task.def.key).eq('item_ref', itemId)
-  return { grade: graded.grade, attempts: count ?? 1 }
+    helpLevel: meta.value.helpLevel,
+    synthetic: isSyntheticEmail(user.email),
+    clientMutationId: meta.value.clientMutationId,
+    clientSessionId: meta.value.clientSessionId,
+    answeredAt: meta.value.answeredAt,
+    sec,
+    isCorrect: graded.grade.isCorrect,
+    answer: graded.response as Record<string, unknown>,
+    extra: { annotation: task.ann.version, appVersion: live.app.version, grade: graded.summary },
+  }
+  const sessionId = await writer.reveal(w)
+  const outcome = await writer.record(w, sessionId)
+  if (outcome === 'conflict') throw new TaskInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요')
+  const { count, error } = await client.from('learning_task_attempts').select('id', { count: 'exact', head: true })
+    .eq('user_id', user.id).eq('task_key', task.def.key).eq('item_ref', itemId)
+  // count 는 오류를 0 으로 삼키지 않는다(AGENTS 「두 번 이상 고친 실수」) — 화면용 보조 수치라 실패해도 기록 결과는 그대로
+  return { grade: graded.grade, attempts: error || count == null ? 1 : count, outcome }
 }
 
 /** @deprecated 첫 수직 경로 이름(호환) — recordItemTaskAttempt 를 쓴다 */
