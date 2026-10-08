@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js'
 import { assertExternalCandidate } from './frym-benchmark/local-candidate-path.mjs'
 import { loadEnv } from './volume-pool.mjs'
 import { publishAtomicProductionArtifact, runAtomicMultiGradeFactoryDryRun } from './atomic-production-snapshot.mjs'
+import { assertAtomicOutputAbsent, writeAtomicDryRunOutput } from './atomic-production-output.mjs'
 
 const usage = 'Usage: pnpm exec tsx scripts/textbook/atomic-production-run.mjs <dry-run|publish> --group-id ID --stages PATH --render PATH [--out PATH (dry-run only)]'
 if (process.argv.includes('--help')) {
@@ -25,6 +26,8 @@ if (!options.get('--group-id') || !options.get('--stages') || !options.get('--re
     (action === 'publish' && options.has('--out'))) throw Error(usage)
 for (const key of ['--stages', '--render', ...(action === 'dry-run' ? ['--out'] : [])])
   assertExternalCandidate(options.get(key))
+const output = action === 'dry-run' ? path.resolve(options.get('--out')) : null
+if (output) assertAtomicOutputAbsent(output)
 const stages = JSON.parse(fs.readFileSync(options.get('--stages'), 'utf8'))
 const render = JSON.parse(fs.readFileSync(options.get('--render'), 'utf8'))
 loadEnv()
@@ -40,11 +43,8 @@ if (action === 'publish') {
   console.log(JSON.stringify({ status: published.status, snapshot_id: published.snapshot_id,
     snapshot_hash: published.snapshot_hash, output_hash: published.output_hash }))
 } else {
-  const output = path.resolve(options.get('--out'))
-  if (fs.existsSync(output) || fs.existsSync(`${output}.manifest.json`))
-    throw Error('ATOMIC_DRY_RUN_OUTPUT_EXISTS')
-  fs.writeFileSync(output, result.html, { encoding: 'utf8', flag: 'wx' })
-  fs.writeFileSync(`${output}.manifest.json`, JSON.stringify(result.manifest, null, 2) + '\n', { flag: 'wx' })
+  const write = writeAtomicDryRunOutput(output, result.html, result.manifest)
+  if (!write.ok) throw Error(`ATOMIC_DRY_RUN_WRITE_FAILED_NEW_APPROVAL_REQUIRED:${result.manifest.snapshot_id};LEFTOVERS:${write.leftovers.join(',')}`)
   console.log(JSON.stringify({ status: 'atomic_snapshot_unpublished', snapshot_id: result.manifest.snapshot_id,
     snapshot_hash: result.manifest.snapshot_hash, output_hash: result.manifest.html_sha256 }))
 }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+- fix(textbook): Reject occupied atomic dry-run output paths before snapshot capture and report the consumed snapshot for recovery if filesystem writing fails after finalization.
+
+- docs(textbook): Audit the Product Order-to-serving synthetic pipeline against completion criteria and separate implementation closure from real-data operational validation.
+
 - feat(textbook): Connect atomic production publication to an admin-only, no-store artifact download. Revalidate current DB evidence on every read, verify the returned HTML hash, and fail closed on revoked or mixed output; real-content production verification remains pending.
 
 - docs(agents): Make textbook-factory pipeline completion the top-priority goal. Classify findings by impact on synthetic end-to-end completion, defer real rights/data acquisition and optional work, and keep operational validity separate from implementation readiness.
