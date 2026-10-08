@@ -27,6 +27,14 @@ rights bytes fail. A separate admitted-reference calibration path must be used t
 open the calibration role. The four-source [role screen](../../../docs/reports/open-reference-role-screen-20261008.md)
 yielded structural N=2 and calibration N=0.
 
+`structural-reference.mjs <external-role-input> <external-role-screen> <external-specs> <new-external-output>`
+rechecks the role screen and exact HTML excerpt hashes, then emits deterministic
+non-grade structure counts without source text. A changed source, rights document,
+role screen, selected excerpt, or selected source set fails. `bindStructuralPlanningNote`
+creates an advisory-only Product Order sidecar bound to caller-supplied order identity;
+it is not production evidence and cannot affect targets, grade fit, separation, Gold-S,
+or seed gates. See the [actual N=2 characterization](../../../docs/reports/structural-reference-characterization-20261008.md).
+
 ## Admission to calibration contract
 
 `reference-calibration.mjs` re-admits the current source before evaluating three independent
