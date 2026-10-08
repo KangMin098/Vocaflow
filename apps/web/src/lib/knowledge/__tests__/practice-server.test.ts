@@ -254,6 +254,13 @@ describe('P1: 내 기록 읽기 — direct · g2 어느 기록이든 같은 칸�
     ), 'u1', { preview: false })
     expect(got.map((g) => [g.itemId, g.helpLevel])).toEqual([['A', 'viewed_first'], ['B', 'viewed_first'], ['C', 'viewed_first'], ['D', 'independent']])
   })
+  it('G2 전 직접 기록(뷰 help_level NULL)은 저장값으로 판단 — independent 를 viewed_first 로 덮지 않는다(Codex P2)', async () => {
+    const got = await loadMyAttempts(learnerDb(
+      [{ id: 9, task_key: PRACTICE_TASK, item_ref: 'L', phase: 'practice', help_level: null, activity: null, answered_at: '2026-10-08T05:00:00Z', response: { activity: 'practice', help_level: 'independent', grade: { claim: true } } }],
+      [{ attempt_id: 9, help_level: null, after_explanation: false, timing_uncertain: false }],
+    ), 'u1', { preview: false })
+    expect(got.map((g) => g.helpLevel)).toEqual(['independent'])
+  })
   it('같은 과제 · 문항 · 단계의 첫 판단이 해설 극장이면 Practice 재풀이는 첫 시도가 아니다(DB 뷰와 같은 키)', async () => {
     const base = { task_key: PRACTICE_TASK, item_ref: 'A', phase: 'practice', help_level: 'independent', response: { grade: { claim: true } } }
     const got = await loadMyAttempts(learnerDb([

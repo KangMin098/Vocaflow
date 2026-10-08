@@ -143,9 +143,16 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
     .in('task_key', [PRACTICE_TASK, SKELETON_TASK])
     .limit(1000)
   if (fErr) throw new Error(`첫 시도 읽기 실패: ${fErr.message}`)
-  const effective = new Map<number, boolean>()
+  // 뷰 help_level 이 NULL(G2 전 직접 기록 — 세션 없음 · 열 없음)이면 독립 여부는 저장값(response 호환)으로, 해설 뒤 · 시각 불확실은 그대로 적용
+  const view = new Map<number, { help: string | null; blocked: boolean }>()
   for (const f of (firsts ?? []) as { attempt_id?: number; help_level?: string | null; after_explanation?: boolean | null; timing_uncertain?: boolean | null }[]) {
-    if (typeof f.attempt_id === 'number') effective.set(f.attempt_id, f.help_level === 'independent' && !f.after_explanation && !f.timing_uncertain)
+    if (typeof f.attempt_id === 'number') view.set(f.attempt_id, { help: f.help_level ?? null, blocked: Boolean(f.after_explanation) || Boolean(f.timing_uncertain) })
+  }
+  const stored = (r: Row) => (r.help_level ?? r.response?.help_level ?? 'independent') === 'independent'
+  const independent = (r: Row) => {
+    const v = view.get(r.id)
+    if (!v) return stored(r)
+    return (v.help === null ? stored(r) : v.help === 'independent') && !v.blocked
   }
   return rows
     .filter((r) => (r.activity ?? r.response?.activity) === 'practice' && (r.response?.preview === true) === opts.preview)
@@ -157,9 +164,7 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
       itemId: r.item_ref as string,
       phase: r.phase as PracticePhase,
       // hint 도 독립이 아니다 — 「지금 내 상태」 판단에서 viewed_first 와 같이 뺀다(보수적)
-      helpLevel: (effective.has(r.id)
-        ? (effective.get(r.id) ? 'independent' : 'viewed_first')
-        : (r.help_level ?? r.response?.help_level ?? 'independent') === 'independent' ? 'independent' : 'viewed_first') as HelpLevel,
+      helpLevel: (independent(r) ? 'independent' : 'viewed_first') as HelpLevel,
       claimHit: typeof (r.response?.grade as Record<string, unknown> | undefined)?.claim === 'boolean' ? ((r.response!.grade as Record<string, boolean>).claim) : null,
       answeredAt: r.answered_at,
     }))
