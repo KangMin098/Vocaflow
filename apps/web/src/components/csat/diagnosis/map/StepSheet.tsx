@@ -188,10 +188,14 @@ function PracticeResultLine({ r }: { r: PracticeResult }) {
         {r.firstIndependent === false ? '(해설이나 힌트를 본 뒤였어요)' : ''}
         {r.attempts > 1 ? ` · 최근(${kstDay(r.latestAt)}) ${word(r.latestCorrect)}` : ` (${kstDay(r.latestAt)})`}
       </span>
+      {r.transfer && <span data-testid="find-practice-transfer">다른 지문에 적용 {r.transfer.attempts}번 · 최근 {word(r.transfer.latestCorrect)}</span>}
+      {r.reviewAt && r.next !== 'review' && <span data-testid="find-practice-review">다시 보기 예약 {kstDay(r.reviewAt)}</span>}
       <span>
         {r.next === 'retry'
           ? '다음: 결과 안내에서 짚어 준 문장을 다시 읽고, 같은 과제를 한 번 더 해 보세요.'
-          : '다음: 이 확인은 마쳤어요. 위 체크를 표시하고 다음 확인으로 넘어가요.'}
+          : r.next === 'review'
+            ? `다음: 다시 보기로 잡아 둔 날(${kstDay(r.reviewAt)})이 지났어요. 같은 과제를 다시 확인해 보세요.`
+            : '다음: 이 확인은 마쳤어요. 위 체크를 표시하고 다음 확인으로 넘어가요.'}
         {' '}이번 확인의 결과일 뿐, 이 힘이 생겼다는 판정은 아니에요.
       </span>
     </span>

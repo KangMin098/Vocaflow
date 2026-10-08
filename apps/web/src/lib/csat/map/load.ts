@@ -18,7 +18,7 @@ import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
 
-import { practiceResultsFor, type AttemptRow, type FirstAttemptRow, type PracticeResult } from './practice-results'
+import { practiceResultsFor, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 
@@ -275,7 +275,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
 
   // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
   const practiceLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
-  const practiceResults = await loadPracticeResults(db, userId, practiceLinks).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
+  const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
 
   return {
     model: buildMapModel(raw, examLabels),
@@ -294,22 +294,27 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
 }
 
 /** 결과 환류 — 연결된 실행 과제의 본인 수행 기록과 첫 시도. 이 db 는 서버 키라서 user_id 로 직접 좁힌다 */
-async function loadPracticeResults(db: Db, userId: string, links: Record<string, MapPracticeLink>): Promise<Record<string, PracticeResult>> {
+async function loadPracticeResults(db: Db, userId: string, links: Record<string, MapPracticeLink>, now: Date): Promise<Record<string, PracticeResult>> {
   const items = [...new Set(Object.values(links).map((l) => l.itemId))]
+  const keys = [...new Set(Object.values(links).map((l) => l.taskKey))]
   if (items.length === 0) return {}
-  const [att, first] = await Promise.all([
+  const [att, first, rev] = await Promise.all([
     // 최근부터 500건 — 최근 결과 · 다음 행동이 잘리지 않게(처음 결과는 첫 시도 뷰가 정본). 횟수는 아래에서 따로 센다
-    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at').eq('user_id', userId).in('item_ref', items).order('answered_at', { ascending: false }).limit(500),
+    // 같은 과제 키의 기록 — 이 문항 연습과 다른 지문 전이(transfer)를 함께 읽는다
+    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).order('answered_at', { ascending: false }).limit(500),
     db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, answered_at').eq('user_id', userId).in('item_ref', items).order('answered_at'),
+    db.from('learning_sessions').select('item_ref, review_at, deleted_at').eq('user_id', userId).in('item_ref', items).not('review_at', 'is', null),
   ])
   if (att.error) throw new Error(`수행 기록 조회 실패: ${att.error.message}`)
   // 첫 시도 뷰가 없거나(마이그레이션 전) 읽지 못하면 도움 여부만 모른다고 둔다 — 횟수 · 결과는 그대로 보인다
   const firsts = first.error ? [] : (first.data ?? []) as FirstAttemptRow[]
-  const out = practiceResultsFor(links, (att.data ?? []) as AttemptRow[], firsts)
+  // 예약을 못 읽으면 예약만 빠진다
+  const reviews = rev.error ? [] : (rev.data ?? []) as ReviewRow[]
+  const out = practiceResultsFor(links, (att.data ?? []) as AttemptRow[], firsts, reviews, now)
   // 500건을 넘는 학습자 — 횟수만 정확히 다시 센다(연결 수만큼 head 요청)
   if ((att.data ?? []).length >= 500) {
     for (const [taskId, link] of Object.entries(links)) {
-      const { count, error } = await db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('item_ref', link.itemId)
+      const { count, error } = await db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('item_ref', link.itemId).neq('phase', 'transfer')
       if (error || count === null) throw new Error(`수행 횟수 조회 실패: ${error?.message ?? 'count=null'}`)
       out[taskId] = { ...out[taskId], attempts: count }
     }

@@ -8,7 +8,7 @@ const row = (is_correct: boolean, answered_at: string, task_key = 'claim-support
 
 describe('summarizePractice', () => {
   it('수행이 없으면 start', () => {
-    expect(summarizePractice([], null)).toEqual({ attempts: 0, firstCorrect: null, firstIndependent: null, latestCorrect: null, latestAt: null, next: 'start' })
+    expect(summarizePractice([], null)).toEqual({ attempts: 0, firstCorrect: null, firstIndependent: null, latestCorrect: null, latestAt: null, transfer: null, reviewAt: null, next: 'start' })
   })
   it('오답 뒤 정답 — 처음은 오답 · 최근은 정답 · 다음은 넘어가기(도착 순서가 아니라 판단 시각 순)', () => {
     const r = summarizePractice([row(true, '2026-10-08T10:05:00Z'), row(false, '2026-10-08T10:00:00Z')], null)
@@ -32,11 +32,35 @@ describe('summarizePractice', () => {
   })
 })
 
+describe('복습 · 전이', () => {
+  const now = new Date('2026-10-20T00:00:00Z')
+  it('최근 정답이고 예약일이 지났으면 review · 아직이면 move_on(예약일 표시)', () => {
+    const rows = [row(true, '2026-10-08T10:00:00Z')]
+    expect(summarizePractice(rows, null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: null }], now }).next).toBe('review')
+    const later = summarizePractice(rows, null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-25T00:00:00Z', deleted_at: null }], now })
+    expect(later).toMatchObject({ next: 'move_on', reviewAt: '2026-10-25T00:00:00Z' })
+  })
+  it('최근이 오답이면 예약보다 retry 가 먼저', () => {
+    expect(summarizePractice([row(false, '2026-10-08T10:00:00Z')], null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: null }], now }).next).toBe('retry')
+  })
+  it('삭제된 세션의 예약은 쓰지 않는다 · now 가 없으면 예약일이 지났다고 보지 않는다', () => {
+    const rows = [row(true, '2026-10-08T10:00:00Z')]
+    expect(summarizePractice(rows, null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: '2026-10-16T00:00:00Z' }], now }).reviewAt).toBeNull()
+    expect(summarizePractice(rows, null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: null }] }).next).toBe('move_on')
+  })
+})
+
 describe('practiceResultsFor', () => {
   const links = {
     'B6-3': { href: '/csat/item/2022-20#principle', label: 'x', itemId: '2022#20', taskKey: 'claim-support' },
     'A3-4': { href: '/csat/item/2022-36#principle', label: 'y', itemId: '2022#36', taskKey: 'cohesion-link' },
   }
+  it('전이(transfer)는 같은 과제 키면 다른 문항이어도 붙고, 이 문항 연습 횟수에는 들어가지 않는다', () => {
+    const rows = [row(true, '2026-10-08T10:00:00Z'), { ...row(false, '2026-10-08T11:00:00Z', 'claim-support', '2023#22'), phase: 'transfer' }]
+    const out = practiceResultsFor(links, rows, [])
+    expect(out['B6-3']).toMatchObject({ attempts: 1, transfer: { attempts: 1, latestCorrect: false } })
+    expect(out['A3-4'].transfer).toBeNull()
+  })
   it('과제 키와 문항이 모두 같은 기록만 그 지도 과제에 붙인다', () => {
     const rows = [row(true, '2026-10-08T10:00:00Z'), row(false, '2026-10-08T10:01:00Z', 'cohesion-link', '2022#20'), row(false, '2026-10-08T10:02:00Z', 'claim-support', '2021#20')]
     const out = practiceResultsFor(links, rows, [])
