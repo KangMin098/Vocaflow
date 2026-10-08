@@ -1,6 +1,9 @@
 -- docs/csat-learner/g2-draft/learning_task_attempts_ext.sql
 --
--- ⚠️ 초안 — 적용 금지. supabase/migrations 에 두지 않는다(자동 적용·번호 충돌 방지).
+-- ⚠️ 초안 — 적용 금지. **단독 적용 금지 · G2 통합 세트의 입력 자료**(2026-10-08 사용자 결정 · G2_SESSION_CONTRACT.md §4).
+--    서버 세션은 별도 표로 확정됐다 — 아래 「(a) 새 표 없음」안과 client_attempt_id 명칭은 통합 설계에서 대체된다
+--    (요청 멱등 키 = user_id + client_mutation_id).
+-- (원문) supabase/migrations 에 두지 않는다(자동 적용·번호 충돌 방지).
 -- G2 에서 vocaflow-b5 의 **통합 SQL 세트**에 합류한다(사용자 결정 2026-10-08 · VNEXT_MERGE.md §0).
 -- 근거 계약: docs/csat-learner/G0_LEARNING_CONTRACT.md §6.
 --

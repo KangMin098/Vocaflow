@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- chore(csat-learner): read-only test leakage cleanup — G1 E2E 로그인 단계의 분석 이벤트 가로채기 누락으로 funnel_events 에 들어간 screen_viewed 3행(PK 25756·25766·25767)을 사용자 승인 후 PK 한정 트랜잭션으로 삭제(삭제 전 3 · 후 0 · 다른 행 0). 재발 방지 36af66acc. [incident](./csat-learner/G1_INCIDENT_2026-10-08.md) · G0·G1 CLOSED · G2 결정 [서버 세션 · 멱등 분리 · 첫 시도 정의](./csat-learner/G2_SESSION_CONTRACT.md)(설계만 · 통합 SQL 미적용).
+
 - feat(csat-learner): G0·G1 학습 루프 — [G0 계약](./csat-learner/G0_LEARNING_CONTRACT.md)(세션↔시도 · activity/phase/help_level · completion 파생 · 병합·멱등·삭제 표시 · 정본 이관). 해설 극장에 세션(재개 · 「이 문항 마치기」 · 완료 카드 · 다시 보기 예약)을 기기 기록으로 붙였다(DB 변경 없음 · `csat_learner_state.record.sessions`). 「모르겠어요」는 적중률 분모·분자에서 뺀다(저장값 유지 · 생성 경로 `PredictGate.tsx:40` 확인). 내 공식 화면이 서버 사본과 합쳐 읽는다. `csat_dx_viewed` · `csat_map_viewed` · `csat_session_started` 중복 송신을 막았다. 노출 문항 정합성 읽기 전용 검사 `scripts/csat/learner-integrity-check.mjs`(확정 결함 0 · 확인 후보 22 · 강의 낡음 49). G2 SQL 초안 `docs/csat-learner/g2-draft/`(미적용).
 
 - feat(csat-map): 학습 지도 vNext 를 main 에 clean integration — 원본 `feat/map-vnext`(커밋 100 · 파일 451)에서 지도에 필요한 것만(마이그레이션 `20261002120000_csat_map` · `20261002120100_funnel_allow_csat_map` · `20261002130000_csat_map_item_rate_ledger`, 지도 코드 · 진단 판정 · API 2 · 이벤트 4 · 검증 스크립트). Workspace · 어휘 표지 · 사전 · 오답 원인 Evidence · seed v2 제외. 목록·동등성 [MAP_INTEGRATION_MANIFEST](./csat-learner/MAP_INTEGRATION_MANIFEST.md) · 빈 DB 검증 `scripts/csat/map/fresh-db-check.mjs`.
