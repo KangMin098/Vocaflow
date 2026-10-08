@@ -11,7 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- docs(csat-learner): G2 통합 데이터 계약 검토 — [보고서](./csat-learner/G2_INTEGRATION_REVIEW.md) · 통합 SQL 초안(서버 세션 표 · 요청 멱등 원장 · 시도 표 확장 · 첫 시도 뷰 · 이벤트 83종, sha256 5f3f108f…, 미적용) · PGlite 오프라인 검증 32/32. 소유권 근거: 공유 스키마 = methodology-vnext 세션(지정은 사용자 승인 대기). DB 쓰기 0.
+- docs(csat-learner): G2 통합 데이터 계약 검토 — [보고서](./csat-learner/G2_INTEGRATION_REVIEW.md) · 통합 SQL 초안(서버 세션 표 · 요청 멱등 원장 · 시도 표 확장 · 첫 시도 뷰 · 이벤트 83종, sha256 179d884b…, 미적용) · PGlite 오프라인 검증 38/38. 소유권 근거: 공유 스키마 = methodology-vnext 세션(지정은 사용자 승인 대기). DB 쓰기 0.
 
 - chore(csat-learner): read-only test leakage cleanup — G1 E2E 로그인 단계의 분석 이벤트 가로채기 누락으로 funnel_events 에 들어간 screen_viewed 3행(PK 25756·25766·25767)을 사용자 승인 후 PK 한정 트랜잭션으로 삭제(삭제 전 3 · 후 0 · 다른 행 0). 재발 방지 36af66acc. [incident](./csat-learner/G1_INCIDENT_2026-10-08.md) · G0·G1 CLOSED · G2 결정 [서버 세션 · 멱등 분리 · 첫 시도 정의](./csat-learner/G2_SESSION_CONTRACT.md)(설계만 · 통합 SQL 미적용).
 

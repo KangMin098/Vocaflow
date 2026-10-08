@@ -31,8 +31,8 @@
 | Practice 쓰기 경로 | — | `lib/knowledge/product-server.ts` 직접 INSERT(user_id · task_key · application_id · item_ref · content_hash · phase · response · is_correct · sec) | **그대로 동작**(새 열이 모두 NULL 허용). 멱등 · 세션 연결은 `learning_attempt_record` RPC로 옮길 때 생김 |
 
 ## 3. 통합 SQL 초안과 SHA-256
-- 파일: `docs/csat-learner/g2-draft/20261008160000_learning_sessions_integrated.sql` (236줄)
-- **sha256 `5f3f108fdeb0aefed88c44a3121b114c6dc36aea8dc7a729db3cc7ca4a482aa3`**
+- 파일: `docs/csat-learner/g2-draft/20261008160000_learning_sessions_integrated.sql` (249줄)
+- **sha256 `179d884bb4b530d3ae12fabf990335a383255a4c5f2c8a64aadd803e1bdd6361`** (Codex 리뷰 P1 3건 반영본 · 이전 `5f3f108f…` 대체)
 - 번호: 개발 DB 최신 `20261008150000` 다음입니다. `supabase/migrations`에 **두지 않았습니다**(자동 적용과 번호 선점 방지). 적용 직전에 다시 확인합니다.
 - 이전 초안 `learning_task_attempts_ext.sql`(`664ef0e8…`)은 참고 자료로만 썼습니다.
 
@@ -54,7 +54,7 @@
 | 새 표 2개 | 0 | 빈 표 |
 | 기존 화면 · 코드 | — | 영향 없음. 이벤트 13종은 적용 뒤 별도 커밋으로 켭니다(§6) |
 
-## 5. RLS · RPC · 멱등성 검증 (오프라인, 32/32 PASS)
+## 5. RLS · RPC · 멱등성 검증 (오프라인, 38/38 PASS)
 PGlite 0.2.17 메모리 Postgres에 정본 `learning_task_attempts` DDL과 권한, 현재 68종 CHECK를 **그대로** 만들고 초안을 적용했습니다. 공유 DB에는 닿지 않았습니다.
 
 | 영역 | 검사 |
@@ -64,6 +64,9 @@ PGlite 0.2.17 메모리 Postgres에 정본 `learning_task_attempts` DDL과 권�
 | 시도 | inserted · 재전송은 duplicate(1행) · 다른 채점은 conflict · 다시 풀기는 새 시도이고 첫 시도는 1개 · 남의 세션 연결 거부 · 해설 먼저 본 세션의 첫 시도에 `after_viewed_first=true` |
 | 권한 | 다른 학습자의 세션은 안 보임(RLS) · 학습자의 RPC 직접 호출 거부 · 학습자의 세션 표 직접 쓰기 거부 · 학습자의 멱등 원장 읽기 거부 · 본인 읽기 허용 |
 | 되돌리기 | 실행 성공 · 새 표 제거 · 시도 표 13열 복원 |
+| Codex 리뷰 P1 회귀 | 늦게 도착한 이른 판단이 첫 시도(판단 시각 순) · 같은 키 다른 판단 시각 → conflict · 같은 키 다른 `application_id` → conflict · 세션 같은 키 다른 `synthetic` → conflict · 이미 쓴 키로 다른 세션 → conflict **이고 빈 세션도 남기지 않음** |
+
+**Codex 리뷰(e601f9a42) 반영**: ① 시도 RPC가 기기의 판단 시각(`p_answered_at`)을 받아 저장하고 첫 시도 뷰가 그 순으로 고른다(네트워크 도착 순이 아님). **클라이언트는 판단 시각을 반드시 보낸다** — 서버가 채운 시각은 재시도마다 달라 비교에서 뺐다(하네스가 잡은 회귀). ② 두 RPC의 멱등 비교에 저장하는 모든 의미 입력(task · application · trial · synthetic · 판단 시각)을 넣었다. ③ 세션 RPC가 세션 행을 만들기 **전에** 멱등 키를 예약해(대상 = client_session_id) 충돌 시 빈 세션도 남기지 않는다. 하네스 사본의 import 누락(커밋본에서 실행 불가)도 고쳤다 — 38/38 은 저장소 사본으로 돌린 결과다.
 
 **한계**: 하네스는 마이그레이션 전체 이력이 아니라 **닿는 대상만 정본과 같게 만든 스텁**입니다. Supabase 고유 동작(`auth.uid()`, PostgREST 역할 전환)은 흉내만 냈습니다. 적용 전 최종 확인은 담당 세션이 적용 트랜잭션 안의 사전 검사(§8)로 합니다.
 

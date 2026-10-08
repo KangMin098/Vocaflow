@@ -133,6 +133,36 @@
       "detail": ""
     },
     {
+      "name": "첫 시도는 판단 시각 순(늦게 도착한 이른 판단)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "같은 mutation · 다른 판단 시각 → conflict",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "같은 mutation · 다른 application_id → conflict",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "세션: 같은 mutation · 다른 synthetic → conflict",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "세션: 이미 쓴 mutation 으로 다른 세션 → conflict",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "conflict 는 빈 세션조차 만들지 않는다",
+      "pass": true,
+      "detail": ""
+    },
+    {
       "name": "다른 학습자는 내 세션을 못 본다(RLS)",
       "pass": true,
       "detail": ""

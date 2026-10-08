@@ -1,6 +1,7 @@
 // docs/csat-learner/g2-draft/pglite-harness.mjs
 // 통합 SQL 초안의 오프라인 검증(메모리 Postgres · PGlite 0.2.17). 공유 DB 에 닿지 않는다.
 // 실행: 임시 폴더에서 npm i @electric-sql/pglite@0.2 → node pglite-harness.mjs <sql> <result.json> <날짜>
+import fs from 'node:fs'
 import { PGlite } from '@electric-sql/pglite'
 
 const SQL = fs.readFileSync(process.argv[2], 'utf8')
@@ -153,6 +154,31 @@ try {
 const s3 = (await one(db, 'select * from public.learning_session_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)', [A, uuid(50), uuid(920), 'theater', 'practice', '2026#19', 'revealed', 0, 14, 'viewed_first', T(20)])).session_id
 await one(db, 'select * from public.learning_attempt_record($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)', [A, uuid(51), s3, 'csat_theater_gate', 'theater', 'practice', null, '2026#19', 'v4', '{}', true, 20, false])
 ok('해설 먼저 본 세션의 첫 시도는 after_viewed_first=true', (await one(db, "select after_viewed_first from public.learning_first_attempts where item_ref='2026#19'")).after_viewed_first === true)
+
+// ── Codex 리뷰 P1 회귀 ──
+// (1) 오프라인 판단이 늦게 동기화돼도 첫 시도는 판단 시각 순
+const recAt = (mut, correct, at, item = '2026#30', app = null) =>
+  one(db, 'select * from public.learning_attempt_record($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)', [
+    A, mut, null, 'csat_theater_gate', 'theater', 'practice', 'independent', item, 'v4', '{}', correct, 10, false, app, null, at,
+  ])
+await recAt(uuid(70), true, '2026-10-08T07:40:00Z') // 나중 판단이 먼저 도착
+await recAt(uuid(71), false, '2026-10-08T07:30:00Z') // 먼저 한 판단이 늦게 도착
+ok('첫 시도는 판단 시각 순(늦게 도착한 이른 판단)', (await one(db, "select is_correct from public.learning_first_attempts where item_ref='2026#30'")).is_correct === false)
+let d = await recAt(uuid(71), false, '2026-10-08T07:35:00Z')
+ok('같은 mutation · 다른 판단 시각 → conflict', d.outcome === 'conflict')
+// (2) application · trial · synthetic 이 달라도 conflict
+await db.query("insert into public.knowledge_applications values ('33333333-3333-3333-3333-333333333333')")
+await recAt(uuid(80), true, '2026-10-08T07:50:00Z', '2026#31')
+d = await recAt(uuid(80), true, '2026-10-08T07:50:00Z', '2026#31', '33333333-3333-3333-3333-333333333333')
+ok('같은 mutation · 다른 application_id → conflict', d.outcome === 'conflict')
+d = await one(db, 'select * from public.learning_session_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)', [
+  A, uuid(20), uuid(910), 'theater', 'practice', '2026#18', 'open', 0, 14, null, T(10), null, false, true,
+])
+ok('세션: 같은 mutation · 다른 synthetic → conflict', d.outcome === 'conflict')
+// (3) 충돌한 세션 변경은 새 세션을 만들지 않는다
+d = await one(db, 'select * from public.learning_session_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)', [A, uuid(1), uuid(950), 'theater', 'practice', '2026#40', 'open', 0, 14, null, T(30)])
+ok('세션: 이미 쓴 mutation 으로 다른 세션 → conflict', d.outcome === 'conflict')
+ok('conflict 는 빈 세션조차 만들지 않는다', (await one(db, 'select count(*)::int n from public.learning_sessions where client_session_id=$1', [uuid(950)])).n === 0)
 
 // ── 권한(RLS · RPC) ──
 await db.exec(`set test.uid = '${B}'; set role authenticated;`)

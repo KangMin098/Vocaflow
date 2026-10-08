@@ -60,7 +60,7 @@ create table public.learning_mutations (
   user_id uuid not null references auth.users(id) on delete cascade,
   client_mutation_id uuid not null,
   kind text not null check (kind in ('session', 'attempt')),
-  target uuid not null,          -- 세션 id 또는 시도가 속한 세션 id
+  target uuid not null,          -- 세션 변경: client_session_id(세션 행을 만들기 **전에** 예약) · 시도: 소속 세션 id(없으면 0-uuid)
   payload jsonb not null,        -- 의미 비교용(jsonb 동등 — 키 순서 무관)
   applied_at timestamptz not null default now(),
   primary key (user_id, client_mutation_id)
@@ -107,18 +107,23 @@ declare
   v_claim text;
   v_rank_new int := case p_stage when 'open' then 0 when 'revealed' then 1 else 2 end;
 begin
+  -- 멱등 예약을 **세션 행을 만들기 전에** 한다 — conflict 면 아무것도(빈 세션조차) 남기지 않는다(Codex 리뷰 P1).
+  -- 대상은 client_session_id · 모든 의미 입력을 비교한다(task_key · application · trial · synthetic 포함).
+  v_claim := public.learning_mutation_claim(p_user, p_mutation, 'session', p_client_session_id,
+    jsonb_build_object('stage', p_stage, 'step', p_step, 'steps', p_steps, 'help', p_help_level, 'at', p_at,
+                       'review_at', p_review_at, 'deleted', coalesce(p_deleted, false), 'item', p_item_ref, 'activity', p_activity,
+                       'phase', p_phase, 'task', p_task_key, 'application', p_application_id, 'trial', p_trial_id,
+                       'synthetic', coalesce(p_synthetic, false)));
+  if v_claim <> 'new' then
+    select id into v_id from public.learning_sessions where user_id = p_user and client_session_id = p_client_session_id;
+    session_id := v_id; outcome := v_claim; return next; return;
+  end if;
+
   insert into public.learning_sessions (user_id, client_session_id, activity, phase, item_ref, task_key, application_id, trial_id,
                                         started_at, last_active_at, synthetic)
   values (p_user, p_client_session_id, p_activity, p_phase, p_item_ref, p_task_key, p_application_id, p_trial_id, p_at, p_at, coalesce(p_synthetic, false))
   on conflict (user_id, client_session_id) do nothing;
   select id into v_id from public.learning_sessions where user_id = p_user and client_session_id = p_client_session_id;
-
-  v_claim := public.learning_mutation_claim(p_user, p_mutation, 'session', v_id,
-    jsonb_build_object('stage', p_stage, 'step', p_step, 'steps', p_steps, 'help', p_help_level, 'at', p_at,
-                       'review_at', p_review_at, 'deleted', p_deleted, 'item', p_item_ref, 'activity', p_activity, 'phase', p_phase));
-  if v_claim <> 'new' then
-    session_id := v_id; outcome := v_claim; return next; return;
-  end if;
 
   update public.learning_sessions s set
     stage = case when v_rank_new > (case s.stage when 'open' then 0 when 'revealed' then 1 else 2 end) then p_stage else s.stage end,
@@ -139,27 +144,35 @@ end $$;
 create function public.learning_attempt_record(
   p_user uuid, p_mutation uuid, p_session_id uuid, p_task_key text, p_activity text, p_phase text, p_help_level text,
   p_item_ref text, p_content_hash text, p_response jsonb, p_is_correct boolean, p_sec integer, p_synthetic boolean,
-  p_application_id uuid default null, p_trial_id uuid default null
+  p_application_id uuid default null, p_trial_id uuid default null,
+  -- 판단한 시각(기기 시각). 오프라인 판단이 늦게 동기화돼도 「첫 시도」 순서는 이 값으로 정한다(Codex 리뷰 P1)
+  p_answered_at timestamptz default null
 ) returns table (attempt_id bigint, outcome text)
 language plpgsql security invoker set search_path = '' as $$
-declare v_claim text;
+declare
+  v_claim text;
+  v_answered timestamptz := coalesce(p_answered_at, now());
 begin
   if p_session_id is not null and not exists (select 1 from public.learning_sessions where id = p_session_id and user_id = p_user) then
     raise exception 'session % does not belong to user', p_session_id;
   end if;
+  -- 저장하는 모든 의미 입력을 비교한다 — application · trial · 판단 시각 포함(Codex 리뷰 P1)
   v_claim := public.learning_mutation_claim(p_user, p_mutation, 'attempt', coalesce(p_session_id, '00000000-0000-0000-0000-000000000000'::uuid),
     jsonb_build_object('task', p_task_key, 'activity', p_activity, 'phase', p_phase, 'help', p_help_level, 'item', p_item_ref,
                        'hash', p_content_hash, 'response', coalesce(p_response, '{}'::jsonb), 'correct', p_is_correct, 'sec', p_sec,
-                       'synthetic', coalesce(p_synthetic, false)));
+                       'synthetic', coalesce(p_synthetic, false), 'application', p_application_id, 'trial', p_trial_id,
+                       -- 기기가 보낸 판단 시각만 비교한다 — 서버가 채운 now() 는 재시도마다 달라 멱등을 깬다(하네스 실측).
+                       -- 그래서 클라이언트는 판단 시각을 **반드시** 보낸다(첫 시도 순서의 근거)
+                       'answered_at', p_answered_at));
   if v_claim <> 'new' then
     select id into attempt_id from public.learning_task_attempts where user_id = p_user and client_mutation_id = p_mutation;
     outcome := v_claim; return next; return;
   end if;
   insert into public.learning_task_attempts
     (user_id, client_mutation_id, session_id, task_key, activity, phase, help_level, item_ref, content_hash, response, is_correct, sec,
-     synthetic, application_id, trial_id)
+     synthetic, application_id, trial_id, answered_at)
   values (p_user, p_mutation, p_session_id, p_task_key, p_activity, p_phase, p_help_level, p_item_ref, p_content_hash,
-          coalesce(p_response, '{}'::jsonb), p_is_correct, p_sec, coalesce(p_synthetic, false), p_application_id, p_trial_id)
+          coalesce(p_response, '{}'::jsonb), p_is_correct, p_sec, coalesce(p_synthetic, false), p_application_id, p_trial_id, v_answered)
   returning id into attempt_id;
   outcome := 'inserted'; return next;
 end $$;
@@ -188,10 +201,10 @@ revoke all on public.learning_first_attempts from anon;
 grant select on public.learning_first_attempts to authenticated, service_role;
 revoke all on function public.learning_mutation_claim(uuid, uuid, text, uuid, jsonb) from public, anon, authenticated;
 revoke all on function public.learning_session_apply(uuid, uuid, uuid, text, text, text, text, integer, integer, text, timestamptz, timestamptz, boolean, boolean, text, uuid, uuid) from public, anon, authenticated;
-revoke all on function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid) from public, anon, authenticated;
+revoke all on function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid, timestamptz) from public, anon, authenticated;
 grant execute on function public.learning_mutation_claim(uuid, uuid, text, uuid, jsonb) to service_role;
 grant execute on function public.learning_session_apply(uuid, uuid, uuid, text, text, text, text, integer, integer, text, timestamptz, timestamptz, boolean, boolean, text, uuid, uuid) to service_role;
-grant execute on function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid) to service_role;
+grant execute on function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid, timestamptz) to service_role;
 
 -- ── ⑥ 이벤트 허용 목록 — 기존 68 ∪ knowledge 2 ∪ 기출 13 = 83 ────────────────
 alter table public.funnel_events drop constraint funnel_events_event_check;
@@ -225,7 +238,7 @@ commit;
 --   alter table public.funnel_events drop constraint funnel_events_event_check;
 --   alter table public.funnel_events add constraint funnel_events_event_check check (event in (/* 기존 68 */));
 --   drop view public.learning_first_attempts;
---   drop function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid);
+--   drop function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid, timestamptz);
 --   drop function public.learning_session_apply(uuid, uuid, uuid, text, text, text, text, integer, integer, text, timestamptz, timestamptz, boolean, boolean, text, uuid, uuid);
 --   drop function public.learning_mutation_claim(uuid, uuid, text, uuid, jsonb);
 --   alter table public.learning_task_attempts drop constraint learning_task_attempts_phase_check;
