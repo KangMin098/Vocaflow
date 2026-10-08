@@ -1,0 +1,171 @@
+// apps/web/src/lib/knowledge/practice-writer.ts
+// /csat/practice 시도 기록의 **쓰기 어댑터 하나**(PRACTICE_PORT_BRIEF §4). 호출자는 이 인터페이스만 안다.
+//   direct(지금 · 기본) = 정본 learning_task_attempts 에 직접 INSERT(현재 개발 DB 13열 계약). 세션 표가 없어 reveal 은 기록하지 않는다.
+//   g2(G2 적용 뒤)      = learning_session_apply(reveal) → learning_attempt_record RPC. **G2 SQL 이 적용되기 전에는 켜지 않는다.**
+// 고르는 것: 환경 변수 PRACTICE_ATTEMPT_WRITER=g2 일 때만 g2. 그 밖은 direct.
+//
+// 요청 멱등(G2 §2): 같은 (user, client_mutation_id) 가 다시 오면 duplicate, 의미 필드가 다르면 conflict(덮어쓰지 않는다).
+//   direct 는 유일 키가 없어 response->>client_mutation_id 를 먼저 읽고 넣는다 — 동시에 도착한 두 요청 사이의 틈은 남는다
+//   (화면이 제출 중 잠금으로 막고, 남은 틈은 G2 의 유일 인덱스가 닫는다). 이 한계는 docs/csat-learner/PRACTICE_PORT.md §4.
+// 비교는 칸마다 한다 — jsonb 를 JSON.stringify 로 비교하지 않는다(DB 가 키 순서를 바꾼다).
+import { createHash } from 'node:crypto'
+
+import type { SupabaseClient } from '@supabase/supabase-js'
+
+import type { HelpLevel, PracticePhase } from './practice'
+
+export interface AttemptWrite {
+  userId: string
+  taskKey: string
+  applicationId: string | null
+  itemRef: string
+  contentHash: string
+  activity: 'practice'
+  phase: PracticePhase
+  helpLevel: HelpLevel
+  synthetic: boolean
+  clientMutationId: string
+  clientSessionId: string
+  answeredAt: string
+  sec: number | null
+  isCorrect: boolean
+  /** 학습자 응답 · 채점 요약(정답 키 아님) */
+  answer: { claim: number; support: number[]; relation: string | null; option: number | null; confidence: number }
+  extra: Record<string, unknown>
+}
+
+export type WriteOutcome = 'inserted' | 'duplicate' | 'conflict'
+
+export interface AttemptWriter {
+  readonly kind: 'direct' | 'g2'
+  /** 판단 제출 전에 세션 공개를 먼저 적용한다(G2 RPC 규칙). 세션 id 를 돌려준다 — direct 는 null */
+  reveal(w: AttemptWrite): Promise<string | null>
+  record(w: AttemptWrite, sessionId: string | null): Promise<WriteOutcome>
+}
+
+/** 결정론적 uuid — 같은 세션의 공개 변경은 재시도해도 같은 id(G2 §7 백필 키와 같은 방식) */
+export function stableUuid(...parts: string[]): string {
+  const h = createHash('sha256').update(parts.join('\u0000')).digest('hex')
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-5${h.slice(13, 16)}-${((parseInt(h[16], 16) & 0x3) | 0x8).toString(16)}${h.slice(17, 20)}-${h.slice(20, 32)}`
+}
+
+const sameNums = (a: unknown, b: readonly number[]) => Array.isArray(a) && a.length === b.length && a.every((x, i) => x === b[i])
+
+/** 저장된 response 와 새 요청의 의미 필드가 같은가 */
+export function sameAttempt(row: { item_ref: unknown; phase: unknown; task_key: unknown; answered_at: unknown; response: unknown }, w: AttemptWrite): boolean {
+  const r = (row.response ?? {}) as Record<string, unknown>
+  return (
+    row.item_ref === w.itemRef &&
+    row.phase === w.phase &&
+    row.task_key === w.taskKey &&
+    typeof row.answered_at === 'string' &&
+    Date.parse(row.answered_at) === Date.parse(w.answeredAt) &&
+    r.client_session_id === w.clientSessionId &&
+    r.help_level === w.helpLevel &&
+    r.claim === w.answer.claim &&
+    sameNums(r.support, w.answer.support) &&
+    (r.relation ?? null) === w.answer.relation &&
+    (r.option ?? null) === w.answer.option &&
+    r.confidence === w.answer.confidence
+  )
+}
+
+export function directWriter(db: SupabaseClient): AttemptWriter {
+  return {
+    kind: 'direct',
+    async reveal() {
+      return null
+    },
+    async record(w) {
+      const { data: prior, error: readErr } = await db
+        .from('learning_task_attempts')
+        .select('item_ref, phase, task_key, answered_at, response')
+        .eq('user_id', w.userId)
+        .eq('response->>client_mutation_id', w.clientMutationId)
+        .limit(1)
+      if (readErr) throw new Error(`이전 제출 확인 실패: ${readErr.message}`)
+      if (prior && prior.length > 0) return sameAttempt(prior[0] as never, w) ? 'duplicate' : 'conflict'
+      const { error } = await db.from('learning_task_attempts').insert({
+        user_id: w.userId,
+        task_key: w.taskKey,
+        application_id: w.applicationId,
+        item_ref: w.itemRef,
+        content_hash: w.contentHash,
+        phase: w.phase,
+        synthetic: w.synthetic,
+        is_correct: w.isCorrect,
+        sec: w.sec,
+        answered_at: w.answeredAt,
+        // G2 열(activity · help_level · client_mutation_id · session)이 생기기 전까지는 response 안에 둔다 — 이전 때 그대로 옮긴다
+        response: {
+          ...w.answer,
+          ...w.extra,
+          activity: w.activity,
+          help_level: w.helpLevel,
+          client_mutation_id: w.clientMutationId,
+          client_session_id: w.clientSessionId,
+        },
+      })
+      if (error) throw new Error(`수행 기록 저장 실패: ${error.message}`)
+      return 'inserted'
+    },
+  }
+}
+
+/** G2 통합 SQL(sha256 779eb9bb…) 적용 뒤에만 — 함수 시그니처는 그 초안 그대로 */
+export function g2Writer(db: SupabaseClient): AttemptWriter {
+  return {
+    kind: 'g2',
+    async reveal(w) {
+      const { data, error } = await db.rpc('learning_session_apply', {
+        p_user: w.userId,
+        p_mutation: stableUuid(w.clientSessionId, 'reveal'),
+        p_client_session_id: w.clientSessionId,
+        p_activity: w.activity,
+        p_phase: w.phase,
+        p_item_ref: w.itemRef,
+        p_stage: 'revealed',
+        p_step: 0,
+        p_steps: 1,
+        p_help_level: w.helpLevel,
+        p_at: w.answeredAt,
+        p_synthetic: w.synthetic,
+        p_task_key: w.taskKey,
+        p_application_id: w.applicationId,
+      })
+      if (error) throw new Error(`세션 공개 실패: ${error.message}`)
+      const row = (Array.isArray(data) ? data[0] : data) as { session_id?: string; outcome?: string } | null
+      if (!row?.session_id) throw new Error('세션 공개 실패: 세션 id 가 없다')
+      // 공개가 conflict 여도 세션은 이미 있다(먼저 공개한 값이 이긴다) — 시도는 세션의 도움 수준을 상속한다
+      return row.session_id
+    },
+    async record(w, sessionId) {
+      const { data, error } = await db.rpc('learning_attempt_record', {
+        p_user: w.userId,
+        p_mutation: w.clientMutationId,
+        p_session_id: sessionId,
+        p_task_key: w.taskKey,
+        p_activity: w.activity,
+        p_phase: w.phase,
+        p_help_level: w.helpLevel,
+        p_item_ref: w.itemRef,
+        p_content_hash: w.contentHash,
+        p_response: { ...w.answer, ...w.extra },
+        p_is_correct: w.isCorrect,
+        p_sec: w.sec,
+        p_synthetic: w.synthetic,
+        p_application_id: w.applicationId,
+        p_answered_at: w.answeredAt,
+      })
+      if (error) throw new Error(`수행 기록 저장 실패: ${error.message}`)
+      const row = (Array.isArray(data) ? data[0] : data) as { outcome?: string } | null
+      const o = row?.outcome
+      if (o !== 'inserted' && o !== 'duplicate' && o !== 'conflict') throw new Error(`수행 기록 저장 실패: 알 수 없는 결과 ${String(o)}`)
+      return o
+    },
+  }
+}
+
+export function selectWriter(db: SupabaseClient, env: string | undefined = process.env.PRACTICE_ATTEMPT_WRITER): AttemptWriter {
+  return env === 'g2' ? g2Writer(db) : directWriter(db)
+}

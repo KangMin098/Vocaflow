@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): `/csat/practice/claim-support` 「주장과 근거」 연습 이식 — 동결 knowledge-vnext 화면 위에 정본(methodology-vnext) 채점 `gradeClaimSupport` · 적용 게이트 · `learning_task_attempts`를 연결했다. 라우트 `POST /api/csat/practice/attempt` 를 추가했고 마이그레이션 · DB 쓰기는 없다. 쓰기 어댑터(direct · G2 RPC 교체형) · 요청 멱등 키 · 해설 먼저 보기 = `viewed_first` · 골격 115문항 미리보기 전용 · 효과 프로토콜 입력 필터를 넣었고 이벤트는 보내지 않는다([PRACTICE_PORT](./csat-learner/PRACTICE_PORT.md)).
+
 - fix(csat): 검수 원장 적재는 유효한 `{date, note}` 메모 전용 줄을 건너뛰고 수를 표시한다. 빈 객체·불완전한 메모·배치 이름 누락은 DB 요청 전에 계속 거부하며 회귀 테스트와 관리자 도움말을 보강했다(PR #147).
 
 - fix(csat): 옛 정상 분석 뒤 재분석 결과가 문항을 누락하고 복구 입력이 진행 중이어도, 옛 완료 판정으로 복구 입력을 삭제하지 않는다. 대체된 결과의 누락 판정과 예약 제외를 분리하고 진행 중 입력 보존을 회귀로 고정했다(PR #144).
