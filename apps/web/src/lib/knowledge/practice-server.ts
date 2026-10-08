@@ -163,6 +163,37 @@ export function defaultSubmitDeps(): SubmitDeps {
 }
 
 /**
+ * 판단 **전** 해설 열람 한 건(시도가 아니다) — 세션을 viewed_first 로 공개하고 열람 시각을 남긴다(별도 mutation · B8).
+ * 같은 열람의 재전송은 같은 id(세션 · 열람 시각)라 duplicate. 직접 쓰기(롤백)에서는 남길 곳이 없어 false.
+ */
+export async function notePracticeView(
+  deps: SubmitDeps,
+  who: { userId: string; synthetic: boolean },
+  v: { itemId: string; clientSessionId: string; viewedAt: string; preview: boolean },
+): Promise<boolean> {
+  const entry = (await deps.pool({ preview: v.preview })).find((p) => p.itemId === v.itemId)
+  if (!entry) throw new PracticeInputError('이 문항에는 지금 연습 과제가 없어요', 404)
+  return deps.writer.noteExplanationView({
+    userId: who.userId,
+    taskKey: entry.kind === 'annotated' ? PRACTICE_TASK : SKELETON_TASK,
+    applicationId: entry.applicationId,
+    itemRef: v.itemId,
+    contentHash: entry.contentHash,
+    activity: 'practice',
+    phase: entry.phase,
+    helpLevel: 'viewed_first',
+    synthetic: who.synthetic || v.preview,
+    clientMutationId: v.clientSessionId,
+    clientSessionId: v.clientSessionId,
+    answeredAt: v.viewedAt,
+    sec: null,
+    isCorrect: false,
+    answer: {},
+    extra: {},
+  }, v.viewedAt, null)
+}
+
+/**
  * 제출 한 건. 순서가 계약이다: 검사 → 채점 → 세션 공개(reveal) → 시도 기록 → **그 뒤에** 정답 키를 담은 판정을 만든다.
  * preview 는 관리자 확인을 마친 라우트만 true 로 넘긴다. synthetic = 미리보기 또는 합성 계정.
  */

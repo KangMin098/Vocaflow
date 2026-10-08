@@ -123,8 +123,18 @@ export function ClaimPractice(props: {
     // 시도가 아니다. 판단을 내기 전이면 이 세션의 도움 수준이 viewed_first 가 된다(되돌리지 않는다).
     // 판단을 이미 보낸 세션은 도움 수준을 바꾸지 않는다 — 공개는 이미 independent 로 적용됐을 수 있다(G2 세션 단조 규칙).
     // 그때의 열람은 별도 행동(explanationViewedAt)으로 남긴다. 해설은 새 탭에서 연다
-    if (submitted.current) noteView()
-    else setHelpLevel('viewed_first')
+    if (submitted.current) return noteView()
+    setHelpLevel('viewed_first')
+    // 판단 전 열람도 그 순간 서버에 남긴다(별도 요청 · 시도 아님). 같은 세션의 두 번째 열람은 보내지 않는다(가장 이른 열람이 정본)
+    if (helpLevel === 'viewed_first' || !entry) return
+    void fetch('/api/csat/practice/view', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ itemId: entry.itemId, clientSessionId: sessionId, viewedAt: new Date().toISOString(), preview }),
+      keepalive: true,
+    })
+      .then((res) => { if (!res.ok) setError('해설 열람을 기록하지 못했어요') })
+      .catch(() => setError('해설 열람을 기록하지 못했어요'))
   }
 
   // 판단 뒤 해설 열람 — 열람하는 그 순간 따로 보낸다(별도 mutation · 서버가 판단과 다른 id 로 learning_session_apply).

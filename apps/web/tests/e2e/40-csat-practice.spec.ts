@@ -52,6 +52,8 @@ interface Probe {
   ctx: BrowserContext
   /** 가짜 서버가 받은 제출 본문 */
   submits: Record<string, unknown>[]
+  /** 판단 전 해설 열람 본문(/api/csat/practice/view) */
+  views: Record<string, unknown>[]
   /** 가로챈 그 밖의 쓰기(분석 이벤트 포함) */
   writes: string[]
   /** 다음 n 번 제출을 500 으로 */
@@ -62,7 +64,7 @@ interface Probe {
 async function device(browser: Browser): Promise<Probe> {
   const ctx = await browser.newContext({ storageState: storage, viewport: { width: 1440, height: 900 } })
   const page = await ctx.newPage()
-  const probe: Probe = { page, ctx, submits: [], writes: [], failNext: 0 }
+  const probe: Probe = { page, ctx, submits: [], views: [], writes: [], failNext: 0 }
   const stored = new Map<string, string>()
   // 컨텍스트 전체를 가로챈다 — 「해설 보기」 가 여는 새 탭도 같은 그물 안이다(PRACTICE_PORT_VERIFICATION §5 P1).
   // 쓰기 계수도 컨텍스트 단위다(probe.writes 는 이 컨텍스트의 모든 페이지 합)
@@ -70,6 +72,10 @@ async function device(browser: Browser): Promise<Probe> {
     const req = route.request()
     const url = req.url()
     if (!isWrite(req.method())) return route.continue()
+    if (url.includes('/api/csat/practice/view')) {
+      probe.views.push(req.postDataJSON() as Record<string, unknown>)
+      return route.fulfill({ json: { ok: true, saved: true } })
+    }
     if (url.includes('/api/csat/practice/attempt')) {
       const body = req.postDataJSON() as Record<string, unknown>
       probe.submits.push(body)
@@ -153,6 +159,10 @@ test('학습자: 해설 먼저 보기는 시도가 아니다 — 그 세션의 �
   await d.page.getByRole('button', { name: '맞춰 보기' }).click()
   await expect(d.page.getByText(/판단에는 넣지 않아요/)).toBeVisible({ timeout: 20_000 })
   expect(d.submits[0].helpLevel).toBe('viewed_first')
+  // 판단 전 열람은 그 순간 별도 요청으로 남는다(같은 세션 · 판단보다 이르거나 같은 시각)
+  expect(d.views).toHaveLength(1)
+  expect(d.views[0].clientSessionId).toBe(d.submits[0].clientSessionId)
+  expect(Date.parse(String(d.views[0].viewedAt))).toBeLessThanOrEqual(Date.parse(String(d.submits[0].answeredAt)))
   await d.ctx.close()
 })
 
@@ -172,12 +182,14 @@ test('학습자: 판단을 보낸 뒤 연 해설은 도움 수준을 바꾸지 �
   await expect(d.page.getByRole('button', { name: '1번', exact: true })).toBeDisabled()
   await d.page.getByRole('button', { name: '맞춰 보기' }).click()
   await expect(d.page.getByRole('status').filter({ hasText: '주장 문장을 찾았어요' })).toBeVisible({ timeout: 20_000 })
-  expect(d.submits).toHaveLength(2)
-  expect(d.submits[1].claim).toBe(d.submits[0].claim)
-  expect(d.submits.map((x) => x.helpLevel)).toEqual(['independent', 'independent'])
-  expect(d.submits[1].clientMutationId).toBe(d.submits[0].clientMutationId)
+  // 실패한 제출 → 열람 순간의 별도 기록(같은 제출 본문 + 열람 시각) → 재시도 = 3건, 모두 같은 제출 id · 같은 답 · 같은 sec
+  expect(d.submits).toHaveLength(3)
+  expect(new Set(d.submits.map((x) => x.clientMutationId)).size).toBe(1)
+  expect(new Set(d.submits.map((x) => JSON.stringify([x.claim, x.support, x.relation, x.option, x.confidence, x.sec, x.answeredAt]))).size).toBe(1)
+  expect(d.submits.map((x) => x.helpLevel)).toEqual(['independent', 'independent', 'independent'])
   expect(d.submits[0].explanationViewedAt).toBeNull()
   expect(typeof d.submits[1].explanationViewedAt).toBe('string')
+  expect(d.submits[2].explanationViewedAt).toBe(d.submits[1].explanationViewedAt)
   await d.ctx.close()
 })
 
