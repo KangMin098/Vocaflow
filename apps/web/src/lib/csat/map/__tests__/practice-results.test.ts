@@ -40,6 +40,11 @@ describe('복습 · 전이', () => {
     const later = summarizePractice(rows, null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-25T00:00:00Z', deleted_at: null }], now })
     expect(later).toMatchObject({ next: 'move_on', reviewAt: '2026-10-25T00:00:00Z' })
   })
+  it('예약 시각 뒤에 다시 확인했으면 그 예약은 끝났다 — review 아님', () => {
+    const rows = [row(true, '2026-10-08T10:00:00Z'), row(true, '2026-10-16T09:00:00Z')]
+    const r = summarizePractice(rows, null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: null }], now })
+    expect(r).toMatchObject({ next: 'move_on', reviewAt: null })
+  })
   it('최근이 오답이면 예약보다 retry 가 먼저', () => {
     expect(summarizePractice([row(false, '2026-10-08T10:00:00Z')], null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: null }], now }).next).toBe('retry')
   })
@@ -60,6 +65,12 @@ describe('practiceResultsFor', () => {
     const out = practiceResultsFor(links, rows, [])
     expect(out['B6-3']).toMatchObject({ attempts: 1, transfer: { attempts: 1, latestCorrect: false } })
     expect(out['A3-4'].transfer).toBeNull()
+  })
+  it('같은 문항의 transfer 는 「다른 지문」 이 아니다 · 첫 시도는 transfer 줄을 쓰지 않는다', () => {
+    const rows = [row(true, '2026-10-08T10:00:00Z'), { ...row(false, '2026-10-08T09:00:00Z'), phase: 'transfer' }]
+    const firsts = [{ task_key: 'claim-support', item_ref: '2022#20', is_correct: false, help_level: 'viewed_first', after_explanation: false, phase: 'transfer' }, { task_key: 'claim-support', item_ref: '2022#20', is_correct: true, help_level: 'independent', after_explanation: false, phase: 'practice' }]
+    const out = practiceResultsFor(links, rows, firsts)
+    expect(out['B6-3']).toMatchObject({ attempts: 1, transfer: null, firstCorrect: true, firstIndependent: true })
   })
   it('과제 키와 문항이 모두 같은 기록만 그 지도 과제에 붙인다', () => {
     const rows = [row(true, '2026-10-08T10:00:00Z'), row(false, '2026-10-08T10:01:00Z', 'cohesion-link', '2022#20'), row(false, '2026-10-08T10:02:00Z', 'claim-support', '2021#20')]

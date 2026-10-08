@@ -28,6 +28,7 @@ export interface FirstAttemptRow {
   is_correct: boolean | null
   help_level: string | null
   after_explanation: boolean | null
+  phase?: string | null
 }
 
 export interface PracticeResult {
@@ -57,7 +58,10 @@ export function summarizePractice(rows: AttemptRow[], first: FirstAttemptRow | n
     : first.help_level === 'independent' && !first.after_explanation
   const tr = [...(extra.transfers ?? [])].sort((a, b) => a.answered_at.localeCompare(b.answered_at))
   const transfer = tr.length ? { attempts: tr.length, latestCorrect: tr.at(-1)!.is_correct } : null
-  const reviewAt = (extra.reviews ?? []).filter((r) => r.review_at && !r.deleted_at).map((r) => r.review_at as string).sort()[0] ?? null
+  // 아직 하지 않은 예약만 — 예약 시각 뒤에 이 문항을 다시 확인했으면 그 예약은 끝난 것이다
+  const reviewAt = (extra.reviews ?? [])
+    .filter((r) => r.review_at && !r.deleted_at && !(latest && latest.answered_at >= (r.review_at as string)))
+    .map((r) => r.review_at as string).sort()[0] ?? null
   // 예약일 비교는 주입한 now 로만(시계를 직접 읽지 않는다)
   const reviewDue = !!(reviewAt && extra.now && new Date(reviewAt).getTime() <= extra.now.getTime())
   const next: PracticeResult['next'] = !latest ? 'start' : !latest.is_correct ? 'retry' : reviewDue ? 'review' : 'move_on'
@@ -70,9 +74,10 @@ export function practiceResultsFor(links: Record<string, MapPracticeLink>, rows:
   for (const [taskId, link] of Object.entries(links)) {
     // 이 문항의 연습(practice · 단계 없음) · 같은 과제 키로 다른 지문에 적용한 전이(transfer — 문항은 어디든)
     const mine = rows.filter((r) => r.task_key === link.taskKey && r.item_ref === link.itemId && (r.phase ?? 'practice') !== 'transfer')
-    const transfers = rows.filter((r) => r.task_key === link.taskKey && r.phase === 'transfer')
+    // 「다른 지문에 적용」 — 연결 문항이 아닌 문항의 transfer 만
+    const transfers = rows.filter((r) => r.task_key === link.taskKey && r.phase === 'transfer' && r.item_ref !== link.itemId)
     // 첫 시도 뷰는 (과제 · 문항 · 단계)마다 한 줄 — 같은 과제 · 문항의 가장 이른 줄을 쓴다
-    const first = firsts.filter((f) => f.task_key === link.taskKey && f.item_ref === link.itemId)[0] ?? null
+    const first = firsts.filter((f) => f.task_key === link.taskKey && f.item_ref === link.itemId && (f.phase ?? 'practice') !== 'transfer')[0] ?? null
     out[taskId] = summarizePractice(mine, first, { transfers, reviews: reviews.filter((r) => r.item_ref === link.itemId), now })
   }
   return out

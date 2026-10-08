@@ -298,25 +298,33 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
   const items = [...new Set(Object.values(links).map((l) => l.itemId))]
   const keys = [...new Set(Object.values(links).map((l) => l.taskKey))]
   if (items.length === 0) return {}
-  const [att, first, rev] = await Promise.all([
-    // 최근부터 500건 — 최근 결과 · 다음 행동이 잘리지 않게(처음 결과는 첫 시도 뷰가 정본). 횟수는 아래에서 따로 센다
-    // 같은 과제 키의 기록 — 이 문항 연습과 다른 지문 전이(transfer)를 함께 읽는다
-    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).order('answered_at', { ascending: false }).limit(500),
-    db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, answered_at').eq('user_id', userId).in('item_ref', items).order('answered_at'),
+  const LIMIT = 500
+  // 연습(연결 문항)과 전이(같은 과제 키 · 다른 문항)를 따로 읽는다 — 한쪽이 많아도 다른 쪽이 창에서 밀려나지 않게. 최근부터
+  const [prac, tran, first, rev] = await Promise.all([
+    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).in('item_ref', items).neq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
+    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).eq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
+    db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, answered_at, phase').eq('user_id', userId).in('item_ref', items).order('answered_at'),
     db.from('learning_sessions').select('item_ref, review_at, deleted_at').eq('user_id', userId).in('item_ref', items).not('review_at', 'is', null),
   ])
-  if (att.error) throw new Error(`수행 기록 조회 실패: ${att.error.message}`)
-  // 첫 시도 뷰가 없거나(마이그레이션 전) 읽지 못하면 도움 여부만 모른다고 둔다 — 횟수 · 결과는 그대로 보인다
+  if (prac.error) throw new Error(`수행 기록 조회 실패: ${prac.error.message}`)
+  if (tran.error) throw new Error(`전이 기록 조회 실패: ${tran.error.message}`)
+  // 첫 시도 뷰 · 예약을 못 읽으면 그 부분만 빠진다(도움 여부 모름 · 예약 없음) — 횟수 · 결과는 그대로 보인다
   const firsts = first.error ? [] : (first.data ?? []) as FirstAttemptRow[]
-  // 예약을 못 읽으면 예약만 빠진다
   const reviews = rev.error ? [] : (rev.data ?? []) as ReviewRow[]
-  const out = practiceResultsFor(links, (att.data ?? []) as AttemptRow[], firsts, reviews, now)
-  // 500건을 넘는 학습자 — 횟수만 정확히 다시 센다(연결 수만큼 head 요청)
-  if ((att.data ?? []).length >= 500) {
-    for (const [taskId, link] of Object.entries(links)) {
-      const { count, error } = await db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('item_ref', link.itemId).neq('phase', 'transfer')
-      if (error || count === null) throw new Error(`수행 횟수 조회 실패: ${error?.message ?? 'count=null'}`)
-      out[taskId] = { ...out[taskId], attempts: count }
+  const out = practiceResultsFor(links, [...(prac.data ?? []), ...(tran.data ?? [])] as AttemptRow[], firsts, reviews, now)
+  // 창을 채운 학습자 — 횟수만 정확히 다시 센다(연결 수만큼 head 요청)
+  const exact = async (q: PromiseLike<{ count: number | null; error: { message: string } | null }>, what: string) => {
+    const { count, error } = await q
+    if (error || count === null) throw new Error(`${what} 조회 실패: ${error?.message ?? 'count=null'}`)
+    return count
+  }
+  for (const [taskId, link] of Object.entries(links)) {
+    if ((prac.data ?? []).length >= LIMIT) {
+      out[taskId] = { ...out[taskId], attempts: await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('item_ref', link.itemId).neq('phase', 'transfer'), '수행 횟수') }
+    }
+    if ((tran.data ?? []).length >= LIMIT && out[taskId].transfer) {
+      const n = await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('phase', 'transfer').neq('item_ref', link.itemId), '전이 횟수')
+      out[taskId] = { ...out[taskId], transfer: { ...out[taskId].transfer!, attempts: n } }
     }
   }
   return out

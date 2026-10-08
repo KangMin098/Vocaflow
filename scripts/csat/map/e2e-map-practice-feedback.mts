@@ -85,7 +85,7 @@ try {
   await res.waitFor()
   const td = await res.innerText()
   rec('D 전이 결과 줄 — 다른 지문에 적용 1번 · 최근 맞았어요', /다른 지문에 적용 1번 · 최근 맞았어요/.test(td), td)
-  rec('D 예약일이 지난 다시 보기 → 다음 = 다시 확인(review)', (await res.getAttribute('data-next')) === 'review' && /다시 보기로 잡아 둔 날\(10월 8일\)이 지났어요/.test(td), td)
+  rec('D 예약일이 지난 다시 보기 → 다음 = 다시 확인(review)', (await res.getAttribute('data-next')) === 'review' && /다시 보기로 잡아 둔 때\(10월 8일\)가 됐어요/.test(td), td)
   rec('D 연습 횟수에 전이는 들어가지 않는다(2번 그대로)', (await res.getAttribute('data-attempts')) === '2')
   await page.locator('li', { has: page.locator('[data-testid="find-practice-result"]') }).screenshot({ path: path.join(OUT, 'D-review.png') })
 } finally {
