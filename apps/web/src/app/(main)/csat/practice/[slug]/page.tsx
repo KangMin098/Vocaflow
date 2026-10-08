@@ -27,7 +27,7 @@ export default async function PracticePage({
   const design = await loadPracticeDesign(params.slug, { preview })
   if (!design) notFound()
 
-  const { userId, runs } = await loadMyRuns(design.id, design.deploymentVersion ?? design.version)
+  const { userId, runs } = await loadMyRuns(design.id, preview ? design.version : (design.deploymentVersion ?? design.version), { preview })
   if (!userId) redirect(loginUrlWithReturn(`/csat/practice/${params.slug}${wantPreview ? '?preview=1' : ''}`))
 
   const pool = practicePool(design)

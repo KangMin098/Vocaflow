@@ -110,9 +110,10 @@ export interface MyRun {
 
 /**
  * 내 기록(RLS) — 이 설계·이 버전의 실학습 기록, 문항마다 첫 시도만(정답을 본 뒤 다시 낸 것은 판정에 넣지 않는다).
- * 미리보기 기록은 관리자 자신의 것이라도 넣지 않는다.
+ * 실학습 화면에는 실기록만, 관리자 미리보기 화면에는 그 관리자의 미리보기 기록만 — 둘은 섞이지 않는다
+ * (미리보기도 학습자와 같은 집계·추천 흐름을 돌려 보게 하려는 것. 효과 계산은 어느 쪽이든 미리보기를 넣지 않는다).
  */
-export async function loadMyRuns(designId: string, version: number): Promise<{ userId: string | null; runs: MyRun[] }> {
+export async function loadMyRuns(designId: string, version: number, opts: { preview: boolean } = { preview: false }): Promise<{ userId: string | null; runs: MyRun[] }> {
   const db = (await createClient()) as unknown as SupabaseClient
   const {
     data: { user },
@@ -132,7 +133,7 @@ export async function loadMyRuns(designId: string, version: number): Promise<{ u
   return {
     userId: user.id,
     runs: ((data ?? []) as Record<string, unknown>[])
-      .filter((r) => r.preview !== true && r.synthetic !== true)
+      .filter((r) => r.synthetic !== true && (r.preview === true) === opts.preview)
       .filter((r) => (first.has(String(r.item_id)) ? false : (first.add(String(r.item_id)), true)))
       .map((r) => ({
         itemId: String(r.item_id),
