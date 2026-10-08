@@ -17,6 +17,8 @@ import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
+
+import { practiceResultsFor, type AttemptRow, type FirstAttemptRow, type PracticeResult } from './practice-results'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 
@@ -44,6 +46,8 @@ export interface MapPageData {
   settings: MapSettings
   /** FIND 과제 id → 같은 실행 과제를 기출 한 문항으로 직접 해 보는 곳(학습 원리 적용 learning_map_find · 채택 사슬이 살아 있을 때만) */
   practiceLinks?: Record<string, MapPracticeLink>
+  /** FIND 과제 id → 그 실행 과제의 본인 수행 요약(결과 환류) — 연결된 과제만 */
+  practiceResults?: Record<string, PracticeResult>
   /** 학습자 본인의 시험 기록(진단에 반영된 회차 · 오래된 것부터) — 「현재 위치」는 이것만 근거로 쓴다 */
   records: LearnerRecord[]
 }
@@ -269,6 +273,10 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     noData: NO_DATA_ATTRIBUTES,
   }
 
+  // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
+  const practiceLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
+  const practiceResults = await loadPracticeResults(db, userId, practiceLinks).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
+
   return {
     model: buildMapModel(raw, examLabels),
     nodes,
@@ -279,8 +287,22 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     edgeSources: group(edgeSrc, (r) => r.edge_id, (r) => r.source_id),
     doneTaskIds: [...raw.doneTaskIds],
     settings,
-    // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
-    practiceLinks: await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} }),
+    practiceLinks,
+    practiceResults,
     records,
   }
+}
+
+/** 결과 환류 — 연결된 실행 과제의 본인 수행 기록과 첫 시도. 이 db 는 서버 키라서 user_id 로 직접 좁힌다 */
+async function loadPracticeResults(db: Db, userId: string, links: Record<string, MapPracticeLink>): Promise<Record<string, PracticeResult>> {
+  const items = [...new Set(Object.values(links).map((l) => l.itemId))]
+  if (items.length === 0) return {}
+  const [att, first] = await Promise.all([
+    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at').eq('user_id', userId).in('item_ref', items).order('answered_at').limit(500),
+    db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, answered_at').eq('user_id', userId).in('item_ref', items).order('answered_at'),
+  ])
+  if (att.error) throw new Error(`수행 기록 조회 실패: ${att.error.message}`)
+  // 첫 시도 뷰가 없거나(마이그레이션 전) 읽지 못하면 도움 여부만 모른다고 둔다 — 횟수 · 결과는 그대로 보인다
+  const firsts = first.error ? [] : (first.data ?? []) as FirstAttemptRow[]
+  return practiceResultsFor(links, (att.data ?? []) as AttemptRow[], firsts)
 }

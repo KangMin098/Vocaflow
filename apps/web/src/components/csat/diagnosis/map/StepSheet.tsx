@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react'
 import { CORE_STATUS_LABEL, LEGACY_PROXY_LABEL, THRESHOLD_NOTE } from '@/lib/csat/map/core'
 import { EVIDENCE_LABEL, STAGE_WORD, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
+import type { PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
 import { useModalFocus } from '../useModalFocus'
@@ -124,6 +125,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                             {data.practiceLinks[t.id].label} →
                           </a>
                         )}
+                        {data.practiceResults?.[t.id] && data.practiceResults[t.id].attempts > 0 && <PracticeResultLine r={data.practiceResults[t.id]} />}
                       </span>
                     </li>
                   )
@@ -174,4 +176,31 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
       </div>
     </div>
   )
+}
+
+/** 결과 환류 — 연결된 실행 과제를 내가 어떻게 했는지. 실력 판정이 아니라 「이번 확인의 결과」로만 말한다 */
+function PracticeResultLine({ r }: { r: PracticeResult }) {
+  const word = (v: boolean | null) => (v === null ? '판정 없음' : v ? '맞았어요' : '다시 볼 곳이 있었어요')
+  return (
+    <span className={l.taskMeta} style={{ display: 'grid', gap: 2 }} data-testid="find-practice-result" data-next={r.next} data-attempts={r.attempts}>
+      <span>
+        내가 한 확인 {r.attempts}번 · 처음 {word(r.firstCorrect)}
+        {r.firstIndependent === false ? '(해설이나 힌트를 본 뒤였어요)' : ''}
+        {r.attempts > 1 ? ` · 최근(${kstDay(r.latestAt)}) ${word(r.latestCorrect)}` : ` (${kstDay(r.latestAt)})`}
+      </span>
+      <span>
+        {r.next === 'retry'
+          ? '다음: 결과 안내에서 짚어 준 문장을 다시 읽고, 같은 과제를 한 번 더 해 보세요.'
+          : '다음: 이 확인은 마쳤어요. 위 체크를 표시하고 다음 확인으로 넘어가요.'}
+        {' '}이번 확인의 결과일 뿐, 이 힘이 생겼다는 판정은 아니에요.
+      </span>
+    </span>
+  )
+}
+
+/** 서버 · 브라우저 시간대와 무관하게 한국 날짜(10월 8일) */
+function kstDay(iso: string | null): string {
+  if (!iso) return ''
+  const d = new Date(new Date(iso).getTime() + 9 * 3600 * 1000)
+  return `${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일`
 }
