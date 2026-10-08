@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Connect atomic production publication to an admin-only, no-store artifact download. Revalidate current DB evidence on every read, verify the returned HTML hash, and fail closed on revoked or mixed output; real-content production verification remains pending.
+
 - docs(agents): Make textbook-factory pipeline completion the top-priority goal. Classify findings by impact on synthetic end-to-end completion, defer real rights/data acquisition and optional work, and keep operational validity separate from implementation readiness.
 
 - docs(textbook): Bind two local textbook preview ISBNs to current publisher snapshots and identify a matching Level 2 answer file. Record owner-confirmed absence of analysis permission, keep the prior hold seals intact, and specify the exact rights grant needed before passage admission.

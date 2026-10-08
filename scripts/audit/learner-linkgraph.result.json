@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-01T20:43:11.906Z",
+  "generatedAt": "2026-10-08T11:27:58.426Z",
   "totals": {
     "pageRoutes": 190,
     "learnerPages": 102,
-    "apiRoutes": 88,
+    "apiRoutes": 93,
     "linkedLearnerPages": 70
   },
   "deadLinks": [],
@@ -24,6 +24,8 @@
   ],
   "orphanApiRoutes": [
     "/api/acp/dev-enqueue",
+    "/api/admin/csat/production/[snapshotId]",
+    "/api/admin/csat/structural-planning",
     "/api/admin/library/backfill-covers",
     "/api/csat/session/reveal",
     "/api/lcp/dev-enqueue-book",

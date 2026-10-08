@@ -38,6 +38,10 @@ const SCRIPTS_DIR = resolve(process.cwd(), '..', '..', 'scripts')
  */
 const EXTERNAL: ReadonlyArray<{ route: string; why: string }> = [
   {
+    route: 'admin/csat/production/[snapshotId]',
+    why: '게시된 원자적 교재 HTML을 snapshot ID로 직접 내려받는 관리자 운영 경로다. 아직 UI 호출부는 없으며 매 요청의 DB serving gate가 stale 산출물을 거부한다.',
+  },
+  {
     route: 'admin/articles/reading-promotion',
     why: '승격 주문 등록·승인에 쓰는 인증된 관리자 수동 요청 경로다. 현재 관리자 화면 호출부는 없고 외부 운영자가 세션으로 호출한다.',
   },

@@ -1,5 +1,9 @@
 # Routes Map
 
+### 교재 공장 원자적 산출물 조회 (2026-10-08)
+
+`GET /api/admin/csat/production/[snapshotId]` — 관리자 전용, 다운로드 응답. 매 요청마다 DB의 `serve_reading_production_artifact`가 현재 권리·인증·주문·문항 증거를 다시 확인하고, 서버는 반환 HTML의 SHA-256을 재검증한다. 불일치·철회·stale이면 409로 차단한다. 응답은 `no-store`·첨부 다운로드·sandbox CSP를 적용한다. 이 경로는 실제 콘텐츠 운영 E2E 또는 `production_verified=true`를 뜻하지 않는다.
+
 ### CSAT 원문 운영 API (2026-09-18)
 
 `/api/admin/csat/sources` — 관리자/큐레이터 전용, no-store.
