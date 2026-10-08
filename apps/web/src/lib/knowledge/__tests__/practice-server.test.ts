@@ -227,6 +227,15 @@ describe('P1: 내 기록 읽기 — direct · g2 어느 기록이든 같은 칸�
     const q = { select: () => q, eq: () => q, in: () => q, order: () => q, limit: async () => ({ data: rows, error: null }) }
     return { from: () => q } as unknown as SupabaseClient
   }
+  it('같은 과제 · 문항 · 단계의 첫 판단이 해설 극장이면 Practice 재풀이는 첫 시도가 아니다(DB 뷰와 같은 키)', async () => {
+    const base = { task_key: PRACTICE_TASK, item_ref: 'A', phase: 'practice', help_level: 'independent', response: { grade: { claim: true } } }
+    const got = await loadMyAttempts(learnerDb([
+      { ...base, id: 1, answered_at: '2026-10-08T04:00:00Z', activity: 'theater', help_level: 'viewed_first' },
+      { ...base, id: 2, answered_at: '2026-10-08T05:00:00Z', activity: 'practice' },
+      { ...base, id: 3, item_ref: 'B', answered_at: '2026-10-08T05:00:00Z', activity: 'practice' },
+    ]), 'u1', { preview: false })
+    expect(got.map((g) => g.itemId)).toEqual(['B'])
+  })
   it('g2 로 쓴 기록(응답 사본)도 완료 · 판정에 들어간다 · 해설 먼저는 viewed_first', async () => {
     const row = (help: 'independent' | 'viewed_first', item: string) => ({
       item_ref: item, phase: 'practice', answered_at: '2026-10-08T05:00:00Z',

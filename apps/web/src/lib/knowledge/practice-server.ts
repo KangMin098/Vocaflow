@@ -125,7 +125,16 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
   if (error) throw new Error(`내 기록 읽기 실패: ${error.message}`)
   // 정본 열(activity · help_level) 우선 — NULL(G2 전 직접 기록)일 때만 response 사본으로 호환
   type Row = { id: number; task_key: string; item_ref: string | null; phase: string; answered_at: string; activity: string | null; help_level: string | null; response: Record<string, unknown> | null }
-  return ((data ?? []) as Row[])
+  const rows = (data ?? []) as Row[]
+  // 첫 시도는 **활동과 무관하게** (과제 · 문항 · 단계)의 가장 이른 판단이다(DB 뷰 learning_first_attempts 와 같다 — 이미 answered_at · id 순).
+  // 그 첫 판단이 해설 극장(theater) 등 다른 활동이면, Practice 재풀이는 첫 시도가 아니므로 그 묶음을 Practice 기록에서 뺀다(Codex P2)
+  const firstActivity = new Map<string, string | undefined>()
+  for (const r of rows) {
+    const k = `${r.task_key} ${r.item_ref ?? ''} ${r.phase}`
+    if (!firstActivity.has(k)) firstActivity.set(k, (r.activity ?? r.response?.activity) as string | undefined)
+  }
+  return rows
+    .filter((r) => firstActivity.get(`${r.task_key} ${r.item_ref ?? ''} ${r.phase}`) === 'practice')
     .filter((r) => (r.activity ?? r.response?.activity) === 'practice' && (r.response?.preview === true) === opts.preview)
     .filter((r) => r.item_ref && (r.phase === 'practice' || r.phase === 'transfer'))
     .map((r) => ({
