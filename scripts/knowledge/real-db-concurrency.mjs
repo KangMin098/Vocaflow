@@ -59,7 +59,8 @@ async function counts(userId) {
   for (const t of TABLES) {
     const all = await db.from(t).select('*', { count: 'exact', head: true })
     const mine = await db.from(t).select('*', { count: 'exact', head: true }).eq('user_id', userId)
-    if (all.error || all.count === null || mine.error || mine.count === null) fail(`${t} 행 수를 셀 수 없다(0 으로 삼키지 않는다)`)
+    // 쓰기 단계 안에서도 불리므로 프로세스를 끝내지 않고 던진다 — finally 의 정리가 반드시 돈다
+    if (all.error || all.count === null || mine.error || mine.count === null) throw new Error(`${t} 행 수를 셀 수 없다(0 으로 삼키지 않는다)`)
     out[t] = { all: all.count, testUser: mine.count }
   }
   return out
@@ -311,15 +312,19 @@ async function main() {
     const r = await cleanup(m)
     m.cleanup = r
     save(m) // 사후 집계가 실패해도 정리 결과·잔여 PK 는 먼저 남는다
-    m.after = await counts(user.id)
+    try {
+      m.after = await counts(user.id)
+    } catch (e) {
+      m.after = { error: e.message }
+    }
     m.finishedAt = new Date().toISOString()
     save(m)
-    const back = TABLES.every((t) => m.after[t].all === m.before[t].all)
+    const back = !m.after.error && TABLES.every((t) => m.after[t].all === m.before[t].all)
     console.log(`정리: 남음 ${JSON.stringify(r.still)} · 거부 ${r.refused.length} · 기준선 복귀 ${back}`)
     console.log(`매니페스트 ${path.join(RUN_DIR, `${m.testRunId}.json`)}`)
     const residual = [...r.still.attempts, ...r.still.sessions, ...r.still.mutations].length + r.unresolved.length + r.errors.length
     // 검사 실패 · 정리 잔여가 있으면 종료 코드 1(매니페스트 저장 뒤) — 호출자가 성공으로 오판하지 않게
-    if (m.results.some((x) => !x.pass) || residual > 0) process.exitCode = 1
+    if (m.results.some((x) => !x.pass) || residual > 0 || m.after.error) process.exitCode = 1
     if (!back) console.log('⚠️ 기준선과 다르다 — 이번 실행이 만든 PK 는 위 「남음」만 확인하고, 다른 행(다른 세션 · 실사용)은 건드리지 않는다')
   }
 }
