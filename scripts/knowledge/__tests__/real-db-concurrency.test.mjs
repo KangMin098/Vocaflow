@@ -82,12 +82,13 @@ function fakeDb(fault = {}) {
       const led = t.learning_mutations.find((r) => r.user_id === p.p_user && r.client_mutation_id === p.p_mutation)
       if (led) {
         const a = t.learning_task_attempts.find((r) => r.user_id === p.p_user && r.client_mutation_id === p.p_mutation)
-        return { data: [{ attempt_id: a ? String(a.id) : null, outcome: led.payload === payload ? 'duplicate' : 'conflict' }], error: null }
+        return { data: [{ attempt_id: a ? String(a.id) : null, outcome: led.payload.key === payload ? 'duplicate' : 'conflict' }], error: null }
       }
       const id = ++seq
-      t.learning_mutations.push({ user_id: p.p_user, client_mutation_id: p.p_mutation, payload, created_at: new Date(Date.now() + 1000).toISOString() })
+      // 실제 원장 payload 처럼 response · synthetic 을 담는다(정리가 실행 표식으로 소유를 확인한다)
+      t.learning_mutations.push({ user_id: p.p_user, client_mutation_id: p.p_mutation, payload: { key: payload, response: p.p_response, synthetic: p.p_synthetic }, applied_at: new Date(Date.now() + 1000).toISOString() })
       t.learning_task_attempts.push({
-        id, user_id: p.p_user, client_mutation_id: p.p_mutation, synthetic: p.p_synthetic, answered_at: p.p_answered_at,
+        id, user_id: p.p_user, client_mutation_id: p.p_mutation, synthetic: p.p_synthetic, answered_at: p.p_answered_at, response: p.p_response,
         item_ref: p.p_item_ref, phase: p.p_phase, task_key: p.p_task_key,
       })
       // 커밋은 됐는데 응답이 끊긴 경우
@@ -166,11 +167,37 @@ test('정리는 다른 사용자 행을 건드리지 않는다', async () => {
   const db = fakeDb({})
   useDb(db)
   db.tables.learning_task_attempts.push({ id: 999, user_id: 'other', client_mutation_id: 'x', synthetic: false, answered_at: '2026-10-01T00:00:00Z', item_ref: '2022#20', phase: 'practice', task_key: 'claim-support' })
-  db.tables.learning_mutations.push({ user_id: 'other', client_mutation_id: 'x', payload: '', created_at: '2026-10-01T00:00:00Z' })
+  db.tables.learning_mutations.push({ user_id: 'other', client_mutation_id: 'x', payload: '', applied_at: '2026-10-01T00:00:00Z' })
   const before = await counts(USER)
   await executeRun({ userId: USER, before, head: 'test' })
   process.exitCode = 0
   assert.equal(db.tables.learning_task_attempts.length, 1)
   assert.equal(db.tables.learning_task_attempts[0].user_id, 'other')
   assert.equal(db.tables.learning_mutations.length, 1)
+})
+
+test('정리는 같은 테스트 계정의 다른 실행 행을 지우지 않는다(실행 표식 확인)', async () => {
+  const db = fakeDb({})
+  useDb(db)
+  // 다른 실행이 같은 계정으로 남긴 합성 행 — 매니페스트에 그 PK 가 섞여 들어와도 지우면 안 된다
+  db.tables.learning_task_attempts.push({ id: 500, user_id: USER, client_mutation_id: 'other-run', synthetic: true, response: { testRunId: 'other' }, answered_at: '2026-10-08T00:00:00Z', item_ref: '2022#20', phase: 'practice', task_key: 'claim-support' })
+  db.tables.learning_mutations.push({ user_id: USER, client_mutation_id: 'other-run', payload: { synthetic: true, response: { testRunId: 'other' } }, applied_at: '2099-01-01T00:00:00Z' })
+  const m = { testRunId: 'mine', userId: USER, startedAt: '2026-10-08T00:00:00Z', created: { attempts: [500], sessions: [], mutations: ['other-run'] } }
+  const r = await cleanup(m)
+  assert.equal(db.tables.learning_task_attempts.length, 1)
+  assert.equal(db.tables.learning_mutations.length, 1)
+  assert.ok(r.refused.some((x) => x.id === 500), JSON.stringify(r))
+})
+
+test('--commit 없는 정리(dryRun)는 아무것도 지우지 않는다', async () => {
+  const db = fakeDb({})
+  useDb(db)
+  db.tables.learning_task_attempts.push({ id: 501, user_id: USER, client_mutation_id: 'mm', synthetic: true, response: { testRunId: 'mine' }, answered_at: '2026-10-08T00:00:00Z', item_ref: '2022#20', phase: 'practice', task_key: 'claim-support' })
+  db.tables.learning_mutations.push({ user_id: USER, client_mutation_id: 'mm', payload: { synthetic: true, response: { testRunId: 'mine' } }, applied_at: '2099-01-01T00:00:00Z' })
+  const m = { testRunId: 'mine', userId: USER, startedAt: '2026-10-08T00:00:00Z', created: { attempts: [501], sessions: [], mutations: ['mm'] } }
+  const r = await cleanup(m, { dryRun: true })
+  assert.equal(db.tables.learning_task_attempts.length, 1)
+  assert.equal(db.tables.learning_mutations.length, 1)
+  assert.deepEqual(r.left.attempts, [501])
+  assert.deepEqual(r.left.mutations, ['mm'])
 })

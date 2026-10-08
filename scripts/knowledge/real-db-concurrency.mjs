@@ -110,7 +110,15 @@ export async function recoverAttempts(m) {
   return { recovered: n, unresolved: [] }
 }
 
-export async function cleanup(m) {
+/** 이 실행이 만든 행인가 — 계정 · synthetic 만으로는 같은 테스트 계정을 쓰는 다른 실행의 행과 구별되지 않는다 */
+const ownsAttempt = (m, r) =>
+  r.user_id === m.userId && r.synthetic === true && r.response?.testRunId === m.testRunId && m.created.mutations.includes(r.client_mutation_id)
+const ownsMutation = (m, r) =>
+  // 시각 비교는 쓰지 않는다 — applied_at 은 DB 시계, startedAt 은 로컬 시계라 실측 0.5초 어긋나 자기 행을 거부했다(2026-10-08). 실행 UUID 가 소유 표식이다
+  r.user_id === m.userId && r.payload?.synthetic === true && r.payload?.response?.testRunId === m.testRunId
+
+/** dryRun = 확인만 하고 지우지 않는다(--commit 없는 --cleanup) */
+export async function cleanup(m, { dryRun = false } = {}) {
   const recovery = await recoverAttempts(m)
   m.recovery = [...(m.recovery ?? []), { at: new Date().toISOString(), ...recovery }]
   save(m)
@@ -121,16 +129,19 @@ export async function cleanup(m) {
   // 정리는 확인 조회가 실패해도 프로세스를 끝내지 않는다 — 실패한 단계의 PK 는 left/unresolved 로 남기고, 독립적으로 안전한 단계는 계속한다.
   const errors = []
   if (m.created.attempts.length) {
-    const { data, error } = await db.from('learning_task_attempts').select('id,user_id,synthetic,answered_at').in('id', m.created.attempts)
+    const { data, error } = await db.from('learning_task_attempts').select('id,user_id,synthetic,answered_at,response,client_mutation_id').in('id', m.created.attempts)
     if (error) {
       errors.push(`시도 확인 실패: ${error.message}`)
       left.attempts.push(...m.created.attempts)
       // 시도를 확인·삭제하지 못했으면 그 원장도 지우지 않는다(다음 --cleanup 이 mutation id 로 시도를 다시 찾게)
       for (const x of m.created.mutations) unresolved.add(x)
     } else {
-      const ok = data.filter((r) => r.user_id === m.userId && r.synthetic === true).map((r) => r.id)
+      const ok = data.filter((r) => ownsAttempt(m, r)).map((r) => r.id)
       refused.push(...data.filter((r) => !ok.includes(r.id)).map((r) => ({ table: 'learning_task_attempts', id: r.id })))
-      if (ok.length) {
+      // 소유를 확인 못 한 시도가 있으면 그 원장도 남긴다(시도와 원장이 짝으로 남아야 다시 추적된다)
+      if (ok.length < data.length) for (const x of m.created.mutations) unresolved.add(x)
+      if (dryRun) left.attempts.push(...ok)
+      else if (ok.length) {
         const del = await db.from('learning_task_attempts').delete().in('id', ok).eq('user_id', m.userId).select('id')
         if (del.error) {
           errors.push(`시도 삭제 실패: ${del.error.message}`)
@@ -146,9 +157,10 @@ export async function cleanup(m) {
       errors.push(`세션 확인 실패: ${error.message}`)
       left.sessions.push(...m.created.sessions)
     } else {
-      const ok = data.filter((r) => r.user_id === m.userId && r.synthetic === true).map((r) => r.id)
-      refused.push(...data.filter((r) => !ok.includes(r.id)).map((r) => ({ table: 'learning_sessions', id: r.id })))
-      if (ok.length) {
+      // 세션 행에는 실행 표식이 없다 — 소유를 증명할 수 없으니 지우지 않고 보고만 한다(이 시험 계획은 세션을 만들지 않는다)
+      const ok = []
+      refused.push(...data.map((r) => ({ table: 'learning_sessions', id: r.id })))
+      if (!dryRun && ok.length) {
         const del = await db.from('learning_sessions').delete().in('id', ok).eq('user_id', m.userId).select('id')
         if (del.error) {
           errors.push(`세션 삭제 실패: ${del.error.message}`)
@@ -158,14 +170,15 @@ export async function cleanup(m) {
     }
   }
   if (m.created.mutations.length) {
-    const { data, error } = await db.from('learning_mutations').select('client_mutation_id,user_id,created_at').eq('user_id', m.userId).in('client_mutation_id', m.created.mutations)
+    const { data, error } = await db.from('learning_mutations').select('client_mutation_id,user_id,applied_at,payload').eq('user_id', m.userId).in('client_mutation_id', m.created.mutations)
     if (error) {
       errors.push(`원장 확인 실패: ${error.message}`)
       left.mutations.push(...m.created.mutations)
     } else {
-      const ok = data.filter((r) => Date.parse(r.created_at) >= Date.parse(m.startedAt) && !unresolved.has(r.client_mutation_id)).map((r) => r.client_mutation_id)
+      const ok = data.filter((r) => ownsMutation(m, r) && !unresolved.has(r.client_mutation_id)).map((r) => r.client_mutation_id)
       refused.push(...data.filter((r) => !ok.includes(r.client_mutation_id) && !unresolved.has(r.client_mutation_id)).map((r) => ({ table: 'learning_mutations', id: r.client_mutation_id })))
-      if (ok.length) {
+      if (dryRun) left.mutations.push(...ok)
+      else if (ok.length) {
         const del = await db.from('learning_mutations').delete().eq('user_id', m.userId).in('client_mutation_id', ok).select('client_mutation_id')
         if (del.error) {
           errors.push(`원장 삭제 실패: ${del.error.message}`)
@@ -306,7 +319,12 @@ async function main() {
   if (CLEANUP_ONLY) {
     const m = JSON.parse(fs.readFileSync(CLEANUP_ONLY, 'utf8'))
     if (m.userId !== user.id) fail('매니페스트 계정이 테스트 계정과 다르다')
-    const r = await cleanup(m)
+    // --commit 이 없으면 무엇을 지울지 확인만 한다(지우지 않는다)
+    const r = await cleanup(m, { dryRun: !COMMIT })
+    if (!COMMIT) {
+      console.log(JSON.stringify({ dryRun: true, wouldDelete: r.left, refused: r.refused, unresolved: r.unresolved, errors: r.errors }, null, 2))
+      return
+    }
     m.cleanupRetries = [...(m.cleanupRetries ?? []), { at: new Date().toISOString(), ...r }]
     save(m)
     console.log(JSON.stringify(r, null, 2))

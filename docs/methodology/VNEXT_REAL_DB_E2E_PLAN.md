@@ -62,3 +62,11 @@
 ## 6. 실행 기록
 
 (미실행 — 착수 조건 충족 뒤 기록)
+
+## 실행 결과 (2026-10-08 · run 450b8c27)
+
+- 착수 조건: 통합 HEAD a62d4ca97 ⊇ 42585e8b5 · 배포 SQL sha 대조(120000 · 160000 · 170000 · 180000 M8 6bf67368) · 통합 잠금 해제 — 충족.
+- R1 같은 id 동시 → inserted 1 · duplicate 1(같은 attempt_id) · R2 같은 id 다른 내용 → conflict · R3 다른 id 동시 → 둘 다 inserted · R4 첫 시도 뷰 → 1행 · 가장 이른 answered_at · synthetic · R5 증가분 시도 3 · 원장 3 · 세션 0 — **5/5 PASS**.
+- 생성 시도 3 · 원장 3 · 세션 0 → 삭제 동일, 잔여 0, 세 표 기준선(0 · 0 · 0) 복귀.
+- 정리 1차는 스크립트 결함(원장 열 `created_at` → 실제 `applied_at`)으로 원장 3행이 남았다 → 수정 후 `--cleanup` 재시도로 삭제. 재시도 전 Codex 게이트 지적 반영: 실행 UUID(testRunId)로 행 소유 확인 · 세션은 표식이 없어 지우지 않음 · `--commit` 없는 `--cleanup` 은 확인만. 시각 비교는 DB/로컬 시계 0.5초 어긋남으로 자기 행을 거부해 뺐다.
+- 범위 밖: 앱 경로(PRACTICE_ATTEMPT_WRITER) 는 이 시험이 RPC 를 직접 호출하므로 해당 없음 · timing_uncertain 제외는 이 시험 행에 해설 열람이 없어 검증 대상이 아니다(단위 시험 effect-signals · find-outcome 이 다룬다).
