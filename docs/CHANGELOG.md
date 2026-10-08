@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Apply hash-checked reference roles to NASA, FYM, African Storybook, and EIA using an external, create-only metadata screen. FYM and African Storybook form a structural-only corpus of two; calibration, Korean-grade distribution, Gold-S, and DB seed remain zero.
+
 - feat(textbook): Separate hash-bound structural source references from admission and Korean-grade calibration eligibility. Structural rights holds and changed source evidence fail closed; current calibration and cohort gates remain required, with no new distribution, Gold-S, or seed.
 
 - docs(textbook): Screen FYM, African Storybook, and EIA open-reference candidates against source-specific rights, grade, and passage/item evidence. All three remain held; NASA admission and calibration N=0, Gold-S=0, and DB seed=0 are unchanged.

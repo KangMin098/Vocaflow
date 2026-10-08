@@ -19,6 +19,14 @@ the admission and calibration decision and rejects structural-only references. N
 role decision alone opens a grade distribution. Existing NASA/FYM/African Storybook/EIA
 holds are unchanged; no prior sealed screening or manifest is rewritten.
 
+`reference-role-screen.mjs <external-input.json> <external-output.json>` applies this
+contract to a list of external snapshots and creates a metadata-only result with
+structural corpus IDs and decision hashes. The output path must be new; duplicate
+source IDs, calibration payloads in this structural screen, and changed source or
+rights bytes fail. A separate admitted-reference calibration path must be used to
+open the calibration role. The four-source [role screen](../../../docs/reports/open-reference-role-screen-20261008.md)
+yielded structural N=2 and calibration N=0.
+
 ## Admission to calibration contract
 
 `reference-calibration.mjs` re-admits the current source before evaluating three independent
