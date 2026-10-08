@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Screen a matched CC BY BC Reads Level 5 reader passage and Course Pack item/key as a prospective open reference. Local publisher artifact retrieval was blocked, and Korean-grade mapping remains unverified; no selection, admission, calibration, Gold-S, or seed state changed.
+
 - feat(textbook): Add an admin-only structural planning API that revalidates external N=2 source, rights, excerpt, and profile hashes before offering opt-in Product Order notes. Empty selection explicitly ignores references; grade targets, fit, Gold-S, and DB state remain unchanged.
 
 - feat(textbook): Characterize the two hash-bound structural references with non-grade HTML interval counts and an advisory-only Product Order planning note. Real N=2 profiles stay outside calibration, target fit, Gold-S, and seed paths.
