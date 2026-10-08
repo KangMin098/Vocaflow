@@ -135,6 +135,18 @@
 ## 8. 구현 · 검증 원칙
 추가형 변경만(파괴 변경 · 데이터 초기화 없음) · 스키마 변경 전 체크포인트 · 승인된 SQL 해시 · 허용 표 · 범위를 목적 파일에 기록 · RLS(학습자 표 본인만 · 관리 표 service_role) · 동시성(상태 전이 「읽은 상태 그대로일 때만」 유지) · 브라우저 검증(관리 · 학습자) · 코드 · 테스트 · 문서 · 커밋 · push 를 작업 단위로.
 
+### 8-1. 권한 모델(실측 2026-10-08 · 의도한 설계)
+
+「RLS 없음」과 「RLS 켜짐 + 정책 없음」은 다르다 — 이 표들은 **후자 + 권한 회수**다(이중 거부).
+
+| 표 | RLS | 정책 | anon / authenticated 표 권한 | 접근 경로 |
+|---|---|---|---|---|
+| `knowledge_items` · `knowledge_research_sources` · `knowledge_inquiries` · `knowledge_inquiry_links` · `knowledge_applications` · `knowledge_trials` | 켜짐(FORCE 아님) | 0 | 없음(SELECT 도 없음) | 관리자 Server Action(service_role)만 — 학습자 · 익명은 권한 단계에서 막히고, 권한을 실수로 GRANT 해도 정책 0 이라 행이 보이지 않는다 |
+| `learning_task_attempts` | 켜짐 | 1(authenticated 본인 SELECT) | authenticated SELECT 만 · 쓰기 없음 | 읽기 = 본인 행 · 쓰기 = 서버(service_role) |
+
+FORCE RLS 가 아닌 이유: 표 소유자(postgres)와 service_role 은 원래 RLS 를 우회한다 — 관리 쓰기 경로가 그것이라 FORCE 는 실익이 없다.
+체크포인트 지표 `rls_missing_tables`(60→65)는 「정책 0 인 RLS 표」를 센 것이라 이 설계에서 의도된 증가다. 학습자 노출이 필요해지면 GRANT 가 아니라 **정책 + 최소 컬럼 GRANT** 를 같은 마이그레이션에서 더한다.
+
 ## 9. 단계 · 확인 지점
 | Phase | 내용 | 승인 필요 |
 |---|---|---|
