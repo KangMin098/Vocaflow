@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Screen FYM, African Storybook, and EIA open-reference candidates against source-specific rights, grade, and passage/item evidence. All three remain held; NASA admission and calibration N=0, Gold-S=0, and DB seed=0 are unchanged.
+
 - fix(textbook): Bind a NASA passage-level rights review dossier to official-page and PDF hashes, including hold-state evidence rechecks. General use guidance does not establish employee authorship or third-party clearance for the selected text, so rights and Korean mapping remain held while rating passes; calibration, Gold-S, and DB seed remain closed.
 
 - docs(textbook): Record fresh Claude Code/Codex blind ratings and two-axis adjudication for the revised NASA admission. Rating gate passes with complete local audit output; passage rights and Korean-grade mapping hold, so calibration, Gold-S, and DB seed remain closed.
