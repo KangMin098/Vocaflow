@@ -146,6 +146,36 @@ not_started ─열기─▶ in_progress(step=attempt)
 | `response jsonb` | 있음 | `{sentence, choice, confidence, design?, hint_used}` |
 | `synthetic` | 있음 | 합성 학습자·검증 계정은 true |
 
+### 5-1a. 네 축 분리와 세션↔시도 관계 (2차 심사 요청 반영)
+
+정본 `phase` 하나에 모든 의미를 싣지 않고, 서로 독립된 네 축으로 나눕니다.
+
+| 축 | 질문 | 값 (닫힌 열거형) | 저장 위치 |
+|---|---|---|---|
+| 학습 활동 `activity` | 무엇을 했나 | `theater`(기출 문항 학습) \| `dissect`(유형 훈련) \| `practice`(원리 연습) | 세션 |
+| 수행 방식 `help` | 어떻게 했나 | `independent` \| `hint` \| `viewed_first`(해설 바로 보기) | 시도 |
+| 평가 단계 `phase` | 측정상 무엇인가 | `practice` \| `review` \| `transfer` \| `pre`·`post`·`delayed`(효과 프로토콜에서만) | 시도 |
+| 학습 결과 | 무엇이 나왔나 | `choice_correct` bool · `evidence_correct` bool · `completion`(세션) | 시도·세션 |
+
+- **세션** = 학습자가 한 문항(또는 한 세트)에 들어와 나갈 때까지의 단위입니다. `session_id`(클라이언트가 만든 uuid), `activity`, `item_ref` 또는 `set_ref`, 시작·종료 시각, `completion`을 가집니다.
+- **시도** = 세션 안에서 한 번 판단을 제출한 것입니다. 한 세션에 0개 이상이 있습니다. 확정, 전이 문항 응답, 복습 응답이 각각 시도입니다. 해설 바로 보기는 시도가 아니라 세션의 `help` 기록입니다.
+- **관계**: 시도는 `session_id`를 가집니다. `completion`은 시도에서 파생하는 세션 속성입니다(예: 독립 시도가 1개 이상이고 정리 단계에 도달하면 `completed_independent`). 정본 표는 시도 단위이므로 세션은 ⓐ 새 표 하나를 두거나 ⓑ 시도의 `session_id`로 묶어 파생합니다. **권고는 ⓑ**입니다. 새 표를 만들지 않고, 완료는 서버 질의로 계산합니다. 이것은 합의 사항 [03 §5](./03-PARALLEL.md#5-공통-스키마-전-합의-사항)에 들어갑니다.
+
+### 5-1b. 기존 적중률 데이터 처리
+- 대상: 기기와 서버 레코드에 있는 `predictions` 중 `source:'theater'`, `sentence=null`, `choice=null`인 항목입니다. 이것이 「모르겠어요」로 생긴 기록입니다.
+- 처리: 지우지 않습니다. 읽을 때 `viewed_first`로 재해석하고 적중 통계에서 제외하는 **읽기 시점 변환**만 합니다. 레코드 버전은 그대로 둡니다.
+- 이벤트: 과거 `funnel_events`에는 확정 이벤트가 없었으므로 정정할 대상이 없습니다. 새 이벤트부터 구분합니다.
+- 실제 학습자 데이터가 0명이므로 영향은 검증 계정 2명분뿐입니다 [사실·DB].
+
+### 5-1c. 기능 검증과 학습 효과 검증의 분리
+| | 기능 검증 | 학습 효과 검증 |
+|---|---|---|
+| 주체 | 합성 학습자와 에이전트 | 실제 학습자만 |
+| 기록 | `synthetic=true` | `synthetic=false` |
+| 판정 | 상태 전이·저장·이벤트·재개가 명세대로 동작 | pre/post/delayed/transfer 비교, N≥20 |
+| 지금 가능 | **예.** 구현을 계속할 수 있음 | **아니오.** 미검증 상태로 표시 |
+| 화면 문구 | — | 효과를 주장하는 문구 금지 |
+
 ### 5-2. 기기 레코드 (단기 · DB 변경 없음)
 - `DissectionRecord`에 `sessions: {id, item, mode, step, completion?, at, updatedAt}[]`를 추가합니다.
 - 병합 키는 `id`입니다. 삭제 표시를 넣어 부활 버그(합집합 병합)를 막습니다.
