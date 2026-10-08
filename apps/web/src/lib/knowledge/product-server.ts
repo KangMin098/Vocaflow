@@ -157,6 +157,22 @@ export interface MapPracticeLink {
   /** 확인 문항(csat_items.id)과 과제 키 — 학습자 결과를 지도로 되돌릴 때 쓴다(find-outcome) */
   target: string
   taskKey: string
+  /** 같은 단계의 확인 문항 전부(첫 항목 = 위 target). 「서로 다른 확인 문항 2개」 기준을 채우려면 audience.items 로 여러 문항을 단다 */
+  confirm: { href: string; label: string; target: string; taskKey: string }[]
+}
+
+/** 적용 audience → 확인 문항 목록. item(단수 · 기존 행) 다음에 items(복수) — 중복 제거, 순서 유지 */
+export function findTargetsOf(audience: Record<string, unknown> | null | undefined): string[] {
+  const out: string[] = []
+  const push = (v: unknown) => { if (typeof v === 'string' && v && !out.includes(v)) out.push(v) }
+  push(audience?.item)
+  if (Array.isArray(audience?.items)) for (const v of audience.items) push(v)
+  return out
+}
+
+const itemLabel = (target: string) => {
+  const [exam, no] = target.split('#')
+  return `${/^\d{4}$/.test(exam) ? `${exam}학년도 수능` : exam} ${no}번으로 직접 확인`
 }
 
 export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promise<Record<string, MapPracticeLink>> {
@@ -170,13 +186,16 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
     // 적용 키는 소문자만 받는다(b6-3) — 지도 과제 id(B6-3)로 되돌린다
     const taskId = app.surface_ref.toUpperCase()
     if (out[taskId]) continue
-    const target = typeof app.audience?.item === 'string' ? app.audience.item : null
-    if (!target || !resolveChain(app.item_id, graph.items, graph.links).live) continue
+    if (!resolveChain(app.item_id, graph.items, graph.links).live) continue
     // 지도 쪽 연결도 그 문항 쪽 적용이 살아 있어야 한다 — 문항에서 과제가 내려갔는데 지도 링크만 남으면 빈 화면으로 보낸다
-    const task = currentItemTask(target)
-    if (!task || !(await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, target), client))) continue
-    const [exam, no] = target.split('#')
-    out[taskId] = { href: `/csat/item/${toItemSlug(target)}#principle`, label: `${/^\d{4}$/.test(exam) ? `${exam}학년도 수능` : exam} ${no}번으로 직접 확인`, target, taskKey: task.def.key }
+    const confirm: MapPracticeLink['confirm'] = []
+    for (const target of findTargetsOf(app.audience)) {
+      const task = currentItemTask(target)
+      if (!task || !(await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, target), client))) continue
+      confirm.push({ href: `/csat/item/${toItemSlug(target)}#principle`, label: itemLabel(target), target, taskKey: task.def.key })
+    }
+    if (confirm.length === 0) continue
+    out[taskId] = { ...confirm[0], confirm }
   }
   return out
 }

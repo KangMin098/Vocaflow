@@ -15,6 +15,14 @@ import { createHash } from 'node:crypto'
 import annotation2022 from './annotations/claim-support-2022-20.v2.json'
 // 2025#20 — 두 번째 확인 문항(2026-10-08 · Claude · Codex 맹검 합의). 2023#20(정답 앵커 ≠ 합의 주장) · 2024#20(주장 문장 불일치)은 보류
 import annotation2025 from './annotations/claim-support-2025-20.v1.json'
+// 2026-10-08 확대 — 채택 조건: 두 맹검 판정의 주장 문장이 같고 정답 근거 앵커와 같다. M2509#20 보류(주장 불일치)
+import ann_2016_20 from './annotations/claim-support-2016-20.v1.json'
+import ann_2020_20 from './annotations/claim-support-2020-20.v1.json'
+import ann_2021_20 from './annotations/claim-support-2021-20.v1.json'
+import ann_2026_20 from './annotations/claim-support-2026-20.v1.json'
+import ann_m2506_20 from './annotations/claim-support-m2506-20.v1.json'
+import ann_m2606_20 from './annotations/claim-support-m2606-20.v1.json'
+import ann_m2609_20 from './annotations/claim-support-m2609-20.v1.json'
 import { RELATIONS, type Relation } from './claim-support-labels'
 
 export { RELATIONS, RELATION_LABEL, type Relation } from './claim-support-labels'
@@ -47,6 +55,13 @@ export interface ClaimSupportAnnotation {
 const ANNOTATIONS: Record<string, ClaimSupportAnnotation> = {
   [annotation2022.itemId]: annotation2022 as ClaimSupportAnnotation,
   [annotation2025.itemId]: annotation2025 as ClaimSupportAnnotation,
+  [ann_2016_20.itemId]: ann_2016_20 as ClaimSupportAnnotation,
+  [ann_2020_20.itemId]: ann_2020_20 as ClaimSupportAnnotation,
+  [ann_2021_20.itemId]: ann_2021_20 as ClaimSupportAnnotation,
+  [ann_2026_20.itemId]: ann_2026_20 as ClaimSupportAnnotation,
+  [ann_m2506_20.itemId]: ann_m2506_20 as ClaimSupportAnnotation,
+  [ann_m2606_20.itemId]: ann_m2606_20 as ClaimSupportAnnotation,
+  [ann_m2609_20.itemId]: ann_m2609_20 as ClaimSupportAnnotation,
 }
 
 export function annotationFor(itemId: string): ClaimSupportAnnotation | null {
@@ -108,4 +123,9 @@ export function gradeClaimSupport(a: ClaimSupportAnnotation, r: ClaimSupportResp
     relationOk,
     isCorrect: claimOk && supportOk && relationOk,
   }
+}
+
+/** 주석이 있는 문항 id 전부 — 학습 지도 FIND 가 「서로 다른 확인 문항」을 고를 때 쓴다(노출은 여전히 적용 게이트가 정한다) */
+export function annotatedItemIds(): string[] {
+  return Object.keys(ANNOTATIONS)
 }

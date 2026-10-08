@@ -38,7 +38,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   const lineTasks = data.tasks.filter((t) => step.lines.includes(t.line_code))
   const find = lineTasks.filter((t) => stageOf(t.id) === 'FIND')
   // 확인 문항 결과 → 확인된 학습 요구(서로 다른 확인 문항 2개 이상 · 독립 첫 시도). 연결된 확인 문항이 있을 때만
-  const findTargets = find.map((t) => data.practiceLinks?.[t.id]).filter((x): x is NonNullable<typeof x> => !!x).map((x) => ({ itemRef: x.target, taskKey: x.taskKey }))
+  const findTargets = find.map((t) => data.practiceLinks?.[t.id]).filter((x): x is NonNullable<typeof x> => !!x).flatMap((x) => (x.confirm ?? [x]).map((c) => ({ itemRef: c.target, taskKey: c.taskKey })))
   const outcome = findTargets.length ? findOutcome(findTargets, data.findAttempts ?? []) : null
   const later = STAGE_ORDER.filter((s) => s !== 'FIND').map((s) => ({ stage: s, tasks: lineTasks.filter((t) => stageOf(t.id) === s) }))
   const nameOf = (code: string) => data.nodes.find((n) => n.code === code)?.name ?? code
@@ -128,11 +128,11 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                           <ClipboardCheck size={12} strokeWidth={1.9} aria-hidden="true" />
                           {t.done_when} · {t.cadence}
                         </span>
-                        {data.practiceLinks?.[t.id] && (
-                          <a href={data.practiceLinks[t.id].href} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="find-practice-link" data-task={t.id}>
-                            {data.practiceLinks[t.id].label} →
+                        {(data.practiceLinks?.[t.id]?.confirm ?? (data.practiceLinks?.[t.id] ? [data.practiceLinks[t.id]] : [])).map((c) => (
+                          <a key={c.target} href={c.href} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="find-practice-link" data-task={t.id} data-item={c.target}>
+                            {c.label} →
                           </a>
-                        )}
+                        ))}
                       </span>
                     </li>
                   )
