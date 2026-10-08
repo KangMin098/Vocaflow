@@ -16,27 +16,30 @@ let tables: Record<string, Row[]> = {}
 let users: Array<{ id: string; created_at: string; email: string }> = []
 let failProfiles = false
 
-// 정렬 없는 range 는 페이지마다 순서가 달라질 수 있다(PostgREST 는 order 없이 순서를 보장하지 않는다).
-// 모의 DB 는 그것을 흉내 낸다: order 가 없으면 페이지마다 다른 순서(첫 페이지 역순 · 이후 정순)로 잘라 준다.
-let pageCall = 0
+// 모의 DB: 활동 표는 range 페이지, user_profiles 는 `.in('role', …).limit(n)` 필터 조회(T-0007)를 흉내 낸다.
+// user_profiles 를 range(OFFSET)로 훑으면 이 모의는 실패를 돌려준다 — 페이징 회귀를 잡는다.
+let profileRangeCalls = 0
 vi.mock('@/lib/supabase/admin', () => ({
   createAdminClient: () => ({
     auth: { admin: { listUsers: async () => ({ data: { users }, error: null }) } },
     from: (table: string) => {
-      let ordered = false
+      let roles: string[] | null = null
       const q = {
-        order: () => {
-          ordered = true
+        in: (col: string, vals: string[]) => {
+          if (col === 'role') roles = vals
           return q
         },
-        range: async (lo: number, hi: number) => {
+        limit: async (n: number) => {
           if (table === 'user_profiles' && failProfiles) return { data: null, error: { message: 'denied' } }
-          const rows = [...(tables[table] ?? [])]
+          const rows = (tables[table] ?? []).filter((r) => !roles || roles.includes(String(r.role)))
+          return { data: rows.slice(0, n), error: null }
+        },
+        range: async (lo: number, hi: number) => {
           if (table === 'user_profiles') {
-            if (ordered) rows.sort((a, b) => String(a.user_id).localeCompare(String(b.user_id)))
-            else if (pageCall++ % 2 === 0) rows.reverse()
+            profileRangeCalls += 1
+            return { data: null, error: { message: 'user_profiles 를 OFFSET 페이지로 읽지 않는다' } }
           }
-          return { data: rows.slice(lo, hi + 1), error: null }
+          return { data: (tables[table] ?? []).slice(lo, hi + 1), error: null }
         },
       }
       return { select: () => q }
@@ -112,17 +115,23 @@ describe('fetchRetention — 검증된 외부 계정만 계산한다', () => {
     expect(await fetchRetention({})).toBeNull()
   })
 
-  it('프로필이 1,000개를 넘어도 역할 조회가 정렬돼 운영자를 놓치지 않는다(외부 목록 충돌 → 내부)', async () => {
-    // 운영자 + 일반 1,000명. 운영자를 외부 목록에도 잘못 올렸다 — 역할을 놓치면 실사용 1로 부풀어 오른다.
-    const filler = Array.from({ length: 1000 }, (_, i) => `55555555-5555-4555-8555-${String(i).padStart(12, '0')}`)
-    tables.user_profiles = [{ user_id: ADMIN, role: 'admin' }, ...filler.map((id) => ({ user_id: id, role: 'user' }))]
+  it('일반 프로필이 아무리 많아도 운영 역할만 필터해 읽어 운영자를 놓치지 않는다(외부 목록 충돌 → 내부) · OFFSET 페이징 없음', async () => {
+    // 운영자 + 일반 5,000명. 운영자를 외부 목록에도 잘못 올렸다 — 역할을 놓치면 실사용 1로 부풀어 오른다.
+    const filler = Array.from({ length: 5000 }, (_, i) => `55555555-5555-4555-8555-${String(i).padStart(12, '0')}`)
+    tables.user_profiles = [...filler.map((id) => ({ user_id: id, role: 'user' })), { user_id: ADMIN, role: 'admin' }]
     users = [{ id: ADMIN, created_at: '2026-01-01T00:00:00Z', email: 'owner@personal-mail.com' }]
-    pageCall = 0
+    profileRangeCalls = 0
     const r = await fetchRetention({ VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS: ADMIN })
     expect(r?.status).toBe('ok')
     if (r?.status !== 'ok') return
     expect(r.accounts).toMatchObject({ externalVerified: 0, internal: 1, conflicts: 1 })
     expect(r.report.signups).toBe(0)
+    expect(profileRangeCalls).toBe(0)
+  })
+
+  it('운영 역할 계정이 조회 상한에 닿으면 잘렸을 수 있으므로 null(못 쟀음)', async () => {
+    tables.user_profiles = Array.from({ length: 1000 }, (_, i) => ({ user_id: `66666666-6666-4666-8666-${String(i).padStart(12, '0')}`, role: 'curator' }))
+    expect(await fetchRetention({})).toBeNull()
   })
 
   it('결과에는 계정 ID·이메일이 없다', async () => {

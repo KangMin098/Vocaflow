@@ -3,7 +3,7 @@
 // 학습자 활성화·리텐션 **조회부**. 계산은 `retention-math.ts`(순수)가 소유한다.
 //
 // 새 테이블·새 쓰기 경로가 없다 — 기존 네 곳만 읽는다:
-//   `auth.users`(가입) · `learning_records`(단어 단위) · `scores`(세션·게임 단위) · `user_profiles.role`(계정 분류).
+//   `auth.users`(가입) · `learning_records`(단어 단위) · `scores`(세션·게임 단위) · `user_profiles`(운영 역할 계정만 — 계정 분류).
 // 리텐션은 **검증된 외부 학습자만**으로 계산한다 — 분류 규칙은 `account-classification.ts`(VG-L3-D1-02).
 // 왜 이벤트 수집기를 만들지 않았는지는 `retention-math.ts` 머리주석 참조.
 //
@@ -16,7 +16,7 @@ import { pagedSelect } from '@/lib/supabase/paged-select'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { classifyAccount, parseAccountRegistry, summarizeAccounts } from './account-classification'
+import { classifyAccount, INTERNAL_ROLES, parseAccountRegistry, summarizeAccounts } from './account-classification'
 import { computeRetention, type LearnerActivity, type RetentionResult } from './retention-math'
 
 export type { RetentionReport, RetentionResult } from './retention-math'
@@ -64,6 +64,25 @@ export async function fetchRetention(env: Record<string, string | undefined> = p
   }
 }
 
+/**
+ * 운영 역할(admin·curator) 계정 ID. 역할 판정에 필요한 것은 이 집합뿐이라 **그 역할만 필터해 읽는다** —
+ * 전체 프로필을 페이지로 훑지 않는다(OFFSET 페이징 예산 · `offset-paging-budget.test.ts`, T-0007).
+ * 운영 계정이 상한에 닿으면 잘렸을 수 있으므로 집계를 포기한다(throw → 상위 catch → null = 못 쟀음).
+ * 역할을 못 읽은 채 계속하면 운영자가 미분류로 남아 수는 맞아 보여도 근거가 틀린다.
+ */
+export const OPERATOR_FETCH_CAP = 1000
+
+async function fetchOperatorIds(admin: ReturnType<typeof createAdminClient>): Promise<Set<string>> {
+  const { data, error } = await admin
+    .from('user_profiles')
+    .select('user_id')
+    .in('role', [...INTERNAL_ROLES])
+    .limit(OPERATOR_FETCH_CAP)
+  if (error || !data) throw new Error(`retention 운영 역할 조회 실패: ${error?.message ?? 'no data'}`)
+  if (data.length >= OPERATOR_FETCH_CAP) throw new Error('retention 운영 역할 계정이 조회 상한에 닿았다 — 잘렸을 수 있어 집계 포기')
+  return new Set((data as Array<{ user_id: string }>).map((p) => p.user_id))
+}
+
 async function computeFromDb(parsed: Exclude<ReturnType<typeof parseAccountRegistry>, { status: 'invalid' }>): Promise<RetentionResult | null> {
   const admin = createAdminClient()
 
@@ -92,7 +111,7 @@ async function computeFromDb(parsed: Exclude<ReturnType<typeof parseAccountRegis
   //    안 준다(실측 2026-08-30). 리텐션은 "며칠에 걸쳐 돌아왔나" 를 세는 지표라,
   //    잘리면 **최근 1,000건만 보고** 재방문을 계산한다 — 학습이 쌓일수록 더 크게 틀린다.
   //    (이 화면은 분기 진단이 근거로 쓰는 수치다 — 틀린 채로 결정에 들어간다.)
-  const [lr, sc, profiles] = await Promise.all([
+  const [lr, sc, operators] = await Promise.all([
     pagedSelect<{ user_id: string | null; attempted_at: string | null }>(
       (lo, hi) => admin.from('learning_records').select('user_id, attempted_at').range(lo, hi),
       'retention learning_records',
@@ -101,16 +120,9 @@ async function computeFromDb(parsed: Exclude<ReturnType<typeof parseAccountRegis
       (lo, hi) => admin.from('scores').select('user_id, created_at').range(lo, hi),
       'retention scores',
     ),
-    // 운영 역할(admin·curator)은 내부로만 판정한다. 읽기 실패는 throw → 상위 catch → null(못 쟀음).
-    // 역할을 못 읽은 채 계속하면 운영자가 미분류로 남아 수는 맞아 보여도 근거가 틀린다.
-    // ⚠️ 고유 키로 **정렬**한다 — 정렬 없는 range 페이지는 페이지마다 순서가 달라질 수 있어, 1,000행을 넘으면
-    //    운영자 프로필이 빠지고 「외부 목록에 오른 운영자」 충돌을 놓친다(Codex T-0006 r1 P2-1).
-    pagedSelect<{ user_id: string; role: string | null }>(
-      (lo, hi) => admin.from('user_profiles').select('user_id, role').order('user_id', { ascending: true }).range(lo, hi),
-      'retention user_profiles',
-    ),
+    fetchOperatorIds(admin),
   ])
-  const roleOf = new Map((profiles ?? []).map((p) => [p.user_id, p.role]))
+  const roleOf = new Map([...operators].map((id) => [id, 'admin' as const]))
 
   // 두 출처를 합친다 — 한쪽만 보면 조용히 틀린다(받아쓰기·게임은 scores,
   // 플래시카드류는 learning_records 에 남는다).
