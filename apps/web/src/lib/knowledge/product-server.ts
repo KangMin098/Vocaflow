@@ -10,17 +10,21 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { loadItemSkeleton } from '@/lib/csat/skeleton'
-import { toItemSlug } from '@/lib/csat/item-slug'
+import { fromItemSlug, toItemSlug } from '@/lib/csat/item-slug'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { annotationFor, annotationHash, gradeClaimSupport, parseResponse, skeletonSig, type ClaimSupportAnnotation, type ClaimSupportGrade } from './claim-support'
-import { CLAIM_SUPPORT_LEARNER } from './claim-support-labels'
+import { currentItemTask, ITEM_TASKS } from './item-tasks'
 import { resolveChain, type ChainItem, type ChainLink, type ChainVerdict } from './live-chain'
 
-/** 실행 과제 키 — learning_task_attempts.task_key · 적용 surface_ref 의 앞부분 */
+/** 첫 수직 경로의 과제 키(호환) — 과제 키 목록은 item-tasks 레지스트리가 정본 */
 export const CLAIM_SUPPORT_TASK = 'claim-support'
-export const itemTaskRef = (itemId: string) => `${CLAIM_SUPPORT_TASK}:${toItemSlug(itemId)}`
+/** 적용 surface_ref = 「과제 키:문항 슬러그」 — learning_task_attempts.task_key 와 같은 과제 키 */
+export const itemTaskRef = (taskKey: string, itemId: string) => `${taskKey}:${toItemSlug(itemId)}`
+/** surface_ref → 과제 키 · 문항 id(레지스트리에 있는 과제만) */
+export function parseItemTaskRef(ref: string): { taskKey: string; itemId: string } | null {
+  for (const t of ITEM_TASKS) if (ref.startsWith(`${t.key}:`)) return { taskKey: t.key, itemId: fromItemSlug(ref.slice(t.key.length + 1)) }
+  return null
+}
 
 function db(): SupabaseClient {
   return createAdminClient() as unknown as SupabaseClient
@@ -74,39 +78,35 @@ export async function loadLiveApplication(surface: string, ref: string, client: 
   return null
 }
 
-/** 학습자 문항 화면이 받는 것 — 내부 id · 상태 없음 */
+/** 학습자 문항 화면이 받는 것 — 내부 id · 상태 없음. 과제 모양(panel)은 과제마다 다르다(정답 없음) */
 export interface ItemPrinciplePanel {
-  /** 학습자에게 보이는 원리 이름(처리 기제의 제목) */
+  taskKey: string
+  /** 학습자에게 보이는 원리 이름 */
   principle: string
-  /** 왜 필요한지(처리 기제의 문장) */
+  /** 왜 필요한지(과제 쪽 고정 문구) */
   why: string
-  sentenceCount: number
-  relationSentence: number
+  panel: Record<string, unknown>
 }
 
 export async function loadItemPrinciple(itemId: string): Promise<ItemPrinciplePanel | null> {
-  const ann = currentAnnotation(itemId)
-  if (!ann) return null
-  const live = await loadLiveApplication('csat_item_task', itemTaskRef(itemId))
+  const task = currentItemTask(itemId)
+  if (!task) return null
+  const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId))
   if (!live) return null
   if (!live.chain.path.some((p) => p.layer === 'principle')) return null
   // 학습자 문구는 과제 쪽 고정 문구 — 관리자 항목 문장(효과 미확인 · 처리 후보 같은 연구 단서)을 학습자에게 넘기지 않는다
-  return { principle: CLAIM_SUPPORT_LEARNER.title, why: CLAIM_SUPPORT_LEARNER.why, sentenceCount: ann.sentenceCount, relationSentence: ann.relationProbe.sentence }
+  return { taskKey: task.def.key, principle: task.def.learner.title, why: task.def.learner.why, panel: task.def.panel(task.ann) }
 }
 
-/** 주석이 있고 지금 골격과 같은 문장 경계일 때만 */
-export function currentAnnotation(itemId: string): ClaimSupportAnnotation | null {
-  const ann = annotationFor(itemId)
-  const sk = loadItemSkeleton(itemId)
-  if (!ann || !sk) return null
-  if (skeletonSig(sk.sentences.map((s) => s.chars)) !== ann.skeletonSig || sk.sentences.length !== ann.sentenceCount) return null
-  return ann
+/** 주석이 있고 지금 골격과 같은 문장 경계일 때만(과제 종류 무관) */
+export function currentAnnotation(itemId: string) {
+  return currentItemTask(itemId)?.ann ?? null
 }
 
 export class TaskInputError extends Error {}
 
 export interface AttemptResult {
-  grade: ClaimSupportGrade
+  grade: Record<string, unknown> & { isCorrect: boolean }
   attempts: number
 }
 
@@ -114,31 +114,33 @@ export interface AttemptResult {
  * 수행 기록 한 건 — userId 는 세션에서만(라우트가 넘긴다). 채점은 서버에서 주석으로 한다(클라이언트 판정을 믿지 않는다).
  * 이 기록은 **과제 수행**이지 효과 판정이 아니다 — 항목 efficacy 는 건드리지 않는다(DB 가드도 막는다).
  */
-export async function recordClaimSupportAttempt(client: SupabaseClient, userId: string, itemId: string, raw: unknown, sec: unknown): Promise<AttemptResult> {
-  const ann = currentAnnotation(itemId)
-  if (!ann) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
-  const live = await loadLiveApplication('csat_item_task', itemTaskRef(itemId), client)
+export async function recordItemTaskAttempt(client: SupabaseClient, userId: string, itemId: string, raw: unknown, sec: unknown): Promise<AttemptResult> {
+  const task = currentItemTask(itemId)
+  if (!task) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
+  const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId), client)
   if (!live) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요')
-  const response = parseResponse(raw, ann)
-  if (!response) throw new TaskInputError('고른 문장을 다시 확인해 주세요')
-  const grade = gradeClaimSupport(ann, response)
+  const graded = task.def.grade(task.ann, raw)
+  if (!graded) throw new TaskInputError('고른 답을 다시 확인해 주세요')
   const seconds = Number.isInteger(sec) && (sec as number) >= 0 && (sec as number) <= 7200 ? (sec as number) : null
   const { error } = await client.from('learning_task_attempts').insert({
     user_id: userId,
-    task_key: CLAIM_SUPPORT_TASK,
+    task_key: task.def.key,
     application_id: live.app.id,
     item_ref: itemId,
-    content_hash: annotationHash(ann),
+    content_hash: task.def.hash(task.ann),
     phase: 'practice',
-    response: { ...response, annotation: ann.version, appVersion: live.app.version, grade: { claim: grade.claimOk, support: grade.supportOk, relation: grade.relationOk } },
-    is_correct: grade.isCorrect,
+    response: { ...(graded.response as object), annotation: task.ann.version, appVersion: live.app.version, grade: graded.summary },
+    is_correct: graded.grade.isCorrect,
     sec: seconds,
   })
   if (error) throw new Error(`수행 기록 저장 실패: ${error.message}`)
   const { count } = await client.from('learning_task_attempts').select('id', { count: 'exact', head: true })
-    .eq('user_id', userId).eq('task_key', CLAIM_SUPPORT_TASK).eq('item_ref', itemId)
-  return { grade, attempts: count ?? 1 }
+    .eq('user_id', userId).eq('task_key', task.def.key).eq('item_ref', itemId)
+  return { grade: graded.grade, attempts: count ?? 1 }
 }
+
+/** @deprecated 첫 수직 경로 이름(호환) — recordItemTaskAttempt 를 쓴다 */
+export const recordClaimSupportAttempt = recordItemTaskAttempt
 
 /** 학습 지도 FIND 과제 → 같은 실행 과제로 가는 명시적 연결(learning_map_find 적용 행). 사슬이 죽었으면 빠진다 */
 export interface MapPracticeLink {
@@ -160,7 +162,8 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
     const target = typeof app.audience?.item === 'string' ? app.audience.item : null
     if (!target || !resolveChain(app.item_id, graph.items, graph.links).live) continue
     // 지도 쪽 연결도 그 문항 쪽 적용이 살아 있어야 한다 — 문항에서 과제가 내려갔는데 지도 링크만 남으면 빈 화면으로 보낸다
-    if (!currentAnnotation(target) || !(await loadLiveApplication('csat_item_task', itemTaskRef(target), client))) continue
+    const task = currentItemTask(target)
+    if (!task || !(await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, target), client))) continue
     const [exam, no] = target.split('#')
     out[taskId] = { href: `/csat/item/${toItemSlug(target)}#principle`, label: `${/^\d{4}$/.test(exam) ? `${exam}학년도 수능` : exam} ${no}번으로 직접 확인` }
   }

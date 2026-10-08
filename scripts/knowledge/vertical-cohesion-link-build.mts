@@ -1,6 +1,6 @@
-// scripts/knowledge/vertical-claim-support-build.mts
+// scripts/knowledge/vertical-cohesion-link-build.mts
 //
-// Phase 3 첫 수직 경로 「주장과 근거 관계」 사슬을 **관리자 화면(Server Action)으로** 실제 데이터로 만든다(2026-10-08).
+// Phase 3 두 번째 수직 경로 「문장 관계 — 연결어 · 지시어」 사슬을(vertical-claim-support-build 와 같은 경로 · 2022 수능 36번) **관리자 화면(Server Action)으로** 실제 데이터로 만든다(2026-10-08).
 // DB 에 직접 쓰지 않는다 — 버튼을 눌러 같은 규칙 · 트리거 · 검토 기록을 탄다. 읽기만 service_role 로 한다(있는지 확인).
 // 재실행 안전: 단계마다 이미 있으면 건너뛴다. 시험 데이터가 아니다 — 지우지 않는다.
 //   만드는 것: 처리 기제 · 방법 · 실행 과제(검토 중으로) → implements 연결(과제→방법→기제→본질 「의미 처리」) →
@@ -21,21 +21,21 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.
 const { chromium } = createRequire(path.join(ROOT, 'apps/web/package.json'))('@playwright/test')
 fs.mkdirSync(OUT, { recursive: true })
 
-const ITEM = '2022#20'
+const ITEM = '2022#36'
 const ESSENCE = 'essence-meaning-processing'
-const REVIEW = 'Claude Code 작성 · Codex 독립 검토 adopt(docs/methodology/vertical/claim-support.md §채택 검토) — 채택은 제품 사용 판단이지 효과 입증이 아니다(efficacy 미확정)'
+const REVIEW = 'Claude(맹검 서브에이전트) · Codex(맹검) 독립 검토 모두 adopt(docs/methodology/vertical/cohesion-link.md §채택 검토) — 채택은 제품 사용 판단이지 효과 입증이 아니다(efficacy 미확정)'
 const CHAIN = [
-  { layer: 'principle', layerLabel: '원리', kind: '언어 처리 기제', slug: 'claim-support-relation', title: '주장과 근거 연결', page: '/admin/knowledge/principles',
-    statement: '논증하는 글에서 필자의 주장 문장을 찾고, 다른 문장이 그 주장과 맺는 관계(이유·조건으로 떠받침 / 다른 말로 다시 함 / 필자가 반박하는 생각)를 연결해 논증 구조를 세우는 처리. 주장형 문항(필자의 주장·요지)에 쓰이는 처리 후보다 — 주장 문장 하나만으로 풀리는 문항도 있어 이 처리가 필수라는 근거는 없고, 연습 효과도 아직 확인하지 않았다.' },
-  { layer: 'method', layerLabel: '방법론', kind: null, slug: 'method-claim-support-marking', title: '주장·뒷받침 문장 표시하며 읽기', page: '/admin/knowledge/methods',
-    statement: '주장 문장 하나에 표시하고, 나머지 문장을 ① 이유·조건으로 주장을 떠받치는 문장 ② 주장을 다른 말로 다시 하는 문장 ③ 필자가 반박하는 생각(통념·실수)을 말하는 문장으로 나눠 적는다. 통념을 부정하며 주장 쪽으로 끌어오는 문장은 ①과 ③ 중 어디인지 판단이 갈릴 수 있어 따로 표시한다. 선지를 고르기 전에 표시한 주장과 비교한다.' },
-  { layer: 'practice', layerLabel: '공부법', kind: null, slug: 'task-claim-support-link', title: '주장 문장·뒷받침 문장 고르고 관계 표시', page: '/admin/knowledge/methods',
-    statement: '기출 주장형 문항 한 개에서 ① 주장이 가장 직접 드러난 문장 ② 이유·조건으로 주장을 떠받치는 문장(모두 — 주장을 다시 말한 문장 · 필자가 반박하는 생각은 빼고) ③ 지정한 한 문장과 주장의 관계를 문장 번호로 고른다. 채점은 두 판정자가 맹검으로 합의한 문항 주석으로만 하고, 판정이 갈린 문장은 채점에서 뺀다.' },
+  { layer: 'principle', layerLabel: '원리', kind: '언어 처리 기제', slug: 'cohesion-cues', title: '응집 단서', page: '/admin/knowledge/principles',
+    statement: '글에서 지시어(this · such · they) · the + 명사 · 연결어 · 되풀이되는 핵심어가 앞 문장의 어떤 내용을 가리키거나 잇는지 찾아 문장과 단락의 앞뒤 관계를 세우는 처리 후보. 근거는 순서 문항 한 개뿐이다 — 이 문항에서는 두 단서의 연결이 단락 순서 판단의 근거가 된다. 다른 순서 · 삽입 문항에서도 같은지, 이 처리가 필수인지, 연습 효과가 있는지는 아직 확인하지 않았다.' },
+  { layer: 'method', layerLabel: '방법론', kind: null, slug: 'method-cohesion-tracking', title: '연결 단서로 글 잇기', page: '/admin/knowledge/methods',
+    statement: '지시어 · the + 명사 · 연결어를 단서 후보로 표시하고, 각 후보가 앞 내용과 실제로 이어지는지 확인한다. 가리키는 대상이 없거나 둘 이상으로 읽히면 하나로 정하지 말고 보류해 따로 표시한다. 확인한 연결과 문장의 의미를 함께 보고 단락의 앞뒤를 정한다.' },
+  { layer: 'practice', layerLabel: '공부법', kind: null, slug: 'task-cohesion-link', title: '단서가 가리키는 문장 고르고 단락 순서 정하기', page: '/admin/knowledge/methods',
+    statement: '기출 순서 문항 한 개에서 지정한 단서(지시어 · the + 명사 등)마다 그것이 가리키는 내용이 나온 문장을 문장 번호로 고르고, 그 연결로 단락 순서를 고른다. 채점은 두 판정자가 맹검으로 합의한 문항 주석으로만 하고, 판정이 갈린 문장은 채점에서 뺀다.' },
 ] as const
 const INQUIRY = {
-  slug: 'claim-support-relation-csat',
-  question: '수능 독해에서 학생이 주장과 근거의 관계를 정확히 파악하는 것이 주장형 문항 판단에 어떤 역할을 하는가?',
-  uncertainty: '연구 근거 없음(연구 서지 미등록) — 근거는 기출 관찰 1건(2022 수능 20번 · 원천 B)과 문항 주석 이중 맹검뿐. 효과는 실제 학습자 검증(사전·사후·지연·전이) 전까지 미확정. 3번째 문장처럼 뒷받침/반박 판정이 갈리는 문장이 있다.',
+  slug: 'cohesion-relation-csat',
+  question: '수능 독해에서 지시어 · the + 명사 · 연결어가 가리키는 앞 문장을 찾는 것이 순서 · 삽입 문항 판단에 어떤 역할을 하는가?',
+  uncertainty: '연구 근거 없음(연구 서지 미등록) — 근거는 기출 관찰 1건(2022 수능 36번 · 원천 A)과 문항 주석 이중 맹검뿐. 효과는 실제 학습자 검증(사전·사후·지연·전이) 전까지 미확정. 단서가 가리키는 범위가 한 문장인지 두 문장인지 갈리는 경우가 있다(2022#36 단서 1).',
 }
 
 const log = (s: string) => console.log(`· ${s}`)
@@ -55,7 +55,7 @@ const expectText = async (t: string | RegExp) => {
 
 try {
   const origin = await one(db.from('knowledge_csat_origins').select('passage_sha256, grade').contains('item_ids', [ITEM]).maybeSingle()) as { passage_sha256: string; grade: string } | null
-  if (!origin || origin.grade === 'G') throw new Error('2022#20 원천이 A·B·C 가 아니다 — 근거로 쓸 수 없다')
+  if (!origin || origin.grade === 'G') throw new Error('2022#36 원천이 A·B·C 가 아니다 — 근거로 쓸 수 없다')
 
   // 1) 항목 — 「새 항목 쓰기」 폼(검토 중으로 저장)
   for (const c of CHAIN) {
@@ -71,6 +71,19 @@ try {
     await page.getByRole('button', { name: '검토 중으로 저장' }).click()
     await page.waitForURL(new RegExp(`/admin/knowledge/item/${c.slug}`))
     log(`항목 만듦 ${c.slug}`)
+  }
+  // 1b) 이미 있던 항목(기제 · 방법)은 맹검 검토가 adopt 한 문장으로 고친다 — 관리자 「문장 고치기」(검토 중 항목이라 연쇄 없음)
+  for (const c of CHAIN) {
+    const cur = await one(db.from('knowledge_items').select('statement, status').eq('slug', c.slug).single()) as { statement: string; status: string }
+    if (cur.statement === c.statement) continue
+    if (cur.status === 'adopted' || cur.status === 'applied') throw new Error(`${c.slug} 가 이미 채택돼 있다 — 문장 고치기는 재검토를 부른다. 손으로 확인`)
+    await go(`/admin/knowledge/item/${c.slug}`)
+    const sf = page.locator('section', { has: page.locator('#statement-form') })
+    const save = sf.getByRole('button', { name: '문장 저장' })
+    for (let i = 0; i < 20 && !(await save.isEnabled()); i++) { await sf.getByLabel('항목 문장').fill(c.statement); await page.waitForTimeout(500) }
+    await save.click()
+    await expectText('저장했습니다')
+    log(`문장 고침 ${c.slug}`)
   }
   const [P, M, T] = await Promise.all(CHAIN.map((c) => itemRow(c.slug))) as { id: string; slug: string; status: string; title: string }[]
   const E = await itemRow(ESSENCE) as { id: string; title: string } | null
@@ -99,7 +112,7 @@ try {
     await form.getByRole('radio', { name: '기출 원천' }).check()
     await form.getByLabel('귀속').selectOption('observed')
     await form.getByLabel(/기출 원천 \(A·B·C/).selectOption(origin.passage_sha256)
-    await form.getByLabel(/메모/).fill('2022 수능 20번 — 반박 대상(흔한 실수)을 먼저 놓고 주장 문장을 세운 뒤 이유·조건 문장으로 떠받치는 구조. 문항이 그 관계를 세웠는지를 잰다(기출 관찰).')
+    await form.getByLabel(/메모/).fill('2022 수능 36번 — 「그러한 환경세」(지시어)와 「그 결과」(the + 결과 명사)가 가리키는 앞 문장이 단락 순서를 정한다. 문항이 그 연결을 세웠는지를 잰다(기출 관찰).')
     await form.getByRole('button', { name: '근거 추가' }).click()
     await expectText('근거를 연결했습니다.')
     log(`근거 ${it.slug}`)
@@ -182,8 +195,8 @@ try {
 
   // 6) 제품 적용 2 + 검증 계획 → 켜기
   const APPS = [
-    { surface: 'csat_item_task', ref: 'claim-support:2022-20', audience: JSON.stringify({ item: ITEM, exam: 'suneung', type: 'R-CLAIM' }) },
-    { surface: 'learning_map_find', ref: 'b6-3', audience: JSON.stringify({ item: ITEM, line: 'B6', step: 'structure' }) },
+    { surface: 'csat_item_task', ref: 'cohesion-link:2022-36', audience: JSON.stringify({ item: ITEM, exam: 'suneung', type: 'R-ORDER' }) },
+    { surface: 'learning_map_find', ref: 'a3-4', audience: JSON.stringify({ item: ITEM, line: 'A3', step: 'relation' }) },
   ]
   for (const a of APPS) {
     let app = await one(db.from('knowledge_applications').select('id, status').eq('surface', a.surface).eq('surface_ref', a.ref).eq('item_id', T.id).maybeSingle()) as { id: string; status: string } | null
@@ -206,8 +219,8 @@ try {
       await box.getByLabel('적용').selectOption(app.id)
       await box.getByLabel(/지연 평가/).fill('14')
       await box.getByLabel(/최소 표본/).fill('30')
-      await box.getByLabel(/비교 조건/).fill('같은 기간 이 과제를 하지 않은 주장형(R-CLAIM) 문항 정답률')
-      await box.getByLabel(/측정 지표/).fill('주장형 문항 첫 시도 정답률, 주장 문장 선택 정답률, 뒷받침 문장 선택 정답률, 미연습 주장형 문항(전이) 정답률')
+      await box.getByLabel(/비교 조건/).fill('같은 기간 이 과제를 하지 않은 순서 · 삽입(R-ORDER · R-INSERT) 문항 정답률')
+      await box.getByLabel(/측정 지표/).fill('순서 · 삽입 문항 첫 시도 정답률, 단서 가리킴 문장 선택 정답률, 미연습 순서 · 삽입 문항(전이) 정답률')
       await box.getByRole('button', { name: '계획 저장' }).click()
       await expectText('검증 계획을 만들었습니다')
       log(`검증 계획 ${a.ref}`)
@@ -223,7 +236,7 @@ try {
   const tNow = await itemRow(T.slug) as { status: string }
   if (tNow.status === 'adopted' && firstBuild) {
     await go(`/admin/knowledge/item/${T.slug}`)
-    await page.locator('#status-reason').fill('문항 과제(2022 수능 20번) · 학습 지도 FIND(B6-3) 적용이 켜졌다')
+    await page.locator('#status-reason').fill('문항 과제(2022 수능 36번) · 학습 지도 FIND(A3-4) 적용이 켜졌다')
     await page.getByRole('button', { name: '제품 적용(으)로' }).click()
     await expectText('바꿨습니다. 검토 기록에 남았습니다.')
     log('과제 → 제품 적용')

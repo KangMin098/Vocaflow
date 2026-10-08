@@ -1,0 +1,21 @@
+{
+  "version": "cohesion-link-2022-36.v1",
+  "itemId": "2022#36",
+  "skeletonSig": "83f7ac00484c426cb93e482452f419b79baeb5d2465351d9f2f87a13c58fdd4b",
+  "sentenceCount": 7,
+  "probes": [
+    { "id": "cue1", "cueSentence": 1, "cueLabel": "2번째 문장의 「그러한 환경세」 — such + 명사(앞 내용을 되받는 지시어)", "referent": [3], "disputed": [4] },
+    { "id": "cue2", "cueSentence": 5, "cueLabel": "6번째 문장 첫머리의 「그 결과」 — the + 결과 명사(앞에 나온 일의 결과)", "referent": [2], "disputed": [] }
+  ],
+  "order": { "options": ["(A) － (C) － (B)", "(B) － (A) － (C)", "(B) － (C) － (A)", "(C) － (A) － (B)", "(C) － (B) － (A)"], "answer": 1 },
+  "answerAnchorOverlap": {
+    "answerAnchorSentences": [1],
+    "note": "정답 근거 앵커(2번째 문장)가 단서 1이 있는 문장과 같다. 앵커는 정답 순서가 왜 맞는지 설명하는 해설 위치, 이 주석은 단서 → 가리키는 문장의 연결(과제용) — 같은 문장, 다른 역할."
+  },
+  "provenance": {
+    "annotators": "Claude(맥락 없는 새 서브에이전트 · 맹검) · Codex(맹검) — 같은 질문지(tmp 번호 지문)로 서로의 판정을 보지 않고",
+    "agreement": "단서 1 위치 2 · 단서 2 위치 6 · 단서 2 → 3번째 문장 · 순서 B-A-C · 단서 종류(지시어 · 정관사) 일치. 단서 1의 가리킴: 둘 다 4번째(과세 원리)를 포함, Claude 만 5번째(세수 활용)도 포함",
+    "resolved": "단서 1 정답 = 4번째(0부터 3), 5번째(0부터 4)는 disputed — 골라도 틀리지 않음. 두 판정자가 합의한 것만 채점",
+    "reviewedAt": "2026-10-08"
+  }
+}

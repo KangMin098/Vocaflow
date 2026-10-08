@@ -17,7 +17,9 @@ import { notFound } from 'next/navigation'
 
 import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/AnalysisTheater'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
+import { CohesionPanel } from '@/components/csat/theater/CohesionPanel'
 import { PrinciplePanel } from '@/components/csat/theater/PrinciplePanel'
+import type { CohesionPanelProps } from '@/lib/knowledge/cohesion-link-labels'
 import { KICE_ARCHIVE_URL, kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { toItemSlug } from '@/lib/csat/item-slug'
@@ -153,7 +155,11 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   const body = principle ? (
     <>
       {theater}
-      <PrinciplePanel slug={toItemSlug(item.id)} {...principle} />
+      {principle.taskKey === 'cohesion-link' ? (
+        <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
+      ) : (
+        <PrinciplePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as { sentenceCount: number; relationSentence: number })} />
+      )}
     </>
   ) : (
     theater

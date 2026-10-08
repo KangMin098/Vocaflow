@@ -9,10 +9,10 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { KnowledgeFrame } from '@/components/admin/knowledge/KnowledgeFrame'
 import { requireAdmin } from '@/lib/auth/require-admin'
-import { fromItemSlug } from '@/lib/csat/item-slug'
 import { STATUS_LABEL } from '@/lib/knowledge/labels'
 import { resolveChain } from '@/lib/knowledge/live-chain'
-import { CLAIM_SUPPORT_TASK, currentAnnotation, itemTaskRef, loadChainGraph, loadLiveApplication } from '@/lib/knowledge/product-server'
+import { currentItemTask } from '@/lib/knowledge/item-tasks'
+import { itemTaskRef, loadChainGraph, loadLiveApplication, parseItemTaskRef } from '@/lib/knowledge/product-server'
 import { APP_STATUS_LABEL, APP_SURFACE_LABEL, EVIDENCE_LEVEL_LABEL, TRIAL_STATUS_LABEL, type AppStatus, type AppSurface, type TrialStatus } from '@/lib/knowledge/vnext-labels'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -51,10 +51,12 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
   const tr = (trials.data ?? []) as Row[]
   const task = chain.path[0]
   // 문항 과제면 주석 상태도 사슬의 한 칸이다
-  const itemRef = String(app.surface_ref).startsWith(`${CLAIM_SUPPORT_TASK}:`) ? fromItemSlug(String(app.surface_ref).slice(CLAIM_SUPPORT_TASK.length + 1)) : typeof (app.audience as Row)?.item === 'string' ? String((app.audience as Row).item) : null
-  const annotation = itemRef ? currentAnnotation(itemRef) : null
+  const parsed = parseItemTaskRef(String(app.surface_ref))
+  const itemRef = parsed ? parsed.itemId : typeof (app.audience as Row)?.item === 'string' ? String((app.audience as Row).item) : null
+  const itemTask = itemRef ? currentItemTask(itemRef) : null
+  const annotation = itemTask?.ann ?? null
   // 지도 FIND 적용은 목적지(문항 과제 적용)가 살아 있어야 학습자에게 링크가 보인다 — 추적도 같은 조건으로(Codex P2)
-  const target = app.surface === 'learning_map_find' && itemRef ? await loadLiveApplication('csat_item_task', itemTaskRef(itemRef), db) : null
+  const target = app.surface === 'learning_map_find' && itemRef ? itemTask ? await loadLiveApplication('csat_item_task', itemTaskRef(itemTask.def.key, itemRef), db) : null : null
 
   const breaks = [
     ...(inquiries?.length ? [] : ['탐구 질문에 이어진 사슬 항목이 없다']),
@@ -95,7 +97,7 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
         <li className="rounded border border-[var(--bd)] p-4" data-step="application" data-status={String(app.status)}>
           <h3 className="font-semibold text-[var(--t1)]">제품 적용</h3>
           <p className="mt-1">{APP_SURFACE_LABEL[app.surface as AppSurface]} · {String(app.surface_ref)} · v{String(app.version)} · {APP_STATUS_LABEL[app.status as AppStatus]}{app.released_at ? ` · 배포 ${String(app.released_at).slice(0, 10)}` : ''}</p>
-          {itemRef && <p className="mt-1">문항 {itemRef} · 주석 {annotation ? `${annotation.version}(${annotation.provenance.annotator.split(' ')[0]} + ${annotation.provenance.independentReviewer.split(' ')[0]} 맹검)` : '없음'}</p>}
+          {itemRef && <p className="mt-1">문항 {itemRef} · 과제 {itemTask?.def.key ?? '—'} · 주석 {annotation ? `${annotation.version}(Claude · Codex 맹검 합의)` : '없음'}</p>}
         </li>
         <li className="rounded border border-[var(--bd)] p-4" data-step="attempts">
           <h3 className="font-semibold text-[var(--t1)]">실제 수행(과제 수행 — 효과 아님)</h3>

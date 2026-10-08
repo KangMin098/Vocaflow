@@ -1059,6 +1059,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 극장 골격(순수) | [`lib/csat/theater.ts`](../apps/web/src/lib/csat/theater.ts) — 강의 큐 → 왼쪽 단계 이름(역할·타깃에서만 짓는다) · 역할 → 효과음 · 분석 층 → 오른쪽 블록(**빈 칸은 만들지 않는다**) · `blockKeyForTarget`(문장 앵커는 지도로) |
 | 대본 없는 차례 | `lecture/store.ts` `lectureOutline` + `lecture/types.ts` `LectureStep` — 역할·타깃·길이·말한 문장 번호만. **재생 전에도 레일이 선다**(대본은 여전히 API 로만) |
 | 읽기 원리 확인 과제 | [`components/csat/theater/PrinciplePanel.tsx`](../apps/web/src/components/csat/theater/PrinciplePanel.tsx) — 문항 해설 아래 「이 문항에서 확인할 읽기 원리」 · 직접 확인하기(주장 · 뒷받침 · 관계를 문장 번호로) · 서버 채점 결과. 게이트 `lib/knowledge/product-server.ts`(채택 사슬 · 적용 active · 주석 서명) · 주석 `lib/knowledge/annotations/` · [vertical/claim-support](./methodology/vertical/claim-support.md) |
+| 응집 단서 확인 과제 | [`components/csat/theater/CohesionPanel.tsx`](../apps/web/src/components/csat/theater/CohesionPanel.tsx) — 순서 문항에서 단서(지시어 · the + 명사 · 연결어)가 가리키는 문장을 번호로 고르고 단락 순서를 고른다 · 채점은 서버(`lib/knowledge/cohesion-link.ts`) · 과제 선택은 레지스트리 `lib/knowledge/item-tasks.ts` (2026-10-08 · DB 빌드 전 노출 0) |
 | 극장 화면 | [`components/csat/theater/AnalysisTheater.tsx`](../apps/web/src/components/csat/theater/AnalysisTheater.tsx) — 레일(차례) · 무대(`PassageMap` + 블록) · 장 카드 · 「전부 펼쳐 읽기」 · ←/→ · 배속 |
 | 효과음 | [`lib/csat/theater-sfx.ts`](../apps/web/src/lib/csat/theater-sfx.ts) — 넷(step·mark·trap·seal), 큐 경계에서만. 기존 **실녹음 샘플을 배속으로** 다시 쓴다(새 자산 0). `wrong.wav` 는 쓰지 않는다 · 기본 끔 · 샘플을 못 받으면 무음 |
 | 엔진 | **변경 없음** — `LecturePlayer` · `LectureStage` · `PassageMap` 그대로 |
