@@ -12,7 +12,7 @@
 ## Unreleased (v06.34 → next)
 
 - feat(csat): 문항 확인 과제 `POST /api/csat/item/[slug]/task` 를 G2 계약(`learning_session_apply` → `learning_attempt_record`)으로 — 요청 멱등 id · 판단 시각 · 도움 수준 필수, 해설 열람은 별도 mutation. practice 쓰기 기본 g2(direct 는 롤백 전용).
-- migration `20261008180000_learning_help_timing`(M8 · **개발 DB 적용 2026-10-08 · 원장 버전 20261008125232** · sha256 6bf67368…) — `learning_sessions.help_received_at` · `learning_task_attempts.received_at` · 첫 시도 뷰 실효 도움 = 판단 시각 기준 + `timing_uncertain`(효과 게이트 제외) · 세션 synthetic 불변. 격리 PG `scripts/knowledge/g2-m8-test.mjs` 45/45 · 원자 제출(M8-H) · 두 기기 시계(M8-G) · 시도 synthetic 불변 · 분석 전환 직렬화 · [승인 요청](./methodology/M8_APPROVAL_2026-10-08.md).
+- migration `20261008180000_learning_help_timing`(M8 · **개발 DB 적용 2026-10-08 · 원장 버전 정정 완료** · sha256 6bf67368…) — `learning_sessions.help_received_at` · `learning_task_attempts.received_at` · 첫 시도 뷰 실효 도움 = 판단 시각 기준 + `timing_uncertain`(효과 게이트 제외) · 세션 synthetic 불변. 격리 PG `scripts/knowledge/g2-m8-test.mjs` 45/45 · 원자 제출(M8-H) · 두 기기 시계(M8-G) · 시도 synthetic 불변 · 분석 전환 직렬화 · [승인 요청](./methodology/M8_APPROVAL_2026-10-08.md).
 - feat(map): 학습 지도 결과 환류 — FIND 과제 아래 「내가 한 확인」(횟수 · 처음/최근 결과 · 다른 지문 적용 · 다시 보기 예약 · 다음 행동 · 도움 여부는 기록에 있을 때만 · 실력 판정 아님). `MapPracticeLink` 에 itemId · taskKey(화면 비노출). 단위 7 · E2E 10/10 · 기존 지도 E2E 회귀 없음
 
 - feat(api): `POST /api/csat/item/[slug]/task` 거부 응답에 `code`(no_task · not_live · invalid_input) — 노출 게이트 거부를 입력 오류와 구분. 응집 게이트 E2E 9/9(정상 입력 → not_live · 대조 invalid_input)
