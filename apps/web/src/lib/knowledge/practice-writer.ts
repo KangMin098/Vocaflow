@@ -41,6 +41,12 @@ export interface AttemptWriter {
   /** 판단 제출 전에 세션 공개를 먼저 적용한다(G2 RPC 규칙). 세션 id 를 돌려준다 — direct 는 null */
   reveal(w: AttemptWrite): Promise<string | null>
   record(w: AttemptWrite, sessionId: string | null): Promise<WriteOutcome>
+  /**
+   * 판단을 보낸 뒤의 해설 열람 — **시도와 별개인 행동**. 시도 payload 에 넣으면 같은 제출의 재전송이 첫 제출과 달라져
+   * G2 멱등 비교에서 conflict 가 된다(REVERIFY_17bb7c93f §P1-2). 지금은 두 모드 모두 담을 곳이 없어 기록하지 않는다 —
+   * 행동 원장(세션 쪽 칸 또는 별도 mutation)이 승인 · 적용되면 여기서 쓴다. 저장하지 않았음을 false 로 알린다
+   */
+  noteExplanationView(w: AttemptWrite, viewedAt: string, sessionId: string | null): Promise<boolean>
 }
 
 /** 결정론적 uuid — 같은 세션의 공개 변경은 재시도해도 같은 id(G2 §7 백필 키와 같은 방식) */
@@ -87,6 +93,9 @@ export function directWriter(db: SupabaseClient): AttemptWriter {
     kind: 'direct',
     async reveal() {
       return null
+    },
+    async noteExplanationView() {
+      return false
     },
     async record(w) {
       const { data: prior, error: readErr } = await db
@@ -144,6 +153,9 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
       // 공개가 conflict 여도 세션은 이미 있다(먼저 공개한 값이 이긴다) — 시도는 p_help_level 을 비워 세션 값을 상속한다.
       // 화면은 판단을 한 번 낸 세션의 도움 수준을 바꾸지 않으므로(해설 열람은 별도 행동) 같은 세션의 공개 내용은 바뀌지 않는다
       return row.session_id
+    },
+    async noteExplanationView() {
+      return false
     },
     async record(w, sessionId) {
       const { data, error } = await db.rpc('learning_attempt_record', {

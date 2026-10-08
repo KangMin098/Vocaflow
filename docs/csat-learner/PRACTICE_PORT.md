@@ -44,7 +44,7 @@
 - **g2(적용 뒤)** — `learning_session_apply`(stage=revealed, 결정론적 mutation id)로 세션을 공개한 뒤, 받은 세션 id로 `learning_attempt_record`를 부른다. G2 규칙(공개 전 시도 거부 · 세션 메타데이터 상속)을 따르는 순서다.
 - **두 어댑터의 response 모양은 같다**(`responseOf`). g2도 열 값의 사본(`activity` · `help_level` · client ids)을 response에 넣어, 「내 기록」 · 완료 · 판정 읽기가 어느 모드의 기록이든 같은 칸으로 읽는다.
 - g2 시도는 `p_help_level`을 **보내지 않는다**(NULL → 세션 상속). 세션과 다른 값을 보내면 RPC가 영구 거부하기 때문이다.
-- **판단을 한 번 보낸 세션의 도움 수준은 바꾸지 않는다**(성공 · 실패 무관). 그 뒤의 해설 열람은 `explanationViewedAt` → 기록 `response.explanation_viewed_at`인 별도 행동이다. 재시도의 같은 id · 같은 판단 시각은 유지된다. 그 열람 뒤에는 **답을 잠근다**. 같은 답 재전송만 가능하므로, 해설을 보고 바꾼 답이 독립 수행으로 저장되지 않는다.
+- **판단을 한 번 보낸 세션의 도움 수준은 바꾸지 않는다**(성공 · 실패 무관). 그 뒤의 해설 열람은 시도 payload 밖의 별도 행동(`explanationViewedAt` → `writer.noteExplanationView`)이다. 재전송 payload는 첫 제출과 같아야 G2 멱등 비교에서 conflict가 나지 않는다(REVERIFY_17bb7c93f §P1-2). **지금은 담을 곳이 없어 저장하지 않는다**(두 모드 모두 no-op · 행동 원장 승인 뒤 연결). 재시도의 같은 id · 같은 판단 시각은 유지된다. 그 열람 뒤에는 **답을 잠근다**. 같은 답 재전송만 가능하므로, 해설을 보고 바꾼 답이 독립 수행으로 저장되지 않는다.
 - 클라이언트가 보내는 값:
   - 문항을 열 때마다 새 `clientSessionId`
   - 제출마다 새 `clientMutationId`. 같은 답의 재시도만 같은 id와 같은 `answeredAt`을 쓴다

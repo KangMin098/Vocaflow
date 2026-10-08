@@ -34,6 +34,10 @@ function fakeWriter(outcome: WriteOutcome = 'inserted') {
       calls.push('reveal')
       return null
     },
+    noteExplanationView: async () => {
+      calls.push('explain')
+      return false
+    },
     record: async (w) => {
       calls.push('record')
       writes.push(w)
@@ -61,7 +65,7 @@ describe('submitPractice — 채점 → 공개 → 기록 → 판정', () => {
     expect(r.feedback).toMatchObject({ claimHit: true, optionCorrect: true, claimSentences: [1], supportSentences: [3, 4] })
   })
   it('기록이 실패하면 정답 키가 나가지 않는다', async () => {
-    const writer: AttemptWriter = { kind: 'direct', reveal: async () => null, record: async () => { throw new Error('db down') } }
+    const writer: AttemptWriter = { kind: 'direct', reveal: async () => null, noteExplanationView: async () => false, record: async () => { throw new Error('db down') } }
     await expect(submitPractice(deps(writer), { userId: 'u1', synthetic: false }, SUB)).rejects.toThrow('db down')
   })
   it('같은 제출 id 의 다른 답은 409 · 재전송(duplicate)은 같은 판정', async () => {
@@ -199,10 +203,23 @@ describe('P1: 내 기록 읽기 — direct · g2 어느 기록이든 같은 칸�
 })
 
 describe('판단을 보낸 뒤 해설 열람 — 도움 수준이 아니라 별도 행동', () => {
-  it('explanationViewedAt 은 기록 extra 에만 남고 helpLevel 은 그대로', async () => {
+  it('P1-2: 열람은 시도 payload 밖 별도 행동 — 재전송 payload 가 첫 제출과 같다 · helpLevel 그대로', async () => {
     const f = fakeWriter()
+    await submitPractice(deps(f.writer), { userId: 'u1', synthetic: false }, SUB)
     await submitPractice(deps(f.writer), { userId: 'u1', synthetic: false }, { ...SUB, explanationViewedAt: '2026-10-08T05:59:30.000Z' })
-    expect(f.writes[0].helpLevel).toBe('independent')
-    expect(f.writes[0].extra.explanation_viewed_at).toBe('2026-10-08T05:59:30.000Z')
+    expect(responseOf(f.writes[1])).toEqual(responseOf(f.writes[0]))
+    expect(JSON.stringify(responseOf(f.writes[1]))).not.toContain('explanation')
+    expect(f.writes[1].helpLevel).toBe('independent')
+    expect(f.calls).toEqual(['reveal', 'record', 'reveal', 'record', 'explain'])
+  })
+  it('P1-2: g2 — 저장 성공 · 응답 유실 뒤 열람 재전송도 같은 p_response(RPC conflict 없음)', async () => {
+    const f = fakeDb([])
+    const w = g2Writer(f.db)
+    const deps2 = { db: f.db, writer: w, pool: async () => [ENTRY], answer: async () => 5 }
+    await submitPractice(deps2, { userId: 'u1', synthetic: false }, SUB)
+    await submitPractice(deps2, { userId: 'u1', synthetic: false }, { ...SUB, explanationViewedAt: '2026-10-08T05:59:30.000Z' })
+    const attempts = f.rpcs.filter((r) => r.fn === 'learning_attempt_record')
+    expect(attempts).toHaveLength(2)
+    expect(attempts[1].args).toEqual(attempts[0].args)
   })
 })

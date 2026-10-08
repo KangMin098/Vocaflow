@@ -190,7 +190,6 @@ export async function submitPractice(
     answer: { claim: s.claim, support: s.support, relation: s.relation, option: s.option, confidence: s.confidence },
     extra: {
       preview: s.preview,
-      explanation_viewed_at: s.explanationViewedAt,
       pool: entry.kind,
       annotation: entry.kind === 'annotated' ? annotationFor(s.itemId)?.version ?? null : null,
       appVersion: entry.appVersion,
@@ -199,6 +198,8 @@ export async function submitPractice(
   }
   const sessionId = await deps.writer.reveal(write)
   const outcome = await deps.writer.record(write, sessionId)
+  // 해설 열람은 시도 payload 밖의 별도 행동 — 재전송 payload 가 첫 제출과 같게 남는다
+  if (outcome !== 'conflict' && s.explanationViewedAt) await deps.writer.noteExplanationView(write, s.explanationViewedAt, sessionId)
   if (outcome === 'conflict') throw new PracticeInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요', 409)
   return { outcome, feedback: practiceFeedback(entry.key, grade, optionCorrect, entry.phase, s.helpLevel) }
 }
