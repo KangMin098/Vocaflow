@@ -1,5 +1,24 @@
 # FYM commercial textbook benchmark engine
 
+## Reference roles
+
+`reference-roles.mjs` records `STRUCTURAL_REFERENCE` independently of
+`CALIBRATION_REFERENCE`. The structural role requires an external source snapshot, an
+external rights-evidence file, matching SHA-256 values, an explicit internal-analysis
+rights decision, a reviewer ID, and a stated structural purpose. Catalog-only and
+unknown rights remain `hold`; excluded rights are `rejected`. The decision contains
+hashes and status only, never the source text. A changed source or rights file fails
+revalidation, including when the prior decision was held. Its evidence level is
+`operator_reviewed_local`, not publisher attestation.
+
+Structural eligibility does not imply admission, Korean-grade equivalence, independent
+nine-axis rating, calibration eligibility, or cohort eligibility. The calibration role
+is calculated only by re-admitting the current reference and running all existing
+rights, mapping, and rating gates. The actual multi-grade benchmark still rechecks
+the admission and calibration decision and rejects structural-only references. Neither
+role decision alone opens a grade distribution. Existing NASA/FYM/African Storybook/EIA
+holds are unchanged; no prior sealed screening or manifest is rewritten.
+
 ## Admission to calibration contract
 
 `reference-calibration.mjs` re-admits the current source before evaluating three independent
