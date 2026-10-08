@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Add a separate open-reference/commercial file-backed admission receipt that preserves single- or multi-grade scope, verifies per-passage rights and nine-axis codebook evidence, and binds independently recomputed selection. Multi-grade evaluation can re-admit a single-cohort reference set before use. Existing commercial v2 seals are unchanged; real corpus, Gold-S and seed stay at zero.
+
 - feat(textbook): Add reviewed commercial passage intake from file-bound edition, grade, analysis-rights and passage/item evidence into create-only screening revision 3 and an independently recomputed manifest. Mixed cohorts, changed files/evidence, premature analysis and duplicate passages fail closed; no real corpus or Gold-S is opened.
 
 - docs(textbook): Define independent edition, grade-scope, analysis-rights and passage/item-boundary evidence decisions before a new benchmark screening revision. Commercial and open-reference cohorts remain separate; four probed files stay held, and the eligible-file passage-screening implementation gap is recorded.

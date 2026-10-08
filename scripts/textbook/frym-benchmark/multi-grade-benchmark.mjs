@@ -1,5 +1,6 @@
 // scripts/textbook/frym-benchmark/multi-grade-benchmark.mjs
 import { AXES, GRADES, hash } from './benchmark.mjs'
+import { admitReference } from './reference-admission.mjs'
 
 const CORE = ['lexical', 'syntax', 'information_density', 'discourse', 'inference']
 const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
@@ -28,6 +29,7 @@ const diverse = (rows, contract) => {
 export function sealMultiGradeBenchmarkContract(input) {
   if (input?.schema !== 'multi-grade-benchmark-contract/1' || input.status !== 'sealed' ||
       !hex(input.group_hash) || !hex(input.codebook_hash) ||
+      (input.reference_cohort !== undefined && !['commercial_textbook', 'open_reference'].includes(input.reference_cohort)) ||
       !['grade_range', 'multi_grade'].includes(input.grade_scope?.mode) ||
       !Array.isArray(input.grade_scope.grades) || input.grade_scope.grades.length < 2 ||
       input.grade_scope.grades.some(grade => !GRADES.includes(grade)) ||
@@ -55,7 +57,10 @@ const validReference = (row, contract) => {
   const scope = row?.grade_scope
   return typeof row.sample_id === 'string' && row.sample_id && hex(row.passage_hash) &&
     hex(row.admission_receipt_hash) && row.codebook_hash === contract.codebook_hash &&
-    row.rights_basis === 'authorized_local_analysis' &&
+    row.rights_basis === (contract.reference_cohort === 'open_reference' ?
+      'open_license_verified' : 'authorized_local_analysis') &&
+    (contract.reference_cohort === 'open_reference' ? row.cohort === 'open_reference' :
+      row.cohort === undefined || row.cohort === 'commercial_textbook') &&
     typeof row.publisher === 'string' && row.publisher &&
     typeof row.series === 'string' && row.series &&
     ['expository', 'argumentative', 'narrative'].includes(row.genre) &&
@@ -158,7 +163,7 @@ function separation(variants, references, contract) {
   return { status, basis: pairs[0]?.basis, pairs }
 }
 
-export function evaluateMultiGradeBenchmark({ contract: rawContract, group, evidence, variants, references }) {
+function evaluateMultiGradeCore({ contract: rawContract, group, evidence, variants, references }) {
   const { contract, contract_hash } = sealMultiGradeBenchmarkContract(rawContract)
   if (group?.schema !== 'textbook-product-order-group/1' || hash(group) !== contract.group_hash ||
       !same(group.grade_scope, contract.grade_scope) || group.delivery_mode !== contract.delivery_mode ||
@@ -261,4 +266,22 @@ export function evaluateMultiGradeBenchmark({ contract: rawContract, group, evid
     gold_s_candidate: false, gold_s: false, db_seed: false,
   }
   return { ...basis, decision_hash: hash(basis) }
+}
+
+export function evaluateMultiGradeBenchmark(input) {
+  if (input?.contract?.reference_cohort === 'open_reference') fail('OPEN_REFERENCE_ADMISSION_REQUIRED')
+  return evaluateMultiGradeCore(input)
+}
+
+export function evaluateAdmittedMultiGradeBenchmark({ admitted, ...input }) {
+  if (!Array.isArray(admitted) || !admitted.length ||
+      !['commercial_textbook', 'open_reference'].includes(input.contract?.reference_cohort))
+    fail('ADMITTED_REFERENCE_SET_REQUIRED')
+  const references = admitted.map(bundle => {
+    const verified = admitReference(bundle.input)
+    if (!same(bundle.receipt, verified.receipt) || !same(bundle.reference, verified.reference))
+      fail('ADMITTED_REFERENCE_STALE_OR_MIXED')
+    return verified.reference
+  })
+  return evaluateMultiGradeCore({ ...input, references })
 }
