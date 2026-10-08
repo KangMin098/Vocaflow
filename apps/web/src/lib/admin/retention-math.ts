@@ -25,6 +25,8 @@
 // (조회 리텐션이 필요해지는 시점: 유료 전환 퍼널을 붙일 때. 그전에는 비용만 는다.)
 // ─────────────────────────────────────────────────────────────
 
+import type { AccountSummary } from './account-classification'
+
 /** 한 학습자의 가입일과 활동일(KST 날짜, 중복 없음). */
 export interface LearnerActivity {
   userId: string
@@ -35,7 +37,7 @@ export interface LearnerActivity {
 }
 
 export interface RetentionReport {
-  /** 전체 가입자 */
+  /** 넘겨받은 학습자 수 — 조회부는 **검증된 외부 계정만** 넘긴다(account-classification.ts) */
   signups: number
   /** 한 번이라도 학습한 사람 */
   activated: number
@@ -56,6 +58,16 @@ export interface RetentionReport {
   /** 최근 7일/28일에 학습한 사람 (WAU/MAU 대용) */
   active: { d7: number; d28: number }
 }
+
+/**
+ * 패널이 받는 결과. 리텐션 수치는 **검증된 외부 학습자만**으로 계산한다(`account-classification.ts`).
+ *   ok          — accounts 는 분류 요약(수만), report 는 검증된 외부 계정으로만 계산한 값
+ *   unavailable — 분류 설정(계정 목록)이 잘못됐다. 0 으로 바꾸지 않고 「계산 불가 + 사유」로 올린다
+ * 조회 자체가 실패하면(env·권한·네트워크) 호출부는 이 타입이 아니라 `null`(= 못 쟀음)을 받는다.
+ */
+export type RetentionResult =
+  | { status: 'ok'; accounts: AccountSummary; report: RetentionReport }
+  | { status: 'unavailable'; reason: 'registry_invalid'; errors: string[] }
 
 const DAY = 86_400_000
 
