@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(agents): Make textbook-factory pipeline completion the top-priority goal. Classify findings by impact on synthetic end-to-end completion, defer real rights/data acquisition and optional work, and keep operational validity separate from implementation readiness.
+
 - docs(textbook): Bind two local textbook preview ISBNs to current publisher snapshots and identify a matching Level 2 answer file. Record owner-confirmed absence of analysis permission, keep the prior hold seals intact, and specify the exact rights grant needed before passage admission.
 
 - docs(textbook): Rehash six Korean textbook files and batch-screen seven open-reference leads against current rights, edition, grade, boundary and grounding gates. Record common blockers; no new eligibility, screening, manifest, admission, Gold-S or seed state opened.

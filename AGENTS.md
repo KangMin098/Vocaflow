@@ -4,6 +4,16 @@
 > 긴 배경·사례·과거 결정 원문: [docs/agents/CONTEXT_DETAIL.md](./docs/agents/CONTEXT_DETAIL.md) · 두 에이전트 분담·인수인계: [agents/router.md](./agents/router.md).
 > 한도 **≤ 200줄 · ≤ 32 KiB**(Codex `project_doc_max_bytes` 기본값). `node agents/scripts/check.mjs` 가 검사한다 — 넘치면 원문을 CONTEXT_DETAIL 로 옮긴다.
 
+## 최우선 목표 집중 원칙 — Textbook Factory
+
+- 현재 목표는 **Textbook Factory Pipeline Design & Implementation COMPLETE**: 교재 공장이 처음부터 끝까지 동일한 Product Order·evidence revision·상태로 안전하게 작동하게 한다. 발견한 모든 문제를 고치는 일이 목표는 아니다.
+- 발견 사항은 즉시 `BLOCKER`(현재 E2E 차단), `REQUIRED_FOR_COMPLETION`(아래 완료 조건에 직접 필요), `NON_BLOCKING`(기록 후 진행), `DEFERRED`(실제 데이터·운영 단계) 중 하나로 분류한다. 앞의 두 종류만 이번 작업에서 해결한다.
+- 완료 조건: 공정 연결; 주문·증거 계보; 단일/복수 학년 E2E; Gold-S·seed·promotion·item·explanation·volume·render·publish **합성 시뮬레이션**의 상태 전이; stale·혼합·권리·revision 변경 차단; atomic snapshot 이후 생산 연결; catalog/revision 영향; 실패 주입과 복구; 핵심 공정 상태·차단 사유 관측; P01–P20 capability와 실제 구현의 일치. 이 조건을 막는 결함은 해결한다.
+- 실제 출판사 권한 확보·외부 연락, 실제 교재 admission·corpus 확대, 실제 calibration reference·한국 학년 분포, 실제 Gold-S 발급·DB seed·학생 검증·출판/판매, 부가 UI·미세 디자인·편의 기능·미래 확장·비필수 최적화/통계/connector는 현재 E2E에 직접 필요하지 않으면 `DEFERRED / NON_BLOCKING`으로 기록하고 멈추지 않는다.
+- `benchmark corpus=0`, `calibration-eligible N=0`, `Gold-S=0`, `DB seed=0`, `production_verified=false`여도 구축을 계속한다. 합성 fixture와 synthetic trust root로 구조를 검증하되 실제 운영·교육적 타당성으로 주장하지 않는다. 미래 실제 데이터에 적용될 권리·승인 게이트는 유지한다.
+- 새 gate·상태·계약을 추가하기 전 기존 계약으로 표현 가능한지, 실제 E2E를 막는지, 위 완료 조건에 직접 필요한지, 운영 데이터 부재를 코드 결함으로 오인하지 않았는지 확인한다. 필요성이 명확하지 않으면 추가하지 않는다.
+- 우선순위는 `기존 기능 연결 → 상태 전이 → evidence lineage → E2E → 실패 복구 → UI 관측`이다. 큰 작업 단위는 관련 blocker 해결, 합성 실행·실패 주입, 리뷰, 문서화, 커밋·push까지 묶어 닫는다. 부수 이슈는 backlog에 남긴다. 기존 마이그레이션 승인·비밀값·Git 안전 규칙은 그대로 적용한다.
+
 ## 프로젝트
 
 - **Vocaflow** — 영어 스크립트 기반 9 모듈 학습 플랫폼 · 타겟 한국 고등학생~성인 · Web(Next.js 14) + 모바일(Expo, Phase 2) · DB Supabase `jajenrevcbmrpaliomxv`(vocaflow-dev).
