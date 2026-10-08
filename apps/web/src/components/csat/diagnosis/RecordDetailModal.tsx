@@ -219,7 +219,7 @@ export function RecordDetailModal({
                         </td>
                         <td>
                           <span style={{ display: 'inline-flex', flexWrap: 'wrap', gap: 6 }}>
-                            <Link className={`${s.tagChip} ${s.tintChip}`} style={{ '--tint': areaTint(w.no) } as React.CSSProperties} href={`${diagnosisHref.split('?')[0]}?tab=types`}>{name(w.typeId)}</Link>
+                            <Link className={`${s.tagChip} ${s.tintChip}`} style={{ '--tint': areaTint(w.no) } as React.CSSProperties} href={`${diagnosisHref.split('?')[0]}?tab=records&view=types`}>{name(w.typeId)}</Link>
                             {w.trap && (
                               <span className={`${s.tagChip} ${s.tintChip}`} style={{ '--tint': familyTint(w.family) } as React.CSSProperties}>
                                 <Crosshair size={11} aria-hidden="true" />{w.trap}

@@ -33,7 +33,10 @@ function Row({ e }: { e: ExamTagging }) {
         <Link className="inline-flex min-h-[44px] items-center underline" href={`/admin/csat/diagnosis/exams/${encodeURIComponent(e.id)}`}>{e.label}</Link>
         <div className="text-[12px] text-[var(--t2)]">{e.id} · {e.hasKey ? '정답표 있음' : '정답표 없음 — 채점 불가'}</div>
       </td>
-      <td className={tdCls}>{e.reviewed}/{e.items} ({pct(e.reviewed, e.items)})</td>
+      <td className={tdCls} data-testid={`dx-readiness-${e.id}`}>
+        <div>검수 {e.readiness.reviewed}/{e.readiness.required} ({pct(e.readiness.reviewed, e.readiness.required)})</div>
+        <div className="text-[12px] text-[var(--t2)]">남음 {e.readiness.remaining} · 구조 문제 {e.readiness.structural.length}</div>
+      </td>
       <td className={tdCls}>{e.errorRates}/{e.items}</td>
       <td className={tdCls}>
         <div className="flex flex-wrap items-center gap-1">
@@ -45,9 +48,11 @@ function Row({ e }: { e: ExamTagging }) {
         </div>
       </td>
       <td className={tdCls}>
-        <button type="button" className={`min-h-[44px] ${btnCls}`} disabled={pending || !e.hasKey} onClick={toggle} aria-pressed={e.ready}>
+        {/* 켜기는 판정이 통과할 때만 · 끄기는 언제나 */}
+        <button type="button" className={`min-h-[44px] ${btnCls}`} disabled={pending || (!e.ready && !e.readiness.canEnable)} onClick={toggle} aria-pressed={e.ready}>
           {e.ready ? '켜짐 · 끄기' : '꺼짐 · 켜기'}
         </button>
+        <div className="mt-1 break-keep text-[12px] text-[var(--t2)]">{e.ready ? '진단 반영 중' : e.readiness.reason}</div>
         {msg && <div role="status" className="mt-1 break-keep text-[12px] text-[var(--t2)]">{msg}</div>}
       </td>
     </tr>

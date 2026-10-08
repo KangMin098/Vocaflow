@@ -262,6 +262,14 @@ export type PublicEvent =
   | { name: 'csat_dx_viewed'; props: { screen: 'attempt' | 'report' } }
   | { name: 'csat_dx_attempt_saved'; props: { ready: boolean; retake: boolean; answered: number } }
   /**
+   * 학습 지도(내 진단 · 시험 기록 옆 「학습 지도」 탭) — 진입과 내부 상호작용(D2). 수치·불리언·닫힌 열거형만(D3).
+   * 질문: 목표를 정하고 노드를 열어 과제까지 가는가. goal 은 학습자가 정한 목표 점수(0~100).
+   */
+  | { name: 'csat_map_viewed'; props: { goal: number } }
+  | { name: 'csat_map_node_opened'; props: { kind: 'goal' | 'axis' | 'line' | 'principle' | 'track' } }
+  | { name: 'csat_map_goal_set'; props: { goal: number } }
+  | { name: 'csat_map_task_toggled'; props: { done: boolean } }
+  /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
    * 이 화면의 전제는 «근거를 눌러 가며 지문 위에서 풀이를 재구성한다» 인데, 그 전제가
@@ -556,6 +564,10 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_item_back: true,
   csat_dx_viewed: true,
   csat_dx_attempt_saved: true,
+  csat_map_viewed: true,
+  csat_map_node_opened: true,
+  csat_map_goal_set: true,
+  csat_map_task_toggled: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

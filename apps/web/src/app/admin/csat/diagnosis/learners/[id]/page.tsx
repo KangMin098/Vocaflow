@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { DxHeader, DxNav } from '@/components/admin/csat-diagnosis/ui'
-import { DiagnosisBoard, type BoardTab } from '@/components/csat/diagnosis/DiagnosisBoard'
+import { DiagnosisBoard, boardHref, parseBoardTab } from '@/components/csat/diagnosis/DiagnosisBoard'
 import { RecordDetailModal } from '@/components/csat/diagnosis/RecordDetailModal'
 import { RecordModal } from '@/components/csat/diagnosis/RecordModal'
 import { requireAdmin } from '@/lib/auth/require-admin'
@@ -19,9 +19,8 @@ export const dynamic = 'force-dynamic'
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-const TABS: BoardTab[] = ['overview', 'types', 'traps', 'wrong', 'records']
 
-export default async function DiagnosisLearnerPage({ params, searchParams }: { params: { id: string }; searchParams: { tab?: string; modal?: string; record?: string; focus?: string } }) {
+export default async function DiagnosisLearnerPage({ params, searchParams }: { params: { id: string }; searchParams: { tab?: string; view?: string; modal?: string; record?: string; focus?: string } }) {
   if (!UUID.test(params.id)) notFound()
   await requireAdmin(`/admin/csat/diagnosis/learners/${params.id}`)
   const db = createAdminClient() as unknown as SupabaseClient
@@ -32,8 +31,8 @@ export default async function DiagnosisLearnerPage({ params, searchParams }: { p
     searchParams.modal === 'new' ? loadPickerExams(db) : Promise.resolve(null),
   ])
   const base = `/admin/csat/diagnosis/learners/${params.id}`
-  const tab = TABS.find((t) => t === searchParams.tab) ?? 'overview'
-  const closeHref = tab === 'overview' ? base : `${base}?tab=${tab}`
+  const { tab, view } = parseBoardTab(searchParams.tab, searchParams.view)
+  const closeHref = boardHref(base, tab, view)
   const record = searchParams.record ? report.trend.find((t) => t.sessionId === searchParams.record) : undefined
   const modal = exams ? (
     <RecordModal exams={exams} today={todayKst(new Date())} closeHref={closeHref} diagnosisBase={base} endpoint="/api/admin/csat/diagnosis/sessions" userId={params.id} />
@@ -54,7 +53,7 @@ export default async function DiagnosisLearnerPage({ params, searchParams }: { p
         <AdminScreenHelp screen="csat-diagnosis-learner" />
       </DxHeader>
       <DxNav current="/admin/csat/diagnosis/learners" />
-      <DiagnosisBoard report={report} typeNames={typeNames} tab={tab} base={base} addHref={`${base}?tab=records&modal=new`} modal={modal} focus={searchParams.focus} />
+      <DiagnosisBoard report={report} typeNames={typeNames} tab={tab} view={view} base={base} addHref={`${base}?tab=records&modal=new`} modal={modal} focus={searchParams.focus} />
     </div>
   )
 }

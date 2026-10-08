@@ -1,0 +1,1613 @@
+{
+ "exam": "M2409",
+ "version": "tri-v1",
+ "date": "2026-10-08",
+ "status": "tri-model adjudicated — human verified 아님",
+ "reviewers": "Claude Code(Opus) · Codex · 3차 Claude Sonnet 서브에이전트(블라인드 — 원문 · 정의 · 계약만, 기존 판정 · 순위 · 목표 숨김)",
+ "rule": "두 판정이 존재(0 vs >0)에서 갈린 22칸만 3차 판정. 존재 = 3 중 2 이상 > 0 · 값 = 세 값의 중앙값. 3차가 정의 해석에 달렸다고 표시한 칸 = taxonomy_ambiguous(값은 계산하되 taxonomy 결정 근거로 쓰지 않음). 나머지 칸은 두 판정 일치값(가중치 갈림은 작은 값 — 이중 검수 규칙 그대로)",
+ "items": [
+  {
+   "no": 18,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 1,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 1,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 1,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 18,
+     "code": "A3",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 도로 공사와 안전 우려의 연결을 추론하지 않아도 봉사자를 요청하는 문장에서 목적을 확인할 수 있다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The purpose is stated directly (we are asking for parent volunteers); no inter-sentence logic is needed to pick option 1."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    }
+   ]
+  },
+  {
+   "no": 19,
+   "w": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 1,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 1,
+    "A4": 0,
+    "A5": 1,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 19,
+     "code": "A3",
+     "claude": {
+      "value": 1,
+      "why": "structure:A3 All of a sudden 전환이 심경 변화의 축"
+     },
+     "codex": {
+      "value": 0,
+      "why": "YNN 취소와 대체 일정의 시간 순서는 읽어야 하지만 두 시점의 감정이 직접 드러나므로 문장 간 논리 결손을 진단할 근거는 약하다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "Y",
+       "N",
+       "N"
+      ],
+      "why": "The before/after shift (canceled trip, then the zoo news) is explicit and the emotion words are overt, so a miss would point to A1 or mood vocabulary, not flow."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    }
+   ]
+  },
+  {
+   "no": 20,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 1,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 20,
+     "code": "A5",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "YNN 마지막 문장 등을 근거로 읽지만 두려움 속으로 나아가는 용기를 '낯설고 두려운 일에 도전'으로 대응시키는 재진술 판단이 중심이다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The claim is stated repeatedly (willing to let fear be present, step into fear); no single evidence sentence has to be located, so a miss would point to A4."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    }
+   ]
+  },
+  {
+   "no": 21,
+   "w": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 1,
+    "A2": 1,
+    "A3": 0,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 21,
+     "code": "A2",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "YNN 관계절과 삽입 설명을 읽어야 하지만 불필요한 품질 향상과 자원 손실이라는 반복된 설명만으로 정답을 판단할 수 있다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "Y",
+       "N",
+       "N"
+      ],
+      "why": "The sentences are long, with dashes and appositives, but the gist (extra quality that adds no value is undesirable) survives partial parsing; A2 alone would not likely cause a miss."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    },
+    {
+     "no": 21,
+     "code": "A3",
+     "claude": {
+      "value": 0,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 1,
+      "why": "YYY 전문가의 만족과 고객 가치 부재·자원 손실 사이의 대조를 놓치면 'best'를 긍정적으로 해석하여 속담의 함의를 잘못 판단할 수 있다."
+     },
+     "third": {
+      "value": 1,
+      "q": [
+       "Y",
+       "Y",
+       "N"
+      ],
+      "why": "The student must link the closing saying back to the gold-plating argument (more than needed does not add value). Failing this link alone could plausibly produce a wrong pick, but the link is not strong enough to move a recommendation."
+     },
+     "exists": true,
+     "final": 1,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    },
+    {
+     "no": 21,
+     "code": "A6",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN gold plating의 정의와 프로젝트에 미치는 손해를 본문이 직접 설명하므로 프로젝트 관리 배경지식은 필요하지 않다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The passage defines gold plating itself, so no outside knowledge is required; this depends on reading A6 as brought-in knowledge, not context the passage supplies."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 22,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 1,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 22,
+     "code": "A1",
+     "claude": {
+      "value": 0,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 1,
+      "why": "YYY assimilate, conform, retain, cultural identities의 의미를 혼동하면 문화적 동화와 고유 정체성 유지라는 핵심 대립을 잘못 이해할 수 있다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "Words like assimilation and multiculturalists are glossed by context, and the answer rests on the right to keep one's culture, not on a vocabulary item."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    },
+    {
+     "no": 22,
+     "code": "A5",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "YNN 결론의 권리 인정 문장을 읽어야 하지만 이를 '고유의 정체성을 유지할 권리'로 대응시키는 재진술이 중심이라 별도의 근거 탐색 진단은 약하다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "Y",
+       "N",
+       "N"
+      ],
+      "why": "The gist sits in the last third (recognize other cultures have the right to differ), but gist items are main-idea tasks and a miss does not show an evidence-location deficit."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    },
+    {
+     "no": 22,
+     "code": "A6",
+     "claude": {
+      "value": 1,
+      "why": "vocab:A6 동화 · 다문화 개념 친숙도"
+     },
+     "codex": {
+      "value": 0,
+      "why": "(시드와 같아 이유 없음)"
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The passage supplies the immigration history, so no outside knowledge is needed; this depends on the definition of A6 as brought-in knowledge."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 23,
+   "w": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": []
+  },
+  {
+   "no": 24,
+   "w": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 24,
+     "code": "A6",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 온라인 아카이브가 기사 수명과 맥락 이해를 확장한다는 설명이 본문에 있으므로 저널리즘 배경지식은 필요하지 않다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The passage explains the web-archive point itself, so no outside knowledge is needed; this depends on the definition of A6."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 25,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 25,
+     "code": "A9",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 집단별·연도별 수치와 선지의 일치를 확인하는 단일 도표 문항으로, 장문 세트의 시간 부담을 진단하는 근거는 없다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "Y",
+       "N",
+       "N"
+      ],
+      "why": "Checking five statements against a table takes time, but time pressure is not an item-level diagnostic cause here; whether A9 applies to chart items at all is a definitional question."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 26,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 26,
+     "code": "A2",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "YNN 'While writing extensively, Rosen continued to perform'에서 continued to perform이 활동 지속을 명시하므로 복잡한 구문 분석이 정답을 결정하지 않는다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The sentences are simple. Option 5 conflicts with the last sentence (continued to perform), which is a content match, not a structure problem."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    }
+   ]
+  },
+  {
+   "no": 27,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 27,
+     "code": "A9",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 짧은 안내문에서 weekdays와 '주말'의 불일치를 확인하는 문항이므로 장문 세트의 시간 부담을 진단할 근거가 없다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "A short notice that is quick to check (weekdays vs weekend); whether A9 applies to short single items is a definitional question."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 28,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 28,
+     "code": "A9",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 대회 조건·날짜·전시 대상을 항목별로 대조하는 짧은 안내문이므로 장문 세트의 시간 부담을 진단할 근거가 없다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "A short notice with direct lookups (note: students select photos); whether A9 applies to short single items is a definitional question."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 29,
+   "w": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 0,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 2,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 2,
+    "A3": 0,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 2,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 1,
+    "A3": 0,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 2,
+    "A9": 0
+   },
+   "cells": []
+  },
+  {
+   "no": 30,
+   "w": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": []
+  },
+  {
+   "no": 31,
+   "w": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 31,
+     "code": "A6",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 교외 이주, 자가용 확대, 가정 중심 여가와 텔레비전의 연결을 본문이 설명하므로 전후 미국 사회에 대한 사전 지식은 필요하지 않다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The blank is inferred from the passage (home-centered leisure, free TV), so no outside knowledge is needed; this depends on the definition of A6."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 32,
+   "w": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 32,
+     "code": "A6",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 태그가 사물 이름만 제공하고 고양이의 행동 관계를 누락한다는 예시가 있어 이미지 인식 기술 배경지식 없이 풀 수 있다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The cat example inside the passage settles the answer (tags leave out what is happening), so no outside knowledge is needed; this depends on the definition of A6."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 33,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 33,
+     "code": "A1",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "YNN 단어 이해는 필요하지만 정답은 초반의 'next step'과 후반의 과학 발전을 연결하는 데 달려 있어 별도의 어휘 결손 진단은 약하다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The options use plain phrases (caught up, regained acceptance); a miss would come from inference or paraphrase, not word meaning."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    },
+    {
+     "no": 33,
+     "code": "A6",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 멘델의 발견이 처음에는 이해되지 않다가 후대의 질문에 답하게 된 경위를 본문이 제공하므로 유전학 지식은 필요하지 않다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The passage retells the Mendel story, so knowing genetics is unnecessary; this depends on the definition of A6."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 34,
+   "w": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 1,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 1,
+    "A2": 0,
+    "A3": 2,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 34,
+     "code": "A6",
+     "claude": {
+      "value": 1,
+      "why": "(검수안 v2 이유 기록 없음 — 시드 값 유지)"
+     },
+     "codex": {
+      "value": 0,
+      "why": "NNN 회화의 운반·복제 한계와 사진의 대량 유통을 본문이 대조하므로 사진사나 자본주의에 대한 배경지식은 필요하지 않다."
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The passage supplies the painting-vs-photography contrast (hard to transport vs mass circulation) and the answer follows from it; this depends on the definition of A6."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": true
+    }
+   ]
+  },
+  {
+   "no": 35,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": []
+  },
+  {
+   "no": 36,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": []
+  },
+  {
+   "no": 37,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": []
+  },
+  {
+   "no": 38,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 1,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 1,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 38,
+     "code": "A4",
+     "claude": {
+      "value": 1,
+      "why": "option:A4 millisecond precision ↔ This microlevel access 재진술이 위치 단서"
+     },
+     "codex": {
+      "value": 0,
+      "why": "(시드와 같아 이유 없음)"
+     },
+     "third": {
+      "value": 1,
+      "q": [
+       "Y",
+       "Y",
+       "N"
+      ],
+      "why": "The given sentence's microlevel access is a rewording of millisecond precision from the first sentence. Failing to see that rewording could plausibly cause a miss, but the main evidence is sequence and reference (A3), so only secondary."
+     },
+     "exists": true,
+     "final": 1,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    }
+   ]
+  },
+  {
+   "no": 39,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 1,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 39,
+     "code": "A4",
+     "claude": {
+      "value": 1,
+      "why": "option:A4 deeper familiarity ↔ basic familiarity 대비가 위치 단서"
+     },
+     "codex": {
+      "value": 0,
+      "why": "(시드와 같아 이유 없음)"
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "Placement depends on the connective flow (all that is required, This is because, Critics are interested), not on matching paraphrases between the passage and an option."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    }
+   ]
+  },
+  {
+   "no": 40,
+   "w": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 0,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "claude": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "codex": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 0,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 0
+   },
+   "cells": [
+    {
+     "no": 40,
+     "code": "A3",
+     "claude": {
+      "value": 1,
+      "why": "structure:A3 for lack of archives → invention is strength 논증"
+     },
+     "codex": {
+      "value": 0,
+      "why": "(시드와 같아 이유 없음)"
+     },
+     "third": {
+      "value": 0,
+      "q": [
+       "N",
+       "N",
+       "N"
+      ],
+      "why": "The summary needs the gist (lack of evidence yet enriches understanding) and vocabulary pairing for the blanks; it does not hinge on inter-sentence logic."
+     },
+     "exists": false,
+     "final": 0,
+     "intersection": 0,
+     "taxonomy_ambiguous": false
+    }
+   ]
+  },
+  {
+   "no": 41,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 1,
+    "A4": 2,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "cells": []
+  },
+  {
+   "no": 42,
+   "w": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "claude": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "codex": {
+    "A1": 2,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "cells": []
+  },
+  {
+   "no": 43,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "cells": []
+  },
+  {
+   "no": 44,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 2,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "cells": []
+  },
+  {
+   "no": 45,
+   "w": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "claude": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "codex": {
+    "A1": 0,
+    "A2": 0,
+    "A3": 0,
+    "A4": 0,
+    "A5": 2,
+    "A6": 0,
+    "A7": 0,
+    "A8": 0,
+    "A9": 1
+   },
+   "cells": []
+  }
+ ]
+}

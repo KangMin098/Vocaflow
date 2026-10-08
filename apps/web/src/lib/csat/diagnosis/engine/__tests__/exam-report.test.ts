@@ -24,7 +24,7 @@ function session(id: string, examId: string, takenAt: string, wrong: number[], m
     mode,
     raw: 100 - wrong.length * 2,
     grade: null,
-    answers: Array.from({ length: 45 }, (_, i) => ({ no: i + 1, chosen: wrong.includes(i + 1) ? chosenWrong : 3, correct: !wrong.includes(i + 1) })),
+    answers: Array.from({ length: 45 }, (_, i) => ({ no: i + 1, chosen: wrong.includes(i + 1) ? chosenWrong : (i % 5) + 1, correct: !wrong.includes(i + 1) })),
   }
 }
 
@@ -78,5 +78,15 @@ describe('buildExamReport', () => {
     const partial: Record<number, ReportItem> = { 18: { no: 18, itemId: 'A#18', typeId: 'R-PURPOSE', traps: {} } }
     const r = buildExamReport([session('a', 'A', '2026-06-01', [19, 20, 21])], { A: partial }, FAM)
     expect(r.sections.reading).toBe(Math.round((25 / 28) * 1000) / 1000)
+  })
+
+  it('한 번호로 일괄 입력한 기록은 점수 · 오답 표에는 남고 유형 · 영역 · 함정 집계에서 빠진다(Record Quality Layer)', () => {
+    const bulk: ReportSession = { ...session('x', 'A', '2026-06-01', []), answers: Array.from({ length: 45 }, (_, i) => ({ no: i + 1, chosen: 2, correct: i % 4 === 0 })) }
+    const r = buildExamReport([bulk, session('b', 'B', '2026-09-01', [32])], { A: items('A'), B: items('B') }, FAM)
+    expect(r.trend.find((t) => t.sessionId === 'x')).toMatchObject({ quality: 'excluded_pending_review', raw: 100 })
+    expect(r.wrongAll.filter((w) => w.sessionId === 'x').length).toBeGreaterThan(0)
+    expect(r.types.find((t) => t.typeId === 'R-ORDER')?.answered).toBe(14) // B 만
+    expect(r.traps).toEqual([{ family: 'C4', count: 1 }])
+    expect(r.qualityExcluded).toBe(1)
   })
 })

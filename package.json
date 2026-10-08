@@ -60,7 +60,9 @@
     "admin:audit:gate": "node scripts/audit/admin-console.mjs --fail-under=96",
     "video:source": "pnpm --filter web video:source",
     "video": "pnpm --filter @vocaflow/video-factory video",
-    "video:studio": "pnpm --filter @vocaflow/video-factory studio"
+    "video:studio": "pnpm --filter @vocaflow/video-factory studio",
+    "design:ref-measure": "node scripts/design/ref-measure.mjs",
+    "design:ref-compare": "node --env-file=apps/web/.env.local scripts/design/ref-compare.mjs"
   },
   "repository": {
     "type": "git",
