@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(db): `20261008120000_knowledge_vnext` 적용(사용자 승인 sha256 5053c5ba… · 해시 게이트 실행기 `scripts/db/apply-approved-sql.mjs --record` · 앞뒤 체크포인트 · 원장 기록) — 학습 원리 vNext 새 표 6 · kind · 근거 세 축. 기존 행 삭제 0(항목 · 근거 · 검토 id 동일) · 실제 DB 계약 37/37(롤백) · 공부법 118 `evidence_version` 1→2(근거 백필 부수효과).
+
 - docs(methodology): 영어 학습 원리 시스템 vNext Phase 1 — 현행 감사(DB 실측 · 코드) · 통합 아키텍처 정본 `docs/methodology/VNEXT_ARCHITECTURE.md`(구조 결함 8 · 지식 객체 6 + 탐구 · 적용 · 검증 · 근거 세 축 · 기존→새 매핑 · 관리자 5개 업무 공간 · 학습자 계약 · 첫 수직 경로 「주장과 근거 관계 이해」) · Phase 2 추가형 스키마 초안 `_pending_20261008120000_knowledge_vnext.sql`(미적용 · Codex 계획 리뷰 P0 1 · P1 7 반영 · 격리 PostgreSQL 검증 36/36 `scripts/knowledge/vnext-schema-test.mjs`). DB 변경 없음.
 
 - docs(csat): 남은 의미 보류 2문항의 원전 조사와 별도 3인 출처 품질 감사를 기록했다. 원전 확인·담화 설명만으로 양립 가능한 해석을 배제하지 못해 보류를 유지하며, 재개 조건과 발행 승인과의 구분을 명시했다. DB 원문·검수·평가원 데이터 변경 없음.
