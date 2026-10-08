@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat-learner): 기출 학습 vNext 전체 조사 [vnext-audit](./csat-learner/vnext-audit/README.md)를 추가했다. 코드·DB(읽기)·1440px 화면(쓰기 차단 합성 학습자)으로 1차 외부 검토를 검증했다. 판정은 「부분 재설계」(학습자 상태·완료 계약 중심). 실측 정정: 함정 라벨 1,726종(1회 사용 1,325)·평가원 독립 검수 0/802·극장 완료와 확정 이벤트 없음. knowledge-vnext 충돌 매트릭스와 공통 스키마 합의 사항 10개를 함께 실었다. 구현·DB 변경 없음.
+
 - feat(csat-map): 학습 지도 vNext 를 main 에 clean integration — 원본 `feat/map-vnext`(커밋 100 · 파일 451)에서 지도에 필요한 것만(마이그레이션 `20261002120000_csat_map` · `20261002120100_funnel_allow_csat_map` · `20261002130000_csat_map_item_rate_ledger`, 지도 코드 · 진단 판정 · API 2 · 이벤트 4 · 검증 스크립트). Workspace · 어휘 표지 · 사전 · 오답 원인 Evidence · seed v2 제외. 목록·동등성 [MAP_INTEGRATION_MANIFEST](./csat-learner/MAP_INTEGRATION_MANIFEST.md) · 빈 DB 검증 `scripts/csat/map/fresh-db-check.mjs`.
 
 - docs(csat): 남은 의미 보류 2문항의 원전 조사와 별도 3인 출처 품질 감사를 기록했다. 원전 확인·담화 설명만으로 양립 가능한 해석을 배제하지 못해 보류를 유지하며, 재개 조건과 발행 승인과의 구분을 명시했다. DB 원문·검수·평가원 데이터 변경 없음.
