@@ -21,13 +21,13 @@ const uuid = () => crypto.randomUUID()
 console.log(`F7 sha256 ${crypto.createHash('sha256').update(fs.readFileSync(path.join(REPO, 'supabase/migrations', F7))).digest('hex')}`)
 
 const cluster = await startCluster()
-const A = '00000000-0000-4000-8000-0000000000a1'
+const A = '00000000-0000-4000-8000-0000000000a1', B = '00000000-0000-4000-8000-0000000000b2'
 try {
   const su = new pg.Client({ host: '127.0.0.1', port: 54329, database: 'ec', user: 'supabase_admin', password: 'admin' })
   await su.connect()
   await su.query(fs.readFileSync(path.join(PG_DIR, 'bootstrap.sql'), 'utf8'))
   await su.query('alter role postgres set search_path = public, extensions')
-  await su.query(`insert into auth.users (id) values ('${A}')`)
+  await su.query(`insert into auth.users (id) values ('${A}'), ('${B}')`)
   await su.end()
   const pool = conn('postgres', 'postgres')
   const q = async (sql, params = []) => { const c = await pool.connect(); try { return await c.query(sql, params) } finally { c.release() } }
@@ -82,8 +82,41 @@ try {
     const sid = (await svc(`select * from learning_session_apply($1,$2,$3,'practice',$4,'x1','revealed',0,1,'independent','2026-10-05T09:00:00Z',null,false,false,'g2',null,$5,null)`, [A, uuid(), uuid(), phase, trial])).rows[0].session_id
     await svc(`select * from learning_attempt_record($1,$2,$3,'g2',null,null,null,null,'h','{}',true,10,false,null,$4,'2026-10-05T10:00:00Z')`, [A, uuid(), sid, trial])
   }
+  // B: 검증 없는 합성 첫 시도(09:30) 뒤에 같은 묶음의 실제 시도(10:00, 이 검증) — B 의 실제 시도는 첫 시도가 아니라 표본에 안 든다
+  const bSynSess = (await svc(`select * from learning_session_apply($1,$2,$3,'practice','pre','x1','revealed',0,1,'independent','2026-10-05T09:00:00Z',null,false,true,'g2',null,null,null)`, [B, uuid(), uuid()])).rows[0].session_id
+  const bSyn = (await svc(`select * from learning_attempt_record($1,$2,$3,'g2',null,null,null,null,'h','{}',true,10,true,null,null,'2026-10-05T09:30:00Z')`, [B, uuid(), bSynSess])).rows[0]
+  const bRealSess = (await svc(`select * from learning_session_apply($1,$2,$3,'practice','pre','x1','revealed',0,1,'independent','2026-10-05T09:50:00Z',null,false,false,'g2',null,$4,null)`, [B, uuid(), uuid(), trial])).rows[0].session_id
+  await svc(`select * from learning_attempt_record($1,$2,$3,'g2',null,null,null,null,'h','{}',true,10,false,null,$4,'2026-10-05T10:00:00Z')`, [B, uuid(), bRealSess, trial])
   rec('분석 완료 전환(실제 독립 표본)', !(await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial])))
   rec('분석 완료 검증에 묶인 합성 시도 삭제 거부', /표본은 지울 수 없다/.test((await svc('delete from learning_task_attempts where id = $1', [a2.rows[0].attempt_id])).err ?? ''))
+  rec('F7-3 표본 첫 시도 묶음의 이른 합성 시도 삭제 거부(뒤 실제 시도가 첫 시도로 올라오지 않게 · Codex P2)', /첫 시도 묶음/.test((await svc('delete from learning_task_attempts where id = $1', [bSyn.attempt_id])).err ?? ''))
+
+  // F7-5 · F7-3 합성 표시 원장으로 실제 요청을 지우는 길(methodology f7-review-probe P1-2)
+  {
+    const cs = uuid()
+    await svc(`select * from learning_session_apply($1,$2,$3,'practice','practice','r9','revealed',0,1,'independent','2026-10-05T11:00:00Z',null,false,false,'g2',null,null,null)`, [A, uuid(), cs])
+    const mm = uuid()
+    rec('F7-5 실제 세션에 합성 표시 변경 → 거부(원장도 남지 않음)', /synthetic mismatch/.test((await svc(`select * from learning_session_apply($1,$2,$3,'practice','practice','r9','revealed',0,1,'viewed_first','2026-10-05T11:05:00Z',null,false,true,'g2',null,null,null)`, [A, mm, cs])).err ?? '')
+      && (await q('select count(*)::int n from learning_mutations where client_mutation_id = $1', [mm])).rows[0].n === 0)
+    // 원장 payload 만 합성으로 위조돼 있어도(소유자 직접 INSERT) 실제 대상이 실제면 삭제 거부
+    const fake = uuid()
+    await q(`insert into learning_mutations (user_id, client_mutation_id, kind, target, payload) values ($1, $2, 'session', $3, '{"synthetic": true}')`, [A, fake, cs])
+    rec('F7-3 원장 삭제는 실제 대상 synthetic 과 대조 — payload 위조로 실제 세션 원장 삭제 거부', /실제 학습자의 요청 원장/.test((await svc('delete from learning_mutations where user_id = $1 and client_mutation_id = $2', [A, fake])).err ?? ''))
+  }
+
+  // F7-4 계정 삭제 — 실제 · 합성이 섞인 계정도 cascade 로 지워진다 · 분석 표본이 줄면 검증에 재검토 필요 표시
+  {
+    const su2 = new pg.Client({ host: '127.0.0.1', port: 54329, database: 'ec', user: 'supabase_admin', password: 'admin' })
+    await su2.connect()
+    let delErr = null
+    try { await su2.query(`delete from auth.users where id = $1`, [B]) } catch (e) { delErr = e.message }
+    await su2.end()
+    const left = (await q(`select (select count(*)::int from learning_task_attempts where user_id = $1) a, (select count(*)::int from learning_sessions where user_id = $1) s, (select count(*)::int from learning_mutations where user_id = $1) m`, [B])).rows[0]
+    rec('F7-4 실제 · 합성이 섞인 계정 삭제 cascade 허용 · 기록 0 남음', !delErr && left.a === 0 && left.s === 0 && left.m === 0, delErr ?? left)
+    const tr = (await q('select status, review_required_at, review_required_reason from knowledge_trials where id = $1', [trial])).rows[0]
+    rec('F7-4 분석 표본 학습자 계정 삭제 → 결과 행은 analyzed 그대로 · 재검토 필요 표시', tr.status === 'analyzed' && tr.review_required_at !== null && /재계산/.test(tr.review_required_reason ?? ''), tr)
+    rec('F7-4 계정이 살아 있으면 실제 기록 삭제는 여전히 거부', /실제 학습자 기록/.test((await svc('delete from learning_sessions where id = $1', [real.rows[0].session_id])).err ?? ''))
+  }
 
   // 되돌리기
   const full = M(F7)
