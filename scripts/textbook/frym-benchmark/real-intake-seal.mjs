@@ -6,6 +6,8 @@ import { AXES, GRADES, hash, validateProtocol } from './benchmark.mjs'
 import { cohortComposition, cohortCoverage, screeningInventoryHash } from './two-stage-seal.mjs'
 import { recomputeSelection } from './selection-audit.mjs'
 import { buildEvidenceLedger } from './real-intake-enrich.mjs'
+import { buildReviewedScreening } from './reviewed-intake.mjs'
+import { assertExternalCandidate } from './local-candidate-path.mjs'
 
 const [command, ...args] = process.argv.slice(2)
 const fail = code => { throw Error(code) }
@@ -13,7 +15,14 @@ const read = path => JSON.parse(readFileSync(path, 'utf8').replace(/^\uFEFF/, ''
 const writeNew = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx' })
 const sha256 = value => createHash('sha256').update(value).digest('hex')
 const fileHash = path => sha256(readFileSync(path))
-const validateEvidenceLedger = (supplied, stage1, stage1Path, checked, inventory, inventoryPath, ledgerPath, catalogPath, dbPath) => {
+const validateEvidenceLedger = (supplied, stage1, stage1Path, checked, inventory, inventoryPath, ledgerPath, catalogPath, dbPath, reviewedPath, probePath) => {
+  if (supplied.screening_scope === 'reviewed_commercial_passage_candidates') {
+    if (supplied.revision !== 3 || !reviewedPath || ledgerPath || catalogPath || dbPath) fail('REVIEWED_SCREENING_SCOPE_INVALID')
+    assertExternalCandidate(reviewedPath)
+    const rebuilt = buildReviewedScreening(stage1, inventory, read(probePath), read(reviewedPath))
+    if (hash(rebuilt) !== hash(supplied)) fail('REVIEWED_SCREENING_STALE')
+    return
+  }
   const enriched = supplied.screening_scope === 'file_level_enriched_hints_no_confirmed_passage_candidates'
   if (!enriched && supplied.screening_scope !== 'file_level_metadata_only_no_confirmed_passage_candidates') fail('SCREENING_SCOPE_INVALID')
   if (!enriched) {
@@ -129,7 +138,7 @@ function selection(inventoryPath, root, outputPath, seedPath, cutoff) {
   return { run_id: runId, file_count: checked.length, unique_files: inventoryFileHashes.length, selection_protocol_hash: stage1.selection_protocol_hash }
 }
 
-function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, seedPath, outputPath, ledgerPath, catalogPath, dbPath) {
+function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, seedPath, outputPath, ledgerPath, catalogPath, dbPath, reviewedPath) {
   const stage1 = read(stage1Path)
   const seedRecord = read(seedPath)
   if (stage1?.status !== 'selection_sealed' || hash(stage1.selection_protocol) !== stage1.selection_public_hash ||
@@ -142,7 +151,7 @@ function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, see
       screeningInventoryHash(new Set(checked.map(row => row.file_hash))) !== stage1.selection_protocol.inventory_snapshot_hash) fail('INVENTORY_SOURCE_CHANGED')
   const supplied = read(screeningPath)
   const probe = read(probePath)
-  validateEvidenceLedger(supplied, stage1, stage1Path, checked, read(inventoryPath), inventoryPath, ledgerPath, catalogPath, dbPath)
+  validateEvidenceLedger(supplied, stage1, stage1Path, checked, read(inventoryPath), inventoryPath, ledgerPath, catalogPath, dbPath, reviewedPath, probePath)
   const inventoryHashes = new Set(stage1.selection_protocol.inventory_file_hashes)
   if (supplied.selection_protocol_hash !== stage1.selection_protocol_hash ||
       supplied.inventory_snapshot_hash !== rules.inventory_snapshot_hash ||
@@ -158,7 +167,7 @@ function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, see
       !supplied.held_files || hash(Object.keys(supplied.held_files).sort()) !== hash([...supplied.held_file_hashes].sort()) ||
       supplied.held_file_hashes.some(fileHash => !Array.isArray(supplied.held_files[fileHash]?.reasons) ||
         !supplied.held_files[fileHash].reasons.length ||
-        supplied.held_files[fileHash].reasons.some(reason => !['HOLD_RIGHTS', 'HOLD_GRADE', 'HOLD_EDITION', 'HOLD_BOUNDARY', 'HOLD_OCR', 'HOLD_FORMAT', 'HOLD_DUPLICATE'].includes(reason)))) fail('SCREENING_INPUT_INVALID')
+        supplied.held_files[fileHash].reasons.some(reason => !['HOLD_RIGHTS', 'HOLD_GRADE', 'HOLD_GRADE_SCOPE_PROTOCOL', 'HOLD_EDITION', 'HOLD_BOUNDARY', 'HOLD_METADATA', 'HOLD_OCR', 'HOLD_FORMAT', 'HOLD_DUPLICATE'].includes(reason)))) fail('SCREENING_INPUT_INVALID')
   const screening = {
     schema: 'frym-metadata-screening/1', status: 'frozen', run_id: rules.run_id,
     ...(supplied.revision ? { revision: supplied.revision } : {}),
@@ -168,6 +177,7 @@ function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, see
     held_files: supplied.held_files, probe_hash: supplied.probe_hash,
     screening_input_hash: hash(supplied), screening_scope: supplied.screening_scope,
     ...(supplied.evidence_ledger_hash ? { evidence_ledger_hash: supplied.evidence_ledger_hash } : {}),
+    ...(supplied.reviewed_input_hash ? { reviewed_input_hash: supplied.reviewed_input_hash } : {}),
   }
   const { selection_public_hash, seed_commitment, ...base } = stage1
   const protocol = { ...base, status: 'sealed', selection_protocol: rules, metadata_screening: screening, metadata_screening_hash: hash(screening) }
@@ -189,7 +199,7 @@ function finalize(stage1Path, screeningPath, probePath, inventoryPath, root, see
   return { run_id: protocol.version, selected_n: selected.selected_sample_ids.length, coverage: manifest.coverage_status, sample_manifest_hash: protocol.selection_manifest_hash }
 }
 
-function verify(stage1Path, screeningPath, probePath, inventoryPath, root, protocolPath, ledgerPath, catalogPath, dbPath) {
+function verify(stage1Path, screeningPath, probePath, inventoryPath, root, protocolPath, ledgerPath, catalogPath, dbPath, reviewedPath) {
   const stage1 = read(stage1Path)
   const screeningInput = read(screeningPath)
   const probe = read(probePath)
@@ -212,11 +222,12 @@ function verify(stage1Path, screeningPath, probePath, inventoryPath, root, proto
     held_files: screeningInput.held_files, probe_hash: screeningInput.probe_hash,
     screening_input_hash: hash(screeningInput), screening_scope: screeningInput.screening_scope,
     ...(screeningInput.evidence_ledger_hash ? { evidence_ledger_hash: screeningInput.evidence_ledger_hash } : {}),
+    ...(screeningInput.reviewed_input_hash ? { reviewed_input_hash: screeningInput.reviewed_input_hash } : {}),
   }
   if (hash(protocol.metadata_screening) !== hash(expectedScreening) ||
       protocol.metadata_screening_hash !== hash(expectedScreening)) fail('SCREENING_EVIDENCE_STALE')
   const checked = checkedInventory(inventoryPath, root)
-  validateEvidenceLedger(screeningInput, stage1, stage1Path, checked, read(inventoryPath), inventoryPath, ledgerPath, catalogPath, dbPath)
+  validateEvidenceLedger(screeningInput, stage1, stage1Path, checked, read(inventoryPath), inventoryPath, ledgerPath, catalogPath, dbPath, reviewedPath, probePath)
   if (hash(checked.map(row => sha256(row.relative_path)).sort()) !== hash(stage1.selection_protocol.inventory_path_hashes) ||
       screeningInventoryHash(new Set(checked.map(row => row.file_hash))) !== stage1.selection_protocol.inventory_snapshot_hash) fail('INVENTORY_SOURCE_CHANGED')
   if (hash(probe.records.map(row => row.file_hash).sort()) !== hash(checked.map(row => row.file_hash).sort())) fail('PROBE_INVENTORY_MISMATCH')
@@ -230,7 +241,10 @@ function verify(stage1Path, screeningPath, probePath, inventoryPath, root, proto
 try {
   const result = command === 'seal-selection' ? selection(...args) :
     command === 'seal-manifest' ? finalize(...args) :
-      command === 'verify' ? verify(...args) : fail('USAGE: seal-selection <inventory> <root> <new-stage1> <new-seed-file> <cutoff> | seal-manifest <stage1> <screening> <probe> <inventory> <root> <seed-file> <new-protocol> [ledger catalog db] | verify <stage1> <screening> <probe> <inventory> <root> <sealed-protocol> [ledger catalog db]')
+      command === 'seal-manifest-reviewed' ? finalize(...args.slice(0, 7), undefined, undefined, undefined, args[7]) :
+        command === 'verify' ? verify(...args) :
+          command === 'verify-reviewed' ? verify(...args.slice(0, 6), undefined, undefined, undefined, args[6]) :
+            fail('USAGE: seal-selection <inventory> <root> <new-stage1> <new-seed-file> <cutoff> | seal-manifest <stage1> <screening> <probe> <inventory> <root> <seed-file> <new-protocol> [ledger catalog db] | seal-manifest-reviewed <stage1> <screening> <probe> <inventory> <root> <seed-file> <new-protocol> <reviewed-input> | verify <stage1> <screening> <probe> <inventory> <root> <sealed-protocol> [ledger catalog db] | verify-reviewed <stage1> <screening> <probe> <inventory> <root> <sealed-protocol> <reviewed-input>')
   process.stdout.write(`${JSON.stringify(result)}\n`)
 } catch (error) {
   process.stderr.write(`${error.message}\n`)

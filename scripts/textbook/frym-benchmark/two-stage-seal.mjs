@@ -52,8 +52,11 @@ export function validateTwoStageSeal(protocol) {
       !Array.isArray(rules.search_sources) || (!rules.search_sources.length && (
         rules.inventory_scope !== 'preexisting_local_31_file_snapshot_only' ||
         rules.inventory_file_count !== 31 || rules.inventory_file_hashes?.length !== 30 ||
-        protocol.metadata_screening?.candidates?.length !== 0 ||
-        protocol.selection_manifest?.selected_sample_ids?.length !== 0)) ||
+        ((protocol.metadata_screening?.candidates?.length !== 0 ||
+          protocol.selection_manifest?.selected_sample_ids?.length !== 0) &&
+          !(protocol.metadata_screening?.revision === 3 &&
+            protocol.metadata_screening?.screening_scope === 'reviewed_commercial_passage_candidates' &&
+            hex(protocol.metadata_screening?.reviewed_input_hash))))) ||
       rules.search_sources.some(source => !validSource(source)) ||
       typeof rules.run_id !== 'string' || !rules.run_id || typeof rules.seed !== 'string' || !rules.seed ||
       rules.selection_algorithm !== 'hash_rank_feasible_v1' ||
@@ -87,6 +90,12 @@ export function validateTwoStageSeal(protocol) {
   const candidates = new Map()
   for (const row of screening.candidates) {
     if (!hex(row.file_hash) || !['metadata_eligible', 'hold_metadata', 'reject_metadata'].includes(row.status) ||
+        (screening.revision === 3 && screening.screening_scope === 'reviewed_commercial_passage_candidates' &&
+          (!hex(row.source_path_hash) || !hex(row.candidate_evidence_hash) ||
+            !hex(row.passage_locator_hash) || !hex(row.item_locator_hash) ||
+            !hex(row.passage_hash) || !hex(row.item_set_hash) || !hex(row.scoring_key_hash) ||
+            ['edition', 'grade_scope', 'analysis_rights', 'boundary'].some(gate =>
+              !hex(row.evidence_gate_hashes?.[gate])))) ||
         (row.status !== 'metadata_eligible' && (!Array.isArray(row.reasons) || !row.reasons.length || row.reasons.some(reason => typeof reason !== 'string' || !reason))) ||
         (row.status === 'metadata_eligible' && (typeof row.publisher !== 'string' || !row.publisher ||
           typeof row.series !== 'string' || !row.series || !GRADES.includes(row.grade) ||

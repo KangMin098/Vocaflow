@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Add reviewed commercial passage intake from file-bound edition, grade, analysis-rights and passage/item evidence into create-only screening revision 3 and an independently recomputed manifest. Mixed cohorts, changed files/evidence, premature analysis and duplicate passages fail closed; no real corpus or Gold-S is opened.
+
 - docs(textbook): Define independent edition, grade-scope, analysis-rights and passage/item-boundary evidence decisions before a new benchmark screening revision. Commercial and open-reference cohorts remain separate; four probed files stay held, and the eligible-file passage-screening implementation gap is recorded.
 
 - test(textbook): Verify atomic production snapshot closure in development DB. A rollback-only M1/M2 group rejects mixed, stale order and changed explanation evidence; two actual DB sessions race on the same approved capture and snapshot publication, yielding one success and a locked/consumed or duplicate rejection. Guarded cleanup leaves zero synthetic rows. `live_revalidated_atomic=true` for synthetic DB boundary; actual corpus/Gold-S/seed and `production_verified` remain unopened.

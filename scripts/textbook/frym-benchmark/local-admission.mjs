@@ -82,6 +82,13 @@ export function admitCandidate(candidate, protocol) {
         ['publisher', 'series', 'title', 'grade', 'edition', 'publication_year', 'passage_id', 'page', 'genre', 'ISBN', 'publisher_id', 'canonical_url', 'rights_basis', 'difficulty_step', 'access_date'].some(key => screened[key] !== meta[key])) {
       return { audit: audit(candidate, file, 'admission-reject', ['METADATA_SCREENING_MISMATCH'], stages) }
     }
+    if (protocol.metadata_screening.revision === 3 &&
+        protocol.metadata_screening.screening_scope === 'reviewed_commercial_passage_candidates' &&
+        (!candidate.reviewed_evidence || candidate.reviewed_evidence.file_hash !== file.file_hash ||
+          sha256(candidate.source_path.normalize('NFC')) !== screened.source_path_hash ||
+          hash(candidate.reviewed_evidence) !== screened.candidate_evidence_hash)) {
+      return { audit: audit(candidate, file, 'admission-reject', ['REVIEWED_EVIDENCE_MISMATCH'], stages) }
+    }
   }
   stages.push('metadata-extracted')
   const extraction = candidate.extraction
@@ -97,16 +104,27 @@ export function admitCandidate(candidate, protocol) {
   stages.push('passage-extracted')
   if (!Array.isArray(extraction.questions) || !extraction.questions.length || extraction.questions.some(q => !q || typeof q !== 'object' || Array.isArray(q) || !present(q.id) || !present(q.stem) || !present(q.type) || !present(q.answer)) || new Set(extraction.questions.map(q => q.id)).size !== extraction.questions.length || extraction.question_boundary_confirmed !== true) return { audit: audit(candidate, file, 'admission-hold', ['QUESTION_EXTRACTION_INCOMPLETE'], stages) }
   stages.push('question-extracted')
+  const questions = extraction.questions
+  const passage_hash = sha256(extraction.passage_text)
+  const item_set_hash = hash(questions.map(({ answer, ...item }) => item))
+  const scoring_key_hash = hash(questions.map(({ id, answer }) => ({ id, answer })))
+  if (protocol.metadata_screening.revision === 3 &&
+      protocol.metadata_screening.screening_scope === 'reviewed_commercial_passage_candidates') {
+    const screened = protocol.metadata_screening.candidates.find(row => row.candidate_id === meta.sample_id)
+    if (screened.passage_hash !== passage_hash || screened.item_set_hash !== item_set_hash ||
+        screened.scoring_key_hash !== scoring_key_hash ||
+        !present(extraction.passage_locator) || !present(extraction.item_locator) ||
+        hash(extraction.passage_locator) !== screened.passage_locator_hash ||
+        hash(extraction.item_locator) !== screened.item_locator_hash) {
+      return { audit: audit(candidate, file, 'admission-reject', ['REVIEWED_CANDIDATE_STALE'], stages) }
+    }
+  }
   const analysis = candidate.analysis
   if (!/^[a-z][a-z0-9_-]*:[a-z0-9:_-]+$/i.test(analysis?.evidence_locator ?? '')) return { audit: audit(candidate, file, 'admission-hold', ['EVIDENCE_LOCATOR_NOT_OPAQUE'], stages) }
   if (AXES.some(axis => {
     const review = analysis.ordinal_reviews?.[axis]
     return protocol.axes[axis].scale === 'ordinal' && review && review.rater_a === review.rater_b && (review.adjudicated != null || review.adjudicator_id != null)
   })) return { audit: audit(candidate, file, 'admission-hold', ['ORDINAL_REVIEW_INVALID'], stages) }
-  const questions = extraction.questions
-  const passage_hash = sha256(extraction.passage_text)
-  const item_set_hash = hash(questions.map(({ answer, ...item }) => item))
-  const scoring_key_hash = hash(questions.map(({ id, answer }) => ({ id, answer })))
   if (analysis?.codebook_hash !== protocol.codebook_hash || analysis.passage_hash !== passage_hash || analysis.item_set_hash !== item_set_hash || analysis.scoring_key_hash !== scoring_key_hash || !present(analysis?.analyzer_version) || !present(analysis?.evidence_locator) || AXES.some(axis => !Number.isFinite(analysis?.metrics?.[axis]))) return { audit: audit(candidate, file, 'admission-hold', ['NINE_AXIS_ANALYSIS_MISSING'], stages) }
   stages.push('analysis-ready')
   const item_type_counts = Object.fromEntries([...new Set(questions.map(q => q.type))].map(type => [type, questions.filter(q => q.type === type).length]))
