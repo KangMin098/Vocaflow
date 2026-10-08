@@ -15,6 +15,7 @@ import { loadSnapshots } from '../diagnosis/snapshot'
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
+import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 
@@ -40,6 +41,8 @@ export interface MapPageData {
   edgeSources: Record<number, string[]>
   doneTaskIds: string[]
   settings: MapSettings
+  /** FIND 과제 id → 같은 실행 과제를 기출 한 문항으로 직접 해 보는 곳(학습 원리 적용 learning_map_find · 채택 사슬이 살아 있을 때만) */
+  practiceLinks?: Record<string, MapPracticeLink>
 }
 
 export const DEFAULT_MAP_SETTINGS: MapSettings = {
@@ -238,5 +241,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     edgeSources: group(edgeSrc, (r) => r.edge_id, (r) => r.source_id),
     doneTaskIds: [...raw.doneTaskIds],
     settings,
+    // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
+    practiceLinks: await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} }),
   }
 }

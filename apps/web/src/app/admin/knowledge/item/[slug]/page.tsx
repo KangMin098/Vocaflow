@@ -4,7 +4,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import { EvidenceForm, LinkForm, StatusActions } from '@/components/admin/knowledge/ItemEditor'
+import { EvidenceForm, LinkForm, StatementForm, StatusActions } from '@/components/admin/knowledge/ItemEditor'
 import { EmptyState, GradeMark, KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { ATTRIBUTION_LABEL, GRADE_LABEL, LAYER_LABEL, LAYER_QUESTION, LAYER_RANK, STATUS_LABEL } from '@/lib/knowledge/labels'
@@ -194,7 +194,8 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
         </div>
 
         <aside className="space-y-8 lg:border-l lg:border-[var(--bd)] lg:pl-8" aria-label="편집">
-          <StatusActions itemId={item.id} status={item.status} evidenceVersion={item.evidenceVersion} />
+          <StatusActions itemId={item.id} status={item.status} evidenceVersion={item.evidenceVersion} version={item.version} />
+          <StatementForm itemId={item.id} statement={item.statement} version={item.version} live={item.status === 'adopted' || item.status === 'applied'} />
           <LinkForm
             itemId={item.id}
             layer={item.layer}

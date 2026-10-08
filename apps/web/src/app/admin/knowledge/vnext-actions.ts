@@ -16,6 +16,7 @@ import {
 } from '@/lib/knowledge/vnext-labels'
 import { checkAppTransition, checkInquiry, checkResearchSource, checkTrialDesign, type TrialDesign } from '@/lib/knowledge/vnext-rules'
 import { isLayer } from '@/lib/knowledge/labels'
+import { reviewAfterEvidenceChange } from '@/lib/knowledge/review-cascade'
 
 export interface ActionResult<T = unknown> { ok: boolean; data?: T; error?: string }
 
@@ -118,6 +119,8 @@ export async function addResearchEvidenceAction(input: { itemId: string; researc
     if (!['A', 'B', 'C'].includes(input.grade)) return { ok: false, error: '출처 확인도는 A · B · C' }
     if (!isAttribution(input.attribution)) return { ok: false, error: '귀속(직접 말함 · 관찰 · 추론)을 고른다' }
     if (!isApplicability(input.applicability)) return { ok: false, error: '적용 적합성을 고른다' }
+    // 재검토를 근거 저장 앞에 — 뒤에서 실패해도 항목은 이미 검토 중(fail-closed)
+    await reviewAfterEvidenceChange(db(), input.itemId, '연구 근거 추가', who, () => refresh())
     const { error } = await db().from('knowledge_evidence').insert({
       item_id: input.itemId, grade: input.grade, attribution: input.attribution, source_type: 'research', research_source_id: input.researchSourceId,
       applicability: input.applicability, applicability_note: input.applicabilityNote.trim() || null, locator: input.locator.trim() || null, created_by: who,
@@ -133,13 +136,19 @@ export async function addResearchEvidenceAction(input: { itemId: string; researc
 /** 근거의 적용 적합성 · (외부 근거만) 수준을 고친다 — 외부 근거는 실무자 주장 · 전문가 견해 · 평가 안 함까지만(DB 가 막는다) */
 export async function setEvidenceAxesAction(input: { evidenceId: string; applicability: string; applicabilityNote: string; evidenceLevel: string | null }): Promise<ActionResult> {
   try {
-    await actor('/admin/knowledge')
+    const who = await actor('/admin/knowledge')
     if (!isApplicability(input.applicability)) return { ok: false, error: '적용 적합성을 고른다' }
     const patch: Record<string, unknown> = { applicability: input.applicability, applicability_note: input.applicabilityNote.trim() || null }
     if (input.evidenceLevel !== null) {
       if (!isEvidenceLevel(input.evidenceLevel) || !EXTERNAL_LEVELS.includes(input.evidenceLevel)) return { ok: false, error: '외부 근거의 수준은 실무자 주장 · 전문가 견해 · 평가 안 함 — 연구 수준은 연구 서지로' }
       patch.evidence_level = input.evidenceLevel
     }
+    const { data: cur, error: e0 } = await db().from('knowledge_evidence').select('item_id, applicability, evidence_level').eq('id', input.evidenceId).single()
+    if (e0 || !cur) return { ok: false, error: '근거를 찾지 못했다' }
+    // 판단에 쓰는 축(적합성 · 수준)이 실제로 바뀔 때만 재검토 — 메모만 · 같은 값 저장은 채택 사슬을 흔들지 않는다(Codex P2)
+    const axisMoved = cur.applicability !== input.applicability || (input.evidenceLevel !== null && cur.evidence_level !== input.evidenceLevel)
+    // 재검토를 근거 변경 앞에 — 뒤에서 실패해도 항목은 이미 검토 중(fail-closed)
+    if (axisMoved) await reviewAfterEvidenceChange(db(), String(cur.item_id), '근거 축 변경', who, () => refresh())
     const { error } = await db().from('knowledge_evidence').update(patch).eq('id', input.evidenceId)
     if (error) return { ok: false, error: dbError(error, '저장 실패') }
     refresh()

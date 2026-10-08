@@ -17,6 +17,7 @@ import { notFound } from 'next/navigation'
 
 import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/AnalysisTheater'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
+import { PrinciplePanel } from '@/components/csat/theater/PrinciplePanel'
 import { KICE_ARCHIVE_URL, kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { toItemSlug } from '@/lib/csat/item-slug'
@@ -27,6 +28,7 @@ import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/cata
 import { examOrder } from '@/lib/csat/session/model'
 import { isKiceExam } from '@/lib/csat/exam-id'
 import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, skeletonSiblings } from '@/lib/csat/skeleton'
+import { loadItemPrinciple } from '@/lib/knowledge/product-server'
 import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
@@ -145,12 +147,24 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
     />
   )
 
+  // 이 문항에서 확인할 읽기 원리(Phase 3) — 채택 사슬 · 적용 active · 주석 서명이 모두 맞을 때만 온다. 하나라도 빠지면 null(화면에 없음).
+  // 게이트 조회가 실패해도 해설은 그대로 보인다 — 원리 칸만 빠진다
+  const principle = await loadItemPrinciple(item.id).catch((e) => { console.error('[csat-item principle]', e); return null })
+  const body = principle ? (
+    <>
+      {theater}
+      <PrinciplePanel slug={toItemSlug(item.id)} {...principle} />
+    </>
+  ) : (
+    theater
+  )
+
   // 강의가 없는 문항은 무대를 세우지 않는다 — 분석 블록과 지도는 그대로 읽힌다.
   return meta ? (
     <LectureStage slug={toItemSlug(item.id)} meta={meta}>
-      {theater}
+      {body}
     </LectureStage>
   ) : (
-    theater
+    body
   )
 }

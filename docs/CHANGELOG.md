@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(methodology): Phase 3 첫 수직 경로 「주장과 근거 관계」 — 2022 수능 20번. 관리자 화면으로 실제 사슬(탐구 질문 · 기출 관찰 근거 · 기제 `claim-support-relation` · 방법 · 과제 채택, Codex 독립 검토 3회 끝 adopt · 연구 근거 없음 유지) · 문항 주석(문장 번호 · Claude/Codex 맹검 · 정답 근거와 별개) · `/csat/item/[slug]` 「이 문항에서 확인할 읽기 원리」(`PrinciplePanel`) · `POST /api/csat/item/[slug]/task` → `learning_task_attempts` · 학습 지도 FIND B6-3 명시 연결 · 관리자 사슬 추적 `/admin/knowledge/product/[id]` · 재검토 전파(문장 고치기 · 근거 추가 · 축 변경, 앱 경로). efficacy 미확정. 새 마이그레이션 적용 0 — 후보 `_pending_20261008140000_knowledge_review_cascade_guard`(DB 가드) · `_pending_20261008140100_learning_task_attempts_idempotency`(멱등 키) 격리 검증만. [vertical/claim-support](./methodology/vertical/claim-support.md)
+
 - feat(admin/knowledge): 학습 원리 vNext 5개 업무 공간 — A 원리 운영실(순환 단계 · 병목 · 우선 큐) · B 역량 · 원리 지도(`/map` 종류별 열 · 노드 판) · C 탐구 · 근거 연구소(`/lab` 탐구 질문 · 주장 비교 · `/lab/research` 연구 서지) · D 학습 설계 · 검증(`/design` 적용 초안 · 검증 계획) · E 제품 적용 · 품질(`/product` 켜기 · 중단 · 롤백 · 근거 변경 영향). 기존 8 URL 은 하위 탭(WorkspaceNav) · 사이드바 5개로 재편 · 항목 상세에 종류 · 근거 세 축 · 연구 근거 · 적용. Server Actions `vnext-actions.ts` · 로더 `vnext-server.ts` · 규칙 `vnext-rules.ts` · 화면도움말 7개. 브라우저 검증 21/21(`scripts/knowledge/vnext-admin-e2e.mts` · 시험 데이터 정리 0).
 
 - feat(db): `20261008120000_knowledge_vnext` 적용(사용자 승인 sha256 5053c5ba… · 해시 게이트 실행기 `scripts/db/apply-approved-sql.mjs --record` · 앞뒤 체크포인트 · 원장 기록) — 학습 원리 vNext 새 표 6 · kind · 근거 세 축. 기존 행 삭제 0(항목 · 근거 · 검토 id 동일) · 실제 DB 계약 37/37(롤백) · 공부법 118 `evidence_version` 1→2(근거 백필 부수효과).

@@ -36,16 +36,20 @@ const ok = async (sql, p) => (await sr(sql, p)).ok
 const one = async (sql, p) => (await c.query(sql, p)).rows
 
 await c.connect()
+// 마이그레이션 백필 단언은 백필 대상 행만 본다 — 그 뒤 관리자 화면으로 만든 실제 사슬(Phase 3 첫 수직 경로 · 2026-10-08)은 뺀다
+const LATER = `('claim-support-relation','method-claim-support-marking','task-claim-support-link')`
+const baseCount = async () => (await c.query(`select (select count(*)::int from learning_task_attempts) attempts, (select count(*)::int from knowledge_applications) apps, (select count(*)::int from knowledge_research_sources) rs`)).rows[0]
+const before = await baseCount()
 await c.query('begin')
 try {
   // ── 실데이터(읽기) ──
-  const kinds = await one(`select layer, kind, count(*)::int n from knowledge_items group by 1,2 order by 1,2`)
+  const kinds = await one(`select layer, kind, count(*)::int n from knowledge_items where slug not in ${LATER} group by 1,2 order by 1,2`)
   rec('153행 분류 보강 — 묶음 4 · 처리 4 · 학습 9 · 방법 18 · 과제 118 · null 0', JSON.stringify(kinds) === JSON.stringify([
     { layer: 'essence', kind: 'essence_bundle', n: 4 }, { layer: 'method', kind: 'method', n: 18 }, { layer: 'practice', kind: 'task', n: 118 },
     { layer: 'principle', kind: 'learning_mechanism', n: 9 }, { layer: 'principle', kind: 'processing_mechanism', n: 4 }]), kinds)
-  const proc = (await one(`select string_agg(slug, ',' order by slug) s from knowledge_items where kind = 'processing_mechanism'`))[0].s
+  const proc = (await one(`select string_agg(slug, ',' order by slug) s from knowledge_items where kind = 'processing_mechanism' and slug not in ${LATER}`))[0].s
   rec('처리 기제 = 순차 · 응집 · 과제 주의 · 음운 해독', proc === 'cohesion-cues,phonological-decoding,sequential-processing,task-directed-attention', proc)
-  const lv = await one(`select source_type, evidence_level, applicability, count(*)::int n from knowledge_evidence group by 1,2,3`)
+  const lv = await one(`select source_type, evidence_level, applicability, count(*)::int n from knowledge_evidence where item_id not in (select id from knowledge_items where slug in ${LATER}) group by 1,2,3`)
   rec('118행 근거 — 전부 practitioner_claim · 적합성 unknown(연구 근거로 승격 0)', lv.length === 1 && lv[0].n === 118 && lv[0].evidence_level === 'practitioner_claim' && lv[0].applicability === 'unknown', lv)
   rec('세 축 분리 — grade(A/B/C) · evidence_level · applicability 가 서로 다른 열', (await one(`select count(*)::int n from information_schema.columns where table_name='knowledge_evidence' and column_name in ('grade','evidence_level','applicability')`))[0].n === 3)
   rec('efficacy 전부 not_assessed(적용으로 바뀐 것 없음)', (await one(`select count(*)::int n from knowledge_items where efficacy <> 'not_assessed'`))[0].n === 0)
@@ -109,8 +113,9 @@ try {
   rec('실행 오류 없이 끝남', false, e.message)
 } finally {
   await c.query('rollback')
-  const left = await one(`select (select count(*)::int from knowledge_items where slug like 'zz-vnext-%') items, (select count(*)::int from learning_task_attempts) attempts, (select count(*)::int from knowledge_applications) apps, (select count(*)::int from knowledge_research_sources) rs`)
-  rec('롤백 — 시험 행 0(항목 · 수행 기록 · 적용 · 서지)', left[0].items === 0 && left[0].attempts === 0 && left[0].apps === 0 && left[0].rs === 0, left[0])
+  const items = (await one(`select count(*)::int n from knowledge_items where slug like 'zz-vnext-%'`))[0].n
+  const after = await baseCount()
+  rec('롤백 — 시험 행 0 · 수행 기록 · 적용 · 서지 수가 실행 전과 같다', items === 0 && after.attempts === before.attempts && after.apps === before.apps && after.rs === before.rs, { items, before, after })
   await c.end()
 }
 console.log(fail ? `실패 ${fail}` : '모든 단언 통과')

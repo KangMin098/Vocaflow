@@ -7,6 +7,7 @@ import {
   addCsatEvidenceAction,
   addExternalEvidenceAction,
   addLinkAction,
+  editStatementAction,
   setItemStatusAction,
   type ActionResult,
 } from '@/app/admin/knowledge/actions'
@@ -39,15 +40,36 @@ function Feedback({ result, okText }: { result: ActionResult | null; okText: str
   )
 }
 
+/** 문장 고치기 — 채택 · 적용 중이면 자신과 아래 층이 재검토로 돌아간다(되돌릴 수 없다: 다시 채택해야 한다) */
+export function StatementForm({ itemId, statement, version, live }: { itemId: string; statement: string; version: number; live: boolean }) {
+  const { pending, result, run } = useAction()
+  const [text, setText] = useState(statement)
+  const cascaded = result?.ok ? ((result.data as { cascaded?: string[] } | undefined)?.cascaded ?? []) : []
+  return (
+    <section aria-labelledby="statement-form">
+      <h2 id="statement-form" className="mb-2 text-sm font-semibold text-[var(--t1)]">문장 고치기 (v{version})</h2>
+      {live && <p className="mb-2 text-sm text-[var(--t2)]">채택된 문장이다 — 고치면 이 항목과 이것을 구현하는 아래 층이 모두 「검토 중」으로 돌아가고 학습자 적용이 자동 중단된다.</p>}
+      <textarea value={text} onChange={(e) => setText(e.target.value)} rows={3} maxLength={1500} className={FIELD} aria-label="항목 문장" />
+      <button type="button" disabled={pending || text.trim() === statement} onClick={() => run(() => editStatementAction(itemId, text, version))} className={`${BUTTON} mt-2 border-[var(--bd)] text-[var(--t1)]`}>
+        문장 저장
+      </button>
+      <Feedback result={result} okText={cascaded.length ? `저장했습니다. 연쇄 재검토: ${cascaded.join(', ')}` : '저장했습니다.'} />
+    </section>
+  )
+}
+
 export function StatusActions({
   itemId,
   status,
   evidenceVersion,
+  version,
 }: {
   itemId: string
   status: ItemStatus
   /** 화면이 그릴 때 읽은 근거 버전 — 채택 요청에 실어 그 사이 근거가 바뀌었으면 거부된다 */
   evidenceVersion: number
+  /** 화면이 그릴 때 읽은 문장 버전 — 그 사이 문장이 바뀌었으면 거부된다 */
+  version: number
 }) {
   const { pending, result, run } = useAction()
   const [reason, setReason] = useState('')
@@ -73,7 +95,7 @@ export function StatusActions({
             key={to}
             type="button"
             disabled={pending}
-            onClick={() => run(() => setItemStatusAction(itemId, to, reason, evidenceVersion), () => setReason(''))}
+            onClick={() => run(() => setItemStatusAction(itemId, to, reason, evidenceVersion, version), () => setReason(''))}
             className={`${BUTTON} ${to === 'adopted' || to === 'applied' ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t1)]'}`}
           >
             {STATUS_LABEL[to]}(으)로

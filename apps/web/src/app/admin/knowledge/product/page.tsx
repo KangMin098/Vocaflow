@@ -62,7 +62,7 @@ export default async function KnowledgeProductPage() {
                   return (
                     <li key={a.id} className="space-y-2 py-3 text-sm">
                       <p>
-                        <span className="font-medium text-[var(--t1)]">{a.surfaceRef}</span> v{a.version} · {APP_SURFACE_LABEL[a.surface]}
+                        <Link href={`/admin/knowledge/product/${a.id}`} className={`inline-flex min-h-11 items-center font-medium text-[var(--t1)] underline ${FOCUS}`} data-testid="trace-link">{a.surfaceRef}</Link> v{a.version} · {APP_SURFACE_LABEL[a.surface]}
                         {a.releasedAt && ` · 배포 ${a.releasedAt.slice(0, 10)}`}
                         {it && <> · <Link href={`/admin/knowledge/item/${it.slug}`} className={`inline-flex min-h-11 items-center underline ${FOCUS}`}>{it.title}</Link> ({STATUS_LABEL[it.status]} · 효과 {it.efficacy === 'not_assessed' ? '평가 안 함' : it.efficacy})</>}
                       </p>
