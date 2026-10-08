@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(methodology): 학습 원리 vNext 종단 간 연결 감사(다섯 질문 판정) · G2 통합 SQL 동시성 시험 `scripts/knowledge/g2-concurrency-test.mjs`(격리 PostgreSQL 12/12, 공유 DB 쓰기 0) — `docs/methodology/VNEXT_E2E_AUDIT.md`.
+
 - feat(csat-map): 학습 지도 목표 중심 재설계 — 첫 화면 「내 목표 · 현재 위치」 바(목표 · 등급 구간 · 목표 미설정 구분 · 실제 최근 기록 · 이전↔최근 · 목표까지 · 단계 근거 상태) → 가운데 「목표 N점으로 가는 영어 독해의 길」 → 오른쪽 「지금 먼저 할 일」 하나. 단계 시트에 「목표와의 관계」(기준 시험 문항 · 배점 사실) · 「아직 모르는 것」. 목표 달성률 · 숙달 역산 · 점수 상승 약속 없음 · 진단 계약 그대로 · DB 변경 없음. 상태 E2E `e2e-map-goal.mjs`.
 
 - feat(csat-map): 학습 지도 vNext 를 main 에 clean integration — 원본 `feat/map-vnext`(커밋 100 · 파일 451)에서 지도에 필요한 것만(마이그레이션 `20261002120000_csat_map` · `20261002120100_funnel_allow_csat_map` · `20261002130000_csat_map_item_rate_ledger`, 지도 코드 · 진단 판정 · API 2 · 이벤트 4 · 검증 스크립트). Workspace · 어휘 표지 · 사전 · 오답 원인 Evidence · seed v2 제외. 목록·동등성 [MAP_INTEGRATION_MANIFEST](./csat-learner/MAP_INTEGRATION_MANIFEST.md) · 빈 DB 검증 `scripts/csat/map/fresh-db-check.mjs`.
