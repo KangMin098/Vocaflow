@@ -75,6 +75,7 @@ interface LearningSession {
   step: number          // 마지막으로 본 강의 단계(0기반) — 재개 위치
   steps: number         // 그때의 단계 수(강의가 바뀌었는지 판별)
   attempt?: string      // 예측 시도 id(client_attempt_id)
+  revealedAt?: number   // 처음 공개한 시각 — 두 기기가 다르게 공개하면 먼저 공개한 쪽의 help · attempt 가 이김
   startedAt: number
   updatedAt: number     // 병합 기준
   finishedAt?: number   // 한 번 정해지면 바뀌지 않음
@@ -96,7 +97,7 @@ interface LearningSession {
 | 쓰기 직렬화 | 탭 안의 모든 변경은 `updateDissectionRecord(fn)` 하나로 갑니다. 읽기→변경→쓰기를 promise 체인으로 줄 세워, 열람 저장과 확정 저장이 서로 덮지 않게 합니다 |
 | 기기 → 서버 | 지금처럼 1.5초 모아서 PUT합니다. 서버는 `mergeDissection`으로 항목 단위 병합을 합니다(서버 코드도 같은 함수) |
 | 세션 병합 | `id` 기준. `updatedAt`이 큰 쪽을 택하되 아래 규칙을 덧씌웁니다 |
-| 단조 필드 | `stage`는 더 진행된 쪽, `finishedAt`·`reviewAt`은 **먼저 정해진 값**, `help`는 먼저 정해진 값, `step`은 `updatedAt`이 큰 쪽 |
+| 단조 필드 | `stage`는 더 진행된 쪽, `finishedAt`·`reviewAt`·`revealedAt`은 **먼저 정해진 값**, `help`·`attempt`는 **먼저 공개한 사본**(`revealedAt`) 쪽, `step`은 `updatedAt`이 큰 쪽. 상한 정리는 마친 세션부터, 삭제 표시는 마지막까지 남김 |
 | 삭제 표시 | `deleted`는 병합 뒤에도 남습니다(합집합에서 부활하지 않음). 화면은 삭제된 세션을 무시합니다 |
 | 옛 클라이언트 | `sessions`를 모르는 기기가 PUT해도 서버 병합이 **양쪽 sessions를 id로 합치므로** 세션이 사라지지 않습니다 |
 | 예측 중복 | `Prediction.attempt`(uuid)가 있으면 그 값으로 중복을 없애고, 없으면 옛 키 `item\|step\|at`를 씁니다 |

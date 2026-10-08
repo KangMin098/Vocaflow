@@ -35,6 +35,9 @@ test.setTimeout(180_000)
 
 test.beforeAll(async ({ browser }) => {
   const ctx = await browser.newContext()
+  // 로그인 화면 · 로그인 뒤 첫 화면도 분석 이벤트를 보낸다 — 여기서도 가로챈다(G1 실행 중 이 경로로
+  // funnel_events 에 screen_viewed 3행이 실제로 쓰였다 · 2026-10-08 실측). 인증 요청만 통과시킨다.
+  await ctx.route('**/api/analytics/event', (route) => route.fulfill({ json: { ok: true } }))
   const page = await ctx.newPage()
   await page.goto('/login', { waitUntil: 'networkidle' })
   await page.waitForTimeout(800)

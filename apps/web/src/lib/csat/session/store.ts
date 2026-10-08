@@ -140,11 +140,12 @@ export async function loadSyncedDissectionRecord(): Promise<{ record: Dissection
     if (local.predictions.length || local.completed.length || local.formulas.length || local.queue.length || (local.views ?? []).length || local.active || (local.sessions ?? []).length) void putServer(local)
     return { record: local, synced: true }
   }
-  const merged = mergeDissection(local, server)
-  if (!sameRecord(merged, local)) {
-    dissectionMemory = merged
-    await run(S_RECORD, 'readwrite', s => s.put(merged, DISSECTION_KEY))
-  }
+  // 기기 쪽 쓰기도 직렬화 큐로 — 서버 응답을 기다리는 사이 저장된 세션·예측을 덮지 않게, 쓰는 순간의
+  // **최신 기기 기록**과 다시 합친다(Codex 리뷰 P1 · G0 계약 §4)
+  const { record: merged } = await updateDissectionRecord((current) => {
+    const m = mergeDissection(current, server)
+    return sameRecord(m, current) ? current : m
+  })
   if (!sameRecord(merged, server)) void putServer(merged)
   return { record: merged, synced: true }
 }

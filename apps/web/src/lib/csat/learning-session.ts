@@ -30,6 +30,8 @@ export interface LearningSession {
   steps: number
   /** 이 세션의 예측 시도 id(client_attempt_id) */
   attempt?: string
+  /** 처음 공개한 시각 — 두 기기가 다르게 공개했으면 먼저 공개한 쪽의 help · attempt 가 이긴다 */
+  revealedAt?: number
   startedAt: number
   updatedAt: number
   finishedAt?: number
@@ -88,10 +90,13 @@ function replace(record: DissectionRecord, next: LearningSession): DissectionRec
   return { ...record, sessions: prune([...rest, next]) }
 }
 
-/** 상한을 넘으면 오래된 것부터 — 삭제 표시 · 마친 세션 먼저 뺀다 */
+/**
+ * 상한을 넘으면 오래된 것부터 — **마친 세션 먼저**, 삭제 표시는 마지막까지 남긴다.
+ * 삭제 표시를 먼저 버리면 다른 기기의 옛 사본과 합칠 때 지운 세션이 되살아난다(Codex 리뷰 P2).
+ */
 export function prune(sessions: LearningSession[], cap = SESSION_CAP): LearningSession[] {
   if (sessions.length <= cap) return sessions
-  const rank = (s: LearningSession) => (s.deleted ? 0 : s.stage === 'finished' ? 1 : 2)
+  const rank = (s: LearningSession) => (s.deleted ? 2 : s.stage === 'finished' ? 0 : 1)
   const drop = [...sessions].sort((a, b) => rank(a) - rank(b) || a.updatedAt - b.updatedAt).slice(0, sessions.length - cap)
   const gone = new Set(drop.map((s) => s.id))
   return sessions.filter((s) => !gone.has(s.id))
@@ -155,7 +160,7 @@ function find(record: DissectionRecord, id: string): LearningSession | null {
 export function revealSession(record: DissectionRecord, id: string, help: HelpLevel, attempt: string | null, now: number): DissectionRecord {
   const s = find(record, id)
   if (!s || s.stage !== 'open') return record
-  return replace(record, { ...s, stage: 'revealed', help, ...(attempt ? { attempt } : {}), updatedAt: now })
+  return replace(record, { ...s, stage: 'revealed', help, revealedAt: now, ...(attempt ? { attempt } : {}), updatedAt: now })
 }
 
 /** 단계 이동 — 마친 세션은 위치를 바꾸지 않는다(완료 화면을 다시 열어도 그대로) */
@@ -186,10 +191,13 @@ export function deleteSession(record: DissectionRecord, id: string, now: number)
   return replace(record, { ...s, deleted: true, updatedAt: now })
 }
 
-/** 하다 만 극장 세션(공개 뒤 마치지 않은 것 · 연 뒤 단계를 넘긴 것) — 최근 순 */
+/**
+ * 하다 만 극장 세션(공개 뒤 마치지 않은 것 · 연 뒤 단계를 넘긴 것 · **열기만 한 복습**) — 최근 순.
+ * 복습은 열면 「다시 볼 문항」에서 빠지므로, 마치기 전 이탈하면 여기서라도 보여야 한다(Codex 리뷰 P2).
+ */
 export function unfinishedSessions(record: DissectionRecord): LearningSession[] {
   return sessionsOf(record)
-    .filter((s) => s.activity === 'theater' && !s.deleted && s.stage !== 'finished' && (s.stage === 'revealed' || s.step > 0))
+    .filter((s) => s.activity === 'theater' && !s.deleted && s.stage !== 'finished' && (s.stage === 'revealed' || s.step > 0 || s.phase === 'review'))
     .sort((a, b) => b.updatedAt - a.updatedAt)
 }
 
@@ -214,13 +222,19 @@ export function mergeSession(a: LearningSession, b: LearningSession): LearningSe
   const stage = STAGE_RANK[a.stage] >= STAGE_RANK[b.stage] ? a.stage : b.stage
   const finishedAt = earliest(a.finishedAt, b.finishedAt)
   const reviewAt = earliest(a.reviewAt, b.reviewAt)
-  const help = older.help ?? newer.help
-  const attempt = older.attempt ?? newer.attempt
+  // 도움 수준 · 시도 id 는 **먼저 공개한 사본**에서 함께 가져온다 — 마지막 수정 시각으로 고르면
+  // 「모르겠어요」를 고른 기기가 단계만 넘겨도 다른 기기의 independent 로 바뀐다(Codex 리뷰 P2)
+  const revealed = [a, b].filter((s) => s.help != null)
+  const first = revealed.length ? revealed.reduce((x, y) => ((y.revealedAt ?? y.updatedAt) < (x.revealedAt ?? x.updatedAt) ? y : x)) : null
+  const help = first?.help ?? null
+  const attempt = first ? first.attempt : (older.attempt ?? newer.attempt)
+  const revealedAt = earliest(a.revealedAt, b.revealedAt)
   return {
     ...newer,
     stage,
-    help: help ?? null,
-    ...(attempt ? { attempt } : {}),
+    help,
+    ...(attempt ? { attempt } : { attempt: undefined }),
+    ...(revealedAt != null ? { revealedAt } : {}),
     ...(finishedAt != null ? { finishedAt } : {}),
     ...(reviewAt != null ? { reviewAt } : {}),
     ...(a.deleted || b.deleted ? { deleted: true as const } : {}),

@@ -172,7 +172,14 @@ export function AnalysisTheater({
   const sfx = useTheaterSfx()
   const [cursor, setCursor] = useState(0)
   const ready = useRef(false)
-  const sync = (record: DissectionRecord, id: string) => {
+  // 기기 저장(IndexedDB) 실패 — 기록은 이 탭 메모리에만 있다. 완료처럼 보여도 창을 닫으면 사라진다고 알린다
+  const [saveFailed, setSaveFailed] = useState(false)
+  const persist = (fn: (r: DissectionRecord) => DissectionRecord) =>
+    updateDissectionRecord(fn).then((res) => {
+      if (!res.saved) setSaveFailed(true)
+      return res
+    })
+  const sync =(record: DissectionRecord, id: string) => {
     const s = sessionsOf(record).find((x) => x.id === id) ?? null
     setSession(s)
     setCommitted(s ? predictionOf(record, s) : null)
@@ -185,7 +192,7 @@ export function AnalysisTheater({
     void (async () => {
       await loadSyncedDissectionRecord().catch(() => null)
       let opened: { session: LearningSession; resumed: boolean } | null = null
-      const { record } = await updateDissectionRecord((r) => {
+      const { record } = await persist((r) => {
         const now = Date.now()
         const viewed = withView(r, itemId, now)
         const o = openSession(viewed, { itemId, steps: steps.length, now, newId, legacy: committedOf(viewed, itemId) })
@@ -211,7 +218,7 @@ export function AnalysisTheater({
   useEffect(() => {
     if (!ready.current || !session || session.stage === 'finished') return
     const id = session.id
-    void updateDissectionRecord((r) => stepSession(r, id, cursor, Date.now()))
+    void persist((r) => stepSession(r, id, cursor, Date.now()))
   }, [cursor, session])
   const revealed = committed != null || (session != null && session.stage !== 'open')
   const finished = session?.stage === 'finished'
@@ -224,7 +231,7 @@ export function AnalysisTheater({
     // 예측 패널이 길어 판을 내린 채 확정하면 차이 카드가 판 위쪽 밖에 열린다 — 그리로 데려간다
     requestAnimationFrame(() => document.querySelector('[data-testid="gate-diff"]')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
     const id = session.id
-    void updateDissectionRecord((r) => {
+    void persist((r) => {
       // 같은 시도가 두 번 오면 한 건(멱등) · 「모르겠어요」는 시도가 아니라 도움 수준(viewed_first)
       const predictions = r.predictions.some((x) => x.attempt === attempt) ? r.predictions : [...r.predictions, p]
       return revealSession({ ...r, predictions }, id, skip ? 'viewed_first' : 'independent', skip ? null : attempt, Date.now())
@@ -233,7 +240,7 @@ export function AnalysisTheater({
   const finish = () => {
     if (!session) return
     const id = session.id
-    void updateDissectionRecord((r) => finishSession(r, id, Date.now())).then(({ record }) => {
+    void persist((r) => finishSession(r, id, Date.now())).then(({ record }) => {
       sync(record, id)
       requestAnimationFrame(() => document.querySelector('[data-testid="session-done"]')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
     })
@@ -241,11 +248,11 @@ export function AnalysisTheater({
   const review = () => {
     if (!session) return
     const id = session.id
-    void updateDissectionRecord((r) => scheduleReview(r, id, Date.now())).then(({ record }) => sync(record, id))
+    void persist((r) => scheduleReview(r, id, Date.now())).then(({ record }) => sync(record, id))
   }
   const restart = () => {
     let fresh: LearningSession | null = null
-    void updateDissectionRecord((r) => {
+    void persist((r) => {
       const o = restartSession(r, itemId, steps.length, Date.now(), newId)
       fresh = o.session
       return o.record
@@ -447,6 +454,11 @@ export function AnalysisTheater({
               </span>
               이 문항으로 무엇을 할까요?
             </p>
+            {saveFailed ? (
+              <p className={styles.resumeNote} role="status" data-testid="save-failed">
+                이 기기에 기록을 저장하지 못했어요 — 이 탭을 닫으면 학습 기록이 사라져요.
+              </p>
+            ) : null}
             {resumedAt != null && !finished ? (
               <p className={styles.resumeNote} role="status" data-testid="resume-notice">
                 지난번 {resumedAt + 1}단계에서 이어서 봐요

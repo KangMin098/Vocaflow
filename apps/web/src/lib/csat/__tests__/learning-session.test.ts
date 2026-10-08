@@ -181,6 +181,20 @@ describe('다기기 병합 — 단조 필드는 되돌리지 않는다', () => {
     expect(m.updatedAt).toBe(T0 + 20)
   })
 
+  it('두 기기가 다르게 공개하면 먼저 공개한 쪽의 도움 수준 · 시도 id 가 이긴다(나중에 단계를 넘겨도)', () => {
+    const a = opened()
+    const phone = revealSession(a.record, a.session.id, 'viewed_first', null, T0 + 1) // 먼저 「모르겠어요」
+    const laptop = revealSession(a.record, a.session.id, 'independent', 'att-late', T0 + 5)
+    const phoneLater = stepSession(phone, a.session.id, 9, T0 + 50) // 나중에 단계만 넘김 — updatedAt 이 가장 크다
+    for (const [x, y] of [[phoneLater, laptop], [laptop, phoneLater]] as const) {
+      const [m] = mergeSessions(x.sessions, y.sessions)
+      expect(m.help).toBe('viewed_first')
+      expect(m.attempt).toBeUndefined()
+      expect(m.revealedAt).toBe(T0 + 1)
+      expect(m.step).toBe(9)
+    }
+  })
+
   it('sessions 를 모르는 옛 기기가 올려도(서버 병합) 세션이 사라지지 않는다', () => {
     const a = opened()
     const server: DissectionRecord = { ...a.record, updatedAt: T0 }
@@ -278,11 +292,20 @@ describe('이어 보기 목록 · 상한', () => {
     expect(unfinishedSessions(done)).toHaveLength(0)
   })
 
-  it('상한을 넘으면 삭제 표시 · 마친 세션부터 뺀다', () => {
+  it('상한을 넘으면 마친 세션부터 빼고, 삭제 표시는 마지막까지 남긴다(부활 방지)', () => {
     const mk = (i: number, over: Partial<LearningSession> = {}): LearningSession => ({
       id: `s${i}`, sv: 1, item: `2026#${i}`, activity: 'theater', phase: 'practice', stage: 'open', help: null, step: 0, steps: 1, startedAt: T0 + i, updatedAt: T0 + i, ...over,
     })
     const list = [mk(1, { deleted: true }), mk(2, { stage: 'finished', finishedAt: T0 }), mk(3), mk(4)]
-    expect(prune(list, 2).map((s) => s.id)).toEqual(['s3', 's4'])
+    expect(prune(list, 2).map((s) => s.id)).toEqual(['s1', 's4'])
+  })
+
+  it('열기만 하고 나간 복습 세션도 하다 만 문항에 남는다', () => {
+    const a = opened()
+    const done = scheduleReview(finishSession(revealSession(a.record, a.session.id, 'independent', null, T0 + 1), a.session.id, T0 + 2), a.session.id, T0 + 3)
+    const due = T0 + 3 + 3 * DAY
+    const o = openSession(done, { itemId: ITEM, steps: 14, now: due, newId: () => 's-rev' })
+    expect(reviewsDue(o.record, due)).toHaveLength(0)
+    expect(unfinishedSessions(o.record).map((s) => s.id)).toEqual(['s-rev'])
   })
 })

@@ -84,13 +84,19 @@ begin
    where user_id = p_user_id and client_attempt_id = p_client_attempt_id;
 
   attempt_id := v_existing.id;
+  -- 저장하는 **모든** 의미 필드를 비교한다 — 하나라도 다르면 덮지 않고 충돌(Codex 리뷰 P2)
   -- jsonb 는 의미 비교(키 순서 무관) — JSON 문자열 비교 금지(AGENTS 「두 번 이상 고친 실수」)
   if v_existing.session_id is not distinct from p_session_id
      and v_existing.task_key = p_task_key
+     and v_existing.activity is not distinct from p_activity
      and v_existing.phase = p_phase
+     and v_existing.help_level is not distinct from p_help_level
      and v_existing.item_ref is not distinct from p_item_ref
+     and v_existing.content_hash is not distinct from p_content_hash
      and v_existing.response = coalesce(p_response, '{}'::jsonb)
-     and v_existing.is_correct is not distinct from p_is_correct then
+     and v_existing.is_correct is not distinct from p_is_correct
+     and v_existing.sec is not distinct from p_sec
+     and v_existing.synthetic = coalesce(p_synthetic, false) then
     outcome := 'duplicate';
   else
     outcome := 'conflict';
