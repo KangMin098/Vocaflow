@@ -18,7 +18,7 @@ import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
 
-import { practiceResultsFor, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
+import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 
@@ -302,16 +302,18 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
   // 연습(연결 문항)과 전이(같은 과제 키 · 다른 문항)를 따로 읽는다 — 한쪽이 많아도 다른 쪽이 창에서 밀려나지 않게. 최근부터
   const [prac, tran, first, rev] = await Promise.all([
     db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).in('item_ref', items).neq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
-    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).eq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
+    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys.flatMap(transferKeysOf)).eq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
     db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, answered_at, phase').eq('user_id', userId).in('item_ref', items).order('answered_at'),
     db.from('learning_sessions').select('item_ref, review_at, deleted_at').eq('user_id', userId).in('item_ref', items).not('review_at', 'is', null),
   ])
   if (prac.error) throw new Error(`수행 기록 조회 실패: ${prac.error.message}`)
-  if (tran.error) throw new Error(`전이 기록 조회 실패: ${tran.error.message}`)
+  // 전이 조회가 실패하면 전이만 빠진다 — 연습 결과 · 다음 행동은 그대로 보인다
+  if (tran.error) console.error('[csat-map practice transfer]', tran.error.message)
+  const tranRows = tran.error ? [] : (tran.data ?? [])
   // 첫 시도 뷰 · 예약을 못 읽으면 그 부분만 빠진다(도움 여부 모름 · 예약 없음) — 횟수 · 결과는 그대로 보인다
   const firsts = first.error ? [] : (first.data ?? []) as FirstAttemptRow[]
   const reviews = rev.error ? [] : (rev.data ?? []) as ReviewRow[]
-  const out = practiceResultsFor(links, [...(prac.data ?? []), ...(tran.data ?? [])] as AttemptRow[], firsts, reviews, now)
+  const out = practiceResultsFor(links, [...(prac.data ?? []), ...tranRows] as AttemptRow[], firsts, reviews, now)
   // 창을 채운 학습자 — 횟수만 정확히 다시 센다(연결 수만큼 head 요청)
   const exact = async (q: PromiseLike<{ count: number | null; error: { message: string } | null }>, what: string) => {
     const { count, error } = await q
@@ -322,8 +324,8 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
     if ((prac.data ?? []).length >= LIMIT) {
       out[taskId] = { ...out[taskId], attempts: await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('item_ref', link.itemId).neq('phase', 'transfer'), '수행 횟수') }
     }
-    if ((tran.data ?? []).length >= LIMIT && out[taskId].transfer) {
-      const n = await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('phase', 'transfer').neq('item_ref', link.itemId), '전이 횟수')
+    if (tranRows.length >= LIMIT && out[taskId].transfer) {
+      const n = await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).in('task_key', transferKeysOf(link.taskKey)).eq('phase', 'transfer').neq('item_ref', link.itemId), '전이 횟수')
       out[taskId] = { ...out[taskId], transfer: { ...out[taskId].transfer!, attempts: n } }
     }
   }
