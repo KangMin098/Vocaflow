@@ -142,6 +142,33 @@ try {
     await att(C, uuid(), sid2, past)
     rec('오프라인(과거 판단 · 늦은 동기화)은 불확실 아님', !(await fa(sid2)).timing_uncertain)
   }
+  // M8-G 두 기기 시계(Codex P1)
+  {
+    const nowMs = Date.parse((await q('select now() t')).rows[0].t)
+    const iso = (ms) => new Date(ms).toISOString()
+    // 도움 기기 시계 +5분 · 다른 기기 판단은 실제 노출 1분 뒤(=도움 시각보다 4분 이름) → 독립처럼 보이지만 보류
+    const s = await mk(E, 'clock-help')
+    const sid = (await s.sess('independent', iso(nowMs - 60_000))).rows[0].session_id
+    await s.sess('viewed_first', iso(nowMs + 5 * 60_000))
+    await att(E, uuid(), sid, iso(nowMs + 60_000))
+    const r = await fa(sid)
+    rec('M8-G 도움 기기 시계 미래(+5분) → 그 세션 판단 보류', r.help_level === 'independent' && r.timing_uncertain, r)
+    // 판단 기기 시계가 늦다 — 서버가 도움을 먼저 받은 뒤 도착한 판단이 도움보다 10분 이르다고 주장
+    const s2 = await mk(E, 'clock-att')
+    const sid2 = (await s2.sess('independent', iso(nowMs - 30 * 60_000))).rows[0].session_id
+    await s2.sess('viewed_first', iso(nowMs))
+    await att(E, uuid(), sid2, iso(nowMs - 10 * 60_000))
+    const r2 = await fa(sid2)
+    rec('M8-G 도움 수신 뒤 도착한 「더 이른」 판단 → 독립으로 세지 않고 보류', r2.help_level === 'independent' && r2.timing_uncertain, r2)
+    // 정상: 판단이 서버에 먼저 도착하고 도움이 나중 → 확실한 독립
+    const s3 = await mk(E, 'clock-ok')
+    const sid3 = (await s3.sess('independent', iso(nowMs - 30 * 60_000))).rows[0].session_id
+    await att(E, uuid(), sid3, iso(nowMs - 20 * 60_000))
+    await new Promise((res) => setTimeout(res, 20))
+    await s3.sess('viewed_first', iso(nowMs))
+    const r3 = await fa(sid3)
+    rec('M8-G 판단 먼저 도착 · 도움 나중 → 확실한 독립(과소 집계 없음)', r3.help_level === 'independent' && !r3.timing_uncertain, r3)
+  }
   // 재전송 — 같은 mutation 은 한 행 · 뷰 한 줄
   {
     const s = await mk(D, 'dup')
@@ -179,7 +206,15 @@ try {
   // M8-F 세션 없는 합성 시도의 synthetic 을 뒤집어 게이트를 우회하는 길(vocaflow-18 재현) — 시도 synthetic 불변
   {
     const r = (await q(`select * from learning_attempt_record($1,$2,null,'g2','practice','pre','independent','x1','h','{}',true,5,true,null,$3,'2026-10-05T07:00:00Z')`, [D, uuid(), trial])).rows[0]
-    rec('M8-F 시도 synthetic 뒤집기 거부(세션 없는 시도)', /합성 표시/.test(await err('update learning_task_attempts set synthetic = false where id = $1', [r.attempt_id]) ?? ''))
+    rec('M8-F 시도 synthetic 뒤집기 거부(세션 없는 시도 · true→false)', /합성 표시/.test(await err('update learning_task_attempts set synthetic = false where id = $1', [r.attempt_id]) ?? ''))
+    const real = (await q(`select * from learning_attempt_record($1,$2,null,'g2','practice','pre','independent','x7','h','{}',true,5,false,null,null,'2026-10-05T07:00:00Z')`, [D, uuid()])).rows[0]
+    rec('M8-F 시도 synthetic 뒤집기 거부(세션 없는 시도 · false→true)', /합성 표시/.test(await err('update learning_task_attempts set synthetic = true where id = $1', [real.attempt_id]) ?? ''))
+    const linked = (await q(`select id from learning_task_attempts where session_id is not null and not synthetic limit 1`)).rows[0]
+    rec('M8-F 시도 synthetic 뒤집기 거부(세션 연결 시도 · false→true)', /합성 표시/.test(await err('update learning_task_attempts set synthetic = true where id = $1', [linked.id]) ?? ''))
+    const cs9 = uuid()
+    const s9 = (await q(`select * from learning_session_apply($1,$2,$3,'practice','pre','x8','revealed',0,1,'independent','2026-10-05T07:00:00Z',null,false,true,'g2',null,null,null)`, [D, uuid(), cs9])).rows[0].session_id
+    const syn = (await q(`select * from learning_attempt_record($1,$2,$3,'g2',null,null,null,null,'h','{}',true,5,true,null,null,'2026-10-05T07:01:00Z')`, [D, uuid(), s9])).rows[0]
+    rec('M8-F 시도 synthetic 뒤집기 거부(세션 연결 시도 · true→false)', /합성 표시/.test(await err('update learning_task_attempts set synthetic = false where id = $1', [syn.attempt_id]) ?? ''))
   }
   // M8-F 커밋 전 시도 쓰기와 분석 전환의 직렬화 — 열린 시도 트랜잭션이 있으면 분석 전환은 기다린다
   {

@@ -79,6 +79,8 @@ export function ClaimPractice(props: {
   const pending = useRef<{ sig: string; id: string; at: string; sec: number } | null>(null)
   // 마지막으로 보낸 판단 본문(해설 열람 시각 제외) — 해설 열람은 이 본문 그대로 + 열람 시각을 따로 보낸다
   const lastBody = useRef<Record<string, unknown> | null>(null)
+  // 판단 전 해설 열람(최초 시각 고정 · 저장 여부)
+  const preView = useRef<{ body: Record<string, unknown>; saved: boolean } | null>(null)
   const [doneHere, setDoneHere] = useState<string[]>([])
 
   const entry = pool.find((p) => p.itemId === itemId) ?? null
@@ -102,6 +104,7 @@ export function ClaimPractice(props: {
     setError(null)
     pending.current = null
     lastBody.current = null
+    preView.current = null
     started.current = Date.now()
   }
 
@@ -125,16 +128,25 @@ export function ClaimPractice(props: {
     // 그때의 열람은 별도 행동(explanationViewedAt)으로 남긴다. 해설은 새 탭에서 연다
     if (submitted.current) return noteView()
     setHelpLevel('viewed_first')
-    // 판단 전 열람도 그 순간 서버에 남긴다(별도 요청 · 시도 아님). 같은 세션의 두 번째 열람은 보내지 않는다(가장 이른 열람이 정본)
-    if (helpLevel === 'viewed_first' || !entry) return
-    void fetch('/api/csat/practice/view', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ itemId: entry.itemId, clientSessionId: sessionId, viewedAt: new Date().toISOString(), preview }),
-      keepalive: true,
-    })
-      .then((res) => { if (!res.ok) setError('해설 열람을 기록하지 못했어요') })
-      .catch(() => setError('해설 열람을 기록하지 못했어요'))
+    if (!entry) return
+    // 판단 전 열람도 그 순간 서버에 남긴다(별도 요청 · 시도 아님). 최초 열람 시각은 한 번 정하고 저장될 때까지 같은 본문으로 다시 보낸다
+    if (!preView.current) preView.current = { body: { itemId: entry.itemId, clientSessionId: sessionId, viewedAt: new Date().toISOString(), preview }, saved: false }
+    if (!preView.current.saved) void sendPreView()
+  }
+
+  // 판단 전 열람 저장 — 성공 여부를 돌려준다. 실패하면 판단 제출이 먼저 이것을 다시 보내고, 그래도 실패하면 제출하지 않는다
+  // (열람 기록 없이 판단만 남으면 서버에서 독립 판단처럼 보일 수 있다 — 조용히 넘기지 않는다)
+  async function sendPreView(): Promise<boolean> {
+    const v = preView.current
+    if (!v || v.saved) return true
+    try {
+      const res = await fetch('/api/csat/practice/view', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(v.body), keepalive: true })
+      v.saved = res.ok
+    } catch {
+      v.saved = false
+    }
+    if (!v.saved) setError('해설 열람을 기록하지 못했어요 — 맞춰 보기를 누르면 다시 보내요')
+    return v.saved
   }
 
   // 판단 뒤 해설 열람 — 열람하는 그 순간 따로 보낸다(별도 mutation · 서버가 판단과 다른 id 로 learning_session_apply).
@@ -160,6 +172,10 @@ export function ClaimPractice(props: {
   async function submit() {
     if (!entry || claim === null || option === null || confidence === null || (needsRelation && relation === null) || lock.current) return
     lock.current = true
+    if (!(await sendPreView())) {
+      lock.current = false
+      return
+    }
     submitted.current = true
     const asked = entry.itemId
     const answer = { claim, support, relation: needsRelation ? relation : null, option: option === 'unknown' ? null : option, confidence }

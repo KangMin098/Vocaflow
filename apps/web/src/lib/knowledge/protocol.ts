@@ -86,18 +86,21 @@ const round3 = (x: number | null) => (x === null ? null : Math.round(x * 1000) /
  * 한 적용 버전만 넣는다 — 버전이 섞이면 거부한다.
  */
 export function evaluateProtocol(all: readonly AttemptRecord[], th: ProtocolThresholds = DEFAULT_THRESHOLDS): ProtocolResult {
-  const runs = all.filter(effectEligible)
-  const versions = new Set(runs.map((r) => r.appVersion))
-  if (versions.size > 1) throw new Error('evaluateProtocol: 적용 버전이 섞였다 — 한 버전의 시도만 넣는다')
-
+  // 첫 시도를 **전체 시도에서 먼저** 고르고 그 뒤에 적격을 본다 — 최초 판단이 해설 먼저 · 합성이면 그 묶음은 빠진다.
+  // 적격 필터를 먼저 하면 viewed_first 첫 판단 뒤의 independent 재풀이가 첫 시도로 올라온다(Codex P2 · DB 뷰 learning_first_attempts 와 같은 순서)
   const seen = new Set<string>()
-  const byUser = new Map<string, AttemptRecord[]>()
-  for (const r of [...runs].sort((a, b) => a.at - b.at)) {
+  const firsts: AttemptRecord[] = []
+  for (const r of [...all].sort((a, b) => a.at - b.at)) {
     const k = `${r.userId} ${r.itemId} ${r.phase}`
     if (seen.has(k)) continue
     seen.add(k)
-    byUser.set(r.userId, [...(byUser.get(r.userId) ?? []), r])
+    firsts.push(r)
   }
+  const runs = firsts.filter(effectEligible)
+  const versions = new Set(runs.map((r) => r.appVersion))
+  if (versions.size > 1) throw new Error('evaluateProtocol: 적용 버전이 섞였다 — 한 버전의 시도만 넣는다')
+  const byUser = new Map<string, AttemptRecord[]>()
+  for (const r of runs) byUser.set(r.userId, [...(byUser.get(r.userId) ?? []), r])
 
   const gains: number[] = []
   const pre: (boolean | null)[] = []

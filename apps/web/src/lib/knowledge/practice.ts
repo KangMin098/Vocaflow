@@ -301,17 +301,21 @@ export interface MyAttempt {
   helpLevel: HelpLevel
   claimHit: boolean | null
   answeredAt: string
+  /** 과제 키 · 행 id — DB 뷰 learning_first_attempts 와 같은 첫 시도 키 · 동률 순서(answered_at, id)를 쓰려고 */
+  taskKey?: string
+  id?: number
 }
 
 /**
- * 학습자 · 문항 · 단계마다 **판단 시각이 가장 이른 시도만**(G2 §3 첫 시도). 정답을 본 뒤 다시 낸 것은 판정에 넣지 않는다.
+ * 학습자 · 과제 · 문항 · 단계마다 **판단 시각이 가장 이른 시도만**(G2 §3 첫 시도). 정답을 본 뒤 다시 낸 것은 판정에 넣지 않는다.
  * 도착 순이 아니라 answeredAt 순이다 — 늦게 동기화된 이른 판단이 첫 시도다.
+ * 키 · 동률 규칙은 DB 뷰 learning_first_attempts 와 같다: (task_key, item_ref, phase) · answered_at → id 순
  */
-export function firstAttempts<T extends { itemId: string; phase: string; answeredAt: string }>(rows: readonly T[]): T[] {
+export function firstAttempts<T extends { itemId: string; phase: string; answeredAt: string; taskKey?: string; id?: number }>(rows: readonly T[]): T[] {
   const seen = new Set<string>()
   const out: T[] = []
-  for (const r of [...rows].sort((a, b) => Date.parse(a.answeredAt) - Date.parse(b.answeredAt))) {
-    const k = `${r.itemId} ${r.phase}`
+  for (const r of [...rows].sort((a, b) => Date.parse(a.answeredAt) - Date.parse(b.answeredAt) || (a.id ?? 0) - (b.id ?? 0))) {
+    const k = `${r.taskKey ?? ''} ${r.itemId} ${r.phase}`
     if (seen.has(k)) continue
     seen.add(k)
     out.push(r)

@@ -129,6 +129,11 @@ describe('첫 시도 · 역량 판정 · 다음 문항', () => {
     const rows = [a('X', '2026-10-08T05:00:00Z', { claimHit: true }), a('X', '2026-10-08T04:00:00Z', { claimHit: false })]
     expect(firstAttempts(rows).map((r) => r.claimHit)).toEqual([false])
   })
+  it('DB 뷰와 같은 키 · 동률 — 과제 키가 다르면 따로 첫 시도, 같은 시각은 id 작은 쪽', () => {
+    const t = '2026-10-08T04:00:00Z'
+    const rows = [a('X', t, { taskKey: 'claim-support', id: 9, claimHit: true }), a('X', t, { taskKey: 'claim-support', id: 3, claimHit: false }), a('X', t, { taskKey: 'claim-skeleton', id: 5 })]
+    expect(firstAttempts(rows).map((r) => r.id)).toEqual([3, 5])
+  })
   it('해설 먼저 본 시도 · 전이 시도는 역량 판정에 들어가지 않는다', () => {
     const rows = [a('A', '2026-10-08T01:00:00Z'), a('B', '2026-10-08T02:00:00Z', { helpLevel: 'viewed_first' }), a('C', '2026-10-08T03:00:00Z', { phase: 'transfer' })]
     expect(capabilityHits(rows)).toEqual([true])
@@ -156,6 +161,10 @@ describe('효과 프로토콜 입력', () => {
     expect(effectEligible(r('u', 'pre', true, 0, { helpLevel: 'viewed_first' }))).toBe(false)
     expect(effectEligible(r('u', 'pre', true, 0, { appVersion: null }))).toBe(false)
     expect(effectEligible(r('u', 'pre', true, 0))).toBe(true)
+  })
+  it('첫 시도는 적격 필터 전에 고른다 — 해설 먼저 본 첫 판단 뒤의 독립 재풀이는 표본이 아니다', () => {
+    const rows = [r('u1', 'pre', false, 0, { itemId: 'Z', helpLevel: 'viewed_first' }), r('u1', 'pre', true, 5, { itemId: 'Z' }), r('u1', 'post', true, 10, { itemId: 'Z' })]
+    expect(evaluateProtocol(rows).nRuns).toBe(1)
   })
   it('자격 학습자가 문턱 미만이면 판정하지 않는다 · 버전이 섞이면 거부', () => {
     const one = [0, 1, 2].flatMap((i) => [r('u1', 'pre', false, i), r('u1', 'post', true, 10 + i)])

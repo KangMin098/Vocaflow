@@ -10,6 +10,8 @@
 --   M8-B 오염 방지: 도움 노출이 판단보다 같거나 이르면(동시 포함) 도움받은 판단이다 — 동률은 도움 쪽(보수적).
 --   M8-C 시각 불확실 보류: 판단 시각은 기기 시각이다. ① 판단 시각과 첫 도움 노출 또는 해설 열람이 2분 안 ② 판단 시각이 서버 수신 시각보다 2분 넘게 미래
 --        → timing_uncertain. 효과 게이트(M3)는 이 표본을 세지 않는다(판정 보류 · 행은 그대로).
+--   M8-G 두 기기 시계(Codex P1): 도움 쪽 서버 수신 시각 help_server_at · 미래 시계 표시 help_clock_suspect.
+--        ③ 도움 기록 기기 시계가 2분 넘게 미래 ④ 서버가 도움을 먼저 받았는데 그 뒤 도착한 판단이 도움보다 이르다고 주장 → 보류.
 --   M8-D 소급 재작성 없음: 시도 행은 고치지 않는다. 실효 도움은 뷰가 계산한다. 서버 수신 시각 received_at 은 새 행부터(기존 행 NULL = 서버 now() 로 판단 시각이 찍힌 직접 기록).
 --   M8-E 표본 고정 확장: 분석 완료 표본 세션의 help_received_at 도 바꿀 수 없다. **세션 synthetic 은 언제나 불변**(170000 trial synthetic 불변과 같은 원칙 · Codex P1 2026-10-08 vocaflow-18 전달).
 --        시도 쪽 synthetic 은 learning_trial_sample_frozen_attempt 가 이미 막는다(분석 완료 표본 시도의 UPDATE 전부 거부).
@@ -19,6 +21,8 @@
 
 -- ── 열 ─────────────────────────────────────────────────────────────────
 alter table public.learning_sessions add column help_received_at timestamptz;   -- M8 첫 도움(hint · viewed_first) 노출 시각 — 가장 이른 값
+alter table public.learning_sessions add column help_server_at timestamptz;     -- M8-G 첫 도움 변경의 서버 수신 시각(가장 이른 값 · 기존 행 NULL)
+alter table public.learning_sessions add column help_clock_suspect boolean not null default false;  -- M8-G 도움 기록 기기의 시계가 서버보다 2분 넘게 미래였다
 alter table public.learning_task_attempts add column received_at timestamptz;    -- M8 서버 수신 시각(기존 행 NULL)
 alter table public.learning_task_attempts alter column received_at set default now();
 
@@ -60,6 +64,9 @@ begin
     help_level = case when v_rank_new >= 1 and (case p_help_level when 'viewed_first' then 2 when 'hint' then 1 when 'independent' then 0 else -1 end) > (case s.help_level when 'viewed_first' then 2 when 'hint' then 1 when 'independent' then 0 else -1 end) then p_help_level else s.help_level end,
     -- M8 첫 도움 노출 시각 = 도움(hint · viewed_first) 변경 중 가장 이른 p_at(도착순 무관 · least 는 NULL 을 건너뛴다)
     help_received_at = case when v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') then least(s.help_received_at, p_at) else s.help_received_at end,
+    -- M8-G 도움 쪽 기기 시계 검사 — 서버 수신 시각과 「미래로 2분 넘게 앞선 도움 시각」 표시(뒤로 늦은 시각은 오프라인 지연과 구별할 수 없어 아래 뷰 규칙이 맡는다)
+    help_server_at = case when v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') then least(s.help_server_at, now()) else s.help_server_at end,
+    help_clock_suspect = s.help_clock_suspect or (v_rank_new >= 1 and p_help_level in ('hint', 'viewed_first') and p_at > now() + interval '2 minutes'),
     revealed_at = case when v_rank_new >= 1 and (s.revealed_at is null or p_at < s.revealed_at) then p_at else s.revealed_at end,
     finished_at = coalesce(s.finished_at, case when v_rank_new = 2 then p_at end),
     review_at = coalesce(s.review_at, p_review_at),
@@ -90,7 +97,12 @@ select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
   (a.synthetic or coalesce(s.synthetic, false)) as synthetic,
   ((s.help_received_at is not null and abs(extract(epoch from (a.answered_at - s.help_received_at))) < 120)
     or (s.explanation_viewed_at is not null and abs(extract(epoch from (a.answered_at - s.explanation_viewed_at))) < 120)
-    or (a.received_at is not null and a.answered_at > a.received_at + interval '2 minutes')) as timing_uncertain
+    or (a.received_at is not null and a.answered_at > a.received_at + interval '2 minutes')
+    -- M8-G 도움 기록 기기 시계가 미래였다 — 그 세션의 판단 순서는 믿지 않는다
+    or coalesce(s.help_clock_suspect, false)
+    -- M8-G 서버는 도움을 먼저 받았는데 판단이 그보다 이르다고 주장한다(판단 기기 시계가 늦거나 오프라인) — 독립으로 세지 않고 보류
+    or (s.help_server_at is not null and a.received_at is not null and a.received_at > s.help_server_at
+        and s.help_received_at is not null and a.answered_at < s.help_received_at)) as timing_uncertain
 from public.learning_task_attempts a
 left join public.learning_sessions s on s.id = a.session_id
 order by a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase, a.answered_at, a.id;
@@ -120,7 +132,8 @@ begin
     raise exception '세션의 합성 표시는 바꿀 수 없다 — 새 세션으로';
   end if;
   if (new.help_level is distinct from old.help_level or new.revealed_at is distinct from old.revealed_at
-      or new.explanation_viewed_at is distinct from old.explanation_viewed_at or new.help_received_at is distinct from old.help_received_at)
+      or new.explanation_viewed_at is distinct from old.explanation_viewed_at or new.help_received_at is distinct from old.help_received_at
+      or new.help_server_at is distinct from old.help_server_at or new.help_clock_suspect is distinct from old.help_clock_suspect)
      and exists (select 1 from public.learning_task_attempts a join public.knowledge_trials t on t.id = a.trial_id
                  where a.session_id = new.id and t.status = 'analyzed' and not t.synthetic for share of t) then
     raise exception '분석 완료된 검증 표본의 세션은 공개 · 도움 · 해설 시각을 바꿀 수 없다';
@@ -274,4 +287,6 @@ end $$;
 -- end $$;
 -- alter table public.learning_task_attempts drop column received_at;
 -- alter table public.learning_sessions drop column help_received_at;
+-- alter table public.learning_sessions drop column help_server_at;
+-- alter table public.learning_sessions drop column help_clock_suspect;
 -- commit;

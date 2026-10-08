@@ -116,18 +116,21 @@ export async function loadPracticePool(opts: { preview: boolean }): Promise<Pool
 export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, opts: { preview: boolean }): Promise<MyAttempt[]> {
   const { data, error } = await learnerDb
     .from('learning_task_attempts')
-    .select('item_ref, phase, answered_at, activity, help_level, response')
+    .select('id, task_key, item_ref, phase, answered_at, activity, help_level, response')
     .eq('user_id', userId)
     .in('task_key', [PRACTICE_TASK, SKELETON_TASK])
     .order('answered_at')
+    .order('id')
     .limit(1000)
   if (error) throw new Error(`내 기록 읽기 실패: ${error.message}`)
   // 정본 열(activity · help_level) 우선 — NULL(G2 전 직접 기록)일 때만 response 사본으로 호환
-  type Row = { item_ref: string | null; phase: string; answered_at: string; activity: string | null; help_level: string | null; response: Record<string, unknown> | null }
+  type Row = { id: number; task_key: string; item_ref: string | null; phase: string; answered_at: string; activity: string | null; help_level: string | null; response: Record<string, unknown> | null }
   return ((data ?? []) as Row[])
     .filter((r) => (r.activity ?? r.response?.activity) === 'practice' && (r.response?.preview === true) === opts.preview)
     .filter((r) => r.item_ref && (r.phase === 'practice' || r.phase === 'transfer'))
     .map((r) => ({
+      id: r.id,
+      taskKey: r.task_key,
       itemId: r.item_ref as string,
       phase: r.phase as PracticePhase,
       // hint 도 독립이 아니다 — 「지금 내 상태」 판단에서 viewed_first 와 같이 뺀다(보수적)
