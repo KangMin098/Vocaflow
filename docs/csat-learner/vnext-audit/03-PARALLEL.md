@@ -65,6 +65,22 @@
 5. 기출 4주차: 정본 표에 이중 기록을 시작합니다.
 6. map-vnext Workspace는 세션 계약이 생긴 뒤에 main에 들입니다.
 
+## 4a. 사용자 결정 (2026-10-08, vocaflow-6a 경유 · 기록 `origin/feat/knowledge-vnext:docs/methodology/VNEXT_MERGE.md` §0)
+세 제안 모두 **「채택 방향」**으로 결정되었습니다. 실제 SQL 작성과 승인은 다음 단위(**vocaflow-b5 담당**)로 분리합니다.
+1. **`learning_task_attempts` 공통 규격**
+   - `client_attempt_id`의 유일 범위(전역/학습자/세션)는 실제 데이터 모델로 정합니다.
+   - `mode`와 `phase`는 분리합니다.
+   - `item_ref → csat_items.id`가 모든 과제에서 성립하는지 확인합니다. 비기출 과제는 별도 식별자를 씁니다.
+   - 기존 데이터와 호출 코드의 호환성을 검증합니다.
+2. **이벤트 CHECK**
+   - 브랜치별로 따로 다시 쓰지 않습니다.
+   - 합집합으로 한 번에 만들고, 기존 행이 통과하는지 검사합니다.
+3. **skeleton 의존**
+   - 이식하거나 수정할 때 `/csat/practice` 채점 회귀를 반드시 돌립니다.
+   - 골격 문항은 검증 전까지 효과 계산에서 뺍니다.
+
+**기출 쪽 의무**: 이 표와 제약을 따로 바꾸는 SQL을 만들지 않고, 통합 세트에 합류합니다. P0-3·P0-4([04](./04-PLAN.md))의 SQL 초안도 이 통합 세트에 넣습니다.
+
 ## 5. 공통 스키마 전 합의 사항
 1. **멱등 키**: `client_attempt_id uuid`와 유일 제약 `(user_id, client_attempt_id)`. 정본에는 지금 없습니다(멱등 키 없음 확인).
 2. **`phase`와 `mode`의 분리**: phase는 효과 프로토콜(pre/practice/post/delayed/transfer)만 나타냅니다. 학습 모드(theater/dissect/practice/review)는 별도 열로 둡니다.
