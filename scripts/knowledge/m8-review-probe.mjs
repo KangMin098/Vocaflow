@@ -67,6 +67,13 @@ try {
   await q(`select * from learning_attempt_record($1,$2,null,'g2p','practice','pre','independent','x5','h','{}',true,10,true,null,$3,'2026-10-05T09:10:00Z')`, [B, uuid(), trial])
   const flip = await err(`update learning_task_attempts set synthetic = false where user_id = $1 and session_id is null`, [B])
   rec('R3′ 세션 없는 합성 시도의 synthetic 뒤집기 거부', /합성|synthetic/.test(flip ?? ''), flip ?? '허용됨 — 분석 전 시도 synthetic 은 바꿀 수 있다')
+  // R3‴ 반대 방향 false → true — 실제 시도를 합성으로 바꿔 실제 표본에서 빼는 것도 막혀야 한다(세션 있음 · 없음 둘 다)
+  const realSid = await sess(A, 'pre', false, 'r9')
+  await att(A, realSid, false)
+  const up1 = await err('update learning_task_attempts set synthetic = true where session_id = $1', [realSid])
+  await q(`select * from learning_attempt_record($1,$2,null,'g2p','practice','pre','independent','r8','h','{}',true,10,false,null,$3,'2026-10-05T09:10:00Z')`, [A, uuid(), trial])
+  const up2 = await err(`update learning_task_attempts set synthetic = true where user_id = $1 and session_id is null and item_ref = 'r8'`, [A])
+  rec('R3‴ 실제 시도 false → true 거부(세션 있음 · 없음)', /합성|synthetic/.test(up1 ?? '') && /합성|synthetic/.test(up2 ?? ''), { 세션있음: up1 ?? '허용', 세션없음: up2 ?? '허용' })
   // R4 재전송 · 동시 멱등
   const mut = uuid()
   const first = (await att(A, s1, false, mut)).rows[0].outcome
