@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Bind paired 2015 BC Reads Reader/Course Pack PDFs to file and passage/item/key interval hashes outside Git. Keep publisher-version equivalence, passage-level rights, Korean-grade mapping, independent rating, admission, and calibration gates closed.
+
 - docs(textbook): Screen a matched CC BY BC Reads Level 5 reader passage and Course Pack item/key as a prospective open reference. Local publisher artifact retrieval was blocked, and Korean-grade mapping remains unverified; no selection, admission, calibration, Gold-S, or seed state changed.
 
 - feat(textbook): Add an admin-only structural planning API that revalidates external N=2 source, rights, excerpt, and profile hashes before offering opt-in Product Order notes. Empty selection explicitly ignores references; grade targets, fit, Gold-S, and DB state remain unchanged.
