@@ -330,6 +330,10 @@ test('calibration eligibility separates rights, Korean grade mapping, and rater 
   const weakRights = structuredClone(evidence)
   weakRights.rights.rights_confidence = 'reviewed_inference'
   assert.equal(assessReferenceCalibration({ admission, evidence: weakRights }).stages.rights_eligible.status, 'hold')
+  writeFileSync(weakRights.rights.source_evidence_path, 'changed held evidence')
+  assert.throws(() => assessReferenceCalibration({ admission, evidence: weakRights }),
+    /CALIBRATION_SOURCE_RIGHTS_CHANGED/)
+  writeFileSync(weakRights.rights.source_evidence_path, 'source permission')
   const noMapping = structuredClone(evidence)
   noMapping.grade_mapping.status = 'unverified'
   assert.equal(assessReferenceCalibration({ admission, evidence: noMapping }).stages.grade_anchor_eligible.status, 'hold')

@@ -8,6 +8,8 @@ mapping from native source-grade labels to Korean target grades, and nine-axis r
 different model families with output hashes and adjudication. Missing evidence produces `hold`;
 excluded rights or rejected mapping produces `reject`; changed admission or evidence hashes fail
 as stale. A passing eligibility decision is bound to the admission receipt and evidence hash.
+When a held rights review cites local source or passage evidence files, their byte hashes are
+checked as well; an unchanged `hold` decision cannot silently retain changed supporting files.
 `evaluateAdmittedMultiGradeBenchmark` requires that current decision and recomputes it before
 using an open-reference sample. It still applies cohort-size and composition rules separately.
 The NASA admission has no documented employee authorship, Korean-grade mapping, or independent

@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(textbook): Bind a NASA passage-level rights review dossier to official-page and PDF hashes, including hold-state evidence rechecks. General use guidance does not establish employee authorship or third-party clearance for the selected text, so rights and Korean mapping remain held while rating passes; calibration, Gold-S, and DB seed remain closed.
+
 - docs(textbook): Record fresh Claude Code/Codex blind ratings and two-axis adjudication for the revised NASA admission. Rating gate passes with complete local audit output; passage rights and Korean-grade mapping hold, so calibration, Gold-S, and DB seed remain closed.
 
 - feat(textbook): Derive a create-only NASA nine-axis analysis revision from verified independent ratings and adjudication, link old/new admission hashes, and re-export revision-bound calibration packets. Two axis values changed; rights, Korean-grade mapping, calibration, Gold-S, and DB seed remain held.

@@ -82,13 +82,17 @@ function rightsStatus(rights, admission) {
   if (rights.source_rights === 'excluded' || rights.passage_rights === 'excluded' ||
       rights.third_party_content === 'present_uncleared')
     return { status: 'reject', reason: 'RIGHTS_EXCLUDED' }
+  if (rights.source_evidence_path != null || rights.source_evidence_hash != null)
+    evidenceFile(rights.source_evidence_path, rights.source_evidence_hash,
+      'CALIBRATION_SOURCE_RIGHTS_CHANGED')
+  if (rights.passage_evidence_path != null || rights.passage_evidence_hash != null)
+    evidenceFile(rights.passage_evidence_path, rights.passage_evidence_hash,
+      'CALIBRATION_PASSAGE_RIGHTS_CHANGED')
   if (rights.source_rights !== 'authorized' || rights.passage_rights !== 'authorized' ||
       !['absent', 'cleared'].includes(rights.third_party_content) ||
       rights.rights_confidence !== 'documented' || !hex(rights.source_evidence_hash) ||
       !hex(rights.passage_evidence_hash))
     return { status: 'hold', reason: 'RIGHTS_NOT_DOCUMENTED_FOR_CALIBRATION' }
-  evidenceFile(rights.source_evidence_path, rights.source_evidence_hash, 'CALIBRATION_SOURCE_RIGHTS_CHANGED')
-  evidenceFile(rights.passage_evidence_path, rights.passage_evidence_hash, 'CALIBRATION_PASSAGE_RIGHTS_CHANGED')
   return { status: 'pass', reason: null }
 }
 

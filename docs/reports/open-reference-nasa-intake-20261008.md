@@ -97,3 +97,29 @@ records are local audit evidence, not provider-certified prompt receipts. Codex 
 an initial shell-helper error and used an alternate local read path; its returned packet hash
 matched the sealed B packet. No old-receipt rating output was imported into this decision.
 `calibration-eligible N=0`, calibrated grade distribution 0, Gold-S 0, and DB seed 0 remain.
+
+## Passage-level rights review revision 5
+
+An external rights dossier now binds the NASA catalog snapshot, general media-use guidance,
+NASA government-work policy, and the exact reader PDF by SHA-256, with selected prose on PDF
+pages 2–4 and questions 1–3 on page 8. The local dossier hash is
+`d0d0590cbfcf90f7543c5e1b50ddb1afdef45eda0217fa717681ff9a821f1827`.
+[NASA's catalog](https://www.nasa.gov/stem-content/the-science-behind-quadcopters/) directly
+links the reader, and the [reader PDF](https://www.nasa.gov/wp-content/uploads/2020/05/aam-science-behind-quadcopters-reader-student-guide_0.pdf)
+shows NASA publication number `EP-2020-04-519-HQ`. NASA's
+[media guidance](https://www.nasa.gov/nasa-brand-center/images-and-media/) permits many
+educational uses while warning that NASA may publish third-party material without conveying
+downstream rights. None of these sources identifies the selected prose/question author as a
+NASA employee acting in official duties or supplies passage-specific third-party clearance.
+The responsible NASA official named on the catalog page is a page responsibility marker, not
+authorship proof. A further search for the publication number found no official authorship
+record. The dossier therefore records `source_rights=unknown`, `passage_rights=unknown`,
+`third_party_content=unknown`, and `rights_confidence=reviewed_inference`.
+
+The create-only `calibration-work-r5/decision-r2.json` has no missing outputs and keeps
+`rights=hold`, `grade_mapping=hold`, and `rating=pass`. The rights dossier and reader PDF hashes
+are rechecked even while rights remain held. Passing the rights gate would require a
+passage/question-specific NASA rights statement or equivalent written clearance that addresses
+authorship and third-party material; the publication number or generic guidance alone does not
+satisfy this protocol. Calibration eligibility, real Korean grade distribution, Gold-S, and DB
+seed remain closed.
