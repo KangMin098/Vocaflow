@@ -16,6 +16,7 @@ const uuid = () => crypto.randomUUID()
 const A = '00000000-0000-4000-8000-0000000000a1', B = '00000000-0000-4000-8000-0000000000b2'
 
 const cluster = await startCluster()
+let pool = null
 try {
   const su = new pg.Client({ host: '127.0.0.1', port: 54329, database: 'ec', user: 'supabase_admin', password: 'admin' })
   await su.connect()
@@ -23,7 +24,8 @@ try {
   await su.query('alter role postgres set search_path = public, extensions')
   await su.query(`insert into auth.users (id) values ('${A}'), ('${B}')`)
   await su.end()
-  const pool = conn('postgres', 'postgres')
+  pool = conn('postgres', 'postgres')
+  pool.on('error', () => {})  // 클러스터를 내릴 때 놀던 연결의 ECONNRESET 은 결과와 무관
   const q = async (sql, params = []) => { const c = await pool.connect(); try { return await c.query(sql, params) } finally { c.release() } }
   const err = async (sql, params = []) => { try { await q(sql, params); return null } catch (e) { return e.message } }
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
@@ -58,8 +60,9 @@ try {
   // R3 오염 행 집계 제외 — 합성 세션의 시도를 synthetic=false 로 덮어도 뷰는 합성
   const sSyn = await sess(B, 'pre', true, 'x9')
   await att(B, sSyn, true)
-  await q('update learning_task_attempts set synthetic = false where session_id = $1', [sSyn])
-  rec('R3 합성 세션 오염 행 → 뷰 합성', (await q('select bool_and(synthetic) b from learning_first_attempts where session_id = $1', [sSyn])).rows[0].b === true)
+  // 시도 synthetic 이 불변이면 오염 행을 만들 수 없다(가장 강한 결과). 만들어지면 뷰가 합성으로 남겨야 한다
+  const r3e = await err('update learning_task_attempts set synthetic = false where session_id = $1', [sSyn])
+  rec('R3 합성 세션 오염 — 만들 수 없거나(불변) 뷰가 합성', r3e ? /합성|synthetic/.test(r3e) : (await q('select bool_and(synthetic) b from learning_first_attempts where session_id = $1', [sSyn])).rows[0].b === true, r3e ?? 'UPDATE 허용 → 뷰 확인')
   // R3′ 세션 없는 합성 시도를 synthetic=false 로 뒤집으면 실제 표본이 되는가(세션 불변만으로는 못 막는 길)
   await q(`select * from learning_attempt_record($1,$2,null,'g2p','practice','pre','independent','x5','h','{}',true,10,true,null,$3,'2026-10-05T09:10:00Z')`, [B, uuid(), trial])
   const flip = await err(`update learning_task_attempts set synthetic = false where user_id = $1 and session_id is null`, [B])
@@ -89,12 +92,13 @@ try {
   const U3 = '00000000-0000-4000-8000-0000000000a1'
   for (const phase of ['pre', 'post']) await q(`select * from learning_attempt_record($1,$2,null,'g2p','practice',$3,'independent','z1','h','{}',true,10,true,null,$4,'2026-10-05T09:10:00Z')`, [U3, uuid(), phase, t3])
   const before = await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [t3])
-  await q('update learning_task_attempts set synthetic = false where trial_id = $1', [t3])
+  const flip3 = await err('update learning_task_attempts set synthetic = false where trial_id = $1', [t3])
   const after = await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [t3])
-  rec('R3″ 합성 시도 뒤집기로 실제 효과 판정 통과 불가', !!after, { 뒤집기전: before ? '거부' : '허용', 뒤집은뒤: after ? '거부' : '허용(우회됨)' })
+  rec('R3″ 합성 시도 뒤집기로 실제 효과 판정 통과 불가', !!after || !!flip3, { 뒤집기전: before ? '거부' : '허용', 뒤집은뒤: after ? '거부' : '허용(우회됨)' })
 } catch (e) {
   rec('실행 오류 없이 끝남', false, e.message)
 } finally {
+  await pool?.end().catch(() => {})
   await cluster.stop()
 }
 console.log(fail ? `실패 ${fail}` : '모든 단언 통과')
