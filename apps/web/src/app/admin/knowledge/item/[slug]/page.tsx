@@ -4,11 +4,14 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import { EvidenceForm, LinkForm, StatusActions } from '@/components/admin/knowledge/ItemEditor'
+import { EvidenceForm, LinkForm, StatementForm, StatusActions } from '@/components/admin/knowledge/ItemEditor'
 import { EmptyState, GradeMark, KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { ATTRIBUTION_LABEL, GRADE_LABEL, LAYER_LABEL, LAYER_QUESTION, LAYER_RANK, STATUS_LABEL } from '@/lib/knowledge/labels'
 import { listCsatOrigins, loadItemDetail } from '@/lib/knowledge/server'
+import { EvidenceAxesForm, KindForm, ResearchEvidenceForm } from '@/components/admin/knowledge/VnextForms'
+import { APPLICABILITY_LABEL, APP_STATUS_LABEL, APP_SURFACE_LABEL, EVIDENCE_LEVEL_LABEL, KINDS_BY_LAYER, KIND_LABEL, RESEARCH_DESIGN_LABEL } from '@/lib/knowledge/vnext-labels'
+import { listApplications, listResearchSources } from '@/lib/knowledge/vnext-server'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,8 +31,10 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
   const help = <AdminScreenHelp screen="knowledge-item" />
   let detail
   let origins
+  let research: Awaited<ReturnType<typeof listResearchSources>> = []
+  let apps: Awaited<ReturnType<typeof listApplications>> = []
   try {
-    ;[detail, origins] = await Promise.all([loadItemDetail(params.slug), listCsatOrigins()])
+    ;[detail, origins, research, apps] = await Promise.all([loadItemDetail(params.slug), listCsatOrigins(), listResearchSources(), listApplications()])
   } catch {
     return (
       <KnowledgeFrame title="항목" question="이 항목은 무엇에 기대고 무엇을 떠받치는가" help={help}>
@@ -47,6 +52,11 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
     .filter((o) => o.grade !== 'G')
     .map((o) => ({ passageSha256: o.passageSha256, label: `${o.grade} · ${o.itemIds.join('·')} — ${o.sourceTitle}` }))
   const chips = [...item.skillIds, ...item.conditionIds]
+  const itemApps = apps.filter((a) => a.itemId === item.id)
+  const researchLabel = (id: string | null) => {
+    const r = id ? research.find((x) => x.id === id) : null
+    return r ? ` · ${RESEARCH_DESIGN_LABEL[r.design]} — ${r.citation.slice(0, 60)}` : ''
+  }
   const backHref = item.layer === 'essence' || item.layer === 'principle' ? '/admin/knowledge/principles' : '/admin/knowledge/methods'
 
   return (
@@ -62,6 +72,8 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
             <h2 id="statement" className="sr-only">문장</h2>
             <p className="text-lg leading-relaxed text-[var(--t1)]">{item.statement}</p>
             <p className="mt-3 flex flex-wrap items-center gap-2 text-sm text-[var(--t2)]">
+              <span>{item.kind ? KIND_LABEL[item.kind] : '종류 미분류'}</span>
+              <span aria-hidden>·</span>
               <span>{STATUS_LABEL[item.status]}</span>
               <span aria-hidden>·</span>
               <span className="font-mono text-xs">v{item.version}</span>
@@ -74,6 +86,7 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
                 </>
               )}
             </p>
+            <div className="mt-3"><KindForm itemId={item.id} options={KINDS_BY_LAYER[item.layer]} current={item.kind} /></div>
             {chips.length > 0 && (
               <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="조건">
                 {chips.map((c) => (
@@ -166,6 +179,12 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
                       )}
                       {e.locator && <span className="ml-2 font-mono text-xs text-[var(--t2)]">{e.locator}</span>}
                       {e.note && <p className="mt-1 text-[var(--t2)]">{e.note}</p>}
+                      <p className="mt-1 text-xs text-[var(--t2)]" data-testid="evidence-levels">
+                        연구 수준 <b>{EVIDENCE_LEVEL_LABEL[e.evidenceLevel]}</b> · 적용 적합성 <b>{APPLICABILITY_LABEL[e.applicability]}</b>
+                        {researchLabel(e.researchSourceId)}
+                        {e.applicabilityNote ? ` · ${e.applicabilityNote}` : ''}
+                      </p>
+                      <EvidenceAxesForm evidenceId={e.id} external={e.sourceType === 'external'} applicability={e.applicability} note={e.applicabilityNote} level={e.evidenceLevel} />
                     </div>
                   </li>
                 ))}
@@ -175,13 +194,27 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
         </div>
 
         <aside className="space-y-8 lg:border-l lg:border-[var(--bd)] lg:pl-8" aria-label="편집">
-          <StatusActions itemId={item.id} status={item.status} evidenceVersion={item.evidenceVersion} />
+          <StatusActions itemId={item.id} status={item.status} evidenceVersion={item.evidenceVersion} version={item.version} />
+          <StatementForm itemId={item.id} statement={item.statement} version={item.version} live={item.status === 'adopted' || item.status === 'applied'} />
           <LinkForm
             itemId={item.id}
             layer={item.layer}
             candidates={others.map((o) => ({ id: o.id, title: o.title, layer: o.layer }))}
           />
           <EvidenceForm itemId={item.id} origins={originOptions} />
+          <ResearchEvidenceForm itemId={item.id} sources={research.map((r) => ({ id: r.id, label: `${RESEARCH_DESIGN_LABEL[r.design]} · ${r.citation.slice(0, 70)}` }))} />
+          <section aria-labelledby="apps">
+            <h2 id="apps" className="mb-2 text-sm font-semibold text-[var(--t1)]">제품 적용</h2>
+            {itemApps.length === 0 ? (
+              <p className="text-sm text-[var(--t3)]">학습자에게 나간 적용 없음 — 채택 뒤 학습 설계 · 검증에서 초안을 만든다</p>
+            ) : (
+              <ul className="space-y-1 text-sm">
+                {itemApps.map((a) => (
+                  <li key={a.id}><Link href="/admin/knowledge/product" className={LINK_CLASS}>{a.surfaceRef}</Link> · {APP_SURFACE_LABEL[a.surface]} · {APP_STATUS_LABEL[a.status]}</li>
+                ))}
+              </ul>
+            )}
+          </section>
           <section aria-labelledby="history">
             <h2 id="history" className="mb-2 text-sm font-semibold text-[var(--t1)]">검토 기록</h2>
             <ol className="space-y-2 text-sm">

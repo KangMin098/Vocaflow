@@ -58,7 +58,8 @@ const CHECKBOX_ALLOWLIST: { file: string; count: number; labelWrapped: number }[
   { file: 'apps/web/src/components/admin/curation/MyLibraryTab.tsx', count: 2, labelWrapped: 0 },
   // 학습 원리(2026-09-28): 라디오·체크박스는 전부 min-h-11(44px) <label> 안에 있다 — 라벨이 탭 타깃
   { file: 'apps/web/src/components/admin/knowledge/ItemEditor.tsx', count: 2, labelWrapped: 2 },
-  { file: 'apps/web/src/components/admin/knowledge/NewItemForm.tsx', count: 3, labelWrapped: 3 },
+  { file: 'apps/web/src/components/admin/knowledge/NewItemForm.tsx', count: 4, labelWrapped: 4 }, // + 종류 라디오(2026-10-08 vNext)
+  { file: 'apps/web/src/components/admin/knowledge/VnextForms.tsx', count: 5, labelWrapped: 5 }, // 탐구 영역 · 잇기 대상 · 전이 · 합성(2026-10-08 vNext) — 전부 min-h-11 label 로 감쌈
   { file: 'apps/web/src/components/admin/vcb/VcbStep6QaCard.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/vcb/VcbStep8PublishCard.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/vcb/preview/VcbPreviewFilters.tsx', count: 1, labelWrapped: 1 },
@@ -210,7 +211,8 @@ describe('허용 목록 — 체크박스·라디오', () => {
     // 17곳 중 13곳은 감싼 <label> 이 44px 이라 실제 탭 영역은 이미 44px 다 (학습 원리 +5, 2026-09-28).
     const total = CHECKBOX_ALLOWLIST.reduce((n, e) => n + e.count, 0)
     const wrapped = CHECKBOX_ALLOWLIST.reduce((n, e) => n + e.labelWrapped, 0)
-    expect([total, wrapped]).toEqual([19, 15])
+    // 학습 원리 vNext(2026-10-08) +6 — 종류 라디오 1 · 탐구 영역 · 잇기 대상 · 전이 · 합성 5, 전부 44px label 로 감쌈
+    expect([total, wrapped]).toEqual([25, 21])
   })
 })
 

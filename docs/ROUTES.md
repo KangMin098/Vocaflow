@@ -138,7 +138,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | 라우트 | 파일 | 설명 |
 |---|---|---|
 | `/csat` | `(app)/csat/page.tsx` + `SpaceScreen.tsx` · `home/CsatRail.tsx` · `home/ContinueCard.tsx` · `home/ContinuePanel.tsx` | **기출분석공간 홈(앱 셸 없음 · 3B 앱 메인 결)** — docs/csat/ia-design.md. 메뉴(홈 · 이어서·복습 · 내 기록 · 전체 서가 / 목적별 5 / 유형별 / 회차별) · 띠 위 상태 카드(첫 방문 · 재방문 · 공백 복귀 — 밀린 복습 ≤3 압축) · 도구줄(찾기 · 칩 · 덮은 넓이) · 유형/함정 표(「본 문항」). 쿼리: `?need=killer` · `?tab=trap` · `?view=continue`(이어서 · 복습 판) |
-| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **출제 사고**(옛 이름 「해설 극장」→「출제 분석」→「사고 역추적」 · 2026-09-25 개명) — 왼쪽 열 = 기출문제 원본(학습자가 놓은 PDF 의 기기 추출본 · 개발 서버는 로컬 PDF 자동), 가운데 탭(분석 · 진행 · 같은 유형) + 두 판(지문 지도 `PassageMap` | 분석 블록: 재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘), 하단 도크 = 강의 차례(12~14칸). 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만 |
+| `/csat/item/[slug]` | `(main)/csat/item/[slug]/page.tsx` + `AnalysisTheater.tsx` | **출제 사고**(옛 이름 「해설 극장」→「출제 분석」→「사고 역추적」 · 2026-09-25 개명) — 왼쪽 열 = 기출문제 원본(학습자가 놓은 PDF 의 기기 추출본 · 개발 서버는 로컬 PDF 자동), 가운데 탭(분석 · 진행 · 같은 유형) + 두 판(지문 지도 `PassageMap` | 분석 블록: 재는 것 · 의도 · 정답 근거 · 오답마다 · 절차 · 어휘), 하단 도크 = 강의 차례(12~14칸). 효과음 4종(큐 경계) · 배속 3단 · 「전부 펼쳐 읽기」. 강의가 없는 문항은 상영 없이 블록만. 2026-10-08: 채택된 학습 원리 적용이 있는 문항만 아래에 「이 문항에서 확인할 읽기 원리」(`PrinciplePanel` · `#principle`) |
 | `/csat/dissect` | `(main)/csat/dissect/page.tsx` + `SessionRunner.tsx` · `ItemScreen.tsx` | 정답 선공개 · 예측 3수 후 분석 인라인 · 설계도 · 공식 저장/3일 뒤 재확인 · 두 문항 대조 후 전이. `?set=<슬러그,…>`와 `?formula=<태그>` 검증 |
 | `/csat/formulas` | `(main)/csat/formulas/page.tsx` + `ProgressView.tsx` | 기기에 모은 공식 · 최근 30예측 적중률 · 계열 커버리지. 유형별 펼치기와 해당 공식 다시 확인 |
 | `/csat/space` | `(app)/csat/space/page.tsx` | 옛 주소 — `/csat` 으로 redirect |
@@ -295,7 +295,14 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/admin/knowledge` | `admin/knowledge/page.tsx` | 원리 지도 — 층 × 상태 개수 · 열린 공백 · 기출 원천 등급 |
+| `/admin/knowledge` | `admin/knowledge/page.tsx` | A 원리 운영실(vNext 2026-10-08) — 순환 단계 현황 · 병목 · 우선 처리 큐 · 열린 공백 · 기출 원천 등급 |
+| `/admin/knowledge/map` | `…/map/page.tsx` | B 역량 · 원리 지도 — 종류별 열 관계 지도 · 노드 판(`?node=slug` · `?skill=`) · 영역 × 층 격자(옛 원리 지도) |
+| `/admin/knowledge/lab` | `…/lab/page.tsx` | C 탐구 · 근거 연구소 — 탐구 질문 목록 · 새 질문 |
+| `/admin/knowledge/lab/[slug]` | `…/lab/[slug]/page.tsx` | 탐구 질문 상세 — 결론 후보 · 지지 · 반례 · 불확실 비교 · 잇기 · 결론(Server Actions `admin/knowledge/vnext-actions.ts`) |
+| `/admin/knowledge/lab/research` | `…/lab/research/page.tsx` | 연구 서지(설계 · 대상 · L2 맥락 · DOI) |
+| `/admin/knowledge/design` | `…/design/page.tsx` | D 학습 설계 · 검증 — 적용 초안 · 검증 계획(사전 · 사후 · 지연 · 전이 · 비교 · 최소 표본) · 방법이 기대는 기제 |
+| `/admin/knowledge/product` | `…/product/page.tsx` | E 제품 적용 · 품질 — 적용 상태별 · 학습 결과 · 근거 변경 영향 · 켜기 · 중단 · 롤백 |
+| `/admin/knowledge/product/[id]` | `…/product/[id]/page.tsx` | 적용 사슬 추적(Phase 3) — 끊긴 곳 · 탐구 질문 → 근거(연구 근거 유무) → 기제 → 방법 → 과제 → 적용 → 실제 수행 → 효과 검증 |
 | `/admin/knowledge/principles` | `…/principles/page.tsx` | L1 본질 · L2 원리 목록 |
 | `/admin/knowledge/methods` | `…/methods/page.tsx` | L3 방법론 · L4 공부법 목록 (조건 칩) |
 | `/admin/knowledge/review` | `…/review/page.tsx` | 추출됨·검토 중 항목 |
@@ -303,7 +310,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/knowledge/sources/csat` | `…/sources/csat/page.tsx` | 기출 원천 — 문항·서지·근거 링크·등급 (지문 원문 없음) |
 | `/admin/knowledge/experts` | `…/experts/page.tsx` | 가져오기 원장 최신 스냅샷의 전문가·채널 |
 | `/admin/knowledge/gaps` | `…/gaps/page.tsx` | 공백 — 원인 · 다음 행동 · 영향 수 |
-| `/admin/knowledge/item/[slug]` | `…/item/[slug]/page.tsx` | 항목 상세 — 위/아래 층 연결 · 근거 · 검토 기록 + 상태 변경·연결·근거 추가(Server Actions `admin/knowledge/actions.ts`) |
+| `/admin/knowledge/item/[slug]` | `…/item/[slug]/page.tsx` | 항목 상세 — 위/아래 층 연결 · 근거(출처 확인도 · 연구 수준 · 적용 적합성) · 검토 기록 + 상태 변경·연결·근거 추가 · 종류 · 연구 근거 · 근거 축(Server Actions `actions.ts` · `vnext-actions.ts`) |
 | `/admin/methodology` | `admin/methodology/page.tsx` | 가져오기 원장(Codex 2026-09-19 워크벤치) — 메뉴상 「근거 · 출처」 하위 |
 
 ---
@@ -322,7 +329,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 |---|---|
 | `POST /api/auth/callback` | `api/auth/callback/route.ts` (Supabase OAuth) |
 
-### `/api/csat/*` (4 · 2026-09-17 개편)
+### `/api/csat/*` (5 · 2026-09-17 개편 · 2026-10-08 문항 확인 과제)
 
 `/api/csat/overlay`(좌표 + 분석 한 벌)는 오버레이 화면과 함께 걷었다 — 좌표와 분석을 **따로** 준다.
 분석이 답보다 먼저 브라우저에 오면 「먼저 푼다」가 코드로 안 지켜지기 때문이다(docs/csat-learner/DECISIONS.md D9).
@@ -333,6 +340,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `GET /api/csat/dev-paper?exam=` | **개발 서버 전용**(`NODE_ENV=development` · 프로덕션은 무조건 404). 이 PC 의 로컬 기출 문제지 PDF 바이트를 돌려준다 — 브라우저가 학습자가 놓은 파일과 **같은 길**로 기기 안에서 뽑는다. 폴더 `CSAT_LOCAL_PAPER_DIRS`(`;` 구분), 끄기 `CSAT_LOCAL_PAPERS=off`. 로그인 문턱(401) |
 | `GET · POST · DELETE /api/csat/session/record` | 본인 기출 세션 풀이 기록. GET = 최근 1,000건 · POST `{ attempts }` = 새 풀이 올리기(모양 검사 · 최대 200 · 겹치면 무시) 후 **복습 큐를 서버가 다시 계산**(`sync.ts#replayReviews`) · DELETE = 내 기록 지우기(게이트 하네스·초기화). 쓰기는 RLS(본인 행) · 로그인 문턱(401) |
 | `POST /api/csat/session/reveal` | 본문 `{ item: '<슬러그>' }` → 정답 · 근거 설명(≤3문장) · 오답별 한 줄 · 함정 · 「한 줄」 · 골격(문장 길이열 + 인용) · 강의 길이. **기존 풀이 클라이언트 호환 API다. 새 해부 화면에서는 호출하지 않는다.** 고른 답은 받지 않는다(기록은 기기에). 로그인 문턱(401) · 슬러그 모양 검사 |
+| `POST /api/csat/item/[slug]/task` | 문항 「주장과 근거 연결」 확인 과제 응답(Phase 3 · 2026-10-08). 본문 `{ response: { claim, support[], relation }, sec }` → `{ grade, attempts }`. 서버가 채택 사슬 · 적용 active · 주석 서명을 확인하고 주석으로 채점해 `learning_task_attempts` 에 쓴다(service_role · userId 는 세션). 적용 없는 문항 · 잘못된 번호 400 · 로그인 문턱(401). [vertical/claim-support](./methodology/vertical/claim-support.md) |
 | `GET /api/csat/lecture?item=<슬러그>` | 문항 해설 **강의 대본**(큐 목록). 해설 화면의 서버 렌더에는 길이(초)만 싣고, 학습자가 재생을 누른 뒤 여기서 받는다 — 대본이 화면 HTML 에 남지 않게. 로그인 문턱(401) · 슬러그 모양 검사(값이 파일 이름으로 흘러간다) · 커밋된 `lib/csat/lecture-data/*.json` 을 읽는다(DB 0) |
 
 ### `/api/srs/*` (1)
