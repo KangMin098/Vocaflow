@@ -12,3 +12,5 @@ planning/responses/*
 .env*
 *.pem
 *.key
+runtime/runs/
+runtime/STOP

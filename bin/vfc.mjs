@@ -76,7 +76,7 @@ const HELP = `vfc — Vocaflow AI Control
 
 상태
   init                                    상태 파일 초기화(멱등 — 있는 항목은 건드리지 않는다)
-  decision add --status RECORDED|PROPOSED|OPEN_QUESTION --kind K --summary .. [--goals VG-..] [--source ..] --by O
+  decision add --status RECORDED|PROPOSED|OPEN_QUESTION --kind K --summary .. [--goals VG-..] [--source ..] [--request REQ-..] --by O
   checkpoint [--label L]                  state/*.json 스냅샷 → runtime/checkpoints/<시각>-<L>/
   status [--json]                         요약: 목표 상태 분포 · 작업 · 잠금 · 열린 결정
   goal set <id> --status S --evidence <path>[,..] --by <owner> [--gate] [--note ..]
@@ -227,6 +227,8 @@ function main() {
       const acc = readJson(opt.file)
       return out(withState((s) => T.setAcceptance(s, pos[0], { caller: caller(opt), acceptance: acc, decision_id: opt.decision }), { event: 'task.set_acceptance', task: pos[0], decision: opt.decision, by }), opt)
     }
+    case 'task resume-from-plan':
+      return out(withState((s) => T.resumeFromPlanning(s, pos[0], { caller: caller(opt), decision_id: opt.decision }), { event: 'task.resume_from_plan', task: pos[0], decision: opt.decision, by }), opt)
     case 'task assign-worktree':
       return out(withState((s) => T.assignWorktree(s, pos[0], { caller: caller(opt), worktree: pos[1], branch: opt.branch }), { event: 'task.assign_worktree', task: pos[0], by }), opt)
     case 'task start': {
@@ -288,6 +290,7 @@ function main() {
       const entry = { status: opt.status, kind: opt.kind, summary: opt.summary, source: opt.source, by, affects_goal_ids: list(opt.goals) }
       if (opt.status === 'APPROVED') Object.assign(entry, { approved_by: opt['approved-by'], reference: opt.ref })
       if (opt.supersedes) entry.supersedes = opt.supersedes
+      if (opt.request) entry.request_id = opt.request // 기획 요청 승인(재개 근거)은 그 요청 id 를 가리켜야 한다
       return out(withState((s) => {
         for (const g of entry.affects_goal_ids) if (!loadCriteria().criteria.some((c) => c.id === g)) throw new T.RuleError('BAD_GOAL', `goal ${g} 는 정본에 없다`)
         if (!entry.summary || !entry.kind) throw new T.RuleError('MISSING_FIELD', '--summary 와 --kind 가 필요하다')

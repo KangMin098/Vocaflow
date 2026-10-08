@@ -755,3 +755,38 @@ test('완료 조건 변경은 READY · owner · 사용자 APPROVED 결정이 있
   assert.deepEqual(tt.acceptance, ['새 조건 0'])
   assert.deepEqual(tt.history.at(-1).previous_acceptance, ['조건 0', '조건 1'])
 })
+
+test('범위 글롭: **/ 는 온전한 디렉터리 구간만 — src/**/test.ts 가 src/not-test.ts 를 허용하지 않는다(Codex Stop P1)', async () => {
+  const { pathInScope } = await import(`file:///${path.join(REPO, 'lib', 'tasks.mjs').replace(/\\/g, '/')}`)
+  for (const [p, g, want] of [
+    ['src/not-test.ts', 'src/**/test.ts', false],
+    ['src/test.ts', 'src/**/test.ts', true],
+    ['src/a/b/test.ts', 'src/**/test.ts', true],
+    ['src/a/b.ts', 'src/**', true],
+    ['srcx/a.ts', 'src/**', false],
+    ['apps/web/src/lib/admin/x.ts', 'apps/web/src/lib/admin/**', true],
+  ]) assert.equal(pathInScope(p, [g]), want, `${p} vs ${g}`)
+})
+
+test('기획 재개는 그 요청을 가리키는 사용자 승인만 — 다른 요청의 승인으로는 재개 불가(Codex Stop P1)', () => {
+  const { root } = setup()
+  const t = addTask(root)
+  const q = path.join(root, 'q.md')
+  fs.writeFileSync(q, 'q')
+  const reqA = JSON.parse(run(root, ['planning', 'request', '--kind', 'plan', '--task', t.task_id, '--topic', 'A', '--question-file', q, '--goals', 'VG-L3-A2-01', '--json']).out)
+  const reqB = JSON.parse(run(root, ['planning', 'request', '--kind', 'plan', '--topic', 'B', '--question-file', q, '--goals', 'VG-L3-A2-01', '--json']).out)
+  const lib = `file:///${path.join(REPO, 'lib').replace(/\\/g, '/')}`
+  fs.writeFileSync(path.join(root, 'wait.mjs'), `import { withState } from '${lib}/state.mjs'; import * as T from '${lib}/tasks.mjs'; withState((s) => T.waitForPlanning(s, '${t.task_id}', { caller: '${OWNER}', request_id: '${reqA.id}', reason: 'test' }))`)
+  assert.equal(spawnSync(process.execPath, [path.join(root, 'wait.mjs')], { env: { ...process.env, VFC_ROOT: root } }).status, 0)
+  const resp = (id) => ({ schema: 'vfc-response/1', request_id: id, responder: 'chatgpt', responded_at: '2026-10-09T10:00:00Z', canon_version: '1.1.0', verdict: 'approve', summary: 's', findings: [], proposed_decisions: [], open_questions: [], plan: { goal_fit: 'a', design: 'b', priority: 'P1 — c', learner_value: 'd', scope: 'e', preserved_contracts: ['f'], acceptance: ['g'], risks: ['h'] } })
+  for (const r of [reqA, reqB]) {
+    fs.writeFileSync(path.join(root, 'planning', 'responses', `${r.id}.response.json`), JSON.stringify(resp(r.id)))
+    assert.equal(run(root, ['planning', 'import', r.id]).code, 0)
+  }
+  const appr = (rid) => JSON.parse(run(root, ['decision', 'add', '--status', 'APPROVED', '--approved-by', 'user', '--ref', '대화', '--kind', 'plan_approval', '--summary', 'ok', '--request', rid, '--json']).out).decision_id
+  const dB = appr(reqB.id)
+  assert.match(run(root, ['task', 'resume-from-plan', t.task_id, '--decision', dB, '--by', OWNER]).err, /APPROVAL_MISMATCH/)
+  const dA = appr(reqA.id)
+  assert.equal(run(root, ['task', 'resume-from-plan', t.task_id, '--decision', dA, '--by', OWNER]).code, 0)
+  assert.equal(state(root, 'TASK_QUEUE.json').tasks.find((x) => x.task_id === t.task_id).status, 'READY')
+})
