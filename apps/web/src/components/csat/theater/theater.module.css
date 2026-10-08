@@ -381,3 +381,18 @@
 /* 차이 카드 아래 — 출제자 설계의 이유(설계 주석이 있는 문항만) */
 .diffWhy { display: grid; gap: 6px; padding: 10px 12px; border-top: 1px solid var(--bd); background: var(--bg2); font-size: 12.5px; line-height: 1.75; color: var(--t2); }
 .diffWhy b { margin-right: 6px; font-weight: 600; color: var(--t1); }
+
+/* 마친 뒤 — 한 일(사실)과 다음 행동(SessionDone · G0 계약 §2) */
+.done { display: grid; gap: 8px; margin-bottom: 16px; padding: 14px; border: 1px solid var(--bd); border-radius: 10px; background: var(--bg2); }
+.done h2 { font-size: 15px; font-weight: 600; color: var(--t1); }
+.done ul { display: grid; gap: 2px; padding-left: 1.1em; list-style: disc; font-size: 12.5px; line-height: 1.7; color: var(--t2); }
+.doneEyebrow { font-size: 11.5px; color: var(--t3); }
+.doneActions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.doneActions .gatePrimary { display: inline-flex; align-items: center; }
+.doneQuiet { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--bd); background: var(--bg); font-size: 12.5px; color: var(--t2); }
+.doneQuiet:hover { border-color: var(--p); color: var(--p); }
+.doneNote { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; font-size: 12.5px; color: var(--t2); }
+.composerActions .finishBtn { border-color: var(--t1); background: var(--t1); color: #fff; }
+.composerActions .finishBtn:hover { color: #fff; opacity: .9; }
+.resume { width: 100%; font-size: 12px; color: var(--t2); }
+.resumeNote { padding: 0 12px 8px; font-size: 12px; color: var(--t2); }

@@ -33,6 +33,21 @@
 
 - docs(methodology): 영어 학습 원리 시스템 vNext Phase 1 — 현행 감사(DB 실측 · 코드) · 통합 아키텍처 정본 `docs/methodology/VNEXT_ARCHITECTURE.md`(구조 결함 8 · 지식 객체 6 + 탐구 · 적용 · 검증 · 근거 세 축 · 기존→새 매핑 · 관리자 5개 업무 공간 · 학습자 계약 · 첫 수직 경로 「주장과 근거 관계 이해」) · Phase 2 추가형 스키마 초안 `_pending_20261008120000_knowledge_vnext.sql`(미적용 · Codex 계획 리뷰 P0 1 · P1 7 반영 · 격리 PostgreSQL 검증 36/36 `scripts/knowledge/vnext-schema-test.mjs`). DB 변경 없음.
 - feat(csat-map): 학습 지도 목표 중심 재설계 — 첫 화면 「내 목표 · 현재 위치」 바(목표 · 등급 구간 · 목표 미설정 구분 · 실제 최근 기록 · 이전↔최근 · 목표까지 · 단계 근거 상태) → 가운데 「목표 N점으로 가는 영어 독해의 길」 → 오른쪽 「지금 먼저 할 일」 하나. 단계 시트에 「목표와의 관계」(기준 시험 문항 · 배점 사실) · 「아직 모르는 것」. 목표 달성률 · 숙달 역산 · 점수 상승 약속 없음 · 진단 계약 그대로 · DB 변경 없음. 상태 E2E `e2e-map-goal.mjs`.
+- docs(csat-learner): G2 통합 SQL(da627938 · methodology e294b4642) 적용 전 독립 심사 — CONDITIONAL. 해시 일치 · 회귀 44/44 · 되돌리기 실행 확인 · P1: M5a 가 help_level 에 「가장 이른 공개」를 적용해 해설 먼저 본 뒤의 판단을 독립으로 소급 승격(두 기기 공유 세션) · B8 연결은 별도 mutation id 필수. [심사](./csat-learner/G2_SQL_REVIEW_da627938.md)
+
+- docs(csat-learner): /csat/practice 54aa73186 재검증 — P1-2 PASS(코드·unit · 해설 열람 저장처는 G2 B8) · 회귀 시나리오 7/8 PASS · 1 미검증(해설 뒤 새 판단 서버 차단 근거 없음) · 전체 unit 3,922 통과 실패 0 · E2E 미실행 · G3 미완. [보고](./csat-learner/PRACTICE_PORT_REVERIFY_54aa73186.md)
+
+- docs(csat-learner): /csat/practice 17bb7c93f 독립 재검증 — P1-1 PASS · P1-2 FAIL(g2 응답 유실 뒤 해설 열람 재전송이 explanation_viewed_at 때문에 409) · P1-3 PASS(response 사본) · unit 3,921 통과 실패 0 · E2E 미실행(환경 격리 미확보) · G3 미완. [보고](./csat-learner/PRACTICE_PORT_REVERIFY_17bb7c93f.md)
+
+- docs(csat-learner): /csat/practice 이식(1ce738924) 독립 검증 — tsc · lint 0 오류 · 전체 unit 3,916 통과 · 실패 0(DB 자격 증명 없이). **E2E 미실행**(실 DB 키 환경 · 로그인 auth 서버 쓰기 · 새 탭 가로채기 누수). P1 3건(스펙 1 · g2 모드 2) 보고 · 코드/DB 변경 0. [검증 보고](./csat-learner/PRACTICE_PORT_VERIFICATION.md) · G2 B5/B6′/B7 반영.
+
+- docs(csat-learner): G2 담당 결정 기록 — 단일 DB 쓰기 담당 vocaflow-18(적용 승인은 별도) · /csat/practice 이식은 신규 세션 [인계서](./csat-learner/PRACTICE_PORT_BRIEF.md).
+
+- docs(csat-learner): G2 통합 데이터 계약 검토 — [보고서](./csat-learner/G2_INTEGRATION_REVIEW.md) · 통합 SQL 초안(서버 세션 표 · 요청 멱등 원장 · 시도 표 확장 · 첫 시도 뷰 · 이벤트 83종, sha256 779eb9bb…, 미적용) · PGlite 오프라인 검증 44/44. 소유권 근거: 공유 스키마 = methodology-vnext 세션(지정은 사용자 승인 대기). DB 쓰기 0.
+
+- chore(csat-learner): read-only test leakage cleanup — G1 E2E 로그인 단계의 분석 이벤트 가로채기 누락으로 funnel_events 에 들어간 screen_viewed 3행(PK 25756·25766·25767)을 사용자 승인 후 PK 한정 트랜잭션으로 삭제(삭제 전 3 · 후 0 · 다른 행 0). 재발 방지 36af66acc. [incident](./csat-learner/G1_INCIDENT_2026-10-08.md) · G0·G1 CLOSED · G2 결정 [서버 세션 · 멱등 분리 · 첫 시도 정의](./csat-learner/G2_SESSION_CONTRACT.md)(설계만 · 통합 SQL 미적용).
+
+- feat(csat-learner): G0·G1 학습 루프 — [G0 계약](./csat-learner/G0_LEARNING_CONTRACT.md)(세션↔시도 · activity/phase/help_level · completion 파생 · 병합·멱등·삭제 표시 · 정본 이관). 해설 극장에 세션(재개 · 「이 문항 마치기」 · 완료 카드 · 다시 보기 예약)을 기기 기록으로 붙였다(DB 변경 없음 · `csat_learner_state.record.sessions`). 「모르겠어요」는 적중률 분모·분자에서 뺀다(저장값 유지 · 생성 경로 `PredictGate.tsx:40` 확인). 내 공식 화면이 서버 사본과 합쳐 읽는다. `csat_dx_viewed` · `csat_map_viewed` · `csat_session_started` 중복 송신을 막았다. 노출 문항 정합성 읽기 전용 검사 `scripts/csat/learner-integrity-check.mjs`(확정 결함 0 · 확인 후보 22 · 강의 낡음 49). G2 SQL 초안 `docs/csat-learner/g2-draft/`(미적용).
 
 - feat(csat-map): 학습 지도 vNext 를 main 에 clean integration — 원본 `feat/map-vnext`(커밋 100 · 파일 451)에서 지도에 필요한 것만(마이그레이션 `20261002120000_csat_map` · `20261002120100_funnel_allow_csat_map` · `20261002130000_csat_map_item_rate_ledger`, 지도 코드 · 진단 판정 · API 2 · 이벤트 4 · 검증 스크립트). Workspace · 어휘 표지 · 사전 · 오답 원인 Evidence · seed v2 제외. 목록·동등성 [MAP_INTEGRATION_MANIFEST](./csat-learner/MAP_INTEGRATION_MANIFEST.md) · 빈 DB 검증 `scripts/csat/map/fresh-db-check.mjs`.
 
