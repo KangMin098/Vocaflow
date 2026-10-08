@@ -113,6 +113,8 @@ function fakeDb(rows: Record<string, unknown>[]) {
           data: rows.filter((r) => filters.every(([c, v]) => (c === 'response->>client_mutation_id' ? (r.response as Record<string, unknown>).client_mutation_id === v : r[c] === v))),
           error: null,
         }),
+        // g2 공개 전 「이미 기록된 판단인가」 조회 — rows 에 같은 (user_id · client_mutation_id) 가 있으면 그 행
+        maybeSingle: async () => ({ data: rows.find((r) => filters.every(([c, v]) => r[c] === v)) ?? null, error: null }),
         insert: async (row: Record<string, unknown>) => (inserted.push(row), rows.push(row), { error: null }),
       }
       return q
@@ -187,6 +189,13 @@ describe('g2 어댑터(G2 적용 뒤) — 세션 공개 RPC → 시도 RPC', () 
     expect(selectWriter({} as SupabaseClient, 'g2').kind).toBe('g2')
     expect(selectWriter({} as SupabaseClient, 'direct').kind).toBe('direct')
   })
+  it('이미 기록된 판단(같은 제출 id)의 재전송은 세션 공개를 다시 적용하지 않는다 — 거부될 요청이 세션을 바꾸지 않게', async () => {
+    const { db, rpcs } = fakeDb([{ user_id: 'u1', client_mutation_id: W.clientMutationId, session_id: 'sess-0' }])
+    const sid = await g2Writer(db).reveal({ ...W, helpLevel: 'viewed_first' })
+    expect(sid).toBe('sess-0')
+    expect(rpcs.filter((r) => r.fn === 'learning_session_apply')).toHaveLength(0)
+  })
+
   it('B8: 해설 열람은 공개 · 판단과 다른 mutation id 로 learning_session_apply(p_explanation_viewed_at) · 같은 열람 재전송은 같은 id', async () => {
     const f = fakeDb([])
     const w = g2Writer(f.db)

@@ -138,6 +138,13 @@ export function g2Writer(db: SupabaseClient): AttemptWriter {
   return {
     kind: 'g2',
     async reveal(w) {
+      // 이미 기록된 판단(같은 제출 id)의 재전송이면 세션을 건드리지 않는다 — 같은 id 로 도움 수준만 바꾼 요청이
+      // 세션을 먼저 바꾼 뒤 시도에서 conflict 로 거부되면, 거부된 요청이 앞선 독립 판단을 비독립으로 오염시킨다(Codex P1).
+      // 시도 RPC 가 원문 비교로 duplicate / conflict 를 정한다
+      const prior = await db.from('learning_task_attempts').select('session_id')
+        .eq('user_id', w.userId).eq('client_mutation_id', w.clientMutationId).maybeSingle()
+      if (prior.error) throw new Error(`세션 공개 실패: ${prior.error.message}`)
+      if (prior.data) return (prior.data as { session_id: string | null }).session_id
       const { data, error } = await db.rpc('learning_session_apply', {
         p_user: w.userId,
         // 공개 id = 세션 · 도움 수준 · 판단 시각 — 같은 판단의 재전송만 같은 id. 해설을 본 뒤의 새 판단(도움 상승)은 새 공개로

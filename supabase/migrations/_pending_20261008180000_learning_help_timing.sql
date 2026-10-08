@@ -128,9 +128,70 @@ begin
   return new;
 end $$;
 
+-- ── M8-F 표본 직렬화 · 시도 synthetic 불변 ─────────────────────────────────────────────
+-- 분석 완료 전환과 시도 쓰기를 같은 권고 잠금으로 직렬화한다: 시도 쓰기 = 공유(서로 막지 않음) · 분석 전환 = 배타.
+-- 커밋 전 더 이른 시도가 분석 뒤에 커밋돼 첫 표본 · 최소 표본을 바꾸던 경쟁을 닫는다(Codex P1 2026-10-08).
+-- 시도 synthetic 도 불변 — 세션 없는 시도의 합성 표시를 뒤집어 게이트를 우회하던 길(vocaflow-18 격리 재현)을 닫는다.
+create or replace function public.learning_trial_sample_frozen_attempt() returns trigger
+language plpgsql set search_path = public as $$
+begin
+  perform pg_advisory_xact_lock_shared(hashtext('learning_trial_sample'));
+  if tg_op = 'UPDATE' and new.synthetic is distinct from old.synthetic then
+    raise exception '시도의 합성 표시는 바꿀 수 없다 — 새 기록으로';
+  end if;
+  if exists (select 1 from public.knowledge_trials t
+             where t.id in (new.trial_id, case when tg_op = 'UPDATE' then old.trial_id end)
+               and t.status = 'analyzed' and not t.synthetic for share) then
+    raise exception '분석 완료된 검증의 표본에는 시도를 더하거나 고칠 수 없다 — 새 검증으로';
+  end if;
+  if exists (select 1 from public.learning_task_attempts x join public.knowledge_trials t on t.id = x.trial_id
+             where t.status = 'analyzed' and not t.synthetic and x.user_id = new.user_id
+               and x.task_key is not distinct from new.task_key and coalesce(x.item_ref, '') = coalesce(new.item_ref, '') and x.phase = new.phase
+               and new.answered_at <= x.answered_at and x.id is distinct from new.id
+             for share of t) then
+    raise exception '분석 완료된 검증 표본의 첫 시도보다 이른 시도는 넣을 수 없다 — 표본의 첫 시도가 바뀐다';
+  end if;
+  return new;
+end $$;
+
+create or replace function public.knowledge_trials_analyzed_guard() returns trigger
+language plpgsql set search_path = public as $$
+declare need int := greatest(coalesce((new.design->>'min_n')::int, 1), 1);
+begin
+  if new.status = 'analyzed' and not new.synthetic and (tg_op = 'INSERT' or old.status is distinct from 'analyzed') then
+    -- M8-F 진행 중인 시도 쓰기가 모두 끝날 때까지 기다리고, 이 트랜잭션이 끝날 때까지 새 시도 쓰기를 막는다
+    perform pg_advisory_xact_lock(hashtext('learning_trial_sample'));
+    perform 1 from public.learning_sessions where id in (select session_id from public.learning_task_attempts where trial_id = new.id and session_id is not null) order by id for update;
+    if (select count(distinct f.user_id) from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+          where a.trial_id = new.id and f.phase = 'pre' and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain) < need
+       or (select count(distinct f.user_id) from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+          where a.trial_id = new.id and f.phase = 'post' and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain) < need then
+      raise exception '실제 학습자의 독립(independent) 첫 시도(사전 · 사후)가 최소 표본(%)에 못 미친다 — 시각이 불확실한 판단은 세지 않는다 · 분석 완료로 바꿀 수 없다', need;
+    end if;
+  end if;
+  return new;
+end $$;
+
 -- ── 되돌리기(한 트랜잭션 · 각 줄 앞의 「-- 」를 벗겨 실행) ────────────────────
 -- 검증: scripts/knowledge/g2-m8-test.mjs 가 이 블록을 격리 DB 에서 실제로 실행한다.
 -- begin;
+-- create or replace function public.learning_trial_sample_frozen_attempt() returns trigger
+-- language plpgsql set search_path = public as $$
+-- begin
+--   if exists (select 1 from public.knowledge_trials t
+--              where t.id in (new.trial_id, case when tg_op = 'UPDATE' then old.trial_id end)
+--                and t.status = 'analyzed' and not t.synthetic for share) then
+--     raise exception '분석 완료된 검증의 표본에는 시도를 더하거나 고칠 수 없다 — 새 검증으로';
+--   end if;
+--   if exists (select 1 from public.learning_task_attempts x join public.knowledge_trials t on t.id = x.trial_id
+--              where t.status = 'analyzed' and not t.synthetic and x.user_id = new.user_id
+--                and x.task_key is not distinct from new.task_key and coalesce(x.item_ref, '') = coalesce(new.item_ref, '') and x.phase = new.phase
+--                and new.answered_at <= x.answered_at and x.id is distinct from new.id
+--              for share of t) then
+--     raise exception '분석 완료된 검증 표본의 첫 시도보다 이른 시도는 넣을 수 없다 — 표본의 첫 시도가 바뀐다';
+--   end if;
+--   return new;
+-- end $$;
 -- create or replace function public.learning_trial_sample_frozen_session() returns trigger
 -- language plpgsql set search_path = public as $$
 -- begin

@@ -40,10 +40,11 @@ try {
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql', '20261008140000_knowledge_review_cascade_guard.sql',
-    '20261008150000_knowledge_statement_review_fix.sql', '20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
+    '20261008150000_knowledge_statement_review_fix.sql']) await q(M(f))
   // funnel_events CHECK 은 160000 이 다시 건다 — 기존 행을 비워 둔다(이 하네스의 관심 밖)
   await q('delete from funnel_events')
   await q(M('20261008160000_learning_sessions_integrated.sql'))
+  await q(M('20261008170000_knowledge_trial_evidence_guard.sql'))   // 원장 순서: 160000 → 170000 → M8
 
   // 160000 상태에서 만든 기존 기록 — 백필 · 행 보존 확인용
   const sess = (user, cs, help, at, extra = {}) => q(`select * from learning_session_apply($1,$2,$3,'theater','practice','2022#20','revealed',0,1,$4,$5,null,false,$6,'claim-support',null,$7,null)`,
@@ -175,6 +176,24 @@ try {
     for (const [help, at] of steps.after ?? []) await q(`select * from learning_session_apply($1,$2,$3,'practice',$4,'x1','revealed',0,1,$5,$6,null,false,false,'g2',null,$7,null)`, [user, uuid(), cs, phase, help, at, trial])
     return sid
   }
+  // M8-F 세션 없는 합성 시도의 synthetic 을 뒤집어 게이트를 우회하는 길(vocaflow-18 재현) — 시도 synthetic 불변
+  {
+    const r = (await q(`select * from learning_attempt_record($1,$2,null,'g2','practice','pre','independent','x1','h','{}',true,5,true,null,$3,'2026-10-05T07:00:00Z')`, [D, uuid(), trial])).rows[0]
+    rec('M8-F 시도 synthetic 뒤집기 거부(세션 없는 시도)', /합성 표시/.test(await err('update learning_task_attempts set synthetic = false where id = $1', [r.attempt_id]) ?? ''))
+  }
+  // M8-F 커밋 전 시도 쓰기와 분석 전환의 직렬화 — 열린 시도 트랜잭션이 있으면 분석 전환은 기다린다
+  {
+    const c1 = await pool.connect(), c2 = await pool.connect()
+    try {
+      await c1.query('begin')
+      await c1.query(`select * from learning_attempt_record($1,$2,null,'g2','practice','pre','independent','x1','h','{}',true,5,false,null,null,'2026-10-05T06:00:00Z')`, [E, uuid()])
+      await c2.query('begin'); await c2.query("set local lock_timeout = '1s'")
+      let blocked = false
+      try { await c2.query(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial]) } catch (e) { blocked = /lock timeout|canceling statement/.test(e.message) }
+      await c2.query('rollback')
+      rec('M8-F 커밋 전 시도가 있으면 분석 전환이 잠금에서 기다린다', blocked)
+    } finally { await c1.query('rollback'); c1.release(); c2.release() }
+  }
   const analyze = () => err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial])
   // E: 판단 30초 뒤 도움 → 독립이지만 불확실 → 세지 않음
   await tsess(E, 'pre', { reveals: [['independent', '2026-10-05T09:00:00Z']], answered: '2026-10-05T09:00:00Z', after: [['viewed_first', '2026-10-05T09:00:30Z']] })
@@ -189,7 +208,7 @@ try {
   rec('M8-E 분석 완료 표본 세션의 help_received_at 변경 거부', /바꿀 수 없다/.test(await err(`update learning_sessions set help_received_at = '2026-10-05T08:00:00Z' where id = $1`, [bPre]) ?? ''))
   rec('M8-E 분석 완료 표본 세션 synthetic 변경 거부(Codex P1)', /합성 표시/.test(await err('update learning_sessions set synthetic = true where id = $1', [bPre]) ?? ''))
   rec('M8-E 표본 밖 세션도 synthetic 불변', /합성 표시/.test(await err('update learning_sessions set synthetic = true where id = $1', [old.session_id]) ?? ''))
-  rec('M8-E 분석 완료 표본 시도 synthetic 변경 거부(기존 시도 트리거)', /더하거나 고칠 수 없다/.test(await err('update learning_task_attempts set synthetic = true where session_id = $1', [bPre]) ?? ''))
+  rec('M8-E 분석 완료 표본 시도 synthetic 변경 거부', /합성 표시|더하거나 고칠 수 없다/.test(await err('update learning_task_attempts set synthetic = true where session_id = $1', [bPre]) ?? ''))
   rec('M8-E 같은 값 UPDATE(합성 표시 그대로)는 통과', !(await err('update learning_sessions set step = step where id = $1', [old.session_id])))
 
   // 학습자 읽기 — 뷰가 원장(학습자 읽기 불가)을 읽지 않는다
