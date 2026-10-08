@@ -18,7 +18,7 @@
 //   K5 강의 낡음        — 강의 빌드일 < 최신 분석 생성일(분석이 강의 뒤에 바뀜)
 //   K6 강의 문장 범위    — 강의 cue 의 anchor:sentence:k 가 골격 문장 수를 넘음
 //   H1 학평 단위 해시    — 발행 분석의 units_hash ≠ 그 문항 최신 단위 목록의 units_hash
-//   V  발행 버전 다수    — published 행이 2개 이상(로더는 최신 하나를 고른다 — 정보성)
+//   multi_published      — published 행이 2개 이상인 문항 수(로더는 최신 하나를 고른다 — 정보성 · 개수만)
 //
 // 실행: node --tls-max-v1.2 scripts/csat/learner-integrity-check.mjs [--env <apps/web/.env.local>] [--out <json>]
 // 결과: JSON(문항 id · 버전 · 검사 코드 · 영향 화면) — 원문 · 인용 글자는 싣지 않는다(D15).
@@ -128,7 +128,7 @@ for (const [id, a] of latest) {
   const distractors = new Set(choices.filter((c) => c.verdict === 'distractor').map((c) => c.n))
   const key = answerOf.get(id)
   if (correct != null && key != null && correct !== key) add(id, 'K1', `분석 정답 ${correct} ≠ 문항 정답 ${key}`, ['item', 'dissect'])
-  if ((versions.get(id) ?? 0) > 1) add(id, 'V', `published ${versions.get(id)}개`, ['info'])
+  // V 는 정보성 — 문항마다 줄을 쓰면 결과가 결함을 덮는다. 개수만 센다(아래 multi_published)
 
   const sk = skeleton.get(id)
   if (sk) {
@@ -190,6 +190,7 @@ const report = {
   with_skeleton_json: [...latest.keys()].filter((id) => skeleton.has(id)).length,
   with_lecture: [...latest.keys()].filter((id) => lectures.has(id)).length,
   by_code: byCode,
+  multi_published: [...versions.values()].filter((n) => n > 1).length,
   severe_items: severe.size,
   review_candidates: review.size,
   findings: findings.sort((a, b) => a.code.localeCompare(b.code) || a.item.localeCompare(b.item)),
