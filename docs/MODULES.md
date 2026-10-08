@@ -1061,6 +1061,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 극장 화면 | [`components/csat/theater/AnalysisTheater.tsx`](../apps/web/src/components/csat/theater/AnalysisTheater.tsx) — 레일(차례) · 무대(`PassageMap` + 블록) · 장 카드 · 「전부 펼쳐 읽기」 · ←/→ · 배속 |
 | 효과음 | [`lib/csat/theater-sfx.ts`](../apps/web/src/lib/csat/theater-sfx.ts) — 넷(step·mark·trap·seal), 큐 경계에서만. 기존 **실녹음 샘플을 배속으로** 다시 쓴다(새 자산 0). `wrong.wav` 는 쓰지 않는다 · 기본 끔 · 샘플을 못 받으면 무음 |
 | 엔진 | **변경 없음** — `LecturePlayer` · `LectureStage` · `PassageMap` 그대로 |
+| 학습 세션 (G1 · 2026-10-08) | [`lib/csat/learning-session.ts`](../apps/web/src/lib/csat/learning-session.ts) — 연 문항마다 세션(시도 0건이어도) · 단계 위치 저장 → 재개 · 마지막 단계 「이 문항 마치기」 → [`SessionDone`](../apps/web/src/components/csat/theater/SessionDone.tsx)(독립/도움 문구 · 다음 문항 · 3일 뒤 다시 보기 · 처음부터 다시) · 「모르겠어요」= `viewed_first`(적중률 제외). 이어서 판에 「하다 만 문항 · 다시 볼 문항」. 계약 [G0](./csat-learner/G0_LEARNING_CONTRACT.md) · 회귀 단위 26 + E2E [`csat-learning-loop.spec.ts`](../apps/web/tests/e2e/csat-learning-loop.spec.ts) 11(DB 무쓰기) |
 | 회귀 | 순수 **28** — [`theater.test.ts`](../apps/web/src/lib/csat/__tests__/theater.test.ts) 16(차례·이름·소리·블록·빈 칸 없음·정답표 없는 회차) + [`browse-model.test.ts`](../apps/web/src/lib/csat/__tests__/browse-model.test.ts) 12(축 AND · 거르지 않음 · 번호 완전 일치 · 회차 순서) |
 
 ---
