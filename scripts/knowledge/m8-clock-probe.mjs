@@ -15,6 +15,8 @@ const PG_DIR = 'D:/workspace/Vocaflow-ec-smoke/scripts/csat/error-evidence/isola
 const { startCluster, conn } = await import(pathToFileURL(path.join(PG_DIR, 'lib.mjs')).href)
 const pg = (await import(pathToFileURL(path.join(PG_DIR, 'node_modules/pg/lib/index.js')).href)).default
 const M = (f) => fs.readFileSync(path.join(REPO, 'supabase/migrations', f), 'utf8')
+// M8 파일 이름 — 적용 뒤에는 _pending_ 이 빠진다
+const M8F = fs.existsSync(path.join(REPO, 'supabase/migrations/20261008180000_learning_help_timing.sql')) ? '20261008180000_learning_help_timing.sql' : '_pending_20261008180000_learning_help_timing.sql'
 let fail = 0
 const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail ? ' — ' + JSON.stringify(detail).slice(0, 300) : ''}`) }
 const uuid = () => crypto.randomUUID()
@@ -40,8 +42,8 @@ try {
   await q(M('20261008160000_learning_sessions_integrated.sql'))
   const f170 = fs.existsSync(path.join(REPO, 'supabase/migrations/20261008170000_knowledge_trial_evidence_guard.sql')) ? '20261008170000_knowledge_trial_evidence_guard.sql' : '_pending_20261008170000_knowledge_trial_evidence_guard.sql'
   await q(M(f170))
-  await q(M('_pending_20261008180000_learning_help_timing.sql'))
-  console.log(`M8 sha256 ${crypto.createHash('sha256').update(M('_pending_20261008180000_learning_help_timing.sql')).digest('hex')}`)
+  await q(M(M8F))
+  console.log(`M8 sha256 ${crypto.createHash('sha256').update(M(M8F)).digest('hex')}`)
   if (FIX) {
     // 뷰 정의를 읽어 timing_uncertain 식에 조건 하나를 더한다(열 순서 · 이름 그대로)
     const def = (await q(`select pg_get_viewdef('public.learning_first_attempts'::regclass, true) d`)).rows[0].d

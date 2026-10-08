@@ -10,6 +10,8 @@ const PG_DIR = 'D:/workspace/Vocaflow-ec-smoke/scripts/csat/error-evidence/isola
 const { startCluster, conn } = await import(pathToFileURL(path.join(PG_DIR, 'lib.mjs')).href)
 const pg = (await import(pathToFileURL(path.join(PG_DIR, 'node_modules/pg/lib/index.js')).href)).default
 const M = (f) => fs.readFileSync(path.join(REPO, 'supabase/migrations', f), 'utf8')
+// M8 파일 이름 — 적용 뒤에는 _pending_ 이 빠진다
+const M8F = fs.existsSync(path.join(REPO, 'supabase/migrations/20261008180000_learning_help_timing.sql')) ? '20261008180000_learning_help_timing.sql' : '_pending_20261008180000_learning_help_timing.sql'
 let fail = 0
 const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail ? ' — ' + JSON.stringify(detail).slice(0, 200) : ''}`) }
 const uuid = () => crypto.randomUUID()
@@ -36,7 +38,7 @@ try {
   await q(M('20261008160000_learning_sessions_integrated.sql'))
   const f170 = fs.existsSync(path.join(REPO, 'supabase/migrations/20261008170000_knowledge_trial_evidence_guard.sql')) ? '20261008170000_knowledge_trial_evidence_guard.sql' : '_pending_20261008170000_knowledge_trial_evidence_guard.sql'
   await q(M(f170))
-  const m8err = await err(M('_pending_20261008180000_learning_help_timing.sql'))
+  const m8err = await err(M(M8F))
   rec('실제 순서 160000 → 170000 → M8 적용', !m8err, m8err ?? '')
   const trg = (await q(`select tgname, tgrelid::regclass::text rel from pg_trigger where not tgisinternal and tgrelid in ('learning_sessions'::regclass, 'learning_task_attempts'::regclass, 'knowledge_trials'::regclass) order by 1`)).rows
   rec('트리거 중복 없음(이름 유일)', new Set(trg.map((t) => t.tgname)).size === trg.length, trg.map((t) => t.tgname))

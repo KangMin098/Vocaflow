@@ -14,6 +14,8 @@ const PG_DIR = 'D:/workspace/Vocaflow-ec-smoke/scripts/csat/error-evidence/isola
 const { startCluster, conn } = await import(pathToFileURL(path.join(PG_DIR, 'lib.mjs')).href)
 const pg = (await import(pathToFileURL(path.join(PG_DIR, 'node_modules/pg/lib/index.js')).href)).default
 const M = (f) => fs.readFileSync(path.join(REPO, 'supabase/migrations', f), 'utf8')
+// M8 파일 이름 — 적용 뒤에는 _pending_ 이 빠진다
+const M8F = fs.existsSync(path.join(REPO, 'supabase/migrations/20261008180000_learning_help_timing.sql')) ? '20261008180000_learning_help_timing.sql' : '_pending_20261008180000_learning_help_timing.sql'
 let fail = 0
 const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail ? ' — ' + JSON.stringify(detail).slice(0, 220) : ''}`) }
 const uuid = () => crypto.randomUUID()
@@ -40,7 +42,7 @@ try {
   await q(M('20261008160000_learning_sessions_integrated.sql'))
   const f170 = fs.existsSync(path.join(REPO, 'supabase/migrations/20261008170000_knowledge_trial_evidence_guard.sql')) ? '20261008170000_knowledge_trial_evidence_guard.sql' : '_pending_20261008170000_knowledge_trial_evidence_guard.sql'
   await q(M(f170))
-  await q(M('_pending_20261008180000_learning_help_timing.sql'))
+  await q(M(M8F))
   const f7err = await err(M('_pending_20261008190000_learning_records_append_only.sql'))
   rec('실제 순서 … → M8 → F7 적용', !f7err, f7err ?? '')
   // --fix: 수정안 — 계정(auth.users) 삭제에 따른 cascade 만 허용(부모 행이 이미 없으면 통과). 일반 DELETE 는 그대로 막는다
