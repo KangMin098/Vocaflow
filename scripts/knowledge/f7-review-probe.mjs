@@ -115,7 +115,17 @@ end $f$`)
   const d4 = await err('delete from learning_mutations where user_id = $1 and client_mutation_id = $2', [U4, m4])
   const o2 = d4 ? null : await q(`select * from learning_session_apply($1,$2,$3,'practice','pre','u4','revealed',0,1,'viewed_first',now(),null,false,false,'f7p',null,null,null)`, [U4, m4, cs4]).then((r) => r.rows[0].outcome, (e) => 'err: ' + e.message.slice(0, 60))
   const after4 = (await q('select help_level from learning_sessions where user_id = $1', [U4])).rows[0]
-  rec('④ 실제 세션에 합성 표시 변경 → 그 원장 삭제 → 같은 id 다른 내용 재적용 불가', !!d4 || o2 !== 'applied', { 첫변경: o1, 세션: sesSyn, 원장삭제: d4 ?? '허용', 재적용: o2, 뒤도움수준: after4 })
+  // 가장 강한 결과는 첫 변경부터 거부되는 것(합성 표시 불일치) — 그러면 합성 원장이 생기지 않는다
+  rec('④ 실제 세션에 합성 표시 변경 → 그 원장 삭제 → 같은 id 다른 내용 재적용 불가', (typeof o1 === 'string' && o1.startsWith('err') && /synthetic|합성/.test(o1)) || !!d4 || o2 !== 'applied', { 첫변경: o1, 세션: sesSyn, 원장삭제: d4 ?? '허용', 재적용: o2, 뒤도움수준: after4 })
+  // ⑤ Codex P1 — 실제 기록의 user_id 를 임시 계정으로 옮긴 뒤 그 계정을 지우면(cascade) 원래 학습자가 살아 있는데 실제 기록이 지워지는가
+  const U5 = '00000000-0000-4000-8000-0000000000e7', TMP = '00000000-0000-4000-8000-0000000000e8'
+  await su.query(`insert into auth.users (id) values ('${U5}'), ('${TMP}')`)
+  await q(`select * from learning_attempt_record($1,$2,null,'f7p','practice','pre','independent','u5','h','{}',true,5,false,null,null,now() - interval '1 minute')`, [U5, uuid()])
+  const mv = await err('update learning_task_attempts set user_id = $1 where user_id = $2', [TMP, U5])
+  let dl = null
+  if (!mv) { try { await su.query(`delete from auth.users where id = '${TMP}'`) } catch (e) { dl = e.message } }
+  const left5 = (await q('select count(*)::int n from learning_task_attempts where user_id = any($1)', [[U5, TMP]])).rows[0].n
+  rec('⑤ 실제 기록의 user_id 를 옮겨 계정 cascade 로 지우기 불가', !!mv || !!dl || left5 > 0, { 옮기기: mv ?? '허용', 임시계정삭제: dl ?? '허용', 남은실제기록: left5 })
   void syn
 } catch (e) {
   rec('실행 오류 없이 끝남', false, e.message)
