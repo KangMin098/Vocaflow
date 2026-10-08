@@ -1,0 +1,59 @@
+[
+  {
+    "k": "(a) 늦은 동기화 전 첫 시도",
+    "v": {
+      "help_level": "viewed_first",
+      "after_viewed_first": true
+    }
+  },
+  {
+    "k": "(a) 늦은 「더 이른 독립」 공개 뒤 첫 시도",
+    "v": {
+      "help_level": "independent",
+      "after_viewed_first": false
+    }
+  },
+  {
+    "k": "(a) 시도 행에 저장된 help_level(기록 시점 값)",
+    "v": "viewed_first"
+  },
+  {
+    "k": "(b) 공개 id 재사용 + 해설 시각 → outcome",
+    "v": "conflict"
+  },
+  {
+    "k": "(b) 저장된 해설 시각",
+    "v": null
+  },
+  {
+    "k": "(b) 새 id 로 해설 시각 → outcome",
+    "v": "applied"
+  },
+  {
+    "k": "(b) 저장된 해설 시각 · 도움 수준",
+    "v": {
+      "explanation_viewed_at": "2026-10-08T07:05:00.000Z",
+      "help_level": "independent"
+    }
+  },
+  {
+    "k": "(c) analyzed 전환(최소 표본 1 · 사전 없음 → 거부 예상)",
+    "v": "실제 학습자의 독립(independent) 첫 시도(사전 · 사후)가 최소 표본(1)에 못 미친다 — 분석 "
+  },
+  {
+    "k": "(c) 늦은 해설 시각 1회차",
+    "v": "예외: 분석 완료된 검증 표본의 세션은 공개 · 도움 · 해설 시각을 바꿀 수 없다"
+  },
+  {
+    "k": "(c) 늦은 해설 시각 2회차",
+    "v": "예외: 분석 완료된 검증 표본의 세션은 공개 · 도움 · 해설 시각을 바꿀 수 없다"
+  },
+  {
+    "k": "(c) 원장에 남은 그 mutation",
+    "v": 0
+  },
+  {
+    "k": "(d) direct 행의 실효 help_level(첫 시도 뷰)",
+    "v": null
+  }
+]

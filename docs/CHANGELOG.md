@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat-learner): G2 통합 SQL(da627938 · methodology e294b4642) 적용 전 독립 심사 — CONDITIONAL. 해시 일치 · 회귀 44/44 · 되돌리기 실행 확인 · P1: M5a 가 help_level 에 「가장 이른 공개」를 적용해 해설 먼저 본 뒤의 판단을 독립으로 소급 승격(두 기기 공유 세션) · B8 연결은 별도 mutation id 필수. [심사](./csat-learner/G2_SQL_REVIEW_da627938.md)
+
 - docs(csat-learner): /csat/practice 54aa73186 재검증 — P1-2 PASS(코드·unit · 해설 열람 저장처는 G2 B8) · 회귀 시나리오 7/8 PASS · 1 미검증(해설 뒤 새 판단 서버 차단 근거 없음) · 전체 unit 3,922 통과 실패 0 · E2E 미실행 · G3 미완. [보고](./csat-learner/PRACTICE_PORT_REVERIFY_54aa73186.md)
 
 - docs(csat-learner): /csat/practice 17bb7c93f 독립 재검증 — P1-1 PASS · P1-2 FAIL(g2 응답 유실 뒤 해설 열람 재전송이 explanation_viewed_at 때문에 409) · P1-3 PASS(response 사본) · unit 3,921 통과 실패 0 · E2E 미실행(환경 격리 미확보) · G3 미완. [보고](./csat-learner/PRACTICE_PORT_REVERIFY_17bb7c93f.md)
