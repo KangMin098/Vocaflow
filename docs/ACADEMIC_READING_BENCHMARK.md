@@ -72,4 +72,8 @@ Separation의 두 학년 참조군은 **같은 장르와 F02 각 버전의 75–
 4. F02 측정·비교 → `BENCHMARK_TARGET_FIT`과 `BENCHMARK_LEVEL_SEPARATION` 개별 판정. 분석 후 규칙 변경은 새 protocol revision이며 기존 결과를 소급 변경하지 않는다.
 5. 둘 다 통과한 경우에만 `Gold-S candidate` 검토. Gold-S 및 DB seed는 별도 승인·gate.
 
-현재 `local-cross-agent-audit-ready=true`, E3 합성 유효 N=28, 교재 benchmark 실측 N=0, 실제 학생 N=0, `BENCHMARK_TARGET_FIT=unopened`, `BENCHMARK_LEVEL_SEPARATION=unopened`, 기존 학생 `TARGET_FIT=unopened`, `LEVEL_SEPARATION=unopened`, `Gold-S=0`, DB seed=0이다. 기존 [`market-benchmark.mjs`](../scripts/textbook/market-benchmark.mjs)의 출판 교재 구성·문항 비교 수치를 이 지문별 학년 난도 분포로 재사용하지 않는다.
+현재 `local-cross-agent-audit-ready=true`, E3 합성 유효 N=28, 시중 교재 benchmark 실측 N=0, 공개 reference admission N=1(미보정), 실제 학생 N=0, `BENCHMARK_TARGET_FIT=unopened`, `BENCHMARK_LEVEL_SEPARATION=unopened`, 기존 학생 `TARGET_FIT=unopened`, `LEVEL_SEPARATION=unopened`, `Gold-S=0`, DB seed=0이다. 기존 [`market-benchmark.mjs`](../scripts/textbook/market-benchmark.mjs)의 출판 교재 구성·문항 비교 수치를 이 지문별 학년 난도 분포로 재사용하지 않는다.
+
+## 2026-10-08 open-reference intake update
+
+A NASA middle-school reader has one **metadata-only, file-backed open-reference admission**: [intake audit](./reports/open-reference-nasa-intake-20261008.md) and [N=1 receipt/corpus metadata](./reports/open-reference-nasa-corpus-20261008.json). The earlier 31-file commercial-textbook inventory still has zero eligible/admitted passages. The NASA passage is labelled for a US grade range, has no calibrated Korean grade distribution, and cannot be counted as a commercial market reference. `BENCHMARK_TARGET_FIT`, `BENCHMARK_LEVEL_SEPARATION`, Gold-S, and DB seed remain unopened/zero.

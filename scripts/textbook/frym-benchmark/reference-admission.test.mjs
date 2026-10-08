@@ -34,7 +34,7 @@ function fixture(t, cohort = 'open_reference', grade_scope = { mode: 'grade_rang
     grade_scope: { ...grade_scope, verified: true, file_hash, reviewer_id: 'grade_reviewer',
       local_locator: 'file:cover', catalog_url: 'https://example.org/catalog',
       catalog_snapshot_hash: sha('catalog'), local_grades: grade_scope.grades,
-      catalog_grades: grade_scope.grades },
+      catalog_grades: grade_scope.grades, label_system: 'KR', korean_equivalence: 'verified' },
     rights: { verified: true, file_hash, reviewer_id: 'rights_reviewer',
       evidence_hash: sha('license evidence'), license_snapshot_hash: sha('license snapshot'),
       passage_covered: true, items_covered: true,
@@ -58,6 +58,7 @@ function fixture(t, cohort = 'open_reference', grade_scope = { mode: 'grade_rang
     screening_hash: hash(screening), selected_ids: [candidate.candidate_id] }
   const analysis = { codebook_hash: rules.codebook_hash, passage_hash, item_set_hash,
     analyzer_version: 'fixture-1', evidence_hash: sha('analysis evidence'),
+    rater_independence: 'independent_model_families',
     metrics: Object.fromEntries(AXES.map(axis => [axis, 2])),
     axis_agreement: Object.fromEntries(AXES.map(axis => [axis, .9])),
     item_type_difficulty: { literal: 2 } }
@@ -89,7 +90,17 @@ test('open reference preserves a range-grade admission receipt and fails closed 
 test('government public-domain reference requires specific passage and item origin evidence', t => {
   const input = fixture(t)
   input.evidence.rights.license = 'US-GOV-PUBLIC-DOMAIN'
-  input.evidence.rights.license_url = 'https://www.nasa.gov/nasa-brand-center/images-and-media/'
+  input.evidence.rights.license_url = 'https://nodis3.gsfc.nasa.gov/displayCA.cfm?Internal_ID=N_PR_2200_002C_&page_name=Chapter4'
+  input.evidence.rights.public_domain_basis = 'nasa_employee_work_text_only'
+  input.grade_source_path = join(input.source_path, '..', 'grade-guide.txt')
+  writeFileSync(input.grade_source_path, 'Grades 6 through 8')
+  input.evidence.grade_scope.supporting_file_hash = sha('Grades 6 through 8')
+  input.evidence.grade_scope.catalog_grades_observed = ['elementary_6', 'middle_1', 'middle_2']
+  input.evidence.grade_scope.primary_grade_anchor = 'educator_guide'
+  input.evidence.grade_scope.catalog_grade_discrepancy = 'tag_broader_than_guide'
+  input.evidence.grade_scope.label_system = 'US'
+  input.evidence.grade_scope.korean_equivalence = 'unverified'
+  input.analysis.rater_independence = 'same_model_family_separate_calls'
   input.screening.candidates[0].evidence_hash = hash(input.evidence)
   input.manifest.screening_hash = hash(input.screening)
   assert.throws(() => admitReference(input), /REFERENCE_RIGHTS_UNVERIFIED/)
@@ -103,7 +114,29 @@ test('government public-domain reference requires specific passage and item orig
   writeFileSync(input.scoring_source_path, 'educator guide answers')
   input.screening.candidates[0].evidence_hash = hash(input.evidence)
   input.manifest.screening_hash = hash(input.screening)
-  assert.equal(admitReference(input).reference.rights_basis, 'public_domain_verified')
+  const admitted = admitReference(input)
+  assert.equal(admitted.reference.rights_basis, 'nasa_analysis_reviewed')
+  assert.equal(admitted.receipt.grade_source_hash, sha('Grades 6 through 8'))
+  assert.equal(admitted.receipt.scoring_source_hash, sha('educator guide answers'))
+  assert.deepEqual(admitted.receipt.catalog_grades_observed, ['elementary_6', 'middle_1', 'middle_2'])
+  assert.equal(admitted.receipt.catalog_grade_discrepancy, 'tag_broader_than_guide')
+  assert.equal(admitted.receipt.public_domain_basis, 'nasa_employee_work_text_only')
+  assert.equal(admitted.receipt.calibration_eligible, false)
+  assert.equal(admitted.reference.korean_equivalence, 'unverified')
+  const missingGrade = structuredClone(input)
+  delete missingGrade.evidence.grade_scope.supporting_file_hash
+  missingGrade.screening.candidates[0].evidence_hash = hash(missingGrade.evidence)
+  missingGrade.manifest.screening_hash = hash(missingGrade.screening)
+  assert.throws(() => admitReference(missingGrade), /REFERENCE_GRADE_SOURCE_UNVERIFIED/)
+  const incompatibleCatalog = structuredClone(input)
+  incompatibleCatalog.evidence.grade_scope.catalog_grades_observed = ['elementary_5']
+  incompatibleCatalog.screening.candidates[0].evidence_hash = hash(incompatibleCatalog.evidence)
+  incompatibleCatalog.manifest.screening_hash = hash(incompatibleCatalog.screening)
+  assert.throws(() => admitReference(incompatibleCatalog), /REFERENCE_GRADE_SOURCE_UNVERIFIED/)
+  assert.throws(() => evaluateAdmittedMultiGradeBenchmark({
+    contract: { reference_cohort: 'open_reference' },
+    admitted: [{ input, ...admitted }],
+  }), /REFERENCE_CALIBRATION_INELIGIBLE/)
   writeFileSync(input.scoring_source_path, 'changed answer guide')
   assert.throws(() => admitReference(input), /REFERENCE_SCORING_SOURCE_CHANGED/)
   writeFileSync(input.scoring_source_path, 'educator guide answers')
@@ -121,6 +154,18 @@ test('government public-domain reference requires specific passage and item orig
   input.screening.candidates[0].evidence_hash = hash(input.evidence)
   input.manifest.screening_hash = hash(input.screening)
   assert.throws(() => admitReference(input), /REFERENCE_RIGHTS_UNVERIFIED/)
+})
+
+test('a separate grade-scope source is byte-checked when declared', t => {
+  const input = fixture(t)
+  input.grade_source_path = join(input.source_path, '..', 'educator-grade-guide.txt')
+  writeFileSync(input.grade_source_path, 'Grades 6 through 8')
+  input.evidence.grade_scope.supporting_file_hash = sha('Grades 6 through 8')
+  input.screening.candidates[0].evidence_hash = hash(input.evidence)
+  input.manifest.screening_hash = hash(input.screening)
+  assert.equal(admitReference(input).reference.sample_id, input.candidate.candidate_id)
+  writeFileSync(input.grade_source_path, 'Grades 5 through 8')
+  assert.throws(() => admitReference(input), /REFERENCE_GRADE_SOURCE_CHANGED/)
 })
 
 test('sealed selection, cohort and grade scope reject mixed or stale inputs', t => {

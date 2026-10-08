@@ -58,7 +58,7 @@ const validReference = (row, contract) => {
   return typeof row.sample_id === 'string' && row.sample_id && hex(row.passage_hash) &&
     hex(row.admission_receipt_hash) && row.codebook_hash === contract.codebook_hash &&
     (contract.reference_cohort === 'open_reference' ?
-      ['open_license_verified', 'public_domain_verified'].includes(row.rights_basis) :
+      ['open_license_verified', 'nasa_analysis_reviewed'].includes(row.rights_basis) :
       row.rights_basis === 'authorized_local_analysis') &&
     (contract.reference_cohort === 'open_reference' ? row.cohort === 'open_reference' :
       row.cohort === undefined || row.cohort === 'commercial_textbook') &&
@@ -284,5 +284,8 @@ export function evaluateAdmittedMultiGradeBenchmark({ admitted, ...input }) {
       fail('ADMITTED_REFERENCE_STALE_OR_MIXED')
     return verified.reference
   })
+  if (input.contract.reference_cohort === 'open_reference' &&
+      references.some(reference => reference.calibration_eligible !== true))
+    fail('REFERENCE_CALIBRATION_INELIGIBLE')
   return evaluateMultiGradeCore({ ...input, references })
 }

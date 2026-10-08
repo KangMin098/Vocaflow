@@ -10,6 +10,8 @@ const filled = value => typeof value === 'string' && value.trim().length > 0
 const webUrl = value => { try { return ['https:', 'http:'].includes(new URL(value).protocol) } catch { return false } }
 const federalOriginUrl = value => { try { const url = new URL(value); return url.protocol === 'https:' &&
   (url.hostname === 'nasa.gov' || url.hostname.endsWith('.nasa.gov')) } catch { return false } }
+const nasaWorkPolicyUrl = value => { try { const url = new URL(value); return url.protocol === 'https:' &&
+  url.hostname === 'nodis3.gsfc.nasa.gov' && url.searchParams.get('Internal_ID') === 'N_PR_2200_002C_' } catch { return false } }
 const fail = code => { throw Error(code) }
 const same = (a, b) => hash(a) === hash(b)
 const earlyAnalysis = value => value && typeof value === 'object' && Object.entries(value).some(([key, child]) =>
@@ -103,7 +105,7 @@ function verifyMeasurements(analysis, codebook, questions) {
     fail('REFERENCE_ITEM_DIFFICULTY_INVALID')
 }
 
-export function admitReference({ source_path, scoring_source_path, candidate, evidence, analysis, codebook, rules, screening, manifest }) {
+export function admitReference({ source_path, scoring_source_path, grade_source_path, candidate, evidence, analysis, codebook, rules, screening, manifest }) {
   const { selected_ids, manifest_hash } = verifyReferenceSelection({ rules, screening, manifest })
   const row = screening.candidates.find(value => value.candidate_id === candidate?.candidate_id)
   if (!row || !selected_ids.includes(row.candidate_id) || row.status !== 'metadata_eligible' ||
@@ -138,6 +140,25 @@ export function admitReference({ source_path, scoring_source_path, candidate, ev
       !hex(evidence.boundary.passage.start_hash) || !hex(evidence.boundary.passage.end_hash) ||
       !hex(evidence.boundary.items.start_hash) || !hex(evidence.boundary.items.end_hash))
     fail('REFERENCE_PROVENANCE_INCOMPLETE')
+  if (rules.cohort === 'open_reference' && evidence.rights?.license === 'US-GOV-PUBLIC-DOMAIN' &&
+      (!hex(evidence.grade_scope.supporting_file_hash) ||
+        !Array.isArray(evidence.grade_scope.catalog_grades_observed) ||
+        !filled(evidence.grade_scope.label_system) ||
+        !['verified', 'unverified'].includes(evidence.grade_scope.korean_equivalence) ||
+        (!same(evidence.grade_scope.catalog_grades_observed, row.grade_scope.grades) &&
+          (evidence.grade_scope.primary_grade_anchor !== 'educator_guide' ||
+            evidence.grade_scope.catalog_grade_discrepancy !== 'tag_broader_than_guide' ||
+            row.grade_scope.grades.some(grade => !evidence.grade_scope.catalog_grades_observed.includes(grade)) ||
+            new Set(evidence.grade_scope.catalog_grades_observed).size <= row.grade_scope.grades.length))))
+    fail('REFERENCE_GRADE_SOURCE_UNVERIFIED')
+  if (evidence.grade_scope.supporting_file_hash !== undefined) {
+    if (!hex(evidence.grade_scope.supporting_file_hash) || !filled(grade_source_path))
+      fail('REFERENCE_GRADE_SOURCE_UNVERIFIED')
+    let gradeBytes
+    try { gradeBytes = readFileSync(grade_source_path) } catch { fail('REFERENCE_GRADE_SOURCE_UNREADABLE') }
+    if (sha(gradeBytes) !== evidence.grade_scope.supporting_file_hash)
+      fail('REFERENCE_GRADE_SOURCE_CHANGED')
+  }
   const rights = evidence.rights
   if (rights?.verified !== true || rights.file_hash !== row.file_hash ||
       !filled(rights.reviewer_id) || !hex(rights.evidence_hash) ||
@@ -148,7 +169,8 @@ export function admitReference({ source_path, scoring_source_path, candidate, ev
         (!['CC-BY-4.0', 'CC0-1.0', 'US-GOV-PUBLIC-DOMAIN'].includes(rights.license) ||
           !webUrl(rights.license_url) ||
           (rights.license === 'US-GOV-PUBLIC-DOMAIN' &&
-            (!federalOriginUrl(rights.license_url) ||
+            (rights.public_domain_basis !== 'nasa_employee_work_text_only' ||
+              !nasaWorkPolicyUrl(rights.license_url) ||
               !federalOriginUrl(rights.passage_origin_url) || !federalOriginUrl(rights.items_origin_url) ||
               !federalOriginUrl(rights.scoring_origin_url) ||
               !hex(rights.passage_origin_hash) || !hex(rights.items_origin_hash) ||
@@ -188,14 +210,31 @@ export function admitReference({ source_path, scoring_source_path, candidate, ev
     measurement_contract_hash: rules.measurement_contract_hash,
     passage_hash: row.passage_hash, item_set_hash: row.item_set_hash,
     scoring_key_hash: row.scoring_key_hash,
+    grade_source_hash: evidence.grade_scope.supporting_file_hash ?? null,
+    scoring_source_hash: rights.scoring_origin_hash ?? null,
+    grade_label_system: evidence.grade_scope.label_system ?? null,
+    catalog_grades_observed: evidence.grade_scope.catalog_grades_observed ?? null,
+    primary_grade_anchor: evidence.grade_scope.primary_grade_anchor ?? null,
+    catalog_grade_discrepancy: evidence.grade_scope.catalog_grade_discrepancy ?? null,
+    korean_equivalence: evidence.grade_scope.korean_equivalence ?? null,
+    public_domain_basis: rights.public_domain_basis ?? null,
+    rights_policy_url: rights.license_url,
+    rater_independence: analysis.rater_independence ?? 'unrecorded',
+    calibration_eligible: evidence.grade_scope.korean_equivalence === 'verified' &&
+      analysis.rater_independence === 'independent_model_families',
   }
   const reference = {
     sample_id: row.candidate_id, cohort: rules.cohort, grade_scope: row.grade_scope,
     passage_hash: row.passage_hash, admission_receipt_hash: hash(receipt),
     codebook_hash: rules.codebook_hash, rights_basis: rules.cohort === 'open_reference' ?
-      (rights.license === 'US-GOV-PUBLIC-DOMAIN' ? 'public_domain_verified' : 'open_license_verified') :
+      (rights.license === 'US-GOV-PUBLIC-DOMAIN' ? 'nasa_analysis_reviewed' : 'open_license_verified') :
       'authorized_local_analysis',
     publisher: candidate.publisher, series: candidate.series, genre: candidate.genre,
+    grade_label_system: evidence.grade_scope.label_system ?? null,
+    korean_equivalence: evidence.grade_scope.korean_equivalence ?? null,
+    rater_independence: analysis.rater_independence ?? 'unrecorded',
+    calibration_eligible: evidence.grade_scope.korean_equivalence === 'verified' &&
+      analysis.rater_independence === 'independent_model_families',
     word_count: candidate.passage_text.trim().split(/\s+/).length,
     metrics: analysis.metrics, item_type_difficulty: analysis.item_type_difficulty,
   }
