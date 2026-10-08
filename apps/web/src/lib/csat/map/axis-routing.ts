@@ -55,6 +55,9 @@ export function vPartner(overlap: VOverlapIn | null | undefined, est: Partial<Re
 export function routeAction(summary: Pick<CoreSummary, 'ranking' | 'candidates' | 'axes'>, overlap: VOverlapIn | null | undefined, opts: { analyzable: boolean; watch?: number }): Routing {
   const r = summary.ranking
   const est = Object.fromEntries(summary.axes.map((a) => [a.code, a.rankingEstimate])) as Partial<Record<CoreCode, number | null>>
+  // direct_diagnostic 축(S)이 1위면 안정 여부와 무관하게 직접 확인 — S 의 기출 신호는 어법 문항뿐이라 다른 축과 가르는 구분 활동이 S 를 재지 못한다
+  // (2026-10-08 실제 정본 E2E: 누적 기록에서 S 가 축소 추정으로 선 바로 아래 → 불안정 → S↔X 「시간 제한 없이 다시 풀기」로 가던 것)
+  if (r.top && AXIS_EXAM_EVIDENCE[r.top] === 'direct_diagnostic' && r.kind !== 'none') return { kind: 'direct', axis: r.top }
   if (r.kind === 'unstable' && r.top && r.rival) return { kind: 'distinguish', axis: r.top, rival: r.rival, also: null, reason: 'unstable' }
   if (r.kind === 'clear' && r.top) {
     const ev = AXIS_EXAM_EVIDENCE[r.top]

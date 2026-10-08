@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-diagnosis): **M2409 pilot canon 활성화** — tri-model 태그 28문항을 관리자 태깅 화면 「검수 저장」(브라우저 · `canon-apply-ui.mts`)으로 252행 저장 · 관리자 목록에서 진단 반영 ON(켜진 시험 M2409 하나) · S 직접 확인 과제 A2-4 SQL 적용(sha 9fa01cac… · `scripts/db/apply-approved-sql.mjs` 해시 게이트 · 과제 183). 실제 E2E(`canon-e2e.mts`) R · E · V · X · S · 누적 S 통과 — 누적 S 가 불안정 판정으로 S↔X 구분에 가던 결함 수정(S 1위 = 언제나 직접 확인). e2e-map-states 를 정본 전제에 맞춤. 시드 v2 SQL 미실행.
+
 - feat(csat-map): 축 관측 특성 기반 routing `axis-routing.ts` — R·E 기출 관측(안정 1위 → 단계) · V·X 보조(단독 추천 금지 → 구분 확인, V 는 스냅샷 새 키 `vOverlap` 로 R/E 선택 · 동률이면 공통 활동) · S 직접 확인(다른 행동이 없고 설명 안 된 오답이 있을 때). focus `direct` · 카드 문구. 합성 unsafe direct 4~18% → 0 · M2409 P1 → 어휘/연결/선지 구분 · P2 문장 관계 유지. S 직접 과제 SQL 제안(미실행). DB 쓰기 없음.
 
 - feat(csat-diagnosis): 진단축 관측가능성 · 식별성 감사 `observability.ts`(축 상태 · 단독 문항 · 독립 정보 1−R²₀ · 축 쌍 관계 · 거짓 1위 F1/F2/F3 재분류) + `observability-audit.mts` · `kice-items-export.mts`(평가원 29회 메타). V 는 29/29 회 단독 문항 0(confounded) · S 는 29/29 회 관측 미달 · 거짓 V 1위의 식별 가능 오류 0(혼동 F3 · 관측 불가 F2). 순위 재설계 불필요 · 축↔기출 증거 계약(exam-observable/assisted/direct) 필요. DB 쓰기 없음.

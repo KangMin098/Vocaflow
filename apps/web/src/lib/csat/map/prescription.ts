@@ -79,6 +79,8 @@ export function activityFrame(basis: DiagnosisBasis): ActivityFrame {
 export const TASK_STAGE: Readonly<Record<string, PrescriptionStage>> = {
   'A1-1': 'FIND', 'A1-2': 'REPAIR', 'A1-3': 'CHECK',
   'A2-1': 'FIND', 'A2-2': 'REPAIR', 'A2-3': 'TRANSFER',
+  // 문장 이해(S) 직접 확인 — 기출로 관측되지 않는 핵심 단계(axis-routing direct · 2026-10-08 승인 SQL proposed-20261008-s-direct-task.sql)
+  'A2-4': 'FIND',
   'A3-1': 'REPAIR', 'A3-2': 'TRANSFER', 'A3-3': 'CHECK',
   'A4-1': 'REPAIR', 'A4-2': 'TRANSFER', 'A4-3': 'CHECK',
   'A5-1': 'REPAIR', 'A5-2': 'TRANSFER', 'A5-3': 'CHECK',

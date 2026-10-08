@@ -70,6 +70,11 @@ describe('routing', () => {
     const p = path_({ A1: w(0.9), A2: w(0.2), A8: w(0.2), A3: w(0.4), A6: w(0.4), A4: w(0.9), A5: w(0.9), A9: w(0.9) })
     expect(p.focus).toMatchObject({ kind: 'direct', step: 'sentence', activity: S_DIRECT })
   })
+  it('S 가 1위지만 불안정(선 바로 아래 · 관측 적음)해도 → 직접 확인(S 를 다른 축과의 구분 쌍에 넣지 않는다 — 실제 정본 E2E 회귀)', () => {
+    const p = path_({ A1: v(1, 60, 60), A2: v(0, 6, 5), A8: v(0, 6, 5), A3: v(1, 100, 100), A4: v(1, 70, 70), A5: v(1, 40, 40), A9: v(1, 6, 8) })
+    expect(p.summary.ranking).toMatchObject({ kind: 'unstable', top: 'S' })
+    expect(p.focus).toMatchObject({ kind: 'direct', step: 'sentence' })
+  })
   it('관찰된 축이 없으면(기록 얇음) 직접 확인보다 「기록 더」 · 기록이 없으면 「시험 기록」', () => {
     expect(path_({ A1: v(null, 3), A3: v(null, 3) }).focus.kind).toBe('more')
     expect(path_({}, null, null).focus).toEqual({ kind: 'record' })

@@ -149,7 +149,7 @@ export function learnerPath(model: Pick<MapModel, 'nodes' | 'currentScore'> & Pa
     const also = route.also ? firstStepOf(route.also) : null
     const act = route.reason === 'assisted_v' && route.also ? V_VS_RE : distinguishActivity(route.axis, route.rival)
     const title = route.reason === 'assisted_v' ? (route.also ? V_VS_RE_TITLE : (V_TITLE[route.rival] ?? distinguishTitle('V', route.rival)))
-      : route.reason === 'assisted_x' ? X_TITLE : distinguishTitle(route.axis, route.rival)
+      : route.reason === 'assisted_x' || route.axis === 'X' ? X_TITLE : distinguishTitle(route.axis, route.rival)
     focus = a && b && act ? { kind: 'distinguish', step: a, rival: b, ...(also ? { also } : {}), activity: act, title } : { kind: 'none' }
   } else if (route.kind === 'step') {
     const step = firstStepOf(route.axis) as StepKey

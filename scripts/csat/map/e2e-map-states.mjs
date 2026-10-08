@@ -45,7 +45,7 @@ const lp = fs.readFileSync(path.join(ROOT, 'apps/web/src/lib/csat/map/learner-pa
 const STEPS = Object.fromEntries([...lp.matchAll(/\{ key: '([a-z-]+)', track: '(?:read|listen)', name: '([^']+)', axis: '\w', lines: \[([^\]]*)\]/g)].map((m) => [m[1], { name: m[2], lines: [...m[3].matchAll(/'([A-J]\d+)'/g)].map((x) => x[1]) }]))
 const ps = fs.readFileSync(path.join(ROOT, 'apps/web/src/lib/csat/map/prescription.ts'), 'utf8')
 const STAGE = Object.fromEntries([...ps.matchAll(/'([A-J]\d+-\d)': '(\w+)'/g)].map((m) => [m[1], m[2]]))
-if (Object.keys(STEPS).length !== 11 || Object.keys(STAGE).length !== 182) throw new Error(`정본 읽기 실패 steps=${Object.keys(STEPS).length} stage=${Object.keys(STAGE).length}`)
+if (Object.keys(STEPS).length !== 11 || Object.keys(STAGE).length !== 183) throw new Error(`정본 읽기 실패 steps=${Object.keys(STEPS).length} stage=${Object.keys(STAGE).length}`)
 
 let fail = 0
 const results = []
@@ -71,7 +71,8 @@ async function createFixture() {
   await must(db.from('csat_exams').update({ diagnosis_ready: true }).eq('id', FX), 'fx ready')
   const key = Object.fromEntries(keys.map((k) => [k.no, k.answers[0]]))
   const attrByNo = {}
-  for (const a of attrs) { const no = items.find((i) => i.id === a.item_id)?.no; (attrByNo[no] ??= []).push(a.attribute_code) }
+  // 가중치 > 0 만 태그다 — 정본(검수 저장)은 0(해당 없음)도 행으로 남긴다(2026-10-08 M2409 pilot canon)
+  for (const a of attrs) { if (!(a.weight > 0)) continue; const no = items.find((i) => i.id === a.item_id)?.no; (attrByNo[no] ??= []).push(a.attribute_code) }
   return { key, attrByNo, counts: { items: items.length, keys: keys.length, attrs: attrs.length, traps: traps.length } }
 }
 async function dropFixture() {
@@ -151,11 +152,19 @@ try {
     await page.screenshot({ path: path.join(OUT, '1b-state-a-cta-record-modal.png') })
   }
   // ── 상태 B: 기록 있음 · 분석 준비 전(ready 아닌 실제 평가원 시험) ──
+  // M2409 는 2026-10-08 pilot canon 으로 켜졌다 — 정답표 45개가 있고 꺼져 있는 평가원 시험을 실행 때 고른다(하나 켜질 때마다 깨지지 않게)
   {
     const { page } = await newLearner(browser, 'b')
-    const keys = await must(db.from('csat_dx_answer_key').select('no, answers').eq('exam_id', SRC_EXAM), 'b key')
+    const offExams = (await must(db.from('csat_exams').select('id').eq('diagnosis_ready', false), 'b exams')).map((e) => e.id).filter((id) => isKiceExam(id) && id !== FX)
+    let B_EXAM = null
+    for (const id of offExams.sort().reverse()) {
+      const n = (await must(db.from('csat_dx_answer_key').select('no').eq('exam_id', id), 'b key n')).length
+      if (n === 45) { B_EXAM = id; break }
+    }
+    if (!B_EXAM) throw new Error('꺼져 있고 정답표가 있는 평가원 시험이 없다')
+    const keys = await must(db.from('csat_dx_answer_key').select('no, answers').eq('exam_id', B_EXAM), 'b key')
     const choices = Object.fromEntries(keys.map((k) => [k.no, k.answers[0]]))
-    const r = await record(page, SRC_EXAM, choices)
+    const r = await record(page, B_EXAM, choices)
     rec('B · 실제 기록 API 저장(ready 아닌 시험)', r.status === 200 && r.body.ready === false, { status: r.status, ready: r.body.ready })
     await openMap(page)
     const card = await page.locator('[data-testid="focus-card"]').innerText()
@@ -173,11 +182,12 @@ try {
   rec('C · fixture 시험 생성(원본 복사 · 이 시험만 검수 완료 · ready)', fx.counts.items > 0 && fx.counts.keys === 45 && fx.counts.attrs > 0, fx.counts)
   {
     const { page } = await newLearner(browser, 'c')
-    // 문장 관계(A3) · 근거(A4·A5)가 낮게 관찰되도록 — 그 태그가 붙은 문항만 틀린다(실제 엔진이 판정)
+    // 문장 관계가 낮게 관찰되도록 — 실제 정본 M2409(2026-10-08 pilot canon) E2E 에서 「문장 관계」 단계로 확인된 오답 패턴(P2 · 흐름 · 선지)을 쓴다.
+    // 태그에서 유도하면 태그가 바뀔 때마다 축 관측 routing(V · X 구분 · S 직접)으로 흔들린다 — 이 상태는 「안정적인 단계 하나」를 보는 자리다.
+    const P2 = new Set([20, 23, 32, 33, 35, 36, 37, 38, 39, 43, 44])
     const choices = {}
     for (let no = 1; no <= 45; no++) {
-      const tags = fx.attrByNo[no] ?? []
-      const wrong = tags.includes('A3') || tags.includes('A6')
+      const wrong = P2.has(no)
       choices[no] = wrong ? (fx.key[no] % 5) + 1 : fx.key[no]
     }
     const r = await record(page, FX, choices)
@@ -186,7 +196,8 @@ try {
     const focusKind = await page.locator('[data-testid="focus-card"]').getAttribute('data-focus')
     const card = await page.locator('[data-testid="focus-card"]').innerText()
     rec('C · 「지금 먼저 확인할 것」 = 단계 하나', focusKind === 'step', { focusKind, card: card.slice(0, 80) })
-    rec('C · 「아직 약점으로 확정된 것은 아니에요」', card.includes('아직 약점으로 확정된 것은 아니에요'))
+    // 확정 문구 · provisional 문구(「현재 기록에서는 … 약점으로 확정된 것은 아니에요」) 모두 「약점 확정 아님」을 밝힌다
+    rec('C · 「약점으로 확정된 것은 아니에요」', card.includes('약점으로 확정된 것은 아니에요'))
     rec('C · 다음 후보는 최대 하나 · CTA 아님(동등한 CTA 여러 개 금지)', (await page.locator('[data-testid="focus-card"] button').count()) <= 2 && (await page.locator('[data-testid="focus-cta"]').count()) === 1)
     const focusStep = await page.locator('[data-testid="read-path"] li[data-e="focus"] [data-step]').getAttribute('data-step').catch(() => null)
     rec('C · 길 위에 「먼저 확인」 단계가 정확히 하나', (await page.locator('[data-testid="read-path"] li[data-e="focus"]').count()) === 1, { focusStep })

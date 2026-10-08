@@ -48,20 +48,20 @@ describe('관찰 → 진단 필요 → 처방', () => {
   })
 })
 
-describe('과제 182 → 단계 대응표', () => {
+describe('과제 183 → 단계 대응표', () => {
   const ids = Object.keys(TASK_STAGE)
-  it('라인 54 × ord 1–3 = 162 + FIND 보강 ord 4 × 20 = 182, 빠짐 · 중복 없음', () => {
-    expect(ids).toHaveLength(182)
+  it('라인 54 × ord 1–3 = 162 + FIND 보강 ord 4 × 20 + S 직접 확인 A2-4 = 183, 빠짐 · 중복 없음', () => {
+    expect(ids).toHaveLength(183)
     const lines = new Set(ids.map((id) => id.split('-')[0]))
     expect(lines.size).toBe(54)
     for (const l of lines) for (const o of [1, 2, 3]) expect(TASK_STAGE[`${l}-${o}`]).toBeDefined()
     const ord4 = ids.filter((id) => id.endsWith('-4'))
-    expect(ord4).toHaveLength(20)
+    expect(ord4).toHaveLength(21) // FIND 보강 20(2026-10-07) + A2-4 S 직접 확인(2026-10-08)
     for (const id of ord4) expect(TASK_STAGE[id]).toBe('FIND')
   })
   it('네 단계가 모두 쓰인다 — 분포(2026-10-07 판정 v1)', () => {
     const n = Object.fromEntries(STAGE_ORDER.map((s) => [s, Object.values(TASK_STAGE).filter((v) => v === s).length]))
-    expect(n).toEqual({ FIND: 58, REPAIR: 72, TRANSFER: 32, CHECK: 20 })
+    expect(n).toEqual({ FIND: 59, REPAIR: 72, TRANSFER: 32, CHECK: 20 })
   })
   it('모든 라인에 찾기 과제가 있다 — 진단 전에도 「지금 해 볼」 확인 활동이 하나는 있다(2026-10-07 FIND 보강 20 → 0)', () => {
     const lines = [...new Set(ids.map((id) => id.split('-')[0]))]
@@ -73,7 +73,7 @@ describe('과제 182 → 단계 대응표', () => {
       ord: number
       tasks: { line: string; purpose: string; signal: string; next: Record<string, string> }[]
     }
-    expect(src.tasks.map((t) => `${t.line}-${src.ord}`).sort()).toEqual(ids.filter((id) => id.endsWith('-4')).sort())
+    expect(src.tasks.map((t) => `${t.line}-${src.ord}`).sort()).toEqual(ids.filter((id) => id.endsWith('-4') && id !== 'A2-4').sort()) // A2-4 는 S 직접 확인(별도 승인)
     for (const t of src.tasks) {
       expect(t.purpose.trim()).not.toBe('')
       expect(t.signal.trim()).not.toBe('')
