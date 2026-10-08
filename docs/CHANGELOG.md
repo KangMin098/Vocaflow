@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(map): 학습 지도 결과 환류 — FIND 과제 아래 「내가 한 확인」(횟수 · 처음/최근 결과 · 다른 지문 적용 · 다시 보기 예약 · 다음 행동 · 도움 여부는 기록에 있을 때만 · 실력 판정 아님). `MapPracticeLink` 에 itemId · taskKey(화면 비노출). 단위 7 · E2E 10/10 · 기존 지도 E2E 회귀 없음
+
 - feat(api): `POST /api/csat/item/[slug]/task` 거부 응답에 `code`(no_task · not_live · invalid_input) — 노출 게이트 거부를 입력 오류와 구분. 응집 게이트 E2E 9/9(정상 입력 → not_live · 대조 invalid_input)
 
 - migration `20261008170000_knowledge_trial_evidence_guard` **개발 DB 적용**(sha 38fb5a5b… · 실제 DB 롤백 smoke 3/3) · 응집 사슬 `--no-activate` 빌드(항목 +1 · 근거 +3 · 연결 +1 · 검토 기록 +4 · 적용 초안 2 · 검증 계획 2 · **노출 0**, 노출 게이트 E2E `vertical-cohesion-link-gate-e2e.mts` 8/8)
