@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(knowledge): 성과 검토 신호 `/admin/knowledge/signals`(트랙 E) — 학습 결과 → 원리·방법 재검토의 첫 연결. 적용별 적격 첫 시도(실제·독립·해설 전·시각 확실)로 검토 필요/표본 부족/결과 상충/데이터 품질 신호를 내고, 아무것도 바꾸지 않는다(efficacy·상태 불변, 재검토는 사람이 항목 화면에서). SQL 없음.
+
 - feat(api): `POST /api/csat/item/[slug]/task` 거부 응답에 `code`(no_task · not_live · invalid_input) — 노출 게이트 거부를 입력 오류와 구분. 응집 게이트 E2E 9/9(정상 입력 → not_live · 대조 invalid_input)
 
 - migration `20261008170000_knowledge_trial_evidence_guard` **개발 DB 적용**(sha 38fb5a5b… · 실제 DB 롤백 smoke 3/3) · 응집 사슬 `--no-activate` 빌드(항목 +1 · 근거 +3 · 연결 +1 · 검토 기록 +4 · 적용 초안 2 · 검증 계획 2 · **노출 0**, 노출 게이트 E2E `vertical-cohesion-link-gate-e2e.mts` 8/8)

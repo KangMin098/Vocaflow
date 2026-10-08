@@ -130,7 +130,14 @@ export const WORKSPACES: readonly Workspace[] = [
     ],
   },
   { key: 'design', href: '/admin/knowledge/design', label: '학습 설계 · 검증', question: '원리를 어떤 과제로 만들고 효과를 어떻게 잴까', tabs: [] },
-  { key: 'product', href: '/admin/knowledge/product', label: '제품 적용 · 품질', question: '학습자에게 무엇이 나가 있고 결과는 어떤가', tabs: [] },
+  {
+    key: 'product', href: '/admin/knowledge/product', label: '제품 적용 · 품질', question: '학습자에게 무엇이 나가 있고 결과는 어떤가',
+    tabs: [
+      { href: '/admin/knowledge/product', label: '적용 · 배포' },
+      // 트랙 E(2026-10-08) — 학습 결과 → 원리 · 방법 재검토 신호(읽기 전용)
+      { href: '/admin/knowledge/signals', label: '성과 검토 신호' },
+    ],
+  },
 ]
 export function workspaceOf(pathname: string): Workspace | null {
   // 항목 상세는 지도의 노드 판이다
