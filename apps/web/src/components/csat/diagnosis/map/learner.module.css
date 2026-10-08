@@ -645,3 +645,117 @@
     transform: none;
   }
 }
+
+/* ⓪ 내 목표 · 현재 위치(2026-10-08 목표 중심 재설계) — 네 칸: 목표 | 시험 기록 위치 | 목표까지 | 진단 진행. 칸마다 근거가 다르다 */
+.goalBar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.25fr) minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: 0;
+  border-radius: 16px;
+  background: var(--m-bg);
+  border: 1px solid #0d0d1714;
+  box-shadow: var(--m-elev);
+}
+.goalCell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 16px 18px;
+  min-width: 0;
+  word-break: keep-all;
+}
+.goalCell + .goalCell {
+  border-left: 1px solid #0d0d1714;
+}
+.cellLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
+  font-weight: 500;
+  color: var(--m-ink2);
+}
+.goalBig {
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(15px * var(--csat-fs-scale)));
+  font-weight: 600;
+  color: var(--m-ink);
+}
+.goalBig strong {
+  font-size: max(var(--csat-fs-min), calc(22px * var(--csat-fs-scale)));
+  font-weight: 700;
+}
+.cellSub {
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  line-height: 1.5;
+  color: var(--m-ink2);
+}
+.cellChange {
+  margin: 2px 0 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--m-hover);
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  color: var(--m-ink);
+}
+.countList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 12px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+}
+.countList strong {
+  margin-left: 4px;
+  color: var(--m-ink);
+}
+/* 어두운 할 일 카드 안의 목표 팝오버 — 흰 패널에 밝은 글자가 상속되지 않게(Codex P2) */
+.popInk {
+  color: var(--m-ink);
+}
+.goalNote {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 8px 18px;
+  border-top: 1px solid #0d0d1714;
+  font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+  word-break: keep-all;
+}
+
+/* ① 길(가운데) + ② 지금 할 일(오른쪽) */
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 340px);
+  gap: 14px;
+  align-items: start;
+}
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.pathHint {
+  margin: -10px 0 16px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+  word-break: keep-all;
+}
+@media (max-width: 1100px) {
+  .goalBar {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .goalCell + .goalCell {
+    border-left: none;
+  }
+  .main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

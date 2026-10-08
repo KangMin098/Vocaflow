@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BookOpen, ChevronDown, ClipboardCheck, Eye, Lightbulb, Lock, Route, Search, X } from 'lucide-react'
+import { BookOpen, ChevronDown, ClipboardCheck, Eye, Lightbulb, Lock, Route, Search, X, Target, HelpCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { CORE_STATUS_LABEL, LEGACY_PROXY_LABEL, THRESHOLD_NOTE } from '@/lib/csat/map/core'
@@ -19,6 +19,7 @@ import { useModalFocus } from '../useModalFocus'
 
 import { STEP_ICON } from './icons'
 import p from './popup.module.css'
+import { stepGoalLink } from '@/lib/csat/map/goal-view'
 import l from './learner.module.css'
 import type { useTaskDone } from './useTaskDone'
 
@@ -38,6 +39,14 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   const later = STAGE_ORDER.filter((s) => s !== 'FIND').map((s) => ({ stage: s, tasks: lineTasks.filter((t) => stageOf(t.id) === s) }))
   const nameOf = (code: string) => data.nodes.find((n) => n.code === code)?.name ?? code
   const Icon = STEP_ICON[step.key]
+  const link = stepGoalLink(step, data.model)
+  // 직접 확인 전에는 원인을 모른다 — 관찰은 결과의 모습일 뿐이다(verified_diagnosis 게이트)
+  const unknown =
+    step.evidence === 'verified'
+      ? '직접 확인한 원인이 있어요. 새 시험이나 다시 확인에서 같은 모습이 이어지는지는 아직 몰라요.'
+      : step.evidence === 'none' || step.evidence === 'pending' || step.evidence === 'more'
+        ? '이 단계가 지금 어떤지 판단할 기록이 아직 부족해요.'
+        : '틀린 이유가 정말 이 단계 때문인지는 아직 몰라요. 확인 활동을 해 봐야 알 수 있어요.'
   const a = step.axisView
   const observed =
     step.evidence === 'none'
@@ -74,9 +83,21 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
             <h3 className={l.blockH}><Lightbulb size={14} strokeWidth={1.9} aria-hidden="true" />수능에서 왜 중요한가</h3>
             <p className={l.text}>{step.why}</p>
           </section>
+          <section className={l.block} data-testid="step-goal-link">
+            <h3 className={l.blockH}><Target size={14} strokeWidth={1.9} aria-hidden="true" />목표와의 관계</h3>
+            <p className={l.text}>
+              {link
+                ? <>목표 점수를 계산하는 평가원 최근 {link.exams}회에서 이 단계가 쓰이는 문항은 한 회에 평균 <strong>{link.itemsPerExam}문항 · {link.pointsPerExam}점</strong>이에요{data.model.goalSet ? ` · 목표 ${data.model.goal}점은 한 회 100점 중 ${100 - data.model.goal}점까지 놓쳐도 되는 점수예요` : ''}. 이 단계를 연습하면 몇 점이 오른다는 뜻은 아니에요.</>
+                : '목표 계산 기준 시험에서 이 단계에 바로 이어진 문항을 아직 정하지 못했어요. 다른 단계의 문항을 풀 때 함께 쓰이는 힘이에요.'}
+            </p>
+          </section>
           <section className={l.block}>
             <h3 className={l.blockH}><Eye size={14} strokeWidth={1.9} aria-hidden="true" />내 기출 기록에서</h3>
             <p className={l.text}>{observed}</p>
+          </section>
+          <section className={l.block} data-testid="step-unknown">
+            <h3 className={l.blockH}><HelpCircle size={14} strokeWidth={1.9} aria-hidden="true" />아직 모르는 것</h3>
+            <p className={l.text}>{unknown}</p>
           </section>
           <section className={`${l.block} ${l.now}`} id="step-check">
             <h3 className={l.blockH}><Search size={14} strokeWidth={1.9} aria-hidden="true" />지금 확인할 것 — {STAGE_WORD.FIND}</h3>

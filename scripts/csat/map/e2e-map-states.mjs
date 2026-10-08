@@ -107,6 +107,10 @@ async function newLearner(browser, tag) {
   await login.close()
   const page = await ctx.newPage()
   page.setDefaultTimeout(240_000)
+  // 2026-10-08 목표 중심 재설계 — 목표를 정하지 않은 학습자는 「목표 정하기」가 단 하나의 할 일이다(e2e-map-goal 상태 A).
+  // 이 E2E 의 상태 A·B·C 는 목표를 정한 뒤의 기록 · 분석 상태를 보는 자리라 목표 80 을 먼저 정한다
+  const g = await page.request.put(`${BASE}/api/csat/diagnosis/map/goal`, { data: { target: 80 } })
+  if (g.status() !== 200) throw new Error(`목표 설정 실패 ${g.status()}`)
   return { page, ctx, id: data.user.id }
 }
 async function record(page, examId, choices) {

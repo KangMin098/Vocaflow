@@ -24,6 +24,8 @@
 - feat(db): `20261008120000_knowledge_vnext` 적용(사용자 승인 sha256 5053c5ba… · 해시 게이트 실행기 `scripts/db/apply-approved-sql.mjs --record` · 앞뒤 체크포인트 · 원장 기록) — 학습 원리 vNext 새 표 6 · kind · 근거 세 축. 기존 행 삭제 0(항목 · 근거 · 검토 id 동일) · 실제 DB 계약 37/37(롤백) · 공부법 118 `evidence_version` 1→2(근거 백필 부수효과).
 
 - docs(methodology): 영어 학습 원리 시스템 vNext Phase 1 — 현행 감사(DB 실측 · 코드) · 통합 아키텍처 정본 `docs/methodology/VNEXT_ARCHITECTURE.md`(구조 결함 8 · 지식 객체 6 + 탐구 · 적용 · 검증 · 근거 세 축 · 기존→새 매핑 · 관리자 5개 업무 공간 · 학습자 계약 · 첫 수직 경로 「주장과 근거 관계 이해」) · Phase 2 추가형 스키마 초안 `_pending_20261008120000_knowledge_vnext.sql`(미적용 · Codex 계획 리뷰 P0 1 · P1 7 반영 · 격리 PostgreSQL 검증 36/36 `scripts/knowledge/vnext-schema-test.mjs`). DB 변경 없음.
+- feat(csat-map): 학습 지도 목표 중심 재설계 — 첫 화면 「내 목표 · 현재 위치」 바(목표 · 등급 구간 · 목표 미설정 구분 · 실제 최근 기록 · 이전↔최근 · 목표까지 · 단계 근거 상태) → 가운데 「목표 N점으로 가는 영어 독해의 길」 → 오른쪽 「지금 먼저 할 일」 하나. 단계 시트에 「목표와의 관계」(기준 시험 문항 · 배점 사실) · 「아직 모르는 것」. 목표 달성률 · 숙달 역산 · 점수 상승 약속 없음 · 진단 계약 그대로 · DB 변경 없음. 상태 E2E `e2e-map-goal.mjs`.
+
 - feat(csat-map): 학습 지도 vNext 를 main 에 clean integration — 원본 `feat/map-vnext`(커밋 100 · 파일 451)에서 지도에 필요한 것만(마이그레이션 `20261002120000_csat_map` · `20261002120100_funnel_allow_csat_map` · `20261002130000_csat_map_item_rate_ledger`, 지도 코드 · 진단 판정 · API 2 · 이벤트 4 · 검증 스크립트). Workspace · 어휘 표지 · 사전 · 오답 원인 Evidence · seed v2 제외. 목록·동등성 [MAP_INTEGRATION_MANIFEST](./csat-learner/MAP_INTEGRATION_MANIFEST.md) · 빈 DB 검증 `scripts/csat/map/fresh-db-check.mjs`.
 
 - docs(csat): 남은 의미 보류 2문항의 원전 조사와 별도 3인 출처 품질 감사를 기록했다. 원전 확인·담화 설명만으로 양립 가능한 해석을 배제하지 못해 보류를 유지하며, 재개 조건과 발행 승인과의 구분을 명시했다. DB 원문·검수·평가원 데이터 변경 없음.

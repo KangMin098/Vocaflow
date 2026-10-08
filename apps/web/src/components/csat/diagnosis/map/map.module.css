@@ -375,7 +375,8 @@
 }
 .input {
   width: 64px;
-  height: 32px;
+  /* 44px 터치 타깃(AGENTS 접근성) — 입력 칸은 ::after 눌림 확장이 없어 보이는 높이를 맞춘다(2026-10-08) */
+  height: 44px;
   padding: 0 10px;
   border: 1px solid #0d0d1714;
   border-radius: 8px;
@@ -387,7 +388,8 @@
 }
 .applyBtn {
   position: relative;
-  height: 30px;
+  /* 44px — 보이는 높이로(사용자 지시 2026-10-08). 칩은 30px + ::after 눌림 확장(44px) 유지 */
+  height: 44px;
   padding: 0 14px;
   border: 0;
   border-radius: 999px;

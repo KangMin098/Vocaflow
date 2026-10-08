@@ -9,6 +9,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { selectByChunks, selectSmall } from '../diagnosis/fetch'
+import { isDiagnosable, recordQuality } from '../diagnosis/engine/record-quality'
 import { computeSnapshotNow } from '../diagnosis/server'
 import { loadSnapshots } from '../diagnosis/snapshot'
 
@@ -43,6 +44,16 @@ export interface MapPageData {
   settings: MapSettings
   /** FIND 과제 id → 같은 실행 과제를 기출 한 문항으로 직접 해 보는 곳(학습 원리 적용 learning_map_find · 채택 사슬이 살아 있을 때만) */
   practiceLinks?: Record<string, MapPracticeLink>
+  /** 학습자 본인의 시험 기록(진단에 반영된 회차 · 오래된 것부터) — 「현재 위치」는 이것만 근거로 쓴다 */
+  records: LearnerRecord[]
+}
+
+/** 화면의 「시험상 위치」 — 실제 기록 한 회. 등급은 기록에 저장된 값(없으면 null — 화면이 원점수 구간으로 표시) */
+export interface LearnerRecord {
+  label: string
+  takenAt: string
+  raw: number | null
+  grade: number | null
 }
 
 export const DEFAULT_MAP_SETTINGS: MapSettings = {
@@ -201,6 +212,33 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   }
   const ev = snap?.evidence
   const trendRaw = [...(ev?.trend ?? [])].reverse().find((t) => t.raw !== null)?.raw ?? null
+  // 현재 위치의 근거 — 스냅샷 점수 흐름의 세션 중 **입력 신뢰도를 통과한 것만**(엔진이 진단 집계에 쓰는 같은 판정 — 점수 흐름 자체는
+  // 모든 기록을 담는다). 일괄 입력 같은 의심 기록이 「최근 점수 · 이전↔최근 · 목표까지」에 섞이지 않게(Codex P1 · 2026-10-08)
+  const trendIds = (ev?.trend ?? []).map((t) => t.sessionId)
+  const sessionRows = trendIds.length
+    ? await selectByChunks<{ id: string; exam_id: string; taken_at: string; raw_score: number | null; grade: number | null }>(
+        trendIds, 100, (chunk) => db.from('csat_dx_session').select('id, exam_id, taken_at, raw_score, grade').eq('user_id', userId).in('id', chunk), 'csat_dx_session')
+    : []
+  const recordExamIds = [...new Set(sessionRows.map((r) => r.exam_id))]
+  const recordLabels = recordExamIds.length
+    ? Object.fromEntries((await selectByChunks<{ id: string; label: string }>(recordExamIds, 100, (chunk) => db.from('csat_exams').select('id, label').in('id', chunk), 'csat_exams')).map((e) => [e.id, e.label]))
+    : {}
+  // 20세션 × 45문항 = 900행 — 1,000행 상한 아래(기존 진단 로더와 같은 단위 · Codex P1)
+  const responseRows = sessionRows.length
+    ? await selectByChunks<{ session_id: string; item_no: number; chosen_option: number | null }>(
+        sessionRows.map((r) => r.id), 20, (chunk) => db.from('csat_dx_response').select('session_id, item_no, chosen_option').in('session_id', chunk), 'csat_dx_response')
+    : []
+  const answersBySession = new Map<string, { no: number; chosen: number | null }[]>()
+  for (const r of responseRows) {
+    const list = answersBySession.get(r.session_id) ?? []
+    list.push({ no: r.item_no, chosen: r.chosen_option })
+    answersBySession.set(r.session_id, list)
+  }
+  const sessionById = new Map(sessionRows.filter((r) => isDiagnosable(recordQuality(answersBySession.get(r.id) ?? []))).map((r) => [r.id, r]))
+  const records: LearnerRecord[] = (ev?.trend ?? []).flatMap((t) => {
+    const r = sessionById.get(t.sessionId)
+    return r ? [{ label: recordLabels[r.exam_id] ?? r.exam_id, takenAt: r.taken_at, raw: t.raw ?? r.raw_score, grade: r.grade }] : []
+  }).sort((a, b) => a.takenAt.localeCompare(b.takenAt))
   const snapshot: SnapshotInput | null = snap
     ? {
         // 데이터 없음으로 고정한 역량(A7)은 모델을 만들기 전에 입력에서 뺀다 — 영역 집계 · 근거량 · coverage 에도 남지 않게
@@ -243,5 +281,6 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     settings,
     // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
     practiceLinks: await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} }),
+    records,
   }
 }
