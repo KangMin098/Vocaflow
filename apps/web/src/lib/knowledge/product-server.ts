@@ -178,6 +178,9 @@ export const recordClaimSupportAttempt = recordItemTaskAttempt
 export interface MapPracticeLink {
   href: string
   label: string
+  /** 같은 실행 과제의 문항(2022#20)과 과제 키 — 학습 지도가 그 과제의 본인 수행 결과를 붙일 때 쓴다(화면에 보이지 않는다) */
+  itemId: string
+  taskKey: string
 }
 
 export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promise<Record<string, MapPracticeLink>> {
@@ -197,7 +200,7 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
     const task = currentItemTask(target)
     if (!task || !(await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, target), client))) continue
     const [exam, no] = target.split('#')
-    out[taskId] = { href: `/csat/item/${toItemSlug(target)}#principle`, label: `${/^\d{4}$/.test(exam) ? `${exam}학년도 수능` : exam} ${no}번으로 직접 확인` }
+    out[taskId] = { itemId: target, taskKey: task.def.key, href: `/csat/item/${toItemSlug(target)}#principle`, label: `${/^\d{4}$/.test(exam) ? `${exam}학년도 수능` : exam} ${no}번으로 직접 확인` }
   }
   return out
 }
