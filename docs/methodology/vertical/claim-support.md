@@ -117,3 +117,14 @@
 
 같은 틀(탐구 질문 → 근거 → 기제 → 방법 → 과제 → 주석 1문항 → 문항 화면 → 지도 FIND)을 복제: **문장 관계**(연결어 · 지시어 — R-ORDER/R-INSERT, 기존 기제 `cohesion-cues` 재사용) → 본문↔선지 → 어휘↔문맥 → 문장 이해 직접 진단.
 학습자 연습 기능 이식(다른 세션 `feat/knowledge-vnext` — ClaimPractice · 첫 시도 집계 · 전이 추천 · evaluateProtocol · E2E 40)은 별도 단위([VNEXT_MERGE](https://github.com/KangMin098/Vocaflow/blob/feat/knowledge-vnext/docs/methodology/VNEXT_MERGE.md)).
+
+## 확인 문항 확대 (2026-10-08 · 트랙 B 병목)
+
+| 문항 | 결과 | 이유 |
+|---|---|---|
+| 2025#20 | **등록** `annotations/claim-support-2025-20.v1.json` | Claude · Codex 맹검 합의: 주장 5번째 · 뒷받침 6번째 · 반박 대상 1·3번째 · 관계=이유. 갈린 2·4번째는 채점 제외 |
+| 2023#20 | 보류 | 두 판정자 모두 주장=4번째지만 정답 근거 앵커는 6번째(전략 제시). 6번째를 고른 정당한 읽기를 오답 처리할 위험 |
+| 2024#20 | 보류 | 주장 문장 불일치(Claude 6번째 · Codex 7번째) — 단일 주장 채점이 불가 |
+
+- 주석만 저장소에 있다. **학습자 노출은 없다** — `csat_item_task` 적용(`claim-support:2025-20`)이 없으면 게이트가 막는다(B7).
+- 정본 세션 인계: ① `csat_item_task` 적용 행 `claim-support:2025-20`(검증 계획 포함, 독립 출시 승인 후 켜기) ② 학습 지도 FIND 가 확인 문항 2개를 갖도록 `learning_map_find` 연결 구조 확장(현재 적용 1행 = 문항 1개 — `find-outcome` 의 「서로 다른 2문항」 기준이 여전히 「확인 문항 더 준비되면」 상태로 남는다).

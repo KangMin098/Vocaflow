@@ -13,6 +13,8 @@ import { createHash } from 'node:crypto'
 
 // v1 은 이력으로 남긴다(수행 기록의 content_hash 가 가리킬 수 있다) — 채점 · 노출은 v2
 import annotation2022 from './annotations/claim-support-2022-20.v2.json'
+// 2025#20 — 두 번째 확인 문항(2026-10-08 · Claude · Codex 맹검 합의). 2023#20(정답 앵커 ≠ 합의 주장) · 2024#20(주장 문장 불일치)은 보류
+import annotation2025 from './annotations/claim-support-2025-20.v1.json'
 import { RELATIONS, type Relation } from './claim-support-labels'
 
 export { RELATIONS, RELATION_LABEL, type Relation } from './claim-support-labels'
@@ -44,6 +46,7 @@ export interface ClaimSupportAnnotation {
 
 const ANNOTATIONS: Record<string, ClaimSupportAnnotation> = {
   [annotation2022.itemId]: annotation2022 as ClaimSupportAnnotation,
+  [annotation2025.itemId]: annotation2025 as ClaimSupportAnnotation,
 }
 
 export function annotationFor(itemId: string): ClaimSupportAnnotation | null {
