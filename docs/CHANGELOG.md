@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(methodology): PR 머지 리뷰 P1 — 빌더가 REVIEW_HOLD 사슬을 다시 채택 · 켜지 않게 · DB 후보 `_pending_20261008170000_knowledge_trial_evidence_guard`(합성 여부 불변 · 근거 출처 변경도 재검토, sha256 38fb5a5b… · 미적용 · 적용 담당 vocaflow-18).
+
 - chore(methodology): 「주장과 근거」 3항목 REVIEW_HOLD → Claude(맹검 서브에이전트) · Codex(맹검) 독립 재검토 3회 → 모두 adopt 뒤 재개. 주석 v2(6번째 문장 채점 제외) · 방법 문장 v2(①/② 갈림 표시). 기록 `docs/methodology/vertical/reviews/claim-support-2022-20.json` · efficacy 미확정.
 
 - fix(db): `20261008150000_knowledge_statement_review_fix` 적용(사용자 승인 sha256 78baa027… · 체크포인트 `knowledge-guard-fix-20261008`) — 140000 가드의 구멍 3(문장+상태 한 UPDATE 우회 · 근거 이동 시 옛 주인 누락 · 검토 중 중간 층에서 연쇄 멈춤) 닫음. 실제 DB 롤백 smoke 28/28.

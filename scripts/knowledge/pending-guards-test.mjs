@@ -31,7 +31,7 @@ try {
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql',
     '20261008140000_knowledge_review_cascade_guard.sql', '_pending_20261008140100_learning_task_attempts_idempotency.sql',
-    '20261008150000_knowledge_statement_review_fix.sql']) await q(M(f))
+    '20261008150000_knowledge_statement_review_fix.sql', '_pending_20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
   rec('등록부 7 + vNext + 후보 2 적용', true)
 
   const item = async (layer, kind, slug) => (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ($1,$2,$3,$3,'s','in_review','t','t') returning id`, [layer, kind, slug])).rows[0].id
@@ -123,6 +123,25 @@ try {
   const draft = await item('principle', 'processing_mechanism', 'draft-p')
   await ev(draft)
   rec('검토 중 항목에 근거 추가는 상태를 바꾸지 않는다', (await status([draft]))[draft] === 'in_review')
+
+  // 170000 ① 합성 검증 → 실제로 바꿀 수 없다(Codex P1)
+  const c13 = await chain('c13')
+  const tr = (await q(`insert into knowledge_trials (application_id, design, synthetic, status, result, analyzed_at, created_by) values ($1, '{"pre":true,"post":true,"min_n":30}', true, 'analyzed', 'supported', now(), 't') returning id`, [c13.app])).rows[0].id
+  let flip = null
+  try { await q(`update knowledge_trials set synthetic = false where id = $1`, [tr]) } catch (e) { flip = e.message }
+  rec('170000 ① 합성 검증의 synthetic=false 전환 거부', /바꿀 수 없다/.test(flip ?? ''), flip)
+  let eff = null
+  try { await q(`update knowledge_items set efficacy = 'research_supported', updated_by = 'sql' where id = $1`, [c13.T]) } catch (e) { eff = e.message }
+  rec('170000 ① 합성 검증만으로는 efficacy 승격 불가', !!eff, eff)
+  // 170000 ② 같은 등급 · 다른 출처로 교체 → 재검토
+  const c14 = await chain('c14')
+  const e14 = (await q(`select id from knowledge_evidence where item_id = $1 limit 1`, [c14.P])).rows[0].id
+  await q(`update knowledge_evidence set external_url = 'https://e.x/other' where id = $1`, [e14])
+  rec('170000 ② 같은 등급 다른 출처(URL)로 교체 → 기제 + 아래 층 검토 중', Object.values(await status([c14.P, c14.M, c14.T])).every((v) => v === 'in_review'))
+  const c15 = await chain('c15')
+  const e15 = (await q(`select id from knowledge_evidence where item_id = $1 limit 1`, [c15.P])).rows[0].id
+  await q(`update knowledge_evidence set note = 'memo', locator = 'p.3' where id = $1`, [e15])
+  rec('170000 ② 메모 · 위치만 바꾸면 그대로', (await status([c15.P]))[c15.P] === 'adopted')
 
   // 멱등 키
   const su = new pg.Client({ host: '127.0.0.1', port: 54329, database: 'ec', user: 'supabase_admin', password: 'admin' })

@@ -140,8 +140,22 @@ try {
     log('탐구 질문 ← 지지 근거')
   }
 
+  // ⚠️ 빌더는 **처음 만드는 사슬만** 채택하고 적용을 켠다. 한 번이라도 채택된 적이 있는 항목이 지금 채택 상태가 아니면
+  //    (REVIEW_HOLD · 재검토 전파 · 반려) 그 판단은 새 독립 검토의 몫이다 — 옛 검토 사유로 다시 채택 · 켜지 않는다(Codex P1 · 2026-10-08).
+  //    재개는 scripts/knowledge/review-hold.mts resume(두 판정자 adopt 뒤)만.
+  const everAdopted = async (id: string) => ((await db.from('knowledge_reviews').select('id', { count: 'exact', head: true }).eq('item_id', id).eq('to_status', 'adopted')).count ?? 0) > 0
+  const held: string[] = []
+  for (const it of [P, M, T]) {
+    const now = await itemRow(it.slug) as { status: string }
+    if (now.status !== 'adopted' && now.status !== 'applied' && (await everAdopted(it.id))) held.push(`${it.slug}(${now.status})`)
+  }
+  if (held.length) {
+    console.log(`· 보류 · 재검토 중인 사슬 — 빌더는 채택 · 적용 켜기를 하지 않는다: ${held.join(', ')}`)
+    process.exitCode = 0
+  }
+  const firstBuild = held.length === 0
   // 5) 채택 — 기제 → 방법 → 과제(위에서 아래로: 아래 층 채택이 위 층 재검토 전파에 휩쓸리지 않게)
-  for (const slug of [P.slug, M.slug, T.slug]) {
+  for (const slug of firstBuild ? [P.slug, M.slug, T.slug] : []) {
     const now = await itemRow(slug) as { status: string }
     if (now.status === 'adopted' || now.status === 'applied') { log(`채택돼 있음 ${slug}`); continue }
     await go(`/admin/knowledge/item/${slug}`)
@@ -193,7 +207,8 @@ try {
       await expectText('검증 계획을 만들었습니다')
       log(`검증 계획 ${a.ref}`)
     }
-    if (app.status !== 'active') {
+    // 중단된 적용(사유가 있는 paused)은 빌더가 켜지 않는다 — 처음 만든 draft 만
+    if (app.status === 'draft' && firstBuild) {
       await go('/admin/knowledge/product')
       await page.locator(`[data-testid="app-status-${app.id}"]`).getByRole('button', { name: '학습자에게 켜기' }).click()
       await expectText('저장했습니다')
@@ -201,7 +216,7 @@ try {
     }
   }
   const tNow = await itemRow(T.slug) as { status: string }
-  if (tNow.status === 'adopted') {
+  if (tNow.status === 'adopted' && firstBuild) {
     await go(`/admin/knowledge/item/${T.slug}`)
     await page.locator('#status-reason').fill('문항 과제(2022 수능 20번) · 학습 지도 FIND(B6-3) 적용이 켜졌다')
     await page.getByRole('button', { name: '제품 적용(으)로' }).click()

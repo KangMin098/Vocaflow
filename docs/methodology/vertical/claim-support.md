@@ -97,6 +97,8 @@
 - 격리 PostgreSQL 13/13(`scripts/knowledge/pending-guards-test.mjs`)
 - 실제 개발 DB 롤백 smoke 18/18(`scripts/knowledge/guard-db-smoke.mts`) — 실제 사슬에 기제 문장 직접 변경 · 방법에 근거 직접 추가 · 기제 근거 축 직접 변경 → 각각 대상 + 아래 층 검토 중 · 문항 · 지도 적용 중단 · 학습자 게이트(문항 원리 칸 · 지도 링크) 닫힘 · 수행 기록 보존 · 검토 기록 이유. 끝에 전체 롤백 — 실제 사슬 그대로.
 - 남은 구멍 3(Codex 커밋 리뷰 — 문장+상태 한 UPDATE 우회 · 근거 이동 시 옛 주인 누락 · 검토 중 중간 층에서 연쇄 멈춤)은 `20261008150000_knowledge_statement_review_fix`(승인 sha256 `78baa027…2486`)로 닫았다 — 실제 DB 롤백 smoke S4(문장+상태) · S5(근거 이동 → 옛 주인 재검토) 포함 28/28.
+- ⚠️ methodology PR 머지 리뷰(Codex) DB P1 2건 — ① 합성 검증을 `synthetic=false` 로 바꿔 실제 표본 검사를 건너뜀 ② 같은 등급의 다른 출처로 근거를 바꾸면 재검토 누락. 수정 후보 `_pending_20261008170000_knowledge_trial_evidence_guard.sql`(sha256 `38fb5a5b3d0023475b96682ac019ae26fd94ce53cd60d4e604e18a9ddc918d8f` · 트리거 1 + 함수 본문 교체 · **미적용 · 승인 대기 · 적용 담당 vocaflow-18**) — 격리 검증 통과. 관리자 화면에는 두 경로가 없다(SQL 직접 변경에서만).
+- 빌더(`vertical-claim-support-build.mts`)는 처음 만드는 사슬만 채택 · 켠다 — 한 번 채택된 적 있는 항목이 보류 · 재검토 중이면 손대지 않는다(Codex P1). 재개는 `review-hold.mts resume`(두 판정자 adopt 뒤)만.
 - 앱 경로의 전파(`review-cascade.ts`)는 남겨 둔다 — DB 가드와 같은 결과(조건부 UPDATE 가 0행)라 무해하고, 화면에 「연쇄 재검토: …」를 보여 준다.
 
 ## 8. 효과 상태
