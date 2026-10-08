@@ -31,7 +31,7 @@ try {
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql',
     '20261008140000_knowledge_review_cascade_guard.sql', '_pending_20261008140100_learning_task_attempts_idempotency.sql',
-    '_pending_20261008150000_knowledge_statement_review_fix.sql']) await q(M(f))
+    '20261008150000_knowledge_statement_review_fix.sql']) await q(M(f))
   rec('등록부 7 + vNext + 후보 2 적용', true)
 
   const item = async (layer, kind, slug) => (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ($1,$2,$3,$3,'s','in_review','t','t') returning id`, [layer, kind, slug])).rows[0].id

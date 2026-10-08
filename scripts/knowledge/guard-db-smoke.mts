@@ -2,7 +2,7 @@
 //
 // 재검토 전파 DB 가드(20261008140000) 실제 개발 DB smoke — **한 트랜잭션 안에서만 바꾸고 끝에 전부 롤백한다**(2026-10-08).
 // 관리자 화면을 거치지 않는 SQL 직접 변경으로(가드가 막으려는 경로) 실제 「주장과 근거」 사슬에:
-//   S1 기제 문장 변경 · S2 방법에 근거 추가 · S3 기제 근거 축 변경
+//   S1 기제 문장 변경 · S2 방법에 근거 추가 · S3 기제 근거 축 변경 · S4 문장+상태 한 UPDATE · S5 근거 이동(옛 주인)
 // 각 경우 대상 + 아래 층 검토 중 · 적용(문항 · 지도) 중단 · 학습자 게이트 닫힘(앱과 같은 resolveChain 규칙) · 수행 기록 보존을 본다.
 // 시나리오마다 SAVEPOINT 로 되돌리고, 마지막에 전체 ROLLBACK → 실제 사슬이 실행 전과 같은지 확인한다.
 //   cd apps/web && node <tsx cli> --tls-max-v1.2 --env-file=<.env.local> ../../scripts/knowledge/guard-db-smoke.mts
@@ -31,7 +31,7 @@ async function state() {
   // product-server.loadLiveApplication / loadMapPracticeLinks 와 같은 조건(주석 서명은 DB 와 무관해 여기서 다루지 않는다)
   const itemGate = itemApp?.status === 'active' && live
   const mapGate = mapApp?.status === 'active' && live && itemGate
-  return { P: bySlug[SLUGS.P].status, M: bySlug[SLUGS.M].status, T: T.status, itemApp: itemApp?.status, mapApp: mapApp?.status, itemGate, mapGate, ids: { P: bySlug[SLUGS.P].id, M: bySlug[SLUGS.M].id } }
+  return { P: bySlug[SLUGS.P].status, M: bySlug[SLUGS.M].status, T: T.status, itemApp: itemApp?.status, mapApp: mapApp?.status, itemGate, mapGate, ids: { P: bySlug[SLUGS.P].id, M: bySlug[SLUGS.M].id, T: T.id } }
 }
 
 await c.connect()
@@ -54,7 +54,7 @@ try {
     rec(`${name} → 학습자 게이트 닫힘(문항 원리 칸 · 지도 링크)`, !s.itemGate && !s.mapGate)
     const kept = await q(`select id from learning_task_attempts where id = $1`, [att.id])
     rec(`${name} → 기존 수행 기록 보존`, kept.length === 1)
-    const why = await q<{ reason: string }>(`select reason from knowledge_reviews where item_id = any($1) and to_status = 'in_review' order by at desc limit 1`, [[s.ids.M]])
+    const why = await q<{ reason: string }>(`select reason from knowledge_reviews where item_id = any($1) and to_status = 'in_review' order by at desc limit 1`, [[want.M === 'in_review' ? s.ids.M : s.ids.T]])
     rec(`${name} → 검토 기록에 이유`, why.length > 0 && why.every((w) => (w.reason ?? '').length > 0), why.map((w) => w.reason))
     await c.query('rollback to savepoint s')
   }
@@ -62,6 +62,11 @@ try {
   await scenario('S2 방법에 근거 직접 추가', `insert into knowledge_evidence (item_id, grade, attribution, source_type, external_url, external_title, created_by)
     select id, 'C', 'stated', 'external', 'https://example.com/smoke', 'smoke', 'smoke' from knowledge_items where slug = $1`, [SLUGS.M], { P: 'adopted', M: 'in_review', T: 'in_review' })
   await scenario('S3 기제 근거 축 직접 변경', `update knowledge_evidence set applicability = 'partial' where item_id = (select id from knowledge_items where slug = $1)`, [SLUGS.P], { P: 'in_review', M: 'in_review', T: 'in_review' })
+  // 20261008150000 — Codex 커밋 리뷰가 짚은 두 우회 경로
+  await scenario('S4 과제 문장 + 상태(adopted → applied) 한 UPDATE', `update knowledge_items set status = 'adopted', updated_by = 'smoke' where slug = '${SLUGS.T}';
+    update knowledge_items set statement = statement || ' (smoke)', status = 'applied', updated_by = 'smoke' where slug = '${SLUGS.T}'`, [], { P: 'adopted', M: 'adopted', T: 'in_review' })
+  await scenario('S5 기제 근거를 다른 항목(cohesion-cues)으로 이동 — 옛 주인 재검토', `update knowledge_evidence set item_id = (select id from knowledge_items where slug = 'cohesion-cues')
+    where id = (select e.id from knowledge_evidence e join knowledge_items i on i.id = e.item_id where i.slug = '${SLUGS.P}' limit 1)`, [], { P: 'in_review', M: 'in_review', T: 'in_review' })
   const s4 = await state()
   rec('SAVEPOINT 되돌림 뒤 사슬 · 게이트 원상', s4.P === 'adopted' && s4.M === 'adopted' && s4.T === 'applied' && s4.itemGate && s4.mapGate, s4)
 } catch (e) {

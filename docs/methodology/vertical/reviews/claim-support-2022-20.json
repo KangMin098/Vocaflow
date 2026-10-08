@@ -1,0 +1,82 @@
+{
+  "subject": "Phase 3 첫 수직 경로 「주장과 근거 관계」 3항목 — REVIEW_HOLD 독립 재검토(2026-10-08 사용자 결정)",
+  "rule": "Claude(맥락 없는 새 서브에이전트 · 다른 판정 미공개) · Codex(맹검) 둘 다 adopt 일 때만 학습자 노출 재개. 불일치면 자동 채택 금지 → 수정 → 다시 독립 검토. 효과는 이 검토로 승격하지 않는다.",
+  "priorCodexOnly": "채택 당시 Codex 독립 검토 3회(1·2차 hold → 3차 adopt)뿐 — 첫 번째 독립 판정으로 보존",
+  "rounds": [
+    {
+      "round": 1,
+      "reviewers": {
+        "claude": {
+          "items": {
+            "claim-support-relation": "adopt",
+            "method-claim-support-marking": "adopt",
+            "task-claim-support-link": "hold"
+          },
+          "note": "주석이 6번째 문장(목적이 성공을 이끈다)을 재진술로만 둬 일반 원리로 읽은 학습자를 오답 처리"
+        }
+      },
+      "change": "주석 v1 → v2: 6번째 문장(0-based 5)을 supportDisputed 로(채점 제외)"
+    },
+    {
+      "round": 2,
+      "bundle": "주석 v2",
+      "reviewers": {
+        "claude": {
+          "items": {
+            "claim-support-relation": "adopt",
+            "method-claim-support-marking": "adopt",
+            "task-claim-support-link": "adopt"
+          }
+        },
+        "codex": {
+          "reviewer": "codex-blind-r2",
+          "items": [
+            {
+              "slug": "claim-support-relation",
+              "verdict": "adopt",
+              "reason": "원리 층·처리 기제 후보로 적절하며, 필수성·연습 효과를 미확정으로 밝혀 과대 주장과 학습자 오도 위험을 제한한다; 근거 범위는 이 기출 1건이다."
+            },
+            {
+              "slug": "task-claim-support-link",
+              "verdict": "adopt",
+              "reason": "연습 층·실행 과제로 적절하고 효과를 주장하지 않는다; 지문과 주석을 대조하면 주장 2번·뒷받침 4·5번·지정 4번의 이유 관계가 타당하며, 논쟁 문장의 채점 제외로 오도 위험을 줄인다."
+            },
+            {
+              "slug": "method-claim-support-marking",
+              "verdict": "hold",
+              "reason": "방법 층·종류는 적절하고 효과 과장은 없으나, 나머지 문장 모두를 세 유형에 넣도록 하면서 6번처럼 이유와 재진술 사이에서 판단이 갈리는 경우의 별도 표시를 안내하지 않아 분류를 확정된 정답으로 오인할 위험이 있다."
+            }
+          ],
+          "annotation_check": {
+            "agree": true,
+            "notes": "0부터 센 주석을 지문의 1부터 센 번호로 변환해 직접 대조했다: claim=2번, support=4·5번, supportDisputed=3·6번은 채점 제외, opposed=1번의 비판 대상인 접근, claimRestated=7번은 6번과 연결해 읽을 때 타당하다. relationProbe의 4번은 목적 자체가 없는 소셜미디어 참여를 지적하여 목적 우선 주장을 떠받치는 이유다. 독립 독해상 주석에 동의하며, 다른 판정자의 합의 절차나 학습 효과를 확인했다는 뜻은 아니다."
+          },
+          "chain": "hold"
+        }
+      },
+      "change": "방법 문장 v1 → v2: ①/② 사이(일반 원리) 갈림도 따로 표시하도록 — Codex hold 지적 · Claude 경미 지적 같은 곳"
+    },
+    {
+      "round": 3,
+      "bundle": "방법 문장 v2만",
+      "reviewers": {
+        "claude": {
+          "verdict": "adopt"
+        },
+        "codex": {
+          "reviewer": "codex-blind-r3",
+          "slug": "method-claim-support-marking",
+          "verdict": "adopt",
+          "reason": "지문에서 확인되는 주장·조건·반박·일반화의 관계를 표시하는 구체적인 읽기 절차이며, 분류가 겹치는 문장은 별도 표시하도록 해 해석의 불확실성을 인정한다. 기출 1건에 근거한 제품 문구 채택이며, 학습 효과는 미확정이다."
+        }
+      }
+    }
+  ],
+  "final": {
+    "claim-support-relation": "adopt(r2 둘 다)",
+    "method-claim-support-marking": "adopt(r3 둘 다 · 문장 v2)",
+    "task-claim-support-link": "adopt(r2 둘 다 · 주석 v2)"
+  },
+  "exposure": "REVIEW_HOLD(적용 2건 중단 · 과제 트리거로 in_review) → 재채택 · 재개(관리자 화면 · scripts/knowledge/review-hold.mts)",
+  "efficacy": "not_assessed 유지"
+}

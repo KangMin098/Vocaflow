@@ -111,8 +111,8 @@ try {
   rec('A · 학습자 화면에 연구 용어 · 내부 id 없음', !FORBIDDEN.test(panelText), panelText.match(FORBIDDEN)?.[0] ?? '')
   await panel.getByRole('button', { name: '직접 확인하기' }).click()
   await A.page.screenshot({ path: path.join(OUT, 'A-task.png'), fullPage: false })
-  // 오답: 재진술 문장(6번째)을 주장으로 · 4번째만 · 관계=예시
-  await panel.locator('[data-claim="5"]').click()
+  // 오답: 재진술 문장(7번째)을 주장으로 · 4번째만 · 관계=예시
+  await panel.locator('[data-claim="6"]').click()
   await panel.locator('[data-support="3"]').click()
   await panel.locator('[data-relation="example"]').check()
   await panel.getByRole('button', { name: '확인하기' }).click()

@@ -29,7 +29,7 @@ describe('주장/근거 주석 2022#20', () => {
     expect(ann.answerAnchorOverlap.answerAnchorSentences).toEqual([1])
     expect(ann.provenance.reviewerBlind).toBe(true)
     // 주석 파일에는 지문 원문이 없다(문장 번호만)
-    const raw = fs.readFileSync(path.join(process.cwd(), 'src/lib/knowledge/annotations/claim-support-2022-20.v1.json'), 'utf8')
+    const raw = fs.readFileSync(path.join(process.cwd(), 'src/lib/knowledge/annotations/claim-support-2022-20.v2.json'), 'utf8')
     expect(raw).not.toMatch(/social media/i)
   })
 })
@@ -37,9 +37,12 @@ describe('주장/근거 주석 2022#20', () => {
 describe('채점', () => {
   const ok = { claim: 1, support: [3, 4], relation: 'reason' as const }
   it('정답', () => expect(gradeClaimSupport(ann, ok).isCorrect).toBe(true))
-  it('두 판정자가 갈린 문장(3번째)은 골라도 틀리지 않는다', () => expect(gradeClaimSupport(ann, { ...ok, support: [2, 3, 4] }).isCorrect).toBe(true))
+  it('판정이 갈린 문장(3번째 · 6번째)은 골라도 틀리지 않는다', () => {
+    expect(gradeClaimSupport(ann, { ...ok, support: [2, 3, 4] }).isCorrect).toBe(true)
+    expect(gradeClaimSupport(ann, { ...ok, support: [3, 4, 5] }).isCorrect).toBe(true)
+  })
   it('재진술 문장을 주장으로 고르면 틀리되 가깝다고 알린다', () => {
-    const g = gradeClaimSupport(ann, { ...ok, claim: 5 })
+    const g = gradeClaimSupport(ann, { ...ok, claim: 6 })
     expect(g.claimOk).toBe(false)
     expect(g.claimRestated).toBe(true)
   })

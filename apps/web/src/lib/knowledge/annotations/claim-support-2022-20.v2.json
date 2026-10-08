@@ -1,0 +1,41 @@
+{
+  "version": "claim-support-2022-20.v2",
+  "itemId": "2022#20",
+  "skeletonSig": "466765f851e42324be950c2174e1dc48e1e29c0523a680fc23648cb27d91dac3",
+  "sentenceCount": 7,
+  "claim": 1,
+  "claimRestated": [
+    6
+  ],
+  "support": [
+    3,
+    4
+  ],
+  "supportDisputed": [
+    2,
+    5
+  ],
+  "opposed": [
+    0
+  ],
+  "relationProbe": {
+    "sentence": 3,
+    "relation": "reason"
+  },
+  "answerAnchorOverlap": {
+    "answerAnchorSentences": [
+      1
+    ],
+    "note": "주장 문장(2번째)이 정답 근거 앵커와 같은 문장이다. 앵커는 정답 ⑤가 왜 맞는지 설명하는 해설 위치, 이 주석은 글의 논증 구조(주장 · 뒷받침 · 반박 대상) — 같은 문장, 다른 역할."
+  },
+  "provenance": {
+    "annotator": "claude-code (Opus 5.5) — 맹검 주석 먼저 작성",
+    "independentReviewer": "codex (gpt) — 다른 판정을 보지 않고 같은 질문에 독립 주석(tmp 프롬프트 · 문장 번호 지문)",
+    "reviewerBlind": true,
+    "agreement": "주장 2 · 재진술 6·7 · 4번 관계=이유 · 반박 대상 1 · 뒷받침 4·5 일치. 불일치 1곳: 3번 문장(Claude=뒷받침, Codex=반박 대상 — 막연한 존재감 욕구를 부정하는 문장)",
+    "resolved": "3번 문장은 supportDisputed 로 두고 채점에서 뺀다(골라도 · 안 골라도 틀리지 않음). 두 판정자가 합의한 문장만 채점한다.",
+    "reviewedAt": "2026-10-08",
+    "revision": "v1 → v2(2026-10-08 · REVIEW_HOLD 독립 재검토): 6번째 문장(0-based 5 · 「목적이 성공을 이끈다」)은 주장의 재진술로도, 주장을 떠받치는 일반 원리(대전제 — 7번째가 그 원리를 적용)로도 읽힌다. 재진술로만 채점하면 정당한 읽기를 오답 처리한다 → supportDisputed 로 옮겨 채점에서 뺀다.",
+    "reReview": "v2 는 Claude(새 서브에이전트 · 맹검) · Codex(맹검) 독립 재검토 대상 — 결과는 docs/methodology/vertical/claim-support.md §채택 검토"
+  }
+}

@@ -11,7 +11,8 @@
 //   같은 문장이 두 역할을 함께 할 수 있다(2022#20 은 주장 문장 = 정답 근거 앵커 문장). 그 겹침은 answerAnchorOverlap 에 적는다.
 import { createHash } from 'node:crypto'
 
-import annotation2022 from './annotations/claim-support-2022-20.v1.json'
+// v1 은 이력으로 남긴다(수행 기록의 content_hash 가 가리킬 수 있다) — 채점 · 노출은 v2
+import annotation2022 from './annotations/claim-support-2022-20.v2.json'
 import { RELATIONS, type Relation } from './claim-support-labels'
 
 export { RELATIONS, RELATION_LABEL, type Relation } from './claim-support-labels'
