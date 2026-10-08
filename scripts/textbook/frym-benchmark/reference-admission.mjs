@@ -8,8 +8,8 @@ const sha = bytes => createHash('sha256').update(bytes).digest('hex')
 const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
 const filled = value => typeof value === 'string' && value.trim().length > 0
 const webUrl = value => { try { return ['https:', 'http:'].includes(new URL(value).protocol) } catch { return false } }
-const governmentUrl = value => { try { const url = new URL(value); return url.protocol === 'https:' &&
-  (url.hostname === 'gov' || url.hostname.endsWith('.gov')) } catch { return false } }
+const federalOriginUrl = value => { try { const url = new URL(value); return url.protocol === 'https:' &&
+  (url.hostname === 'nasa.gov' || url.hostname.endsWith('.nasa.gov')) } catch { return false } }
 const fail = code => { throw Error(code) }
 const same = (a, b) => hash(a) === hash(b)
 const earlyAnalysis = value => value && typeof value === 'object' && Object.entries(value).some(([key, child]) =>
@@ -148,9 +148,9 @@ export function admitReference({ source_path, scoring_source_path, candidate, ev
         (!['CC-BY-4.0', 'CC0-1.0', 'US-GOV-PUBLIC-DOMAIN'].includes(rights.license) ||
           !webUrl(rights.license_url) ||
           (rights.license === 'US-GOV-PUBLIC-DOMAIN' &&
-            (!governmentUrl(rights.license_url) ||
-              !governmentUrl(rights.passage_origin_url) || !governmentUrl(rights.items_origin_url) ||
-              !governmentUrl(rights.scoring_origin_url) ||
+            (!federalOriginUrl(rights.license_url) ||
+              !federalOriginUrl(rights.passage_origin_url) || !federalOriginUrl(rights.items_origin_url) ||
+              !federalOriginUrl(rights.scoring_origin_url) ||
               !hex(rights.passage_origin_hash) || !hex(rights.items_origin_hash) ||
               !hex(rights.scoring_origin_hash))))) ||
       (rules.cohort === 'commercial_textbook' && rights.decision !== 'AUTHORIZED_FOR_ANALYSIS'))

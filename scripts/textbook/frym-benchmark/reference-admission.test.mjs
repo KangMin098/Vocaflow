@@ -112,6 +112,11 @@ test('government public-domain reference requires specific passage and item orig
   nongovernment.screening.candidates[0].evidence_hash = hash(nongovernment.evidence)
   nongovernment.manifest.screening_hash = hash(nongovernment.screening)
   assert.throws(() => admitReference(nongovernment), /REFERENCE_RIGHTS_UNVERIFIED/)
+  const stateGovernment = structuredClone(input)
+  stateGovernment.evidence.rights.passage_origin_url = 'https://example.ca.gov/student-guide.pdf'
+  stateGovernment.screening.candidates[0].evidence_hash = hash(stateGovernment.evidence)
+  stateGovernment.manifest.screening_hash = hash(stateGovernment.screening)
+  assert.throws(() => admitReference(stateGovernment), /REFERENCE_RIGHTS_UNVERIFIED/)
   input.evidence.rights.third_party_exception = true
   input.screening.candidates[0].evidence_hash = hash(input.evidence)
   input.manifest.screening_hash = hash(input.screening)
