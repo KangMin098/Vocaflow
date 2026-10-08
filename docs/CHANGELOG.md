@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(textbook): Bind two local textbook preview ISBNs to current publisher snapshots and identify a matching Level 2 answer file. Record owner-confirmed absence of analysis permission, keep the prior hold seals intact, and specify the exact rights grant needed before passage admission.
+
 - docs(textbook): Rehash six Korean textbook files and batch-screen seven open-reference leads against current rights, edition, grade, boundary and grounding gates. Record common blockers; no new eligibility, screening, manifest, admission, Gold-S or seed state opened.
 
 - docs(textbook): Audit BC Reads 2015 PDF/rating lexical fidelity and all 15 keyed items, hold three grounding gaps, re-evaluate admission without altering prior seals, and screen an actual Korean full-textbook candidate against official edition/rights evidence; both calibration and seed remain closed.
