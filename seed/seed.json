@@ -1,0 +1,207 @@
+{
+  "schema": "vfc-seed/1",
+  "note": "init 이 한 번만 넣는 초기값. 이미 있는 항목은 건드리지 않는다. 상태는 직접 검증된 근거가 있을 때만 UNKNOWN 이 아니다.",
+  "goal_status": {
+    "VG-L3-D2-01": {
+      "status": "FAIL",
+      "reported_only": false,
+      "evidence_paths": ["verification/e2e/EV-20261009-actions-skip.md"],
+      "note": "2026-10-08 main run: ci e2e 「건너뜀 — 시크릿 미설정」, deploy 「건너뜀 — VERCEL_TOKEN 미설정」. skip_is_pass=false"
+    },
+    "VG-L3-A2-01": { "evidence_hooks": ["audit/platform-goal:docs/platform-audit/LEARNING_ENVIRONMENTS.md#1", "texts.status completed 0 (STEP1 재측정 2026-10-09)"], "note": "reported_only — 읽기 완료 0 · Practice 시도 20 은 STEP 1 측정, 재현 전" },
+    "VG-L3-A3-01": { "evidence_hooks": ["audit/platform-goal:docs/platform-audit/LEARNING_ENVIRONMENTS.md#1 (전이 learning_task_attempts 0)"] },
+    "VG-L3-B2-01": { "evidence_hooks": ["audit/platform-goal:docs/platform-audit/PLATFORM_INTEGRATION_MAP.md#I1"] },
+    "VG-L3-C2-02": { "evidence_hooks": ["audit/platform-goal:docs/platform-audit/CONTENT_PIPELINE_ATLAS.md#2"] },
+    "VG-L3-D1-01": { "evidence_hooks": ["audit/platform-goal:docs/platform-audit/REPOSITORY_INVENTORY.md#3 (DB 적용·main 밖 migration ≥17)"] },
+    "VG-L3-D1-02": { "evidence_hooks": ["audit/platform-goal:docs/platform-audit/_raw/db-demand.md (계정 5 전부 검증용)"] }
+  },
+  "gate_status": {
+    "R0-DEPLOY": {
+      "status": "FAIL",
+      "reported_only": false,
+      "evidence_paths": ["verification/e2e/EV-20261009-actions-skip.md"],
+      "note": "배포·e2e 모두 건너뜀(직접 확인). 시크릿 설정은 사용자 결정 — DL-0004"
+    }
+  },
+  "owners": [
+    {
+      "owner_id": "platform-goal",
+      "purpose": "목표 정본 인수·봉인, 공유 제어 공간, GOAL_STATUS 매핑, 목표↔구현 대응(STEP 3 분석)",
+      "agent_kinds": ["claude"],
+      "worktrees": [
+        { "path": "D:/workspace/Vocaflow-AI-Control", "branch": "ai-control" },
+        { "path": "D:/workspace/Vocaflow-platform-audit", "branch": "audit/platform-goal" }
+      ]
+    },
+    {
+      "owner_id": "r0-learning-journey",
+      "purpose": "R0 중등 일반 독해 PC 웹 경로: 비로그인 체험→가입·기록 연결→읽기→Practice→피드백→복습→미노출 전이→재평가→이력",
+      "agent_kinds": ["claude", "codex"],
+      "worktrees": []
+    },
+    {
+      "owner_id": "csat-learning",
+      "purpose": "수능·학평·모의평가 학습 환경(R1 특화). G2·Practice 기록 계약 통합 포함",
+      "agent_kinds": ["claude"],
+      "worktrees": [{ "path": "D:/workspace/Vocaflow-g2-int", "branch": "feat/csat-g2-integration" }],
+      "session_aliases": [
+        { "label": "vocaflow-f5", "evidence": "D:/workspace/Vocaflow-g2-int/.agent-goal.md 「담당: vocaflow-f5 단독(사용자 확정 2026-10-08)」", "note": "세션 이름은 별칭일 뿐 소유자가 아니다 — 소유자는 csat-learning" }
+      ]
+    },
+    {
+      "owner_id": "content-pipeline",
+      "purpose": "콘텐츠 원천→권리·계보→가공→게시 게이트(LCP·ACP·VCB·교재·만화·영상). R0 체험 자료의 권리/계보 포함",
+      "agent_kinds": ["claude", "codex"],
+      "worktrees": []
+    },
+    {
+      "owner_id": "methodology",
+      "purpose": "학습 원리 등록부(knowledge/methodology)와 학습 행동 배선",
+      "agent_kinds": ["claude"],
+      "worktrees": [{ "path": "D:/workspace/Vocaflow-methodology-vnext", "branch": "feat/methodology-vnext" }]
+    },
+    {
+      "owner_id": "data-contract",
+      "purpose": "학습 이벤트·기록 스키마, migration↔DB 정합. 개발 DB 쓰기 잠금의 유일한 소유자",
+      "agent_kinds": ["claude", "codex"],
+      "db_scopes": ["dev:jajenrevcbmrpaliomxv"],
+      "worktrees": []
+    },
+    {
+      "owner_id": "release-quality",
+      "purpose": "CI·브라우저 E2E·배포·스모크·접근성·권한 검증(R0 게이트)",
+      "agent_kinds": ["claude", "codex"],
+      "worktrees": []
+    },
+    {
+      "owner_id": "independent-review",
+      "purpose": "Codex 독립 리뷰 — diff·테스트·정본 대조. 작업 owner 와 달라야 COMPLETED 판정 가능",
+      "agent_kinds": ["codex"],
+      "worktrees": []
+    }
+  ],
+  "decisions": [
+    { "decision_id": "SD-R0-01", "status": "APPROVED", "approved_by": "user", "kind": "strategy", "summary": "R0 첫 학습자: 중등 일반 영어·독해", "source": "goals/GOAL_APPROVAL.md §1", "approved_at": "2026-10-09" },
+    { "decision_id": "SD-R0-02", "status": "APPROVED", "approved_by": "user", "kind": "strategy", "summary": "최초 유입: 비로그인 체험 → 가입 → 학습", "source": "goals/GOAL_APPROVAL.md §1", "approved_at": "2026-10-09" },
+    { "decision_id": "SD-R0-03", "status": "APPROVED", "approved_by": "user", "kind": "strategy", "summary": "출시 환경: PC 웹 우선, 모바일 후속", "source": "goals/GOAL_APPROVAL.md §1", "approved_at": "2026-10-09" },
+    { "decision_id": "SD-R0-04", "status": "APPROVED", "approved_by": "user", "kind": "strategy", "summary": "교실·결제: 첫 완결 학습 여정 이후 검토", "source": "goals/GOAL_APPROVAL.md §1", "approved_at": "2026-10-09" },
+    {
+      "decision_id": "DL-0001",
+      "status": "RECORDED",
+      "kind": "operational",
+      "by": "platform-goal",
+      "summary": "정본 보관 위치 = D:/workspace/Vocaflow-AI-Control/goals (봉인 CANON_MANIFEST.json). GOAL_APPROVAL.md 가 적은 docs/platform-goals/ 대신 STEP 3 지시 위치를 쓰고, 제품 저장소에는 사본을 두지 않고 경로·해시 참조만 둔다(정본 중복 방지).",
+      "source": "STEP 3 지시 §1·§2 · goals/GOAL_APPROVAL.md 「보관 위치」"
+    },
+    {
+      "decision_id": "DL-0002",
+      "status": "RECORDED",
+      "kind": "scope",
+      "by": "platform-goal",
+      "summary": "goals/STEP3_INPUT_CRITERIA.md 의 STEP 3(64↔40 대응 분석 산출물 6종)와 사용자 STEP 3 지시(공유 작업 환경 구축)가 다르다. 이번 단계는 사용자 지시를 따르고, 대응 분석은 작업 T-0001 로 등록해 다음 단계로 넘긴다.",
+      "source": "goals/STEP3_INPUT_CRITERIA.md · 사용자 STEP 3/6 지시"
+    },
+    {
+      "decision_id": "DL-0003",
+      "status": "OPEN_QUESTION",
+      "kind": "canon_finding",
+      "by": "platform-goal",
+      "summary": "정본 GOAL_ACCEPTANCE_CRITERIA.json 의 L4 템플릿 5개가 acceptance.status='not_instantiated' 를 쓰는데 status_vocabulary 에 없다. 다음 정본 판에서 어휘에 추가할지(정본은 수정하지 않았다).",
+      "affects_goal_ids": ["VG-L4-TEMPLATE-CONTRACT", "VG-L4-TEMPLATE-BUILD", "VG-L4-TEMPLATE-TEST", "VG-L4-TEMPLATE-TRACE", "VG-L4-TEMPLATE-DELIVER"]
+    },
+    {
+      "decision_id": "DL-0004",
+      "status": "OPEN_QUESTION",
+      "kind": "external_input",
+      "by": "platform-goal",
+      "summary": "GitHub 저장소 시크릿(VERCEL_TOKEN·VERCEL_PROJECT_ID·NEXT_PUBLIC_SUPABASE_URL 등) 미설정이 의도인가? 미설정이면 VG-L3-D2-01·R0-DEPLOY 는 FAIL 로 남는다. 시크릿 설정은 사용자만 할 수 있다.",
+      "affects_goal_ids": ["VG-L3-D2-01"]
+    },
+    {
+      "decision_id": "DL-0005",
+      "status": "RECORDED",
+      "kind": "operational",
+      "by": "platform-goal",
+      "summary": "작업 소유권은 고정 owner_id 에 둔다. 세션 이름(vocaflow-f5 등)은 owner 의 current_session/별칭으로만 기록하고, 세션이 바뀌면 bind-session 으로 교체한다 — 소유권은 이동하지 않는다.",
+      "source": "STEP 3 지시 §5"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "T-0001",
+      "goal_id": "VG-L3-D1-01",
+      "related_goal_ids": ["VG-L3-A1-01", "VG-L3-A2-01", "VG-L3-A3-01", "VG-L3-B2-02", "VG-L3-C1-01", "VG-L3-C1-02", "VG-L3-D1-02", "VG-L3-D2-01", "VG-L3-D2-02"],
+      "template": "VG-L4-TEMPLATE-TRACE",
+      "title": "STEP3 목표 대응 분석 — 64 후보 ↔ 40 정본 criteria ↔ 구현·DB·테스트·배포 근거",
+      "description": "goals/STEP3_INPUT_CRITERIA.md 의 필수 출력 6종(GOAL_CROSSWALK.csv · IMPLEMENTATION_INVENTORY.json · R0_GAP_REGISTER.md · DEPENDENCY_DAG.json · EVIDENCE_INDEX.json · REVIEW_DECISIONS.md)을 만든다. 읽기 전용.",
+      "priority": "P0",
+      "owner_id": "platform-goal",
+      "branch": "audit/platform-goal",
+      "worktree": "D:/workspace/Vocaflow-platform-audit",
+      "allowed_paths": ["docs/platform-audit/step3/**"],
+      "forbidden_paths": ["apps/**", "packages/**", "supabase/migrations/**", "goals/**"],
+      "db_scope": { "mode": "read", "targets": ["dev:jajenrevcbmrpaliomxv"] },
+      "acceptance": [
+        "40개 criteria 전부에 근거 위치 또는 미확인 사유",
+        "64개 후보 전부 mapped|split|merged|out_of_scope|unmapped",
+        "R0 필수 게이트의 장애·증거·담당·선행관계",
+        "Codex 독립 리뷰 기록"
+      ],
+      "source": "DL-0002"
+    },
+    {
+      "task_id": "T-0002",
+      "goal_id": "VG-L3-D1-01",
+      "template": "VG-L4-TEMPLATE-TRACE",
+      "title": "main ↔ 개발 DB migration 불일치 대조표(읽기 전용)",
+      "description": "DB schema_migrations 와 origin/main supabase/migrations 를 버전 단위로 대조. 미병합 브랜치별 출처, 번호 충돌, 적용 여부. DB 쓰기·migration 생성 없음.",
+      "priority": "P0",
+      "owner_id": "data-contract",
+      "allowed_paths": ["docs/platform-audit/step3/migration-diff/**"],
+      "forbidden_paths": ["supabase/migrations/**", "apps/**"],
+      "db_scope": { "mode": "read", "targets": ["dev:jajenrevcbmrpaliomxv"] },
+      "acceptance": ["버전별 DB 적용 여부·main 존재·출처 브랜치 표", "번호 충돌 목록", "병합 순서 제안(실행 아님)"]
+    },
+    {
+      "task_id": "T-0003",
+      "goal_id": "VG-L3-D2-01",
+      "template": "VG-L4-TEMPLATE-TEST",
+      "title": "CI 브라우저 E2E 와 배포를 실제로 실행되게 한다",
+      "description": "시크릿 미설정으로 건너뛰는 ci e2e·deploy 를 실제 실행 상태로. 시크릿 설정·배포는 사용자 승인 필요(DL-0004).",
+      "priority": "P0",
+      "owner_id": "release-quality",
+      "allowed_paths": [".github/workflows/**", "apps/web/e2e/**"],
+      "forbidden_paths": ["supabase/migrations/**"],
+      "approval_kinds": ["secret", "deploy"],
+      "acceptance": ["e2e job 실행 로그에 skip=0", "배포 run 의 실제 배포 로그 + 스모크 pass", "run id 기록"]
+    },
+    {
+      "task_id": "T-0004",
+      "goal_id": "VG-L3-D2-02",
+      "related_goal_ids": ["VG-L3-D1-01"],
+      "template": "VG-L4-TEMPLATE-CONTRACT",
+      "title": "익명 체험 → 가입 시 기록 연결: 현재 구현 여부 조사와 계약 초안",
+      "description": "R0-ANON-ACCOUNT 게이트. 익명 이벤트(funnel_events user_id null)·익명 세션이 가입 후 계정에 연결되는 코드 경로가 있는지 조사하고 보안·동의·중복 방지 계약을 쓴다. 구현 아님.",
+      "priority": "P1",
+      "owner_id": "r0-learning-journey",
+      "allowed_paths": ["docs/r0/anon-account/**"],
+      "forbidden_paths": ["supabase/migrations/**", "apps/web/src/**"],
+      "db_scope": { "mode": "read", "targets": ["dev:jajenrevcbmrpaliomxv"] },
+      "acceptance": ["현행 경로 유무와 코드 근거", "세션 고정 공격·동의·중복 방지 요구사항", "R0-ANON-ACCOUNT 증거 목록과의 대응"]
+    },
+    {
+      "task_id": "T-0005",
+      "goal_id": "VG-L3-A2-01",
+      "related_goal_ids": ["VG-L3-B2-02"],
+      "template": "VG-L4-TEMPLATE-TEST",
+      "title": "읽기 완료 기록 0 의 원인 재현(texts.status completed)",
+      "description": "STEP 1 측정: texts completed 0. complete-chapter.ts 경로를 로컬에서 실제로 밟아 기록이 남는지 재현해 결함/미사용을 가른다.",
+      "priority": "P1",
+      "owner_id": "r0-learning-journey",
+      "allowed_paths": ["docs/r0/reading-completion/**", "apps/web/e2e/**"],
+      "forbidden_paths": ["supabase/migrations/**"],
+      "db_scope": { "mode": "read", "targets": ["dev:jajenrevcbmrpaliomxv"] },
+      "acceptance": ["재현 절차와 결과(결함 또는 미사용)", "결함이면 원인 파일:줄"]
+    }
+  ]
+}

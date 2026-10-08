@@ -1,0 +1,41 @@
+{
+  "schema": "vfc-canon-manifest/1",
+  "canon_version": "1.1.0",
+  "approved_at": "2026-10-09",
+  "sealed_at": "2026-10-08T21:32:04.547Z",
+  "sealed_by": "platform-goal",
+  "reseal_decision": null,
+  "source": "C:/Users/Administrator/Downloads/Vocaflow_STEP2_FINAL_APPROVED (1)/",
+  "files": {
+    "PROJECT_GOAL.md": {
+      "sha256": "f98b9a281dd7216c9a144cd2389c0c69edac9189ea54c0cd6cc45d2dc52ddc1d",
+      "bytes": 12582,
+      "role": "canon"
+    },
+    "PRODUCT_STRATEGY.md": {
+      "sha256": "48ca0ab7b512d9cb5b2b4f7e8c7c7725455d144bda15a8edde5c27a09d4471c1",
+      "bytes": 11940,
+      "role": "canon"
+    },
+    "GOAL_ACCEPTANCE_CRITERIA.json": {
+      "sha256": "781e5e7e56e8b975537286376778acedfa9d97361f48340d19847a15efd41561",
+      "bytes": 36365,
+      "role": "canon"
+    },
+    "AI_WORKFLOW_REQUIREMENTS.md": {
+      "sha256": "efa7e5841fa0015c1bb15923f532b4b30f19ea3b7dda283ff1cc02a161a56605",
+      "bytes": 12819,
+      "role": "canon"
+    },
+    "GOAL_APPROVAL.md": {
+      "sha256": "0ad3d611dd2b5c8d3564241d372e6bb252c5f1b928a9669e65f8d557503c36f0",
+      "bytes": 3634,
+      "role": "canon"
+    },
+    "STEP3_INPUT_CRITERIA.md": {
+      "sha256": "c6f81825dac82906c9703854d756e9f734d4a167fdcd5a67fed017f2ba0657ca",
+      "bytes": 2788,
+      "role": "step_input"
+    }
+  }
+}

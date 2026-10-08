@@ -1,0 +1,14 @@
+# 실행 상태 — Git 에 올리지 않는다(세션마다 바뀐다). 복구는 runtime/checkpoints 와 .bak
+state/*.json
+state/*.bak
+state/*.tmp
+runtime/locks/
+runtime/checkpoints/
+runtime/logs/
+# ChatGPT 응답 수신함 — 가져오면 planning/archive 로 이동(그쪽은 버전 관리)
+planning/responses/*
+!planning/responses/.gitkeep
+# 비밀값은 이 공간에 두지 않는다 — 실수 방지
+.env*
+*.pem
+*.key

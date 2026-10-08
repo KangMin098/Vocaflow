@@ -1,0 +1,1217 @@
+{
+  "schema_version": "1.1.0",
+  "document_status": "approved_strategy_baseline_not_implementation_verified",
+  "created_at": "2026-10-09",
+  "source_scope": [
+    "STEP1 supplied summary 66 lines (not the 10 raw audit outputs)",
+    "public learning research, cited in Markdown files"
+  ],
+  "verification_notice": "User approved only R0 strategic choices on 2026-10-09. STEP 1 summary is reported evidence, not runtime inspection. No technical release or educational effect has been validated.",
+  "status_vocabulary": [
+    "unknown",
+    "not_evaluated",
+    "not_started",
+    "in_progress",
+    "implemented_unverified",
+    "verified_technical",
+    "validated_usability",
+    "validated_learning",
+    "validated_causal_effect",
+    "blocked_external",
+    "failed",
+    "deferred"
+  ],
+  "evidence_requirements": [
+    "timestamp",
+    "environment",
+    "commit_sha",
+    "protocol_or_command",
+    "pass_fail_skip",
+    "artifact_ref",
+    "limitations",
+    "reviewer"
+  ],
+  "release_gates": [
+    {
+      "id": "R0-CORE-JOURNEY",
+      "condition": "중등 일반 독해 PC 웹: 비로그인 체험→선택적 가입/기록 연결→독해/Practice→피드백→복습→미노출 전이→재평가→이력의 실제 배포 종단 완료",
+      "required_evidence": [
+        "E2E run with skip=0",
+        "persistent event chain",
+        "deployment smoke",
+        "anonymous-to-account migration test with privacy/consent checks",
+        "unseen content independence evidence"
+      ],
+      "status": "not_evaluated"
+    },
+    {
+      "id": "R0-CONTENT",
+      "condition": "학습자에게 제공하는 샘플 자료의 권한, 출처, QA 확인",
+      "required_evidence": [
+        "content lineage",
+        "rights assessment"
+      ],
+      "status": "not_evaluated"
+    },
+    {
+      "id": "R0-SECURITY",
+      "condition": "권한, 개인정보, 위험한 데이터 변경 및 접근성 중대 결함 없음",
+      "required_evidence": [
+        "security/RLS/a11y test reports"
+      ],
+      "status": "not_evaluated"
+    },
+    {
+      "id": "R0-DEPLOY",
+      "condition": "실제 배포와 핵심 E2E가 실행됨; 스킵은 실패 처리",
+      "required_evidence": [
+        "CI logs with explicit skip count",
+        "production smoke"
+      ],
+      "status": "not_evaluated"
+    },
+    {
+      "id": "PILOT-USABILITY",
+      "condition": "외부 사용자 수행 연구 완료, R0 기술 출시와 별도",
+      "required_evidence": [
+        "real-user consent/protocol",
+        "usability observations"
+      ],
+      "status": "not_evaluated"
+    },
+    {
+      "id": "RESEARCH-LEARNING",
+      "condition": "실제 참가자 학습 효과 분석과 보고, 제품 출시와 별도",
+      "required_evidence": [
+        "preregistered evaluation design",
+        "baseline/post/delayed/transfer data"
+      ],
+      "status": "not_evaluated"
+    },
+    {
+      "id": "R0-ANON-ACCOUNT",
+      "condition": "익명 체험과 가입 이후 기록의 보안/동의/연결·중복 방지 검증",
+      "required_evidence": [
+        "anonymous session authorization tests",
+        "data migration integrity and consent test",
+        "session fixation protection check"
+      ],
+      "status": "not_evaluated"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "VG-L0",
+      "parent_id": null,
+      "level": 0,
+      "title": "개인화 영어 학습 플랫폼 가치",
+      "phase": "vision",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L0-AC1",
+          "condition": "검증 가능한 학습 수행 개선과 운영 신뢰성이 다양한 목표 학습자에게 확인된다",
+          "verification_method": "장기 다집단 결과/운영 감사",
+          "required_evidence": [
+            "실제 학습자 코호트·평가 프로토콜·서비스 기록"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L1-A",
+        "VG-L1-B",
+        "VG-L1-C",
+        "VG-L1-D"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L1-A",
+      "parent_id": "VG-L0",
+      "level": 1,
+      "title": "학습자 성취",
+      "phase": "long_term",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L1-A-AC1",
+          "condition": "목표별 독립 수행·유지·전이·재평가 증거가 있다",
+          "verification_method": "사전 정의한 성과 분석",
+          "required_evidence": [
+            "기준/후속/지연/전이 평가"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-A1",
+        "VG-L2-A2",
+        "VG-L2-A3"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L1-B",
+      "parent_id": "VG-L0",
+      "level": 1,
+      "title": "목적/수준별 학습 경험",
+      "phase": "release",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L1-B-AC1",
+          "condition": "대상별 학습 경로가 접근 가능하고 실제 완주할 수 있다",
+          "verification_method": "사용자 여정/E2E/접근성",
+          "required_evidence": [
+            "대상별 시나리오 및 기록"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-B1",
+        "VG-L2-B2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L1-C",
+      "parent_id": "VG-L0",
+      "level": 1,
+      "title": "콘텐츠 생태계",
+      "phase": "release",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L1-C-AC1",
+          "condition": "공개 콘텐츠가 적격성·품질·계보 계약을 충족한다",
+          "verification_method": "출처 및 공개 게이트 감사",
+          "required_evidence": [
+            "원천-변형-게시 연계 기록"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-C1",
+        "VG-L2-C2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L1-D",
+      "parent_id": "VG-L0",
+      "level": 1,
+      "title": "검증 가능한 운영",
+      "phase": "release",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L1-D-AC1",
+          "condition": "기술 품질과 학습 성과 상태가 분리되어 증빙된다",
+          "verification_method": "릴리스/권한/실험 점검",
+          "required_evidence": [
+            "테스트·배포·권한 및 실험 로그"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D1",
+        "VG-L2-D2",
+        "VG-L2-D3"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L2-A1",
+      "parent_id": "VG-L1-A",
+      "level": 2,
+      "title": "진단/목표 모델",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-A1-AC1",
+          "condition": "목표 설정 및 불확실성 반영 계획을 생성한다",
+          "verification_method": "시나리오 테스트",
+          "required_evidence": [
+            "목표-계획-진단 상태 기록"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-A1-01",
+        "VG-L3-A1-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L2-A2",
+      "parent_id": "VG-L1-A",
+      "level": 2,
+      "title": "연습/피드백/기억",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-A2-AC1",
+          "condition": "영역별 실제 과제와 복습이 사용 가능하다",
+          "verification_method": "E2E/기록 교차 검사",
+          "required_evidence": [
+            "응답·피드백·복습 이벤트"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-A2-01",
+        "VG-L3-A2-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L2-A3",
+      "parent_id": "VG-L1-A",
+      "level": 2,
+      "title": "전이/재평가",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-A3-AC1",
+          "condition": "미노출 과제와 비교 가능한 재평가를 실행한다",
+          "verification_method": "평가 시나리오/데이터 검증",
+          "required_evidence": [
+            "신규 과제 ID·평가 조건·결과"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-A3-01",
+        "VG-L3-A3-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L2-B1",
+      "parent_id": "VG-L1-B",
+      "level": 2,
+      "title": "학습 환경군",
+      "phase": "R1",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-B1-AC1",
+          "condition": "목적별 경로가 공통 학습 상태에 연결된다",
+          "verification_method": "경로별 인수 테스트",
+          "required_evidence": [
+            "환경-학습 상태 매핑"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-B1-01",
+        "VG-L3-B1-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L2-B2",
+      "parent_id": "VG-L1-B",
+      "level": 2,
+      "title": "학습자 관점 통합",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-B2-AC1",
+          "condition": "완료·다음 할 일·이력이 일관되게 표시된다",
+          "verification_method": "UI/데이터 통합 E2E",
+          "required_evidence": [
+            "학습 기록 조회/딥링크"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-B2-01",
+        "VG-L3-B2-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L2-C1",
+      "parent_id": "VG-L1-C",
+      "level": 2,
+      "title": "콘텐츠 계보/권한",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-C1-AC1",
+          "condition": "배포 자료의 계보와 공개 판정이 존재한다",
+          "verification_method": "공개 게이트 점검",
+          "required_evidence": [
+            "권한·출처·변환·검수 기록"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-C1-01",
+        "VG-L3-C1-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L2-C2",
+      "parent_id": "VG-L1-C",
+      "level": 2,
+      "title": "수요에 맞는 공급",
+      "phase": "R1",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-C2-AC1",
+          "condition": "콘텐츠 사용과 공급 우선순위를 비교한다",
+          "verification_method": "샘플링/대시보드 검증",
+          "required_evidence": [
+            "콘텐츠 사용·미발행 이유"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-C2-01",
+        "VG-L3-C2-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L2-D1",
+      "parent_id": "VG-L1-D",
+      "level": 2,
+      "title": "측정/이벤트 계약",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-D1-AC1",
+          "condition": "학습 이벤트가 정확히 연결되고 개발/실사용 데이터가 분리된다",
+          "verification_method": "계측/중복/스키마 테스트",
+          "required_evidence": [
+            "계보 ID·이벤트·DB 정합 로그"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-D1-01",
+        "VG-L3-D1-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L2-D2",
+      "parent_id": "VG-L1-D",
+      "level": 2,
+      "title": "출시 품질",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-D2-AC1",
+          "condition": "필수 E2E/배포/보안이 실제 통과한다",
+          "verification_method": "CI·배포·접근권한 검증",
+          "required_evidence": [
+            "실행 로그·배포 ID·보안 점검"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-D2-01",
+        "VG-L3-D2-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L2-D3",
+      "parent_id": "VG-L1-D",
+      "level": 2,
+      "title": "효과 증거 관리",
+      "phase": "pilot",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L2-D3-AC1",
+          "condition": "실제 사용자 사용성과 학습 효과 결과를 구분해 평가한다",
+          "verification_method": "사용성/평가 프로토콜",
+          "required_evidence": [
+            "실사용자 수행/결과·한계"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L3-D3-01",
+        "VG-L3-D3-02"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L3-A1-01",
+      "parent_id": "VG-L2-A1",
+      "level": 3,
+      "title": "목표/진단에서 계획 생성",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-A1-01-AC1",
+          "condition": "목표 선택 후 적절한 첫 과제가 추천되고 원인이 불확실하면 이를 표시한다",
+          "verification_method": "통합 및 UI 테스트",
+          "required_evidence": [
+            "목표/경로/설명 이벤트"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-A1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-A1-02",
+      "parent_id": "VG-L2-A1",
+      "level": 3,
+      "title": "불량 진단 데이터 처리",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-A1-02-AC1",
+          "condition": "의심·제외 기록으로 확정 진단을 만들지 않는다",
+          "verification_method": "품질 가드 테스트",
+          "required_evidence": [
+            "분류와 감사 기록"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-A1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-A2-01",
+      "parent_id": "VG-L2-A2",
+      "level": 3,
+      "title": "영역별 Practice",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-A2-01-AC1",
+          "condition": "어휘·문장·읽기·듣기 타입의 측정 계약을 별도로 정의하고 R0 읽기 과제를 통과한다",
+          "verification_method": "타입 계약 및 R0 E2E",
+          "required_evidence": [
+            "실제 응답과 피드백"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-A2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-A2-02",
+      "parent_id": "VG-L2-A2",
+      "level": 3,
+      "title": "강의/게임 선택 지원",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-A2-02-AC1",
+          "condition": "강의·게임 없이도 R0 과제를 완결하고 사용 시 재생과 연습 성과를 구분한다",
+          "verification_method": "분기 E2E",
+          "required_evidence": [
+            "재생/학습 분리 이벤트"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-A2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-A3-01",
+      "parent_id": "VG-L2-A3",
+      "level": 3,
+      "title": "미노출 전이 과제",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-A3-01-AC1",
+          "condition": "기존 학습과 다른 콘텐츠/아이템 ID를 갖는 전이 과제를 수행한다",
+          "verification_method": "종단 E2E",
+          "required_evidence": [
+            "콘텐츠·문항 ID와 전이 결과"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-A3"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-A3-02",
+      "parent_id": "VG-L2-A3",
+      "level": 3,
+      "title": "기준선 대비 재평가",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-A3-02-AC1",
+          "condition": "평가 조건과 불확실성을 함께 저장하고 과장 없이 표시한다",
+          "verification_method": "평가 데이터 검증",
+          "required_evidence": [
+            "기준선/후속 결과/조건"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-A3"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-B1-01",
+      "parent_id": "VG-L2-B1",
+      "level": 3,
+      "title": "목적별 진입점",
+      "phase": "R1",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-B1-01-AC1",
+          "condition": "일반 읽기와 시험 대비가 동일 화면만 강제하지 않고 적절한 분기점을 갖는다",
+          "verification_method": "사용자 플로우 리뷰",
+          "required_evidence": [
+            "목적별 진입 매핑"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-B1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L3-B1-02",
+      "parent_id": "VG-L2-B1",
+      "level": 3,
+      "title": "학습 프로필에 연결된 선택 모드",
+      "phase": "R1",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-B1-02-AC1",
+          "condition": "선택적 게임·강의·교실 기록이 기존 학습을 손상시키지 않는다",
+          "verification_method": "이벤트/회귀 E2E",
+          "required_evidence": [
+            "공통 조회와 원천 이벤트"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-B1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L3-B2-01",
+      "parent_id": "VG-L2-B2",
+      "level": 3,
+      "title": "수능/공용 기록 통합 조회",
+      "phase": "R1",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-B2-01-AC1",
+          "condition": "원자료·척도는 보존하면서 한 학습자 내역에서 탐색한다",
+          "verification_method": "통합 조회 테스트",
+          "required_evidence": [
+            "원본 참조와 조회 결과"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-B2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L3-B2-02",
+      "parent_id": "VG-L2-B2",
+      "level": 3,
+      "title": "오늘의 학습/진행",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-B2-02-AC1",
+          "condition": "오늘 할 일, 완료, 다음 행동, 실패 복귀를 명확히 보여준다",
+          "verification_method": "UI E2E/실사용자 과제",
+          "required_evidence": [
+            "실행 화면/진행 이벤트"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-B2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-C1-01",
+      "parent_id": "VG-L2-C1",
+      "level": 3,
+      "title": "콘텐츠 계보",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-C1-01-AC1",
+          "condition": "R0 게시 대상 자료의 원천·변형·적합성·버전을 조회 가능하다",
+          "verification_method": "게시 데이터 샘플 감사",
+          "required_evidence": [
+            "계보/검수 레코드"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-C1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-C1-02",
+      "parent_id": "VG-L2-C1",
+      "level": 3,
+      "title": "권한/품질 게시 게이트",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-C1-02-AC1",
+          "condition": "미확인 또는 부적격 자료는 공개할 수 없다",
+          "verification_method": "음성/양성 게이트 테스트",
+          "required_evidence": [
+            "권한 상태 및 게시 로그"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-C1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-C2-01",
+      "parent_id": "VG-L2-C2",
+      "level": 3,
+      "title": "수요 기반 콘텐츠 지표",
+      "phase": "R1",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-C2-01-AC1",
+          "condition": "학습 수요와 이용률을 공급 데이터에 대응한다",
+          "verification_method": "계측 및 대시보드 검사",
+          "required_evidence": [
+            "수요/게시/시도 데이터"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-C2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L3-C2-02",
+      "parent_id": "VG-L2-C2",
+      "level": 3,
+      "title": "중복/적체 정리",
+      "phase": "R1",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-C2-02-AC1",
+          "condition": "기사·구문·만화 유지/동결/폐기를 검토해 결정 기록이 있다",
+          "verification_method": "근거 검토 및 ADR",
+          "required_evidence": [
+            "의사결정/품질 감사"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-C2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L3-D1-01",
+      "parent_id": "VG-L2-D1",
+      "level": 3,
+      "title": "이벤트 계약 및 정합",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-D1-01-AC1",
+          "condition": "핵심 여정 이벤트에 안정된 ID가 있고 중복 생성되지 않는다",
+          "verification_method": "통합/DB 테스트",
+          "required_evidence": [
+            "스키마, 이벤트 연결, 마이그레이션 검증"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-D1-02",
+      "parent_id": "VG-L2-D1",
+      "level": 3,
+      "title": "실사용/테스트 데이터 분리",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-D1-02-AC1",
+          "condition": "QA·합성 데이터가 사용자 지표와 효과 평가에서 제외된다",
+          "verification_method": "데이터 lineage 및 권한 테스트",
+          "required_evidence": [
+            "user_type 및 분석 쿼리"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-D2-01",
+      "parent_id": "VG-L2-D2",
+      "level": 3,
+      "title": "실행되는 CI/E2E/배포",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-D2-01-AC1",
+          "condition": "핵심 E2E skip=0, 실제 배포 후 스모크 pass, 실행 ID가 남는다",
+          "verification_method": "CI+배포 확인",
+          "required_evidence": [
+            "E2E run ID, 배포 로그"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-D2-02",
+      "parent_id": "VG-L2-D2",
+      "level": 3,
+      "title": "권한/접근성/개인정보",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-D2-02-AC1",
+          "condition": "필수 접근권한과 데이터 처리·접근성 점검에 중대 결함이 없다",
+          "verification_method": "보안/접근성/데이터 테스트",
+          "required_evidence": [
+            "역할 매트릭스 및 점검 기록"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D2"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-D3-01",
+      "parent_id": "VG-L2-D3",
+      "level": 3,
+      "title": "실제 사용자 사용성",
+      "phase": "pilot",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-D3-01-AC1",
+          "condition": "대상 외부 사용자에게서 학습 여정 과제 수행/오류/이탈 증거를 수집한다",
+          "verification_method": "관찰 사용성 연구",
+          "required_evidence": [
+            "동의·프로토콜·비식별 기록"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D3"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L3-D3-02",
+      "parent_id": "VG-L2-D3",
+      "level": 3,
+      "title": "학습 효과 평가",
+      "phase": "research",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-D3-02-AC1",
+          "condition": "사전등록한 기준선/후속/지연/전이 연구를 실시하고 한계를 보고한다",
+          "verification_method": "분석 프로토콜",
+          "required_evidence": [
+            "실제 참가자 평가·표본·분석"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D3"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L4-TEMPLATE-CONTRACT",
+      "parent_id": "VG-L3-*",
+      "level": 4,
+      "title": "계약 정의",
+      "phase": "per_task",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L4-TEMPLATE-CONTRACT-AC1",
+          "condition": "서비스/데이터/실패 조건 검토",
+          "verification_method": "해당 작업의 증거 검토",
+          "required_evidence": [
+            "승인 계약과 테스트 목록"
+          ],
+          "status": "not_instantiated"
+        }
+      ],
+      "dependencies": [
+        "해당 L3의 계약/선행 태스크"
+      ],
+      "observed_status": "template",
+      "evidence_refs": [],
+      "evidence_class": "template_only",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L4-TEMPLATE-BUILD",
+      "parent_id": "VG-L3-*",
+      "level": 4,
+      "title": "최소 구현",
+      "phase": "per_task",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L4-TEMPLATE-BUILD-AC1",
+          "condition": "코드·마이그레이션 리뷰",
+          "verification_method": "해당 작업의 증거 검토",
+          "required_evidence": [
+            "diff와 변경 SHA"
+          ],
+          "status": "not_instantiated"
+        }
+      ],
+      "dependencies": [
+        "해당 L3의 계약/선행 태스크"
+      ],
+      "observed_status": "template",
+      "evidence_refs": [],
+      "evidence_class": "template_only",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L4-TEMPLATE-TEST",
+      "parent_id": "VG-L3-*",
+      "level": 4,
+      "title": "실제 검증",
+      "phase": "per_task",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L4-TEMPLATE-TEST-AC1",
+          "condition": "unit/integration/E2E 수행",
+          "verification_method": "해당 작업의 증거 검토",
+          "required_evidence": [
+            "실행 ID와 pass/fail/skip 로그"
+          ],
+          "status": "not_instantiated"
+        }
+      ],
+      "dependencies": [
+        "해당 L3의 계약/선행 태스크"
+      ],
+      "observed_status": "template",
+      "evidence_refs": [],
+      "evidence_class": "template_only",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L4-TEMPLATE-TRACE",
+      "parent_id": "VG-L3-*",
+      "level": 4,
+      "title": "근거·문서화",
+      "phase": "per_task",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L4-TEMPLATE-TRACE-AC1",
+          "condition": "증거와 수용 기준 연결",
+          "verification_method": "해당 작업의 증거 검토",
+          "required_evidence": [
+            "evidence manifest"
+          ],
+          "status": "not_instantiated"
+        }
+      ],
+      "dependencies": [
+        "해당 L3의 계약/선행 태스크"
+      ],
+      "observed_status": "template",
+      "evidence_refs": [],
+      "evidence_class": "template_only",
+      "blocking_for_R0": false
+    },
+    {
+      "id": "VG-L4-TEMPLATE-DELIVER",
+      "parent_id": "VG-L3-*",
+      "level": 4,
+      "title": "작업 단위 배포",
+      "phase": "per_task",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L4-TEMPLATE-DELIVER-AC1",
+          "condition": "목표-리뷰-커밋/push 정합 확인",
+          "verification_method": "해당 작업의 증거 검토",
+          "required_evidence": [
+            "리뷰와 commit/push 참조"
+          ],
+          "status": "not_instantiated"
+        }
+      ],
+      "dependencies": [
+        "해당 L3의 계약/선행 태스크"
+      ],
+      "observed_status": "template",
+      "evidence_refs": [],
+      "evidence_class": "template_only",
+      "blocking_for_R0": false
+    }
+  ],
+  "policy": {
+    "release_gate_all_required": "pass",
+    "skip_is_pass": false,
+    "unknown_is_pass": false,
+    "synthetic_learners_count_as_real": false,
+    "automatically_claim_learning_effect": false,
+    "l4_task_instantiation_required": true
+  },
+  "approved_at": "2026-10-09",
+  "strategic_decisions": [
+    {
+      "decision_id": "SD-R0-01",
+      "topic": "R0 first learner",
+      "approved_choice": "중등 일반 영어·독해",
+      "approval_status": "approved",
+      "approval_date": "2026-10-09",
+      "implementation_status": "not_evaluated"
+    },
+    {
+      "decision_id": "SD-R0-02",
+      "topic": "acquisition",
+      "approved_choice": "비로그인 체험 → 가입 → 학습",
+      "approval_status": "approved",
+      "approval_date": "2026-10-09",
+      "implementation_status": "not_evaluated"
+    },
+    {
+      "decision_id": "SD-R0-03",
+      "topic": "release platform",
+      "approved_choice": "PC 웹 우선; 모바일은 R0 필수 범위에서 제외",
+      "approval_status": "approved",
+      "approval_date": "2026-10-09",
+      "implementation_status": "not_evaluated"
+    },
+    {
+      "decision_id": "SD-R0-04",
+      "topic": "teacher/payment",
+      "approved_choice": "첫 학습 여정 완성 후 교실·결제 검토; R0 필수 범위에서 제외",
+      "approval_status": "approved",
+      "approval_date": "2026-10-09",
+      "implementation_status": "not_evaluated"
+    }
+  ],
+  "r0_scope": {
+    "target_learner": "middle_school_general_english_reading",
+    "entry": "anonymous_preview_to_optional_signup_to_learning",
+    "platform": "pc_web_first",
+    "deferred": [
+      "mobile_optimized_experience",
+      "classroom",
+      "payments"
+    ],
+    "required_journey": [
+      "anonymous_preview",
+      "registration_login_with_safe_state_transfer",
+      "read",
+      "practice",
+      "feedback",
+      "review",
+      "unseen_transfer",
+      "reassessment",
+      "history"
+    ],
+    "release_approval": "separate_evidence_gated_decision"
+  },
+  "step3_input_contract": {
+    "required_documents": [
+      "PROJECT_GOAL.md",
+      "PRODUCT_STRATEGY.md",
+      "GOAL_ACCEPTANCE_CRITERIA.json",
+      "AI_WORKFLOW_REQUIREMENTS.md",
+      "STEP1 audit raw outputs (10)",
+      "STEP1 GOAL_HIERARCHY_DRAFT.json",
+      "STEP1 PLATFORM_GAP_ANALYSIS.md"
+    ],
+    "required_runtime_evidence": [
+      "baseline_sha",
+      "branch_inventory",
+      "route_and_feature_inventory",
+      "database_schema_and_migration_diff_readonly",
+      "test_ci_deployment_logs",
+      "content_rights_lineage_sample"
+    ],
+    "missing_inputs_rule": "flag_not_available_never_infer",
+    "outputs": [
+      "STEP3_GOAL_CROSSWALK.csv",
+      "STEP3_IMPLEMENTATION_INVENTORY.json",
+      "STEP3_R0_GAP_REGISTER.md",
+      "STEP3_DEPENDENCY_DAG.json",
+      "STEP3_EVIDENCE_INDEX.json",
+      "STEP3_REVIEW_DECISIONS.md"
+    ],
+    "completion": "all 40 existing criteria mapped to evidence or gap, critical R0 dependency traced, independently reviewed"
+  }
+}
