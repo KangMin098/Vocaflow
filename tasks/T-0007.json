@@ -1,0 +1,22 @@
+{
+  "task_id": "T-0007",
+  "goal_id": "VG-L3-D1-02",
+  "related_goal_ids": ["VG-L3-D2-01"],
+  "template": "VG-L4-TEMPLATE-TEST",
+  "title": "PR #159 CI verify 실패 수정 — 역할 조회를 OFFSET 페이징 없이(admin·curator 만 필터)",
+  "description": "offset-paging-budget 가드가 retention.ts 의 user_profiles pagedSelect 를 OFFSET 후보로 센다(예산 초과). 역할 판정 대상은 admin·curator 뿐이므로 그 역할만 .in() 으로 필터해 읽고, 상한을 넘으면 못 쟀음(null)으로 한다. 예산은 올리지 않는다.",
+  "priority": "P0",
+  "owner_id": "data-contract",
+  "branch": "feat/qa-account-separation",
+  "worktree": "D:/workspace/Vocaflow-wf4-d102",
+  "allowed_paths": ["apps/web/src/lib/admin/retention.ts", "apps/web/src/lib/admin/__tests__/retention-classification.test.ts", "docs/ADMIN_CONSOLE.md"],
+  "forbidden_paths": ["supabase/migrations/**", "apps/web/src/lib/__tests__/offset-paging-budget.test.ts", "scripts/lib/scan-offset-paging.mjs"],
+  "db_scope": { "mode": "none", "targets": [] },
+  "acceptance": [
+    "offset-paging-budget 테스트 통과(예산·스캐너 무수정)",
+    "운영 역할 계정만 조회하고 1,000 이상이면 null(못 쟀음) — 회귀 테스트",
+    "pnpm --filter web test 전체 · typecheck · lint 통과(skip 은 DB 통합만, 목록 기록)",
+    "PR #159 head CI 의 verify job 성공(e2e 는 시크릿 미설정 건너뜀으로 별도 표기)"
+  ],
+  "depends_on": ["T-0006"]
+}

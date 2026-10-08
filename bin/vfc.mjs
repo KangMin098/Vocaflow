@@ -109,7 +109,7 @@ const HELP = `vfc — Vocaflow AI Control
 ChatGPT (파일 교환 · API 없음)
   planning request --topic .. --question-file q.md [--kind review|plan] [--task T-..] [--goals VG-..] [--attach f1,f2] --by O
   planning validate <REQ-id>
-  planning import <REQ-id> [--normalize-approval]   검증 통과 시 PROPOSED/OPEN_QUESTION 으로만 기록 · 정규화는 requires_user_approval→true 만(기록 남김)
+  planning import <REQ-id> [--record-conflict]   검증 통과 시 PROPOSED/OPEN_QUESTION 으로만 · requires_user_approval≠true 제안은 approval_conflict 로 기록(관련 작업 실행 차단)
 `
 
 function main() {
@@ -267,6 +267,22 @@ function main() {
       return out(t.run.locks.map((l) => ({ name: l.name, ...heartbeat(l.name, l.token) })), opt)
     }
 
+    case 'decision resolve-conflict': {
+      // approval_conflict 를 닫는다 — 사용자 APPROVED 결정(--decision)이 근거여야 한다. ChatGPT 응답은 근거가 아니다.
+      return out(
+        withState((s) => {
+          const c = s.decisionLog.entries.find((e) => e.decision_id === pos[0])
+          if (!c || c.kind !== 'approval_conflict' || c.status !== 'OPEN_QUESTION') throw new T.RuleError('BAD_DECISION', `${pos[0]} 는 열린 approval_conflict 가 아니다`)
+          const d = s.decisionLog.entries.find((e) => e.decision_id === opt.decision)
+          if (!d || d.status !== 'APPROVED' || d.approved_by !== 'user') throw new T.RuleError('APPROVAL_REQUIRED', `충돌 해소에는 사용자 APPROVED 결정이 필요하다(${opt.decision})`)
+          c.status = 'SUPERSEDED'
+          c.resolved_by = opt.decision
+          c.resolved_at = new Date().toISOString()
+          return c
+        }, { event: 'decision.resolve_conflict', id: pos[0], by }),
+        opt,
+      )
+    }
     case 'decision add': {
       // RECORDED · PROPOSED · OPEN_QUESTION 만. APPROVED 는 사용자 승인 근거(--approved-by user --ref) 가 있어야 하고 사람이 실행한다
       const entry = { status: opt.status, kind: opt.kind, summary: opt.summary, source: opt.source, by, affects_goal_ids: list(opt.goals) }
@@ -315,21 +331,25 @@ function main() {
       } catch (e) {
         throw new T.RuleError('BAD_RESPONSE', `응답 구조를 읽지 못했다: ${e.message}`)
       }
-      // --normalize-approval: proposed_decisions 의 requires_user_approval 을 **true 로만** 바꾼다(엄격화).
-      // ChatGPT 는 결정을 승인할 수 없으므로 false 는 의미가 없다 — 승인 요구를 늘리는 방향의 변환만 허용하고, 무엇을 바꿨는지 기록한다.
-      // 원문 파일은 그대로 보관한다(sha256 은 원문 기준).
-      const normalized = []
-      if (opt['normalize-approval']) {
-        ;(resp.proposed_decisions || []).forEach((d, i) => {
+      // WF-S5 정책: requires_user_approval 이 true 가 아닌 제안을 **고쳐서** 받지 않는다(승인으로 오인될 수 있다).
+      // --record-conflict 를 주면 그 제안들을 approval_conflict(OPEN_QUESTION)로 따로 기록하고 나머지만 받는다 —
+      // 관련 작업은 사람이 충돌을 풀 때까지 실행되지 않는다(lib/feasibility.mjs no_approval_conflict).
+      // 원문 파일은 그대로 보관한다(sha256 은 원문 기준). 옛 --normalize-approval 은 폐지했다.
+      if (opt['normalize-approval']) throw new T.RuleError('DEPRECATED', '--normalize-approval 은 폐지됐다(WF-S5): 값을 고쳐 받지 않는다 — --record-conflict 로 충돌을 기록하라')
+      const conflicts = []
+      if (opt['record-conflict']) {
+        resp.proposed_decisions = (resp.proposed_decisions || []).filter((d, i) => {
           if (d && d.requires_user_approval !== true) {
-            normalized.push(`proposed_decisions[${i}].requires_user_approval ${JSON.stringify(d.requires_user_approval)}→true`)
-            d.requires_user_approval = true
+            conflicts.push({ index: i, value: d.requires_user_approval, decision: d })
+            return false
           }
+          return true
         })
       }
+      const normalized = []
       const v = P.validateResponse(resp, { expectRequestId: id })
       if (!v.ok) throw new T.RuleError('BAD_RESPONSE', `응답 검증 실패:\n  ${v.errors.join('\n  ')}`)
-      if (sub === 'validate') return out({ ok: true, request_id: id, verdict: resp.verdict, findings: resp.findings.length, proposals: resp.proposed_decisions.length, normalized }, opt)
+      if (sub === 'validate') return out({ ok: true, request_id: id, verdict: resp.verdict, findings: resp.findings.length, proposals: resp.proposed_decisions.length, conflicts: conflicts.length }, opt)
       fs.mkdirSync(p.archive(), { recursive: true })
       const dest = path.join(p.archive(), path.basename(f))
       const hash = sha256File(f)
@@ -348,7 +368,24 @@ function main() {
             throw new T.RuleError('ALREADY_IMPORTED', `${id} 응답은 이미 가져왔다(다른 내용 sha256 ${prev.sha256.slice(0, 12)}…) — 새 검토는 새 요청으로`)
           }
           const rel = path.relative(root(), dest).split(path.sep).join('/')
+          const header = P.readRequestHeader(id)
           const entries = P.toDecisionEntries(resp, rel).map((e) => T.logDecision(s, { ...e, response_sha256: hash, by, ...(normalized.length ? { normalized } : {}) }))
+          for (const c of conflicts) {
+            entries.push(
+              T.logDecision(s, {
+                status: 'OPEN_QUESTION',
+                kind: 'approval_conflict',
+                source: 'chatgpt',
+                request_id: id,
+                response_sha256: hash,
+                by,
+                summary: `ChatGPT 제안 ${c.index} 이 requires_user_approval=${JSON.stringify(c.value)} — 로컬 정책상 모든 ChatGPT 제안은 사용자 승인이 필요하다. 사람이 이 제안을 승인(APPROVED 결정)하거나 기각할 때까지 관련 작업 실행 차단: ${c.decision.summary}`,
+                affects_goal_ids: c.decision.affects_goal_ids || [],
+                affects_task_ids: header?.task_id ? [header.task_id] : [],
+                original_proposal: c.decision,
+              }),
+            )
+          }
           s.decisionLog.imported_responses[id] = { sha256: hash, at: new Date().toISOString(), decision_ids: entries.map((e) => e.decision_id), normalized }
           ctx.afterCommit(archiveFiles)
           return { entries }

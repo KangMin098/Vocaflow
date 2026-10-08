@@ -1,0 +1,161 @@
+{
+  "pr": 159,
+  "head_sha": "37132a83a8c5dcbe4f97fd425989afb350615207",
+  "pr_state": "OPEN",
+  "merge_state": "CLEAN",
+  "fetched_at": "2026-10-08T23:34:25.015Z",
+  "jobs": [
+    {
+      "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+      "state": "success",
+      "run_id": "37859442540",
+      "job_id": "113591409845",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": []
+    },
+    {
+      "name": "build",
+      "state": "success",
+      "run_id": "37859442662",
+      "job_id": "113591409330",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": [
+        "build\tRun pnpm install --frozen-lockfile\t2026-10-08T23:26:59.9868951Z Lockfile is up to date, resolution step is skipped"
+      ]
+    },
+    {
+      "name": "TypeScript 0 error",
+      "state": "success",
+      "run_id": "37859442540",
+      "job_id": "113591409839",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": [
+        "TypeScript 0 error\tRun pnpm install --frozen-lockfile\t2026-10-08T23:26:53.6470751Z Lockfile is up to date, resolution step is skipped"
+      ]
+    },
+    {
+      "name": "verify",
+      "state": "success",
+      "run_id": "37859442662",
+      "job_id": "113591409491",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": [
+        "verify\tRun pnpm install --frozen-lockfile\t2026-10-08T23:26:57.3363579Z Lockfile is up to date, resolution step is skipped",
+        "verify\tRun node --test agents/scripts/__tests__/*.test.mjs\t2026-10-08T23:27:04.6077596Z # skipped 0",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:27:06.7981307Z > echo '[mobile] typecheck skipped — Expo 기획 단계, typescript 미설치 (CI 안정화)' && exit 0",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:27:06.8061855Z [mobile] typecheck skipped — Expo 기획 단계, typescript 미설치 (CI 안정화)",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:27:07.0911119Z > echo '[wlp] lint skipped — eslint devDep not declared (CI 안정화)' && exit 0",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:27:07.1061181Z [wlp] lint skipped — eslint devDep not declared (CI 안정화)",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:27:07.1916627Z > echo '[mobile] lint skipped — Expo 기획 단계, eslint 미설치 (CI 안정화)' && exit 0",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:27:07.2091351Z [mobile] lint skipped — Expo 기획 단계, eslint 미설치 (CI 안정화)",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:27:28.8362026Z [video-factory] 원료 없음(source-bundle · voice/index · retired.json) — src/remotion/Root.tsx · index.ts 는 타입 검사에서 건너뜀(pnpm --filter web video:source 로 원료를 뽑으면 전부 검사).",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:28:08.3288671Z  ^[[32m✓^[[39m src/textbook/readability-parity.test.ts ^[[2m (^[[22m^[[2m2 tests^[[22m ^[[2m|^[[22m ^[[33m1 skipped^[[39m^[[2m)^[[22m^[[90m 84^[[2mms^[[22m^[[39m",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:28:08.3418224Z ^[[2m      Tests ^[[22m ^[[1m^[[32m2719 passed^[[39m^[[22m^[[2m | ^[[22m^[[33m1 skipped^[[39m^[[90m (2720)^[[39m",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5017270Z  ^[[2m^[[90m↓^[[39m^[[22m src/lib/csat/__tests__/factory.integration.test.ts ^[[2m (^[[22m^[[2m22 tests^[[22m ^[[2m|^[[22m ^[[33m22 skipped^[[39m^[[2m)^[[22m",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5021885Z  ^[[32m✓^[[39m src/lib/csat/__tests__/copyright-boundary.integration.test.ts ^[[2m (^[[22m^[[2m22 tests^[[22m ^[[2m|^[[22m ^[[33m11 skipped^[[39m^[[2m)^[[22m^[[33m 1",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5086919Z  ^[[2m^[[90m↓^[[39m^[[22m src/lib/vcb/compose/__tests__/compose-eval.integration.test.ts ^[[2m (^[[22m^[[2m8 tests^[[22m ^[[2m|^[[22m ^[[33m8 skipped^[[39m^[[2m)^[[2",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5112310Z  ^[[2m^[[90m↓^[[39m^[[22m src/lib/library/__tests__/word-set-rls.integration.test.ts ^[[2m (^[[22m^[[2m8 tests^[[22m ^[[2m|^[[22m ^[[33m8 skipped^[[39m^[[2m)^[[22m",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5131473Z  ^[[2m^[[90m↓^[[39m^[[22m src/lib/library/__tests__/content-quality-gate.integration.test.ts ^[[2m (^[[22m^[[2m13 tests^[[22m ^[[2m|^[[22m ^[[33m13 skipped^[[39m^[[2",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5156253Z  ^[[2m^[[90m↓^[[39m^[[22m src/lib/learner/__tests__/dcp-grade-records.integration.test.ts ^[[2m (^[[22m^[[2m5 tests^[[22m ^[[2m|^[[22m ^[[33m5 skipped^[[39m^[[2m)^[[",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5166666Z  ^[[2m^[[90m↓^[[39m^[[22m src/lib/csat/__tests__/guide-source.integration.test.ts ^[[2m (^[[22m^[[2m8 tests^[[22m ^[[2m|^[[22m ^[[33m8 skipped^[[39m^[[2m)^[[22m",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5177503Z  ^[[2m^[[90m↓^[[39m^[[22m src/lib/vcb/compose/__tests__/compose-sweep.integration.test.ts ^[[2m (^[[22m^[[2m3 tests^[[22m ^[[2m|^[[22m ^[[33m3 skipped^[[39m^[[2m)^[[",
+        "verify\tRun pnpm turbo run lint typecheck test\t2026-10-08T23:30:14.5200209Z  ^[[2m^[[90m↓^[[39m^[[22m src/lib/learner/__tests__/grade-band-is-fit.integration.test.ts ^[[2m (^[[22m^[[2m3 tests^[[22m ^[[2m|^[[22m ^[[33m3 skipped^[[39m^[[2m)^[["
+      ]
+    },
+    {
+      "name": "e2e",
+      "state": "success",
+      "run_id": "37859442662",
+      "job_id": "113591409669",
+      "skipped_inner": true,
+      "marker": "e2e\t시크릿 유무 확인\t2026-10-08T23:27:00.6087747Z ^[[36;1m  echo \"::notice::e2e 건너뜀 — 저장소 시크릿 미설정. Settings → Secrets 에 NEXT_PUBLIC_SUPABASE_URL 등을 넣으면 활성화됩니다.\"^[[0m",
+      "partial_skip_notes": [
+        "e2e\t시크릿 유무 확인\t2026-10-08T23:27:00.6469111Z ##[notice]e2e 건너뜀 — 저장소 시크릿 미설정. Settings → Secrets 에 NEXT_PUBLIC_SUPABASE_URL 등을 넣으면 활성화됩니다."
+      ]
+    },
+    {
+      "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+      "state": "success",
+      "run_id": "37859442540",
+      "job_id": "113591409583",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": []
+    },
+    {
+      "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+      "state": "success",
+      "run_id": "37859442540",
+      "job_id": "113591409859",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": []
+    },
+    {
+      "name": "docs/*.md broken link check",
+      "state": "success",
+      "run_id": "37859442540",
+      "job_id": "113591409806",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": []
+    },
+    {
+      "name": "TypeScript 0 error",
+      "state": "success",
+      "run_id": "37859435303",
+      "job_id": "113591384136",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": [
+        "TypeScript 0 error\tRun pnpm install --frozen-lockfile\t2026-10-08T23:26:54.9225453Z Lockfile is up to date, resolution step is skipped"
+      ]
+    },
+    {
+      "name": "PROJECT_KNOWLEDGE_MANIFEST drift 점검",
+      "state": "success",
+      "run_id": "37859435303",
+      "job_id": "113591383966",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": []
+    },
+    {
+      "name": "docs/*.md broken link check",
+      "state": "success",
+      "run_id": "37859435303",
+      "job_id": "113591384213",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": []
+    },
+    {
+      "name": "migration ↔ docs/DB_SCHEMA / CHANGELOG 정합",
+      "state": "skipped",
+      "run_id": "37859435303",
+      "job_id": "113591385016",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": []
+    },
+    {
+      "name": "docs/CHANGELOG.md Unreleased 비어있지 않음",
+      "state": "skipped",
+      "run_id": "37859435303",
+      "job_id": "113591385199",
+      "skipped_inner": false,
+      "marker": null,
+      "partial_skip_notes": []
+    }
+  ],
+  "pending": [],
+  "failed": [],
+  "skipped_inner": [
+    "e2e"
+  ],
+  "ok": true
+}

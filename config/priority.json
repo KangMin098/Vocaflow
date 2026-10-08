@@ -1,0 +1,43 @@
+{
+  "schema": "vfc-priority/1",
+  "note": "WF-S5 §4 우선순위 기준. 목표 → 범주(1이 가장 높음). 최근 작업량·커밋 수는 쓰지 않는다. 바꾸려면 DECISION_LOG 에 근거를 남긴다.",
+  "categories": {
+    "1": "Vocaflow 전체 제품 완성을 직접 막는 기능(R0 학습 여정)",
+    "2": "여러 파이프라인의 공통 의존성",
+    "3": "실제 학습자 경험의 단절",
+    "4": "데이터 무결성·보안",
+    "5": "미구현 필수 기능",
+    "6": "검증 누락",
+    "7": "UX 개선",
+    "8": "부가 기능"
+  },
+  "goal_category": {
+    "VG-L3-A1-01": 1,
+    "VG-L3-A2-01": 1,
+    "VG-L3-A3-01": 1,
+    "VG-L3-A3-02": 1,
+    "VG-L3-B2-02": 1,
+    "VG-L3-D1-01": 2,
+    "VG-L3-C1-01": 2,
+    "VG-L3-B2-01": 3,
+    "VG-L3-A2-02": 3,
+    "VG-L3-A1-02": 4,
+    "VG-L3-D1-02": 4,
+    "VG-L3-D2-02": 4,
+    "VG-L3-C1-02": 5,
+    "VG-L3-D2-01": 6,
+    "VG-L3-D3-01": 6,
+    "VG-L3-D3-02": 6,
+    "VG-L3-B1-01": 7,
+    "VG-L3-B1-02": 7,
+    "VG-L3-C2-01": 8,
+    "VG-L3-C2-02": 8
+  },
+  "weights": {
+    "category": 100,
+    "goal_status": { "FAIL": 30, "BLOCKED": 0, "EXTERNAL_INPUT_REQUIRED": 0, "UNKNOWN": 10, "PASS": -200 },
+    "blocking_for_R0": 20,
+    "per_dependent_goal": 5,
+    "task_priority": { "P0": 15, "P1": 10, "P2": 5, "P3": 0 }
+  }
+}

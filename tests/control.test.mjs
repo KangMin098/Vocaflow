@@ -210,7 +210,7 @@ test('init 은 멱등이고 근거 없는 목표는 UNKNOWN 이다', () => {
   const root = mkRoot()
   assert.equal(run(root, ['init']).code, 0)
   const second = JSON.parse(run(root, ['init', '--json']).out)
-  assert.deepEqual(second, { goals: 0, gates: 0, owners: 0, decisions: 0, tasks: 0 })
+  assert.deepEqual(second, { goals: 0, gates: 0, owners: 0, decisions: 0, tasks: 0, upgraded: 0 })
   const gs = state(root, 'GOAL_STATUS.json')
   assert.equal(Object.keys(gs.goals).length, 35)
   for (const g of Object.values(gs.goals)) {
@@ -697,20 +697,51 @@ test('기획 요청(plan): plan 필드가 빠지면 거부, 다 있으면 PROPOS
   assert.deepEqual(e.plan, plan)
 })
 
-test('응답 정규화: requires_user_approval false 는 기본 거부, --normalize-approval 은 true 로만 바꾸고 기록한다', () => {
+test('응답 승인 충돌(WF-S5): requires_user_approval false 는 고쳐 받지 않는다 — 기본 거부 · --record-conflict 는 approval_conflict 로 기록', () => {
   const { root, req, good, respPath } = chatgptSetup()
   const bad = { ...good, proposed_decisions: [{ ...good.proposed_decisions[0], requires_user_approval: false }] }
   fs.writeFileSync(respPath, wrap(bad))
   assert.match(run(root, ['planning', 'import', req.id]).err, /requires_user_approval/)
-  const v = JSON.parse(run(root, ['planning', 'validate', req.id, '--normalize-approval', '--json']).out)
-  assert.deepEqual(v.normalized, ['proposed_decisions[0].requires_user_approval false→true'])
-  assert.equal(run(root, ['planning', 'import', req.id, '--normalize-approval', '--by', 'platform-goal']).code, 0)
-  const e = state(root, 'DECISION_LOG.json').entries.find((x) => x.request_id === req.id && x.kind === 'proposal')
-  assert.equal(e.status, 'PROPOSED')
-  assert.equal(e.requires_user_approval, true)
-  assert.deepEqual(e.normalized, ['proposed_decisions[0].requires_user_approval false→true'])
+  assert.match(run(root, ['planning', 'import', req.id, '--normalize-approval']).err, /DEPRECATED/)
+  const v = JSON.parse(run(root, ['planning', 'validate', req.id, '--record-conflict', '--json']).out)
+  assert.equal(v.conflicts, 1)
+  assert.equal(run(root, ['planning', 'import', req.id, '--record-conflict', '--by', 'platform-goal']).code, 0)
+  const entries = state(root, 'DECISION_LOG.json').entries.filter((x) => x.request_id === req.id)
+  assert.ok(!entries.some((e) => e.kind === 'proposal'), '충돌 제안은 PROPOSED 로 들어가지 않는다')
+  const c = entries.find((e) => e.kind === 'approval_conflict')
+  assert.equal(c.status, 'OPEN_QUESTION')
+  assert.equal(c.original_proposal.requires_user_approval, false, '원래 값을 그대로 남긴다')
   const arch = fs.readFileSync(path.join(root, 'planning', 'archive', `${req.id}.response.md`), 'utf8')
   assert.match(arch, /"requires_user_approval": false/, '원문은 그대로 보관')
+})
+
+test('잠금 잔여 위험 보강: 죽은 세대 마커가 남은 stale 잠금을 6개 프로세스가 동시에 노려도 소유자는 하나', async () => {
+  const root = mkRoot()
+  const lib = path.join(REPO, 'lib', 'lock.mjs').replace(/\\/g, '/')
+  const dead = sleeper()
+  fs.writeFileSync(path.join(root, 'seed.mjs'), `import { acquire } from 'file:///${lib}'; console.log(acquire('task--Z', { owner_id: 'dead', pid: ${dead.pid}, ttl_ms: 100 }).token)`)
+  const token = spawnSync(process.execPath, [path.join(root, 'seed.mjs')], { env: { ...process.env, VFC_ROOT: root }, encoding: 'utf8' }).stdout.trim()
+  dead.kill()
+  // 마커를 쥔 채 죽은 프로세스를 흉내 낸다: 죽은 pid · 10초보다 오래된 mtime
+  const marker = path.join(root, 'runtime', 'locks', `task--Z.gen-${token}.e0.marker`)
+  fs.writeFileSync(marker, JSON.stringify({ pid: 999999, host: os.hostname(), at: '2026-01-01T00:00:00Z' }))
+  const old = new Date(Date.now() - 60_000)
+  fs.utimesSync(marker, old, old)
+  await wait(300)
+  fs.writeFileSync(path.join(root, 'grab.mjs'), `import { acquire } from 'file:///${lib}'; const r = acquire('task--Z', { owner_id: 'p'+process.pid }); console.log(JSON.stringify({ ok: r.ok, token: r.token }))`)
+  const rs = await Promise.all(
+    Array.from({ length: 6 }, () => new Promise((res) => {
+      const c = spawn(process.execPath, [path.join(root, 'grab.mjs')], { env: { ...process.env, VFC_ROOT: root } })
+      let o = ''
+      c.stdout.on('data', (d) => (o += d))
+      c.on('close', () => res(JSON.parse(o)))
+    })),
+  )
+  const winners = rs.filter((r) => r.ok)
+  assert.equal(winners.length, 1, `소유자는 정확히 하나: ${JSON.stringify(rs)}`)
+  const onDisk = JSON.parse(fs.readFileSync(path.join(root, 'runtime', 'locks', 'task--Z.lock'), 'utf8'))
+  assert.equal(onDisk.token, winners[0].token, '디스크의 잠금 = 승자')
+  assert.match(fs.readFileSync(path.join(root, 'runtime', 'logs', 'events.jsonl'), 'utf8'), /marker_epoch_advanced/)
 })
 
 test('완료 조건 변경은 READY · owner · 사용자 APPROVED 결정이 있어야 하고 옛 조건을 남긴다', () => {

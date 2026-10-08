@@ -1,0 +1,530 @@
+
+> web@0.1.0 test D:\workspace\Vocaflow-wf4-d102\apps\web
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+◇ injected env (0) from ..\..\.env.local // tip: ⌘ enable debugging { debug: true }
+◇ injected env (0) from .env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mD:/workspace/Vocaflow-wf4-d102/apps/web[39m
+
+ [32m✓[39m src/app/admin/csat/__tests__/sources-screen.test.tsx [2m ([22m[2m50 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/line-screens.test.tsx [2m ([22m[2m64 tests[22m[2m)[22m[90m 98[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/topic-classifier.test.ts [2m ([22m[2m48 tests[22m[2m)[22m[90m 19[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/csat/__tests__/factory.integration.test.ts [2m ([22m[2m22 tests[22m [2m|[22m [33m22 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/framework/__tests__/framework.test.ts [2m ([22m[2m45 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/copyright-boundary.integration.test.ts [2m ([22m[2m22 tests[22m [2m|[22m [33m11 skipped[39m[2m)[22m[33m 323[2mms[22m[39m
+[90mstdout[2m | src/components/admin/__tests__/sidebar-screen-titles.test.tsx[2m > [22m[2m메뉴 이름 ↔ 화면 제목[2m > [22m[2m실측을 표로 남긴다 — 기준을 고칠 때 근거를 눈으로 본다[22m[39m
+
+/admin                   메뉴[대시보드] h1 1 ✓ 대시보드
+/admin/csat              메뉴[교재 공장] h1 1 ✓ 
+/admin/csat/new          메뉴[무엇을 만들까 ①] h1 1 ✓ 무엇을 만들까
+/admin/csat/sources      메뉴[글감 모으기 · 고르기 ②③] h1 1 ✓ 글감 고르기 / 글감 모으기
+/admin/csat/sourcing     메뉴[지문 채우기 ④] h1 1 ✓ 소재 각 칸에 쓸 지문이 있는가 / 지문 채우기
+/admin/csat/authoring    메뉴[문제 만들기 ⑤] h1 1 ✓ 집필 각 칸에 문항이 있는가 / 문제 만들기
+/admin/csat/explain      메뉴[해설 달기 ⑥] h1 1 ✓ 해설 문항마다 해설이 붙었는가 / 해설 달기
+/admin/csat/review       메뉴[확인하기 ⑦] h1 1 ✓ 검수 다층 검수를 통과했는가 / 확인하기
+/admin/csat/press        메뉴[책으로 내기 ⑧] h1 1 ✓ 조판 · 발행 권으로 나왔는가 / 책으로 내기
+/admin/csat/catalog      메뉴[낸 뒤 살피기 ↺] h1 1 ✓ 낸 뒤 살피기
+/admin/csat/evidence     메뉴[기출 살펴보기] h1 1 ✓ 기출 살펴보기
+/admin/csat/strategy     메뉴[시중 교재와 견주기] h1 1 ✓ 기획 시중 교재를 이기는가, 어디서 지는가 / 시중 교재와 견주기
+/admin/csat/blueprint    메뉴[학년 계단 설계] h1 1 ✓ 설계 연령 × 수준 × 유형 칸이 규격대로 정의됐는가 / 학년 계단 설계
+/admin/csat/help         메뉴[용어집] h1 1 ✓ 
+/admin/csat/details      메뉴[숫자로 자세히] h1 1 ✓ 
+/admin/kice              메뉴[기출 분석 뷰] h1 1 ✓ 기출 분석 뷰
+/admin/csat/diagnosis    메뉴[영어 진단] h1 1 ✓ 
+/admin/knowledge         메뉴[원리 운영실] h1 1 ✓ 원리 운영실 / 원리 운영실
+/admin/knowledge/map     메뉴[역량 · 원리 지도] h1 1 ✓ 역량 · 원리 지도 / 역량 · 원리 지도
+/admin/knowledge/principles 메뉴[본질 · 원리] h1 1 ✓ 본질 · 원리 / 본질 · 원리
+/admin/knowledge/methods 메뉴[방법론 · 공부법] h1 1 ✓ 방법론 · 공부법 / 방법론 · 공부법
+/admin/knowledge/lab     메뉴[탐구 · 근거 연구소] h1 1 ✓ 탐구 · 근거 연구소 / 탐구 · 근거 연구소
+/admin/knowledge/lab/research 메뉴[연구 서지] h1 1 ✓ 연구 서지 / 연구 서지
+/admin/knowledge/review  메뉴[검토 대기] h1 1 ✓ 검토 대기 / 검토 대기
+/admin/knowledge/sources 메뉴[근거 · 출처] h1 1 ✓ 근거 · 출처 / 근거 · 출처
+/admin/knowledge/sources/csat 메뉴[기출 원천] h1 1 ✓ 기출 원천 / 기출 원천
+/admin/knowledge/experts 메뉴[전문가 · 채널] h1 1 ✓ 전문가 · 채널 / 전문가 · 채널
+/admin/knowledge/gaps    메뉴[공백] h1 1 ✓ 공백 / 공백
+/admin/methodology       메뉴[가져오기 원장] h1 1 ✓ 가져오기 원장
+/admin/knowledge/design  메뉴[학습 설계 · 검증] h1 1 ✓ 학습 설계 · 검증 / 학습 설계 · 검증
+/admin/knowledge/product 메뉴[제품 적용 · 품질] h1 1 ✓ 제품 적용 · 품질 / 제품 적용 · 품질
+/admin/library           메뉴[콘텐츠] h1 1 ✓ 콘텐츠 관리
+/admin/curation          메뉴[도서 수집 LCP] h1 1 ✗ 📚 라이브러리 큐레이션
+/admin/articles          메뉴[짧은 글 ACP] h1 1 ✗ 📰 Article Curation Pipeline
+/admin/compose           메뉴[사실 재저작 Compose] h1 1 ✓ 재저작 파이프라인 (Compose)
+/admin/comic             메뉴[만화 CCP] h1 1 ✗ Comic Pipeline
+/admin/pd-comics         메뉴[스캔 만화 PDCP] h1 1 ✗ PD Comic Pipeline
+/admin/topic-corpus      메뉴[주제 코퍼스 TCP] h1 1 ✓ 주제 코퍼스 (TCP)
+/admin/vocabulary        메뉴[단어장 마스터] h1 1 ✗ 사전 DB 직접 관리
+/admin/vocab             메뉴[어휘 빌드 VCB] h1 1 ✓ VCB Pipeline Runs
+/admin/vrl               메뉴[어휘 레벨 VRL] h1 1 ✓ 어휘 레벨
+/admin/vrl/taxonomy      메뉴[분류 기준표] h1 1 ✗ VRL Taxonomy
+/admin/vrl/diagnostic    메뉴[진단] h1 1 ✗ VRL Diagnostic System
+/admin/vrl/users         메뉴[사용자 레벨] h1 1 ✗ VRL User Levels
+/admin/vrl/concerns      메뉴[의심 단어] h1 1 ✗ VRL Concerns
+/admin/vrl/snapshots     메뉴[변경 이력] h1 1 ✗ VRL Level Snapshots
+/admin/vrl/automation    메뉴[자동화] h1 1 ✗ VRL Automation Dashboard
+/admin/pending-words     메뉴[대기 단어] h1 1 ✗ Pending Words
+/admin/users             메뉴[사용자] h1 1 ✓ 사용자 관리
+/admin/analytics         메뉴[플랫폼 분석] h1 1 ✓ 플랫폼 분석
+/admin/video             메뉴[영상 공장 VFP] h1 1 ✓ 영상 공장
+/admin/reports           메뉴[신고/문의] h1 1 ✓ 신고/문의
+/admin/billing           메뉴[결제/구독] h1 1 ✓ 결제/구독
+/admin/quality           메뉴[품질 지표] h1 1 ✓ 품질 지표
+/admin/quality/gates     메뉴[품질 게이트] h1 1 ✓ 품질 게이트
+/admin/quality/judge     메뉴[추출 판정] h1 1 ✓ 추출 판정
+/admin/db                메뉴[DB 헬스] h1 1 ✓ DB 헬스
+/admin/settings          메뉴[시스템 설정] h1 1 ✓ 시스템 설정
+
+화면 58 · h1 없음 0 · 이름 못 알아봄 12 · 판정 불가 0
+
+ [32m✓[39m src/components/admin/__tests__/sidebar-screen-titles.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/knowledge/__tests__/practice-server.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+[90mstdout[2m | src/app/admin/csat/__tests__/density.test.tsx[2m > [22m[2m화면 밀집도[2m > [22m[2m실측을 표로 남긴다 — 예산을 고칠 때 근거를 눈으로 본다[22m[39m
+
+카탈로그   덩어리  152 · 글자  1278 · 조작  27 · svg   9
+현황판    덩어리  101 · 글자   503 · 조작  12 · svg  14
+기획     덩어리  163 · 글자  2045 · 조작   9 · svg   8
+설계     덩어리  131 · 글자  1128 · 조작   5 · svg   8
+소재     덩어리  129 · 글자  1838 · 조작  18 · svg  13
+집필     덩어리  213 · 글자  1496 · 조작  16 · svg  14
+검수     덩어리  154 · 글자  1581 · 조작  13 · svg  18
+조판     덩어리  205 · 글자  2310 · 조작  20 · svg  13
+
+ [32m✓[39m src/app/admin/csat/__tests__/density.test.tsx [2m ([22m[2m12 tests[22m[2m)[22m[90m 93[2mms[22m[39m
+ [32m✓[39m src/lib/game/__tests__/brief.test.ts [2m ([22m[2m33 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [32m✓[39m src/lib/vcb/compose/__tests__/compose.test.ts [2m ([22m[2m36 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m src/lib/csat/lecture/__tests__/core.test.ts [2m ([22m[2m45 tests[22m[2m)[22m[33m 3891[2mms[22m[39m
+ [32m✓[39m src/app/admin/db/__tests__/page.test.tsx [2m ([22m[2m39 tests[22m[2m)[22m[90m 118[2mms[22m[39m
+ [32m✓[39m src/lib/textfit/__tests__/coverage.test.ts [2m ([22m[2m36 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/diagnosis/engine/__tests__/rule-v1.test.ts [2m ([22m[2m28 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/vcb/compose/__tests__/compose-eval.integration.test.ts [2m ([22m[2m8 tests[22m [2m|[22m [33m8 skipped[39m[2m)[22m
+[90mstderr[2m | src\lib\vcb\compose\__tests__\compose-eval.integration.test.ts:28:11[22m[39m
+[compose-eval] SKIP — NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 부재. 이 러너가 돌지 않으면 blueprint 품질은 측정되지 않은 상태다.
+
+ [32m✓[39m src/lib/game/__tests__/catalog.test.ts [2m ([22m[2m40 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/ranking-gate.test.ts [2m ([22m[2m27 tests[22m[2m)[22m[33m 596[2mms[22m[39m
+ [32m✓[39m src/lib/srs/__tests__/srs.test.ts [2m ([22m[2m31 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/learning-session.test.ts [2m ([22m[2m28 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/volume-contents.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/sidebar-readability.test.tsx [2m ([22m[2m16 tests[22m[2m)[22m[90m 83[2mms[22m[39m
+[90mstdout[2m | src/components/admin/__tests__/sidebar-readability.test.tsx[2m > [22m[2m관리자 사이드바 가독성[2m > [22m[2m실측을 표로 남긴다 — 기준을 고칠 때 근거를 눈으로 본다[22m[39m
+
+1차 항목 30 · 묶음 7 · 최대 묶음 7
+글자 크기 11 / 13 / 14 / 15px
+링크 45
+비활성 t3 대비 4.77 · t2 대비 7.12
+
+ [32m✓[39m src/app/admin/compose/__tests__/console-render.test.tsx [2m ([22m[2m31 tests[22m[2m)[22m[90m 50[2mms[22m[39m
+ [32m✓[39m src/lib/text-extract/__tests__/tokenize.test.ts [2m ([22m[2m39 tests[22m[2m)[22m[90m 19[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/lab-screens.test.tsx [2m ([22m[2m29 tests[22m[2m)[22m[90m 60[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/catalog.test.tsx [2m ([22m[2m25 tests[22m[2m)[22m[90m 50[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/touch-target.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/help-diagram.test.ts [2m ([22m[2m40 tests[22m[2m)[22m[90m 148[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/row-write-budget.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[33m 1096[2mms[22m[39m
+ [32m✓[39m src/components/library/vocab/__tests__/VocabSetCard.test.tsx [2m ([22m[2m19 tests[22m[2m)[22m[90m 25[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/offset-paging-budget.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[33m 976[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/word-set-rls.integration.test.ts [2m ([22m[2m8 tests[22m [2m|[22m [33m8 skipped[39m[2m)[22m
+ [32m✓[39m src/app/admin/csat/evidence/__tests__/console-render.test.tsx [2m ([22m[2m18 tests[22m[2m)[22m[90m 54[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/guide-fold.test.ts [2m ([22m[2m21 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/topic-corpus/__tests__/topic-corpus.test.ts [2m ([22m[2m21 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/lib/admin/pending-words/__tests__/queue.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/content-quality-gate.integration.test.ts [2m ([22m[2m13 tests[22m [2m|[22m [33m13 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/learner/__tests__/today-blocks.test.ts [2m ([22m[2m21 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/dictation/__tests__/adaptation.test.ts [2m ([22m[2m28 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/exam-id.test.ts [2m ([22m[2m28 tests[22m[2m)[22m[33m 3011[2mms[22m[39m
+ [32m✓[39m src/lib/analytics/__tests__/events.test.ts [2m ([22m[2m34 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/shelf.test.ts [2m ([22m[2m19 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+[90mstdout[2m | src/app/admin/db/__tests__/density.test.tsx[2m > [22m[2m텍스트 분량 — 읽어야 할 것이 아니라 봐야 할 것이 있다[2m > [22m[2m전체 가시 텍스트가 라쳇 안에 있다[22m[39m
+[after] total=2061 prose=90 ratio=0.044
+
+[90mstdout[2m | src/app/admin/db/__tests__/density.test.tsx[2m > [22m[2m텍스트 분량 — 읽어야 할 것이 아니라 봐야 할 것이 있다[2m > [22m[2m같은 데이터에서 재설계 전보다 적다 — 기준선을 함께 잰다[22m[39m
+[before] total=9498 prose=403
+[after ] total=2061 prose=90
+
+[90mstdout[2m | src/app/admin/db/__tests__/density.test.tsx[2m > [22m[2m텍스트 분량 — 읽어야 할 것이 아니라 봐야 할 것이 있다[2m > [22m[2m가장 긴 덩어리가 200자를 넘지 않는다 — 한 문단이 화면을 밀어내지 않는다[22m[39m
+[after] longest chunk=48자
+
+[90mstdout[2m | src/app/admin/db/__tests__/density.test.tsx[2m > [22m[2m텍스트 분량 — 읽어야 할 것이 아니라 봐야 할 것이 있다[2m > [22m[2m설명을 지운 것이 아니라 옮긴 것이다 — 풍선말이 화면에 있다[22m[39m
+[after] 풍선말 16개
+
+ [32m✓[39m src/app/admin/db/__tests__/density.test.tsx [2m ([22m[2m6 tests[22m[2m)[22m[90m 73[2mms[22m[39m
+ [32m✓[39m src/lib/knowledge/__tests__/practice.test.ts [2m ([22m[2m23 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [32m✓[39m src/lib/csat/diagnosis/engine/__tests__/map-evidence.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/textfit/__tests__/profile.test.ts [2m ([22m[2m35 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/lib/csat/session/__tests__/model.test.ts [2m ([22m[2m20 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/wayfinder.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/reflow/__tests__/reflow.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m src/app/admin/db/__tests__/snapshot-html.test.tsx [2m ([22m[2m2 tests[22m[2m)[22m[90m 42[2mms[22m[39m
+ [32m✓[39m src/lib/framework/__tests__/word-progress.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/app/api/__tests__/route-callers.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/theater.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/learner/__tests__/dcp-grade-records.integration.test.ts [2m ([22m[2m5 tests[22m [2m|[22m [33m5 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/admin/__tests__/help-registry.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 102[2mms[22m[39m
+ [32m✓[39m src/lib/wordvault/__tests__/state-filter.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[33m 525[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/trap-atlas.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m src/lib/design/__tests__/token-exists.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[33m 1118[2mms[22m[39m
+ [32m✓[39m src/lib/admin/db-health/__tests__/live-signals.test.ts [2m ([22m[2m28 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/order-wizard.test.tsx [2m ([22m[2m18 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/factory-line.test.tsx [2m ([22m[2m16 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/factory-plain.test.tsx [2m ([22m[2m20 tests[22m[2m)[22m[90m 33[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/factory-model.test.ts [2m ([22m[2m58 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/csat/__tests__/guide-source.integration.test.ts [2m ([22m[2m8 tests[22m [2m|[22m [33m8 skipped[39m[2m)[22m
+ [32m✓[39m src/app/api/__tests__/route-guards.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 77[2mms[22m[39m
+ [32m✓[39m src/lib/auth/__tests__/errors.test.ts [2m ([22m[2m36 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/textfit/__tests__/share.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/book-cover-category.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/lib/game/__tests__/session-pause.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/route-query-params.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[33m 771[2mms[22m[39m
+ [32m✓[39m src/lib/articles/__tests__/source-key-parity.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/readable-chapters.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/admin/db-health/__tests__/derive.test.ts [2m ([22m[2m23 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/vcb/compose/__tests__/compose-sweep.integration.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+[90mstderr[2m | src\lib\vcb\compose\__tests__\compose-sweep.integration.test.ts:27:11[22m[39m
+[compose-sweep] SKIP — SERVICE_ROLE 키 부재. 파라미터 스윕은 실 DB 가 있어야 한다.
+
+ [32m✓[39m src/lib/textfit/__tests__/rate-limit.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/video-queue.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 16[2mms[22m[39m
+ [32m✓[39m src/app/admin/kice/__tests__/phase2-screens.test.tsx [2m ([22m[2m17 tests[22m[2m)[22m[90m 16[2mms[22m[39m
+ [32m✓[39m src/lib/knowledge/__tests__/vnext.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/app/__tests__/seo-routes.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/script-typecheck-coverage.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[33m 686[2mms[22m[39m
+ [32m✓[39m src/components/layout/__tests__/top-nav.test.tsx [2m ([22m[2m27 tests[22m[2m)[22m[90m 73[2mms[22m[39m
+ [32m✓[39m src/lib/game/__tests__/sets.test.ts [2m ([22m[2m20 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+ [32m✓[39m src/lib/csat/session/__tests__/dissect.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/app/admin/__tests__/mock-data-banner.test.tsx [2m ([22m[2m11 tests[22m[2m)[22m[90m 295[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/production-stages.test.ts [2m ([22m[2m21 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/video-requests.test.tsx [2m ([22m[2m10 tests[22m[2m)[22m[90m 28[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/space-model.test.ts [2m ([22m[2m17 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/orphan-query-params.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[33m 2077[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/today-status.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/components/layout/__tests__/compass-ribbon.test.tsx [2m ([22m[2m13 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/target.test.ts [2m ([22m[2m21 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/shelf-filter.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/series-address.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [32m✓[39m src/app/admin/__tests__/page.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 64[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/learner/__tests__/grade-band-is-fit.integration.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/a11y/__tests__/motion-contract.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/passage-map-model.test.ts [2m ([22m[2m27 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/teacher/__tests__/assignment-rls.integration.test.ts [2m ([22m[2m11 tests[22m [2m|[22m [33m11 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/vcb/compose/__tests__/market.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/model.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/app/admin/compose/__tests__/transitions.test.ts [2m ([22m[2m24 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/lib/echo/__tests__/word-signal.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/axis-routing.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/vcb/covers/__tests__/lockup.test.ts [2m ([22m[2m27 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-classification.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/design/__tests__/token-parity.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/components/layout/__tests__/wayfinding.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/hakpyeong-review.test.ts [2m ([22m[2m20 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/practice-results.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/seo/__tests__/structured-data.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/auth/__tests__/rls-surface.integration.test.ts [2m ([22m[2m14 tests[22m [2m|[22m [33m14 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/csat/__tests__/browse-model.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/freedom-view.test.ts [2m ([22m[2m17 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/drill-feedback.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/components/library/vocab/__tests__/VocabColophon.test.tsx [2m ([22m[2m20 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m src/components/library/textbooks/__tests__/shelf-probes.test.tsx [2m ([22m[2m37 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/passage-skeleton.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/no-raw-object.test.tsx [2m ([22m[2m11 tests[22m[2m)[22m[90m 74[2mms[22m[39m
+ [32m✓[39m src/lib/methodology/__tests__/core.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 34[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/RetentionPanel.test.tsx [2m ([22m[2m13 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [32m✓[39m src/components/textfit/__tests__/LevelProfilePanel.test.tsx [2m ([22m[2m16 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/admin/db-health/__tests__/queries.integration.test.ts [2m ([22m[2m9 tests[22m [2m|[22m [33m9 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/textbook/__tests__/source-pipeline.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 34[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/auth/__tests__/privilege-escalation.integration.test.ts [2m ([22m[2m8 tests[22m [2m|[22m [33m8 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/auth/__tests__/profile-cache.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/lib/supabase/__tests__/paged-select.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/unreachable-modules.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[33m 1770[2mms[22m[39m
+ [32m✓[39m src/lib/articles/__tests__/source-map.test.ts [2m ([22m[2m18 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/components/dashboard/__tests__/growth-empty-states.test.tsx [2m ([22m[2m11 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/text-extract/__tests__/resolve-headword.integration.test.ts [2m ([22m[2m21 tests[22m [2m|[22m [33m21 skipped[39m[2m)[22m
+ [32m✓[39m src/app/admin/csat/__tests__/sources-inventory.test.tsx [2m ([22m[2m4 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/csat/diagnosis/__tests__/seed-rules.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/continuity.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/core.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/doc-path-drift.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 143[2mms[22m[39m
+ [32m✓[39m src/lib/srs/__tests__/flush-durability.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 166[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/csat/__tests__/report-markup.integration.test.ts [2m ([22m[2m4 tests[22m [2m|[22m [33m4 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/learner/__tests__/gateway-state.test.ts [2m ([22m[2m17 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/book-cover-ink.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/app/admin/quality/__tests__/page.test.tsx [2m ([22m[2m4 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+[90mstderr[2m | src/app/admin/quality/__tests__/page.test.tsx[2m > [22m[2mAdminQualityPage[2m > [22m[2mfetch 오류 → throw 없이 빈 상태 폴백[22m[39m
+[admin/quality] quality_metrics fetch failed: permission denied
+
+ [32m✓[39m src/lib/csat/__tests__/skeleton-data.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 116[2mms[22m[39m
+ [32m✓[39m src/lib/scriptquiz/__tests__/queue.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/auth/__tests__/redirect.test.ts [2m ([22m[2m49 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/csat/diagnosis/__tests__/observability.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/shelf-search.test.ts [2m ([22m[2m19 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/trap-drill.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m src/components/textfit/__tests__/painted-fit.test.tsx [2m ([22m[2m9 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [32m✓[39m src/components/hub/portal/__tests__/product-frame.test.tsx [2m ([22m[2m6 tests[22m[2m)[22m[90m 30[2mms[22m[39m
+ [32m✓[39m src/components/teacher/__tests__/TeacherClient.test.tsx [2m ([22m[2m10 tests[22m[2m)[22m[90m 28[2mms[22m[39m
+ [32m✓[39m src/components/csat/__tests__/PassageMap.test.tsx [2m ([22m[2m17 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [32m✓[39m src/lib/wordvault/__tests__/list-params.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[33m 1279[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/trap-drill-pool.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 74[2mms[22m[39m
+ [32m✓[39m src/lib/knowledge/__tests__/vertical-claim-support.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/make-guide.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/recommend-blueprint.integration.test.ts [2m ([22m[2m5 tests[22m [2m|[22m [33m5 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/textbook/__tests__/source-process.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/app/admin/__tests__/help-links.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 26[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/echo/__tests__/sound-signal.integration.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/lib/analytics/__tests__/funnel-contract.integration.test.ts [2m ([22m[2m4 tests[22m [2m|[22m [33m4 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/csat/map/__tests__/prescription.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m src/app/admin/compose/__tests__/publish-gate.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/dcp-playable-types.integration.test.ts [2m ([22m[2m5 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/my-traps.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/learner-path.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/auth/__tests__/rpc-call-sites.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/auth/__tests__/validation.test.ts [2m ([22m[2m31 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/components/library/vocab/__tests__/VocabSetCarousel.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+[90mstderr[2m | src/components/library/vocab/__tests__/VocabSetCarousel.test.tsx[2m > [22m[2m히어로 표지 — 규격의 글자[2m > [22m[2mkicker 를 표지 맨 위에 찍는다[22m[39m
+Warning: Received `true` for a non-boolean attribute `jsx`.
+
+If you want to write it to the DOM, pass a string instead: jsx="true" or jsx={value.toString()}.
+    at style
+    at div
+    at VocabSetCarousel (D:\workspace\Vocaflow-wf4-d102\apps\web\src\components\library\vocab\VocabSetCarousel.tsx:39:29)
+
+ [32m✓[39m src/lib/echo/__tests__/dtw-comparator.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/game/__tests__/ranking.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/vnext-alignment.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/app/__tests__/link-graph-ratchet.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[33m 1237[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/memory-horizon.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/components/textfit/__tests__/TextFitVerdict.test.tsx [2m ([22m[2m11 tests[22m[2m)[22m[90m 19[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/slur-not-published.integration.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+ [32m✓[39m src/components/marketing/__tests__/no-unbuilt-claims.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 130[2mms[22m[39m
+ [32m✓[39m src/lib/a11y/__tests__/on-p-contrast.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[33m 628[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/pdf-text-locate.test.ts [2m ([22m[2m19 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/vcb/compose/__tests__/confusion-log.integration.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/lib/admin/db-health/__tests__/silent-noop.integration.test.ts [2m ([22m[2m4 tests[22m [2m|[22m [33m4 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/textbook/__tests__/promise-guard.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/items-fold.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/app/__tests__/public-routes-in-sitemap.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/account-classification.test.ts [2m ([22m[2m24 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/app/dev/replica/__tests__/ours-copy.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/library/vocab/__tests__/rung.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/components/library/textbooks/__tests__/MyTextbooks.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/csat/map/__tests__/quality.live.test.ts [2m ([22m[2m1 test[22m [2m|[22m [33m1 skipped[39m[2m)[22m
+ [32m✓[39m src/components/library/textbooks/__tests__/volume-contents-fold.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/topic-corpus/__tests__/language-gate.integration.test.ts [2m ([22m[2m2 tests[22m [2m|[22m [33m2 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/csat/__tests__/report-markup.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/dashboard-stats.integration.test.ts [2m ([22m[2m6 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m[90m 3[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/learner/__tests__/plan-material-queries.integration.test.ts [2m ([22m[2m5 tests[22m [2m|[22m [33m5 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/auth/__tests__/protected-routes.test.ts [2m ([22m[2m54 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/components/wordvault/hooks/__tests__/speech-delivery.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/quote-match.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/plan-timeline.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/closed-class-resolve.integration.test.ts [2m ([22m[2m4 tests[22m [2m|[22m [33m4 skipped[39m[2m)[22m
+ [32m✓[39m src/app/(main)/library/vocab/__tests__/headword-lemma.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/teacher/__tests__/assignment-vocab.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/shelf-stage.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/vcb/__tests__/sources-resilience.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+[90mstderr[2m | src/lib/vcb/__tests__/sources-resilience.test.ts[2m > [22m[2mfetchSources — 보조 뱃지가 본체를 죽이지 않는다[2m > [22m[2m집계가 실패해도 던지지 않고 목록을 살린다 (뱃지만 0)[22m[39m
+[vcb] run_count 집계 실패 — 뱃지를 0으로 둡니다: Could not find the table 'public.vocab_raw_texts'
+
+ [32m✓[39m src/lib/library/__tests__/bibliographic.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/framework/__tests__/learner-routes.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/with-timeout.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[33m 364[2mms[22m[39m
+ [32m✓[39m src/lib/a11y/__tests__/reduced-motion.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/published-books-enrollable.integration.test.ts [2m ([22m[2m4 tests[22m [2m|[22m [33m4 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/video/__tests__/catalog.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/content/__tests__/content-ref.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/media-form.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/admin/pending-words/__tests__/triage.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/wordblitz/__tests__/word-pool.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/csat/diagnosis/engine/__tests__/exam-report.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/overlay.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/session-queue.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/components/game/scriptquiz/__tests__/ScriptQuizQueue.render.test.tsx [2m ([22m[2m6 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/recommend-books.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/video/__tests__/kind-contract.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/csat/__tests__/trap-atlas-fresh.integration.test.ts [2m ([22m[2m1 test[22m [2m|[22m [33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/unpublished-book-sets.integration.test.ts [2m ([22m[2m1 test[22m [2m|[22m [33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/article-vocab.integration.test.ts [2m ([22m[2m4 tests[22m [2m|[22m [33m4 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/csat/__tests__/plan-order.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-math.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/csat/diagnosis/__tests__/readiness.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/game/__tests__/record-skip-reason.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/srs/__tests__/queue-builder.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/components/marketing/__tests__/coverage-hero.test.tsx [2m ([22m[2m10 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/dictation/__tests__/session-rls.integration.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+ [32m✓[39m src/components/admin/textbook/__tests__/production-panel.test.tsx [2m ([22m[2m9 tests[22m[2m)[22m[90m 25[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/source-live.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/dictation/__tests__/targets-graded.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/csat/__tests__/trap-drill-fresh.integration.test.ts [2m ([22m[2m1 test[22m [2m|[22m [33m1 skipped[39m[2m)[22m
+ [32m✓[39m src/app/__tests__/landing-contract.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/app/__tests__/page-titles.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[33m 375[2mms[22m[39m
+ [32m✓[39m src/lib/framework/__tests__/memory-labels.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[33m 798[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/overlay-reveal.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/evidence.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/source-workspace.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/a11y/__tests__/touch-target.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/row-cap-lies.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[33m 1018[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/market-gate.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/srs/__tests__/stability-growth.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/curation-genre-keywords.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/dcp.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/game/__tests__/play-titles.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 64[2mms[22m[39m
+ [32m✓[39m src/lib/game/__tests__/brief-seen.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/dictation/__tests__/audio-control.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 137[2mms[22m[39m
+ [32m✓[39m src/lib/textfit/__tests__/curriculum.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/vcb/__tests__/production-stages.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/seo/__tests__/content-entries.integration.test.ts [2m ([22m[2m5 tests[22m [2m|[22m [33m5 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/admin/__tests__/video-console.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/eval-dimensions.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 9[2mms[22m[39m
+ [32m✓[39m src/components/csat/diagnosis/map/__tests__/geometry.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+[90mstderr[2m | src/app/api/admin/csat/sources/__tests__/route.test.ts[2m > [22m[2mmissing count is not interpreted as zero inventory[22m[39m
+[csat-source-operations] Error: Count unavailable: missing count
+    at requireCount [90m(D:\workspace\Vocaflow-wf4-d102\apps\web\[39msrc\app\api\admin\csat\sources\route.ts:20:41[90m)[39m
+    at Module.GET [90m(D:\workspace\Vocaflow-wf4-d102\apps\web\[39msrc\app\api\admin\csat\sources\route.ts:159:19[90m)[39m
+    at [90mD:\workspace\Vocaflow-wf4-d102\apps\web\[39msrc\app\api\admin\csat\sources\__tests__\route.test.ts:26:20
+    at runTest (file:///D:/workspace/Vocaflow-wf4-d102/node_modules/[4m.pnpm[24m/@vitest+runner@1.6.1/node_modules/[4m@vitest/runner[24m/dist/index.js:781:11)
+    at runSuite (file:///D:/workspace/Vocaflow-wf4-d102/node_modules/[4m.pnpm[24m/@vitest+runner@1.6.1/node_modules/[4m@vitest/runner[24m/dist/index.js:909:15)
+    at runFiles (file:///D:/workspace/Vocaflow-wf4-d102/node_modules/[4m.pnpm[24m/@vitest+runner@1.6.1/node_modules/[4m@vitest/runner[24m/dist/index.js:958:5)
+    at startTests (file:///D:/workspace/Vocaflow-wf4-d102/node_modules/[4m.pnpm[24m/@vitest+runner@1.6.1/node_modules/[4m@vitest/runner[24m/dist/index.js:967:3)
+    at file:///D:/workspace/Vocaflow-wf4-d102/node_modules/[4m.pnpm[24m/vitest@1.6.1_@types+node@20.19.39_terser@5.51.2/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:116:7
+    at withEnv (file:///D:/workspace/Vocaflow-wf4-d102/node_modules/[4m.pnpm[24m/vitest@1.6.1_@types+node@20.19.39_terser@5.51.2/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:83:5)
+    at run (file:///D:/workspace/Vocaflow-wf4-d102/node_modules/[4m.pnpm[24m/vitest@1.6.1_@types+node@20.19.39_terser@5.51.2/node_modules/[4mvitest[24m/dist/chunks/runtime-runBaseTests.oAvMKtQC.js:105:3)
+
+ [32m✓[39m src/app/api/admin/csat/sources/__tests__/route.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m src/app/admin/db/__tests__/hydration-safety.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/components/home/__tests__/TodayReading.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 16[2mms[22m[39m
+ [32m✓[39m src/app/__tests__/shell-reach-ratchet.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 83[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/analytics/__tests__/db-allowlist.integration.test.ts [2m ([22m[2m1 test[22m [2m|[22m [33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m src/lib/seo/__tests__/og-queries.integration.test.ts [2m ([22m[2m13 tests[22m [2m|[22m [33m13 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/knowledge/__tests__/rules.test.ts [2m ([22m[2m13 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/my-shelf.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/components/home/__tests__/GatewayLead.test.tsx [2m ([22m[2m7 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m src/components/textfit/__tests__/public-fit-sample.test.tsx [2m ([22m[2m8 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/pd-comic/__tests__/shelf.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/app/__tests__/sitemap-routes-exist.test.ts [2m ([22m[2m25 tests[22m[2m)[22m[90m 16[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/locus-model.test.ts [2m ([22m[2m21 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/components/csat/session/__tests__/original-paper.test.tsx [2m ([22m[2m5 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/next-item.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/components/flashcard/__tests__/card-back-wordweb.test.tsx [2m ([22m[2m7 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m src/lib/csat/reflow/__tests__/blanks.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/csat/reflow/__tests__/original-crop.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 28[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/admin-color-tokens.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 93[2mms[22m[39m
+ [32m✓[39m src/components/flashcard/__tests__/card-back-examples.test.tsx [2m ([22m[2m4 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/pool-vocabulary.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 71[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/goal-view.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/shelf-scale.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/components/home/__tests__/TodayStage.test.tsx [2m ([22m[2m3 tests[22m[2m)[22m[90m 30[2mms[22m[39m
+ [32m✓[39m src/lib/srs/__tests__/rating-mapper.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/scriptquiz/__tests__/queue-paging.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/app/admin/csat/__tests__/freedom-panel.test.tsx [2m ([22m[2m9 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/components/marketing/__tests__/no-hardcoded-stats.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m src/components/layout/__tests__/mobile-reach.test.tsx [2m ([22m[2m5 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m src/lib/csat/session/__tests__/sync.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/components/home/__tests__/TodayFocus.test.tsx [2m ([22m[2m10 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/practice-map.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/sweep-detectors.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/extraction-rpc.integration.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/pd-comic/__tests__/pd-basis.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/comic/__tests__/derive-stage.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/components/library/vocab/__tests__/VocabSeriesHeader.test.tsx [2m ([22m[2m9 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/video-drift.integration.test.ts [2m ([22m[2m2 tests[22m [2m|[22m [33m1 skipped[39m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/type-guide.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/analytics/__tests__/wired.test.ts [2m ([22m[2m45 tests[22m[2m)[22m[90m 148[2mms[22m[39m
+ [32m✓[39m src/lib/auth/__tests__/account.test.ts [2m ([22m[2m12 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/compose-help.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/video/__tests__/page-render.test.tsx [2m ([22m[2m6 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/admin-queries.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/library/seed-fetchers/__tests__/detail-fetchers.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/app/__tests__/css-selector-escape.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 36[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/teacher/__tests__/invite-rpc.integration.test.ts [2m ([22m[2m4 tests[22m [2m|[22m [33m4 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/knowledge/__tests__/vertical-cohesion-link.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/components/library/textbooks/__tests__/series-tabs.test.tsx [2m ([22m[2m3 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+ [32m✓[39m src/lib/flashcard/__tests__/session-cursor.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/source-guide.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/pd-comic/__tests__/model.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/components/library/reader/__tests__/word-lookup-wordweb.test.tsx [2m ([22m[2m5 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/shelf-copy.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/memberships.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/text-extract/__tests__/source-sentence.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/auth/__tests__/middleware-profile-read.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/librivox-align.snapshot.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-server-boundary.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 71[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/admin/db-health/__tests__/advisor-hygiene.integration.test.ts [2m ([22m[2m2 tests[22m [2m|[22m [33m2 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/library/__tests__/chapter-words-failure.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/reveal-gate.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/dict/__tests__/word-web.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/knowledge/__tests__/labels.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/components/__tests__/learning-tone.test.ts [2m ([22m[2m1 test[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/srs/__tests__/confusion-capture.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/design.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/marketing/__tests__/hero-demo.integration.test.ts [2m ([22m[2m5 tests[22m [2m|[22m [33m5 skipped[39m[2m)[22m
+ [32m✓[39m src/components/spellforge/__tests__/mask-spelling.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/seo/__tests__/og-font.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/video/__tests__/surfaces.test.tsx [2m ([22m[2m4 tests[22m[2m)[22m[90m 30[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/source-profile.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/admin/dict/__tests__/health-score-null.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/articles/__tests__/adaptation-visibility.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/csat/__tests__/evidence-scope.integration.test.ts [2m ([22m[2m2 tests[22m [2m|[22m [33m2 skipped[39m[2m)[22m
+ [32m✓[39m src/components/__tests__/illustration-files.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[33m 783[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/type-locus.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/library/__tests__/content-storage.integration.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/csat/__tests__/axes-steps.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/dictation/__tests__/hint.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/supabase/__tests__/error-message.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/components/textviewer/__tests__/DiscoveryFooter.test.tsx [2m ([22m[2m6 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/marketing/__tests__/trust-signals-count.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/components/practice/__tests__/DcpPlayer.test.tsx [2m ([22m[2m4 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m src/lib/knowledge/__tests__/grid.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/components/csat/diagnosis/map/__tests__/type-scale.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/item-layers.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/book-composer-sets.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/search/__tests__/global.test.ts [2m ([22m[2m15 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/comic/__tests__/prescribe.test.ts [2m ([22m[2m9 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/scores/__tests__/recent.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/components/csat/theater/__tests__/EvidenceQuote.test.tsx [2m ([22m[2m12 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [32m✓[39m src/lib/csat/session/__tests__/text.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/components/csat/diagnosis/map/__tests__/format.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/iplusone.test.ts [2m ([22m[2m22 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/vcb/__tests__/market-status.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/TeacherFunnelPanel.test.tsx [2m ([22m[2m3 tests[22m[2m)[22m[90m 10[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/csat/map/__tests__/load.live.test.ts [2m ([22m[2m1 test[22m [2m|[22m [33m1 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/csat/__tests__/scope.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/workspace/__tests__/shadow-match.test.ts [2m ([22m[2m10 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/components/game/scriptquiz/__tests__/ox-symbol.test.tsx [2m ([22m[2m6 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/csat/diagnosis/engine/__tests__/record-quality.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/evidence-operations-loader.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/comic/__tests__/vocab-integrity.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/video/__tests__/components.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/pd-comic/__tests__/display-title.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/taste-word.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/diagnosis/engine/__tests__/payload-compose.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 7[2mms[22m[39m
+ [32m✓[39m src/lib/csat/reflow/__tests__/dev-paper.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/evidence-scope.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/source-operations.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 6[2mms[22m[39m
+ [32m✓[39m src/lib/textbook/__tests__/source-get-guide.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/components/dashboard/__tests__/manage-report-age.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/worksheet/__tests__/qr.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m src/lib/learner/__tests__/source-label.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/video/__tests__/detail-page.test.tsx [2m ([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/components/__tests__/korean-particle.test.ts [2m ([22m[2m1 test[22m[2m)[22m[33m 772[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/reading-time.test.ts [2m ([22m[2m11 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/stale.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/cover-fit.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/app/api/admin/csat/evidence/__tests__/route.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+ [32m✓[39m src/lib/design/__tests__/skin-parity.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/csat/__tests__/skeleton.test.ts [2m ([22m[2m7 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/graph.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [2m[90m↓[39m[22m src/app/api/lcp/process/route.test.ts [2m ([22m[2m3 tests[22m [2m|[22m [33m3 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/learner/__tests__/pick-explanation.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/secret-scan.test.ts [2m ([22m[2m1 test[22m[2m)[22m[33m 17104[2mms[22m[39m
+ [2m[90m↓[39m[22m src/lib/textfit/__tests__/sample-profile.integration.test.ts [2m ([22m[2m2 tests[22m [2m|[22m [33m2 skipped[39m[2m)[22m
+ [32m✓[39m src/lib/csat/session/__tests__/dissection-passage.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/teacher/__tests__/invite-link.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/library/__tests__/personalize.test.ts [2m ([22m[2m6 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/csat/session/__tests__/dissect-catalog.test.ts [2m ([22m[2m1 test[22m[2m)[22m[90m 56[2mms[22m[39m
+ [32m✓[39m src/lib/supabase/__tests__/keyset-select.test.ts [2m ([22m[2m2 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m src/lib/csat/map/__tests__/payload.test.ts [2m ([22m[2m4 tests[22m[2m)[22m[90m 3[2mms[22m[39m
+ [32m✓[39m src/lib/methodology/__tests__/expand.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m345 passed[39m[22m[2m | [22m[33m42 skipped[39m[90m (387)[39m
+[2m      Tests [22m [1m[32m4281 passed[39m[22m[2m | [22m[33m247 skipped[39m[90m (4528)[39m
+[2m   Start at [22m 08:22:13
+[2m   Duration [22m 185.86s[2m (transform 8.01s, setup 24ms, collect 47.37s, tests 46.91s, environment 74ms, prepare 42.15s)[22m
+
