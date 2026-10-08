@@ -110,6 +110,8 @@ try {
     const box = await applyBtn.boundingBox()
     const hit = box ? await page.evaluate(({ x, y }) => document.elementFromPoint(x, y)?.closest('button')?.textContent ?? '', { x: box.x + box.width / 2, y: box.y + box.height / 2 }) : ''
     rec('B · 목표 바꾸기 팝오버가 잘리지 않음(적용 버튼이 눌리는 자리)', /적용/.test(hit), { hit, box })
+    const inputBox = await group.locator('#map-goal-input').boundingBox()
+    rec('B · 적용 버튼 · 직접 입력 칸 높이 44px 이상', (box?.height ?? 0) >= 44 && (inputBox?.height ?? 0) >= 44, { apply: box?.height, input: inputBox?.height })
   }
   // C — 분석 준비 전 기록
   {
