@@ -104,6 +104,10 @@ try {
     rec('F7-3 원장 삭제는 실제 대상 synthetic 과 대조 — payload 위조로 실제 세션 원장 삭제 거부', /실제 학습자의 요청 원장/.test((await svc('delete from learning_mutations where user_id = $1 and client_mutation_id = $2', [A, fake])).err ?? ''))
   }
 
+  // F7-7 소유자 불변 — 실제 기록을 임시 계정으로 옮겨 지우는 길(f7-review-probe ⑤)
+  rec('F7-7 실제 시도 user_id 변경 거부', /user_id/.test(await err('update learning_task_attempts set user_id = $1 where id = $2', [B, realAtt.rows[0].attempt_id]) ?? ''))
+  rec('F7-7 실제 세션 user_id 변경 거부', /user_id/.test(await err('update learning_sessions set user_id = $1 where id = $2', [B, real.rows[0].session_id]) ?? ''))
+
   // F7-4 계정 삭제 — 실제 · 합성이 섞인 계정도 cascade 로 지워진다 · 분석 표본이 줄면 검증에 재검토 필요 표시
   {
     const su2 = new pg.Client({ host: '127.0.0.1', port: 54329, database: 'ec', user: 'supabase_admin', password: 'admin' })
@@ -115,6 +119,7 @@ try {
     rec('F7-4 실제 · 합성이 섞인 계정 삭제 cascade 허용 · 기록 0 남음', !delErr && left.a === 0 && left.s === 0 && left.m === 0, delErr ?? left)
     const tr = (await q('select status, review_required_at, review_required_reason from knowledge_trials where id = $1', [trial])).rows[0]
     rec('F7-4 분석 표본 학습자 계정 삭제 → 결과 행은 analyzed 그대로 · 재검토 필요 표시', tr.status === 'analyzed' && tr.review_required_at !== null && /재계산/.test(tr.review_required_reason ?? ''), tr)
+    rec('F7-6 재검토 필요 검증은 효과 판정 근거가 아니다(efficacy 갱신 거부)', /뒷받침하는/.test(await err(`update knowledge_items set efficacy = 'research_supported', updated_by = 't' where id = $1`, [it]) ?? ''))
     rec('F7-4 계정이 살아 있으면 실제 기록 삭제는 여전히 거부', /실제 학습자 기록/.test((await svc('delete from learning_sessions where id = $1', [real.rows[0].session_id])).err ?? ''))
   }
 

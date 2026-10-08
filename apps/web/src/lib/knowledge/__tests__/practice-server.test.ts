@@ -193,17 +193,17 @@ describe('g2 어댑터(G2 적용 뒤) — 원자 제출 RPC(M8-H)', () => {
     expect(selectWriter({} as SupabaseClient, 'g2').kind).toBe('g2')
     expect(selectWriter({} as SupabaseClient, 'direct').kind).toBe('direct')
   })
-  it('M8 적용 전 기본(g2 · 두 RPC)은 160000 계약만 부른다 — 미적용 learning_attempt_submit 을 부르지 않는다(Codex P1)', async () => {
+  it('되돌림 설정 g2-legacy 는 160000 두 RPC 계약만 부른다', async () => {
     const f = fakeDb([])
-    const w = selectWriter(f.db, undefined)
+    const w = selectWriter(f.db, 'g2-legacy')
     const sid = await w.reveal(W)
     expect(await w.record(W, sid)).toBe('inserted')
     expect(f.rpcs.map((r) => r.fn)).toEqual(['learning_session_apply', 'learning_attempt_record'])
     expect(f.rpcs[1].args).toMatchObject({ p_session_id: 'sess-1', p_help_level: null, p_answered_at: W.answeredAt })
   })
-  it('g2-atomic 설정에서만 원자 RPC', async () => {
+  it('M8 적용 뒤 기본은 원자 RPC(learning_attempt_submit) — 같은 id 동시 요청 경쟁을 서버가 닫는다(Codex P1)', async () => {
     const f = fakeDb([])
-    const w = selectWriter(f.db, 'g2-atomic')
+    const w = selectWriter(f.db, undefined)
     await w.record(W, await w.reveal(W))
     expect(f.rpcs.map((r) => r.fn)).toEqual(['learning_attempt_submit'])
   })

@@ -56,6 +56,8 @@ create function public.learning_records_delete_guard() returns trigger
 language plpgsql security definer set search_path = public, pg_temp as $$
 declare v_trial uuid;
 begin
+  -- M8 표본 공유 잠금 — 진행 중인 분석 전환(배타)과 직렬화해, 겹쳐도 재검토 표시가 빠지지 않게(Codex P1)
+  perform pg_advisory_xact_lock_shared(hashtext('learning_trial_sample'));
   -- F7-4 계정 삭제 cascade — 허용하되, 분석 완료 실검증 표본이 줄면 그 검증을 재검토 필요로 표시
   if not exists (select 1 from auth.users u where u.id = old.user_id) then
     if tg_table_name = 'learning_task_attempts' and old.trial_id is not null then
@@ -86,6 +88,21 @@ create trigger learning_task_attempts_delete_guard before delete on public.learn
   for each row execute function public.learning_records_delete_guard();
 create trigger learning_sessions_delete_guard before delete on public.learning_sessions
   for each row execute function public.learning_records_delete_guard();
+
+-- F7-7 기록 소유자 불변 — 실제 시도 · 세션을 임시 계정으로 옮긴 뒤 그 계정을 지워 cascade 로 없애는 길을 닫는다(Codex P1 · f7-review-probe ⑤)
+-- 요청 원장은 F7-2 가 UPDATE 를 통째로 거부한다
+create function public.learning_records_owner_immutable() returns trigger
+language plpgsql set search_path = public as $$
+begin
+  if new.user_id is distinct from old.user_id then
+    raise exception '학습 기록의 학습자(user_id)는 바꿀 수 없다';
+  end if;
+  return new;
+end $$;
+create trigger learning_task_attempts_owner_immutable before update of user_id on public.learning_task_attempts
+  for each row execute function public.learning_records_owner_immutable();
+create trigger learning_sessions_owner_immutable before update of user_id on public.learning_sessions
+  for each row execute function public.learning_records_owner_immutable();
 
 -- ── F7-5 세션 변경 — M8 본문 + 기존 세션과 다른 synthetic 거부 한 줄 ──────────────────────────
 create or replace function public.learning_session_apply(
@@ -121,6 +138,10 @@ begin
   values (p_user, p_client_session_id, p_activity, p_phase, p_item_ref, p_task_key, p_application_id, p_trial_id, p_at, p_at, coalesce(p_synthetic, false))
   on conflict (user_id, client_session_id) do nothing;
   select id into v_id from public.learning_sessions where user_id = p_user and client_session_id = p_client_session_id;
+  -- F7-5 동시 생성 경쟁 — 다른 요청이 먼저 다른 합성 표시로 만들었으면 여기서 다시 거부(Codex P2)
+  if exists (select 1 from public.learning_sessions where id = v_id and synthetic <> coalesce(p_synthetic, false)) then
+    raise exception 'session synthetic mismatch — 세션의 합성 표시와 다른 변경은 받지 않는다';
+  end if;
 
   update public.learning_sessions s set
     stage = case when v_rank_new > (case s.stage when 'open' then 0 when 'revealed' then 1 else 2 end) then p_stage else s.stage end,
@@ -141,6 +162,30 @@ begin
   where s.id = v_id;
 
   session_id := v_id; outcome := 'applied'; return next;
+end $$;
+
+-- ── F7-6 효과 판정 게이트 — 재검토 필요 표시가 있는 검증은 효과 근거로 쓰지 않는다(Codex P1) ──────────────
+-- 120000 본문(개발 DB 배포본과 같음 · 2026-10-08 pg_get_functiondef 대조) + `and t.review_required_at is null` 한 줄
+create or replace function public.knowledge_items_applied_guard() returns trigger
+language plpgsql set search_path = public as $$
+declare old_status text;
+        old_eff text;
+begin
+  if tg_op = 'UPDATE' then old_status := old.status; old_eff := old.efficacy; end if;
+  if new.status = 'applied' and old_status is distinct from 'applied' and not exists (
+    select 1 from public.knowledge_applications a where a.item_id = new.id and a.status = 'active') then
+    raise exception '활성 제품 적용 없이 applied 로 바꿀 수 없다';
+  end if;
+  if new.efficacy <> 'not_assessed' and new.efficacy is distinct from old_eff and not (
+    exists (select 1 from public.knowledge_evidence e where e.item_id = new.id and e.source_type = 'research'
+             and e.evidence_level in ('meta_analysis','systematic_review','rct','quasi_experimental')
+             and e.applicability in ('high','partial'))
+    or exists (select 1 from public.knowledge_trials t join public.knowledge_applications a on a.id = t.application_id
+               where a.item_id = new.id and t.status = 'analyzed' and not t.synthetic and t.review_required_at is null
+                 and t.result = case new.efficacy when 'research_supported' then 'supported' else new.efficacy end)) then
+    raise exception '효과 판정(%)을 뒷받침하는 연구 근거(준실험 이상)나 같은 결과의 실제 학습자 검증이 없다', new.efficacy;
+  end if;
+  return new;
 end $$;
 
 -- ── 되돌리기(한 트랜잭션 · 각 줄 앞의 「-- 」를 벗겨 실행) ────────────────────
@@ -193,11 +238,35 @@ end $$;
 --   where s.id = v_id;
 --   session_id := v_id; outcome := 'applied'; return next;
 -- end $$;
+-- drop trigger learning_sessions_owner_immutable on public.learning_sessions;
+-- drop trigger learning_task_attempts_owner_immutable on public.learning_task_attempts;
+-- drop function public.learning_records_owner_immutable();
 -- drop trigger learning_sessions_delete_guard on public.learning_sessions;
 -- drop trigger learning_task_attempts_delete_guard on public.learning_task_attempts;
 -- drop function public.learning_records_delete_guard();
 -- drop trigger learning_mutations_append_only on public.learning_mutations;
 -- drop function public.learning_mutations_append_only();
+-- create or replace function public.knowledge_items_applied_guard() returns trigger
+-- language plpgsql set search_path = public as $$
+-- declare old_status text;
+--         old_eff text;
+-- begin
+--   if tg_op = 'UPDATE' then old_status := old.status; old_eff := old.efficacy; end if;
+--   if new.status = 'applied' and old_status is distinct from 'applied' and not exists (
+--     select 1 from public.knowledge_applications a where a.item_id = new.id and a.status = 'active') then
+--     raise exception '활성 제품 적용 없이 applied 로 바꿀 수 없다';
+--   end if;
+--   if new.efficacy <> 'not_assessed' and new.efficacy is distinct from old_eff and not (
+--     exists (select 1 from public.knowledge_evidence e where e.item_id = new.id and e.source_type = 'research'
+--              and e.evidence_level in ('meta_analysis','systematic_review','rct','quasi_experimental')
+--              and e.applicability in ('high','partial'))
+--     or exists (select 1 from public.knowledge_trials t join public.knowledge_applications a on a.id = t.application_id
+--                where a.item_id = new.id and t.status = 'analyzed' and not t.synthetic
+--                  and t.result = case new.efficacy when 'research_supported' then 'supported' else new.efficacy end)) then
+--     raise exception '효과 판정(%)을 뒷받침하는 연구 근거(준실험 이상)나 같은 결과의 실제 학습자 검증이 없다', new.efficacy;
+--   end if;
+--   return new;
+-- end $$;
 -- alter table public.knowledge_trials drop column review_required_reason;
 -- alter table public.knowledge_trials drop column review_required_at;
 -- grant update on public.learning_mutations to service_role;

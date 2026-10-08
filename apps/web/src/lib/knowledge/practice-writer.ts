@@ -218,7 +218,8 @@ export function g2Writer(db: SupabaseClient, opts: { atomic?: boolean } = {}): A
 }
 
 export function selectWriter(db: SupabaseClient, env: string | undefined = process.env.PRACTICE_ATTEMPT_WRITER): AttemptWriter {
-  // G2 SQL(20261008160000)이 개발 DB 에 적용됐다 — 기본은 g2(두 RPC). g2-atomic 은 M8 적용 확인 뒤에만. direct 는 되돌림용
+  // M8(20261008180000)이 개발 DB 에 적용됐다(2026-10-08) — 기본은 원자 RPC(learning_attempt_submit). 같은 제출 id 의 동시 요청이
+  // 세션을 오염시키는 경쟁은 이 경로만 닫는다(Codex P1). g2-legacy(두 RPC) · direct 는 되돌림용 명시 설정만
   if (env === 'direct') return directWriter(db)
-  return g2Writer(db, { atomic: env === 'g2-atomic' })
+  return g2Writer(db, { atomic: env !== 'g2-legacy' })
 }
