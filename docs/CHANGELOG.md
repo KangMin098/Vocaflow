@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(admin/knowledge): 학습 원리 vNext 5개 업무 공간 — A 원리 운영실(순환 단계 · 병목 · 우선 큐) · B 역량 · 원리 지도(`/map` 종류별 열 · 노드 판) · C 탐구 · 근거 연구소(`/lab` 탐구 질문 · 주장 비교 · `/lab/research` 연구 서지) · D 학습 설계 · 검증(`/design` 적용 초안 · 검증 계획) · E 제품 적용 · 품질(`/product` 켜기 · 중단 · 롤백 · 근거 변경 영향). 기존 8 URL 은 하위 탭(WorkspaceNav) · 사이드바 5개로 재편 · 항목 상세에 종류 · 근거 세 축 · 연구 근거 · 적용. Server Actions `vnext-actions.ts` · 로더 `vnext-server.ts` · 규칙 `vnext-rules.ts` · 화면도움말 7개. 브라우저 검증 21/21(`scripts/knowledge/vnext-admin-e2e.mts` · 시험 데이터 정리 0).
+
 - feat(db): `20261008120000_knowledge_vnext` 적용(사용자 승인 sha256 5053c5ba… · 해시 게이트 실행기 `scripts/db/apply-approved-sql.mjs --record` · 앞뒤 체크포인트 · 원장 기록) — 학습 원리 vNext 새 표 6 · kind · 근거 세 축. 기존 행 삭제 0(항목 · 근거 · 검토 id 동일) · 실제 DB 계약 37/37(롤백) · 공부법 118 `evidence_version` 1→2(근거 백필 부수효과).
 
 - docs(methodology): 영어 학습 원리 시스템 vNext Phase 1 — 현행 감사(DB 실측 · 코드) · 통합 아키텍처 정본 `docs/methodology/VNEXT_ARCHITECTURE.md`(구조 결함 8 · 지식 객체 6 + 탐구 · 적용 · 검증 · 근거 세 축 · 기존→새 매핑 · 관리자 5개 업무 공간 · 학습자 계약 · 첫 수직 경로 「주장과 근거 관계 이해」) · Phase 2 추가형 스키마 초안 `_pending_20261008120000_knowledge_vnext.sql`(미적용 · Codex 계획 리뷰 P0 1 · P1 7 반영 · 격리 PostgreSQL 검증 36/36 `scripts/knowledge/vnext-schema-test.mjs`). DB 변경 없음.

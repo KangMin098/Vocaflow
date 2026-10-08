@@ -65,15 +65,13 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 [ 단독 ]    대시보드 (LayoutDashboard)
 [ 교재 ]     (accent: var(--p))
    교재 공장 (Factory) — 하위 14칸(여덟 걸음 + 낸 뒤 살피기 · 기준을 세우는 곳 3 · 도움 2). 이름은 `PLAIN_STEPS` 에서 온다. 들어가면 자동으로 펴지고, 화살표로 직접 접고 편다
-[ 학습 원리 ] (accent: var(--p)) — 2026-09-28. 공급이 아니라 판단 기준이라 교재와 공급 사이
-   원리 지도          /admin/knowledge
-   본질 · 원리        /admin/knowledge/principles
-   방법론 · 공부법    /admin/knowledge/methods
-   검토 대기          /admin/knowledge/review
-   근거 · 출처        /admin/knowledge/sources — 하위 2칸(기출 원천 · 가져오기 원장 /admin/methodology)
-   전문가 · 채널      /admin/knowledge/experts
-   공백               /admin/knowledge/gaps
-   = 7 항목 · 화면도움말 lib/admin/help/knowledge.ts · 정본 docs/methodology/SYSTEM.md
+[ 학습 원리 ] (accent: var(--p)) — 2026-09-28 · vNext 5개 업무 공간 2026-10-08. 공급이 아니라 판단 기준이라 교재와 공급 사이
+   원리 운영실        /admin/knowledge
+   역량 · 원리 지도   /admin/knowledge/map — 하위(본질 · 원리 · 방법론 · 공부법)
+   탐구 · 근거 연구소 /admin/knowledge/lab — 하위(연구 서지 · 검토 대기 · 근거 · 출처 · 기출 원천 · 전문가 · 채널 · 공백 · 가져오기 원장)
+   학습 설계 · 검증   /admin/knowledge/design
+   제품 적용 · 품질   /admin/knowledge/product
+   = 5 공간 · 기존 URL 그대로 하위 · 화면 위 업무 공간 내비(WorkspaceNav) · 화면도움말 lib/admin/help/knowledge.ts · 정본 docs/methodology/VNEXT_ARCHITECTURE.md(SYSTEM.md 는 5층 원본)
    쓰기: 항목 상세(/admin/knowledge/item/[slug])의 상태 변경·층 연결·근거 추가, 목록의 「새 항목 쓰기」
    규칙 lib/knowledge/rules.ts — 근거 0 이면 채택 불가 · 반려는 이유 필수 · 「구현」은 바로 위 층만
 [ 콘텐츠 공급 ] (accent: var(--p))

@@ -5,6 +5,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
+import { KIND_LABEL, KIND_QUESTION, KINDS_BY_LAYER, type Kind } from '@/lib/knowledge/vnext-labels'
 import { createItemAction } from '@/app/admin/knowledge/actions'
 import { LAYER_LABEL, LAYER_QUESTION, type Layer } from '@/lib/knowledge/labels'
 
@@ -29,6 +30,7 @@ export function NewItemForm({ layers, taxonomy }: { layers: Layer[]; taxonomy: T
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [layer, setLayer] = useState<Layer>(layers[0])
+  const [kind, setKind] = useState<Kind>(KINDS_BY_LAYER[layers[0]][0])
   const [slug, setSlug] = useState('')
   const [title, setTitle] = useState('')
   const [statement, setStatement] = useState('')
@@ -64,7 +66,7 @@ export function NewItemForm({ layers, taxonomy }: { layers: Layer[]; taxonomy: T
         e.preventDefault()
         setError(null)
         start(async () => {
-          const r = await createItemAction({ layer, slug, title, statement, skillIds: skills, conditionIds: conditions })
+          const r = await createItemAction({ layer, kind, slug, title, statement, skillIds: skills, conditionIds: conditions })
           if (!r.ok) {
             setError(r.error ?? '저장 실패')
             return
@@ -77,12 +79,24 @@ export function NewItemForm({ layers, taxonomy }: { layers: Layer[]; taxonomy: T
         <legend className="mb-1 text-sm text-[var(--t2)]">층</legend>
         {layers.map((l) => (
           <label key={l} className="inline-flex min-h-11 items-center gap-2">
-            <input className="h-4 w-4 accent-[var(--p)]" type="radio" name="layer" checked={layer === l} onChange={() => setLayer(l)} />
+            <input className="h-4 w-4 accent-[var(--p)]" type="radio" name="layer" checked={layer === l} onChange={() => { setLayer(l); setKind(KINDS_BY_LAYER[l][0]) }} />
             {LAYER_LABEL[l]}
             <span className="text-xs text-[var(--t3)]">{LAYER_QUESTION[l]}</span>
           </label>
         ))}
       </fieldset>
+      {KINDS_BY_LAYER[layer].length > 1 && (
+        <fieldset className="flex flex-wrap gap-4 text-sm text-[var(--t1)]">
+          <legend className="mb-1 text-sm text-[var(--t2)]">종류</legend>
+          {KINDS_BY_LAYER[layer].map((k) => (
+            <label key={k} className="inline-flex min-h-11 items-center gap-2">
+              <input className="h-4 w-4 accent-[var(--p)]" type="radio" name="kind" checked={kind === k} onChange={() => setKind(k)} />
+              {KIND_LABEL[k]}
+              <span className="text-xs text-[var(--t3)]">{KIND_QUESTION[k]}</span>
+            </label>
+          ))}
+        </fieldset>
+      )}
       <label className="text-sm text-[var(--t2)]">
         제목
         <input value={title} onChange={(e) => setTitle(e.target.value)} className={FIELD} maxLength={120} required />

@@ -19,6 +19,7 @@ import {
   type NewItemInput,
 } from '@/lib/knowledge/rules'
 import { listTaxonomy } from '@/lib/knowledge/server'
+import { KINDS_BY_LAYER, isKind } from '@/lib/knowledge/vnext-labels'
 
 export interface ActionResult<T = unknown> {
   ok: boolean
@@ -117,6 +118,11 @@ export async function createItemAction(input: NewItemInput): Promise<ActionResul
     if (!isLayer(input.layer)) return { ok: false, error: '알 수 없는 층입니다' }
     const rule = checkNewItem(input)
     if (!rule.ok) return rule
+    // 종류: essence · principle 은 사람이 고른다(기본값이 정하면 안 된다 — 마이그레이션 20261008120000 계약)
+    const kind = input.kind ?? (input.layer === 'method' ? 'method' : input.layer === 'practice' ? 'task' : null)
+    if (!isKind(kind) || !KINDS_BY_LAYER[input.layer].includes(kind)) {
+      return { ok: false, error: '종류를 고르세요 — 본질은 역량 목표/묶음, 원리는 언어 처리 기제/학습 기제' }
+    }
     // 분류 ID 는 클라이언트를 믿지 않는다 — 최신 스냅샷 분류에 실제로 있고 차원이 맞는지 서버에서 본다
     const taxonomyRule = checkTaxonomyIds(input.skillIds, input.conditionIds, await listTaxonomy())
     if (!taxonomyRule.ok) return taxonomyRule
@@ -124,6 +130,7 @@ export async function createItemAction(input: NewItemInput): Promise<ActionResul
       .from('knowledge_items')
       .insert({
         layer: input.layer,
+        kind,
         slug: input.slug,
         title: input.title.trim(),
         statement: input.statement.trim(),

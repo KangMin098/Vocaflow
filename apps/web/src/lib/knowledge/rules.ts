@@ -37,6 +37,8 @@ const SLUG_RE = /^[a-z0-9][a-z0-9-]{1,80}$/
 
 export interface NewItemInput {
   layer: Layer
+  /** vNext 종류(20261008120000). essence · principle 은 반드시 고른다(역량 vs 묶음 · 처리 vs 학습 기제) — method · practice 는 층과 같다 */
+  kind?: string
   slug: string
   title: string
   statement: string

@@ -294,7 +294,13 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 경로 | 파일 | 비고 |
 |---|---|---|
-| `/admin/knowledge` | `admin/knowledge/page.tsx` | 원리 지도 — 층 × 상태 개수 · 열린 공백 · 기출 원천 등급 |
+| `/admin/knowledge` | `admin/knowledge/page.tsx` | A 원리 운영실(vNext 2026-10-08) — 순환 단계 현황 · 병목 · 우선 처리 큐 · 열린 공백 · 기출 원천 등급 |
+| `/admin/knowledge/map` | `…/map/page.tsx` | B 역량 · 원리 지도 — 종류별 열 관계 지도 · 노드 판(`?node=slug` · `?skill=`) · 영역 × 층 격자(옛 원리 지도) |
+| `/admin/knowledge/lab` | `…/lab/page.tsx` | C 탐구 · 근거 연구소 — 탐구 질문 목록 · 새 질문 |
+| `/admin/knowledge/lab/[slug]` | `…/lab/[slug]/page.tsx` | 탐구 질문 상세 — 결론 후보 · 지지 · 반례 · 불확실 비교 · 잇기 · 결론(Server Actions `admin/knowledge/vnext-actions.ts`) |
+| `/admin/knowledge/lab/research` | `…/lab/research/page.tsx` | 연구 서지(설계 · 대상 · L2 맥락 · DOI) |
+| `/admin/knowledge/design` | `…/design/page.tsx` | D 학습 설계 · 검증 — 적용 초안 · 검증 계획(사전 · 사후 · 지연 · 전이 · 비교 · 최소 표본) · 방법이 기대는 기제 |
+| `/admin/knowledge/product` | `…/product/page.tsx` | E 제품 적용 · 품질 — 적용 상태별 · 학습 결과 · 근거 변경 영향 · 켜기 · 중단 · 롤백 |
 | `/admin/knowledge/principles` | `…/principles/page.tsx` | L1 본질 · L2 원리 목록 |
 | `/admin/knowledge/methods` | `…/methods/page.tsx` | L3 방법론 · L4 공부법 목록 (조건 칩) |
 | `/admin/knowledge/review` | `…/review/page.tsx` | 추출됨·검토 중 항목 |
@@ -302,7 +308,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/knowledge/sources/csat` | `…/sources/csat/page.tsx` | 기출 원천 — 문항·서지·근거 링크·등급 (지문 원문 없음) |
 | `/admin/knowledge/experts` | `…/experts/page.tsx` | 가져오기 원장 최신 스냅샷의 전문가·채널 |
 | `/admin/knowledge/gaps` | `…/gaps/page.tsx` | 공백 — 원인 · 다음 행동 · 영향 수 |
-| `/admin/knowledge/item/[slug]` | `…/item/[slug]/page.tsx` | 항목 상세 — 위/아래 층 연결 · 근거 · 검토 기록 + 상태 변경·연결·근거 추가(Server Actions `admin/knowledge/actions.ts`) |
+| `/admin/knowledge/item/[slug]` | `…/item/[slug]/page.tsx` | 항목 상세 — 위/아래 층 연결 · 근거(출처 확인도 · 연구 수준 · 적용 적합성) · 검토 기록 + 상태 변경·연결·근거 추가 · 종류 · 연구 근거 · 근거 축(Server Actions `actions.ts` · `vnext-actions.ts`) |
 | `/admin/methodology` | `admin/methodology/page.tsx` | 가져오기 원장(Codex 2026-09-19 워크벤치) — 메뉴상 「근거 · 출처」 하위 |
 
 ---
