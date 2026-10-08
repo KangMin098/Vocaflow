@@ -17,6 +17,7 @@ import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
+import type { FindAttemptRow } from '../../knowledge/find-outcome'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
 
@@ -44,6 +45,8 @@ export interface MapPageData {
   settings: MapSettings
   /** FIND 과제 id → 같은 실행 과제를 기출 한 문항으로 직접 해 보는 곳(학습 원리 적용 learning_map_find · 채택 사슬이 살아 있을 때만) */
   practiceLinks?: Record<string, MapPracticeLink>
+  /** 확인 문항에서의 내 첫 시도(DB 뷰 learning_first_attempts · RLS 본인 행) — 확인 결과 → 확인된 학습 요구(find-outcome) */
+  findAttempts?: FindAttemptRow[]
   /** 학습자 본인의 시험 기록(진단에 반영된 회차 · 오래된 것부터) — 「현재 위치」는 이것만 근거로 쓴다 */
   records: LearnerRecord[]
 }
@@ -95,6 +98,25 @@ function group<T, K extends string | number>(rows: T[], key: (r: T) => K, val: (
   const out = {} as Record<K, string[]>
   for (const r of rows) (out[key(r)] ??= []).push(val(r))
   return out
+}
+
+/** 확인 문항에서의 내 첫 시도 — 학습자 RLS 클라이언트로 본인 행만. 문항이 없으면 묻지 않는다 */
+async function loadFindAttempts(db: Db, userId: string, items: string[]): Promise<FindAttemptRow[]> {
+  if (items.length === 0) return []
+  const { data, error } = await db.from('learning_first_attempts').select('*').eq('user_id', userId).in('item_ref', [...new Set(items)])
+  if (error) throw new Error(`확인 결과 조회 실패: ${error.message}`)
+  return ((data ?? []) as Record<string, unknown>[]).map((r) => ({
+    userId: String(r.user_id),
+    itemRef: String(r.item_ref),
+    taskKey: String(r.task_key ?? ''),
+    phase: String(r.phase) as FindAttemptRow['phase'],
+    isCorrect: typeof r.is_correct === 'boolean' ? r.is_correct : null,
+    synthetic: r.synthetic === true,
+    helpLevel: (r.help_level as string | null) ?? null,
+    afterViewedFirst: r.after_viewed_first === true,
+    afterExplanation: r.after_explanation === true,
+    timingUncertain: r.timing_uncertain === true,
+  }))
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
@@ -269,6 +291,13 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     noData: NO_DATA_ATTRIBUTES,
   }
 
+  // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
+  const practiceLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
+  const findAttempts = await loadFindAttempts(db, userId, Object.values(practiceLinks).map((l) => l.target)).catch((e) => {
+    console.error('[csat-map find attempts]', e)
+    return [] as FindAttemptRow[]
+  })
+
   return {
     model: buildMapModel(raw, examLabels),
     nodes,
@@ -279,8 +308,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     edgeSources: group(edgeSrc, (r) => r.edge_id, (r) => r.source_id),
     doneTaskIds: [...raw.doneTaskIds],
     settings,
-    // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
-    practiceLinks: await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} }),
+    practiceLinks,
+    findAttempts,
     records,
   }
 }

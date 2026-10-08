@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat-map): 학습 지도 「직접 확인(FIND)」 결과 → 확인된 학습 요구(트랙 B) — 확인 문항에서의 내 독립 첫 시도(DB 뷰 `learning_first_attempts`, RLS 본인 행)를 `find-outcome` 으로 판정해 확인하기 시트에 표시. 서로 다른 확인 문항 2개 이상이 모두 막혀야 「연습이 필요해 보여요」, 한 문항으로는 확정하지 않음. `MapPracticeLink` 에 target · taskKey. SQL 없음.
+
 - feat(knowledge): 성과 검토 신호 `/admin/knowledge/signals`(트랙 E) — 학습 결과 → 원리·방법 재검토의 첫 연결. 적용별 적격 첫 시도(실제·독립·해설 전·시각 확실)로 검토 필요/표본 부족/결과 상충/데이터 품질 신호를 내고, 아무것도 바꾸지 않는다(efficacy·상태 불변, 재검토는 사람이 항목 화면에서). SQL 없음.
 
 - feat(api): `POST /api/csat/item/[slug]/task` 거부 응답에 `code`(no_task · not_live · invalid_input) — 노출 게이트 거부를 입력 오류와 구분. 응집 게이트 E2E 9/9(정상 입력 → not_live · 대조 invalid_input)

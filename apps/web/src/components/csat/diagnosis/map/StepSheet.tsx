@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react'
 import { CORE_STATUS_LABEL, LEGACY_PROXY_LABEL, THRESHOLD_NOTE } from '@/lib/csat/map/core'
 import { EVIDENCE_LABEL, STAGE_WORD, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
+import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
 import { useModalFocus } from '../useModalFocus'
@@ -36,6 +37,9 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   }, [startAt])
   const lineTasks = data.tasks.filter((t) => step.lines.includes(t.line_code))
   const find = lineTasks.filter((t) => stageOf(t.id) === 'FIND')
+  // 확인 문항 결과 → 확인된 학습 요구(서로 다른 확인 문항 2개 이상 · 독립 첫 시도). 연결된 확인 문항이 있을 때만
+  const findTargets = find.map((t) => data.practiceLinks?.[t.id]).filter((x): x is NonNullable<typeof x> => !!x).map((x) => ({ itemRef: x.target, taskKey: x.taskKey }))
+  const outcome = findTargets.length ? findOutcome(findTargets, data.findAttempts ?? []) : null
   const later = STAGE_ORDER.filter((s) => s !== 'FIND').map((s) => ({ stage: s, tasks: lineTasks.filter((t) => stageOf(t.id) === s) }))
   const nameOf = (code: string) => data.nodes.find((n) => n.code === code)?.name ?? code
   const Icon = STEP_ICON[step.key]
@@ -101,6 +105,11 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
           </section>
           <section className={`${l.block} ${l.now}`} id="step-check">
             <h3 className={l.blockH}><Search size={14} strokeWidth={1.9} aria-hidden="true" />지금 확인할 것 — {STAGE_WORD.FIND}</h3>
+            {outcome && (
+              <p className={l.text} data-testid="find-outcome" data-state={outcome.state}>
+                <strong>직접 확인 결과 · {FIND_STATE_LABEL[outcome.state]}</strong> — {outcome.message}
+              </p>
+            )}
             {find.length === 0 ? (
               <p className={l.text}>이 단계의 확인 활동은 아직 없어요.</p>
             ) : (
