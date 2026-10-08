@@ -1,0 +1,236 @@
+-- docs/csat-learner/g2-draft/20261008160000_learning_sessions_integrated.sql
+--
+-- ⚠️ **통합 초안 — 미적용 · 승인 대기.** supabase/migrations 에 두지 않는다(자동 적용 · 번호 선점 방지).
+--    적용은 사용자 승인 + 지정된 단일 DB 쓰기 담당 세션만. 근거: docs/csat-learner/G2_SESSION_CONTRACT.md · G2_INTEGRATION_REVIEW.md
+--
+-- 합치는 것(한 세트):
+--   ① 서버 학습 세션 표 learning_sessions — 판단 0건(열기만 · 「모르겠어요」) 세션도 이력
+--   ② 요청 멱등 원장 learning_mutations — user_id + client_mutation_id (세션 변경 · 시도 기록 공통)
+--   ③ learning_task_attempts 확장 — session_id · activity · help_level · client_mutation_id · phase 'review'
+--      (methodology-vnext 의 _pending_20261008140100(client_attempt_id) 를 **대체**한다 — 같은 목적, 사용자 결정 명칭)
+--   ④ 기록 RPC 2종 — inserted / duplicate / conflict (같은 키 · 다른 내용은 덮지 않는다)
+--   ⑤ 첫 시도 뷰 — 「학습 계약상 첫 판단 제출」(네트워크상 첫 INSERT 가 아님)
+--   ⑥ funnel_events CHECK — 기존 68 ∪ knowledge 2 ∪ 기출 13 = 83 (한 번에)
+--
+-- 번호: 개발 DB 최신 적용 20261008150000(methodology-vnext) 다음. 적용 직전 `ls supabase/migrations` + schema_migrations 로 다시 확인.
+-- 기존 데이터 영향: learning_task_attempts 0행(2026-10-08) · 새 표 2개 빈 표 · funnel_events 는 CHECK 재정의만(기존 20,722행 전부 기존 68종 안 — 재검증 통과).
+-- 되돌리기: 맨 끝 주석 블록.
+
+begin;
+
+-- ── ① 학습 세션 ───────────────────────────────────────────────────────────
+create table public.learning_sessions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  client_session_id uuid not null,                                -- 기기가 만든 세션 id(G1 기기 기록 sessions[].id 와 짝)
+  activity text not null check (activity in ('theater', 'dissect', 'practice')),
+  phase text not null default 'practice' check (phase in ('pre', 'practice', 'post', 'delayed', 'transfer', 'review')),
+  item_ref text not null check (length(item_ref) between 1 and 120), -- 기출 = csat_items.id · 비기출 과제 = 과제 식별자
+  task_key text check (task_key is null or length(task_key) between 1 and 120),
+  application_id uuid references public.knowledge_applications(id),
+  trial_id uuid references public.knowledge_trials(id),
+  stage text not null default 'open' check (stage in ('open', 'revealed', 'finished')),
+  step integer not null default 0 check (step between 0 and 500),
+  steps integer not null default 0 check (steps between 0 and 500),
+  help_level text check (help_level in ('independent', 'hint', 'viewed_first')),
+  started_at timestamptz not null,
+  last_active_at timestamptz not null,
+  revealed_at timestamptz,
+  finished_at timestamptz,
+  review_at timestamptz,
+  deleted_at timestamptz,                                           -- 삭제 표시(tombstone) — 행은 지우지 않는다
+  client_kind text not null default 'web' check (client_kind in ('web', 'agent', 'import')),
+  synthetic boolean not null default false,
+  created_at timestamptz not null default now(),
+  unique (user_id, client_session_id),
+  -- 단계 정합성: 공개 전엔 도움 수준 · 공개 시각이 없고, 공개 뒤엔 둘 다 있다. 마침은 공개 뒤에만.
+  constraint learning_sessions_stage_shape check (
+    (stage = 'open' and help_level is null and revealed_at is null and finished_at is null)
+    or (stage = 'revealed' and help_level is not null and revealed_at is not null and finished_at is null)
+    or (stage = 'finished' and help_level is not null and revealed_at is not null and finished_at is not null)
+  ),
+  constraint learning_sessions_review_after_finish check (review_at is null or finished_at is not null)
+);
+create index learning_sessions_user_recent_idx on public.learning_sessions (user_id, last_active_at desc);
+create index learning_sessions_user_item_idx on public.learning_sessions (user_id, item_ref);
+
+-- ── ② 요청 멱등 원장 ─────────────────────────────────────────────────────
+-- 같은 논리적 변경의 재시도만 같은 id. 새 사용자 행동은 언제나 새 id(G2 계약 §2).
+create table public.learning_mutations (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  client_mutation_id uuid not null,
+  kind text not null check (kind in ('session', 'attempt')),
+  target uuid not null,          -- 세션 id 또는 시도가 속한 세션 id
+  payload jsonb not null,        -- 의미 비교용(jsonb 동등 — 키 순서 무관)
+  applied_at timestamptz not null default now(),
+  primary key (user_id, client_mutation_id)
+);
+
+-- ── ③ 시도 표 확장(모두 NULL 허용 — practice 기존 호출 코드 호환) ─────────────
+alter table public.learning_task_attempts
+  add column session_id uuid references public.learning_sessions(id),
+  add column activity text check (activity is null or activity in ('theater', 'dissect', 'practice')),
+  add column help_level text check (help_level is null or help_level in ('independent', 'hint', 'viewed_first')),
+  add column client_mutation_id uuid;
+create unique index learning_task_attempts_mutation_uniq
+  on public.learning_task_attempts (user_id, client_mutation_id) where client_mutation_id is not null;
+create index learning_task_attempts_session_idx on public.learning_task_attempts (session_id) where session_id is not null;
+alter table public.learning_task_attempts drop constraint learning_task_attempts_phase_check;
+alter table public.learning_task_attempts
+  add constraint learning_task_attempts_phase_check check (phase in ('pre', 'practice', 'post', 'delayed', 'transfer', 'review'));
+
+-- ── ④ 기록 RPC(서버 service_role 전용) ────────────────────────────────────
+-- 같은 mutation id · 같은 내용 → duplicate(기존 결과) · 다른 내용 → conflict(아무것도 바꾸지 않음)
+create function public.learning_mutation_claim(p_user uuid, p_mutation uuid, p_kind text, p_target uuid, p_payload jsonb)
+returns text language plpgsql security invoker set search_path = '' as $$
+declare v public.learning_mutations%rowtype;
+begin
+  insert into public.learning_mutations (user_id, client_mutation_id, kind, target, payload)
+  values (p_user, p_mutation, p_kind, p_target, p_payload)
+  on conflict (user_id, client_mutation_id) do nothing;
+  if found then return 'new'; end if;
+  select * into v from public.learning_mutations where user_id = p_user and client_mutation_id = p_mutation;
+  if v.kind = p_kind and v.target = p_target and v.payload = p_payload then return 'duplicate'; end if;
+  return 'conflict';
+end $$;
+
+-- 세션 변경 — 단조 규칙(G0 §4): stage 는 앞으로만 · finished/review/revealed 시각과 도움 수준은 먼저 정한 값 · step 은 최신
+create function public.learning_session_apply(
+  p_user uuid, p_mutation uuid, p_client_session_id uuid, p_activity text, p_phase text, p_item_ref text,
+  p_stage text, p_step integer, p_steps integer, p_help_level text, p_at timestamptz,
+  p_review_at timestamptz default null, p_deleted boolean default false, p_synthetic boolean default false,
+  p_task_key text default null, p_application_id uuid default null, p_trial_id uuid default null
+) returns table (session_id uuid, outcome text)
+language plpgsql security invoker set search_path = '' as $$
+declare
+  v_id uuid;
+  v_claim text;
+  v_rank_new int := case p_stage when 'open' then 0 when 'revealed' then 1 else 2 end;
+begin
+  insert into public.learning_sessions (user_id, client_session_id, activity, phase, item_ref, task_key, application_id, trial_id,
+                                        started_at, last_active_at, synthetic)
+  values (p_user, p_client_session_id, p_activity, p_phase, p_item_ref, p_task_key, p_application_id, p_trial_id, p_at, p_at, coalesce(p_synthetic, false))
+  on conflict (user_id, client_session_id) do nothing;
+  select id into v_id from public.learning_sessions where user_id = p_user and client_session_id = p_client_session_id;
+
+  v_claim := public.learning_mutation_claim(p_user, p_mutation, 'session', v_id,
+    jsonb_build_object('stage', p_stage, 'step', p_step, 'steps', p_steps, 'help', p_help_level, 'at', p_at,
+                       'review_at', p_review_at, 'deleted', p_deleted, 'item', p_item_ref, 'activity', p_activity, 'phase', p_phase));
+  if v_claim <> 'new' then
+    session_id := v_id; outcome := v_claim; return next; return;
+  end if;
+
+  update public.learning_sessions s set
+    stage = case when v_rank_new > (case s.stage when 'open' then 0 when 'revealed' then 1 else 2 end) then p_stage else s.stage end,
+    help_level = coalesce(s.help_level, case when v_rank_new >= 1 then p_help_level end),
+    revealed_at = coalesce(s.revealed_at, case when v_rank_new >= 1 then p_at end),
+    finished_at = coalesce(s.finished_at, case when v_rank_new = 2 then p_at end),
+    review_at = coalesce(s.review_at, p_review_at),
+    step = case when p_at >= s.last_active_at and s.stage <> 'finished' then p_step else s.step end,
+    steps = case when p_at >= s.last_active_at then p_steps else s.steps end,
+    last_active_at = greatest(s.last_active_at, p_at),
+    deleted_at = coalesce(s.deleted_at, case when p_deleted then p_at end)
+  where s.id = v_id;
+
+  session_id := v_id; outcome := 'applied'; return next;
+end $$;
+
+-- 시도 기록 — 판단 제출만(「모르겠어요」·해설 먼저는 시도가 아니다 → 세션의 help_level)
+create function public.learning_attempt_record(
+  p_user uuid, p_mutation uuid, p_session_id uuid, p_task_key text, p_activity text, p_phase text, p_help_level text,
+  p_item_ref text, p_content_hash text, p_response jsonb, p_is_correct boolean, p_sec integer, p_synthetic boolean,
+  p_application_id uuid default null, p_trial_id uuid default null
+) returns table (attempt_id bigint, outcome text)
+language plpgsql security invoker set search_path = '' as $$
+declare v_claim text;
+begin
+  if p_session_id is not null and not exists (select 1 from public.learning_sessions where id = p_session_id and user_id = p_user) then
+    raise exception 'session % does not belong to user', p_session_id;
+  end if;
+  v_claim := public.learning_mutation_claim(p_user, p_mutation, 'attempt', coalesce(p_session_id, '00000000-0000-0000-0000-000000000000'::uuid),
+    jsonb_build_object('task', p_task_key, 'activity', p_activity, 'phase', p_phase, 'help', p_help_level, 'item', p_item_ref,
+                       'hash', p_content_hash, 'response', coalesce(p_response, '{}'::jsonb), 'correct', p_is_correct, 'sec', p_sec,
+                       'synthetic', coalesce(p_synthetic, false)));
+  if v_claim <> 'new' then
+    select id into attempt_id from public.learning_task_attempts where user_id = p_user and client_mutation_id = p_mutation;
+    outcome := v_claim; return next; return;
+  end if;
+  insert into public.learning_task_attempts
+    (user_id, client_mutation_id, session_id, task_key, activity, phase, help_level, item_ref, content_hash, response, is_correct, sec,
+     synthetic, application_id, trial_id)
+  values (p_user, p_mutation, p_session_id, p_task_key, p_activity, p_phase, p_help_level, p_item_ref, p_content_hash,
+          coalesce(p_response, '{}'::jsonb), p_is_correct, p_sec, coalesce(p_synthetic, false), p_application_id, p_trial_id)
+  returning id into attempt_id;
+  outcome := 'inserted'; return next;
+end $$;
+
+-- ── ⑤ 첫 시도 — 학습 계약상 첫 판단 제출(학습자 · 과제 · 대상 · 측정 단계별 가장 이른 시도) ────
+-- 재전송은 멱등 키로 한 행뿐이므로 첫 시도가 둘이 될 수 없다. 해설을 먼저 본 세션의 판단은 제외 표시(효과 측정에서 뺄지는 소비자가 정함).
+create view public.learning_first_attempts with (security_invoker = true) as
+select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
+  a.id as attempt_id, a.user_id, a.task_key, a.item_ref, a.phase, a.activity, a.session_id, a.is_correct, a.answered_at,
+  (coalesce(a.help_level, s.help_level) = 'viewed_first') as after_viewed_first,
+  a.synthetic
+from public.learning_task_attempts a
+left join public.learning_sessions s on s.id = a.session_id
+order by a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase, a.answered_at, a.id;
+
+-- ── 권한 ────────────────────────────────────────────────────────────────
+alter table public.learning_sessions enable row level security;
+alter table public.learning_mutations enable row level security;
+revoke all on public.learning_sessions from anon, authenticated;
+revoke all on public.learning_mutations from anon, authenticated;
+grant select on public.learning_sessions to authenticated;
+create policy learning_sessions_own_select on public.learning_sessions for select to authenticated using (user_id = auth.uid());
+grant select, insert, update on public.learning_sessions to service_role;   -- 쓰기는 서버 API(RPC)만
+grant select, insert on public.learning_mutations to service_role;          -- 원장은 추가만
+revoke all on public.learning_first_attempts from anon;
+grant select on public.learning_first_attempts to authenticated, service_role;
+revoke all on function public.learning_mutation_claim(uuid, uuid, text, uuid, jsonb) from public, anon, authenticated;
+revoke all on function public.learning_session_apply(uuid, uuid, uuid, text, text, text, text, integer, integer, text, timestamptz, timestamptz, boolean, boolean, text, uuid, uuid) from public, anon, authenticated;
+revoke all on function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid) from public, anon, authenticated;
+grant execute on function public.learning_mutation_claim(uuid, uuid, text, uuid, jsonb) to service_role;
+grant execute on function public.learning_session_apply(uuid, uuid, uuid, text, text, text, text, integer, integer, text, timestamptz, timestamptz, boolean, boolean, text, uuid, uuid) to service_role;
+grant execute on function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid) to service_role;
+
+-- ── ⑥ 이벤트 허용 목록 — 기존 68 ∪ knowledge 2 ∪ 기출 13 = 83 ────────────────
+alter table public.funnel_events drop constraint funnel_events_event_check;
+alter table public.funnel_events add constraint funnel_events_event_check check (event in (
+  -- 기존 68(2026-10-08 개발 DB pg_constraint 에서 추출 · 정렬)
+  'catalog_viewed', 'csat_atlas_scoped', 'csat_drill_answered', 'csat_drill_finished', 'csat_dx_attempt_saved', 'csat_dx_habit_answered',
+  'csat_dx_history_compared', 'csat_dx_profile_saved', 'csat_dx_test_submitted', 'csat_dx_viewed', 'csat_ec_capture_closed',
+  'csat_ec_capture_finished', 'csat_ec_capture_opened', 'csat_evidence_opened', 'csat_home_viewed', 'csat_item_back', 'csat_lecture_ended',
+  'csat_lecture_played', 'csat_map_goal_set', 'csat_map_node_opened', 'csat_map_task_toggled', 'csat_map_viewed', 'csat_overlay_answered',
+  'csat_overlay_loaded', 'csat_overlay_located', 'csat_overlay_revealed', 'csat_paper_read', 'csat_path_chosen', 'csat_plan_ordered',
+  'csat_plan_speed_set', 'csat_resume_clicked', 'csat_review_done', 'csat_review_started', 'csat_session_answered', 'csat_session_explained',
+  'csat_session_finished', 'csat_session_marked', 'csat_session_started', 'csat_space_opened', 'csat_space_scoped', 'csat_trap_opened',
+  'csat_workspace_created', 'csat_workspace_edited', 'csat_workspace_opened', 'csat_workspace_session_started',
+  'csat_workspace_suggestion_applied', 'fit_analyzed', 'fit_level_moved', 'fit_share_opened', 'fit_shared', 'fit_sheet_opened',
+  'fit_signup_clicked', 'fit_viewed', 'fit_worksheet_printed', 'hub_hero_moved', 'hub_promo_clicked', 'invite_shared', 'landing_cta_clicked',
+  'landing_demo_moved', 'landing_section_reached', 'landing_viewed', 'screen_viewed', 'teacher_hub_view', 'video_completed', 'video_started',
+  'volume_previewed', 'wayfinder_cta_clicked', 'wayfinder_opened',
+  -- knowledge(Practice) 2
+  'knowledge_task_viewed', 'knowledge_task_submitted',
+  -- 기출 학습 13(G2 계약 §4-6)
+  'csat_item_opened', 'csat_source_ready', 'csat_prediction_submitted', 'csat_prediction_skipped', 'csat_step_advanced',
+  'csat_session_completed', 'csat_review_scheduled', 'csat_review_completed', 'csat_principle_saved', 'csat_transfer_submitted',
+  'csat_browse_filtered', 'csat_paper_failed', 'csat_learning_error'
+));
+
+commit;
+
+-- ── 되돌리기(한 트랜잭션) ─────────────────────────────────────────────────
+-- 전제: 새 이벤트 · review phase · 세션 연결 행이 생겼다면 먼저 그 행을 처리해야 CHECK · FK 복원이 통과한다(G2_INTEGRATION_REVIEW §8).
+-- begin;
+--   alter table public.funnel_events drop constraint funnel_events_event_check;
+--   alter table public.funnel_events add constraint funnel_events_event_check check (event in (/* 기존 68 */));
+--   drop view public.learning_first_attempts;
+--   drop function public.learning_attempt_record(uuid, uuid, uuid, text, text, text, text, text, text, jsonb, boolean, integer, boolean, uuid, uuid);
+--   drop function public.learning_session_apply(uuid, uuid, uuid, text, text, text, text, integer, integer, text, timestamptz, timestamptz, boolean, boolean, text, uuid, uuid);
+--   drop function public.learning_mutation_claim(uuid, uuid, text, uuid, jsonb);
+--   alter table public.learning_task_attempts drop constraint learning_task_attempts_phase_check;
+--   alter table public.learning_task_attempts add constraint learning_task_attempts_phase_check check (phase in ('pre','practice','post','delayed','transfer'));
+--   drop index public.learning_task_attempts_session_idx; drop index public.learning_task_attempts_mutation_uniq;
+--   alter table public.learning_task_attempts drop column client_mutation_id, drop column help_level, drop column activity, drop column session_id;
+--   drop table public.learning_mutations; drop table public.learning_sessions;
+-- commit;

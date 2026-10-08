@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(csat-learner): G2 통합 데이터 계약 검토 — [보고서](./csat-learner/G2_INTEGRATION_REVIEW.md) · 통합 SQL 초안(서버 세션 표 · 요청 멱등 원장 · 시도 표 확장 · 첫 시도 뷰 · 이벤트 83종, sha256 5f3f108f…, 미적용) · PGlite 오프라인 검증 32/32. 소유권 근거: 공유 스키마 = methodology-vnext 세션(지정은 사용자 승인 대기). DB 쓰기 0.
+
 - chore(csat-learner): read-only test leakage cleanup — G1 E2E 로그인 단계의 분석 이벤트 가로채기 누락으로 funnel_events 에 들어간 screen_viewed 3행(PK 25756·25766·25767)을 사용자 승인 후 PK 한정 트랜잭션으로 삭제(삭제 전 3 · 후 0 · 다른 행 0). 재발 방지 36af66acc. [incident](./csat-learner/G1_INCIDENT_2026-10-08.md) · G0·G1 CLOSED · G2 결정 [서버 세션 · 멱등 분리 · 첫 시도 정의](./csat-learner/G2_SESSION_CONTRACT.md)(설계만 · 통합 SQL 미적용).
 
 - feat(csat-learner): G0·G1 학습 루프 — [G0 계약](./csat-learner/G0_LEARNING_CONTRACT.md)(세션↔시도 · activity/phase/help_level · completion 파생 · 병합·멱등·삭제 표시 · 정본 이관). 해설 극장에 세션(재개 · 「이 문항 마치기」 · 완료 카드 · 다시 보기 예약)을 기기 기록으로 붙였다(DB 변경 없음 · `csat_learner_state.record.sessions`). 「모르겠어요」는 적중률 분모·분자에서 뺀다(저장값 유지 · 생성 경로 `PredictGate.tsx:40` 확인). 내 공식 화면이 서버 사본과 합쳐 읽는다. `csat_dx_viewed` · `csat_map_viewed` · `csat_session_started` 중복 송신을 막았다. 노출 문항 정합성 읽기 전용 검사 `scripts/csat/learner-integrity-check.mjs`(확정 결함 0 · 확인 후보 22 · 강의 낡음 49). G2 SQL 초안 `docs/csat-learner/g2-draft/`(미적용).

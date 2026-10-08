@@ -1,0 +1,166 @@
+{
+  "at": "2026-10-08",
+  "pglite": "0.2.17",
+  "results": [
+    {
+      "name": "통합 SQL 적용(메모리 DB)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "기존 68종 행이 새 CHECK 를 통과(적용 성공으로 확인)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "허용: csat_prediction_submitted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "허용: knowledge_task_viewed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "허용: screen_viewed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "목록 밖 이벤트 거부",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "허용 목록 83종",
+      "pass": true,
+      "detail": "실측 83"
+    },
+    {
+      "name": "기존 practice INSERT(새 열 없이) 그대로 동작",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "열기만 한 세션(시도 0건)이 서버에 남는다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "같은 mutation · 같은 내용 재전송 → duplicate",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "같은 mutation · 다른 내용 → conflict",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "conflict 는 아무것도 바꾸지 않는다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "도움 수준은 먼저 공개한 값(viewed_first)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "단계는 최신 값",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "마친 세션은 되돌아가지 않는다(stage · finished_at)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "마친 세션의 단계는 바뀌지 않는다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "복습 예약은 먼저 정한 값",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "삭제 표시는 되살아나지 않는다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "모양이 틀린 세션(공개 없이 finished) 거부",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "시도 기록 inserted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "재전송 → duplicate · 행 1개",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "같은 mutation · 다른 채점 → conflict",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "첫 시도는 하나 — 가장 이른 판단 제출",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "재풀이는 시도로 남되 첫 시도가 아니다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "남의 세션에 시도를 붙일 수 없다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "해설 먼저 본 세션의 첫 시도는 after_viewed_first=true",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "다른 학습자는 내 세션을 못 본다(RLS)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "학습자는 기록 RPC 를 직접 못 부른다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "학습자는 세션 표에 직접 못 쓴다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "학습자는 멱등 원장을 못 읽는다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "본인은 자기 세션을 읽는다",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "되돌리기 실행 · 새 표 제거 · 시도 표 원래 13열",
+      "pass": true,
+      "detail": "13열"
+    }
+  ]
+}
