@@ -69,3 +69,10 @@
 | 이식 브랜치·정본 버전 확인 | ⚠️ 이식 브랜치 `54aa73186` 은 160000 적용 전 기준(F1) |
 
 실제 DB E2E(학습자 화면 → RPC → 첫 시도 뷰 · 중복 클릭 · 새로고침 · 세션 분리 · 전이)는 F1 반영과 위 미충족 조건 해소 뒤에 한다.
+
+## 5. 추가 확인(같은 날 · 담당 지정 전 실측)
+
+- **F1 은 이미 다른 브랜치에서 해결됐다.** `feat/csat-g2-integration`(워크트리 `Vocaflow-g2-int`, 대화 「CSAT 개발 단계 기출문제 원본 기본 로드」, 목적 파일상 사용자 확정 **G2 · Practice · G3 통합 단독 담당**)이 정본 · 기출 G1 · practice-port 를 합친 뒤 `selectWriter` 기본을 **g2**(RPC)로 바꿨다 — direct 는 `PRACTICE_ATTEMPT_WRITER=direct` 를 명시할 때만, 실패는 예외(자동 폴백 없음). 그 목적 파일은 정본·다른 세션의 이 영역 쓰기를 중단시켰다. 따라서 쓰기 경로 수정 지시의 대상은 practice-port 세션이 아니라 이 통합 세션이다.
+- **F2(첫 시도 키에 과제 키 없음)는 통합 브랜치에서도 그대로다** — `practice.ts firstAttempts` 키 = `itemId + phase`.
+- **학습 지도 · 진단 담당** = `feat/map-goal-first`(`/csat/diagnosis?tab=map`, main 병합 PR #152) 를 만든 대화 「학습 지도 설계 검토 및 구현」 — 정본(methodology-vnext) 세션과 **같은 대화**다. 진단 → 원리 연결의 주 담당과 협력 담당이 한 세션이 된다.
+- 실제 DB E2E 의 시험 대상 버전은 practice-port `54aa73186` 이 아니라 통합 브랜치(`feat/csat-g2-integration`) 최신이다.
