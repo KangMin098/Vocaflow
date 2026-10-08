@@ -16,7 +16,9 @@ import type { DistinguishActivity } from '@/lib/csat/map/distinguish'
 import { EVIDENCE_LABEL, JOURNEY, learnerPath, stepByKey, type StepKey, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
 
-import { GoalPopover, scoreLine, useGoal } from './GoalBar'
+import { EVIDENCE_GROUP_LABEL, evidenceCounts, goalSummary } from '@/lib/csat/map/goal-view'
+
+import { GoalPopover, useGoal } from './GoalBar'
 import { STEP_ICON } from './icons'
 import l from './learner.module.css'
 import { StepSheet } from './StepSheet'
@@ -31,39 +33,97 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
   const viewOf = (k: StepKey) => all.find((s) => s.key === k) as StepView
   const focus = path.focus
 
+  const gs = goalSummary({ goal: g.goal, goalSet: data.model.goalSet || g.saved }, data.records)
+  const counts = evidenceCounts(path.read)
+
   return (
-    <div className={l.wrap} data-testid="learner-map" data-journey={path.journey}>
-      {/* 목표 — 목표 점수는 여기서 정한다 */}
-      <section className={l.goal} aria-label="최종 목표">
-        <span className={l.goalIcon} aria-hidden="true">
-          <Target size={18} strokeWidth={1.9} />
-        </span>
-        <span className={l.goalText}>
-          <span className={l.goalLabel}>최종 목표</span>
-          <span className={l.goalValue}>
-            수능 영어 <strong>{g.goal}점</strong>
-          </span>
-        </span>
-        <span className={l.goalSub} data-testid="map-score">{scoreLine(data)}</span>
-        <GoalPopover
-          data={data}
-          g={g}
-          align="end"
-          trigger={({ open: on, toggle, id }) => (
-            <button type="button" className={l.ghostBtn} onClick={toggle} aria-expanded={on} aria-controls={id} data-testid="map-goal-edit">
-              <Pencil size={13} strokeWidth={1.9} aria-hidden="true" />
-              목표 바꾸기
-            </button>
+    <div className={l.wrap} data-testid="learner-map" data-journey={path.journey} data-goal-set={gs.goalSet}>
+      {/* ⓪ 내 목표 · 현재 위치 — 화면의 출발점(2026-10-08 목표 중심 재설계). 시험상 · 학습상 · 진단상 위치를 하나로 합치지 않는다 */}
+      <section className={l.goalBar} aria-labelledby="goal-h" data-testid="goal-header">
+        <div className={l.goalCell}>
+          <h2 id="goal-h" className={l.cellLabel}>
+            <Target size={13} strokeWidth={1.9} aria-hidden="true" />내 목표
+          </h2>
+          {gs.goalSet ? (
+            <>
+              <p className={l.goalBig} data-testid="goal-value">수능 영어 <strong>{gs.goal}점</strong></p>
+              <p className={l.cellSub}>{gs.goalGrade}등급 구간({gs.goalBand}) · 절대평가</p>
+            </>
+          ) : (
+            <>
+              <p className={l.goalBig} data-testid="goal-value">아직 정하지 않았어요</p>
+              <p className={l.cellSub}>목표를 정하면 각 단계가 목표 점수와 어떤 관계인지 함께 보여 드려요.</p>
+            </>
           )}
-        />
+          {gs.goalSet && (
+            <GoalPopover
+              data={data}
+              g={g}
+              trigger={({ open: on, toggle, id }) => (
+                <button type="button" className={l.ghostBtn} onClick={toggle} aria-expanded={on} aria-controls={id} data-testid="map-goal-edit">
+                  <Pencil size={13} strokeWidth={1.9} aria-hidden="true" />
+                  목표 바꾸기
+                </button>
+              )}
+            />
+          )}
+        </div>
+        <div className={l.goalCell} data-testid="position-exam">
+          <h3 className={l.cellLabel}>시험 기록으로 본 지금</h3>
+          {gs.latest ? (
+            <>
+              <p className={l.goalBig}>최근 <strong>{gs.latest.raw}점</strong> · {gs.latest.grade}등급</p>
+              <p className={l.cellSub}>{gs.latest.label} · {gs.latest.takenAt.slice(0, 10)} · 기록 {gs.recordCount}회</p>
+              {gs.previous && (
+                <p className={l.cellChange} data-testid="position-change">
+                  이전 {gs.previous.raw}점({gs.previous.takenAt.slice(5, 10).replace('-', '.')}) → 최근 {gs.latest.raw}점 · {signed(gs.latest.raw - gs.previous.raw)}
+                </p>
+              )}
+            </>
+          ) : (
+            <>
+              <p className={l.goalBig}>기록 없음</p>
+              <p className={l.cellSub}>기출 시험을 기록하면 실제 점수로 보여 드려요.</p>
+            </>
+          )}
+        </div>
+        <div className={l.goalCell} data-testid="position-gap">
+          <h3 className={l.cellLabel}>목표까지</h3>
+          {gs.gap === null ? (
+            <p className={l.cellSub}>{gs.goalSet ? '시험 기록이 생기면 실제 점수와의 거리를 보여 드려요.' : '목표와 기록이 둘 다 있을 때 보여요.'}</p>
+          ) : gs.gap === 0 ? (
+            <p className={l.goalBig}>목표 점수에 닿았어요</p>
+          ) : (
+            <>
+              <p className={l.goalBig}><strong>{gs.gap}점</strong> 남음</p>
+              <p className={l.cellSub}>최근 기록 원점수 기준이에요.</p>
+            </>
+          )}
+        </div>
+        <div className={l.goalCell} data-testid="position-diagnosis">
+          <h3 className={l.cellLabel}>읽기 7단계 근거 상태</h3>
+          <ul className={l.countList}>
+            {/* 「직접 확인됨」은 실제로 있을 때만 — 검증 전 화면에 그 말이 보이지 않게(map-states 회귀 · verified 게이트) */}
+            {(['observed', 'check', 'thin', 'verified'] as const).filter((k) => k !== 'verified' || counts.verified > 0).map((k) => (
+              <li key={k} data-group={k}>
+                {EVIDENCE_GROUP_LABEL[k]} <strong>{counts[k]}</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className={l.goalNote} data-testid="map-score">
+          목표 점수의 계산 기준은 평가원 최근 {data.model.reference.exams.length}회의 문항 · 배점이에요(내 기록과 별개). 단계 상태는 실력 점수가 아니에요.
+        </p>
       </section>
 
-      {/* ① 수능 영어 실력이 만들어지는 길 */}
+      <div className={l.main}>
+      {/* ① 목표에 가는 영어의 길 */}
       <section className={l.pathCard} aria-labelledby="path-h">
         <h2 id="path-h" className={l.h}>
           <Route size={16} strokeWidth={1.9} aria-hidden="true" />
-          수능 영어 독해 실력이 만들어지는 길
+          {gs.goalSet ? `목표 ${gs.goal}점으로 가는 영어 독해의 길` : '수능 영어 독해 실력이 만들어지는 길'}
         </h2>
+        <p className={l.pathHint}>단계를 누르면 이 힘이 무엇인지 · 왜 필요한지 · 목표와 어떤 관계인지 · 내 기록에서 보인 것을 볼 수 있어요.</p>
         <ol className={l.path} data-testid="read-path">
           {path.read.map((s, i) => (
             <StepNode key={s.key} s={s} i={i} last={i === path.read.length - 1} onOpen={() => setOpen({ key: s.key })} />
@@ -88,11 +148,33 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
         </div>
       </section>
 
-      {/* ② 지금 먼저 확인할 것 — 하나만 */}
-      <div className={l.row}>
-        <section className={l.focus} aria-labelledby="focus-h" data-testid="focus-card" data-focus={focus.kind}>
-          <h2 id="focus-h" className={l.focusEyebrow}>지금 먼저 확인할 것</h2>
-          {focus.kind === 'step' ? (
+      {/* ② 지금 먼저 할 일 — 하나만(우측). 목표를 정하기 전에는 목표 정하기가 그 하나다 */}
+      <div className={l.side}>
+        <section className={l.focus} aria-labelledby="focus-h" data-testid="focus-card" data-focus={gs.goalSet ? focus.kind : 'goal'}>
+          <h2 id="focus-h" className={l.focusEyebrow}>지금 먼저 할 일</h2>
+          {!gs.goalSet ? (
+            <>
+              <p className={l.focusTitle}>
+                <span className={l.focusIcon} aria-hidden="true">
+                  <Target size={18} strokeWidth={1.9} aria-hidden={true} />
+                </span>
+                목표 점수 정하기
+              </p>
+              <p className={l.focusWhy}>어디까지 갈지 정하면 목표까지의 거리와, 각 단계가 목표 점수와 어떤 관계인지 보여 드려요. 먼저 확인할 것은 목표와 상관없이 내 기록으로 정해요.</p>
+              <div className={l.popInk}>
+              <GoalPopover
+                data={data}
+                g={g}
+                trigger={({ open: on, toggle, id }) => (
+                  <button type="button" className={l.cta} onClick={toggle} aria-expanded={on} aria-controls={id} data-testid="focus-cta">
+                    <Target size={16} strokeWidth={1.9} aria-hidden="true" />
+                    목표 정하기
+                  </button>
+                )}
+              />
+              </div>
+            </>
+          ) : focus.kind === 'step' ? (
             <FocusStep s={viewOf(focus.step)} unobserved={focus.provisional?.unobserved.map((k) => stepByKey(k).name) ?? null} onStart={() => setOpen({ key: focus.step, startAt: 'check' })} />
           ) : focus.kind === 'distinguish' ? (
             <FocusDistinguish title={focus.title} activity={focus.activity} why={DISTINGUISH_WHY} />
@@ -172,6 +254,7 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
             <ArrowRight size={13} aria-hidden="true" />
           </Link>
         </section>
+      </div>
       </div>
 
       {open && <StepSheet data={data} step={viewOf(open.key)} tasks={tasks} startAt={open.startAt} onClose={() => setOpen(null)} />}
@@ -266,6 +349,11 @@ function FocusDistinguish({ title, activity, why }: { title: string; activity: D
       )}
     </>
   )
+}
+
+/** 변화량 부호 — 실제 두 기록의 차이(추정 아님) */
+function signed(n: number) {
+  return n > 0 ? `+${n}점` : n < 0 ? `${n}점` : '변화 없음'
 }
 
 /** 받침에 맞는 조사(한글이 아니면 뒤 것) */

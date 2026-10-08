@@ -134,6 +134,10 @@ export interface NodeValue {
 
 export interface MapModel {
   goal: number
+  /** 학습자가 목표를 정했는가 — 아니면 goal 은 설정 기본값(화면은 「정한 목표」처럼 보이지 않게 한다 · 2026-10-08) */
+  goalSet: boolean
+  /** 라인 → 기준 시험(평가원 최근 N회)에서 그 라인에 이어진 문항(배점 포함) — 단계와 목표의 관계를 사실로만 보일 때 쓴다 */
+  lineRefItems: Record<string, RefItem[]>
   currentScore: number | null
   reference: { exams: { id: string; label: string }[]; shortfall: number; wanted: number; skipped: string[] }
   /** 오답률이 없어 반드시로 둔 문항 수(기준 시험 합계) · 남은 예산으로 미관측 문항이 더 들어갈 수 있는 시험이 있나 */
@@ -156,6 +160,7 @@ function emptyValue(): NodeValue {
 
 export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = {}): MapModel {
   const goal = raw.goal ?? raw.settings.default_goal
+  const lineRefItems: Record<string, RefItem[]> = {}
   const { near } = raw.settings.status
 
   // 1) 기준 시험마다 반드시 / 놓쳐도 됨
@@ -186,6 +191,7 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
     const v = emptyValue()
     v.tasks = tasksOf([l.code])
     const linked = (raw.lineItems[l.code] ?? []).map((k) => byKey.get(k)).filter((i): i is RefItem => Boolean(i))
+    lineRefItems[l.code] = linked
     const t = lineTarget(linked, must)
     v.target = t.rate
     v.points = t.points
@@ -261,6 +267,8 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
 
   return {
     goal,
+    goalSet: raw.goal !== null && raw.goal !== undefined,
+    lineRefItems,
     currentScore: raw.snapshot?.currentScore ?? null,
     reference: {
       exams: raw.selection.exams.map((e) => ({ id: e.id, label: examLabels[e.id] ?? e.label })),
