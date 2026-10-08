@@ -57,8 +57,9 @@ const validReference = (row, contract) => {
   const scope = row?.grade_scope
   return typeof row.sample_id === 'string' && row.sample_id && hex(row.passage_hash) &&
     hex(row.admission_receipt_hash) && row.codebook_hash === contract.codebook_hash &&
-    row.rights_basis === (contract.reference_cohort === 'open_reference' ?
-      'open_license_verified' : 'authorized_local_analysis') &&
+    (contract.reference_cohort === 'open_reference' ?
+      ['open_license_verified', 'public_domain_verified'].includes(row.rights_basis) :
+      row.rights_basis === 'authorized_local_analysis') &&
     (contract.reference_cohort === 'open_reference' ? row.cohort === 'open_reference' :
       row.cohort === undefined || row.cohort === 'commercial_textbook') &&
     typeof row.publisher === 'string' && row.publisher &&

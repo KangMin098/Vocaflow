@@ -8,6 +8,8 @@ const sha = bytes => createHash('sha256').update(bytes).digest('hex')
 const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
 const filled = value => typeof value === 'string' && value.trim().length > 0
 const webUrl = value => { try { return ['https:', 'http:'].includes(new URL(value).protocol) } catch { return false } }
+const governmentUrl = value => { try { const url = new URL(value); return url.protocol === 'https:' &&
+  (url.hostname === 'gov' || url.hostname.endsWith('.gov')) } catch { return false } }
 const fail = code => { throw Error(code) }
 const same = (a, b) => hash(a) === hash(b)
 const earlyAnalysis = value => value && typeof value === 'object' && Object.entries(value).some(([key, child]) =>
@@ -101,7 +103,7 @@ function verifyMeasurements(analysis, codebook, questions) {
     fail('REFERENCE_ITEM_DIFFICULTY_INVALID')
 }
 
-export function admitReference({ source_path, candidate, evidence, analysis, codebook, rules, screening, manifest }) {
+export function admitReference({ source_path, scoring_source_path, candidate, evidence, analysis, codebook, rules, screening, manifest }) {
   const { selected_ids, manifest_hash } = verifyReferenceSelection({ rules, screening, manifest })
   const row = screening.candidates.find(value => value.candidate_id === candidate?.candidate_id)
   if (!row || !selected_ids.includes(row.candidate_id) || row.status !== 'metadata_eligible' ||
@@ -143,9 +145,23 @@ export function admitReference({ source_path, candidate, evidence, analysis, cod
       rights.passage_covered !== true || rights.items_covered !== true ||
       rights.third_party_exception !== false ||
       (rules.cohort === 'open_reference' &&
-        (!['CC-BY-4.0', 'CC0-1.0'].includes(rights.license) || !webUrl(rights.license_url))) ||
+        (!['CC-BY-4.0', 'CC0-1.0', 'US-GOV-PUBLIC-DOMAIN'].includes(rights.license) ||
+          !webUrl(rights.license_url) ||
+          (rights.license === 'US-GOV-PUBLIC-DOMAIN' &&
+            (!governmentUrl(rights.license_url) ||
+              !governmentUrl(rights.passage_origin_url) || !governmentUrl(rights.items_origin_url) ||
+              !governmentUrl(rights.scoring_origin_url) ||
+              !hex(rights.passage_origin_hash) || !hex(rights.items_origin_hash) ||
+              !hex(rights.scoring_origin_hash))))) ||
       (rules.cohort === 'commercial_textbook' && rights.decision !== 'AUTHORIZED_FOR_ANALYSIS'))
     fail('REFERENCE_RIGHTS_UNVERIFIED')
+  if (rules.cohort === 'open_reference' && rights.license === 'US-GOV-PUBLIC-DOMAIN') {
+    if (rights.passage_origin_hash !== row.file_hash || rights.items_origin_hash !== row.file_hash ||
+        !filled(scoring_source_path)) fail('REFERENCE_ORIGIN_FILE_UNVERIFIED')
+    let scoringBytes
+    try { scoringBytes = readFileSync(scoring_source_path) } catch { fail('REFERENCE_SCORING_SOURCE_UNREADABLE') }
+    if (sha(scoringBytes) !== rights.scoring_origin_hash) fail('REFERENCE_SCORING_SOURCE_CHANGED')
+  }
   if (!filled(candidate.passage_text) || !Array.isArray(candidate.questions) || !candidate.questions.length ||
       candidate.questions.some(item => !filled(item?.id) || !filled(item?.stem) || !filled(item?.answer) || !filled(item?.type)) ||
       new Set(candidate.questions.map(item => item.id)).size !== candidate.questions.length ||
@@ -177,7 +193,8 @@ export function admitReference({ source_path, candidate, evidence, analysis, cod
     sample_id: row.candidate_id, cohort: rules.cohort, grade_scope: row.grade_scope,
     passage_hash: row.passage_hash, admission_receipt_hash: hash(receipt),
     codebook_hash: rules.codebook_hash, rights_basis: rules.cohort === 'open_reference' ?
-      'open_license_verified' : 'authorized_local_analysis',
+      (rights.license === 'US-GOV-PUBLIC-DOMAIN' ? 'public_domain_verified' : 'open_license_verified') :
+      'authorized_local_analysis',
     publisher: candidate.publisher, series: candidate.series, genre: candidate.genre,
     word_count: candidate.passage_text.trim().split(/\s+/).length,
     metrics: analysis.metrics, item_type_difficulty: analysis.item_type_difficulty,

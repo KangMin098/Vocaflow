@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(textbook): Add a public-domain open-reference admission branch that requires passage and item origin evidence, and keep its rights basis distinct from CC-licensed samples. Inspect a NASA grade 6–8 reader, its questions, and educator key as a held real intake candidate; no benchmark admission, distribution, Gold-S, or seed was opened.
 - docs(textbook): Screen two real open-reference candidates against rights, grade scope, and passage/item origin. Both remain held; no benchmark admission, distribution, Gold-S, or seed was opened.
 - feat(textbook): Add a separate open-reference/commercial file-backed admission receipt that preserves single- or multi-grade scope, verifies per-passage rights and nine-axis codebook evidence, and binds independently recomputed selection. Multi-grade evaluation can re-admit a single-cohort reference set before use. Existing commercial v2 seals are unchanged; real corpus, Gold-S and seed stay at zero.
 

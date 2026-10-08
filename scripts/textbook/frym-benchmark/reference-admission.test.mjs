@@ -86,6 +86,38 @@ test('open reference preserves a range-grade admission receipt and fails closed 
   assert.throws(() => admitReference(input), /REFERENCE_SOURCE_CHANGED/)
 })
 
+test('government public-domain reference requires specific passage and item origin evidence', t => {
+  const input = fixture(t)
+  input.evidence.rights.license = 'US-GOV-PUBLIC-DOMAIN'
+  input.evidence.rights.license_url = 'https://www.nasa.gov/nasa-brand-center/images-and-media/'
+  input.screening.candidates[0].evidence_hash = hash(input.evidence)
+  input.manifest.screening_hash = hash(input.screening)
+  assert.throws(() => admitReference(input), /REFERENCE_RIGHTS_UNVERIFIED/)
+  input.evidence.rights.passage_origin_url = 'https://www.nasa.gov/example/student-guide.pdf'
+  input.evidence.rights.items_origin_url = input.evidence.rights.passage_origin_url
+  input.evidence.rights.passage_origin_hash = input.evidence.file_hash
+  input.evidence.rights.items_origin_hash = input.evidence.file_hash
+  input.evidence.rights.scoring_origin_url = 'https://www.nasa.gov/example/educator-guide.pdf'
+  input.evidence.rights.scoring_origin_hash = sha('educator guide answers')
+  input.scoring_source_path = join(input.source_path, '..', 'educator-guide.txt')
+  writeFileSync(input.scoring_source_path, 'educator guide answers')
+  input.screening.candidates[0].evidence_hash = hash(input.evidence)
+  input.manifest.screening_hash = hash(input.screening)
+  assert.equal(admitReference(input).reference.rights_basis, 'public_domain_verified')
+  writeFileSync(input.scoring_source_path, 'changed answer guide')
+  assert.throws(() => admitReference(input), /REFERENCE_SCORING_SOURCE_CHANGED/)
+  writeFileSync(input.scoring_source_path, 'educator guide answers')
+  const nongovernment = structuredClone(input)
+  nongovernment.evidence.rights.passage_origin_url = 'https://www.nasa.gov.evil.example/student-guide.pdf'
+  nongovernment.screening.candidates[0].evidence_hash = hash(nongovernment.evidence)
+  nongovernment.manifest.screening_hash = hash(nongovernment.screening)
+  assert.throws(() => admitReference(nongovernment), /REFERENCE_RIGHTS_UNVERIFIED/)
+  input.evidence.rights.third_party_exception = true
+  input.screening.candidates[0].evidence_hash = hash(input.evidence)
+  input.manifest.screening_hash = hash(input.screening)
+  assert.throws(() => admitReference(input), /REFERENCE_RIGHTS_UNVERIFIED/)
+})
+
 test('sealed selection, cohort and grade scope reject mixed or stale inputs', t => {
   const input = fixture(t)
   assert.deepEqual(verifyReferenceSelection(input).selected_ids, [input.candidate.candidate_id])
