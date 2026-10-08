@@ -298,11 +298,21 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
   const items = [...new Set(Object.values(links).map((l) => l.itemId))]
   if (items.length === 0) return {}
   const [att, first] = await Promise.all([
-    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at').eq('user_id', userId).in('item_ref', items).order('answered_at').limit(500),
+    // 최근부터 500건 — 최근 결과 · 다음 행동이 잘리지 않게(처음 결과는 첫 시도 뷰가 정본). 횟수는 아래에서 따로 센다
+    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at').eq('user_id', userId).in('item_ref', items).order('answered_at', { ascending: false }).limit(500),
     db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, answered_at').eq('user_id', userId).in('item_ref', items).order('answered_at'),
   ])
   if (att.error) throw new Error(`수행 기록 조회 실패: ${att.error.message}`)
   // 첫 시도 뷰가 없거나(마이그레이션 전) 읽지 못하면 도움 여부만 모른다고 둔다 — 횟수 · 결과는 그대로 보인다
   const firsts = first.error ? [] : (first.data ?? []) as FirstAttemptRow[]
-  return practiceResultsFor(links, (att.data ?? []) as AttemptRow[], firsts)
+  const out = practiceResultsFor(links, (att.data ?? []) as AttemptRow[], firsts)
+  // 500건을 넘는 학습자 — 횟수만 정확히 다시 센다(연결 수만큼 head 요청)
+  if ((att.data ?? []).length >= 500) {
+    for (const [taskId, link] of Object.entries(links)) {
+      const { count, error } = await db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('item_ref', link.itemId)
+      if (error || count === null) throw new Error(`수행 횟수 조회 실패: ${error?.message ?? 'count=null'}`)
+      out[taskId] = { ...out[taskId], attempts: count }
+    }
+  }
+  return out
 }
