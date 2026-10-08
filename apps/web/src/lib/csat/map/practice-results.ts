@@ -5,6 +5,12 @@
 
 import type { MapPracticeLink } from '../../knowledge/product-server'
 
+/**
+ * 전이(다른 지문 적용)로 함께 셀 과제 키. Practice 는 주석 문항을 `<key>` 로, 골격(정답 근거 앵커)만 있는 문항을 `<key>-skeleton` 으로 기록한다.
+ * 전이 문항(주제 · 제목)은 대부분 골격이다 — 학습자에게 보이는 「다른 지문에 적용」 은 둘 다 센다(효과 계산과는 별개).
+ */
+export const transferKeysOf = (taskKey: string): string[] => [taskKey, `${taskKey}-skeleton`]
+
 export interface AttemptRow {
   task_key: string
   item_ref: string | null
@@ -75,7 +81,7 @@ export function practiceResultsFor(links: Record<string, MapPracticeLink>, rows:
     // 이 문항의 연습(practice · 단계 없음) · 같은 과제 키로 다른 지문에 적용한 전이(transfer — 문항은 어디든)
     const mine = rows.filter((r) => r.task_key === link.taskKey && r.item_ref === link.itemId && (r.phase ?? 'practice') !== 'transfer')
     // 「다른 지문에 적용」 — 연결 문항이 아닌 문항의 transfer 만
-    const transfers = rows.filter((r) => r.task_key === link.taskKey && r.phase === 'transfer' && r.item_ref !== link.itemId)
+    const transfers = rows.filter((r) => transferKeysOf(link.taskKey).includes(r.task_key) && r.phase === 'transfer' && r.item_ref !== link.itemId)
     // 첫 시도 뷰는 (과제 · 문항 · 단계)마다 한 줄 — 같은 과제 · 문항의 가장 이른 줄을 쓴다
     const first = firsts.filter((f) => f.task_key === link.taskKey && f.item_ref === link.itemId && (f.phase ?? 'practice') !== 'transfer')[0] ?? null
     out[taskId] = summarizePractice(mine, first, { transfers, reviews: reviews.filter((r) => r.item_ref === link.itemId), now })
