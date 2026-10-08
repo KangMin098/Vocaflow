@@ -11,6 +11,9 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): 문항 확인 과제 `POST /api/csat/item/[slug]/task` 를 G2 계약(`learning_session_apply` → `learning_attempt_record`)으로 — 요청 멱등 id · 판단 시각 · 도움 수준 필수, 해설 열람은 별도 mutation. practice 쓰기 기본 g2(direct 는 롤백 전용).
+- migration 후보 `_pending_20261008180000_learning_help_timing`(M8 · **미적용 · 승인 대기** · sha256 2e6162fe…) — `learning_sessions.help_received_at` · `learning_task_attempts.received_at` · 첫 시도 뷰 실효 도움 = 판단 시각 기준 + `timing_uncertain`(효과 게이트 제외) · 세션 synthetic 불변. 격리 PG `scripts/knowledge/g2-m8-test.mjs` 29/29.
+
 - migration `20261008160000_learning_sessions_integrated` **개발 DB 적용**(sha 8d1d0624… · vocaflow-18) — `learning_sessions` · `learning_mutations` · 뷰 `learning_first_attempts` · RPC `learning_mutation_claim` · `learning_session_apply` · `learning_attempt_record`(service_role) · funnel CHECK 83종 · 효과 게이트 = 실학습자 독립 첫 시도. 후속 M8 별도 승인 대기. [G2_INTEGRATED_SQL](./methodology/G2_INTEGRATED_SQL.md)
 
 - feat(methodology): 두 번째 수직 경로 「문장 관계 — 연결어 · 지시어 / 순서」 코드 — 문항 과제 레지스트리 `lib/knowledge/item-tasks.ts`(게이트 · 기록 API · 지도 링크 · 추적이 과제 종류와 무관) · `cohesion-link` 채점 · `CohesionPanel` · 2022#36 블라인드 합의 주석 · 사슬 P/M 2차 블라인드 양측 채택. **DB 빌드 미실행(정본 변경 승인 대기) — 노출 0**. 빌더 검토 이력 조회 실패 시 중단(Codex P1). [vertical/cohesion-link](./methodology/vertical/cohesion-link.md)

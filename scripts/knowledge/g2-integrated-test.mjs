@@ -39,7 +39,7 @@ try {
   await q(`alter table funnel_events drop constraint funnel_events_event_check`)
   await q(`alter table funnel_events add constraint funnel_events_event_check check (event in (${OLD68.map((e) => `'${e}'`).join(',')}))`)
   await q(`insert into funnel_events (event) select unnest($1::text[])`, [OLD68])
-  { const sql = M('_pending_20261008160000_learning_sessions_integrated.sql'); try { await q(sql) } catch (e) { throw new Error(`통합 SQL: ${e.message} @ ${sql.slice(Math.max(0, (e.position ?? 1) - 120), (e.position ?? 1) + 40)}`) } }
+  { const sql = M('20261008160000_learning_sessions_integrated.sql'); try { await q(sql) } catch (e) { throw new Error(`통합 SQL: ${e.message} @ ${sql.slice(Math.max(0, (e.position ?? 1) - 120), (e.position ?? 1) + 40)}`) } }
   rec('기존 스키마 전부 + 통합 SQL 적용', true)
 
   const t0 = '2026-10-01T09:00:00Z'
@@ -218,7 +218,7 @@ try {
   await q(`delete from learning_task_attempts`)
   await q(`delete from learning_sessions`)
   await q(`delete from knowledge_trials`)
-  const full = M('_pending_20261008160000_learning_sessions_integrated.sql')
+  const full = M('20261008160000_learning_sessions_integrated.sql')
   const rb = full.slice(full.indexOf('-- ── 되돌리기')).split(/\r?\n/).filter((l) => l.startsWith('-- ') && !l.startsWith('-- ──') && !l.startsWith('-- 전제') && !l.startsWith('-- 검증')).map((l) => l.slice(3)).join('\n')
   const rbErr = await err(rb)
   rec('M5e 되돌리기 블록이 그대로 실행된다', !rbErr, rbErr)
