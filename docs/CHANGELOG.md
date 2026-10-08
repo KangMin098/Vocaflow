@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(agents): AGENTS.md 에 「플랫폼 목표 정본 · 작업 범위」 절 — 승인 정본 v1.1.0(`D:/workspace/Vocaflow-AI-Control/goals`, 원격 브랜치 `ai-control`)을 Claude·Codex 공통 최상위 목표로 참조, 작업 단위 범위(`vfc task show`)와 분리, 고정 owner_id · 원자 잠금(`vfc task start`) 안내. 기존 규칙 삭제 없음
+
 - feat(csat): 문항 확인 과제 `POST /api/csat/item/[slug]/task` 를 G2 계약(`learning_session_apply` → `learning_attempt_record`)으로 — 요청 멱등 id · 판단 시각 · 도움 수준 필수, 해설 열람은 별도 mutation. practice 쓰기 기본 g2(direct 는 롤백 전용).
 - migration `20261008180000_learning_help_timing`(M8 · **개발 DB 적용 2026-10-08 · 원장 버전 정정 완료** · sha256 6bf67368…) — `learning_sessions.help_received_at` · `learning_task_attempts.received_at` · 첫 시도 뷰 실효 도움 = 판단 시각 기준 + `timing_uncertain`(효과 게이트 제외) · 세션 synthetic 불변. 격리 PG `scripts/knowledge/g2-m8-test.mjs` 45/45 · 원자 제출(M8-H) · 두 기기 시계(M8-G) · 시도 synthetic 불변 · 분석 전환 직렬화 · [승인 요청](./methodology/M8_APPROVAL_2026-10-08.md).
 - migration `20261008190000_learning_records_append_only`(F7 · **개발 DB 적용 2026-10-09** · sha256 5af744d2…) — 학습 기록 3표 TRUNCATE · 원장 UPDATE 회수 · 실제 기록 수정 · 삭제 거부(계정 삭제 cascade 는 허용) · `knowledge_trials.review_required_at`(재계산 필요 — 효과 게이트 · 관리자 화면 제외) · 세션 합성 불일치 거부. 격리 30/30. [F7_APPROVAL](./methodology/F7_APPROVAL_2026-10-08.md)
