@@ -76,6 +76,7 @@ const HELP = `vfc — Vocaflow AI Control
 
 상태
   init                                    상태 파일 초기화(멱등 — 있는 항목은 건드리지 않는다)
+  decision add --status RECORDED|PROPOSED|OPEN_QUESTION --kind K --summary .. [--goals VG-..] [--source ..] --by O
   checkpoint [--label L]                  state/*.json 스냅샷 → runtime/checkpoints/<시각>-<L>/
   status [--json]                         요약: 목표 상태 분포 · 작업 · 잠금 · 열린 결정
   goal set <id> --status S --evidence <path>[,..] --by <owner> [--gate] [--note ..]
@@ -105,7 +106,7 @@ const HELP = `vfc — Vocaflow AI Control
   lock list | lock recover <name>         recover 는 stale 판정일 때만 — 살아 있는 남의 잠금은 거부
 
 ChatGPT (파일 교환 · API 없음)
-  planning request --topic .. --question-file q.md [--goals VG-..] [--attach f1,f2] --by O
+  planning request --topic .. --question-file q.md [--kind review|plan] [--task T-..] [--goals VG-..] [--attach f1,f2] --by O
   planning validate <REQ-id>
   planning import <REQ-id>                검증 통과 시 DECISION_LOG 에 PROPOSED/OPEN_QUESTION 으로만 기록
 `
@@ -176,6 +177,7 @@ function main() {
         root: root(),
         canon_version: state.goalStatus.canon_version,
         goals: count(Object.values(state.goalStatus.goals), 'status'),
+        templates: Object.fromEntries(Object.entries(state.goalStatus.templates || {}).map(([k, v]) => [k, `${v.status}(${v.instances.length})`])),
         release_gates: Object.fromEntries(Object.entries(state.goalStatus.release_gates).map(([k, v]) => [k, v.status])),
         tasks: count(state.taskQueue.tasks, 'status'),
         active: state.activeTasks.tasks,
@@ -260,6 +262,17 @@ function main() {
       return out(t.run.locks.map((l) => ({ name: l.name, ...heartbeat(l.name, l.token) })), opt)
     }
 
+    case 'decision add': {
+      // RECORDED · PROPOSED · OPEN_QUESTION 만. APPROVED 는 사용자 승인 근거(--approved-by user --ref) 가 있어야 하고 사람이 실행한다
+      const entry = { status: opt.status, kind: opt.kind, summary: opt.summary, source: opt.source, by, affects_goal_ids: list(opt.goals) }
+      if (opt.status === 'APPROVED') Object.assign(entry, { approved_by: opt['approved-by'], reference: opt.ref })
+      if (opt.supersedes) entry.supersedes = opt.supersedes
+      return out(withState((s) => {
+        for (const g of entry.affects_goal_ids) if (!loadCriteria().criteria.some((c) => c.id === g)) throw new T.RuleError('BAD_GOAL', `goal ${g} 는 정본에 없다`)
+        if (!entry.summary || !entry.kind) throw new T.RuleError('MISSING_FIELD', '--summary 와 --kind 가 필요하다')
+        return T.logDecision(s, entry)
+      }, { event: 'decision.add', by }), opt)
+    }
     case 'checkpoint': {
       // 상태 뮤텍스 안에서 state/*.json 을 통째로 복사 — 위험 작업 전후 스냅샷 · 복구 기준점
       const dir = withState((st) => {
@@ -281,7 +294,8 @@ function main() {
     case 'planning request': {
       const r = requireValidCanon()
       const question = opt['question-file'] ? fs.readFileSync(opt['question-file'], 'utf8') : opt.question
-      const req = P.createRequest({ topic: opt.topic, question, goal_ids: list(opt.goals), attachments: list(opt.attach), canon_version: r.facts.canon_version, created_by: by, context: opt.context })
+      if (opt.task && !loadState().state.taskQueue.tasks.some((t) => t.task_id === opt.task)) throw new T.RuleError('NO_TASK', `작업 ${opt.task} 가 없다`)
+      const req = P.createRequest({ topic: opt.topic, question, goal_ids: list(opt.goals), attachments: list(opt.attach), canon_version: r.facts.canon_version, created_by: by, context: opt.context, kind: opt.kind || 'review', task_id: opt.task || null })
       withState((s) => T.logDecision(s, { status: 'RECORDED', kind: 'chatgpt_request', summary: `ChatGPT 검토 요청 ${req.id}: ${opt.topic}`, request_id: req.id, by }), { event: 'planning.request', id: req.id, by })
       return out(req, opt)
     }

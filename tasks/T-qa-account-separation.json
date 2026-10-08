@@ -1,0 +1,21 @@
+{
+  "goal_id": "VG-L3-D1-02",
+  "related_goal_ids": ["VG-L2-D1", "VG-L3-D3-01"],
+  "template": "VG-L4-TEMPLATE-BUILD",
+  "title": "학습자 지표에서 QA·개발·운영 계정 분리(리텐션 패널 · DB 쓰기 없음)",
+  "description": "관리자 리텐션 지표(apps/web/src/lib/admin/retention*.ts · RetentionPanel)가 auth.users 전원을 학습자로 센다. 현재 5계정 전부가 운영·개발·검증 계정이다(도메인 vocaflow.local·vocaflow.dev·example.com · admin 1). 계정을 실사용/내부로 분류하는 규칙을 코드로 두고, 학습자 지표는 실사용만 세며 내부 계정 수를 따로 보인다. 분류 근거(도메인 규칙 vs user_type 컬럼)는 ChatGPT 기획(REQ)과 사용자 판단을 따른다.",
+  "priority": "P1",
+  "owner_id": "data-contract",
+  "branch": "feat/qa-account-separation",
+  "worktree": "D:/workspace/Vocaflow-wf4-d102",
+  "allowed_paths": ["apps/web/src/lib/admin/**", "apps/web/src/components/admin/RetentionPanel.tsx", "apps/web/src/components/admin/__tests__/RetentionPanel.test.tsx", "docs/ADMIN_CONSOLE.md", "docs/CHANGELOG.md", "docs/PLATFORM_AUDIT.md"],
+  "forbidden_paths": ["supabase/migrations/**", "apps/web/src/app/(main)/**", "apps/web/src/lib/knowledge/**", "goals/**"],
+  "db_scope": { "mode": "read", "targets": ["dev:jajenrevcbmrpaliomxv"] },
+  "acceptance": [
+    "내부(운영·개발·QA) 계정이 학습자 리텐션 분모·분자에서 빠진다 — 순수 함수 단위 테스트",
+    "분류 규칙과 그 근거가 코드 주석·문서에 있고, 분류 불가 계정은 실사용으로 셈하지 않고 따로 표시한다(오분류가 지표를 부풀리지 않게)",
+    "패널이 「실사용 학습자 n · 내부 계정 m」을 구분해 보인다 — 컴포넌트 테스트",
+    "DB 스키마·데이터 변경 0, 기존 리텐션 테스트 회귀 없음(pnpm --filter web exec vitest run 관련 파일 · typecheck)"
+  ],
+  "source": "WF-S4 첫 협업 실험 · REQ(ChatGPT 기획) 대기"
+}

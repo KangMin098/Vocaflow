@@ -651,3 +651,48 @@ test('동시 프로세스 10개가 작업을 등록해도 유실·중복 id 가 
   assert.equal(tasks.length, 10)
   assert.equal(new Set(tasks.map((t) => t.task_id)).size, 10)
 })
+
+// ── 9. WF-S4 추가: 템플릿 상태 · 결정 기록 · 기획 요청 ─────────────────────
+
+test('L4 템플릿은 not_instantiated/instantiated 만 갖고 PASS/FAIL 로 바꿀 수 없다', () => {
+  const { root } = setup()
+  const st0 = JSON.parse(run(root, ['status', '--json']).out)
+  assert.match(st0.templates['VG-L4-TEMPLATE-BUILD'], /^not_instantiated/)
+  addTask(root, { template: 'VG-L4-TEMPLATE-BUILD' })
+  const st1 = JSON.parse(run(root, ['status', '--json']).out)
+  assert.match(st1.templates['VG-L4-TEMPLATE-BUILD'], /^instantiated\(1\)/)
+  assert.match(run(root, ['goal', 'set', 'VG-L4-TEMPLATE-BUILD', '--status', 'PASS', '--evidence', 'verification/tests/run.log', '--by', 't', '--note', 'x']).err, /TEMPLATE_HAS_NO_STATUS/)
+})
+
+test('decision add: APPROVED 는 사용자 근거 없이는 거부, 없는 goal 거부', () => {
+  const root = mkRoot()
+  run(root, ['init'])
+  assert.equal(run(root, ['decision', 'add', '--status', 'RECORDED', '--kind', 'operational', '--summary', 'x', '--by', 'platform-goal']).code, 0)
+  assert.match(run(root, ['decision', 'add', '--status', 'APPROVED', '--kind', 'strategy', '--summary', 'x', '--by', 'claude']).err, /APPROVAL_NOT_USER/)
+  assert.match(run(root, ['decision', 'add', '--status', 'PROPOSED', '--kind', 'k', '--summary', 'x', '--goals', 'VG-NOPE']).err, /BAD_GOAL/)
+})
+
+test('기획 요청(plan): plan 필드가 빠지면 거부, 다 있으면 PROPOSED plan 으로 들어간다', () => {
+  const { root } = setup()
+  const t = addTask(root)
+  const q = path.join(root, 'q.md')
+  fs.writeFileSync(q, '기획해 달라')
+  assert.match(run(root, ['planning', 'request', '--kind', 'plan', '--topic', 'x', '--question-file', q, '--by', 'platform-goal']).err, /goal_id/)
+  const req = JSON.parse(run(root, ['planning', 'request', '--kind', 'plan', '--task', t.task_id, '--topic', 'x', '--question-file', q, '--goals', 'VG-L3-A2-01', '--by', 'platform-goal', '--json']).out)
+  assert.equal(req.header.kind, 'plan')
+  assert.equal(req.header.task_id, t.task_id)
+  const base = { schema: 'vfc-response/1', request_id: req.id, responder: 'chatgpt', responded_at: '2026-10-09T10:00:00Z', canon_version: '1.1.0', verdict: 'approve', summary: 's', findings: [], proposed_decisions: [], open_questions: [] }
+  const plan = { goal_fit: 'a', design: 'b', priority: 'P1 — c', learner_value: 'd', scope: 'e', preserved_contracts: ['f'], acceptance: ['g'], risks: ['h'] }
+  const respPath = path.join(root, 'planning', 'responses', `${req.id}.response.json`)
+  fs.writeFileSync(respPath, JSON.stringify(base))
+  assert.match(run(root, ['planning', 'validate', req.id]).err, /plan 객체/)
+  fs.writeFileSync(respPath, JSON.stringify({ ...base, plan: { ...plan, risks: [] } }))
+  assert.match(run(root, ['planning', 'validate', req.id]).err, /plan\.risks/)
+  fs.writeFileSync(respPath, JSON.stringify({ ...base, plan: { ...plan, priority: 'high' } }))
+  assert.match(run(root, ['planning', 'validate', req.id]).err, /P0~P3/)
+  fs.writeFileSync(respPath, JSON.stringify({ ...base, plan }))
+  assert.equal(run(root, ['planning', 'import', req.id, '--by', 'platform-goal']).code, 0)
+  const e = state(root, 'DECISION_LOG.json').entries.find((x) => x.request_id === req.id && x.kind === 'plan')
+  assert.equal(e.status, 'PROPOSED')
+  assert.deepEqual(e.plan, plan)
+})
