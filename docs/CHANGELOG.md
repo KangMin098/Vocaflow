@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- migration `20261008160000_learning_sessions_integrated` **개발 DB 적용**(sha 8d1d0624… · vocaflow-18) — `learning_sessions` · `learning_mutations` · 뷰 `learning_first_attempts` · RPC `learning_mutation_claim` · `learning_session_apply` · `learning_attempt_record`(service_role) · funnel CHECK 83종 · 효과 게이트 = 실학습자 독립 첫 시도. 후속 M8 별도 승인 대기. [G2_INTEGRATED_SQL](./methodology/G2_INTEGRATED_SQL.md)
+
 - feat(methodology): 두 번째 수직 경로 「문장 관계 — 연결어 · 지시어 / 순서」 코드 — 문항 과제 레지스트리 `lib/knowledge/item-tasks.ts`(게이트 · 기록 API · 지도 링크 · 추적이 과제 종류와 무관) · `cohesion-link` 채점 · `CohesionPanel` · 2022#36 블라인드 합의 주석 · 사슬 P/M 2차 블라인드 양측 채택. **DB 빌드 미실행(정본 변경 승인 대기) — 노출 0**. 빌더 검토 이력 조회 실패 시 중단(Codex P1). [vertical/cohesion-link](./methodology/vertical/cohesion-link.md)
 
 - feat(db-design): G2 통합 SQL `_pending_20261008160000_learning_sessions_integrated`(sha256 8d1d0624… · **미적용 · 적용 담당 vocaflow-18**) — 기출 쪽 초안(779eb9bb…)에 methodology 계약(B8 해설 열람 시각 · 해설 뒤 판단 표시 · 효과 게이트 = 독립 첫 시도 · 가장 이른 공개 · 분석 표본 고정 · 실행 가능한 롤백)을 얹음. 격리 36/36(두 연결 동시성 · 롤백 실행 포함). 멱등 키 후보 140100 은 흡수 · 삭제. 승인 요청서 `docs/methodology/G2_INTEGRATED_SQL.md`.

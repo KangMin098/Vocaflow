@@ -8,7 +8,7 @@
 
 | 파일 | sha256 | 상태 |
 |---|---|---|
-| `supabase/migrations/_pending_20261008160000_learning_sessions_integrated.sql` | `8d1d06249b8d649442da4cd007a857b65668dc7a56f42824fcd94aefc21327b5` | **승인 대상** |
+| `supabase/migrations/20261008160000_learning_sessions_integrated.sql` | `8d1d06249b8d649442da4cd007a857b65668dc7a56f42824fcd94aefc21327b5` | **적용됨** 2026-10-08 · vocaflow-18 · 원장 `20261008160000` |
 | 원본 초안(기출 쪽 · `origin/feat/csat-learning-loop-g1` `docs/csat-learner/g2-draft/…`) | `779eb9bb0812719702e16e4fcf34fe5813ed6f9adaa8173cc81a1f7aa4182a01` | 입력(조립기가 해시 확인) |
 | 조립기 `scripts/knowledge/build-g2-integrated.mjs` | — | 초안에 M1–M5 만 정확한 치환으로 얹는다(나머지 바이트 동일) |
 | `_pending_20261008140100_learning_task_attempts_idempotency.sql` | `3b7df58a…47e2` | **폐기** — client_mutation_id 로 흡수(파일 삭제) |
@@ -86,3 +86,10 @@ B6′(동시 중복 제출)은 ① 뒤 실제 DB 에서 동시 요청 멱등을 
 - f5 P2(기록만 · 이 세트에서 고치지 않음): 고정 트리거 예외가 claim 까지 되돌림 · 직접 INSERT 행은 첫 시도 집계 밖 · 표본 행 DELETE 는 막지 않음.
 - B8 은 M1 · M2 로 반영 — practice 는 ③ 단계에서 해설 열람 시각을 `learning_session_apply(p_explanation_viewed_at)` 로 보낸다.
 - 상태 E(직접 확인된 원인)를 만드는 기록 경로는 이 세트 밖이다.
+
+## 9. 적용 기록(2026-10-08 · vocaflow-18)
+
+- 사용자 최종 승인 sha `8d1d0624…` 그대로 적용(해시 게이트 `apply-approved-sql.mjs` · 체크포인트 `g2-integrated-20261008` 앞뒤). 적용 직전 워크트리에 다른 세션의 미승인 M8 수정이 있어 멈췄고, 원복을 확인한 뒤 적용했다.
+- 사후 검사(읽기): RLS on(learning_mutations 정책 0 · learning_sessions 1) · RPC 3종 실행 권한 service_role 만 · 뷰 security_invoker · funnel CHECK 83종 · 시도 0 · trial 2 · analyzed 0 · 검토 이력 165(적용 전과 같음) · 트리거 4. 체크포인트 diff 는 회전 표본 bloat 1쌍만(정상).
+- 실제 DB 롤백 smoke(5절 ⑤)는 하지 않았다 — 같은 단언은 격리 44/44 로 확인.
+- **후속 M8**(사용자 결정 · 별도 승인): 공유 세션에서 도움 전 판단까지 비독립으로 세는 과소 집계(보수적 · P1 아님). 세션 `help_received_at` + 뷰가 그 전 판단은 independent. 근거 · 패치는 f5(`feat/csat-learning-loop-g1` docs/csat-learner/g2-draft/m8-help-received-at.patch). methodology 빌더에서 후속 SQL 로 만든다.
