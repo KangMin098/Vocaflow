@@ -32,14 +32,14 @@ try {
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql', '20261008140000_knowledge_review_cascade_guard.sql',
-    '20261008150000_knowledge_statement_review_fix.sql', '_pending_20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
+    '20261008150000_knowledge_statement_review_fix.sql', '20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
   // funnel_events — 개발 DB 와 같은 68종 CHECK 와 기존 행(대표 이벤트)
   // bootstrap 의 funnel_events 에 개발 DB 의 현재 68종 CHECK 를 다시 건다(실측 2026-10-08)
   await q(`delete from funnel_events`)
   await q(`alter table funnel_events drop constraint funnel_events_event_check`)
   await q(`alter table funnel_events add constraint funnel_events_event_check check (event in (${OLD68.map((e) => `'${e}'`).join(',')}))`)
   await q(`insert into funnel_events (event) select unnest($1::text[])`, [OLD68])
-  { const sql = M('_pending_20261008160000_learning_sessions_integrated.sql'); try { await q(sql) } catch (e) { throw new Error(`통합 SQL: ${e.message} @ ${sql.slice(Math.max(0, (e.position ?? 1) - 120), (e.position ?? 1) + 40)}`) } }
+  { const sql = M('20261008160000_learning_sessions_integrated.sql'); try { await q(sql) } catch (e) { throw new Error(`통합 SQL: ${e.message} @ ${sql.slice(Math.max(0, (e.position ?? 1) - 120), (e.position ?? 1) + 40)}`) } }
   rec('기존 스키마 전부 + 통합 SQL 적용', true)
 
   const t0 = '2026-10-01T09:00:00Z'
@@ -218,7 +218,7 @@ try {
   await q(`delete from learning_task_attempts`)
   await q(`delete from learning_sessions`)
   await q(`delete from knowledge_trials`)
-  const full = M('_pending_20261008160000_learning_sessions_integrated.sql')
+  const full = M('20261008160000_learning_sessions_integrated.sql')
   const rb = full.slice(full.indexOf('-- ── 되돌리기')).split(/\r?\n/).filter((l) => l.startsWith('-- ') && !l.startsWith('-- ──') && !l.startsWith('-- 전제') && !l.startsWith('-- 검증')).map((l) => l.slice(3)).join('\n')
   const rbErr = await err(rb)
   rec('M5e 되돌리기 블록이 그대로 실행된다', !rbErr, rbErr)

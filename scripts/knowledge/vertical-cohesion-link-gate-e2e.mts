@@ -3,7 +3,7 @@
 // 두 번째 수직 경로 「노출 0」 브라우저 E2E(2026-10-08) — `vertical-cohesion-link-build.mts --no-activate` 뒤 상태를 확인한다.
 //   A 학습자: /csat/item/2022-36 에 응집 과제 칸이 없다 · 정상 입력도 기록 API 가 code=not_live 로 거부한다(적용이 draft) · 대조로 2022-20 형식 오류는 invalid_input
 //   B 기존 사슬: /csat/item/2022-20 의 claim-support 칸은 그대로 보인다
-//   C 학습 지도: 지도 화면 어디에도 응집 과제(2022-36#principle) 링크가 없다
+//   C 학습 지도: /csat/diagnosis?tab=map relation 단계 시트를 열어 A3-4 FIND 에 응집 과제 링크가 없다
 // 쓰기: 테스트 학습자 1(끝에 삭제). 지식 행은 읽기만 한다.
 //   cd apps/web && node <tsx cli> --env-file=<.env.local> ../../scripts/knowledge/vertical-cohesion-link-gate-e2e.mts [--base http://localhost:3001]
 import crypto from 'node:crypto'
@@ -58,8 +58,13 @@ try {
   await page.goto(`${BASE}/csat/item/2022-20`, { waitUntil: 'networkidle' })
   rec('B 기존 claim-support 칸 그대로', (await page.locator('[data-testid="principle-panel"]').count()) === 1)
 
-  await page.goto(`${BASE}/csat/map`, { waitUntil: 'networkidle' })
-  rec('C 지도에 응집 과제 링크 없음', (await page.locator('a[href*="2022-36"]').count()) === 0, page.url())
+  // 학습 지도 — relation 단계 시트를 실제로 열고(지도 로딩 확인) A3-4 FIND 에 과제 링크가 없는지 본다(Codex P2: 없는 페이지를 보면 무조건 통과)
+  await page.goto(`${BASE}/csat/diagnosis?tab=map`, { waitUntil: 'networkidle' })
+  await page.locator('[data-testid="read-path"] [data-step="relation"]').click()
+  await page.locator('[data-step-sheet]').waitFor()
+  rec('C 지도 relation 단계 시트가 열린다', (await page.locator('[data-step-sheet]').count()) > 0)
+  rec('C A3-4 FIND 에 응집 과제 링크 없음', (await page.locator('[data-testid="find-practice-link"][data-task="A3-4"]').count()) === 0)
+  rec('C 시트 어디에도 2022-36 링크 없음', (await page.locator('[data-step-sheet] a[href*="2022-36"]').count()) === 0)
 } finally {
   await browser.close()
   const { count } = await db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', created.user.id)

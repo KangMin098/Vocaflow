@@ -33,7 +33,7 @@ try {
     '20261008140000_knowledge_review_cascade_guard.sql',
     '20261008150000_knowledge_statement_review_fix.sql',
     // 실제 원장 순서 — 160000(G2 · 2026-10-08 개발 DB 적용) 위에 170000 후보
-    '20261008160000_learning_sessions_integrated.sql', '_pending_20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
+    '20261008160000_learning_sessions_integrated.sql', '20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
   rec('등록부 7 + vNext + 140000 · 150000 · 160000(적용분) + 170000 후보 순서대로 적용', true)
 
   const item = async (layer, kind, slug) => (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ($1,$2,$3,$3,'s','in_review','t','t') returning id`, [layer, kind, slug])).rows[0].id

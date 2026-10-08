@@ -47,7 +47,7 @@ try {
       select id, 'A', 'stated', 'external', 'https://youtu.be/x', '영상', 't' from knowledge_items where slug = 'yt-aaaa';`)
   const before = (await pool.query('select count(*)::int n from knowledge_reviews')).rows[0].n
 
-  await run(M('_pending_20261008120000_knowledge_vnext.sql'))
+  await run(M('20261008120000_knowledge_vnext.sql'))
   rec('vNext 초안 적용(한 트랜잭션)', true)
 
   const kinds = Object.fromEntries((await pool.query('select slug, kind from knowledge_items')).rows.map((r) => [r.slug, r.kind]))
