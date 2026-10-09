@@ -16,6 +16,7 @@ import { loadSnapshots } from '../diagnosis/snapshot'
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
+import { practiceHrefsBeyond } from '../../knowledge/practice-server'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
 import type { FindAttemptRow } from '../../knowledge/find-outcome'
 
@@ -51,6 +52,8 @@ export interface MapPageData {
   findAttempts?: FindAttemptRow[]
   /** FIND 과제 id → 그 실행 과제의 본인 수행 요약(결과 환류) — 연결된 과제만 */
   practiceResults?: Record<string, PracticeResult>
+  /** FIND 과제 id → 「같은 원리를 다른 지문에 적용」 Practice 주소 — 실학습 풀에 그 문항 말고 다른 문항이 있을 때만 */
+  practiceNext?: Record<string, string>
   /** 학습자 본인의 시험 기록(진단에 반영된 회차 · 오래된 것부터) — 「현재 위치」는 이것만 근거로 쓴다 */
   records: LearnerRecord[]
 }
@@ -303,6 +306,12 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     return undefined
   })
   const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
+  // 결과 환류의 다음 칸 — 같은 원리를 다른 지문에 적용(Practice). 실학습 풀에 그 문항 말고 다른 문항이 있을 때만
+  // 링크를 보일 수 있는 칸(마친 확인 · 전이 없음)이 있을 때만, 풀은 한 번만 계산한다
+  const needNext = Object.entries(practiceLinks).filter(([taskId, link]) => link.taskKey === 'claim-support' && practiceResults?.[taskId]?.next === 'move_on' && !practiceResults[taskId].transfer)
+  const hrefs = needNext.length ? await practiceHrefsBeyond(needNext.map(([, l]) => l.itemId)).catch((e) => { console.error('[csat-map practice next]', e); return {} as Record<string, string | null> }) : {}
+  const practiceNext: Record<string, string> = {}
+  for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
   return {
     model: buildMapModel(raw, examLabels),
@@ -317,6 +326,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     practiceLinks,
     findAttempts,
     practiceResults,
+    practiceNext,
     records,
   }
 }
@@ -331,7 +341,7 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
   // 연습(연결 문항)과 전이(같은 과제 키 · 다른 문항)를 따로 읽는다 — 한쪽이 많아도 다른 쪽이 창에서 밀려나지 않게. 최근부터
   const [prac, tran, first, rev] = await Promise.all([
     db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).in('item_ref', items).neq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
-    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys.flatMap(transferKeysOf)).eq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
+    db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys.flatMap(transferKeysOf)).not('item_ref', 'in', `(${items.map((i) => `"${i}"`).join(',')})`).order('answered_at', { ascending: false }).limit(LIMIT),
     db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, timing_uncertain, answered_at, phase').eq('user_id', userId).in('item_ref', items).order('answered_at'),
     db.from('learning_sessions').select('item_ref, review_at, deleted_at').eq('user_id', userId).in('item_ref', items).not('review_at', 'is', null),
   ])
@@ -350,11 +360,14 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
     return count
   }
   for (const [taskId, link] of Object.entries(links)) {
+    // 확인 문항 전부 — 집계(practiceResultsFor)와 같은 범위로 다시 센다
+    const targets = link.confirm?.length ? link.confirm.map((c) => c.target) : [link.itemId]
+    const inList = `(${targets.map((i) => `"${i}"`).join(',')})`
     if ((prac.data ?? []).length >= LIMIT) {
-      out[taskId] = { ...out[taskId], attempts: await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('item_ref', link.itemId).neq('phase', 'transfer'), '수행 횟수') }
+      out[taskId] = { ...out[taskId], attempts: await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).in('item_ref', targets).neq('phase', 'transfer'), '수행 횟수') }
     }
     if (tranRows.length >= LIMIT && out[taskId].transfer) {
-      const n = await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).in('task_key', transferKeysOf(link.taskKey)).eq('phase', 'transfer').neq('item_ref', link.itemId), '전이 횟수')
+      const n = await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).in('task_key', transferKeysOf(link.taskKey)).not('item_ref', 'in', inList), '전이 횟수')
       out[taskId] = { ...out[taskId], transfer: { ...out[taskId].transfer!, attempts: n } }
     }
   }

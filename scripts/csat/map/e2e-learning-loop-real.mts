@@ -31,6 +31,13 @@ const password = `Lr-${crypto.randomBytes(9).toString('base64url')}-Aa1`
 const { data: created, error: ce } = await db.auth.admin.createUser({ email, password, email_confirm: true })
 if (ce) throw ce
 const uid = created.user.id
+// 실학습 Practice 풀에 2022#20 말고 다른 문항이 있나 — 켜진 claim-support 문항 적용 수로 판정(화면 안내 조건과 같다: 그때만 「다른 지문에 적용」 링크)
+const { data: liveApps } = await db.from('knowledge_applications').select('surface_ref').eq('surface', 'csat_item_task').eq('status', 'active').like('surface_ref', 'claim-support:%')
+// 실학습 풀은 「켜진 적용 + 이 코드에 주석이 있는 문항」 만 담는다(practice-server) — 주석 파일이 없는 문항은 켜져 있어도 풀 밖
+const annDir = path.join(ROOT, 'apps/web/src/lib/knowledge/annotations')
+const annotated = new Set(fs.readdirSync(annDir).filter((n) => n.startsWith('claim-support-')).map((n) => n.replace(/^claim-support-/, '').replace(/\.v\d+\.json$/, '')))
+const otherPractice = (liveApps ?? []).some((a) => a.surface_ref !== 'claim-support:2022-20' && annotated.has(a.surface_ref.replace(/^claim-support:/, '')))
+console.log(`· 실학습 Practice 풀의 다른 문항: ${otherPractice ? '있음' : '없음'} → 「다른 지문에 적용」 링크 기대 ${otherPractice ? '보임' : '숨김'}`)
 let browser: { close: () => Promise<void>; newContext: (o: object) => Promise<any> } | null = null
 try {
   browser = await chromium.launch()
@@ -50,7 +57,7 @@ try {
     await page.locator('[data-step-sheet]').waitFor()
   }
   await openSheet()
-  const link = page.locator('[data-testid="find-practice-link"][data-task="B6-3"]')
+  const link = page.locator('[data-testid="find-practice-link"][data-task="B6-3"][data-item="2022#20"]')
   rec('1 학습 지도 FIND B6-3 → 확인 과제 링크', (await link.count()) === 1 && (await link.getAttribute('href')) === '/csat/item/2022-20#principle', await link.getAttribute('href'))
   await link.click()
 
@@ -79,6 +86,9 @@ try {
   await panel.getByRole('button', { name: '확인하기' }).click()
   await panel.locator('[data-testid="principle-result"][data-correct="true"]').waitFor()
   rec('2 정답 제출 → 「정확히 연결」', true)
+  // 문항 화면의 Practice 링크(PR #164) — 같은 원리를 다른 기출로 연습
+  const itemPractice = page.locator('a[href="/csat/practice/claim-support"]')
+  rec('2 문항 화면에 Practice 링크(/csat/practice/claim-support)', (await itemPractice.count()) >= 1)
 
   // 3 DB 확인
   const rows = (await db.from('learning_task_attempts').select('id, task_key, item_ref, is_correct, synthetic, session_id, client_mutation_id, phase').eq('user_id', uid).order('answered_at')).data ?? []
@@ -100,7 +110,14 @@ try {
   await res.waitFor()
   const t = await res.innerText()
   rec('5 학습 지도 「내가 한 확인 2번 · 처음 다시 볼 곳 · 최근 맞았어요」 · 다음 = 넘어가기', (await res.getAttribute('data-attempts')) === '2' && (await res.getAttribute('data-next')) === 'move_on' && /처음 다시 볼 곳/.test(t) && /최근.*맞았어요/.test(t), t)
+  const mp = page.locator('[data-testid="find-next-practice"]')
+  rec(`5 학습 지도 다음 칸 — 다른 지문 Practice 링크 ${otherPractice ? '보임' : '숨김'}`, otherPractice ? (await mp.count()) === 1 && (await mp.getAttribute('href')) === '/csat/practice/claim-support' : (await mp.count()) === 0)
   await page.locator('li', { has: res }).screenshot({ path: path.join(OUT, 'map-feedback.png') })
+
+  // 6 Practice 화면 — 주소가 실제로 열린다(리다이렉트 · 404 아님)
+  const pr = await page.request.get(`${BASE}/csat/practice/claim-support`, { maxRedirects: 0 })
+  rec('6 Practice 주소 /csat/practice/claim-support 가 200 으로 열린다', pr.status() === 200, pr.status())
+
 } finally {
   await browser?.close().catch((e: Error) => console.log(`브라우저 종료 실패: ${e.message}`))
   const { error: fe } = await db.from('funnel_events').delete().eq('user_id', uid)

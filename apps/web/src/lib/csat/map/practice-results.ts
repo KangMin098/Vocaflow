@@ -90,7 +90,9 @@ export function practiceResultsFor(links: Record<string, MapPracticeLink>, rows:
     const targets = new Set(pairs.map((p) => p.item))
     // 확인 문항의 연습(practice · 단계 없음) · 같은 과제 키로 다른 지문에 적용한 전이(transfer — 확인 문항 밖)
     const mine = rows.filter((r) => isConfirm(r.task_key, r.item_ref) && (r.phase ?? 'practice') !== 'transfer')
-    const transfers = rows.filter((r) => transferKeysOf(link.taskKey).includes(r.task_key) && r.phase === 'transfer' && !targets.has(r.item_ref ?? ''))
+    // 「다른 지문에 적용」 — 같은 원리(과제 키 · 골격 포함)를 확인 문항 밖에서 수행한 기록. 단계는 묻지 않는다:
+    // Practice 의 주석 문항(R-CLAIM)은 practice 로, 주제 · 제목 골격은 transfer 로 남는다 — 둘 다 「다른 지문」 이다
+    const transfers = rows.filter((r) => transferKeysOf(link.taskKey).includes(r.task_key) && !targets.has(r.item_ref ?? ''))
     // 첫 시도 뷰는 (과제 · 문항 · 단계)마다 한 줄 — 확인 문항들 중 판단 시각이 가장 이른 줄
     const first = firsts
       .filter((f) => isConfirm(f.task_key, f.item_ref) && (f.phase ?? 'practice') !== 'transfer')
