@@ -2,7 +2,23 @@
 // 학습 지도 결과 환류 — 본인 수행 요약(순수)
 import { describe, expect, it } from 'vitest'
 
-import { practiceResultsFor, summarizePractice, type AttemptRow } from '../practice-results'
+import { RECHECK_RESULT_CAVEAT, practiceResultsFor, recheckKeysOf, recheckOtherPassageLabel, summarizePractice, transferKeysOf, type AttemptRow } from '../practice-results'
+
+describe('다른 지문 재확인 문구 · 이름(D-7(c))', () => {
+  it('결과 문구는 「다른 지문으로 한 번 더 확인했어요 · N회」', () => {
+    expect(recheckOtherPassageLabel(3)).toBe('다른 지문으로 한 번 더 확인했어요 · 3회')
+  })
+  it('한계 문구', () => {
+    expect(RECHECK_RESULT_CAVEAT).toBe('이번 확인 결과일 뿐, 원인 확정이나 맞춤 처방은 아니에요')
+  })
+  it('결과 문구에 적용 · 전이 · 맞춤이 없다', () => {
+    for (const w of ['적용', '전이', '맞춤']) expect(recheckOtherPassageLabel(1)).not.toContain(w)
+  })
+  it('recheckKeysOf 와 호환 별칭 transferKeysOf 가 같은 배열', () => {
+    expect(recheckKeysOf('claim-support')).toEqual(['claim-support', 'claim-support-skeleton'])
+    expect(transferKeysOf('claim-support')).toEqual(recheckKeysOf('claim-support'))
+  })
+})
 
 const row = (is_correct: boolean, answered_at: string, task_key = 'claim-support', item_ref = '2022#20'): AttemptRow => ({ task_key, item_ref, is_correct, answered_at })
 

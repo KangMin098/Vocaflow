@@ -6,10 +6,19 @@
 import type { MapPracticeLink } from '../../knowledge/product-server'
 
 /**
- * 전이(다른 지문 적용)로 함께 셀 과제 키. Practice 는 주석 문항을 `<key>` 로, 골격(정답 근거 앵커)만 있는 문항을 `<key>-skeleton` 으로 기록한다.
- * 전이 문항(주제 · 제목)은 대부분 골격이다 — 학습자에게 보이는 「다른 지문에 적용」 은 둘 다 센다(효과 계산과는 별개).
+ * 다른 지문 재확인으로 함께 셀 과제 키. Practice 는 주석 문항을 `<key>` 로, 골격(정답 근거 앵커)만 있는 문항을 `<key>-skeleton` 으로 기록한다.
+ * 진단 전 Practice 는 FIND 의 확장(D-7(c))이다 — 「다른 지문으로 한 번 더 확인」 으로 둘 다 센다(효과 계산 · 처방과는 별개).
  */
-export const transferKeysOf = (taskKey: string): string[] => [taskKey, `${taskKey}-skeleton`]
+export const recheckKeysOf = (taskKey: string): string[] => [taskKey, `${taskKey}-skeleton`]
+
+/** @deprecated 재확인 의미 이름 `recheckKeysOf` 를 쓴다 — 패킷 밖 소비자를 위한 호환 별칭(같은 함수) */
+export const transferKeysOf = recheckKeysOf
+
+/** 진단 전 다른 지문 재확인 결과 문구 — 적용 · 전이 · 처방으로 말하지 않는다 */
+export const recheckOtherPassageLabel = (count: number): string => `다른 지문으로 한 번 더 확인했어요 · ${count}회`
+
+/** 재확인 결과 곁에 붙는 한계 문구 */
+export const RECHECK_RESULT_CAVEAT = '이번 확인 결과일 뿐, 원인 확정이나 맞춤 처방은 아니에요'
 
 export interface AttemptRow {
   task_key: string
@@ -93,7 +102,7 @@ export function practiceResultsFor(links: Record<string, MapPracticeLink>, rows:
     const mine = rows.filter((r) => isConfirm(r.task_key, r.item_ref) && (r.phase ?? 'practice') !== 'transfer')
     // 「다른 지문에 적용」 — 같은 원리(과제 키 · 골격 포함)를 확인 문항 밖에서 수행한 기록. 단계는 묻지 않는다:
     // Practice 의 주석 문항(R-CLAIM)은 practice 로, 주제 · 제목 골격은 transfer 로 남는다 — 둘 다 「다른 지문」 이다
-    const transfers = rows.filter((r) => transferKeysOf(link.taskKey).includes(r.task_key) && !targets.has(r.item_ref ?? ''))
+    const transfers = rows.filter((r) => recheckKeysOf(link.taskKey).includes(r.task_key) && !targets.has(r.item_ref ?? ''))
     // 첫 시도 뷰는 (과제 · 문항 · 단계)마다 한 줄 — 확인 문항들 중 판단 시각이 가장 이른 줄
     const first = firsts
       .filter((f) => isConfirm(f.task_key, f.item_ref) && (f.phase ?? 'practice') !== 'transfer')

@@ -17,7 +17,7 @@ import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
 import { decideStep } from '@/lib/knowledge/learning-decision'
 import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
 import { skillDiagnosis } from '@/lib/csat/map/skill-diagnosis'
-import type { PracticeResult } from '@/lib/csat/map/practice-results'
+import { RECHECK_RESULT_CAVEAT, recheckOtherPassageLabel, type PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
 import { useModalFocus } from '../useModalFocus'
@@ -241,7 +241,12 @@ function PracticeResultLine({ r, practiceHref }: { r: PracticeResult; practiceHr
         {r.firstIndependent === false ? '(해설이나 힌트를 본 뒤였어요)' : ''}
         {r.attempts > 1 ? ` · 최근(${kstDay(r.latestAt)}) ${word(r.latestCorrect)}` : ` (${kstDay(r.latestAt)})`}
       </span>
-      {r.transfer && <span data-testid="find-practice-transfer">다른 지문에 적용 {r.transfer.attempts}번 · 최근 {word(r.transfer.latestCorrect)}</span>}
+      {r.transfer && (
+        <span data-testid="find-practice-transfer">
+          {recheckOtherPassageLabel(r.transfer.attempts)} · 최근 {word(r.transfer.latestCorrect)}
+          <span style={{ display: 'block' }} data-testid="find-practice-recheck-caveat">{RECHECK_RESULT_CAVEAT}</span>
+        </span>
+      )}
       {r.reviewAt && r.next !== 'review' && <span data-testid="find-practice-review">다시 보기 예약 {kstDay(r.reviewAt)}</span>}
       <span>
         {r.next === 'retry'
@@ -251,7 +256,7 @@ function PracticeResultLine({ r, practiceHref }: { r: PracticeResult; practiceHr
             : '다음: 이 확인은 마쳤어요. 위 체크를 표시하고 다음 확인으로 넘어가요.'}
         {' '}이번 확인의 결과일 뿐, 이 힘이 생겼다는 판정은 아니에요.
       </span>
-      {/* 학습 순환의 다음 칸 — 이 문항을 마쳤으면 다른 지문에 적용(Practice), 적용도 했으면 새 기출 기록으로 목표 대비 변화를 본다 */}
+      {/* 학습 순환의 다음 칸 — 이 문항을 마쳤으면 다른 지문으로 재확인(Practice), 재확인도 했으면 새 기출 기록으로 목표 대비 변화를 본다 */}
       {r.next === 'move_on' && practiceHref && !r.transfer && (
         <a href={practiceHref} style={NEXT_LINK} data-testid="find-next-practice">다른 지문으로 한 번 더 확인하기 →</a>
       )}
