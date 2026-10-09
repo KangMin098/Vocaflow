@@ -98,8 +98,18 @@ try {
   await judge(A, 'h2', nowMs - 5 * 60_000, trial2, 'post')
   await q("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trial2])
   await reveal(A, 'unrelated-item', nowMs - 30 * 60_000)
-  await reveal(A, 'h1', nowMs + 60 * 60_000 - 3_600_000 + 10 * 60_000)
-  rec('M9-B 판단보다 늦은 도움 · 무관한 문항은 재계산 표시 안 함', (await q('select review_required_at from knowledge_trials where id = $1', [trial2])).rows[0].review_required_at === null)
+  // (판단 뒤 도움은 실시간으로 2분 넘게 미래 시각이 돼 시계 의심으로 보수적으로 표시된다 — 여기서는 무관한 문항만 확인)
+  // 지연 수신 판단(판단 10분 전 · 수신 지금) 뒤 그 지연 폭 안 도움 → 재계산 표시(판단 +2분 밖이어도)
+  const trial3 = (await q(`insert into knowledge_trials (application_id, design, created_by) values ($1, '{"pre":true,"post":true,"min_n":1}', 't') returning id`, [app])).rows[0].id
+  await judge(A, 'k1', nowMs - 10 * 60_000, trial3, 'pre')
+  await judge(A, 'k2', nowMs - 2 * 60_000, trial3, 'post')
+  await q("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trial3]).catch(() => {})
+  const st3 = (await q('select status from knowledge_trials where id = $1', [trial3])).rows[0].status
+  if (st3 === 'analyzed') {
+    await reveal(A, 'k1', nowMs - 5 * 60_000)
+    rec('M9-B 지연 수신 판단의 지연 폭 안 도움도 재계산 표시', (await q('select review_required_at from knowledge_trials where id = $1', [trial3])).rows[0].review_required_at !== null)
+  } else rec('M9-B 지연 수신 판단 사례 준비(분석 완료 전환)', false, st3)
+  rec('M9-B 무관한 문항의 도움은 재계산 표시 안 함', (await q('select review_required_at from knowledge_trials where id = $1', [trial2])).rows[0].review_required_at === null)
 
   // 6 학습자 읽기 권한 유지
   const as = async (uid, sql) => { const c = await pool.connect(); try { await c.query('begin'); await c.query('set local role authenticated'); await c.query(`select set_config('request.jwt.claim.sub', $1, true)`, [uid]); const r = await c.query(sql); await c.query('rollback'); return { ok: true, rows: r.rows } } catch (e) { await c.query('rollback').catch(() => {}); return { ok: false, err: e.message } } finally { c.release() } }

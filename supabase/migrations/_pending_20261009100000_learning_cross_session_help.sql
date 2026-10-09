@@ -86,6 +86,11 @@ declare v_at timestamptz := least(coalesce(new.help_received_at, 'infinity'::tim
 begin
   if v_at = 'infinity'::timestamptz or new.item_ref is null then return new; end if;
   if tg_op = 'UPDATE' and new.help_received_at is not distinct from old.help_received_at and new.explanation_viewed_at is not distinct from old.explanation_viewed_at then return new; end if;
+  -- 잠금 순서 = 재분석과 같게(검증 행 → 표본 권고 잠금) — 엇갈리면 교착(DB 쓰기 게이트 P1)
+  perform 1 from public.knowledge_trials t
+   where t.status = 'analyzed' and not t.synthetic
+     and exists (select 1 from public.learning_task_attempts a where a.trial_id = t.id and a.user_id = new.user_id and a.item_ref = new.item_ref)
+   order by t.id for update;
   perform pg_advisory_xact_lock_shared(hashtext('learning_trial_sample'));
   update public.knowledge_trials t
      set review_required_at = coalesce(t.review_required_at, now()),
@@ -94,7 +99,9 @@ begin
      and exists (select 1 from public.learning_task_attempts a
                   where a.trial_id = t.id and a.user_id = new.user_id and a.item_ref = new.item_ref
                     and a.session_id is distinct from new.id
-                    and v_at <= a.answered_at + interval '2 minutes');
+                    -- 뷰의 불확실 조건을 모두 덮는다: 판단의 서버 수신(+2분)보다 이른 도움(지연 폭 · 서버 순서 모순 포함) · 시계 의심 세션
+                    and (new.help_clock_suspect
+                         or v_at <= greatest(a.answered_at, coalesce(a.received_at, a.answered_at)) + interval '2 minutes'));
   return new;
 end $$;
 create trigger learning_cross_help_invalidate after insert or update of help_received_at, explanation_viewed_at on public.learning_sessions
