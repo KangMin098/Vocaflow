@@ -58,7 +58,10 @@ goal-check → goal-priority → feasibility(첫 실행 가능 작업)
 - **DB**: 자동 실행의 Claude 는 MCP 0개 — DB 경로가 없다. `db_scope` 가 있는 작업은 고르지 않는다(대화형 세션 몫).
   Bash 는 검증 명령(vitest·typecheck·lint·git 읽기/add/commit)만 허용하고 `node`·`npx`·`pnpm dlx`·설치는 막는다. 자식 환경의 DB 자격증명은 접속 불가 주소·빈 키로 덮는다(`DB_SENTINEL_ENV`).
   **남는 한계**: vitest 가 Claude 가 쓴 테스트 코드를 실행하므로 임의 코드 실행 경로가 완전히 닫히지는 않는다 — 자격증명이 없어 DB 에 붙지 못하고, 다른 worktree 쓰기는 실행 전후 대조(`foreign_worktree_write` → 차단·정지)로 잡는다. 컨테이너 격리는 아니다.
-- **고아 자식**: Claude/Codex 는 감독자(`lib/supervise.mjs`)를 거쳐 뜬다. 감독자는 `claude.pid.json`·`codex.pid.json` 에 자식 pid 를 남기고 부모가 죽으면 자식 트리를 끝낸다. 복구는 자식이 살아 있으면 그 작업을 회수하지 않는다.
+- **고아 자식**: Claude/Codex 는 감독자(`lib/supervise.mjs`)를 거쳐 뜬다. 감독자는 `claude.pid.json`·`codex.pid.json` 에 자식 pid 를 남기고 부모가 죽으면 자식 트리를 끝낸다. 복구는 자식이 살아 있으면 그 작업을 회수하지 않는다. 감독자는 기한(`VFC_SUPERVISE_TIMEOUT_MS`)도 직접 지킨다.
+- **오류로 멈춘 run**(`stopped`)이 작업을 쥔 채 끝나도 다음 실행이 같은 방식(reap → READY)으로 복구한다 — `current_run` 이 아니라 모든 run 에서 찾는다(2026-10-09 T-0012 실측).
+- **보고서 증거 규칙 위반**(빈·범위 밖 `covers`, `pass` 가 아닌 항목)은 실행 오류가 아니라 `bad_evidence` 재작업 사유다. `not_run` + 빈 `covers` 항목은 메모로 보고 증거에 넣지 않는다. 수정 전 실패(red) 로그는 `notes` 에 둔다.
+- **Stop 훅 판정**(REVIEW_BLOCKED)이 구현 커밋을 막으면 리뷰·재구현으로 가지 않고 즉시 BLOCKED → 다른 독립 작업. 규칙: [STOP_HOOK.md](STOP_HOOK.md).
 - **ChatGPT**: 응답의 `requires_user_approval` 은 권한 근거가 아니다. false 면 고쳐 받지 않고 `approval_conflict` 로 기록 → 관련 작업 실행 차단 → 사용자 APPROVED 결정으로만 `decision resolve-conflict`.
 - **완전 무인 아님**: ChatGPT 기획은 사람이 요청 파일을 전달·응답을 저장한다. 사용자 승인(DB 쓰기·배포·시크릿·main 머지)은 사람만 기록한다.
 
