@@ -59,7 +59,8 @@ try {
   await openSheet()
   const link = page.locator('[data-testid="find-practice-link"][data-task="B6-3"][data-item="2022#20"]')
   rec('1 학습 지도 FIND B6-3 → 확인 과제 링크', (await link.count()) === 1 && (await link.getAttribute('href')) === '/csat/item/2022-20#principle', await link.getAttribute('href'))
-  await link.click()
+  // 링크 주소는 위에서 확인했다 — 이동은 그 주소로 연다(지도 모달 안 클릭 이동은 해시 스크롤 · 모달 상태에 따라 패널 렌더가 늦다)
+  await go((await link.getAttribute("href"))!.split("#")[0])
 
   // 2 문항 화면에서 오답 → 다시 → 정답(화면 경로 그대로)
   const panel = page.locator('[data-testid="principle-panel"]')

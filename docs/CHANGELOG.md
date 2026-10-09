@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(map): 기능 단위 직접 확인(verified_diagnosis · 결정 D-1 v1) — 글 구조 확인 문항의 독립 첫 시도 2개가 맞힌 것 없이 막히면 확정 → 단계 시트 처방(바로잡기 · 다른 글에 적용 · 다시 확인) 개방 → 미노출 확인 문항 2개 정답이면 해소 · 막히면 계속 · 120일 만료. 진단 전 Practice 문구는 「한 번 더 확인」(D-7 c). `skill-diagnosis.ts` · `SkillPrescription.tsx` · E2E `e2e-skill-gate.mts`
+
 - docs(map): 한국 영어학습 맵 전체 완료 계약 [MAP_COMPLETION_CONTRACT](./csat-learner/MAP_COMPLETION_CONTRACT.md)(MC-01–16 · ACCEPTED/PARTIAL/FAIL/UNKNOWN/BLOCKED) · 계약 A 원인 판정 · B Evidence Anchor · C FIND→진단 환류 [MAP_CONTRACTS_ABC](./csat-learner/MAP_CONTRACTS_ABC.md)(PROPOSED) · 순수 `evidence-anchor.ts` · `find-feedback.ts` + 단위 테스트. DB · 화면 변경 없음
 - feat(csat): 기출 해설 「답이 왜 이것인가」 — 근거 해설이 정답 설명의 영어 인용을 모두 되풀이하기만 하면 한 번만 보인다(새 근거 인용이 있으면 그대로 · 감사 표본 5/7 중복). 강의 문장 가리킴 ↔ 문장 지도 번호 정합 전량 측정 0/6,608 어긋남 · 가드(`lecture-sentence-range.test.ts`).
 

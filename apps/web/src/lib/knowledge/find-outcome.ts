@@ -20,6 +20,8 @@ export interface FindTarget {
 export interface FindAttemptRow extends FirstAttempt {
   itemRef: string
   taskKey: string
+  /** 판단 시각(ISO) — 기능 단위 직접 확인(skill-diagnosis)의 순서 · 기한에 쓴다 */
+  answeredAt?: string | null
 }
 
 export type FindState = 'untried' | 'in_progress' | 'confirmed_need' | 'not_needed' | 'mixed'
