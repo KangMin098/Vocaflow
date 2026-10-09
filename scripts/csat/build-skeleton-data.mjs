@@ -217,7 +217,7 @@ for (const it of items) {
     // ① 「지우는 근거」 ② 「끌리는 이유」 ③ 드레인이 채운 「끌리는 구절」(lure_quote) 순서. ②③ 은 이 선지를 지우지 않고
     //    **끌어당기는** 자리라 `from: 'tempt'` 로 갈라 두고 화면이 다르게 말한다. 정답 선지에는 ①만(lib-fragments.mjs).
     const hit = locateChoice(ch, it.passage, findQuote)
-    if (hit) anchors.push({ id: `reject:${ch.n}`, quote: hit.quote, from: hit.from })
+    if (hit) anchors.push({ id: `reject:${ch.n}`, quote: hit.quote, from: hit.from, ...(hit.lure ? { lure: true } : {}) })
   }
   if (!anchors.length) {
     skippedNoAnchor += 1

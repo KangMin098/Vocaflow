@@ -112,7 +112,10 @@ type Scanner = {
 // 추가 수리로 대체된 옛 계획은 재실행에서 현재 입력 충돌로 거부한다.
 // 139 → 140(2026-10-08): lib/knowledge/review-cascade.ts 재검토 전파 — 아래 층마다 「상태가 그대로일 때만」 조건부 UPDATE 라
 // 한 문장으로 묶을 수 없다. 대상은 한 사슬의 아래 층(실측 2~3행) · 관리자가 누를 때만 돈다 — 쓰기 폭주 경로가 아니다.
-const BASELINE = 140
+// 140 → 141(2026-10-10): scripts/csat/lure-drain-import.mjs 끌리는 구절 반영 — choice_analysis 원소 하나에 키만 더하는
+// 부분 jsonb 갱신이라 묶음 upsert(전 행 필수 칸 필요)로 바꿀 수 없다. 버전 CAS(.eq version) 순차 PATCH 뒤 100ms 대기,
+// 평가원 분석 최대 802행(2026-10-10 승인 실행 493행) · 관리자가 드레인 끝에 한 번 돌린다 — 쓰기 폭주 경로가 아니다.
+const BASELINE = 141
 
 let scanner: Scanner
 

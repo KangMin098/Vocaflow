@@ -32,25 +32,27 @@ const OUT = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 
-// PostgREST 는 1,000행에서 조용히 끊는다 — 페이징한다.
+// PostgREST 는 1,000행에서 조용히 끊는다 — id 키셋으로 넘긴다(OFFSET 은 뒤 페이지가 앞을 다시 훑는다 · offset-paging-budget).
 async function page(table, sel, tune = (q) => q) {
   const out = []
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await tune(db.from(table).select(sel)).range(from, from + 999)
+  for (let last = null; ; ) {
+    let q = tune(db.from(table).select(sel)).order('id').limit(1000)
+    if (last != null) q = q.gt('id', last)
+    const { data, error } = await q
     if (error) throw new Error(`${table}: ${error.message}`)
     out.push(...data)
     if (data.length < 1000) break
+    last = data[data.length - 1].id
   }
   return out
 }
 
-const analyses = await page('csat_item_analyses', 'id, item_id, version, choice_analysis', (q) =>
-  q.eq('status', 'published').order('item_id').order('version', { ascending: false }),
-)
+const analyses = await page('csat_item_analyses', 'id, item_id, version, choice_analysis', (q) => q.eq('status', 'published'))
+// 문항마다 최신 발행 버전 하나
 const latest = new Map()
-for (const r of analyses) if (!latest.has(r.item_id)) latest.set(r.item_id, r)
+for (const r of analyses) if (!latest.has(r.item_id) || r.version > latest.get(r.item_id).version) latest.set(r.item_id, r)
 
-const items = (await page('csat_items', 'id, exam_id, no, type_id, stem, choices, passage, body_ok', (q) => q.order('id'))).filter(
+const items = (await page('csat_items', 'id, exam_id, no, type_id, stem, choices, passage, body_ok')).filter(
   (r) => isKiceExam(r.exam_id) && r.body_ok && r.passage,
 )
 

@@ -101,6 +101,7 @@ for (const f of outs) {
       .eq('version', a.version)
     if (uerr) { bump(`쓰기 실패: ${uerr.message}`); continue }
     written += 1
+    await new Promise((r) => setTimeout(r, 100)) // 순차 · 초당 최대 10행(row-write-budget 주석)
   }
 }
 

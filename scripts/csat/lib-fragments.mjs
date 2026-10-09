@@ -27,6 +27,6 @@ export function locateChoice(ch, passage, findQuote) {
   const fr2 = ch.why_tempting ? fragments(ch.why_tempting).find((f) => findQuote(passage, f)) : null
   if (fr2) return { quote: fr2, from: 'tempt' }
   const lq = typeof ch.lure_quote === 'string' ? ch.lure_quote.trim() : ''
-  if (lq.length >= FRAG_MIN && findQuote(passage, lq)) return { quote: lq, from: 'tempt' }
+  if (lq.length >= FRAG_MIN && findQuote(passage, lq)) return { quote: lq, from: 'tempt', lure: true }
   return null
 }

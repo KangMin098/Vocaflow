@@ -66,7 +66,7 @@ export function keyFromAnnotation(a: ClaimSupportAnnotation): PracticeKey {
 export interface SkeletonItemLike {
   id: string
   sentences: { chars: number }[]
-  anchors: { id: string; sentences: number[]; from?: string }[]
+  anchors: { id: string; sentences: number[]; from?: string; lure?: boolean }[]
 }
 
 /**
@@ -74,6 +74,8 @@ export interface SkeletonItemLike {
  * 그래서 이 키로 낸 기록은 SKELETON_TASK 로 남고 효과 계산에 들어가지 않는다.
  * 옛 판정(정답 근거 문장 중 하나를 주장으로 고르면 적중)을 보존하려고 첫 앵커 문장을 claim, 나머지를 claimRestated 로 둔다.
  * 근거는 채점하지 않는다 — 함정 문장을 근거로 고를 때만 「더 고름」이 된다.
+ * 끌리는 구절 드레인 자리(`lure`)는 함정으로 세지 않는다 — 그 문장이 주장의 실제 근거일 수 있어, 맞는 근거를 고른 학습자에게
+ * 「더 고름」을 보일 위험이 있다(2026-10-10 측정: 넣으면 62/115문항 · 함정 문장 +90). 채점에 넣으려면 표본 검증부터.
  */
 export function keyFromSkeleton(it: SkeletonItemLike): PracticeKey | null {
   const n = it.sentences.length
@@ -83,7 +85,7 @@ export function keyFromSkeleton(it: SkeletonItemLike): PracticeKey | null {
   const trap = [
     ...new Set(
       it.anchors
-        .filter((a) => a.id !== 'answer' && (a.from === 'tempt' || a.from === 'reject' || a.id.startsWith('reject:')))
+        .filter((a) => a.id !== 'answer' && !a.lure && (a.from === 'tempt' || a.from === 'reject' || a.id.startsWith('reject:')))
         .flatMap((a) => a.sentences),
     ),
   ]
