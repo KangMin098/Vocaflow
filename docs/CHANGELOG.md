@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(map): 한국 영어학습 맵 전체 완료 계약 [MAP_COMPLETION_CONTRACT](./csat-learner/MAP_COMPLETION_CONTRACT.md)(MC-01–16 · ACCEPTED/PARTIAL/FAIL/UNKNOWN/BLOCKED) · 계약 A 원인 판정 · B Evidence Anchor · C FIND→진단 환류 [MAP_CONTRACTS_ABC](./csat-learner/MAP_CONTRACTS_ABC.md)(PROPOSED) · 순수 `evidence-anchor.ts` · `find-feedback.ts` + 단위 테스트. DB · 화면 변경 없음
+
 - fix(csat): E11 복습 예약 신뢰성 — 「N일 뒤」 = 한국 달력 날짜(`lib/knowledge/review-date.ts` · 저장은 그 날 KST 00:00) · 예약 응답은 서버가 확정한 날짜(이미 잡힌 날이면 그 날) · Practice 화면 「내 복습」(지도에 안 걸리는 Practice 예약도 다시 찾기 · 같은 문항을 예약일 뒤 다시 풀어야 끝남).
 
 - feat(map): 결과 환류 다음 칸 — 마친 확인 뒤 Practice(다른 지문 적용 · 풀에 다른 문항이 있을 때만), 전이 뒤 새 기출 기록(재평가 · 목표 대비 변화). 학습 순환 실제 경로 E2E 15/15 · 환류 E2E 16/16
