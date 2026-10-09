@@ -130,6 +130,8 @@ h1{font-size:var(--fs-display);margin:.6rem 0 .3rem;letter-spacing:-.01em;text-w
 .intro{padding-left:.9rem;border-left:3px solid var(--line)}
 .block .lbl{font-weight:700;color:var(--accent)}
 .given{border:1px solid var(--line);padding:.7rem .9rem;margin:0 0 .9rem;background:transparent}
+.given pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
+.timelimit{color:var(--accent);font-family:var(--font-mono);font-size:var(--fs-caption)}
 .slot{color:var(--slot);font-weight:700}
 .choices{margin:.9rem 0 0;padding-left:1.4rem}
 .choices li{margin:.15rem 0;font-variant-numeric:tabular-nums}

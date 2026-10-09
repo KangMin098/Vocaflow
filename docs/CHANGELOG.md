@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): P13 비교, P14 본문+자료, P18 인쇄형 시간 예산, P20 다중 논증의 주문·문항·자료 근거를 검증하는 합성 단원 조판 어댑터를 연결했다. 주문과 문항에 없는 두 번째 글·수치·시간 예산은 생성하지 않는다. 개발 DB의 승인된 group/snapshot BEFORE 트리거가 네 유형의 미검증 atomic 운영 진입을 차단하며 롤백형 검증의 잔여 행은 0건이다.
+
 - feat(textbook): Connect the structured admin product brief to a sealed Product Order draft and the existing restricted registration route. Recompute the planning hash, require explicit current policy versions/hashes, and reject stale or mixed grade targets before DB registration. Operational production remains unverified.
 
 - feat(textbook): 개정 영향의 `needs_review → revise → republish` 합성 예행과 실패 재검토·권리 철회 종료·중복 이벤트 차단을 추가했다. 실제 카탈로그·게시 데이터는 변경하지 않는다.

@@ -72,14 +72,14 @@ export const PRODUCT_CAPABILITIES: Record<keyof typeof PRODUCT_FAMILIES, ReturnT
   P10: capability('PARTIAL', inferenceItems),
   P11: capability('PARTIAL', evidenceItems),
   P12: capability('PARTIAL', ['claim', 'implication']),
-  P13: capability('PLANNED', [], [], ['multi_passage', 'comparative_layout']),
-  P14: capability('PLANNED', [], [], ['table_or_chart', 'integrated_render']),
+  P13: capability('PARTIAL', ['cross_text_comparison'], [], ['multi_passage', 'comparative_layout']),
+  P14: capability('PARTIAL', ['data_integration'], [], ['table_or_chart', 'integrated_render']),
   P15: capability('PARTIAL', [...basicItems, ...evidenceItems]),
   P16: capability('PARTIAL', basicItems),
   P17: capability('PARTIAL', [...basicItems, ...inferenceItems]),
-  P18: capability('PLANNED', [...basicItems, ...inferenceItems, ...relationItems], [], ['timer']),
+  P18: capability('PARTIAL', [...basicItems, ...inferenceItems, ...relationItems], [], ['printed_time_budget']),
   P19: capability('PARTIAL', [...vocabItems, 'main_point']),
-  P20: capability('PLANNED', [], [], ['multi_passage', 'argument_layout']),
+  P20: capability('PARTIAL', ['argument_comparison'], [], ['multi_passage', 'argument_layout']),
 }
 
 export const productOrderSchema = z.object({

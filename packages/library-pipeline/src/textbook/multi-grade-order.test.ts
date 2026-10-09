@@ -10,6 +10,7 @@ import { canonicalJson } from './review-digest'
 import { reviewDigest } from './review-digest'
 import { buildColophon } from './brand'
 import { runMultiGradeFactoryDryRun } from './multi-grade-production'
+import { renderSpecializedReadingUnit } from './specialized-reading-unit'
 import {
   assessMultiGradeEvidence, bindMultiGradeEvidence, planMultiGradeVolume,
   sealMultiGradeProductOrder,
@@ -167,7 +168,82 @@ function productionFixture(mode: 'shared_passage_grade_specific_items' | 'grade_
   return { group: g, evidence: e, currentEvidence: structuredClone(e), currentLineages, stages, render }
 }
 
+function specializedFixture(family: 'P13' | 'P14' | 'P18' | 'P20') {
+  const input = productionFixture('shared_passage_grade_specific_items')
+  const textResource = { kind: 'text', canonical_source: 'frym', canonical_url: 'https://example.org/text-b',
+    content: 'A second synthetic account gives a different explanation of the same event.',
+    license_evidence: 'Synthetic permission recorded for this fixture only.', license: 'CC BY 4.0',
+    license_url: 'https://example.org/license', commercial_use: true, derivative_use: true,
+    ai_processing: 'allowed', third_party_text: false, share_alike: false,
+    attribution: 'Synthetic fixture source', checked_at: '2026-10-08T00:00:00Z' }
+  const dataResource = { ...textResource, kind: 'data', canonical_url: 'https://example.org/data',
+    content: 'Year | Count\n2024 | 25\n2025 | 30' }
+  const resource = family === 'P14' ? dataResource : textResource
+  const itemType = family === 'P13' ? 'cross_text_comparison' : family === 'P14' ? 'data_integration'
+    : family === 'P20' ? 'argument_comparison' : 'main_point'
+  const skills = family === 'P14' ? ['R12'] : family === 'P18' ? ['R13'] : ['R11']
+  for (const [index, entry] of input.group.orders.entries()) {
+    entry.order.product_family = family
+    entry.order.target = { ...entry.order.target, family, skills, exam: family === 'P18' ? 'csat' : 'none',
+      resources: family === 'P18' ? [] : [resource] }
+    entry.order.reading_skill_targets = skills
+    entry.order.exam_alignment = family === 'P18' ? ['csat'] : []
+    entry.order.item_types = [itemType]
+    const stage = input.stages[index]!
+    const variant = input.evidence.variants[index]!
+    variant.order_hash = sealProductOrder(entry.order).order_hash
+    stage.lineage.order_hash = variant.order_hash
+    const item = stage.items[0]!
+    item.payload = { ...item.payload, item_type: itemType, question: 'Which answer follows from the evidence?',
+      choices: ['Supported', 'Unsupported'], evidence_primary: 'research passage',
+      ...(family === 'P18' ? { time_limit_seconds: 60 }
+        : { resource_url: resource.canonical_url,
+          evidence_resource: family === 'P14' ? '2025 | 30' : 'different explanation' }) }
+    item.answer_key.answer = 1
+    const itemDigest = reviewDigest(item.payload, item.answer_key)
+    stage.explanations[0]!.item_digest = itemDigest
+    stage.reviews[0]!.item_digest = itemDigest
+    stage.unit.html = renderSpecializedReadingUnit({ order: entry.order, passage: stage.passage,
+      grade: stage.grade, items: stage.items })
+    variant.item_set_hash = digest([[item.id, itemDigest]])
+    variant.unit_set_hash = digest([[stage.unit.unit_id, rawSha(stage.unit.html)]])
+    stage.explanations[0]!.factory_lineage = stage.lineage
+    stage.reviews[0]!.factory_lineage = stage.lineage
+    input.currentLineages[index]!.lineage = structuredClone(stage.lineage)
+  }
+  input.evidence.group_hash = sealMultiGradeProductOrder(input.group).group_hash
+  input.currentEvidence = structuredClone(input.evidence)
+  return input
+}
+
 describe('multi-grade synthetic factory E2E', () => {
+  for (const family of ['P13', 'P14', 'P18', 'P20'] as const) {
+    it(`renders reviewed ${family} material and rejects changed source material`, () => {
+      const input = specializedFixture(family)
+      const output = runMultiGradeFactoryDryRun(input)
+      expect(output.html).toContain(`data-family="${family}"`)
+      expect(output.manifest.item_evidence).toHaveLength(2)
+      const first = input.stages[0]!
+      const order = input.group.orders[0]!.order
+      const ungrounded = structuredClone(first.items)
+      ungrounded[0]!.payload.evidence_primary = 'invented primary claim'
+      expect(() => renderSpecializedReadingUnit({ order, grade: first.grade,
+        passage: first.passage, items: ungrounded })).toThrow('ITEM_UNGROUNDED')
+      const changed = structuredClone(input)
+      if (family === 'P18') changed.stages[0]!.items[0]!.payload.time_limit_seconds = 0
+      else changed.stages[0]!.items[0]!.payload.evidence_resource = 'invented source value'
+      expect(() => runMultiGradeFactoryDryRun(changed)).toThrow()
+      if (family !== 'P18') {
+        const resourceChanged = structuredClone(first.items)
+        resourceChanged[0]!.payload.evidence_resource = 'invented source value'
+        expect(() => renderSpecializedReadingUnit({ order, grade: first.grade,
+          passage: first.passage, items: resourceChanged })).toThrow('RESOURCE_UNGROUNDED')
+      }
+      const changedLayout = structuredClone(input)
+      changedLayout.stages[0]!.unit.html = changedLayout.stages[0]!.unit.html.replace('Supported', 'Fabricated')
+      expect(() => runMultiGradeFactoryDryRun(changedLayout)).toThrow('SPECIALIZED_UNIT_STALE')
+    })
+  }
   for (const mode of ['shared_passage_grade_specific_items', 'grade_specific_adaptations', 'grade_specific_units'] as const) {
     it(`renders ${mode} through ready, item, explanation, review, unit and volume`, () => {
       const input = productionFixture(mode)

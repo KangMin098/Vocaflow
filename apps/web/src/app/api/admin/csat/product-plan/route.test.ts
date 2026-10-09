@@ -37,17 +37,18 @@ it('exposes an authenticated, conservative P01–P20 runtime matrix', async () =
   expect(Object.keys(data.capability)).toHaveLength(20)
   expect(data.capability.P03.state).toBe('SYNTHETIC_E2E_VALIDATED')
   expect(data.capability.P03.name).toBe('Knowledge Reader')
-  expect(data.capability.P13.state).toBe('NOT_SUPPORTED')
+  expect(data.capability.P13.state).toBe('IMPLEMENTED')
   mocks.requireAdminApi.mockResolvedValueOnce(NextResponse.json({ error: 'Forbidden' }, { status: 403 }))
   expect((await GET()).status).toBe(403)
 })
 
-it('plans a chosen family while retaining its unsupported execution status', async () => {
+it('plans a chosen family while retaining its synthetic-only execution status', async () => {
   const response = await send({ ...brief(), product_family: 'P13' })
   expect(response.status).toBe(200)
   const data = await response.json()
   expect(data.plan.product_family).toBe('P13')
-  expect(data.runtime_capability.state).toBe('NOT_SUPPORTED')
+  expect(data.runtime_capability.state).toBe('IMPLEMENTED')
+  expect(data.runtime_capability.missing).toContain('family-specific promotion-to-publication end-to-end')
 })
 
 it('rejects a malformed grade scope and unauthorized callers', async () => {

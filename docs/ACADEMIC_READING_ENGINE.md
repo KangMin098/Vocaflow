@@ -66,6 +66,8 @@ v2는 `candidate → expert_validated → student_validated → gold`를 판정�
 
 고3 progression은 선택 범위다. R11/R12를 실제 target으로 선택하려면 자료를 제공한다. P13은 두 번째 텍스트, P14는 실제 수치 자료가 필수이며 자료별 권리·출처·확인일·귀속을 target에 포함한다.
 
+P13/P20 비교 지문, P14 본문+자료, P18 시간 예산 문항은 sealed 주문과 검수된 문항 payload에서 근거 인용·자료 URL·시간을 읽어 합성 단원 HTML로 조판한다. 두 번째 글이나 수치를 조판기가 생성하지 않으며 원문·자료·문항·단원 HTML을 바꾸면 재검증에서 막힌다. P18은 인쇄된 문항별 시간 예산이지 실행되는 타이머가 아니다. 보조 자료의 현재 권리·revision 재조회가 없으므로 JS 등록 경로와 개발 DB의 group/snapshot BEFORE 트리거가 네 유형을 운영 생산에서 차단한다. 이는 `ready → volume` 구간의 합성 검증이고, 전체 승격→게시 운영 경로 검증이나 실제 교재 난도 인증을 뜻하지 않는다.
+
 | P | 제품군 | P | 제품군 |
 |---|---|---|---|
 | P01 | AI Multi-Level Reader | P11 | Evidence Reading |

@@ -45,20 +45,24 @@ The `PRODUCT_CAPABILITIES` enum is a target and item contract, not proof of a de
 | P10 | Inference | Generic reading passage | Inference item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P11 | Evidence | Generic reading passage | Evidence item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P12 | Argument | Generic reading passage | Claim/implication contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P13 | Comparative | Multi-passage required | Missing adapter | Missing layout | No E2E | None | NOT_SUPPORTED |
-| P14 | Text + Data | Table/chart required | Missing adapter | Missing layout | No E2E | None | NOT_SUPPORTED |
+| P13 | Comparative | Sealed target second-text resource | Cross-text quote validation | Escaped Text B unit | Ready→volume synthetic only | Item/resource/layout mutation rejected | IMPLEMENTED |
+| P14 | Text + Data | Sealed target data resource | Passage/data quote validation | Escaped source-data unit | Ready→volume synthetic only | Changed data/layout rejected | IMPLEMENTED |
 | P15 | Current Issues | Generic reading passage | Basic/evidence contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P16 | Knowledge Builder | Generic adaptation | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P17 | Exam Bridge | Generic adaptation | Basic/inference contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P18 | KICE Academic Reading | Timer required | Missing timed adapter | Missing timed layout | No E2E | None | NOT_SUPPORTED |
+| P18 | KICE Academic Reading | Exam target and positive time budget | Item time-budget validation | Printed time-budget unit; no running timer | Ready→volume synthetic only | Missing/changed time budget rejected | IMPLEMENTED |
 | P19 | Reading Intervention | Generic adaptation | Vocabulary/main-point contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P20 | Multi-text Argument | Multi-passage required | Missing adapter | Missing layout | No E2E | None | NOT_SUPPORTED |
+| P20 | Multi-text Argument | Sealed target second-text resource | Cross-text quote validation | Escaped Text B unit | Ready→volume synthetic only | Item/resource/layout mutation rejected | IMPLEMENTED |
 
 Non-reading products (listening, dictation, cards, diagnostic workbook and mixed-domain books) have existing platform modules but no demonstrated adapter into the same Product Order → atomic production chain. They are `MISSING` for this factory goal, not covered by the P01–P20 enum.
 
+The four specialized layouts consume sealed order resources and reviewed item payloads in synthetic dry-runs. They do not recheck external resource rights/revisions at the atomic DB boundary. JS group registration rejects them, and the development DB now has two active BEFORE triggers (approved SHA-256 `ea6693b72d7796869850179772be9d2b9ffff5dc8a6bf5a01f35bf073c690a86`) that reject specialized group/snapshot writes before commit. Rollback-only smoke left zero rows. P18 prints a per-item time budget and does not implement an interactive countdown.
+
+`pnpm.cmd docs:db-stats` was attempted after the migration but could not run because this worktree lacks `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`; the protected DB statistics block was not edited. Direct DB trigger/RLS checks and the before/after health checkpoint were completed through the development DB connector.
+
 ## Goal issue classification
 
-- `BLOCKER`: Brief-to-order registration is connected, but no continuous registered-order-to-press flow exists for an operator; order trace still cannot observe current unit/volume/render/publish evidence; family-specific production support is narrower than the product range.
+- `BLOCKER`: Brief-to-order registration is connected, but no continuous registered-order-to-press flow exists for an operator; order trace still cannot observe current unit/volume/render/publish evidence; most families remain contract-only and non-reading adapters are missing.
 - `REQUIRED_FOR_COMPLETION`: Multi-passage atomic volume production beyond synthetic curriculum fulfillment; capability matrix tied to executable adapter evidence; catalog/revision recovery workflow.
 - `NON_BLOCKING`: Cosmetic UI refinements and future performance work.
 - `DEFERRED`: Real permission, commercial admission, Korean calibration cohort, real Gold-S, real seed and external publication.

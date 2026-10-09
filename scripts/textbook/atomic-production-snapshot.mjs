@@ -10,9 +10,12 @@ import { targetKey } from './academic-reading-contract.mjs'
 const sha = value => createHash('sha256').update(value, 'utf8').digest('hex')
 const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
 const fail = reason => { throw Error(reason) }
+const specialized = new Set(['P13', 'P14', 'P18', 'P20'])
 
 export async function registerTrustedProductionGroup(db, { group, evidence, sections } = {}) {
   if (!db?.rpc || !Array.isArray(sections)) fail('ATOMIC_GROUP_REGISTRATION_INVALID')
+  if (group?.orders?.some(entry => specialized.has(entry?.order?.product_family)))
+    fail('ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING')
   const sealed = sealMultiGradeProductOrder(group)
   bindMultiGradeEvidence(sealed.group, evidence)
   if (sections.length !== sealed.group.orders.length || sections.some((section, index) =>
@@ -60,6 +63,8 @@ export async function captureTrustedProductionSnapshot(db, groupId) {
       (evidence.approved_output_hash !== null && !hex(evidence.approved_output_hash)) ||
       !Number.isFinite(Date.parse(expiresAt)) || !Number.isFinite(Date.parse(capturedAt)))
     fail('ATOMIC_SNAPSHOT_RESPONSE_INVALID')
+  if (evidence.group_document?.orders?.some(entry => specialized.has(entry?.order?.product_family)))
+    fail('ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING')
   const sealed = sealMultiGradeProductOrder(evidence.group_document)
   const bound = bindMultiGradeEvidence(sealed.group, evidence.evidence_document)
   if (sealed.group.group_id !== groupId || sealed.group.group_revision !== evidence.group_revision ||

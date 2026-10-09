@@ -25,7 +25,7 @@ describe('product planning', () => {
       expect(plan.units).toHaveLength(20)
       expect(plan.warning).toMatch(/not admission/)
     }
-    expect(planProductBrief({ ...brief(), product_family: 'P13' }).plan.units[0]?.item_type_target).toBeNull()
+    expect(planProductBrief({ ...brief(), product_family: 'P13' }).plan.units[0]?.item_type_target).toBe('cross_text_comparison')
     expect(() => planProductBrief({ ...brief(), product_family: 'P21' })).toThrow()
   })
   it('turns a grade/purpose/domain/length brief into a reproducible balanced volume plan', () => {
@@ -79,9 +79,9 @@ describe('product planning', () => {
     expect(result.order_hash).toMatch(/^[a-f0-9]{64}$/)
     expect(() => buildProductOrderFromBrief(brief(), 'high_1', shell)).toThrow('GRADE_OUTSIDE_PLAN')
     expect(() => buildProductOrderFromBrief({ ...brief(), product_family: 'P13' }, 'middle_2', shell))
-      .toThrow('PRODUCT_FAMILY_PRODUCTION_UNSUPPORTED')
+      .toThrow('TARGET_DIFFERS_FROM_PLAN')
     expect(() => buildProductOrderFromBrief({ ...brief(), product_family: 'P18' }, 'middle_2', shell))
-      .toThrow('PRODUCT_FAMILY_PRODUCTION_UNSUPPORTED')
+      .toThrow('TARGET_DIFFERS_FROM_PLAN')
     expect(() => buildProductOrderFromBrief(brief(), 'middle_2', {
       ...shell, target: { ...shell.target, family: 'P03' },
     })).toThrow('TARGET_DIFFERS_FROM_PLAN')

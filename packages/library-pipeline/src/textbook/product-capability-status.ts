@@ -18,15 +18,21 @@ type RuntimeEvidence = Record<keyof typeof PRODUCT_FAMILIES, {
 export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Object.keys(PRODUCT_FAMILIES).map(family => {
   const id = family as keyof typeof PRODUCT_FAMILIES
   const contract = PRODUCT_CAPABILITIES[id]
+  const specialized = ['P13', 'P14', 'P18', 'P20'].includes(id)
   const state: ProductRuntimeState = contract.state === 'PLANNED' || contract.state === 'UNSUPPORTED'
     ? 'NOT_SUPPORTED'
-    : id === 'P03' ? 'SYNTHETIC_E2E_VALIDATED' : 'CONTRACT_ONLY'
+    : id === 'P03' ? 'SYNTHETIC_E2E_VALIDATED' : specialized ? 'IMPLEMENTED' : 'CONTRACT_ONLY'
   const evidence = id === 'P03'
     ? ['scripts/textbook/reading-promotion/preflight.test.mjs', 'scripts/textbook/atomic-production-run.test.mjs']
-    : state === 'CONTRACT_ONLY' ? ['packages/library-pipeline/src/textbook/factory-order.ts'] : []
+    : state === 'IMPLEMENTED' ? [
+      'packages/library-pipeline/src/textbook/specialized-reading-unit.ts',
+      'packages/library-pipeline/src/textbook/multi-grade-order.test.ts',
+    ] : state === 'CONTRACT_ONLY' ? ['packages/library-pipeline/src/textbook/factory-order.ts'] : []
   const missing = state === 'NOT_SUPPORTED'
     ? ['family-specific passage/item/activity/layout adapter', 'synthetic end-to-end']
-    : state === 'CONTRACT_ONLY'
+    : state === 'IMPLEMENTED'
+      ? ['family-specific promotion-to-publication end-to-end', 'real-content operational end-to-end']
+      : state === 'CONTRACT_ONLY'
       ? ['family-specific passage/item/activity/layout end-to-end']
       : ['live DB promotion to atomic publication end-to-end', 'real-content operational end-to-end']
   return [id, { state, evidence, missing }]

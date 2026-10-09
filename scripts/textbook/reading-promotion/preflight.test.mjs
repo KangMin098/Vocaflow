@@ -382,6 +382,16 @@ async function exerciseMultiGrade() {
     audit_id: section.printedItems[0].payload.factory_lineage.promotion_request_id,
     item_ids: section.printedItems.map(item => item.id) })) })
   assert.equal(registration.group_id, group.group_id)
+  const unsupportedGroup = structuredClone(group)
+  unsupportedGroup.orders[0].order.product_family = 'P13'
+  await assert.rejects(registerTrustedProductionGroup({ rpc: async () => {
+    throw Error('specialized group must not reach registration RPC')
+  } }, { group: unsupportedGroup, evidence, sections: [] }),
+  /ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING/)
+  const unsupportedCapture = structuredClone(captured)
+  unsupportedCapture.evidence.group_document.orders[0].order.product_family = 'P14'
+  await assert.rejects(captureTrustedProductionSnapshot({ rpc: async () => ({ data: unsupportedCapture }) },
+    group.group_id), /ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING/)
   const approval = await approveTrustedProductionOutput({ rpc: async (name, params) => {
     assert.equal(name, 'approve_reading_production_output')
     assert.equal(params.p_snapshot_id, captured.snapshot_id)

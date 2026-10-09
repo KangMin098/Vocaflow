@@ -66,7 +66,7 @@ describe('factory order contract', () => {
     expect(productOrderSchema.safeParse({ ...order(), product_family: 'P14' }).success).toBe(false)
     expect(productOrderSchema.safeParse({ ...order(), item_types: ['integrated_chart'] }).success).toBe(false)
     expect(productOrderSchema.safeParse({ ...order(), target: { ...target, age_band: 'high_1' } }).success).toBe(false)
-    expect(PRODUCT_CAPABILITIES.P14.state).toBe('PLANNED')
+    expect(PRODUCT_CAPABILITIES.P14.state).toBe('PARTIAL')
     expect(sealProductOrder(order()).capability_state).toBe('PARTIAL')
     expect(productOrderSchema.safeParse({ ...order(), domain_mix: {} }).success).toBe(false)
     expect(productOrderSchema.safeParse({ ...order(), genre_mix: { explanation: 10 } }).success).toBe(false)
