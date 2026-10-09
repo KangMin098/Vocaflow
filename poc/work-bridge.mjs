@@ -20,6 +20,7 @@ import crypto from 'node:crypto'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
+import { EXPORT_FILES } from '../lib/context.mjs'
 
 const ROOT = path.resolve(process.env.VFC_ROOT || path.join(path.dirname(fileURLToPath(import.meta.url)), '..'))
 const LOG = path.join(ROOT, 'planning', 'bridge-log.jsonl')
@@ -81,7 +82,7 @@ const SCAN = [
   ['sql_dump', /\bINSERT\s+INTO\s+\w+.*\bVALUES\b|\bCOPY\s+\w+.*\bFROM\s+stdin\b/i],
 ]
 // 교환 저장소로 내보내는 패킷 파일(사용자 승인 범위 2026-10-09: 정본·코드 경로·최소 발췌·테스트·기준 커밋) — 다른 작업·owner·결정 기록 파일은 내보내지 않는다
-const BRIDGE_CONTEXT_ALLOW = new Set(['platform-summary.md', 'goal-brief.md', 'existing-features.md', 'recent-changes.md', 'unverified-assumptions.md', 'evidence-manifest.json'])
+const BRIDGE_CONTEXT_ALLOW = EXPORT_FILES
 const ALLOW_EMAIL = /noreply@anthropic\.com|t@example\.com/
 
 export function scanFiles(files) {
@@ -150,6 +151,8 @@ function publish(id) {
   // 요청서에 기록된 첨부 sha256 과 지금 파일이 다르면(패킷을 요청 뒤에 다시 만들었다) 게시하지 않는다 — 요청과 실제 보낸 근거가 어긋난다
   const stale = (h.attachments || []).filter((a) => ctx.includes(path.resolve(a.path)) && crypto.createHash('sha256').update(fs.readFileSync(a.path)).digest('hex') !== a.sha256)
   if (stale.length) throw new Error(`첨부가 요청 기록과 다르다(${stale.map((a) => path.basename(a.path)).join(', ')}) — vfc ugoal cancel-request 후 request-design 으로 다시 만든다`)
+  // 요청 id 에 이 인스턴스 이름공간이 없으면 게시하지 않는다 — 공유 교환 저장소에서 id 가 겹친다(Work 가 충돌을 지적: PR #5·#6)
+  if (!id.includes(`-${instanceId()}-`)) throw new Error(`${id} 에 인스턴스 이름공간(${instanceId()})이 없다 — 이름공간이 생긴 뒤 request-design 으로 새로 만든다`)
   const scan = scanFiles([reqFile, ...ctx])
   if (scan.length) {
     log({ event: 'publish_refused', request_id: id, findings: scan.map((x) => x.rule) })
@@ -204,7 +207,7 @@ function collectOnce({ authors, app }) {
   for (const pr of prs) {
     // 자기 인스턴스 PR 만 — 다른 인스턴스(또는 이름공간 없는 옛 PR)의 같은 요청 id 를 집지 않는다
     if (!pr.title.startsWith(`[vfc:${instanceId()}] `)) continue
-    const id = (pr.title.match(/(REQ-\d{8}-\d{3})/) || [])[1]
+    const id = (pr.title.match(/(REQ-\d{8}-(?:[0-9a-f]{8}-)?\d{3})/) || [])[1]
     if (!id) continue
     const sources = []
     for (const c of ghJson(['api', `repos/${opt.repo}/issues/${pr.number}/comments?per_page=100`])) sources.push({ kind: 'comment', author: c.user.login, author_type: c.user.type, app: c.performed_via_github_app?.slug ?? null, at: c.created_at, body: c.body, ref: c.html_url })
@@ -334,7 +337,7 @@ function watch() {
         const VFC = process.env.VFC_CLI || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'bin', 'vfc.mjs')
         const r = JSON.parse(execFileSync(process.execPath, [VFC, 'ugoal', 'intake', '--min-age-ms', '0', '--by', 'bridge-watch', '--json'], { encoding: 'utf8', env: { ...process.env, VFC_ROOT: ROOT } }))
         result.intake.push(...r.results)
-        for (const x of r.results) log({ event: 'intake', request_id: (x.file.match(/(REQ-\d{8}-\d{3})/) || [])[1] ?? null, status: x.status, design_version: x.design_version ?? null, design_incomplete: x.design_incomplete ?? null, ms: Date.now() - t })
+        for (const x of r.results) log({ event: 'intake', request_id: (x.file.match(/(REQ-\d{8}-(?:[0-9a-f]{8}-)?\d{3})/) || [])[1] ?? null, status: x.status, design_version: x.design_version ?? null, design_incomplete: x.design_incomplete ?? null, ms: Date.now() - t })
         continue
       }
       sleep(interval)

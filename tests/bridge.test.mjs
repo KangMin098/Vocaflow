@@ -54,7 +54,7 @@ function setup() {
   const workReplies = (prNumber, { plan = {}, override = {}, author = 'chatgpt-work[bot]' } = {}) => {
     const st = gh()
     const pr = st.prs.find((p) => p.number === prNumber)
-    const id = pr.title.match(/(REQ-\d{8}-\d{3})/)[1]
+    const id = pr.title.match(/(REQ-\d{8}-(?:[0-9a-f]{8}-)?\d{3})/)[1]
     const md = Buffer.from(st.files[`${pr.headRefName}:requests/${id}.md`], 'base64').toString('utf8')
     const h = JSON.parse(md.match(/```json vfc-request\s*\n([\s\S]*?)\n```/)[1])
     const resp = { schema: 'vfc-response/1', request_id: id, responder: 'chatgpt', responded_at: new Date().toISOString(), canon_version: h.canon_version, verdict: 'revise', summary: 'SIMULATED Work 응답', findings: [], proposed_decisions: [], open_questions: [], thread_id: h.thread.thread_id, goal_ref: h.thread.goal_ref, round_id: h.thread.round_id, design_version: h.thread.design_version, ...(h.thread.context_base_commit ? { context_base_commit: h.thread.context_base_commit } : {}), plan: { goal_fit: 'g', design: 'Work 설계', priority: 'P1 — x', learner_value: 'v', scope: 's', preserved_contracts: ['계약 유지'], acceptance: ['기준 0'], risks: ['r'], allowed_paths: ['src/**'], db_changes: false, ...plan }, ...override }
@@ -326,7 +326,9 @@ test('인스턴스 이름공간: 두 AI-Control 이 한 교환 저장소를 쓰�
   const ub = b.vfc('ugoal', 'start', '--from', 'claude', '--title', 'B', '--goals', CANON, '--by', 'claude')
   const qa = a.vfc('ugoal', 'request-design', ua.ug_id, '--no-context', '--by', 'claude')
   const qb = b.vfc('ugoal', 'request-design', ub.ug_id, '--no-context', '--by', 'claude')
-  assert.equal(qa.request_id, qb.request_id, '두 인스턴스가 같은 요청 id 를 만든다(전제)')
+  // 요청 id 에 인스턴스 이름공간이 들어가 두 인스턴스의 첫 요청도 서로 다르다(Work 가 지적한 id 충돌 재발 방지)
+  assert.notEqual(qa.request_id, qb.request_id)
+  assert.equal(qa.request_id.replace(/-[0-9a-f]{8}-/, '-'), qb.request_id.replace(/-[0-9a-f]{8}-/, '-'), '이름공간을 빼면 같은 번호(전제)')
   assert.equal(a.bridge('publish', qa.request_id, '--repo', XREPO).code, 0)
   const pubB = shared(b, a.ghDir)(['publish', qb.request_id, '--repo', XREPO])
   assert.equal(pubB.code, 0, pubB.err)

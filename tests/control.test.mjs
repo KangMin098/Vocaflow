@@ -544,7 +544,7 @@ const wrap = (obj) => `ChatGPT 답변 본문...\n\n\`\`\`json vfc-response\n${JS
 
 test('ChatGPT 응답: 구조가 틀리면 거부, 맞으면 PROPOSED 로만 들어가고 재가져오기는 막는다', () => {
   const { root, req, good, respPath } = chatgptSetup()
-  assert.match(req.id, /^REQ-\d{8}-001$/)
+  assert.match(req.id, /^REQ-\d{8}-[0-9a-f]{8}-001$/)
   const reqText = fs.readFileSync(req.file, 'utf8')
   assert.match(reqText, /```json vfc-request/)
   assert.match(reqText, /```json vfc-response/)
