@@ -49,3 +49,14 @@ it('원천 조회 실패도 명시적인 오류가 된다', async () => {
   evidence.mockRejectedValue(new Error('source unavailable'))
   expect((await loadEvidenceOperations()).loadError).toBe('source unavailable')
 })
+it('해부 감사에 학평 문항이 섞여도 평가원 범위만 견준다(2026-10-10: 3,408 대 802 로 늘 보류되던 결함)', async () => {
+  dissection.mockResolvedValue({
+    items: [{ id: '2026#31' }, { id: 'H1803G1#18' }],
+    audit: { total: 3, fields: {}, excluded: [{ id: 'H1803G1#19', reasons: [] }] },
+  })
+  const result = await loadEvidenceOperations()
+  expect(result.readinessError).toBeNull()
+  expect(result.readiness?.readyIds).toEqual(['2026#31'])
+  expect(result.readiness?.total).toBe(1)
+  expect(result.readiness?.excluded).toEqual([])
+})

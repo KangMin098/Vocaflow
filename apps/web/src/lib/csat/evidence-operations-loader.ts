@@ -3,6 +3,7 @@ import 'server-only'
 import { createCsatClient } from './client'
 import { loadDissectionCatalog } from './dissect-catalog'
 import { loadEvidence } from './evidence'
+import { isKiceExam } from './exam-id'
 import type { OperationsData, ReadinessAudit } from './evidence-operations'
 import { KICE_SCOPE, type EvidenceScope } from './evidence-fold'
 import { loadHakpyeongReview } from './hakpyeong-review-loader'
@@ -35,12 +36,16 @@ export async function loadEvidenceOperations(scope: EvidenceScope = KICE_SCOPE):
           generatedAt: '',
           loadError: error(evidence.reason),
         }
+  // 해부 카탈로그는 2026-10-01 학평 전면 적용 뒤 학평 문항까지 감사한다(실측 2026-10-10: 3,408 = 평가원 802 + 학평).
+  // 이 화면의 원천은 평가원 범위(802)라 그대로 견주면 언제나 「범위가 다르다」로 판정을 보류했다 — 평가원 문항만 견준다.
+  const kice = (id: string) => isKiceExam(id.split('#')[0])
   let readiness: ReadinessAudit | null =
     dissection.status === 'fulfilled'
-      ? {
-          ...dissection.value.audit,
-          readyIds: dissection.value.items.map((i) => i.id),
-        }
+      ? (() => {
+          const excluded = dissection.value.audit.excluded.filter((i) => kice(i.id))
+          const readyIds = dissection.value.items.map((i) => i.id).filter(kice)
+          return { ...dissection.value.audit, total: readyIds.length + excluded.length, excluded, readyIds }
+        })()
       : null
   let readinessError = dissection.status === 'rejected' ? error(dissection.reason) : null
   if (readiness && !data.loadError) {
