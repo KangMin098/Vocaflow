@@ -79,6 +79,22 @@ describe('Codex P1 회귀', () => {
     const d = skillDiagnosis(mixed, [att('a', false, at(10)), att('x', false, at(11), { taskKey: 'cohesion-link' })], now)
     expect(d.status).toBe('unverified')
   })
+  it('다른 과제 키로 이미 본 문항도 CHECK 로 세지 않는다', () => {
+    const d = skillDiagnosis(T, [att('c', true, at(9), { taskKey: 'cohesion-link' }), ...base, att('c', true, at(15)), att('d', true, at(16))], now)
+    expect(d.status).toBe('verified')
+    expect(d.check.right).toBe(1)
+  })
+  it('기한 뒤에 맞힌 CHECK 는 해소가 아니다(만료)', () => {
+    const later = new Date(Date.UTC(2027, 4, 1))
+    const lateOk = (item: string, m: number) => att(item, true, new Date(Date.UTC(2027, m, 1)).toISOString())
+    expect(skillDiagnosis(T, [...base, lateOk('c', 3), lateOk('d', 3)], later).status).toBe('expired')
+  })
+  it('만료 뒤 새 문항 두 개에서 다시 막히면 새 회차로 다시 확정(재진단)', () => {
+    const later = new Date(Date.UTC(2027, 4, 1))
+    const lateBad = (item: string, d: number) => att(item, false, new Date(Date.UTC(2027, 3, d)).toISOString())
+    const d = skillDiagnosis(T, [...base, lateBad('c', 1), lateBad('d', 2)], later)
+    expect(d).toMatchObject({ status: 'verified', verified: true, verifiedItems: ['c', 'd'] })
+  })
   it('CHECK 에서 막혔어도 기한이 지나면 expired(처방 닫힘 · 다시 확인)', () => {
     const later = new Date(Date.UTC(2027, 2, 1))
     expect(skillDiagnosis(T, [...base, att('c', false, at(15))], later)).toMatchObject({ status: 'expired', verified: false })

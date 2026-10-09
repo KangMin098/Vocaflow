@@ -70,10 +70,11 @@ export function skillDiagnosis(targets: readonly SkillTarget[], attempts: readon
 function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly SkillAttempt[], now: Date): SkillDiagnosis {
   const keys = new Set(targets.map((t) => `${t.taskKey}|${t.itemRef}`))
   const items = [...new Set(targets.map((t) => t.itemRef))]
-  // 문항을 처음 본 시각 — 단계 · 자격과 무관하게(이미 본 문항은 「미노출」 CHECK 가 아니다 · Codex P1)
+  // 문항을 처음 본 시각 — 단계 · 자격 · **과제 키와 무관하게**(다른 과제로 본 문항도 「미노출」 CHECK 가 아니다 · Codex P1)
+  const itemSet = new Set(items)
   const seenAt = new Map<string, string>()
   for (const a of attempts) {
-    if (!keys.has(`${a.taskKey}|${a.itemRef}`) || !a.answeredAt) continue
+    if (!itemSet.has(a.itemRef) || !a.answeredAt) continue
     const cur = seenAt.get(a.itemRef)
     if (!cur || a.answeredAt < cur) seenAt.set(a.itemRef, a.answeredAt)
   }
@@ -86,33 +87,42 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
   }
   const timeline = [...first.entries()].map(([item, v]) => ({ item, ...v })).sort((x, y) => x.at.localeCompare(y.at) || x.item.localeCompare(y.item))
 
-  const none: SkillDiagnosis = { status: 'unverified', verified: false, verifiedAt: null, verifiedItems: [], check: { right: 0, wrong: 0, need: CHECK_ITEMS, remaining: items }, resolvedAt: null }
-  // 확정 — 맞힌 문항 없이 VERIFY_ITEMS 개가 막힌 시점
-  const wrongs: string[] = []
-  let verifiedAt: string | null = null
-  for (const e of timeline) {
-    if (e.ok) break
-    wrongs.push(e.item)
-    if (wrongs.length >= VERIFY_ITEMS) { verifiedAt = e.at; break }
-  }
-  if (!verifiedAt) return none
+  const remaining = items.filter((i) => !seenAt.has(i))
+  // 회차(episode) — 확정 → (기한 안) CHECK → 해소 · 계속 · 만료. 만료되면 그 시점부터 새 회차를 연다(재진단 · Codex P1)
+  let start = ''
+  let last: SkillDiagnosis = { status: 'unverified', verified: false, verifiedAt: null, verifiedItems: [], check: { right: 0, wrong: 0, need: CHECK_ITEMS, remaining }, resolvedAt: null }
+  for (let guard = 0; guard < items.length + 1; guard++) {
+    // 확정 — 회차 시작 뒤 맞힌 문항 없이 VERIFY_ITEMS 개가 막힌 시점
+    const wrongs: string[] = []
+    let verifiedAt: string | null = null
+    for (const e of timeline) {
+      if (e.at <= start) continue
+      if (e.ok) break
+      wrongs.push(e.item)
+      if (wrongs.length >= VERIFY_ITEMS) { verifiedAt = e.at; break }
+    }
+    if (!verifiedAt) return last.status === 'expired' ? last : { ...last, status: 'unverified', verified: false, verifiedAt: null, verifiedItems: [], resolvedAt: null }
 
-  // CHECK — 확정 뒤 · 확정에 쓰지 않은 문항
-  const used = new Set(wrongs)
-  // 확정 뒤에 **처음 본** 문항만 CHECK — 확정 전에 어떤 단계로든 본 문항은 제외
-  const checks = timeline.filter((e) => !used.has(e.item) && e.at > verifiedAt! && (seenAt.get(e.item) ?? e.at) > verifiedAt!)
-  const right = checks.filter((e) => e.ok).length
-  const wrong = checks.length - right
-  const remaining = items.filter((i) => !used.has(i) && !seenAt.has(i))
-  const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining } }
-  if (wrong === 0 && right >= CHECK_ITEMS) {
-    const resolvedAt = checks.filter((e) => e.ok)[CHECK_ITEMS - 1].at
-    return { ...base, status: 'resolved', verified: false, resolvedAt }
+    const deadline = new Date(new Date(verifiedAt).getTime() + EXPIRY_DAYS * DAY).toISOString()
+    // CHECK — 확정 뒤 · 기한 안 · 확정에 쓰지 않은 · 확정 뒤에 **처음 본** 문항만
+    const used = new Set(wrongs)
+    const checks = timeline.filter((e) => !used.has(e.item) && e.at > verifiedAt! && e.at <= deadline && (seenAt.get(e.item) ?? e.at) > verifiedAt!)
+    const right = checks.filter((e) => e.ok).length
+    const wrong = checks.length - right
+    const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)) } }
+    if (wrong === 0 && right >= CHECK_ITEMS) {
+      return { ...base, status: 'resolved', verified: false, resolvedAt: checks.filter((e) => e.ok)[CHECK_ITEMS - 1].at }
+    }
+    // 해소되지 않았고 기한이 지났으면 만료 → 기한 뒤의 시도로 새 회차(그 시도가 없으면 만료로 끝)
+    if (now.toISOString() > deadline) {
+      last = { ...base, status: 'expired', verified: false, resolvedAt: null }
+      start = deadline
+      continue
+    }
+    if (wrong > 0) return { ...base, status: 'still_needed', verified: true, resolvedAt: null }
+    return { ...base, status: 'verified', verified: true, resolvedAt: null }
   }
-  // 해소되지 않았으면 기한이 먼저다 — CHECK 에서 막혔어도 기한이 지나면 다시 확인(Codex P1)
-  if (now.getTime() - new Date(verifiedAt).getTime() > EXPIRY_DAYS * DAY) return { ...base, status: 'expired', verified: false, resolvedAt: null }
-  if (wrong > 0) return { ...base, status: 'still_needed', verified: true, resolvedAt: null }
-  return { ...base, status: 'verified', verified: true, resolvedAt: null }
+  return last
 }
 
 /** 학생 화면 문구 — 약점 · 실력 단정 없이 「이 원리 · 이번 확인 기준」으로만 말한다 */
