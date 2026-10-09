@@ -26,5 +26,7 @@ if (sc === 'garbage') {
 else if (sc === 'always_p1') review = { verdict: 'REQUEST_CHANGES', findings: [p1] }
 else if (sc === 'fp') review = /contested/.test(prompt) ? { verdict: 'APPROVE', findings: [], notes: '오탐 주장 수용' } : { verdict: 'REQUEST_CHANGES', findings: [p1] }
 else if (sc === 'out_p1') review = { verdict: 'APPROVE', findings: [{ ...p1, scope: 'out' }] }
+// design_once: 첫 리뷰는 설계 자체의 문제(kind design) — 설계 재질의로 가야 한다. 이후 APPROVE
+else if (sc === 'design_once') review = n === 1 ? { verdict: 'REQUEST_CHANGES', findings: [{ ...p1, kind: 'design', claim: '승인 설계의 수용 기준이 정본 계약과 충돌한다', question: '어느 계약을 따를지 정해 달라' }] } : { verdict: 'APPROVE', findings: [] }
 else review = { verdict: 'APPROVE', findings: [] }
 console.log(`검토 완료\n\`\`\`json vfc-review\n${JSON.stringify({ ...review, ran_tests: false, notes: review.notes ?? 'fake' })}\n\`\`\``)

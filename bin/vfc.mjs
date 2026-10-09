@@ -14,6 +14,8 @@ import { atomicWriteJson, readJson, sha256File } from '../lib/fsutil.mjs'
 import { findAgentPid } from '../lib/agentpid.mjs'
 import * as T from '../lib/tasks.mjs'
 import * as P from '../lib/planning.mjs'
+import * as UG from '../lib/usergoals.mjs'
+import { execFileSync } from 'node:child_process'
 import { initState } from '../lib/init.mjs'
 
 function parse(argv) {
@@ -110,6 +112,18 @@ ChatGPT (파일 교환 · API 없음)
   planning request --topic .. --question-file q.md [--kind review|plan] [--task T-..] [--goals VG-..] [--attach f1,f2] --by O
   planning validate <REQ-id>
   planning import <REQ-id> [--record-conflict]   검증 통과 시 PROPOSED/OPEN_QUESTION 으로만 · requires_user_approval≠true 제안은 approval_conflict 로 기록(관련 작업 실행 차단)
+
+사용자 지정 목표 (WF-S7 · docs/USER_GOALS.md)
+  ugoal start --from chatgpt --file <goal.md> --by O          ChatGPT 가 준 vfc-goal 블록 → 목표 + 설계 v1 PROPOSED
+  ugoal start --from claude --title .. --goals VG-.. [--profile FAST|BALANCED|DEEP|CRITICAL] [--design-file d.json] --by O
+  ugoal request-design <UG> [--issue-file issue.json] [--commit sha] --by O   ChatGPT 설계 요청서(thread) · 재질의 예산 적용
+  ugoal intake [--min-age-ms 2000] --by O                     planning/responses 의 thread 응답을 원자적으로 인수(검증·중복 차단·버전 대조)
+  ugoal approve <UG> --design N --decision <DL> [--paths a,b] [--db-decision <DL>] --by O
+                                                              결정은 사용자 APPROVED 이고 summary/reference 에 「UG-…@vN」(DB 는 「UG-…@vN db」)
+  ugoal task add <UG> --file spec.json --by O                 승인 설계 범위 안 작업(spec.design_acceptance=[설계 수용 기준 번호]) · 승인 전이면 초안
+  ugoal activate <UG> | ugoal deactivate | ugoal mode USER_GOAL|PLATFORM_AUTO
+  ugoal pause <UG> | ugoal resume <UG> | ugoal accept <UG> --by O
+  ugoal list | ugoal status <UG> | ugoal route <UG>
 `
 
 function main() {
@@ -315,6 +329,94 @@ function main() {
       return process.exit(r.ok ? 0 : 2)
     }
 
+    case 'ugoal start': {
+      requireValidCanon()
+      if (opt.from === 'chatgpt') {
+        if (!opt.file) throw new T.RuleError('MISSING_FIELD', '--file <ChatGPT 가 준 목표 파일> 이 필요하다')
+        const g = withState((s) => UG.startFromChatGPT(s, { file: opt.file, by }), { event: 'usergoal.start', by })
+        return out(UG.summary(loadState().state, g.ug_id), opt)
+      }
+      if (opt.from === 'claude') {
+        const design = opt['design-file'] ? JSON.parse(fs.readFileSync(opt['design-file'], 'utf8')) : null
+        const g = withState((s) => UG.startFromClaude(s, { title: opt.title, canon_goal_ids: list(opt.goals), profile: opt.profile || 'BALANCED', design, by }), { event: 'usergoal.start', by })
+        return out(UG.summary(loadState().state, g.ug_id), opt)
+      }
+      throw new T.RuleError('MISSING_FIELD', '--from chatgpt|claude')
+    }
+    case 'ugoal request-design': {
+      const r = requireValidCanon()
+      const issue = opt['issue-file'] ? JSON.parse(fs.readFileSync(opt['issue-file'], 'utf8')) : null
+      const req = UG.requestDesign(withState, pos[0], { purpose: issue ? 'design_conflict' : 'design', issue, base_commit: opt.commit || null, canon_version: r.facts.canon_version, by })
+      return out({ request_id: req.id, file: req.file, thread: req.header.thread }, opt)
+    }
+    case 'ugoal intake': {
+      requireValidCanon()
+      const headOf = (ug, s) => {
+        const t = s.taskQueue.tasks.find((x) => x.user_goal_id === ug && x.worktree)
+        if (!t) return null
+        try {
+          return execFileSync('git', ['-C', t.worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim()
+        } catch {
+          return null
+        }
+      }
+      const res = UG.intakeResponses(withState, { by, currentCommitFor: headOf, minAgeMs: opt['min-age-ms'] !== undefined ? Number(opt['min-age-ms']) : undefined })
+      return out({ processed: res.length, results: res }, opt)
+    }
+    case 'ugoal approve': {
+      const ug = pos[0]
+      const r = withState(
+        (s) => {
+          const a = UG.approveDesign(s, ug, { version: Number(opt.design), decision_id: opt.decision, allowed_paths: list(opt.paths), db_decision_id: opt['db-decision'] || null, by })
+          // 승인 전에 쌓인 작업 초안 → 승인 범위 안이면 작업으로(설계 대기 → 자동 재개). 범위 밖 초안은 사유와 함께 돌려준다
+          const created = []
+          const refused = []
+          for (const d of a.drafts) {
+            try {
+              created.push(T.addTask(s, UG.bindTaskSpec(s, ug, d.spec), { ugBound: true }).task_id)
+            } catch (e) {
+              refused.push({ title: d.spec.title, reason: e.message })
+            }
+          }
+          return { design_version: a.design.version, contract_changed: a.contract_changed, invalidated: a.invalidated, resumed: a.resumed, created, refused }
+        },
+        { event: 'usergoal.approve', ug, by },
+      )
+      return out(r, opt)
+    }
+    case 'ugoal task': {
+      if (pos[0] !== 'add') throw new T.RuleError('BAD_COMMAND', 'ugoal task add <UG> --file spec.json')
+      const ug = pos[1]
+      const spec = JSON.parse(fs.readFileSync(opt.file, 'utf8'))
+      const r = withState(
+        (s) => {
+          if (!UG.approvedDesign(UG.findGoal(s, ug))) return { draft: UG.addTaskDraft(s, ug, spec, { by }), note: '승인된 설계가 없어 초안으로 보관 — 승인 시 자동 생성' }
+          return { task: T.addTask(s, UG.bindTaskSpec(s, ug, spec), { ugBound: true }) }
+        },
+        { event: 'usergoal.task', ug, by },
+      )
+      return out(r.task ? { task_id: r.task.task_id, status: r.task.status, design_version: r.task.design_version } : r, opt)
+    }
+    case 'ugoal activate':
+      return out(withState((s) => UG.setActive(s, pos[0], { by })), opt)
+    case 'ugoal deactivate':
+      return out(withState((s) => UG.setActive(s, null, { by })), opt)
+    case 'ugoal mode':
+      return out(withState((s) => UG.setMode(s, pos[0])), opt)
+    case 'ugoal pause':
+    case 'ugoal resume':
+      return out(withState((s) => UG.setPaused(s, pos[0], sub === 'pause', { by })), opt)
+    case 'ugoal accept':
+      return out(withState((s) => UG.acceptGoal(s, pos[0], { by }).coverage), opt)
+    case 'ugoal list': {
+      const s = loadState().state
+      const U = UG.ugState(s)
+      return out({ mode: U.mode, active_goal: U.active_goal, goals: Object.values(U.goals).map((g) => ({ ug_id: g.ug_id, title: g.title, status: g.status, profile: g.profile, route: UG.route(s, g.ug_id).route })) }, opt)
+    }
+    case 'ugoal status':
+      return out(UG.summary(loadState().state, pos[0]), opt)
+    case 'ugoal route':
+      return out(UG.route(loadState().state, pos[0]), opt)
     case 'planning request': {
       const r = requireValidCanon()
       const question = opt['question-file'] ? fs.readFileSync(opt['question-file'], 'utf8') : opt.question
@@ -338,6 +440,7 @@ function main() {
       // --record-conflict 를 주면 그 제안들을 approval_conflict(OPEN_QUESTION)로 따로 기록하고 나머지만 받는다 —
       // 관련 작업은 사람이 충돌을 풀 때까지 실행되지 않는다(lib/feasibility.mjs no_approval_conflict).
       // 원문 파일은 그대로 보관한다(sha256 은 원문 기준). 옛 --normalize-approval 은 폐지했다.
+      if (P.readRequestHeader(id)?.thread) throw new T.RuleError('USE_UGOAL_INTAKE', `${id} 는 사용자 목표 thread 요청이다 — vfc ugoal intake 로 인수한다(설계 버전·라운드 반영)`)
       if (opt['normalize-approval']) throw new T.RuleError('DEPRECATED', '--normalize-approval 은 폐지됐다(WF-S5): 값을 고쳐 받지 않는다 — --record-conflict 로 충돌을 기록하라')
       const conflicts = []
       if (opt['record-conflict']) {

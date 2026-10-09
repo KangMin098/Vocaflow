@@ -13,6 +13,20 @@ import { ghAvailable, readLatestWorkflowJob } from '../lib/ci.mjs'
 import { validateCanon } from '../lib/goals.mjs'
 
 const argv = process.argv.slice(2)
+// 도움말은 실행하지 않는다 — 예전에는 --help 가 모르는 옵션으로 무시돼 실제 실행(기본 상한 1)을 시작했다(WF-S6 실측)
+if (argv.includes('--help') || argv.includes('-h') || argv[0] === 'help') {
+  console.log(`node bin/goal-orchestrator.mjs [--max-tasks 1] [--max-minutes 90] [--max-cost-usd 15] [--claude-budget-usd 5]
+                              [--max-review-rounds 3] [--max-same-failure 2] [--no-ci] [--dry-run] [--json]
+  선정: 사용자 목표 모드(vfc ugoal mode/activate)면 활성 목표 작업 먼저 · PLATFORM_AUTO 면 전체 우선순위
+  중단: runtime/STOP 파일 · 단일 writer · 비정상 종료 복구`)
+  process.exit(0)
+}
+const KNOWN = new Set(['max-tasks', 'max-minutes', 'max-cost-usd', 'claude-budget-usd', 'max-review-rounds', 'max-same-failure', 'claude-timeout-min', 'codex-timeout-min', 'no-ci', 'dry-run', 'json'])
+const unknown = argv.filter((a) => a.startsWith('--') && !KNOWN.has(a.slice(2)))
+if (unknown.length) {
+  console.error(`모르는 옵션 ${unknown.join(' ')} — 실행하지 않는다(--help)`)
+  process.exit(2)
+}
 const opt = {}
 for (let i = 0; i < argv.length; i++) {
   if (!argv[i].startsWith('--')) continue
