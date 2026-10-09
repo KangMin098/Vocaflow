@@ -22,6 +22,7 @@ type Unit = {
 }
 type PlanningResult = {
   plan_hash: string
+  runtime_capability: { state: string; missing: string[] }
   plan: { product_family: string; production_capability: string; units: Unit[];
     chapters: { chapter: number; from_day: number; to_day: number }[] }
 }
@@ -46,6 +47,7 @@ export function ProductPlanningForm() {
   function invalidatePlan() {
     requestGeneration.current += 1
     setResult(null)
+    setPending(false)
   }
 
   function toggle(value: string, current: string[], update: (next: string[]) => void) {
@@ -81,7 +83,7 @@ export function ProductPlanningForm() {
       const next = await response.json() as PlanningResult
       if (generation === requestGeneration.current) setResult(next)
     } catch { if (generation === requestGeneration.current) setError('기획 요청을 완료하지 못했습니다. 연결 상태를 확인하세요.') }
-    finally { setPending(false) }
+    finally { if (generation === requestGeneration.current) setPending(false) }
   }
 
   const numberField = (label: string, value: number, set: (value: number) => void, min: number, max: number) =>
@@ -128,7 +130,8 @@ export function ProductPlanningForm() {
     </button>
     {error ? <p role="alert" className="mt-3 break-keep text-[13px] text-[var(--memory-risk)]">{error}</p> : null}
     {result ? <div role="status" className="mt-4 text-[13px] text-[var(--t2)]">
-      <p>제품 {result.plan.product_family} · 계약 상태 {result.plan.production_capability} · {result.plan.units.length}단원 · {result.plan.chapters.length}장</p>
+      <p>제품 {result.plan.product_family} · 실제 지원 상태 {result.runtime_capability.state} · {result.plan.units.length}단원 · {result.plan.chapters.length}장</p>
+      <p className="break-keep">남은 생산 연결: {result.runtime_capability.missing.join(' · ')}</p>
       <p className="break-all font-mono text-[11px]">기획 hash {result.plan_hash}</p>
       <p className="mt-2 break-keep">원천·권리·benchmark·승인 증거는 별도로 확인해야 합니다. 이 기획안만으로 생산할 수는 없습니다.</p>
       <div className="mt-3 max-h-72 overflow-auto"><table className="w-full text-left text-[12px]"><thead><tr><th>일</th><th>장</th><th>능력</th><th>영역</th><th>글</th><th>난도</th><th>길이</th><th>문항</th><th>복습</th></tr></thead><tbody>

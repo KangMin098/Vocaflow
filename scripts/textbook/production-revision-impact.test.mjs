@@ -31,6 +31,7 @@ test('runtime impact inspection propagates a source revision across grade units 
   assert(affected.includes('unit:m1'))
   assert(affected.includes('unit:h1'))
   assert(affected.includes('render:group-f02'))
+  assert(affected.includes('publication:group-f02'))
   assert(affected.every(id => !id.startsWith('source:other')))
 })
 
@@ -44,6 +45,7 @@ test('one grade item revision affects only its grade before whole-volume invalid
   assert(affected.includes('unit:m1'))
   assert(!affected.includes('unit:h1'))
   assert(affected.includes('volume:group-f02'))
+  assert(affected.includes('publication:group-f02'))
 })
 
 test('revocation invalidates even if the prior bytes still match', () => {

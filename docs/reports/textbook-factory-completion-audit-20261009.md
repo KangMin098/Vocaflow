@@ -4,7 +4,7 @@ Baseline: `0ac948681` on `feat/textbook-factory-phase1`. This audit concerns exe
 
 | Area | Contract | Code | Synthetic E2E | UI | Recovery | Status |
 |---|---|---|---|---|---|---|
-| Product Order | Sealed single-grade document and group contract | `factory-order.ts`, `multi-grade-order.ts` | P03 fixtures | JSON registration only | Revision hash invalidates reuse | PARTIAL |
+| Product Order | Sealed single-grade document and group contract | `factory-order.ts`, `multi-grade-order.ts` | P03 M1, H1 and M1–M2 fixture paths | JSON registration only | Revision hash invalidates reuse | PARTIAL |
 | Product planning / curriculum assembly | Brief and optional order planning hash | Deterministic brief-to-family/skill/source/curve planner; no production unit fulfillment | Brief/order fixture only | Structured brief form, still separate from order registration | Brief changes alter planning hash | PARTIAL |
 | Source routing | Rights/quality/target routes | `routeFactorySource` | Factory-order tests | General sourcing screen | Changed rights invalidates | DONE |
 | Adaptation | Target and content review bound to source | Academic-reading contract and review | P03 fixture | General authoring screen | Changed source/draft blocks | DONE |
@@ -19,7 +19,7 @@ Baseline: `0ac948681` on `feat/textbook-factory-phase1`. This audit concerns exe
 | Volume assembly | Group and unit hash | Multi-grade production | P03 | General press screen | Mixed volume rejected | PARTIAL |
 | Render | Atomic snapshot and output hash | Atomic renderer | P03 | Admin artifact download | Failed output cleanup | DONE |
 | Publish simulation | One-time approval, guarded serve | Atomic publish/serve RPC | P03 | Admin artifact download | Replay rejected | DONE |
-| Catalog/revision | Runtime impact inspection | `production-revision-impact.mjs` | Impact tests | No order-specific graph | No persisted revise/republish workflow | PARTIAL |
+| Catalog/revision | Runtime impact inspection | `production-revision-impact.mjs`, `planFactoryImpact` | Source/item changes propagate through publication in synthetic H1 chain and manifest impact inspection | No order-specific graph | No persisted revise/republish workflow | PARTIAL |
 | Multi-grade | Group and grade child lineage | Multi-grade order/production | P03 group modes | No grade-group authoring | Changed child blocks group | PARTIAL |
 | Recovery/runbook | Fail closed and manual reissue | Promotion/atomic runner | Partial failure tests | No run-centric recovery view | Rebuild/republish not unified | PARTIAL |
 | Admin UI | Nine-stage general factory | `/admin/csat/*` | UI model tests | JSON registration; no complete order-centric control | Blockers are mostly general | PARTIAL |
@@ -27,13 +27,15 @@ Baseline: `0ac948681` on `feat/textbook-factory-phase1`. This audit concerns exe
 
 ## P01–P20 production capability
 
-The `PRODUCT_CAPABILITIES` enum is a target and item contract, not proof of a dedicated passage, item, activity, explanation and layout adapter. The audited status below is intentionally conservative. Only P03 appears in the signed promotion through atomic publication synthetic fixture. `CONTRACT_ONLY` means the Product Order can name the family but a complete family-specific production path has not been demonstrated.
+The `PRODUCT_CAPABILITIES` enum is a target and item contract, not proof of a dedicated passage, item, activity, explanation and layout adapter. The audited status below is intentionally conservative. P03 has a synthetic run through the same promotion execution function as the CLI, using a mock promotion RPC that creates the `ready` row and audit, followed by atomic publication simulation. It does not prove a live DB promotion and render in one run. `CONTRACT_ONLY` means the Product Order can name the family but a complete family-specific production path has not been demonstrated.
+
+`product-capability-status.ts` exposes this conservative runtime classification to the admin planning API. Its regression checks all 20 family IDs, contract-state parity and the existence of cited synthetic evidence files. It does not convert an item contract into a production adapter.
 
 | Family | Product | Passage/adaptation | Item/activity | Explanation/layout | Benchmark/publication | Synthetic E2E | Status |
 |---|---|---|---|---|---|---|---|
 | P01 | Multi-Level Reader | Generic adaptation | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P02 | Narrative Reading | Generic adaptation | Basic/relation contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P03 | Knowledge Reader | Adapted fixture | Main-point fixture | Reading HTML/manifest | Signed synthetic gate | Verified | SYNTHETIC_E2E_VALIDATED |
+| P03 | Knowledge Reader | Adapted fixture | Main-point fixture | Reading HTML/manifest | Shared CLI promotion function with mock RPC; separate DB smoke | No live DB promotion and render in one run | IMPLEMENTED |
 | P04 | Science/Social/History | Generic adaptation | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P05 | Vocabulary-in-Context | Generic reading passage | Vocabulary item contract | Dedicated full flow unverified | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P06 | Academic Sentence | Generic reading passage | Grammar item contract | Dedicated full flow unverified | Generic gates | Not family-tested | CONTRACT_ONLY |
@@ -62,3 +64,5 @@ Non-reading products (listening, dictation, cards, diagnostic workbook and mixed
 - `DEFERRED`: Real permission, commercial admission, Korean calibration cohort, real Gold-S, real seed and external publication.
 
 Current verdict: `TEXTBOOK_FACTORY_PIPELINE_COMPLETE=false`, `TEXTBOOK_FACTORY_PRODUCTION_VERIFIED=false`. The prior report's synthetic P03 backbone remains valid but was too narrow for this broader objective.
+
+The `reading-promotion/preflight.test.mjs` suite covers a single M1, a single H1 and an M1–M2 grade group. H1 now executes the CLI's shared promotion function against a mock RPC that changes `queued` to `ready` and records the audit before atomic render/publish simulation; M1 and M1–M2 retain separate fixtures. The suite also proves source/item impact reaches a publication artifact when publication depends on render. This is not yet one master runner from a structured brief through all three orders, and the required failure/recovery matrix is not fully consolidated. The verdict remains false.

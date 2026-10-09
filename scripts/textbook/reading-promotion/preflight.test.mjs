@@ -3,7 +3,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { createHash, generateKeyPairSync, sign } from 'node:crypto'
-import { bindFactoryEvidence, sealProductOrder } from '@vocaflow/library-pipeline/factory-order'
+import { bindFactoryEvidence, planFactoryImpact, routeFactorySource, sealProductOrder } from '@vocaflow/library-pipeline/factory-order'
 import { reviewDigest } from '@vocaflow/library-pipeline'
 import { sealMultiGradeProductOrder } from '@vocaflow/library-pipeline/multi-grade-order'
 import { hash } from '../frym-benchmark/benchmark.mjs'
@@ -12,6 +12,7 @@ import { adaptationKey, canonical, digest, targetKey } from '../academic-reading
 import { READING_ENGINE_VERSION } from '@vocaflow/library-pipeline/academic-reading'
 import { REVIEWERS, REVIEW_DIMENSIONS, reviewTemplate, validateAgentReviews } from '../academic-reading-review.mjs'
 import { prepareReadingPromotion } from './preflight.mjs'
+import { executeReadingPromotion } from './run-core.mjs'
 import { assessPromotionAuthorization } from './authorization.mjs'
 import { currentReadingLineage, verifyOrderRenderItems, verifyRenderPromotionProofs } from '../factory-lineage.mjs'
 import { resolveProductionEvidence, runLiveMultiGradeFactoryDryRun } from '../production-evidence-resolver.mjs'
@@ -118,6 +119,19 @@ test('an independent, current administrator approval binds the exact order and e
   assert.equal(assess(rpc, approval, null).ok, false)
   assert.equal(assess(rpc, approval, authority, now, { ...currentOrder, order_revision: 2 }).ok, false)
   assert.equal(assess(rpc, approval, authority, now, { ...currentOrder, order_hash: h('9') }).ok, false)
+})
+
+test('shared promotion runner preserves read-only preflight on an uninstalled DB gate', async () => {
+  const input = fixture()
+  const db = { from: table => ({ select: () => ({ eq: (_column, value) => ({
+    single: async () => ({ data: value === input.child.id ? input.child : input.source, error: null }),
+    maybeSingle: async () => ({ data: null, error: table === 'reading_promotion_audit'
+      ? { code: '42P01' } : null }),
+  }) }) }) }
+  const args = { db, request: input.request, currentPolicy: () => input.request.policy,
+    now, requestedBy: 'fixture-operator' }
+  assert.equal((await executeReadingPromotion(args)).status, 'preflight_pass')
+  await assert.rejects(executeReadingPromotion({ ...args, commit: true }), /PROMOTION_DB_GATE_NOT_INSTALLED/)
 })
 
 test('order render rechecks signed promotion proof against live source and current policy', async () => {
@@ -444,4 +458,144 @@ test('one live resolver revalidates both grade sections and blocks stale members
   const mixed = structuredClone(evidence)
   mixed.variants[1].order_hash = mixed.variants[0].order_hash
   await assert.rejects(resolveProductionEvidence(db, { ...options, evidence: mixed }), /MULTI_GRADE_CHILD_ORDER_STALE_OR_MIXED/)
+})
+
+test('H1 synthetic order keeps one lineage through promotion, atomic render, publish simulation and catalog impact', async () => {
+  const input = fixture({ grade: 'high_1', orderId: 'fixture-h1' })
+  const route = routeFactorySource({
+    rights: input.child.composed_spec.academic_reading.provenance.rights,
+    original_fit: 'requires_adaptation', age_suitable: false,
+    source_quality: 'pass', target: input.request.order.target,
+  })
+  assert.equal(route.route, 'ADAPT_REQUIRED')
+  const prepared = prepareReadingPromotion({ ...input, now, requestedBy: 'fixture-operator' })
+  assert.equal(prepared.ok, true, prepared.reason)
+  const rpc = prepared.rpc
+  const child = { ...input.child }
+  const authority = { trust_policy_hash: rpc.trust_policy_hash, benchmark_version: rpc.benchmark_version,
+    benchmark_snapshot_hash: rpc.benchmark_snapshot_hash, revoked_certificate_hashes: [],
+    revoked_eligibility_hashes: [], valid_until: '2026-10-08T00:00:00Z' }
+  const order = { order_id: rpc.product_order_id, order_revision: rpc.order_revision, order_hash: rpc.order_hash }
+  const audit = { request_id: rpc.request_id, article_id: child.id, source_id: input.source.id,
+    requested_by: 'fixture-operator', request_hash: rpc.request_hash, order_id: rpc.product_order_id,
+    order_revision: rpc.order_revision, order_hash: rpc.order_hash, evidence_hash: rpc.evidence_hash,
+    certificate_hash: rpc.certificate_hash, eligibility_hash: rpc.eligibility_hash,
+    trust_policy_hash: rpc.trust_policy_hash, benchmark_version: rpc.benchmark_version,
+    benchmark_snapshot_hash: rpc.benchmark_snapshot_hash, request_payload: rpc, result_status: 'ready', promoted_at: now }
+  const approval = { request_payload: rpc, approved_by: '44444444-4444-4444-8444-444444444444',
+    expires_at: '2026-10-07T12:15:00Z', consumed_at: null }
+  let promotionAudit = null
+  const promotionDb = {
+    from: table => ({ select: () => ({ eq: (column, value) => {
+      const row = table === 'library_articles' ? [child, input.source].find(item => item.id === value)
+        : table === 'reading_promotion_audit' ? promotionAudit
+          : table === 'reading_promotion_approval' ? approval
+            : table === 'reading_promotion_authority' ? authority
+              : table === 'reading_product_order_revision' ? order : null
+      return { single: async () => ({ data: row, error: null }),
+        maybeSingle: async () => ({ data: row, error: null }) }
+    } }) }),
+    rpc: async (name, params) => {
+      assert.equal(name, 'promote_reading_adaptation')
+      assert.equal(params.p_request.evidence_hash, rpc.evidence_hash)
+      if (child.status === 'ready') return { data: { status: 'ready', replayed: true,
+        evidence_current: true, article_id: child.id, request_id: rpc.request_id } }
+      child.status = 'ready'
+      promotionAudit = audit
+      return { data: { status: 'ready', replayed: false, evidence_current: true,
+        article_id: child.id, request_id: rpc.request_id } }
+    },
+  }
+  const promotionEvents = []
+  const promoted = await executeReadingPromotion({ db: promotionDb, request: input.request,
+    currentPolicy: () => input.request.policy, now, requestedBy: 'fixture-operator', commit: true,
+    onEvent: event => promotionEvents.push(event) })
+  assert.equal(promoted.status, 'ready')
+  assert.equal(child.status, 'ready')
+  assert.equal(promotionAudit, audit)
+  assert.deepEqual(promotionEvents, ['rpc_start', 'rpc_ready'])
+  const replay = await executeReadingPromotion({ db: promotionDb, request: input.request,
+    currentPolicy: () => input.request.policy, now, requestedBy: 'fixture-operator', commit: true })
+  assert.equal(replay.replayed, true)
+  const lineage = currentReadingLineage({ article: child, parent: input.source, audit, order, authority, now })
+  const item = { id: '88888888-8888-4888-8888-888888888888', ref_id: child.id,
+    payload: { passage: child.content, factory_lineage: lineage },
+    answer_key: { answer: 2, explanation_ko: 'Synthetic H1 explanation.' } }
+  const itemDigest = reviewDigest(item.payload, item.answer_key)
+  const explanation = 'Synthetic H1 explanation.'
+  const rawSha = value => createHash('sha256').update(value).digest('hex')
+  const unit = { unit_id: 'h1-unit', html: `<section class="unit"><p>${child.content}</p></section>` }
+  const analysis = { grade: 'high_1' }
+  const group = { schema: 'textbook-product-order-group/1', group_id: 'fixture-h1-group', group_revision: 1,
+    grade_scope: { mode: 'single_grade', grades: ['high_1'] }, delivery_mode: 'single_grade',
+    orders: [{ grade: 'high_1', order: input.request.order }] }
+  const evidence = { schema: 'textbook-multi-grade-evidence/1', group_id: group.group_id,
+    group_revision: group.group_revision, group_hash: sealMultiGradeProductOrder(group).group_hash,
+    source_id: input.source.id, source_hash: rawSha(input.source.content),
+    rights_hash: sourceRightsHash(input.source), variants: [{ grade: 'high_1', product_order_id: order.order_id,
+      order_revision: order.order_revision, order_hash: order.order_hash,
+      passage_hash: lineage.adaptation_hash, adaptation_hash: input.request.evidence.adaptation_hash,
+      item_set_hash: hash([[item.id, itemDigest]]), activity_hash: null,
+      benchmark_version: rpc.benchmark_version, benchmark_snapshot_hash: rpc.benchmark_snapshot_hash,
+      gold_s_candidate_hash: null, unit_set_hash: hash([[unit.unit_id, rawSha(unit.html)]]),
+      analysis_hash: hash(analysis) }] }
+  const stage = { grade: 'high_1', article_id: child.id, passage: child.content, lineage, items: [item],
+    explanations: [{ item_id: item.id, text: explanation, item_digest: itemDigest, factory_lineage: lineage }],
+    reviews: [{ item_id: item.id, decision: 'approved', item_digest: itemDigest,
+      explanation_hash: rawSha(explanation), factory_lineage: lineage }], activities: [], analysis, unit }
+  const render = { colophon: { title: 'Synthetic H1', ladder: 'H1', edition: 'fixture', issued: '2026-10-07',
+    sourcePolicy: 'fixture', review: 'fixture' }, step: null, schoolBand: null, vLevel: 6,
+    totalSteps: 7, totalMinutes: 20, autoPassed: 0, autoTotal: 0, passageChip: 'fixture',
+    answerBias: null, proof: { passages: 1, defective: 0 } }
+  const captured = { snapshot_id: '99999999-9999-4999-8999-999999999999', snapshot_hash: h('a'),
+    captured_at: now, expires_at: '2026-10-08T00:00:00Z', evidence: {
+      schema: 'reading-production-evidence/1', group_id: group.group_id, group_revision: 1,
+      group_document: group, evidence_document: evidence, approved_output_hash: null,
+      sections: [{ grade: 'high_1', order_id: order.order_id, order_revision: 1, order_hash: order.order_hash,
+        article_id: child.id, article_content: child.content, source_id: input.source.id,
+        source_content_hash: rawSha(input.source.content), source_evidence: input.source,
+        gold_s: child.composed_spec.academic_reading.provenance.gold_s, audit_id: rpc.request_id,
+        certificate_hash: rpc.certificate_hash, eligibility_hash: rpc.eligibility_hash,
+        benchmark_snapshot_hash: rpc.benchmark_snapshot_hash,
+        items: [{ ...item, state: null, reviews: ['setter', 'analyst', 'tutor'].map(persona => ({ persona,
+          verdict: 'pass', reviewed_digest: itemDigest })) }] }],
+    } }
+  const db = { rpc: async (name, params) => name === 'capture_reading_production_snapshot'
+    ? { data: captured } : { data: { status: 'rendered_unpublished', snapshot_id: captured.snapshot_id,
+      snapshot_hash: captured.snapshot_hash, output_hash: params.p_output_hash } } }
+  const preview = await runAtomicMultiGradeFactoryDryRun(db, { groupId: group.group_id, stages: [stage], render })
+  captured.evidence.approved_output_hash = rawSha(preview.html)
+  const atomic = await runAtomicMultiGradeFactoryDryRun(db, { groupId: group.group_id, stages: [stage], render })
+  assert.equal(atomic.manifest.evidence_level, 'atomic_snapshot_unpublished')
+  const published = await publishAtomicProductionArtifact({ rpc: async (_name, params) => ({ data: {
+    status: 'published_current', snapshot_id: params.p_snapshot_id, snapshot_hash: params.p_snapshot_hash,
+    output_hash: rawSha(params.p_html) } }) }, atomic)
+  assert.equal(published.status, 'published_current')
+  assert.equal(published.production_verified, false)
+  const served = await serveAtomicProductionArtifact({ rpc: async () => ({ data: {
+    snapshot_id: captured.snapshot_id, snapshot_hash: captured.snapshot_hash,
+    output_hash: rawSha(atomic.html), html: atomic.html } }) }, captured.snapshot_id)
+  assert.equal(served.html, atomic.html)
+  const artifacts = [
+    ['source', 'source', null, null, []],
+    ['passage', 'passage', order.order_id, 1, ['source']],
+    ['item', 'item', order.order_id, 1, ['passage']],
+    ['explanation', 'explanation', order.order_id, 1, ['item']],
+    ['unit', 'unit', order.order_id, 1, ['explanation']],
+    ['volume', 'volume', order.order_id, 1, ['unit']],
+    ['render', 'render', order.order_id, 1, ['volume']],
+    ['publication', 'publication', order.order_id, 1, ['render']],
+  ].map(([artifact_id, kind, product_order_id, order_revision, depends_on]) => ({
+    artifact_id, kind, product_order_id, order_revision, evidence_hash: h('b'), depends_on,
+  }))
+  assert.deepEqual(planFactoryImpact(artifacts, ['source'], 'rights_revoked').map(row => row.artifact_id),
+    artifacts.map(row => row.artifact_id))
+  assert.equal(planFactoryImpact(artifacts, ['item'], 'changed').at(-1).artifact_id, 'publication')
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun(db,
+    { groupId: group.group_id, stages: [{ ...stage, passage: `${stage.passage} altered` }], render }),
+  /STAGE_STALE_OR_MIXED|GRADE_EVIDENCE_MIXED/)
+  const masterRecord = { synthetic_fixture: true, non_production: true, grade_scope: group.grade_scope,
+    order_hash: order.order_hash, snapshot_hash: atomic.manifest.snapshot_hash,
+    output_hash: rawSha(atomic.html), published_status: published.status }
+  assert.equal(masterRecord.synthetic_fixture && masterRecord.non_production, true)
 })

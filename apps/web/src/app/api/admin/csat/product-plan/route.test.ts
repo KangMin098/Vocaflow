@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 const mocks = vi.hoisted(() => ({ requireAdminApi: vi.fn() }))
 vi.mock('@/lib/auth/require-admin-api', () => ({ requireAdminApi: mocks.requireAdminApi }))
-import { POST } from './route'
+import { GET, POST } from './route'
 
 const brief = () => ({
   schema: 'textbook-product-brief/1', grade_scope: { mode: 'grade_range', grades: ['middle_1', 'middle_2'] },
@@ -26,7 +26,19 @@ it('plans a multi-grade order from structured targeting without writing or inven
   expect(data.plan.units).toHaveLength(20)
   expect(data.plan.units[0].grade_scope.grades).toEqual(['middle_1', 'middle_2'])
   expect(data.plan_hash).toMatch(/^[a-f0-9]{64}$/)
+  expect(data.runtime_capability.state).toBe('CONTRACT_ONLY')
   expect(JSON.stringify(data)).not.toContain('source_policy_hash')
+})
+
+it('exposes an authenticated, conservative P01–P20 runtime matrix', async () => {
+  const response = await GET()
+  expect(response.status).toBe(200)
+  const data = await response.json()
+  expect(Object.keys(data.capability)).toHaveLength(20)
+  expect(data.capability.P03.state).toBe('IMPLEMENTED')
+  expect(data.capability.P13.state).toBe('NOT_SUPPORTED')
+  mocks.requireAdminApi.mockResolvedValueOnce(NextResponse.json({ error: 'Forbidden' }, { status: 403 }))
+  expect((await GET()).status).toBe(403)
 })
 
 it('rejects a malformed grade scope and unauthorized callers', async () => {

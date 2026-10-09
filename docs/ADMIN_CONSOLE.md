@@ -1179,4 +1179,4 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 소스 이름이 나오는 관리자 화면(`/admin/csat/sources` 원천 목록 · 파이프라인 보드 · `/admin/articles` 소스 피드 목록)에서 이름을 누르면 `SourceProfileDialog` 가 뜬다. 값은 `GET /api/admin/sources/[source]/profile`(읽기 전용 · 관리자 인증) — 전량은 head count, 어수·피드·소재 분포는 최근 500편 표본(표본 크기를 함께 표시). 골격은 정오표 6행(재고 · 판정 · 수준 · 권리 · 구성 · 최근 원문), 첫 줄은 `profileIssues` 가 고른 가장 먼저 볼 문제(없으면 비움).
 
 
-/admin/csat/new: 학년·목적·영역·글 유형·학습 기간·난도·길이 목표를 구조화된 폼으로 받아 기획안과 hash를 먼저 계산한다. 이는 비구속 제안이며 등록·승격·발행을 실행하지 않는다. 완전한 Product Order JSON 등록은 아직 별도 관리자 폼으로 남아 있다. 서버는 주문 스키마, 타겟, capability를 검증하고 정본 hash를 계산하여 register_reading_product_order RPC에 주문 ID, revision, hash를 전달한다. 원본 주문 문서는 운영자가 별도 보존한다.
+/admin/csat/new: 학년·목적·영역·글 유형·학습 기간·난도·길이 목표를 구조화된 폼으로 받아 기획안과 hash를 먼저 계산한다. 제안 제품군의 실제 검증 상태는 `NOT_SUPPORTED / CONTRACT_ONLY / SYNTHETIC_E2E_VALIDATED` 등을 별도로 표시한다. 이는 비구속 제안이며 등록·승격·발행을 실행하지 않는다. 완전한 Product Order JSON 등록은 아직 별도 관리자 폼으로 남아 있다. 서버는 주문 스키마, 타겟, capability를 검증하고 정본 hash를 계산하여 register_reading_product_order RPC에 주문 ID, revision, hash를 전달한다. 원본 주문 문서는 운영자가 별도 보존한다.

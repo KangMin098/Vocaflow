@@ -269,7 +269,7 @@ export function planFactoryTransition(from: FactoryState, to: FactoryState, reco
 
 export const factoryArtifactSchema = z.object({
   artifact_id: id,
-  kind: z.enum(['source', 'passage', 'item', 'explanation', 'unit', 'volume', 'render']),
+  kind: z.enum(['source', 'passage', 'item', 'explanation', 'unit', 'volume', 'render', 'publication']),
   product_order_id: id.nullable(),
   order_revision: z.number().int().positive().nullable(),
   evidence_hash: hash,
@@ -287,6 +287,8 @@ export function planFactoryImpact(artifacts: FactoryArtifact[], changedIds: stri
     if (row.kind !== 'source' && row.product_order_id === null) throw new Error('non-source artifact needs an order')
     if (row.kind !== 'source' && !row.depends_on.length) throw new Error('non-source artifact needs a source-rooted dependency')
     if (row.kind === 'source' && (row.product_order_id !== null || row.depends_on.length)) throw new Error('source must be an order-independent root')
+    if (row.kind === 'publication' && !row.depends_on.some(parentId => byId.get(parentId)?.kind === 'render'))
+      throw new Error('publication must depend on a render from the same order revision')
     for (const parentId of row.depends_on) {
       const parent = byId.get(parentId)
       if (!parent) throw new Error(`missing dependency: ${parentId}`)

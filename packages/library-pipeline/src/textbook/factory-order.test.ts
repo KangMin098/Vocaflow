@@ -129,5 +129,13 @@ describe('factory order contract', () => {
     expect(planFactoryImpact(rows, ['source-f02'], 'rights_revoked').map(x => x.artifact_id)).toEqual(['source-f02', 'm1-passage', 'm1-item', 'h1-passage'])
     expect(() => planFactoryImpact(rows.map(row => row.artifact_id === 'm1-item' ? { ...row, depends_on: ['h1-passage'] } : row), ['m1-passage'], 'changed')).toThrow('cross-order')
     expect(() => planFactoryImpact(rows.map(row => row.artifact_id === 'm1-item' ? { ...row, depends_on: [] } : row), ['source-f02'], 'rights_revoked')).toThrow('source-rooted')
+    const render = { artifact_id: 'm1-render', kind: 'render' as const, product_order_id: 'f02-middle_1',
+      order_revision: 1, evidence_hash: h('f'), depends_on: ['m1-item'] }
+    const publication = { artifact_id: 'm1-publication', kind: 'publication' as const,
+      product_order_id: 'f02-middle_1', order_revision: 1, evidence_hash: h('1'), depends_on: ['m1-render'] }
+    expect(planFactoryImpact([...rows, render, publication], ['m1-item'], 'changed').map(x => x.artifact_id))
+      .toEqual(['m1-item', 'm1-render', 'm1-publication'])
+    expect(() => planFactoryImpact([...rows, render, { ...publication, depends_on: ['source-f02'] }],
+      ['m1-item'], 'changed')).toThrow('publication must depend on a render')
   })
 })

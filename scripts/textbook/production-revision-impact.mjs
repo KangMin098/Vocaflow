@@ -110,6 +110,7 @@ export function inspectProductionRevisionImpact(priorManifest, nextManifest, cau
     prior_manifest_hash: prior.manifest.manifest_hash, next_manifest_hash: next.manifest.manifest_hash,
     cause, affected: volumeChanged ? [...affected,
       { artifact_id: `volume:${prior.manifest.group_id}`, proposed_state: cause === 'rights_revoked' ? 'invalidated' : 'stale', authorized: false },
-      { artifact_id: `render:${prior.manifest.group_id}`, proposed_state: cause === 'rights_revoked' ? 'invalidated' : 'stale', authorized: false }] : affected,
+      { artifact_id: `render:${prior.manifest.group_id}`, proposed_state: cause === 'rights_revoked' ? 'invalidated' : 'stale', authorized: false },
+      { artifact_id: `publication:${prior.manifest.group_id}`, proposed_state: cause === 'rights_revoked' ? 'invalidated' : 'stale', authorized: false }] : affected,
     authorized: false }
 }
