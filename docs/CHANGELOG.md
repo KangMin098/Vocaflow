@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 봉인된 계획·학년별 주문·단원 입력을 학생용 권으로 조립하는 `planned-volume-run.mjs`를 연결했다. 원본 입력에서 출력/receipt를 재계산하며 변경·혼합·덮어쓰기를 차단한다. 교사용 출력은 목표에서 제외한다.
+
 - feat(textbook): 테스트 안의 P03 합성 master 실행을 공유 실행기로 분리하고 CLI·관리자 `/admin/csat/new` 예행 패널·관리자 API에 연결했다. 세 고정 주문의 HTML/manifest에 합성·비운영 표식과 fixture 주입 범위를 명시하며 실제 DB·등록 주문을 변경하지 않는다.
 
 - feat(textbook): 합성 catalog/revision 복구를 저장소 밖 hash-chain 저널과 start/advance/status/recover CLI로 연결했다. 잠금 원자 등록·중단 쓰기·종료된 작성자의 수동 격리 진단·완료 이벤트 재시도·혼합 기록을 검증하고 원자 조판 dry-run에서 저널 시작을 지원한다. 실제 카탈로그/DB 게시 변경은 없다.

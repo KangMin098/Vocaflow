@@ -364,3 +364,13 @@ export function assemblePlannedVolumeSynthetic(input: Parameters<typeof verifyPr
   return { html, receipt, manifest: { ...manifest,
     manifest_hash: createHash('sha256').update(canonicalJson(manifest)).digest('hex') } }
 }
+
+/** Rebuilds the student volume from sealed inputs instead of trusting stored output hashes. */
+export function verifyPlannedVolumeSyntheticOutput(
+  input: Parameters<typeof verifyProductPlanFulfillment>[0],
+  output: ReturnType<typeof assemblePlannedVolumeSynthetic>
+) {
+  const expected = assemblePlannedVolumeSynthetic(input)
+  if (canonicalJson(output) !== canonicalJson(expected)) throw Error('PRODUCT_PLAN_OUTPUT_STALE_OR_MIXED')
+  return expected.manifest
+}

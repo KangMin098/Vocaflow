@@ -41,3 +41,9 @@ pnpm exec tsx scripts/textbook/production-revision-run.mjs recover --run-dir D:/
 ## Fixed reference production rehearsal
 
 Run `pnpm exec tsx scripts/textbook/synthetic-master-run.mjs --order all --out-dir <new-external-directory>` to execute M1, H1 and M1–M2 P03 reference orders. The output directory must not exist; reruns use a new directory and do not overwrite evidence. The admin-only synthetic production panel on `/admin/csat/new` invokes the same runner and downloads HTML/manifest without DB writes. Failed runs produce no successful UI result. These presets inject benchmark/certification/seed fixtures, use mock RPCs and cannot publish or certify actual content.
+
+## Planned student volume execution
+
+`pnpm exec tsx scripts/textbook/planned-volume-run.mjs --input <external-json> --out-dir <new-external-directory>` accepts exactly `brief`, `orders` and `units`. Orders must carry current sealed planning hashes; the unit ledger must cover every planned day/grade, item, passage length and source mix. It emits `student.html`, its manifest and a fulfillment receipt. Output is rebuilt from the input before writing; the last file `complete.json` signals that every write completed. No teacher edition is generated.
+
+Invalid input creates no output directory. Existing output is never overwritten. Files are read back and compared with the current input before a complete, fsynced marker is atomically linked into place. Parse `complete.json` and match its planning/receipt/manifest hashes; file presence alone is not success. If writing fails or execution stops, keep partial evidence as incomplete and rerun into a new directory. This is synthetic plan-ledger assembly, not DB atomic production, live source validation, certification or publication.

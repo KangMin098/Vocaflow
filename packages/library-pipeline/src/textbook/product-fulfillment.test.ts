@@ -1,8 +1,13 @@
 // packages/library-pipeline/src/textbook/product-fulfillment.test.ts
 import { describe, expect, it } from 'vitest'
 import { createHash } from 'node:crypto'
-import { readFileSync } from 'node:fs'
-import { assemblePlannedVolumeSynthetic, buildProductOrderFromBrief, planProductBrief, verifyProductPlanFulfillment } from './product-planning'
+import { readFileSync, mkdtempSync, writeFileSync, rmSync, existsSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
+import { spawnSync } from 'node:child_process'
+import { assemblePlannedVolumeSynthetic, buildProductOrderFromBrief, planProductBrief, verifyProductPlanFulfillment, verifyPlannedVolumeSyntheticOutput } from './product-planning'
 import { sealProductOrder } from './factory-order'
 
 const brief = {
@@ -16,10 +21,11 @@ function fixture(inputBrief = brief) {
   const { plan, plan_hash } = planProductBrief(inputBrief)
   const baseTarget = JSON.parse(readFileSync(new URL('../../../../scripts/textbook/targets/knowledge-middle1.json', import.meta.url), 'utf8'))
   const orders = plan.brief.grade_scope.grades.map(grade => {
+    const ageBand = grade.startsWith('elementary_') ? 'upper_elementary' : grade
     const shell = {
       schema: 'textbook-product-order/1' as const,
       product_order_id: `order-${grade}`, order_revision: 1, series_id: 'relation-reading', edition_id: 'first',
-      product_variant: 'relation', target: { ...baseTarget, age_band: grade, reasoning_band: grade, family: 'P09', skills: ['R3'] },
+      product_variant: 'relation', target: { ...baseTarget, age_band: ageBand, reasoning_band: ageBand, family: 'P09', skills: ['R3'] },
       exam_alignment: [], source_policy_version: 'source-v1', source_policy_hash: hash('1'),
       rights_policy_version: 'rights-v1', rights_policy_hash: hash('2'),
       adaptation_policy_version: 'adapt-v1', adaptation_policy_hash: hash('3'),
@@ -53,6 +59,67 @@ function fixture(inputBrief = brief) {
 }
 
 describe('20-day planned volume fulfillment', () => {
+  it('assembles single, noncontiguous and complete elementary-to-high-school student schedules', () => {
+    for (const scope of [
+      { mode: 'single_grade', grades: ['high_3'] },
+      { mode: 'multi_grade', grades: ['middle_1', 'high_3'] },
+      { mode: 'grade_range', grades: ['elementary_5', 'elementary_6', 'middle_1', 'middle_2', 'middle_3', 'high_1', 'high_2', 'high_3'] },
+    ]) {
+      const input = fixture({ ...brief, grade_scope: scope })
+      const output = assemblePlannedVolumeSynthetic(input)
+      expect(output.receipt.unit_count).toBe(scope.grades.length * 20)
+      expect(output.receipt.grade_scope).toEqual(scope)
+      expect(verifyPlannedVolumeSyntheticOutput(input, output)).toEqual(output.manifest)
+    }
+  })
+  it('rebuilds output from current inputs and rejects changed render, explanation and mixed receipt', () => {
+    const input = fixture(), output = assemblePlannedVolumeSynthetic(input)
+    expect(verifyPlannedVolumeSyntheticOutput(input, output)).toEqual(output.manifest)
+    expect(() => verifyPlannedVolumeSyntheticOutput(input, { ...output, html: output.html + '<p>changed</p>' }))
+      .toThrow('PRODUCT_PLAN_OUTPUT_STALE_OR_MIXED')
+    expect(() => verifyPlannedVolumeSyntheticOutput(input, { ...output,
+      receipt: { ...output.receipt, planning_hash: hash('f') } })).toThrow('PRODUCT_PLAN_OUTPUT_STALE_OR_MIXED')
+    input.units[0]!.items[0]!.explanation = 'Revised explanation'
+    expect(() => verifyPlannedVolumeSyntheticOutput(input, output)).toThrow('PRODUCT_PLAN_OUTPUT_STALE_OR_MIXED')
+  })
+
+  it('runs the student-volume CLI for 40 grade/day cells without overwrite or stale-input output', () => {
+    const root = fileURLToPath(new URL('../../../../', import.meta.url))
+    const require = createRequire(path.join(root, 'package.json'))
+    const temp = mkdtempSync(path.join(tmpdir(), 'vocaflow-planned-volume-'))
+    try {
+      const inputPath = path.join(temp, 'input.json'), output = path.join(temp, 'output')
+      const input = fixture()
+      writeFileSync(inputPath, JSON.stringify(input))
+      const run = (out = output) => spawnSync(process.execPath, [require.resolve('tsx/cli'),
+        path.join(root, 'scripts/textbook/planned-volume-run.mjs'), '--input', inputPath, '--out-dir', out],
+      { cwd: root, encoding: 'utf8', windowsHide: true })
+      const result = run()
+      expect(result.status, result.stderr).toBe(0)
+      const summary = JSON.parse(readFileSync(path.join(output, 'complete.json'), 'utf8'))
+      expect(summary.publish_eligible).toBe(false)
+      const receipt = JSON.parse(readFileSync(path.join(output, 'receipt.json'), 'utf8'))
+      const manifest = JSON.parse(readFileSync(path.join(output, 'student.html.manifest.json'), 'utf8'))
+      expect(summary.receipt_hash).toBe(receipt.receipt_hash)
+      expect(summary.planning_hash).toBe(receipt.planning_hash)
+      expect(summary.manifest_hash).toBe(manifest.manifest_hash)
+      expect(existsSync(path.join(output, '.complete.pending'))).toBe(false)
+      const html = readFileSync(path.join(output, 'student.html'), 'utf8')
+      expect(html.match(/<section>/g)).toHaveLength(40)
+      expect(existsSync(path.join(output, 'teacher.html'))).toBe(false)
+      expect(run().status).not.toBe(0)
+      expect(readFileSync(path.join(output, 'student.html'), 'utf8')).toBe(html)
+      input.units[0]!.order_revision += 1
+      writeFileSync(inputPath, JSON.stringify(input))
+      const rejected = path.join(temp, 'rejected')
+      expect(run(rejected).status).not.toBe(0)
+      expect(existsSync(rejected)).toBe(false)
+    } finally {
+      if (path.dirname(temp) !== path.resolve(tmpdir()) || !path.basename(temp).startsWith('vocaflow-planned-volume-'))
+        throw Error('TEMP_CLEANUP_TARGET_INVALID')
+      rmSync(temp, { recursive: true, force: true })
+    }
+  })
   it('verifies skill, difficulty, domain, genre, item, source and grade balance from actual unit inputs', () => {
     const result = verifyProductPlanFulfillment(fixture())
     expect(result.unit_count).toBe(40)
