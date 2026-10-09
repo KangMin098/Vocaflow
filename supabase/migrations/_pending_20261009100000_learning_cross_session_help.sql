@@ -75,27 +75,46 @@ from base a
 left join public.learning_sessions s on s.id = a.session_id
 left join cross_help c on c.attempt_id = a.id;
 
--- ── M9-B 쓸 때 다시 센다 — 분석 완료 결과를 효과 근거로 쓰는 순간 표본을 지금의 뷰로 재검사(DB 쓰기 게이트 P1 반복 뒤 재설계) ──────────
+-- ── M9-B 표본 서명 — 분석 완료 때의 표본과 지금 표본이 **같을 때만** 그 결과를 효과 근거로 쓴다(DB 쓰기 게이트 · Codex P1 반복 뒤 재설계) ──────────
 -- 이 뷰는 같은 학습자 · 문항의 **다른 세션**에 기대므로, 분석 완료 뒤 늦게 도착한 도움 기록이 고정된 표본을 바꿀 수 있다.
--- 쓰기 경로마다 트리거로 「재계산 필요」를 거는 방식은 시도 제출 · 재분석 · 도움 기록의 잠금 순서를 엮어 교착 · 누락을 반복했다.
--- 그래서 결과를 **쓰는 순간**(효과 판정 게이트)에 표본을 다시 센다 — 지금 기준으로 실제 학습자의 독립 · 시각 확실 첫 시도가
--- 사전 · 사후 모두 최소 표본 이상일 때만 그 검증을 근거로 인정한다. 쓰기 경로에는 잠금 · 트리거를 더하지 않는다.
-create function public.knowledge_trial_sample_ok(p_trial uuid) returns boolean
-language sql stable security invoker set search_path = public as $$
-  with t as (select greatest(coalesce((design->>'min_n')::int, 1), 1) as need from public.knowledge_trials where id = p_trial),
-  ok as (
-    select f.phase, count(distinct f.user_id) as n
-      from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
-     where a.trial_id = p_trial and not f.synthetic and f.help_level = 'independent'
-       and not coalesce(f.after_explanation, false) and not f.timing_uncertain
-     group by f.phase)
-  select coalesce((select n from ok where phase = 'pre'), 0) >= (select need from t)
-     and coalesce((select n from ok where phase = 'post'), 0) >= (select need from t)
-$$;
-revoke all on function public.knowledge_trial_sample_ok(uuid) from public, anon, authenticated;
-grant execute on function public.knowledge_trial_sample_ok(uuid) to service_role;
+-- 쓰기 경로마다 트리거로 표시를 거는 방식은 시도 제출 · 재분석 · 도움 기록의 잠금 순서를 엮어 교착 · 누락을 반복했다.
+-- 그래서 ① 분석 완료로 바뀌는 순간(analyzed_guard) 자격 표본(실제 학습자의 독립 · 시각 확실 첫 시도)의 서명을 남기고
+-- ② 그 결과를 **쓰는 순간**(효과 판정 게이트) 지금 표본의 서명과 비교한다. 하나라도 빠지거나 바뀌었으면 재분석 전까지 근거로 쓰지 않는다
+-- (남은 인원이 최소 표본을 넘어도 결과가 달라질 수 있으므로 — Codex P1). 쓰기 경로에는 잠금 · 트리거를 더하지 않는다.
+alter table public.knowledge_trials add column sample_signature text;   -- M9-B 분석 완료 때 자격 표본(첫 시도 id) 서명
 
--- 효과 판정 게이트 — F7(190000) 본문 + 「지금 표본이 여전히 충분하다」 한 조건
+-- 자격 표본 서명 — 실제 학습자의 독립 · 시각 확실 첫 시도(사전 · 사후) attempt id 를 정렬해 md5. 자격 표본이 없으면 null
+create function public.knowledge_trial_sample_signature(p_trial uuid) returns text
+language sql stable security invoker set search_path = public as $$
+  select md5(string_agg(f.phase || ':' || f.attempt_id::text, ',' order by f.phase, f.attempt_id))
+    from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+   where a.trial_id = p_trial and f.phase in ('pre', 'post') and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain
+$$;
+revoke all on function public.knowledge_trial_sample_signature(uuid) from public, anon, authenticated;
+grant execute on function public.knowledge_trial_sample_signature(uuid) to service_role;
+
+-- 분석 게이트 — M8(180000) 본문 + 통과하면 표본 서명을 남긴다
+create or replace function public.knowledge_trials_analyzed_guard() returns trigger
+language plpgsql set search_path = public as $$
+declare need int := greatest(coalesce((new.design->>'min_n')::int, 1), 1);
+begin
+  if new.status = 'analyzed' and not new.synthetic and (tg_op = 'INSERT' or old.status is distinct from 'analyzed') then
+    -- M8-F 진행 중인 시도 쓰기가 모두 끝날 때까지 기다리고, 이 트랜잭션이 끝날 때까지 새 시도 쓰기를 막는다
+    perform pg_advisory_xact_lock(hashtext('learning_trial_sample'));
+    perform 1 from public.learning_sessions where id in (select session_id from public.learning_task_attempts where trial_id = new.id and session_id is not null) order by id for update;
+    if (select count(distinct f.user_id) from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+          where a.trial_id = new.id and f.phase = 'pre' and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain) < need
+       or (select count(distinct f.user_id) from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+          where a.trial_id = new.id and f.phase = 'post' and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain) < need then
+      raise exception '실제 학습자의 독립(independent) 첫 시도(사전 · 사후)가 최소 표본(%)에 못 미친다 — 시각이 불확실한 판단은 세지 않는다 · 분석 완료로 바꿀 수 없다', need;
+    end if;
+    -- M9-B 이 분석이 본 자격 표본의 서명 — 효과 판정 게이트가 쓸 때 지금 표본과 비교한다
+    new.sample_signature := public.knowledge_trial_sample_signature(new.id);
+  end if;
+  return new;
+end $$;
+
+-- 효과 판정 게이트 — F7(190000) 본문 + 「분석 때 표본과 지금 표본이 같다」 한 조건
 create or replace function public.knowledge_items_applied_guard() returns trigger
 language plpgsql set search_path = public as $$
 declare old_status text;
@@ -112,9 +131,9 @@ begin
              and e.applicability in ('high','partial'))
     or exists (select 1 from public.knowledge_trials t join public.knowledge_applications a on a.id = t.application_id
                where a.item_id = new.id and t.status = 'analyzed' and not t.synthetic and t.review_required_at is null
-                 and public.knowledge_trial_sample_ok(t.id)
+                 and t.sample_signature is not null and t.sample_signature = public.knowledge_trial_sample_signature(t.id)
                  and t.result = case new.efficacy when 'research_supported' then 'supported' else new.efficacy end)) then
-    raise exception '효과 판정(%)을 뒷받침하는 연구 근거(준실험 이상)나 같은 결과의 실제 학습자 검증이 없다(검증 표본은 지금 기준으로 다시 센다)', new.efficacy;
+    raise exception '효과 판정(%)을 뒷받침하는 연구 근거(준실험 이상)나 같은 결과의 실제 학습자 검증이 없다(검증 표본이 분석 때와 달라졌으면 재분석해야 한다)', new.efficacy;
   end if;
   return new;
 end $$;
@@ -143,7 +162,25 @@ end $$;
 --   end if;
 --   return new;
 -- end $$;
--- drop function public.knowledge_trial_sample_ok(uuid);
+-- create or replace function public.knowledge_trials_analyzed_guard() returns trigger
+-- language plpgsql set search_path = public as $$
+-- declare need int := greatest(coalesce((new.design->>'min_n')::int, 1), 1);
+-- begin
+--   if new.status = 'analyzed' and not new.synthetic and (tg_op = 'INSERT' or old.status is distinct from 'analyzed') then
+--     -- M8-F 진행 중인 시도 쓰기가 모두 끝날 때까지 기다리고, 이 트랜잭션이 끝날 때까지 새 시도 쓰기를 막는다
+--     perform pg_advisory_xact_lock(hashtext('learning_trial_sample'));
+--     perform 1 from public.learning_sessions where id in (select session_id from public.learning_task_attempts where trial_id = new.id and session_id is not null) order by id for update;
+--     if (select count(distinct f.user_id) from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+--           where a.trial_id = new.id and f.phase = 'pre' and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain) < need
+--        or (select count(distinct f.user_id) from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+--           where a.trial_id = new.id and f.phase = 'post' and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain) < need then
+--       raise exception '실제 학습자의 독립(independent) 첫 시도(사전 · 사후)가 최소 표본(%)에 못 미친다 — 시각이 불확실한 판단은 세지 않는다 · 분석 완료로 바꿀 수 없다', need;
+--     end if;
+--   end if;
+--   return new;
+-- end $$;
+-- drop function public.knowledge_trial_sample_signature(uuid);
+-- alter table public.knowledge_trials drop column sample_signature;
 -- create or replace view public.learning_first_attempts with (security_invoker = true) as
 -- select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
 --   a.id as attempt_id, a.user_id, a.task_key, a.item_ref, a.phase, a.activity, a.session_id, a.is_correct, a.answered_at,

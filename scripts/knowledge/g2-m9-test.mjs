@@ -88,13 +88,21 @@ try {
   await judge(A, 'g2', nowMs - 5 * 60_000, trial, 'post')
   rec('효과 게이트: 실제 독립 표본이 있으면 분석 완료 허용', !(await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial])))
 
-  // 5b 쓸 때 다시 센다 — 분석 직후 표본은 충분하고, 늦게 도착한 다른 세션 도움으로 표본이 무너지면 효과 판정을 거부한다
-  const sampleOk = async () => (await q('select knowledge_trial_sample_ok($1) ok', [trial])).rows[0].ok
-  rec('M9-B 분석 직후 표본 충분(지금 기준 재검사 통과)', (await sampleOk()) === true)
-  // A 의 사전 표본 문항(g1)에 판단보다 이른 다른 세션 해설이 늦게 도착
-  await reveal(A, 'g1', nowMs - 30 * 60_000)
-  rec('M9-B 늦은 다른 세션 도움 뒤 표본 재검사 실패 · 분석 행은 그대로', (await sampleOk()) === false && (await q('select status from knowledge_trials where id = $1', [trial])).rows[0].status === 'analyzed')
-  rec('M9-B 무너진 표본의 검증으로는 효과 판정 거부(쓸 때 다시 셈)', /다시 센다/.test((await err("update knowledge_items set efficacy = 'supported', updated_by = 't' where id = $1", [it])) ?? ''))
+  // 5b 표본 서명 — 분석 때 서명을 남기고, 쓸 때 지금 표본과 같아야 효과 근거로 인정
+  const sig = async () => (await q('select sample_signature s, knowledge_trial_sample_signature(id) now from knowledge_trials where id = $1', [trial])).rows[0]
+  const s0 = await sig()
+  rec('M9-B 분석 완료 때 표본 서명을 남긴다 · 지금 서명과 같다', !!s0.s && s0.s === s0.now, s0)
+  // 남는 인원도 최소 표본을 넘게 실제 학습자 C 를 하나 더 둔 검증에서, A 의 사전 표본에 늦은 다른 세션 해설이 도착
+  const C = '00000000-0000-4000-8000-0000000000c3'
+  { const su3 = new pg.Client({ host: '127.0.0.1', port: 54329, database: 'ec', user: 'supabase_admin', password: 'admin' }); await su3.connect(); await su3.query(`insert into auth.users (id) values ('${C}')`); await su3.end() }
+  const trialC = (await q(`insert into knowledge_trials (application_id, design, created_by) values ($1, '{"pre":true,"post":true,"min_n":1}', 't') returning id`, [app])).rows[0].id
+  for (const u of [A, C]) { await judge(u, 'p1', nowMs - 5 * 60_000, trialC, 'pre'); await judge(u, 'p2', nowMs - 5 * 60_000, trialC, 'post') }
+  await q("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trialC])
+  await reveal(A, 'p1', nowMs - 30 * 60_000)
+  const sc = (await q('select sample_signature s, knowledge_trial_sample_signature(id) now from knowledge_trials where id = $1', [trialC])).rows[0]
+  rec('M9-B 늦은 다른 세션 도움으로 표본이 바뀌면(남은 인원이 최소 표본을 넘어도) 서명이 달라진다', sc.s !== sc.now, sc)
+  await q('update knowledge_trials set status = $2 where id = $1', [trial, 'stopped']).catch(() => {})
+  rec('M9-B 표본이 바뀐 검증으로는 효과 판정 거부(재분석 필요)', /재분석해야 한다/.test((await err("update knowledge_items set efficacy = 'supported', updated_by = 't' where id = $1", [it])) ?? ''))
 
   // 6 학습자 읽기 권한 유지
   const as = async (uid, sql) => { const c = await pool.connect(); try { await c.query('begin'); await c.query('set local role authenticated'); await c.query(`select set_config('request.jwt.claim.sub', $1, true)`, [uid]); const r = await c.query(sql); await c.query('rollback'); return { ok: true, rows: r.rows } } catch (e) { await c.query('rollback').catch(() => {}); return { ok: false, err: e.message } } finally { c.release() } }
