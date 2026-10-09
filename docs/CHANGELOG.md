@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 20일 단일·복수 학년 계획에 대한 일자별 단원 충족·균형 검증과 비운영 권 조립을 추가했다. 운영 DB의 다중 지문 원자 권 생산은 아직 미구현이다.
+
 - test(textbook): 합성 master 실패 주입에 benchmark version 결속을 추가하고, 단계별 재시도·재발행 복구 절차를 문서화했다. 실제 corpus·Gold-S·DB seed는 변경하지 않았다.
 
 - feat(textbook): 관리자 주문별 생산 상태 조회가 현재 Product Order·승격 감사·authority/권리·ready·문항·해설·검수 계보를 읽기 전용으로 다시 확인한다. 바뀐 주문·권리·인증·문항은 차단 사유로, 조회할 수 없는 단원/권/조판/게시는 미측정으로 표시하며 인증·적재·게시를 실행하지 않는다.

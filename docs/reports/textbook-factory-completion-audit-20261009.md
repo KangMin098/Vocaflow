@@ -5,7 +5,7 @@ Baseline: `0ac948681` on `feat/textbook-factory-phase1`. This audit concerns exe
 | Area | Contract | Code | Synthetic E2E | UI | Recovery | Status |
 |---|---|---|---|---|---|---|
 | Product Order | Sealed single-grade document and group contract | `factory-order.ts`, `multi-grade-order.ts` | P03 M1, H1 and M1–M2 fixture paths | JSON registration only | Revision hash invalidates reuse | PARTIAL |
-| Product planning / curriculum assembly | Brief and optional order planning hash | Deterministic brief-to-any-P01–P20-family/skill/source/curve planner; no production unit fulfillment | M1/H1/M1–M2 brief-bound order fixture paths | Structured brief and family selector, still separate from order registration | Brief changes alter planning hash | PARTIAL |
+| Product planning / curriculum assembly | Brief and optional order planning hash | Deterministic planner plus 20-day synthetic schedule ledger/volume composition; no item-proof binding or DB multi-passage atomic volume | M1/H1/M1–M2 brief-bound order fixtures and 40-cell multi-grade schedule test | Structured brief and family selector, still separate from order registration | Brief changes alter planning hash; missing/mixed day or grade blocks synthetic schedule | PARTIAL |
 | Source routing | Rights/quality/target routes | `routeFactorySource` | Factory-order tests | General sourcing screen | Changed rights invalidates | DONE |
 | Adaptation | Target and content review bound to source | Academic-reading contract and review | P03 fixture | General authoring screen | Changed source/draft blocks | DONE |
 | Benchmark | Two-stage seal, admission and decision | `frym-benchmark` | Fixture tests | No order-specific decision view | Stale receipt blocks | PARTIAL |
@@ -59,7 +59,7 @@ Non-reading products (listening, dictation, cards, diagnostic workbook and mixed
 ## Goal issue classification
 
 - `BLOCKER`: No continuous brief-to-order-to-press flow; the three-order master E2E does not yet cover all requested failure injections; order trace still cannot observe unit/volume/render/publish; family-specific production support is narrower than the product range.
-- `REQUIRED_FOR_COMPLETION`: Unit/volume progression and balance contract; capability matrix tied to executable adapter evidence; catalog/revision recovery workflow.
+- `REQUIRED_FOR_COMPLETION`: Multi-passage atomic volume production beyond synthetic curriculum fulfillment; capability matrix tied to executable adapter evidence; catalog/revision recovery workflow.
 - `NON_BLOCKING`: Cosmetic UI refinements and future performance work.
 - `DEFERRED`: Real permission, commercial admission, Korean calibration cohort, real Gold-S, real seed and external publication.
 
