@@ -10,6 +10,8 @@ import { annotationFor as claimAnnotationFor, annotationHash as claimHash, grade
 import { CLAIM_SUPPORT_LEARNER } from './claim-support-labels'
 import { cohesionAnnotationFor, cohesionAnnotationHash, cohesionPanelProps, gradeCohesion, parseCohesionResponse } from './cohesion-link'
 import { COHESION_LINK_LEARNER } from './cohesion-link-labels'
+import { deriveEvidenceAnnotation, evidenceAnnotationHash, evidencePanelProps, gradeEvidence, parseEvidenceResponse, type EvidenceTaskKey } from './evidence-locate'
+import { EVIDENCE_LOCATE_LEARNER, OPTION_RESTATE_LEARNER } from './evidence-locate-labels'
 
 export interface ItemTaskAnnotation {
   version: string
@@ -57,6 +59,20 @@ export const ITEM_TASKS: readonly ItemTaskDef[] = [
       return { response: r, grade: g as any, summary: { ...g.probes, order: g.orderOk } }
     },
   },
+  // E축(2026-10-10) — 주석은 골격 근거 표시에서 파생(손 주석 없음). 위 두 과제보다 뒤 — 한 문항에 손 주석 과제가 있으면 그쪽이 먼저다
+  ...(['option-restate', 'evidence-locate'] as const).map((key: EvidenceTaskKey): ItemTaskDef => ({
+    key,
+    learner: key === 'option-restate' ? OPTION_RESTATE_LEARNER : EVIDENCE_LOCATE_LEARNER,
+    annotationFor: (itemId) => deriveEvidenceAnnotation(key, loadItemSkeleton(itemId)),
+    hash: (a) => evidenceAnnotationHash(a as any),
+    panel: (a: any) => evidencePanelProps(a) as any,
+    grade: (a: any, raw) => {
+      const r = parseEvidenceResponse(raw, a)
+      if (!r) return null
+      const g = gradeEvidence(a, r)
+      return { response: r, grade: g as any, summary: { evidence: g.evidenceOk, lure: g.lurePicked } }
+    },
+  })),
 ]
 /* eslint-enable @typescript-eslint/no-explicit-any */
 

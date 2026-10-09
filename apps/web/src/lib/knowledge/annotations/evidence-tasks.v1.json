@@ -1,0 +1,159 @@
+{
+ "version": "evidence-tasks.v1",
+ "provenance": {
+  "annotators": "골격 answer 앵커 · 역할 학습자(상위 페르소나 · 맹검) · 판정자 B(맹검 · 정답 · 빈칸 문장 · 인정 범위)",
+  "rule": "근거 = 판정자 B 인정 범위 ∩ (골격 앵커 ∪ 상위 페르소나 답) · 갈린 문장 = B 인정 범위의 나머지(골라도 틀리지 않음) · 빈칸 문장은 근거 아님",
+  "finding": "골격 answer 앵커가 빈칸 문장 자체를 가리킨 문항이 있었다(2026#32) — 앵커를 그대로 정답으로 쓰지 않는다",
+  "reviewedAt": "2026-10-10",
+  "note": "문장 번호 0부터 · 지문 원문 없음"
+ },
+ "items": {
+  "2026#22": {
+   "key": "option-restate",
+   "skeletonSig": "657044988219798278c9b8c88e1c63d529ef67f8cf70ebc1fbba974e06643865",
+   "sentenceCount": 10,
+   "blank": null,
+   "evidence": [
+    8,
+    5
+   ],
+   "disputed": [
+    9
+   ]
+  },
+  "2026#23": {
+   "key": "option-restate",
+   "skeletonSig": "ace974e2a43da02359f2f44144f174bfbdfceef96043c3c1efa96f92e22dd45c",
+   "sentenceCount": 8,
+   "blank": null,
+   "evidence": [
+    7
+   ],
+   "disputed": [
+    5
+   ]
+  },
+  "2026#24": {
+   "key": "option-restate",
+   "skeletonSig": "b7bb969ac634ab218b9a04d039f1107376d8e9281c82ad6cfb229fc2064ea991",
+   "sentenceCount": 7,
+   "blank": null,
+   "evidence": [
+    4
+   ],
+   "disputed": [
+    6,
+    2
+   ]
+  },
+  "2025#22": {
+   "key": "option-restate",
+   "skeletonSig": "15757d584c7df11f52e483ab3559068dff54cf95a37fe873a026a4250b3b32fa",
+   "sentenceCount": 6,
+   "blank": null,
+   "evidence": [
+    1
+   ],
+   "disputed": [
+    0,
+    2
+   ]
+  },
+  "2025#23": {
+   "key": "option-restate",
+   "skeletonSig": "d87049dbd2e97ae0c4beaf8c14e15efdc7ab4ca9ebc931cef7773706652ed70e",
+   "sentenceCount": 6,
+   "blank": null,
+   "evidence": [
+    5
+   ],
+   "disputed": [
+    0
+   ]
+  },
+  "2025#24": {
+   "key": "option-restate",
+   "skeletonSig": "93407f2e8b3e3977de52062a9a80e316dcc4000cb0702e7f190b15dce53f52ce",
+   "sentenceCount": 6,
+   "blank": null,
+   "evidence": [
+    5
+   ],
+   "disputed": [
+    0
+   ]
+  },
+  "2026#31": {
+   "key": "evidence-locate",
+   "skeletonSig": "5d2390711f072b5ad9f6d8a59fa04905d4544f2390ab148129cf3730d8b72ece",
+   "sentenceCount": 7,
+   "blank": 1,
+   "evidence": [
+    6
+   ],
+   "disputed": [
+    0
+   ]
+  },
+  "2026#32": {
+   "key": "evidence-locate",
+   "skeletonSig": "f7b07b56071983149a810ac5c5e0637873428b83743f0fbd20de11f823c3ed56",
+   "sentenceCount": 7,
+   "blank": 6,
+   "evidence": [
+    5
+   ],
+   "disputed": []
+  },
+  "2026#33": {
+   "key": "evidence-locate",
+   "skeletonSig": "af4a8b6825405f27c7b6f1935d7e17bac99ecbf94cd9f339813fcd34f67f99dc",
+   "sentenceCount": 8,
+   "blank": 6,
+   "evidence": [
+    5,
+    0
+   ],
+   "disputed": [
+    1
+   ]
+  },
+  "2026#34": {
+   "key": "evidence-locate",
+   "skeletonSig": "8211c8409aa6ab8f65072c3ad121cde8338fad10ebc50a0b4893d9741f90cdad",
+   "sentenceCount": 7,
+   "blank": 6,
+   "evidence": [
+    5
+   ],
+   "disputed": [
+    0
+   ]
+  },
+  "2025#31": {
+   "key": "evidence-locate",
+   "skeletonSig": "b94cb4fca42b5c4edd4b533b21cc6a0b08259354a1068cf072e40e4c16bf54b8",
+   "sentenceCount": 9,
+   "blank": 0,
+   "evidence": [
+    8
+   ],
+   "disputed": [
+    4,
+    5
+   ]
+  },
+  "2025#32": {
+   "key": "evidence-locate",
+   "skeletonSig": "c8347cd4745440b6966e14bade91c2abb82cb01bae1f727d990d4ffb2933664b",
+   "sentenceCount": 9,
+   "blank": 5,
+   "evidence": [
+    3
+   ],
+   "disputed": [
+    1
+   ]
+  }
+ }
+}

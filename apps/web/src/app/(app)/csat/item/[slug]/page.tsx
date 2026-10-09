@@ -22,6 +22,8 @@ import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/Anal
 import { railExams } from '@/lib/csat/rail-data'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
 import { CohesionPanel } from '@/components/csat/theater/CohesionPanel'
+import { EvidencePanel } from '@/components/csat/theater/EvidencePanel'
+import type { EvidencePanelProps } from '@/lib/knowledge/evidence-locate'
 import { PrinciplePanel } from '@/components/csat/theater/PrinciplePanel'
 import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
 import type { CohesionPanelProps } from '@/lib/knowledge/cohesion-link-labels'
@@ -160,7 +162,9 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   const body = principle ? (
     <>
       {theater}
-      {principle.taskKey === 'cohesion-link' ? (
+      {principle.taskKey === 'option-restate' || principle.taskKey === 'evidence-locate' ? (
+        <EvidencePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as EvidencePanelProps)} />
+      ) : principle.taskKey === 'cohesion-link' ? (
         <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
       ) : (
         <>
