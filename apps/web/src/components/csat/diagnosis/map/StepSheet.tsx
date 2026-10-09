@@ -21,7 +21,7 @@ import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 import { useModalFocus } from '../useModalFocus'
 
 import { STEP_ICON } from './icons'
-import { SkillPrescription, SkillStatusLine } from './SkillPrescription'
+import { PRACTICE_HREF, SkillPrescription, SkillStatusLine } from './SkillPrescription'
 import p from './popup.module.css'
 import { stepGoalLink } from '@/lib/csat/map/goal-view'
 import l from './learner.module.css'
@@ -49,7 +49,9 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   // 다시 확인하기 — 확정에 쓰지 않았고 아직 풀지 않은 확인 문항
   const confirmLinks = find.flatMap((t) => data.practiceLinks?.[t.id]?.confirm ?? [])
   const checkLinks = skill ? confirmLinks.filter((c) => skill.check.remaining.includes(c.target)) : []
-  const transferHref = Object.values(data.practiceNext ?? {})[0] ?? null
+  // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
+  const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
+  const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
   const later = STAGE_ORDER.filter((s) => s !== 'FIND').map((s) => ({ stage: s, tasks: lineTasks.filter((t) => stageOf(t.id) === s) }))
   const nameOf = (code: string) => data.nodes.find((n) => n.code === code)?.name ?? code
   const Icon = STEP_ICON[step.key]

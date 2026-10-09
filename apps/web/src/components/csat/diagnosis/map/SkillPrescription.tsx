@@ -12,6 +12,9 @@ import l from './learner.module.css'
 
 const NEXT_LINK = { minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' } as const
 
+/** 원리(과제 키) → Practice 화면 — Practice 가 있는 원리만(지금은 주장과 근거 하나) */
+export const PRACTICE_HREF: Readonly<Record<string, string>> = { 'claim-support': '/csat/practice/claim-support' }
+
 export const SKILL_LABEL: Record<SkillStatus, string> = {
   unverified: '',
   verified: '직접 확인됨 · 이 원리 연습 필요',

@@ -54,9 +54,29 @@ export interface SkillDiagnosis {
 
 const DAY = 86_400_000
 
+const RANK: Record<SkillStatus, number> = { still_needed: 4, verified: 3, expired: 2, resolved: 1, unverified: 0 }
+
+/**
+ * 과제 키(원리)마다 따로 판정한다 — 서로 다른 원리의 오답을 한 줄에 합쳐 확정하지 않는다(Codex P1).
+ * 한 단계에 원리가 여럿이면 처방을 여는 쪽(still_needed > verified > expired > resolved)을 보인다.
+ */
 export function skillDiagnosis(targets: readonly SkillTarget[], attempts: readonly SkillAttempt[], now: Date): SkillDiagnosis {
+  const byKey = new Map<string, SkillTarget[]>()
+  for (const t of targets) byKey.set(t.taskKey, [...(byKey.get(t.taskKey) ?? []), t])
+  const results = [...byKey.values()].map((ts) => skillDiagnosisOne(ts, attempts, now))
+  return results.sort((a, b) => RANK[b.status] - RANK[a.status])[0] ?? skillDiagnosisOne([], attempts, now)
+}
+
+function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly SkillAttempt[], now: Date): SkillDiagnosis {
   const keys = new Set(targets.map((t) => `${t.taskKey}|${t.itemRef}`))
   const items = [...new Set(targets.map((t) => t.itemRef))]
+  // 문항을 처음 본 시각 — 단계 · 자격과 무관하게(이미 본 문항은 「미노출」 CHECK 가 아니다 · Codex P1)
+  const seenAt = new Map<string, string>()
+  for (const a of attempts) {
+    if (!keys.has(`${a.taskKey}|${a.itemRef}`) || !a.answeredAt) continue
+    const cur = seenAt.get(a.itemRef)
+    if (!cur || a.answeredAt < cur) seenAt.set(a.itemRef, a.answeredAt)
+  }
   // 문항마다 가장 이른 독립 첫 시도 하나
   const first = new Map<string, { at: string; ok: boolean }>()
   for (const a of attempts) {
@@ -79,17 +99,19 @@ export function skillDiagnosis(targets: readonly SkillTarget[], attempts: readon
 
   // CHECK — 확정 뒤 · 확정에 쓰지 않은 문항
   const used = new Set(wrongs)
-  const checks = timeline.filter((e) => !used.has(e.item) && e.at > verifiedAt!)
+  // 확정 뒤에 **처음 본** 문항만 CHECK — 확정 전에 어떤 단계로든 본 문항은 제외
+  const checks = timeline.filter((e) => !used.has(e.item) && e.at > verifiedAt! && (seenAt.get(e.item) ?? e.at) > verifiedAt!)
   const right = checks.filter((e) => e.ok).length
   const wrong = checks.length - right
-  const remaining = items.filter((i) => !used.has(i) && !first.has(i))
+  const remaining = items.filter((i) => !used.has(i) && !seenAt.has(i))
   const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining } }
-  if (wrong > 0) return { ...base, status: 'still_needed', verified: true, resolvedAt: null }
-  if (right >= CHECK_ITEMS) {
+  if (wrong === 0 && right >= CHECK_ITEMS) {
     const resolvedAt = checks.filter((e) => e.ok)[CHECK_ITEMS - 1].at
     return { ...base, status: 'resolved', verified: false, resolvedAt }
   }
+  // 해소되지 않았으면 기한이 먼저다 — CHECK 에서 막혔어도 기한이 지나면 다시 확인(Codex P1)
   if (now.getTime() - new Date(verifiedAt).getTime() > EXPIRY_DAYS * DAY) return { ...base, status: 'expired', verified: false, resolvedAt: null }
+  if (wrong > 0) return { ...base, status: 'still_needed', verified: true, resolvedAt: null }
   return { ...base, status: 'verified', verified: true, resolvedAt: null }
 }
 

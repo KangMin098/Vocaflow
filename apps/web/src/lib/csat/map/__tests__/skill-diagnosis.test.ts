@@ -66,6 +66,25 @@ describe('CHECK · 재진단', () => {
   })
 })
 
+describe('Codex P1 회귀', () => {
+  const base = [att('a', false, at(10)), att('b', false, at(11))]
+  it('확정 전에 다른 단계로 본 문항은 CHECK 정답이어도 세지 않는다', () => {
+    const d = skillDiagnosis(T, [att('c', true, at(9), { phase: 'transfer' }), ...base, att('c', true, at(15)), att('d', true, at(16))], now)
+    expect(d.status).toBe('verified')
+    expect(d.check.right).toBe(1)
+    expect(d.check.remaining).toEqual(['e'])
+  })
+  it('서로 다른 과제 키의 오답을 합쳐 확정하지 않는다', () => {
+    const mixed = [...T, { itemRef: 'x', taskKey: 'cohesion-link' }]
+    const d = skillDiagnosis(mixed, [att('a', false, at(10)), att('x', false, at(11), { taskKey: 'cohesion-link' })], now)
+    expect(d.status).toBe('unverified')
+  })
+  it('CHECK 에서 막혔어도 기한이 지나면 expired(처방 닫힘 · 다시 확인)', () => {
+    const later = new Date(Date.UTC(2027, 2, 1))
+    expect(skillDiagnosis(T, [...base, att('c', false, at(15))], later)).toMatchObject({ status: 'expired', verified: false })
+  })
+})
+
 describe('문구', () => {
   it('약점 · 능력 단정 없이 이번 확인 기준으로만 말한다', () => {
     const v = skillMessage(skillDiagnosis(T, [att('a', false, at(10)), att('b', false, at(11))], now))
