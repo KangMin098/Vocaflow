@@ -139,9 +139,12 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
               </p>
             )}
             <SkillStatusLine skill={skill} />
+            {/* 원리 기반 결정 — 직접 확인 줄(SkillStatusLine)이 상태를 말하면 겹치지 않게 숨긴 추적 정보로만 남기고,
+                그 줄이 비어 있을 때(미확인 · 엇갈림 · 확인 문항 소진 등)는 다음 할 일을 보인다 — 연습 · 다시 확인 링크가 끊기지 않게(Codex P1) */}
             {decision && decision.action !== 'no_principle' && (
               <p
-                hidden
+                hidden={!!skill && skill.status !== 'unverified'}
+                className={l.text}
                 data-testid="learning-decision"
                 data-action={decision.action}
                 data-policy={decision.trace.policyVersion}
