@@ -51,6 +51,17 @@ for (const f of outs) {
       .single()
     if (error || !a) { bump('분석 행 없음'); continue }
     if (a.version !== row.version || a.status !== 'published') { bump('버전 · 상태가 내보낸 때와 다름'); continue }
+    // 이 행이 지금도 그 문항의 **최신 발행 분석**이어야 한다 — 내보낸 뒤 새 버전이 발행됐으면 옛 행에 써 봐야
+    // 화면(문항마다 최신 버전 하나만 읽음)에 닿지 않는다(Codex P1). 새 버전은 다시 내보내서 채운다.
+    const { data: newer, error: nerr } = await db
+      .from('csat_item_analyses')
+      .select('id')
+      .eq('item_id', a.item_id)
+      .eq('status', 'published')
+      .gt('version', a.version)
+      .limit(1)
+    if (nerr) { bump(`최신 버전 확인 실패: ${nerr.message}`); continue }
+    if (newer.length) { bump('더 새 발행 버전 있음 — 다시 내보낼 것'); continue }
     const { data: it } = await db.from('csat_items').select('passage').eq('id', a.item_id).single()
     const passage = it?.passage ?? ''
     const answerNorm = a.answer_locus?.quote ? normalizeForMatch(a.answer_locus.quote).text : null
