@@ -46,7 +46,14 @@ const ITEM_CANON = {
   'D-01': ['VG-L3-D1-01-AC1'], 'D-02': ['VG-L3-D1-01-AC1'], 'D-03': ['VG-L3-D1-01-AC1'], 'D-04': ['VG-L3-D2-01-AC1'], 'D-05': ['VG-L3-D2-01-AC1'], 'D-06': ['VG-L2-D2-AC1'], 'D-07': ['VG-L3-D2-02-AC1'], 'D-08': ['VG-L3-C2-02-AC1'], 'D-09': ['VG-L3-C2-02-AC1'], 'D-10': ['VG-L3-C2-02-AC1'],
   'X-01': ['VG-L3-D1-01-AC1'], 'X-02': ['VG-L3-D2-02-AC1'], 'X-03': ['VG-L3-D1-02-AC1'],
 }
-for (const i of items) i.canon_criteria = ITEM_CANON[i.item_id] || []
+// 정본에 있는 id 만 — 오타·없는 id 는 생성 실패(추적이 조용히 끊기지 않게)
+const CANON_IDS = new Set(cw.criteria_ids)
+if (CANON_IDS.size !== 40) throw new Error(`정본 기준 수 ${CANON_IDS.size} ≠ 40`)
+for (const i of items) {
+  i.canon_criteria = ITEM_CANON[i.item_id] || []
+  const bad = i.canon_criteria.filter((c) => !CANON_IDS.has(c))
+  if (bad.length) throw new Error(`증거 ${i.item_id} 의 정본 기준 ${bad.join(",")} 는 정본에 없다`)
+}
 
 // ── R0 갭 등록부 (근거 item 필수) ──
 const gaps = [
@@ -115,6 +122,8 @@ const GAP_CANON = {
 for (const x of gaps) {
   x.canon_criteria = GAP_CANON[x.id] || []
   if (!x.canon_criteria.length) throw new Error(`${x.id} 에 정본 기준이 없다 — 추적이 끊긴다`)
+  const bad = x.canon_criteria.filter((c) => !CANON_IDS.has(c))
+  if (bad.length) throw new Error(`${x.id} 의 정본 기준 ${bad.join(",")} 는 정본에 없다`)
 }
 // 정본 기준 40개 → 후보 · 증거 · 갭 · 상태(근거 없으면 unknown — 통과 아님) (Codex r1 #7)
 const critRows = cw.criteria_ids.map((cid) => {
@@ -122,7 +131,7 @@ const critRows = cw.criteria_ids.map((cid) => {
   const its = items.filter((i) => i.canon_criteria.includes(cid))
   const gp = gaps.filter((x) => x.canon_criteria.includes(cid))
   const st = !its.length ? 'unknown' : its.some((i) => i.pass_fail_skip === 'fail') ? 'fail' : its.every((i) => i.pass_fail_skip === 'pass') ? 'pass(부분 근거)' : 'unknown'
-  return ['criterion', cid, cid.match(/^VG-(L\d)/)?.[1] ?? '', '', '', cid, cands.length ? 'covered_by_candidates' : 'none', '', '', gp.map((x) => x.id).join(' '), its.map((i) => i.item_id).join(' '), `후보 ${cands.join(' ') || '없음'} · 증거 판정 ${st}`, BASE.slice(0, 9), its.length ? its.map((i) => `${i.item_id}:${i.reported_or_verified}`).join(' ') : 'unknown', 'claude+codex-r1']
+  return ['criterion', cid, cid.match(/^VG-(L\d)/)?.[1] ?? '', '', '', cid, cands.length ? 'covered_by_candidates' : 'none', '', '', gp.map((x) => x.id).join(' '), its.map((i) => i.item_id).join(' '), `후보 ${cands.join(' ') || '없음'} · 증거 판정 ${st} · gap_ids 는 미완료 갭 연결일 뿐 목표 달성 PASS 판정이 아니다(PASS 는 goal-check 몫)`, BASE.slice(0, 9), its.length ? its.map((i) => `${i.item_id}:${i.reported_or_verified}`).join(' ') : 'unknown', 'claude+codex-r1']
 })
 const header = ['row_type', 'id', 'level', 'title', 'step1_status', 'canon_criteria', 'relation', 'r0_priority', 'duplicate_of', 'gap_ids', 'evidence_items', 'rationale', 'baseline_sha', 'reported_or_verified', 'reviewer']
 const unmapped = cw.unmapped_criteria.map((u) => ['unmapped_criterion', u.criterion_id, '', '미대응 정본 기준', '', u.criterion_id, 'none', 'UNMAPPED_CRITERION', '', u.criterion_id === 'VG-L3-D1-02-AC1' ? 'R0-G13' : '', u.criterion_id === 'VG-L3-D1-02-AC1' ? 'X-03' : '', u.note, BASE.slice(0, 9), 'claude', ''])
@@ -140,6 +149,7 @@ const reg = [
   '',
   `기준 main \`${BASE.slice(0, 9)}\` · 측정 ${MEASURED} · 정본 v1.1.0. R0 = 중등 일반 영어·독해 · 비로그인 체험→가입→학습 · PC 웹.`,
   '근거 item_id 는 `STEP3_IMPLEMENTATION_INVENTORY.json`. 이 문서는 **분석**이다 — 코드 변경·출시·효과 검증을 완료로 보고하지 않는다.',
+  '「정본 기준」 열은 이 갭이 **아직 충족하지 못한** 기준과의 연결이다 — 연결은 목표 달성 PASS 판정이 아니다(PASS 는 완료 작업의 증거로 goal-check 가 판정한다).',
   '',
   '## R0 핵심 경로별 차단',
   '',
