@@ -174,6 +174,13 @@ function publish(id) {
     // 실제로 올린 파일만 안내한다 — 없는 .context 폴더를 가리키면 Work 가 「연결 자료 읽기 실패」 로 needs_info 를 낸다(실측 PR #1)
     `ChatGPT Work 에게: 이 PR 의 \`requests/${id}.md\` 를 읽고${ctx.length ? `(최신 플랫폼 정보는 \`requests/${id}.context/\` 의 ${ctx.length}개 파일)` : '(이 요청에는 첨부 컨텍스트가 없다 — 요청서만으로 판단하고 가정은 unverified 로 표시)'}, 그 파일의 「응답 규칙」대로 \`\`\`json vfc-response\`\`\` 블록 하나를 **이 PR 의 댓글**로 남겨 주세요.`,
     `thread_id=${h.thread.thread_id} · goal_ref=${h.thread.goal_ref} · round_id=${h.thread.round_id} · design_version=${h.thread.design_version}`,
+    // 직전 응답을 요청 id 만으로 가리키면 이름공간 이전의 옛 id 가 저장소에서 겹칠 수 있다(Work 실측 PR #7) — 이 인스턴스가 실제로 수집한 댓글 주소로 고정한다
+    ...(() => {
+      const par = h.thread.parent_response_id
+      if (!par) return []
+      const got = log0.filter((e) => e.event === 'collected' && e.request_id === par).pop()
+      return [`parent_response_id=${par} 은 이 인스턴스(${instanceId()})가 수집한 응답 ${got?.source_url || (got ? `PR #${got.pr} 의 댓글` : '(수집 기록 없음)')} 이다 — 저장소의 다른 PR 에 같은 id 가 있어도 그것은 다른 인스턴스(이전 PoC)의 것이다.`]
+    })(),
     `기준 제품 커밋(Vocaflow main · 패킷의 근거): ${h.thread.context_base_commit ?? '없음'} — 이 PR 의 head 커밋(교환 저장소 revision)과는 다르다. 응답의 context_base_commit 에 이 값을 그대로 돌려주고, 패킷에 없는 코드는 unverified 로 표시한다. allowed_paths 는 패킷에서 확인한 실제 경로만 쓴다(근거 없으면 비운다).`,
     `응답은 제안일 뿐이며 사용자 승인 전에는 실행되지 않습니다. 이 PR 은 머지하지 않습니다.`,
   ].join('\n\n')
@@ -251,7 +258,7 @@ function collectOnce({ authors, app }) {
         fs.mkdirSync(path.dirname(dest), { recursive: true })
         fs.writeFileSync(`${dest}.part`, text)
         fs.renameSync(`${dest}.part`, dest) // ugoal intake 는 .part 를 집지 않는다
-        log({ event: 'collected', request_id: id, pr: pr.number, author: s.author, author_type: s.author_type, app: s.app ?? null, source: s.kind, responded_at: s.at })
+        log({ event: 'collected', request_id: id, pr: pr.number, author: s.author, author_type: s.author_type, app: s.app ?? null, source: s.kind, source_url: s.ref ?? null, responded_at: s.at })
       }
       found.push({ id, pr: pr.number, source: s.ref, author: s.author, author_type: s.author_type, status: dry ? 'would_collect' : 'collected', file: path.relative(ROOT, dest) })
     }
