@@ -88,6 +88,19 @@ try {
   await judge(A, 'g2', nowMs - 5 * 60_000, trial, 'post')
   rec('효과 게이트: 실제 독립 표본이 있으면 분석 완료 허용', !(await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial])))
 
+  // 5b 분석 완료 뒤 같은 학습자 · 문항의 다른 세션 도움이 늦게 도착(표본 판단보다 이른 시각) → 재계산 필요 표시 · 결과 행은 그대로
+  await reveal(A, 'g1', nowMs - 30 * 60_000)
+  const tr = (await q('select status, review_required_at, review_required_reason from knowledge_trials where id = $1', [trial])).rows[0]
+  rec('M9-B 분석 완료 뒤 늦게 도착한 다른 세션 도움 → 재계산 필요(조용히 무효화되지 않음)', tr.status === 'analyzed' && tr.review_required_at !== null && /다른 세션/.test(tr.review_required_reason ?? ''), tr)
+  // 표본과 무관한 문항의 도움은 표시하지 않는다
+  const trial2 = (await q(`insert into knowledge_trials (application_id, design, created_by) values ($1, '{"pre":true,"post":true,"min_n":1}', 't') returning id`, [app])).rows[0].id
+  await judge(A, 'h1', nowMs - 5 * 60_000, trial2, 'pre')
+  await judge(A, 'h2', nowMs - 5 * 60_000, trial2, 'post')
+  await q("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trial2])
+  await reveal(A, 'unrelated-item', nowMs - 30 * 60_000)
+  await reveal(A, 'h1', nowMs + 60 * 60_000 - 3_600_000 + 10 * 60_000)
+  rec('M9-B 판단보다 늦은 도움 · 무관한 문항은 재계산 표시 안 함', (await q('select review_required_at from knowledge_trials where id = $1', [trial2])).rows[0].review_required_at === null)
+
   // 6 학습자 읽기 권한 유지
   const as = async (uid, sql) => { const c = await pool.connect(); try { await c.query('begin'); await c.query('set local role authenticated'); await c.query(`select set_config('request.jwt.claim.sub', $1, true)`, [uid]); const r = await c.query(sql); await c.query('rollback'); return { ok: true, rows: r.rows } } catch (e) { await c.query('rollback').catch(() => {}); return { ok: false, err: e.message } } finally { c.release() } }
   const mine = await as(A, 'select user_id, help_level from learning_first_attempts')

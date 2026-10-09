@@ -75,9 +75,36 @@ from base a
 left join public.learning_sessions s on s.id = a.session_id
 left join cross_help c on c.attempt_id = a.id;
 
+-- ── M9-B 분석 완료 표본 보호 — 늦게 도착한 다른 세션 도움이 표본 판정을 바꿀 수 있으면 「재계산 필요」(DB 쓰기 게이트 P1) ──────────
+-- 이 뷰는 같은 학습자 · 문항의 **다른 세션**에 기대므로, 분석 완료 뒤 그 세션에 도움 · 해설 시각이 새로 들어오면 고정된 표본의
+-- 첫 시도가 독립 → 도움받음/보류로 바뀔 수 있다. 학습자의 실제 사건은 막지 않고(기록 유실 금지), 그 검증을 재계산 필요로 표시한다
+-- (F7 review_required — 효과 게이트 F7-6 이 근거에서 빼고, 재분석으로만 해제). 분석 전환과 같은 표본 권고 잠금으로 직렬화한다.
+create function public.learning_cross_help_invalidate() returns trigger
+-- security definer: knowledge_trials 재검토 표시를 남긴다(세션 쓰기는 service_role RPC 경로)
+language plpgsql security definer set search_path = public, pg_temp as $$
+declare v_at timestamptz := least(coalesce(new.help_received_at, 'infinity'::timestamptz), coalesce(new.explanation_viewed_at, 'infinity'::timestamptz));
+begin
+  if v_at = 'infinity'::timestamptz or new.item_ref is null then return new; end if;
+  if tg_op = 'UPDATE' and new.help_received_at is not distinct from old.help_received_at and new.explanation_viewed_at is not distinct from old.explanation_viewed_at then return new; end if;
+  perform pg_advisory_xact_lock_shared(hashtext('learning_trial_sample'));
+  update public.knowledge_trials t
+     set review_required_at = coalesce(t.review_required_at, now()),
+         review_required_reason = coalesce(t.review_required_reason, '같은 학습자 · 문항의 다른 세션 도움 기록이 늦게 도착해 표본 판정이 바뀌었을 수 있다 — 재계산 전에는 근거로 쓰지 않는다')
+   where t.status = 'analyzed' and not t.synthetic and t.review_required_at is null
+     and exists (select 1 from public.learning_task_attempts a
+                  where a.trial_id = t.id and a.user_id = new.user_id and a.item_ref = new.item_ref
+                    and a.session_id is distinct from new.id
+                    and v_at <= a.answered_at + interval '2 minutes');
+  return new;
+end $$;
+create trigger learning_cross_help_invalidate after insert or update of help_received_at, explanation_viewed_at on public.learning_sessions
+  for each row execute function public.learning_cross_help_invalidate();
+
 -- ── 되돌리기(한 트랜잭션 · 각 줄 앞의 「-- 」를 벗겨 실행) — M8(180000) 뷰 본문으로 ────────────────────
 -- 검증: scripts/knowledge/g2-m9-test.mjs 가 이 블록을 격리 DB 에서 실제로 실행한다.
 -- begin;
+-- drop trigger learning_cross_help_invalidate on public.learning_sessions;
+-- drop function public.learning_cross_help_invalidate();
 -- create or replace view public.learning_first_attempts with (security_invoker = true) as
 -- select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
 --   a.id as attempt_id, a.user_id, a.task_key, a.item_ref, a.phase, a.activity, a.session_id, a.is_correct, a.answered_at,
