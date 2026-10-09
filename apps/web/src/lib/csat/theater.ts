@@ -137,6 +137,9 @@ export interface TheaterSource {
   evidence_reasoning: string | null
   distractors: { n: number; trap: string | null; why_tempting: string | null; how_to_reject: string | null }[]
   procedure: { step: string; on_fail?: string }[]
+  /** 유형 일반 절차 — 새 문항에 그대로 쓸 순서(없으면 빈 배열) */
+  type_procedure?: { step: string; on_fail?: string }[]
+  type_procedure_n?: number | null
   required_vocab: string[]
 }
 
@@ -227,6 +230,18 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
       title: '다시 풀 때의 절차',
       chips: [{ text: `${item.procedure.length}단계` }],
       body: item.procedure.map((p, i) => `${i + 1}. ${p.step}${p.on_fail ? ` — 막히면 ${p.on_fail}` : ''}`),
+      quote: null,
+    })
+  }
+
+  // 옮겨 쓸 원리 — 이 문항의 절차는 지문 낱말에 묶여 있다(감사 표본 6/7). 같은 유형 다음 문항에서 그대로 돌릴 일반 절차를 바로 옆에 둔다
+  if (item.type_procedure?.length) {
+    out.push({
+      key: 'analysis:transfer',
+      kind: 'procedure',
+      title: `다음 ${item.type_name ?? '같은 유형'} 문항에서 그대로 쓰는 순서`,
+      chips: [{ text: `${item.type_procedure.length}단계` }, ...(item.type_procedure_n ? [{ text: `기출 ${item.type_procedure_n}문항에서 뽑음`, tone: 'quiet' as const }] : [])],
+      body: item.type_procedure.map((p, i) => `${i + 1}. ${p.step}${p.on_fail ? ` — 막히면 ${p.on_fail}` : ''}`),
       quote: null,
     })
   }

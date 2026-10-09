@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): 기출 해설에 **옮겨 쓸 원리** — 문항 절차 뒤에 같은 유형의 일반 절차(`csat_type_reports.procedure_steps` · 기출 n문항에서 뽑음)를 「다음 ○○ 문항에서 그대로 쓰는 순서」로 보인다(감사 표본 7/7 적용). 학습자 문장에서 분석 작업 메모(파싱 · OCR 잔여 · 저장 지문 병합 등 — 3,408 중 63건)를 화면 경계에서 거른다(`lib/csat/learner-text.ts` · 원본 분석 그대로). 복습 예약 재전송 멱등(Codex P1).
+
 - feat(db): B7 학습자 출시 승인 가드 `20261008144206_knowledge_release_approval`(개발 DB) — 채택 ≠ 출시 승인, 중단·대상 변경 시 승인 무효. 학습 원리 적용 2건(claim-support:2022-20 · b6-3) 노출 중단(paused).
 - feat(knowledge): 주장·근거 확인 문항 9개(맹검 이중 주석) · 학습 지도 FIND 다문항 연결(audience.items) · 실DB 동시성 E2E 5/5(생성 행 전부 정리).
 

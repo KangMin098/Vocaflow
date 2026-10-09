@@ -74,6 +74,8 @@ export function ClaimPractice(props: {
   // E11 복습 예약 — 이 세션(문항)에 잡은 다시 보기 날짜(YYYY-MM-DD). 학습 지도가 날짜가 되면 「다시 보기」를 띄운다
   const [reviewAt, setReviewAt] = useState<string | null>(null)
   const [reviewBusy, setReviewBusy] = useState(false)
+  // 예약 요청의 마친 시각 — 첫 시도에 정하고 재시도에 그대로(서버 멱등 비교가 같은 payload 를 요구)
+  const reviewFinishedAt = useRef<string | null>(null)
   const [busy, setBusy] = useState(false)
   const lock = useRef(false)
   const started = useRef<number>(Date.now())
@@ -105,6 +107,7 @@ export function ClaimPractice(props: {
     setConfidence(null)
     setFeedback(null)
     setReviewAt(null)
+    reviewFinishedAt.current = null
     setError(null)
     pending.current = null
     lastBody.current = null
@@ -225,7 +228,7 @@ export function ClaimPractice(props: {
       const res = await fetch('/api/csat/practice/review', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ itemId: entry.itemId, clientSessionId: sessionId, days, preview }),
+        body: JSON.stringify({ itemId: entry.itemId, clientSessionId: sessionId, days, finishedAt: (reviewFinishedAt.current ??= new Date().toISOString()), preview }),
       })
       const j = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; reviewAt?: string } | null
       if (!j?.ok || !j.reviewAt) throw new Error(j?.error ?? '예약하지 못했어요')
