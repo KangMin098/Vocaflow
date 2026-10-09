@@ -208,7 +208,7 @@ export interface SubmitDeps {
   pool: (opts: { preview: boolean }) => Promise<ServerEntry[]>
   answer: (itemId: string) => Promise<number | null>
   /** 이 판단 전에 같은 문항에서 도움(해설 먼저 · 힌트) 또는 해설 열람이 있었나 — 다른 세션 포함(새로고침 · 문항 재선택). 없으면 확인하지 않는다 */
-  priorHelp?: (userId: string, itemId: string, answeredAt: string, clientSessionId: string) => Promise<boolean>
+  priorHelp?: (userId: string, itemId: string, clientMutationId: string, clientSessionId: string) => Promise<boolean>
 }
 
 /**
@@ -216,7 +216,10 @@ export interface SubmitDeps {
  * 화면은 새로고침 · 문항 재선택마다 새 세션을 independent 로 시작하므로, 앞선 해설 열람을 서버가 이어 붙인다.
  * 기기 시각은 비교하지 않는다 — 다른 기기 시계가 앞서면 시각 비교가 앞선 열람을 놓친다. 정답 · 해설을 본 뒤의 판단은 독립이 아니다(보수적).
  */
-async function priorHelpOf(db: SupabaseClient, userId: string, itemId: string, _answeredAt: string, clientSessionId: string): Promise<boolean> {
+async function priorHelpOf(db: SupabaseClient, userId: string, itemId: string, clientMutationId: string, clientSessionId: string): Promise<boolean> {
+  // 이미 저장된 제출의 재전송이면 그때 정한 도움 수준을 그대로 — 사이에 다른 세션 열람이 생겨도 재전송 원문이 바뀌지 않게(Codex P1)
+  const prior = await db.from('learning_task_attempts').select('help_level').eq('user_id', userId).eq('client_mutation_id', clientMutationId).maybeSingle()
+  if (!prior.error && prior.data) return (prior.data as { help_level: string | null }).help_level !== 'independent'
   const { data, error } = await db.from('learning_sessions').select('id')
     .eq('user_id', userId).eq('item_ref', itemId).neq('client_session_id', clientSessionId)
     .or('help_level.in.(hint,viewed_first),explanation_viewed_at.not.is.null')
@@ -228,7 +231,7 @@ async function priorHelpOf(db: SupabaseClient, userId: string, itemId: string, _
 
 export function defaultSubmitDeps(): SubmitDeps {
   const db = admin()
-  return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id), priorHelp: (u, i, at, cs) => priorHelpOf(db, u, i, at, cs) }
+  return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id), priorHelp: (u, i, m, cs) => priorHelpOf(db, u, i, m, cs) }
 }
 
 /** 복습 예약 간격(일) — 닫힌 목록. 화면 버튼과 같다 */
@@ -331,7 +334,7 @@ export async function submitPractice(
   const correct = await deps.answer(s.itemId)
   const optionCorrect = s.option === null || correct === null ? null : s.option === correct
   // 앞선 세션의 해설 열람 · 도움 노출이 있으면 이 판단은 독립이 아니다(화면 상태와 무관)
-  const helped = s.helpLevel !== 'independent' || (deps.priorHelp ? await deps.priorHelp(who.userId, s.itemId, s.answeredAt, s.clientSessionId) : false)
+  const helped = s.helpLevel !== 'independent' || (deps.priorHelp ? await deps.priorHelp(who.userId, s.itemId, s.clientMutationId, s.clientSessionId) : false)
   const write = {
     userId: who.userId,
     taskKey: entry.kind === 'annotated' ? PRACTICE_TASK : SKELETON_TASK,
