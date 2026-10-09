@@ -440,3 +440,19 @@ test('WF6b 버려진 run 이 둘이어도 두 작업 모두 되살리고 두 run
   assert.equal(task(root, a.task_id).status, 'COMPLETED')
   assert.equal(task(root, b.task_id).status, 'COMPLETED')
 })
+
+test('WF6c 다음 실행 전에 vfc task reap 이 먼저 막아 둔 작업도 되살린다', () => {
+  const root = setup()
+  const a = addTask(root, { title: 'A' })
+  const b = addTask(root, { title: 'B' })
+  const deadPid = spawnSync(process.execPath, ['-e', 'process.pid']).pid
+  const mk = spawnSync(process.execPath, [path.join(REPO, 'tests', 'fakes', 'two-abandoned-runs.mjs'), a.task_id, b.task_id, String(deadPid), 'running'], { env: env(root), encoding: 'utf8' })
+  assert.equal(mk.status, 0, mk.stderr)
+  assert.equal(vfc(root, ['task', 'reap']).code, 0)
+  assert.equal(task(root, a.task_id).status, 'BLOCKED')
+  const r = orch(root, ['--max-tasks', '2'])
+  assert.ok(r.json, r.err)
+  assert.deepEqual([...r.json.recovery.revived].sort(), [a.task_id, b.task_id].sort())
+  assert.equal(task(root, a.task_id).status, 'COMPLETED')
+  assert.equal(task(root, b.task_id).status, 'COMPLETED')
+})
