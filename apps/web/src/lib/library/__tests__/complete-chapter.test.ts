@@ -17,9 +17,10 @@ const state: {
   user: { id: string } | null;
   current: Row | null;
   siblings: Row[];
+  siblingsError: { message: string } | null;
   updateError: { message: string } | null;
   queries: Query[];
-} = { user: null, current: null, siblings: [], updateError: null, queries: [] };
+} = { user: null, current: null, siblings: [], siblingsError: null, updateError: null, queries: [] };
 
 function makeBuilder(table: string) {
   const q: Query = { table, kind: 'select', calls: [] };
@@ -33,7 +34,11 @@ function makeBuilder(table: string) {
   b.eq = chain('eq');
   b.order = (...args: unknown[]) => {
     q.calls.push({ method: 'order', args });
-    return Promise.resolve({ data: state.siblings, error: null });
+    return Promise.resolve(
+      state.siblingsError
+        ? { data: null, error: state.siblingsError }
+        : { data: state.siblings, error: null },
+    );
   };
   b.maybeSingle = () => Promise.resolve({ data: state.current, error: null });
   b.update = (payload: Row) => {
@@ -68,6 +73,7 @@ beforeEach(() => {
   state.user = USER;
   state.current = null;
   state.siblings = [];
+  state.siblingsError = null;
   state.updateError = null;
   state.queries = [];
 });
@@ -173,5 +179,18 @@ describe('completeChapter — [3] 도서 챕터', () => {
       bookCompleted: false,
     });
     expect(updates()).toHaveLength(0);
+  });
+
+  it('형제 챕터 조회 실패면 완료 기록(ok)은 유지하되 bookCompleted:false · next null (T-0012)', async () => {
+    state.current = { id: 'c2', library_book_id: 'b1', chapter_idx: 2, status: 'in_progress' };
+    state.siblingsError = { message: 'siblings boom' };
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    expect(await completeChapter('c2')).toEqual({
+      ok: true,
+      alreadyCompleted: false,
+      nextChapterTextId: null,
+      bookCompleted: false,
+    });
+    expect(updates()).toHaveLength(1);
   });
 });
