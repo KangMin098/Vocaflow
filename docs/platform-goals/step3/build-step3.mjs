@@ -104,11 +104,23 @@ const crossRows = cw.rows.map((r) => {
   const o = CW_OVERRIDE[r.candidate_id] || {}
   return ['candidate', r.candidate_id, r.candidate_level, r.candidate_title, r.candidate_status_step1, r.canon_criteria.join(' '), r.relation, o.r0_priority || r.r0_priority, r.duplicate_of ?? '', (CAND_GAPS[r.candidate_id] || []).join(' '), (CAND_ITEMS[r.candidate_id] || []).join(' '), `${r.rationale}${o.note ? ` · [codex-r1] ${o.note}` : ''}`, BASE.slice(0, 9), 'reported(STEP1 상태) · 대응=claude', o.r0_priority || o.note ? 'codex-r1' : 'claude']
 })
+// 갭 → 정본 기준을 명시한다 — 증거 공유로만 추론하면 근거 항목이 다른 기준을 가리키는 갭(G15)·근거 없는 게이트가 추적에서 빠진다(Codex Stop P1)
+const GAP_CANON = {
+  'R0-G01': ['VG-L3-B1-01-AC1'], 'R0-G02': ['VG-L3-B1-01-AC1', 'VG-L3-D2-02-AC1'], 'R0-G03': ['VG-L3-D2-02-AC1'], 'R0-G04': ['VG-L3-A2-01-AC1', 'VG-L3-C1-02-AC1'],
+  'R0-G05': ['VG-L3-A2-01-AC1', 'VG-L3-D1-01-AC1'], 'R0-G06': ['VG-L3-A2-01-AC1', 'VG-L2-A2-AC1'], 'R0-G07': ['VG-L2-A2-AC1'], 'R0-G08': ['VG-L3-A3-01-AC1', 'VG-L3-A3-02-AC1', 'VG-L2-A3-AC1'],
+  'R0-G09': ['VG-L2-B2-AC1', 'VG-L3-B2-02-AC1'], 'R0-G10': ['VG-L3-D2-01-AC1'], 'R0-G11': ['VG-L3-D2-01-AC1'], 'R0-G12': ['VG-L3-D1-01-AC1'], 'R0-G13': ['VG-L3-D1-02-AC1'], 'R0-G14': ['VG-L3-D2-02-AC1'],
+  'R0-G15': ['VG-L3-A1-01-AC1', 'VG-L2-A1-AC1'], 'R0-G16': ['VG-L3-D2-02-AC1'], 'R0-G17': ['VG-L3-D1-01-AC1', 'VG-L2-D1-AC1'], 'R0-G18': ['VG-L3-A2-01-AC1', 'VG-L3-D1-01-AC1'],
+  'R0-GATE': ['VG-L3-A2-02-AC1', 'VG-L3-D2-01-AC1', 'VG-L2-D2-AC1'],
+}
+for (const x of gaps) {
+  x.canon_criteria = GAP_CANON[x.id] || []
+  if (!x.canon_criteria.length) throw new Error(`${x.id} 에 정본 기준이 없다 — 추적이 끊긴다`)
+}
 // 정본 기준 40개 → 후보 · 증거 · 갭 · 상태(근거 없으면 unknown — 통과 아님) (Codex r1 #7)
 const critRows = cw.criteria_ids.map((cid) => {
   const cands = cw.rows.filter((r) => r.canon_criteria.includes(cid)).map((r) => r.candidate_id)
   const its = items.filter((i) => i.canon_criteria.includes(cid))
-  const gp = gaps.filter((x) => x.evidence.some((e) => its.some((i) => i.item_id === e)))
+  const gp = gaps.filter((x) => x.canon_criteria.includes(cid))
   const st = !its.length ? 'unknown' : its.some((i) => i.pass_fail_skip === 'fail') ? 'fail' : its.every((i) => i.pass_fail_skip === 'pass') ? 'pass(부분 근거)' : 'unknown'
   return ['criterion', cid, cid.match(/^VG-(L\d)/)?.[1] ?? '', '', '', cid, cands.length ? 'covered_by_candidates' : 'none', '', '', gp.map((x) => x.id).join(' '), its.map((i) => i.item_id).join(' '), `후보 ${cands.join(' ') || '없음'} · 증거 판정 ${st}`, BASE.slice(0, 9), its.length ? its.map((i) => `${i.item_id}:${i.reported_or_verified}`).join(' ') : 'unknown', 'claude+codex-r1']
 })
@@ -122,7 +134,7 @@ for (const i of items) statusCount[i.implementation_status] = (statusCount[i.imp
 fs.writeFileSync(path.join(DIR, 'STEP3_IMPLEMENTATION_INVENTORY.json'), JSON.stringify({ schema: 'vfc-step3-inventory/1', baseline_sha: BASE, measured_at: MEASURED, rule: 'unknown 은 통과가 아니다 · skip 은 pass 가 아니다 · reported = STEP 1 문서 주장 · verified = 이번 단계 직접 재확인', summary: { items: items.length, by_status: statusCount, by_verification: items.reduce((a, i) => ((a[i.reported_or_verified] = (a[i.reported_or_verified] || 0) + 1), a), {}) }, items, migration_name_diff: { repo_unique: mig.repo_unique, db_unique: mig.db_unique, both: mig.both, only_repo: mig.only_repo, only_db_count: mig.only_db_count, only_db_recent_sample: mig.only_db_sample }, security_advisors: { total: adv.total, by_level_name: adv.by_level_name }, limits: areas.flatMap((a) => (a.limits || []).map((l) => `${a.area}: ${l}`)) }, null, 2))
 
 // ── 3. R0_GAP_REGISTER.md ──
-const g = (x) => `| ${x.id} | ${x.step} | ${x.title} | ${x.severity} | ${(x.evidence.length ? x.evidence : ['—']).join(' ')} | ${x.minimal_fix} | ${x.external ?? '—'} |`
+const g = (x) => `| ${x.id} | ${x.step} | ${x.title} | ${x.severity} | ${x.canon_criteria.join(' ')} | ${(x.evidence.length ? x.evidence : ['—']).join(' ')} | ${x.minimal_fix} | ${x.external ?? '—'} |`
 const reg = [
   '# STEP 3 — R0 갭 등록부',
   '',
@@ -131,8 +143,8 @@ const reg = [
   '',
   '## R0 핵심 경로별 차단',
   '',
-  '| ID | 단계 | 갭 | 심각도 | 근거 | 최소 해결책 | 외부 의존 |',
-  '|---|---|---|---|---|---|---|',
+  '| ID | 단계 | 갭 | 심각도 | 정본 기준 | 근거 | 최소 해결책 | 외부 의존 |',
+  '|---|---|---|---|---|---|---|---|',
   ...gaps.map(g),
   '',
   `BLOCKER ${gaps.filter((x) => x.severity === 'BLOCKER').length} · HIGH ${gaps.filter((x) => x.severity === 'HIGH').length}. 외부 의존(사용자만 가능): ${gaps.filter((x) => x.external).map((x) => `${x.id} ${x.external}`).join(' · ')}.`,
@@ -159,7 +171,7 @@ const reg = [
 fs.writeFileSync(path.join(DIR, 'STEP3_R0_GAP_REGISTER.md'), reg.join('\n'))
 
 // ── 4. DEPENDENCY_DAG.json ──
-const nodes = gaps.map((x) => ({ id: x.id, step: x.step, title: x.title, severity: x.severity, external_dependency: x.external, depends_on: x.depends || [] }))
+const nodes = gaps.map((x) => ({ id: x.id, step: x.step, title: x.title, severity: x.severity, canon_criteria: x.canon_criteria, external_dependency: x.external, depends_on: x.depends || [] }))
 const level = {}
 const lv = (id) => (level[id] ??= Math.max(0, ...(nodes.find((n) => n.id === id).depends_on.map((d) => lv(d) + 1))))
 nodes.forEach((n) => lv(n.id))
