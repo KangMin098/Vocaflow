@@ -57,6 +57,7 @@ import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
 import { withView } from '@/lib/csat/continuity'
 import { toItemSlug } from '@/lib/csat/item-slug'
+import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
 import type { DissectionRecord, Prediction } from '@/lib/csat/dissect'
 import {
@@ -84,13 +85,17 @@ import styles from './theater.module.css'
 const RATES = [0.9, 1, 1.15] as const
 
 // 해설 공개 서버 기록 — 최초 공개 시각을 고정해 보관하고, 실패하면 다음에 극장을 열 때 같은 본문으로 다시 보낸다(재전송 = 서버 duplicate · Codex P1)
-type PendingReveal = { slug: string; sessionId: string; help: 'independent' | 'viewed_first'; revealedAt: string }
+// userId: 공개한 계정 — 공유 기기에서 다른 계정으로 바뀐 뒤 재전송되면 서버가 버린다(Codex P1)
+type PendingReveal = { slug: string; sessionId: string; help: 'independent' | 'viewed_first'; revealedAt: string; userId: string | null }
+async function currentUserId(): Promise<string | null> {
+  try { return (await createBrowserClient().auth.getUser()).data.user?.id ?? null } catch { return null }
+}
 const REVEAL_KEY = 'vf.csat.pendingReveals'
 const readPending = (): PendingReveal[] => { try { const v = JSON.parse(localStorage.getItem(REVEAL_KEY) ?? '[]'); return Array.isArray(v) ? v : [] } catch { return [] } }
 const writePending = (xs: PendingReveal[]) => { try { localStorage.setItem(REVEAL_KEY, JSON.stringify(xs.slice(-50))) } catch { /* 저장소 없음 — 이번 전송만 */ } }
 async function postReveal(r: PendingReveal): Promise<boolean> {
   try {
-    const res = await fetch(`/api/csat/item/${r.slug}/reveal`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ sessionId: r.sessionId, help: r.help, revealedAt: r.revealedAt }), keepalive: true })
+    const res = await fetch(`/api/csat/item/${r.slug}/reveal`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ sessionId: r.sessionId, help: r.help, revealedAt: r.revealedAt, userId: r.userId }), keepalive: true })
     // 4xx(잘못된 본문 · 로그인 없음)는 다시 보내도 같다 — 보관하지 않는다
     return res.ok || (res.status >= 400 && res.status < 500 && res.status !== 408 && res.status !== 429)
   } catch {
@@ -102,7 +107,9 @@ async function sendReveal(r: PendingReveal) {
   if (await postReveal(r)) writePending(readPending().filter((x) => x.sessionId !== r.sessionId))
 }
 async function flushReveals() {
-  for (const r of readPending()) if (await postReveal(r)) writePending(readPending().filter((x) => x.sessionId !== r.sessionId))
+  const me = await currentUserId()
+  // 지금 로그인한 계정이 남긴 것만 다시 보낸다 — 다른 계정의 기록은 그 계정이 다시 열 때까지 둔다
+  for (const r of readPending().filter((x) => x.userId !== null && x.userId === me)) if (await postReveal(r)) writePending(readPending().filter((x) => x.sessionId !== r.sessionId))
 }
 
 const newId = () =>
@@ -263,7 +270,8 @@ export function AnalysisTheater({
     }).then(({ record }) => sync(record, id))
     // 서버 학습 세션에도 공개를 남긴다 — 같은 문항의 Practice · 확인 과제가 「해설을 본 뒤의 판단」 임을 서버가 알게(Codex P1).
     // 학습 흐름을 막지 않는다(실패해도 극장은 계속) · 같은 공개의 재전송은 서버에서 duplicate
-    void sendReveal({ slug: toItemSlug(itemId), sessionId: id, help: skip ? 'viewed_first' : 'independent', revealedAt: new Date().toISOString() })
+    const revealedAt = new Date().toISOString()
+    void currentUserId().then((userId) => sendReveal({ slug: toItemSlug(itemId), sessionId: id, help: skip ? 'viewed_first' : 'independent', revealedAt, userId }))
   }
   const finish = () => {
     if (!session) return
