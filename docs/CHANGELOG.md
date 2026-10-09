@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(map): 학습 지도 첫 판단 요약이 M8 `timing_uncertain` 을 읽어, 시각이 불확실하면 「도움 없이」 를 단정하지 않는다(모름). DB_SCHEMA 에 M8 · F7, ROUTES 에 `POST /api/csat/practice/view` · 문항 과제 G2 본문 반영.
+
 - feat(admin): 학습자 리텐션에서 내부(운영·개발·QA)·미분류 계정 제외(VG-L3-D1-02 부분 충족 · T-0006) — `lib/admin/account-classification.ts`(서버 전용 계정 ID 목록 → admin·curator 역할 → 미분류, 도메인은 힌트만), `fetchRetention` 이 검증된 외부 계정만 계산하고 실사용·내부·미분류 수를 따로 반환, 목록 오류는 「계산 불가」. 패널·도움말 갱신. DB 변경 0 · 퍼널·효과 지표는 미적용
 
 - docs(agents): AGENTS.md 에 「플랫폼 목표 정본 · 작업 범위」 절 — 승인 정본 v1.1.0(`D:/workspace/Vocaflow-AI-Control/goals`, 원격 브랜치 `ai-control`)을 Claude·Codex 공통 최상위 목표로 참조, 작업 단위 범위(`vfc task show`)와 분리, 고정 owner_id · 원자 잠금(`vfc task start`) 안내. 기존 규칙 삭제 없음
