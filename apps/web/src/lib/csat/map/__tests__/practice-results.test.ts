@@ -51,6 +51,11 @@ describe('복습 · 전이', () => {
     const r = summarizePractice(rows, null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: null }], now })
     expect(r).toMatchObject({ next: 'move_on', reviewAt: null })
   })
+  it('다른 문항을 예약 뒤에 풀어도 이 문항의 예약은 남는다(같은 문항만 예약을 끝낸다)', () => {
+    const rows = [row(true, '2026-10-08T10:00:00Z'), row(true, '2026-10-16T09:00:00Z', 'claim-support', '2025#20')]
+    const r = summarizePractice(rows, null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: null }], now })
+    expect(r).toMatchObject({ reviewAt: '2026-10-15T00:00:00Z', next: 'review' })
+  })
   it('최근이 오답이면 예약보다 retry 가 먼저', () => {
     expect(summarizePractice([row(false, '2026-10-08T10:00:00Z')], null, { reviews: [{ item_ref: '2022#20', review_at: '2026-10-15T00:00:00Z', deleted_at: null }], now }).next).toBe('retry')
   })
