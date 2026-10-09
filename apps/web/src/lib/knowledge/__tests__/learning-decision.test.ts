@@ -80,3 +80,11 @@ describe('추적 정보', () => {
     }
   })
 })
+
+describe('관찰 근거는 적격 시도만', () => {
+  it('해설을 먼저 본 시도는 풀었던 문항이어도 관찰 근거에 넣지 않는다', () => {
+    const viewed = { ...row('2016#20', false), helpLevel: 'viewed_first' as const }
+    const d = decideStep(input([row('2022#20', false), row('2025#20', false), viewed]))
+    expect(d.trace.observation.items).toEqual(['2022#20', '2025#20'])
+  })
+})

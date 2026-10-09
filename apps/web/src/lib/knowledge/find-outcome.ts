@@ -34,6 +34,8 @@ export interface FindOutcome {
   checked: number
   wrong: number
   right: number
+  /** 판정에 실제로 쓴 확인 문항(적격 독립 첫 시도가 있는 것만) — 결정 추적의 관찰 근거 */
+  items: string[]
   /** 확인 문항이 모자라 기준에 못 닿는가(문항이 1개뿐인 단계) */
   needsMoreItems: boolean
   /** 학습자에게 보이는 한 문장 — 약점을 단정하지 않는다 */
@@ -82,5 +84,5 @@ export function findOutcome(targets: readonly FindTarget[], attempts: readonly F
     state = 'mixed'
     message = `확인 문항 ${checked}개 중 ${wrong}개가 막혔어요. 결과가 엇갈려서 한 번 더 확인해요.`
   }
-  return { state, checked, wrong, right, needsMoreItems, message }
+  return { state, checked, wrong, right, items: [...byItem.keys()], needsMoreItems, message }
 }

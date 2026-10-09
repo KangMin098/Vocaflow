@@ -91,7 +91,8 @@ export function decideStep(input: DecisionInput): LearningDecision {
     policyVersion: DECISION_POLICY_VERSION,
     stepKey: input.stepKey,
     findTaskId: input.findTaskId,
-    observation: { state: o?.state ?? 'none', checked: o?.checked ?? 0, wrong: o?.wrong ?? 0, right: o?.right ?? 0, items: [...input.triedItems] },
+    // 관찰 근거 = 판정에 실제로 쓴 문항(적격 독립 첫 시도)만 — 해설 먼저 본 시도 등은 근거로 남기지 않는다(Codex P1)
+    observation: { state: o?.state ?? 'none', checked: o?.checked ?? 0, wrong: o?.wrong ?? 0, right: o?.right ?? 0, items: [...(o?.items ?? [])] },
     principleId: c.principle?.id ?? null,
     principleSlug: c.principle?.slug ?? null,
     methodId: c.method?.id ?? null,

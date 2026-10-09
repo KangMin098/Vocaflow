@@ -65,6 +65,17 @@ const before = { attempt: (await maxId('learning_task_attempts', 'id')) as numbe
 const browser = await chromium.launch()
 const learner = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
 learner.setDefaultTimeout(120_000)
+// 이 실행이 보낸 기록의 mutation id — 정리 대상은 이것으로만 고른다
+const sentMutations = new Set<string>()
+learner.on('request', (r: { url: () => string; method: () => string; postData: () => string | null }) => {
+  if (r.method() !== 'POST' || !/\/api\/csat\/item\/[^/]+\/task$/.test(new URL(r.url()).pathname)) return
+  try {
+    const m = JSON.parse(r.postData() ?? '{}').clientMutationId
+    if (typeof m === 'string') sentMutations.add(m)
+  } catch {
+    // 본문이 JSON 이 아니면 기록도 생기지 않는다
+  }
+})
 const go = async (p: typeof learner, url: string) => {
   await p.goto(url, { waitUntil: 'domcontentloaded' })
   await p.waitForLoadState('networkidle').catch(() => {})
@@ -140,9 +151,9 @@ try {
   // S7 학습 요구 → 다음 할 일(원리 기반 결정) · 추적 정보
   const dec = learner.getByTestId('learning-decision')
   const action = await dec.getAttribute('data-action').catch(() => null)
-  const trace = { policy: await dec.getAttribute('data-policy').catch(() => null), principle: await dec.getAttribute('data-principle').catch(() => null), method: await dec.getAttribute('data-method').catch(() => null) }
+  const trace = { policy: await dec.getAttribute('data-policy').catch(() => null), principle: await dec.getAttribute('data-principle').catch(() => null), method: await dec.getAttribute('data-method').catch(() => null), reason: await dec.getAttribute('data-reason').catch(() => null), observation: JSON.parse((await dec.getAttribute('data-observation').catch(() => null)) ?? 'null') }
   const decHref = await learner.getByTestId('learning-decision-link').getAttribute('href').catch(() => null)
-  rec('S7 학습 요구 → 원리 과제 선택', decisionBefore === 'start_check' && action === 'practice_method' && !!trace.policy && !!trace.principle && !!trace.method && decHref === '/csat/practice/claim-support',
+  rec('S7 학습 요구 → 원리 과제 선택', decisionBefore === 'start_check' && action === 'practice_method' && !!trace.policy && !!trace.principle && !!trace.method && !!trace.reason && trace.observation?.items?.length === 2 && decHref === '/csat/practice/claim-support',
     `전 ${decisionBefore} → 후 ${action} · ${decHref} · 정책 ${trace.policy} · 원리 ${trace.principle?.slice(0, 8)} · 방법 ${trace.method?.slice(0, 8)}`)
 
   // S5 관리자 성과 검토 신호
@@ -152,8 +163,18 @@ try {
   const rows = await admin.getByTestId('signal-row').count()
   const body = await admin.locator('main').innerText().catch(() => '')
   await admin.screenshot({ path: path.join(OUT, 's5-admin-signals.png'), fullPage: true })
-  rec('S5 관리자 성과 검토 신호', rows >= 10 && !/검토 필요 \d+\s*\/[^]*performance_shortfall/.test(body),
-    `적용 행 ${rows}개 · 합성 기록 언급 ${/합성/.test(body) ? '있음' : '없음'} · 「검토 필요」 문구 ${(body.match(/검토 필요/g) ?? []).length}회`)
+  // 방금 낸 합성 제출이 그 적용 행에서 「합성」으로만 세지고 실제 · 성과 신호에 들어가지 않는지 행마다 확인한다
+  const synthCheck: { item: string; real: number; synthetic: number; level: string | null }[] = []
+  for (const id of submitted) {
+    const row = admin.getByTestId('signal-row').filter({ hasText: `claim-support:${slug(id)}` }).first()
+    const level = await row.getAttribute('data-level').catch(() => null)
+    const counts = await row.locator('dt', { hasText: '실제 첫 시도 · 제외 · 합성' }).locator('xpath=following-sibling::dd[1]').innerText().catch(() => '')
+    const [real, , synthetic] = counts.split('·').map((s: string) => Number(s.trim()))
+    synthCheck.push({ item: id, real, synthetic, level })
+  }
+  const synthOk = synthCheck.length === submitted.length && synthCheck.length > 0 && synthCheck.every((c) => c.real === 0 && c.synthetic >= 1 && c.level !== 'review')
+  rec('S5 관리자 성과 검토 신호 · 합성 제외', rows >= 10 && synthOk,
+    `적용 행 ${rows}개 · 제출 문항별 ${JSON.stringify(synthCheck)}(실제 0 · 합성 ≥1 · 검토 필요 아님이어야 통과) · 본문 「검토 필요」 ${(body.match(/검토 필요/g) ?? []).length}회`)
   await go(admin, `${ADMIN}/admin/knowledge/product`)
   const approveBtn = await admin.getByRole('button', { name: /출시 승인하고 학습자에게 켜기/ }).count()
   await admin.screenshot({ path: path.join(OUT, 's5-admin-product.png'), fullPage: true })
@@ -174,10 +195,12 @@ try {
   await browser.close()
 }
 
-// 정리 — 이번 실행 뒤 생긴 테스트 계정 행만(합성인 것만)
-const cleanup: Record<string, unknown> = {}
+// 정리 — **이 실행이 보낸 제출**(브라우저가 보낸 clientMutationId)로 생긴 행만. 같은 계정 · 같은 시간대의 다른 실행 행은 건드리지 않는다(Codex P1)
+const cleanup: Record<string, unknown> = { sentMutations: sentMutations.size }
 {
-  const { data: atts } = await db.from('learning_task_attempts').select('id,client_mutation_id,session_id,synthetic').eq('user_id', user.id).gt('id', before.attempt ?? 0)
+  const { data: atts } = sentMutations.size
+    ? await db.from('learning_task_attempts').select('id,client_mutation_id,session_id,synthetic').eq('user_id', user.id).in('client_mutation_id', [...sentMutations])
+    : { data: [] }
   const mine = (atts ?? []).filter((r: { synthetic: boolean }) => r.synthetic === true)
   const ids = mine.map((r: { id: number }) => r.id)
   const muts = mine.map((r: { client_mutation_id: string | null }) => r.client_mutation_id).filter(Boolean)

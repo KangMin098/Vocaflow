@@ -137,6 +137,9 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                 data-principle={decision.trace.principleId ?? ''}
                 data-method={decision.trace.methodId ?? ''}
                 data-task-item={decision.trace.taskId ?? ''}
+                data-versions={JSON.stringify(decision.trace.versions)}
+                data-observation={JSON.stringify(decision.trace.observation)}
+                data-reason={decision.reason}
               >
                 <strong>다음 할 일</strong> — {decision.message}
                 {decision.href && (

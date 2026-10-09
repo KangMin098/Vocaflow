@@ -25,15 +25,21 @@ export async function loadResearchCompare(): Promise<ResearchCompareData> {
   const db = createAdminClient() as unknown as SupabaseClient
   const [items, evidence, links] = await Promise.all([
     read('항목', db.from('knowledge_items').select('id,slug,title,layer,status,skill_ids').limit(CAP)),
-    read('근거', db.from('knowledge_evidence').select('item_id,attribution,evidence_level,applicability,applicability_note,research_source_id').limit(CAP)),
-    read('탐구 연결', db.from('knowledge_inquiry_links').select('item_id,inquiry_id,role').limit(CAP)),
+    read('근거', db.from('knowledge_evidence').select('id,item_id,attribution,evidence_level,applicability,applicability_note,research_source_id').limit(CAP)),
+    read('탐구 연결', db.from('knowledge_inquiry_links').select('item_id,evidence_id,inquiry_id,role').limit(CAP)),
   ])
+  // 탐구 연결은 항목에 걸리기도, 그 항목의 **근거 한 건**에 걸리기도 한다 — 근거에 걸린 반대 · 지지도 그 원리의 것으로 센다(Codex P1)
+  const itemOfEvidence = new Map(evidence.map((e) => [String(e.id), String(e.item_id)]))
   const all: RItem[] = items.map((i) => ({ id: String(i.id), slug: String(i.slug), title: String(i.title), layer: String(i.layer), status: String(i.status), skillIds: (i.skill_ids as string[] | null) ?? [] }))
   const ev: (REvidence & { itemId: string })[] = evidence.map((e) => ({
     itemId: String(e.item_id), attribution: (e.attribution as string | null) ?? null, evidenceLevel: (e.evidence_level as string | null) ?? null,
     applicability: (e.applicability as string | null) ?? null, applicabilityNote: (e.applicability_note as string | null) ?? null, researchSourceId: (e.research_source_id as string | null) ?? null,
   }))
-  const ln: RInquiryLink[] = links.map((l) => ({ itemId: (l.item_id as string | null) ?? null, inquiryId: String(l.inquiry_id), role: String(l.role) }))
+  const ln: RInquiryLink[] = links.map((l) => ({
+    itemId: (l.item_id as string | null) ?? (l.evidence_id ? itemOfEvidence.get(String(l.evidence_id)) ?? null : null),
+    inquiryId: String(l.inquiry_id),
+    role: String(l.role),
+  }))
   const principles = all
     .filter((i) => i.layer === 'principle' || i.layer === 'essence')
     .map((i) => comparePrinciple(i, ev.filter((e) => e.itemId === i.id), ln.filter((l) => l.itemId === i.id)))
