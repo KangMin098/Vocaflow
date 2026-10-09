@@ -1,0 +1,17 @@
+{
+  "goal_id": "VG-L3-A2-01",
+  "title": "읽기 시작 기록(markChapterStarted) 회귀 테스트 — not_started 만 in_progress, 완료 강등 금지",
+  "description": "Workspace 진입 시 texts.status 를 바꾸는 apps/web/src/lib/library/mark-progress.ts 에 테스트가 0 개다. 이 경로가 completed 를 in_progress 로 되돌리면 읽기 완료 기록이 사라진다. vi.mock 으로 Supabase 클라이언트를 대체해 status 조건(eq status not_started)과 비로그인 무동작을 고정한다. 결함이 드러나면 같은 파일에서 최소 수정. DB 접속·마이그레이션 없음.",
+  "priority": "P1",
+  "owner_id": "r0-learning-journey",
+  "allowed_paths": ["apps/web/src/lib/library/mark-progress.ts", "apps/web/src/lib/library/__tests__/mark-progress.test.ts"],
+  "forbidden_paths": ["supabase/**", ".env*", "apps/web/src/app/**"],
+  "acceptance": [
+    "로그인 사용자는 status 'in_progress' update 가 id·user_id·status='not_started' 세 조건과 함께 호출된다(completed·extracted·conquered 강등 불가)",
+    "비로그인이면 update 를 호출하지 않는다",
+    "update 오류는 예외 없이 로그만 남긴다",
+    "pnpm --filter web exec vitest run apps/web/src/lib/library/__tests__/mark-progress.test.ts 가 skip 0 으로 통과"
+  ],
+  "worktree": "D:/workspace/Vocaflow-wf6-rc",
+  "branch": "feat/wf6-reading-completion"
+}

@@ -1,0 +1,377 @@
+{
+  "at": "2026-10-09T01:40:36.163Z",
+  "tasks": [
+    {
+      "task_id": "T-0009",
+      "title": "읽기 완료 기록 경로(completeChapter) 회귀 테스트 — status completed 기록·멱등·다음 챕터",
+      "status": "COMPLETED",
+      "verified_commit": "92aab1e3c85a",
+      "review_record": "verification/reviews/T-0009-orch-20261009T011333-ca9cce-r1.md",
+      "evidence": [
+        {
+          "id": "T-0009-R1-E01",
+          "result": "pass",
+          "skip": 0,
+          "covers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "commit": "92aab1e3c85a",
+          "artifact": "verification/tests/orch/20261009T011333-ca9cce/T-0009-r1-t0.log"
+        }
+      ],
+      "history": [
+        {
+          "at": "2026-10-09T01:13:32.981Z",
+          "from": null,
+          "to": "READY",
+          "by": "unknown",
+          "note": "created"
+        },
+        {
+          "at": "2026-10-09T01:13:38.037Z",
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "by": "r0-learning-journey",
+          "note": "orch-20261009T011333-ca9cce"
+        },
+        {
+          "at": "2026-10-09T01:14:42.951Z",
+          "from": "IN_PROGRESS",
+          "to": "REVIEW",
+          "by": "r0-learning-journey",
+          "note": null
+        },
+        {
+          "at": "2026-10-09T01:16:25.501Z",
+          "from": "REVIEW",
+          "to": "COMPLETED",
+          "by": "independent-review",
+          "note": "review=verification/reviews/T-0009-orch-20261009T011333-ca9cce-r1.md"
+        }
+      ]
+    },
+    {
+      "task_id": "T-0010",
+      "title": "읽기 시작 기록(markChapterStarted) 회귀 테스트 — not_started 만 in_progress, 완료 강등 금지",
+      "status": "COMPLETED",
+      "verified_commit": "74e6b35e47dd",
+      "review_record": "verification/reviews/T-0010-orch-20261009T012319-d76f4c-r2.md",
+      "evidence": [
+        {
+          "id": "T-0010-R2-E01",
+          "result": "pass",
+          "skip": 0,
+          "covers": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "commit": "74e6b35e47dd",
+          "artifact": "verification/tests/orch/20261009T012319-d76f4c/T-0010-r2-t0.log"
+        }
+      ],
+      "history": [
+        {
+          "at": "2026-10-09T01:13:33.112Z",
+          "from": null,
+          "to": "READY",
+          "by": "unknown",
+          "note": "created"
+        },
+        {
+          "at": "2026-10-09T01:17:47.126Z",
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "by": "r0-learning-journey",
+          "note": "orch-20261009T011743-02f0c4"
+        },
+        {
+          "at": "2026-10-09T01:23:19.230Z",
+          "from": "IN_PROGRESS",
+          "to": "BLOCKED",
+          "by": "orchestrator",
+          "note": "abandoned run reaped"
+        },
+        {
+          "at": "2026-10-09T01:23:19.266Z",
+          "from": "BLOCKED",
+          "to": "READY",
+          "by": "orchestrator",
+          "note": "orchestrator 복구 — run 20261009T011743-02f0c4 비정상 종료(phase implement)"
+        },
+        {
+          "at": "2026-10-09T01:23:23.200Z",
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "by": "r0-learning-journey",
+          "note": "orch-20261009T012319-d76f4c"
+        },
+        {
+          "at": "2026-10-09T01:24:12.955Z",
+          "from": "IN_PROGRESS",
+          "to": "REVIEW",
+          "by": "r0-learning-journey",
+          "note": null
+        },
+        {
+          "at": "2026-10-09T01:25:13.381Z",
+          "from": "REVIEW",
+          "to": "COMPLETED",
+          "by": "independent-review",
+          "note": "review=verification/reviews/T-0010-orch-20261009T012319-d76f4c-r2.md"
+        }
+      ]
+    },
+    {
+      "task_id": "T-0011",
+      "title": "지문 작업면 북마크 저장(setBookmarked·fetchBookmarked) 회귀 테스트 — 0행 갱신은 실패",
+      "status": "COMPLETED",
+      "verified_commit": "ec983ed743fe",
+      "review_record": "verification/reviews/T-0011-orch-20261009T012319-d76f4c-r1.md",
+      "evidence": [
+        {
+          "id": "T-0011-R1-E01",
+          "result": "pass",
+          "skip": 0,
+          "covers": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "commit": "ec983ed743fe",
+          "artifact": "verification/tests/orch/20261009T012319-d76f4c/T-0011-r1-t0.log"
+        }
+      ],
+      "history": [
+        {
+          "at": "2026-10-09T01:17:30.362Z",
+          "from": null,
+          "to": "READY",
+          "by": "unknown",
+          "note": "created"
+        },
+        {
+          "at": "2026-10-09T01:25:17.147Z",
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "by": "r0-learning-journey",
+          "note": "orch-20261009T012319-d76f4c"
+        },
+        {
+          "at": "2026-10-09T01:26:01.393Z",
+          "from": "IN_PROGRESS",
+          "to": "REVIEW",
+          "by": "r0-learning-journey",
+          "note": null
+        },
+        {
+          "at": "2026-10-09T01:28:05.627Z",
+          "from": "REVIEW",
+          "to": "COMPLETED",
+          "by": "independent-review",
+          "note": "review=verification/reviews/T-0011-orch-20261009T012319-d76f4c-r1.md"
+        }
+      ]
+    },
+    {
+      "task_id": "T-0012",
+      "title": "completeChapter: 형제 챕터 조회 실패 시 bookCompleted:true 오보 수정",
+      "status": "COMPLETED",
+      "verified_commit": "e522afd63cce",
+      "review_record": "verification/reviews/T-0012-orch-20261009T013719-8fcc95-r2.md",
+      "evidence": [
+        {
+          "id": "T-0012-R1-E01",
+          "result": "fail",
+          "skip": 0,
+          "covers": [
+            1
+          ],
+          "commit": "e522afd63cce",
+          "artifact": "verification/tests/orch/20261009T012844-f96d09/T-0012-r1-t0.log"
+        },
+        {
+          "id": "T-0012-R1-E02",
+          "result": "pass",
+          "skip": 0,
+          "covers": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "commit": "e522afd63cce",
+          "artifact": "verification/tests/orch/20261009T012844-f96d09/T-0012-r1-t1.log"
+        },
+        {
+          "id": "T-0012-R2-E03",
+          "result": "pass",
+          "skip": 0,
+          "covers": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "commit": "e522afd63cce",
+          "artifact": "verification/tests/orch/20261009T013719-8fcc95/T-0012-r2-t0.log"
+        }
+      ],
+      "history": [
+        {
+          "at": "2026-10-09T01:28:43.976Z",
+          "from": null,
+          "to": "READY",
+          "by": "unknown",
+          "note": "created"
+        },
+        {
+          "at": "2026-10-09T01:28:48.376Z",
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "by": "r0-learning-journey",
+          "note": "orch-20261009T012844-f96d09"
+        },
+        {
+          "at": "2026-10-09T01:37:19.643Z",
+          "from": "IN_PROGRESS",
+          "to": "BLOCKED",
+          "by": "orchestrator",
+          "note": "abandoned run reaped"
+        },
+        {
+          "at": "2026-10-09T01:37:19.681Z",
+          "from": "BLOCKED",
+          "to": "READY",
+          "by": "orchestrator",
+          "note": "orchestrator 복구 — run 20261009T012844-f96d09 비정상 종료(phase implement_done)"
+        },
+        {
+          "at": "2026-10-09T01:37:23.433Z",
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "by": "r0-learning-journey",
+          "note": "orch-20261009T013719-8fcc95"
+        },
+        {
+          "at": "2026-10-09T01:37:51.871Z",
+          "from": "IN_PROGRESS",
+          "to": "REVIEW",
+          "by": "r0-learning-journey",
+          "note": null
+        },
+        {
+          "at": "2026-10-09T01:39:17.692Z",
+          "from": "REVIEW",
+          "to": "COMPLETED",
+          "by": "independent-review",
+          "note": "review=verification/reviews/T-0012-orch-20261009T013719-8fcc95-r2.md"
+        }
+      ]
+    }
+  ],
+  "runs": {
+    "20261009T011333-ca9cce": {
+      "status": "done",
+      "stop_reason": "작업 수 상한 1",
+      "cost_usd": 0.6084,
+      "tasks_done": [
+        {
+          "task_id": "T-0009",
+          "outcome": "completed",
+          "at": "2026-10-09T01:16:25.528Z"
+        }
+      ],
+      "recovery": null
+    },
+    "20261009T011743-02f0c4": {
+      "status": "aborted",
+      "stop_reason": "프로세스 pid 18024 비정상 종료 — 다음 실행이 복구(phase implement)",
+      "cost_usd": 0,
+      "tasks_done": [],
+      "recovery": null
+    },
+    "20261009T012319-d76f4c": {
+      "status": "done",
+      "stop_reason": "작업 수 상한 2",
+      "cost_usd": 1.0251,
+      "tasks_done": [
+        {
+          "task_id": "T-0010",
+          "outcome": "completed",
+          "at": "2026-10-09T01:25:13.404Z"
+        },
+        {
+          "task_id": "T-0011",
+          "outcome": "completed",
+          "at": "2026-10-09T01:28:05.649Z"
+        }
+      ],
+      "recovery": {
+        "recovered": "20261009T011743-02f0c4",
+        "phase": "implement",
+        "reaped": [
+          {
+            "task_id": "T-0010",
+            "released": [
+              "task--T-0010",
+              "worktree--d__workspace_vocaflow-wf6-rc"
+            ]
+          }
+        ],
+        "revived": [
+          "T-0010"
+        ]
+      }
+    },
+    "20261009T012844-f96d09": {
+      "status": "stopped",
+      "stop_reason": "오류: covers 는 이 증거가 확인하는 acceptance 번호 배열(0~3) · 쥐고 있던 작업을 다음 실행이 복구",
+      "cost_usd": 0.6812,
+      "tasks_done": [],
+      "recovery": null
+    },
+    "20261009T013500-9f22cf": {
+      "status": "done",
+      "stop_reason": "실행 가능한 작업 없음",
+      "cost_usd": 0,
+      "tasks_done": [],
+      "recovery": null
+    },
+    "20261009T013719-8fcc95": {
+      "status": "done",
+      "stop_reason": "작업 수 상한 1",
+      "cost_usd": 0.3333,
+      "tasks_done": [
+        {
+          "task_id": "T-0012",
+          "outcome": "completed",
+          "at": "2026-10-09T01:39:17.715Z"
+        }
+      ],
+      "recovery": {
+        "recovered": "20261009T012844-f96d09",
+        "phase": "implement_done",
+        "reaped": [
+          {
+            "task_id": "T-0012",
+            "released": [
+              "task--T-0012",
+              "worktree--d__workspace_vocaflow-wf6-rc"
+            ]
+          }
+        ],
+        "revived": [
+          "T-0012"
+        ]
+      }
+    }
+  }
+}

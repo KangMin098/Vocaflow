@@ -1,0 +1,4 @@
+{
+  "status": "refused",
+  "reason": "다른 오케스트레이터가 실행 중이다(pid 18024 dead but heartbeat still fresh — recoverable after ttl) — 단일 writer 모드"
+}

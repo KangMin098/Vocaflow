@@ -1,0 +1,18 @@
+{
+  "workflow": "ci.yml",
+  "job": "e2e",
+  "found": true,
+  "run_id": 37863144232,
+  "head_sha": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+  "created_at": "2026-10-09T00:07:37Z",
+  "conclusion": "success",
+  "log_read": true,
+  "skipped_inner": true,
+  "marker": "e2e\tUNKNOWN STEP\t2026-10-09T00:08:04.6948752Z ^[[36;1m  echo \"::notice::e2e 건너뜀 — 저장소 시크릿 미설정. Settings → Secrets 에 NEXT_PUBLIC_SUPABASE_URL 등을 넣으면 활성화됩니다.\"^[[0m",
+  "partial_skip_notes": [
+    "e2e\tUNKNOWN STEP\t2026-10-09T00:08:04.7375735Z ##[notice]e2e 건너뜀 — 저장소 시크릿 미설정. Settings → Secrets 에 NEXT_PUBLIC_SUPABASE_URL 등을 넣으면 활성화됩니다."
+  ],
+  "test_passed": 0,
+  "test_skipped": 0,
+  "fetched_at": "2026-10-09T01:39:24.751Z"
+}

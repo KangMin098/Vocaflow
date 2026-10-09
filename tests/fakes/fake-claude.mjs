@@ -6,6 +6,7 @@
 //   scope      허용 범위 밖(secret.txt)을 고치고 커밋
 //   hang       오래 잠든다(비정상 종료 복구 테스트)
 //   costly     ok + 비용 1.0
+//   redstep    ok + 수정 전 실패 로그(fail) · 미실행(not_run, covers []) 항목을 보고서 tests 에 넣는다(T-0012 실측 형식)
 //   hook_blocked ok + Codex Stop 훅이 그 커밋에 REVIEW_BLOCKED 를 남긴 상황(VFC_REVIEW_VERDICTS 에 기록)
 // 재작업 라운드(FINDINGS_TO_ADDRESS)에는 FAKE_CLAUDE_FINDINGS(fixed|false_positive) 로 답한다.
 
@@ -50,7 +51,10 @@ fs.writeFileSync(
     status: 'implemented',
     commit: git('rev-parse', 'HEAD'),
     changed_files: [target],
-    tests: [{ command: 'node fake-test', result: 'pass', skip_count: 0, log_path: '.vfc-runs/test.log', covers: Array.from({ length: nAcc }, (_, i) => i) }],
+    tests: [
+      ...(scenario === 'redstep' ? [{ command: 'node fake-test (before fix)', result: 'fail', skip_count: 0, log_path: '.vfc-runs/test.log', covers: [1] }, { command: 'tsc', result: 'not_run', skip_count: 0, log_path: '.vfc-runs/test.log', covers: [] }] : []),
+      { command: 'node fake-test', result: 'pass', skip_count: 0, log_path: '.vfc-runs/test.log', covers: Array.from({ length: nAcc }, (_, i) => i) },
+    ],
     notes: 'fake',
     findings_response: findings.map((id) => ({ finding_id: id, action, rationale: action === 'false_positive' ? 'contested: 이 작업 범위 밖의 지적이다(코드 근거 src/)' : '고쳤다', evidence: target })),
   }),

@@ -1,0 +1,45 @@
+No projects matched the filters "d:\workspace\vocaflow-wf6-rc" in "D:\workspace\Vocaflow-wf6-rc"
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+◇ injected env (0) from ..\..\.env.local // tip: ⌘ enable debugging { debug: true }
+◇ injected env (0) from .env.local // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mD:/workspace/Vocaflow-wf6-rc/apps/web[39m
+
+ [33m❯[39m src/lib/library/__tests__/complete-chapter.test.ts [2m ([22m[2m9 tests[22m [2m|[22m [31m1 failed[39m[2m)[22m[90m 16[2mms[22m[39m
+[31m   [33m❯[31m src/lib/library/__tests__/complete-chapter.test.ts[2m > [22mcompleteChapter — [3] 도서 챕터[2m > [22m형제 챕터 조회 실패면 완료 기록(ok)은 유지하되 bookCompleted:false · next null (T-0012)[39m
+[31m     → expected { ok: true, …(3) } to deeply equal { ok: true, …(3) }[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 1 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/lib/library/__tests__/complete-chapter.test.ts[2m > [22mcompleteChapter — [3] 도서 챕터[2m > [22m형제 챕터 조회 실패면 완료 기록(ok)은 유지하되 bookCompleted:false · next null (T-0012)
+[31m[1mAssertionError[22m: expected { ok: true, …(3) } to deeply equal { ok: true, …(3) }[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  Object {[22m
+[2m    "alreadyCompleted": false,[22m
+[32m-   "bookCompleted": false,[39m
+[31m+   "bookCompleted": true,[39m
+[2m    "nextChapterTextId": null,[22m
+[2m    "ok": true,[22m
+[2m  }[22m
+
+[36m [2m❯[22m src/lib/library/__tests__/complete-chapter.test.ts:[2m188:41[22m[39m
+    [90m186| [39m    state[33m.[39msiblingsError [33m=[39m { message[33m:[39m [32m'siblings boom'[39m }[33m;[39m
+    [90m187| [39m    vi[33m.[39m[34mspyOn[39m(console[33m,[39m [32m'error'[39m)[33m.[39m[34mmockImplementation[39m(() [33m=>[39m undefined)[33m;[39m
+    [90m188| [39m    [34mexpect[39m([35mawait[39m [34mcompleteChapter[39m([32m'c2'[39m))[33m.[39m[34mtoEqual[39m({
+    [90m   | [39m                                        [31m^[39m
+    [90m189| [39m      ok[33m:[39m [35mtrue[39m[33m,[39m
+    [90m190| [39m      alreadyCompleted[33m:[39m [35mfalse[39m[33m,[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m8 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 10:29:09
+[2m   Duration [22m 551ms[2m (transform 54ms, setup 0ms, collect 62ms, tests 16ms, environment 0ms, prepare 107ms)[22m
+
+undefined
+D:\workspace\Vocaflow-wf6-rc\apps\web:
+ ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command "vitest" not found

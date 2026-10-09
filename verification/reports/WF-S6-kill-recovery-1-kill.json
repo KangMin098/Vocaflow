@@ -1,0 +1,23 @@
+{
+  "killed_orchestrator_pid": 18024,
+  "task": "T-0010",
+  "run_id": null,
+  "pid_file": "D:/workspace/Vocaflow-AI-Control/runtime/runs/20261009T011743-02f0c4/T-0010-r1/claude.pid.json",
+  "before": {
+    "supervisor": 14492,
+    "child": 2104,
+    "parent": 18024,
+    "exe": "C:/Users/Administrator/AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/bin/claude.exe",
+    "at": "2026-10-09T01:17:47.713Z"
+  },
+  "after": {
+    "supervisor": 14492,
+    "child": 2104,
+    "parent": 18024,
+    "exe": "C:/Users/Administrator/AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/bin/claude.exe",
+    "at": "2026-10-09T01:17:47.713Z"
+  },
+  "child_alive_after_kill": false,
+  "task_status_after_kill": "IN_PROGRESS",
+  "at": "2026-10-09T01:17:54.716Z"
+}

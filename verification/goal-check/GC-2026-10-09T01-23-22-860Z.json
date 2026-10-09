@@ -1,0 +1,745 @@
+{
+  "checked_at": "2026-10-09T01:23:22.860Z",
+  "head": {
+    "main_sha": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3"
+  },
+  "results": [
+    {
+      "goal_id": "VG-L0",
+      "criterion_id": "VG-L0-AC1",
+      "condition": "검증 가능한 학습 수행 개선과 운영 신뢰성이 다양한 목표 학습자에게 확인된다",
+      "level": 0,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L1-A",
+      "criterion_id": "VG-L1-A-AC1",
+      "condition": "목표별 독립 수행·유지·전이·재평가 증거가 있다",
+      "level": 1,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L1-B",
+      "criterion_id": "VG-L1-B-AC1",
+      "condition": "대상별 학습 경로가 접근 가능하고 실제 완주할 수 있다",
+      "level": 1,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L1-C",
+      "criterion_id": "VG-L1-C-AC1",
+      "condition": "공개 콘텐츠가 적격성·품질·계보 계약을 충족한다",
+      "level": 1,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L1-D",
+      "criterion_id": "VG-L1-D-AC1",
+      "condition": "기술 품질과 학습 성과 상태가 분리되어 증빙된다",
+      "level": 1,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-A1",
+      "criterion_id": "VG-L2-A1-AC1",
+      "condition": "목표 설정 및 불확실성 반영 계획을 생성한다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-A2",
+      "criterion_id": "VG-L2-A2-AC1",
+      "condition": "영역별 실제 과제와 복습이 사용 가능하다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-A3",
+      "criterion_id": "VG-L2-A3-AC1",
+      "condition": "미노출 과제와 비교 가능한 재평가를 실행한다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-B1",
+      "criterion_id": "VG-L2-B1-AC1",
+      "condition": "목적별 경로가 공통 학습 상태에 연결된다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-B2",
+      "criterion_id": "VG-L2-B2-AC1",
+      "condition": "완료·다음 할 일·이력이 일관되게 표시된다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-C1",
+      "criterion_id": "VG-L2-C1-AC1",
+      "condition": "배포 자료의 계보와 공개 판정이 존재한다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-C2",
+      "criterion_id": "VG-L2-C2-AC1",
+      "condition": "콘텐츠 사용과 공급 우선순위를 비교한다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-D1",
+      "criterion_id": "VG-L2-D1-AC1",
+      "condition": "학습 이벤트가 정확히 연결되고 개발/실사용 데이터가 분리된다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-D2",
+      "criterion_id": "VG-L2-D2-AC1",
+      "condition": "필수 E2E/배포/보안이 실제 통과한다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L2-D3",
+      "criterion_id": "VG-L2-D3-AC1",
+      "condition": "실제 사용자 사용성과 학습 효과 결과를 구분해 평가한다",
+      "level": 2,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-A1-01",
+      "criterion_id": "VG-L3-A1-01-AC1",
+      "condition": "목표 선택 후 적절한 첫 과제가 추천되고 원인이 불확실하면 이를 표시한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-A1-02",
+      "criterion_id": "VG-L3-A1-02-AC1",
+      "condition": "의심·제외 기록으로 확정 진단을 만들지 않는다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-A2-01",
+      "criterion_id": "VG-L3-A2-01-AC1",
+      "condition": "어휘·문장·읽기·듣기 타입의 측정 계약을 별도로 정의하고 R0 읽기 과제를 통과한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "T-0009 는 이 기준을 부분(partial)으로만 다뤘다 — PASS 근거 아님",
+      "evidence_path": "verification/reviews/T-0009-orch-20261009T011333-ca9cce-r1.md",
+      "commit": "92aab1e3c85a",
+      "scope": "task T-0009",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 1
+    },
+    {
+      "goal_id": "VG-L3-A2-02",
+      "criterion_id": "VG-L3-A2-02-AC1",
+      "condition": "강의·게임 없이도 R0 과제를 완결하고 사용 시 재생과 연습 성과를 구분한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-A3-01",
+      "criterion_id": "VG-L3-A3-01-AC1",
+      "condition": "기존 학습과 다른 콘텐츠/아이템 ID를 갖는 전이 과제를 수행한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-A3-02",
+      "criterion_id": "VG-L3-A3-02-AC1",
+      "condition": "평가 조건과 불확실성을 함께 저장하고 과장 없이 표시한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-B1-01",
+      "criterion_id": "VG-L3-B1-01-AC1",
+      "condition": "일반 읽기와 시험 대비가 동일 화면만 강제하지 않고 적절한 분기점을 갖는다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-B1-02",
+      "criterion_id": "VG-L3-B1-02-AC1",
+      "condition": "선택적 게임·강의·교실 기록이 기존 학습을 손상시키지 않는다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-B2-01",
+      "criterion_id": "VG-L3-B2-01-AC1",
+      "condition": "원자료·척도는 보존하면서 한 학습자 내역에서 탐색한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-B2-02",
+      "criterion_id": "VG-L3-B2-02-AC1",
+      "condition": "오늘 할 일, 완료, 다음 행동, 실패 복귀를 명확히 보여준다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-C1-01",
+      "criterion_id": "VG-L3-C1-01-AC1",
+      "condition": "R0 게시 대상 자료의 원천·변형·적합성·버전을 조회 가능하다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-C1-02",
+      "criterion_id": "VG-L3-C1-02-AC1",
+      "condition": "미확인 또는 부적격 자료는 공개할 수 없다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-C2-01",
+      "criterion_id": "VG-L3-C2-01-AC1",
+      "condition": "학습 수요와 이용률을 공급 데이터에 대응한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-C2-02",
+      "criterion_id": "VG-L3-C2-02-AC1",
+      "condition": "기사·구문·만화 유지/동결/폐기를 검토해 결정 기록이 있다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-D1-01",
+      "criterion_id": "VG-L3-D1-01-AC1",
+      "condition": "핵심 여정 이벤트에 안정된 ID가 있고 중복 생성되지 않는다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "T-0008 는 이 기준을 부분(partial)으로만 다뤘다 — PASS 근거 아님",
+      "evidence_path": "verification/reviews/T-0008-orch-20261008T235208-44646b-r1.md",
+      "commit": "b3c55933a195",
+      "scope": "task T-0008",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 1
+    },
+    {
+      "goal_id": "VG-L3-D1-02",
+      "criterion_id": "VG-L3-D1-02-AC1",
+      "condition": "QA·합성 데이터가 사용자 지표와 효과 평가에서 제외된다",
+      "level": 3,
+      "status": "FAIL",
+      "reason": "기록된 FAIL 유지: AC1 미달(직접 확인): 대시보드 KPI·사용자 수·교사 채널·퍼널·영상 콘솔이 내부 계정을 섞어 센다(감사). 진전: T-0006 COMPLETED — 리텐션 패널은 검증된 외부 계정만 집계(6165b7160, Codex APPROVE). PASS 금지(사용자 지시) · 다음: DL-0017 공통 분류 계약",
+      "evidence_path": "verification/audits/T-0006-metric-contamination-audit.md,verification/reports/T-0006-claude-run.md",
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "recorded",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "FAIL",
+      "considered": 3
+    },
+    {
+      "goal_id": "VG-L3-D2-01",
+      "criterion_id": "VG-L3-D2-01-AC1",
+      "condition": "핵심 E2E skip=0, 실제 배포 후 스모크 pass, 실행 ID가 남는다",
+      "level": 3,
+      "status": "FAIL",
+      "reason": "핵심 E2E skip=0 요구 — job 은 초록이어도 로그가 건너뜀이면 실행 0 · run 37863144232 conclusion=success · 건너뜀 테스트 0 · 로그: e2e\tUNKNOWN STEP\t2026-10-09T00:08:04.6948752Z ^[[36;1m  echo \"::notice::e2e 건너뜀 — 저장소 시크릿 미설정. Settings → Secrets 에 NEXT_PUBLIC_SUPABASE_URL 등을 넣으면 활성화됩니다.\"^[[0m",
+      "evidence_path": "verification/ci/MAIN-ci.yml-e2e-37863144232.json",
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "ci ci.yml/e2e",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "FAIL",
+      "considered": 3
+    },
+    {
+      "goal_id": "VG-L3-D2-02",
+      "criterion_id": "VG-L3-D2-02-AC1",
+      "condition": "필수 접근권한과 데이터 처리·접근성 점검에 중대 결함이 없다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-D3-01",
+      "criterion_id": "VG-L3-D3-01-AC1",
+      "condition": "대상 외부 사용자에게서 학습 여정 과제 수행/오류/이탈 증거를 수집한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    },
+    {
+      "goal_id": "VG-L3-D3-02",
+      "criterion_id": "VG-L3-D3-02-AC1",
+      "condition": "사전등록한 기준선/후속/지연/전이 연구를 실시하고 한계를 보고한다",
+      "level": 3,
+      "status": "UNKNOWN",
+      "reason": "직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "evidence_path": null,
+      "commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3",
+      "scope": "default",
+      "checked_at": "2026-10-09T01:23:22.860Z",
+      "previous_status": "UNKNOWN",
+      "considered": 0
+    }
+  ],
+  "goals": {
+    "VG-L0": {
+      "status": "UNKNOWN",
+      "reason": "VG-L0-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L0-AC1"
+      ]
+    },
+    "VG-L1-A": {
+      "status": "UNKNOWN",
+      "reason": "VG-L1-A-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L1-A-AC1"
+      ]
+    },
+    "VG-L1-B": {
+      "status": "UNKNOWN",
+      "reason": "VG-L1-B-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L1-B-AC1"
+      ]
+    },
+    "VG-L1-C": {
+      "status": "UNKNOWN",
+      "reason": "VG-L1-C-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L1-C-AC1"
+      ]
+    },
+    "VG-L1-D": {
+      "status": "UNKNOWN",
+      "reason": "VG-L1-D-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L1-D-AC1"
+      ]
+    },
+    "VG-L2-A1": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-A1-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-A1-AC1"
+      ]
+    },
+    "VG-L2-A2": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-A2-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-A2-AC1"
+      ]
+    },
+    "VG-L2-A3": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-A3-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-A3-AC1"
+      ]
+    },
+    "VG-L2-B1": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-B1-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-B1-AC1"
+      ]
+    },
+    "VG-L2-B2": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-B2-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-B2-AC1"
+      ]
+    },
+    "VG-L2-C1": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-C1-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-C1-AC1"
+      ]
+    },
+    "VG-L2-C2": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-C2-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-C2-AC1"
+      ]
+    },
+    "VG-L2-D1": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-D1-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-D1-AC1"
+      ]
+    },
+    "VG-L2-D2": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-D2-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-D2-AC1"
+      ]
+    },
+    "VG-L2-D3": {
+      "status": "UNKNOWN",
+      "reason": "VG-L2-D3-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L2-D3-AC1"
+      ]
+    },
+    "VG-L3-A1-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-A1-01-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-A1-01-AC1"
+      ]
+    },
+    "VG-L3-A1-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-A1-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-A1-02-AC1"
+      ]
+    },
+    "VG-L3-A2-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-A2-01-AC1: UNKNOWN — T-0009 는 이 기준을 부분(partial)으로만 다뤘다 — PASS 근거 아님",
+      "criteria": [
+        "VG-L3-A2-01-AC1"
+      ]
+    },
+    "VG-L3-A2-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-A2-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-A2-02-AC1"
+      ]
+    },
+    "VG-L3-A3-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-A3-01-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-A3-01-AC1"
+      ]
+    },
+    "VG-L3-A3-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-A3-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-A3-02-AC1"
+      ]
+    },
+    "VG-L3-B1-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-B1-01-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-B1-01-AC1"
+      ]
+    },
+    "VG-L3-B1-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-B1-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-B1-02-AC1"
+      ]
+    },
+    "VG-L3-B2-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-B2-01-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-B2-01-AC1"
+      ]
+    },
+    "VG-L3-B2-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-B2-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-B2-02-AC1"
+      ]
+    },
+    "VG-L3-C1-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-C1-01-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-C1-01-AC1"
+      ]
+    },
+    "VG-L3-C1-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-C1-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-C1-02-AC1"
+      ]
+    },
+    "VG-L3-C2-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-C2-01-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-C2-01-AC1"
+      ]
+    },
+    "VG-L3-C2-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-C2-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-C2-02-AC1"
+      ]
+    },
+    "VG-L3-D1-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-D1-01-AC1: UNKNOWN — T-0008 는 이 기준을 부분(partial)으로만 다뤘다 — PASS 근거 아님",
+      "criteria": [
+        "VG-L3-D1-01-AC1"
+      ]
+    },
+    "VG-L3-D1-02": {
+      "status": "FAIL",
+      "reason": "VG-L3-D1-02-AC1: FAIL — 기록된 FAIL 유지: AC1 미달(직접 확인): 대시보드 KPI·사용자 수·교사 채널·퍼널·영상 콘솔이 내부 계정을 섞어 센다(감사). 진전: T-0006 COMPLETED — 리텐션 패널은 검증된 외부 계정만 집계(6165b7160, Codex APPROVE). PASS 금지(사용자 지시) · 다음: DL-0017 공통 분류 계약",
+      "criteria": [
+        "VG-L3-D1-02-AC1"
+      ]
+    },
+    "VG-L3-D2-01": {
+      "status": "FAIL",
+      "reason": "VG-L3-D2-01-AC1: FAIL — 핵심 E2E skip=0 요구 — job 은 초록이어도 로그가 건너뜀이면 실행 0 · run 37863144232 conclusion=success · 건너뜀 테스트 0 · 로그: e2e\tUNKNOWN STEP\t2026-10-09T00:08:04.6948752Z ^[[36;1m  echo \"::notice::e2e 건너뜀 — 저장소 시크릿 미설정. Settings → Secrets 에 NEXT_PUBLIC_SUPABASE_URL 등을 넣으면 활성화됩니다.\"^[[0m",
+      "criteria": [
+        "VG-L3-D2-01-AC1"
+      ]
+    },
+    "VG-L3-D2-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-D2-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-D2-02-AC1"
+      ]
+    },
+    "VG-L3-D3-01": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-D3-01-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-D3-01-AC1"
+      ]
+    },
+    "VG-L3-D3-02": {
+      "status": "UNKNOWN",
+      "reason": "VG-L3-D3-02-AC1: UNKNOWN — 직접 검증된 근거 없음(UNKNOWN 은 통과가 아니다)",
+      "criteria": [
+        "VG-L3-D3-02-AC1"
+      ]
+    }
+  }
+}

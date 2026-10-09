@@ -1,0 +1,17 @@
+{
+  "goal_id": "VG-L3-A2-01",
+  "title": "completeChapter: 형제 챕터 조회 실패 시 bookCompleted:true 오보 수정",
+  "description": "T-0009 Codex 독립 리뷰(verification/reviews/T-0009-orch-20261009T011333-ca9cce-r1.md F1)가 찾은 실제 결함. apps/web/src/lib/library/complete-chapter.ts 에서 형제 챕터 조회가 error 를 내면 siblings 가 빈 배열이 되고 every() 가 true 라 미완료 챕터가 남아 있어도 도서 완료로 보고한다. 조회 실패면 bookCompleted 를 true 로 보고하지 않게 고치고 실패 주입 회귀 테스트를 더한다. DB 접속·마이그레이션 없음.",
+  "priority": "P1",
+  "owner_id": "r0-learning-journey",
+  "allowed_paths": ["apps/web/src/lib/library/complete-chapter.ts", "apps/web/src/lib/library/__tests__/complete-chapter.test.ts"],
+  "forbidden_paths": ["supabase/**", ".env*", "apps/web/src/app/**"],
+  "acceptance": [
+    "형제 챕터 조회가 error 를 내면 bookCompleted 는 false 이고 nextChapterTextId 는 null 이며 완료 update 결과(ok)는 유지된다",
+    "형제 조회 실패를 주입하는 회귀 테스트가 고치기 전 코드에서는 실패하고 고친 뒤 통과한다(테스트 이름에 조회 실패 명시)",
+    "기존 completeChapter 테스트가 모두 그대로 통과한다",
+    "pnpm --filter web exec vitest run apps/web/src/lib/library/__tests__/complete-chapter.test.ts 가 skip 0 으로 통과"
+  ],
+  "worktree": "D:/workspace/Vocaflow-wf6-rc",
+  "branch": "feat/wf6-reading-completion"
+}

@@ -413,3 +413,14 @@ test('SH10·11 REVIEW_BLOCKED 커밋은 완료 금지 → BLOCKED, 오케스트�
   assert.deepEqual(r.json.run.tasks_done.map((x) => x.outcome), ['blocked_review_verdict', 'completed'])
   // 그 커밋에 PASS 가 기록된 뒤에는 같은 커밋이 완료될 수 있다(판정은 커밋에 묶인다) — unblock 은 사람 몫이라 여기선 판정 함수만 본다
 })
+
+test('WF6 보고서에 수정 전 실패·미실행 항목이 있어도 실행이 멈추지 않는다 — bad_evidence 재작업 → 반복이면 BLOCKED, 다음 작업 진행', () => {
+  const root = setup()
+  const bad = addTask(root, { title: 'redstep', priority: 'P0' })
+  const good = addTask(root, { title: 'independent', priority: 'P1' })
+  const r = orch(root, ['--max-tasks', '2'], { FAKE_CLAUDE_MAP: JSON.stringify({ [bad.task_id]: 'redstep' }) })
+  assert.ok(r.json?.run, r.err)
+  assert.doesNotMatch(String(r.json.run.stop_reason || ''), /오류/)
+  assert.match(task(root, bad.task_id).blocker.reason, /bad_evidence/)
+  assert.equal(task(root, good.task_id).status, 'COMPLETED')
+})
