@@ -93,3 +93,22 @@ describe('practiceResultsFor', () => {
     expect(out['A3-4']).toMatchObject({ attempts: 0, next: 'start' })
   })
 })
+
+describe('practiceResultsFor — 확인 문항 여러 개(Codex P1)', () => {
+  const conf = (t: string) => ({ href: `/csat/item/${t.replace('#', '-')}#principle`, label: t, target: t, taskKey: 'claim-support' })
+  const links = { 'B6-3': { href: '/csat/item/2022-20#principle', label: 'x', itemId: '2022#20', target: '2022#20', taskKey: 'claim-support', confirm: [conf('2022#20'), conf('2021#20')] } }
+  it('둘째 확인 문항의 수행 · 복습 예약도 지도 결과에 들어간다 · 그 문항은 전이로 세지 않는다', () => {
+    const rows = [row(false, '2026-10-08T10:00:00Z', 'claim-support', '2021#20'), row(true, '2026-10-08T11:00:00Z')]
+    const reviews = [{ item_ref: '2021#20', review_at: '2026-10-09T00:00:00Z', deleted_at: null }]
+    const out = practiceResultsFor(links, rows, [], reviews, new Date('2026-10-10T00:00:00Z'))
+    expect(out['B6-3']).toMatchObject({ attempts: 2, firstCorrect: false, latestCorrect: true, transfer: null, reviewAt: '2026-10-09T00:00:00Z', next: 'review' })
+  })
+  it('첫 시도는 확인 문항들 중 가장 이른 판단', () => {
+    const firsts = [
+      { task_key: 'claim-support', item_ref: '2022#20', is_correct: true, help_level: 'independent', after_explanation: false, answered_at: '2026-10-08T11:00:00Z' },
+      { task_key: 'claim-support', item_ref: '2021#20', is_correct: false, help_level: 'viewed_first', after_explanation: false, answered_at: '2026-10-08T10:00:00Z' },
+    ]
+    const out = practiceResultsFor(links, [row(true, '2026-10-08T11:00:00Z')], firsts)
+    expect(out['B6-3']).toMatchObject({ firstCorrect: false, firstIndependent: false })
+  })
+})

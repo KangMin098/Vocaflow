@@ -333,8 +333,9 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
 
 /** 결과 환류 — 연결된 실행 과제의 본인 수행 기록과 첫 시도. 이 db 는 서버 키라서 user_id 로 직접 좁힌다 */
 async function loadPracticeResults(db: Db, userId: string, links: Record<string, MapPracticeLink>, now: Date): Promise<Record<string, PracticeResult>> {
-  const items = [...new Set(Object.values(links).map((l) => l.itemId))]
-  const keys = [...new Set(Object.values(links).map((l) => l.taskKey))]
+  // 확인 문항 전부 — 첫 문항만 읽으면 다른 확인 문항의 수행 · 복습 예약이 빠진다
+  const items = [...new Set(Object.values(links).flatMap((l) => (l.confirm?.length ? l.confirm.map((c) => c.target) : [l.itemId])))]
+  const keys = [...new Set(Object.values(links).flatMap((l) => (l.confirm?.length ? l.confirm.map((c) => c.taskKey) : [l.taskKey])))]
   if (items.length === 0) return {}
   const LIMIT = 500
   // 연습(연결 문항)과 전이(같은 과제 키 · 다른 문항)를 따로 읽는다 — 한쪽이 많아도 다른 쪽이 창에서 밀려나지 않게. 최근부터
@@ -359,11 +360,14 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
     return count
   }
   for (const [taskId, link] of Object.entries(links)) {
+    // 확인 문항 전부 — 집계(practiceResultsFor)와 같은 범위로 다시 센다
+    const targets = link.confirm?.length ? link.confirm.map((c) => c.target) : [link.itemId]
+    const inList = `(${targets.map((i) => `"${i}"`).join(',')})`
     if ((prac.data ?? []).length >= LIMIT) {
-      out[taskId] = { ...out[taskId], attempts: await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).eq('item_ref', link.itemId).neq('phase', 'transfer'), '수행 횟수') }
+      out[taskId] = { ...out[taskId], attempts: await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('task_key', link.taskKey).in('item_ref', targets).neq('phase', 'transfer'), '수행 횟수') }
     }
     if (tranRows.length >= LIMIT && out[taskId].transfer) {
-      const n = await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).in('task_key', transferKeysOf(link.taskKey)).neq('item_ref', link.itemId), '전이 횟수')
+      const n = await exact(db.from('learning_task_attempts').select('id', { count: 'exact', head: true }).eq('user_id', userId).in('task_key', transferKeysOf(link.taskKey)).not('item_ref', 'in', inList), '전이 횟수')
       out[taskId] = { ...out[taskId], transfer: { ...out[taskId].transfer!, attempts: n } }
     }
   }
