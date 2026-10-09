@@ -13,6 +13,9 @@
 
 - feat(knowledge): 학습 원리 순환 화면 E2E 8/8(`scripts/knowledge/loop-screen-e2e.mts` — 학습 지도 확인 문항 9 · 원리 패널 9 · 실제 제출 · 확인 판정 · 원리 과제 선택 · 관리자 신호 · 접근 제한) · 원리 기반 학습 결정 `learning-decision`(find-policy.v1 · 원리 · 방법 id · 버전 추적) · 성과 신호 「개정 전후 비교」 · 원리 근거 비교 `/admin/knowledge/lab/compare` · 확인 판정은 본인 합성 기록도 센다 · 문항 과제 적용 키 대소문자 가드(모의평가 키 사고 수정).
 
+- feat(map): 기능 단위 직접 확인(verified_diagnosis · 결정 D-1 v1) — 글 구조 확인 문항의 독립 첫 시도 2개가 맞힌 것 없이 막히면 확정 → 단계 시트 처방(바로잡기 · 다른 글에 적용 · 다시 확인) 개방 → 미노출 확인 문항 2개 정답이면 해소 · 막히면 계속 · 120일 만료. 진단 전 Practice 문구는 「한 번 더 확인」(D-7 c). `skill-diagnosis.ts` · `SkillPrescription.tsx` · E2E `e2e-skill-gate.mts`
+
+- docs(map): 한국 영어학습 맵 전체 완료 계약 [MAP_COMPLETION_CONTRACT](./csat-learner/MAP_COMPLETION_CONTRACT.md)(MC-01–16 · ACCEPTED/PARTIAL/FAIL/UNKNOWN/BLOCKED) · 계약 A 원인 판정 · B Evidence Anchor · C FIND→진단 환류 [MAP_CONTRACTS_ABC](./csat-learner/MAP_CONTRACTS_ABC.md)(PROPOSED) · 순수 `evidence-anchor.ts` · `find-feedback.ts` + 단위 테스트. DB · 화면 변경 없음
 - migration `20261009100000_learning_cross_session_help`(M9 · **개발 DB 적용 2026-10-10** · 승인 sha256 daa1f909…) — 첫 시도 뷰 · 효과 게이트가 같은 학습자 · 문항의 다른 세션 도움 · 해설 열람을 시간 순서대로 반영 · `knowledge_trials.sample_signature` + `knowledge_trial_sample_state()` 로 분석 때 표본이 바뀌면 효과 판정 거부. 격리 16/16. 앱 analyzed · efficacy 쓰기 보류 가드(analyzed-gate-hold) 해제. [M9_APPROVAL](./methodology/M9_APPROVAL_2026-10-09.md)
 - feat(csat): 기출 해설 「답이 왜 이것인가」 — 근거 해설이 정답 설명의 영어 인용을 모두 되풀이하기만 하면 한 번만 보인다(새 근거 인용이 있으면 그대로 · 감사 표본 5/7 중복). 강의 문장 가리킴 ↔ 문장 지도 번호 정합 전량 측정 0/6,608 어긋남 · 가드(`lecture-sentence-range.test.ts`).
 

@@ -7,7 +7,7 @@
 
 'use client'
 
-import { BookOpen, ChevronDown, ClipboardCheck, Eye, Lightbulb, Lock, Route, Search, X, Target, HelpCircle } from 'lucide-react'
+import { BookOpen, ChevronDown, ClipboardCheck, Eye, Lightbulb, Search, X, Target, HelpCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { CORE_STATUS_LABEL, LEGACY_PROXY_LABEL, THRESHOLD_NOTE } from '@/lib/csat/map/core'
@@ -16,12 +16,14 @@ import type { MapPageData } from '@/lib/csat/map/load'
 import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
 import { decideStep } from '@/lib/knowledge/learning-decision'
 import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
+import { skillDiagnosis } from '@/lib/csat/map/skill-diagnosis'
 import type { PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
 import { useModalFocus } from '../useModalFocus'
 
 import { STEP_ICON } from './icons'
+import { PRACTICE_HREF, SkillPrescription, SkillStatusLine } from './SkillPrescription'
 import p from './popup.module.css'
 import { stepGoalLink } from '@/lib/csat/map/goal-view'
 import l from './learner.module.css'
@@ -44,6 +46,14 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   const findTargets = find.map((t) => data.practiceLinks?.[t.id]).filter((x): x is NonNullable<typeof x> => !!x).flatMap((x) => (x.confirm ?? [x]).map((c) => ({ itemRef: c.target, taskKey: c.taskKey })))
   // 확인 기록을 못 읽었으면(undefined) 판정하지 않는다 — 「아직 확인 안 함」으로 잘못 보이지 않게
   const outcome = findTargets.length && data.findAttempts ? findOutcome(findTargets, data.findAttempts) : null
+  // 기능 단위 직접 확인(verified_diagnosis · 이 원리만) — 확인 문항 묶음의 독립 첫 시도로 확정 · CHECK · 재진단. 서버 시각이 없으면 판정하지 않는다
+  const skill = findTargets.length && data.findAttempts && data.now ? skillDiagnosis(findTargets, data.findAttempts, new Date(data.now)) : null
+  // 다시 확인하기 — 확정에 쓰지 않았고 아직 풀지 않은 확인 문항
+  const confirmLinks = find.flatMap((t) => data.practiceLinks?.[t.id]?.confirm ?? [])
+  const checkLinks = skill ? confirmLinks.filter((c) => skill.check.remaining.includes(c.target)) : []
+  // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
+  const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
+  const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
   // 원리 기반 학습 결정 — 확인된 요구 → 다음 할 일(정책 버전 · 원리 · 방법 id 를 함께 남긴다)
   const decisionTask = find.find((t) => data.practiceLinks?.[t.id]?.chain)
   const decisionLink = decisionTask ? data.practiceLinks?.[decisionTask.id] : undefined
@@ -123,14 +133,15 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
           </section>
           <section className={`${l.block} ${l.now}`} id="step-check">
             <h3 className={l.blockH}><Search size={14} strokeWidth={1.9} aria-hidden="true" />지금 확인할 것 — {STAGE_WORD.FIND}</h3>
-            {outcome && (
+            {outcome && (!skill || skill.status === 'unverified') && (
               <p className={l.text} data-testid="find-outcome" data-state={outcome.state}>
                 <strong>직접 확인 결과 · {FIND_STATE_LABEL[outcome.state]}</strong> — {outcome.message}
               </p>
             )}
+            <SkillStatusLine skill={skill} />
             {decision && decision.action !== 'no_principle' && (
               <p
-                className={l.text}
+                hidden
                 data-testid="learning-decision"
                 data-action={decision.action}
                 data-policy={decision.trace.policyVersion}
@@ -184,20 +195,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
             )}
             {tasks.err && <p className={l.err} role="alert">{tasks.err}</p>}
           </section>
-          <section className={l.block}>
-            <h3 className={l.blockH}><Route size={14} strokeWidth={1.9} aria-hidden="true" />원인이 확인되면 이어지는 학습</h3>
-            <ol className={l.next}>
-              {later.map((g) => (
-                <li key={g.stage} className={l.nextStep}>
-                  <span className={l.nextName}>
-                    <Lock size={12} strokeWidth={1.9} aria-hidden="true" />
-                    {STAGE_WORD[g.stage]}
-                  </span>
-                  <span className={l.nextList}>{g.tasks.length ? g.tasks.slice(0, 3).map((t) => t.title).join(' · ') : '—'}</span>
-                </li>
-              ))}
-            </ol>
-          </section>
+          <SkillPrescription skill={skill} groups={later.map((g) => ({ stage: g.stage, titles: g.tasks.map((t) => t.title) }))} transferHref={transferHref} checkLinks={checkLinks} />
           <section className={l.block}>
             <button type="button" className={l.moreBtn} aria-expanded={more} onClick={() => setMore((v) => !v)}>
               <ChevronDown size={14} className={more ? l.rot : ''} aria-hidden="true" />
@@ -252,7 +250,7 @@ function PracticeResultLine({ r, practiceHref }: { r: PracticeResult; practiceHr
       </span>
       {/* 학습 순환의 다음 칸 — 이 문항을 마쳤으면 다른 지문에 적용(Practice), 적용도 했으면 새 기출 기록으로 목표 대비 변화를 본다 */}
       {r.next === 'move_on' && practiceHref && !r.transfer && (
-        <a href={practiceHref} style={NEXT_LINK} data-testid="find-next-practice">같은 원리를 다른 지문에 적용해 보기 →</a>
+        <a href={practiceHref} style={NEXT_LINK} data-testid="find-next-practice">다른 지문으로 한 번 더 확인하기 →</a>
       )}
       {r.next === 'move_on' && r.transfer && (
         <a href="/csat/diagnosis?tab=records&modal=new" style={NEXT_LINK} data-testid="find-next-reassess">새 기출을 풀고 기록해 목표 대비 변화 보기 →</a>

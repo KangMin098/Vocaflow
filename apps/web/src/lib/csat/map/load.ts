@@ -36,6 +36,8 @@ export interface MapSourceRow {
 }
 
 export interface MapPageData {
+  /** 서버가 이 화면을 계산한 시각(ISO) — 화면의 기한 판정은 이 값으로만(시계를 직접 읽지 않는다) */
+  now?: string
   model: MapModel
   nodes: MapNodeRow[]
   edges: MapEdgeRow[]
@@ -154,6 +156,7 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
     afterViewedFirst: v === 'helped' || r.after_viewed_first === true,
     afterExplanation: r.after_explanation === true,
     timingUncertain: v === 'uncertain' || r.timing_uncertain === true,
+    answeredAt: typeof r.answered_at === 'string' ? r.answered_at : null,
   }
   })
 }
@@ -346,6 +349,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
   return {
+    now: now.toISOString(),
     model: buildMapModel(raw, examLabels),
     nodes,
     edges,
