@@ -22,7 +22,7 @@ const kids = []
 after(() => kids.forEach((k) => k.kill()))
 
 function env(root, extra = {}) {
-  return { ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, ...extra }
+  return { ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), ...extra }
 }
 function vfc(root, args, extra) {
   const r = spawnSync(process.execPath, [VFC, ...args], { env: env(root, extra), encoding: 'utf8' })
@@ -385,4 +385,31 @@ test('§9 기획이 필요한 작업만 WAITING_CHATGPT 로 두고 요청 파일
   assert.match(r.json.iterations[0].skipped.find((s) => s.task_id === plan.task_id).reason, /WAITING_CHATGPT/)
   // 사소한 작업(플래그 없음)에는 요청을 만들지 않는다
   assert.equal(fs.readdirSync(path.join(root, 'planning', 'requests')).filter((f) => f.endsWith('.md')).length, 1)
+})
+
+// ── Stop 훅 판정 연동(「Stop Hook 리뷰 상한 개선」 9~11) ──
+test('SH9 REVIEW_PASS 는 그 커밋에만 유효 — 다른 커밋의 PASS 로 require_review_pass 작업을 완료하지 못한다', () => {
+  const root = setup()
+  const t = addTask(root, { require_review_pass: true })
+  // 다른 커밋에 대한 PASS 만 있다
+  fs.writeFileSync(path.join(root, 'verdicts.jsonl'), JSON.stringify({ head: 'deadbeefdeadbeefdeadbeefdeadbeefdeadbeef', kind: 'stop', verdict: 'REVIEW_PASS', fix_rounds: 0, p0_p1: [] }) + '\n')
+  const r = orch(root)
+  const tt = task(root, t.task_id)
+  assert.equal(tt.status, 'BLOCKED', JSON.stringify(r.json?.run?.tasks_done))
+  assert.match(tt.blocker.reason, /REVIEW_COMMIT_MISMATCH/)
+  assert.deepEqual(r.json.run.tasks_done.map((x) => x.outcome), ['blocked_review_verdict'])
+})
+
+test('SH10·11 REVIEW_BLOCKED 커밋은 완료 금지 → BLOCKED, 오케스트레이터는 다른 독립 작업을 끝낸다', () => {
+  const root = setup()
+  const bad = addTask(root, { title: 'hook blocked', priority: 'P0' })
+  const good = addTask(root, { title: 'independent', priority: 'P1' })
+  const r = orch(root, ['--max-tasks', '2'], { FAKE_CLAUDE_MAP: JSON.stringify({ [bad.task_id]: 'hook_blocked' }) })
+  const b = task(root, bad.task_id)
+  assert.equal(b.status, 'BLOCKED')
+  assert.match(b.blocker.reason, /REVIEW_BLOCKED: Stop 훅 판정/)
+  assert.ok(!b.history.some((h) => h.to === 'COMPLETED'), '한 번도 COMPLETED 가 되지 않는다')
+  assert.equal(task(root, good.task_id).status, 'COMPLETED')
+  assert.deepEqual(r.json.run.tasks_done.map((x) => x.outcome), ['blocked_review_verdict', 'completed'])
+  // 그 커밋에 PASS 가 기록된 뒤에는 같은 커밋이 완료될 수 있다(판정은 커밋에 묶인다) — unblock 은 사람 몫이라 여기선 판정 함수만 본다
 })

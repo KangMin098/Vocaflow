@@ -22,13 +22,13 @@ function mkRoot() {
 }
 
 function run(rootDir, args, extraEnv = {}) {
-  const r = spawnSync(process.execPath, [CLI, ...args], { env: { ...process.env, VFC_ROOT: rootDir, ...extraEnv }, encoding: 'utf8' })
+  const r = spawnSync(process.execPath, [CLI, ...args], { env: { ...process.env, VFC_ROOT: rootDir, VFC_REVIEW_VERDICTS: path.join(rootDir, "verdicts.jsonl"), ...extraEnv }, encoding: 'utf8' })
   return { code: r.status, out: r.stdout, err: r.stderr }
 }
 
 function runAsync(rootDir, args, extraEnv = {}) {
   return new Promise((resolve) => {
-    const c = spawn(process.execPath, [CLI, ...args], { env: { ...process.env, VFC_ROOT: rootDir, ...extraEnv } })
+    const c = spawn(process.execPath, [CLI, ...args], { env: { ...process.env, VFC_ROOT: rootDir, VFC_REVIEW_VERDICTS: path.join(rootDir, "verdicts.jsonl"), ...extraEnv } })
     let out = ''
     let err = ''
     c.stdout.on('data', (d) => (out += d))

@@ -1,0 +1,153 @@
+{
+  "at": "2026-10-09T00:37:19.206Z",
+  "what": "설치된 Stop 훅(~/.claude/hooks/codex-review.mjs) + 실제 Codex(codex review, effort low) · 일회용 git 저장소 · CODEX_REVIEW_MAX_FIX_ROUNDS=2",
+  "steps": [
+    {
+      "step": "0 baseline",
+      "head": "c5f4baae1",
+      "exit": 0,
+      "message": ""
+    },
+    {
+      "step": "1 defect commit → expect REVIEW_BLOCKED exit 2",
+      "head": "eb840f896",
+      "exit": 2,
+      "message": "[Codex 리뷰 · c5f4baae1..eb840f896 · 수정 0/2회] REVIEW_BLOCKED — 차단 지적(P0·P1):\n- F-b3742cb4ea [P1] src/age.mjs:4 — (목적 이탈) Include age 18 in the adult判定 — \n\n실제 결함이면 고쳐 커밋한다. 오탐이면 현재 작업 범위와 대조한 근거를 한 줄로 남긴다(불편하다는 이유로 넘기지 않는다). P2·P3 는 차단하지 않는다."
+    },
+    {
+      "step": "2a non-fix commit → expect repeat → root-cause (exit 2)",
+      "head": "603fc0a15",
+      "exit": 2,
+      "message": "[Codex 리뷰 · c5f4baae1..603fc0a15 · 수정 1/2회] REVIEW_BLOCKED — 차단 지적(P0·P1):\n- F-afa3383a4e [P1] src/age.mjs:5 — Include age 18 in the adult threshold — \n\n⚠ 같은 결함이 반복됐다(F-afa3383a4e). 땜질 커밋을 더 하지 말고 **원인 분석**부터: 왜 이전 수정이 이 결함을 없애지 못했는지(가정·테스트 빈틈·범위)를 적고, 그 원인을 고친 뒤 커밋하라. 오탐이면 현재 작업 승인 범위(.agent-goal.md)와 대조한 근거를 남겨라.\n\n실제 결함이면 고쳐 커밋한다. 오탐이면 현재 작업 범위와 대조한 근거를 한 줄로 남긴다(불편하다는 이유로 넘기지 않는다). P2·P3 는 차단하지 "
+    },
+    {
+      "step": "2b non-fix commit → limit → final review (expect BLOCKED, exit 0)",
+      "head": "e6676b07f",
+      "exit": 0,
+      "message": "{\"systemMessage\":\"[Codex 최종 리뷰] REVIEW_BLOCKED — 수정 2회 뒤에도 P0/P1 이 남았다(e6676b07f). 이 작업은 완료·병합·배포 금지. 자동 수정 루프는 멈췄다:\\n- F-74a19f1bae [P1] src/age.mjs:5 — (목적 이탈) Include age 18 in the adult threshold — \"}"
+    },
+    {
+      "step": "3 real fix after final → post_final (exit 0)",
+      "head": "04ffe48ea",
+      "exit": 0,
+      "message": "{\"systemMessage\":\"[Codex 최종 이후 리뷰] REVIEW_PASS · 04ffe48ea · 0 P0/P1 — 자동 수정 루프는 다시 시작하지 않습니다. 기록: verdicts.jsonl\"}"
+    },
+    {
+      "step": "4 same head again → no Codex call",
+      "head": "04ffe48ea",
+      "exit": 0,
+      "message": ""
+    }
+  ],
+  "verdict_records": [
+    {
+      "at": "2026-10-09T00:36:18.750Z",
+      "head": "eb840f89623d41b87063da42b493a6619775051e",
+      "range": "c5f4baae17a51860ae39f0bf3dac248311e77b9f..eb840f89623d41b87063da42b493a6619775051e",
+      "diff_hash": "afd0f413adb381243920a6d87c8d4a4a6e8ad0e3",
+      "kind": "stop",
+      "verdict": "REVIEW_BLOCKED",
+      "fix_rounds": 0,
+      "files_reviewed": 1,
+      "files_unreviewed": 0,
+      "failures": [],
+      "p0_p1": [
+        {
+          "severity": "P1",
+          "affected_file": "src/age.mjs",
+          "relevant_line": 4,
+          "defect_summary": "(목적 이탈) Include age 18 in the adult判定 — ",
+          "related_goal_id": "VG-L3-A2-01",
+          "current_work_scope": "성인 판정 함수",
+          "finding_id": "F-b3742cb4ea"
+        }
+      ],
+      "false_positives": [],
+      "raw_paths": [
+        "C:/Users/Administrator/.claude/codex-review/reviews/2026-10-09T00-36-18-748Z-stop-eb840f896.txt"
+      ],
+      "tests": "not_run_by_hook — 테스트 증거는 작업 증거(AI-Control)가 담는다"
+    },
+    {
+      "at": "2026-10-09T00:36:34.539Z",
+      "head": "603fc0a15303f9132404929e11b11ff10c19c9e7",
+      "range": "c5f4baae17a51860ae39f0bf3dac248311e77b9f..603fc0a15303f9132404929e11b11ff10c19c9e7",
+      "diff_hash": "439a2e85a1c585a8675f557c9ed2f9b393c5f56c",
+      "kind": "stop",
+      "verdict": "REVIEW_BLOCKED",
+      "fix_rounds": 1,
+      "files_reviewed": 1,
+      "files_unreviewed": 0,
+      "failures": [],
+      "p0_p1": [
+        {
+          "severity": "P1",
+          "affected_file": "src/age.mjs",
+          "relevant_line": 5,
+          "defect_summary": "Include age 18 in the adult threshold — ",
+          "related_goal_id": "VG-L3-A2-01",
+          "current_work_scope": "성인 판정 함수",
+          "finding_id": "F-afa3383a4e"
+        }
+      ],
+      "false_positives": [],
+      "raw_paths": [
+        "C:/Users/Administrator/.claude/codex-review/reviews/2026-10-09T00-36-34-536Z-stop-603fc0a15.txt"
+      ],
+      "tests": "not_run_by_hook — 테스트 증거는 작업 증거(AI-Control)가 담는다"
+    },
+    {
+      "at": "2026-10-09T00:36:49.885Z",
+      "head": "e6676b07fccac9cd3f72842ce6bc0f2745737dc1",
+      "range": "c5f4baae17a51860ae39f0bf3dac248311e77b9f..e6676b07fccac9cd3f72842ce6bc0f2745737dc1",
+      "diff_hash": "e5b19a8c28273e02945b97ee28c0c9273764cf03",
+      "kind": "final",
+      "verdict": "REVIEW_BLOCKED",
+      "fix_rounds": 2,
+      "files_reviewed": 1,
+      "files_unreviewed": 0,
+      "failures": [],
+      "p0_p1": [
+        {
+          "severity": "P1",
+          "affected_file": "src/age.mjs",
+          "relevant_line": 5,
+          "defect_summary": "(목적 이탈) Include age 18 in the adult threshold — ",
+          "related_goal_id": "VG-L3-A2-01",
+          "current_work_scope": "성인 판정 함수",
+          "finding_id": "F-74a19f1bae"
+        }
+      ],
+      "false_positives": [],
+      "raw_paths": [
+        "C:/Users/Administrator/.claude/codex-review/reviews/2026-10-09T00-36-49-882Z-final-e6676b07f.txt"
+      ],
+      "tests": "not_run_by_hook — 테스트 증거는 작업 증거(AI-Control)가 담는다"
+    },
+    {
+      "at": "2026-10-09T00:36:59.805Z",
+      "head": "04ffe48ea8bafdbb7e2475ecc518bb11eaa7410e",
+      "range": "c5f4baae17a51860ae39f0bf3dac248311e77b9f..04ffe48ea8bafdbb7e2475ecc518bb11eaa7410e",
+      "diff_hash": "8ee1d9acca4ad5c264a7c920a2ca1781ae0842a4",
+      "kind": "post_final",
+      "verdict": "REVIEW_PASS",
+      "fix_rounds": 2,
+      "files_reviewed": 1,
+      "files_unreviewed": 0,
+      "failures": [],
+      "p0_p1": [],
+      "false_positives": [],
+      "raw_paths": [
+        "C:/Users/Administrator/.claude/codex-review/reviews/2026-10-09T00-36-59-804Z-post_final-04ffe48ea.txt"
+      ],
+      "tests": "not_run_by_hook — 테스트 증거는 작업 증거(AI-Control)가 담는다"
+    }
+  ],
+  "vfc_completion_gate": {
+    "eb840f896": "blocked",
+    "603fc0a15": "blocked",
+    "e6676b07f": "blocked",
+    "04ffe48ea": "pass"
+  },
+  "conclusion": "상한(2) 도달 → 읽기 전용 최종 리뷰 1회 REVIEW_BLOCKED(exit 0, 수정 루프 재진입 없음) · 반복 지적은 원인 분석 전환 · 최종 이후 커밋은 post_final 1회 · 같은 head 재호출 없음 · BLOCKED 커밋은 vfc 완료 게이트가 blocked"
+}

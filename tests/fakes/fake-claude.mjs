@@ -6,6 +6,7 @@
 //   scope      허용 범위 밖(secret.txt)을 고치고 커밋
 //   hang       오래 잠든다(비정상 종료 복구 테스트)
 //   costly     ok + 비용 1.0
+//   hook_blocked ok + Codex Stop 훅이 그 커밋에 REVIEW_BLOCKED 를 남긴 상황(VFC_REVIEW_VERDICTS 에 기록)
 // 재작업 라운드(FINDINGS_TO_ADDRESS)에는 FAKE_CLAUDE_FINDINGS(fixed|false_positive) 로 답한다.
 
 import fs from 'node:fs'
@@ -34,6 +35,10 @@ fs.mkdirSync(path.dirname(target), { recursive: true })
 fs.appendFileSync(target, `// ${taskId} ${Date.now()}\n`)
 git('add', target)
 git('commit', '-q', '-m', `fake ${taskId}`)
+if (scenario === 'hook_blocked') {
+  const head = git('rev-parse', 'HEAD')
+  fs.appendFileSync(process.env.VFC_REVIEW_VERDICTS, JSON.stringify({ at: new Date().toISOString(), head, kind: 'final', verdict: 'REVIEW_BLOCKED', fix_rounds: 3, p0_p1: [{ finding_id: 'F-fake', severity: 'P1' }], raw_paths: [] }) + '\n')
+}
 fs.mkdirSync('.vfc-runs', { recursive: true })
 fs.writeFileSync('.vfc-runs/test.log', 'fake tests passed\n')
 const findings = [...prompt.matchAll(/^- (F\d+|ACC) \[/gm)].map((m) => m[1])
