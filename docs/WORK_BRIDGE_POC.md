@@ -21,6 +21,37 @@
 - **중복 방지**: 이미 수집한 응답은 `already_collected`. **오류 뒤 복구**: 무응답 요청은 `--retry`(옛 PR 닫고 새 PR).
 - 원자료: `verification/work-bridge/WF-S10-*`(bridge-log · PR 댓글 출처 · PoC 목표 상태).
 
+## WF-S11 — Context Packet 실증 (실제 UG-0001 · 2026-10-09)
+
+사용자 조건부 승인(1건): 정본·수용 기준 · 실제 코드 경로 · 최소 발췌 · 테스트 구조 · 기준 커밋. 금지: DB · 덤프 · 자격증명 · 사용자 정보 · 전체 소스 · 제품 main · 자동 승인.
+
+| 라운드 | PR | 게시 | Work 응답 | 수집 지연 | 인수 | 결과 |
+|---|---|---|---|---|---|---|
+| R03 | #6 | 17.2초 | 3분 0초 | 9.4초 | 1.5초 | needs_info — Work 가 **우리 결함 2건** 지적: ① 요청 id 충돌(PoC PR #5 와 같은 id) ② 선언 8개 · 게시 6개 불일치 |
+| R05 | #7 | 15.4초 | 2분 57초 | 6.9초 | 0.3초 | needs_info — 실제 경로로 allowed_paths 를 채웠으나 직전 응답 id(옛 충돌 id)의 계보 모호 |
+| R07 | #8 | 13.4초 | 2분 37초 | 9.7초 | 0.6초 | **revise → 설계 v2 PROPOSED 자동 인수** · 승인 없음(APPROVAL_REQUIRED) |
+
+준비 단계: 패킷 생성 1.4~2.0초 · 요청 생성 0.5~0.9초 · 미리보기·검사 22~33ms.
+사용자 개입: 라운드마다 0회(승인 받은 범위 안에서 Claude 가 명령 실행 · Work 는 이벤트로 자동 실행 · 수집·인수는 watch 가 자동).
+
+**설계 v2(PROPOSED · source chatgpt · 승인 안 함)**: allowed_paths = `apps/web/src/lib/library/adaptive-extract.ts` · `…/__tests__/adaptive-extract.test.ts`(main 대조: 없는 경로 0, 테스트 파일은 신규) · db_changes false · 수용 기준 5 · 보존 계약 6.
+Work 는 패킷의 code_verified 발췌 줄 번호(224~245)를 근거로 기존 초안이 놓친 계약 — `completed`·`conquered` 하향 방지 가드, status 갱신 실패의 비치명적 처리 — 를 수용 기준에 넣었다(초안 v1 대비 실제 개선).
+
+### 게시 전 검사가 막은 것 · 실측으로 고친 것
+
+1. 게시 전 검사가 platform-summary 의 **Supabase 프로젝트 ref** 를 잡아 첫 게시를 막았다 → 패킷 생성 때 가림.
+2. 발췌가 앞 60줄뿐이라 판단에 필요한 코드(272·237행)가 빠졌다 → 머리+export+설계 식별자 주변(원본 줄 번호), 274줄 중 132줄.
+3. 요청 id 가 인스턴스마다 따로 매겨져 공유 저장소에서 겹쳤다 → 요청 id 에 인스턴스 이름공간(`REQ-날짜-<ns>-NNN`) · 브랜치·PR 제목 이름공간 · 수집은 자기 인스턴스 PR 만.
+4. 선언 첨부와 게시 파일 불일치 → 외부 첨부 = EXPORT_FILES, manifest 에 exported/withheld(사유).
+5. 직전 응답 계보 → PR 본문에 수집한 댓글 위치.
+6. 요청 뒤 패킷이 바뀌면 게시 거부(첨부 sha256) · `ugoal cancel-request`.
+7. watch: 단일 실행 잠금 · 시간 상한 · STOP 파일 · API 연속 오류 상한 · 수신 즉시 인수.
+
+### 판정
+
+Context Packet 기반 **설계 응답 → PROPOSED 설계 버전 자동 인수까지 실증**. 자동 승인 없음. 다음 단계(설계 v2 승인 → 구현)는 사용자 결정.
+남은 제약: 요청은 한 번에 하나 · watch 는 요청이 있을 때 띄우는 실행(상시 데몬 아님) · Work 댓글은 사용자 명의(앱 출처로 구별).
+
 ## 이번 실측으로 고친 것
 
 1. needs_info·reject 응답은 plan 이 비어도 거부하지 않고 라운드만 닫는다(라운드가 열린 채 남아 다음 요청을 막던 문제).

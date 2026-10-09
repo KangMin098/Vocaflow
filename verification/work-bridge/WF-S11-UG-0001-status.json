@@ -1,0 +1,142 @@
+{
+  "ug_id": "UG-0001",
+  "thread_id": "TH-0001",
+  "title": "단어 추출 계약 회귀 테스트(adaptive-extract)",
+  "origin": "claude",
+  "profile": "BALANCED",
+  "status": "OPEN",
+  "chat_surface": null,
+  "chat_url": null,
+  "owners": [],
+  "canon_goal_ids": [
+    "VG-L3-A2-01"
+  ],
+  "approval": null,
+  "designs": [
+    {
+      "version": 1,
+      "status": "DRAFT",
+      "source": "claude",
+      "request_id": null,
+      "contract_hash": "2cb050d8a0bf",
+      "acceptance": 3
+    },
+    {
+      "version": 2,
+      "status": "PROPOSED",
+      "source": "chatgpt",
+      "request_id": "REQ-20261009-c8315ad8-002",
+      "contract_hash": "93d1da29b7ce",
+      "acceptance": 5
+    }
+  ],
+  "rounds": [
+    {
+      "round_id": "TH-0001-R01",
+      "request_id": null,
+      "sender": "claude",
+      "recipient": "ai-control",
+      "purpose": "goal_start",
+      "design_version": 1,
+      "response_status": "APPLIED",
+      "approval_status": "NONE"
+    },
+    {
+      "round_id": "TH-0001-R02",
+      "request_id": "REQ-20261009-002",
+      "sender": "ai-control",
+      "recipient": "chatgpt",
+      "purpose": "design",
+      "design_version": 1,
+      "response_status": "CANCELLED",
+      "approval_status": "NONE"
+    },
+    {
+      "round_id": "TH-0001-R03",
+      "request_id": "REQ-20261009-003",
+      "sender": "ai-control",
+      "recipient": "chatgpt",
+      "purpose": "design",
+      "design_version": 1,
+      "response_status": "APPLIED",
+      "approval_status": "NONE"
+    },
+    {
+      "round_id": "TH-0001-R04",
+      "request_id": "REQ-20261009-003",
+      "sender": "chatgpt",
+      "recipient": "ai-control",
+      "purpose": "design_response",
+      "design_version": 1,
+      "response_status": "APPLIED",
+      "approval_status": "NONE"
+    },
+    {
+      "round_id": "TH-0001-R05",
+      "request_id": "REQ-20261009-c8315ad8-001",
+      "sender": "ai-control",
+      "recipient": "chatgpt",
+      "purpose": "design",
+      "design_version": 1,
+      "response_status": "APPLIED",
+      "approval_status": "NONE"
+    },
+    {
+      "round_id": "TH-0001-R06",
+      "request_id": "REQ-20261009-c8315ad8-001",
+      "sender": "chatgpt",
+      "recipient": "ai-control",
+      "purpose": "design_response",
+      "design_version": 1,
+      "response_status": "APPLIED",
+      "approval_status": "NONE"
+    },
+    {
+      "round_id": "TH-0001-R07",
+      "request_id": "REQ-20261009-c8315ad8-002",
+      "sender": "ai-control",
+      "recipient": "chatgpt",
+      "purpose": "design_conflict",
+      "design_version": 1,
+      "response_status": "APPLIED",
+      "approval_status": "PENDING_USER"
+    },
+    {
+      "round_id": "TH-0001-R08",
+      "request_id": "REQ-20261009-c8315ad8-002",
+      "sender": "chatgpt",
+      "recipient": "ai-control",
+      "purpose": "design_conflict_response",
+      "design_version": 2,
+      "response_status": "APPLIED",
+      "approval_status": "PENDING_USER"
+    }
+  ],
+  "counters": {
+    "requeries": {
+      "ug0001-acceptance-guard": 1
+    },
+    "total_requeries": 1,
+    "consecutive_failures": 0
+  },
+  "tasks": [],
+  "route": {
+    "ug_id": "UG-0001",
+    "route": "APPROVAL_REQUIRED",
+    "reason": "설계 v2 (PROPOSED) 사용자 승인 대기 — vfc decision add … 「UG-0001@v2」 → vfc ugoal approve",
+    "actor": "user",
+    "design_version": 2,
+    "code_check": {
+      "checked": true,
+      "ref": "origin/main",
+      "missing": [],
+      "new_files": [
+        {
+          "path": "apps/web/src/lib/library/__tests__/adaptive-extract.test.ts",
+          "kind": "new_file",
+          "note": "아직 없는 파일 — 새로 만드는 설계"
+        }
+      ]
+    }
+  }
+}
