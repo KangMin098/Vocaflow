@@ -95,9 +95,18 @@ test('1·12 목표 미달성 검출 · CI 초록이어도 내부 건너뜀이면
   assert.match(d201.reason, /건너뜀/)
   assert.ok(Object.values(r.goals).every((g) => g.status !== 'PASS'), '근거 없는 PASS 없음')
   assert.ok(r.results.every((x) => x.goal_id && x.criterion_id && x.checked_at && x.scope && x.reason))
-  const okCi = { 'VG-L3-D2-01-AC1': { ...ci['VG-L3-D2-01-AC1'], skipped_inner: false } }
+  const okCi = { 'VG-L3-D2-01-AC1': { ...ci['VG-L3-D2-01-AC1'], skipped_inner: false, test_passed: 10, test_skipped: 0 } }
   const r2 = computeGoalCheck({ doc, state: st, ci: okCi, repo: root, git: () => '' })
   assert.notEqual(r2.results.find((x) => x.criterion_id === 'VG-L3-D2-01-AC1').status, 'PASS', 'CI 가 실제로 돌아도 작업 full 증거 없이는 PASS 아님')
+  // 5(최종 리뷰 P1): job 은 실행됐어도 테스트 일부가 건너뛰면 FAIL
+  const partial = { 'VG-L3-D2-01-AC1': { ...okCi['VG-L3-D2-01-AC1'], test_skipped: 1 } }
+  assert.equal(computeGoalCheck({ doc, state: st, ci: partial, repo: root, git: () => '' }).results.find((x) => x.criterion_id === 'VG-L3-D2-01-AC1').status, 'FAIL')
+  // 4(최종 리뷰 P1): CI 판정 게이트 — 판독 없음·커밋 불일치·테스트 0·건너뜀은 PASS 허용 안 함
+  const { ciAllowsPass } = await import(`file:///${path.join(REPO, 'lib', 'goalcheck.mjs').replace(/\\/g, '/')}`)
+  assert.equal(ciAllowsPass(undefined, 'abc').ok, false)
+  assert.equal(ciAllowsPass({ ...okCi['VG-L3-D2-01-AC1'], head_sha: 'aaaaaaa1' }, 'bbbbbbb2').ok, false)
+  assert.equal(ciAllowsPass({ ...okCi['VG-L3-D2-01-AC1'], test_passed: 0 }, null).ok, false)
+  assert.equal(ciAllowsPass({ ...okCi['VG-L3-D2-01-AC1'], head_sha: 'abc1234' }, 'abc1234ffff').ok, true)
 })
 
 test('11 관련 코드가 검증 뒤 바뀌면 과거 PASS 를 무효화한다', async () => {
@@ -108,10 +117,23 @@ test('11 관련 코드가 검증 뒤 바뀌면 과거 PASS 를 무효화한다',
   const { loadCriteria } = await import(`file:///${path.join(REPO, 'lib', 'goals.mjs').replace(/\\/g, '/')}`)
   const doc = loadCriteria()
   const st = loadState().state
-  st.taskQueue.tasks.push({ task_id: 'T-9000', status: 'COMPLETED', goal_id: 'VG-L3-A2-01', criterion_claims: [{ criterion_id: 'VG-L3-A2-01-AC1', claim: 'full' }], run_seq: 1, evidence: [{ evidence_id: 'e', run_seq: 1, result: 'pass', skip_count: 0 }], allowed_paths: ['src/**'], verified_commit: 'abc1234', reviewed_by: 'independent-review', review_record: 'verification/reviews/x.md' })
+  // 증거·리뷰 원본과 그 해시(무결성) — PASS 는 파일이 지금도 그대로일 때만
+  const sh = (s) => crypto.createHash('sha256').update(s).digest('hex')
+  fs.mkdirSync(path.join(root, 'verification', 'reviews'), { recursive: true })
+  fs.mkdirSync(path.join(root, 'verification', 'tests'), { recursive: true })
+  fs.writeFileSync(path.join(root, 'verification', 'reviews', 'x.md'), 'review')
+  fs.writeFileSync(path.join(root, 'verification', 'tests', 'e.log'), 'ok')
+  st.taskQueue.tasks.push({ task_id: 'T-9000', status: 'COMPLETED', goal_id: 'VG-L3-A2-01', criterion_claims: [{ criterion_id: 'VG-L3-A2-01-AC1', claim: 'full' }], run_seq: 1, evidence: [{ evidence_id: 'e', run_seq: 1, result: 'pass', skip_count: 0, artifact_path_or_url: 'verification/tests/e.log', artifact_sha256: sh('ok') }], allowed_paths: ['src/**'], verified_commit: 'abc1234', reviewed_by: 'independent-review', review_record: 'verification/reviews/x.md', review_record_sha256: sh('review') })
   const gitUnchanged = (repo, args) => (args[0] === 'diff' ? '' : '')
   const pass = computeGoalCheck({ doc, state: st, repo: root, git: gitUnchanged }).results.find((x) => x.criterion_id === 'VG-L3-A2-01-AC1')
   assert.equal(pass.status, 'PASS')
+  // 6(최종 리뷰 P1): 증거가 바뀌거나 사라지면 PASS 아님
+  fs.writeFileSync(path.join(root, 'verification', 'tests', 'e.log'), 'tampered')
+  assert.match(computeGoalCheck({ doc, state: st, repo: root, git: gitUnchanged }).results.find((x) => x.criterion_id === 'VG-L3-A2-01-AC1').reason, /무결성 실패.*바뀌었다/)
+  fs.rmSync(path.join(root, 'verification', 'reviews', 'x.md'))
+  assert.match(computeGoalCheck({ doc, state: st, repo: root, git: gitUnchanged }).results.find((x) => x.criterion_id === 'VG-L3-A2-01-AC1').reason, /리뷰 기록 .* 없다/)
+  fs.writeFileSync(path.join(root, 'verification', 'tests', 'e.log'), 'ok')
+  fs.writeFileSync(path.join(root, 'verification', 'reviews', 'x.md'), 'review')
   const gitChanged = (repo, args) => (args[0] === 'diff' ? 'src/a.ts\n' : '')
   const inv = computeGoalCheck({ doc, state: st, repo: root, git: gitChanged }).results.find((x) => x.criterion_id === 'VG-L3-A2-01-AC1')
   assert.equal(inv.status, 'UNKNOWN')
@@ -315,8 +337,30 @@ test('10 실행 중 프로세스가 죽으면 다음 실행이 run 을 aborted �
     }
   }
   assert.equal(task(root, t.task_id).status, 'IN_PROGRESS')
+  const runsDir = path.join(root, 'runtime', 'runs')
+  // 감독자가 자식을 띄워 pid 파일을 남길 때까지 기다린 뒤 부모를 죽인다(그 전에 죽이면 자식이 아예 없다)
+  const pidFileExists = () => (fs.existsSync(runsDir) ? fs.readdirSync(runsDir, { recursive: true }) : []).some((f) => String(f).endsWith('claude.pid.json'))
+  for (let i = 0; i < 100 && !pidFileExists(); i++) await new Promise((r) => setTimeout(r, 200))
   child.kill('SIGKILL')
-  await new Promise((r) => setTimeout(r, 500))
+  // 3(최종 리뷰 P1): 부모가 죽으면 감독자가 매달린 Claude 자식 트리를 끝낸다 — 고아가 worktree 를 계속 쓰지 않게
+  let pidInfo = null
+  for (const f of fs.readdirSync(runsDir, { recursive: true }).filter((x) => String(x).endsWith('claude.pid.json'))) pidInfo = JSON.parse(fs.readFileSync(path.join(runsDir, f), 'utf8'))
+  assert.ok(pidInfo?.child, '감독자가 자식 pid 를 남긴다')
+  // 불변식은 「자식이 죽는다」 — 감독자가 exited 를 적고 끝나든(부모 감시), 부모와 함께 정리되든(Windows job) 어느 쪽이든 자식이 남으면 안 된다
+  const alive = (pid) => {
+    try {
+      process.kill(pid, 0)
+      return true
+    } catch {
+      return false
+    }
+  }
+  let childAlive = true
+  for (let i = 0; i < 40 && childAlive; i++) {
+    await new Promise((r) => setTimeout(r, 250))
+    childAlive = alive(pidInfo.child)
+  }
+  assert.equal(childAlive, false, `매달린 가짜 Claude 프로세스가 남지 않는다: ${JSON.stringify(pidInfo)}`)
   // 죽은 오케스트레이터가 쥐던 싱글턴은 pid 사망 + ttl 경과 후에만 회수 — 첫 실행이 잡은 싱글턴 ttl 을 짧게 준다
   const r = orch(root, [], { VFC_ORCH_TTL_MS: '1' })
   assert.ok(r.json, r.err)

@@ -1,0 +1,19 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+◇ injected env (0) from ..\..\.env.local // tip: ⌘ suppress logs { quiet: true }
+◇ injected env (0) from .env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mD:/workspace/Vocaflow-wf5-t8/apps/web[39m
+
+ [32m✓[39m src/lib/__tests__/offset-paging-budget.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[33m 1741[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-classification.test.ts [2m ([22m[2m8 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m src/components/admin/__tests__/RetentionPanel.test.tsx [2m ([22m[2m13 tests[22m[2m)[22m[90m 39[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/account-classification.test.ts [2m ([22m[2m24 tests[22m[2m)[22m[90m 5[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-math.test.ts [2m ([22m[2m14 tests[22m[2m)[22m[90m 4[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/row-cap-lies.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[33m 942[2mms[22m[39m
+ [32m✓[39m src/lib/admin/__tests__/retention-server-boundary.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[90m 261[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m      Tests [22m [1m[32m70 passed[39m[22m[90m (70)[39m
+[2m   Start at [22m 09:06:48
+[2m   Duration [22m 4.96s[2m (transform 132ms, setup 0ms, collect 302ms, tests 3.01s, environment 1ms, prepare 631ms)[22m
+
