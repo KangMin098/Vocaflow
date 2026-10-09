@@ -456,7 +456,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `POST …/seed` · `GET …/seed-list` | seed_catalog 적재·조회 |
 | `POST …/bulk-requeue` | 선택분 큐 재투입 |
 | `POST …/force-publish` | 검수 건너뛰고 발행; reading: adaptation children return 409 |
-| `POST …/reading-promotion` | 실제 활성 admin 세션 전용. `register-order`/`register-authority`/`approve` RPC만 호출한다. 개발용 admin bypass와 curator는 거부하고 service_role을 사용하지 않는다. 개발 DB에는 migration이 적용됐으나 실제 authority·order 등록은 0건이다. 화면 액션은 아직 없다. |
+| `POST …/reading-promotion` | 실제 활성 admin 세션 전용. `register-order-document`/`register-authority`/`approve` RPC만 호출한다. 개발용 admin bypass와 curator는 거부하고 service_role을 사용하지 않는다. 개발 DB에는 migration이 적용됐으나 실제 authority·order 등록은 0건이다. `/admin/csat/new`에서 완전한 Product Order JSON 등록 화면을 제공한다. |
 | `POST …/revert` | 발행 되돌리기 |
 | `POST …/delete` | 삭제 (+ seed unlock) |
 

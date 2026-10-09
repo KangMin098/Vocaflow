@@ -10,13 +10,17 @@ import { loadOrderView } from '@/lib/csat/order-view'
 
 import { MakeGuide } from './MakeGuide'
 import { OrderWizard } from './OrderWizard'
+import { ProductOrderRegistration } from './ProductOrderRegistration'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminCsatNewPage() {
-  await requireAdmin('/admin/csat/new')
+  const admin = await requireAdmin('/admin/csat/new')
   const view = await loadOrderView()
   // 학년 이름은 독해 시리즈의 계단(학령 정본 SERIES_SPINE 의 순서)에서 가져온다 — 여기서 짓지 않는다.
   const grades = [...new Set(view.volumes.filter((v) => v.seriesId === 'reading').map((v) => v.schoolBand))]
-  return <OrderWizard {...view} guide={<MakeGuide grades={grades} seriesList={view.seriesList} />} />
+  return <>
+    <OrderWizard {...view} guide={<MakeGuide grades={grades} seriesList={view.seriesList} />} />
+    {admin.role === 'admin' ? <ProductOrderRegistration /> : null}
+  </>
 }

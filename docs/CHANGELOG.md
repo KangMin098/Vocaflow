@@ -169,6 +169,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(textbook): 관리자 화면에서 완전한 Product Order를 서버 검증·봉인한 뒤 동일 ID/revision/hash로 제한 승격 주문 등록 경로에 연결.
+
 - design(illo): 허브 가운데 큰 그림을 꽃 · 깃발 줄(`hero-book-field`)에서 책 위로 솟은 작은 건축 도시(`hub-hero-field.webp`)로, 아래 시작 띠(허브 · 랜딩 `ScatterCta`)를 스티커 소품 흩뿌림에서 기하 조각(`band-geo.webp`)으로 교체. `hero-book-field` 는 랜딩 `PatternWord` 무늬로 남는다.
 
 - design(illo): 히어로 양옆 판 6장(허브 · My Library · 연습 모듈)을 STYLE_CONCEPT 로 재생성 — 구름 · 반짝이 · 점선 궤적 → 책 위 계단과 아치 · 기하 탑 · 톱니 컨베이어 · 타일 프레스 · 조명 아래 보석 받침 · 나선 경로. 오른쪽 판은 `hero-tower.webp` 로 새 이름(같은 이름이면 이미지 최적화 캐시가 옛 그림을 계속 내준다).

@@ -38,3 +38,8 @@ This is a pipeline-contract verdict, not a claim that every P01–P20 product ca
 The optional `--previous-manifest` argument to `atomic-production-run.mjs` checks the prior manifest hash before DB capture, compares it to the newly rendered manifest, and emits a read-only `revision_impact` plan for source, passage, item, explanation, unit, volume and render. Source/rights changes propagate across grades; an item change affects its grade before invalidating the shared volume. The DB remains the authority for current evidence and publication. This diagnostic does not persist catalog states or authorize reuse of an older artifact.
 
 Final scoped verification: promotion-preview, reading-promotion preflight, atomic-runner recovery and revision-impact tests **17/17 passed**. Agent configuration **11/11 passed**. `pnpm turbo run lint typecheck test` reported **15/15 tasks from cache**; this is not a fresh full-suite rerun. Read-only cross-review found no remaining P1/P2 after the pre-capture validation and per-grade impact fixes.
+
+
+## 2026-10-09 관리자 주문 등록 경계
+
+/admin/csat/new의 기존 권별 재고·조판 계획 아래에 Product Order JSON 등록을 연결했다. 서버는 문서 전체를 검증하고 ID·revision·정본 hash만 인증된 관리자 RPC로 보낸다. 임의 hash 직접 입력 API는 제거했다. 이 등록은 주문 증거 경계이며 실제 Gold-S, seed, 승격, 생산이나 게시를 실행하지 않는다. 주문 문서 원본은 DB에 저장되지 않으므로 별도 보존이 필요하다. 기존 권별 계획값을 Product Order로 자동 변환하지는 않는다. 서로 다른 제품 모델을 추정해 합치면 잘못된 정책 hash와 타겟을 생성할 수 있기 때문이다.

@@ -1177,3 +1177,6 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 ## 소스 수집 프로필 팝업 (2026-09-25)
 
 소스 이름이 나오는 관리자 화면(`/admin/csat/sources` 원천 목록 · 파이프라인 보드 · `/admin/articles` 소스 피드 목록)에서 이름을 누르면 `SourceProfileDialog` 가 뜬다. 값은 `GET /api/admin/sources/[source]/profile`(읽기 전용 · 관리자 인증) — 전량은 head count, 어수·피드·소재 분포는 최근 500편 표본(표본 크기를 함께 표시). 골격은 정오표 6행(재고 · 판정 · 수준 · 권리 · 구성 · 최근 원문), 첫 줄은 `profileIssues` 가 고른 가장 먼저 볼 문제(없으면 비움).
+
+
+/admin/csat/new: 완전한 Product Order JSON을 관리자 세션으로 등록한다. 서버는 주문 스키마, 타겟, capability를 검증하고 정본 hash를 계산하여 register_reading_product_order RPC에 주문 ID, revision, hash를 전달한다. 등록은 콘텐츠 승격이나 발행을 실행하지 않는다. 원본 주문 문서는 운영자가 별도 보존한다.

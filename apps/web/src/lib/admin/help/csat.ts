@@ -131,6 +131,11 @@ export const CSAT_HELP: HelpRegistry = {
       ],
       steps: [
         {
+          title: 'Product Order 등록',
+          detail: '완성된 Product Order JSON을 붙여 넣고 검증 및 등록을 누른다. 서버가 target·capability를 검사하고 주문 ID·revision·hash를 현재 관리자 세션으로 등록한다. 응답 hash를 이후 제한 승격 증거와 대조한다.',
+          done: '주문 ID·revision·hash가 표시된다. 등록만으로 콘텐츠가 승격되지는 않는다.',
+        },
+        {
           title: '① 무엇을',
           detail:
             '시리즈 셋(독해 · 어휘 · 구문) 중 하나를 고르고 그 시리즈의 단(학령)을 고른다. 단 칸의 수는 그 권이 쓰는 유형들의 **재고 합**이지 전체 재고가 아니다.',
@@ -156,6 +161,10 @@ export const CSAT_HELP: HelpRegistry = {
       ],
       fields: [
         {
+          label: 'Product Order JSON',
+          detail: '정본 주문 문서 전체를 입력한다. 잘못된 JSON, 제품·학년·타겟 혼합, 미지원 capability는 DB 호출 전에 거부된다. 문서 자체는 DB에 저장되지 않으므로 등록한 원본을 별도로 보존한다.',
+        },
+        {
           label: '관문이 왜 넷인가',
           detail:
             '순서가 곧 인과다 — 문항이 없으면 해설이 있을 수 없고, 배합에 빈 유형이 있으면 문항 수가 차도 그 권은 못 찍는다. 그래서 처음 막힌 하나만 편다. 뒤 관문이 더 나빠 보여도 거기부터 풀면 헛일이 된다.',
@@ -172,8 +181,9 @@ export const CSAT_HELP: HelpRegistry = {
         },
       ],
       cautions: [
+        'Product Order 등록은 완전한 JSON 문서를 서버에서 검증하고 주문 ID·revision·hash만 승격 권한 경로에 기록합니다. 등록만으로 지문 승격·Gold-S·조판·게시가 실행되지는 않습니다. 주문을 바꾸면 새 revision으로 다시 등록해야 합니다.',
         '구조 참고 API(`/api/admin/csat/structural-planning`)는 Product Order를 받은 뒤 현재 외부 증거를 다시 확인해 선택/무시 기록만 돌려준다. 이 화면의 발주 명령이나 학년·난도·Gold-S 판정은 자동으로 바뀌지 않는다. 외부 corpus 경로가 설정되지 않았거나 해시가 바뀌면 503으로 중단한다.',
-        '이 화면에는 **실행 버튼이 없다.** 교재 생성은 사전·재고 전체를 훑는 일이라 웹 요청 시간 안에 안 끝난다. 산출물은 복사해서 터미널에 붙이는 명령 한 줄이다.',
+        'Product Order 등록 버튼은 DB에 주문 revision을 기록한다. 기존 권별 계획의 조판·드레인 명령은 여전히 복사해 터미널에서 별도로 실행한다. 등록 실패 시 원본 문서를 고친 뒤 재시도하고, 등록 뒤 문서를 바꾸면 새 revision으로 봉인한다.',
         '조판(render-volume.mjs)은 **재실행 안전**이다 — 조판 기록은 (시리즈, 단) 한 행을 덮어쓰므로 몇 번을 돌려도 행이 안 늘고 마지막 조판이 정본이 된다. HTML 출력 파일은 덮어쓴다.',
         '④ 의 채우기 명령 중 --commit 이 붙은 것은 **DB 에 쓴다.** 붙지 않은 것은 청크 파일만 만든다(읽기).',
       ],
