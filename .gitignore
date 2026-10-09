@@ -14,3 +14,5 @@ planning/responses/*
 *.key
 runtime/runs/
 runtime/STOP
+runtime/*.json
+runtime/*.err
