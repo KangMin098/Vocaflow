@@ -2,7 +2,7 @@
 
 교재 공장 Phase 1 공통 주문·원천 라우팅·제품군 기능표·증거 판본·상태→9공정 연결은 [통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md)을 따른다. 순수 계약은 DB 승격이나 교재 완주가 아니다.
 복수 학년 조립과 원자 snapshot 검증은 문항 계보의 `benchmark_version`과 표본 variant의 판본도 일치해야 한다. snapshot hash만 맞고 판본이 달라지면 조판 전에 중단한다. 합성 실패·재발행 절차는 [교재 공장 복구 절차](./textbook-factory-recovery.md)를 따른다.
-20일 계획 같은 복수 단원 합성 권은 `product-planning.ts`에서 학년별 누락, 계획 라벨(능력·난도·영역·장르·문항 유형·복습), 지문 길이·원천 배합을 검사한 후에만 비운영 HTML로 조립한다. 실제 문항·해설의 존재와 주문 정본은 이 합성 ledger의 검증 대상이 아니다. 운영 DB의 다중 지문 원자 권 생산은 별도 미구현이다.
+20일 계획 같은 복수 단원 합성 권은 `product-planning.ts`에서 학년별 누락, 계획 라벨(능력·난도·영역·장르·문항 유형·복습), 지문 길이·원천 배합, sealed Product Order 및 문항·해설·근거 구간의 합성 기록을 검사한 후에만 비운영 HTML로 조립한다. 운영 DB의 다중 지문 원자 권 생산은 별도 미구현이다.
 
 Phase 2 `reading:` 자식의 order별 관리자 승인·현재 authority 판본·전용 DB 승격/감사 경로는 [통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md) §Phase 2를 따른다. 개발 DB migration은 적용됐으나 authority·order·승인 registry가 비어 있어 실데이터 승격은 차단된다.
 

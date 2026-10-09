@@ -17,3 +17,5 @@
 재실행 안전성: 읽기·계획·검증은 같은 입력에 재실행 가능하다. 제한 승격은 동일 승인·동일 요청의 idempotent 결과를 확인한 뒤에만 재시도한다. 출력 승인이 결속된 원자 snapshot capture는 그 승인을 소비한다. finalize 실패 후 단순 재호출은 막히므로 새 그룹 revision의 미승인 조판을 먼저 완료한 뒤 그 snapshot/output hash에 대한 독립 승인을 받아야 한다. publish도 1회 경로다. 합성 테스트는 소비된 승인 재사용 거부와 새 revision→미승인 조판→독립 승인→승인 소비용 snapshot의 복구 순서를 검증했다. 실제 DB 롤백은 진행 중인 테스트 트랜잭션에만 적용한다. 이미 커밋된 승격·게시를 임의 DELETE/UPDATE로 되돌리지 않는다.
 
 운영 판정: `TEXTBOOK_FACTORY_PIPELINE_COMPLETE`는 합성 공정의 구현·검증 상태다. `TEXTBOOK_FACTORY_PRODUCTION_VERIFIED`는 실제 증거를 사용한 별도 운영 E2E 이후에만 참이다.
+
+개정 영향 예행은 `inspectProductionRevisionImpact`로 이전·새 manifest의 변경 범위를 계산한 뒤 `beginSyntheticRevisionWorkflow`로 시작한다. 변경은 `needs_review → revise → republish → complete` 순서로만 진행한다. 재구축 실패는 `needs_review`로 돌아가며 같은 이벤트 ID의 다른 내용은 거부한다. 권리 철회는 `withdraw`에서 종료하고 이전 revision을 다시 발행하지 않는다. 모든 이벤트는 동일 group ID와 새 manifest hash에 결속하며 최종 출력 hash가 재구축 hash와 다르면 발행 예행도 거부한다. 이 journal은 합성·비운영 검사이며 실제 카탈로그나 게시 행을 수정하지 않는다.

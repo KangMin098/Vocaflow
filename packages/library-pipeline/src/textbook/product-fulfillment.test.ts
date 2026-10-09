@@ -1,6 +1,9 @@
 // packages/library-pipeline/src/textbook/product-fulfillment.test.ts
 import { describe, expect, it } from 'vitest'
-import { assemblePlannedVolumeSynthetic, planProductBrief, verifyProductPlanFulfillment } from './product-planning'
+import { createHash } from 'node:crypto'
+import { readFileSync } from 'node:fs'
+import { assemblePlannedVolumeSynthetic, buildProductOrderFromBrief, planProductBrief, verifyProductPlanFulfillment } from './product-planning'
+import { sealProductOrder } from './factory-order'
 
 const brief = {
   schema: 'textbook-product-brief/1', grade_scope: { mode: 'grade_range', grades: ['middle_1', 'middle_2'] },
@@ -9,23 +12,44 @@ const brief = {
   difficulty: { start: 3, end: 6 }, passage_words: { start: 180, end: 260 }, source_strategy: 'balanced',
 }
 const hash = (char: string) => char.repeat(64)
-function fixture() {
-  const { plan, plan_hash } = planProductBrief(brief)
-  const orders = plan.brief.grade_scope.grades.map((grade, index) => ({ grade,
-    product_order_id: `order-${grade}`, order_revision: 1, order_hash: hash(index ? 'b' : 'a'),
-    planning_hash: plan_hash }))
-  const units = orders.flatMap(order => plan.units.map(unit => {
+function fixture(inputBrief = brief) {
+  const { plan, plan_hash } = planProductBrief(inputBrief)
+  const baseTarget = JSON.parse(readFileSync(new URL('../../../../scripts/textbook/targets/knowledge-middle1.json', import.meta.url), 'utf8'))
+  const orders = plan.brief.grade_scope.grades.map(grade => {
+    const shell = {
+      schema: 'textbook-product-order/1' as const,
+      product_order_id: `order-${grade}`, order_revision: 1, series_id: 'relation-reading', edition_id: 'first',
+      product_variant: 'relation', target: { ...baseTarget, age_band: grade, reasoning_band: grade, family: 'P09', skills: ['R3'] },
+      exam_alignment: [], source_policy_version: 'source-v1', source_policy_hash: hash('1'),
+      rights_policy_version: 'rights-v1', rights_policy_hash: hash('2'),
+      adaptation_policy_version: 'adapt-v1', adaptation_policy_hash: hash('3'),
+      unit_spec_version: 'unit-v1', chapter_spec_version: 'chapter-v1', volume_spec_version: 'volume-v1',
+      layout_profile: 'reading-v1', benchmark_contract_version: 'benchmark-v1', benchmark_contract_hash: hash('4'),
+      evidence_policy_version: 'evidence-v1', evidence_policy_hash: hash('5'),
+      trust_policy_version: 'trust-v1', trust_policy_hash: hash('6'),
+      created_at: '2026-10-09T00:00:00Z', sealed_at: '2026-10-09T00:01:00Z',
+    }
+    const sealed = buildProductOrderFromBrief(inputBrief, grade, shell)
+    return { grade, order: sealed.order, order_hash: sealed.order_hash }
+  })
+  const units = orders.flatMap(entry => plan.units.map(unit => {
     const passage = Array.from({ length: unit.passage_words_target }, (_, index) => `word${index}`).join(' ')
-    return { day: unit.day, grade: order.grade, product_order_id: order.product_order_id,
-      order_revision: order.order_revision, order_hash: order.order_hash, planning_hash: plan_hash,
+    const prompt = `Which relation is supported on day ${unit.day} for ${entry.grade}?`
+    const item = { item_id: `${entry.grade}-${unit.day}-item`, item_type: unit.item_type_target!,
+      prompt, answer: 'The stated relation', explanation: 'The cited passage supports the answer.',
+      evidence_quote: 'word0 word1', passage_hash: createHash('sha256').update(passage).digest('hex'),
+      product_order_id: entry.order.product_order_id, order_revision: entry.order.order_revision,
+      order_hash: entry.order_hash }
+    return { day: unit.day, grade: entry.grade, product_order_id: entry.order.product_order_id,
+      order_revision: entry.order.order_revision, order_hash: entry.order_hash, planning_hash: plan_hash,
       primary_skill: unit.primary_skill, domain: unit.domain, genre: unit.genre,
-      difficulty_level: unit.difficulty_level, passage, item_types: [unit.item_type_target!],
+      difficulty_level: unit.difficulty_level, passage, items: [item],
       source_mode: unit.day <= 10 ? 'direct' : 'adaptation',
       revisit_prior_skill: unit.revisit_prior_skill, cumulative_review: unit.cumulative_review,
-      unit_id: `${order.grade}-${unit.day}`, unit_html: `<section><p>${passage}</p></section>`,
+      unit_id: `${entry.grade}-${unit.day}`, unit_html: `<section><p>${passage}</p><p>${prompt}</p></section>`,
     }
   }))
-  return { brief, orders, units }
+  return { brief: inputBrief, orders, units }
 }
 
 describe('20-day planned volume fulfillment', () => {
@@ -48,25 +72,45 @@ describe('20-day planned volume fulfillment', () => {
       expect(() => verifyProductPlanFulfillment(value)).toThrow(reason)
     }
     check(value => { value.units.pop() }, 'PRODUCT_PLAN_GRADE_OR_UNIT_COUNT_MISMATCH')
-    check(value => { value.orders[0]!.planning_hash = hash('c') }, 'PRODUCT_PLAN_ORDER_STALE')
+    check(value => { value.orders[0]!.order.planning_hash = hash('c') }, 'PRODUCT_PLAN_ORDER_STALE')
+    check(value => {
+      const entry = value.orders[0]!
+      entry.order.domain_mix = { science: 100 }
+      entry.order_hash = sealProductOrder(entry.order).order_hash
+      for (const unit of value.units.filter(unit => unit.grade === entry.grade)) {
+        unit.order_hash = entry.order_hash
+        unit.items[0]!.order_hash = entry.order_hash
+      }
+    }, 'PRODUCT_PLAN_ORDER_STALE')
     check(value => { value.units[0]!.order_hash = hash('c') }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
     check(value => { value.units[0]!.domain = 'history' }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
     check(value => { value.units[0]!.genre = 'narrative' }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
     check(value => { value.units[0]!.primary_skill = 'other' }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
     check(value => { value.units[0]!.difficulty_level = 11 }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
-    check(value => { value.units[0]!.item_types = ['other'] }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
-    check(value => { value.units[0]!.item_types.push('other') }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
+    check(value => { value.units[0]!.items[0]!.item_type = 'other' }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
+    check(value => { value.units[0]!.items.push({ ...value.units[0]!.items[0]!, item_type: 'other', item_id: 'other' }) }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
     check(value => { value.units[4]!.revisit_prior_skill = false }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
     check(value => { value.units[0]!.passage = 'short' }, 'PRODUCT_PLAN_PASSAGE_LENGTH_OUTSIDE_BAND')
-    check(value => { value.units[0]!.unit_html = '<section>Different text</section>' }, 'PRODUCT_PLAN_UNIT_PASSAGE_NOT_RENDERED')
+    check(value => { value.units[0]!.unit_html = `<section><p>Different text</p><p>${value.units[0]!.items[0]!.prompt}</p></section>` }, 'PRODUCT_PLAN_UNIT_PASSAGE_NOT_RENDERED')
+    check(value => {
+      const unit = value.units[0]!
+      unit.items[0]!.prompt = 'word0 word1'
+      unit.unit_html = `<section><p>${unit.passage}</p></section>`
+    }, 'PRODUCT_PLAN_UNIT_PASSAGE_NOT_RENDERED')
+    check(value => { value.units[0]!.items = [] }, 'too_small')
+    check(value => { value.units[0]!.items[0]!.passage_hash = hash('c') }, 'PRODUCT_PLAN_ITEM_MISSING_OR_MIXED')
+    check(value => { value.units[0]!.items[0]!.evidence_quote = 'not in passage' }, 'PRODUCT_PLAN_ITEM_MISSING_OR_MIXED')
+    check(value => { value.units[0]!.items[0]!.order_hash = hash('c') }, 'PRODUCT_PLAN_ITEM_MISSING_OR_MIXED')
+    check(value => { value.units[0]!.items[0]!.prompt = 'not rendered' }, 'PRODUCT_PLAN_ITEM_MISSING_OR_MIXED')
+    check(value => { value.units[0]!.items[0]!.item_id = value.units[1]!.items[0]!.item_id }, 'PRODUCT_PLAN_ITEM_MISSING_OR_MIXED')
     check(value => { value.units[0]!.unit_html = `<!-- ${value.units[0]!.passage} -->` }, 'PRODUCT_PLAN_UNIT_HTML_UNVERIFIABLE')
     check(value => { value.units[0]!.unit_html = `<!-- ${value.units[0]!.passage}` }, 'PRODUCT_PLAN_UNIT_HTML_UNVERIFIABLE')
     check(value => { value.units[0]!.unit_html = `<script>${value.units[0]!.passage}</script>` }, 'PRODUCT_PLAN_UNIT_HTML_UNVERIFIABLE')
     check(value => { value.units[0]!.unit_html = `<p hidden>${value.units[0]!.passage}</p>` }, 'PRODUCT_PLAN_UNIT_HTML_UNVERIFIABLE')
     check(value => {
-      value.orders[1]!.product_order_id = value.orders[0]!.product_order_id
+      value.orders[1]!.order.product_order_id = value.orders[0]!.order.product_order_id
       for (const unit of value.units.filter(unit => unit.grade === 'middle_2'))
-        unit.product_order_id = value.orders[0]!.product_order_id
+        unit.product_order_id = value.orders[0]!.order.product_order_id
     }, 'PRODUCT_PLAN_ORDER_REUSED_ACROSS_GRADES')
     check(value => { for (const unit of value.units) unit.source_mode = 'direct' }, 'PRODUCT_PLAN_SOURCE_MIX_MISMATCH')
     check(value => { value.units[0]!.grade = 'middle_2' }, 'PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
@@ -76,7 +120,16 @@ describe('20-day planned volume fulfillment', () => {
   it('accepts visible passage text split by inline emphasis', () => {
     const value = fixture()
     const unit = value.units[0]!
-    unit.unit_html = `<section><p>${unit.passage.replace('word1', '<em>word1</em>')}</p></section>`
+    unit.unit_html = `<section><p>${unit.passage.replace('word1', '<em>word1</em>')}</p><p>${unit.items[0]!.prompt}</p></section>`
     expect(verifyProductPlanFulfillment(value).unit_count).toBe(40)
+  })
+
+  it('does not admit a capability type omitted from the sealed one-day order', () => {
+    const value = fixture({ ...brief, duration_days: 1 })
+    const unit = value.units[0]!
+    const second = { ...unit.items[0]!, item_id: 'other-type', item_type: 'insert', prompt: 'A second question?' }
+    unit.items.push(second)
+    unit.unit_html = unit.unit_html.replace('</section>', `<p>${second.prompt}</p></section>`)
+    expect(() => verifyProductPlanFulfillment(value)).toThrow('PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
   })
 })

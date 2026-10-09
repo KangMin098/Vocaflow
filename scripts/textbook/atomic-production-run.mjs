@@ -7,6 +7,7 @@ import { loadEnv } from './volume-pool.mjs'
 import { publishAtomicProductionArtifact, runAtomicMultiGradeFactoryDryRun } from './atomic-production-snapshot.mjs'
 import { assertAtomicOutputAbsent, writeAtomicDryRunOutput } from './atomic-production-output.mjs'
 import { inspectProductionRevisionImpact, validateProductionRevisionManifest } from './production-revision-impact.mjs'
+import { beginSyntheticRevisionWorkflow } from './production-revision-workflow.mjs'
 
 const usage = 'Usage: pnpm exec tsx scripts/textbook/atomic-production-run.mjs <dry-run|publish> --group-id ID --stages PATH --render PATH [--out PATH (dry-run only)] [--previous-manifest PATH]'
 if (process.argv.includes('--help')) {
@@ -48,6 +49,8 @@ const result = await runAtomicMultiGradeFactoryDryRun(db, {
 })
 const revisionImpact = options.has('--previous-manifest')
   ? inspectProductionRevisionImpact(previousManifest, result.manifest) : null
+const revisionWorkflowPreview = action === 'dry-run' && revisionImpact?.affected.length
+  ? beginSyntheticRevisionWorkflow(previousManifest, result.manifest) : null
 if (action === 'publish') {
   const published = await publishAtomicProductionArtifact(db, result)
   console.log(JSON.stringify({ status: published.status, snapshot_id: published.snapshot_id,
@@ -58,5 +61,5 @@ if (action === 'publish') {
   if (!write.ok) throw Error(`ATOMIC_DRY_RUN_WRITE_FAILED_NEW_APPROVAL_REQUIRED:${result.manifest.snapshot_id};LEFTOVERS:${write.leftovers.join(',')}`)
   console.log(JSON.stringify({ status: 'atomic_snapshot_unpublished', snapshot_id: result.manifest.snapshot_id,
     snapshot_hash: result.manifest.snapshot_hash, output_hash: result.manifest.html_sha256,
-    revision_impact: revisionImpact }))
+    revision_impact: revisionImpact, revision_workflow_preview: revisionWorkflowPreview }))
 }

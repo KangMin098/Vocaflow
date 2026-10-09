@@ -4,7 +4,9 @@
 
 ## 주문과 타겟
 
-구조화된 교재 brief는 학년 범위, 제품 유형, 영역·장르 비율, 일자별 능력·난도·지문 길이·문항 유형·복습 위치를 결정적 plan과 hash로 만든다. `verifyProductPlanFulfillment`는 호출자가 제공한 합성 단원 ledger에서 모든 day/grade 셀의 계획 라벨, 지문 단어 수, 원천 사용 비율, 제한된 HTML의 보이는 본문을 검사한다. 학년 간 주문 ID 재사용은 거부한다. 주문 정본의 서명·실제 문항과 해설·DB 증거는 이 ledger에서 검증하지 않는다. `assemblePlannedVolumeSynthetic`는 이 ledger를 비운영 HTML로만 묶는다. DB 원자 snapshot의 여러 passage를 하나의 운영 권으로 묶는 경로는 아직 없다. 계획 또는 합성 권 조립을 실제 발행 가능 상태로 해석하지 않는다.
+구조화된 교재 brief는 학년 범위, 제품 유형, 영역·장르 비율, 일자별 능력·난도·지문 길이·문항 유형·복습 위치를 결정적 plan과 hash로 만든다. `verifyProductPlanFulfillment`는 호출자가 제공한 합성 단원 ledger에서 모든 day/grade 셀의 계획 라벨, sealed Product Order의 정본 hash, 지문 단어 수, 원천 사용 비율, 제한된 HTML의 보이는 본문·문항 발문을 검사한다. 문항 기록의 답·해설·본문 근거 구간·주문/지문 hash를 묶고 학년 간 주문 ID·문항 ID 재사용을 거부한다. 이는 내용 타당도 심사나 현재 DB 증거 재검증은 아니다. `assemblePlannedVolumeSynthetic`는 이 ledger를 비운영 HTML로만 묶는다. DB 원자 snapshot의 여러 passage를 하나의 운영 권으로 묶는 경로는 아직 없다. 계획 또는 합성 권 조립을 실제 발행 가능 상태로 해석하지 않는다.
+
+`atomic-production-run.mjs dry-run --previous-manifest`는 변경이 확인되면 `revision_workflow_preview`를 함께 출력한다. 이 값은 변경된 manifest에 결속된 합성 `needs_review → revise → republish` 재작업 예행이며, 권리 철회는 `withdraw`로 끝난다. 실제 DB 카탈로그·게시 상태를 수정하거나 발행 승인을 대체하지 않는다.
 
 한 주문은 `product_order_id + order_revision`으로 식별하고, 동일 원문을 여러 학년으로 만들면 별도 주문과 별도 target hash를 사용한다. 주문은 시리즈·판본, 기존 `readingTargetSchema`의 연령/언어/사고 수준·R skill·P군, 목적·시험, 도메인/장르 비율, 원천·권리·각색 정책 판본, 지문·문항 난도, 문항/활동 유형, 단원/장/권/조판 규격, benchmark·증거·신뢰 정책 판본, 작성/봉인 시각을 포함한다. 키 순서가 다른 동등 JSON은 동일한 canonical SHA-256으로 식별한다. 학년 한 필드나 문항 난도 한 수치로 지문 수준을 대체하지 않는다.
 

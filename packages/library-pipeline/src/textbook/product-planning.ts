@@ -163,7 +163,13 @@ const fulfilledUnitSchema = z.object({
   order_hash: z.string().regex(/^[a-f0-9]{64}$/), planning_hash: z.string().regex(/^[a-f0-9]{64}$/),
   primary_skill: z.string().min(1), domain: z.string().min(1), genre: z.string().min(1),
   difficulty_level: z.number().int().min(0).max(11), passage: z.string().min(1),
-  item_types: z.array(z.string().min(1)).min(1), source_mode: z.enum(['direct', 'adaptation']),
+  items: z.array(z.object({
+    item_id: z.string().trim().min(1), item_type: z.string().trim().min(1), prompt: z.string().trim().min(1),
+    answer: z.string().trim().min(1), explanation: z.string().trim().min(1), evidence_quote: z.string().trim().min(1),
+    passage_hash: z.string().regex(/^[a-f0-9]{64}$/),
+    product_order_id: z.string().min(1), order_revision: z.number().int().positive(),
+    order_hash: z.string().regex(/^[a-f0-9]{64}$/),
+  }).strict()).min(1), source_mode: z.enum(['direct', 'adaptation']),
   revisit_prior_skill: z.boolean(), cumulative_review: z.boolean(),
   unit_id: z.string().min(1), unit_html: z.string().min(1),
 }).strict()
@@ -181,10 +187,21 @@ function visibleSyntheticText(html: string) {
   })[entity]!).replace(/\s+/gu, ' ').trim()
 }
 
-/** Checks a caller-supplied synthetic unit ledger against the brief, not item/DB/order evidence. */
+function visibleSyntheticParagraphs(html: string) {
+  const source = html.trim()
+  if (!source.startsWith('<section>') || !source.endsWith('</section>'))
+    throw new Error('PRODUCT_PLAN_UNIT_HTML_UNVERIFIABLE')
+  const inside = source.slice('<section>'.length, -'</section>'.length)
+  const paragraphs = [...inside.matchAll(/<p>([\s\S]*?)<\/p>/gu)]
+  if (!paragraphs.length || inside.replace(/<p>[\s\S]*?<\/p>/gu, '').trim())
+    throw new Error('PRODUCT_PLAN_UNIT_HTML_UNVERIFIABLE')
+  return paragraphs.map(match => visibleSyntheticText(match[1]!))
+}
+
+/** Checks a synthetic unit ledger against sealed orders and item records, not live DB evidence. */
 export function verifyProductPlanFulfillment(input: {
   brief: unknown
-  orders: Array<{ grade: string; product_order_id: string; order_revision: number; order_hash: string; planning_hash: string }>
+  orders: Array<{ grade: string; order: ProductOrder; order_hash: string }>
   units: unknown
 }) {
   const { plan, plan_hash } = planProductBrief(input.brief)
@@ -194,13 +211,30 @@ export function verifyProductPlanFulfillment(input: {
   if (orders.size !== grades.length || input.orders.length !== grades.length ||
       grades.some(grade => !orders.has(grade)) || units.length !== plan.units.length * grades.length)
     throw new Error('PRODUCT_PLAN_GRADE_OR_UNIT_COUNT_MISMATCH')
-  if (new Set(input.orders.map(order => order.product_order_id)).size !== input.orders.length)
+  if (new Set(input.orders.map(entry => entry.order.product_order_id)).size !== input.orders.length)
     throw new Error('PRODUCT_PLAN_ORDER_REUSED_ACROSS_GRADES')
-  if (input.orders.some(order => order.planning_hash !== plan_hash ||
-      !/^[a-f0-9]{64}$/.test(order.order_hash) || order.order_revision < 1))
+  if (input.orders.some(entry => {
+    try {
+      const sealed = sealProductOrder(entry.order)
+      const gradeTarget = entry.grade.startsWith('elementary_') ? 'upper_elementary' : entry.grade
+      const finalDifficulty = plan.brief.difficulty.end
+      const expectedItems = [...new Set(plan.units.map(unit => unit.item_type_target))].filter((value): value is string => value !== null)
+      return sealed.order_hash !== entry.order_hash || entry.order.planning_hash !== plan_hash ||
+        entry.order.product_family !== plan.product_family || entry.order.grade_target !== gradeTarget ||
+        (gradeTarget === 'upper_elementary' && entry.order.grade_detail_target !== entry.grade) ||
+        canonicalJson(entry.order.reading_skill_targets) !== canonicalJson(plan.skill_mix) ||
+        canonicalJson(entry.order.purposes) !== canonicalJson([plan.brief.purpose]) ||
+        canonicalJson(entry.order.domain_mix) !== canonicalJson(normalizedMix(plan.brief.domain_weights)) ||
+        canonicalJson(entry.order.genre_mix) !== canonicalJson(normalizedMix(plan.brief.genre_weights)) ||
+        canonicalJson(entry.order.item_types) !== canonicalJson(expectedItems) ||
+        Object.values(entry.order.passage_difficulty_profile).some(level => level !== finalDifficulty) ||
+        entry.order.item_difficulty_profile.reasoning !== finalDifficulty
+    } catch { return true }
+  }))
     throw new Error('PRODUCT_PLAN_ORDER_STALE')
   const seen = new Set<string>()
   const seenUnitIds = new Set<string>()
+  const seenItemIds = new Set<string>()
   const sourceCounts = new Map(grades.map(grade => [grade, { direct: 0, adaptation: 0 }]))
   const receipts = []
   for (const unit of units) {
@@ -208,13 +242,14 @@ export function verifyProductPlanFulfillment(input: {
     const order = orders.get(unit.grade)
     const key = `${unit.grade}:${unit.day}`
     if (seen.has(key) || seenUnitIds.has(unit.unit_id) || !expected || !order ||
-        unit.product_order_id !== order.product_order_id ||
-        unit.order_revision !== order.order_revision || unit.order_hash !== order.order_hash ||
+        unit.product_order_id !== order.order.product_order_id ||
+        unit.order_revision !== order.order.order_revision || unit.order_hash !== order.order_hash ||
         unit.planning_hash !== plan_hash || unit.primary_skill !== expected.primary_skill ||
         unit.domain !== expected.domain || unit.genre !== expected.genre ||
         unit.difficulty_level !== expected.difficulty_level ||
-        !expected.item_type_target || unit.item_types[0] !== expected.item_type_target ||
-        unit.item_types.some(type => !PRODUCT_CAPABILITIES[plan.product_family].items.includes(type)) ||
+        !expected.item_type_target || unit.items[0]?.item_type !== expected.item_type_target ||
+        unit.items.some(item => !PRODUCT_CAPABILITIES[plan.product_family].items.includes(item.item_type) ||
+          !order.order.item_types.includes(item.item_type)) ||
         unit.revisit_prior_skill !== expected.revisit_prior_skill ||
         unit.cumulative_review !== expected.cumulative_review)
       throw new Error('PRODUCT_PLAN_UNIT_STALE_OR_MIXED')
@@ -222,16 +257,30 @@ export function verifyProductPlanFulfillment(input: {
     const allowance = Math.max(10, Math.ceil(expected.passage_words_target * 0.15))
     if (Math.abs(words - expected.passage_words_target) > allowance)
       throw new Error('PRODUCT_PLAN_PASSAGE_LENGTH_OUTSIDE_BAND')
-    if (!visibleSyntheticText(unit.unit_html).includes(unit.passage.replace(/\s+/gu, ' ').trim()))
+    const paragraphs = visibleSyntheticParagraphs(unit.unit_html)
+    if (paragraphs.length !== unit.items.length + 1 ||
+        !paragraphs[0]!.includes(unit.passage.replace(/\s+/gu, ' ').trim()))
       throw new Error('PRODUCT_PLAN_UNIT_PASSAGE_NOT_RENDERED')
+    const passageHash = createHash('sha256').update(unit.passage).digest('hex')
+    for (const [index, item] of unit.items.entries()) {
+      if (seenItemIds.has(item.item_id) || item.product_order_id !== unit.product_order_id ||
+          item.order_revision !== unit.order_revision || item.order_hash !== unit.order_hash ||
+          item.passage_hash !== passageHash || !unit.passage.includes(item.evidence_quote) ||
+          !paragraphs[index + 1]!.includes(item.prompt.replace(/\s+/gu, ' ').trim()))
+        throw new Error('PRODUCT_PLAN_ITEM_MISSING_OR_MIXED')
+      seenItemIds.add(item.item_id)
+    }
     seen.add(key)
     seenUnitIds.add(unit.unit_id)
     sourceCounts.get(unit.grade)![unit.source_mode] += 1
     receipts.push({ grade: unit.grade, day: unit.day, unit_id: unit.unit_id,
       product_order_id: unit.product_order_id, order_revision: unit.order_revision,
-      order_hash: unit.order_hash, passage_hash: createHash('sha256').update(unit.passage).digest('hex'),
+      order_hash: unit.order_hash, passage_hash: passageHash,
       unit_hash: createHash('sha256').update(unit.unit_html).digest('hex'), words,
-      source_mode: unit.source_mode, item_types: unit.item_types })
+      source_mode: unit.source_mode, items: unit.items.map(item => ({
+        item_id: item.item_id, item_type: item.item_type,
+        item_hash: createHash('sha256').update(canonicalJson(item)).digest('hex'),
+      })) })
   }
   for (const grade of grades) {
     const actual = sourceCounts.get(grade)!

@@ -1,6 +1,8 @@
 # CHANGELOG
 
-- feat(textbook): 20일 단일·복수 학년 계획에 대한 일자별 단원 충족·균형 검증과 비운영 권 조립을 추가했다. 운영 DB의 다중 지문 원자 권 생산은 아직 미구현이다.
+- feat(textbook): 개정 영향의 `needs_review → revise → republish` 합성 예행과 실패 재검토·권리 철회 종료·중복 이벤트 차단을 추가했다. 실제 카탈로그·게시 데이터는 변경하지 않는다.
+
+- feat(textbook): 20일 단일·복수 학년 계획의 합성 단원을 sealed 주문·지문·문항·해설·근거 hash에 결속하고, 누락·혼합·균형을 검사한 뒤 비운영 권으로 조립한다. 운영 DB의 다중 지문 원자 권 생산은 아직 미구현이다.
 
 - test(textbook): 합성 master 실패 주입에 benchmark version 결속을 추가하고, 단계별 재시도·재발행 복구 절차를 문서화했다. 실제 corpus·Gold-S·DB seed는 변경하지 않았다.
 
