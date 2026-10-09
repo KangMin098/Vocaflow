@@ -117,3 +117,27 @@ describe('practiceResultsFor — 확인 문항 여러 개(Codex P1)', () => {
     expect(out['B6-3']).toMatchObject({ firstCorrect: false, firstIndependent: false })
   })
 })
+
+describe('복습 예약 해소 계약 — 확인 문항 여러 개(E11 · Codex P1 회귀)', () => {
+  const conf = (t: string) => ({ href: `/csat/item/${t.replace('#', '-')}#principle`, label: t, target: t, taskKey: 'claim-support' })
+  const links = { 'B6-3': { href: '/csat/item/2022-20#principle', label: 'x', itemId: '2022#20', target: '2022#20', taskKey: 'claim-support', confirm: [conf('2022#20'), conf('2021#20')] } }
+  const A = '2022#20', B = '2021#20'
+  const NOW = new Date('2026-10-20T00:00:00Z')
+  const rv = (item: string, at: string) => ({ item_ref: item, review_at: at, deleted_at: null })
+  it('A · B 모두 예약 → A 만 다시 풀면 A 예약만 끝나고 B 예약은 남는다', () => {
+    const rows = [row(true, '2026-10-01T10:00:00Z', 'claim-support', A), row(true, '2026-10-01T10:00:00Z', 'claim-support', B), row(true, '2026-10-16T10:00:00Z', 'claim-support', A)]
+    const out = practiceResultsFor(links, rows, [], [rv(A, '2026-10-15T00:00:00Z'), rv(B, '2026-10-17T00:00:00Z')], NOW)
+    expect(out['B6-3']).toMatchObject({ reviewAt: '2026-10-17T00:00:00Z', next: 'review' })
+  })
+  it('A 예약 뒤 해설만 열람(판단 기록 없음) → 예약은 그대로', () => {
+    // 해설 열람은 learning_task_attempts 에 시도 행을 만들지 않는다 — 세션의 열람 시각만 남는다
+    const rows = [row(true, '2026-10-01T10:00:00Z', 'claim-support', A)]
+    expect(practiceResultsFor(links, rows, [], [rv(A, '2026-10-15T00:00:00Z')], NOW)['B6-3']).toMatchObject({ reviewAt: '2026-10-15T00:00:00Z', next: 'review' })
+  })
+  it('같은 재시도가 두 번 와도(재전송) 다른 문항 예약을 지우지 않고 횟수만 센다', () => {
+    const retry = row(true, '2026-10-16T10:00:00Z', 'claim-support', B)
+    const rows = [row(true, '2026-10-01T10:00:00Z', 'claim-support', A), retry, { ...retry }]
+    const out = practiceResultsFor(links, rows, [], [rv(A, '2026-10-15T00:00:00Z')], NOW)
+    expect(out['B6-3']).toMatchObject({ reviewAt: '2026-10-15T00:00:00Z', next: 'review' })
+  })
+})
