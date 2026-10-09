@@ -424,3 +424,19 @@ test('WF6 보고서에 수정 전 실패·미실행 항목이 있어도 실행�
   assert.match(task(root, bad.task_id).blocker.reason, /bad_evidence/)
   assert.equal(task(root, good.task_id).status, 'COMPLETED')
 })
+
+test('WF6b 버려진 run 이 둘이어도 두 작업 모두 되살리고 두 run 모두 복구 완료로 표시한다', () => {
+  const root = setup()
+  const a = addTask(root, { title: 'A' })
+  const b = addTask(root, { title: 'B' })
+  const deadPid = spawnSync(process.execPath, ['-e', 'process.pid']).pid
+  const mk = spawnSync(process.execPath, [path.join(REPO, 'tests', 'fakes', 'two-abandoned-runs.mjs'), a.task_id, b.task_id, String(deadPid)], { env: env(root), encoding: 'utf8' })
+  assert.equal(mk.status, 0, mk.stderr)
+  const r = orch(root, ['--max-tasks', '2'])
+  assert.ok(r.json, r.err)
+  assert.deepEqual([...r.json.recovery.revived].sort(), [a.task_id, b.task_id].sort())
+  const runs = state(root, 'ORCHESTRATOR.json').runs
+  assert.ok(runs['RUNA-0001'].recovered_at && runs['RUNB-0002'].recovered_at, JSON.stringify([runs['RUNA-0001'], runs['RUNB-0002']]))
+  assert.equal(task(root, a.task_id).status, 'COMPLETED')
+  assert.equal(task(root, b.task_id).status, 'COMPLETED')
+})
