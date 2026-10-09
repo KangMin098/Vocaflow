@@ -289,3 +289,35 @@ test('자동 적용 — 사용자 대화형 설계 승인(vfc approve) 하나로
   assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_VERIFIED')
   assert.equal(s.vfc('ugoal', 'status', u.ug_id).approval.decision_id, td.decision_id)
 })
+
+test('자동 다음 작업 — 큐가 비면 다음 설계 자동 요청 → Work 응답 → 정책 승인 → 작업 자동 생성 → 구현 완료(사용자 개입 0)', () => {
+  const s = setup()
+  s.bridgeOn()
+  const u = s.goal('NX목표', { summary: 'v1', acceptance: ['기준 0'], preserved_contracts: ['c'], allowed_paths: ['src/**'], db_changes: false })
+  // 목표 위임 정책(대화형 대역) + 위임 worktree
+  const pol = { goal_id: u.ug_id, allowed_capabilities: ['read', 'plan', 'design_request', 'code_change', 'test', 'review', 'docs'], allowed_code_areas: ['src/**'], excluded_operations: ['db_write', 'schema_change', 'canon_change', 'deploy', 'merge_main', 'external_publish', 'auth_change', 'personal_data'], risk_level: 'MEDIUM', max_runtime_min: 60, max_cost_usd: 10, merge_policy: 'none' }
+  const pf = path.join(s.root, 'pol.json')
+  fs.writeFileSync(pf, JSON.stringify(pol))
+  s.run(VFC, ['approve', '--kind', 'goal_delegation', '--summary', `${u.ug_id}@policy`, '--policy-file', pf, '--json'], { VFC_TTY_FOR_TESTS: '1', VFC_TEST_CODE: 'aa0001' }, 'aa0001\n')
+  const stF = path.join(s.root, 'state', 'USER_GOALS.json')
+  const st = JSON.parse(fs.readFileSync(stF, 'utf8'))
+  st.goals[u.ug_id].delegations = [{ executor_owner: OWNER, worktree: s.wt, branch: 'feat/t' }]
+  st.goals[u.ug_id].next_scope = ['다음 기능 B']
+  fs.writeFileSync(stF, JSON.stringify(st))
+  // 실행 1: v1 은 Claude 초안(DRAFT) — 정책 자동 승인 대상은 PROPOSED 뿐이라 큐가 비고 → 다음 설계 자동 요청·게시
+  const r1 = s.orch(['--max-tasks', '2'])
+  assert.ok(s.gh().prs.length === 1, `자동 설계 요청 게시: ${JSON.stringify(r1.iterations.map((i) => i.bridge))}`)
+  s.workReplies(1, { acceptance: ['기준 B0'], allowed_paths: ['src/**'] })
+  // 실행 2: 수집·인수 → 정책 안 PROPOSED → 자동 승인 → 작업 자동 생성 → 구현·리뷰 완료
+  const r2 = s.orch(['--max-tasks', '2'])
+  assert.equal(r2.run.tasks_done[0]?.outcome, 'completed', JSON.stringify(r2.iterations.map((i) => [i.bridge, i.selected?.task_id])))
+  const g = s.vfc('ugoal', 'status', u.ug_id)
+  assert.equal(g.approval.via_policy, true)
+  assert.equal(r2.iterations.find((i) => i.goal_level)?.goal_level.level, 'GOAL_VERIFIED', '그 설계의 기준 충족(작업 완료 직후)')
+  assert.notEqual(s.vfc('ugoal', 'route', u.ug_id).route, 'DESIGN_CONFLICT', '다음 증분 요청은 충돌이 아니다')
+  // 같은 (버전·미충족) 조합으로는 다시 요청하지 않는다 — 완료 뒤에는 미충족이 없어 새 키로 한 번(다음 범위)
+  const before = s.gh().prs.length
+  s.orch(['--max-tasks', '1'])
+  s.orch(['--max-tasks', '1'])
+  assert.ok(s.gh().prs.length <= before + 1, '중복 요청 없음')
+})
