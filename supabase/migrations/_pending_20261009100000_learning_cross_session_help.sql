@@ -108,6 +108,15 @@ declare
   v_post int;
   v_sig text;
 begin
+  -- 표본 서명은 분석 완료로 바뀌는 순간에만 정해진다 — 그 밖의 서명 변경(직접 UPDATE 로 지금 서명을 덮어 재분석을 건너뛰기)은 거부(Codex P1)
+  if not (new.status = 'analyzed' and not new.synthetic and (tg_op = 'INSERT' or old.status is distinct from 'analyzed')) then
+    if tg_op = 'INSERT' and new.sample_signature is not null then
+      raise exception '표본 서명은 분석 완료 전환 때만 정해진다';
+    end if;
+    if tg_op = 'UPDATE' and new.sample_signature is distinct from old.sample_signature then
+      raise exception '표본 서명은 분석 완료 전환 때만 바뀐다 — 표본이 달라졌으면 재분석한다';
+    end if;
+  end if;
   if new.status = 'analyzed' and not new.synthetic and (tg_op = 'INSERT' or old.status is distinct from 'analyzed') then
     -- M8-F 진행 중인 시도 쓰기가 모두 끝날 때까지 기다리고, 이 트랜잭션이 끝날 때까지 새 시도 쓰기를 막는다
     perform pg_advisory_xact_lock(hashtext('learning_trial_sample'));

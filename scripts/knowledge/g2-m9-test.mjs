@@ -117,6 +117,9 @@ try {
   await q(`update knowledge_trials set design = '{"pre":true,"post":true,"min_n":5}' where id = $1`, [trialD])
   rec('M9-B 분석 뒤 min_n 상향 → 서명이 같아도 효과 판정 거부', /재분석해야 한다/.test((await err("update knowledge_items set efficacy = 'research_supported', updated_by = 't' where id = $1", [it2])) ?? ''))
 
+  // 5d 서명을 직접 덮어 재분석을 건너뛰기 — 거부
+  rec('M9-B 분석 완료 상태에서 표본 서명 직접 변경 거부', /분석 완료 전환 때만/.test((await err('update knowledge_trials set sample_signature = (select signature from knowledge_trial_sample_state(id)) where id = $1', [trialC])) ?? ''))
+
   // 6 학습자 읽기 권한 유지
   const as = async (uid, sql) => { const c = await pool.connect(); try { await c.query('begin'); await c.query('set local role authenticated'); await c.query(`select set_config('request.jwt.claim.sub', $1, true)`, [uid]); const r = await c.query(sql); await c.query('rollback'); return { ok: true, rows: r.rows } } catch (e) { await c.query('rollback').catch(() => {}); return { ok: false, err: e.message } } finally { c.release() } }
   const mine = await as(A, 'select user_id, help_level from learning_first_attempts')
