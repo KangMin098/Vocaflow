@@ -36,6 +36,7 @@ export interface FirstAttemptRow {
   after_explanation: boolean | null
   /** M8 — 판단 시각이 도움 · 해설 시각과 겹치거나 기기 시계를 믿을 수 없어 독립 여부를 보류한다 */
   timing_uncertain?: boolean | null
+  answered_at?: string | null
   phase?: string | null
 }
 
@@ -83,13 +84,18 @@ export function summarizePractice(rows: AttemptRow[], first: FirstAttemptRow | n
 export function practiceResultsFor(links: Record<string, MapPracticeLink>, rows: AttemptRow[], firsts: FirstAttemptRow[], reviews: ReviewRow[] = [], now?: Date): Record<string, PracticeResult> {
   const out: Record<string, PracticeResult> = {}
   for (const [taskId, link] of Object.entries(links)) {
-    // 이 문항의 연습(practice · 단계 없음) · 같은 과제 키로 다른 지문에 적용한 전이(transfer — 문항은 어디든)
-    const mine = rows.filter((r) => r.task_key === link.taskKey && r.item_ref === link.itemId && (r.phase ?? 'practice') !== 'transfer')
-    // 「다른 지문에 적용」 — 연결 문항이 아닌 문항의 transfer 만
-    const transfers = rows.filter((r) => transferKeysOf(link.taskKey).includes(r.task_key) && r.phase === 'transfer' && r.item_ref !== link.itemId)
-    // 첫 시도 뷰는 (과제 · 문항 · 단계)마다 한 줄 — 같은 과제 · 문항의 가장 이른 줄을 쓴다
-    const first = firsts.filter((f) => f.task_key === link.taskKey && f.item_ref === link.itemId && (f.phase ?? 'practice') !== 'transfer')[0] ?? null
-    out[taskId] = summarizePractice(mine, first, { transfers, reviews: reviews.filter((r) => r.item_ref === link.itemId), now })
+    // 확인 문항 **전부**(과제 키 · 문항 쌍) — 첫 문항만 보면 다른 확인 문항의 수행 · 복습 예약이 지도에서 빠진다(Codex P1)
+    const pairs = link.confirm?.length ? link.confirm.map((c) => ({ taskKey: c.taskKey, item: c.target })) : [{ taskKey: link.taskKey, item: link.itemId }]
+    const isConfirm = (taskKey: string, item: string | null) => pairs.some((p) => p.taskKey === taskKey && p.item === item)
+    const targets = new Set(pairs.map((p) => p.item))
+    // 확인 문항의 연습(practice · 단계 없음) · 같은 과제 키로 다른 지문에 적용한 전이(transfer — 확인 문항 밖)
+    const mine = rows.filter((r) => isConfirm(r.task_key, r.item_ref) && (r.phase ?? 'practice') !== 'transfer')
+    const transfers = rows.filter((r) => transferKeysOf(link.taskKey).includes(r.task_key) && r.phase === 'transfer' && !targets.has(r.item_ref ?? ''))
+    // 첫 시도 뷰는 (과제 · 문항 · 단계)마다 한 줄 — 확인 문항들 중 판단 시각이 가장 이른 줄
+    const first = firsts
+      .filter((f) => isConfirm(f.task_key, f.item_ref) && (f.phase ?? 'practice') !== 'transfer')
+      .sort((a, b) => (a.answered_at ?? '').localeCompare(b.answered_at ?? ''))[0] ?? null
+    out[taskId] = summarizePractice(mine, first, { transfers, reviews: reviews.filter((r) => targets.has(r.item_ref ?? '')), now })
   }
   return out
 }
