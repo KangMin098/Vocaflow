@@ -9,6 +9,10 @@ const dir = process.env.FAKE_GH_DIR
 const sf = path.join(dir, 'state.json')
 const st = fs.existsSync(sf) ? JSON.parse(fs.readFileSync(sf, 'utf8')) : { default_branch: 'main', refs: { main: 'a'.repeat(40) }, files: {}, prs: [], labels: [], calls: [] }
 const a = process.argv.slice(2)
+if (process.env.FAKE_GH_FAIL) {
+  console.error('HTTP 502 (fake)')
+  process.exit(1)
+}
 st.calls.push(a.slice(0, 4).join(' '))
 const save = () => fs.writeFileSync(sf, JSON.stringify(st, null, 2))
 const flag = (k) => {

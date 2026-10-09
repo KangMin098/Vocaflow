@@ -57,7 +57,7 @@ function setup() {
     const id = pr.title.match(/(REQ-\d{8}-\d{3})/)[1]
     const md = Buffer.from(st.files[`${pr.headRefName}:requests/${id}.md`], 'base64').toString('utf8')
     const h = JSON.parse(md.match(/```json vfc-request\s*\n([\s\S]*?)\n```/)[1])
-    const resp = { schema: 'vfc-response/1', request_id: id, responder: 'chatgpt', responded_at: new Date().toISOString(), canon_version: h.canon_version, verdict: 'revise', summary: 'SIMULATED Work 응답', findings: [], proposed_decisions: [], open_questions: [], thread_id: h.thread.thread_id, goal_ref: h.thread.goal_ref, round_id: h.thread.round_id, design_version: h.thread.design_version, plan: { goal_fit: 'g', design: 'Work 설계', priority: 'P1 — x', learner_value: 'v', scope: 's', preserved_contracts: ['계약 유지'], acceptance: ['기준 0'], risks: ['r'], allowed_paths: ['src/**'], db_changes: false, ...plan }, ...override }
+    const resp = { schema: 'vfc-response/1', request_id: id, responder: 'chatgpt', responded_at: new Date().toISOString(), canon_version: h.canon_version, verdict: 'revise', summary: 'SIMULATED Work 응답', findings: [], proposed_decisions: [], open_questions: [], thread_id: h.thread.thread_id, goal_ref: h.thread.goal_ref, round_id: h.thread.round_id, design_version: h.thread.design_version, ...(h.thread.context_base_commit ? { context_base_commit: h.thread.context_base_commit } : {}), plan: { goal_fit: 'g', design: 'Work 설계', priority: 'P1 — x', learner_value: 'v', scope: 's', preserved_contracts: ['계약 유지'], acceptance: ['기준 0'], risks: ['r'], allowed_paths: ['src/**'], db_changes: false, ...plan }, ...override }
     pr.comments.push({ author, type: 'Bot', at: new Date().toISOString(), body: `설계입니다.\n\n\`\`\`json vfc-response\n${JSON.stringify(resp, null, 2)}\n\`\`\`\n` })
     fs.writeFileSync(path.join(ghDir, 'state.json'), JSON.stringify(st, null, 2))
     return id
@@ -79,6 +79,8 @@ test('게시: 요청서 + Context Packet 을 라벨 PR 로 · 같은 요청 재�
   assert.match(st.prs[0].title, new RegExp(`\\[vfc\\] ${q.request_id} ${u.ug_id} TH-0001-R02 v0`))
   assert.ok(Object.keys(st.files).some((k) => k.endsWith(`requests/${q.request_id}.context/evidence-manifest.json`)), 'Context Packet 업로드')
   assert.ok(!Object.keys(st.files).some((k) => /\.env|verdicts/.test(k)), '패킷 밖 로컬 파일은 올리지 않는다')
+  assert.ok(!Object.keys(st.files).some((k) => /active-work-and-conflicts|design-decisions/.test(k)), '승인 범위 밖 패킷 파일(다른 작업·결정 기록)은 내보내지 않는다')
+  assert.ok(Object.keys(st.files).some((k) => k.endsWith('.context/existing-features.md')), '코드 발췌는 내보낸다')
   const again = s.bridge('publish', q.request_id, '--repo', XREPO)
   assert.notEqual(again.code, 0)
   assert.match(again.err, /이미 게시/)
@@ -224,4 +226,76 @@ test('직렬화: 응답 대기 중이면 다른 요청 게시 거부(Work 가 �
   // 응답을 받은 요청은 재시도 금지 · 이제 B 게시 가능
   assert.notEqual(s.bridge('publish', qa.request_id, '--repo', XREPO, '--retry').code, 0)
   assert.equal(s.bridge('publish', qb.request_id, '--repo', XREPO).code, 0)
+})
+
+test('게시 전 검사: 패킷에 비밀값·개인정보가 있으면 게시 거부 · 미리보기는 파일 목록과 실패 사유를 남긴다', () => {
+  const s = setup()
+  fs.appendFileSync(path.join(s.wt, 'src', 'x.ts'), 'const leak = "owner@vocaflow.kr"\n')
+  execFileSync('git', ['-C', s.wt, 'commit', '-qam', 'leak'])
+  execFileSync('git', ['-C', s.wt, 'update-ref', 'refs/remotes/origin/main', 'HEAD'])
+  const u = s.vfc('ugoal', 'start', '--from', 'claude', '--title', 'scan', '--goals', CANON, '--design-file', s.designFile, '--by', 'claude')
+  const q = s.vfc('ugoal', 'request-design', u.ug_id, '--by', 'claude')
+  const pv = s.bridge('preview', q.request_id).json
+  assert.ok(pv.files.length > 1, '요청서 + 패킷 파일 목록')
+  assert.ok(pv.findings.some((f) => f.rule === 'email'))
+  const p = s.bridge('publish', q.request_id, '--repo', XREPO)
+  assert.notEqual(p.code, 0)
+  assert.match(p.err, /게시 전 검사 실패/)
+  let prs = 0
+  try {
+    prs = s.gh().prs.length
+  } catch {
+    prs = 0 // gh 를 한 번도 부르지 않았다
+  }
+  assert.equal(prs, 0, '검사 실패면 PR 을 만들지 않는다')
+})
+
+test('기준 제품 커밋: 패킷 요청에 다른 context_base_commit 으로 답하면 인수 거부', () => {
+  const s = setup()
+  const u = s.vfc('ugoal', 'start', '--from', 'claude', '--title', 'base', '--goals', CANON, '--design-file', s.designFile, '--by', 'claude')
+  const q = s.vfc('ugoal', 'request-design', u.ug_id, '--by', 'claude')
+  assert.ok(q.thread.context_base_commit)
+  s.bridge('publish', q.request_id, '--repo', XREPO)
+  s.workReplies(1, { override: { context_base_commit: 'f'.repeat(40) } })
+  s.bridge('collect', '--repo', XREPO)
+  const r = s.vfc('ugoal', 'intake', '--min-age-ms', '0', '--by', 'user').results[0]
+  assert.equal(r.status, 'rejected')
+  assert.match(r.reason, /다른 기준 커밋/)
+})
+
+test('watch: 응답이 오면 즉시 수집·인수(PROPOSED 설계 · 승인 없음) · 대기 0 이면 종료 · 재실행해도 중복 인수 없음', () => {
+  const s = setup()
+  const u = s.vfc('ugoal', 'start', '--from', 'claude', '--title', 'w', '--goals', CANON, '--by', 'claude')
+  const q = s.vfc('ugoal', 'request-design', u.ug_id, '--by', 'claude')
+  s.bridge('publish', q.request_id, '--repo', XREPO)
+  s.workReplies(1)
+  const w = s.bridge('watch', '--repo', XREPO, '--interval', '1', '--timeout-min', '1')
+  assert.equal(w.code, 0, w.err)
+  assert.deepEqual(w.json.collected, [q.request_id])
+  assert.equal(w.json.intake[0].status, 'applied')
+  assert.equal(w.json.stop_reason, '대기 요청 없음')
+  const st = s.vfc('ugoal', 'status', u.ug_id)
+  assert.deepEqual(st.designs.map((d) => d.status), ['PROPOSED'], '자동 승인 없음')
+  assert.equal(st.route.route, 'APPROVAL_REQUIRED')
+  const again = s.bridge('watch', '--repo', XREPO, '--interval', '1', '--timeout-min', '1')
+  assert.deepEqual(again.json.collected, [])
+  assert.equal(s.vfc('ugoal', 'status', u.ug_id).designs.length, 1)
+})
+
+test('watch: 응답이 없으면 시간 상한으로 끝 · 겹친 실행 거부 · API 연속 오류면 멈춤', () => {
+  const s = setup()
+  const u = s.vfc('ugoal', 'start', '--from', 'claude', '--title', 'w2', '--goals', CANON, '--by', 'claude')
+  const q = s.vfc('ugoal', 'request-design', u.ug_id, '--by', 'claude')
+  s.bridge('publish', q.request_id, '--repo', XREPO)
+  const t = s.bridge('watch', '--repo', XREPO, '--interval', '1', '--timeout-min', '0.05')
+  assert.match(t.json.stop_reason, /시간 상한/)
+  // 살아 있는 다른 watch 잠금
+  const lockF = path.join(s.root, 'planning', 'bridge-watch.lock')
+  fs.writeFileSync(lockF, JSON.stringify({ pid: process.pid }))
+  const busy = s.bridge('watch', '--repo', XREPO, '--interval', '1', '--timeout-min', '0.05')
+  assert.notEqual(busy.code, 0)
+  assert.match(busy.err, /다른 watch 가 실행 중/)
+  fs.rmSync(lockF)
+  const err = s.run(BRIDGE, ['watch', '--repo', XREPO, '--interval', '1', '--timeout-min', '1', '--max-errors', '2'], { FAKE_GH_FAIL: '1' })
+  assert.match(err.json.stop_reason, /API 연속 오류 2/)
 })

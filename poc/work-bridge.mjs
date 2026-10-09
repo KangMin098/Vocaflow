@@ -16,6 +16,7 @@
 // GitHub 은 gh CLI(사용자 인증)만 쓴다(VFC_GH_CMD 로 바꿀 수 있다 — 테스트는 가짜 gh). 브라우저 매크로·쿠키·OpenAI API 없음.
 
 import fs from 'node:fs'
+import crypto from 'node:crypto'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
@@ -49,6 +50,63 @@ function header(reqFile) {
   return JSON.parse(m[1])
 }
 
+// ── 게시 전 검사(WF-S11) — 하나라도 걸리면 게시하지 않는다 ──
+// 비밀값·자격증명 · 개인정보(이메일·전화) · 비공개 운영 정보(Supabase 프로젝트 ref·호스트·DB URL) · 데이터 덤프
+const SCAN = [
+  ['secret_key', /sk-[A-Za-z0-9_-]{16,}|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}\.|-----BEGIN [A-Z ]*PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{20,}/],
+  ['credential_assignment', /\b[A-Z][A-Z0-9_]*(?:KEY|SECRET|TOKEN|PASSWORD|PASSWD)\b\s*[:=]\s*["']?(?!\[REDACTED\])[^\s"']{6,}/],
+  ['db_url', /\b(?:postgres(?:ql)?|mysql|mongodb(?:\+srv)?|redis):\/\/[^\s"'`]+/i],
+  ['supabase_host', /\b[a-z0-9]{20}\.supabase\.(?:co|in)\b/i],
+  ['supabase_project_ref', /\bjajenrevcbmrpaliomxv\b/],
+  ['email', /\b[A-Za-z0-9._%+-]+@(?!example\.(?:com|org)\b)[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/],
+  ['phone_kr', /\b01[016789][- ]?\d{3,4}[- ]?\d{4}\b/],
+  ['sql_dump', /\bINSERT\s+INTO\s+\w+.*\bVALUES\b|\bCOPY\s+\w+.*\bFROM\s+stdin\b/i],
+]
+// 교환 저장소로 내보내는 패킷 파일(사용자 승인 범위 2026-10-09: 정본·코드 경로·최소 발췌·테스트·기준 커밋) — 다른 작업·owner·결정 기록 파일은 내보내지 않는다
+const BRIDGE_CONTEXT_ALLOW = new Set(['platform-summary.md', 'goal-brief.md', 'existing-features.md', 'recent-changes.md', 'unverified-assumptions.md', 'evidence-manifest.json'])
+const ALLOW_EMAIL = /noreply@anthropic\.com|t@example\.com/
+
+export function scanFiles(files) {
+  const findings = []
+  for (const f of files) {
+    const text = fs.readFileSync(f, 'utf8')
+    if (/\.(sql|csv|tsv|jsonl|dump)$/i.test(f)) findings.push({ file: f, rule: 'data_file_type', excerpt: path.basename(f) })
+    for (const [rule, re] of SCAN) {
+      const m = text.match(re)
+      if (!m) continue
+      if (rule === 'email' && ALLOW_EMAIL.test(m[0])) continue
+      findings.push({ file: f, rule, excerpt: m[0].slice(0, 12) + '…' })
+    }
+  }
+  return findings
+}
+
+function packetFiles(id) {
+  const reqFile = path.join(ROOT, 'planning', 'requests', `${id}.md`)
+  const h = header(reqFile)
+  const ctxDir = path.join(ROOT, 'context', h.thread?.goal_ref || '_')
+  const ctx = (h.attachments || []).map((a) => path.resolve(a.path)).filter((p) => p.startsWith(path.resolve(ctxDir) + path.sep) && fs.existsSync(p) && BRIDGE_CONTEXT_ALLOW.has(path.basename(p)))
+  return { reqFile, h, ctx }
+}
+
+/** 사람이 볼 미리보기: 올릴 파일 목록·크기·sha·검사 결과 → planning/bridge-preview/<REQ>.md */
+function preview(id) {
+  const t0 = Date.now()
+  const { reqFile, h, ctx } = packetFiles(id)
+  const files = [reqFile, ...ctx]
+  const findings = scanFiles(files)
+  const rows = files.map((f) => {
+    const buf = fs.readFileSync(f)
+    return { path: path.relative(ROOT, f).split(path.sep).join('/'), bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex').slice(0, 16) }
+  })
+  const dir = path.join(ROOT, 'planning', 'bridge-preview')
+  fs.mkdirSync(dir, { recursive: true })
+  const pf = path.join(dir, `${id}.md`)
+  fs.writeFileSync(pf, [`# 게시 미리보기 ${id}`, '', `목표 ${h.thread?.goal_ref} · thread ${h.thread?.thread_id} · round ${h.thread?.round_id} · 설계 v${h.thread?.design_version} · 기준 제품 커밋 ${h.thread?.context_base_commit ?? '(패킷 없음)'}`, '', '| 파일 | 바이트 | sha256(16) |', '|---|---|---|', ...rows.map((r) => `| ${r.path} | ${r.bytes} | ${r.sha256} |`), '', `총 ${rows.reduce((a, r) => a + r.bytes, 0)} 바이트 · 검사 ${findings.length ? `**실패 ${findings.length}건 — 게시 금지**` : '통과'}`, '', ...findings.map((x) => `- ${x.rule} · ${path.basename(x.file)} · ${x.excerpt}`)].join('\n'))
+  log({ event: 'previewed', request_id: id, files: rows.length, bytes: rows.reduce((a, r) => a + r.bytes, 0), findings: findings.length, ms: Date.now() - t0 })
+  return { preview: path.relative(ROOT, pf), files: rows, findings }
+}
+
 function putFile(repo, branch, dest, buf, message) {
   gh(['api', '-X', 'PUT', `repos/${repo}/contents/${dest}`, '-f', `message=${message}`, '-f', `branch=${branch}`, '-f', `content=${Buffer.from(buf).toString('base64')}`])
 }
@@ -70,7 +128,12 @@ function publish(id) {
   if (waiting.length && !opt.parallel) throw new Error(`응답 대기 중인 요청이 있다(${waiting.join(', ')}) — 한 번에 하나씩 게시한다(동시 게시는 Work 가 하나만 답한다). 무시하려면 --parallel`)
   // Context Packet: 요청 헤더의 첨부 중 context/<UG>/ 아래 파일만(그 밖의 로컬 파일은 올리지 않는다)
   const ctxDir = path.join(ROOT, 'context', h.thread.goal_ref)
-  const ctx = (h.attachments || []).map((a) => path.resolve(a.path)).filter((p) => p.startsWith(path.resolve(ctxDir) + path.sep) && fs.existsSync(p))
+  const ctx = (h.attachments || []).map((a) => path.resolve(a.path)).filter((p) => p.startsWith(path.resolve(ctxDir) + path.sep) && fs.existsSync(p) && BRIDGE_CONTEXT_ALLOW.has(path.basename(p)))
+  const scan = scanFiles([reqFile, ...ctx])
+  if (scan.length) {
+    log({ event: 'publish_refused', request_id: id, findings: scan.map((x) => x.rule) })
+    throw new Error(`게시 전 검사 실패 ${scan.length}건(${[...new Set(scan.map((x) => x.rule))].join(', ')}) — 게시하지 않는다. node poc/work-bridge.mjs preview ${id} 로 확인`)
+  }
   const branch = prior.length ? `vfc/${id}-r${prior.length + 1}` : `vfc/${id}`
   if (prior.length && !dry) {
     for (const pr of prior) {
@@ -85,11 +148,13 @@ function publish(id) {
   const body = [
     // 실제로 올린 파일만 안내한다 — 없는 .context 폴더를 가리키면 Work 가 「연결 자료 읽기 실패」 로 needs_info 를 낸다(실측 PR #1)
     `ChatGPT Work 에게: 이 PR 의 \`requests/${id}.md\` 를 읽고${ctx.length ? `(최신 플랫폼 정보는 \`requests/${id}.context/\` 의 ${ctx.length}개 파일)` : '(이 요청에는 첨부 컨텍스트가 없다 — 요청서만으로 판단하고 가정은 unverified 로 표시)'}, 그 파일의 「응답 규칙」대로 \`\`\`json vfc-response\`\`\` 블록 하나를 **이 PR 의 댓글**로 남겨 주세요.`,
-    `thread_id=${h.thread.thread_id} · goal_ref=${h.thread.goal_ref} · round_id=${h.thread.round_id} · design_version=${h.thread.design_version} · base_commit=${h.thread.base_commit ?? '-'}`,
+    `thread_id=${h.thread.thread_id} · goal_ref=${h.thread.goal_ref} · round_id=${h.thread.round_id} · design_version=${h.thread.design_version}`,
+    `기준 제품 커밋(Vocaflow main · 패킷의 근거): ${h.thread.context_base_commit ?? '없음'} — 이 PR 의 head 커밋(교환 저장소 revision)과는 다르다. 응답의 context_base_commit 에 이 값을 그대로 돌려주고, 패킷에 없는 코드는 unverified 로 표시한다. allowed_paths 는 패킷에서 확인한 실제 경로만 쓴다(근거 없으면 비운다).`,
     `응답은 제안일 뿐이며 사용자 승인 전에는 실행되지 않습니다. 이 PR 은 머지하지 않습니다.`,
   ].join('\n\n')
   const plan = { repo: opt.repo, branch, title, label: 'vfc-request', files: [`requests/${id}.md`, ...ctx.map((p) => `requests/${id}.context/${path.basename(p)}`)] }
   if (dry) return out({ dry_run: true, ...plan })
+  const tPub = Date.now()
   const def = ghJson(['api', `repos/${opt.repo}`]).default_branch
   const baseSha = ghJson(['api', `repos/${opt.repo}/git/ref/heads/${def}`]).object.sha
   gh(['api', '-X', 'POST', `repos/${opt.repo}/git/refs`, '-f', `ref=refs/heads/${branch}`, '-f', `sha=${baseSha}`])
@@ -101,13 +166,17 @@ function publish(id) {
     /* 이미 있다 */
   }
   const url = gh(['pr', 'create', '--repo', opt.repo, '--head', branch, '--base', def, '--title', title, '--label', 'vfc-request', '--body', body])
-  log({ event: 'published', request_id: id, ug: h.thread.goal_ref, round_id: h.thread.round_id, design_version: h.thread.design_version, pr: url, files: plan.files.length })
+  log({ event: 'published', request_id: id, ug: h.thread.goal_ref, round_id: h.thread.round_id, design_version: h.thread.design_version, pr: url, files: plan.files.length, context_base_commit: h.thread.context_base_commit ?? null, ms: Date.now() - tPub })
   out({ published: id, pr: url, ...plan })
 }
 
 function collect() {
   if (!opt.repo) throw new Error('--repo owner/exchange 필요')
-  const authors = opt.authors ? String(opt.authors).split(',').map((s) => s.trim().toLowerCase()) : null
+  const found = collectOnce({ authors: opt.authors ? String(opt.authors).split(',').map((s) => s.trim().toLowerCase()) : null, app: opt.app || null })
+  out({ repo: opt.repo, results: found, next: found.some((f) => f.status === 'collected') ? 'node bin/vfc.mjs ugoal intake --by user' : null })
+}
+
+function collectOnce({ authors, app }) {
   const prs = ghJson(['pr', 'list', '--repo', opt.repo, '--label', 'vfc-request', '--state', 'all', '--json', 'number,title,headRefName,createdAt', '--limit', '100'])
   const found = []
   for (const pr of prs) {
@@ -125,7 +194,7 @@ function collect() {
       const blocks = [...String(s.body).matchAll(/```json vfc-response\s*\n([\s\S]*?)\n```/g)]
       if (blocks.length !== 1) continue
       // Work 댓글은 사용자 명의 + 앱(performed_via_github_app) 으로 달린다(실측 chatgpt-codex-connector) — 사람이 단 댓글과 가르려면 --app 으로 앱을 고정한다
-      if (opt.app && s.kind === 'comment' && s.app !== opt.app) {
+      if (app && s.kind === 'comment' && s.app !== app) {
         found.push({ id, pr: pr.number, source: s.ref, author: s.author, app: s.app, status: 'ignored_app' })
         continue
       }
@@ -160,7 +229,100 @@ function collect() {
       found.push({ id, pr: pr.number, source: s.ref, author: s.author, author_type: s.author_type, status: dry ? 'would_collect' : 'collected', file: path.relative(ROOT, dest) })
     }
   }
-  out({ repo: opt.repo, prs: prs.length, results: found, next: found.some((f) => f.status === 'collected') ? 'node bin/vfc.mjs ugoal intake --by user' : null })
+  return found
+}
+
+function sleep(ms) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
+}
+
+function inflight() {
+  const ev = readLog()
+  const got = new Set(ev.filter((e) => e.event === 'collected').map((e) => e.request_id))
+  return [...new Set(ev.filter((e) => e.event === 'published').map((e) => e.request_id))].filter((r) => !got.has(r))
+}
+
+/**
+ * 대기 요청이 있는 동안 --interval 초마다 collect(--app) → 새로 모았으면 vfc ugoal intake.
+ * 끝: 대기 요청 0 · --timeout-min 경과 · planning/bridge-watch.STOP · API 연속 오류 --max-errors.
+ * 겹쳐 돌지 않는다: planning/bridge-watch.lock(wx · pid). 죽은 잠금은 치운다. 재시작해도 이미 모은 것은 already_collected 라 중복 인수 없음.
+ */
+function watch() {
+  if (!opt.repo) throw new Error('--repo owner/exchange 필요')
+  const interval = Number(opt.interval || 30) * 1000
+  const deadline = Date.now() + Number(opt['timeout-min'] || 30) * 60_000
+  const maxErr = Number(opt['max-errors'] || 5)
+  const lockF = path.join(ROOT, 'planning', 'bridge-watch.lock')
+  const stopF = path.join(ROOT, 'planning', 'bridge-watch.STOP')
+  fs.mkdirSync(path.dirname(lockF), { recursive: true })
+  try {
+    fs.writeFileSync(lockF, JSON.stringify({ pid: process.pid, at: new Date().toISOString() }), { flag: 'wx' })
+  } catch {
+    let pid = 0
+    try {
+      pid = JSON.parse(fs.readFileSync(lockF, 'utf8')).pid
+    } catch {
+      pid = 0
+    }
+    let alive = false
+    try {
+      process.kill(pid, 0)
+      alive = true
+    } catch (e) {
+      alive = e.code === 'EPERM'
+    }
+    if (alive) throw new Error(`다른 watch 가 실행 중이다(pid ${pid}) — 겹쳐 돌지 않는다`)
+    fs.writeFileSync(lockF, JSON.stringify({ pid: process.pid, at: new Date().toISOString() }))
+  }
+  const result = { started_at: new Date().toISOString(), polls: 0, errors: 0, collected: [], intake: [], stop_reason: null }
+  try {
+    for (;;) {
+      if (fs.existsSync(stopF)) {
+        result.stop_reason = 'STOP 파일'
+        break
+      }
+      const waiting = inflight()
+      if (!waiting.length) {
+        result.stop_reason = '대기 요청 없음'
+        break
+      }
+      if (Date.now() > deadline) {
+        result.stop_reason = `시간 상한(대기 ${waiting.join(',')})`
+        log({ event: 'watch_timeout', waiting })
+        break
+      }
+      result.polls++
+      let got = []
+      try {
+        got = collectOnce({ authors: null, app: opt.app || null }).filter((r) => r.status === 'collected')
+        result.errors = 0
+      } catch (e) {
+        result.errors++
+        log({ event: 'watch_error', error: String(e.message).slice(0, 200) })
+        if (result.errors >= maxErr) {
+          result.stop_reason = `API 연속 오류 ${result.errors}`
+          break
+        }
+      }
+      if (got.length) {
+        result.collected.push(...got.map((g) => g.id))
+        const t = Date.now()
+        const VFC = process.env.VFC_CLI || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'bin', 'vfc.mjs')
+        const r = JSON.parse(execFileSync(process.execPath, [VFC, 'ugoal', 'intake', '--min-age-ms', '0', '--by', 'bridge-watch', '--json'], { encoding: 'utf8', env: { ...process.env, VFC_ROOT: ROOT } }))
+        result.intake.push(...r.results)
+        for (const x of r.results) log({ event: 'intake', request_id: (x.file.match(/(REQ-\d{8}-\d{3})/) || [])[1] ?? null, status: x.status, design_version: x.design_version ?? null, design_incomplete: x.design_incomplete ?? null, ms: Date.now() - t })
+        continue
+      }
+      sleep(interval)
+    }
+  } finally {
+    try {
+      if (JSON.parse(fs.readFileSync(lockF, 'utf8')).pid === process.pid) fs.rmSync(lockF, { force: true })
+    } catch {
+      /* 이미 없다 */
+    }
+  }
+  out(result)
 }
 
 /** 턴별 시간: published → (Work 가 댓글을 단 시각) → collected. Work 대기 = 댓글 시각 - 게시 시각(댓글 시각이 없으면 수집 시각까지의 상한) */
@@ -169,7 +331,9 @@ function status() {
   const turns = {}
   for (const e of ev) {
     const t = (turns[e.request_id] ||= { request_id: e.request_id })
-    if (e.event === 'published') Object.assign(t, { ug: e.ug, round_id: e.round_id, published_at: e.at, pr: e.pr })
+    if (e.event === 'previewed') Object.assign(t, { preview_ms: e.ms, packet_files: e.files, packet_bytes: e.bytes })
+    if (e.event === 'published') Object.assign(t, { ug: e.ug, round_id: e.round_id, published_at: e.at, pr: e.pr, publish_ms: e.ms ?? null })
+    if (e.event === 'intake') Object.assign(t, { intake_at: e.at, intake_status: e.status, intake_ms: e.ms, design_version: e.design_version })
     if (e.event === 'collected') Object.assign(t, { collected_at: e.at, responded_at: e.responded_at, author: e.author, author_type: e.author_type })
   }
   const rows = Object.values(turns).map((t) => {
@@ -183,6 +347,8 @@ try {
   if (cmd === 'publish') publish(pos[0])
   else if (cmd === 'collect') collect()
   else if (cmd === 'status') status()
+  else if (cmd === 'preview') out(preview(pos[0]))
+  else if (cmd === 'watch') watch()
   else {
     console.log('node poc/work-bridge.mjs publish <REQ-id> --repo owner/exchange [--dry-run]\nnode poc/work-bridge.mjs collect --repo owner/exchange [--authors a,b] [--dry-run]\nnode poc/work-bridge.mjs status')
     process.exit(cmd ? 2 : 0)
