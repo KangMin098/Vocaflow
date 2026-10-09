@@ -1,0 +1,9 @@
+{"at":"2026-10-09T06:41:58.817Z","event":"published","request_id":"REQ-20261009-001","ug":"UG-0001","round_id":"TH-0001-R02","design_version":0,"pr":"https://github.com/KangMin098/vocaflow-exchange/pull/1","files":1}
+{"at":"2026-10-09T06:44:29.571Z","event":"collected","request_id":"REQ-20261009-001","pr":1,"author":"KangMin098","author_type":"User","source":"comment","responded_at":"2026-10-09T06:43:52Z"}
+{"at":"2026-10-09T06:47:46.656Z","event":"published","request_id":"REQ-20261009-002","ug":"UG-0001","round_id":"TH-0001-R04","design_version":0,"pr":"https://github.com/KangMin098/vocaflow-exchange/pull/2","files":1}
+{"at":"2026-10-09T06:50:54.055Z","event":"collected","request_id":"REQ-20261009-002","pr":2,"author":"KangMin098","author_type":"User","app":"chatgpt-codex-connector","source":"comment","responded_at":"2026-10-09T06:49:40Z"}
+{"at":"2026-10-09T06:54:34.309Z","event":"published","request_id":"REQ-20261009-003","ug":"UG-0001","round_id":"TH-0001-R06","design_version":0,"pr":"https://github.com/KangMin098/vocaflow-exchange/pull/3","files":1}
+{"at":"2026-10-09T06:54:41.925Z","event":"published","request_id":"REQ-20261009-004","ug":"UG-0002","round_id":"TH-0002-R02","design_version":0,"pr":"https://github.com/KangMin098/vocaflow-exchange/pull/4","files":1}
+{"at":"2026-10-09T07:02:21.125Z","event":"collected","request_id":"REQ-20261009-004","pr":4,"author":"KangMin098","author_type":"User","app":"chatgpt-codex-connector","source":"comment","responded_at":"2026-10-09T06:56:03Z"}
+{"at":"2026-10-09T07:04:23.415Z","event":"published","request_id":"REQ-20261009-003","ug":"UG-0001","round_id":"TH-0001-R06","design_version":0,"pr":"https://github.com/KangMin098/vocaflow-exchange/pull/5","files":1}
+{"at":"2026-10-09T07:08:12.708Z","event":"collected","request_id":"REQ-20261009-003","pr":5,"author":"KangMin098","author_type":"User","app":"chatgpt-codex-connector","source":"comment","responded_at":"2026-10-09T07:07:47Z"}

@@ -1,7 +1,33 @@
 # ChatGPT Work 이벤트 연결 PoC (WF-S8) — 2026-10-09
 
-판정(현재): **미판정 — 사용자 설정 대기.** 실측된 Work 자동 실행 0회. `EVENT_DRIVEN_WORK_BRIDGE` 아님.
-현재 운영 경로는 검증된 반자동(HUMAN_IN_THE_LOOP: 사람이 요청 파일을 ChatGPT 에 올리고 응답을 저장 → `vfc ugoal intake`)을 그대로 쓴다.
+판정(2026-10-09 실측): **EVENT_DRIVEN_WORK_BRIDGE — 조건부.** 요청 게시 → Work 자동 실행 → PR 댓글 응답 → AI-Control 수집·인수가 **사용자 개입 0회**로 5턴 동작했다.
+조건: ① 요청은 한 번에 하나(동시 PR 은 Work 가 하나만 답했다) ② 수집·인수는 아직 상시 감시자가 아니라 명령 실행(폴링 루프) ③ 이번 PoC 는 컨텍스트 없는 비민감 요청이라 Work 가 수정 경로를 정하지 않았다 — 실행 가능한 설계 버전 0(설계 단계 검증은 Context Packet 을 붙인 다음 실측 대상).
+
+## 실측 결과 (WF-S10 · 교환 저장소 KangMin098/vocaflow-exchange · 별도 PoC 상태 폴더 — 실제 AI-Control 상태·제품 main·DB 무변경)
+
+| 턴 | PR | 목표(PoC) | 게시 → Work 댓글 | 게시 → 인수 | Work 판정 | 결과 |
+|---|---|---|---|---|---|---|
+| A-1 | #1 | PoC-A | 1분 54초 | 2분 31초* | needs_info | 처음 인수 거부(우리 결함: plan 빈 needs_info 를 설계로 검증) → 수정 뒤 적용 · 설계 없음 |
+| A-2 | #2 | PoC-A | 1분 53초 | 3분 7초* | revise(경로 미정) | 처음 거부(경로 빈 배열) → 수정 뒤 적용 · 설계 버전 없음(design_incomplete) |
+| A-3 | #3 → #5 | PoC-A | #3 무응답 · 재게시 #5 3분 26초 | — | revise(경로 미정) | #3·#4 를 8초 간격 동시 게시 → Work 가 #4 만 답함 · `--retry` 로 #5 재트리거 후 적용 |
+| B-1 | #4 | PoC-B | 1분 21초 | — | revise(경로 미정) | 적용 — 목표 B 에만 반영, 목표 A 라운드는 오염 없이 대기 유지 |
+
+\* 인수 시각에는 결함 수정 시간이 들어 있다. 수집+인수 자체는 약 4초.
+
+- **사용자 개입**: 턴마다 0회. 1회성 설정(GitHub 앱 연결 · 이벤트 작업 생성)만 사람.
+- **응답 출처**: 댓글 작성자는 사용자 계정(KangMin098)이고 `performed_via_github_app = chatgpt-codex-connector`. 작성자만으로는 사람 댓글과 구별되지 않아 `collect --app chatgpt-codex-connector` 로 앱을 고정한다.
+- **Work 의 GitHub 쓰기**: PR 댓글은 가능(실측). 브랜치 파일 쓰기는 하지 않았다(응답 파일 0).
+- **승인 경계**: Work 응답은 매번 「승인·제품 변경 안 함」 을 명시했고, AI-Control 은 설계를 승인하지 않았다(설계 버전 자체가 0).
+- **중복 방지**: 이미 수집한 응답은 `already_collected`. **오류 뒤 복구**: 무응답 요청은 `--retry`(옛 PR 닫고 새 PR).
+- 원자료: `verification/work-bridge/WF-S10-*`(bridge-log · PR 댓글 출처 · PoC 목표 상태).
+
+## 이번 실측으로 고친 것
+
+1. needs_info·reject 응답은 plan 이 비어도 거부하지 않고 라운드만 닫는다(라운드가 열린 채 남아 다음 요청을 막던 문제).
+2. 수정 경로가 빈 revise 는 설계 버전을 만들지 않고 기록 · 라운드 닫음(코드 근거 없이 경로를 지어내지 않은 정직한 응답).
+3. PR 본문은 실제로 올린 파일만 안내(없는 .context 를 가리켜 Work 가 needs_info 를 냈다).
+4. 게시 직렬화: 응답 대기 요청이 있으면 다음 게시 거부(`--parallel` 로만 무시) · `--retry` 재트리거.
+5. 수집 출처 고정 `--app`.
 
 ## 공식 문서로 확인된 것
 

@@ -108,7 +108,7 @@ test('목표 A·B 교차: 다른 목표 thread 를 단 응답은 인수 거부 �
   const qa = s.vfc('ugoal', 'request-design', a.ug_id, '--by', 'claude')
   const qb = s.vfc('ugoal', 'request-design', b.ug_id, '--by', 'claude')
   s.bridge('publish', qa.request_id, '--repo', XREPO)
-  s.bridge('publish', qb.request_id, '--repo', XREPO)
+  s.bridge('publish', qb.request_id, '--repo', XREPO, '--parallel')
   // A 의 PR 에 B 목표 thread 값을 단 응답(Work 가 섞었다)
   s.workReplies(1, { override: { goal_ref: b.ug_id, thread_id: qb.thread.thread_id, round_id: qb.thread.round_id } })
   // B 의 PR 에 A 의 요청 id 로 답한 응답
@@ -171,4 +171,57 @@ test('두 턴 연속(모의 Work): 설계 → 승인 → 구현 중 설계 충�
   assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_ACCEPTED')
   const st = s.bridge('status').json
   assert.equal(st.collected, 2, '두 턴 모두 게시·수집')
+})
+
+test('실측 형식: needs_info(plan 비어 있음)·revise(allowed_paths 빈 배열)는 거부하지 않고 라운드를 닫는다 — 설계 버전은 만들지 않는다', () => {
+  const s = setup()
+  const u = s.vfc('ugoal', 'start', '--from', 'claude', '--title', 'real-shape', '--goals', CANON, '--by', 'claude')
+  const q1 = s.vfc('ugoal', 'request-design', u.ug_id, '--no-context', '--by', 'claude')
+  s.bridge('publish', q1.request_id, '--repo', XREPO)
+  s.workReplies(1, { override: { verdict: 'needs_info' }, plan: { allowed_paths: [] } })
+  s.bridge('collect', '--repo', XREPO)
+  const a = s.vfc('ugoal', 'intake', '--min-age-ms', '0', '--by', 'user').results[0]
+  assert.equal(a.status, 'applied')
+  assert.equal(a.design_version, null)
+  const q2 = s.vfc('ugoal', 'request-design', u.ug_id, '--no-context', '--by', 'claude')
+  assert.ok(q2.request_id, '라운드가 닫혀 다음 요청이 막히지 않는다')
+  s.bridge('publish', q2.request_id, '--repo', XREPO)
+  s.workReplies(2, { plan: { allowed_paths: [] } })
+  s.bridge('collect', '--repo', XREPO)
+  const b = s.vfc('ugoal', 'intake', '--min-age-ms', '0', '--by', 'user').results[0]
+  assert.equal(b.status, 'applied')
+  assert.equal(b.design_version, null)
+  assert.match(b.design_incomplete, /allowed_paths/)
+  assert.equal(s.vfc('ugoal', 'status', u.ug_id).designs.length, 0)
+  // 다른 형식 오류(acceptance 문자열)는 여전히 거부
+  const q3 = s.vfc('ugoal', 'request-design', u.ug_id, '--no-context', '--by', 'claude')
+  s.bridge('publish', q3.request_id, '--repo', XREPO)
+  s.workReplies(3, { plan: { acceptance: '문자열' } })
+  s.bridge('collect', '--repo', XREPO)
+  assert.equal(s.vfc('ugoal', 'intake', '--min-age-ms', '0', '--by', 'user').results[0].status, 'rejected')
+})
+
+test('직렬화: 응답 대기 중이면 다른 요청 게시 거부(Work 가 동시 PR 중 하나만 답한 실측) · --retry 는 옛 PR 을 닫고 새 PR 로 다시 트리거', () => {
+  const s = setup()
+  const a = s.vfc('ugoal', 'start', '--from', 'claude', '--title', 'A', '--goals', CANON, '--by', 'claude')
+  const b = s.vfc('ugoal', 'start', '--from', 'claude', '--title', 'B', '--goals', CANON, '--by', 'claude')
+  const qa = s.vfc('ugoal', 'request-design', a.ug_id, '--no-context', '--by', 'claude')
+  const qb = s.vfc('ugoal', 'request-design', b.ug_id, '--no-context', '--by', 'claude')
+  assert.equal(s.bridge('publish', qa.request_id, '--repo', XREPO).code, 0)
+  const blocked = s.bridge('publish', qb.request_id, '--repo', XREPO)
+  assert.notEqual(blocked.code, 0)
+  assert.match(blocked.err, /응답 대기 중인 요청이 있다/)
+  // A 응답이 없으면 --retry 로 다시 트리거: 옛 PR 닫힘 · 새 브랜치 PR
+  const r = s.bridge('publish', qa.request_id, '--repo', XREPO, '--retry')
+  assert.equal(r.code, 0, r.err)
+  const st = s.gh()
+  assert.equal(st.prs.length, 2)
+  assert.equal(st.prs[0].state, 'closed')
+  assert.match(st.prs[1].headRefName, /-r2$/)
+  s.workReplies(2)
+  s.bridge('collect', '--repo', XREPO)
+  assert.equal(s.vfc('ugoal', 'intake', '--min-age-ms', '0', '--by', 'user').results[0].status, 'applied')
+  // 응답을 받은 요청은 재시도 금지 · 이제 B 게시 가능
+  assert.notEqual(s.bridge('publish', qa.request_id, '--repo', XREPO, '--retry').code, 0)
+  assert.equal(s.bridge('publish', qb.request_id, '--repo', XREPO).code, 0)
 })

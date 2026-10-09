@@ -59,14 +59,32 @@ function publish(id) {
   if (!fs.existsSync(reqFile)) throw new Error(`${reqFile} 없음`)
   const h = header(reqFile)
   if (!h.thread) throw new Error(`${id} 는 thread 요청이 아니다(ugoal request-design 으로 만든 요청만)`)
-  if (readLog().some((e) => e.event === 'published' && e.request_id === id)) throw new Error(`${id} 는 이미 게시했다 — 같은 요청을 두 번 올리지 않는다`)
+  const log0 = readLog()
+  const collected = new Set(log0.filter((e) => e.event === 'collected').map((e) => e.request_id))
+  const prior = log0.filter((e) => e.event === 'published' && e.request_id === id)
+  // --retry: 응답을 못 받은 요청만 — 옛 PR 을 닫고 새 브랜치로 다시 연다(같은 요청 id · 새 PR 이벤트)
+  if (prior.length && !opt.retry) throw new Error(`${id} 는 이미 게시했다 — 응답이 없으면 --retry 로 다시 트리거한다`)
+  if (prior.length && collected.has(id)) throw new Error(`${id} 는 이미 응답을 받았다 — 다시 올리지 않는다`)
+  // 한 번에 하나: Work 는 가까이 온 PR 이벤트를 한 실행으로 합치고 마지막 PR 만 답했다(실측 PR #3·#4, 8초 간격) — 응답 대기 중인 다른 요청이 있으면 게시하지 않는다
+  const waiting = [...new Set(log0.filter((e) => e.event === 'published' && e.request_id !== id).map((e) => e.request_id))].filter((r) => !collected.has(r))
+  if (waiting.length && !opt.parallel) throw new Error(`응답 대기 중인 요청이 있다(${waiting.join(', ')}) — 한 번에 하나씩 게시한다(동시 게시는 Work 가 하나만 답한다). 무시하려면 --parallel`)
   // Context Packet: 요청 헤더의 첨부 중 context/<UG>/ 아래 파일만(그 밖의 로컬 파일은 올리지 않는다)
   const ctxDir = path.join(ROOT, 'context', h.thread.goal_ref)
   const ctx = (h.attachments || []).map((a) => path.resolve(a.path)).filter((p) => p.startsWith(path.resolve(ctxDir) + path.sep) && fs.existsSync(p))
-  const branch = `vfc/${id}`
+  const branch = prior.length ? `vfc/${id}-r${prior.length + 1}` : `vfc/${id}`
+  if (prior.length && !dry) {
+    for (const pr of prior) {
+      try {
+        gh(['pr', 'close', pr.pr, '--repo', opt.repo, '--comment', `응답이 없어 다시 트리거한다(--retry) — 새 PR 로 이어진다`])
+      } catch {
+        /* 이미 닫혔다 */
+      }
+    }
+  }
   const title = `[vfc] ${id} ${h.thread.goal_ref} ${h.thread.round_id} v${h.thread.design_version}`
   const body = [
-    `ChatGPT Work 에게: 이 PR 의 \`requests/${id}.md\` 를 읽고(최신 플랫폼 정보는 \`requests/${id}.context/\`), 그 파일의 「응답 규칙」대로 \`\`\`json vfc-response\`\`\` 블록 하나를 **이 PR 의 댓글**로 남겨 주세요.`,
+    // 실제로 올린 파일만 안내한다 — 없는 .context 폴더를 가리키면 Work 가 「연결 자료 읽기 실패」 로 needs_info 를 낸다(실측 PR #1)
+    `ChatGPT Work 에게: 이 PR 의 \`requests/${id}.md\` 를 읽고${ctx.length ? `(최신 플랫폼 정보는 \`requests/${id}.context/\` 의 ${ctx.length}개 파일)` : '(이 요청에는 첨부 컨텍스트가 없다 — 요청서만으로 판단하고 가정은 unverified 로 표시)'}, 그 파일의 「응답 규칙」대로 \`\`\`json vfc-response\`\`\` 블록 하나를 **이 PR 의 댓글**로 남겨 주세요.`,
     `thread_id=${h.thread.thread_id} · goal_ref=${h.thread.goal_ref} · round_id=${h.thread.round_id} · design_version=${h.thread.design_version} · base_commit=${h.thread.base_commit ?? '-'}`,
     `응답은 제안일 뿐이며 사용자 승인 전에는 실행되지 않습니다. 이 PR 은 머지하지 않습니다.`,
   ].join('\n\n')
@@ -96,7 +114,7 @@ function collect() {
     const id = (pr.title.match(/(REQ-\d{8}-\d{3})/) || [])[1]
     if (!id) continue
     const sources = []
-    for (const c of ghJson(['api', `repos/${opt.repo}/issues/${pr.number}/comments?per_page=100`])) sources.push({ kind: 'comment', author: c.user.login, author_type: c.user.type, at: c.created_at, body: c.body, ref: c.html_url })
+    for (const c of ghJson(['api', `repos/${opt.repo}/issues/${pr.number}/comments?per_page=100`])) sources.push({ kind: 'comment', author: c.user.login, author_type: c.user.type, app: c.performed_via_github_app?.slug ?? null, at: c.created_at, body: c.body, ref: c.html_url })
     try {
       const f = ghJson(['api', `repos/${opt.repo}/contents/responses/${id}.response.md?ref=${pr.headRefName}`])
       sources.push({ kind: 'file', author: null, at: null, body: Buffer.from(f.content, 'base64').toString('utf8'), ref: f.html_url })
@@ -106,6 +124,11 @@ function collect() {
     for (const s of sources) {
       const blocks = [...String(s.body).matchAll(/```json vfc-response\s*\n([\s\S]*?)\n```/g)]
       if (blocks.length !== 1) continue
+      // Work 댓글은 사용자 명의 + 앱(performed_via_github_app) 으로 달린다(실측 chatgpt-codex-connector) — 사람이 단 댓글과 가르려면 --app 으로 앱을 고정한다
+      if (opt.app && s.kind === 'comment' && s.app !== opt.app) {
+        found.push({ id, pr: pr.number, source: s.ref, author: s.author, app: s.app, status: 'ignored_app' })
+        continue
+      }
       if (authors && s.author && !authors.includes(s.author.toLowerCase())) {
         found.push({ id, pr: pr.number, source: s.ref, author: s.author, status: 'ignored_author' })
         continue
@@ -132,7 +155,7 @@ function collect() {
         fs.mkdirSync(path.dirname(dest), { recursive: true })
         fs.writeFileSync(`${dest}.part`, text)
         fs.renameSync(`${dest}.part`, dest) // ugoal intake 는 .part 를 집지 않는다
-        log({ event: 'collected', request_id: id, pr: pr.number, author: s.author, author_type: s.author_type, source: s.kind, responded_at: s.at })
+        log({ event: 'collected', request_id: id, pr: pr.number, author: s.author, author_type: s.author_type, app: s.app ?? null, source: s.kind, responded_at: s.at })
       }
       found.push({ id, pr: pr.number, source: s.ref, author: s.author, author_type: s.author_type, status: dry ? 'would_collect' : 'collected', file: path.relative(ROOT, dest) })
     }

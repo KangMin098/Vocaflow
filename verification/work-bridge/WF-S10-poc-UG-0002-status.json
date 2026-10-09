@@ -1,0 +1,60 @@
+{
+  "ug_id": "UG-0002",
+  "thread_id": "TH-0002",
+  "title": "PoC-B: 단어 퀴즈 결과 요약 문구(비민감 실험)",
+  "origin": "claude",
+  "profile": "FAST",
+  "status": "OPEN",
+  "chat_surface": null,
+  "chat_url": null,
+  "owners": [],
+  "canon_goal_ids": [
+    "VG-L3-A2-01"
+  ],
+  "approval": null,
+  "designs": [],
+  "rounds": [
+    {
+      "round_id": "TH-0002-R01",
+      "request_id": null,
+      "sender": "claude",
+      "recipient": "ai-control",
+      "purpose": "goal_start",
+      "design_version": null,
+      "response_status": "APPLIED",
+      "approval_status": "NONE"
+    },
+    {
+      "round_id": "TH-0002-R02",
+      "request_id": "REQ-20261009-004",
+      "sender": "ai-control",
+      "recipient": "chatgpt",
+      "purpose": "design",
+      "design_version": 0,
+      "response_status": "APPLIED",
+      "approval_status": "NONE"
+    },
+    {
+      "round_id": "TH-0002-R03",
+      "request_id": "REQ-20261009-004",
+      "sender": "chatgpt",
+      "recipient": "ai-control",
+      "purpose": "design_response",
+      "design_version": null,
+      "response_status": "APPLIED",
+      "approval_status": "NONE"
+    }
+  ],
+  "counters": {
+    "requeries": {},
+    "total_requeries": 0,
+    "consecutive_failures": 0
+  },
+  "tasks": [],
+  "route": {
+    "ug_id": "UG-0002",
+    "route": "DESIGN_REQUIRED",
+    "reason": "설계가 없다(Claude 초안 또는 ChatGPT 요청)",
+    "actor": "claude"
+  }
+}

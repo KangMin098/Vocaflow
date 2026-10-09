@@ -53,6 +53,11 @@ if (a[0] === 'api') {
   const n = st.prs.length + 1
   st.prs.push({ number: n, title: flag('--title'), headRefName: flag('--head'), labels: [flag('--label')], body: flag('--body'), createdAt: new Date().toISOString(), comments: [] })
   console.log(`https://github.example/pr/${n}`)
+} else if (a[0] === 'pr' && a[1] === 'close') {
+  const n = Number(String(a[2]).split('/').pop())
+  const pr = st.prs.find((p) => p.number === n)
+  if (!pr) fail('no pr')
+  pr.state = 'closed'
 } else if (a[0] === 'pr' && a[1] === 'list') {
   const label = flag('--label')
   console.log(JSON.stringify(st.prs.filter((p) => p.labels.includes(label)).map(({ number, title, headRefName, createdAt }) => ({ number, title, headRefName, createdAt }))))
