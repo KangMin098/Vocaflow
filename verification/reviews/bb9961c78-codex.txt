@@ -1,0 +1,1676 @@
+OpenAI Codex v0.162.0-alpha.17.2
+--------
+workdir: D:\workspace\Vocaflow-AI-Control
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a12237-3bc3-7061-a498-1d196b7a45f9
+--------
+user
+commit bb9961c
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'git status --short; git show --stat --oneline bb9961c78; Get-ChildItem -Force -Name AGENTS*' in D:\workspace\Vocaflow-AI-Control
+ succeeded in 509ms:
+warning: unable to access 'C:\Users\Administrator/.config/git/ignore': Permission denied
+warning: unable to access 'C:\Users\Administrator/.config/git/ignore': Permission denied
+ M verification/ci/MAIN-ci.yml-e2e-37863144232.json
+?? planning/archive/REQ-20261009-003.md
+?? planning/archive/REQ-20261009-003.response.md
+?? planning/archive/REQ-20261009-c8315ad8-001.md
+?? planning/archive/REQ-20261009-c8315ad8-001.response.md
+?? planning/bridge-instance.txt
+?? planning/bridge-log.jsonl
+?? planning/bridge-preview/
+?? planning/requests/REQ-20261009-002.md
+?? planning/requests/REQ-20261009-c8315ad8-003.md
+?? planning/requests/REQ-20261009-c8315ad8-004.md
+?? verification/ci/MAIN-ci.yml-e2e-37883117036.json
+?? verification/goal-check/GC-2026-10-09T03-12-18-860Z.json
+?? verification/goal-check/GC-2026-10-09T03-12-23-537Z.json
+?? verification/goal-check/GC-2026-10-09T03-12-28-355Z.json
+?? verification/goal-check/GC-2026-10-09T03-12-32-867Z.json
+?? verification/goal-check/GC-2026-10-09T03-14-41-231Z.json
+?? verification/goal-check/GC-2026-10-09T03-14-41-813Z.json
+?? verification/goal-check/GC-2026-10-09T04-17-03-885Z.json
+?? verification/goal-check/GC-2026-10-09T09-52-19-049Z.json
+?? verification/goal-check/GC-2026-10-09T09-54-14-142Z.json
+?? verification/goal-check/GC-2026-10-09T09-57-53-941Z.json
+?? verification/goal-check/GC-2026-10-09T10-00-15-230Z.json
+?? verification/goal-check/GC-2026-10-09T10-00-15-390Z.json
+?? verification/goal-check/GC-2026-10-09T18-12-59-227Z.json
+?? verification/goal-check/GC-2026-10-09T18-12-59-977Z.json
+?? verification/goal-check/GC-2026-10-09T18-13-09-065Z.json
+?? verification/goal-check/GC-2026-10-09T18-13-09-897Z.json
+?? verification/goal-check/GC-2026-10-09T18-13-10-342Z.json
+?? verification/goal-check/GC-2026-10-09T18-13-11-094Z.json
+?? verification/goal-check/GC-2026-10-09T19-23-25-635Z.json
+?? verification/goal-check/GC-2026-10-09T19-23-42-014Z.json
+?? verification/tests/orch/20261009T095753-1731c2/
+bb9961c78 feat(orchestrator): 사용자 대화형 설계 승인 자동 적용 · UG-0002 v4 준비
+ bin/vfc.mjs                                        |   5 +-
+ lib/orchestrator.mjs                               |   3 +
+ lib/usergoals.mjs                                  |  42 ++++-
+ planning/archive/REQ-20261010-c8315ad8-001.md      | 165 +++++++++++++++++
+ .../archive/REQ-20261010-c8315ad8-001.response.md  | 170 +++++++++++++++++
+ planning/specs/UG-0002-issue-v3.json               |  18 ++
+ planning/specs/UG-0002-v3-draft.json               |  27 +++
+ planning/specs/UG-0002-v4-t1.json                  |  37 ++++
+ planning/specs/UG-0002-v4-t2.json                  |  35 ++++
+ tests/operations.test.mjs                          |  16 ++
+ verification/ops/WF-S15-run1.json                  | 206 +++++++++++++++++++++
+ 11 files changed, 721 insertions(+), 3 deletions(-)
+agents
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'git show bb9961c78 -- bin/vfc.mjs lib/orchestrator.mjs lib/usergoals.mjs tests/operations.test.mjs; Get-ChildItem -Force; Get-ChildItem -Recurse -File -Filter AGENTS.md | Select-Object -ExpandProperty FullName; Get-ChildItem -Recurse -File -Filter AGENTS.override.md | Select-Object -ExpandProperty FullName' in D:\workspace\Vocaflow-AI-Control
+ succeeded in 449ms:
+commit bb9961c788f563d2e0e2a0c9417f2e25f0970e2e
+Author: KangMin098 <killerapp51@empal.com>
+Date:   Sat Oct 10 04:33:35 2026 +0900
+
+    feat(orchestrator): 사용자 대화형 설계 승인 자동 적용 · UG-0002 v4 준비
+    
+    - applyTrustedDesignApprovals: tty design_approval(「UG@vN」 · --paths) → 반복마다 적용·초안을 작업으로
+    - vfc approve --paths · cli/agent 기록은 무시(회귀)
+    - UG-0002: main 결정 유지(DL-0060) → v3 초안·Work 자동 왕복(PR #10) → v4 PROPOSED · 초안 작업 2
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/bin/vfc.mjs b/bin/vfc.mjs
+index dbb7b57b3..439237c43 100644
+--- a/bin/vfc.mjs
++++ b/bin/vfc.mjs
+@@ -102,7 +102,8 @@ const HELP = `vfc — Vocaflow AI Control
+   goal level <VG-…>                       TASK_COMPLETED · GOAL_PARTIAL · GOAL_VERIFIED · USER_ACCEPTED(사용자 결정만)
+   task list [--status S] [--owner O] | task show <id>
+   task approve <id> --by user --ref "근거" [--sql-sha256 H]   DB 쓰기 승인은 사람의 대화형 터미널에서만
+-  approve --kind design_approval|goal_acceptance|db_write|canon_change --summary "UG-… accept" [--ref ..] [--goals VG-..] [--new-canon-version v]
++  approve --kind design_approval|goal_acceptance|db_write|canon_change --summary "UG-… accept" [--ref ..] [--goals VG-..] [--paths a,b] [--new-canon-version v]
++                                          design_approval(「UG-…@vN」)은 다음 오케스트레이터 반복이 자동 적용·작업 재개
+                                           신뢰 승인 입력(대화형 터미널 · 에이전트 밖 · 화면의 확인 코드 입력) — 강한 승인의 유일한 근거
+   task start <id> --owner O --agent A --session L [--pid N]
+   task evidence <id> --file ev.json --by O  ev: type command_or_protocol result skip_count artifact_path_or_url observed_at covers[]
+@@ -290,7 +291,7 @@ function main() {
+         if (line.includes('\n')) break
+       }
+       if (line.trim() !== code) throw new T.RuleError('TRUST_CODE_MISMATCH', '확인 코드가 다르다 — 기록하지 않았다')
+-      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
++      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
+       return out(withState((s) => T.logDecision(s, entry, { via: 'tty' }), { event: 'decision.approve_tty', kind: opt.kind, by: 'user' }), opt)
+     }
+     case 'task set-acceptance': {
+diff --git a/lib/orchestrator.mjs b/lib/orchestrator.mjs
+index 148bac162..37beca6fe 100644
+--- a/lib/orchestrator.mjs
++++ b/lib/orchestrator.mjs
+@@ -768,6 +768,9 @@ export function runOrchestrator({ limits: lim = {}, deps, tools = ['git', 'claud
+         break
+       }
+       const bt = bridge && !dryRun ? bridgeTick(bridge) : null
++      // 사용자 대화형 설계 승인 → 적용 · 초안/보류 작업 재개(사용자는 vfc approve 하나만)
++      const applied = dryRun ? [] : withState((s) => UG.applyTrustedDesignApprovals(s), { event: 'usergoal.auto_approve', by: 'orchestrator' })
++      if (applied.length) runEvent(runId, { phase: 'approval_applied', applied })
+       if (bt) runEvent(runId, { phase: 'bridge', published: bt.published?.published ?? null, collected: bt.collected ?? [], intake: (bt.intake ?? []).map((x) => x.status), waiting: bt.waiting ?? [], error: bt.error ?? bt.errors?.[0] ?? null })
+       let sel = selectStep({ runId, tools, pid, last: lastDone })
+       // 고를 작업이 없고 Work 응답을 기다리는 중이면 — 정해진 시간까지 tick 으로 기다렸다가 인수되면 다시 고른다(대기 중 다른 작업은 위에서 이미 실행)
+diff --git a/lib/usergoals.mjs b/lib/usergoals.mjs
+index 5842e6f9c..e1ad019d3 100644
+--- a/lib/usergoals.mjs
++++ b/lib/usergoals.mjs
+@@ -28,7 +28,7 @@ import { sha256File } from './fsutil.mjs'
+ import { createRequest, extractResponse, validateResponse, readRequestHeader, toDecisionEntries, REQ_ID_RE, requestNamespace } from './planning.mjs'
+ import { EXPORT_FILES } from './context.mjs'
+ import { loadCriteria, goalIndex } from './goals.mjs'
+-import { RuleError, logDecision, isTrustedUserDecision } from './tasks.mjs'
++import { RuleError, logDecision, isTrustedUserDecision, addTask } from './tasks.mjs'
+ 
+ export const DESIGN_STATES = ['DRAFT', 'PROPOSED', 'REVIEWED', 'APPROVED', 'SUPERSEDED']
+ export const ROUTES = ['DESIGN_REQUIRED', 'IMPLEMENTATION_REQUIRED', 'CODE_REVIEW_REQUIRED', 'DESIGN_CONFLICT', 'IMPLEMENTATION_DEFECT', 'APPROVAL_REQUIRED', 'EXTERNAL_BLOCKER', 'GOAL_VERIFIED', 'USER_ACCEPTED', 'PAUSED']
+@@ -769,3 +769,43 @@ export function summary(state, ug) {
+ }
+ 
+ export { sha256File }
++
++/**
++ * 사용자가 대화형 터미널로 기록한 설계 승인(vfc approve --kind design_approval --summary 「UG-…@vN」 [--paths ..])을 적용한다.
++ * 오케스트레이터가 반복마다 부른다 — 사용자는 승인 명령 하나만 실행하면 되고, 적용·작업 재개는 자동이다.
++ * tty 결정만(에이전트·cli 기록은 무시) · 이미 적용된 결정은 다시 쓰지 않는다 · 범위 확장·DEEP 초안 직승인 같은 기존 규칙은 approveDesign 이 그대로 검사한다.
++ */
++export function applyTrustedDesignApprovals(state, { by = 'orchestrator' } = {}) {
++  const out = []
++  const used = new Set(Object.values(ugState(state).goals).map((g) => g.approval?.decision_id).filter(Boolean))
++  for (const d of state.decisionLog.entries) {
++    if (d.kind !== 'design_approval' || !isTrustedUserDecision(d) || used.has(d.decision_id) || d.auto_applied) continue
++    const text = `${d.summary || ''} ${d.reference || ''}`
++    for (const g of Object.values(ugState(state).goals)) {
++      if (g.status !== 'OPEN') continue
++      for (const v of g.designs) {
++        const esc = `${g.ug_id}@v${v.version}`.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
++        if (!new RegExp(`(^|[^0-9A-Za-z@-])${esc}(?![0-9A-Za-z])`).test(text)) continue
++        try {
++          const r = approveDesign(state, g.ug_id, { version: v.version, decision_id: d.decision_id, allowed_paths: d.allowed_paths || null, by })
++          // 승인 전 초안 → 작업(vfc ugoal approve 와 같은 절차 · 범위 밖 초안은 사유와 함께 남긴다)
++          const created = []
++          const refused = []
++          for (const dr of r.drafts || []) {
++            try {
++              created.push(addTask(state, bindTaskSpec(state, g.ug_id, dr.spec), { ugBound: true }).task_id)
++            } catch (e) {
++              refused.push({ title: dr.spec.title, reason: e.message })
++            }
++          }
++          d.auto_applied = { ug: g.ug_id, version: v.version, at: now(), created, refused }
++          out.push({ ug: g.ug_id, version: v.version, decision_id: d.decision_id, created, refused, resumed: r.resumed ?? [] })
++        } catch (e) {
++          d.auto_applied = { ug: g.ug_id, version: v.version, at: now(), error: `${e.code ?? 'ERROR'}: ${String(e.message).slice(0, 200)}` }
++          out.push({ ug: g.ug_id, version: v.version, decision_id: d.decision_id, error: d.auto_applied.error })
++        }
++      }
++    }
++  }
++  return out
++}
+diff --git a/tests/operations.test.mjs b/tests/operations.test.mjs
+index ccdc0f9b0..bc13b22f3 100644
+--- a/tests/operations.test.mjs
++++ b/tests/operations.test.mjs
+@@ -273,3 +273,19 @@ test('Codex P1 — 죽은 세션이 커밋을 남기면 자동 재개하지 않
+   assert.deepEqual(r.handoff.kept.map((k) => k.task_id), [t.task_id])
+   assert.match(s.task(t.task_id).blocker.reason, /커밋을 남겼다/)
+ })
++
++test('자동 적용 — 사용자 대화형 설계 승인(vfc approve) 하나로 다음 반복이 설계를 적용하고 초안 작업을 실행한다 · cli 기록은 무시', () => {
++  const s = setup()
++  const u = s.goal('AA목표')
++  s.ugTask(u.ug_id, [0, 1]) // 승인 전 → 초안
++  // cli(비대화형) 결정은 자동 적용하지 않는다
++  s.vfc('decision', 'add', '--status', 'APPROVED', '--kind', 'design_approval', '--summary', `${u.ug_id}@v1 승인`, '--approved-by', 'user', '--ref', 't', '--by', 'user')
++  const r0 = s.orch(['--max-tasks', '1'])
++  assert.equal(r0.iterations[0].selected, null, 'cli 승인으로는 실행하지 않는다')
++  const td = s.run(VFC, ['approve', '--kind', 'design_approval', '--summary', `${u.ug_id}@v1`, '--paths', 'src/**', '--json'], { VFC_TTY_FOR_TESTS: '1', VFC_TEST_CODE: 'f00d42' }, 'f00d42\n').json
++  assert.deepEqual(td.allowed_paths, ['src/**'])
++  const r1 = s.orch(['--max-tasks', '2'])
++  assert.equal(r1.run.tasks_done[0]?.outcome, 'completed', JSON.stringify(r1.iterations[0].selected))
++  assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_VERIFIED')
++  assert.equal(s.vfc('ugoal', 'status', u.ug_id).approval.decision_id, td.decision_id)
++})
+
+
+    디렉터리: D:\workspace\Vocaflow-AI-Control
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----        2026-10-09   오전 6:24                agents                                                               
+d-----        2026-10-09   오후 1:33                bin                                                                  
+d-----        2026-10-10   오전 3:12                config                                                               
+d-----        2026-10-09   오후 7:43                context                                                              
+d-----        2026-10-09   오후 5:30                docs                                                                 
+d-----        2026-10-09   오전 6:32                goals                                                                
+d-----        2026-10-09  오전 11:51                hooks                                                                
+d-----        2026-10-10   오전 2:00                lib                                                                  
+d-----        2026-10-10   오전 4:32                planning                                                             
+d-----        2026-10-09   오후 5:24                poc                                                                  
+d-----        2026-10-09   오후 2:38                runtime                                                              
+d-----        2026-10-09   오전 6:33                seed                                                                 
+d-----        2026-10-10   오전 4:33                state                                                                
+d-----        2026-10-09   오전 8:50                tasks                                                                
+d-----        2026-10-10   오전 4:28                tests                                                                
+d-----        2026-10-10   오전 3:12                verification                                                         
+-a-h--        2026-10-09   오전 6:24             65 .git                                                                 
+-a----        2026-10-09   오후 1:31            493 .gitignore                                                           
+-a----        2026-10-09   오전 9:01           3242 README.md                                                            
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content lib/usergoals.mjs | Select-Object -First 180; Select-String -Path lib/usergoals.mjs -Pattern 'approveDesign|bindTaskSpec|drafts|function ugState' ; Get-Content lib/tasks.mjs | Select-String -Pattern 'isTrustedUserDecision|function addTask' -Context 0,30; Get-Content bin/vfc.mjs | Select-String -Pattern 'UG.approveDesign' -Context 10,30; git show bb9961c78 -- planning/specs" in D:\workspace\Vocaflow-AI-Control
+ succeeded in 499ms:
+// lib/usergoals.mjs
+//
+// ?ъ슜??吏??紐⑺몴(USER_GOAL)???ㅼ쨷 ???묒뾽 ??WF-S7.
+//
+// 紐⑺몴 ?섎굹 = thread ?섎굹. ?쇱슫??硫붿떆吏 援먰솚)留덈떎 ?꾧? ?꾧뎄?먭쾶 臾댁뾿????蹂대깉?붿?, ?대뼡 ?ㅺ퀎 踰꾩쟾쨌湲곗? 而ㅻ컠???먭퀬
+// ?덈뒗吏瑜??④릿?? 怨좎젙 ???섍? ?녿떎 ??route() 媛 吏湲??곹깭?먯꽌 **?꾩슂??AI ?섎굹**留?怨좊Ⅸ??
+//
+//   ?쒖옉 寃쎈줈 2媛?媛숈? ?곹깭 紐⑤뜽)
+//     ChatGPT-first  startFromChatGPT(): ?ъ슜?먭? ChatGPT ?먯꽌 諛쏆? vfc-goal 釉붾줉 ?뚯씪 ??紐⑺몴 + ?ㅺ퀎 v1 PROPOSED
+//     Claude-first   startFromClaude():  Claude Code 媛 議곗궗 ???깅줉 ???ㅺ퀎媛 ?꾩슂?섎㈃ requestDesign() ???붿껌?쒕? 留뚮뱺??//   ?ㅺ퀎 踰꾩쟾        DRAFT ??PROPOSED ??(REVIEWED) ??APPROVED ??SUPERSEDED. ?뱀씤? ?ъ슜??寃곗젙(DECISION_LOG APPROVED)?쇰줈留?
+//                    ??踰꾩쟾? ?뱀씤 踰붿쐞瑜??볧엳吏 ?딅뒗????踰붿쐞???뱀씤 ??紐낆떆??allowed_paths ???ㅺ퀎??allowed_paths.
+//                    ?듭떖 怨꾩빟(contract_hash)??諛붾뚮㈃ ??踰꾩쟾?쇰줈 ?앸궃 ?묒뾽? revalidate_required(紐⑺몴 ?꾨즺 洹쇨굅?먯꽌 鍮좎쭊??.
+//   ?묐떟 ?몄닔        intakeResponses(): planning/responses ???뚯씪???먯옄?곸쑝濡?吏묒뼱(rename) 寃利씲룹쨷蹂??쒓굅쨌thread ?議????곸슜.
+//                    ChatGPT ?묐떟? 寃곗퐫 ?뱀씤???꾨땲???????ㅺ퀎 踰꾩쟾? PROPOSED 濡쒕쭔 ?ㅼ뼱媛꾨떎.
+//   ?쇱슦??          route(): DESIGN_REQUIRED 쨌 IMPLEMENTATION_REQUIRED 쨌 CODE_REVIEW_REQUIRED 쨌 DESIGN_CONFLICT 쨌
+//                    IMPLEMENTATION_DEFECT 쨌 APPROVAL_REQUIRED 쨌 EXTERNAL_BLOCKER 쨌 GOAL_VERIFIED(?섏슜 湲곗? ?꾨? 쨌 ?ъ슜???섎씫 ?湲? 쨌 USER_ACCEPTED (+ PAUSED)
+//                    肄붾뱶 寃고븿? Claude?봀odex ?덉뿉???덈떎(?ㅼ??ㅽ듃?덉씠???ъ옉??猷⑦봽). ChatGPT ???ㅺ퀎 ?곸젏?먯꽌留?遺瑜몃떎.
+//   ?꾨줈?꽷룹삁??     FAST/BALANCED/DEEP/CRITICAL ? 諛섎났쨌鍮꾩슜 ?덉궛怨??뚯꽕怨??좏뻾 ?꾩슂?띾쭔 諛붽씔?? ?뱀씤쨌臾닿껐??寃뚯씠?몃뒗 洹몃?濡쒕떎.
+//
+// OpenAI API 쨌 釉뚮씪?곗? ?먮룞???놁쓬 ??ChatGPT 援ш컙? ?щ엺???뚯씪????릿??HUMAN_IN_THE_LOOP).
+
+import crypto from 'node:crypto'
+import fs from 'node:fs'
+import path from 'node:path'
+import { p, root } from './paths.mjs'
+import { sha256File } from './fsutil.mjs'
+import { createRequest, extractResponse, validateResponse, readRequestHeader, toDecisionEntries, REQ_ID_RE, requestNamespace } from './planning.mjs'
+import { EXPORT_FILES } from './context.mjs'
+import { loadCriteria, goalIndex } from './goals.mjs'
+import { RuleError, logDecision, isTrustedUserDecision, addTask } from './tasks.mjs'
+
+export const DESIGN_STATES = ['DRAFT', 'PROPOSED', 'REVIEWED', 'APPROVED', 'SUPERSEDED']
+export const ROUTES = ['DESIGN_REQUIRED', 'IMPLEMENTATION_REQUIRED', 'CODE_REVIEW_REQUIRED', 'DESIGN_CONFLICT', 'IMPLEMENTATION_DEFECT', 'APPROVAL_REQUIRED', 'EXTERNAL_BLOCKER', 'GOAL_VERIFIED', 'USER_ACCEPTED', 'PAUSED']
+export const MODES = ['USER_GOAL', 'PLATFORM_AUTO']
+
+/** ?꾨줈?꾩? ?덉궛怨??ㅺ퀎 ?좏뻾留?諛붽씔?? require_review_pass쨌DB ?뱀씤쨌利앷굅 臾닿껐?깆? ?대뼡 ?꾨줈?꾩뿉?쒕룄 ??븘吏吏 ?딅뒗??CRITICAL ? ?щ┛??. */
+export const PROFILES = {
+  FAST: { codex_effort: 'medium', max_review_rounds: 2, claude_budget_usd: 2, needs_design: false, require_review_pass: false, note: '?묒? ?섏젙 쨌 愿???뚯뒪???곗꽑 쨌 湲고쉷 ?뺣났 理쒖냼' },
+  BALANCED: { codex_effort: 'medium', max_review_rounds: 3, claude_budget_usd: 5, needs_design: false, require_review_pass: false, note: '?쇰컲 ?쒗뭹 湲곕뒫 쨌 湲곕낯 寃利? },
+  DEEP: { codex_effort: 'high', max_review_rounds: 3, claude_budget_usd: 5, needs_design: true, require_review_pass: false, note: '?숈뒿 ?먮━쨌?꾪궎?띿쿂 ???ㅺ퀎 ??덇낵 洹쇨굅 ?좏뻾' },
+  CRITICAL: { codex_effort: 'high', max_review_rounds: 3, claude_budget_usd: 5, needs_design: true, require_review_pass: true, note: '?몄쬆쨌沅뚰븳쨌DB쨌?숈뒿 湲곕줉쨌?곗씠??怨꾨낫 ???ㅺ퀎 ?좏뻾 + 洹?而ㅻ컠??Stop ??REVIEW_PASS ?꾩닔' },
+}
+
+export const BUDGET_DEFAULTS = {
+  max_requeries_per_issue: 2, // 媛숈? ?ㅺ퀎 ?곸젏???ъ쭏??  max_total_requeries: 6,
+  max_consecutive_failures: 3,
+  max_wait_hours: 72, // ?몃? ?묐떟 ?湲?  max_cost_usd: 30,
+  max_minutes: 600,
+}
+
+const now = () => new Date().toISOString()
+const sha = (s) => crypto.createHash('sha256').update(String(s)).digest('hex')
+
+export function ugState(state) {
+  state.userGoals ||= { schema: 'vfc-state/1', next_seq: 1, mode: 'PLATFORM_AUTO', active_goal: null, goals: {}, processed_responses: {} }
+  return state.userGoals
+}
+
+export function findGoal(state, ug) {
+  const g = ugState(state).goals[ug]
+  if (!g) throw new RuleError('NO_USER_GOAL', `?ъ슜??紐⑺몴 ${ug} 媛 ?녿떎`)
+  return g
+}
+
+function history(g, event, by, note = '') {
+  g.history.push({ at: now(), event, by, note })
+}
+
+// ?? ?ㅺ퀎 怨꾩빟 ???????????????????????????????????????????????????????????
+
+/** ?듭떖 怨꾩빟 = ?섏슜 湲곗? 쨌 蹂댁〈 怨꾩빟 쨌 踰붿쐞 쨌 DB 蹂寃??щ?. 怨듬갚留??뺢퇋?뷀븳??????뚮Ц?먮뒗 怨꾩빟?????덈떎(ACTIVE?쟞ctive 쨌 Codex 由щ럭 P1). */
+export function contractOf(design) {
+  const norm = (v) => (Array.isArray(v) ? v.map(norm) : String(v ?? '').replace(/\s+/g, ' ').trim())
+  return {
+    acceptance: norm(design.acceptance || []),
+    preserved_contracts: norm(design.preserved_contracts || []),
+    allowed_paths: [...(design.allowed_paths || [])].map(String).sort(),
+    db_changes: !!design.db_changes,
+  }
+}
+export const contractHash = (design) => sha(JSON.stringify(contractOf(design)))
+
+function validateDesign(d, where) {
+  const errs = []
+  const isStr = (v) => typeof v === 'string' && v.trim()
+  if (!isStr(d?.summary)) errs.push(`${where}.summary`)
+  if (!Array.isArray(d?.acceptance) || !d.acceptance.length || !d.acceptance.every(isStr)) errs.push(`${where}.acceptance(鍮꾩? ?딆? 臾몄옄??諛곗뿴)`)
+  if (!Array.isArray(d?.allowed_paths) || !d.allowed_paths.length || !d.allowed_paths.every(isStr)) errs.push(`${where}.allowed_paths(鍮꾩? ?딆? 諛곗뿴)`)
+  if (d?.preserved_contracts !== undefined && !Array.isArray(d.preserved_contracts)) errs.push(`${where}.preserved_contracts ??諛곗뿴`)
+  if (d?.db_changes !== undefined && typeof d.db_changes !== 'boolean') errs.push(`${where}.db_changes ??boolean`)
+  return errs
+}
+
+function addDesign(g, design, { source, status, request_id = null, file = null, file_sha256 = null, base_commit = null, by }) {
+  const version = g.designs.length + 1
+  const rec = {
+    version,
+    status,
+    source,
+    request_id,
+    file,
+    file_sha256,
+    base_commit,
+    summary: design.summary,
+    design: design.design ?? null,
+    acceptance: design.acceptance,
+    preserved_contracts: design.preserved_contracts || [],
+    allowed_paths: design.allowed_paths,
+    db_changes: !!design.db_changes,
+    contract_hash: contractHash(design),
+    created_at: now(),
+    created_by: by,
+  }
+  g.designs.push(rec)
+  history(g, `design.v${version}.${status}`, by, request_id ? `from ${request_id}` : source)
+  return rec
+}
+
+export const approvedDesign = (g) => g.designs.find((d) => d.status === 'APPROVED') || null
+const latestDesign = (g) => g.designs[g.designs.length - 1] || null
+
+function addRound(state, g, r) {
+  const round = {
+    thread_id: g.thread_id,
+    goal_id: g.ug_id,
+    round_id: `${g.thread_id}-R${String(g.rounds.length + 1).padStart(2, '0')}`,
+    request_id: r.request_id ?? null,
+    parent_response_id: r.parent_response_id ?? null,
+    sender: r.sender,
+    recipient: r.recipient,
+    purpose: r.purpose,
+    design_version: r.design_version ?? null,
+    base_commit: r.base_commit ?? null,
+    source_evidence: r.source_evidence ?? [],
+    response_status: r.response_status ?? 'PENDING',
+    approval_status: r.approval_status ?? 'NONE',
+    issue_key: r.issue_key ?? null,
+    created_at: now(),
+    completed_at: r.completed_at ?? null,
+  }
+  g.rounds.push(round)
+  return round
+}
+
+function newGoal(state, { title, canon_goal_ids, origin, profile = 'BALANCED', by, budgets = {} }) {
+  const U = ugState(state)
+  if (!title) throw new RuleError('MISSING_FIELD', 'title ???꾩슂?섎떎')
+  if (!PROFILES[profile]) throw new RuleError('BAD_PROFILE', `profile ? ${Object.keys(PROFILES).join('|')}`)
+  const idx = goalIndex(loadCriteria())
+  if (!Array.isArray(canon_goal_ids) || !canon_goal_ids.length) throw new RuleError('MISSING_FIELD', 'canon_goal_ids(?뺣낯 L3 紐⑺몴 1媛??댁긽)媛 ?꾩슂?섎떎 ???묒뾽? ?뺣낯 紐⑺몴??臾띠씤??)
+  for (const c of canon_goal_ids) if (!idx.has(c)) throw new RuleError('NO_GOAL', `?뺣낯???녿뒗 紐⑺몴 ${c}`)
+  const n = U.next_seq++
+  // ?몄뒪?댁뒪 ?대쫫怨듦컙??遺숈씤?????щ윭 AI-Control쨌ChatGPT ?몄뀡??援먰솚 ??μ냼瑜?媛숈씠 ?곕㈃ ?똗G-0001?????쒕줈 ?ㅻⅨ 紐⑺몴瑜?媛由ъ섟??PoC ?쎄린 ?듦? 移대뱶 vs ?⑥뼱 異붿텧, 2026-10-09). 湲곗〈 紐⑺몴 id ??諛붽씀吏 ?딅뒗??  const ns = requestNamespace()
+  const seq = `${ns ? `${ns}-` : ''}${String(n).padStart(4, '0')}`
+  const ug_id = `UG-${seq}`
+  if (U.goals[ug_id]) throw new RuleError('DUPLICATE_GOAL', `${ug_id} 媛 ?대? ?덈떎`)
+  const g = {
+    ug_id,
+    thread_id: `TH-${seq}`,
+    title,
+    canon_goal_ids,
+    origin,
+    profile,
+    status: 'OPEN', // OPEN | PAUSED | ACCEPTED
+    budgets: { ...BUDGET_DEFAULTS, ...budgets },
+    counters: { requeries: {}, total_requeries: 0, consecutive_failures: 0 },
+    approval: null, // { design_version, decision_id, allowed_paths, db_decision_id }
+    designs: [],
+    rounds: [],
+    open_issue: null,
+    created_at: now(),
+    created_by: by,
+    history: [],
+  }
+  U.goals[ug_id] = g
+  history(g, 'goal.created', by, origin)
+  return g
+}
+
+// ?? ?쒖옉 寃쎈줈 A: ChatGPT-first ???????????????????????????????????????????
+
+lib\usergoals.mjs:57:export function ugState(state) {
+lib\usergoals.mjs:497:export function approveDesign(state, ug, { version, decision_id, allowed_paths = null, db_decisio
+n_id = null, by }) {
+lib\usergoals.mjs:508:    return { design: d, invalidated: [], contract_changed: false, resumed: [], drafts: [] }
+lib\usergoals.mjs:553:  const drafts = (g.task_drafts || []).splice(0)
+lib\usergoals.mjs:561:  return { design: d, invalidated, contract_changed: !!changed, resumed, drafts }
+lib\usergoals.mjs:566:/** 설계 승인 전 작업 초안 — 승인되면 호출자가 bindTaskSpec → addTask 로 만든다(설계 대기 → 자동 재개) */
+lib\usergoals.mjs:569:  ;(g.task_drafts ||= []).push({ spec, at: now(), by })
+lib\usergoals.mjs:571:  return g.task_drafts.length
+lib\usergoals.mjs:577:export function bindTaskSpec(state, ug, spec) {
+lib\usergoals.mjs:776: * tty 결정만(에이전트·cli 기록은 무시) · 이미 적용된 결정은 다시 쓰지 않는다 · 범위 확장·DEEP 초안 직승인 같은 기존 규칙은 approveDesign 이 
+그대로 검사한다.
+lib\usergoals.mjs:790:          const r = approveDesign(state, g.ug_id, { version: v.version, decision_id: d.decision_i
+d, allowed_paths: d.allowed_paths || null, by })
+lib\usergoals.mjs:794:          for (const dr of r.drafts || []) {
+lib\usergoals.mjs:796:              created.push(addTask(state, bindTaskSpec(state, g.ug_id, dr.spec), { ugBound: true 
+}).task_id)
+> export function addTask(state, spec, { goalsDoc = loadCriteria(), ugBound = false } = {}) {
+    // user_goal_id ??lib/usergoals.mjs bindTaskSpec(?뱀씤 ?ㅺ퀎 쨌 ?뱀씤 踰붿쐞 쨌 ?꾨줈??寃뚯씠????嫄곗퀜?쇰쭔 ??vfc task add 濡?吏곸젒 臾띠? ?딅
+뒗??Codex 由щ럭 P1)
+    if (spec.user_goal_id && !ugBound) throw new RuleError('UG_BIND_REQUIRED', '?ъ슜??紐⑺몴 ?묒뾽? vfc ugoal task add 濡?留뚮뱺
+???뱀씤 踰붿쐞쨌寃뚯씠??寃??')
+    for (const k of REQUIRED) if (spec[k] === undefined || spec[k] === null || spec[k] === '') throw new RuleError('MIS
+SING_FIELD', `?꾩닔 ?꾨뱶 ?꾨씫: ${k}`)
+    const g = checkTaskGoal(goalsDoc, spec.goal_id)
+    if (!g.ok) throw new RuleError('BAD_GOAL', g.reason)
+    for (const rid of spec.related_goal_ids || []) if (!goalsDoc.criteria.some((c) => c.id === rid)) throw new RuleErro
+r('BAD_GOAL', `related goal ${rid} ???뺣낯???녿떎`)
+    if (spec.template && !templateTypes(goalsDoc).includes(spec.template)) throw new RuleError('BAD_TEMPLATE', `templat
+e ${spec.template} ???뺣낯 L4 ?쒗뵆由우씠 ?꾨땲??)
+    if (!PRIORITIES.includes(spec.priority)) throw new RuleError('BAD_PRIORITY', `priority ??${PRIORITIES.join('|')}`)
+    if (!state.ownership.owners[spec.owner_id]) throw new RuleError('NO_OWNER', `owner ${spec.owner_id} 媛 ?깅줉?섏? ?딆븯??
+)
+    if (!Array.isArray(spec.allowed_paths) || !spec.allowed_paths.length) throw new RuleError('MISSING_FIELD', 'allowed
+_paths ??鍮꾩? ?딆? 諛곗뿴')
+    if (!Array.isArray(spec.forbidden_paths)) throw new RuleError('MISSING_FIELD', 'forbidden_paths ??諛곗뿴')
+    if (!Array.isArray(spec.acceptance) || !spec.acceptance.length || !spec.acceptance.every((a) => typeof a === 'strin
+g' && a.trim())) throw new RuleError('MISSING_FIELD', 'acceptance(?꾨즺 議곌굔) ??鍮꾩? ?딆? 臾몄옄??諛곗뿴')
+    const db = spec.db_scope ?? { mode: 'none', targets: [] }
+    if (!['none', 'read', 'write'].includes(db.mode)) throw new RuleError('BAD_DB_SCOPE', 'db_scope.mode ??none|read|wr
+ite')
+    if (db.mode !== 'none' && !(db.targets || []).length) throw new RuleError('BAD_DB_SCOPE', 'db_scope.targets 媛 ?꾩슂?
+섎떎(?? dev:<project-ref>)')
+    const approvalKinds = new Set(spec.approval_kinds || [])
+    if (db.mode === 'write') approvalKinds.add('db_write')
+    for (const k of approvalKinds) if (!APPROVAL_KINDS.includes(k)) throw new RuleError('BAD_APPROVAL_KIND', `approval 
+kind ${k} 瑜?紐⑤Ⅸ??(${APPROVAL_KINDS.join('|')})`)
+    if (spec.approval_required === true && approvalKinds.size === 0) throw new RuleError('MISSING_FIELD', 'approval_req
+uired=true 硫?approval_kinds 瑜??섎굹 ?댁긽 ?곸뼱???쒕떎')
+    if (spec.approval_required === false && approvalKinds.size > 0) throw new RuleError('BAD_APPROVAL_KIND', `approval_
+required=false ?몃뜲 ?뱀씤 ??ぉ???덈떎(${[...approvalKinds]}) ??DB ?곌린 ?깆? ?뱀씤???????녿떎`)
+    let id
+    if (spec.task_id) {
+      if (!TASK_ID_RE.test(spec.task_id)) throw new RuleError('BAD_TASK_ID', `task_id ?뺤떇? T-0000`)
+      if (state.taskQueue.tasks.some((t) => t.task_id === spec.task_id)) throw new RuleError('DUP_TASK', `?묒뾽 ${spec.ta
+sk_id} 媛 ?대? ?덈떎`)
+      id = spec.task_id
+      state.taskQueue.next_seq = Math.max(state.taskQueue.next_seq, Number(id.slice(2)) + 1)
+    } else id = nextTaskId(state)
+    for (const d of spec.depends_on || []) if (!state.taskQueue.tasks.some((x) => x.task_id === d)) throw new RuleError
+('BAD_DEPENDENCY', `depends_on ${d} 媛 ?녿떎`)
+    // ???묒뾽???뺣낯???대뼡 ?섏슜 湲곗????쇰쭏??full/partial) 寃⑤깷?섎뒗媛 ??紐⑺몴 寃?ш린媛 PASS 瑜?以????닿쾬留?蹂몃떎
+    const goalAcIds = goalsDoc.criteria.filter((c) => [spec.goal_id, ...(spec.related_goal_ids || [])].includes(c.id)).
+flatMap((c) => c.acceptance.map((a) => a.criterion_id))
+> export const isTrustedUserDecision = (d) => !!d && d.status === 'APPROVED' && d.approved_by === 'user' && d.recorded_
+via === 'tty'
+  
+  export function logDecision(state, entry, { via = null } = {}) {
+    if (!DECISION_STATUS.includes(entry.status)) throw new RuleError('BAD_DECISION', `status ??${DECISION_STATUS.join('
+|')}`)
+    if (entry.status === 'APPROVED' && (entry.approved_by !== 'user' || !(entry.source || entry.reference))) throw new 
+RuleError('APPROVAL_NOT_USER', 'APPROVED 寃곗젙? approved_by=user ? 洹쇨굅(source/reference)媛 ?덉뼱???쒕떎')
+    // ?먯씠?꾪듃媛 ?ъ슜??硫붿떆吏瑜???꺼 ?곸? ?뱀씤? 洹??ъ떎???④릿??理쒖쥌 ?섎씫?먮뒗 ?????녿떎 ??usergoals.acceptGoal)
+    // ?낅젰 寃쎈줈???몄텧?먭? ?섍릿 媛믩쭔 ??寃곗젙 蹂몃Ц???곹엺 recorded_via ??誘우? ?딅뒗???꾩“ 李⑤떒)
+    delete entry.recorded_via
+    if (entry.status === 'APPROVED') entry.recorded_via = inAgentContext() ? 'agent' : via === 'tty' ? 'tty' : 'cli'
+    const used = new Set(state.decisionLog.entries.map((e) => e.decision_id))
+    let id = entry.decision_id
+    if (id) {
+      if (used.has(id)) throw new RuleError('DUP_DECISION', `寃곗젙 ${id} 媛 ?대? ?덈떎`)
+      const m = id.match(/^DL-(\d+)$/)
+      if (m) state.decisionLog.next_seq = Math.max(state.decisionLog.next_seq, Number(m[1]) + 1)
+    } else {
+      let n = state.decisionLog.next_seq
+      while (used.has(`DL-${String(n).padStart(4, '0')}`)) n++
+      id = `DL-${String(n).padStart(4, '0')}`
+      state.decisionLog.next_seq = n + 1
+    }
+    const rec = { ...entry, decision_id: id, recorded_at: now() }
+    state.decisionLog.entries.push(rec)
+    return rec
+  }
+            d.code_check = CTX.checkDesignAgainstCode(d)
+            return d.code_check
+          })
+        }
+        return out({ processed: res.length, results: res }, opt)
+      }
+      case 'ugoal approve': {
+        const ug = pos[0]
+        const r = withState(
+          (s) => {
+>           const a = UG.approveDesign(s, ug, { version: Number(opt.design), decision_id: opt.decision, allowed_paths: 
+list(opt.paths), db_decision_id: opt['db-decision'] || null, by })
+            // ?뱀씤 ?꾩뿉 ?볦씤 ?묒뾽 珥덉븞 ???뱀씤 踰붿쐞 ?덉씠硫??묒뾽?쇰줈(?ㅺ퀎 ?湲????먮룞 ?ш컻). 踰붿쐞 諛?珥덉븞? ?ъ쑀? ?④퍡 ?뚮젮以??          con
+st created = []
+            const refused = []
+            for (const d of a.drafts) {
+              try {
+                created.push(T.addTask(s, UG.bindTaskSpec(s, ug, d.spec), { ugBound: true }).task_id)
+              } catch (e) {
+                refused.push({ title: d.spec.title, reason: e.message })
+              }
+            }
+            return { design_version: a.design.version, contract_changed: a.contract_changed, invalidated: a.invalidated
+, resumed: a.resumed, created, refused }
+          },
+          { event: 'usergoal.approve', ug, by },
+        )
+        return out(r, opt)
+      }
+      case 'ugoal task': {
+        if (pos[0] !== 'add') throw new T.RuleError('BAD_COMMAND', 'ugoal task add <UG> --file spec.json')
+        const ug = pos[1]
+        const spec = JSON.parse(fs.readFileSync(opt.file, 'utf8'))
+        const r = withState(
+          (s) => {
+            if (!UG.approvedDesign(UG.findGoal(s, ug))) return { draft: UG.addTaskDraft(s, ug, spec, { by }), note: '?뱀
+씤???ㅺ퀎媛 ?놁뼱 珥덉븞?쇰줈 蹂닿? ???뱀씤 ???먮룞 ?앹꽦' }
+            return { task: T.addTask(s, UG.bindTaskSpec(s, ug, spec), { ugBound: true }) }
+          },
+          { event: 'usergoal.task', ug, by },
+        )
+        return out(r.task ? { task_id: r.task.task_id, status: r.task.status, design_version: r.task.design_version } :
+ r, opt)
+      }
+      case 'ugoal activate':
+        return out(withState((s) => UG.setActive(s, pos[0], { by })), opt)
+commit bb9961c788f563d2e0e2a0c9417f2e25f0970e2e
+Author: KangMin098 <killerapp51@empal.com>
+Date:   Sat Oct 10 04:33:35 2026 +0900
+
+    feat(orchestrator): 사용자 대화형 설계 승인 자동 적용 · UG-0002 v4 준비
+    
+    - applyTrustedDesignApprovals: tty design_approval(「UG@vN」 · --paths) → 반복마다 적용·초안을 작업으로
+    - vfc approve --paths · cli/agent 기록은 무시(회귀)
+    - UG-0002: main 결정 유지(DL-0060) → v3 초안·Work 자동 왕복(PR #10) → v4 PROPOSED · 초안 작업 2
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/planning/specs/UG-0002-issue-v3.json b/planning/specs/UG-0002-issue-v3.json
+new file mode 100644
+index 000000000..f50fb8bae
+--- /dev/null
++++ b/planning/specs/UG-0002-issue-v3.json
+@@ -0,0 +1,18 @@
++{
++  "issue_key": "map-v3-main-decisions",
++  "problem": "설계 v2(REQ-…-005 응답 · PROPOSED)는 main a4fde994e 기준이었다. 그 뒤 main 795a20bc7 에 사용자 결정 D-1(skill 단위 verified 2문항·120일) · D-2(우선순위 신호 넣지 않음) · D-7(c)(진단 전 Practice = FIND 확장) · D-8(CHECK = 미노출 문항 독립 첫 시도)이 구현·머지됐다(docs/csat-learner/MAP_CONTRACTS_ABC.md §D · skill-diagnosis.ts). 사용자는 2026-10-10 「main 결정 유지」를 골랐다 — v2 의 A~F 중 C·D 는 결정과 충돌, E·F 는 이미 구현이라 폐기한다. 남은 것은 결정과 어긋난 표시·명칭·선택지다.",
++  "evidence": [
++    "StepSheet.tsx PracticeResultLine: 진단 전 Practice 기록을 「다른 지문에 적용 {n}번」으로 표시 — 같은 화면의 링크 문구는 이미 「다른 지문으로 한 번 더 확인하기」(D-7(c))",
++    "practice-results.ts transferKeysOf · PracticeResult.transfer, load.ts 58·344 주석 「같은 원리를 다른 지문에 적용(Practice)」 — §14 TRANSFER(처방)와 이름이 같다",
++    "find-feedback.ts: FindFeedbackPolicy.allowPracticeBeforeVerified · 'practice_principle' — D-7(b) 선택지가 남아 있고, findFeedback 는 제품 코드에서 호출되지 않는다(테스트만)",
++    "skill-diagnosis.ts(D-1·D-8) · evidence-anchor.ts(+80줄 테스트)는 main 에 있다 — 다시 만들지 않는다"
++  ],
++  "conflicts_with": "설계 v2 의 C(FIND 우선순위 신호)·D(candidate 까지만 · verified 금지)·D-7(b) 권고 ↔ main 의 사용자 결정 D-2·D-1·D-7(c). 사용자가 main 결정을 유지하기로 했으므로 v2 의 해당 항목은 채택하지 않는다.",
++  "alternatives": [
++    "(1) 표시 문구만 D-7(c)로 바꾸고 내부 명칭은 그대로(주석으로 의미 표시)",
++    "(2) 표시 문구 + 내부 명칭(transfer → recheck 등 별칭·이름 변경)까지 — 조회 대상·판정 로직은 불변",
++    "(3) find-feedback.ts 의 D-7(b) 선택지 제거 vs D-7(c) 의미로 재정의(예: 'recheck_other_passage')"
++  ],
++  "question": "1) 위 세 가지 중 권고안과 최소 변경 범위를 정하라(첨부 패킷의 실제 코드 발췌 근거). 2) 학생 문구는 「처방이 아니다 · 이번 확인의 결과일 뿐」 원칙을 지키는 구체 문장으로. 3) 이 작업 뒤 rev2.1 최종 목표(FIND→REPAIR→TRANSFER→CHECK 학생 경로 · 6축·학년별 지도)까지 남은 수용 기준과 다음 의존 작업을 open_questions 또는 risks 에 적어라. 응답은 PROPOSED — 사용자 승인 전 적용하지 않는다. plan 블록에 allowed_paths(초안 범위 안)와 db_changes 를 넣어라.",
++  "approval_scope_change": true
++}
+diff --git a/planning/specs/UG-0002-v3-draft.json b/planning/specs/UG-0002-v3-draft.json
+new file mode 100644
+index 000000000..da23f83b6
+--- /dev/null
++++ b/planning/specs/UG-0002-v3-draft.json
+@@ -0,0 +1,27 @@
++{
++  "summary": "학습지도 rev2.1 — main 결정(D-1·D-2·D-7(c)·D-8) 기준 잔여 정합 작업: 진단 전 Practice 결과의 표시·명칭을 D-7(c)(FIND 확장 = 다른 지문으로 한 번 더 확인)에 맞추고, 쓰이지 않는 D-7(b) 선택지를 정리한다",
++  "design": "main 795a20bc7 기준. D-7(c): 진단 전 Practice 는 「다른 지문으로 한 번 더 확인하기」(FIND 확장)이고 TRANSFER(다른 글에 적용하기)는 직접 확인(skill verified) 뒤에만 단계 시트에서 연다. 그런데 결과 환류 줄(StepSheet PracticeResultLine)은 진단 전 기록을 「다른 지문에 적용 N번」으로 표시하고, practice-results.ts · load.ts 는 그 기록을 transfer 로 부른다 — 학생 화면에서 처방(TRANSFER)처럼 읽힌다. 또 find-feedback.ts 에 D-7(b) 선택지(allowPracticeBeforeVerified · practice_principle)가 남아 있다. 학생 문구와 내부 명칭을 D-7(c)에 맞추고(기록·쿼리·판정 로직 불변), D-7(b) 선택지를 제거 또는 D-7(c) 의미로 바꾼다. DB · 정본 · CURRENT_BASIS · skill-diagnosis 판정 규칙 변경 없음.",
++  "acceptance": [
++    "진단 전 Practice 결과 줄이 「적용」·「전이」 표현 없이 D-7(c) 의미(다른 지문으로 한 번 더 확인)로 표시되고, 이를 고정하는 테스트가 있다",
++    "practice-results.ts · load.ts 의 진단 전 Practice 기록 명칭·주석이 TRANSFER(처방)와 구분되고, 조회 대상·판정 결과는 바뀌지 않는다(기존 practice-results 테스트 통과)",
++    "find-feedback.ts 에 D-7(b) 선택지가 남지 않고 confirmed_need 의 다음 행동이 D-7(c)·D-1 과 일치하며 prioritySignal=false(D-2)가 유지된다",
++    "skill-diagnosis(D-1·D-8) · evidence-anchor · prescription · learner-path · core 기존 테스트가 그대로 통과한다"
++  ],
++  "preserved_contracts": [
++    "D-1 skill 단위 verified(VERIFY_ITEMS 2 · CHECK_ITEMS 2 · EXPIRY_DAYS 120) 규칙",
++    "D-2 prioritySignal=false",
++    "D-7(c) 진단 전 Practice = FIND 확장 · TRANSFER 는 verified 뒤",
++    "D-8 CHECK = 확정에 쓰지 않은 미노출 문항의 독립 첫 시도",
++    "CURRENT_BASIS='rule_proxy' · 정본 §14 · DB 스키마·쿼리 대상 불변"
++  ],
++  "allowed_paths": [
++    "apps/web/src/components/csat/diagnosis/map/StepSheet.tsx",
++    "apps/web/src/lib/csat/map/practice-results.ts",
++    "apps/web/src/lib/csat/map/load.ts",
++    "apps/web/src/lib/knowledge/find-feedback.ts",
++    "apps/web/src/lib/csat/map/__tests__/practice-results.test.ts",
++    "apps/web/src/lib/knowledge/__tests__/find-feedback.test.ts",
++    "apps/web/src/components/csat/diagnosis/map/__tests__/step-sheet-practice.test.tsx"
++  ],
++  "db_changes": false
++}
+diff --git a/planning/specs/UG-0002-v4-t1.json b/planning/specs/UG-0002-v4-t1.json
+new file mode 100644
+index 000000000..528782293
+--- /dev/null
++++ b/planning/specs/UG-0002-v4-t1.json
+@@ -0,0 +1,37 @@
++{
++  "goal_id": "VG-L3-A1-01",
++  "priority": "P1",
++  "owner_id": "csat-learning",
++  "forbidden_paths": [
++    "supabase/**",
++    ".env*",
++    "docs/csat-learner/LEARNING_MAP_VNEXT.md",
++    "apps/web/src/lib/csat/map/skill-diagnosis.ts",
++    "apps/web/src/lib/csat/map/evidence-anchor.ts",
++    "apps/web/src/lib/csat/map/core.ts",
++    "apps/web/src/lib/csat/map/prescription.ts"
++  ],
++  "worktree": "D:/workspace/Vocaflow-ug0002-v4",
++  "branch": "feat/ug0002-map-recheck",
++  "title": "D-7(c) 정합: 진단 전 Practice 결과 문구·명칭(재확인)",
++  "description": "설계 v4(REQ-20261010-c8315ad8-001). practice-results.ts 에 recheckKeysOf·재확인 의미 이름·문구 formatter 추가(transferKeysOf 는 deprecated alias 유지), load.ts 는 새 이름 사용(select·phase 필터·집계 불변), StepSheet.tsx 결과 줄 문구를 「다른 지문으로 한 번 더 확인했어요 · N회」 + 「이번 확인 결과일 뿐, 원인 확정이나 맞춤 처방은 아니에요」로. practice-results.test.ts 에 문구·금지어(적용·전이·맞춤)·alias 동일성·기존 집계 회귀. DB·정본 변경 없음.",
++  "allowed_paths": [
++    "apps/web/src/components/csat/diagnosis/map/StepSheet.tsx",
++    "apps/web/src/lib/csat/map/practice-results.ts",
++    "apps/web/src/lib/csat/map/load.ts",
++    "apps/web/src/lib/csat/map/__tests__/practice-results.test.ts"
++  ],
++  "acceptance": [
++    "진단 전 결과 문구가 「다른 지문으로 한 번 더 확인했어요 · N회」이고 적용·전이·맞춤 단어가 없다(테스트)",
++    "「이번 확인 결과일 뿐, 원인 확정이나 맞춤 처방은 아니에요」 표시",
++    "recheckKeysOf 와 transferKeysOf 가 같은 배열 · 조회 조건·PracticeResult 수치 불변(기존 테스트 통과)",
++    "pnpm --filter web exec vitest run src/lib/csat/map/__tests__/practice-results.test.ts skip 0"
++  ],
++  "design_acceptance": [
++    0,
++    1,
++    2,
++    3,
++    6
++  ]
++}
+\ No newline at end of file
+diff --git a/planning/specs/UG-0002-v4-t2.json b/planning/specs/UG-0002-v4-t2.json
+new file mode 100644
+index 000000000..b478c9768
+--- /dev/null
++++ b/planning/specs/UG-0002-v4-t2.json
+@@ -0,0 +1,35 @@
++{
++  "goal_id": "VG-L3-A1-01",
++  "priority": "P1",
++  "owner_id": "csat-learning",
++  "forbidden_paths": [
++    "supabase/**",
++    ".env*",
++    "docs/csat-learner/LEARNING_MAP_VNEXT.md",
++    "apps/web/src/lib/csat/map/skill-diagnosis.ts",
++    "apps/web/src/lib/csat/map/evidence-anchor.ts",
++    "apps/web/src/lib/csat/map/core.ts",
++    "apps/web/src/lib/csat/map/prescription.ts"
++  ],
++  "worktree": "D:/workspace/Vocaflow-ug0002-v4",
++  "branch": "feat/ug0002-map-recheck",
++  "title": "D-7(c) 정합: find-feedback D-7(b) 분기 제거 · 회귀",
++  "description": "설계 v4. find-feedback.ts 에서 allowPracticeBeforeVerified·practice_principle 제거, confirmed_need → recheck_other_passage, 모든 FindState 에서 prioritySignal=false·changesDiagnosisBasis=false 유지. 제거 전 저장소 전체 검색·타입 검사. find-feedback.test.ts 갱신. skill-diagnosis·evidence-anchor·prescription·learner-path·core 회귀 실행(파일 변경 없음).",
++  "allowed_paths": [
++    "apps/web/src/lib/knowledge/find-feedback.ts",
++    "apps/web/src/lib/knowledge/__tests__/find-feedback.test.ts"
++  ],
++  "acceptance": [
++    "allowPracticeBeforeVerified·practice_principle 이 저장소에 남지 않는다(grep)",
++    "confirmed_need → recheck_other_passage · prioritySignal=false · changesDiagnosisBasis=false(테스트)",
++    "skill-diagnosis·evidence-anchor·prescription·learner-path·core 테스트 통과 · 해당 파일 무변경",
++    "pnpm --filter web typecheck 통과"
++  ],
++  "design_acceptance": [
++    4,
++    5,
++    6,
++    8,
++    9
++  ]
++}
+\ No newline at end of file
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding utf8 lib/usergoals.mjs | Select-Object -Skip 485 -First 135; Get-Content -Encoding utf8 lib/tasks.mjs | Select-String -Pattern 'function isTrustedUserDecision' -Context 0,16; Get-Content -Encoding utf8 lib/orchestrator.mjs | Select-Object -Skip 715 -First 90; Get-Content -Encoding utf8 lib/store.mjs -ErrorAction SilentlyContinue; Get-Content -Encoding utf8 tests/operations.test.mjs | Select-Object -First 125; git ls-files '*AGENTS*' '*CLAUDE*'" in D:\workspace\Vocaflow-AI-Control
+ succeeded in 399ms:
+  // 경계까지 맞춘다 — 「UG-0001@v10」 승인이 「UG-0001@v1」 을 승인하지 않게(Codex 리뷰 P1)
+  const esc = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  if (!new RegExp(`(^|[^0-9A-Za-z@-])${esc}(?![0-9A-Za-z])`).test(text)) throw new RuleError('APPROVAL_MISMATCH', `결정 ${decision_id} 의 summary/reference 에 「${token}」 가 없다 — 다른 대상의 승인으로 이 설계를 승인할 수 없다`)
+  return d
+}
+
+/**
+ * 설계 vN 승인. scope.allowed_paths 는 설계의 allowed_paths 부분집합이어야 한다(새 버전이 범위를 자동으로 넓히지 않는다).
+ * db_changes 설계는 별도 DB 승인 결정(token 「UG-…@vN db」)이 없으면 승인 자체는 되지만 실행 범위에서 DB 는 빠진다(approval.db=false).
+ * 계약이 바뀐 새 버전이면 옛 버전으로 끝난 작업에 revalidate_required 를 단다.
+ */
+export function approveDesign(state, ug, { version, decision_id, allowed_paths = null, db_decision_id = null, by }) {
+  const g = findGoal(state, ug)
+  const d = g.designs.find((x) => x.version === Number(version))
+  if (!d) throw new RuleError('NO_DESIGN', `${ug} 에 설계 v${version} 가 없다`)
+  // 이미 승인된 버전에 DB 승인만 더하는 경우(설계 승인 때 DB 승인이 없었다)
+  if (d.status === 'APPROVED' && db_decision_id && g.approval?.design_version === d.version && !g.approval.db) {
+    if (!d.db_changes) throw new RuleError('BAD_SCOPE', '이 설계는 DB 변경이 없다')
+    const dbd = requireUserDecision(state, db_decision_id, `${ug}@v${d.version} db`, 'DB 변경 승인')
+    if (!isTrustedUserDecision(dbd)) throw new RuleError('TRUST_REQUIRED', `DB 변경 승인 ${db_decision_id} 는 대화형 터미널 기록이 아니다 — vfc approve --kind db_write`)
+    g.approval = { ...g.approval, db: true, db_decision_id }
+    history(g, `design.v${d.version}.DB_APPROVED`, by, db_decision_id)
+    return { design: d, invalidated: [], contract_changed: false, resumed: [], drafts: [] }
+  }
+  if (!['PROPOSED', 'REVIEWED', 'DRAFT'].includes(d.status)) throw new RuleError('BAD_TRANSITION', `설계 v${version} 는 ${d.status} — 승인 대상이 아니다`)
+  if (PROFILES[g.profile].needs_design && d.source === 'claude') throw new RuleError('DESIGN_REVIEW_REQUIRED', `프로필 ${g.profile} 은 ChatGPT 설계 검토가 선행된다 — Claude 초안 v${d.version} 를 바로 승인하지 않는다(ugoal request-design)`)
+  requireUserDecision(state, decision_id, `${ug}@v${d.version}`, '설계 승인')
+  const scope = allowed_paths && allowed_paths.length ? allowed_paths : d.allowed_paths
+  const outside = scope.filter((x) => !d.allowed_paths.includes(x))
+  if (outside.length) throw new RuleError('SCOPE_EXPANSION', `승인 범위 ${outside.join(', ')} 는 설계 v${d.version} 의 allowed_paths 밖이다`)
+  let db = false
+  if (db_decision_id) {
+    if (!d.db_changes) throw new RuleError('BAD_SCOPE', '이 설계는 DB 변경이 없다')
+    const dbd = requireUserDecision(state, db_decision_id, `${ug}@v${d.version} db`, 'DB 변경 승인')
+    if (!isTrustedUserDecision(dbd)) throw new RuleError('TRUST_REQUIRED', `DB 변경 승인 ${db_decision_id} 는 대화형 터미널 기록이 아니다 — vfc approve --kind db_write`)
+    db = true
+  }
+  const prev = approvedDesign(g)
+  if (prev) prev.status = 'SUPERSEDED'
+  for (const x of g.designs) if (x !== d && ['PROPOSED', 'REVIEWED', 'DRAFT'].includes(x.status) && x.version < d.version) x.status = 'SUPERSEDED'
+  d.status = 'APPROVED'
+  d.approved_at = now()
+  g.approval = { design_version: d.version, decision_id, allowed_paths: scope, db, db_decision_id: db ? db_decision_id : null }
+  for (const r of g.rounds) if (r.design_version === d.version && r.approval_status === 'PENDING_USER') r.approval_status = 'APPROVED'
+  const changed = prev && prev.contract_hash !== d.contract_hash
+  const invalidated = []
+  for (const t of state.taskQueue.tasks.filter((x) => x.user_goal_id === ug)) {
+    if (!prev || t.design_version === d.version) continue
+    if (changed && ['COMPLETED', 'IN_PROGRESS', 'REVIEW'].includes(t.status)) {
+      t.revalidate_required = { reason: `설계 계약 v${t.design_version} → v${d.version} 변경`, at: now() }
+      invalidated.push(t.task_id)
+    }
+  }
+  // 설계 쟁점으로 멈춘 작업 · 설계 대기 초안을 새 승인 범위로 다시 연다(자동 재개). 범위 밖이면 그대로 둔다(사람이 다시 만든다)
+  const resumed = []
+  for (const t of state.taskQueue.tasks.filter((x) => x.user_goal_id === ug && x.status === 'BLOCKED' && /^DESIGN_CONFLICT/.test(x.blocker?.reason || ''))) {
+    if (!t.allowed_paths.every((x) => pathInApproval(scope, x))) continue
+    // 옛 설계의 수용 기준 번호는 문장이 새 설계에 그대로 있을 때만 새 번호로 옮긴다 — 다른 계약을 옛 번호로 덮지 않는다(Codex 리뷰 P1)
+    const from = g.designs.find((x) => x.version === t.design_version)
+    const norm = (s) => String(s).replace(/\s+/g, ' ').trim()
+    t.design_acceptance = (t.design_acceptance || []).map((i) => d.acceptance.findIndex((a) => norm(a) === norm(from?.acceptance?.[i] ?? ''))).filter((i) => i >= 0)
+    t.design_version = d.version
+    t.blocker = null
+    t.history.push({ at: now(), from: 'BLOCKED', to: 'READY', by, note: `${ug} 설계 v${d.version} 승인(${decision_id}) — 설계 쟁점 해소` })
+    t.status = 'READY'
+    resumed.push(t.task_id)
+  }
+  const drafts = (g.task_drafts || []).splice(0)
+  if (changed && g.status === 'ACCEPTED') {
+    g.status = 'OPEN'
+    g.accepted_at = null
+    history(g, 'goal.reopened', by, `설계 계약 v${prev.version} → v${d.version} 변경 — 이전 수용은 무효`)
+  }
+  if (g.open_issue) g.open_issue = null
+  history(g, `design.v${d.version}.APPROVED`, by, `${decision_id}${changed ? ` · 계약 변경 → 재검증 ${invalidated.join(',') || '없음'}` : ''}${resumed.length ? ` · 재개 ${resumed.join(',')}` : ''}`)
+  return { design: d, invalidated, contract_changed: !!changed, resumed, drafts }
+}
+
+const pathInApproval = (scope, x) => scope.some((s) => s === x || (s.endsWith('**') && x.startsWith(s.slice(0, -2))))
+
+/** 설계 승인 전 작업 초안 — 승인되면 호출자가 bindTaskSpec → addTask 로 만든다(설계 대기 → 자동 재개) */
+export function addTaskDraft(state, ug, spec, { by }) {
+  const g = findGoal(state, ug)
+  ;(g.task_drafts ||= []).push({ spec, at: now(), by })
+  history(g, 'task.draft', by, spec.title)
+  return g.task_drafts.length
+}
+
+// ── 작업 연결 ───────────────────────────────────────────────────────────
+
+/** 작업 spec 을 사용자 목표에 묶는다: 승인된 설계 · 승인 범위 안 경로 · 프로필의 게이트. 호출자는 이어서 addTask 한다. */
+export function bindTaskSpec(state, ug, spec) {
+  const g = findGoal(state, ug)
+  const d = approvedDesign(g)
+  if (!d) throw new RuleError('DESIGN_NOT_APPROVED', `${ug} 에 승인된 설계가 없다 — 작업을 만들 수 없다`)
+  const scope = g.approval.allowed_paths
+  const outside = (spec.allowed_paths || []).filter((x) => !pathInApproval(scope, x))
+  if (outside.length) throw new RuleError('SCOPE_EXPANSION', `작업 경로 ${outside.join(', ')} 는 ${ug} 승인 범위(${scope.join(', ')}) 밖이다`)
+  if (spec.db_scope && !['none', 'read'].includes(spec.db_scope.mode) && !g.approval.db) throw new RuleError('APPROVAL_REQUIRED', `${ug} 는 DB 변경 승인이 없다 — DB 작업을 만들 수 없다`)
+  if (!g.canon_goal_ids.includes(spec.goal_id)) throw new RuleError('GOAL_MISMATCH', `작업 goal_id ${spec.goal_id} 는 ${ug} 의 정본 목표(${g.canon_goal_ids.join(',')})가 아니다`)
+  const prof = PROFILES[g.profile]
+  return { ...spec, user_goal_id: ug, design_version: d.version, ...(prof.require_review_pass ? { require_review_pass: true } : {}) }
+}
+
+// ── 라우터 ──────────────────────────────────────────────────────────────
+
+/** 지금 이 목표에 필요한 다음 한 걸음. 반환 { route, reason, actor, waiting? } */
+export function route(state, ug) {
+  const g = findGoal(state, ug)
+  const R = (r, reason, actor, extra = {}) => ({ ug_id: ug, route: r, reason, actor, ...extra })
+  if (g.status === 'ACCEPTED') return R('USER_ACCEPTED', `사용자 최종 수락(${g.accept_decision_id ?? '결정 없음'})`, null)
+  if (g.status === 'PAUSED') return R('PAUSED', '사용자가 일시정지', 'user')
+  const pending = g.rounds.find((r) => r.recipient === 'chatgpt' && r.response_status === 'PENDING')
+  if (pending) {
+    const hours = (Date.now() - Date.parse(pending.created_at)) / 3_600_000
+    if (hours > g.budgets.max_wait_hours) return R('EXTERNAL_BLOCKER', `ChatGPT 응답 대기 ${Math.round(hours)}시간 > 상한 ${g.budgets.max_wait_hours}`, 'user', { request_id: pending.request_id })
+    return R(g.open_issue ? 'DESIGN_CONFLICT' : 'DESIGN_REQUIRED', `${pending.request_id} 응답 대기(HUMAN_IN_THE_LOOP: 사용자가 ChatGPT 에 전달·응답 저장)`, 'chatgpt', { waiting: true, request_id: pending.request_id })
+  }
+  if (g.open_issue) return R('DESIGN_CONFLICT', `설계 쟁점: ${g.open_issue.problem}`, 'chatgpt')
+  const appr = approvedDesign(g)
+  const latest = latestDesign(g)
+  if (latest && ['PROPOSED', 'REVIEWED', 'DRAFT'].includes(latest.status) && (!appr || latest.version > appr.version)) {
+    if (latest.status === 'DRAFT' && PROFILES[g.profile].needs_design && latest.source === 'claude') return R('DESIGN_REQUIRED', `프로필 ${g.profile} 은 ChatGPT 설계 검토가 선행된다`, 'chatgpt')
+    const miss = latest.code_check?.missing?.length ? ` · ⚠ main 에 없는 경로 ${latest.code_check.missing.map((m) => m.path).join(', ')}` : ''
+    return R('APPROVAL_REQUIRED', `설계 v${latest.version} (${latest.status}) 사용자 승인 대기 — vfc decision add … 「${ug}@v${latest.version}」 → vfc ugoal approve${miss}`, 'user', { design_version: latest.version, code_check: latest.code_check ?? null })
+  }
+  if (!appr) return R('DESIGN_REQUIRED', PROFILES[g.profile].needs_design ? `프로필 ${g.profile} — 설계 선행` : '설계가 없다(Claude 초안 또는 ChatGPT 요청)', PROFILES[g.profile].needs_design ? 'chatgpt' : 'claude')
+  if (appr.db_changes && !g.approval.db) return R('APPROVAL_REQUIRED', `설계 v${appr.version} 는 DB 변경을 포함한다 — DB 승인(「${ug}@v${appr.version} db」) 전에는 DB 작업을 만들지 않는다`, 'user', { db: true })
+  const tasks = state.taskQueue.tasks.filter((t) => t.user_goal_id === ug)
+  const current = tasks.filter((t) => t.design_version === appr.version)
+  const stale = tasks.filter((t) => t.revalidate_required || (t.design_version !== appr.version && t.status !== 'COMPLETED'))
+  if (current.some((t) => t.status === 'REVIEW')) return R('CODE_REVIEW_REQUIRED', 'Codex 독립 리뷰 대기', 'codex')
+  const defect = current.find((t) => t.status === 'READY' && [...t.history].reverse().find((h) => h.from === 'REVIEW')?.to === 'READY')
+  if (defect) return R('IMPLEMENTATION_DEFECT', `${defect.task_id} 리뷰 반려 — Claude 수정 → Codex 재리뷰`, 'claude', { task_id: defect.task_id })
+  if (current.some((t) => ['READY', 'IN_PROGRESS'].includes(t.status))) return R('IMPLEMENTATION_REQUIRED', '실행할 작업이 있다', 'claude')
+}
+
+function bridgeTick(cfg) {
+  // 스크립트는 코드 위치에서(root() 는 상태 폴더 — VFC_ROOT 가 다르면 틀린다)
+  const script = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'poc', 'work-bridge.mjs')
+  const args = [script, 'tick', '--repo', cfg.repo, ...(cfg.app ? ['--app', cfg.app] : [])]
+  try {
+    return JSON.parse(execFileSync(process.execPath, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 180_000, env: { ...process.env, VFC_ROOT: root() } }))
+  } catch (e) {
+    return { error: String(e.stderr || e.message).slice(0, 300), waiting: [] }
+  }
+}
+
+const sleepMs = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
+
+export function runOrchestrator({ limits: lim = {}, deps, tools = ['git', 'claude', 'codex'], ciEnabled = true, dryRun = false } = {}) {
+  const limits = { ...DEFAULT_LIMITS, ...lim }
+  const pid = process.pid
+  // 싱글턴의 주인은 이 프로세스 자신 — pid 가 살아 있으면 ttl 이 지나도 회수되지 않는다(judge: suspect).
+  // 그래서 ttl 을 짧게 둬도 안전하고, 죽었을 때 다음 실행이 빨리 복구한다. (spawnSync 중에는 heartbeat 가 멈추지만 pid 가 살아 있다)
+  const single = acquire(SINGLETON, { owner_id: 'orchestrator', purpose: 'single writer', pid, ttl_ms: Number(process.env.VFC_ORCH_TTL_MS || 5 * 60_000) })
+  if (!single.ok) return { status: 'refused', reason: `다른 오케스트레이터가 실행 중이다(${single.judgement.reason}) — 단일 writer 모드` }
+  const hb = setInterval(() => heartbeat(SINGLETON, single.token), 60_000)
+  hb.unref?.()
+  const recovery = recoverPrevious()
+  const handoff = handoffDeadSessions()
+  const runId = `${new Date().toISOString().replace(/[-:]/g, '').slice(0, 15)}-${crypto.randomBytes(3).toString('hex')}`
+  withState((s) => {
+    s.orchestrator.current_run = runId
+    s.orchestrator.runs[runId] = { run_id: runId, pid, host: os.hostname(), started_at: nowIso(), limits, status: 'running', phase: 'start', task_id: null, cost_usd: 0, tasks_done: [], events: [], recovery }
+  }, { event: 'orchestrator.start', run: runId })
+  const summary = { run_id: runId, recovery, handoff, iterations: [] }
+  let stopReason = null
+  try {
+    let lastDone = null
+    const bridge = bridgeConfig()
+    for (let n = 0; ; n++) {
+      if (fs.existsSync(p.stopFile())) {
+        stopReason = '사용자 중단(runtime/STOP)'
+        break
+      }
+      const over = budgetExceeded(runId, limits)
+      if (over) {
+        stopReason = over
+        break
+      }
+      runEvent(runId, { phase: 'goal_check' })
+      const gc = goalCheckStep({ deps, ciEnabled })
+      runEvent(runId, { phase: 'select', goal_check: gc.report, changes: gc.changes })
+      if (getRun(runId).tasks_done.length >= limits.max_tasks) {
+        stopReason = `작업 수 상한 ${limits.max_tasks}`
+        summary.iterations.push({ goal_check: gc.report, changes: gc.changes, distribution: gc.distribution })
+        break
+      }
+      const bt = bridge && !dryRun ? bridgeTick(bridge) : null
+      // 사용자 대화형 설계 승인 → 적용 · 초안/보류 작업 재개(사용자는 vfc approve 하나만)
+      const applied = dryRun ? [] : withState((s) => UG.applyTrustedDesignApprovals(s), { event: 'usergoal.auto_approve', by: 'orchestrator' })
+      if (applied.length) runEvent(runId, { phase: 'approval_applied', applied })
+      if (bt) runEvent(runId, { phase: 'bridge', published: bt.published?.published ?? null, collected: bt.collected ?? [], intake: (bt.intake ?? []).map((x) => x.status), waiting: bt.waiting ?? [], error: bt.error ?? bt.errors?.[0] ?? null })
+      let sel = selectStep({ runId, tools, pid, last: lastDone })
+      // 고를 작업이 없고 Work 응답을 기다리는 중이면 — 정해진 시간까지 tick 으로 기다렸다가 인수되면 다시 고른다(대기 중 다른 작업은 위에서 이미 실행)
+      if (!sel.selected && bridge && !dryRun && bridge.wait_work_min > 0 && (bt?.waiting?.length ?? 0) > 0) {
+        const until = Date.now() + bridge.wait_work_min * 60_000
+        let applied = false
+        // 실행 예산(max_minutes·비용)이 대기보다 먼저 — 넘으면 기다리지 않고 멈춘다(Codex P2)
+        while (!applied && Date.now() < until && !fs.existsSync(p.stopFile()) && !budgetExceeded(runId, limits)) {
+          sleepMs(Number(process.env.VFC_BRIDGE_INTERVAL_MS || bridge.interval_s * 1000))
+          const w = bridgeTick(bridge)
+          runEvent(runId, { phase: 'bridge_wait', collected: w.collected ?? [], intake: (w.intake ?? []).map((x) => x.status), waiting: w.waiting ?? [] })
+          applied = (w.intake ?? []).length > 0 || (w.waiting ?? []).length === 0
+        }
+        if (applied && !budgetExceeded(runId, limits)) sel = selectStep({ runId, tools, pid, last: lastDone })
+      }
+      const it = { bridge: bt ? { published: bt.published?.published ?? null, collected: bt.collected ?? [], waiting: bt.waiting ?? [], error: bt.error ?? null } : null, goal_check: gc.report, changes: gc.changes, distribution: gc.distribution, selected: sel.selected ? { task_id: sel.selected.task_id, score: sel.selected.score, reasons: sel.selected.reasons } : null, skipped: sel.skipped, uncovered: sel.ranking.uncovered.slice(0, 10) }
+      summary.iterations.push(it)
+      runEvent(runId, { phase: 'selected', task_id: it.selected?.task_id ?? null, skipped: sel.skipped })
+      if (!sel.selected) {
+        stopReason = bt?.waiting?.length ? `실행 가능한 작업 없음 · Work 응답 대기(${bt.waiting.join(',')})` : '실행 가능한 작업 없음'
+        break
+      }
+      if (dryRun) {
+        stopReason = 'dry-run — 선정까지만'
+        break
+      }
+      const res = processTask({ runId, taskId: sel.selected.task_id, limits, deps, pid })
+      it.outcome = res.outcome
+      {
+        // 작업 완료(TASK_COMPLETED)와 목표 단계를 분리해 남긴다 · 다음 선정은 같은 목표의 의존 작업 우선
+        const st = loadState().state
+        const done = st.taskQueue.tasks.find((t) => t.task_id === sel.selected.task_id)
+// tests/operations.test.mjs — 목표 중심 연속 운영 시나리오 A~H(WF-S14)
+//
+// ⚠ Claude·Codex·GitHub 은 가짜(tests/fakes), Work 댓글은 테스트가 넣는 모의 응답(SIMULATED)이다.
+// 오케스트레이터·상태·잠금·브리지 tick·승인 경계는 실제 코드가 돈다. 실제 제품 목표 실행의 근거가 아니다(보고서에 분리 기록).
+import { test, after } from 'node:test'
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { spawn, spawnSync, execFileSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+
+const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const VFC = path.join(REPO, 'bin', 'vfc.mjs')
+const ORCH = path.join(REPO, 'bin', 'goal-orchestrator.mjs')
+const fake = (n) => `node ${path.join(REPO, 'tests', 'fakes', n).replace(/\\/g, '/')}`
+const OWNER = 'r0-learning-journey'
+const CANON = 'VG-L3-A2-01'
+const XREPO = 'owner/vocaflow-exchange'
+const kids = []
+after(() => kids.forEach((k) => k.kill('SIGKILL')))
+
+function setup() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-ops-'))
+  const ghDir = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-opsgh-'))
+  const wt = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-opswt-'))
+  const g = (...a) => execFileSync('git', ['-C', wt, ...a], { encoding: 'utf8' })
+  g('init', '-q', '-b', 'feat/t')
+  g('config', 'user.email', 't@example.com')
+  g('config', 'user.name', 'test')
+  fs.mkdirSync(path.join(wt, 'src'), { recursive: true })
+  fs.writeFileSync(path.join(wt, 'AGENTS.md'), '# A\n\n## 프로젝트\n\n- 운영 시나리오\n\n## 끝\n')
+  fs.writeFileSync(path.join(wt, 'src', 'x.ts'), 'export const x = 1\n')
+  fs.writeFileSync(path.join(wt, '.gitignore'), '.vfc-runs/\n.agent-lock\n')
+  g('add', '.')
+  g('commit', '-q', '-m', 'base')
+  g('update-ref', 'refs/remotes/origin/main', 'HEAD')
+  const env = { ...process.env, VFC_ROOT: root, VFC_PRODUCT_REPO: wt, VFC_GH_CMD: fake('fake-gh.mjs'), FAKE_GH_DIR: ghDir, VFC_CLAUDE_CMD: fake('fake-claude.mjs'), VFC_CODEX_CMD: fake('fake-codex.mjs'), FAKE_STATE_DIR: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), CLAUDECODE: '', VFC_AGENT: '' }
+  const run = (bin, args, extra = {}, input) => {
+    const r = spawnSync(process.execPath, [bin, ...args], { env: { ...env, ...extra }, encoding: 'utf8', timeout: 240000, input })
+    return { code: r.status, out: r.stdout, err: r.stderr, json: (() => { try { return JSON.parse(r.stdout) } catch { return null } })() }
+  }
+  const vfc = (...a) => {
+    const r = run(VFC, [...a, '--json'])
+    assert.equal(r.code, 0, r.err)
+    return r.json
+  }
+  const orch = (args = [], extra = {}) => {
+    const r = run(ORCH, ['--no-ci', '--json', ...args], extra)
+    assert.ok(r.json, r.err)
+    return r.json
+  }
+  vfc('init')
+  vfc('owner', 'bind-worktree', OWNER, wt, '--branch', 'feat/t')
+  const gh = () => JSON.parse(fs.readFileSync(path.join(ghDir, 'state.json'), 'utf8'))
+  const workReplies = (prNumber, plan = {}) => {
+    const st = gh()
+    const pr = st.prs.find((p) => p.number === prNumber)
+    const id = pr.title.match(/(REQ-\d{8}-(?:[0-9a-f]{8}-)?\d{3})/)[1]
+    const md = Buffer.from(st.files[`${pr.headRefName}:requests/${id}.md`], 'base64').toString('utf8')
+    const h = JSON.parse(md.match(/```json vfc-request\s*\n([\s\S]*?)\n```/)[1])
+    const resp = { schema: 'vfc-response/1', request_id: id, responder: 'chatgpt', responded_at: new Date().toISOString(), canon_version: h.canon_version, verdict: 'revise', summary: 'SIMULATED Work 응답', findings: [], proposed_decisions: [], open_questions: [], thread_id: h.thread.thread_id, goal_ref: h.thread.goal_ref, round_id: h.thread.round_id, design_version: h.thread.design_version, ...(h.thread.context_base_commit ? { context_base_commit: h.thread.context_base_commit } : {}), plan: { goal_fit: 'g', design: 'Work 설계', priority: 'P1 — x', learner_value: 'v', scope: 's', preserved_contracts: ['계약 유지'], acceptance: ['기준 0', '기준 1'], risks: ['r'], allowed_paths: ['src/**'], db_changes: false, ...plan } }
+    pr.comments.push({ author: 'chatgpt-work[bot]', type: 'Bot', at: new Date().toISOString(), body: `설계입니다.\n\n\`\`\`json vfc-response\n${JSON.stringify(resp, null, 2)}\n\`\`\`\n` })
+    fs.writeFileSync(path.join(ghDir, 'state.json'), JSON.stringify(st, null, 2))
+  }
+  const bridgeOn = () => {
+    fs.mkdirSync(path.join(root, 'config'), { recursive: true })
+    fs.writeFileSync(path.join(root, 'config', 'bridge.json'), JSON.stringify({ repo: XREPO, wait_work_min: 0 }))
+  }
+  const goal = (title, design = { summary: title, acceptance: ['기준 0', '기준 1'], preserved_contracts: ['계약 유지'], allowed_paths: ['src/**'], db_changes: false }) => {
+    const f = path.join(root, `d-${title}.json`)
+    fs.writeFileSync(f, JSON.stringify(design))
+    return vfc('ugoal', 'start', '--from', 'claude', '--title', title, '--goals', CANON, '--design-file', f, '--by', 'claude')
+  }
+  const approve = (ug, v) => {
+    const d = vfc('decision', 'add', '--status', 'APPROVED', '--kind', 'design_approval', '--summary', `${ug}@v${v} 승인`, '--approved-by', 'user', '--ref', 'test', '--by', 'user')
+    return vfc('ugoal', 'approve', ug, '--design', String(v), '--decision', d.decision_id, '--by', 'user')
+  }
+  const ugTask = (ug, idx, over = {}) => {
+    const f = path.join(root, `t-${ug}-${idx.join('')}-${Math.random().toString(16).slice(2, 6)}.json`)
+    fs.writeFileSync(f, JSON.stringify({ goal_id: CANON, title: `${ug} 기준 ${idx}`, description: 'd', priority: 'P1', owner_id: OWNER, allowed_paths: ['src/**'], forbidden_paths: ['secret.txt'], acceptance: ['조건 0'], worktree: wt, branch: 'feat/t', design_acceptance: idx, ...over }))
+    return vfc('ugoal', 'task', 'add', ug, '--file', f, '--by', OWNER)
+  }
+  const task = (id) => vfc('task', 'show', id)
+  return { root, wt, vfc, run, orch, gh, workReplies, bridgeOn, goal, approve, ugTask, task, env, ghDir }
+}
+
+test('A·E·H — 한 목표의 승인된 작업 2개를 한 실행에서 연속 처리 · 중간에 남은 기준으로 다음 작업 선정 · 사용자 수락 없이는 USER_ACCEPTED 아님', () => {
+  const s = setup()
+  const u = s.goal('A목표')
+  s.approve(u.ug_id, 1)
+  const t0 = s.ugTask(u.ug_id, [0])
+  const t1 = s.ugTask(u.ug_id, [1])
+  // E: 첫 작업만 — 기준 [1] 이 남아 다음 선정이 그 작업이다
+  const r1 = s.orch(['--max-tasks', '1'])
+  assert.equal(r1.run.tasks_done[0].outcome, 'completed')
+  assert.equal(r1.iterations[0].goal_level.level, 'GOAL_PARTIAL')
+  assert.deepEqual(r1.iterations[0].goal_level.coverage.missing, [1])
+  const dry = s.orch(['--dry-run'])
+  assert.equal(dry.iterations[0].selected.task_id, t1.task_id, '남은 미충족 기준의 작업을 고른다')
+  // A: 새 목표에서 두 작업을 한 실행으로 연속 완료
+  const v = s.goal('A2목표')
+  s.approve(v.ug_id, 1)
+  s.ugTask(v.ug_id, [0])
+  s.ugTask(v.ug_id, [1])
+  const r2 = s.orch(['--max-tasks', '5'])
+  const done = r2.run.tasks_done.filter((x) => x.outcome === 'completed').map((x) => x.task_id)
+  assert.ok(done.length >= 3, `연속 완료: ${JSON.stringify(r2.run.tasks_done)}`)
+  assert.equal(s.vfc('ugoal', 'route', v.ug_id).route, 'GOAL_VERIFIED')
+  assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_VERIFIED')
+  assert.equal(s.task(t0.task_id).status, 'COMPLETED')
+  // H: 비대화형 「--by user」 결정으로는 수락 불가 · 대화형 승인(테스트 대역)만
+  const cd = s.vfc('decision', 'add', '--status', 'APPROVED', '--kind', 'goal_acceptance', '--summary', `${v.ug_id} accept`, '--approved-by', 'user', '--ref', 't', '--by', 'user')
+  assert.match(s.run(VFC, ['ugoal', 'accept', v.ug_id, '--decision', cd.decision_id, '--by', 'user']).err, /TRUST_REQUIRED/)
+  assert.equal(s.vfc('ugoal', 'route', v.ug_id).route, 'GOAL_VERIFIED')
+  const td = s.run(VFC, ['approve', '--kind', 'goal_acceptance', '--summary', `${v.ug_id} accept`, '--json'], { VFC_TTY_FOR_TESTS: '1', VFC_TEST_CODE: 'abc123' }, 'abc123\n').json
+  s.vfc('ugoal', 'accept', v.ug_id, '--decision', td.decision_id, '--by', 'user')
+  assert.equal(s.vfc('ugoal', 'route', v.ug_id).route, 'USER_ACCEPTED')
+})
+
+test('B·D — Work 요청은 오케스트레이터가 게시하고(단일 in-flight), 기다리는 동안 다른 목표 작업을 실행하며, 응답은 다음 반복에서 자동 인수 → 승인 뒤 자동 재개', () => {
+  const s = setup()
+  s.bridgeOn()
+  // 목표 X: 설계 요청 대기(승인 전) · 목표 Y: 승인된 작업
+  const x = s.goal('X목표')
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content -Encoding utf8 lib/tasks.mjs | Select-String -Pattern 'isTrustedUserDecision' -Context 2,12; Get-Content -Encoding utf8 lib/state.mjs | Select-String -Pattern 'withState' -Context 0,70; Get-ChildItem D:\\workspace,D:\\ -Force -File -Filter 'AGENTS*'; Get-Content -Encoding utf8 lib/usergoals.mjs | Select-Object -Skip 465 -First 24; Get-Content -Encoding utf8 lib/orchestrator.mjs | Select-String -Pattern 'userGoals|mode|active_goal' -Context 2,5; git rev-parse HEAD; Get-Content -Encoding utf8 README.md | Select-Object -First 75" in D:\workspace\Vocaflow-AI-Control
+ succeeded in 191ms:
+
+  
+  /** 강한 승인의 근거가 되는 결정인가 — 사용자 APPROVED + 대화형 터미널 기록 */
+> export const isTrustedUserDecision = (d) => !!d && d.status === 'APPROVED' && d.approved_by === 'user' && d.recorded_
+via === 'tty'
+  
+  export function logDecision(state, entry, { via = null } = {}) {
+    if (!DECISION_STATUS.includes(entry.status)) throw new RuleError('BAD_DECISION', `status 는 ${DECISION_STATUS.join('
+|')}`)
+    if (entry.status === 'APPROVED' && (entry.approved_by !== 'user' || !(entry.source || entry.reference))) throw new 
+RuleError('APPROVAL_NOT_USER', 'APPROVED 결정은 approved_by=user 와 근거(source/reference)가 있어야 한다')
+    // 에이전트가 사용자 메시지를 옮겨 적은 승인은 그 사실을 남긴다(최종 수락에는 쓸 수 없다 — usergoals.acceptGoal)
+    // 입력 경로는 호출자가 넘긴 값만 — 결정 본문에 적힌 recorded_via 는 믿지 않는다(위조 차단)
+    delete entry.recorded_via
+    if (entry.status === 'APPROVED') entry.recorded_via = inAgentContext() ? 'agent' : via === 'tty' ? 'tty' : 'cli'
+    const used = new Set(state.decisionLog.entries.map((e) => e.decision_id))
+    let id = entry.decision_id
+    if (id) {
+      if (used.has(id)) throw new RuleError('DUP_DECISION', `결정 ${id} 가 이미 있다`)
+> // 공유 상태 파일 5종의 읽기·쓰기. 모든 변경은 withState() 안에서 한다.
+  //
+  //   상태 뮤텍스 → (남은 journal 이 있으면 먼저 재적용) → 5개 파일 읽기 → fn 이 변경
+  //   → 바뀐 파일 전체를 state/.journal.json 에 한 번에 원자적으로 기록(= 커밋 지점)
+  //   → 각 파일을 원자적으로 교체 → journal 삭제 → 커밋 후 동작(잠금 반납 등) → 뮤텍스 반납
+  //
+  // 어느 단계에서 죽어도:
+  //   journal 기록 전  → 아무것도 바뀌지 않았다(본 파일 옛 판).
+> //   journal 기록 후  → 다음 withState 가 journal 을 재적용해 5개 파일을 한꺼번에 새 판으로 맞춘다(부분 커밋 없음).
+  //   커밋 후 동작 전 → 잠금이 남지만 그 작업은 더 이상 IN_PROGRESS 가 아니므로 고아 정리(reconcileLocks)가 치운다.
+  //
+  // 파일                       내용
+  //   GOAL_STATUS.json         정본 목표·출시 게이트별 PASS/FAIL/UNKNOWN/BLOCKED/EXTERNAL_INPUT_REQUIRED + 근거
+  //   TASK_QUEUE.json          모든 작업의 정본
+  //   ACTIVE_TASKS.json        IN_PROGRESS 작업(TASK_QUEUE 에서 파생)
+  //   DECISION_LOG.json        결정·제안·열린 질문(append-only)
+  //   OWNERSHIP_REGISTRY.json  고정 owner_id ↔ worktree·branch·DB 범위·현재 세션
+  //   ORCHESTRATOR.json        자동 실행기의 run 기록(단계·예산·사건) — 재시작 시 여기서 복구한다
+  //   USER_GOALS.json          사용자 지정 목표 · thread(라운드) · 설계 버전 · 승인 범위 · 실행 모드(USER_GOAL|PLATFORM_AUTO)
+  
+  import fs from 'node:fs'
+  import path from 'node:path'
+  import { p } from './paths.mjs'
+  import { atomicWriteJson, readJsonSafe, appendLog, readJson } from './fsutil.mjs'
+  import { withMutex } from './lock.mjs'
+  
+  export const STATE_MUTEX = 'state--mutex'
+  export const SCHEMA = 'vfc-state/1'
+  
+  export const FILES = {
+    goalStatus: p.goalStatus,
+    taskQueue: p.taskQueue,
+    activeTasks: p.activeTasks,
+    decisionLog: p.decisionLog,
+    ownership: p.ownership,
+    orchestrator: p.orchestrator,
+    userGoals: p.userGoals,
+  }
+  
+  const EMPTY = {
+    goalStatus: () => ({ schema: SCHEMA, canon_version: null, goals: {}, release_gates: {} }),
+    taskQueue: () => ({ schema: SCHEMA, next_seq: 1, tasks: [] }),
+    activeTasks: () => ({ schema: SCHEMA, tasks: [] }),
+    decisionLog: () => ({ schema: SCHEMA, next_seq: 1, entries: [], imported_responses: {} }),
+    ownership: () => ({ schema: SCHEMA, owners: {} }),
+    orchestrator: () => ({ schema: SCHEMA, current_run: null, runs: {} }),
+    // 사용자 지정 목표(USER_GOAL) · thread · 설계 버전 · 승인 범위 · 실행 모드 — lib/usergoals.mjs
+    userGoals: () => ({ schema: SCHEMA, next_seq: 1, mode: 'PLATFORM_AUTO', active_goal: null, goals: {}, processed_res
+ponses: {} }),
+  }
+  
+  const journalFile = () => path.join(p.state(), '.journal.json')
+  
+  /** 뮤텍스 밖에서 읽을 때: journal 이 남아 있으면 그 판을 우선(커밋은 됐고 반영만 안 된 상태). */
+  export function loadState() {
+    const s = {}
+    const recovered = []
+    let journal = null
+    if (fs.existsSync(journalFile())) {
+      try {
+        journal = readJson(journalFile())
+      } catch {
+        journal = null // journal 자체가 깨졌으면 커밋 전에 죽은 것 — 무시
+      }
+    }
+    for (const [k, fp] of Object.entries(FILES)) {
+      if (journal?.files?.[k]) {
+        s[k] = journal.files[k]
+        continue
+      }
+      const r = readJsonSafe(fp(), EMPTY[k]())
+      if (r.recovered) recovered.push({ file: fp(), error: r.error })
+      s[k] = r.value
+    }
+    if (!s.decisionLog.imported_responses) s.decisionLog.imported_responses = {}
+    return { state: s, recovered, pending_journal: !!journal }
+  }
+  
+  function replayJournal() {
+    if (!fs.existsSync(journalFile())) return false
+> export function withState(fn, meta = {}) {
+    return withMutex(STATE_MUTEX, () => {
+      replayJournal()
+      const { state, recovered } = loadState()
+      const before = Object.fromEntries(Object.entries(state).map(([k, v]) => [k, JSON.stringify(v)]))
+      const after = []
+      const abort = []
+      const ctx = { afterCommit: (cb) => after.push(cb), onAbort: (cb) => abort.push(cb) }
+      let result
+      try {
+        result = fn(state, ctx)
+      } catch (e) {
+        for (const cb of abort.reverse()) {
+          try {
+            cb()
+          } catch {
+            /* 되돌리기 실패는 고아 정리가 처리 */
+          }
+        }
+        throw e
+      }
+      state.activeTasks = deriveActive(state.taskQueue)
+      deriveTemplates(state.goalStatus, state.taskQueue)
+      const now = new Date().toISOString()
+      const changed = {}
+      for (const [k, fp] of Object.entries(FILES)) {
+        if (JSON.stringify(state[k]) !== before[k] || !fs.existsSync(fp())) {
+          state[k].updated_at = now
+          changed[k] = state[k]
+        }
+      }
+      if (Object.keys(changed).length) {
+        atomicWriteJson(journalFile(), { at: now, files: changed }) // 커밋 지점
+        if (process.env.VFC_CRASH_AT === 'after_journal') process.exit(87)
+        for (const [k, v] of Object.entries(changed)) atomicWriteJson(FILES[k](), v)
+        fs.rmSync(journalFile(), { force: true })
+      }
+      if (process.env.VFC_CRASH_AT === 'before_after_commit') process.exit(88)
+      for (const cb of after) cb()
+      if (recovered.length) appendLog(p.eventLog(), { at: now, event: 'state.recovered_from_bak', recovered })
+      if (meta.event) appendLog(p.eventLog(), { at: now, ...meta })
+      return result
+    })
+  }
+  
+  /** 템플릿 상태는 작업에서 파생한다: 그 템플릿을 쓰는 작업이 하나라도 있으면 instantiated. PASS/FAIL 로 바꾸지 않는다. */
+  export function deriveTemplates(goalStatus, taskQueue) {
+    for (const tpl of Object.values(goalStatus.templates || {})) {
+      tpl.instances = taskQueue.tasks.filter((t) => t.template === tpl.id).map((t) => ({ task_id: t.task_id, goal_id: t
+.goal_id, status: t.status }))
+      tpl.status = tpl.instances.length ? 'instantiated' : 'not_instantiated'
+    }
+  }
+  
+  export function deriveActive(taskQueue) {
+    return {
+      schema: SCHEMA,
+      note: 'TASK_QUEUE.json 에서 파생 — 직접 고치지 않는다',
+      tasks: taskQueue.tasks
+        .filter((t) => t.status === 'IN_PROGRESS')
+        .map((t) => ({ task_id: t.task_id, goal_id: t.goal_id, owner_id: t.owner_id, session: t.run?.session ?? null, w
+orktree: t.worktree, branch: t.branch, run_seq: t.run_seq, locks: (t.run?.locks || []).map((l) => l.name), started_at: 
+t.run?.started_at ?? null })),
+    }
+  }
+    const file_rel = path.relative(root(), archived).split(path.sep).join('/')
+    const ugRef = header?.thread?.goal_ref
+    const r = withState((s) => applyResponse(s, { resp, text, request_id, file_rel, currentCommit: ugRef ? currentCommitFor(ugRef, s) : null, by }), { event: 'usergoal.intake', file: name, by })
+    if (r.status === 'applied') {
+      fs.mkdirSync(p.archive(), { recursive: true })
+      fs.renameSync(file, fs.existsSync(archived) ? `${archived}.${Date.now()}.dup` : archived)
+      const req = path.join(p.requests(), `${request_id}.md`)
+      if (fs.existsSync(req)) fs.renameSync(req, path.join(p.archive(), `${request_id}.md`))
+    } else r.moved_to = moveTo(r.status === 'duplicate' ? path.join(p.archive(), 'duplicates') : p.rejectedResponses(), file, name)
+    results.push({ file: name, ...r })
+  }
+  return results
+}
+
+// ── 승인 ────────────────────────────────────────────────────────────────
+
+function requireUserDecision(state, decision_id, token, kind) {
+  const d = state.decisionLog.entries.find((e) => e.decision_id === decision_id)
+  if (!d || d.status !== 'APPROVED' || d.approved_by !== 'user') throw new RuleError('APPROVAL_REQUIRED', `${kind} 에는 사용자 APPROVED 결정이 필요하다(${decision_id}) — ChatGPT 응답·AI 판단은 승인이 아니다`)
+  const text = `${d.summary || ''} ${d.reference || ''}`
+  // 경계까지 맞춘다 — 「UG-0001@v10」 승인이 「UG-0001@v1」 을 승인하지 않게(Codex 리뷰 P1)
+  const esc = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  if (!new RegExp(`(^|[^0-9A-Za-z@-])${esc}(?![0-9A-Za-z])`).test(text)) throw new RuleError('APPROVAL_MISMATCH', `결정 ${decision_id} 의 summary/reference 에 「${token}」 가 없다 — 다른 대상의 승인으로 이 설계를 승인할 수 없다`)
+  return d
+  import { checkFeasibility } from './feasibility.mjs'
+  import { reviewGate } from './review-verdicts.mjs'
+> import * as UG from './usergoals.mjs'
+  import * as CTX from './context.mjs'
+  import { createRequest } from './planning.mjs'
+  import { appendLog } from './fsutil.mjs'
+  
+  export const DEFAULT_LIMITS = {
+    ]
+    // 사용자 지정 목표(WF-S7): 승인된 설계 버전의 요약·계약을 붙이고, 설계 자체가 틀렸으면 코드로 우회하지 말고 design_issue 로 보고하게 한다
+>   const ug = task.user_goal_id ? loadState().state.userGoals?.goals?.[task.user_goal_id] : null
+    const appr = ug && UG.approvedDesign(ug)
+    if (appr) {
+      lines.push(
+        ``,
+        `## User goal ${ug.ug_id} 「${ug.title}」 — approved design v${appr.version} (profile ${ug.profile})`,
+      '## 하지 않을 것 — 이 작업 단위에만 적용',
+      ...task.forbidden_paths.map((x) => `- ${x}`),
+>     `- DB 접근(db_scope=${task.db_scope.mode}) · git push · 범위 밖 변경`,
+      '',
+    ].join('\n')
+    fs.writeFileSync(f, body)
+    return true
+  }
+bb9961c788f563d2e0e2a0c9417f2e25f0970e2e
+# Vocaflow AI Control
+
+Claude Code · Codex · ChatGPT 가 **같은 Vocaflow 플랫폼 목표**를 기준으로 협업하기 위한 공유 제어 공간이다.
+제품 소스(`D:\workspace\Vocaflow*` worktree)와 분리돼 있고, 제품 코드는 여기에 두지 않는다.
+
+- 위치: `D:\workspace\Vocaflow-AI-Control` — Vocaflow 저장소의 **orphan 브랜치 `ai-control`** worktree(제품 이력과 공통 조상 없음)
+- 정본: [goals/](./goals/) — STEP 2 승인 정본 v1.1.0 (2026-10-09), `CANON_MANIFEST.json` 으로 sha256 봉인
+- 사용법: [docs/USAGE.md](./docs/USAGE.md) · 데이터 계약: [docs/DATA_CONTRACT.md](./docs/DATA_CONTRACT.md) · 잠금: [docs/CONCURRENCY.md](./docs/CONCURRENCY.md) · 자동 실행: [docs/ORCHESTRATOR.md](./docs/ORCHESTRATOR.md) · ChatGPT: [docs/CHATGPT_CONNECTION.md](./docs/CHATGPT_CONNECTION.md)
+- 에이전트별 안내: [agents/claude](./agents/claude/README.md) · [agents/codex](./agents/codex/README.md) · [agents/chatgpt](./agents/chatgpt/README.md)
+
+## 구조
+
+| 경로 | 내용 | Git |
+|---|---|---|
+| `goals/` | 승인 정본 5종 + STEP3 입력 + 봉인 manifest — **읽기 전용** | 버전 관리 |
+| `seed/seed.json` | init 이 한 번 넣는 owner·결정·작업·근거 있는 초기 상태 | 버전 관리 |
+| `bin/vfc.mjs` · `lib/` | CLI 와 규칙(잠금·상태·작업·정본 검증·ChatGPT 교환) | 버전 관리 |
+| `tests/` | control 40 + orchestrator 16(가짜 Claude/Codex · 동시 프로세스 · epoch 잠금 경쟁 · 고장 주입 · SIGKILL 복구) | 버전 관리 |
+| `config/priority.json` | 다음 작업 선정 범주표(1~8) | 버전 관리 |
+| `docs/` · `agents/*/` | 운영 문서 · 에이전트별 진입 안내 | 버전 관리 |
+| `verification/{tests,reviews,e2e}/` | 직접 확인한 증거 파일(로그 원문·run id) | 버전 관리 |
+| `planning/requests/` · `planning/archive/` | ChatGPT 요청과 가져온 응답 기록 | 버전 관리 |
+| `planning/responses/` | 사용자가 붙여 넣는 응답 수신함(가져오면 archive 로 이동) | 제외 |
+| `state/*.json` | GOAL_STATUS · TASK_QUEUE · ACTIVE_TASKS · DECISION_LOG · OWNERSHIP_REGISTRY | 제외(실행 상태) |
+| `runtime/{locks,checkpoints,logs}/` | 잠금 · 스냅샷 · 이벤트 로그 | 제외 |
+
+## 시작
+
+```
+node bin/vfc.mjs goals validate     # 정본 10개 항목 검증 (exit 0 이어야 작업 상태를 바꿀 수 있다)
+node bin/vfc.mjs init               # 멱등 — 처음 한 번
+node bin/vfc.mjs status
+node --test --test-concurrency=1 tests/control.test.mjs
+```
+
+## 원칙
+
+1. 정본은 고치지 않는다. 바꿀 필요가 보이면 `DECISION_LOG` 에 제안 → 사용자 승인 → 새 판 봉인(`goals seal --decision`).
+2. 상태는 CLI 로만 바꾼다 — 손으로 고치면 잠금·검증을 우회한다.
+3. 근거 없는 목표는 `UNKNOWN` 이다. 보고서 인용만으로 `PASS` 를 줄 수 없다. `skip` 은 통과가 아니다.
+4. 작업은 세션 이름이 아니라 **고정 owner_id** 에 속한다.
+5. ChatGPT 응답은 `PROPOSED`/`OPEN_QUESTION` 으로만 들어간다. `APPROVED` 는 사용자 승인 근거가 있어야 한다.
+6. 비밀값(토큰·DB URL·키)을 이 공간 어디에도 쓰지 않는다.
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-Content -Encoding utf8 lib/usergoals.mjs | Select-Object -Skip 180 -First 85; Get-Content -Encoding utf8 lib/usergoals.mjs | Select-Object -Skip 330 -First 135; Get-Content -Encoding utf8 lib/usergoals.mjs | Select-Object -Skip 690 -First 55; Get-ChildItem -Recurse -Force -File -Include AGENTS.md,AGENTS.override.md,CLAUDE.md | Select-Object -ExpandProperty FullName' in D:\workspace\Vocaflow-AI-Control
+ succeeded in 142ms:
+  return g
+}
+
+// ── 시작 경로 A: ChatGPT-first ───────────────────────────────────────────
+
+/**
+ * 파일 안의 ```json vfc-goal``` 블록 하나:
+ *   { schema:'vfc-goal/1', title, canon_goal_ids:[VG-…], profile?, design:{ summary, design?, acceptance[], allowed_paths[], preserved_contracts?, db_changes? } }
+ * 결과: 목표(OPEN) + 설계 v1 PROPOSED. 승인 전에는 아무 작업도 실행되지 않는다.
+ */
+export function parseGoalFile(text) {
+  const blocks = [...String(text).matchAll(/```json vfc-goal\s*\n([\s\S]*?)\n```/g)]
+  if (blocks.length !== 1) throw new RuleError('BAD_GOAL_FILE', `vfc-goal 블록이 정확히 1개여야 한다(발견 ${blocks.length})`)
+  let j
+  try {
+    j = JSON.parse(blocks[0][1])
+  } catch (e) {
+    throw new RuleError('BAD_GOAL_FILE', `vfc-goal JSON 오류: ${e.message}`)
+  }
+  const errs = []
+  if (j.schema !== 'vfc-goal/1') errs.push('schema 는 vfc-goal/1')
+  if (!j.title) errs.push('title')
+  errs.push(...validateDesign(j.design, 'design'))
+  if (errs.length) throw new RuleError('BAD_GOAL_FILE', `vfc-goal 검증 실패: ${errs.join(', ')}`)
+  return j
+}
+
+export function startFromChatGPT(state, { file, by }) {
+  const text = fs.readFileSync(file, 'utf8')
+  const j = parseGoalFile(text)
+  const fileSha = sha(text)
+  const U = ugState(state)
+  const dup = Object.values(U.goals).find((g) => g.designs[0]?.file_sha256 === fileSha)
+  if (dup) throw new RuleError('DUP_GOAL_FILE', `같은 파일로 이미 ${dup.ug_id} 를 시작했다`)
+  const g = newGoal(state, { title: j.title, canon_goal_ids: j.canon_goal_ids, origin: 'chatgpt', profile: j.profile || 'BALANCED', by })
+  const rel = path.relative(root(), path.resolve(file)).split(path.sep).join('/')
+  addDesign(g, j.design, { source: 'chatgpt', status: 'PROPOSED', file: rel, file_sha256: fileSha, by })
+  addRound(state, g, { sender: 'chatgpt', recipient: 'ai-control', purpose: 'goal_start', design_version: 1, source_evidence: [rel], response_status: 'APPLIED', approval_status: 'PENDING_USER', completed_at: now() })
+  return g
+}
+
+// ── 시작 경로 B: Claude-first ────────────────────────────────────────────
+
+/** design 을 주면 v1 DRAFT(claude). 기획이 필요 없는 일반 작업은 사용자가 그 DRAFT 를 바로 승인하면 된다. */
+export function startFromClaude(state, { title, canon_goal_ids, profile = 'BALANCED', design = null, by }) {
+  const g = newGoal(state, { title, canon_goal_ids, origin: 'claude', profile, by })
+  if (design) {
+    const errs = validateDesign(design, 'design')
+    if (errs.length) throw new RuleError('BAD_DESIGN', errs.join(', '))
+    addDesign(g, design, { source: 'claude', status: 'DRAFT', by })
+  }
+  addRound(state, g, { sender: 'claude', recipient: 'ai-control', purpose: 'goal_start', design_version: design ? 1 : null, response_status: 'APPLIED', completed_at: now() })
+  return g
+}
+
+/**
+ * 이미 있는 목표에 Claude 초안(DRAFT)을 더한다 — 설계가 없어 컨텍스트 패킷이 빈 목표(범위가 없어 코드 발췌 0)를 채우는 용도.
+ * 초안은 승인이 아니다. 승인된 설계가 있거나 응답 대기 요청이 있으면 거부한다(진행 중 계약을 흔들지 않는다).
+ */
+export function addClaudeDraft(state, ug, design, { by }) {
+  const g = findGoal(state, ug)
+  if (approvedDesign(g)) throw new RuleError('BAD_TRANSITION', `${ug} 에 승인된 설계가 있다 — 초안 대신 재질의(request-design)`)
+  const pending = g.rounds.find((r) => r.recipient === 'chatgpt' && r.response_status === 'PENDING')
+  if (pending) throw new RuleError('BAD_TRANSITION', `${pending.request_id} 응답 대기 중 — 먼저 cancel-request`)
+  const errs = validateDesign(design, 'design')
+  if (errs.length) throw new RuleError('BAD_DESIGN', errs.join(', '))
+  return addDesign(g, design, { source: 'claude', status: 'DRAFT', by })
+}
+
+// ── 설계 요청 · 자동 재질의 ──────────────────────────────────────────────
+
+/**
+ * issue(구조화된 재질의 — 변경과 쟁점 중심, 기존 설계 전문을 반복하지 않는다):
+ *   { problem, evidence:[..], conflicts_with, alternatives:[..], question, approval_scope_change:boolean, attachments:[파일], issue_key? }
+ * 같은 쟁점(issue_key)의 재질의는 예산(max_requeries_per_issue) 안에서만. 넘으면 RuleError(REQUERY_BUDGET) — 호출자는 작업을 보류한다.
+ */
+export function prepareDesignRequest(state, ug, { purpose = 'design', issue = null, base_commit = null, by }) {
+  const g = findGoal(state, ug)
+  const key = issue?.issue_key || (issue ? sha(`${issue.problem}|${issue.conflicts_with || ''}`).slice(0, 12) : 'initial')
+  if (issue) {
+    const n = (g.counters.requeries[key] || 0) + 1
+    if (n > g.budgets.max_requeries_per_issue) throw new RuleError('REQUERY_BUDGET', `같은 설계 쟁점(${key}) 재질의 ${n - 1}회 = 상한 ${g.budgets.max_requeries_per_issue} — 사람 판단으로 넘긴다`)
+    if (g.counters.total_requeries + 1 > g.budgets.max_total_requeries) throw new RuleError('REQUERY_BUDGET', `목표 전체 재질의 상한 ${g.budgets.max_total_requeries}`)
+  }
+  const cur = approvedDesign(g) || latestDesign(g)
+export function claimResponseFiles({ minAgeMs = 2000, nowMs = Date.now() } = {}) {
+  const dir = p.responses()
+  if (!fs.existsSync(dir)) return []
+  fs.mkdirSync(p.processing(), { recursive: true })
+  // 집은 뒤 죽은 실행의 파일을 되돌린다(이름 끝 .<pid>.<ms>) — 아니면 .processing 에 영영 남는다
+  for (const name of fs.readdirSync(p.processing())) {
+    const m = name.match(/^(.*)\.(\d+)\.(\d+)$/)
+    if (!m || pidAlive(Number(m[2]))) continue
+    try {
+      const back = path.join(dir, m[1])
+      fs.renameSync(path.join(p.processing(), name), fs.existsSync(back) ? `${back}.recovered-${m[3]}.md` : back)
+    } catch {
+      /* 다른 실행이 먼저 되돌렸다 */
+    }
+  }
+  const out = []
+  for (const name of fs.readdirSync(dir)) {
+    const f = path.join(dir, name)
+    let st
+    try {
+      st = fs.statSync(f)
+    } catch {
+      continue
+    }
+    if (!st.isFile() || TEMP_EXT.test(name) || !/\.(md|json)$/i.test(name)) continue
+    if (st.size === 0 || nowMs - st.mtimeMs < minAgeMs) continue
+    const dest = path.join(p.processing(), `${name}.${process.pid}.${Date.now()}`)
+    try {
+      fs.renameSync(f, dest)
+    } catch {
+      continue // 다른 실행이 먼저 집었다
+    }
+    out.push({ name, file: dest })
+  }
+  return out
+}
+
+function moveTo(dir, file, name) {
+  fs.mkdirSync(dir, { recursive: true })
+  let dest = path.join(dir, name)
+  if (fs.existsSync(dest)) dest = `${dest}.${Date.now()}.dup`
+  fs.renameSync(file, dest)
+  return path.relative(root(), dest).split(path.sep).join('/')
+}
+
+/**
+ * 응답 하나 적용(상태 변경 · withState 안에서). 검증 순서:
+ *   schema → 요청 존재 → thread_id → goal_ref → round_id/설계 버전 → (DB·보안 제안은 자동 실행 대상 아님) → 중복
+ * 반환 { status, reason?, ug?, design_version? }
+ */
+export function applyResponse(state, { resp, text, request_id, file_rel, currentCommit = null, by }) {
+  const U = ugState(state)
+  const hash = sha(text)
+  if (U.processed_responses[hash]) return { status: 'duplicate', reason: `같은 응답을 이미 처리했다(${U.processed_responses[hash].request_id})` }
+  const header = readRequestHeader(request_id)
+  if (!header) return { status: 'rejected', reason: `요청 ${request_id} 가 없다` }
+  if (!header.thread) return { status: 'not_thread', reason: 'thread 없는 옛 형식 요청 — vfc planning import 로 가져온다' }
+  const v = validateResponse(resp, { expectRequestId: request_id })
+  if (!v.ok) return { status: 'rejected', reason: v.errors.join('; ') }
+  const g = U.goals[header.thread.goal_ref]
+  if (!g) return { status: 'rejected', reason: `목표 ${header.thread.goal_ref} 가 없다` }
+  if (g.thread_id !== header.thread.thread_id) return { status: 'rejected', reason: 'thread 불일치' }
+  const round = g.rounds.find((r) => r.request_id === request_id)
+  if (!round) return { status: 'rejected', reason: `${g.ug_id} 에 ${request_id} 라운드가 없다` }
+  if (round.response_status !== 'PENDING') return { status: 'duplicate', reason: `${request_id} 라운드는 이미 ${round.response_status}` }
+  const cur = approvedDesign(g) || latestDesign(g)
+  if ((cur?.version ?? 0) !== header.thread.design_version) {
+    // 낡은 라운드는 닫는다 — 열린 채 두면 같은 목표의 새 요청이 영영 막힌다
+    round.response_status = 'OBSOLETE'
+    round.completed_at = now()
+    return { status: 'rejected', reason: `요청 뒤 설계가 v${header.thread.design_version} → v${cur?.version} 로 바뀌었다 — 낡은 응답(라운드 OBSOLETE)` }
+  }
+  let planDesign = null
+  // needs_info·reject 는 설계를 제안하지 않는 정당한 응답이다 — plan 이 비어 있어도 거부하지 않고 라운드만 닫는다(Work 실측 2026-10-09)
+  if (resp.plan && !['needs_info', 'reject'].includes(resp.verdict)) {
+    const pl = resp.plan
+    planDesign = { summary: String(pl.design).slice(0, 300), design: pl.design, acceptance: pl.acceptance, preserved_contracts: pl.preserved_contracts, allowed_paths: Array.isArray(pl.allowed_paths) && pl.allowed_paths.length ? pl.allowed_paths : cur?.allowed_paths || [], db_changes: pl.db_changes === true }
+    const errs = validateDesign(planDesign, 'plan')
+    if (pl.allowed_paths !== undefined && !Array.isArray(pl.allowed_paths)) errs.push('plan.allowed_paths 는 배열')
+    if (pl.db_changes !== undefined && typeof pl.db_changes !== 'boolean') errs.push('plan.db_changes 는 boolean')
+    // 수정 경로만 비었으면(코드 근거 없이 경로를 지어내지 않은 정직한 응답 — Work 실측 PR #2) 설계 버전은 만들지 않고 응답은 기록·라운드는 닫는다.
+    // 다른 형식 오류는 그대로 거부(상태 변경 없음)
+    if (errs.length && errs.every((e) => /^plan\.allowed_paths\(/.test(e))) {
+      planDesign = null
+      var designIncomplete = '수정 허용 경로(allowed_paths) 없음 — 실행 가능한 설계가 아니라 설계 버전을 만들지 않았다(컨텍스트를 붙여 재질의)'
+    } else if (errs.length) return { status: 'rejected', reason: `설계 형식 오류(상태 변경 없음): ${errs.join(', ')}` }
+  }
+  // 기준 커밋: 요청 때 커밋과 지금 커밋이 다르면 적용은 하되 표시한다(설계 응답은 코드 줄 단위가 아니다 — 사람이 승인 때 본다)
+  const base_moved = !!(header.thread.base_commit && currentCommit && !String(currentCommit).startsWith(header.thread.base_commit) && !header.thread.base_commit.startsWith(String(currentCommit)))
+  for (const e of toDecisionEntries(resp, file_rel)) logDecision(state, { ...e, response_sha256: hash, by, ug_ref: g.ug_id })
+  state.decisionLog.imported_responses[request_id] = { sha256: hash, file: file_rel, imported_at: now(), by }
+  const design = planDesign ? addDesign(g, planDesign, { source: 'chatgpt', status: 'PROPOSED', request_id, file: file_rel, file_sha256: hash, base_commit: header.thread.base_commit, by }) : null
+  round.response_status = 'APPLIED'
+  round.approval_status = design ? 'PENDING_USER' : 'NONE'
+  // 쟁점은 응답으로 답해졌다 — 남은 판단은 사용자 승인(새 설계)이다. 같은 쟁점이 다시 생기면 새 재질의(예산 차감)로 연다
+  if (g.open_issue?.request_id === request_id) g.open_issue = null
+  round.completed_at = now()
+  addRound(state, g, { request_id, parent_response_id: request_id, sender: 'chatgpt', recipient: 'ai-control', purpose: `${round.purpose}_response`, design_version: design?.version ?? cur?.version ?? null, base_commit: header.thread.base_commit, source_evidence: [file_rel], response_status: 'APPLIED', approval_status: round.approval_status, completed_at: now() })
+  U.processed_responses[hash] = { request_id, ug: g.ug_id, at: now() }
+  history(g, 'round.response', by, `${request_id} verdict=${resp.verdict}${base_moved ? ' · 기준 커밋 이동' : ''}`)
+  return { status: 'applied', ug: g.ug_id, design_version: design?.version ?? null, base_moved, verdict: resp.verdict, ...(typeof designIncomplete === 'string' ? { design_incomplete: designIncomplete } : {}) }
+}
+
+/** 응답 디렉터리 전체를 인수한다. withState 는 lib/state.mjs 의 것. thread 없는 옛 응답은 건드리지 않고 되돌려 둔다. */
+export function intakeResponses(withState, { by, currentCommitFor = () => null, minAgeMs } = {}) {
+  const results = []
+  for (const { name, file } of claimResponseFiles({ minAgeMs })) {
+    const request_id = (name.match(new RegExp(`^(${REQ_ID_RE.source})`)) || [])[1]
+    let text = ''
+    let resp = null
+    let parseErr = null
+    try {
+      text = fs.readFileSync(file, 'utf8')
+      resp = extractResponse(text, name)
+    } catch (e) {
+      parseErr = e.message
+    }
+    // 블록을 못 읽었는데 방금 쓰인 파일이면 덜 복사됐을 수 있다 — 거부하지 않고 되돌려 다음 intake 에서 다시 본다
+    if (parseErr && request_id && Date.now() - fs.statSync(file).mtimeMs < 60_000) {
+      fs.renameSync(file, path.join(p.responses(), name))
+      results.push({ file: name, status: 'deferred', reason: `아직 읽을 수 없다(복사 중일 수 있다): ${parseErr}` })
+      continue
+    }
+    if (!request_id || parseErr) {
+      const rel = moveTo(p.rejectedResponses(), file, name)
+      results.push({ file: name, status: 'rejected', reason: parseErr || '파일 이름이 REQ-YYYYMMDD-NNN 으로 시작하지 않는다', moved_to: rel })
+      continue
+    }
+    const header = readRequestHeader(request_id)
+    if (header && !header.thread) {
+      fs.renameSync(file, path.join(p.responses(), name)) // 옛 형식 — planning import 몫
+      results.push({ file: name, status: 'not_thread', reason: 'thread 없는 옛 요청 — vfc planning import 로' })
+      continue
+    }
+    const archived = path.join(p.archive(), name)
+ * 아직 응답이 없는 요청 라운드를 취소한다(예: 게시 전 패킷을 고쳐 다시 만들어야 할 때). 응답이 온 라운드는 취소할 수 없다.
+ * 취소는 라운드를 CANCELLED 로 닫을 뿐 — 이미 게시했다면 교환 저장소 PR 도 닫아야 한다(work-bridge 는 취소된 요청을 게시하지 않는다).
+ */
+export function cancelRequest(state, ug, request_id, { reason, by }) {
+  const g = findGoal(state, ug)
+  const r = g.rounds.find((x) => x.request_id === request_id && x.recipient === 'chatgpt')
+  if (!r) throw new RuleError('NO_ROUND', `${ug} 에 ${request_id} 요청 라운드가 없다`)
+  if (r.response_status !== 'PENDING') throw new RuleError('BAD_TRANSITION', `${request_id} 는 ${r.response_status} — 응답 대기 중인 요청만 취소한다`)
+  if (!reason) throw new RuleError('NO_REASON', '취소 사유가 필요하다')
+  r.response_status = 'CANCELLED'
+  r.completed_at = now()
+  if (g.open_issue?.request_id === request_id) g.open_issue = null
+  history(g, 'round.cancelled', by, `${request_id}: ${reason}`)
+  return { ug_id: ug, request_id, response_status: 'CANCELLED' }
+}
+
+export function setMode(state, mode) {
+  if (!MODES.includes(mode)) throw new RuleError('BAD_MODE', `mode 는 ${MODES.join('|')}`)
+  ugState(state).mode = mode
+  return ugState(state)
+}
+
+export function setPaused(state, ug, paused, { by }) {
+  const g = findGoal(state, ug)
+  if (g.status === 'ACCEPTED') throw new RuleError('BAD_TRANSITION', `${ug} 는 ACCEPTED`)
+  g.status = paused ? 'PAUSED' : 'OPEN'
+  history(g, paused ? 'goal.paused' : 'goal.resumed', by)
+  return g
+}
+
+/**
+ * 오케스트레이터 선정 필터. 반환 { allow:boolean, reason?, tier } — tier 가 낮을수록 먼저.
+ *   USER_GOAL 모드: 활성 목표 작업(tier 0) → 다른 열린 사용자 목표 작업(tier 1). 사용자 목표 없는 플랫폼 작업은 고르지 않는다.
+ *   PLATFORM_AUTO: 모든 작업(사용자 목표 작업은 아래 게이트 통과 시).
+ *   게이트(모드 무관): 일시정지·완료 목표 · 설계 미승인 · 작업의 설계 버전 ≠ 승인 버전 · 재검증 필요.
+ */
+export function selectionGate(state, task) {
+  const U = ugState(state)
+  if (!task.user_goal_id) return U.mode === 'USER_GOAL' ? { allow: false, reason: `USER_GOAL 모드${U.active_goal ? `(활성 ${U.active_goal})` : ''} — 사용자 목표 밖 플랫폼 작업은 PLATFORM_AUTO 에서만` } : { allow: true, tier: 0 }
+  const g = U.goals[task.user_goal_id]
+  if (!g) return { allow: false, reason: `사용자 목표 ${task.user_goal_id} 없음` }
+  if (g.status !== 'OPEN') return { allow: false, reason: `${g.ug_id} ${g.status}` }
+  const appr = approvedDesign(g)
+  if (!appr) return { allow: false, reason: `${g.ug_id} 승인된 설계 없음` }
+  if (task.design_version !== appr.version) return { allow: false, reason: `설계 v${task.design_version} 는 SUPERSEDED(현재 v${appr.version}) — 새 설계 기준으로 다시 만든다` }
+  if (task.revalidate_required) return { allow: false, reason: `재검증 필요: ${task.revalidate_required.reason}` }
+  if (g.rounds.some((r) => r.recipient === 'chatgpt' && r.response_status === 'PENDING') && g.open_issue) return { allow: false, reason: `${g.ug_id} 설계 쟁점 응답 대기` }
+  return { allow: true, tier: U.mode === 'USER_GOAL' && U.active_goal !== g.ug_id ? 1 : 0 }
+}
+
+export function limitsFor(state, task, base) {
+  if (!task.user_goal_id) return base
+  const g = ugState(state).goals[task.user_goal_id]
+  if (!g) return base
+  const prof = PROFILES[g.profile]
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "@'
+import {applyTrustedDesignApprovals,approveDesign,contractHash} from './lib/usergoals.mjs';
+function fixture(status='OPEN') {
+ const design={version:1,status:'PROPOSED',source:'chatgpt',acceptance:['a'],allowed_paths:['src/**'],db_changes:true}; design.contract_hash=contractHash(design);
+ const g={ug_id:'UG-0001',status,profile:'BALANCED',designs:[design],history:[],rounds:[],canon_goal_ids:['VG-L3-A2-01'],task_drafts:[{spec:{title:'DB task',allowed_paths:['src/**'],goal_id:'VG-L3-A2-01',db_scope:{mode:'write'}}}]};
+ return {userGoals:{goals:{'UG-0001':g}},taskQueue:{tasks:[]},decisionLog:{entries:[{decision_id:'DL-1',kind:'design_approval',status:'APPROVED',approved_by:'user',recorded_via:'tty',summary:'UG-0001@v1'},{decision_id:'DL-2',kind:'db_write',status:'APPROVED',approved_by:'user',recorded_via:'tty',summary:'UG-0001@v1 db'}]}};
+}
+const s=fixture(); console.log('DB:',JSON.stringify(applyTrustedDesignApprovals(s)), 'remaining drafts',s.userGoals.goals['UG-0001'].task_drafts.length);
+const a=fixture('ACCEPTED'); const g=a.userGoals.goals['UG-0001']; const prev={...g.designs[0],version:0,status:'APPROVED',contract_hash:'old'};g.designs.unshift(prev);g.approval={design_version:0,decision_id:'DL-old'};
+console.log('accepted auto:',JSON.stringify(applyTrustedDesignApprovals(a)),g.status,g.designs[1].status);
+approveDesign(a,'UG-0001',{version:1,decision_id:'DL-1',by:'user'});console.log('accepted manual:',g.status,g.designs[1].status);
+'@ | node --input-type=module" in D:\workspace\Vocaflow-AI-Control
+ succeeded in 152ms:
+DB: [{"ug":"UG-0001","version":1,"decision_id":"DL-1","created":[],"refused":[{"title":"DB task","reason":"UG-0001 는 DB 변경 승인이 없다 — DB 작업을 만들 수 없다"}],"resumed":[]}] remaining drafts 0
+accepted auto: [] ACCEPTED PROPOSED
+accepted manual: OPEN APPROVED
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$n=0; Get-Content -Encoding utf8 lib/usergoals.mjs | ForEach-Object { $n++; if($n -ge 779 -and $n -le 810){'"'{0}: {1}' -f "'$n,$_} }' in D:\workspace\Vocaflow-AI-Control
+ succeeded in 119ms:
+779:   const out = []
+780:   const used = new Set(Object.values(ugState(state).goals).map((g) => g.approval?.decision_id).filter(Boolean))
+781:   for (const d of state.decisionLog.entries) {
+782:     if (d.kind !== 'design_approval' || !isTrustedUserDecision(d) || used.has(d.decision_id) || d.auto_applied) continue
+783:     const text = `${d.summary || ''} ${d.reference || ''}`
+784:     for (const g of Object.values(ugState(state).goals)) {
+785:       if (g.status !== 'OPEN') continue
+786:       for (const v of g.designs) {
+787:         const esc = `${g.ug_id}@v${v.version}`.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+788:         if (!new RegExp(`(^|[^0-9A-Za-z@-])${esc}(?![0-9A-Za-z])`).test(text)) continue
+789:         try {
+790:           const r = approveDesign(state, g.ug_id, { version: v.version, decision_id: d.decision_id, allowed_paths: d.allowed_paths || null, by })
+791:           // 승인 전 초안 → 작업(vfc ugoal approve 와 같은 절차 · 범위 밖 초안은 사유와 함께 남긴다)
+792:           const created = []
+793:           const refused = []
+794:           for (const dr of r.drafts || []) {
+795:             try {
+796:               created.push(addTask(state, bindTaskSpec(state, g.ug_id, dr.spec), { ugBound: true }).task_id)
+797:             } catch (e) {
+798:               refused.push({ title: dr.spec.title, reason: e.message })
+799:             }
+800:           }
+801:           d.auto_applied = { ug: g.ug_id, version: v.version, at: now(), created, refused }
+802:           out.push({ ug: g.ug_id, version: v.version, decision_id: d.decision_id, created, refused, resumed: r.resumed ?? [] })
+803:         } catch (e) {
+804:           d.auto_applied = { ug: g.ug_id, version: v.version, at: now(), error: `${e.code ?? 'ERROR'}: ${String(e.message).slice(0, 200)}` }
+805:           out.push({ ug: g.ug_id, version: v.version, decision_id: d.decision_id, error: d.auto_applied.error })
+806:         }
+807:       }
+808:     }
+809:   }
+810:   return out
+
+codex
+Automatic approval can discard DB drafts despite an existing separate approval and ignores revisions to accepted goals. Both scenarios were reproduced against the new application function.
+
+Full review comments:
+
+- [P2] Preserve DB drafts until their separate approval is applied — D:\workspace\Vocaflow-AI-Control\lib\usergoals.mjs:790-790
+  For a design with queued DB-write drafts, this call never supplies `db_decision_id`, even when a matching trusted `db_write` decision already exists. `approveDesign` therefore leaves `approval.db` false and removes all drafts; `bindTaskSpec` rejects the DB drafts, leaving only their titles and rejection reasons. Applying the DB approval afterward cannot recover them. Resolve the separate DB approval before materializing these drafts, or retain approval-blocked drafts for a later retry.
+
+- [P2] Apply revised-design approvals to accepted goals — D:\workspace\Vocaflow-AI-Control\lib\usergoals.mjs:785-785
+  When an accepted goal receives a new proposed design with a changed contract, a trusted approval is silently ignored by this filter. The existing `approveDesign` explicitly supports this scenario by reopening the goal and invalidating the previous acceptance, but automatic application never reaches that logic. Allow accepted goals with pending revised designs through while preserving the pause behavior, so the documented single-command approval workflow also handles reopened goals.
+Automatic approval can discard DB drafts despite an existing separate approval and ignores revisions to accepted goals. Both scenarios were reproduced against the new application function.
+
+Full review comments:
+
+- [P2] Preserve DB drafts until their separate approval is applied — D:\workspace\Vocaflow-AI-Control\lib\usergoals.mjs:790-790
+  For a design with queued DB-write drafts, this call never supplies `db_decision_id`, even when a matching trusted `db_write` decision already exists. `approveDesign` therefore leaves `approval.db` false and removes all drafts; `bindTaskSpec` rejects the DB drafts, leaving only their titles and rejection reasons. Applying the DB approval afterward cannot recover them. Resolve the separate DB approval before materializing these drafts, or retain approval-blocked drafts for a later retry.
+
+- [P2] Apply revised-design approvals to accepted goals — D:\workspace\Vocaflow-AI-Control\lib\usergoals.mjs:785-785
+  When an accepted goal receives a new proposed design with a changed contract, a trusted approval is silently ignored by this filter. The existing `approveDesign` explicitly supports this scenario by reopening the goal and invalidating the previous acceptance, but automatic application never reaches that logic. Allow accepted goals with pending revised designs through while preserving the pause behavior, so the documented single-command approval workflow also handles reopened goals.
