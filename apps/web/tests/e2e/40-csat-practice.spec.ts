@@ -54,6 +54,8 @@ interface Probe {
   submits: Record<string, unknown>[]
   /** 판단 전 해설 열람 본문(/api/csat/practice/view) */
   views: Record<string, unknown>[]
+  /** 복습 예약 본문(/api/csat/practice/review) */
+  reviews: Record<string, unknown>[]
   /** 가로챈 그 밖의 쓰기(분석 이벤트 포함) */
   writes: string[]
   /** 다음 n 번 제출을 500 으로 */
@@ -64,7 +66,7 @@ interface Probe {
 async function device(browser: Browser): Promise<Probe> {
   const ctx = await browser.newContext({ storageState: storage, viewport: { width: 1440, height: 900 } })
   const page = await ctx.newPage()
-  const probe: Probe = { page, ctx, submits: [], views: [], writes: [], failNext: 0 }
+  const probe: Probe = { page, ctx, submits: [], views: [], reviews: [], writes: [], failNext: 0 }
   const stored = new Map<string, string>()
   // 컨텍스트 전체를 가로챈다 — 「해설 보기」 가 여는 새 탭도 같은 그물 안이다(PRACTICE_PORT_VERIFICATION §5 P1).
   // 쓰기 계수도 컨텍스트 단위다(probe.writes 는 이 컨텍스트의 모든 페이지 합)
@@ -72,6 +74,11 @@ async function device(browser: Browser): Promise<Probe> {
     const req = route.request()
     const url = req.url()
     if (!isWrite(req.method())) return route.continue()
+    if (url.includes('/api/csat/practice/review')) {
+      probe.reviews.push(req.postDataJSON() as Record<string, unknown>)
+      // 서버 확정 날짜 — 이미 다른 날로 잡혀 있던 경우(kept)를 흉내 낸다
+      return route.fulfill({ json: { ok: true, reviewDate: '2026-10-12', requestedDate: '2026-10-16', kept: true, reviewAt: '2026-10-11T15:00:00.000Z', outcome: 'duplicate' } })
+    }
     if (url.includes('/api/csat/practice/view')) {
       probe.views.push(req.postDataJSON() as Record<string, unknown>)
       return route.fulfill({ json: { ok: true, saved: true } })
@@ -190,6 +197,20 @@ test('학습자: 판단을 보낸 뒤 연 해설은 도움 수준을 바꾸지 �
   expect(d.submits[0].explanationViewedAt).toBeNull()
   expect(typeof d.submits[1].explanationViewedAt).toBe('string')
   expect(d.submits[2].explanationViewedAt).toBe(d.submits[1].explanationViewedAt)
+  await d.ctx.close()
+})
+
+test('학습자: 판정 뒤 「며칠 뒤 다시 보기」 — 서버가 확정한 날짜를 보인다(요청 날짜로 덮지 않음 · E11)', async ({ browser }) => {
+  const d = await device(browser)
+  await d.page.goto(PRACTICE)
+  await answer(d.page)
+  await d.page.getByRole('button', { name: '맞춰 보기' }).click()
+  await expect(d.page.getByRole('status').filter({ hasText: '주장 문장을 찾았어요' })).toBeVisible({ timeout: 20_000 })
+  await d.page.getByRole('button', { name: '7일 뒤 다시 보기' }).click()
+  await expect(d.page.getByText('2026-10-12(이미 잡혀 있던 날)', { exact: false })).toBeVisible()
+  expect(d.reviews).toHaveLength(1)
+  expect(d.reviews[0]).toMatchObject({ days: 7, clientSessionId: d.submits[0].clientSessionId })
+  expect(typeof d.reviews[0].finishedAt).toBe('string')
   await d.ctx.close()
 })
 

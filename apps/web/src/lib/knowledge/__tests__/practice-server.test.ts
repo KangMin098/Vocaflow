@@ -311,14 +311,28 @@ describe('E11 복습 예약 — 판정 뒤 다시 보기(학습 지도 「다시
     const d = { ...deps(fakeWriter().writer), db: f.db }
     const r = await schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 3, finishedAt: FIN, preview: false })
     await schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 3, finishedAt: FIN, preview: false })
-    expect(r.reviewAt).toBe('2026-10-12T00:00:00.000Z')
+    expect(r).toMatchObject({ reviewAt: '2026-10-11T15:00:00.000Z', reviewDate: '2026-10-12', kept: false })
     const calls = f.rpcs.filter((x) => x.fn === 'learning_session_apply')
-    expect(calls[0].args).toMatchObject({ p_stage: 'finished', p_review_at: '2026-10-12T00:00:00.000Z', p_client_session_id: SUB.clientSessionId, p_activity: 'practice', p_help_level: null })
+    expect(calls[0].args).toMatchObject({ p_stage: 'finished', p_review_at: '2026-10-11T15:00:00.000Z', p_client_session_id: SUB.clientSessionId, p_activity: 'practice', p_help_level: null })
     expect(calls[1].args).toEqual(calls[0].args)
   })
   it('닫힌 간격(1 · 3 · 7일)만 · 풀에 없는 문항은 404', async () => {
     const d = { ...deps(fakeWriter().writer), db: fakeDb([]).db }
     await expect(schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 30, finishedAt: FIN, preview: false })).rejects.toBeInstanceOf(PracticeInputError)
     await expect(schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: 'nope#1', clientSessionId: SUB.clientSessionId, days: 1, finishedAt: FIN, preview: false })).rejects.toMatchObject({ status: 404 })
+  })
+})
+
+describe('E11 복습 예약 — 서버 확정 날짜(KST) · 재전송 정합(Codex P2)', () => {
+  const FIN = '2026-10-08T23:00:00.000Z' // KST 2026-10-09 08:00
+  it('KST 오전에 1일 뒤 → 한국 내일(10-10) · 저장은 그 날 KST 00:00', async () => {
+    const f = fakeDb([])
+    const r = await schedulePracticeReview({ ...deps(fakeWriter().writer), db: f.db }, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 1, finishedAt: FIN, preview: false })
+    expect(r).toMatchObject({ reviewDate: '2026-10-10', requestedDate: '2026-10-10', reviewAt: '2026-10-09T15:00:00.000Z', kept: false })
+  })
+  it('이미 다른 날로 확정돼 있으면(응답 유실 뒤 다른 간격 재시도) 저장된 날짜를 돌려준다 — 요청 날짜로 덮지 않는다', async () => {
+    const f = fakeDb([{ user_id: 'u1', client_session_id: SUB.clientSessionId, review_at: '2026-10-11T15:00:00+00:00' }])
+    const r = await schedulePracticeReview({ ...deps(fakeWriter().writer), db: f.db }, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 7, finishedAt: FIN, preview: false })
+    expect(r).toMatchObject({ reviewDate: '2026-10-12', requestedDate: '2026-10-16', kept: true })
   })
 })

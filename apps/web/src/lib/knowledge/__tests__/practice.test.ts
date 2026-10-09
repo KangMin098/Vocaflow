@@ -8,6 +8,7 @@ import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
 
 import { annotationFor, gradeClaimSupport } from '../claim-support'
 import {
+  pendingReviews,
   PRACTICE_TASK,
   SKELETON_TASK,
   TRANSFER_TYPES,
@@ -180,5 +181,22 @@ describe('효과 프로토콜 입력', () => {
     const res = evaluateProtocol(rows)
     expect(res.metrics.preHit).toBe(0)
     expect(res.verdict).toBe('positive')
+  })
+})
+
+describe('pendingReviews — 내 복습(E11)', () => {
+  const NOW = Date.parse('2026-10-20T00:00:00Z')
+  const s = (item: string, at: string, deleted: string | null = null) => ({ item_ref: item, review_at: at, deleted_at: deleted })
+  const a = (itemId: string, answeredAt: string) => ({ itemId, answeredAt })
+  it('A 예약 뒤 B 를 풀어도 A 는 남는다 · A 를 예약일 뒤 다시 풀면 끝난다', () => {
+    expect(pendingReviews([s('A', '2026-10-15T15:00:00Z')], [a('B', '2026-10-16T01:00:00Z')], NOW).map((r) => r.itemId)).toEqual(['A'])
+    expect(pendingReviews([s('A', '2026-10-15T15:00:00Z')], [a('A', '2026-10-16T01:00:00Z')], NOW)).toEqual([])
+  })
+  it('예약일 전에 미리 푼 것은 예약을 끝내지 않는다 · 해설 열람(판단 없음)도 마찬가지', () => {
+    expect(pendingReviews([s('A', '2026-10-15T15:00:00Z')], [a('A', '2026-10-14T01:00:00Z')], NOW).length).toBe(1)
+  })
+  it('예약일 도래(due) · 이른 날짜 순 · 삭제된 세션 제외 · 같은 문항은 가장 이른 예약 하나', () => {
+    const out = pendingReviews([s('B', '2026-10-25T15:00:00Z'), s('A', '2026-10-18T15:00:00Z'), s('A', '2026-10-22T15:00:00Z'), s('C', '2026-10-10T15:00:00Z', '2026-10-11T00:00:00Z')], [], NOW)
+    expect(out).toEqual([{ itemId: 'A', reviewAt: '2026-10-18T15:00:00Z', due: true }, { itemId: 'B', reviewAt: '2026-10-25T15:00:00Z', due: false }])
   })
 })

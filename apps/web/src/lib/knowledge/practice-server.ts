@@ -35,8 +35,10 @@ import {
   type PracticeKey,
   type PracticePhase,
   type PracticeSubmission,
+  type ReviewSession,
 } from './practice'
 import { selectWriter, stableUuid, type AttemptWriter } from './practice-writer'
+import { kstDateOf, kstReviewDate } from './review-date'
 import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication } from './product-server'
 
 /** 정본 주석이 있는 문항 — claim-support.ts 의 주석 레지스트리에서 만든다(손 목록이면 주석을 늘려도 연습 풀이 1문항에 머문다) */
@@ -225,12 +227,13 @@ export async function schedulePracticeReview(
   deps: SubmitDeps,
   who: { userId: string; synthetic: boolean },
   r: { itemId: string; clientSessionId: string; days: number; finishedAt: string; preview: boolean },
-): Promise<{ reviewAt: string; outcome: 'applied' | 'duplicate' }> {
+): Promise<{ reviewAt: string; reviewDate: string; requestedDate: string; kept: boolean; outcome: 'applied' | 'duplicate' }> {
   if (!(REVIEW_DAYS as readonly number[]).includes(r.days)) throw new PracticeInputError('예약 간격을 다시 골라 주세요')
   const entry = (await deps.pool({ preview: r.preview })).find((p) => p.itemId === r.itemId)
   if (!entry) throw new PracticeInputError('이 문항에는 지금 연습 과제가 없어요', 404)
   const at = r.finishedAt
-  const reviewAt = new Date(Date.parse(r.finishedAt) + r.days * 86_400_000).toISOString().slice(0, 10) + 'T00:00:00.000Z'
+  // 「N일 뒤」 = 한국 달력 날짜 · 저장은 그 날 KST 00:00(review-date)
+  const { date: requestedDate, iso: reviewAt } = kstReviewDate(r.finishedAt, r.days)
   const { data, error } = await deps.db.rpc('learning_session_apply', {
     p_user: who.userId,
     p_mutation: stableUuid(r.clientSessionId, 'review', reviewAt),
@@ -252,7 +255,12 @@ export async function schedulePracticeReview(
   const row = (Array.isArray(data) ? data[0] : data) as { outcome?: string } | null
   if (row?.outcome === 'conflict') throw new PracticeInputError('이미 다른 날짜로 예약했어요', 409)
   if (row?.outcome !== 'applied' && row?.outcome !== 'duplicate') throw new Error(`복습 예약 실패: ${String(row?.outcome)}`)
-  return { reviewAt, outcome: row.outcome }
+  // 서버가 확정한 날짜를 돌려준다 — review_at 은 먼저 정한 값이 남으므로(coalesce) 응답 유실 뒤 다른 간격으로 다시 눌러도
+  // 화면이 요청한 날짜로 덮지 않고 저장된 날짜를 보인다(Codex P2). 못 읽으면 이번 요청 값
+  const stored = await deps.db.from('learning_sessions').select('review_at').eq('user_id', who.userId).eq('client_session_id', r.clientSessionId).maybeSingle()
+  const confirmed = ((stored.data as { review_at?: string | null } | null)?.review_at) ?? reviewAt
+  const reviewDate = kstDateOf(confirmed)
+  return { reviewAt: new Date(Date.parse(confirmed)).toISOString(), reviewDate, requestedDate, kept: reviewDate !== requestedDate, outcome: row.outcome }
 }
 
 /**
@@ -332,4 +340,17 @@ export async function submitPractice(
   if (outcome !== 'conflict' && s.explanationViewedAt) await deps.writer.noteExplanationView(write, s.explanationViewedAt, sessionId)
   if (outcome === 'conflict') throw new PracticeInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요', 409)
   return { outcome, feedback: practiceFeedback(entry.key, grade, optionCorrect, entry.phase, s.helpLevel) }
+}
+
+/** 내 복습 — 본인 Practice 세션 중 복습 예약이 있는 것(학습자 RLS 클라이언트 · 본인 SELECT 만) */
+export async function loadMyReviewSessions(learnerDb: SupabaseClient, userId: string): Promise<ReviewSession[]> {
+  const { data, error } = await learnerDb
+    .from('learning_sessions')
+    .select('item_ref, review_at, deleted_at')
+    .eq('user_id', userId)
+    .eq('activity', 'practice')
+    .not('review_at', 'is', null)
+    .limit(500)
+  if (error) throw new Error(`내 복습 읽기 실패: ${error.message}`)
+  return (data ?? []) as ReviewSession[]
 }
