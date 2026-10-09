@@ -49,7 +49,8 @@ for (const f of ['apps/web/.env.local', '.env.local']) {
 }
 
 const WRITE = process.argv.includes('--write')
-const OUT = path.resolve('apps/web/src/lib/csat/skeleton-data')
+// 출력은 **스크립트가 있는 저장소** 기준 — 환경 파일 때문에 다른 워크트리에서 실행해도 남의 워크트리에 쓰지 않는다
+const OUT = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '../../apps/web/src/lib/csat/skeleton-data')
 
 const { createClient } = await import('@supabase/supabase-js')
 const { findQuote, normalizeForMatch } = await import('../../apps/web/src/lib/csat/quote-match.ts')
@@ -329,6 +330,39 @@ if (SET === 'hakpyeong') {
   }
   console.log(`→ csat_item_skeletons ${rows.length}행 · 지움 ${drop.length}`)
   process.exit(0)
+}
+
+// ── 강의 문장 번호 보호 ─────────────────────────────────────────────
+// 강의 대본은 `sentence:k`(0-기반)로 문장 지도를 가리킨다. 지문이 고쳐져 문장 수가 바뀌면 번호가 밀려
+// **범위 안에서 조용히 엉뚱한 문장**을 가리킨다(2026-10-10: 맨 앞 3글자 조각이 지워져 2문항 9개 큐가 한 칸씩 밀림).
+// 그래서 강의가 있는 문항의 문장 수가 바뀌면 이름을 대고 멈춘다 — 강의 참조를 고친 뒤 `--accept-shift` 로 굽는다.
+const LECTURE = path.resolve(OUT, '../lecture-data')
+const shifted = []
+if (fs.existsSync(LECTURE)) {
+  const lectured = new Set()
+  for (const f of fs.readdirSync(LECTURE).filter((f) => f.endsWith('.json') && f !== 'index.json')) {
+    const walk = (o) => {
+      if (!o || typeof o !== 'object') return
+      if (typeof o.item_id === 'string') lectured.add(o.item_id)
+      for (const v of Object.values(o)) walk(v)
+    }
+    walk(JSON.parse(fs.readFileSync(path.join(LECTURE, f), 'utf8')))
+  }
+  for (const [examId, list] of byExam) {
+    const prevFile = path.join(OUT, `${examId}.json`)
+    if (!fs.existsSync(prevFile)) continue
+    const prev = JSON.parse(fs.readFileSync(prevFile, 'utf8'))
+    const prevItems = new Map((Array.isArray(prev) ? prev : (prev.items ?? [])).map((x) => [x.id, x]))
+    for (const it of list) {
+      const p = prevItems.get(it.id)
+      if (p && lectured.has(it.id) && p.sentences.length !== it.sentences.length) shifted.push(`${it.id} 문장 ${p.sentences.length}→${it.sentences.length}`)
+    }
+  }
+}
+if (shifted.length) {
+  console.log(`\n⚠️ 강의가 있는 문항의 문장 수가 바뀌었다 ${shifted.length}건 — 강의 sentence:k 참조를 고친 뒤 --accept-shift`)
+  for (const s of shifted) console.log(`   ${s}`)
+  if (WRITE && !process.argv.includes('--accept-shift')) process.exit(1)
 }
 
 if (!WRITE) {

@@ -6339,7 +6339,7 @@
           "role": "strategy",
           "target": {
             "kind": "anchor",
-            "id": "sentence:1"
+            "id": "sentence:0"
           },
           "segments": [
             {
@@ -6397,7 +6397,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:6"
+            "id": "sentence:5"
           },
           "segments": [
             {
@@ -6426,7 +6426,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:5"
+            "id": "sentence:4"
           },
           "segments": [
             {
@@ -6470,7 +6470,7 @@
           "est_sec": 14.3,
           "pause_after_ms": 400,
           "focus": [
-            2
+            1
           ]
         },
         {
@@ -6498,7 +6498,7 @@
           "est_sec": 15.5,
           "pause_after_ms": 400,
           "focus": [
-            3
+            2
           ]
         },
         {
@@ -6530,7 +6530,7 @@
           "est_sec": 18.2,
           "pause_after_ms": 400,
           "focus": [
-            4
+            3
           ]
         },
         {
@@ -6558,8 +6558,8 @@
           "est_sec": 18.5,
           "pause_after_ms": 400,
           "focus": [
-            6,
-            5
+            5,
+            4
           ]
         },
         {
@@ -6568,7 +6568,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:7"
+            "id": "sentence:6"
           },
           "segments": [
             {
