@@ -20,6 +20,7 @@ import { practiceHrefsBeyond } from '../../knowledge/practice-server'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
 import type { FindAttemptRow } from '../../knowledge/find-outcome'
 
+import { crossSessionHelp, type CrossSession, type CrossVerdict } from '@/lib/knowledge/prior-help'
 import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
 import { buildMapModel, type MapEdgeRow, type MapModel, type MapNodeRow, type MapRaw, type MapSettings, type MapTaskRow, type SnapshotInput } from './model'
 import { selectReferenceExams, type ExamCandidate, type RefItem } from './target'
@@ -107,23 +108,54 @@ function group<T, K extends string | number>(rows: T[], key: (r: T) => K, val: (
   return out
 }
 
+/**
+ * 세션을 건너온 도움(새로고침 · 다른 기기 · 해설 극장 공개)을 첫 시도 줄마다 판정한다 — 읽을 때 M8 규칙(prior-help).
+ * 못 읽으면 보수적으로 「시각 불확실」 — 독립이라고 단정하지 않는다.
+ */
+async function loadCrossVerdicts(db: Db, userId: string, rows: { attempt_id?: unknown; session_id?: unknown; item_ref?: unknown; answered_at?: unknown }[]): Promise<Map<number, CrossVerdict>> {
+  const out = new Map<number, CrossVerdict>()
+  const ids = rows.map((r) => Number(r.attempt_id)).filter((x) => Number.isFinite(x))
+  const items = [...new Set(rows.map((r) => String(r.item_ref ?? '')).filter(Boolean))]
+  if (ids.length === 0) return out
+  const [att, sess] = await Promise.all([
+    db.from('learning_task_attempts').select('id, received_at').eq('user_id', userId).in('id', ids),
+    db.from('learning_sessions').select('id, item_ref, help_received_at, explanation_viewed_at, help_server_at, explanation_server_at, help_clock_suspect').eq('user_id', userId).in('item_ref', items).limit(1000),
+  ])
+  if (att.error || sess.error) {
+    for (const id of ids) out.set(id, 'uncertain')
+    return out
+  }
+  const received = new Map(((att.data ?? []) as { id: number; received_at: string | null }[]).map((a) => [a.id, a.received_at]))
+  for (const r of rows) {
+    const id = Number(r.attempt_id)
+    if (!Number.isFinite(id)) continue
+    out.set(id, crossSessionHelp({ sessionId: (r.session_id as string | null) ?? null, itemId: String(r.item_ref ?? ''), answeredAt: String(r.answered_at), receivedAt: received.get(id) ?? null }, (sess.data ?? []) as CrossSession[]))
+  }
+  return out
+}
+
 /** 확인 문항에서의 내 첫 시도 — 학습자 RLS 클라이언트로 본인 행만. 문항이 없으면 묻지 않는다 */
 async function loadFindAttempts(db: Db, userId: string, items: string[]): Promise<FindAttemptRow[]> {
   if (items.length === 0) return []
   const { data, error } = await db.from('learning_first_attempts').select('*').eq('user_id', userId).in('item_ref', [...new Set(items)])
   if (error) throw new Error(`확인 결과 조회 실패: ${error.message}`)
-  return ((data ?? []) as Record<string, unknown>[]).map((r) => ({
+  const cross = await loadCrossVerdicts(db, userId, (data ?? []) as Record<string, unknown>[])
+  return ((data ?? []) as Record<string, unknown>[]).map((r) => {
+    const v = cross.get(Number(r.attempt_id)) ?? 'independent'
+    return {
     userId: String(r.user_id),
     itemRef: String(r.item_ref),
     taskKey: String(r.task_key ?? ''),
     phase: String(r.phase) as FindAttemptRow['phase'],
     isCorrect: typeof r.is_correct === 'boolean' ? r.is_correct : null,
     synthetic: r.synthetic === true,
-    helpLevel: (r.help_level as string | null) ?? null,
-    afterViewedFirst: r.after_viewed_first === true,
+    // 다른 세션에서 앞서 도움 · 해설을 봤으면 도움받은 판단 · 순서가 불확실하면 보류
+    helpLevel: v === 'helped' ? 'viewed_first' : (r.help_level as string | null) ?? null,
+    afterViewedFirst: v === 'helped' || r.after_viewed_first === true,
     afterExplanation: r.after_explanation === true,
-    timingUncertain: r.timing_uncertain === true,
-  }))
+    timingUncertain: v === 'uncertain' || r.timing_uncertain === true,
+  }
+  })
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
@@ -342,7 +374,7 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
   const [prac, tran, first, rev] = await Promise.all([
     db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).in('item_ref', items).neq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
     db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys.flatMap(transferKeysOf)).not('item_ref', 'in', `(${items.map((i) => `"${i}"`).join(',')})`).order('answered_at', { ascending: false }).limit(LIMIT),
-    db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, timing_uncertain, answered_at, phase').eq('user_id', userId).in('item_ref', items).order('answered_at'),
+    db.from('learning_first_attempts').select('attempt_id, session_id, task_key, item_ref, is_correct, help_level, after_explanation, timing_uncertain, answered_at, phase').eq('user_id', userId).in('item_ref', items).order('answered_at'),
     db.from('learning_sessions').select('item_ref, review_at, deleted_at').eq('user_id', userId).in('item_ref', items).not('review_at', 'is', null),
   ])
   if (prac.error) throw new Error(`수행 기록 조회 실패: ${prac.error.message}`)
@@ -350,7 +382,13 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
   if (tran.error) console.error('[csat-map practice transfer]', tran.error.message)
   const tranRows = tran.error ? [] : (tran.data ?? [])
   // 첫 시도 뷰 · 예약을 못 읽으면 그 부분만 빠진다(도움 여부 모름 · 예약 없음) — 횟수 · 결과는 그대로 보인다
-  const firsts = first.error ? [] : (first.data ?? []) as FirstAttemptRow[]
+  const firstsRaw = first.error ? [] : (first.data ?? []) as (FirstAttemptRow & { attempt_id?: number; session_id?: string | null })[]
+  // 세션을 건너온 도움을 첫 시도 요약에 반영(읽을 때 판정)
+  const cross = await loadCrossVerdicts(db, userId, firstsRaw)
+  const firsts: FirstAttemptRow[] = firstsRaw.map((f) => {
+    const v = cross.get(Number(f.attempt_id)) ?? 'independent'
+    return v === 'helped' ? { ...f, help_level: 'viewed_first' } : v === 'uncertain' ? { ...f, timing_uncertain: true } : f
+  })
   const reviews = rev.error ? [] : (rev.data ?? []) as ReviewRow[]
   const out = practiceResultsFor(links, [...(prac.data ?? []), ...tranRows] as AttemptRow[], firsts, reviews, now)
   // 창을 채운 학습자 — 횟수만 정확히 다시 센다(연결 수만큼 head 요청)
