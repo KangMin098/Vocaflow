@@ -193,6 +193,7 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
     section: '연습과 세션',
   },
+  { path: '/csat/practice', screen: 'csat-practice-index', label: '연습 색인(유일 과제로)', group: 'main', kind: 'redirect' },
   {
     path: '/csat/practice/[slug]',
     screen: 'csat-practice',

@@ -124,7 +124,8 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
     expect((await litSentences(page)).length, '첫 화면에 열린 근거가 없다').toBeGreaterThan(0);
 
     // 정답 칩이 눌린 상태로 온다
-    const pressed = page.locator('button[aria-pressed="true"]');
+    // 강의 배속 칩(「1.0 배속」)도 aria-pressed 라 지도 칩 묶음 안에서만 센다(2026-10-10)
+    const pressed = page.getByRole('group', { name: '근거 고르기' }).locator('button[aria-pressed="true"]');
     await expect(pressed).toHaveCount(1);
     await expect(pressed).toContainText('답이 왜');
 
@@ -145,11 +146,12 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
     expect(before.length, '처음부터 열린 것이 없으면 이 검사는 아무것도 안 지킨다').toBeGreaterThan(0);
 
     // 오답 칩 하나를 누른다.
-    const reject = page.locator('button[aria-pressed="false"]').first();
+    const chips = page.getByRole('group', { name: '근거 고르기' });
+    const reject = chips.locator('button[aria-pressed="false"]').first();
     await expect(reject).toBeVisible();
     await reject.click();
 
-    await expect(page.locator('button[aria-pressed="true"]')).toHaveCount(1);
+    await expect(chips.locator('button[aria-pressed="true"]')).toHaveCount(1);
     const after = await litSentences(page);
 
     expect(after.length, '누른 뒤 열린 문장이 없다').toBeGreaterThan(0);
@@ -219,12 +221,14 @@ test.describe('기출 문항 해설 — 지문 지도', () => {
   //
   // 여기서 재는 것은 「지도가 떴는가」가 아니라 **넷이 다 닿는가** 다. 앵커 수 1~5 를 한
   // 문항씩 덮어, 중복 제거(칩이 든 선지는 글에서 뺀다)와 누락 방지를 같은 식으로 잠근다.
+  // 2026-10-10 다시 고름: 끌리는 구절 드레인(PR #180)으로 오답 앵커가 늘어 옛 문항이 모두 5개가 됐다.
+  // 골격의 모든 앵커가 자리를 가진 문항 중 앵커 수 1~5 를 하나씩(skeleton-data 에서 셈).
   for (const [slug, anchors] of [
-    ['2014A-25', 1],
-    ['2014A-26', 2],
-    ['2014A-23', 3],
-    ['2014A-37', 4],
-    ['2014A-24', 5],
+    ['2014A-32', 1],
+    ['2014B-39', 2],
+    ['2014A-36', 3],
+    ['2014A-29', 4],
+    ['2014A-23', 5],
   ] as const) {
     test(`앵커 ${anchors}개 문항 — 오답 넷이 칩이거나 글이거나`, async ({ page }) => {
       await page.goto(`/admin/kice/item/${slug}`, { waitUntil: 'networkidle', timeout: 45_000 });
