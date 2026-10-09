@@ -127,7 +127,8 @@ function preview(id) {
 }
 
 function putFile(repo, branch, dest, buf, message) {
-  gh(['api', '-X', 'PUT', `repos/${repo}/contents/${dest}`, '-f', `message=${message}`, '-f', `branch=${branch}`, '-f', `content=${Buffer.from(buf).toString('base64')}`])
+  // 본문은 표준입력으로 — 인수로 넘기면 Windows 명령줄 한도(32K)에 걸린다(실측: 47KB 첨부 ENAMETOOLONG, 2026-10-09)
+  gh(['api', '-X', 'PUT', `repos/${repo}/contents/${dest}`, '--input', '-'], JSON.stringify({ message, branch, content: Buffer.from(buf).toString('base64') }))
 }
 
 function publish(id) {
@@ -197,7 +198,7 @@ function publish(id) {
   } catch {
     /* 이미 있다 */
   }
-  const url = gh(['pr', 'create', '--repo', opt.repo, '--head', branch, '--base', def, '--title', title, '--label', 'vfc-request', '--body', body])
+  const url = gh(['pr', 'create', '--repo', opt.repo, '--head', branch, '--base', def, '--title', title, '--label', 'vfc-request', '--body-file', '-'], body)
   log({ event: 'published', request_id: id, ug: h.thread.goal_ref, round_id: h.thread.round_id, design_version: h.thread.design_version, pr: url, files: plan.files.length, context_base_commit: h.thread.context_base_commit ?? null, ms: Date.now() - tPub })
   out({ published: id, pr: url, ...plan })
 }

@@ -1,0 +1,20 @@
+{
+  "issue_key": "map-abc-d7",
+  "problem": "학습지도 rev2.1 의 계약 A(직접 확인 진단 판정 단위·상태) · B(Evidence Anchor 원문 revision 결속) · C(FIND 결과 진단 환류)를 PROPOSED 로 작성했다(첨부 패킷 goal-brief 의 설계 초안 = 담당 세션 문서 요약). 정본이 「설계 미정」으로 둔 verified_diagnosis 정의와, 정본 §14 와 main 의 진단 전 Practice 링크 충돌(D-7)은 교육 설계 판단이 필요하다. 이 요청은 취소된 REQ-20261009-c8315ad8-003(미게시, 기준 2bb06453b)을 최신 main 기준으로 다시 만든 것이다.",
+  "evidence": [
+    "정본 §14 원문(main): 「책임 경계: 관찰 → 진단 필요 → 처방. nextPhase 는 한 칸씩, 처방은 verified_diagnosis 일 때만. 진단 전 화면: 찾기만 「지금 해 볼 수 있는」 단계, 고치기·옮기기·확인은 「진단 뒤」 표시」 — §14 는 REPAIR·TRANSFER·CHECK(생애주기 처방)를 묶고, 별도 Practice 모듈은 언급하지 않는다",
+    "TRANSFER 정의(§14 표): 「같은 기제를 새 자료에 옮긴다 — 같은 관계 facet 을 가진 다른 기출에 적용」 — PR #164 의 「같은 원리를 다른 기출로 연습하기」와 형태가 겹친다",
+    "코드: core.ts CURRENT_BASIS='rule_proxy' 상수(verified 생성 경로 없음) · prescription.ts reachablePhase(verified 전 diagnostic_need) · find-outcome.ts confirmed_need = 서로 다른 확인 문항 2 · 독립 첫 시도 · practice-results.ts / practice-server.ts(PR #164 · #169 Practice 결과·링크)",
+    "담당 세션 계약 문서: feat/map-contracts-abc 98ca3f552 docs/csat-learner/MAP_CONTRACTS_ABC.md(main 미병합) — 「confirmed」 세 가지(confirmed_need · cause_confirmed · verified_diagnosis) 분리, Anchor 판정 valid·relocated·ambiguous·stale·boundary_only, FIND 는 DiagnosisBasis 를 바꾸지 않음",
+    "DB 실측(담당 세션 2026-10-09): 새 학습 기록 0 · 실제 진단 사용자 1 — 판정 규칙은 실제 데이터로 보정되지 않았다(unverified)"
+  ],
+  "conflicts_with": "정본 §14(처방은 verified 뒤) ↔ main PR #164(문항→같은 원리 다른 기출 Practice) · #169(지도 다음 칸 Practice). 또 정본 VNEXT 가 참조하는 ERROR_EVIDENCE_DESIGN §9 · 코드북은 main 에 없다(feat/ec-smoke).",
+  "alternatives": [
+    "D-7(a) 정본대로 진단 전 Practice 링크를 verified 뒤로 미룬다 — 기존 제품 동작 축소",
+    "D-7(b) 정본에 예외를 둔다 — FIND confirmed_need 를 근거로 처방이 아닌 자기 주도 연습 허용",
+    "D-7(c) Practice 를 FIND 의 확장(추가 확인 문항)으로 재정의한다",
+    "사용자 권장 방향(비교 대상): 진단 전 자기 주도 Practice 는 허용 · 원인별 맞춤 처방은 verified 전 금지 · 일반 연습과 FIND 확인 과제는 기록·판정에서 구분 · FIND 판정 계약을 만족한 결과만 직접 확인 진단 근거로 승격 · 기존 Practice 링크는 무조건 삭제하지 않음. 단 §14 가 Practice 를 명시 금지하지는 않지만 「같은 원리」 표적 연습은 TRANSFER 와 겹치므로, 링크 문구·기록 분리 없이는 사실상 처방이 된다"
+  ],
+  "question": "1) D-7: 위 네 안을 정본 §14 원문·TRANSFER 정의·실제 코드(PR #164·#169)를 근거로 비교하고 하나를 권고하라. 권고안이 정본 문구 추가·변경을 요구하는지 분명히 하라(정본 변경은 사용자 별도 승인). 2) 계약 A: verified_diagnosis 의 교육적 정의(직접 진단 형태·서로 다른 문항 수·미노출·유효 기간·보정 기준)와 FIND confirmed_need 를 그 구성 요소로 인정할지. 3) 계약 B: 정규화 v1 + 문장 텍스트 해시 결속이 원문 검증으로 충분한가, relocated 를 사람 확인 없이 쓰지 않는 규칙이 타당한가. 4) 계약 C: FIND 결과를 Diagnostic Priority Signal 에 넣을지, 일반 Practice 기록을 진단 근거에서 배제하는 규칙. 5) CHECK 재평가가 첫 시도 보존과 충돌하지 않는 규칙. 응답은 PROPOSED — 사용자 승인 전 적용하지 않는다. plan 블록에 allowed_paths(위 초안 범위 안)와 db_changes 를 넣어라.",
+  "approval_scope_change": true
+}

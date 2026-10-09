@@ -1,0 +1,28 @@
+{
+  "summary": "학습지도 rev2.1 계약 A(직접 확인 진단 판정 단위·상태) · B(Evidence Anchor 원문 revision 결속) · C(FIND 결과 진단 환류) + D-7(정본 §14 ↔ 진단 전 Practice) — 담당 세션 PROPOSED 문서(feat/map-contracts-abc 98ca3f552 MAP_CONTRACTS_ABC.md)의 요약 초안",
+  "design": "A: 판정 체계를 합치지 않는다 — 코드북 4결과 · EC 판정 4결과 · cause_adjudicated(attempt×코드) · cause_confirmed(student×axis, EED §9 8조건, 저장 안 함) · FIND confirmed_need(student×FIND 과제, 서로 다른 확인 문항 ≥2의 독립 첫 시도) · verified_diagnosis(student×axis, 그 축만 겨냥한 직접 진단 + 보정 기준 — 정본 §10-1 「설계 미정」). 지도 상태·처방 개방의 유일한 근거는 verified_diagnosis. B: 정본 §17-2 필드(source_revision · source_text_hash · segmentation_version · unit=문장 index+문장 텍스트 해시 · validation_status legacy_candidate→validated_anchor→reviewed_anchor · judgment_revision), 정규화 v1(NFC·공백·따옴표), 판정 valid/relocated/ambiguous/stale/boundary_only, 자동 승격 금지. C: FIND 결과는 DiagnosisBasis·단계 상태를 바꾸지 않고 우선 확인 신호와 학습 요구 표시에만 쓴다(core.ts CURRENT_BASIS=rule_proxy 유지). D-7: 정본 §14 는 REPAIR·TRANSFER·CHECK 를 verified 뒤로 두지만 main 의 PR #164(문항→같은 원리 다른 기출 연습)·#169(지도 다음 칸 Practice)는 진단 전 Practice 를 연다.",
+  "acceptance": [
+    "verified_diagnosis 의 판정 단위(student×axis)·필요 근거·상태가 정의되고, 그 전에는 지도 상태·처방(REPAIR·TRANSFER·CHECK)이 바뀌지 않는다",
+    "Evidence Anchor 는 source_revision·source_text_hash·문장 텍스트 해시로 원문에 결속되고, 경계 해시만 같은 앵커는 legacy_candidate 에 머문다(자동 승격 없음)",
+    "FIND 판정 계약(서로 다른 확인 문항 ≥2 · 독립 첫 시도 · 자격 제외)을 만족한 결과만 직접 확인 진단의 근거 후보가 되고, 일반 Practice 기록은 근거가 되지 않는다",
+    "D-7 처리안이 정본 §14 원문과 대조돼 결정되고, 정본 변경이 필요하면 별도 사용자 승인 항목으로 분리된다",
+    "기존 회귀(prescription.test · learner-path.test · core.test · practice-results.test)가 유지된다"
+  ],
+  "preserved_contracts": [
+    "observation → diagnostic_need → verified_diagnosis → prescription 순서 · 건너뛰기 금지",
+    "CURRENT_BASIS = rule_proxy (승인 전 변경 금지)",
+    "verified 전 「직접 확인됨」·판정 어휘 금지",
+    "Evidence Anchor 자동 승격 금지",
+    "검증된 글 구조(S) 수직 경로와 G2 멱등 · M8 시각 불확실 · F7 계약"
+  ],
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/core.ts",
+    "apps/web/src/lib/csat/map/prescription.ts",
+    "apps/web/src/lib/csat/map/learner-path.ts",
+    "apps/web/src/lib/csat/map/practice-results.ts",
+    "apps/web/src/lib/knowledge/find-outcome.ts",
+    "apps/web/src/lib/knowledge/practice-server.ts",
+    "apps/web/src/components/csat/diagnosis/map/StepSheet.tsx"
+  ],
+  "db_changes": false
+}

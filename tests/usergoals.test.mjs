@@ -402,3 +402,15 @@ test('목표 id 이름공간: 두 인스턴스가 각자 첫 목표를 만들어
   const ga2 = start(a, 'A 둘째 목표')
   assert.equal(ga2.ug_id, `UG-${nsA}-0002`)
 })
+
+test('ugoal draft: 설계 없는 목표에 Claude 초안 → 패킷 범위 생김 · 응답 대기 중이면 거부', () => {
+  const { root } = setup()
+  const g = ok(vfc(root, ['ugoal', 'start', '--from', 'claude', '--title', '초안 없음', '--goals', CANON, '--by', 'claude']))
+  const f = path.join(root, 'd.json')
+  fs.writeFileSync(f, JSON.stringify(design()))
+  const d = ok(vfc(root, ['ugoal', 'draft', g.ug_id, '--design-file', f, '--by', 'claude']))
+  assert.equal(d.status, 'DRAFT')
+  assert.deepEqual(d.allowed_paths, ['src/**'])
+  ok(vfc(root, ['ugoal', 'request-design', g.ug_id, '--no-context', '--by', 'claude']))
+  assert.notEqual(vfc(root, ['ugoal', 'draft', g.ug_id, '--design-file', f, '--by', 'claude']).code, 0, '응답 대기 중 초안 거부')
+})

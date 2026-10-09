@@ -118,6 +118,7 @@ ChatGPT (파일 교환 · API 없음)
 사용자 지정 목표 (WF-S7 · docs/USER_GOALS.md)
   ugoal start --from chatgpt --file <goal.md> --by O          ChatGPT 가 준 vfc-goal 블록 → 목표 + 설계 v1 PROPOSED
   ugoal start --from claude --title .. --goals VG-.. [--profile FAST|BALANCED|DEEP|CRITICAL] [--design-file d.json] --by O
+  ugoal draft <UG> --design-file d.json --by O               설계 없는 목표에 Claude 초안(DRAFT, 승인 아님) — 패킷 범위용
   ugoal request-design <UG> [--issue-file issue.json] [--commit sha] --by O   ChatGPT 설계 요청서(thread) · 재질의 예산 적용
   ugoal intake [--min-age-ms 2000] --by O                     planning/responses 의 thread 응답을 원자적으로 인수(검증·중복 차단·버전 대조)
   ugoal approve <UG> --design N --decision <DL> [--paths a,b] [--db-decision <DL>] --by O
@@ -445,6 +446,8 @@ function main() {
     case 'ugoal pause':
     case 'ugoal resume':
       return out(withState((s) => UG.setPaused(s, pos[0], sub === 'pause', { by })), opt)
+    case 'ugoal draft':
+      return out(withState((s) => UG.addClaudeDraft(s, pos[0], JSON.parse(fs.readFileSync(opt['design-file'], 'utf8')), { by }), { event: 'usergoal.draft', ug: pos[0], by }), opt)
     case 'ugoal accept':
       return out(withState((s) => UG.acceptGoal(s, pos[0], { by, decision_id: opt.decision }).coverage), opt)
     case 'ugoal list': {

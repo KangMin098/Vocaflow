@@ -39,7 +39,7 @@ if (a[0] === 'api') {
     st.refs[b] = f.sha
     console.log('{}')
   } else if (method === 'PUT' && (m = url.match(/contents\/(.+)$/))) {
-    const f = fields()
+    const f = a.includes('--input') ? JSON.parse(fs.readFileSync(0, 'utf8')) : fields()
     st.files[`${f.branch}:${m[1]}`] = f.content
     console.log('{}')
   } else if (method === 'GET' && (m = url.match(/issues\/(\d+)\/comments/))) {
@@ -55,7 +55,7 @@ if (a[0] === 'api') {
   st.labels.push(a[2])
 } else if (a[0] === 'pr' && a[1] === 'create') {
   const n = st.prs.length + 1
-  st.prs.push({ number: n, title: flag('--title'), headRefName: flag('--head'), labels: [flag('--label')], body: flag('--body'), createdAt: new Date().toISOString(), comments: [] })
+  st.prs.push({ number: n, title: flag('--title'), headRefName: flag('--head'), labels: [flag('--label')], body: a.includes('--body-file') ? fs.readFileSync(0, 'utf8') : flag('--body'), createdAt: new Date().toISOString(), comments: [] })
   console.log(`https://github.example/pr/${n}`)
 } else if (a[0] === 'pr' && a[1] === 'close') {
   const n = Number(String(a[2]).split('/').pop())
