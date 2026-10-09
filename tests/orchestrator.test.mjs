@@ -22,7 +22,7 @@ const kids = []
 after(() => kids.forEach((k) => k.kill()))
 
 function env(root, extra = {}) {
-  return { ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), ...extra }
+  return { ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), ...extra }
 }
 function vfc(root, args, extra) {
   const r = spawnSync(process.execPath, [VFC, ...args], { env: env(root, extra), encoding: 'utf8' })
@@ -455,4 +455,15 @@ test('WF6c 다음 실행 전에 vfc task reap 이 먼저 막아 둔 작업도 �
   assert.deepEqual([...r.json.recovery.revived].sort(), [a.task_id, b.task_id].sort())
   assert.equal(task(root, a.task_id).status, 'COMPLETED')
   assert.equal(task(root, b.task_id).status, 'COMPLETED')
+})
+
+test('WF6d 다른 owner worktree 에 쓰면 foreign_worktree_write 로 차단·정지(테스트 격리 옵션이 감지를 끄지 않는다)', () => {
+  const root = setup()
+  const foreign = mkWorktree()
+  vfc(root, ['owner', 'bind-worktree', 'data-contract', foreign, '--branch', 'feat/t'])
+  const t = addTask(root)
+  const r = orch(root, [], { FAKE_CLAUDE: 'foreign', FAKE_FOREIGN_WT: foreign })
+  assert.equal(r.json.run.tasks_done[0].outcome, 'foreign_worktree_write')
+  assert.equal(task(root, t.task_id).status, 'BLOCKED')
+  assert.match(task(root, t.task_id).blocker.reason, /foreign_worktree_write/)
 })

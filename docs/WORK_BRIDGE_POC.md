@@ -32,6 +32,37 @@
 - `collect --repo owner/exchange [--authors …]` — 그 PR 의 댓글·`responses/<REQ>.response.md` 에서 `vfc-response` 블록 하나를 찾아 `planning/responses/` 에 원자적으로(.part→rename) 쓴다. 판정은 기존 `vfc ugoal intake`(thread·목표·라운드·버전·중복·승인 경계)가 한다 — 새 판정 로직 없음.
 - dry-run 확인 완료. 실제 GitHub 쓰기는 아직 0회(교환 저장소가 없다).
 
+## 교환 프로토콜 vfc-bridge/1 (WF-S10 확정)
+
+| 단계 | 누가 | 무엇 | 검증 |
+|---|---|---|---|
+| 요청 | AI-Control |  — thread 요청서(goal_ref·thread_id·round_id·design_version·base_commit·context_base_commit) + Context Packet | 같은 목표에 대기 중 요청이 있으면 새 요청 거부 · 재질의 예산 |
+| 게시 |  | 브랜치  ·  · (패킷만 — 다른 로컬 파일 금지) · 라벨  PR | 같은 요청 재게시 거부(bridge-log) |
+| 실행 | **Work(미실측)** | PR 이벤트로 시작 → 요청서·패킷 읽기 →  블록 하나를 PR 댓글로 | 미실측 |
+| 수집 |  | PR 댓글· 에서 블록 하나 → (.part→rename) | 요청 id 일치 · 작성자 제한(--authors) · 중복 수집 차단 |
+| 인수 |  | 기존 판정 그대로 | schema·thread·목표·라운드·설계 버전·중복·승인 경계 |
+| 재개 | 사용자 승인 →  | 설계 쟁점으로 멈춘 작업 자동 READY → 오케스트레이터 | 승인은 사용자만 |
+
+턴 시간: 
+ode poc/work-bridge.mjs publish <REQ-id> --repo owner/exchange [--dry-run]
+node poc/work-bridge.mjs collect --repo owner/exchange [--authors a,b] [--dry-run]
+node poc/work-bridge.mjs status — published · Work 댓글 시각 · collected → Work 대기·수집 지연. 구현·리뷰 시간은 .
+
+### 저장소 없이 검증한 것 (가짜 gh + 모의 Work 응답 · tests/bridge.test.mjs — 실제 Work 근거 아님)
+
+게시(요청서+패킷, 패킷 밖 파일 미업로드) · 재게시 거부 · 수집→인수→설계 v · 중복 수집 차단 · 목표 A/B 교차 응답 거부(인수 단계) · 요청 id 불일치 거부(수집 단계) · 다른 설계 버전 응답 거부 · 두 턴 연속(설계 → 승인 → 구현 중 설계 충돌 → 재질의 게시 → 응답 → v2 승인 → 자동 재개 → 완료).
+
+### 승인 뒤 실측 계획(실험 A~D)
+
+| 실험 | 기록 | 성공 조건 |
+|---|---|---|
+| A 게시 → Work 자동 실행 | publish 시각 · Work Scheduled 의 실행 시각(사람이 화면에서 확인해 bridge-log 에 남김) | 사람 조작 없이 실행 1회 |
+| B Work 응답 게시 → 자동 인수 | 댓글 작성자·시각 · collect · intake 결과 | 사람이 옮기지 않은 댓글이 intake applied |
+| C 같은 목표 두 차례 | 위 A·B 두 번 + 승인 2회(사람) | 두 라운드 모두 B 충족 |
+| D 목표 둘 | 두 요청 동시 게시 | 각 응답이 자기 목표에만 적용 |
+
+B 가 안 되면(Work 가 GitHub 에 쓰지 못함) 판정은 「이벤트 자동 시작 · 응답 수동」 — 완전 자동 아님.
+
 ## 사용자가 해야 할 것 (Work UI · GitHub)
 
 1. **교환 저장소 생성 승인** — 비공개 `KangMin098/vocaflow-exchange`(코드 없음 · 요청·응답 파일만). 만들기는 외부 작업이라 확인 후에 한다.
