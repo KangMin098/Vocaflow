@@ -1,0 +1,515 @@
+{
+ "chunk": "01",
+ "items": [
+  {
+   "item_id": "2014A#23",
+   "analysis_id": "16081146-e7fa-4b76-b824-491f4eae5e36",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "the fish will do just fine",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Good news for pet shop owners!",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#26",
+   "analysis_id": "548b0239-6e66-464e-918a-39813074ba0d",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "lose their lives from allergic reactions to common bee stings",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "most of these incidents are caused by the people themselves",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "only a few people are attacked by tigers or bears",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#27",
+   "analysis_id": "50d2be06-2bb6-4196-a777-5854882df56b",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "the washing machine ① supplied to us three months ago",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "The product warranty says ② that you provide spare parts",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "This sounds ③ unfair.",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "I hope you will not make us ⑤ pay for the labor component",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#28",
+   "analysis_id": "023dc96f-261c-4768-8b86-43857d1d0fce",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "quiet time during regular business hours",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "Although your home may present its own problems, too",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Working at home can free you from these (B) attractions / distractions",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Although your home may present its own problems, too",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#29",
+   "analysis_id": "efa9420c-0204-468d-a509-78cb8246f7d8",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Weekends: 9:00 a.m. － 5:00 p.m.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": null,
+     "reason": "월요일 휴관 통념은 지문 밖 상식에서 온다."
+    },
+    {
+     "n": 4,
+     "lure_quote": "General Admission: $5 Children under 12: Free",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#30",
+   "analysis_id": "93d598b6-119f-4dc3-a234-519976999b5e",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "A weekly newsletter about upcoming events held by the Foundation",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "A 20% discount on our other magazines like Nature Kids",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "재단의 권한에 대한 배경지식이 끌림이며 지문 구절은 오히려 정답 근거다."
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#31",
+   "analysis_id": "113dbf32-4327-4672-841e-8d5b01edc72e",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "For the 2014 Season Audition Dates: December 16th-20th, 2013",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "currently be a middle or high school student",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "send in a completed audition application form and a recommendation",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "about 10 days before your audition day",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#32",
+   "analysis_id": "277da460-cedc-44df-b61e-92770a8c133e",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "and the Canadian average rate was 46%",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "which volunteered an average of 133 hours",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "the highest volunteer rate but the second fewest average annual hours",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Despite their lowest rate of volunteering, seniors aged 75 and older",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#33",
+   "analysis_id": "2acb2802-8ef8-4e65-afb5-acb33a890848",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": null,
+     "reason": "시선-불안 연상은 지문 밖에서 오며 지문에 감정 어휘가 없다."
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#34",
+   "analysis_id": "5d0caf15-736b-481a-921f-d8f42b255229",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": null,
+     "reason": "인간의 잔혹함은 지문에 없는 연상에서 온다."
+    },
+    {
+     "n": 3,
+     "lure_quote": "turning the color off on your TV",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#35",
+   "analysis_id": "29aeda2c-a0a4-43be-8eda-43b1f623078f",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "have a negative effect on other outcomes",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "This is very common when companies are busy listening to the",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "This is very common when companies are busy listening to the",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#36",
+   "analysis_id": "bbaddd33-3add-48c8-9375-5ba106e20e60",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "They are also good at managing what others think about them.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": null,
+     "reason": "Otherwise 를 '한편'으로 잘못 아는 어휘 지식에서 끌림이 온다."
+    },
+    {
+     "n": 4,
+     "lure_quote": null,
+     "reason": "Meanwhile 의 느슨한 '한편' 번역 인상에서 끌림이 오며 지문 구절이 아니다."
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#37",
+   "analysis_id": "3656def2-2cff-4968-934c-288c4c401e19",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "More than 300 years later, it was found by the captain of an American ship",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#39",
+   "analysis_id": "e2b46cd8-7497-4329-a618-36c4180560aa",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "he noticed a blind man trying to cross the street",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "as he was not crossing at a crosswalk",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "so he asked the blind man if he would like help crossing the street",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "he saw another man sitting next to his book bag",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#41",
+   "analysis_id": "807ae296-1fe1-48b4-bc3a-c4eb696aa62b",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "when a player is moved to a team whose baseball park",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "One analysis found that the player hit 60 percent more home runs",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "has better conditions for home runs than his current one",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#42",
+   "analysis_id": "a47f5d32-45ab-4995-9732-4a9880456db0",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Other park conditions such as wind and humidity also affect",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#44",
+   "analysis_id": "506aa2e9-ddf2-49ca-8b11-4097d7092b32",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Mom once said that my grandmother came to America",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "I noticed that (b) she had difficulty in reading an English sign",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "I had only taught her the basics of reading, but (d) she had written",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#45",
+   "analysis_id": "8238c026-3e9a-487a-9bb4-fd668043373d",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "on the morning of my eighteenth birthday",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "she had written these words all by herself",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "I had only taught her the basics of reading",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "My grandmother decorated a cake with",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014B#25",
+   "analysis_id": "dba51a38-a9a1-49bb-9194-f4b31eb2ecec",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "The names of pitches are associated with particular frequency values",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "both because the instruments have a different sound",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "different standards were used in the time of Mozart than today",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014B#27",
+   "analysis_id": "51cebdec-546f-4b39-8839-59211f570c00",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "when the body mobilizes ③ to fight off infectious agents",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "free radicals move ④ uncontrollably through the body",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014B#28",
+   "analysis_id": "eeaa8d00-db09-4acf-9904-acafae507fce",
+   "version": 5,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "This changed the evolutionary ① pressure that these food plants experienced",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Thick seed coats are often ③ essential for seeds to survive",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014B#29",
+   "analysis_id": "b09866ce-5b6f-489b-8e34-da3edd47ba2b",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "and the Canadian average rate was 46%",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "which volunteered an average of 133 hours",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "the highest volunteer rate but the second fewest average annual hours",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Despite their lowest rate of volunteering, seniors aged 75 and older",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014B#31",
+   "analysis_id": "49860510-0cc0-42d8-8f4c-065306bf5d5f",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "have a negative effect on other outcomes",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "This is very common when companies are busy listening to the",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014B#34",
+   "analysis_id": "e0a2c54f-c450-42f9-8928-36e0d19d8d83",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 5,
+     "lure_quote": "potentially dangerous approaching objects",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2014B#35",
+   "analysis_id": "702dd965-b2eb-4faa-8491-8b423136acff",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "when science displays its products to non-scientists",
+     "reason": null
+    }
+   ]
+  }
+ ]
+}

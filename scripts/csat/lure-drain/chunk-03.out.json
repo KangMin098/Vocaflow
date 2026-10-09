@@ -1,0 +1,510 @@
+{
+ "chunk": "03",
+ "items": [
+  {
+   "item_id": "2015#41",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Larger groups also put more pressure on their members to conform.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "it is harder for everyone to take part equally in discussions",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "The former disagree more than the latter and suffer more deadlocks",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "although they seem to reach less agreement",
+     "reason": null
+    }
+   ],
+   "analysis_id": "6764644a-9ae2-4971-b2f0-084a2dc5a05f",
+   "version": 4
+  },
+  {
+   "item_id": "2015#44",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "thanks for teaching Mr. Wills to teach Tisha and Kelly",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "recruits future leaders to teach in low-income communities",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "(e) He then thought back to my class",
+     "reason": null
+    }
+   ],
+   "analysis_id": "0126c782-1ae0-4259-9004-186657b62f0b",
+   "version": 4
+  },
+  {
+   "item_id": "2015#45",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "In my office, I have a framed letter from a couple of children",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "it became clear that his methods were not working",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": null,
+     "reason": "끌림이 구절이 아니라 단락 인쇄 순서(근거가 (C)에 있음)에서 온다."
+    }
+   ],
+   "analysis_id": "affc65aa-7684-4472-a79e-1474f90aa66e",
+   "version": 4
+  },
+  {
+   "item_id": "2016#18",
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "our family is going to get back from a trip on July 13",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "check to see if he could switch to the third week program",
+     "reason": null
+    }
+   ],
+   "analysis_id": "373dc1da-9b9b-4c8a-a161-bd44f2217d48",
+   "version": 4
+  },
+  {
+   "item_id": "2016#19",
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "Freshwater dolphins will escort me on the playful river",
+     "reason": null
+    }
+   ],
+   "analysis_id": "4580de4f-4da8-4e02-b2f6-440f1a218873",
+   "version": 4
+  },
+  {
+   "item_id": "2016#20",
+   "distractors": [
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "상담 실무 통념을 덧붙인 선지로 지문에 기록 관리 구절이 없다."
+    }
+   ],
+   "analysis_id": "1622e35b-8264-487d-b80b-c1c7f55652a4",
+   "version": 4
+  },
+  {
+   "item_id": "2016#21",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "this matter is more complex than simply regarding all extrinsic rewards",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "enhancing learning among culturally diverse students",
+     "reason": null
+    }
+   ],
+   "analysis_id": "e783d8d5-6849-4a61-9b1b-0ef104ffd1a9",
+   "version": 4
+  },
+  {
+   "item_id": "2016#23",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "has so many more youthful qualities",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "for his or her chronological age",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "노화 글에 젊음의 샘이 따라붙는다는 통념에서 끌림이 온다."
+    }
+   ],
+   "analysis_id": "6b9e1960-892f-4714-9ed3-6bae085c2269",
+   "version": 4
+  },
+  {
+   "item_id": "2016#24",
+   "distractors": [
+    {
+     "n": 5,
+     "lure_quote": "the percentage of parents who borrowed e-books is less than 10%",
+     "reason": null
+    }
+   ],
+   "analysis_id": "a042864c-5729-4a6f-a0d5-b95aac932bd6",
+   "version": 4
+  },
+  {
+   "item_id": "2016#26",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "November 21 & 22, 10:00 a.m.",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "join our conference held at West State University",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Total Pass: $25 (includes buffet lunch)",
+     "reason": null
+    }
+   ],
+   "analysis_id": "9de6e75e-2b2c-40ad-83a5-8b145937c159",
+   "version": 4
+  },
+  {
+   "item_id": "2016#27",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Works by famous artists such as Mabel Green",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "digital works, and the great music!",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Adults: $15 one day - Children: $7 one day",
+     "reason": null
+    }
+   ],
+   "analysis_id": "27e6bd75-8355-4ec0-9e0e-576819a827c0",
+   "version": 5
+  },
+  {
+   "item_id": "2016#28",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "led to ① their failure to understand the fundamental nature",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "a piece of wood ② tossed into water floats",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "the focus is ③ exclusively on the object",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "The notion ⑤ that events always occur in a field of forces",
+     "reason": null
+    }
+   ],
+   "analysis_id": "90f0fc3b-3efd-4d53-a57b-57e6bc1e3d1f",
+   "version": 4
+  },
+  {
+   "item_id": "2016#29",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "was driven by the needs of a fast growing mat-making industry",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "developing the lake as a tourist destination for fishermen",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "An American airline was intent on developing the lake",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "(C) competing / cooperating with the few remaining grebes",
+     "reason": null
+    }
+   ],
+   "analysis_id": "1c18ba08-e915-45fc-8de3-d9eb042704bd",
+   "version": 4
+  },
+  {
+   "item_id": "2016#31",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "compatibility with already existing cultural traits",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": null,
+     "reason": "학술적 어조에 무난해 보이는 낱말이라는 선지 자체의 인상에서 끌림이 온다."
+    },
+    {
+     "n": 4,
+     "lure_quote": "will spread into parts of rural Africa",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "using US customary units (e.g., inch, foot, yard, mile, etc.)",
+     "reason": null
+    }
+   ],
+   "analysis_id": "b14ebf1e-c20b-4f0d-9807-07c8535ffad6",
+   "version": 5
+  },
+  {
+   "item_id": "2016#32",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "inadequately dressed for the pouring rain, your clothes soaked",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "the boundary between good and bad is a reference point",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Some distinctions between good and bad are hardwired into our biology",
+     "reason": null
+    }
+   ],
+   "analysis_id": "108b1e5f-bec6-4d8b-9a29-45c83b9f835f",
+   "version": 4
+  },
+  {
+   "item_id": "2016#33",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": null,
+     "reason": "상업 농업의 비료 의존이라는 배경지식에서 끌림이 온다."
+    },
+    {
+     "n": 3,
+     "lure_quote": "started to create a growing market for private seed companies",
+     "reason": null
+    }
+   ],
+   "analysis_id": "1f57ce32-4a4d-4efe-a458-065e1befc26c",
+   "version": 5
+  },
+  {
+   "item_id": "2016#34",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Other poets might look for their inspiration from the goddess of poetry",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "Out of the political rallies and electoral parades",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "grant them a kind of earthly immortality",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "fame would be dependent on celebrity",
+     "reason": null
+    }
+   ],
+   "analysis_id": "c66e064b-67f6-4894-9827-bae0a64a8f6d",
+   "version": 5
+  },
+  {
+   "item_id": "2016#35",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "They train for marathons, quit smoking, switch fields",
+     "reason": null
+    }
+   ],
+   "analysis_id": "918130a3-b906-420a-9753-80d812d2efe1",
+   "version": 4
+  },
+  {
+   "item_id": "2016#36",
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "and so a vicious cycle has set in",
+     "reason": null
+    }
+   ],
+   "analysis_id": "cb4d5049-21be-441e-a52d-0c5bf4b1da21",
+   "version": 4
+  },
+  {
+   "item_id": "2016#37",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "you imagined that adults had infinite power",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "we assume that they can smell anything, anytime",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "tend to intensify one sense at a time",
+     "reason": null
+    }
+   ],
+   "analysis_id": "74301415-07c6-4290-9864-9215b087b111",
+   "version": 4
+  },
+  {
+   "item_id": "2016#38",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "the accumulation and production of material wealth is in itself wrong",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Material prosperity can help individuals, as well as society",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "the desire to make money can challenge and inspire us",
+     "reason": null
+    }
+   ],
+   "analysis_id": "adea891a-7af4-4fdc-808c-f8c52c911f45",
+   "version": 4
+  },
+  {
+   "item_id": "2016#39",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Food that looks and smells attractive is taken into the mouth.",
+     "reason": null
+    }
+   ],
+   "analysis_id": "048dadaf-802d-459a-8388-90ecb40ef39b",
+   "version": 4
+  },
+  {
+   "item_id": "2016#40",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": null,
+     "reason": "수치에 매이지 말라는 흔한 조언에서 끌림이 온다."
+    },
+    {
+     "n": 3,
+     "lure_quote": "what is under the control of the individuals being evaluated",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": null,
+     "reason": "인사평가 소재에 어울리는 낱말이라는 선지 인상에서 끌림이 온다."
+    },
+    {
+     "n": 5,
+     "lure_quote": "performance in this situation is a smaller loss",
+     "reason": null
+    }
+   ],
+   "analysis_id": "d789b571-e9ff-41a5-b958-720c765bbaa0",
+   "version": 4
+  },
+  {
+   "item_id": "2016#44",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Soon her mother would be joining them.",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Her mother hurried over, and gave (d) her a bundle",
+     "reason": null
+    }
+   ],
+   "analysis_id": "81a3dcaa-08e2-4663-99a7-13e91c0b3c31",
+   "version": 4
+  },
+  {
+   "item_id": "2016#45",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "in the middle of many anxious freshmen",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "hurried out her cell phone, zoomed in on her daughter",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "exciting events like sports days and school festivals",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "The principal was energetically addressing them",
+     "reason": null
+    }
+   ],
+   "analysis_id": "19ff0c26-f082-44be-8d6f-72a4bc263db1",
+   "version": 4
+  }
+ ]
+}

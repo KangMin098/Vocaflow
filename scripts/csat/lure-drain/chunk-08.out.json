@@ -1,0 +1,520 @@
+{
+ "chunk": "08",
+ "items": [
+  {
+   "item_id": "2021#25",
+   "analysis_id": "999c9470-5ec5-468f-8f0f-c18bfcd2bad6",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "For each country, its online share of retail sales in 2019 was larger",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "the UK owned the largest online share of retail sales with 19.7% in 2019",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "the U.S. had the second largest online share of retail sales with 16.5%",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "whereas the reverse was true in 2019",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#26",
+   "analysis_id": "e0711f6b-8c62-46f9-820f-802843118047",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "one of the most influential economists of the twentieth century",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "Knight taught at Cornell, the University of Iowa, and the University of Chicago",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Some of his students at Chicago later received the Nobel Prize",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#28",
+   "analysis_id": "18c9848c-d1be-4616-8477-0f0bf4a17f38",
+   "version": 5,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Time: 1:30 p.m. — 5:30 p.m.",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "Place: Thrombon Building, Room 2 on the first floor",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Visit our web site at www.eypcap.com to register.",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#29",
+   "analysis_id": "56848739-e8c4-4889-8fd2-43dc0edee784",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "avoid the restrictions ① associated with experimenting on other people",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "experimenting on oneself remains ③ deeply problematic",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#30",
+   "analysis_id": "7147b265-8c24-483c-8d3d-f4ab2d2c5ad7",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "one of the most frequently and carefully measured ① quantities in science",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "from 1870 to 1900, all the experiments found speeds that were too high",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "experimenters subconsciously adjusted their results to ③ match",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "They weren’t being intentionally dishonest, just ④ influenced",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#31",
+   "analysis_id": "b76c640b-4d0c-47bb-9b38-04e7a76105e8",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "the temple functioned as an administrative authority",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "governing commodity production, collection, and redistribution",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "token use and consequently writing evolved as a tool",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#32",
+   "analysis_id": "46634db6-b1e8-496c-b894-30b7e31efaf7",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "especially useful to a species that lives in so many different sorts",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 4,
+     "lure_quote": "humans have evolved the desire to associate with similar individuals",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#33",
+   "analysis_id": "acd74e10-04e0-40b6-b5aa-df17b8758277",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "all of our brains contain the same basic structures",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "High-activity synaptic connections are stabilized and strengthened",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    }
+   ]
+  },
+  {
+   "item_id": "2021#34",
+   "analysis_id": "ed08dea8-83ac-44af-9fe3-2ba524572f92",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Personal computers have reached a similar level of familiarity",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 4,
+     "lure_quote": "Few people give a second thought to the use of a ball-point pen",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#35",
+   "analysis_id": "37113564-1e24-4244-8450-7481d53c9e98",
+   "version": 7,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "since “you had to be there” to see the humor in them",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Instances of humor serve to enact bonds among organization members.",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Understanding the humor may even be required as an informal badge",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#36",
+   "analysis_id": "0c972b1d-a63d-4581-9480-744394ccb97a",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "War is never an isolated act, nor is it ever only one decision.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "one side’s will has to be transmitted to the enemy",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "A violent act and its larger political intention must also be attributed",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "“War is a mere continuation of politics by other means.”",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#37",
+   "analysis_id": "46ac6d4f-0369-433d-9e51-dd87223781ce",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "There are significant externalities to take into account",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "And this has direct repercussions at the individual level",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#39",
+   "analysis_id": "05b96fd3-101f-4ab3-9214-1100e392386f",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "However, the expression of an idea is protected by copyright",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#40",
+   "analysis_id": "43a66ef6-e829-4d04-89b2-bc3646812779",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 2,
+     "lure_quote": "The conception of political power as a coercive force",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "ideas of political power are not (B) ______ across cultures",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    }
+   ]
+  },
+  {
+   "item_id": "2021#41",
+   "analysis_id": "6ee3b647-6468-4939-aaf8-d0a1f846ab01",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "attributing complex human motives and processing abilities to other species",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "is really a complexity in the surface of the beach, not a complexity in the ant",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#42",
+   "analysis_id": "81a8291c-e02d-48fc-a171-8524cd6ba323",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "the complexity of the animal’s behavior is not purely a (a) product",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#43",
+   "analysis_id": "14ec69b1-dd88-4162-a679-a8de4145ba82",
+   "version": 5,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "was sneaking around in the house playing home policeman",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Felix was mad because (d) his little brother was bothering him",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2021#45",
+   "analysis_id": "7cdc01f2-7964-41a9-abaf-fe3141eb2760",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Sean ran to the kitchen right away.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Sean secretly looked inside his brother’s room from the door",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Felix’s room was located next to the kitchen",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#18",
+   "analysis_id": "cb76a107-bd7a-4a26-9cc0-565f80698d81",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "I am planning a special workshop for our science teachers",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#19",
+   "analysis_id": "ab356521-8a64-423e-8a6d-c9b8ec9f761b",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "After many hours of wandering throughout the deserted lands",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "“I can’t believe I came all this way for nothing.",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "She had not travelled this far for the bones of common dinosaur species",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Her life-long dream to find rare fossils of dinosaurs was about to come true",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#20",
+   "analysis_id": "b4a5e061-9e27-47a1-b47c-9e19566c0647",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "a thorough understanding of the organization’s own goals and objectives",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "solve a problem for the organization and its customers",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#21",
+   "analysis_id": "02342d4c-e3d3-4d5b-81e3-dab5475379f9",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "not knowing whether to make ready for the morning commute or not",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "lay people ― farmers, fishermen, patients, native peoples",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "includes observations gathered from local native groups",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#22",
+   "analysis_id": "d05c4b6c-f407-4f28-9be0-5653bc3f1d23",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "felt to be more morally egregious than those hazards that can be avoided",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    }
+   ]
+  },
+  {
+   "item_id": "2022#23",
+   "analysis_id": "ea5c3e36-8c91-45d7-957d-0c83f5cb238a",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    }
+   ]
+  },
+  {
+   "item_id": "2022#24",
+   "analysis_id": "d41b9172-5cd8-4ede-8a9e-2529c45d93d0",
+   "version": 5,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "With industrialization and eventually with mass production",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "customizing the product, modifying or transforming it according to the user",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "often require even more creativity than original production",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "The preindustrial blacksmith made things to order for people",
+     "reason": null
+    }
+   ]
+  }
+ ]
+}

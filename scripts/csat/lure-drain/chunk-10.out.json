@@ -1,0 +1,86 @@
+{ "chunk": "10", "items": [
+{ "item_id": "2023#29", "analysis_id": "2652445a-fdfc-4b3e-8e91-87467ec94349", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "enabling individuals to recreate the meanings", "reason": null },
+  { "n": 4, "lure_quote": "self-expression: clothes can be", "reason": null } ] },
+{ "item_id": "2023#30", "analysis_id": "02599c53-f065-4ad3-9c63-c868683161e6", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "affected profoundly our everyday lives", "reason": null } ] },
+{ "item_id": "2023#31", "analysis_id": "baaace56-2de9-4210-a141-655a737e9b5d", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": null, "reason": "검열 연상은 언론 배경지식에서 오며 지문에 해당 구절이 없다" } ] },
+{ "item_id": "2023#32", "analysis_id": "efb293fa-8755-43e0-87c5-5d71b54ba0d7", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "in a manner not unlike trans-missible disease", "reason": null } ] },
+{ "item_id": "2023#33", "analysis_id": "2b42e7ce-b2d7-4e25-b409-27cfb5553210", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "the bee is more likely to give up collecting water", "reason": null },
+  { "n": 4, "lure_quote": "search out a receiver bee to unload their water to within the hive", "reason": null } ] },
+{ "item_id": "2023#34", "analysis_id": "0a90e5e8-d822-4c68-8886-cc825bbf0c71", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": null, "reason": "노력의 효과라는 화제는 기후 담론 통념에서 오며 지문에 없다" } ] },
+{ "item_id": "2023#35", "analysis_id": "e0c72f02-dbee-4e18-a8d5-64fe22e1848a", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "The more confidently you give instructions", "reason": null },
+  { "n": 2, "lure_quote": "cut through a noisy classroom, dinner hall or playground", "reason": null },
+  { "n": 4, "lure_quote": "However, I would always advise that you use your loudest voice", "reason": null } ] },
+{ "item_id": "2023#36", "analysis_id": "9c63a140-de32-49dc-bd4f-b901e4dfb5de", "version": 4, "distractors": [
+  { "n": 4, "lure_quote": "So it may well be that this plasticity is an adaptation", "reason": null } ] },
+{ "item_id": "2023#38", "analysis_id": "b127ab17-38b9-4722-8323-3ce415ad0b99", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "what distinguishes a park from the broader category of public space", "reason": null },
+  { "n": 3, "lure_quote": "Parks typically have trees, grass, and other plants", "reason": null } ] },
+{ "item_id": "2023#39", "analysis_id": "1135ee01-a6bb-4870-8f4e-f9206af83b62", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "Negotiators should try to find ways to slice a large issue into smaller pieces", "reason": null },
+  { "n": 3, "lure_quote": "parties may use the time horizon", "reason": null },
+  { "n": 5, "lure_quote": "no longer than three hours, and no more than once a month", "reason": null } ] },
+{ "item_id": "2023#40", "analysis_id": "a778c153-646c-4491-bbf8-51f6ba45631e", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "craftsmanship can reward an individual with a sense of pride in work", "reason": null },
+  { "n": 4, "lure_quote": "a way of life that declined with the arrival of industrial society", "reason": null },
+  { "n": 5, "lure_quote": "may suggest a way of life that declined", "reason": null } ] },
+{ "item_id": "2023#41", "analysis_id": "65fb36a3-763f-4a0f-be63-3490e0c1a0ee", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": null, "reason": "Myth 라는 선지 표현 자체의 그럴듯함이 끌림이며 지문에 알고리즘의 실수 서술이 없다" } ] },
+{ "item_id": "2023#42", "analysis_id": "73e4d81f-16b7-489f-a079-afa5890df9a1", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "algorithms have proved more (a) accurate than humans", "reason": null } ] },
+{ "item_id": "2023#43", "analysis_id": "a1316c7b-1ab4-4c89-a9f0-1656b6b4fa5c", "version": 5, "distractors": [
+  { "n": 1, "lure_quote": "Dad, these glasses can help correct your red-green color blindness", "reason": null },
+  { "n": 2, "lure_quote": "Happy birthday! You’re fifty today, Dad", "reason": null },
+  { "n": 4, "lure_quote": "He walked in joyfully, hugging his daughters", "reason": null } ] },
+{ "item_id": "2023#45", "analysis_id": "a84a4f15-1db8-467e-a267-e14fa3d20950", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "Camila yelled uneasily, watching her sister carrying a huge cake", "reason": null },
+  { "n": 2, "lure_quote": "He slowly put them on, and stared at the birthday presents", "reason": null },
+  { "n": 3, "lure_quote": "he has long been suffering from color blindness", "reason": null },
+  { "n": 5, "lure_quote": "a rainbow-colored birthday cake and fifty red roses", "reason": null } ] },
+{ "item_id": "2024#19", "analysis_id": "ae2b661a-813f-4c32-b743-e5718af5a821", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "David was starting a new job in Vancouver", "reason": null },
+  { "n": 3, "lure_quote": "he saw a different bus coming", "reason": null },
+  { "n": 4, "lure_quote": "Phew! Luckily, this bus came just in time", "reason": null },
+  { "n": 5, "lure_quote": "he was waiting for his bus", "reason": null } ] },
+{ "item_id": "2024#20", "analysis_id": "30c33f56-c3df-4886-9125-8b7b692bd033", "version": 5, "distractors": [
+  { "n": 2, "lure_quote": "along with a clear and concise description of what is expected", "reason": null },
+  { "n": 3, "lure_quote": "those behaviors must then be shared and distributed widely", "reason": null },
+  { "n": 4, "lure_quote": "It is not enough to simply talk about it", "reason": null } ] },
+{ "item_id": "2024#21", "analysis_id": "1edd7ebb-e3f3-4f0c-9992-05f28e49e850", "version": 4, "distractors": [
+  { "n": 5, "lure_quote": "you can more easily let go of stress", "reason": null } ] },
+{ "item_id": "2024#23", "analysis_id": "3649db19-f747-4079-9486-9040f858c4c8", "version": 5, "distractors": [
+  { "n": 1, "lure_quote": "the economic benefits of ecosystem services provided by tropical forests", "reason": null },
+  { "n": 4, "lure_quote": "may exceed the economic value of the timber", "reason": null } ] },
+{ "item_id": "2024#25", "analysis_id": "33aea479-05d6-420c-8482-7208a3833fe8", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": null, "reason": "끌림은 도표 막대 값에서 오며 지문은 선지 문장 자체다" },
+  { "n": 3, "lure_quote": null, "reason": "끌림은 도표 막대 값에서 오며 지문은 선지 문장 자체다" },
+  { "n": 5, "lure_quote": null, "reason": "끌림은 도표 막대 값에서 오며 지문은 선지 문장 자체다" } ] },
+{ "item_id": "2024#27", "analysis_id": "ddbbd2fd-6580-4b71-8cad-9b5959ac1944", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "9 a.m.—1 p.m. Weekends 1 p.m.—5 p.m.", "reason": null },
+  { "n": 2, "lure_quote": "Only those aged 17 and over can participate.", "reason": null },
+  { "n": 5, "lure_quote": "Snorkeling with a professional diver", "reason": null } ] },
+{ "item_id": "2024#28", "analysis_id": "723e89f3-803b-46c1-bd7d-fe980cd11c3c", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "Shoot and share your most memorable moments", "reason": null },
+  { "n": 2, "lure_quote": "from December 1 to December 14", "reason": null },
+  { "n": 4, "lure_quote": "Entries are limited to one per student", "reason": null },
+  { "n": 5, "lure_quote": "Winning videos will be posted to our school’s app", "reason": null } ] },
+{ "item_id": "2024#29", "analysis_id": "d45c56ac-ee3a-4307-a5b8-aafb1b73431d", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "seeming to know that such stimuli are particularly meaningful for them", "reason": null },
+  { "n": 3, "lure_quote": "do succeed, they show pleasure by a brightening of their eyes", "reason": null },
+  { "n": 4, "lure_quote": "those of others that are visually perceived", "reason": null },
+  { "n": 5, "lure_quote": "imitate others whom they judge", "reason": null } ] },
+{ "item_id": "2024#31", "analysis_id": "47eb6b6e-4885-45b2-a524-d0c9251afb69", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": null, "reason": "읽기=지식 습득 통념에서 오며 지문에 지식 관련 서술이 없다" },
+  { "n": 3, "lure_quote": "Children now learn from a picture book", "reason": null },
+  { "n": 5, "lure_quote": "pictures, maps, screens, design graphics and photographs", "reason": null } ] },
+{ "item_id": "2024#32", "analysis_id": "f1b8b085-e606-4d02-a8e6-0a8dd80a6b5e", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "a world that is unknown and new to the viewer", "reason": null },
+  { "n": 4, "lure_quote": "can be placed within a recognizable context", "reason": null },
+  { "n": 5, "lure_quote": null, "reason": "예술 글의 상투적 결말이라는 선지 자체의 그럴듯함이 끌림이다" } ] }
+] }

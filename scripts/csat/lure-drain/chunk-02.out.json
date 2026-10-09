@@ -1,0 +1,510 @@
+{
+ "chunk": "02",
+ "items": [
+  {
+   "item_id": "2014B#36",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "The emotion was so strong that the brain",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "the mind systematically avoids confronting contradiction",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "the ability to hold two opposed ideas in mind at the same time",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "undervaluing or simply disregarding evidence that refutes it",
+     "reason": null
+    }
+   ],
+   "analysis_id": "f743b47a-b0e0-4cb8-b893-245f60802973",
+   "version": 4
+  },
+  {
+   "item_id": "2014B#37",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Warming may ease extreme environmental conditions",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "because they result from a process that takes millions of years",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": null,
+     "reason": "두 연결사 조합의 무난한 인상에서 끌림이 오며 특정 구절이 없다."
+    },
+    {
+     "n": 5,
+     "lure_quote": "Oil and gas resources are not likely to be impacted by climate change",
+     "reason": null
+    }
+   ],
+   "analysis_id": "e4af9d21-5067-4edd-9d73-5514533390e1",
+   "version": 4
+  },
+  {
+   "item_id": "2014B#38",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Similarly, a round coin is seen as round even when viewed from an angle",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Similarly, a round coin is seen as round",
+     "reason": null
+    }
+   ],
+   "analysis_id": "b6ec31fa-026d-4d58-9222-2919643e5621",
+   "version": 4
+  },
+  {
+   "item_id": "2014B#39",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "War should be a last resort, obviously",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Most of the time, the media fail to perform this crucial role.",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "have not always been watchdogs for the public interest",
+     "reason": null
+    }
+   ],
+   "analysis_id": "94420eeb-4d3c-4df4-98ad-3e070eb5dc74",
+   "version": 4
+  },
+  {
+   "item_id": "2014B#40",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": null,
+     "reason": "거래를 깨면 시간이 든다는 상식이 끌림이며 지문에 시간 관련 구절이 없다."
+    },
+    {
+     "n": 3,
+     "lure_quote": "infer his sincere interest in the product",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "the salesperson begins to add on $100 for tax and $200 for tires",
+     "reason": null
+    }
+   ],
+   "analysis_id": "245ee10b-46ce-4c6e-9916-78b83778dc16",
+   "version": 4
+  },
+  {
+   "item_id": "2014B#41",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "what we want is to be always in touch and never alone",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "it is fine to play chess with a robot",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Technology gives us more and more of what we think we want.",
+     "reason": null
+    }
+   ],
+   "analysis_id": "07728ccd-f687-4d04-ba19-74200466edbe",
+   "version": 4
+  },
+  {
+   "item_id": "2014B#44",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Everyone was happy and content.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "In the 1950s, when my dad was a little boy, my grandpa built",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Reusing and recycling was a necessity. In essence, (d) he was recycling",
+     "reason": null
+    }
+   ],
+   "analysis_id": "4e572f83-7ef6-4ac6-bdc8-f46f94a23d80",
+   "version": 4
+  },
+  {
+   "item_id": "2014B#45",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "My dad recalled looking up at the stars in the roofless house",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Yet my grandpa loved his little home and was content with what he had.",
+     "reason": null
+    }
+   ],
+   "analysis_id": "500769e3-372a-4e8d-b64d-d710d5acf003",
+   "version": 4
+  },
+  {
+   "item_id": "2015#18",
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": null,
+     "reason": "격언 꼴 선지 자체의 그럴듯함에서 끌림이 오며 지문에 소비 관련 구절이 없다."
+    }
+   ],
+   "analysis_id": "be03b49f-51c4-469c-99b0-dd38f06156f8",
+   "version": 4
+  },
+  {
+   "item_id": "2015#19",
+   "distractors": [
+    {
+     "n": 5,
+     "lure_quote": "It arrived at my destination ten minutes early",
+     "reason": null
+    }
+   ],
+   "analysis_id": "822145ff-c659-4a7b-bf96-45fc1c878ddf",
+   "version": 4
+  },
+  {
+   "item_id": "2015#22",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "The person will tend to feel guilty when his or her own conduct",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": null,
+     "reason": "도덕 원칙은 흔들리면 안 된다는 일반 통념에서 끌림이 온다."
+    },
+    {
+     "n": 3,
+     "lure_quote": "which moral standards can be best justified",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "that person is strongly motivated toward the conduct required",
+     "reason": null
+    }
+   ],
+   "analysis_id": "5d256555-3a4a-4c29-99ea-51abec2af0e4",
+   "version": 4
+  },
+  {
+   "item_id": "2015#23",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "what others thought was an impossible mountain",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "our tendency to focus on the end result",
+     "reason": null
+    }
+   ],
+   "analysis_id": "4c5dd0dd-d6a4-4677-800a-d3e0a2e661ec",
+   "version": 4
+  },
+  {
+   "item_id": "2015#25",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "saw an overall percentage increase in each category",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "the percentage of those who posted city or town names was higher",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "2012 recorded an eighteen percent increase",
+     "reason": null
+    }
+   ],
+   "analysis_id": "f7025877-bb20-42a9-8e9d-07269fed4ce2",
+   "version": 4
+  },
+  {
+   "item_id": "2015#26",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Time: 7:00 pm － 10:00 pm",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "students from the College of Performing Arts & Film",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Tickets can be purchased from the student union office",
+     "reason": null
+    }
+   ],
+   "analysis_id": "906421df-b338-467f-ac52-9d2b9b11993b",
+   "version": 4
+  },
+  {
+   "item_id": "2015#27",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Classes with fewer than 20 applicants will be canceled.",
+     "reason": null
+    }
+   ],
+   "analysis_id": "332e84d5-2f57-4e43-b8ff-67cecedf0707",
+   "version": 4
+  },
+  {
+   "item_id": "2015#28",
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "fish pens are placed in sites ④ where there is good water flow",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "other methods that decrease the overall amount of uneaten food",
+     "reason": null
+    }
+   ],
+   "analysis_id": "6a436916-574e-4e04-9e48-607de3559bee",
+   "version": 4
+  },
+  {
+   "item_id": "2015#30",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Through our ears we gain access to vibration",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "We can discern different colors",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "We can discern different colors, but we can give a precise number",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "(A) fuses / replaces an ability to measure with an ability to judge",
+     "reason": null
+    }
+   ],
+   "analysis_id": "d8dd548f-cb72-4d42-9dc4-2713f4d78c81",
+   "version": 4
+  },
+  {
+   "item_id": "2015#31",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "is inherently deceptive",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "It was a clever turn of phrase",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": null,
+     "reason": "소재에서 오는 학술적 연상이 끌림이며 가설·검증 구절이 지문에 없다."
+    },
+    {
+     "n": 5,
+     "lure_quote": "comparing computers to humans can be confusing",
+     "reason": null
+    }
+   ],
+   "analysis_id": "e6bcd063-b38c-44ab-904a-e5d9dc5ce4ab",
+   "version": 5
+  },
+  {
+   "item_id": "2015#32",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "a basic misunderstanding in the nature of knowledge",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "There is nothing inherent in knowledge that dictates",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "It can be used for any purpose",
+     "reason": null
+    }
+   ],
+   "analysis_id": "1df00704-4534-4f3a-9961-1948f943dc04",
+   "version": 5
+  },
+  {
+   "item_id": "2015#34",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "but it is not interactive or based on digital code",
+     "reason": null
+    }
+   ],
+   "analysis_id": "9329dbf6-e7df-4d16-89a2-a519d9c48675",
+   "version": 4
+  },
+  {
+   "item_id": "2015#36",
+   "distractors": [
+    {
+     "n": 5,
+     "lure_quote": "The home-team room was painted a bright red",
+     "reason": null
+    }
+   ],
+   "analysis_id": "4380b80c-51e3-4e4e-a689-76cde324c746",
+   "version": 4
+  },
+  {
+   "item_id": "2015#37",
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "you can constantly vary your diet",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "They walk dozens of miles every day",
+     "reason": null
+    }
+   ],
+   "analysis_id": "406133e8-c5b8-4dda-ba0b-c7f97d52d4ad",
+   "version": 4
+  },
+  {
+   "item_id": "2015#38",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "suggested that the nymphs use an external cue",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "moved them to an experimental enclosure",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "into flowering twice during the year rather than the usual once",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "the sap that the insects feed on",
+     "reason": null
+    }
+   ],
+   "analysis_id": "dab666af-6d66-439d-a216-86e657c2820b",
+   "version": 4
+  },
+  {
+   "item_id": "2015#39",
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "asked them to act like extroverts while pretending to teach",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Then Lippa did the same thing with actual extroverts and compared the results",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "the length of our strides and the amount of time we spend talking",
+     "reason": null
+    }
+   ],
+   "analysis_id": "6242c8db-d189-4957-bfc4-1844b4387db5",
+   "version": 4
+  },
+  {
+   "item_id": "2015#40",
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "neither so certain nor so direct",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "People vary a great deal both in the intensity of their response",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "the effects of art are neither so certain nor so direct",
+     "reason": null
+    }
+   ],
+   "analysis_id": "5e11425f-1824-4824-976f-0f37ac5a1cbd",
+   "version": 4
+  }
+ ]
+}

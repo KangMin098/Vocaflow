@@ -6,6 +6,7 @@
 //
 // 검증(하나라도 어기면 그 오답은 건너뛰고 사유별로 센다):
 //   · 지문 안에 정규화 일치(findQuote)로 있다 · 길이 20–80자 · 정답 근거(answer_locus.quote)와 같은 구절이 아니다
+//   · 오답 선지 문장 그대로가 아니다(도표 · 내용 일치는 선지가 지문에 들어 있다)
 //   · 오답 선지 · 지금 자리 없음(locateChoice null) — 이미 자리가 있으면 건드리지 않는다
 //   · null 은 「지문에 끌리는 자리가 없다」는 판정 — 쓰지 않고 센다(빈 값은 넣지 않는다)
 //
@@ -62,8 +63,13 @@ for (const f of outs) {
       .limit(1)
     if (nerr) { bump(`최신 버전 확인 실패: ${nerr.message}`); continue }
     if (newer.length) { bump('더 새 발행 버전 있음 — 다시 내보낼 것'); continue }
-    const { data: it } = await db.from('csat_items').select('passage').eq('id', a.item_id).single()
+    const { data: it } = await db.from('csat_items').select('passage, choices').eq('id', a.item_id).single()
     const passage = it?.passage ?? ''
+    const choiceNorm = (n) => {
+      const c = Array.isArray(it?.choices) ? it.choices[n - 1] : null
+      const t = typeof c === 'string' ? c : (c?.text ?? '')
+      return t ? normalizeForMatch(t).text : ''
+    }
     const answerNorm = a.answer_locus?.quote ? normalizeForMatch(a.answer_locus.quote).text : null
 
     const next = structuredClone(a.choice_analysis)
@@ -78,6 +84,10 @@ for (const f of outs) {
       if (q.length < FRAG_MIN || q.length > MAX) { bump(`길이 ${FRAG_MIN}–${MAX} 밖`); continue }
       if (!findQuote(passage, q)) { bump('지문에 없음'); continue }
       if (answerNorm && normalizeForMatch(q).text === answerNorm) { bump('정답 근거와 같은 구절'); continue }
+      // 도표 · 내용 일치 문항은 선지 문장이 지문에 들어 있다 — 선지를 그대로 칠하면 「무엇이 끌었나」를 말하지 않는다
+      const cn = choiceNorm(d.n)
+      const qn = normalizeForMatch(q).text
+      if (cn && (cn.includes(qn) || qn.includes(cn))) { bump('오답 선지 문장 그대로'); continue }
       ch.lure_quote = q
       changed = true
       accepted += 1

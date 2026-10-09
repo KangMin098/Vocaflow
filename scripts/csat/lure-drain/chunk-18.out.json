@@ -1,0 +1,76 @@
+{ "chunk": "18", "items": [
+{ "item_id": "M2309#22", "analysis_id": "be27e60a-6339-46ac-bdd9-4f00944635d8", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": "drafters of tax legislation are attentive to questions of economics", "reason": null } ] },
+{ "item_id": "M2309#23", "analysis_id": "0ed314f7-0d4e-4808-a660-70b878e2c880", "version": 3, "distractors": [
+ { "n": 2, "lure_quote": "relative advantage, compatibility with existing resources, difficulty of use", "reason": null },
+ { "n": 4, "lure_quote": null, "reason": "직관에 기대야 한다는 결론은 학습자가 지문 밖에서 덧붙이는 추론이다" } ] },
+{ "item_id": "M2309#24", "analysis_id": "3d6eb494-733d-48ec-9301-f772ad3e3a51", "version": 3, "distractors": [
+ { "n": 4, "lure_quote": null, "reason": "무대 공포라는 익숙한 화제(지문 밖 상식)에서 끌림이 온다" } ] },
+{ "item_id": "M2309#25", "analysis_id": "ef012ae6-70bb-4360-82c9-bea29082decb", "version": 3, "distractors": [
+ { "n": 4, "lure_quote": "The renewable energy generation capacity of Italy in 2020 was lower", "reason": null } ] },
+{ "item_id": "M2309#27", "analysis_id": "63f3890b-494b-47d1-8f73-322c392c7380", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "Watching a short video about the history of Korean tea culture", "reason": null },
+ { "n": 3, "lure_quote": "Tasting a selection of teas along with cookies", "reason": null } ] },
+{ "item_id": "M2309#28", "analysis_id": "76409406-4a33-4ed5-9aba-c35a378cce5e", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "Sovenhill High School students only", "reason": null },
+ { "n": 2, "lure_quote": null, "reason": "도서관이면 정원이 없으리라는 느낌(지문 밖)에서 끌림이 온다" },
+ { "n": 4, "lure_quote": "Drinking beverages is not permitted during the lecture.", "reason": null },
+ { "n": 5, "lure_quote": null, "reason": "무료 증정은 일부에게만 준다는 통념(지문 밖)에서 끌림이 온다" } ] },
+{ "item_id": "M2309#31", "analysis_id": "2b38acc0-c708-469b-9301-a1ddf2b338bb", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "More than just having territories", "reason": null },
+ { "n": 3, "lure_quote": "In a cabin or a mud hut, or even a Mesolithic cave from 30,000 years ago", "reason": null },
+ { "n": 4, "lure_quote": "animals also partition them", "reason": null },
+ { "n": 5, "lure_quote": "Most of us assign separate functions to separate rooms", "reason": null } ] },
+{ "item_id": "M2309#32", "analysis_id": "29dd6f4a-4d2a-4252-9f8d-4eb9cb913c4f", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "feeling an “idealized connection with a star", "reason": null } ] },
+{ "item_id": "M2309#33", "analysis_id": "f4ce5e7c-81f5-4073-b1e1-cd04d98354f4", "version": 4, "distractors": [
+ { "n": 1, "lure_quote": null, "reason": "패션 산업이라는 소재 연상(지문 밖)에서 끌림이 온다" } ] },
+{ "item_id": "M2309#34", "analysis_id": "98c23fc8-581c-4ef7-8670-bc3064667363", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": null, "reason": "어린아이에서 양육을 떠올리는 지문 밖 연상에서 끌림이 온다" },
+ { "n": 4, "lure_quote": "Psychology is a garden, literature is a wilderness.", "reason": null },
+ { "n": 5, "lure_quote": "psychology seeks to make patterns, find regularity", "reason": null } ] },
+{ "item_id": "M2309#35", "analysis_id": "df193424-5e8e-4a09-93db-b83ffd8e4358", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": "when a tree struck by lightning forms new branches", "reason": null } ] },
+{ "item_id": "M2309#36", "analysis_id": "9b2d120d-ec9b-4749-9d0c-e579383d8f47", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": "When a vessel is going upstream, the upper gates stay closed", "reason": null } ] },
+{ "item_id": "M2309#37", "analysis_id": "aefbaefb-5d0d-4b22-91f0-5a14dcc30637", "version": 3, "distractors": [
+ { "n": 4, "lure_quote": "We select the cultural notion as we would select a screwdriver", "reason": null } ] },
+{ "item_id": "M2309#41", "analysis_id": "27f59d35-87e5-4242-a030-f99046e929f6", "version": 3, "distractors": [
+ { "n": 2, "lure_quote": "environmentalists and ecocritics from Rachel Carson to Rob Nixon", "reason": null },
+ { "n": 5, "lure_quote": "as environmentalists and ecocritics from Rachel Carson", "reason": null } ] },
+{ "item_id": "M2309#42", "analysis_id": "86238d33-65de-46ec-931d-6f102dbb7187", "version": 3, "distractors": [
+ { "n": 4, "lure_quote": "Most climate change impacts cannot be observed day-to-day", "reason": null },
+ { "n": 5, "lure_quote": "uses “before and after” photographs taken several months apart", "reason": null } ] },
+{ "item_id": "M2309#43", "analysis_id": "c94cc5e5-5e0b-4601-a893-e29b522391e9", "version": 4, "distractors": [
+ { "n": 4, "lure_quote": "Upon entering the National Gallery, Emilia knew exactly where to go first.", "reason": null } ] },
+{ "item_id": "M2406#19", "analysis_id": "29c66d55-0c4f-4185-ac66-50ef9e5bd796", "version": 4, "distractors": [
+ { "n": 3, "lure_quote": "the overall cost of repairs came to less than ten dollars", "reason": null },
+ { "n": 4, "lure_quote": "I’ve got some good news", "reason": null },
+ { "n": 5, "lure_quote": "She was deeply concerned about how much it was going to cost", "reason": null } ] },
+{ "item_id": "M2406#21", "analysis_id": "1d19c505-bf1a-425c-8b8c-068bce93770f", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "When you say It’s mine in reference to a resource", "reason": null },
+ { "n": 2, "lure_quote": "a landowner, a bank with a mortgage, a tenant with a lease", "reason": null },
+ { "n": 5, "lure_quote": "we split the sticks up, as for a piece of land", "reason": null } ] },
+{ "item_id": "M2406#22", "analysis_id": "3c14962c-007c-442b-920e-226b04bf024c", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "Given the level of anonymity with all that resides on the Internet", "reason": null },
+ { "n": 3, "lure_quote": "a natural defense mechanism that we perform in the real world", "reason": null } ] },
+{ "item_id": "M2406#24", "analysis_id": "a88543a9-1355-4c7c-8670-133f4d1bde43", "version": 4, "distractors": [
+ { "n": 2, "lure_quote": "many of the world’s cities face an unprecedented accessibility crisis", "reason": null } ] },
+{ "item_id": "M2406#25", "analysis_id": "51d43257-577f-4b1c-bcd7-9dda3265f92f", "version": 3, "distractors": [
+ { "n": 2, "lure_quote": "The percentage of people in the Outbound Trips Only category", "reason": null },
+ { "n": 3, "lure_quote": "the percentage of people in the Domestic Trips Only category was 34.2%", "reason": null },
+ { "n": 5, "lure_quote": "the percentage of people in the No Trips category was more than 50%", "reason": null } ] },
+{ "item_id": "M2406#27", "analysis_id": "15d612ea-8fe5-4658-b7f3-e3cddbc8d514", "version": 5, "distractors": [
+ { "n": 2, "lure_quote": "Ages & Level: 13—18 years, for beginners only", "reason": null },
+ { "n": 4, "lure_quote": "Full payment is required when registering.", "reason": null },
+ { "n": 5, "lure_quote": "$40 (Full payment is required when registering.)", "reason": null } ] },
+{ "item_id": "M2406#28", "analysis_id": "bb2a1c4d-e19e-4874-990d-79ee017c4ad7", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "from June 1st to August 31st", "reason": null },
+ { "n": 2, "lure_quote": "Clay Arts: Ages 4—6, Every Monday", "reason": null },
+ { "n": 3, "lure_quote": null, "reason": "시각 줄을 건너뛰는 읽기 누락에서 끌림이 오며 끌어당기는 구절이 없다" },
+ { "n": 5, "lure_quote": null, "reason": "정원 줄을 건너뛰는 읽기 누락에서 끌림이 오며 끌어당기는 구절이 없다" } ] },
+{ "item_id": "M2406#31", "analysis_id": "2c239615-8cf3-4def-96d7-02b3f1f65e5b", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "a growing component of food’s value is determined by its", "reason": null } ] },
+{ "item_id": "M2406#33", "analysis_id": "84679044-6ad5-4308-acf9-691bee5712b8", "version": 3, "distractors": [
+ { "n": 2, "lure_quote": "In this way, he arrives at a reality independent of all observers.", "reason": null } ] }
+] }

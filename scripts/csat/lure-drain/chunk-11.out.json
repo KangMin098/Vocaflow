@@ -1,0 +1,81 @@
+{ "chunk": "11", "items": [
+{ "item_id": "2024#33", "analysis_id": "ce8c80dc-589f-4740-8cd4-22863fa05e63", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "asked to identify the expression or state of mind evinced", "reason": null },
+  { "n": 2, "lure_quote": "subjects were shown photographs of people’s faces", "reason": null },
+  { "n": 3, "lure_quote": "the social and human circumstances in which they, and we, live", "reason": null },
+  { "n": 4, "lure_quote": "illustrating the various emotions that painters could be called upon", "reason": null } ] },
+{ "item_id": "2024#34", "analysis_id": "42852f3e-6d50-4eaf-93dd-d4793ac66ede", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "local residents across the nation gather for often-contentious discussions", "reason": null },
+  { "n": 2, "lure_quote": "about transportation proposals that would change a city’s streets", "reason": null },
+  { "n": 3, "lure_quote": "views herself as a transportation expert", "reason": null },
+  { "n": 5, "lure_quote": "And like all politics, all transportation is local", "reason": null } ] },
+{ "item_id": "2024#35", "analysis_id": "3a55d216-15a1-4564-b279-b6c4064cd2b4", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "our minds are sharp enough to always make good decisions", "reason": null } ] },
+{ "item_id": "2024#36", "analysis_id": "cc7fb305-f6d1-4b5c-a7e4-1d8869bd162d", "version": 4, "distractors": [
+  { "n": 5, "lure_quote": "identification of areas of common interest and conflict", "reason": null } ] },
+{ "item_id": "2024#38", "analysis_id": "4d4946f9-2024-4add-9d00-4963ea81734c", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "This is an extreme view of the nature of scientific contests", "reason": null },
+  { "n": 4, "lure_quote": "By way of example, for many years it was thought", "reason": null } ] },
+{ "item_id": "2024#40", "analysis_id": "4b27fb95-ed90-49b8-b36b-34c1e1bdcdfc", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "although later work will weaken earlier attainments in the other spheres", "reason": null } ] },
+{ "item_id": "2024#43", "analysis_id": "a13058df-7414-44c9-83a8-9ce80690a7b6", "version": 5, "distractors": [
+  { "n": 2, "lure_quote": "Clara used to be a talented swimmer", "reason": null } ] },
+{ "item_id": "2024#44", "analysis_id": "c0c7aa76-1541-49c3-baaa-77529a4172c1", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "Emma approached Clara, saying", "reason": null } ] },
+{ "item_id": "2024#45", "analysis_id": "8929ef37-b037-4d13-8788-79c737d72b34", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "Just after sunrise, they finished their preparations", "reason": null },
+  { "n": 2, "lure_quote": "Bicycle riding is unlike swimming, isn’t it?", "reason": null },
+  { "n": 4, "lure_quote": "pedal toward the white cliff where the beach road ended", "reason": null },
+  { "n": 5, "lure_quote": "Clara’s silence, however, seemed to say that she was lost in her thoughts", "reason": null } ] },
+{ "item_id": "2025#18", "analysis_id": "1a17278f-d4f5-4cc3-b1f8-689feedf9fc1", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "we promise to hold another race in the near future", "reason": null },
+  { "n": 3, "lure_quote": null, "reason": "취소=환불 통념에서 오며 지문에 환불 관련 구절이 없다" },
+  { "n": 5, "lure_quote": "make the roads too slippery and dangerous", "reason": null } ] },
+{ "item_id": "2025#19", "analysis_id": "c82193e9-9f79-4424-b857-3bf9ec2f1020", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "That’s too bad,” he said quietly", "reason": null },
+  { "n": 2, "lure_quote": "Peter had spent a long time searching online", "reason": null },
+  { "n": 4, "lure_quote": "He smiled as he called the restaurant", "reason": null },
+  { "n": 5, "lure_quote": "his smile quickly disappeared", "reason": null } ] },
+{ "item_id": "2025#20", "analysis_id": "06ae9609-4968-4b1d-a778-881ed113d4a0", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "a pleasant break from a student’s learning", "reason": null },
+  { "n": 4, "lure_quote": "they rarely seem to offer anything meaningful to help students grow", "reason": null } ] },
+{ "item_id": "2025#21", "analysis_id": "e7a5d3e4-8a35-4c34-abca-56b246b772b9", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "hunting the shadow, not the substance", "reason": null } ] },
+{ "item_id": "2025#23", "analysis_id": "0409ef21-b244-4281-886d-8fd520a4f110", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "the workday is divided into eight-hour shifts", "reason": null },
+  { "n": 5, "lure_quote": "a machine that runs twenty-four hours per day will produce the most widgets", "reason": null } ] },
+{ "item_id": "2025#25", "analysis_id": "3372cdea-b25e-40b8-bd03-ae6358e081a1", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": null, "reason": "끌림은 도표 막대 값에서 오며 지문은 선지 문장 자체다" },
+  { "n": 3, "lure_quote": null, "reason": "끌림은 도표 막대 값에서 오며 지문은 선지 문장 자체다" },
+  { "n": 5, "lure_quote": null, "reason": "끌림은 도표 막대 값에서 오며 지문은 선지 문장 자체다" } ] },
+{ "item_id": "2025#27", "analysis_id": "033a31e4-0162-4c24-8ba8-dc38bf3aabe5", "version": 6, "distractors": [
+  { "n": 2, "lure_quote": "Adenville-licensed buses", "reason": null },
+  { "n": 4, "lure_quote": "3-Day $25 major tourist attractions 5-Day $40", "reason": null } ] },
+{ "item_id": "2025#28", "analysis_id": "e1c6cf0e-f6f8-4a92-a7fe-90baba5cbdb5", "version": 4, "distractors": [
+  { "n": 5, "lure_quote": null, "reason": "축제 셔틀=무료 통념에서 오며 지문에 끌어당기는 구절이 없다" } ] },
+{ "item_id": "2025#31", "analysis_id": "4a398890-27e1-47c8-a2d7-b7aadb924493", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": null, "reason": "문학 교육 표준 문구라는 선지 자체의 그럴듯함이 끌림이다" },
+  { "n": 3, "lure_quote": "Literature can be helpful in the language learning process", "reason": null },
+  { "n": 4, "lure_quote": "Engaging imaginatively with literature", "reason": null },
+  { "n": 5, "lure_quote": "concentrate on how a language operates", "reason": null } ] },
+{ "item_id": "2025#32", "analysis_id": "c2ff07f8-a740-4ac2-8f67-3f73b3946170", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "Even the most advanced intellectual will be imperfect at this skill", "reason": null },
+  { "n": 3, "lure_quote": "our reliance on feelings can do us great harm", "reason": null },
+  { "n": 4, "lure_quote": null, "reason": "교육 글에서 '이해를 넓힌다'는 상투적 그럴듯함이 끌림이다" },
+  { "n": 5, "lure_quote": "thought is effortful, especially for the inexperienced", "reason": null } ] },
+{ "item_id": "2025#33", "analysis_id": "9a026a5d-778b-48ec-b224-33d661720cb3", "version": 4, "distractors": [
+  { "n": 4, "lure_quote": "if you can’t see who is paying for something that appears to be free", "reason": null } ] },
+{ "item_id": "2025#34", "analysis_id": "ee1be84e-cf37-47f8-95c7-26f726599684", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "it also creates a pattern of conduct that enables people to produce music", "reason": null },
+  { "n": 2, "lure_quote": "legal rules that establish roles individuals play within the legal system", "reason": null },
+  { "n": 3, "lure_quote": "make practices that create new opportunities for individuals", "reason": null },
+  { "n": 4, "lure_quote": "constrain the behavior of individuals who occupy them", "reason": null } ] },
+{ "item_id": "2025#35", "analysis_id": "7079e9e7-0efc-4d3d-9aa0-86909c78a08e", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "Although originally invented towards the end of the nineteenth century", "reason": null } ] },
+{ "item_id": "2025#39", "analysis_id": "d2fc2595-feb1-4c86-a0e4-f58928e215a2", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "revolves around the lifespan or lifecycle of objects and technologies", "reason": null } ] },
+{ "item_id": "2025#40", "analysis_id": "a435cd40-f89e-4829-9461-1659889ba565", "version": 4, "distractors": [
+  { "n": 5, "lure_quote": null, "reason": "(B) 동의어 일치라는 선지 자체에서 오는 끌림이며 accessibility 근거 구절이 지문에 없다" } ] },
+{ "item_id": "2025#42", "analysis_id": "74303dc6-874b-44cd-9e65-daa372e78893", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "Our relatively long, powerful thumb and other anatomical attributes", "reason": null } ] }
+] }

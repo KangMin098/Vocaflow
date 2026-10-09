@@ -1,0 +1,71 @@
+{ "chunk": "17", "items": [
+{ "item_id": "M2209#40", "analysis_id": "3ebf836c-a3b0-488e-8005-e39861965d0a", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": "But it also diminishes perspective.", "reason": null },
+ { "n": 5, "lure_quote": null, "reason": "정보 기술 평가어로 무난하게 들리는 선지 자체의 그럴듯함에서 끌림이 온다" } ] },
+{ "item_id": "M2209#41", "analysis_id": "218f2ed8-1b42-4f60-a9ee-8b208415d647", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "some of the pitfalls inherent in an experiment of this kind", "reason": null },
+ { "n": 3, "lure_quote": "researchers typically divide the subjects into two groups", "reason": null } ] },
+{ "item_id": "M2306#18", "analysis_id": "02d4b055-7ef6-42b6-8832-494ff02650e3", "version": 3, "distractors": [
+ { "n": 5, "lure_quote": "I made a reservation for one of your company’s swimming pools", "reason": null } ] },
+{ "item_id": "M2306#19", "analysis_id": "59677d12-b985-4322-912b-1e0c2d30d5f8", "version": 5, "distractors": [
+ { "n": 2, "lure_quote": "was moving slowly toward the ocean cliffs", "reason": null },
+ { "n": 3, "lure_quote": "Just then she saw the setting sun and it still shone brightly in the sky.", "reason": null },
+ { "n": 4, "lure_quote": null, "reason": "결말이 밝다는 전체 인상에서 끌림이 오며 특정 구절이 끌어당기지 않는다" } ] },
+{ "item_id": "M2306#20", "analysis_id": "8d65c941-b234-4010-8e26-d3dce0be5564", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "to maximize gains made in the technical and physical areas", "reason": null } ] },
+{ "item_id": "M2306#21", "analysis_id": "39e4ead7-1031-4491-a933-cd39f94e4556", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": "we cannot see the world except from a particular perspective", "reason": null } ] },
+{ "item_id": "M2306#22", "analysis_id": "f98caf8e-cced-413e-862e-622c530e4499", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": "their personal data helps to drive the rich experiences", "reason": null },
+ { "n": 4, "lure_quote": "sharing this data is the price you pay for these experiences", "reason": null },
+ { "n": 5, "lure_quote": "but also that sharing this data", "reason": null } ] },
+{ "item_id": "M2306#23", "analysis_id": "14a5e6d5-51ad-4a1d-94e1-49716f1f32ab", "version": 3, "distractors": [
+ { "n": 5, "lure_quote": "and other cognitive states are plastic and can be modified by learning", "reason": null } ] },
+{ "item_id": "M2306#25", "analysis_id": "6b10b00d-7c27-4b39-a5dd-8c6fd7b10439", "version": 5, "distractors": [
+ { "n": 2, "lure_quote": null, "reason": "두 해의 표를 섞어 읽는 오독에서 끌림이 오며 지문 구절이 끌어당기지 않는다" },
+ { "n": 4, "lure_quote": null, "reason": "두 목록의 대조 방향을 헷갈리는 표 읽기 오류에서 끌림이 온다" },
+ { "n": 5, "lure_quote": null, "reason": "인접 수치 891·890 혼동이라는 표 읽기 오류에서 끌림이 온다" } ] },
+{ "item_id": "M2306#28", "analysis_id": "dcf27034-6111-4bd4-9d60-3a516cf44d1d", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "Online only ― www.dcsm.org", "reason": null } ] },
+{ "item_id": "M2306#29", "analysis_id": "26950496-d45e-4fce-afac-1c138ac95cfb", "version": 3, "distractors": [
+ { "n": 2, "lure_quote": "The processes ② governing them differ in complexity and speed.", "reason": null },
+ { "n": 5, "lure_quote": "Safe passages, for example, enable migratory species ⑤ to survive.", "reason": null } ] },
+{ "item_id": "M2306#30", "analysis_id": "91a877fb-d538-4b32-aa02-71329b9ed9ca", "version": 3, "distractors": [
+ { "n": 2, "lure_quote": "Rising incomes inevitably lead to increases in motorization.", "reason": null },
+ { "n": 5, "lure_quote": "limit the option of expanding road networks", "reason": null } ] },
+{ "item_id": "M2306#31", "analysis_id": "5b479604-7e58-44af-87b1-5a20d49d7179", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "With tablets and cell phones surpassing personal computers in Internet usage", "reason": null },
+ { "n": 3, "lure_quote": "This is a marked contrast from three decades ago", "reason": null } ] },
+{ "item_id": "M2306#32", "analysis_id": "8b42b80e-8644-4d08-ad8e-d1f9d088b1c6", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "examines all the elements of a text individually", "reason": null },
+ { "n": 2, "lure_quote": "the people he knew personally may be interesting", "reason": null },
+ { "n": 3, "lure_quote": "Instead of examining historical periods, author biographies, or literary styles", "reason": null },
+ { "n": 5, "lure_quote": "the correspondences between the characters in James Joyce’s short story", "reason": null } ] },
+{ "item_id": "M2306#33", "analysis_id": "f35dbe24-e8c1-4e40-bd47-e0eddda8dc31", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "are typically rejected as outliers of no interest", "reason": null },
+ { "n": 4, "lure_quote": "the actual source of many major innovations for many firms", "reason": null } ] },
+{ "item_id": "M2306#35", "analysis_id": "41913717-16de-4382-9b89-71707479b759", "version": 3, "distractors": [
+ { "n": 2, "lure_quote": "then there could be considerable benefit in going ahead", "reason": null } ] },
+{ "item_id": "M2306#36", "analysis_id": "d99cfd4c-b2d9-456f-9137-bc8f4fe79925", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": "If multicelled organisms were indeed found to have evolved", "reason": null },
+ { "n": 3, "lure_quote": "The fossil record supports this prediction", "reason": null } ] },
+{ "item_id": "M2306#37", "analysis_id": "4d98ed5e-a490-47be-bd12-896ace994b94", "version": 3, "distractors": [
+ { "n": 4, "lure_quote": "Actually, you can leverage this human tendency to your benefit.", "reason": null } ] },
+{ "item_id": "M2306#38", "analysis_id": "55dd7e44-b438-4f9c-bac2-ab0520e3c13e", "version": 3, "distractors": [
+ { "n": 5, "lure_quote": "Very high costs are involved in following all of the procedures", "reason": null } ] },
+{ "item_id": "M2306#39", "analysis_id": "4944b40b-5081-4e59-b23e-5ab5159672e7", "version": 3, "distractors": [
+ { "n": 5, "lure_quote": "a true threat is much more likely to be present", "reason": null } ] },
+{ "item_id": "M2306#40", "analysis_id": "d751dc79-14ea-47f8-944b-cca393cd0f42", "version": 3, "distractors": [
+ { "n": 4, "lure_quote": null, "reason": "정보사회 글에 흔한 무난한 낱말이라는 선지 자체의 그럴듯함에서 끌림이 온다" } ] },
+{ "item_id": "M2306#41", "analysis_id": "e9fdc90d-187a-4215-879f-149e4cc74630", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": "Emergencies are not always clearly (a) labeled as such", "reason": null },
+ { "n": 4, "lure_quote": "looks at those around him to see how he should react", "reason": null },
+ { "n": 5, "lure_quote": "Once an event is noticed, an onlooker must decide if it is truly an emergency.", "reason": null } ] },
+{ "item_id": "M2306#45", "analysis_id": "9838205f-5a1a-4c77-af09-4c225939e849", "version": 3, "distractors": [
+ { "n": 4, "lure_quote": "his brother Sammy had a big table in his living room", "reason": null } ] },
+{ "item_id": "M2309#19", "analysis_id": "4ce205e6-8a12-4d3f-b94a-a65427228b6e", "version": 3, "distractors": [
+ { "n": 1, "lure_quote": null, "reason": "부정→긍정이라는 유형의 익숙한 쌍 모양에서 끌림이 오며 지문 구절이 없다" },
+ { "n": 3, "lure_quote": "She just kept drawing without reply.", "reason": null } ] },
+{ "item_id": "M2309#21", "analysis_id": "e072df90-b0cb-4418-9d3f-f92d6b3d34d7", "version": 3, "distractors": [
+ { "n": 3, "lure_quote": null, "reason": "알고리즘이라는 중심 낱말에 기댄 선지 자체의 그럴듯함에서 끌림이 온다" } ] }
+] }

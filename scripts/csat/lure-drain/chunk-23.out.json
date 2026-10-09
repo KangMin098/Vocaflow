@@ -1,0 +1,444 @@
+{
+ "chunk": "23",
+ "items": [
+  {
+   "item_id": "M2609#45",
+   "analysis_id": "406136f9-091b-4a42-a0fe-5bc4d7481241",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "One afternoon, Mike’s dad came home earlier than usual.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Mike was so excited that he ran to grab his Arrows hat.",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Mike reached up with his glove and grabbed the ball",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Both teams kept scoring and the game stayed close.",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#18",
+   "analysis_id": "a230fe5b-9289-4a3f-a1d8-d08e36526268",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Every year, we gather together all of the best baseball hitters",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "관람권·환불 연상은 지문 밖 운영 상식에서 온다"
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#19",
+   "analysis_id": "12dc8e01-60d5-4afe-b1d4-df1f680ffc9f",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "all he saw was grey for what felt like forever",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Clouds surrounded the monorail, so all he saw was grey",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "Mark’s friends had invited him to Sky National Park",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "He checked his watch as the monorail departed",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#20",
+   "analysis_id": "ba94cfe3-360f-4bd5-92f4-fd8d9e347c3d",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "tell their participants to exercise regularly, warm up before exercising",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "focus more on the activities themselves than on the participants",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "it enables them to gradually take fuller ownership of their own development",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#21",
+   "analysis_id": "ff276ea8-d139-4790-a0f4-8fda58808088",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 5,
+     "lure_quote": "exhibited many of the same problem-solving abilities as humans did",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#22",
+   "analysis_id": "1024e97f-30c1-4bb4-a7e2-ead3093346c1",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "70% of drivers identify and judge vehicles by the headlights and grille",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "these faces help drivers feel safer in heavier traffic amidst more oversize SUVs",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#23",
+   "analysis_id": "5d89192f-e3b8-4e7e-b03f-d92dca67872a",
+   "version": 5,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "A telescoping of time correlates with size.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "their high metabolic rates and minimal energy reserves offer few choices",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "decision making must be streamlined in small species",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#24",
+   "analysis_id": "12658fa7-07f4-4ccc-8b2f-5f0b4f7de1f6",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "tourism was very much an industry which was fragmented",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "관광 지문의 흔한 결론이라는 선지 자체의 그럴듯함에서 온다"
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#25",
+   "analysis_id": "0418917e-a08a-48cc-b707-82d81ac9b126",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "walking or cycling was less commonly used for weekday trips than cars",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "In each of the above regions, the percentage of weekday trips",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#27",
+   "analysis_id": "7ca7e5fb-6cd5-4cd0-921c-a592d367c0bc",
+   "version": 6,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Use your creativity and artistic skills to show Dewywood’s green side",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "Online registration is required from June 10 to June 15",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "There is no registration fee.",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "One winner in each age group will be selected.",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#29",
+   "analysis_id": "ecae289e-4f3f-4dc5-9887-f10fb865a178",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "clothing tended to be simple and was ① frequently made of rough wool",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "laws were enacted ③ to limit the wearing of certain luxury items",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#30",
+   "analysis_id": "4f3592c4-475c-463c-9647-95b77ddf8697",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "not to let the poetic form or archaic word usage get in the way",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "but can take very little space when typed into a play script",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#31",
+   "analysis_id": "8d351806-ee81-49c4-8846-7c34d8097875",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Conservationists acknowledge change but try to manage it",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "rather than interfering as minimally as possible",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "keep a historical musical instrument “as found” in a deteriorated state",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#32",
+   "analysis_id": "0746b9e2-6768-460f-aef7-756f9ec2135a",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": null,
+     "reason": "듣는 척이라는 일상 경험에서 오는 끌림으로 지문 구절이 없다"
+    },
+    {
+     "n": 3,
+     "lure_quote": "As it is easy to misinterpret nonverbal behavior",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Very often you can understand a speaker’s meaning by observing",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#33",
+   "analysis_id": "ec98ac60-f4db-4ed1-9015-a4aeca2de8a0",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "functions by comparing similarities and differences",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "a small similarity between a perceived object and the thing one expects to see",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "when perception is not actively discerning objects",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Emotions dispose one to see the world in a distorted way.",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#34",
+   "analysis_id": "413321c8-cf24-46a1-bfe2-35986641027d",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": null,
+     "reason": "수집가·작가·독창성에 관한 상식에서 오는 끌림이다"
+    },
+    {
+     "n": 3,
+     "lure_quote": "Acquiring a work is acquiring a piece of art history",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "The dependent and shifting nature of art values, not only on the market",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "수집가·작가·독창성에 관한 상식에서 오는 끌림이다"
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#35",
+   "analysis_id": "a1f504d2-21a1-480c-86cf-1702036dec72",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Despite toddlers falling over and bumping themselves regularly",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "adults falling over will impact the ground with a much larger force",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "taller people have been found to suffer more fall-related injuries",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#41",
+   "analysis_id": "de50fb48-b1ec-4cd4-a7a7-d7047bf39382",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 5,
+     "lure_quote": "Flat glass was only developed in the nineteenth century",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#42",
+   "analysis_id": "6099cb98-b06e-4d92-ae88-a0f989222683",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "despite it being one of the very oldest human-made substances",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#43",
+   "analysis_id": "7192f1cf-e9d6-44e6-8955-5a3f4a8e585c",
+   "version": 5,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "The old woman winked, handed the violin to Sally",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "The following day, they met at the same bench.",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#44",
+   "analysis_id": "2ef19af4-d0d3-4991-8e93-e10e26c3898c",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "Sally remembered learning the recorder from her older sister Beatrice",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2706#45",
+   "analysis_id": "9f9c5b46-94a5-479b-8c34-dd984e752fe6",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "She took off her headphones and followed the music through the park.",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "but when she sat, the woman stopped playing",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "I hope to see you again tomorrow.",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "I just started last year, but I always wanted to learn",
+     "reason": null
+    }
+   ]
+  }
+ ]
+}
