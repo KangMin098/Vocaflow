@@ -14,8 +14,9 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import { examLabelOf, examOrder, schoolYearOf } from './exam-id'
 import { createCsatClient, selectScopeItems } from './client'
-import { examFilter, inScope as inScopeId, KICE_SCOPE, reportKey, type CsatScope } from './scope'
+import { examFilter, inScope as inScopeId, KICE_SCOPE, reportKey, SCOPES, type CsatScope } from './scope'
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
+import { stripInternalNotes } from './learner-text'
 import { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
 export { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
 
@@ -427,6 +428,10 @@ export interface CsatItemExplain {
   distractors: { n: number; trap: string | null; why_tempting: string | null; how_to_reject: string | null }[]
   /** ③ 다시 풀 때의 순서 */
   procedure: { step: string; on_fail?: string }[]
+  /** 유형 일반 절차(csat_type_reports.procedure_steps) — 이 문항 밖으로 옮겨 쓸 수 있는 순서. 없으면 [] */
+  type_procedure: { step: string; on_fail?: string }[]
+  /** 그 절차를 뽑은 분석 문항 수 */
+  type_procedure_n: number | null
   required_vocab: string[]
   time_budget_sec: number | null
   /** **출제 설계 주석** — 문장 역할 · 구조 패턴 · 정답 표현 변환(`lib/csat/design.ts`). 주석 없는 문항은 null */
@@ -585,10 +590,17 @@ export async function loadCsatItemExplain(
   if (!itemRes.data) return { item: null, error: null }
 
   const it = itemRes.data as { id: string; exam_id: string; no: number; points: number | null; answer: number | null; type_id: string | null }
-  const [examRes, typeRes] = await Promise.all([
+  const itemReportKey = reportKey(SCOPES.find((sc) => inScopeId(it.id, sc)) ?? KICE_SCOPE)
+  const [examRes, typeRes, repRes] = await Promise.all([
     db.from('csat_exams').select('label').eq('id', it.exam_id).maybeSingle(),
     it.type_id ? db.from('csat_types').select('name').eq('id', it.type_id).maybeSingle() : Promise.resolve({ data: null }),
+    // 유형 일반 절차 — 이 문항이 속한 집합(평가원 · 학평 학년)의 발행 보고서. 못 읽어도 해설은 그대로
+    it.type_id
+      ? db.from('csat_type_reports').select('procedure_steps, n_analyzed').eq('type_id', it.type_id).eq('status', 'published')
+          .eq('organizer', itemReportKey.organizer).eq('grade', itemReportKey.grade).limit(1)
+      : Promise.resolve({ data: [] as unknown[] }),
   ])
+  const rep = ((repRes.data ?? []) as { procedure_steps: unknown; n_analyzed: number | null }[])[0] ?? null
 
   const a = ((aRes.data ?? [])[0] ?? null) as AnalysisRow | null
   const chs = a?.choice_analysis ?? []
@@ -604,23 +616,26 @@ export async function loadCsatItemExplain(
       type_id: it.type_id,
       type_name: (typeRes.data as { name?: string } | null)?.name ?? null,
       answer_unknown: a?.answer_unknown === true,
-      measured_ability: nonEmpty(a?.measured_ability),
-      design_intent: nonEmpty(a?.design_intent),
-      why_correct: correct?.why_correct ?? null,
+      // 학습자 문장은 분석 작업 메모를 걷어 낸다(learner-text — 원본 분석은 그대로)
+      measured_ability: stripInternalNotes(nonEmpty(a?.measured_ability)),
+      design_intent: stripInternalNotes(nonEmpty(a?.design_intent)),
+      why_correct: stripInternalNotes(correct?.why_correct ?? null),
       evidence_quote: capQuoteWords(a?.answer_locus?.quote ?? null),
       evidence_quote_truncated: (a?.answer_locus?.quote?.trim().split(/\s+/).length ?? 0) > QUOTE_WORD_CAP,
-      evidence_reasoning: a?.answer_locus?.reasoning ?? null,
+      evidence_reasoning: stripInternalNotes(a?.answer_locus?.reasoning ?? null),
       design: parseDesign(a?.answer_locus?.passage_design),
       distractors: chs
         .filter((c) => c.verdict === 'distractor')
         .map((c) => ({
           n: c.n,
           trap: c.trap ?? null,
-          why_tempting: c.why_tempting ?? null,
-          how_to_reject: c.how_to_reject ?? null,
+          why_tempting: stripInternalNotes(c.why_tempting ?? null),
+          how_to_reject: stripInternalNotes(c.how_to_reject ?? null),
         }))
         .sort((x, y) => x.n - y.n),
       procedure: a?.solve_procedure ?? [],
+      type_procedure: arr<{ step: string; on_fail?: string }>(rep?.procedure_steps).filter((p) => typeof p?.step === 'string' && p.step.trim().length > 0),
+      type_procedure_n: rep?.n_analyzed ?? null,
       required_vocab: a?.required_vocab ?? [],
       time_budget_sec: a?.time_budget_sec ?? null,
     },

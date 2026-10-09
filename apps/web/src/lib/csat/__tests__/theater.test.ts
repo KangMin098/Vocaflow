@@ -232,3 +232,18 @@ describe('BLOCK_TINT — 블록 종류마다 고정 면 색', () => {
     for (const kind of new Set(kinds)) expect(BLOCK_TINT[kind], kind).toBeTruthy()
   })
 })
+
+describe('옮겨 쓸 원리 — 유형 일반 절차 블록(2026-10-09 학습 가치 감사)', () => {
+  it('유형 절차가 있으면 문항 절차 뒤 · 어휘 앞에 「다음 ○○ 문항에서 그대로 쓰는 순서」 블록', () => {
+    const blocks = theaterBlocks({ ...FULL, type_procedure: [{ step: '선지를 주체 · 행동으로 쪼갠다' }, { step: '지문의 결론 문장을 찾는다', on_fail: '역접 뒤를 본다' }], type_procedure_n: 25 })
+    const keys = blocks.map((b) => b.key)
+    const t = blocks.find((b) => b.key === 'analysis:transfer')!
+    expect(keys.indexOf('analysis:transfer')).toBeGreaterThan(keys.indexOf('analysis:procedure'))
+    expect(t.title).toContain('그대로 쓰는 순서')
+    expect(t.body).toEqual(['1. 선지를 주체 · 행동으로 쪼갠다', '2. 지문의 결론 문장을 찾는다 — 막히면 역접 뒤를 본다'])
+    expect(t.chips.map((c) => c.text)).toContain('기출 25문항에서 뽑음')
+  })
+  it('유형 절차가 없으면 블록을 만들지 않는다', () => {
+    expect(theaterBlocks({ ...FULL, type_procedure: [] }).some((b) => b.key === 'analysis:transfer')).toBe(false)
+  })
+})
