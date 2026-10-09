@@ -14,6 +14,8 @@ import { CORE_STATUS_LABEL, LEGACY_PROXY_LABEL, THRESHOLD_NOTE } from '@/lib/csa
 import { EVIDENCE_LABEL, STAGE_WORD, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
+import { decideStep } from '@/lib/knowledge/learning-decision'
+import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
 import { skillDiagnosis } from '@/lib/csat/map/skill-diagnosis'
 import type { PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
@@ -52,6 +54,20 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
   const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
   const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
+  // 원리 기반 학습 결정 — 확인된 요구 → 다음 할 일(정책 버전 · 원리 · 방법 id 를 함께 남긴다)
+  const decisionTask = find.find((t) => data.practiceLinks?.[t.id]?.chain)
+  const decisionLink = decisionTask ? data.practiceLinks?.[decisionTask.id] : undefined
+  const decision = decisionTask && decisionLink?.chain && data.findAttempts
+    ? decideStep({
+        stepKey: step.key,
+        findTaskId: decisionTask.id,
+        outcome,
+        chain: decisionLink.chain,
+        confirm: decisionLink.confirm.map((c) => ({ itemRef: c.target, href: c.href, label: c.label })),
+        triedItems: [...new Set(data.findAttempts.filter((f) => f.phase === 'practice' && decisionLink.confirm.some((c) => c.target === f.itemRef && c.taskKey === f.taskKey)).map((f) => f.itemRef))],
+        practiceHref: decisionLink.taskKey === PRACTICE_SLUG ? `/csat/practice/${PRACTICE_SLUG}` : null,
+      })
+    : null
   const later = STAGE_ORDER.filter((s) => s !== 'FIND').map((s) => ({ stage: s, tasks: lineTasks.filter((t) => stageOf(t.id) === s) }))
   const nameOf = (code: string) => data.nodes.find((n) => n.code === code)?.name ?? code
   const Icon = STEP_ICON[step.key]
@@ -123,6 +139,30 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
               </p>
             )}
             <SkillStatusLine skill={skill} />
+            {decision && decision.action !== 'no_principle' && (
+              <p
+                hidden
+                data-testid="learning-decision"
+                data-action={decision.action}
+                data-policy={decision.trace.policyVersion}
+                data-principle={decision.trace.principleId ?? ''}
+                data-method={decision.trace.methodId ?? ''}
+                data-task-item={decision.trace.taskId ?? ''}
+                data-versions={JSON.stringify(decision.trace.versions)}
+                data-observation={JSON.stringify(decision.trace.observation)}
+                data-reason={decision.reason}
+              >
+                <strong>다음 할 일</strong> — {decision.message}
+                {decision.href && (
+                  <>
+                    {' '}
+                    <a href={decision.href} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="learning-decision-link">
+                      {decision.hrefLabel} →
+                    </a>
+                  </>
+                )}
+              </p>
+            )}
             {find.length === 0 ? (
               <p className={l.text}>이 단계의 확인 활동은 아직 없어요.</p>
             ) : (

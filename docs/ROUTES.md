@@ -305,6 +305,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/knowledge/design` | `…/design/page.tsx` | D 학습 설계 · 검증 — 적용 초안 · 검증 계획(사전 · 사후 · 지연 · 전이 · 비교 · 최소 표본) · 방법이 기대는 기제 |
 | `/admin/knowledge/product` | `…/product/page.tsx` | E 제품 적용 · 품질 — 적용 상태별 · 학습 결과 · 근거 변경 영향 · 켜기 · 중단 · 롤백 |
 | `/admin/knowledge/signals` | `admin/knowledge/signals/page.tsx` | 성과 검토 신호(트랙 E · 2026-10-08) — 적용별 적격 첫 시도(DB 뷰 `learning_first_attempts`)로 검토 필요 · 표본 부족(insufficient_evidence) · 결과 상충 · 데이터 품질. 읽기 전용(`lib/knowledge/effect-signals*.ts`) · 「제품 적용 · 품질」 탭 |
+| `/admin/knowledge/lab/compare` | `admin/knowledge/lab/compare/page.tsx` | 원리 근거 비교(작업 4 · 2026-10-10) — 본질 · 원리마다 근거를 종류별로 따로(연구 · 전문가 주장 · 현장 주장 · 기출 관찰 · 분석자 추론) · 적용 조건 · 반대 설명 · 다음 연구 업무 + 8 영역 × 층 지도. 읽기 전용(`lib/knowledge/research-compare*.ts`) · 「탐구 · 근거 연구소」 탭 |
 | `/admin/knowledge/product/[id]` | `…/product/[id]/page.tsx` | 적용 사슬 추적(Phase 3) — 끊긴 곳 · 탐구 질문 → 근거(연구 근거 유무) → 기제 → 방법 → 과제 → 적용 → 실제 수행 → 효과 검증 |
 | `/admin/knowledge/principles` | `…/principles/page.tsx` | L1 본질 · L2 원리 목록 |
 | `/admin/knowledge/methods` | `…/methods/page.tsx` | L3 방법론 · L4 공부법 목록 (조건 칩) |

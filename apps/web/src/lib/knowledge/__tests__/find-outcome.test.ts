@@ -30,11 +30,11 @@ describe('findOutcome — 한 번의 오답으로 확정하지 않는다', () =>
     expect(findOutcome([T('a'), T('b')], [A('a', true), A('b', true)]).state).toBe('not_needed')
     expect(findOutcome([T('a'), T('b')], [A('a', true), A('b', false)]).state).toBe('mixed')
   })
-  it('해설 먼저 · 해설 뒤 · 합성 · 시각 불확실 · 정오 없음은 확인 근거가 아니다', () => {
+  it('해설 먼저 · 해설 뒤 · 시각 불확실 · 정오 없음은 확인 근거가 아니다', () => {
     const rows = [
       A('a', false, { helpLevel: 'viewed_first' }),
       A('b', false, { afterExplanation: true }),
-      A('a', false, { synthetic: true }),
+      A('a', false, { helpLevel: null }),
       A('b', false, { timingUncertain: true }),
       A('a', null),
     ]
@@ -43,5 +43,12 @@ describe('findOutcome — 한 번의 오답으로 확정하지 않는다', () =>
   it('이 단계 확인 과제가 아닌 문항 · 다른 과제 키 · 연습 외 단계는 세지 않는다', () => {
     const rows = [A('z', false), A('a', false, { taskKey: 'cohesion-link' }), A('b', false, { phase: 'transfer' })]
     expect(findOutcome([T('a'), T('b')], rows).state).toBe('untried')
+  })
+})
+
+describe('합성 계정 본인 판정', () => {
+  it('합성 표시는 집단 통계용 — 본인 확인 판정에는 센다', () => {
+    const rows = [A('a', false, { synthetic: true }), A('b', false, { synthetic: true })]
+    expect(findOutcome([T('a'), T('b')], rows).state).toBe('confirmed_need')
   })
 })

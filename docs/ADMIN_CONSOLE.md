@@ -72,6 +72,7 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
    학습 설계 · 검증   /admin/knowledge/design
    제품 적용 · 품질   /admin/knowledge/product
    성과 검토 신호     /admin/knowledge/signals — 「제품 적용 · 품질」 탭 · 적용별 재검토 신호(읽기 전용 · efficacy 불변)
+   원리 근거 비교     /admin/knowledge/lab/compare — 「탐구 · 근거 연구소」 탭 · 근거 종류별 비교 · 영역 지도(읽기 전용)
    적용 사슬 추적     /admin/knowledge/product/[id] — 끊긴 곳 · 탐구 → 근거 → 기제 → 방법 → 과제 → 적용 → 수행 → 효과(Phase 3 · 2026-10-08)
    항목 상세에 「문장 고치기」 — 채택 · 적용 중이면 자신과 아래 층 재검토 + 적용 자동 중단. 근거 추가 · 축 변경도 같은 전파(lib/knowledge/review-cascade.ts + DB 트리거 20261008140000 — SQL 직접 변경도 같다)
    = 5 공간 · 기존 URL 그대로 하위 · 화면 위 업무 공간 내비(WorkspaceNav) · 화면도움말 lib/admin/help/knowledge.ts · 정본 docs/methodology/VNEXT_ARCHITECTURE.md(SYSTEM.md 는 5층 원본)

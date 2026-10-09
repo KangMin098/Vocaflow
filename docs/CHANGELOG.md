@@ -12,6 +12,8 @@
 ## Unreleased (v06.34 → next)
 - feat(csat): 끌리는 구절 드레인(`scripts/csat/lure-drain-*`) — 지문 위 자리 없는 평가원 오답 1,082개에 `choice_analysis[].lure_quote` 키 추가(2026-10-10 승인 · 분석 493행 · 지문 밖 판정 145 · 선지 문장 그대로 132 탈락). 골격 재굽기로 오답 자리 1,759 → 2,912/3,208(91%) · 자리 없는 문항 166 → 12. 영어 조각 정규식 `-` 누락으로 한글을 삼키던 결함 수정. 전체 노출 경보 16% → 20%(실측 19.2% · 사용자 결정 · 문항별 상한 유지). 지문 수정으로 문장 번호가 밀린 강의 2문항(2014A·B#39) 참조 보정 + 골격 굽기에 강의 문장 수 변경 가드(`--accept-shift`).
 
+- feat(knowledge): 학습 원리 순환 화면 E2E 8/8(`scripts/knowledge/loop-screen-e2e.mts` — 학습 지도 확인 문항 9 · 원리 패널 9 · 실제 제출 · 확인 판정 · 원리 과제 선택 · 관리자 신호 · 접근 제한) · 원리 기반 학습 결정 `learning-decision`(find-policy.v1 · 원리 · 방법 id · 버전 추적) · 성과 신호 「개정 전후 비교」 · 원리 근거 비교 `/admin/knowledge/lab/compare` · 확인 판정은 본인 합성 기록도 센다 · 문항 과제 적용 키 대소문자 가드(모의평가 키 사고 수정).
+
 - feat(map): 기능 단위 직접 확인(verified_diagnosis · 결정 D-1 v1) — 글 구조 확인 문항의 독립 첫 시도 2개가 맞힌 것 없이 막히면 확정 → 단계 시트 처방(바로잡기 · 다른 글에 적용 · 다시 확인) 개방 → 미노출 확인 문항 2개 정답이면 해소 · 막히면 계속 · 120일 만료. 진단 전 Practice 문구는 「한 번 더 확인」(D-7 c). `skill-diagnosis.ts` · `SkillPrescription.tsx` · E2E `e2e-skill-gate.mts`
 
 - docs(map): 한국 영어학습 맵 전체 완료 계약 [MAP_COMPLETION_CONTRACT](./csat-learner/MAP_COMPLETION_CONTRACT.md)(MC-01–16 · ACCEPTED/PARTIAL/FAIL/UNKNOWN/BLOCKED) · 계약 A 원인 판정 · B Evidence Anchor · C FIND→진단 환류 [MAP_CONTRACTS_ABC](./csat-learner/MAP_CONTRACTS_ABC.md)(PROPOSED) · 순수 `evidence-anchor.ts` · `find-feedback.ts` + 단위 테스트. DB · 화면 변경 없음
