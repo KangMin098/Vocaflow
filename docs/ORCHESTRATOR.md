@@ -56,6 +56,9 @@ goal-check → goal-priority → feasibility(첫 실행 가능 작업)
 - **단일 writer**: `orchestrator--singleton` 잠금(주인 = 이 프로세스, 짧은 TTL — pid 가 살아 있으면 회수되지 않는다).
 - **복구**: 진행 단계가 ORCHESTRATOR.json(journal)에 남는다. 다음 실행이 죽은 run 을 `aborted` 로 닫고, 그 run 이 쥔 작업을 reap → READY 로 되살려 다시 처리한다.
 - **DB**: 자동 실행의 Claude 는 MCP 0개 — DB 경로가 없다. `db_scope` 가 있는 작업은 고르지 않는다(대화형 세션 몫).
+  Bash 는 검증 명령(vitest·typecheck·lint·git 읽기/add/commit)만 허용하고 `node`·`npx`·`pnpm dlx`·설치는 막는다. 자식 환경의 DB 자격증명은 접속 불가 주소·빈 키로 덮는다(`DB_SENTINEL_ENV`).
+  **남는 한계**: vitest 가 Claude 가 쓴 테스트 코드를 실행하므로 임의 코드 실행 경로가 완전히 닫히지는 않는다 — 자격증명이 없어 DB 에 붙지 못하고, 다른 worktree 쓰기는 실행 전후 대조(`foreign_worktree_write` → 차단·정지)로 잡는다. 컨테이너 격리는 아니다.
+- **고아 자식**: Claude/Codex 는 감독자(`lib/supervise.mjs`)를 거쳐 뜬다. 감독자는 `claude.pid.json`·`codex.pid.json` 에 자식 pid 를 남기고 부모가 죽으면 자식 트리를 끝낸다. 복구는 자식이 살아 있으면 그 작업을 회수하지 않는다.
 - **ChatGPT**: 응답의 `requires_user_approval` 은 권한 근거가 아니다. false 면 고쳐 받지 않고 `approval_conflict` 로 기록 → 관련 작업 실행 차단 → 사용자 APPROVED 결정으로만 `decision resolve-conflict`.
 - **완전 무인 아님**: ChatGPT 기획은 사람이 요청 파일을 전달·응답을 저장한다. 사용자 승인(DB 쓰기·배포·시크릿·main 머지)은 사람만 기록한다.
 
