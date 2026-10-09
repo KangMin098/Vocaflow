@@ -23,6 +23,12 @@ describe('summarizePractice', () => {
     expect(summarizePractice(rows, { task_key: 'claim-support', item_ref: '2022#20', is_correct: true, help_level: 'viewed_first', after_explanation: false }).firstIndependent).toBe(false)
     expect(summarizePractice(rows, { task_key: 'claim-support', item_ref: '2022#20', is_correct: true, help_level: 'independent', after_explanation: true }).firstIndependent).toBe(false)
   })
+  it('M8 시각 불확실이면 「도움 없이」 를 단정하지 않는다(null) — 도움받은 판단은 그대로 false', () => {
+    const rows = [row(true, '2026-10-08T10:00:00Z')]
+    const base = { task_key: 'claim-support', item_ref: '2022#20', is_correct: true, after_explanation: false, timing_uncertain: true }
+    expect(summarizePractice(rows, { ...base, help_level: 'independent' }).firstIndependent).toBeNull()
+    expect(summarizePractice(rows, { ...base, help_level: 'viewed_first' }).firstIndependent).toBe(false)
+  })
   it('도움 수준이 비어 있으면(세션 없는 기록) 도움 여부를 모른다 — 해설을 봤다고 단정하지 않는다', () => {
     expect(summarizePractice([row(false, '2026-10-08T10:00:00Z')], { task_key: 'claim-support', item_ref: '2022#20', is_correct: false, help_level: null, after_explanation: null }).firstIndependent).toBeNull()
     expect(summarizePractice([row(false, '2026-10-08T10:00:00Z')], { task_key: 'claim-support', item_ref: '2022#20', is_correct: false, help_level: null, after_explanation: true }).firstIndependent).toBe(false)

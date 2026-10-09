@@ -34,6 +34,8 @@ export interface FirstAttemptRow {
   is_correct: boolean | null
   help_level: string | null
   after_explanation: boolean | null
+  /** M8 — 판단 시각이 도움 · 해설 시각과 겹치거나 기기 시계를 믿을 수 없어 독립 여부를 보류한다 */
+  timing_uncertain?: boolean | null
   phase?: string | null
 }
 
@@ -59,9 +61,12 @@ export function summarizePractice(rows: AttemptRow[], first: FirstAttemptRow | n
   const firstRow = sorted[0] ?? null
   const firstCorrect = first ? first.is_correct : firstRow?.is_correct ?? null
   // 도움 여부는 기록에 있을 때만 말한다 — 도움 수준이 비어 있으면(세션 없는 옛 기록) 모른다(null). 모르는 것을 「도움받았다」로 단정하지 않는다
+  // M8 시각 불확실이면 「도움 없이 풀었다」고 단정하지 않는다(모름 = null). 해설 뒤 판단은 그대로 false
   const firstIndependent = !first || first.help_level === null
     ? (first?.after_explanation ? false : null)
-    : first.help_level === 'independent' && !first.after_explanation
+    : first.after_explanation || first.help_level !== 'independent' ? false
+    : first.timing_uncertain ? null
+    : true
   const tr = [...(extra.transfers ?? [])].sort((a, b) => a.answered_at.localeCompare(b.answered_at))
   const transfer = tr.length ? { attempts: tr.length, latestCorrect: tr.at(-1)!.is_correct } : null
   // 아직 하지 않은 예약만 — 예약 시각 뒤에 이 문항을 다시 확인했으면 그 예약은 끝난 것이다
