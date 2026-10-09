@@ -104,6 +104,8 @@ export function checkResearchSource(r: { citation: string; doi: string | null; u
 export function checkAppTransition(from: AppStatus, to: AppStatus, reason: string): string | null {
   if (!APP_TRANSITIONS[from].includes(to)) return `${from} → ${to} 은 허용되지 않는다`
   if ((to === 'paused' || to === 'rolled_back') && reason.trim().length === 0) return '중단 · 롤백에는 이유가 필요하다'
+  // B7 — 켜기는 학습자 출시 승인이다. 채택만으로는 켜지 않는다(DB 가드 20261008144206 이 같은 규칙을 강제)
+  if (to === 'active' && reason.trim().length === 0) return '학습자에게 켜려면 출시 승인 사유가 필요하다 — 채택은 출시 승인이 아니다'
   return null
 }
 /** 검증 프로토콜 — 사전 · 사후는 필수, 지연 · 전이 · 비교 조건은 명시(없으면 「관찰된 변화」로만 보고) */

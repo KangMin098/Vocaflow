@@ -63,8 +63,8 @@ describe('복습 · 전이', () => {
 
 describe('practiceResultsFor', () => {
   const links = {
-    'B6-3': { href: '/csat/item/2022-20#principle', label: 'x', itemId: '2022#20', taskKey: 'claim-support' },
-    'A3-4': { href: '/csat/item/2022-36#principle', label: 'y', itemId: '2022#36', taskKey: 'cohesion-link' },
+    'B6-3': { href: '/csat/item/2022-20#principle', label: 'x', itemId: '2022#20', target: '2022#20', taskKey: 'claim-support', confirm: [] },
+    'A3-4': { href: '/csat/item/2022-36#principle', label: 'y', itemId: '2022#36', target: '2022#36', taskKey: 'cohesion-link', confirm: [] },
   }
   it('전이(transfer)는 같은 과제 키면 다른 문항이어도 붙고, 이 문항 연습 횟수에는 들어가지 않는다', () => {
     const rows = [row(true, '2026-10-08T10:00:00Z'), { ...row(false, '2026-10-08T11:00:00Z', 'claim-support', '2023#22'), phase: 'transfer' }]

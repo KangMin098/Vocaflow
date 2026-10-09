@@ -13,6 +13,12 @@
 
 - feat(csat): 기출 해설에 **옮겨 쓸 원리** — 문항 절차 뒤에 같은 유형의 일반 절차(`csat_type_reports.procedure_steps` · 기출 n문항에서 뽑음)를 「다음 ○○ 문항에서 그대로 쓰는 순서」로 보인다(감사 표본 7/7 적용). 학습자 문장에서 분석 작업 메모(파싱 · OCR 잔여 · 저장 지문 병합 등 — 3,408 중 63건)를 화면 경계에서 거른다(`lib/csat/learner-text.ts` · 원본 분석 그대로). 복습 예약 재전송 멱등(Codex P1).
 
+- feat(db): B7 학습자 출시 승인 가드 `20261008144206_knowledge_release_approval`(개발 DB) — 채택 ≠ 출시 승인, 중단·대상 변경 시 승인 무효. 학습 원리 적용 2건(claim-support:2022-20 · b6-3) 노출 중단(paused).
+- feat(knowledge): 주장·근거 확인 문항 9개(맹검 이중 주석) · 학습 지도 FIND 다문항 연결(audience.items) · 실DB 동시성 E2E 5/5(생성 행 전부 정리).
+
+- feat(csat-map): 학습 지도 「직접 확인(FIND)」 결과 → 확인된 학습 요구(트랙 B) — 확인 문항에서의 내 독립 첫 시도(DB 뷰 `learning_first_attempts`, RLS 본인 행)를 `find-outcome` 으로 판정해 확인하기 시트에 표시. 서로 다른 확인 문항 2개 이상이 모두 막혀야 「연습이 필요해 보여요」, 한 문항으로는 확정하지 않음. `MapPracticeLink` 에 target · taskKey. SQL 없음.
+
+- feat(knowledge): 성과 검토 신호 `/admin/knowledge/signals`(트랙 E) — 학습 결과 → 원리·방법 재검토의 첫 연결. 적용별 적격 첫 시도(실제·독립·해설 전·시각 확실)로 검토 필요/표본 부족/결과 상충/데이터 품질 신호를 내고, 아무것도 바꾸지 않는다(efficacy·상태 불변, 재검토는 사람이 항목 화면에서). SQL 없음.
 - feat(csat): E11 학습자 동선 — 기출 문항 확인 과제 아래 Practice 진입 링크 · Practice 판정 뒤 「1 · 3 · 7일 뒤 다시 보기」(`POST /api/csat/practice/review` · 세션 finished + review_at) → 학습 지도 「다시 보기」 → 문항 확인 과제로 재평가. 단위 +2.
 
 - fix(map): 학습 지도 첫 판단 요약이 M8 `timing_uncertain` 을 읽어, 시각이 불확실하면 「도움 없이」 를 단정하지 않는다(모름). DB_SCHEMA 에 M8 · F7, ROUTES 에 `POST /api/csat/practice/view` · 문항 과제 G2 본문 반영.
