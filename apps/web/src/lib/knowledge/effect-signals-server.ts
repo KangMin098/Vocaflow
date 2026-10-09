@@ -23,6 +23,32 @@ async function read(what: string, q: PromiseLike<{ data: unknown; error: { code?
   return rows
 }
 
+/**
+ * 키(id) 기준 페이지 조회로 전량 읽는다 — 수행 기록은 재풀이까지 쌓여 1,000 행을 쉽게 넘는다(Codex P2 · 2026-10-09).
+ * fetchPage(after) 는 id > after 를 id 오름차순으로 PAGE 행까지 돌려준다. 같은 id 가 다시 오면(정렬 깨짐) 멈추고 실패로 알린다.
+ */
+export const PAGE = 1000
+export async function readAllById<T extends { id: unknown }>(
+  what: string,
+  fetchPage: (after: number | null) => PromiseLike<{ data: unknown; error: { code?: string; message?: string } | null }>,
+  maxPages = 1000,
+): Promise<T[]> {
+  const out: T[] = []
+  let after: number | null = null
+  for (let n = 0; n < maxPages; n++) {
+    const { data, error } = await fetchPage(after)
+    if (error) throw new Error(`${what} 읽기 실패 (${error.code ?? 'unknown'}: ${error.message ?? ''})`)
+    const rows = (data ?? []) as T[]
+    if (rows.length === 0) return out
+    const last = Number(rows[rows.length - 1].id)
+    if (!Number.isFinite(last) || (after !== null && last <= after)) throw new Error(`${what} 페이지 키가 단조 증가하지 않는다`)
+    out.push(...rows)
+    if (rows.length < PAGE) return out
+    after = last
+  }
+  throw new Error(`${what} 이 ${maxPages} 페이지를 넘었다`)
+}
+
 export interface SignalRow extends SignalResult {
   itemId: string
   itemSlug: string | null
@@ -39,7 +65,11 @@ export async function loadEffectSignals(): Promise<SignalRow[]> {
   const [apps, trials, attempts] = await Promise.all([
     read('제품 적용', client.from('knowledge_applications').select('id,item_id,surface,surface_ref,version,status').limit(LIMIT)),
     read('효과 검증', client.from('knowledge_trials').select('application_id,design').limit(LIMIT)),
-    read('수행 기록', client.from('learning_task_attempts').select('id,application_id').not('application_id', 'is', null).limit(LIMIT)),
+    readAllById<Row & { id: unknown }>('수행 기록', (after) => {
+      let q = client.from('learning_task_attempts').select('id,application_id').not('application_id', 'is', null)
+      if (after !== null) q = q.gt('id', after)
+      return q.order('id', { ascending: true }).limit(PAGE)
+    }),
   ])
   const appOfAttempt = new Map(attempts.map((a) => [String(a.id), String(a.application_id)]))
   const ids = [...appOfAttempt.keys()]
