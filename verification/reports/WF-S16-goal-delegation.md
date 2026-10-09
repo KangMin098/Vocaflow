@@ -76,5 +76,7 @@ tests/policy.test.mjs 6(위험 오분류 방지 · 정책 검사 · 위임 1회 
 
 ## 11. live 실행 게이트 전환(Codex 3회 연속 P1 → 구조 변경)
 정규식 정적 검사가 라운드마다 새 우회(주석 제거가 문자열을 깨뜨림 · 첫 setup 선언만 봄 …)를 남겼다 — 파서로 안전을 보장하는 방식의 한계.
-→ 정적 검사는 **참고용**으로 낮추고, live 실행 게이트를 **실행별 대화형 승인**(`vfc approve --kind live_run --summary "UG@live" --closure-sha <sha> --commit <sha>`)으로 바꿨다. closure(테스트+러너+import 파일 해시) · 커밋이 그대로일 때만 · 한 번만 쓴다. `vfc verify live --check` 가 승인 명령을 그대로 출력한다.
+→ 정적 검사는 **추가 차단 검사**(단독 근거 아님)로 두고, 주 게이트를 **실행별 대화형 승인**(`vfc approve --kind live_run --summary "UG@live" --closure-sha <sha> --commit <sha>`)으로 바꿨다. closure(테스트+러너+import 파일 해시) · 커밋이 그대로일 때만 · 한 번만 쓴다. `vfc verify live --check` 가 승인 명령을 그대로 출력한다.
 근본 해법 후보: 개발 DB 의 읽기 전용 역할(쓰기 권한 없는 키)로 live 테스트를 돌리기 — DB 역할 생성은 HIGH(별도 승인).
+
+- r4(69d972ec0): P1 1(승인 소비가 실행과 원자적이지 않음 → 상태 잠금 안에서 검사·소비 후 실행) · P2 1(정적 검사가 참고용이라면서 막음 → 「추가 차단」으로 명칭 정정, 두 조건 모두 필요). 이 수정은 재리뷰하지 않았다.
