@@ -1,6 +1,6 @@
 // scripts/knowledge/g2-m9-test.mjs
 //
-// M9(_pending_20261009100000_learning_cross_session_help) 격리 PostgreSQL 검증(2026-10-09) — **공유 개발 DB 를 쓰지 않는다.**
+// M9(20261009100000_learning_cross_session_help) 격리 PostgreSQL 검증(2026-10-09) — **공유 개발 DB 를 쓰지 않는다.**
 // 원장 순서 …150000 → 160000 → 170000 → M8(180000) → F7(190000) → M9. 세션을 건너온 도움이 첫 시도 뷰 · 효과 게이트에 반영되는지.
 //   node scripts/knowledge/g2-m9-test.mjs [--pg-dir <isolated-pg 경로>]
 import crypto from 'node:crypto'
@@ -13,7 +13,7 @@ const PG_DIR = process.argv.includes('--pg-dir') ? process.argv[process.argv.ind
 const { startCluster, conn } = await import(pathToFileURL(path.join(PG_DIR, 'lib.mjs')).href)
 const pg = (await import(pathToFileURL(path.join(PG_DIR, 'node_modules/pg/lib/index.js')).href)).default
 const M = (f) => fs.readFileSync(path.join(REPO, 'supabase/migrations', f), 'utf8')
-const M9 = '_pending_20261009100000_learning_cross_session_help.sql'
+const M9 = '20261009100000_learning_cross_session_help.sql'
 let fail = 0
 const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail ? ' — ' + String(typeof detail === 'string' ? detail : JSON.stringify(detail)).slice(0, 220) : ''}`) }
 const uuid = () => crypto.randomUUID()
