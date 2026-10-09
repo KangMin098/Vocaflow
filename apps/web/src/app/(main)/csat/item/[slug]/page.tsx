@@ -19,6 +19,7 @@ import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/Anal
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
 import { CohesionPanel } from '@/components/csat/theater/CohesionPanel'
 import { PrinciplePanel } from '@/components/csat/theater/PrinciplePanel'
+import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
 import type { CohesionPanelProps } from '@/lib/knowledge/cohesion-link-labels'
 import { KICE_ARCHIVE_URL, kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
@@ -158,7 +159,15 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       {principle.taskKey === 'cohesion-link' ? (
         <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
       ) : (
-        <PrinciplePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as { sentenceCount: number; relationSentence: number })} />
+        <>
+          <PrinciplePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as { sentenceCount: number; relationSentence: number })} />
+          {/* E11 기출 → Practice: 같은 원리를 다른 기출에서 연습(판정 뒤 복습 예약 → 학습 지도 「다시 보기」 → 이 확인 과제로 재평가) */}
+          <p className="mx-auto mt-4 max-w-3xl break-keep px-4 text-sm">
+            <a href={`/csat/practice/${PRACTICE_SLUG}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+              같은 원리를 다른 기출로 연습하기 →
+            </a>
+          </p>
+        </>
       )}
     </>
   ) : (

@@ -34,10 +34,9 @@ const SCRIPT = join(ROOT, 'scripts', 'audit', 'learner-linkgraph.mjs')
  *                     테스트가 알고 있어야 한다. 없애든 링크를 달든, 그때 이 목록도 줄인다.)
  * · `/join/[code]` — 교사가 QR·초대 링크로 **밖에서** 들여보내는 화면. 앱 안에 링크가 없는 것이
  *                    정상이다(`lib/teacher/invite-link.ts` 가 주소를 만들어 교사에게 준다).
- * · `/csat/practice/[slug]` — 「주장과 근거」 연습 이식본(2026-10-08). 적용 게이트가 닫히면 404 라 진입 링크는
- *                    정본 병합 · G2 적용 뒤 최종 통합에서 단다(docs/csat-learner/PRACTICE_PORT.md §7). 그때 이 줄을 지운다.
+ * (`/csat/practice/[slug]` 는 2026-10-09 E11 에서 기출 문항 확인 과제 아래 진입 링크를 달아 목록에서 뺐다.)
  */
-const ALLOWED_ORPHAN_PAGES = ['/hub-lab', '/join/[code]', '/csat/practice/[slug]']
+const ALLOWED_ORPHAN_PAGES = ['/hub-lab', '/join/[code]']
 
 /**
  * 앱이 부르지 않는 것이 정상인 API — 손으로/외부에서 부른다.

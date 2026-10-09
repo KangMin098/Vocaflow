@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(csat): E11 학습자 동선 — 기출 문항 확인 과제 아래 Practice 진입 링크 · Practice 판정 뒤 「1 · 3 · 7일 뒤 다시 보기」(`POST /api/csat/practice/review` · 세션 finished + review_at) → 학습 지도 「다시 보기」 → 문항 확인 과제로 재평가. 단위 +2.
+
 - fix(map): 학습 지도 첫 판단 요약이 M8 `timing_uncertain` 을 읽어, 시각이 불확실하면 「도움 없이」 를 단정하지 않는다(모름). DB_SCHEMA 에 M8 · F7, ROUTES 에 `POST /api/csat/practice/view` · 문항 과제 G2 본문 반영.
 
 - feat(admin): 학습자 리텐션에서 내부(운영·개발·QA)·미분류 계정 제외(VG-L3-D1-02 부분 충족 · T-0006) — `lib/admin/account-classification.ts`(서버 전용 계정 ID 목록 → admin·curator 역할 → 미분류, 도메인은 힌트만), `fetchRetention` 이 검증된 외부 계정만 계산하고 실사용·내부·미분류 수를 따로 반환, 목록 오류는 「계산 불가」. 패널·도움말 갱신. DB 변경 0 · 퍼널·효과 지표는 미적용
