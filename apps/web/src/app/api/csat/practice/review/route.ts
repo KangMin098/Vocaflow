@@ -1,9 +1,9 @@
 // apps/web/src/app/api/csat/practice/review/route.ts
 //
 // POST /api/csat/practice/review — /csat/practice 판정 뒤 「며칠 뒤 다시 보기」 예약 한 건(E11 · 기출 → Practice → 복습 → 재평가).
-// 본문: { itemId, clientSessionId, days(1|3|7), preview }. 응답: { ok, reviewAt, outcome }.
+// 본문: { itemId, clientSessionId, days(1|3|7), finishedAt, preview }. 응답: { ok, reviewAt, outcome }. finishedAt 은 첫 예약 때 화면이 정한 값(재전송 동일).
 // 판단을 낸 세션을 마치고(finished) review_at 을 남긴다(G2 learning_session_apply · 별도 mutation). 학습 지도가 날짜가 되면 「다시 보기」를 띄운다.
-// userId 는 세션에서만 · 미리보기는 관리자만 · 시각은 라우트가 서버 시계로 정한다.
+// userId 는 세션에서만 · 미리보기는 관리자만 · 마친 시각은 서버 시계 기준 허용 범위 안이어야 한다.
 import { NextResponse } from 'next/server'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
@@ -28,8 +28,8 @@ export async function POST(req: Request) {
   const o = ((await readJson(req)) ?? {}) as Record<string, unknown>
   if (typeof o.itemId !== 'string' || o.itemId.length < 1 || o.itemId.length > 120) return bad('문항을 다시 골라 주세요', 400)
   const now = Date.now()
-  // 세션 id 검사는 판단 메타와 같은 규칙(UUID)
-  const meta = parseClientMeta({ clientMutationId: o.clientSessionId, clientSessionId: o.clientSessionId, answeredAt: new Date(now).toISOString(), helpLevel: 'independent' }, now)
+  // 세션 id · 마친 시각 검사는 판단 메타와 같은 규칙(UUID · 기기 시각 허용 범위)
+  const meta = parseClientMeta({ clientMutationId: o.clientSessionId, clientSessionId: o.clientSessionId, answeredAt: o.finishedAt, helpLevel: 'independent' }, now)
   if (!meta.ok) return bad(meta.error, 400)
   if (typeof o.days !== 'number') return bad('예약 간격을 다시 골라 주세요', 400)
   const preview = o.preview === true
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   }
   try {
     const r = await schedulePracticeReview(defaultSubmitDeps(), { userId: user.id, synthetic: isSyntheticEmail(user.email) }, {
-      itemId: o.itemId, clientSessionId: meta.value.clientSessionId, days: o.days, now, preview,
+      itemId: o.itemId, clientSessionId: meta.value.clientSessionId, days: o.days, finishedAt: meta.value.answeredAt, preview,
     })
     return NextResponse.json({ ok: true, ...r }, { headers: NO_STORE })
   } catch (e) {

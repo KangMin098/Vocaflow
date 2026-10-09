@@ -202,18 +202,18 @@ export const REVIEW_DAYS = [1, 3, 7] as const
  * E11 복습 예약 — 판단을 낸 Practice 세션을 마치고(finished) 다시 볼 날(review_at)을 남긴다(G2 learning_session_apply).
  * 학습 지도가 이 예약을 읽어 날짜가 되면 「다시 보기」(문항 확인 과제 = 재평가)를 띄운다.
  * 같은 세션 · 같은 날짜의 재전송은 같은 mutation(duplicate). 예약은 먼저 정한 값이 남는다(review_at = coalesce).
- * `now` 는 라우트가 넘긴다(시계를 직접 읽지 않는다).
+ * 마친 시각 finishedAt 은 화면이 첫 예약 때 정해 재전송에도 그대로 보낸다 — 같은 mutation 의 payload 가 재시도마다 같아야 duplicate(Codex P1).
  */
 export async function schedulePracticeReview(
   deps: SubmitDeps,
   who: { userId: string; synthetic: boolean },
-  r: { itemId: string; clientSessionId: string; days: number; now: number; preview: boolean },
+  r: { itemId: string; clientSessionId: string; days: number; finishedAt: string; preview: boolean },
 ): Promise<{ reviewAt: string; outcome: 'applied' | 'duplicate' }> {
   if (!(REVIEW_DAYS as readonly number[]).includes(r.days)) throw new PracticeInputError('예약 간격을 다시 골라 주세요')
   const entry = (await deps.pool({ preview: r.preview })).find((p) => p.itemId === r.itemId)
   if (!entry) throw new PracticeInputError('이 문항에는 지금 연습 과제가 없어요', 404)
-  const at = new Date(r.now).toISOString()
-  const reviewAt = new Date(r.now + r.days * 86_400_000).toISOString().slice(0, 10) + 'T00:00:00.000Z'
+  const at = r.finishedAt
+  const reviewAt = new Date(Date.parse(r.finishedAt) + r.days * 86_400_000).toISOString().slice(0, 10) + 'T00:00:00.000Z'
   const { data, error } = await deps.db.rpc('learning_session_apply', {
     p_user: who.userId,
     p_mutation: stableUuid(r.clientSessionId, 'review', reviewAt),
