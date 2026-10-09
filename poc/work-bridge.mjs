@@ -129,6 +129,9 @@ function publish(id) {
   // Context Packet: 요청 헤더의 첨부 중 context/<UG>/ 아래 파일만(그 밖의 로컬 파일은 올리지 않는다)
   const ctxDir = path.join(ROOT, 'context', h.thread.goal_ref)
   const ctx = (h.attachments || []).map((a) => path.resolve(a.path)).filter((p) => p.startsWith(path.resolve(ctxDir) + path.sep) && fs.existsSync(p) && BRIDGE_CONTEXT_ALLOW.has(path.basename(p)))
+  // 요청서에 기록된 첨부 sha256 과 지금 파일이 다르면(패킷을 요청 뒤에 다시 만들었다) 게시하지 않는다 — 요청과 실제 보낸 근거가 어긋난다
+  const stale = (h.attachments || []).filter((a) => ctx.includes(path.resolve(a.path)) && crypto.createHash('sha256').update(fs.readFileSync(a.path)).digest('hex') !== a.sha256)
+  if (stale.length) throw new Error(`첨부가 요청 기록과 다르다(${stale.map((a) => path.basename(a.path)).join(', ')}) — vfc ugoal cancel-request 후 request-design 으로 다시 만든다`)
   const scan = scanFiles([reqFile, ...ctx])
   if (scan.length) {
     log({ event: 'publish_refused', request_id: id, findings: scan.map((x) => x.rule) })

@@ -127,6 +127,7 @@ ChatGPT (파일 교환 · API 없음)
   ugoal pause <UG> | ugoal resume <UG> | ugoal accept <UG> --by O
   ugoal list | ugoal status <UG> | ugoal route <UG>
   ugoal context <UG> [--fetch]                                최신 컨텍스트 패킷(context/<UG>/ · main 기준 · 캐시) — request-design 이 자동으로 붙인다(--no-context 로 끔)
+  ugoal cancel-request <UG> <REQ> --reason ".." --by O        응답 전 요청 라운드 취소(게시 전 패킷 수정 등)
   ugoal link <UG> --surface chat|work|event_task|desktop_work [--url https://chatgpt.com/…]   사람용 참조(라우팅 키 아님)
   perf report [--since 2026-10-09] [--json]                   오케스트레이터 단계별 소요 시간·비용
 `
@@ -367,6 +368,8 @@ function main() {
       const c = CTX.buildContext(loadState().state, pos[0], { fetch: !!opt.fetch })
       return out({ dir: c.dir, cached: c.cached, base_commit: c.manifest.base_commit, generated_at: c.manifest.generated_at, files: c.files, source_files: c.manifest.source_files.length }, opt)
     }
+    case 'ugoal cancel-request':
+      return out(withState((s) => UG.cancelRequest(s, pos[0], pos[1], { reason: opt.reason, by }), { event: 'usergoal.cancel_request', by }), opt)
     case 'ugoal link':
       return out(withState((s) => UG.linkSurface(s, pos[0], { surface: opt.surface, url: opt.url || null, by })), opt)
     case 'perf report': {
