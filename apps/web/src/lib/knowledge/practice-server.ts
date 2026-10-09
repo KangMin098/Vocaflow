@@ -17,6 +17,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { annotationFor, annotationHash, gradeClaimSupport, type ClaimSupportAnnotation } from './claim-support'
 import { currentItemTask } from './item-tasks'
 import {
+  PRACTICE_SLUG,
   PRACTICE_TASK,
   SKELETON_TASK,
   TRAIN_TYPES,
@@ -100,6 +101,15 @@ async function serverPool(opts: { preview: boolean }, client?: SupabaseClient): 
   }
   // 주석 문항 먼저, 그다음 최근 회차부터
   return out.sort((a, b) => (a.kind === b.kind ? b.itemId.localeCompare(a.itemId) || a.no - b.no : a.kind === 'annotated' ? -1 : 1))
+}
+
+/**
+ * 학습자에게 「같은 원리를 다른 지문에 적용」 을 안내해도 되나 — 실학습 풀(미리보기 아님)에 그 문항 말고 다른 문항이 있을 때만.
+ * 있으면 Practice 화면 주소, 없으면 null(안내하지 않는다 — 같은 문항뿐인데 「다른 지문」 이라고 말하지 않는다).
+ */
+export async function practiceHrefBeyond(itemId: string): Promise<string | null> {
+  const pool = await serverPool({ preview: false }, admin())
+  return pool.some((e) => e.itemId !== itemId) ? `/csat/practice/${PRACTICE_SLUG}` : null
 }
 
 /** 화면용 풀 — 정답 키 없음 */

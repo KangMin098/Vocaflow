@@ -25,7 +25,7 @@ const on = 'border-[var(--p)] bg-[var(--p)] text-white'
 const off = 'border-[var(--bd)] text-[var(--t1)]'
 const nth = (i: number) => `${i + 1}번째`
 
-export function PrinciplePanel({ slug, principle, why, sentenceCount, relationSentence }: { slug: string; principle: string; why: string; sentenceCount: number; relationSentence: number }) {
+export function PrinciplePanel({ slug, principle, why, sentenceCount, relationSentence, practiceHref = null }: { slug: string; principle: string; why: string; sentenceCount: number; relationSentence: number; /** 실학습 Practice 풀에 이 문항 말고 다른 문항이 있을 때만(서버 판정) */ practiceHref?: string | null }) {
   const [open, setOpen] = useState(false)
   const [claim, setClaim] = useState<number | null>(null)
   const [support, setSupport] = useState<number[]>([])
@@ -122,8 +122,8 @@ export function PrinciplePanel({ slug, principle, why, sentenceCount, relationSe
               <p>관계 — {grade.relationOk ? '맞아요' : '다시 보세요'}</p>
               <p className="text-xs text-[var(--t3)]">기록은 내 학습 기록에 남았어요. 이 결과는 이번 확인 한 번의 결과예요.</p>
               <div><button type="button" className={`${BTN} ${off}`} onClick={reset}>다시 해 보기</button></div>
-              {grade.isCorrect && (
-                <p><a href="/csat/practice" className={`${BTN} ${off}`} data-testid="principle-next-practice">같은 원리를 다른 지문에 적용해 보기 →</a></p>
+              {grade.isCorrect && practiceHref && (
+                <p><a href={practiceHref} className={`${BTN} ${off}`} data-testid="principle-next-practice">같은 원리를 다른 지문에 적용해 보기 →</a></p>
               )}
             </div>
           )}

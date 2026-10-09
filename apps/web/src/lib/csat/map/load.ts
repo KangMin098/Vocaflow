@@ -16,6 +16,7 @@ import { loadSnapshots } from '../diagnosis/snapshot'
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
+import { practiceHrefBeyond } from '../../knowledge/practice-server'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
 
 import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
@@ -48,6 +49,8 @@ export interface MapPageData {
   practiceLinks?: Record<string, MapPracticeLink>
   /** FIND 과제 id → 그 실행 과제의 본인 수행 요약(결과 환류) — 연결된 과제만 */
   practiceResults?: Record<string, PracticeResult>
+  /** FIND 과제 id → 「같은 원리를 다른 지문에 적용」 Practice 주소 — 실학습 풀에 그 문항 말고 다른 문항이 있을 때만 */
+  practiceNext?: Record<string, string>
   /** 학습자 본인의 시험 기록(진단에 반영된 회차 · 오래된 것부터) — 「현재 위치」는 이것만 근거로 쓴다 */
   records: LearnerRecord[]
 }
@@ -277,6 +280,13 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const practiceLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
   const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
 
+  const practiceNext: Record<string, string> = {}
+  for (const [taskId, link] of Object.entries(practiceLinks)) {
+    if (link.taskKey !== 'claim-support') continue
+    const href = await practiceHrefBeyond(link.itemId).catch((e) => { console.error('[csat-map practice next]', e); return null })
+    if (href) practiceNext[taskId] = href
+  }
+
   return {
     model: buildMapModel(raw, examLabels),
     nodes,
@@ -289,6 +299,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     settings,
     practiceLinks,
     practiceResults,
+    practiceNext,
     records,
   }
 }

@@ -19,6 +19,7 @@ import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/Anal
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
 import { CohesionPanel } from '@/components/csat/theater/CohesionPanel'
 import { PrinciplePanel } from '@/components/csat/theater/PrinciplePanel'
+import { practiceHrefBeyond } from '@/lib/knowledge/practice-server'
 import type { CohesionPanelProps } from '@/lib/knowledge/cohesion-link-labels'
 import { KICE_ARCHIVE_URL, kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
@@ -152,13 +153,15 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   // 이 문항에서 확인할 읽기 원리(Phase 3) — 채택 사슬 · 적용 active · 주석 서명이 모두 맞을 때만 온다. 하나라도 빠지면 null(화면에 없음).
   // 게이트 조회가 실패해도 해설은 그대로 보인다 — 원리 칸만 빠진다
   const principle = await loadItemPrinciple(item.id).catch((e) => { console.error('[csat-item principle]', e); return null })
+  // 정답 뒤 다음 칸 — 같은 원리를 다른 지문에 적용(Practice). 실학습 풀에 다른 문항이 있을 때만 안내한다
+  const practiceHref = principle?.taskKey === 'claim-support' ? await practiceHrefBeyond(item.id).catch(() => null) : null
   const body = principle ? (
     <>
       {theater}
       {principle.taskKey === 'cohesion-link' ? (
         <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
       ) : (
-        <PrinciplePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as { sentenceCount: number; relationSentence: number })} />
+        <PrinciplePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as { sentenceCount: number; relationSentence: number })} practiceHref={practiceHref} />
       )}
     </>
   ) : (
