@@ -93,23 +93,32 @@ $$;
 revoke all on function public.knowledge_trial_sample_signature(uuid) from public, anon, authenticated;
 grant execute on function public.knowledge_trial_sample_signature(uuid) to service_role;
 
--- 분석 게이트 — M8(180000) 본문 + 통과하면 표본 서명을 남긴다
+-- 분석 게이트 — M8(180000) 본문 + 통과하면 표본 서명을 남긴다.
+-- 최소 표본 검사와 서명을 **한 질의(같은 스냅숏)**에서 만든다 — 따로 읽으면 사이에 다른 세션 도움이 들어와 검사한 표본과
+-- 서명한 표본이 달라질 수 있다(Codex P1).
 create or replace function public.knowledge_trials_analyzed_guard() returns trigger
 language plpgsql set search_path = public as $$
-declare need int := greatest(coalesce((new.design->>'min_n')::int, 1), 1);
+declare
+  need int := greatest(coalesce((new.design->>'min_n')::int, 1), 1);
+  v_pre int;
+  v_post int;
+  v_sig text;
 begin
   if new.status = 'analyzed' and not new.synthetic and (tg_op = 'INSERT' or old.status is distinct from 'analyzed') then
     -- M8-F 진행 중인 시도 쓰기가 모두 끝날 때까지 기다리고, 이 트랜잭션이 끝날 때까지 새 시도 쓰기를 막는다
     perform pg_advisory_xact_lock(hashtext('learning_trial_sample'));
     perform 1 from public.learning_sessions where id in (select session_id from public.learning_task_attempts where trial_id = new.id and session_id is not null) order by id for update;
-    if (select count(distinct f.user_id) from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
-          where a.trial_id = new.id and f.phase = 'pre' and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain) < need
-       or (select count(distinct f.user_id) from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
-          where a.trial_id = new.id and f.phase = 'post' and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain) < need then
+    select count(distinct f.user_id) filter (where f.phase = 'pre'),
+           count(distinct f.user_id) filter (where f.phase = 'post'),
+           md5(string_agg(f.phase || ':' || f.attempt_id::text, ',' order by f.phase, f.attempt_id))
+      into v_pre, v_post, v_sig
+      from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+     where a.trial_id = new.id and f.phase in ('pre', 'post') and not f.synthetic and f.help_level = 'independent' and not coalesce(f.after_explanation, false) and not f.timing_uncertain;
+    if coalesce(v_pre, 0) < need or coalesce(v_post, 0) < need then
       raise exception '실제 학습자의 독립(independent) 첫 시도(사전 · 사후)가 최소 표본(%)에 못 미친다 — 시각이 불확실한 판단은 세지 않는다 · 분석 완료로 바꿀 수 없다', need;
     end if;
-    -- M9-B 이 분석이 본 자격 표본의 서명 — 효과 판정 게이트가 쓸 때 지금 표본과 비교한다
-    new.sample_signature := public.knowledge_trial_sample_signature(new.id);
+    -- M9-B 이 분석이 본 자격 표본의 서명(검사와 같은 스냅숏) — 효과 판정 게이트가 쓸 때 지금 표본과 비교한다
+    new.sample_signature := v_sig;
   end if;
   return new;
 end $$;
