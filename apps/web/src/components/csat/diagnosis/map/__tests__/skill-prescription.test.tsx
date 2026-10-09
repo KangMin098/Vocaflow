@@ -78,6 +78,26 @@ describe('상태 · CTA 는 같은 view model 에서(T-0016)', () => {
     expect(html).not.toMatch(/href="\/csat\/item\/[abc]#principle"/)
     expect(html).not.toContain(BEFORE)
   })
+  it('[2][5] verified — 주 행동 = 바로잡기(막혔던 문항 원리 해설) · 처방 링크보다 먼저', () => {
+    const html = render([att('a', false, at(10)), att('b', false, at(11))])
+    expect(html).toMatch(/<a href="\/csat\/item\/a#principle"[^>]*data-testid="rx-primary" data-action="repair">바로잡기 시작/)
+    expect(html.indexOf('rx-primary')).toBeLessThan(html.indexOf('rx-transfer'))
+    expect(html.indexOf('rx-primary')).toBeLessThan(html.indexOf('rx-check'))
+  })
+  it('[3][5] still_needed — 주 행동 = 남은 미노출 문항으로 다시 확인', () => {
+    const html = render([att('a', false, at(10)), att('b', false, at(11)), att('c', false, at(15))])
+    expect(html).toMatch(/<a href="\/csat\/item\/d#principle"[^>]*data-testid="rx-primary" data-action="recheck">바로잡은 뒤 다시 확인하기/)
+  })
+  it('[4][5] resolved — 주 행동 = 다음 단계 링크 · 확인 전 제목 없음', () => {
+    const html = render([att('a', false, at(10)), att('b', false, at(11)), att('c', true, at(15)), att('d', true, at(16))])
+    expect(html).toMatch(/<a href="\/csat\/diagnosis\?tab=records&amp;modal=new"[^>]*data-testid="rx-primary" data-action="next_step">다음 단계/)
+    expect(html).toContain('이 원리는 다시 확인을 통과했어요')
+    expect(html).not.toContain(BEFORE)
+  })
+  it('[1][4] unverified · expired — 주 행동 링크 없음(직접 확인은 FIND 칸이 맡는다)', () => {
+    expect(render([att('a', false, at(10))])).not.toContain('rx-primary')
+    expect(render([att('a', false, at(10)), att('b', false, at(11))], new Date('2027-03-01T00:00:00Z'))).not.toContain('rx-primary')
+  })
   it('[4] expired — 이전 확정을 근거로 쓰지 않음 · 처방 잠금 · 직접 확인 재개', () => {
     const html = render([att('a', false, at(10)), att('b', false, at(11))], new Date('2027-03-01T00:00:00Z'))
     expect(html).toContain('data-status="expired"')

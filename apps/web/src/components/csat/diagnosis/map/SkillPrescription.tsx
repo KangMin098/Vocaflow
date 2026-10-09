@@ -4,7 +4,7 @@
 // 상태 줄과 처방은 같은 view model(skillView)에서 상태 · 잠금 · 다시 확인 문항을 읽는다 — 화면마다 다시 분기하지 않는다.
 import { Lock, Route } from 'lucide-react'
 
-import type { SkillDiagnosis } from '@/lib/csat/map/skill-diagnosis'
+import type { SkillDiagnosis, SkillView } from '@/lib/csat/map/skill-diagnosis'
 import { skillMessage, skillView } from '@/lib/csat/map/skill-diagnosis'
 import { STAGE_WORD } from '@/lib/csat/map/learner-path'
 import type { PrescriptionStage } from '@/lib/csat/map/prescription'
@@ -27,6 +27,18 @@ export function SkillStatusLine({ skill }: { skill: SkillDiagnosis | null }) {
   )
 }
 
+/** 통과 뒤 다음 단계 — 새 기출을 풀고 기록해 목표 대비 변화를 본다(학습 순환의 다음 칸) */
+export const NEXT_STEP_HREF = '/csat/diagnosis?tab=records&modal=new'
+
+const HEADING: Record<SkillView['action'], string> = {
+  direct_check: '원인이 확인되면 이어지는 학습',
+  repair: '확인된 학습 요구에 맞춘 학습',
+  recheck: '확인된 학습 요구에 맞춘 학습',
+  next_step: '이 원리는 다시 확인을 통과했어요',
+}
+
+const itemWord = (label: string) => label.replace(/으로 직접 확인$/, '')
+
 export interface PrescriptionGroup {
   stage: PrescriptionStage
   titles: string[]
@@ -42,9 +54,17 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks }: {
   const view = skill ? skillView(skill) : null
   const opened = !!view && !view.locked
   const checks = view ? checkLinks.filter((c) => view.checkItems.includes(c.target)) : []
+  // 지금 할 행동(주 행동) — view.action 하나로 고른다. 바로잡기 = 막혔던(확정에 쓴) 문항의 원리 해설 다시 읽기
+  const repair = view?.action === 'repair' ? checkLinks.find((c) => skill?.verifiedItems.includes(c.target)) : undefined
+  const primary =
+    view?.action === 'repair' && repair ? { href: repair.href, text: `바로잡기 시작 — ${itemWord(repair.label)} 원리 다시 읽기 →` }
+      : view?.action === 'recheck' && checks[0] ? { href: checks[0].href, text: `바로잡은 뒤 다시 확인하기 — ${itemWord(checks[0].label)} →` }
+        : view?.action === 'next_step' ? { href: NEXT_STEP_HREF, text: '다음 단계 — 새 기출을 풀고 기록해 목표 대비 변화 보기 →' }
+          : null
   return (
     <section className={l.block} data-testid="step-prescription" data-open={opened} data-status={view?.status ?? 'none'} data-action={view?.action ?? 'direct_check'}>
-      <h3 className={l.blockH}><Route size={14} strokeWidth={1.9} aria-hidden="true" />{opened ? '확인된 학습 요구에 맞춘 학습' : '원인이 확인되면 이어지는 학습'}</h3>
+      <h3 className={l.blockH}><Route size={14} strokeWidth={1.9} aria-hidden="true" />{HEADING[view?.action ?? 'direct_check']}</h3>
+      {primary && <a href={primary.href} style={NEXT_LINK} data-testid="rx-primary" data-action={view?.action}>{primary.text}</a>}
       <ol className={l.next}>
         {groups.map((g) => (
           <li key={g.stage} className={l.nextStep} data-stage={g.stage} data-current={opened && view?.stage === g.stage ? 'true' : undefined}>
@@ -58,7 +78,7 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks }: {
               <a href={transferHref} style={NEXT_LINK} data-testid="rx-transfer">다른 글에 적용하기 →</a>
             )}
             {opened && g.stage === 'CHECK' && checks.slice(0, 2).map((c) => (
-              <a key={c.target} href={c.href} style={NEXT_LINK} data-testid="rx-check" data-item={c.target}>다시 확인 — {c.label.replace(/으로 직접 확인$/, '')} →</a>
+              <a key={c.target} href={c.href} style={NEXT_LINK} data-testid="rx-check" data-item={c.target}>다시 확인 — {itemWord(c.label)} →</a>
             ))}
             {opened && g.stage === 'CHECK' && checks.length === 0 && <span className={l.nextList}>다시 확인할 문항이 더 준비되면 이어서 볼게요.</span>}
           </li>
