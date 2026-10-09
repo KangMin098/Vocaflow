@@ -1,0 +1,5 @@
+No projects matched the filters "D:\workspace\vocaflow-wf5-t8" in "D:\workspace\Vocaflow-wf5-t8"
+
+> web@0.1.0 typecheck D:\workspace\Vocaflow-wf5-t8\apps\web
+> tsc --noEmit && tsc -p tsconfig.scripts.json
+

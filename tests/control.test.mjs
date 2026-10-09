@@ -756,6 +756,24 @@ test('완료 조건 변경은 READY · owner · 사용자 APPROVED 결정이 있
   assert.deepEqual(tt.history.at(-1).previous_acceptance, ['조건 0', '조건 1'])
 })
 
+test('검증 커밋이 섞인 증거로는 완료할 수 없다 — 조건마다 다른 커밋이면 거부(Codex Stop P1 3차)', () => {
+  const { root, wt } = setup()
+  const t = addTask(root, { worktree: wt, branch: 'feat/test' })
+  assert.equal(start(root, t.task_id, sleeper().pid).code, 0)
+  assert.equal(evidence(root, t.task_id, { covers: [0], commit: 'aaaaaaa1' }).code, 0)
+  assert.equal(evidence(root, t.task_id, { covers: [1], commit: 'bbbbbbb2' }).code, 0)
+  assert.equal(run(root, ['task', 'submit', t.task_id, '--by', OWNER]).code, 0)
+  assert.match(run(root, ['task', 'complete', t.task_id, '--by', 'independent-review', '--review', 'verification/reviews/r.md']).err, /EVIDENCE_COMMIT_MIXED/)
+  // 같은 커밋(짧은/긴 sha)으로 다시 검증하면 완료되고 그 커밋이 검증 커밋이 된다
+  run(root, ['task', 'reject', t.task_id, '--by', 'independent-review', '--reason', '커밋 섞임', '--review', 'verification/reviews/r.md'])
+  assert.equal(start(root, t.task_id, sleeper().pid).code, 0)
+  assert.equal(evidence(root, t.task_id, { covers: [0], commit: 'bbbbbbb2' }).code, 0)
+  assert.equal(evidence(root, t.task_id, { covers: [1], commit: 'bbbbbbb2cc' }).code, 0)
+  assert.equal(run(root, ['task', 'submit', t.task_id, '--by', OWNER]).code, 0)
+  assert.equal(run(root, ['task', 'complete', t.task_id, '--by', 'independent-review', '--review', 'verification/reviews/r.md']).code, 0)
+  assert.equal(state(root, 'TASK_QUEUE.json').tasks.find((x) => x.task_id === t.task_id).verified_commit, 'bbbbbbb2cc')
+})
+
 test('범위 글롭: **/ 는 온전한 디렉터리 구간만 — src/**/test.ts 가 src/not-test.ts 를 허용하지 않는다(Codex Stop P1)', async () => {
   const { pathInScope } = await import(`file:///${path.join(REPO, 'lib', 'tasks.mjs').replace(/\\/g, '/')}`)
   for (const [p, g, want] of [

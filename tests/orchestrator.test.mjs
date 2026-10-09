@@ -152,6 +152,16 @@ test('7·14 Codex 실제 P1 → Claude 수정 → 재리뷰 APPROVE → COMPLETE
   assert.ok(tt.verified_commit)
   assert.equal(r.json.iterations[0].selected.task_id, t.task_id)
   assert.ok(fs.readdirSync(path.join(root, 'verification', 'reviews')).filter((f) => f.startsWith(t.task_id)).length >= 2)
+  // Codex 에 넘긴 diff 범위는 실제 sha 두 개여야 한다(첫 실제 실행에서 `..undefined` 로 넘어간 결함 회귀)
+  const runDir = path.join(root, 'runtime', 'runs', r.json.run_id)
+  for (const d of fs.readdirSync(runDir)) {
+    const cp = path.join(runDir, d, 'codex-prompt.md')
+    if (!fs.existsSync(cp)) continue
+    const line = fs.readFileSync(cp, 'utf8').split('\n').find((l) => l.startsWith('Diff:'))
+    assert.match(line, /diff [0-9a-f]{7,40}\.\.[0-9a-f]{7,40}$/, line)
+  }
+  // 저장소 규칙: worktree 루트 목적 파일(vfc 표식)
+  assert.match(fs.readFileSync(path.join(t.wt, '.agent-goal.md'), 'utf8'), /^<!-- vfc:auto -->[\s\S]*이 작업 단위에만 적용/)
   const run = state(root, 'ORCHESTRATOR.json').runs[r.json.run_id]
   assert.equal(run.status, 'done')
   assert.ok(run.events.some((e) => e.phase === 'review_done' && e.blocking?.includes('F1')))
@@ -168,6 +178,15 @@ test('8 Codex 오탐: 구현자가 false_positive 로 근거를 대면 기록하
   const fp = fs.readdirSync(path.join(root, 'verification', 'reviews')).find((f) => f.includes('false-positive'))
   assert.ok(fp, '오탐 판정 기록 파일')
   assert.match(fs.readFileSync(path.join(root, 'verification', 'reviews', fp), 'utf8'), /작업 승인 범위/)
+})
+
+test('8c 사람이 쓴 .agent-goal.md 는 덮지 않는다', () => {
+  const root = setup()
+  const t = addTask(root)
+  fs.writeFileSync(path.join(t.wt, '.agent-goal.md'), '# 사람이 쓴 목적\n')
+  orch(root)
+  assert.equal(fs.readFileSync(path.join(t.wt, '.agent-goal.md'), 'utf8'), '# 사람이 쓴 목적\n')
+  assert.equal(task(root, t.task_id).status, 'COMPLETED')
 })
 
 test('8b 범위 밖(scope out) P1 은 차단하지 않는다', () => {

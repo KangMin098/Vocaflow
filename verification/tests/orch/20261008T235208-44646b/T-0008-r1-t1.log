@@ -1,0 +1,15 @@
+No projects matched the filters "D:\workspace\vocaflow-wf5-t8" in "D:\workspace\Vocaflow-wf5-t8"
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+◇ injected env (0) from ..\..\.env.local // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env.local // tip: ⌘ override existing { override: true }
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mD:/workspace/Vocaflow-wf5-t8/apps/web[39m
+
+ [32m✓[39m src/lib/__tests__/offset-paging-budget.test.ts [2m ([22m[2m5 tests[22m[2m)[22m[33m 1422[2mms[22m[39m
+ [32m✓[39m src/lib/__tests__/row-cap-lies.test.ts [2m ([22m[2m3 tests[22m[2m)[22m[33m 897[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m8 passed[39m[22m[90m (8)[39m
+[2m   Start at [22m 08:53:52
+[2m   Duration [22m 2.98s[2m (transform 48ms, setup 0ms, collect 61ms, tests 2.32s, environment 0ms, prepare 178ms)[22m
+

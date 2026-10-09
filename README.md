@@ -5,7 +5,7 @@ Claude Code · Codex · ChatGPT 가 **같은 Vocaflow 플랫폼 목표**를 기�
 
 - 위치: `D:\workspace\Vocaflow-AI-Control` — Vocaflow 저장소의 **orphan 브랜치 `ai-control`** worktree(제품 이력과 공통 조상 없음)
 - 정본: [goals/](./goals/) — STEP 2 승인 정본 v1.1.0 (2026-10-09), `CANON_MANIFEST.json` 으로 sha256 봉인
-- 사용법: [docs/USAGE.md](./docs/USAGE.md) · 데이터 계약: [docs/DATA_CONTRACT.md](./docs/DATA_CONTRACT.md) · 잠금: [docs/CONCURRENCY.md](./docs/CONCURRENCY.md)
+- 사용법: [docs/USAGE.md](./docs/USAGE.md) · 데이터 계약: [docs/DATA_CONTRACT.md](./docs/DATA_CONTRACT.md) · 잠금: [docs/CONCURRENCY.md](./docs/CONCURRENCY.md) · 자동 실행: [docs/ORCHESTRATOR.md](./docs/ORCHESTRATOR.md) · ChatGPT: [docs/CHATGPT_CONNECTION.md](./docs/CHATGPT_CONNECTION.md)
 - 에이전트별 안내: [agents/claude](./agents/claude/README.md) · [agents/codex](./agents/codex/README.md) · [agents/chatgpt](./agents/chatgpt/README.md)
 
 ## 구조
@@ -15,7 +15,8 @@ Claude Code · Codex · ChatGPT 가 **같은 Vocaflow 플랫폼 목표**를 기�
 | `goals/` | 승인 정본 5종 + STEP3 입력 + 봉인 manifest — **읽기 전용** | 버전 관리 |
 | `seed/seed.json` | init 이 한 번 넣는 owner·결정·작업·근거 있는 초기 상태 | 버전 관리 |
 | `bin/vfc.mjs` · `lib/` | CLI 와 규칙(잠금·상태·작업·정본 검증·ChatGPT 교환) | 버전 관리 |
-| `tests/` | 30개 시나리오(동시 프로세스·세대 경쟁·고장 주입 포함) | 버전 관리 |
+| `tests/` | control 40 + orchestrator 16(가짜 Claude/Codex · 동시 프로세스 · epoch 잠금 경쟁 · 고장 주입 · SIGKILL 복구) | 버전 관리 |
+| `config/priority.json` | 다음 작업 선정 범주표(1~8) | 버전 관리 |
 | `docs/` · `agents/*/` | 운영 문서 · 에이전트별 진입 안내 | 버전 관리 |
 | `verification/{tests,reviews,e2e}/` | 직접 확인한 증거 파일(로그 원문·run id) | 버전 관리 |
 | `planning/requests/` · `planning/archive/` | ChatGPT 요청과 가져온 응답 기록 | 버전 관리 |
