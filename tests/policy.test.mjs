@@ -299,3 +299,30 @@ test('Codex 회귀 4 — setup 목록에 비문자 값이 섞이면 거부 · �
   cfg("import { shared } from './shared.config'\nexport default { test: shared }\n")
   assert.match(importClosure(wt, rel).unresolved.join(), /공유 설정 모듈/)
 })
+
+test('live 실행 게이트 = 실행별 대화형 승인(closure·커밋 결속 · 1회용) — 정적 검사만으로는 실행하지 않는다', () => {
+  const s = setup()
+  const u = s.goal(design())
+  // 검증 대상 worktree: 제품 형태(apps/web/src) + 커밋된 깨끗한 상태
+  const wt = s.wt
+  fs.mkdirSync(path.join(wt, 'apps', 'web', 'src', 'lib', '__tests__'), { recursive: true })
+  fs.writeFileSync(path.join(wt, 'apps', 'web', 'src', 'lib', '__tests__', 'v.live.test.ts'), 'export const v = 1\n')
+  execFileSync('git', ['-C', wt, 'add', '.'])
+  execFileSync('git', ['-C', wt, 'commit', '-q', '-m', 'live test'])
+  const pf = path.join(s.root, 'policy.json')
+  fs.writeFileSync(pf, JSON.stringify(basePolicy({ goal_id: u.ug_id, allowed_capabilities: ['read', 'test', 'code_change', 'db_read_dev'], live_test_user: '00000000-0000-4000-8000-000000000001' })))
+  s.tty(['--kind', 'goal_delegation', '--summary', `${u.ug_id}@policy`, '--policy-file', pf])
+  s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'])
+  s.vfc('decision', 'add', '--status', 'APPROVED', '--kind', 'design_approval', '--summary', `${u.ug_id}@v1 승인`, '--approved-by', 'user', '--ref', 't', '--by', 'user')
+  const rel = 'apps/web/src/lib/__tests__/v.live.test.ts'
+  const env = { VFC_VITEST_CMD: fake('fake-vitest.mjs'), FAKE_VITEST: 'pass' }
+  const chk = s.run(VFC, ['verify', 'live', u.ug_id, '--test', rel, '--worktree', wt, '--check', '--json'], env).json
+  assert.match(chk.approve_with, /--kind live_run/)
+  assert.match(s.run(VFC, ['verify', 'live', u.ug_id, '--test', rel, '--worktree', wt], env).err, /TRUST_REQUIRED/, '실행 승인 없이는 실행하지 않는다')
+  const bad = s.tty(['--kind', 'live_run', '--summary', `${u.ug_id}@live`, '--closure-sha', 'a'.repeat(64), '--commit', chk.commit], 'aa1111').json
+  assert.match(s.run(VFC, ['verify', 'live', u.ug_id, '--test', rel, '--worktree', wt, '--decision', bad.decision_id], env).err, /APPROVAL_MISMATCH/)
+  const good = s.tty(['--kind', 'live_run', '--summary', `${u.ug_id}@live`, '--closure-sha', chk.closure_sha, '--commit', chk.commit], 'bb2222').json
+  const r = s.run(VFC, ['verify', 'live', u.ug_id, '--test', rel, '--worktree', wt, '--decision', good.decision_id, '--acceptance', '0', '--json'], env)
+  assert.equal(r.json?.status, 'PASS', r.err)
+  assert.match(s.run(VFC, ['verify', 'live', u.ug_id, '--test', rel, '--worktree', wt, '--decision', good.decision_id], env).err, /APPROVAL_USED/, '실행마다 새 승인')
+})

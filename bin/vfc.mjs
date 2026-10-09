@@ -260,7 +260,14 @@ function main() {
       if (!worktree) throw new T.RuleError('MISSING_FIELD', '--worktree 가 필요하다')
       const testRel = opt.test
       const pre = LIVE.preflight(pol, worktree, testRel)
-      if (opt.check || !pre.ok) return out({ ug, test: testRel, preflight: { ok: pre.ok, why: pre.why, closure: pre.closure.map((c) => ({ path: c.path, writes: c.writes, sha256: c.sha256 })) } }, opt)
+      // 정적 검사는 참고용이다(정규식 파서는 우회 가능 — Codex 3회 연속 P1). 실행 게이트는 사용자가 이 실행(closure sha · 커밋)에 대해 대화형으로 기록한 live_run 승인
+      const closureSha = crypto.createHash('sha256').update(JSON.stringify(pre.closure.map((c) => [c.path, c.sha256]))).digest('hex')
+      const headNow = execFileSync('git', ['-C', worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+      if (opt.check || !pre.ok) return out({ ug, test: testRel, commit: headNow, closure_sha: closureSha, approve_with: `vfc approve --kind live_run --summary "${ug}@live" --closure-sha ${closureSha} --commit ${headNow}`, preflight: { ok: pre.ok, advisory: true, why: pre.why, closure: pre.closure.map((c) => ({ path: c.path, writes: c.writes, sha256: c.sha256 })) } }, opt)
+      const runApproval = s0.decisionLog.entries.find((e) => e.decision_id === opt.decision)
+      if (!T.isTrustedUserDecision(runApproval) || runApproval.kind !== 'live_run' || !String(runApproval.summary || '').includes(`${ug}@live`)) throw new T.RuleError('TRUST_REQUIRED', `live 실행은 이 실행에 대한 대화형 live_run 승인(--decision)이 필요하다 — --check 의 approve_with 명령을 사용자가 실행`)
+      if (runApproval.closure_sha !== closureSha || runApproval.commit !== headNow) throw new T.RuleError('APPROVAL_MISMATCH', `승인 ${opt.decision} 의 closure·커밋이 지금과 다르다 — 코드가 바뀌었으면 다시 승인`)
+      if (runApproval.used_at) throw new T.RuleError('APPROVAL_USED', `승인 ${opt.decision} 는 이미 한 번 쓰였다(실행마다 새 승인)`)
       const appr = UG.approvedDesign(g)
       if (!appr) throw new T.RuleError('APPROVAL_REQUIRED', `${ug} 승인된 설계 없음`)
       const head = execFileSync('git', ['-C', worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
@@ -275,7 +282,9 @@ function main() {
       fs.writeFileSync(path.join(root(), 'verification', 'live', `${ug}-${rec.at.replace(/[:.]/g, '-')}.json`), JSON.stringify(rec, null, 2))
       withState((s) => {
         const gg = UG.findGoal(s, ug)
-        gg.live_verifications = [...(gg.live_verifications || []), rec]
+        gg.live_verifications = [...(gg.live_verifications || []), { ...rec, run_approval: opt.decision }]
+        const d = s.decisionLog.entries.find((e) => e.decision_id === opt.decision)
+        if (d) d.used_at = rec.at
       }, { event: 'usergoal.live_verify', ug, status: rec.status, by })
       return out(rec, opt)
     }
@@ -303,7 +312,8 @@ function main() {
       // 신뢰 승인 입력 — 에이전트 프로세스(TTY 없음 · CLAUDECODE/VFC_AGENT)는 여기를 통과하지 못한다
       const via = T.approvalChannel()
       if (via !== 'tty') throw new T.RuleError('TRUST_REQUIRED', `vfc approve 는 사람의 대화형 터미널에서만 실행된다(현재 ${via}) — 에이전트가 대신 실행할 수 없다`)
-      const KINDS = ['design_approval', 'goal_delegation', 'goal_acceptance', 'db_write', 'canon_change']
+      const KINDS = ['design_approval', 'goal_delegation', 'goal_acceptance', 'db_write', 'canon_change', 'live_run']
+      if (opt.kind === 'live_run' && (!/^[0-9a-f]{64}$/.test(opt['closure-sha'] || '') || !/^[0-9a-f]{40}$/.test(opt.commit || ''))) throw new T.RuleError('MISSING_FIELD', 'live_run 은 --closure-sha <64hex> --commit <40hex> (vfc verify live --check 출력)')
       // 목표 단위 위임: 정책 파일 내용을 결정에 그대로 싣고 sha256 으로 결속 — 승인 뒤 파일을 바꿔도 결정 내용은 그대로
       let policy = null
       if (opt.kind === 'goal_delegation') {
@@ -334,7 +344,7 @@ function main() {
         if (line.includes('\n')) break
       }
       if (line.trim() !== code) throw new T.RuleError('TRUST_CODE_MISMATCH', '확인 코드가 다르다 — 기록하지 않았다')
-      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), ...(policy ? { policy, policy_sha256: POL.policySha(policy) } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
+      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), ...(policy ? { policy, policy_sha256: POL.policySha(policy) } : {}), ...(opt.kind === 'live_run' ? { closure_sha: opt['closure-sha'], commit: opt.commit } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
       return out(withState((s) => T.logDecision(s, entry, { via: 'tty' }), { event: 'decision.approve_tty', kind: opt.kind, by: 'user' }), opt)
     }
     case 'task set-acceptance': {

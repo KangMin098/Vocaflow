@@ -73,3 +73,8 @@ tests/policy.test.mjs 6(위험 오분류 방지 · 정책 검사 · 위임 1회 
 
 ## 10. 최종 Codex(ee6c16398) P1 3 → 수정
 깨끗하지 않은 worktree 거부·실행 뒤 HEAD 재확인 · 러너(vitest 설정·setupFiles·globalSetup) 코드도 검사 · 줄 어디의 import 도 파싱. 전체 145/145.
+
+## 11. live 실행 게이트 전환(Codex 3회 연속 P1 → 구조 변경)
+정규식 정적 검사가 라운드마다 새 우회(주석 제거가 문자열을 깨뜨림 · 첫 setup 선언만 봄 …)를 남겼다 — 파서로 안전을 보장하는 방식의 한계.
+→ 정적 검사는 **참고용**으로 낮추고, live 실행 게이트를 **실행별 대화형 승인**(`vfc approve --kind live_run --summary "UG@live" --closure-sha <sha> --commit <sha>`)으로 바꿨다. closure(테스트+러너+import 파일 해시) · 커밋이 그대로일 때만 · 한 번만 쓴다. `vfc verify live --check` 가 승인 명령을 그대로 출력한다.
+근본 해법 후보: 개발 DB 의 읽기 전용 역할(쓰기 권한 없는 키)로 live 테스트를 돌리기 — DB 역할 생성은 HIGH(별도 승인).
