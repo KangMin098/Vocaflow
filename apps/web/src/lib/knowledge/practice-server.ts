@@ -207,11 +207,27 @@ export interface SubmitDeps {
   writer: AttemptWriter
   pool: (opts: { preview: boolean }) => Promise<ServerEntry[]>
   answer: (itemId: string) => Promise<number | null>
+  /** 이 판단 전에 같은 문항에서 도움(해설 먼저 · 힌트) 또는 해설 열람이 있었나 — 다른 세션 포함(새로고침 · 문항 재선택). 없으면 확인하지 않는다 */
+  priorHelp?: (userId: string, itemId: string, answeredAt: string, clientSessionId: string) => Promise<boolean>
+}
+
+/**
+ * 같은 문항 · 다른 세션에서 이 판단 시각 이전에 도움 노출이나 해설 열람이 있었나(서버 판정 · Codex P1).
+ * 화면은 새로고침 · 문항 재선택마다 새 세션을 independent 로 시작하므로, 앞선 해설 열람을 서버가 이어 붙인다.
+ */
+async function priorHelpOf(db: SupabaseClient, userId: string, itemId: string, answeredAt: string, clientSessionId: string): Promise<boolean> {
+  const { data, error } = await db.from('learning_sessions').select('id')
+    .eq('user_id', userId).eq('item_ref', itemId).neq('client_session_id', clientSessionId)
+    .or(`help_received_at.lte.${answeredAt},explanation_viewed_at.lte.${answeredAt}`)
+    .limit(1)
+  // 확인을 못 하면 보수적으로 도움받은 것으로 본다 — 독립 표본을 부풀리지 않는다
+  if (error) return true
+  return (data ?? []).length > 0
 }
 
 export function defaultSubmitDeps(): SubmitDeps {
   const db = admin()
-  return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id) }
+  return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id), priorHelp: (u, i, at, cs) => priorHelpOf(db, u, i, at, cs) }
 }
 
 /** 복습 예약 간격(일) — 닫힌 목록. 화면 버튼과 같다 */
@@ -258,7 +274,10 @@ export async function schedulePracticeReview(
   // 서버가 확정한 날짜를 돌려준다 — review_at 은 먼저 정한 값이 남으므로(coalesce) 응답 유실 뒤 다른 간격으로 다시 눌러도
   // 화면이 요청한 날짜로 덮지 않고 저장된 날짜를 보인다(Codex P2). 못 읽으면 이번 요청 값
   const stored = await deps.db.from('learning_sessions').select('review_at').eq('user_id', who.userId).eq('client_session_id', r.clientSessionId).maybeSingle()
-  const confirmed = ((stored.data as { review_at?: string | null } | null)?.review_at) ?? reviewAt
+  // 저장값을 확인하지 못하면 확정 날짜를 말하지 않는다(예약은 됐을 수 있으니 재시도 = 같은 mutation)
+  const saved = (stored.data as { review_at?: string | null } | null)?.review_at ?? null
+  if (stored.error || !saved) throw new Error(`복습 예약 확인 실패: ${stored.error?.message ?? 'review_at 없음'}`)
+  const confirmed = saved
   const reviewDate = kstDateOf(confirmed)
   return { reviewAt: new Date(Date.parse(confirmed)).toISOString(), reviewDate, requestedDate, kept: reviewDate !== requestedDate, outcome: row.outcome }
 }
@@ -310,6 +329,8 @@ export async function submitPractice(
   const grade = gradePractice(gradeClaimSupport, entry.key, s)
   const correct = await deps.answer(s.itemId)
   const optionCorrect = s.option === null || correct === null ? null : s.option === correct
+  // 앞선 세션의 해설 열람 · 도움 노출이 있으면 이 판단은 독립이 아니다(화면 상태와 무관)
+  const helped = s.helpLevel !== 'independent' || (deps.priorHelp ? await deps.priorHelp(who.userId, s.itemId, s.answeredAt, s.clientSessionId) : false)
   const write = {
     userId: who.userId,
     taskKey: entry.kind === 'annotated' ? PRACTICE_TASK : SKELETON_TASK,
@@ -318,7 +339,7 @@ export async function submitPractice(
     contentHash: entry.contentHash,
     activity: 'practice' as const,
     phase: entry.phase,
-    helpLevel: s.helpLevel,
+    helpLevel: (helped ? 'viewed_first' : 'independent') as HelpLevel,
     synthetic: who.synthetic || s.preview,
     clientMutationId: s.clientMutationId,
     clientSessionId: s.clientSessionId,
@@ -353,4 +374,12 @@ export async function loadMyReviewSessions(learnerDb: SupabaseClient, userId: st
     .limit(500)
   if (error) throw new Error(`내 복습 읽기 실패: ${error.message}`)
   return (data ?? []) as ReviewSession[]
+}
+
+/** 예약 해소 근거 — 같은 문항의 판단 기록(Practice · 문항 확인 과제 모두). 학습자 RLS(본인 SELECT) */
+export async function loadReviewResolvers(learnerDb: SupabaseClient, userId: string, itemIds: string[]): Promise<{ itemId: string; answeredAt: string }[]> {
+  if (itemIds.length === 0) return []
+  const { data, error } = await learnerDb.from('learning_task_attempts').select('item_ref, answered_at').eq('user_id', userId).in('item_ref', itemIds).limit(1000)
+  if (error) throw new Error(`복습 해소 기록 읽기 실패: ${error.message}`)
+  return ((data ?? []) as { item_ref: string | null; answered_at: string }[]).filter((r) => r.item_ref).map((r) => ({ itemId: r.item_ref as string, answeredAt: r.answered_at }))
 }
