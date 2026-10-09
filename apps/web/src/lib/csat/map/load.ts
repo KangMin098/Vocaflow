@@ -331,7 +331,7 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
   const [prac, tran, first, rev] = await Promise.all([
     db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys).in('item_ref', items).neq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
     db.from('learning_task_attempts').select('task_key, item_ref, is_correct, answered_at, phase').eq('user_id', userId).in('task_key', keys.flatMap(transferKeysOf)).eq('phase', 'transfer').order('answered_at', { ascending: false }).limit(LIMIT),
-    db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, answered_at, phase').eq('user_id', userId).in('item_ref', items).order('answered_at'),
+    db.from('learning_first_attempts').select('task_key, item_ref, is_correct, help_level, after_explanation, timing_uncertain, answered_at, phase').eq('user_id', userId).in('item_ref', items).order('answered_at'),
     db.from('learning_sessions').select('item_ref, review_at, deleted_at').eq('user_id', userId).in('item_ref', items).not('review_at', 'is', null),
   ])
   if (prac.error) throw new Error(`수행 기록 조회 실패: ${prac.error.message}`)

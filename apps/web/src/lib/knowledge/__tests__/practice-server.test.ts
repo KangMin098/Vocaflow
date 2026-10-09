@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { annotationFor, annotationHash } from '../claim-support'
 import { PRACTICE_TASK, SKELETON_TASK, capabilityHits, keyFromAnnotation, type PracticeSubmission } from '../practice'
-import { PracticeInputError, loadMyAttempts, submitPractice, type ServerEntry, type SubmitDeps } from '../practice-server'
+import { PracticeInputError, loadMyAttempts, schedulePracticeReview, submitPractice, type ServerEntry, type SubmitDeps } from '../practice-server'
 import { directWriter, g2Writer, responseOf, selectWriter, stableUuid, type AttemptWrite, type AttemptWriter, type WriteOutcome } from '../practice-writer'
 
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: () => ({}) }))
@@ -301,5 +301,24 @@ describe('판단을 보낸 뒤 해설 열람 — 도움 수준이 아니라 별�
     const attempts = f.rpcs.filter((r) => r.fn === 'learning_attempt_submit')
     expect(attempts).toHaveLength(2)
     expect(attempts[1].args).toEqual(attempts[0].args)
+  })
+})
+
+describe('E11 복습 예약 — 판정 뒤 다시 보기(학습 지도 「다시 보기」 → 확인 과제 재평가)', () => {
+  const NOW = Date.parse('2026-10-09T03:00:00Z')
+  it('세션을 finished 로 마치고 review_at = N일 뒤 날짜 · 같은 세션 · 날짜 재전송은 같은 mutation', async () => {
+    const f = fakeDb([])
+    const d = { ...deps(fakeWriter().writer), db: f.db }
+    const r = await schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 3, now: NOW, preview: false })
+    await schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 3, now: NOW + 60_000, preview: false })
+    expect(r.reviewAt).toBe('2026-10-12T00:00:00.000Z')
+    const calls = f.rpcs.filter((x) => x.fn === 'learning_session_apply')
+    expect(calls[0].args).toMatchObject({ p_stage: 'finished', p_review_at: '2026-10-12T00:00:00.000Z', p_client_session_id: SUB.clientSessionId, p_activity: 'practice', p_help_level: null })
+    expect(calls[1].args.p_mutation).toBe(calls[0].args.p_mutation)
+  })
+  it('닫힌 간격(1 · 3 · 7일)만 · 풀에 없는 문항은 404', async () => {
+    const d = { ...deps(fakeWriter().writer), db: fakeDb([]).db }
+    await expect(schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 30, now: NOW, preview: false })).rejects.toBeInstanceOf(PracticeInputError)
+    await expect(schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: 'nope#1', clientSessionId: SUB.clientSessionId, days: 1, now: NOW, preview: false })).rejects.toMatchObject({ status: 404 })
   })
 })

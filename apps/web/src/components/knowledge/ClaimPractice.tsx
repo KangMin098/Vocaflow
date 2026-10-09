@@ -71,6 +71,9 @@ export function ClaimPractice(props: {
   const [confidence, setConfidence] = useState<1 | 2 | 3 | null>(null)
   const [feedback, setFeedback] = useState<PracticeFeedback | null>(null)
   const [error, setError] = useState<string | null>(null)
+  // E11 복습 예약 — 이 세션(문항)에 잡은 다시 보기 날짜(YYYY-MM-DD). 학습 지도가 날짜가 되면 「다시 보기」를 띄운다
+  const [reviewAt, setReviewAt] = useState<string | null>(null)
+  const [reviewBusy, setReviewBusy] = useState(false)
   const [busy, setBusy] = useState(false)
   const lock = useRef(false)
   const started = useRef<number>(Date.now())
@@ -101,6 +104,7 @@ export function ClaimPractice(props: {
     setOption(null)
     setConfidence(null)
     setFeedback(null)
+    setReviewAt(null)
     setError(null)
     pending.current = null
     lastBody.current = null
@@ -210,6 +214,26 @@ export function ClaimPractice(props: {
     } finally {
       lock.current = false
       setBusy(false)
+    }
+  }
+
+  async function scheduleReview(days: 1 | 3 | 7) {
+    if (!entry || reviewBusy) return
+    setReviewBusy(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/csat/practice/review', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ itemId: entry.itemId, clientSessionId: sessionId, days, preview }),
+      })
+      const j = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; reviewAt?: string } | null
+      if (!j?.ok || !j.reviewAt) throw new Error(j?.error ?? '예약하지 못했어요')
+      setReviewAt(j.reviewAt.slice(0, 10))
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '예약하지 못했어요')
+    } finally {
+      setReviewBusy(false)
     }
   }
 
@@ -448,6 +472,18 @@ export function ClaimPractice(props: {
                 <a className={styles.link} href={`/csat/item/${toItemSlug(entry.itemId)}`} onClick={noteView}>
                   이 문항 해설 보기
                 </a>
+              </div>
+              {/* E11 복습 예약 → 학습 지도 「다시 보기」 → 문항 확인 과제로 재평가 */}
+              <div className={styles.chips} role="group" aria-label="다시 보기 예약">
+                {reviewAt ? (
+                  <p className={styles.note} role="status">{reviewAt} 에 다시 보기로 예약했어요 — 학습 지도에서 날짜가 되면 알려 드려요.</p>
+                ) : (
+                  ([1, 3, 7] as const).map((d) => (
+                    <button key={d} type="button" className={styles.link} disabled={reviewBusy} onClick={() => scheduleReview(d)}>
+                      {d}일 뒤 다시 보기
+                    </button>
+                  ))
+                )}
               </div>
             </div>
           )}

@@ -35,7 +35,7 @@ import {
   type PracticePhase,
   type PracticeSubmission,
 } from './practice'
-import { selectWriter, type AttemptWriter } from './practice-writer'
+import { selectWriter, stableUuid, type AttemptWriter } from './practice-writer'
 import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication } from './product-server'
 
 /** 정본 주석이 있는 문항 — claim-support.ts 의 주석 레지스트리에서 만든다(손 목록이면 주석을 늘려도 연습 풀이 1문항에 머문다) */
@@ -193,6 +193,49 @@ export interface SubmitDeps {
 export function defaultSubmitDeps(): SubmitDeps {
   const db = admin()
   return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id) }
+}
+
+/** 복습 예약 간격(일) — 닫힌 목록. 화면 버튼과 같다 */
+export const REVIEW_DAYS = [1, 3, 7] as const
+
+/**
+ * E11 복습 예약 — 판단을 낸 Practice 세션을 마치고(finished) 다시 볼 날(review_at)을 남긴다(G2 learning_session_apply).
+ * 학습 지도가 이 예약을 읽어 날짜가 되면 「다시 보기」(문항 확인 과제 = 재평가)를 띄운다.
+ * 같은 세션 · 같은 날짜의 재전송은 같은 mutation(duplicate). 예약은 먼저 정한 값이 남는다(review_at = coalesce).
+ * `now` 는 라우트가 넘긴다(시계를 직접 읽지 않는다).
+ */
+export async function schedulePracticeReview(
+  deps: SubmitDeps,
+  who: { userId: string; synthetic: boolean },
+  r: { itemId: string; clientSessionId: string; days: number; now: number; preview: boolean },
+): Promise<{ reviewAt: string; outcome: 'applied' | 'duplicate' }> {
+  if (!(REVIEW_DAYS as readonly number[]).includes(r.days)) throw new PracticeInputError('예약 간격을 다시 골라 주세요')
+  const entry = (await deps.pool({ preview: r.preview })).find((p) => p.itemId === r.itemId)
+  if (!entry) throw new PracticeInputError('이 문항에는 지금 연습 과제가 없어요', 404)
+  const at = new Date(r.now).toISOString()
+  const reviewAt = new Date(r.now + r.days * 86_400_000).toISOString().slice(0, 10) + 'T00:00:00.000Z'
+  const { data, error } = await deps.db.rpc('learning_session_apply', {
+    p_user: who.userId,
+    p_mutation: stableUuid(r.clientSessionId, 'review', reviewAt),
+    p_client_session_id: r.clientSessionId,
+    p_activity: 'practice',
+    p_phase: entry.phase,
+    p_item_ref: r.itemId,
+    p_stage: 'finished',
+    p_step: 1,
+    p_steps: 1,
+    p_help_level: null,
+    p_at: at,
+    p_review_at: reviewAt,
+    p_synthetic: who.synthetic || r.preview,
+    p_task_key: entry.kind === 'annotated' ? PRACTICE_TASK : SKELETON_TASK,
+    p_application_id: entry.applicationId,
+  })
+  if (error) throw new Error(`복습 예약 실패: ${error.message}`)
+  const row = (Array.isArray(data) ? data[0] : data) as { outcome?: string } | null
+  if (row?.outcome === 'conflict') throw new PracticeInputError('이미 다른 날짜로 예약했어요', 409)
+  if (row?.outcome !== 'applied' && row?.outcome !== 'duplicate') throw new Error(`복습 예약 실패: ${String(row?.outcome)}`)
+  return { reviewAt, outcome: row.outcome }
 }
 
 /**
