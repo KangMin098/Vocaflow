@@ -124,7 +124,7 @@ ChatGPT (파일 교환 · API 없음)
                                                               결정은 사용자 APPROVED 이고 summary/reference 에 「UG-…@vN」(DB 는 「UG-…@vN db」)
   ugoal task add <UG> --file spec.json --by O                 승인 설계 범위 안 작업(spec.design_acceptance=[설계 수용 기준 번호]) · 승인 전이면 초안
   ugoal activate <UG> | ugoal deactivate | ugoal mode USER_GOAL|PLATFORM_AUTO
-  ugoal pause <UG> | ugoal resume <UG> | ugoal accept <UG> --by O
+  ugoal pause <UG> | ugoal resume <UG> | ugoal accept <UG> --decision <DL> --by O   결정은 사용자가 직접 기록한 APPROVED 「UG-… accept」
   ugoal list | ugoal status <UG> | ugoal route <UG>
   ugoal context <UG> [--fetch]                                최신 컨텍스트 패킷(context/<UG>/ · main 기준 · 캐시) — request-design 이 자동으로 붙인다(--no-context 로 끔)
   ugoal cancel-request <UG> <REQ> --reason ".." --by O        응답 전 요청 라운드 취소(게시 전 패킷 수정 등)
@@ -446,7 +446,7 @@ function main() {
     case 'ugoal resume':
       return out(withState((s) => UG.setPaused(s, pos[0], sub === 'pause', { by })), opt)
     case 'ugoal accept':
-      return out(withState((s) => UG.acceptGoal(s, pos[0], { by }).coverage), opt)
+      return out(withState((s) => UG.acceptGoal(s, pos[0], { by, decision_id: opt.decision }).coverage), opt)
     case 'ugoal list': {
       const s = loadState().state
       const U = UG.ugState(s)

@@ -1,0 +1,25 @@
+{
+  "summary": "학습지도 rev2.1 — 직접 확인 진단(verified_diagnosis)·Evidence Anchor·FIND 결과의 진단 환류 계약 검토 (구현 전 설계 단계)",
+  "design": "지금 CURRENT_BASIS 는 rule_proxy 상수이고 verified_diagnosis 를 만드는 경로가 없다(LEARNING_MAP_VNEXT §14·§24, core.ts·prescription.ts). FIND 과제(라인당 ord 4, 182 과제) 결과가 어느 조건에서 diagnostic_need → verified_diagnosis 로 환류되는지, 그 판정이 Evidence Anchor(validated_anchor 이상) 와 어떻게 묶이는지, 의심·제외 기록이 확정 진단을 만들지 않는 가드(VG-L3-A1-02)를 계약으로 정의한다. 이번 목표는 계약 검토·설계까지 — DB 스키마·학습자 데이터 수집·main 병합 없음. 기존 학습 순환(관찰→진단 필요→처방 순서, 「직접 확인됨」 은 verified 뒤에만)은 보존한다.",
+  "acceptance": [
+    "FIND 결과 → verified_diagnosis 승격 조건(필요 증거·최소 관찰 수·Evidence Anchor 상태)이 문장으로 정의되고, 미충족 시 diagnostic_need 에 머문다",
+    "의심·제외(legacy_candidate·불일치·해시 없음) 근거만으로는 verified_diagnosis 가 생기지 않는 가드가 정의된다",
+    "기존 순서 계약(observation → diagnostic_need → verified_diagnosis → prescription, 건너뛰기 금지)과 기존 회귀 테스트가 그대로 유지된다",
+    "구현 가능성 검토: 각 계약을 검증할 단위 테스트 위치와 필요한 DB 변경 유무가 분리돼 제시된다(DB 변경은 별도 승인)"
+  ],
+  "preserved_contracts": [
+    "CURRENT_BASIS 기본값 rule_proxy — 승인 전 바꾸지 않는다",
+    "verified_diagnosis 전에는 「직접 확인됨」·Route 선택·판정 어휘를 쓰지 않는다",
+    "Evidence Anchor 자동 승격 금지(사람 확인 → reviewed_anchor)",
+    "오답 원인 코드북 rev3·사례·해시를 바꾸지 않는다"
+  ],
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/core.ts",
+    "apps/web/src/lib/csat/map/prescription.ts",
+    "apps/web/src/lib/csat/map/learner-path.ts",
+    "apps/web/src/lib/csat/map/__tests__/prescription.test.ts",
+    "apps/web/src/lib/csat/map/__tests__/learner-path.test.ts",
+    "apps/web/src/lib/csat/map/__tests__/core.test.ts"
+  ],
+  "db_changes": false
+}

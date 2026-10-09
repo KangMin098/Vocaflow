@@ -19,7 +19,7 @@ const FAKE_CODEX = `node ${path.join(REPO, 'tests', 'fakes', 'fake-codex.mjs').r
 const OWNER = 'r0-learning-journey'
 const CANON = 'VG-L3-A2-01'
 
-const env = (root, extra = {}) => ({ ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), ...extra })
+const env = (root, extra = {}) => ({ ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), CLAUDECODE: '', VFC_AGENT: '', ...extra })
 function vfc(root, args, extra) {
   const r = spawnSync(process.execPath, [VFC, ...args, '--json'], { env: env(root, extra), encoding: 'utf8' })
   let json = null
@@ -127,7 +127,15 @@ test('A ChatGPT 기획 v1 → (승인 전 실행 없음) → 승인 → 구현 �
   const r = orch(root)
   assert.equal(r.run.tasks_done[0].outcome, 'completed')
   assert.equal(routeOf(root, g.ug_id), 'GOAL_ACCEPTED')
-  ok(vfc(root, ['ugoal', 'accept', g.ug_id, '--by', 'user']))
+  // 「--by user」 만으로는 수락되지 않는다
+  assert.notEqual(vfc(root, ['ugoal', 'accept', g.ug_id, '--by', 'user']).code, 0)
+  // 에이전트 안에서 기록된 승인도 근거가 아니다
+  const ad = ok(vfc(root, ['decision', 'add', '--status', 'APPROVED', '--kind', 'goal_acceptance', '--summary', `${g.ug_id} accept`, '--approved-by', 'user', '--ref', 't', '--by', 'user'], { CLAUDECODE: '1' }))
+  assert.equal(ad.recorded_via, 'agent')
+  assert.notEqual(vfc(root, ['ugoal', 'accept', g.ug_id, '--decision', ad.decision_id, '--by', 'user']).code, 0)
+  // 사용자가 직접 기록한 결정이면 수락
+  const ud = ok(vfc(root, ['decision', 'add', '--status', 'APPROVED', '--kind', 'goal_acceptance', '--summary', `${g.ug_id} accept`, '--approved-by', 'user', '--ref', 't', '--by', 'user']))
+  ok(vfc(root, ['ugoal', 'accept', g.ug_id, '--decision', ud.decision_id, '--by', 'user']))
   assert.equal(ok(vfc(root, ['ugoal', 'status', g.ug_id])).status, 'ACCEPTED')
 })
 
