@@ -212,13 +212,14 @@ export interface SubmitDeps {
 }
 
 /**
- * 같은 문항 · 다른 세션에서 이 판단 시각 이전에 도움 노출이나 해설 열람이 있었나(서버 판정 · Codex P1).
+ * 같은 문항 · 다른 세션에 도움 노출(hint · viewed_first)이나 해설 열람이 **이미 서버에 있나**(Codex P1).
  * 화면은 새로고침 · 문항 재선택마다 새 세션을 independent 로 시작하므로, 앞선 해설 열람을 서버가 이어 붙인다.
+ * 기기 시각은 비교하지 않는다 — 다른 기기 시계가 앞서면 시각 비교가 앞선 열람을 놓친다. 정답 · 해설을 본 뒤의 판단은 독립이 아니다(보수적).
  */
-async function priorHelpOf(db: SupabaseClient, userId: string, itemId: string, answeredAt: string, clientSessionId: string): Promise<boolean> {
+async function priorHelpOf(db: SupabaseClient, userId: string, itemId: string, _answeredAt: string, clientSessionId: string): Promise<boolean> {
   const { data, error } = await db.from('learning_sessions').select('id')
     .eq('user_id', userId).eq('item_ref', itemId).neq('client_session_id', clientSessionId)
-    .or(`help_received_at.lte.${answeredAt},explanation_viewed_at.lte.${answeredAt}`)
+    .or('help_level.in.(hint,viewed_first),explanation_viewed_at.not.is.null')
     .limit(1)
   // 확인을 못 하면 보수적으로 도움받은 것으로 본다 — 독립 표본을 부풀리지 않는다
   if (error) return true
@@ -360,7 +361,7 @@ export async function submitPractice(
   // 해설 열람은 시도 payload 밖의 별도 행동 — 재전송 payload 가 첫 제출과 같게 남는다
   if (outcome !== 'conflict' && s.explanationViewedAt) await deps.writer.noteExplanationView(write, s.explanationViewedAt, sessionId)
   if (outcome === 'conflict') throw new PracticeInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요', 409)
-  return { outcome, feedback: practiceFeedback(entry.key, grade, optionCorrect, entry.phase, s.helpLevel) }
+  return { outcome, feedback: practiceFeedback(entry.key, grade, optionCorrect, entry.phase, write.helpLevel) }
 }
 
 /** 내 복습 — 본인 Practice 세션 중 복습 예약이 있는 것(학습자 RLS 클라이언트 · 본인 SELECT 만) */

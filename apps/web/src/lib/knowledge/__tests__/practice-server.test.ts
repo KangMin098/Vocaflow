@@ -340,8 +340,10 @@ describe('E11 복습 예약 — 서버 확정 날짜(KST) · 재전송 정합(Co
 describe('선행 해설 열람은 다른 세션이어도 이어 붙는다(Codex P1)', () => {
   it('같은 문항에 앞선 도움 · 해설 열람이 있으면 화면이 independent 로 보내도 viewed_first 로 기록', async () => {
     const f = fakeWriter()
-    await submitPractice({ ...deps(f.writer), priorHelp: async () => true }, { userId: 'u1', synthetic: false }, SUB)
+    const r = await submitPractice({ ...deps(f.writer), priorHelp: async () => true }, { userId: 'u1', synthetic: false }, SUB)
     expect(f.writes[0].helpLevel).toBe('viewed_first')
+    // 피드백도 서버가 확정한 도움 수준 — 「해설을 먼저 본 기록」 안내가 빠지지 않는다
+    expect(r.feedback.helpLevel).toBe('viewed_first')
   })
   it('앞선 도움이 없으면 independent 그대로', async () => {
     const f = fakeWriter()
