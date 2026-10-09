@@ -76,6 +76,9 @@ export function ClaimPractice(props: {
   const [reviewBusy, setReviewBusy] = useState(false)
   // 예약 요청의 마친 시각 — 첫 시도에 정하고 재시도에 그대로(서버 멱등 비교가 같은 payload 를 요구)
   const reviewFinishedAt = useRef<string | null>(null)
+  // 지금 보고 있는 세션 — 늦게 온 예약 응답이 다른 문항에 붙지 않게(Codex P1)
+  const currentSession = useRef(sessionId)
+  currentSession.current = sessionId
   const [busy, setBusy] = useState(false)
   const lock = useRef(false)
   const started = useRef<number>(Date.now())
@@ -222,6 +225,8 @@ export function ClaimPractice(props: {
 
   async function scheduleReview(days: 1 | 3 | 7) {
     if (!entry || reviewBusy) return
+    const askedSession = sessionId
+    const stillHere = () => currentSession.current === askedSession
     setReviewBusy(true)
     setError(null)
     try {
@@ -231,10 +236,11 @@ export function ClaimPractice(props: {
         body: JSON.stringify({ itemId: entry.itemId, clientSessionId: sessionId, days, finishedAt: (reviewFinishedAt.current ??= new Date().toISOString()), preview }),
       })
       const j = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; reviewAt?: string } | null
+      if (!stillHere()) return
       if (!j?.ok || !j.reviewAt) throw new Error(j?.error ?? '예약하지 못했어요')
       setReviewAt(j.reviewAt.slice(0, 10))
     } catch (e) {
-      setError(e instanceof Error ? e.message : '예약하지 못했어요')
+      if (stillHere()) setError(e instanceof Error ? e.message : '예약하지 못했어요')
     } finally {
       setReviewBusy(false)
     }
