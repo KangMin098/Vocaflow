@@ -1,0 +1,555 @@
+{
+  "chunk": "04",
+  "items": [
+    {
+      "item_id": "2017#19",
+      "analysis_id": "78e5800a-72a4-4d4d-9d1b-6b8dc4360d41",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "All smiling, Breaden, a cute three-year-old boy",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "Suddenly, she stopped to say hello to her friends.",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#22",
+      "analysis_id": "e11af58e-1ad0-43e2-b2f5-6ac7f770b063",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "without any distortion or ambiguity",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "the sign system of honey-bees would probably win easily",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "As a system for transmitting specific factual information",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "transmitting specific factual information without any distortion",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#23",
+      "analysis_id": "a666da94-6134-4ea0-a8ba-5c1c98f842e2",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 2,
+          "lure_quote": "the director builds up his own “filmic” time and “filmic” space",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#24",
+      "analysis_id": "52be1b19-22a2-4cd4-8735-d51cca5b9af3",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 2,
+          "lure_quote": "while 28 percent of U.S. adult search users say the same",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "As for AP & NWP teachers, five percent say that",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": null,
+          "reason": "끌림이 도표의 1% 조각을 읽는 시각 판독에서 온다"
+        }
+      ]
+    },
+    {
+      "item_id": "2017#26",
+      "analysis_id": "23e4cf17-6761-4624-b493-7456f92970b0",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "Hours: 10:00 a.m. － 5:00 p.m. (Monday － Friday)",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": null,
+          "reason": "전시장은 촬영 금지라는 통념(배경지식)에서 온다"
+        },
+        {
+          "n": 5,
+          "lure_quote": "The exhibition is free to all.",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#27",
+      "analysis_id": "90426ffb-0f7f-4e16-a942-03737da05b94",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "The number of participants is limited to 20.",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "Sitting on lawns is not permitted.",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "Audio devices may only be used with headphones.",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "kite flying and sandcastle building for free",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#28",
+      "analysis_id": "520bb70d-3812-4106-8e7b-7f86b8534297",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "for ① those enduring hardship because it reassures them",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "be depressed by their incapacities",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "pets are ③ used to great advantage with the institutionalized aged",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "cannot help but remember ④ what their parents or grandparents",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#29",
+      "analysis_id": "47b72e96-c471-437b-8421-7baa362e083f",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "is (A) based / lost on teachers who close the door",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "When teachers work in isolation, they tend to see the world",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "share what we did well (C) mostly / never occurred to us",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "teachers are left with that one perspective",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#31",
+      "analysis_id": "57209270-16ec-477a-a617-b6b136d783a5",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 2,
+          "lure_quote": "require little of the individual other than to master the planned objective",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "The exercises or activities are devised to eliminate different options",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "We define cognitive intrigue as the wonder that stimulates",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#32",
+      "analysis_id": "e3df7822-a116-4c6c-b20d-10fb31974106",
+      "version": 5,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "Meteorologists may require visible, infrared, and radar information",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "remotely sensed imagery is large, impressive, and growing",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "Satellites are collecting a great deal of imagery",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#33",
+      "analysis_id": "ea49833e-2225-4bbb-a6b1-172d9c8f693f",
+      "version": 5,
+      "distractors": [
+        {
+          "n": 2,
+          "lure_quote": "Would one not then be better off without it altogether?",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "providing a kind of guarantee of authenticity",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "the utility of “negative sentiments”",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#34",
+      "analysis_id": "7760faba-e238-4352-86e3-bbf47888df26",
+      "version": 5,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "evolved into forms that we subsequently have come",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "determined by our culture, our beliefs, and our expectations",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "The meaning of buildings evolves and becomes established by experience",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#36",
+      "analysis_id": "660c44a9-ed2c-4ce2-9fec-020554afded2",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "if you are learning to play a new sport, it is better to begin it alone",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#37",
+      "analysis_id": "112f91dd-8c7f-4931-9b74-9436fa85f31c",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 4,
+          "lure_quote": "Together this means there are fewer eggs and larvae",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#38",
+      "analysis_id": "5d8c617c-bee9-4446-97ca-b9c38808042f",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "begin reports and papers with careful reviews of previous work",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "The interesting thing for them is the new information",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "So it is usually best to start with those pieces of information.",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": null,
+          "reason": "주어진 문장이 일반론이라 어디에 붙여도 무난해 보이는 선지 자체의 인상"
+        }
+      ]
+    },
+    {
+      "item_id": "2017#39",
+      "analysis_id": "06bd07b3-6686-4fd5-9a60-c7807b5f7f37",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "more expensive than old-fashioned stuff designed for an era of cheap energy",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "Some will go into the construction of new renewable energy supply",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "even during the years before it becomes competitive",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "And a lot will go into repair of climate damage",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#40",
+      "analysis_id": "0eb3e11d-d1b4-4e83-b749-e61c81517a52",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "Residents commonly have positive views",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "their reactions to environmental impacts are mixed",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "Many do not blame tourism for traffic problems",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "the natural environment needs to be protected",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#41",
+      "analysis_id": "2feb7250-5d8a-4856-a2ae-e3c6c2bdf111",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 2,
+          "lure_quote": "Imagine, for example, that baseballs are pitched to two different batters.",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "it doesn’t take long before their time sense breaks down",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "the duration of a “second” is precise and unambiguous",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": "be it the sun, bodily fatigue, or timepieces themselves",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#42",
+      "analysis_id": "b482d81b-841b-4b7f-8515-85c330350955",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "a person who mentally stretches the duration of time",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "psychological clock, as opposed to the time on one’s watch",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "the duration of a “second” is precise and unambiguous",
+          "reason": null
+        },
+        {
+          "n": 5,
+          "lure_quote": null,
+          "reason": "심리적 시간은 신비롭다는 통념에서 온다"
+        }
+      ]
+    },
+    {
+      "item_id": "2017#43",
+      "analysis_id": "83e00c83-aefc-486a-9f92-8c20a0e2972c",
+      "version": 5,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "later that evening, Keith would sit down at the piano and play",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "the German teenager caught up with Keith and begged the jazz pianist",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "A few hours later, Keith walked out to the unplayable piano",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": "if you don’t get another piano, Keith can’t play tonight",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2017#45",
+      "analysis_id": "8071b6e3-e2e8-483c-84bb-048c5d59d6dd",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "leaving Erik to anticipate the arrival of soon-to-be furious concert-goers",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "Understandably, Keith didn’t want to perform.",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "covering up the piano’s lack of resonance",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2018#18",
+      "analysis_id": "901ce81c-0746-4e70-9933-3d80f9062168",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "50 students and teachers from our school would like to participate",
+          "reason": null
+        },
+        {
+          "n": 2,
+          "lure_quote": "Would you please let me know if it is possible",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2018#19",
+      "analysis_id": "9f451da4-d5c0-4108-a656-c6ac994be103",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "thrilled me as we entered its cool shade",
+          "reason": null
+        },
+        {
+          "n": 3,
+          "lure_quote": "A whole new world came into sight.",
+          "reason": null
+        },
+        {
+          "n": 4,
+          "lure_quote": null,
+          "reason": "보트 투어·야생 배경에서 연상한 감정으로 지문 구절 근거 없음"
+        },
+        {
+          "n": 5,
+          "lure_quote": "It was also so hot and humid that I could not enjoy the tour fully.",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2018#20",
+      "analysis_id": "f45a6a73-053d-4954-ab3a-b7c7c9c8fdc6",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 1,
+          "lure_quote": "challenge the conventional ways of doing things",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "item_id": "2018#21",
+      "analysis_id": "cd134ae6-c282-4fb4-98cf-85bf6c5eb286",
+      "version": 4,
+      "distractors": [
+        {
+          "n": 3,
+          "lure_quote": null,
+          "reason": "팀워크→소통 문화라는 상식적 연상에서 온다"
+        },
+        {
+          "n": 4,
+          "lure_quote": "People are much more concerned about catching the ball than throwing it.",
+          "reason": null
+        }
+      ]
+    }
+  ]
+}

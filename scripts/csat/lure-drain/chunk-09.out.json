@@ -1,0 +1,510 @@
+{
+ "chunk": "09",
+ "items": [
+  {
+   "item_id": "2022#25",
+   "analysis_id": "b1378bd3-b3f5-4537-ad46-77dcba99bcbb",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "will increase from 46 percent in 2015 to 60 percent in 2025",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "is more than three times that of Europe in the same year",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "from 24 percent in 2015 to 16 percent in 2025 for Europe",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#26",
+   "analysis_id": "19002dd3-b3cb-4c1b-9747-df9dfcfa5ea6",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "he worked as an assistant of Piero della Francesca in Urbino",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "Around 1480, he built several churches in a new style in Milan",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "participated in Pope Julius II’s plan for the renewal of Rome",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Bramante died on April 11, 1514 and was buried in Rome",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#29",
+   "analysis_id": "9227748e-99fe-4dcd-9df6-b2a5381e1056",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 5,
+     "lure_quote": "each ⑤ responsible for a distinct, well-defined aspect of cell life",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#30",
+   "analysis_id": "4629a371-3ac0-4cb4-a388-fff09c66d602",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "would ① reduce yields and increase production costs",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "Inorganic nitrogen supplies are ② essential for maintaining",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "④ fewer people are willing to do this work as societies become wealthier",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "can make important ⑤ contributions to the sustainability",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#31",
+   "analysis_id": "be2ab176-e4d9-4cdc-99ed-bce33e1e92a5",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "even by making up a few details",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 4,
+     "lure_quote": "getting extra laughs by exaggerating the silliness of a situation",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "whether it is real or fictional, true or false",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#32",
+   "analysis_id": "b557ac98-7e8d-4933-9e7d-d368fe136131",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 3,
+     "lure_quote": "an informational-educational purpose",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "including the use of logos, sound-bites, rapid visual cuts",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#33",
+   "analysis_id": "e89223d2-7bbd-4e9d-a530-c45b764f7295",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 2,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 3,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 4,
+     "lure_quote": "a local solution for which users assume personal responsibility",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#34",
+   "analysis_id": "73533742-7c8e-48eb-8aa2-21d25f501c5b",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "a careful analysis of what was right and wrong in those previous representations",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "by the production of new and alternative representations",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "is an “explosion” of possible points of view",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    }
+   ]
+  },
+  {
+   "item_id": "2022#35",
+   "analysis_id": "28d07a8b-99ff-4cc9-afb5-0f04a63e7829",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "do not only cover the business units of a single firm",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#36",
+   "analysis_id": "c05b5e8b-9bb7-44f8-8a6a-6cee60d5a264",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Many examples of such “green taxes” exist.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "should result in either decreased use of these resources",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "The results have been greatly increased recycling",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Taxing certain goods or services, and so increasing prices",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#37",
+   "analysis_id": "e2f7d510-29fb-4e6a-a5e7-8c8b4f183365",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "The author has selected the content according to his own worldview",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "the mind functions as a filter",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#39",
+   "analysis_id": "1f33d88c-d4ec-48bd-92f3-31995fa3b704",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "the first great theorists of film decried the introduction of sound",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "And what’s worse, they could do nothing but turn filmmakers",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#40",
+   "analysis_id": "60034adc-a24b-4c26-ab71-bc84a1497b8c",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "under a minimal number of generalizations",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "an economical framework of laws or generalizations",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    }
+   ]
+  },
+  {
+   "item_id": "2022#41",
+   "analysis_id": "85445333-3e34-40a6-91c8-2c051bb60574",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "the structure that lies at the core of our language",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#43",
+   "analysis_id": "9af28b74-de0c-4e06-abfc-db601b049ab6",
+   "version": 5,
+   "distractors": [
+    {
+     "n": 4,
+     "lure_quote": "Since Cora had missed several practices, Anna wondered",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2022#45",
+   "analysis_id": "e9f9c4ad-53a6-43f8-be69-115b1cc9c815",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Close by, her friend Jane was assisting Anna.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Although her budget was tight, Anna bought Cora a taekwondo uniform",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "I know most newcomers don’t keep their commitment to the club",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#18",
+   "analysis_id": "2593a22d-14e5-4393-80af-fb1d72cfc2b5",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "I have been a bird-watcher since childhood.",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Yesterday, I happened to read an article about your club.",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#19",
+   "analysis_id": "79f0d124-a117-41e1-91e4-7237020d4812",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "To her disappointment, she had failed to beat her personal best time",
+     "reason": null
+    },
+    {
+     "n": 2,
+     "lure_quote": "Putting all of her energy into her last steps of the running race",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "“You’re right! Next race, I’ll beat my best time for sure!”",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#20",
+   "analysis_id": "a5fac627-ef78-4ba8-a73b-254a28fdde46",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Trusting our intuition to make the choice",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "we encounter junctions with many different pathways",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#21",
+   "analysis_id": "651fb50b-c32a-4a63-ac08-a0f7bdafe940",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 3,
+     "lure_quote": "one would make oneself public to oneself",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#22",
+   "analysis_id": "f11da485-77c5-4f4d-adce-8b69426b90d1",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "particularly in high-density and congested areas",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#23",
+   "analysis_id": "aab33b78-65c4-4d88-b12e-31b07e0727c9",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "required to measure and publicize the safety characteristics of cars",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": null,
+     "reason": "끌림이 지문 밖(배경지식·선지 자체의 그럴듯함)에서 온다"
+    },
+    {
+     "n": 5,
+     "lure_quote": "they tend to neglect diversity",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#25",
+   "analysis_id": "25b1b4a7-28ae-4ee2-a610-c28d96074b8a",
+   "version": 5,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "the percentage of those who preferred Big/Small City was higher",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "preferred Suburb of Big/Small City exceeded that of those",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "was higher than 20% across the three age groups",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#27",
+   "analysis_id": "69aebdfa-48bd-4dbb-a7f5-63dc5d3d97d4",
+   "version": 4,
+   "distractors": [
+    {
+     "n": 1,
+     "lure_quote": "Renovation Period: November 21 to December 18, 2022",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Areas to be Closed: Gym and indoor swimming pool",
+     "reason": null
+    },
+    {
+     "n": 4,
+     "lure_quote": "All outdoor leisure activities will be available as usual.",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Guests will receive a 15% discount for all meals in the restaurant.",
+     "reason": null
+    }
+   ]
+  },
+  {
+   "item_id": "2023#28",
+   "analysis_id": "9ddf984e-d37f-41af-8eff-da8a42ad96cb",
+   "version": 6,
+   "distractors": [
+    {
+     "n": 2,
+     "lure_quote": "Participants should use the theme of “Recycling for the Future.”",
+     "reason": null
+    },
+    {
+     "n": 3,
+     "lure_quote": "Maximum file size: 40MB",
+     "reason": null
+    },
+    {
+     "n": 5,
+     "lure_quote": "Submissions are limited to one poster per person.",
+     "reason": null
+    }
+   ]
+  }
+ ]
+}

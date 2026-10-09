@@ -1,0 +1,87 @@
+{ "chunk": "12", "items": [
+{ "item_id": "2025#43", "analysis_id": "40505ec7-8a23-47b7-92cc-743b5dd23cf7", "version": 5, "distractors": [
+  { "n": 1, "lure_quote": "he asked his wife to go and pick them up with him", "reason": null },
+  { "n": 3, "lure_quote": "checked if Sean had everything else he needed for hiking", "reason": null },
+  { "n": 5, "lure_quote": "Ethan and Sean set off hiking along the valley by Aicken Mountain", "reason": null } ] },
+{ "item_id": "2025#45", "analysis_id": "bd7e56bc-b784-463e-bb61-354075634ba8", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "I always envied your relationship with Sean", "reason": null },
+  { "n": 3, "lure_quote": "Ethan and Grace came back home with the jackets", "reason": null },
+  { "n": 5, "lure_quote": "Ethan carried his son down on his back", "reason": null } ] },
+{ "item_id": "2026#19", "analysis_id": "827c2f06-ec2f-43f1-92e5-cfe4fbe76dbc", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "Uncertain, she awkwardly looked around at her surroundings", "reason": null },
+  { "n": 3, "lure_quote": "Although the colors were now faded", "reason": null },
+  { "n": 4, "lure_quote": "At last, she had finally found the house", "reason": null } ] },
+{ "item_id": "2026#20", "analysis_id": "a585ae8a-5132-4a28-a114-364cf3b65564", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "Producing lyrics of distinct and complex imagery", "reason": null },
+  { "n": 3, "lure_quote": "has been studied and celebrated for his development", "reason": null },
+  { "n": 5, "lure_quote": "The study of literature has repeatedly failed to recognize", "reason": null } ] },
+{ "item_id": "2026#21", "analysis_id": "e31ab319-7a60-4c94-bbfe-4fa4b84b6356", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "take advantage of a ‘global reserve army’", "reason": null } ] },
+{ "item_id": "2026#22", "analysis_id": "cf8d2304-d366-4497-b03f-9f6b5d8f5867", "version": 4, "distractors": [
+  { "n": 5, "lure_quote": "By necessity they may need to share information", "reason": null } ] },
+{ "item_id": "2026#23", "analysis_id": "3d94219c-bfdb-4184-9744-609aeb726c97", "version": 5, "distractors": [
+  { "n": 1, "lure_quote": "it needs to be coming soon (frequency)", "reason": null },
+  { "n": 2, "lure_quote": "a transit map that screams about speed and whispers about frequency", "reason": null },
+  { "n": 5, "lure_quote": "including peak-only commute services", "reason": null } ] },
+{ "item_id": "2026#25", "analysis_id": "ee823bee-6a50-4c2e-927f-52ec256e2100", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": null, "reason": "끌림은 도표 막대 값에서 오며 지문은 선지 문장 자체다" },
+  { "n": 5, "lure_quote": null, "reason": "끌림은 도표 막대 값에서 오며 지문은 선지 문장 자체다" } ] },
+{ "item_id": "2026#28", "analysis_id": "7f32d2fc-7de8-4a77-bedb-7b462a487b47", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "Three free games a day + 50% off shoe Silver $60 rentals", "reason": null } ] },
+{ "item_id": "2026#29", "analysis_id": "9f5968eb-e8d7-4fec-ac4a-46fd83049f45", "version": 4, "distractors": [
+  { "n": 3, "lure_quote": "in which we live only because we acquire information from others", "reason": null } ] },
+{ "item_id": "2026#30", "analysis_id": "a0aa07c4-42e6-48a4-9897-4ca08fe8738e", "version": 7, "distractors": [
+  { "n": 1, "lure_quote": "willingly permit casting aside", "reason": null },
+  { "n": 2, "lure_quote": "the end ② justifies the means", "reason": null },
+  { "n": 3, "lure_quote": "everyone is expected to call his or her own fouls", "reason": null },
+  { "n": 4, "lure_quote": "most athletes will not admit to the same fouls or violations", "reason": null } ] },
+{ "item_id": "2026#31", "analysis_id": "67d6f611-ae73-4370-9a2f-c9065ed43445", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "within a single firm that was operating in more than one country", "reason": null },
+  { "n": 3, "lure_quote": "commodity exchanges and commodities futures markets", "reason": null },
+  { "n": 5, "lure_quote": "frequently built on family ties, trust, and loyalty", "reason": null } ] },
+{ "item_id": "2026#32", "analysis_id": "6e4f068c-fba7-4e8a-bcb7-8f6093763670", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "writing does not permit the nonverbal communication and immediate feedback", "reason": null },
+  { "n": 2, "lure_quote": "The basic guidelines for good style are not mysterious", "reason": null },
+  { "n": 3, "lure_quote": null, "reason": "독자는 더 알고 싶어 한다는 상식에서 오며 지문에 끌어당기는 구절이 없다" },
+  { "n": 4, "lure_quote": "we all rely heavily on cooperation to make sense of exchanges", "reason": null } ] },
+{ "item_id": "2026#33", "analysis_id": "860fac2a-ae10-42d7-9f6a-3ebbfe218469", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": null, "reason": "training 이 주는 전문성 연상에서 오며 지문에 해당 구절이 없다" },
+  { "n": 2, "lure_quote": "involving prospective building users as well as clients", "reason": null },
+  { "n": 3, "lure_quote": null, "reason": "신뢰→만족 통념에서 오며 지문에 trust 관련 구절이 없다" } ] },
+{ "item_id": "2026#34", "analysis_id": "866fab43-d1df-4eaf-9a4c-d1f0985576a5", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "political principles that all rational beings would freely choose", "reason": null },
+  { "n": 2, "lure_quote": "Kant was a strong defender of the rule of law", "reason": null },
+  { "n": 4, "lure_quote": "even ‘a nation of devils’ can live in harmony", "reason": null },
+  { "n": 5, "lure_quote": "Ideally, the law is the embodiment of those political principles", "reason": null } ] },
+{ "item_id": "2026#35", "analysis_id": "570bb8e8-a5ae-470f-a004-917675cf3951", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "our self-care activities are the first thing to be given up", "reason": null },
+  { "n": 2, "lure_quote": "we all occasionally have days when that happens", "reason": null },
+  { "n": 3, "lure_quote": "the impact of missing that grant deadline may be greater", "reason": null } ] },
+{ "item_id": "2026#36", "analysis_id": "25437a8b-b3e2-49eb-a89f-a2cec0b0db83", "version": 4, "distractors": [
+  { "n": 2, "lure_quote": "The use of radiocarbon dating is another, much longer scale clock", "reason": null } ] },
+{ "item_id": "2026#43", "analysis_id": "77bc2c44-6eff-4f6a-a583-e45698eab06f", "version": 5, "distractors": [
+  { "n": 1, "lure_quote": "Mia’s family held their first book club meeting on Saturday afternoon", "reason": null },
+  { "n": 2, "lure_quote": "I need a book for my family’s reading club", "reason": null },
+  { "n": 4, "lure_quote": "After some persuasion, Mia reluctantly agreed", "reason": null } ] },
+{ "item_id": "2026#44", "analysis_id": "7dcf8064-164e-4f9f-a3fc-2be3cd4c0e5c", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "She turned to her husband, Sam.", "reason": null } ] },
+{ "item_id": "2026#45", "analysis_id": "d6ab5736-b804-41b0-812f-f76710be9c88", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "I feel like (a) she is growing distant from us", "reason": null },
+  { "n": 3, "lure_quote": "Mia’s family held their first book club meeting", "reason": null },
+  { "n": 4, "lure_quote": "That’s such a mystery.", "reason": null } ] },
+{ "item_id": "M1809#18", "analysis_id": "6e854460-50f3-48a3-970e-02effe065d15", "version": 4, "distractors": [
+  { "n": 5, "lure_quote": "We make it easy for teachers to participate in CPR training", "reason": null } ] },
+{ "item_id": "M1809#19", "analysis_id": "73c309db-a5b7-41c7-89f0-4f16deeade0b", "version": 4, "distractors": [
+  { "n": 1, "lure_quote": "She had ‘show and tell’ in class today", "reason": null },
+  { "n": 2, "lure_quote": "felt calm and comforted now that she had her toy again", "reason": null },
+  { "n": 4, "lure_quote": "Mrs. Cline smiled gently", "reason": null },
+  { "n": 5, "lure_quote": "A tear rolled down Lindsay’s cheek.", "reason": null } ] },
+{ "item_id": "M1809#20", "analysis_id": "98c4e236-afd7-4e64-bbfe-3dfcea0e6ac0", "version": 4, "distractors": [
+  { "n": 4, "lure_quote": "by turning around to them and saying (in the same saccharine tone of voice)", "reason": null },
+  { "n": 5, "lure_quote": "we praise more because we need to say it", "reason": null } ] },
+{ "item_id": "M1809#21", "analysis_id": "db1d02b3-f5aa-4651-93b0-24ad33ebe5e7", "version": 4, "distractors": [
+  { "n": 4, "lure_quote": "we shift between two processes", "reason": null } ] },
+{ "item_id": "M1809#22", "analysis_id": "a89ccfd2-83c8-4560-a559-fc4f91c8bd20", "version": 4, "distractors": [
+  { "n": 4, "lure_quote": "one should break away from experience and let the mind wander freely", "reason": null },
+  { "n": 5, "lure_quote": "no specific knowledge, or experience is required to attain insight", "reason": null } ] }
+] }

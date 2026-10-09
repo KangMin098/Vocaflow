@@ -274,3 +274,5 @@ scripts/csat/analysis-drain-hakpyeong/
 
 # 학평 독립 검수 드레인 청크 — 문항 id 목록뿐이지만 학평 작업물과 같이 추적하지 않는다
 scripts/csat/review-drain-hakpyeong/
+scripts/csat/lure-drain/chunk-*.json
+!scripts/csat/lure-drain/*.out.json

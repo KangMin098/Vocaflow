@@ -67,7 +67,41 @@ export const KICE_HELP: HelpRegistry = {
         '한 문항의 해설 전문(재는 힘 · 출제 의도 · 근거 · 오답 넷 · 절차 · 어휘)과 강의 재생. 학습자 세션은 이 중 근거·오답·함정을 **원문 문장 안**에 인라인으로 편다.',
       cautions: [
         '강의 검수 하네스(`gate2-play.mts` · e2e `46-csat-lecture`)가 이 주소로 들어온다. 주소를 바꾸면 그 둘도 함께 고친다.',
+        '오답이 지문 위에 자리를 갖는 순서는 ① 지우는 근거 ② 끌리는 이유 속 영어 조각 ③ 드레인이 채운 `lure_quote` 다(`scripts/csat/lib-fragments.mjs` — 골격 굽기와 드레인이 같은 규칙을 쓴다). ②③ 은 「끌리는 자리」라 화면이 「지우는 근거」와 다르게 말한다.',
       ],
+      drain: {
+        what: '지문 위 자리가 없는 오답마다 「이 선지로 끌어당기는 구절」(지문 원문 20–80자)을 `choice_analysis[].lure_quote` 키로 더한다 → 문제 지도 · 해설 극장에서 그 오답의 끌리는 자리가 칠해진다.',
+        prerequisites: ['평가원 분석이 발행(published) 상태 · 지문 온전(body_ok)', '`apps/web/.env.local` 의 서비스 키(스크립트는 저장소 루트에서 실행)'],
+        procedure: [
+          {
+            title: '내보내기',
+            detail:
+              '`pnpm exec tsx scripts/csat/lure-drain-export.mjs` — 자리 없는 오답만 `scripts/csat/lure-drain/chunk-NN.json` 으로(지문 원문 포함 · 커밋 안 함). **재실행 안전** — 이미 자리가 있거나 채운 청크는 건너뛴다.',
+            done: '「오답 N · 자리 있음 M (p%) · 채울 것 K개」 한 줄',
+          },
+          {
+            title: 'Claude Code 가 채우기',
+            detail:
+              '청크마다 `lure-drain/README.md` 지시대로 `chunk-NN.out.json` 을 쓰고 `node scripts/csat/lure-drain-check.mjs NN` 으로 문제 0 을 확인한다. 끌림이 지문 밖에서 오면 null(억지로 고르지 않는다). **재실행 안전**(파일만 쓴다).',
+          },
+          {
+            title: '예행 → 반영',
+            detail:
+              '`pnpm exec tsx scripts/csat/lure-drain-import.mjs` 로 사유별 건너뜀을 본 뒤 `--commit`. 행을 다시 읽어 그 오답 원소에 키 하나만 더하고, 내보낸 뒤 버전이 바뀐 분석은 건너뛴다. **재실행 안전**(이미 자리가 있으면 건드리지 않는다).',
+            done: '「받아들인 끌리는 구절 N개 · 갱신한 분석 M행」',
+          },
+          {
+            title: '골격 다시 굽기',
+            detail: '`pnpm exec tsx scripts/csat/build-skeleton-data.mjs --write` — 노출 상한 · 유출 검사를 통과해야 쓴다. 굽지 않으면 화면은 옛 지도를 그대로 보인다.',
+            done: '「원문 유출 0」 · `skeleton-data/*.json` 변경',
+          },
+        ],
+        verify: [
+          '내보내기를 다시 돌려 「자리 있음」 비율이 올랐는지 · 남은 것은 null 판정분과 검증 탈락분뿐인지',
+          '문항 화면에서 오답 칩을 눌러 칠해진 구절이 그 오답의 「끌리는 이유」와 맞는지 표본으로 본다',
+        ],
+        recovery: ['잘못 들어간 구절은 그 원소의 `lure_quote` 키만 지운다(다른 키는 그대로) → 골격 다시 굽기.'],
+      },
       seeAlso: [{ label: '기출 분석 뷰', href: '/admin/kice' }, SEE_SESSION],
     },
   },

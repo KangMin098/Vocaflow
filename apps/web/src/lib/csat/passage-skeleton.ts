@@ -71,6 +71,8 @@ export interface AnchorSpec {
   quote: string
   /** 없으면 예전 골격이다 — 읽는 쪽이 `answer`/`reject` 로 메운다. */
   from?: AnchorOrigin
+  /** 끌리는 구절 드레인(`lure_quote`)에서 온 자리 — 화면은 `tempt` 와 같게, 연습 채점은 함정으로 세지 않는다. */
+  lure?: boolean
 }
 
 /** 앵커가 지문의 어디에 붙었는가. 못 붙으면 `sentences` 가 빈 배열이다. */
@@ -79,6 +81,7 @@ export interface AnchorPlacement {
   /** 걸친 문장 번호들(0-기반). **우리가 센 번호다** — 분석의 sentence_index 와 무관. */
   sentences: number[]
   from?: AnchorOrigin
+  lure?: boolean
 }
 
 /**
@@ -142,7 +145,7 @@ export function buildSkeleton(
   for (const a of anchors) {
     const hit = a.quote ? findQuote(passage, a.quote) : null
     if (!hit) {
-      placements.push({ id: a.id, sentences: [], from: a.from })
+      placements.push({ id: a.id, sentences: [], from: a.from, ...(a.lure ? { lure: true } : {}) })
       continue
     }
 
@@ -160,7 +163,7 @@ export function buildSkeleton(
         text: passage.slice(from, to),
       })
     }
-    placements.push({ id: a.id, sentences: touched, from: a.from })
+    placements.push({ id: a.id, sentences: touched, from: a.from, ...(a.lure ? { lure: true } : {}) })
   }
 
   return {

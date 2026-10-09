@@ -49,7 +49,8 @@ for (const f of ['apps/web/.env.local', '.env.local']) {
 }
 
 const WRITE = process.argv.includes('--write')
-const OUT = path.resolve('apps/web/src/lib/csat/skeleton-data')
+// 출력은 **스크립트가 있는 저장소** 기준 — 환경 파일 때문에 다른 워크트리에서 실행해도 남의 워크트리에 쓰지 않는다
+const OUT = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '../../apps/web/src/lib/csat/skeleton-data')
 
 const { createClient } = await import('@supabase/supabase-js')
 const { findQuote, normalizeForMatch } = await import('../../apps/web/src/lib/csat/quote-match.ts')
@@ -94,18 +95,8 @@ const items = (await page('csat_items', 'id, exam_id, no, type_id, passage, body
   SET === 'kice' ? isKiceExam(r.exam_id) : !isKiceExam(r.exam_id),
 )
 
-// 한국어 산문에 박힌 영어 조각. 낱말 하나는 지문 어디에나 있어 «아무 데나 칠하기» 가 되므로
-// 구(句) 이상만 쓴다.
-const MIN = 20
-const FRAG = new RegExp(`[A-Za-z][A-Za-z0-9 ,.;:'"()\-‘’“”–—]{${MIN - 1},}`, 'g')
-function fragments(text) {
-  const out = []
-  for (const m of text.matchAll(FRAG)) {
-    const s = m[0].trim().replace(/[\s,.;:]+$/, '')
-    if (s.length >= MIN) out.push(s)
-  }
-  return out.sort((a, b) => b.length - a.length)
-}
+// 영어 조각 · 오답 자리 찾기 규칙은 끌리는 구절 드레인(lure-drain-*)과 같은 모듈을 쓴다.
+const { locateChoice } = await import('./lib-fragments.mjs')
 
 // ── 노출 예산 — 임계값을 지어내지 않는다 ────────────────────────────────
 //
@@ -223,20 +214,10 @@ for (const it of items) {
   if (a.answer_locus?.quote) anchors.push({ id: 'answer', quote: a.answer_locus.quote, from: 'answer' })
   for (const ch of a.choice_analysis || []) {
     if (ch.n == null) continue
-    // ① **「지우는 근거」가 먼저다.** 그 자리가 이 선지를 버린다 — 가장 강한 대응이다.
-    const fr = ch.how_to_reject ? fragments(ch.how_to_reject).find((f) => findQuote(it.passage, f)) : null
-    if (fr) {
-      anchors.push({ id: `reject:${ch.n}`, quote: fr, from: 'reject' })
-      continue
-    }
-    // ② 못 찾으면 **「끌리는 이유」**에서 찾는다. 그 자리는 이 선지를 지우지 않는다 —
-    //    이 선지로 **끌어당긴다.** 그래서 `from` 으로 갈라 두고 화면이 다르게 말한다.
-    //    (같은 말로 칠하면 학습자는 «여기가 지우는 근거» 로 읽는다. 조용한 거짓말이다.)
-    //
-    //    정답 선지에는 붙이지 않는다 — `reject:n` 은 «버릴 것» 의 id 다.
-    if (ch.verdict === 'correct') continue
-    const fr2 = ch.why_tempting ? fragments(ch.why_tempting).find((f) => findQuote(it.passage, f)) : null
-    if (fr2) anchors.push({ id: `reject:${ch.n}`, quote: fr2, from: 'tempt' })
+    // ① 「지우는 근거」 ② 「끌리는 이유」 ③ 드레인이 채운 「끌리는 구절」(lure_quote) 순서. ②③ 은 이 선지를 지우지 않고
+    //    **끌어당기는** 자리라 `from: 'tempt'` 로 갈라 두고 화면이 다르게 말한다. 정답 선지에는 ①만(lib-fragments.mjs).
+    const hit = locateChoice(ch, it.passage, findQuote)
+    if (hit) anchors.push({ id: `reject:${ch.n}`, quote: hit.quote, from: hit.from, ...(hit.lure ? { lure: true } : {}) })
   }
   if (!anchors.length) {
     skippedNoAnchor += 1
@@ -349,6 +330,39 @@ if (SET === 'hakpyeong') {
   }
   console.log(`→ csat_item_skeletons ${rows.length}행 · 지움 ${drop.length}`)
   process.exit(0)
+}
+
+// ── 강의 문장 번호 보호 ─────────────────────────────────────────────
+// 강의 대본은 `sentence:k`(0-기반)로 문장 지도를 가리킨다. 지문이 고쳐져 문장 수가 바뀌면 번호가 밀려
+// **범위 안에서 조용히 엉뚱한 문장**을 가리킨다(2026-10-10: 맨 앞 3글자 조각이 지워져 2문항 9개 큐가 한 칸씩 밀림).
+// 그래서 강의가 있는 문항의 문장 수가 바뀌면 이름을 대고 멈춘다 — 강의 참조를 고친 뒤 `--accept-shift` 로 굽는다.
+const LECTURE = path.resolve(OUT, '../lecture-data')
+const shifted = []
+if (fs.existsSync(LECTURE)) {
+  const lectured = new Set()
+  for (const f of fs.readdirSync(LECTURE).filter((f) => f.endsWith('.json') && f !== 'index.json')) {
+    const walk = (o) => {
+      if (!o || typeof o !== 'object') return
+      if (typeof o.item_id === 'string') lectured.add(o.item_id)
+      for (const v of Object.values(o)) walk(v)
+    }
+    walk(JSON.parse(fs.readFileSync(path.join(LECTURE, f), 'utf8')))
+  }
+  for (const [examId, list] of byExam) {
+    const prevFile = path.join(OUT, `${examId}.json`)
+    if (!fs.existsSync(prevFile)) continue
+    const prev = JSON.parse(fs.readFileSync(prevFile, 'utf8'))
+    const prevItems = new Map((Array.isArray(prev) ? prev : (prev.items ?? [])).map((x) => [x.id, x]))
+    for (const it of list) {
+      const p = prevItems.get(it.id)
+      if (p && lectured.has(it.id) && p.sentences.length !== it.sentences.length) shifted.push(`${it.id} 문장 ${p.sentences.length}→${it.sentences.length}`)
+    }
+  }
+}
+if (shifted.length) {
+  console.log(`\n⚠️ 강의가 있는 문항의 문장 수가 바뀌었다 ${shifted.length}건 — 강의 sentence:k 참조를 고친 뒤 --accept-shift`)
+  for (const s of shifted) console.log(`   ${s}`)
+  if (WRITE && !process.argv.includes('--accept-shift')) process.exit(1)
 }
 
 if (!WRITE) {

@@ -79,7 +79,8 @@ describe('골격 115문항 — 개발 · 연습용 후보(효과 계산 제외)'
     const digest = createHash('sha256')
       .update(JSON.stringify(SKELETON_ITEMS.map((id) => keyFromSkeleton(loadItemSkeleton(id)!))))
       .digest('hex')
-    expect(digest).toMatchInlineSnapshot(`"321a7245211cb654a1c7c41d39485964baabe1ad1dfe5fb7e2660251a33625ee"`)
+    // 2026-10-10 갱신: 정규식 결함 수정으로 해설 인용이 새로 자리를 찾아 12문항 함정 문장 +12 · -2(주장 불변). 끌리는 구절(lure)은 채점 제외.
+    expect(digest).toMatchInlineSnapshot(`"9b7ff9163233638fa3e7de8383cf0f866c9aa67a272ceaa4891ab2fc48850767"`)
   })
   it('과제 키가 둘로 갈린다 — 골격 기록은 정본 과제 키를 쓰지 않는다', () => {
     expect(SKELETON_TASK).not.toBe(PRACTICE_TASK)
