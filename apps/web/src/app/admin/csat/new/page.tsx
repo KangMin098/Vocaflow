@@ -12,6 +12,7 @@ import { MakeGuide } from './MakeGuide'
 import { OrderWizard } from './OrderWizard'
 import { ProductOrderRegistration } from './ProductOrderRegistration'
 import { ProductPlanningForm } from './ProductPlanningForm'
+import { OrderTracePanel } from './OrderTracePanel'
 
 export const dynamic = 'force-dynamic'
 
@@ -24,5 +25,6 @@ export default async function AdminCsatNewPage() {
     <ProductPlanningForm />
     <OrderWizard {...view} guide={<MakeGuide grades={grades} seriesList={view.seriesList} />} />
     {admin.role === 'admin' ? <ProductOrderRegistration /> : null}
+    {admin.role === 'admin' ? <OrderTracePanel /> : null}
   </>
 }

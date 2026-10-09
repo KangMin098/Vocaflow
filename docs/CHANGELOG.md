@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 관리자 주문별 생산 상태 조회가 현재 Product Order·승격 감사·authority/권리·ready·문항·해설·검수 계보를 읽기 전용으로 다시 확인한다. 바뀐 주문·권리·인증·문항은 차단 사유로, 조회할 수 없는 단원/권/조판/게시는 미측정으로 표시하며 인증·적재·게시를 실행하지 않는다.
+
 - feat(textbook): Bind standalone M1/H1 and M1–M2 synthetic production orders to structured brief hashes, then run one master verification across shared mock promotion, atomic render and publish simulation. P03 is synthetic E2E validated; live operational validation remains open. The admin planner can select any P01–P20 family while unsupported families remain blocked from order construction.
 
 - test(textbook): H1 synthetic chain uses the shared promotion executor and a mock RPC to move queued to ready, then carries the same order evidence through item, explanation, unit, atomic render, and publish simulation. A live DB promotion-to-render run remains unverified.

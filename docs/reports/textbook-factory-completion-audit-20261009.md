@@ -22,7 +22,7 @@ Baseline: `0ac948681` on `feat/textbook-factory-phase1`. This audit concerns exe
 | Catalog/revision | Runtime impact inspection | `production-revision-impact.mjs`, `planFactoryImpact` | Source/item changes propagate through publication in synthetic H1 chain and manifest impact inspection | No order-specific graph | No persisted revise/republish workflow | PARTIAL |
 | Multi-grade | Group and grade child lineage | Multi-grade order/production | P03 group modes | No grade-group authoring | Changed child blocks group | PARTIAL |
 | Recovery/runbook | Fail closed and manual reissue | Promotion/atomic runner | Partial failure tests | No run-centric recovery view | Rebuild/republish not unified | PARTIAL |
-| Admin UI | Nine-stage general factory | `/admin/csat/*` | UI model tests | JSON registration; no complete order-centric control | Blockers are mostly general | PARTIAL |
+| Admin UI | Nine-stage general factory plus order trace | `/admin/csat/*`, read-only order trace API | UI model and order-trace tests | Current order/promotion/item/review blockers visible; JSON registration and downstream unit/volume/render/publish remain unmeasured | Stale and rights reasons shown; no run-centric recovery control | PARTIAL |
 | Real commercial corpus and operational Gold-S | Separate operational gates | Fail-closed contracts | Not applicable | Not applicable | Not applicable | DEFERRED_REAL_DATA |
 
 ## P01–P20 production capability
@@ -58,7 +58,7 @@ Non-reading products (listening, dictation, cards, diagnostic workbook and mixed
 
 ## Goal issue classification
 
-- `BLOCKER`: No continuous brief-to-order-to-press flow; no single three-order master E2E with all requested failure injections; no order-centric UI control/status; family-specific production support is narrower than the product range.
+- `BLOCKER`: No continuous brief-to-order-to-press flow; the three-order master E2E does not yet cover all requested failure injections; order trace still cannot observe unit/volume/render/publish; family-specific production support is narrower than the product range.
 - `REQUIRED_FOR_COMPLETION`: Unit/volume progression and balance contract; capability matrix tied to executable adapter evidence; catalog/revision recovery workflow.
 - `NON_BLOCKING`: Cosmetic UI refinements and future performance work.
 - `DEFERRED`: Real permission, commercial admission, Korean calibration cohort, real Gold-S, real seed and external publication.

@@ -1180,3 +1180,5 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 
 
 /admin/csat/new: 학년·목적·P01~P20 제품 유형(또는 목적 기반 추천)·영역·글 유형·학습 기간·난도·길이 목표를 구조화된 폼으로 받아 기획안과 hash를 먼저 계산한다. 계획 가능한 제품 유형과 실제 생산 가능 상태를 분리해 `NOT_SUPPORTED / CONTRACT_ONLY / IMPLEMENTED / SYNTHETIC_E2E_VALIDATED` 등을 별도로 표시한다. 이는 비구속 제안이며 등록·승격·발행을 실행하지 않는다. 완전한 Product Order JSON 등록은 아직 별도 관리자 폼으로 남아 있다. 서버는 주문 스키마, 타겟, capability를 검증하고 정본 hash를 계산하여 register_reading_product_order RPC에 주문 ID, revision, hash를 전달한다. 원본 주문 문서는 운영자가 별도 보존한다.
+
+같은 화면의 주문별 생산 상태는 등록 결과의 Product Order ID로 읽기 전용 조회한다. `GET /api/admin/csat/order-trace`는 관리자 인증 뒤 현재 주문 revision, 승격 감사, authority, 지문 권리·status, 문항·해설·검수의 주문 결속을 확인한다. 조회 실패를 0건으로 표시하지 않고 503으로 중단한다. 단원·권·조판·게시처럼 해당 주문으로 확인할 수 없는 단계는 `unmeasured`로 표시하며, 승격 당시 certificate/eligibility hash는 현재 인증 통과로 해석하지 않는다.
