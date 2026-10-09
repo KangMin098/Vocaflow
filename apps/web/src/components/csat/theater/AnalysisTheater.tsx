@@ -56,6 +56,7 @@ import {
 import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
 import { withView } from '@/lib/csat/continuity'
+import { toItemSlug } from '@/lib/csat/item-slug'
 import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
 import type { DissectionRecord, Prediction } from '@/lib/csat/dissect'
 import {
@@ -236,6 +237,14 @@ export function AnalysisTheater({
       const predictions = r.predictions.some((x) => x.attempt === attempt) ? r.predictions : [...r.predictions, p]
       return revealSession({ ...r, predictions }, id, skip ? 'viewed_first' : 'independent', skip ? null : attempt, Date.now())
     }).then(({ record }) => sync(record, id))
+    // 서버 학습 세션에도 공개를 남긴다 — 같은 문항의 Practice · 확인 과제가 「해설을 본 뒤의 판단」 임을 서버가 알게(Codex P1).
+    // 학습 흐름을 막지 않는다(실패해도 극장은 계속) · 같은 공개의 재전송은 서버에서 duplicate
+    void fetch(`/api/csat/item/${toItemSlug(itemId)}/reveal`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ sessionId: id, help: skip ? 'viewed_first' : 'independent', revealedAt: new Date().toISOString() }),
+      keepalive: true,
+    }).catch(() => {})
   }
   const finish = () => {
     if (!session) return
