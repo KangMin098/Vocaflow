@@ -37,6 +37,8 @@ function verified(record) {
   return record
 }
 
+export const validateSyntheticRevisionWorkflow = record => verified(record)
+
 export function beginSyntheticRevisionWorkflow(priorManifest, nextManifest, cause = 'changed') {
   const impact = inspectProductionRevisionImpact(priorManifest, nextManifest, cause)
   if (!impact.affected.length) throw Error('REVISION_WORKFLOW_NO_CHANGE')
@@ -51,16 +53,16 @@ export function beginSyntheticRevisionWorkflow(priorManifest, nextManifest, caus
 
 export function advanceSyntheticRevisionWorkflow(input, event) {
   const record = verified(input)
+  const existing = record.events.find(row => row.event_id === event?.event_id)
+  if (existing) {
+    if (hash(existing) !== hash(event)) throw Error('REVISION_WORKFLOW_REPLAY_CONFLICT')
+    return record
+  }
   if (record.state === 'withdraw' || record.state === 'complete') throw Error('REVISION_WORKFLOW_TERMINAL')
   if (!event || typeof event !== 'object' || typeof event.event_id !== 'string' || !event.event_id.trim() ||
       typeof event.type !== 'string' || !SHA256.test(event.proof_hash) ||
       event.next_manifest_hash !== record.next_manifest_hash || event.group_id !== record.group_id)
     throw Error('REVISION_WORKFLOW_EVENT_INVALID')
-  const existing = record.events.find(row => row.event_id === event.event_id)
-  if (existing) {
-    if (hash(existing) !== hash(event)) throw Error('REVISION_WORKFLOW_REPLAY_CONFLICT')
-    return record
-  }
   const nextState = eventsByState[record.state]?.[event.type]
   if (!nextState) throw Error('REVISION_WORKFLOW_TRANSITION_INVALID')
   if (event.type === 'publication_simulated' &&

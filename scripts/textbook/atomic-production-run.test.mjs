@@ -11,6 +11,18 @@ import { hash } from './frym-benchmark/benchmark.mjs'
 
 const runner = fileURLToPath(new URL('./atomic-production-run.mjs', import.meta.url))
 
+test('revision journal cannot be requested for publish or without a previous manifest', () => {
+  for (const action of ['dry-run', 'publish']) {
+    const result = spawnSync(process.execPath, ['--import', 'tsx', runner, action,
+      '--group-id', 'fixture', '--stages', 'stages.json', '--render', 'render.json',
+      '--revision-run-dir', 'run', ...(action === 'dry-run' ? ['--out', 'book.html'] : [])],
+    { encoding: 'utf8' })
+    assert.notEqual(result.status, 0)
+    assert.match(result.stderr, /Usage:/)
+    assert.doesNotMatch(result.stderr, /SUPABASE_SERVICE_CREDENTIALS_MISSING/)
+  }
+})
+
 test('existing HTML or manifest blocks dry-run before DB credentials or capture', () => {
   const dir = mkdtempSync(path.join(os.tmpdir(), 'vocaflow-atomic-preflight-'))
   const stages = path.join(dir, 'stages.json')

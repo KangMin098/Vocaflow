@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 합성 catalog/revision 복구를 저장소 밖 hash-chain 저널과 start/advance/status/recover CLI로 연결했다. 잠금 원자 등록·중단 쓰기·종료된 작성자의 수동 격리 진단·완료 이벤트 재시도·혼합 기록을 검증하고 원자 조판 dry-run에서 저널 시작을 지원한다. 실제 카탈로그/DB 게시 변경은 없다.
+
 - feat(textbook): 관리자 주문 추적에 DB 생산 그룹·원자 snapshot·조판/게시 관측 경로를 연결하고 service-role read RPC를 개발 DB에 적용했다. 단원/권 개별 증거는 미측정으로 유지하고 유효한 DB 게시물만 다운로드한다. 롤백형 상태 전이·권한·무잔여 검증을 통과했다.
 
 - feat(textbook): P01·P02·P04~P12·P15~P17·P19 합성 단원에 주문·문항·본문 근거와 결정적 HTML 안전 래퍼를 연결했다. 유형별 교수 설계 상태는 `CONTRACT_ONLY`로 유지하고 운영 생산·학년 타당성으로 승격하지 않는다.

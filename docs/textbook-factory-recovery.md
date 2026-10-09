@@ -19,3 +19,22 @@
 운영 판정: `TEXTBOOK_FACTORY_PIPELINE_COMPLETE`는 합성 공정의 구현·검증 상태다. `TEXTBOOK_FACTORY_PRODUCTION_VERIFIED`는 실제 증거를 사용한 별도 운영 E2E 이후에만 참이다.
 
 개정 영향 예행은 `inspectProductionRevisionImpact`로 이전·새 manifest의 변경 범위를 계산한 뒤 `beginSyntheticRevisionWorkflow`로 시작한다. 변경은 `needs_review → revise → republish → complete` 순서로만 진행한다. 재구축 실패는 `needs_review`로 돌아가며 같은 이벤트 ID의 다른 내용은 거부한다. 권리 철회는 `withdraw`에서 종료하고 이전 revision을 다시 발행하지 않는다. 모든 이벤트는 동일 group ID와 새 manifest hash에 결속하며 최종 출력 hash가 재구축 hash와 다르면 발행 예행도 거부한다. 이 journal은 합성·비운영 검사이며 실제 카탈로그나 게시 행을 수정하지 않는다.
+
+## 프로세스 중단 후 개정 예행 재개
+
+`production-revision-run.mjs`는 저장소 밖 run directory에 `revision-000000.json`부터 변경 불가 기록을 쌓는다. 각 기록은 이전 journal hash, 같은 run ID, 원래 두 manifest hash와 합성 상태 전이를 다시 검증한다. 확정 파일은 임시 파일 fsync 후 hard-link로 생성하므로 기존 기록을 덮어쓰지 않는다. 이 보장은 프로세스 중단 복구용이며 전원 손실·네트워크 파일시스템의 내구성을 보증하지 않는다.
+
+```powershell
+pnpm exec tsx scripts/textbook/production-revision-run.mjs start --run-dir D:/textbook-runs/revision-1 --prior D:/textbook-runs/prior.manifest.json --next D:/textbook-runs/next.manifest.json
+pnpm exec tsx scripts/textbook/production-revision-run.mjs advance --run-dir D:/textbook-runs/revision-1 --event D:/textbook-runs/review-event.json
+pnpm exec tsx scripts/textbook/production-revision-run.mjs status --run-dir D:/textbook-runs/revision-1
+pnpm exec tsx scripts/textbook/production-revision-run.mjs recover --run-dir D:/textbook-runs/revision-1
+```
+
+이벤트에는 `event_id`, `type`, `group_id`, `next_manifest_hash`, `proof_hash`를 넣는다. `type`은 `review_approved / rebuild_failed / rebuild_passed / publication_simulated` 중 현재 상태에 허용된 값만 쓴다. 마지막 예행에는 `output_hash=proof_hash`가 필요하며 직전 재구축 출력 hash와 같아야 한다. 같은 이벤트 재시도는 마지막 완료 상태에서도 idempotent지만 같은 ID의 다른 내용은 거부한다. 권리 철회 예행은 start에 `--cause rights_revoked`를 주며 `withdraw`에서 종료한다.
+
+잠금도 완성·fsync한 임시 파일을 hard-link로 등록해 부분 JSON lock을 남기지 않는다. `recover`는 읽기 전용이며 lock을 삭제하지 않는다. 같은 머신의 종료된 소유자면 `manual_quarantine_required`와 lock token을 반환한다. 먼저 모든 해당 run 작성자를 멈추고 복구 운영자 한 명만 작업하게 한 뒤 `.writer-lock`을 존재하지 않는 `.pending-<새 UUID>`로 `Move-Item -LiteralPath`로 옮긴다. 원래 token의 pending 파일이 이미 있을 수 있으므로 대상 이름은 새 UUID를 쓴다. 이 격리는 가역적이며 새 작성자가 실행 중일 때 수행하면 안 된다. 다시 recover의 `resume_ready`를 확인하고 advance한다. 실행 중인 프로세스·다른 머신 lock은 보류한다. 빈·손상 lock도 자동 삭제하지 않고 구체적인 수동 격리 오류를 낸다.
+
+`.pending-*`는 확정되지 않은 잔여물로 개수만 표시하고 성공 기록으로 읽지 않는다. 최초 start가 확정 기록 전에 중단되면 recover는 `state=not_started`, `sequence=null`과 잠금 진단을 반환한다. 잠금 격리 후 같은 두 manifest로 start를 재시도한다. 확정 기록이 손상되거나 순번이 빠지면 복구도 차단하므로 기록을 고쳐 이어가지 말고 보존한 뒤 새 run에서 재검토한다. 이후 미완료 임시 쓰기는 마지막 확정 상태부터 다시 advance한다.
+
+원자 조판 dry-run에 `--previous-manifest PATH --revision-run-dir DIR`를 함께 주면 출력 파일을 확정한 뒤 개정 저널도 시작한다. 저널 저장 실패 시 명령은 실패하고 이미 저장된 조판물은 게시하지 않는다. 출력 manifest를 보존해 위 start 명령으로 저널을 재개할 수 있다. publish 동작에는 이 옵션을 허용하지 않는다. 이 경로도 `synthetic_fixture=true`, `non_production=true`, `publish_eligible=false`이며 실제 카탈로그 수정·재게시 승인이 아니다.

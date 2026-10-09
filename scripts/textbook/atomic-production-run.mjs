@@ -8,8 +8,9 @@ import { publishAtomicProductionArtifact, runAtomicMultiGradeFactoryDryRun } fro
 import { assertAtomicOutputAbsent, writeAtomicDryRunOutput } from './atomic-production-output.mjs'
 import { inspectProductionRevisionImpact, validateProductionRevisionManifest } from './production-revision-impact.mjs'
 import { beginSyntheticRevisionWorkflow } from './production-revision-workflow.mjs'
+import { startRevisionJournal } from './production-revision-journal.mjs'
 
-const usage = 'Usage: pnpm exec tsx scripts/textbook/atomic-production-run.mjs <dry-run|publish> --group-id ID --stages PATH --render PATH [--out PATH (dry-run only)] [--previous-manifest PATH]'
+const usage = 'Usage: pnpm exec tsx scripts/textbook/atomic-production-run.mjs <dry-run|publish> --group-id ID --stages PATH --render PATH [--out PATH (dry-run only)] [--previous-manifest PATH] [--revision-run-dir DIR (dry-run with previous manifest)]'
 if (process.argv.includes('--help')) {
   console.log(usage)
   process.exit(0)
@@ -19,16 +20,18 @@ if (!['dry-run', 'publish'].includes(action) || args.length % 2 !== 0) throw Err
 const options = new Map()
 for (let index = 0; index < args.length; index += 2) {
   const key = args[index]
-  if (!['--group-id', '--stages', '--render', '--out', '--previous-manifest'].includes(key) || options.has(key) ||
+  if (!['--group-id', '--stages', '--render', '--out', '--previous-manifest', '--revision-run-dir'].includes(key) || options.has(key) ||
       !args[index + 1] || args[index + 1].startsWith('--')) throw Error(usage)
   options.set(key, args[index + 1])
 }
 if (!options.get('--group-id') || !options.get('--stages') || !options.get('--render') ||
     (action === 'dry-run' && !options.get('--out')) ||
-    (action === 'publish' && options.has('--out'))) throw Error(usage)
+    (action === 'publish' && (options.has('--out') || options.has('--revision-run-dir'))) ||
+    (options.has('--revision-run-dir') && !options.has('--previous-manifest'))) throw Error(usage)
 for (const key of ['--stages', '--render', ...(action === 'dry-run' ? ['--out'] : []),
   ...(options.has('--previous-manifest') ? ['--previous-manifest'] : [])])
   assertExternalCandidate(options.get(key))
+if (options.has('--revision-run-dir')) assertExternalCandidate(options.get('--revision-run-dir'))
 const output = action === 'dry-run' ? path.resolve(options.get('--out')) : null
 if (output) assertAtomicOutputAbsent(output)
 const stages = JSON.parse(fs.readFileSync(options.get('--stages'), 'utf8'))
@@ -59,7 +62,11 @@ if (action === 'publish') {
 } else {
   const write = writeAtomicDryRunOutput(output, result.html, result.manifest)
   if (!write.ok) throw Error(`ATOMIC_DRY_RUN_WRITE_FAILED_NEW_APPROVAL_REQUIRED:${result.manifest.snapshot_id};LEFTOVERS:${write.leftovers.join(',')}`)
+  const revisionJournal = options.has('--revision-run-dir') && revisionWorkflowPreview
+    ? startRevisionJournal(options.get('--revision-run-dir'), previousManifest, result.manifest) : null
   console.log(JSON.stringify({ status: 'atomic_snapshot_unpublished', snapshot_id: result.manifest.snapshot_id,
     snapshot_hash: result.manifest.snapshot_hash, output_hash: result.manifest.html_sha256,
-    revision_impact: revisionImpact, revision_workflow_preview: revisionWorkflowPreview }))
+    revision_impact: revisionImpact, revision_workflow_preview: revisionWorkflowPreview,
+    revision_journal: revisionJournal ? { run_id: revisionJournal.record.run_id,
+      journal_hash: revisionJournal.record.journal_hash, state: revisionJournal.record.workflow.state } : null }))
 }
