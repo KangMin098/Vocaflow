@@ -76,7 +76,7 @@ test('게시: 요청서 + Context Packet 을 라벨 PR 로 · 같은 요청 재�
   assert.equal(p.code, 0, p.err)
   const st = s.gh()
   assert.equal(st.prs.length, 1)
-  assert.match(st.prs[0].title, new RegExp(`^\\[vfc:[0-9a-f]{8}\\] ${q.request_id} ${u.ug_id} TH-0001-R02 v0`))
+  assert.match(st.prs[0].title, new RegExp(`^\\[vfc:[0-9a-f]{8}\\] ${q.request_id} ${u.ug_id} ${u.thread_id}-R02 v0`))
   assert.match(st.prs[0].headRefName, /^vfc\/[0-9a-f]{8}\/REQ-/)
   assert.ok(Object.keys(st.files).some((k) => k.endsWith(`requests/${q.request_id}.context/evidence-manifest.json`)), 'Context Packet 업로드')
   assert.ok(!Object.keys(st.files).some((k) => /\.env|verdicts/.test(k)), '패킷 밖 로컬 파일은 올리지 않는다')

@@ -379,3 +379,18 @@ test('r2: 대소문자만 바뀐 계약도 계약 변경 · 리뷰 중 옛 버�
   assert.notEqual(r.code, 0)
   assert.match(r.err, /DESIGN_REVIEW_REQUIRED|ChatGPT 설계 검토가 선행/)
 })
+
+test('목표 id 이름공간: 두 인스턴스가 각자 첫 목표를 만들어도 UG·TH id 가 겹치지 않고, 같은 인스턴스 안에서는 순번이 이어진다', () => {
+  const a = setup().root
+  const b = setup().root
+  const start = (root, title) => ok(vfc(root, ['ugoal', 'start', '--from', 'claude', '--title', title, '--goals', CANON, '--by', 'claude']))
+  const ga = start(a, 'A 첫 목표')
+  const gb = start(b, 'B 첫 목표')
+  const nsA = fs.readFileSync(path.join(a, 'planning', 'bridge-instance.txt'), 'utf8').trim()
+  assert.match(ga.ug_id, new RegExp(`^UG-${nsA}-0001$`))
+  assert.match(ga.thread_id, new RegExp(`^TH-${nsA}-0001$`))
+  assert.notEqual(ga.ug_id, gb.ug_id)
+  assert.notEqual(ga.thread_id, gb.thread_id)
+  const ga2 = start(a, 'A 둘째 목표')
+  assert.equal(ga2.ug_id, `UG-${nsA}-0002`)
+})
