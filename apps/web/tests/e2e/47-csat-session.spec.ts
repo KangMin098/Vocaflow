@@ -237,21 +237,23 @@ for (const width of [1280, 1440, 1728]) test(`해부 3수·설계도·공식·�
   await cdp.detach()
   if (width === 1280) {
     // Simulate an older failed extraction in this isolated browser's cache.
-    const year = new URL(page.url()).searchParams.get('set')!.split(',')[0].split('-')[0]
-    await page.evaluate(async () => new Promise<void>((resolve, reject) => {
+    // 지금 홈 카드의 시작 링크는 `/csat/dissect`(쿼리 없음)라 회차를 URL 에서 읽을 수 없다 — 망가뜨리는 캐시 행의 회차를 쓴다(Codex P1)
+    const year = await page.evaluate(async () => new Promise<string>((resolve, reject) => {
       const open = indexedDB.open('vocaflow-csat')
       open.onerror = () => reject(open.error)
       open.onsuccess = () => {
         const db = open.result
         const tx = db.transaction('papers', 'readwrite')
         const cursor = tx.objectStore('papers').openCursor()
+        let exam = ''
         cursor.onsuccess = () => {
           const row = cursor.result
           if (!row) return
+          exam ||= String(row.value.exam_id ?? '')
           row.update({ ...row.value, items: row.value.items.map((i: { ok: boolean }) => ({ ...i, ok: false })) })
           row.continue()
         }
-        tx.oncomplete = () => { db.close(); resolve() }
+        tx.oncomplete = () => { db.close(); resolve(/^\d{4}/.test(exam) ? exam.slice(0, 4) : exam) /* 수능 회차 id = 학년도(2026 · 2014A) */ }
         tx.onabort = () => { db.close(); reject(tx.error) }
       }
     }))
