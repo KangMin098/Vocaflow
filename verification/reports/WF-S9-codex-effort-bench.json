@@ -1,0 +1,23 @@
+{
+  "prompt_from": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\wf7-sandbox-LJ6Qvg\\runtime\\runs\\20261009T033328-fa46ea\\T-0006-r1",
+  "high": {
+    "ms": 130076,
+    "verdict": "APPROVE",
+    "findings": [],
+    "tokens": "90,912"
+  },
+  "medium": [
+    {
+      "ms": 83492,
+      "verdict": "APPROVE",
+      "findings": [],
+      "tokens": "86,987"
+    },
+    {
+      "ms": 79360,
+      "verdict": "APPROVE",
+      "findings": [],
+      "tokens": "77,644"
+    }
+  ]
+}

@@ -16,3 +16,4 @@ runtime/runs/
 runtime/STOP
 runtime/*.json
 runtime/*.err
+context/

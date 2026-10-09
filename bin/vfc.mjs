@@ -15,6 +15,8 @@ import { findAgentPid } from '../lib/agentpid.mjs'
 import * as T from '../lib/tasks.mjs'
 import * as P from '../lib/planning.mjs'
 import * as UG from '../lib/usergoals.mjs'
+import * as CTX from '../lib/context.mjs'
+import { measureRuns } from '../lib/perf.mjs'
 import { execFileSync } from 'node:child_process'
 import { initState } from '../lib/init.mjs'
 
@@ -124,6 +126,9 @@ ChatGPT (파일 교환 · API 없음)
   ugoal activate <UG> | ugoal deactivate | ugoal mode USER_GOAL|PLATFORM_AUTO
   ugoal pause <UG> | ugoal resume <UG> | ugoal accept <UG> --by O
   ugoal list | ugoal status <UG> | ugoal route <UG>
+  ugoal context <UG> [--fetch]                                최신 컨텍스트 패킷(context/<UG>/ · main 기준 · 캐시) — request-design 이 자동으로 붙인다(--no-context 로 끔)
+  ugoal link <UG> --surface chat|work|event_task|desktop_work [--url https://chatgpt.com/…]   사람용 참조(라우팅 키 아님)
+  perf report [--since 2026-10-09] [--json]                   오케스트레이터 단계별 소요 시간·비용
 `
 
 function main() {
@@ -346,8 +351,31 @@ function main() {
     case 'ugoal request-design': {
       const r = requireValidCanon()
       const issue = opt['issue-file'] ? JSON.parse(fs.readFileSync(opt['issue-file'], 'utf8')) : null
-      const req = UG.requestDesign(withState, pos[0], { purpose: issue ? 'design_conflict' : 'design', issue, base_commit: opt.commit || null, canon_version: r.facts.canon_version, by })
-      return out({ request_id: req.id, file: req.file, thread: req.header.thread }, opt)
+      let context = null
+      let contextError = null
+      if (!opt['no-context']) {
+        try {
+          context = CTX.buildContext(loadState().state, pos[0], { fetch: !!opt.fetch })
+        } catch (e) {
+          contextError = e.message // 패킷 실패는 요청을 막지 않는다 — 요청서에 「패킷 없음」 이 적힌다
+        }
+      }
+      const req = UG.requestDesign(withState, pos[0], { context, purpose: issue ? 'design_conflict' : 'design', issue, base_commit: opt.commit || context?.manifest?.base_commit || null, canon_version: r.facts.canon_version, by })
+      return out({ request_id: req.id, file: req.file, thread: req.header.thread, context: context ? { dir: context.dir, cached: context.cached, base_commit: context.manifest.base_commit, files: context.files } : null, context_error: contextError }, opt)
+    }
+    case 'ugoal context': {
+      const c = CTX.buildContext(loadState().state, pos[0], { fetch: !!opt.fetch })
+      return out({ dir: c.dir, cached: c.cached, base_commit: c.manifest.base_commit, generated_at: c.manifest.generated_at, files: c.files, source_files: c.manifest.source_files.length }, opt)
+    }
+    case 'ugoal link':
+      return out(withState((s) => UG.linkSurface(s, pos[0], { surface: opt.surface, url: opt.url || null, by })), opt)
+    case 'perf report': {
+      const m = measureRuns(loadState().state.orchestrator, { since: opt.since || null })
+      if (!opt.json) {
+        const min = (ms) => `${(ms / 60000).toFixed(1)}분`
+        return out([`실행 ${m.runs} · 벽시계 ${min(m.wall_ms)} · 완료 작업 ${m.completed_tasks} · 작업당 ${m.per_completed_task_ms ? min(m.per_completed_task_ms) : '-'} · 비용 $${m.cost_usd}`, ...Object.entries(m.by_phase).map(([k, v]) => `  ${k.padEnd(12)} ${min(v.ms).padStart(7)} ${String(v.pct).padStart(5)}%`)].join('\n'), opt)
+      }
+      return out(m, opt)
     }
     case 'ugoal intake': {
       requireValidCanon()
@@ -361,6 +389,14 @@ function main() {
         }
       }
       const res = UG.intakeResponses(withState, { by, currentCommitFor: headOf, minAgeMs: opt['min-age-ms'] !== undefined ? Number(opt['min-age-ms']) : undefined })
+      // 새 설계 버전은 main 코드와 대조해 기록한다(승인 때 사람이 본다 — 자동 거부는 하지 않는다)
+      for (const r of res.filter((x) => x.status === 'applied' && x.design_version)) {
+        r.code_check = withState((s) => {
+          const d = UG.findGoal(s, r.ug).designs.find((x) => x.version === r.design_version)
+          d.code_check = CTX.checkDesignAgainstCode(d)
+          return d.code_check
+        })
+      }
       return out({ processed: res.length, results: res }, opt)
     }
     case 'ugoal approve': {

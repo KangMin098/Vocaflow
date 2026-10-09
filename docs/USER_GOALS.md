@@ -49,6 +49,40 @@ ChatGPT 구간은 **사람이 파일을 옮긴다(HUMAN_IN_THE_LOOP)** — OpenA
 
 프로필은 예산만 줄이고 게이트는 올리기만 한다. 목표 예산(기본): 같은 쟁점 재질의 2 · 전체 재질의 6 · 응답 대기 72시간 · 연속 실패 3. 넘으면 작업은 `DESIGN_BUDGET`/`EXTERNAL_BLOCKER` 로 보류되고 오케스트레이터는 다른 독립 작업으로 간다 — 완료로 위장하지 않는다.
 
+## Context Sync (`vfc ugoal context <UG>` · WF-S9)
+
+설계 요청(`ugoal request-design`, 오케스트레이터의 설계 쟁점 재질의)에 **최신 컨텍스트 패킷**을 자동으로 붙인다(`--no-context` 로 끔). 위치 `context/<UG>/`(Git 제외 · 다시 만들 수 있다).
+
+| 파일 | 계층 | 등급 |
+|---|---|---|
+| platform-summary.md | L1 AGENTS.md 「프로젝트」 절 · 정본 기준 | doc_claim |
+| goal-brief.md | L2 목표·현재 설계·수용 기준·보존 계약·범위 | design |
+| existing-features.md | L2 범위 파일 목록·발췌·형제 테스트(main 커밋) | code_verified |
+| design-decisions.md | L2 완료 작업 증거 · 관련 결정 | test_verified · decisions |
+| recent-changes.md | L3 main HEAD · 범위 파일 최근 커밋 | code_verified |
+| active-work-and-conflicts.md | L3 같은 범위 활성 작업·owner·worktree | state |
+| unverified-assumptions.md | 통과 증거 없는 수용 기준 · 테스트 없는 범위 | unverified |
+| evidence-manifest.json | base_commit · generated_at · 원본 blob · cache_key · 등급표 | — |
+
+- 제품 코드는 **`origin/main`** 에서 읽는다(로컬 작업 트리의 미커밋 변경이 섞이지 않는다). 제품 저장소 위치 `VFC_PRODUCT_REPO`(기본 `D:/workspace/Vocaflow`). `--fetch` 로 먼저 받아 온다.
+- 캐시: main 커밋 · 설계 계약 · 관련 작업 상태가 같으면 다시 만들지 않는다(실측 생성 159ms · 캐시 58ms).
+- 비밀값: `.env`·key·인증서 경로는 읽지 않고, 키·토큰·비밀번호·DB URL 모양은 `[REDACTED]`. DB 에 접속하지 않는다.
+- 응답 인수 뒤 새 설계의 `allowed_paths` 를 main 과 대조해 `code_check` 로 남긴다 — 없는 경로는 승인 대기 사유에 ⚠ 로 보인다(자동 거부는 하지 않는다).
+
+## 세션 매핑
+
+| 식별자 | 어디에 |
+|---|---|
+| goal_id(UG-…) · thread_id(TH-…) · round_id · design_version | USER_GOALS.json |
+| request_id(REQ-…) | planning/requests · 응답은 같은 값을 돌려줘야 적용 |
+| task_id · run_id(orch-…) · owner_id · worktree | TASK_QUEUE.json · ORCHESTRATOR.json |
+| chat_surface · chat_url | `ugoal link <UG> --surface work --url https://chatgpt.com/…` — **사람용 참조**. 라우팅은 위 식별자로만 한다 |
+
+## 성능 측정 (`vfc perf report`)
+
+ORCHESTRATOR.json 의 단계 사건 시각으로 단계별 시간을 낸다. 2026-10-09 기준(실행 10 · 완료 5): 작업당 3.5분 · 구현 49.9% · **Codex 리뷰 44.2%** · 목표 검사 5.2%.
+그래서 프로필이 리뷰 강도를 정한다: FAST·BALANCED `medium` · DEEP·CRITICAL `high` · 사용자 목표 밖 플랫폼 작업은 기존 `high`. 같은 실제 프롬프트 실측: high 130초 → medium 83·79초(판정 동일 · 표본 1건×2회 — `verification/reports/WF-S9-codex-effort-bench.json`).
+
 ## 응답 인수 (`vfc ugoal intake`)
 
 1. `planning/responses/` 에서 임시 확장자(`.part`·`.tmp`·`.crdownload`…)·빈 파일·최근 2초 안에 바뀐 파일은 건너뛴다(복사 중).
@@ -84,6 +118,11 @@ node bin\vfc.mjs ugoal start --from chatgpt --file C:\Users\<나>\Downloads\goal
 # Claude-first 라면:
 node bin\vfc.mjs ugoal start --from claude --title "…" --goals VG-L3-A2-01 --profile DEEP --by claude
 node bin\vfc.mjs ugoal list
+# 어느 ChatGPT 대화·Work 에서 시작했는지 기록(참조용)
+node bin\vfc.mjs ugoal link UG-0001 --surface work --url https://chatgpt.com/c/<대화id> --by user
+# 최신 컨텍스트 패킷 확인(설계 요청 때 자동으로 붙는다)
+node bin\vfc.mjs ugoal context UG-0001 --fetch
+Get-ChildItem context\UG-0001
 ```
 
 **4. 사용자 승인 범위 지정** — 결정 기록(사람만) → 설계 승인. `--paths` 를 주면 설계 범위보다 좁힐 수만 있다.
