@@ -186,7 +186,11 @@ function publish(id) {
     `응답은 제안일 뿐이며 사용자 승인 전에는 실행되지 않습니다. 이 PR 은 머지하지 않습니다.`,
   ].join('\n\n')
   const plan = { repo: opt.repo, branch, title, label: 'vfc-request', files: [`requests/${id}.md`, ...ctx.map((p) => `requests/${id}.context/${path.basename(p)}`)] }
-  if (dry) return out({ dry_run: true, ...plan })
+  if (dry) {
+    const r = { dry_run: true, ...plan }
+    if (!opt.quiet) out(r)
+    return r
+  }
   const tPub = Date.now()
   const def = ghJson(['api', `repos/${opt.repo}`]).default_branch
   const baseSha = ghJson(['api', `repos/${opt.repo}/git/ref/heads/${def}`]).object.sha
@@ -200,7 +204,9 @@ function publish(id) {
   }
   const url = gh(['pr', 'create', '--repo', opt.repo, '--head', branch, '--base', def, '--title', title, '--label', 'vfc-request', '--body-file', '-'], body)
   log({ event: 'published', request_id: id, ug: h.thread.goal_ref, round_id: h.thread.round_id, design_version: h.thread.design_version, pr: url, files: plan.files.length, context_base_commit: h.thread.context_base_commit ?? null, ms: Date.now() - tPub })
-  out({ published: id, pr: url, ...plan })
+  const res = { published: id, pr: url, ...plan }
+  if (!opt.quiet) out(res)
+  return res
 }
 
 function collect() {
@@ -287,28 +293,8 @@ function watch() {
   const interval = Number(opt.interval || 30) * 1000
   const deadline = Date.now() + Number(opt['timeout-min'] || 30) * 60_000
   const maxErr = Number(opt['max-errors'] || 5)
-  const lockF = path.join(ROOT, 'planning', 'bridge-watch.lock')
+  const lockF = takeWatchLock()
   const stopF = path.join(ROOT, 'planning', 'bridge-watch.STOP')
-  fs.mkdirSync(path.dirname(lockF), { recursive: true })
-  try {
-    fs.writeFileSync(lockF, JSON.stringify({ pid: process.pid, at: new Date().toISOString() }), { flag: 'wx' })
-  } catch {
-    let pid = 0
-    try {
-      pid = JSON.parse(fs.readFileSync(lockF, 'utf8')).pid
-    } catch {
-      pid = 0
-    }
-    let alive = false
-    try {
-      process.kill(pid, 0)
-      alive = true
-    } catch (e) {
-      alive = e.code === 'EPERM'
-    }
-    if (alive) throw new Error(`다른 watch 가 실행 중이다(pid ${pid}) — 겹쳐 돌지 않는다`)
-    fs.writeFileSync(lockF, JSON.stringify({ pid: process.pid, at: new Date().toISOString() }))
-  }
   const result = { started_at: new Date().toISOString(), polls: 0, errors: 0, collected: [], intake: [], stop_reason: null }
   try {
     for (;;) {
@@ -341,23 +327,133 @@ function watch() {
       }
       if (got.length) {
         result.collected.push(...got.map((g) => g.id))
-        const t = Date.now()
-        const VFC = process.env.VFC_CLI || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'bin', 'vfc.mjs')
-        const r = JSON.parse(execFileSync(process.execPath, [VFC, 'ugoal', 'intake', '--min-age-ms', '0', '--by', 'bridge-watch', '--json'], { encoding: 'utf8', env: { ...process.env, VFC_ROOT: ROOT } }))
-        result.intake.push(...r.results)
-        for (const x of r.results) log({ event: 'intake', request_id: (x.file.match(/(REQ-\d{8}-(?:[0-9a-f]{8}-)?\d{3})/) || [])[1] ?? null, status: x.status, design_version: x.design_version ?? null, design_incomplete: x.design_incomplete ?? null, ms: Date.now() - t })
+        result.intake.push(...intakeNow('bridge-watch'))
         continue
       }
       sleep(interval)
     }
   } finally {
-    try {
-      if (JSON.parse(fs.readFileSync(lockF, 'utf8')).pid === process.pid) fs.rmSync(lockF, { force: true })
-    } catch {
-      /* 이미 없다 */
-    }
+    releaseWatchLock(lockF)
   }
   out(result)
+}
+
+function takeWatchLock() {
+  const lockF = path.join(ROOT, 'planning', 'bridge-watch.lock')
+  fs.mkdirSync(path.dirname(lockF), { recursive: true })
+  try {
+    fs.writeFileSync(lockF, JSON.stringify({ pid: process.pid, at: new Date().toISOString() }), { flag: 'wx' })
+  } catch {
+    let pid = 0
+    try {
+      pid = JSON.parse(fs.readFileSync(lockF, 'utf8')).pid
+    } catch {
+      pid = 0
+    }
+    let alive = false
+    try {
+      process.kill(pid, 0)
+      alive = true
+    } catch (e) {
+      alive = e.code === 'EPERM'
+    }
+    if (alive) throw new Error(`다른 watch 가 실행 중이다(pid ${pid}) — 겹쳐 돌지 않는다`)
+    fs.writeFileSync(lockF, JSON.stringify({ pid: process.pid, at: new Date().toISOString() }))
+  }
+  return lockF
+}
+
+function releaseWatchLock(lockF) {
+  try {
+    if (JSON.parse(fs.readFileSync(lockF, 'utf8')).pid === process.pid) fs.rmSync(lockF, { force: true })
+  } catch {
+    /* 이미 없다 */
+  }
+}
+
+/** 모은 응답을 바로 인수(vfc ugoal intake) — 검증·중복 차단·버전 대조는 intake 가 한다(자동 승인 없음) */
+function intakeNow(by) {
+  const t = Date.now()
+  const VFC = process.env.VFC_CLI || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'bin', 'vfc.mjs')
+  const r = JSON.parse(execFileSync(process.execPath, [VFC, 'ugoal', 'intake', '--min-age-ms', '0', '--by', by, '--json'], { encoding: 'utf8', env: { ...process.env, VFC_ROOT: ROOT } }))
+  for (const x of r.results) log({ event: 'intake', request_id: (x.file.match(/(REQ-\d{8}-(?:[0-9a-f]{8}-)?\d{3})/) || [])[1] ?? null, status: x.status, design_version: x.design_version ?? null, design_incomplete: x.design_incomplete ?? null, ms: Date.now() - t })
+  return r.results
+}
+
+/** 응답 대기(PENDING) 중인데 아직 게시하지 않은 thread 요청 — 오래된 순, 이 인스턴스 이름공간만 */
+function pendingUnpublished() {
+  const f = path.join(ROOT, 'state', 'USER_GOALS.json')
+  if (!fs.existsSync(f)) return []
+  const ug = JSON.parse(fs.readFileSync(f, 'utf8'))
+  const pub = new Set(readLog().filter((e) => e.event === 'published').map((e) => e.request_id))
+  const out = []
+  for (const g of Object.values(ug.goals || {})) {
+    if (g.status !== 'OPEN') continue
+    for (const r of g.rounds || []) if (r.recipient === 'chatgpt' && r.response_status === 'PENDING' && r.request_id && !pub.has(r.request_id) && r.request_id.includes(`-${instanceId()}-`)) out.push({ id: r.request_id, at: r.created_at })
+  }
+  return out.sort((a, b) => a.at.localeCompare(b.at)).map((x) => x.id)
+}
+
+/**
+ * 한 번만 도는 브리지 단계(오케스트레이터가 반복마다 부른다 — 상시 데몬 없음).
+ * 대기 요청이 있으면 한 번 수집 → 모았으면 인수. 없으면 아직 안 올린 PENDING 요청 하나를 게시(단일 in-flight 유지).
+ * watch 와 같은 잠금을 쓴다 — watch 가 돌고 있으면 아무것도 하지 않는다.
+ */
+function tick() {
+  if (!opt.repo) throw new Error('--repo owner/exchange 필요')
+  const res = { at: new Date().toISOString(), published: null, collected: [], intake: [], waiting: [], errors: [], skipped: null }
+  let lockF
+  try {
+    lockF = takeWatchLock()
+  } catch (e) {
+    res.skipped = e.message
+    return out(res)
+  }
+  const t0 = Date.now()
+  try {
+    if (fs.existsSync(path.join(ROOT, 'planning', 'bridge-watch.STOP'))) {
+      res.skipped = 'STOP 파일'
+    } else {
+      // 1) 대기 요청이 있으면 한 번 수집
+      if (inflight().length) {
+        try {
+          const got = collectOnce({ authors: null, app: opt.app || null }).filter((r) => r.status === 'collected')
+          res.collected = got.map((g) => g.id)
+        } catch (e) {
+          res.errors.push(String(e.message).slice(0, 200))
+          log({ event: 'tick_error', error: String(e.message).slice(0, 200) })
+        }
+      }
+      // 2) 받아 둔 응답이 아직 인수되지 않았으면(이번 수집이든 지난 tick 의 인수 실패든) 인수 — 일시 실패가 라운드를 영영 PENDING 으로 남기지 않게(Codex P2)
+      const respDir = path.join(ROOT, 'planning', 'responses')
+      if (!opt['dry-run'] && fs.existsSync(respDir) && fs.readdirSync(respDir).some((f) => f.endsWith('.md') && !f.endsWith('.part'))) {
+        try {
+          res.intake = intakeNow('bridge-tick')
+        } catch (e) {
+          res.errors.push(`intake: ${String(e.message).slice(0, 200)}`)
+          log({ event: 'tick_intake_error', error: String(e.message).slice(0, 200) })
+        }
+      }
+      // 3) 대기 요청이 없어졌으면(방금 수집 포함) 다음 PENDING 요청 하나를 게시 — 줄 선 요청이 다음 수동 실행까지 멈추지 않게(Codex P2)
+      if (!inflight().length) {
+        const next = pendingUnpublished()[0]
+        if (next) {
+          try {
+            opt.quiet = true
+            res.published = publish(next)
+          } catch (e) {
+            res.errors.push(`${next}: ${String(e.message).slice(0, 200)}`)
+            log({ event: 'tick_publish_refused', request_id: next, error: String(e.message).slice(0, 200) })
+          }
+        }
+      }
+    }
+    res.waiting = inflight()
+  } finally {
+    releaseWatchLock(lockF)
+  }
+  res.ms = Date.now() - t0
+  out(res)
 }
 
 /** 턴별 시간: published → (Work 가 댓글을 단 시각) → collected. Work 대기 = 댓글 시각 - 게시 시각(댓글 시각이 없으면 수집 시각까지의 상한) */
@@ -384,6 +480,7 @@ try {
   else if (cmd === 'status') status()
   else if (cmd === 'preview') out(preview(pos[0]))
   else if (cmd === 'watch') watch()
+  else if (cmd === 'tick') tick()
   else {
     console.log('node poc/work-bridge.mjs publish <REQ-id> --repo owner/exchange [--dry-run]\nnode poc/work-bridge.mjs collect --repo owner/exchange [--authors a,b] [--dry-run]\nnode poc/work-bridge.mjs status')
     process.exit(cmd ? 2 : 0)

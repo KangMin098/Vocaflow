@@ -5,6 +5,8 @@
 // 사용법은 `node bin/vfc.mjs help` 또는 docs/USAGE.md.
 
 import fs from 'node:fs'
+import os from 'node:os'
+import crypto from 'node:crypto'
 import path from 'node:path'
 import { p, root, goalsDir, normalizeWorktree } from '../lib/paths.mjs'
 import { validateCanon, buildManifest, loadCriteria, MANIFEST } from '../lib/goals.mjs'
@@ -99,7 +101,9 @@ const HELP = `vfc — Vocaflow AI Control
   task check --file spec.json             task add 와 같은 검사(영향 계약·갭·중복·재구현)만 — 상태를 바꾸지 않는다
   goal level <VG-…>                       TASK_COMPLETED · GOAL_PARTIAL · GOAL_VERIFIED · USER_ACCEPTED(사용자 결정만)
   task list [--status S] [--owner O] | task show <id>
-  task approve <id> --by user --ref "근거" [--sql-sha256 H]
+  task approve <id> --by user --ref "근거" [--sql-sha256 H]   DB 쓰기 승인은 사람의 대화형 터미널에서만
+  approve --kind design_approval|goal_acceptance|db_write|canon_change --summary "UG-… accept" [--ref ..] [--goals VG-..] [--new-canon-version v]
+                                          신뢰 승인 입력(대화형 터미널 · 에이전트 밖 · 화면의 확인 코드 입력) — 강한 승인의 유일한 근거
   task start <id> --owner O --agent A --session L [--pid N]
   task evidence <id> --file ev.json --by O  ev: type command_or_protocol result skip_count artifact_path_or_url observed_at covers[]
   task set-acceptance <id> --file acc.json --decision <APPROVED DL-id> --by O   READY 에서만 · 옛 조건은 history
@@ -167,7 +171,7 @@ function main() {
       if (fs.existsSync(manPath)) {
         if (!opt.decision) throw new T.RuleError('ALREADY_SEALED', '이미 봉인됐다 — 재봉인은 --decision <사용자 APPROVED 정본 변경 결정 id> 와 함께')
         const d = loadState().state.decisionLog.entries.find((e) => e.decision_id === opt.decision)
-        if (!d || d.status !== 'APPROVED' || d.approved_by !== 'user' || d.kind !== 'canon_change') throw new T.RuleError('RESEAL_NOT_APPROVED', `결정 ${opt.decision} 가 사용자 APPROVED canon_change 가 아니다`)
+        if (!T.isTrustedUserDecision(d) || d.kind !== 'canon_change') throw new T.RuleError('RESEAL_NOT_APPROVED', `결정 ${opt.decision} 가 대화형 터미널로 기록한 사용자 APPROVED canon_change 가 아니다(vfc approve --kind canon_change)`)
         if (!d.new_canon_version) throw new T.RuleError('RESEAL_NOT_APPROVED', '정본 변경 결정에 new_canon_version 이 없다')
       }
       const r = validateCanon()
@@ -257,8 +261,38 @@ function main() {
     }
     case 'task show':
       return out(loadState().state.taskQueue.tasks.find((t) => t.task_id === pos[0]) ?? `작업 ${pos[0]} 없음`, opt)
-    case 'task approve':
-      return out(withState((s) => T.recordApproval(s, pos[0], { by: opt.by, reference: opt.ref, kinds: opt.kinds ? list(opt.kinds) : undefined, sql_sha256: opt['sql-sha256'] }), { event: 'task.approve', task: pos[0], by: opt.by }), opt)
+    case 'task approve': {
+      const via = T.approvalChannel()
+      return out(withState((s) => T.recordApproval(s, pos[0], { by: opt.by, reference: opt.ref, kinds: opt.kinds ? list(opt.kinds) : undefined, sql_sha256: opt['sql-sha256'], via }), { event: 'task.approve', task: pos[0], by: opt.by, via }), opt)
+    }
+    case 'approve': {
+      // 신뢰 승인 입력 — 에이전트 프로세스(TTY 없음 · CLAUDECODE/VFC_AGENT)는 여기를 통과하지 못한다
+      const via = T.approvalChannel()
+      if (via !== 'tty') throw new T.RuleError('TRUST_REQUIRED', `vfc approve 는 사람의 대화형 터미널에서만 실행된다(현재 ${via}) — 에이전트가 대신 실행할 수 없다`)
+      const KINDS = ['design_approval', 'goal_acceptance', 'db_write', 'canon_change']
+      if (!KINDS.includes(opt.kind)) throw new T.RuleError('BAD_KIND', `--kind 는 ${KINDS.join('|')}`)
+      if (!opt.summary) throw new T.RuleError('MISSING_FIELD', '--summary 가 필요하다(예: 「UG-0001 accept」 · 「UG-0001@v2」 · 「UG-0001@v2 db」)')
+      const testCode = process.env.VFC_TTY_FOR_TESTS === '1' ? process.env.VFC_TEST_CODE : null
+      const code = testCode || crypto.randomBytes(3).toString('hex')
+      process.stderr.write(`\n[승인] ${opt.kind} — ${opt.summary}\n근거: ${opt.ref || '(없음)'}\n확인하려면 코드 ${code} 를 입력하고 Enter: `)
+      const buf = Buffer.alloc(256)
+      let line = ''
+      for (;;) {
+        let n = 0
+        try {
+          n = fs.readSync(0, buf, 0, buf.length, null)
+        } catch (e) {
+          if (e.code === 'EAGAIN') continue
+          throw e
+        }
+        if (!n) break
+        line += buf.toString('utf8', 0, n)
+        if (line.includes('\n')) break
+      }
+      if (line.trim() !== code) throw new T.RuleError('TRUST_CODE_MISMATCH', '확인 코드가 다르다 — 기록하지 않았다')
+      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
+      return out(withState((s) => T.logDecision(s, entry, { via: 'tty' }), { event: 'decision.approve_tty', kind: opt.kind, by: 'user' }), opt)
+    }
     case 'task set-acceptance': {
       const acc = readJson(opt.file)
       return out(withState((s) => T.setAcceptance(s, pos[0], { caller: caller(opt), acceptance: acc, decision_id: opt.decision }), { event: 'task.set_acceptance', task: pos[0], decision: opt.decision, by }), opt)
@@ -274,7 +308,16 @@ function main() {
         (s, ctx) => {
           const owner = s.ownership.owners[opt.owner]
           if (owner && (!owner.current_session || owner.current_session.label !== sess.label)) T.bindSession(s, opt.owner, sess)
-          return T.startTask(s, pos[0], { owner_id: opt.owner, session: sess, pid: sess.pid }, ctx)
+          const started = T.startTask(s, pos[0], { owner_id: opt.owner, session: sess, pid: sess.pid }, ctx)
+          // 세션 인계의 리뷰 기준 — 죽은 세션이 커밋을 남기면 이 기준과 달라져 자동 재개하지 않는다(Codex P1)
+          if (started.worktree) {
+            try {
+              started.run.start_head = execFileSync('git', ['-C', started.worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim()
+            } catch {
+              started.run.start_head = null
+            }
+          }
+          return started
         },
         { event: 'task.start', task: pos[0], owner: opt.owner, session: sess.label },
       )

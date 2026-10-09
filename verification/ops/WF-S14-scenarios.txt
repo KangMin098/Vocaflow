@@ -1,0 +1,45 @@
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+✔ A·E·H — 한 목표의 승인된 작업 2개를 한 실행에서 연속 처리 · 중간에 남은 기준으로 다음 작업 선정 · 사용자 수락 없이는 USER_ACCEPTED 아님 (19343.4463ms)
+✔ B·D — Work 요청은 오케스트레이터가 게시하고(단일 in-flight), 기다리는 동안 다른 목표 작업을 실행하며, 응답은 다음 반복에서 자동 인수 → 승인 뒤 자동 재개 (22943.8335ms)
+✔ C — 담당 세션이 죽은 작업은 같은 owner 아래 재개, 살아 있는 세션의 작업은 건드리지 않는다 (9332.9658ms)
+✔ F — 사용자 대화형 승인 없이 DB 범위·정본 재봉인·DB 쓰기 승인은 막힌다 (1651.0796ms)
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/half.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/c.ts', LF will be replaced by CRLF the next time Git touches it
+✔ G — 같은 작업 중복 실행 방지: 오케스트레이터 동시 실행 거부 · 같은 기준 중복 작업 등록 거부 (3765.9602ms)
+✔ C2 — 죽은 세션의 worktree 에 미커밋 변경이 있으면 되살리지 않고 사유를 남긴다 · 통과한 리뷰는 같은 diff 재리뷰에 재사용(캐시 기록) (8600.2817ms)
+✔ Codex P1·P2 — dry-run 은 브리지 부작용 없음 · 받아 둔 응답의 인수가 실패해도 다음 tick 이 다시 인수한다 (9999.2123ms)
+✔ Codex P1 — 죽은 세션이 커밋을 남기면 자동 재개하지 않는다(그 커밋이 리뷰 기준에서 빠지지 않게) (4976.7064ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 80743.8805

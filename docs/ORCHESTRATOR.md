@@ -94,3 +94,17 @@ node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10 
 **지연(실측 · 실제 상태 13 작업)** — 등록 검사 0.40ms · 선정 정렬 추가 0.005ms · 목표 단계 0.003ms(기존 순위 계산 0.32ms). 작업 300개 합성에서도 등록 검사 < 50ms(테스트).
 
 **회귀** `tests/alignment.test.mjs` — 지도 rev2.1(VG-L2-A1 ⊃ A1-01·A1-02) 실패 사례 5종(하위 완료를 전체 지도 PASS 로 · 재구현 · 다른 세션 금지사항 혼입 · 승인 없는 수락 · 증거 없는 원인 진단 완료) + 중복 · 간접 선행 허용 · 갭 · 독립 작업 · 다음 작업 · Codex 지적 3건.
+
+## 연속 운영 (WF-S14 · 2026-10-10)
+
+새 오케스트레이터 없이 기존 루프에 붙였다. 한 실행 = 목표 재검사 → 브리지 tick → 선정(실행 모드 tier → 같은 목표 의존 작업 → 점수) → 승인·소유권·잠금 → Claude 구현 → 테스트 → Codex 리뷰 → 기록 → 반복. 끝: 작업 수·시간·비용 상한 · `runtime/STOP` · 실행 가능한 작업 없음.
+
+**Work 브리지(이벤트형 · 상시 데몬 없음)** — `config/bridge.json`(`repo` · `app` · `wait_work_min` · `interval_s`)이 있으면 반복마다 `poc/work-bridge.mjs tick` 1회: ① 대기 요청 수집 ② 받아 둔 응답 인수(실패하면 다음 tick 이 재시도) ③ 대기 요청이 없으면 다음 PENDING 요청 하나 게시(단일 in-flight · 게시 전 검사·첨부 해시·이름공간 게이트 그대로). 응답은 PROPOSED 로만 — 승인은 사용자, 승인되면 `approveDesign` 이 초안·보류 작업을 되살리고 다음 반복이 실행한다. Work 대기 중에는 다른 목표의 실행 가능한 작업을 계속 한다. 고를 작업이 없고 응답 대기 중이면 `wait_work_min`(실행 예산 안에서)까지 tick 으로 기다린다. `--dry-run` 은 브리지를 부르지 않는다. 끄기 `VFC_BRIDGE_OFF=1` · 멈춤 `planning/bridge-watch.STOP`.
+
+**세션 인계** — owner 와 세션을 구분한다. 실행 시작마다 `handoffDeadSessions`: 죽은 세션(pid 사망 + 잠금 ttl 경과)의 작업만 회수(살아 있는 세션 작업은 손대지 않음). 자동 재개 조건 = worktree 미커밋 변경 0 + HEAD 가 `vfc task start` 때 남긴 `run.start_head` 와 같음(죽은 세션이 커밋을 남기면 그 커밋이 리뷰에서 빠지므로 재개하지 않는다). 아니면 BLOCKED + 사유(사람 확인). owner 는 바뀌지 않는다. 오케스트레이터 자신의 비정상 종료 복구(`recoverPrevious`)는 기존 그대로.
+
+**수용 기준별 상태** — 목표 검사가 `GOAL_STATUS.goals[*].criteria_status[criterion_id]` 에 덧붙인다(기존 필드·이력 그대로): `status` · `evidence_path` · `verified_commit`(PASS 일 때만) · `checked_at` · `verification_method` · `unmet_reason` · `tasks_completed` · `next_dependency`. 작업 완료(tasks_completed)와 기준 충족(status)을 따로 보인다. 정렬 게이트의 갭 판정도 겨냥 기준별로 본다.
+
+**중복 리뷰 방지** — 같은 작업 · 같은 diff · 같은 리뷰 입력(보고서·완료 조건·범위·claim)에서 APPROVE(차단 0)였으면 재사용(`runtime/review-cache.json`, 이벤트 `review_cache_hit`). REQUEST_CHANGES·판독 실패·오탐 이의 라운드는 캐시하지 않는다. 리뷰 강도(effort)는 바꾸지 않았다.
+
+**실측(2026-10-10)** — 기존 12 실행: 구현 53% · 리뷰 42% · 목표 검사 4% · 선정 0.5%(작업당 3.6분). 추가 비용: tick 유휴 ~110ms(프로세스 기동) · 실제 상태 dry-run 1.15s → 1.25s(브리지 포함) · 정렬 게이트 0.4ms.

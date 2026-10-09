@@ -133,8 +133,16 @@ test('A ChatGPT 기획 v1 → (승인 전 실행 없음) → 승인 → 구현 �
   const ad = ok(vfc(root, ['decision', 'add', '--status', 'APPROVED', '--kind', 'goal_acceptance', '--summary', `${g.ug_id} accept`, '--approved-by', 'user', '--ref', 't', '--by', 'user'], { CLAUDECODE: '1' }))
   assert.equal(ad.recorded_via, 'agent')
   assert.notEqual(vfc(root, ['ugoal', 'accept', g.ug_id, '--decision', ad.decision_id, '--by', 'user']).code, 0)
-  // 사용자가 직접 기록한 결정이면 수락
-  const ud = ok(vfc(root, ['decision', 'add', '--status', 'APPROVED', '--kind', 'goal_acceptance', '--summary', `${g.ug_id} accept`, '--approved-by', 'user', '--ref', 't', '--by', 'user']))
+  // 사람이 비대화형으로 기록한 결정(cli)도 수락 근거가 아니다
+  const cd = ok(vfc(root, ['decision', 'add', '--status', 'APPROVED', '--kind', 'goal_acceptance', '--summary', `${g.ug_id} accept`, '--approved-by', 'user', '--ref', 't', '--by', 'user']))
+  assert.equal(cd.recorded_via, 'cli')
+  assert.match(vfc(root, ['ugoal', 'accept', g.ug_id, '--decision', cd.decision_id, '--by', 'user']).err, /TRUST_REQUIRED/)
+  // vfc approve: 에이전트 안에서는 거부 · 대화형 터미널(테스트 대역) + 확인 코드가 맞아야 기록
+  assert.match(spawnSync(process.execPath, [VFC, 'approve', '--kind', 'goal_acceptance', '--summary', `${g.ug_id} accept`, '--json'], { env: env(root, { CLAUDECODE: '1' }), input: 'x\n', encoding: 'utf8' }).stderr, /TRUST_REQUIRED/)
+  const tty = env(root, { VFC_TTY_FOR_TESTS: '1', VFC_TEST_CODE: 'c0ffee' })
+  assert.match(spawnSync(process.execPath, [VFC, 'approve', '--kind', 'goal_acceptance', '--summary', `${g.ug_id} accept`, '--json'], { env: tty, input: 'wrong\n', encoding: 'utf8' }).stderr, /TRUST_CODE_MISMATCH/)
+  const ud = JSON.parse(spawnSync(process.execPath, [VFC, 'approve', '--kind', 'goal_acceptance', '--summary', `${g.ug_id} accept`, '--json'], { env: tty, input: 'c0ffee\n', encoding: 'utf8' }).stdout)
+  assert.equal(ud.recorded_via, 'tty')
   ok(vfc(root, ['ugoal', 'accept', g.ug_id, '--decision', ud.decision_id, '--by', 'user']))
   assert.equal(ok(vfc(root, ['ugoal', 'status', g.ug_id])).status, 'ACCEPTED')
 })

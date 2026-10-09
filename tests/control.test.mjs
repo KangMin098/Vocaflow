@@ -452,13 +452,16 @@ test('DB 쓰기 작업은 사용자 승인·SQL 해시·DB 소유권 없이 시�
   assert.match(run(root, ['task', 'approve', t.task_id, '--by', 'claude', '--ref', 'x']).err, /APPROVAL_NOT_USER/)
   assert.match(run(root, ['task', 'approve', t.task_id, '--by', 'user', '--ref', '대화']).err, /APPROVAL_NO_SQL_HASH/)
   const sha = crypto.createHash('sha256').update('alter table x add column y int').digest('hex')
-  assert.equal(run(root, ['task', 'approve', t.task_id, '--by', 'user', '--ref', '대화', '--sql-sha256', sha]).code, 0)
+  // 신뢰 경계: 비대화형(파이프)·에이전트 실행의 「--by user」 는 DB 쓰기 승인이 아니다
+  assert.match(run(root, ['task', 'approve', t.task_id, '--by', 'user', '--ref', '대화', '--sql-sha256', sha], { CLAUDECODE: '', VFC_AGENT: '' }).err, /TRUST_REQUIRED/)
+  assert.match(run(root, ['task', 'approve', t.task_id, '--by', 'user', '--ref', '대화', '--sql-sha256', sha], { CLAUDECODE: '1' }).err, /TRUST_REQUIRED/)
+  assert.equal(run(root, ['task', 'approve', t.task_id, '--by', 'user', '--ref', '대화', '--sql-sha256', sha], { CLAUDECODE: '', VFC_AGENT: '', VFC_TTY_FOR_TESTS: '1' }).code, 0)
   assert.match(start(root, t.task_id, sleeper().pid).err, /DB_SCOPE_NOT_OWNED/)
   const [w1, w2] = [mkWorktree('feat/test'), mkWorktree('feat/test')]
   for (const w of [w1, w2]) run(root, ['owner', 'bind-worktree', 'data-contract', w, '--branch', 'feat/test'])
   const d1 = addTask(root, { ...spec, worktree: w1, owner_id: 'data-contract', title: 'd1' })
   const d2 = addTask(root, { ...spec, worktree: w2, owner_id: 'data-contract', title: 'd2' })
-  for (const d of [d1, d2]) run(root, ['task', 'approve', d.task_id, '--by', 'user', '--ref', 'ok', '--sql-sha256', sha])
+  for (const d of [d1, d2]) run(root, ['task', 'approve', d.task_id, '--by', 'user', '--ref', 'ok', '--sql-sha256', sha], { CLAUDECODE: '', VFC_AGENT: '', VFC_TTY_FOR_TESTS: '1' })
   const rs = await Promise.all([d1, d2].map((d) => runAsync(root, ['task', 'start', d.task_id, '--owner', 'data-contract', '--agent', 'claude', '--session', d.title, '--pid', String(sleeper().pid)])))
   assert.equal(rs.filter((r) => r.code === 0).length, 1)
   assert.match(rs.find((r) => r.code !== 0).err, /LOCK_HELD.*db--/s)

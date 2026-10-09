@@ -89,10 +89,12 @@ test('실패 사례 4 — 사용자 승인 없는 수락 승격 차단: 에이�
   s.goalStatus.goals[MAP_A] = { status: 'PASS' }
   s.decisionLog.entries.push({ decision_id: 'DL-0901', status: 'APPROVED', approved_by: 'user', recorded_via: 'agent', summary: `${MAP_A} accept` })
   assert.equal(goalLevel(s, MAP_A).level, 'GOAL_VERIFIED')
-  s.decisionLog.entries.push({ decision_id: 'DL-0902', status: 'APPROVED', approved_by: 'user', summary: `${MAP_A} accept` })
+  s.decisionLog.entries.push({ decision_id: 'DL-0902', status: 'APPROVED', approved_by: 'user', recorded_via: 'cli', summary: `${MAP_A} accept` })
+  assert.equal(goalLevel(s, MAP_A).level, 'GOAL_VERIFIED', '비대화형 CLI 기록도 수락 근거가 아니다')
+  s.decisionLog.entries.push({ decision_id: 'DL-0903', status: 'APPROVED', approved_by: 'user', recorded_via: 'tty', summary: `${MAP_A} accept` })
   const lv = goalLevel(s, MAP_A)
   assert.equal(lv.level, 'USER_ACCEPTED')
-  assert.equal(lv.decision_id, 'DL-0902')
+  assert.equal(lv.decision_id, 'DL-0903')
   // PASS 전에는 사용자 결정이 있어도 수락 단계가 아니다
   s.goalStatus.goals[MAP_A] = { status: 'UNKNOWN' }
   assert.notEqual(goalLevel(s, MAP_A).level, 'USER_ACCEPTED')
@@ -172,4 +174,12 @@ test('Codex P2 — 사용자 목표 안의 간접 선행 작업도 full 금지 �
   assert.equal(t.impact.dependency_type, 'prerequisite')
   const { ancestors } = await import('../lib/alignment.mjs')
   assert.deepEqual(ancestors({ criteria: [{ id: 'A', parent_id: 'B' }, { id: 'B', parent_id: 'A' }] }, 'A'), ['A', 'B'])
+})
+
+test('수용 기준별 상태: 겨냥 기준이 전부 PASS 면 갭 없음 · 일부만 PASS 면 남은 기준 작업 허용', () => {
+  const s = state()
+  s.goalStatus.goals[MAP_A] = { status: 'UNKNOWN', criteria_status: { [ac(MAP_A)]: { status: 'PASS' } } }
+  rejects(() => add(s, spec()), 'GAP_CLOSED')
+  s.goalStatus.goals[MAP_A].criteria_status[ac(MAP_A)].status = 'UNKNOWN'
+  assert.ok(add(s, spec()).task_id)
 })
