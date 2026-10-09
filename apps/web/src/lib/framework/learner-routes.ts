@@ -194,6 +194,16 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     section: '연습과 세션',
   },
   {
+    path: '/csat/practice/[slug]',
+    screen: 'csat-practice',
+    label: '주장과 근거 연습',
+    says: '문제지를 펴고 주장 문장 · 근거 문장 · 관계를 번호로 골라 맞춰 본다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+    section: '연습과 세션',
+  },
+  {
     path: '/csat/dissect',
     screen: 'csat-dissect',
     label: '기출 해부',

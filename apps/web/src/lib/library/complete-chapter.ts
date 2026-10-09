@@ -80,12 +80,19 @@ export async function completeChapter(textId: string): Promise<CompleteChapterRe
     return { ok: true, alreadyCompleted, nextChapterTextId: null, bookCompleted: false };
   }
 
-  const { data: siblings } = await client
+  const { data: siblings, error: siblingsError } = await client
     .from('texts')
     .select('id, chapter_idx, status')
     .eq('user_id', user.id)
     .eq('library_book_id', c.library_book_id)
     .order('chapter_idx', { ascending: true });
+
+  // 조회 실패를 빈 목록으로 삼키면 every() 가 true 가 돼 도서 완료를 오보한다.
+  // 완료 기록 자체는 성공했으므로 ok 는 유지하고 도서 판정만 보류한다.
+  if (siblingsError) {
+    console.error('[completeChapter] siblings query failed:', siblingsError.message);
+    return { ok: true, alreadyCompleted, nextChapterTextId: null, bookCompleted: false };
+  }
 
   const allChapters = (siblings ?? []) as Array<{
     id: string;

@@ -34,7 +34,7 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
   const [evidence, inqLinks, trials, attempts] = await Promise.all([
     db.from('knowledge_evidence').select('id, item_id, source_type, evidence_level, grade, applicability').in('item_id', ids),
     db.from('knowledge_inquiry_links').select('inquiry_id, item_id, role').in('item_id', ids),
-    db.from('knowledge_trials').select('id, status, synthetic, result, design').eq('application_id', params.id),
+    db.from('knowledge_trials').select('*').eq('application_id', params.id),
     db.from('learning_task_attempts').select('user_id, is_correct, synthetic, phase').eq('application_id', params.id).limit(1000),
   ])
   for (const r of [evidence, inqLinks, trials, attempts]) if (r.error) throw new Error(`추적 읽기 실패: ${r.error.message}`)
@@ -107,7 +107,7 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
           <h3 className="font-semibold text-[var(--t1)]">효과 검증</h3>
           {tr.map((t) => {
             const d = (t.design ?? {}) as Row
-            return <p key={String(t.id)} className="mt-1">{t.synthetic ? '합성' : '실제'} · {TRIAL_STATUS_LABEL[t.status as TrialStatus]} · 최소 표본 {String(d.min_n ?? '—')} · 지연 {d.delayed_days ? `${String(d.delayed_days)}일` : '없음'} · 전이 {d.transfer ? '있음' : '없음'}{t.result ? ` · 결과 ${String(t.result)}` : ''}</p>
+            return <p key={String(t.id)} className="mt-1">{t.synthetic ? '합성' : '실제'} · {TRIAL_STATUS_LABEL[t.status as TrialStatus]} · 최소 표본 {String(d.min_n ?? '—')} · 지연 {d.delayed_days ? `${String(d.delayed_days)}일` : '없음'} · 전이 {d.transfer ? '있음' : '없음'}{t.review_required_at ? ' · 재계산 필요(결과를 근거로 쓰지 않음)' : t.result ? ` · 결과 ${String(t.result)}` : ''}</p>
           })}
           <p className="mt-1" data-testid="trace-efficacy">효과 판정: {task?.efficacy === 'not_assessed' ? '미확정 — 분석 완료된 실제 학습자 검증이 없다' : String(task?.efficacy)}</p>
         </li>

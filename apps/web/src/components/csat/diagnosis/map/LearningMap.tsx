@@ -50,7 +50,11 @@ export function LearningMap({ data }: { data: MapPageData }) {
   const [taskErr, setTaskErr] = useState<string | null>(null)
   const [, startTransition] = useTransition()
 
+  const viewSent = useRef(false)
   useEffect(() => {
+    // StrictMode(dev)의 이중 effect 에도 한 번(G0 계약 §8)
+    if (viewSent.current) return
+    viewSent.current = true
     track({ name: 'csat_map_viewed', props: { goal: model.goal } })
     // 진입 한 번만
     // eslint-disable-next-line react-hooks/exhaustive-deps

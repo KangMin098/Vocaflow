@@ -3,6 +3,7 @@
 import type { LearnerCatalog } from './session/catalog'
 import type { CatalogItem } from './session/model'
 import type { RevealAnchor } from './session/reveal'
+import { countedPredictions, type LearningSession } from './learning-session'
 
 export interface DissectionItem extends CatalogItem {
   answer: number
@@ -36,6 +37,10 @@ export interface Prediction {
   topic?: number
   pattern?: string
   transform?: string
+  /** 시도 id(client_attempt_id · uuid) — 있으면 병합 중복 판정의 키(G0 계약 §4) */
+  attempt?: string
+  /** 이 예측을 남긴 학습 세션 id */
+  session?: string
 }
 export interface DissectionDraft { phase: 'scan' | 'predict1' | 'compare1' | 'predict2' | 'compare2' | 'predict3' | 'compare3' | 'blueprint' | 'formula'; selection: string | null; answers: { step: number; hit: boolean; selection: string }[] }
 export interface Formula { tag: string; text: string; type: string; sources: string[] }
@@ -54,6 +59,8 @@ export interface DissectionRecord {
   views?: { id: string; at: number }[]
   /** 마지막으로 고친 시각 — 기기 ↔ 서버 병합의 기준(continuity.mergeDissection) */
   updatedAt?: number
+  /** 학습 세션(해설 극장) — `lib/csat/learning-session.ts` · G0 계약. 병합은 id 단위 */
+  sessions?: LearningSession[]
 }
 export function emptyDissectionRecord(seed: number): DissectionRecord {
   return { version: 1, seed, onboarded: false, predictions: [], formulas: [], queue: [], completed: [] }
@@ -128,7 +135,8 @@ export function recordDecision(record: DissectionRecord, item: DissectionItem, d
   return { ...record, formulas, queue, completed: [...record.completed, { id: item.id, at: now }] }
 }
 export function predictionStats(record: DissectionRecord, families: string[]) {
-  const recent = record.predictions.slice(-30)
+  // 「모르겠어요—바로 보기」는 예측이 아니다 — 분모 · 분자 모두에서 뺀다(G0 계약 §5)
+  const recent = countedPredictions(record.predictions).slice(-30)
   const seen = new Set(record.predictions.map(p => p.family).filter(Boolean))
   return { formulas: record.formulas.length, hit: recent.length ? Math.round(100 * recent.filter(p => p.hit).length / recent.length) : null, seen: families.filter(f => seen.has(f)).length, total: families.length }
 }

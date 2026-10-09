@@ -12,6 +12,13 @@
 - 구조: `apps/web`(실구현) · `apps/mobile`(기획) · `packages/`(design-tokens · ui-shared · types · library-pipeline · vcb-core · vcb-curate-core · wlp · video-factory) · `supabase/migrations` · `scripts/` · `docs/` · `agents/`(에이전트 공용 설정 출처).
 - 하위 지시: `apps/web/CLAUDE.md` · `apps/mobile/CLAUDE.md` · `packages/design-tokens/CLAUDE.md` — 그 디렉터리를 만질 때 읽는다.
 
+## 플랫폼 목표 정본 · 작업 범위 (Claude · Codex · ChatGPT 공통)
+
+- **최상위 목표 = 승인 정본 v1.1.0**(2026-10-09): `D:/workspace/Vocaflow-AI-Control/goals/PROJECT_GOAL.md`(VG-L0~L4) · `GOAL_ACCEPTANCE_CRITERIA.json` — 원격은 브랜치 `ai-control`. 사본을 만들지 않는다(봉인 `CANON_MANIFEST.json`). 이 파일의 제품 서술(「9 모듈」·「모바일 Phase 2」 등)과 다르면 정본이 우선한다.
+- 확정 전략 SD-R0-01~04(중등 일반 독해 · 비로그인 체험→가입 · PC 웹 우선 · 교실/결제 후순위)는 다시 묻지 않는다. 바꿀 필요는 제안으로만.
+- **작업 범위는 작업 단위마다 따로다**: `node D:/workspace/Vocaflow-AI-Control/bin/vfc.mjs task show <id>` 의 goal_id · allowed/forbidden_paths · db_scope · approval 과 worktree 의 `.agent-goal.md`. 한 작업의 「하지 않을 것」을 다른 작업이나 전역 규칙으로 적용하지 않는다(리뷰도 같다 — 범위 밖 지적은 별도 티켓).
+- 작업 소유는 세션 이름이 아니라 고정 owner_id(`vfc owner list`). 작업 시작은 `vfc task start` — task·worktree·DB 잠금을 원자적으로 잡고, 이 저장소의 `.agent-lock` 도 존중한다. 근거 없는 목표는 UNKNOWN, skip 은 통과가 아니다.
+
 ## 명령
 
 | 목적 | 명령 |

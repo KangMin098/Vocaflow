@@ -57,6 +57,7 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   // 기출 학습자 경로 — admin 이 아니라 **로그인한 학습자**가 부른다. 셋 다 라우트 안에서
   // auth.getUser() 로 401 을 내고, 읽기는 RLS 를 따르는 클라이언트로만 한다(원문은 안 나간다).
   { route: 'csat/lecture', why: '기출 강의 대본 — 재생을 누른 학습자에게만(로그인 확인은 라우트 안)' },
+  { route: 'csat/practice/attempt', why: '「주장과 근거」 연습 제출 — 로그인 확인은 라우트 안, 미리보기만 requireAdminApi' },
   { route: 'csat/paper', why: '기출 문제지 해시 → 문항 번호 좌표(글자 없음) — 로그인 확인은 라우트 안' },
   {
     route: 'csat/dev-paper',

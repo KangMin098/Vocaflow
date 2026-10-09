@@ -29,6 +29,8 @@ export function SessionRunner({ catalog, initial, formulaTag, explore, resume }:
   const saves = useRef(Promise.resolve())
   // 이 세트의 세 번째 문항이 **복습**(같은 공식의 다른 문항)인가 — 시작 · 끝을 한 번씩 센다(ia-design §5)
   const review = useRef<{ started: boolean; done: boolean } | null>(null)
+  // 세트 시작은 한 번 — deps 변화 · StrictMode 재실행으로 다시 나가지 않게(G0 계약 §8)
+  const startSent = useRef(false)
   useEffect(() => {
     let alive = true
     void Promise.all([loadSyncedDissectionRecord().then(r => r.record), cachedExamIds(REFLOW_VERSION)]).then(([rec, cached]) => {
@@ -44,7 +46,8 @@ export function SessionRunner({ catalog, initial, formulaTag, explore, resume }:
       const isReview = Boolean(last && rec.queue.some(q => q.due <= now && q.tag === last.formulaTag && q.source !== last.id))
       // 세트 시작은 **세션이** 센다 — 시작 버튼이 홈 · Today · 내 기록 · 이어서 판으로 흩어졌다(ia-design §2).
       // 이어서(resume)로 연 세트는 새 시작이 아니다.
-      if (chosen.length && !(resume && rec.active && valid) && !review.current) {
+      if (chosen.length && !(resume && rec.active && valid) && !review.current && !startSent.current) {
+        startSent.current = true
         const exams = new Set(chosen.map(i => i.exam_id))
         track({ name: 'csat_session_started', props: { size: chosen.length, review: isReview, needed: [...exams].filter(e => !cached.includes(e)).length, cached: [...exams].filter(e => cached.includes(e)).length } })
       }

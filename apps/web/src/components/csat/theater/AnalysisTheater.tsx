@@ -56,8 +56,19 @@ import {
 import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
 import { withView } from '@/lib/csat/continuity'
-import { loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
-import type { Prediction } from '@/lib/csat/dissect'
+import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
+import type { DissectionRecord, Prediction } from '@/lib/csat/dissect'
+import {
+  finishSession,
+  isSkipPrediction,
+  openSession,
+  restartSession,
+  revealSession,
+  scheduleReview,
+  sessionsOf,
+  stepSession,
+  type LearningSession,
+} from '@/lib/csat/learning-session'
 import type { Pattern, Transform } from '@/lib/csat/design'
 import { OPEN_BEFORE_COMMIT, committedOf, grade, maskChip, maskName, toPrediction, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
 
@@ -66,9 +77,23 @@ import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff, PredictGate } from './PredictGate'
+import { SessionDone } from './SessionDone'
 import styles from './theater.module.css'
 
 const RATES = [0.9, 1, 1.15] as const
+
+const newId = () =>
+  globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`
+
+/** 이 세션의 예측 — 세션 id 로 묶인 것, 세션이 없던 시절 남긴 것은 공개된 세션에서만 이어 받는다 */
+function predictionOf(record: DissectionRecord, s: LearningSession): Prediction | null {
+  const mine = record.predictions.filter((p) => p.item === s.item && p.source === 'theater')
+  const own = mine.filter((p) => p.session === s.id)
+  if (own.length) return own[own.length - 1]
+  if (s.stage === 'open') return null
+  const legacy = mine.filter((p) => !p.session)
+  return legacy.length ? legacy[legacy.length - 1] : null
+}
 
 export interface TheaterMap {
   sentences: SkeletonSentence[]
@@ -138,38 +163,106 @@ export function AnalysisTheater({
   const [quotePassage, setQuotePassage] = useState<PaperPassage | null>(null)
   // 문항 이동 직후에는 이전 문항의 지문으로 인용을 검증하지 않는다.
   const currentPassage = quotePassage?.itemId === itemId ? quotePassage.passage : null
-  // 연 문항을 기록에 남긴다 — 넓이 · 「최근 연 문항」 · 공백 판정의 재료(ia-design §2-5)
-  useEffect(() => {
-    let alive = true
-    void loadDissectionRecord().then((record) => {
-      if (alive) void saveDissectionRecord(withView(record, itemId, Date.now()))
-    })
-    return () => {
-      alive = false
-    }
-  }, [itemId])
   const back = (to: 'home' | 'type' | 'browse') => () => track({ name: 'csat_item_back', props: { to } })
+  // 학습 세션(G0 계약) — undefined = 기록 읽는 중. 세션은 시도가 0건이어도 있다.
+  const [session, setSession] = useState<LearningSession | null | undefined>(undefined)
   // 공개 게이트 — undefined = 기록 읽는 중 · null = 아직 확정 안 함
   const [committed, setCommitted] = useState<Prediction | null | undefined>(undefined)
+  const [resumedAt, setResumedAt] = useState<number | null>(null)
+  const sfx = useTheaterSfx()
+  const [cursor, setCursor] = useState(0)
+  const ready = useRef(false)
+  // 기기 저장(IndexedDB) 실패 — 기록은 이 탭 메모리에만 있다. 완료처럼 보여도 창을 닫으면 사라진다고 알린다
+  const [saveFailed, setSaveFailed] = useState(false)
+  const persist = (fn: (r: DissectionRecord) => DissectionRecord) =>
+    updateDissectionRecord(fn).then((res) => {
+      if (!res.saved) setSaveFailed(true)
+      return res
+    })
+  const sync =(record: DissectionRecord, id: string) => {
+    const s = sessionsOf(record).find((x) => x.id === id) ?? null
+    setSession(s)
+    setCommitted(s ? predictionOf(record, s) : null)
+    return s
+  }
+  // 문항을 연다 — 서버 사본과 합친 뒤(다른 기기에서 하던 자리) 열람을 남기고 세션을 재개하거나 새로 연다
   useEffect(() => {
     let alive = true
-    void loadDissectionRecord().then((record) => {
-      if (alive) setCommitted(committedOf(record, itemId))
-    })
+    ready.current = false
+    void (async () => {
+      await loadSyncedDissectionRecord().catch(() => null)
+      let opened: { session: LearningSession; resumed: boolean } | null = null
+      const { record } = await persist((r) => {
+        const now = Date.now()
+        const viewed = withView(r, itemId, now)
+        const o = openSession(viewed, { itemId, steps: steps.length, now, newId, legacy: committedOf(viewed, itemId) })
+        opened = o
+        return o.record
+      })
+      if (!alive || !opened) return
+      const { session: s, resumed } = opened as { session: LearningSession; resumed: boolean }
+      sync(record, s.id)
+      if (resumed && s.step > 0 && s.step < steps.length) {
+        setCursor(s.step)
+        setResumedAt(s.step)
+      } else setCursor(0)
+      ready.current = true
+    })()
     return () => {
       alive = false
     }
+    // steps.length 는 서버가 정한 값 — 문항이 바뀔 때만 다시 연다
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemId])
-  const revealed = committed != null
+  // 단계 위치를 남긴다 — 이탈 뒤 그 자리에서 이어 본다(같은 단계면 저장하지 않는다)
+  useEffect(() => {
+    if (!ready.current || !session || session.stage === 'finished') return
+    const id = session.id
+    void persist((r) => stepSession(r, id, cursor, Date.now()))
+  }, [cursor, session])
+  const revealed = committed != null || (session != null && session.stage !== 'open')
+  const finished = session?.stage === 'finished'
   const commit = (c: GateCommit) => {
-    const p = toPrediction(itemId, typeId, c, grade(c, gate), Date.now())
+    if (!session) return
+    const skip = c.sentence == null && c.choice == null
+    const attempt = newId()
+    const p: Prediction = { ...toPrediction(itemId, typeId, c, grade(c, gate), Date.now()), attempt, session: session.id }
     setCommitted(p)
     // 예측 패널이 길어 판을 내린 채 확정하면 차이 카드가 판 위쪽 밖에 열린다 — 그리로 데려간다
     requestAnimationFrame(() => document.querySelector('[data-testid="gate-diff"]')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
-    void loadDissectionRecord().then((record) => saveDissectionRecord({ ...record, predictions: [...record.predictions, p] }))
+    const id = session.id
+    void persist((r) => {
+      // 같은 시도가 두 번 오면 한 건(멱등) · 「모르겠어요」는 시도가 아니라 도움 수준(viewed_first)
+      const predictions = r.predictions.some((x) => x.attempt === attempt) ? r.predictions : [...r.predictions, p]
+      return revealSession({ ...r, predictions }, id, skip ? 'viewed_first' : 'independent', skip ? null : attempt, Date.now())
+    }).then(({ record }) => sync(record, id))
   }
-  const sfx = useTheaterSfx()
-  const [cursor, setCursor] = useState(0)
+  const finish = () => {
+    if (!session) return
+    const id = session.id
+    void persist((r) => finishSession(r, id, Date.now())).then(({ record }) => {
+      sync(record, id)
+      requestAnimationFrame(() => document.querySelector('[data-testid="session-done"]')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
+    })
+  }
+  const review = () => {
+    if (!session) return
+    const id = session.id
+    void persist((r) => scheduleReview(r, id, Date.now())).then(({ record }) => sync(record, id))
+  }
+  const restart = () => {
+    let fresh: LearningSession | null = null
+    void persist((r) => {
+      const o = restartSession(r, itemId, steps.length, Date.now(), newId)
+      fresh = o.session
+      return o.record
+    }).then(({ record }) => {
+      if (!fresh) return
+      setResumedAt(null)
+      setCursor(0)
+      sync(record, (fresh as LearningSession).id)
+    })
+  }
   const [all, setAll] = useState(steps.length === 0)
   const [tab, setTab] = useState<TabId>('analysis')
   const railRef = useRef<HTMLElement>(null)
@@ -216,6 +309,20 @@ export function AnalysisTheater({
       }
     : null
   const diff = mine ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
+  // 마지막 단계(강의가 없으면 공개 직후)에서 마칠 수 있다
+  const atEnd = steps.length === 0 || cursor >= steps.length - 1
+  const done =
+    finished && session ? (
+      <SessionDone
+        session={session}
+        result={committed && !isSkipPrediction(committed) && mine ? grade(mine, gate) : null}
+        next={next}
+        typeHref={typeHref}
+        now={Date.now()}
+        onReview={review}
+        onRestart={restart}
+      />
+    ) : null
   const step = steps[cursor] ?? null
   const liveKey = step ? blockKeyForTarget(step.targetKey, blockKeys) : null
 
@@ -347,7 +454,27 @@ export function AnalysisTheater({
               </span>
               이 문항으로 무엇을 할까요?
             </p>
+            {saveFailed ? (
+              <p className={styles.resumeNote} role="status" data-testid="save-failed">
+                이 기기에 기록을 저장하지 못했어요 — 이 탭을 닫으면 학습 기록이 사라져요.
+              </p>
+            ) : null}
+            {resumedAt != null && !finished ? (
+              <p className={styles.resumeNote} role="status" data-testid="resume-notice">
+                지난번 {resumedAt + 1}단계에서 이어서 봐요
+              </p>
+            ) : null}
             <div className={styles.composerActions}>
+              {revealed && !finished && atEnd ? (
+                <button type="button" className={styles.finishBtn} onClick={finish} data-testid="finish-item">
+                  이 문항 마치기
+                </button>
+              ) : null}
+              {finished ? (
+                <span className={styles.resume} data-testid="finished-badge">
+                  마친 문항
+                </span>
+              ) : null}
               <button type="button" onClick={() => move(1)} disabled={cursor >= steps.length - 1}>
                 다음 단계
               </button>
@@ -419,17 +546,19 @@ export function AnalysisTheater({
                       {String(cursor + 1).padStart(2, '0')} / {String(Math.max(1, steps.length)).padStart(2, '0')}
                     </code>
                   </p>
-                  {committed === undefined ? (
+                  {session === undefined ? (
                     <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p>
                   ) : !revealed ? (
                     <PredictGate sentences={map ? map.sentences.map((x) => x.chars) : []} design={gate.design} onCommit={commit} />
                   ) : map ? (
                     <>
+                      {done}
                       {diff}
                       <PassageMap sentences={map.sentences} anchors={map.anchors} placements={map.placements} />
                     </>
                   ) : (
                     <>
+                      {done}
                       {diff}
                       <p className={styles.quiet}>이 문항은 지문 골격을 구하지 못해 지도가 없어요. 분석은 오른쪽에서 그대로 읽을 수 있어요.</p>
                     </>

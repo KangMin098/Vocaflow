@@ -5,7 +5,7 @@
 'use client'
 
 import { Stethoscope } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { CsatRail } from '@/components/csat/home/CsatRail'
 import { useCsatRecord } from '@/components/csat/home/useCsatRecord'
@@ -18,7 +18,11 @@ export type DiagnosisScreen = 'report' | 'attempt'
 
 export function DiagnosisShell({ exams, screen, children }: { exams: RailExam[]; screen: DiagnosisScreen; children: React.ReactNode }) {
   const rec = useCsatRecord()
+  // 화면마다 한 번 — StrictMode(dev)의 이중 effect 로 두 번 나가던 것을 막는다(G0 계약 §8)
+  const sent = useRef<DiagnosisScreen | null>(null)
   useEffect(() => {
+    if (sent.current === screen) return
+    sent.current = screen
     track({ name: 'csat_dx_viewed', props: { screen } })
   }, [screen])
 

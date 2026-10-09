@@ -5,6 +5,12 @@
 
 import type { MapPracticeLink } from '../../knowledge/product-server'
 
+/**
+ * 전이(다른 지문 적용)로 함께 셀 과제 키. Practice 는 주석 문항을 `<key>` 로, 골격(정답 근거 앵커)만 있는 문항을 `<key>-skeleton` 으로 기록한다.
+ * 전이 문항(주제 · 제목)은 대부분 골격이다 — 학습자에게 보이는 「다른 지문에 적용」 은 둘 다 센다(효과 계산과는 별개).
+ */
+export const transferKeysOf = (taskKey: string): string[] => [taskKey, `${taskKey}-skeleton`]
+
 export interface AttemptRow {
   task_key: string
   item_ref: string | null
@@ -28,6 +34,8 @@ export interface FirstAttemptRow {
   is_correct: boolean | null
   help_level: string | null
   after_explanation: boolean | null
+  /** M8 — 판단 시각이 도움 · 해설 시각과 겹치거나 기기 시계를 믿을 수 없어 독립 여부를 보류한다 */
+  timing_uncertain?: boolean | null
   phase?: string | null
 }
 
@@ -53,9 +61,12 @@ export function summarizePractice(rows: AttemptRow[], first: FirstAttemptRow | n
   const firstRow = sorted[0] ?? null
   const firstCorrect = first ? first.is_correct : firstRow?.is_correct ?? null
   // 도움 여부는 기록에 있을 때만 말한다 — 도움 수준이 비어 있으면(세션 없는 옛 기록) 모른다(null). 모르는 것을 「도움받았다」로 단정하지 않는다
+  // M8 시각 불확실이면 「도움 없이 풀었다」고 단정하지 않는다(모름 = null). 해설 뒤 판단은 그대로 false
   const firstIndependent = !first || first.help_level === null
     ? (first?.after_explanation ? false : null)
-    : first.help_level === 'independent' && !first.after_explanation
+    : first.after_explanation || first.help_level !== 'independent' ? false
+    : first.timing_uncertain ? null
+    : true
   const tr = [...(extra.transfers ?? [])].sort((a, b) => a.answered_at.localeCompare(b.answered_at))
   const transfer = tr.length ? { attempts: tr.length, latestCorrect: tr.at(-1)!.is_correct } : null
   // 아직 하지 않은 예약만 — 예약 시각 뒤에 이 문항을 다시 확인했으면 그 예약은 끝난 것이다
@@ -75,7 +86,7 @@ export function practiceResultsFor(links: Record<string, MapPracticeLink>, rows:
     // 이 문항의 연습(practice · 단계 없음) · 같은 과제 키로 다른 지문에 적용한 전이(transfer — 문항은 어디든)
     const mine = rows.filter((r) => r.task_key === link.taskKey && r.item_ref === link.itemId && (r.phase ?? 'practice') !== 'transfer')
     // 「다른 지문에 적용」 — 연결 문항이 아닌 문항의 transfer 만
-    const transfers = rows.filter((r) => r.task_key === link.taskKey && r.phase === 'transfer' && r.item_ref !== link.itemId)
+    const transfers = rows.filter((r) => transferKeysOf(link.taskKey).includes(r.task_key) && r.phase === 'transfer' && r.item_ref !== link.itemId)
     // 첫 시도 뷰는 (과제 · 문항 · 단계)마다 한 줄 — 같은 과제 · 문항의 가장 이른 줄을 쓴다
     const first = firsts.filter((f) => f.task_key === link.taskKey && f.item_ref === link.itemId && (f.phase ?? 'practice') !== 'transfer')[0] ?? null
     out[taskId] = summarizePractice(mine, first, { transfers, reviews: reviews.filter((r) => r.item_ref === link.itemId), now })
