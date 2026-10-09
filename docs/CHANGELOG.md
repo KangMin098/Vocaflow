@@ -11,7 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- migration 후보 `_pending_20261009100000_learning_cross_session_help`(M9 · **미적용 · 재승인 대기** · sha256 616bc758…) — 첫 시도 뷰 · 효과 게이트가 같은 학습자 · 문항의 다른 세션 도움 · 해설 열람을 시간 순서대로 반영. 격리 13/13(M9-B 분석 표본 보호 포함). 적용 전에는 앱 analyzed · efficacy 쓰기 가드. [M9_APPROVAL](./methodology/M9_APPROVAL_2026-10-09.md)
+- migration 후보 `_pending_20261009100000_learning_cross_session_help`(M9 · **미적용 · 재승인 대기** · sha256 96d295d8…) — 첫 시도 뷰 · 효과 게이트가 같은 학습자 · 문항의 다른 세션 도움 · 해설 열람을 시간 순서대로 반영. 격리 13/13(M9-B 분석 표본 보호 포함). 적용 전에는 앱 analyzed · efficacy 쓰기 가드. [M9_APPROVAL](./methodology/M9_APPROVAL_2026-10-09.md)
 - feat(csat): 기출 해설 「답이 왜 이것인가」 — 근거 해설이 정답 설명의 영어 인용을 모두 되풀이하기만 하면 한 번만 보인다(새 근거 인용이 있으면 그대로 · 감사 표본 5/7 중복). 강의 문장 가리킴 ↔ 문장 지도 번호 정합 전량 측정 0/6,608 어긋남 · 가드(`lecture-sentence-range.test.ts`).
 
 - fix(csat): E11 복습 예약 신뢰성 — 「N일 뒤」 = 한국 달력 날짜(`lib/knowledge/review-date.ts` · 저장은 그 날 KST 00:00) · 예약 응답은 서버가 확정한 날짜(이미 잡힌 날이면 그 날) · Practice 화면 「내 복습」(지도에 안 걸리는 Practice 예약도 다시 찾기 · 같은 문항을 예약일 뒤 다시 풀어야 끝남).

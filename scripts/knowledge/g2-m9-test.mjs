@@ -89,7 +89,7 @@ try {
   rec('효과 게이트: 실제 독립 표본이 있으면 분석 완료 허용', !(await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial])))
 
   // 5b 표본 서명 — 분석 때 서명을 남기고, 쓸 때 지금 표본과 같아야 효과 근거로 인정
-  const sig = async () => (await q('select sample_signature s, knowledge_trial_sample_signature(id) now from knowledge_trials where id = $1', [trial])).rows[0]
+  const sig = async () => (await q('select sample_signature s, (select signature from knowledge_trial_sample_state(id)) now from knowledge_trials where id = $1', [trial])).rows[0]
   const s0 = await sig()
   rec('M9-B 분석 완료 때 표본 서명을 남긴다 · 지금 서명과 같다', !!s0.s && s0.s === s0.now, s0)
   // 남는 인원도 최소 표본을 넘게 실제 학습자 C 를 하나 더 둔 검증에서, A 의 사전 표본에 늦은 다른 세션 해설이 도착
@@ -99,10 +99,23 @@ try {
   for (const u of [A, C]) { await judge(u, 'p1', nowMs - 5 * 60_000, trialC, 'pre'); await judge(u, 'p2', nowMs - 5 * 60_000, trialC, 'post') }
   await q("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trialC])
   await reveal(A, 'p1', nowMs - 30 * 60_000)
-  const sc = (await q('select sample_signature s, knowledge_trial_sample_signature(id) now from knowledge_trials where id = $1', [trialC])).rows[0]
+  const sc = (await q('select sample_signature s, (select signature from knowledge_trial_sample_state(id)) now from knowledge_trials where id = $1', [trialC])).rows[0]
   rec('M9-B 늦은 다른 세션 도움으로 표본이 바뀌면(남은 인원이 최소 표본을 넘어도) 서명이 달라진다', sc.s !== sc.now, sc)
   await q('update knowledge_trials set status = $2 where id = $1', [trial, 'stopped']).catch(() => {})
-  rec('M9-B 표본이 바뀐 검증으로는 효과 판정 거부(재분석 필요)', /재분석해야 한다/.test((await err("update knowledge_items set efficacy = 'supported', updated_by = 't' where id = $1", [it])) ?? ''))
+  rec('M9-B 표본이 바뀐 검증으로는 효과 판정 거부(재분석 필요)', /재분석해야 한다/.test((await err("update knowledge_items set efficacy = 'research_supported', updated_by = 't' where id = $1", [it])) ?? ''))
+
+  // 5c 분석 뒤 설계의 최소 표본(min_n)을 올리면 서명이 같아도 지금 기준 미달 → 효과 판정 거부
+  const it2 = (await q(`insert into knowledge_items (layer, kind, slug, title, statement, status, created_by, updated_by) values ('practice','task','m9-t2','t','s','in_review','t','t') returning id`)).rows[0].id
+  await q(`insert into knowledge_evidence (item_id, grade, attribution, source_type, external_url, external_title, created_by) values ($1,'B','stated','external','https://e.x/m9b','t','t')`, [it2])
+  await q(`update knowledge_items set status = 'adopted', updated_by = 't' where id = $1`, [it2])
+  const app2 = (await q(`insert into knowledge_applications (item_id, surface, surface_ref, created_by, updated_by) values ($1,'module_task','m9b','t','t') returning id`, [it2])).rows[0].id
+  const trialD = (await q(`insert into knowledge_trials (application_id, design, created_by) values ($1, '{"pre":true,"post":true,"min_n":1}', 't') returning id`, [app2])).rows[0].id
+  await judge(B, 'q1', nowMs - 5 * 60_000, trialD, 'pre'); await judge(B, 'q2', nowMs - 5 * 60_000, trialD, 'post')
+  await q("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trialD])
+  rec('M9-B 표본 그대로 · min_n 충족이면 효과 판정 허용', !(await err("update knowledge_items set efficacy = 'research_supported', updated_by = 't' where id = $1", [it2])))
+  await q("update knowledge_items set efficacy = 'not_assessed', updated_by = 't' where id = $1", [it2])
+  await q(`update knowledge_trials set design = '{"pre":true,"post":true,"min_n":5}' where id = $1`, [trialD])
+  rec('M9-B 분석 뒤 min_n 상향 → 서명이 같아도 효과 판정 거부', /재분석해야 한다/.test((await err("update knowledge_items set efficacy = 'research_supported', updated_by = 't' where id = $1", [it2])) ?? ''))
 
   // 6 학습자 읽기 권한 유지
   const as = async (uid, sql) => { const c = await pool.connect(); try { await c.query('begin'); await c.query('set local role authenticated'); await c.query(`select set_config('request.jwt.claim.sub', $1, true)`, [uid]); const r = await c.query(sql); await c.query('rollback'); return { ok: true, rows: r.rows } } catch (e) { await c.query('rollback').catch(() => {}); return { ok: false, err: e.message } } finally { c.release() } }
