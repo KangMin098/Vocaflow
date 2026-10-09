@@ -5,11 +5,12 @@ import { describe, expect, it } from 'vitest'
 import { findFeedback, orderFindTasks } from '../find-feedback'
 
 describe('findFeedback', () => {
-  it('확인된 학습 요구 → 기본은 직접 진단 대기(정본 §14) · 맨 위', () => {
-    expect(findFeedback({ state: 'confirmed_need', needsMoreItems: false })).toMatchObject({ nextAction: 'await_direct_diagnosis', order: 3 })
-  })
-  it('결정 D-7 이 허용하면 같은 원리 Practice', () => {
-    expect(findFeedback({ state: 'confirmed_need', needsMoreItems: false }, { allowPracticeBeforeVerified: true }).nextAction).toBe('practice_principle')
+  it('확인된 학습 요구 → 다른 지문 재확인 하나뿐(D-7(c)) · 맨 위 · basis 불변', () => {
+    for (const needsMoreItems of [false, true]) {
+      expect(findFeedback({ state: 'confirmed_need', needsMoreItems })).toEqual({
+        state: 'confirmed_need', order: 3, nextAction: 'recheck_other_passage', prioritySignal: false, changesDiagnosisBasis: false,
+      })
+    }
   })
   it('확인 문항이 0개면 어떤 상태든 준비 중(없는 문항을 요구하지 않는다)', () => {
     expect(findFeedback({ state: 'untried', needsMoreItems: true, targets: 0 }).nextAction).toBe('await_items')
@@ -25,9 +26,13 @@ describe('findFeedback', () => {
   })
   it('어떤 결과도 진단 basis 를 바꾸지 않고 우선 확인 후보에 넣지 않는다(계약 C-1 · D-2 결정 전)', () => {
     for (const state of ['untried', 'in_progress', 'confirmed_need', 'not_needed', 'mixed'] as const) {
-      const f = findFeedback({ state, needsMoreItems: false })
-      expect(f.changesDiagnosisBasis).toBe(false)
-      expect(f.prioritySignal).toBe(false)
+      for (const needsMoreItems of [false, true]) {
+        for (const targets of [undefined, 0, 2]) {
+          const f = findFeedback({ state, needsMoreItems, targets })
+          expect(f.changesDiagnosisBasis).toBe(false)
+          expect(f.prioritySignal).toBe(false)
+        }
+      }
     }
   })
 })

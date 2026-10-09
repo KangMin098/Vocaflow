@@ -8,10 +8,8 @@ import type { FindOutcome, FindState } from './find-outcome'
 export type FindNextAction =
   /** 확인 문항을 하나 더(in_progress · mixed · untried) */
   | 'confirm_more'
-  /** 같은 원리를 다른 지문에서 연습(Practice) — 정본 §14 는 진단(verified) 전 FIND 만 연다. 결정 D-7 이 허용할 때만 */
-  | 'practice_principle'
-  /** 확인된 학습 요구지만 처방은 직접 진단 뒤 — 정본 기본값(§14) */
-  | 'await_direct_diagnosis'
+  /** 확인된 학습 요구 → 다른 지문으로 한 번 더 확인(FIND 확장 · 결정 D-7(c)). 처방(TRANSFER)은 verified 뒤에만 열린다 */
+  | 'recheck_other_passage'
   /** 이 단계는 지금 넘어가도 된다 — 다음 단계 FIND */
   | 'next_step'
   /** 확인 문항 자체가 모자라다 — 준비 중 */
@@ -30,16 +28,11 @@ export interface FindFeedback {
 
 const ORDER: Record<FindState, number> = { confirmed_need: 3, in_progress: 2, mixed: 2, untried: 1, not_needed: 0 }
 
-export interface FindFeedbackPolicy {
-  /** 결정 D-7 — 진단 전 확인된 학습 요구에 Practice 를 열어도 되나. 기본 false(정본 §14) */
-  allowPracticeBeforeVerified?: boolean
-}
-
-export function findFeedback(o: Pick<FindOutcome, 'state' | 'needsMoreItems'> & { targets?: number }, policy: FindFeedbackPolicy = {}): FindFeedback {
+export function findFeedback(o: Pick<FindOutcome, 'state' | 'needsMoreItems'> & { targets?: number }): FindFeedback {
   const noTargets = o.targets === 0
   const nextAction: FindNextAction =
     noTargets ? 'await_items'
-      : o.state === 'confirmed_need' ? (policy.allowPracticeBeforeVerified ? 'practice_principle' : 'await_direct_diagnosis')
+      : o.state === 'confirmed_need' ? 'recheck_other_passage'
         : o.state === 'not_needed' ? 'next_step'
           : o.needsMoreItems ? 'await_items'
             : 'confirm_more'
