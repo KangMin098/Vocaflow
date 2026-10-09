@@ -298,8 +298,9 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
   const practiceLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
   const findAttempts = await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).catch((e) => {
+    // 빈 배열로 바꾸면 이미 확인한 학습자에게 「아직 확인 안 함」을 보인다 — undefined 로 넘겨 판정을 보류한다
     console.error('[csat-map find attempts]', e)
-    return [] as FindAttemptRow[]
+    return undefined
   })
   const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
 

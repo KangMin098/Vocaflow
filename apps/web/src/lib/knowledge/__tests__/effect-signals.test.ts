@@ -16,7 +16,8 @@ describe('isEligible', () => {
     expect(isEligible({ ...ok, helpLevel: 'hint' })).toBe(false)
     expect(isEligible({ ...ok, afterExplanation: true })).toBe(false)
     expect(isEligible({ ...ok, timingUncertain: true })).toBe(false)
-    expect(isEligible({ ...ok, helpLevel: null })).toBe(true)
+    // 도움 수준 미기록(옛 기록)은 독립 수행인지 알 수 없다 — 근거에서 뺀다(Codex P2)
+    expect(isEligible({ ...ok, helpLevel: null })).toBe(false)
   })
 })
 
@@ -75,5 +76,20 @@ describe('computeSignals', () => {
   it('정오 미기록은 정답률 분모에서 뺀다 · 분모 0 이면 null', () => {
     const r = run(learners(3, 'practice', 0, { isCorrect: null }))
     expect(r.eligible.practice.accuracy).toBeNull()
+  })
+})
+
+describe('Codex P2 회귀', () => {
+  it('정오 미기록 학습자는 표본 문턱을 채우지 않는다', () => {
+    const rows = Array.from({ length: 29 }, (_, i) => ({ ...base, userId: `n${i}`, phase: 'practice' as const, isCorrect: null }))
+    const r = computeSignals({ applicationId: 'a', status: 'active', trialMinN: [], attempts: [...rows, { ...base, userId: 'x', phase: 'practice', isCorrect: false }] })
+    expect(r.signals.some((s) => s.kind === 'performance_shortfall')).toBe(false)
+    expect(r.signals.some((s) => s.kind === 'insufficient_evidence')).toBe(true)
+  })
+  it('연습 70% · 전이 50% 는 정확히 20%p 차이로 결과 상충', () => {
+    const mk = (n: number, phase: 'practice' | 'transfer', right: number) =>
+      Array.from({ length: n }, (_, i) => ({ ...base, userId: `${phase}${i}`, phase, isCorrect: i < right }))
+    const r = computeSignals({ applicationId: 'a', status: 'active', trialMinN: [], attempts: [...mk(30, 'practice', 21), ...mk(30, 'transfer', 15)] })
+    expect(r.signals.some((s) => s.kind === 'transfer_gap')).toBe(true)
   })
 })

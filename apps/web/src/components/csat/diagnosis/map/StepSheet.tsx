@@ -40,7 +40,8 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   const find = lineTasks.filter((t) => stageOf(t.id) === 'FIND')
   // 확인 문항 결과 → 확인된 학습 요구(서로 다른 확인 문항 2개 이상 · 독립 첫 시도). 연결된 확인 문항이 있을 때만
   const findTargets = find.map((t) => data.practiceLinks?.[t.id]).filter((x): x is NonNullable<typeof x> => !!x).flatMap((x) => (x.confirm ?? [x]).map((c) => ({ itemRef: c.target, taskKey: c.taskKey })))
-  const outcome = findTargets.length ? findOutcome(findTargets, data.findAttempts ?? []) : null
+  // 확인 기록을 못 읽었으면(undefined) 판정하지 않는다 — 「아직 확인 안 함」으로 잘못 보이지 않게
+  const outcome = findTargets.length && data.findAttempts ? findOutcome(findTargets, data.findAttempts) : null
   const later = STAGE_ORDER.filter((s) => s !== 'FIND').map((s) => ({ stage: s, tasks: lineTasks.filter((t) => stageOf(t.id) === s) }))
   const nameOf = (code: string) => data.nodes.find((n) => n.code === code)?.name ?? code
   const Icon = STEP_ICON[step.key]

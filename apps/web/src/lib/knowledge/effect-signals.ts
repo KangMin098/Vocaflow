@@ -69,14 +69,16 @@ export const EXCLUDED_SHARE = 0.5
 export const QUALITY_MIN_ATTEMPTS = 10
 
 export function isEligible(a: FirstAttempt): boolean {
-  return !a.synthetic && (a.helpLevel ?? 'independent') === 'independent' && !a.afterViewedFirst && !a.afterExplanation && !a.timingUncertain
+  // 도움 수준이 기록되지 않은(null) 시도는 독립 수행인지 확인할 수 없다 — 근거에서 뺀다
+  return !a.synthetic && a.helpLevel === 'independent' && !a.afterViewedFirst && !a.afterExplanation && !a.timingUncertain
 }
 
 function stat(rows: readonly FirstAttempt[]): PhaseStat {
   const graded = rows.filter((r) => r.isCorrect !== null)
   const correct = graded.filter((r) => r.isCorrect === true).length
   return {
-    learners: new Set(rows.map((r) => r.userId)).size,
+    // 표본 문턱은 정오가 기록된 학습자로 센다(정오 없는 학습자가 문턱만 채우면 한 명의 오답이 「성과 부족」이 된다)
+    learners: new Set(graded.map((r) => r.userId)).size,
     attempts: rows.length,
     correct,
     accuracy: graded.length ? correct / graded.length : null,
@@ -116,7 +118,7 @@ export function computeSignals(input: ApplicationInput): SignalResult {
       message: `연습 첫 시도 정답률 ${pct(practice.accuracy)}(학습자 ${practice.learners}명) — 과제 설계 · 적용 조건을 검토할 이유. 방법이 틀렸다는 뜻은 아니다`,
     })
   }
-  if (transfer && transfer.learners >= minN && practice.learners >= minN && practice.accuracy !== null && transfer.accuracy !== null && practice.accuracy - transfer.accuracy >= TRANSFER_GAP) {
+  if (transfer && transfer.learners >= minN && practice.learners >= minN && practice.accuracy !== null && transfer.accuracy !== null && practice.accuracy - transfer.accuracy >= TRANSFER_GAP - 1e-9) {
     signals.push({
       kind: 'transfer_gap',
       level: 'review',

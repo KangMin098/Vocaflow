@@ -14,7 +14,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { annotationFor, annotationHash, gradeClaimSupport, type ClaimSupportAnnotation } from './claim-support'
+import { annotatedItemIds, annotationFor, annotationHash, gradeClaimSupport, type ClaimSupportAnnotation } from './claim-support'
 import { currentItemTask } from './item-tasks'
 import {
   PRACTICE_TASK,
@@ -38,8 +38,8 @@ import {
 import { selectWriter, type AttemptWriter } from './practice-writer'
 import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication } from './product-server'
 
-/** 정본 주석이 있는 문항 — claim-support.ts 의 ANNOTATIONS 와 같은 목록(시험이 대조한다) */
-export const ANNOTATED_ITEM_IDS = ['2022#20'] as const
+/** 정본 주석이 있는 문항 — claim-support.ts 의 주석 레지스트리에서 만든다(손 목록이면 주석을 늘려도 연습 풀이 1문항에 머문다) */
+export const ANNOTATED_ITEM_IDS: readonly string[] = annotatedItemIds()
 
 export interface PoolEntry {
   itemId: string
