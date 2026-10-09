@@ -38,7 +38,7 @@ import {
   type ReviewSession,
 } from './practice'
 import { selectWriter, stableUuid, type AttemptWriter } from './practice-writer'
-import { priorHelpOf } from './prior-help'
+import { crossSessionHelp, type CrossSession } from './prior-help'
 import { kstDateOf, kstReviewDate } from './review-date'
 import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication } from './product-server'
 
@@ -136,7 +136,7 @@ export async function loadPracticePool(opts: { preview: boolean }): Promise<Pool
 export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, opts: { preview: boolean }): Promise<MyAttempt[]> {
   const { data, error } = await learnerDb
     .from('learning_task_attempts')
-    .select('id, task_key, item_ref, phase, answered_at, activity, help_level, response')
+    .select('id, task_key, item_ref, phase, answered_at, activity, help_level, response, session_id, received_at')
     .eq('user_id', userId)
     .in('task_key', [PRACTICE_TASK, SKELETON_TASK])
     .order('answered_at')
@@ -144,7 +144,7 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
     .limit(1000)
   if (error) throw new Error(`내 기록 읽기 실패: ${error.message}`)
   // 정본 열(activity · help_level) 우선 — NULL(G2 전 직접 기록)일 때만 response 사본으로 호환
-  type Row = { id: number; task_key: string; item_ref: string | null; phase: string; answered_at: string; activity: string | null; help_level: string | null; response: Record<string, unknown> | null }
+  type Row = { session_id?: string | null; received_at?: string | null; id: number; task_key: string; item_ref: string | null; phase: string; answered_at: string; activity: string | null; help_level: string | null; response: Record<string, unknown> | null }
   const rows = (data ?? []) as Row[]
   // 첫 시도는 **활동과 무관하게** (과제 · 문항 · 단계)의 가장 이른 판단이다(DB 뷰 learning_first_attempts 와 같다 — 이미 answered_at · id 순).
   // 그 첫 판단이 해설 극장(theater) 등 다른 활동이면, Practice 재풀이는 첫 시도가 아니다 — 역량 판정에서만 뺀다(Codex P2).
@@ -168,6 +168,14 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
   for (const f of (firsts ?? []) as { attempt_id?: number; help_level?: string | null; after_explanation?: boolean | null; timing_uncertain?: boolean | null }[]) {
     if (typeof f.attempt_id === 'number') view.set(f.attempt_id, { help: f.help_level ?? null, blocked: Boolean(f.after_explanation) || Boolean(f.timing_uncertain) })
   }
+  // 다른 세션(새로고침 · 재선택 · 다른 기기 · 해설 극장)의 앞선 도움 · 해설 열람 — 읽을 때 M8 규칙으로(prior-help). 못 읽으면 보수적으로 독립 아님
+  const itemsSeen = [...new Set(rows.map((r) => r.item_ref).filter((x): x is string => !!x))]
+  const sess = itemsSeen.length
+    ? await learnerDb.from('learning_sessions').select('id, item_ref, help_received_at, explanation_viewed_at, help_server_at, explanation_server_at, help_clock_suspect').eq('user_id', userId).in('item_ref', itemsSeen).limit(1000)
+    : { data: [] as CrossSession[], error: null }
+  const crossOk = !sess.error
+  const sessions = (sess.data ?? []) as CrossSession[]
+  const crossIndependent = (r: Row) => crossOk && crossSessionHelp({ sessionId: r.session_id ?? null, itemId: r.item_ref ?? '', answeredAt: r.answered_at, receivedAt: r.received_at ?? null }, sessions) === 'independent'
   const stored = (r: Row) => (r.help_level ?? r.response?.help_level ?? 'independent') === 'independent'
   const independent = (r: Row) => {
     const v = view.get(r.id)
@@ -184,7 +192,7 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
       itemId: r.item_ref as string,
       phase: r.phase as PracticePhase,
       // hint 도 독립이 아니다 — 「지금 내 상태」 판단에서 viewed_first 와 같이 뺀다(보수적)
-      helpLevel: (independent(r) ? 'independent' : 'viewed_first') as HelpLevel,
+      helpLevel: (independent(r) && crossIndependent(r) ? 'independent' : 'viewed_first') as HelpLevel,
       claimHit: typeof (r.response?.grade as Record<string, unknown> | undefined)?.claim === 'boolean' ? ((r.response!.grade as Record<string, boolean>).claim) : null,
       answeredAt: r.answered_at,
     }))
@@ -208,13 +216,11 @@ export interface SubmitDeps {
   writer: AttemptWriter
   pool: (opts: { preview: boolean }) => Promise<ServerEntry[]>
   answer: (itemId: string) => Promise<number | null>
-  /** 이 판단 전에 같은 문항에서 도움(해설 먼저 · 힌트) 또는 해설 열람이 있었나 — 다른 세션 포함(새로고침 · 문항 재선택). 없으면 확인하지 않는다 */
-  priorHelp?: (userId: string, itemId: string, clientMutationId: string, clientSessionId: string) => Promise<boolean>
 }
 
 export function defaultSubmitDeps(): SubmitDeps {
   const db = admin()
-  return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id), priorHelp: (u, i, m, cs) => priorHelpOf(db, u, i, m, cs) }
+  return { db, writer: selectWriter(db), pool: (o) => serverPool(o, db), answer: (id) => answerOf(db, id) }
 }
 
 /** 복습 예약 간격(일) — 닫힌 목록. 화면 버튼과 같다 */
@@ -316,8 +322,6 @@ export async function submitPractice(
   const grade = gradePractice(gradeClaimSupport, entry.key, s)
   const correct = await deps.answer(s.itemId)
   const optionCorrect = s.option === null || correct === null ? null : s.option === correct
-  // 앞선 세션의 해설 열람 · 도움 노출이 있으면 이 판단은 독립이 아니다(화면 상태와 무관)
-  const helped = s.helpLevel !== 'independent' || (deps.priorHelp ? await deps.priorHelp(who.userId, s.itemId, s.clientMutationId, s.clientSessionId) : false)
   const write = {
     userId: who.userId,
     taskKey: entry.kind === 'annotated' ? PRACTICE_TASK : SKELETON_TASK,
@@ -326,7 +330,8 @@ export async function submitPractice(
     contentHash: entry.contentHash,
     activity: 'practice' as const,
     phase: entry.phase,
-    helpLevel: (helped ? 'viewed_first' : 'independent') as HelpLevel,
+    // 기기가 보낸 사실 그대로 기록한다 — 다른 세션의 앞선 도움은 읽을 때 가른다(prior-help · 시각 순서 문제라 쓰기 때 덮지 않는다)
+    helpLevel: s.helpLevel,
     synthetic: who.synthetic || s.preview,
     clientMutationId: s.clientMutationId,
     clientSessionId: s.clientSessionId,
@@ -347,7 +352,7 @@ export async function submitPractice(
   // 해설 열람은 시도 payload 밖의 별도 행동 — 재전송 payload 가 첫 제출과 같게 남는다
   if (outcome !== 'conflict' && s.explanationViewedAt) await deps.writer.noteExplanationView(write, s.explanationViewedAt, sessionId)
   if (outcome === 'conflict') throw new PracticeInputError('같은 제출 id 로 다른 답이 왔어요 — 화면을 새로 고쳐 주세요', 409)
-  return { outcome, feedback: practiceFeedback(entry.key, grade, optionCorrect, entry.phase, write.helpLevel) }
+  return { outcome, feedback: practiceFeedback(entry.key, grade, optionCorrect, entry.phase, s.helpLevel) }
 }
 
 /** 내 복습 — 본인 Practice 세션 중 복습 예약이 있는 것(학습자 RLS 클라이언트 · 본인 SELECT 만) */

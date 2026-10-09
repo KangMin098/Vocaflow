@@ -13,6 +13,7 @@ import { useRef } from 'react'
 import { fromItemSlug } from '@/lib/csat/item-slug'
 import { latestSession } from '@/lib/csat/learning-session'
 import { loadDissectionRecord } from '@/lib/csat/session/store'
+import { createClient as createBrowserClient } from '@/lib/supabase/client'
 
 export type TaskHelpLevel = 'independent' | 'viewed_first'
 
@@ -23,6 +24,8 @@ export interface TaskMeta {
   helpLevel: TaskHelpLevel
   /** 판단 소요 — 첫 전송 값으로 고정(재전송에서 바뀌면 서버가 conflict 로 거부한다) */
   sec: number | null
+  /** 첫 전송 때 로그인한 계정 — 계정이 바뀐 뒤 재시도하면 서버가 거부한다 */
+  ownerId: string | null
 }
 
 const newId = () => globalThis.crypto.randomUUID()
@@ -50,6 +53,7 @@ export function useTaskMeta(slug: string) {
         answeredAt: new Date().toISOString(),
         helpLevel: await theaterHelpLevel(slug),
         sec,
+        ownerId: await createBrowserClient().auth.getSession().then((r) => r.data.session?.user.id ?? null).catch(() => null),
       }
       pending.current = { key: answerKey, meta }
       return meta

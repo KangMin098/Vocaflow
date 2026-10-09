@@ -236,6 +236,13 @@ export function AnalysisTheater({
       if (!alive || !opened) return
       const { session: s, resumed } = opened as { session: LearningSession; resumed: boolean }
       sync(record, s.id)
+      // 이미 공개된 이 문항의 기기 세션(이 변경 전 · 다른 기기에서 동기화된 것)도 서버에 한 번 남긴다 — 최초 공개 시각 그대로 · 재전송은 서버 duplicate(Codex P1)
+      void currentUserId().then((userId) => {
+        for (const x of sessionsOf(record)) {
+          if (x.item !== itemId || x.stage === 'open') continue
+          void sendReveal({ slug: toItemSlug(itemId), sessionId: x.id, help: x.help === 'viewed_first' || x.help === 'hint' ? 'viewed_first' : 'independent', revealedAt: new Date(x.revealedAt ?? x.updatedAt).toISOString(), userId })
+        }
+      })
       if (resumed && s.step > 0 && s.step < steps.length) {
         setCursor(s.step)
         setResumedAt(s.step)

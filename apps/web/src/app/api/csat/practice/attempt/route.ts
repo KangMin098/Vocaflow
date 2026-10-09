@@ -27,7 +27,10 @@ export async function POST(req: Request) {
   } = await auth.auth.getUser()
   if (!user) return bad('로그인이 필요해요', 401)
 
-  const parsed = parseSubmission(await readJson(req), Date.now())
+  const raw = (await readJson(req)) as Record<string, unknown> | null
+  // 첫 제출 계정과 지금 계정이 다르면(다른 탭에서 계정 전환 뒤 재시도) 남기지 않는다 — 다른 학습자 기록 오염 방지
+  if (raw && typeof raw.ownerId === 'string' && raw.ownerId !== user.id) return bad('다른 계정에서 시작한 제출이에요 — 화면을 새로 고쳐 주세요', 409)
+  const parsed = parseSubmission(raw, Date.now())
   if (!parsed.ok) return bad(parsed.error, 400)
   if (parsed.value.preview) {
     const admin = await requireAdminApi()

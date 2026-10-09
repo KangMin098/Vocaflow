@@ -22,6 +22,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   if (!/^[A-Za-z0-9]+-\d{1,2}$/.test(slug)) return NextResponse.json({ error: '문항을 찾지 못했어요' }, { status: 404 })
   try {
     const body = await readJson(req)
+    // 첫 제출 계정과 지금 계정이 다르면 남기지 않는다(계정 전환 뒤 재시도)
+    const owner = (body as { ownerId?: unknown } | null)?.ownerId
+    if (typeof owner === 'string' && owner !== ctx.userId) return NextResponse.json({ error: '다른 계정에서 시작한 제출이에요 — 화면을 새로 고쳐 주세요', code: 'invalid_input' }, { status: 409 })
     return NextResponse.json(await recordItemTaskAttempt(ctx.db, { id: ctx.userId, email: ctx.email }, fromItemSlug(slug), body, Date.now()))
   } catch (e) {
     if (e instanceof TaskInputError) return NextResponse.json({ error: e.message, code: e.code }, { status: 400 })

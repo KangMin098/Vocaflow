@@ -14,6 +14,7 @@ import { useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { toItemSlug } from '@/lib/csat/item-slug'
+import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { RELATIONS, RELATION_LABEL, type Relation } from '@/lib/knowledge/claim-support-labels'
 import { TYPE_LABEL, pickNext, type HelpLevel, type PoolKind, type PracticeFeedback, type PracticePhase } from '@/lib/knowledge/practice'
 import type { CapabilityJudgement } from '@/lib/knowledge/protocol'
@@ -86,7 +87,8 @@ export function ClaimPractice(props: {
   const started = useRef<number>(Date.now())
   // 같은 답의 재시도만 같은 제출 id · 판단 시각을 쓴다(G2 요청 멱등). 답이 바뀌면 새 id
   // 판단 소요(sec)도 첫 전송 값으로 고정한다 — 재전송에서 sec 가 바뀌면 서버가 같은 id 의 다른 요청(conflict)으로 거부한다(Codex P1)
-  const pending = useRef<{ sig: string; id: string; at: string; sec: number } | null>(null)
+  // ownerId: 첫 제출 때 로그인한 계정 — 다른 탭에서 계정을 바꾼 뒤 재시도하면 서버가 거부한다(Codex P1)
+  const pending = useRef<{ sig: string; id: string; at: string; sec: number; ownerId: string | null } | null>(null)
   // 마지막으로 보낸 판단 본문(해설 열람 시각 제외) — 해설 열람은 이 본문 그대로 + 열람 시각을 따로 보낸다
   const lastBody = useRef<Record<string, unknown> | null>(null)
   // 판단 전 해설 열람(최초 시각 고정 · 저장 여부)
@@ -192,11 +194,15 @@ export function ClaimPractice(props: {
     const asked = entry.itemId
     const answer = { claim, support, relation: needsRelation ? relation : null, option: option === 'unknown' ? null : option, confidence }
     const sig = JSON.stringify([asked, sessionId, helpLevel, answer])
-    if (!pending.current || pending.current.sig !== sig) pending.current = { sig, id: uuid(), at: new Date().toISOString(), sec: (Date.now() - started.current) / 1000 }
+    if (!pending.current || pending.current.sig !== sig) {
+      const ownerId = await createBrowserClient().auth.getSession().then((r) => r.data.session?.user.id ?? null).catch(() => null)
+      pending.current = { sig, id: uuid(), at: new Date().toISOString(), sec: (Date.now() - started.current) / 1000, ownerId }
+    }
     const body = {
       itemId: asked,
       ...answer,
       sec: pending.current.sec,
+      ownerId: pending.current.ownerId,
       clientMutationId: pending.current.id,
       clientSessionId: sessionId,
       answeredAt: pending.current.at,
