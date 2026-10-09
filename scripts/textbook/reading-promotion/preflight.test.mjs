@@ -532,7 +532,7 @@ async function exerciseMultiGrade() {
 
 test('one live resolver revalidates both grade sections and blocks stale members', exerciseMultiGrade)
 
-async function exerciseSingleGrade(grade) {
+async function exerciseSingleGrade(grade, withFixture = false) {
   const brief = syntheticBrief([grade])
   const identities = grade === 'middle_1'
     ? { child: '66666666-6666-4666-8666-666666666666', request: '77777777-7777-4777-8777-777777777777' }
@@ -632,7 +632,8 @@ async function exerciseSingleGrade(grade) {
     snapshot_hashes: [captured.snapshot_hash],
     output_hash: rawSha(atomic.html), published_status: published.status }
   assert.equal(masterRecord.synthetic_fixture && masterRecord.non_production, true)
-  return masterRecord
+  return withFixture ? { ...masterRecord, fixture: { input, child, authority, order, audit,
+    lineage, stage, group, evidence, render, captured, db, atomic, published, artifacts } } : masterRecord
 }
 
 for (const grade of ['middle_1', 'high_1'])
@@ -651,4 +652,126 @@ test('master verification runs independent M1, H1 and M1–M2 brief-bound synthe
     const values = receipts.flatMap(receipt => receipt[field])
     assert.equal(new Set(values).size, values.length, `${field} mixed across master runs`)
   }
+})
+
+test('master failure matrix rejects changed source, order, evidence and output at every production boundary', async () => {
+  const { fixture: base } = await exerciseSingleGrade('middle_1', true)
+  const dbFor = captured => ({ rpc: async (name, params) => name === 'capture_reading_production_snapshot'
+    ? { data: captured } : { data: { status: 'rendered_unpublished', snapshot_id: captured.snapshot_id,
+      snapshot_hash: captured.snapshot_hash, output_hash: params.p_output_hash } } })
+  const cases = [
+    ['source mutation', ({ captured }) => { captured.evidence.sections[0].source_evidence.content += ' changed' }],
+    ['rights revocation', ({ captured }) => { captured.evidence.sections[0].source_evidence.display_only = true }],
+    ['order mutation', ({ captured }) => { captured.evidence.group_document.orders[0].order.order_revision += 1 }],
+    ['grade mutation', ({ stage }) => { stage.grade = 'high_1' }],
+    ['adaptation mutation', ({ stage }) => { stage.passage += ' changed' }],
+    ['benchmark revision', ({ captured }) => { captured.evidence.evidence_document.variants[0].benchmark_version = 'other' }],
+    ['Gold-S expiration', ({ captured }) => { captured.captured_at = '2027-01-01T00:00:00Z'; captured.expires_at = '2027-01-02T00:00:00Z' }],
+    ['Gold-S revocation', ({ captured }) => { captured.evidence.sections[0].gold_s.operational_policy.revoked.certificate_hashes.push(base.audit.certificate_hash) }],
+    ['seed approval change', ({ captured }) => { captured.evidence.sections[0].eligibility_hash = h('f') }],
+    ['item mutation', ({ stage }) => { stage.items[0].answer_key.answer = 1 }],
+    ['explanation mutation', ({ stage }) => { stage.explanations[0].text += ' changed' }],
+    ['editorial mutation', ({ stage }) => { stage.reviews[0].decision = 'rejected' }],
+    ['unit mixing', ({ stage }) => { stage.unit.unit_id = 'other-unit' }],
+    ['volume mixing', ({ captured }) => { captured.evidence.evidence_document.group_id = 'other-group' }],
+  ]
+  for (const [name, mutate] of cases) {
+    const current = { captured: structuredClone(base.captured), stage: structuredClone(base.stage) }
+    mutate(current)
+    await assert.rejects(runAtomicMultiGradeFactoryDryRun(dbFor(current.captured), {
+      groupId: base.group.group_id, stages: [current.stage], render: base.render,
+    }), undefined, name)
+  }
+  await assert.rejects(publishAtomicProductionArtifact({ rpc: async () => ({ data: {} }) },
+    { ...base.atomic, html: `${base.atomic.html} changed` }), /ATOMIC_PUBLICATION_INPUT_STALE/)
+  assert.deepEqual(planFactoryImpact(base.artifacts, ['source'], 'rights_revoked').map(row => row.artifact_id),
+    base.artifacts.map(row => row.artifact_id), 'catalog stale propagation')
+  let finalized = false
+  const replayDb = { rpc: async (name, params) => name === 'capture_reading_production_snapshot'
+    ? { data: base.captured } : finalized ? { error: Error('snapshot already consumed') }
+      : (finalized = true, { data: { status: 'rendered_unpublished', snapshot_id: base.captured.snapshot_id,
+        snapshot_hash: base.captured.snapshot_hash, output_hash: params.p_output_hash } }) }
+  await runAtomicMultiGradeFactoryDryRun(replayDb, { groupId: base.group.group_id,
+    stages: [base.stage], render: base.render })
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun(replayDb, { groupId: base.group.group_id,
+    stages: [base.stage], render: base.render }), /ATOMIC_PRODUCTION_FINALIZATION_FAILED/, 'snapshot replay')
+  const failedCapture = structuredClone(base.captured)
+  let approvalConsumed = false
+  const failedDb = { rpc: async name => name === 'capture_reading_production_snapshot'
+    ? approvalConsumed ? { error: Error('output approval already consumed') }
+      : (approvalConsumed = true, { data: failedCapture })
+    : { error: Error('finalize interrupted') } }
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun(failedDb, { groupId: base.group.group_id,
+    stages: [base.stage], render: base.render }), /ATOMIC_PRODUCTION_FINALIZATION_FAILED/)
+  await assert.rejects(runAtomicMultiGradeFactoryDryRun(failedDb, {
+    groupId: base.group.group_id, stages: [base.stage], render: base.render }),
+  /ATOMIC_SNAPSHOT_CAPTURE_FAILED/, 'consumed approval cannot be retried after finalize failure')
+  let published = false
+  const publishDb = { rpc: async (_name, params) => published ? { error: Error('already published') }
+    : (published = true, { data: { status: 'published_current', snapshot_id: params.p_snapshot_id,
+      snapshot_hash: params.p_snapshot_hash, output_hash: base.atomic.manifest.html_sha256 } }) }
+  await publishAtomicProductionArtifact(publishDb, base.atomic)
+  await assert.rejects(publishAtomicProductionArtifact(publishDb, base.atomic),
+    /ATOMIC_PUBLICATION_REJECTED/, 'publication replay')
+})
+
+test('consumed approval recovers only through a new group revision, unapproved render and independent reapproval', async () => {
+  const { fixture: base } = await exerciseSingleGrade('middle_1', true)
+  const group = { ...base.group, group_revision: base.group.group_revision + 1 }
+  const evidence = { ...base.evidence, group_revision: group.group_revision,
+    group_hash: sealMultiGradeProductOrder(group).group_hash }
+  const captured = structuredClone(base.captured)
+  captured.snapshot_id = 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee'
+  captured.snapshot_hash = h('e')
+  captured.evidence.group_revision = group.group_revision
+  captured.evidence.group_document = group
+  captured.evidence.evidence_document = evidence
+  captured.evidence.approved_output_hash = null
+  let registered = false
+  let finalized = false
+  let approvedHash = null
+  let captureCount = 0
+  const db = { rpc: async (name, params) => {
+    if (name === 'register_reading_production_group') {
+      registered = params.p_group_revision === group.group_revision
+      return { data: { group_id: group.group_id, group_revision: group.group_revision } }
+    }
+    if (name === 'capture_reading_production_snapshot') {
+      if (!registered || captureCount > 1 || (captureCount === 1 && !approvedHash))
+        return { error: Error('approval sequence invalid') }
+      captureCount += 1
+      const current = structuredClone(captured)
+      if (captureCount === 2) {
+        current.snapshot_id = 'ffffffff-ffff-4fff-8fff-ffffffffffff'
+        current.snapshot_hash = h('f')
+        current.evidence.approved_output_hash = approvedHash
+      }
+      return { data: current }
+    }
+    if (name === 'finalize_reading_production_snapshot') {
+      finalized = true
+      return { data: { status: 'rendered_unpublished', snapshot_id: params.p_snapshot_id,
+        snapshot_hash: params.p_snapshot_hash, output_hash: params.p_output_hash } }
+    }
+    if (name === 'approve_reading_production_output') {
+      if (!finalized || captureCount !== 1 || params.p_snapshot_id !== captured.snapshot_id)
+        return { error: Error('current rendered snapshot required') }
+      approvedHash = params.p_output_hash
+      return { data: { approved_output_hash: approvedHash, approved_evidence_hash: h('a') } }
+    }
+    return { error: Error(`unexpected RPC: ${name}`) }
+  } }
+  await registerTrustedProductionGroup(db, { group, evidence, sections: [{ grade: base.stage.grade,
+    order_id: base.order.order_id, article_id: base.child.id, audit_id: base.audit.request_id,
+    item_ids: [base.stage.items[0].id] }] })
+  const unapproved = await runAtomicMultiGradeFactoryDryRun(db, { groupId: group.group_id,
+    stages: [base.stage], render: base.render })
+  assert.equal(unapproved.manifest.approved_output_hash, null)
+  await approveTrustedProductionOutput(db, { snapshotId: unapproved.manifest.snapshot_id,
+    snapshotHash: unapproved.manifest.snapshot_hash, html: unapproved.html })
+  const reissued = await runAtomicMultiGradeFactoryDryRun(db, { groupId: group.group_id,
+    stages: [base.stage], render: base.render })
+  assert.equal(reissued.manifest.approved_output_hash, reissued.manifest.html_sha256)
+  assert.notEqual(reissued.manifest.snapshot_id, base.atomic.manifest.snapshot_id)
+  assert.equal(captureCount, 2)
 })

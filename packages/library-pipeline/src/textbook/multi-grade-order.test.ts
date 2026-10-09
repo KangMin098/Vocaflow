@@ -135,7 +135,8 @@ function productionFixture(mode: 'shared_passage_grade_specific_items' | 'grade_
     const passage = index && mode === 'grade_specific_adaptations' ? 'A more complex grade-two passage.' : 'A shared research passage.'
     const lineage = { product_order_id: variant.product_order_id, order_revision: variant.order_revision,
       order_hash: variant.order_hash, source_hash: e.source_hash, rights_hash: e.rights_hash,
-      adaptation_hash: variant.adaptation_hash, benchmark_snapshot_hash: variant.benchmark_snapshot_hash,
+      adaptation_hash: variant.adaptation_hash, benchmark_version: variant.benchmark_version,
+      benchmark_snapshot_hash: variant.benchmark_snapshot_hash,
       promotion_request_hash: h(index ? '1' : '2'), evidence_hash: h(index ? '3' : '4'),
       certificate_hash: h(index ? '5' : '6'), eligibility_hash: h(index ? '7' : '8'), trust_policy_hash: h('9') }
     variant.adaptation_hash = digest(passage.trim())

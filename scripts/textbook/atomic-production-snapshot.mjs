@@ -96,6 +96,7 @@ export async function captureTrustedProductionSnapshot(db, groupId) {
           item.payload?.factory_lineage?.certificate_hash !== section.certificate_hash ||
           item.payload?.factory_lineage?.eligibility_hash !== section.eligibility_hash ||
           item.payload?.factory_lineage?.adaptation_hash !== variant.passage_hash ||
+          item.payload?.factory_lineage?.benchmark_version !== variant.benchmark_version ||
           item.payload?.factory_lineage?.benchmark_snapshot_hash !== variant.benchmark_snapshot_hash))
       fail('ATOMIC_SNAPSHOT_GRADE_EVIDENCE_MIXED')
   }

@@ -72,7 +72,9 @@ export function runMultiGradeFactoryDryRun(input: {
     if (stage.grade !== child.grade || stage.lineage.product_order_id !== child.order.product_order_id ||
       stage.lineage.order_revision !== child.order.order_revision || stage.lineage.order_hash !== sealed.child_order_hashes[child.grade] ||
       stage.lineage.source_hash !== recorded.evidence.source_hash || stage.lineage.rights_hash !== recorded.evidence.rights_hash ||
-      stage.lineage.adaptation_hash !== variant.passage_hash || stage.lineage.benchmark_snapshot_hash !== variant.benchmark_snapshot_hash ||
+      stage.lineage.adaptation_hash !== variant.passage_hash ||
+      stage.lineage.benchmark_version !== variant.benchmark_version ||
+      stage.lineage.benchmark_snapshot_hash !== variant.benchmark_snapshot_hash ||
       sha(stage.passage) !== variant.passage_hash ||
       (variant.adaptation_hash !== null && digest(stage.passage.trim()) !== variant.adaptation_hash))
       throw Error('MULTI_GRADE_READY_LINEAGE_STALE_OR_MIXED')

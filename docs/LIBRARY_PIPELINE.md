@@ -1,6 +1,7 @@
 # Library Pipeline
 
 교재 공장 Phase 1 공통 주문·원천 라우팅·제품군 기능표·증거 판본·상태→9공정 연결은 [통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md)을 따른다. 순수 계약은 DB 승격이나 교재 완주가 아니다.
+복수 학년 조립과 원자 snapshot 검증은 문항 계보의 `benchmark_version`과 표본 variant의 판본도 일치해야 한다. snapshot hash만 맞고 판본이 달라지면 조판 전에 중단한다. 합성 실패·재발행 절차는 [교재 공장 복구 절차](./textbook-factory-recovery.md)를 따른다.
 
 Phase 2 `reading:` 자식의 order별 관리자 승인·현재 authority 판본·전용 DB 승격/감사 경로는 [통합 계약](./TEXTBOOK_FACTORY_INTEGRATION.md) §Phase 2를 따른다. 개발 DB migration은 적용됐으나 authority·order·승인 registry가 비어 있어 실데이터 승격은 차단된다.
 
