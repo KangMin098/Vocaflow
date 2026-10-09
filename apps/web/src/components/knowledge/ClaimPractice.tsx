@@ -54,6 +54,8 @@ export function ClaimPractice(props: {
   initialItemId: string | null
   recommendedItemId: string | null
   history: { phase: PracticePhase; claimHit: boolean | null; helpLevel: HelpLevel }[]
+  /** 내 복습 — 아직 끝나지 않은 Practice 복습 예약(한국 날짜 · 예약일 지남 여부 · 이 화면에서 풀 수 있나) */
+  reviews?: { itemId: string; label: string; date: string; due: boolean; inPool: boolean }[]
 }) {
   const { preview, judgement, pool, recommendedItemId } = props
   const router = useRouter()
@@ -235,10 +237,11 @@ export function ClaimPractice(props: {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ itemId: entry.itemId, clientSessionId: sessionId, days, finishedAt: (reviewFinishedAt.current ??= new Date().toISOString()), preview }),
       })
-      const j = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; reviewAt?: string } | null
+      const j = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; reviewDate?: string; kept?: boolean } | null
       if (!stillHere()) return
-      if (!j?.ok || !j.reviewAt) throw new Error(j?.error ?? '예약하지 못했어요')
-      setReviewAt(j.reviewAt.slice(0, 10))
+      if (!j?.ok || !j.reviewDate) throw new Error(j?.error ?? '예약하지 못했어요')
+      // 서버가 확정한 한국 날짜를 그대로 보인다 — 이미 다른 날로 잡혀 있었으면 그 날짜(kept)
+      setReviewAt(j.kept ? `${j.reviewDate}(이미 잡혀 있던 날)` : j.reviewDate)
     } catch (e) {
       if (stillHere()) setError(e instanceof Error ? e.message : '예약하지 못했어요')
     } finally {
@@ -301,6 +304,24 @@ export function ClaimPractice(props: {
           </ol>
         )}
       </section>
+
+      {props.reviews && props.reviews.length > 0 && (
+        <section aria-labelledby="my-reviews" data-testid="my-reviews">
+          <h2 id="my-reviews">내 복습</h2>
+          <ul className={styles.history}>
+            {props.reviews.map((r) => (
+              <li key={r.itemId} data-due={r.due}>
+                {r.label} · {r.due ? `다시 볼 날이 됐어요(${r.date})` : `${r.date} 에 다시 보기`}{' '}
+                {r.inPool && (
+                  <button type="button" className={styles.link} onClick={() => choose(r.itemId)}>
+                    지금 다시 풀기
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section aria-labelledby="how">
         <h2 id="how">이렇게 해요</h2>

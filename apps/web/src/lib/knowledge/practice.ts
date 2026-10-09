@@ -359,3 +359,38 @@ export function isSyntheticEmail(email: string | null | undefined): boolean {
   const d = (email ?? '').toLowerCase().split('@')[1] ?? ''
   return (SYNTHETIC_EMAIL_DOMAINS as readonly string[]).includes(d)
 }
+
+/** 내 복습 — 이 학습자의 Practice 복습 예약 한 줄(세션) */
+export interface ReviewSession {
+  item_ref: string | null
+  review_at: string | null
+  deleted_at: string | null
+}
+
+export interface PendingReview {
+  itemId: string
+  /** 예약 시각(저장값 · KST 00:00) */
+  reviewAt: string
+  /** 예약일이 지났나(now 기준) */
+  due: boolean
+}
+
+/**
+ * 아직 끝나지 않은 복습 예약 — 예약 시각 뒤에 **같은 문항**을 다시 판단했으면 끝난 것이다(학습 지도와 같은 계약 · PR #170).
+ * 해설 열람은 판단 기록이 아니므로 예약을 끝내지 않는다. 같은 문항에 예약이 여럿이면 가장 이른 것 하나. 이른 날짜 순.
+ * `now` 는 호출자가 넘긴다(시계를 직접 읽지 않는다).
+ */
+export function pendingReviews(sessions: readonly ReviewSession[], attempts: readonly { itemId: string; answeredAt: string }[], now: number): PendingReview[] {
+  const byItem = new Map<string, string>()
+  for (const s of sessions) {
+    if (!s.item_ref || !s.review_at || s.deleted_at) continue
+    const at = s.review_at
+    const done = attempts.some((a) => a.itemId === s.item_ref && Date.parse(a.answeredAt) >= Date.parse(at))
+    if (done) continue
+    const prev = byItem.get(s.item_ref)
+    if (!prev || Date.parse(at) < Date.parse(prev)) byItem.set(s.item_ref, at)
+  }
+  return [...byItem.entries()]
+    .map(([itemId, reviewAt]) => ({ itemId, reviewAt, due: Date.parse(reviewAt) <= now }))
+    .sort((a, b) => Date.parse(a.reviewAt) - Date.parse(b.reviewAt))
+}

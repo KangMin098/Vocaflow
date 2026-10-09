@@ -11,8 +11,9 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { ClaimPractice } from '@/components/knowledge/ClaimPractice'
 import { getAdminUser } from '@/lib/auth/require-admin'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
-import { PRACTICE_SLUG, capabilityHits, firstAttempts, pickNext } from '@/lib/knowledge/practice'
-import { loadMyAttempts, loadPracticePool } from '@/lib/knowledge/practice-server'
+import { PRACTICE_SLUG, capabilityHits, firstAttempts, pendingReviews, pickNext } from '@/lib/knowledge/practice'
+import { loadMyAttempts, loadMyReviewSessions, loadPracticePool, loadReviewResolvers } from '@/lib/knowledge/practice-server'
+import { kstDateOf } from '@/lib/knowledge/review-date'
 import { judgeCapability } from '@/lib/knowledge/protocol'
 import { createClient } from '@/lib/supabase/server'
 
@@ -32,6 +33,15 @@ export default async function PracticePage({ params, searchParams }: { params: {
   const pool = await loadPracticePool({ preview })
   if (pool.length === 0) notFound()
   const attempts = await loadMyAttempts(db, user.id, { preview })
+  // 내 복습 — 지도에 걸리지 않는 Practice 예약도 여기서 다시 찾는다(E11). 못 읽으면 목록만 빠진다
+  const reviewSessions = await loadMyReviewSessions(db, user.id).catch((e) => { console.error('[csat-practice reviews]', e); return [] })
+  // 해소 근거는 같은 문항의 모든 판단(Practice + 문항 확인 과제 재평가)
+  const resolvers = await loadReviewResolvers(db, user.id, [...new Set(reviewSessions.map((s) => s.item_ref).filter((x): x is string => !!x))])
+    .catch((e) => { console.error('[csat-practice review resolvers]', e); return attempts })
+  const reviews = pendingReviews(reviewSessions, resolvers, Date.now()).map((r) => {
+    const p = pool.find((x) => x.itemId === r.itemId)
+    return { itemId: r.itemId, label: p ? `${p.examLabel} ${p.no}번` : r.itemId.replace('#', ' '), date: kstDateOf(r.reviewAt), due: r.due, inPool: !!p }
+  })
   const firsts = firstAttempts(attempts)
   const done = new Set(firsts.map((a) => a.itemId))
   const judgement = judgeCapability(capabilityHits(attempts))
@@ -51,6 +61,7 @@ export default async function PracticePage({ params, searchParams }: { params: {
       initialItemId={chosen}
       recommendedItemId={next?.itemId ?? null}
       history={firsts.slice(-10).map((a) => ({ phase: a.phase, claimHit: a.claimHit, helpLevel: a.helpLevel }))}
+      reviews={reviews}
     />
   )
 }

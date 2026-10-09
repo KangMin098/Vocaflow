@@ -307,18 +307,50 @@ describe('판단을 보낸 뒤 해설 열람 — 도움 수준이 아니라 별�
 describe('E11 복습 예약 — 판정 뒤 다시 보기(학습 지도 「다시 보기」 → 확인 과제 재평가)', () => {
   const FIN = '2026-10-09T03:00:00.000Z'
   it('세션을 finished 로 마치고 review_at = N일 뒤 날짜 · 재전송은 같은 mutation · 같은 payload(p_at 고정 · Codex P1)', async () => {
-    const f = fakeDb([])
+    const f = fakeDb([{ user_id: 'u1', client_session_id: SUB.clientSessionId, review_at: '2026-10-11T15:00:00+00:00' }])
     const d = { ...deps(fakeWriter().writer), db: f.db }
     const r = await schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 3, finishedAt: FIN, preview: false })
     await schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 3, finishedAt: FIN, preview: false })
-    expect(r.reviewAt).toBe('2026-10-12T00:00:00.000Z')
+    expect(r).toMatchObject({ reviewAt: '2026-10-11T15:00:00.000Z', reviewDate: '2026-10-12', kept: false })
     const calls = f.rpcs.filter((x) => x.fn === 'learning_session_apply')
-    expect(calls[0].args).toMatchObject({ p_stage: 'finished', p_review_at: '2026-10-12T00:00:00.000Z', p_client_session_id: SUB.clientSessionId, p_activity: 'practice', p_help_level: null })
+    expect(calls[0].args).toMatchObject({ p_stage: 'finished', p_review_at: '2026-10-11T15:00:00.000Z', p_client_session_id: SUB.clientSessionId, p_activity: 'practice', p_help_level: null })
     expect(calls[1].args).toEqual(calls[0].args)
   })
   it('닫힌 간격(1 · 3 · 7일)만 · 풀에 없는 문항은 404', async () => {
     const d = { ...deps(fakeWriter().writer), db: fakeDb([]).db }
     await expect(schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 30, finishedAt: FIN, preview: false })).rejects.toBeInstanceOf(PracticeInputError)
     await expect(schedulePracticeReview(d, { userId: 'u1', synthetic: false }, { itemId: 'nope#1', clientSessionId: SUB.clientSessionId, days: 1, finishedAt: FIN, preview: false })).rejects.toMatchObject({ status: 404 })
+  })
+})
+
+describe('E11 복습 예약 — 서버 확정 날짜(KST) · 재전송 정합(Codex P2)', () => {
+  const FIN = '2026-10-08T23:00:00.000Z' // KST 2026-10-09 08:00
+  it('KST 오전에 1일 뒤 → 한국 내일(10-10) · 저장은 그 날 KST 00:00', async () => {
+    const f = fakeDb([{ user_id: 'u1', client_session_id: SUB.clientSessionId, review_at: '2026-10-09T15:00:00+00:00' }])
+    const r = await schedulePracticeReview({ ...deps(fakeWriter().writer), db: f.db }, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 1, finishedAt: FIN, preview: false })
+    expect(r).toMatchObject({ reviewDate: '2026-10-10', requestedDate: '2026-10-10', reviewAt: '2026-10-09T15:00:00.000Z', kept: false })
+  })
+  it('이미 다른 날로 확정돼 있으면(응답 유실 뒤 다른 간격 재시도) 저장된 날짜를 돌려준다 — 요청 날짜로 덮지 않는다', async () => {
+    const f = fakeDb([{ user_id: 'u1', client_session_id: SUB.clientSessionId, review_at: '2026-10-11T15:00:00+00:00' }])
+    const r = await schedulePracticeReview({ ...deps(fakeWriter().writer), db: f.db }, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 7, finishedAt: FIN, preview: false })
+    expect(r).toMatchObject({ reviewDate: '2026-10-12', requestedDate: '2026-10-16', kept: true })
+  })
+})
+
+describe('선행 해설 열람은 다른 세션이어도 이어 붙는다(Codex P1)', () => {
+  it('같은 문항에 앞선 도움 · 해설 열람이 있으면 화면이 independent 로 보내도 viewed_first 로 기록', async () => {
+    const f = fakeWriter()
+    const r = await submitPractice({ ...deps(f.writer), priorHelp: async () => true }, { userId: 'u1', synthetic: false }, SUB)
+    expect(f.writes[0].helpLevel).toBe('viewed_first')
+    // 피드백도 서버가 확정한 도움 수준 — 「해설을 먼저 본 기록」 안내가 빠지지 않는다
+    expect(r.feedback.helpLevel).toBe('viewed_first')
+  })
+  it('앞선 도움이 없으면 independent 그대로', async () => {
+    const f = fakeWriter()
+    await submitPractice({ ...deps(f.writer), priorHelp: async () => false }, { userId: 'u1', synthetic: false }, SUB)
+    expect(f.writes[0].helpLevel).toBe('independent')
+  })
+  it('예약 확정 날짜를 읽지 못하면 확정이라고 말하지 않는다(오류)', async () => {
+    await expect(schedulePracticeReview({ ...deps(fakeWriter().writer), db: fakeDb([]).db }, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 1, finishedAt: '2026-10-08T23:00:00.000Z', preview: false })).rejects.toThrow('확인 실패')
   })
 })
