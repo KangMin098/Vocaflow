@@ -25,6 +25,9 @@ import path from 'node:path'
 export const VERDICT = { PASS: 'REVIEW_PASS', BLOCKED: 'REVIEW_BLOCKED', UNKNOWN: 'REVIEW_UNKNOWN' }
 export const DEFAULTS = { maxFixRounds: 3, filesPerChunk: 8, maxChunks: 4 }
 
+// codex exec 는 NO_FINDINGS, codex review 는 「No concrete defect(s)… identified/evident」 같은 문장으로 깨끗함을 말한다(실측 2026-10-09)
+export const NO_FINDINGS_RE = /^\s*NO_FINDINGS\s*$|\bno (?:concrete |blocking |actionable )?(?:defects?|findings|issues|bugs)\b(?:[^.\n]*\b(?:identified|evident|found|detected))?/im
+
 const sha1 = (s) => createHash('sha1').update(String(s)).digest('hex')
 
 // ── 지적 파싱 · 지문 ─────────────────────────────────────────────────────
@@ -251,6 +254,8 @@ function reviewRange({ files, from, head, deps, cfg, kind, ctx }) {
     raws.push(saveRaw(deps.stateDir, kind, head, r.out))
     const parsed = parseFindings(r.out, ctx)
     if (blockingMarkers(r.out) > parsed.filter((x) => ['P0', 'P1'].includes(x.severity)).length) failures.push('P0/P1 표지를 지적으로 판독하지 못했다')
+    // 지적도 「지적 없음」 표지도 없는 출력(예: 「변경을 볼 수 없었다」)은 리뷰가 아니다 — PASS 로 세지 않는다
+    else if (!parsed.length && !NO_FINDINGS_RE.test(String(r.out))) failures.push('리뷰 출력을 판독하지 못했다(지적도 「지적 없음」 도 없다)')
     findings.push(...parsed)
   }
   const fp = applyFalsePositives(findings, { root: ctx.root, scopeFiles: files, read: deps.readFile })

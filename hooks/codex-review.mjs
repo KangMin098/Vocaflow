@@ -58,7 +58,8 @@ const res = runStopReview(
       const extra = kind === 'final' ? 'This is a READ-ONLY FINAL review after the fix-round limit. Report only remaining P0/P1 defects; do not propose new work.' : '';
       return runCodex(root, buildPrompt(files, diff, extra, root), undefined, kind === 'final' ? 'stop-final' : 'stop');
     },
-    onPass: (files) => markClean(files.map((t) => fileKey(join(root, t)))),
+    // 리뷰한 것은 커밋 범위다 — 작업 트리에 미커밋 수정이 있는 파일은 clean 으로 남기지 않는다(DB 게이트가 리뷰 없이 통과시킨다)
+    onPass: (files) => markClean(files.filter((t) => { try { execFileSync('git', ['diff', '--quiet', 'HEAD', '--', t], { cwd: root, stdio: 'ignore' }); return true; } catch { return false; } }).map((t) => fileKey(join(root, t)))),
   },
   {
     maxFixRounds: Number(process.env.CODEX_REVIEW_MAX_FIX_ROUNDS ?? process.env.CODEX_REVIEW_MAX_ROUNDS ?? DEFAULTS.maxFixRounds),

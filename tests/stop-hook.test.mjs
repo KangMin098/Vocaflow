@@ -197,3 +197,10 @@ test('SH7b 실측 형식 — 8.3 URL 인코딩 절대경로를 루트 상대로,
   const b = h.stop()
   assert.equal(b.log, 'blocked_root_cause', '문구가 달라도 같은 파일 근처 같은 등급이면 반복')
 })
+
+test('SH6c 판독 불가 출력은 UNKNOWN · codex review 의 깨끗한 문장은 PASS', () => {
+  const h = harness({ reviews: ['I could not inspect the changes in this sandbox.'] })
+  assert.equal(h.stop().verdict, VERDICT.UNKNOWN)
+  const h2 = harness({ reviews: ['The implementation satisfies the goal. No concrete defects or goal drift were identified in the supplied diff.'] })
+  assert.equal(h2.stop().verdict, VERDICT.PASS)
+})
