@@ -79,6 +79,10 @@ describe('Codex P1 회귀', () => {
     const d = skillDiagnosis(mixed, [att('a', false, at(10)), att('x', false, at(11), { taskKey: 'cohesion-link' })], now)
     expect(d.status).toBe('unverified')
   })
+  it('해소 뒤에 생긴 오답은 해소를 되돌리지 않는다(회차는 해소 시점에 끝)', () => {
+    const d = skillDiagnosis(T, [...base, att('c', true, at(15)), att('d', true, at(16)), att('e', false, at(17))], now)
+    expect(d).toMatchObject({ status: 'resolved', resolvedAt: at(16) })
+  })
   it('다른 과제 키로 이미 본 문항도 CHECK 로 세지 않는다', () => {
     const d = skillDiagnosis(T, [att('c', true, at(9), { taskKey: 'cohesion-link' }), ...base, att('c', true, at(15)), att('d', true, at(16))], now)
     expect(d.status).toBe('verified')

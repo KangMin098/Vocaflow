@@ -107,12 +107,17 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
     // CHECK — 확정 뒤 · 기한 안 · 확정에 쓰지 않은 · 확정 뒤에 **처음 본** 문항만
     const used = new Set(wrongs)
     const checks = timeline.filter((e) => !used.has(e.item) && e.at > verifiedAt! && e.at <= deadline && (seenAt.get(e.item) ?? e.at) > verifiedAt!)
-    const right = checks.filter((e) => e.ok).length
-    const wrong = checks.length - right
-    const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)) } }
-    if (wrong === 0 && right >= CHECK_ITEMS) {
-      return { ...base, status: 'resolved', verified: false, resolvedAt: checks.filter((e) => e.ok)[CHECK_ITEMS - 1].at }
+    // 판단 시각 순으로 읽는다 — 막힘 없이 CHECK_ITEMS 개를 맞힌 시점에 해소하고 그 회차를 끝낸다(해소 뒤의 시도로 되돌리지 않는다 · Codex P1)
+    let right = 0
+    let wrong = 0
+    let resolvedAt: string | null = null
+    for (const e of checks) {
+      if (e.ok) right++
+      else wrong++
+      if (wrong === 0 && right >= CHECK_ITEMS) { resolvedAt = e.at; break }
     }
+    const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)) } }
+    if (resolvedAt) return { ...base, status: 'resolved', verified: false, resolvedAt }
     // 해소되지 않았고 기한이 지났으면 만료 → 기한 뒤의 시도로 새 회차(그 시도가 없으면 만료로 끝)
     if (now.toISOString() > deadline) {
       last = { ...base, status: 'expired', verified: false, resolvedAt: null }
