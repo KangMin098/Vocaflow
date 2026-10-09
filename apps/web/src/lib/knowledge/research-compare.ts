@@ -50,6 +50,8 @@ export type ResearchStanding =
   | 'research_backed'
   /** 지지와 반대 설명이 함께 연결됨 — 비교 검토 필요 */
   | 'contested'
+  /** 연구 근거는 있으나 적용 적합성이 낮음 · 미확인 — 「연구 없음」과 구별한다(Codex P2) */
+  | 'research_low_fit'
   /** 기출 관찰 · 현장 주장 · 추론뿐 — 연구 근거 없음 */
   | 'observation_only'
   /** 근거 연결 없음 */
@@ -98,6 +100,7 @@ export function comparePrinciple(item: RItem, evidence: readonly REvidence[], li
   const standing: ResearchStanding =
     counter > 0 && (support > 0 || evidence.length > 0) ? 'contested'
       : researchApplicable > 0 ? 'research_backed'
+        : buckets.research > 0 ? 'research_low_fit'
         : evidence.length > 0 ? 'observation_only'
           : 'no_evidence'
   const gaps: string[] = []

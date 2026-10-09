@@ -29,6 +29,9 @@ const { chromium } = req('@playwright/test')
 const fixture = fs.readFileSync(path.join(ROOT, 'apps/web/tests/e2e/fixtures/test-user.ts'), 'utf8')
 const EMAIL = process.env.PLAYWRIGHT_TEST_EMAIL || fixture.match(/email:[^'"]*['"]([^'"]+@[^'"]+)['"]/)![1]
 const PASSWORD = process.env.PLAYWRIGHT_TEST_PASSWORD || fixture.match(/password:[^'"]*['"]([^'"]+)['"]/)![1]
+// 승인 범위 = 기존 합성 테스트 계정 하나(Codex P1) — 환경변수로 다른 계정을 지정하면 제출 전에 멈춘다(실제 학습자 기록을 만들지 않는다)
+const APPROVED_EMAIL = fixture.match(/email:[^'"]*['"]([^'"]+@[^'"]+)['"]/)![1]
+if (EMAIL !== APPROVED_EMAIL || !/@(vocaflow\.local|vocaflow\.dev|example\.com)$/i.test(EMAIL)) throw new Error(`승인된 합성 테스트 계정(${APPROVED_EMAIL})이 아니다 — 쓰지 않는다`)
 fs.mkdirSync(OUT, { recursive: true })
 
 const ITEMS = ['2022#20', '2025#20', '2016#20', '2020#20', '2021#20', '2026#20', 'M2506#20', 'M2606#20', 'M2609#20']
@@ -212,7 +215,21 @@ const cleanup: Record<string, unknown> = { sentMutations: sentMutations.size }
   }
   cleanup.attempts = await del('learning_task_attempts', 'id', ids)
   cleanup.mutations = await del('learning_mutations', 'client_mutation_id', muts)
+  // 세션 공개(reveal) 원장 — 시도와 별도 mutation 이고 target 이 그 세션이다(Codex P2)
+  cleanup.revealMutations = sess.length
+    ? await (async () => {
+        const { data, error } = await db.from('learning_mutations').delete().eq('user_id', user.id).in('target', sess as string[]).select('client_mutation_id')
+        return { table: 'learning_mutations(reveal)', deleted: data?.length ?? 0, error: error?.message ?? null }
+      })()
+    : { deleted: 0 }
   cleanup.sessions = await del('learning_sessions', 'id', sess)
+  // 남은 행 — 있으면 실패로 센다
+  const left = async (table: string, col: string, vals: unknown[]) =>
+    vals.length ? ((await db.from(table).select(col).eq('user_id', user.id).in(col, vals as string[])).data?.length ?? -1) : 0
+  cleanup.left = { attempts: await left('learning_task_attempts', 'id', ids), mutations: await left('learning_mutations', 'client_mutation_id', muts), sessions: await left('learning_sessions', 'id', sess) }
+  const l = cleanup.left as Record<string, number>
+  const errs = ['attempts', 'mutations', 'revealMutations', 'sessions'].map((k) => (cleanup[k] as { error?: string | null })?.error).filter(Boolean)
+  rec('정리', l.attempts === 0 && l.mutations === 0 && l.sessions === 0 && errs.length === 0, `잔여 ${JSON.stringify(l)}${errs.length ? ' · 오류 ' + errs.join(' / ') : ''}`)
 }
 console.log('정리', JSON.stringify(cleanup))
 fs.writeFileSync(path.join(OUT, 'result.json'), JSON.stringify({ at: new Date().toISOString(), results, cleanup }, null, 2))

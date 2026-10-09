@@ -15,6 +15,7 @@ const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outli
 const STANDING_LABEL: Record<ResearchStanding, string> = {
   research_backed: '연구 근거 있음',
   contested: '설명이 충돌함',
+  research_low_fit: '연구 있음 · 적용 적합성 낮음/미확인',
   observation_only: '관찰 · 주장뿐(연구 없음)',
   no_evidence: '근거 없음',
 }

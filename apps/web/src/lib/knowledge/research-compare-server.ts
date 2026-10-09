@@ -5,7 +5,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { comparePrinciple, domainMatrix, type DomainMatrix, type PrincipleComparison, type REvidence, type RInquiryLink, type RItem } from './research-compare'
 
-const CAP = 5000
+// PostgREST 기본 응답 상한이 1,000 행이다 — 그보다 큰 상한은 잘림을 못 잡는다(Codex P2). 닿으면 숫자를 지어내지 않고 실패로 알린다
+const CAP = 1000
 type Row = Record<string, unknown>
 
 async function read(what: string, q: PromiseLike<{ data: unknown; error: { message?: string } | null }>): Promise<Row[]> {

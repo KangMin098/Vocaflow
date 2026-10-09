@@ -40,3 +40,10 @@ describe('영역 지도', () => {
     expect(principleGaps(m)).not.toContain('skill:logic')
   })
 })
+
+describe('연구 있음 · 적용 적합성 낮음', () => {
+  it('연구 근거가 있으면 적합성이 낮아도 「관찰·주장뿐」으로 보이지 않는다', () => {
+    const c = comparePrinciple(item, [ev({ evidenceLevel: 'rct', researchSourceId: 's', applicability: 'low' })], [])
+    expect(c.standing).toBe('research_low_fit')
+  })
+})
