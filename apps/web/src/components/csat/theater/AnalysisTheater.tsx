@@ -104,7 +104,15 @@ async function postReveal(r: PendingReveal): Promise<boolean> {
     return false
   }
 }
+// 기기 세션 → 공개한 계정(기기 기록에는 소유자가 없다 — 공유 기기에서 다른 계정의 세션을 보완 전송하지 않으려고 따로 둔다)
+const OWNER_KEY = 'vf.csat.revealOwners'
+const readOwners = (): Record<string, string> => { try { const v = JSON.parse(localStorage.getItem(OWNER_KEY) ?? '{}'); return v && typeof v === 'object' ? v : {} } catch { return {} } }
+const rememberOwner = (sessionId: string, userId: string | null) => {
+  if (!userId) return
+  try { const o = readOwners(); o[sessionId] = userId; const keys = Object.keys(o); for (const k of keys.slice(0, Math.max(0, keys.length - 500))) delete o[k]; localStorage.setItem(OWNER_KEY, JSON.stringify(o)) } catch { /* 저장소 없음 */ }
+}
 async function sendReveal(r: PendingReveal) {
+  rememberOwner(r.sessionId, r.userId)
   writePending([...readPending().filter((x) => x.sessionId !== r.sessionId), r])
   if (await postReveal(r)) writePending(readPending().filter((x) => x.sessionId !== r.sessionId))
 }
@@ -238,8 +246,11 @@ export function AnalysisTheater({
       sync(record, s.id)
       // 이미 공개된 이 문항의 기기 세션(이 변경 전 · 다른 기기에서 동기화된 것)도 서버에 한 번 남긴다 — 최초 공개 시각 그대로 · 재전송은 서버 duplicate(Codex P1)
       void currentUserId().then((userId) => {
+        const owners = readOwners()
         for (const x of sessionsOf(record)) {
           if (x.item !== itemId || x.stage === 'open') continue
+          // 이 계정이 공개한 세션만 보완 전송한다 — 소유자를 모르는 옛 세션 · 다른 계정 세션은 보내지 않는다(Codex P1)
+          if (!userId || owners[x.id] !== userId) continue
           void sendReveal({ slug: toItemSlug(itemId), sessionId: x.id, help: x.help === 'viewed_first' || x.help === 'hint' ? 'viewed_first' : 'independent', revealedAt: new Date(x.revealedAt ?? x.updatedAt).toISOString(), userId })
         }
       })
