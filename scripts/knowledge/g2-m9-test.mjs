@@ -88,28 +88,13 @@ try {
   await judge(A, 'g2', nowMs - 5 * 60_000, trial, 'post')
   rec('효과 게이트: 실제 독립 표본이 있으면 분석 완료 허용', !(await err(`update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1`, [trial])))
 
-  // 5b 분석 완료 뒤 같은 학습자 · 문항의 다른 세션 도움이 늦게 도착(표본 판단보다 이른 시각) → 재계산 필요 표시 · 결과 행은 그대로
+  // 5b 쓸 때 다시 센다 — 분석 직후 표본은 충분하고, 늦게 도착한 다른 세션 도움으로 표본이 무너지면 효과 판정을 거부한다
+  const sampleOk = async () => (await q('select knowledge_trial_sample_ok($1) ok', [trial])).rows[0].ok
+  rec('M9-B 분석 직후 표본 충분(지금 기준 재검사 통과)', (await sampleOk()) === true)
+  // A 의 사전 표본 문항(g1)에 판단보다 이른 다른 세션 해설이 늦게 도착
   await reveal(A, 'g1', nowMs - 30 * 60_000)
-  const tr = (await q('select status, review_required_at, review_required_reason from knowledge_trials where id = $1', [trial])).rows[0]
-  rec('M9-B 분석 완료 뒤 늦게 도착한 다른 세션 도움 → 재계산 필요(조용히 무효화되지 않음)', tr.status === 'analyzed' && tr.review_required_at !== null && /다른 세션/.test(tr.review_required_reason ?? ''), tr)
-  // 표본과 무관한 문항의 도움은 표시하지 않는다
-  const trial2 = (await q(`insert into knowledge_trials (application_id, design, created_by) values ($1, '{"pre":true,"post":true,"min_n":1}', 't') returning id`, [app])).rows[0].id
-  await judge(A, 'h1', nowMs - 5 * 60_000, trial2, 'pre')
-  await judge(A, 'h2', nowMs - 5 * 60_000, trial2, 'post')
-  await q("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trial2])
-  await reveal(A, 'unrelated-item', nowMs - 30 * 60_000)
-  // (판단 뒤 도움은 실시간으로 2분 넘게 미래 시각이 돼 시계 의심으로 보수적으로 표시된다 — 여기서는 무관한 문항만 확인)
-  // 지연 수신 판단(판단 10분 전 · 수신 지금) 뒤 그 지연 폭 안 도움 → 재계산 표시(판단 +2분 밖이어도)
-  const trial3 = (await q(`insert into knowledge_trials (application_id, design, created_by) values ($1, '{"pre":true,"post":true,"min_n":1}', 't') returning id`, [app])).rows[0].id
-  await judge(A, 'k1', nowMs - 10 * 60_000, trial3, 'pre')
-  await judge(A, 'k2', nowMs - 2 * 60_000, trial3, 'post')
-  await q("update knowledge_trials set status = 'analyzed', result = 'supported', analyzed_at = now() where id = $1", [trial3]).catch(() => {})
-  const st3 = (await q('select status from knowledge_trials where id = $1', [trial3])).rows[0].status
-  if (st3 === 'analyzed') {
-    await reveal(A, 'k1', nowMs - 5 * 60_000)
-    rec('M9-B 지연 수신 판단의 지연 폭 안 도움도 재계산 표시', (await q('select review_required_at from knowledge_trials where id = $1', [trial3])).rows[0].review_required_at !== null)
-  } else rec('M9-B 지연 수신 판단 사례 준비(분석 완료 전환)', false, st3)
-  rec('M9-B 무관한 문항의 도움은 재계산 표시 안 함', (await q('select review_required_at from knowledge_trials where id = $1', [trial2])).rows[0].review_required_at === null)
+  rec('M9-B 늦은 다른 세션 도움 뒤 표본 재검사 실패 · 분석 행은 그대로', (await sampleOk()) === false && (await q('select status from knowledge_trials where id = $1', [trial])).rows[0].status === 'analyzed')
+  rec('M9-B 무너진 표본의 검증으로는 효과 판정 거부(쓸 때 다시 셈)', /다시 센다/.test((await err("update knowledge_items set efficacy = 'supported', updated_by = 't' where id = $1", [it])) ?? ''))
 
   // 6 학습자 읽기 권한 유지
   const as = async (uid, sql) => { const c = await pool.connect(); try { await c.query('begin'); await c.query('set local role authenticated'); await c.query(`select set_config('request.jwt.claim.sub', $1, true)`, [uid]); const r = await c.query(sql); await c.query('rollback'); return { ok: true, rows: r.rows } } catch (e) { await c.query('rollback').catch(() => {}); return { ok: false, err: e.message } } finally { c.release() } }

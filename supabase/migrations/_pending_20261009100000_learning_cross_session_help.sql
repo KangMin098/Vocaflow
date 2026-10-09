@@ -75,43 +75,75 @@ from base a
 left join public.learning_sessions s on s.id = a.session_id
 left join cross_help c on c.attempt_id = a.id;
 
--- ── M9-B 분석 완료 표본 보호 — 늦게 도착한 다른 세션 도움이 표본 판정을 바꿀 수 있으면 「재계산 필요」(DB 쓰기 게이트 P1) ──────────
--- 이 뷰는 같은 학습자 · 문항의 **다른 세션**에 기대므로, 분석 완료 뒤 그 세션에 도움 · 해설 시각이 새로 들어오면 고정된 표본의
--- 첫 시도가 독립 → 도움받음/보류로 바뀔 수 있다. 학습자의 실제 사건은 막지 않고(기록 유실 금지), 그 검증을 재계산 필요로 표시한다
--- (F7 review_required — 효과 게이트 F7-6 이 근거에서 빼고, 재분석으로만 해제). 분석 전환과 같은 표본 권고 잠금으로 직렬화한다.
-create function public.learning_cross_help_invalidate() returns trigger
--- security definer: knowledge_trials 재검토 표시를 남긴다(세션 쓰기는 service_role RPC 경로)
-language plpgsql security definer set search_path = public, pg_temp as $$
-declare v_at timestamptz := least(coalesce(new.help_received_at, 'infinity'::timestamptz), coalesce(new.explanation_viewed_at, 'infinity'::timestamptz));
+-- ── M9-B 쓸 때 다시 센다 — 분석 완료 결과를 효과 근거로 쓰는 순간 표본을 지금의 뷰로 재검사(DB 쓰기 게이트 P1 반복 뒤 재설계) ──────────
+-- 이 뷰는 같은 학습자 · 문항의 **다른 세션**에 기대므로, 분석 완료 뒤 늦게 도착한 도움 기록이 고정된 표본을 바꿀 수 있다.
+-- 쓰기 경로마다 트리거로 「재계산 필요」를 거는 방식은 시도 제출 · 재분석 · 도움 기록의 잠금 순서를 엮어 교착 · 누락을 반복했다.
+-- 그래서 결과를 **쓰는 순간**(효과 판정 게이트)에 표본을 다시 센다 — 지금 기준으로 실제 학습자의 독립 · 시각 확실 첫 시도가
+-- 사전 · 사후 모두 최소 표본 이상일 때만 그 검증을 근거로 인정한다. 쓰기 경로에는 잠금 · 트리거를 더하지 않는다.
+create function public.knowledge_trial_sample_ok(p_trial uuid) returns boolean
+language sql stable security invoker set search_path = public as $$
+  with t as (select greatest(coalesce((design->>'min_n')::int, 1), 1) as need from public.knowledge_trials where id = p_trial),
+  ok as (
+    select f.phase, count(distinct f.user_id) as n
+      from public.learning_first_attempts f join public.learning_task_attempts a on a.id = f.attempt_id
+     where a.trial_id = p_trial and not f.synthetic and f.help_level = 'independent'
+       and not coalesce(f.after_explanation, false) and not f.timing_uncertain
+     group by f.phase)
+  select coalesce((select n from ok where phase = 'pre'), 0) >= (select need from t)
+     and coalesce((select n from ok where phase = 'post'), 0) >= (select need from t)
+$$;
+revoke all on function public.knowledge_trial_sample_ok(uuid) from public, anon, authenticated;
+grant execute on function public.knowledge_trial_sample_ok(uuid) to service_role;
+
+-- 효과 판정 게이트 — F7(190000) 본문 + 「지금 표본이 여전히 충분하다」 한 조건
+create or replace function public.knowledge_items_applied_guard() returns trigger
+language plpgsql set search_path = public as $$
+declare old_status text;
+        old_eff text;
 begin
-  if v_at = 'infinity'::timestamptz or new.item_ref is null then return new; end if;
-  if tg_op = 'UPDATE' and new.help_received_at is not distinct from old.help_received_at and new.explanation_viewed_at is not distinct from old.explanation_viewed_at then return new; end if;
-  -- 잠금 순서 = 재분석과 같게(검증 행 → 표본 권고 잠금) — 엇갈리면 교착(DB 쓰기 게이트 P1)
-  perform 1 from public.knowledge_trials t
-   where t.status = 'analyzed' and not t.synthetic
-     and exists (select 1 from public.learning_task_attempts a where a.trial_id = t.id and a.user_id = new.user_id and a.item_ref = new.item_ref)
-   order by t.id for update;
-  perform pg_advisory_xact_lock_shared(hashtext('learning_trial_sample'));
-  update public.knowledge_trials t
-     set review_required_at = coalesce(t.review_required_at, now()),
-         review_required_reason = coalesce(t.review_required_reason, '같은 학습자 · 문항의 다른 세션 도움 기록이 늦게 도착해 표본 판정이 바뀌었을 수 있다 — 재계산 전에는 근거로 쓰지 않는다')
-   where t.status = 'analyzed' and not t.synthetic and t.review_required_at is null
-     and exists (select 1 from public.learning_task_attempts a
-                  where a.trial_id = t.id and a.user_id = new.user_id and a.item_ref = new.item_ref
-                    and a.session_id is distinct from new.id
-                    -- 뷰의 불확실 조건을 모두 덮는다: 판단의 서버 수신(+2분)보다 이른 도움(지연 폭 · 서버 순서 모순 포함) · 시계 의심 세션
-                    and (new.help_clock_suspect
-                         or v_at <= greatest(a.answered_at, coalesce(a.received_at, a.answered_at)) + interval '2 minutes'));
+  if tg_op = 'UPDATE' then old_status := old.status; old_eff := old.efficacy; end if;
+  if new.status = 'applied' and old_status is distinct from 'applied' and not exists (
+    select 1 from public.knowledge_applications a where a.item_id = new.id and a.status = 'active') then
+    raise exception '활성 제품 적용 없이 applied 로 바꿀 수 없다';
+  end if;
+  if new.efficacy <> 'not_assessed' and new.efficacy is distinct from old_eff and not (
+    exists (select 1 from public.knowledge_evidence e where e.item_id = new.id and e.source_type = 'research'
+             and e.evidence_level in ('meta_analysis','systematic_review','rct','quasi_experimental')
+             and e.applicability in ('high','partial'))
+    or exists (select 1 from public.knowledge_trials t join public.knowledge_applications a on a.id = t.application_id
+               where a.item_id = new.id and t.status = 'analyzed' and not t.synthetic and t.review_required_at is null
+                 and public.knowledge_trial_sample_ok(t.id)
+                 and t.result = case new.efficacy when 'research_supported' then 'supported' else new.efficacy end)) then
+    raise exception '효과 판정(%)을 뒷받침하는 연구 근거(준실험 이상)나 같은 결과의 실제 학습자 검증이 없다(검증 표본은 지금 기준으로 다시 센다)', new.efficacy;
+  end if;
   return new;
 end $$;
-create trigger learning_cross_help_invalidate after insert or update of help_received_at, explanation_viewed_at on public.learning_sessions
-  for each row execute function public.learning_cross_help_invalidate();
 
 -- ── 되돌리기(한 트랜잭션 · 각 줄 앞의 「-- 」를 벗겨 실행) — M8(180000) 뷰 본문으로 ────────────────────
 -- 검증: scripts/knowledge/g2-m9-test.mjs 가 이 블록을 격리 DB 에서 실제로 실행한다.
 -- begin;
--- drop trigger learning_cross_help_invalidate on public.learning_sessions;
--- drop function public.learning_cross_help_invalidate();
+-- create or replace function public.knowledge_items_applied_guard() returns trigger
+-- language plpgsql set search_path = public as $$
+-- declare old_status text;
+--         old_eff text;
+-- begin
+--   if tg_op = 'UPDATE' then old_status := old.status; old_eff := old.efficacy; end if;
+--   if new.status = 'applied' and old_status is distinct from 'applied' and not exists (
+--     select 1 from public.knowledge_applications a where a.item_id = new.id and a.status = 'active') then
+--     raise exception '활성 제품 적용 없이 applied 로 바꿀 수 없다';
+--   end if;
+--   if new.efficacy <> 'not_assessed' and new.efficacy is distinct from old_eff and not (
+--     exists (select 1 from public.knowledge_evidence e where e.item_id = new.id and e.source_type = 'research'
+--              and e.evidence_level in ('meta_analysis','systematic_review','rct','quasi_experimental')
+--              and e.applicability in ('high','partial'))
+--     or exists (select 1 from public.knowledge_trials t join public.knowledge_applications a on a.id = t.application_id
+--                where a.item_id = new.id and t.status = 'analyzed' and not t.synthetic and t.review_required_at is null
+--                  and t.result = case new.efficacy when 'research_supported' then 'supported' else new.efficacy end)) then
+--     raise exception '효과 판정(%)을 뒷받침하는 연구 근거(준실험 이상)나 같은 결과의 실제 학습자 검증이 없다', new.efficacy;
+--   end if;
+--   return new;
+-- end $$;
+-- drop function public.knowledge_trial_sample_ok(uuid);
 -- create or replace view public.learning_first_attempts with (security_invoker = true) as
 -- select distinct on (a.user_id, a.task_key, coalesce(a.item_ref, ''), a.phase)
 --   a.id as attempt_id, a.user_id, a.task_key, a.item_ref, a.phase, a.activity, a.session_id, a.is_correct, a.answered_at,
