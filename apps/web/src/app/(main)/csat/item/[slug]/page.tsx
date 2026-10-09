@@ -164,7 +164,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
           {/* E11 기출 → Practice: 같은 원리를 다른 기출에서 연습(판정 뒤 복습 예약 → 학습 지도 「다시 보기」 → 이 확인 과제로 재평가) */}
           <p className="mx-auto mt-4 max-w-3xl break-keep px-4 text-sm">
             <a href={`/csat/practice/${PRACTICE_SLUG}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
-              같은 원리를 다른 기출로 연습하기 →
+              다른 기출 지문으로 한 번 더 확인하기 →
             </a>
           </p>
         </>
