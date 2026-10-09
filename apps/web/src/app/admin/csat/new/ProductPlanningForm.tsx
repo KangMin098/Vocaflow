@@ -1,7 +1,7 @@
 // apps/web/src/app/admin/csat/new/ProductPlanningForm.tsx
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const grades = [
   ['elementary_5', '초5'], ['elementary_6', '초6'], ['middle_1', '중1'], ['middle_2', '중2'],
@@ -17,7 +17,7 @@ const genres = [['explanation', '설명'], ['argument', '논설'], ['narrative',
 
 type Unit = {
   day: number; chapter: number; primary_skill: string; domain: string; genre: string
-  difficulty_level: number; passage_words_target: number; item_type_target: string
+  difficulty_level: number; passage_words_target: number; item_type_target: string | null
   revisit_prior_skill: boolean; cumulative_review: boolean
 }
 type PlanningResult = {
@@ -29,6 +29,10 @@ type PlanningResult = {
 
 export function ProductPlanningForm() {
   const requestGeneration = useRef(0)
+  const [families, setFamilies] = useState<Record<string, { name: string; state: string }>>({})
+  const [familyOverride, setFamilyOverride] = useState('')
+  const [capabilityError, setCapabilityError] = useState(false)
+  const [capabilityReload, setCapabilityReload] = useState(0)
   const [selectedGrades, setSelectedGrades] = useState<string[]>(['middle_2'])
   const [purpose, setPurpose] = useState('relation_reading')
   const [selectedDomains, setSelectedDomains] = useState<string[]>(['science', 'social'])
@@ -43,6 +47,19 @@ export function ProductPlanningForm() {
   const [result, setResult] = useState<PlanningResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    void fetch('/api/admin/csat/product-plan', { signal: controller.signal })
+      .then(response => response.ok ? response.json() : Promise.reject(Error('capability unavailable')))
+      .then((data: { capability: Record<string, { name: string; state: string }> }) => {
+        if (!data.capability || Object.keys(data.capability).length !== 20)
+          throw Error('capability incomplete')
+        setFamilies(data.capability)
+      })
+      .catch(() => { if (!controller.signal.aborted) setCapabilityError(true) })
+    return () => controller.abort()
+  }, [capabilityReload])
 
   function invalidatePlan() {
     requestGeneration.current += 1
@@ -66,6 +83,7 @@ export function ProductPlanningForm() {
     const weights = (items: string[]) => Object.fromEntries(items.map(item => [item, 1]))
     const brief = {
       schema: 'textbook-product-brief/1', grade_scope: { mode, grades: ordered }, purpose,
+      ...(familyOverride ? { product_family: familyOverride } : {}),
       domain_weights: weights(selectedDomains), genre_weights: weights(selectedGenres),
       duration_days: days, units_per_chapter: unitsPerChapter,
       difficulty: { start: startLevel, end: endLevel },
@@ -104,6 +122,20 @@ export function ProductPlanningForm() {
       <select value={purpose} onChange={event => { setPurpose(event.target.value); invalidatePlan() }} className="mt-1 block min-h-[44px] w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
         {purposes.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
       </select></label>
+    <label className="mt-3 block text-[13px] font-[700] text-[var(--t1)]">제품 유형
+      <select value={familyOverride} disabled={capabilityError || !Object.keys(families).length}
+        onChange={event => { setFamilyOverride(event.target.value); invalidatePlan() }}
+        className="mt-1 block min-h-[44px] w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
+        <option value="">목적에 따라 추천</option>
+        {Object.entries(families).sort(([a], [b]) => a.localeCompare(b)).map(([id, info]) =>
+          <option key={id} value={id}>{id} · {info.name} · {info.state}</option>)}
+      </select>
+    </label>
+    {capabilityError ? <div role="alert" className="mt-1 flex items-center gap-2 break-keep text-[13px] text-[var(--memory-risk)]">
+      제품 유형 목록을 불러오지 못했습니다.
+      <button type="button" onClick={() => { setCapabilityError(false); setCapabilityReload(value => value + 1) }}
+        className="min-h-[44px] rounded-[var(--r-sm)] border border-current px-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">다시 불러오기</button>
+    </div> : !Object.keys(families).length ? <p role="status" className="mt-1 text-[13px] text-[var(--t2)]">제품 유형을 불러오는 중입니다.</p> : null}
     <div className="mt-3 grid gap-3 lg:grid-cols-2">
       <fieldset><legend className="text-[13px] font-[700] text-[var(--t1)]">영역 배합</legend>{domains.map(([value, label]) =>
         <button key={value} type="button" aria-pressed={selectedDomains.includes(value)} onClick={() => toggle(value, selectedDomains, setSelectedDomains)}
@@ -135,7 +167,7 @@ export function ProductPlanningForm() {
       <p className="break-all font-mono text-[11px]">기획 hash {result.plan_hash}</p>
       <p className="mt-2 break-keep">원천·권리·benchmark·승인 증거는 별도로 확인해야 합니다. 이 기획안만으로 생산할 수는 없습니다.</p>
       <div className="mt-3 max-h-72 overflow-auto"><table className="w-full text-left text-[12px]"><thead><tr><th>일</th><th>장</th><th>능력</th><th>영역</th><th>글</th><th>난도</th><th>길이</th><th>문항</th><th>복습</th></tr></thead><tbody>
-        {result.plan.units.map(unit => <tr key={unit.day} className="border-t border-[var(--bd)]"><td>{unit.day}</td><td>{unit.chapter}</td><td>{unit.primary_skill}</td><td>{unit.domain}</td><td>{unit.genre}</td><td>{unit.difficulty_level}</td><td>{unit.passage_words_target}</td><td>{unit.item_type_target}</td><td>{unit.cumulative_review ? '종합' : unit.revisit_prior_skill ? '재방문' : '—'}</td></tr>)}
+        {result.plan.units.map(unit => <tr key={unit.day} className="border-t border-[var(--bd)]"><td>{unit.day}</td><td>{unit.chapter}</td><td>{unit.primary_skill}</td><td>{unit.domain}</td><td>{unit.genre}</td><td>{unit.difficulty_level}</td><td>{unit.passage_words_target}</td><td>{unit.item_type_target ?? '미지원'}</td><td>{unit.cumulative_review ? '종합' : unit.revisit_prior_skill ? '재방문' : '—'}</td></tr>)}
       </tbody></table></div>
     </div> : null}
   </section>

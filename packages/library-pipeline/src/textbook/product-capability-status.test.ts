@@ -18,7 +18,7 @@ describe('runtime capability claims', () => {
   })
 
   it('does not promote a contract or planned layout to verified production', () => {
-    expect(productRuntimeCapability('P03').state).toBe('IMPLEMENTED')
+    expect(productRuntimeCapability('P03').state).toBe('SYNTHETIC_E2E_VALIDATED')
     expect(productRuntimeCapability('P09').state).toBe('CONTRACT_ONLY')
     for (const family of ['P13', 'P14', 'P18', 'P20'] as const)
       expect(productRuntimeCapability(family).state).toBe('NOT_SUPPORTED')

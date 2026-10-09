@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { buildProductOrderFromBrief, planProductBrief } from './product-planning'
+import { PRODUCT_FAMILIES } from './academic-reading'
 
 const brief = () => ({
   schema: 'textbook-product-brief/1',
@@ -17,6 +18,16 @@ const brief = () => ({
 })
 
 describe('product planning', () => {
+  it('can plan every declared family without treating a plan as a production adapter', () => {
+    for (const family of Object.keys(PRODUCT_FAMILIES)) {
+      const { plan } = planProductBrief({ ...brief(), product_family: family })
+      expect(plan.product_family).toBe(family)
+      expect(plan.units).toHaveLength(20)
+      expect(plan.warning).toMatch(/not admission/)
+    }
+    expect(planProductBrief({ ...brief(), product_family: 'P13' }).plan.units[0]?.item_type_target).toBeNull()
+    expect(() => planProductBrief({ ...brief(), product_family: 'P21' })).toThrow()
+  })
   it('turns a grade/purpose/domain/length brief into a reproducible balanced volume plan', () => {
     const { plan, plan_hash } = planProductBrief(brief())
     expect(plan.product_family).toBe('P09')
@@ -67,6 +78,10 @@ describe('product planning', () => {
     expect(result.order.item_types).toEqual(['order', 'insert', 'long_reference'])
     expect(result.order_hash).toMatch(/^[a-f0-9]{64}$/)
     expect(() => buildProductOrderFromBrief(brief(), 'high_1', shell)).toThrow('GRADE_OUTSIDE_PLAN')
+    expect(() => buildProductOrderFromBrief({ ...brief(), product_family: 'P13' }, 'middle_2', shell))
+      .toThrow('PRODUCT_FAMILY_PRODUCTION_UNSUPPORTED')
+    expect(() => buildProductOrderFromBrief({ ...brief(), product_family: 'P18' }, 'middle_2', shell))
+      .toThrow('PRODUCT_FAMILY_PRODUCTION_UNSUPPORTED')
     expect(() => buildProductOrderFromBrief(brief(), 'middle_2', {
       ...shell, target: { ...shell.target, family: 'P03' },
     })).toThrow('TARGET_DIFFERS_FROM_PLAN')

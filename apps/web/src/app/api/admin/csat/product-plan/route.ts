@@ -1,7 +1,7 @@
 // apps/web/src/app/api/admin/csat/product-plan/route.ts
 import { NextResponse } from 'next/server'
 import { planProductBrief } from '@vocaflow/library-pipeline/product-planning'
-import { PRODUCT_RUNTIME_EVIDENCE } from '@vocaflow/library-pipeline/product-capability-status'
+import { PRODUCT_RUNTIME_EVIDENCE, productRuntimeCapability } from '@vocaflow/library-pipeline/product-capability-status'
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
@@ -10,7 +10,9 @@ export const dynamic = 'force-dynamic'
 export async function GET() {
   const admin = await requireAdminApi()
   if (admin instanceof NextResponse) return admin
-  return NextResponse.json({ capability: PRODUCT_RUNTIME_EVIDENCE }, { headers: { 'cache-control': 'no-store' } })
+  return NextResponse.json({ capability: Object.fromEntries(Object.keys(PRODUCT_RUNTIME_EVIDENCE).map(family =>
+    [family, productRuntimeCapability(family as keyof typeof PRODUCT_RUNTIME_EVIDENCE)])) },
+  { headers: { 'cache-control': 'no-store' } })
 }
 
 export async function POST(request: Request) {

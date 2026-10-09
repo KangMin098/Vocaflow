@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): Bind standalone M1/H1 and M1–M2 synthetic production orders to structured brief hashes, then run one master verification across shared mock promotion, atomic render and publish simulation. P03 is synthetic E2E validated; live operational validation remains open. The admin planner can select any P01–P20 family while unsupported families remain blocked from order construction.
+
 - test(textbook): H1 synthetic chain uses the shared promotion executor and a mock RPC to move queued to ready, then carries the same order evidence through item, explanation, unit, atomic render, and publish simulation. A live DB promotion-to-render run remains unverified.
 
 - feat(textbook): Expose conservative P01-P20 runtime status in the admin planning API and UI; P03 remains implemented pending a live integrated run, while other families remain contract-only or unsupported.

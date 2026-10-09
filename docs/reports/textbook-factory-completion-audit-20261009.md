@@ -5,7 +5,7 @@ Baseline: `0ac948681` on `feat/textbook-factory-phase1`. This audit concerns exe
 | Area | Contract | Code | Synthetic E2E | UI | Recovery | Status |
 |---|---|---|---|---|---|---|
 | Product Order | Sealed single-grade document and group contract | `factory-order.ts`, `multi-grade-order.ts` | P03 M1, H1 and M1–M2 fixture paths | JSON registration only | Revision hash invalidates reuse | PARTIAL |
-| Product planning / curriculum assembly | Brief and optional order planning hash | Deterministic brief-to-family/skill/source/curve planner; no production unit fulfillment | Brief/order fixture only | Structured brief form, still separate from order registration | Brief changes alter planning hash | PARTIAL |
+| Product planning / curriculum assembly | Brief and optional order planning hash | Deterministic brief-to-any-P01–P20-family/skill/source/curve planner; no production unit fulfillment | M1/H1/M1–M2 brief-bound order fixture paths | Structured brief and family selector, still separate from order registration | Brief changes alter planning hash | PARTIAL |
 | Source routing | Rights/quality/target routes | `routeFactorySource` | Factory-order tests | General sourcing screen | Changed rights invalidates | DONE |
 | Adaptation | Target and content review bound to source | Academic-reading contract and review | P03 fixture | General authoring screen | Changed source/draft blocks | DONE |
 | Benchmark | Two-stage seal, admission and decision | `frym-benchmark` | Fixture tests | No order-specific decision view | Stale receipt blocks | PARTIAL |
@@ -35,7 +35,7 @@ The `PRODUCT_CAPABILITIES` enum is a target and item contract, not proof of a de
 |---|---|---|---|---|---|---|---|
 | P01 | Multi-Level Reader | Generic adaptation | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P02 | Narrative Reading | Generic adaptation | Basic/relation contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P03 | Knowledge Reader | Adapted fixture | Main-point fixture | Reading HTML/manifest | Shared CLI promotion function with mock RPC; separate DB smoke | No live DB promotion and render in one run | IMPLEMENTED |
+| P03 | Knowledge Reader | Adapted fixture | Main-point fixture | Reading HTML/manifest | Brief-bound master test invokes shared CLI promotion function with mock RPC, atomic render and publish simulation | No live DB promotion and render in one run | SYNTHETIC_E2E_VALIDATED |
 | P04 | Science/Social/History | Generic adaptation | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P05 | Vocabulary-in-Context | Generic reading passage | Vocabulary item contract | Dedicated full flow unverified | Generic gates | Not family-tested | CONTRACT_ONLY |
 | P06 | Academic Sentence | Generic reading passage | Grammar item contract | Dedicated full flow unverified | Generic gates | Not family-tested | CONTRACT_ONLY |
@@ -65,4 +65,4 @@ Non-reading products (listening, dictation, cards, diagnostic workbook and mixed
 
 Current verdict: `TEXTBOOK_FACTORY_PIPELINE_COMPLETE=false`, `TEXTBOOK_FACTORY_PRODUCTION_VERIFIED=false`. The prior report's synthetic P03 backbone remains valid but was too narrow for this broader objective.
 
-The `reading-promotion/preflight.test.mjs` suite covers a single M1, a single H1 and an M1–M2 grade group. H1 now executes the CLI's shared promotion function against a mock RPC that changes `queued` to `ready` and records the audit before atomic render/publish simulation; M1 and M1–M2 retain separate fixtures. The suite also proves source/item impact reaches a publication artifact when publication depends on render. This is not yet one master runner from a structured brief through all three orders, and the required failure/recovery matrix is not fully consolidated. The verdict remains false.
+The `reading-promotion/preflight.test.mjs` suite runs standalone M1 and H1 orders plus an M1–M2 grade group. Each is generated from a structured brief and executes the CLI's shared promotion function against a mock RPC that changes `queued` to `ready` and records the audit before atomic render/publish simulation. A single master verification test executes all three and checks distinct synthetic, non-production receipts. Source/item impact reaches a publication artifact when publication depends on render. This is an executable test harness, not an operational CLI or live DB run. The required failure/recovery matrix and UI observation are not yet consolidated. The verdict remains false.

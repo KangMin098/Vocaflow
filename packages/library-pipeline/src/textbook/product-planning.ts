@@ -21,6 +21,7 @@ export const productBriefSchema = z.object({
   schema: z.literal('textbook-product-brief/1'),
   grade_scope: gradeScopeSchema,
   purpose: z.enum(PRODUCT_PURPOSES),
+  product_family: z.enum(Object.keys(PRODUCT_FAMILIES) as [keyof typeof PRODUCT_FAMILIES, ...(keyof typeof PRODUCT_FAMILIES)[]]).optional(),
   domain_weights: mix,
   genre_weights: mix,
   duration_days: z.number().int().min(1).max(180),
@@ -58,7 +59,7 @@ const interpolate = (start: number, end: number, index: number, length: number) 
 /** Planning targets are proposals. Rights and source admission still decide actual routes. */
 export function planProductBrief(input: unknown) {
   const brief = productBriefSchema.parse(input)
-  const family = purposeFamily[brief.purpose]
+  const family = brief.product_family ?? purposeFamily[brief.purpose]
   const capability = PRODUCT_CAPABILITIES[family]
   const domains = schedule(brief.domain_weights, brief.duration_days)
   const genres = schedule(brief.genre_weights, brief.duration_days)
@@ -74,7 +75,7 @@ export function planProductBrief(input: unknown) {
       domain: domains[index]!, genre: genres[index]!,
       difficulty_level: interpolate(brief.difficulty.start, brief.difficulty.end, index, brief.duration_days),
       passage_words_target: interpolate(brief.passage_words.start, brief.passage_words.end, index, brief.duration_days),
-      item_type_target: itemTypes[index % itemTypes.length]!,
+      item_type_target: itemTypes.length ? itemTypes[index % itemTypes.length]! : null,
       revisit_prior_skill: day > 1 && day % brief.units_per_chapter === 0,
       cumulative_review: day === brief.duration_days,
     }
@@ -123,6 +124,9 @@ export function buildProductOrderFromBrief(
   shell: Omit<ProductOrder, PlannedFields>,
 ) {
   const { plan, plan_hash } = planProductBrief(briefInput)
+  if (['PLANNED', 'UNSUPPORTED'].includes(PRODUCT_CAPABILITIES[plan.product_family].state) ||
+      !PRODUCT_CAPABILITIES[plan.product_family].items.length)
+    throw new Error('PRODUCT_FAMILY_PRODUCTION_UNSUPPORTED')
   if (!plan.brief.grade_scope.grades.includes(grade)) throw new Error('GRADE_OUTSIDE_PLAN')
   const ageBand = grade.startsWith('elementary_') ? 'upper_elementary' : grade
   if (shell.target.age_band !== ageBand || shell.target.family !== plan.product_family ||
@@ -139,7 +143,8 @@ export function buildProductOrderFromBrief(
     purposes: [plan.brief.purpose],
     domain_mix: normalizedMix(plan.brief.domain_weights),
     genre_mix: normalizedMix(plan.brief.genre_weights),
-    item_types: [...new Set(plan.units.map(unit => unit.item_type_target))],
+    item_types: [...new Set(plan.units.map(unit => unit.item_type_target))]
+      .filter((value): value is string => value !== null),
     activity_types: [],
     passage_difficulty_profile: {
       lexical: finalDifficulty, syntax: finalDifficulty,

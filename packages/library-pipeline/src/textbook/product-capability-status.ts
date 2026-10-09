@@ -20,7 +20,7 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
   const contract = PRODUCT_CAPABILITIES[id]
   const state: ProductRuntimeState = contract.state === 'PLANNED' || contract.state === 'UNSUPPORTED'
     ? 'NOT_SUPPORTED'
-    : id === 'P03' ? 'IMPLEMENTED' : 'CONTRACT_ONLY'
+    : id === 'P03' ? 'SYNTHETIC_E2E_VALIDATED' : 'CONTRACT_ONLY'
   const evidence = id === 'P03'
     ? ['scripts/textbook/reading-promotion/preflight.test.mjs', 'scripts/textbook/atomic-production-run.test.mjs']
     : state === 'CONTRACT_ONLY' ? ['packages/library-pipeline/src/textbook/factory-order.ts'] : []
