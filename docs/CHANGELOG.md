@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 테스트 안의 P03 합성 master 실행을 공유 실행기로 분리하고 CLI·관리자 `/admin/csat/new` 예행 패널·관리자 API에 연결했다. 세 고정 주문의 HTML/manifest에 합성·비운영 표식과 fixture 주입 범위를 명시하며 실제 DB·등록 주문을 변경하지 않는다.
+
 - feat(textbook): 합성 catalog/revision 복구를 저장소 밖 hash-chain 저널과 start/advance/status/recover CLI로 연결했다. 잠금 원자 등록·중단 쓰기·종료된 작성자의 수동 격리 진단·완료 이벤트 재시도·혼합 기록을 검증하고 원자 조판 dry-run에서 저널 시작을 지원한다. 실제 카탈로그/DB 게시 변경은 없다.
 
 - feat(textbook): 관리자 주문 추적에 DB 생산 그룹·원자 snapshot·조판/게시 관측 경로를 연결하고 service-role read RPC를 개발 DB에 적용했다. 단원/권 개별 증거는 미측정으로 유지하고 유효한 DB 게시물만 다운로드한다. 롤백형 상태 전이·권한·무잔여 검증을 통과했다.

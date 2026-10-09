@@ -12,6 +12,7 @@ import { MakeGuide } from './MakeGuide'
 import { OrderWizard } from './OrderWizard'
 import { ProductOrderWorkbench } from './ProductOrderWorkbench'
 import { OrderTracePanel } from './OrderTracePanel'
+import { SyntheticProductionPanel } from './SyntheticProductionPanel'
 
 export const dynamic = 'force-dynamic'
 
@@ -24,5 +25,6 @@ export default async function AdminCsatNewPage() {
     <ProductOrderWorkbench canRegister={admin.role === 'admin'} />
     <OrderWizard {...view} guide={<MakeGuide grades={grades} seriesList={view.seriesList} />} />
     {admin.role === 'admin' ? <OrderTracePanel /> : null}
+    {admin.role === 'admin' ? <SyntheticProductionPanel /> : null}
   </>
 }

@@ -38,3 +38,6 @@ pnpm exec tsx scripts/textbook/production-revision-run.mjs recover --run-dir D:/
 `.pending-*`는 확정되지 않은 잔여물로 개수만 표시하고 성공 기록으로 읽지 않는다. 최초 start가 확정 기록 전에 중단되면 recover는 `state=not_started`, `sequence=null`과 잠금 진단을 반환한다. 잠금 격리 후 같은 두 manifest로 start를 재시도한다. 확정 기록이 손상되거나 순번이 빠지면 복구도 차단하므로 기록을 고쳐 이어가지 말고 보존한 뒤 새 run에서 재검토한다. 이후 미완료 임시 쓰기는 마지막 확정 상태부터 다시 advance한다.
 
 원자 조판 dry-run에 `--previous-manifest PATH --revision-run-dir DIR`를 함께 주면 출력 파일을 확정한 뒤 개정 저널도 시작한다. 저널 저장 실패 시 명령은 실패하고 이미 저장된 조판물은 게시하지 않는다. 출력 manifest를 보존해 위 start 명령으로 저널을 재개할 수 있다. publish 동작에는 이 옵션을 허용하지 않는다. 이 경로도 `synthetic_fixture=true`, `non_production=true`, `publish_eligible=false`이며 실제 카탈로그 수정·재게시 승인이 아니다.
+## Fixed reference production rehearsal
+
+Run `pnpm exec tsx scripts/textbook/synthetic-master-run.mjs --order all --out-dir <new-external-directory>` to execute M1, H1 and M1–M2 P03 reference orders. The output directory must not exist; reruns use a new directory and do not overwrite evidence. The admin-only synthetic production panel on `/admin/csat/new` invokes the same runner and downloads HTML/manifest without DB writes. Failed runs produce no successful UI result. These presets inject benchmark/certification/seed fixtures, use mock RPCs and cannot publish or certify actual content.
