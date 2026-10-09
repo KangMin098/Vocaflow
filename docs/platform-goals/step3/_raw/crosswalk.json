@@ -1,0 +1,975 @@
+{
+  "criteria_count": 40,
+  "criteria_ids": [
+    "VG-L0-AC1",
+    "VG-L1-A-AC1",
+    "VG-L1-B-AC1",
+    "VG-L1-C-AC1",
+    "VG-L1-D-AC1",
+    "VG-L2-A1-AC1",
+    "VG-L2-A2-AC1",
+    "VG-L2-A3-AC1",
+    "VG-L2-B1-AC1",
+    "VG-L2-B2-AC1",
+    "VG-L2-C1-AC1",
+    "VG-L2-C2-AC1",
+    "VG-L2-D1-AC1",
+    "VG-L2-D2-AC1",
+    "VG-L2-D3-AC1",
+    "VG-L3-A1-01-AC1",
+    "VG-L3-A1-02-AC1",
+    "VG-L3-A2-01-AC1",
+    "VG-L3-A2-02-AC1",
+    "VG-L3-A3-01-AC1",
+    "VG-L3-A3-02-AC1",
+    "VG-L3-B1-01-AC1",
+    "VG-L3-B1-02-AC1",
+    "VG-L3-B2-01-AC1",
+    "VG-L3-B2-02-AC1",
+    "VG-L3-C1-01-AC1",
+    "VG-L3-C1-02-AC1",
+    "VG-L3-C2-01-AC1",
+    "VG-L3-C2-02-AC1",
+    "VG-L3-D1-01-AC1",
+    "VG-L3-D1-02-AC1",
+    "VG-L3-D2-01-AC1",
+    "VG-L3-D2-02-AC1",
+    "VG-L3-D3-01-AC1",
+    "VG-L3-D3-02-AC1",
+    "VG-L4-TEMPLATE-CONTRACT-AC1",
+    "VG-L4-TEMPLATE-BUILD-AC1",
+    "VG-L4-TEMPLATE-TEST-AC1",
+    "VG-L4-TEMPLATE-TRACE-AC1",
+    "VG-L4-TEMPLATE-DELIVER-AC1"
+  ],
+  "rows": [
+    {
+      "candidate_id": "L0-A",
+      "candidate_level": "L0",
+      "candidate_title": "검증된 통합 영어 학습 루프",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L0-AC1",
+        "VG-L1-A-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "통합 루프와 재방문 증명은 정본의 L0 가치와 L1-A 성취에 해당하지만, 정본은 대상을 다양한 목표 학습자로 넓혀 둔다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L0-B",
+      "candidate_level": "L0",
+      "candidate_title": "수능·학평 영어 독해 전문 플랫폼",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L1-B-AC1",
+        "VG-L2-B1-AC1",
+        "VG-L3-B1-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "시험 대비는 정본에서 목적별 경로 중 하나(R1)일 뿐 최상위 목표가 아니며, R0 대상은 중등 일반 독해다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L0-C",
+      "candidate_level": "L0",
+      "candidate_title": "교사용 영어 수업 도구",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-B1-02-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "교실은 r0_scope.deferred 항목이고, 정본에는 교실 기록이 기존 학습을 해치지 않는다는 조건만 있다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G1",
+      "candidate_level": "L1",
+      "candidate_title": "실수요 검증 — 외부 학습자 확보·활성화·리텐션",
+      "candidate_status_step1": "DESIGN_ONLY",
+      "canon_criteria": [
+        "VG-L2-D3-AC1",
+        "VG-L3-D3-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "외부 사용자 사용성 증거는 정본에서 pilot 단계 기준이고, 획득·리텐션 지표 자체는 정본 기준이 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G2",
+      "candidate_level": "L1",
+      "candidate_title": "통합 학습 루프 — 기록상 닫힌다",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L1-A-AC1",
+        "VG-L2-A2-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "읽기→연습→복습이 기록상 닫히는 것은 R0 핵심 경로의 중심이지만, 후보 루프에는 전이·재평가 단계가 없다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G3",
+      "candidate_level": "L1",
+      "candidate_title": "시험 독해(CSAT·학평·모의평가) 학습",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L1-B-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "시험 특화 학습은 정본에서 목적별 환경 중 하나로, R0 범위 밖이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4",
+      "candidate_level": "L1",
+      "candidate_title": "콘텐츠 공급이 학습자에게 도달한다",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L1-C-AC1",
+        "VG-L2-C1-AC1",
+        "VG-L2-C2-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "공급 도달은 콘텐츠 생태계 기준에 해당하지만, 정본은 공급량보다 계보·게시 게이트·수요 대응을 요구한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G5",
+      "candidate_level": "L1",
+      "candidate_title": "학습자가 보는 「내 학습」이 하나다",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L2-B2-AC1"
+      ],
+      "relation": "direct",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "완료·다음 할 일·이력의 일관된 표시는 정본 B2와 같은 목표이며, R0 경로의 마지막 단계인 학습 이력에 해당한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G6",
+      "candidate_level": "L1",
+      "candidate_title": "교사·학급 채널",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-B1-02-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "교실은 첫 완결 학습 여정 이후로 미뤄져 있다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G7",
+      "candidate_level": "L1",
+      "candidate_title": "플랫폼 정합 — 저장소=DB=배포",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L1-D-AC1",
+        "VG-L2-D2-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "실제 배포와 E2E 통과는 R0 출시 품질의 전제다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G8",
+      "candidate_level": "L1",
+      "candidate_title": "운영 자동화와 운영 부담 축소",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L1-D-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "검증 가능한 운영을 돕지만, 운영 부담 축소 자체는 정본 기준이 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G9",
+      "candidate_level": "L1",
+      "candidate_title": "학습 원리가 학습 행동을 결정하고 효과를 검증한다",
+      "candidate_status_step1": "EXPERIMENTAL",
+      "canon_criteria": [
+        "VG-L2-D3-AC1",
+        "VG-L3-D3-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "효과 검증은 정본에서 research·pilot 단계 기준이라 R0 필수 단계가 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G10",
+      "candidate_level": "L1",
+      "candidate_title": "지속 가능한 수익 모델",
+      "candidate_status_step1": "DESIGN_ONLY",
+      "canon_criteria": [],
+      "relation": "none",
+      "r0_priority": "OUT_OF_SCOPE_CANON",
+      "rationale": "결제는 r0_scope.deferred에 있고, 40개 정본 기준 중 수익·결제를 다루는 기준은 없다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G1.1",
+      "candidate_level": "L2",
+      "candidate_title": "획득 경로 하나를 실제로 연다",
+      "candidate_status_step1": "DESIGN_ONLY",
+      "canon_criteria": [
+        "VG-L3-B1-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "R0의 비로그인 체험 진입점이 획득 경로이므로 필수이며, 정본에서는 목적별 진입점 기준이 가장 가깝다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G1.2",
+      "candidate_level": "L2",
+      "candidate_title": "활성화·리텐션 계측 판독",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L2-D1-AC1",
+        "VG-L3-D1-01-AC1",
+        "VG-L3-C2-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "핵심 여정 이벤트의 안정 ID·정합은 R0 측정 계약에 해당하고, 리텐션 판독은 그 뒤 단계다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G1.3",
+      "candidate_level": "L2",
+      "candidate_title": "학습자 표면 집중(22+ → 4)",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L2-B1-AC1",
+        "VG-L3-B1-01-AC1",
+        "VG-L3-B2-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "R0 경로를 한눈에 따라가게 하는 진입·오늘의 학습 정리이며, 정본은 숫자 4가 아니라 적절한 분기와 다음 행동을 요구한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G2.1",
+      "candidate_level": "L2",
+      "candidate_title": "읽기 세션 완료",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "R0 읽기 과제 통과는 A2-01에 명시돼 있고, 읽기는 핵심 경로의 단계다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G2.2",
+      "candidate_level": "L2",
+      "candidate_title": "어휘 재인·자동화(Flashcard·WordBlitz·PairFlip·아케이드)",
+      "candidate_status_step1": "VERIFIED_WORKING",
+      "canon_criteria": [
+        "VG-L2-A2-AC1",
+        "VG-L3-A2-01-AC1",
+        "VG-L3-A2-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "어휘 Practice와 복습은 R0 Practice·복습 단계에 쓰이고, 게임 부분은 선택(A2-02)이라 재생과 성과의 분리가 필요하다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G2.3",
+      "candidate_level": "L2",
+      "candidate_title": "생성(SpellForge·EchoMatch)",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "철자·발음 연습은 영역별 Practice를 넓히지만 R0 필수 읽기 과제는 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G2.4",
+      "candidate_level": "L2",
+      "candidate_title": "정복·완성(ScriptQuiz·Dictation)",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "문장·듣기 타입의 Practice와 피드백에 해당하며, R0 Practice 후보로 쓸 수 있으나 필수는 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G2.5",
+      "candidate_level": "L2",
+      "candidate_title": "회고·복습(Dashboard·FSRS)",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L2-A2-AC1",
+        "VG-L2-B2-AC1",
+        "VG-L3-B2-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "R0의 복습·학습 이력 단계를 맡고, 복습 이벤트와 오늘의 학습 표시가 기준이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G2.6",
+      "candidate_level": "L2",
+      "candidate_title": "듣기·강의·TTS",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-A2-02-AC1"
+      ],
+      "relation": "direct",
+      "r0_priority": "DEFERRED",
+      "rationale": "정본은 강의 없이 R0를 완결할 수 있기를 요구하므로, 강의는 선택 지원이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G3.1",
+      "candidate_level": "L2",
+      "candidate_title": "CSAT 원문 확보·적격·내용 판정",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-C1-01-AC1",
+        "VG-L3-C1-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "DEFERRED",
+      "rationale": "계보·게시 게이트의 한 사례지만, 대상이 시험 특화 콘텐츠라 R0 게시 대상이 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G3.2",
+      "candidate_level": "L2",
+      "candidate_title": "문항 분석·해설",
+      "candidate_status_step1": "VERIFIED_WORKING",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "시험 문항에 대한 피드백 자원이라 R0 범위 밖이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G3.3",
+      "candidate_level": "L2",
+      "candidate_title": "진단→학습 지도→세션→전이·재평가 루프",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L2-A1-AC1",
+        "VG-L3-A1-01-AC1",
+        "VG-L2-A3-AC1",
+        "VG-L3-A3-01-AC1",
+        "VG-L3-A3-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "진단→계획→미노출 전이→재평가 구조는 지금 이 후보에만 있어 R0 필수지만, CSAT 전용이므로 일반 독해로 일반화해야 한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G3.4",
+      "candidate_level": "L2",
+      "candidate_title": "구문 연습(CTP/DCP)",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "일반 기사·도서 기반 문장 타입 Practice로, R0 Practice를 보조한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G3.5",
+      "candidate_level": "L2",
+      "candidate_title": "오답 원인 캡처(EC)",
+      "candidate_status_step1": "UNMERGED",
+      "canon_criteria": [
+        "VG-L3-A1-01-AC1",
+        "VG-L3-A1-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "원인이 불확실하면 표시하고 불량 기록을 진단에서 빼는 정본 조건과 맞닿지만, 미병합 상태다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4.1",
+      "candidate_level": "L2",
+      "candidate_title": "도서(LCP)",
+      "candidate_status_step1": "VERIFIED_WORKING",
+      "canon_criteria": [
+        "VG-L3-C1-01-AC1",
+        "VG-L3-C1-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "R0 읽기 자료의 원천 후보이며, 정본은 계보와 권한 게이트 증빙을 요구한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4.2",
+      "candidate_level": "L2",
+      "candidate_title": "기사(ACP)",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-C1-01-AC1",
+        "VG-L3-C1-02-AC1",
+        "VG-L3-C2-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "R0 읽기 자료 후보로 계보·게이트가 필요하고, 적체(ready 8만여 건)는 C2-02의 정리 결정 대상이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4.3",
+      "candidate_level": "L2",
+      "candidate_title": "어휘 자원(VCB·사전·lexicon·pending_words)",
+      "candidate_status_step1": "VERIFIED_WORKING",
+      "canon_criteria": [
+        "VG-L3-C1-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "어휘 Practice와 피드백을 받치는 자원으로, 계보 기록 대상이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4.4",
+      "candidate_level": "L2",
+      "candidate_title": "교재 공장",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-C1-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "콘텐츠 양산 파이프라인이라 R0 경로 밖이고, 계보 조건만 걸린다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4.5",
+      "candidate_level": "L2",
+      "candidate_title": "만화(CCP·PDCP)",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-C2-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "DEFERRED",
+      "rationale": "정본 C2-02가 만화의 유지·동결·폐기 결정 기록을 명시적으로 요구한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4.6",
+      "candidate_level": "L2",
+      "candidate_title": "영상 팩토리",
+      "candidate_status_step1": "VERIFIED_WORKING",
+      "canon_criteria": [
+        "VG-L3-A2-02-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "강의·영상은 선택 지원이고, 양산 파이프라인은 R0 밖이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4.7",
+      "candidate_level": "L2",
+      "candidate_title": "topic corpus 소비처",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-C2-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "공급 데이터를 수요에 대응하는 R1 기준과 관련된다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G4.8",
+      "candidate_level": "L2",
+      "candidate_title": "Compose 재저작",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L3-C1-01-AC1",
+        "VG-L3-C1-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "사실 원장과 독립성 검수는 원천·변형·검수 계보와 게시 게이트에 직접 대응하며, R0 자료 공급을 보조한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G5.1",
+      "candidate_level": "L2",
+      "candidate_title": "CSAT 학습의 공용 회고 반영",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-B2-01-AC1"
+      ],
+      "relation": "direct",
+      "r0_priority": "DEFERRED",
+      "rationale": "수능 기록과 공용 기록의 통합 조회는 정본 B2-01(R1)과 같은 목표다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G5.2",
+      "candidate_level": "L2",
+      "candidate_title": "레벨 표시 일관성",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L2-B2-AC1",
+        "VG-L3-A3-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "수준을 일관되고 과장 없이 표시하는 일은 이력 표시와 재평가 표시 조건을 돕는다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G5.3",
+      "candidate_level": "L2",
+      "candidate_title": "목표·계획 단일화 · i+1 추천",
+      "candidate_status_step1": "DESIGN_ONLY",
+      "canon_criteria": [
+        "VG-L2-A1-AC1",
+        "VG-L3-A1-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "목표 선택 뒤 첫 과제 추천은 정본 A1-01의 R0 조건이며, 이것이 없으면 체험 뒤 학습으로 이어지는 연결이 끊긴다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G6.1",
+      "candidate_level": "L2",
+      "candidate_title": "교사 역할·학급·과제 실사용",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L3-B1-02-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "교실은 미뤄진 범위이고, 정본에는 비손상 조건만 있다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G7.1",
+      "candidate_level": "L2",
+      "candidate_title": "마이그레이션 정합(main=DB)",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-D1-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "D1-01의 필수 증거에 마이그레이션 검증이 들어 있고, 스키마 불일치는 R0 기록 경로를 흔든다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G7.2",
+      "candidate_level": "L2",
+      "candidate_title": "브랜치·worktree 정리",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L4-TEMPLATE-DELIVER-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "작업 단위의 commit/push 정합을 돕는 위생 작업이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G7.3",
+      "candidate_level": "L2",
+      "candidate_title": "프로덕션 배포·e2e 실행",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-D2-01-AC1",
+        "VG-L2-D2-AC1"
+      ],
+      "relation": "direct",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "핵심 E2E skip=0, 배포 후 스모크 pass, 실행 ID 기록과 같은 목표다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G8.1",
+      "candidate_level": "L2",
+      "candidate_title": "드레인·예약 작업 자동화",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L1-D-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "운영 신뢰성을 돕지만, 정본에 해당하는 직접 기준은 없다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G8.2",
+      "candidate_level": "L2",
+      "candidate_title": "Admin 콘솔 실데이터화",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-C2-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "수요·게시 지표를 대시보드로 검증하는 데 쓰이는 운영 표면이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G8.3",
+      "candidate_level": "L2",
+      "candidate_title": "DB 헬스 조치 순환",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-D2-02-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "advisor 보안 발견을 조치하는 일이 권한·데이터 점검을 보조한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G9.1",
+      "candidate_level": "L2",
+      "candidate_title": "지식 등록부 단일화",
+      "candidate_status_step1": "UNMERGED",
+      "canon_criteria": [
+        "VG-L2-D3-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "효과 증거 관리의 근거 저장소 역할이며, R0 경로 단계는 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "G10.1",
+      "candidate_level": "L2",
+      "candidate_title": "요금제·결제",
+      "candidate_status_step1": "DESIGN_ONLY",
+      "canon_criteria": [],
+      "relation": "none",
+      "r0_priority": "OUT_OF_SCOPE_CANON",
+      "rationale": "결제는 deferred이고, 이를 다루는 정본 기준이 없다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L3-01",
+      "candidate_level": "L3",
+      "candidate_title": "학습자가 지문을 끝까지 읽고 완료가 기록된다",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1",
+        "VG-L3-D1-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "R0 읽기 과제 완료와 그 이벤트가 안정적으로 기록되는 것이 핵심 경로의 첫 학습 단계다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L3-02",
+      "candidate_level": "L3",
+      "candidate_title": "SpellForge 기록 0 의 원인 확인",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L3-D1-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "이벤트 정합 결함의 진단이며, 해당 모듈은 R0 필수가 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L3-03",
+      "candidate_level": "L3",
+      "candidate_title": "EchoMatch 기록 0 의 원인 확인",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L3-D1-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "이벤트 정합 결함의 진단이며, 발음 모듈은 R0 필수가 아니다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L3-04",
+      "candidate_level": "L3",
+      "candidate_title": "CSAT 학습이 Dashboard 에 보인다",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-B2-01-AC1"
+      ],
+      "relation": "direct",
+      "r0_priority": "DEFERRED",
+      "rationale": "수능·공용 기록 통합 조회(R1)와 같은 목표로, G5.1의 실행 단위다.",
+      "duplicate_of": "G5.1"
+    },
+    {
+      "candidate_id": "L3-05",
+      "candidate_level": "L3",
+      "candidate_title": "학습 지도 과제 완료·전이 판정",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-A3-01-AC1",
+        "VG-L3-A3-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "미노출 전이와 재평가 판정은 R0 필수 단계지만, 지금은 CSAT 문항에 한정돼 있다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L3-06",
+      "candidate_level": "L3",
+      "candidate_title": "학습자가 처음 보는 진입점이 하나로 정리된다",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L3-B1-01-AC1",
+        "VG-L3-B2-02-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "R0 첫 진입과 다음 행동 표시에 해당하나, 정본은 하나로 통합하기보다 적절한 분기를 요구한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L3-07",
+      "candidate_level": "L3",
+      "candidate_title": "교사가 학급 코드로 학생을 모으고 과제를 보낸다",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L3-B1-02-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "교실 기능은 미뤄진 범위다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L3-08",
+      "candidate_level": "L3",
+      "candidate_title": "가격 화면이 실제 제공 기능과 일치한다",
+      "candidate_status_step1": "VERIFIED_WORKING",
+      "canon_criteria": [],
+      "relation": "none",
+      "r0_priority": "OUT_OF_SCOPE_CANON",
+      "rationale": "가격·결제를 다루는 정본 기준이 없다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L3-09",
+      "candidate_level": "L3",
+      "candidate_title": "비로그인 TextFit 진단 → 가입 → 학습으로 이어진다",
+      "candidate_status_step1": "IMPLEMENTED_UNVERIFIED",
+      "canon_criteria": [
+        "VG-L3-B1-01-AC1",
+        "VG-L3-D2-02-AC1",
+        "VG-L3-D1-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "R0 경로의 비로그인 체험→가입·기록 연결 단계 그 자체이며, 정본은 이를 진입·개인정보·이벤트 기준으로만 나눠 다루고 전용 L3 기준은 없다(R0-ANON-ACCOUNT 게이트에만 있음).",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L4-01",
+      "candidate_level": "L4",
+      "candidate_title": "SpellForge 완주 → flush → learning_records 경로 재현",
+      "candidate_status_step1": "UNKNOWN",
+      "canon_criteria": [
+        "VG-L4-TEMPLATE-TEST-AC1",
+        "VG-L3-D1-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "기록 경로를 재현하는 검증 작업이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L4-02",
+      "candidate_level": "L4",
+      "candidate_title": "읽기 완료(texts.status) 경로 재현",
+      "candidate_status_step1": "UNKNOWN",
+      "canon_criteria": [
+        "VG-L4-TEMPLATE-TEST-AC1",
+        "VG-L3-A2-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "R0 읽기 완료 기록을 실제로 검증한다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L4-03",
+      "candidate_level": "L4",
+      "candidate_title": "DB 적용·main 밖 마이그레이션 17건 목록 대조",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L4-TEMPLATE-TRACE-AC1",
+        "VG-L3-D1-01-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "마이그레이션 검증 증거를 확보하는 일이 R0 기록 정합의 전제다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L4-04",
+      "candidate_level": "L4",
+      "candidate_title": "csat-source-audit 워크플로 실패 원인",
+      "candidate_status_step1": "UNKNOWN",
+      "canon_criteria": [
+        "VG-L3-C1-02-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "DEFERRED",
+      "rationale": "CSAT 원문 게시 게이트의 운영 장애라 시험 특화 범위다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L4-05",
+      "candidate_level": "L4",
+      "candidate_title": "Vercel 비밀값 미설정이 의도인지 사용자 확인",
+      "candidate_status_step1": "UNKNOWN",
+      "canon_criteria": [
+        "VG-L3-D2-01-AC1"
+      ],
+      "relation": "partial",
+      "r0_priority": "R0_REQUIRED",
+      "rationale": "배포 후 스모크 pass의 차단 요인을 확인하는 일이다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L4-06",
+      "candidate_level": "L4",
+      "candidate_title": "분기 진단 3회차(2026-10) 실행",
+      "candidate_status_step1": "DESIGN_ONLY",
+      "canon_criteria": [
+        "VG-L3-C2-01-AC1",
+        "VG-L4-TEMPLATE-TRACE-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "수요와 공급의 대응을 측정하는 정기 감사다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L4-07",
+      "candidate_level": "L4",
+      "candidate_title": "ADR 0007(PDCP 제거) 실행/철회 결정",
+      "candidate_status_step1": "DESIGN_ONLY",
+      "canon_criteria": [
+        "VG-L3-C2-02-AC1"
+      ],
+      "relation": "direct",
+      "r0_priority": "DEFERRED",
+      "rationale": "만화의 유지·폐기 결정을 ADR로 기록하는 일로, C2-02의 조건과 같다.",
+      "duplicate_of": null
+    },
+    {
+      "candidate_id": "L4-08",
+      "candidate_level": "L4",
+      "candidate_title": "main 문서 정합",
+      "candidate_status_step1": "PARTIAL",
+      "canon_criteria": [
+        "VG-L4-TEMPLATE-TRACE-AC1"
+      ],
+      "relation": "supporting",
+      "r0_priority": "R0_SUPPORT",
+      "rationale": "근거·문서화 정합 작업이다.",
+      "duplicate_of": null
+    }
+  ],
+  "unmapped_criteria": [
+    {
+      "criterion_id": "VG-L3-D1-02-AC1",
+      "note": "QA·합성 데이터를 사용자 지표와 효과 평가에서 빼는 일(user_type)을 다루는 후보가 없다. 합성 학습자를 쓰는 정책이 있어 R0의 중대 공백이다."
+    },
+    {
+      "criterion_id": "VG-L4-TEMPLATE-CONTRACT-AC1",
+      "note": "작업 단위 템플릿이다. 후보 L4가 계약 정의 단계를 명시하지 않았다."
+    },
+    {
+      "criterion_id": "VG-L4-TEMPLATE-BUILD-AC1",
+      "note": "작업 단위 템플릿이다. 구현·diff 단계를 다루는 L4 후보가 없다."
+    }
+  ],
+  "duplicates": [
+    {
+      "ids": [
+        "G5.1",
+        "L3-04"
+      ],
+      "note": "CSAT 학습의 공용 회고(Dashboard) 반영이라는 같은 목표다. L3-04를 G5.1의 실행 단위로 합친다."
+    },
+    {
+      "ids": [
+        "G1.3",
+        "L3-06"
+      ],
+      "note": "부모와 자식 관계로 같은 진입점 정리 목표를 겹쳐 다룬다(정본 B1-01·B2-02)."
+    },
+    {
+      "ids": [
+        "G2.3",
+        "L3-02",
+        "L3-03",
+        "L4-01"
+      ],
+      "note": "SpellForge·EchoMatch 기록 0 진단이 세 수준에 걸쳐 중복돼 있다."
+    },
+    {
+      "ids": [
+        "G3.3",
+        "L3-05"
+      ],
+      "note": "전이·재평가 루프와 그 판정이 겹친다. 둘 다 R0용으로 일반화해야 한다."
+    },
+    {
+      "ids": [
+        "G10",
+        "G10.1",
+        "L3-08"
+      ],
+      "note": "수익·결제 계열로, 모두 정본 기준이 없다."
+    },
+    {
+      "ids": [
+        "G6",
+        "G6.1",
+        "L3-07",
+        "L0-C"
+      ],
+      "note": "교실 채널이 네 수준에 걸쳐 중복돼 있고, 모두 DEFERRED다."
+    }
+  ]
+}

@@ -11,6 +11,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- docs(goals): STEP 3/6 목표 대응 조사 — 정본 v1.1.0 `docs/platform-goals/` 등록(manifest sha256 일치) · 후보 64 ↔ 정본 40 대응표 · 증거 30(verified·reported·unknown 구분) · R0 갭 18 + 출시 게이트 · 의존 DAG · Codex 독립 검토 18건 반영(`docs/platform-goals/step3/`). 분석 단계 — 코드·DB 변경 없음.
 - docs(audit): 플랫폼 전수 조사 STEP 1/6 — `docs/platform-audit/` 산출물 10종(기능 74항목 8단계 상태 · 학습 환경 24 · 파이프라인 지도 · 연결 지도 · 목표 결정 이력 · L0~L4 목표 후보 64개 JSON · 빈틈 분석). DB SELECT 전용 · Codex 독립 리뷰 17건 반영. 목표 확정 없음(STEP 2)
 
 - fix(map): 학습 지도 첫 판단 요약이 M8 `timing_uncertain` 을 읽어, 시각이 불확실하면 「도움 없이」 를 단정하지 않는다(모름). DB_SCHEMA 에 M8 · F7, ROUTES 에 `POST /api/csat/practice/view` · 문항 과제 G2 본문 반영.

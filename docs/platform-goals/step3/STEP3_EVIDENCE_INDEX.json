@@ -1,0 +1,239 @@
+{
+  "schema": "vfc-step3-evidence/1",
+  "baseline_main_sha": "f8e0ffb4aaefaa5656a2f71aaf372af33c32d15c",
+  "audit_branch": "audit/platform-goal",
+  "measured_at": "2026-10-09",
+  "canon": {
+    "version": "1.1.0",
+    "files": [
+      {
+        "path": "docs/platform-goals/PROJECT_GOAL.md",
+        "sha256": "f98b9a281dd7216c9a144cd2389c0c69edac9189ea54c0cd6cc45d2dc52ddc1d",
+        "in_manifest": true
+      },
+      {
+        "path": "docs/platform-goals/PRODUCT_STRATEGY.md",
+        "sha256": "48ca0ab7b512d9cb5b2b4f7e8c7c7725455d144bda15a8edde5c27a09d4471c1",
+        "in_manifest": true
+      },
+      {
+        "path": "docs/platform-goals/GOAL_ACCEPTANCE_CRITERIA.json",
+        "sha256": "781e5e7e56e8b975537286376778acedfa9d97361f48340d19847a15efd41561",
+        "in_manifest": true
+      },
+      {
+        "path": "docs/platform-goals/AI_WORKFLOW_REQUIREMENTS.md",
+        "sha256": "efa7e5841fa0015c1bb15923f532b4b30f19ea3b7dda283ff1cc02a161a56605",
+        "in_manifest": true
+      },
+      {
+        "path": "docs/platform-goals/STEP3_INPUT_CRITERIA.md",
+        "sha256": "c6f81825dac82906c9703854d756e9f734d4a167fdcd5a67fed017f2ba0657ca",
+        "in_manifest": true
+      }
+    ],
+    "manifest_match": true
+  },
+  "step1_inputs": {
+    "files": [
+      {
+        "path": "docs/platform-audit/REPOSITORY_INVENTORY.md",
+        "present": true,
+        "sha256": "b1d015b9900b3d56bc736e1021ac0bea2403d70eec60aa6e4f7b4c3059c813ac"
+      },
+      {
+        "path": "docs/platform-audit/PLATFORM_FEATURE_INVENTORY.md",
+        "present": true,
+        "sha256": "9c8677d475892e285afef18d0678896850e98f09e271d1acbc69e1b467e12b8a"
+      },
+      {
+        "path": "docs/platform-audit/LEARNING_ENVIRONMENTS.md",
+        "present": true,
+        "sha256": "4909ac260442568eb7421c4e6eae868de748674b7eba396d9ea131c4f1fced49"
+      },
+      {
+        "path": "docs/platform-audit/CONTENT_PIPELINE_ATLAS.md",
+        "present": true,
+        "sha256": "7a4ccf9228bd315f3813067b3cba4618c526736fae957097b41b45be4d577cd1"
+      },
+      {
+        "path": "docs/platform-audit/PLATFORM_SHARED_SYSTEMS.md",
+        "present": true,
+        "sha256": "64d3d787fb6ba8ff08bb5681bc58e981cd1f5f8962a008ddba478c1378294637"
+      },
+      {
+        "path": "docs/platform-audit/PLATFORM_INTEGRATION_MAP.md",
+        "present": true,
+        "sha256": "ed81ca82d6a66714ddab9a0fef236b05b7fad92a3ad3dca599d7ffeb50791787"
+      },
+      {
+        "path": "docs/platform-audit/GOAL_DECISION_HISTORY.md",
+        "present": true,
+        "sha256": "081d9b1c3ba60799af06733688563b9c414e2c926fc8028a66fcc33f780e50e6"
+      },
+      {
+        "path": "docs/platform-audit/GOAL_CANDIDATES.md",
+        "present": true,
+        "sha256": "969e6d92b0a5c263de3845c924e174cae40abffc3b34995d0ee744afcc218478"
+      },
+      {
+        "path": "docs/platform-audit/GOAL_HIERARCHY_DRAFT.json",
+        "present": true,
+        "sha256": "bef3e0457f7ff43e7c32474f24a8b59ff892a94347916b0889b24921ec2fe4bf"
+      },
+      {
+        "path": "docs/platform-audit/PLATFORM_GAP_ANALYSIS.md",
+        "present": true,
+        "sha256": "6cb0f2e7249f961a31ef237fa1b7c93cf9f7516788b10e3713ad88cada7061f6"
+      }
+    ],
+    "missing": []
+  },
+  "raw": [
+    {
+      "path": "docs/platform-goals/step3/_raw/codex-review-r1.txt",
+      "sha256": "d4dacd9c714230c5e5b5185be1a81a12ca5bdcbfbb4a0024a03bc78f067122cc"
+    },
+    {
+      "path": "docs/platform-goals/step3/_raw/content_and_auth.json",
+      "sha256": "cd90a49e866dc1f74427557e91aec56c7c1a2b5869c6ea852fb8277f7c964583"
+    },
+    {
+      "path": "docs/platform-goals/step3/_raw/crosswalk.json",
+      "sha256": "a58806066898ac187e31222fd27cacaca9acb94bafb4f34e12e1cd43afc772ed"
+    },
+    {
+      "path": "docs/platform-goals/step3/_raw/db_ci_deploy_supply.json",
+      "sha256": "3b90a81017443a02159424165918604b8440b3afc08caf9dad2017b64a34ab98"
+    },
+    {
+      "path": "docs/platform-goals/step3/_raw/learning_loop.json",
+      "sha256": "7fb1506507a669cdae7ddec1c2803f146c08f2356002fb307394f385b0987a02"
+    },
+    {
+      "path": "docs/platform-goals/step3/_raw/migration_name_diff.json",
+      "sha256": "7bd987f400982278ab2ea873c64ea81d3af4d410f28bdbe3085fc88accd96fac"
+    },
+    {
+      "path": "docs/platform-goals/step3/_raw/security_advisors_summary.json",
+      "sha256": "8a07eee99f1a2053e1ed434676b0c33c18cd273b8bb5fc33c640f86c270309a7"
+    }
+  ],
+  "sql_run": [
+    {
+      "area": "content_and_auth",
+      "sql": "select 'books',status,count(*) from library_books group by status union all articles ... union all pg_policies counts for library_books,library_articles,profiles,texts,reading_sessions"
+    },
+    {
+      "area": "content_and_auth",
+      "sql": "select tablename,policyname,cmd,roles::text,left(qual,120) from pg_policies where tablename in ('library_books','library_articles','reading_sessions','texts')"
+    },
+    {
+      "area": "content_and_auth",
+      "sql": "select table_name,column_name from information_schema.columns where table_name in ('library_books','library_articles') and column ilike licen/source/rights/level/cefr"
+    },
+    {
+      "area": "content_and_auth",
+      "sql": "select source,license,cefr_level,count(*) from library_books/library_articles where status='published' and copyright_safe_in_kr group by 1,2,3"
+    },
+    {
+      "area": "learning_loop",
+      "sql": "select texts by status, texts with library_book_id, count learning_records, count scores, funnel_events by event (read/complete/practice/review 패턴) — counts only"
+    },
+    {
+      "area": "db_ci_deploy_supply",
+      "sql": "select string_agg(version,',' order by version), count(*) from supabase_migrations.schema_migrations"
+    },
+    {
+      "area": "db_ci_deploy_supply",
+      "sql": "with r as (unnest(repo versions)), d as (schema_migrations) select only_repo/only_db/both counts + examples"
+    },
+    {
+      "area": "db_ci_deploy_supply",
+      "sql": "select jobname, schedule, active from cron.job"
+    },
+    {
+      "area": "step3_session",
+      "sql": "select string_agg(name, ...) from supabase_migrations.schema_migrations (이름 709)"
+    },
+    {
+      "area": "step3_session",
+      "sql": "get_advisors(security) 540건 전량 요약"
+    }
+  ],
+  "ci_runs": [
+    "https://github.com/KangMin098/Vocaflow/actions/runs/37888031561",
+    "https://github.com/KangMin098/Vocaflow/actions/runs/37888031564"
+  ],
+  "limits": [
+    {
+      "area": "content_and_auth",
+      "limit": "화면 실제 렌더링·e2e 미실행"
+    },
+    {
+      "area": "content_and_auth",
+      "limit": "/library 상세에서 비로그인 본문 열람 범위와 저작자 표시 UI 미확인"
+    },
+    {
+      "area": "content_and_auth",
+      "limit": "profiles 등 기타 사용자 테이블 RLS 전수 미확인"
+    },
+    {
+      "area": "content_and_auth",
+      "limit": "STEP 1 문서(docs/platform-audit) 미대조 — reported 항목 없음"
+    },
+    {
+      "area": "content_and_auth",
+      "limit": "/fit 진단의 로컬 저장 여부 미확인(grep 결과 없음)"
+    },
+    {
+      "area": "learning_loop",
+      "limit": "작업 트리 HEAD는 12778bbcc이고 기준선 f8e0ffb4a가 아니다. 코드 근거는 HEAD 기준이다"
+    },
+    {
+      "area": "learning_loop",
+      "limit": "테스트를 실행하지 않았다"
+    },
+    {
+      "area": "learning_loop",
+      "limit": "events.ts와 DB CHECK allowlist를 대조하지 않았다"
+    },
+    {
+      "area": "learning_loop",
+      "limit": "대시보드와 FSRS 호출 그래프를 깊게 추적하지 않았다(effort 낮음)"
+    },
+    {
+      "area": "learning_loop",
+      "limit": "STEP 1 문서를 읽지 않았다"
+    },
+    {
+      "area": "db_ci_deploy_supply",
+      "limit": "저장소 버전 474개는 f8e0ffb4a 기준이다(로컬 HEAD는 e1a22c84c라서 git ls-tree를 그 SHA로 고정해 뽑았다). 이름 기준 diff는 하지 않아서, 번호만 다르고 같은 마이그레이션인 것을 구분하지 못했다."
+    },
+    {
+      "area": "db_ci_deploy_supply",
+      "limit": "get_advisors security는 실행하지 않았다."
+    },
+    {
+      "area": "db_ci_deploy_supply",
+      "limit": "CHANGELOG·DB_SCHEMA 주장과 실제 대조는 하지 않았다."
+    },
+    {
+      "area": "db_ci_deploy_supply",
+      "limit": "공급 테이블 소비는 grep으로만 확인했다. RPC나 뷰를 거친 간접 소비, 그리고 외부 스케줄러는 확인하지 못했다."
+    },
+    {
+      "area": "db_ci_deploy_supply",
+      "limit": "gh 실행 결과는 최근 main 런 2개(37888031561, 37888031564)만 봤다."
+    },
+    {
+      "area": "step3_session",
+      "limit": "화면 실행·e2e 미실행 — UI 도달은 코드 근거만"
+    },
+    {
+      "area": "step3_session",
+      "limit": "DB 만 있는 마이그레이션 234 의 출처 브랜치는 개별 확인하지 않음"
+    }
+  ],
+  "privacy": "개인정보 행 없음 — 집계 수치만"
+}

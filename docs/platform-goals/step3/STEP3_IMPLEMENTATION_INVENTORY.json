@@ -1,0 +1,743 @@
+{
+  "schema": "vfc-step3-inventory/1",
+  "baseline_sha": "f8e0ffb4aaefaa5656a2f71aaf372af33c32d15c",
+  "measured_at": "2026-10-09",
+  "rule": "unknown 은 통과가 아니다 · skip 은 pass 가 아니다 · reported = STEP 1 문서 주장 · verified = 이번 단계 직접 재확인",
+  "summary": {
+    "items": 30,
+    "by_status": {
+      "IMPLEMENTED_UNVERIFIED": 6,
+      "IMPLEMENTED_VERIFIED": 5,
+      "PARTIAL": 7,
+      "UNKNOWN": 7,
+      "NOT_IMPLEMENTED": 2,
+      "DISCONNECTED": 2,
+      "BLOCKED": 1
+    },
+    "by_verification": {
+      "verified": 27,
+      "unknown": 2,
+      "reported": 1
+    }
+  },
+  "items": [
+    {
+      "item_id": "C-01",
+      "goal_id": "R0-content-access",
+      "source_ref": "apps/web/src/lib/auth/protected-routes.ts:27-93",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "web/auth",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_UNVERIFIED",
+      "pass_fail_skip": "not_run",
+      "evidence_path": "apps/web/src/lib/auth/protected-routes.ts; apps/web/src/middleware.ts:106",
+      "finding": "/text·/hub·/practice 등 학습 모듈은 로그인 필요다. 그러나 비로그인 방문자도 /library 기사 화면에서 기사 전문·출처·라이선스·어휘 미리보기를 본다 — 「읽기 체험」은 있고, 없는 것은 체험 안의 Practice·기록이다(Codex r1 #8).",
+      "blocker": "비로그인 체험에 학습 루프(Practice·기록)가 없다",
+      "dependency": [
+        "C-04"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "content_and_auth",
+      "corrected_by": "codex-review-r1",
+      "canon_criteria": [
+        "VG-L3-B1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "C-02",
+      "goal_id": "R0-content-supply",
+      "source_ref": "SQL: library_books/library_articles group by status",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "library pipeline",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_VERIFIED",
+      "pass_fail_skip": "pass",
+      "evidence_path": "select status,count(*) from library_books/library_articles group by status",
+      "finding": "published 상태는 도서 312권, 기사 250건이다. 기사 84,715건은 ready 상태이고 학습자 RLS로는 보이지 않는다.",
+      "blocker": null,
+      "dependency": [],
+      "r0_priority": "R0_REQUIRED",
+      "area": "content_and_auth",
+      "canon_criteria": [
+        "VG-L3-C1-02-AC1"
+      ]
+    },
+    {
+      "item_id": "C-03",
+      "goal_id": "R0-content-level-fit",
+      "source_ref": "SQL: published & copyright_safe_in_kr by source/license/cefr_level",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "library curation",
+      "reported_or_verified": "verified",
+      "implementation_status": "PARTIAL",
+      "pass_fail_skip": "unknown",
+      "evidence_path": "select source,license,cefr_level,count(*) ... where status='published' and copyright_safe_in_kr",
+      "finding": "공개 가능 자료는 B2·C1 이 다수이고 A2 는 기사 3·도서 4, B1 은 기사 약 36·도서 약 58 이다. 분포만으로 R0 여정 1개에 쓸 초기·독립 평가 자료가 부족하다고 단정할 수는 없다 — 선별 가능성 확인이 필요하다(Codex r1 #14). 고전 PD 퇴출 방침과 published 상태의 불일치는 사실이다.",
+      "blocker": "중등(A2~B1) 공급 부족 · 고전 PD 퇴출 정책과 published 상태가 어긋남",
+      "dependency": [
+        "C-02"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "content_and_auth",
+      "corrected_by": "codex-review-r1",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1",
+        "VG-L3-C1-02-AC1"
+      ]
+    },
+    {
+      "item_id": "C-04",
+      "goal_id": "R0-rights-metadata",
+      "source_ref": "information_schema.columns + pg_policies library_*",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "library pipeline",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_VERIFIED",
+      "pass_fail_skip": "pass",
+      "evidence_path": "columns license, license_class(articles), source, source_url, source_id, source_fetched_at, copyright_safe_in_kr; policy anyone_read_published_safe(_articles)",
+      "finding": "권리 메타데이터(license·source·source_url·copyright_safe_in_kr)가 있다. 공개 SELECT 정책은 status='published' AND copyright_safe_in_kr=true로 제한된다. 다만 license 표기가 정규화되어 있지 않다(PD-US / U.S. Public Domain / Public domain in the USA.).",
+      "blocker": null,
+      "dependency": [],
+      "r0_priority": "R0_SUPPORT",
+      "area": "content_and_auth",
+      "canon_criteria": [
+        "VG-L3-C1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "C-05",
+      "goal_id": "R0-rights-attribution",
+      "source_ref": "library_articles license CC-BY-ND-4.0 / CC-BY-SA-4.0",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "legal/library",
+      "reported_or_verified": "verified",
+      "implementation_status": "UNKNOWN",
+      "pass_fail_skip": "unknown",
+      "evidence_path": "SQL in C-03",
+      "finding": "published 기사 중 CC-BY-ND-4.0(the_conversation 25건)이 있다. ND 라이선스는 변경 저작물(난이도 조정·주석)을 금지하므로 학습용 가공과 충돌할 수 있다. 화면의 저작자 표시 렌더링도 확인하지 않았다.",
+      "blocker": "ND 콘텐츠의 가공 여부와 저작자 표시 UI 미확인",
+      "dependency": [
+        "C-04"
+      ],
+      "r0_priority": "R0_SUPPORT",
+      "area": "content_and_auth",
+      "canon_criteria": [
+        "VG-L3-C1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "C-06",
+      "goal_id": "R0-anon-trial",
+      "source_ref": "grep signInAnonymously|is_anonymous|guest in apps/web/src; app/(auth)/signup/page.tsx:186-189",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "web/auth",
+      "reported_or_verified": "verified",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "pass_fail_skip": "fail",
+      "evidence_path": "apps/web/src (grep 0 hits for anonymous sign-in/guest linking); signup/page.tsx:186 comment",
+      "finding": "익명 인증(anonymous sign-in)·guest 기록과 가입 시 활동 이관 코드는 찾지 못했다. 가입 화면 주석은 14일 상용 체험에 관한 것이라 「익명 체험 전무」의 근거는 아니다(Codex r1 #8).",
+      "blocker": "익명 체험→가입 전이 미구현",
+      "dependency": [
+        "C-01"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "content_and_auth",
+      "corrected_by": "codex-review-r1",
+      "canon_criteria": [
+        "VG-L3-B1-01-AC1",
+        "VG-L3-D2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "C-07",
+      "goal_id": "R0-consent-age",
+      "source_ref": "apps/web/src/app/(auth)/signup/page.tsx:23-24,116-135",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "web/auth+legal",
+      "reported_or_verified": "verified",
+      "implementation_status": "PARTIAL",
+      "pass_fail_skip": "fail",
+      "evidence_path": "signup/page.tsx (consented_*_at → raw_user_meta_data; TODO user_consents table)",
+      "finding": "약관·개인정보·마케팅 동의 시각은 auth raw_user_meta_data에 임시로 저장되고, user_consents 테이블은 TODO 상태다. 연령 확인과 만 14세 미만 법정대리인 동의 처리는 없다. 중등 대상(만 14세 미만 포함)에서는 법적 공백이다.",
+      "blocker": "만14세 미만 법정대리인 동의·연령 확인 없음",
+      "dependency": [],
+      "r0_priority": "R0_REQUIRED",
+      "area": "content_and_auth",
+      "canon_criteria": [
+        "VG-L3-D2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "C-08",
+      "goal_id": "R0-security-rls",
+      "source_ref": "pg_policies reading_sessions, texts",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "db",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_VERIFIED",
+      "pass_fail_skip": "pass",
+      "evidence_path": "select tablename,policyname,cmd,roles,qual from pg_policies where tablename in (...)",
+      "finding": "reading_sessions와 texts는 auth.uid()=user_id 소유자 전용 ALL 정책이다. 라이브러리 쓰기는 is_admin_or_curator()로 제한된다.",
+      "blocker": null,
+      "dependency": [],
+      "r0_priority": "R0_SUPPORT",
+      "area": "content_and_auth",
+      "canon_criteria": [
+        "VG-L3-D2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "C-09",
+      "goal_id": "R0-routing",
+      "source_ref": "apps/web/src/middleware.ts:46,54,87-98",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "web/auth",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_UNVERIFIED",
+      "pass_fail_skip": "not_run",
+      "evidence_path": "apps/web/src/middleware.ts",
+      "finding": "로그인 사용자의 / 진입은 /hub 로, 비로그인 사용자의 보호 경로 진입은 next 파라미터와 함께 /login 으로 보낸다(Codex r1 #17 — 앞선 「return」 표기 정정). 정지 계정 차단. e2e 미실행.",
+      "blocker": null,
+      "dependency": [
+        "C-01"
+      ],
+      "r0_priority": "R0_SUPPORT",
+      "area": "content_and_auth",
+      "corrected_by": "codex-review-r1",
+      "canon_criteria": [
+        "VG-L3-B1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "L-01",
+      "goal_id": "R0-reading-completion",
+      "source_ref": "apps/web/src/lib/library/complete-chapter.ts:55-61",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "library/workspace",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_UNVERIFIED",
+      "pass_fail_skip": "not_run",
+      "evidence_path": "complete-chapter.ts; components/workspace/CompleteChapterButton.tsx; UnifiedHeader.tsx:307; WorkspaceBookContext.tsx:112",
+      "finding": "읽기 완료는 complete-chapter.ts가 texts.status='completed'로 기록하며, CompleteChapterButton이 UnifiedHeader와 WorkspaceBookContext에 마운트돼 /text/[id]에서 코드상 도달할 수 있다.",
+      "blocker": null,
+      "dependency": [],
+      "r0_priority": "R0_REQUIRED",
+      "area": "learning_loop",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1"
+      ]
+    },
+    {
+      "item_id": "L-02",
+      "goal_id": "R0-reading-completion",
+      "source_ref": "SQL texts group by status",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "library/workspace",
+      "reported_or_verified": "verified",
+      "implementation_status": "UNKNOWN",
+      "pass_fail_skip": "unknown",
+      "evidence_path": "texts: not_started 207, extracted 61, in_progress 10, completed 0; library_book_id 있음 269",
+      "finding": "texts completed 0. 미사용(가입 4)인지 완료 버튼 노출 조건(책 장 문맥) 때문인지 구분하지 못했다 — 단절로 확정하지 않는다(Codex r1 #12).",
+      "blocker": "완료 경로를 브라우저에서 시험한 증거가 없다",
+      "dependency": [
+        "L-01"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "learning_loop",
+      "corrected_by": "codex-review-r1",
+      "canon_criteria": [
+        "VG-L3-A2-01-AC1",
+        "VG-L3-D1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "L-03",
+      "goal_id": "R0-events",
+      "source_ref": "apps/web/src/lib/analytics/events.ts; SQL funnel_events",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "analytics",
+      "reported_or_verified": "verified",
+      "implementation_status": "PARTIAL",
+      "pass_fail_skip": "fail",
+      "evidence_path": "funnel_events 중 read/complete/practice/review 패턴: csat_paper_read 115, video_completed 9, 일반 읽기 완료·Practice·복습 이벤트 0",
+      "finding": "일반 R0 읽기 완료·Practice·복습에 대한 퍼널 이벤트 기록이 DB에 없다. 읽기 관련 이벤트는 CSAT 쪽(csat_paper_read)만 쌓여 있다.",
+      "blocker": "events.ts 열거형과 DB CHECK allowlist를 대조하지 못했다",
+      "dependency": [
+        "L-02"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "learning_loop",
+      "canon_criteria": [
+        "VG-L3-D1-01-AC1",
+        "VG-L2-D1-AC1"
+      ]
+    },
+    {
+      "item_id": "L-04",
+      "goal_id": "R0-history",
+      "source_ref": "SQL learning_records, scores",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "learning records",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_UNVERIFIED",
+      "pass_fail_skip": "unknown",
+      "evidence_path": "learning_records 672, scores 80",
+      "finding": "공용 학습기록과 점수는 쌓이고 있다. 다만 어느 모듈에서 생긴 기록인지는 나누어 보지 않았다.",
+      "blocker": null,
+      "dependency": [],
+      "r0_priority": "R0_SUPPORT",
+      "area": "learning_loop",
+      "canon_criteria": [
+        "VG-L2-A2-AC1"
+      ]
+    },
+    {
+      "item_id": "L-05",
+      "goal_id": "R0-review",
+      "source_ref": "apps/web/src/lib/srs/fsrs.ts, srs/index.ts",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "srs",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_UNVERIFIED",
+      "pass_fail_skip": "not_run",
+      "evidence_path": "apps/web/src/lib/srs/__tests__/stability-growth.test.ts (있음, 실행 안 함)",
+      "finding": "FSRS 라이브러리 계층은 있다. 하지만 읽기 완료 이후 복습 일정이 잡히는 호출 그래프는 추적하지 않았다.",
+      "blocker": null,
+      "dependency": [
+        "L-02"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "learning_loop",
+      "canon_criteria": [
+        "VG-L2-A2-AC1"
+      ]
+    },
+    {
+      "item_id": "L-06",
+      "goal_id": "R0-transfer-reassess",
+      "source_ref": "grep transfer|unseen in apps/web/src/app",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "learning model",
+      "reported_or_verified": "verified",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "pass_fail_skip": "fail",
+      "evidence_path": "일치: csat/practice/[slug], admin/knowledge/* 뿐",
+      "finding": "미노출 전이·재평가 과제는 CSAT practice와 admin knowledge 쪽에만 있고, 일반 독해 R0 루프에는 이를 잇는 경로가 보이지 않는다.",
+      "blocker": "일반 독해용 전이·재평가 라우트가 없다",
+      "dependency": [
+        "L-05"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "learning_loop",
+      "canon_criteria": [
+        "VG-L3-A3-01-AC1",
+        "VG-L3-A3-02-AC1"
+      ]
+    },
+    {
+      "item_id": "L-07",
+      "goal_id": "R0-common-vs-csat",
+      "source_ref": "lib/csat/learning-session.ts, lib/csat/map/learner-path.ts",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "csat/common",
+      "reported_or_verified": "verified",
+      "implementation_status": "PARTIAL",
+      "pass_fail_skip": "unknown",
+      "evidence_path": "funnel 분포(csat_paper_read 115, 일반 읽기 0)",
+      "finding": "일반 읽기 완료는 공용 texts 테이블 경로를 쓰고 CSAT 테이블에 기대지 않는다. 그러나 실제 사용 신호와 전이 로직은 CSAT 쪽에 몰려 있다.",
+      "blocker": null,
+      "dependency": [
+        "L-02",
+        "L-06"
+      ],
+      "r0_priority": "R0_SUPPORT",
+      "area": "learning_loop",
+      "canon_criteria": [
+        "VG-L3-B2-01-AC1"
+      ]
+    },
+    {
+      "item_id": "L-08",
+      "goal_id": "R0-history-dashboard",
+      "source_ref": "/dashboard",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "dashboard",
+      "reported_or_verified": "unknown",
+      "implementation_status": "UNKNOWN",
+      "pass_fail_skip": "unknown",
+      "evidence_path": "확인하지 않음",
+      "finding": "대시보드가 무엇을 데이터 원천으로 쓰는지는 확인하지 않았다.",
+      "blocker": "조사하지 않음",
+      "dependency": [
+        "L-04"
+      ],
+      "r0_priority": "R0_SUPPORT",
+      "area": "learning_loop",
+      "canon_criteria": [
+        "VG-L2-B2-AC1",
+        "VG-L3-B2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "D-01",
+      "goal_id": "G-db-migration-parity",
+      "source_ref": "SQL supabase_migrations.schema_migrations vs git ls-tree f8e0ffb4a supabase/migrations",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "DB/migrations",
+      "reported_or_verified": "verified",
+      "implementation_status": "DISCONNECTED",
+      "pass_fail_skip": "fail",
+      "evidence_path": "supabase/migrations @f8e0ffb4a; schema_migrations",
+      "finding": "저장소 고유 버전 474개(파일명 기준 이름 508개) 대 DB 적용 709개, 버전이 정확히 일치하는 것은 138개뿐이다. 저장소에만 있는 것 336개, DB에만 있는 것 571개다. MCP apply_migration이 적용 시각으로 버전을 다시 매겨 생긴 이름-버전 불일치가 대부분으로 보인다.",
+      "blocker": "버전 기준 대조가 불가능해 '적용됨' 판정을 이름 매칭으로 따로 해야 한다",
+      "dependency": [],
+      "r0_priority": "R0_REQUIRED",
+      "area": "db_ci_deploy_supply",
+      "canon_criteria": [
+        "VG-L3-D1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "D-02",
+      "goal_id": "G-db-migration-parity",
+      "source_ref": "schema_migrations version>=20261006",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "DB/migrations",
+      "reported_or_verified": "verified",
+      "implementation_status": "PARTIAL",
+      "pass_fail_skip": "fail",
+      "evidence_path": "DB-only 예: 20261008144206 knowledge_release_approval, 20261008030658 reading_production_snapshot, 20261007205705 reading_controlled_promotion, 20261006100000 function_exec_policy",
+      "finding": "10/06~10/08에 DB에 적용된 reading_promotion·knowledge·csat_ec 계열 마이그레이션이 기준 main의 파일 목록에 같은 버전으로 없다. 다른 브랜치에서 적용됐거나 이름은 같고 번호만 다를 가능성이 있다.",
+      "blocker": "해당 브랜치들의 main 머지 여부 확인 필요",
+      "dependency": [
+        "D-01"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "db_ci_deploy_supply",
+      "canon_criteria": [
+        "VG-L3-D1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "D-03",
+      "goal_id": "G-db-migration-parity",
+      "source_ref": "repo-only 예: 20260520, 20260521..20260603(8자리), 20261001120000..20261002130000",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "DB/migrations",
+      "reported_or_verified": "verified",
+      "implementation_status": "UNKNOWN",
+      "pass_fail_skip": "unknown",
+      "evidence_path": "git ls-tree f8e0ffb4a supabase/migrations",
+      "finding": "저장소에는 8자리 날짜 버전 파일과 _pending_* 파일(이름 3개)이 있다. 저장소 전용 336개 가운데 다른 번호로 실제 적용된 것이 몇 개인지는 이름 대조를 하지 않아 확정하지 못했다.",
+      "blocker": "이름 기준 diff 미실행",
+      "dependency": [
+        "D-01"
+      ],
+      "r0_priority": "R0_SUPPORT",
+      "area": "db_ci_deploy_supply",
+      "canon_criteria": [
+        "VG-L3-D1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "D-04",
+      "goal_id": "G-ci-e2e",
+      "source_ref": ".github/workflows/ci.yml:105; run 37888031561",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "CI",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_UNVERIFIED",
+      "pass_fail_skip": "skip",
+      "evidence_path": "https://github.com/KangMin098/Vocaflow/actions/runs/37888031561",
+      "finding": "main CI(2026-10-09, PR #162 머지)에서 e2e job은 '::notice::e2e 건너뜀 — 저장소 시크릿 미설정'으로 건너뛰었다. 녹색 결과는 lint·typecheck·unit test만 반영한다.",
+      "blocker": "저장소 시크릿(NEXT_PUBLIC_SUPABASE_URL 등) 미설정",
+      "dependency": [],
+      "r0_priority": "R0_REQUIRED",
+      "area": "db_ci_deploy_supply",
+      "canon_criteria": [
+        "VG-L3-D2-01-AC1"
+      ]
+    },
+    {
+      "item_id": "D-05",
+      "goal_id": "G-deploy",
+      "source_ref": ".github/workflows/deploy.yml; run 37888031564",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "Deploy/Vercel",
+      "reported_or_verified": "verified",
+      "implementation_status": "BLOCKED",
+      "pass_fail_skip": "skip",
+      "evidence_path": "https://github.com/KangMin098/Vocaflow/actions/runs/37888031564",
+      "finding": "deploy.yml 에는 실제 Vercel 배포 단계와 배포 후 sitemap 스모크가 있다. main 실행은 VERCEL_TOKEN·PROJECT_ID 미설정으로 건너뛰었다(skip ≠ pass). 다른 배포 경로(Vercel 대시보드 연결 등) 존재 여부는 확인하지 않았다(Codex r1 #11).",
+      "blocker": "Vercel 시크릿·프로젝트 미연결",
+      "dependency": [
+        "D-04"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "db_ci_deploy_supply",
+      "corrected_by": "codex-review-r1",
+      "canon_criteria": [
+        "VG-L3-D2-01-AC1"
+      ]
+    },
+    {
+      "item_id": "D-06",
+      "goal_id": "G-ci",
+      "source_ref": ".github/workflows/{ci,deploy,sync-check,csat-source-audit}.yml",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "CI",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_VERIFIED",
+      "pass_fail_skip": "pass",
+      "evidence_path": "gh run list --branch main",
+      "finding": "main push 때 CI·Deploy·sync-check가 돌고, csat-source-audit는 cron '20 19 * * *'로 매일 돈다. verify job(turbo lint typecheck test)은 통과했다.",
+      "blocker": null,
+      "dependency": [],
+      "r0_priority": "R0_SUPPORT",
+      "area": "db_ci_deploy_supply",
+      "canon_criteria": [
+        "VG-L2-D2-AC1"
+      ]
+    },
+    {
+      "item_id": "D-07",
+      "goal_id": "G-security",
+      "source_ref": "supabase get_advisors security",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "DB/security",
+      "reported_or_verified": "unknown",
+      "implementation_status": "UNKNOWN",
+      "pass_fail_skip": "not_run",
+      "evidence_path": "-",
+      "finding": "보안 advisor는 이번에 조회하지 않았다.",
+      "blocker": "미실행",
+      "dependency": [],
+      "r0_priority": "R0_SUPPORT",
+      "area": "db_ci_deploy_supply",
+      "canon_criteria": [
+        "VG-L3-D2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "D-08",
+      "goal_id": "G-supply-freeze",
+      "source_ref": "SQL select jobname,schedule,active from cron.job",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "Supply pipelines",
+      "reported_or_verified": "verified",
+      "implementation_status": "IMPLEMENTED_VERIFIED",
+      "pass_fail_skip": "pass",
+      "evidence_path": "cron.job 15건",
+      "finding": "활성 pg_cron 14건과 비활성 1건(library-pipeline-worker, 매분)이 있다. 활성 작업은 공급 쪽 정비 작업이다: content-gate-nightly, quality-metrics-nightly, vrl-auto-promote-daily, classify-archaic-candidates-daily, refresh-textbook-shelf-stats(6h), csat-source-snapshot(6h), db-health 3종, gc-content-chunks, refresh-lemma-dominant-pos, archive-stale-drafts, purge-cron-history-7d, recompute-kr-safe. 동결할 때 이 작업들의 의존 관계를 봐야 한다.",
+      "blocker": null,
+      "dependency": [],
+      "r0_priority": "R0_SUPPORT",
+      "area": "db_ci_deploy_supply",
+      "canon_criteria": [
+        "VG-L3-C2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "D-09",
+      "goal_id": "G-supply-freeze",
+      "source_ref": "git grep @f8e0ffb4a apps/web/src/app (admin 제외)",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "Supply pipelines",
+      "reported_or_verified": "verified",
+      "implementation_status": "UNKNOWN",
+      "pass_fail_skip": "unknown",
+      "evidence_path": "apps/web/src/app/(main)/library/scripts/*, (main)/arcade/page.tsx, (main)/library/vocab/actions.ts, api/pdcp/*",
+      "finding": "admin 밖 직접 표 이름 참조: library_articles 7 · shared_word_sets 5 · pd_comic_issues 13(주로 운영 API). 그러나 /comics/adapted 는 만화 카탈로그 RPC 를, 교재 화면은 ComponentVideo 로 영상을 쓴다 — 표 이름 0 이 소비 0 은 아니다(Codex r1 #10). 동결 판단은 RPC·컴포넌트 경유 소비를 포함해 다시 본다.",
+      "blocker": "문자열 grep 기반이라 RPC를 거친 간접 소비는 확인하지 못했다",
+      "dependency": [
+        "D-08"
+      ],
+      "r0_priority": "DEFERRED",
+      "area": "db_ci_deploy_supply",
+      "corrected_by": "codex-review-r1",
+      "canon_criteria": [
+        "VG-L3-C2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "D-10",
+      "goal_id": "G-supply-freeze",
+      "source_ref": "scripts/acp/collect-daily.mjs; .github/workflows",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "ACP",
+      "reported_or_verified": "verified",
+      "implementation_status": "UNKNOWN",
+      "pass_fail_skip": "unknown",
+      "evidence_path": ".github/workflows (ACP cron 없음), cron.job (ACP 수집 없음)",
+      "finding": "GitHub Actions·pg_cron 에 ACP 수집 일정이 없다. 외부 스케줄러(로컬 작업 스케줄러 등)는 확인하지 않아 「수동 실행만」 이라고 단정하지 않는다(Codex r1 #17).",
+      "blocker": "로컬 Task Scheduler 등 외부 스케줄러는 확인하지 못했다",
+      "dependency": [],
+      "r0_priority": "DEFERRED",
+      "area": "db_ci_deploy_supply",
+      "corrected_by": "codex-review-r1",
+      "canon_criteria": [
+        "VG-L3-C2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "X-01",
+      "goal_id": "VG-L3-D1-01",
+      "source_ref": "supabase_migrations.schema_migrations(name) vs git ls-tree f8e0ffb4a supabase/migrations",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "DB/migrations",
+      "reported_or_verified": "verified",
+      "implementation_status": "DISCONNECTED",
+      "pass_fail_skip": "fail",
+      "evidence_path": "_raw/migration_name_diff.json",
+      "finding": "이름 기준 대조: 저장소 508개 · DB 707개(행 709) · 일치 473 · 저장소만 35(_pending 3 포함) · DB 만 234. 버전 번호 기준(일치 138)보다 실제 차이가 훨씬 작다 — 대부분은 MCP 적용 때 번호가 바뀐 것.",
+      "blocker": "DB 에만 있는 234개 중 최근 것(reading_promotion·knowledge·csat_ec)은 main 밖 브랜치 산출 — main 만으로 DB 재현 불가",
+      "dependency": [
+        "D-01",
+        "D-02"
+      ],
+      "r0_priority": "R0_REQUIRED",
+      "area": "step3_session",
+      "canon_criteria": [
+        "VG-L3-D1-01-AC1"
+      ]
+    },
+    {
+      "item_id": "X-02",
+      "goal_id": "VG-L3-D2-02",
+      "source_ref": "supabase get_advisors(security) 전량 540건",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "DB/security",
+      "reported_or_verified": "verified",
+      "implementation_status": "PARTIAL",
+      "pass_fail_skip": "fail",
+      "evidence_path": "_raw/security_advisors_summary.json",
+      "finding": "ERROR 0 · anon 실행 가능 SECURITY DEFINER 함수 21 · authenticated 133 · 유출 비밀번호 보호 꺼짐 · RLS 켜짐·정책 없음 65(INFO).",
+      "blocker": "중등 학습자 계정 보안 — anon definer 21 개별 판정 필요",
+      "dependency": [],
+      "r0_priority": "R0_REQUIRED",
+      "area": "step3_session",
+      "canon_criteria": [
+        "VG-L3-D2-02-AC1"
+      ]
+    },
+    {
+      "item_id": "X-03",
+      "goal_id": "VG-L3-D1-02",
+      "source_ref": "Vocaflow-AI-Control verification/goal-check (VG-L3-D1-02-AC1 FAIL 기록) · T-0006(리텐션 패널만 분리)",
+      "baseline_sha": "f8e0ffb4a",
+      "owner": "analytics",
+      "reported_or_verified": "reported",
+      "implementation_status": "PARTIAL",
+      "pass_fail_skip": "fail",
+      "evidence_path": "AI-Control goal-check 기록 · apps/web/src/lib/admin/account-classification",
+      "finding": "QA·개발·운영 계정 분리는 리텐션 패널에만 적용됐다(T-0006). 대시보드 KPI·사용자 수·퍼널은 내부 계정을 섞어 센다는 FAIL 기록이 있다 — 이번 단계에서 화면별로 다시 세지는 않았다.",
+      "blocker": "나머지 지표의 분리 여부 화면별 재확인 필요",
+      "dependency": [],
+      "r0_priority": "R0_REQUIRED",
+      "area": "step3_session",
+      "canon_criteria": [
+        "VG-L3-D1-02-AC1"
+      ]
+    }
+  ],
+  "migration_name_diff": {
+    "repo_unique": 508,
+    "db_unique": 707,
+    "both": 473,
+    "only_repo": [
+      "_pending_pd_comic_pick_stable",
+      "_pending_reindex_lav_word_key",
+      "_pending_spelling_canonical",
+      "comic_gen_models",
+      "comic_gen_models_run_envs",
+      "comic_gen_observability",
+      "comic_pipeline",
+      "comic_pipeline_fixes",
+      "comic_read_progress",
+      "comic_styles",
+      "compute_book_difficulty_v24",
+      "csat_items_public_hide_stem",
+      "ctp_derive_learner_stage",
+      "ctp_grade_dcp_item",
+      "ctp_prescribe_today",
+      "ctp_syntax_score_recalibrate",
+      "drop_coverage_lexicon",
+      "find_unbound_morphology_columns",
+      "fix_overclassified_concrete_words",
+      "insert_book_analysis_context_pos",
+      "kice_curation_seeds",
+      "lcp_book_difficulty_functions_record",
+      "lexicon_phase1_expand",
+      "library_chapters_group_label",
+      "republish_library_books_with_p1_p4",
+      "sd_word_register_noise_categories",
+      "surface_variants_and_normalized_tier",
+      "surface_variants_derivational_suffixes",
+      "v_text_content_user_book_group",
+      "vcb_publish_commit_record",
+      "vocab_context_sense_matching",
+      "vocab_exclude_noise_registers",
+      "vrl_phase2_runtime_functions_record",
+      "vrl_phase2_tables_columns_record",
+      "wikibooks_activation"
+    ],
+    "only_db_count": 234,
+    "only_db_recent_sample": [
+      "csat_source_operations_summary",
+      "acp_atomic_analysis",
+      "restore_syntax_score_calibration",
+      "csat_discovery_profiles",
+      "revoke_video_job_writers_from_clients",
+      "revoke_csat_source_eligibility_from_anon",
+      "retire_classic_books_from_articles",
+      "spelling_canonical",
+      "csat_error_evidence",
+      "csat_ec_pilot_evidence",
+      "csat_ec_capture_support",
+      "csat_ec_reveal_gate",
+      "csat_ec_reveal_gate_revoke",
+      "auto_promote_self_only",
+      "function_exec_policy",
+      "csat_ec_reveal_gate_revoke_residual",
+      "csat_ec_boundary_detector",
+      "csat_ec_detector_meaning_rule",
+      "reading_adaptation_promotion_gate",
+      "reading_gate_pin_search_path",
+      "reading_controlled_promotion",
+      "reading_promotion_tables_rls",
+      "reading_promotion_explicit_deny_policies",
+      "reading_production_snapshot",
+      "knowledge_release_approval"
+    ]
+  },
+  "security_advisors": {
+    "total": 540,
+    "by_level_name": {
+      "INFO rls_enabled_no_policy": 65,
+      "WARN extension_in_public": 5,
+      "WARN materialized_view_in_api": 1,
+      "WARN pg_graphql_anon_table_exposed": 143,
+      "WARN pg_graphql_authenticated_table_exposed": 171,
+      "WARN anon_security_definer_function_executable": 21,
+      "WARN authenticated_security_definer_function_executable": 133,
+      "WARN auth_leaked_password_protection": 1
+    }
+  },
+  "limits": [
+    "content_and_auth: 화면 실제 렌더링·e2e 미실행",
+    "content_and_auth: /library 상세에서 비로그인 본문 열람 범위와 저작자 표시 UI 미확인",
+    "content_and_auth: profiles 등 기타 사용자 테이블 RLS 전수 미확인",
+    "content_and_auth: STEP 1 문서(docs/platform-audit) 미대조 — reported 항목 없음",
+    "content_and_auth: /fit 진단의 로컬 저장 여부 미확인(grep 결과 없음)",
+    "learning_loop: 작업 트리 HEAD는 12778bbcc이고 기준선 f8e0ffb4a가 아니다. 코드 근거는 HEAD 기준이다",
+    "learning_loop: 테스트를 실행하지 않았다",
+    "learning_loop: events.ts와 DB CHECK allowlist를 대조하지 않았다",
+    "learning_loop: 대시보드와 FSRS 호출 그래프를 깊게 추적하지 않았다(effort 낮음)",
+    "learning_loop: STEP 1 문서를 읽지 않았다",
+    "db_ci_deploy_supply: 저장소 버전 474개는 f8e0ffb4a 기준이다(로컬 HEAD는 e1a22c84c라서 git ls-tree를 그 SHA로 고정해 뽑았다). 이름 기준 diff는 하지 않아서, 번호만 다르고 같은 마이그레이션인 것을 구분하지 못했다.",
+    "db_ci_deploy_supply: get_advisors security는 실행하지 않았다.",
+    "db_ci_deploy_supply: CHANGELOG·DB_SCHEMA 주장과 실제 대조는 하지 않았다.",
+    "db_ci_deploy_supply: 공급 테이블 소비는 grep으로만 확인했다. RPC나 뷰를 거친 간접 소비, 그리고 외부 스케줄러는 확인하지 못했다.",
+    "db_ci_deploy_supply: gh 실행 결과는 최근 main 런 2개(37888031561, 37888031564)만 봤다."
+  ]
+}
