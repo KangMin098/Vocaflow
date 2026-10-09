@@ -72,7 +72,8 @@ export function summarizePractice(rows: AttemptRow[], first: FirstAttemptRow | n
   const transfer = tr.length ? { attempts: tr.length, latestCorrect: tr.at(-1)!.is_correct } : null
   // 아직 하지 않은 예약만 — 예약 시각 뒤에 이 문항을 다시 확인했으면 그 예약은 끝난 것이다
   const reviewAt = (extra.reviews ?? [])
-    .filter((r) => r.review_at && !r.deleted_at && !(latest && latest.answered_at >= (r.review_at as string)))
+    // 끝난 예약 = 예약 시각 뒤에 **같은 문항**을 다시 확인한 것 — 다른 확인 문항의 시도로 이 문항의 예약을 지우지 않는다(Codex P1)
+    .filter((r) => r.review_at && !r.deleted_at && !sorted.some((a) => a.item_ref === r.item_ref && a.answered_at >= (r.review_at as string)))
     .map((r) => r.review_at as string).sort()[0] ?? null
   // 예약일 비교는 주입한 now 로만(시계를 직접 읽지 않는다)
   const reviewDue = !!(reviewAt && extra.now && new Date(reviewAt).getTime() <= extra.now.getTime())
