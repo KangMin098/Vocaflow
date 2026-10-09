@@ -19,12 +19,21 @@ let failProfiles = false
 // 모의 DB: 활동 표는 range 페이지, user_profiles 는 `.in('role', …).limit(n)` 필터 조회(T-0007)를 흉내 낸다.
 // user_profiles 를 range(OFFSET)로 훑으면 이 모의는 실패를 돌려준다 — 페이징 회귀를 잡는다.
 let profileRangeCalls = 0
+// 정렬 없는 range 는 호출마다 다른 순서로 돌려준다(PostgREST 는 order 없이 순서를 보장하지 않는다).
+// `.order('id', { ascending: true })` 가 걸린 조회만 안정된 순서를 받는다 — 누락·중복 회귀를 잡는다(T-0008).
+let unorderedCalls = 0
+const seenIds: Record<string, number[]> = {}
 vi.mock('@/lib/supabase/admin', () => ({
   createAdminClient: () => ({
     auth: { admin: { listUsers: async () => ({ data: { users }, error: null }) } },
     from: (table: string) => {
       let roles: string[] | null = null
+      let orderedById = false
       const q = {
+        order: (col: string, opts?: { ascending?: boolean }) => {
+          if (col === 'id' && opts?.ascending !== false) orderedById = true
+          return q
+        },
         in: (col: string, vals: string[]) => {
           if (col === 'role') roles = vals
           return q
@@ -39,7 +48,16 @@ vi.mock('@/lib/supabase/admin', () => ({
             profileRangeCalls += 1
             return { data: null, error: { message: 'user_profiles 를 OFFSET 페이지로 읽지 않는다' } }
           }
-          return { data: (tables[table] ?? []).slice(lo, hi + 1), error: null }
+          let rows = [...(tables[table] ?? [])]
+          if (orderedById) rows.sort((a, b) => Number(a.id ?? 0) - Number(b.id ?? 0))
+          else {
+            unorderedCalls += 1
+            const shift = (unorderedCalls * 337) % Math.max(rows.length, 1)
+            rows = [...rows.slice(shift), ...rows.slice(0, shift)].reverse()
+          }
+          const page = rows.slice(lo, hi + 1)
+          for (const r of page) if (typeof r.id === 'number') (seenIds[table] ??= []).push(r.id)
+          return { data: page, error: null }
         },
       }
       return { select: () => q }
@@ -132,6 +150,28 @@ describe('fetchRetention — 검증된 외부 계정만 계산한다', () => {
   it('운영 역할 계정이 조회 상한에 닿으면 잘렸을 수 있으므로 null(못 쟀음)', async () => {
     tables.user_profiles = Array.from({ length: 1000 }, (_, i) => ({ user_id: `66666666-6666-4666-8666-${String(i).padStart(12, '0')}`, role: 'curator' }))
     expect(await fetchRetention({})).toBeNull()
+  })
+
+  it('[T-0008] 1,000행을 넘는 활동도 id 순 페이지로 읽어 누락·중복이 없다', async () => {
+    // EXT 의 가입 당일 학습 2,400건 + 마지막 id 에 다음날 복귀 1건. 페이지 순서가 흔들리면 복귀가 빠지거나 행이 겹친다.
+    const N = 2400
+    tables.learning_records = [
+      ...Array.from({ length: N }, (_, i) => ({ id: N - i, user_id: EXT, attempted_at: '2026-01-01T00:00:00Z' })),
+      { id: N + 1, user_id: EXT, attempted_at: '2026-01-02T00:00:00Z' },
+    ]
+    tables.scores = Array.from({ length: 1500 }, (_, i) => ({ id: 1500 - i, user_id: EXT, created_at: '2026-01-01T00:00:00Z' }))
+    unorderedCalls = 0
+    for (const k of Object.keys(seenIds)) delete seenIds[k]
+    const r = await fetchRetention({ VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS: EXT })
+    expect(r?.status).toBe('ok')
+    if (r?.status !== 'ok') return
+    expect(unorderedCalls).toBe(0)
+    const lr = [...(seenIds.learning_records ?? [])].sort((a, b) => a - b)
+    expect(lr).toEqual(Array.from({ length: N + 1 }, (_, i) => i + 1))
+    const sc = [...(seenIds.scores ?? [])].sort((a, b) => a - b)
+    expect(sc).toEqual(Array.from({ length: 1500 }, (_, i) => i + 1))
+    expect(r.report.activated).toBe(1)
+    expect(r.report.returned.d1).toBe(1)
   })
 
   it('결과에는 계정 ID·이메일이 없다', async () => {

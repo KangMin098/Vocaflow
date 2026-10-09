@@ -111,13 +111,15 @@ async function computeFromDb(parsed: Exclude<ReturnType<typeof parseAccountRegis
   //    안 준다(실측 2026-08-30). 리텐션은 "며칠에 걸쳐 돌아왔나" 를 세는 지표라,
   //    잘리면 **최근 1,000건만 보고** 재방문을 계산한다 — 학습이 쌓일수록 더 크게 틀린다.
   //    (이 화면은 분기 진단이 근거로 쓰는 수치다 — 틀린 채로 결정에 들어간다.)
+  //    페이지는 기본키 `id` 오름차순으로 고정한다 — PostgREST 는 order 없이 순서를 보장하지 않아
+  //    1,000행을 넘기면 페이지 사이에 행이 빠지거나 겹친다(T-0008).
   const [lr, sc, operators] = await Promise.all([
     pagedSelect<{ user_id: string | null; attempted_at: string | null }>(
-      (lo, hi) => admin.from('learning_records').select('user_id, attempted_at').range(lo, hi),
+      (lo, hi) => admin.from('learning_records').select('user_id, attempted_at').order('id', { ascending: true }).range(lo, hi),
       'retention learning_records',
     ),
     pagedSelect<{ user_id: string | null; created_at: string | null }>(
-      (lo, hi) => admin.from('scores').select('user_id, created_at').range(lo, hi),
+      (lo, hi) => admin.from('scores').select('user_id, created_at').order('id', { ascending: true }).range(lo, hi),
       'retention scores',
     ),
     fetchOperatorIds(admin),
