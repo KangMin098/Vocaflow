@@ -44,6 +44,24 @@ const log = (rec) => {
 }
 const readLog = () => (fs.existsSync(LOG) ? fs.readFileSync(LOG, 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l)) : [])
 
+/**
+ * 이 AI-Control 인스턴스의 고정 이름(planning/bridge-instance.txt · 처음 쓸 때 무작위 8자).
+ * 요청 id(REQ-날짜-번호)는 인스턴스 안에서만 유일하다 — 교환 저장소를 여러 인스턴스가 함께 쓰면 같은 id 가 생긴다
+ * (실측: PoC 폴더의 REQ-20261009-003 과 실제 상태의 REQ-20261009-003 충돌). 브랜치·PR 제목에 넣고, 수집은 자기 인스턴스 PR 만 본다.
+ */
+function instanceId() {
+  const f = path.join(ROOT, 'planning', 'bridge-instance.txt')
+  if (fs.existsSync(f)) return fs.readFileSync(f, 'utf8').trim()
+  fs.mkdirSync(path.dirname(f), { recursive: true })
+  const id = crypto.randomBytes(4).toString('hex')
+  try {
+    fs.writeFileSync(f, id, { flag: 'wx' })
+    return id
+  } catch {
+    return fs.readFileSync(f, 'utf8').trim()
+  }
+}
+
 function header(reqFile) {
   const m = fs.readFileSync(reqFile, 'utf8').match(/```json vfc-request\s*\n([\s\S]*?)\n```/)
   if (!m) throw new Error(`${reqFile}: vfc-request 블록 없음`)
@@ -137,7 +155,8 @@ function publish(id) {
     log({ event: 'publish_refused', request_id: id, findings: scan.map((x) => x.rule) })
     throw new Error(`게시 전 검사 실패 ${scan.length}건(${[...new Set(scan.map((x) => x.rule))].join(', ')}) — 게시하지 않는다. node poc/work-bridge.mjs preview ${id} 로 확인`)
   }
-  const branch = prior.length ? `vfc/${id}-r${prior.length + 1}` : `vfc/${id}`
+  const inst = instanceId()
+  const branch = prior.length ? `vfc/${inst}/${id}-r${prior.length + 1}` : `vfc/${inst}/${id}`
   if (prior.length && !dry) {
     for (const pr of prior) {
       try {
@@ -147,7 +166,7 @@ function publish(id) {
       }
     }
   }
-  const title = `[vfc] ${id} ${h.thread.goal_ref} ${h.thread.round_id} v${h.thread.design_version}`
+  const title = `[vfc:${inst}] ${id} ${h.thread.goal_ref} ${h.thread.round_id} v${h.thread.design_version}`
   const body = [
     // 실제로 올린 파일만 안내한다 — 없는 .context 폴더를 가리키면 Work 가 「연결 자료 읽기 실패」 로 needs_info 를 낸다(실측 PR #1)
     `ChatGPT Work 에게: 이 PR 의 \`requests/${id}.md\` 를 읽고${ctx.length ? `(최신 플랫폼 정보는 \`requests/${id}.context/\` 의 ${ctx.length}개 파일)` : '(이 요청에는 첨부 컨텍스트가 없다 — 요청서만으로 판단하고 가정은 unverified 로 표시)'}, 그 파일의 「응답 규칙」대로 \`\`\`json vfc-response\`\`\` 블록 하나를 **이 PR 의 댓글**로 남겨 주세요.`,
@@ -183,6 +202,8 @@ function collectOnce({ authors, app }) {
   const prs = ghJson(['pr', 'list', '--repo', opt.repo, '--label', 'vfc-request', '--state', 'all', '--json', 'number,title,headRefName,createdAt', '--limit', '100'])
   const found = []
   for (const pr of prs) {
+    // 자기 인스턴스 PR 만 — 다른 인스턴스(또는 이름공간 없는 옛 PR)의 같은 요청 id 를 집지 않는다
+    if (!pr.title.startsWith(`[vfc:${instanceId()}] `)) continue
     const id = (pr.title.match(/(REQ-\d{8}-\d{3})/) || [])[1]
     if (!id) continue
     const sources = []

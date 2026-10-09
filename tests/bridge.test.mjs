@@ -64,7 +64,7 @@ function setup() {
   }
   const designFile = path.join(root, 'd.json')
   fs.writeFileSync(designFile, JSON.stringify({ summary: 's', acceptance: ['기준 0'], preserved_contracts: ['계약 유지'], allowed_paths: ['src/**'], db_changes: false }))
-  return { root, wt, vfc, bridge, gh, workReplies, run, designFile }
+  return { root, wt, vfc, bridge, gh, workReplies, run, designFile, ghDir }
 }
 
 test('게시: 요청서 + Context Packet 을 라벨 PR 로 · 같은 요청 재게시 거부', () => {
@@ -76,7 +76,8 @@ test('게시: 요청서 + Context Packet 을 라벨 PR 로 · 같은 요청 재�
   assert.equal(p.code, 0, p.err)
   const st = s.gh()
   assert.equal(st.prs.length, 1)
-  assert.match(st.prs[0].title, new RegExp(`\\[vfc\\] ${q.request_id} ${u.ug_id} TH-0001-R02 v0`))
+  assert.match(st.prs[0].title, new RegExp(`^\\[vfc:[0-9a-f]{8}\\] ${q.request_id} ${u.ug_id} TH-0001-R02 v0`))
+  assert.match(st.prs[0].headRefName, /^vfc\/[0-9a-f]{8}\/REQ-/)
   assert.ok(Object.keys(st.files).some((k) => k.endsWith(`requests/${q.request_id}.context/evidence-manifest.json`)), 'Context Packet 업로드')
   assert.ok(!Object.keys(st.files).some((k) => /\.env|verdicts/.test(k)), '패킷 밖 로컬 파일은 올리지 않는다')
   assert.ok(!Object.keys(st.files).some((k) => /active-work-and-conflicts|design-decisions/.test(k)), '승인 범위 밖 패킷 파일(다른 작업·결정 기록)은 내보내지 않는다')
@@ -314,4 +315,30 @@ test('패킷을 요청 뒤에 다시 만들면 게시 거부(첨부 해시 불�
   assert.notEqual(q2.request_id, q.request_id)
   assert.equal(s.bridge('publish', q2.request_id, '--repo', XREPO).code, 0)
   assert.equal(s.vfc('ugoal', 'status', u.ug_id).rounds.find((r) => r.request_id === q.request_id && r.recipient === 'chatgpt').response_status, 'CANCELLED')
+})
+
+test('인스턴스 이름공간: 두 AI-Control 이 한 교환 저장소를 쓰고 요청 id 가 같아도 각자 자기 응답만 수집', () => {
+  const a = setup()
+  const b = setup()
+  // b 가 a 와 같은 가짜 GitHub 을 쓰게 한다
+  const shared = (s, other) => (args, extra = {}) => s.run(BRIDGE, args, { FAKE_GH_DIR: other, ...extra })
+  const ua = a.vfc('ugoal', 'start', '--from', 'claude', '--title', 'A', '--goals', CANON, '--by', 'claude')
+  const ub = b.vfc('ugoal', 'start', '--from', 'claude', '--title', 'B', '--goals', CANON, '--by', 'claude')
+  const qa = a.vfc('ugoal', 'request-design', ua.ug_id, '--no-context', '--by', 'claude')
+  const qb = b.vfc('ugoal', 'request-design', ub.ug_id, '--no-context', '--by', 'claude')
+  assert.equal(qa.request_id, qb.request_id, '두 인스턴스가 같은 요청 id 를 만든다(전제)')
+  assert.equal(a.bridge('publish', qa.request_id, '--repo', XREPO).code, 0)
+  const pubB = shared(b, a.ghDir)(['publish', qb.request_id, '--repo', XREPO])
+  assert.equal(pubB.code, 0, pubB.err)
+  const st = a.gh()
+  assert.equal(st.prs.length, 2)
+  assert.notEqual(st.prs[0].headRefName, st.prs[1].headRefName, '브랜치가 겹치지 않는다')
+  a.workReplies(1)
+  a.workReplies(2)
+  const ca = a.bridge('collect', '--repo', XREPO).json.results.filter((r) => r.status === 'collected')
+  const cb = shared(b, a.ghDir)(['collect', '--repo', XREPO]).json.results.filter((r) => r.status === 'collected')
+  assert.deepEqual(ca.map((r) => r.pr), [1])
+  assert.deepEqual(cb.map((r) => r.pr), [2])
+  assert.equal(a.vfc('ugoal', 'intake', '--min-age-ms', '0', '--by', 'u').results[0].status, 'applied')
+  assert.equal(b.vfc('ugoal', 'intake', '--min-age-ms', '0', '--by', 'u').results[0].status, 'applied')
 })
