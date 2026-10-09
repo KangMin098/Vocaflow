@@ -1,0 +1,97 @@
+// scripts/csat/lure-drain-export.mjs
+//
+// **끌리는 구절 드레인 — 내보내기.** 평가원 발행 분석(문항마다 최신 버전)의 오답 가운데 지문 위 자리를
+// 못 찾는 것(lib-fragments.locateChoice → null)만 골라 청크로 쓴다. 에이전트가 각 오답에 대해 지문 속
+// 「이 선지로 끌어당기는 구절」을 **원문 그대로** 골라 `chunk-NN.out.json` 에 쓰고, lure-drain-import 가 검증 뒤
+// `choice_analysis[].lure_quote` 키 하나만 더한다(마이그레이션 불필요 · 다른 키는 그대로).
+//
+// 재실행 안전 — 이미 자리를 찾는 오답(lure_quote 포함)은 건너뛴다. 청크에는 지문 원문이 들어가므로 커밋하지 않는다(.gitignore).
+//
+//   pnpm exec tsx scripts/csat/lure-drain-export.mjs [--per 25]
+
+import fs from 'node:fs'
+import path from 'node:path'
+
+import { isKiceExam } from './lib-exam-id.mjs'
+import { locateChoice } from './lib-fragments.mjs'
+
+for (const f of ['apps/web/.env.local', '.env.local']) {
+  if (!fs.existsSync(f)) continue
+  for (const line of fs.readFileSync(f, 'utf8').split(/\r?\n/)) {
+    const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
+  }
+}
+
+const { createClient } = await import('@supabase/supabase-js')
+const { findQuote } = await import('../../apps/web/src/lib/csat/quote-match.ts')
+
+const PER_ARG = process.argv.indexOf('--per')
+const PER = PER_ARG >= 0 ? Number(process.argv[PER_ARG + 1]) : 25
+const OUT = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), 'lure-drain')
+
+const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
+
+// PostgREST 는 1,000행에서 조용히 끊는다 — 페이징한다.
+async function page(table, sel, tune = (q) => q) {
+  const out = []
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await tune(db.from(table).select(sel)).range(from, from + 999)
+    if (error) throw new Error(`${table}: ${error.message}`)
+    out.push(...data)
+    if (data.length < 1000) break
+  }
+  return out
+}
+
+const analyses = await page('csat_item_analyses', 'id, item_id, version, choice_analysis', (q) =>
+  q.eq('status', 'published').order('item_id').order('version', { ascending: false }),
+)
+const latest = new Map()
+for (const r of analyses) if (!latest.has(r.item_id)) latest.set(r.item_id, r)
+
+const items = (await page('csat_items', 'id, exam_id, no, type_id, stem, choices, passage, body_ok', (q) => q.order('id'))).filter(
+  (r) => isKiceExam(r.exam_id) && r.body_ok && r.passage,
+)
+
+const work = []
+let distractors = 0
+let placed = 0
+for (const it of items) {
+  const a = latest.get(it.id)
+  if (!a || !Array.isArray(a.choice_analysis)) continue
+  const todo = []
+  for (const ch of a.choice_analysis) {
+    if (ch.n == null || ch.verdict === 'correct' || !String(ch.trap ?? '').trim()) continue
+    distractors += 1
+    if (locateChoice(ch, it.passage, findQuote)) {
+      placed += 1
+      continue
+    }
+    const choice = Array.isArray(it.choices) ? it.choices[ch.n - 1] : null
+    todo.push({
+      n: ch.n,
+      choice: typeof choice === 'string' ? choice : (choice?.text ?? null),
+      trap: ch.trap,
+      why_tempting: ch.why_tempting ?? null,
+      how_to_reject: ch.how_to_reject ?? null,
+    })
+  }
+  if (todo.length)
+    work.push({ item_id: it.id, analysis_id: a.id, version: a.version, type_id: it.type_id, stem: it.stem, passage: it.passage, distractors: todo })
+}
+
+fs.mkdirSync(OUT, { recursive: true })
+for (const f of fs.readdirSync(OUT)) if (/^chunk-\d+\.json$/.test(f)) fs.rmSync(path.join(OUT, f))
+let chunks = 0
+for (let i = 0; i < work.length; i += PER) {
+  const id = String(chunks + 1).padStart(2, '0')
+  if (fs.existsSync(path.join(OUT, `chunk-${id}.out.json`))) {
+    chunks += 1
+    continue // 이미 채운 청크는 다시 쓰지 않는다 — 결과는 import 가 검증한다
+  }
+  fs.writeFileSync(path.join(OUT, `chunk-${id}.json`), JSON.stringify({ chunk: id, items: work.slice(i, i + PER) }, null, 1))
+  chunks += 1
+}
+const todoN = work.reduce((n, w) => n + w.distractors.length, 0)
+console.log(`오답 ${distractors} · 자리 있음 ${placed} (${((100 * placed) / distractors).toFixed(1)}%) · 채울 것 ${todoN}개 / ${work.length}문항 → 청크 ${chunks} (${OUT})`)

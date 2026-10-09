@@ -94,18 +94,8 @@ const items = (await page('csat_items', 'id, exam_id, no, type_id, passage, body
   SET === 'kice' ? isKiceExam(r.exam_id) : !isKiceExam(r.exam_id),
 )
 
-// 한국어 산문에 박힌 영어 조각. 낱말 하나는 지문 어디에나 있어 «아무 데나 칠하기» 가 되므로
-// 구(句) 이상만 쓴다.
-const MIN = 20
-const FRAG = new RegExp(`[A-Za-z][A-Za-z0-9 ,.;:'"()\-‘’“”–—]{${MIN - 1},}`, 'g')
-function fragments(text) {
-  const out = []
-  for (const m of text.matchAll(FRAG)) {
-    const s = m[0].trim().replace(/[\s,.;:]+$/, '')
-    if (s.length >= MIN) out.push(s)
-  }
-  return out.sort((a, b) => b.length - a.length)
-}
+// 영어 조각 · 오답 자리 찾기 규칙은 끌리는 구절 드레인(lure-drain-*)과 같은 모듈을 쓴다.
+const { locateChoice } = await import('./lib-fragments.mjs')
 
 // ── 노출 예산 — 임계값을 지어내지 않는다 ────────────────────────────────
 //
@@ -223,20 +213,10 @@ for (const it of items) {
   if (a.answer_locus?.quote) anchors.push({ id: 'answer', quote: a.answer_locus.quote, from: 'answer' })
   for (const ch of a.choice_analysis || []) {
     if (ch.n == null) continue
-    // ① **「지우는 근거」가 먼저다.** 그 자리가 이 선지를 버린다 — 가장 강한 대응이다.
-    const fr = ch.how_to_reject ? fragments(ch.how_to_reject).find((f) => findQuote(it.passage, f)) : null
-    if (fr) {
-      anchors.push({ id: `reject:${ch.n}`, quote: fr, from: 'reject' })
-      continue
-    }
-    // ② 못 찾으면 **「끌리는 이유」**에서 찾는다. 그 자리는 이 선지를 지우지 않는다 —
-    //    이 선지로 **끌어당긴다.** 그래서 `from` 으로 갈라 두고 화면이 다르게 말한다.
-    //    (같은 말로 칠하면 학습자는 «여기가 지우는 근거» 로 읽는다. 조용한 거짓말이다.)
-    //
-    //    정답 선지에는 붙이지 않는다 — `reject:n` 은 «버릴 것» 의 id 다.
-    if (ch.verdict === 'correct') continue
-    const fr2 = ch.why_tempting ? fragments(ch.why_tempting).find((f) => findQuote(it.passage, f)) : null
-    if (fr2) anchors.push({ id: `reject:${ch.n}`, quote: fr2, from: 'tempt' })
+    // ① 「지우는 근거」 ② 「끌리는 이유」 ③ 드레인이 채운 「끌리는 구절」(lure_quote) 순서. ②③ 은 이 선지를 지우지 않고
+    //    **끌어당기는** 자리라 `from: 'tempt'` 로 갈라 두고 화면이 다르게 말한다. 정답 선지에는 ①만(lib-fragments.mjs).
+    const hit = locateChoice(ch, it.passage, findQuote)
+    if (hit) anchors.push({ id: `reject:${ch.n}`, quote: hit.quote, from: hit.from })
   }
   if (!anchors.length) {
     skippedNoAnchor += 1
