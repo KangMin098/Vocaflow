@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/csat/practice/[slug]/page.tsx
+// apps/web/src/app/(app)/csat/practice/[slug]/page.tsx
 //
 // 「주장과 근거」 연습 — 정본(feat/methodology-vnext) 주석 · 적용 게이트 위에 이식한 학습자 화면(docs/csat-learner/PRACTICE_PORT.md).
 // 학습자: 적용이 active 이고 채택 사슬이 살아 있는 주석 문항만. 하나도 없으면 404.
@@ -8,7 +8,11 @@ import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { FlaskConical } from 'lucide-react'
+
+import { CsatShell } from '@/components/csat/home/CsatShell'
 import { ClaimPractice } from '@/components/knowledge/ClaimPractice'
+import { railExams } from '@/lib/csat/rail-data'
 import { getAdminUser } from '@/lib/auth/require-admin'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { PRACTICE_SLUG, capabilityHits, firstAttempts, pendingReviews, pickNext } from '@/lib/knowledge/practice'
@@ -54,6 +58,7 @@ export default async function PracticePage({ params, searchParams }: { params: {
   const chosen = searchParams.item && pool.some((p) => p.itemId === searchParams.item) ? searchParams.item : (next?.itemId ?? pool[0].itemId)
 
   return (
+    <CsatShell place="practice" exams={await railExams()} pill={<><FlaskConical size={13} aria-hidden="true" />연습 · 주장과 근거</>} bare>
     <ClaimPractice
       preview={preview}
       judgement={judgement}
@@ -63,5 +68,6 @@ export default async function PracticePage({ params, searchParams }: { params: {
       history={firsts.slice(-10).map((a) => ({ phase: a.phase, claimHit: a.claimHit, helpLevel: a.helpLevel }))}
       reviews={reviews}
     />
+    </CsatShell>
   )
 }
