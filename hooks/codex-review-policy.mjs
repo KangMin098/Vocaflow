@@ -356,7 +356,8 @@ function inner(ctx, deps, cfg, log) {
     const v = verdictOf(rr)
     const rec = mkRecord({ root, head, from, rr, v, kind: 'post_final', R })
     recordVerdict(deps.stateDir, rec)
-    R.final.followup_head = head
+    // 성공한 리뷰만 얼린다 — 실패·예산 초과(UNKNOWN + failures)는 같은 head 에서 다음 Stop 에 다시 시도(여전히 exit 0)
+    if (!rr.failures.length) R.final.followup_head = head
     R.history.push(rec)
     if (v === VERDICT.PASS) {
       R.final = null // 차단이 풀렸다 — 정상 모드로 복귀
@@ -381,7 +382,8 @@ function inner(ctx, deps, cfg, log) {
     const rec = mkRecord({ root, head, from, rr, v, kind: 'final', R })
     recordVerdict(deps.stateDir, rec)
     R.history.push(rec)
-    R.final = { verdict: v, head, at: rec.at }
+    // 실패한 최종 리뷰는 판정으로 얼리지 않는다(Codex 리뷰 P1) — fix_rounds 는 상한에 머물러 다음 Stop 도 읽기 전용 최종 리뷰다
+    R.final = rr.failures.length ? null : { verdict: v, head, at: rec.at }
     if (v === VERDICT.PASS) {
       R.final = null
       advance()

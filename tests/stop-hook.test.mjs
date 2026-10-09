@@ -204,3 +204,15 @@ test('SH6c 판독 불가 출력은 UNKNOWN · codex review 의 깨끗한 문장�
   const h2 = harness({ reviews: ['The implementation satisfies the goal. No concrete defects or goal drift were identified in the supplied diff.'] })
   assert.equal(h2.stop().verdict, VERDICT.PASS)
 })
+
+test('SH12b 최종 리뷰 실패는 얼리지 않는다 — 같은 head 에서 읽기 전용 최종 리뷰 재시도', () => {
+  const h = harness({ reviews: [P1('src/a.ts', 'a'), P1('src/a.ts', 'bb'), P1('src/a.ts', 'ccc'), null, CLEAN] })
+  for (let i = 0; i < 3; i++) h.stop()
+  const u = h.stop()
+  assert.equal(u.verdict, VERDICT.UNKNOWN)
+  assert.equal(u.exit, 0)
+  const again = h.stop(u.head)
+  assert.equal(again.exit, 0)
+  assert.equal(again.verdict, VERDICT.PASS)
+  assert.equal(h.calls.at(-1).kind, 'final')
+})
