@@ -12,6 +12,7 @@
 ## Unreleased (v06.34 → next)
 
 - docs(map): 한국 영어학습 맵 전체 완료 계약 [MAP_COMPLETION_CONTRACT](./csat-learner/MAP_COMPLETION_CONTRACT.md)(MC-01–16 · ACCEPTED/PARTIAL/FAIL/UNKNOWN/BLOCKED) · 계약 A 원인 판정 · B Evidence Anchor · C FIND→진단 환류 [MAP_CONTRACTS_ABC](./csat-learner/MAP_CONTRACTS_ABC.md)(PROPOSED) · 순수 `evidence-anchor.ts` · `find-feedback.ts` + 단위 테스트. DB · 화면 변경 없음
+- feat(csat): 기출 해설 「답이 왜 이것인가」 — 근거 해설이 정답 설명의 영어 인용을 모두 되풀이하기만 하면 한 번만 보인다(새 근거 인용이 있으면 그대로 · 감사 표본 5/7 중복). 강의 문장 가리킴 ↔ 문장 지도 번호 정합 전량 측정 0/6,608 어긋남 · 가드(`lecture-sentence-range.test.ts`).
 
 - fix(csat): E11 복습 예약 신뢰성 — 「N일 뒤」 = 한국 달력 날짜(`lib/knowledge/review-date.ts` · 저장은 그 날 KST 00:00) · 예약 응답은 서버가 확정한 날짜(이미 잡힌 날이면 그 날) · Practice 화면 「내 복습」(지도에 안 걸리는 Practice 예약도 다시 찾기 · 같은 문항을 예약일 뒤 다시 풀어야 끝남).
 

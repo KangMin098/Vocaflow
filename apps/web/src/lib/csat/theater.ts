@@ -12,6 +12,7 @@
 //
 // ⚠️ 이름은 **역할과 타깃에서만** 짓는다. 대본 글자(`segments`)는 이 파일에 들어오지 않는다 —
 //    들어오면 서버 렌더 HTML 에 대본이 실려 `lecture/types.ts` 의 경계가 무너진다.
+import { reasoningRepeats } from './learner-text'
 
 import type { LectureRole, LectureStep } from './lecture/types'
 
@@ -204,7 +205,8 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
         { text: '정답 근거', tone: 'ok' },
         ...(item.answer != null && !item.answer_unknown ? [{ text: CIRCLED[item.answer] ?? String(item.answer) }] : []),
       ],
-      body: [...text(item.why_correct), ...text(item.evidence_reasoning)],
+      // 근거 해설이 정답 설명의 인용을 되풀이하기만 하면 한 번만 말한다(학습 가치 감사 — 같은 근거 두 번)
+      body: [...text(item.why_correct), ...(reasoningRepeats(item.why_correct, item.evidence_reasoning) ? [] : text(item.evidence_reasoning))],
       quote: item.evidence_quote?.trim() || null,
       quoteTruncated: item.evidence_quote_truncated === true,
     })

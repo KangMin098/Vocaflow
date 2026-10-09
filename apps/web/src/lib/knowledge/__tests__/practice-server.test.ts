@@ -337,18 +337,23 @@ describe('E11 복습 예약 — 서버 확정 날짜(KST) · 재전송 정합(Co
   })
 })
 
-describe('선행 해설 열람은 다른 세션이어도 이어 붙는다(Codex P1)', () => {
-  it('같은 문항에 앞선 도움 · 해설 열람이 있으면 화면이 independent 로 보내도 viewed_first 로 기록', async () => {
+describe('세션을 건너온 도움 — 쓰기는 사실 그대로 · 읽을 때 판정(원인 분석 뒤 재설계)', () => {
+  it('쓰기는 화면이 보낸 도움 수준 그대로(다른 세션 도움으로 덮지 않는다 — 먼저 판단 · 늦게 도착한 판단을 잘못 세지 않게)', async () => {
     const f = fakeWriter()
-    const r = await submitPractice({ ...deps(f.writer), priorHelp: async () => true }, { userId: 'u1', synthetic: false }, SUB)
-    expect(f.writes[0].helpLevel).toBe('viewed_first')
-    // 피드백도 서버가 확정한 도움 수준 — 「해설을 먼저 본 기록」 안내가 빠지지 않는다
-    expect(r.feedback.helpLevel).toBe('viewed_first')
-  })
-  it('앞선 도움이 없으면 independent 그대로', async () => {
-    const f = fakeWriter()
-    await submitPractice({ ...deps(f.writer), priorHelp: async () => false }, { userId: 'u1', synthetic: false }, SUB)
+    await submitPractice(deps(f.writer), { userId: 'u1', synthetic: false }, SUB)
     expect(f.writes[0].helpLevel).toBe('independent')
+  })
+  it('읽을 때: 다른 세션에서 판단 전에 해설을 봤으면 역량 판정에서 독립 아님 · 판단 뒤 열람이면 독립 유지', async () => {
+    const base = { task_key: PRACTICE_TASK, phase: 'practice', activity: 'practice', help_level: 'independent', session_id: 'mine', response: { grade: { claim: true } } }
+    const rows = [{ ...base, id: 1, item_ref: 'A', answered_at: '2026-10-09T10:10:00Z', received_at: '2026-10-09T10:10:01Z' }, { ...base, id: 2, item_ref: 'B', answered_at: '2026-10-09T10:00:00Z', received_at: '2026-10-09T10:00:01Z' }]
+    const sessions = [
+      { id: 'theater-1', item_ref: 'A', help_received_at: null, explanation_viewed_at: '2026-10-09T10:00:00Z', help_server_at: null, explanation_server_at: '2026-10-09T10:00:01Z' },
+      { id: 'theater-2', item_ref: 'B', help_received_at: null, explanation_viewed_at: '2026-10-09T10:30:00Z', help_server_at: null, explanation_server_at: '2026-10-09T10:30:01Z' },
+    ]
+    const mk = (data: unknown[]) => { const q = { select: () => q, eq: () => q, in: () => q, order: () => q, limit: async () => ({ data, error: null }) }; return q }
+    const db = { from: (t: string) => mk(t === 'learning_sessions' ? sessions : t === 'learning_first_attempts' ? [] : rows) } as unknown as SupabaseClient
+    const got = await loadMyAttempts(db, 'u1', { preview: false })
+    expect(got.map((g) => [g.itemId, g.helpLevel])).toEqual([['A', 'viewed_first'], ['B', 'independent']])
   })
   it('예약 확정 날짜를 읽지 못하면 확정이라고 말하지 않는다(오류)', async () => {
     await expect(schedulePracticeReview({ ...deps(fakeWriter().writer), db: fakeDb([]).db }, { userId: 'u1', synthetic: false }, { itemId: SUB.itemId, clientSessionId: SUB.clientSessionId, days: 1, finishedAt: '2026-10-08T23:00:00.000Z', preview: false })).rejects.toThrow('확인 실패')

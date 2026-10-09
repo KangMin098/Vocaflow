@@ -1,24 +1,61 @@
 // apps/web/src/lib/knowledge/prior-help.ts
 //
-// 같은 문항의 **앞선 도움 · 해설 열람**을 서버 기록에서 확인한다 — Practice 와 문항 확인 과제가 같이 쓴다(Codex P1 · 2026-10-09).
-// 화면은 새로고침 · 문항 재선택 · 다른 기기마다 새 세션을 independent 로 시작하므로, 독립 판정은 서버가 이어 붙인다.
-import type { SupabaseClient } from '@supabase/supabase-js'
+// **세션을 건너온 도움**을 읽을 때 판정한다 — 같은 문항의 다른 세션(새로고침 · 문항 재선택 · 다른 기기 · 해설 극장 공개)에서
+// 먼저 받은 도움 · 해설 열람이 이 판단보다 앞섰나(2026-10-09 원인 분석 뒤 재설계).
+//
+// 왜 쓰기 때가 아니라 읽기 때인가: 「판단이 도움보다 먼저였나」는 기기 시각(판단)과 다른 세션의 시각(도움)의 순서 문제다.
+// 쓰기 때 값 하나로 덮으면 — 시각을 비교하면 다른 기기 시계가 앞설 때 앞선 열람을 놓치고, 시각을 무시하면 먼저 판단하고
+// 늦게 도착한 판단을 도움받은 것으로 잘못 센다(Codex P1 두 개가 서로를 다시 연다). 그래서 기록은 기기가 보낸 사실 그대로 두고,
+// 읽을 때 M8 과 같은 규칙(판단 시각 vs 도움 시각 · 2분 안 · 서버 수신 순서 모순 · 판단 기기 지연 폭 · 도움 기기 시계 의심)으로
+// 「도움받음 / 시각 불확실 / 독립」을 가른다. 불확실은 독립으로 세지 않는다(보류).
 
-/**
- * 같은 문항 · 다른 세션에 도움 노출(hint · viewed_first)이나 해설 열람이 **이미 서버에 있나**(Codex P1).
- * 화면은 새로고침 · 문항 재선택마다 새 세션을 independent 로 시작하므로, 앞선 해설 열람을 서버가 이어 붙인다.
- * 기기 시각은 비교하지 않는다 — 다른 기기 시계가 앞서면 시각 비교가 앞선 열람을 놓친다. 정답 · 해설을 본 뒤의 판단은 독립이 아니다(보수적).
- */
-export async function priorHelpOf(db: SupabaseClient, userId: string, itemId: string, clientMutationId: string, clientSessionId: string): Promise<boolean> {
-  // 이미 저장된 제출의 재전송이면 그때 정한 도움 수준을 그대로 — 사이에 다른 세션 열람이 생겨도 재전송 원문이 바뀌지 않게(Codex P1)
-  const prior = await db.from('learning_task_attempts').select('help_level').eq('user_id', userId).eq('client_mutation_id', clientMutationId).maybeSingle()
-  if (!prior.error && prior.data) return (prior.data as { help_level: string | null }).help_level !== 'independent'
-  const { data, error } = await db.from('learning_sessions').select('id')
-    .eq('user_id', userId).eq('item_ref', itemId).neq('client_session_id', clientSessionId)
-    .or('help_level.in.(hint,viewed_first),explanation_viewed_at.not.is.null')
-    .limit(1)
-  // 확인을 못 하면 보수적으로 도움받은 것으로 본다 — 독립 표본을 부풀리지 않는다
-  if (error) return true
-  return (data ?? []).length > 0
+const NEAR_MS = 120_000
+
+export interface CrossSession {
+  id: string
+  item_ref: string | null
+  help_received_at: string | null
+  explanation_viewed_at: string | null
+  help_server_at: string | null
+  explanation_server_at: string | null
+  help_clock_suspect?: boolean | null
 }
 
+export interface CrossAttempt {
+  sessionId: string | null
+  itemId: string
+  answeredAt: string
+  /** 서버 수신 시각(M8 received_at) — 옛 기록은 null */
+  receivedAt: string | null
+}
+
+export type CrossVerdict = 'independent' | 'helped' | 'uncertain'
+
+const t = (s: string | null | undefined) => (s ? Date.parse(s) : Number.NaN)
+
+/** 다른 세션의 도움 · 해설 열람이 이 판단에 앞섰나 — 같은 세션 안의 도움은 M8 첫 시도 뷰가 이미 가른다 */
+export function crossSessionHelp(a: CrossAttempt, sessions: readonly CrossSession[]): CrossVerdict {
+  const answered = t(a.answeredAt)
+  const received = t(a.receivedAt)
+  const delay = Number.isFinite(received) ? received - answered : Number.NaN
+  let verdict: CrossVerdict = 'independent'
+  for (const s of sessions) {
+    if (s.item_ref !== a.itemId || s.id === a.sessionId) continue
+    const events = [
+      { at: t(s.help_received_at), srv: t(s.help_server_at) },
+      { at: t(s.explanation_viewed_at), srv: t(s.explanation_server_at) },
+    ].filter((e) => Number.isFinite(e.at))
+    if (events.length === 0) continue
+    // 도움 기록 기기의 시계가 미래였다 — 그 세션의 시각 순서는 믿지 않는다
+    if (s.help_clock_suspect) verdict = 'uncertain'
+    for (const e of events) {
+      if (e.at <= answered - NEAR_MS) return 'helped' // 판단 2분 넘게 전에 도움 — 분명히 앞섰다
+      if (Math.abs(answered - e.at) < NEAR_MS) verdict = 'uncertain' // 2분 안 · 동률
+      // 서버는 도움을 먼저 받았는데 그 뒤 도착한 판단이 도움보다 이르다고 주장 — 판단 기기 시계가 늦거나 오프라인
+      else if (Number.isFinite(e.srv) && Number.isFinite(received) && e.srv <= received && answered < e.at) verdict = 'uncertain'
+      // 판단 기기 지연(수신 − 판단 > 2분) 폭 안에 도움 시각이 있으면 순서를 믿지 않는다
+      else if (Number.isFinite(delay) && delay > NEAR_MS && Math.abs(answered - e.at) < delay) verdict = 'uncertain'
+    }
+  }
+  return verdict
+}
