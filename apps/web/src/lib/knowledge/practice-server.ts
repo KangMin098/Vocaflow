@@ -108,8 +108,15 @@ async function serverPool(opts: { preview: boolean }, client?: SupabaseClient): 
  * 있으면 Practice 화면 주소, 없으면 null(같은 문항뿐인데 「다른 지문」 이라고 말하지 않는다).
  */
 export async function practiceHrefBeyond(itemId: string): Promise<string | null> {
+  return (await practiceHrefsBeyond([itemId]))[itemId] ?? null
+}
+
+/** 여러 문항을 한 번에 — 풀은 요청당 한 번만 계산한다(문항마다 다시 읽지 않는다) */
+export async function practiceHrefsBeyond(itemIds: string[]): Promise<Record<string, string | null>> {
+  if (itemIds.length === 0) return {}
   const pool = await serverPool({ preview: false }, admin())
-  return pool.some((e) => e.itemId !== itemId) ? `/csat/practice/${PRACTICE_SLUG}` : null
+  const href = `/csat/practice/${PRACTICE_SLUG}`
+  return Object.fromEntries(itemIds.map((id) => [id, pool.some((e) => e.itemId !== id) ? href : null]))
 }
 
 /** 화면용 풀 — 정답 키 없음 */

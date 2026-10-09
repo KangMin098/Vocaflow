@@ -16,7 +16,7 @@ import { loadSnapshots } from '../diagnosis/snapshot'
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
-import { practiceHrefBeyond } from '../../knowledge/practice-server'
+import { practiceHrefsBeyond } from '../../knowledge/practice-server'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
 import type { FindAttemptRow } from '../../knowledge/find-outcome'
 
@@ -307,12 +307,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   })
   const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
   // 결과 환류의 다음 칸 — 같은 원리를 다른 지문에 적용(Practice). 실학습 풀에 그 문항 말고 다른 문항이 있을 때만
+  // 링크를 보일 수 있는 칸(마친 확인 · 전이 없음)이 있을 때만, 풀은 한 번만 계산한다
+  const needNext = Object.entries(practiceLinks).filter(([taskId, link]) => link.taskKey === 'claim-support' && practiceResults?.[taskId]?.next === 'move_on' && !practiceResults[taskId].transfer)
+  const hrefs = needNext.length ? await practiceHrefsBeyond(needNext.map(([, l]) => l.itemId)).catch((e) => { console.error('[csat-map practice next]', e); return {} as Record<string, string | null> }) : {}
   const practiceNext: Record<string, string> = {}
-  for (const [taskId, link] of Object.entries(practiceLinks)) {
-    if (link.taskKey !== 'claim-support') continue
-    const href = await practiceHrefBeyond(link.itemId).catch((e) => { console.error('[csat-map practice next]', e); return null })
-    if (href) practiceNext[taskId] = href
-  }
+  for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
   return {
     model: buildMapModel(raw, examLabels),
