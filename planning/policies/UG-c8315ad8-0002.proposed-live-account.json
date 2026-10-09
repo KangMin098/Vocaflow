@@ -1,0 +1,80 @@
+{
+  "goal_id": "UG-c8315ad8-0002",
+  "allowed_capabilities": [
+    "read",
+    "plan",
+    "design_request",
+    "code_change",
+    "test",
+    "review",
+    "docs",
+    "branch_push",
+    "db_read_dev"
+  ],
+  "allowed_code_areas": [
+    "apps/web/src/lib/csat/map/**",
+    "apps/web/src/components/csat/diagnosis/map/**",
+    "apps/web/src/lib/knowledge/find-*.ts",
+    "apps/web/src/lib/knowledge/__tests__/find-*.test.ts"
+  ],
+  "excluded_operations": [
+    "db_write",
+    "schema_change",
+    "canon_change",
+    "deploy",
+    "merge_main",
+    "external_publish",
+    "auth_change",
+    "personal_data"
+  ],
+  "risk_level": "MEDIUM",
+  "max_runtime_min": 120,
+  "max_cost_usd": 15,
+  "merge_policy": "none",
+  "live_test_user": "b07abaf9-2789-4d4e-9551-c0e770f2ac17",
+  "read_only_attestation": [
+    {
+      "path": "apps/web/src/lib/knowledge/product-server.ts",
+      "sha256": "d2176432e5ec98287c6e076c9fb2982f69305d94eea98b6dd9c8478befb463e5",
+      "note": "쓰기 함수를 정의·참조하지만 loadMapPage 경로에서 호출하지 않음(정적 호출 검사)"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/practice-writer.ts",
+      "sha256": "6531098fe8b2fc019b8a467482f72843cc25e61c57cb96e9c153f016c0b58032",
+      "note": "쓰기 함수는 loadMapPage 경로에서 호출되지 않음(정적 호출 검사)"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/cohesion-link.ts",
+      "sha256": "a98a8ae97507cba5e68a557af8dd66b34253bac21dea83ec022e38b36ed23177",
+      "note": ".update( 는 crypto 해시 — DB 쓰기 아님"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/claim-support.ts",
+      "sha256": "da32c10ad3f57767f6d9ebdb5f4927fdb5354c50dbc6e06373673c5de59c12b4",
+      "note": ".update( 는 crypto 해시 — DB 쓰기 아님"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/practice-server.ts",
+      "sha256": "617a8e47c22070921da5d5fab01aa5749064aab4036e2df48b008730bac2cda4",
+      "note": "쓰기 함수는 loadMapPage 경로에서 호출되지 않음(정적 호출 검사)"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/server.ts",
+      "sha256": "a19433a0adbe90fe080e960d8e4ef189cd3e099ea23833f728c4e5fa82a63f47",
+      "note": "쓰기 함수는 loadMapPage 경로에서 호출되지 않음(정적 호출 검사)"
+    }
+  ],
+  "read_only_write_functions": [
+    "directWriter",
+    "g2Writer",
+    "selectWriter",
+    "recordItemTaskAttempt",
+    "schedulePracticeReview",
+    "notePracticeView",
+    "submitPractice",
+    "recomputeSnapshot",
+    "submitExamSession",
+    "deleteExamSession"
+  ],
+  "live_test_user_note": "apps/web/tests/e2e/fixtures/test-user.ts 기본 계정(lexicon-test@vocaflow.local · 합성 도메인) — 개발 DB 읽기 확인 2026-10-10: @vocaflow.local 계정 2개 중 fixture 와 일치하는 유일한 계정 · csat_dx_session 0 · snapshot 0(live 테스트의 기출 기록 전제 미충족 — 데이터 생성 금지)"
+}

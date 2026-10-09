@@ -56,3 +56,20 @@ tests/policy.test.mjs 6(위험 오분류 방지 · 정책 검사 · 위임 1회 
   - 실제 바뀐 HIGH 파일은 그 종류의 승인(db_write·secret·deploy)이 기록됐을 때만 — 인증·정본·의존성·개인정보는 자동 작업에서 늘 막힘.
   - 읽기 전용 확인 = 쓰기 파일 + 확인된 쓰기 함수 참조 파일의 해시 + 쓰기 함수 목록. 그 밖의 파일이 쓰기 호출을 갖거나 그 함수를 새로 참조하면 재확인.
 - 전체 144/144. UG-0002 정책: 확인 파일 6 · 쓰기 함수 10 · 현재 코드 preflight 통과(테스트 계정만 비어 있음).
+
+## 8. 실제 자동 실행(2026-10-10 06:02~06:12 KST · 실제 Claude·Codex·GitHub)
+- 사용자 개입: **1회** — 일반 터미널 `vfc approve --kind goal_delegation`(DL-0070 · 정책 sha 16d6c64c…, 테스트 계정 없음 판).
+- 승인 → 25초 뒤 감시가 오케스트레이터 실행 → 정책 장착 · v4 정책 승인(via_policy) · 초안 2 → T-0014·T-0015.
+- run 1(5분 18초): T-0014 Claude 구현·커밋 d97f09408 → **foreign_worktree_write 로 BLOCKED** — 실행 중 이 세션이 AI-Control 정책 파일을 고쳤다(감지기 정상 · 내 실수). 비용 기록 0(중단).
+- run 2(3분 42초): T-0015 Claude 구현 74ec05fff → Codex 리뷰 → COMPLETED($0.69). 구현 7.0분(78%) · 리뷰 1.9분(21%).
+- T-0014 마무리(수동 · 같은 절차): run 2 가 같은 브랜치에 T-0015 를 쌓아 795a20bc7 기준 재실행은 범위 위반이 되므로 d97f09408 만 Codex 리뷰(findings 0) → 증거(관련 테스트 94 통과 · live 1 건너뜀 명시 · typecheck 통과) → 독립 owner 완료.
+- Work 자동 왕복: 이번 실행 0회(v4 는 이전에 PR #10 자동 왕복으로 받음).
+- 제품 브랜치 `feat/ug0002-map-recheck` push(main 병합 없음).
+- 설계 v4: 수용 기준 9/10 → **GOAL_PARTIAL**(남은 7 = live 테스트 skip 0).
+
+## 9. 테스트 계정 · live
+- 개발 DB 읽기(auth.users · @vocaflow.local): fixture(apps/web/tests/e2e/fixtures/test-user.ts) 기본 계정 lexicon-test@vocaflow.local = b07abaf9-… 로 유일하게 특정. 그 계정의 csat_dx_session 0 · snapshot 0 → load.live.test.ts 의 기출 기록 전제(reference.exams>0) 미충족.
+- 승인된 정책(DL-0070)에는 테스트 계정이 없다. 계정을 넣은 판은 `planning/policies/UG-c8315ad8-0002.proposed-live-account.json`(sha bb78eddc…) — 별도 승인 전에는 쓰지 않는다. 승인해도 데이터 전제 때문에 결과는 FAIL 로 기록될 것(데이터 생성 금지).
+
+## 10. 최종 Codex(ee6c16398) P1 3 → 수정
+깨끗하지 않은 worktree 거부·실행 뒤 HEAD 재확인 · 러너(vitest 설정·setupFiles·globalSetup) 코드도 검사 · 줄 어디의 import 도 파싱. 전체 145/145.

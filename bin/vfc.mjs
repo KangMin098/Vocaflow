@@ -264,7 +264,12 @@ function main() {
       const appr = UG.approvedDesign(g)
       if (!appr) throw new T.RuleError('APPROVAL_REQUIRED', `${ug} 승인된 설계 없음`)
       const head = execFileSync('git', ['-C', worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+      const dirty = () => execFileSync('git', ['-C', worktree, 'status', '--porcelain'], { encoding: 'utf8' }).split('\n').filter((l) => l.trim() && !/\.vfc-runs\//.test(l))
+      // 커밋 안 된 코드로 돈 결과를 커밋에 붙이지 않는다 — 깨끗한 worktree 에서만 · 실행 뒤에도 HEAD·작업 트리 그대로여야 PASS 를 기록
+      if (dirty().length) throw new T.RuleError('DIRTY_WORKTREE', `커밋 안 된 변경이 있다(${dirty().slice(0, 3).join(' | ')}) — 검증은 커밋된 코드로만`)
       const res = LIVE.runLive({ worktree, testRel, liveUser: pol.live_test_user, envFile: opt['env-file'] || path.join(CTX.productRepo(), 'apps', 'web', '.env.local') })
+      const headAfter = execFileSync('git', ['-C', worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+      if (res.status === 'PASS' && (headAfter !== head || dirty().length)) Object.assign(res, { status: 'UNVERIFIED', reason: '실행 중 HEAD 또는 작업 트리가 바뀌었다 — 결과를 커밋에 결속할 수 없다' })
       const rec = { at: new Date().toISOString(), test: testRel, commit: head, design_version: appr.version, acceptance: list(opt.acceptance).map(Number), status: res.status, counts: res.counts, reason: res.reason, ms: res.ms, closure_sha: crypto.createHash('sha256').update(JSON.stringify(pre.closure.map((c) => [c.path, c.sha256]))).digest('hex') }
       fs.mkdirSync(path.join(root(), 'verification', 'live'), { recursive: true })
       fs.writeFileSync(path.join(root(), 'verification', 'live', `${ug}-${rec.at.replace(/[:.]/g, '-')}.json`), JSON.stringify(rec, null, 2))

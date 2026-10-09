@@ -1,0 +1,2140 @@
+OpenAI Codex v0.162.0-alpha.17.2
+--------
+workdir: D:\workspace\Vocaflow-AI-Control
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: medium
+reasoning summaries: none
+session id: 01a1227a-18db-76d2-a427-777ae24e8672
+--------
+user
+commit ee6c163
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'git status --short; git show --stat --oneline ee6c16398; Get-ChildItem -Path . -Filter AGENTS*; Get-ChildItem -Path .. -Filter AGENTS*' in D:\workspace\Vocaflow-AI-Control
+ succeeded in 521ms:
+warning: unable to access 'C:\Users\Administrator/.config/git/ignore': Permission denied
+warning: unable to access 'C:\Users\Administrator/.config/git/ignore': Permission denied
+ M verification/ci/MAIN-ci.yml-e2e-37863144232.json
+?? planning/archive/REQ-20261009-003.md
+?? planning/archive/REQ-20261009-003.response.md
+?? planning/archive/REQ-20261009-c8315ad8-001.md
+?? planning/archive/REQ-20261009-c8315ad8-001.response.md
+?? planning/bridge-instance.txt
+?? planning/bridge-log.jsonl
+?? planning/bridge-preview/
+?? planning/requests/REQ-20261009-002.md
+?? planning/requests/REQ-20261009-c8315ad8-003.md
+?? planning/requests/REQ-20261009-c8315ad8-004.md
+?? verification/ci/MAIN-ci.yml-e2e-37883117036.json
+?? verification/goal-check/GC-2026-10-09T03-12-18-860Z.json
+?? verification/goal-check/GC-2026-10-09T03-12-23-537Z.json
+?? verification/goal-check/GC-2026-10-09T03-12-28-355Z.json
+?? verification/goal-check/GC-2026-10-09T03-12-32-867Z.json
+?? verification/goal-check/GC-2026-10-09T03-14-41-231Z.json
+?? verification/goal-check/GC-2026-10-09T03-14-41-813Z.json
+?? verification/goal-check/GC-2026-10-09T04-17-03-885Z.json
+?? verification/goal-check/GC-2026-10-09T09-52-19-049Z.json
+?? verification/goal-check/GC-2026-10-09T09-54-14-142Z.json
+?? verification/goal-check/GC-2026-10-09T09-57-53-941Z.json
+?? verification/goal-check/GC-2026-10-09T10-00-15-230Z.json
+?? verification/goal-check/GC-2026-10-09T10-00-15-390Z.json
+?? verification/goal-check/GC-2026-10-09T18-12-59-227Z.json
+?? verification/goal-check/GC-2026-10-09T18-12-59-977Z.json
+?? verification/goal-check/GC-2026-10-09T18-13-09-065Z.json
+?? verification/goal-check/GC-2026-10-09T18-13-09-897Z.json
+?? verification/goal-check/GC-2026-10-09T18-13-10-342Z.json
+?? verification/goal-check/GC-2026-10-09T18-13-11-094Z.json
+?? verification/goal-check/GC-2026-10-09T19-23-25-635Z.json
+?? verification/goal-check/GC-2026-10-09T19-23-42-014Z.json
+?? verification/goal-check/GC-2026-10-09T21-03-09-373Z.json
+?? verification/ops/WF-S16-run.json
+?? verification/tests/orch/20261009T095753-1731c2/
+ee6c16398 feat(policy): 목표 단위 위임·위험 기반 실행·읽기 전용 live 검증
+ bin/vfc.mjs                                    |  44 ++++-
+ lib/liveverify.mjs                             | 121 ++++++++++++
+ lib/orchestrator.mjs                           |  14 ++
+ lib/policy.mjs                                 | 134 +++++++++++++
+ lib/usergoals.mjs                              |  88 ++++++++-
+ planning/policies/UG-c8315ad8-0002.json        |  79 ++++++++
+ tests/fakes/fake-claude.mjs                    |   6 +
+ tests/fakes/fake-vitest.mjs                    |  10 +
+ tests/policy.test.mjs                          | 264 +++++++++++++++++++++++++
+ verification/reports/WF-S16-goal-delegation.md |  58 ++++++
+ 10 files changed, 811 insertions(+), 7 deletions(-)
+
+
+    디렉터리: D:\workspace\Vocaflow-AI-Control
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+d-----        2026-10-09   오전 6:24                agents                                                               
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "git show ee6c16398 -- lib/policy.mjs lib/liveverify.mjs lib/usergoals.mjs lib/orchestrator.mjs bin/vfc.mjs; rg --files -g 'AGENTS.md' -g 'AGENTS.override.md' -g '*instructions*'; Get-Content package.json" in D:\workspace\Vocaflow-AI-Control
+ exited 1 in 1210ms:
+commit ee6c163980df66ee774a1ee0f847ef7d0dc148e0
+Author: KangMin098 <killerapp51@empal.com>
+Date:   Sat Oct 10 05:54:25 2026 +0900
+
+    feat(policy): 목표 단위 위임·위험 기반 실행·읽기 전용 live 검증
+    
+    - 목표 실행 정책(goal_delegation 대화형 승인 1회 · 내용 sha256 결속) → 정책 안 설계 자동 적용·작업 실행
+    - 위험 분류 LOW/MEDIUM/HIGH(경로·DB·작업 종류, 모르면 높게) · HIGH 는 위임 불가 · 실제 바뀐 HIGH 파일 차단
+    - vfc verify live: db_read_dev+테스트 계정+호출 경로 해시 결속 · 건너뜀/러너 실패 ≠ PASS
+    - 목표 예산 라운드별 적용 · 정책 교체 재시도 · live 근거는 마지막 구현 커밋만
+    - Codex 2회(P1 8 수정) · 전체 144/144 · UG-0002 정책 파일
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/bin/vfc.mjs b/bin/vfc.mjs
+index 439237c43..4d89474ad 100644
+--- a/bin/vfc.mjs
++++ b/bin/vfc.mjs
+@@ -22,6 +22,8 @@ import { measureRuns } from '../lib/perf.mjs'
+ import { execFileSync } from 'node:child_process'
+ import { initState } from '../lib/init.mjs'
+ import { goalLevel } from '../lib/alignment.mjs'
++import * as POL from '../lib/policy.mjs'
++import * as LIVE from '../lib/liveverify.mjs'
+ 
+ function parse(argv) {
+   const pos = []
+@@ -99,10 +101,11 @@ const HELP = `vfc — Vocaflow AI Control
+   task add --file spec.json [--by owner]  필수: goal_id(L3) title description priority owner_id allowed_paths forbidden_paths acceptance impact
+                                           impact: current_gap · expected_impact(closes|advances|prerequisite) · evidence_required[] · [acceptance_ids parent_goal_id next_dependency out_of_scope dependency_type unblocks] · kind independent 면 user_request_ref
+   task check --file spec.json             task add 와 같은 검사(영향 계약·갭·중복·재구현)만 — 상태를 바꾸지 않는다
++  verify live <UG> --test <apps/web/...live.test.ts> --acceptance i,j [--worktree wt] [--check]   읽기 전용 개발 DB 검증(정책 위임 · 해시 결속 · 건너뜀≠PASS)
+   goal level <VG-…>                       TASK_COMPLETED · GOAL_PARTIAL · GOAL_VERIFIED · USER_ACCEPTED(사용자 결정만)
+   task list [--status S] [--owner O] | task show <id>
+   task approve <id> --by user --ref "근거" [--sql-sha256 H]   DB 쓰기 승인은 사람의 대화형 터미널에서만
+-  approve --kind design_approval|goal_acceptance|db_write|canon_change --summary "UG-… accept" [--ref ..] [--goals VG-..] [--paths a,b] [--new-canon-version v]
++  approve --kind design_approval|goal_delegation|goal_acceptance|db_write|canon_change [--policy-file p.json] --summary "UG-… accept" [--ref ..] [--goals VG-..] [--paths a,b] [--new-canon-version v]
+                                           design_approval(「UG-…@vN」)은 다음 오케스트레이터 반복이 자동 적용·작업 재개
+                                           신뢰 승인 입력(대화형 터미널 · 에이전트 밖 · 화면의 확인 코드 입력) — 강한 승인의 유일한 근거
+   task start <id> --owner O --agent A --session L [--pid N]
+@@ -246,6 +249,31 @@ function main() {
+       const t = T.addTask(copy, spec)
+       return out({ ok: true, would_create: t.task_id, impact: t.impact, criterion_claims: t.criterion_claims }, opt)
+     }
++    case 'verify live': {
++      // 읽기 전용 개발 DB 검증 — 목표 정책(db_read_dev · live_test_user · read_only_attestation)이 있어야 한다. --check 는 실행 전 검사만
++      const ug = pos[0]
++      const s0 = loadState().state
++      const g = UG.findGoal(s0, ug)
++      const pol = g.execution_policy
++      const dlg = (g.delegations || []).at(-1)
++      const worktree = opt.worktree || dlg?.worktree
++      if (!worktree) throw new T.RuleError('MISSING_FIELD', '--worktree 가 필요하다')
++      const testRel = opt.test
++      const pre = LIVE.preflight(pol, worktree, testRel)
++      if (opt.check || !pre.ok) return out({ ug, test: testRel, preflight: { ok: pre.ok, why: pre.why, closure: pre.closure.map((c) => ({ path: c.path, writes: c.writes, sha256: c.sha256 })) } }, opt)
++      const appr = UG.approvedDesign(g)
++      if (!appr) throw new T.RuleError('APPROVAL_REQUIRED', `${ug} 승인된 설계 없음`)
++      const head = execFileSync('git', ['-C', worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
++      const res = LIVE.runLive({ worktree, testRel, liveUser: pol.live_test_user, envFile: opt['env-file'] || path.join(CTX.productRepo(), 'apps', 'web', '.env.local') })
++      const rec = { at: new Date().toISOString(), test: testRel, commit: head, design_version: appr.version, acceptance: list(opt.acceptance).map(Number), status: res.status, counts: res.counts, reason: res.reason, ms: res.ms, closure_sha: crypto.createHash('sha256').update(JSON.stringify(pre.closure.map((c) => [c.path, c.sha256]))).digest('hex') }
++      fs.mkdirSync(path.join(root(), 'verification', 'live'), { recursive: true })
++      fs.writeFileSync(path.join(root(), 'verification', 'live', `${ug}-${rec.at.replace(/[:.]/g, '-')}.json`), JSON.stringify(rec, null, 2))
++      withState((s) => {
++        const gg = UG.findGoal(s, ug)
++        gg.live_verifications = [...(gg.live_verifications || []), rec]
++      }, { event: 'usergoal.live_verify', ug, status: rec.status, by })
++      return out(rec, opt)
++    }
+     case 'goal level':
+       return out(goalLevel(loadState().state, pos[0]), opt)
+     case 'task add': {
+@@ -270,7 +298,17 @@ function main() {
+       // 신뢰 승인 입력 — 에이전트 프로세스(TTY 없음 · CLAUDECODE/VFC_AGENT)는 여기를 통과하지 못한다
+       const via = T.approvalChannel()
+       if (via !== 'tty') throw new T.RuleError('TRUST_REQUIRED', `vfc approve 는 사람의 대화형 터미널에서만 실행된다(현재 ${via}) — 에이전트가 대신 실행할 수 없다`)
+-      const KINDS = ['design_approval', 'goal_acceptance', 'db_write', 'canon_change']
++      const KINDS = ['design_approval', 'goal_delegation', 'goal_acceptance', 'db_write', 'canon_change']
++      // 목표 단위 위임: 정책 파일 내용을 결정에 그대로 싣고 sha256 으로 결속 — 승인 뒤 파일을 바꿔도 결정 내용은 그대로
++      let policy = null
++      if (opt.kind === 'goal_delegation') {
++        if (!opt['policy-file']) throw new T.RuleError('MISSING_FIELD', 'goal_delegation 은 --policy-file 이 필요하다')
++        policy = readJson(opt['policy-file'])
++        const errs = POL.validatePolicy(policy)
++        if (errs.length) throw new T.RuleError('BAD_POLICY', errs.join('; '))
++        if (!String(opt.summary || '').includes(`${policy.goal_id}@policy`)) throw new T.RuleError('BAD_SUMMARY', `--summary 에 「${policy.goal_id}@policy」 가 있어야 한다`)
++        process.stderr.write(`\n[목표 위임 정책] ${policy.goal_id} · 위험 상한 ${policy.risk_level} · 코드 영역 ${policy.allowed_code_areas.join(', ')} · 능력 ${policy.allowed_capabilities.join(', ')} · 제외 ${policy.excluded_operations.join(', ')} · 비용 ${policy.max_cost_usd}$ · 시간 ${policy.max_runtime_min}분 · 병합 ${policy.merge_policy}\n`)
++      }
+       if (!KINDS.includes(opt.kind)) throw new T.RuleError('BAD_KIND', `--kind 는 ${KINDS.join('|')}`)
+       if (!opt.summary) throw new T.RuleError('MISSING_FIELD', '--summary 가 필요하다(예: 「UG-0001 accept」 · 「UG-0001@v2」 · 「UG-0001@v2 db」)')
+       const testCode = process.env.VFC_TTY_FOR_TESTS === '1' ? process.env.VFC_TEST_CODE : null
+@@ -291,7 +329,7 @@ function main() {
+         if (line.includes('\n')) break
+       }
+       if (line.trim() !== code) throw new T.RuleError('TRUST_CODE_MISMATCH', '확인 코드가 다르다 — 기록하지 않았다')
+-      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
++      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), ...(policy ? { policy, policy_sha256: POL.policySha(policy) } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
+       return out(withState((s) => T.logDecision(s, entry, { via: 'tty' }), { event: 'decision.approve_tty', kind: opt.kind, by: 'user' }), opt)
+     }
+     case 'task set-acceptance': {
+diff --git a/lib/liveverify.mjs b/lib/liveverify.mjs
+new file mode 100644
+index 000000000..769cf59de
+--- /dev/null
++++ b/lib/liveverify.mjs
+@@ -0,0 +1,121 @@
++// lib/liveverify.mjs
++//
++// 읽기 전용 개발 DB 검증(live test) — 목표 실행 정책이 db_read_dev 와 테스트 계정(live_test_user)을 위임했을 때만.
++//
++//   읽기 전용 근거(정적 · 해시 결속):
++//     테스트 파일에서 시작해 상대·@/ import 를 따라간 파일 전부를 모은다(apps/web/src 안).
++//     각 파일의 쓰기 호출(.insert( .update( .delete( .upsert( .rpc()을 센다. 쓰기 호출이 있는 파일은
++//     정책의 read_only_attestation 에 { path, sha256 } 로 올라 있어야 한다(사람이 「이 테스트 경로에서 그 쓰기 함수는 불리지 않는다」를 확인·승인).
++//     하나라도 해시가 다르거나 목록에 없으면 실행하지 않는다(REATTEST_REQUIRED).
++//   판정: 통과 테스트 > 0 · 실패 0 · 건너뜀 0 일 때만 PASS. 건너뜀은 PASS 가 아니다(UNVERIFIED).
++//   비밀값: .env 파일은 이 프로세스가 process.loadEnvFile 로 자식 환경에만 넣는다 — 출력·기록하지 않는다.
++
++import fs from 'node:fs'
++import path from 'node:path'
++import crypto from 'node:crypto'
++import { spawnSync } from 'node:child_process'
++
++// 공백·줄바꿈을 끼운 호출도 잡는다(`.insert ({})` · `.delete\n()`) — Codex P1
++const WRITE_RE = /\.\s*(insert|update|delete|upsert|rpc)\s*\(/g
++const sha = (f) => crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')
++
++function resolveImport(fromFile, spec, srcRoot) {
++  let base
++  if (spec.startsWith('@/')) base = path.join(srcRoot, spec.slice(2))
++  else if (spec.startsWith('.')) base = path.resolve(path.dirname(fromFile), spec)
++  else return null
++  for (const c of [base, `${base}.ts`, `${base}.tsx`, path.join(base, 'index.ts')]) if (fs.existsSync(c) && fs.statSync(c).isFile()) return c
++  return null
++}
++
++/** 테스트 파일의 import 닫힘(타입 전용 import 제외) — 각 파일의 쓰기 호출 수 */
++export function importClosure(worktree, testRel) {
++  const srcRoot = path.join(worktree, 'apps', 'web', 'src')
++  const start = path.join(worktree, testRel)
++  const seen = new Map()
++  const unresolved = []
++  const stack = [start]
++  while (stack.length) {
++    const f = stack.pop()
++    if (seen.has(f)) continue
++    const text = fs.readFileSync(f, 'utf8')
++    seen.set(f, { writes: (text.match(WRITE_RE) || []).length })
++    // 실행되는 의존 형태 전부: import … from · import '…'(부수 효과) · export … from(재내보내기) · import('…') · require('…') — Codex P1
++    const specs = [
++      ...[...text.matchAll(/^\s*import\s+(?!type\b)[^'"]*?from\s+['"]([^'"]+)['"]/gm)].map((m) => m[1]),
++      ...[...text.matchAll(/^\s*import\s+['"]([^'"]+)['"]/gm)].map((m) => m[1]),
++      ...[...text.matchAll(/^\s*export\s+(?!type\b)[^'"]*?from\s+['"]([^'"]+)['"]/gm)].map((m) => m[1]),
++      ...[...text.matchAll(/\bimport\s*\(\s*['"]([^'"]+)['"]\s*\)/g)].map((m) => m[1]),
++      ...[...text.matchAll(/\brequire\s*\(\s*['"]([^'"]+)['"]\s*\)/g)].map((m) => m[1]),
++    ]
++    if (/\bimport\s*\(\s*[^'"\s)]/.test(text) || /\brequire\s*\(\s*[^'"\s)]/.test(text)) unresolved.push(`${path.relative(worktree, f)}: 동적 import 경로(문자열 아님)`)
++    for (const sp of specs) {
++      const r = resolveImport(f, sp, srcRoot)
++      if (r && r.startsWith(srcRoot)) stack.push(r)
++      else if (r) unresolved.push(`${path.relative(worktree, f)}: ${sp} 는 apps/web/src 밖이다(검사 범위 밖 — 거부)`)
++      else if (sp.startsWith('.') || sp.startsWith('@/')) unresolved.push(`${path.relative(worktree, f)}: ${sp} 를 찾지 못했다`)
++    }
++  }
++  const files = [...seen.entries()].map(([f, v]) => ({ path: path.relative(worktree, f).split(path.sep).join('/'), sha256: sha(f), writes: v.writes }))
++  files.unresolved = unresolved
++  return files
++}
++
++/** 실행 전 검사 — 위임·계정·해시 결속 */
++export function preflight(policy, worktree, testRel) {
++  const why = []
++  if (!policy) return { ok: false, why: ['목표 실행 정책 없음'], closure: [] }
++  if (!policy.allowed_capabilities.includes('db_read_dev')) why.push('db_read_dev 미위임')
++  if (!policy.live_test_user) why.push('테스트 계정(live_test_user) 미지정 — 실제 학습자 계정으로 돌리지 않는다')
++  const closure = importClosure(worktree, testRel)
++  for (const u of closure.unresolved || []) why.push(`안전하게 따라갈 수 없는 의존: ${u}`)
++  const att = new Map((policy.read_only_attestation || []).map((a) => [a.path, a.sha256]))
++  const fns = policy.read_only_write_functions || []
++  for (const f of closure) {
++    if (att.has(f.path)) {
++      if (att.get(f.path) !== f.sha256) why.push(`${f.path} 가 확인 뒤 바뀌었다(해시 불일치) — 다시 확인 필요`)
++      continue
++    }
++    if (f.writes > 0) why.push(`쓰기 호출 ${f.writes}개 파일 ${f.path} 이 읽기 전용 확인 목록에 없다`)
++    // 확인된 쓰기 함수를 새로 참조하는 파일(테스트·호출자 변경)은 호출 경로가 바뀐 것 — 다시 확인(Codex P1)
++    const text = fs.readFileSync(path.join(worktree, f.path), 'utf8')
++    const refs = fns.filter((n) => new RegExp(`\\b${n}\\b`).test(text))
++    if (refs.length) why.push(`${f.path} 가 확인된 쓰기 함수 ${refs.join(',')} 를 참조한다 — 호출 경로 재확인 필요`)
++  }
++  return { ok: !why.length, why, closure }
++}
++
++/**
++ * 실행 · 판정. cmd 는 테스트용 대역(VFC_VITEST_CMD) 이 아니면 pnpm vitest. envFile 은 값을 읽어 자식 환경에만 넣는다.
++ * 반환 status: PASS(통과>0·실패0·건너뜀0) · FAIL · UNVERIFIED(건너뜀·결과 없음)
++ */
++export function runLive({ worktree, testRel, liveUser, envFile = null, timeoutMs = 300_000 }) {
++  const out = path.join(worktree, '.vfc-runs', `live-${Date.now()}.json`)
++  fs.mkdirSync(path.dirname(out), { recursive: true })
++  const childEnv = { ...process.env, MAP_LIVE_USER: liveUser }
++  if (envFile && fs.existsSync(envFile)) {
++    // 값을 이 프로세스 환경에 읽지 않고 사본에만 — loadEnvFile 은 process.env 를 바꾸므로 사본으로 되돌린다
++    const before = { ...process.env }
++    process.loadEnvFile(envFile)
++    for (const [k, v] of Object.entries(process.env)) if (before[k] !== v) childEnv[k] = v
++    for (const k of Object.keys(process.env)) if (!(k in before)) delete process.env[k]
++    Object.assign(process.env, before)
++  }
++  childEnv.MAP_LIVE_USER = liveUser // 정책이 승인한 테스트 계정이 마지막 — .env 의 값으로 바뀌지 않는다(Codex P1)
++  const cmd = process.env.VFC_VITEST_CMD
++  const t0 = Date.now()
++  const r = cmd
++    ? spawnSync(process.execPath, [...cmd.split(' ').slice(1), testRel, out], { cwd: worktree, env: childEnv, encoding: 'utf8', timeout: timeoutMs })
++    : spawnSync(process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm', ['--filter', 'web', 'exec', 'vitest', 'run', testRel.replace(/^apps\/web\//, ''), '--reporter=json', `--outputFile=${out}`], { cwd: worktree, env: childEnv, encoding: 'utf8', timeout: timeoutMs, shell: process.platform === 'win32' })
++  let rep = null
++  try {
++    rep = JSON.parse(fs.readFileSync(out, 'utf8'))
++  } catch {
++    rep = null
++  }
++  const n = rep ? { passed: rep.numPassedTests ?? 0, failed: rep.numFailedTests ?? 0, skipped: (rep.numPendingTests ?? 0) + (rep.numTodoTests ?? 0), total: rep.numTotalTests ?? 0 } : null
++  // 러너가 실패로 끝났거나(teardown·처리 안 된 오류) 보고서에 오류가 있으면 PASS 가 아니다 — Codex P2
++  const runnerOk = r.status === 0 && !(rep && (rep.success === false || (rep.numFailedTestSuites ?? 0) > 0 || (rep.numRuntimeErrorTestSuites ?? 0) > 0))
++  const status = !n ? 'UNVERIFIED' : n.failed > 0 || !runnerOk ? 'FAIL' : n.skipped > 0 || n.passed === 0 ? 'UNVERIFIED' : 'PASS'
++  return { status, counts: n, exit: r.status, ms: Date.now() - t0, reason: !n ? '결과 파일 없음' : status === 'UNVERIFIED' ? `건너뜀 ${n.skipped} · 통과 ${n.passed} — 건너뜀은 PASS 가 아니다` : null }
++}
+diff --git a/lib/orchestrator.mjs b/lib/orchestrator.mjs
+index 37beca6fe..5c2588bf3 100644
+--- a/lib/orchestrator.mjs
++++ b/lib/orchestrator.mjs
+@@ -26,6 +26,7 @@ import * as T from './tasks.mjs'
+ import { computeGoalCheck, applyGoalCheck, CI_RULES } from './goalcheck.mjs'
+ import { rankTasks } from './priority.mjs'
+ import { sameGoalPreference, goalLevel } from './alignment.mjs'
++import { pathRisk, highApprovalKind } from './policy.mjs'
+ import { checkFeasibility } from './feasibility.mjs'
+ import { reviewGate } from './review-verdicts.mjs'
+ import * as UG from './usergoals.mjs'
+@@ -338,6 +339,11 @@ export function implementStep({ runId, task, round, findings, limits, deps }) {
+   const ch = changedFiles(wt, base)
+   const outside = [...ch.committed, ...ch.dirty].filter((f) => !T.pathInScope(f, task.allowed_paths) || T.pathInScope(f, task.forbidden_paths))
+   if (outside.length) return { cause: 'scope_violation', detail: `범위 밖 변경: ${outside.join(', ')}`, block: true, report }
++  // 위험 HIGH 파일(DB·정본·인증·비밀·배포·의존성)은 범위 glob 안이라도 자동 작업에서 바꾸지 않는다 — 별도 승인(Codex P1)
++  // 파일마다 그 종류의 승인이 실제로 기록됐을 때만(다른 종류의 승인으로 풀리지 않는다 · Codex P1)
++  const approvedKinds = new Set(task.approval?.kinds || [])
++  const high = [...ch.committed, ...ch.dirty].filter((f) => pathRisk(f) === 'HIGH' && !(highApprovalKind(f) && approvedKinds.has(highApprovalKind(f))))
++  if (high.length) return { cause: 'high_risk_change', detail: `위험 HIGH 파일 변경: ${high.join(', ')} — 별도 사용자 승인 필요`, block: true, report }
+   if (ch.dirty.length) return { cause: 'uncommitted', detail: `커밋 안 된 변경: ${ch.dirty.join(', ')}`, report }
+   const head = git(wt, ['rev-parse', 'HEAD'])
+   if (!head.startsWith(report.commit) && !report.commit.startsWith(head.slice(0, report.commit.length))) return { cause: 'commit_mismatch', detail: `보고 commit ${report.commit} ≠ HEAD ${head}`, report }
+@@ -467,6 +473,14 @@ export function processTask({ runId, taskId, limits, deps, pid }) {
+   for (let round = (task.orchestration.rounds || 0) + 1; ; round++) {
+     if (budgetExceeded(runId, limits)) return { outcome: 'budget_stop', stop: true }
+     if (fs.existsSync(p.stopFile())) return { outcome: 'user_stop', stop: true }
++    if (task.user_goal_id) {
++      const left = UG.policyBudgetLeft(loadState().state, task.user_goal_id)
++      if (left !== null && left <= 0) {
++        block(taskId, task.owner_id, `목표 정책 비용 상한 도달 — 남은 예산 0$`)
++        return { outcome: 'blocked_goal_budget' }
++      }
++      if (left !== null) limits = { ...limits, claude_budget_usd: Math.min(limits.claude_budget_usd, left) }
++    }
+     if (round > limits.max_review_rounds) {
+       block(taskId, task.owner_id, `리뷰·수정 반복 상한(${limits.max_review_rounds}) 도달 — 남은 P0/P1: ${JSON.stringify(findings?.map((f) => f.id) ?? [])}`)
+       return { outcome: 'blocked_review_limit' }
+diff --git a/lib/policy.mjs b/lib/policy.mjs
+new file mode 100644
+index 000000000..ab7549f20
+--- /dev/null
++++ b/lib/policy.mjs
+@@ -0,0 +1,134 @@
++// lib/policy.mjs
++//
++// 목표 단위 실행 정책(Execution Policy) + 위험 분류 — 사용자 승인을 「설계 버전·파일 경로마다」가 아니라 「목표마다 한 번」으로.
++//
++//   정책(goal.execution_policy · 사용자가 대화형 터미널로 승인한 goal_delegation 결정에 내용 sha256 째 결속):
++//     goal_id · allowed_capabilities[] · allowed_code_areas[](glob) · excluded_operations[] · risk_level(LOW|MEDIUM — 자동 실행 상한)
++//     approval_evidence(결정 id) · max_runtime_min · max_cost_usd · merge_policy(none|pr_only) · live_test_user(선택 · 실제 학습자 아님)
++//
++//   위험(경로·DB 범위·작업 종류로만 — AI 판단 없음 · 모르면 높게):
++//     HIGH   DB 스키마·데이터(supabase/** · *.sql · migrations · scripts/db/** · db_scope write) · 인증·권한·RLS · .env·비밀 ·
++//            정본(goals/** · docs/platform-goals/** · LEARNING_MAP_VNEXT.md) · 배포·CI(.github/workflows · vercel · next.config) ·
++//            의존성(package.json · lockfile) · 개인정보 · 작업 종류 db_write·canon_change·deploy·merge_main·external_publish
++//     MEDIUM 제품 코드(apps/** · packages/** 의 테스트 아닌 파일 — 기존 동작·학생 UI·API) · scripts/**(DB 아님) · 개발 DB 읽기
++//     LOW    테스트(__tests__ · *.test.* · *.spec.*) · 정본 아닌 문서(*.md · docs/**)
++//   HIGH 는 어떤 정책으로도 자동 실행하지 않는다 — 별도 대화형 승인(DB 쓰기 · 정본 재봉인 등 기존 경로).
++
++import crypto from 'node:crypto'
++
++export const RISK = { LOW: 1, MEDIUM: 2, HIGH: 3 }
++export const CAPABILITIES = ['read', 'plan', 'design_request', 'code_change', 'test', 'review', 'docs', 'branch_push', 'pr_open', 'db_read_dev']
++export const HIGH_OPS = ['db_write', 'schema_change', 'canon_change', 'deploy', 'merge_main', 'external_publish', 'auth_change', 'personal_data']
++export const MERGE_POLICIES = ['none', 'pr_only']
++
++/** glob → 정규식: `**​/` = 0개 이상 폴더 · 끝의 `**` = 아무거나 · `*` = 한 단계 · `?` = 한 글자 */
++function g2re(g) {
++  const s = String(g).replace(/\\/g, '/')
++  let out = ''
++  for (let i = 0; i < s.length; i++) {
++    const c = s[i]
++    if (c === '*' && s[i + 1] === '*') {
++      if (s[i + 2] === '/') {
++        out += '(?:.*/)?'
++        i += 2
++      } else {
++        out += '.*'
++        i += 1
++      }
++    } else if (c === '*') out += '[^/]*'
++    else if (c === '?') out += '[^/]'
++    else out += c.replace(/[.+^${}()|[\]]/g, '\\$&')
++  }
++  return new RegExp(`^${out}$`, 'i')
++}
++const matchAny = (p, globs) => globs.some((g) => g2re(g).test(String(p).replace(/\\/g, '/')))
++
++const HIGH_PATHS = [
++  'supabase/**', '**/*.sql', '**/migrations/**', 'scripts/db/**',
++  '**/.env*', '**/*secret*', '**/*credential*',
++  '**/auth/**', '**/middleware.*', '**/*rls*', 'apps/web/src/lib/supabase/**',
++  'goals/**', 'docs/platform-goals/**', '**/LEARNING_MAP_VNEXT.md', '**/GOAL_ACCEPTANCE_CRITERIA.json',
++  '.github/workflows/**', '**/vercel.json', '**/next.config.*',
++  '**/package.json', '**/pnpm-lock.yaml', '**/*privacy*', '**/*personal*',
++]
++const LOW_PATHS = ['**/__tests__/**', '**/*.test.*', '**/*.spec.*', '**/*.md', 'docs/**']
++
++/** HIGH 파일이 어떤 승인 종류로만 풀리는가 — 대응이 없으면 자동 작업에서는 늘 막힌다(인증·정본·의존성·개인정보) */
++export function highApprovalKind(p) {
++  if (matchAny(p, ['supabase/**', '**/*.sql', '**/migrations/**', 'scripts/db/**'])) return 'db_write'
++  if (matchAny(p, ['**/.env*', '**/*secret*', '**/*credential*'])) return 'secret'
++  if (matchAny(p, ['.github/workflows/**', '**/vercel.json', '**/next.config.*'])) return 'deploy'
++  return null
++}
++
++/** 경로 하나의 위험 — 높은 규칙이 먼저(테스트 폴더 안의 .sql 도 HIGH) */
++export function pathRisk(p) {
++  if (matchAny(p, HIGH_PATHS)) return 'HIGH'
++  if (matchAny(p, LOW_PATHS)) return 'LOW'
++  return 'MEDIUM'
++}
++
++/** 변경 묶음의 위험 = 가장 높은 것. db_scope·작업 종류도 본다. 경로가 없으면 판단 불가 → HIGH */
++export function classifyRisk({ paths = [], db_scope = null, operations = [] } = {}) {
++  const reasons = []
++  let level = 'LOW'
++  const up = (l, why) => {
++    if (RISK[l] > RISK[level]) level = l
++    if (l !== 'LOW') reasons.push(`${l}: ${why}`)
++  }
++  if (!paths.length) up('HIGH', '변경 경로가 없다 — 범위를 알 수 없다')
++  for (const p of paths) {
++    const r = pathRisk(p)
++    if (r !== 'LOW') up(r, p)
++  }
++  const mode = db_scope?.mode ?? 'none'
++  if (mode === 'write') up('HIGH', 'db_scope=write')
++  else if (mode === 'read') up('MEDIUM', 'db_scope=read')
++  for (const o of operations) if (HIGH_OPS.includes(o)) up('HIGH', `operation ${o}`)
++  return { level, reasons }
++}
++
++export const policySha = (policy) => crypto.createHash('sha256').update(JSON.stringify(canon(policy))).digest('hex')
++function canon(v) {
++  if (Array.isArray(v)) return v.map(canon)
++  if (v && typeof v === 'object') return Object.fromEntries(Object.keys(v).sort().map((k) => [k, canon(v[k])]))
++  return v
++}
++
++/** 정책 형식 검사 — 틀리면 오류 목록 */
++export function validatePolicy(p) {
++  const e = []
++  if (!p || typeof p !== 'object') return ['정책이 객체가 아니다']
++  if (!/^UG-/.test(p.goal_id || '')) e.push('goal_id(UG-…)')
++  if (!Array.isArray(p.allowed_capabilities) || p.allowed_capabilities.some((c) => !CAPABILITIES.includes(c))) e.push(`allowed_capabilities ⊂ ${CAPABILITIES.join('|')}`)
++  if (!Array.isArray(p.allowed_code_areas) || !p.allowed_code_areas.length) e.push('allowed_code_areas(비지 않은 glob 배열)')
++  const BROAD = ['**', '*', '**/*', 'apps/**', 'apps/web/**', 'apps/web/src/**', 'apps/web/src/lib/**', 'apps/web/src/app/**', 'apps/web/src/components/**', 'packages/**', 'scripts/**', 'docs/**']
++  for (const a of p.allowed_code_areas || []) if (pathRisk(a) === 'HIGH' || BROAD.includes(String(a).replace(/\\/g, '/'))) e.push(`code area ${a} 는 HIGH 이거나 너무 넓다`)
++  if (!Array.isArray(p.excluded_operations)) e.push('excluded_operations 배열')
++  for (const o of HIGH_OPS) if (!(p.excluded_operations || []).includes(o)) e.push(`excluded_operations 에 ${o} 가 있어야 한다(HIGH 는 정책으로 위임하지 않는다)`)
++  if (!['LOW', 'MEDIUM'].includes(p.risk_level)) e.push('risk_level 은 LOW|MEDIUM(HIGH 는 위임 불가)')
++  if (!(Number(p.max_runtime_min) > 0)) e.push('max_runtime_min > 0')
++  if (!(Number(p.max_cost_usd) > 0)) e.push('max_cost_usd > 0')
++  if (!MERGE_POLICIES.includes(p.merge_policy)) e.push(`merge_policy ${MERGE_POLICIES.join('|')}`)
++  if (p.live_test_user !== undefined && p.live_test_user !== null && !/^[0-9a-f-]{36}$/i.test(p.live_test_user)) e.push('live_test_user 는 uuid(테스트 계정)')
++  if (p.live_test_user && !(p.allowed_capabilities || []).includes('db_read_dev')) e.push('live_test_user 는 db_read_dev 능력과 함께')
++  return e
++}
++
++/**
++ * 정책이 이 변경(설계·작업)을 덮는가. 덮으면 { ok:true, risk } — 사용자에게 다시 묻지 않는다.
++ * 아니면 { ok:false, why[] } — 그 변경만 승인 대기(독립 작업은 계속).
++ */
++export function policyCovers(policy, { paths = [], db_scope = null, operations = [], db_changes = false, capability = 'code_change' } = {}) {
++  const why = []
++  if (!policy) return { ok: false, why: ['목표 실행 정책 없음'] }
++  const risk = classifyRisk({ paths, db_scope, operations: [...operations, ...(db_changes ? ['db_write'] : [])] })
++  if (risk.level === 'HIGH') why.push(`위험 HIGH(${risk.reasons.filter((r) => r.startsWith('HIGH')).join(' · ')}) — 별도 사용자 승인`)
++  else if (RISK[risk.level] > RISK[policy.risk_level]) why.push(`위험 ${risk.level} > 정책 상한 ${policy.risk_level}`)
++  const outside = paths.filter((p) => !matchAny(p, policy.allowed_code_areas))
++  if (outside.length) why.push(`허용 코드 영역 밖: ${outside.join(', ')}`)
++  if (!policy.allowed_capabilities.includes(capability)) why.push(`능력 ${capability} 이 정책에 없다`)
++  if ((db_scope?.mode ?? 'none') === 'read' && !policy.allowed_capabilities.includes('db_read_dev')) why.push('개발 DB 읽기(db_read_dev) 미위임')
++  for (const o of operations) if ((policy.excluded_operations || []).includes(o)) why.push(`제외된 작업 ${o}`)
++  return why.length ? { ok: false, why, risk } : { ok: true, risk }
++}
+diff --git a/lib/usergoals.mjs b/lib/usergoals.mjs
+index 5a4ceccd4..33e1292f4 100644
+--- a/lib/usergoals.mjs
++++ b/lib/usergoals.mjs
+@@ -29,6 +29,7 @@ import { createRequest, extractResponse, validateResponse, readRequestHeader, to
+ import { EXPORT_FILES } from './context.mjs'
+ import { loadCriteria, goalIndex } from './goals.mjs'
+ import { RuleError, logDecision, isTrustedUserDecision, addTask } from './tasks.mjs'
++import { policyCovers, policySha, validatePolicy, RISK } from './policy.mjs'
+ 
+ export const DESIGN_STATES = ['DRAFT', 'PROPOSED', 'REVIEWED', 'APPROVED', 'SUPERSEDED']
+ export const ROUTES = ['DESIGN_REQUIRED', 'IMPLEMENTATION_REQUIRED', 'CODE_REVIEW_REQUIRED', 'DESIGN_CONFLICT', 'IMPLEMENTATION_DEFECT', 'APPROVAL_REQUIRED', 'EXTERNAL_BLOCKER', 'GOAL_VERIFIED', 'USER_ACCEPTED', 'PAUSED']
+@@ -494,10 +495,20 @@ function requireUserDecision(state, decision_id, token, kind) {
+  * db_changes 설계는 별도 DB 승인 결정(token 「UG-…@vN db」)이 없으면 승인 자체는 되지만 실행 범위에서 DB 는 빠진다(approval.db=false).
+  * 계약이 바뀐 새 버전이면 옛 버전으로 끝난 작업에 revalidate_required 를 단다.
+  */
+-export function approveDesign(state, ug, { version, decision_id, allowed_paths = null, db_decision_id = null, by }) {
++export function approveDesign(state, ug, { version, decision_id, allowed_paths = null, db_decision_id = null, by, via_policy = false }) {
+   const g = findGoal(state, ug)
+   const d = g.designs.find((x) => x.version === Number(version))
+   if (!d) throw new RuleError('NO_DESIGN', `${ug} 에 설계 v${version} 가 없다`)
++  if (via_policy) {
++    // 목표 실행 정책(사용자 대화형 goal_delegation 승인)으로 버전 승인을 대신한다 — 정책이 이 설계를 덮을 때만 · DB 범위는 정책으로 못 연다
++    const pol = g.execution_policy
++    if (!pol || pol.approval_evidence !== decision_id) throw new RuleError('POLICY_REQUIRED', `${ug} 에 결정 ${decision_id} 로 승인된 실행 정책이 없다`)
++    const pd = state.decisionLog.entries.find((e) => e.decision_id === decision_id)
++    if (!isTrustedUserDecision(pd) || pd.kind !== 'goal_delegation' || pd.policy_sha256 !== pol.policy_sha256) throw new RuleError('TRUST_REQUIRED', `정책 근거 ${decision_id} 가 대화형 goal_delegation 결정이 아니거나 정책 내용과 다르다`)
++    if (db_decision_id) throw new RuleError('BAD_SCOPE', 'DB 범위는 정책으로 승인하지 않는다(별도 대화형 db_write 승인)')
++    const cov = policyCovers(pol, { paths: allowed_paths && allowed_paths.length ? allowed_paths : d.allowed_paths, db_changes: d.db_changes, capability: 'code_change' })
++    if (!cov.ok) throw new RuleError('POLICY_NOT_COVERED', `설계 v${d.version} 는 정책 밖: ${cov.why.join(' / ')}`)
++  }
+   // 이미 승인된 버전에 DB 승인만 더하는 경우(설계 승인 때 DB 승인이 없었다)
+   if (d.status === 'APPROVED' && db_decision_id && g.approval?.design_version === d.version && !g.approval.db) {
+     if (!d.db_changes) throw new RuleError('BAD_SCOPE', '이 설계는 DB 변경이 없다')
+@@ -509,7 +520,7 @@ export function approveDesign(state, ug, { version, decision_id, allowed_paths =
+   }
+   if (!['PROPOSED', 'REVIEWED', 'DRAFT'].includes(d.status)) throw new RuleError('BAD_TRANSITION', `설계 v${version} 는 ${d.status} — 승인 대상이 아니다`)
+   if (PROFILES[g.profile].needs_design && d.source === 'claude') throw new RuleError('DESIGN_REVIEW_REQUIRED', `프로필 ${g.profile} 은 ChatGPT 설계 검토가 선행된다 — Claude 초안 v${d.version} 를 바로 승인하지 않는다(ugoal request-design)`)
+-  requireUserDecision(state, decision_id, `${ug}@v${d.version}`, '설계 승인')
++  if (!via_policy) requireUserDecision(state, decision_id, `${ug}@v${d.version}`, '설계 승인')
+   const scope = allowed_paths && allowed_paths.length ? allowed_paths : d.allowed_paths
+   const outside = scope.filter((x) => !d.allowed_paths.includes(x))
+   if (outside.length) throw new RuleError('SCOPE_EXPANSION', `승인 범위 ${outside.join(', ')} 는 설계 v${d.version} 의 allowed_paths 밖이다`)
+@@ -525,7 +536,7 @@ export function approveDesign(state, ug, { version, decision_id, allowed_paths =
+   for (const x of g.designs) if (x !== d && ['PROPOSED', 'REVIEWED', 'DRAFT'].includes(x.status) && x.version < d.version) x.status = 'SUPERSEDED'
+   d.status = 'APPROVED'
+   d.approved_at = now()
+-  g.approval = { design_version: d.version, decision_id, allowed_paths: scope, db, db_decision_id: db ? db_decision_id : null }
++  g.approval = { design_version: d.version, via_policy, decision_id, allowed_paths: scope, db, db_decision_id: db ? db_decision_id : null }
+   for (const r of g.rounds) if (r.design_version === d.version && r.approval_status === 'PENDING_USER') r.approval_status = 'APPROVED'
+   const changed = prev && prev.contract_hash !== d.contract_hash
+   const invalidated = []
+@@ -640,6 +651,13 @@ export function acceptanceCoverage(state, ug) {
+   if (!appr) return { ok: false, total: 0, missing: [], covered: [] }
+   const done = state.taskQueue.tasks.filter((t) => t.user_goal_id === ug && t.status === 'COMPLETED' && t.design_version === appr.version && !t.revalidate_required && t.impact?.dependency_type !== 'prerequisite')
+   const covered = new Set(done.flatMap((t) => t.design_acceptance || []))
++  // 읽기 전용 live 검증 PASS(같은 설계 버전) 도 그 기준을 덮는다 — UNVERIFIED·FAIL 은 덮지 않는다
++  const latestDone = done.reduce((a, t) => (t.updated_at > a ? t.updated_at : a), '')
++  const latestByTest = new Map()
++  for (const v of g.live_verifications || []) if (v.design_version === appr.version) latestByTest.set(v.test, v)
++  // 마지막 구현(완료 작업의 verified_commit)에서 돈 검증만 — 옛 worktree·이후 변경 코드의 근거로 쓰지 않는다(Codex P2)
++  const lastTask = done.reduce((a, t) => (!a || t.updated_at > a.updated_at ? t : a), null)
++  for (const v of latestByTest.values()) if (v.status === 'PASS' && v.at >= latestDone && (!lastTask?.verified_commit || v.commit === lastTask.verified_commit)) for (const i of v.acceptance || []) covered.add(i)
+   const missing = appr.acceptance.map((_, i) => i).filter((i) => !covered.has(i))
+   return { ok: missing.length === 0, total: appr.acceptance.length, missing, covered: [...covered].sort(), tasks: done.map((t) => t.task_id) }
+ }
+@@ -735,15 +753,34 @@ export function selectionGate(state, task) {
+   if (task.design_version !== appr.version) return { allow: false, reason: `설계 v${task.design_version} 는 SUPERSEDED(현재 v${appr.version}) — 새 설계 기준으로 다시 만든다` }
+   if (task.revalidate_required) return { allow: false, reason: `재검증 필요: ${task.revalidate_required.reason}` }
+   if (g.rounds.some((r) => r.recipient === 'chatgpt' && r.response_status === 'PENDING') && g.open_issue) return { allow: false, reason: `${g.ug_id} 설계 쟁점 응답 대기` }
++  if (g.execution_policy && g.approval?.via_policy) {
++    // 정책으로 승인된 설계의 작업 — 작업마다 위험·범위를 다시 본다(HIGH·범위 밖·예산 초과는 그 작업만 보류)
++    const cov = policyCovers(g.execution_policy, { paths: task.allowed_paths, db_scope: task.db_scope, capability: 'code_change' })
++    if (!cov.ok) return { allow: false, reason: `정책 밖 — 사용자 승인 대기: ${cov.why.join(' / ')}` }
++    const spent = state.taskQueue.tasks.filter((t) => t.user_goal_id === g.ug_id).reduce((a, t) => a + (t.orchestration?.budget_used_usd || 0), 0)
++    if (spent >= g.execution_policy.max_cost_usd) return { allow: false, reason: `목표 비용 상한 ${g.execution_policy.max_cost_usd}$ 도달(누적 ${spent.toFixed(2)}$)` }
++  }
+   return { allow: true, tier: U.mode === 'USER_GOAL' && U.active_goal !== g.ug_id ? 1 : 0 }
+ }
+ 
++/** 목표 정책의 남은 비용(정책 없으면 null) — 그 목표 작업들의 누적 사용액 기준 */
++export function policyBudgetLeft(state, ug) {
++  const g = ugState(state).goals[ug]
++  if (!g?.execution_policy) return null
++  const spent = state.taskQueue.tasks.filter((t) => t.user_goal_id === ug).reduce((a, t) => a + (t.orchestration?.budget_used_usd || 0), 0)
++  return g.execution_policy.max_cost_usd - spent
++}
++
+ export function limitsFor(state, task, base) {
+   if (!task.user_goal_id) return base
+   const g = ugState(state).goals[task.user_goal_id]
+   if (!g) return base
+   const prof = PROFILES[g.profile]
+-  return { ...base, max_review_rounds: Math.min(base.max_review_rounds, prof.max_review_rounds), claude_budget_usd: Math.min(base.claude_budget_usd, prof.claude_budget_usd), codex_effort: prof.codex_effort }
++  const out = { ...base, max_review_rounds: Math.min(base.max_review_rounds, prof.max_review_rounds), claude_budget_usd: Math.min(base.claude_budget_usd, prof.claude_budget_usd), codex_effort: prof.codex_effort }
++  if (g.execution_policy && base.max_minutes) out.max_minutes = Math.min(base.max_minutes, g.execution_policy.max_runtime_min)
++  const left = policyBudgetLeft(state, g.ug_id)
++  if (left !== null) out.claude_budget_usd = Math.max(0, Math.min(out.claude_budget_usd, left))
++  return out
+ }
+ 
+ export function summary(state, ug) {
+@@ -777,6 +814,49 @@ export { sha256File }
+  */
+ export function applyTrustedDesignApprovals(state, { by = 'orchestrator' } = {}) {
+   const out = []
++  // ① 목표 실행 정책: 대화형 goal_delegation 결정(「UG-…@policy」 + 정책 내용 sha256) → goal.execution_policy
++  for (const d of state.decisionLog.entries) {
++    if (d.kind !== 'goal_delegation' || !isTrustedUserDecision(d) || d.auto_applied) continue
++    const g = d.policy && ugState(state).goals[d.policy.goal_id]
++    const errs = d.policy ? validatePolicy(d.policy) : ['정책 내용 없음']
++    const tokenOk = g && new RegExp(`(^|[^0-9A-Za-z@-])${g.ug_id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}@policy(?![0-9A-Za-z])`).test(d.summary || '')
++    if (!g || errs.length || !tokenOk || policySha(d.policy) !== d.policy_sha256) {
++      d.auto_applied = { at: now(), error: !g ? '목표 없음' : errs.length ? errs.join('; ') : !tokenOk ? 'summary 에 「UG-…@policy」 없음' : '정책 sha256 불일치' }
++      out.push({ decision_id: d.decision_id, error: d.auto_applied.error })
++      continue
++    }
++    g.execution_policy = { ...d.policy, approval_evidence: d.decision_id, policy_sha256: d.policy_sha256, applied_at: now() }
++    history(g, 'goal.policy', by, d.decision_id)
++    d.auto_applied = { ug: g.ug_id, policy: true, at: now() }
++    out.push({ ug: g.ug_id, policy: d.decision_id })
++  }
++  // ② 정책이 있는 목표: 최신 PROPOSED 설계가 정책 안이면 버전 승인 없이 적용(사용자 재승인 없음)
++  for (const g of Object.values(ugState(state).goals)) {
++    const pol = g.execution_policy
++    if (!pol || g.status !== 'OPEN') continue
++    const latest = g.designs[g.designs.length - 1]
++    if (!latest || latest.status !== 'PROPOSED' || g.approval?.design_version === latest.version) continue
++    const key = `${g.ug_id}@v${latest.version}#${pol.policy_sha256.slice(0, 12)}`
++    if ((g.policy_attempts || {})[key]) continue // 같은 버전은 한 번만 시도(정책 밖이면 사람 승인 대기로 남긴다)
++    g.policy_attempts = { ...(g.policy_attempts || {}), [key]: now() }
++    try {
++      const r = approveDesign(state, g.ug_id, { version: latest.version, decision_id: pol.approval_evidence, by, via_policy: true })
++      const created = []
++      const refused = []
++      for (const dr of r.drafts || []) {
++        try {
++          created.push(addTask(state, bindTaskSpec(state, g.ug_id, dr.spec), { ugBound: true }).task_id)
++        } catch (e) {
++          refused.push({ title: dr.spec.title, reason: e.message })
++          g.task_drafts = [...(g.task_drafts || []), dr]
++        }
++      }
++      out.push({ ug: g.ug_id, version: latest.version, via_policy: pol.approval_evidence, created, refused, resumed: r.resumed ?? [] })
++    } catch (e) {
++      history(g, 'goal.policy_not_covered', by, `v${latest.version}: ${String(e.message).slice(0, 300)}`)
++      out.push({ ug: g.ug_id, version: latest.version, error: `${e.code ?? 'ERROR'}: ${String(e.message).slice(0, 200)}` })
++    }
++  }
+   const used = new Set(Object.values(ugState(state).goals).map((g) => g.approval?.decision_id).filter(Boolean))
+   for (const d of state.decisionLog.entries) {
+     if (d.kind !== 'design_approval' || !isTrustedUserDecision(d) || used.has(d.decision_id) || d.auto_applied) continue
+rg : 'rg' 용어가 cmdlet, 함수, 스크립트 파일 또는 실행할 수 있는 프로그램 이름으로 인식되지 않습니다. 이름이 정확한지 확인하고 경로가 포함된 경우 경로가 올바른지 검증한 다음 다시 시도하십시오.
+위치 줄:2 문자:109
++ ... fy.mjs lib/usergoals.mjs lib/orchestrator.mjs bin/vfc.mjs; rg --files ...
++                                                                ~~
+    + CategoryInfo          : ObjectNotFound: (rg:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+Get-Content : 'D:\workspace\Vocaflow-AI-Control\package.json' 경로는 존재하지 않으므로 찾을 수 없습니다.
+위치 줄:2 문자:180
++ ... -g 'AGENTS.override.md' -g '*instructions*'; Get-Content package.json
++                                                  ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (D:\workspace\Vo...ol\package.json:String) [Get-Content], ItemNotFoundEx 
+   ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'Get-ChildItem -Recurse -File -Include AGENTS.md,AGENTS.override.md | Select-Object FullName; git show ee6c16398:lib/policy.mjs; git diff ee6c16398''^ ee6c16398 -- lib/orchestrator.mjs; Get-Content tests/policy.test.mjs' in D:\workspace\Vocaflow-AI-Control
+ succeeded in 845ms:
+// lib/policy.mjs
+//
+// 목표 단위 실행 정책(Execution Policy) + 위험 분류 — 사용자 승인을 「설계 버전·파일 경로마다」가 아니라 「목표마다 한 번」으로.
+//
+//   정책(goal.execution_policy · 사용자가 대화형 터미널로 승인한 goal_delegation 결정에 내용 sha256 째 결속):
+//     goal_id · allowed_capabilities[] · allowed_code_areas[](glob) · excluded_operations[] · risk_level(LOW|MEDIUM — 자동 실행 상한)
+//     approval_evidence(결정 id) · max_runtime_min · max_cost_usd · merge_policy(none|pr_only) · live_test_user(선택 · 실제 학습자 아님)
+//
+//   위험(경로·DB 범위·작업 종류로만 — AI 판단 없음 · 모르면 높게):
+//     HIGH   DB 스키마·데이터(supabase/** · *.sql · migrations · scripts/db/** · db_scope write) · 인증·권한·RLS · .env·비밀 ·
+//            정본(goals/** · docs/platform-goals/** · LEARNING_MAP_VNEXT.md) · 배포·CI(.github/workflows · vercel · next.config) ·
+//            의존성(package.json · lockfile) · 개인정보 · 작업 종류 db_write·canon_change·deploy·merge_main·external_publish
+//     MEDIUM 제품 코드(apps/** · packages/** 의 테스트 아닌 파일 — 기존 동작·학생 UI·API) · scripts/**(DB 아님) · 개발 DB 읽기
+//     LOW    테스트(__tests__ · *.test.* · *.spec.*) · 정본 아닌 문서(*.md · docs/**)
+//   HIGH 는 어떤 정책으로도 자동 실행하지 않는다 — 별도 대화형 승인(DB 쓰기 · 정본 재봉인 등 기존 경로).
+
+import crypto from 'node:crypto'
+
+export const RISK = { LOW: 1, MEDIUM: 2, HIGH: 3 }
+export const CAPABILITIES = ['read', 'plan', 'design_request', 'code_change', 'test', 'review', 'docs', 'branch_push', 'pr_open', 'db_read_dev']
+export const HIGH_OPS = ['db_write', 'schema_change', 'canon_change', 'deploy', 'merge_main', 'external_publish', 'auth_change', 'personal_data']
+export const MERGE_POLICIES = ['none', 'pr_only']
+
+/** glob → 정규식: `**​/` = 0개 이상 폴더 · 끝의 `**` = 아무거나 · `*` = 한 단계 · `?` = 한 글자 */
+function g2re(g) {
+  const s = String(g).replace(/\\/g, '/')
+  let out = ''
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i]
+    if (c === '*' && s[i + 1] === '*') {
+      if (s[i + 2] === '/') {
+        out += '(?:.*/)?'
+        i += 2
+      } else {
+        out += '.*'
+        i += 1
+      }
+    } else if (c === '*') out += '[^/]*'
+    else if (c === '?') out += '[^/]'
+    else out += c.replace(/[.+^${}()|[\]]/g, '\\$&')
+  }
+  return new RegExp(`^${out}$`, 'i')
+}
+const matchAny = (p, globs) => globs.some((g) => g2re(g).test(String(p).replace(/\\/g, '/')))
+
+const HIGH_PATHS = [
+  'supabase/**', '**/*.sql', '**/migrations/**', 'scripts/db/**',
+  '**/.env*', '**/*secret*', '**/*credential*',
+  '**/auth/**', '**/middleware.*', '**/*rls*', 'apps/web/src/lib/supabase/**',
+  'goals/**', 'docs/platform-goals/**', '**/LEARNING_MAP_VNEXT.md', '**/GOAL_ACCEPTANCE_CRITERIA.json',
+  '.github/workflows/**', '**/vercel.json', '**/next.config.*',
+  '**/package.json', '**/pnpm-lock.yaml', '**/*privacy*', '**/*personal*',
+]
+const LOW_PATHS = ['**/__tests__/**', '**/*.test.*', '**/*.spec.*', '**/*.md', 'docs/**']
+
+/** HIGH 파일이 어떤 승인 종류로만 풀리는가 — 대응이 없으면 자동 작업에서는 늘 막힌다(인증·정본·의존성·개인정보) */
+export function highApprovalKind(p) {
+  if (matchAny(p, ['supabase/**', '**/*.sql', '**/migrations/**', 'scripts/db/**'])) return 'db_write'
+  if (matchAny(p, ['**/.env*', '**/*secret*', '**/*credential*'])) return 'secret'
+  if (matchAny(p, ['.github/workflows/**', '**/vercel.json', '**/next.config.*'])) return 'deploy'
+  return null
+}
+
+/** 경로 하나의 위험 — 높은 규칙이 먼저(테스트 폴더 안의 .sql 도 HIGH) */
+export function pathRisk(p) {
+  if (matchAny(p, HIGH_PATHS)) return 'HIGH'
+  if (matchAny(p, LOW_PATHS)) return 'LOW'
+  return 'MEDIUM'
+}
+
+/** 변경 묶음의 위험 = 가장 높은 것. db_scope·작업 종류도 본다. 경로가 없으면 판단 불가 → HIGH */
+export function classifyRisk({ paths = [], db_scope = null, operations = [] } = {}) {
+  const reasons = []
+  let level = 'LOW'
+  const up = (l, why) => {
+    if (RISK[l] > RISK[level]) level = l
+    if (l !== 'LOW') reasons.push(`${l}: ${why}`)
+  }
+  if (!paths.length) up('HIGH', '변경 경로가 없다 — 범위를 알 수 없다')
+  for (const p of paths) {
+    const r = pathRisk(p)
+    if (r !== 'LOW') up(r, p)
+  }
+  const mode = db_scope?.mode ?? 'none'
+  if (mode === 'write') up('HIGH', 'db_scope=write')
+  else if (mode === 'read') up('MEDIUM', 'db_scope=read')
+  for (const o of operations) if (HIGH_OPS.includes(o)) up('HIGH', `operation ${o}`)
+  return { level, reasons }
+}
+
+export const policySha = (policy) => crypto.createHash('sha256').update(JSON.stringify(canon(policy))).digest('hex')
+function canon(v) {
+  if (Array.isArray(v)) return v.map(canon)
+  if (v && typeof v === 'object') return Object.fromEntries(Object.keys(v).sort().map((k) => [k, canon(v[k])]))
+  return v
+}
+
+/** 정책 형식 검사 — 틀리면 오류 목록 */
+export function validatePolicy(p) {
+  const e = []
+  if (!p || typeof p !== 'object') return ['정책이 객체가 아니다']
+  if (!/^UG-/.test(p.goal_id || '')) e.push('goal_id(UG-…)')
+  if (!Array.isArray(p.allowed_capabilities) || p.allowed_capabilities.some((c) => !CAPABILITIES.includes(c))) e.push(`allowed_capabilities ⊂ ${CAPABILITIES.join('|')}`)
+  if (!Array.isArray(p.allowed_code_areas) || !p.allowed_code_areas.length) e.push('allowed_code_areas(비지 않은 glob 배열)')
+  const BROAD = ['**', '*', '**/*', 'apps/**', 'apps/web/**', 'apps/web/src/**', 'apps/web/src/lib/**', 'apps/web/src/app/**', 'apps/web/src/components/**', 'packages/**', 'scripts/**', 'docs/**']
+  for (const a of p.allowed_code_areas || []) if (pathRisk(a) === 'HIGH' || BROAD.includes(String(a).replace(/\\/g, '/'))) e.push(`code area ${a} 는 HIGH 이거나 너무 넓다`)
+  if (!Array.isArray(p.excluded_operations)) e.push('excluded_operations 배열')
+  for (const o of HIGH_OPS) if (!(p.excluded_operations || []).includes(o)) e.push(`excluded_operations 에 ${o} 가 있어야 한다(HIGH 는 정책으로 위임하지 않는다)`)
+  if (!['LOW', 'MEDIUM'].includes(p.risk_level)) e.push('risk_level 은 LOW|MEDIUM(HIGH 는 위임 불가)')
+  if (!(Number(p.max_runtime_min) > 0)) e.push('max_runtime_min > 0')
+  if (!(Number(p.max_cost_usd) > 0)) e.push('max_cost_usd > 0')
+  if (!MERGE_POLICIES.includes(p.merge_policy)) e.push(`merge_policy ${MERGE_POLICIES.join('|')}`)
+  if (p.live_test_user !== undefined && p.live_test_user !== null && !/^[0-9a-f-]{36}$/i.test(p.live_test_user)) e.push('live_test_user 는 uuid(테스트 계정)')
+  if (p.live_test_user && !(p.allowed_capabilities || []).includes('db_read_dev')) e.push('live_test_user 는 db_read_dev 능력과 함께')
+  return e
+}
+
+/**
+ * 정책이 이 변경(설계·작업)을 덮는가. 덮으면 { ok:true, risk } — 사용자에게 다시 묻지 않는다.
+ * 아니면 { ok:false, why[] } — 그 변경만 승인 대기(독립 작업은 계속).
+ */
+export function policyCovers(policy, { paths = [], db_scope = null, operations = [], db_changes = false, capability = 'code_change' } = {}) {
+  const why = []
+  if (!policy) return { ok: false, why: ['목표 실행 정책 없음'] }
+  const risk = classifyRisk({ paths, db_scope, operations: [...operations, ...(db_changes ? ['db_write'] : [])] })
+  if (risk.level === 'HIGH') why.push(`위험 HIGH(${risk.reasons.filter((r) => r.startsWith('HIGH')).join(' · ')}) — 별도 사용자 승인`)
+  else if (RISK[risk.level] > RISK[policy.risk_level]) why.push(`위험 ${risk.level} > 정책 상한 ${policy.risk_level}`)
+  const outside = paths.filter((p) => !matchAny(p, policy.allowed_code_areas))
+  if (outside.length) why.push(`허용 코드 영역 밖: ${outside.join(', ')}`)
+  if (!policy.allowed_capabilities.includes(capability)) why.push(`능력 ${capability} 이 정책에 없다`)
+  if ((db_scope?.mode ?? 'none') === 'read' && !policy.allowed_capabilities.includes('db_read_dev')) why.push('개발 DB 읽기(db_read_dev) 미위임')
+  for (const o of operations) if ((policy.excluded_operations || []).includes(o)) why.push(`제외된 작업 ${o}`)
+  return why.length ? { ok: false, why, risk } : { ok: true, risk }
+}
+diff --git a/lib/orchestrator.mjs b/lib/orchestrator.mjs
+index 37beca6fe..5c2588bf3 100644
+--- a/lib/orchestrator.mjs
++++ b/lib/orchestrator.mjs
+@@ -26,6 +26,7 @@ import * as T from './tasks.mjs'
+ import { computeGoalCheck, applyGoalCheck, CI_RULES } from './goalcheck.mjs'
+ import { rankTasks } from './priority.mjs'
+ import { sameGoalPreference, goalLevel } from './alignment.mjs'
++import { pathRisk, highApprovalKind } from './policy.mjs'
+ import { checkFeasibility } from './feasibility.mjs'
+ import { reviewGate } from './review-verdicts.mjs'
+ import * as UG from './usergoals.mjs'
+@@ -338,6 +339,11 @@ export function implementStep({ runId, task, round, findings, limits, deps }) {
+   const ch = changedFiles(wt, base)
+   const outside = [...ch.committed, ...ch.dirty].filter((f) => !T.pathInScope(f, task.allowed_paths) || T.pathInScope(f, task.forbidden_paths))
+   if (outside.length) return { cause: 'scope_violation', detail: `범위 밖 변경: ${outside.join(', ')}`, block: true, report }
++  // 위험 HIGH 파일(DB·정본·인증·비밀·배포·의존성)은 범위 glob 안이라도 자동 작업에서 바꾸지 않는다 — 별도 승인(Codex P1)
++  // 파일마다 그 종류의 승인이 실제로 기록됐을 때만(다른 종류의 승인으로 풀리지 않는다 · Codex P1)
++  const approvedKinds = new Set(task.approval?.kinds || [])
++  const high = [...ch.committed, ...ch.dirty].filter((f) => pathRisk(f) === 'HIGH' && !(highApprovalKind(f) && approvedKinds.has(highApprovalKind(f))))
++  if (high.length) return { cause: 'high_risk_change', detail: `위험 HIGH 파일 변경: ${high.join(', ')} — 별도 사용자 승인 필요`, block: true, report }
+   if (ch.dirty.length) return { cause: 'uncommitted', detail: `커밋 안 된 변경: ${ch.dirty.join(', ')}`, report }
+   const head = git(wt, ['rev-parse', 'HEAD'])
+   if (!head.startsWith(report.commit) && !report.commit.startsWith(head.slice(0, report.commit.length))) return { cause: 'commit_mismatch', detail: `보고 commit ${report.commit} ≠ HEAD ${head}`, report }
+@@ -467,6 +473,14 @@ export function processTask({ runId, taskId, limits, deps, pid }) {
+   for (let round = (task.orchestration.rounds || 0) + 1; ; round++) {
+     if (budgetExceeded(runId, limits)) return { outcome: 'budget_stop', stop: true }
+     if (fs.existsSync(p.stopFile())) return { outcome: 'user_stop', stop: true }
++    if (task.user_goal_id) {
++      const left = UG.policyBudgetLeft(loadState().state, task.user_goal_id)
++      if (left !== null && left <= 0) {
++        block(taskId, task.owner_id, `목표 정책 비용 상한 도달 — 남은 예산 0$`)
++        return { outcome: 'blocked_goal_budget' }
++      }
++      if (left !== null) limits = { ...limits, claude_budget_usd: Math.min(limits.claude_budget_usd, left) }
++    }
+     if (round > limits.max_review_rounds) {
+       block(taskId, task.owner_id, `리뷰·수정 반복 상한(${limits.max_review_rounds}) 도달 — 남은 P0/P1: ${JSON.stringify(findings?.map((f) => f.id) ?? [])}`)
+       return { outcome: 'blocked_review_limit' }
+// tests/policy.test.mjs ??紐⑺몴 ?⑥쐞 ?ㅽ뻾 ?뺤콉 쨌 ?꾪뿕 遺꾨쪟 쨌 ?쎄린 ?꾩슜 live 寃利?//
+// ??Claude쨌Codex쨌GitHub쨌vitest ??媛吏?tests/fakes). ?뱀씤 寃곗젙? ??뷀삎 ?곕??????VFC_TTY_FOR_TESTS 쨌 ?꾩떆 ?대뜑?먯꽌留??좏슚).
+import { test } from 'node:test'
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { spawnSync, execFileSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+import { pathRisk, classifyRisk, validatePolicy, policyCovers, policySha } from '../lib/policy.mjs'
+import { preflight, runLive, importClosure } from '../lib/liveverify.mjs'
+
+const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const VFC = path.join(REPO, 'bin', 'vfc.mjs')
+const ORCH = path.join(REPO, 'bin', 'goal-orchestrator.mjs')
+const fake = (n) => `node ${path.join(REPO, 'tests', 'fakes', n).replace(/\\/g, '/')}`
+const OWNER = 'r0-learning-journey'
+const CANON = 'VG-L3-A2-01'
+
+const basePolicy = (over = {}) => ({
+  goal_id: 'UG-x-0001',
+  allowed_capabilities: ['read', 'plan', 'design_request', 'code_change', 'test', 'review', 'docs'],
+  allowed_code_areas: ['src/**'],
+  excluded_operations: ['db_write', 'schema_change', 'canon_change', 'deploy', 'merge_main', 'external_publish', 'auth_change', 'personal_data'],
+  risk_level: 'MEDIUM',
+  max_runtime_min: 60,
+  max_cost_usd: 10,
+  merge_policy: 'none',
+  ...over,
+})
+
+test('?꾪뿕 遺꾨쪟: ??쾶 ?섎せ 遺꾨쪟???뱀씤???고쉶?섏? 紐삵븳??HIGH ?곗꽑 쨌 紐⑤Ⅴ硫??믨쾶)', () => {
+  const high = ['supabase/migrations/1.sql', 'apps/web/src/lib/csat/map/__tests__/seed.sql', 'apps/web/.env.local', 'apps/web/src/lib/supabase/admin.ts', 'apps/web/src/middleware.ts', 'docs/csat-learner/LEARNING_MAP_VNEXT.md', 'goals/GOAL_ACCEPTANCE_CRITERIA.json', '.github/workflows/ci.yml', 'package.json', 'scripts/db/seed.mjs', 'apps/web/src/app/auth/callback/route.ts', 'docs/__tests__/x.sql']
+  for (const p of high) assert.equal(pathRisk(p), 'HIGH', p)
+  assert.equal(pathRisk('apps/web/src/lib/csat/map/load.ts'), 'MEDIUM')
+  assert.equal(pathRisk('apps/web/src/components/csat/diagnosis/map/StepSheet.tsx'), 'MEDIUM')
+  assert.equal(pathRisk('apps/web/src/lib/csat/map/__tests__/x.test.ts'), 'LOW')
+  assert.equal(classifyRisk({ paths: [] }).level, 'HIGH', '寃쎈줈 ?놁쓬 = 踰붿쐞 遺덈챸 = HIGH')
+  assert.equal(classifyRisk({ paths: ['src/a.test.ts'], db_scope: { mode: 'write' } }).level, 'HIGH')
+  assert.equal(classifyRisk({ paths: ['docs/a.md'], operations: ['merge_main'] }).level, 'HIGH')
+  assert.equal(classifyRisk({ paths: ['docs/a.md'], db_scope: { mode: 'read' } }).level, 'MEDIUM')
+})
+
+test('?뺤콉 寃?? HIGH ?꾩엫 遺덇? 쨌 ?덈Т ?볦? ?곸뿭 嫄곕? 쨌 踰붿쐞 諛??꾪뿕 珥덇낵/?λ젰 ?놁쓬? 洹?蹂寃쎈쭔 蹂대쪟', () => {
+  assert.deepEqual(validatePolicy(basePolicy()), [])
+  assert.ok(validatePolicy(basePolicy({ risk_level: 'HIGH' })).some((e) => /HIGH/.test(e)))
+  assert.ok(validatePolicy(basePolicy({ allowed_code_areas: ['apps/**'] })).some((e) => /?볥떎/.test(e)))
+  assert.ok(validatePolicy(basePolicy({ allowed_code_areas: ['supabase/**'] })).some((e) => /HIGH/.test(e)))
+  assert.ok(validatePolicy(basePolicy({ excluded_operations: ['db_write'] })).some((e) => /merge_main/.test(e)))
+  const p = basePolicy()
+  assert.equal(policyCovers(p, { paths: ['src/a.ts', 'src/__tests__/a.test.ts'] }).ok, true, '寃쎈줈媛 諛붾뚯뼱??媛숈? ?곸뿭쨌?꾪뿕?대㈃ ?먮룞')
+  assert.match(policyCovers(p, { paths: ['lib/x.ts'] }).why.join(), /?곸뿭 諛?)
+  assert.match(policyCovers(p, { paths: ['src/a.ts'], db_changes: true }).why.join(), /HIGH/)
+  assert.match(policyCovers(basePolicy({ risk_level: 'LOW' }), { paths: ['src/a.ts'] }).why.join(), /?뺤콉 ?곹븳 LOW/)
+  assert.match(policyCovers(p, { paths: ['src/a.ts'], db_scope: { mode: 'read' } }).why.join(), /db_read_dev/)
+})
+
+function setup() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-pol-'))
+  const wt = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-polwt-'))
+  const g = (...a) => execFileSync('git', ['-C', wt, ...a], { encoding: 'utf8' })
+  g('init', '-q', '-b', 'feat/t')
+  g('config', 'user.email', 't@example.com')
+  g('config', 'user.name', 'test')
+  fs.mkdirSync(path.join(wt, 'src'), { recursive: true })
+  fs.writeFileSync(path.join(wt, 'AGENTS.md'), '# A\n')
+  fs.writeFileSync(path.join(wt, 'src', 'x.ts'), 'export const x = 1\n')
+  fs.writeFileSync(path.join(wt, '.gitignore'), '.vfc-runs/\n.agent-lock\n')
+  g('add', '.')
+  g('commit', '-q', '-m', 'base')
+  g('update-ref', 'refs/remotes/origin/main', 'HEAD')
+  const env = { ...process.env, VFC_ROOT: root, VFC_PRODUCT_REPO: wt, VFC_CLAUDE_CMD: fake('fake-claude.mjs'), VFC_CODEX_CMD: fake('fake-codex.mjs'), FAKE_STATE_DIR: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), CLAUDECODE: '', VFC_AGENT: '' }
+  const run = (bin, args, extra = {}, input) => {
+    const r = spawnSync(process.execPath, [bin, ...args], { env: { ...env, ...extra }, encoding: 'utf8', timeout: 240000, input })
+    return { code: r.status, out: r.stdout, err: r.stderr, json: (() => { try { return JSON.parse(r.stdout) } catch { return null } })() }
+  }
+  const vfc = (...a) => {
+    const r = run(VFC, [...a, '--json'])
+    assert.equal(r.code, 0, r.err)
+    return r.json
+  }
+  vfc('init')
+  vfc('owner', 'bind-worktree', OWNER, wt, '--branch', 'feat/t')
+  const tty = (args, code = 'abc123') => run(VFC, ['approve', ...args, '--json'], { VFC_TTY_FOR_TESTS: '1', VFC_TEST_CODE: code }, `${code}\n`)
+  // DEEP ?꾨땶 紐⑺몴 + Work ?ㅺ퀎(PROPOSED) ?됰궡: chatgpt ?쒖옉 ?뚯씪
+  const goal = (design) => {
+    const f = path.join(root, `g-${Math.random().toString(16).slice(2, 6)}.md`)
+    fs.writeFileSync(f, `\`\`\`json vfc-goal\n${JSON.stringify({ schema: 'vfc-goal/1', title: '?뺤콉 紐⑺몴', canon_goal_ids: [CANON], profile: 'BALANCED', design })}\n\`\`\`\n`)
+    return vfc('ugoal', 'start', '--from', 'chatgpt', '--file', f, '--by', 'user')
+  }
+  const draft = (ug, idx, over = {}) => {
+    const f = path.join(root, `t-${Math.random().toString(16).slice(2, 6)}.json`)
+    fs.writeFileSync(f, JSON.stringify({ goal_id: CANON, title: `?묒뾽 ${idx}`, description: 'd', priority: 'P1', owner_id: OWNER, allowed_paths: ['src/**'], forbidden_paths: ['secret.txt'], acceptance: ['議곌굔'], worktree: wt, branch: 'feat/t', design_acceptance: idx, ...over }))
+    return vfc('ugoal', 'task', 'add', ug, '--file', f, '--by', OWNER)
+  }
+  return { root, wt, vfc, run, tty, goal, draft }
+}
+
+const design = (over = {}) => ({ summary: 's', acceptance: ['湲곗? 0', '湲곗? 1'], preserved_contracts: ['c'], allowed_paths: ['src/**'], db_changes: false, ...over })
+
+test('紐⑺몴 ?꾩엫 ??踰????뺤콉 ?덉쓽 PROPOSED ?ㅺ퀎 ?먮룞 ?뱀씤 쨌 珥덉븞???묒뾽?쇰줈 쨌 ?곗냽 ?ㅽ뻾(踰꾩쟾蹂??뱀씤 ?놁쓬)', () => {
+  const s = setup()
+  const u = s.goal(design())
+  s.draft(u.ug_id, [0])
+  s.draft(u.ug_id, [1])
+  const pf = path.join(s.root, 'policy.json')
+  fs.writeFileSync(pf, JSON.stringify(basePolicy({ goal_id: u.ug_id })))
+  // 鍮꾨??뷀삎?쇰줈???꾩엫?????녿떎
+  assert.match(s.run(VFC, ['approve', '--kind', 'goal_delegation', '--summary', `${u.ug_id}@policy`, '--policy-file', pf]).err, /TRUST_REQUIRED/)
+  const d = s.tty(['--kind', 'goal_delegation', '--summary', `${u.ug_id}@policy`, '--policy-file', pf]).json
+  assert.equal(d.policy_sha256, policySha(JSON.parse(fs.readFileSync(pf, 'utf8'))))
+  const r = s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '3']).json
+  assert.equal(r.run.tasks_done.filter((x) => x.outcome === 'completed').length, 2, JSON.stringify(r.iterations[0]))
+  const st = s.vfc('ugoal', 'status', u.ug_id)
+  assert.equal(st.approval.via_policy, true)
+  assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_VERIFIED')
+})
+
+test('?뺤콉 諛??ㅺ퀎(HIGH쨌?곸뿭 諛????먮룞 ?뱀씤?섏? ?딄퀬 洹?紐⑺몴留??뱀씤 ?湲?쨌 ?뺤콉 ?뚯씪 蹂議?sha 遺덉씪移???臾댁떆', () => {
+  const s = setup()
+  const u = s.goal(design({ db_changes: true }))
+  const pf = path.join(s.root, 'policy.json')
+  fs.writeFileSync(pf, JSON.stringify(basePolicy({ goal_id: u.ug_id })))
+  s.tty(['--kind', 'goal_delegation', '--summary', `${u.ug_id}@policy`, '--policy-file', pf])
+  s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'])
+  assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'APPROVAL_REQUIRED', 'DB 蹂寃??ㅺ퀎???뺤콉?쇰줈 ?뱀씤?섏? ?딅뒗??)
+  // 寃곗젙???ㅻ┛ ?뺤콉???ы썑???볧????뚯씪쨌?곹깭 蹂議? sha 媛 ?щ씪 ?곸슜?섏? ?딅뒗??  const v = s.goal(design())
+  const pf2 = path.join(s.root, 'policy2.json')
+  fs.writeFileSync(pf2, JSON.stringify(basePolicy({ goal_id: v.ug_id, allowed_code_areas: ['lib/**'] })))
+  const d2 = s.tty(['--kind', 'goal_delegation', '--summary', `${v.ug_id}@policy`, '--policy-file', pf2], 'def456').json
+  const logF = path.join(s.root, 'state', 'DECISION_LOG.json')
+  const log = JSON.parse(fs.readFileSync(logF, 'utf8'))
+  log.entries.find((e) => e.decision_id === d2.decision_id).policy.allowed_code_areas = ['src/**']
+  fs.writeFileSync(logF, JSON.stringify(log))
+  s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'])
+  assert.equal(s.vfc('ugoal', 'status', v.ug_id).execution_policy, undefined, '蹂議곕맂 ?뺤콉? ?μ갑?섏? ?딅뒗??)
+})
+
+test('?뺤콉 ?묒뾽 寃뚯씠?? ?뱀씤???ㅺ퀎 ?덉씠?쇰룄 ?묒뾽??HIGH 寃쎈줈硫?洹??묒뾽留?蹂대쪟', () => {
+  const s = setup()
+  const u = s.goal(design({ allowed_paths: ['src/**', 'src/db/x.sql'] }))
+  s.draft(u.ug_id, [0], { allowed_paths: ['src/db/x.sql'] })
+  s.draft(u.ug_id, [1], { allowed_paths: ['src/ok/**'] })
+  const pf = path.join(s.root, 'policy.json')
+  fs.writeFileSync(pf, JSON.stringify(basePolicy({ goal_id: u.ug_id })))
+  s.tty(['--kind', 'goal_delegation', '--summary', `${u.ug_id}@policy`, '--policy-file', pf])
+  s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '2'])
+  assert.notEqual(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_VERIFIED', '?ㅺ퀎??.sql ???덉뼱 ?뺤콉?쇰줈 ?뱀씤?섏? ?딅뒗??)
+})
+
+test('?쎄린 ?꾩슜 live 寃利? ?꾩엫쨌?뚯뒪??怨꾩젙쨌?댁떆 寃곗냽 ?놁쑝硫??ㅽ뻾 ????쨌 嫄대꼫?? PASS ?꾨떂 쨌 ?듦낵留?PASS', () => {
+  const wt = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-live-'))
+  const src = path.join(wt, 'apps', 'web', 'src', 'lib')
+  fs.mkdirSync(path.join(src, '__tests__'), { recursive: true })
+  fs.writeFileSync(path.join(src, 'reader.ts'), "export const read = (db) => db.from('t').select('*')\n")
+  fs.writeFileSync(path.join(src, 'writer.ts'), "export const write = (db) => db.from('t').insert({})\nexport const ok = 1\n")
+  fs.writeFileSync(path.join(src, '__tests__', 'x.live.test.ts'), "import { read } from '../reader'\nimport { ok } from '@/lib/writer'\n")
+  const testRel = 'apps/web/src/lib/__tests__/x.live.test.ts'
+  const cl = importClosure(wt, testRel)
+  assert.deepEqual(cl.filter((c) => c.writes).map((c) => c.path), ['apps/web/src/lib/writer.ts'])
+  const pol = basePolicy({ allowed_capabilities: ['read', 'test', 'db_read_dev'], live_test_user: '00000000-0000-4000-8000-000000000001' })
+  assert.match(preflight({ ...pol, live_test_user: null }, wt, testRel).why.join(), /?뚯뒪??怨꾩젙/)
+  assert.match(preflight(pol, wt, testRel).why.join(), /?뺤씤 紐⑸줉???녿떎/)
+  const w = cl.find((c) => c.writes)
+  const attested = { ...pol, read_only_attestation: [{ path: w.path, sha256: w.sha256 }] }
+  assert.equal(preflight(attested, wt, testRel).ok, true)
+  fs.appendFileSync(path.join(src, 'writer.ts'), 'export const more = 2\n')
+  assert.match(preflight(attested, wt, testRel).why.join(), /?댁떆 遺덉씪移?, '?뺤씤 ??諛붾??뚯씪? ?ㅼ떆 ?뺤씤')
+  process.env.VFC_VITEST_CMD = fake('fake-vitest.mjs')
+  try {
+    for (const [mode, want] of [['pass', 'PASS'], ['skip', 'UNVERIFIED'], ['fail', 'FAIL'], ['none', 'UNVERIFIED']]) {
+      process.env.FAKE_VITEST = mode
+      assert.equal(runLive({ worktree: wt, testRel, liveUser: pol.live_test_user }).status, want, mode)
+    }
+  } finally {
+    delete process.env.VFC_VITEST_CMD
+    delete process.env.FAKE_VITEST
+  }
+})
+
+test('Codex P1쨌P2 ?뚭? ??遺???④낵 import쨌?щ궡蹂대궡湲걔룰났諛?? ?곌린 ?몄텧 쨌 ?щ꼫 ?ㅽ뙣??PASS ?꾨떂 쨌 ?뺤콉 ?놁쑝硫?closure []', () => {
+  const wt = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-live2-'))
+  const src = path.join(wt, 'apps', 'web', 'src', 'lib')
+  fs.mkdirSync(path.join(src, '__tests__'), { recursive: true })
+  fs.writeFileSync(path.join(src, 'side.ts'), "db.from('t').insert ({})\n")
+  fs.writeFileSync(path.join(src, 'w2.ts'), "export const w = (db) => db.from('t')\n  .delete\n  ()\n")
+  fs.writeFileSync(path.join(src, 'barrel.ts'), "export { w } from './w2'\n")
+  fs.writeFileSync(path.join(src, '__tests__', 'y.live.test.ts'), "import '../side'\nimport { w } from '../barrel'\n")
+  const testRel = 'apps/web/src/lib/__tests__/y.live.test.ts'
+  const cl = importClosure(wt, testRel)
+  assert.deepEqual(cl.filter((c) => c.writes).map((c) => c.path).sort(), ['apps/web/src/lib/side.ts', 'apps/web/src/lib/w2.ts'])
+  fs.writeFileSync(path.join(src, '__tests__', 'z.live.test.ts'), "import '../missing'\nconst m = import(name)\n")
+  const pol = basePolicy({ allowed_capabilities: ['read', 'test', 'db_read_dev'], live_test_user: '00000000-0000-4000-8000-000000000001' })
+  const pz = preflight(pol, wt, 'apps/web/src/lib/__tests__/z.live.test.ts')
+  assert.equal(pz.ok, false)
+  assert.match(pz.why.join(), /李얠? 紐삵뻽??)
+  assert.match(pz.why.join(), /?숈쟻 import/)
+  assert.deepEqual(preflight(null, wt, testRel).closure, [])
+  // ?듦낵 蹂닿퀬 + ?щ꼫 鍮꾩젙??醫낅즺 ??FAIL
+  const fakeExit = path.join(wt, 'fake-exit.mjs')
+  fs.writeFileSync(fakeExit, "import fs from 'node:fs'\nconst [, , , out] = process.argv\nfs.writeFileSync(out, JSON.stringify({ numPassedTests: 1, numFailedTests: 0, numPendingTests: 0, numTotalTests: 1 }))\nprocess.exit(1)\n")
+  process.env.VFC_VITEST_CMD = `node ${fakeExit.split(path.sep).join('/')}`
+  try {
+    assert.equal(runLive({ worktree: wt, testRel, liveUser: pol.live_test_user }).status, 'FAIL')
+  } finally {
+    delete process.env.VFC_VITEST_CMD
+  }
+})
+
+test('Codex P1 ?뚭? ??glob 踰붿쐞 ?덉씠?쇰룄 ?ㅼ젣濡?諛붾?HIGH ?뚯씪? 留됰뒗??쨌 ?뺤콉 ?덉궛??諛붾떏?섎㈃ ?ㅼ쓬 ?쇱슫???꾩뿉 硫덉텣??, () => {
+  const s = setup()
+  const u = s.goal(design())
+  s.draft(u.ug_id, [0])
+  const pf = path.join(s.root, 'policy.json')
+  fs.writeFileSync(pf, JSON.stringify(basePolicy({ goal_id: u.ug_id })))
+  s.tty(['--kind', 'goal_delegation', '--summary', `${u.ug_id}@policy`, '--policy-file', pf])
+  // 媛吏?Claude 媛 src/ ?꾨옒 .sql ??留뚮뱺??踰붿쐞 src/** ??쨌 HIGH)
+  const r = s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'], { FAKE_CLAUDE_EXTRA_FILE: 'src/seed.sql' }).json
+  const out = r.run.tasks_done[0]?.outcome
+  assert.match(String(out), /blocked/, JSON.stringify(r.run.tasks_done))
+  const t = s.vfc('task', 'list').find?.((x) => x.user_goal_id === u.ug_id) ?? null
+  assert.ok(t === null || t.status === 'BLOCKED')
+})
+
+test('Codex P1 ?뚭? 2 ???뚯뒪 猷⑦듃 諛??섏〈 嫄곕? 쨌 ?뺤씤???곌린 ?⑥닔瑜??덈줈 李몄“?섎㈃ ?ы솗??쨌 .env 媛 ?뚯뒪??怨꾩젙????? 紐삵븳??쨌 ?ㅻⅨ 醫낅쪟 ?뱀씤?쇰줈 HIGH ?뚯씪 ?듦낵 遺덇?', async () => {
+  const wt = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-live3-'))
+  const src = path.join(wt, 'apps', 'web', 'src', 'lib')
+  fs.mkdirSync(path.join(src, '__tests__'), { recursive: true })
+  fs.writeFileSync(path.join(wt, 'apps', 'web', 'outside.ts'), "export const o = (db) => db.from('t').insert({})\n")
+  fs.writeFileSync(path.join(src, '__tests__', 'o.live.test.ts'), "import { o } from '../../../outside'\n")
+  const pol = basePolicy({ allowed_capabilities: ['read', 'test', 'db_read_dev'], live_test_user: '00000000-0000-4000-8000-000000000001' })
+  assert.match(preflight(pol, wt, 'apps/web/src/lib/__tests__/o.live.test.ts').why.join(), /諛뽰씠??)
+  // ?몄텧 寃쎈줈 寃곗냽: ?곌린 ?⑥닔媛 ?덈뒗 ?뚯씪? ?뺤씤?먯뼱?? ?뚯뒪?멸? 洹??⑥닔瑜??덈줈 遺瑜대㈃ ?ы솗??  fs.writeFileSync(path.join(src, 'writer.ts'), "export function doWrite(db) { return db.from('t').insert({}) }\nexport const safe = 1\n")
+  fs.writeFileSync(path.join(src, '__tests__', 'p.live.test.ts'), "import { safe } from '../writer'\n")
+  const rel = 'apps/web/src/lib/__tests__/p.live.test.ts'
+  const w = importClosure(wt, rel).find((c) => c.writes)
+  const att = { ...pol, read_only_attestation: [{ path: w.path, sha256: w.sha256 }], read_only_write_functions: ['doWrite'] }
+  assert.equal(preflight(att, wt, rel).ok, true)
+  fs.writeFileSync(path.join(src, '__tests__', 'p.live.test.ts'), "import { safe, doWrite } from '../writer'\ndoWrite(null)\n")
+  assert.match(preflight(att, wt, rel).why.join(), /?몄텧 寃쎈줈 ?ы솗??)
+  // .env ???ㅻⅨ MAP_LIVE_USER 媛 ?덉뼱???뺤콉???뚯뒪??怨꾩젙???곗씤??  const envFile = path.join(wt, 'test.env')
+  fs.writeFileSync(envFile, 'MAP_LIVE_USER=11111111-1111-4111-8111-111111111111\nFAKE_SECRET=x\n')
+  process.env.VFC_VITEST_CMD = fake('fake-vitest.mjs')
+  process.env.FAKE_VITEST = 'pass'
+  try {
+    runLive({ worktree: wt, testRel: rel, liveUser: pol.live_test_user, envFile })
+    const seen = fs.readdirSync(path.join(wt, '.vfc-runs')).filter((x) => x.endsWith('.env-seen'))
+    const v = JSON.parse(fs.readFileSync(path.join(wt, '.vfc-runs', seen[0]), 'utf8'))
+    assert.equal(v.MAP_LIVE_USER, pol.live_test_user)
+    assert.equal(v.FAKE_SECRET_SEEN, true, '.env 媛믪? ?먯떇?먭쾶留??꾨떖')
+    assert.equal(process.env.FAKE_SECRET, undefined, '遺紐??섍꼍? 洹몃?濡?)
+  } finally {
+    delete process.env.VFC_VITEST_CMD
+    delete process.env.FAKE_VITEST
+  }
+  const { highApprovalKind } = await import('../lib/policy.mjs')
+  assert.equal(highApprovalKind('src/seed.sql'), 'db_write')
+  assert.equal(highApprovalKind('apps/web/.env.local'), 'secret')
+  assert.equal(highApprovalKind('apps/web/src/lib/supabase/admin.ts'), null, '?몄쬆쨌沅뚰븳? ?대뼡 ?뱀씤 醫낅쪟濡쒕룄 ?먮룞 ?묒뾽?먯꽌 ?由ъ? ?딅뒗??)
+})
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content lib/orchestrator.mjs -Encoding utf8 | Select-Object -Skip 440 -First 160; Select-String -Path lib/*.mjs -Pattern 'max_minutes|branch_push|pr_open|approval.kinds|kinds:|verified_commit'; Get-Content planning/policies/UG-c8315ad8-0002.json -Encoding utf8; git log -1 --oneline; Get-ChildItem -Force -Name" in D:\workspace\Vocaflow-AI-Control
+ succeeded in 769ms:
+ * 설계 쟁점 → 구조화 재질의(WF-S7). 작업은 DESIGN_CONFLICT 사유로 BLOCKED(설계 v 승인 시 approveDesign 이 자동 재개).
+ * 같은 쟁점 재질의 예산을 넘으면 DESIGN_BUDGET 으로 BLOCKED(사람 판단) — 어느 쪽이든 오케스트레이터는 다른 독립 작업으로 간다.
+ */
+function designConflict({ runId, task, issue, head, round }) {
+  const { state } = loadState()
+  try {
+    let context = null
+    try {
+      context = CTX.buildContext(state, task.user_goal_id)
+    } catch {
+      context = null // 패킷 실패는 요청을 막지 않는다 — 요청서에 「패킷 없음」 이 적힌다
+    }
+    const req = UG.requestDesign(withState, task.user_goal_id, { context, purpose: 'design_conflict', issue: { ...issue, attachments: (issue.attachments || []).filter((f) => fs.existsSync(f)) }, base_commit: head, canon_version: state.goalStatus.canon_version, by: 'orchestrator' })
+    block(task.task_id, task.owner_id, `DESIGN_CONFLICT: ${req.id} — ${String(issue.problem).slice(0, 160)}`)
+    runEvent(runId, { phase: 'design_conflict', task_id: task.task_id, round, request_id: req.id })
+    return { outcome: 'waiting_design' }
+  } catch (e) {
+    if (!(e instanceof T.RuleError) || !['REQUERY_BUDGET', 'ROUND_PENDING'].includes(e.code)) throw e
+    block(task.task_id, task.owner_id, `${e.code === 'REQUERY_BUDGET' ? 'DESIGN_BUDGET' : 'DESIGN_CONFLICT'}: ${e.message}`)
+    runEvent(runId, { phase: 'design_conflict_held', task_id: task.task_id, round, detail: e.message })
+    return { outcome: e.code === 'REQUERY_BUDGET' ? 'blocked_design_budget' : 'waiting_design' }
+  }
+}
+
+/** 작업 하나: 시작 → (구현 → 리뷰) 반복 → 완료 또는 BLOCKED. 반환: { outcome, stop? } */
+export function processTask({ runId, taskId, limits, deps, pid }) {
+  const session = { label: `orch-${runId}`, agent: 'orchestrator', pid }
+  let task = loadState().state.taskQueue.tasks.find((t) => t.task_id === taskId)
+  // 사용자 목표 프로필은 예산만 줄인다(승인·무결성 게이트는 그대로)
+  limits = UG.limitsFor(loadState().state, task, limits)
+  let findings = null
+  let falsePositives = []
+  for (let round = (task.orchestration.rounds || 0) + 1; ; round++) {
+    if (budgetExceeded(runId, limits)) return { outcome: 'budget_stop', stop: true }
+    if (fs.existsSync(p.stopFile())) return { outcome: 'user_stop', stop: true }
+    if (task.user_goal_id) {
+      const left = UG.policyBudgetLeft(loadState().state, task.user_goal_id)
+      if (left !== null && left <= 0) {
+        block(taskId, task.owner_id, `목표 정책 비용 상한 도달 — 남은 예산 0$`)
+        return { outcome: 'blocked_goal_budget' }
+      }
+      if (left !== null) limits = { ...limits, claude_budget_usd: Math.min(limits.claude_budget_usd, left) }
+    }
+    if (round > limits.max_review_rounds) {
+      block(taskId, task.owner_id, `리뷰·수정 반복 상한(${limits.max_review_rounds}) 도달 — 남은 P0/P1: ${JSON.stringify(findings?.map((f) => f.id) ?? [])}`)
+      return { outcome: 'blocked_review_limit' }
+    }
+    withState((s, ctx) => {
+      const t = s.taskQueue.tasks.find((x) => x.task_id === taskId)
+      t.orchestration.rounds = round
+      return T.startTask(s, taskId, { owner_id: t.owner_id, session, pid }, ctx)
+    }, { event: 'task.start', task: taskId, by: 'orchestrator' })
+    task = loadState().state.taskQueue.tasks.find((t) => t.task_id === taskId)
+
+    const impl = implementStep({ runId, task, round, findings, limits, deps })
+    // 설계 쟁점(WF-S7): Claude 가 구현 중 설계 문제를 구조화해 보고하면 코드 루프가 아니라 ChatGPT 재질의로 보낸다(사용자 목표 작업만)
+    if (impl.report?.design_issue && task.user_goal_id) {
+      const dc = designConflict({ runId, task, issue: impl.report.design_issue, head: impl.head, round })
+      if (dc) return dc
+    }
+    if (impl.cause) {
+      const n = bump(taskId, impl.cause)
+      runEvent(runId, { phase: 'implement_failed', task_id: taskId, round, cause: impl.cause, detail: impl.detail, count: n })
+      if (impl.stop) {
+        block(taskId, task.owner_id, `${impl.cause}: ${impl.detail}`)
+        return { outcome: impl.cause, stop: true }
+      }
+      if (impl.block || n >= limits.max_same_failure) {
+        block(taskId, task.owner_id, `${impl.cause} ×${n}: ${impl.detail}`)
+        return { outcome: `blocked_${impl.cause}` }
+      }
+      withState((s, ctx) => T.failTask(s, taskId, { caller: task.owner_id, reason: `${impl.cause}: ${impl.detail}` }, ctx))
+      withState((s) => {
+        const t = s.taskQueue.tasks.find((x) => x.task_id === taskId)
+        t.history.push({ at: nowIso(), from: 'FAILED', to: 'READY', by: 'orchestrator', note: `재시도(${impl.cause} ${n}/${limits.max_same_failure})` })
+        t.status = 'READY'
+      })
+      continue
+    }
+    falsePositives = (impl.report.findings_response || []).filter((f) => f.action === 'false_positive')
+    if (falsePositives.length) recordFalsePositives(taskId, round, falsePositives)
+
+    // Stop 훅이 이 커밋을 이미 막았으면 리뷰·재구현 라운드로 가지 않는다 — 즉시 BLOCKED, 다른 독립 작업으로(Codex 리뷰 P1)
+    const hookGate = reviewGate(impl.head)
+    if (hookGate.state === 'blocked') {
+      runEvent(runId, { phase: 'stop_hook_blocked', task_id: taskId, round, head: impl.head })
+      block(taskId, task.owner_id, `REVIEW_BLOCKED: Stop 훅 판정(${hookGate.record.kind}) 커밋 ${String(impl.head).slice(0, 9)} — 완료·병합·배포 금지`)
+      return { outcome: 'blocked_review_verdict' }
+    }
+    withState((s, ctx) => T.submitForReview(s, taskId, { caller: task.owner_id }, ctx), { event: 'task.submit', task: taskId, by: 'orchestrator' })
+    runEvent(runId, { phase: 'review', task_id: taskId, round })
+    const runDir = path.join(p.runs(), runId, `${taskId}-r${round}`)
+    let diffText = null
+    try {
+      diffText = git(task.worktree, ['diff', `${impl.base}..${impl.head}`])
+    } catch {
+      diffText = null
+    }
+    const rKey = diffText !== null ? reviewKey(task, diffText, impl.report) : null
+    const cached = rKey && !falsePositives.length ? readReviewCache()[rKey] : null
+    let cr
+    let parsed
+    if (cached) {
+      cr = { stdout: cached.stdout, cost_usd: 0, ms: 0 }
+      parsed = { ok: true, review: cached.review }
+      runEvent(runId, { phase: 'review_cache_hit', task_id: taskId, round, from: cached.review_rel })
+    } else {
+      cr = deps.runCodex({ prompt: codexPrompt(task, { base: impl.base, head: impl.head, report: impl.report, round, falsePositives }), cwd: task.worktree, timeoutMs: limits.codex_timeout_ms, runDir, effort: limits.codex_effort || 'high' })
+      parsed = deps.parseReview(cr.stdout)
+    }
+    const reviewRel = `verification/reviews/${taskId}-orch-${runId}-r${round}.md`
+    fs.mkdirSync(path.join(root(), 'verification', 'reviews'), { recursive: true })
+    fs.writeFileSync(path.join(root(), reviewRel), `# ${taskId} — Codex 리뷰 (orchestrator ${runId} · round ${round})\n\n- 파싱: ${parsed.ok ? 'ok' : parsed.error}\n- ran_tests: ${parsed.review?.ran_tests ?? '?'}(false 면 Codex 는 테스트를 직접 실행하지 않았다)\n\n\`\`\`json\n${JSON.stringify(parsed.review ?? null, null, 2)}\n\`\`\`\n`)
+    if (!parsed.ok) {
+      const n = bump(taskId, 'bad_review')
+      runEvent(runId, { phase: 'review_failed', task_id: taskId, round, detail: parsed.error, count: n })
+      withState((s) => T.rejectReview(s, taskId, { caller: REVIEWER, reason: `리뷰 출력 판독 실패: ${parsed.error}`, review_path: reviewRel }))
+      if (n >= limits.max_same_failure) {
+        block(taskId, task.owner_id, `Codex 리뷰 판독 실패 ×${n}`)
+        return { outcome: 'blocked_bad_review' }
+      }
+      findings = null
+      continue
+    }
+    const blocking = parsed.review.findings.filter((f) => ['P0', 'P1'].includes(f.severity) && f.scope === 'in')
+    if (rKey && !cached && parsed.review.verdict === 'APPROVE' && !blocking.length) writeReviewCache(rKey, { review: parsed.review, stdout: String(cr.stdout).slice(-20000), review_rel: reviewRel, at: nowIso() })
+    runEvent(runId, { phase: 'review_done', task_id: taskId, round, verdict: parsed.review.verdict, blocking: blocking.map((f) => f.id) })
+    // Codex 가 설계 자체의 문제(kind:"design")를 짚으면 Claude 수정 루프가 아니라 설계 재질의(사용자 목표 작업만)
+    const designFinding = task.user_goal_id && blocking.find((f) => f.kind === 'design')
+    if (designFinding) {
+      withState((s) => T.rejectReview(s, taskId, { caller: REVIEWER, reason: `설계 쟁점 ${designFinding.id}`, review_path: reviewRel }))
+      const dc = designConflict({ runId, task, head: impl.head, round, issue: { problem: designFinding.claim, evidence: [`${designFinding.file || ''}:${designFinding.line || ''}`, reviewRel], conflicts_with: designFinding.conflicts_with || '현재 승인 설계', alternatives: designFinding.alternatives || [designFinding.fix].filter(Boolean), question: designFinding.question || `이 설계 쟁점을 어떻게 해소할지 판단해 주세요: ${designFinding.claim}`, approval_scope_change: !!designFinding.approval_scope_change } })
+      if (dc) return dc
+    }
+    if (blocking.length || parsed.review.verdict === 'REQUEST_CHANGES') {
+      withState((s) => T.rejectReview(s, taskId, { caller: REVIEWER, reason: `P0/P1 ${blocking.map((f) => f.id).join(',')}`, review_path: reviewRel }))
+      findings = blocking.length ? blocking : parsed.review.findings
+      continue
+    }
+    try {
+      withState((s) => T.completeTask(s, taskId, { caller: REVIEWER, review_path: reviewRel }), { event: 'task.complete', task: taskId, by: 'orchestrator' })
+    } catch (e) {
+      // Stop 훅 판정이 이 커밋을 막았다 — 재시도로 풀 일이 아니다. 즉시 BLOCKED, 다음 반복은 다른 독립 작업을 고른다
+      if (['REVIEW_BLOCKED', 'REVIEW_COMMIT_MISMATCH', 'REVIEW_PASS_REQUIRED', 'DESIGN_SUPERSEDED'].includes(e.code)) {
+        withState((s) => T.rejectReview(s, taskId, { caller: REVIEWER, reason: `완료 판정 거부: ${e.message}`, review_path: reviewRel }))
+        runEvent(runId, { phase: 'complete_refused', task_id: taskId, round, detail: e.message, code: e.code })
+        block(taskId, task.owner_id, `${e.code}: ${e.message}`)
+        return { outcome: 'blocked_review_verdict' }
+      }
+      // 리뷰는 통과했지만 증거가 완료 조건을 덮지 못했다 — 같은 원인 반복이면 BLOCKED
+      const n = bump(taskId, 'acceptance_uncovered')
+      withState((s) => T.rejectReview(s, taskId, { caller: REVIEWER, reason: `완료 판정 거부: ${e.message}`, review_path: reviewRel }))
+      runEvent(runId, { phase: 'complete_refused', task_id: taskId, round, detail: e.message, count: n })
+      if (n >= limits.max_same_failure) {
+        block(taskId, task.owner_id, `완료 조건 미충족 ×${n}: ${e.message}`)
+        return { outcome: 'blocked_acceptance' }
+      }
+      findings = [{ id: 'ACC', severity: 'P1', scope: 'in', claim: `완료 판정 거부: ${e.message}`, fix: '모든 완료 조건 번호를 covers 로 덮는 통과 증거(로그)를 남겨라' }]
+      continue
+    }
+
+lib\context.mjs:135:  const key = sha(JSON.stringify({ excerpt_rule: 'relevant-v1', export_rule: 'v1', base, design: de
+sign ? [design.version, design.status, design.summary, design.contract_hash] : null, scope, tasks: relTasks.map((t) => 
+[t.task_id, t.status, t.verified_commit ?? null]) }))
+lib\context.mjs:180:  files.push(write('design-decisions.md', [`# 결정·검증 기록`, '', '## test_verified — 완료 작업의 통과 증거', ...
+(verified.length ? verified.map((t) => `- ${t.task_id} ${t.title} · commit ${t.verified_commit ?? '-'} · 리뷰 ${t.review_
+record ?? '-'}${t.revalidate_required ? ' · ⚠ 재검증 필요' : ''}`) : ['- 없음']), '', '## 결정 기록(사용자 APPROVED 만 확정 · 나머지는 제안)',
+ ...state.decisionLog.entries.filter((e) => e.ug_ref === ug || (e.affects_goal_ids || []).some((x) => g.canon_goal_ids.
+includes(x)) || String(e.summary || '').includes(ug)).slice(-15).map((e) => `- ${e.decision_id} [${e.status}] ${String(
+e.summary).slice(0, 160)}`)].join('\n')))
+lib\feasibility.mjs:5:// ChatGPT 응답의 requires_user_approval 값은 권한 근거가 아니다 — 승인 필요 여부는 로컬 정책(approval_kinds)과
+lib\feasibility.mjs:90:  add('approval', approvalOk, task.approval_required ? (approvalOk ? `사용자 승인 ${task.approval.ref
+erence}` : `승인 필요(${task.approval_kinds.join(',')}) · 기록 없음`) : '승인 불필요(로컬 정책)')
+lib\goalcheck.mjs:123:        cands.push({ status: 'UNKNOWN', reason: `${t.task_id} 는 이 기준을 부분(partial)으로만 다뤘다 — PASS 근
+거 아님`, evidence_path: t.review_record, commit: t.verified_commit ?? null, scope: `task ${t.task_id}` })
+lib\goalcheck.mjs:128:        cands.push({ status: 'UNKNOWN', reason: `${t.task_id} 재검증 필요 — ${t.revalidate_required.re
+ason}`, evidence_path: t.review_record, commit: t.verified_commit ?? null, scope: `task ${t.task_id}` })
+lib\goalcheck.mjs:137:      const ch = changedSince({ repo, commit: t.verified_commit, paths: t.allowed_paths, git })
+lib\goalcheck.mjs:139:        cands.push({ status: 'UNKNOWN', reason: `${t.task_id} 검증 커밋(${t.verified_commit ?? '없음'})
+을 확인할 수 없다`, scope: `task ${t.task_id}` })
+lib\goalcheck.mjs:143:        cands.push({ status: 'UNKNOWN', reason: `${t.task_id} 검증 커밋 ${t.verified_commit} 이 아직 mai
+n 에 없다 — 머지 후 판정`, scope: `task ${t.task_id}` })
+lib\goalcheck.mjs:147:        cands.push({ status: 'UNKNOWN', reason: `PASS 무효화: ${t.task_id} 검증(${t.verified_commit}) 
+이후 범위 파일이 main 에서 바뀌었다 — ${ch.files.slice(0, 5).join(', ')}`, scope: `task ${t.task_id}`, invalidated: true })
+lib\goalcheck.mjs:155:      cands.push({ status: 'PASS', reason: `${t.task_id} COMPLETED(full) · 리뷰 ${t.reviewed_by} · 
+이후 범위 변경 없음 · 증거 원본 무결`, evidence_path: t.review_record, commit: t.verified_commit, scope: `task ${t.task_id} · ${t.all
+owed_paths.join(', ')}` })
+lib\goalcheck.mjs:258:      verified_commit: r.status === 'PASS' ? r.commit ?? null : null,
+lib\init.mjs:89:    for (const [k, v] of [['flags', []], ['pr', null], ['requires_ci', false], ['verified_commit', null
+], ['orchestration', { rounds: 0, failures: {}, budget_used_usd: 0 }]]) {
+lib\orchestrator.mjs:39:  max_minutes: 90,
+lib\orchestrator.mjs:616:  if (minutes > limits.max_minutes) return `시간 상한 ${limits.max_minutes}분`
+lib\orchestrator.mjs:794:        // 실행 예산(max_minutes·비용)이 대기보다 먼저 — 넘으면 기다리지 않고 멈춘다(Codex P2)
+lib\policy.mjs:20:export const CAPABILITIES = ['read', 'plan', 'design_request', 'code_change', 'test', 'review', 'docs
+', 'branch_push', 'pr_open', 'db_read_dev']
+lib\tasks.mjs:33:export const APPROVAL_KINDS = ['db_write', 'main_merge', 'deploy', 'secret', 'destructive', 'external_
+publish']
+lib\tasks.mjs:86:  const o = state.ownership.owners[owner_id] || { owner_id, purpose: null, agent_kinds: [], worktrees:
+ [], db_scopes: [], current_session: null, session_history: [], created_at: now() }
+lib\tasks.mjs:171:  const approvalKinds = new Set(spec.approval_kinds || [])
+lib\tasks.mjs:173:  for (const k of approvalKinds) if (!APPROVAL_KINDS.includes(k)) throw new RuleError('BAD_APPROVAL_K
+IND', `approval kind ${k} 를 모른다 (${APPROVAL_KINDS.join('|')})`)
+lib\tasks.mjs:174:  if (spec.approval_required === true && approvalKinds.size === 0) throw new RuleError('MISSING_FIELD
+', 'approval_required=true 면 approval_kinds 를 하나 이상 적어야 한다')
+lib\tasks.mjs:246:    approval_kinds: [...approvalKinds],
+lib\tasks.mjs:257:    verified_commit: null,
+lib\tasks.mjs:301:  const need = new Set(t.approval_kinds)
+lib\tasks.mjs:302:  for (const k of kinds || t.approval_kinds) need.delete(k)
+lib\tasks.mjs:304:  if (t.approval_kinds.includes('db_write') && !/^[a-f0-9]{64}$/.test(sql_sha256 || '')) throw new Ru
+leError('APPROVAL_NO_SQL_HASH', 'DB 쓰기 승인에는 사용자가 본 SQL 의 sha256 이 필요하다')
+lib\tasks.mjs:306:  if (t.approval_kinds.includes('db_write') && via !== 'tty') throw new RuleError('TRUST_REQUIRED', `
+DB 쓰기 승인은 사람의 대화형 터미널에서만(현재 경로 ${via}) — 일반 터미널에서 vfc task approve 를 직접 실행한다`)
+lib\tasks.mjs:307:  t.approval = { by, reference, kinds: kinds || t.approval_kinds, sql_sha256: sql_sha256 || null, via
+, at: now() }
+lib\tasks.mjs:421:  if (t.approval_required && !t.approval) throw new RuleError('APPROVAL_REQUIRED', `${task_id} 는 사용자 
+승인이 필요하다: ${t.approval_kinds.join(',')}`)
+lib\tasks.mjs:601:  const verified = withCommit.length ? withCommit.map((e) => String(e.commit)).sort((a, b) => b.lengt
+h - a.length)[0] : t.verified_commit ?? null
+lib\tasks.mjs:620:  t.verified_commit = verified
+lib\usergoals.mjs:52:  max_minutes: 600,
+lib\usergoals.mjs:658:  // 마지막 구현(완료 작업의 verified_commit)에서 돈 검증만 — 옛 worktree·이후 변경 코드의 근거로 쓰지 않는다(Codex P2)
+lib\usergoals.mjs:660:  for (const v of latestByTest.values()) if (v.status === 'PASS' && v.at >= latestDone && (!lastT
+ask?.verified_commit || v.commit === lastTask.verified_commit)) for (const i of v.acceptance || []) covered.add(i)
+lib\usergoals.mjs:780:  if (g.execution_policy && base.max_minutes) out.max_minutes = Math.min(base.max_minutes, g.exec
+ution_policy.max_runtime_min)
+{
+  "goal_id": "UG-c8315ad8-0002",
+  "allowed_capabilities": [
+    "read",
+    "plan",
+    "design_request",
+    "code_change",
+    "test",
+    "review",
+    "docs",
+    "branch_push",
+    "db_read_dev"
+  ],
+  "allowed_code_areas": [
+    "apps/web/src/lib/csat/map/**",
+    "apps/web/src/components/csat/diagnosis/map/**",
+    "apps/web/src/lib/knowledge/find-*.ts",
+    "apps/web/src/lib/knowledge/__tests__/find-*.test.ts"
+  ],
+  "excluded_operations": [
+    "db_write",
+    "schema_change",
+    "canon_change",
+    "deploy",
+    "merge_main",
+    "external_publish",
+    "auth_change",
+    "personal_data"
+  ],
+  "risk_level": "MEDIUM",
+  "max_runtime_min": 120,
+  "max_cost_usd": 15,
+  "merge_policy": "none",
+  "live_test_user": null,
+  "read_only_attestation": [
+    {
+      "path": "apps/web/src/lib/knowledge/product-server.ts",
+      "sha256": "d2176432e5ec98287c6e076c9fb2982f69305d94eea98b6dd9c8478befb463e5",
+      "note": "쓰기 함수를 정의·참조하지만 loadMapPage 경로에서 호출하지 않음(정적 호출 검사)"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/practice-writer.ts",
+      "sha256": "6531098fe8b2fc019b8a467482f72843cc25e61c57cb96e9c153f016c0b58032",
+      "note": "쓰기 함수는 loadMapPage 경로에서 호출되지 않음(정적 호출 검사)"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/cohesion-link.ts",
+      "sha256": "a98a8ae97507cba5e68a557af8dd66b34253bac21dea83ec022e38b36ed23177",
+      "note": ".update( 는 crypto 해시 — DB 쓰기 아님"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/claim-support.ts",
+      "sha256": "da32c10ad3f57767f6d9ebdb5f4927fdb5354c50dbc6e06373673c5de59c12b4",
+      "note": ".update( 는 crypto 해시 — DB 쓰기 아님"
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/practice-server.ts",
+      "sha256": "617a8e47c22070921da5d5fab01aa5749064aab4036e2df48b008730bac2cda4",
+      "note": "쓰기 함수는 loadMapPage 경로에서 호출되지 않음(정적 호출 검사)"
+    },
+    {
+      "path": "apps/web/src/lib/csat/diagnosis/server.ts",
+      "sha256": "a19433a0adbe90fe080e960d8e4ef189cd3e099ea23833f728c4e5fa82a63f47",
+      "note": "쓰기 함수는 loadMapPage 경로에서 호출되지 않음(정적 호출 검사)"
+    }
+  ],
+  "read_only_write_functions": [
+    "directWriter",
+    "g2Writer",
+    "selectWriter",
+    "recordItemTaskAttempt",
+    "schedulePracticeReview",
+    "notePracticeView",
+    "submitPractice",
+    "recomputeSnapshot",
+    "submitExamSession",
+    "deleteExamSession"
+  ]
+}
+ee6c16398 feat(policy): 목표 단위 위임·위험 기반 실행·읽기 전용 live 검증
+agents
+bin
+config
+context
+docs
+goals
+hooks
+lib
+planning
+poc
+runtime
+seed
+state
+tasks
+tests
+verification
+.git
+.gitignore
+README.md
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "Get-Content lib/orchestrator.mjs -Encoding utf8 | Select-Object -Skip 290 -First 50; Get-Content lib/orchestrator.mjs -Encoding utf8 | Select-Object -Skip 598 -First 55; Select-String -Path lib/orchestrator.mjs -Pattern 'push|openPr|createPr|pr_policy|prPolicy' -Context 3,4; Get-Content lib/usergoals.mjs -Encoding utf8 | Select-Object -Skip 550 -First 70; Get-Content lib/tasks.mjs -Encoding utf8 | Select-Object -Skip 585 -First 40; Get-Content verification/reports/WF-S16-goal-delegation.md -Encoding utf8" in D:\workspace\Vocaflow-AI-Control
+ succeeded in 990ms:
+    '',
+    '## 하지 않을 것 — 이 작업 단위에만 적용',
+    ...task.forbidden_paths.map((x) => `- ${x}`),
+    `- DB 접근(db_scope=${task.db_scope.mode}) · git push · 범위 밖 변경`,
+    '',
+  ].join('\n')
+  fs.writeFileSync(f, body)
+  return true
+}
+
+/** Claude 1회 실행 + 보고서 검증 + 범위 검사 + 증거 기록. 실패 원인 문자열 또는 null. */
+export function implementStep({ runId, task, round, findings, limits, deps }) {
+  const doc = loadCriteria()
+  const runDir = path.join(p.runs(), runId, `${task.task_id}-r${round}`)
+  fs.mkdirSync(runDir, { recursive: true })
+  const reportPath = path.join(runDir, 'claude-report.json').split(path.sep).join('/')
+  const wt = task.worktree
+  const base = task.orchestration?.base_commit || git(wt, ['rev-parse', 'HEAD'])
+  if (!task.orchestration?.base_commit) withState((s) => (s.taskQueue.tasks.find((t) => t.task_id === task.task_id).orchestration.base_commit = base))
+  writeAgentGoal(task, doc)
+  const prompt = claudePrompt(task, { reportPath, round, findings, doc })
+  fs.writeFileSync(path.join(runDir, 'claude-prompt.md'), prompt)
+  runEvent(runId, { phase: 'implement', task_id: task.task_id, round })
+  // 자식 pid 파일 위치를 먼저 기록 — 이 프로세스가 죽어도 복구가 자식 생존을 확인할 수 있게
+  withState((s) => {
+    const t = s.taskQueue.tasks.find((x) => x.task_id === task.task_id)
+    if (t.run) t.run.child_pid_files = [path.join(runDir, 'claude.pid.json'), path.join(runDir, 'codex.pid.json')].map((x) => x.split(path.sep).join('/'))
+  })
+  const before = snapshotOtherWorktrees(task)
+  const r = deps.runClaude({ prompt, cwd: wt, budgetUsd: limits.claude_budget_usd, timeoutMs: limits.claude_timeout_ms, runDir })
+  const touchedOthers = diffSnapshots(before, snapshotOtherWorktrees(task))
+  if (touchedOthers.length) return { cause: 'foreign_worktree_write', detail: `다른 owner 의 worktree 가 실행 중 바뀌었다: ${touchedOthers.join(', ')}`, block: true, stop: true }
+  runEvent(runId, { phase: 'implement_done', task_id: task.task_id, round, cost_usd: r.cost_usd || 0, claude_code: r.code, timed_out: r.timed_out })
+  withState((s) => {
+    const t = s.taskQueue.tasks.find((x) => x.task_id === task.task_id)
+    t.orchestration.budget_used_usd = Math.round(((t.orchestration.budget_used_usd || 0) + (r.cost_usd || 0)) * 10000) / 10000
+  })
+  const text = `${r.stdout}\n${r.stderr}\n${r.result_text ?? ''}`
+  if (/usage limit|rate limit|quota/i.test(text) && r.is_error) return { cause: 'usage_limit', stop: true, detail: '사용량 제한 — 우회하지 않고 멈춘다' }
+  if (/auth|login|unauthorized|api key/i.test(text) && r.is_error && !fs.existsSync(reportPath)) return { cause: 'auth', stop: true, detail: '인증 실패 — 우회하지 않고 멈춘다' }
+  if (r.timed_out) return { cause: 'timeout', detail: `Claude 실행 시간 초과(${limits.claude_timeout_ms}ms)` }
+  const rep = deps.readClaudeReport(reportPath, task)
+  if (!rep.ok) return { cause: 'bad_report', detail: rep.error }
+  const report = rep.report
+  fs.copyFileSync(reportPath, path.join(runDir, 'claude-report.copy.json'))
+  if (report.status !== 'implemented') return { cause: `claude_${report.status}`, detail: report.notes ?? '' , report }
+
+  // 범위 검사 — 작업 범위 밖 변경은 되돌리지 않고 멈춘다(사람이 본다)
+  const ch = changedFiles(wt, base)
+  const outside = [...ch.committed, ...ch.dirty].filter((f) => !T.pathInScope(f, task.allowed_paths) || T.pathInScope(f, task.forbidden_paths))
+      continue
+    }
+    return { outcome: 'completed' }
+  }
+}
+
+function recordFalsePositives(taskId, round, fps) {
+  const rel = `verification/reviews/${taskId}-false-positive-r${round}.md`
+  const { state } = loadState()
+  const t = state.taskQueue.tasks.find((x) => x.task_id === taskId)
+  const body = [`# ${taskId} — 오탐 판정 기록 (round ${round})`, ``, `작업 승인 범위: goal ${t.goal_id} · allowed ${t.allowed_paths.join(', ')} · 승인 ${t.approval?.reference ?? '불필요'}`, ``, ...fps.map((f) => `- ${f.finding_id}: ${f.rationale} · 근거 ${f.evidence ?? ''}`)].join('\n')
+  fs.writeFileSync(path.join(root(), rel), body)
+}
+
+function budgetExceeded(runId, limits) {
+  const r = getRun(runId)
+  const minutes = (Date.now() - Date.parse(r.started_at)) / 60_000
+  if (minutes > limits.max_minutes) return `시간 상한 ${limits.max_minutes}분`
+  if (r.cost_usd >= limits.max_cost_usd) return `비용 상한 $${limits.max_cost_usd}`
+  return null
+}
+
+// ── 지속 실행기 ──────────────────────────────────────────────────────────
+
+/**
+ * 세션 인계(오케스트레이터가 아닌 담당 세션 — Claude/Codex 대화 세션 — 이 죽은 작업).
+ * owner 와 세션을 구분한다: owner 는 그대로 두고, 죽은 세션(pid 사망 · 잠금 ttl 경과)의 작업만 회수한다(살아 있는 세션은 건드리지 않는다).
+ * worktree 에 커밋 안 된 변경이 없으면(잃을 것이 없다) READY 로 되돌려 같은 owner 로 다시 실행 · 있으면 BLOCKED 로 두고 사유에 남긴다(사람 확인).
+ */
+export function handoffDeadSessions({ by = 'orchestrator' } = {}) {
+  const reaped = withState((s, ctx) => T.reapAbandoned(s, { by }, ctx), { event: 'task.reap', by })
+  const { state } = loadState()
+  const cands = state.taskQueue.tasks.filter((t) => t.status === 'BLOCKED' && /죽었다/.test(t.blocker?.reason || '') && !String(t.run?.session || '').startsWith('orch-'))
+  const dirty = {}
+  for (const t of cands) {
+    try {
+      dirty[t.task_id] = t.worktree ? git(t.worktree, ['status', '--porcelain']).split('\n').filter((l) => l.trim() && !/\.vfc-runs\/|\.agent-lock/.test(l)) : []
+      // 죽은 세션이 커밋을 남겼거나 시작 기준을 모르면 자동 재개하지 않는다 — 그 커밋이 범위 검사·리뷰에서 빠진다(Codex P1)
+      const head = t.worktree ? git(t.worktree, ['rev-parse', 'HEAD']) : null
+      if (!t.run?.start_head) dirty[t.task_id].push('세션 시작 기준(start_head) 없음 — 리뷰 기준을 알 수 없다')
+      else if (head !== t.run.start_head) dirty[t.task_id].push(`세션이 커밋을 남겼다(${t.run.start_head.slice(0, 9)}→${String(head).slice(0, 9)}) — 리뷰 기준 확인 필요`)
+    } catch (e) {
+      dirty[t.task_id] = [`git 상태 확인 실패: ${e.message}`]
+    }
+  }
+  const out = withState((s) => {
+    const res = { revived: [], kept: [] }
+    for (const c of cands) {
+      const t = s.taskQueue.tasks.find((x) => x.task_id === c.task_id)
+      if (t.status !== 'BLOCKED' || !/죽었다/.test(t.blocker?.reason || '')) continue
+      const sess = t.run?.session ?? null
+      if (dirty[t.task_id].length) {
+        if (!/사람 확인 후 unblock/.test(t.blocker.reason)) t.blocker.reason = `${t.blocker.reason} · 자동 인계 불가(미커밋 변경·커밋·기준 없음 ${dirty[t.task_id].length}건: ${dirty[t.task_id][0]}) — 사람 확인 후 unblock`
+        res.kept.push({ task_id: t.task_id, dirty: dirty[t.task_id].slice(0, 5) })
+        continue
+
+  lib\orchestrator.mjs:80:function runEvent(runId, event) {
+  lib\orchestrator.mjs:81:  withState((s) => {
+  lib\orchestrator.mjs:82:    const r = s.orchestrator.runs[runId]
+> lib\orchestrator.mjs:83:    r.events.push({ at: nowIso(), ...event })
+  lib\orchestrator.mjs:84:    if (event.phase) r.phase = event.phase
+  lib\orchestrator.mjs:85:    if (event.task_id !== undefined) r.task_id = event.task_id
+  lib\orchestrator.mjs:86:    if (event.cost_usd) r.cost_usd = Math.round((r.cost_usd + event.cost_usd) * 10000) / 1000
+0
+  lib\orchestrator.mjs:87:    r.updated_at = nowIso()
+  lib\orchestrator.mjs:144:  for (const cand of ranking.ranked) {
+  lib\orchestrator.mjs:145:    const task = state.taskQueue.tasks.find((t) => t.task_id === cand.task_id)
+  lib\orchestrator.mjs:146:    const gate = UG.selectionGate(state, task)
+> lib\orchestrator.mjs:147:    if (!gate.allow) skipped.push({ task_id: cand.task_id, score: cand.score, reason: `user_
+goal: ${gate.reason}` })
+> lib\orchestrator.mjs:148:    else gated.push({ cand, tier: gate.tier, pref: sameGoalPreference(task, last) })
+  lib\orchestrator.mjs:149:  }
+  lib\orchestrator.mjs:150:  // tier(실행 모드) → 방금 끝난 작업과 같은 상위 목표·그 작업에 의존하는 작업 → 기존 점수 순(안정 정렬)
+  lib\orchestrator.mjs:151:  gated.sort((a, b) => a.tier - b.tier || a.pref - b.pref)
+  lib\orchestrator.mjs:152:  for (const { cand } of gated) {
+  lib\orchestrator.mjs:155:    if (f.needs_planning.length && allowPlanning) {
+  lib\orchestrator.mjs:156:      const req = createPlanningRequest(task, f.needs_planning, by)
+  lib\orchestrator.mjs:157:      withState((s) => T.waitForPlanning(s, task.task_id, { caller: task.owner_id, request_i
+d: req.id, reason: f.needs_planning.join(',') }), { event: 'task.wait_planning', task: task.task_id, by })
+> lib\orchestrator.mjs:158:      skipped.push({ task_id: task.task_id, score: cand.score, reason: `기획 필요(${f.needs_plan
+ning.join(',')}) → ${req.id} · WAITING_CHATGPT` })
+  lib\orchestrator.mjs:159:      continue
+  lib\orchestrator.mjs:160:    }
+  lib\orchestrator.mjs:161:    if (!f.ok) {
+> lib\orchestrator.mjs:162:      skipped.push({ task_id: task.task_id, score: cand.score, reason: f.checks.filter((c) =
+> !c.ok).map((c) => `${c.check}: ${c.detail}`).join(' / ') })
+  lib\orchestrator.mjs:163:      continue
+  lib\orchestrator.mjs:164:    }
+  lib\orchestrator.mjs:165:    return { selected: { ...cand, feasibility: f }, skipped, ranking }
+  lib\orchestrator.mjs:166:  }
+  lib\orchestrator.mjs:197:    ``,
+  lib\orchestrator.mjs:198:    `## Scope`,
+  lib\orchestrator.mjs:199:    `Allowed paths (you may change ONLY these): ${task.allowed_paths.join(', ')}`,
+> lib\orchestrator.mjs:200:    `Forbidden: ${task.forbidden_paths.join(', ')} · any DB change · git push · deleting fil
+es outside scope · installing packages.`,
+  lib\orchestrator.mjs:201:    ``,
+  lib\orchestrator.mjs:202:    `## Acceptance (numbered — your test evidence must reference these numbers in "covers")`
+,
+  lib\orchestrator.mjs:203:    ...task.acceptance.map((a, i) => `[${i}] ${a}`),
+  lib\orchestrator.mjs:204:    ``,
+  lib\orchestrator.mjs:205:    `## Required`,
+  lib\orchestrator.mjs:206:    `1. Read AGENTS.md rules that apply (file-first-line path comment, no TODO, tests). Keep
+ changes minimal.`,
+  lib\orchestrator.mjs:207:    `2. Implement, then run the relevant tests (pnpm --filter web exec vitest run <files>, t
+ypecheck/lint for touched files as appropriate). Save each test command's full output to a log file under .vfc-runs/ in
+ this worktree (create it; it is not committed).`,
+> lib\orchestrator.mjs:208:    `3. Commit your changes with \`git add <files> && git commit --only <files> -F -\` (conv
+entional message, last line: Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>). Do NOT push.`,
+  lib\orchestrator.mjs:209:    `4. Write the report JSON to: ${reportPath}`,
+  lib\orchestrator.mjs:210:    `   {"task_id":"${task.task_id}","status":"implemented|blocked|failed","commit":"<sha>",
+"changed_files":[...],"tests":[{"command":"...","result":"pass|fail|skip|not_run","skip_count":0,"skipped_files":[],"lo
+g_path":".vfc-runs/<file>.log","covers":[0]}],"notes":"...","findings_response":[{"finding_id":"F1","action":"fixed|fal
+se_positive|deferred","rationale":"...","evidence":"file:line or test"}]}`,
+  lib\orchestrator.mjs:211:    `   "tests" holds ONLY runs on the final commit that passed (each with non-empty "covers
+"). Put red-step (before-fix failing) logs and not-run checks in "notes" with their log paths, not in "tests".`,
+  lib\orchestrator.mjs:212:    `   If you cannot complete within scope, set status "blocked" and explain in notes — nev
+er widen scope.`,
+  lib\orchestrator.mjs:215:  const ug = task.user_goal_id ? loadState().state.userGoals?.goals?.[task.user_goal_id] : n
+ull
+  lib\orchestrator.mjs:216:  const appr = ug && UG.approvedDesign(ug)
+  lib\orchestrator.mjs:217:  if (appr) {
+> lib\orchestrator.mjs:218:    lines.push(
+  lib\orchestrator.mjs:219:      ``,
+  lib\orchestrator.mjs:220:      `## User goal ${ug.ug_id} 「${ug.title}」 — approved design v${appr.version} (profile ${
+ug.profile})`,
+  lib\orchestrator.mjs:221:      appr.summary,
+  lib\orchestrator.mjs:222:      `Design acceptance: ${appr.acceptance.map((a, i) => `[${i}] ${a}`).join(' / ')}`,
+  lib\orchestrator.mjs:226:    )
+  lib\orchestrator.mjs:227:  }
+  lib\orchestrator.mjs:228:  if (findings?.length) {
+> lib\orchestrator.mjs:229:    lines.push(``, `## FINDINGS_TO_ADDRESS (round ${round}) — from independent Codex review`
+, `For each: fix it (action "fixed") or, if it is not a real defect for THIS task's approved scope, answer action "fals
+e_positive" with code evidence. Do not apply restrictions from other tasks.`)
+> lib\orchestrator.mjs:230:    for (const f of findings) lines.push(`- ${f.id} [${f.severity}] ${f.file ?? ''}:${f.line
+ ?? ''} — ${f.claim} · scenario: ${f.scenario ?? ''} · suggested fix: ${f.fix ?? ''}`)
+  lib\orchestrator.mjs:231:  }
+  lib\orchestrator.mjs:232:  return lines.join('\n')
+  lib\orchestrator.mjs:233:}
+  lib\orchestrator.mjs:234:
+  lib\orchestrator.mjs:291:    '',
+  lib\orchestrator.mjs:292:    '## 하지 않을 것 — 이 작업 단위에만 적용',
+  lib\orchestrator.mjs:293:    ...task.forbidden_paths.map((x) => `- ${x}`),
+> lib\orchestrator.mjs:294:    `- DB 접근(db_scope=${task.db_scope.mode}) · git push · 범위 밖 변경`,
+  lib\orchestrator.mjs:295:    '',
+  lib\orchestrator.mjs:296:  ].join('\n')
+  lib\orchestrator.mjs:297:  fs.writeFileSync(f, body)
+  lib\orchestrator.mjs:298:  return true
+  lib\orchestrator.mjs:411:    alignmentQuestion(task),
+  lib\orchestrator.mjs:412:    `Q2 Does the change, its report, or its docs claim a goal/criterion is complete that thi
+s change does not actually satisfy (e.g. a prerequisite or one sub-path presented as the whole goal)?`,
+  lib\orchestrator.mjs:413:  ]
+> lib\orchestrator.mjs:414:  if (falsePositives?.length) lines.push(`The implementer contested these earlier findings a
+s false positives (judge the rationale against the code): ${JSON.stringify(falsePositives)}`)
+> lib\orchestrator.mjs:415:  lines.push(
+  lib\orchestrator.mjs:416:    'End with exactly one block:',
+  lib\orchestrator.mjs:417:    '```json vfc-review',
+  lib\orchestrator.mjs:418:    '{"verdict":"APPROVE|REQUEST_CHANGES","findings":[{"id":"F1","severity":"P0|P1|P2|P3","s
+cope":"in|out","kind":"code|design","file":"path","line":0,"claim":"...","scenario":"...","fix":"..."}],"ran_tests":fal
+se,"notes":"..."}',
+  lib\orchestrator.mjs:419:    '```',
+  lib\orchestrator.mjs:512:      withState((s, ctx) => T.failTask(s, taskId, { caller: task.owner_id, reason: `${impl.c
+ause}: ${impl.detail}` }, ctx))
+  lib\orchestrator.mjs:513:      withState((s) => {
+  lib\orchestrator.mjs:514:        const t = s.taskQueue.tasks.find((x) => x.task_id === taskId)
+> lib\orchestrator.mjs:515:        t.history.push({ at: nowIso(), from: 'FAILED', to: 'READY', by: 'orchestrator', note
+: `재시도(${impl.cause} ${n}/${limits.max_same_failure})` })
+  lib\orchestrator.mjs:516:        t.status = 'READY'
+  lib\orchestrator.mjs:517:      })
+  lib\orchestrator.mjs:518:      continue
+  lib\orchestrator.mjs:519:    }
+  lib\orchestrator.mjs:635:      dirty[t.task_id] = t.worktree ? git(t.worktree, ['status', '--porcelain']).split('\n')
+.filter((l) => l.trim() && !/\.vfc-runs\/|\.agent-lock/.test(l)) : []
+  lib\orchestrator.mjs:636:      // 죽은 세션이 커밋을 남겼거나 시작 기준을 모르면 자동 재개하지 않는다 — 그 커밋이 범위 검사·리뷰에서 빠진다(Codex P1)
+  lib\orchestrator.mjs:637:      const head = t.worktree ? git(t.worktree, ['rev-parse', 'HEAD']) : null
+> lib\orchestrator.mjs:638:      if (!t.run?.start_head) dirty[t.task_id].push('세션 시작 기준(start_head) 없음 — 리뷰 기준을 알 수 없다
+')
+> lib\orchestrator.mjs:639:      else if (head !== t.run.start_head) dirty[t.task_id].push(`세션이 커밋을 남겼다(${t.run.start_h
+ead.slice(0, 9)}→${String(head).slice(0, 9)}) — 리뷰 기준 확인 필요`)
+  lib\orchestrator.mjs:640:    } catch (e) {
+  lib\orchestrator.mjs:641:      dirty[t.task_id] = [`git 상태 확인 실패: ${e.message}`]
+  lib\orchestrator.mjs:642:    }
+  lib\orchestrator.mjs:643:  }
+  lib\orchestrator.mjs:649:      const sess = t.run?.session ?? null
+  lib\orchestrator.mjs:650:      if (dirty[t.task_id].length) {
+  lib\orchestrator.mjs:651:        if (!/사람 확인 후 unblock/.test(t.blocker.reason)) t.blocker.reason = `${t.blocker.reaso
+n} · 자동 인계 불가(미커밋 변경·커밋·기준 없음 ${dirty[t.task_id].length}건: ${dirty[t.task_id][0]}) — 사람 확인 후 unblock`
+> lib\orchestrator.mjs:652:        res.kept.push({ task_id: t.task_id, dirty: dirty[t.task_id].slice(0, 5) })
+  lib\orchestrator.mjs:653:        continue
+  lib\orchestrator.mjs:654:      }
+  lib\orchestrator.mjs:655:      t.blocker = null
+  lib\orchestrator.mjs:656:      t.status = 'READY'
+> lib\orchestrator.mjs:657:      t.history.push({ at: nowIso(), from: 'BLOCKED', to: 'READY', by, note: `세션 인계 — 세션 ${s
+ess} 종료 · worktree 깨끗 · owner ${t.owner_id} 유지` })
+> lib\orchestrator.mjs:658:      res.revived.push(t.task_id)
+  lib\orchestrator.mjs:659:    }
+  lib\orchestrator.mjs:660:    return res
+  lib\orchestrator.mjs:661:  }, { event: 'task.session_handoff', by })
+  lib\orchestrator.mjs:662:  if (out.revived.length || out.kept.length) appendLog(p.eventLog(), { at: nowIso(), event: 
+'orchestrator.session_handoff', ...out })
+  lib\orchestrator.mjs:691:      if (reapedIds.has(t.task_id) || (/죽었다/.test(t.blocker?.reason || '') && !ownerAlive)) 
+{
+  lib\orchestrator.mjs:692:        runIds.add(rid)
+  lib\orchestrator.mjs:693:        t.blocker = null
+> lib\orchestrator.mjs:694:        t.history.push({ at: nowIso(), from: 'BLOCKED', to: 'READY', by, note: `orchestrator
+ 복구 — run ${rid} 비정상 종료` })
+  lib\orchestrator.mjs:695:        t.status = 'READY'
+> lib\orchestrator.mjs:696:        out.push(t.task_id)
+  lib\orchestrator.mjs:697:      }
+  lib\orchestrator.mjs:698:    }
+  lib\orchestrator.mjs:699:    const stillHeld = []
+  lib\orchestrator.mjs:700:    for (const rid of runIds) {
+  lib\orchestrator.mjs:706:      }
+  lib\orchestrator.mjs:707:      // 아직 쥐고 있는 작업(살아 있는 자식 · REVIEW 등 reap 대상이 아닌 것)이 남으면 복구 완료로 표시하지 않는다 — 다음 실행이 다시 본다
+  lib\orchestrator.mjs:708:      const held = s.taskQueue.tasks.filter((t) => ['IN_PROGRESS', 'REVIEW'].includes(t.stat
+us) && String(t.run?.session || '').startsWith(`orch-${rid}`)).map((t) => t.task_id)
+> lib\orchestrator.mjs:709:      stillHeld.push(...held)
+  lib\orchestrator.mjs:710:      if (!held.length && !r.recovered_at) {
+  lib\orchestrator.mjs:711:        if (r.status !== 'aborted') r.stop_reason = `${r.stop_reason} · 쥐고 있던 작업을 다음 실행이 복구`
+  lib\orchestrator.mjs:712:        r.recovered_at = nowIso()
+  lib\orchestrator.mjs:713:      }
+  lib\orchestrator.mjs:778:      runEvent(runId, { phase: 'select', goal_check: gc.report, changes: gc.changes })
+  lib\orchestrator.mjs:779:      if (getRun(runId).tasks_done.length >= limits.max_tasks) {
+  lib\orchestrator.mjs:780:        stopReason = `작업 수 상한 ${limits.max_tasks}`
+> lib\orchestrator.mjs:781:        summary.iterations.push({ goal_check: gc.report, changes: gc.changes, distribution: 
+gc.distribution })
+  lib\orchestrator.mjs:782:        break
+  lib\orchestrator.mjs:783:      }
+  lib\orchestrator.mjs:784:      const bt = bridge && !dryRun ? bridgeTick(bridge) : null
+  lib\orchestrator.mjs:785:      // 사용자 대화형 설계 승인 → 적용 · 초안/보류 작업 재개(사용자는 vfc approve 하나만)
+  lib\orchestrator.mjs:801:        if (applied && !budgetExceeded(runId, limits)) sel = selectStep({ runId, tools, pid,
+ last: lastDone })
+  lib\orchestrator.mjs:802:      }
+  lib\orchestrator.mjs:803:      const it = { bridge: bt ? { published: bt.published?.published ?? null, collected: bt.
+collected ?? [], waiting: bt.waiting ?? [], error: bt.error ?? null } : null, goal_check: gc.report, changes: gc.change
+s, distribution: gc.distribution, selected: sel.selected ? { task_id: sel.selected.task_id, score: sel.selected.score, 
+reasons: sel.selected.reasons } : null, skipped: sel.skipped, uncovered: sel.ranking.uncovered.slice(0, 10) }
+> lib\orchestrator.mjs:804:      summary.iterations.push(it)
+  lib\orchestrator.mjs:805:      runEvent(runId, { phase: 'selected', task_id: it.selected?.task_id ?? null, skipped: s
+el.skipped })
+  lib\orchestrator.mjs:806:      if (!sel.selected) {
+  lib\orchestrator.mjs:807:        stopReason = bt?.waiting?.length ? `실행 가능한 작업 없음 · Work 응답 대기(${bt.waiting.join(',')
+})` : '실행 가능한 작업 없음'
+  lib\orchestrator.mjs:808:        break
+  lib\orchestrator.mjs:820:        it.goal_level = done.user_goal_id ? UG.goalLevelOf(st, done.user_goal_id) : goalLeve
+l(st, done.impact?.parent_goal_id ?? done.goal_id)
+  lib\orchestrator.mjs:821:        if (res.outcome === 'completed') lastDone = { task_id: done.task_id, parent_goal_id:
+ done.user_goal_id ?? done.impact?.parent_goal_id ?? done.goal_id }
+  lib\orchestrator.mjs:822:      }
+> lib\orchestrator.mjs:823:      withState((s) => s.orchestrator.runs[runId].tasks_done.push({ task_id: sel.selected.ta
+sk_id, outcome: res.outcome, at: nowIso() }))
+  lib\orchestrator.mjs:824:      runEvent(runId, { phase: 'task_done', task_id: sel.selected.task_id, outcome: res.outc
+ome })
+  lib\orchestrator.mjs:825:      if (res.stop) {
+  lib\orchestrator.mjs:826:        stopReason = res.outcome
+  lib\orchestrator.mjs:827:        break
+  const resumed = []
+  for (const t of state.taskQueue.tasks.filter((x) => x.user_goal_id === ug && x.status === 'BLOCKED' && /^DESIGN_CONFLICT/.test(x.blocker?.reason || ''))) {
+    if (!t.allowed_paths.every((x) => pathInApproval(scope, x))) continue
+    // 옛 설계의 수용 기준 번호는 문장이 새 설계에 그대로 있을 때만 새 번호로 옮긴다 — 다른 계약을 옛 번호로 덮지 않는다(Codex 리뷰 P1)
+    const from = g.designs.find((x) => x.version === t.design_version)
+    const norm = (s) => String(s).replace(/\s+/g, ' ').trim()
+    t.design_acceptance = (t.design_acceptance || []).map((i) => d.acceptance.findIndex((a) => norm(a) === norm(from?.acceptance?.[i] ?? ''))).filter((i) => i >= 0)
+    t.design_version = d.version
+    t.blocker = null
+    t.history.push({ at: now(), from: 'BLOCKED', to: 'READY', by, note: `${ug} 설계 v${d.version} 승인(${decision_id}) — 설계 쟁점 해소` })
+    t.status = 'READY'
+    resumed.push(t.task_id)
+  }
+  const drafts = (g.task_drafts || []).splice(0)
+  if (changed && g.status === 'ACCEPTED') {
+    g.status = 'OPEN'
+    g.accepted_at = null
+    history(g, 'goal.reopened', by, `설계 계약 v${prev.version} → v${d.version} 변경 — 이전 수용은 무효`)
+  }
+  if (g.open_issue) g.open_issue = null
+  history(g, `design.v${d.version}.APPROVED`, by, `${decision_id}${changed ? ` · 계약 변경 → 재검증 ${invalidated.join(',') || '없음'}` : ''}${resumed.length ? ` · 재개 ${resumed.join(',')}` : ''}`)
+  return { design: d, invalidated, contract_changed: !!changed, resumed, drafts }
+}
+
+const pathInApproval = (scope, x) => scope.some((s) => s === x || (s.endsWith('**') && x.startsWith(s.slice(0, -2))))
+
+/** 설계 승인 전 작업 초안 — 승인되면 호출자가 bindTaskSpec → addTask 로 만든다(설계 대기 → 자동 재개) */
+export function addTaskDraft(state, ug, spec, { by }) {
+  const g = findGoal(state, ug)
+  ;(g.task_drafts ||= []).push({ spec, at: now(), by })
+  history(g, 'task.draft', by, spec.title)
+  return g.task_drafts.length
+}
+
+// ── 작업 연결 ───────────────────────────────────────────────────────────
+
+/** 작업 spec 을 사용자 목표에 묶는다: 승인된 설계 · 승인 범위 안 경로 · 프로필의 게이트. 호출자는 이어서 addTask 한다. */
+export function bindTaskSpec(state, ug, spec) {
+  const g = findGoal(state, ug)
+  const d = approvedDesign(g)
+  if (!d) throw new RuleError('DESIGN_NOT_APPROVED', `${ug} 에 승인된 설계가 없다 — 작업을 만들 수 없다`)
+  const scope = g.approval.allowed_paths
+  const outside = (spec.allowed_paths || []).filter((x) => !pathInApproval(scope, x))
+  if (outside.length) throw new RuleError('SCOPE_EXPANSION', `작업 경로 ${outside.join(', ')} 는 ${ug} 승인 범위(${scope.join(', ')}) 밖이다`)
+  if (spec.db_scope && !['none', 'read'].includes(spec.db_scope.mode) && !g.approval.db) throw new RuleError('APPROVAL_REQUIRED', `${ug} 는 DB 변경 승인이 없다 — DB 작업을 만들 수 없다`)
+  if (!g.canon_goal_ids.includes(spec.goal_id)) throw new RuleError('GOAL_MISMATCH', `작업 goal_id ${spec.goal_id} 는 ${ug} 의 정본 목표(${g.canon_goal_ids.join(',')})가 아니다`)
+  const prof = PROFILES[g.profile]
+  return { ...spec, user_goal_id: ug, design_version: d.version, ...(prof.require_review_pass ? { require_review_pass: true } : {}) }
+}
+
+// ── 라우터 ──────────────────────────────────────────────────────────────
+
+/** 지금 이 목표에 필요한 다음 한 걸음. 반환 { route, reason, actor, waiting? } */
+export function route(state, ug) {
+  const g = findGoal(state, ug)
+  const R = (r, reason, actor, extra = {}) => ({ ug_id: ug, route: r, reason, actor, ...extra })
+  if (g.status === 'ACCEPTED') return R('USER_ACCEPTED', `사용자 최종 수락(${g.accept_decision_id ?? '결정 없음'})`, null)
+  if (g.status === 'PAUSED') return R('PAUSED', '사용자가 일시정지', 'user')
+  const pending = g.rounds.find((r) => r.recipient === 'chatgpt' && r.response_status === 'PENDING')
+  if (pending) {
+    const hours = (Date.now() - Date.parse(pending.created_at)) / 3_600_000
+    if (hours > g.budgets.max_wait_hours) return R('EXTERNAL_BLOCKER', `ChatGPT 응답 대기 ${Math.round(hours)}시간 > 상한 ${g.budgets.max_wait_hours}`, 'user', { request_id: pending.request_id })
+    return R(g.open_issue ? 'DESIGN_CONFLICT' : 'DESIGN_REQUIRED', `${pending.request_id} 응답 대기(HUMAN_IN_THE_LOOP: 사용자가 ChatGPT 에 전달·응답 저장)`, 'chatgpt', { waiting: true, request_id: pending.request_id })
+  }
+  if (g.open_issue) return R('DESIGN_CONFLICT', `설계 쟁점: ${g.open_issue.problem}`, 'chatgpt')
+  const appr = approvedDesign(g)
+  const latest = latestDesign(g)
+  if (latest && ['PROPOSED', 'REVIEWED', 'DRAFT'].includes(latest.status) && (!appr || latest.version > appr.version)) {
+    if (latest.status === 'DRAFT' && PROFILES[g.profile].needs_design && latest.source === 'claude') return R('DESIGN_REQUIRED', `프로필 ${g.profile} 은 ChatGPT 설계 검토가 선행된다`, 'chatgpt')
+    const miss = latest.code_check?.missing?.length ? ` · ⚠ main 에 없는 경로 ${latest.code_check.missing.map((m) => m.path).join(', ')}` : ''
+  const covered = new Set(current.flatMap((e) => e.covers))
+  const missing = t.acceptance.map((_, i) => i).filter((i) => !covered.has(i))
+  if (missing.length) throw new RuleError('ACCEPTANCE_UNCOVERED', `증거가 덮지 않은 완료 조건: ${missing.map((i) => `[${i}] ${t.acceptance[i]}`).join(' / ')}`)
+  // 검증 커밋: 이번 run 의 증거가 **모두 같은 커밋**을 가리켜야 한다(Codex Stop 리뷰 P1).
+  // 조건 0 은 커밋 A 에서, 조건 1 은 그 뒤 B 에서 검증했다면 A→B 사이 변경을 조건 0 이 본 적이 없다 —
+  // B 를 검증 커밋으로 적으면 목표 검사기가 그 틈을 못 본 채 PASS 를 줄 수 있다. 섞이면 완료 거부(전부 같은 커밋에서 재검증).
+  const withCommit = current.filter((e) => e.commit)
+  if (withCommit.length) {
+    if (withCommit.length !== current.length) throw new RuleError('EVIDENCE_COMMIT_MIXED', `이번 run 증거 중 일부만 commit 이 있다(${current.length - withCommit.length}건 없음) — 모든 증거에 같은 검증 커밋을 적어라`)
+    const shas = [...new Set(withCommit.map((e) => String(e.commit)))]
+    const same = shas.every((a) => shas.every((b) => a.startsWith(b) || b.startsWith(a)))
+    if (!same) throw new RuleError('EVIDENCE_COMMIT_MIXED', `이번 run 증거가 서로 다른 커밋을 가리킨다(${shas.join(', ')}) — 최종 커밋에서 모든 완료 조건을 다시 검증하라`)
+  }
+  // 증거에 commit 이 없어도 게이트를 건너뛰지 않는다 — 작업 worktree 의 HEAD 를 완료 커밋으로 본다(Codex 리뷰 P1)
+  // verified = 증거가 가리키는 커밋(목표 판정의 근거) · completing = 리뷰 게이트용(없으면 worktree HEAD 로 추정 — 근거로는 쓰지 않는다)
+  const verified = withCommit.length ? withCommit.map((e) => String(e.commit)).sort((a, b) => b.length - a.length)[0] : t.verified_commit ?? null
+  let completing = verified
+  if (!completing && t.worktree) {
+    try {
+      completing = execFileSync('git', ['-C', t.worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() || null
+    } catch {
+      completing = null
+    }
+  }
+  // Codex Stop 훅 판정 — 완료하려는 커밋의 최근 판정이 REVIEW_BLOCKED 면 완료 금지(작업은 BLOCKED 로, 다른 작업은 계속).
+  // require_review_pass 작업은 **그 커밋**의 REVIEW_PASS 가 있어야 한다 — 다른 커밋의 PASS 는 근거가 아니다.
+  if (completing) {
+    const g = reviewGate(completing, verdicts ? { verdicts } : undefined)
+    if (g.state === 'blocked') throw new RuleError('REVIEW_BLOCKED', `커밋 ${completing.slice(0, 9)} 의 Codex 판정이 REVIEW_BLOCKED(${g.record.kind} · 수정 ${g.record.fix_rounds}회 · P0/P1 ${(g.record.p0_p1 || []).map((x) => x.finding_id).join(',')}) — 완료·병합·배포 금지`)
+    if (t.require_review_pass && g.state !== 'pass') throw new RuleError(g.pass_elsewhere ? 'REVIEW_COMMIT_MISMATCH' : 'REVIEW_PASS_REQUIRED', `커밋 ${completing.slice(0, 9)} 에 대한 REVIEW_PASS 가 없다(현재 ${g.state})${g.pass_elsewhere ? ' — 다른 커밋의 PASS 는 이 커밋의 근거가 아니다' : ''}`)
+  } else if (t.require_review_pass) throw new RuleError('REVIEW_PASS_REQUIRED', '검증 커밋이 없어 리뷰 판정을 대조할 수 없다')
+  t.reviewed_by = caller
+  t.review_record = review_path
+  t.review_record_sha256 = crypto.createHash('sha256').update(fs.readFileSync(path.resolve(root(), review_path))).digest('hex')
+  t.verified_commit = verified
+  history(t, 'REVIEW', 'COMPLETED', caller, `review=${review_path}`)
+  return t
+}
+
+function requireReviewRecord(review_path) {
+# WF-S16 — 목표 단위 위임 · 위험 기반 실행 · 읽기 전용 live 검증 (2026-10-10)
+
+기준 e416ed9b5. 새 오케스트레이터 없음 — usergoals 승인 경로 · 선정 게이트 · 기존 tty 승인을 넓혔다.
+
+## 1. 승인 병목 조사(UG-c8315ad8-0002 실측)
+| 지점 | 실측 | 판정 |
+|---|---|---|
+| 설계 버전마다 승인 | v2 PROPOSED → (main 결정으로 무효) → v3 초안 → v4 PROPOSED — 버전이 바뀔 때마다 「UG@vN」 승인이 새로 필요했다 | **불필요** — 같은 목표·같은 영역·같은 위험이면 목표 정책 하나로 |
+| 파일 경로 단위 승인 | v4 승인 명령에 경로 6~7개를 손으로 나열 · 경로 하나(live test) 때문에 재안내 | **과도** — 코드 영역(glob)+위험 수준으로 판단 |
+| 읽기 전용 DB 검증 | load.live.test.ts 는 MAP_LIVE_USER(사용자 uuid) + service role 이 필요 · 오케스트레이터는 db_scope=read 작업을 자동 실행하지 않음 | 막힌 이유 = 위임 경로·테스트 계정·읽기 전용 근거가 없었다 |
+| 실제 위험 변경 | DB 쓰기·스키마 · 정본 · 인증 · 배포 · main 병합 | **별도 승인 유지(HIGH)** |
+| 안전하게 바로 가능 | 읽기·분석·Work 설계 요청(브리지 tick) · 순수 로직·테스트·문서 | 정책 LOW/MEDIUM 으로 자동 |
+
+## 2. 목표 실행 정책 (`lib/policy.mjs`)
+필드: goal_id · allowed_capabilities · allowed_code_areas · excluded_operations(HIGH 8종 필수) · risk_level(LOW|MEDIUM) · approval_evidence · max_runtime_min · max_cost_usd · merge_policy · live_test_user · read_only_attestation.
+- 사용자 승인: 일반 터미널 `vfc approve --kind goal_delegation --summary "UG-…@policy" --policy-file <정책>` 한 번. 결정에 정책 내용과 sha256 을 싣는다 — 파일·상태를 나중에 바꿔도 sha 가 달라 장착되지 않는다.
+- 오케스트레이터: 반복마다 정책 장착 → 최신 PROPOSED 설계가 정책 안(영역·위험·DB 없음)이면 버전 승인 없이 적용 → 초안이 작업으로 → 실행. 정책 밖이면 그 목표만 승인 대기(독립 작업 계속), 같은 버전은 한 번만 시도.
+- 작업마다 다시 본다: HIGH 경로·영역 밖·능력 없음·목표 비용 상한 → 그 작업만 보류. 실행 시간 상한은 정책값으로 줄인다.
+
+## 3. 위험 분류(경로·DB 범위·작업 종류 — AI 판단 없음, 모르면 높게)
+HIGH: supabase/** · *.sql · migrations · scripts/db/** · .env·비밀 · auth·middleware·RLS·lib/supabase · 정본(goals · platform-goals · LEARNING_MAP_VNEXT.md) · CI·배포·next.config · package.json·lockfile · 개인정보 · db_scope=write · 작업 db_write·schema_change·canon_change·deploy·merge_main·external_publish·auth_change·personal_data. 경로가 없으면 HIGH.
+MEDIUM: 제품 코드(apps·packages 의 테스트 아닌 파일) · scripts(DB 아님) · db_scope=read.
+LOW: 테스트 · 정본 아닌 문서.
+HIGH 는 어떤 정책으로도 위임되지 않는다(validatePolicy 가 거부).
+
+## 4. 승인 입력 경로 검토
+| 경로 | 판정 | 근거 |
+|---|---|---|
+| GitHub PR Review | **불가** | GitHub 은 PR 작성자의 자기 승인을 막는다 — 교환·제품 PR 은 사용자 계정(gh 토큰)으로 열린다. 또 에이전트가 같은 토큰으로 리뷰·댓글을 쓸 수 있어 신원을 구분할 수 없다 |
+| ChatGPT Work 승인 | **불가** | Work 댓글은 AI 생성물(앱 chatgpt-codex-connector)이다 — 사용자 승인 이벤트가 아니다. 지원되는 「사용자 승인 작업」 기능을 확인하지 못했다(가정하지 않음) |
+| 간단한 대시보드 + 패스키(WebAuthn) | **다음 후보(미구현)** | 브라우저 생체/보안키 제스처는 에이전트가 수행할 수 없다. 단, 같은 OS 사용자 권한의 에이전트가 자격 저장소를 바꿀 수 있어 저장소 sha 고정·변경 경보가 함께 필요 |
+| 대화형 터미널 + 확인 코드(현행) | **채택 · 목표당 1회로 축소** | 에이전트 프로세스(TTY 없음·CLAUDECODE)는 통과 못 함. 한계: 의사 터미널(pty) 우회는 못 막는다(KR-01) |
+
+## 5. 읽기 전용 live 검증 (`lib/liveverify.mjs` · `vfc verify live`)
+- 정적 근거: 테스트에서 import 닫힘(45 파일)을 따라 쓰기 호출(.insert/.update/.delete/.upsert/.rpc) 파일 5개를 찾고, 각 파일의 쓰기 함수가 loadMapPage 경로에서 호출되지 않음을 호출 검사로 확인 — practice-writer(directWriter·g2Writer: recordItemTaskAttempt 기본값·deps 팩토리에서만) · practice-server(schedulePracticeReview 미호출) · diagnosis/server(recomputeSnapshot 은 submit/delete 에서만) · cohesion-link·claim-support(.update( = crypto 해시).
+- 그 5 파일의 sha256 을 정책 read_only_attestation 에 싣는다 → 파일이 바뀌면 자동 재차단(REATTEST_REQUIRED).
+- 실행: 정책이 db_read_dev + live_test_user(실제 학습자 아닌 테스트 계정 uuid)를 위임했을 때만. .env 값은 자식 환경에만(출력·기록 없음).
+- 판정: 통과>0·실패0·건너뜀0 만 PASS. 건너뜀·결과 없음 = UNVERIFIED(덮지 않음). PASS 는 같은 설계 버전의 해당 수용 기준을 덮는다.
+
+## 6. UG-c8315ad8-0002 적용
+- 정책 `planning/policies/UG-c8315ad8-0002.json`: 영역 = lib/csat/map/** · components/csat/diagnosis/map/** · knowledge/find-*(+테스트) · 위험 MEDIUM · 비용 15$ · 시간 120분 · 병합 none · DB 쓰기·정본·배포·main 병합 제외 · read_only_attestation 5.
+- v4 의 7 경로 전부 영역 안 · MEDIUM · DB 없음 → 정책 승인 즉시 v4 자동 적용 · T1·T2 실행.
+- live_test_user 는 비워 둠 — 테스트 계정 uuid 를 사용자가 넣어야 기준 7 을 실행한다(저장소에 지정된 테스트 계정이 없다).
+
+## 7. 테스트
+tests/policy.test.mjs 6(위험 오분류 방지 · 정책 검사 · 위임 1회 → 자동 승인·연속 실행 · 정책 밖/변조 무시 · HIGH 작업 보류 · live 판정) · 전체 141/141.
+
+## 미구현 · 한계
+- merge_policy=pr_only(브랜치 push·PR 자동 열기)는 필드만 — 이번에는 none 으로 둔다.
+- 패스키 대시보드 미구현. pty 우회 한계(KR-01) 유지.
+- live 검증의 읽기 전용 근거는 정적 호출 검사 — 동적 디스패치는 잡지 못한다(해시 결속으로 변경 시 재확인).
+
+## Codex 독립 리뷰
+- r1: P1 4(glob 범위가 HIGH 파일 포함 · 부수효과 import·재내보내기 누락 · 공백 낀 쓰기 호출 · 목표 예산 실행 중 미적용) · P2 4 → 전부 수정·회귀.
+- r2: P1 4(소스 루트 밖 의존 · .env 가 테스트 계정 덮음 · 확인이 호출 경로에 결속 안 됨 · 다른 종류 승인으로 HIGH 통과) · P2 2(라운드별 예산 · live 근거 커밋 결속) → 전부 수정·회귀.
+  - 실제 바뀐 HIGH 파일은 그 종류의 승인(db_write·secret·deploy)이 기록됐을 때만 — 인증·정본·의존성·개인정보는 자동 작업에서 늘 막힘.
+  - 읽기 전용 확인 = 쓰기 파일 + 확인된 쓰기 함수 참조 파일의 해시 + 쓰기 함수 목록. 그 밖의 파일이 쓰기 호출을 갖거나 그 함수를 새로 참조하면 재확인.
+- 전체 144/144. UG-0002 정책: 확인 파일 6 · 쓰기 함수 10 · 현재 코드 preflight 통과(테스트 계정만 비어 있음).
+
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'node --test tests/policy.test.mjs' in D:\workspace\Vocaflow-AI-Control
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$i=0; Get-Content bin/vfc.mjs -Encoding utf8 | ForEach-Object {$i++; if ($i -ge 250 -and $i -le 275) {"${i}: $_"}}; $i=0; Get-Content lib/liveverify.mjs -Encoding utf8 | ForEach-Object {$i++; if ($i -ge 30 -and $i -le 60 -or $i -ge 100 -and $i -le 108) {"${i}: $_"}}; Get-Content lib/usergoals.mjs -Encoding utf8 | Select-Object -Skip 560 -First 45; Get-ChildItem D:'"\\ -Filter AGENTS*; Get-ChildItem D:\\workspace -Filter AGENTS*" in D:\workspace\Vocaflow-AI-Control
+ succeeded in 639ms:
+250:       return out({ ok: true, would_create: t.task_id, impact: t.impact, criterion_claims: t.criterion_claims }, opt)
+251:     }
+252:     case 'verify live': {
+253:       // 읽기 전용 개발 DB 검증 — 목표 정책(db_read_dev · live_test_user · read_only_attestation)이 있어야 한다. --check 는 실행 전 검사만
+254:       const ug = pos[0]
+255:       const s0 = loadState().state
+256:       const g = UG.findGoal(s0, ug)
+257:       const pol = g.execution_policy
+258:       const dlg = (g.delegations || []).at(-1)
+259:       const worktree = opt.worktree || dlg?.worktree
+260:       if (!worktree) throw new T.RuleError('MISSING_FIELD', '--worktree 가 필요하다')
+261:       const testRel = opt.test
+262:       const pre = LIVE.preflight(pol, worktree, testRel)
+263:       if (opt.check || !pre.ok) return out({ ug, test: testRel, preflight: { ok: pre.ok, why: pre.why, closure: pre.closure.map((c) => ({ path: c.path, writes: c.writes, sha256: c.sha256 })) } }, opt)
+264:       const appr = UG.approvedDesign(g)
+265:       if (!appr) throw new T.RuleError('APPROVAL_REQUIRED', `${ug} 승인된 설계 없음`)
+266:       const head = execFileSync('git', ['-C', worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+267:       const res = LIVE.runLive({ worktree, testRel, liveUser: pol.live_test_user, envFile: opt['env-file'] || path.join(CTX.productRepo(), 'apps', 'web', '.env.local') })
+268:       const rec = { at: new Date().toISOString(), test: testRel, commit: head, design_version: appr.version, acceptance: list(opt.acceptance).map(Number), status: res.status, counts: res.counts, reason: res.reason, ms: res.ms, closure_sha: crypto.createHash('sha256').update(JSON.stringify(pre.closure.map((c) => [c.path, c.sha256]))).digest('hex') }
+269:       fs.mkdirSync(path.join(root(), 'verification', 'live'), { recursive: true })
+270:       fs.writeFileSync(path.join(root(), 'verification', 'live', `${ug}-${rec.at.replace(/[:.]/g, '-')}.json`), JSON.stringify(rec, null, 2))
+271:       withState((s) => {
+272:         const gg = UG.findGoal(s, ug)
+273:         gg.live_verifications = [...(gg.live_verifications || []), rec]
+274:       }, { event: 'usergoal.live_verify', ug, status: rec.status, by })
+275:       return out(rec, opt)
+30: 
+31: /** 테스트 파일의 import 닫힘(타입 전용 import 제외) — 각 파일의 쓰기 호출 수 */
+32: export function importClosure(worktree, testRel) {
+33:   const srcRoot = path.join(worktree, 'apps', 'web', 'src')
+34:   const start = path.join(worktree, testRel)
+35:   const seen = new Map()
+36:   const unresolved = []
+37:   const stack = [start]
+38:   while (stack.length) {
+39:     const f = stack.pop()
+40:     if (seen.has(f)) continue
+41:     const text = fs.readFileSync(f, 'utf8')
+42:     seen.set(f, { writes: (text.match(WRITE_RE) || []).length })
+43:     // 실행되는 의존 형태 전부: import … from · import '…'(부수 효과) · export … from(재내보내기) · import('…') · require('…') — Codex P1
+44:     const specs = [
+45:       ...[...text.matchAll(/^\s*import\s+(?!type\b)[^'"]*?from\s+['"]([^'"]+)['"]/gm)].map((m) => m[1]),
+46:       ...[...text.matchAll(/^\s*import\s+['"]([^'"]+)['"]/gm)].map((m) => m[1]),
+47:       ...[...text.matchAll(/^\s*export\s+(?!type\b)[^'"]*?from\s+['"]([^'"]+)['"]/gm)].map((m) => m[1]),
+48:       ...[...text.matchAll(/\bimport\s*\(\s*['"]([^'"]+)['"]\s*\)/g)].map((m) => m[1]),
+49:       ...[...text.matchAll(/\brequire\s*\(\s*['"]([^'"]+)['"]\s*\)/g)].map((m) => m[1]),
+50:     ]
+51:     if (/\bimport\s*\(\s*[^'"\s)]/.test(text) || /\brequire\s*\(\s*[^'"\s)]/.test(text)) unresolved.push(`${path.relative(worktree, f)}: 동적 import 경로(문자열 아님)`)
+52:     for (const sp of specs) {
+53:       const r = resolveImport(f, sp, srcRoot)
+54:       if (r && r.startsWith(srcRoot)) stack.push(r)
+55:       else if (r) unresolved.push(`${path.relative(worktree, f)}: ${sp} 는 apps/web/src 밖이다(검사 범위 밖 — 거부)`)
+56:       else if (sp.startsWith('.') || sp.startsWith('@/')) unresolved.push(`${path.relative(worktree, f)}: ${sp} 를 찾지 못했다`)
+57:     }
+58:   }
+59:   const files = [...seen.entries()].map(([f, v]) => ({ path: path.relative(worktree, f).split(path.sep).join('/'), sha256: sha(f), writes: v.writes }))
+60:   files.unresolved = unresolved
+100:     for (const [k, v] of Object.entries(process.env)) if (before[k] !== v) childEnv[k] = v
+101:     for (const k of Object.keys(process.env)) if (!(k in before)) delete process.env[k]
+102:     Object.assign(process.env, before)
+103:   }
+104:   childEnv.MAP_LIVE_USER = liveUser // 정책이 승인한 테스트 계정이 마지막 — .env 의 값으로 바뀌지 않는다(Codex P1)
+105:   const cmd = process.env.VFC_VITEST_CMD
+106:   const t0 = Date.now()
+107:   const r = cmd
+108:     ? spawnSync(process.execPath, [...cmd.split(' ').slice(1), testRel, out], { cwd: worktree, env: childEnv, encoding: 'utf8', timeout: timeoutMs })
+    t.status = 'READY'
+    resumed.push(t.task_id)
+  }
+  const drafts = (g.task_drafts || []).splice(0)
+  if (changed && g.status === 'ACCEPTED') {
+    g.status = 'OPEN'
+    g.accepted_at = null
+    history(g, 'goal.reopened', by, `설계 계약 v${prev.version} → v${d.version} 변경 — 이전 수용은 무효`)
+  }
+  if (g.open_issue) g.open_issue = null
+  history(g, `design.v${d.version}.APPROVED`, by, `${decision_id}${changed ? ` · 계약 변경 → 재검증 ${invalidated.join(',') || '없음'}` : ''}${resumed.length ? ` · 재개 ${resumed.join(',')}` : ''}`)
+  return { design: d, invalidated, contract_changed: !!changed, resumed, drafts }
+}
+
+const pathInApproval = (scope, x) => scope.some((s) => s === x || (s.endsWith('**') && x.startsWith(s.slice(0, -2))))
+
+/** 설계 승인 전 작업 초안 — 승인되면 호출자가 bindTaskSpec → addTask 로 만든다(설계 대기 → 자동 재개) */
+export function addTaskDraft(state, ug, spec, { by }) {
+  const g = findGoal(state, ug)
+  ;(g.task_drafts ||= []).push({ spec, at: now(), by })
+  history(g, 'task.draft', by, spec.title)
+  return g.task_drafts.length
+}
+
+// ── 작업 연결 ───────────────────────────────────────────────────────────
+
+/** 작업 spec 을 사용자 목표에 묶는다: 승인된 설계 · 승인 범위 안 경로 · 프로필의 게이트. 호출자는 이어서 addTask 한다. */
+export function bindTaskSpec(state, ug, spec) {
+  const g = findGoal(state, ug)
+  const d = approvedDesign(g)
+  if (!d) throw new RuleError('DESIGN_NOT_APPROVED', `${ug} 에 승인된 설계가 없다 — 작업을 만들 수 없다`)
+  const scope = g.approval.allowed_paths
+  const outside = (spec.allowed_paths || []).filter((x) => !pathInApproval(scope, x))
+  if (outside.length) throw new RuleError('SCOPE_EXPANSION', `작업 경로 ${outside.join(', ')} 는 ${ug} 승인 범위(${scope.join(', ')}) 밖이다`)
+  if (spec.db_scope && !['none', 'read'].includes(spec.db_scope.mode) && !g.approval.db) throw new RuleError('APPROVAL_REQUIRED', `${ug} 는 DB 변경 승인이 없다 — DB 작업을 만들 수 없다`)
+  if (!g.canon_goal_ids.includes(spec.goal_id)) throw new RuleError('GOAL_MISMATCH', `작업 goal_id ${spec.goal_id} 는 ${ug} 의 정본 목표(${g.canon_goal_ids.join(',')})가 아니다`)
+  const prof = PROFILES[g.profile]
+  return { ...spec, user_goal_id: ug, design_version: d.version, ...(prof.require_review_pass ? { require_review_pass: true } : {}) }
+}
+
+// ── 라우터 ──────────────────────────────────────────────────────────────
+
+/** 지금 이 목표에 필요한 다음 한 걸음. 반환 { route, reason, actor, waiting? } */
+export function route(state, ug) {
+  const g = findGoal(state, ug)
+
+ exited 1 in 18326ms:
+warning: unable to access 'C:\Users\Administrator/.config/git/ignore': Permission denied
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: unable to access 'C:\Users\Administrator/.config/git/ignore': Permission denied
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: unable to access 'C:\Users\Administrator/.config/git/ignore': Permission denied
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+warning: unable to access 'C:\Users\Administrator/.config/git/ignore': Permission denied
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/x.ts', LF will be replaced by CRLF the next time Git touches it
+✔ 위험 분류: 낮게 잘못 분류해 승인을 우회하지 못한다(HIGH 우선 · 모르면 높게) (6.5313ms)
+✔ 정책 검사: HIGH 위임 불가 · 너무 넓은 영역 거부 · 범위 밖/위험 초과/능력 없음은 그 변경만 보류 (4.064ms)
+✖ 목표 위임 한 번 → 정책 안의 PROPOSED 설계 자동 승인 · 초안이 작업으로 · 연속 실행(버전별 승인 없음) (1542.2931ms)
+✖ 정책 밖 설계(HIGH·영역 밖)는 자동 승인하지 않고 그 목표만 승인 대기 · 정책 파일 변조(sha 불일치)는 무시 (5382.7507ms)
+✔ 정책 작업 게이트: 승인된 설계 안이라도 작업이 HIGH 경로면 그 작업만 보류 (5632.9028ms)
+✔ 읽기 전용 live 검증: 위임·테스트 계정·해시 결속 없으면 실행 안 함 · 건너뜀은 PASS 아님 · 통과만 PASS (496.1984ms)
+✔ Codex P1·P2 회귀 — 부수 효과 import·재내보내기·공백 낀 쓰기 호출 · 러너 실패는 PASS 아님 · 정책 없으면 closure [] (116.7351ms)
+✖ Codex P1 회귀 — glob 범위 안이라도 실제로 바뀐 HIGH 파일은 막는다 · 정책 예산이 바닥나면 다음 라운드 전에 멈춘다 (4363.8118ms)
+✔ Codex P1 회귀 2 — 소스 루트 밖 의존 거부 · 확인된 쓰기 함수를 새로 참조하면 재확인 · .env 가 테스트 계정을 덮지 못한다 · 다른 종류 승인으로 HIGH 파일 통과 불가 (164.7635ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 6
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17891.0858
+
+✖ failing tests:
+
+test at tests\policy.test.mjs:102:1
+✖ 목표 위임 한 번 → 정책 안의 PROPOSED 설계 자동 승인 · 초안이 작업으로 · 연속 실행(버전별 승인 없음) (1542.2931ms)
+  TypeError: Cannot read properties of null (reading 'policy_sha256')
+      at TestContext.<anonymous> (file:///D:/workspace/Vocaflow-AI-Control/tests/policy.test.mjs:112:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\policy.test.mjs:120:1
+✖ 정책 밖 설계(HIGH·영역 밖)는 자동 승인하지 않고 그 목표만 승인 대기 · 정책 파일 변조(sha 불일치)는 무시 (5382.7507ms)
+  TypeError: Cannot read properties of null (reading 'decision_id')
+      at file:///D:/workspace/Vocaflow-AI-Control/tests/policy.test.mjs:135:48
+      at Array.find (<anonymous>)
+      at TestContext.<anonymous> (file:///D:/workspace/Vocaflow-AI-Control/tests/policy.test.mjs:135:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)
+
+test at tests\policy.test.mjs:212:1
+✖ Codex P1 회귀 — glob 범위 안이라도 실제로 바뀐 HIGH 파일은 막는다 · 정책 예산이 바닥나면 다음 라운드 전에 멈춘다 (4363.8118ms)
+  AssertionError [ERR_ASSERTION]: []
+      at TestContext.<anonymous> (file:///D:/workspace/Vocaflow-AI-Control/tests/policy.test.mjs:222:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: /blocked/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command "node --input-type=module -e \"import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import {preflight} from './lib/liveverify.mjs'; const w=fs.mkdtempSync(path.join(os.tmpdir(),'review-live-')); const d=path.join(w,'apps/web/src'); fs.mkdirSync(d,{recursive:true}); fs.writeFileSync(path.join(d,'writer.ts'),\\\"export const write = db => db.insert({})\\\"); fs.writeFileSync(path.join(d,'x.test.ts'),\\\"import { test } from 'vitest'; import { write } from './writer'; test('x', () => write(db));\\\"); const p={allowed_capabilities:['db_read_dev'],live_test_user:'00000000-0000-4000-8000-000000000001'}; console.log(JSON.stringify(preflight(p,w,'apps/web/src/x.test.ts')));\"" in D:\workspace\Vocaflow-AI-Control
+ exited 1 in 728ms:
+��ġ ��:2 ����:503
++ ...  from 'vitest'; import { write } from './writer'; test('x', () => wri ...
++                                                                  ~
+'(' �ڿ� ���� �;� �մϴ�.
+��ġ ��:2 ����:497
++ ... t } from 'vitest'; import { write } from './writer'; test('x', () =>  ...
++                                                               ~~~
+���� ���� �߸��Ǿ����ϴ�. ���� �������� �Է��� ���� �Ǵ� �Ӽ��� ���� ������ ����� �� �ִ� ��ü���� �մϴ�.
+��ġ ��:2 ����:503
++ ...  from 'vitest'; import { write } from './writer'; test('x', () => wri ...
++                                                                  ~
+���� ���� �߸��Ǿ����ϴ�. ���� �������� �Է��� ���� �Ǵ� �Ӽ��� ���� ������ ����� �� �ִ� ��ü���� �մϴ�.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpectedExpression
+ 
+
+2026-10-09T21:04:54.783987Z ERROR codex_core::tools::router: error=code-mode host closed its stdout
+codex
+The live verification path can execute unchecked database-writing code and attribute results from uncommitted code to a committed implementation. These gaps undermine both read-only execution safety and goal-verification accuracy.
+
+Full review comments:
+
+- [P1] Reject dirty worktrees before recording commit-bound verification — D:\workspace\Vocaflow-AI-Control\bin\vfc.mjs:266-268
+  If the test or product code has uncommitted changes, Vitest executes those changes, but the verification record identifies the unchanged HEAD as the tested commit. `acceptanceCoverage()` subsequently accepts that PASS when HEAD matches the latest task's `verified_commit`, potentially verifying criteria that the committed implementation fails. Require a clean tested worktree and confirm that HEAD and tested files remain unchanged after execution before recording PASS.
+
+- [P1] Include runner-loaded code in the read-only safety check — D:\workspace\Vocaflow-AI-Control\lib\liveverify.mjs:33-37
+  When the web project's Vitest configuration loads `setupFiles`, `globalSetup`, or executable plugins, those files run with the supplied DB credentials without appearing in this closure. An unattested setup file can therefore perform DB writes even though preflight declares the test read-only. Inspect and bind the effective runner configuration and its executable dependencies, or run with an isolated configuration that excludes unchecked setup code.
+
+- [P1] Parse static imports regardless of their position on a line — D:\workspace\Vocaflow-AI-Control\lib\liveverify.mjs:45-47
+  For valid TypeScript such as `import { test } from 'vitest'; import { write } from './writer';`, the anchored regex recognizes only the first import and silently omits `./writer`. If the imported module performs DB writes, preflight can approve execution without its required attestation because neither its source nor its dependencies are inspected. Use a syntax parser or otherwise handle all static import and re-export declarations, including multiple declarations on one line.
+The live verification path can execute unchecked database-writing code and attribute results from uncommitted code to a committed implementation. These gaps undermine both read-only execution safety and goal-verification accuracy.
+
+Full review comments:
+
+- [P1] Reject dirty worktrees before recording commit-bound verification — D:\workspace\Vocaflow-AI-Control\bin\vfc.mjs:266-268
+  If the test or product code has uncommitted changes, Vitest executes those changes, but the verification record identifies the unchanged HEAD as the tested commit. `acceptanceCoverage()` subsequently accepts that PASS when HEAD matches the latest task's `verified_commit`, potentially verifying criteria that the committed implementation fails. Require a clean tested worktree and confirm that HEAD and tested files remain unchanged after execution before recording PASS.
+
+- [P1] Include runner-loaded code in the read-only safety check — D:\workspace\Vocaflow-AI-Control\lib\liveverify.mjs:33-37
+  When the web project's Vitest configuration loads `setupFiles`, `globalSetup`, or executable plugins, those files run with the supplied DB credentials without appearing in this closure. An unattested setup file can therefore perform DB writes even though preflight declares the test read-only. Inspect and bind the effective runner configuration and its executable dependencies, or run with an isolated configuration that excludes unchecked setup code.
+
+- [P1] Parse static imports regardless of their position on a line — D:\workspace\Vocaflow-AI-Control\lib\liveverify.mjs:45-47
+  For valid TypeScript such as `import { test } from 'vitest'; import { write } from './writer';`, the anchored regex recognizes only the first import and silently omits `./writer`. If the imported module performs DB writes, preflight can approve execution without its required attestation because neither its source nor its dependencies are inspected. Use a syntax parser or otherwise handle all static import and re-export declarations, including multiple declarations on one line.
