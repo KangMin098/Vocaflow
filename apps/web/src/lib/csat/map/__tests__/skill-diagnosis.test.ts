@@ -2,7 +2,7 @@
 // 기능 단위 직접 확인 → CHECK → 재진단(계약 A · D-1 v1)
 import { describe, expect, it } from 'vitest'
 
-import { CHECK_ITEMS, EXPIRY_DAYS, skillDiagnosis, skillMessage, type SkillAttempt } from '../skill-diagnosis'
+import { CHECK_ITEMS, EXPIRY_DAYS, skillDiagnosis, skillMessage, skillView, type SkillAttempt, type SkillDiagnosis, type SkillStatus } from '../skill-diagnosis'
 
 const T = ['a', 'b', 'c', 'd', 'e'].map((i) => ({ itemRef: i, taskKey: 'claim-support' }))
 const now = new Date('2026-10-20T00:00:00Z')
@@ -112,5 +112,31 @@ describe('문구', () => {
     expect(v).not.toMatch(/약점|부족|취약|실력이 낮/)
     const r = skillMessage(skillDiagnosis(T, [att('a', false, at(10)), att('b', false, at(11)), att('c', true, at(15)), att('d', true, at(16))], now))
     expect(r).toMatch(/판정은 아니에요/)
+  })
+})
+
+describe('view model(skillView) — 다섯 상태를 화면 행동으로', () => {
+  const base = (status: SkillStatus): SkillDiagnosis => ({ status, verified: status === 'verified' || status === 'still_needed', verifiedAt: at(11), verifiedItems: ['a', 'b'], check: { right: 0, wrong: 0, need: CHECK_ITEMS, remaining: ['c', 'd'] }, resolvedAt: null })
+  it('[0] 다섯 상태를 빠짐없이 매핑한다', () => {
+    const all: SkillStatus[] = ['unverified', 'verified', 'still_needed', 'resolved', 'expired']
+    expect(all.map((s) => [s, skillView(base(s)).stage, skillView(base(s)).action, skillView(base(s)).locked])).toEqual([
+      ['unverified', 'FIND', 'direct_check', true],
+      ['verified', 'REPAIR', 'repair', false],
+      ['still_needed', 'CHECK', 'recheck', false],
+      ['resolved', 'DONE', 'next_step', true],
+      ['expired', 'FIND', 'direct_check', true],
+    ])
+    // @ts-expect-error 알 수 없는 상태는 타입 단계에서 막힌다
+    expect(() => skillView({ ...base('verified'), status: 'unknown' })).toThrow()
+  })
+  it('[1][4] 잠긴 상태는 다시 확인 문항을 내주지 않는다 — expired 는 이전 확정을 근거로 쓰지 않는다', () => {
+    for (const s of ['unverified', 'resolved', 'expired'] as const) expect(skillView(base(s)).checkItems).toEqual([])
+    expect(skillView(base('unverified')).label).toBe('')
+  })
+  it('[2][3] verified · still_needed 는 확정에 쓰지 않은 미노출 문항만', () => {
+    const v = skillDiagnosis(T, [att('a', false, at(10)), att('b', false, at(11))], now)
+    expect(skillView(v).checkItems).toEqual(['c', 'd', 'e'])
+    const s = skillDiagnosis(T, [att('a', false, at(10)), att('b', false, at(11)), att('c', false, at(15))], now)
+    expect(skillView(s)).toMatchObject({ status: 'still_needed', action: 'recheck', checkItems: ['d', 'e'] })
   })
 })

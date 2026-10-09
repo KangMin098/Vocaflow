@@ -16,7 +16,7 @@ import type { MapPageData } from '@/lib/csat/map/load'
 import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
 import { decideStep } from '@/lib/knowledge/learning-decision'
 import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
-import { skillDiagnosis } from '@/lib/csat/map/skill-diagnosis'
+import { skillDiagnosis, skillView } from '@/lib/csat/map/skill-diagnosis'
 import { RECHECK_RESULT_CAVEAT, recheckOtherPassageLabel, type PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
@@ -48,9 +48,10 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   const outcome = findTargets.length && data.findAttempts ? findOutcome(findTargets, data.findAttempts) : null
   // 기능 단위 직접 확인(verified_diagnosis · 이 원리만) — 확인 문항 묶음의 독립 첫 시도로 확정 · CHECK · 재진단. 서버 시각이 없으면 판정하지 않는다
   const skill = findTargets.length && data.findAttempts && data.now ? skillDiagnosis(findTargets, data.findAttempts, new Date(data.now)) : null
-  // 다시 확인하기 — 확정에 쓰지 않았고 아직 풀지 않은 확인 문항
+  // 상태 · 잠금 · 다시 확인 문항은 view model 하나에서 — 이 시트는 상태를 다시 분기하지 않는다
+  const view = skill ? skillView(skill) : null
+  // 다시 확인 후보 — 미노출 문항 거르기는 SkillPrescription 이 view.checkItems 로 한다
   const confirmLinks = find.flatMap((t) => data.practiceLinks?.[t.id]?.confirm ?? [])
-  const checkLinks = skill ? confirmLinks.filter((c) => skill.check.remaining.includes(c.target)) : []
   // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
   const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
   const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
@@ -133,7 +134,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
           </section>
           <section className={`${l.block} ${l.now}`} id="step-check">
             <h3 className={l.blockH}><Search size={14} strokeWidth={1.9} aria-hidden="true" />지금 확인할 것 — {STAGE_WORD.FIND}</h3>
-            {outcome && (!skill || skill.status === 'unverified') && (
+            {outcome && (!view || view.status === 'unverified') && (
               <p className={l.text} data-testid="find-outcome" data-state={outcome.state}>
                 <strong>직접 확인 결과 · {FIND_STATE_LABEL[outcome.state]}</strong> — {outcome.message}
               </p>
@@ -143,7 +144,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                 그 줄이 비어 있을 때(미확인 · 엇갈림 · 확인 문항 소진 등)는 다음 할 일을 보인다 — 연습 · 다시 확인 링크가 끊기지 않게(Codex P1) */}
             {decision && decision.action !== 'no_principle' && (
               <p
-                hidden={!!skill && skill.status !== 'unverified'}
+                hidden={!!view && view.status !== 'unverified'}
                 className={l.text}
                 data-testid="learning-decision"
                 data-action={decision.action}
@@ -198,7 +199,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
             )}
             {tasks.err && <p className={l.err} role="alert">{tasks.err}</p>}
           </section>
-          <SkillPrescription skill={skill} groups={later.map((g) => ({ stage: g.stage, titles: g.tasks.map((t) => t.title) }))} transferHref={transferHref} checkLinks={checkLinks} />
+          <SkillPrescription skill={skill} groups={later.map((g) => ({ stage: g.stage, titles: g.tasks.map((t) => t.title) }))} transferHref={transferHref} checkLinks={confirmLinks} />
           <section className={l.block}>
             <button type="button" className={l.moreBtn} aria-expanded={more} onClick={() => setMore((v) => !v)}>
               <ChevronDown size={14} className={more ? l.rot : ''} aria-hidden="true" />

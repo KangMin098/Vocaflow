@@ -130,6 +130,53 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
   return last
 }
 
+/** 지금 할 행동 — 직접 확인 계속 · 바로잡기(REPAIR) · 남은 미노출 문항으로 다시 확인 · 다음 단계 */
+export type SkillAction = 'direct_check' | 'repair' | 'recheck' | 'next_step'
+
+/** 화면이 쓰는 상태 묶음 — 상태 줄과 처방이 같은 값에서 나온다(StepSheet 는 다시 분기하지 않는다) */
+export interface SkillView {
+  status: SkillStatus
+  /** 상태 라벨 — unverified 는 빈 문자열(직접 확인 줄이 따로 말한다) */
+  label: string
+  /** 현재 단계 — FIND(직접 확인) · REPAIR · CHECK · DONE(통과) */
+  stage: 'FIND' | 'REPAIR' | 'CHECK' | 'DONE'
+  action: SkillAction
+  /** 처방(REPAIR · TRANSFER · CHECK 링크)이 잠겼는가 */
+  locked: boolean
+  /** 다시 확인에 쓸 문항 — 확정에 쓰지 않았고 아직 보지 않은 것만(D-8) · 잠겼으면 비어 있다 */
+  checkItems: string[]
+}
+
+export const SKILL_LABEL: Record<SkillStatus, string> = {
+  unverified: '',
+  verified: '직접 확인됨 · 이 원리 연습 필요',
+  still_needed: '다시 확인 · 아직 연습 필요',
+  resolved: '다시 확인 통과',
+  expired: '다시 확인 필요(기한 지남)',
+}
+
+/** 순수 view model — 판정은 바꾸지 않고 SkillDiagnosis 를 화면 행동으로만 옮긴다. 상태가 늘면 never 검사에서 타입 오류가 난다 */
+export function skillView(d: SkillDiagnosis): SkillView {
+  const label = SKILL_LABEL[d.status]
+  switch (d.status) {
+    case 'unverified':
+      return { status: d.status, label, stage: 'FIND', action: 'direct_check', locked: true, checkItems: [] }
+    case 'verified':
+      return { status: d.status, label, stage: 'REPAIR', action: 'repair', locked: false, checkItems: d.check.remaining }
+    case 'still_needed':
+      return { status: d.status, label, stage: 'CHECK', action: 'recheck', locked: false, checkItems: d.check.remaining }
+    case 'resolved':
+      return { status: d.status, label, stage: 'DONE', action: 'next_step', locked: true, checkItems: [] }
+    case 'expired':
+      // 이전 확정은 지금 근거가 아니다 — 처방을 잠그고 직접 확인부터 다시 한다
+      return { status: d.status, label, stage: 'FIND', action: 'direct_check', locked: true, checkItems: [] }
+    default: {
+      const never: never = d.status
+      throw new Error(`unknown skill status: ${String(never)}`)
+    }
+  }
+}
+
 /** 학생 화면 문구 — 약점 · 실력 단정 없이 「이 원리 · 이번 확인 기준」으로만 말한다 */
 export function skillMessage(d: SkillDiagnosis): string {
   switch (d.status) {
