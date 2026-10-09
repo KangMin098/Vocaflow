@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- migration 후보 `_pending_20261009100000_learning_cross_session_help`(M9 · **미적용 · 승인 대기** · sha256 ba5760e3…) — 첫 시도 뷰 · 효과 게이트가 같은 학습자 · 문항의 다른 세션 도움 · 해설 열람을 시간 순서대로 반영. 격리 10/10. 적용 전에는 앱 analyzed · efficacy 쓰기 가드. [M9_APPROVAL](./methodology/M9_APPROVAL_2026-10-09.md)
+
 - fix(csat): E11 복습 예약 신뢰성 — 「N일 뒤」 = 한국 달력 날짜(`lib/knowledge/review-date.ts` · 저장은 그 날 KST 00:00) · 예약 응답은 서버가 확정한 날짜(이미 잡힌 날이면 그 날) · Practice 화면 「내 복습」(지도에 안 걸리는 Practice 예약도 다시 찾기 · 같은 문항을 예약일 뒤 다시 풀어야 끝남).
 
 - feat(map): 결과 환류 다음 칸 — 마친 확인 뒤 Practice(다른 지문 적용 · 풀에 다른 문항이 있을 때만), 전이 뒤 새 기출 기록(재평가 · 목표 대비 변화). 학습 순환 실제 경로 E2E 15/15 · 환류 E2E 16/16
