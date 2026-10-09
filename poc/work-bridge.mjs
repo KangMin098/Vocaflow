@@ -424,6 +424,26 @@ function tick() {
           log({ event: 'tick_error', error: String(e.message).slice(0, 200) })
         }
       }
+      // 1b) 응답 없이 retry-after-min 이 지난 요청은 한 번만 다시 트리거(--retry · 새 PR) — Work 이벤트가 첫 PR 을 놓친 실측(PR #11 무응답 → #12 3분 응답)
+      const retryAfter = Number(opt['retry-after-min'] || 0)
+      if (retryAfter > 0 && !res.collected.length) {
+        const ev = readLog()
+        for (const id of inflight()) {
+          const pubs = ev.filter((e) => e.event === 'published' && e.request_id === id)
+          const last = pubs.at(-1)
+          if (pubs.length >= 2 || !last || Date.now() - Date.parse(last.at) < retryAfter * 60_000) continue
+          try {
+            opt.quiet = true
+            opt.retry = true
+            res.retried = publish(id)
+            log({ event: 'tick_retry', request_id: id, after_min: retryAfter })
+          } catch (e) {
+            res.errors.push(`retry ${id}: ${String(e.message).slice(0, 200)}`)
+          } finally {
+            opt.retry = false
+          }
+        }
+      }
       // 2) 받아 둔 응답이 아직 인수되지 않았으면(이번 수집이든 지난 tick 의 인수 실패든) 인수 — 일시 실패가 라운드를 영영 PENDING 으로 남기지 않게(Codex P2)
       const respDir = path.join(ROOT, 'planning', 'responses')
       if (!opt['dry-run'] && fs.existsSync(respDir) && fs.readdirSync(respDir).some((f) => f.endsWith('.md') && !f.endsWith('.part'))) {

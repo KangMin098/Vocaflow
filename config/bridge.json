@@ -1,6 +1,7 @@
 {
   "repo": "KangMin098/vocaflow-exchange",
   "app": "chatgpt-codex-connector",
-  "wait_work_min": 15,
-  "interval_s": 30
+  "wait_work_min": 20,
+  "interval_s": 30,
+  "retry_after_min": 8
 }
