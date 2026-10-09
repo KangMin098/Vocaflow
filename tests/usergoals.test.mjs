@@ -108,7 +108,7 @@ function approve(root, ug, v, extra = []) {
 }
 function addUgTask(root, wt, ug, over = {}) {
   const f = path.join(root, `spec-${crypto.randomBytes(3).toString('hex')}.json`)
-  fs.writeFileSync(f, JSON.stringify({ goal_id: CANON, title: 'ug task', description: 'd', priority: 'P1', owner_id: OWNER, allowed_paths: ['src/**'], forbidden_paths: ['secret.txt'], acceptance: ['조건 0'], worktree: wt, branch: 'feat/t', design_acceptance: [0], ...over }))
+  fs.writeFileSync(f, JSON.stringify({ goal_id: CANON, title: 'ug task', description: 'd', priority: 'P1', owner_id: OWNER, allowed_paths: ['src/**'], forbidden_paths: ['secret.txt'], acceptance: ['조건 0'], worktree: wt, branch: 'feat/t', design_acceptance: [0], duplicate_reason: 'test fixture', ...over }))
   return ok(vfc(root, ['ugoal', 'task', 'add', ug, '--file', f, '--by', OWNER]))
 }
 const routeOf = (root, ug) => ok(vfc(root, ['ugoal', 'route', ug])).route
@@ -126,7 +126,7 @@ test('A ChatGPT 기획 v1 → (승인 전 실행 없음) → 승인 → 구현 �
   assert.equal(routeOf(root, g.ug_id), 'IMPLEMENTATION_REQUIRED')
   const r = orch(root)
   assert.equal(r.run.tasks_done[0].outcome, 'completed')
-  assert.equal(routeOf(root, g.ug_id), 'GOAL_ACCEPTED')
+  assert.equal(routeOf(root, g.ug_id), 'GOAL_VERIFIED')
   // 「--by user」 만으로는 수락되지 않는다
   assert.notEqual(vfc(root, ['ugoal', 'accept', g.ug_id, '--by', 'user']).code, 0)
   // 에이전트 안에서 기록된 승인도 근거가 아니다
@@ -164,7 +164,7 @@ test('B ChatGPT v1 → Claude 설계 충돌 → 재질의(쟁점 중심) → v2 
   assert.equal(task(root, t.task_id).design_version, 2)
   const r2 = orch(root)
   assert.equal(r2.run.tasks_done[0].outcome, 'completed')
-  assert.equal(routeOf(root, g.ug_id), 'GOAL_ACCEPTED')
+  assert.equal(routeOf(root, g.ug_id), 'GOAL_VERIFIED')
   const s = ok(vfc(root, ['ugoal', 'status', g.ug_id]))
   assert.deepEqual(s.designs.map((d) => d.status), ['SUPERSEDED', 'APPROVED'])
 })
@@ -185,7 +185,7 @@ test('C Claude-first(DEEP) → ChatGPT 심층 기획 요청 → 응답 인수 �
   const a = approve(root, g.ug_id, 1)
   assert.equal(a.created.length, 1)
   assert.equal(orch(root).run.tasks_done[0].outcome, 'completed')
-  assert.equal(routeOf(root, g.ug_id), 'GOAL_ACCEPTED')
+  assert.equal(routeOf(root, g.ug_id), 'GOAL_VERIFIED')
 })
 
 test('D Codex 코드 결함 → Claude 자동 수정 → Codex 재리뷰 — ChatGPT 왕복 없음', () => {
@@ -300,7 +300,7 @@ test('H 설계 계약 변경(v2 승인)이 v1 로 끝난 작업을 재검증 대
   assert.equal(a.contract_changed, true)
   assert.deepEqual(a.invalidated, [t1.task_id])
   assert.ok(task(root, t1.task_id).revalidate_required)
-  assert.notEqual(routeOf(root, g.ug_id), 'GOAL_ACCEPTED')
+  assert.notEqual(routeOf(root, g.ug_id), 'GOAL_VERIFIED')
   const r = orch(root)
   assert.match(r.iterations[0].skipped.find((s) => s.task_id === old.task_id).reason, /SUPERSEDED/)
   const acc = vfc(root, ['ugoal', 'accept', g.ug_id, '--by', 'user'])

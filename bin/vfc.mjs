@@ -19,6 +19,7 @@ import * as CTX from '../lib/context.mjs'
 import { measureRuns } from '../lib/perf.mjs'
 import { execFileSync } from 'node:child_process'
 import { initState } from '../lib/init.mjs'
+import { goalLevel } from '../lib/alignment.mjs'
 
 function parse(argv) {
   const pos = []
@@ -93,7 +94,10 @@ const HELP = `vfc — Vocaflow AI Control
   owner list
 
 작업
-  task add --file spec.json [--by owner]  필수: goal_id(L3) title description priority owner_id allowed_paths forbidden_paths acceptance
+  task add --file spec.json [--by owner]  필수: goal_id(L3) title description priority owner_id allowed_paths forbidden_paths acceptance impact
+                                          impact: current_gap · expected_impact(closes|advances|prerequisite) · evidence_required[] · [acceptance_ids parent_goal_id next_dependency out_of_scope dependency_type unblocks] · kind independent 면 user_request_ref
+  task check --file spec.json             task add 와 같은 검사(영향 계약·갭·중복·재구현)만 — 상태를 바꾸지 않는다
+  goal level <VG-…>                       TASK_COMPLETED · GOAL_PARTIAL · GOAL_VERIFIED · USER_ACCEPTED(사용자 결정만)
   task list [--status S] [--owner O] | task show <id>
   task approve <id> --by user --ref "근거" [--sql-sha256 H]
   task start <id> --owner O --agent A --session L [--pid N]
@@ -228,6 +232,17 @@ function main() {
     case 'owner list':
       return out(loadState().state.ownership.owners, opt)
 
+    case 'task check': {
+      // 상태 사본에 addTask 를 돌려 보고 버린다 — 실제 상태·journal 은 바뀌지 않는다. 정본 검사는 task add 와 같게
+      requireValidCanon()
+      const spec = readJson(opt.file)
+      spec.created_by = by
+      const copy = structuredClone(loadState().state)
+      const t = T.addTask(copy, spec)
+      return out({ ok: true, would_create: t.task_id, impact: t.impact, criterion_claims: t.criterion_claims }, opt)
+    }
+    case 'goal level':
+      return out(goalLevel(loadState().state, pos[0]), opt)
     case 'task add': {
       requireValidCanon()
       const spec = readJson(opt.file)

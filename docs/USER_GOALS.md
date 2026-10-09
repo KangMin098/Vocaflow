@@ -33,7 +33,8 @@ ChatGPT 구간은 **사람이 파일을 옮긴다(HUMAN_IN_THE_LOOP)** — OpenA
 | IMPLEMENTATION_DEFECT | Claude → Codex | 리뷰 반려 뒤 READY |
 | DESIGN_CONFLICT | ChatGPT | Claude `design_issue` 또는 Codex `kind:"design"` 지적 |
 | EXTERNAL_BLOCKER | 사용자 | 응답 대기 상한 초과 · 작업 전부 BLOCKED |
-| GOAL_ACCEPTED | — | 현재 설계 수용 기준을 COMPLETED 작업이 모두 덮음(`ugoal accept` 로 확정) |
+| GOAL_VERIFIED | user | 현재 설계 수용 기준을 COMPLETED 작업이 모두 덮음 — 사용자 최종 수락 대기(`vfc decision add 「UG-… accept」` → `ugoal accept --decision`) |
+| USER_ACCEPTED | — | 사용자가 직접 기록한 결정으로 수락됨(에이전트는 만들 수 없다) |
 | PAUSED | 사용자 | 일시정지 |
 
 선정: `mode=USER_GOAL` 이면 활성 목표 작업 → 다른 열린 사용자 목표 작업 순. 사용자 목표 밖 플랫폼 작업은 `PLATFORM_AUTO` 에서만 고른다.
@@ -187,7 +188,7 @@ Remove-Item runtime\STOP
 **12. 최종 완료 증거 확인**
 
 ```powershell
-node bin\vfc.mjs ugoal route UG-0001          # GOAL_ACCEPTED 와 coverage
+node bin\vfc.mjs ugoal route UG-0001          # GOAL_VERIFIED 와 coverage
 node bin\vfc.mjs ugoal accept UG-0001 --by user
 node bin\vfc.mjs task show T-00xx             # 증거·리뷰 기록·verified_commit
 Get-ChildItem verification\reviews

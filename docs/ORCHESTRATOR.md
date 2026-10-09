@@ -73,3 +73,24 @@ node bin/goal-priority.mjs              # 순위·실행 가능성만(상태 불
 node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10 --dry-run   # 선정까지
 node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10             # 실제 실행
 ```
+
+## Goal Alignment Gate (2026-10-10)
+
+목표: 작업 속도를 유지하면서 실제 최종 목표에 닿는 작업 비율을 높인다. 규칙·ID 만 쓴다(AI 호출 추가 없음). 코드 `lib/alignment.mjs`.
+
+**작업 영향 계약 `impact`(신규 작업 필수 · seed 기존 작업은 `legacy`)** — `current_gap` · `expected_impact`(closes·advances·prerequisite) · `evidence_required[]` · 선택 `acceptance_ids`(기본 = claim 전부) · `parent_goal_id`(자신 또는 정본 상위) · `next_dependency` · `out_of_scope` · `dependency_type`(direct·prerequisite, prerequisite 는 `unblocks` 필수).
+- `closes` ⇔ 겨냥 기준 full claim · 겨냥 밖 full claim 금지 · prerequisite 는 full 금지(기반 계약 완료 ≠ 목표 완료).
+- `kind: independent` — 사용자 명시 요청 작업. `user_request_ref` 필수, 정본 claim 0(목표 PASS 근거가 되지 않는다), 리뷰는 자기 완료 조건으로.
+- 사용자 목표 작업은 승인 설계에서 자동 생성(`UG@vN#i`). 같은 UG·버전·기준·겹치는 경로의 열린 작업은 중복.
+
+**등록 시 검사(`task add` · 미리 보기 `task check --file`)** — 상위 목표·수용 기준 존재 · 갭(목표 PASS 면 `GAP_CLOSED`) · 열린 작업 중복(`DUPLICATE_TASK`) · full 완료 작업 재구현(`REIMPLEMENT`) · 정본 버전·기준 커밋 기록 · 소유권·범위·승인은 기존 규칙. 의도적이면 `duplicate_reason`·`reopen_reason`(기록에 남는다). 다른 작업의 `forbidden_paths` 는 이 작업 판정에 쓰지 않는다.
+
+**리뷰 질문 2개(Codex 프롬프트)** — Q1 지정한 미완료 기준에 기여하나 · Q2 해결하지 못한 목표를 완료로 주장하나. 「아니오/예」 는 in-scope P1 → 기존 수정 루프. 전략 검토는 설계 충돌(kind design)일 때만 Work.
+
+**완료 단계 분리** — `vfc goal level <VG>` · 사용자 목표 route: `TASK_COMPLETED`(작업만) → `GOAL_PARTIAL`(direct 기여) → `GOAL_VERIFIED`(수용 기준 전부, 사용자 수락 대기) → `USER_ACCEPTED`(사용자가 직접 기록한 결정만 · `recorded_via=agent` 불가). prerequisite 완료는 PARTIAL 로 세지 않는다. 상위 목표(L2)는 하위 L3 하나의 PASS 로 VERIFIED 가 되지 않는다(goalcheck 기존 규칙).
+
+**다음 작업** — 같은 tier(실행 모드·사용자 목표 우선) 안에서 방금 끝난 작업과 같은 상위 목표 · 그 작업에 의존하는 작업 먼저, 그다음 기존 점수. 다른 목표로의 이동은 tier 가 정한다.
+
+**지연(실측 · 실제 상태 13 작업)** — 등록 검사 0.40ms · 선정 정렬 추가 0.005ms · 목표 단계 0.003ms(기존 순위 계산 0.32ms). 작업 300개 합성에서도 등록 검사 < 50ms(테스트).
+
+**회귀** `tests/alignment.test.mjs` — 지도 rev2.1(VG-L2-A1 ⊃ A1-01·A1-02) 실패 사례 5종(하위 완료를 전체 지도 PASS 로 · 재구현 · 다른 세션 금지사항 혼입 · 승인 없는 수락 · 증거 없는 원인 진단 완료) + 중복 · 간접 선행 허용 · 갭 · 독립 작업 · 다음 작업 · Codex 지적 3건.

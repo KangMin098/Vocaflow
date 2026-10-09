@@ -72,6 +72,7 @@ function taskSpec(over = {}) {
     allowed_paths: ['docs/x/**'],
     forbidden_paths: ['supabase/migrations/**'],
     acceptance: ['조건 0', '조건 1'],
+    impact: { current_gap: 'test gap', expected_impact: (over.criterion_claims || []).some((c) => c.claim === 'full') ? 'closes' : 'advances', evidence_required: ['테스트 통과'], out_of_scope: [] }, duplicate_reason: 'test fixture — 같은 범위 작업 여러 개',
     ...over,
   }
 }

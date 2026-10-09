@@ -171,7 +171,7 @@ test('두 턴 연속(모의 Work): 설계 → 승인 → 구현 중 설계 충�
   assert.deepEqual(a2.resumed, [t.task_id])
   const r2 = s.run(ORCH, ['--no-ci', '--json']).json
   assert.equal(r2.run.tasks_done[0].outcome, 'completed')
-  assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_ACCEPTED')
+  assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_VERIFIED')
   const st = s.bridge('status').json
   assert.equal(st.collected, 2, '두 턴 모두 게시·수집')
 })

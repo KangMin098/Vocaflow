@@ -64,7 +64,7 @@ function setup() {
 function addTask(root, over = {}) {
   const wt = over.worktree ?? mkWorktree()
   vfc(root, ['owner', 'bind-worktree', over.owner_id ?? OWNER, wt, '--branch', 'feat/t'])
-  const spec = { goal_id: 'VG-L3-A2-01', title: 'orch test', description: 'd', priority: 'P0', owner_id: OWNER, allowed_paths: ['src/**'], forbidden_paths: ['secret.txt'], acceptance: ['조건 0', '조건 1'], worktree: wt, branch: 'feat/t', ...over }
+  const spec = { goal_id: 'VG-L3-A2-01', title: 'orch test', description: 'd', priority: 'P0', owner_id: OWNER, allowed_paths: ['src/**'], forbidden_paths: ['secret.txt'], acceptance: ['조건 0', '조건 1'], worktree: wt, branch: 'feat/t', impact: { current_gap: 'test gap', expected_impact: (over.criterion_claims || []).some((c) => c.claim === 'full') ? 'closes' : 'advances', evidence_required: ['테스트 통과'], out_of_scope: [] }, duplicate_reason: 'test fixture — 같은 범위 작업 여러 개', ...over }
   const f = path.join(root, `spec-${crypto.randomBytes(3).toString('hex')}.json`)
   fs.writeFileSync(f, JSON.stringify(spec))
   const r = vfc(root, ['task', 'add', '--file', f, '--json'])
