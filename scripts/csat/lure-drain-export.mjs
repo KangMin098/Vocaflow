@@ -81,17 +81,35 @@ for (const it of items) {
     work.push({ item_id: it.id, analysis_id: a.id, version: a.version, type_id: it.type_id, stem: it.stem, passage: it.passage, distractors: todo })
 }
 
+// 재실행 안전(Codex P1): 채운 청크(.out.json 이 있는 것)는 입력까지 그대로 둔다 — 지우거나 번호를 다시 매기면
+// 결과와 입력이 어긋나고, 같은 번호의 새 작업이 「이미 채움」으로 조용히 건너뛰어진다.
+// 그래서 ① 이미 어느 결과에 든 문항은 다시 내보내지 않고 ② 새 청크 번호는 기존 최댓값 다음부터 매긴다.
 fs.mkdirSync(OUT, { recursive: true })
-for (const f of fs.readdirSync(OUT)) if (/^chunk-\d+\.json$/.test(f)) fs.rmSync(path.join(OUT, f))
-let chunks = 0
-for (let i = 0; i < work.length; i += PER) {
-  const id = String(chunks + 1).padStart(2, '0')
-  if (fs.existsSync(path.join(OUT, `chunk-${id}.out.json`))) {
-    chunks += 1
-    continue // 이미 채운 청크는 다시 쓰지 않는다 — 결과는 import 가 검증한다
-  }
-  fs.writeFileSync(path.join(OUT, `chunk-${id}.json`), JSON.stringify({ chunk: id, items: work.slice(i, i + PER) }, null, 1))
-  chunks += 1
+const existing = fs.readdirSync(OUT)
+const done = new Set()
+let maxId = 0
+for (const f of existing) {
+  const m = f.match(/^chunk-(\d+)\.(out\.)?json$/)
+  if (!m) continue
+  maxId = Math.max(maxId, Number(m[1]))
+  if (m[2]) for (const r of JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8')).items ?? []) done.add(r.item_id)
 }
-const todoN = work.reduce((n, w) => n + w.distractors.length, 0)
-console.log(`오답 ${distractors} · 자리 있음 ${placed} (${((100 * placed) / distractors).toFixed(1)}%) · 채울 것 ${todoN}개 / ${work.length}문항 → 청크 ${chunks} (${OUT})`)
+// 결과 없는 입력만 치운다(아직 아무도 채우지 않은 것 — 이번 셈으로 다시 쓴다)
+for (const f of existing) {
+  const m = f.match(/^chunk-(\d+)\.json$/)
+  if (m && !existing.includes(`chunk-${m[1]}.out.json`)) fs.rmSync(path.join(OUT, f))
+}
+const outIds = existing.filter((f) => /^chunk-\d+\.out\.json$/.test(f)).map((f) => Number(f.match(/\d+/)[0]))
+let next = outIds.length ? Math.max(...outIds) : 0
+const fresh = work.filter((w) => !done.has(w.item_id))
+let written = 0
+for (let i = 0; i < fresh.length; i += PER) {
+  next += 1
+  const id = String(next).padStart(2, '0')
+  fs.writeFileSync(path.join(OUT, `chunk-${id}.json`), JSON.stringify({ chunk: id, items: fresh.slice(i, i + PER) }, null, 1))
+  written += 1
+}
+const todoN = fresh.reduce((n, w) => n + w.distractors.length, 0)
+console.log(
+  `오답 ${distractors} · 자리 있음 ${placed} (${((100 * placed) / distractors).toFixed(1)}%) · 결과 대기(이미 채움 · import 전) ${work.length - fresh.length}문항 · 새로 채울 것 ${todoN}개 / ${fresh.length}문항 → 새 청크 ${written} (${OUT}${maxId ? ` · 기존 최대 번호 ${maxId}` : ''})`,
+)
