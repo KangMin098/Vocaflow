@@ -15,6 +15,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 
 import { currentItemTask, ITEM_TASKS } from './item-tasks'
 import { isSyntheticEmail, parseClientMeta } from './practice'
+import { priorHelpOf } from './prior-help'
 import { selectWriter, type AttemptWrite, type AttemptWriter, type WriteOutcome } from './practice-writer'
 import { resolveChain, type ChainItem, type ChainLink, type ChainVerdict } from './live-chain'
 
@@ -152,7 +153,8 @@ export async function recordItemTaskAttempt(
     contentHash: task.def.hash(task.ann),
     activity: 'theater',
     phase: 'practice',
-    helpLevel: meta.value.helpLevel,
+    // 화면이 보낸 도움 수준 + 서버의 같은 문항 선행 도움 · 해설 열람(새 극장 세션 · 다른 기기 포함 · 재전송은 저장값 유지)
+    helpLevel: meta.value.helpLevel !== 'independent' || (await priorHelpOf(client, user.id, itemId, meta.value.clientMutationId, meta.value.clientSessionId)) ? 'viewed_first' : 'independent',
     synthetic: isSyntheticEmail(user.email),
     clientMutationId: meta.value.clientMutationId,
     clientSessionId: meta.value.clientSessionId,
