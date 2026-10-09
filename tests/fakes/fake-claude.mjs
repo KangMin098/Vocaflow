@@ -45,6 +45,12 @@ const target = scenario === 'scope' ? 'secret.txt' : path.join('src', `${taskId}
 fs.mkdirSync(path.dirname(target), { recursive: true })
 fs.appendFileSync(target, `// ${taskId} ${Date.now()}\n`)
 git('add', target)
+// FAKE_CLAUDE_EXTRA_FILE: 범위 glob 안의 다른 파일(예: src/seed.sql — 위험 HIGH)도 함께 바꾼다
+if (process.env.FAKE_CLAUDE_EXTRA_FILE) {
+  fs.mkdirSync(path.dirname(process.env.FAKE_CLAUDE_EXTRA_FILE), { recursive: true })
+  fs.appendFileSync(process.env.FAKE_CLAUDE_EXTRA_FILE, `-- ${taskId}\n`)
+  git('add', process.env.FAKE_CLAUDE_EXTRA_FILE)
+}
 git('commit', '-q', '-m', `fake ${taskId}`)
 if (scenario === 'hook_blocked') {
   const head = git('rev-parse', 'HEAD')

@@ -22,6 +22,8 @@ import { measureRuns } from '../lib/perf.mjs'
 import { execFileSync } from 'node:child_process'
 import { initState } from '../lib/init.mjs'
 import { goalLevel } from '../lib/alignment.mjs'
+import * as POL from '../lib/policy.mjs'
+import * as LIVE from '../lib/liveverify.mjs'
 
 function parse(argv) {
   const pos = []
@@ -99,10 +101,11 @@ const HELP = `vfc — Vocaflow AI Control
   task add --file spec.json [--by owner]  필수: goal_id(L3) title description priority owner_id allowed_paths forbidden_paths acceptance impact
                                           impact: current_gap · expected_impact(closes|advances|prerequisite) · evidence_required[] · [acceptance_ids parent_goal_id next_dependency out_of_scope dependency_type unblocks] · kind independent 면 user_request_ref
   task check --file spec.json             task add 와 같은 검사(영향 계약·갭·중복·재구현)만 — 상태를 바꾸지 않는다
+  verify live <UG> --test <apps/web/...live.test.ts> --acceptance i,j [--worktree wt] [--check]   읽기 전용 개발 DB 검증(정책 위임 · 해시 결속 · 건너뜀≠PASS)
   goal level <VG-…>                       TASK_COMPLETED · GOAL_PARTIAL · GOAL_VERIFIED · USER_ACCEPTED(사용자 결정만)
   task list [--status S] [--owner O] | task show <id>
   task approve <id> --by user --ref "근거" [--sql-sha256 H]   DB 쓰기 승인은 사람의 대화형 터미널에서만
-  approve --kind design_approval|goal_acceptance|db_write|canon_change --summary "UG-… accept" [--ref ..] [--goals VG-..] [--paths a,b] [--new-canon-version v]
+  approve --kind design_approval|goal_delegation|goal_acceptance|db_write|canon_change [--policy-file p.json] --summary "UG-… accept" [--ref ..] [--goals VG-..] [--paths a,b] [--new-canon-version v]
                                           design_approval(「UG-…@vN」)은 다음 오케스트레이터 반복이 자동 적용·작업 재개
                                           신뢰 승인 입력(대화형 터미널 · 에이전트 밖 · 화면의 확인 코드 입력) — 강한 승인의 유일한 근거
   task start <id> --owner O --agent A --session L [--pid N]
@@ -246,6 +249,31 @@ function main() {
       const t = T.addTask(copy, spec)
       return out({ ok: true, would_create: t.task_id, impact: t.impact, criterion_claims: t.criterion_claims }, opt)
     }
+    case 'verify live': {
+      // 읽기 전용 개발 DB 검증 — 목표 정책(db_read_dev · live_test_user · read_only_attestation)이 있어야 한다. --check 는 실행 전 검사만
+      const ug = pos[0]
+      const s0 = loadState().state
+      const g = UG.findGoal(s0, ug)
+      const pol = g.execution_policy
+      const dlg = (g.delegations || []).at(-1)
+      const worktree = opt.worktree || dlg?.worktree
+      if (!worktree) throw new T.RuleError('MISSING_FIELD', '--worktree 가 필요하다')
+      const testRel = opt.test
+      const pre = LIVE.preflight(pol, worktree, testRel)
+      if (opt.check || !pre.ok) return out({ ug, test: testRel, preflight: { ok: pre.ok, why: pre.why, closure: pre.closure.map((c) => ({ path: c.path, writes: c.writes, sha256: c.sha256 })) } }, opt)
+      const appr = UG.approvedDesign(g)
+      if (!appr) throw new T.RuleError('APPROVAL_REQUIRED', `${ug} 승인된 설계 없음`)
+      const head = execFileSync('git', ['-C', worktree, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+      const res = LIVE.runLive({ worktree, testRel, liveUser: pol.live_test_user, envFile: opt['env-file'] || path.join(CTX.productRepo(), 'apps', 'web', '.env.local') })
+      const rec = { at: new Date().toISOString(), test: testRel, commit: head, design_version: appr.version, acceptance: list(opt.acceptance).map(Number), status: res.status, counts: res.counts, reason: res.reason, ms: res.ms, closure_sha: crypto.createHash('sha256').update(JSON.stringify(pre.closure.map((c) => [c.path, c.sha256]))).digest('hex') }
+      fs.mkdirSync(path.join(root(), 'verification', 'live'), { recursive: true })
+      fs.writeFileSync(path.join(root(), 'verification', 'live', `${ug}-${rec.at.replace(/[:.]/g, '-')}.json`), JSON.stringify(rec, null, 2))
+      withState((s) => {
+        const gg = UG.findGoal(s, ug)
+        gg.live_verifications = [...(gg.live_verifications || []), rec]
+      }, { event: 'usergoal.live_verify', ug, status: rec.status, by })
+      return out(rec, opt)
+    }
     case 'goal level':
       return out(goalLevel(loadState().state, pos[0]), opt)
     case 'task add': {
@@ -270,7 +298,17 @@ function main() {
       // 신뢰 승인 입력 — 에이전트 프로세스(TTY 없음 · CLAUDECODE/VFC_AGENT)는 여기를 통과하지 못한다
       const via = T.approvalChannel()
       if (via !== 'tty') throw new T.RuleError('TRUST_REQUIRED', `vfc approve 는 사람의 대화형 터미널에서만 실행된다(현재 ${via}) — 에이전트가 대신 실행할 수 없다`)
-      const KINDS = ['design_approval', 'goal_acceptance', 'db_write', 'canon_change']
+      const KINDS = ['design_approval', 'goal_delegation', 'goal_acceptance', 'db_write', 'canon_change']
+      // 목표 단위 위임: 정책 파일 내용을 결정에 그대로 싣고 sha256 으로 결속 — 승인 뒤 파일을 바꿔도 결정 내용은 그대로
+      let policy = null
+      if (opt.kind === 'goal_delegation') {
+        if (!opt['policy-file']) throw new T.RuleError('MISSING_FIELD', 'goal_delegation 은 --policy-file 이 필요하다')
+        policy = readJson(opt['policy-file'])
+        const errs = POL.validatePolicy(policy)
+        if (errs.length) throw new T.RuleError('BAD_POLICY', errs.join('; '))
+        if (!String(opt.summary || '').includes(`${policy.goal_id}@policy`)) throw new T.RuleError('BAD_SUMMARY', `--summary 에 「${policy.goal_id}@policy」 가 있어야 한다`)
+        process.stderr.write(`\n[목표 위임 정책] ${policy.goal_id} · 위험 상한 ${policy.risk_level} · 코드 영역 ${policy.allowed_code_areas.join(', ')} · 능력 ${policy.allowed_capabilities.join(', ')} · 제외 ${policy.excluded_operations.join(', ')} · 비용 ${policy.max_cost_usd}$ · 시간 ${policy.max_runtime_min}분 · 병합 ${policy.merge_policy}\n`)
+      }
       if (!KINDS.includes(opt.kind)) throw new T.RuleError('BAD_KIND', `--kind 는 ${KINDS.join('|')}`)
       if (!opt.summary) throw new T.RuleError('MISSING_FIELD', '--summary 가 필요하다(예: 「UG-0001 accept」 · 「UG-0001@v2」 · 「UG-0001@v2 db」)')
       const testCode = process.env.VFC_TTY_FOR_TESTS === '1' ? process.env.VFC_TEST_CODE : null
@@ -291,7 +329,7 @@ function main() {
         if (line.includes('\n')) break
       }
       if (line.trim() !== code) throw new T.RuleError('TRUST_CODE_MISMATCH', '확인 코드가 다르다 — 기록하지 않았다')
-      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
+      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), ...(policy ? { policy, policy_sha256: POL.policySha(policy) } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
       return out(withState((s) => T.logDecision(s, entry, { via: 'tty' }), { event: 'decision.approve_tty', kind: opt.kind, by: 'user' }), opt)
     }
     case 'task set-acceptance': {
