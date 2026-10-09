@@ -1,0 +1,88 @@
+OpenAI Codex v0.162.0-alpha.2
+--------
+workdir: D:\workspace\Vocaflow-AI-Control
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a11eb7-e1f1-75f3-9231-18658d0f78fe
+--------
+user
+Independent read-only review of the changes in commit range c50dfeb7d..HEAD of this repository (`git diff c50dfeb7d..HEAD`), feature "WF-S7 adaptive multi-turn user goals".
+Files: lib/usergoals.mjs (new), lib/planning.mjs (thread fields), lib/orchestrator.mjs (selection gate, design conflict routing, profile limits, prompts), lib/tasks.mjs, lib/goalcheck.mjs, lib/state.mjs, lib/paths.mjs, bin/vfc.mjs (ugoal CLI), bin/goal-orchestrator.mjs (--help), tests/usergoals.test.mjs, docs/USER_GOALS.md.
+Hard requirements: a ChatGPT response must never become an approval; design approval and DB approval only via user APPROVED decisions bound to "UG-…@vN"; a new design version must not widen approved scope; responses for another goal/round/version must be rejected; duplicates not re-applied; partially copied files not read; contract change invalidates prior completions; existing WF-S4/S5/S6 behaviour (old planning import, orchestrator, recovery) unchanged; no unapproved DB writes; budgets never disguise incomplete as complete.
+Report concrete defects only, most severe first, one line each:
+[P0|P1|P2|P3] path:line — defect — fix
+If none: NO_FINDINGS
+This is round 2 after fixes for: 30 prior findings (see verification/reviews/WF-S7-codex-review-r1.txt). Re-check those and report only remaining/new defects.
+
+codex
+I’ll review the diff and round-one findings, then check the approval gates, response validation, recovery, and budget behavior for remaining defects.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'git status --short; git diff --stat c50dfeb7d..HEAD; Get-Content verification/reviews/WF-S7-codex-review-r1.txt' in D:\workspace\Vocaflow-AI-Control
+2026-10-09T03:32:18.006941Z ERROR codex_core::tools::router: error=exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: helper_unknown_error: setup refresh had errors\")" }
+ exited -1 in 0ms:
+Failed to create unified exec process: helper_unknown_error: setup refresh had errors
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+codex
+The fixes cover several round-one issues, including direct UG task creation, version-token matching, and stale-round closure. I’m checking the remaining scope and DB gates, plus whether response intake can still read an incomplete copy.
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+codex
+The incomplete-copy issue remains: intake still claims files after two seconds, and the new parse-error retry doesn’t prevent reading a paused copy. I’m also checking whether an older task can finish after a contract change and still count toward goal-check PASS.
+mcp: node_repl/js started
+mcp: node_repl/js (failed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+codex
+I reproduced the completion issue in memory: a task in REVIEW survives a contract change, completes against the old version, and produces goal-check PASS. I’m checking response recovery and request registration for additional defects.
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+codex
+The probes also confirmed that recovery can overwrite a corrected response, concurrent requests can apply a response to the wrong recorded round, and case-only changes to enum values evade contract invalidation. I’m finishing the checks on manual task startup and profile prerequisites.
+mcp: node_repl/js started
+mcp: node_repl/js (failed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+mcp: node_repl/js started
+mcp: node_repl/js (completed)
+codex
+[P1] lib/usergoals.mjs:499 — Tasks in REVIEW during a contract change can subsequently complete under the old version and produce goal-check PASS — invalidate unfinished old-version tasks and enforce contract validity at completion.
+[P1] lib/usergoals.mjs:75 — Lowercasing makes case-sensitive contract changes such as `ACTIVE`→`active` invisible, preserving prior completions and ACCEPTED status — preserve case in contract hashing and acceptance rebinding.
+[P2] lib/usergoals.mjs:330 — Copies stalled for over two seconds are still claimed and read; parse-error deferral does not prevent partial reads — require atomic publication from staging or a completion marker.
+[P2] lib/usergoals.mjs:315 — Recovery overwrites a newly corrected response when an abandoned claim has the same filename — preserve both files using collision-safe recovery destinations.
+[P2] lib/usergoals.mjs:367 — Concurrent requests can share a header round ID while recording different rounds; responses mismatching the stored round are applied — reserve rounds atomically and validate stored round bindings.
+[P2] lib/usergoals.mjs:477 — DEEP/CRITICAL Claude DRAFT designs can be approved directly, bypassing their required ChatGPT design review — enforce the profile prerequisite before approval.
+[P2] lib/tasks.mjs:373 — Manual task startup ignores pending design conflicts, allowing READY siblings to execute while selection blocks the goal — enforce the conflict gate in `startTask`.
+tokens used
+128,114
+[P1] lib/usergoals.mjs:499 — Tasks in REVIEW during a contract change can subsequently complete under the old version and produce goal-check PASS — invalidate unfinished old-version tasks and enforce contract validity at completion.
+[P1] lib/usergoals.mjs:75 — Lowercasing makes case-sensitive contract changes such as `ACTIVE`→`active` invisible, preserving prior completions and ACCEPTED status — preserve case in contract hashing and acceptance rebinding.
+[P2] lib/usergoals.mjs:330 — Copies stalled for over two seconds are still claimed and read; parse-error deferral does not prevent partial reads — require atomic publication from staging or a completion marker.
+[P2] lib/usergoals.mjs:315 — Recovery overwrites a newly corrected response when an abandoned claim has the same filename — preserve both files using collision-safe recovery destinations.
+[P2] lib/usergoals.mjs:367 — Concurrent requests can share a header round ID while recording different rounds; responses mismatching the stored round are applied — reserve rounds atomically and validate stored round bindings.
+[P2] lib/usergoals.mjs:477 — DEEP/CRITICAL Claude DRAFT designs can be approved directly, bypassing their required ChatGPT design review — enforce the profile prerequisite before approval.
+[P2] lib/tasks.mjs:373 — Manual task startup ignores pending design conflicts, allowing READY siblings to execute while selection blocks the goal — enforce the conflict gate in `startTask`.

@@ -1,0 +1,131 @@
+{
+  "schema": "vfc-state/1",
+  "next_seq": 2,
+  "mode": "USER_GOAL",
+  "active_goal": null,
+  "goals": {
+    "UG-0001": {
+      "ug_id": "UG-0001",
+      "thread_id": "TH-0001",
+      "title": "단어 추출 계약 회귀 테스트(adaptive-extract)",
+      "canon_goal_ids": [
+        "VG-L3-A2-01"
+      ],
+      "origin": "claude",
+      "profile": "BALANCED",
+      "status": "ACCEPTED",
+      "budgets": {
+        "max_requeries_per_issue": 2,
+        "max_total_requeries": 6,
+        "max_consecutive_failures": 3,
+        "max_wait_hours": 72,
+        "max_cost_usd": 30,
+        "max_minutes": 600
+      },
+      "counters": {
+        "requeries": {},
+        "total_requeries": 0,
+        "consecutive_failures": 0
+      },
+      "approval": {
+        "design_version": 1,
+        "decision_id": "DL-0006",
+        "allowed_paths": [
+          "apps/web/src/lib/library/adaptive-extract.ts",
+          "apps/web/src/lib/library/__tests__/adaptive-extract.test.ts"
+        ],
+        "db": false,
+        "db_decision_id": null
+      },
+      "designs": [
+        {
+          "version": 1,
+          "status": "APPROVED",
+          "source": "claude",
+          "request_id": null,
+          "file": null,
+          "file_sha256": null,
+          "base_commit": null,
+          "summary": "단어 추출(adaptiveExtractWords·getTargetCefr) 계약 회귀 테스트 — 추출 뒤 texts.status 'extracted' 전이와 다음 CEFR 단계",
+          "design": "apps/web/src/lib/library/adaptive-extract.ts 는 테스트가 0 개다. Supabase 클라이언트를 vi.mock 으로 대체한 단위 테스트로 (1) getTargetCefr 가 한 단계 위 CEFR 을 돌려주고 최상위에서 넘치지 않는지 (2) 추출 성공 시 texts.status 를 'extracted' 로 바꾸는 update 가 id·user_id 조건과 함께 불리는지 고정한다. 결함이 드러나면 같은 파일에서 최소 수정. DB 접속·마이그레이션 없음.",
+          "acceptance": [
+            "getTargetCefr 가 각 CEFR 의 다음 단계를 돌려주고 최상위 단계에서 정의된 값을 돌려준다",
+            "추출 성공 경로가 texts.status 'extracted' update 를 해당 text id 조건으로 호출한다",
+            "pnpm --filter web exec vitest run 대상 테스트가 skip 0 으로 통과"
+          ],
+          "preserved_contracts": [
+            "texts.status 값 집합(not_started·in_progress·completed·extracted·conquered) 유지",
+            "complete-chapter 의 alreadyCompleted 판정 계약 유지"
+          ],
+          "allowed_paths": [
+            "apps/web/src/lib/library/adaptive-extract.ts",
+            "apps/web/src/lib/library/__tests__/adaptive-extract.test.ts"
+          ],
+          "db_changes": false,
+          "contract_hash": "2cb050d8a0bffc1b87ccdcae343d5d35cb5c8c42c0e7c0c6b1b17074892da07f",
+          "created_at": "2026-10-09T03:33:27.032Z",
+          "created_by": "claude",
+          "approved_at": "2026-10-09T03:33:27.408Z"
+        }
+      ],
+      "rounds": [
+        {
+          "thread_id": "TH-0001",
+          "goal_id": "UG-0001",
+          "round_id": "TH-0001-R01",
+          "request_id": null,
+          "parent_response_id": null,
+          "sender": "claude",
+          "recipient": "ai-control",
+          "purpose": "goal_start",
+          "design_version": 1,
+          "base_commit": null,
+          "source_evidence": [],
+          "response_status": "APPLIED",
+          "approval_status": "NONE",
+          "issue_key": null,
+          "created_at": "2026-10-09T03:33:27.032Z",
+          "completed_at": "2026-10-09T03:33:27.032Z"
+        }
+      ],
+      "open_issue": null,
+      "created_at": "2026-10-09T03:33:27.031Z",
+      "created_by": "claude",
+      "history": [
+        {
+          "at": "2026-10-09T03:33:27.031Z",
+          "event": "goal.created",
+          "by": "claude",
+          "note": "claude"
+        },
+        {
+          "at": "2026-10-09T03:33:27.032Z",
+          "event": "design.v1.DRAFT",
+          "by": "claude",
+          "note": "claude"
+        },
+        {
+          "at": "2026-10-09T03:33:27.408Z",
+          "event": "design.v1.APPROVED",
+          "by": "user",
+          "note": "DL-0006"
+        },
+        {
+          "at": "2026-10-09T03:33:27.794Z",
+          "event": "goal.activated",
+          "by": "user",
+          "note": ""
+        },
+        {
+          "at": "2026-10-09T03:38:24.603Z",
+          "event": "goal.accepted",
+          "by": "user",
+          "note": "tasks T-0006"
+        }
+      ],
+      "accepted_at": "2026-10-09T03:38:24.603Z"
+    }
+  },
+  "processed_responses": {},
+  "updated_at": "2026-10-09T03:38:24.603Z"
+}

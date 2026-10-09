@@ -1,0 +1,479 @@
+{
+  "schema": "vfc-state/1",
+  "next_seq": 7,
+  "tasks": [
+    {
+      "task_id": "T-0001",
+      "goal_id": "VG-L3-D1-01",
+      "related_goal_ids": [
+        "VG-L3-A1-01",
+        "VG-L3-A2-01",
+        "VG-L3-A3-01",
+        "VG-L3-B2-02",
+        "VG-L3-C1-01",
+        "VG-L3-C1-02",
+        "VG-L3-D1-02",
+        "VG-L3-D2-01",
+        "VG-L3-D2-02"
+      ],
+      "template": "VG-L4-TEMPLATE-TRACE",
+      "title": "STEP3 목표 대응 분석 — 64 후보 ↔ 40 정본 criteria ↔ 구현·DB·테스트·배포 근거",
+      "description": "goals/STEP3_INPUT_CRITERIA.md 의 필수 출력 6종(GOAL_CROSSWALK.csv · IMPLEMENTATION_INVENTORY.json · R0_GAP_REGISTER.md · DEPENDENCY_DAG.json · EVIDENCE_INDEX.json · REVIEW_DECISIONS.md)을 만든다. 읽기 전용.",
+      "priority": "P0",
+      "status": "READY",
+      "owner_id": "platform-goal",
+      "branch": "audit/platform-goal",
+      "worktree": "d:/workspace/vocaflow-platform-audit",
+      "allowed_paths": [
+        "docs/platform-audit/step3/**"
+      ],
+      "forbidden_paths": [
+        "apps/**",
+        "packages/**",
+        "supabase/migrations/**",
+        "goals/**"
+      ],
+      "db_scope": {
+        "mode": "read",
+        "targets": [
+          "dev:jajenrevcbmrpaliomxv"
+        ]
+      },
+      "approval_required": false,
+      "approval_kinds": [],
+      "approval": null,
+      "acceptance": [
+        "40개 criteria 전부에 근거 위치 또는 미확인 사유",
+        "64개 후보 전부 mapped|split|merged|out_of_scope|unmapped",
+        "R0 필수 게이트의 장애·증거·담당·선행관계",
+        "Codex 독립 리뷰 기록"
+      ],
+      "evidence": [],
+      "run_seq": 0,
+      "depends_on": [],
+      "criterion_claims": [
+        {
+          "criterion_id": "VG-L3-D1-01-AC1",
+          "claim": "partial"
+        }
+      ],
+      "flags": [],
+      "pr": null,
+      "requires_ci": false,
+      "verified_commit": null,
+      "orchestration": {
+        "rounds": 0,
+        "failures": {},
+        "budget_used_usd": 0
+      },
+      "source": "DL-0002",
+      "created_at": "2026-10-09T03:33:26.580Z",
+      "updated_at": "2026-10-09T03:33:26.580Z",
+      "history": [
+        {
+          "at": "2026-10-09T03:33:26.580Z",
+          "from": null,
+          "to": "READY",
+          "by": "init",
+          "note": "created"
+        }
+      ],
+      "run": null
+    },
+    {
+      "task_id": "T-0002",
+      "goal_id": "VG-L3-D1-01",
+      "related_goal_ids": [],
+      "template": "VG-L4-TEMPLATE-TRACE",
+      "title": "main ↔ 개발 DB migration 불일치 대조표(읽기 전용)",
+      "description": "DB schema_migrations 와 origin/main supabase/migrations 를 버전 단위로 대조. 미병합 브랜치별 출처, 번호 충돌, 적용 여부. DB 쓰기·migration 생성 없음.",
+      "priority": "P0",
+      "status": "READY",
+      "owner_id": "data-contract",
+      "branch": null,
+      "worktree": null,
+      "allowed_paths": [
+        "docs/platform-audit/step3/migration-diff/**"
+      ],
+      "forbidden_paths": [
+        "supabase/migrations/**",
+        "apps/**"
+      ],
+      "db_scope": {
+        "mode": "read",
+        "targets": [
+          "dev:jajenrevcbmrpaliomxv"
+        ]
+      },
+      "approval_required": false,
+      "approval_kinds": [],
+      "approval": null,
+      "acceptance": [
+        "버전별 DB 적용 여부·main 존재·출처 브랜치 표",
+        "번호 충돌 목록",
+        "병합 순서 제안(실행 아님)"
+      ],
+      "evidence": [],
+      "run_seq": 0,
+      "depends_on": [],
+      "criterion_claims": [
+        {
+          "criterion_id": "VG-L3-D1-01-AC1",
+          "claim": "partial"
+        }
+      ],
+      "flags": [],
+      "pr": null,
+      "requires_ci": false,
+      "verified_commit": null,
+      "orchestration": {
+        "rounds": 0,
+        "failures": {},
+        "budget_used_usd": 0
+      },
+      "source": null,
+      "created_at": "2026-10-09T03:33:26.581Z",
+      "updated_at": "2026-10-09T03:33:26.581Z",
+      "history": [
+        {
+          "at": "2026-10-09T03:33:26.581Z",
+          "from": null,
+          "to": "READY",
+          "by": "init",
+          "note": "created"
+        }
+      ],
+      "run": null
+    },
+    {
+      "task_id": "T-0003",
+      "goal_id": "VG-L3-D2-01",
+      "related_goal_ids": [],
+      "template": "VG-L4-TEMPLATE-TEST",
+      "title": "CI 브라우저 E2E 와 배포를 실제로 실행되게 한다",
+      "description": "시크릿 미설정으로 건너뛰는 ci e2e·deploy 를 실제 실행 상태로. 시크릿 설정·배포는 사용자 승인 필요(DL-0004).",
+      "priority": "P0",
+      "status": "READY",
+      "owner_id": "release-quality",
+      "branch": null,
+      "worktree": null,
+      "allowed_paths": [
+        ".github/workflows/**",
+        "apps/web/e2e/**"
+      ],
+      "forbidden_paths": [
+        "supabase/migrations/**"
+      ],
+      "db_scope": {
+        "mode": "none",
+        "targets": []
+      },
+      "approval_required": true,
+      "approval_kinds": [
+        "secret",
+        "deploy"
+      ],
+      "approval": null,
+      "acceptance": [
+        "e2e job 실행 로그에 skip=0",
+        "배포 run 의 실제 배포 로그 + 스모크 pass",
+        "run id 기록"
+      ],
+      "evidence": [],
+      "run_seq": 0,
+      "depends_on": [],
+      "criterion_claims": [
+        {
+          "criterion_id": "VG-L3-D2-01-AC1",
+          "claim": "partial"
+        }
+      ],
+      "flags": [],
+      "pr": null,
+      "requires_ci": false,
+      "verified_commit": null,
+      "orchestration": {
+        "rounds": 0,
+        "failures": {},
+        "budget_used_usd": 0
+      },
+      "source": null,
+      "created_at": "2026-10-09T03:33:26.581Z",
+      "updated_at": "2026-10-09T03:33:26.581Z",
+      "history": [
+        {
+          "at": "2026-10-09T03:33:26.581Z",
+          "from": null,
+          "to": "READY",
+          "by": "init",
+          "note": "created"
+        }
+      ],
+      "run": null
+    },
+    {
+      "task_id": "T-0004",
+      "goal_id": "VG-L3-D2-02",
+      "related_goal_ids": [
+        "VG-L3-D1-01"
+      ],
+      "template": "VG-L4-TEMPLATE-CONTRACT",
+      "title": "익명 체험 → 가입 시 기록 연결: 현재 구현 여부 조사와 계약 초안",
+      "description": "R0-ANON-ACCOUNT 게이트. 익명 이벤트(funnel_events user_id null)·익명 세션이 가입 후 계정에 연결되는 코드 경로가 있는지 조사하고 보안·동의·중복 방지 계약을 쓴다. 구현 아님.",
+      "priority": "P1",
+      "status": "READY",
+      "owner_id": "r0-learning-journey",
+      "branch": null,
+      "worktree": null,
+      "allowed_paths": [
+        "docs/r0/anon-account/**"
+      ],
+      "forbidden_paths": [
+        "supabase/migrations/**",
+        "apps/web/src/**"
+      ],
+      "db_scope": {
+        "mode": "read",
+        "targets": [
+          "dev:jajenrevcbmrpaliomxv"
+        ]
+      },
+      "approval_required": false,
+      "approval_kinds": [],
+      "approval": null,
+      "acceptance": [
+        "현행 경로 유무와 코드 근거",
+        "세션 고정 공격·동의·중복 방지 요구사항",
+        "R0-ANON-ACCOUNT 증거 목록과의 대응"
+      ],
+      "evidence": [],
+      "run_seq": 0,
+      "depends_on": [],
+      "criterion_claims": [
+        {
+          "criterion_id": "VG-L3-D2-02-AC1",
+          "claim": "partial"
+        }
+      ],
+      "flags": [],
+      "pr": null,
+      "requires_ci": false,
+      "verified_commit": null,
+      "orchestration": {
+        "rounds": 0,
+        "failures": {},
+        "budget_used_usd": 0
+      },
+      "source": null,
+      "created_at": "2026-10-09T03:33:26.583Z",
+      "updated_at": "2026-10-09T03:33:26.583Z",
+      "history": [
+        {
+          "at": "2026-10-09T03:33:26.583Z",
+          "from": null,
+          "to": "READY",
+          "by": "init",
+          "note": "created"
+        }
+      ],
+      "run": null
+    },
+    {
+      "task_id": "T-0005",
+      "goal_id": "VG-L3-A2-01",
+      "related_goal_ids": [
+        "VG-L3-B2-02"
+      ],
+      "template": "VG-L4-TEMPLATE-TEST",
+      "title": "읽기 완료 기록 0 의 원인 재현(texts.status completed)",
+      "description": "STEP 1 측정: texts completed 0. complete-chapter.ts 경로를 로컬에서 실제로 밟아 기록이 남는지 재현해 결함/미사용을 가른다.",
+      "priority": "P1",
+      "status": "READY",
+      "owner_id": "r0-learning-journey",
+      "branch": null,
+      "worktree": null,
+      "allowed_paths": [
+        "docs/r0/reading-completion/**",
+        "apps/web/e2e/**"
+      ],
+      "forbidden_paths": [
+        "supabase/migrations/**"
+      ],
+      "db_scope": {
+        "mode": "read",
+        "targets": [
+          "dev:jajenrevcbmrpaliomxv"
+        ]
+      },
+      "approval_required": false,
+      "approval_kinds": [],
+      "approval": null,
+      "acceptance": [
+        "재현 절차와 결과(결함 또는 미사용)",
+        "결함이면 원인 파일:줄"
+      ],
+      "evidence": [],
+      "run_seq": 0,
+      "depends_on": [],
+      "criterion_claims": [
+        {
+          "criterion_id": "VG-L3-A2-01-AC1",
+          "claim": "partial"
+        }
+      ],
+      "flags": [],
+      "pr": null,
+      "requires_ci": false,
+      "verified_commit": null,
+      "orchestration": {
+        "rounds": 0,
+        "failures": {},
+        "budget_used_usd": 0
+      },
+      "source": null,
+      "created_at": "2026-10-09T03:33:26.584Z",
+      "updated_at": "2026-10-09T03:33:26.584Z",
+      "history": [
+        {
+          "at": "2026-10-09T03:33:26.584Z",
+          "from": null,
+          "to": "READY",
+          "by": "init",
+          "note": "created"
+        }
+      ],
+      "run": null
+    },
+    {
+      "task_id": "T-0006",
+      "goal_id": "VG-L3-A2-01",
+      "related_goal_ids": [],
+      "template": null,
+      "title": "adaptive-extract 계약 회귀 테스트",
+      "description": "승인 설계 v1 그대로. apps/web/src/lib/library/adaptive-extract.ts 의 getTargetCefr 와 추출 성공 시 texts.status extracted update 계약을 vi.mock 단위 테스트로 고정한다. DB 접속·마이그레이션 없음.",
+      "priority": "P1",
+      "status": "COMPLETED",
+      "owner_id": "r0-learning-journey",
+      "branch": "feat/wf7-ug-sandbox",
+      "worktree": "d:/workspace/vocaflow-wf7-ug",
+      "allowed_paths": [
+        "apps/web/src/lib/library/adaptive-extract.ts",
+        "apps/web/src/lib/library/__tests__/adaptive-extract.test.ts"
+      ],
+      "user_goal_id": "UG-0001",
+      "design_version": 1,
+      "design_acceptance": [
+        0,
+        1,
+        2
+      ],
+      "forbidden_paths": [
+        "supabase/**",
+        ".env*"
+      ],
+      "db_scope": {
+        "mode": "none",
+        "targets": []
+      },
+      "approval_required": false,
+      "approval_kinds": [],
+      "approval": null,
+      "acceptance": [
+        "getTargetCefr 가 각 CEFR 의 다음 단계를 돌려준다",
+        "추출 성공 경로가 texts.status extracted update 를 text id 조건으로 호출한다",
+        "pnpm --filter web exec vitest run apps/web/src/lib/library/__tests__/adaptive-extract.test.ts 가 skip 0 으로 통과"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "T-0006-R1-E01",
+          "run_seq": 1,
+          "recorded_by": "r0-learning-journey",
+          "type": "unit",
+          "command_or_protocol": "pnpm --filter web exec vitest run src/lib/library/__tests__/adaptive-extract.test.ts",
+          "result": "pass",
+          "skip_count": 0,
+          "commit": "61ff72bac0a3",
+          "artifact_path_or_url": "verification/tests/orch/20261009T033328-fa46ea/T-0006-r1-t0.log",
+          "observed_at": "2026-10-09T12:36:13+09:00",
+          "covers": [
+            0,
+            1,
+            2
+          ],
+          "artifact_sha256": "935b5a503598d7ad4e86c604bc494fab52906d798dd2106e572c7ed989a90b0e",
+          "recorded_at": "2026-10-09T03:36:13.993Z"
+        }
+      ],
+      "run_seq": 1,
+      "depends_on": [],
+      "criterion_claims": [
+        {
+          "criterion_id": "VG-L3-A2-01-AC1",
+          "claim": "partial"
+        }
+      ],
+      "flags": [],
+      "pr": null,
+      "requires_ci": false,
+      "verified_commit": "61ff72bac0a3",
+      "orchestration": {
+        "rounds": 1,
+        "failures": {},
+        "budget_used_usd": 0.6466,
+        "base_commit": "e7fd2db64b121089f7b12085d5ab0fcefbdb98c3"
+      },
+      "source": null,
+      "created_at": "2026-10-09T03:33:27.591Z",
+      "updated_at": "2026-10-09T03:38:24.157Z",
+      "history": [
+        {
+          "at": "2026-10-09T03:33:27.591Z",
+          "from": null,
+          "to": "READY",
+          "by": "unknown",
+          "note": "created"
+        },
+        {
+          "at": "2026-10-09T03:33:29.054Z",
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "by": "r0-learning-journey",
+          "note": "orch-20261009T033328-fa46ea"
+        },
+        {
+          "at": "2026-10-09T03:36:14.019Z",
+          "from": "IN_PROGRESS",
+          "to": "REVIEW",
+          "by": "r0-learning-journey",
+          "note": null
+        },
+        {
+          "at": "2026-10-09T03:38:24.157Z",
+          "from": "REVIEW",
+          "to": "COMPLETED",
+          "by": "independent-review",
+          "note": "review=verification/reviews/T-0006-orch-20261009T033328-fa46ea-r1.md"
+        }
+      ],
+      "run": {
+        "run_seq": 1,
+        "session": "orch-20261009T033328-fa46ea",
+        "agent": "orchestrator",
+        "pid": 13188,
+        "host": "SKCC23N00265",
+        "started_at": "2026-10-09T03:33:29.054Z",
+        "locks": [],
+        "product_lock_token": null,
+        "child_pid_files": [
+          "C:/Users/ADMINI~1/AppData/Local/Temp/wf7-sandbox-LJ6Qvg/runtime/runs/20261009T033328-fa46ea/T-0006-r1/claude.pid.json",
+          "C:/Users/ADMINI~1/AppData/Local/Temp/wf7-sandbox-LJ6Qvg/runtime/runs/20261009T033328-fa46ea/T-0006-r1/codex.pid.json"
+        ],
+        "ended_at": "2026-10-09T03:36:14.019Z"
+      },
+      "reviewed_by": "independent-review",
+      "review_record": "verification/reviews/T-0006-orch-20261009T033328-fa46ea-r1.md",
+      "review_record_sha256": "9bdd94bbce8e4872ea5ea00124a7999b6153fc0095854a4b078b53f0e2a07f3d"
+    }
+  ],
+  "updated_at": "2026-10-09T03:38:24.157Z"
+}

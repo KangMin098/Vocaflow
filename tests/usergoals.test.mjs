@@ -356,3 +356,26 @@ test('승인 토큰 경계: UG-0001@v10 승인 결정으로 v1 을 승인할 수
   assert.notEqual(direct.code, 0)
   assert.match(direct.err, /UG_BIND_REQUIRED|ugoal task add/)
 })
+
+test('r2: 대소문자만 바뀐 계약도 계약 변경 · 리뷰 중 옛 버전 작업은 재검증 · DEEP 의 Claude 초안 바로 승인 거부', () => {
+  const { root, wt } = setup()
+  const g = ok(vfc(root, ['ugoal', 'start', '--from', 'chatgpt', '--file', goalFile(root, { design: design({ preserved_contracts: ['status ACTIVE 유지'] }) }), '--by', 'user']))
+  approve(root, g.ug_id, 1)
+  const t = addUgTask(root, wt, g.ug_id)
+  orch(root)
+  const q = ok(vfc(root, ['ugoal', 'request-design', g.ug_id, '--by', 'claude']))
+  chatgptRespond(root, q.request_id, { plan: { preserved_contracts: ['status active 유지'] } })
+  intake(root)
+  const a = approve(root, g.ug_id, 2)
+  assert.equal(a.contract_changed, true)
+  assert.deepEqual(a.invalidated, [t.task_id])
+  const deep = ok(vfc(root, ['ugoal', 'start', '--from', 'claude', '--title', 'deep', '--goals', CANON, '--profile', 'DEEP', '--design-file', (() => {
+    const f = path.join(root, 'dd.json')
+    fs.writeFileSync(f, JSON.stringify(design()))
+    return f
+  })(), '--by', 'claude']))
+  const dd = ok(vfc(root, ['decision', 'add', '--status', 'APPROVED', '--kind', 'design_approval', '--summary', `${deep.ug_id}@v1 승인`, '--approved-by', 'user', '--ref', 't', '--by', 'user']))
+  const r = vfc(root, ['ugoal', 'approve', deep.ug_id, '--design', '1', '--decision', dd.decision_id, '--by', 'user'])
+  assert.notEqual(r.code, 0)
+  assert.match(r.err, /DESIGN_REVIEW_REQUIRED|ChatGPT 설계 검토가 선행/)
+})

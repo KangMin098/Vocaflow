@@ -1,0 +1,174 @@
+{
+  "label": "WF-S7 격리 실증 — 실제 Claude·Codex · 승인은 SANDBOX 픽스처(사용자 승인 아님)",
+  "vfc_root": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\wf7-sandbox-LJ6Qvg",
+  "worktree": "D:/workspace/Vocaflow-wf7-ug",
+  "ug": "UG-0001",
+  "route_before_approval": {
+    "ug_id": "UG-0001",
+    "route": "APPROVAL_REQUIRED",
+    "reason": "설계 v1 (DRAFT) 사용자 승인 대기 — vfc decision add … 「UG-0001@v1」 → vfc ugoal approve",
+    "actor": "user",
+    "design_version": 1
+  },
+  "task": "T-0006",
+  "orchestrator": {
+    "stop": "작업 수 상한 1",
+    "tasks_done": [
+      {
+        "task_id": "T-0006",
+        "outcome": "completed",
+        "at": "2026-10-09T03:38:24.184Z"
+      }
+    ],
+    "cost_usd": 0.6466,
+    "run_ms": 296603
+  },
+  "task_final": {
+    "status": "COMPLETED",
+    "verified_commit": "61ff72bac0a3",
+    "review_record": "verification/reviews/T-0006-orch-20261009T033328-fa46ea-r1.md",
+    "history": [
+      "null>READY created",
+      "READY>IN_PROGRESS orch-20261009T033328-fa46ea",
+      "IN_PROGRESS>REVIEW ",
+      "REVIEW>COMPLETED review=verification/reviews/T-0006-orch-20261009T033328-fa46ea-r1.md"
+    ]
+  },
+  "route_after": {
+    "ug_id": "UG-0001",
+    "route": "GOAL_ACCEPTED",
+    "reason": "설계 v1 수용 기준 3개 전부 COMPLETED 작업이 덮는다 — vfc ugoal accept 로 확정",
+    "actor": null,
+    "coverage": {
+      "ok": true,
+      "total": 3,
+      "missing": [],
+      "covered": [
+        0,
+        1,
+        2
+      ],
+      "tasks": [
+        "T-0006"
+      ]
+    }
+  },
+  "accepted": {
+    "ok": true,
+    "total": 3,
+    "missing": [],
+    "covered": [
+      0,
+      1,
+      2
+    ],
+    "tasks": [
+      "T-0006"
+    ]
+  },
+  "status": {
+    "ug_id": "UG-0001",
+    "thread_id": "TH-0001",
+    "title": "단어 추출 계약 회귀 테스트(adaptive-extract)",
+    "origin": "claude",
+    "profile": "BALANCED",
+    "status": "ACCEPTED",
+    "canon_goal_ids": [
+      "VG-L3-A2-01"
+    ],
+    "approval": {
+      "design_version": 1,
+      "decision_id": "DL-0006",
+      "allowed_paths": [
+        "apps/web/src/lib/library/adaptive-extract.ts",
+        "apps/web/src/lib/library/__tests__/adaptive-extract.test.ts"
+      ],
+      "db": false,
+      "db_decision_id": null
+    },
+    "designs": [
+      {
+        "version": 1,
+        "status": "APPROVED",
+        "source": "claude",
+        "request_id": null,
+        "contract_hash": "2cb050d8a0bf",
+        "acceptance": 3
+      }
+    ],
+    "rounds": [
+      {
+        "round_id": "TH-0001-R01",
+        "request_id": null,
+        "sender": "claude",
+        "recipient": "ai-control",
+        "purpose": "goal_start",
+        "design_version": 1,
+        "response_status": "APPLIED",
+        "approval_status": "NONE"
+      }
+    ],
+    "counters": {
+      "requeries": {},
+      "total_requeries": 0,
+      "consecutive_failures": 0
+    },
+    "tasks": [
+      {
+        "task_id": "T-0006",
+        "status": "COMPLETED",
+        "design_version": 1,
+        "revalidate_required": false
+      }
+    ],
+    "route": {
+      "ug_id": "UG-0001",
+      "route": "GOAL_ACCEPTED",
+      "reason": "수용 기준 전부 검증됨",
+      "actor": null
+    }
+  },
+  "timeline": [
+    {
+      "cmd": "vfc init",
+      "ms": 269
+    },
+    {
+      "cmd": "vfc owner bind-worktree r0-learning-journey D:/workspace/Vocaflow-wf7-ug --branch feat/wf7-ug-sandbox",
+      "ms": 478
+    },
+    {
+      "cmd": "vfc ugoal start --from claude --title 단어 추출 계약 회귀 테스트(adaptive-extract) --goals VG-L3-A2-01 --profile BALANCED --design-file D:\\workspace\\Vocaflow-AI-Control\\planning\\specs\\UG-adaptive-extract-design.json --by claude",
+      "ms": 696
+    },
+    {
+      "cmd": "vfc decision add --status APPROVED --kind design_approval --summary UG-0001@v1 승인 — SANDBOX 테스트 픽스처(사용자 승인 아님) --approved-by user --ref wf7 sandbox fixture --by user",
+      "ms": 881
+    },
+    {
+      "cmd": "vfc ugoal approve UG-0001 --design 1 --decision DL-0006 --by user",
+      "ms": 1068
+    },
+    {
+      "cmd": "vfc ugoal task add UG-0001 --file C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\wf7-sandbox-LJ6Qvg\\spec.json --by r0-learning-journey",
+      "ms": 1251
+    },
+    {
+      "cmd": "vfc ugoal activate UG-0001 --by user",
+      "ms": 1455
+    },
+    {
+      "cmd": "vfc ugoal route UG-0001",
+      "ms": 298139
+    },
+    {
+      "cmd": "vfc ugoal accept UG-0001 --by user",
+      "ms": 298242
+    },
+    {
+      "cmd": "vfc ugoal status UG-0001",
+      "ms": 298312
+    }
+  ],
+  "total_ms": 298313
+}
