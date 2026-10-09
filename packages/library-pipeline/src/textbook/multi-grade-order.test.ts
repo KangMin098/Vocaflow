@@ -5,12 +5,14 @@ import { createHash } from 'node:crypto'
 import { spawnSync } from 'node:child_process'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { sealProductOrder } from './factory-order'
+import { PRODUCT_CAPABILITIES, sealProductOrder } from './factory-order'
+import { PRODUCT_FAMILIES } from './academic-reading'
 import { canonicalJson } from './review-digest'
 import { reviewDigest } from './review-digest'
 import { buildColophon } from './brand'
 import { runMultiGradeFactoryDryRun } from './multi-grade-production'
 import { renderSpecializedReadingUnit } from './specialized-reading-unit'
+import { renderReadingFamilyUnit } from './reading-family-unit'
 import {
   assessMultiGradeEvidence, bindMultiGradeEvidence, planMultiGradeVolume,
   sealMultiGradeProductOrder,
@@ -216,7 +218,83 @@ function specializedFixture(family: 'P13' | 'P14' | 'P18' | 'P20') {
   return input
 }
 
+const regularFamilies = [
+  'P01', 'P02', 'P04', 'P05', 'P06', 'P07', 'P08', 'P09',
+  'P10', 'P11', 'P12', 'P15', 'P16', 'P17', 'P19',
+] as const
+function readingFamilyFixture(family: typeof regularFamilies[number]) {
+  const input = productionFixture('shared_passage_grade_specific_items')
+  const itemType = PRODUCT_CAPABILITIES[family].items[0]!
+  const skills = [...PRODUCT_FAMILIES[family].skills]
+  for (const [index, entry] of input.group.orders.entries()) {
+    entry.order.product_family = family
+    entry.order.target = { ...entry.order.target, family, skills }
+    entry.order.reading_skill_targets = skills
+    entry.order.item_types = [itemType]
+    const stage = input.stages[index]!
+    const variant = input.evidence.variants[index]!
+    variant.order_hash = sealProductOrder(entry.order).order_hash
+    stage.lineage.order_hash = variant.order_hash
+    const item = stage.items[0]!
+    item.payload = { ...item.payload, item_type: itemType, question: 'Which statement is supported?',
+      choices: ['Supported', 'Unsupported'], evidence_primary: 'research passage',
+      ...(['P05', 'P06', 'P19'].includes(family) ? { focus_text: 'research' } : {}),
+      ...(['P08', 'P09', 'P10', 'P12'].includes(family) ? { evidence_secondary: 'A shared' } : {}) }
+    item.answer_key.answer = 1
+    const itemDigest = reviewDigest(item.payload, item.answer_key)
+    stage.explanations[0]!.item_digest = itemDigest
+    stage.reviews[0]!.item_digest = itemDigest
+    stage.unit.html = renderReadingFamilyUnit({ order: entry.order, grade: stage.grade,
+      passage: stage.passage, items: stage.items })
+    variant.item_set_hash = digest([[item.id, itemDigest]])
+    variant.unit_set_hash = digest([[stage.unit.unit_id, rawSha(stage.unit.html)]])
+    input.currentLineages[index]!.lineage = structuredClone(stage.lineage)
+  }
+  input.evidence.group_hash = sealMultiGradeProductOrder(input.group).group_hash
+  input.currentEvidence = structuredClone(input.evidence)
+  return input
+}
+
 describe('multi-grade synthetic factory E2E', () => {
+  for (const family of regularFamilies) {
+    it(`renders reviewed ${family} items and rejects changed grounding or layout`, () => {
+      const input = readingFamilyFixture(family)
+      const output = runMultiGradeFactoryDryRun(input)
+      expect(output.html).toContain(`data-family="${family}"`)
+      expect(output.manifest.item_evidence).toHaveLength(2)
+      const stage = input.stages[0]!
+      const order = input.group.orders[0]!.order
+      const ungrounded = structuredClone(stage.items)
+      ungrounded[0]!.payload.evidence_primary = 'invented passage claim'
+      expect(() => renderReadingFamilyUnit({ order, grade: stage.grade, passage: stage.passage,
+        items: ungrounded })).toThrow('ITEM_UNGROUNDED')
+      const changedLayout = structuredClone(input)
+      changedLayout.stages[0]!.unit.html = changedLayout.stages[0]!.unit.html.replace('Supported', 'Fabricated')
+      expect(() => runMultiGradeFactoryDryRun(changedLayout)).toThrow('FAMILY_UNIT_STALE')
+    })
+  }
+  it('requires distinct grounded evidence for relation/inference and a focus span for vocabulary/syntax', () => {
+    const relation = readingFamilyFixture('P10')
+    const relationItem = structuredClone(relation.stages[0]!.items)
+    relationItem[0]!.payload.evidence_secondary = 'invented second fact'
+    expect(() => renderReadingFamilyUnit({ order: relation.group.orders[0]!.order,
+      grade: relation.stages[0]!.grade, passage: relation.stages[0]!.passage,
+      items: relationItem })).toThrow('SECONDARY_EVIDENCE_MISSING')
+    relationItem[0]!.payload.evidence_secondary = 'research'
+    expect(() => renderReadingFamilyUnit({ order: relation.group.orders[0]!.order,
+      grade: relation.stages[0]!.grade, passage: relation.stages[0]!.passage,
+      items: relationItem })).toThrow('SECONDARY_EVIDENCE_MISSING')
+    const vocabulary = readingFamilyFixture('P05')
+    const vocabItem = structuredClone(vocabulary.stages[0]!.items)
+    vocabItem[0]!.payload.focus_text = 'invented word'
+    expect(() => renderReadingFamilyUnit({ order: vocabulary.group.orders[0]!.order,
+      grade: vocabulary.stages[0]!.grade, passage: vocabulary.stages[0]!.passage,
+      items: vocabItem })).toThrow('FOCUS_UNGROUNDED')
+    vocabItem[0]!.payload.focus_text = 'sea'
+    expect(() => renderReadingFamilyUnit({ order: vocabulary.group.orders[0]!.order,
+      grade: vocabulary.stages[0]!.grade, passage: vocabulary.stages[0]!.passage,
+      items: vocabItem })).toThrow('FOCUS_UNGROUNDED')
+  })
   for (const family of ['P13', 'P14', 'P18', 'P20'] as const) {
     it(`renders reviewed ${family} material and rejects changed source material`, () => {
       const input = specializedFixture(family)
@@ -241,7 +319,7 @@ describe('multi-grade synthetic factory E2E', () => {
       }
       const changedLayout = structuredClone(input)
       changedLayout.stages[0]!.unit.html = changedLayout.stages[0]!.unit.html.replace('Supported', 'Fabricated')
-      expect(() => runMultiGradeFactoryDryRun(changedLayout)).toThrow('SPECIALIZED_UNIT_STALE')
+      expect(() => runMultiGradeFactoryDryRun(changedLayout)).toThrow('FAMILY_UNIT_STALE')
     })
   }
   for (const mode of ['shared_passage_grade_specific_items', 'grade_specific_adaptations', 'grade_specific_units'] as const) {

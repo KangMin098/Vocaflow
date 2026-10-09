@@ -25,15 +25,21 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
   const evidence = id === 'P03'
     ? ['scripts/textbook/reading-promotion/preflight.test.mjs', 'scripts/textbook/atomic-production-run.test.mjs']
     : state === 'IMPLEMENTED' ? [
-      'packages/library-pipeline/src/textbook/specialized-reading-unit.ts',
+      specialized ? 'packages/library-pipeline/src/textbook/specialized-reading-unit.ts'
+        : 'packages/library-pipeline/src/textbook/reading-family-unit.ts',
       'packages/library-pipeline/src/textbook/multi-grade-order.test.ts',
-    ] : state === 'CONTRACT_ONLY' ? ['packages/library-pipeline/src/textbook/factory-order.ts'] : []
+    ] : state === 'CONTRACT_ONLY' ? [
+      'packages/library-pipeline/src/textbook/factory-order.ts',
+      'packages/library-pipeline/src/textbook/reading-family-unit.ts',
+      'packages/library-pipeline/src/textbook/multi-grade-order.test.ts',
+    ] : []
   const missing = state === 'NOT_SUPPORTED'
     ? ['family-specific passage/item/activity/layout adapter', 'synthetic end-to-end']
     : state === 'IMPLEMENTED'
       ? ['family-specific promotion-to-publication end-to-end', 'real-content operational end-to-end']
       : state === 'CONTRACT_ONLY'
-      ? ['family-specific passage/item/activity/layout end-to-end']
+      ? ['family-specific semantic passage/item/activity/layout adapter',
+        'family-specific promotion-to-publication end-to-end']
       : ['live DB promotion to atomic publication end-to-end', 'real-content operational end-to-end']
   return [id, { state, evidence, missing }]
 })) as unknown as RuntimeEvidence

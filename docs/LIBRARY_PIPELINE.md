@@ -26,6 +26,8 @@ FYM 계보 보존: 새 `ingestFrymArticle`은 Original Source Article(s) 구간�
 
 원문 하나에서 초등 고학년~고3의 연령·언어·사고·독해 능력·교재 목적을 따로 지정하는 [Academic Reading Engine](./ACADEMIC_READING_ENGINE.md)을 추가했다. R0~R13·P01~P20·원천 역할·학년 progression의 정본은 `academic-reading.ts`다. 기존 `adapt-drain-export/import.mjs --target <JSON>`은 전체 target 식별키·원문 hash/revision·기사별 권리·열 분석축·질문/활동 계획을 검증하고 원문을 보존한 queued 자식만 만든다. 기존 밴드 모드도 같은 V-Level의 완료/예약만 건너뛰며 high/exam에 중등 어휘 대역을 적용하지 않는다.
 
+교재 공장 합성 조판에서는 P03 공통 경로와 별도로 P01·P02·P04~P12·P15~P17·P19에 공통 근거/HTML 안전 래퍼를 적용하고, P13·P14·P18·P20에는 보조 자료/시간 adapter를 사용한다. 공통 래퍼는 유형별 교수 설계 완료를 뜻하지 않는다. 가족별 `ready → volume` 검증은 실제 DB 생산·Gold-S·교재 난도 검증과 구분하며, 운영 보조 자료 재확인이 없는 네 특화 유형은 DB snapshot 진입에서 차단된다.
+
 문항 드레인은 지원하는 유형/skill의 각색만 뽑고 별도 지문 수준·문항 사고 수준·문항 난이도·근거를 payload.academic_reading에 저장한다. 실제 제시문은 입력 원본과 같거나 빈칸/어휘의 지정된 치환만 허용한다. 입력/완료 청크를 모두 예약·보존하며 깨진 예약 파일은 오류로 드러낸다. 원문 프로파일은 자식의 composed_spec에 원문 계보와 함께 보존한다. 새 테이블·마이그레이션·공개 라우트·자동 발행은 추가하지 않았다. 자료/활동의 신규 조판과 FYM gold-set·BLS/NPS 수집·KICE 실측 calibration은 별도 운영 단계다.
 
 ## 기출 지문의 원전 역추적 (2026-10-04)

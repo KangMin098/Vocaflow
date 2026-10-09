@@ -5,6 +5,7 @@ import { bindMultiGradeEvidence, planMultiGradeVolume, sealMultiGradeProductOrde
 import { canonicalJson, reviewDigest } from './review-digest'
 import { renderVolumeDocument, type VolumeDocumentInput } from './volume-document'
 import { renderSpecializedReadingUnit } from './specialized-reading-unit'
+import { renderReadingFamilyUnit } from './reading-family-unit'
 
 const sha = (value: string) => createHash('sha256').update(value, 'utf8').digest('hex')
 const digest = (value: unknown) => sha(canonicalJson(value))
@@ -108,10 +109,14 @@ export function runMultiGradeFactoryDryRun(input: {
     if (digest(itemDigests) !== variant.item_set_hash ||
       (stage.activities.length ? digest(stage.activities) : null) !== variant.activity_hash ||
       digest(stage.analysis) !== variant.analysis_hash) throw Error('MULTI_GRADE_STAGE_EVIDENCE_STALE')
-    if (['P13', 'P14', 'P18', 'P20'].includes(child.order.product_family) &&
-        stage.unit.html !== renderSpecializedReadingUnit({ order: child.order, passage: stage.passage,
-          grade: stage.grade, items: stage.items }))
-      throw Error('MULTI_GRADE_SPECIALIZED_UNIT_STALE_OR_MIXED')
+    const family = child.order.product_family
+    const expectedUnit = ['P13', 'P14', 'P18', 'P20'].includes(family)
+      ? renderSpecializedReadingUnit({ order: child.order, passage: stage.passage,
+        grade: stage.grade, items: stage.items })
+      : family === 'P03' ? null : renderReadingFamilyUnit({ order: child.order, passage: stage.passage,
+        grade: stage.grade, items: stage.items })
+    if (expectedUnit !== null && stage.unit.html !== expectedUnit)
+      throw Error('MULTI_GRADE_FAMILY_UNIT_STALE_OR_MIXED')
     units.push({ unit_id: stage.unit.unit_id, grade: stage.grade, product_order_id: variant.product_order_id,
       order_revision: variant.order_revision, order_hash: variant.order_hash,
       source_id: recorded.evidence.source_id, source_hash: recorded.evidence.source_hash,

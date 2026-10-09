@@ -27,36 +27,38 @@ Baseline: `0ac948681` on `feat/textbook-factory-phase1`. This audit concerns exe
 
 ## P01–P20 production capability
 
-The `PRODUCT_CAPABILITIES` enum is a target and item contract, not proof of a dedicated passage, item, activity, explanation and layout adapter. The audited status below is intentionally conservative. P03 has a synthetic run through the same promotion execution function as the CLI, using a mock promotion RPC that creates the `ready` row and audit, followed by atomic publication simulation. It does not prove a live DB promotion and render in one run. `CONTRACT_ONLY` means the Product Order can name the family but a complete family-specific production path has not been demonstrated.
+The `PRODUCT_CAPABILITIES` enum is a target and item contract, not proof of a dedicated passage, item, activity, explanation and layout adapter. The audited status below is intentionally conservative. P03 has a synthetic run through the same promotion execution function as the CLI, using a mock promotion RPC that creates the `ready` row and audit, followed by atomic publication simulation. It does not prove a live DB promotion and render in one run. The other P01–P12/P15–P17/P19 families have a deterministic, family-checked generic synthetic ready-to-volume safety wrapper, but their family-specific teaching semantics and promotion-to-publication master run remain unproven. They stay `CONTRACT_ONLY`; the four resource/time layouts stay `IMPLEMENTED`.
 
 `product-capability-status.ts` exposes this conservative runtime classification to the admin planning API. Its regression checks all 20 family IDs, contract-state parity and the existence of cited synthetic evidence files. It does not convert an item contract into a production adapter.
 
 | Family | Product | Passage/adaptation | Item/activity | Explanation/layout | Benchmark/publication | Synthetic E2E | Status |
 |---|---|---|---|---|---|---|---|
-| P01 | Multi-Level Reader | Generic adaptation | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P02 | Narrative Reading | Generic adaptation | Basic/relation contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
+| P01 | Multi-Level Reader | Generic adaptation | Order-bound item quote | Generic safety wrapper | Generic gates | Ready-to-volume fixture; level progression unproven | CONTRACT_ONLY |
+| P02 | Narrative Reading | Generic adaptation | Order-bound item quote | Generic safety wrapper | Generic gates | Ready-to-volume fixture; narrative design unproven | CONTRACT_ONLY |
 | P03 | Knowledge Reader | Adapted fixture | Main-point fixture | Reading HTML/manifest | Brief-bound master test invokes shared CLI promotion function with mock RPC, atomic render and publish simulation | No live DB promotion and render in one run | SYNTHETIC_E2E_VALIDATED |
-| P04 | Science/Social/History | Generic adaptation | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P05 | Vocabulary-in-Context | Generic reading passage | Vocabulary item contract | Dedicated full flow unverified | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P06 | Academic Sentence | Generic reading passage | Grammar item contract | Dedicated full flow unverified | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P07 | Main Idea | Generic reading passage | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P08 | Structure | Generic reading passage | Relation item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P09 | Relation | Generic reading passage | Relation item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P10 | Inference | Generic reading passage | Inference item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P11 | Evidence | Generic reading passage | Evidence item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P12 | Argument | Generic reading passage | Claim/implication contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
+| P04 | Science/Social/History | Generic adaptation | Order-bound item quote | Generic safety wrapper | Generic gates | Ready-to-volume fixture; domain design unproven | CONTRACT_ONLY |
+| P05 | Vocabulary-in-Context | Generic reading passage | Token-bound focus span | Generic safety wrapper | Generic gates | Ready-to-volume fixture; vocabulary design unproven | CONTRACT_ONLY |
+| P06 | Academic Sentence | Generic reading passage | Token-bound focus span | Generic safety wrapper | Generic gates | Ready-to-volume fixture; syntax design unproven | CONTRACT_ONLY |
+| P07 | Main Idea | Generic reading passage | Order-bound item quote | Generic safety wrapper | Generic gates | Ready-to-volume fixture; main-idea design unproven | CONTRACT_ONLY |
+| P08 | Structure | Generic reading passage | Two nonoverlapping passage spans | Generic safety wrapper | Generic gates | Ready-to-volume fixture; structure design unproven | CONTRACT_ONLY |
+| P09 | Relation | Generic reading passage | Two nonoverlapping passage spans | Generic safety wrapper | Generic gates | Ready-to-volume fixture; relation design unproven | CONTRACT_ONLY |
+| P10 | Inference | Generic reading passage | Two nonoverlapping passage spans | Generic safety wrapper | Generic gates | Ready-to-volume fixture; inference design unproven | CONTRACT_ONLY |
+| P11 | Evidence | Generic reading passage | Order-bound item quote | Generic safety wrapper | Generic gates | Ready-to-volume fixture; evidence teaching unproven | CONTRACT_ONLY |
+| P12 | Argument | Generic reading passage | Two nonoverlapping passage spans | Generic safety wrapper | Generic gates | Ready-to-volume fixture; argument design unproven | CONTRACT_ONLY |
 | P13 | Comparative | Sealed target second-text resource | Cross-text quote validation | Escaped Text B unit | Ready→volume synthetic only | Item/resource/layout mutation rejected | IMPLEMENTED |
 | P14 | Text + Data | Sealed target data resource | Passage/data quote validation | Escaped source-data unit | Ready→volume synthetic only | Changed data/layout rejected | IMPLEMENTED |
-| P15 | Current Issues | Generic reading passage | Basic/evidence contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P16 | Knowledge Builder | Generic adaptation | Basic item contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
-| P17 | Exam Bridge | Generic adaptation | Basic/inference contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
+| P15 | Current Issues | Generic reading passage | Order-bound item quote | Generic safety wrapper | Generic gates | Ready-to-volume fixture; currency unproven | CONTRACT_ONLY |
+| P16 | Knowledge Builder | Generic adaptation | Order-bound item quote | Generic safety wrapper | Generic gates | Ready-to-volume fixture; background scaffold unproven | CONTRACT_ONLY |
+| P17 | Exam Bridge | Generic adaptation | Order-bound item quote | Generic safety wrapper | Generic gates | Ready-to-volume fixture; exam alignment unproven | CONTRACT_ONLY |
 | P18 | KICE Academic Reading | Exam target and positive time budget | Item time-budget validation | Printed time-budget unit; no running timer | Ready→volume synthetic only | Missing/changed time budget rejected | IMPLEMENTED |
-| P19 | Reading Intervention | Generic adaptation | Vocabulary/main-point contract | Generic reading layout | Generic gates | Not family-tested | CONTRACT_ONLY |
+| P19 | Reading Intervention | Generic adaptation | Token-bound focus span | Generic safety wrapper | Generic gates | Ready-to-volume fixture; intervention scaffold unproven | CONTRACT_ONLY |
 | P20 | Multi-text Argument | Sealed target second-text resource | Cross-text quote validation | Escaped Text B unit | Ready→volume synthetic only | Item/resource/layout mutation rejected | IMPLEMENTED |
 
 Non-reading products (listening, dictation, cards, diagnostic workbook and mixed-domain books) have existing platform modules but no demonstrated adapter into the same Product Order → atomic production chain. They are `MISSING` for this factory goal, not covered by the P01–P20 enum.
 
 The four specialized layouts consume sealed order resources and reviewed item payloads in synthetic dry-runs. They do not recheck external resource rights/revisions at the atomic DB boundary. JS group registration rejects them, and the development DB now has two active BEFORE triggers (approved SHA-256 `ea6693b72d7796869850179772be9d2b9ffff5dc8a6bf5a01f35bf073c690a86`) that reject specialized group/snapshot writes before commit. Rollback-only smoke left zero rows. P18 prints a per-item time budget and does not implement an interactive countdown.
+
+The 15 other family units except P03 are rebuilt from the sealed family/item contract and reviewed item passage quotes. P05/P06/P19 require a token-bound focus span; P08/P09/P10/P12 require two unique nonoverlapping passage spans. Changed item evidence, unsupported type, grade or output HTML fails before volume assembly. This generic safety wrapper does not establish family-specific teaching behavior, semantic answer correctness or independent editorial quality.
 
 `pnpm.cmd docs:db-stats` was attempted after the migration but could not run because this worktree lacks `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`; the protected DB statistics block was not edited. Direct DB trigger/RLS checks and the before/after health checkpoint were completed through the development DB connector.
 

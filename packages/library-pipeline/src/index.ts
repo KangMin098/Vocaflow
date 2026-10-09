@@ -893,6 +893,7 @@ export type { BrandSpecRow, Colophon, ColophonInput, VolumePalette } from './tex
 export { renderVolumeDocument } from './textbook/volume-document'
 export { runMultiGradeFactoryDryRun, MULTI_GRADE_DRY_RUN_MARKER } from './textbook/multi-grade-production'
 export { renderSpecializedReadingUnit } from './textbook/specialized-reading-unit'
+export { renderReadingFamilyUnit } from './textbook/reading-family-unit'
 export type { VolumeAnswer, VolumeDocumentInput } from './textbook/volume-document'
 
 /** 표지 — 매대와 조판기가 **같은 표지**를 쓴다(문자열이라 React·Node 양쪽에서 그대로). */
