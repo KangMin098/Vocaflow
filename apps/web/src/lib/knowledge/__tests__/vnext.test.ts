@@ -95,7 +95,8 @@ describe('입력 검증', () => {
     expect(checkResearchSource({ citation: 'Author (2020). Title.', doi: null, url: null, design: 'blog', year: 2020 })).toMatch(/설계/)
   })
   it('적용 전이 · 이유', () => {
-    expect(checkAppTransition('draft', 'active', '')).toBeNull()
+    expect(checkAppTransition('draft', 'active', '')).toMatch(/출시 승인/)
+    expect(checkAppTransition('draft', 'active', '주석 맹검 합의 · 노출 범위 검토')).toBeNull()
     expect(checkAppTransition('active', 'paused', '')).toMatch(/이유/)
     expect(checkAppTransition('rolled_back', 'active', '')).toMatch(/허용되지 않는다/)
   })

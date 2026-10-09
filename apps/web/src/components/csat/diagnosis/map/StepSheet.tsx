@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react'
 import { CORE_STATUS_LABEL, LEGACY_PROXY_LABEL, THRESHOLD_NOTE } from '@/lib/csat/map/core'
 import { EVIDENCE_LABEL, STAGE_WORD, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
+import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
 import type { PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
@@ -37,6 +38,10 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   }, [startAt])
   const lineTasks = data.tasks.filter((t) => step.lines.includes(t.line_code))
   const find = lineTasks.filter((t) => stageOf(t.id) === 'FIND')
+  // 확인 문항 결과 → 확인된 학습 요구(서로 다른 확인 문항 2개 이상 · 독립 첫 시도). 연결된 확인 문항이 있을 때만
+  const findTargets = find.map((t) => data.practiceLinks?.[t.id]).filter((x): x is NonNullable<typeof x> => !!x).flatMap((x) => (x.confirm ?? [x]).map((c) => ({ itemRef: c.target, taskKey: c.taskKey })))
+  // 확인 기록을 못 읽었으면(undefined) 판정하지 않는다 — 「아직 확인 안 함」으로 잘못 보이지 않게
+  const outcome = findTargets.length && data.findAttempts ? findOutcome(findTargets, data.findAttempts) : null
   const later = STAGE_ORDER.filter((s) => s !== 'FIND').map((s) => ({ stage: s, tasks: lineTasks.filter((t) => stageOf(t.id) === s) }))
   const nameOf = (code: string) => data.nodes.find((n) => n.code === code)?.name ?? code
   const Icon = STEP_ICON[step.key]
@@ -102,6 +107,11 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
           </section>
           <section className={`${l.block} ${l.now}`} id="step-check">
             <h3 className={l.blockH}><Search size={14} strokeWidth={1.9} aria-hidden="true" />지금 확인할 것 — {STAGE_WORD.FIND}</h3>
+            {outcome && (
+              <p className={l.text} data-testid="find-outcome" data-state={outcome.state}>
+                <strong>직접 확인 결과 · {FIND_STATE_LABEL[outcome.state]}</strong> — {outcome.message}
+              </p>
+            )}
             {find.length === 0 ? (
               <p className={l.text}>이 단계의 확인 활동은 아직 없어요.</p>
             ) : (
@@ -120,11 +130,11 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                           <ClipboardCheck size={12} strokeWidth={1.9} aria-hidden="true" />
                           {t.done_when} · {t.cadence}
                         </span>
-                        {data.practiceLinks?.[t.id] && (
-                          <a href={data.practiceLinks[t.id].href} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="find-practice-link" data-task={t.id}>
-                            {data.practiceLinks[t.id].label} →
+                        {(data.practiceLinks?.[t.id]?.confirm ?? (data.practiceLinks?.[t.id] ? [data.practiceLinks[t.id]] : [])).map((c) => (
+                          <a key={c.target} href={c.href} className={l.taskMeta} style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' }} data-testid="find-practice-link" data-task={t.id} data-item={c.target}>
+                            {c.label} →
                           </a>
-                        )}
+                        ))}
                         {data.practiceResults?.[t.id] && data.practiceResults[t.id].attempts > 0 && <PracticeResultLine r={data.practiceResults[t.id]} />}
                       </span>
                     </li>

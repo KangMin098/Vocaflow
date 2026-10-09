@@ -260,10 +260,10 @@ export function ApplicationStatusForm({ id, from }: { id: string; from: AppStatu
   if (next.length === 0) return null
   return (
     <div className="flex flex-wrap items-end gap-2" data-testid={`app-status-${id}`}>
-      <label className="text-xs text-[var(--t2)]">이유(중단 · 롤백 필수)<input value={reason} onChange={(e) => setReason(e.target.value)} className={FIELD} /></label>
+      <label className="text-xs text-[var(--t2)]">이유(중단 · 롤백 · 켜기=출시 승인 사유 필수)<input value={reason} onChange={(e) => setReason(e.target.value)} className={FIELD} /></label>
       {next.map((to) => (
         <button key={to} type="button" className={BTN} disabled={pending} onClick={() => run(() => setApplicationStatusAction({ id, from, to, reason }))}>
-          {to === 'active' ? '학습자에게 켜기' : APP_STATUS_LABEL[to]}
+          {to === 'active' ? '출시 승인하고 학습자에게 켜기' : APP_STATUS_LABEL[to]}
         </button>
       ))}
       {status}
