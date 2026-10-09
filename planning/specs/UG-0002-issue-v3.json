@@ -1,0 +1,18 @@
+{
+  "issue_key": "map-v3-main-decisions",
+  "problem": "설계 v2(REQ-…-005 응답 · PROPOSED)는 main a4fde994e 기준이었다. 그 뒤 main 795a20bc7 에 사용자 결정 D-1(skill 단위 verified 2문항·120일) · D-2(우선순위 신호 넣지 않음) · D-7(c)(진단 전 Practice = FIND 확장) · D-8(CHECK = 미노출 문항 독립 첫 시도)이 구현·머지됐다(docs/csat-learner/MAP_CONTRACTS_ABC.md §D · skill-diagnosis.ts). 사용자는 2026-10-10 「main 결정 유지」를 골랐다 — v2 의 A~F 중 C·D 는 결정과 충돌, E·F 는 이미 구현이라 폐기한다. 남은 것은 결정과 어긋난 표시·명칭·선택지다.",
+  "evidence": [
+    "StepSheet.tsx PracticeResultLine: 진단 전 Practice 기록을 「다른 지문에 적용 {n}번」으로 표시 — 같은 화면의 링크 문구는 이미 「다른 지문으로 한 번 더 확인하기」(D-7(c))",
+    "practice-results.ts transferKeysOf · PracticeResult.transfer, load.ts 58·344 주석 「같은 원리를 다른 지문에 적용(Practice)」 — §14 TRANSFER(처방)와 이름이 같다",
+    "find-feedback.ts: FindFeedbackPolicy.allowPracticeBeforeVerified · 'practice_principle' — D-7(b) 선택지가 남아 있고, findFeedback 는 제품 코드에서 호출되지 않는다(테스트만)",
+    "skill-diagnosis.ts(D-1·D-8) · evidence-anchor.ts(+80줄 테스트)는 main 에 있다 — 다시 만들지 않는다"
+  ],
+  "conflicts_with": "설계 v2 의 C(FIND 우선순위 신호)·D(candidate 까지만 · verified 금지)·D-7(b) 권고 ↔ main 의 사용자 결정 D-2·D-1·D-7(c). 사용자가 main 결정을 유지하기로 했으므로 v2 의 해당 항목은 채택하지 않는다.",
+  "alternatives": [
+    "(1) 표시 문구만 D-7(c)로 바꾸고 내부 명칭은 그대로(주석으로 의미 표시)",
+    "(2) 표시 문구 + 내부 명칭(transfer → recheck 등 별칭·이름 변경)까지 — 조회 대상·판정 로직은 불변",
+    "(3) find-feedback.ts 의 D-7(b) 선택지 제거 vs D-7(c) 의미로 재정의(예: 'recheck_other_passage')"
+  ],
+  "question": "1) 위 세 가지 중 권고안과 최소 변경 범위를 정하라(첨부 패킷의 실제 코드 발췌 근거). 2) 학생 문구는 「처방이 아니다 · 이번 확인의 결과일 뿐」 원칙을 지키는 구체 문장으로. 3) 이 작업 뒤 rev2.1 최종 목표(FIND→REPAIR→TRANSFER→CHECK 학생 경로 · 6축·학년별 지도)까지 남은 수용 기준과 다음 의존 작업을 open_questions 또는 risks 에 적어라. 응답은 PROPOSED — 사용자 승인 전 적용하지 않는다. plan 블록에 allowed_paths(초안 범위 안)와 db_changes 를 넣어라.",
+  "approval_scope_change": true
+}

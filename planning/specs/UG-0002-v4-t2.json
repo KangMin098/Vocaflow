@@ -1,0 +1,35 @@
+{
+  "goal_id": "VG-L3-A1-01",
+  "priority": "P1",
+  "owner_id": "csat-learning",
+  "forbidden_paths": [
+    "supabase/**",
+    ".env*",
+    "docs/csat-learner/LEARNING_MAP_VNEXT.md",
+    "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+    "apps/web/src/lib/csat/map/evidence-anchor.ts",
+    "apps/web/src/lib/csat/map/core.ts",
+    "apps/web/src/lib/csat/map/prescription.ts"
+  ],
+  "worktree": "D:/workspace/Vocaflow-ug0002-v4",
+  "branch": "feat/ug0002-map-recheck",
+  "title": "D-7(c) 정합: find-feedback D-7(b) 분기 제거 · 회귀",
+  "description": "설계 v4. find-feedback.ts 에서 allowPracticeBeforeVerified·practice_principle 제거, confirmed_need → recheck_other_passage, 모든 FindState 에서 prioritySignal=false·changesDiagnosisBasis=false 유지. 제거 전 저장소 전체 검색·타입 검사. find-feedback.test.ts 갱신. skill-diagnosis·evidence-anchor·prescription·learner-path·core 회귀 실행(파일 변경 없음).",
+  "allowed_paths": [
+    "apps/web/src/lib/knowledge/find-feedback.ts",
+    "apps/web/src/lib/knowledge/__tests__/find-feedback.test.ts"
+  ],
+  "acceptance": [
+    "allowPracticeBeforeVerified·practice_principle 이 저장소에 남지 않는다(grep)",
+    "confirmed_need → recheck_other_passage · prioritySignal=false · changesDiagnosisBasis=false(테스트)",
+    "skill-diagnosis·evidence-anchor·prescription·learner-path·core 테스트 통과 · 해당 파일 무변경",
+    "pnpm --filter web typecheck 통과"
+  ],
+  "design_acceptance": [
+    4,
+    5,
+    6,
+    8,
+    9
+  ]
+}

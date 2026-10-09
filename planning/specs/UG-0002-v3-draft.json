@@ -1,0 +1,27 @@
+{
+  "summary": "학습지도 rev2.1 — main 결정(D-1·D-2·D-7(c)·D-8) 기준 잔여 정합 작업: 진단 전 Practice 결과의 표시·명칭을 D-7(c)(FIND 확장 = 다른 지문으로 한 번 더 확인)에 맞추고, 쓰이지 않는 D-7(b) 선택지를 정리한다",
+  "design": "main 795a20bc7 기준. D-7(c): 진단 전 Practice 는 「다른 지문으로 한 번 더 확인하기」(FIND 확장)이고 TRANSFER(다른 글에 적용하기)는 직접 확인(skill verified) 뒤에만 단계 시트에서 연다. 그런데 결과 환류 줄(StepSheet PracticeResultLine)은 진단 전 기록을 「다른 지문에 적용 N번」으로 표시하고, practice-results.ts · load.ts 는 그 기록을 transfer 로 부른다 — 학생 화면에서 처방(TRANSFER)처럼 읽힌다. 또 find-feedback.ts 에 D-7(b) 선택지(allowPracticeBeforeVerified · practice_principle)가 남아 있다. 학생 문구와 내부 명칭을 D-7(c)에 맞추고(기록·쿼리·판정 로직 불변), D-7(b) 선택지를 제거 또는 D-7(c) 의미로 바꾼다. DB · 정본 · CURRENT_BASIS · skill-diagnosis 판정 규칙 변경 없음.",
+  "acceptance": [
+    "진단 전 Practice 결과 줄이 「적용」·「전이」 표현 없이 D-7(c) 의미(다른 지문으로 한 번 더 확인)로 표시되고, 이를 고정하는 테스트가 있다",
+    "practice-results.ts · load.ts 의 진단 전 Practice 기록 명칭·주석이 TRANSFER(처방)와 구분되고, 조회 대상·판정 결과는 바뀌지 않는다(기존 practice-results 테스트 통과)",
+    "find-feedback.ts 에 D-7(b) 선택지가 남지 않고 confirmed_need 의 다음 행동이 D-7(c)·D-1 과 일치하며 prioritySignal=false(D-2)가 유지된다",
+    "skill-diagnosis(D-1·D-8) · evidence-anchor · prescription · learner-path · core 기존 테스트가 그대로 통과한다"
+  ],
+  "preserved_contracts": [
+    "D-1 skill 단위 verified(VERIFY_ITEMS 2 · CHECK_ITEMS 2 · EXPIRY_DAYS 120) 규칙",
+    "D-2 prioritySignal=false",
+    "D-7(c) 진단 전 Practice = FIND 확장 · TRANSFER 는 verified 뒤",
+    "D-8 CHECK = 확정에 쓰지 않은 미노출 문항의 독립 첫 시도",
+    "CURRENT_BASIS='rule_proxy' · 정본 §14 · DB 스키마·쿼리 대상 불변"
+  ],
+  "allowed_paths": [
+    "apps/web/src/components/csat/diagnosis/map/StepSheet.tsx",
+    "apps/web/src/lib/csat/map/practice-results.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/knowledge/find-feedback.ts",
+    "apps/web/src/lib/csat/map/__tests__/practice-results.test.ts",
+    "apps/web/src/lib/knowledge/__tests__/find-feedback.test.ts",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/step-sheet-practice.test.tsx"
+  ],
+  "db_changes": false
+}

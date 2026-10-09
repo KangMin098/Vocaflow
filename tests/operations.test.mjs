@@ -273,3 +273,19 @@ test('Codex P1 — 죽은 세션이 커밋을 남기면 자동 재개하지 않�
   assert.deepEqual(r.handoff.kept.map((k) => k.task_id), [t.task_id])
   assert.match(s.task(t.task_id).blocker.reason, /커밋을 남겼다/)
 })
+
+test('자동 적용 — 사용자 대화형 설계 승인(vfc approve) 하나로 다음 반복이 설계를 적용하고 초안 작업을 실행한다 · cli 기록은 무시', () => {
+  const s = setup()
+  const u = s.goal('AA목표')
+  s.ugTask(u.ug_id, [0, 1]) // 승인 전 → 초안
+  // cli(비대화형) 결정은 자동 적용하지 않는다
+  s.vfc('decision', 'add', '--status', 'APPROVED', '--kind', 'design_approval', '--summary', `${u.ug_id}@v1 승인`, '--approved-by', 'user', '--ref', 't', '--by', 'user')
+  const r0 = s.orch(['--max-tasks', '1'])
+  assert.equal(r0.iterations[0].selected, null, 'cli 승인으로는 실행하지 않는다')
+  const td = s.run(VFC, ['approve', '--kind', 'design_approval', '--summary', `${u.ug_id}@v1`, '--paths', 'src/**', '--json'], { VFC_TTY_FOR_TESTS: '1', VFC_TEST_CODE: 'f00d42' }, 'f00d42\n').json
+  assert.deepEqual(td.allowed_paths, ['src/**'])
+  const r1 = s.orch(['--max-tasks', '2'])
+  assert.equal(r1.run.tasks_done[0]?.outcome, 'completed', JSON.stringify(r1.iterations[0].selected))
+  assert.equal(s.vfc('ugoal', 'route', u.ug_id).route, 'GOAL_VERIFIED')
+  assert.equal(s.vfc('ugoal', 'status', u.ug_id).approval.decision_id, td.decision_id)
+})

@@ -102,7 +102,8 @@ const HELP = `vfc — Vocaflow AI Control
   goal level <VG-…>                       TASK_COMPLETED · GOAL_PARTIAL · GOAL_VERIFIED · USER_ACCEPTED(사용자 결정만)
   task list [--status S] [--owner O] | task show <id>
   task approve <id> --by user --ref "근거" [--sql-sha256 H]   DB 쓰기 승인은 사람의 대화형 터미널에서만
-  approve --kind design_approval|goal_acceptance|db_write|canon_change --summary "UG-… accept" [--ref ..] [--goals VG-..] [--new-canon-version v]
+  approve --kind design_approval|goal_acceptance|db_write|canon_change --summary "UG-… accept" [--ref ..] [--goals VG-..] [--paths a,b] [--new-canon-version v]
+                                          design_approval(「UG-…@vN」)은 다음 오케스트레이터 반복이 자동 적용·작업 재개
                                           신뢰 승인 입력(대화형 터미널 · 에이전트 밖 · 화면의 확인 코드 입력) — 강한 승인의 유일한 근거
   task start <id> --owner O --agent A --session L [--pid N]
   task evidence <id> --file ev.json --by O  ev: type command_or_protocol result skip_count artifact_path_or_url observed_at covers[]
@@ -290,7 +291,7 @@ function main() {
         if (line.includes('\n')) break
       }
       if (line.trim() !== code) throw new T.RuleError('TRUST_CODE_MISMATCH', '확인 코드가 다르다 — 기록하지 않았다')
-      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
+      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
       return out(withState((s) => T.logDecision(s, entry, { via: 'tty' }), { event: 'decision.approve_tty', kind: opt.kind, by: 'user' }), opt)
     }
     case 'task set-acceptance': {

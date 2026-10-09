@@ -1,0 +1,37 @@
+{
+  "goal_id": "VG-L3-A1-01",
+  "priority": "P1",
+  "owner_id": "csat-learning",
+  "forbidden_paths": [
+    "supabase/**",
+    ".env*",
+    "docs/csat-learner/LEARNING_MAP_VNEXT.md",
+    "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+    "apps/web/src/lib/csat/map/evidence-anchor.ts",
+    "apps/web/src/lib/csat/map/core.ts",
+    "apps/web/src/lib/csat/map/prescription.ts"
+  ],
+  "worktree": "D:/workspace/Vocaflow-ug0002-v4",
+  "branch": "feat/ug0002-map-recheck",
+  "title": "D-7(c) 정합: 진단 전 Practice 결과 문구·명칭(재확인)",
+  "description": "설계 v4(REQ-20261010-c8315ad8-001). practice-results.ts 에 recheckKeysOf·재확인 의미 이름·문구 formatter 추가(transferKeysOf 는 deprecated alias 유지), load.ts 는 새 이름 사용(select·phase 필터·집계 불변), StepSheet.tsx 결과 줄 문구를 「다른 지문으로 한 번 더 확인했어요 · N회」 + 「이번 확인 결과일 뿐, 원인 확정이나 맞춤 처방은 아니에요」로. practice-results.test.ts 에 문구·금지어(적용·전이·맞춤)·alias 동일성·기존 집계 회귀. DB·정본 변경 없음.",
+  "allowed_paths": [
+    "apps/web/src/components/csat/diagnosis/map/StepSheet.tsx",
+    "apps/web/src/lib/csat/map/practice-results.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/__tests__/practice-results.test.ts"
+  ],
+  "acceptance": [
+    "진단 전 결과 문구가 「다른 지문으로 한 번 더 확인했어요 · N회」이고 적용·전이·맞춤 단어가 없다(테스트)",
+    "「이번 확인 결과일 뿐, 원인 확정이나 맞춤 처방은 아니에요」 표시",
+    "recheckKeysOf 와 transferKeysOf 가 같은 배열 · 조회 조건·PracticeResult 수치 불변(기존 테스트 통과)",
+    "pnpm --filter web exec vitest run src/lib/csat/map/__tests__/practice-results.test.ts skip 0"
+  ],
+  "design_acceptance": [
+    0,
+    1,
+    2,
+    3,
+    6
+  ]
+}
