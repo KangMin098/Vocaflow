@@ -6,9 +6,13 @@
 // 기본 기준(보수적, 바꾸려면 여기 상수만):
 //   서로 다른 확인 문항 CONFIRM_ITEMS(2)개 이상에서 독립 첫 시도가 막혔고 맞힌 확인 문항이 없으면 「요구 확인됨」.
 //   2개 이상을 모두 맞혔으면 「이 단계는 지금 필요 없어 보임」 · 섞이면 「엇갈림 — 더 확인」 · 1개뿐이면 「확인 중」.
-// 독립 첫 시도만 센다 — 합성 · 해설 먼저 · 해설 뒤 · 시각 불확실은 확인 근거가 아니다(효과 표본과 같은 isEligible).
+// 독립 첫 시도만 센다 — 해설 먼저 · 해설 뒤 · 시각 불확실 · 도움 수준 미기록은 확인 근거가 아니다(효과 표본과 같은 isEligible).
+// 단 「합성」은 빼지 않는다: 이 판정은 그 학습자 **본인**에게 보이는 것이고, 합성 표시는 집단 통계(성과 신호 · 효과)에서 빼기 위한 것이다.
+//   합성 계정(시험 · 합성 학습자)도 자기 기록으로는 같은 판정을 받아야 한다 — 그래야 화면 E2E 가 실제 경로로 검증된다(2026-10-10).
 // 첫 시도는 DB 뷰 learning_first_attempts 가 고른 행을 받는다(학습자 · 과제 · 문항 · 단계 키).
 import { isEligible, type FirstAttempt } from './effect-signals'
+
+const isOwnEvidence = (a: FirstAttempt) => isEligible({ ...a, synthetic: false })
 
 export const CONFIRM_ITEMS = 2
 
@@ -48,7 +52,7 @@ export function findOutcome(targets: readonly FindTarget[], attempts: readonly F
   const keys = new Set(targets.map((t) => `${t.taskKey}|${t.itemRef}`))
   const byItem = new Map<string, boolean>()
   for (const a of attempts) {
-    if (a.phase !== 'practice' || !keys.has(`${a.taskKey}|${a.itemRef}`) || !isEligible(a) || a.isCorrect === null) continue
+    if (a.phase !== 'practice' || !keys.has(`${a.taskKey}|${a.itemRef}`) || !isOwnEvidence(a) || a.isCorrect === null) continue
     // 뷰가 첫 시도만 준다 — 같은 문항이 두 번 오면(과제 키가 다른 경우 등) 먼저 온 것을 둔다
     if (!byItem.has(a.itemRef)) byItem.set(a.itemRef, a.isCorrect)
   }

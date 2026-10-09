@@ -17,6 +17,8 @@ import {
 import { checkAppTransition, checkInquiry, checkResearchSource, checkTrialDesign, type TrialDesign } from '@/lib/knowledge/vnext-rules'
 import { isLayer } from '@/lib/knowledge/labels'
 import { reviewAfterEvidenceChange } from '@/lib/knowledge/review-cascade'
+import { currentItemTask } from '@/lib/knowledge/item-tasks'
+import { itemTaskRef, parseItemTaskRef } from '@/lib/knowledge/product-server'
 
 export interface ActionResult<T = unknown> { ok: boolean; data?: T; error?: string }
 
@@ -180,7 +182,15 @@ export async function createApplicationAction(input: { itemSlug: string; surface
   try {
     const who = await actor('/admin/knowledge/design')
     if (!isAppSurface(input.surface)) return { ok: false, error: '적용 표면을 고른다' }
-    if (!/^[a-z0-9][a-z0-9:._-]{0,199}$/.test(input.surfaceRef)) return { ok: false, error: '과제 키는 영소문자 · 숫자 · : . _ -' }
+    // 모의평가 문항 키는 대문자 M 을 쓴다(claim-support:M2506-20) — 소문자만 받으면 관리자 화면으로는 모의평가 과제를 낼 수 없었다(2026-10-10)
+    if (!/^[A-Za-z0-9][A-Za-z0-9:._-]{0,199}$/.test(input.surfaceRef)) return { ok: false, error: '과제 키는 영문 · 숫자 · : . _ -' }
+    if (input.surface === 'csat_item_task') {
+      // 문항 과제 키는 코드가 찾는 그대로여야 한다 — 대소문자가 다르면 적용이 켜져도 학습자에게 안 보인다
+      const parsed = parseItemTaskRef(input.surfaceRef)
+      if (!parsed || itemTaskRef(parsed.taskKey, parsed.itemId) !== input.surfaceRef) return { ok: false, error: '문항 과제 키는 「과제 키:문항」 형식(예: claim-support:2022-20 · claim-support:M2506-20)' }
+      // 그 문항에 실제 주석 과제가 있어야 한다 — m2506-20 처럼 없는 문항(m2506#20)을 가리키는 키는 형식이 맞아도 막는다
+      if (currentItemTask(parsed.itemId)?.def.key !== parsed.taskKey) return { ok: false, error: `${parsed.itemId} 에는 「${parsed.taskKey}」 주석 과제가 없다(대소문자 · 문항 번호 확인)` }
+    }
     const parse = (s: string) => { if (!s.trim()) return {}; try { const v = JSON.parse(s); return v && typeof v === 'object' && !Array.isArray(v) ? v : null } catch { return null } }
     const audience = parse(input.audience)
     const exclusions = parse(input.exclusions)

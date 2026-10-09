@@ -137,3 +137,57 @@ export function computeSignals(input: ApplicationInput): SignalResult {
   const top = signals.reduce<SignalResult['level']>((acc, s) => (acc === 'none' || order[s.level] > order[acc] ? s.level : acc), 'none')
   return { applicationId: input.applicationId, minN, eligible, counts: { real: real.length, synthetic, excluded }, signals, level: top }
 }
+
+/**
+ * 작업 3 — 같은 과제(표면 · 과제 키)의 **이전 버전 대비** 관찰 비교(2026-10-10).
+ * 원리 · 방법을 고치면 새 적용 버전(knowledge_applications.version)으로 다시 내보낸다 → 버전마다 적격 첫 시도 정답률을 나란히 놓는다.
+ * 효과 판정이 아니다: 두 버전 모두 문턱(minN) 이상일 때만 차이를 「관찰된 변화」로 말하고, 그 전에는 「비교할 수 없음」.
+ * 학습자 · 시기 · 문항이 다르므로 인과를 말하지 않는다(비교 조건이 있는 검증 계획은 따로).
+ */
+export interface VersionPoint {
+  applicationId: string
+  version: number
+  status: string
+  learners: number
+  accuracy: number | null
+}
+export interface VersionComparison {
+  surface: string
+  surfaceRef: string
+  points: VersionPoint[]
+  /** 최신 버전 − 직전 버전 정답률(둘 다 문턱 이상일 때만) */
+  delta: number | null
+  verdict: 'comparable' | 'not_comparable' | 'single_version'
+  message: string
+}
+
+export function compareVersions(
+  rows: readonly { applicationId: string; surface: string; surfaceRef: string; version: number; status: string; minN: number; eligible: Record<string, PhaseStat> }[],
+): VersionComparison[] {
+  const groups = new Map<string, typeof rows[number][]>()
+  for (const r of rows) {
+    const k = `${r.surface}|${r.surfaceRef}`
+    groups.set(k, [...(groups.get(k) ?? []), r])
+  }
+  const out: VersionComparison[] = []
+  for (const list of groups.values()) {
+    const sorted = [...list].sort((a, b) => a.version - b.version)
+    const points = sorted.map((r) => ({ applicationId: r.applicationId, version: r.version, status: r.status, learners: r.eligible.practice?.learners ?? 0, accuracy: r.eligible.practice?.accuracy ?? null }))
+    const { surface, surfaceRef } = sorted[0]
+    if (points.length < 2) {
+      out.push({ surface, surfaceRef, points, delta: null, verdict: 'single_version', message: '버전이 하나뿐 — 개정 전후 비교 없음' })
+      continue
+    }
+    const [prev, last] = points.slice(-2)
+    const minN = Math.max(...sorted.slice(-2).map((r) => r.minN))
+    if (prev.learners < minN || last.learners < minN || prev.accuracy === null || last.accuracy === null) {
+      out.push({ surface, surfaceRef, points, delta: null, verdict: 'not_comparable',
+        message: `v${prev.version} 학습자 ${prev.learners}명 · v${last.version} ${last.learners}명 / 문턱 ${minN}명 — 아직 비교할 수 없다` })
+      continue
+    }
+    const delta = last.accuracy - prev.accuracy
+    out.push({ surface, surfaceRef, points, delta, verdict: 'comparable',
+      message: `v${prev.version} ${Math.round(prev.accuracy * 100)}% → v${last.version} ${Math.round(last.accuracy * 100)}% — 관찰된 변화(학습자 · 시기가 달라 효과 입증이 아니다)` })
+  }
+  return out
+}

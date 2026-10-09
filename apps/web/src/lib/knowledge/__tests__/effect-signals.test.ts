@@ -1,6 +1,6 @@
 // apps/web/src/lib/knowledge/__tests__/effect-signals.test.ts
 import { describe, expect, it } from 'vitest'
-import { DEFAULT_MIN_N, computeSignals, isEligible, type FirstAttempt } from '../effect-signals'
+import { DEFAULT_MIN_N, compareVersions, computeSignals, isEligible, type FirstAttempt } from '../effect-signals'
 
 const base: Omit<FirstAttempt, 'userId' | 'phase' | 'isCorrect'> = { synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false }
 const learners = (n: number, phase: FirstAttempt['phase'], correctShare: number, extra: Partial<FirstAttempt> = {}): FirstAttempt[] =>
@@ -91,5 +91,25 @@ describe('Codex P2 회귀', () => {
       Array.from({ length: n }, (_, i) => ({ ...base, userId: `${phase}${i}`, phase, isCorrect: i < right }))
     const r = computeSignals({ applicationId: 'a', status: 'active', trialMinN: [], attempts: [...mk(30, 'practice', 21), ...mk(30, 'transfer', 15)] })
     expect(r.signals.some((s) => s.kind === 'transfer_gap')).toBe(true)
+  })
+})
+
+describe('compareVersions — 개정 전후 비교', () => {
+  const stat = (learners: number, accuracy: number | null) => ({ practice: { learners, attempts: learners, correct: 0, accuracy } })
+  const r = (version: number, learners: number, accuracy: number | null) =>
+    ({ applicationId: `a${version}`, surface: 'csat_item_task', surfaceRef: 'claim-support:2022-20', version, status: version === 2 ? 'active' : 'paused', minN: 30, eligible: stat(learners, accuracy) })
+  it('버전 하나 → 비교 없음', () => {
+    expect(compareVersions([r(1, 40, 0.5)])[0].verdict).toBe('single_version')
+  })
+  it('문턱 미만이면 차이를 말하지 않는다', () => {
+    const c = compareVersions([r(1, 40, 0.5), r(2, 3, 1)])[0]
+    expect(c.verdict).toBe('not_comparable')
+    expect(c.delta).toBeNull()
+  })
+  it('둘 다 문턱 이상 → 관찰된 변화(효과 입증 아님)로만', () => {
+    const c = compareVersions([r(2, 35, 0.7), r(1, 40, 0.5)])[0]
+    expect(c.verdict).toBe('comparable')
+    expect(c.delta).toBeCloseTo(0.2)
+    expect(c.message).toMatch(/효과 입증이 아니다/)
   })
 })

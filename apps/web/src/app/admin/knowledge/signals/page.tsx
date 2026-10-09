@@ -8,6 +8,7 @@ import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { EmptyState, KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { STATUS_LABEL, isStatus } from '@/lib/knowledge/labels'
+import { compareVersions } from '@/lib/knowledge/effect-signals'
 import { loadEffectSignals, type SignalRow } from '@/lib/knowledge/effect-signals-server'
 import { APP_STATUS_LABEL, APP_SURFACE_LABEL, isAppStatus, isAppSurface } from '@/lib/knowledge/vnext-labels'
 
@@ -33,6 +34,8 @@ export default async function KnowledgeSignalsPage() {
   }
   rows.sort((a, b) => ORDER[a.level] - ORDER[b.level])
   const review = rows.filter((r) => r.level === 'review').length
+  // 버전이 둘 이상인 과제만 — 개정 → 재적용 → 결과 비교
+  const compared = compareVersions(rows).filter((c) => c.verdict !== 'single_version')
 
   return (
     <KnowledgeFrame title="성과 검토 신호" question="학습 결과가 어떤 원리 · 방법을 다시 볼 이유가 되나" help={help}>
@@ -97,6 +100,23 @@ export default async function KnowledgeSignalsPage() {
             </li>
           ))}
         </ul>
+      )}
+      {compared.length > 0 && (
+        <section className="mt-10" aria-labelledby="version-compare-h">
+          <h2 id="version-compare-h" className="text-base font-semibold text-[var(--t1)]">개정 전후 비교</h2>
+          <p className="mt-1 max-w-3xl text-sm text-[var(--t2)]">
+            원리 · 방법을 고쳐 새 버전으로 다시 내보낸 과제만 나온다. 두 버전 모두 표본 문턱을 넘어야 차이를 보이고, 그때도 <b>관찰된 변화</b>일 뿐 효과 입증이 아니다.
+          </p>
+          <ul className="mt-3 space-y-2">
+            {compared.map((c) => (
+              <li key={`${c.surface}|${c.surfaceRef}`} className="rounded border border-[var(--bd)] p-3 text-sm" data-testid="version-compare" data-verdict={c.verdict}>
+                <span className="font-medium text-[var(--t1)]">{c.surfaceRef}</span>{' '}
+                <span className="tabular-nums text-[var(--t2)]">{c.points.map((p) => `v${p.version} ${p.learners}명 ${pct(p.accuracy)}`).join(' · ')}</span>
+                <span className="block text-[var(--t2)]">{c.message}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
     </KnowledgeFrame>
   )

@@ -121,6 +121,7 @@ export const WORKSPACES: readonly Workspace[] = [
     tabs: [
       { href: '/admin/knowledge/lab', label: '탐구 질문' },
       { href: '/admin/knowledge/lab/research', label: '연구 서지' },
+      { href: '/admin/knowledge/lab/compare', label: '원리 근거 비교' },
       { href: '/admin/knowledge/review', label: '검토 대기' },
       { href: '/admin/knowledge/sources', label: '근거 · 출처' },
       { href: '/admin/knowledge/sources/csat', label: '기출 원천' },

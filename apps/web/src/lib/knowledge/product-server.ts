@@ -16,6 +16,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { currentItemTask, ITEM_TASKS } from './item-tasks'
 import { isSyntheticEmail, parseClientMeta } from './practice'
 import { selectWriter, type AttemptWrite, type AttemptWriter, type WriteOutcome } from './practice-writer'
+import type { StepChain } from './learning-decision'
 import { resolveChain, type ChainItem, type ChainLink, type ChainVerdict } from './live-chain'
 
 /** 첫 수직 경로의 과제 키(호환) — 과제 키 목록은 item-tasks 레지스트리가 정본 */
@@ -185,6 +186,17 @@ export interface MapPracticeLink {
   taskKey: string
   /** 같은 단계의 확인 문항 전부(첫 항목 = 위 target). 「서로 다른 확인 문항 2개」 기준을 채우려면 audience.items 로 여러 문항을 단다 */
   confirm: { href: string; label: string; target: string; taskKey: string }[]
+  /** 이 단계에 연결된 원리 사슬(과제 · 방법 · 원리 id · 버전) — 학습 결정의 추적 정보(learning-decision) */
+  chain?: StepChain
+}
+
+/** 사슬 경로(과제 → 방법 → 기제 → 본질)에서 층마다 하나 */
+export function stepChainOf(path: readonly ChainItem[]): StepChain {
+  const pick = (layer: string) => {
+    const i = path.find((p) => p.layer === layer)
+    return i ? { id: i.id, slug: i.slug, version: i.version } : null
+  }
+  return { task: pick('practice'), method: pick('method'), principle: pick('principle') }
 }
 
 /** 적용 audience → 확인 문항 목록. item(단수 · 기존 행) 다음에 items(복수) — 중복 제거, 순서 유지 */
@@ -212,7 +224,8 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
     // 적용 키는 소문자만 받는다(b6-3) — 지도 과제 id(B6-3)로 되돌린다
     const taskId = app.surface_ref.toUpperCase()
     if (out[taskId]) continue
-    if (!resolveChain(app.item_id, graph.items, graph.links).live) continue
+    const verdict = resolveChain(app.item_id, graph.items, graph.links)
+    if (!verdict.live) continue
     // 지도 쪽 연결도 그 문항 쪽 적용이 살아 있어야 한다 — 문항에서 과제가 내려갔는데 지도 링크만 남으면 빈 화면으로 보낸다
     const confirm: MapPracticeLink['confirm'] = []
     for (const target of findTargetsOf(app.audience)) {
@@ -221,7 +234,7 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
       confirm.push({ href: `/csat/item/${toItemSlug(target)}#principle`, label: itemLabel(target), target, taskKey: task.def.key })
     }
     if (confirm.length === 0) continue
-    out[taskId] = { ...confirm[0], itemId: confirm[0].target, confirm }
+    out[taskId] = { ...confirm[0], itemId: confirm[0].target, confirm, chain: stepChainOf(verdict.path) }
   }
   return out
 }
