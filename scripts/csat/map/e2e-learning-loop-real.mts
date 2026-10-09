@@ -79,6 +79,8 @@ try {
   await panel.getByRole('button', { name: '확인하기' }).click()
   await panel.locator('[data-testid="principle-result"][data-correct="true"]').waitFor()
   rec('2 정답 제출 → 「정확히 연결」', true)
+  const nextP = panel.locator('[data-testid="principle-next-practice"]')
+  rec('2 정답 뒤 다음 칸 — 「같은 원리를 다른 지문에 적용」 → /csat/practice', (await nextP.count()) === 1 && (await nextP.getAttribute('href')) === '/csat/practice')
 
   // 3 DB 확인
   const rows = (await db.from('learning_task_attempts').select('id, task_key, item_ref, is_correct, synthetic, session_id, client_mutation_id, phase').eq('user_id', uid).order('answered_at')).data ?? []
@@ -100,7 +102,15 @@ try {
   await res.waitFor()
   const t = await res.innerText()
   rec('5 학습 지도 「내가 한 확인 2번 · 처음 다시 볼 곳 · 최근 맞았어요」 · 다음 = 넘어가기', (await res.getAttribute('data-attempts')) === '2' && (await res.getAttribute('data-next')) === 'move_on' && /처음 다시 볼 곳/.test(t) && /최근.*맞았어요/.test(t), t)
+  const mp = page.locator('[data-testid="find-next-practice"]')
+  rec('5 학습 지도 다음 칸 — 다른 지문 적용(Practice) 링크', (await mp.count()) === 1 && (await mp.getAttribute('href')) === '/csat/practice')
   await page.locator('li', { has: res }).screenshot({ path: path.join(OUT, 'map-feedback.png') })
+
+  // 6 Practice 화면이 열린다(같은 원리 · 다른 지문)
+  await mp.click()
+  await page.waitForLoadState('networkidle').catch(() => {})
+  rec('6 Practice 화면 열림(로그인 유지 · 오류 없음)', page.url().includes('/csat/practice') && (await page.locator('main').count()) > 0 && !/Application error|500/.test(await page.locator('body').innerText()), page.url())
+  await page.screenshot({ path: path.join(OUT, 'practice.png') })
 } finally {
   await browser?.close().catch((e: Error) => console.log(`브라우저 종료 실패: ${e.message}`))
   const { error: fe } = await db.from('funnel_events').delete().eq('user_id', uid)

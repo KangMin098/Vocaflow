@@ -88,6 +88,16 @@ try {
   rec('D 예약일이 지난 다시 보기 → 다음 = 다시 확인(review)', (await res.getAttribute('data-next')) === 'review' && /다시 보기로 잡아 둔 때\(10월 8일\)가 됐어요/.test(td), td)
   rec('D 연습 횟수에 전이는 들어가지 않는다(2번 그대로)', (await res.getAttribute('data-attempts')) === '2')
   await page.locator('li', { has: page.locator('[data-testid="find-practice-result"]') }).screenshot({ path: path.join(OUT, 'D-review.png') })
+
+  // E 예약을 지우면(합성 세션 정리) 마친 확인 + 전이 있음 → 다음 칸 = 새 기출 기록으로 재평가
+  const { error: dse } = await db.from('learning_sessions').delete().eq('user_id', uid)
+  if (dse) throw new Error(`세션 정리 실패: ${dse.message}`)
+  await openSheet()
+  await res.waitFor()
+  const ra = page.locator('[data-testid="find-next-reassess"]')
+  rec('E 전이까지 했으면 다음 칸 = 새 기출 기록으로 목표 대비 변화(재평가)', (await res.getAttribute('data-next')) === 'move_on' && (await ra.count()) === 1 && (await ra.getAttribute('href')) === '/csat/diagnosis?tab=records&modal=new')
+  rec('E 전이를 했으면 Practice 링크 대신 재평가 링크', (await page.locator('[data-testid="find-next-practice"]').count()) === 0)
+  await page.locator('li', { has: res }).screenshot({ path: path.join(OUT, 'E-reassess.png') })
 } finally {
   await browser?.close().catch((e: Error) => console.log(`브라우저 종료 실패: ${e.message}`))
   // 방문 중 생긴 분석 이벤트도 이번 계정 것만 지운다(외래키가 SET NULL 이라 계정을 지우면 주인 없는 행으로 남는다)

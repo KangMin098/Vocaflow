@@ -122,6 +122,9 @@ export function PrinciplePanel({ slug, principle, why, sentenceCount, relationSe
               <p>관계 — {grade.relationOk ? '맞아요' : '다시 보세요'}</p>
               <p className="text-xs text-[var(--t3)]">기록은 내 학습 기록에 남았어요. 이 결과는 이번 확인 한 번의 결과예요.</p>
               <div><button type="button" className={`${BTN} ${off}`} onClick={reset}>다시 해 보기</button></div>
+              {grade.isCorrect && (
+                <p><a href="/csat/practice" className={`${BTN} ${off}`} data-testid="principle-next-practice">같은 원리를 다른 지문에 적용해 보기 →</a></p>
+              )}
             </div>
           )}
           {needLogin && <p role="alert" className="text-sm text-[var(--t1)]">기록을 남기려면 로그인이 필요해요. <a className="underline" href={`/login?next=/csat/item/${slug}%23principle`}>로그인</a></p>}
