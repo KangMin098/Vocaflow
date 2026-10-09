@@ -156,8 +156,10 @@ try {
   const action = await dec.getAttribute('data-action').catch(() => null)
   const trace = { policy: await dec.getAttribute('data-policy').catch(() => null), principle: await dec.getAttribute('data-principle').catch(() => null), method: await dec.getAttribute('data-method').catch(() => null), reason: await dec.getAttribute('data-reason').catch(() => null), observation: JSON.parse((await dec.getAttribute('data-observation').catch(() => null)) ?? 'null') }
   const decHref = await learner.getByTestId('learning-decision-link').getAttribute('href').catch(() => null)
-  rec('S7 학습 요구 → 원리 과제 선택', decisionBefore === 'start_check' && action === 'practice_method' && !!trace.policy && !!trace.principle && !!trace.method && !!trace.reason && trace.observation?.items?.length === 2 && decHref === '/csat/practice/claim-support',
-    `전 ${decisionBefore} → 후 ${action} · ${decHref} · 정책 ${trace.policy} · 원리 ${trace.principle?.slice(0, 8)} · 방법 ${trace.method?.slice(0, 8)}`)
+  // 학습자가 실제로 다음 할 일을 볼 수 있어야 한다 — 결정 링크 또는 지도 쪽 처방 링크(직접 확인됨일 때) 중 하나는 보여야 한다
+  const nextVisible = (await learner.getByTestId('learning-decision-link').isVisible().catch(() => false)) || (await learner.getByTestId('rx-transfer').isVisible().catch(() => false))
+  rec('S7 학습 요구 → 원리 과제 선택', decisionBefore === 'start_check' && action === 'practice_method' && !!trace.policy && !!trace.principle && !!trace.method && !!trace.reason && trace.observation?.items?.length === 2 && decHref === '/csat/practice/claim-support' && nextVisible,
+    `전 ${decisionBefore} → 후 ${action} · ${decHref} · 다음 할 일 화면 표시 ${nextVisible} · 정책 ${trace.policy} · 원리 ${trace.principle?.slice(0, 8)} · 방법 ${trace.method?.slice(0, 8)}`)
 
   // S5 관리자 성과 검토 신호
   const admin = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
