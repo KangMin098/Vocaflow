@@ -84,6 +84,7 @@ export const PRODUCT_CAPABILITIES: Record<keyof typeof PRODUCT_FAMILIES, ReturnT
 
 export const productOrderSchema = z.object({
   schema: z.literal('textbook-product-order/1'),
+  planning_hash: hash.optional(),
   product_order_id: id,
   order_revision: z.number().int().positive(),
   series_id: id,

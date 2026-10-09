@@ -1,0 +1,153 @@
+// packages/library-pipeline/src/textbook/product-planning.ts
+import { createHash } from 'node:crypto'
+import { z } from 'zod'
+import { PRODUCT_FAMILIES } from './academic-reading'
+import { PRODUCT_CAPABILITIES, sealProductOrder, type ProductOrder } from './factory-order'
+import { gradeScopeSchema } from './multi-grade-order'
+import { canonicalJson } from './review-digest'
+
+export const PRODUCT_PURPOSES = [
+  'knowledge_reading', 'relation_reading', 'vocabulary_in_context',
+  'academic_sentence', 'inference', 'exam_bridge',
+] as const
+
+const purposeFamily: Record<(typeof PRODUCT_PURPOSES)[number], keyof typeof PRODUCT_FAMILIES> = {
+  knowledge_reading: 'P03', relation_reading: 'P09', vocabulary_in_context: 'P05',
+  academic_sentence: 'P06', inference: 'P10', exam_bridge: 'P17',
+}
+
+const mix = z.record(z.number().finite().positive()).refine(value => Object.keys(value).length > 0)
+export const productBriefSchema = z.object({
+  schema: z.literal('textbook-product-brief/1'),
+  grade_scope: gradeScopeSchema,
+  purpose: z.enum(PRODUCT_PURPOSES),
+  domain_weights: mix,
+  genre_weights: mix,
+  duration_days: z.number().int().min(1).max(180),
+  units_per_chapter: z.number().int().min(1).max(20),
+  difficulty: z.object({ start: z.number().int().min(0).max(11), end: z.number().int().min(0).max(11) }).strict(),
+  passage_words: z.object({ start: z.number().int().min(40).max(1200), end: z.number().int().min(40).max(1200) }).strict(),
+  source_strategy: z.enum(['direct_first', 'adaptation_first', 'balanced']),
+}).strict().superRefine((value, ctx) => {
+  if (value.difficulty.end < value.difficulty.start)
+    ctx.addIssue({ code: 'custom', message: 'difficulty curve must not decrease' })
+  if (value.passage_words.end < value.passage_words.start)
+    ctx.addIssue({ code: 'custom', message: 'passage length curve must not decrease' })
+})
+export type ProductBrief = z.infer<typeof productBriefSchema>
+
+function schedule(weights: Record<string, number>, length: number) {
+  const keys = Object.keys(weights).sort()
+  const total = keys.reduce((sum, key) => sum + weights[key]!, 0)
+  const used = Object.fromEntries(keys.map(key => [key, 0])) as Record<string, number>
+  return Array.from({ length }, (_, index) => {
+    const day = index + 1
+    const selected = [...keys].sort((a, b) => {
+      const deficitA = day * weights[a]! / total - used[a]!
+      const deficitB = day * weights[b]! / total - used[b]!
+      return deficitB - deficitA || a.localeCompare(b)
+    })[0]!
+    used[selected]! += 1
+    return selected
+  })
+}
+
+const interpolate = (start: number, end: number, index: number, length: number) =>
+  length === 1 ? start : Math.round(start + (end - start) * index / (length - 1))
+
+/** Planning targets are proposals. Rights and source admission still decide actual routes. */
+export function planProductBrief(input: unknown) {
+  const brief = productBriefSchema.parse(input)
+  const family = purposeFamily[brief.purpose]
+  const capability = PRODUCT_CAPABILITIES[family]
+  const domains = schedule(brief.domain_weights, brief.duration_days)
+  const genres = schedule(brief.genre_weights, brief.duration_days)
+  const skills = PRODUCT_FAMILIES[family].skills
+  const itemTypes = capability.items
+  const units = Array.from({ length: brief.duration_days }, (_, index) => {
+    const day = index + 1
+    return {
+      day,
+      chapter: Math.floor(index / brief.units_per_chapter) + 1,
+      grade_scope: brief.grade_scope,
+      primary_skill: skills[index % skills.length]!,
+      domain: domains[index]!, genre: genres[index]!,
+      difficulty_level: interpolate(brief.difficulty.start, brief.difficulty.end, index, brief.duration_days),
+      passage_words_target: interpolate(brief.passage_words.start, brief.passage_words.end, index, brief.duration_days),
+      item_type_target: itemTypes[index % itemTypes.length]!,
+      revisit_prior_skill: day > 1 && day % brief.units_per_chapter === 0,
+      cumulative_review: day === brief.duration_days,
+    }
+  })
+  const chapters = Array.from({ length: Math.ceil(brief.duration_days / brief.units_per_chapter) }, (_, index) => ({
+    chapter: index + 1,
+    from_day: index * brief.units_per_chapter + 1,
+    to_day: Math.min(brief.duration_days, (index + 1) * brief.units_per_chapter),
+  }))
+  const source_mix_target = brief.source_strategy === 'direct_first'
+    ? { direct: 80, adaptation: 20 }
+    : brief.source_strategy === 'adaptation_first'
+      ? { direct: 20, adaptation: 80 }
+      : { direct: 50, adaptation: 50 }
+  const plan = {
+    schema: 'textbook-product-plan/1' as const,
+    brief, product_family: family,
+    production_capability: capability.state,
+    skill_mix: [...skills],
+    source_mix_target,
+    units, chapters,
+    warning: 'Planning targets are not admission, grade validity or production evidence.',
+  }
+  return { plan, plan_hash: createHash('sha256').update(canonicalJson(plan)).digest('hex') }
+}
+
+type PlannedFields = 'planning_hash' | 'product_family' | 'grade_target' | 'grade_detail_target' |
+  'reading_skill_targets' | 'purposes' | 'domain_mix' | 'genre_mix' | 'item_types' |
+  'activity_types' | 'passage_difficulty_profile' | 'item_difficulty_profile'
+
+const normalizedMix = (weights: Record<string, number>) => {
+  const total = Object.values(weights).reduce((sum, value) => sum + value, 0)
+  const keys = Object.keys(weights).sort()
+  const floors = Object.fromEntries(keys.map(key => [key, Math.floor(weights[key]! / total * 100)])) as Record<string, number>
+  const remaining = 100 - Object.values(floors).reduce((sum, value) => sum + value, 0)
+  const remainders = [...keys].sort((a, b) =>
+    (weights[b]! / total * 100 - floors[b]!) - (weights[a]! / total * 100 - floors[a]!) || a.localeCompare(b))
+  for (const key of remainders.slice(0, remaining)) floors[key]! += 1
+  return floors
+}
+
+/** Binds a planner result to an operator-supplied, versioned policy/target shell. */
+export function buildProductOrderFromBrief(
+  briefInput: unknown,
+  grade: ProductBrief['grade_scope']['grades'][number],
+  shell: Omit<ProductOrder, PlannedFields>,
+) {
+  const { plan, plan_hash } = planProductBrief(briefInput)
+  if (!plan.brief.grade_scope.grades.includes(grade)) throw new Error('GRADE_OUTSIDE_PLAN')
+  const ageBand = grade.startsWith('elementary_') ? 'upper_elementary' : grade
+  if (shell.target.age_band !== ageBand || shell.target.family !== plan.product_family ||
+      canonicalJson([...shell.target.skills].sort()) !== canonicalJson([...plan.skill_mix].sort()))
+    throw new Error('TARGET_DIFFERS_FROM_PLAN')
+  const finalDifficulty = plan.brief.difficulty.end
+  const order = {
+    ...shell,
+    planning_hash: plan_hash,
+    product_family: plan.product_family,
+    grade_target: ageBand,
+    ...(grade.startsWith('elementary_') ? { grade_detail_target: grade } : {}),
+    reading_skill_targets: plan.skill_mix,
+    purposes: [plan.brief.purpose],
+    domain_mix: normalizedMix(plan.brief.domain_weights),
+    genre_mix: normalizedMix(plan.brief.genre_weights),
+    item_types: [...new Set(plan.units.map(unit => unit.item_type_target))],
+    activity_types: [],
+    passage_difficulty_profile: {
+      lexical: finalDifficulty, syntax: finalDifficulty,
+      information_density: finalDifficulty, discourse: finalDifficulty,
+      inference: finalDifficulty, abstraction: finalDifficulty,
+      background_knowledge: finalDifficulty,
+    },
+    item_difficulty_profile: { reasoning: finalDifficulty },
+  }
+  return { ...sealProductOrder(order), planning_hash: plan_hash }
+}

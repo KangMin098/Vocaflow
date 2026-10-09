@@ -18,6 +18,7 @@
     "./academic-reading": "./src/textbook/academic-reading.ts",
     "./academic-reading-contract": "./src/textbook/academic-reading-contract.ts",
     "./factory-order": "./src/textbook/factory-order.ts",
+    "./product-planning": "./src/textbook/product-planning.ts",
     "./multi-grade-order": "./src/textbook/multi-grade-order.ts",
     "./factory-order-stage": "./src/textbook/factory-order-stage.ts",
     "./reading-preservation": "./src/textbook/reading-preservation.ts",

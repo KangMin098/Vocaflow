@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(textbook): 초5~고3 단일·복수 학년 brief에서 제품 유형, 영역·장르·능력·문항 배분, 난도·길이 곡선, 단원/복습 순서와 기획 hash를 계산하고 `/admin/csat/new` 관리자 폼/API에 연결한다. 운영 정책·타겟과 일치할 때만 Product Order에 기획 hash를 봉인하며, 실제 주문 등록과 생산은 별개다. 범용 공장 Completion Audit은 아직 미완료 영역을 명시한다.
+
 - docs(textbook): Clarify that synthetic pipeline-contract completion does not mean all P01–P20 products or real book production are complete; resolve the Gold-S row's contradictory PARTIAL label.
 
 - docs(textbook): Close the synthetic/code textbook-factory implementation audit after runtime revision-impact integration; keep operational verification, persisted catalog labels, and per-order UI explicitly separate.

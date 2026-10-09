@@ -1,6 +1,6 @@
 # Tech Stack
 
-`@vocaflow/library-pipeline/multi-grade-order`는 기존 단일 학년 Product Order들을 하나의 복수 학년 제품 그룹으로 봉인하고 학년별 증거 및 단원 계보를 검증하는 패키지 서브패스다. 현재 DB/조판 CLI 직접 연결 전의 코드 계약이다.
+`@vocaflow/library-pipeline/multi-grade-order`는 기존 단일 학년 Product Order들을 하나의 복수 학년 제품 그룹으로 봉인하고 학년별 증거 및 단원 계보를 검증하는 패키지 서브패스다. `@vocaflow/library-pipeline/product-planning`은 구조화된 학년·목적·영역·기간 입력에서 결정적인 기획안/해시를 만들고, 운영자가 공급한 정책·타겟 문서와 일치할 때에만 Product Order에 기획 hash를 결속한다. 기획안은 운영 증거가 아니다.
 
 > Vocaflow 모노레포 기술 스택 + 버전. `package.json` 직접 verified. 작성 시점: 2026-06-08.
 

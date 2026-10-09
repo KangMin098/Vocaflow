@@ -131,6 +131,11 @@ export const CSAT_HELP: HelpRegistry = {
       ],
       steps: [
         {
+          title: '교재 기획안 만들기',
+          detail: '학년, 목적, 영역과 글 유형, 기간, 난도·지문 길이 곡선, 원천 사용 계획을 선택한다. 서버가 제품 유형·장/단원별 학습 순서·문항 유형·복습 위치와 기획 hash를 계산한다. 입력을 바꾸고 다시 실행하면 새 기획 hash가 된다.',
+          done: '기획 hash와 각 단원의 능력·영역·난도·길이·문항 유형을 확인한다. 이 결과는 제안이며 주문 등록이나 DB 변경이 아니다.',
+        },
+        {
           title: 'Product Order 등록',
           detail: '완성된 Product Order JSON을 붙여 넣고 검증 및 등록을 누른다. 서버가 target·capability를 검사하고 주문 ID·revision·hash를 현재 관리자 세션으로 등록한다. 응답 hash를 이후 제한 승격 증거와 대조한다.',
           done: '주문 ID·revision·hash가 표시된다. 등록만으로 콘텐츠가 승격되지는 않는다.',
@@ -161,6 +166,10 @@ export const CSAT_HELP: HelpRegistry = {
       ],
       fields: [
         {
+          label: '대상 학년·교재 목적·영역 배합',
+          detail: '하나 이상의 학년과 영역·글 유형을 선택한다. 연속 학년은 범위로, 떨어진 학년은 복수 학년 조합으로 계산한다. 기간에 맞춰 단원별 배분을 제안하며 실제 교재 적합성 판정은 하지 않는다.',
+        },
+        {
           label: 'Product Order JSON',
           detail: '정본 주문 문서 전체를 입력한다. 잘못된 JSON, 제품·학년·타겟 혼합, 미지원 capability는 DB 호출 전에 거부된다. 문서 자체는 DB에 저장되지 않으므로 등록한 원본을 별도로 보존한다.',
         },
@@ -181,6 +190,7 @@ export const CSAT_HELP: HelpRegistry = {
         },
       ],
       cautions: [
+        '기획안은 Product Order·권리·benchmark·Gold-S·생산 증거가 아닙니다. 기획안을 바꾸면 별도 주문의 planning hash도 새로 봉인해야 하며 기존 주문에 조용히 적용되지 않습니다.',
         'Product Order 등록은 완전한 JSON 문서를 서버에서 검증하고 주문 ID·revision·hash만 승격 권한 경로에 기록합니다. 등록만으로 지문 승격·Gold-S·조판·게시가 실행되지는 않습니다. 주문을 바꾸면 새 revision으로 다시 등록해야 합니다.',
         '구조 참고 API(`/api/admin/csat/structural-planning`)는 Product Order를 받은 뒤 현재 외부 증거를 다시 확인해 선택/무시 기록만 돌려준다. 이 화면의 발주 명령이나 학년·난도·Gold-S 판정은 자동으로 바뀌지 않는다. 외부 corpus 경로가 설정되지 않았거나 해시가 바뀌면 503으로 중단한다.',
         'Product Order 등록 버튼은 DB에 주문 revision을 기록한다. 기존 권별 계획의 조판·드레인 명령은 여전히 복사해 터미널에서 별도로 실행한다. 등록 실패 시 원본 문서를 고친 뒤 재시도하고, 등록 뒤 문서를 바꾸면 새 revision으로 봉인한다.',
