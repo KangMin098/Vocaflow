@@ -135,7 +135,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                             {c.label} →
                           </a>
                         ))}
-                        {data.practiceResults?.[t.id] && data.practiceResults[t.id].attempts > 0 && <PracticeResultLine r={data.practiceResults[t.id]} />}
+                        {data.practiceResults?.[t.id] && data.practiceResults[t.id].attempts > 0 && <PracticeResultLine r={data.practiceResults[t.id]} practiceHref={data.practiceNext?.[t.id] ?? null} />}
                       </span>
                     </li>
                   )
@@ -189,7 +189,9 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
 }
 
 /** 결과 환류 — 연결된 실행 과제를 내가 어떻게 했는지. 실력 판정이 아니라 「이번 확인의 결과」로만 말한다 */
-function PracticeResultLine({ r }: { r: PracticeResult }) {
+const NEXT_LINK = { minHeight: 44, display: 'inline-flex', alignItems: 'center', textDecoration: 'underline' } as const
+
+function PracticeResultLine({ r, practiceHref }: { r: PracticeResult; practiceHref: string | null }) {
   const word = (v: boolean | null) => (v === null ? '판정 없음' : v ? '맞았어요' : '다시 볼 곳이 있었어요')
   return (
     <span className={l.taskMeta} style={{ display: 'grid', gap: 2 }} data-testid="find-practice-result" data-next={r.next} data-attempts={r.attempts}>
@@ -208,6 +210,13 @@ function PracticeResultLine({ r }: { r: PracticeResult }) {
             : '다음: 이 확인은 마쳤어요. 위 체크를 표시하고 다음 확인으로 넘어가요.'}
         {' '}이번 확인의 결과일 뿐, 이 힘이 생겼다는 판정은 아니에요.
       </span>
+      {/* 학습 순환의 다음 칸 — 이 문항을 마쳤으면 다른 지문에 적용(Practice), 적용도 했으면 새 기출 기록으로 목표 대비 변화를 본다 */}
+      {r.next === 'move_on' && practiceHref && !r.transfer && (
+        <a href={practiceHref} style={NEXT_LINK} data-testid="find-next-practice">같은 원리를 다른 지문에 적용해 보기 →</a>
+      )}
+      {r.next === 'move_on' && r.transfer && (
+        <a href="/csat/diagnosis?tab=records&modal=new" style={NEXT_LINK} data-testid="find-next-reassess">새 기출을 풀고 기록해 목표 대비 변화 보기 →</a>
+      )}
     </span>
   )
 }
