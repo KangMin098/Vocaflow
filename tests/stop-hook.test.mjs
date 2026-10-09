@@ -216,3 +216,10 @@ test('SH12b 최종 리뷰 실패는 얼리지 않는다 — 같은 head 에서 �
   assert.equal(again.verdict, VERDICT.PASS)
   assert.equal(h.calls.at(-1).kind, 'final')
 })
+
+test('SH6d 최종 리뷰 실측 문장 「No remaining P0/P1 defects were confirmed」 = PASS', () => {
+  for (const out of ['No remaining P0/P1 defects were confirmed in the scoped files.', 'No remaining P0/P1 defects were identified in the scoped changes.']) {
+    const h = harness({ reviews: [out] })
+    assert.equal(h.stop().verdict, VERDICT.PASS, out)
+  }
+})

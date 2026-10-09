@@ -25,8 +25,9 @@ import path from 'node:path'
 export const VERDICT = { PASS: 'REVIEW_PASS', BLOCKED: 'REVIEW_BLOCKED', UNKNOWN: 'REVIEW_UNKNOWN' }
 export const DEFAULTS = { maxFixRounds: 3, filesPerChunk: 8, maxChunks: 4 }
 
-// codex exec 는 NO_FINDINGS, codex review 는 「No concrete defect(s)… identified/evident」 같은 문장으로 깨끗함을 말한다(실측 2026-10-09)
-export const NO_FINDINGS_RE = /^\s*NO_FINDINGS\s*$|\bno (?:concrete |blocking |actionable )?(?:defects?|findings|issues|bugs)\b(?:[^.\n]*\b(?:identified|evident|found|detected))?/im
+// codex exec 는 NO_FINDINGS, codex review 는 「No concrete defect(s)… identified/evident」 · 최종 리뷰는 「No remaining P0/P1 defects were confirmed」
+// 같은 문장으로 깨끗함을 말한다(실측 2026-10-09 · 두 번째 형식을 못 읽어 최종 리뷰가 UNKNOWN 이 됐다)
+export const NO_FINDINGS_RE = /^\s*NO_FINDINGS\s*$|\bno (?:remaining )?(?:concrete |blocking |actionable )?(?:P0\s*\/\s*P1 |P[01] )?(?:defects?|findings|issues|bugs)\b(?:[^.\n]*\b(?:identified|evident|found|detected|confirmed))?/im
 
 const sha1 = (s) => createHash('sha1').update(String(s)).digest('hex')
 
