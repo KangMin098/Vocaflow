@@ -36,17 +36,14 @@
 
 | 단계 | 누가 | 무엇 | 검증 |
 |---|---|---|---|
-| 요청 | AI-Control |  — thread 요청서(goal_ref·thread_id·round_id·design_version·base_commit·context_base_commit) + Context Packet | 같은 목표에 대기 중 요청이 있으면 새 요청 거부 · 재질의 예산 |
-| 게시 |  | 브랜치  ·  · (패킷만 — 다른 로컬 파일 금지) · 라벨  PR | 같은 요청 재게시 거부(bridge-log) |
-| 실행 | **Work(미실측)** | PR 이벤트로 시작 → 요청서·패킷 읽기 →  블록 하나를 PR 댓글로 | 미실측 |
-| 수집 |  | PR 댓글· 에서 블록 하나 → (.part→rename) | 요청 id 일치 · 작성자 제한(--authors) · 중복 수집 차단 |
-| 인수 |  | 기존 판정 그대로 | schema·thread·목표·라운드·설계 버전·중복·승인 경계 |
-| 재개 | 사용자 승인 →  | 설계 쟁점으로 멈춘 작업 자동 READY → 오케스트레이터 | 승인은 사용자만 |
+| 요청 | AI-Control | `vfc ugoal request-design` — thread 요청서(goal_ref·thread_id·round_id·design_version·base_commit·context_base_commit) + Context Packet | 같은 목표에 대기 중 요청이 있으면 새 요청 거부 · 재질의 예산 |
+| 게시 | `work-bridge publish` | 브랜치 `vfc/<REQ>` · `requests/<REQ>.md` · `requests/<REQ>.context/*`(패킷만 — 다른 로컬 파일 금지) · 라벨 `vfc-request` PR | 같은 요청 재게시 거부(bridge-log) |
+| 실행 | **Work(미실측)** | PR 이벤트로 시작 → 요청서·패킷 읽기 → `vfc-response` 블록 하나를 PR 댓글로 | 미실측 |
+| 수집 | `work-bridge collect` | PR 댓글·`responses/<REQ>.response.md` 에서 블록 하나 → `planning/responses/`(.part→rename) | 요청 id 일치 · 작성자 제한(--authors) · 중복 수집 차단 |
+| 인수 | `vfc ugoal intake` | 기존 판정 그대로 | schema·thread·목표·라운드·설계 버전·중복·승인 경계 |
+| 재개 | 사용자 승인 → `vfc ugoal approve` | 설계 쟁점으로 멈춘 작업 자동 READY → 오케스트레이터 | 승인은 사용자만 |
 
-턴 시간: 
-ode poc/work-bridge.mjs publish <REQ-id> --repo owner/exchange [--dry-run]
-node poc/work-bridge.mjs collect --repo owner/exchange [--authors a,b] [--dry-run]
-node poc/work-bridge.mjs status — published · Work 댓글 시각 · collected → Work 대기·수집 지연. 구현·리뷰 시간은 .
+턴 시간: `node poc/work-bridge.mjs status` — published · Work 댓글 시각 · collected → Work 대기·수집 지연. 구현·리뷰 시간은 `vfc perf report`.
 
 ### 저장소 없이 검증한 것 (가짜 gh + 모의 Work 응답 · tests/bridge.test.mjs — 실제 Work 근거 아님)
 
