@@ -1,7 +1,7 @@
 // packages/library-pipeline/src/textbook/product-planning.test.ts
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
-import { buildProductOrderFromBrief, planProductBrief } from './product-planning'
+import { buildProductOrderFromBrief, buildStructuredProductOrderDraft, planProductBrief } from './product-planning'
 import { PRODUCT_FAMILIES } from './academic-reading'
 
 const brief = () => ({
@@ -85,5 +85,27 @@ describe('product planning', () => {
     expect(() => buildProductOrderFromBrief(brief(), 'middle_2', {
       ...shell, target: { ...shell.target, family: 'P03' },
     })).toThrow('TARGET_DIFFERS_FROM_PLAN')
+  })
+
+  it('builds a policy-backed order from structured admin fields and rejects stale planning', () => {
+    const policy = (version: string, digit: string) => ({ version, hash: digit.repeat(64) })
+    const input = {
+      brief: brief(), plan_hash: planProductBrief(brief()).plan_hash, grade: 'middle_2',
+      product_order_id: 'admin-m2', order_revision: 1, series_id: 'relation', edition_id: 'first',
+      product_variant: 'standard', language_band: 'middle', passage_v_level: 6, share_alike: false,
+      unit_spec_version: 'unit-v1', chapter_spec_version: 'chapter-v1', volume_spec_version: 'volume-v1',
+      layout_profile: 'reading-v1', policies: {
+        source: policy('source-v1', '1'), rights: policy('rights-v1', '2'),
+        adaptation: policy('adapt-v1', '3'), benchmark: policy('benchmark-v1', '4'),
+        evidence: policy('evidence-v1', '5'), trust: policy('trust-v1', '6'),
+      },
+    }
+    const result = buildStructuredProductOrderDraft(input, '2026-10-09T00:00:00Z')
+    expect(result.order.planning_hash).toBe(input.plan_hash)
+    expect(result.order.product_family).toBe('P09')
+    expect(result.order.target.words).toEqual({ min: 180, max: 260 })
+    expect(() => buildStructuredProductOrderDraft({ ...input, plan_hash: '0'.repeat(64) }, '2026-10-09T00:00:00Z')).toThrow('PRODUCT_PLAN_STALE')
+    expect(() => buildStructuredProductOrderDraft({ ...input, grade: 'high_1' }, '2026-10-09T00:00:00Z')).toThrow('GRADE_OUTSIDE_PLAN')
+    expect(() => buildStructuredProductOrderDraft({ ...input, policies: { ...input.policies, rights: policy('rights-v1', '') } }, '2026-10-09T00:00:00Z')).toThrow()
   })
 })

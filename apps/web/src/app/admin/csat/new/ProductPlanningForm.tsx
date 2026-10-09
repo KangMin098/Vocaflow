@@ -27,7 +27,7 @@ type PlanningResult = {
     chapters: { chapter: number; from_day: number; to_day: number }[] }
 }
 
-export function ProductPlanningForm() {
+export function ProductPlanningForm({ onPlanReady }: { onPlanReady?: (value: { brief: unknown; plan_hash: string } | null) => void }) {
   const requestGeneration = useRef(0)
   const [families, setFamilies] = useState<Record<string, { name: string; state: string }>>({})
   const [familyOverride, setFamilyOverride] = useState('')
@@ -65,6 +65,7 @@ export function ProductPlanningForm() {
     requestGeneration.current += 1
     setResult(null)
     setPending(false)
+    onPlanReady?.(null)
   }
 
   function toggle(value: string, current: string[], update: (next: string[]) => void) {
@@ -99,7 +100,10 @@ export function ProductPlanningForm() {
         return
       }
       const next = await response.json() as PlanningResult
-      if (generation === requestGeneration.current) setResult(next)
+      if (generation === requestGeneration.current) {
+        setResult(next)
+        onPlanReady?.({ brief, plan_hash: next.plan_hash })
+      }
     } catch { if (generation === requestGeneration.current) setError('기획 요청을 완료하지 못했습니다. 연결 상태를 확인하세요.') }
     finally { if (generation === requestGeneration.current) setPending(false) }
   }

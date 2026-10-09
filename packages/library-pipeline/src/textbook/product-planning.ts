@@ -157,6 +157,62 @@ export function buildProductOrderFromBrief(
   return { ...sealProductOrder(order), planning_hash: plan_hash }
 }
 
+const policyReference = z.object({ version: z.string().trim().min(1), hash: z.string().regex(/^[a-f0-9]{64}$/) }).strict()
+export const structuredOrderDraftSchema = z.object({
+  brief: productBriefSchema,
+  plan_hash: z.string().regex(/^[a-f0-9]{64}$/),
+  grade: z.enum(PRODUCT_GRADES),
+  product_order_id: z.string().trim().min(1), order_revision: z.number().int().positive(),
+  series_id: z.string().trim().min(1), edition_id: z.string().trim().min(1),
+  product_variant: z.string().trim().min(1),
+  language_band: z.enum(['elementary', 'middle', 'high', 'exam']),
+  passage_v_level: z.number().int().min(0).max(11),
+  share_alike: z.boolean(),
+  unit_spec_version: z.string().trim().min(1),
+  chapter_spec_version: z.string().trim().min(1),
+  volume_spec_version: z.string().trim().min(1),
+  layout_profile: z.string().trim().min(1),
+  policies: z.object({
+    source: policyReference, rights: policyReference, adaptation: policyReference,
+    benchmark: policyReference, evidence: policyReference, trust: policyReference,
+  }).strict(),
+}).strict()
+
+/** The operator supplies real policy references; the planner owns all curricular fields. */
+export function buildStructuredProductOrderDraft(input: unknown, timestamp: string) {
+  const draft = structuredOrderDraftSchema.parse(input)
+  const planned = planProductBrief(draft.brief)
+  if (draft.plan_hash !== planned.plan_hash) throw new Error('PRODUCT_PLAN_STALE')
+  const ageBand: ProductOrder['grade_target'] = draft.grade === 'elementary_5' || draft.grade === 'elementary_6'
+    ? 'upper_elementary' : draft.grade
+  const shell: Omit<ProductOrder, PlannedFields> = {
+    schema: 'textbook-product-order/1',
+    product_order_id: draft.product_order_id, order_revision: draft.order_revision,
+    series_id: draft.series_id, edition_id: draft.edition_id,
+    product_variant: draft.product_variant,
+    target: {
+      family: planned.plan.product_family, age_band: ageBand,
+      language_band: draft.language_band, reasoning_band: ageBand,
+      passage_v_level: draft.passage_v_level, skills: planned.plan.skill_mix,
+      exam: 'none', words: {
+        min: draft.brief.passage_words.start, max: draft.brief.passage_words.end,
+      }, share_alike: draft.share_alike, resources: [],
+    },
+    exam_alignment: [],
+    source_policy_version: draft.policies.source.version, source_policy_hash: draft.policies.source.hash,
+    rights_policy_version: draft.policies.rights.version, rights_policy_hash: draft.policies.rights.hash,
+    adaptation_policy_version: draft.policies.adaptation.version, adaptation_policy_hash: draft.policies.adaptation.hash,
+    benchmark_contract_version: draft.policies.benchmark.version,
+    benchmark_contract_hash: draft.policies.benchmark.hash,
+    evidence_policy_version: draft.policies.evidence.version, evidence_policy_hash: draft.policies.evidence.hash,
+    trust_policy_version: draft.policies.trust.version, trust_policy_hash: draft.policies.trust.hash,
+    unit_spec_version: draft.unit_spec_version, chapter_spec_version: draft.chapter_spec_version,
+    volume_spec_version: draft.volume_spec_version, layout_profile: draft.layout_profile,
+    created_at: timestamp, sealed_at: timestamp,
+  }
+  return buildProductOrderFromBrief(draft.brief, draft.grade, shell)
+}
+
 const fulfilledUnitSchema = z.object({
   day: z.number().int().positive(), grade: z.enum(PRODUCT_GRADES),
   product_order_id: z.string().min(1), order_revision: z.number().int().positive(),

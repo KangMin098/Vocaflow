@@ -236,6 +236,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/csat/details` | `admin/csat/details/page.tsx` + `FactoryLineClient.tsx` + `FactoryLineDiagram.tsx` (+ `layout.tsx` 제목만) | **숫자로 자세히 — 운영자용 공정 현황판**(2026-09-24 에 `/admin/csat` 에서 내려옴). 시중 제작 공정 8칸(기출 원천·기획·설계·소재·집필·해설·검수·조판)을 **라인 도식 하나**로 그린다 — 상태는 색+모양+글자, 병목 뒤 연결선은 점선. **한 번에 한 칸만** 펼쳐 실측 눈금·게이트·**복사 가능한 다음 명령**을 낸다(기본 = 병목). 조작 버튼은 없다(생성은 Claude Code 드레인) |
 | `/admin/csat/new` | `admin/csat/new/page.tsx` + `ProductPlanningForm.tsx` + `OrderWizard.tsx` + `OrderTracePanel.tsx` (모델 `lib/csat/order-model.ts` · 실측 `lib/csat/order-view.ts`) | 학년·목적·P01~P20 제품 유형·영역·분량에서 기획 hash와 장/단원 학습 순서의 제안을 만든다. 기존 재고 기반 네 걸음 및 관리자 Product Order JSON 등록은 별도다. 등록 주문 ID로 현재 확인 가능한 승격·문항·검수 상태와 차단 이유를 조회하며 미조회 공정은 미측정으로 표시한다. 기획만으로 주문 등록·승격·조판하지 않는다. |
 | `GET/POST /api/admin/csat/product-plan` | `api/admin/csat/product-plan/route.ts` | 관리자/큐레이터 세션의 `GET`은 P01~P20의 보수적인 실제 지원 상태를, `POST`는 구조화된 product brief의 재현 가능한 기획안·hash와 해당 제품군의 실제 지원 상태를 반환한다. DB 변경 없음. |
+| `POST /api/admin/csat/product-order-draft` | `api/admin/csat/product-order-draft/route.ts` | 관리자 세션에서 기획안 hash·학년·주문 식별자와 운영자 입력 정책 참조의 형식을 검증해 봉인된 Product Order 초안을 반환한다. 정책의 현재성은 이후 승격 gate가 재검증한다. DB 변경 없음. |
 | `GET /api/admin/csat/order-trace?order_id=` | `api/admin/csat/order-trace/route.ts` · `lib/csat/order-trace.ts` | 관리자 세션에서 등록 주문·승격 감사·현재 authority/권리·ready·문항·해설·검수를 읽기 전용 재조회한다. 조회 실패는 503, 구분 불가능한 단원/권/조판/게시는 미측정이다. 과거 hash 기록을 현재 Gold-S/seed 인증으로 주장하지 않는다. |
 | `/admin/csat/catalog` | `admin/csat/catalog/page.tsx` + `SeriesShelf.tsx` | **카탈로그 — 「어떤 시리즈를 파나」.** 행이 시리즈, 열이 학령이고 **한 칸이 한 권**(60문항). 2026-09-06 에 (유형 × 학령) 42칸 격자에서 바꿨다 — 시장이 파는 단위가 시리즈라서다(코퍼스 실측 22개). 행마다 조판기가 실제로 찍는 표지를 건다. 안 만드는 셋(기출·내신·개인 맞춤)은 칸이 아니라 이유로 |
 | `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `EvidenceConsole.tsx` · `EvidenceInspector.tsx` · `EvidenceMatrix.tsx` | 기출 운영: 운영 현황 → 작업 큐 → 문항 탐색·검토 패널. 실제 학습 후보 판정과 원천 결함을 구분하고 영향·우선순위·조치·재검증 연결. URL `view/status/issue/stage/q/sort/page/item/matrix`와 기존 8축·`row/col/m` 유지. 같은 축 교차 셀은 `cellAxis/cellRow/cellCol`로 AND 조건 보존. 전체 MD/JSON과 선택 대상 작업 묶음 내보내기 |
@@ -458,7 +459,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `POST …/seed` · `GET …/seed-list` | seed_catalog 적재·조회 |
 | `POST …/bulk-requeue` | 선택분 큐 재투입 |
 | `POST …/force-publish` | 검수 건너뛰고 발행; reading: adaptation children return 409 |
-| `POST …/reading-promotion` | 실제 활성 admin 세션 전용. `register-order-document`/`register-authority`/`approve` RPC만 호출한다. 개발용 admin bypass와 curator는 거부하고 service_role을 사용하지 않는다. 개발 DB에는 migration이 적용됐으나 실제 authority·order 등록은 0건이다. `/admin/csat/new`에서 완전한 Product Order JSON 등록 화면을 제공한다. |
+| `POST …/reading-promotion` | 실제 활성 admin 세션 전용. `register-order-document`/`register-authority`/`approve` RPC만 호출한다. 개발용 admin bypass와 curator는 거부하고 service_role을 사용하지 않는다. 개발 DB에는 migration이 적용됐으나 실제 authority·order 등록은 0건이다. `/admin/csat/new`에서는 기획안에서 구조화된 주문 초안을 봉인한 뒤 이 경로로 등록한다. |
 | `POST …/revert` | 발행 되돌리기 |
 | `POST …/delete` | 삭제 (+ seed unlock) |
 

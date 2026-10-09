@@ -137,7 +137,7 @@ export const CSAT_HELP: HelpRegistry = {
         },
         {
           title: 'Product Order 등록',
-          detail: 'Product Order JSON을 검증·등록한다. 주문 ID·revision·hash를 승격 증거와 대조한다.',
+          detail: '기획안을 만든 뒤 주문 식별자·규격과 실제 정책 버전/hash를 입력한다. 서버가 같은 기획 hash로 주문 초안을 봉인한다. 초안 hash를 확인한 후 별도 버튼으로 등록한다.',
           done: '주문 ID·revision·hash가 표시된다. 등록만으로 콘텐츠가 승격되지는 않는다.',
         },
         {
@@ -175,8 +175,8 @@ export const CSAT_HELP: HelpRegistry = {
           detail: '하나 이상의 학년과 영역·글 유형을 선택한다. 연속 학년은 범위로, 떨어진 학년은 복수 학년 조합으로 계산한다. 기간에 맞춰 단원별 배분을 제안하며 실제 교재 적합성 판정은 하지 않는다.',
         },
         {
-          label: 'Product Order JSON',
-          detail: '정본 주문 문서 전체를 입력한다. 잘못된 JSON, 제품·학년·타겟 혼합, 미지원 capability는 DB 호출 전에 거부된다. 문서 자체는 DB에 저장되지 않으므로 등록한 원본을 별도로 보존한다.',
+          label: '주문 식별자·정책 참조',
+          detail: '기획안의 학년 하나를 선택하고 시리즈·판본·규격과 원천/권리/각색/benchmark/증거/신뢰 정책의 실제 버전·SHA-256을 입력한다. 누락, 오래된 기획 hash, 제품·학년 혼합, 미지원 제품은 DB 등록 전에 거부된다. DB에는 주문 ID·revision·hash만 저장하므로 봉인된 원본 문서는 별도로 보존해야 한다.',
         },
         {
           label: 'Product Order ID',
@@ -200,10 +200,10 @@ export const CSAT_HELP: HelpRegistry = {
       ],
       cautions: [
         '기획안은 Product Order·권리·benchmark·Gold-S·생산 증거가 아닙니다. 기획안을 바꾸면 별도 주문의 planning hash도 새로 봉인해야 하며 기존 주문에 조용히 적용되지 않습니다.',
-        'Product Order 등록은 완전한 JSON 문서를 서버에서 검증하고 주문 ID·revision·hash만 승격 권한 경로에 기록합니다. 등록만으로 지문 승격·Gold-S·조판·게시가 실행되지는 않습니다. 주문을 바꾸면 새 revision으로 다시 등록해야 합니다.',
+        '주문 초안은 기획 hash·타겟·정책 참조 형식만 검증합니다. 등록은 주문 ID·revision·hash만 기록하며 승격·Gold-S·조판·게시나 정책 현재성을 보증하지 않습니다. 주문을 바꾸면 새 revision으로 봉인합니다.',
         '주문별 생산 상태의 “기록 확인”은 해당 DB 기록을 읽었다는 뜻입니다. 최신 권리·인증·조판 가능성을 한꺼번에 승인한다는 뜻이 아닙니다. 현재 조회할 수 없는 공정은 미측정으로 유지합니다.',
         '구조 참고 API(`/api/admin/csat/structural-planning`)는 Product Order를 받은 뒤 현재 외부 증거를 다시 확인해 선택/무시 기록만 돌려준다. 이 화면의 발주 명령이나 학년·난도·Gold-S 판정은 자동으로 바뀌지 않는다. 외부 corpus 경로가 설정되지 않았거나 해시가 바뀌면 503으로 중단한다.',
-        'Product Order 등록 버튼은 DB에 주문 revision을 기록한다. 기존 권별 계획의 조판·드레인 명령은 여전히 복사해 터미널에서 별도로 실행한다. 등록 실패 시 원본 문서를 고친 뒤 재시도하고, 등록 뒤 문서를 바꾸면 새 revision으로 봉인한다.',
+        'Product Order 등록 버튼은 DB에 주문 revision을 기록한다. 기존 권별 계획의 조판·드레인 명령은 여전히 복사해 터미널에서 별도로 실행한다. 등록 실패 시 기획·정책 참조를 검토해 초안을 다시 봉인하고, 등록 뒤 변경은 새 revision으로 분기한다.',
         '조판(render-volume.mjs)은 **재실행 안전**이다 — 조판 기록은 (시리즈, 단) 한 행을 덮어쓰므로 몇 번을 돌려도 행이 안 늘고 마지막 조판이 정본이 된다. HTML 출력 파일은 덮어쓴다.',
         '④ 의 채우기 명령 중 --commit 이 붙은 것은 **DB 에 쓴다.** 붙지 않은 것은 청크 파일만 만든다(읽기).',
       ],
