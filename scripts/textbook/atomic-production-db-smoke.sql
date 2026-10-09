@@ -172,7 +172,19 @@ BEGIN
   PERFORM set_config('request.jwt.claim.sub',v_admin::text,true);
   PERFORM public.register_reading_production_group(v_group,1,v_sections,v_group_document,v_evidence_document);
   PERFORM set_config('request.jwt.claim.role','service_role',true);
+  v_result := public.read_reading_order_production_trace(v_order);
+  IF v_result->>'status' <> 'registered_unverified' OR v_result->>'group_id' <> v_group THEN
+    RAISE EXCEPTION 'production group observation failed'; END IF;
+  UPDATE public.reading_product_order_revision SET order_revision=2 WHERE order_id=v_order;
+  v_result := public.read_reading_order_production_trace(v_order);
+  IF v_result->>'status' <> 'registered_stale' THEN
+    RAISE EXCEPTION 'stale registered order observed as current'; END IF;
+  UPDATE public.reading_product_order_revision SET order_revision=1 WHERE order_id=v_order;
   v_capture := public.capture_reading_production_snapshot(v_group);
+  v_result := public.read_reading_order_production_trace(v_order);
+  IF v_result->>'status' <> 'captured_current' OR
+     v_result->>'snapshot_id' <> v_capture->>'snapshot_id' THEN
+    RAISE EXCEPTION 'captured production observation failed'; END IF;
   IF v_capture->'evidence'->'sections'->0->>'article_id' <> v_child.id::text THEN
     RAISE EXCEPTION 'atomic capture mixed article';
   END IF;
@@ -247,6 +259,9 @@ BEGIN
   v_result := public.finalize_reading_production_snapshot((v_capture->>'snapshot_id')::uuid,
     v_capture->>'snapshot_hash',v_output_hash);
   IF v_result->>'status' <> 'rendered_unpublished' THEN RAISE EXCEPTION 'finalization failed'; END IF;
+  v_result := public.read_reading_order_production_trace(v_order);
+  IF v_result->>'status' <> 'rendered_current' OR v_result->>'output_hash' <> v_output_hash THEN
+    RAISE EXCEPTION 'rendered production observation failed'; END IF;
   BEGIN
     PERFORM public.finalize_reading_production_snapshot((v_capture->>'snapshot_id')::uuid,
       v_capture->>'snapshot_hash',v_output_hash);
@@ -262,7 +277,19 @@ BEGIN
   IF v_result->>'status' <> 'published_current' THEN RAISE EXCEPTION 'publication failed'; END IF;
   v_result := public.serve_reading_production_artifact((v_capture->>'snapshot_id')::uuid);
   IF v_result->>'html' <> v_output THEN RAISE EXCEPTION 'serve output mismatch'; END IF;
+  v_result := public.read_reading_order_production_trace(v_order);
+  IF v_result->>'status' <> 'published_current' THEN
+    RAISE EXCEPTION 'published production observation failed'; END IF;
+  UPDATE public.reading_production_group SET approved_snapshot_id=NULL WHERE group_id=v_group;
+  v_result := public.read_reading_order_production_trace(v_order);
+  IF v_result->>'status' <> 'stale' THEN
+    RAISE EXCEPTION 'detached publication approval observed as current'; END IF;
+  UPDATE public.reading_production_group SET approved_snapshot_id=(v_capture->>'snapshot_id')::uuid
+    WHERE group_id=v_group;
   UPDATE public.reading_promotion_authority SET revoked_certificate_hashes=ARRAY[v_cert] WHERE singleton=true;
+  v_result := public.read_reading_order_production_trace(v_order);
+  IF v_result->>'status' <> 'unmeasured' THEN
+    RAISE EXCEPTION 'revoked production observation unexpectedly current'; END IF;
   BEGIN
     PERFORM public.serve_reading_production_artifact((v_capture->>'snapshot_id')::uuid);
     RAISE EXCEPTION 'revoked certificate unexpectedly served';
@@ -274,6 +301,10 @@ BEGIN
   BEGIN
     PERFORM public.capture_reading_production_snapshot('nonexistent-atomic-smoke');
     RAISE EXCEPTION 'anon unexpectedly invoked production capture';
+  EXCEPTION WHEN insufficient_privilege THEN NULL; END;
+  BEGIN
+    PERFORM public.read_reading_order_production_trace('nonexistent-atomic-smoke');
+    RAISE EXCEPTION 'anon unexpectedly invoked production observation';
   EXCEPTION WHEN insufficient_privilege THEN NULL; END;
 END $role_smoke$;
 RESET ROLE;

@@ -2,9 +2,10 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import type { OrderTraceEntry } from '@/lib/csat/order-trace'
+import type { OrderProductionTrace, OrderTraceEntry } from '@/lib/csat/order-trace'
 
-type Trace = { order_id: string | null; order_revision: number | null; entries: OrderTraceEntry[]; blocker: string | null }
+type Trace = { order_id: string | null; order_revision: number | null; entries: OrderTraceEntry[];
+  blocker: string | null; production?: OrderProductionTrace }
 
 const stageNames: Record<OrderTraceEntry['stage'], string> = {
   candidate: '후보', adaptation: '각색', benchmark: '비교 기준', gold_s: 'Gold-S',
@@ -57,6 +58,14 @@ export function OrderTracePanel() {
       <p role="status" className="break-keep text-[13px] text-[var(--t1)]">{trace.order_id
         ? `주문 ${trace.order_id} · revision ${trace.order_revision} · 현재 차단/보류: ${trace.blocker ?? '없음'}`
         : trace.blocker}</p>
+      {trace.production?.group_id ? <p className="mt-2 break-keep text-[12px] text-[var(--t2)]">
+        생산 그룹 {trace.production.group_id} · revision {trace.production.group_revision} · {trace.production.status}
+      </p> : null}
+      {trace.production?.status === 'published_current' && trace.production.snapshot_id ?
+        <a href={`/api/admin/csat/production/${encodeURIComponent(trace.production.snapshot_id)}`}
+          className="mt-2 inline-block min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-3 text-[12px] font-[700] text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]">
+          현재 증거로 확인된 조판물 받기
+        </a> : null}
       <ol className="mt-3 grid gap-2 lg:grid-cols-2">{trace.entries.map(entry =>
         <li key={entry.stage} className="rounded-[var(--r-sm)] border border-[var(--bd)] p-3 text-[12px]">
           <div className="flex items-center justify-between gap-2"><strong className="text-[var(--t1)]">{stageNames[entry.stage]}</strong>

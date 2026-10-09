@@ -9,6 +9,38 @@ export const ORDER_TRACE_STAGES = [
 export type OrderTraceStage = (typeof ORDER_TRACE_STAGES)[number]
 export type OrderTraceState = 'observed' | 'hold' | 'stale' | 'blocked' | 'unmeasured'
 export type OrderTraceEntry = { stage: OrderTraceStage; state: OrderTraceState; reason: string }
+const productionStatuses = ['not_registered', 'registered_unverified', 'registered_stale', 'captured_current',
+  'rendered_current', 'published_current', 'stale', 'unmeasured'] as const
+export type OrderProductionTrace = {
+  status: (typeof productionStatuses)[number]
+  group_id?: string; group_revision?: number; snapshot_id?: string
+  snapshot_hash?: string; output_hash?: string | null
+}
+const hex = (value: unknown): value is string => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
+const uuid = (value: unknown): value is string => typeof value === 'string' &&
+  /^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(value)
+export function parseOrderProductionTrace(value: unknown): OrderProductionTrace | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null
+  const row = value as Record<string, unknown>
+  if (Object.keys(row).some(key => !['status', 'group_id', 'group_revision',
+    'snapshot_id', 'snapshot_hash', 'output_hash'].includes(key)) ||
+    !productionStatuses.some(status => status === row.status)) return null
+  const status = row.status as OrderProductionTrace['status']
+  if (status === 'not_registered') return Object.keys(row).length === 1 ? { status } : null
+  if (typeof row.group_id !== 'string' || !row.group_id.trim() ||
+      !Number.isInteger(row.group_revision) || Number(row.group_revision) < 1) return null
+  const result: OrderProductionTrace = { status, group_id: row.group_id,
+    group_revision: row.group_revision as number }
+  if (status === 'registered_unverified' || status === 'registered_stale')
+    return Object.keys(row).length === 3 ? result : null
+  if (!uuid(row.snapshot_id) || !hex(row.snapshot_hash) ||
+    (row.output_hash !== null && row.output_hash !== undefined && !hex(row.output_hash))) return null
+  result.snapshot_id = row.snapshot_id
+  result.snapshot_hash = row.snapshot_hash
+  if (row.output_hash !== undefined) result.output_hash = row.output_hash as string | null
+  if (['rendered_current', 'published_current'].includes(status) && !hex(row.output_hash)) return null
+  return result
+}
 
 type OrderRow = { order_id: string; order_revision: number; order_hash: string }
 type AuditRow = {
@@ -41,6 +73,7 @@ export function deriveOrderTrace(input: {
   order: OrderRow | null; audits: AuditRow[]; authority: AuthorityRow | null
   article: ArticleRow | null; source: SourceRow | null; items: ItemRow[] | null
   itemStates: ItemStateRow[] | null; reviews: ReviewRow[] | null; now: string
+  production?: OrderProductionTrace | null
 }): { order_id: string | null; order_revision: number | null; entries: OrderTraceEntry[]; blocker: string | null } {
   const entries = ORDER_TRACE_STAGES.map(stage => ({
     stage, state: 'unmeasured' as OrderTraceState, reason: '이 주문의 현재 증거를 조회할 수 없습니다.',
@@ -164,6 +197,35 @@ export function deriveOrderTrace(input: {
   })
   set('editorial', allReviewed ? 'observed' : 'hold',
     allReviewed ? '각 문항의 현재 digest에 독립 검수 3종이 결속돼 있습니다.' : '현재 문항 digest에 대한 검수 3종이 미완료입니다.')
+  if (!allReviewed) return { order_id: order.order_id, order_revision: order.order_revision, entries,
+    blocker: 'EDITORIAL_PENDING' }
+  const production = input.production
+  if (!production) return { order_id: order.order_id, order_revision: order.order_revision, entries,
+    blocker: 'DOWNSTREAM_UNMEASURED' }
+  if (production.status === 'stale' || production.status === 'registered_stale') {
+    for (const stage of ['unit', 'volume', 'rendered', 'published'] as const)
+      set(stage, 'stale', '현재 DB 증거와 생산 스냅샷이 일치하지 않습니다.')
+    return { order_id: order.order_id, order_revision: order.order_revision, entries,
+      blocker: 'PRODUCTION_EVIDENCE_STALE' }
+  }
+  if (production.status === 'unmeasured') return { order_id: order.order_id,
+    order_revision: order.order_revision, entries, blocker: 'PRODUCTION_CURRENT_STATE_UNMEASURED' }
+  if (production.status === 'not_registered') return { order_id: order.order_id,
+    order_revision: order.order_revision, entries, blocker: 'PRODUCTION_GROUP_PENDING' }
+  if (production.status === 'registered_unverified') {
+    set('unit', 'hold', '생산 그룹은 등록됐으나 현재 단원 산출물은 아직 확인되지 않았습니다.')
+    return { order_id: order.order_id, order_revision: order.order_revision, entries,
+      blocker: 'PRODUCTION_GROUP_REGISTERED_UNVERIFIED' }
+  }
+  if (production.status === 'captured_current') {
+    set('rendered', 'hold', '현재 증거의 스냅샷이 있으나 조판 출력은 아직 확정되지 않았습니다.')
+    return { order_id: order.order_id, order_revision: order.order_revision, entries,
+      blocker: 'RENDER_PENDING' }
+  }
+  set('rendered', 'observed', '현재 증거에 결속된 조판 출력 hash가 DB에 확정됐습니다.')
+  if (production.status === 'published_current')
+    set('published', 'observed', 'DB에 보관된 HTML과 현재 증거의 hash가 확인됐습니다.')
+  else set('published', 'hold', '현재 조판 출력의 DB 게시가 아직 확인되지 않았습니다.')
   return { order_id: order.order_id, order_revision: order.order_revision, entries,
-    blocker: allReviewed ? 'DOWNSTREAM_UNMEASURED' : 'EDITORIAL_PENDING' }
+    blocker: 'UNIT_VOLUME_UNMEASURED' }
 }

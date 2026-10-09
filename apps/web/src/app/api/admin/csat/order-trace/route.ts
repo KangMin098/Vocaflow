@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { deriveOrderTrace } from '@/lib/csat/order-trace'
+import { deriveOrderTrace, parseOrderProductionTrace } from '@/lib/csat/order-trace'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -63,9 +63,21 @@ export async function GET(request: Request) {
   if (reviewsResult.error || (reviewsResult.data?.length ?? 0) > 300 ||
       itemStatesResult.error || (itemStatesResult.data?.length ?? 0) > 100)
     return NextResponse.json({ error: 'ORDER_TRACE_REVIEWS_UNMEASURED' }, { status: 503 })
-  const trace = deriveOrderTrace({ order, audits: [audit], authority: authorityResult.data,
+  const now = new Date().toISOString()
+  let trace = deriveOrderTrace({ order, audits: [audit], authority: authorityResult.data,
     article: articleResult.data, source: sourceResult.data, items: itemsResult.data ?? [],
     itemStates: itemStatesResult.data ?? [], reviews: reviewsResult.data ?? [],
-    now: new Date().toISOString() })
-  return NextResponse.json(trace, { headers: { 'cache-control': 'no-store' } })
+    now })
+  if (trace.blocker !== 'DOWNSTREAM_UNMEASURED')
+    return NextResponse.json(trace, { headers: { 'cache-control': 'no-store' } })
+  const productionResult = await db.rpc('read_reading_order_production_trace', { p_order_id: orderId })
+  const production = parseOrderProductionTrace(productionResult.data)
+  if (productionResult.error || !production)
+    return NextResponse.json({ error: 'ORDER_PRODUCTION_TRACE_UNAVAILABLE' }, { status: 503 })
+  trace = deriveOrderTrace({ order, audits: [audit], authority: authorityResult.data,
+    article: articleResult.data, source: sourceResult.data, items: itemsResult.data ?? [],
+    itemStates: itemStatesResult.data ?? [], reviews: reviewsResult.data ?? [],
+    now, production })
+  return NextResponse.json({ ...trace, production },
+    { headers: { 'cache-control': 'no-store' } })
 }

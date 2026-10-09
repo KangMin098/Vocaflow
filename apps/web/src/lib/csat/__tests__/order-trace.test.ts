@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { createHash } from 'node:crypto'
 import { canonicalJson, reviewDigest } from '@vocaflow/library-pipeline'
-import { deriveOrderTrace } from '../order-trace'
+import { deriveOrderTrace, parseOrderProductionTrace } from '../order-trace'
 
 const h = (char: string) => char.repeat(64)
 const sha = (value: string) => createHash('sha256').update(value).digest('hex')
@@ -98,5 +98,38 @@ describe('order trace keeps unknown separate from observed evidence', () => {
     const otherOrder = fixture()
     otherOrder.items![0]!.payload.factory_lineage = { product_order_id: 'another-order' }
     expect(deriveOrderTrace(otherOrder).blocker).toBe('ITEM_PENDING')
+  })
+
+  it('reports only DB-observed render/publication and does not invent unit or volume evidence', () => {
+    const input = fixture()
+    input.production = { status: 'not_registered' }
+    expect(deriveOrderTrace(input).blocker).toBe('PRODUCTION_GROUP_PENDING')
+    input.production = { status: 'registered_unverified', group_id: 'group-one', group_revision: 1 }
+    expect(deriveOrderTrace(input).entries.find(row => row.stage === 'unit')?.state).toBe('hold')
+    input.production = { status: 'registered_stale', group_id: 'group-one', group_revision: 1 }
+    expect(deriveOrderTrace(input).entries.find(row => row.stage === 'published')?.state).toBe('stale')
+    input.production = { status: 'captured_current', group_id: 'group-one', group_revision: 1,
+      snapshot_id: '00000000-0000-4000-8000-000000000001', snapshot_hash: h('a') }
+    expect(deriveOrderTrace(input).blocker).toBe('RENDER_PENDING')
+    input.production = { ...input.production, status: 'rendered_current', output_hash: h('b') }
+    expect(deriveOrderTrace(input).entries.find(row => row.stage === 'rendered')?.state).toBe('observed')
+    expect(deriveOrderTrace(input).entries.find(row => row.stage === 'published')?.state).toBe('hold')
+    input.production = { ...input.production, status: 'published_current' }
+    const published = deriveOrderTrace(input)
+    expect(published.entries.find(row => row.stage === 'published')?.state).toBe('observed')
+    expect(published.entries.find(row => row.stage === 'unit')?.state).toBe('unmeasured')
+    expect(published.entries.find(row => row.stage === 'volume')?.state).toBe('unmeasured')
+    input.production = { ...input.production, status: 'stale' }
+    expect(deriveOrderTrace(input).entries.find(row => row.stage === 'published')?.state).toBe('stale')
+  })
+
+  it('rejects malformed production observations before attaching them to an order', () => {
+    expect(parseOrderProductionTrace({ status: 'published_current' })).toBeNull()
+    expect(parseOrderProductionTrace({ status: 'published_current', group_id: 'group-one',
+      group_revision: 1, snapshot_id: '00000000-0000-4000-8000-000000000001', snapshot_hash: h('a'),
+      output_hash: null })).toBeNull()
+    expect(parseOrderProductionTrace({ status: 'not_registered', html: '<p>raw</p>' })).toBeNull()
+    expect(parseOrderProductionTrace({ status: 'registered_stale', group_id: 'group-one',
+      group_revision: 1 })).toEqual({ status: 'registered_stale', group_id: 'group-one', group_revision: 1 })
   })
 })
