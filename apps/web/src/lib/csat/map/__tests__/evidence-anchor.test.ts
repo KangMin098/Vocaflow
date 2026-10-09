@@ -37,13 +37,24 @@ describe('대조 · 무효화', () => {
     expect(a.validationStatus).toBe('legacy_candidate')
     expect(usableForItemEvidence(a, src)).toBe(false)
   })
-  it('validated 로 사람이 올린 뒤에만 문항 근거로 쓴다', () => {
-    expect(usableForItemEvidence({ ...a, validationStatus: 'validated_anchor' }, src)).toBe(true)
+  it('validated 로 올렸어도 정본 단위 id 또는 문자 범위가 있어야 문항 근거로 쓴다(유일 좌표)', () => {
+    expect(usableForItemEvidence({ ...a, validationStatus: 'validated_anchor' }, src)).toBe(false)
+    expect(usableForItemEvidence({ ...a, validationStatus: 'validated_anchor', unitId: 'u-1' }, src)).toBe(true)
+  })
+  it('문장은 그대로여도 주변 문맥 · revision · 판정 revision 이 바뀌면 context_changed(재검토)', () => {
+    const ctx = { ...src, sentences: ['Cats nap a lot.', 'Dogs bark loudly.', 'Birds sing early.'] }
+    expect(checkAnchor(a, ctx)).toEqual({ status: 'context_changed' })
+    expect(checkAnchor(a, { ...src, sourceRevision: 'r2' })).toEqual({ status: 'context_changed' })
+    expect(checkAnchor(a, src, 'j2')).toEqual({ status: 'context_changed' })
+    expect(usableForItemEvidence({ ...a, validationStatus: 'reviewed_anchor', unitId: 'u-1' }, ctx)).toBe(false)
+  })
+  it('프라임 기호는 따옴표로 바꾸지 않는다(단위 · 기호 뜻 보존)', () => {
+    expect(textHash('5\u2032 3\u2033')).not.toBe(textHash('5\' 3"'))
   })
   it('앞에 문장이 끼어 위치가 바뀌면 relocated(재검토 · 자동 승격 아님)', () => {
     const moved = { ...src, sentences: ['New first.', ...src.sentences] }
     expect(checkAnchor(a, moved)).toEqual({ status: 'relocated', index: 2 })
-    expect(usableForItemEvidence({ ...a, validationStatus: 'reviewed_anchor' }, moved)).toBe(false)
+    expect(usableForItemEvidence({ ...a, validationStatus: 'reviewed_anchor', unitId: 'u-1' }, moved)).toBe(false)
   })
   it('같은 문장이 두 번 나오면 ambiguous(보류)', () => {
     const dup = { ...src, sentences: ['Dogs bark loudly.', ...src.sentences] }

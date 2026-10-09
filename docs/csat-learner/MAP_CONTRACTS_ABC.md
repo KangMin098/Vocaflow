@@ -58,7 +58,11 @@
   - 코드북 multiple_plausible 은 primary 를 비운다 → 원인 확정 집계에서 보류다.
   - FIND 는 원인이 아니라 학습 요구를 다루므로, 한 학생이 여러 FIND 에서 `confirmed_need` 를 가질 수 있다(서로 배타가 아니다).
 - **근거 부족**:
-  - A0 · A1 은 판정하지 않는다.
+  - 코드북의 A0 · A1 은 **원인 코드 판정(attempt × 코드)** 을 하지 않는다는 뜻이다. 이것을 축 수준 증거 전체로 넓히지 않는다. EED §9 집계 ② 는 다음 둘을 누적 근거로 인정한다.
+  - 코드 없는 자기보고가 검수에서 accepted 된 것(**영역 확인**)
+  - 독립 blind AI 와 축이 맞는 것(**영역 일치**)
+
+  두 체계를 합치지 않는다.
   - FIND 는 확인 문항 < 2 이면 `in_progress` 다.
   - 대상 문항이 2개 미만이면 `needsMoreItems` 로, 화면에서 「확인 문항을 더 준비 중」으로 둔다.
 - **판정 변경 · 재검토**:
@@ -117,8 +121,8 @@
 | 생애주기 개방(REPAIR · TRANSFER · CHECK) | **아니오**(verified 전) | §14 |
 | 그 단계의 「지금 할 일」 순서 | **예** | `confirmed_need` 인 FIND 과제를 단계 시트 맨 위에 「확인된 학습 요구」로 올린다. `not_needed` 는 아래로 내린다 |
 | 우선 확인 후보(Diagnostic Priority Signal) | **제안**(§D 결정) | `confirmed_need` 를 cause_confirmed 와 같은 칸에 넣지 않는다. 별도 칸 「이 원리 연습 필요」 로 보인다 |
-| 다음 행동 | **예** | confirmed_need → 같은 원리 Practice(다른 지문) · 복습 예약. not_needed → 다음 단계 FIND. mixed · in_progress → 확인 문항 하나 더 |
-| 재평가 | **예**(링크 → 측정) | CHECK(독립 · 미노출 문항)의 첫 시도로 FIND 결과를 다시 계산한다. 새 기출 기록은 관찰(rule_proxy)만 갱신한다 |
+| 다음 행동 | **예** | confirmed_need → **기본은 「직접 진단 대기」**(정본 §14: verified 전에는 FIND 만 연다). 같은 원리 Practice(다른 지문)를 진단 전에 열지는 **결정 D-7**. not_needed → 다음 단계 FIND. mixed · in_progress → 확인 문항 하나 더. 확인 문항이 0개면 「준비 중」 |
+| 재평가 | **결정 D-8** | 지금 `findOutcome` 은 FIND 대상의 practice 첫 시도만 센다. 그래서 첫 두 오답 뒤 CHECK 를 맞혀도 confirmed_need 가 그대로다. CHECK(독립 · 미노출 문항)로 다시 판정하는 단위와, 첫 시도 보존(A-3)을 함께 만족할 규칙이 필요하다. 새 기출 기록은 관찰(rule_proxy)만 갱신한다 |
 
 ### C-2. 계산 위치 · 순수성
 
@@ -134,3 +138,14 @@
 4. **코드북 결과 4종 ↔ EC 판정 4종 대응표 확정**(코드북 L65 「CHECK 확장 마이그레이션 미결」).
 5. **E 코드 이름 버전**(seed v0.1 evidence/choice ↔ 코드북 evidence_location/option_mismatch).
 6. **Anchor 정규화 v1 규칙 승인** · 문장 텍스트 해시를 과제 주석 서명에 추가하는 이관(주석 파일 형식 변경 · DB 무관).
+7. **진단 전 Practice(TRANSFER 성격)를 열 것인가 — 정본 §14 와 이미 머지된 제품 동작이 충돌한다.**
+   - 정본은 처방(REPAIR · TRANSFER · CHECK)을 verified_diagnosis 뒤에만 연다.
+   - 그런데 main 에는 이미 두 동작이 있다.
+     - PR #164: 문항 확인 과제 → 「같은 원리를 다른 기출로 연습하기」
+     - PR #169: 학습 지도 결과 환류의 다음 칸 Practice 링크
+   - 선택지(정하는 것은 사용자):
+     - (a) 정본대로 Practice 링크를 verified 뒤로 미룬다.
+     - (b) FIND 의 확인된 학습 요구를 근거로 「연습」(처방이 아닌 자기 주도 연습)을 허용하도록 정본에 예외를 둔다.
+     - (c) Practice 를 FIND 의 확장(추가 확인 문항)으로 재정의한다.
+   - `find-feedback.ts` 는 기본값을 (a)로 두고, 정책 플래그 `allowPracticeBeforeVerified` 로 결정을 기다린다.
+8. **CHECK 재평가 규칙** — CHECK 첫 시도로 FIND 결과를 갱신하는 단위 · 기간 · 첫 시도 보존 원칙과의 관계.

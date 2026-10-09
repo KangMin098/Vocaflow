@@ -24,6 +24,16 @@ export interface EvidenceAnchor {
   evidenceType: EvidenceType
   /** 문장 단위 좌표 — 위치와 그 문장 텍스트 해시를 함께 */
   unit: { index: number; textHash: string } | null
+  /** 정본 단위 id(csat_item_units) — validated 이상은 이것 또는 신뢰 문자 범위가 필수(정본 §17-2) */
+  unitId?: string | null
+  /** 문자 범위(신뢰할 수 있을 때만) — 같은 문장 안의 밑줄 · 빈칸 · 인용 위치 */
+  charRange?: { start: number; end: number } | null
+  /** anchor_type = option 일 때 선지 번호 */
+  optionNo?: number | null
+  /** 인용 원문 해시 — 원문을 복제하지 않고 대조 */
+  quoteHash?: string | null
+  /** 어디서 왔나(정본 · 정답 근거 분석 · 설계 주석 · 학생 근거 · 사람 태깅) */
+  provenance?: string
   validationStatus: ValidationStatus
   /** 이 앵커를 쓰는 판정 · 채점의 revision — 원문이 바뀌면 다시 계산 대상 */
   judgmentRevision: string
@@ -33,8 +43,9 @@ export interface EvidenceAnchor {
 export function normalizeText(s: string): string {
   return s
     .normalize('NFC')
-    .replace(/[‘’‛′]/g, "'")
-    .replace(/[“”‟″]/g, '"')
+    // 따옴표만 통일한다 — 프라임(′ ″)은 단위 · 기호 뜻이 있어 바꾸지 않는다
+    .replace(/[‘’‛]/g, "'")
+    .replace(/[“”‟]/g, '"')
     .replace(/\s+/g, ' ')
     .trim()
 }
@@ -75,6 +86,8 @@ export function anchorSentence(
 
 export type AnchorCheck =
   | { status: 'valid' }
+  /** 그 문장은 같은 자리에 그대로지만 본문(주변 문맥) · 원문 revision · 판정 revision 이 바뀌었다 — 재검토 전에는 쓰지 않는다 */
+  | { status: 'context_changed' }
   | { status: 'relocated'; index: number }
   | { status: 'ambiguous'; indexes: number[] }
   | { status: 'stale'; reason: 'text_missing' | 'segmentation_changed' | 'normalization_changed' }
@@ -87,7 +100,7 @@ export type AnchorCheck =
  * - 같은 위치 · 같은 텍스트 해시 · 그 텍스트가 본문에 한 번만 → valid
  * - 위치는 바뀌었지만 같은 텍스트가 정확히 한 곳 → relocated · 둘 이상 → ambiguous · 없음 → stale
  */
-export function checkAnchor(a: EvidenceAnchor, src: SourceSnapshot): AnchorCheck {
+export function checkAnchor(a: EvidenceAnchor, src: SourceSnapshot, currentJudgmentRevision?: string): AnchorCheck {
   if (!a.sourceTextHash || !a.unit) return { status: 'boundary_only' }
   if (a.normalizationVersion !== NORMALIZATION_VERSION) return { status: 'stale', reason: 'normalization_changed' }
   if (a.segmentationVersion !== src.segmentationVersion) return { status: 'stale', reason: 'segmentation_changed' }
@@ -95,11 +108,17 @@ export function checkAnchor(a: EvidenceAnchor, src: SourceSnapshot): AnchorCheck
   const hits = hashes.flatMap((h, i) => (h === a.unit!.textHash ? [i] : []))
   if (hits.length === 0) return { status: 'stale', reason: 'text_missing' }
   if (hits.length > 1) return { status: 'ambiguous', indexes: hits }
-  if (hits[0] === a.unit.index) return { status: 'valid' }
-  return { status: 'relocated', index: hits[0] }
+  if (hits[0] !== a.unit.index) return { status: 'relocated', index: hits[0] }
+  // 문장은 그대로여도 본문 · revision · 판정 revision 이 바뀌면 재검토(정본 §17-3 — 버전과 해시를 함께 확인)
+  if (a.sourceTextHash !== sourceHash(src.sentences) || a.sourceRevision !== src.sourceRevision) return { status: 'context_changed' }
+  if (currentJudgmentRevision !== undefined && currentJudgmentRevision !== a.judgmentRevision) return { status: 'context_changed' }
+  return { status: 'valid' }
 }
 
 /** 판정 · 채점이 이 앵커를 지금 써도 되나 — valid 이고 validated 이상일 때만(학생 진단 표시는 reviewed 부터 — 호출자가 고른다) */
-export function usableForItemEvidence(a: EvidenceAnchor, src: SourceSnapshot): boolean {
-  return checkAnchor(a, src).status === 'valid' && a.validationStatus !== 'legacy_candidate'
+export function usableForItemEvidence(a: EvidenceAnchor, src: SourceSnapshot, currentJudgmentRevision?: string): boolean {
+  if (a.validationStatus === 'legacy_candidate') return false
+  // validated 이상은 정본 단위 id 또는 신뢰 문자 범위가 있어야 한다(유일 좌표)
+  if (!a.unitId && !a.charRange) return false
+  return checkAnchor(a, src, currentJudgmentRevision).status === 'valid'
 }

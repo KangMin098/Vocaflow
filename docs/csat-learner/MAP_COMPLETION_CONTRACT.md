@@ -14,8 +14,9 @@
 | MC-04 | 관찰 → 직접 확인 → 처방 단계 규칙 | §10 · §14 | **PARTIAL** | 관찰(rule_proxy)과 FIND 는 있다. 직접 확인 · 처방이 없다 |
 | MC-05 | 직접 확인 원인 판정(세 단위 계약) | §10-1 · EED §9 | **FAIL** | 계약 A(이 문서 짝)를 PROPOSED 로 올렸다. 구현 0 |
 | MC-06 | Evidence Anchor(원문 정체성 · 유일 좌표 · 승격) | §17-2–17-4 | **FAIL** | 계약 B 를 PROPOSED 로 올렸다 · 순수 함수와 테스트를 이번에 추가했다 · DB 0 |
-| MC-07 | FIND → REPAIR → TRANSFER → CHECK | §14 | **PARTIAL** | FIND 는 문항이 연결된 2곳이다. REPAIR · CHECK 가 없다. TRANSFER 는 Practice 로 일부(학생용은 20번 주석 문항만) |
-| MC-08 | 결과의 진단 환류 | 목표 중심 절 · §10 | **FAIL** | 확인 · Practice 결과가 진단 · 단계 상태에 들어가지 않는다. 계약 C 를 PROPOSED 로 올렸다 |
+| MC-07 | FIND → REPAIR → TRANSFER → CHECK | §14 | **PARTIAL** | FIND 는 문항이 연결된 2곳이다. REPAIR · CHECK 가 없다. Practice 는 진단 전에 열려 있다 — 정본 §14 와 충돌(계약 D-7 결정 대기) |
+| MC-08a | 결과의 **행동 · 순서** 환류(그 단계의 지금 할 일 · 다음 행동) | 목표 중심 절 | **PARTIAL** | 결과 환류 줄 · 다음 칸은 있다. FIND 결과로 할 일 순서를 바꾸는 순수 함수(`find-feedback.ts`)를 이번에 만들었다 · 화면 연결은 아직 |
+| MC-08b | 결과의 **진단 상태** 환류(basis · 단계 관찰) | §10 · §11 | **BLOCKED** | 정본은 verified_diagnosis 전에는 상태를 바꾸지 않는다 — 직접 진단 설계 승인 대기(계약 D-1). 바꾸지 않는 것이 지금은 맞다 |
 | MC-09 | 원문 · 기출 · 분석 근거 정합성 | §17 · source-check criteria | **PARTIAL** | 원문 해시 · 단위 해시는 있다. 과제 주석은 문장 길이 서명뿐이다(계약 B) |
 | MC-10 | 사용자별 권한 · 기록 무결성 | G0 · G2 · M8 · F7 | **ACCEPTED** | 실제 DB smoke(M8 10/10 · F7 9/9) · RLS · 추가 전용 · 멱등 |
 | MC-11 | 실제 브라우저 E2E(층위별 완결 경로) | — | **PARTIAL** | 글 구조 경로 15/15 와 결과 환류 16/16 은 합성 계정이다. 다른 층위는 0 |
