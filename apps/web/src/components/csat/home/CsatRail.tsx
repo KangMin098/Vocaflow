@@ -15,14 +15,14 @@
 // 없는 것을 있는 것처럼 두지 않는다(ia-design §6).
 
 import Link from 'next/link'
-import { BookMarked, ChevronDown, Crosshair, Hash, History, Home, Layers, Library, Microscope, Search, Stethoscope, Sparkles, Target, Timer } from 'lucide-react'
+import { BookMarked, ChevronDown, Crosshair, FlaskConical, Hash, History, Home, Layers, Library, Microscope, NotebookPen, Search, Stethoscope, Sparkles, Target, Timer } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
 import { ATLAS_TYPES, RECENT_FROM } from '@/lib/csat/trap-atlas'
 
 import styles from '../space/space.module.css'
 
-export type RailPlace = 'home' | 'continue' | 'record' | 'diagnosis' | 'browse' | 'need' | 'type' | 'exam'
+export type RailPlace = 'home' | 'continue' | 'record' | 'diagnosis' | 'browse' | 'need' | 'type' | 'exam' | 'item' | 'practice' | 'formulas' | 'dissect'
 export type NeedId = 'start' | 'killer' | 'trap' | 'evidence' | 'recent'
 
 export const NEEDS: { id: NeedId; label: string; href: string; Icon: typeof Home }[] = [
@@ -78,9 +78,18 @@ export function CsatRail({
           <Stethoscope size={15} aria-hidden="true" />
           내 진단
         </Link>
-        <Link className={styles.railItem} href="/csat/browse" aria-current={cur(place === 'browse')}>
+        <Link className={styles.railItem} href="/csat/browse" aria-current={cur(place === 'browse' || place === 'item')}>
           <Library size={15} aria-hidden="true" />
           전체 서가
+        </Link>
+        {/* 2026-10-10 1440 통합 — 문항에서 익힌 것을 옮겨 쓰는 두 자리. 일반 앱 셸에만 있던 길을 레일로 */}
+        <Link className={styles.railItem} href="/csat/practice" aria-current={cur(place === 'practice')} data-testid="rail-practice">
+          <FlaskConical size={15} aria-hidden="true" />
+          연습 · 주장과 근거
+        </Link>
+        <Link className={styles.railItem} href="/csat/formulas" aria-current={cur(place === 'formulas')} data-testid="rail-formulas">
+          <NotebookPen size={15} aria-hidden="true" />
+          내 공식
         </Link>
       </div>
 

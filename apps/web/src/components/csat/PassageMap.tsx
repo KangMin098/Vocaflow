@@ -117,6 +117,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
               data-lecture-target={`analysis:${a.id}`}
               onClick={() => pick(a.id)}
               aria-pressed={on}
+              aria-label={a.kind === 'answer' ? `답이 왜 ${a.label}인가` : a.origin === 'tempt' ? `${a.label}에 끌린 자리` : `${a.label} 아닌 이유`}
               className={[
                 'inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border px-3 text-sm',
                 'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none',
@@ -134,8 +135,8 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
                 {a.kind === 'answer'
                   ? `답이 왜 ${a.label}인가`
                   : a.origin === 'tempt'
-                    ? `${a.label}에 끌린 자리`
-                    : `${a.label} 아닌 이유`}
+                    ? '끌린 자리' // 번호는 앞 기호가 보인다 — 「② ②에 끌린 자리」처럼 두 번 말하지 않는다(읽는 이름은 aria-label)
+                    : '아닌 이유'}
               </span>
               {!has ? <span className="break-keep text-[10px] text-[var(--t3)]">위치 없음</span> : null}
             </button>

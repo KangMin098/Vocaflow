@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/csat/item/[slug]/page.tsx
+// apps/web/src/app/(app)/csat/item/[slug]/page.tsx
 //
 // **학습자용 문항 해설 — 해설 극장.**
 //
@@ -15,7 +15,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+import { BookOpen } from 'lucide-react'
+
+import { CsatShell } from '@/components/csat/home/CsatShell'
 import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/AnalysisTheater'
+import { railExams } from '@/lib/csat/rail-data'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
 import { CohesionPanel } from '@/components/csat/theater/CohesionPanel'
 import { PrinciplePanel } from '@/components/csat/theater/PrinciplePanel'
@@ -175,11 +179,16 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   )
 
   // 강의가 없는 문항은 무대를 세우지 않는다 — 분석 블록과 지도는 그대로 읽힌다.
-  return meta ? (
-    <LectureStage slug={toItemSlug(item.id)} meta={meta}>
-      {body}
-    </LectureStage>
-  ) : (
-    body
+  // 2026-10-10 1440 통합: 해설 극장도 기출분석공간 레일 안에 둔다(일반 앱 셸에서는 이어서 · 서가 · 연습으로 가는 길이 없었다).
+  return (
+    <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번</>} bare>
+      {meta ? (
+        <LectureStage slug={toItemSlug(item.id)} meta={meta}>
+          {body}
+        </LectureStage>
+      ) : (
+        body
+      )}
+    </CsatShell>
   )
 }
