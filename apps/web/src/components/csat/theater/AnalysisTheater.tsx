@@ -88,7 +88,9 @@ const RATES = [0.9, 1, 1.15] as const
 // userId: 공개한 계정 — 공유 기기에서 다른 계정으로 바뀐 뒤 재전송되면 서버가 버린다(Codex P1)
 type PendingReveal = { slug: string; sessionId: string; help: 'independent' | 'viewed_first'; revealedAt: string; userId: string | null }
 async function currentUserId(): Promise<string | null> {
-  try { return (await createBrowserClient().auth.getUser()).data.user?.id ?? null } catch { return null }
+  // getSession 은 기기에 저장된 로그인 세션을 읽는다(네트워크 불필요) — 오프라인 공개도 계정에 묶여 나중에 재전송된다(Codex P1).
+  // 계정 확인 자체는 서버(learnerContext)가 한다 — 여기 값은 「누가 남긴 대기 기록인가」 표시일 뿐
+  try { return (await createBrowserClient().auth.getSession()).data.session?.user.id ?? null } catch { return null }
 }
 const REVEAL_KEY = 'vf.csat.pendingReveals'
 const readPending = (): PendingReveal[] => { try { const v = JSON.parse(localStorage.getItem(REVEAL_KEY) ?? '[]'); return Array.isArray(v) ? v : [] } catch { return [] } }
