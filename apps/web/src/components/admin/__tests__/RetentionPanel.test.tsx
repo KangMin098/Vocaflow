@@ -3,13 +3,14 @@
 // 리텐션 패널의 **정직성 규칙** 회귀.
 //
 // 이 패널의 숫자는 분기 진단(`docs/PLATFORM_AUDIT.md`)에서 "계속할지" 를 정하는 근거가 된다.
-// 그래서 여기서 가장 위험한 것은 틀린 수치가 아니라 **작은 표본을 그럴듯한 퍼센트로 인쇄하는 것**이다.
-// 3명 중 1명이 "33%" 로 찍히면 그 숫자는 근거처럼 읽힌다.
+// 그래서 여기서 가장 위험한 것은 틀린 수치가 아니라 **작은 표본을 그럴듯한 퍼센트로 인쇄하는 것**,
+// 그리고 **내부 계정의 학습을 학습자 지표로 읽게 두는 것**(VG-L3-D1-02)이다.
 
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
-import type { RetentionReport } from '@/lib/admin/retention-math'
+import type { AccountSummary } from '@/lib/admin/account-classification'
+import type { RetentionReport, RetentionResult } from '@/lib/admin/retention-math'
 
 import { RetentionPanel } from '../RetentionPanel'
 
@@ -25,9 +26,17 @@ function report(over: Partial<RetentionReport> = {}): RetentionReport {
   }
 }
 
+function accounts(over: Partial<AccountSummary> = {}): AccountSummary {
+  return { total: 3, externalVerified: 3, internal: 0, unknown: 0, unknownInternalHint: 0, conflicts: 0, registry: 'ok', ...over }
+}
+
+function ok(r: Partial<RetentionReport> = {}, a: Partial<AccountSummary> = {}): RetentionResult {
+  return { status: 'ok', report: report(r), accounts: accounts(a) }
+}
+
 describe('작은 표본 — 비율을 그리지 않는다', () => {
   it('분모가 기준 미만이면 퍼센트를 인쇄하지 않는다', () => {
-    const html = renderToString(<RetentionPanel report={report()} />)
+    const html = renderToString(<RetentionPanel report={ok()} />)
     expect(html).not.toContain('67%') // 2/3
     expect(html).not.toContain('33%') // 1/3
     // 대신 원수를 보여준다
@@ -37,7 +46,7 @@ describe('작은 표본 — 비율을 그리지 않는다', () => {
   it('분모가 충분하면 퍼센트를 보여준다', () => {
     const html = renderToString(
       <RetentionPanel
-        report={report({
+        report={ok({
           signups: 100,
           activated: 40,
           eligible: { d1: 100, d7: 100, d30: 100 },
@@ -59,33 +68,81 @@ describe('못 쟀을 때와 0 을 구별한다', () => {
   })
 
   it('아직 창이 안 지난 경우를 분모 0 으로 설명한다', () => {
-    const html = renderToString(
-      <RetentionPanel report={report({ eligible: { d1: 3, d7: 0, d30: 0 } })} />,
-    )
+    const html = renderToString(<RetentionPanel report={ok({ eligible: { d1: 3, d7: 0, d30: 0 } })} />)
     expect(html).toContain('아직 이 창이 지난 가입자가 없다')
+  })
+
+  it('분류 설정 오류는 0 이 아니라 「계산 불가 + 사유」로 보이고 수치 칸을 그리지 않는다', () => {
+    const html = renderToString(
+      <RetentionPanel report={{ status: 'unavailable', reason: 'registry_invalid', errors: ['내부 목록 2번째 항목이 계정 ID(UUID) 형식이 아니다'] }} />,
+    )
+    expect(html).toContain('계산 불가')
+    expect(html).toContain('2번째 항목')
+    expect(html).not.toContain('실사용 가입자')
+    expect(html).not.toContain('복귀 학습')
   })
 })
 
 describe('활성화를 리텐션과 분리해 보여준다', () => {
   it('가입 → 첫 학습 지연을 인쇄한다', () => {
-    // 실측에서 3명 중 2명이 55·87일이었다 — 리텐션만 보면 이 구간이 안 보인다.
-    const html = renderToString(<RetentionPanel report={report()} />)
+    const html = renderToString(<RetentionPanel report={ok()} />)
     expect(html).toContain('중앙값 55일')
     expect(html).toContain('활성화 문제')
   })
 
   it('활성화한 사람이 없으면 지연을 0 이 아니라 — 로 둔다', () => {
-    const html = renderToString(
-      <RetentionPanel report={report({ activated: 0, medianDaysToFirstLearn: null })} />,
-    )
+    const html = renderToString(<RetentionPanel report={ok({ activated: 0, medianDaysToFirstLearn: null })} />)
     expect(html).not.toContain('중앙값 0일')
   })
 })
 
 describe('무엇을 재는지 화면이 밝힌다', () => {
   it('활동 리텐션이며 조회는 수집하지 않는다고 적는다', () => {
-    const html = renderToString(<RetentionPanel report={report()} />)
+    const html = renderToString(<RetentionPanel report={ok()} />)
     expect(html).toContain('활동 리텐션')
     expect(html).toContain('페이지 조회는')
+  })
+})
+
+describe('실사용 · 내부 · 미분류를 나눠 보인다 (VG-L3-D1-02)', () => {
+  it('세 수를 각각 보이고, 지표 칸은 실사용(검증된 외부)이라고 밝힌다', () => {
+    const html = renderToString(
+      <RetentionPanel report={ok({ signups: 0, activated: 0, medianDaysToFirstLearn: null }, { total: 5, externalVerified: 0, internal: 1, unknown: 4, unknownInternalHint: 3, registry: 'not_configured' })} />,
+    )
+    expect(html).toContain('실사용 (검증된 외부)')
+    expect(html).toContain('내부 (운영·개발·QA)')
+    expect(html).toContain('미분류')
+    expect(html).toContain('전체 계정 5개 중')
+    expect(html).toContain('실사용 가입자 (검증된 외부)')
+    expect(html).toContain('1명') // 내부
+    expect(html).toContain('4명') // 미분류
+  })
+
+  it('외부 0 을 「없다」가 아니라 「확인된 외부가 없다」로 말하고, 설정 부재·도메인 힌트를 경고한다', () => {
+    const html = renderToString(
+      <RetentionPanel report={ok({ signups: 0, activated: 0, medianDaysToFirstLearn: null }, { total: 5, externalVerified: 0, internal: 1, unknown: 4, unknownInternalHint: 3, registry: 'not_configured' })} />,
+    )
+    expect(html).toContain('설정되지 않았습니다')
+    expect(html).toContain('미분류 4명은 실사용 지표에서 제외')
+    expect(html).toContain('「확인된」 외부 학습자')
+    expect(html).toContain('3명은 이메일 도메인이 내부처럼 보입니다')
+    expect(html).toContain('자동 판정 아님')
+  })
+
+  it('미분류·설정 문제·충돌이 없으면 경고를 그리지 않는다', () => {
+    const html = renderToString(<RetentionPanel report={ok()} />)
+    expect(html).not.toContain('미분류 0명은')
+    expect(html).not.toContain('설정되지 않았습니다')
+  })
+
+  it('운영 역할이 외부 목록에 오른 충돌을 경고한다', () => {
+    const html = renderToString(<RetentionPanel report={ok({}, { conflicts: 1, internal: 1, externalVerified: 2 })} />)
+    expect(html).toContain('내부로 판정했습니다')
+  })
+
+  it('화면에 계정 ID(UUID)·이메일이 나가지 않는다 — props 에 수만 있다', () => {
+    const html = renderToString(<RetentionPanel report={ok({}, { total: 5, unknown: 2, unknownInternalHint: 1 })} />)
+    expect(html).not.toMatch(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)
+    expect(html).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.]+/)
   })
 })

@@ -55,7 +55,7 @@ export default async function KnowledgeDesignPage() {
                       const d = t.design as { delayed_days?: number | null; transfer?: boolean; comparison?: string | null; min_n?: number; measures?: string[] }
                       return (
                         <li key={t.id}>
-                          {t.synthetic ? '합성(경로 검증)' : '실제 학습자'} · {TRIAL_STATUS_LABEL[t.status]}{t.result ? ` · ${TRIAL_RESULT_LABEL[t.result]}` : ''} · 사전 · 사후
+                          {t.synthetic ? '합성(경로 검증)' : '실제 학습자'} · {TRIAL_STATUS_LABEL[t.status]}{t.reviewRequiredAt ? ' · 재계산 필요(결과를 근거로 쓰지 않음)' : t.result ? ` · ${TRIAL_RESULT_LABEL[t.result]}` : ''} · 사전 · 사후
                           {d.delayed_days ? ` · 지연 ${d.delayed_days}일` : ''}{d.transfer ? ' · 전이' : ''} · 최소 표본 {d.min_n ?? 1} · {(d.measures ?? []).join(', ')}
                           {' — '}{trialReportLevel({ pre: true, post: true, delayedDays: d.delayed_days ?? null, transfer: Boolean(d.transfer), comparison: d.comparison ?? null, minN: d.min_n ?? 1, measures: d.measures ?? [] })}
                         </li>

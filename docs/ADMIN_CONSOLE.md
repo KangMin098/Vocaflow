@@ -181,6 +181,15 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 | 파이프라인 8 큐 (LCP · ACP · 드레인 큐 · VCB · VRL · CCP · PDCP · Pending Words) | 상태별 `count: 'exact', head: true` |
 | 운영·관리 10 링크 | 실측 수치 + DB 미연동 화면에 `목업` 태그 |
 | 최근 파이프라인 변경 8건 | `library_books`·`library_articles`·`book_curation_jobs`·`pd_comic_issues`·`vocab_runs` 의 `updated_at` 병합 |
+| 학습자 활성화·리텐션 | `lib/admin/retention.ts` — `auth.users`·`learning_records`·`scores`·`user_profiles.role`. **검증된 외부 계정만** 계산(아래) |
+
+**학습자 리텐션의 계정 분류 (2026-10-09 · VG-L3-D1-02 · 작업 T-0006)** — `lib/admin/account-classification.ts`(순수).
+분류 순서: 서버 전용 환경변수 `VOCAFLOW_INTERNAL_ACCOUNT_IDS`(내부) · `VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS`(검증된 외부, 쉼표 구분 UUID)
+→ 역할 `admin`·`curator` 는 내부로만 → 나머지 **미분류**(fail-closed — 실사용 지표에서 제외). 이메일 도메인은 「내부처럼 보이는 미분류 수」 힌트만.
+목록 형식 오류·중복·충돌 → `status:'unavailable'`(「계산 불가 + 사유」, 0 아님). 역할 조회 실패 → `null`(못 쟀음).
+패널은 실사용·내부·미분류 **수만** 받는다(계정 ID·이메일 비노출). 실측 2026-10-09: 계정 5 = 내부 1(역할) · 미분류 4 → 실사용 0.
+**범위 한계**: 퍼널(`funnel_events`)·효과 분석은 아직 이 분류를 쓰지 않는다 — VG-L3-D1-02-AC1 은 부분 충족.
+회귀: `account-classification.test.ts` · `retention-classification.test.ts`(모의 DB) · `RetentionPanel.test.tsx`.
 
 **`count ?? 0` 금지** — `head: true` 요청은 없는 테이블에도 `204 / error=null / count=null` 을
 돌려준다 (404 는 non-head 에서만). 0 으로 채우면 미구현 화면이 "0건" 으로 보인다. `null` 은 화면에 `—`.

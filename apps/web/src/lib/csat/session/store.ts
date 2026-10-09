@@ -42,6 +42,38 @@ export async function saveDissectionRecord(record: DissectionRecord): Promise<bo
   return result !== null
 }
 
+// 탭 안의 읽기→고치기→쓰기를 한 줄로 세운다(G0 계약 §4). 열람 저장과 확정 저장이 거의 동시에
+// 일어나면 각자 옛 기록을 읽고 써서 한쪽이 사라졌다 — 이제 모든 변경은 이 함수 하나로 간다.
+let writeChain: Promise<unknown> = Promise.resolve()
+
+/**
+ * 기록을 고친다. `fn` 이 같은 객체를 돌려주면(멱등 — 이미 마친 세션 등) 저장하지 않는다.
+ * 돌려주는 값은 고친 뒤의 기록과 저장 성공 여부.
+ */
+export function updateDissectionRecord(fn: (record: DissectionRecord) => DissectionRecord): Promise<{ record: DissectionRecord; saved: boolean }> {
+  const next = writeChain.then(async () => {
+    const current = await loadDissectionRecord()
+    const changed = fn(current)
+    if (changed === current) return { record: current, saved: true }
+    const saved = await saveDissectionRecord(changed)
+    return { record: dissectionMemory ?? changed, saved }
+  })
+  writeChain = next.catch(() => undefined)
+  return next
+}
+
+// ── 동기화 상태(레코드 밖 · G0 계약 §3) ─────────────────────────────────────
+// 화면이 「이 기기에만 저장 중」을 판단할 재료. 레코드에 넣지 않는다 — 넣으면 병합 대상이 된다.
+let syncState: { okAt: number | null; failAt: number | null } = { okAt: null, failAt: null }
+
+export function syncStatus(): { okAt: number | null; failAt: number | null } {
+  return { ...syncState }
+}
+
+function markSync(ok: boolean) {
+  syncState = ok ? { ...syncState, okAt: Date.now() } : { ...syncState, failAt: Date.now() }
+}
+
 // ── 서버 동기화(ia-design §3-1 · `/api/csat/state`) ────────────────────────────
 // 기기가 먼저다. 서버는 **다른 기기에서 이어지게** 하는 사본이다 — 막히면 조용히 기기 기록으로 돈다.
 // 쓰기는 1.5초 모아서 한 번(해부 한 문항에 저장이 여러 번 일어난다). 탭을 닫을 때는 keepalive.
@@ -57,8 +89,10 @@ async function putServer(record: DissectionRecord): Promise<boolean> {
       body: JSON.stringify({ record }),
       keepalive: true,
     })
+    markSync(res.ok)
     return res.ok
   } catch {
+    markSync(false)
     return false
   }
 }
@@ -103,14 +137,15 @@ export async function loadSyncedDissectionRecord(): Promise<{ record: Dissection
   const server = await fetchServerState()
   if (server === 'unavailable') return { record: local, synced: false }
   if (!server) {
-    if (local.predictions.length || local.completed.length || local.formulas.length || local.queue.length || (local.views ?? []).length || local.active) void putServer(local)
+    if (local.predictions.length || local.completed.length || local.formulas.length || local.queue.length || (local.views ?? []).length || local.active || (local.sessions ?? []).length) void putServer(local)
     return { record: local, synced: true }
   }
-  const merged = mergeDissection(local, server)
-  if (!sameRecord(merged, local)) {
-    dissectionMemory = merged
-    await run(S_RECORD, 'readwrite', s => s.put(merged, DISSECTION_KEY))
-  }
+  // 기기 쪽 쓰기도 직렬화 큐로 — 서버 응답을 기다리는 사이 저장된 세션·예측을 덮지 않게, 쓰는 순간의
+  // **최신 기기 기록**과 다시 합친다(Codex 리뷰 P1 · G0 계약 §4)
+  const { record: merged } = await updateDissectionRecord((current) => {
+    const m = mergeDissection(current, server)
+    return sameRecord(m, current) ? current : m
+  })
   if (!sameRecord(merged, server)) void putServer(merged)
   return { record: merged, synced: true }
 }

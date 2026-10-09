@@ -10,6 +10,7 @@ import { ArrowUpRight } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
 import { activeSet, dueNow, upcoming } from '@/lib/csat/continuity'
+import { reviewsDue, unfinishedSessions } from '@/lib/csat/learning-session'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { ATLAS_TYPES } from '@/lib/csat/trap-atlas'
 
@@ -31,9 +32,45 @@ export function ContinuePanel({ state, itemTypes }: { state: CsatRecordState | n
   const plan = upcoming(record, now)
   const views = [...(record.views ?? [])].sort((a, b) => b.at - a.at).slice(0, 8)
   const typeName = (id: string) => ATLAS_TYPES.find((t) => t.id === itemTypes[id])?.name ?? '기출'
+  // 해설 극장 세션(G0 계약) — 하다 만 문항 · 다시 볼 때가 된 문항
+  const halfway = unfinishedSessions(record).slice(0, 6)
+  const again = reviewsDue(record, now).slice(0, 6)
 
   return (
     <div data-testid="continue-panel">
+      <section className={styles.section} data-testid="continue-items">
+        <h2 className={styles.sectionHead}>
+          하다 만 문항 <small>다시 볼 문항 {again.length}</small>
+        </h2>
+        {halfway.length || again.length ? (
+          <ul className={styles.list}>
+            {again.map((s) => (
+              <li key={`r-${s.id}`}>
+                <Link href={`/csat/item/${toItemSlug(s.item)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'review', from: 'home' } })}>
+                  <span className={styles.grow}>
+                    {typeName(s.item)} · {itemLabel(s.item)} — 다시 볼 때예요
+                  </span>
+                  <small>{dayLabel(s.reviewAt ?? now, now)}</small>
+                  <ArrowUpRight size={13} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+            {halfway.map((s) => (
+              <li key={`h-${s.id}`}>
+                <Link href={`/csat/item/${toItemSlug(s.item)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'set', from: 'home' } })}>
+                  <span className={styles.grow}>
+                    {typeName(s.item)} · {itemLabel(s.item)}
+                  </span>
+                  <small>{s.stage === 'revealed' ? `${s.step + 1}/${Math.max(1, s.steps)}단계` : '예측 전'}</small>
+                  <ArrowUpRight size={13} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className={styles.empty}>하다 만 문항이 없어요. 문항 해설을 끝까지 보면 「이 문항 마치기」가 나와요.</p>
+        )}
+      </section>
       <section className={styles.section}>
         <h2 className={styles.sectionHead}>멈춘 세트</h2>
         {set ? (

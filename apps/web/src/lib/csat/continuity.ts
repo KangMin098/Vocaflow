@@ -11,6 +11,7 @@
 // 학습을 지운다.
 
 import type { DissectionRecord } from './dissect'
+import { mergeSessions, sameSessions } from './learning-session'
 
 export const DAY = 86_400_000
 /** 이 날수 이상 비었다가 오면 「공백 복귀」다. */
@@ -27,12 +28,17 @@ export function lastActivity(record: DissectionRecord): number {
     ...record.completed.map((c) => c.at),
     ...record.predictions.map((p) => p.at),
     ...(record.views ?? []).map((v) => v.at),
+    ...liveSessions(record).map((s) => s.updatedAt),
   )
+}
+
+function liveSessions(record: DissectionRecord) {
+  return (record.sessions ?? []).filter((s) => s && !s.deleted && typeof s.updatedAt === 'number')
 }
 
 /** 학습한 흔적이 하나라도 있나 — 온보딩 표시만 켠 기록은 첫 방문으로 본다. */
 export function hasHistory(record: DissectionRecord): boolean {
-  return record.completed.length > 0 || record.predictions.length > 0 || (record.views ?? []).length > 0 || Boolean(record.active)
+  return record.completed.length > 0 || record.predictions.length > 0 || (record.views ?? []).length > 0 || Boolean(record.active) || liveSessions(record).length > 0
 }
 
 export function gapDays(record: DissectionRecord, now: number): number {
@@ -173,7 +179,10 @@ export function mergeDissection(local: DissectionRecord, server: DissectionRecor
   return {
     ...newer,
     onboarded: local.onboarded || server.onboarded,
-    predictions: uniqBy([...older.predictions, ...newer.predictions], (p) => `${p.item}|${p.step}|${p.at}`).sort((a, b) => a.at - b.at),
+    // 시도 id 가 있으면 그것이 키다(같은 확정이 두 기기 · 재시도로 두 번 와도 한 건)
+    predictions: uniqBy([...older.predictions, ...newer.predictions], (p) => p.attempt ?? `${p.item}|${p.step}|${p.at}`).sort((a, b) => a.at - b.at),
+    // 세션은 양쪽을 id 로 합친다 — sessions 를 모르는 옛 기기가 올려도 사라지지 않는다(G0 계약 §4)
+    sessions: mergeSessions(older.sessions, newer.sessions),
     completed: uniqBy([...older.completed, ...newer.completed], (c) => `${c.id}|${c.at}`).sort((a, b) => a.at - b.at),
     formulas: [...formulas.values()],
     queue: [...newer.queue, ...olderOnlyQueue],
@@ -196,6 +205,7 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
     (a.views ?? []).length === (b.views ?? []).length &&
     (a.inspected ?? []).length === (b.inspected ?? []).length &&
     a.onboarded === b.onboarded &&
+    sameSessions(a.sessions, b.sessions) &&
     (a.active?.index ?? -1) === (b.active?.index ?? -1) &&
     (a.active?.items.join(',') ?? '') === (b.active?.items.join(',') ?? '')
   )

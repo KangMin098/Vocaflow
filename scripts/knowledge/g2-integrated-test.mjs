@@ -1,7 +1,7 @@
 // scripts/knowledge/g2-integrated-test.mjs
 //
 // G2 통합 SQL(_pending_20261008160000) 격리 PostgreSQL 검증(2026-10-08) — **공유 개발 DB 를 쓰지 않는다.**
-// 등록부 7 + vNext(120000) + 가드(140000 · 150000) + 후보(170000) + funnel_events(현재 68종 CHECK · 기존 행) 위에 통합 SQL 을 올리고,
+// 등록부 7 + vNext(120000) + 가드(140000 · 150000) + 170000(160000 뒤 — 원장 순서) + funnel_events(현재 68종 CHECK · 기존 행) 위에 통합 SQL 을 올리고,
 // 세션 소유 · 공개 · 상속 · 모순 거부 · 멱등(중복 · 충돌) · **두 연결 동시 요청** · 첫 시도 · 해설 먼저/뒤 · 효과 게이트 · 이벤트 목록 · 권한을 단언한다.
 //   node scripts/knowledge/g2-integrated-test.mjs [--pg-dir <isolated-pg 경로>]
 import fs from 'node:fs'
@@ -32,7 +32,7 @@ try {
   for (const f of ['20260919120000_methodology_intelligence.sql', '20260928120000_knowledge_registry.sql', '20260928130000_knowledge_evidence_invariants.sql',
     '20260928140000_knowledge_evidence_concurrency.sql', '20260928150000_knowledge_regrade_locks_items.sql', '20261001120000_knowledge_evidence_version.sql',
     '20261001130000_knowledge_evidence_observed.sql', '20261008120000_knowledge_vnext.sql', '20261008140000_knowledge_review_cascade_guard.sql',
-    '20261008150000_knowledge_statement_review_fix.sql', '20261008170000_knowledge_trial_evidence_guard.sql']) await q(M(f))
+    '20261008150000_knowledge_statement_review_fix.sql']) await q(M(f))
   // funnel_events — 개발 DB 와 같은 68종 CHECK 와 기존 행(대표 이벤트)
   // bootstrap 의 funnel_events 에 개발 DB 의 현재 68종 CHECK 를 다시 건다(실측 2026-10-08)
   await q(`delete from funnel_events`)
@@ -40,6 +40,7 @@ try {
   await q(`alter table funnel_events add constraint funnel_events_event_check check (event in (${OLD68.map((e) => `'${e}'`).join(',')}))`)
   await q(`insert into funnel_events (event) select unnest($1::text[])`, [OLD68])
   { const sql = M('20261008160000_learning_sessions_integrated.sql'); try { await q(sql) } catch (e) { throw new Error(`통합 SQL: ${e.message} @ ${sql.slice(Math.max(0, (e.position ?? 1) - 120), (e.position ?? 1) + 40)}`) } }
+  await q(M('20261008170000_knowledge_trial_evidence_guard.sql'))   // 원장 순서: 160000 → 170000
   rec('기존 스키마 전부 + 통합 SQL 적용', true)
 
   const t0 = '2026-10-01T09:00:00Z'

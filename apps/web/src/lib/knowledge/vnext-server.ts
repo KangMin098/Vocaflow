@@ -74,7 +74,9 @@ export async function listResearchSources(): Promise<ResearchSource[]> {
   }))
 }
 
-export interface Trial { id: string; applicationId: string; design: Record<string, unknown>; status: TrialStatus; synthetic: boolean; result: TrialResult | null; resultSummary: string | null; analyzedAt: string | null; createdAt: string }
+export interface Trial { id: string; applicationId: string; design: Record<string, unknown>; status: TrialStatus; synthetic: boolean; result: TrialResult | null; resultSummary: string | null; analyzedAt: string | null; createdAt: string
+  /** F7-4 표본이 바뀌어 재계산이 필요하다 — 있으면 결과를 유효 근거로 보이지 않는다(열은 F7 적용 뒤에만 · 없으면 null) */
+  reviewRequiredAt: string | null }
 export interface Application {
   id: string; itemId: string; surface: AppSurface; surfaceRef: string; version: number; status: AppStatus; statusReason: string | null
   audience: Record<string, unknown>; exclusions: Record<string, unknown>; releasedAt: string | null; updatedAt: string; trials: Trial[]
@@ -84,7 +86,7 @@ export interface Application {
 export async function listApplications(): Promise<Application[]> {
   const [apps, trials, attempts] = await Promise.all([
     read<Row>('제품 적용', db().from('knowledge_applications').select('id,item_id,surface,surface_ref,version,status,status_reason,audience,exclusions,released_at,updated_at').order('updated_at', { ascending: false }).limit(LIMIT)),
-    read<Row>('효과 검증', db().from('knowledge_trials').select('id,application_id,design,status,synthetic,result,result_summary,analyzed_at,created_at').order('created_at').limit(LIMIT)),
+    read<Row>('효과 검증', db().from('knowledge_trials').select('*').order('created_at').limit(LIMIT)),
     read<Row>('수행 기록', db().from('learning_task_attempts').select('application_id,synthetic').not('application_id', 'is', null).limit(LIMIT)),
   ])
   return apps.map((a) => ({
@@ -96,6 +98,7 @@ export async function listApplications(): Promise<Application[]> {
       id: String(t.id), applicationId: String(t.application_id), design: (t.design as Record<string, unknown>) ?? {}, status: t.status as TrialStatus,
       synthetic: Boolean(t.synthetic), result: (t.result as TrialResult | null) ?? null, resultSummary: (t.result_summary as string | null) ?? null,
       analyzedAt: (t.analyzed_at as string | null) ?? null, createdAt: String(t.created_at),
+      reviewRequiredAt: (t.review_required_at as string | null | undefined) ?? null,
     })),
     attempts: {
       real: attempts.filter((x) => x.application_id === a.id && !x.synthetic).length,

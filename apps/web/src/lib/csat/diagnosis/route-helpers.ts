@@ -13,13 +13,13 @@ import { createClient } from '@/lib/supabase/server'
 
 import { SubmissionError } from './server'
 
-export async function learnerContext(): Promise<{ userId: string; db: SupabaseClient } | NextResponse> {
+export async function learnerContext(): Promise<{ userId: string; email: string | null; db: SupabaseClient } | NextResponse> {
   const auth = await createClient()
   const {
     data: { user },
   } = await auth.auth.getUser()
   if (!user) return NextResponse.json({ error: '로그인이 필요해요' }, { status: 401 })
-  return { userId: user.id, db: createAdminClient() as unknown as SupabaseClient }
+  return { userId: user.id, email: user.email ?? null, db: createAdminClient() as unknown as SupabaseClient }
 }
 
 export async function readJson(req: Request): Promise<unknown> {

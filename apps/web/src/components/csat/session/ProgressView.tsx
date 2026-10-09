@@ -1,7 +1,7 @@
 // apps/web/src/components/csat/session/ProgressView.tsx
 //
 // 내 공식 — 참조(Tines) 사례 상세 골격(DD-68 · tines-mapping 「기출 홈」): 히어로 + 소품 → 강조 수치 3칸(면마다 다른 색) →
-// 계보 카드(유형 → 공식 → 출처로 접히는 이력). 기록은 이 기기에만 있다.
+// 계보 카드(유형 → 공식 → 출처로 접히는 이력). 기록은 다른 화면과 같이 서버 사본과 합쳐 읽는다(G1).
 'use client'
 
 import { ArrowLeft, ArrowRight } from 'lucide-react'
@@ -11,14 +11,14 @@ import { useEffect, useState } from 'react'
 import { SpotState } from '@/components/ui/SpotState'
 import { BTN } from '@/components/ui/tines-kit'
 import { predictionStats, type DissectionCatalog, type DissectionRecord } from '@/lib/csat/dissect'
-import { loadDissectionRecord } from '@/lib/csat/session/store'
+import { loadSyncedDissectionRecord } from '@/lib/csat/session/store'
 import { TINT_CLASS } from '@/lib/design/tone'
 import styles from './session.module.css'
 import f from './formulas.module.css'
 
 export function ProgressView({ catalog }: { catalog: DissectionCatalog }) {
   const [record, setRecord] = useState<DissectionRecord | null>(null)
-  useEffect(() => { let alive = true; void loadDissectionRecord().then(r => { if (alive) setRecord(r) }); return () => { alive = false } }, [])
+  useEffect(() => { let alive = true; void loadSyncedDissectionRecord().then(r => { if (alive) setRecord(r.record) }); return () => { alive = false } }, [])
   if (!record) return <p className={styles.quiet} aria-busy="true">공식을 펼치는 중…</p>
   const stats = predictionStats(record, catalog.families)
   const types = [...new Set(record.formulas.map(x => x.type))]
@@ -29,7 +29,7 @@ export function ProgressView({ catalog }: { catalog: DissectionCatalog }) {
         <Link href="/csat" className={BTN.text}><ArrowLeft size={15} aria-hidden /> 오늘의 해부</Link>
         <p className={f.chip}>CSAT · 계보</p>
         <h1>내 공식</h1>
-        <p className={f.intro}>직접 대조해 남긴 출제 공식이 유형 → 공식 → 출처로 쌓여요. 기록은 이 기기에만 있어요.</p>
+        <p className={f.intro}>직접 대조해 남긴 출제 공식이 유형 → 공식 → 출처로 쌓여요.</p>
       </div>
       <Image className={f.spot} src="/illustrations/tines/spot-vault.webp" alt="" width={1328} height={1328} priority />
     </header>

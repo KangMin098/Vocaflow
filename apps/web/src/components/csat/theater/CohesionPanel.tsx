@@ -6,6 +6,8 @@
 
 import { useRef, useState } from 'react'
 
+import { useTaskMeta } from './task-meta'
+
 import type { CohesionPanelProps } from '@/lib/knowledge/cohesion-link-labels'
 
 interface Grade {
@@ -28,20 +30,25 @@ export function CohesionPanel({ slug, principle, why, sentenceCount, probes, ord
   const [needLogin, setNeedLogin] = useState(false)
   const [pending, setPending] = useState(false)
   const started = useRef<number | null>(null)
+  // G2 기록 계약 — 세션 · 요청 멱등 id · 판단 시각 · 도움 수준(task-meta)
+  const task = useTaskMeta(slug)
   const ready = probes.every((p) => Number.isInteger(picks[p.id])) && order !== null
 
   const submit = async () => {
     if (!ready) return
     setPending(true); setError(null)
     try {
+      const response = { picks, order }
+      const meta = await task.meta(JSON.stringify(response), started.current ? Math.min(7200, Math.round((performance.now() - started.current) / 1000)) : null)
       const res = await fetch(`/api/csat/item/${slug}/task`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ response: { picks, order }, sec: started.current ? Math.min(7200, Math.round((performance.now() - started.current) / 1000)) : null }),
+        body: JSON.stringify({ response, ...meta }),
       })
       if (res.status === 401) { setNeedLogin(true); return }
       const body = await res.json().catch(() => ({}))
       if (!res.ok) { setError(body.error ?? '저장하지 못했어요. 잠시 뒤 다시 해 주세요'); return }
+      task.settled()
       setGrade(body.grade as Grade)
     } catch {
       setError('저장하지 못했어요. 잠시 뒤 다시 해 주세요')
@@ -49,7 +56,7 @@ export function CohesionPanel({ slug, principle, why, sentenceCount, probes, ord
       setPending(false)
     }
   }
-  const reset = () => { setPicks({}); setOrder(null); setGrade(null); started.current = performance.now() }
+  const reset = () => { setPicks({}); setOrder(null); setGrade(null); started.current = performance.now(); task.restart() }
 
   return (
     <section id="principle" aria-labelledby="principle-title" data-testid="principle-panel" data-task="cohesion-link" className="mx-auto my-8 max-w-3xl rounded-lg border border-[var(--bd)] p-5 break-keep">
