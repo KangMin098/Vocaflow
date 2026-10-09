@@ -29,3 +29,28 @@ export function stripInternalNotes(s: string | null | undefined): string | null 
 export function hasInternalNote(s: string | null | undefined): boolean {
   return !!s && INTERNAL.test(s)
 }
+
+/** 설명 속 영어 인용 조각('…' · ‘…’) — 비교용으로 소문자 · 공백 정규화, 말줄임으로 끊긴 인용은 조각마다 */
+function quotesOf(s: string): string[] {
+  const out: string[] = []
+  for (const m of s.matchAll(/['‘]([^'’]*[A-Za-z][^'’]*)['’]/g)) {
+    for (const part of m[1].split(/\.\.\.|…/)) {
+      const t = part.toLowerCase().replace(/\s+/g, ' ').replace(/^the\s+/, '').trim()
+      if (/[a-z]{3,}/.test(t) && t.length >= 8) out.push(t)
+    }
+  }
+  return out
+}
+
+/**
+ * 「답이 왜 이것인가」 의 근거 해설(reasoning)이 정답 설명(why_correct)과 같은 근거를 되풀이하나(2026-10-09 감사 표본 5/7 중복).
+ * 보수적: reasoning 의 영어 인용이 **모두** why_correct 에 이미 있을 때만 되풀이로 본다 — 새 인용(다른 근거 문장)이 하나라도 있으면 보인다.
+ * 인용이 없는 reasoning 은 판단하지 않는다(되풀이 아님).
+ */
+export function reasoningRepeats(whyCorrect: string | null | undefined, reasoning: string | null | undefined): boolean {
+  if (!whyCorrect || !reasoning) return false
+  const rq = quotesOf(reasoning)
+  if (rq.length === 0) return false
+  const w = whyCorrect.toLowerCase().replace(/\s+/g, ' ')
+  return rq.every((q) => w.includes(q))
+}
