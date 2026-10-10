@@ -12,7 +12,7 @@ import { settleRecord } from '../useCsatRecord'
 const NOW = Date.UTC(2026, 9, 10, 12)
 const DAY = 86_400_000
 const overdue: DissectionRecord = {
-  ...emptyDissectionRecord(),
+  ...emptyDissectionRecord(1),
   queue: Array.from({ length: 9 }, (_, i) => ({ tag: `t${i}`, source: `s${i}`, due: NOW - (9 - i) * DAY })),
 } as DissectionRecord
 
