@@ -155,7 +155,7 @@ describe('학습 지도 vNext 정렬', () => {
     // LP 이름이 성장 경로 단계명 · 읽기 길 키로 쓰이지 않는다(같은 배열로 취급 금지)
     for (const lp of lps) {
       expect(LEARNING_PROGRESSION.some((p) => p.step === lp)).toBe(false)
-      expect(READ_PATH.some((s) => s.key === lp || s.name === lp)).toBe(false)
+      expect(READ_PATH.some((s) => (s.key as string) === lp || s.name === lp)).toBe(false)
     }
   })
 })
