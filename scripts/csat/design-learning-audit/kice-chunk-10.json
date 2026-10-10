@@ -1,0 +1,342 @@
+{
+  "chunk": "10",
+  "set": "kice",
+  "offset": 360,
+  "items": [
+    {
+      "id": "2026#24",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#25",
+      "version": 4,
+      "type": "R-CHART",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "정답표로 불일치를 확정하고 ②를 참 전제로 써 순위를 역추정. 원본 도표 없이 판정 논리 구성"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "2026#26",
+      "version": 4,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#27",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#28",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#29",
+      "version": 4,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#30",
+      "version": 7,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#32",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#33",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#34",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#35",
+      "version": 4,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#36",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#37",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#38",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#39",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#40",
+      "version": 4,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#41",
+      "version": 4,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#42",
+      "version": 4,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#43",
+      "version": 5,
+      "type": "X-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#44",
+      "version": 4,
+      "type": "X-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2026#45",
+      "version": 4,
+      "type": "X-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#18",
+      "version": 4,
+      "type": "R-PURPOSE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#19",
+      "version": 4,
+      "type": "R-MOOD",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#20",
+      "version": 4,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#21",
+      "version": 4,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#22",
+      "version": 4,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#23",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#24",
+      "version": 4,
+      "type": "R-CHART",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "④⑤를 참으로 가정해 후보를 좁히고 한국 막대가 최저 아님을 단정 — 정답표 역추정, 원본 값 미확인"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "M1809#25",
+      "version": 4,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#26",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#27",
+      "version": 5,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#28",
+      "version": 4,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#29",
+      "version": 4,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#30",
+      "version": 7,
+      "type": "R-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [
+        {
+          "code": "other",
+          "note": "why_correct가 짧음(재능 대비 조건 언급 없음) — 보강 권장"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#32",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#33",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#34",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M1809#35",
+      "version": 4,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    }
+  ]
+}

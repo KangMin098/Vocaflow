@@ -1,0 +1,350 @@
+{
+  "chunk": "05",
+  "set": "kice",
+  "offset": 160,
+  "items": [
+    {
+      "id": "2019#20",
+      "version": 4,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#21",
+      "version": 4,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#22",
+      "version": 4,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#23",
+      "version": 4,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#24",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#25",
+      "version": 5,
+      "type": "R-CHART",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "answer_reasoning",
+          "note": "정답 근거를 '값이 아니라 줄 순서'로 가르침 — 순위는 값 비교로 확정해야 하며 행 배치 의존은 무조건 규칙화 위험"
+        },
+        {
+          "code": "lure_quote",
+          "note": "answer_locus quote 가 두 해 표의 열을 섞어 이어 붙인 문자열이고 why_correct 인용에 밑줄 기호가 끼어 원문 그대로가 아님"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "2019#26",
+      "version": 4,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#27",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#28",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#29",
+      "version": 4,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#30",
+      "version": 4,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#32",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#33",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#34",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#35",
+      "version": 7,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#36",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#37",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#38",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#39",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#40",
+      "version": 4,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#41",
+      "version": 4,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#42",
+      "version": 4,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#43",
+      "version": 5,
+      "type": "X-ORDER",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "other",
+          "note": "confirmed_at.note 에 '3차 보강 전 서술' 작업 메타가 학습자 노출 텍스트로 남음; sentence_index 순서 [26,16] 역순"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#44",
+      "version": 4,
+      "type": "X-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2019#45",
+      "version": 4,
+      "type": "X-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#18",
+      "version": 4,
+      "type": "R-PURPOSE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#19",
+      "version": 4,
+      "type": "R-MOOD",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#20",
+      "version": 4,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#21",
+      "version": 4,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#22",
+      "version": 4,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#23",
+      "version": 4,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#24",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#25",
+      "version": 4,
+      "type": "R-CHART",
+      "verdict": "rewrite",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "원본 그래프 값 확인 없이 ②③을 참으로 전제하고 선지 간 모순으로 ④를 확정 — 사실상 정답표 역추론"
+        },
+        {
+          "code": "choice_2",
+          "note": "②③ how_to_reject 가 막대 값 판정 방법만 있고 실제 값 근거 없음; 참 판정이 ④ 논증의 전제로 재사용됨"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "2020#26",
+      "version": 4,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#27",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#28",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#29",
+      "version": 5,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#30",
+      "version": 7,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    }
+  ]
+}

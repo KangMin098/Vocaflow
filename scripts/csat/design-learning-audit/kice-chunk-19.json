@@ -1,0 +1,345 @@
+{
+  "chunk": 19,
+  "set": "kice",
+  "offset": 720,
+  "items": [
+    {
+      "id": "M2606#20",
+      "version": 4,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#21",
+      "version": 4,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#22",
+      "version": 4,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#23",
+      "version": 4,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#24",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#25",
+      "version": 4,
+      "type": "R-CHART",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "answer_reasoning",
+          "note": "정답 해설이 「④가 불일치=정답」에서 방향을 역추론. 이탈리아 막대 실측 근거 없음"
+        },
+        {
+          "code": "chart_unverified",
+          "note": "오답 4개 how_to_reject가 비교 절차만 제시, 도표 값 확인 불가"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "M2606#26",
+      "version": 4,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#27",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#28",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#29",
+      "version": 4,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#30",
+      "version": 4,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#32",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#33",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#34",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#35",
+      "version": 4,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#36",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#37",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#38",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#39",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#40",
+      "version": 4,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#41",
+      "version": 4,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#42",
+      "version": 4,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#43",
+      "version": 5,
+      "type": "X-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#44",
+      "version": 4,
+      "type": "X-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2606#45",
+      "version": 4,
+      "type": "X-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#18",
+      "version": 4,
+      "type": "R-PURPOSE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#19",
+      "version": 4,
+      "type": "R-MOOD",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#20",
+      "version": 4,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#21",
+      "version": 4,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#22",
+      "version": 4,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#23",
+      "version": 5,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#24",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#25",
+      "version": 4,
+      "type": "R-CHART",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "⑤ 해설이 30% 초과 막대를 확인 못 한 채 성립 단정 — 정답키 역추론 성격"
+        },
+        {
+          "code": "answer_reasoning",
+          "note": "어느 연령대가 30% 이상인지 미기재로 why_correct가 실제 근거를 못 줌"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "M2609#26",
+      "version": 4,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#27",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#28",
+      "version": 6,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#29",
+      "version": 4,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#30",
+      "version": 4,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2609#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    }
+  ]
+}

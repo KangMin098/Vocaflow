@@ -1,0 +1,73 @@
+{
+  "chunk": "12",
+  "set": "kice",
+  "offset": 440,
+  "items": [
+    {"id": "M2106#20", "version": 4, "type": "R-CLAIM", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#21", "version": 4, "type": "R-IMPLY", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#22", "version": 4, "type": "R-GIST", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#23", "version": 4, "type": "R-TOPIC", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#24", "version": 4, "type": "R-TITLE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#25", "version": 5, "type": "R-CHART", "verdict": "partial", "defects": [
+      {"code": "choice_1", "note": "유인이 'Others 행을 최대값으로 착각' 이라는 억지 설정 — 실제 오독 경로가 아니고 lure_quote 도 선지와 무관한 행"},
+      {"code": "choice_5", "note": "단위 혼동 유인이 '순위 숫자·0.33과 5.63 혼동' 으로 근거 없는 상상. 실제 함정(문턱 0.50 비교)으로 다시 써야 함"}
+    ], "principle_ok": true},
+    {"id": "M2106#26", "version": 4, "type": "R-FACT", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#27", "version": 5, "type": "R-NOTICE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#28", "version": 5, "type": "R-NOTICE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#29", "version": 4, "type": "R-GRAMMAR", "verdict": "keep", "defects": [
+      {"code": "source_broken", "note": "csat_items.choices 가 밑줄 낱말이 아니라 다음 밑줄까지의 긴 구간으로 저장됨(분석은 정상)"}
+    ], "principle_ok": true},
+    {"id": "M2106#30", "version": 4, "type": "R-VOCAB", "verdict": "keep", "defects": [
+      {"code": "source_broken", "note": "choices 가 밑줄 사이 구간 전체로 저장되고 끝에 각주·쪽번호가 섞임(분석은 정상)"}
+    ], "principle_ok": true},
+    {"id": "M2106#31", "version": 4, "type": "R-BLANK", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#32", "version": 4, "type": "R-BLANK", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#33", "version": 4, "type": "R-BLANK", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#34", "version": 4, "type": "R-BLANK", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#35", "version": 4, "type": "R-IRRELEVANT", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#36", "version": 4, "type": "R-ORDER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#37", "version": 4, "type": "R-ORDER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#38", "version": 4, "type": "R-INSERT", "verdict": "partial", "defects": [
+      {"code": "source_broken", "note": "passage 가 두 단 섞임으로 주어진 문장이 본문 맨 앞에 붙고, choices 도 괄호 조각 구간으로 저장됨"},
+      {"code": "other", "note": "confirmed_at.note 에 작업 메타('코퍼스 지문이 두 단 섞임…원문 창에서')가 섞여 학습자 노출 문구로 부적합"}
+    ], "principle_ok": true},
+    {"id": "M2106#39", "version": 4, "type": "R-INSERT", "verdict": "partial", "defects": [
+      {"code": "source_broken", "note": "passage 첫 문장이 주어진 문장(두 단 섞임), choices 가 구간 조각으로 저장됨"},
+      {"code": "other", "note": "confirmed_at.note 에 작업 메타 문구가 붙어 있음 — 학습자 화면에 그대로 나갈 위험"}
+    ], "principle_ok": true},
+    {"id": "M2106#40", "version": 4, "type": "R-SUMMARY", "verdict": "partial", "defects": [
+      {"code": "choice_2", "note": "lure_quote(absence of hominin…)가 reveal 의 유인과 무관하고 why_tempting 이 '①과 같아서'뿐 — 선지 고유 함정 없음"}
+    ], "principle_ok": true},
+    {"id": "M2106#41", "version": 4, "type": "X-TITLE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#42", "version": 4, "type": "X-VOCAB", "verdict": "keep", "defects": [
+      {"code": "other", "note": "note 의 '이 청크에서 유일한 문항' 은 작업 단위 메타 — 학습자 문구에서 제거 필요"}
+    ], "principle_ok": true},
+    {"id": "M2106#43", "version": 5, "type": "X-ORDER", "verdict": "partial", "defects": [
+      {"code": "answer_reasoning", "note": "why_correct 가 (A)→(D), (C)→(B) 두 이음매만 말하고 (D)→(C) 연결 근거가 빠짐"}
+    ], "principle_ok": true},
+    {"id": "M2106#44", "version": 4, "type": "X-REFER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2106#45", "version": 4, "type": "X-FACT", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#18", "version": 3, "type": "R-PURPOSE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#19", "version": 4, "type": "R-MOOD", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#20", "version": 3, "type": "R-CLAIM", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#21", "version": 3, "type": "R-IMPLY", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#22", "version": 3, "type": "R-GIST", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#23", "version": 3, "type": "R-TOPIC", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#24", "version": 3, "type": "R-TITLE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#25", "version": 3, "type": "R-CHART", "verdict": "partial", "defects": [
+      {"code": "chart_unverified", "note": "③ 유인이 '추출본에서 열이 어긋나 보이면' — 실제 시험지가 아닌 텍스트 추출 결함을 함정으로 가르침"}
+    ], "principle_ok": true},
+    {"id": "M2109#26", "version": 3, "type": "R-FACT", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#27", "version": 3, "type": "R-NOTICE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#28", "version": 4, "type": "R-NOTICE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "M2109#29", "version": 3, "type": "R-GRAMMAR", "verdict": "keep", "defects": [
+      {"code": "source_broken", "note": "choices 가 밑줄 사이 긴 구간으로 저장됨(분석은 정상)"}
+    ], "principle_ok": true},
+    {"id": "M2109#30", "version": 3, "type": "R-VOCAB", "verdict": "partial", "defects": [
+      {"code": "choice_3", "note": "how_to_reject 가 '억압 대상과 어긋나는 생각을 찾는 건 monitoring' 이라 해 지문(불일치 생각 감지)과 엇갈리게 서술"},
+      {"code": "source_broken", "note": "choices 가 밑줄 구간 전체로 저장됨"}
+    ], "principle_ok": true},
+    {"id": "M2109#31", "version": 3, "type": "R-BLANK", "verdict": "keep", "defects": [], "principle_ok": true}
+  ]
+}

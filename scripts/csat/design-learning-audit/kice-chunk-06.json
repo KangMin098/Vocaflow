@@ -1,0 +1,336 @@
+{
+  "chunk": "06",
+  "set": "kice",
+  "offset": 200,
+  "items": [
+    {
+      "id": "2020#32",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#33",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#34",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#35",
+      "version": 4,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#36",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#37",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#38",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#39",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#40",
+      "version": 4,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#41",
+      "version": 4,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#42",
+      "version": 4,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#43",
+      "version": 5,
+      "type": "X-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#44",
+      "version": 4,
+      "type": "X-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2020#45",
+      "version": 4,
+      "type": "X-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#18",
+      "version": 4,
+      "type": "R-PURPOSE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#19",
+      "version": 4,
+      "type": "R-MOOD",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#20",
+      "version": 4,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#21",
+      "version": 4,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#22",
+      "version": 5,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#23",
+      "version": 4,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#24",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#25",
+      "version": 4,
+      "type": "R-CHART",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "그래프 값 없이 \"스페인·이탈리아 2019 칸 중 하나가 5% 위\"라 단정 — 정답키 역산, 실제 막대값 확인 필요"
+        },
+        {
+          "code": "choice_1",
+          "note": "①④ how_to_reject 가 그래프 확인을 지시만 하고 참 근거 수치를 못 댐(그래프 원자료 부재)"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#26",
+      "version": 4,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#27",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#28",
+      "version": 5,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#29",
+      "version": 4,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#30",
+      "version": 4,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#32",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#33",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#34",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#35",
+      "version": 7,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#36",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#37",
+      "version": 4,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#38",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#39",
+      "version": 4,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#40",
+      "version": 4,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#41",
+      "version": 4,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#42",
+      "version": 4,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "2021#43",
+      "version": 5,
+      "type": "X-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    }
+  ]
+}

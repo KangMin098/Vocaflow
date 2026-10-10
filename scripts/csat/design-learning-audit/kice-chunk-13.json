@@ -1,0 +1,361 @@
+{
+  "chunk": "13",
+  "set": "kice",
+  "offset": 480,
+  "items": [
+    {
+      "id": "M2109#32",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#33",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#34",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#35",
+      "version": 6,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#36",
+      "version": 3,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#37",
+      "version": 3,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#38",
+      "version": 3,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#39",
+      "version": 3,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#40",
+      "version": 3,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#41",
+      "version": 3,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#42",
+      "version": 3,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#43",
+      "version": 4,
+      "type": "X-ORDER",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "lure_quote",
+          "note": "③ lure_quote(할머니가 선물 주려 함)가 why_tempting·how_to_reject(the same thing 선행사)와 무관"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#44",
+      "version": 3,
+      "type": "X-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2109#45",
+      "version": 3,
+      "type": "X-FACT",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "choice_truth",
+          "note": "①~④는 지문과 일치하는 참 진술인데 어휘 함정·부분 사실 등 trap 라벨이 붙어 정답선택/참거짓 구분 흐림"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#18",
+      "version": 3,
+      "type": "R-PURPOSE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#19",
+      "version": 3,
+      "type": "R-MOOD",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#20",
+      "version": 3,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#21",
+      "version": 3,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#22",
+      "version": 4,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#23",
+      "version": 3,
+      "type": "R-TOPIC",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "lure_quote",
+          "note": "③(읽기 습관) lure_quote가 놀이를 그만둔다는 통념 문장이라 선지 유인과 연결 약함"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#24",
+      "version": 3,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#25",
+      "version": 3,
+      "type": "R-CHART",
+      "verdict": "needs_source",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "막대 값 없이(chart_values_available:false) 선지 커버리지 소거로 ② 확정 — 도표 값 확보 필요"
+        },
+        {
+          "code": "answer_reasoning",
+          "note": "why_correct가 \"평가원 정답표가 ②를 불일치로 확정\"이라며 정답키로 도표를 역추론"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "M2206#26",
+      "version": 3,
+      "type": "R-FACT",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "choice_4",
+          "note": "how_to_reject가 \"선지도 그를 금메달리스트로 적었다\"고 함 — 선지는 Dana를 금메달리스트로 적음, 주체 서술 오류"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#27",
+      "version": 3,
+      "type": "R-NOTICE",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "choice_truth",
+          "note": "불일치형인데 참 진술 ①~④에 범위 과대·지문 밖 상식 등 함정 라벨 — 참인 선지의 함정 유형이 무의미"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#28",
+      "version": 3,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#29",
+      "version": 3,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#30",
+      "version": 3,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#31",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#32",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#33",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#34",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#35",
+      "version": 3,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#36",
+      "version": 3,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#37",
+      "version": 3,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#38",
+      "version": 3,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#39",
+      "version": 3,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#40",
+      "version": 3,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#41",
+      "version": 3,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#42",
+      "version": 3,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2206#43",
+      "version": 4,
+      "type": "X-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    }
+  ]
+}

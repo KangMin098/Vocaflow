@@ -1,0 +1,77 @@
+{
+  "chunk": "02",
+  "set": "kice",
+  "offset": 40,
+  "items": [
+    {"id": "2014B#40", "version": 4, "type": "R-SUMMARY", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2014B#41", "version": 4, "type": "X-TITLE", "verdict": "keep", "defects": [
+      {"code": "source_broken", "note": "공유 지문의 빈칸 표시가 빠져 'meaningful .'로 저장 — 제목 판정엔 영향 없음"}
+    ], "principle_ok": true},
+    {"id": "2014B#42", "version": 4, "type": "X-BLANK", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2014B#43", "version": 6, "type": "X-ORDER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2014B#44", "version": 4, "type": "X-REFER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2014B#45", "version": 4, "type": "X-FACT", "verdict": "partial", "defects": [
+      {"code": "overgeneral", "note": "③ 배제에 '세 번째 선지이므로 (C)부터 찾으면' — 선지 번호=단락 위치라는 무조건 요령"},
+      {"code": "choice_1", "note": "① lure_quote가 아버지 회상 문장으로, 농촌 대가족 오독의 유인 근거와 연결 약함"}
+    ], "principle_ok": true},
+    {"id": "2015#18", "version": 4, "type": "R-GIST", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#19", "version": 4, "type": "R-MOOD", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#20", "version": 4, "type": "R-TOPIC", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#21", "version": 4, "type": "R-TOPIC", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#22", "version": 4, "type": "R-TITLE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#23", "version": 4, "type": "R-TITLE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#24", "version": 4, "type": "R-FACT", "verdict": "partial", "defects": [
+      {"code": "choice_5", "note": "본문에 없는 '인쇄 잔여(8 3)'를 유인 근거로 서술 — 선지 데이터엔 없음"},
+      {"code": "source_broken", "note": "발문이 '일치하지 않는'에서 잘림(…것은? 누락)"}
+    ], "principle_ok": true},
+    {"id": "2015#25", "version": 4, "type": "R-CHART", "verdict": "needs_source", "defects": [
+      {"code": "chart_unverified", "note": "email 값 미확인을 스스로 밝히면서 '평가원 정답표가 확정'으로 ④ 불일치 결론 — 정답키 역추론"},
+      {"code": "answer_reasoning", "note": "why_correct가 '세 배에 못 미친다'를 값 없이 단정 — 원본 도표 필요"}
+    ], "principle_ok": false},
+    {"id": "2015#26", "version": 4, "type": "R-NOTICE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#27", "version": 4, "type": "R-NOTICE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#28", "version": 4, "type": "R-GRAMMAR", "verdict": "keep", "defects": [
+      {"code": "source_broken", "note": "choices가 밑줄 사이 지문 구간 전체로 잘못 분절 저장 — 분석 자체는 정확"}
+    ], "principle_ok": true},
+    {"id": "2015#29", "version": 4, "type": "R-REFER", "verdict": "keep", "defects": [
+      {"code": "source_broken", "note": "choices가 밑줄 뒤 지문 구간으로 분절 저장 — 판정엔 영향 없음"}
+    ], "principle_ok": true},
+    {"id": "2015#30", "version": 4, "type": "R-VOCAB", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#31", "version": 5, "type": "R-BLANK", "verdict": "partial", "defects": [
+      {"code": "choice_2", "note": "정답 why_correct가 한 줄 — that절이 거짓이라 '착각을 키운다'가 요구된다는 연결이 locus에만 있음"}
+    ], "principle_ok": true},
+    {"id": "2015#32", "version": 5, "type": "R-BLANK", "verdict": "partial", "defects": [
+      {"code": "choice_1", "note": "정답 why_correct가 한 줄 — 양보(legitimate)-but 구조와 빈칸 뒤 재진술 연결 미흡"},
+      {"code": "choice_5", "note": "trap '인과 역전' 라벨이 내용(필자가 반박한 전제를 결론화)과 어긋남"}
+    ], "principle_ok": true},
+    {"id": "2015#33", "version": 4, "type": "R-BLANK", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#34", "version": 4, "type": "R-BLANK2", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#35", "version": 4, "type": "R-IRRELEVANT", "verdict": "partial", "defects": [
+      {"code": "choice_5", "note": "선지·지문에 없는 '파싱 잔여 Although ort' 언급 — 근거 없는 서술"}
+    ], "principle_ok": true},
+    {"id": "2015#36", "version": 4, "type": "R-ORDER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#37", "version": 4, "type": "R-ORDER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#38", "version": 4, "type": "R-INSERT", "verdict": "keep", "defects": [
+      {"code": "source_broken", "note": "choices가 '( … (' 지문 조각과 각주로 분절 저장 — 판정엔 영향 없음"}
+    ], "principle_ok": true},
+    {"id": "2015#39", "version": 4, "type": "R-INSERT", "verdict": "keep", "defects": [
+      {"code": "source_broken", "note": "choices가 지문 조각으로 분절 저장 — 판정엔 영향 없음"}
+    ], "principle_ok": true},
+    {"id": "2015#40", "version": 4, "type": "R-SUMMARY", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#41", "version": 4, "type": "X-TITLE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#42", "version": 4, "type": "X-BLANK", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#43", "version": 5, "type": "X-ORDER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#44", "version": 4, "type": "X-REFER", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2015#45", "version": 4, "type": "X-FACT", "verdict": "partial", "defects": [
+      {"code": "overgeneral", "note": "④ 배제에 '네 번째 선지이므로 세 번째 단락부터' — 선지 번호=위치 무조건 요령"}
+    ], "principle_ok": true},
+    {"id": "2016#18", "version": 4, "type": "R-PURPOSE", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2016#19", "version": 4, "type": "R-MOOD", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2016#20", "version": 4, "type": "R-CLAIM", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2016#21", "version": 4, "type": "R-GIST", "verdict": "keep", "defects": [], "principle_ok": true},
+    {"id": "2016#22", "version": 4, "type": "R-TOPIC", "verdict": "partial", "defects": [
+      {"code": "why_correct_empty", "note": "정답 why_correct가 'biased가 없어 약해 보인다'는 함정 서술뿐 — 정답 논증 누락(locus엔 있음)"}
+    ], "principle_ok": true},
+    {"id": "2016#23", "version": 4, "type": "R-TITLE", "verdict": "keep", "defects": [], "principle_ok": true}
+  ]
+}
