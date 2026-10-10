@@ -21,6 +21,7 @@ import { EVIDENCE_GROUP_LABEL, evidenceCounts, goalSummary } from '@/lib/csat/ma
 import { GoalPopover, useGoal } from './GoalBar'
 import { STEP_ICON } from './icons'
 import l from './learner.module.css'
+import { SKILL_BADGE, SkillBadge, skillActionText, stepSkillProjection } from './SkillPrescription'
 import { StepSheet } from './StepSheet'
 import { useTaskDone } from './useTaskDone'
 
@@ -126,7 +127,7 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
         <p className={l.pathHint}>단계를 누르면 이 힘이 무엇인지 · 왜 필요한지 · 목표와 어떤 관계인지 · 내 기록에서 보인 것을 볼 수 있어요.</p>
         <ol className={l.path} data-testid="read-path">
           {path.read.map((s, i) => (
-            <StepNode key={s.key} s={s} i={i} last={i === path.read.length - 1} onOpen={() => setOpen({ key: s.key })} />
+            <StepNode key={s.key} s={s} i={i} last={i === path.read.length - 1} data={data} onOpen={(startAt) => setOpen({ key: s.key, startAt })} />
           ))}
         </ol>
         <div className={l.listen} data-testid="listen-path">
@@ -175,7 +176,7 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
               </div>
             </>
           ) : focus.kind === 'step' ? (
-            <FocusStep s={viewOf(focus.step)} unobserved={focus.provisional?.unobserved.map((k) => stepByKey(k).name) ?? null} onStart={() => setOpen({ key: focus.step, startAt: 'check' })} />
+            <FocusStep s={viewOf(focus.step)} data={data} unobserved={focus.provisional?.unobserved.map((k) => stepByKey(k).name) ?? null} onStart={() => setOpen({ key: focus.step, startAt: 'check' })} />
           ) : focus.kind === 'distinguish' ? (
             <FocusDistinguish title={focus.title} activity={focus.activity} why={DISTINGUISH_WHY} />
           ) : focus.kind === 'direct' ? (
@@ -262,26 +263,30 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
   )
 }
 
-function StepNode({ s, i, last, onOpen }: { s: StepView; i: number; last: boolean; onOpen: () => void }) {
+function StepNode({ s, i, last, data, onOpen }: { s: StepView; i: number; last: boolean; data: MapPageData; onOpen: (startAt?: 'check') => void }) {
   const Icon = STEP_ICON[s.key]
+  const px = stepSkillProjection(data, s)
+  const skillWord = px.view ? ` · ${SKILL_BADGE[px.view.status]}` : ''
   return (
     // data-observed · data-estimate — 관리자 · 디버그 추적용(관찰값 vs 순위 추정 RANKING_SHRINK). 화면에는 내지 않는다
     <li className={l.step} data-e={s.evidence} data-observed={s.axisView.observed?.toFixed(3)} data-estimate={s.axisView.rankingEstimate?.toFixed(3)}>
-      <button type="button" className={l.stepBtn} data-step={s.key} onClick={onOpen} aria-label={`${i + 1}단계 ${s.name} — ${EVIDENCE_LABEL[s.evidence]}`}>
+      <button type="button" className={l.stepBtn} data-step={s.key} onClick={() => onOpen(px.view ? 'check' : undefined)} aria-label={`${i + 1}단계 ${s.name} — ${EVIDENCE_LABEL[s.evidence]}${skillWord}`}>
         <span className={l.stepNum} aria-hidden="true">{i + 1}</span>
         <span className={l.stepIcon} aria-hidden="true">
           <Icon size={20} strokeWidth={1.8} aria-hidden={true} />
         </span>
         <span className={l.stepName}>{s.name}</span>
         <span className={l.stepBadge}>{EVIDENCE_LABEL[s.evidence]}</span>
+        <SkillBadge px={px} />
       </button>
       {!last && <span className={l.connector} aria-hidden="true" />}
     </li>
   )
 }
 
-function FocusStep({ s, unobserved, onStart }: { s: StepView; unobserved: string[] | null; onStart: () => void }) {
+function FocusStep({ s, data, unobserved, onStart }: { s: StepView; data: MapPageData; unobserved: string[] | null; onStart: () => void }) {
   const Icon = STEP_ICON[s.key]
+  const px = stepSkillProjection(data, s)
   return (
     <>
       <p className={l.focusTitle}>
@@ -300,9 +305,11 @@ function FocusStep({ s, unobserved, onStart }: { s: StepView; unobserved: string
           최근 기출 기록에서 {s.name} 단계를 확인할 필요가 보였어요. <strong>아직 약점으로 확정된 것은 아니에요.</strong>
         </p>
       )}
-      <button type="button" className={l.cta} onClick={onStart} data-testid="focus-cta">
+      {px.view && <p className={l.focusWhy}><SkillBadge px={px} /></p>}
+      {/* 단일 다음 행동 — 누르면 단계 시트가 같은 상태 · 같은 주 행동(rx-primary)으로 열린다 */}
+      <button type="button" className={l.cta} onClick={onStart} data-testid="focus-cta" data-status={px.view?.status} data-action={px.view?.action} data-target={px.view ? px.primary?.href ?? '' : undefined}>
         <PlayCircle size={16} strokeWidth={1.9} aria-hidden="true" />
-        확인 시작
+        {px.view ? skillActionText(px) : '확인 시작'}
       </button>
     </>
   )

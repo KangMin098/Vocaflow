@@ -16,14 +16,13 @@ import type { MapPageData } from '@/lib/csat/map/load'
 import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
 import { decideStep } from '@/lib/knowledge/learning-decision'
 import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
-import { skillDiagnosis, skillView } from '@/lib/csat/map/skill-diagnosis'
 import { RECHECK_RESULT_CAVEAT, recheckOtherPassageLabel, type PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
 import { useModalFocus } from '../useModalFocus'
 
 import { STEP_ICON } from './icons'
-import { PRACTICE_HREF, SkillPrescription, SkillStatusLine } from './SkillPrescription'
+import { SkillPrescription, SkillStatusLine, stepSkillProjection } from './SkillPrescription'
 import p from './popup.module.css'
 import { stepGoalLink } from '@/lib/csat/map/goal-view'
 import l from './learner.module.css'
@@ -40,21 +39,10 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   useEffect(() => {
     if (startAt === 'check') document.getElementById('step-check')?.scrollIntoView({ block: 'start' })
   }, [startAt])
-  const lineTasks = data.tasks.filter((t) => step.lines.includes(t.line_code))
-  const find = lineTasks.filter((t) => stageOf(t.id) === 'FIND')
-  // 확인 문항 결과 → 확인된 학습 요구(서로 다른 확인 문항 2개 이상 · 독립 첫 시도). 연결된 확인 문항이 있을 때만
-  const findTargets = find.map((t) => data.practiceLinks?.[t.id]).filter((x): x is NonNullable<typeof x> => !!x).flatMap((x) => (x.confirm ?? [x]).map((c) => ({ itemRef: c.target, taskKey: c.taskKey })))
+  // 단계 과제 · FIND · 확인 대상 · 직접 확인 판정은 지도 카드와 같은 투영 하나에서 — 이 시트는 다시 계산하지 않는다
+  const { lineTasks, find, findTargets, skill, view, confirmLinks, transferHref } = stepSkillProjection(data, step)
   // 확인 기록을 못 읽었으면(undefined) 판정하지 않는다 — 「아직 확인 안 함」으로 잘못 보이지 않게
   const outcome = findTargets.length && data.findAttempts ? findOutcome(findTargets, data.findAttempts) : null
-  // 기능 단위 직접 확인(verified_diagnosis · 이 원리만) — 확인 문항 묶음의 독립 첫 시도로 확정 · CHECK · 재진단. 서버 시각이 없으면 판정하지 않는다
-  const skill = findTargets.length && data.findAttempts && data.now ? skillDiagnosis(findTargets, data.findAttempts, new Date(data.now)) : null
-  // 상태 · 잠금 · 다시 확인 문항은 view model 하나에서 — 이 시트는 상태를 다시 분기하지 않는다
-  const view = skill ? skillView(skill) : null
-  // 다시 확인 후보 — 미노출 문항 거르기는 SkillPrescription 이 view.checkItems 로 한다
-  const confirmLinks = find.flatMap((t) => data.practiceLinks?.[t.id]?.confirm ?? [])
-  // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
-  const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
-  const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
   // 원리 기반 학습 결정 — 확인된 요구 → 다음 할 일(정책 버전 · 원리 · 방법 id 를 함께 남긴다)
   const decisionTask = find.find((t) => data.practiceLinks?.[t.id]?.chain)
   const decisionLink = decisionTask ? data.practiceLinks?.[decisionTask.id] : undefined

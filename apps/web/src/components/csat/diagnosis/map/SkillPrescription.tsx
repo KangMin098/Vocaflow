@@ -4,10 +4,11 @@
 // 상태 줄과 처방은 같은 view model(skillView)에서 상태 · 잠금 · 다시 확인 문항을 읽는다 — 화면마다 다시 분기하지 않는다.
 import { Lock, Route } from 'lucide-react'
 
-import type { SkillDiagnosis, SkillView } from '@/lib/csat/map/skill-diagnosis'
-import { skillMessage, skillView } from '@/lib/csat/map/skill-diagnosis'
-import { STAGE_WORD } from '@/lib/csat/map/learner-path'
-import type { PrescriptionStage } from '@/lib/csat/map/prescription'
+import type { SkillDiagnosis, SkillTarget, SkillView } from '@/lib/csat/map/skill-diagnosis'
+import { SKILL_LABEL, skillDiagnosis, skillMessage, skillView } from '@/lib/csat/map/skill-diagnosis'
+import { STAGE_WORD, type StepView } from '@/lib/csat/map/learner-path'
+import type { MapPageData } from '@/lib/csat/map/load'
+import { stageOf, type PrescriptionStage } from '@/lib/csat/map/prescription'
 
 import l from './learner.module.css'
 
@@ -39,6 +40,71 @@ const HEADING: Record<SkillView['action'], string> = {
 
 const itemWord = (label: string) => label.replace(/으로 직접 확인$/, '')
 
+export interface CheckLink { target: string; href: string; label: string }
+
+/** 지금 할 행동(주 행동) — view.action 하나로 고른다. 바로잡기 = 막혔던(확정에 쓴) 문항의 원리 해설 다시 읽기.
+ *  직접 확인(unverified · expired)은 링크가 아니라 FIND 칸이 맡으므로 null — 지도 카드와 단계 시트가 같은 값을 쓴다 */
+export function skillPrimary(skill: SkillDiagnosis | null, checkLinks: readonly CheckLink[]): { action: SkillView['action']; href: string; text: string } | null {
+  if (!skill) return null
+  const view = skillView(skill)
+  const checks = checkLinks.filter((c) => view.checkItems.includes(c.target))
+  const repair = view.action === 'repair' ? checkLinks.find((c) => skill.verifiedItems.includes(c.target)) : undefined
+  return view.action === 'repair' && repair ? { action: view.action, href: repair.href, text: `바로잡기 시작 — ${itemWord(repair.label)} 원리 다시 읽기 →` }
+    : view.action === 'recheck' && checks[0] ? { action: view.action, href: checks[0].href, text: `바로잡은 뒤 다시 확인하기 — ${itemWord(checks[0].label)} →` }
+      : view.action === 'next_step' ? { action: view.action, href: NEXT_STEP_HREF, text: '다음 단계 — 새 기출을 풀고 기록해 목표 대비 변화 보기 →' }
+        : null
+}
+
+/** 지도 카드 배지 — 다섯 상태 모두(unverified 는 상태 줄이 비어 있으므로 배지 말만 따로) */
+export const SKILL_BADGE: Record<SkillView['status'], string> = { ...SKILL_LABEL, unverified: '직접 확인 전' }
+
+/** 직접 확인 행동 문구 — 이전 확정을 쓰지 않는다(expired 도 처음부터) */
+export const DIRECT_CHECK_TEXT = '직접 확인 시작'
+
+export interface StepSkillProjection {
+  /** 확인 기록을 못 읽었으면(undefined) unavailable — 상태 · 처방 CTA 를 보이지 않는다 */
+  available: boolean
+  lineTasks: MapPageData['tasks']
+  find: MapPageData['tasks']
+  findTargets: SkillTarget[]
+  confirmLinks: CheckLink[]
+  skill: SkillDiagnosis | null
+  view: SkillView | null
+  primary: ReturnType<typeof skillPrimary>
+  transferHref: string | null
+}
+
+/** 지도 카드에 쓰는 단일 다음 행동 문구 — 주 행동이 있으면 그 문구, 없으면(unverified · expired) 직접 확인 */
+export function skillActionText(px: Pick<StepSkillProjection, 'primary'>): string {
+  return px.primary ? px.primary.text.replace(/ →$/, '') : DIRECT_CHECK_TEXT
+}
+
+/** 지도 카드(읽기 StepNode · FocusStep) 배지 — 상태 + 단일 다음 행동. 판정이 없으면(unavailable 포함) 아무것도 보이지 않는다 */
+export function SkillBadge({ px }: { px: Pick<StepSkillProjection, 'view' | 'primary'> }) {
+  if (!px.view) return null
+  return (
+    <span className={l.stepBadge} data-testid="step-skill" data-status={px.view.status} data-action={px.view.action} data-target={px.primary?.href ?? ''}>
+      {SKILL_BADGE[px.view.status]} · {skillActionText(px)}
+    </span>
+  )
+}
+
+/** 단계 하나의 직접 확인 투영(순수) — 단계 과제 · FIND 제한 · 확인 대상 · 시도 판정의 단일 출처. 지도 카드와 단계 시트가 같이 쓴다 */
+export function stepSkillProjection(data: MapPageData, step: Pick<StepView, 'lines'>): StepSkillProjection {
+  const lineTasks = data.tasks.filter((t) => step.lines.includes(t.line_code))
+  const find = lineTasks.filter((t) => stageOf(t.id) === 'FIND')
+  // 확인 문항 결과 → 확인된 학습 요구(서로 다른 확인 문항 2개 이상 · 독립 첫 시도). 연결된 확인 문항이 있을 때만
+  const findTargets = find.map((t) => data.practiceLinks?.[t.id]).filter((x): x is NonNullable<typeof x> => !!x).flatMap((x) => (x.confirm ?? [x]).map((c) => ({ itemRef: c.target, taskKey: c.taskKey })))
+  const available = data.findAttempts !== undefined
+  // 기능 단위 직접 확인 — 확인 기록을 못 읽었거나 서버 시각이 없으면 판정하지 않는다(「아직 확인 안 함」으로 잘못 보이지 않게)
+  const skill = findTargets.length && data.findAttempts && data.now ? skillDiagnosis(findTargets, data.findAttempts, new Date(data.now)) : null
+  const confirmLinks = find.flatMap((t) => data.practiceLinks?.[t.id]?.confirm ?? [])
+  // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만
+  const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
+  const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
+  return { available, lineTasks, find, findTargets, confirmLinks, skill, view: skill ? skillView(skill) : null, primary: skillPrimary(skill, confirmLinks), transferHref }
+}
+
 export interface PrescriptionGroup {
   stage: PrescriptionStage
   titles: string[]
@@ -54,13 +120,7 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks }: {
   const view = skill ? skillView(skill) : null
   const opened = !!view && !view.locked
   const checks = view ? checkLinks.filter((c) => view.checkItems.includes(c.target)) : []
-  // 지금 할 행동(주 행동) — view.action 하나로 고른다. 바로잡기 = 막혔던(확정에 쓴) 문항의 원리 해설 다시 읽기
-  const repair = view?.action === 'repair' ? checkLinks.find((c) => skill?.verifiedItems.includes(c.target)) : undefined
-  const primary =
-    view?.action === 'repair' && repair ? { href: repair.href, text: `바로잡기 시작 — ${itemWord(repair.label)} 원리 다시 읽기 →` }
-      : view?.action === 'recheck' && checks[0] ? { href: checks[0].href, text: `바로잡은 뒤 다시 확인하기 — ${itemWord(checks[0].label)} →` }
-        : view?.action === 'next_step' ? { href: NEXT_STEP_HREF, text: '다음 단계 — 새 기출을 풀고 기록해 목표 대비 변화 보기 →' }
-          : null
+  const primary = skillPrimary(skill, checkLinks)
   return (
     <section className={l.block} data-testid="step-prescription" data-open={opened} data-status={view?.status ?? 'none'} data-action={view?.action ?? 'direct_check'}>
       <h3 className={l.blockH}><Route size={14} strokeWidth={1.9} aria-hidden="true" />{HEADING[view?.action ?? 'direct_check']}</h3>

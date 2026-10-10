@@ -1,11 +1,12 @@
 // apps/web/src/components/csat/diagnosis/map/__tests__/skill-prescription.test.tsx
 // 직접 확인 → 처방 개방 → 다시 확인 → 통과 — 화면(정적 렌더)
 import { renderToStaticMarkup } from 'react-dom/server'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
+import type { MapPageData } from '@/lib/csat/map/load'
 import { skillDiagnosis, type SkillAttempt } from '@/lib/csat/map/skill-diagnosis'
 
-import { SkillPrescription, SkillStatusLine } from '../SkillPrescription'
+import { DIRECT_CHECK_TEXT, NEXT_STEP_HREF, SKILL_BADGE, SkillBadge, SkillPrescription, SkillStatusLine, stepSkillProjection } from '../SkillPrescription'
 
 const T = ['a', 'b', 'c', 'd'].map((i) => ({ itemRef: i, taskKey: 'claim-support' }))
 const now = new Date('2026-10-20T00:00:00Z')
@@ -106,5 +107,77 @@ describe('상태 · CTA 는 같은 view model 에서(T-0016)', () => {
     expect(html).not.toContain('rx-check')
     expect(html).not.toContain('rx-transfer')
     expect(html).not.toContain('확인된 학습 요구에 맞춘 학습')
+  })
+})
+
+// 지도 카드 · 단계 시트 공동 투영(T-0017) — FIND 과제 f1 · 다른 단계 과제 r1 · 다른 라인 과제 x1
+vi.mock('@/lib/csat/map/prescription', async (orig) => ({ ...(await orig<object>()), stageOf: (id: string) => (id.startsWith('f') || id.startsWith('x') ? 'FIND' : 'REPAIR') }))
+const mapData = (findAttempts: SkillAttempt[] | undefined, when = now) => ({
+  now: when.toISOString(),
+  tasks: [{ id: 'f1', line_code: 'L1' }, { id: 'r1', line_code: 'L1' }, { id: 'x1', line_code: 'L9' }],
+  practiceLinks: {
+    f1: { taskKey: 'claim-support', confirm: T.map((t) => ({ target: t.itemRef, taskKey: t.taskKey, href: `/csat/item/${t.itemRef}#principle`, label: `${t.itemRef}번으로 직접 확인` })) },
+    x1: { taskKey: 'other', confirm: [{ target: 'z', taskKey: 'other', href: '/z', label: 'z번으로 직접 확인' }] },
+  },
+  findAttempts,
+}) as unknown as MapPageData
+const step = { lines: ['L1'] }
+const card = (findAttempts: SkillAttempt[] | undefined, when = now) => renderToStaticMarkup(<SkillBadge px={stepSkillProjection(mapData(findAttempts, when), step)} />)
+const sheet = (findAttempts: SkillAttempt[] | undefined, when = now) => {
+  const px = stepSkillProjection(mapData(findAttempts, when), step)
+  return renderToStaticMarkup(<SkillPrescription skill={px.skill} groups={groups} transferHref={px.transferHref} checkLinks={px.confirmLinks} />)
+}
+const CASES: [string, SkillAttempt[], Date][] = [
+  ['unverified', [], now],
+  ['verified', [att('a', false, at(10)), att('b', false, at(11))], now],
+  ['still_needed', [att('a', false, at(10)), att('b', false, at(11)), att('c', false, at(15))], now],
+  ['resolved', [att('a', false, at(10)), att('b', false, at(11)), att('c', true, at(15)), att('d', true, at(16))], now],
+  ['expired', [att('a', false, at(10)), att('b', false, at(11))], new Date('2027-03-01T00:00:00Z')],
+]
+const attr = (html: string, name: string) => html.match(new RegExp(`${name}="([^"]*)"`))?.[1]
+
+describe('stepSkillProjection — 지도 카드와 단계 시트의 단일 출처(T-0017)', () => {
+  it('[0] 이 단계 라인의 FIND 과제만 · 확인 대상 · 다시 확인 후보 · Practice 를 한 번에', () => {
+    const px = stepSkillProjection(mapData([]), step)
+    expect(px.lineTasks.map((t) => t.id)).toEqual(['f1', 'r1'])
+    expect(px.find.map((t) => t.id)).toEqual(['f1'])
+    expect(px.findTargets).toEqual(T)
+    expect(px.confirmLinks.map((c) => c.target)).toEqual(['a', 'b', 'c', 'd'])
+    expect(px.transferHref).toBe('/csat/practice/claim-support')
+  })
+  it('[3] findAttempts undefined → unavailable · 상태 · CTA 없음 / 빈 배열만 unverified', () => {
+    const none = stepSkillProjection(mapData(undefined), step)
+    expect(none.available).toBe(false)
+    expect(none.skill).toBeNull()
+    expect(none.primary).toBeNull()
+    expect(card(undefined)).toBe('')
+    const empty = stepSkillProjection(mapData([]), step)
+    expect(empty.available).toBe(true)
+    expect(empty.view?.status).toBe('unverified')
+  })
+  it.each(CASES)('[1][2][4] %s — 카드 배지 · 행동 · 대상이 시트 data-status · data-action · rx-primary 와 같다', (status, attempts, when) => {
+    const c = card(attempts, when)
+    const s = sheet(attempts, when)
+    expect(attr(c, 'data-status')).toBe(status)
+    expect(c).toContain(SKILL_BADGE[status as keyof typeof SKILL_BADGE])
+    expect(attr(s, 'data-status')).toBe(status)
+    expect(attr(c, 'data-action')).toBe(attr(s, 'data-action'))
+    const primaryHref = s.match(/<a href="([^"]*)"[^>]*data-testid="rx-primary"/)?.[1]?.replace(/&amp;/g, '&') ?? ''
+    expect(attr(c, 'data-target')?.replace(/&amp;/g, '&')).toBe(primaryHref)
+  })
+  it('[2] 상태별 연결 — 직접 확인 · 바로잡기 · 남은 미노출 CHECK · 다음 단계 · 이전 확정 미사용', () => {
+    const [u, v, sn, r, e] = CASES.map(([, a, w]) => card(a, w))
+    expect(attr(u, 'data-action')).toBe('direct_check')
+    expect(u).toContain(DIRECT_CHECK_TEXT)
+    expect(attr(u, 'data-target')).toBe('')
+    expect(attr(v, 'data-action')).toBe('repair')
+    expect(attr(v, 'data-target')).toBe('/csat/item/a#principle')
+    expect(attr(sn, 'data-action')).toBe('recheck')
+    expect(attr(sn, 'data-target')).toBe('/csat/item/d#principle')
+    expect(attr(r, 'data-action')).toBe('next_step')
+    expect(attr(r, 'data-target')?.replace(/&amp;/g, '&')).toBe(NEXT_STEP_HREF)
+    expect(attr(e, 'data-action')).toBe('direct_check')
+    expect(attr(e, 'data-target')).toBe('')
+    expect(stepSkillProjection(mapData(CASES[4][1], CASES[4][2]), step).view?.locked).toBe(true)
   })
 })
