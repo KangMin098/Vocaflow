@@ -88,3 +88,42 @@ describe('관찰 근거는 적격 시도만', () => {
     expect(d.trace.observation.items).toEqual(['2022#20', '2025#20'])
   })
 })
+
+describe('find-policy.v2 — 부분 정답을 구별한다(판정 기준은 그대로)', () => {
+  const part = (itemRef: string, parts: Record<string, boolean>) => ({ ...row(itemRef, false), parts })
+  it('주장은 맞고 근거만 누락 → 같은 「연습」이지만 초점 support · 이유에 막힌 부분', () => {
+    const d = decideStep(input([part('2022#20', { claim: true, support: false, relation: true }), part('2025#20', { claim: true, support: false, relation: false })]))
+    expect(d.action).toBe('practice_method')
+    expect(d.trace.focus).toBe('support')
+    expect(d.trace.observation.blockedParts).toMatchObject({ support: 2, relation: 1 })
+    expect(d.message).toMatch(/주장은 찾았지만/)
+    expect(d.reason).toMatch(/support 2/)
+  })
+  it('주장부터 틀린 학습자 → 초점 claim(뒤 단계가 따라 틀려도 주장이 우선)', () => {
+    const d = decideStep(input([part('2022#20', { claim: false, support: false, relation: false }), part('2025#20', { claim: false, support: false, relation: true })]))
+    expect(d.trace.focus).toBe('claim')
+    expect(d.message).toMatch(/주장 문장을 찾는/)
+  })
+  it('세부가 없으면 초점 없음 — v1 과 같은 문구', () => {
+    const d = decideStep(input([row('2022#20', false), row('2025#20', false)]))
+    expect(d.trace.focus).toBeNull()
+    expect(d.trace.observation.blockedParts.unknown).toBe(2)
+  })
+  it('부분 정답을 통과로 바꾸지 않는다 — 완전 정답 기준 유지', () => {
+    const d = decideStep(input([part('2022#20', { claim: true, support: true, relation: false }), part('2025#20', { claim: true, support: true, relation: false })]))
+    expect(d.trace.observation.state).toBe('confirmed_need')
+  })
+})
+
+describe('find-policy.v2 — 따라 틀린 부분을 따로 세지 않는다', () => {
+  it('주장이 틀린 문항의 근거 · 관계 실패는 주장 실패로만 센다(첫 문장 편향 학습자 → 초점 claim)', () => {
+    const p = (itemRef: string, parts: Record<string, boolean>) => ({ ...row(itemRef, false), parts })
+    const d = decideStep(input([
+      p('2022#20', { claim: false, support: false, relation: false }),
+      p('2025#20', { claim: false, support: false, relation: true }),
+      p('2016#20', { claim: true, support: false, relation: true }),
+    ]))
+    expect(d.trace.observation.blockedParts).toMatchObject({ claim: 2, support: 1 })
+    expect(d.trace.focus).toBe('claim')
+  })
+})
