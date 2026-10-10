@@ -93,6 +93,12 @@ async function heldBy(fn: 'csat_ec_embargoed_exams' | 'csat_ec_embargoed_items',
   }
 }
 
+/** 시험 보류 판정 + 실패 여부. 화면이 「기록 없음」과 「판정 실패」를 가를 때 쓴다(실패면 held = 입력 전부 · fail-closed) */
+export async function examEmbargoDecision(examIds: readonly string[], deps?: GateDeps): Promise<{ held: Set<string>; failed: boolean }> {
+  const r = await heldBy('csat_ec_embargoed_exams', examIds, deps)
+  return { held: r.set, failed: r.failed }
+}
+
 /** 시험 id 들 중 보류인 것. 판정 실패면 입력 전부(fail-closed) */
 export async function embargoedExamIds(examIds: readonly string[], deps?: GateDeps): Promise<Set<string>> {
   return (await heldBy('csat_ec_embargoed_exams', examIds, deps)).set

@@ -62,3 +62,14 @@ describe('/api/csat/state — 서버 경로(#182)', () => {
     expect((h.upserts[0] as { user_id: string }).user_id).toBe('u1')
   })
 })
+
+describe('/api/csat/state PUT — 보류로 빠진 진행 세트를 지키기(Codex P1)', () => {
+  it('들어온 기록에 active 가 없고 서버 세트가 보류(판정 실패 포함)면 서버 세트를 남긴다', async () => {
+    const active = { items: ['2026#31', '2026#32'], index: 0, startedAt: 1, loci: {} }
+    h.stored = { ...(h.stored as object), active, updatedAt: 1 }
+    h.gate = 'error'
+    const incoming = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], updatedAt: 5 }
+    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: incoming }) }))
+    expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(active)
+  })
+})

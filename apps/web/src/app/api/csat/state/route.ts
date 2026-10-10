@@ -82,9 +82,16 @@ export async function PUT(req: Request) {
   if (current.error) return NextResponse.json({ ok: false, error: current.error.message }, { status: 503 })
   const existing = (current.data as { record: unknown } | null)?.record
   // 합집합 병합 — 보류로 빠진 채 돌아온 기록이 서버 사본의 항목을 지우지 않는다. 응답에는 기록을 싣지 않는다
-  const merged = looksLikeRecord(existing)
+  let merged = looksLikeRecord(existing)
     ? mergeDissection(record as unknown as DissectionRecord, existing as unknown as DissectionRecord)
     : record
+  // GET 은 보류 문항이 든 진행 세트(active)를 통째로 뺀다. 그 사본이 더 새 것으로 돌아오면 병합이 active 를 새 쪽에서 가져가
+  // 서버의 세트가 지워진다(Codex P1) — 들어온 기록에 active 가 없고 서버 세트에 보류 문항이 있으면 서버 세트를 지킨다(판정 실패도 보류로)
+  const serverActive = looksLikeRecord(existing) ? (existing as unknown as DissectionRecord).active : undefined
+  if (serverActive && !(record as unknown as DissectionRecord).active) {
+    const { held, failed } = await itemRevealDecision([...serverActive.items, ...Object.keys(serverActive.loci ?? {})])
+    if (failed || held.size) merged = { ...(merged as DissectionRecord), active: serverActive }
+  }
   const { error } = await db
     .from('csat_learner_state')
     .upsert({ user_id: user.id, record: merged, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })

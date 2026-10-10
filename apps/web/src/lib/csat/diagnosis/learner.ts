@@ -10,7 +10,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import type { HomeDiagnosis } from '@/components/csat/diagnosis/DiagnosisHomeCard'
-import { embargoedExamIds } from '@/lib/csat/embargo-gate'
+import { examEmbargoDecision } from '@/lib/csat/embargo-gate'
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
@@ -41,7 +41,9 @@ export async function loadHomeDiagnosis(): Promise<HomeDiagnosis> {
       (r) => r.id,
       '홈 카드 기록',
     )
-    const held = await embargoedExamIds(keys.map((k) => k.exam_id))
+    // 판정 실패를 「기록 없음」으로 보이지 않는다 — 기록이 있는데 none 이면 학습자가 다시 입력한다(Codex P2)
+    const { held, failed } = await examEmbargoDecision(keys.map((k) => k.exam_id))
+    if (failed) return { kind: 'error' }
     const visible = keys.filter((k) => !held.has(k.exam_id))
       .sort((a, b) => b.taken_at.localeCompare(a.taken_at) || b.created_at.localeCompare(a.created_at))
     const last = visible[0]
