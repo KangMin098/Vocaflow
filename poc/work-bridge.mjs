@@ -321,6 +321,61 @@ function goalIntakeNow(by) {
   return r.results
 }
 
+/**
+ * 목표 접수 상시 감시 — 오케스트레이터가 쉬는 동안에도 ChatGPT 목표 요청이 몇 분 안에 들어오게.
+ * 매 반복 감시 잠금을 잠깐만 잡는다(바쁘면 그 반복은 건너뜀 — 오케스트레이터 tick 과 겹치지 않는다).
+ * 멈춤: planning/bridge-watch.STOP · --hours 상한(기본 8) · API 연속 오류 --max-errors(기본 5). 상태 쓰기는 intake-requests 의 상태 뮤텍스.
+ */
+function goalsWatch() {
+  if (!opt.repo) throw new Error('--repo owner/exchange 필요')
+  const interval = Number(opt.interval || 60) * 1000
+  const deadline = Date.now() + Number(opt.hours || 8) * 3600_000
+  const maxErr = Number(opt['max-errors'] || 5)
+  const stopF = path.join(ROOT, 'planning', 'bridge-watch.STOP')
+  const res = { started_at: new Date().toISOString(), polls: 0, skipped_busy: 0, collected: [], intake: [], stop_reason: null }
+  let errors = 0
+  log({ event: 'goals_watch_start', interval_s: interval / 1000, hours: Number(opt.hours || 8), app: opt.app || null })
+  for (;;) {
+    if (fs.existsSync(stopF)) {
+      res.stop_reason = 'STOP 파일'
+      break
+    }
+    if (Date.now() > deadline) {
+      res.stop_reason = '시간 상한'
+      break
+    }
+    let lockF = null
+    try {
+      lockF = takeWatchLock()
+    } catch {
+      res.skipped_busy++
+      sleep(interval)
+      continue
+    }
+    try {
+      res.polls++
+      const got = collectGoalsOnce({ authors: null, app: opt.app || null }).filter((r) => r.status === 'collected')
+      errors = 0
+      if (got.length) {
+        res.collected.push(...got.map((g) => g.source))
+        res.intake.push(...goalIntakeNow('bridge-goals-watch'))
+      }
+    } catch (e) {
+      errors++
+      log({ event: 'goals_watch_error', error: String(e.message).slice(0, 200) })
+      if (errors >= maxErr) {
+        res.stop_reason = `API 연속 오류 ${errors}`
+        break
+      }
+    } finally {
+      releaseWatchLock(lockF)
+    }
+    sleep(interval)
+  }
+  log({ event: 'goals_watch_end', polls: res.polls, collected: res.collected.length, stop_reason: res.stop_reason })
+  out(res)
+}
+
 function sleep(ms) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
 }
@@ -567,6 +622,7 @@ try {
   else if (cmd === 'preview') out(preview(pos[0]))
   else if (cmd === 'watch') watch()
   else if (cmd === 'tick') tick()
+  else if (cmd === 'goals-watch') goalsWatch()
   else if (cmd === 'collect-goals') {
     if (!opt.repo) throw new Error('--repo owner/exchange 필요')
     out({ repo: opt.repo, results: collectGoalsOnce({ authors: opt.authors ? String(opt.authors).split(',').map((s) => s.trim().toLowerCase()) : null, app: opt.app || null }) })

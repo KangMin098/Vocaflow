@@ -104,3 +104,23 @@ test('잘못된 정본 id 요청은 거절(상태 무변경) · 이슈 본문의
   assert.match(t.goal_intake[0].reason, /NO_GOAL/)
   assert.equal(run(VFC, ['ugoal', 'list', '--json']).json.goals.length, 0, '정본에 없는 id 로는 목표가 생기지 않는다')
 })
+
+test('goals-watch: 상한 안에서 반복 수집 → 인수 · STOP 파일로 멈춤', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-gw-'))
+  const ghDir = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-gwgh-'))
+  const env = { ...process.env, VFC_ROOT: root, VFC_GH_CMD: fake('fake-gh.mjs'), FAKE_GH_DIR: ghDir, VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir() }
+  spawnSync(process.execPath, [VFC, 'init', '--json'], { env, encoding: 'utf8' })
+  const ex = JSON.parse(spawnSync(process.execPath, [VFC, 'ugoal', 'start', '--from', 'claude', '--title', '학습 지도 학년별 권장 참고 개선', '--goals', CANON, '--by', 'claude', '--json'], { env, encoding: 'utf8' }).stdout)
+  const now = new Date().toISOString()
+  fs.writeFileSync(path.join(ghDir, 'state.json'), JSON.stringify({ default_branch: 'main', refs: {}, files: {}, prs: [], labels: [], calls: [], issues: [{ number: 24, title: '접수함', labels: ['vfc-goal'], author: 'k', createdAt: now, body: '', comments: [{ author: 'k', app: APP, at: now, body: block({ request: '학습 지도 학년별 권장 참고 겹침 결함을 고쳐 주세요', goal_ref: ex.ug_id }) }] }] }))
+  // 0.001 시간(3.6초) 상한 · 1초 간격 — 첫 반복에서 수집·인수, 이후 반복은 이미 수집됨
+  const r = spawnSync(process.execPath, [BRIDGE, 'goals-watch', '--repo', XREPO, '--app', APP, '--interval', '1', '--hours', '0.001'], { env, encoding: 'utf8', timeout: 60000 })
+  const j = JSON.parse(r.stdout)
+  assert.equal(j.collected.length, 1, r.stderr)
+  assert.equal(j.intake[0].outcome, 'reused')
+  assert.ok(j.polls >= 2)
+  assert.equal(j.stop_reason, '시간 상한')
+  fs.writeFileSync(path.join(root, 'planning', 'bridge-watch.STOP'), '')
+  const s = JSON.parse(spawnSync(process.execPath, [BRIDGE, 'goals-watch', '--repo', XREPO, '--interval', '1'], { env, encoding: 'utf8', timeout: 30000 }).stdout)
+  assert.equal(s.stop_reason, 'STOP 파일')
+})
