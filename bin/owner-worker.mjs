@@ -29,8 +29,8 @@ const nowIso = () => new Date().toISOString()
 const sleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
 const git = (wt, args) => execFileSync('git', ['-C', wt, ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim()
 
-function nextTask(state, w) {
-  return state.taskQueue.tasks.find((t) => t.status === 'READY' && t.dispatch?.to === w.owner_id && t.owner_id === w.owner_id && goalMode(UG.ugState(state).goals[t.user_goal_id]) === 'owner_session' && (!t.worktree || t.worktree === w.worktree))
+function nextTask(state, w, skip = new Set()) {
+  return state.taskQueue.tasks.find((t) => !skip.has(t.task_id) && t.status === 'READY' && t.dispatch?.to === w.owner_id && t.owner_id === w.owner_id && goalMode(UG.ugState(state).goals[t.user_goal_id]) === 'owner_session' && (!t.worktree || t.worktree === w.worktree))
 }
 
 function main() {
@@ -40,7 +40,13 @@ function main() {
   const maxTasks = Number(opt['max-tasks'] || 1)
   const until = Date.now() + Number(opt.minutes || 0) * 60_000
   const result = { worker: wid, claimed: [], submitted: [], skipped: [], stop: null }
+  const skip = new Set() // 이번 패스에서 인수할 수 없던 작업(의존 미완 · 승인 대기 · 일시정지 등) — 같은 작업을 끝없이 다시 고르지 않는다
   for (;;) {
+    // ⑤ 실행 시간 상한은 매 반복 처음에(인수 전에) 본다
+    if (opt.minutes && Date.now() >= until) {
+      result.stop = `시간 상한 ${opt.minutes}분`
+      break
+    }
     if (fs.existsSync(p.stopFile())) {
       result.stop = 'runtime/STOP'
       break
@@ -50,12 +56,13 @@ function main() {
       result.stop = `작업 수 상한 ${maxTasks}`
       break
     }
-    const cand = nextTask(loadState().state, w)
+    const cand = nextTask(loadState().state, w, skip)
     if (!cand) {
       if (opt.once || Date.now() >= until) {
         result.stop = '할 일 없음'
         break
       }
+      skip.clear() // 다음 패스에서는 다시 본다(상태가 바뀌었을 수 있다)
       sleep(30_000)
       continue
     }
@@ -72,12 +79,13 @@ function main() {
         } catch {
           started.run.start_head = null
         }
+        if (!t.dispatch.review_base) t.dispatch.review_base = started.run.start_head // 반려된 변경도 다음 리뷰 범위에 남게(Codex P1)
         W.heartbeat(s, wid, { pid: process.pid, status: 'busy', active_task: t.task_id })
         return { task_id: t.task_id, generation: started.run.generation, round: t.orchestration.rounds }
       }, { event: 'worker.claim', worker: wid, by: wid })
     } catch (e) {
       result.skipped.push({ task_id: cand.task_id, why: `${e.code ?? 'ERROR'}: ${String(e.message).slice(0, 160)}` })
-      if (opt.once) break
+      skip.add(cand.task_id)
       continue
     }
     result.claimed.push(claim)
@@ -88,10 +96,18 @@ function main() {
     }, { event: 'worker.run', run: runId, by: wid })
     const task = loadState().state.taskQueue.tasks.find((t) => t.task_id === claim.task_id)
     const limits = UG.limitsFor(loadState().state, task, { ...DEFAULT_LIMITS })
-    const impl = implementStep({ runId, task, round: claim.round, findings: null, limits, deps })
+    // 직전 반려(중앙 독립 리뷰)의 지적을 이번 구현에 넘긴다
+    const lastReject = [...(task.history || [])].reverse().find((h) => h.from === 'REVIEW' && h.to !== 'COMPLETED')
+    const findings = lastReject?.note ? [{ id: 'R-PREV', severity: 'P1', scope: 'in', claim: String(lastReject.note).slice(0, 1200), fix: '위 지적을 고친다' }] : null
+    const impl = implementStep({ runId, task, round: claim.round, findings, limits, deps })
     if (impl.cause) {
-      withState((s, ctx) => T.blockTask(s, claim.task_id, { caller: w.owner_id, reason: `${impl.cause}: ${String(impl.detail || '').slice(0, 300)}` }, ctx), { event: 'task.block', task: claim.task_id, by: wid })
-      result.skipped.push({ task_id: claim.task_id, why: `구현 실패 ${impl.cause}` })
+      const blocked = withState((s, ctx) => {
+        const t = s.taskQueue.tasks.find((x) => x.task_id === claim.task_id)
+        if (t.status !== 'IN_PROGRESS' || t.run?.worker_id !== wid || t.run?.generation !== claim.generation) return false // 다른 세대의 실행을 막지 않는다
+        T.blockTask(s, claim.task_id, { caller: w.owner_id, reason: `${impl.cause}: ${String(impl.detail || '').slice(0, 300)}` }, ctx)
+        return true
+      }, { event: 'task.block', task: claim.task_id, by: wid })
+      result.skipped.push({ task_id: claim.task_id, why: blocked ? `구현 실패 ${impl.cause}` : 'fencing — 다른 세대 실행 중이라 막지 않음' })
     } else {
       // fencing — 그 사이 다른 세대가 작업을 가져갔으면 제출하지 않는다
       const ok = withState((s, ctx) => {
