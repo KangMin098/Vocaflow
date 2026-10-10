@@ -172,6 +172,10 @@ export const structuredOrderDraftSchema = z.object({
   chapter_spec_version: z.string().trim().min(1),
   volume_spec_version: z.string().trim().min(1),
   layout_profile: z.string().trim().min(1),
+  // Exam-timed (R13) families need an exam target; multi-text/data families need licensed
+  // resources sealed into the order. Both are validated by the order's target schema.
+  exam: z.enum(['psat_8_9', 'sat', 'act', 'toefl', 'csat', 'lsat']).optional(),
+  resources: z.array(z.unknown()).max(180).optional(),
   policies: z.object({
     source: policyReference, rights: policyReference, adaptation: policyReference,
     benchmark: policyReference, evidence: policyReference, trust: policyReference,
@@ -194,11 +198,11 @@ export function buildStructuredProductOrderDraft(input: unknown, timestamp: stri
       family: planned.plan.product_family, age_band: ageBand,
       language_band: draft.language_band, reasoning_band: ageBand,
       passage_v_level: draft.passage_v_level, skills: planned.plan.skill_mix,
-      exam: 'none', words: {
+      exam: draft.exam ?? 'none', words: {
         min: draft.brief.passage_words.start, max: draft.brief.passage_words.end,
-      }, share_alike: draft.share_alike, resources: [],
+      }, share_alike: draft.share_alike, resources: (draft.resources ?? []) as ProductOrder['target']['resources'],
     },
-    exam_alignment: [],
+    exam_alignment: draft.exam ? [draft.exam] : [],
     source_policy_version: draft.policies.source.version, source_policy_hash: draft.policies.source.hash,
     rights_policy_version: draft.policies.rights.version, rights_policy_hash: draft.policies.rights.hash,
     adaptation_policy_version: draft.policies.adaptation.version, adaptation_policy_hash: draft.policies.adaptation.hash,

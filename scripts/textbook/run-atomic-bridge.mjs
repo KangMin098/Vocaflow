@@ -102,6 +102,10 @@ export async function produceRunDayAtomic({ run, day, trust }) {
   const units = run.volumeInput.units.filter(unit => unit.day === day)
     .sort((a, b) => run.volumeInput.brief.grade_scope.grades.indexOf(a.grade) - run.volumeInput.brief.grade_scope.grades.indexOf(b.grade))
   if (!units.length) throw Error('RUN_DAY_MISSING')
+  // Specialized resource/time layouts are rejected by registration JS and by the DB triggers
+  // (20261009095727) until their resources are revalidated at the DB boundary.
+  if (['P13', 'P14', 'P18', 'P20'].includes(run.volumeInput.orders[0].order.product_family))
+    throw Error('ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING')
   const orderByGrade = new Map(run.volumeInput.orders.map(entry => [entry.grade, entry]))
   if (orderByGrade.size !== units.length) throw Error('RUN_DAY_GRADE_MISSING')
   for (const unit of units) if (orderByGrade.get(unit.grade).order.trust_policy_hash !== trust.policy_hash)

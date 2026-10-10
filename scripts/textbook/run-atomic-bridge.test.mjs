@@ -86,3 +86,17 @@ test('items changed after the run gate fail inside atomic production', async () 
   other.gatedItems[0].items[0].item_id = 'foreign'
   await assert.rejects(produceRunAtomicVolume({ run: other, trust }), /RUN_GATED_ITEMS_MISMATCH/)
 })
+
+test('specialized families stop before atomic production with the DB-gate reason', async () => {
+  const trust = syntheticTrustRoot()
+  const input = runInput(brief('P18', ['high_2']), trust)
+  for (const draft of input.drafts) draft.exam = 'csat'
+  const run = importOrderProductionDrain(input, { cells: exportOrderProductionDrain(input).cells.map(cell => ({
+    cell_id: cell.cell_id, cell_hash: cell.cell_hash,
+    passage: `Plants store energy in roots today. ${Array.from({ length: cell.passage_words_target - 6 }, (_, i) => `w${i}`).join(' ')}`,
+    items: [{ item_id: `${cell.cell_id}:i1`, item_type: cell.item_type, question: 'Which is supported?',
+      choices: ['Plants store energy in roots today.', 'No.'], answer: 1, explanation: '근거 문장.',
+      evidence_primary: 'Plants store energy in roots today.', time_limit_seconds: 90 }] })) })
+  assert.equal(run.status, 'assembled', JSON.stringify(run.blockers))
+  await assert.rejects(produceRunAtomicVolume({ run, trust }), /ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING/)
+})

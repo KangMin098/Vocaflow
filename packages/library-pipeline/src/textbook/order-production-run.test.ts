@@ -13,6 +13,17 @@ const baseBrief = {
   genre_weights: { explanation: 1 }, duration_days: 6, units_per_chapter: 3,
   difficulty: { start: 1, end: 3 }, passage_words: { start: 60, end: 80 }, source_strategy: 'balanced',
 }
+// Licensed synthetic resources: two per order so days cycle between them.
+const resource = (kind: 'text' | 'data', n: number) => ({ kind, canonical_source: 'frym',
+  canonical_url: `https://example.org/${kind}-${n}`,
+  content: kind === 'data' ? `Year | Count\n2024 | ${20 + n}\n2025 | ${30 + n}` : `Text B number ${n} gives a different account of the same plants.`,
+  license_evidence: 'Synthetic permission recorded for this fixture only.', license: 'CC BY 4.0',
+  license_url: 'https://example.org/license', commercial_use: true, derivative_use: true,
+  ai_processing: 'allowed', third_party_text: false, share_alike: false,
+  attribution: 'Synthetic fixture source', checked_at: '2026-10-08T00:00:00Z' })
+const familyExtras = (family?: string) => family === 'P18' ? { exam: 'csat' }
+  : family === 'P14' ? { resources: [resource('data', 1), resource('data', 2)] }
+    : family === 'P13' || family === 'P20' ? { resources: [resource('text', 1), resource('text', 2)] } : {}
 function runInput(brief: Record<string, unknown>) {
   const { plan_hash } = planProductBrief(brief)
   const grades = (brief.grade_scope as { grades: string[] }).grades
@@ -23,7 +34,8 @@ function runInput(brief: Record<string, unknown>) {
       passage_v_level: grade.startsWith('high') ? 7 : grade.startsWith('middle') ? 5 : 2, share_alike: false, unit_spec_version: 'u1', chapter_spec_version: 'c1',
       volume_spec_version: 'v1', layout_profile: 'reading-v1',
       policies: { source: policy('1'), rights: policy('2'), adaptation: policy('3'),
-        benchmark: policy('4'), evidence: policy('5'), trust: policy('6') } })) }
+        benchmark: policy('4'), evidence: policy('5'), trust: policy('6') },
+      ...familyExtras(brief.product_family as string | undefined) })) }
 }
 
 // A deterministic "agent drain": passage of the target length with two distinct marked sentences.
@@ -35,7 +47,9 @@ function fill(drain: ReturnType<typeof exportOrderProductionDrain>) {
       item_id: `${cell.cell_id}:i1`, item_type: cell.item_type, question: `Day ${cell.day}: which statement is supported?`,
       choices: ['Plants store energy in roots.', 'Wells never refill.'], answer: 1,
       explanation: 'The first sentence states it.', evidence_primary: 'Plants store energy in roots.',
-      evidence_secondary: 'Rain refills the deep wells slowly.', focus_text: 'energy',
+      ...(cell.family === 'P18' ? { time_limit_seconds: 90 }
+        : cell.resource ? { resource_url: cell.resource.url, evidence_resource: cell.resource.content.slice(0, 12) }
+          : { evidence_secondary: 'Rain refills the deep wells slowly.', focus_text: 'energy' }),
     }] }
   }) }
 }
@@ -64,16 +78,37 @@ describe('registered order production run', () => {
     }
   })
 
-  it('runs every planned-path family through its adapter and refuses resource families', () => {
+  it('runs all 20 families through their adapters, including sealed resources and printed time budgets', () => {
     for (const family of Object.keys(PRODUCT_FAMILIES) as (keyof typeof PRODUCT_FAMILIES)[]) {
+      expect(PRODUCT_CAPABILITIES[family].items.length).toBeGreaterThan(0)
       const input = runInput({ ...baseBrief, product_family: family })
-      if (['P13', 'P14', 'P18', 'P20'].includes(family) || !PRODUCT_CAPABILITIES[family].items.length) {
-        expect(() => exportOrderProductionDrain(input)).toThrow(/ORDER_RUN_FAMILY_NOT_IN_PLANNED_PATH|TARGET_DIFFERS|UNSUPPORTED/)
-        continue
-      }
       const result = importOrderProductionDrain(input, fill(exportOrderProductionDrain(input)))
       expect(result.status, `${family} ${JSON.stringify((result as { blockers?: unknown }).blockers)}`).toBe('assembled')
+      if (result.status !== 'assembled') continue
+      if (['P13', 'P14', 'P20'].includes(family)) {
+        expect(new Set(result.lineage.map(unit => unit.resource_sha256)).size).toBe(2)
+        expect(result.output.html).toContain(family === 'P14' ? 'Source data' : 'Text B')
+      }
+      if (family === 'P18') expect(result.output.html).toContain('[제한 90초]')
     }
+  })
+
+  it('blocks specialized resources from another day, missing sealed resources and missing time budgets', () => {
+    const p13 = runInput({ ...baseBrief, product_family: 'P13' })
+    const drain = exportOrderProductionDrain(p13)
+    const wrongDay = fill(drain)
+    wrongDay.cells[0]!.items[0]!.resource_url = drain.cells[1]!.resource!.url
+    expect(JSON.stringify(importOrderProductionDrain(p13, wrongDay))).toContain('ORDER_RUN_RESOURCE_NOT_FOR_THIS_DAY')
+    const invented = fill(drain)
+    invented.cells[0]!.items[0]!.evidence_resource = 'not in Text B'
+    expect(JSON.stringify(importOrderProductionDrain(p13, invented))).toContain('SPECIALIZED_READING_RESOURCE_UNGROUNDED')
+    const noResources = structuredClone(p13)
+    for (const draft of noResources.drafts) delete (draft as { resources?: unknown }).resources
+    expect(() => exportOrderProductionDrain(noResources)).toThrow(/second text/)
+    const p18 = runInput({ ...baseBrief, product_family: 'P18' })
+    const untimed = fill(exportOrderProductionDrain(p18))
+    delete (untimed.cells[0]!.items[0] as { time_limit_seconds?: number }).time_limit_seconds
+    expect(JSON.stringify(importOrderProductionDrain(p18, untimed))).toContain('SPECIALIZED_READING_TIMER_MISSING')
   })
 
   it('blocks family-semantic failures, stale revisions, foreign cells and missing cells without output', () => {

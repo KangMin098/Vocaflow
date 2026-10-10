@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { PRODUCT_CAPABILITIES } from './factory-order'
 import { buildStructuredProductOrderDraft, planProductBrief, assemblePlannedVolumeSynthetic } from './product-planning'
 import { renderReadingFamilyUnit } from './reading-family-unit'
+import { renderSpecializedReadingUnit } from './specialized-reading-unit'
 import { canonicalJson } from './review-digest'
 
 /**
@@ -24,12 +25,14 @@ const runInputSchema = z.object({
   drafts: z.array(z.unknown()).min(1),
 }).strict()
 
-// P03 and the 15 generic reading families take a single sealed passage with no extra resource.
-// P13/P14/P18/P20 need sealed resources or time budgets the brief planner does not produce yet.
+// All 20 families run here. P13/P20 (second text) and P14 (data) take the resource the order
+// sealed for that day; P18 needs a printed per-item time budget and an exam-targeted order.
 const PLANNED_PATH_FAMILIES = new Set([
   'P01', 'P02', 'P03', 'P04', 'P05', 'P06', 'P07', 'P08', 'P09', 'P10',
-  'P11', 'P12', 'P15', 'P16', 'P17', 'P19',
+  'P11', 'P12', 'P13', 'P14', 'P15', 'P16', 'P17', 'P18', 'P19', 'P20',
 ])
+const SPECIALIZED = new Set(['P13', 'P14', 'P18', 'P20'])
+const resourceKind = (family: string) => family === 'P14' ? 'data' : family === 'P18' ? null : 'text'
 const FAMILY_REQUIREMENT: Record<string, string> = {
   P05: 'focus_text must be a whole word/phrase inside evidence_primary (vocabulary in context).',
   P06: 'focus_text must be the target structure inside evidence_primary (academic sentence).',
@@ -38,6 +41,10 @@ const FAMILY_REQUIREMENT: Record<string, string> = {
   P09: 'evidence_secondary is required and must not overlap evidence_primary (relation).',
   P10: 'evidence_secondary is required and must not overlap evidence_primary (inference).',
   P12: 'evidence_secondary is required and must not overlap evidence_primary (argument).',
+  P13: 'set resource_url to cell.resource.url and evidence_resource to an exact quote of cell.resource.content (Text B).',
+  P14: 'set resource_url to cell.resource.url and evidence_resource to an exact quote of cell.resource.content (data).',
+  P20: 'set resource_url to cell.resource.url and evidence_resource to an exact quote of cell.resource.content (Text B argument).',
+  P18: 'every item needs time_limit_seconds (positive integer, printed; no running timer) and no resource fields.',
 }
 
 /** Re-seals each registered draft and checks that all drafts belong to one brief/plan. */
@@ -63,7 +70,14 @@ export function sealOrderProductionInput(input: unknown) {
 
 function cellsFor(sealed: ReturnType<typeof sealOrderProductionInput>) {
   const directCount = Math.round(sealed.plan.units.length * sealed.plan.source_mix_target.direct / 100)
+  const kind = resourceKind(sealed.plan.product_family)
   return sealed.orders.flatMap(entry => sealed.plan.units.map(unit => {
+    // Day N uses the order's sealed resources in order, cycling when fewer resources than days were sealed.
+    const resources = SPECIALIZED.has(sealed.plan.product_family) && kind
+      ? entry.order.target.resources.filter(row => row.kind === kind) : []
+    if (SPECIALIZED.has(sealed.plan.product_family) && kind && !resources.length)
+      throw Error('ORDER_RUN_RESOURCE_MISSING')
+    const resource = resources.length ? resources[(unit.day - 1) % resources.length]! : null
     const cell = {
       cell_id: `${entry.order.product_order_id}:r${entry.order.order_revision}:d${unit.day}`,
       grade: entry.grade, day: unit.day, family: sealed.plan.product_family,
@@ -75,6 +89,8 @@ function cellsFor(sealed: ReturnType<typeof sealOrderProductionInput>) {
       cumulative_review: unit.cumulative_review,
       source_mode: unit.day <= directCount ? 'direct' as const : 'adaptation' as const,
       family_requirement: FAMILY_REQUIREMENT[sealed.plan.product_family] ?? 'evidence_primary must be a unique exact span of the passage.',
+      resource: resource ? { kind: resource.kind, url: resource.canonical_url, content: resource.content,
+        attribution: resource.attribution, content_sha256: sha(resource.content) } : null,
     }
     return { ...cell, cell_hash: sha(canonicalJson(cell)) }
   }))
@@ -100,6 +116,8 @@ const filledItemSchema = z.object({
   answer: z.number().int().min(1).max(5), explanation: z.string().trim().min(1),
   evidence_primary: z.string().trim().min(1), evidence_secondary: z.string().trim().min(1).optional(),
   focus_text: z.string().trim().min(1).optional(),
+  resource_url: z.string().url().optional(), evidence_resource: z.string().trim().min(1).optional(),
+  time_limit_seconds: z.number().int().positive().max(3600).optional(),
 }).strict()
 const filledSchema = z.object({ cells: z.array(z.object({
   cell_id: z.string().min(1), cell_hash: z.string().regex(/^[a-f0-9]{64}$/),
@@ -155,7 +173,16 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
     }
     try {
       if (cell.family === 'P03') gateP03(fill.passage, fill.items, entry.order.item_types)
-      else renderReadingFamilyUnit({ order: entry.order, grade: entry.order.grade_detail_target ?? entry.order.grade_target,
+      else if (SPECIALIZED.has(cell.family)) {
+        if (fill.items.some(item => cell.resource ? item.resource_url !== cell.resource.url : item.resource_url !== undefined))
+          throw Error('ORDER_RUN_RESOURCE_NOT_FOR_THIS_DAY')
+        renderSpecializedReadingUnit({ order: entry.order, grade: entry.order.grade_detail_target ?? entry.order.grade_target,
+          passage: fill.passage, items: fill.items.map(item => ({ id: item.item_id,
+            payload: { passage: fill.passage, item_type: item.item_type, question: item.question, choices: item.choices,
+              evidence_primary: item.evidence_primary, evidence_resource: item.evidence_resource,
+              resource_url: item.resource_url, time_limit_seconds: item.time_limit_seconds },
+            answer_key: { answer: item.answer } })) })
+      } else renderReadingFamilyUnit({ order: entry.order, grade: entry.order.grade_detail_target ?? entry.order.grade_target,
         passage: fill.passage, items: fill.items.map(item => ({ id: item.item_id,
           payload: { passage: fill.passage, item_type: item.item_type, question: item.question, choices: item.choices,
             evidence_primary: item.evidence_primary, evidence_secondary: item.evidence_secondary, focus_text: item.focus_text },
@@ -166,7 +193,11 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
     fill.items.forEach(item => seenItems.add(item.item_id))
     const passageHash = sha(fill.passage)
     const questionText = (item: z.infer<typeof filledItemSchema>) =>
-      `${item.question} ${item.choices.map((choice, index) => `(${index + 1}) ${choice}`).join(' ')}`
+      `${item.question} ${item.choices.map((choice, index) => `(${index + 1}) ${choice}`).join(' ')}` +
+      (item.time_limit_seconds ? ` [제한 ${item.time_limit_seconds}초]` : '')
+    // The student page shows the sealed second text / data under the passage, with its attribution.
+    const resourceHtml = cell.resource
+      ? `<br><strong>${cell.resource.kind === 'data' ? 'Source data' : 'Text B'}</strong><br>${esc(cell.resource.content)}<br><em>${esc(cell.resource.attribution)}</em>` : ''
     units.push({
       day: cell.day, grade: cell.grade as never, product_order_id: cell.product_order_id,
       order_revision: cell.order_revision, order_hash: cell.order_hash, planning_hash: cell.planning_hash,
@@ -178,7 +209,7 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
         product_order_id: cell.product_order_id, order_revision: cell.order_revision, order_hash: cell.order_hash })),
       source_mode: cell.source_mode, revisit_prior_skill: cell.revisit_prior_skill,
       cumulative_review: cell.cumulative_review, unit_id: cell.cell_id,
-      unit_html: `<section><p>${esc(fill.passage)}</p>${fill.items.map(item => `<p>${esc(questionText(item))}</p>`).join('')}</section>`,
+      unit_html: `<section><p>${esc(fill.passage)}${resourceHtml}</p>${fill.items.map(item => `<p>${esc(questionText(item))}</p>`).join('')}</section>`,
     })
   }
   if (blockers.length) return { status: 'blocked' as const, drain_hash: drain.drain_hash, blockers }
@@ -190,7 +221,8 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
     return { status: 'assembled' as const, drain_hash: drain.drain_hash, volumeInput, output, gatedItems,
       lineage: output.receipt.units.map(unit => ({ grade: unit.grade, day: unit.day, unit_id: unit.unit_id,
         product_order_id: unit.product_order_id, order_revision: unit.order_revision, order_hash: unit.order_hash,
-        passage_hash: unit.passage_hash, unit_hash: unit.unit_hash, item_ids: unit.items.map(item => item.item_id) })) }
+        passage_hash: unit.passage_hash, unit_hash: unit.unit_hash, item_ids: unit.items.map(item => item.item_id),
+        resource_sha256: drain.cells.find(cell => cell.cell_id === unit.unit_id)?.resource?.content_sha256 ?? null })) }
   } catch (error) {
     return { status: 'blocked' as const, drain_hash: drain.drain_hash,
       blockers: [{ stage: 'volume_assembled' as const, reason: (error as Error).message }] }

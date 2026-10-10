@@ -28,6 +28,8 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
       specialized ? 'packages/library-pipeline/src/textbook/specialized-reading-unit.ts'
         : 'packages/library-pipeline/src/textbook/reading-family-unit.ts',
       'packages/library-pipeline/src/textbook/multi-grade-order.test.ts',
+      // Registered order with sealed per-day resources / exam time budget -> planned student volume.
+      'packages/library-pipeline/src/textbook/order-production-run.test.ts',
     ] : state === 'CONTRACT_ONLY' ? [
       'packages/library-pipeline/src/textbook/factory-order.ts',
       'packages/library-pipeline/src/textbook/reading-family-unit.ts',

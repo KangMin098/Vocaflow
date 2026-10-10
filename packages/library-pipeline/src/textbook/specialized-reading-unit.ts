@@ -35,10 +35,17 @@ export function renderSpecializedReadingUnit(input: {
     throw new Error('SPECIALIZED_READING_GRADE_MIXED')
   const items = z.array(itemSchema).min(1).parse(input.items)
   const kind = order.product_family === 'P14' ? 'data' : 'text'
-  const resource = order.product_family === 'P18' ? null : order.target.resources.find(row => row.kind === kind)
-  if (order.product_family !== 'P18' && !resource)
+  // An order may seal several resources of its kind (one per planned day). A unit uses exactly
+  // one of them, chosen by the items' resource_url; a single sealed resource needs no URL choice.
+  const sealed = order.product_family === 'P18' ? [] : order.target.resources.filter(row => row.kind === kind)
+  if (order.product_family !== 'P18' && !sealed.length)
     throw new Error('SPECIALIZED_READING_RESOURCE_MISSING')
-  if (resource && order.target.resources.filter(row => row.kind === kind).length !== 1)
+  if (new Set(sealed.map(row => row.canonical_url)).size !== sealed.length)
+    throw new Error('SPECIALIZED_READING_RESOURCE_AMBIGUOUS')
+  const chosenUrls = new Set(items.map(item => item.payload.resource_url))
+  const resource = order.product_family === 'P18' ? null
+    : sealed.length === 1 ? sealed[0]! : sealed.find(row => chosenUrls.size === 1 && chosenUrls.has(row.canonical_url))
+  if (order.product_family !== 'P18' && !resource)
     throw new Error('SPECIALIZED_READING_RESOURCE_AMBIGUOUS')
   const questions = items.map(item => {
     const payload = item.payload
