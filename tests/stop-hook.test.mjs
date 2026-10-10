@@ -223,3 +223,182 @@ test('SH6d 최종 리뷰 실측 문장 「No remaining P0/P1 defects were confir
     assert.equal(h.stop().verdict, VERDICT.PASS, out)
   }
 })
+
+// ── RP-2026-10-10.1 (Codex 리뷰 최적화) ────────────────────────────────────
+// 파일 diff 가 head 와 무관하게 같도록 바꾼 하네스 — 같은 내용이면 재사용이 걸린다
+function stableHarness(opts = {}) {
+  const h = harness(opts)
+  h.deps.diff = (from, head, fs_) => fs_.map((f) => `diff --git a/${f} b/${f}\n+${h.content?.[f] ?? 'v1'}`).join('\n')
+  h.content = {}
+  // 기준 커밋 고정(재사용 키에 from 이 들어간다) — h.base 를 바꾸면 다른 기준
+  h.base = 'fixedbase0000000000000000000000000000000'
+  h.deps.isAncestor = () => false
+  h.deps.mergeBase = () => h.base
+  return h
+}
+
+test('RP1 문장형 깨끗한 답(실측 판독 실패 형식)을 PASS 로 읽는다 · P 표지가 섞이면 지적으로 읽는다', () => {
+  for (const out of ['No concrete defects or goal drift were found in the three scoped test changes.', 'No confirmed defects or contradictions of the stated goal were found in the scoped changes.', 'No concrete, actionable defects were identified in the scoped files.']) {
+    const h = harness({ reviews: [out] })
+    assert.equal(h.stop().verdict, VERDICT.PASS, out)
+  }
+  const h = harness({ reviews: [`No other defects were found.\n${P1('src/a.ts', 'null deref')}`] })
+  assert.equal(h.stop().verdict, VERDICT.BLOCKED)
+  const h2 = harness({ reviews: ['I could not see the diff.'] })
+  assert.equal(h2.stop().verdict, VERDICT.UNKNOWN, '깨끗하다는 말이 없으면 여전히 판독 불가')
+})
+
+test('RP2 같은 파일 diff 를 이미 깨끗하게 본 기록이 있으면 Codex 를 다시 부르지 않는다 · 기록에 정책·재사용 근거', () => {
+  const h = stableHarness({ files: ['src/a.ts', 'src/b.ts'], reviews: [CLEAN, CLEAN] })
+  assert.equal(h.stop().verdict, VERDICT.PASS)
+  assert.equal(h.calls.length, 1)
+  // 다른 커밋 · 같은 파일 내용(예: 리베이스 · 다른 세션) → 호출 없이 PASS
+  const r = h.stop()
+  assert.equal(r.verdict, VERDICT.PASS)
+  assert.equal(h.calls.length, 1, '재사용 — Codex 호출 없음')
+  const rec = h.records().at(-1)
+  assert.equal(rec.policy_version, 'RP-2026-10-10.1')
+  assert.equal(rec.codex_calls, 0)
+  assert.deepEqual(rec.files_reused.map((x) => x.file).sort(), ['src/a.ts', 'src/b.ts'])
+  assert.deepEqual(rec.files.sort(), ['src/a.ts', 'src/b.ts'], 'reviewGate 의 covers 가 재사용 파일도 덮인 것으로 본다')
+  // 범위 안 다른 파일이 바뀌면(주변 변경) 범위 해시가 달라져 전부 다시 본다 — 「범위 동일」일 때만 재사용
+  h.content['src/b.ts'] = 'v2'
+  h.stop()
+  assert.deepEqual(h.calls.at(-1).files.sort(), ['src/a.ts', 'src/b.ts'])
+})
+
+test('RP3 P0/P1 이 나온 묶음은 재사용 장부에 남기지 않는다 — 고친 뒤 다시 본다', () => {
+  const h = stableHarness({ files: ['src/a.ts'], reviews: [P1('src/a.ts', 'bad'), CLEAN] })
+  assert.equal(h.stop().verdict, VERDICT.BLOCKED)
+  assert.equal(h.stop().verdict, VERDICT.PASS, '같은 내용이어도 다시 리뷰한다(장부에 없다)')
+  assert.equal(h.calls.length, 2)
+})
+
+test('RP4 낮은 effort 의 깨끗함은 높은 effort 요구를 대체하지 않는다', () => {
+  const h = stableHarness({ files: ['src/a.ts'], reviews: [CLEAN, CLEAN] })
+  h.deps.effort = 'low'
+  h.stop()
+  h.deps.effort = 'high'
+  h.stop()
+  assert.equal(h.calls.length, 2, 'low 기록으로 high 리뷰를 건너뛰지 않는다')
+  h.deps.effort = 'low'
+  h.stop()
+  assert.equal(h.calls.length, 2, 'high 기록은 low 요구를 덮는다')
+})
+
+test('RP5 목적 파일이 바뀌면 이전 깨끗함을 쓰지 않는다', () => {
+  const h = stableHarness({ files: ['src/a.ts'], reviews: [CLEAN, CLEAN] })
+  h.stop()
+  fs.writeFileSync(path.join(h.root, '.agent-goal.md'), '# 목적\n바뀐 목적\n')
+  h.stop()
+  assert.equal(h.calls.length, 2)
+})
+
+test('RP6 UNKNOWN 재시도는 실패한 묶음만 다시 부른다', () => {
+  const files = Array.from({ length: 10 }, (_, i) => `src/f${i}.ts`)
+  const h = stableHarness({ files, reviews: [CLEAN, null, CLEAN] })
+  assert.equal(h.stop().verdict, VERDICT.UNKNOWN)
+  assert.equal(h.calls.length, 2)
+  const r = h.stop()
+  assert.equal(r.verdict, VERDICT.PASS)
+  assert.equal(h.calls.length, 3)
+  assert.deepEqual(h.calls.at(-1).files, files.slice(8), '성공한 첫 묶음(8파일)은 재사용')
+})
+
+test('RP7 사용량 한도: 걸린 묶음만 같은 실행 안에서 한 번 다시 부른다 · 다시 실패하면 UNKNOWN(PASS 아님) · v1 사이클은 재시도 없음', () => {
+  const files = Array.from({ length: 10 }, (_, i) => `src/f${i}.ts`)
+  const LIMIT = { ok: false, why: 'Codex 사용량 한도 — 한도가 풀린 뒤 다시' }
+  const mk = (q) => {
+    const h = stableHarness({ files, reviews: [] })
+    const slept = []
+    h.deps.sleep = (ms) => slept.push(ms)
+    h.deps.review = (fs_, d, kind) => {
+      h.calls.push({ files: fs_, kind })
+      return q.shift()
+    }
+    return { h, slept }
+  }
+  // 첫 묶음 한도 → 둘째 묶음 → 첫 묶음 재시도 성공 = PASS, 쉬지 않음(사이에 다른 묶음이 돌았다)
+  let { h, slept } = mk([LIMIT, { ok: true, out: CLEAN }, { ok: true, out: CLEAN }])
+  assert.equal(h.stop().verdict, VERDICT.PASS)
+  assert.deepEqual(h.calls.map((c) => c.files.length), [8, 2, 8])
+  assert.deepEqual(slept, [])
+  // 단독 묶음 한도 → 쉬고 재시도 → 또 한도 = UNKNOWN(재시도는 한 번뿐)
+  ;({ h, slept } = mk([LIMIT, { ok: true, out: CLEAN }, LIMIT]))
+  assert.equal(h.stop().verdict, VERDICT.UNKNOWN)
+  assert.equal(h.calls.length, 3)
+  assert.equal(slept.length, 0)
+  assert.match(h.records().at(-1).failures.join(' '), /한도/)
+  // 묶음이 하나뿐이면 쉬고 다시 부른다
+  const h1 = stableHarness({ files: ['src/a.ts'], reviews: [] })
+  const z = []
+  const q1 = [LIMIT, { ok: true, out: CLEAN }]
+  h1.deps.sleep = (ms) => z.push(ms)
+  h1.deps.review = () => q1.shift()
+  assert.equal(h1.stop().verdict, VERDICT.PASS)
+  assert.deepEqual(z, [30_000])
+})
+
+test('RP8 열린 v1 수정 사이클은 v1 로 끝내고(소급 금지), 사이클이 닫히면 새 판으로 올린다', () => {
+  const h = stableHarness({ files: ['src/a.ts'], reviews: [] })
+  // v1 판이 남긴 상태: 차단 대기 중 · policy_version 없음
+  const sf = path.join(h.stateDir, 's1.json')
+  const st = JSON.parse(fs.readFileSync(sf, 'utf8'))
+  st.roots[h.root] = { fix_rounds: 1, pending_block: { head: 'old', finding_ids: [] }, seen: {}, final: null, history: [] }
+  fs.writeFileSync(sf, JSON.stringify(st))
+  const sentence = 'No concrete regressions or contradictions of the stated goal were identified in the scoped changes.'
+  h.queue.push(sentence)
+  assert.equal(h.stop().verdict, VERDICT.UNKNOWN, 'v1 판독 — 문장형 답은 판독 실패 그대로')
+  assert.equal(h.records().at(-1).policy_version, 'RP-v1')
+  h.queue.push(CLEAN)
+  assert.equal(h.stop().verdict, VERDICT.PASS)
+  assert.equal(h.records().at(-1).policy_version, 'RP-v1', '사이클을 닫는 리뷰까지 v1')
+  h.content['src/a.ts'] = 'v2'
+  h.queue.push(sentence)
+  assert.equal(h.stop().verdict, VERDICT.PASS, '다음 사이클부터 새 판')
+  assert.equal(h.records().at(-1).policy_version, 'RP-2026-10-10.1')
+})
+
+test('RP9 유휴 루트(열린 사이클 없음)의 v1 상태는 다음 리뷰부터 새 판', () => {
+  const h = stableHarness({ files: ['src/a.ts'], reviews: ['No concrete defects were identified.'] })
+  const sf = path.join(h.stateDir, 's1.json')
+  const st = JSON.parse(fs.readFileSync(sf, 'utf8'))
+  delete st.roots[h.root].policy_version
+  fs.writeFileSync(sf, JSON.stringify(st))
+  assert.equal(h.stop().verdict, VERDICT.PASS)
+  assert.equal(h.records().at(-1).policy_version, 'RP-2026-10-10.1')
+})
+
+test('RP10 리뷰를 못 했다는 문장은 깨끗한 답이 아니다(UNKNOWN 유지)', () => {
+  for (const out of ['No review was performed; defects could not be identified.', 'No defects were identified because the diff was not provided.', 'I was unable to inspect the files. No issues found.']) {
+    const h = harness({ reviews: [out] })
+    assert.equal(h.stop().verdict, VERDICT.UNKNOWN, out)
+  }
+})
+
+test('RP11 재시도 직전에 시간이 모자라면 부르지 않고 UNKNOWN', () => {
+  const files = Array.from({ length: 10 }, (_, i) => `src/f${i}.ts`)
+  const h = stableHarness({ files, reviews: [] })
+  let now = 0
+  h.deps.now = () => now
+  const q = [{ ok: false, why: 'Codex 사용량 한도' }, { ok: true, out: CLEAN }]
+  h.deps.review = (fs_) => {
+    h.calls.push({ files: fs_ })
+    const r = q.shift()
+    now += 200_000 // 묶음마다 200초
+    return r
+  }
+  assert.equal(h.stop().verdict, VERDICT.UNKNOWN)
+  assert.equal(h.calls.length, 2, '400초 지점에서는 재시도하지 않는다')
+  assert.match(h.records().at(-1).failures.join(' '), /재시도할 시간이 없다/)
+})
+
+test('RP12 기준 커밋이 다르면(다른 worktree·리베이스) 같은 diff 라도 재사용하지 않는다 · 미수행 표현은 깨끗함 아님', () => {
+  const h = stableHarness({ files: ['src/a.ts'], reviews: [CLEAN, CLEAN] })
+  h.stop()
+  h.base = 'otherbase000000000000000000000000000000'
+  h.stop()
+  assert.equal(h.calls.length, 2)
+  const u = harness({ reviews: ['No regressions were identified because the review was skipped.'] })
+  assert.equal(u.stop().verdict, VERDICT.UNKNOWN)
+})
