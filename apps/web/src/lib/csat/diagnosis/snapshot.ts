@@ -1,9 +1,14 @@
 // apps/web/src/lib/csat/diagnosis/snapshot.ts
 //
-// csat_dx_snapshot 한 행의 화면용 모양 + 조회. 학습자(본인 RLS)·관리자(service role) 모두 같은 함수로 읽는다.
+// csat_dx_snapshot 한 행의 화면용 모양 + 조회. 학습자 · 관리자 모두 같은 함수로 읽는다(서버 전용 — service role).
+// Reveal Gate: 보류 시험(오답 원인 Pilot 수집 중) 기록이 하나라도 있는 학습자의 스냅샷은 내보내지 않는다 — DB 정책
+// csat_dx_snapshot_own_select(user_has_embargoed_session)와 같은 판정을 service role 경로에도 건다(embargo-gate · 판정 실패면 보류).
+// 공개 전이(capture 완료 · 종료) 뒤 스냅샷 재계산은 csat_ec_reveal_outbox 처리기의 몫이다.
 
 import type { LineStat as MapLineStat } from './engine/map-evidence'
 import type { SupabaseClient } from '@supabase/supabase-js'
+
+import { userHasHeldSession } from '../embargo-gate'
 
 import type {
   AttributeCode,
@@ -78,6 +83,8 @@ export function toView(r: Row): SnapshotView {
 
 /** 최근 스냅샷 n개(최신 먼저) — 표시용이라 의도적으로 자른다 */
 export async function loadSnapshots(db: SupabaseClient, userId: string, limit = 50): Promise<SnapshotView[]> {
+  // 판정은 embargo-gate 자신의 service role 로 — 받은 db 가 학습자 RLS 면 보류 세션이 안 보여 「없음」으로 열린다(fail-open)
+  if (await userHasHeldSession(userId)) return []
   // 최근 계산분을 넉넉히 받아 「입력 리비전」으로 다시 줄 세운다 — 동시 저장에서는 늦게 끝난 계산이
   // 더 적은 기록을 봤을 수 있다. 기록 수 → 입력 워터마크 → 계산 시각 순(sortByRevision)
   const { data, error } = await db.from('csat_dx_snapshot').select(`${COLS}, inputs_as_of`).eq('user_id', userId)
