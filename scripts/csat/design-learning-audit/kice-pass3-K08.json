@@ -1,0 +1,12 @@
+{"pass":3,"k":8,"items":[
+{"id":"2018#30","version":4,"type":"R-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"choices 필드가 ①~⑤ 밑줄 표현이 아니라 다음 밑줄까지의 지문 조각으로 잘려 저장됨(⑤에 '5' 꼬리). 분석 자체는 정확"}]},
+{"id":"2018#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"②의 trap 라벨 '주체 역전'이 실제 변형(재료 출처를 지인으로 바꿈)과 다소 어긋남. 설명 본문은 정확"}]},
+{"id":"2018#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"logic_requirement_missing","note":"choiceTruth 유형인데 참인 선지 ①②④⑤에 '반대 진술·주체 역전' 등 함정 라벨을 붙여 내용 참임보다 함정으로 설명함"},{"code":"choice_2","note":"②는 지문과 일치(참)인데 trap '반대 진술'로 표기돼 참/거짓 표시와 혼동 유발"}]},
+{"id":"2019#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"정답 why_correct가 한 줄로 짧음. 앞 예고 문장(would like to change)과의 연결은 locus에만 있음"}]},
+{"id":"2019#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2019#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"overgeneral","note":"'앞 다섯 문장은 인용이거나 인용 요약'은 과장 — 1·2문장은 필자 자신의 설명 진술. pattern myth_rebuttal도 다소 부정확"}]},
+{"id":"2019#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2019#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform_note가 첫 문장을 '0번'으로 지칭(0기반)해 다른 필드의 1기반 문장 번호와 불일치"}]},
+{"id":"2019#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"how_to_reject가 선지에 없는 'public'을 대조 낱말로 언급 — 선지 성분은 global awareness"}]}
+]}

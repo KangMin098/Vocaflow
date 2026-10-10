@@ -1,0 +1,12 @@
+{"pass":3,"k":36,"items":[
+{"id":"M2409#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"문장 번호 불일치: 지문은 11문장인데 오답 ②③에서 '13번', '10~13번' 문장을 인용하고 정답 해설(4·7·8)과도 번호 체계가 다름"}]},
+{"id":"M2409#20","version":3,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#21","version":3,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#22","version":3,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#23","version":3,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"지문은 7문장인데 sentence_index [4,8]·confirmed_at [8,9]·'8번째 문장' 언급 — In consequence 는 6번, 마지막은 7번 문장. 근거 위치 표시 오류"}]},
+{"id":"M2409#24","version":3,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"design_intent는 두 축이 서로 다른 문장에 있다 하고 answer_locus는 3번 한 문장에 두 축이 다 있다고 해 서로 모순. 넓은 맥락 축은 4·5번이 주 근거"}]},
+{"id":"M2409#26","version":3,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"choiceTruth 유형인데 오답을 함정(인과 역전 등) 라벨로 설명. ④는 인과 아닌 시점 대조이며 내용 참임을 중심으로 써야 함"},{"code":"choice_1","note":"why_tempting이 '어긋나 보이는 이유'를 지어냄 — 일치 선지는 대응 문장으로 참임만 보이면 됨"}]},
+{"id":"M2409#27","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"choiceTruth 유형인데 참인 선지에 '범위 과대'·'범위 과소'·'무관' 함정 라벨 부여 — 라벨이 실제 관계와 안 맞음"}]},
+{"id":"M2409#28","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#29","version":3,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

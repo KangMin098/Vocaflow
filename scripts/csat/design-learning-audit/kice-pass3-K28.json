@@ -1,0 +1,12 @@
+{"pass":3,"k":28,"items":[
+{"id":"M2109#44","version":3,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2206#18","version":3,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"①의 trap 라벨 '반대 진술'은 실제 오류(지문에 없는 '취소' 추가)와 맞지 않음 — 경미"}]},
+{"id":"M2206#19","version":3,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"④ lure_quote가 뒤 칸 긍정 근거 문장이라 유인 지점(앞 칸 bored)과 어긋남 — 경미"}]},
+{"id":"M2206#20","version":3,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"why_correct의 선지 인용이 띄어쓰기 깨짐('과학자를긍정적으로…해야한다')—선지 원문과 불일치"}]},
+{"id":"M2206#21","version":3,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2206#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"지문은 9문장인데 해설이 '10번 문장'·'열 문장'을 쓰고 transform_note는 6·8번으로 번호 체계가 서로 어긋남"},{"code":"other","note":"sentence_index [8,10]이 범위를 넘고 answer_locus 인용(7번째 문장)과도 불일치"}]},
+{"id":"M2206#24","version":3,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2206#28","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2206#29","version":3,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"④ why_tempting이 '능동 완료로 읽어도 형태가 같다'로 논리가 흐림 — 맞는 이유는 how_to_reject가 충분히 설명"}]},
+{"id":"M2206#30","version":3,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"⑤ trap 라벨 '지문 밖 상식'이 내용상 맞는 선지의 성립 설명과 결이 맞지 않음 — 경미"}]}
+]}

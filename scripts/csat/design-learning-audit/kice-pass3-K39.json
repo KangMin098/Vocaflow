@@ -1,0 +1,12 @@
+{"pass":3,"k":39,"items":[
+{"id":"M2509#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"passage_design.transform_note 가 근거를 '3번'이라 지칭 — 실제 근거는 4번째 문장(answer_locus sentence_index 4,5와 불일치)"}]},
+{"id":"M2509#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"answer_locus 인용은 6번째 문장(순환)인데 sentence_index 가 [7,8]로 어긋남"},{"code":"choice_2","note":"how_to_reject 가 Comparing 문장을 '여덟 번째'라 함 — 실제 7번째 문장"}]},
+{"id":"M2509#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"choiceTruth 유형인데 맞는 선지 ①③④⑤에 부분사실·인과역전 등 함정 라벨과 '틀려 보이는 이유' 틀을 씌움 — 내용 참 설명으로 바꿀 것"}]},
+{"id":"M2509#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"choiceTruth 유형인데 참인 선지 ①②④⑤에 범위과소·주체역전 등 함정 라벨 — 대응 항목 중심의 참 설명으로"},{"code":"answer_reasoning","note":"정답 confirmed_at.sentence_index [1]이 answer_locus [6]과 불일치"}]},
+{"id":"M2509#28","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"정답 confirmed_at.sentence_index [1]이 answer_locus [10]과 불일치(경미)"}]}
+]}

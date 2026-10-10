@@ -1,0 +1,12 @@
+{"pass":3,"k":3,"items":[
+{"id":"2015#20","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2015#21","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2015#22","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"④ lure_quote가 정답 근거인 4문장(동기화 절)을 그대로 씀 — 오답 유인 근거로 부적절, 성격 형성 연상 어구로 교체 필요"},{"code":"answer_reasoning","note":"⑤ why_correct의 'But 문장이 행동으로 나아가라고 예고' — 당위로 오독될 표현, '행동 동기까지 다룬다고 예고'로"}]},
+{"id":"2015#23","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2015#26","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2015#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"불일치형: ①②③⑤는 내용이 참인 선지인데 trap(어휘 함정·범위 과대 등) 라벨로 함정처럼 분류 — choiceTruth 계약 위반"},{"code":"choice_5","note":"⑤ '지문 밖 상식' 라벨 부적절 — 참 선지의 대응 항목(웹사이트·이메일 줄) 확인으로 서술해야 함"}]},
+{"id":"2015#28","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 배열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 조각으로 저장됨 — 선지 원문 재구성 필요"},{"code":"choice_1","note":"① trap '관계절 동사 수·시제'는 실제 쟁점(관계절 정동사 자리·능동)과 어긋난 라벨"}]},
+{"id":"2015#29","version":4,"type":"R-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2015#30","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"선지 ⑤ 끝에 인쇄 잔여 숫자 '5'가 붙어 있고 2문장 원문도 의심(색 대비절) — 원문 대조 필요"},{"code":"work_jargon","note":"⑤ confirmed_at 학습자 문구에 '인쇄 잔여 숫자' 언급 — 데이터 결함을 학습 함정으로 설명"},{"code":"choice_4","note":"④ how_to_reject가 귀에 판단(discern) 능력을 준다고 함 — 지문에서 discern 주어는 색/눈 쪽, 근거 오귀속"}]},
+{"id":"2015#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

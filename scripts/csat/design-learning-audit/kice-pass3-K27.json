@@ -1,0 +1,12 @@
+{"pass":3,"k":27,"items":[
+{"id":"M2109#22","version":3,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2109#23","version":3,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"a product of ~ 문장을 '여섯째 문장'으로 지칭 — 실제 다섯째 문장. 문장 번호 오류"},{"code":"choice_4","note":"The brain itself is a social thing 을 '일곱째 문장'으로 지칭 — 실제 여섯째. 문장 번호 오류"}]},
+{"id":"M2109#24","version":3,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2109#26","version":3,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"내용 참인 오답 ①~④에 '인과 역전·주체 역전' 등 함정 라벨 부여 — 선지 자체가 뒤집힌 듯 오해. 참 근거 대응으로 설명해야 함"}]},
+{"id":"M2109#27","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"내용 참인 ①②④⑤에 함정 라벨(범위 과소·지문 밖 상식 등) — choiceTruth 유형은 참 대응 위주로"},{"code":"lure_quote","note":"⑤ how_to_reject 인용이 'October 1,2020' 으로 원문 공백 누락 — 축자 인용 아님"}]},
+{"id":"M2109#28","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2109#29","version":3,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2109#35","version":6,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"answer_locus.quote 가 정답 ③이 아니라 ④ 문장 — 근거 위치가 정답 문장과 어긋남"},{"code":"overgeneral","note":"design_intent '겹치는 낱말이 가장 많은 자리가 답' — 조건 없는 일반 규칙으로 읽힘"}]},
+{"id":"M2109#41","version":3,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2109#42","version":3,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

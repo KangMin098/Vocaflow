@@ -1,0 +1,12 @@
+{"pass":3,"k":32,"items":[
+{"id":"M2306#28","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"③ trap 라벨 '어휘 함정'은 실제 시각 밀어읽기 함정과 안 맞음(경미)"}]},
+{"id":"M2306#29","version":3,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"choices 필드가 선지 표현이 아니라 밑줄 사이 지문 조각으로 잘려 저장됨"}]},
+{"id":"M2306#30","version":3,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"① 배제 근거에 constraints를 단수로 인용(비축자), ② lure_quote가 유인 이유와 연결 약함"},{"code":"source_broken","note":"choices 필드가 지문 조각으로 저장됨"}]},
+{"id":"M2306#35","version":3,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2306#41","version":3,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2306#42","version":3,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"④ 배제에 '앞 문장을 되받는 자리는 정답이 아니라 확인 자리' 무조건 규칙 — 적용 조건 없음"},{"code":"choice_2","note":"② 유인 설명이 rare 부호 혼동을 장황·모호하게 서술"}]},
+{"id":"M2306#44","version":3,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2306#45","version":3,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"measured_ability의 사건 순서 (A)-(D)-(C)-(B)는 오류 — 소파 이동(C)이 (D)보다 앞, 실제 A-C-D-B"},{"code":"choice_1","note":"① 유인 설명이 '표현이 나뉘어 있다'뿐이라 그럴듯한 이유가 아님"},{"code":"choice_4","note":"④ 유인 논리 뒤틀림(his를 Noah로 읽어도 선지는 맞아 보임)"}]},
+{"id":"M2309#18","version":3,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#19","version":3,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"① 유인을 '부정→긍정 흔한 형태'로 설명 — 찍기 통념에 가까움"}]}
+]}

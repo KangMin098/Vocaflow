@@ -1,0 +1,12 @@
+{"pass":3,"k":33,"items":[
+{"id":"M2309#20","version":3,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#21","version":3,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#22","version":3,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"③(성실 납세·예산) 선지의 lure_quote 가 경제학 관심 문장이라 선지 유인과 맞지 않음"}]},
+{"id":"M2309#23","version":3,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#24","version":3,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"지문은 9문장인데 정답 confirmed_at 이 10번 문장을 가리키고, ① 배제에서 '이후 아홉 문장'(실제 8)으로 셈이 틀림"}]},
+{"id":"M2309#26","version":3,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"내용 참인 오답에 '주체 역전'·'범위 과대' 함정 라벨 — choiceTruth 유형인데 함정으로 서술"},{"code":"choice_5","note":"참 선지에 '부분 사실' 라벨, why_tempting 이 근거 없는 추측(뜬금없어 보임)"}]},
+{"id":"M2309#27","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"참 선지에 '무관'·'어휘 함정'·'범위 과소' 등 함정 라벨 — 안내문 일치는 대응 항목(참)으로 설명해야 함"}]},
+{"id":"M2309#28","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#29","version":5,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 밑줄 구간이 아닌 다음 밑줄까지의 긴 본문 조각으로 잘려 저장됨(②~④)"}]},
+{"id":"M2309#30","version":3,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 다음 밑줄까지의 본문 조각이고 ⑤에 각주와 쪽번호까지 섞여 저장됨"},{"code":"other","note":"오답 trap 라벨(구문 부호 계산 실패·동어 반복 유인)이 학습자에게 낯선 작업 용어"}]}
+]}

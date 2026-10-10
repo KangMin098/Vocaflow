@@ -1,0 +1,12 @@
+{"pass":3,"k":37,"items":[
+{"id":"M2409#30","version":3,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#35","version":3,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"④의 factors는 장벽을 줄이는 요인인데 ①의 제약 요인 목록과 '짝'이라 설명해 관계를 잘못 짚음"},{"code":"overgeneral","note":"정답 근거에 '유일한 must 당위문'을 내세워 어조 단서를 조건 없이 판별 규칙처럼 제시"}]},
+{"id":"M2409#41","version":3,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#42","version":3,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"overgeneral","note":"'조건절 하나로 값이 닫혀 다른 밑줄을 볼 필요가 없다'는 단정은 일반화 위험(경미)"}]},
+{"id":"M2409#44","version":3,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"why_tempting이 Sean을 '화자 쪽'이라 표기 — Sean은 청자이고 화자는 Alex라 화자·청자가 뒤바뀜"},{"code":"answer_reasoning","note":"'이 유형의 단일 점검이 뒤집혀 적용' 문구가 조건 불명확한 규칙을 끌어와 혼란"},{"code":"other","note":"design_intent의 호격 'my friend'는 지문에 없음"}]},
+{"id":"M2506#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at note에 '코퍼스 지문 손상·회차 원문 창' 작업 용어가 학습자 필드에 노출"}]},
+{"id":"M2506#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"발문에 '적절한 것을 고르시오'가 중복 부착된 원문 결함(분석 내용은 정확)"}]},
+{"id":"M2506#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2506#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"①의 trap '주체 역전'은 실제로 축자 의미·관용구 오독 유인이라 라벨 부정확(경미)"}]},
+{"id":"M2506#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

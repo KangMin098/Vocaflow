@@ -247,3 +247,22 @@ describe('옮겨 쓸 원리 — 유형 일반 절차 블록(2026-10-09 학습 �
     expect(theaterBlocks({ ...FULL, type_procedure: [] }).some((b) => b.key === 'analysis:transfer')).toBe(false)
   })
 })
+
+describe('theaterBlocks — 선택≠참거짓 유형(2026-10-11 · 교수 계약 choiceTruth)', () => {
+  it('어법 · 어휘 · 불일치 · 도표는 정답 아닌 선지를 「내용은 맞음」으로 — 함정 라벨 · 지어낸 오독을 보이지 않는다', () => {
+    for (const type_id of ['R-FACT', 'R-NOTICE', 'R-GRAMMAR', 'R-VOCAB', 'X-FACT', 'R-CHART']) {
+      const rejects = theaterBlocks({ ...FULL, type_id }).filter((b) => b.kind === 'reject')
+      expect(rejects.length, type_id).toBeGreaterThan(0)
+      for (const b of rejects) {
+        expect(b.chips.map((c) => c.text), type_id).toEqual(['내용은 맞음'])
+        expect(b.title, type_id).toMatch(/왜 정답이 아닌가/)
+        for (const d of FULL.distractors) if (d.why_tempting) expect(b.body, type_id).not.toContain(d.why_tempting.trim())
+      }
+    }
+  })
+
+  it('그 밖의 유형은 그대로 — 오답 칩 · 함정 라벨 · 그럴듯한 이유', () => {
+    const rejects = theaterBlocks({ ...FULL, type_id: 'R-BLANK' }).filter((b) => b.kind === 'reject')
+    expect(rejects[0].chips[0].text).toBe('오답')
+  })
+})

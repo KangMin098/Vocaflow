@@ -1,0 +1,12 @@
+{"pass":3,"k":2,"items":[
+{"id":"2014A#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2014A#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"선지4 trap '어휘 함정' 라벨이 실제 유인(Betty 이름 미확인)과 맞지 않음. 근거 인용이 'at'에서 잘림"}]},
+{"id":"2014B#23","version":5,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"passage_design.roles 가 5개뿐 — 6문장 지문의 마지막 명령문 역할 누락"}]},
+{"id":"2014B#26","version":10,"type":"R-REFER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 선지가 아니라 밑줄 사이 지문 조각으로 저장됨(⑤ 끝에 쪽번호 '8')"},{"code":"other","note":"문장 번호 불일치 — 같은 마지막 문장을 why_correct·선지5는 11번, confirmed_at은 9번으로 지칭"}]},
+{"id":"2014B#27","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 지문 조각으로 저장되고 ⑤에 각주까지 섞임"},{"code":"choice_3","note":"why_tempting 의 'mobilizes 목적어 자리에 동명사' 설명이 실제 오인 경로로 약함 — 자동사 mobilize+목적 부정사 구조 성립 이유가 중심이어야"}]},
+{"id":"2014B#28","version":5,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 밑줄 낱말이 아니라 다음 밑줄까지의 지문 조각으로 저장됨"}]},
+{"id":"2014B#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"지문 'infrequent but meaningful .' 뒤 낱말 누락(원문 결손)"}]},
+{"id":"2014B#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"why_tempting 이 '특정 인물 아님→다르다'로 지칭 문항의 실제 오인 경로와 약하게 맞음"}]},
+{"id":"2015#18","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"선지3 how_to_reject 에 작업 용어 '이 청크에서' — 학습자 필드"},{"code":"other","note":"transform_note 가 0기준 번호(3번·7번)로 다른 필드의 4·8번 문장과 어긋남"}]},
+{"id":"2015#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

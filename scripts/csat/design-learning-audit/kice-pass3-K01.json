@@ -1,0 +1,12 @@
+{"pass":3,"k":1,"items":[
+{"id":"2014A#23","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"④ trap 라벨 '주체 역전'은 내용(여행 주체가 물고기)과 대체로 맞으나 '어휘 함정'이 더 정확"}]},
+{"id":"2014A#24","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"passage_design.roles 5개인데 지문은 6문장 — 마지막 명령문 역할 누락"}]},
+{"id":"2014A#25","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2014A#26","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2014A#27","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 밑줄 어구가 아니라 다음 밑줄까지의 지문 조각으로 저장됨"},{"code":"answer_reasoning","note":"④ why_correct 가 '자리를 지배하는 것은 앞 절과의 병렬'로 시작 — 실제 근거는 stop+to부정사/동명사 의미 구분"},{"code":"work_jargon","note":"design_intent 에 '이 청크에서' 작업 용어"}]},
+{"id":"2014A#28","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2014A#30","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"② lure_quote 가 선지 대응 줄(잡지)이 아닌 뉴스레터 줄 — 혼동 유발 설명으로는 성립하나 어색"}]},
+{"id":"2014A#31","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2014A#38","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"answer_locus.quote 가 정답 ④가 아니라 ③ 문장 — 앞뒤 연결 근거로는 타당하나 locus 표기 혼란"}]},
+{"id":"2014A#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"지문 'our can affect' 에서 our 뒤 낱말(빈칸/밑줄 원어) 누락 — 원문 대조 필요"}]}
+]}

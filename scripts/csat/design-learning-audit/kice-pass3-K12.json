@@ -1,0 +1,12 @@
+{"pass":3,"k":12,"items":[
+{"id":"2021#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"④ trap '주체 역전'은 실제로는 대변 대상(환경→사람) 치환이라 라벨이 부정확"}]},
+{"id":"2021#22","version":5,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_5","note":"'두~네 번째 문장 주어가 모두 we/machines' 서술이 부정확(2번째 주어는 This)"}]},
+{"id":"2021#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"why_correct가 '선지 ①~⑤가 지문 순서를 따르므로 ⑤ 근거는 마지막 문장'이라는 무조건 규칙을 가르침"},{"code":"other","note":"choiceTruth 유형인데 참인 선지 ①~④에 범위 과대·주체 역전 등 함정 라벨을 붙여 오답처럼 분류"}]},
+{"id":"2021#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"내용이 참인 ①②③⑤에 '지문 밖 상식'·'주체 역전' 등 함정 라벨을 붙임 — 참 선지로 설명해야 함"},{"code":"overgeneral","note":"design_intent의 '선지가 위에서 아래로 단조 대응'이 위치 요령으로 읽힐 수 있음(조건 없음)"}]},
+{"id":"2021#28","version":5,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"② trap '부분 사실'은 실제로는 층수 값 치환이라 라벨이 부정확"}]},
+{"id":"2021#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 필드가 밑줄 사이 지문 덩어리·각주까지 담아 선지 단위가 깨짐(분석 자체는 정확)"}]},
+{"id":"2021#30","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"⑤ confirmed_at.note에 '3차에 why_correct 에서 이관' 같은 작업 이력 문구가 학습자 필드에 노출"},{"code":"source_broken","note":"choices 필드가 지문 덩어리·각주·쪽번호(5)까지 포함해 깨짐"},{"code":"other","note":"③ trap '주체 혼동' 라벨이 내용(조작처럼 들림)과 맞지 않음"}]}
+]}

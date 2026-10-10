@@ -1,0 +1,12 @@
+{"pass":3,"k":40,"items":[
+{"id":"M2509#29","version":5,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"why_correct 안 선행사 인용이 'mise'로 잘려 원문 그대로가 아님(misery)"}]},
+{"id":"M2509#30","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"answer_locus.quote 가 정답 ④가 아니라 ⑤ 문장이고, 판별을 대명사 they 연결에만 기대 사슬 관계 변화 설명이 약함"},{"code":"overgeneral","note":"design_intent 가 부정관사 a dealer 를 판별 지점으로 단정 — 근거로 성립하지 않는 무조건 단서"}]},
+{"id":"M2509#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"design_intent 가 (e)를 메시지 발화로 분류했으나 (e)는 (D) 대면 대화 속 Julia 발화임"}]},
+{"id":"M2509#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"①의 lure_quote 가 Anna 판매 게시 문장으로, 알림·앱 대응 근거(첫 문장)와 무관"},{"code":"choice_1","note":"choiceTruth 유형인데 ①~④를 함정 중심으로 서술 — 내용이 참인 대응 위치 설명이 우선돼야 함"}]},
+{"id":"M2606#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

@@ -1,0 +1,12 @@
+{"pass":3,"k":24,"items":[
+{"id":"M2006#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"why_tempting가 '12세 이하가 한 살 넓다'는 억지 오독을 가정함. 경미"}]},
+{"id":"M2006#28","version":5,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"trap 라벨 '부분 사실'이 실제 변경 성분(부문 개수 2→3)과 맞지 않음. 경미"}]},
+{"id":"M2006#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"how_to_reject가 appealing의 형용사 근거를 like things more와의 병렬로 설명 — 병렬은 like/find 동사이며 근거 오류"},{"code":"choice_2","note":"why_tempting 인용이 'catches our inter'로 잘림(축자 인용 아님)"},{"code":"other","note":"confirmed_at sentence_index 8이 answer_locus 7과 불일치"}]},
+{"id":"M2006#30","version":7,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"trap '주체 역전'·denies 대체 가정이 다소 억지. 맞는 이유 설명은 문맥 근거로 충분"}]},
+{"id":"M2006#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"trap '반대 진술'이 실제 변형(계절 summer→동계·대상 바꿈)과 어긋남. 경미"}]}
+]}

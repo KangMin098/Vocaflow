@@ -1,0 +1,12 @@
+{"pass":3,"k":14,"items":[
+{"id":"2022#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#24","version":5,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 맞는 선지들에 trap 라벨(주체 역전·어휘 함정 등)을 붙여 함정처럼 설명함. ①의 why_tempting(소유격 뒤집어 읽기)은 억지"}]},
+{"id":"2022#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 내용이 참인 선지 ①②③⑤에 범위 과대·부분 사실 등 trap 라벨 부착 — 참 근거 설명으로 바꿔야 함"}]},
+{"id":"2022#28","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"answer_locus sentence_index [8]과 정답 confirmed_at [9]가 서로 다름(경미)"}]},
+{"id":"2022#30","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"'긍정 낱말은 however 뒤에만 온다'·'반드시 however를 달고' 를 조건 없이 규칙화(design_intent·reasoning)"},{"code":"choice_1","note":"how_to_reject가 같은 문장의 however와 increase가 '짝'이라 함 — however는 앞 주장과의 대조 표지라 설명이 뒤엉킴"},{"code":"other","note":"choiceTruth인데 맞는 낱말에 trap 라벨(역설 진술 오인 등) 부착"}]},
+{"id":"2022#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"why_correct가 이 지문을 '42~45번이 함께 쓰는 지문'이라 함 — 실제 41~42 세트, 사실 오류"},{"code":"lure_quote","note":"③ lure_quote가 정답 근거인 마지막 문장이라 유인 근거로 부적절, '인과 역전' 라벨도 내용(수단·목적 뒤집힘)과 어긋남. 인용 오타(abou)"}]},
+{"id":"2022#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth인데 적절한 낱말 (a)(b)(d)(e)에 trap 라벨(동어 반복 유인·상식 충돌 등) — 성립 이유 중심으로 정리 필요"},{"code":"choice_3","note":"abstract가 다음 문장 (d) learn과 '어긋난다'는 연결 근거가 불명확 — 이유절 논리만으로 충분"}]}
+]}

@@ -1,0 +1,12 @@
+{"pass":3,"k":43,"items":[
+{"id":"M2609#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"정답 confirmed_at.sentence_index [1] 이 answer_locus [7](Lodging 괄호)과 어긋남"}]},
+{"id":"M2609#28","version":6,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"② trap 라벨 '주체 역전'은 실제 변화(행 이름표 혼동)와 안 맞음 — 설명 본문은 정확"}]},
+{"id":"M2609#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#30","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"passage_design.roles 가 정답 ④ 문장을 support 로, ②③을 example 로 표기 — 무관 문장 역할 미표시"},{"code":"answer_reasoning","note":"answer_locus.quote 가 ④가 아닌 ⑤ 문장 — 근거 위치가 정답 문장 자체가 아님(설명은 타당)"}]},
+{"id":"M2609#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"answer_locus.sentence_index [6,8] 과 정답 confirmed_at [7,9] 불일치"}]},
+{"id":"M2609#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

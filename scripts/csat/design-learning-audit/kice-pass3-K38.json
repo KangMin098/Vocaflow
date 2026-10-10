@@ -1,0 +1,12 @@
+{"pass":3,"k":38,"items":[
+{"id":"M2506#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2506#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"passage_design roles 앞 5문장이 전부 example — 시대 순 서술 단계인데 예시로 표시돼 구조 설명이 흐림"}]},
+{"id":"M2506#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_3","note":"choiceTruth 유형인데 오답을 '인과 역전' 함정으로 분류 — 내용상 참인 선지이고 인과 관계 자체가 없음"},{"code":"choice_1","note":"'서수를 못 읽으면' 식 억지 유혹 서술 — 맞는 선지는 대응 문장으로 참임을 보이는 것이 중심이어야 함"}]},
+{"id":"M2506#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 컬럼이 밑줄 낱말이 아니라 밑줄 사이 지문 구간 전체로 저장됨(각주 포함)"},{"code":"answer_reasoning","note":"why_correct 의 '같은 절의 they 와 충돌' 은 근거가 아님 — 핵심은 힌트를 받는 쪽이라 수동이어야 한다는 점"}]},
+{"id":"M2506#30","version":7,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 컬럼이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간으로 저장됨(각주·쪽번호 포함)"}]},
+{"id":"M2506#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"passage_design roles 에서 무관 문장 ④가 support 로, ③이 turn 으로 표시돼 사슬 설명과 어긋남"}]},
+{"id":"M2506#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2506#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"바른 낱말이 answer_locus 는 '부딪힌다'(conflict), why_correct 는 differ/vary 로 서로 다름 — 하나로 통일 필요"}]},
+{"id":"M2506#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2506#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"무대 중앙을 사회자 자리로 옮긴다는 유혹은 지문 근거가 약한 억지 설정 — 대응 문장 확인만으로 충분"}]}
+]}

@@ -1,0 +1,12 @@
+{"pass":3,"k":18,"items":[
+{"id":"2024#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2024#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"why_tempting가 '다시 나오는 동사'라 하나 enjoy는 앞에 나온 적 없음. 유인 설명이 사실과 어긋남"},{"code":"other","note":"choiceTruth 유형인데 오답을 함정(trap)으로 명명. 맞는 낱말의 성립 이유 중심으로 재표현 필요"}]},
+{"id":"2024#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2024#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 맞는 선지를 함정·유인으로 설명. 대응 위치로 참임을 보이는 틀이어야 함"},{"code":"choice_1","note":"just를 '단지'로 오독한다는 유인은 근거 없는 억지 설정"},{"code":"choice_4","note":"'이미 도착한 뒤로 오해' 유인이 선지 진술과 연결되지 않음"}]},
+{"id":"2025#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"②의 trap '반대 진술'은 실제 유인(미래 대회 언급)과 맞지 않는 라벨"}]},
+{"id":"2025#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2025#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"③ lure_quote(pleasant break)가 why_tempting의 '분배' 유인과 직접 대응하지 않음"}]},
+{"id":"2025#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2025#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2025#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

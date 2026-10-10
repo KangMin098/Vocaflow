@@ -1,0 +1,12 @@
+{"pass":3,"k":25,"items":[
+{"id":"M2106#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"why_correct가 한 문장으로 짧음 — 두 사례의 공통 구조(핵심 상품 뒤 부가 서비스) 설명은 answer_locus에만 있음"}]},
+{"id":"M2106#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform_note의 '1·3·4번' 문장 번호가 sentence_index[1,5]·역할 배열과 어긋남"}]},
+{"id":"M2106#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"why_correct_empty","note":"why_correct가 '밋밋해 보이지만'으로 시작해 왜 낯선지 위주 — 원인(틀)·결과(접근·해결) 두 자리 대응 설명이 빈약"}]},
+{"id":"M2106#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"confirmed_at 문장 번호 불일치 — 두 항(효율 비교)은 6번 문장인데 '7번'으로, first는 7번인데 근거를 8번 follow로 기술"}]},
+{"id":"M2106#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"내용 참 선지에 '주체 역전'·'부분 사실' 함정 라벨 — choiceTruth 유형은 라벨보다 내용 참 확인 중심이 바람직(how_to_reject는 적절)"}]},
+{"id":"M2106#27","version":5,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#28","version":5,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"⑤ why_tempting의 'whose로 보인다'는 근거가 약함 · confirmed_at note에 「학습자가 미끄러지는 자리」 작업용 표지 잔존"}]}
+]}

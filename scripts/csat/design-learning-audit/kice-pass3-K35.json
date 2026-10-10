@@ -1,0 +1,12 @@
+{"pass":3,"k":35,"items":[
+{"id":"M2406#23","version":3,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2406#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"문장 번호 불일치: Yet 문장은 실제 6번째인데 sentence_index 7, confirmed_at 9(지문은 8문장). 선지 해설의 6~8번 표기와도 어긋남"}]},
+{"id":"M2406#26","version":3,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 내용이 참인 오답①②③⑤에 주체 역전·어휘 함정 등 함정 라벨과 why_tempting 을 붙여 함정처럼 설명"}]},
+{"id":"M2406#27","version":5,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 참인 선지①②④⑤를 함정 라벨로 설명. ②의 why_tempting(only 가 나이에 걸림)은 억지스러운 가상 오독"}]},
+{"id":"M2406#28","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2406#30","version":3,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"선지⑤ 텍스트 끝에 '5'가 붙어 있고 지문에 선지표가 중복 포함됨"},{"code":"answer_reasoning","note":"answer_locus.reasoning 이 (A)(C)만 다루고 (B) unless 근거를 빠뜨림(선지 해설에만 있음)"}]},
+{"id":"M2406#35","version":3,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2406#42","version":3,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"발문이 '적절하지 않은'에서 잘림(것은? 누락)"},{"code":"other","note":"(b) 근거를 '앞 문단'이라 하나 같은 단락 앞 문장임. 참인 오답을 함정 라벨로 설명"}]},
+{"id":"M2406#44","version":3,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"'밑줄 문장이 다른 사람을 이름으로 부르면 밑줄은 그 사람이 아니다' 무조건 규칙 — 같은 글 (d)문장은 Ellen을 부르고 she=Ellen이라 반례"},{"code":"source_broken","note":"발문이 45번 문항 발문·선지①로 잘못 들어감. sentence_index 가 모두 1"}]},
+{"id":"M2406#45","version":3,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"발문에 '(A)'와 선지① 텍스트가 섞여 들어감. sentence_index 가 모든 선지에서 1"},{"code":"other","note":"choiceTruth 유형인데 참인 선지를 시점 이동·등장인물 혼동 등 함정으로 설명"}]}
+]}

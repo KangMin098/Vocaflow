@@ -1,0 +1,12 @@
+{"pass":3,"k":5,"items":[
+{"id":"2016#29","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"overgeneral","note":"④ 'However+콜론은 앞 기대를 꺾는 자리' 및 ⑤ 'for food 붙으면 with는 상대'가 조건 없는 규칙처럼 서술됨"}]},
+{"id":"2016#30","version":4,"type":"R-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#39","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"answer_locus.quote가 정답 ③이 아니라 ②문장을 인용; passage_design.pattern 'narrative'는 과정 서술 글과 맞지 않음"}]},
+{"id":"2016#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"문장 번호 표기(14·19·26·31 등)가 2016#45 분석의 번호와 서로 달라 위치 안내가 일관되지 않음"}]},
+{"id":"2016#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"choiceTruth 유형인데 오답을 '반대 진술' 함정으로 분류; 선지 내용이 참이라는 대응 설명 중심으로 바꿔야 함. 문장33 인용 번호 불일치"},{"code":"overgeneral","note":"③ '일반→구체가 이어지면 구체 문장을 근거로' 조건 없는 규칙"},{"code":"other","note":"①~④ trap/why_tempting이 함정 프레임; 참 선지는 대응 문장 확인으로 서술해야 함"}]},
+{"id":"2017#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"why_correct가 한 줄로 얇음(요청 화행 동사 '모집'과 권유·등록 문장 대응 보강 필요); ④ trap '반대 진술' 라벨 부정확"}]},
+{"id":"2017#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2017#20","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform_note는 0기준 번호(0·1·3번), 본문은 1기준 번호(4번 문장) — 문장 번호 체계 혼재"}]},
+{"id":"2017#22","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

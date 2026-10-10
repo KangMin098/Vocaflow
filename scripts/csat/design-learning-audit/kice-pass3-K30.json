@@ -1,0 +1,12 @@
+{"pass":3,"k":30,"items":[
+{"id":"M2209#23","version":3,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"design_intent에 'OCR 잔여'가 선지1 끝에 붙었다는 작업 용어 서술 — 현재 선지에는 그런 잔여가 없어 사실과도 어긋남"}]},
+{"id":"M2209#24","version":3,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2209#26","version":3,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2209#27","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"선지4 why_tempting(should를 권고로 읽어 범위 과대)이 억지스러움 — how_to_reject는 내용 참으로 정확"}]},
+{"id":"M2209#28","version":3,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2209#29","version":3,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices가 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간으로 저장됨(선지5에 각주 포함) — 화면 선지 표시가 깨짐"}]},
+{"id":"M2209#30","version":3,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices가 밑줄 낱말이 아닌 지문 구간으로 저장되고 선지5 끝에 각주·쪽번호 잔여"},{"code":"other","note":"선지2·3 why_tempting의 대체 낱말 가정(sold, immediately)이 문맥 근거 없이 약함"}]},
+{"id":"M2209#35","version":3,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2209#41","version":3,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2209#42","version":3,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"선지3 why_tempting('rule out=규칙으로 정한다' 오독)이 인위적 — 배제 근거는 정확"}]}
+]}
