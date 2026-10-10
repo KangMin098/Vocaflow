@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(map): 학습 지도 rev4.0 1차 — As-Is 전수 감사(라인 54 · 활동 183 · 연결선 160 전부 pending · 문항 연결 148 실측, 질문 10 판정) · 영역/TASK 코드북(TASK 30 = rev2.1 후보 + 듣기 4 · 신규 발명 0) · 관계 8타입(제안 34, 전부 proposed) · Workspace 9 후보 · 시험 입력 8 시나리오(As-Is/To-Be · as_of) · 전환 계획과 2차 수직 경로 계약. 원천 `docs/csat-learner/v4/*.json` · 무결성 `node --test scripts/csat/map/v4/__tests__/codebook.test.mjs`(8). 정본 rev2.1 · 코드 · DB 변경 없음.
 - feat(csat): Reveal Gate 전면 적용 — Pilot `feat/ec-reveal-app`(1c8e122fb..57545a083)의 앱 관문을 main 으로: 문항 해설 · 강의 API · 공개(reveal) API · 해부 카탈로그 · 세션 카탈로그 · 골격 · 오버레이 · 학습 지도 근거 · 오답 지도(정답 민감 예시를 클라이언트 번들에서 분리) · 관리자 기출 뷰 · 연습 풀/정답 읽기. coverage 가드(manifest) · 실패 방식(423 · no-store) 테스트 함께. 보류 중 진행 세트 P2 2건(같은 세트 진행 수용 · 뺀 사본 updatedAt 0). 수집 참가 흐름(ec-pilot · record_session_held · reveal-sync · 결과 라우트)은 Pilot 범위로 남김. 지금 보류 시험 0 — 학습자 화면 동작 불변(e2e 40 · 42 · 46 21/21).
 - feat(agents): `agents/scripts/safe-merge.mjs` — PR 병합 직전에 체크(이름 단위 · FAIL/PENDING/SKIP 뿐/UNKNOWN 은 통과 아님)와 HEAD SHA 를 다시 확인하고 `--match-head-commit` 으로만 병합한다. 계기: PR #200 이 build FAILURE 인데 병합됨(main 브랜치 보호 없음 + 확인·병합을 `;` 로 이어 붙임).
 - docs(agents): 자동 Codex 리뷰 전면 제거(사용자 결정 · RP-2026-10-10.2) — AGENTS.md · CLAUDE.md · router.md · goal-review.md 에서 머지 전·계획 전 Codex 리뷰 의무를 없앴다. `review.mjs` 는 사용자 요청 시만. 훅·오케스트레이터 변경은 AI-Control PR #198.
