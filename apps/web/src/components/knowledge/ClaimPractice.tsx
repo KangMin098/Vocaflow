@@ -1,6 +1,6 @@
 // apps/web/src/components/knowledge/ClaimPractice.tsx
 //
-// 「주장과 근거」 연습 — 학습자는 자기 문제지를 보며 ① 주장 문장 ② 근거 문장(주장 외 필요한 만큼) ③ (주석 문항) 관계 ④ 선지 · 확신을 고른다.
+// 「주장과 근거」 연습 — 학습자는 자기 문제지를 보며 ① 주장 문장 ② 근거 문장(모두) ③ (주석 문항) 관계 ④ 선지 · 확신을 고른다.
 // 이식 원천: 동결 feat/knowledge-vnext 의 같은 파일. 바뀐 점(docs/csat-learner/PRACTICE_PORT.md):
 //   - 채점은 서버의 정본 gradeClaimSupport. 정답 키는 기록이 저장된 뒤 응답으로만 온다.
 //   - 문항을 열 때마다 client_session_id, 제출마다 client_mutation_id(같은 답의 재시도만 같은 id), 판단 시각 answered_at 을 보낸다.
@@ -41,7 +41,7 @@ const STATE_LABEL: Record<CapabilityJudgement['state'], string> = {
 
 const PROCEDURE = [
   { title: '주장 문장 고르기', detail: '문제지에서 글쓴이가 끝내 말하려는 문장을 찾아 그 번호의 막대를 눌러요.' },
-  { title: '근거 문장 고르기', detail: '그 주장을 떠받치는 문장을 필요한 만큼 눌러요. 없다고 생각하면 넘어가도 돼요.' },
+  { title: '근거 문장 고르기', detail: '그 주장을 떠받치는 문장을 모두 눌러요. 없다고 생각하면 넘어가도 돼요.' },
   { title: '관계 정하기 · 답 고르기', detail: '표시된 문장이 주장과 어떤 관계인지 고르고, 문제지에서 고른 답과 확신을 남겨요.' },
   { title: '맞춰 보기', detail: '기록이 저장된 뒤에 주장 · 근거 문장이 표시돼요.' },
 ]
@@ -133,7 +133,6 @@ export function ClaimPractice(props: {
       setClaim(null)
       return
     }
-    // 상한 없음 — 주장 문장 말고는 필요한 만큼(2021#20 은 근거가 6개). 지나치게 고르면 채점이 「더 고름」으로 알려 준다
     setSupport((xs) => (xs.includes(i) ? xs.filter((x) => x !== i) : [...xs, i].sort((a, b) => a - b)))
   }
 
@@ -381,7 +380,7 @@ export function ClaimPractice(props: {
           </h2>
           <p className={styles.note}>
             아래 막대는 지문의 문장을 순서대로 길이만큼 그린 거예요. 문제지의 문장과 하나씩 맞춰 보세요.
-            {claim === null ? ' 먼저 글쓴이의 주장이 담긴 문장을 누르세요.' : ' 이제 그 주장을 받치는 근거 문장을 필요한 만큼 누르세요(다시 누르면 취소 · 많이 고르면 「더 고름」으로 알려 줘요).'}
+            {claim === null ? ' 먼저 글쓴이의 주장이 담긴 문장을 누르세요.' : ' 이제 그 주장을 받치는 근거 문장을 모두 누르세요(다시 누르면 취소).'}
           </p>
           {!feedback && (
             <p className={styles.note}>

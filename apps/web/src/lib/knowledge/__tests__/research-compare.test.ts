@@ -47,3 +47,10 @@ describe('연구 있음 · 적용 적합성 낮음', () => {
     expect(c.standing).toBe('research_low_fit')
   })
 })
+
+describe('추론 귀속 우선', () => {
+  it('근거 수준이 강사 주장 · 기출 관찰이어도 분석자 추론이면 추론으로 센다', () => {
+    expect(bucketOf(ev({ evidenceLevel: 'practitioner_claim', attribution: 'inferred' }))).toBe('inferred')
+    expect(bucketOf(ev({ evidenceLevel: 'exam_observation', attribution: 'inferred' }))).toBe('inferred')
+  })
+})

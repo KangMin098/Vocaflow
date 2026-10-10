@@ -73,6 +73,8 @@ export interface PrincipleComparison {
 
 export function bucketOf(e: REvidence): keyof EvidenceBuckets {
   if (e.evidenceLevel && (RESEARCH_LEVELS as readonly string[]).includes(e.evidenceLevel) && e.researchSourceId) return 'research'
+  // 분석자 추론은 근거 수준 표시와 무관하게 추론이다 — 「강사 주장」 · 「기출 관찰」 칸에 섞이면 근거가 실제보다 많아 보인다(Codex P2)
+  if (e.attribution === 'inferred') return 'inferred'
   if (e.evidenceLevel === 'expert_opinion') return 'expert'
   if (e.evidenceLevel === 'practitioner_claim') return 'practitioner'
   if (e.evidenceLevel === 'exam_observation') return 'exam'

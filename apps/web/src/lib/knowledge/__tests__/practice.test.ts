@@ -109,9 +109,9 @@ describe('제출 검사', () => {
     const r = parseSubmission({ ...base, explanationViewedAt: '2026-10-08T05:59:30Z' }, NOW)
     expect(r.ok && r.value.explanationViewedAt).toBe('2026-10-08T05:59:30.000Z')
   })
-  it('선지 6 · 확신 0 · 모르는 관계 · 도움 수준 hint 는 거부(근거 4개는 모양으로는 받는다 — 2021#20 은 근거 6개)', () => {
-    expect(parseSubmission({ ...base, support: [0, 2, 3, 4] }, NOW).ok).toBe(true)
-    expect(parseSubmission({ ...base, support: Array.from({ length: 41 }, (_, i) => i) }, NOW).ok).toBe(false)
+  it('근거 21개 · 선지 6 · 확신 0 · 모르는 관계 · 도움 수준 hint 는 거부(근거는 「모두」 — 6개 근거 문항도 받는다)', () => {
+    expect(parseSubmission({ ...base, support: [0, 2, 3, 4, 5, 6] }, NOW).ok).toBe(true)
+    expect(parseSubmission({ ...base, support: Array.from({ length: 21 }, (_, i) => i) }, NOW).ok).toBe(false)
     expect(parseSubmission({ ...base, option: 6 }, NOW).ok).toBe(false)
     expect(parseSubmission({ ...base, confidence: 0 }, NOW).ok).toBe(false)
     expect(parseSubmission({ ...base, relation: 'cause' }, NOW).ok).toBe(false)
@@ -119,9 +119,6 @@ describe('제출 검사', () => {
   })
   it('문항 범위 — 범위 밖 번호 · 주석 문항의 관계 누락 · 골격 문항의 관계 지정 거부', () => {
     expect(checkAnswerRange(annKey, ans({ claim: 7 }))).not.toBeNull()
-    // 근거는 주장 문장을 빼고 한 번씩 — 상한은 문항의 문장 수
-    expect(checkAnswerRange(annKey, ans({ claim: 1, support: [1, 2] }))).not.toBeNull()
-    expect(checkAnswerRange(annKey, ans({ claim: 1, support: [2, 2] }))).not.toBeNull()
     expect(checkAnswerRange(annKey, ans({ relation: null }))).not.toBeNull()
     const sk = keyFromSkeleton(loadItemSkeleton(SKELETON_ITEMS[0])!)!
     expect(checkAnswerRange(sk, ans({ claim: 0, support: [], relation: 'reason' }))).not.toBeNull()
