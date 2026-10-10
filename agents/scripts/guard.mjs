@@ -3,7 +3,8 @@
 //
 // PreToolUse 안전 훅 — Claude Code(.claude/settings.json)와 Codex CLI(.codex/config.toml)가 **같은 스크립트**를 부른다.
 // 두 도구 모두 stdin JSON 의 `tool_input.command` 에 셸 명령이 온다.
-// Claude Code 는 exit 2 + stderr, Codex 는 stdout 의 PreToolUse JSON deny 로 차단한다.
+// Claude Code 대화형 세션은 stdout 의 PreToolUse JSON "ask"(사용자 승인 창 · 2026-10-10), 자동 실행(VFC_AUTOMATED_RUN=1)·
+// AGENT_GUARD_ASK=0 은 exit 2 + stderr, Codex 는 stdout 의 PreToolUse JSON deny 로 막는다.
 //
 // 막는 것 (agents/DECISIONS.md D-04):
 //   1. 재귀 + 강제 삭제       rm -rf · rm -r -f · Remove-Item -Recurse -Force · rd /s /q
@@ -359,6 +360,22 @@ async function main() {
           hookEventName: 'PreToolUse',
           permissionDecision: 'deny',
           permissionDecisionReason: reason,
+        },
+      }) + '\n',
+    )
+    process.exit(0)
+  }
+
+  // Claude 대화형 세션: 거부 대신 사용자 승인 창(PreToolUse permissionDecision "ask") — 사용자가 사유를 보고 승인해야만 진행한다
+  // (2026-10-10 사용자 결정). 에이전트는 스스로 승인할 수 없다. 승인할 사람이 없는 자동 실행(오케스트레이터 자식 ·
+  // VFC_AUTOMATED_RUN=1)과 AGENT_GUARD_ASK=0 은 예전처럼 거부한다.
+  if (agent === 'claude' && process.env.VFC_AUTOMATED_RUN !== '1' && process.env.AGENT_GUARD_ASK !== '0') {
+    process.stdout.write(
+      JSON.stringify({
+        hookSpecificOutput: {
+          hookEventName: 'PreToolUse',
+          permissionDecision: 'ask',
+          permissionDecisionReason: reason.replace('정말 필요하면 사용자에게 직접 실행을 요청할 것.', '사용자가 승인해야만 실행된다.'),
         },
       }) + '\n',
     )
