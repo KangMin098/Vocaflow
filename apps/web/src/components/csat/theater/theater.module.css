@@ -408,3 +408,9 @@
 .script button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 .script li[data-live='true'] button { border-color: currentColor; background: color-mix(in srgb, currentColor 8%, transparent); font-weight: 600; }
 .scriptNo { flex: none; font-variant-numeric: tabular-nums; opacity: 0.6; }
+
+/* 학습 목표 — 문항을 마치고 설명할 관계(유형 교수 계약) */
+.goal { display: grid; gap: 6px; margin: 0 0 12px; padding: 12px 14px; border: 1px solid currentColor; border-radius: 12px; line-height: 1.6; }
+.goal b { font-size: 0.8125rem; letter-spacing: 0.02em; opacity: 0.75; }
+.goal p { margin: 0; }
+.goal em { font-style: normal; text-decoration: underline; text-underline-offset: 3px; }

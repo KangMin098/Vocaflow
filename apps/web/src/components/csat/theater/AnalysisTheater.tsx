@@ -57,6 +57,7 @@ import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
 import { touchedItems, withView } from '@/lib/csat/continuity'
 import { pickNextItem } from '@/lib/csat/next-item'
+import { teachingModelOf } from '@/lib/csat/teaching-contract'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
@@ -176,6 +177,7 @@ export function AnalysisTheater({
   examLabel,
   paper,
   gate,
+  typeId,
 }: {
   title: string
   typeName: string | null
@@ -199,10 +201,11 @@ export function AnalysisTheater({
   paper: { catalog: LearnerCatalog; examId: string; no: number }
   /** 지난 예측 기록(2026-10-10 이전 예측 관문)의 차이 카드를 다시 보이는 데만 쓴다 — 새 예측은 받지 않는다 */
   gate: GateKey
-  /** 유형 id — 지난 예측 기록과 같은 모양을 유지하려고 받는다(현재 화면은 쓰지 않는다) */
+  /** 유형 id — 학습 목표(이 문항에서 설명할 관계)를 유형 교수 계약에서 고른다 */
   typeId?: string
 }) {
   const lec = useLecture()
+  const goal = teachingModelOf(typeId)
   const [quotePassage, setQuotePassage] = useState<PaperPassage | null>(null)
   // 문항 이동 직후에는 이전 문항의 지문으로 인용을 검증하지 않는다.
   const currentPassage = quotePassage?.itemId === itemId ? quotePassage.passage : null
@@ -659,6 +662,20 @@ export function AnalysisTheater({
 
                 {tab === 'analysis' ? (
                   <div className={`${styles.paneBody} ${styles.blockPane}`} ref={blocksRef}>
+                    {goal ? (
+                      <section className={styles.goal} aria-label="이 문항의 학습 목표" data-testid="learning-goal">
+                        <b>이 문항에서 설명할 관계</b>
+                        <p className="break-keep">{goal.relation}</p>
+                        {goal.choiceTruth ? (
+                          <p className="break-keep">
+                            이 유형은 <em>정답으로 고를 선지</em>와 <em>내용이 맞는 선지</em>가 다릅니다 — 오답 선지의 설명은 「왜 맞는 말인가」입니다.
+                          </p>
+                        ) : null}
+                        {goal.visual ? (
+                          <p className="break-keep">수치 판단은 원본 도표를 직접 읽어야 확정됩니다. 도표를 못 보면 계산 방법만 확인하세요.</p>
+                        ) : null}
+                      </section>
+                    ) : null}
                     <p className={styles.status}>
                       <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>
                       {step ? `${step.kind} · ${Math.round(step.sec)}초` : '분석'}
