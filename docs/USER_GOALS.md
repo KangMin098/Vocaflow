@@ -176,6 +176,50 @@ node bin\vfc.mjs ugoal status UG-0001
 node bin\vfc.mjs status
 ```
 
+**10-1. Work ↔ Claude 담당 세션 매핑**(읽기 전용 — 상태를 바꾸지 않는다)
+
+```powershell
+node bin\vfc.mjs ugoal map --md                 # 전체 목표 표
+node bin\vfc.mjs ugoal map UG-c8315ad8-0002 --json   # 한 목표 상세(마지막 Work 요청·응답 · 마지막 인수 · 경고)
+node bin\vfc.mjs ugoal map UG-c8315ad8-0002 --open   # 연결된 Work 대화 열기(URL 이 없으면 거부)
+node bin\vfc.mjs ugoal link UG-c8315ad8-0002 --surface work --url https://chatgpt.com/c/<대화id> --by user   # Work 대화 연결
+node bin\vfc.mjs owner bind-session learning-map --agent claude --session <세션 id> --name <세션 이름>   # 재시작한 세션 연결
+```
+
+목표마다 다음을 한 줄로 보인다.
+
+- **목표·Work 쪽:** goal_id · 제목 · Work URL(`chat_url`) · 내부 `thread_id` · 마지막 Work 요청·응답(request_id · round_id)
+- **담당 쪽:** owner_id · Claude 세션 id · 세션 이름 · worktree · branch
+- **진행:** 진행 작업 · 마지막 인수 · 마지막 활동 · 연결 상태 · 확인 시각
+
+| 연결 상태 | 뜻 |
+|---|---|
+| CONNECTED | 담당 세션 id 가 있고 그 세션 대화 기록(`~/.claude/projects/*/<id>.jsonl`)이 30분 안에 갱신됐다 |
+| IDLE | 세션 id 는 있으나 마지막 활동이 30분 ~ 24시간 전 |
+| OFFLINE | 마지막 활동이 24시간보다 오래됐거나 대화 기록이 없다 |
+| UNBOUND | 담당 owner 에 묶인 세션이 없다(배정은 받은 편지함에만 남는다) |
+| NO_OWNER | 목표에 담당 owner 가 없다 |
+
+**규칙**
+
+식별자
+- Work URL 과 내부 `thread_id` 는 **다른 식별자**다.
+- 확인할 수 없는 값은 `UNKNOWN` 으로 둔다. Work URL 은 기록에서 찾지 않고 `ugoal link` 로만 넣는다.
+
+세션 이름과 권한
+- 세션 이름은 사람이 알아보는 별칭이다. **라우팅·인수 권한 근거가 아니다** — 인수는 등록된 세션 id 또는 worker 만 할 수 있다.
+
+재연결
+- 한 세션은 한 owner 에만 묶인다. 다른 owner 에 묶인 세션 id 로 `bind-session` 하면 `SESSION_OWNED_ELSEWHERE` 로 거부된다.
+- 재시작한 세션을 다시 묶으면 이전 세션은 `session_history` 에 남는다. owner_id 와 목표·작업 이력은 그대로다.
+
+충돌 경고
+- 다른 세션이 실행 중인 작업
+- 같은 세션이 여러 owner 에 묶임
+- 같은 owner 에 살아 있는 worker 가 둘 이상
+
+**성격**: 이 매핑은 관찰·라우팅용 메타데이터다. 사용자 승인 증거가 아니다.
+
 **11. 일시정지·재개**
 
 ```powershell

@@ -17,6 +17,7 @@ import { findAgentPid } from '../lib/agentpid.mjs'
 import * as T from '../lib/tasks.mjs'
 import * as P from '../lib/planning.mjs'
 import * as UG from '../lib/usergoals.mjs'
+import * as SM from '../lib/sessionmap.mjs'
 import * as CTX from '../lib/context.mjs'
 import { measureRuns, goalMetrics } from '../lib/perf.mjs'
 import { execFileSync } from 'node:child_process'
@@ -237,7 +238,7 @@ function main() {
     case 'owner unbind-worktree':
       return out(withState((s) => T.unbindWorktree(s, pos[0], pos[1]), { event: 'owner.unbind_worktree', owner: pos[0], by }), opt)
     case 'owner bind-session': {
-      const sess = { agent: opt.agent, label: opt.session, pid: opt.pid ? Number(opt.pid) : null }
+      const sess = { agent: opt.agent, label: opt.session, pid: opt.pid ? Number(opt.pid) : null, name: opt.name || null }
       return out(withState((s) => T.bindSession(s, pos[0], sess), { event: 'owner.bind_session', owner: pos[0], session: sess.label, by }), opt)
     }
     case 'owner list':
@@ -502,6 +503,32 @@ function main() {
       return out(withState((s) => UG.cancelRequest(s, pos[0], pos[1], { reason: opt.reason, by }), { event: 'usergoal.cancel_request', by }), opt)
     case 'ugoal link':
       return out(withState((s) => UG.linkSurface(s, pos[0], { surface: opt.surface, url: opt.url || null, by })), opt)
+    case 'ugoal map': {
+      // Work ↔ Claude 담당 세션 매핑(읽기 전용). 세션 활동 = ~/.claude/projects/*/<세션 id>.jsonl 의 마지막 갱신 시각
+      const projects = path.join(os.homedir(), '.claude', 'projects')
+      const activityOf = (sid) => {
+        try {
+          for (const d of fs.readdirSync(projects)) {
+            const f = path.join(projects, d, `${sid}.jsonl`)
+            if (fs.existsSync(f)) return fs.statSync(f).mtime.toISOString()
+          }
+        } catch {
+          /* 기록 폴더 없음 */
+        }
+        return null
+      }
+      const rows = SM.goalSessionMap(loadState().state, { now: new Date().toISOString(), activityOf, ugs: pos[0] ? [pos[0]] : null })
+      if (opt.open) {
+        const url = rows[0]?.work_chat_url
+        if (!url || url === 'UNKNOWN') throw new T.RuleError('NO_CHAT_URL', `${pos[0] ?? '목표'} 에 연결된 Work 대화 URL 이 없다 — vfc ugoal link ${pos[0] ?? '<UG>'} --surface work --url https://chatgpt.com/…`)
+        execFileSync(process.platform === 'win32' ? 'cmd' : 'xdg-open', process.platform === 'win32' ? ['/c', 'start', '', url] : [url], { stdio: 'ignore' })
+      }
+      if (opt.md) {
+        console.log(SM.mapMarkdown(rows))
+        return
+      }
+      return out(rows, opt)
+    }
     case 'perf report': {
       const m = measureRuns(loadState().state.orchestrator, { since: opt.since || null })
       if (!opt.json) {
