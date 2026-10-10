@@ -329,7 +329,7 @@ function main() {
       // 신뢰 승인 입력 — 에이전트 프로세스(TTY 없음 · CLAUDECODE/VFC_AGENT)는 여기를 통과하지 못한다
       const via = T.approvalChannel()
       if (via !== 'tty') throw new T.RuleError('TRUST_REQUIRED', `vfc approve 는 사람의 대화형 터미널에서만 실행된다(현재 ${via}) — 에이전트가 대신 실행할 수 없다`)
-      const KINDS = ['design_approval', 'goal_delegation', 'goal_acceptance', 'db_write', 'canon_change', 'live_run']
+      const KINDS = ['design_approval', 'goal_delegation', 'goal_acceptance', 'db_write', 'canon_change', 'live_run', 'budget_change']
       if (opt.kind === 'live_run' && (!/^[0-9a-f]{64}$/.test(opt['closure-sha'] || '') || !/^[0-9a-f]{40}$/.test(opt.commit || ''))) throw new T.RuleError('MISSING_FIELD', 'live_run 은 --closure-sha <64hex> --commit <40hex> (vfc verify live --check 출력)')
       // 목표 단위 위임: 정책 파일 내용을 결정에 그대로 싣고 sha256 으로 결속 — 승인 뒤 파일을 바꿔도 결정 내용은 그대로
       let policy = null
@@ -340,6 +340,14 @@ function main() {
         if (errs.length) throw new T.RuleError('BAD_POLICY', errs.join('; '))
         if (!String(opt.summary || '').includes(`${policy.goal_id}@policy`)) throw new T.RuleError('BAD_SUMMARY', `--summary 에 「${policy.goal_id}@policy」 가 있어야 한다`)
         process.stderr.write(`\n[목표 위임 정책] ${policy.goal_id} · 위험 상한 ${policy.risk_level} · 코드 영역 ${policy.allowed_code_areas.join(', ')} · 능력 ${policy.allowed_capabilities.join(', ')} · 제외 ${policy.excluded_operations.join(', ')} · 비용 ${policy.max_cost_usd}$ · 시간 ${policy.max_runtime_min}분 · 병합 ${policy.merge_policy}\n`)
+      }
+      // 목표 단위 설계 예산 상향 — 목표 id · 두 상한을 결정에 싣는다(그 목표에만 · 사용 횟수는 그대로)
+      let budget = null
+      if (opt.kind === 'budget_change') {
+        budget = { ug: opt.goal, max_next_designs: opt['max-next-designs'] ? Number(opt['max-next-designs']) : null, max_total_requeries: opt['max-total-requeries'] ? Number(opt['max-total-requeries']) : null }
+        if (!budget.ug || (!budget.max_next_designs && !budget.max_total_requeries)) throw new T.RuleError('MISSING_FIELD', 'budget_change 는 --goal <UG> 와 --max-next-designs / --max-total-requeries 중 하나 이상')
+        if (!String(opt.summary || '').includes(`${budget.ug} budget`)) throw new T.RuleError('BAD_SUMMARY', `--summary 에 「${budget.ug} budget」 이 있어야 한다`)
+        process.stderr.write(`\n[설계 예산] ${budget.ug} · 다음 설계 상한 ${budget.max_next_designs ?? '그대로'} · 재질의 상한 ${budget.max_total_requeries ?? '그대로'}(사용 횟수는 초기화하지 않는다)\n`)
       }
       if (!KINDS.includes(opt.kind)) throw new T.RuleError('BAD_KIND', `--kind 는 ${KINDS.join('|')}`)
       if (!opt.summary) throw new T.RuleError('MISSING_FIELD', '--summary 가 필요하다(예: 「UG-0001 accept」 · 「UG-0001@v2」 · 「UG-0001@v2 db」)')
@@ -361,7 +369,7 @@ function main() {
         if (line.includes('\n')) break
       }
       if (line.trim() !== code) throw new T.RuleError('TRUST_CODE_MISMATCH', '확인 코드가 다르다 — 기록하지 않았다')
-      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), ...(policy ? { policy, policy_sha256: POL.policySha(policy) } : {}), ...(opt.kind === 'live_run' ? { closure_sha: opt['closure-sha'], commit: opt.commit } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
+      const entry = { status: 'APPROVED', kind: opt.kind, summary: opt.summary, approved_by: 'user', reference: opt.ref || 'vfc approve(대화형 터미널)', by: 'user', affects_goal_ids: list(opt.goals), ...(opt.paths ? { allowed_paths: list(opt.paths) } : {}), ...(policy ? { policy, policy_sha256: POL.policySha(policy) } : {}), ...(budget ? { budget } : {}), ...(opt.kind === 'live_run' ? { closure_sha: opt['closure-sha'], commit: opt.commit } : {}), attestation: { host: os.hostname(), user: os.userInfo().username, at: new Date().toISOString() }, ...(opt['new-canon-version'] ? { new_canon_version: opt['new-canon-version'] } : {}) }
       return out(withState((s) => T.logDecision(s, entry, { via: 'tty' }), { event: 'decision.approve_tty', kind: opt.kind, by: 'user' }), opt)
     }
     case 'task set-acceptance': {
@@ -503,6 +511,9 @@ function main() {
     }
     case 'ugoal cancel-request':
       return out(withState((s) => UG.cancelRequest(s, pos[0], pos[1], { reason: opt.reason, by }), { event: 'usergoal.cancel_request', by }), opt)
+    case 'ugoal budget':
+      // 대화형 승인(budget_change)을 그 목표에 적용 — 에이전트도 실행할 수 있지만 근거는 사람의 tty 결정뿐
+      return out(withState((s) => UG.applyBudgetChange(s, pos[0], { decision_id: opt.decision, by }), { event: 'usergoal.budget', by }), opt)
     case 'ugoal link':
       return out(withState((s) => UG.linkSurface(s, pos[0], { surface: opt.surface, url: opt.url || null, by })), opt)
     case 'ugoal intake-requests': {
@@ -510,6 +521,19 @@ function main() {
       const dir = path.join(root(), 'planning', 'goal-requests')
       const arch = path.join(root(), 'planning', 'archive', 'goal-requests')
       const results = []
+      if (opt.backfill) {
+        // 이미 인수한 요청(보관함)의 보충 요구·원문 전체를 목표에 붙인다 — 목표·요청 기록을 새로 만들지 않는다(재실행 안전)
+        for (const f of fs.existsSync(arch) ? fs.readdirSync(arch).filter((x) => x.endsWith('.json')) : []) {
+          const rec = JSON.parse(fs.readFileSync(path.join(arch, f), 'utf8'))
+          try {
+            const r = withState((s) => GI.backfillRequest(s, { source: rec.source, body: rec.body, meta: { author: rec.author, app: rec.app, at: rec.at } }), { event: 'usergoal.chatgpt_request_backfill', by })
+            results.push({ file: f, source: rec.source, ...(r ?? { skipped: '처리 기록 없음' }) })
+          } catch (e) {
+            results.push({ file: f, source: rec.source, error: `${e.code ?? 'ERROR'}: ${String(e.message).slice(0, 200)}` })
+          }
+        }
+        return out({ results }, opt)
+      }
       for (const f of fs.existsSync(dir) ? fs.readdirSync(dir).filter((x) => x.endsWith('.json')) : []) {
         const src = path.join(dir, f)
         const rec = JSON.parse(fs.readFileSync(src, 'utf8'))
@@ -519,7 +543,7 @@ function main() {
         else {
           requireValidCanon()
           try {
-            r = withState((s) => GI.intakeGoalRequest(s, parsed.req, { source: rec.source, by: `chatgpt-request:${rec.author ?? '-'}`, deps: { newGoal: (st, a) => UG.startFromChatGPTRequest(st, a) } }), { event: 'usergoal.chatgpt_request', by })
+            r = withState((s) => GI.intakeGoalRequest(s, parsed.req, { source: rec.source, by: `chatgpt-request:${rec.author ?? '-'}`, deps: { newGoal: (st, a) => UG.startFromChatGPTRequest(st, a) }, body: rec.body, meta: { author: rec.author, app: rec.app, at: rec.at } }), { event: 'usergoal.chatgpt_request', by })
           } catch (e) {
             r = { outcome: 'rejected', reason: `${e.code ?? 'ERROR'}: ${String(e.message).slice(0, 200)}` } // 예: 정본에 없는 목표 id — 상태는 바뀌지 않는다(트랜잭션)
           }

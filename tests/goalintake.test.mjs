@@ -124,3 +124,51 @@ test('goals-watch: 상한 안에서 반복 수집 → 인수 · STOP 파일로 �
   const s = JSON.parse(spawnSync(process.execPath, [BRIDGE, 'goals-watch', '--repo', XREPO, '--interval', '1'], { env, encoding: 'utf8', timeout: 30000 }).stdout)
   assert.equal(s.stop_reason, 'STOP 파일')
 })
+
+test('보충 요구 보존: 블록 밖 글 전체 · 원문 전체 · 원본 해시 → 목표 · 패킷 절 · 옛 인수분 되채움(1회)', async () => {
+  const { supplementOf, backfillRequest } = await import('../lib/goalintake.mjs')
+  const { chatgptRequestsSection } = await import('../lib/context.mjs')
+  const longReq = `학습지도 전체 구조를 학습자 관점에서 다시 점검하고 재설계 방안을 검토해 주세요. ${'세부 범위 '.repeat(80)}끝`
+  const body = `${block({ request: longReq, goal_ref: 'UG-1' })}\n보충:\n- 전체 지도와 기본 지도를 비교한다\n- 하위 과제의 완료 기준을 본다\n- 체크박스를 숙달로 표시하지 않는다\n\n메타: chat_url 없음`
+  assert.match(supplementOf(body), /^요청을 등록합니다\.\n\n보충:\n- 전체 지도[\s\S]*메타: chat_url 없음$/)
+  const g = { ug_id: 'UG-1', thread_id: 'TH-1', title: '학습지도', status: 'OPEN', history: [] }
+  const state = { userGoals: { goals: { 'UG-1': g } }, ownership: { owners: {} } }
+  intakeGoalRequest(state, parseGoalRequest(body).req, { source: 'c1', by: 't', body, meta: { author: 'k', app: APP, at: '2026-10-10T10:32:05Z' }, deps: {} })
+  const r = g.chatgpt_requests[0]
+  assert.equal(r.request, longReq, '원문은 자르지 않는다')
+  assert.match(r.supplement, /체크박스를 숙달로 표시하지 않는다/)
+  assert.equal(r.body_sha256.length, 64)
+  assert.match(g.next_scope[0], /보충 요구 3항/)
+  const sec = chatgptRequestsSection(g).join('\n')
+  for (const l of ['- 전체 지도와 기본 지도를 비교한다', '- 하위 과제의 완료 기준을 본다', '- 체크박스를 숙달로 표시하지 않는다', '메타: chat_url 없음', 'c1']) assert.ok(sec.includes(l), l)
+  assert.match(sec, /요구사항 데이터 · 승인 아님/)
+  // 옛 인수분(보충 없이 500자로 잘린 줄) 되채움 — 한 번만, 목표·요청 기록은 새로 만들지 않는다
+  const g2 = { ug_id: 'UG-2', title: 'x', status: 'OPEN', history: [], next_scope: [`[ChatGPT 요청 2026-10-10] ${longReq.replace(/\s+/g, ' ').slice(0, 500)}`] }
+  const st2 = { userGoals: { goals: { 'UG-2': g2 }, goal_requests: [{ source: 'old', at: '2026-10-10T10:33:01Z', goal_id: 'UG-2', outcome: 'reused' }] } }
+  const b1 = backfillRequest(st2, { source: 'old', body, meta: {} })
+  assert.deepEqual([b1.attached, b1.scope_replaced], [true, true])
+  assert.ok(g2.next_scope[0].endsWith('— goal-brief 「ChatGPT 접수 요청」)'))
+  assert.deepEqual([backfillRequest(st2, { source: 'old', body }).attached, st2.userGoals.goal_requests.length], [false, 1])
+  assert.equal(backfillRequest(st2, { source: 'none', body }), null)
+})
+
+test('설계 예산: tty budget_change 만 · 그 목표에만 · 올리기만 · 사용 횟수 유지 · 1회 적용 · 에이전트는 승인 못 함', async () => {
+  const { applyBudgetChange } = await import('../lib/usergoals.mjs')
+  const g = { ug_id: 'UG-c8315ad8-0002', budgets: { max_next_designs: 8, max_total_requeries: 6 }, counters: { next_designs: 8, total_requeries: 6 }, history: [] }
+  const dec = (o) => ({ decision_id: 'DL-9', kind: 'budget_change', status: 'APPROVED', approved_by: 'user', recorded_via: 'tty', budget: { ug: 'UG-c8315ad8-0002', max_next_designs: 12, max_total_requeries: 10 }, ...o })
+  const mk = (d) => ({ userGoals: { goals: { 'UG-c8315ad8-0002': structuredClone(g), 'UG-X': { ug_id: 'UG-X', budgets: { max_next_designs: 8, max_total_requeries: 6 }, counters: {}, history: [] } } }, decisionLog: { entries: [d] } })
+  const s = mk(dec())
+  const r = applyBudgetChange(s, 'UG-c8315ad8-0002', { decision_id: 'DL-9', by: 't' })
+  assert.deepEqual(r.after, { max_next_designs: 12, max_total_requeries: 10 })
+  assert.deepEqual(s.userGoals.goals['UG-c8315ad8-0002'].counters, { next_designs: 8, total_requeries: 6 }, '사용 횟수는 그대로')
+  assert.equal(applyBudgetChange(s, 'UG-c8315ad8-0002', { decision_id: 'DL-9', by: 't' }).already_applied, true)
+  assert.throws(() => applyBudgetChange(s, 'UG-X', { decision_id: 'DL-9', by: 't' }), { code: 'APPROVAL_MISMATCH' })
+  assert.throws(() => applyBudgetChange(mk(dec({ recorded_via: 'agent' })), 'UG-c8315ad8-0002', { decision_id: 'DL-9', by: 't' }), { code: 'TRUST_REQUIRED' })
+  assert.throws(() => applyBudgetChange(mk(dec({ budget: { ug: 'UG-c8315ad8-0002', max_next_designs: 4 } })), 'UG-c8315ad8-0002', { decision_id: 'DL-9', by: 't' }), { code: 'BAD_BUDGET' })
+  // CLI: 에이전트 프로세스는 budget_change 승인을 기록할 수 없다
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-bud-'))
+  const env = { ...process.env, VFC_ROOT: root, CLAUDECODE: '1' }
+  spawnSync(process.execPath, [VFC, 'init', '--json'], { env, encoding: 'utf8' })
+  const a = spawnSync(process.execPath, [VFC, 'approve', '--kind', 'budget_change', '--goal', 'UG-c8315ad8-0002', '--max-next-designs', '12', '--summary', 'UG-c8315ad8-0002 budget'], { env, encoding: 'utf8' })
+  assert.match(a.stderr, /TRUST_REQUIRED/)
+})
