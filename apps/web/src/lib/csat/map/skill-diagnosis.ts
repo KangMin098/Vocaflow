@@ -6,8 +6,8 @@
 // 규칙(초안 값 — 정본 관례대로 「Pilot 뒤 조정」 · 상수만 바꾼다):
 //   확정  판단 시각 순으로 확인 문항의 독립 첫 시도를 읽다가, 맞힌 문항 없이 서로 다른 문항 VERIFY_ITEMS(2)개가 막힌 시점에 확정
 //         (그 전에 한 문항이라도 맞혔으면 확정하지 않는다 — 섞인 결과는 원인 확정이 아니다)
-//   CHECK 확정 뒤 · 확정에 쓰지 않은 확인 문항의 독립 첫 시도 — CHECK_ITEMS(2)개를 맞히고 막힌 것이 없으면 해소(resolved)
-//         하나라도 막히면 학습 요구가 이어진다(still_needed) · 그 밖은 확인 중(checking)
+//   CHECK 확정 뒤 · 확정에 쓰지 않은 확인 문항의 독립 첫 시도 — 연속 CHECK_ITEMS(2)개를 맞히면 해소(resolved)
+//         막히면 학습 요구가 이어진다(still_needed) — 그 뒤 다른 확인 문항 연속 2개를 맞히면 해소(D-8 v1.1 · 2026-10-10)
 //   만료  확정 뒤 EXPIRY_DAYS(120)일 안에 해소되지 않으면 만료 — 다시 확인해야 한다(EED §9 의 120일과 같은 값)
 // 저장하지 않는다 — 주입한 now 로 조회할 때마다 계산한다. 축 관찰(rule_proxy) · 다른 단계 상태는 바꾸지 않는다.
 import { isEligible, type FirstAttempt } from '../../knowledge/effect-signals'
@@ -111,10 +111,11 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
     let right = 0
     let wrong = 0
     let resolvedAt: string | null = null
+    // 막힌 뒤에는 바로잡기를 다시 하고 **새로** 확인한다 — 막힌 다음의 연속 정답 CHECK_ITEMS 개로 해소(누적 오답이 영구히 막지 않게 · Codex P2 · D-8 v1.1)
+    let streak = 0
     for (const e of checks) {
-      if (e.ok) right++
-      else wrong++
-      if (wrong === 0 && right >= CHECK_ITEMS) { resolvedAt = e.at; break }
+      if (e.ok) { right++; streak++ } else { wrong++; streak = 0 }
+      if (streak >= CHECK_ITEMS) { resolvedAt = e.at; break }
     }
     const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)) } }
     if (resolvedAt) return { ...base, status: 'resolved', verified: false, resolvedAt }

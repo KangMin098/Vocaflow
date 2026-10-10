@@ -99,6 +99,12 @@ describe('Codex P1 회귀', () => {
     const d = skillDiagnosis(T, [...base, lateBad('c', 1), lateBad('d', 2)], later)
     expect(d).toMatchObject({ status: 'verified', verified: true, verifiedItems: ['c', 'd'] })
   })
+  it('CHECK 에서 막힌 뒤 다른 확인 문항 연속 2개를 맞히면 해소(누적 오답이 영구히 막지 않는다 · Codex P2)', () => {
+    const T6 = ['a', 'b', 'c', 'd', 'e', 'f'].map((i) => ({ itemRef: i, taskKey: 'claim-support' }))
+    const d = skillDiagnosis(T6, [...base, att('c', false, at(14)), att('d', true, at(15)), att('e', true, at(16))], now)
+    expect(d).toMatchObject({ status: 'resolved', resolvedAt: at(16), check: { wrong: 1 } })
+    expect(skillDiagnosis(T6, [...base, att('c', false, at(14)), att('d', true, at(15))], now).status).toBe('still_needed')
+  })
   it('CHECK 에서 막혔어도 기한이 지나면 expired(처방 닫힘 · 다시 확인)', () => {
     const later = new Date(Date.UTC(2027, 2, 1))
     expect(skillDiagnosis(T, [...base, att('c', false, at(15))], later)).toMatchObject({ status: 'expired', verified: false })
