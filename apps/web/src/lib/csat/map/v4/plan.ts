@@ -112,7 +112,8 @@ export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly P
   const since = (a: PlanActivity) => !after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > new Date(after).getTime())
   switch (stage) {
     case 'check':
-      return t.check?.independentItems ?? 0
+      // 수행량 = 실제로 푼 확인 문항(도움 · 합성 여부 무관). 독립성은 성취(achievement · 직접 확인)에서만 따진다 — 수행량 ≠ 검증된 성취(4차)
+      return t.check?.attemptedItems ?? 0
     case 'repair': {
       const targets = new Set([...(t.check?.verifiedItems ?? []), ...(t.check?.wrongItems ?? [])])
       return uniq(mine.filter((a) => a.phase !== 'transfer' && targets.has(a.itemRef!) && since(a)).map((a) => a.itemRef)).length

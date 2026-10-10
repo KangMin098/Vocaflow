@@ -1,6 +1,6 @@
 # 학습 지도 rev4.0 — 목표 · Workspace · PLAN 스키마 검토안(3차 · **미적용**)
 
-> SQL: [`supabase/migrations/_pending_map_v4_plan.sql`](../../supabase/migrations/_pending_map_v4_plan.sql) — 승인 대기. 개발 DB 에 **적용하지 않았다**(2026-10-11 실측: 세 테이블 모두 `to_regclass` null).
+> SQL: [`20261011120000_map_v4_plan.sql`](../../supabase/migrations/20261011120000_map_v4_plan.sql) + `…120100`(search_path) + `…120200`(충돌 PT409) — **2026-10-11 사용자 승인 후 개발 DB 적용**. 신뢰 경계: 클라이언트는 `available` 을 보내지 못한다(알 수 없는 필드 거절) — 서버가 지도를 다시 계산해 넣는다. 실DB smoke 15/15.
 > 승인 절차: 사용자가 SQL 을 보고 승인 → `ls supabase/migrations` 로 겹치지 않는 번호 → 파일 이름 변경 → 적용 직전 sha256 기록 → `/db-checkpoint` 앞뒤 → 아래 §5 검증.
 
 ## 1. 무엇을 · 왜

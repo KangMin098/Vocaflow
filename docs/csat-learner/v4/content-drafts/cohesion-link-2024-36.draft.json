@@ -1,0 +1,52 @@
+{
+  "version": "cohesion-link-2024-36.draft",
+  "itemId": "2024#36",
+  "skeletonSig": "21c018346d10ee872aca91e7cd01a227758d4dc2e6409bb96eb9f06a76e3312b",
+  "sentenceCount": 7,
+  "probes": [
+    {
+      "id": "cue1",
+      "cueSentence": 3,
+      "cueLabel": "4번째 문장의 「이런 (협상) 형태들」 — these + 명사(앞에 나온 경우를 되받는 지시어)",
+      "referent": [
+        2
+      ],
+      "disputed": []
+    },
+    {
+      "id": "cue2",
+      "cueSentence": 1,
+      "cueLabel": "2번째 문장 첫머리의 「차이 영역」 — 앞에서 말한 공통 이익·갈등 영역을 다시 받는 명사",
+      "referent": [
+        5
+      ],
+      "disputed": [
+        6
+      ]
+    }
+  ],
+  "order": {
+    "options": [
+      "(A) － (C) － (B)",
+      "(B) － (A) － (C)",
+      "(B) － (C) － (A)",
+      "(C) － (A) － (B)",
+      "(C) － (B) － (A)"
+    ],
+    "answer": 3
+  },
+  "answerAnchorOverlap": {
+    "answerAnchorSentences": [
+      3
+    ],
+    "note": "정답 근거 앵커(4번째 문장)가 단서 1이 있는 문장과 같다 — 같은 문장, 다른 역할."
+  },
+  "provenance": {
+    "status": "draft · single annotator · needs second annotator + anchor-bind + blind adoption + release approval",
+    "annotators": "Claude(단일 · 맹검 아님 — 정답을 본 상태)",
+    "rationale": "(B) 'In these … forms' → (A) 둘째 문장 'those instances … antagonistic'. (A) 'Areas of difference … remain' → (C) 'areas of common interest and conflict'. 그래서 C-A-B.",
+    "ambiguity": "단서 2의 가리킴: (C) 첫 문장(5)이 'areas of … conflict' 를 처음 꺼내고, 6번째(refined … negotiated form)도 공통 영역을 다룬다 → 6 은 disputed.",
+    "reviewedAt": null,
+    "draftedAt": "2026-10-11"
+  }
+}
