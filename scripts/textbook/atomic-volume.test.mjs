@@ -87,3 +87,31 @@ test('accepts the real atomic manifest produced by the P03 M1-M2 synthetic maste
   assert.equal(volume.manifest.sections[0].snapshot_hash, output.manifest.snapshot_hash)
   assert.deepEqual(volume.manifest.orders.map(o => o.grade).sort(), ['middle_1', 'middle_2'])
 })
+
+test('one brief-bound M1-M2 order pair produces a 3-day atomic volume, one snapshot per planned day', async () => {
+  const { exerciseMultiGradeDay, syntheticBrief } = await import('./reading-promotion/synthetic-master.mjs')
+  const { planProductBrief } = await import('@vocaflow/library-pipeline/product-planning')
+  const days = planProductBrief(syntheticBrief(['middle_1', 'middle_2'])).plan.units.length
+  assert.equal(days, 3)
+  const { generateKeyPairSync } = await import('node:crypto')
+  const keys = { goldKey: generateKeyPairSync('ed25519'), seedKey: generateKeyPairSync('ed25519') }
+  const runs = []
+  for (let day = 1; day <= days; day += 1) runs.push({ day, ...(await exerciseMultiGradeDay(day, keys)) })
+  const artifacts = new Map(runs.map(run => [run.output.manifest.snapshot_id, run.output]))
+  assert.equal(artifacts.size, days)
+  const revoked = new Set()
+  const db = { rpc: async (_name, { p_snapshot_id: id }) => revoked.has(id) || !artifacts.has(id)
+    ? { data: null, error: { message: 'published evidence no longer current' } }
+    : { data: { snapshot_id: id, snapshot_hash: artifacts.get(id).manifest.snapshot_hash,
+      output_hash: sha(artifacts.get(id).html), html: artifacts.get(id).html }, error: null } }
+  const first = runs[0].output.manifest.units
+  const realOrders = first.map(unit => ({ grade: unit.grade, product_order_id: unit.product_order_id,
+    order_revision: unit.order_revision, order_hash: unit.order_hash }))
+  for (const run of runs) assert.deepEqual(run.receipt.order_hashes, runs[0].receipt.order_hashes)
+  const input = { orders: realOrders, sections: runs.map(run => ({ day: run.day, manifest: run.output.manifest })) }
+  const volume = await composeAtomicPlannedVolume(db, input)
+  assert.equal(volume.manifest.sections.length, 3)
+  assert.equal(new Set(volume.manifest.sections.flatMap(s => s.units.map(u => u.unit_id))).size, 6)
+  revoked.add(runs[2].output.manifest.snapshot_id)
+  await assert.rejects(verifyAtomicPlannedVolume(db, input, volume), /SECTION_NOT_CURRENT/)
+})

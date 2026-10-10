@@ -136,13 +136,22 @@ async function promoteSyntheticFixture(input) {
   return { rpc, child, authority, order, audit }
 }
 
-async function exerciseMultiGrade(withOutput = false) {
+// Day 1 keeps the original fixture IDs; later days derive distinct child/request/item/unit/group/snapshot IDs
+// for the same two sealed orders, so one brief-bound order pair can produce one atomic snapshot per day.
+const dayId = (base, day, suffix) => day === 1 ? suffix : String(day * 10).padStart(12, '0').slice(0, 11) + base
+async function exerciseMultiGrade(withOutput = false) { return runMultiGradeDay(withOutput, 1) }
+// Pass the same trust keys for every day: the trust policy is part of the sealed order, so new keys mean a new order.
+async function exerciseMultiGradeDay(day, keys) { return runMultiGradeDay(true, day, keys) }
+async function runMultiGradeDay(withOutput, day, keys = null) {
+  if (!Number.isInteger(day) || day < 1 || day > 9) throw Error('SYNTHETIC_DAY_INVALID')
   const brief = syntheticBrief(['middle_1', 'middle_2'])
   const planned = planProductBrief(brief)
   assert.equal(planned.plan.units.length, 3)
-  const first = fixture({ brief })
-  const second = fixture({ grade: 'middle_2', child: '44444444-4444-4444-8444-444444444444',
-    request: '55555555-5555-4555-8555-555555555555', orderId: 'fixture-order-2',
+  const first = day === 1 ? fixture({ brief, keys }) : fixture({ brief, keys,
+    child: `22222222-2222-4222-8222-${dayId('2', day, '222222222222')}`,
+    request: `33333333-3333-4333-8333-${dayId('3', day, '333333333333')}` })
+  const second = fixture({ grade: 'middle_2', child: `44444444-4444-4444-8444-${dayId('4', day, '444444444444')}`,
+    request: `55555555-5555-4555-8555-${dayId('5', day, '555555555555')}`, orderId: 'fixture-order-2',
     keys: { goldKey: first.goldKey, seedKey: first.seedKey }, brief })
   assert.equal(first.request.order.planning_hash, planned.plan_hash)
   assert.equal(second.request.order.planning_hash, planned.plan_hash)
@@ -156,7 +165,7 @@ async function exerciseMultiGrade(withOutput = false) {
     const rpc = prepared[index].rpc
     const { child, order, audit } = promoted[index]
     const lineage = currentReadingLineage({ article: child, parent: first.source, audit, order, authority, now })
-    const item = { id: `66666666-6666-4666-8666-66666666666${index}`, ref_id: child.id,
+    const item = { id: `66666666-6666-4666-8666-${dayId(String(index), day, `66666666666${index}`)}`, ref_id: child.id,
       payload: { passage: child.content, factory_lineage: lineage },
       answer_key: { answer: index + 1, explanation_ko: `Synthetic explanation for ${input.request.order.grade_target}.` } }
     item.source_item_digest = reviewDigest(item.payload, item.answer_key)
@@ -167,7 +176,7 @@ async function exerciseMultiGrade(withOutput = false) {
     return { grade: input.request.order.grade_target, orderId: order.order_id,
       printedItems: [{ ...item }], requests: [input.request] }
   })
-  const group = { schema: 'textbook-product-order-group/1', group_id: 'fixture-m1-m2', group_revision: 1,
+  const group = { schema: 'textbook-product-order-group/1', group_id: day === 1 ? 'fixture-m1-m2' : `fixture-m1-m2-d${day}`, group_revision: 1,
     grade_scope: { mode: 'grade_range', grades: ['middle_1', 'middle_2'] },
     delivery_mode: 'shared_passage_grade_specific_items',
     orders: inputs.map(input => ({ grade: input.request.order.grade_target, order: input.request.order })) }
@@ -200,7 +209,7 @@ async function exerciseMultiGrade(withOutput = false) {
     const sourceItem = section.printedItems[0]
     const { source_item_digest: itemDigest, ...item } = sourceItem
     const text = `Synthetic explanation for ${section.grade}.`
-    const unit = { unit_id: `unit-${index}`, html: `<section class="unit"><p>${item.payload.passage}</p></section>` }
+    const unit = { unit_id: day === 1 ? `unit-${index}` : `d${day}-unit-${index}`, html: `<section class="unit"><p>${item.payload.passage}</p></section>` }
     const analysis = { grade: section.grade }
     evidence.variants[index].unit_set_hash = hash([[unit.unit_id, rawSha(unit.html)]])
     evidence.variants[index].analysis_hash = hash(analysis)
@@ -246,7 +255,7 @@ async function exerciseMultiGrade(withOutput = false) {
           reviews: ['setter', 'analyst', 'tutor'].map(persona => ({ persona,
             verdict: 'pass', reviewed_digest: sourceItem.source_item_digest })) }] }
     }) }
-  const captured = { snapshot_id: '77777777-7777-4777-8777-777777777777',
+  const captured = { snapshot_id: `77777777-7777-4777-8777-${dayId('7', day, '777777777777')}`,
     snapshot_hash: h('9'), captured_at: now, expires_at: '2026-10-08T00:00:00Z', evidence: atomicEvidence }
   const atomicDb = { rpc: async (name, params) => name === 'capture_reading_production_snapshot'
     ? { data: captured, error: null }
@@ -524,4 +533,4 @@ async function exerciseSingleGrade(grade, withFixture = false) {
     lineage, stage, group, evidence, render, captured, db, atomic, published, artifacts } } : masterRecord
 }
 
-export { globalTarget, sourceId, childId, requestId, now, h, signBody, profile, syntheticBrief, fixture, promoteSyntheticFixture, exerciseMultiGrade, exerciseSingleGrade }
+export { globalTarget, sourceId, childId, requestId, now, h, signBody, profile, syntheticBrief, fixture, promoteSyntheticFixture, exerciseMultiGrade, exerciseMultiGradeDay, exerciseSingleGrade }
