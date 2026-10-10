@@ -1,5 +1,5 @@
 // apps/web/src/components/csat/diagnosis/map/SkillPrescription.tsx
-// 단계 시트의 「직접 확인 상태 + 처방(바로잡기 · 다른 글에 적용하기 · 다시 확인하기)」 — 기능 단위 직접 확인(skill-diagnosis) 뒤에만 연다(정본 §14).
+// 단계 시트의 「직접 확인 상태 + 처방(바로잡기 열기 · 다른 지문에서 연습하기 · 재확인하기)」 — 기능 단위 직접 확인(skill-diagnosis) 뒤에만 연다(정본 §14).
 // 확인 전에는 잠근 채 「원인이 확인되면 이어지는 학습」으로 보인다. 문구는 이번 확인 기준 · 약점 단정 없음.
 // 상태 줄과 처방은 같은 view model(skillView)에서 상태 · 잠금 · 다시 확인 문항을 읽는다 — 화면마다 다시 분기하지 않는다.
 import { Lock, Route } from 'lucide-react'
@@ -42,6 +42,12 @@ const itemWord = (label: string) => label.replace(/으로 직접 확인$/, '')
 
 export interface CheckLink { target: string; href: string; label: string }
 
+// 처방 링크 문구는 「지금 열 수 있는 행동」만 말한다 — REPAIR · TRANSFER 의 완료 · 통과 · 순차 해제를 뜻하지 않는다.
+// 과제 체크 · 해설 열람 · Practice 제출 · DB phase 는 이 문구나 상태를 바꾸지 않는다(상태는 skillView 하나에서만).
+export const REPAIR_OPEN_TEXT = '바로잡기 열기'
+export const PRACTICE_TEXT = '다른 지문에서 연습하기'
+export const RECHECK_TEXT = '재확인하기'
+
 /** 지금 할 행동(주 행동) — view.action 하나로 고른다. 바로잡기 = 막혔던(확정에 쓴) 문항의 원리 해설 다시 읽기.
  *  직접 확인(unverified · expired)은 링크가 아니라 FIND 칸이 맡으므로 null — 지도 카드와 단계 시트가 같은 값을 쓴다 */
 export function skillPrimary(skill: SkillDiagnosis | null, checkLinks: readonly CheckLink[]): { action: SkillView['action']; href: string; text: string } | null {
@@ -49,8 +55,8 @@ export function skillPrimary(skill: SkillDiagnosis | null, checkLinks: readonly 
   const view = skillView(skill)
   const checks = checkLinks.filter((c) => view.checkItems.includes(c.target))
   const repair = view.action === 'repair' ? checkLinks.find((c) => skill.verifiedItems.includes(c.target)) : undefined
-  return view.action === 'repair' && repair ? { action: view.action, href: repair.href, text: `바로잡기 시작 — ${itemWord(repair.label)} 원리 다시 읽기 →` }
-    : view.action === 'recheck' && checks[0] ? { action: view.action, href: checks[0].href, text: `바로잡은 뒤 다시 확인하기 — ${itemWord(checks[0].label)} →` }
+  return view.action === 'repair' && repair ? { action: view.action, href: repair.href, text: `${REPAIR_OPEN_TEXT} — ${itemWord(repair.label)} 원리 해설 →` }
+    : view.action === 'recheck' && checks[0] ? { action: view.action, href: checks[0].href, text: `${RECHECK_TEXT} — ${itemWord(checks[0].label)} →` }
       : view.action === 'next_step' ? { action: view.action, href: NEXT_STEP_HREF, text: '다음 단계 — 새 기출을 풀고 기록해 목표 대비 변화 보기 →' }
         : null
 }
@@ -141,10 +147,10 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks }: {
             <span className={l.nextList}>{g.titles.length ? g.titles.slice(0, 3).join(' · ') : '—'}</span>
             {/* 처방은 직접 확인 뒤에만 연다 — 다른 글에 적용 = Practice · 다시 확인 = 확정에 쓰지 않은 · 아직 풀지 않은 확인 문항 */}
             {opened && g.stage === 'TRANSFER' && transferHref && (
-              <a href={transferHref} style={NEXT_LINK} data-testid="rx-transfer">다른 글에 적용하기 →</a>
+              <a href={transferHref} style={NEXT_LINK} data-testid="rx-transfer">{PRACTICE_TEXT} →</a>
             )}
             {opened && g.stage === 'CHECK' && checks.slice(0, 2).map((c) => (
-              <a key={c.target} href={c.href} style={NEXT_LINK} data-testid="rx-check" data-item={c.target}>다시 확인 — {itemWord(c.label)} →</a>
+              <a key={c.target} href={c.href} style={NEXT_LINK} data-testid="rx-check" data-item={c.target}>{RECHECK_TEXT} — {itemWord(c.label)} →</a>
             ))}
             {opened && g.stage === 'CHECK' && checks.length === 0 && <span className={l.nextList}>{CHECK_PENDING_TEXT}</span>}
           </li>

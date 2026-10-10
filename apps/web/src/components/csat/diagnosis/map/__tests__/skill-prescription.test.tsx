@@ -81,13 +81,13 @@ describe('상태 · CTA 는 같은 view model 에서(T-0016)', () => {
   })
   it('[2][5] verified — 주 행동 = 바로잡기(막혔던 문항 원리 해설) · 처방 링크보다 먼저', () => {
     const html = render([att('a', false, at(10)), att('b', false, at(11))])
-    expect(html).toMatch(/<a href="\/csat\/item\/a#principle"[^>]*data-testid="rx-primary" data-action="repair">바로잡기 시작/)
+    expect(html).toMatch(/<a href="\/csat\/item\/a#principle"[^>]*data-testid="rx-primary" data-action="repair">바로잡기 열기/)
     expect(html.indexOf('rx-primary')).toBeLessThan(html.indexOf('rx-transfer'))
     expect(html.indexOf('rx-primary')).toBeLessThan(html.indexOf('rx-check'))
   })
   it('[3][5] still_needed — 주 행동 = 남은 미노출 문항으로 다시 확인', () => {
     const html = render([att('a', false, at(10)), att('b', false, at(11)), att('c', false, at(15))])
-    expect(html).toMatch(/<a href="\/csat\/item\/d#principle"[^>]*data-testid="rx-primary" data-action="recheck">바로잡은 뒤 다시 확인하기/)
+    expect(html).toMatch(/<a href="\/csat\/item\/d#principle"[^>]*data-testid="rx-primary" data-action="recheck">재확인하기/)
   })
   it('[4][5] resolved — 주 행동 = 다음 단계 링크 · 확인 전 제목 없음', () => {
     const html = render([att('a', false, at(10)), att('b', false, at(11)), att('c', true, at(15)), att('d', true, at(16))])
@@ -198,5 +198,57 @@ describe('stepSkillProjection — 지도 카드와 단계 시트의 단일 출�
   it.each(CASES.slice(1, 4))('[4] %s — 카드 행동 문구가 시트의 주 행동 문구와 같다', (_status, attempts, when) => {
     const px = stepSkillProjection(mapData(attempts, when), step)
     expect(sheet(attempts, when)).toContain(`${skillActionText(px)} →`)
+  })
+})
+
+// T-0018 — 처방 링크는 행동 가용성만 말한다. REPAIR · TRANSFER 완료 · 통과 · 순차 해제는 어디에도 없다
+const COMPLETION = /data-(done|complete|completed|passed|unlocked|cleared)=|완료|(바로잡기|연습|적용)[^<]{0,20}통과|해제|마쳤|바로잡은 뒤|이후 CHECK/
+const prescriptionOnly = (html: string) => html.slice(html.indexOf('data-testid="step-prescription"'))
+
+describe('처방 링크 = 행동 가용성 · 완료 상태와 분리(T-0018)', () => {
+  it('[0][5] verified — 바로잡기 열기 · 다른 지문에서 연습하기 · 재확인하기 링크 · 완료 · 통과 표시 없음', () => {
+    const html = sheet(CASES[1][1])
+    expect(html).toMatch(/<a href="\/csat\/item\/a#principle"[^>]*data-testid="rx-primary" data-action="repair">바로잡기 열기 — a번 원리 해설 →/)
+    expect(html).toMatch(/<a href="\/csat\/practice\/claim-support"[^>]*data-testid="rx-transfer">다른 지문에서 연습하기 →/)
+    expect(html).toMatch(/data-testid="rx-check" data-item="c">재확인하기 — c번 →/)
+    expect(html).not.toMatch(COMPLETION)
+    // 순차 해제 없음 — 현재 칸은 REPAIR 하나이고 TRANSFER · CHECK 링크가 동시에 열려 있다
+    expect(html.match(/data-current="true"/g)).toHaveLength(1)
+    expect(html).toMatch(/data-stage="REPAIR" data-current="true"/)
+  })
+  it.each(CASES)('[1][2][5] %s — 처방 · 카드에 완료 · 순차 해제 속성이나 「REPAIR·TRANSFER 이후 CHECK 완료」 문구가 없다', (_s, attempts, when) => {
+    expect(prescriptionOnly(sheet(attempts, when))).not.toMatch(COMPLETION)
+    expect(card(attempts, when)).not.toMatch(COMPLETION)
+  })
+  it('[1] 과제 체크(doneTaskIds) · Practice 제출 한 건 · phase=transfer 는 상태 · 주 행동을 바꾸지 않는다', () => {
+    const base = CASES[1][1]
+    const ref = stepSkillProjection(mapData(base), step)
+    const transfer: SkillAttempt = { ...att('z9', true, at(12)), phase: 'transfer' as SkillAttempt['phase'] }
+    const practice: SkillAttempt = { ...att('p1', true, at(12)), taskKey: 'claim-support' }
+    for (const extra of [{ doneTaskIds: ['f1', 'r1'] }, {}]) {
+      const data = { ...mapData([...base, transfer, practice]), ...extra } as MapPageData
+      const px = stepSkillProjection(data, step)
+      expect(px.view?.status).toBe(ref.view?.status)
+      expect(px.view?.action).toBe('repair')
+      expect(px.view?.stage).toBe(ref.view?.stage)
+      expect(px.primary).toEqual(ref.primary)
+    }
+  })
+  it('[2] still_needed · resolved 는 skillDiagnosis 재확인 결과 그대로 — 완료 문구 없음', () => {
+    const sn = sheet(CASES[2][1])
+    expect(sn).toContain('data-status="still_needed"')
+    expect(sn).toMatch(/data-testid="rx-check" data-item="d">재확인하기 — d번 →/)
+    const r = sheet(CASES[3][1])
+    expect(r).toContain('data-status="resolved"')
+    expect(prescriptionOnly(r)).not.toMatch(/data-(done|complete|completed|passed|unlocked)=/)
+  })
+  it('[5] Practice 링크 가용성은 transferHref 만 따른다 — 상태가 같아도 링크 유무만 바뀐다', () => {
+    const skill = stepSkillProjection(mapData(CASES[1][1]), step).skill
+    const on = renderToStaticMarkup(<SkillPrescription skill={skill} groups={groups} transferHref="/csat/practice/claim-support" checkLinks={links} />)
+    const off = renderToStaticMarkup(<SkillPrescription skill={skill} groups={groups} transferHref={null} checkLinks={links} />)
+    expect(on).toContain('rx-transfer')
+    expect(off).not.toContain('rx-transfer')
+    expect(attr(on, 'data-status')).toBe(attr(off, 'data-status'))
+    expect(attr(on, 'data-action')).toBe(attr(off, 'data-action'))
   })
 })
