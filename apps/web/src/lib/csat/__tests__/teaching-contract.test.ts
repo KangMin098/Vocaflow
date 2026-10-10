@@ -41,3 +41,11 @@ describe('유형 교수 계약', () => {
     expect(all).not.toMatch(/정답 번호 분포|\d+\s*%|번이 가장 많/)
   })
 })
+
+describe('교수 계약 ↔ 분석 드레인 validate 동기화', () => {
+  it('choiceTruth 유형 목록이 드레인의 CHOICE_TRUTH_TYPES 와 같다 — 어긋나면 화면과 생산이 다른 규칙을 쓴다', async () => {
+    const { CHOICE_TRUTH_TYPES } = await import('../../../../../../scripts/csat/lib-analysis-rules.mjs')
+    const contract = Object.entries(TEACHING_MODELS).filter(([, m]) => m.choiceTruth).map(([id]) => id).sort()
+    expect([...(CHOICE_TRUTH_TYPES as Set<string>)].sort()).toEqual(contract)
+  })
+})

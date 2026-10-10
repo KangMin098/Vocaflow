@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): 분석 드레인 V14 — 선택≠참거짓 유형은 trap · why_tempting 을 요구하지 않고 trap 이 있으면 막는다(`CHOICE_TRUTH_TYPES` · 교수 계약과 동기화 회귀) · 작성 프롬프트 반영. E2E: learning-loop 11/11 · item-layout 7/7(하이드레이션 대기 수정) · ref-compare 16/16.
 - fix(csat): 선택≠참거짓 유형(어법 · 어휘 · 불일치 · 도표) 해설 블록 — 정답 아닌 선지를 「내용은 맞음」 + 맞는 근거로(함정 라벨 · 지어낸 오독 숨김). DB 측정: 이 유형 1,154문항 전부가 참인 선지에 trap 을 달고 있었다. 평가원 802 전량 정독 원장: keep 473 · 보강 329 · 정답 오류 0.
 - docs(csat): 출제 설계 학습 완료표(`csat-learner/DESIGN_LEARNING_COMPLETION.md` · F01~F16 증거·미실행·재실행 명령) · 효과 검증 프로토콜 초안(`DESIGN_LEARNING_EFFECT_PROTOCOL.md` · 사용성/효과 분리 · A/B 교차 · 극장 내 시도는 효과 입력 아님).
 - feat(csat): 분석 드레인 validate V12(학습자 칸 작업 용어 — 코퍼스 · 파일 경로 · 파싱/인쇄/OCR 잔여 · 청크) · V13(도표가 정답표로 정답을 정함). 근거: 평가원 802 의미 검수 원장(`scripts/csat/design-learning-audit`) — 도표 29 keep 0 · 작업 용어 노출 수십 문항.

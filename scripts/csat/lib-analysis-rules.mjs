@@ -23,6 +23,14 @@ export function namedReferentExclusions(procedure) {
  * 학습자에게 보이는 칸(재는 능력 · 출제 의도 · 정답 근거 · 선지 설명 · 함정 라벨)의 문자열들.
  * confirmed_at 같은 내부 기록 칸은 넣지 않는다 — 거기에는 작업 메모가 있어도 된다.
  */
+/**
+ * 정답 아닌 선지의 **내용이 맞는** 유형 — 교수 계약(apps/web/src/lib/csat/teaching-contract.ts) choiceTruth 와 같아야 한다
+ * (동기화 회귀: apps/web/src/lib/csat/__tests__/teaching-contract.test.ts). 이 유형의 오답 선지는 함정이 아니다:
+ * trap · why_tempting 을 쓰지 않고, how_to_reject 에 「지문의 어디와 대응해 맞는가 · 왜 발문의 답이 아닌가」를 쓴다.
+ * 2026-10-11 측정: 이 유형 1,154문항 전부가 참인 선지에 함정 라벨을 달고 있었다(스키마가 trap 을 요구한 탓).
+ */
+export const CHOICE_TRUTH_TYPES = new Set(['R-GRAMMAR', 'R-VOCAB', 'X-VOCAB', 'R-NOTICE', 'R-FACT', 'X-FACT', 'R-CHART'])
+
 export function learnerTexts(analysis) {
   const out = [analysis.measured_ability, analysis.design_intent, analysis.answer_locus?.reasoning]
   for (const ch of analysis.choices ?? analysis.choice_analysis ?? []) out.push(ch.why_correct, ch.why_tempting, ch.how_to_reject, ch.trap)

@@ -136,6 +136,8 @@ async function openItem(p: Probe, slug: string) {
 async function expectOpen(page: Page) {
   await expect(page.getByTestId('predict-gate')).toHaveCount(0)
   await expect(page.locator('[data-block="analysis:answer"]')).toBeVisible({ timeout: 30_000 })
+  // 블록은 서버 HTML 로 먼저 보인다 — 키 입력 전에 하이드레이션 · 세션 읽기가 끝났음을 「마치기」 단추(클라이언트 상태)로 기다린다
+  await expect(page.getByTestId('finish-item').or(page.getByTestId('session-done'))).toBeVisible({ timeout: 30_000 })
 }
 
 async function stepTo(page: Page, n: number) {
