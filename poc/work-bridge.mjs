@@ -144,7 +144,7 @@ function publish(id) {
   if (prior.length && !opt.retry) throw new Error(`${id} 는 이미 게시했다 — 응답이 없으면 --retry 로 다시 트리거한다`)
   if (prior.length && collected.has(id)) throw new Error(`${id} 는 이미 응답을 받았다 — 다시 올리지 않는다`)
   // 한 번에 하나: Work 는 가까이 온 PR 이벤트를 한 실행으로 합치고 마지막 PR 만 답했다(실측 PR #3·#4, 8초 간격) — 응답 대기 중인 다른 요청이 있으면 게시하지 않는다
-  const waiting = [...new Set(log0.filter((e) => e.event === 'published' && e.request_id !== id).map((e) => e.request_id))].filter((r) => !collected.has(r))
+  const waiting = inflight().filter((r) => r !== id) // 취소·인수된 라운드는 제외(상태와 맞춘 in-flight)
   if (waiting.length && !opt.parallel) throw new Error(`응답 대기 중인 요청이 있다(${waiting.join(', ')}) — 한 번에 하나씩 게시한다(동시 게시는 Work 가 하나만 답한다). 무시하려면 --parallel`)
   // Context Packet: 요청 헤더의 첨부 중 context/<UG>/ 아래 파일만(그 밖의 로컬 파일은 올리지 않는다)
   const ctxDir = path.join(ROOT, 'context', h.thread.goal_ref)
@@ -280,7 +280,14 @@ function sleep(ms) {
 function inflight() {
   const ev = readLog()
   const got = new Set(ev.filter((e) => e.event === 'collected').map((e) => e.request_id))
-  return [...new Set(ev.filter((e) => e.event === 'published').map((e) => e.request_id))].filter((r) => !got.has(r))
+  // 상태의 라운드와 맞춘다 — 취소(CANCELLED)·이미 인수된 요청은 게시 기록이 남아도 in-flight 가 아니다(Codex P1: 취소 요청이 단일 in-flight 를 영구 점유)
+  let status = null
+  try {
+    status = new Map(Object.values(JSON.parse(fs.readFileSync(path.join(ROOT, 'state', 'USER_GOALS.json'), 'utf8')).goals || {}).flatMap((g) => (g.rounds || []).filter((r) => r.recipient === 'chatgpt' && r.request_id).map((r) => [r.request_id, r.response_status])))
+  } catch {
+    status = null
+  }
+  return [...new Set(ev.filter((e) => e.event === 'published').map((e) => e.request_id))].filter((r) => !got.has(r) && (!status || !status.has(r) || status.get(r) === 'PENDING'))
 }
 
 /**

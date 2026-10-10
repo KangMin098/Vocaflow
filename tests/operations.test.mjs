@@ -321,3 +321,33 @@ test('자동 다음 작업 — 큐가 비면 다음 설계 자동 요청 → Wor
   s.orch(['--max-tasks', '1'])
   assert.ok(s.gh().prs.length <= before + 1, '중복 요청 없음')
 })
+
+test('Stop 훅 P1 3건 회귀 — 계약 같은 재승인은 완료 유지 · 취소 요청은 in-flight 아님 · 승인 glob 이 구체 경로 포함', () => {
+  const s = setup()
+  s.bridgeOn()
+  // ③ 승인 범위 src/*.ts 안의 구체 경로 작업은 묶인다
+  const a = s.goal('GLOB목표', { summary: 'g', acceptance: ['기준 0'], preserved_contracts: ['c'], allowed_paths: ['src/*.ts'], db_changes: false })
+  s.approve(a.ug_id, 1)
+  const t = s.ugTask(a.ug_id, [0], { allowed_paths: ['src/T-0006.ts'] })
+  assert.equal(t.task_id, 'T-0006', 'src/*.ts ⊇ src/T-0006.ts(가짜 Claude 가 바꾸는 파일)')
+  // ① 같은 계약의 v2 승인 뒤에도 v1 완료 작업이 기준을 덮는다
+  assert.equal(s.orch(['--max-tasks', '1']).run.tasks_done[0]?.outcome, 'completed')
+  const stF = path.join(s.root, 'state', 'USER_GOALS.json')
+  const st = JSON.parse(fs.readFileSync(stF, 'utf8'))
+  const g = st.goals[a.ug_id]
+  const v1 = g.designs[0]
+  g.designs.push({ ...v1, version: 2, status: 'PROPOSED', summary: '요약만 바뀜', approved_at: undefined })
+  fs.writeFileSync(stF, JSON.stringify(st))
+  s.approve(a.ug_id, 2)
+  assert.equal(s.vfc('ugoal', 'route', a.ug_id).route, 'GOAL_VERIFIED', '요약만 바뀐 재승인이 완료를 지우지 않는다')
+  // ② 게시 뒤 취소한 요청은 단일 in-flight 를 점유하지 않는다 — 다음 요청이 게시된다
+  const b = s.goal('CXL목표')
+  const q1 = s.vfc('ugoal', 'request-design', b.ug_id, '--by', 'claude')
+  s.run(path.join(REPO, 'poc', 'work-bridge.mjs'), ['tick', '--repo', XREPO])
+  assert.equal(s.gh().prs.length, 1)
+  s.vfc('ugoal', 'cancel-request', b.ug_id, q1.request_id, '--reason', '테스트 취소', '--by', 'claude')
+  s.vfc('ugoal', 'request-design', b.ug_id, '--by', 'claude')
+  const tk = s.run(path.join(REPO, 'poc', 'work-bridge.mjs'), ['tick', '--repo', XREPO]).json
+  assert.ok(tk.published, `취소 뒤 새 요청 게시: ${JSON.stringify(tk)}`)
+  assert.equal(s.gh().prs.length, 2)
+})
