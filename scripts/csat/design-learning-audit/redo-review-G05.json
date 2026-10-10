@@ -1,0 +1,37 @@
+{"group":5,"items":[
+{"file":"chunk-redo-20261010T191130200Z-X-FACT-2014B-45.out.json","id":"2014B#45","self_solved_matches_answer":true,
+"ledger":[
+{"code":"overgeneral","resolved":true,"note":"③ 위치 요령 삭제, 절차 2단계가 '선지 번호=단락 위치' 가정을 명시적으로 배제하고 핵심 명사로 찾게 함"},
+{"code":"choice_1","resolved":true,"note":"① trap/why_tempting 비우고 how_to_reject 에 (A) 5번째 문장 대응(farming community·large family) 제시"}],
+"new_defects":[
+{"code":"work_jargon","note":"정답 confirmed_at.note 에 '원장 결함…해소: V14에 따라 trap 비움' 작업 메모가 학습자 칸에 노출 — 삭제하고 확인 위치 설명만 남길 것"},
+{"code":"other","note":"design_intent '네 선지는 (A)(B)(C)에 하나씩 대응' — ③④가 모두 (C)라 '하나씩' 부정확, '(A)(B)(C)에 대응'으로 고칠 것"}],
+"verdict":"revise"},
+{"file":"chunk-redo-20261010T191130200Z-X-ORDER-2014B-43.out.json","id":"2014B#43","self_solved_matches_answer":true,
+"ledger":[
+{"code":"overgeneral","resolved":true,"note":"결정 근거를 roofless 정관사 되받기·Yet 역접 대상으로 바꾸고 결말 교훈은 '일치할 뿐 독립 규칙 아님'으로 낮춤"},
+{"code":"answer_reasoning","resolved":true,"note":"sentence_index [20,21]·confirmed_at [20,21,28] 이 (C)끝·(D)첫·(D)끝을 일관되게 가리킴(따옴표 문장 분리 계수로 검증)"},
+{"code":"work_jargon","resolved":true,"note":"'다른 세 문항과 달리' 문구가 design_intent 에서 사라짐"}],
+"new_defects":[
+{"code":"other","note":"confirmed_at.note '자체 계수(따옴표 안 문장도 각각 셈)'는 학습자에게 불필요한 메타 — 경미, 정리 권장"}],
+"verdict":"pass"},
+{"file":"chunk-redo-20261010T191130200Z-X-REFER-2017-44.out.json","id":"2017#44","self_solved_matches_answer":true,
+"ledger":[
+{"code":"answer_reasoning","resolved":true,"note":"note 가 (b) 직전 문장 주어를 Keith 로, Erik too 는 두 문장 앞으로 정확히 서술. 미끄러짐 경로도 재서술"},
+{"code":"choice_3","resolved":true,"note":"trap 을 '별칭 명사구 지시'로 바꾸고 German·teenager 수식어 대조와 부탁하는/받는 역할 대조로 배제"}],
+"new_defects":[],
+"verdict":"pass"},
+{"file":"chunk-redo-20261010T191130200Z-X-TITLE-2014A-41.out.json","id":"2014A#41","self_solved_matches_answer":true,
+"ledger":[
+{"code":"source_broken","resolved":true,"note":"빠진 낱말을 추측하지 않고 10번 문장을 근거·절차에서 제외. 문장 번호 1~14 검증 일치"}],
+"new_defects":[
+{"code":"other","note":"confirmed_at.note '원문 낱말 미확인—추측해 채우지 않음'은 자료 상태 메모 — 경미, 학습자용 문구로 다듬기 권장"}],
+"verdict":"pass"},
+{"file":"chunk-redo-20261010T191130200Z-X-VOCAB-2019-42.out.json","id":"2019#42","self_solved_matches_answer":true,
+"ledger":[
+{"code":"other","resolved":true,"note":"'42번 자리에 처음' 출제 이력 단정이 design_intent·drivers 에서 삭제되고 비교 구조 설계로 대체"}],
+"new_defects":[
+{"code":"other","note":"① how_to_reject '다음 문장 Leisure as a…' — 실제 (a) 다음은 4번(Some did this), Leisure 는 5번. '두 문장 뒤'로 고칠 것"},
+{"code":"other","note":"④ how_to_reject '앞 문장이 commercialization' — (d) 앞 문장은 'This no longer meant', 그 앞 7번임. 지시 위치 고칠 것"}],
+"verdict":"revise"}
+]}

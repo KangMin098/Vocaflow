@@ -15,7 +15,7 @@
 // 그것이 유형별 분석 결과의 알맹이다. 유형 안에서는 **최신 회차 먼저** — 현행 설계부터 덮는다.
 //
 // 실행:
-//   node scripts/csat/analysis-drain-export.mjs                 (남은 전부)
+//   npx tsx scripts/csat/analysis-drain-export.mjs              (남은 전부 — 평가원 문장 목록 때문에 tsx)
 //   node scripts/csat/analysis-drain-export.mjs --type R-BLANK  (한 유형만)
 //   node scripts/csat/analysis-drain-export.mjs --set hakpyeong --exam H2603G3  (학평 · 한 회차만)
 //   node scripts/csat/analysis-drain-export.mjs --size 10       (청크당 문항 수, 기본 12)
@@ -257,6 +257,13 @@ function answerDist(typeId) {
   }
 }
 
+// 평가원 문장 목록 — 학평의 근거 단위(csat_item_units)처럼, 분석자가 지문 문장을 스스로 세지 않게 한다.
+// 2026-10-11 교정 파일럿: 목록이 없어 문항마다 따로 셌더니 같은 지문인 세트 문항(2014B#43 · #45)이 서로 다른 번호를 썼다.
+// 학습자 지도 골격과 같은 분할기(passage-skeleton splitSentences)라 화면의 막대 번호와도 맞는다. tsx 로 실행해야 한다.
+const { splitSentences } = SET === 'kice' ? await import('../../apps/web/src/lib/csat/passage-skeleton.ts') : { splitSentences: null }
+const sentenceList = (passage) =>
+  splitSentences && passage ? splitSentences(passage).map((r, i) => ({ n: i + 1, text: passage.slice(r.start, r.end).trim() })) : undefined
+
 function pack(it) {
   // 지문·선지를 못 떴거나(3%) 한글이 섞였거나(5%) 하면 원문 블록을 함께 싣는다
   const bodyOk = Boolean(it.passage && it.choices) && !it.body_suspect
@@ -271,6 +278,8 @@ function pack(it) {
     type_name: it.type_name,
     stem: it.stem,
     passage: it.passage,
+    // 평가원만 — 분석의 모든 문장 번호(sentence_index · 해설 속 「N번째 문장」)는 이 목록의 n 이다
+    sentences: SET === 'kice' ? sentenceList(it.passage) : undefined,
     choices: it.choices,
     answer: it.answer,
     points: it.points,

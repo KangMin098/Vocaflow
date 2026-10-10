@@ -132,6 +132,8 @@
 (가족 130 · 3.85e-4)을 넘은 것만 사실로 쓴다 — 넘지 못하면 "유의하지 않다" 고 쓰고 **절차에 넣지
 않는다.** 찍기를 가르치는 것은 이 파이프라인의 목적이 아니다.
 
+**평가원 청크의 `sentences`(2026-10-11~)** — 문항마다 `sentences: [{n, text}]` 가 실려 오면 모든 문장 번호(`answer_locus.sentence_index` · `confirmed_at.sentence_index` · 해설 속 「N번째 문장」)는 이 목록의 `n`(1부터)이다. 지문을 스스로 세지 않는다 — 세트 문항끼리 번호가 갈렸다. 「앞 문장」 「다음 문장」 같은 상대 지칭 대신 번호로 쓴다.
+
 **⚠️ 선택≠참거짓 유형(R-GRAMMAR · R-VOCAB · X-VOCAB · R-NOTICE · R-FACT · X-FACT · R-CHART)의 오답 선지는 함정이 아니다(validate V14).** 정답이 아닌 네 선지는 **내용이 맞는** 진술이다 — `trap` · `why_tempting` 을 비워 두고, `how_to_reject` 에 「지문의 어디(위치)와 대응해 맞는가 · 그래서 왜 발문이 묻는 답이 아닌가」를 쓴다. 학습자가 하지도 않을 오독을 지어내 유인으로 만들지 않는다. 함정 서술은 정답 선지(바뀐 성분)에만 있다.
 
 **⚠️ 학습자 칸에는 작업 사정을 쓰지 않는다(validate V12).** `measured_ability` · `design_intent` · `answer_locus.reasoning` · 선지 `why_correct` · `why_tempting` · `how_to_reject` · `trap` 은 학습자 화면에 그대로 나온다. 코퍼스 · 추출본 · 파일 경로 · 파싱/인쇄/OCR 잔여 · 청크 · 원문 창 같은 말은 `confirmed_at.note` 에만 쓴다 — 추출 결함을 「선지를 미덥지 않게 만드는 함정」으로 가르친 문항이 실제로 있었다(2026-10-11 평가원 검수). 도표가 정답표로 정답을 정하는 서술은 V13 이 막는다.
