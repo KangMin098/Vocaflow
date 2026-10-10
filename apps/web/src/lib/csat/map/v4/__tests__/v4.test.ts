@@ -263,6 +263,21 @@ describe('불변식 8', () => {
   })
 })
 
+describe('재노출 방지(3차)', () => {
+  it('학습자가 기록한 시험의 확인 문항은 「새 확인 문항」으로 내밀지 않는다 — 직접 확인 판정은 그대로', () => {
+    const items = ['2026#20', '2025#20', 'M2506#20']
+    const lk = { [KEY]: items.map((t) => ({ target: t, href: `/csat/item/${t}`, label: t })) }
+    const m = asIsMap(base({ sessions: [session('s1', '2025-11-14', '2025-11-15T00:00:00Z', { examId: '2026' })], checks: [{ taskKey: KEY, items }] }))
+    const c = m.tasks['r.central_meaning'].check!
+    expect(c.examSeen).toEqual(['2026#20'])
+    expect(c.unseen).toEqual(['2025#20', 'M2506#20'])
+    expect(c.status).toBe('unverified') // 판정 규칙은 시험지 노출을 보지 않는다(바꾸지 않았다)
+    const plan = planWorkspaces({ asIs: m, toBe: null, confirmLinks: lk, transferItems: {} })
+    expect(plan.primary?.next?.target).not.toBe('2026#20')
+    expect(plan.primary?.stages.check.count).toBe(2)
+  })
+})
+
 describe('리뷰 수정 회귀(2차)', () => {
   it('시각 없는 시도는 근거 · 「확인 진행 중」에 쓰지 않는다(skill-diagnosis 와 같은 자격)', () => {
     const m = asIsMap(base({ attempts: [attempt('i1', false, '2026-09-10T00:00:00Z', { answeredAt: null })] }))

@@ -8,6 +8,7 @@
 // 계정은 끝에 지운다(기록 cascade). 개발 프로젝트가 아니면 멈춘다. 종료 코드 0 = 모든 단언 통과.
 //   node --env-file=<apps/web/.env.local> scripts/csat/map/e2e-map-goal.mjs [--base http://localhost:3002] [--out tmp/map-goal]
 import fs from 'node:fs'
+import { cleanupLeftovers, onInterrupt } from './e2e-cleanup.mjs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import { createRequire } from 'node:module'
@@ -25,12 +26,16 @@ if (!String(process.env.NEXT_PUBLIC_SUPABASE_URL).includes('jajenrevcbmrpaliomxv
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 const must = async (q, what) => { const r = await q; if (r.error) throw new Error(`${what}: ${r.error.message}`); return r.data }
 fs.mkdirSync(OUT, { recursive: true })
+// 시작 전에 지난 실행의 잔여(30분 넘은 E2E 계정 · TEST fixture)를 지운다 — Windows 는 종료 신호가 node 에 닿지 않아(2026-10-11 실측) 신호 정리만으로는 보장되지 않는다
+{ const swept = await cleanupLeftovers(db, { minAgeMs: 30 * 60_000, log: () => {} }); if (swept.users || swept.exams) console.log(`지난 실행 잔여 정리 — 계정 ${swept.users} · TEST 시험 ${swept.exams}`) }
 let fail = 0
 const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail === '' ? '' : ' — ' + JSON.stringify(detail).slice(0, 220)}`) }
 
 const READY = 'M2409'
 const users = []
 const browser = await chromium.launch()
+// 중단(Ctrl+C · 종료 신호)돼도 임시 계정을 지운다(기록 cascade) — 남은 것은 e2e-cleanup.mjs 로도 정리
+onInterrupt(async () => { await browser.close().catch(() => {}); for (const id of users) await db.auth.admin.deleteUser(id).catch(() => {}) })
 try {
   const keyOf = async (id) => Object.fromEntries((await must(db.from('csat_dx_answer_key').select('no, answers').eq('exam_id', id), 'key')).map((k) => [k.no, k.answers[0]]))
   const readyKey = await keyOf(READY)

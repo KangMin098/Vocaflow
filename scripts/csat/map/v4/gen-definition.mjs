@@ -18,7 +18,7 @@ const noMeta = (o) => Object.fromEntries(Object.entries(o).filter(([k]) => !k.st
 const data = {
   version: cb.version,
   domains: cb.domains.map((d) => ({ axis: d.axis, name: d.name })),
-  tasks: cb.tasks.map((t) => ({ id: t.id, display: t.display, axis: t.axis, kind: t.kind, status: t.status, name: t.name, goal: t.goal, conditions: t.conditions, evidence: t.evidence, criterion: t.criterion, quantity_policy: t.quantity_policy, direct_check: t.direct_check, methods: t.methods, assets: t.assets })),
+  tasks: cb.tasks.map((t) => ({ id: t.id, display: t.display, axis: t.axis, kind: t.kind, status: t.status, name: t.name, goal: t.goal, conditions: t.conditions, evidence: t.evidence, criterion: t.criterion, learner_criterion: t.learner_criterion, quantity_policy: t.quantity_policy, direct_check: t.direct_check, methods: t.methods, assets: t.assets })),
   lines: Object.fromEntries(Object.entries(cb.lines).map(([k, l]) => [k, { crosswalk_status: l.crosswalk_status, decision: l.decision, layer: l.layer, v4: l.v4, performance_goal: l.performance_goal }])),
   activityClass: noMeta(cb.activity_class),
   activityTaskOverride: noMeta(cb.activity_task_override),

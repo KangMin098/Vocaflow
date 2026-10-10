@@ -364,6 +364,204 @@
   margin-top: 3px;
 }
 
+/* ── 3차: 학습 묶음별 학습계획(PlanSection) — 진행은 글자로만(막대 · 퍼센트 없음), 조작 버튼 44px ── */
+.taskLink {
+  display: inline;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--m-ink);
+  text-decoration: underline;
+  text-decoration-color: #0d0d1740;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.taskLink:hover {
+  text-decoration-color: var(--m-ink);
+}
+.taskLink:focus-visible,
+.wsTab:focus-visible,
+.stepBtn:focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+}
+.wsTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.wsTab {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid #0d0d1726;
+  background: var(--m-bg);
+  color: var(--m-ink2);
+  font: inherit;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
+  font-weight: 600;
+  cursor: pointer;
+}
+.wsTab[aria-pressed='true'] {
+  background: var(--m-ink);
+  border-color: var(--m-ink);
+  color: #fcf9f5;
+}
+.plan {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 18px 16px;
+  border-radius: 12px;
+  border: 1px solid #0d0d1724;
+  background: var(--m-bg);
+  scroll-margin-top: 80px;
+}
+.planHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+}
+.planTitle {
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(15px * var(--csat-fs-scale)));
+  font-weight: 650;
+  color: var(--m-ink);
+}
+.planProgress {
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+}
+.planProgress strong {
+  color: var(--m-ink);
+}
+.planList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #0d0d1714;
+}
+.planItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 16px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #0d0d1714;
+}
+.planItem[data-core='false'] .planName {
+  color: var(--m-ink2);
+}
+.planMain {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.planName {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
+  font-weight: 650;
+  color: var(--m-ink);
+}
+.planGoal,
+.planQty {
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
+  line-height: 1.5;
+  color: var(--m-ink2);
+}
+.planQty strong {
+  color: var(--m-ink);
+}
+.planCriterion {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  margin: 2px 0 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--m-canvas);
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  line-height: 1.5;
+  color: var(--m-ink2);
+}
+.planCriterion svg {
+  flex: none;
+  margin-top: 3px;
+}
+.planCriterion strong {
+  color: var(--m-ink);
+}
+.planItem[data-achievement='need_confirmed'] .planCriterion {
+  box-shadow: inset 3px 0 0 var(--m-short-ink);
+}
+.planItem[data-achievement='resolved'] .planCriterion {
+  box-shadow: inset 3px 0 0 var(--m-met-ink);
+}
+.planSide {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+/* 계획량 조절과 순서 바꾸기는 다른 조작 — 구분선으로 나눈다(2026-10-11 화면 검토: 한 묶음처럼 보였다) */
+.stepper + .orderBtns {
+  padding-left: 14px;
+  border-left: 1px solid #0d0d171f;
+}
+.stepper,
+.orderBtns {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.stepBtn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #0d0d1726;
+  background: var(--m-bg);
+  color: var(--m-ink);
+  cursor: pointer;
+}
+.stepBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.stepVal {
+  min-width: 28px;
+  text-align: center;
+  font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale)));
+  font-weight: 700;
+  color: var(--m-ink);
+}
+.planFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+@media (max-width: 1100px) {
+  .planItem {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 1100px) {
   .grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
