@@ -255,15 +255,20 @@ export function ClaimPractice(props: {
     }
   }
 
-  function goNext() {
-    router.refresh()
+  /** 서버 기록 ∪ 이 화면 기록으로 다음 문항을 고른다 — 없으면 null(다 풀었다) */
+  function nextItem() {
     const done = new Set([...pool.filter((p) => p.done).map((p) => p.itemId), ...doneHere])
     const trainDone = pool.filter((p) => p.phase === 'practice' && done.has(p.itemId)).length
-    const next = pickNext(
+    return pickNext(
       { practice: pool.filter((p) => p.phase === 'practice').map((p) => p.itemId), transfer: pool.filter((p) => p.phase === 'transfer').map((p) => p.itemId) },
       done,
       trainDone,
     )
+  }
+
+  function goNext() {
+    router.refresh()
+    const next = nextItem()
     if (next) choose(next.itemId)
   }
 
@@ -502,9 +507,16 @@ export function ClaimPractice(props: {
               {feedback.helpLevel === 'viewed_first' && <p className={styles.note}>해설을 먼저 본 기록이라 「지금 내 상태」 판단에는 넣지 않아요.</p>}
               <p className={styles.next}>{feedback.next}</p>
               <div className={styles.chips}>
-                <button type="button" className={styles.primary} onClick={goNext}>
-                  다음 문항
-                </button>
+                {/* 다 풀었으면 눌러도 안 움직이는 버튼을 두지 않는다(2026-10-10) — 끝났다는 사실과 다음 학습을 준다 */}
+                {nextItem() ? (
+                  <button type="button" className={styles.primary} onClick={goNext}>
+                    다음 문항
+                  </button>
+                ) : (
+                  <a className={styles.primary} href="/csat/browse" data-testid="practice-all-done">
+                    연습 문항을 다 풀었어요 — 기출 서가에서 새 문항 해부하기
+                  </a>
+                )}
                 <a className={styles.link} href={`/csat/item/${toItemSlug(entry.itemId)}`} onClick={noteView}>
                   이 문항 해설 보기
                 </a>

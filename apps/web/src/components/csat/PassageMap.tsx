@@ -79,7 +79,11 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
   // 오답을 지우는 근거가 칩에 붙은 문장이 아닌 곳에 있는 일이 흔하다 — 켜진 막대와 말이 갈라지면
   // 학습자는 엉뚱한 줄을 읽는다.
   const lectureFocus = useLectureFocus()
-  const shownLit = useMemo(() => litForCue(lit, lectureFocus), [lit, lectureFocus])
+  // 학습자가 칩을 고르면 다음 큐가 올 때까지 강의 초점보다 그 선택이 앞선다 — 멈춘 강의의 초점이 남아
+  // 「멈춤 뒤 칩을 골라도 막대가 안 바뀌는」 일을 막는다(Codex P2 · 2026-10-10)
+  const [learnerChose, setLearnerChose] = useState(false)
+  useEffect(() => { setLearnerChose(false) }, [lectureKey, lectureFocus])
+  const shownLit = useMemo(() => (learnerChose ? lit : litForCue(lit, lectureFocus)), [lit, lectureFocus, learnerChose])
   const followingSpeech = shownLit !== lit
 
   // 「클릭/클릭/클릭」이 실제로 일어나는지는 **몇 번째인지**를 세야 안다. 첫 근거는 서버가
@@ -90,6 +94,7 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
   function pick(id: string) {
     if (!countsAsOpen(activeId, id)) return
     setActiveId(id)
+    setLearnerChose(true)
     const hit = found.get(id) === true
     opened.current += 1
     const kind = anchors.find((a) => a.id === id)?.kind ?? 'reject'
@@ -106,6 +111,12 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
         <p className="break-keep text-xs text-[var(--t3)]">{sentences.length}문장 · 눌러서 근거 자리 보기</p>
       </div>
 
+      {/* 강의가 지도를 움직이는 동안에는 학습자가 누른 칩이 다음 큐에 덮인다 — 「눌렀는데 안 바뀐다」로 보이지 않게 이유와 길을 말한다(2026-10-10) */}
+      {lectureKey?.startsWith('analysis:') || followingSpeech ? (
+        <p className="mb-2 break-keep text-xs leading-relaxed text-[var(--t2)]" role="status" data-testid="map-following-lecture">
+          강의가 말하는 자리를 따라 비추는 중이에요. 직접 칩을 골라 비교하려면 위의 「멈춤」으로 강의를 세우세요.
+        </p>
+      ) : null}
       <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="근거 고르기">
         {anchors.map((a) => {
           const on = a.id === activeId

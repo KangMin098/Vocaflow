@@ -58,8 +58,12 @@ export function PaperDrop({
         name: 'csat_paper_read',
         props: { known: r.known, items: r.paper.items.length, failed: r.failed, chosen },
       })
-      setPhase({ kind: 'idle' })
       onLoaded(r.paper)
+      // 다른 회차 PDF — 저장은 했다(그 회차를 열 때 다시 쓴다). 지금 화면은 안 바뀌므로 그 사실을 말한다(2026-10-10 · 조용히 무시되던 결함)
+      if (needed.length && !needed.includes(r.paper.exam_id)) {
+        const name = (id: string) => catalog.exams[id]?.label ?? id
+        setPhase({ kind: 'error', message: `이 PDF 는 ${name(r.paper.exam_id)} 문제지예요. 지금 필요한 건 ${needed.map(name).join(' · ')} 문제지예요 — 놓은 문제지는 이 기기에 저장돼 그 회차를 열 때 다시 쓰여요.` })
+      } else setPhase({ kind: 'idle' })
     } else if (r.kind === 'choose') {
       setPhase({ kind: 'choose', guess: r.guess, finish: r.finish })
     } else {

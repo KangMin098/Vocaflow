@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(csat): 학습자 결함 — (근거 상한 제거는 #187) 연습을 다 풀면 안 움직이는 「다음 문항」 대신 완료 + 서가 해부로 · 강의가 지도를 움직이는 동안 「멈춤」 안내. 원문 진입: 다른 회차 PDF 를 놓으면 조용히 무시되던 것 → 어느 회차가 필요한지 알림(저장은 유지) · 문제지 없이 되는 학습과 안 되는 학습 안내.
 
 - feat(knowledge): 합성 학습자 40명 화면 검증(`synthetic-cohort-run.mts` · `cohort-analysis.mts` · 보고 `docs/methodology/COHORT_VALIDATION_2026-10-10.md`) — 화면 채점 = 재채점 120/120 · 결정 재현 40/40 · find-policy.v2(막힌 부분 추적 · 따라 틀린 부분 제외, 행동 규칙 불변) · 연구 서지 초안 · 전 영역 원리 후보 초안(DB 미등록).
 - fix(csat): 이슈 #182 — Reveal Gate 회수(20261005170100 · 20261006110000) 뒤 학습자 화면이 회수된 표를 쿠키로 읽어 42501 이던 것. `/api/csat/state` · 홈 「내 진단」 · 진단 보고 · 스냅샷 · 학습 지도 읽기를 서버(service role · 로그인한 본인 행만) + 보류 관문(`embargo-gate`, Pilot `feat/ec-reveal-app` 1c8e122fb..57545a083 에서 가져옴)으로. Pilot 의 수집 참가 · 기록 저장 단일 진입 · 전면 관문 정책(강의 · 문항 · 카탈로그)은 Pilot 범위로 남김.
