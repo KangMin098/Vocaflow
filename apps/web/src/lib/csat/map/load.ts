@@ -342,34 +342,21 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const trendRaw = [...(ev?.trend ?? [])].reverse().find((t) => t.raw !== null)?.raw ?? null
   // 현재 위치의 근거 — 스냅샷 점수 흐름의 세션 중 **입력 신뢰도를 통과한 것만**(엔진이 진단 집계에 쓰는 같은 판정 — 점수 흐름 자체는
   // 모든 기록을 담는다). 일괄 입력 같은 의심 기록이 「최근 점수 · 이전↔최근 · 목표까지」에 섞이지 않게(Codex P1 · 2026-10-08)
-  const trendIds = (ev?.trend ?? []).map((t) => t.sessionId)
-  const sessionRows = trendIds.length
-    ? await selectByChunks<{ id: string; exam_id: string; taken_at: string; raw_score: number | null; grade: number | null }>(
-        trendIds, 100, (chunk) => db.from('csat_dx_session').select('id, exam_id, taken_at, raw_score, grade').eq('user_id', userId).in('id', chunk), 'csat_dx_session')
-    : []
-  const recordExamIds = [...new Set(sessionRows.map((r) => r.exam_id))]
-  const recordLabels = recordExamIds.length
-    ? Object.fromEntries((await selectByChunks<{ id: string; label: string }>(recordExamIds, 100, (chunk) => db.from('csat_exams').select('id, label').in('id', chunk), 'csat_exams')).map((e) => [e.id, e.label]))
-    : {}
-  // 20세션 × 45문항 = 900행 — 1,000행 상한 아래(기존 진단 로더와 같은 단위 · Codex P1)
-  const responseRows = sessionRows.length
-    ? await selectByChunks<{ session_id: string; item_no: number; chosen_option: number | null }>(
-        sessionRows.map((r) => r.id), 20, (chunk) => db.from('csat_dx_response').select('session_id, item_no, chosen_option').in('session_id', chunk), 'csat_dx_response')
-    : []
-  const answersBySession = new Map<string, { no: number; chosen: number | null }[]>()
-  for (const r of responseRows) {
-    const list = answersBySession.get(r.session_id) ?? []
-    list.push({ no: r.item_no, chosen: r.chosen_option })
-    answersBySession.set(r.session_id, list)
-  }
-  const diagnosableIds = new Set(sessionRows.filter((r) => isDiagnosable(recordQuality(answersBySession.get(r.id) ?? []))).map((r) => r.id))
-  const sessionById = new Map(sessionRows.filter((r) => diagnosableIds.has(r.id)).map((r) => [r.id, r]))
-  // rev4 As-Is 입력 — 스냅샷 점수 흐름이 아니라 **기록 테이블에서 직접**(기록 직후 스냅샷이 아직 없을 때 「기록 없음」으로 보이던 경합 · 2차 E2E).
-  //   입력 신뢰도 · 시험 준비 여부는 칸으로 남긴다(빼지 않는다). 보류 시험 기록이 있는 학습자는 관찰값과 같이 싣지 않는다(Reveal Gate).
-  const v4Sessions = heldUser ? [] : await loadV4Sessions(db, userId, ev?.trend ?? [])
-  const records: LearnerRecord[] = (ev?.trend ?? []).flatMap((t) => {
+  // 본인 시험 기록 — 한 번만 읽는다(GAP-15: 점수 흐름용 · rev4 As-Is 용으로 같은 세션의 응답을 두 번 읽던 것을 합쳤다).
+  //   「현재 위치」(records)는 이 중 스냅샷 점수 흐름에 든 · 입력 신뢰도를 통과한 세션만(Codex P1 · 2026-10-08 규칙 그대로).
+  //   rev4 As-Is 는 기록 테이블에서 직접(기록 직후 스냅샷이 없을 때 「기록 없음」으로 보이던 경합 · 2차 E2E) — 입력 신뢰도 · 시험 준비 여부는 칸으로.
+  //   보류 시험 기록이 있는 학습자는 관찰값과 같이 아무것도 싣지 않는다(Reveal Gate — 이 경우 스냅샷이 없어 점수 흐름도 비어 있다).
+  const trend = ev?.trend ?? []
+  const learnerSessions = heldUser ? [] : await loadLearnerSessions(db, userId, trend.map((t) => t.sessionId))
+  const sessionById = new Map(learnerSessions.filter((r) => r.diagnosable).map((r) => [r.id, r]))
+  const trendRawById = new Map(trend.map((t) => [t.sessionId, t.raw]))
+  const v4Sessions: AsIsSession[] = learnerSessions.map((r) => ({
+    id: r.id, examId: r.exam_id, examLabel: r.label, takenAt: r.taken_at, enteredAt: r.created_at,
+    raw: trendRawById.get(r.id) ?? r.raw_score, grade: r.grade, diagnosable: r.diagnosable, examReady: r.ready,
+  }))
+  const records: LearnerRecord[] = trend.flatMap((t) => {
     const r = sessionById.get(t.sessionId)
-    return r ? [{ label: recordLabels[r.exam_id] ?? r.exam_id, takenAt: r.taken_at, raw: t.raw ?? r.raw_score, grade: r.grade }] : []
+    return r ? [{ label: r.label, takenAt: r.taken_at, raw: t.raw ?? r.raw_score, grade: r.grade }] : []
   }).sort((a, b) => a.takenAt.localeCompare(b.takenAt))
   const snapshot: SnapshotInput | null = snap
     ? {
@@ -453,11 +440,29 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   }
 }
 
-/** rev4 As-Is 세션 — 본인 기록 전부(최근 200회) · 응답으로 입력 신뢰도 판정 · 시험 진단 준비 여부. 점수는 스냅샷 값이 있으면 그것(엔진 채점) */
-async function loadV4Sessions(db: Db, userId: string, trend: { sessionId: string; raw: number | null }[]): Promise<AsIsSession[]> {
-  const { data, error } = await db.from('csat_dx_session').select('id, exam_id, taken_at, created_at, raw_score, grade').eq('user_id', userId).order('taken_at', { ascending: false }).limit(200)
+type SessionRow = { id: string; exam_id: string; taken_at: string; created_at: string; raw_score: number | null; grade: number | null }
+export interface LearnerSessionRow extends SessionRow {
+  label: string
+  /** 시험의 진단 반영 여부(csat_exams.diagnosis_ready) */
+  ready: boolean
+  /** 입력 신뢰도(record-quality) 통과 */
+  diagnosable: boolean
+}
+
+/** 지도 진입 한 번의 본인 기록 조회 범위 — 최근 V4_SESSION_LIMIT 회 + 그 밖의 점수 흐름 세션(현재 위치가 빠지지 않게) */
+export const V4_SESSION_LIMIT = 200
+
+/**
+ * 본인 시험 기록 · 시험 이름 · 진단 반영 여부 · 입력 신뢰도 — 세션 · 시험 · 응답을 한 번씩만 읽는다(GAP-15).
+ * 응답은 20세션 묶음(20 × 45 = 900행 · 1,000행 상한 아래 — 기존 진단 로더와 같은 단위 · Codex P1).
+ */
+export async function loadLearnerSessions(db: Db, userId: string, trendIds: readonly string[]): Promise<LearnerSessionRow[]> {
+  const { data, error } = await db.from('csat_dx_session').select('id, exam_id, taken_at, created_at, raw_score, grade').eq('user_id', userId).order('taken_at', { ascending: false }).limit(V4_SESSION_LIMIT)
   if (error) throw new Error(`시험 기록 조회 실패: ${error.message}`)
-  const rows = (data ?? []) as { id: string; exam_id: string; taken_at: string; created_at: string; raw_score: number | null; grade: number | null }[]
+  const rows = (data ?? []) as SessionRow[]
+  const have = new Set(rows.map((r) => r.id))
+  const missing = trendIds.filter((id) => !have.has(id))
+  if (missing.length) rows.push(...await selectByChunks<SessionRow>(missing, 100, (chunk) => db.from('csat_dx_session').select('id, exam_id, taken_at, created_at, raw_score, grade').eq('user_id', userId).in('id', chunk), 'csat_dx_session'))
   if (rows.length === 0) return []
   const examIds = [...new Set(rows.map((r) => r.exam_id))]
   const [exams, responses] = await Promise.all([
@@ -466,12 +471,14 @@ async function loadV4Sessions(db: Db, userId: string, trend: { sessionId: string
   ])
   const examById = new Map(exams.map((e) => [e.id, e]))
   const answers = new Map<string, { no: number; chosen: number | null }[]>()
-  for (const r of responses) answers.set(r.session_id, [...(answers.get(r.session_id) ?? []), { no: r.item_no, chosen: r.chosen_option }])
-  const trendRaw = new Map(trend.map((t) => [t.sessionId, t.raw]))
+  for (const r of responses) {
+    const list = answers.get(r.session_id) ?? []
+    list.push({ no: r.item_no, chosen: r.chosen_option })
+    answers.set(r.session_id, list)
+  }
   return rows.map((r) => ({
-    id: r.id, examId: r.exam_id, examLabel: examById.get(r.exam_id)?.label ?? r.exam_id, takenAt: r.taken_at, enteredAt: r.created_at,
-    raw: trendRaw.get(r.id) ?? r.raw_score, grade: r.grade,
-    diagnosable: isDiagnosable(recordQuality(answers.get(r.id) ?? [])), examReady: examById.get(r.exam_id)?.diagnosis_ready === true,
+    ...r, label: examById.get(r.exam_id)?.label ?? r.exam_id, ready: examById.get(r.exam_id)?.diagnosis_ready === true,
+    diagnosable: isDiagnosable(recordQuality(answers.get(r.id) ?? [])),
   }))
 }
 
