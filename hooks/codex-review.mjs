@@ -13,7 +13,11 @@ import { runStopReview, DEFAULTS } from './codex-review-policy.mjs';
 
 const pass = (why) => { if (why) log(`pass: ${why}`); process.exit(0); };
 
-if (process.env.CODEX_REVIEW === '0') pass('disabled by env');let input;
+if (process.env.CODEX_REVIEW === '0') pass('disabled by env');
+// RP-2026-10-10.2(2026-10-10 사용자 결정): 자동 Codex 리뷰 전면 제거. Stop 에서 Codex 를 부르지 않고 판정 기록(UNKNOWN 포함)도 남기지 않는다.
+// 과거 verdicts.jsonl 기록은 그대로 둔다. 사용자가 명시적으로 요청한 경우에만 CODEX_REVIEW=1 로 옛 동작(RP-2026-10-10.1)을 켠다.
+if (process.env.CODEX_REVIEW !== '1') pass('auto Codex review removed (RP-2026-10-10.2)');
+let input;
 try { input = JSON.parse(readFileSync(0, 'utf8')); } catch { pass('no stdin'); }
 const { session_id: sessionId, transcript_path: transcriptPath, cwd } = input;
 if (!sessionId || !transcriptPath || !existsSync(transcriptPath)) pass('no transcript');
