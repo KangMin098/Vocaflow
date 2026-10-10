@@ -108,3 +108,21 @@ describe('실기록 생애주기 — 근거 판단(evidence-locate)', () => {
     expect(screen(find.map((r) => ({ ...r, help: 'viewed_first' as const }))).skill.status).toBe('unverified')
   })
 })
+
+describe('재바로잡기는 다시 확인에서 막힌 문항으로(Codex P2)', () => {
+  const base: Ledger[] = [
+    { item: '2026#31', ok: false, at: at(10) }, { item: '2026#32', ok: false, at: at(11) },
+    { item: '2026#31', ok: true, at: at(13), help: 'viewed_first' },
+    { item: '2026#33', ok: false, at: at(15) },
+  ]
+  it('예전 확정 문항(2026#31)을 다시 맞혀도 재바로잡기가 아니다', () => {
+    const s = screen([...base, { item: '2026#31', ok: true, at: at(16), help: 'viewed_first' }])
+    expect(s.cycle).toContain('REPAIR:now')
+  })
+  it('다시 확인에서 막힌 문항(2026#33)을 다시 맞히면 재바로잡기 마침 · 링크는 그 문항', () => {
+    const before = screen(base)
+    expect([...before.html.matchAll(/data-testid="rx-repair" data-item="([^"]+)"/g)].map((m) => m[1])).toEqual(['2026#31', '2026#32'])
+    const s = screen([...base, { item: '2026#33', ok: true, at: at(16), help: 'viewed_first' }])
+    expect(s.cycle).toContain('REPAIR:done')
+  })
+})
