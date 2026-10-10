@@ -1,0 +1,66 @@
+{
+ "version": "evidence-locate-transfer.draft",
+ "provenance": {
+  "status": "draft · single annotator · needs second annotator + anchor-bind + blind adoption + release approval",
+  "role": "TRANSFER — confirm 세트(2025#32·2026#31~34) 밖, 진단 준비 시험(M2409) 밖",
+  "annotators": "Claude(단일 · 정답을 본 상태)",
+  "note": "문장 번호 0부터 · 지문 원문 없음 · source/anchors(anchor-bind) 미결속 — checkBinding 이 unbound 로 닫는다",
+  "draftedAt": "2026-10-11"
+ },
+ "items": {
+  "2024#31": {
+   "key": "evidence-locate",
+   "skeletonSig": "3e7d145576a244eb205711db3a206d8eeb0ff9e3c487f03174c398a289a4dce8",
+   "sentenceCount": 7,
+   "blank": 5,
+   "evidence": [
+    6,
+    3
+   ],
+   "disputed": [
+    4
+   ],
+   "rationale": "빈칸=word recognition(단순 낱말 인식이 아님). 6 '말하는 것≠뜻하는 것', 3 '더 복잡한 해석'. 4(그림·글 상호 보완)는 간접 → disputed"
+  },
+  "2024#33": {
+   "key": "evidence-locate",
+   "skeletonSig": "0a89ff54aa2cc6ef141222b7167c99c6227f0144f9d3774ed411ef0eeca77bf1",
+   "sentenceCount": 7,
+   "blank": 3,
+   "evidence": [
+    4
+   ],
+   "disputed": [
+    5
+   ],
+   "rationale": "빈칸=서로 바꿔도 손실 없음. 4 '감정을 확정할 맥락이 없다'가 직접 근거(앵커와 일치). 5(누구인지 알아야)는 같은 논지 확장 → disputed"
+  },
+  "2023#32": {
+   "key": "evidence-locate",
+   "skeletonSig": "341cfe9a5e5a47e11e3cdd1201e968e08a573a4710a9688940e4482ff2714c9b",
+   "sentenceCount": 7,
+   "blank": 5,
+   "evidence": [
+    4
+   ],
+   "disputed": [
+    2
+   ],
+   "rationale": "빈칸=타인에게 가장 많이 노출. 4 '가장 많은 사람이 듣고 말하는 곳'(앵커). 2 'frequently exposed to one another' 도 근거 가능 → disputed(두 판정자 확인 필요)"
+  },
+  "2025#34": {
+   "key": "evidence-locate",
+   "skeletonSig": "a818793bf2bbd379070ecec23661e8aef0bff5b4026ef82f6b68b0dd8392adf9",
+   "sentenceCount": 8,
+   "blank": 0,
+   "evidence": [
+    2
+   ],
+   "disputed": [
+    3,
+    5
+   ],
+   "rationale": "빈칸=역할·관행을 만들어 생산적 활동을 가능케 함. 2 '규칙이 관행을 창조'(앵커). 3(악보)·5(역할 확립)도 같은 논지 → disputed. 인정 범위가 넓어 2025#31 처럼 제외될 위험"
+  }
+ }
+}

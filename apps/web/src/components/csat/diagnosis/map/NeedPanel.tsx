@@ -233,7 +233,7 @@ export function NeedPanel({ data, goal, goalSet, recordHref, asOf }: { data: Map
               ))}
             </div>
           )}
-          <PlanSection view={v.plans[openWs]} reason={openWs === plan.primary?.id && plan.reason ? REASON_LABEL[plan.reason] : null} past={past} />
+          <PlanSection view={v.plans[openWs]} reason={openWs === plan.primary?.id && plan.reason ? REASON_LABEL[plan.reason] : null} past={past} saved={data.v4?.saved ?? null} viewer={data.v4?.viewer ?? 'anon'} goal={goal} />
         </>
       )}
 

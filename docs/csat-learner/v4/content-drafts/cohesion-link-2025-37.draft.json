@@ -1,0 +1,52 @@
+{
+  "version": "cohesion-link-2025-37.draft",
+  "itemId": "2025#37",
+  "skeletonSig": "d38fd361cfebbda59f2a188915395b19818fb05c5429be689ae028218af05788",
+  "sentenceCount": 7,
+  "probes": [
+    {
+      "id": "cue1",
+      "cueSentence": 6,
+      "cueLabel": "7번째 문장 첫머리의 「한 줄로 있던 그 새들」 — the + 명사(앞에 소개된 집단)",
+      "referent": [
+        5
+      ],
+      "disputed": []
+    },
+    {
+      "id": "cue2",
+      "cueSentence": 3,
+      "cueLabel": "4번째 문장의 「줄 선 새들이 더 겁먹었는지」 — 앞에서 보고된 결과(더 불안)를 되받는 표현",
+      "referent": [
+        6
+      ],
+      "disputed": [
+        5
+      ]
+    }
+  ],
+  "order": {
+    "options": [
+      "(A) － (C) － (B)",
+      "(B) － (A) － (C)",
+      "(B) － (C) － (A)",
+      "(C) － (A) － (B)",
+      "(C) － (B) － (A)"
+    ],
+    "answer": 2
+  },
+  "answerAnchorOverlap": {
+    "answerAnchorSentences": [
+      6
+    ],
+    "note": "정답 근거 앵커(7번째 문장)가 단서 1이 있는 문장과 같다."
+  },
+  "provenance": {
+    "status": "draft · single annotator · needs second annotator + anchor-bind + blind adoption + release approval",
+    "annotators": "Claude(단일 · 맹검 아님 — 정답을 본 상태)",
+    "rationale": "(C) 'The birds in a line' 은 (B) 연구 소개(5)의 'birds … feeding in a line' 을 받는다. (A) 'Marc wondered whether … more fearful' 은 (C) 'more nervous'(6) 결과 뒤. 그래서 B-C-A.",
+    "ambiguity": "단서 2: 'the birds in line' 의 첫 등장은 5 지만 'more fearful' 의 근거는 6 → 5 disputed. 단서 1과 2가 같은 표현(birds in (a) line)을 공유해 학습자가 혼동할 수 있음.",
+    "reviewedAt": null,
+    "draftedAt": "2026-10-11"
+  }
+}

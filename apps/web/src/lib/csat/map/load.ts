@@ -20,6 +20,7 @@ import { staleMapEvidence } from './stale'
 import { loadPracticePool, practiceHrefsBeyond } from '../../knowledge/practice-server'
 import { loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
 import type { AsIsSession } from './v4/as-is'
+import { loadSavedPlans, type SavedPlans } from './v4/plan-store'
 import type { ActivityRow } from './lifecycle-evidence'
 import { findOutcome, type FindAttemptRow } from '../../knowledge/find-outcome'
 import { decideStep } from '../../knowledge/learning-decision'
@@ -85,6 +86,10 @@ export interface MapV4Input {
   refItems: RefItem[]
   /** 확인 과제 키 → 확인 묶음 밖에서 같은 과제로 적용할 수 있는 활성 문항 수 */
   transferItems: Record<string, number>
+  /** 저장된 학습계획(4차) — 저장 구조가 없으면 status 'not_installed'(화면은 이 기기 초안 모드) */
+  saved: SavedPlans
+  /** 이 화면을 보는 학습자 — 이 기기 초안을 학습자별로 나눠 두는 열쇠(다른 학습자의 초안이 섞이지 않게) */
+  viewer: string
 }
 
 /** 화면의 「시험상 위치」 — 실제 기록 한 회. 등급은 기록에 저장된 값(없으면 null — 화면이 원점수 구간으로 표시) */
@@ -413,6 +418,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
 
   // rev4 — 확인 과제 키별 「확인 묶음 밖」 적용 문항 수(실제로 있는 만큼만). 못 읽으면 0(적용 단계는 「준비 중」으로 보인다 — 숫자를 지어내지 않는다)
   const transferItems = await loadTransferItems(db, practiceLinks).catch((e) => { console.error('[csat-map v4 transfer items]', e); return {} as Record<string, number> })
+  // 저장된 계획 — 못 읽으면 지도는 그리고 저장 기능만 끈다(저장됨으로 보이지 않게 not_installed 가 아니라 오류 표시)
+  const saved: SavedPlans = await loadSavedPlans(db, userId).catch((e) => { console.error('[csat-map v4 saved plans]', e); return { status: 'not_installed' as const, byTemplate: {}, goalVersionId: null, error: true } as SavedPlans })
 
   return {
     now: now.toISOString(),
@@ -421,6 +428,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       proxyCovers: snap ? (ev?.trend ?? []).map((t) => t.sessionId) : [],
       refItems: examIds.flatMap((id) => itemsByExam[id]),
       transferItems,
+      saved,
+      viewer: userId,
     },
     model: buildMapModel(raw, examLabels),
     nodes,
