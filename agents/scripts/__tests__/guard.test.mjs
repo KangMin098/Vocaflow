@@ -83,8 +83,9 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const CLI = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'guard.mjs')
-const hook = (agent, payload) =>
-  spawnSync(process.execPath, [CLI, '--agent', agent], { input: JSON.stringify(payload), encoding: 'utf8', env: { ...process.env, AGENT_GUARD_SKIP_LINT: '1', AGENT_GUARD_NO_LOG: '1' } })
+// 기본은 AGENT_GUARD_ASK=0(거부 경로) — 승인 창(ask) 경로는 아래 D4-ask 테스트가 따로 본다
+const hook = (agent, payload, extra = { AGENT_GUARD_ASK: '0' }) =>
+  spawnSync(process.execPath, [CLI, '--agent', agent], { input: JSON.stringify(payload), encoding: 'utf8', env: { ...process.env, AGENT_GUARD_SKIP_LINT: '1', AGENT_GUARD_NO_LOG: '1', VFC_AUTOMATED_RUN: '', ...extra } })
 
 const DESTRUCTIVE = ['rm -rf ./__probe__', 'git push --force origin x', 'cat apps/web/.env.local']
 const claudePayload = (command, tool = 'Bash') => ({ session_id: 's', hook_event_name: 'PreToolUse', tool_name: tool, tool_input: { command } })
@@ -112,6 +113,29 @@ for (const c of DESTRUCTIVE) {
   })
   test(`D4 codex shell(argv) 차단: ${c}`, () => assertCodexDeny(hook('codex', codexShellPayload(c))))
 }
+
+// 2026-10-10 사용자 결정: Claude 대화형 세션은 막는 대신 사용자 승인 창(ask) — 자동 실행 · Codex 는 거부 유지
+for (const c of DESTRUCTIVE) {
+  test(`D4-ask claude 대화형: 승인 창으로 묻는다(실행 허용 아님): ${c}`, () => {
+    const r = hook('claude', claudePayload(c), {})
+    assert.equal(r.status, 0)
+    const o = JSON.parse(r.stdout).hookSpecificOutput
+    assert.equal(o.permissionDecision, 'ask')
+    assert.match(o.permissionDecisionReason, /\[agents\/guard\] 차단 \(claude\)[\s\S]*사용자가 승인해야만/)
+  })
+  test(`D4-ask 자동 실행(VFC_AUTOMATED_RUN=1)은 승인할 사람이 없으니 거부: ${c}`, () => {
+    const r = hook('claude', claudePayload(c), { VFC_AUTOMATED_RUN: '1' })
+    assert.equal(r.status, 2)
+    assert.equal(r.stdout, '')
+  })
+  test(`D4-ask Codex 는 거부 유지: ${c}`, () => assertCodexDeny(hook('codex', codexPayload(c), {})))
+}
+
+test('D4-ask 일상 명령은 승인 창 없이 통과', () => {
+  const r = hook('claude', claudePayload('git status --short'), {})
+  assert.equal(r.status, 0)
+  assert.equal(r.stdout, '')
+})
 
 test('D4 일상 명령과 셸이 아닌 도구는 통과', () => {
   assert.equal(hook('claude', claudePayload('git status --short')).status, 0)

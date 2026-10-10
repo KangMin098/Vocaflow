@@ -52,7 +52,7 @@ node agents/scripts/lock.mjs release <agent>     # 끝나면 (이름·pid 가 �
 |---|---|---|---|
 | 지시 | `CLAUDE.md` = `@AGENTS.md` + Claude 전용 | `AGENTS.md` (하위 디렉터리는 fallback `CLAUDE.md`) | — |
 | 권한 기본값 | `.claude/settings.json` allow / deny | `approval_policy="on-request"` · `sandbox_mode="workspace-write"` · 네트워크 off | — |
-| 파괴 명령 차단 | PreToolUse 훅 + deny | PreToolUse 훅 + `.codex/rules/vocaflow.rules` | `guard.mjs` |
+| 파괴 명령 차단 | PreToolUse 훅 — 대화형은 사용자 승인 창(ask), 자동 실행은 거부 + deny | PreToolUse 훅 + `.codex/rules/vocaflow.rules` | `guard.mjs` |
 | 세션 시작 주입 | SessionStart 훅 | SessionStart 훅 | `handoff-inject.mjs` |
 | 커밋 전 검사 | `git commit` 에서 훅이 실행 | 같음 | `guard.mjs` → 비밀값 · `.env` · `check.mjs` · eslint |
 | MCP | `.mcp.json` (생성물) | `config.toml [mcp_servers]` (생성물) | `sync.mjs` ← `mcp.source.json` |
