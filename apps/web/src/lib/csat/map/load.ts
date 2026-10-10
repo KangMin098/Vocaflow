@@ -19,7 +19,11 @@ import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
 import { practiceHrefsBeyond } from '../../knowledge/practice-server'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
-import type { FindAttemptRow } from '../../knowledge/find-outcome'
+import { findOutcome, type FindAttemptRow } from '../../knowledge/find-outcome'
+import { decideStep } from '../../knowledge/learning-decision'
+import { recordDecisions, type DecisionLogEntry } from '../../knowledge/decision-log-server'
+import { PRACTICE_SLUG } from '../../knowledge/practice'
+import { ALL_STEPS } from './learner-path'
 
 import { crossSessionHelp, type CrossSession, type CrossVerdict } from '@/lib/knowledge/prior-help'
 import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
@@ -169,6 +173,8 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
     timingUncertain: v === 'uncertain' || r.timing_uncertain === true,
     answeredAt: typeof r.answered_at === 'string' ? r.answered_at : null,
     parts: partsById.get(Number(r.attempt_id)) ?? null,
+    // 확인 과제(theater) · 연습 화면(practice) 구분 — 연습 기록은 확인 근거가 아니다(find-policy.v3)
+    activity: typeof r.activity === 'string' ? r.activity : null,
   }
   })
 }
@@ -356,6 +362,10 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     return undefined
   })
   const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
+  // 원리 기반 결정 기록 — 화면과 같은 함수로 서버가 다시 계산해 근거와 함께 남긴다(learning_decisions). 실패해도 지도는 그린다
+  if (findAttempts) {
+    await logMapDecisions(userId, practiceLinks, findAttempts).catch((e) => console.error('[csat-map decision log]', e))
+  }
   // 결과 환류의 다음 칸 — 같은 원리를 다른 지문에 적용(Practice). 실학습 풀에 그 문항 말고 다른 문항이 있을 때만
   // 링크를 보일 수 있는 칸(마친 확인 · 전이 없음)이 있을 때만, 풀은 한 번만 계산한다
   const needNext = Object.entries(practiceLinks).filter(([taskId, link]) => link.taskKey === 'claim-support' && practiceResults?.[taskId]?.next === 'move_on' && !practiceResults[taskId].transfer)
@@ -429,4 +439,30 @@ async function loadPracticeResults(db: Db, userId: string, links: Record<string,
     }
   }
   return out
+}
+
+/** 단계마다 화면과 같은 결정을 서버에서 다시 계산해 기록한다 — 지도 과제 id(B6-3)의 줄 코드가 속한 학습 단계로 묶는다 */
+async function logMapDecisions(userId: string, links: Record<string, MapPracticeLink>, attempts: FindAttemptRow[]): Promise<void> {
+  const entries: DecisionLogEntry[] = []
+  for (const [taskId, link] of Object.entries(links)) {
+    if (!link.chain) continue
+    const step = ALL_STEPS.find((s) => s.lines.includes(taskId.split('-')[0]))
+    if (!step) continue
+    const targets = link.confirm.map((c) => ({ itemRef: c.target, taskKey: c.taskKey }))
+    const outcome = findOutcome(targets, attempts)
+    const decision = decideStep({
+      stepKey: step.key,
+      findTaskId: taskId,
+      outcome,
+      chain: link.chain,
+      confirm: link.confirm.map((c) => ({ itemRef: c.target, href: c.href, label: c.label })),
+      triedItems: [...new Set(attempts.filter((a) => a.phase === 'practice' && a.activity !== 'practice' && link.confirm.some((c) => c.target === a.itemRef && c.taskKey === a.taskKey)).map((a) => a.itemRef))],
+      practiceHref: link.taskKey === PRACTICE_SLUG ? `/csat/practice/${PRACTICE_SLUG}` : null,
+    })
+    entries.push({ decision, application: link.application ?? null })
+  }
+  if (entries.length === 0) return
+  // 합성 여부 — 이 학습자의 확인 기록이 합성이면 합성 결정(실학습자 분석에서 빠진다)
+  const synthetic = attempts.length > 0 && attempts.every((a) => a.synthetic)
+  await recordDecisions(userId, synthetic, entries)
 }

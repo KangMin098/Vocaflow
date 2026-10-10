@@ -12,6 +12,7 @@ import { FlaskConical } from 'lucide-react'
 
 import { CsatShell } from '@/components/csat/home/CsatShell'
 import { ClaimPractice } from '@/components/knowledge/ClaimPractice'
+import { isFocus } from '@/lib/knowledge/practice-focus'
 import { railExams } from '@/lib/csat/rail-data'
 import { getAdminUser } from '@/lib/auth/require-admin'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
@@ -24,7 +25,7 @@ import { createClient } from '@/lib/supabase/server'
 export const metadata: Metadata = { title: '주장과 근거 — 기출' }
 export const dynamic = 'force-dynamic'
 
-export default async function PracticePage({ params, searchParams }: { params: { slug: string }; searchParams: { preview?: string; item?: string } }) {
+export default async function PracticePage({ params, searchParams }: { params: { slug: string }; searchParams: { preview?: string; item?: string; focus?: string } }) {
   if (params.slug !== PRACTICE_SLUG) notFound()
   const wantPreview = searchParams.preview === '1'
   const db = (await createClient()) as unknown as SupabaseClient
@@ -67,6 +68,7 @@ export default async function PracticePage({ params, searchParams }: { params: {
       recommendedItemId={next?.itemId ?? null}
       history={firsts.slice(-10).map((a) => ({ phase: a.phase, claimHit: a.claimHit, helpLevel: a.helpLevel }))}
       reviews={reviews}
+      focus={isFocus(searchParams.focus) ? searchParams.focus : null}
     />
     </CsatShell>
   )

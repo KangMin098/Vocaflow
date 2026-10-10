@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { RELATIONS, RELATION_LABEL, type Relation } from '@/lib/knowledge/claim-support-labels'
+import { FOCUS_GUIDE, focusFeedback, type Focus } from '@/lib/knowledge/practice-focus'
 import { TYPE_LABEL, pickNext, type HelpLevel, type PoolKind, type PracticeFeedback, type PracticePhase } from '@/lib/knowledge/practice'
 import type { CapabilityJudgement } from '@/lib/knowledge/protocol'
 
@@ -57,6 +58,8 @@ export function ClaimPractice(props: {
   history: { phase: PracticePhase; claimHit: boolean | null; helpLevel: HelpLevel }[]
   /** 내 복습 — 아직 끝나지 않은 Practice 복습 예약(한국 날짜 · 예약일 지남 여부 · 이 화면에서 풀 수 있나) */
   reviews?: { itemId: string; label: string; date: string; due: boolean; inPool: boolean }[]
+  /** 학습 지도가 넘긴 막힌 부분(주장 · 근거 · 관계) — 초점별 방법 · 강조 · 피드백(find-policy.v3) */
+  focus?: Focus | null
 }) {
   const { preview, judgement, pool, recommendedItemId } = props
   const router = useRouter()
@@ -329,11 +332,27 @@ export function ClaimPractice(props: {
         </section>
       )}
 
+      {props.focus && (
+        <section aria-labelledby="focus-h" data-testid="practice-focus" data-focus={props.focus}>
+          <h2 id="focus-h">{FOCUS_GUIDE[props.focus].title}</h2>
+          <p className={styles.detail}>학습 지도에서 이 부분이 주로 막혔어요. 이번 연습은 이 순서로 읽어요.</p>
+          <ol className={styles.steps}>
+            {FOCUS_GUIDE[props.focus].method.map((m, i) => (
+              <li key={i}>
+                <span className={styles.stepNo}>{i + 1}</span>
+                <span className={styles.detail}>{m}</span>
+              </li>
+            ))}
+          </ol>
+          <p className={styles.note}>{FOCUS_GUIDE[props.focus].emphasisText}</p>
+        </section>
+      )}
+
       <section aria-labelledby="how">
         <h2 id="how">이렇게 해요</h2>
         <ol className={styles.steps}>
           {PROCEDURE.map((s, i) => (
-            <li key={i} aria-current={i + 1 === step ? 'step' : undefined}>
+            <li key={i} aria-current={i + 1 === step ? 'step' : undefined} data-emphasis={props.focus && ['claim', 'support', 'relation'][i] === FOCUS_GUIDE[props.focus].emphasis ? 'true' : undefined}>
               <span className={styles.stepNo}>{i + 1}</span>
               <span>
                 <b>{s.title}</b>
@@ -492,6 +511,20 @@ export function ClaimPractice(props: {
           {feedback && (
             <div className={styles.result} role="status">
               <h3>{feedback.claimHit ? '주장 문장을 찾았어요' : '주장은 다른 문장이에요'}</h3>
+              {props.focus && (
+                <div data-testid="focus-feedback" data-focus={props.focus}>
+                  {focusFeedback(props.focus, {
+                    claimHit: feedback.claimHit,
+                    claimSentences: feedback.claimSentences,
+                    mySupport: support,
+                    supportSentences: feedback.supportSentences,
+                    supportOk: feedback.supportOk,
+                    relationOk: feedback.relationOk,
+                    relation: feedback.relationProbe?.relation ?? null,
+                    myRelation: relation,
+                  }).map((line) => <p key={line}><b>{line}</b></p>)}
+                </div>
+              )}
               <p>
                 주장: 문장 {feedback.claimSentences.map((i) => i + 1).join(', ')}
                 {feedback.supportSentences.length > 0 && ` · 근거: 문장 ${feedback.supportSentences.map((i) => i + 1).join(', ')}${feedback.supportOk ? ' (맞음)' : ' (다름)'}`}

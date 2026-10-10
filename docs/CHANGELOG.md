@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- feat(knowledge): find-policy.v3 — 오류 초점별 연습(방법 · 강조 · 피드백, `?focus=`) · 연습 화면 기록은 확인 근거에서 제외 · 연습 뒤 새 지문 재확인(통과 → 다음 단계 · 실패 → 같은 초점 재연습) · 결정 기록 `learning_decisions`(migration `20261010034932`) · 개정 환류 격리 PostgreSQL 9/9(`revision-loop-test.mjs`) · DB 통계 가입자에서 합성 계정 제외.
+
 - feat(knowledge): 합성 학습자 40명 화면 검증(`synthetic-cohort-run.mts` · `cohort-analysis.mts` · 보고 `docs/methodology/COHORT_VALIDATION_2026-10-10.md`) — 화면 채점 = 재채점 120/120 · 결정 재현 40/40 · find-policy.v2(막힌 부분 추적 · 따라 틀린 부분 제외, 행동 규칙 불변) · 연구 서지 초안 · 전 영역 원리 후보 초안(DB 미등록).
 - fix(csat): 이슈 #182 — Reveal Gate 회수(20261005170100 · 20261006110000) 뒤 학습자 화면이 회수된 표를 쿠키로 읽어 42501 이던 것. `/api/csat/state` · 홈 「내 진단」 · 진단 보고 · 스냅샷 · 학습 지도 읽기를 서버(service role · 로그인한 본인 행만) + 보류 관문(`embargo-gate`, Pilot `feat/ec-reveal-app` 1c8e122fb..57545a083 에서 가져옴)으로. Pilot 의 수집 참가 · 기록 저장 단일 진입 · 전면 관문 정책(강의 · 문항 · 카탈로그)은 Pilot 범위로 남김.
 - feat(csat): 1440 기출 학습자 화면 통합 — 해설 극장 · 연습 · 내 공식 · 해부를 `(main)` 일반 앱 셸에서 `(app)/csat` 기출분석공간 셸(`CsatShell` · 레일 + 상단 바)로 옮김(URL 불변). 레일에 연습 · 내 공식 추가 · `/csat/practice` 404 → 유일 과제로 redirect · 해부 풀스크린 막대 해제 · 문제지 없는 해부에 해설 극장 길(막다른 화면 제거) · 내 공식 판면을 3B 수치 줄 · 목록으로(Tines 히어로 · 삽화 제거 · 출처 문항 → 해설 극장). 지도 칩 번호 중복 제거. e2e 42 의 앵커 수 문항을 끌리는 구절 반영 뒤로 다시 고르고 배속 칩과 갈라 셈.

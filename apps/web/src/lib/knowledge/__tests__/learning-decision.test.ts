@@ -127,3 +127,48 @@ describe('find-policy.v2 — 따라 틀린 부분을 따로 세지 않는다', (
     expect(d.trace.focus).toBe('claim')
   })
 })
+
+describe('find-policy.v3 — 연습 뒤 새 지문 재확인', () => {
+  // 이 묶음은 확인 문항 4개 단계(2020#20 이 새 지문)
+  const C4 = [...CONFIRM, { itemRef: '2020#20', href: '/csat/item/2020-20#principle', label: '2020#20' }]
+  const input = (rows: FindAttemptRow[], extra: Partial<DecisionInput> = {}): DecisionInput => {
+    const confirm = extra.confirm ?? C4
+    return {
+      stepKey: 'structure', findTaskId: 'B6-3', chain: CHAIN, confirm, practiceHref: '/csat/practice/claim-support',
+      outcome: findOutcome(confirm.map((c) => ({ itemRef: c.itemRef, taskKey: 'claim-support' })), rows),
+      triedItems: [...new Set(rows.filter((r) => (r as { activity?: string }).activity !== 'practice').map((r) => r.itemRef))],
+      ...extra,
+    }
+  }
+  const at = (r: ReturnType<typeof row>, answeredAt: string, activity: string) => ({ ...r, answeredAt, activity })
+  const base3 = [at(row('2022#20', false), '2026-10-10T01:00:00Z', 'theater'), at(row('2025#20', false), '2026-10-10T01:05:00Z', 'theater')]
+  const practiced = at(row('2016#20', true), '2026-10-10T02:00:00Z', 'practice')
+  it('연습 화면 기록은 확인 근거가 아니다 — 연습에서 맞혀도 진단 판정을 바꾸지 않는다', () => {
+    const d = decideStep(input([...base3, practiced]))
+    expect(d.trace.observation.state).toBe('confirmed_need')
+    expect(d.trace.observation.items).not.toContain('2016#20')
+  })
+  it('연습 뒤 → 풀지도 연습하지도 않은 새 지문으로 재확인(연습한 지문 2016 · 푼 지문은 제외)', () => {
+    const d = decideStep(input([...base3, practiced]))
+    expect(d.action).toBe('recheck_new')
+    expect(d.href).toBe('/csat/item/2020-20#principle')
+  })
+  it('연습 뒤 새 지문에서 맞힘 → 다음 단계', () => {
+    const d = decideStep(input([...base3, practiced, at(row('2020#20', true), '2026-10-10T03:00:00Z', 'theater')]))
+    expect(d.action).toBe('recheck_passed')
+    expect(d.href).toBeNull()
+  })
+  it('연습 뒤 새 지문에서 막힘 → 같은 초점으로 다시 연습(링크에 초점)', () => {
+    const fail = { ...at(row('2020#20', false), '2026-10-10T03:00:00Z', 'theater'), parts: { claim: true, support: false, relation: true } }
+    const b = base3.map((r) => ({ ...r, parts: { claim: true, support: false, relation: true } }))
+    const d = decideStep(input([...b, practiced, fail]))
+    expect(d.action).toBe('practice_method')
+    expect(d.href).toBe('/csat/practice/claim-support?focus=support')
+    expect(d.reason).toMatch(/재확인 실패/)
+  })
+  it('새 지문이 없으면 같은 지문으로 재확인하지 않는다', () => {
+    const d = decideStep(input([...base3, practiced], { confirm: CONFIRM }))
+    expect(d.action).toBe('recheck_new')
+    expect(d.href).toBeNull()
+  })
+})

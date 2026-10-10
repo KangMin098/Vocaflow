@@ -64,7 +64,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
         outcome,
         chain: decisionLink.chain,
         confirm: decisionLink.confirm.map((c) => ({ itemRef: c.target, href: c.href, label: c.label })),
-        triedItems: [...new Set(data.findAttempts.filter((f) => f.phase === 'practice' && decisionLink.confirm.some((c) => c.target === f.itemRef && c.taskKey === f.taskKey)).map((f) => f.itemRef))],
+        triedItems: [...new Set(data.findAttempts.filter((f) => f.phase === 'practice' && f.activity !== 'practice' && decisionLink.confirm.some((c) => c.target === f.itemRef && c.taskKey === f.taskKey)).map((f) => f.itemRef))],
         practiceHref: decisionLink.taskKey === PRACTICE_SLUG ? `/csat/practice/${PRACTICE_SLUG}` : null,
       })
     : null
