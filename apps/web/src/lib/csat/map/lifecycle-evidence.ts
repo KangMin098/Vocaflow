@@ -39,7 +39,9 @@ export function lifecycleEvidence(
   const since = skill.verifiedAt
   const keys = new Set(targets.map((t) => t.taskKey))
   const inBundle = new Set(targets.map((t) => t.itemRef))
-  const blocked = new Set([...skill.verifiedItems, ...(skill.check?.wrongItems ?? [])])
+  // 다시 확인에서 막혔으면 바로잡을 문항은 그 막힌 문항들이다 — 예전 확정 문항을 다시 맞혀도 재바로잡기가 아니다(Codex P2)
+  const recheck = skill.status !== 'resolved' && !!skill.check?.lastWrongAt && skill.check.lastWrongAt > since
+  const blocked = new Set(recheck ? (skill.check?.wrongItems ?? []) : [...skill.verifiedItems, ...(skill.check?.wrongItems ?? [])])
   // 다시 확인에서 막혔으면 그 뒤의 바로잡기만 센다 — 「한 번 더 바로잡기」 가 새로 필요하다(안내 문구와 4칸이 어긋나지 않게)
   // 해소된 회차는 그 회차 안의 바로잡기 기록을 그대로 보인다(통과 뒤에 「다시 바로잡기」 를 요구하지 않는다)
   const repairSince = skill.status !== 'resolved' && skill.check?.lastWrongAt && skill.check.lastWrongAt > since ? skill.check.lastWrongAt : since

@@ -53,7 +53,9 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   const confirmLinks = find.flatMap((t) => data.practiceLinks?.[t.id]?.confirm ?? [])
   const checkLinks = skill ? confirmLinks.filter((c) => skill.check.remaining.includes(c.target)) : []
   // 바로잡기 · 적용 수행 근거 — 본인 시도 전부(첫 시도만이 아니다). 기록을 못 읽었으면 근거 없음으로(완료로 보이지 않게)
-  const repairLinks = skill ? confirmLinks.filter((c) => skill.verifiedItems.includes(c.target)) : []
+  // 바로잡을 문항 — 다시 확인에서 막혔으면 그 문항, 아니면 확정에 쓴 문항(Codex P2)
+  const toRepair = skill?.status === 'still_needed' && skill.check.wrongItems?.length ? skill.check.wrongItems : skill?.verifiedItems ?? []
+  const repairLinks = confirmLinks.filter((c) => toRepair.includes(c.target))
   // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
   const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
   const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
