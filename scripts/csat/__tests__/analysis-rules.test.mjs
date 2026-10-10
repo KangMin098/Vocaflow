@@ -53,3 +53,29 @@ test('V11 blocks the actual internal repair memo without banning original-PDF le
   a.design_intent = '문제 화면 원본 PDF에서 밑줄 전체를 확인하여 동작 주체와 분사 태를 비교하게 한다.'
   assert.deepEqual(precheckAnalysis(a, units).errors, [])
 })
+
+// ── V12 · V13 (2026-10-11 평가원 802 의미 검수 실측) ───────────────────────────
+import { analysisRuleErrors as rulesV12 } from '../lib-analysis-rules.mjs'
+
+const base = { measured_ability: '도표 대조', design_intent: '비교 조건', answer_locus: { reasoning: '두 막대를 비교한다' }, choices: [] }
+
+test('V12 — 학습자 칸의 작업 용어(코퍼스 · 파일 경로 · 파싱 잔여)를 막는다', () => {
+  const hits = [
+    { ...base, answer_locus: { reasoning: '값은 그림에만 있어 코퍼스 지문에도 columns2/2014A.txt 에도 없다' } },
+    { ...base, choices: [{ why_tempting: '선지 뒤에 붙은 인쇄 잔여도 선지를 미덥지 않게 만든다' }] },
+    { ...base, design_intent: '이 청크에서 유일하게 형태가 맞는 문항' },
+  ]
+  for (const a of hits) assert.ok(rulesV12(a).some((e) => e.startsWith('V12')), JSON.stringify(a))
+})
+
+test('V12 — 내부 기록 칸(confirmed_at)의 작업 메모와 정상 서술은 통과한다', () => {
+  assert.deepEqual(rulesV12({ ...base, choices: [{ why_correct: '주제문과 대응한다', confirmed_at: { note: '코퍼스 지문 OCR 잔여 확인' } }] }), [])
+  assert.deepEqual(rulesV12({ ...base, design_intent: '두 단락의 대조로 요지를 세운다' }), [])
+})
+
+test('V13 — 도표 문항이 정답표로 정답을 정하면 막는다 · 다른 유형 · 정상 서술은 통과', () => {
+  const inferred = { ...base, answer_locus: { reasoning: '막대 값은 없지만 평가원 정답표가 ④를 불일치로 확정하므로 ④다' } }
+  assert.ok(rulesV12(inferred, { typeId: 'R-CHART' }).some((e) => e.startsWith('V13')))
+  assert.deepEqual(rulesV12(inferred, { typeId: 'R-BLANK' }).filter((e) => e.startsWith('V13')), [])
+  assert.deepEqual(rulesV12({ ...base, answer_locus: { reasoning: '2015년 값 34는 2010년 12의 세 배 이하다' } }, { typeId: 'R-CHART' }), [])
+})
