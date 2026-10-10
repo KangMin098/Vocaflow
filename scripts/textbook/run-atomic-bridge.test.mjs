@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import { planProductBrief } from '@vocaflow/library-pipeline/product-planning'
 import { exportOrderProductionDrain, importOrderProductionDrain } from '@vocaflow/library-pipeline/order-production-run'
 import { produceRunAtomicVolume, syntheticTrustRoot } from './run-atomic-bridge.mjs'
-import { verifyAtomicPlannedVolume } from './atomic-volume.mjs'
+import { composeAtomicPlannedVolume, verifyAtomicPlannedVolume } from './atomic-volume.mjs'
 
 const h = c => c.repeat(64)
 const policy = n => ({ version: `p${n}`, hash: h(n) })
@@ -100,3 +100,55 @@ test('specialized families stop before atomic production with the DB-gate reason
   assert.equal(run.status, 'assembled', JSON.stringify(run.blockers))
   await assert.rejects(produceRunAtomicVolume({ run, trust }), /ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING/)
 })
+
+// Same passage for every grade on a day (grade-specific items only).
+function fillShared(drain) {
+  return { cells: drain.cells.map(cell => {
+    const primary = `Plants store energy in roots on day ${cell.day}.`
+    const filler = Array.from({ length: cell.passage_words_target - 14 }, (_, i) => `w${cell.day}x${i}`).join(' ')
+    return { cell_id: cell.cell_id, cell_hash: cell.cell_hash,
+      passage: `${primary} ${filler} Rain refills the deep wells slowly.`, items: [{
+        item_id: `${cell.cell_id}:i1`, item_type: cell.item_type, question: `${cell.grade}: which statement is supported?`,
+        choices: [primary, 'Wells never refill.'], answer: 1, explanation: '첫 문장이 말한다.',
+        evidence_primary: primary, evidence_secondary: 'Rain refills the deep wells slowly.', focus_text: 'energy' }] }
+  }) }
+}
+
+test('delivery modes from a run: shared passage with grade-specific items, grade-specific units, and a refused mismatch', async () => {
+  const trust = syntheticTrustRoot()
+  const runInputShared = runInput(brief('P09', ['middle_1', 'middle_2']), trust)
+  const sharedRun = importOrderProductionDrain(runInputShared, fillShared(exportOrderProductionDrain(runInputShared)))
+  assert.equal(sharedRun.status, 'assembled', JSON.stringify(sharedRun.blockers))
+  const shared = await produceRunAtomicVolume({ run: sharedRun, trust })
+  assert.deepEqual([...new Set(shared.days.map(day => day.delivery_mode))], ['shared_passage_grade_specific_items'])
+  const distinctInput = runInput(brief('P09', ['middle_1', 'high_3']), trust)
+  const distinctRun = importOrderProductionDrain(distinctInput, fill(exportOrderProductionDrain(distinctInput)))
+  const units = await produceRunAtomicVolume({ run: distinctRun, trust, deliveryMode: 'grade_specific_units' })
+  assert.deepEqual([...new Set(units.days.map(day => day.delivery_mode))], ['grade_specific_units'])
+  assert.equal(units.volume.manifest.sections.length, 3)
+  await assert.rejects(produceRunAtomicVolume({ run: distinctRun, trust, deliveryMode: 'shared_passage_grade_specific_items' }),
+    /SHARED_PASSAGE_VARIANT_MISMATCH/)
+})
+
+test('run-path failure injections: benchmark/policy revision, expired trust root, replayed old day', async () => {
+  const trust = syntheticTrustRoot()
+  const input = runInput(brief('P07', ['middle_3']), trust)
+  const drain = exportOrderProductionDrain(input)
+  const filled = fill(drain)
+  for (const field of ['benchmark', 'evidence', 'rights']) {
+    const revised = structuredClone(input)
+    for (const draft of revised.drafts) draft.policies[field] = { version: `${field}-v2`, hash: h('9') }
+    const blocked = importOrderProductionDrain(revised, filled)
+    assert.equal(blocked.status, 'blocked', field)
+    assert.match(JSON.stringify(blocked.blockers), /ORDER_RUN_CELL_HASH_STALE/)
+  }
+  const run = importOrderProductionDrain(input, filled)
+  const expired = syntheticTrustRoot({ validUntil: '2026-10-05T00:00:00Z' })
+  const expiredInput = runInput(brief('P07', ['middle_3']), expired)
+  const expiredRun = importOrderProductionDrain(expiredInput, fill(exportOrderProductionDrain(expiredInput)))
+  await assert.rejects(produceRunAtomicVolume({ run: expiredRun, trust: expired }), /Gold-S failed/)
+  const produced = await produceRunAtomicVolume({ run, trust })
+  const replay = { ...produced.input, sections: [produced.input.sections[0], { ...produced.input.sections[0], day: 2 }, produced.input.sections[2]] }
+  await assert.rejects(verifyAtomicPlannedVolume(produced.serveDb, replay, produced.volume), /SNAPSHOT_REUSED/)
+})
+

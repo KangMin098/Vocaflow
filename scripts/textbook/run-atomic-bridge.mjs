@@ -25,10 +25,10 @@ const h = c => c.repeat(64)
 const uuid = (prefix, n) => `${prefix}-0000-4000-8000-${String(n).padStart(12, '0')}`
 
 /** One synthetic trust root per volume; the order drafts must seal `policy_hash` as their trust policy. */
-export function syntheticTrustRoot() {
+export function syntheticTrustRoot({ validUntil = '2026-11-01T00:00:00Z' } = {}) {
   const goldKey = generateKeyPairSync('ed25519'), seedKey = generateKeyPairSync('ed25519')
   const entry = (id, key) => ({ id, public_key: key.publicKey.export({ type: 'spki', format: 'pem' }),
-    valid_from: '2026-10-01T00:00:00Z', valid_until: '2026-11-01T00:00:00Z' })
+    valid_from: '2026-10-01T00:00:00Z', valid_until: validUntil })
   const policy = { schema: 'frym-gold-s-operational-policy/1', revision: 'synthetic-run-r1',
     gold_issuers: [entry('gold-issuer', goldKey)], seed_issuers: [entry('seed-issuer', seedKey)],
     gold_max_age_days: 30, seed_max_age_days: 7, revoked: { certificate_hashes: [], eligibility_hashes: [], issuer_ids: [] } }
@@ -98,7 +98,9 @@ function promotionInput({ trust, order, grade, passage, quote, source, child, re
  * Produces and publishes one atomic snapshot for `day` of an assembled order run.
  * `run` is the `assembled` result of importOrderProductionDrain.
  */
-export async function produceRunDayAtomic({ run, day, trust, revision = 1 }) {
+// deliveryMode: 'auto' picks shared_passage_grade_specific_items when every grade got the same
+// passage that day, otherwise grade_specific_adaptations; 'grade_specific_units' can be forced.
+export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliveryMode = 'auto' }) {
   if (!Number.isInteger(revision) || revision < 1 || revision > 99) throw Error('RUN_DAY_REVISION_INVALID')
   const units = run.volumeInput.units.filter(unit => unit.day === day)
     .sort((a, b) => run.volumeInput.brief.grade_scope.grades.indexOf(a.grade) - run.volumeInput.brief.grade_scope.grades.indexOf(b.grade))
@@ -143,7 +145,9 @@ export async function produceRunDayAtomic({ run, day, trust, revision = 1 }) {
   const grades = sections.map(section => section.grade)
   const group = { schema: 'textbook-product-order-group/1', group_id: `run-${sections[0].orderId}-d${day}`, group_revision: revision,
     grade_scope: grades.length === 1 ? { mode: 'single_grade', grades } : run.volumeInput.brief.grade_scope,
-    delivery_mode: grades.length === 1 ? 'single_grade' : 'grade_specific_adaptations',
+    delivery_mode: grades.length === 1 ? 'single_grade' : deliveryMode !== 'auto' ? deliveryMode
+      : new Set(sections.map(section => section.unit.passage)).size === 1
+        ? 'shared_passage_grade_specific_items' : 'grade_specific_adaptations',
     orders: sections.map(section => ({ grade: section.grade, order: section.order })) }
   const evidence = { schema: 'textbook-multi-grade-evidence/1', group_id: group.group_id, group_revision: revision,
     group_hash: sealMultiGradeProductOrder(group).group_hash, source_id: source.id,
@@ -217,14 +221,14 @@ export async function produceRunDayAtomic({ run, day, trust, revision = 1 }) {
   await approveTrustedProductionOutput(db, { snapshotId: snapshot.snapshot_id, snapshotHash: snapshot.snapshot_hash, html: preview.html })
   const output = await runAtomicMultiGradeFactoryDryRun(db, { groupId: group.group_id, stages, render })
   await publishAtomicProductionArtifact(db, output)
-  return { day, output, published }
+  return { day, output, published, delivery_mode: group.delivery_mode }
 }
 
 /** Every planned day -> published atomic snapshot -> one volume, verified against the served artifacts. */
-export async function produceRunAtomicVolume({ run, trust }) {
+export async function produceRunAtomicVolume({ run, trust, deliveryMode = 'auto' }) {
   const days = [...new Set(run.volumeInput.units.map(unit => unit.day))].sort((a, b) => a - b)
   const results = []
-  for (const day of days) results.push({ ...(await produceRunDayAtomic({ run, day, trust })), revision: 1 })
+  for (const day of days) results.push({ ...(await produceRunDayAtomic({ run, day, trust, deliveryMode })), revision: 1 })
   return composeRunDayResults(run, results)
 }
 
