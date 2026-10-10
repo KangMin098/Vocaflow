@@ -1,0 +1,64 @@
+// apps/web/src/app/api/csat/state/__tests__/route.test.ts
+//
+// 이슈 #182 — Reveal Gate ②(20261005170100 · 20261006110000)가 csat_learner_state 의 학습자 직접 권한을 회수했다.
+// 그래서 이 경로는 로그인 확인만 쿠키로 하고 읽기 · 쓰기는 서버(service role)로, 언제나 **로그인한 본인 행만** 만진다.
+// 지키는 계약: ① 로그인 없으면 401 ② 본인 user_id 로만 조회 · 저장 ③ 보류 판정 실패면 기록을 내보내지 않고 423
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+const h = vi.hoisted(() => ({
+  user: { id: 'u1' } as { id: string } | null,
+  eqs: [] as [string, unknown][],
+  upserts: [] as unknown[],
+  gate: 'clear' as 'clear' | 'error',
+  stored: { version: 1, seed: 1, onboarded: true, predictions: [{ item: '2026#31', type: 'T', step: 1, hit: true, at: 1 }], formulas: [], queue: [], completed: [] } as unknown,
+}))
+
+vi.mock('server-only', () => ({}))
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: async () => ({ auth: { getUser: async () => ({ data: { user: h.user } }) } }),
+}))
+vi.mock('@/lib/supabase/admin', () => ({
+  createAdminClient: () => ({
+    from: () => {
+      const q = {
+        select: () => q,
+        eq: (k: string, v: unknown) => { h.eqs.push([k, v]); return q },
+        maybeSingle: async () => ({ data: { record: h.stored }, error: null }),
+        upsert: async (row: unknown) => { h.upserts.push(row); return { error: null } },
+        delete: () => q,
+      }
+      return q
+    },
+    rpc: async () => (h.gate === 'error' ? { data: null, error: { message: 'reset' } } : { data: [], error: null }),
+  }),
+}))
+
+import { GET, PUT } from '../route'
+
+beforeEach(() => { h.user = { id: 'u1' }; h.eqs = []; h.upserts = []; h.gate = 'clear'; vi.spyOn(console, 'error').mockImplementation(() => {}) })
+
+describe('/api/csat/state — 서버 경로(#182)', () => {
+  it('로그인 없으면 401', async () => {
+    h.user = null
+    expect((await GET()).status).toBe(401)
+  })
+  it('본인 행만 읽어 200 으로 돌려준다', async () => {
+    const res = await GET()
+    expect(res.status).toBe(200)
+    expect(h.eqs).toContainEqual(['user_id', 'u1'])
+    expect((await res.json()).ok).toBe(true)
+  })
+  it('보류 판정 실패면 기록을 내보내지 않고 423', async () => {
+    h.gate = 'error'
+    const res = await GET()
+    expect(res.status).toBe(423)
+    expect(await res.text()).not.toContain('2026#31')
+  })
+  it('저장도 본인 행으로', async () => {
+    const res = await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: h.stored }) }))
+    expect(res.status).toBeLessThan(300)
+    expect(h.eqs.every(([k, v]) => k !== 'user_id' || v === 'u1')).toBe(true)
+    expect(h.upserts).toHaveLength(1)
+    expect((h.upserts[0] as { user_id: string }).user_id).toBe('u1')
+  })
+})
