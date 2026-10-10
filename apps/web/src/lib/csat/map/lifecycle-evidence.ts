@@ -24,6 +24,8 @@ export interface LifecycleEvidence {
   repairTried: boolean
   /** 다른 글에 적용한 첫 시각 */
   transferAt: string | null
+  /** 기록이 남는 적용 대상이 있는가 — 없으면 적용 칸은 「준비 중」 이고 지금 할 일에서 건너뛴다(기본 true) */
+  transferReady?: boolean
 }
 
 export const NO_EVIDENCE: LifecycleEvidence = { repairAt: null, repairTried: false, transferAt: null }
@@ -56,6 +58,6 @@ export type LifecycleNext = 'repair' | 'transfer' | 'check' | null
 export function nextLifecycleAction(status: string | null | undefined, ev: LifecycleEvidence): LifecycleNext {
   if (status !== 'verified' && status !== 'still_needed') return null
   if (!ev.repairAt) return 'repair'
-  if (!ev.transferAt) return 'transfer'
+  if (!ev.transferAt && ev.transferReady !== false) return 'transfer'
   return 'check'
 }

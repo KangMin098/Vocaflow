@@ -2,6 +2,8 @@
 // 과제 주석의 원문 결속 판정(계약 B · MC-06 · 2026-10-10) — 순수. 주석에 적힌 원문 해시 · 문장 텍스트 해시를 **지금 원문**에 대조한다.
 // 결과가 valid 가 아니면 그 문항의 확인 과제를 닫는다(채점 · 기록 · 지도 링크 모두). 자동 승격 · 자동 재배치는 없다 — 재검토(anchor-bind 재실행 + 사람 확인)의 몫.
 // 원문이 같다는 것은 「근거 위치가 맞다」 는 뜻일 뿐이다. 학생의 원인 판정(직접 확인)을 확정하는 근거가 아니다.
+import { createHash } from 'node:crypto'
+
 import { checkAnchor, type AnchorCheck, type EvidenceAnchor, type SourceSnapshot } from '@/lib/csat/map/evidence-anchor'
 import { splitSentences } from '@/lib/csat/passage-skeleton'
 
@@ -19,6 +21,11 @@ export interface AnchorBinding {
   anchors?: { evidence: BoundUnit[]; disputed: BoundUnit[] }
   evidence: number[]
   disputed: number[]
+}
+
+/** 원문 revision = 원문 그대로의 sha256(anchor-bind 와 같은 계산) */
+export function passageRevision(passage: string): string {
+  return createHash('sha256').update(passage).digest('hex')
 }
 
 export function snapshotOf(passage: string, revision: string): SourceSnapshot {

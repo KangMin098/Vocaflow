@@ -53,11 +53,11 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   const confirmLinks = find.flatMap((t) => data.practiceLinks?.[t.id]?.confirm ?? [])
   const checkLinks = skill ? confirmLinks.filter((c) => skill.check.remaining.includes(c.target)) : []
   // 바로잡기 · 적용 수행 근거 — 본인 시도 전부(첫 시도만이 아니다). 기록을 못 읽었으면 근거 없음으로(완료로 보이지 않게)
-  const ev = skill && data.lifecycleActivity ? lifecycleEvidence(skill, findTargets, data.lifecycleActivity) : NO_EVIDENCE
   const repairLinks = skill ? confirmLinks.filter((c) => skill.verifiedItems.includes(c.target)) : []
   // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
   const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
   const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
+  const ev = { ...(skill && data.lifecycleActivity ? lifecycleEvidence(skill, findTargets, data.lifecycleActivity) : NO_EVIDENCE), transferReady: !!transferHref }
   // 원리 기반 학습 결정 — 확인된 요구 → 다음 할 일(정책 버전 · 원리 · 방법 id 를 함께 남긴다)
   const decisionTask = find.find((t) => data.practiceLinks?.[t.id]?.chain)
   const decisionLink = decisionTask ? data.practiceLinks?.[decisionTask.id] : undefined

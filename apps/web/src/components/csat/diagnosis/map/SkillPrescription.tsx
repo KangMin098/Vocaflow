@@ -108,7 +108,7 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks, ste
             )}
             {/* 처방은 직접 확인 뒤에만 연다 — 다른 글에 적용 = Practice · 다시 확인 = 확정에 쓰지 않은 · 아직 풀지 않은 확인 문항 */}
             {opened && g.stage === 'TRANSFER' && (
-              <span className={l.nextList} data-testid="rx-transfer-state" data-done={!!ev.transferAt}>{ev.transferAt ? '다른 문항에 적용한 기록이 있어요.' : '확인 묶음에 없는 다른 문항에 같은 원리를 적용해 보세요.'}</span>
+              <span className={l.nextList} data-testid="rx-transfer-state" data-done={!!ev.transferAt}>{ev.transferAt ? '다른 문항에 적용한 기록이 있어요.' : ev.transferReady === false ? '이 원리를 다른 글에 적용할 문항을 준비하고 있어요. 그동안은 다시 확인으로 넘어가요.' : '확인 묶음에 없는 다른 문항에 같은 원리를 적용해 보세요.'}</span>
             )}
             {opened && g.stage === 'TRANSFER' && transferHref && (
               <a href={transferHref} style={NEXT_LINK} data-testid="rx-transfer">다른 글에 적용하기 →</a>

@@ -18,11 +18,12 @@ describe('기준 정본', () => {
       expect(CURRICULUM[s.key].taskKeys).toEqual([])
     }
   })
-  it('live · ready 단계는 확인 과제 · 바로잡기 절차 · 적용 링크가 있다', () => {
+  it('live · ready 단계는 확인 과제 · 바로잡기 절차가 있고, 적용 링크는 practice 종류만', () => {
     for (const c of Object.values(CURRICULUM).filter((x) => x.readiness === 'live' || x.readiness === 'ready')) {
       expect(c.taskKeys.length).toBeGreaterThan(0)
       expect(repairProtocol(c.step).length).toBeGreaterThan(0)
-      for (const k of c.taskKeys) expect(TRANSFER_HREF[k]).toBeTruthy()
+      // 적용 링크는 기록이 실제로 남는 곳(practice)만 — item 종류는 전이 문항 풀 전까지 「준비 중」(Codex P2)
+      for (const k of c.taskKeys) expect(!!TRANSFER_HREF[k]).toBe(c.transfer === 'practice')
     }
   })
   it('과제 키는 한 단계에만 속한다', () => {

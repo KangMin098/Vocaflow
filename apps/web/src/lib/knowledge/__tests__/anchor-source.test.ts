@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { NORMALIZATION_VERSION, sourceHash, textHash } from '@/lib/csat/map/evidence-anchor'
 import { splitSentences } from '@/lib/csat/passage-skeleton'
 
-import { SEGMENTATION_VERSION, checkBinding, type AnchorBinding } from '../anchor-source'
+import { SEGMENTATION_VERSION, checkBinding, passageRevision, type AnchorBinding } from '../anchor-source'
 import { CURATED } from '../evidence-locate'
 
 const S = ['Cats sleep a lot during the day.', 'They hunt at night when it is quiet.', 'This habit comes from their wild ancestors.', 'Owners often misread it as laziness.', 'In fact, it saves energy for the hunt.']
@@ -60,6 +60,15 @@ describe('변이 — 하나라도 바뀌면 닫는다', () => {
     const onlyDisputed = bind(passage, [], [2])
     expect(check(passage.replace('wild ancestors', 'tame ancestors'), onlyDisputed)).toMatchObject({ ok: false, status: 'stale' })
     expect(check(passage.replace('wild ancestors', 'tame ancestors'))).toMatchObject({ ok: false })
+  })
+})
+
+describe('revision', () => {
+  it('관문은 지금 원문 revision 으로 대조한다 — 결속 당시 revision 을 넘기면 안 된다(Codex P1 회귀)', () => {
+    expect(passageRevision(passage)).toBe(rev(passage))
+    // 같은 문장 · 공백만 다른 원문: 현재 revision 이 달라 context_changed
+    const p2 = passage.replace('during the day.', 'during the  day.')
+    expect(checkBinding(b, 'X#31', p2, passageRevision(p2))).toMatchObject({ ok: false, status: 'context_changed' })
   })
 })
 

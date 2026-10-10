@@ -13,7 +13,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { fromItemSlug, toItemSlug } from '@/lib/csat/item-slug'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { checkBinding } from './anchor-source'
+import { checkBinding, passageRevision } from './anchor-source'
 import { CURATED } from './evidence-locate'
 import { currentItemTask, ITEM_TASKS } from './item-tasks'
 import { isSyntheticEmail, parseClientMeta } from './practice'
@@ -104,7 +104,8 @@ export async function anchorGate(itemId: string, client: SupabaseClient = db()):
   const { data, error } = await client.from('csat_items').select('passage').eq('id', itemId).maybeSingle()
   const passage = (data as { passage?: string } | null)?.passage
   if (error || !passage) { console.error('[anchor-gate] 원문 조회 실패', itemId, error?.message); return false }
-  const c = checkBinding(bound as Parameters<typeof checkBinding>[0], itemId, passage, bound.source?.revision ?? '')
+  // 지금 원문의 revision 을 계산해 넘긴다 — 결속 당시 값을 넘기면 revision 비교가 늘 통과한다(Codex P1)
+  const c = checkBinding(bound as Parameters<typeof checkBinding>[0], itemId, passage, passageRevision(passage))
   if (!c.ok) console.error('[anchor-gate] 결속 불일치 — 과제 닫음', itemId, JSON.stringify(c))
   return c.ok
 }

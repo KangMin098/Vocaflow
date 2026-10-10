@@ -176,11 +176,11 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   })
 }
 
-/** 생애주기 수행 기록 — 연결된 과제 키의 본인 시도 전부(문항 · 단계 · 정오 · 판단 시각). 보류 문항은 뺀다(Reveal Gate) */
+/** 생애주기 수행 기록 — 연결된 과제 키의 본인 시도(문항 · 단계 · 정오 · 판단 시각). 최신 1,000건 — 판정은 이번 회차(직접 확인 뒤) 기록만 쓰므로 오래된 기록이 잘려도 지금 판정은 바뀌지 않는다(Codex P2). 보류 문항은 뺀다(Reveal Gate) */
 async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[], gate: { held: Set<string>; failed: boolean }): Promise<ActivityRow[]> {
   if (taskKeys.length === 0 || gate.failed) return []
   const { data, error } = await db.from('learning_task_attempts').select('item_ref, task_key, phase, is_correct, answered_at')
-    .eq('user_id', userId).in('task_key', taskKeys).order('answered_at', { ascending: true }).limit(1000)
+    .eq('user_id', userId).in('task_key', taskKeys).order('answered_at', { ascending: false }).limit(1000)
   if (error) throw new Error(`수행 기록 조회 실패: ${error.message}`)
   return ((data ?? []) as { item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null }[])
     .filter((r) => !r.item_ref || !gate.held.has(r.item_ref))

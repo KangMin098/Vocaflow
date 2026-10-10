@@ -165,6 +165,8 @@ export function lifecycleCells(
     : { stage: 'REPAIR', state: next === 'repair' ? 'now' : 'open', note: ev.repairTried ? '바로잡는 중' : s === 'resolved' ? '기록 없음' : '지금 할 일' }
   const transfer: CycleCell = ev.transferAt
     ? { stage: 'TRANSFER', state: 'done', note: '다른 글에 적용함' }
+    : ev.transferReady === false
+      ? { stage: 'TRANSFER', state: 'locked', note: '적용 문항 준비 중' }
     : { stage: 'TRANSFER', state: next === 'transfer' ? 'now' : 'open', note: s === 'resolved' ? '기록 없음' : '열림' }
   const check: CycleCell = s === 'resolved'
     ? { stage: 'CHECK', state: 'done', note: '다시 확인 통과' }
@@ -174,10 +176,10 @@ export function lifecycleCells(
   return [{ stage: 'FIND', state: 'done', note: '직접 확인됨' }, repair, transfer, check]
 }
 
-/** 다른 글에 적용(TRANSFER) 링크 — 과제 키마다. practice = Practice 화면 · item = 같은 유형의 다른 기출 목록 */
+/**
+ * 다른 글에 적용(TRANSFER) 링크 — **적용 기록이 실제로 남는** 곳만(Codex P2). 지금은 주장과 근거 Practice 하나.
+ * 이어 주는 단서 · E축은 확인 묶음 밖에 과제가 켜진 문항이 없어 적용 기록을 만들 수 없다 — 전이 문항 풀(합의 주석 · 맹검 · 승인) 전에는 「준비 중」.
+ */
 export const TRANSFER_HREF: Readonly<Record<string, string>> = {
   'claim-support': '/csat/practice/claim-support',
-  'cohesion-link': '/csat/browse?type=R-ORDER',
-  'option-restate': '/csat/browse?type=R-TOPIC',
-  'evidence-locate': '/csat/browse?type=R-BLANK',
 }

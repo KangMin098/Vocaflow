@@ -5,8 +5,8 @@
 //
 // ⚠️ 두 모드:
 //   기본(--synthetic) — 새 합성 계정(example.com). 합성 시도는 판정에서 빠지므로 **처방이 잠긴 채인지**(게이트)를 확인한다. 끝에 계정을 지운다.
-//   --qa-account <email> — 사용자가 지정한 비합성 QA 계정(비밀번호는 환경변수 QA_PASSWORD). 열린 경로(확정 → 처방 개방 → 다시 확인 → 해소)를 확인한다.
-//     이 기록은 추가 전용 원장이라 지우지 않는다 — 그 계정은 실제 학습자 수에 섞이므로 **사용자가 계정을 정하고 승인한 뒤에만** 돌린다.
+//   --qa-account <email> — 비합성 QA 계정(비밀번호는 환경변수 QA_PASSWORD). 열린 경로(확정 → 처방 개방 → 다시 확인 → 해소)를 확인한다.
+//     **격리 DB 전용** — 공유 개발 DB URL 이면 시작하지 않는다(실학습자 수 · 원장 오염 방지).
 //     같은 계정으로 두 번 돌리면 첫 시도 기준이라 결과가 달라진다(이미 해소) — 계정당 한 번.
 // 쓰기: 과제 시도 4(오답 2 → 미노출 정답 2) · 세션 · 방문 이벤트.
 //   cd apps/web && node <tsx cli> --env-file=<.env.local> ../../scripts/csat/map/e2e-lifecycle-open.mts [--base http://localhost:3000] [--qa-account qa@… ]
@@ -23,7 +23,10 @@ const arg = (k: string) => (process.argv.includes(k) ? process.argv[process.argv
 const BASE = arg('--base') ?? 'http://localhost:3000'
 const QA = arg('--qa-account')
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL as string
-if (!URL_.includes('jajenrevcbmrpaliomxv')) throw new Error('개발 프로젝트가 아니다')
+// 합성 모드는 공유 개발 DB 에서 돈다(계정 삭제로 기록이 cascade 정리된다). 비합성 QA 모드는 **격리 DB 에서만** — 공유 DB 에서는 실학습자 수 · 원장에 섞이므로 거부한다(Codex P1)
+const SHARED_DEV = 'jajenrevcbmrpaliomxv'
+if (!QA && !URL_.includes(SHARED_DEV)) throw new Error('합성 모드는 개발 프로젝트에서만')
+if (QA && URL_.includes(SHARED_DEV)) throw new Error('--qa-account(비합성)는 공유 개발 DB 에서 돌리지 않는다 — 격리 DB(Supabase 브랜치 · 로컬)의 URL 로 실행')
 if (QA && (QA.endsWith('@example.com') || !process.env.QA_PASSWORD)) throw new Error('--qa-account 는 비합성 계정 + QA_PASSWORD 가 필요하다')
 const db = createClient(URL_, process.env.SUPABASE_SERVICE_ROLE_KEY as string, { auth: { persistSession: false } })
 const { chromium } = createRequire(path.join(ROOT, 'apps/web/package.json'))('@playwright/test')
