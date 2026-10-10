@@ -64,8 +64,8 @@ describe('생애주기 4칸', () => {
   it('다시 확인에서 막히면 바로잡기 · 다시 확인이 다시 지금 할 일', () => {
     expect(states(lifecycleCells(sk('still_needed', 1, 1), true))).toEqual(['done', 'now', 'open', 'now'])
   })
-  it('통과하면 네 칸 모두 마침 · 기한이 지나면 다시 확인부터', () => {
-    expect(states(lifecycleCells(sk('resolved', 2), true))).toEqual(['done', 'done', 'done', 'done'])
+  it('통과하면 확인 · 다시 확인만 마침 · 기한이 지나면 다시 확인부터', () => {
+    expect(states(lifecycleCells(sk('resolved', 2), true))).toEqual(['done', 'open', 'open', 'done']) // 바로잡기 · 적용은 수행 근거가 없어 마침이 아니다
     expect(states(lifecycleCells(sk('expired'), true))).toEqual(['now', 'locked', 'locked', 'locked'])
   })
 })

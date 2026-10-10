@@ -24,7 +24,7 @@ const personas: { persona: string; answers: Record<string, { key: string; no: nu
 // 규칙 학습자(scripted) — 모델 페르소나는 사람의 오류 습관을 잘 재현하지 못했다(기초 페르소나도 근거를 대부분 찾음).
 // 생애주기 끝까지(확인 → 바로잡기 → 다시 확인 → 통과 / 계속)를 지나가게 하려고 오류 습관을 규칙으로 준다. 이것도 효과 근거가 아니다.
 //   habit-then-repair  처음 두 문항은 습관대로(빈칸 문장 바로 앞 · 글 첫 문장) 고르고, 바로잡기 뒤 다시 확인 문항은 근거를 고른다
-//   habit-persistent   처음 두 문항은 습관대로, 다시 확인에서도 한 번 더 습관대로 고른다
+//   habit-persistent   처음 두 문항도 · 다시 확인 문항도 모두 습관대로 고른다(D-8 v1.1: 막힌 뒤 연속 2 정답이면 해소되므로 끝까지 습관)
 const habitPick = (a: { blank: number | null; evidence: number[]; disputed: number[]; sentenceCount: number }) => {
   const bad = (n: number) => n >= 0 && n < a.sentenceCount && !a.evidence.includes(n) && !a.disputed.includes(n) && n !== a.blank
   const tries = a.blank !== null ? [a.blank - 1, a.blank + 1, 0] : [0, a.sentenceCount - 1, 1]
@@ -35,7 +35,7 @@ for (const [persona, checkHabit] of [['habit-then-repair', false], ['habit-persi
   for (const key of Object.keys(manifest) as EvidenceTaskKey[]) {
     manifest[key].forEach((itemId, i) => {
       const a = deriveEvidenceAnnotation(key, skeletons.get(itemId) ?? null)!
-      const habit = i < 2 || (checkHabit && i === 2)
+      const habit = i < 2 || checkHabit
       answers[itemId] = { key, no: (habit ? habitPick(a) : a.evidence[0]) + 1, reason: habit ? '습관(빈칸 옆 · 첫 문장)' : '바로잡기 뒤 근거 문장' }
     })
   }

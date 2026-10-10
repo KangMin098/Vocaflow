@@ -106,7 +106,7 @@ try {
     rec('CHECK 2 정답 제출', await solve(ITEMS[3], right(ITEMS[3])))
     const end = await sheet()
     rec('QA: 해소(resolved)', end.status === 'resolved', end)
-    rec('QA: 생애주기 네 칸 마침', end.cycle === 'FIND:done REPAIR:done TRANSFER:done CHECK:done', end.cycle)
+    rec('QA: 생애주기 확인 · 다시 확인 마침(바로잡기 · 적용은 기록 없음)', end.cycle === 'FIND:done REPAIR:open TRANSFER:open CHECK:done', end.cycle)
     await page.screenshot({ path: path.join(ROOT, 'tmp/lifecycle-open-resolved.png'), fullPage: false })
   }
   // 기록 원장 — 제출이 실제로 남았는가(서버 채점 · 첫 시도)

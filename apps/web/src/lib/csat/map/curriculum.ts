@@ -172,8 +172,9 @@ export function lifecycleCells(skill: { status: 'unverified' | 'verified' | 'sti
     case 'resolved':
       return [
         { stage: 'FIND', state: 'done', note: '직접 확인됨' },
-        { stage: 'REPAIR', state: 'done', note: '마침' },
-        { stage: 'TRANSFER', state: 'done', note: '마침' },
+        // 바로잡기 · 다른 글에 적용은 수행 기록을 남기지 않는다 — 했는지 모르는 단계를 「마침」 으로 표시하지 않는다(Codex P2)
+        { stage: 'REPAIR', state: 'open', note: '기록 없음 · 언제든 다시' },
+        { stage: 'TRANSFER', state: 'open', note: '기록 없음 · 언제든 다시' },
         { stage: 'CHECK', state: 'done', note: '다시 확인 통과' },
       ]
     case 'expired':
