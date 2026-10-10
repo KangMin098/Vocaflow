@@ -82,20 +82,40 @@ Work 기획 요청의 응답 형식에 들어 있습니다(`lib/planning.mjs`). 
 
 ## 5. 목표 속도 지표 — `node bin/vfc.mjs ugoal metrics <UG> --json`
 
-상태 기록에서만 계산합니다(추정·상수 없음).
+상태 기록에서만 계산합니다(추정·상수 없음). 겹치는 구간은 합쳐서 잽니다(`unionMs` — 병렬 검증·대기를 두 번 세지 않음).
 
 | 항목 | 출처 |
 |---|---|
 | 접수 → 첫 설계 승인 | 목표 `created_at` → 설계 `approved_at` 최솟값 |
-| Work 왕복 | ChatGPT 대상 라운드 수(요청·응답) |
-| 승인 대기 | 설계별 `created_at → approved_at` 합 |
-| 배정 → 인수 · 설계 승인 → 완료 · 시작 → 완료 · 리뷰 대기 · 재작업 | 작업 `dispatch` · `history` |
+| Work 왕복 · Work 대기 | ChatGPT 대상 라운드 수 · 라운드 `created_at → completed_at` 합집합 |
+| 승인 대기 | 설계별 `created_at → approved_at` 합집합 |
+| 배정 → 전달 → 인수 | 작업 `dispatch.at` → 배정 알림 기록(`runtime/logs/dispatch-notified.jsonl` 첫 줄) → `dispatch.accepted_at` |
+| 설계 승인 → 완료 · 시작 → 완료 · 리뷰 대기 · 재작업 | 작업 `history` |
+| 테스트 · UI 검증 소요 | 증거 `started_at → observed_at`(테스트 계열 · `ui` 따로, 합집합) |
+| PR → 병합 · CI | `task link-pr` 로 연결한 PR 의 `verification/ci/PR<n>-*.json` 최신 기록(`pr_created_at` · `ci_started_at` · `ci_completed_at` · `merged_at`) |
 | 사용자 개입 | 이 목표를 언급한 대화형(tty) 결정 수 |
 | 목표 전체 경과 | `created_at → accepted_at`(열려 있으면 지금까지) |
 
-**미계측**(값 대신 사유를 냅니다):
+기록이 없는 값은 `null` 이고, `not_measured` 에 사유와 건수가 남습니다(0 으로 메우지 않음).
 
-- 테스트·UI 검증 소요 시간 — 증거에 소요 시간이 없습니다.
-- PR·CI·병합 시각 — 작업에 기록되지 않습니다.
+담당 owner 가 할 일(받은 편지함에도 안내됩니다):
+- 증거마다 `started_at` 을 적는다.
+- PR 을 열면 `node bin/vfc.mjs task link-pr <id> <PR> --owner <owner>` 를 실행한다.
 
-이 둘을 재려면 증거와 작업에 해당 시각을 기록해야 합니다.
+## 6. 배정 알림 훅 — `hooks/dispatch-notify.mjs`
+
+T-0019 는 배정 뒤 99분 동안 담당 세션에 전달되지 않았습니다(배정이 받은 편지함 파일에만 있었다 — 2026-10-10 실측). 이 훅은 Claude Code 가 지원하는 `additionalContext` 로, 실행 중인 담당 세션의 대화에 새 배정을 넣습니다.
+
+**어느 세션에 알리나**
+- owner `session_aliases` 의 세션 id, 또는 owner worktree 안에서 도는 세션에만 알립니다.
+- 같은 배정은 한 번만 알립니다.
+
+**부담·안전**
+- 읽기 전용이고, 실패해도 항상 exit 0 이라 세션을 막지 않습니다.
+- PostToolUse 에서는 세션당 60초에 한 번만 봅니다.
+- 알린 시각은 `runtime/logs/dispatch-notified.jsonl` 에 남아 위 지표의 「배정 → 전달」 이 됩니다.
+
+**설치**: 사용자 설정(`~/.claude/settings.json`)을 바꾸는 일이라 에이전트가 하지 않습니다(2026-10-10 자동 모드에서 거부됨). 사용자가 직접 설치합니다.
+1. `hooks/dispatch-notify.mjs` 를 `~/.claude/hooks/` 로 복사한다.
+2. 같은 폴더에 `dispatch-notify.config.json` 을 두고 `{"root": "D:/workspace/Vocaflow-AI-Control"}` 을 적는다.
+3. `settings.json` 의 `hooks` 에 `UserPromptSubmit` · `PostToolUse` 항목으로 `node "$HOME/.claude/hooks/dispatch-notify.mjs"`(timeout 10)를 더한다.

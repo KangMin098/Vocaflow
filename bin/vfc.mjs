@@ -397,6 +397,8 @@ function main() {
     }
     case 'task submit':
       return out(withState((s, ctx) => T.submitForReview(s, pos[0], { caller: caller(opt) }, ctx), { event: 'task.submit', task: pos[0], by }), opt)
+    case 'task link-pr':
+      return out(withState((s) => T.linkPr(s, pos[0], pos[1], { caller: caller(opt) }), { event: 'task.link_pr', task: pos[0], by }), opt)
     case 'task complete':
       if (opt.reviewer && opt.reviewer !== (opt.by || process.env.VFC_OWNER)) throw new T.RuleError('REVIEWER_MISMATCH', '--reviewer 는 명령을 실행하는 owner(--by) 자신이어야 한다')
       return out(withState((s) => T.completeTask(s, pos[0], { caller: caller(opt), review_path: opt.review }), { event: 'task.complete', task: pos[0], by }), opt)
@@ -584,8 +586,22 @@ function main() {
     }
     case 'ugoal status':
       return out(UG.summary(loadState().state, pos[0]), opt)
-    case 'ugoal metrics':
-      return out(goalMetrics(loadState().state, pos[0], { now: new Date().toISOString() }), opt)
+    case 'ugoal metrics': {
+      // 배정 알림 기록(훅) · PR CI 기록 파일(가장 최근) — 없으면 지표가 사유와 함께 null 로 남는다
+      const nf = path.join(p.logs(), 'dispatch-notified.jsonl')
+      const notified = fs.existsSync(nf) ? fs.readFileSync(nf, 'utf8').split('\n').filter(Boolean).flatMap((l) => { try { return [JSON.parse(l)] } catch { return [] } }) : []
+      const ciDir = path.join(root(), 'verification', 'ci')
+      const prRecords = {}
+      for (const f of fs.existsSync(ciDir) ? fs.readdirSync(ciDir).filter((x) => /^PR\d+-/.test(x)) : []) {
+        try {
+          const j = JSON.parse(fs.readFileSync(path.join(ciDir, f), 'utf8'))
+          if (!prRecords[j.pr] || String(j.fetched_at) > String(prRecords[j.pr].fetched_at)) prRecords[j.pr] = j
+        } catch {
+          /* 깨진 기록은 건너뛴다 */
+        }
+      }
+      return out(goalMetrics(loadState().state, pos[0], { now: new Date().toISOString(), notified, prRecords }), opt)
+    }
     case 'ugoal route':
       return out(UG.route(loadState().state, pos[0]), opt)
     case 'planning request': {
