@@ -72,9 +72,9 @@ function setup() {
     fs.writeFileSync(f, JSON.stringify(design))
     return vfc('ugoal', 'start', '--from', 'claude', '--title', title, '--goals', CANON, '--design-file', f, '--by', 'claude')
   }
-  const approve = (ug, v) => {
+  const approve = (ug, v, extra = []) => {
     const d = vfc('decision', 'add', '--status', 'APPROVED', '--kind', 'design_approval', '--summary', `${ug}@v${v} 승인`, '--approved-by', 'user', '--ref', 'test', '--by', 'user')
-    return vfc('ugoal', 'approve', ug, '--design', String(v), '--decision', d.decision_id, '--by', 'user')
+    return vfc('ugoal', 'approve', ug, '--design', String(v), '--decision', d.decision_id, ...extra, '--by', 'user')
   }
   const ugTask = (ug, idx, over = {}) => {
     const f = path.join(root, `t-${ug}-${idx.join('')}-${Math.random().toString(16).slice(2, 6)}.json`)
@@ -365,4 +365,18 @@ test('REVIEW_UNKNOWN P1 회귀 — 계약 같은 재승인은 열린 작업을 �
   s.approve(a.ug_id, 2)
   assert.equal(s.task(t.task_id).design_version, 2, '열린 작업이 새 버전으로')
   assert.equal(s.orch(['--dry-run']).iterations[0].selected?.task_id, t.task_id, '선정 가능')
+})
+
+test('Codex P1 — 계약 같은 재승인이라도 좁혀진 승인 범위 밖 작업은 옮기지 않는다', () => {
+  const s = setup()
+  const a = s.goal('NARROW목표', { summary: 'n', acceptance: ['기준 0'], preserved_contracts: ['c'], allowed_paths: ['src/a/**', 'src/b/**'], db_changes: false })
+  s.approve(a.ug_id, 1)
+  const tb = s.ugTask(a.ug_id, [0], { allowed_paths: ['src/b/**'] })
+  const stF = path.join(s.root, 'state', 'USER_GOALS.json')
+  const st = JSON.parse(fs.readFileSync(stF, 'utf8'))
+  const g = st.goals[a.ug_id]
+  g.designs.push({ ...g.designs[0], version: 2, status: 'PROPOSED', summary: '요약만', approved_at: undefined })
+  fs.writeFileSync(stF, JSON.stringify(st))
+  s.approve(a.ug_id, 2, ['--paths', 'src/a/**'])
+  assert.equal(s.task(tb.task_id).design_version, 1, '범위 밖 작업은 옮기지 않는다')
 })
