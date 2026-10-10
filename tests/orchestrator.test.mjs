@@ -468,33 +468,12 @@ test('WF6d 다른 owner worktree 에 쓰면 foreign_worktree_write 로 차단·�
   assert.match(task(root, t.task_id).blocker.reason, /foreign_worktree_write/)
 })
 
-// RP-2026-10-10.1 — 대표 리뷰 1회: CRITICAL 이 아닌 작업은 구현 세션 Stop 리뷰를 독립 리뷰에 맡기고, require_review_pass 작업은 그대로 둘 다 받는다
-test('RP1 리뷰 정책 버전을 작업에 찍고, 비 CRITICAL 작업만 구현 세션 Stop 리뷰를 위임한다', () => {
-  const root = setup()
-  const t = addTask(root)
-  const r = orch(root)
-  assert.equal(r.code, 0, r.err + r.out)
-  const tt = task(root, t.task_id)
-  assert.equal(tt.status, 'COMPLETED')
-  assert.equal(tt.orchestration.review_policy, 'RP-2026-10-10.1')
-  const envs = fs.readFileSync(path.join(root, 'claude-env.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l))
-  assert.deepEqual(envs.filter((e) => e.task_id === t.task_id).map((e) => [e.defer, e.automated]), [['orchestrator', '1']])
-  const run = state(root, 'ORCHESTRATOR.json').runs[r.json.run_id]
-  assert.ok(run.events.some((e) => e.phase === 'review_policy' && e.stop_review === 'deferred_to_independent'))
-  const rec = fs.readdirSync(path.join(root, 'verification', 'reviews')).find((f) => f.startsWith(t.task_id))
-  assert.match(fs.readFileSync(path.join(root, 'verification', 'reviews', rec), 'utf8'), /리뷰 정책: RP-2026-10-10\.1 .*독립 리뷰에 위임/)
-})
-
-test('RP2 require_review_pass 작업 · 이전 판에서 시작한 작업은 Stop 리뷰를 위임하지 않는다(약화·소급 금지)', async () => {
-  const { stopReviewDeferred, REVIEW_POLICY_VERSION } = await import('../lib/orchestrator.mjs')
-  assert.equal(stopReviewDeferred({ orchestration: { review_policy: REVIEW_POLICY_VERSION } }), true)
-  assert.equal(stopReviewDeferred({ require_review_pass: true, orchestration: { review_policy: REVIEW_POLICY_VERSION } }), false)
-  assert.equal(stopReviewDeferred({ orchestration: { review_policy: 'RP-v1' } }), false)
-  assert.equal(stopReviewDeferred({ orchestration: {} }), false)
-  const root = setup()
-  const t = addTask(root, { require_review_pass: true })
-  orch(root)
-  const envs = fs.readFileSync(path.join(root, 'claude-env.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l))
-  assert.ok(envs.filter((e) => e.task_id === t.task_id).length >= 1)
-  assert.ok(envs.filter((e) => e.task_id === t.task_id).every((e) => e.defer === null), 'CRITICAL 작업은 Stop 리뷰를 받는다')
+// RP-2026-10-10.1 — 독립 리뷰 캐시는 같은 diff·계약에 더해 같은 정책 판·같은 effort 일 때만 다시 쓴다(낮은 effort APPROVE 로 높은 요구를 건너뛰지 않는다)
+test('RP1 독립 리뷰 캐시 키에 정책 판과 effort 가 들어간다', async () => {
+  const { reviewKeyForTest, REVIEW_POLICY_VERSION } = await import('../lib/orchestrator.mjs')
+  assert.equal(REVIEW_POLICY_VERSION, 'RP-2026-10-10.1')
+  const t = { task_id: 'T-9', acceptance: ['a'], allowed_paths: ['src/**'], forbidden_paths: [] }
+  const k = (e) => reviewKeyForTest(t, 'diff', { ok: 1 }, e)
+  assert.equal(k('high'), k('high'))
+  assert.notEqual(k('medium'), k('high'))
 })

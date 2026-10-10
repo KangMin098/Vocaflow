@@ -48,10 +48,16 @@ export const EFFORT_RANK = { minimal: 0, low: 1, medium: 2, high: 3, xhigh: 4 }
 const CLEAN_SENTENCE_RE = /^[\s>*_-]*no\b[^\n]{0,160}?\b(?:defects?|findings?|issues|bugs|problems|regressions?|goal drift)\b[^\n]{0,160}?\b(?:found|identified|evident|detected|confirmed|spotted)\b|\b(?:introduces?|contains?|has|have) no (?:confirmed |concrete |actionable |reportable )*(?:defects|regressions|bugs)\b/im
 
 /** 깨끗한 답인가 — P 표지가 하나라도 있으면 아니다(지적 판독이 우선). legacy = v1 판독 */
+// 리뷰를 못 했다는 말 — 문장형 판독에서는 이것이 하나라도 있으면 깨끗한 답으로 치지 않는다(Codex 리뷰 P1: 「No review was performed; defects could not be identified」)
+const CANNOT_REVIEW_RE = /\b(?:could ?n[o']t|cannot|can't|unable|not able|no review|not reviewed|did ?n[o']t (?:review|see|inspect|read)|was ?n[o']t (?:able|performed|possible)|without (?:access|seeing)|not (?:visible|available|provided)|no diff|empty diff)\b/i
+
 export function isCleanOutput(out, { legacy = false } = {}) {
   const s = String(out ?? '')
   if (/\[P[0-3]\]/.test(s)) return false
-  return NO_FINDINGS_RE.test(s) || (!legacy && CLEAN_SENTENCE_RE.test(s))
+  if (/^\s*NO_FINDINGS\s*$/m.test(s)) return true
+  if (legacy) return NO_FINDINGS_RE.test(s)
+  if (CANNOT_REVIEW_RE.test(s)) return false
+  return NO_FINDINGS_RE.test(s) || CLEAN_SENTENCE_RE.test(s)
 }
 
 const sha1 = (s) => createHash('sha1').update(String(s)).digest('hex')
@@ -59,7 +65,7 @@ const sha1 = (s) => createHash('sha1').update(String(s)).digest('hex')
 // ── 파일 단위 재사용 장부(review-reuse.json) ──────────────────────────────
 // 키 = 정책 버전 · 목적 파일 해시 · 파일 경로 · 그 파일의 diff. 값 = { effort, at, head, raw }. 깨끗한 묶음만 기록한다.
 const reuseFile = (stateDir) => path.join(stateDir, 'review-reuse.json')
-export const reuseKey = ({ goalHash, file, fileDiff }) => sha1(`${POLICY_VERSION}\0${goalHash}\0${String(file).toLowerCase()}\0${fileDiff}`)
+export const reuseKey = ({ goalHash, scopeHash, file, fileDiff }) => sha1(`${POLICY_VERSION}\0${goalHash}\0${scopeHash}\0${String(file).toLowerCase()}\0${fileDiff}`)
 function readReuse(stateDir) {
   try {
     return JSON.parse(fs.readFileSync(reuseFile(stateDir), 'utf8'))
@@ -301,13 +307,16 @@ function reviewRange({ files, from, head, deps, cfg, kind, ctx }) {
   const reused = []
   const fileDiffs = {}
   let todo = files
+  let scopeHash = null
   if (v2) {
     const book = readReuse(deps.stateDir)
     todo = []
+    for (const f of files) fileDiffs[f] = deps.diff(from, head, [f])
+    // 범위 해시 = 범위 전체 파일과 각 diff — 범위나 주변 변경이 하나라도 다르면 재사용하지 않는다(Codex 리뷰 P1: 「범위 동일」 기준)
+    scopeHash = files.some((f) => fileDiffs[f] == null) ? null : sha1([...files].sort().map((f) => `${f}\0${fileDiffs[f]}`).join('\0'))
     for (const f of files) {
-      const d = deps.diff(from, head, [f])
-      fileDiffs[f] = d
-      const hit = d != null && String(d).trim() ? book[reuseKey({ goalHash: ctx.goalHash, file: f, fileDiff: d })] : null
+      const d = fileDiffs[f]
+      const hit = scopeHash && String(d).trim() ? book[reuseKey({ goalHash: ctx.goalHash, scopeHash, file: f, fileDiff: d })] : null
       if (hit && (EFFORT_RANK[hit.effort] ?? 0) >= (EFFORT_RANK[effort] ?? 1) && nowMs - Date.parse(hit.at) < REUSE_TTL_MS) reused.push({ file: f, from_head: hit.head, raw: hit.raw, effort: hit.effort })
       else todo.push(f)
     }
@@ -327,7 +336,14 @@ function reviewRange({ files, from, head, deps, cfg, kind, ctx }) {
   while (queue.length) {
     const item = queue.shift()
     const c = item.c
-    if (item.retried && !ranSinceLimit) sleep(LIMIT_RETRY_WAIT_MS)
+    if (item.retried) {
+      // 재시도 직전에 남은 시간을 다시 본다(Codex 리뷰 P2: 다른 묶음이 오래 걸리면 예약 때 검사만으로는 훅 제한을 넘는다)
+      if (clock() - nowMs + (ranSinceLimit ? 0 : LIMIT_RETRY_WAIT_MS) >= LIMIT_RETRY_BUDGET_MS) {
+        failures.push('Codex 사용량 한도 — 재시도할 시간이 없다(다음 Stop 에 다시)')
+        continue
+      }
+      if (!ranSinceLimit) sleep(LIMIT_RETRY_WAIT_MS)
+    }
     const diff = deps.diff(from, head, c)
     // diff 를 못 읽었거나 비었으면 리뷰한 것이 없다 — 통과가 아니라 판정 불가(Codex 리뷰 P1: 빈 문자열이 PASS·clean 이 됐다)
     if (diff == null || !String(diff).trim()) {
@@ -363,7 +379,7 @@ function reviewRange({ files, from, head, deps, cfg, kind, ctx }) {
     findings.push(...parsed)
     // P0/P1 이 없는 판독 가능한 묶음만 재사용 장부에 — 차단 묶음의 파일은 다음에 반드시 다시 본다
     if (v2 && readable && !parsed.some((x) => ['P0', 'P1'].includes(x.severity))) {
-      for (const f of c) if (fileDiffs[f] != null && String(fileDiffs[f]).trim()) fresh[reuseKey({ goalHash: ctx.goalHash, file: f, fileDiff: fileDiffs[f] })] = { effort, at: new Date(nowMs).toISOString(), head, raw }
+      if (scopeHash) for (const f of c) if (String(fileDiffs[f]).trim()) fresh[reuseKey({ goalHash: ctx.goalHash, scopeHash, file: f, fileDiff: fileDiffs[f] })] = { effort, at: new Date(nowMs).toISOString(), head, raw }
     }
   }
   if (v2 && Object.keys(fresh).length) writeReuse(deps.stateDir, fresh, nowMs)

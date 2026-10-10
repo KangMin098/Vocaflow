@@ -257,10 +257,10 @@ test('RP2 같은 파일 diff 를 이미 깨끗하게 본 기록이 있으면 Cod
   assert.equal(rec.codex_calls, 0)
   assert.deepEqual(rec.files_reused.map((x) => x.file).sort(), ['src/a.ts', 'src/b.ts'])
   assert.deepEqual(rec.files.sort(), ['src/a.ts', 'src/b.ts'], 'reviewGate 의 covers 가 재사용 파일도 덮인 것으로 본다')
-  // 한 파일만 바뀌면 그 파일만 리뷰
+  // 범위 안 다른 파일이 바뀌면(주변 변경) 범위 해시가 달라져 전부 다시 본다 — 「범위 동일」일 때만 재사용
   h.content['src/b.ts'] = 'v2'
   h.stop()
-  assert.deepEqual(h.calls.at(-1).files, ['src/b.ts'])
+  assert.deepEqual(h.calls.at(-1).files.sort(), ['src/a.ts', 'src/b.ts'])
 })
 
 test('RP3 P0/P1 이 나온 묶음은 재사용 장부에 남기지 않는다 — 고친 뒤 다시 본다', () => {
@@ -363,4 +363,28 @@ test('RP9 유휴 루트(열린 사이클 없음)의 v1 상태는 다음 리뷰�
   fs.writeFileSync(sf, JSON.stringify(st))
   assert.equal(h.stop().verdict, VERDICT.PASS)
   assert.equal(h.records().at(-1).policy_version, 'RP-2026-10-10.1')
+})
+
+test('RP10 리뷰를 못 했다는 문장은 깨끗한 답이 아니다(UNKNOWN 유지)', () => {
+  for (const out of ['No review was performed; defects could not be identified.', 'No defects were identified because the diff was not provided.', 'I was unable to inspect the files. No issues found.']) {
+    const h = harness({ reviews: [out] })
+    assert.equal(h.stop().verdict, VERDICT.UNKNOWN, out)
+  }
+})
+
+test('RP11 재시도 직전에 시간이 모자라면 부르지 않고 UNKNOWN', () => {
+  const files = Array.from({ length: 10 }, (_, i) => `src/f${i}.ts`)
+  const h = stableHarness({ files, reviews: [] })
+  let now = 0
+  h.deps.now = () => now
+  const q = [{ ok: false, why: 'Codex 사용량 한도' }, { ok: true, out: CLEAN }]
+  h.deps.review = (fs_) => {
+    h.calls.push({ files: fs_ })
+    const r = q.shift()
+    now += 200_000 // 묶음마다 200초
+    return r
+  }
+  assert.equal(h.stop().verdict, VERDICT.UNKNOWN)
+  assert.equal(h.calls.length, 2, '400초 지점에서는 재시도하지 않는다')
+  assert.match(h.records().at(-1).failures.join(' '), /재시도할 시간이 없다/)
 })

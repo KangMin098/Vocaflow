@@ -13,11 +13,7 @@ import { runStopReview, DEFAULTS } from './codex-review-policy.mjs';
 
 const pass = (why) => { if (why) log(`pass: ${why}`); process.exit(0); };
 
-if (process.env.CODEX_REVIEW === '0') pass('disabled by env');
-// 오케스트레이터가 띄운 구현 세션(require_review_pass 가 아닌 작업): 같은 diff 를 오케스트레이터가 medium/high 독립 리뷰로 본다 —
-// 여기서 low 로 한 번 더 보지 않는다(RP-2026-10-10.1). 판정 기록을 남기지 않아 완료 게이트는 이 커밋을 「Stop 판정 없음」으로 본다(PASS 아님).
-if (process.env.VFC_REVIEW_DEFER === 'orchestrator' && process.env.VFC_AUTOMATED_RUN === '1') pass(`deferred to orchestrator independent review (task ${process.env.VFC_TASK_ID ?? '?'})`);
-let input;
+if (process.env.CODEX_REVIEW === '0') pass('disabled by env');let input;
 try { input = JSON.parse(readFileSync(0, 'utf8')); } catch { pass('no stdin'); }
 const { session_id: sessionId, transcript_path: transcriptPath, cwd } = input;
 if (!sessionId || !transcriptPath || !existsSync(transcriptPath)) pass('no transcript');

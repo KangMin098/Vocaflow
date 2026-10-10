@@ -21,8 +21,6 @@ const scenario = map[taskId] || process.env.FAKE_CLAUDE || 'ok'
 const reportPath = (prompt.match(/Write the report JSON to: (.+)/) || [])[1].trim()
 const nAcc = (prompt.match(/^\[\d+\] /gm) || []).length
 const git = (...a) => execFileSync('git', a, { encoding: 'utf8' }).trim()
-// Stop 훅 위임 표식 기록(RP-2026-10-10.1 회귀) — 실제 Claude 에서는 이 환경을 Stop 훅이 읽는다
-if (process.env.FAKE_STATE_DIR) fs.appendFileSync(path.join(process.env.FAKE_STATE_DIR, 'claude-env.jsonl'), JSON.stringify({ task_id: taskId, defer: process.env.VFC_REVIEW_DEFER ?? null, automated: process.env.VFC_AUTOMATED_RUN ?? null }) + '\n')
 
 if (scenario === 'hang') {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 120000)
