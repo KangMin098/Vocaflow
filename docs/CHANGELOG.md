@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(agents): `agents/scripts/safe-merge.mjs` — PR 병합 직전에 체크(이름 단위 · FAIL/PENDING/SKIP 뿐/UNKNOWN 은 통과 아님)와 HEAD SHA 를 다시 확인하고 `--match-head-commit` 으로만 병합한다. 계기: PR #200 이 build FAILURE 인데 병합됨(main 브랜치 보호 없음 + 확인·병합을 `;` 로 이어 붙임).
 - docs(agents): 자동 Codex 리뷰 전면 제거(사용자 결정 · RP-2026-10-10.2) — AGENTS.md · CLAUDE.md · router.md · goal-review.md 에서 머지 전·계획 전 Codex 리뷰 의무를 없앴다. `review.mjs` 는 사용자 요청 시만. 훅·오케스트레이터 변경은 AI-Control PR #198.
 
 - feat(map): 생애주기 수행 기록 판정 `lifecycle-evidence.ts` — 바로잡기(막혔던 문항 다시 맞힘) · 적용(묶음 밖 · 전이 시도)을 G2 원장으로 판정(DB 변경 없음) · 지금 할 일 하나 · 막힌 뒤 재바로잡기. 원문 결속 `anchor-source.ts` · `anchorGate` · `scripts/csat/map/anchor-bind.mts`(E축 11문항 · 변이 테스트). 격리 기록 E2E `lifecycle-records.test.tsx`. 문서 `MAP_GAP_LEDGER.md` · `MAP_PILOT_PROTOCOL.md`. X 설명 처리 속도 문구 정합
