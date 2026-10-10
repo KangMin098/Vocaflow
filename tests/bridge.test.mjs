@@ -36,7 +36,7 @@ function setup() {
   g('add', '.')
   g('commit', '-q', '-m', 'base')
   g('update-ref', 'refs/remotes/origin/main', 'HEAD')
-  const env = { ...process.env, VFC_ROOT: root, VFC_PRODUCT_REPO: wt, VFC_GH_CMD: fake('fake-gh.mjs'), FAKE_GH_DIR: ghDir, VFC_CLAUDE_CMD: fake('fake-claude.mjs'), VFC_CODEX_CMD: fake('fake-codex.mjs'), FAKE_STATE_DIR: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir() }
+  const env = { ...process.env, VFC_ROOT: root, VFC_PRODUCT_REPO: wt, VFC_GH_CMD: fake('fake-gh.mjs'), FAKE_GH_DIR: ghDir, VFC_CLAUDE_CMD: fake('fake-claude.mjs'), VFC_CODEX_CMD: fake('fake-codex.mjs'), VFC_AUTO_CODEX: '1', FAKE_STATE_DIR: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir() }
   const run = (bin, args, extra = {}) => {
     const r = spawnSync(process.execPath, [bin, ...args], { env: { ...env, ...extra }, encoding: 'utf8', timeout: 240000 })
     return { code: r.status, out: r.stdout, err: r.stderr, json: (() => { try { return JSON.parse(r.stdout) } catch { return null } })() }

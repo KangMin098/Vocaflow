@@ -19,7 +19,7 @@ const FAKE_CODEX = `node ${path.join(REPO, 'tests', 'fakes', 'fake-codex.mjs').r
 const OWNER = 'r0-learning-journey'
 const CANON = 'VG-L3-A2-01'
 
-const env = (root, extra = {}) => ({ ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), CLAUDECODE: '', VFC_AGENT: '', ...extra })
+const env = (root, extra = {}) => ({ ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, VFC_AUTO_CODEX: '1', FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), CLAUDECODE: '', VFC_AGENT: '', ...extra })
 function vfc(root, args, extra) {
   const r = spawnSync(process.execPath, [VFC, ...args, '--json'], { env: env(root, extra), encoding: 'utf8' })
   let json = null

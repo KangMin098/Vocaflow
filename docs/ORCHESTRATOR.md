@@ -116,3 +116,11 @@ node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10 
 - 독립 리뷰 APPROVE 캐시(`runtime/review-cache.json`) 키에 **정책 판과 effort** 를 넣었다. 이전 정책이나 낮은 effort 의 APPROVE 를 높은 요구에 다시 쓰지 않는다. 옛 키는 자연히 빗나가 한 번 다시 리뷰한다. 리뷰 기록 md 머리에 「리뷰 정책 · effort · 캐시 재사용」이 남는다.
 - Goal Check(`lib/goalcheck.mjs`)는 Codex 를 부르지 않는 결정적 증거 검사다(리뷰 기록 무결성 해시 · 커밋 · 범위 변경). 바꾸지 않았다.
 - Codex 리뷰 「이전 판 작업에 소급」(P1) 판단: 오탐으로 둔다. 키가 바뀌면 이전 판 작업은 캐시가 **빗나가 한 번 더 리뷰받을 뿐**이다. 검증은 엄격해지는 쪽이고, 이전 판 판정·완료 기록은 고치지 않는다. 기록 머리의 정책 판은 「그 리뷰가 돈 판」이다.
+
+## RP-2026-10-10.2 — 자동 Codex 리뷰 제거 (2026-10-10 사용자 결정)
+
+- 구현 리뷰 · 담당 세션 제출 리뷰(`reviewSubmitted`) · 설계 조사에서 Codex 를 부르지 않습니다. `AUTO_CODEX` 는 기본 꺼짐이고, `VFC_AUTO_CODEX=1` 이면 옛 동작입니다(테스트 · 사용자 명시 요청).
+- 리뷰 단계에는 「자동 Codex 없음」 인수 기록(`verification/reviews/…`, 정책 판 포함)을 남깁니다. **완료 여부는 `completeTask` 의 결정적 검사가 정합니다**: 통과가 아닌 증거 거부 · 수용 기준 전부 덮음 · 증거 커밋 일치 · 현재 설계 판 · 자기 리뷰 금지 · 과거 Stop BLOCKED 커밋 거부. 이 기록 자체는 PASS 근거가 아닙니다.
+- **CRITICAL(`require_review_pass`) 작업은 계속 막힙니다.** 그 커밋의 Stop REVIEW_PASS 가 생기지 않기 때문입니다. 대체 독립 검증이 승인되기 전까지는 BLOCKED 를 유지합니다.
+- Goal Check 는 바뀌지 않았습니다(원래 Codex 를 부르지 않는 결정적 검사).
+- 회귀: `tests/no-auto-codex.test.mjs`(NC1–NC3: Codex 0회 · 통과 증거면 완료 · 실패·미실행 증거나 실패 보고면 완료 안 됨). 기존 테스트는 `VFC_AUTO_CODEX=1` 로 옛 경로를 계속 검증합니다.

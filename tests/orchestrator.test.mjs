@@ -22,7 +22,7 @@ const kids = []
 after(() => kids.forEach((k) => k.kill()))
 
 function env(root, extra = {}) {
-  return { ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), ...extra }
+  return { ...process.env, VFC_ROOT: root, VFC_CLAUDE_CMD: FAKE_CLAUDE, VFC_CODEX_CMD: FAKE_CODEX, VFC_AUTO_CODEX: '1', FAKE_STATE_DIR: root, VFC_PRODUCT_REPO: root, VFC_REVIEW_VERDICTS: path.join(root, 'verdicts.jsonl'), VFC_SNAPSHOT_ONLY_UNDER: os.tmpdir(), ...extra }
 }
 function vfc(root, args, extra) {
   const r = spawnSync(process.execPath, [VFC, ...args], { env: env(root, extra), encoding: 'utf8' })
@@ -470,8 +470,9 @@ test('WF6d 다른 owner worktree 에 쓰면 foreign_worktree_write 로 차단·�
 
 // RP-2026-10-10.1 — 독립 리뷰 캐시는 같은 diff·계약에 더해 같은 정책 판·같은 effort 일 때만 다시 쓴다(낮은 effort APPROVE 로 높은 요구를 건너뛰지 않는다)
 test('RP1 독립 리뷰 캐시 키에 정책 판과 effort 가 들어간다', async () => {
-  const { reviewKeyForTest, REVIEW_POLICY_VERSION } = await import('../lib/orchestrator.mjs')
-  assert.equal(REVIEW_POLICY_VERSION, 'RP-2026-10-10.1')
+  const { reviewKeyForTest, REVIEW_POLICY_VERSION, AUTO_CODEX } = await import('../lib/orchestrator.mjs')
+  // 기본은 자동 Codex 없음(RP-2026-10-10.2) · VFC_AUTO_CODEX=1 일 때만 옛 판
+  assert.equal(REVIEW_POLICY_VERSION, AUTO_CODEX ? 'RP-2026-10-10.1' : 'RP-2026-10-10.2')
   const t = { task_id: 'T-9', acceptance: ['a'], allowed_paths: ['src/**'], forbidden_paths: [] }
   const k = (e) => reviewKeyForTest(t, 'diff', { ok: 1 }, e)
   assert.equal(k('high'), k('high'))
