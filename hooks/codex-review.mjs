@@ -65,6 +65,7 @@ const res = runStopReview(
     maxFixRounds: Number(process.env.CODEX_REVIEW_MAX_FIX_ROUNDS ?? process.env.CODEX_REVIEW_MAX_ROUNDS ?? DEFAULTS.maxFixRounds),
     filesPerChunk: MAX_FILES,
     maxChunks: Number(process.env.CODEX_REVIEW_MAX_CHUNKS ?? DEFAULTS.maxChunks),
+    maxChunksFinal: Number(process.env.CODEX_REVIEW_MAX_CHUNKS_FINAL ?? DEFAULTS.maxChunksFinal),
   },
 );
 if (res.stdout) process.stdout.write(res.stdout);
