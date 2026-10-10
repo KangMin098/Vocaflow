@@ -11,6 +11,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- fix(csat): 확인 과제 · Practice 제출 라우트에 보류 관문(Reveal Gate) — 채점 전 423(Codex P1). 직접 확인 CHECK 는 막힌 뒤 연속 2개 정답으로 해소(D-8 v1.1 · Codex P2), 판정 기준 `curriculum.ts` `CRITERIA`. 생애주기 E2E `e2e-lifecycle-open.mts`(합성 게이트 5/5 · QA 계정 열린 경로 준비) · V · S 설계 `docs/csat-learner/VS_DIRECT_CHECK_DESIGN.md`
+
 - data(knowledge): E축 확인 과제 활성화(개발 DB · 사용자 승인 2026-10-10) — 지식 사슬 semantic-correspondence → method-option-correspondence → task-option-restate · task-evidence-locate 채택(맹검 2), 적용 13 active(문항 과제 11 · 지도 FIND A4-4 · A5-4). 관리자 화면 경로 `scripts/knowledge/vertical-evidence-tasks-build.mts` · 화면 확인 `e2e-evidence-live.mts` 13/13
 
 - feat(map): 학습 지도 큰 틀 — 기준 정본 `lib/csat/map/curriculum.ts`(11단계 × 학교급 권장 · 확인 과제 · §13 바로잡기 절차 · 적용 · 준비 상태) · 단계 시트 생애주기 4칸 · 바로잡기 절차 · 준비 상태 · 지도 학교급 권장 노출(잠금 아님). E축 확인 과제 `option-restate` · `evidence-locate`(합의 주석 12 · `EvidencePanel` · 활성화 승인 대기). 역할 학습자 시뮬레이션(`scripts/csat/map/role-learners-*.mts`)이 골격 앵커 ≠ 근거 결함을 찾아 합의 주석으로 바꿨다

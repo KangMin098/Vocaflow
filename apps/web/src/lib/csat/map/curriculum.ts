@@ -5,6 +5,25 @@
 // 순수 상수 · 함수(DB · 시계 없음). 처방은 직접 확인(skill-diagnosis) 뒤에만 연다 — 이 파일은 「무엇을 열지」 만 정한다.
 // 준비 상태는 코드와 콘텐츠의 사실만 적는다. 실제 학습자 효과는 어느 단계도 확인되지 않았다(MC-12 UNKNOWN).
 import type { StepKey } from './learner-path'
+import { CHECK_ITEMS, EXPIRY_DAYS, VERIFY_ITEMS } from './skill-diagnosis'
+
+/** FIND · CHECK 판정 기준(결정 D-1 · D-8 v1.1) — 단계마다 같은 값이지만 기준 정본은 여기다. 엔진(skill-diagnosis)이 같은 상수를 쓴다(테스트가 묶는다) */
+export interface CheckCriteria {
+  /** 직접 확인 — 맞힌 것 없이 막힌 서로 다른 확인 문항 수 */
+  verifyItems: number
+  /** 다시 확인 — 확정 뒤 처음 보는 확인 문항 연속 정답 수 */
+  checkItems: number
+  /** 확정 뒤 이 기간 안에 해소되지 않으면 다시 확인 */
+  expiryDays: number
+  /** 이 단계를 돌리려면 필요한 최소 확인 문항 수(직접 확인 + 다시 확인) */
+  minConfirmItems: number
+}
+export const CRITERIA: CheckCriteria = { verifyItems: VERIFY_ITEMS, checkItems: CHECK_ITEMS, expiryDays: EXPIRY_DAYS, minConfirmItems: VERIFY_ITEMS + CHECK_ITEMS }
+
+/** 단계의 판정 기준 — 확인 과제가 없는 단계(content_needed · blocked)는 null */
+export function criteriaOf(step: StepKey): CheckCriteria | null {
+  return CURRICULUM[step].taskKeys.length ? CRITERIA : null
+}
 
 /** §13 기출 분석 Task Protocol — 과제 **안** 절차(능력 노드가 아니다) */
 export interface ProtocolStep {

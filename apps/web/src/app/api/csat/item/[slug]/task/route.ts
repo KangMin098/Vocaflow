@@ -9,6 +9,7 @@
 import { NextResponse } from 'next/server'
 
 import { failure, learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
+import { canRevealItem, revealHeldResponse } from '@/lib/csat/embargo-gate'
 import { fromItemSlug } from '@/lib/csat/item-slug'
 import { TaskInputError, recordItemTaskAttempt } from '@/lib/knowledge/product-server'
 
@@ -20,6 +21,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   if (ctx instanceof NextResponse) return ctx
   const { slug } = await params
   if (!/^[A-Za-z0-9]+-\d{1,2}$/.test(slug)) return NextResponse.json({ error: '문항을 찾지 못했어요' }, { status: 404 })
+  // 보류 관문(Reveal Gate) — 채점은 정오 · 근거를 내보내므로 보류 시험 문항은 받지 않는다(판정 실패도 보류 · fail-closed · Codex P1)
+  if (!(await canRevealItem(fromItemSlug(slug)))) return revealHeldResponse()
   try {
     const body = await readJson(req)
     // 첫 제출 계정과 지금 계정이 다르면 남기지 않는다(계정 전환 뒤 재시도)

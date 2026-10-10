@@ -2,7 +2,7 @@
 // 기준 정본 — 모든 단계가 정의되고, 정본 보류 · 학년 권장 · §13 절차 · 생애주기 4칸이 어긋나지 않게
 import { describe, expect, it } from 'vitest'
 
-import { CURRICULUM, PROTOCOL, SCHOOL_BANDS, TRANSFER_HREF, exposureOf, lifecycleCells, repairProtocol, stepOfTask } from '../curriculum'
+import { CRITERIA, CURRICULUM, PROTOCOL, criteriaOf, SCHOOL_BANDS, TRANSFER_HREF, exposureOf, lifecycleCells, repairProtocol, stepOfTask } from '../curriculum'
 import { ALL_STEPS, READ_PATH } from '../learner-path'
 
 describe('기준 정본', () => {
@@ -40,6 +40,13 @@ describe('기준 정본', () => {
     expect(lp.filter((k) => exposureOf(k, 'high') === 'core')).toEqual(['vocab', 'relation', 'structure', 'option', 'evidence', 'integrate'])
     for (const b of SCHOOL_BANDS) for (const k of lp) expect(['core', 'preview', 'later']).toContain(exposureOf(k, b))
     expect(exposureOf('vocab', null)).toBeNull()
+  })
+})
+
+describe('판정 기준', () => {
+  it('확인 과제가 있는 단계는 기준이 있고, 없는 단계는 없다 · 엔진 상수와 같다', () => {
+    for (const c of Object.values(CURRICULUM)) expect(criteriaOf(c.step) === null).toBe(c.taskKeys.length === 0)
+    expect(CRITERIA).toEqual({ verifyItems: 2, checkItems: 2, expiryDays: 120, minConfirmItems: 4 })
   })
 })
 
