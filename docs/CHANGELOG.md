@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(csat): 출제 설계 학습 완료표(`csat-learner/DESIGN_LEARNING_COMPLETION.md` · F01~F16 증거·미실행·재실행 명령) · 효과 검증 프로토콜 초안(`DESIGN_LEARNING_EFFECT_PROTOCOL.md` · 사용성/효과 분리 · A/B 교차 · 극장 내 시도는 효과 입력 아님).
 - feat(csat): 분석 드레인 validate V12(학습자 칸 작업 용어 — 코퍼스 · 파일 경로 · 파싱/인쇄/OCR 잔여 · 청크) · V13(도표가 정답표로 정답을 정함). 근거: 평가원 802 의미 검수 원장(`scripts/csat/design-learning-audit`) — 도표 29 keep 0 · 작업 용어 노출 수십 문항.
 - feat(csat): 해설 극장 자기 설명(M4) — 오답 하나의 「그럴듯한 이유 · 배제 조건」을 쓰고 저장 뒤 검수된 분석 설명과 나란히 자기 대조(선택 · 건너뛰기 · 점수 없음 · 선택≠참거짓 유형은 「왜 맞는 말인가」). 기록 `explanations`(id 병합 · afterExplanation · compared) · Reveal Gate 보류 시 제외 · 대조 열람은 기존 `csat_session_explained`(kind reject) — DB 허용 목록 변경 없음. 원리 과제(knowledge_applications)는 active 20문항뿐 — 이 카드가 나머지 문항의 자기 설명 단계.
 - feat(csat): 유형 교수 계약 `lib/csat/teaching-contract.ts`(26유형 정본 — 근거 단위 · 중심 관계 · 정답/오답 설계 · 선택≠참거짓 · 시각 근거 · passage_design 적용 여부 · 무조건 규칙 함정) · 해설 극장 분석 판 머리에 「이 문항에서 설명할 관계」.
