@@ -41,6 +41,11 @@ const relationItems = ['order', 'insert', 'long_reference'] as const
 const inferenceItems = ['implication', 'blank'] as const
 const evidenceItems = ['content_match', 'long_match'] as const
 const vocabItems = ['vocab_choice', 'long_vocab'] as const
+/** Non-reading companion activities any order may seal; produced by companion-practice.ts. */
+export const COMPANION_ACTIVITIES = [
+  'grammar_practice', 'word_order_practice', 'vocab_practice', 'listening_practice',
+  'dictation_practice', 'vocab_cards', 'diagnostic_check',
+] as const
 
 // This matrix describes the current passage/item contract, not a production-ready book.
 // Features absent from item and press paths remain PARTIAL/PLANNED, even if a P code exists.
@@ -51,7 +56,8 @@ const capability = (
   requirements: readonly string[] = [],
 ) => ({
   state, direct: state !== 'PLANNED' && state !== 'UNSUPPORTED',
-  adaptation: state !== 'PLANNED' && state !== 'UNSUPPORTED', items, activities, requirements,
+  adaptation: state !== 'PLANNED' && state !== 'UNSUPPORTED', items,
+  activities: [...activities, ...COMPANION_ACTIVITIES] as readonly string[], requirements,
   multi_passage: requirements.includes('multi_passage'),
   table_or_chart: requirements.includes('table_or_chart'),
   audio: requirements.includes('audio'), timer: requirements.includes('timer'),

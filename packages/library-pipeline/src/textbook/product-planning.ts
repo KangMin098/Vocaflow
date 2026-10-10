@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto'
 import { z } from 'zod'
 import { PRODUCT_FAMILIES } from './academic-reading'
-import { PRODUCT_CAPABILITIES, sealProductOrder, type ProductOrder } from './factory-order'
+import { COMPANION_ACTIVITIES, PRODUCT_CAPABILITIES, sealProductOrder, type ProductOrder } from './factory-order'
 import { gradeScopeSchema, PRODUCT_GRADES } from './multi-grade-order'
 import { canonicalJson } from './review-digest'
 
@@ -29,6 +29,10 @@ export const productBriefSchema = z.object({
   difficulty: z.object({ start: z.number().int().min(0).max(11), end: z.number().int().min(0).max(11) }).strict(),
   passage_words: z.object({ start: z.number().int().min(40).max(1200), end: z.number().int().min(40).max(1200) }).strict(),
   source_strategy: z.enum(['direct_first', 'adaptation_first', 'balanced']),
+  // Non-reading products delivered with the reading volume (grammar, syntax, vocabulary,
+  // listening, dictation, cards, diagnostic). Part of the plan hash and sealed into every order.
+  companion_activities: z.array(z.enum(COMPANION_ACTIVITIES)).max(COMPANION_ACTIVITIES.length)
+    .refine(value => new Set(value).size === value.length, 'duplicate companion activity').optional(),
 }).strict().superRefine((value, ctx) => {
   if (value.difficulty.end < value.difficulty.start)
     ctx.addIssue({ code: 'custom', message: 'difficulty curve must not decrease' })
@@ -145,7 +149,7 @@ export function buildProductOrderFromBrief(
     genre_mix: normalizedMix(plan.brief.genre_weights),
     item_types: [...new Set(plan.units.map(unit => unit.item_type_target))]
       .filter((value): value is string => value !== null),
-    activity_types: [],
+    activity_types: [...(plan.brief.companion_activities ?? [])],
     passage_difficulty_profile: {
       lexical: finalDifficulty, syntax: finalDifficulty,
       information_density: finalDifficulty, discourse: finalDifficulty,

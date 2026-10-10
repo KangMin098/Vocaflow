@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(textbook): 독해 외 제품을 같은 주문 계보로 — 기획안 `companion_activities` 를 주문 `activity_types` 로 봉인하고 어법·배열·어휘·듣기·받아쓰기·낱말 카드·진단을 기존 생성기로 생산 실행 지문에서 생성(`companion-practice.ts`, CLI `--companion-resources`). 자원 없음·빈 활동은 차단, 출처 없는 음원 금지.
 - feat(textbook): 생산 실행 개정을 일자별 해시 체인 저널에 기록(`reviseRunAtomicVolumeJournaled`·`runRevisionJournalStatus`) — 중단 뒤 같은 호출로 이어 쓰기, 모든 일자가 complete 일 때만 권 사용 가능.
 - feat(textbook): 생산 실행 개정 영향 `run-revision.mjs` — 두 실행을 셀 단위로 비교해 다시 만들 일자만 골라 새 그룹 revision 으로 원자 재생산, 나머지 일자 snapshot 재사용, 옛 권은 검증 실패로 무효.
 - feat(textbook): P13·P14·P18·P20 도 생산 실행에 — 구조화 주문 초안이 `exam`·`resources`(라이선스 제2 지문·데이터)를 봉인, 일자별 자료 순환, 문항은 그날 자료를 정확히 인용, P18 은 인쇄된 문항별 제한 시간. 20개 제품군 전부 학생용 권 조립. 원자 생산은 기존 DB 게이트대로 거부.

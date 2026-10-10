@@ -135,3 +135,4 @@ Baseline `dcc3bb43f` + work order `docs/methodology/TEXTBOOK_FACTORY_CLAUDE_WORK
 4. Areas 2a, 5a, 1 (live DB) — family-specific teaching adapters, admin journal view, and DB-side work that needs reviewed migrations.
 
 Verdict: `TEXTBOOK_FACTORY_PIPELINE_COMPLETE=false`, `TEXTBOOK_FACTORY_PRODUCTION_VERIFIED=false`.
+- Area 3 update: non-reading products now ride the same order lineage as sealed `activity_types` — grammar, word order (syntax), vocabulary, listening, dictation, word cards and a diagnostic check, all generated from the run's passages by existing generators (companion tests 4/4, including CLI block-then-complete, missing resources, empty activity, unattributed audio, stale output). Status MISSING → PARTIAL: file-level only (not in atomic snapshots), the admin form has no field, dictation/cards are single-word scope and the diagnostic reuses run items rather than a calibrated test.
