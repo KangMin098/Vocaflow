@@ -380,3 +380,18 @@ test('Codex P1 — 계약 같은 재승인이라도 좁혀진 승인 범위 밖 
   s.approve(a.ug_id, 2, ['--paths', 'src/a/**'])
   assert.equal(s.task(tb.task_id).design_version, 1, '범위 밖 작업은 옮기지 않는다')
 })
+
+test('Codex P1 — 현재 설계 승인 전에 기록된 수락 결정으로는 최종 수락할 수 없다', () => {
+  const s = setup()
+  const a = s.goal('STALE목표')
+  s.approve(a.ug_id, 1)
+  s.ugTask(a.ug_id, [0, 1])
+  s.orch(['--max-tasks', '1'])
+  const old = s.run(VFC, ['approve', '--kind', 'goal_acceptance', '--summary', `${a.ug_id} accept`, '--json'], { VFC_TTY_FOR_TESTS: '1', VFC_TEST_CODE: 'ab0001' }, 'ab0001\n').json
+  const stF = path.join(s.root, 'state', 'USER_GOALS.json')
+  const st = JSON.parse(fs.readFileSync(stF, 'utf8'))
+  st.goals[a.ug_id].designs.push({ ...st.goals[a.ug_id].designs[0], version: 2, status: 'PROPOSED', summary: '요약만', approved_at: undefined })
+  fs.writeFileSync(stF, JSON.stringify(st))
+  s.approve(a.ug_id, 2)
+  assert.match(s.run(VFC, ['ugoal', 'accept', a.ug_id, '--decision', old.decision_id, '--by', 'user']).err, /STALE_ACCEPTANCE/)
+})

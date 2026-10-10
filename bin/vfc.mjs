@@ -471,7 +471,7 @@ function main() {
       let contextError = null
       if (!opt['no-context']) {
         try {
-          context = CTX.buildContext(loadState().state, pos[0], { fetch: !!opt.fetch })
+          { const st = loadState().state; context = CTX.buildContext(st, pos[0], { fetch: !!opt.fetch, ref: opt.ref || CTX.contextRefFor(st, pos[0]) }) }
         } catch (e) {
           contextError = e.message // 패킷 실패는 요청을 막지 않는다 — 요청서에 「패킷 없음」 이 적힌다
         }
@@ -480,7 +480,8 @@ function main() {
       return out({ request_id: req.id, file: req.file, thread: req.header.thread, context: context ? { dir: context.dir, cached: context.cached, base_commit: context.manifest.base_commit, files: context.files } : null, context_error: contextError }, opt)
     }
     case 'ugoal context': {
-      const c = CTX.buildContext(loadState().state, pos[0], { fetch: !!opt.fetch })
+      const stc = loadState().state
+      const c = CTX.buildContext(stc, pos[0], { fetch: !!opt.fetch, ref: opt.ref || CTX.contextRefFor(stc, pos[0]) }) // 위임 작업 브랜치(병합 전 완료 작업 포함) — 오케스트레이터와 같은 기준
       return out({ dir: c.dir, cached: c.cached, base_commit: c.manifest.base_commit, generated_at: c.manifest.generated_at, files: c.files, source_files: c.manifest.source_files.length }, opt)
     }
     case 'ugoal cancel-request':

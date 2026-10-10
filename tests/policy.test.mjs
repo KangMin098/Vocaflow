@@ -381,3 +381,24 @@ test('REVIEW_UNKNOWN P1 회귀 — 승인한 테스트 파일 말고 다른 파�
     delete process.env.VFC_VITEST_CMD
   }
 })
+
+test('Codex P1 — live 필터가 승인 파일 하나만 고르지 않으면 자격 증명을 주기 전에 멈춘다', () => {
+  const wt = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-live7-'))
+  const d = path.join(wt, 'apps', 'web', 'src', 'lib', '__tests__')
+  fs.mkdirSync(d, { recursive: true })
+  fs.writeFileSync(path.join(d, 'load.live.test.ts'), 'export const a = 1\n')
+  const d2 = path.join(wt, 'apps', 'web', 'legacy', 'src', 'lib', '__tests__')
+  fs.mkdirSync(d2, { recursive: true })
+  fs.writeFileSync(path.join(d2, 'load.live.test.ts'), 'export const b = 1\n') // 필터가 부분 일치로 이 파일도 고른다
+  process.env.VFC_VITEST_CMD = fake('fake-vitest.mjs')
+  process.env.FAKE_VITEST = 'pass'
+  try {
+    const r = runLive({ worktree: wt, testRel: 'apps/web/src/lib/__tests__/load.live.test.ts', liveUser: '00000000-0000-4000-8000-000000000001' })
+    assert.equal(r.status, 'UNVERIFIED')
+    assert.match(r.reason, /자격 증명을 주지 않았다/)
+    assert.ok(!fs.existsSync(path.join(wt, '.vfc-runs')), '러너를 실행하지 않았다')
+  } finally {
+    delete process.env.VFC_VITEST_CMD
+    delete process.env.FAKE_VITEST
+  }
+})
