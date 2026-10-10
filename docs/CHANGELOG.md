@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(agents): Codex 리뷰 중복 제거 — 기능 끝의 수동 `codex review --uncommitted` 를 지침에서 뺐다(커밋마다 Stop 훅 + 머지 전 `review.mjs` 1회). 훅 쪽 판독·재사용 개선(RP-2026-10-10.1)은 AI-Control `chore/review-dedupe`.
 - fix(csat): 학습자 결함 — (근거 상한 제거는 #187) 연습을 다 풀면 안 움직이는 「다음 문항」 대신 완료 + 서가 해부로 · 강의가 지도를 움직이는 동안 「멈춤」 안내. 원문 진입: 다른 회차 PDF 를 놓으면 조용히 무시되던 것 → 어느 회차가 필요한지 알림(저장은 유지) · 문제지 없이 되는 학습과 안 되는 학습 안내.
 
 - feat(knowledge): 합성 학습자 40명 화면 검증(`synthetic-cohort-run.mts` · `cohort-analysis.mts` · 보고 `docs/methodology/COHORT_VALIDATION_2026-10-10.md`) — 화면 채점 = 재채점 120/120 · 결정 재현 40/40 · find-policy.v2(막힌 부분 추적 · 따라 틀린 부분 제외, 행동 규칙 불변) · 연구 서지 초안 · 전 영역 원리 후보 초안(DB 미등록).
