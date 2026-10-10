@@ -19,6 +19,7 @@ import {
   theaterMinutes,
   theaterSteps,
   theaterTimeline,
+  unitMarkers,
   type TheaterSource,
 } from '../theater'
 
@@ -264,5 +265,18 @@ describe('theaterBlocks — 선택≠참거짓 유형(2026-10-11 · 교수 계�
   it('그 밖의 유형은 그대로 — 오답 칩 · 함정 라벨 · 그럴듯한 이유', () => {
     const rejects = theaterBlocks({ ...FULL, type_id: 'R-BLANK' }).filter((b) => b.kind === 'reject')
     expect(rejects[0].chips[0].text).toBe('오답')
+  })
+})
+
+describe('unitMarkers — 근거 단위 표기를 학습자 말로(2026-10-11)', () => {
+  it('[u5] → 5번 문장 · 범위 · 안내문은 줄', () => {
+    expect(unitMarkers('근거는 [u5]이다', 'R-BLANK')).toBe('근거는 5번 문장이다')
+    expect(unitMarkers('[u3-u5] 사이', 'R-ORDER')).toBe('3~5번 문장 사이')
+    expect(unitMarkers('[u2]의 시간', 'R-NOTICE')).toBe('2번 줄의 시간')
+  })
+
+  it('해설 블록 본문에 [uN] 이 남지 않는다', () => {
+    const blocks = theaterBlocks({ ...FULL, why_correct: '[u4]와 대응한다', type_id: 'R-BLANK' })
+    expect(JSON.stringify(blocks)).not.toMatch(/\[u\d+\]/)
   })
 })

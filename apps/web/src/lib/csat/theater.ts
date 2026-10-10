@@ -12,7 +12,7 @@
 //
 // ⚠️ 이름은 **역할과 타깃에서만** 짓는다. 대본 글자(`segments`)는 이 파일에 들어오지 않는다 —
 //    들어오면 서버 렌더 HTML 에 대본이 실려 `lecture/types.ts` 의 경계가 무너진다.
-import { reasoningRepeats } from './learner-text'
+import { reasoningRepeats, unitMarkers } from './learner-text'
 import { teachingModelOf } from './teaching-contract'
 
 import type { LectureRole, LectureStep } from './lecture/types'
@@ -149,6 +149,9 @@ export interface TheaterSource {
 
 const text = (s: string | null | undefined): string[] => (s && s.trim() ? [s.trim()] : [])
 
+// 근거 단위 표기 변환은 learner-text 가 정본 — 로더(learner.ts)가 이미 바꿔 오지만, 다른 경로로 온 원문도 같은 말이 되게 한 번 더 건다
+export { unitMarkers }
+
 /**
  * 분석 자료 → 오른쪽에 차례로 쌓일 블록들.
  *
@@ -157,6 +160,7 @@ const text = (s: string | null | undefined): string[] => (s && s.trim() ? [s.tri
  */
 export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
   const out: TheaterBlock[] = []
+  const t = (v: string | null | undefined) => text(v).map((x) => unitMarkers(x, item.type_id))
 
   out.push({
     key: 'analysis:head',
@@ -183,7 +187,7 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
       kind: 'ability',
       title: '이 문항이 재는 것',
       chips: [{ text: '재는 능력' }],
-      body: text(item.measured_ability),
+      body: t(item.measured_ability),
       quote: null,
     })
   }
@@ -194,7 +198,7 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
       kind: 'intent',
       title: '출제 의도',
       chips: [{ text: '왜 이렇게 냈나' }],
-      body: text(item.design_intent),
+      body: t(item.design_intent),
       quote: null,
     })
   }
@@ -209,7 +213,7 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
         ...(item.answer != null && !item.answer_unknown ? [{ text: CIRCLED[item.answer] ?? String(item.answer) }] : []),
       ],
       // 근거 해설이 정답 설명의 인용을 되풀이하기만 하면 한 번만 말한다(학습 가치 감사 — 같은 근거 두 번)
-      body: [...text(item.why_correct), ...(reasoningRepeats(item.why_correct, item.evidence_reasoning) ? [] : text(item.evidence_reasoning))],
+      body: [...t(item.why_correct), ...(reasoningRepeats(item.why_correct, item.evidence_reasoning) ? [] : t(item.evidence_reasoning))],
       quote: item.evidence_quote?.trim() || null,
       quoteTruncated: item.evidence_quote_truncated === true,
     })
@@ -220,7 +224,7 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
   // (분석 스키마가 모든 선지에 trap 을 요구한 탓). 화면은 「내용은 맞음」 + 맞는 근거(how_to_reject)만 보인다.
   const choiceTruth = teachingModelOf(item.type_id)?.choiceTruth === true
   for (const d of item.distractors) {
-    const body = choiceTruth ? text(d.how_to_reject) : [...text(d.why_tempting), ...text(d.how_to_reject)]
+    const body = choiceTruth ? t(d.how_to_reject) : [...t(d.why_tempting), ...t(d.how_to_reject)]
     if (!body.length && (choiceTruth || !d.trap)) continue
     out.push({
       key: `analysis:reject:${d.n}`,

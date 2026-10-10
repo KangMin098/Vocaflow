@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(csat): 학습자 분석 문장 — 근거 단위 표기 `[u5]` 를 「5번 문장」(안내문은 「줄」 · 조사 받침 보정)으로(최신 분석 2,444건이 [uN] 을 그대로 노출) · 작업 메모 필터에 청크 · 인쇄 잔여 · 파일 경로 · 원문 창 · 두 단 섞임 · 추출본 · 「3차 보강」 · 코퍼스 추가. 정본 `learner-text.ts` · 로더 `learner.ts` 가 적용.
 - feat(csat): 학평 골격 DB 적재 — `csat_item_skeletons` 37→2,299행(사용자 승인 · checkpoint: 이전 37행 md5 c40dd55e… 로컬 백업 · 유출 0 · body_ok=false 307 건너뜀). 학평 문항에도 지문 지도(F09) · e2e 회귀.
 - fix(csat): 문장 분할기 — 「. ①」 동그라미 번호 문장을 새 문장으로(F08). 평가원 골격 재빌드(1~2문장 골격 54→2 · 유출 0) · 강의 59편 대상/focus 이동(`remap-lecture-circled-split.mts`) · 대본 서수 원장 14→0. 원리 결속은 영향 범위 밖이라 분할 버전 유지.
 - feat(csat): 분석 드레인 V14 — 선택≠참거짓 유형은 trap · why_tempting 을 요구하지 않고 trap 이 있으면 막는다(`CHOICE_TRUTH_TYPES` · 교수 계약과 동기화 회귀) · 작성 프롬프트 반영. E2E: learning-loop 11/11 · item-layout 7/7(하이드레이션 대기 수정) · ref-compare 16/16.

@@ -17,7 +17,7 @@ import { createCsatClient, selectScopeItems } from './client'
 import { canRevealItem, embargoedItemIds } from './embargo-gate'
 import { examFilter, inScope as inScopeId, KICE_SCOPE, reportKey, SCOPES, type CsatScope } from './scope'
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
-import { stripInternalNotes } from './learner-text'
+import { learnerText } from './learner-text'
 import { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
 export { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
 
@@ -624,20 +624,20 @@ export async function loadCsatItemExplain(
       type_name: (typeRes.data as { name?: string } | null)?.name ?? null,
       answer_unknown: a?.answer_unknown === true,
       // 학습자 문장은 분석 작업 메모를 걷어 낸다(learner-text — 원본 분석은 그대로)
-      measured_ability: stripInternalNotes(nonEmpty(a?.measured_ability)),
-      design_intent: stripInternalNotes(nonEmpty(a?.design_intent)),
-      why_correct: stripInternalNotes(correct?.why_correct ?? null),
+      measured_ability: learnerText(nonEmpty(a?.measured_ability), it.type_id),
+      design_intent: learnerText(nonEmpty(a?.design_intent), it.type_id),
+      why_correct: learnerText(correct?.why_correct ?? null, it.type_id),
       evidence_quote: capQuoteWords(a?.answer_locus?.quote ?? null),
       evidence_quote_truncated: (a?.answer_locus?.quote?.trim().split(/\s+/).length ?? 0) > QUOTE_WORD_CAP,
-      evidence_reasoning: stripInternalNotes(a?.answer_locus?.reasoning ?? null),
+      evidence_reasoning: learnerText(a?.answer_locus?.reasoning ?? null, it.type_id),
       design: parseDesign(a?.answer_locus?.passage_design),
       distractors: chs
         .filter((c) => c.verdict === 'distractor')
         .map((c) => ({
           n: c.n,
           trap: c.trap ?? null,
-          why_tempting: stripInternalNotes(c.why_tempting ?? null),
-          how_to_reject: stripInternalNotes(c.how_to_reject ?? null),
+          why_tempting: learnerText(c.why_tempting ?? null, it.type_id),
+          how_to_reject: learnerText(c.how_to_reject ?? null, it.type_id),
         }))
         .sort((x, y) => x.n - y.n),
       procedure: a?.solve_procedure ?? [],

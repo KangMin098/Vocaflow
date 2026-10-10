@@ -2,7 +2,7 @@
 // 학습자 화면의 분석 작업 메모 거르기 — 실제 노출 문장(2026-10-09 실측)으로
 import { describe, expect, it } from 'vitest'
 
-import { hasInternalNote, reasoningRepeats, stripInternalNotes } from '../learner-text'
+import { hasInternalNote, learnerText, reasoningRepeats, stripInternalNotes, unitMarkers } from '../learner-text'
 
 describe('stripInternalNotes', () => {
   it('메모 문장(「참고: 저장된 지문은 2단 병합…」)을 지우고 나머지 설명은 남긴다 — 2022#39', () => {
@@ -39,5 +39,27 @@ describe('reasoningRepeats — 「답이 왜 이것인가」 같은 근거 두 �
   it('인용이 없거나 한쪽이 비면 되풀이로 보지 않는다', () => {
     expect(reasoningRepeats('정답 설명', '근거 해설에는 영어 인용이 없다')).toBe(false)
     expect(reasoningRepeats(null, "'some quoted words here'")).toBe(false)
+  })
+})
+
+describe('learner-text — 2026-10-11 정독 검수 실례', () => {
+  it('걸러지지 않던 작업 용어 문장을 걷는다', () => {
+    const cases = [
+      '근거는 셋째 문장이다. 값은 그림에만 있어 코퍼스 지문에도 columns2/2014A.txt 에도 없다.',
+      '이 문장이 답이다. 이 청크에서 유일하게 형태가 맞는 문항이다.',
+      '함정이다. 선지 뒤에 붙은 인쇄 잔여도 선지를 미덥지 않게 만든다.',
+      '순서가 정해진다. 3차 보강 전 서술: (A)의 출마 결심을 받는다.',
+    ]
+    for (const s of cases) {
+      const out = learnerText(s) ?? ''
+      expect(out, s).not.toMatch(/코퍼스|청크|인쇄 잔여|columns2|보강 전/)
+      expect(out.length, s).toBeGreaterThan(0)
+    }
+  })
+
+  it('근거 단위 표기를 학습자 말로 — 안내문은 줄', () => {
+    expect(learnerText('[u5]와 대응한다', 'R-BLANK')).toBe('5번 문장과 대응한다')
+    expect(learnerText('[u3-u5]는 사례이고 [u6]로 닫힌다', 'R-ORDER')).toBe('3~5번 문장은 사례이고 6번 문장으로 닫힌다')
+    expect(unitMarkers('[u2]의 시간', 'R-NOTICE')).toBe('2번 줄의 시간')
   })
 })
