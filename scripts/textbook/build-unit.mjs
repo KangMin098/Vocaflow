@@ -16,6 +16,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { fetchArticleVocab } from './volume-pool.mjs'
+import { verifyCurrentItemLineages } from './factory-lineage.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -28,6 +29,7 @@ const arg = (n) => {
 }
 const BAND = Number(arg('band') ?? 5)
 const SHOW = Number(arg('show') ?? 0)
+const PRODUCT_ORDER_ID = arg('product-order')
 
 const { createClient } = await import('@supabase/supabase-js')
 const { assembleReadingUnit, isBlocked } = await import('@vocaflow/library-pipeline')
@@ -39,11 +41,37 @@ const db = createClient(
 )
 
 // 후보 지문 — 카탈로그가 이미 라이선스·등급·통사를 한 줄로 준다.
-const { data: cat, error } = await db
+let { data: cat, error } = await db
   .from('csat_stage_catalog')
   .select('id, title, v_level, cefr_level, display_only')
   .eq('v_level', BAND)
 if (error) throw new Error('카탈로그 조회 실패: ' + error.message)
+if (PRODUCT_ORDER_ID) {
+  const { data: audits, error: auditError } = await db.from('reading_promotion_audit')
+    .select('article_id').eq('order_id', PRODUCT_ORDER_ID)
+  if (auditError) throw Error(`PRODUCT_ORDER_AUDIT_READ_FAILED: ${auditError.message}`)
+  const promotedIds = [...new Set((audits ?? []).map(audit => audit.article_id))]
+  const promoted = []
+  for (let i = 0; i < promotedIds.length; i += 100) {
+    const { data, error: articleError } = await db.from('library_articles')
+      .select('id, title, article_v_level, cefr_level, display_only, source_id')
+      .in('id', promotedIds.slice(i, i + 100)).eq('article_v_level', BAND).in('status', ['ready', 'published'])
+    if (articleError) throw Error(`PRODUCT_ORDER_ARTICLE_READ_FAILED: ${articleError.message}`)
+    promoted.push(...(data ?? []))
+  }
+  cat = promoted.filter(article => article.source_id?.startsWith('reading:'))
+    .map(article => ({ ...article, v_level: article.article_v_level }))
+} else {
+  const catalogIds = (cat ?? []).map(row => row.id)
+  const readingIds = new Set()
+  for (let i = 0; i < catalogIds.length; i += 100) {
+    const { data, error: sourceError } = await db.from('library_articles')
+      .select('id, source_id').in('id', catalogIds.slice(i, i + 100))
+    if (sourceError) throw Error(`CATALOG_SOURCE_READ_FAILED: ${sourceError.message}`)
+    for (const article of data ?? []) if (article.source_id?.startsWith('reading:')) readingIds.add(article.id)
+  }
+  cat = (cat ?? []).filter(row => !readingIds.has(row.id))
+}
 
 const ids = (cat ?? []).map((c) => c.id)
 if (!ids.length) {
@@ -61,6 +89,8 @@ const { data: dcp } = await db
   .from('csat_dcp_items')
   .select('ref_id, type, paragraph_idx, payload, answer_key')
   .in('ref_id', ids)
+const lineages = await verifyCurrentItemLineages(db, dcp ?? [], new Date().toISOString())
+if (PRODUCT_ORDER_ID && (dcp ?? []).some(item => lineages.get(item.ref_id)?.product_order_id !== PRODUCT_ORDER_ID)) throw Error('FACTORY_ORDER_MIXED')
 const itemsBy = new Map()
 for (const d of dcp ?? []) {
   if (!itemsBy.has(d.ref_id)) itemsBy.set(d.ref_id, [])

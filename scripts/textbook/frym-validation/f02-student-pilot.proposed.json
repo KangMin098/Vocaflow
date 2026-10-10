@@ -1,0 +1,77 @@
+{
+  "version": 2,
+  "pair_id": "F02",
+  "freeze_file": "scripts/textbook/frym-validation/f02-calibration-freeze.json",
+  "status": "proposed_unsealed",
+  "human_lead_id": null,
+  "approved_at": null,
+  "registration_evidence": null,
+  "operations": null,
+  "missing_data_policy": "Exclude a session with any missing timestamp, answer, or required metric; preserve its record and report excluded counts. Never impute or score a missing answer as zero. Reject invalid, mismatched, duplicate, or unassigned sessions.",
+  "session_quality_policy": {
+    "minimum_reading_seconds": 30,
+    "maximum_uninterrupted_gap_seconds": 300,
+    "short_time_action": "Exclude from primary analysis; retain and report by arm. Reading duration below 30 seconds is a predeclared proxy for invalid exposure, not a grade norm.",
+    "long_gap_action": "Exclude from primary analysis if a verified inactivity gap exceeds 300 seconds; if inactivity cannot be measured, report the limitation and do not infer uninterrupted reading from elapsed time alone.",
+    "straight_line_action": "Flag identical responses to all same-format items for blinded manual review; do not automatically exclude open-text answers or all-identical Likert burden ratings without corroborating evidence.",
+    "prior_exposure_action": "Exclude a participant who reports prior exposure to either frozen F02 version or its items before assignment; preserve count and reason.",
+    "carryover_action": "One F02 version per participant across every arm. A second-version exposure invalidates that participant's primary session; no within-person order correction is attempted.",
+    "incomplete_action": "Retain the partial record, exclude it from complete-case primary analysis, report missingness by arm and item. No replacement beyond the predeclared maximum assignments."
+  },
+  "purpose": "Calibration of F02 instruments and difficulty judgments; no gold or DB seed",
+  "minimum_complete_students_per_variant": 15,
+  "maximum_assigned_students_per_arm": 30,
+  "target_fit": {
+    "aggregation": "Mean for accuracy; median for all other metrics. Inclusive bounds. Only hard_gate metrics determine TARGET_FIT; supporting and diagnostic deviations are reported without averaging into a composite. Missing required data is insufficient evidence.",
+    "metric_roles": {
+      "reading_seconds": "supporting",
+      "comprehension_accuracy": "hard_gate",
+      "lexical_accuracy": "supporting",
+      "syntax_accuracy": "supporting",
+      "reasoning_accuracy": "supporting",
+      "unknown_word_fraction": "diagnostic",
+      "lexical_burden": "supporting",
+      "sentence_burden": "supporting",
+      "reasoning_burden": "supporting",
+      "perceived_difficulty": "supporting"
+    },
+    "middle_1": {
+      "reading_seconds": { "min": 75, "max": 360 },
+      "comprehension_accuracy": { "min": 0.65, "max": 1 },
+      "lexical_accuracy": { "min": 0.6, "max": 1 },
+      "syntax_accuracy": { "min": 0.6, "max": 1 },
+      "reasoning_accuracy": { "min": 0.55, "max": 1 },
+      "unknown_word_fraction": { "min": 0, "max": 0.2 },
+      "lexical_burden": { "min": 1, "max": 4 },
+      "sentence_burden": { "min": 1, "max": 4 },
+      "reasoning_burden": { "min": 1, "max": 4 },
+      "perceived_difficulty": { "min": 1, "max": 4 }
+    },
+    "high_1": {
+      "reading_seconds": { "min": 75, "max": 360 },
+      "comprehension_accuracy": { "min": 0.65, "max": 1 },
+      "lexical_accuracy": { "min": 0.6, "max": 1 },
+      "syntax_accuracy": { "min": 0.6, "max": 1 },
+      "reasoning_accuracy": { "min": 0.55, "max": 1 },
+      "unknown_word_fraction": { "min": 0, "max": 0.2 },
+      "lexical_burden": { "min": 1, "max": 4 },
+      "sentence_burden": { "min": 1, "max": 4 },
+      "reasoning_burden": { "min": 1, "max": 4 },
+      "perceived_difficulty": { "min": 1, "max": 4 }
+    }
+  },
+  "level_separation": {
+    "design": "Randomly assign high_1 students between high_target (frozen high_1 passage) and middle_anchor (frozen middle_1 passage); each student reads one F02 version only. The high_target arm serves target fit and common-grade comparison. Do not infer separation by comparing middle_1 and high_1 target cohorts.",
+    "minimum_complete_high_1_anchor_students_per_variant": 15,
+    "minimum_reasoning_burden_gap": 0.5,
+    "minimum_sentence_burden_gap": 0.5,
+    "primary": "Median reasoning_burden(high_1 passage) - median reasoning_burden(middle_1 passage) reaches minimum_reasoning_burden_gap",
+    "secondary": "Median sentence_burden(high_1 passage) - median sentence_burden(middle_1 passage) reaches minimum_sentence_burden_gap. A lexical-only gap never passes.",
+    "comprehension_floor_each_anchor_arm": 0.65,
+    "decision": "PASS only when reasoning and sentence burden gaps and both comprehension floors pass; FAIL when complete eligible arms violate any condition; otherwise INSUFFICIENT_EVIDENCE. Require a human construct review before interpreting the direction as the intended axis rather than an item artifact.",
+    "measurement_caveat": "Anchor cohorts need parallel, independently reviewed questions with common constructs and blinded scoring; version-specific item differences and sample uncertainty remain calibration findings. Do not claim generalizable level separation from this one pair."
+  },
+  "result_states": ["target_fit_pass", "target_fit_fail", "separation_pass", "separation_fail", "inconclusive_sample", "measurement_invalid"],
+  "promotion_rule": "educationally_validated requires target_fit_pass for both grades and separation_pass after human construct review; calibration alone never grants gold or seed_eligible. Gold requires independent human meaning and cross-domain validation; seed_eligible additionally requires current rights, provenance, hashes and gates.",
+  "rationale": "These are deliberately broad operational pilot bands, not published Korean grade norms. Comprehension is the non-compensatory target-fit floor. Other metrics diagnose burden and guide a future independently registered study; a small timing overrun cannot alone fail this calibration. Separation requires reasoning and syntax-related burden rather than rare vocabulary alone. A human lead must review and seal the numbers, instruments, allocation, exclusions, and administration before seeing responses. A revision after response access starts a new study."
+}

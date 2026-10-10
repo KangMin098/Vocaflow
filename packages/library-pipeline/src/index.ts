@@ -204,6 +204,7 @@ export {
   FRYM_FEEDS,
 } from './ingest-article/frontiers-young-minds'
 export type { FrymListItem } from './ingest-article/frontiers-young-minds'
+export { articleResearchOrigin } from './ingest-article/research-origin'
 // Frontiers 성인 학술지 (비-PMC 18종) — **교육·언어 칸**(배율 0.57 · 부족 1,464편)을 겨눈다.
 //   ⚠️ 위 FrYM 과 다른 소스다(호스트·본문 형식·열쇠 접두어 전부 다름).
 export {
@@ -890,6 +891,9 @@ export type { BrandSpecRow, Colophon, ColophonInput, VolumePalette } from './tex
 
 /** 한 권의 완성 HTML — 순수 함수. 조판 스크립트가 이것만 부른다. */
 export { renderVolumeDocument } from './textbook/volume-document'
+export { runMultiGradeFactoryDryRun, MULTI_GRADE_DRY_RUN_MARKER } from './textbook/multi-grade-production'
+export { renderSpecializedReadingUnit } from './textbook/specialized-reading-unit'
+export { renderReadingFamilyUnit } from './textbook/reading-family-unit'
 export type { VolumeAnswer, VolumeDocumentInput } from './textbook/volume-document'
 
 /** 표지 — 매대와 조판기가 **같은 표지**를 쓴다(문자열이라 React·Node 양쪽에서 그대로). */

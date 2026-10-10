@@ -16,6 +16,7 @@
 // **건너뛴 수와 이유를 반드시 출력한다** — 조용히 빠지면 다음 실행이 "완료" 로 세어
 // 구멍이 영영 남는다(루트 CLAUDE.md §🤖).
 //
+// --target 모드: Claude Code·Codex 독립 검수 파일 2개를 요구하고 insert 직전에 재검증한다.
 // 재실행 안전: 같은 원본에 같은 밴드의 각색본이 이미 있으면 건너뛴다.
 //
 // 실행:
@@ -26,6 +27,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
+import { adaptationKey, readTarget, targetKey, validateReadingDraft, readPreservationRules, READING_SOURCE_COLUMNS, canonical } from './academic-reading-contract.mjs'
+import { readAgentReviews, validateAgentReviews } from './academic-reading-review.mjs'
+import { readEducationalValidation, validateEducationalPromotion } from './educational-validation-contract.mjs'
+import { validateGoldSImport } from './frym-benchmark/gold-s-import-gate.mjs'
+import { hash as benchmarkHash } from './frym-benchmark/benchmark.mjs'
+import { assertExternalCandidate } from './frym-benchmark/local-candidate-path.mjs'
+import { openSeedAudit } from './frym-benchmark/seed-audit.mjs'
 
 // 등급 슬러그가 `license`(원문 표기) 칸에 들어가는 사고를 막는 정본 — 재고 80편 사고(2026-09-23).
 const { licenseTextOf } = await import('@vocaflow/library-pipeline')
@@ -36,11 +44,44 @@ const arg = (n) => {
   return i >= 0 ? process.argv[i + 1] : null
 }
 const commit = process.argv.includes('--commit')
-const BAND = arg('band') ?? 'elementary'
+const readingTarget = readTarget(arg('target'))
+const preservationRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
+const educationalValidation = readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
+const goldSFile = arg('gold-s-seed')
+if (goldSFile && (educationalValidation || !readingTarget)) throw new Error('--gold-s-seed requires --target and cannot be combined with --educational-validation')
+const goldSPolicyFile = arg('gold-s-policy')
+if (goldSFile && !goldSPolicyFile) throw new Error('--gold-s-seed requires --gold-s-policy outside the repository')
+if (goldSPolicyFile && !goldSFile) throw new Error('--gold-s-policy requires --gold-s-seed')
+const goldSAuditFile = arg('gold-s-audit')
+if (goldSFile && commit && !goldSAuditFile) throw new Error('--gold-s-seed --commit requires --gold-s-audit outside the repository')
+if (goldSAuditFile && (!goldSFile || !commit)) throw new Error('--gold-s-audit requires --gold-s-seed --commit')
+const readGoldSPolicy = () => {
+  if (!goldSPolicyFile) return null
+  assertExternalCandidate(goldSPolicyFile)
+  return JSON.parse(fs.readFileSync(goldSPolicyFile, 'utf8'))
+}
+const readGoldSSeed = () => {
+  if (!goldSFile) return null
+  const bundle = JSON.parse(fs.readFileSync(goldSFile, 'utf8'))
+  if (bundle?.schema !== 'frym-gold-s-seed-bundle/1' || !Array.isArray(bundle.entries)) throw new Error('GOLD_S_SEED_BUNDLE_INVALID')
+  const entries = new Map()
+  for (const entry of bundle.entries) {
+    const key = `${entry.source_id}:${entry.target_key}:${entry.passage_hash}`
+    if (entries.has(key)) throw new Error('GOLD_S_SEED_BUNDLE_DUPLICATE')
+    entries.set(key, entry)
+  }
+  return entries
+}
+const goldSSeed = readGoldSSeed()
+const goldSPolicy = readGoldSPolicy()
+const goldSPolicyHash = goldSPolicy ? benchmarkHash(goldSPolicy) : null
+const goldSEntry = (entries, draft) => entries?.get(`${draft.adapted_from_id}:${targetKey(readingTarget)}:${benchmarkHash(typeof draft.text === 'string' ? draft.text.trim() : '')}`)
+if (preservationRules && !readingTarget) throw new Error('--preservation-rules requires --target')
+const BAND = readingTarget?.language_band ?? arg('band') ?? 'elementary'
 // export 와 **같은 규칙**으로 폴더를 찾는다. 어긋나면 채운 청크를 못 읽고
 // "out.json 이 없다" 로 끝난다 — 그 자리에서 원인을 알기 어렵다.
 const DIR = path.resolve(
-  arg('dir') ?? `scripts/textbook/adapt-drain/${BAND}${arg('v-level') ? `-v${arg('v-level')}` : ''}`,
+  arg('dir') ?? (readingTarget ? `scripts/textbook/adapt-drain/reading-${targetKey(readingTarget)}` : `scripts/textbook/adapt-drain/${BAND}${arg('v-level') ? `-v${arg('v-level')}` : ''}`),
 )
 
 const { createClient } = await import('@supabase/supabase-js')
@@ -61,9 +102,10 @@ const {
  * (시중 중앙 50). 상한만 있는 게이트는 그걸 못 잡는다 — 쉬운 쪽은 안 보기 때문이다.
  * 밖 낱말이 15%인 글은 30%인 글보다 **새 낱말을 그만큼 덜 가르친다.**
  */
-const SCHOOL = BAND === 'elementary' ? 'elementary' : 'middle'
+const SCHOOL = ['elementary','middle'].includes(BAND) ? BAND : null
 
-const spec = GRADE_BANDS[BAND]
+const baseSpec = GRADE_BANDS[BAND]
+const spec = readingTarget ? { ...baseSpec, words:readingTarget.words } : baseSpec
 if (!spec) {
   console.error(`모르는 밴드: ${BAND}`)
   process.exit(1)
@@ -84,7 +126,14 @@ if (!outFiles.length) {
 }
 
 const rows = []
-for (const f of outFiles) rows.push(...JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')))
+const exportsByFile = new Map()
+for (const f of outFiles) {
+  const inputFile = path.join(DIR,f.replace('.out.json','.json'))
+  exportsByFile.set(f,fs.existsSync(inputFile) ? JSON.parse(fs.readFileSync(inputFile,'utf8')) : [])
+  rows.push(...JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8')).map(r => ({ ...r, __file:f })))
+}
+const now = Date.now() // 시각은 계약 검증에 주입한다.
+const currentSources = new Map((await fetchAllIn(db,'library_articles',READING_SOURCE_COLUMNS,'id',[...new Set(rows.map(r => r.adapted_from_id).filter(Boolean))],['id'])).map(r => [r.id,r]))
 
 const words = (t) => (t.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
 const sentences = (t) => t.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean)
@@ -103,7 +152,7 @@ const sourceIds = [...new Set(rows.map((r) => r.adapted_from_id).filter(Boolean)
 const siblings = await fetchAllIn(
   db,
   'library_articles',
-  'id, title, content, source, source_url, published_at, adapted_from_id, article_v_level',
+  'id, title, content, source, source_url, published_at, adapted_from_id, article_v_level, source_id',
   'adapted_from_id',
   sourceIds,
   ['adapted_from_id'],
@@ -115,7 +164,7 @@ for (const s of siblings) {
     id: s.id,
     publisher: s.source ?? 'vocaflow',
     url: s.source_url ?? '',
-    published_at: s.published_at ?? new Date().toISOString(),
+    published_at: s.published_at ?? new Date(now).toISOString(),
     fingerprint: buildFingerprint(s.content ?? ''),
   })
 }
@@ -124,12 +173,39 @@ const stats = { scanned: 0, ready: 0, skipped: 0, warned: 0, already: 0 }
 const reasons = {}
 const skip = (why) => { stats.skipped += 1; reasons[why] = (reasons[why] ?? 0) + 1 }
 const inserts = []
+const pendingKeys = new Set()
 
 for (const r of rows) {
   stats.scanned += 1
   const text = (r.text ?? '').trim()
   const title = (r.title ?? '').trim()
   if (!title || !text) { skip('제목 또는 본문이 비었다'); continue }
+  if (Boolean(r.reading) !== Boolean(readingTarget)) { skip('target mode mismatch; pass the exported --target file'); continue }
+  let reading = null
+  if (readingTarget) {
+    if (targetKey(r.reading.target) !== targetKey(readingTarget)) { skip('CLI target differs from chunk'); continue }
+    const original = exportsByFile.get(r.__file)?.find(x => x.adapted_from_id === r.adapted_from_id)
+    reading = validateReadingDraft(r,original,currentSources.get(r.adapted_from_id),now,preservationRules?.get(r.adapted_from_id) ?? null)
+    if (!reading.ok) { skip(reading.reason); continue }
+    const agentReview = validateAgentReviews(r, original, readAgentReviews(DIR, r.__file))
+    if (!agentReview.ok) { skip(agentReview.reason); continue }
+    reading.spec.content_review = agentReview.certificate
+    reading.spec.state = 'agent_reviewed'
+    if (goldSSeed) {
+      const entry = goldSEntry(goldSSeed, r)
+      const gold = validateGoldSImport({ draft: r, targetKey: targetKey(readingTarget), source: currentSources.get(r.adapted_from_id), bundle: entry, policy: goldSPolicy, now: new Date(now).toISOString() })
+      if (!gold.ok) { skip(gold.reason); continue }
+      reading.spec.provenance.gold_s = gold.certificate
+    } else {
+      const education = validateEducationalPromotion(r, original.reading.preservation_rules ?? null, educationalValidation, now)
+      if (!education.ok) { skip(education.reason); continue }
+      if (education.certificate) reading.spec.provenance.educational_validation = education.certificate
+    }
+  }
+  const current = currentSources.get(r.adapted_from_id)
+  if (!current || current.source !== r.source_feed || !['cc_by','cc0','public_domain', ...(readingTarget?.share_alike ? ['cc_by_sa'] : [])].includes(current.license_class) || current.display_only !== false || current.copyright_safe_in_kr !== true || ['archived','failed'].includes(current.status)) { skip('current source is missing or rights/status block adaptation'); continue }
+  if (!Number.isInteger(r.target_v_level) || r.target_v_level < spec.vRange.min || r.target_v_level > spec.vRange.max || r.target_band !== BAND) { skip('target band/level mismatch'); continue }
+  const sourceId = readingTarget ? adaptationKey(r.adapted_from_id,readingTarget) : `adapt:${r.adapted_from_id}:${r.target_v_level}`
 
   // 우리가 쓴 글은 각색 대상이 아니다 — `chk_original_needs_batch` 가 `source='original'` 에
   // compose 배치 정보를 요구하는데, 원본의 spec 은 각색본을 설명하지 않는다.
@@ -138,8 +214,8 @@ for (const r of rows) {
   if (r.source_feed === 'original') { skip("우리가 쓴 글(source='original')은 각색하지 않는다"); continue }
 
   // 같은 원본 · 같은 레벨의 판이 이미 있으면 건너뛴다 — 재실행 안전.
-  const sibs = shelfBySource.get(r.adapted_from_id) ?? []
-  if (siblings.some((s) => s.adapted_from_id === r.adapted_from_id && s.article_v_level === r.target_v_level)) {
+  const sibs = readingTarget ? [] : shelfBySource.get(r.adapted_from_id) ?? []
+  if (pendingKeys.has(sourceId) || siblings.some((s) => readingTarget ? s.source_id === sourceId : s.adapted_from_id === r.adapted_from_id && s.article_v_level === r.target_v_level && !s.source_id?.startsWith('reading:'))) {
     stats.already += 1
     continue
   }
@@ -152,8 +228,8 @@ for (const r of rows) {
   if (avg > spec.avgSentenceWords * 1.5) { skip(`문장이 길다 (평균 ${avg.toFixed(1)}어 · 목표 ${spec.avgSentenceWords})`); continue }
 
   // **어휘 대역** — 어수·문장 길이 다음, 게이트 앞에 둔다. 앞의 둘은 뼈대이고 이건 살이다.
-  const vf = authoredVocabFit(text, SCHOOL)
-  if (!vf.pass) { skip(vf.reason); continue }
+  const vf = SCHOOL ? authoredVocabFit(text, SCHOOL) : null
+  if (vf && !vf.pass) { skip(vf.reason); continue }
 
   // **자립성** — 수확기는 네 축을 다 거치는데 여기는 어휘 하나만 보고 있었다(실측 2026-09-05).
   //   적재된 각색 82편을 새 자로 다시 재니 한 편이 `This man was a soldier first.` 로
@@ -182,14 +258,17 @@ for (const r of rows) {
   if (warns.length) stats.warned += 1
 
   stats.ready += 1
+  pendingKeys.add(sourceId)
   inserts.push({
+    draft:r,
     row: {
       // 원본의 발행처를 그대로 쓴다 — `library_articles_source_check` 가 실제 피드만
       // 허용하고, 각색해도 귀속은 원 발행처다. 각색이라는 사실은 `adapted_from_id` 와
       // `feed_id='adapted'` 가 나른다.
       source: r.source_feed,
-      source_id: `adapt:${r.adapted_from_id}:${r.target_v_level}`,
+      source_id: sourceId,
       source_url: r.source_url ?? null,
+      ...(readingTarget ? { author:reading.spec.provenance.rights.original_author } : {}),
       title,
       content: text,
       language: 'en',
@@ -198,10 +277,11 @@ for (const r of rows) {
       // `acp_classify_license` 가 `license` 를 다시 파싱해 등급을 덮어썼고,
       // `'PUBLIC_DOMAIN'` 은 공백이 없어 `'PUBLIC DOMAIN'` 검사를 빗나가
       // **재고 80편이 `restricted` 로 떨어졌다**(2026-09-23 · 부모는 전부 PD/CC-BY 라 오탐 0).
-      license: licenseTextOf(r.source_license),
-      license_class: r.source_license ?? 'public_domain',
+      license: current.license || licenseTextOf(current.license_class),
+      license_class: current.license_class,
       copyright_safe_in_kr: true,
-      status: 'ready',
+      status: readingTarget ? 'queued' : 'ready',
+      ...(readingTarget ? { composed_spec:{ academic_reading:reading.spec } } : {}),
       article_v_level: r.target_v_level,
       word_count: w,
       reading_minutes: Math.max(1, Math.round(w / 100)),
@@ -212,6 +292,10 @@ for (const r of rows) {
     },
     warns: warns.map((x) => `${x.invariant}: ${x.detail}`),
   })
+  if (!readingTarget) {
+    if (!shelfBySource.has(r.adapted_from_id)) shelfBySource.set(r.adapted_from_id,[])
+    shelfBySource.get(r.adapted_from_id).push({ id:sourceId, publisher:r.source_feed, url:r.source_url ?? '', published_at:new Date(now).toISOString(), fingerprint:buildFingerprint(text) })
+  }
 }
 
 // ⚠️ 목표 단수는 **청크가 들고 온다**(`target_v_level`) — 밴드의 최소값이 아니다.
@@ -239,11 +323,62 @@ if (!commit) {
 }
 
 let wrote = 0
+const skippedBeforeCommit = stats.skipped
+const reasonsBeforeCommit = { ...reasons }
+const seedAudit = goldSSeed ? openSeedAudit(goldSAuditFile, { policyHash: goldSPolicyHash, bundleHash: benchmarkHash([...goldSSeed.values()]), candidateCount: inserts.length, startedAt: new Date().toISOString() }) : null
 for (let i = 0; i < inserts.length; i += 100) {
-  const batch = inserts.slice(i, i + 100).map((x) => x.row)
+  let entries = inserts.slice(i, i + 100)
+  if (readingTarget) {
+    const latest = new Map((await fetchAllIn(db,'library_articles',READING_SOURCE_COLUMNS,'id',entries.map(x => x.row.adapted_from_id),['id'])).map(r => [r.id,r]))
+    const latestRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
+    const latestValidation = goldSSeed ? null : readEducationalValidation(arg('educational-validation'), Date.now(), arg('precision-review'),arg('evidence-dir'))
+    const latestGoldSSeed = readGoldSSeed()
+    const latestGoldSPolicy = readGoldSPolicy()
+    if (goldSSeed && benchmarkHash(latestGoldSPolicy) !== goldSPolicyHash) throw new Error('GOLD_S_TRUST_POLICY_CHANGED_DURING_IMPORT; rerun dry-run with the current policy')
+    entries = entries.filter(x => {
+      const original = exportsByFile.get(x.draft.__file)?.find(r => r.adapted_from_id === x.draft.adapted_from_id)
+      const result = validateReadingDraft(x.draft,original,latest.get(x.draft.adapted_from_id),Date.now(),latestRules?.get(x.draft.adapted_from_id) ?? null)
+      if (result.ok) {
+        const agentReview = validateAgentReviews(x.draft, original, readAgentReviews(DIR, x.draft.__file))
+        if (!agentReview.ok || canonical(agentReview.certificate) !== canonical(x.row.composed_spec?.academic_reading?.content_review)) {
+          skip(agentReview.ok ? 'agent review changed during import; run again' : agentReview.reason); return false
+        }
+        if (latestGoldSSeed) {
+          const gold = validateGoldSImport({ draft: x.draft, targetKey: targetKey(readingTarget), source: latest.get(x.draft.adapted_from_id), bundle: goldSEntry(latestGoldSSeed, x.draft), policy: latestGoldSPolicy, now: new Date().toISOString() })
+          if (!gold.ok || canonical(gold.certificate) !== canonical(x.row.composed_spec?.academic_reading?.provenance.gold_s)) {
+            skip(gold.ok ? 'Gold-S seed evidence changed during import; run again' : gold.reason); return false
+          }
+          return true
+        }
+        const education = validateEducationalPromotion(x.draft, latestRules?.get(x.draft.adapted_from_id) ?? null, latestValidation, Date.now())
+        if (education.ok) {
+          const originalCertificate=x.row.composed_spec?.academic_reading?.provenance.educational_validation ?? null
+          if (canonical(originalCertificate)!==canonical(education.certificate)) {
+            skip('educational validation changed during import; run again'); return false
+          }
+          return true
+        }
+        skip(education.reason); return false
+      }
+      skip(result.reason)
+      console.log(`  최종 확인에서 건너뜀: ${x.row.title} — ${result.reason}`)
+      return false
+    })
+  }
+  const batch = entries.map((x) => x.row)
+  if (!batch.length) continue
+  seedAudit?.append('batch_start', i / 100, batch.map(row => row.source_id))
   const { error } = await db.from('library_articles').insert(batch)
   if (error) throw new Error(`적재 실패: ${error.message}`)
+  seedAudit?.append('batch_committed', i / 100, batch.map(row => row.source_id))
   wrote += batch.length
+}
+seedAudit?.append('run_complete')
+seedAudit?.close()
+console.log(`최종 재검증 건너뜀 ${stats.skipped - skippedBeforeCommit}편`)
+for (const [why, n] of Object.entries(reasons)) {
+  const finalCount = n - (reasonsBeforeCommit[why] ?? 0)
+  if (finalCount > 0) console.log(`  · ${why}: ${finalCount}건`)
 }
 console.log(`\n적재 완료 ${wrote}편`)
 console.log('이어서 확인할 것:')

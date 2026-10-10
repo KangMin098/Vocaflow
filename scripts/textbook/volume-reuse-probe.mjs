@@ -40,7 +40,7 @@ const db = createClient(
 )
 
 for (const band of BANDS) {
-  const vol = await loadVolume(db, { band, unitCount: UNITS })
+  const vol = await loadVolume(db, { band, unitCount: UNITS, validationNow: new Date().toISOString() })
   const units = vol.units ?? vol.composed ?? []
   if (!units.length) {
     console.log(`V${band} — 단원이 조합되지 않았다`)

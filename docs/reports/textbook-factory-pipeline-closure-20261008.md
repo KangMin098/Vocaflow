@@ -1,0 +1,45 @@
+# Textbook Factory pipeline implementation closure — 2026-10-08
+
+Scope: **design and implementation with synthetic evidence**. This report does not certify educational validity, real textbook admission, real Gold-S, production publication, or learner delivery. Rights remain a future input gate; obtaining permission is outside this goal.
+
+| Completion check | Implemented path and evidence |
+|---|---|
+| Common order, capability, source routing and revision impact | `packages/library-pipeline/src/textbook/factory-order.ts` seals Product Order and evidence, records P01–P20 support states, routes sources and computes downstream stale/invalidated impact. Planned families remain labelled `PLANNED`; they are not reported as supported. |
+| Single- and multi-grade lineage | `multi-grade-order.ts` binds child orders and per-grade evidence; `factory-lineage.mjs` checks ready child, promotion and item ancestry. Mixed order/revision evidence fails the synthetic factory tests. |
+| Benchmark to Gold-S/seed boundary | `frym-benchmark` two-stage seals, independent selection audit, current decision inspection, Gold-S certification and seed gates reject absent, stale or mixed evidence. Synthetic candidate tests never count as real calibration. |
+| Controlled `queued → ready` | `reading-promotion` preflight, development DB RPC and RLS restrict promotion, replay and bypass. Its DB smoke and failure injection use synthetic rows; real promoted reading content remains zero. |
+| `ready → item → explanation → review → unit → volume → render` | `factory-lineage.mjs`, `multi-grade-factory-dry-run.mjs` and `reading-promotion/preflight.test.mjs` carry the same order and per-grade evidence to HTML/manifest. Single- and multi-grade paths and changed item, explanation, review and unit fail closed. |
+| Atomic production and publish simulation | Approved development DB migration `20261008120000_reading_production_snapshot.sql` owns current evidence in one transactional capture; `atomic-production-snapshot.mjs` validates DB-owned item and explanation bytes, finalizes an exact output hash, and uses separate guarded publish/serve RPCs. Separate-session race and rollback evidence: `atomicity-closure-20261008.md`. |
+| Published artifact read | `GET /api/admin/csat/production/[snapshotId]` authenticates an administrator and invokes the DB's current-evidence `serve_reading_production_artifact` on each download. It verifies the returned HTML digest, prohibits caching and provides the HTML as a sandboxed attachment. No learner-facing route is claimed. |
+| Recovery and observability | Promotion and production RPCs reject stale/replayed requests; the atomic runner accepts explicit `dry-run` or `publish`. The dry-run CLI rejects an occupied output path before capture; a later file-write error attempts cleanup of only files it opened and reports any leftover path plus the consumed snapshot ID so an operator can issue a new approval. Existing `/admin/csat` screens show general factory-stage blockers, **not** Product Order-specific Gold-S, promotion or atomic snapshot blockers. Direct operator APIs are recorded in route audits. |
+
+Validation for the serving connection: focused API/orphan tests **15/15**; synthetic promotion/atomic preflight and output-failure injection **8/8**; `node agents/scripts/check.mjs` **11/11**; fresh `pnpm turbo run lint typecheck test` before the later CLI recovery fix **15/15 tasks**, web **4,034 passed / 250 skipped / 0 failed**. The first full run started before the route-audit exception was added and failed two orphan-route tests; the fresh rerun passed. The later CLI fix was verified by the focused tests and final review; it was not followed by another full web run.
+
+**Implementation scope:** the end-to-end synthetic pipeline and atomic publish-to-admin-download contract are connected. Per-order operational blocker visibility in the admin UI and automatic retry after post-finalization filesystem failure are not established; the latter requires a new approval, and neither is represented as complete here. **Operational state remains separate:** real Korean textbook benchmark corpus 0, calibration-eligible 0, Gold-S 0, DB seed 0, actual student N=0, `production_verified=false`. A future real-data run must pass current rights, benchmark, identity and approval gates before any operational claim; no such run is represented here.
+
+## Decision against the ten agreed completion checks
+
+| Check | Verdict | Boundary |
+|---|---|---|
+| Cross-stage connection | PASS: order, promotion, item/review and atomic renderer are exercised | Synthetic evidence |
+| Order/evidence lineage | PASS: mixed hashes and order revisions are rejected | Synthetic and development DB smoke |
+| Single/multi-grade E2E | PASS: both modes reach render, publish and serve in the focused synthetic preflight | Real-content E2E deferred |
+| Gold-S through publish states | PASS across contract boundaries: benchmark candidate, certificate and seed issuance are one synthetic fixture; promotion through publish/serve uses a separate signed-evidence fixture | No single raw-candidate-to-publication execution or actual issuance is claimed |
+| Stale, mixed, rights and revision gates | PASS: preflight, DB smoke and serve checks fail closed | Rights acquisition excluded |
+| Atomic snapshot to production | PASS: capture, output hash finalization, publish and guarded serving connect | Learner-facing delivery deferred |
+| Catalog/revision impact | PASS for runtime impact inspection: the atomic CLI compares sealed manifests and calls `planFactoryImpact`; DB freshness gates prevent stale production | Catalog state labels are not persisted |
+| Synthetic E2E and failure injection | PASS: signed synthetic evidence runs through single/multi-grade publication; candidate issuance is verified by a separate contract fixture | No real benchmark fit claimed |
+| Core stage/blocker observability | PASS for general `/admin/csat` stage blockers; per-order inspection is non-blocking for this scope | No per-order UI visibility claimed |
+| Failure recovery | PASS for fail-closed outcome and explicit consumed-snapshot recovery instructions | Automatic retry intentionally unsupported |
+
+**Verdict:** `Textbook Factory Pipeline Design & Implementation COMPLETE` for the agreed synthetic/code scope. The upstream benchmark-candidate-to-certificate contract and downstream signed-certificate-to-publication contract use separate fixtures; no single raw-candidate-to-publication execution is claimed. Runtime revision impact is read-only, while DB gates enforce current evidence at render/publish/serve. Persisted catalog stale labels and per-order admin inspection are non-blocking. Real rights, admission, calibration, Gold-S, seed and operational E2E remain deferred; `production_verified=false`.
+
+This is a pipeline-contract verdict, not a claim that every P01–P20 product capability is implemented. `PARTIAL` and `PLANNED` families remain correctly labelled in `PRODUCT_CAPABILITIES`. A factory that has produced and published a real eligible book is not yet complete; the operational result remains unverified.
+The optional `--previous-manifest` argument to `atomic-production-run.mjs` checks the prior manifest hash before DB capture, compares it to the newly rendered manifest, and emits a read-only `revision_impact` plan for source, passage, item, explanation, unit, volume and render. Source/rights changes propagate across grades; an item change affects its grade before invalidating the shared volume. The DB remains the authority for current evidence and publication. This diagnostic does not persist catalog states or authorize reuse of an older artifact.
+
+Final scoped verification: promotion-preview, reading-promotion preflight, atomic-runner recovery and revision-impact tests **17/17 passed**. Agent configuration **11/11 passed**. `pnpm turbo run lint typecheck test` reported **15/15 tasks from cache**; this is not a fresh full-suite rerun. Read-only cross-review found no remaining P1/P2 after the pre-capture validation and per-grade impact fixes.
+
+
+## 2026-10-09 관리자 주문 등록 경계
+
+/admin/csat/new의 기존 권별 재고·조판 계획 아래에 Product Order JSON 등록을 연결했다. 서버는 문서 전체를 검증하고 ID·revision·정본 hash만 인증된 관리자 RPC로 보낸다. 임의 hash 직접 입력 API는 제거했다. 이 등록은 주문 증거 경계이며 실제 Gold-S, seed, 승격, 생산이나 게시를 실행하지 않는다. 주문 문서 원본은 DB에 저장되지 않으므로 별도 보존이 필요하다. 기존 권별 계획값을 Product Order로 자동 변환하지는 않는다. 서로 다른 제품 모델을 추정해 합치면 잘못된 정책 hash와 타겟을 생성할 수 있기 때문이다.

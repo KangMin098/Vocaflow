@@ -361,3 +361,6 @@ pnpm turbo --version  # 2.9.6
 cat package.json | jq '.devDependencies, .dependencies'
 cat apps/web/package.json | jq '.dependencies, .devDependencies'
 ```
+
+교재 공장 공통 주문·출처 라우팅·증거 결속은 `./factory-order`, 브라우저 안전 상태→공정 대응은 `./factory-order-stage` export를 사용한다. 이 계약은 DB 쓰기나 Gold-S 발급 기능이 아니다.
+`@vocaflow/library-pipeline/multi-grade-order`는 기존 단일 학년 Product Order들을 하나의 복수 학년 제품 그룹으로 봉인하고 학년별 증거 및 단원 계보를 검증하는 패키지 서브패스다. `@vocaflow/library-pipeline/product-planning`은 구조화된 학년·목적·영역·기간 입력에서 결정적인 기획안/해시를 만들고, 운영자가 공급한 정책·타겟 문서와 일치할 때에만 Product Order에 기획 hash를 결속한다. `@vocaflow/library-pipeline/product-capability-status`는 P01~P20의 계약과 실제 합성 생산 검증 수준을 분리해 반환한다. 기획안과 capability 표기는 운영 증거가 아니다.

@@ -44,6 +44,9 @@ const ALLOWED_ORPHAN_PAGES = ['/hub-lab', '/join/[code]']
  * 여기 없는 새 고아가 생기면 둘 중 하나다: 부르는 곳을 안 붙였거나, 안 쓰는 것을 남겼거나.
  */
 const ALLOWED_ORPHAN_APIS = [
+  // Direct authenticated operator downloads and planning requests; neither has a UI caller yet.
+  '/api/admin/csat/production/[snapshotId]',
+  '/api/admin/csat/structural-planning',
   // Analysis redesign preserves the old answer-reveal API for existing clients.
   '/api/csat/session/reveal',
   '/api/acp/dev-enqueue',

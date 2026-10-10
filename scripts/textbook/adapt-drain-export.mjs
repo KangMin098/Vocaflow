@@ -38,29 +38,40 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
+import { pickFreeSlots, readReservedTasks } from './chunk-slots.mjs'
+import { adaptationKey, readTarget, readingTask, targetKey, readResearchOrigins, researchOriginForSource, readPreservationRules, preservationForSource, filterAdaptationSourceLevel } from './academic-reading-contract.mjs'
+import { readingDirectives, readingSourceRole, SOURCE_PRIORITIES } from '@vocaflow/library-pipeline/academic-reading'
 
 loadEnv()
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
   return i >= 0 ? process.argv[i + 1] : null
 }
-const BAND = arg('band') ?? 'elementary'
+const readingTarget = readTarget(arg('target'))
+const researchOrigins = readResearchOrigins(arg('research-origins'))
+const preservationRules = readPreservationRules(arg('preservation-rules'), arg('precision-review'))
+if (preservationRules && !readingTarget) throw new Error('--preservation-rules requires --target')
+const exportNow = Date.now()
+if (researchOrigins && !readingTarget) throw new Error('--research-origins requires --target')
+const BAND = readingTarget?.language_band ?? arg('band') ?? 'elementary'
 const SIZE = Number(arg('size') ?? 6)
 const LIMIT = Number(arg('limit') ?? 60)
+if (!Number.isInteger(SIZE) || SIZE < 1 || !Number.isInteger(LIMIT) || LIMIT < 1) throw new Error('size/limit must be positive integers')
 // 목표 단수가 지정되면 폴더도 갈라 둔다 — 1단 몫과 2단 몫이 한 폴더에 섞이면
 // import 가 어느 단으로 넣을지 청크마다 달라진다.
 const DIR = path.resolve(
-  arg('dir') ?? `scripts/textbook/adapt-drain/${BAND}${arg('v-level') ? `-v${arg('v-level')}` : ''}`,
+  arg('dir') ?? (readingTarget ? `scripts/textbook/adapt-drain/reading-${targetKey(readingTarget)}` : `scripts/textbook/adapt-drain/${BAND}${arg('v-level') ? `-v${arg('v-level')}` : ''}`),
 )
 
 const { createClient } = await import('@supabase/supabase-js')
 const { AUTHORED_VOCAB_BAND, GRADE_BANDS } = await import('@vocaflow/library-pipeline')
 
 /** 각색문의 어휘 대역 — import 가 이 자로 채점하므로 export 도 같은 값을 실어야 한다. */
-const SCHOOL = BAND === 'elementary' ? 'elementary' : 'middle'
-const VOCAB_BAND = AUTHORED_VOCAB_BAND[SCHOOL]
+const SCHOOL = ['elementary','middle'].includes(BAND) ? BAND : null
+const VOCAB_BAND = SCHOOL ? AUTHORED_VOCAB_BAND[SCHOOL] : null
 
-const spec = GRADE_BANDS[BAND]
+const baseSpec = GRADE_BANDS[BAND]
+const spec = readingTarget ? { ...baseSpec, words:readingTarget.words, directives:readingDirectives(readingTarget) } : baseSpec
 if (!spec) {
   console.error(`모르는 밴드: ${BAND}. 가능한 것: ${Object.keys(GRADE_BANDS).join(' · ')}`)
   process.exit(1)
@@ -76,7 +87,7 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
  * `cc_by_sa` 는 뺀다 — 파생물도 같은 조건으로 공유해야 하는데 우리 서가의 이용 약관이
  * 그것을 감당하는지 확인되지 않았다. **모르는 채로 쓰는 것보다 빼는 편이 싸다.**
  */
-const ADAPTABLE = ['cc_by', 'cc0', 'public_domain']
+const ADAPTABLE = ['cc_by', 'cc0', 'public_domain', ...(readingTarget?.share_alike ? ['cc_by_sa'] : [])]
 
 /**
  * **우리가 쓴 글(`source='original'`)은 각색 대상이 아니다.**
@@ -132,7 +143,7 @@ const REGISTER_EXCLUDE = {
  *    그래서 1단에 22편을 써 넣고도 **어느 책에도 한 줄이 안 들어갔다.**
  *    필요한 단을 `--v-level` 로 지정한다.
  */
-const TARGET_V = Number(arg('v-level') ?? spec.vRange.min)
+const TARGET_V = readingTarget?.passage_v_level ?? Number(arg('v-level') ?? spec.vRange.min)
 if (!(TARGET_V >= spec.vRange.min && TARGET_V <= spec.vRange.max)) {
   console.error(
     `--v-level ${TARGET_V} 는 ${spec.label} 밴드(V${spec.vRange.min}~V${spec.vRange.max}) 밖이다.`,
@@ -141,7 +152,7 @@ if (!(TARGET_V >= spec.vRange.min && TARGET_V <= spec.vRange.max)) {
 }
 
 /** 원본은 목표보다 위에 있어야 한다 — 같은 레벨을 '쉬운 판' 이라 부를 수 없다. */
-const SOURCE_MIN_LEVEL = spec.vRange.max + 1
+const SOURCE_MIN_LEVEL = readingTarget ? 0 : spec.vRange.max + 1
 
 async function fetchAll(table, columns, filter) {
   const rows = []
@@ -160,12 +171,13 @@ async function fetchAll(table, columns, filter) {
 
 // 이미 각색본이 달린 원본 — 건너뛴다.
 const already = new Set(
-  (await fetchAll('library_articles', 'id, adapted_from_id', (q) => q.not('adapted_from_id', 'is', null)))
+  (await fetchAll('library_articles', 'id, adapted_from_id, article_v_level, source_id', (q) => q.not('adapted_from_id', 'is', null)))
+    .filter(r => readingTarget ? r.source_id === adaptationKey(r.adapted_from_id,readingTarget) : r.article_v_level === TARGET_V && !r.source_id?.startsWith('reading:'))
     .map((r) => r.adapted_from_id)
     .filter(Boolean),
 )
 
-const excludeRegisters = REGISTER_EXCLUDE[BAND] ?? []
+const excludeRegisters = readingTarget ? [] : REGISTER_EXCLUDE[BAND] ?? []
 /**
  * ⚠️ **본문(`content`)을 여기서 끌어오지 않는다.**
  *
@@ -179,13 +191,19 @@ const excludeRegisters = REGISTER_EXCLUDE[BAND] ?? []
  */
 const sources = await fetchAll(
   'library_articles',
-  'id, title, source, feed_label, license, license_class, article_v_level, word_count, source_url, register',
+  'id, source_id, title, source, feed_label, license, license_class, article_v_level, word_count, source_url, register',
   (q) => {
     let x = q
       .in('license_class', ADAPTABLE)
       .not('source', 'in', `(${NOT_ADAPTABLE_SOURCES.join(',')})`)
-      .gte('article_v_level', SOURCE_MIN_LEVEL)
       .eq('display_only', false)
+      .eq('copyright_safe_in_kr', true)
+      .is('adapted_from_id', null)
+      .not('status', 'in', '(archived,failed)')
+    x = filterAdaptationSourceLevel(x, SOURCE_MIN_LEVEL, Boolean(preservationRules))
+    if (arg('source')) x = x.eq('source',arg('source'))
+    if (researchOrigins) x = x.in('id', [...researchOrigins.keys()])
+    if (preservationRules) x = x.in('id', [...preservationRules.keys()])
     // `register` 가 비어 있는 글은 막지 않는다 — 판정된 적이 없는 것과 부적합한 것은 다르다.
     if (excludeRegisters.length) x = x.or(`register.is.null,register.not.in.(${excludeRegisters.join(',')})`)
     return x
@@ -195,7 +213,8 @@ const sources = await fetchAll(
 // 길이는 `word_count` 로 본다 — **본문을 안 읽고 같은 것을 묻는다.**
 // `word_count` 가 비어 있으면 거르지 않는다: 안 잰 것과 짧은 것은 다르다.
 //   (본문을 가져온 뒤 실제 길이로 한 번 더 거른다 — §아래)
-const usable = sources.filter((r) => !already.has(r.id) && (r.word_count == null || r.word_count >= 120))
+const reserved = readReservedTasks(DIR,row => (readingTarget ? row.reading?.target_key === targetKey(readingTarget) : !row.reading && row.target_band === BAND && row.target_v_level === TARGET_V) ? row.adapted_from_id : null)
+const usable = sources.filter((r) => !already.has(r.id) && !reserved.has(r.id) && (r.word_count == null || r.word_count >= (readingTarget ? 20 : 120)) && (!readingTarget || ['generation','age_anchor'].includes(readingSourceRole(r.source))))
 
 // 한 피드에 쏠리면 서가가 한 색이 된다 — 피드를 돌아가며 뽑는다.
 const byFeed = new Map()
@@ -204,7 +223,11 @@ for (const r of usable) {
   if (!byFeed.has(k)) byFeed.set(k, [])
   byFeed.get(k).push(r)
 }
-const feeds = [...byFeed.keys()].sort()
+const priority = readingTarget ? SOURCE_PRIORITIES[readingTarget.age_band] : []
+const feeds = [...byFeed.keys()].sort((a,b) => {
+  const rank = feed => { const i = priority.indexOf(byFeed.get(feed)[0].source); return i < 0 ? priority.length : i }
+  return rank(a) - rank(b) || a.localeCompare(b)
+})
 
 /**
  * 피드마다 **몇 번째부터** 뽑을지. 기본 0.
@@ -234,22 +257,24 @@ for (let i = OFFSET; picked.length < LIMIT; i++) {
 const bodyById = new Map()
 for (let i = 0; i < picked.length; i += 100) {
   const ids = picked.slice(i, i + 100).map((r) => r.id)
-  const { data, error } = await db.from('library_articles').select('id, content').in('id', ids)
+  const { data, error } = await db.from('library_articles').select('id, content, updated_at, csat_fit').in('id', ids)
   if (error) throw new Error('본문 조회 실패: ' + error.message)
-  for (const d of data) bodyById.set(d.id, d.content ?? '')
+  for (const d of data) bodyById.set(d.id, d)
 }
 
 // 실제 길이로 한 번 더 거른다 — `word_count` 가 없거나 낡았을 수 있다.
 // **여기서 빠진 만큼 청크가 작아진다**(조용히 채워 넣지 않는다 — 그러면 몫이 어긋난다).
 const dropped = []
 const withBody = picked.filter((r) => {
-  const c = bodyById.get(r.id) ?? ''
+  const body = bodyById.get(r.id)
+  const c = body?.content ?? ''
   const w = (c.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
-  if (w < 120) { dropped.push({ id: r.id, words: w }); return false }
-  r.content = c
+  if (w < (readingTarget ? 20 : 120)) { dropped.push({ id: r.id, words: w }); return false }
+  if (readingTarget && (['reject','discard'].includes(body?.csat_fit?.gate?.verdict) || body?.csat_fit?.gate?.retain?.verdict === 'discard')) { dropped.push({ id:r.id, reason:'content rejected' }); return false }
+  Object.assign(r,body)
   return true
 })
-if (dropped.length) console.log(`  · 본문이 120어 미만이라 뺀 원본 ${dropped.length}편`)
+if (dropped.length) console.log(`  · 본문 부족 또는 내용 반려로 뺀 원본 ${dropped.length}편`)
 
 /**
  * **각색해도 살아남을 새 낱말이 몇 개인가** — 소재 진단.
@@ -323,6 +348,8 @@ fs.mkdirSync(DIR, { recursive: true })
 const chunks = []
 for (let i = 0; i < withBody.length; i += SIZE) chunks.push(withBody.slice(i, i + SIZE))
 
+fs.mkdirSync(DIR, { recursive:true })
+const slots = pickFreeSlots(fs.readdirSync(DIR),chunks.length)
 for (const [n, chunk] of chunks.entries()) {
   const rows = chunk.map((r) => ({
     adapted_from_id: r.id,
@@ -336,13 +363,13 @@ for (const [n, chunk] of chunks.entries()) {
     note: spec.note,
     // **어휘 대역** — 이 청크를 채우는 사람이 숫자를 봐야 한 바퀴에 붙는다.
     //   대역을 안 주고 "쉽게" 라고만 하면 시중보다 훨씬 쉬운 글이 나온다(실측: 시중 자리 16.9).
-    vocabulary_band: {
+    vocabulary_band: VOCAB_BAND ? {
       outside_pct_min: VOCAB_BAND.minOutsidePct,
       outside_pct_max: VOCAB_BAND.maxOutsidePct,
       how: '내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율',
       why: '시중 ' + (SCHOOL === 'elementary' ? '초등' : '중등') + ' 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다',
       note: 'import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다',
-    },
+    } : null,
     source_title: r.title,
     // ⚠️ 각색본은 원본의 `source` 를 **그대로 이어받는다.** `library_articles_source_check` 가
     //    실제 피드만 허용하기도 하고, 각색해도 저작권 귀속은 원 발행처이기 때문이다.
@@ -352,6 +379,7 @@ for (const [n, chunk] of chunks.entries()) {
     source_v_level: r.article_v_level,
     source_url: r.source_url,
     source_text: r.content,
+    ...(readingTarget ? { reading: readingTask(r, readingTarget, researchOriginForSource(r, researchOrigins, exportNow), preservationForSource(r, preservationRules)) } : {}),
     // **각색해도 살아남을 새 낱말의 밀도** — 낮으면 그 원문은 대역에 못 든다(§위).
     //   게이트가 아니라 신호다. 낮으면 건너뛰고 다른 원문을 쓰는 편이 낫다.
     //   실측 참고: 끝내 반려된 원문 8.4% · 붙은 원문 34~41%.
@@ -360,7 +388,7 @@ for (const [n, chunk] of chunks.entries()) {
     title: '',
     text: '',
   }))
-  fs.writeFileSync(path.join(DIR, `chunk-${String(n).padStart(2, '0')}.json`), `${JSON.stringify(rows, null, 2)}\n`)
+  fs.writeFileSync(path.join(DIR, `chunk-${slots[n]}.json`), `${JSON.stringify(rows, null, 2)}\n`, { flag:'wx' })
 }
 
 console.log(
@@ -368,12 +396,14 @@ console.log(
     `(밴드 V${spec.vRange.min}~${spec.vRange.max} · ${spec.cefrj.join('/')})`,
 )
 console.log(`  규격  ${spec.words.min}~${spec.words.max}어 · 평균 문장 ${spec.avgSentenceWords}어`)
-console.log(`  각색 가능 라이선스 원본  ${sources.length}편 (V${SOURCE_MIN_LEVEL} 이상 · ${ADAPTABLE.join('/')})`)
+console.log(`  각색 가능 라이선스 원본  ${sources.length}편 (${preservationRules ? '정밀 검토 범위 · VRL 미측정 유지' : `V${SOURCE_MIN_LEVEL} 이상`} · ${ADAPTABLE.join('/')})`)
 if (excludeRegisters.length) {
   console.log(`  소재로 안 맞는 성격 제외  ${excludeRegisters.join('/')} — 이 밴드의 지시문이 제도·쟁점을 금한다`)
 }
-console.log(`  그중 본문이 충분한 것  ${usable.length}편 · 이미 각색된 원본 ${already.size}편은 뺐다`)
+console.log(`  후보 ${usable.length}편 · 이 target에 이미 적재 ${already.size}편 · 청크에 예약 ${reserved.size}편`)
 console.log(`  피드 ${feeds.length}종에서 돌아가며 뽑음 → **${picked.length}편** · 청크 ${chunks.length}개 (${SIZE}편씩)\n`)
 console.log(`  ${DIR}/chunk-NN.json`)
 console.log('  각 항목의 title·text 를 목표 학령으로 다시 써서 chunk-NN.out.json 으로 저장하면')
-console.log('  adapt-drain-import.mjs 가 게이트를 돌려 서가에 넣는다.\n')
+console.log(readingTarget
+  ? '  adapt-review-export.mjs --dir <위 폴더>로 Claude Code·Codex 독립 검수 파일을 만든다. 두 검수 통과 뒤 adapt-drain-import.mjs가 게이트를 돌린다.\n'
+  : '  adapt-drain-import.mjs 가 게이트를 돌려 서가에 넣는다.\n')

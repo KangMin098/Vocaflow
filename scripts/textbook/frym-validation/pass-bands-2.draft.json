@@ -1,0 +1,62 @@
+{
+  "design_version": 2,
+  "status": "draft_for_human_review",
+  "study_purpose": "calibration",
+  "dataset": "FYM four pairs, middle_1/high_1 eight variants",
+  "not_a_v1_cli_protocol": true,
+  "expert_design": {
+    "scale_points": 4,
+    "minimum_independent_reviewers": 2,
+    "minimum_final_item_score_proposal": 3,
+    "critical_dimensions": ["claim", "relation", "scope", "epistemic_strength"],
+    "any_critical_rejects_current_version": true,
+    "disagreement_requires_third_independent_adjudicator": true,
+    "anchors_and_criteria_approved_by": null,
+    "prior_exposure_screening_rules": null
+  },
+  "student_design": {
+    "per_grade_recruitment_range": {"min": 15, "max": 30},
+    "per_grade_target_proposal": 24,
+    "minimum_valid_students_per_grade_proposal": 15,
+    "minimum_complete_sessions_per_variant_proposal": 15,
+    "session_count": null,
+    "assignment_manifest_hash": null,
+    "inclusion_exclusion_missingness_rules": null
+  },
+  "pass_bands": {
+    "middle_1": {
+      "reading_seconds": null,
+      "comprehension_accuracy": null,
+      "lexical_accuracy": null,
+      "syntax_accuracy": null,
+      "reasoning_accuracy": null,
+      "unknown_word_fraction": null,
+      "lexical_burden": null,
+      "sentence_burden": null,
+      "reasoning_burden": null,
+      "perceived_difficulty": null
+    },
+    "high_1": {
+      "reading_seconds": null,
+      "comprehension_accuracy": null,
+      "lexical_accuracy": null,
+      "syntax_accuracy": null,
+      "reasoning_accuracy": null,
+      "unknown_word_fraction": null,
+      "lexical_burden": null,
+      "sentence_burden": null,
+      "reasoning_burden": null,
+      "perceived_difficulty": null
+    }
+  },
+  "band_rationale_by_grade": {"middle_1": null, "high_1": null},
+  "registration": {
+    "human_lead_id": null,
+    "registered_at": null,
+    "artifact_manifest_hash": null,
+    "registration_evidence": null
+  },
+  "calibration_eligible_for_gold": false,
+  "calibration_validation_overlap_policy": null,
+  "cross_topic_cross_source_replication_protocol": null
+}

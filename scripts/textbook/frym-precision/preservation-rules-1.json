@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "assessment_state": "observer_judgment",
+  "review_hash": "f79cd2adc2af4373f3a39b3872ed853a19661e2a9785292576d37ecd86585cdb",
+  "entries": [
+    {
+      "pair_id": "F02",
+      "alignment_id": "F02-A1",
+      "source_id": "80b57391-d511-4134-b8aa-8a22fe3f2ebc",
+      "source_key": "frym-full:10.3389/frym.2021.548120",
+      "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2021.548120/full",
+      "source_revision": "2026-09-25T08:00:41.071424+00:00",
+      "source_hash": "be013e6a1cafece83b78f84a8de7ef31a578842000cce580dccea11caccda4dd",
+      "original_work_id": "10.3389/fpsyg.2019.02246",
+      "research_hash": "e94874a27bd1d9681d7a9b127ceba3ad5543f516e6a112aaa9756fe12a817fd0",
+      "research_quote": "This qualitative difference renders conclusions about the absolute importance",
+      "source_quote": "each sense is of crucial importance",
+      "rules": [
+        {
+          "id": "F02-functions",
+          "kind": "functional_difference",
+          "must_preserve": "Keep the different functions of vision and touch and the conclusion that these differences do not establish one absolutely most important sense.",
+          "allowed_changes": "Replace abstract classifications with seeing a destination and feeling body position; split sentences without turning either sense into a universal winner."
+        }
+      ]
+    },
+    {
+      "pair_id": "F06",
+      "alignment_id": "F06-A1",
+      "source_id": "f9bec756-fb3d-4ebc-a92d-7ba3939288a4",
+      "source_key": "frym-full:10.3389/frym.2022.701688",
+      "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2022.701688/full",
+      "source_revision": "2026-09-25T08:02:58.698421+00:00",
+      "source_hash": "76be1481d7963acfd608b0f8c6f3c5e6b86743149780880b09c5e298d8e37e5c",
+      "original_work_id": "10.3389/fsufs.2020.562513",
+      "research_hash": "1967438c75cfd766988af58669470901d4b23faff36060377a47631d325b672d",
+      "research_quote": "maintenance of genetic biodiversity and offering habitat for species",
+      "source_quote": "provide shelter for birds and beneficial insects",
+      "rules": [
+        {
+          "id": "F06-habitat",
+          "kind": "scope",
+          "must_preserve": "Keep habitat provision and biodiversity as a possible function of urban agriculture; the original review covers Global North projects, not a guaranteed benefit for every garden worldwide.",
+          "allowed_changes": "Explain habitat as a place for birds and beneficial insects; define biodiversity in plain words. Omit unrelated health and food-safety claims; retain possibility and the review scope."
+        }
+      ]
+    },
+    {
+      "pair_id": "F14",
+      "alignment_id": "F14-A1",
+      "source_id": "51bc25a7-73a2-43ec-9564-dc00a370e0e6",
+      "source_key": "frym-full:10.3389/frym.2026.1598115",
+      "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1598115/full",
+      "source_revision": "2026-09-25T07:59:55.445109+00:00",
+      "source_hash": "ba2867fefb9b5d238bfff7836ec535c99c78be51cb9dbdea11d5527902c1006a",
+      "original_work_id": "10.1016/j.lanepe.2023.100733",
+      "research_hash": "0fde58429ca93563e1c909b9cb572347fb44a3d8d06abf6552ef0631cc8b010c",
+      "research_quote": "associations were strongest for having a significant person admitted to the ICU",
+      "source_quote": "largest increase in risk",
+      "rules": [
+        {
+          "id": "F14-severity",
+          "kind": "comparison",
+          "must_preserve": "Keep the stronger association of hospitalized or ICU COVID-19 in a significant person with respondents reporting severe depressive/anxiety symptoms. Describe group comparisons, not an increase within every person over time, clinical diagnosis or proven causation. Do not rank ICU above the deceased group.",
+          "allowed_changes": "Explain significant person as family or friend and ICU as intensive care. Omit numerical ratios and model details together; keep symptoms, observational limits and European study scope."
+        }
+      ]
+    },
+    {
+      "pair_id": "F18",
+      "alignment_id": "F18-A1",
+      "source_id": "bd26d95e-88ad-46a3-ad48-46f7dcb624a7",
+      "source_key": "frym-full:10.3389/frym.2026.1635652",
+      "source_url": "https://kids.frontiersin.org/articles/10.3389/frym.2026.1635652/full",
+      "source_revision": "2026-09-25T08:01:57.845553+00:00",
+      "source_hash": "d5446e18cb1f328a8027ab890c5e40bb774cc8c878d0fcb19475c5a9e7f55079",
+      "original_work_id": "10.1098/rspb.2024.2301",
+      "research_hash": "4ddf410786c3f64382bb3869991a926b0422d9b3cb8017f85e5f269aa203f33f",
+      "research_quote": "a positive correlation between ovariole number and aggression",
+      "source_quote": "We cannot say that ovarioles cause females to fight",
+      "rules": [
+        {
+          "id": "F18-species",
+          "kind": "association",
+          "must_preserve": "Keep the positive association across the eight studied fruit-fly species between ovariole number and headbutting aggression. A species pattern is not a prediction for every individual and does not show that ovarioles cause fighting.",
+          "allowed_changes": "Define ovarioles as egg-producing structures. Explain correlation as two features varying together; omit exact statistical coefficients without adding causal certainty or universal AI performance."
+        }
+      ]
+    }
+  ]
+}

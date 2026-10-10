@@ -20,6 +20,8 @@
 //   `__tests__/factory-model.test.ts` 가 파일 존재를 실측으로 확인한다. 없는 명령을 적으면
 //   관리자가 터미널에서 막히고, 그때부터 이 화면을 안 믿는다.
 
+import { FACTORY_STATE_STAGE, type FactoryState } from '@vocaflow/library-pipeline/factory-order-stage'
+
 /** 공정 한 칸. 순서는 `FACTORY_STAGES` 의 배열 순서가 정본이다. */
 export type StageId =
   | 'evidence'
@@ -298,6 +300,13 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     href: '/admin/csat/catalog',
   },
 ] as const
+
+/** 제품 주문의 증거 상태가 기존 공장의 어느 칸에 속하는지. 수치나 통과 상태는 추정하지 않는다. */
+export function stageForFactoryOrderState(state: FactoryState): StageDef {
+  const stage = FACTORY_STAGES.find(def => def.id === FACTORY_STATE_STAGE[state])
+  if (!stage) throw new Error(`factory stage missing for order state: ${state}`)
+  return stage
+}
 
 /** 실측이 붙은 공정 한 칸 — 화면이 받는 모양. */
 export interface StageState {

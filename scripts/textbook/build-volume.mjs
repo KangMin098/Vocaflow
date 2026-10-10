@@ -36,6 +36,7 @@ const BAND = Number(arg('band') ?? 6)
 // 어느 시리즈의 권인가. 기본은 독해 — 옛 명령이 그대로 돈다.
 const SERIES = arg('series') ?? 'reading'
 const UNITS = Number(arg('units') ?? 20)
+const PRODUCT_ORDER_ID = arg('product-order')
 
 const { createClient } = await import('@supabase/supabase-js')
 const { scoreVolume, rungMix, typeMixFit } = await import('@vocaflow/library-pipeline')
@@ -48,9 +49,11 @@ const db = createClient(
 
 // **풀을 다시 만들지 않는다.** 조판(`render-volume.mjs`)·해설 드레인과 같은 한 벌을 쓴다.
 const { units, stoppedBecause, rejected, pool, articles, mix } = await loadVolume(db, {
+  validationNow: new Date().toISOString(),
   band: BAND,
   unitCount: UNITS,
   seriesId: SERIES,
+  productOrderId: PRODUCT_ORDER_ID,
   // 재고가 큰 밴드는 전부 받으면 statement timeout 이 난다(V6 원글 11,831편 · 문항 228,832건).
   // 한 권은 서로 다른 글 120편이면 되므로 고르게 흩어 자를 수 있다 — 기본은 무제한이다.
   maxArticles: arg('articles') ? Number(arg('articles')) : null,

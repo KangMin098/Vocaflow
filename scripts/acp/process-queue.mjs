@@ -65,6 +65,12 @@ export function applyShard(rows, shard) {
   return rows.filter((r) => shardIndexOf(r.id, shard.count) === shard.index)
 }
 
+// Reading adaptations have their own signed promotion path. Generic ACP
+// normalization must never turn their queued rows into ready rows.
+export function excludeReadingAdaptations(rows) {
+  return rows.filter(row => !String(row.source_id ?? '').startsWith('reading:'))
+}
+
 /** `--shard 0/4` → `{ index: 0, count: 4 }`. 인자가 없으면 null. */
 export function parseShardArg(argv) {
   const i = argv.indexOf('--shard')
@@ -215,7 +221,7 @@ async function main() {
     await new Promise((r) => setTimeout(r, 100))
     process.exit(code)
   }
-  let list = queued ?? []
+  let list = excludeReadingAdaptations(queued ?? [])
   if (narrativeOnly) {
     const before = list.length
     list = list.filter((a) => looksNarrative(String(a.content ?? '')))

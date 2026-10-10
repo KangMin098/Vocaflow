@@ -16,6 +16,24 @@
 // 고침은 지우는 쪽이 아니라 **고르는 쪽**이다. `.out.json` 은 적재 기록이자 재실행 안전의
 // 근거라 지우면 안 된다 — 대신 그 번호를 **임자 있는 번호로 친다.**
 
+import fs from 'node:fs'
+import path from 'node:path'
+
+/** 입력·완료 결과를 모두 읽고 보존한다. 깨진 예약은 새 몫으로 덮지 않는다. */
+export function readReservedTasks(dir, keyOf) {
+  const reserved = new Set()
+  if (!fs.existsSync(dir)) return reserved
+  for (const file of fs.readdirSync(dir).filter(f => slotOf(f) !== null)) {
+    const rows = JSON.parse(fs.readFileSync(path.join(dir,file),'utf8'))
+    if (!Array.isArray(rows)) throw new Error(`청크 배열이 아니다: ${file}`)
+    for (const row of rows) {
+      const key = keyOf(row)
+      if (key != null) reserved.add(String(key))
+    }
+  }
+  return reserved
+}
+
 /** 청크 파일 이름에서 번호를 읽는다. 청크가 아니면 null. */
 export function slotOf(filename) {
   const m = /^chunk-(\d+)(?:\.out)?\.json$/.exec(filename)

@@ -140,7 +140,7 @@ describe('열쇠 — 목록기와 적재기가 같은 것을 만든다', () => {
         })
       }
       return htmlResponse(
-        `<html><body><div class="fulltext-content">` +
+        `<html><head><meta property="og:url" content="https://kids.frontiersin.org/articles/${DOI}/full"></head><body><div class="fulltext-content">` +
           `<p>${'Vampire bats are the only mammals that feed entirely on blood and they can run. '.repeat(90)}</p>` +
           `</div></body></html>`,
       )

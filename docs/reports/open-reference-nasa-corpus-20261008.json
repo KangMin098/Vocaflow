@@ -1,0 +1,92 @@
+{
+  "schema": "open-reference-corpus/1",
+  "status": "admitted_uncalibrated",
+  "cohort": "open_reference",
+  "count": 1,
+  "selection_rules_hash": "4f746a7a8f1ed00e77e9493b65e838ab23a26e0c4bdbbd5b6e020dd467c0e5a6",
+  "screening_hash": "cd705f26654781d7972012f2996a2398dd79168dc8beb542fdb4ef9130540df1",
+  "manifest_hash": "67419e0fa3671fbbe65e3d7d39cf511d4470dbe8cdb9516a1bb27abe8fc3f96e",
+  "references": [
+    {
+      "sample_id": "open:nasa:EP-2020-04-519-HQ:quadcopter-reader:q1-3",
+      "cohort": "open_reference",
+      "grade_scope": {
+        "mode": "grade_range",
+        "grades": [
+          "elementary_6",
+          "middle_1",
+          "middle_2"
+        ]
+      },
+      "passage_hash": "325815c412bf974145560723f312ae90fb232e9ce8dfe7d2e4c5f66f026e967a",
+      "admission_receipt_hash": "c9dd4a6865acb2cbaa341174210c41ce523247e00bf5cdd9b188ec2b0814796f",
+      "codebook_hash": "bec9964f196d941d80fd598df3cd96f204e290429648ba8e579a0e560ba9606f",
+      "rights_basis": "nasa_analysis_reviewed",
+      "publisher": "NASA",
+      "series": "Advanced Air Mobility STEM Learning",
+      "genre": "expository",
+      "grade_label_system": "US",
+      "korean_equivalence": "unverified",
+      "rater_independence": "same_model_family_separate_calls",
+      "calibration_eligible": false,
+      "word_count": 524,
+      "metrics": {
+        "lexical": 2,
+        "syntax": 2,
+        "information_density": 2,
+        "discourse": 2,
+        "inference": 2,
+        "background_knowledge": 2,
+        "abstraction": 2,
+        "item_difficulty": 2,
+        "processing_load": 1
+      },
+      "item_type_difficulty": {
+        "causal_explanation": 2
+      }
+    }
+  ],
+  "admission_receipts": [
+    {
+      "schema": "benchmark-reference-admission/1",
+      "cohort": "open_reference",
+      "candidate_id": "open:nasa:EP-2020-04-519-HQ:quadcopter-reader:q1-3",
+      "grade_scope": {
+        "mode": "grade_range",
+        "grades": [
+          "elementary_6",
+          "middle_1",
+          "middle_2"
+        ]
+      },
+      "file_hash": "d1fe5133ce0636cfd1f995176fdfb9c05e3e8df7d863970acf64a8a76611fbd7",
+      "source_path_hash": "97c43ac8f670623e084ced083a155b3407a4ea06ea8df0614edd0006eb88e543",
+      "evidence_hash": "4b3e0b59cb06fc448438f7bc1df7cf04c577ab2a10e8619835e562fcb2724830",
+      "rules_hash": "4f746a7a8f1ed00e77e9493b65e838ab23a26e0c4bdbbd5b6e020dd467c0e5a6",
+      "screening_hash": "cd705f26654781d7972012f2996a2398dd79168dc8beb542fdb4ef9130540df1",
+      "manifest_hash": "67419e0fa3671fbbe65e3d7d39cf511d4470dbe8cdb9516a1bb27abe8fc3f96e",
+      "analysis_hash": "c0e8e559ed46a3dc8563dcf7a87383d7809177ba929aafc0a75c20d15fc9454d",
+      "codebook_hash": "bec9964f196d941d80fd598df3cd96f204e290429648ba8e579a0e560ba9606f",
+      "measurement_contract_hash": "9d3b80af65e285bd8cbbf61780e176e87dcc237601c44492671a57a75facefdd",
+      "passage_hash": "325815c412bf974145560723f312ae90fb232e9ce8dfe7d2e4c5f66f026e967a",
+      "item_set_hash": "af5ad4a231c332c524b44a93a3d8d7599e42959f4855114f68d58a44e4e8e392",
+      "scoring_key_hash": "07e1d77478a1dab3ab90660006f2039efc25f15c63be3286efd22a4f1cbb83f5",
+      "grade_source_hash": "0a4ee9fe021d3214690f850738134079e406261e7c3e32688f23cb4b496ea708",
+      "scoring_source_hash": "0a4ee9fe021d3214690f850738134079e406261e7c3e32688f23cb4b496ea708",
+      "grade_label_system": "US",
+      "catalog_grades_observed": [
+        "elementary_5",
+        "elementary_6",
+        "middle_1",
+        "middle_2"
+      ],
+      "primary_grade_anchor": "educator_guide",
+      "catalog_grade_discrepancy": "tag_broader_than_guide",
+      "korean_equivalence": "unverified",
+      "public_domain_basis": "nasa_employee_work_text_only",
+      "rights_policy_url": "https://nodis3.gsfc.nasa.gov/displayCA.cfm?Internal_ID=N_PR_2200_002C_&page_name=Chapter4",
+      "rater_independence": "same_model_family_separate_calls",
+      "calibration_eligible": false
+    }
+  ]
+}

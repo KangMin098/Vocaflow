@@ -193,7 +193,7 @@ if (BAND != null || ALL_BANDS) {
   const per = []
   const printed = []
   for (const b of bands) {
-    const v = await loadVolume(supabase, { band: b, unitCount: MARKET_UNITS_PER_BOOK.median })
+    const v = await loadVolume(supabase, { band: b, unitCount: MARKET_UNITS_PER_BOOK.median, validationNow: new Date().toISOString() })
     for (const u of v.units) for (const it of u.items) printed.push(it)
     unitCount += v.units.length
     per.push(`V${b} ${v.itemIds.size}`)

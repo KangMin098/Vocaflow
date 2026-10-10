@@ -25,6 +25,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv, loadVolume } from './volume-pool.mjs'
+import { verifyCurrentItemLineages } from './factory-lineage.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -40,7 +41,8 @@ const SIZE = Number(arg('size') ?? 10)
  * 완비된 책이 하나 있어야 시중 교재와 정면으로 비교되고, 평가 요소 중 사람이 봐야 하는
  * 셋(오답 매력도·레벨 신뢰·소재 적합성)도 그때 판정된다.
  */
-const VOLUME_UNITS = arg('volume') ? Number(arg('volume')) : null
+const PRODUCT_ORDER_ID = arg('product-order')
+const VOLUME_UNITS = arg('volume') ? Number(arg('volume')) : PRODUCT_ORDER_ID ? 20 : null
 /**
  * 청크를 둘 자리.
  *
@@ -71,6 +73,8 @@ if (VOLUME_UNITS) {
   // 실린 책이 달라진다(위 드리프트 경고 그대로다). 2026-08-30 부터 둘 다 기본 켬이고
   // `--no-market-mix` 로만 끈다.
   const { pool, itemIds } = await loadVolume(db, {
+    validationNow: new Date().toISOString(),
+    productOrderId: PRODUCT_ORDER_ID,
     band: BAND,
     unitCount: VOLUME_UNITS,
     marketMix: !process.argv.includes('--no-market-mix'),
@@ -257,6 +261,12 @@ for (const r of rows) {
   )
 }
 
+const selectedItems = new Map(rows.map(row => [row.id, row]))
+await verifyCurrentItemLineages(db, tasks.map(task => selectedItems.get(task.id)), new Date().toISOString())
+for (const task of tasks) {
+  const lineage = selectedItems.get(task.id)?.payload?.factory_lineage
+  if (lineage) task.factory_lineage = lineage
+}
 fs.mkdirSync(DIR, { recursive: true })
 // 이전 청크를 남겨 두면 다음 드레인이 낡은 것을 다시 읽는다.
 // ── 앞 회차를 **한 벌로** 치운다 ────────────────────────────────────

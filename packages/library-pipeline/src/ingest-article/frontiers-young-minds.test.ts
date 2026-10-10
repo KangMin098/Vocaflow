@@ -190,7 +190,7 @@ const CONTAINER =
   '<div class="size size-small fulltext-content">\r\n            \n<!-- Full Text -->\n' +
   `${ABSTRACT_BLOCK}\n${FIRST_SECTION}\n${FIGURE_BLOCK}\n${SECOND_SECTION}\n${BACK_MATTER}\n</div>`
 
-const PAGE = `<html><body>${CHROME_BEFORE}${CONTAINER}${CHROME_AFTER}</body></html>`
+const PAGE = `<html><head><meta property="og:url" content="https://kids.frontiersin.org/articles/10.3389/frym.2026.1699332/full"></head><body>${CHROME_BEFORE}${CONTAINER}${CHROME_AFTER}</body></html>`
 
 describe('FrYM 본문 — 컨테이너를 잡는다', () => {
   it('`fulltext-content` 안쪽만 떼어 낸다 — 페이지 껍데기가 지문에 새지 않는다', () => {
@@ -404,6 +404,17 @@ afterEach(() => {
 })
 
 describe('FrYM 적재 — 메타는 Crossref · 본문은 /full', () => {
+  it('원 연구 DOI를 본문 밖에 보존하고 본문·라이선스를 유지한다', async () => {
+    vi.stubGlobal('fetch', mockFetch({
+      'api.crossref.org': { status: 200, body: JSON.stringify(CROSSREF_WORK) },
+      'kids.frontiersin.org': { status: 200, body: LONG_PAGE.replace('SOURCEART_SENTINEL Rossi, G. S., and Welch, K. C. 2024.', 'Rossi and Welch 2024. Original research. doi: 10.1000/bats.123') },
+    }))
+    const article = await ingestFrymArticle('https://doi.org/10.3389/frym.2026.1699332')
+    expect(article.research_origin?.relations[0]?.original_work_id).toBe('10.1000/bats.123')
+    expect(article.content).not.toContain('10.1000/bats.123')
+    expect(article.content).toBe(frymFullTextContent(LONG_PAGE))
+    expect(article.license).toBe('CC-BY-4.0')
+  })
   it('제목·DOI·발행일·라이선스가 Crossref 그대로 오고 본문만 페이지에서 온다', async () => {
     vi.stubGlobal(
       'fetch',
@@ -427,6 +438,8 @@ describe('FrYM 적재 — 메타는 Crossref · 본문은 /full', () => {
     // 본문이지 초록이 아니다.
     expect(a.content).toContain('Despite how they are portrayed in movies')
     expect(a.content).not.toContain('ABSTRACT_SENTINEL')
+    expect(a.research_origin?.status).toBe('original_source_without_doi')
+    expect(a.research_origin?.relations).toEqual([])
   })
 
   it('본문을 못 받으면 **초록으로 물러서지 않고 던진다** — 물러서면 구멍이 조용히 메워진다', async () => {

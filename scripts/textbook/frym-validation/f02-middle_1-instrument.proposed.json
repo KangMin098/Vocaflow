@@ -1,0 +1,86 @@
+[
+  {
+    "id": "M-C1",
+    "axis": "comprehension",
+    "prompt": "과자 봉지를 선반에서 찾을 때 도움을 주는 감각과 단단히 잡았는지 확인할 때 도움을 주는 감각은 각각 무엇인가요?",
+    "source_quote": "Your eyes help you find the packet and see where it is. When you reach for it, touch helps you feel whether you are holding it firmly.",
+    "scoring_rubric": "1: 시각은 봉지를 찾고 촉각은 쥔 상태를 확인한다. 0.5: 두 역할 중 하나만 정확히 답한다. 0: 감각의 역할을 뒤집거나 무관한 답을 한다."
+  },
+  {
+    "id": "M-C2",
+    "axis": "comprehension",
+    "prompt": "본문에서 촉각은 우리 몸에 관해 어떤 정보를 준다고 하나요?",
+    "source_quote": "Touch also gives information about your body and its position.",
+    "scoring_rubric": "1: 몸 또는 신체 부위의 위치를 알려 준다. 0.5: 몸에 관한 정보를 준다고만 답한다. 0: 바깥 사물의 위치만 알려 준다고 답한다."
+  },
+  {
+    "id": "M-C3",
+    "axis": "comprehension",
+    "prompt": "글의 중심 생각에 따르면 한 감각을 언제나 가장 중요하다고 정하기 어려운 까닭은 무엇인가요?",
+    "source_quote": "The main idea is to look at what each sense does. Instead of asking only which sense should win a contest, ask what information you need for a particular action.",
+    "scoring_rubric": "1: 활동마다 필요한 정보와 감각의 기능이 달라 한 감각을 항상 승자로 정할 수 없다고 답한다. 0.5: 감각의 역할이 다르다는 점 또는 단일 순위가 부적절하다는 점만 답한다. 0: 시각 또는 촉각이 언제나 가장 중요하다고 단정한다."
+  },
+  {
+    "id": "M-L1",
+    "axis": "lexical",
+    "prompt": "본문의 firmly는 과자 봉지를 잡는 방식에 관해 어떤 뜻인가요?",
+    "source_quote": "touch helps you feel whether you are holding it firmly.",
+    "scoring_rubric": "1: 단단하게 또는 확실히 잡고 있는 상태. 0.5: 잡는 방식과 관련된 뜻임을 알지만 단단함을 표현하지 못한다. 0: 느슨하게 잡음이나 봉지의 위치로 해석한다."
+  },
+  {
+    "id": "M-L2",
+    "axis": "lexical",
+    "prompt": "본문의 position은 우리 몸에 관해 무엇을 가리키나요?",
+    "source_quote": "Touch also gives information about your body and its position.",
+    "scoring_rubric": "1: 몸이나 몸 부위가 어디에 있는지 나타내는 위치. 0.5: 몸의 상태 또는 배치라고만 말한다. 0: 가게나 과자 봉지의 위치로 해석한다."
+  },
+  {
+    "id": "M-L3",
+    "axis": "lexical",
+    "prompt": "본문에서 matter는 여러 감각에 관해 어떤 뜻으로 쓰였나요?",
+    "source_quote": "Thinking about those needs helps us understand why several senses matter in daily life.",
+    "scoring_rubric": "1: 중요하다 또는 의미가 있다. 0.5: 도움이 된다는 뜻으로만 설명한다. 0: 물질이나 문제라는 명사 뜻으로 해석한다."
+  },
+  {
+    "id": "M-S1",
+    "axis": "syntax",
+    "prompt": "When you reach for it에서 it이 가리키는 것은 무엇인가요?",
+    "source_quote": "When you reach for it, touch helps you feel whether you are holding it firmly.",
+    "scoring_rubric": "1: 과자 봉지(packet)를 가리킨다. 0.5: 앞서 본 물건이라고만 답한다. 0: 눈이나 선반을 가리킨다고 답한다."
+  },
+  {
+    "id": "M-S2",
+    "axis": "syntax",
+    "prompt": "even when we do not notice it은 촉각이 도움이 되는 때를 어떻게 한정하나요?",
+    "source_quote": "Touch can help us even when we do not notice it.",
+    "scoring_rubric": "1: 촉각을 의식하지 않을 때조차 도움이 된다는 양보 관계를 설명한다. 0.5: 촉각을 알아차리지 못하는 때도 포함한다고 답한다. 0: 촉각을 알아차릴 때만 도움이 된다고 답한다."
+  },
+  {
+    "id": "M-S3",
+    "axis": "syntax",
+    "prompt": "Instead of asking only which sense should win a contest 다음에 글이 권하는 질문은 무엇인가요?",
+    "source_quote": "Instead of asking only which sense should win a contest, ask what information you need for a particular action.",
+    "scoring_rubric": "1: 특정 활동에 어떤 정보가 필요한지를 물어보라고 답한다. 0.5: 활동과 감각의 역할을 살펴본다고만 답한다. 0: 승자를 고르라는 뜻으로 답한다."
+  },
+  {
+    "id": "M-R1",
+    "axis": "reasoning",
+    "prompt": "걷기와 과자 봉지 사례에서 시각과 촉각의 역할에 공통으로 나타나는 차이는 무엇인가요?",
+    "source_quote": "We use both senses in a simple walk, just as we use both to find and hold a packet.",
+    "scoring_rubric": "1: 시각은 대상이나 갈 곳을 찾고 촉각은 몸 위치나 쥔 상태를 느끼게 한다고 두 사례를 연결한다. 0.5: 두 사례 모두 두 감각을 쓴다고만 설명하거나 한 역할만 정확히 연결한다. 0: 두 감각의 역할을 바꾸거나 한 감각만 쓰인다고 말한다."
+  },
+  {
+    "id": "M-R2",
+    "axis": "reasoning",
+    "prompt": "과자 봉지를 찾는 데 시각이 도움이 된다는 사실만으로 시각이 언제나 가장 중요하다고 말할 수 있나요? 본문 근거를 들어 설명하세요.",
+    "source_quote": "Saying that one sense is always the most important would hide this difference.",
+    "scoring_rubric": "1: 아니요. 봉지를 쥐는 데는 촉각도 필요하고 활동마다 감각의 역할이 달라 그 사례만으로 절대 순위를 정할 수 없다. 0.5: 아니요라고 답하고 감각의 역할 차이 또는 촉각 필요성만 언급한다. 0: 시각이 언제나 가장 중요하다고 답하거나 근거가 없다."
+  },
+  {
+    "id": "M-R3",
+    "axis": "reasoning",
+    "prompt": "새로운 활동에서 어떤 감각이 중요한지 판단하려면 글에 따르면 먼저 무엇을 살펴야 하나요?",
+    "source_quote": "Finding an object and holding it involve different needs. Thinking about those needs helps us understand why several senses matter in daily life.",
+    "scoring_rubric": "1: 먼저 그 활동에 필요한 정보나 행동을 살펴본다. 0.5: 감각의 역할을 살핀다고만 답한다. 0: 항상 같은 감각을 먼저 고른다고 답한다."
+  }
+]

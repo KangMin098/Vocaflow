@@ -1,0 +1,410 @@
+{
+  "version": 1,
+  "mode": "local_observer_pilot",
+  "review_hash": "f79cd2adc2af4373f3a39b3872ed853a19661e2a9785292576d37ecd86585cdb",
+  "rules_hash": "e31cd1357a00d81f47970f23aa015b2d64bfe92c20fb3bc5471112b413974c7f",
+  "records": [
+    {
+      "id": "F02-middle1",
+      "pair_id": "F02",
+      "target": {
+        "family": "P03",
+        "age_band": "middle_1",
+        "language_band": "middle",
+        "reasoning_band": "middle_1",
+        "passage_v_level": 3,
+        "skills": [
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "exam": "none",
+        "words": {
+          "min": 180,
+          "max": 250
+        },
+        "share_alike": false,
+        "resources": []
+      },
+      "target_key": "a7f5e450d09a4eb4e12ca4bb",
+      "text": "Imagine choosing a packet of sweets from a shop shelf. Your eyes help you find the packet and see where it is. When you reach for it, touch helps you feel whether you are holding it firmly. The two senses give you different kinds of information. Both are useful in the same simple action.\n\nTouch also gives information about your body and its position. Vision gives information about the world around you and helps you find your way through it. These roles are different. Saying that one sense is always the most important would hide this difference.\n\nWe may notice what we see more often than what we feel. However, noticing a sense often is not the same as showing that it is more important for every task. A sense can help us even when we are not paying close attention to it.\n\nThe main idea is to look at what each sense does. Instead of asking only which sense should win a contest, ask what information you need for a particular action. Finding an object and holding it involve different needs. Thinking about those needs helps us understand why several senses matter in daily life.",
+      "text_hash": "fd58cbf22bc930b64a8a06dedfe708cbb9cb7c1d69360226deec3b708a4539cf",
+      "source_attribution": "Adapted by Codex from What Is Our Most Important Sense?, Frontiers for Young Minds, https://kids.frontiersin.org/articles/10.3389/frym.2021.548120/full. Copyright © 2021 Hutmacher. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. Original study: Fabian Hutmacher, https://doi.org/10.3389/fpsyg.2019.02246. Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question. No third-party figures or images reproduced.",
+      "checks": [
+        {
+          "rule_id": "F02-functions",
+          "verdict": "preserved",
+          "passage_quote": "These roles are different.",
+          "reason": "Keep the different functions of vision and touch and the conclusion that these differences do not establish one absolutely most important sense."
+        }
+      ],
+      "focus_question": {
+        "skill": "R4",
+        "prompt": "Why can vision and touch both matter in the same action?",
+        "expected_response": "They provide different information: vision helps find an object, and touch helps feel how it is held.",
+        "evidence": "Your eyes help you find the packet and see where it is. When you reach for it, touch helps you feel whether you are holding it firmly."
+      },
+      "observer_review": {
+        "verdict": "preserved",
+        "reason": "The passage keeps the reviewed relationship and its scope. This is a local observer judgment, not expert certification or student difficulty calibration."
+      }
+    },
+    {
+      "id": "F02-high1",
+      "pair_id": "F02",
+      "target": {
+        "family": "P03",
+        "age_band": "high_1",
+        "language_band": "middle",
+        "reasoning_band": "high_1",
+        "passage_v_level": 3,
+        "skills": [
+          "R4",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "exam": "none",
+        "words": {
+          "min": 180,
+          "max": 250
+        },
+        "share_alike": false,
+        "resources": []
+      },
+      "target_key": "b117d0a5ee0a0fc72bc711da",
+      "text": "A claim that vision is our most important sense may sound simple. Yet the word important needs a clear meaning. Important for finding a place? Important for feeling the position of our bodies? Changing the question can change the answer.\n\nVision helps us notice things around us and find our way toward them. Touch gives information about how our bodies meet the world. Consider a packet on a shop shelf. Seeing helps us find it. Touch helps us feel whether our fingers are holding it firmly. These are different parts of one action.\n\nThe difference matters when we judge a general claim. An example showing that vision helps with one task does not establish that it is the best sense for every task. Likewise, an example showing the value of touch does not make touch the universal winner.\n\nThe explanation therefore moves from ranking senses to comparing their functions. This change does not make vision unimportant. It shows why a single ranking may leave out useful information. To evaluate the original claim, a reader should ask which task or need the speaker has in mind. Without that condition, the word important can cover several different ideas.",
+      "text_hash": "f21a7b5856c9fe048a5279ae60bb56513ed92e3c9f0eb96a4acacfb6462611b7",
+      "source_attribution": "Adapted by Codex from What Is Our Most Important Sense?, Frontiers for Young Minds, https://kids.frontiersin.org/articles/10.3389/frym.2021.548120/full. Copyright © 2021 Hutmacher. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. Original study: Fabian Hutmacher, https://doi.org/10.3389/fpsyg.2019.02246. Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question. No third-party figures or images reproduced.",
+      "checks": [
+        {
+          "rule_id": "F02-functions",
+          "verdict": "preserved",
+          "passage_quote": "Likewise, an example showing the value of touch does not make touch the universal winner.",
+          "reason": "Keep the different functions of vision and touch and the conclusion that these differences do not establish one absolutely most important sense."
+        }
+      ],
+      "focus_question": {
+        "skill": "R8",
+        "prompt": "Why is an example about one task insufficient to establish that one sense is always most important?",
+        "expected_response": "Their different functions make the answer depend on the task, so one useful example does not establish an absolute ranking.",
+        "evidence": "Likewise, an example showing the value of touch does not make touch the universal winner."
+      },
+      "observer_review": {
+        "verdict": "preserved",
+        "reason": "The passage keeps the reviewed relationship and its scope. This is a local observer judgment, not expert certification or student difficulty calibration."
+      }
+    },
+    {
+      "id": "F06-middle1",
+      "pair_id": "F06",
+      "target": {
+        "family": "P03",
+        "age_band": "middle_1",
+        "language_band": "middle",
+        "reasoning_band": "middle_1",
+        "passage_v_level": 3,
+        "skills": [
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "exam": "none",
+        "words": {
+          "min": 180,
+          "max": 250
+        },
+        "share_alike": false,
+        "resources": []
+      },
+      "target_key": "a7f5e450d09a4eb4e12ca4bb",
+      "text": "Growing plants in a city can have a role beyond producing food. City gardens can offer places where birds and helpful insects stay. Such places are called habitats. They provide space for living things within a city.\n\nBiodiversity means the variety of living things. Providing habitats can help support that variety. This is one possible function of urban agriculture, which means growing food in or near a city. A garden can therefore be discussed both as a place to grow plants and as a place for other living things.\n\nThe research review behind this explanation focused on projects in the Global North. It described several functions of urban agriculture. Its scope matters: the review does not show that every garden in every part of the world produces the same result.\n\nWhen reading about this benefit, keep the word can in mind. A possible benefit is different from a promise about all gardens. The idea here is specific: growing plants in cities can provide habitats and help support biodiversity. It does not establish every other claim about city farming. Understanding this limited idea gives us a clear way to describe one role of a city garden.",
+      "text_hash": "1cb6731278136c9e675bfa7ad136a06129b950cdb234ff5660180acbd96bd28b",
+      "source_attribution": "Adapted by Codex from The Important Roles of Urban Agriculture, Frontiers for Young Minds, https://kids.frontiersin.org/articles/10.3389/frym.2022.701688/full. Copyright © 2022 Orsini and D’Ostuni. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. Original study: Francesco Orsini, Giuseppina Pennisi, Nicola Michelon et al., https://doi.org/10.3389/fsufs.2020.562513. Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question. No third-party figures or images reproduced.",
+      "checks": [
+        {
+          "rule_id": "F06-habitat",
+          "verdict": "preserved",
+          "passage_quote": "Its scope matters: the review does not show that every garden in every part of the world produces the same result.",
+          "reason": "Keep habitat provision and biodiversity as a possible function of urban agriculture; the original review covers Global North projects, not a guaranteed benefit for every garden worldwide."
+        }
+      ],
+      "focus_question": {
+        "skill": "R4",
+        "prompt": "How can a city garden help living things besides growing food?",
+        "expected_response": "It can provide habitats for birds and helpful insects.",
+        "evidence": "City gardens can offer places where birds and helpful insects stay."
+      },
+      "observer_review": {
+        "verdict": "preserved",
+        "reason": "The passage keeps the reviewed relationship and its scope. This is a local observer judgment, not expert certification or student difficulty calibration."
+      }
+    },
+    {
+      "id": "F06-high1",
+      "pair_id": "F06",
+      "target": {
+        "family": "P03",
+        "age_band": "high_1",
+        "language_band": "middle",
+        "reasoning_band": "high_1",
+        "passage_v_level": 3,
+        "skills": [
+          "R4",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "exam": "none",
+        "words": {
+          "min": 180,
+          "max": 250
+        },
+        "share_alike": false,
+        "resources": []
+      },
+      "target_key": "b117d0a5ee0a0fc72bc711da",
+      "text": "A city garden may produce food, but food is not its only possible role. The garden can also offer habitats, or places for living things to stay. Birds and helpful insects are examples used to explain this role.\n\nProviding such places can help support biodiversity, the variety of living things. The explanation connects a feature of a garden with a possible benefit. It does not say that all city gardens create the same amount of biodiversity.\n\nThe original research was a review focused on urban agriculture projects in the Global North. A review brings information from existing work together. Here, habitat provision was one of several functions considered. That research scope limits how widely we can apply its description.\n\nNotice the difference between two claims. One says that urban gardens can provide habitats. The other says that every garden everywhere will improve biodiversity. The second claim is much broader and is not established by this review.\n\nA careful reader can preserve the useful idea while keeping its limits. The garden's possible role and the scope of the research belong together. Removing those conditions would make the message stronger than the evidence given, even if the sentences became shorter and easier to read.",
+      "text_hash": "9551674d6a6ece12c3e5ece8f4fc8bd6dd5235b313a91e2b83e3a6fd9f03d017",
+      "source_attribution": "Adapted by Codex from The Important Roles of Urban Agriculture, Frontiers for Young Minds, https://kids.frontiersin.org/articles/10.3389/frym.2022.701688/full. Copyright © 2022 Orsini and D’Ostuni. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. Original study: Francesco Orsini, Giuseppina Pennisi, Nicola Michelon et al., https://doi.org/10.3389/fsufs.2020.562513. Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question. No third-party figures or images reproduced.",
+      "checks": [
+        {
+          "rule_id": "F06-habitat",
+          "verdict": "preserved",
+          "passage_quote": "The second claim is much broader and is not established by this review.",
+          "reason": "Keep habitat provision and biodiversity as a possible function of urban agriculture; the original review covers Global North projects, not a guaranteed benefit for every garden worldwide."
+        }
+      ],
+      "focus_question": {
+        "skill": "R8",
+        "prompt": "Why does the review not establish that every garden everywhere improves biodiversity?",
+        "expected_response": "The review concerns a particular scope and possible functions; a claim about every garden everywhere is broader.",
+        "evidence": "The second claim is much broader and is not established by this review."
+      },
+      "observer_review": {
+        "verdict": "preserved",
+        "reason": "The passage keeps the reviewed relationship and its scope. This is a local observer judgment, not expert certification or student difficulty calibration."
+      }
+    },
+    {
+      "id": "F14-middle1",
+      "pair_id": "F14",
+      "target": {
+        "family": "P03",
+        "age_band": "middle_1",
+        "language_band": "middle",
+        "reasoning_band": "middle_1",
+        "passage_v_level": 3,
+        "skills": [
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "exam": "none",
+        "words": {
+          "min": 180,
+          "max": 250
+        },
+        "share_alike": false,
+        "resources": []
+      },
+      "target_key": "a7f5e450d09a4eb4e12ca4bb",
+      "text": "When a family member or friend becomes very ill, researchers may ask how other people are feeling. One study examined COVID-19 and symptoms of depression and anxiety among people with a close person who had the illness. It used information from five study groups in four European countries.\n\nThe researchers compared groups using survey answers. The link with severe symptoms was stronger when the close person had been hospitalized or treated in an intensive care unit, called an ICU. An ICU gives care to people who are very seriously ill. The association was especially strong for the ICU group.\n\nThese results describe a pattern among groups. They do not mean that every individual became more anxious over time. They also concern reported symptoms. A survey result about symptoms is not the same thing as a doctor's diagnosis for each person.\n\nThe study observed people's experiences rather than assigning illness to anyone. It therefore cannot prove that a close person's illness alone caused the symptoms. Its results also come from a particular European setting. The key message combines a finding and a limit: more serious illness in a close person was linked with more severe symptoms, but the study does not establish a cause for every person.",
+      "text_hash": "5ed6fe7d58af3c672c841371f64822f8d915c0baa15a7854c365707d3c553519",
+      "source_attribution": "Adapted by Codex from Studying the Mental Health of Family and Friends of COVID-19 Patients, Frontiers for Young Minds, https://kids.frontiersin.org/articles/10.3389/frym.2026.1598115/full. Copyright © 2026 Lovik, Unnarsdóttir, Hoffart, Thordardóttir, Magnúsdóttir, González-Hijón, Barker, Yazdani and Valdimarsdóttir. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. Original study: Anikó Lovik, Juan González-Hijón, Asle Hoffart et al., https://doi.org/10.1016/j.lanepe.2023.100733. Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question. No third-party figures or images reproduced.",
+      "checks": [
+        {
+          "rule_id": "F14-severity",
+          "verdict": "preserved",
+          "passage_quote": "The study observed people's experiences rather than assigning illness to anyone.",
+          "reason": "Keep the stronger association of hospitalized or ICU COVID-19 in a significant person with respondents reporting severe depressive/anxiety symptoms. Describe group comparisons, not an increase within every person over time, clinical diagnosis or proven causation. Do not rank ICU above the deceased group."
+        }
+      ],
+      "focus_question": {
+        "skill": "R4",
+        "prompt": "What kind of link did the researchers find in the ICU group?",
+        "expected_response": "The link with severe reported symptoms was especially strong when a close person had ICU care.",
+        "evidence": "The link with severe symptoms was stronger when the close person had been hospitalized or treated in an intensive care unit, called an ICU."
+      },
+      "observer_review": {
+        "verdict": "preserved",
+        "reason": "The passage keeps the reviewed relationship and its scope. This is a local observer judgment, not expert certification or student difficulty calibration."
+      }
+    },
+    {
+      "id": "F14-high1",
+      "pair_id": "F14",
+      "target": {
+        "family": "P03",
+        "age_band": "high_1",
+        "language_band": "middle",
+        "reasoning_band": "high_1",
+        "passage_v_level": 3,
+        "skills": [
+          "R4",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "exam": "none",
+        "words": {
+          "min": 180,
+          "max": 250
+        },
+        "share_alike": false,
+        "resources": []
+      },
+      "target_key": "b117d0a5ee0a0fc72bc711da",
+      "text": "Researchers studied the link between serious COVID-19 in a close person and reported symptoms of depression and anxiety. They brought together information from five study groups in four European countries. A close person could be a family member or friend.\n\nThe association with severe symptoms was stronger when that person had been hospitalized or treated in an ICU, an intensive care unit. The ICU group showed an especially strong association. This describes a comparison between groups, not a claim that each respondent's symptoms increased over time.\n\nTwo limits are important when interpreting the finding. First, the measures were survey reports of symptoms. They were not a doctor's diagnosis of every respondent. Second, the research observed experiences. It did not assign people to have a seriously ill relative or friend. A link in this kind of study does not by itself prove causation.\n\nThe setting matters as well. Results from these European study groups should not automatically be treated as a result for every population. A reader can accept the reported association while questioning a stronger claim about everyone. The safest summary keeps the group comparison, the symptom measures and the study's limits together. Dropping any of them could change what the result means.",
+      "text_hash": "eda36e55550ef297166f211d1c06964d4cdd315e3041b52563b5f533ffc326cf",
+      "source_attribution": "Adapted by Codex from Studying the Mental Health of Family and Friends of COVID-19 Patients, Frontiers for Young Minds, https://kids.frontiersin.org/articles/10.3389/frym.2026.1598115/full. Copyright © 2026 Lovik, Unnarsdóttir, Hoffart, Thordardóttir, Magnúsdóttir, González-Hijón, Barker, Yazdani and Valdimarsdóttir. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. Original study: Anikó Lovik, Juan González-Hijón, Asle Hoffart et al., https://doi.org/10.1016/j.lanepe.2023.100733. Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question. No third-party figures or images reproduced.",
+      "checks": [
+        {
+          "rule_id": "F14-severity",
+          "verdict": "preserved",
+          "passage_quote": "A link in this kind of study does not by itself prove causation.",
+          "reason": "Keep the stronger association of hospitalized or ICU COVID-19 in a significant person with respondents reporting severe depressive/anxiety symptoms. Describe group comparisons, not an increase within every person over time, clinical diagnosis or proven causation. Do not rank ICU above the deceased group."
+        }
+      ],
+      "focus_question": {
+        "skill": "R8",
+        "prompt": "Why can the study report a stronger association without proving causation?",
+        "expected_response": "It compares observed experiences and reported symptoms; it did not assign illness and cannot establish illness alone as the cause.",
+        "evidence": "A link in this kind of study does not by itself prove causation."
+      },
+      "observer_review": {
+        "verdict": "preserved",
+        "reason": "The passage keeps the reviewed relationship and its scope. This is a local observer judgment, not expert certification or student difficulty calibration."
+      }
+    },
+    {
+      "id": "F18-middle1",
+      "pair_id": "F18",
+      "target": {
+        "family": "P03",
+        "age_band": "middle_1",
+        "language_band": "middle",
+        "reasoning_band": "middle_1",
+        "passage_v_level": 3,
+        "skills": [
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "exam": "none",
+        "words": {
+          "min": 180,
+          "max": 250
+        },
+        "share_alike": false,
+        "resources": []
+      },
+      "target_key": "a7f5e450d09a4eb4e12ca4bb",
+      "text": "Researchers compared fighting behavior in female fruit flies from eight species. One question concerned ovarioles. These are parts of the female reproductive system where eggs are produced. Different species have different average numbers of these structures.\n\nThe researchers found a positive association between ovariole number and one kind of fighting behavior, headbutting. In the species comparison, flies from species with more ovarioles tended to spend a greater share of the observed time headbutting. This was a pattern across species, not a rule about every individual fly.\n\nA positive association means that two features tend to vary together. It does not tell us, by itself, why they vary together. The comparison did not show that having more ovarioles causes a female to fight. A possible explanation and a demonstrated cause are different things.\n\nThis distinction helps us read the result carefully. We can describe the pattern without turning it into a certain prediction for all flies. We should also remember that the comparison concerned the eight species studied. The important idea is both simple and limited: ovariole number and headbutting were positively related across those species, but the evidence does not establish that one feature directly caused the other.",
+      "text_hash": "ec2ae815dd2b7e0aaf6b0b58de4cda3ecb802772eb939992a8dd7b063a347f1f",
+      "source_attribution": "Adapted by Codex from Using AI to Study Fighting in Female Fruit Flies, Frontiers for Young Minds, https://kids.frontiersin.org/articles/10.3389/frym.2026.1635652/full. Copyright © 2026 Gleason and Bath. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. Original study: Eleanor Bath, Jennifer M. Gleason, https://doi.org/10.1098/rspb.2024.2301. Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question. No third-party figures or images reproduced.",
+      "checks": [
+        {
+          "rule_id": "F18-species",
+          "verdict": "preserved",
+          "passage_quote": "The comparison did not show that having more ovarioles causes a female to fight.",
+          "reason": "Keep the positive association across the eight studied fruit-fly species between ovariole number and headbutting aggression. A species pattern is not a prediction for every individual and does not show that ovarioles cause fighting."
+        }
+      ],
+      "focus_question": {
+        "skill": "R4",
+        "prompt": "What did the species comparison show about ovarioles and headbutting?",
+        "expected_response": "There was a positive association across the studied species between ovariole number and headbutting.",
+        "evidence": "The researchers found a positive association between ovariole number and one kind of fighting behavior, headbutting. In the species comparison, flies from species with more ovarioles tended to spend a greater share of the observed time headbutting."
+      },
+      "observer_review": {
+        "verdict": "preserved",
+        "reason": "The passage keeps the reviewed relationship and its scope. This is a local observer judgment, not expert certification or student difficulty calibration."
+      }
+    },
+    {
+      "id": "F18-high1",
+      "pair_id": "F18",
+      "target": {
+        "family": "P03",
+        "age_band": "high_1",
+        "language_band": "middle",
+        "reasoning_band": "high_1",
+        "passage_v_level": 3,
+        "skills": [
+          "R4",
+          "R6",
+          "R7",
+          "R8"
+        ],
+        "exam": "none",
+        "words": {
+          "min": 180,
+          "max": 250
+        },
+        "share_alike": false,
+        "resources": []
+      },
+      "target_key": "b117d0a5ee0a0fc72bc711da",
+      "text": "A study of female fruit flies compared eight species. It examined whether ovariole number was related to fighting behavior. Ovarioles are structures where eggs are produced. The researchers considered average features of species rather than treating every individual as the same.\n\nThey found a positive association between ovariole number and headbutting. Species with more ovarioles tended to show a greater share of observed time in that behavior. This finding describes two features varying together across the studied species.\n\nNow consider a stronger explanation: more ovarioles make a fly fight. The observed association does not establish that explanation. A comparison can show a pattern without showing what causes it. Nor does a pattern in species averages tell us exactly how every individual will behave.\n\nThe structure of the argument is therefore important. The study question leads to a comparison, the comparison reveals an association, and the association leaves a question about cause. Keeping these steps separate prevents an easy but unsupported leap.\n\nA careful summary should preserve both the positive direction of the association and its limits. Calling the result uncertain in every respect would lose the observed pattern. Calling it proof of a direct cause would go beyond the evidence. The reader needs both parts to understand the finding.",
+      "text_hash": "1b4f0424725821bc464e2ed68e5853dfc744a1c8f8f9ade74f171644511a6d66",
+      "source_attribution": "Adapted by Codex from Using AI to Study Fighting in Female Fruit Flies, Frontiers for Young Minds, https://kids.frontiersin.org/articles/10.3389/frym.2026.1635652/full. Copyright © 2026 Gleason and Bath. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/. Original study: Eleanor Bath, Jennifer M. Gleason, https://doi.org/10.1098/rspb.2024.2301. Changes: shortened and reworded selected claims; made scope and causal limits explicit; added a target-specific question. No third-party figures or images reproduced.",
+      "checks": [
+        {
+          "rule_id": "F18-species",
+          "verdict": "preserved",
+          "passage_quote": "The observed association does not establish that explanation.",
+          "reason": "Keep the positive association across the eight studied fruit-fly species between ovariole number and headbutting aggression. A species pattern is not a prediction for every individual and does not show that ovarioles cause fighting."
+        }
+      ],
+      "focus_question": {
+        "skill": "R8",
+        "prompt": "Why does a positive association across species not predict every individual or prove a direct cause?",
+        "expected_response": "Species averages show a pattern, which is different from either an individual prediction or demonstrating why the pattern occurs.",
+        "evidence": "The observed association does not establish that explanation. A comparison can show a pattern without showing what causes it. Nor does a pattern in species averages tell us exactly how every individual will behave."
+      },
+      "observer_review": {
+        "verdict": "preserved",
+        "reason": "The passage keeps the reviewed relationship and its scope. This is a local observer judgment, not expert certification or student difficulty calibration."
+      }
+    }
+  ],
+  "negative_cases": [
+    {
+      "alignment_id": "F05-A1",
+      "kind": "comparison",
+      "changed_claim": "Pairs of rats received more rewards per rat than rats working alone.",
+      "observer_review": {
+        "verdict": "changed",
+        "reason": "The original result reports a higher per-rat reward rate when working alone, so this reverses the comparator."
+      }
+    },
+    {
+      "alignment_id": "F09-A1",
+      "kind": "scope",
+      "changed_claim": "Of all 458 participants, 53 percent visited urban nature sites less often.",
+      "observer_review": {
+        "verdict": "changed",
+        "reason": "The percentage concerns 421 visitors, not all 458 analyzed participants; the denominator changes."
+      }
+    },
+    {
+      "alignment_id": "F10-A2",
+      "kind": "comparison",
+      "changed_claim": "Participants reduced the amount they drank, but their drinking frequency did not change.",
+      "observer_review": {
+        "verdict": "changed",
+        "reason": "The research reports reductions in both amount and frequency; unchanged frequency contradicts the result."
+      }
+    },
+    {
+      "alignment_id": "F13-A2",
+      "kind": "scope",
+      "changed_claim": "The children did the exclusion task when they were thirteen years old.",
+      "observer_review": {
+        "verdict": "changed",
+        "reason": "The exclusion task was at nine and anxiety measurement at thirteen; the task measurement age changes."
+      }
+    }
+  ]
+}

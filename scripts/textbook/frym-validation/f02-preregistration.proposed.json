@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "pair_id": "F02",
+  "status": "candidate_unsealed",
+  "passage_hash": {
+    "high_1": "00c5035c9ef24e240a8eabd56c8ee74ce447b8245c4d5a61c6ce381cbd49139f",
+    "middle_1": "cca04eb86c621f597ebec68b823a43ed60e988f00fcd5b894173c5a9caffd915"
+  },
+  "item_set_hash": "838e00df02d8a02a4a1a7f54855fecd2fe978cc7236113a7c781a700dd1c165f",
+  "scoring_key_hash": "c7a3562b8438fb4df13ca4848ab413e41235a5d2022e3ed272897398fdc15f04",
+  "pilot_protocol_hash": "9a2986c8e3d11e1fad4584a1f52c4c88c585912ace2551dae50286f2dac4734d",
+  "instrument_file_sha256": {
+    "middle_1": "234473beca862f0c0095cd60fa45b6ac566691523300e351f3ad736ff020e45d",
+    "high_1": "027e8a13bfad98ae32f4dd647020cf1d555a14edbbdda776c145343458e4cb7a"
+  },
+  "source_freeze_sha256": "20b47d03db8bd507a6b8bc4cd13d6f9d10d3bf39714587de9e27e18b8a91d7a1",
+  "item_file": "f02-items.proposed.json",
+  "scoring_key_file": "f02-scoring-key.proposed.json",
+  "protocol_file": "f02-student-pilot.proposed.json",
+  "human_lead_id": null,
+  "registered_at": null,
+  "registration_evidence": null
+}

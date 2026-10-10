@@ -229,10 +229,16 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/admin/csat` | `admin/csat/page.tsx` + `components/admin/factory/FactoryMap.tsx` | **교재 공장 — 공장 지도**(2026-09-24). 쉬운 말 여덟 걸음 + 「지금 가장 먼저 할 일」 카드 + 낸 뒤 살피기 고리 + 기준을 세우는 곳. 숫자·상태는 `loadFactoryLine()` 과 판정 스냅샷. 단계 화면마다 `StepHeader` 머리띠 |
 | `/admin/csat/help` | `admin/csat/help/page.tsx` (정본 `lib/csat/factory-glossary.ts`) | 교재 공장 **용어집** — 툴팁과 같은 한 곳에서 읽는다. 「예전 말」 칸이 코드의 말을 잇는다 |
 | `/admin/csat/details` | `admin/csat/details/page.tsx` + `FactoryLineClient.tsx` + `FactoryLineDiagram.tsx` (+ `layout.tsx` 제목만) | **숫자로 자세히 — 운영자용 공정 현황판**(2026-09-24 에 `/admin/csat` 에서 내려옴). 시중 제작 공정 8칸(기출 원천·기획·설계·소재·집필·해설·검수·조판)을 **라인 도식 하나**로 그린다 — 상태는 색+모양+글자, 병목 뒤 연결선은 점선. **한 번에 한 칸만** 펼쳐 실측 눈금·게이트·**복사 가능한 다음 명령**을 낸다(기본 = 병목). 조작 버튼은 없다(생성은 Claude Code 드레인) |
+| `/admin/csat/new` | `admin/csat/new/page.tsx` + `ProductPlanningForm.tsx` + `OrderWizard.tsx` + `OrderTracePanel.tsx` (모델 `lib/csat/order-model.ts` · 실측 `lib/csat/order-view.ts`) | 학년·목적·P01~P20 제품 유형·영역·분량에서 기획 hash와 장/단원 학습 순서의 제안을 만든다. 기존 재고 기반 네 걸음 및 관리자 Product Order JSON 등록은 별도다. 등록 주문 ID로 현재 확인 가능한 승격·문항·검수 상태와 차단 이유를 조회하며 미조회 공정은 미측정으로 표시한다. 기획만으로 주문 등록·승격·조판하지 않는다. |
+| `GET/POST /api/admin/csat/product-plan` | `api/admin/csat/product-plan/route.ts` | 관리자/큐레이터 세션의 `GET`은 P01~P20의 보수적인 실제 지원 상태를, `POST`는 구조화된 product brief의 재현 가능한 기획안·hash와 해당 제품군의 실제 지원 상태를 반환한다. DB 변경 없음. |
+| `POST /api/admin/csat/product-order-draft` | `api/admin/csat/product-order-draft/route.ts` | 관리자 세션에서 기획안 hash·학년·주문 식별자와 운영자 입력 정책 참조의 형식을 검증해 봉인된 Product Order 초안을 반환한다. 정책의 현재성은 이후 승격 gate가 재검증한다. DB 변경 없음. |
+| `GET /api/admin/csat/order-trace?order_id=` | `api/admin/csat/order-trace/route.ts` · `lib/csat/order-trace.ts` | 관리자 세션에서 등록 주문·승격 감사·현재 authority/권리·ready·문항·해설·검수를 읽기 전용 재조회한다. 개발 DB의 production 관측 RPC는 같은 주문의 그룹·snapshot·조판/게시 hash를 현재 증거와 비교하고 유효 게시물만 다운로드 링크를 연다. 조회 실패는 503, 단원/권의 독립 증거는 미측정이다. 과거 hash를 현재 Gold-S/seed 인증으로 주장하지 않는다. |
+| `POST /api/admin/csat/synthetic-production` | `api/admin/csat/synthetic-production/route.ts` · `lib/csat/synthetic-production.ts` | admin만 고정 P03 예행 주문 `m1 / h1 / m1-m2`를 실행한다. 메모리 RPC와 synthetic trust root를 사용해 공유 생산 경로를 검증하고 표식 있는 HTML/manifest를 반환한다. 실제 주문·경로·caller evidence 입력, 실제 DB 쓰기, 학년 타당성 판정은 없다. 실패하면 부분 산출물 없이 503이다. |
 | `/admin/csat/new` | `admin/csat/new/page.tsx` + `OrderWizard.tsx` (모델 `lib/csat/order-model.ts` · 실측 `lib/csat/order-view.ts`) | **새 교재 만들기 — 한 권을 발주까지 네 걸음.** 공정 8칸이 「공장 전체가 어떤가」를 말한다면 여기는 **이 한 권**만 말한다. ① 시리즈·권 고르기 → ② 그 권이 쓰는 유형마다 재고·해설·**근거**(평가원 유형별 기출/분석/리포트, 없으면 「평가원 대응 없음 — 시중 교재 코퍼스 79종」) → ③ 브랜드·표지·학령·단원·문항 규격 → ④ 관문 4(문항→배합→해설→근거) 중 **처음 막힌 하나**의 채우기 명령, 전부 통과면 **인자가 다 채워진 조판 명령 한 줄**. 조작 버튼 없음 |
 | `/admin/csat/catalog` | `admin/csat/catalog/page.tsx` + `SeriesShelf.tsx` | **카탈로그 — 「어떤 시리즈를 파나」.** 행이 시리즈, 열이 학령이고 **한 칸이 한 권**(60문항). 2026-09-06 에 (유형 × 학령) 42칸 격자에서 바꿨다 — 시장이 파는 단위가 시리즈라서다(코퍼스 실측 22개). 행마다 조판기가 실제로 찍는 표지를 건다. 안 만드는 셋(기출·내신·개인 맞춤)은 칸이 아니라 이유로 |
 | `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `EvidenceConsole.tsx` · `EvidenceInspector.tsx` · `EvidenceMatrix.tsx` | 기출 운영: 운영 현황 → 작업 큐 → 문항 탐색·검토 패널. 실제 학습 후보 판정과 원천 결함을 구분하고 영향·우선순위·조치·재검증 연결. URL `view/status/issue/stage/q/sort/page/item/matrix`와 기존 8축·`row/col/m` 유지. 같은 축 교차 셀은 `cellAxis/cellRow/cellCol`로 AND 조건 보존. 전체 MD/JSON과 선택 대상 작업 묶음 내보내기 |
 | `GET /api/admin/csat/evidence` | `api/admin/csat/evidence/route.ts` · `lib/csat/evidence-operations-loader.ts` | 관리자 전용 읽기 재검증. 캐시를 재사용하지 않고 최신 DB·현재 배포된 앵커·메타데이터를 대조한다. 부분 조회 실패나 문항 범위 불일치는 503·판정 보류. DB 쓰기·작업 실행 없음 |
+| `GET/POST /api/admin/csat/structural-planning` | `api/admin/csat/structural-planning/route.ts` · `lib/csat/structural-planning.ts` | 관리자 전용 구조 참고. `GET`은 `TEXTBOOK_STRUCTURAL_REFERENCE_DIR`의 외부 증거를 재검증해 텍스트 없는 프로필을 반환한다. `POST`는 검증된 Product Order와 `selected_source_ids`로 채택/무시 sidecar를 반환한다. 주문·학년·난도·DB를 변경하지 않으며 자료 누락/변조 시 503 |
 | `/admin/csat/strategy` | `admin/csat/strategy/page.tsx` + `MarketClient.tsx` | 공정 ② 기획. 시중 7축 우위 지수를 **출판사별로** 낸다 — 판정은 합본 평균이 아니라 구속점. 「증거가 막는다/좁힐 수 있다」로 갈라 배치를 돌릴 곳인지 자료를 구할 곳인지 말한다. 창고/권 두 모드 |
 | `/admin/csat/blueprint` | `admin/csat/blueprint/page.tsx` + `BlueprintClient.tsx` | 공정 ③ 설계. **이원목적분류표** — 학령 7단 × 수준(V-Level) × 유형 재고 매트릭스 + 계단별 근거 + 단계 게이트 임계 9. 초등 3종은 「함수」로 표시(DB 에 없음 ≠ 재고 0) |
 | `/admin/csat/sourcing` | `admin/csat/sourcing/page.tsx` + `SourceClient.tsx` | 공정 ④ 소재. 단계 밴드(S1~S5) × 수준별 지문 재고 · 라이선스 등급 · **화면 전용 제외 실재고**. 게이트는 있는데 지문 0편인 밴드를 지목 |
@@ -459,6 +465,8 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 |---|---|
 | `POST …/seed` · `GET …/seed-list` | seed_catalog 적재·조회 |
 | `POST …/bulk-requeue` | 선택분 큐 재투입 |
+| `POST …/force-publish` | 검수 건너뛰고 발행; reading: adaptation children return 409 |
+| `POST …/reading-promotion` | 실제 활성 admin 세션 전용. `register-order-document`/`register-authority`/`approve` RPC만 호출한다. 개발용 admin bypass와 curator는 거부하고 service_role을 사용하지 않는다. 개발 DB에는 migration이 적용됐으나 실제 authority·order 등록은 0건이다. `/admin/csat/new`에서는 기획안에서 구조화된 주문 초안을 봉인한 뒤 이 경로로 등록한다. |
 | `POST …/force-publish` | 검수 건너뛰고 발행 |
 | `POST …/revert` | 발행 되돌리기 |
 | `POST …/delete` | 삭제 (+ seed unlock) |
@@ -469,6 +477,8 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 | 파일 | scope |
 |---|---|
+| `POST /api/acp/dev-process` | article 단권 처리; `reading:` 각색 자식은 별도 승격 전 409 |
+| `POST /api/acp/dev-drain-queue` | 개발용 큐 처리; `reading:` 각색 자식 제외 |
 | `app/layout.tsx` | Root — fonts + Toast Provider |
 | `app/(auth)/layout.tsx` | 헤더 없음 |
 | `app/(marketing)/layout.tsx` | 랜딩 |
@@ -513,3 +523,8 @@ CSAT 분석은 `#analysis-context`, `#analysis-evidence`, `#analysis-distractor`
 
 
 CSAT 데스크톱 판면(2026-09-18): `/csat`의 기출 구조 비교와 `/csat/dissect?item=...`의 원문·구조도 판면만 폭을 넓힌다. 예측 학습과 `/csat/formulas`의 읽기 폭은 유지한다. 기존 `#analysis-evidence` 등 deep link는 해당 관계를 선택하고 설명 위치로 연결한다.
+
+**운영 (기존 6 + Phase 2 승인 1)**
+### `/api/admin/articles/*` (기존 21 + Phase 2 승격 승인 1)
+`GET /api/admin/csat/production/[snapshotId]` — 관리자 전용, 다운로드 응답. 매 요청마다 DB의 `serve_reading_production_artifact`가 현재 권리·인증·주문·문항 증거를 다시 확인하고, 서버는 반환 HTML의 SHA-256을 재검증한다. 불일치·철회·stale이면 409로 차단한다. 응답은 `no-store`·첨부 다운로드·sandbox CSP를 적용한다. 이 경로는 실제 콘텐츠 운영 E2E 또는 `production_verified=true`를 뜻하지 않는다.
+### 교재 공장 원자적 산출물 조회 (2026-10-08)

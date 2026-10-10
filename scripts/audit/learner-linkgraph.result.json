@@ -1,14 +1,13 @@
 {
-  "generatedAt": "2026-10-08T06:39:42.158Z",
+  "generatedAt": "2026-10-10T14:28:46.236Z",
   "totals": {
-    "pageRoutes": 188,
-    "learnerPages": 100,
-    "apiRoutes": 89,
-    "linkedLearnerPages": 69
+    "pageRoutes": 198,
+    "learnerPages": 101,
+    "apiRoutes": 102,
+    "linkedLearnerPages": 71
   },
   "deadLinks": [],
   "orphanLearnerPages": [
-    "/csat/practice/[slug]",
     "/hub-lab",
     "/join/[code]"
   ],
@@ -16,6 +15,7 @@
     "/comics",
     "/csat/diagnosis/attempts/new",
     "/csat/space",
+    "/csat/practice",
     "/library",
     "/my",
     "/my/texts",
@@ -23,6 +23,7 @@
   ],
   "orphanApiRoutes": [
     "/api/acp/dev-enqueue",
+    "/api/admin/csat/structural-planning",
     "/api/admin/library/backfill-covers",
     "/api/csat/session/reveal",
     "/api/lcp/dev-enqueue-book",

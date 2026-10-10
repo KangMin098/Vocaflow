@@ -1,0 +1,70 @@
+{
+  "blind_item_id": null,
+  "passage_hash": null,
+  "initial_review_hashes": [],
+  "adjudicator_id": null,
+  "adjudicator_independent_review_hash": null,
+  "initial_reviews_disclosed_at": null,
+  "adjudicated_at": null,
+  "item_resolution": {
+    "core_claim": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "causal_direction": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "comparison_relation": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "conditions_and_scope": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "no_unnecessary_addition": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "no_unsupported_addition": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "no_key_omission": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    },
+    "no_epistemic_overstatement": {
+      "score": null,
+      "critical": null,
+      "passage_quote": null,
+      "research_quote": null,
+      "reason": null
+    }
+  },
+  "unresolved_items": [],
+  "evidence_and_reason": null,
+  "final_distortions": []
+}

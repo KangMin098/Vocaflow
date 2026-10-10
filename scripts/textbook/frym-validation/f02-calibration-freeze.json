@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "pair_id": "F02",
+  "state": "pipeline-valid_content-agent-reviewed_educational-validation-pending",
+  "source_id": "80b57391-d511-4134-b8aa-8a22fe3f2ebc",
+  "source_revision": "2026-09-25T08:00:41.071424+00:00",
+  "source_hash": "be013e6a1cafece83b78f84a8de7ef31a578842000cce580dccea11caccda4dd",
+  "packet_sha256": "0add6f3f8658ae0caca3116386b81cb1c68815ba31dc05e760ca9d01f73159d2",
+  "variants": [
+    {
+      "grade": "high_1",
+      "target_key": "b117d0a5ee0a0fc72bc711da",
+      "target_hash": "643069b4ef77b96d36d3c95e1a58b6e88f4cc669de9088891df3aa18a68e50c6",
+      "draft_hash": "e4a864a598805bed38355044977aaf46b639ee0af48a152160d69409e8391cee",
+      "passage_sha256": "00c5035c9ef24e240a8eabd56c8ee74ce447b8245c4d5a61c6ce381cbd49139f",
+      "review_file_sha256": {
+        "claude_code": "87e9fe9146adc706051fc2607cfeef99b19de81daf07d1022cfc8f7f28f144d7",
+        "codex": "a1ed4708b0bcbd930e6f07d1d7a9a5f0c4ce1218b68c3427c374cf04f0c5db6a"
+      }
+    },
+    {
+      "grade": "middle_1",
+      "target_key": "a7f5e450d09a4eb4e12ca4bb",
+      "target_hash": "409773bf30359b400a1560d736f323901655ecb1bb253ec4a4bafd62afd6a5f0",
+      "draft_hash": "26b0d895a61bd3ddfaa6d9ae2e39d1d73d8fdc2c7ff28892646ee2312bcc373b",
+      "passage_sha256": "cca04eb86c621f597ebec68b823a43ed60e988f00fcd5b894173c5a9caffd915",
+      "review_file_sha256": {
+        "claude_code": "3e3369a131d8ac6ce5d473108cfdf8357216c37dc21ea09eb318622358983b6a",
+        "codex": "e8a372108f731b5810c3d24528376092e08e521dda38e6fc70d9c30009591e7a"
+      }
+    }
+  ]
+}

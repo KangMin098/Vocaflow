@@ -19,6 +19,7 @@ import { createClient } from '@supabase/supabase-js'
 import { ensureArticleVocab } from '@vocaflow/library-pipeline'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { isReadingAdaptationSourceId } from '@/lib/articles/reading-queue'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -57,7 +58,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   const { data: art, error: fetchErr } = await client
     .from('library_articles')
-    .select('id, copyright_safe_in_kr, status, source, audio_url')
+    .select('id, copyright_safe_in_kr, status, source, source_id, audio_url')
     .eq('id', body.article_id)
     .maybeSingle()
 
@@ -75,7 +76,11 @@ export async function POST(request: Request): Promise<NextResponse> {
     copyright_safe_in_kr: boolean
     status: string
     source: string
+    source_id: string | null
     audio_url: string | null
+  }
+  if (isReadingAdaptationSourceId(a.source_id)) {
+    return NextResponse.json({ error: 'Reading adaptations require their separate promotion gate' }, { status: 409 })
   }
   if (!a.copyright_safe_in_kr) {
     return NextResponse.json(

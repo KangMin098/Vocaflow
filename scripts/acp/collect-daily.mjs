@@ -341,6 +341,7 @@ async function enqueueArticle(article, feedId, statusMessage) {
         sourceUrl: article.source_url,
       }),
       precheck: pre,
+      ...lib.articleResearchOrigin(article),
     },
     content: article.content ?? '',
     audio_url: article.audio_url ?? null,

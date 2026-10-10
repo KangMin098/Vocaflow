@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "pair_id": "F02",
+  "purpose": "synthetic_classroom_smoke_diagnostic",
+  "status": "unbenchmarked",
+  "benchmark_version": null,
+  "model_policy": "Record the exact model and family for every response. Replicas from one model are not independent model evidence. Scorer family must differ from respondent family.",
+  "ability_levels": ["low", "low_plus", "mid_minus", "mid", "mid_plus", "high_minus", "high"],
+  "ability_constraints": {
+    "low": { "lexical": "common only", "syntax": "simple clauses", "discourse": "explicit links", "inference": "literal" },
+    "low_plus": { "lexical": "common mostly", "syntax": "simple and one coordination", "discourse": "explicit links", "inference": "literal plus one explicit step" },
+    "mid_minus": { "lexical": "common plus familiar academic", "syntax": "coordination", "discourse": "explicit cause and contrast", "inference": "one explicit step" },
+    "mid": { "lexical": "common plus some academic", "syntax": "coordination and one subordinate clause", "discourse": "explicit cause and implicit contrast", "inference": "one step" },
+    "mid_plus": { "lexical": "common and academic with contextual guessing", "syntax": "subordinate clauses", "discourse": "contrast and main idea", "inference": "one step plus limited two step" },
+    "high_minus": { "lexical": "contextual guessing including unfamiliar words", "syntax": "subordinate and relative clauses", "discourse": "main idea and paragraph function", "inference": "two step with cited evidence" },
+    "high": { "lexical": "broad contextual guessing", "syntax": "nested clauses when locally resolvable", "discourse": "paragraph function and argument", "inference": "two step and alternative evaluation with cited evidence" }
+  },
+  "epistemic_states": {
+    "middle_1": {
+      "lexical_access": "common words available; academic and rare words limited",
+      "syntax_capacity": "simple and coordinated clauses available; embedded clauses limited",
+      "discourse_capacity": "explicit cause available; implicit contrast and paragraph function limited",
+      "inference_capacity": "one-step inference available; two-step inference limited",
+      "background_access": "passage_only"
+    },
+    "high_1": {
+      "lexical_access": "common and some academic words available; rare words limited",
+      "syntax_capacity": "coordinated and subordinate clauses available; deep embedding limited",
+      "discourse_capacity": "explicit relations and some paragraph functions available",
+      "inference_capacity": "one-step and some two-step inference available",
+      "background_access": "passage_only"
+    }
+  },
+  "analysis_policy": "Report synthetic item facility and corrected item-total association descriptively. No human-equivalent N, IRT parameter, grade pass band, educational validation, Gold-S, or DB seed before external benchmark calibration."
+}
