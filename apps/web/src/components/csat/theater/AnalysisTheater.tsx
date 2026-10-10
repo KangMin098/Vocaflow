@@ -33,6 +33,7 @@ import {
   Gauge,
   Headphones,
   Layers,
+  NotebookText,
   Pause,
   Play,
   Terminal,
@@ -149,10 +150,11 @@ export interface TheaterSibling {
   current: boolean
 }
 
-type TabId = 'analysis' | 'run' | 'siblings'
+type TabId = 'analysis' | 'script' | 'run' | 'siblings'
 
 const TABS: { id: TabId; label: string; Icon: typeof BookOpen }[] = [
   { id: 'analysis', label: '분석', Icon: BookOpen },
+  { id: 'script', label: '읽기 강의', Icon: NotebookText },
   { id: 'run', label: '진행', Icon: Gauge },
   { id: 'siblings', label: '같은 유형', Icon: Layers },
 ]
@@ -391,6 +393,11 @@ export function AnalysisTheater({
       0,
     )
   }
+
+  // 읽기 강의 탭을 열면 대본을 불러온다(재생하지 않는다) — 음성이 없어도 같은 설명을 읽는다
+  useEffect(() => {
+    if (tab === 'script' && lec && !lec.cues.length && lec.status === 'idle') lec.load()
+  }, [tab, lec])
 
   useEffect(() => {
     railRef.current?.querySelector('[data-state="live"]')?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
@@ -642,7 +649,9 @@ export function AnalysisTheater({
                   <em>
                     {tab === 'analysis'
                       ? `${blocks.length} BLOCKS`
-                      : tab === 'run'
+                      : tab === 'script'
+                        ? `${lec?.cues.length || steps.length} CUES`
+                        : tab === 'run'
                         ? `${steps.length} STEPS`
                         : `${siblings.length} ITEMS`}
                   </em>
@@ -677,6 +686,34 @@ export function AnalysisTheater({
                         <EvidenceQuote passage={currentPassage} quote={b.quote} truncated={b.quoteTruncated} />
                       </article>
                     ))}
+                  </div>
+                ) : null}
+
+                {tab === 'script' ? (
+                  <div className={styles.paneBody} data-testid="reading-lecture">
+                    {!lec || !steps.length ? (
+                      <p className={styles.quiet}>이 문항은 아직 강의 대본이 없어요. 분석 탭의 설명은 그대로 읽을 수 있어요.</p>
+                    ) : lec.status === 'error' && !lec.cues.length ? (
+                      <p className={styles.quiet} role="status">
+                        대본을 불러오지 못했어요. 분석 탭의 설명은 그대로 읽을 수 있어요.{' '}
+                        <button type="button" className={styles.back} onClick={lec.load}>
+                          다시 불러오기
+                        </button>
+                      </p>
+                    ) : !lec.cues.length ? (
+                      <p className={styles.quiet} aria-busy="true">대본을 여는 중…</p>
+                    ) : (
+                      <ol className={styles.script}>
+                        {lec.cues.map((c, i) => (
+                          <li key={c.id} data-live={i === cursor}>
+                            <button type="button" onClick={() => goto(i)} aria-current={i === cursor ? 'step' : undefined}>
+                              <span className={styles.scriptNo}>{String(i + 1).padStart(2, '0')}</span>
+                              <span className="break-keep">{c.text}</span>
+                            </button>
+                          </li>
+                        ))}
+                      </ol>
+                    )}
                   </div>
                 ) : null}
 

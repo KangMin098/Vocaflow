@@ -32,8 +32,13 @@ export interface CueStub {
   id: string
   role: LectureRole
   key: string
-  /** 대본이 말한 문장 번호(0부터) — 번호뿐, 대본 글자는 없다 */
+  /** 대본이 말한 문장 번호(0부터) */
   focus?: number[]
+  /**
+   * 이 큐의 읽기 대본 — 음성과 같은 글(segments 를 순서대로 이은 것). 접근이 허용된 강의 API 응답에서만
+   * 클라이언트가 채운다(서버 초기 HTML 에는 없다 · 보류 문항은 API 가 423). 음성 없음 · TTS 실패에도 읽는다.
+   */
+  text: string
 }
 
 interface LectureCtx {
@@ -44,8 +49,10 @@ interface LectureCtx {
   index: number
   holding: boolean
   rate: number
-  /** 불러온 뒤에만 채워진다 — 역할과 타깃 키뿐(대본 없음) */
+  /** 불러온 뒤에만 채워진다 — 역할 · 타깃 키 · 읽기 대본 */
   cues: CueStub[]
+  /** 소리 없이 대본만 불러온다(읽기 강의) — 재생하지 않는다 */
+  load: () => void
   activeKey: string | null
   /** 지금 큐가 말한 문장 번호 — 지도가 켤 막대를 말과 맞춘다(`focus.ts`) */
   activeFocus: number[] | null
@@ -160,7 +167,15 @@ export function LectureStage({
         // 불러오기 전에 고른 속도를 잃지 않는다
         player.setRate(rateRef.current)
         playerRef.current = player
-        setCues(lecture.cues.map((c) => ({ id: c.id, role: c.role, key: targetKey(c.target), ...(c.focus?.length ? { focus: c.focus } : {}) })))
+        setCues(
+          lecture.cues.map((c) => ({
+            id: c.id,
+            role: c.role,
+            key: targetKey(c.target),
+            text: c.segments.map((x) => x.text.trim()).filter(Boolean).join(' '),
+            ...(c.focus?.length ? { focus: c.focus } : {}),
+          })),
+        )
         if (debug.current) {
           debug.current.mode = m
           debug.current.player = player
@@ -194,6 +209,13 @@ export function LectureStage({
     },
     [ensure],
   )
+
+  const load = useCallback(() => {
+    // 불러오기만 했으면 「여는 중」에 머물지 않게 대기 상태로 돌린다
+    void ensure().then((p) => {
+      if (p) setStatus((st) => (st === 'loading' ? 'idle' : st))
+    })
+  }, [ensure])
 
   const toggle = useCallback(() => {
     const p = playerRef.current
@@ -366,13 +388,14 @@ export function LectureStage({
       cues,
       activeKey,
       activeFocus,
+      load,
       start,
       toggle,
       prev,
       next,
       setRate,
     }),
-    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, start, toggle, prev, next, setRate],
+    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate],
   )
 
   return (

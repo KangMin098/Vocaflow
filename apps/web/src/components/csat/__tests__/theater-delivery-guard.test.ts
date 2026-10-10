@@ -51,3 +51,13 @@ describe('해설 극장 전달 계약', () => {
     expect(stage).toMatch(/complete: cues\.length > 0 && heard\.current\.size >= cues\.length/)
   })
 })
+
+describe('읽기 강의(M2 · 2026-10-10)', () => {
+  it('음성 없이도 같은 대본을 읽는 탭이 있고, 대본은 강의 API 응답에서만 온다(서버 초기 HTML 에 없음)', () => {
+    expect(theater).toMatch(/id: 'script', label: '읽기 강의'/)
+    expect(theater).toMatch(/lec\.load\(\)/)
+    expect(stage).toMatch(/text: c\.segments\.map/)
+    // page(서버)는 대본을 넘기지 않는다 — 개요(역할 · 타깃)만
+    expect(page).not.toMatch(/segments/)
+  })
+})

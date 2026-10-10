@@ -397,3 +397,14 @@
 .composerActions .finishBtn:hover { color: #fff; opacity: .9; }
 .resume { width: 100%; font-size: 12px; color: var(--t2); }
 .resumeNote { padding: 0 12px 8px; font-size: 12px; color: var(--t2); }
+
+/* 읽기 강의 — 음성과 같은 대본을 차례별로 읽는다(지금 차례는 강조) */
+.script { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.script button {
+  display: flex; gap: 10px; width: 100%; min-height: 44px; padding: 10px 12px; text-align: left;
+  border: 1px solid transparent; border-radius: 10px; background: transparent; color: inherit; font: inherit; line-height: 1.6; cursor: pointer;
+}
+.script button:hover { background: color-mix(in srgb, currentColor 6%, transparent); }
+.script button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.script li[data-live='true'] button { border-color: currentColor; background: color-mix(in srgb, currentColor 8%, transparent); font-weight: 600; }
+.scriptNo { flex: none; font-variant-numeric: tabular-nums; opacity: 0.6; }
