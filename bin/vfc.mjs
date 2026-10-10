@@ -18,7 +18,7 @@ import * as T from '../lib/tasks.mjs'
 import * as P from '../lib/planning.mjs'
 import * as UG from '../lib/usergoals.mjs'
 import * as CTX from '../lib/context.mjs'
-import { measureRuns } from '../lib/perf.mjs'
+import { measureRuns, goalMetrics } from '../lib/perf.mjs'
 import { execFileSync } from 'node:child_process'
 import { initState } from '../lib/init.mjs'
 import { goalLevel } from '../lib/alignment.mjs'
@@ -584,6 +584,8 @@ function main() {
     }
     case 'ugoal status':
       return out(UG.summary(loadState().state, pos[0]), opt)
+    case 'ugoal metrics':
+      return out(goalMetrics(loadState().state, pos[0], { now: new Date().toISOString() }), opt)
     case 'ugoal route':
       return out(UG.route(loadState().state, pos[0]), opt)
     case 'planning request': {
