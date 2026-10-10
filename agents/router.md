@@ -11,15 +11,12 @@
 | LLM 판단 드레인(청크 채우기) | **Claude Code** | 전용 서브에이전트·슬래시 명령이 있다. Codex 도 같은 3단 구조로 할 수 있다(AGENTS.md) |
 | 명세가 분명한 구현 · 테스트 주도 디버깅 | **Codex** (`codex exec`) | 실패 로그 → 원인 추적 루프가 짧다 |
 | 회귀 테스트 작성 | **Codex** (`test-writer` 에이전트) | `.codex/agents/test-writer.toml` |
-| 자동 리뷰 · CI 배치 | **Codex** (`codex review`) | 비대화형 |
-| 교차 검토 | **쓴 쪽의 반대** | 다른 모델이 다른 종류의 오류를 잡는다 |
+| 교차 검토(사용자 요청 시만) | **쓴 쪽의 반대** | 다른 모델이 다른 종류의 오류를 잡는다 |
 
-- 흐름의 기본형: **Claude 가 계획 → Codex 가 실행 → Claude 가 리뷰** (또는 그 역).
-- 교차 검토는 **기능 단위에서만** 한다(비용이 대략 두 배). 잔손질·문서 한 줄은 한쪽에서 끝낸다.
-  - Claude 가 쓴 기능 → 커밋마다 Codex Stop 훅(자동) + 머지 전 `node agents/scripts/review.mjs` 1회. `codex review --uncommitted` 를 따로 돌리지 않는다(같은 변경 중복 리뷰 · 2026-10-10)
-  - Codex 가 쓴 기능 → Claude 세션에서 `/code-review`
+- 흐름의 기본형: **Claude 가 계획 → Codex 가 실행**(또는 그 역). 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다.
+- **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2). Stop 훅·커밋·task submit·DB 게이트·PR·머지 어디서도 Codex 리뷰를 자동으로 부르지 않는다.
+- 교차 검토는 **사용자가 요청할 때만** 한다 — Claude 가 쓴 기능은 `node agents/scripts/review.mjs`(목적 대조 · 정본 [goal-review.md](./goal-review.md)), Codex 가 쓴 기능은 Claude 세션의 `/code-review`. Codex 실패 시 재시도를 반복하지 않는다.
 - 마이그레이션 적용·main 머지·`.env` 는 어느 쪽이든 사용자 확인(AGENTS.md ③).
-- **교차 리뷰는 목적 대조까지 한다** — 정본 [goal-review.md](./goal-review.md). 기본 명령은 `node agents/scripts/review.mjs`(현재 브랜치 vs main · 목적 = `.agent-goal.md`). 「요청하지 않은 범위 추가 · 걷어낸 것 재도입 · 수용 기준 누락」은 결함과 같은 등급(P1·P2)이다.
 
 ## 2. 같은 워크트리를 동시에 쓰지 않는다
 

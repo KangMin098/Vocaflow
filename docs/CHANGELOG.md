@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(agents): 자동 Codex 리뷰 전면 제거(사용자 결정 · RP-2026-10-10.2) — AGENTS.md · CLAUDE.md · router.md · goal-review.md 에서 머지 전·계획 전 Codex 리뷰 의무를 없앴다. `review.mjs` 는 사용자 요청 시만. 훅·오케스트레이터 변경은 AI-Control PR #198.
 
 - feat(map): 생애주기 수행 기록 판정 `lifecycle-evidence.ts` — 바로잡기(막혔던 문항 다시 맞힘) · 적용(묶음 밖 · 전이 시도)을 G2 원장으로 판정(DB 변경 없음) · 지금 할 일 하나 · 막힌 뒤 재바로잡기. 원문 결속 `anchor-source.ts` · `anchorGate` · `scripts/csat/map/anchor-bind.mts`(E축 11문항 · 변이 테스트). 격리 기록 E2E `lifecycle-records.test.tsx`. 문서 `MAP_GAP_LEDGER.md` · `MAP_PILOT_PROTOCOL.md`. X 설명 처리 속도 문구 정합
 - docs(agents): Codex 리뷰 중복 제거 — 기능 끝의 수동 `codex review --uncommitted` 를 지침에서 뺐다(커밋마다 Stop 훅 + 머지 전 `review.mjs` 1회). 훅 쪽 판독·재사용 개선(RP-2026-10-10.1)은 AI-Control `chore/review-dedupe`.
