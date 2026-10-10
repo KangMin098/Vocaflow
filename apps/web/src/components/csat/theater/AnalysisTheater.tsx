@@ -61,7 +61,7 @@ import { teachingModelOf } from '@/lib/csat/teaching-contract'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
-import type { DissectionRecord, Prediction } from '@/lib/csat/dissect'
+import type { DissectionRecord, Prediction, SelfExplanation } from '@/lib/csat/dissect'
 import {
   finishSession,
   isSkipPrediction,
@@ -81,6 +81,7 @@ import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff } from './PredictGate'
+import { SelfExplain } from './SelfExplain'
 import { SessionDone } from './SessionDone'
 import styles from './theater.module.css'
 
@@ -217,6 +218,9 @@ export function AnalysisTheater({
   const [resumedAt, setResumedAt] = useState<number | null>(null)
   // 이 기기에서 본 문항 — 다음 문항을 본 기록으로 고른다(F14). 읽기 전에는 서버가 고른 것을 쓴다
   const [seen, setSeen] = useState<ReadonlySet<string> | null>(null)
+  // 이 문항의 자기 설명(M4) — 기기 기록에서 읽고, 저장 · 대조 때 갱신한다
+  const [explained, setExplained] = useState<SelfExplanation[]>([])
+  const pickExplained = (r: DissectionRecord) => setExplained((r.explanations ?? []).filter((x) => x.item === itemId))
   const sfx = useTheaterSfx()
   const [cursor, setCursor] = useState(0)
   const ready = useRef(false)
@@ -251,6 +255,7 @@ export function AnalysisTheater({
       })
       if (!alive || !opened) return
       setSeen(touchedItems(record))
+      pickExplained(record)
       const { session: s, resumed } = opened as { session: LearningSession; resumed: boolean }
       // 예측 관문은 없다(F01 · 2026-10-10) — 문항을 열면 해설을 바로 본다. 그래서 이 열람은 「해설을 먼저 본」 공개로
       // 남긴다(viewed_first · 시도 없음). 같은 문항의 Practice · 확인 과제가 독립 수행으로 잘못 세지지 않게 한다.
@@ -291,6 +296,14 @@ export function AnalysisTheater({
     void persist((r) => stepSession(r, id, cursor, Date.now()))
   }, [cursor, session])
   const finished = session?.stage === 'finished'
+  const saveExplanation = (x: SelfExplanation) => {
+    setExplained((xs) => [...xs, x])
+    void persist((r) => ({ ...r, explanations: [...(r.explanations ?? []), x], updatedAt: Date.now() })).then(({ record }) => pickExplained(record))
+  }
+  const compareExplanation = (id: string) => {
+    setExplained((xs) => xs.map((x) => (x.id === id ? { ...x, compared: true } : x)))
+    void persist((r) => ({ ...r, explanations: (r.explanations ?? []).map((x) => (x.id === id ? { ...x, compared: true } : x)), updatedAt: Date.now() })).then(({ record }) => pickExplained(record))
+  }
   const finish = () => {
     if (!session) return
     const id = session.id
@@ -703,6 +716,15 @@ export function AnalysisTheater({
                         <EvidenceQuote passage={currentPassage} quote={b.quote} truncated={b.quoteTruncated} />
                       </article>
                     ))}
+                    <SelfExplain
+                      key={itemId}
+                      itemId={itemId}
+                      rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
+                      choiceTruth={goal?.choiceTruth ?? false}
+                      saved={explained}
+                      onSave={saveExplanation}
+                      onCompare={compareExplanation}
+                    />
                   </div>
                 ) : null}
 

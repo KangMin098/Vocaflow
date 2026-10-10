@@ -5,6 +5,7 @@ import {
   DAY,
   activeSet,
   compressDue,
+  correctnessItemIds,
   coverage,
   dueBucket,
   dueNow,
@@ -16,6 +17,7 @@ import {
   upcoming,
   visitState,
   withView,
+  withoutHeldCorrectness,
 } from '../continuity'
 import { emptyDissectionRecord, type DissectionRecord } from '../dissect'
 
@@ -134,5 +136,32 @@ describe('mergeDissection — 보류로 빠진 진행 세트(activeWithheld · R
   it('표시 없이 새 쪽에 세트가 없으면(끝낸 세트) 옛 세트를 되살리지 않는다', () => {
     const out = mergeDissection(base({ active, updatedAt: 5 }), base({ updatedAt: 9 }))
     expect(out.active).toBeUndefined()
+  })
+})
+
+describe('mergeDissection — 자기 설명(M4 · 2026-10-11)', () => {
+  const ex = (id: string, at: number, compared = false) => ({ id, item: '2026#31', kind: 'lure' as const, choice: 1, tempting: 't', reject: 'r', at, afterExplanation: true as const, compared })
+  const base = { version: 1 as const, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [] }
+
+  it('두 기기의 설명을 id 로 합치고, 한쪽에서 대조했으면 대조로 남긴다', () => {
+    const a = { ...base, updatedAt: 2, explanations: [ex('x1', 1), ex('x2', 2)] }
+    const b = { ...base, updatedAt: 1, explanations: [ex('x1', 1, true), ex('x3', 3)] }
+    const m = mergeDissection(a, b)
+    expect(m.explanations?.map((x) => x.id)).toEqual(['x1', 'x2', 'x3'])
+    expect(m.explanations?.find((x) => x.id === 'x1')?.compared).toBe(true)
+  })
+
+  it('설명을 모르는 옛 기기가 올려도 사라지지 않는다', () => {
+    const m = mergeDissection({ ...base, updatedAt: 5 }, { ...base, updatedAt: 1, explanations: [ex('x1', 1)] })
+    expect(m.explanations).toHaveLength(1)
+  })
+})
+
+describe('Reveal Gate — 자기 설명도 보류 문항이면 내보내지 않는다', () => {
+  it('오답 선지 번호는 정답의 여집합이라 정답 민감 칸이다', () => {
+    const x = { id: 'x1', item: 'H#1', kind: 'lure' as const, choice: 2, tempting: '', reject: 'r', at: 1, afterExplanation: true as const, compared: false }
+    const r = { version: 1 as const, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], explanations: [x] }
+    expect(correctnessItemIds(r)).toContain('H#1')
+    expect(withoutHeldCorrectness(r, (id) => id === 'H#1').explanations).toEqual([])
   })
 })

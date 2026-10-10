@@ -63,7 +63,30 @@ export interface DissectionRecord {
   updatedAt?: number
   /** 학습 세션(해설 극장) — `lib/csat/learning-session.ts` · G0 계약. 병합은 id 단위 */
   sessions?: LearningSession[]
+  /** 자기 설명(해설 극장 M4) — 학습자가 쓴 오답 설계 설명. 병합은 id 단위 · 자동 채점 없음 */
+  explanations?: SelfExplanation[]
 }
+
+/**
+ * 오답 하나를 골라 「왜 그럴듯한가 · 무엇이 바뀌어 배제되나」를 학습자가 쓴 기록.
+ * 정오를 매기지 않는다 — 검수된 분석 설명과 **스스로 대조**한 여부만 남긴다(자동 의미 채점 경로가 없다).
+ * `afterExplanation`: 해설이 이미 열려 있는 화면에서 쓴 것 — 독립 수행으로 세지 않는다.
+ */
+export interface SelfExplanation {
+  id: string
+  item: string
+  kind: 'lure'
+  choice: number
+  tempting: string
+  reject: string
+  at: number
+  afterExplanation: true
+  /** 쓴 뒤 분석 설명을 열어 대조했는가 */
+  compared: boolean
+}
+
+/** 한 칸 글자 상한 — 기록 전체가 서버 상한(900KB)을 넘지 않게 */
+export const EXPLAIN_MAX = 600
 export function emptyDissectionRecord(seed: number): DissectionRecord {
   return { version: 1, seed, onboarded: false, predictions: [], formulas: [], queue: [], completed: [] }
 }

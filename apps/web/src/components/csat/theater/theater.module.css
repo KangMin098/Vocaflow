@@ -414,3 +414,25 @@
 .goal b { font-size: 0.8125rem; letter-spacing: 0.02em; opacity: 0.75; }
 .goal p { margin: 0; }
 .goal em { font-style: normal; text-decoration: underline; text-underline-offset: 3px; }
+
+/* 자기 설명(M4) — 선택 참여 · 저장 뒤 분석 설명과 나란히 */
+.explain { display: grid; gap: 10px; margin-top: 16px; padding: 14px; border: 1px dashed currentColor; border-radius: 12px; line-height: 1.6; }
+.explain h2 { margin: 0; font-size: 0.9375rem; }
+.explain > p { margin: 0; }
+.optional { margin-left: 6px; font-size: 0.75rem; font-weight: 500; opacity: 0.7; }
+.explainChoices { display: flex; gap: 6px; flex-wrap: wrap; }
+.explainChoices button, .explainActions button, .explainCompare button {
+  min-height: 44px; min-width: 44px; padding: 0 14px; border: 1px solid currentColor; border-radius: 10px; background: transparent; color: inherit; font: inherit; cursor: pointer;
+}
+.explainChoices button[aria-pressed='true'] { background: color-mix(in srgb, currentColor 14%, transparent); font-weight: 700; }
+.explain button:focus-visible, .explain textarea:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.explain button:disabled { opacity: 0.45; cursor: not-allowed; }
+.explainField { display: grid; gap: 4px; }
+.explainField span { font-size: 0.8125rem; }
+.explainField textarea { width: 100%; padding: 8px 10px; border: 1px solid currentColor; border-radius: 8px; background: transparent; color: inherit; font: inherit; resize: vertical; }
+.explainActions { display: flex; gap: 8px; }
+.explainCompare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.explainCompare > div { display: grid; gap: 4px; align-content: start; }
+.explainCompare > p { grid-column: 1 / -1; margin: 0; }
+.explainCompare b { font-size: 0.8125rem; }
+.explainCompare p { margin: 0; }

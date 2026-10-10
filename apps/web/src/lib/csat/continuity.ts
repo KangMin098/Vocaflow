@@ -165,6 +165,16 @@ function uniqBy<T>(values: T[], key: (v: T) => string): T[] {
  *   (다른 기기에서 이미 끝낸 복습이 한 번 더 나올 수는 있다 — 학습이 사라지는 쪽보다 낫다.)
  * - 진행 중 세트 · 초안 · seed 도 최근에 고친 쪽
  */
+function mergeExplanations(a: DissectionRecord['explanations'], b: DissectionRecord['explanations']): DissectionRecord['explanations'] {
+  if (!a?.length && !b?.length) return undefined
+  const byId = new Map<string, NonNullable<DissectionRecord['explanations']>[number]>()
+  for (const x of [...(a ?? []), ...(b ?? [])]) {
+    const prev = byId.get(x.id)
+    byId.set(x.id, prev ? { ...x, compared: prev.compared || x.compared } : x)
+  }
+  return [...byId.values()].sort((p, q) => p.at - q.at).slice(-300)
+}
+
 export function mergeDissection(local: DissectionRecord, server: DissectionRecord): DissectionRecord {
   const newer = (server.updatedAt ?? 0) > (local.updatedAt ?? 0) ? server : local
   const older = newer === server ? local : server
@@ -183,6 +193,8 @@ export function mergeDissection(local: DissectionRecord, server: DissectionRecor
     predictions: uniqBy([...older.predictions, ...newer.predictions], (p) => p.attempt ?? `${p.item}|${p.step}|${p.at}`).sort((a, b) => a.at - b.at),
     // 세션은 양쪽을 id 로 합친다 — sessions 를 모르는 옛 기기가 올려도 사라지지 않는다(G0 계약 §4)
     sessions: mergeSessions(older.sessions, newer.sessions),
+    // 자기 설명은 id 로 합친다 — 같은 id 면 대조(compared)를 한 쪽을 남긴다 · 최근 300건
+    explanations: mergeExplanations(older.explanations, newer.explanations),
     completed: uniqBy([...older.completed, ...newer.completed], (c) => `${c.id}|${c.at}`).sort((a, b) => a.at - b.at),
     formulas: [...formulas.values()],
     queue: [...newer.queue, ...olderOnlyQueue],
@@ -209,6 +221,8 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
     (a.inspected ?? []).length === (b.inspected ?? []).length &&
     a.onboarded === b.onboarded &&
     sameSessions(a.sessions, b.sessions) &&
+    (a.explanations ?? []).length === (b.explanations ?? []).length &&
+    (a.explanations ?? []).every((x, i) => x.compared === b.explanations?.[i]?.compared) &&
     (a.active?.index ?? -1) === (b.active?.index ?? -1) &&
     (a.active?.items.join(',') ?? '') === (b.active?.items.join(',') ?? '')
   )
@@ -216,13 +230,14 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
 
 /**
  * Reveal Gate — 정답 · 정오가 실린 칸의 문항 id: 예측 `hit` · 초안 `answers[].hit` · 진행 중 세트의 근거 자리(`active.loci`) ·
- * 공식(분석에서 뽑은 문장 — `formulas[].sources`). 서버가 보류 판정에 넘긴다. 완료 · 열람은 정오를 싣지 않는다.
+ * 공식(분석에서 뽑은 문장 — `formulas[].sources`) · 자기 설명(오답 선지 번호 = 정답의 여집합). 서버가 보류 판정에 넘긴다. 완료 · 열람은 정오를 싣지 않는다.
  */
 export function correctnessItemIds(record: DissectionRecord): string[] {
   return [...new Set([
     ...record.predictions.map((p) => p.item), ...Object.keys(record.drafts ?? {}),
     ...(record.active?.items ?? []), ...Object.keys(record.active?.loci ?? {}),
     ...record.formulas.flatMap((f) => f.sources),
+    ...(record.explanations ?? []).map((x) => x.item),
   ])]
 }
 
@@ -240,6 +255,7 @@ export function withoutHeldCorrectness(record: DissectionRecord, isHeld: (itemId
     ...(active && !activeHeld ? { active } : {}),
     predictions: record.predictions.filter((p) => !isHeld(p.item)),
     formulas: record.formulas.filter((f) => !f.sources.some(isHeld)),
+    ...(record.explanations ? { explanations: record.explanations.filter((x) => !isHeld(x.item)) } : {}),
     ...(drafts ? { drafts } : {}),
   }
 }

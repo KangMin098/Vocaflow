@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): 해설 극장 자기 설명(M4) — 오답 하나의 「그럴듯한 이유 · 배제 조건」을 쓰고 저장 뒤 검수된 분석 설명과 나란히 자기 대조(선택 · 건너뛰기 · 점수 없음 · 선택≠참거짓 유형은 「왜 맞는 말인가」). 기록 `explanations`(id 병합 · afterExplanation · compared) · Reveal Gate 보류 시 제외 · 대조 열람은 기존 `csat_session_explained`(kind reject) — DB 허용 목록 변경 없음. 원리 과제(knowledge_applications)는 active 20문항뿐 — 이 카드가 나머지 문항의 자기 설명 단계.
 - feat(csat): 유형 교수 계약 `lib/csat/teaching-contract.ts`(26유형 정본 — 근거 단위 · 중심 관계 · 정답/오답 설계 · 선택≠참거짓 · 시각 근거 · passage_design 적용 여부 · 무조건 규칙 함정) · 해설 극장 분석 판 머리에 「이 문항에서 설명할 관계」.
 - fix(csat): 도표 강의 큐 7개(2020#25 · M2206#25 · M2209#25 · M2406#25 · M2506#25 → v2) — 정답표로 역추정한 그래프 값 · 「틀린 선지는 이 번뿐이니」 추론을 도표 대조 방법으로 교체. 가드 `lecture-no-answer-key-inference`.
 - fix(csat): 설계 주석 드레인 입력 결속 — export 가 분석 id·버전·지문 sha256 을 싣고 import 가 적재 직전 대조(다르면 재추출 필요로 건너뜀 · 옛 산출물은 같은 값일 때만). 전엔 문장 수만 같으면 새 분석에 옛 판정이 붙었다.
