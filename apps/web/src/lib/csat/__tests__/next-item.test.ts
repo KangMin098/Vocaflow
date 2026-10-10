@@ -88,3 +88,26 @@ describe('pickNextItem', () => {
     expect(pickNextItem(pool, 'X#1', hasAll)?.item.id).toBe('2026#31')
   })
 })
+
+describe('pickNextItem — 본 기록(F14 · 2026-10-10)', () => {
+  it('최신 둘 사이를 왕복하지 않는다 — A 를 보고 B 로 왔으면 B 의 다음은 C 다', () => {
+    // 전: 최신순만 써서 2026 → 2025 → 2026 → … 이 됐다
+    const seen = new Set(['2026#31', '2025#31'])
+    expect(pickNextItem(ALL, '2025#31', hasAll, seen)?.item.id).toBe('2024#31')
+  })
+
+  it('안 본 것이 남았으면 revisit=false · remaining 은 안 본 수다', () => {
+    const got = pickNextItem(ALL, '2026#31', hasAll, new Set(['2026#31']))
+    expect(got?.revisit).toBe(false)
+    expect(got?.remaining).toBe(3)
+  })
+
+  it('다 봤으면 현재 다음 순번을 「다시 보기」로 준다 — 처음(최신)으로 튀지 않는다', () => {
+    const seen = new Set(ALL.map((i) => i.id))
+    // 순서: 2026 · 2025 · 2024 · M2309
+    const got = pickNextItem(ALL, '2025#31', hasAll, seen)
+    expect(got?.item.id).toBe('2024#31')
+    expect(got?.revisit).toBe(true)
+    expect(pickNextItem(ALL, 'M2309#31', hasAll, seen)?.item.id).toBe('2026#31')
+  })
+})

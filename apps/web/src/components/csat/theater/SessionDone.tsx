@@ -15,7 +15,7 @@ import styles from './theater.module.css'
 
 const HEAD: Record<'guided' | 'independent', string> = {
   independent: '스스로 판단하고 마쳤어요',
-  guided: '도움을 받아 마쳤어요',
+  guided: '설계 설명을 읽고 마쳤어요',
 }
 
 const dayLabel = (t: number, now: number) => {
@@ -44,11 +44,11 @@ export function SessionDone({
   const completion = completionOf(session)
   if (completion !== 'guided' && completion !== 'independent') return null
   const facts: string[] = []
-  if (session.help === 'viewed_first') facts.push('예측 없이 해설을 먼저 봤어요')
+  if (session.help === 'viewed_first') facts.push('해설을 읽으며 공부했어요 — 스스로 푼 기록으로 세지 않아요')
   if (result?.sentenceHit != null) facts.push(`근거 문장 예측 ${result.sentenceHit ? '맞음' : '어긋남'}`)
   if (result?.choiceHit != null) facts.push(`정답 예측 ${result.choiceHit ? '맞음' : '어긋남'}`)
   facts.push('정답 근거와 오답 설계를 끝까지 봤어요')
-  const check = completion === 'independent' ? '같은 유형의 새 문항에서 다시 확인해 보세요.' : '근거를 이해했는지 다음 문항에서 확인해 보세요.'
+  const check = completion === 'independent' ? '같은 유형의 새 문항에서 다시 확인해 보세요.' : '같은 관계를 다른 기출에서 찾아 설명해 보세요.'
 
   return (
     <section className={styles.done} aria-labelledby="session-done-title" data-testid="session-done" data-completion={completion}>

@@ -86,16 +86,21 @@ type Debug = {
 export function LectureStage({
   slug,
   meta,
+  keys = true,
   children,
 }: {
   slug: string
   meta: { sec: number; cues: number }
+  /** 전역 키(Space · ←/→)를 이 무대가 받는가 — 화면이 차례를 따로 쥐면 false 로 넘겨 소유자를 하나로 둔다(F12) */
+  keys?: boolean
   children: React.ReactNode
 }) {
   const rootRef = useRef<HTMLDivElement | null>(null)
   const playerRef = useRef<LecturePlayer | null>(null)
   const loading = useRef<Promise<LecturePlayer | null> | null>(null)
   const jumps = useRef(0)
+  /** 실제로 소리(또는 무음 강조)가 재생된 큐 — 마지막 큐 도달과 완주를 가른다(F13) */
+  const heard = useRef<Set<number>>(new Set())
   const debug = useRef<Debug | null>(null)
   /** 비동기 경계를 넘는 값은 상태가 아니라 ref 로 읽는다 — 닫힌 값이 낡는다 */
   const modeRef = useRef<LectureMode>('unknown')
@@ -227,11 +232,14 @@ export function LectureStage({
       for (const el of all) el.removeAttribute('data-lecture-state')
       return
     }
-    const active = all.find((el) => el.dataset.lectureTarget === activeKey) ?? null
+    // 같은 대상을 가리키는 요소는 모두 켠다(F04) — 지도 칩과 오른쪽 설명 블록이 한 키를 나눠 쓴다.
+    // 첫 DOM 요소만 잡으면 왼쪽 칩만 켜지고 정작 설명 블록이 흐려졌다. 숨은 요소(hidden · 닫힌 탭)는 고르지 않는다.
+    const targets = all.filter((el) => el.dataset.lectureTarget === activeKey && el.offsetParent !== null)
+    const active = targets.find((el) => el.dataset.block != null) ?? targets[0] ?? null
     // 대본이 말한 막대도 켠다 — 오답 칩을 가리키며 「일곱 번째 문장」이라고 할 때 그 막대가 흐려지면
     // 귀와 눈이 갈라진다. 칩이 주인공이고 막대는 함께 켜지는 짝이다.
     const focusKeys = new Set((activeFocus ?? []).map((k) => `anchor:sentence:${k}`))
-    const lit = [active, ...all.filter((el) => focusKeys.has(el.dataset.lectureTarget ?? ''))].filter(
+    const lit = [...targets, ...all.filter((el) => focusKeys.has(el.dataset.lectureTarget ?? ''))].filter(
       (el): el is HTMLElement => el != null,
     )
     for (const el of all) {
@@ -257,7 +265,9 @@ export function LectureStage({
     if (!sessionOn || !ps || ps.index === lastScrolled.current) return
     lastScrolled.current = ps.index
     const root = rootRef.current
-    const active = activeKey ? root?.querySelector<HTMLElement>(`[data-lecture-target="${CSS.escape(activeKey)}"]`) : null
+    // 스크롤은 설명 블록(주 대상)으로 — 없으면 보이는 첫 대상
+    const found = activeKey ? Array.from(root?.querySelectorAll<HTMLElement>(`[data-lecture-target="${CSS.escape(activeKey)}"]`) ?? []).filter((el) => el.offsetParent !== null) : []
+    const active = found.find((el) => el.dataset.block != null) ?? found[0] ?? null
     if (debug.current && cues[ps.index]) {
       debug.current.checks.push({
         i: ps.index,
@@ -271,23 +281,36 @@ export function LectureStage({
     active.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
   }, [ps, sessionOn, activeKey, cues])
 
-  // 끝까지 들었다
+  // 재생 중에 지난 큐만 「들은 큐」로 센다 — 건너뛴 큐는 들은 것이 아니다
+  useEffect(() => {
+    if (status === 'playing' && ps) heard.current.add(ps.index)
+  }, [status, ps])
+
+  // 마지막 큐가 끝났다 — 완주가 아니다. 들은 큐 수(heard)를 따로 실어 완주를 판정하게 한다
   useEffect(() => {
     if (status !== 'ended') return
     if (debug.current) debug.current.ended = true
     track({
       name: 'csat_lecture_ended',
-      props: { cues: cues.length, jumps: jumps.current, mode: modeRef.current === 'silent' ? 'silent' : 'voice' },
+      props: {
+        cues: cues.length,
+        jumps: jumps.current,
+        heard: heard.current.size,
+        complete: cues.length > 0 && heard.current.size >= cues.length,
+        mode: modeRef.current === 'silent' ? 'silent' : 'voice',
+      },
     })
     lastScrolled.current = -1
   }, [status, cues.length])
 
-  // ── 블록을 누르면 그 블록 설명부터(지시문 [D]) ─────────────────────────────
+  // ── 재생 중에 블록을 누르면 그 블록 설명으로 옮긴다 — 멈춤 · 끝 상태의 클릭은 읽기다(F12) ──────
   useEffect(() => {
     const root = rootRef.current
     if (!root) return
     const onClick = (e: MouseEvent) => {
-      if (!playerRef.current || !cues.length) return
+      if (!playerRef.current || !cues.length || playerRef.current.getState().status !== 'playing') return
+      // 글을 골라 읽는 중이면 옮기지 않는다 — 텍스트 선택은 읽기 동작이다
+      if (window.getSelection()?.toString()) return
       const t = e.target as HTMLElement | null
       // 블록 안의 제 단추·링크는 제 일을 한다
       if (!t || t.closest('button, a, summary, input, select, textarea, [data-lecture-bar]')) return
@@ -305,6 +328,7 @@ export function LectureStage({
 
   // ── 키보드: Space 재생/정지 · ←/→ 큐 ────────────────────────────────────
   useEffect(() => {
+    if (!keys) return
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null
       const tag = t?.tagName
@@ -328,7 +352,7 @@ export function LectureStage({
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [toggle, next, prev])
+  }, [keys, toggle, next, prev])
 
   const value = useMemo<LectureCtx>(
     () => ({

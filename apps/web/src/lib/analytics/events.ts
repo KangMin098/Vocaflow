@@ -172,12 +172,13 @@ export type PublicEvent =
       props: { mode: 'voice' | 'silent'; from: 'start' | 'cue' | 'block'; rate: 90 | 100 | 115 }
     }
   /**
-   * 강의를 **끝까지** 들었다 — 완주율의 분자. `jumps` 는 건너뛴 횟수 — 많으면 강의가 길거나
-   * 이미 아는 부분이 많았다는 뜻이고, 0 이면 처음부터 끝까지 흘려들은 것이다.
+   * 강의의 **마지막 큐가 끝났다** — 완주가 아니다(F13). `heard` 는 재생 중에 실제로 지난 큐 수,
+   * `complete` 는 모든 큐를 들었는가(완주율의 분자는 이것). `jumps` 는 건너뛴 횟수.
+   * 2026-10-10 이전 행에는 heard · complete 가 없다 — 그 행은 완주로 세지 않는다.
    */
   | {
       name: 'csat_lecture_ended'
-      props: { cues: number; jumps: number; mode: 'voice' | 'silent' }
+      props: { cues: number; jumps: number; heard: number; complete: boolean; mode: 'voice' | 'silent' }
     }
   /**
    * **학습자 세션 루프(2026-09-17 · docs/csat-learner-brief.md).** 진입은 `screen_viewed`

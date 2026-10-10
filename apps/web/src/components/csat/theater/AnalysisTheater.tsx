@@ -33,7 +33,6 @@ import {
   Gauge,
   Headphones,
   Layers,
-  ListTree,
   Pause,
   Play,
   Terminal,
@@ -55,7 +54,8 @@ import {
 } from '@/lib/csat/theater'
 import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
-import { withView } from '@/lib/csat/continuity'
+import { touchedItems, withView } from '@/lib/csat/continuity'
+import { pickNextItem } from '@/lib/csat/next-item'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
@@ -72,13 +72,13 @@ import {
   type LearningSession,
 } from '@/lib/csat/learning-session'
 import type { Pattern, Transform } from '@/lib/csat/design'
-import { OPEN_BEFORE_COMMIT, committedOf, grade, maskChip, maskName, toPrediction, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
+import { committedOf, grade, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
 import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
-import { GateDiff, PredictGate } from './PredictGate'
+import { GateDiff } from './PredictGate'
 import { SessionDone } from './SessionDone'
 import styles from './theater.module.css'
 
@@ -142,6 +142,7 @@ export interface TheaterMap {
 }
 
 export interface TheaterSibling {
+  id: string
   slug: string
   label: string
   no: number
@@ -173,7 +174,6 @@ export function AnalysisTheater({
   examLabel,
   paper,
   gate,
-  typeId,
 }: {
   title: string
   typeName: string | null
@@ -195,9 +195,10 @@ export function AnalysisTheater({
   examLabel: string
   /** 왼쪽 열 원본 — 기기의 문제지 추출본을 읽는다(서버는 원문을 보내지 않는다) */
   paper: { catalog: LearnerCatalog; examId: string; no: number }
-  /** 공개 게이트의 정답 열쇠 — 확정 전에는 화면에 쓰지 않는다 */
+  /** 지난 예측 기록(2026-10-10 이전 예측 관문)의 차이 카드를 다시 보이는 데만 쓴다 — 새 예측은 받지 않는다 */
   gate: GateKey
-  typeId: string
+  /** 유형 id — 지난 예측 기록과 같은 모양을 유지하려고 받는다(현재 화면은 쓰지 않는다) */
+  typeId?: string
 }) {
   const lec = useLecture()
   const [quotePassage, setQuotePassage] = useState<PaperPassage | null>(null)
@@ -209,6 +210,8 @@ export function AnalysisTheater({
   // 공개 게이트 — undefined = 기록 읽는 중 · null = 아직 확정 안 함
   const [committed, setCommitted] = useState<Prediction | null | undefined>(undefined)
   const [resumedAt, setResumedAt] = useState<number | null>(null)
+  // 이 기기에서 본 문항 — 다음 문항을 본 기록으로 고른다(F14). 읽기 전에는 서버가 고른 것을 쓴다
+  const [seen, setSeen] = useState<ReadonlySet<string> | null>(null)
   const sfx = useTheaterSfx()
   const [cursor, setCursor] = useState(0)
   const ready = useRef(false)
@@ -242,8 +245,18 @@ export function AnalysisTheater({
         return o.record
       })
       if (!alive || !opened) return
+      setSeen(touchedItems(record))
       const { session: s, resumed } = opened as { session: LearningSession; resumed: boolean }
-      sync(record, s.id)
+      // 예측 관문은 없다(F01 · 2026-10-10) — 문항을 열면 해설을 바로 본다. 그래서 이 열람은 「해설을 먼저 본」 공개로
+      // 남긴다(viewed_first · 시도 없음). 같은 문항의 Practice · 확인 과제가 독립 수행으로 잘못 세지지 않게 한다.
+      if (s.stage === 'open') {
+        const id = s.id
+        const res = await persist((r) => revealSession(r, id, 'viewed_first', null, Date.now()))
+        if (!alive) return
+        sync(res.record, id)
+        const revealedAt = new Date().toISOString()
+        void currentUserId().then((userId) => sendReveal({ slug: toItemSlug(itemId), sessionId: id, help: 'viewed_first', revealedAt, userId }))
+      } else sync(record, s.id)
       // 이미 공개된 이 문항의 기기 세션(이 변경 전 · 다른 기기에서 동기화된 것)도 서버에 한 번 남긴다 — 최초 공개 시각 그대로 · 재전송은 서버 duplicate(Codex P1)
       void currentUserId().then((userId) => {
         const owners = readOwners()
@@ -272,27 +285,7 @@ export function AnalysisTheater({
     const id = session.id
     void persist((r) => stepSession(r, id, cursor, Date.now()))
   }, [cursor, session])
-  const revealed = committed != null || (session != null && session.stage !== 'open')
   const finished = session?.stage === 'finished'
-  const commit = (c: GateCommit) => {
-    if (!session) return
-    const skip = c.sentence == null && c.choice == null
-    const attempt = newId()
-    const p: Prediction = { ...toPrediction(itemId, typeId, c, grade(c, gate), Date.now()), attempt, session: session.id }
-    setCommitted(p)
-    // 예측 패널이 길어 판을 내린 채 확정하면 차이 카드가 판 위쪽 밖에 열린다 — 그리로 데려간다
-    requestAnimationFrame(() => document.querySelector('[data-testid="gate-diff"]')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
-    const id = session.id
-    void persist((r) => {
-      // 같은 시도가 두 번 오면 한 건(멱등) · 「모르겠어요」는 시도가 아니라 도움 수준(viewed_first)
-      const predictions = r.predictions.some((x) => x.attempt === attempt) ? r.predictions : [...r.predictions, p]
-      return revealSession({ ...r, predictions }, id, skip ? 'viewed_first' : 'independent', skip ? null : attempt, Date.now())
-    }).then(({ record }) => sync(record, id))
-    // 서버 학습 세션에도 공개를 남긴다 — 같은 문항의 Practice · 확인 과제가 「해설을 본 뒤의 판단」 임을 서버가 알게(Codex P1).
-    // 학습 흐름을 막지 않는다(실패해도 극장은 계속) · 같은 공개의 재전송은 서버에서 duplicate
-    const revealedAt = new Date().toISOString()
-    void currentUserId().then((userId) => sendReveal({ slug: toItemSlug(itemId), sessionId: id, help: skip ? 'viewed_first' : 'independent', revealedAt, userId }))
-  }
   const finish = () => {
     if (!session) return
     const id = session.id
@@ -319,7 +312,6 @@ export function AnalysisTheater({
       sync(record, (fresh as LearningSession).id)
     })
   }
-  const [all, setAll] = useState(steps.length === 0)
   const [tab, setTab] = useState<TabId>('analysis')
   const railRef = useRef<HTMLElement>(null)
   const blocksRef = useRef<HTMLDivElement>(null)
@@ -340,19 +332,9 @@ export function AnalysisTheater({
     if (!first || playing) sfx.play(steps[cursor]?.sfx ?? 'step')
   }, [cursor, playing, sfx, steps])
 
-  const open = useMemo(() => {
-    if (all || !steps.length) return new Set(blockKeys)
-    const shown = new Set<string>(['analysis:head'])
-    for (let i = 0; i <= cursor && i < steps.length; i += 1) {
-      const key = blockKeyForTarget(steps[i].targetKey, blockKeys)
-      if (key && key !== 'analysis:map') shown.add(key)
-    }
-    return shown
-  }, [all, blockKeys, cursor, steps])
-
-  // 확정 전엔 머리 · 「재는 것」만 — 차례·「전부 펼치기」와 무관하게 닫아 둔다
-  const shownOpen = revealed ? open : new Set(blocks.filter((b) => OPEN_BEFORE_COMMIT.has(b.kind)).map((b) => b.key))
-  const label = (name: string, kind: string) => (revealed ? name : maskName(name, kind))
+  // 모든 블록은 처음부터 읽을 수 있다(F03) — 차례는 지금 설명하는 블록을 강조(data-live)할 뿐 여닫지 않는다.
+  // 강의가 끝나도, 강의가 그 블록을 가리키지 않아도 정답 근거 · 오답 설계 · 재는 능력은 그대로 남는다.
+  const label = (name: string) => name
   const mine: GateCommit | null = committed
     ? {
         sentence: committed.sentence ?? null,
@@ -365,14 +347,22 @@ export function AnalysisTheater({
       }
     : null
   const diff = mine ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
-  // 마지막 단계(강의가 없으면 공개 직후)에서 마칠 수 있다
-  const atEnd = steps.length === 0 || cursor >= steps.length - 1
+  const nextLive = useMemo(() => {
+    if (!seen) return next ? { ...next, revisit: false } : null
+    const pick = pickNextItem(
+      siblings.map((x) => ({ id: x.id, slug: x.slug, exam_label: x.label, no: x.no, explained: true })),
+      itemId,
+      () => true,
+      seen,
+    )
+    return pick ? { href: `/csat/item/${pick.item.slug}`, label: `${pick.item.exam_label} ${pick.item.no}번`, revisit: pick.revisit } : null
+  }, [seen, next, siblings, itemId])
   const done =
     finished && session ? (
       <SessionDone
         session={session}
         result={committed && !isSkipPrediction(committed) && mine ? grade(mine, gate) : null}
-        next={next}
+        next={nextLive}
         typeHref={typeHref}
         now={Date.now()}
         onReview={review}
@@ -409,8 +399,17 @@ export function AnalysisTheater({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null
-      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
+      const tag = t?.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || t?.isContentEditable) return
       if (e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.key === ' ') {
+        // 단추 위의 Space 는 그 단추의 일이다
+        if (tag === 'BUTTON' || tag === 'A' || tag === 'SUMMARY' || !lec) return
+        e.preventDefault()
+        if (lec.status === 'idle' || lec.status === 'error') lec.start(cursor, 'start')
+        else lec.toggle()
+        return
+      }
       if (e.key === 'ArrowRight') {
         e.preventDefault()
         move(1)
@@ -438,7 +437,9 @@ export function AnalysisTheater({
               ? `하이라이트만 · 약 ${minutes}분`
               : `상영 시작 · 약 ${minutes}분`
   const MainIcon = status === 'playing' ? Pause : silent ? Play : Headphones
-  const elapsed = timeline.segments.slice(0, cursor).reduce((sum, s) => sum + s.sec, 0)
+  // 지금 차례가 강의에서 놓인 **추정 위치**(앞 차례 추정 초의 합) — 실제로 들은 시간이 아니다(F13).
+  // 중간 시작 · 반복 · 배속 · 멈춤은 이 값을 바꾸지 않는다. 실제 청취는 LectureStage 의 heard 가 센다.
+  const position = timeline.segments.slice(0, cursor).reduce((sum, s) => sum + s.sec, 0)
 
   return (
     <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
@@ -464,9 +465,6 @@ export function AnalysisTheater({
           <button type="button" className={styles.iconBtn} onClick={sfx.toggle} aria-pressed={sfx.on} title="효과음" aria-label="효과음">
             {sfx.on ? <Volume2 size={15} aria-hidden /> : <VolumeX size={15} aria-hidden />}
           </button>
-          <button type="button" className={styles.iconBtn} onClick={() => setAll((v) => !v)} aria-pressed={all} title="전부 펼쳐 읽기" aria-label="전부 펼쳐 읽기">
-            <ListTree size={15} aria-hidden />
-          </button>
           {lec ? (
             <button
               type="button"
@@ -481,11 +479,9 @@ export function AnalysisTheater({
             <button
               type="button"
               className={styles.play}
-              disabled={!revealed}
-              title={revealed ? undefined : '예측을 확정하면 상영할 수 있어요'}
-              onClick={() => (status === 'idle' ? lec.start(cursor, 'start') : lec.toggle())}
+              onClick={() => (status === 'idle' || status === 'error' ? lec.start(cursor, 'start') : lec.toggle())}
             >
-              <MainIcon size={15} aria-hidden /> {revealed ? mainLabel : '예측 후 상영'}
+              <MainIcon size={15} aria-hidden /> {mainLabel}
             </button>
           ) : null}
         </div>
@@ -521,7 +517,7 @@ export function AnalysisTheater({
               </p>
             ) : null}
             <div className={styles.composerActions}>
-              {revealed && !finished && atEnd ? (
+              {session && !finished ? (
                 <button type="button" className={styles.finishBtn} onClick={finish} data-testid="finish-item">
                   이 문항 마치기
                 </button>
@@ -537,15 +533,17 @@ export function AnalysisTheater({
               <button type="button" onClick={() => setTab('run')}>
                 진행 보기
               </button>
-              {next ? (
-                <Link href={next.href}>같은 유형 다음 문항</Link>
+              {nextLive ? (
+                <Link href={nextLive.href} data-testid="next-item" data-revisit={nextLive.revisit}>
+                  {nextLive.revisit ? `이 유형을 다 봤어요 · ${nextLive.label} 다시 보기` : '같은 유형 다음 문항'}
+                </Link>
               ) : (
                 <Link href={typeHref ?? '/csat/browse'}>이 유형 목록</Link>
               )}
             </div>
             <div className={styles.composerFoot}>
               <span className={styles.pill}>
-                {cursor + 1} / {Math.max(1, steps.length)} · {theaterClock(elapsed)} 지남
+                {cursor + 1} / {Math.max(1, steps.length)} · 약 {theaterClock(position)} 지점
               </span>
               <button type="button" className={styles.round} onClick={() => move(-1)} disabled={cursor === 0} title="이전 단계" aria-label="이전 단계">
                 <ChevronLeft size={15} aria-hidden />
@@ -571,7 +569,7 @@ export function AnalysisTheater({
               <span className={styles.legendAnswer}>정답 근거</span>
               <span className={styles.legendReject}>오답 지우는 자리</span>
               <span className={styles.clock}>
-                {theaterClock(elapsed)} / {theaterClock(timeline.total)}
+                약 {theaterClock(position)} 지점 / {theaterClock(timeline.total)}
               </span>
             </p>
             {lec?.error ? (
@@ -597,15 +595,13 @@ export function AnalysisTheater({
                 </p>
                 <div className={styles.paneBody}>
                   <p className={styles.lead}>
-                    <b>{step ? label(step.name, step.kind) : '분석 읽기'}</b>{' '}
+                    <b>{step ? label(step.name) : '분석 읽기'}</b>{' '}
                     <code>
                       {String(cursor + 1).padStart(2, '0')} / {String(Math.max(1, steps.length)).padStart(2, '0')}
                     </code>
                   </p>
                   {session === undefined ? (
                     <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p>
-                  ) : !revealed ? (
-                    <PredictGate sentences={map ? map.sentences.map((x) => x.chars) : []} design={gate.design} onCommit={commit} />
                   ) : map ? (
                     <>
                       {done}
@@ -645,7 +641,7 @@ export function AnalysisTheater({
                   <ChevronDown size={12} aria-hidden />
                   <em>
                     {tab === 'analysis'
-                      ? `${[...shownOpen].length} / ${blocks.length} BLOCKS`
+                      ? `${blocks.length} BLOCKS`
                       : tab === 'run'
                         ? `${steps.length} STEPS`
                         : `${siblings.length} ITEMS`}
@@ -666,10 +662,9 @@ export function AnalysisTheater({
                         data-kind={b.kind}
                         data-live={b.key === liveKey}
                         className={styles.block}
-                        hidden={!shownOpen.has(b.key)}
                       >
                         <div className={styles.chips}>
-                          {b.chips.filter((c) => revealed || !maskChip(c.text)).map((c) => (
+                          {b.chips.map((c) => (
                             <span key={c.text} className={styles.chip} data-tone={c.tone ?? 'plain'}>
                               {c.text}
                             </span>
@@ -682,17 +677,6 @@ export function AnalysisTheater({
                         <EvidenceQuote passage={currentPassage} quote={b.quote} truncated={b.quoteTruncated} />
                       </article>
                     ))}
-                    {!revealed ? (
-                      <p className={styles.pending}>
-                        <b>{blocks.length - shownOpen.size}개가 아직 닫혀 있어요</b>
-                        왼쪽에서 근거 문장 · 정답 · 확신도를 확정하면 정답 근거와 오답 설계가 열립니다.
-                      </p>
-                    ) : !all && steps.length && blocks.length > shownOpen.size ? (
-                      <p className={styles.pending}>
-                        <b>{blocks.length - shownOpen.size}개가 아직 닫혀 있어요</b>
-                        차례를 넘기면 그 자리에서 열립니다. 지금 전부 읽으려면 위의 «전부 펼쳐 읽기».
-                      </p>
-                    ) : null}
                   </div>
                 ) : null}
 
@@ -713,8 +697,8 @@ export function AnalysisTheater({
                         </dd>
                       </div>
                       <div>
-                        <dt>지난 시간</dt>
-                        <dd>{theaterClock(elapsed)}</dd>
+                        <dt>추정 위치</dt>
+                        <dd>{theaterClock(position)}</dd>
                       </div>
                       <div>
                         <dt>전체</dt>
@@ -731,8 +715,8 @@ export function AnalysisTheater({
                             style={{ width: `${seg.pct}%` }}
                             data-state={seg.index === cursor ? 'live' : seg.index < cursor ? 'done' : 'wait'}
                             onClick={() => goto(seg.index)}
-                            title={`${seg.kind} · ${label(seg.name, seg.kind)} · ${Math.round(seg.sec)}초`}
-                            aria-label={`${seg.index + 1}단계 ${label(seg.name, seg.kind)} · ${Math.round(seg.sec)}초`}
+                            title={`${seg.kind} · ${label(seg.name)} · ${Math.round(seg.sec)}초`}
+                            aria-label={`${seg.index + 1}단계 ${label(seg.name)} · ${Math.round(seg.sec)}초`}
                           />
                         ))}
                       </div>
@@ -748,7 +732,7 @@ export function AnalysisTheater({
                           <button type="button" onClick={() => goto(seg.index)}>
                             <span className={styles.runNo}>{String(seg.index + 1).padStart(2, '0')}</span>
                             <span className={styles.runKind}>{seg.kind}</span>
-                            <span className={styles.runName}>{label(seg.name, seg.kind)}</span>
+                            <span className={styles.runName}>{label(seg.name)}</span>
                             <span className={styles.runSec}>{Math.round(seg.sec)}초</span>
                           </button>
                         </li>
@@ -797,7 +781,7 @@ export function AnalysisTheater({
                     onClick={() => goto(s.index)}
                     aria-current={state === 'live' ? 'step' : undefined}
                   >
-                    <b>{label(s.name, s.kind)}</b>
+                    <b>{label(s.name)}</b>
                     <span>
                       <em>{String(s.index + 1).padStart(2, '0')}</em>
                       <i>{s.kind}</i>
@@ -810,7 +794,7 @@ export function AnalysisTheater({
             </nav>
           ) : (
             <nav className={styles.cards} aria-label="분석 블록으로 이동">
-              {blocks.filter((b) => revealed || OPEN_BEFORE_COMMIT.has(b.kind)).map((b) => (
+              {blocks.map((b) => (
                 <button key={b.key} type="button" className={styles.card} data-state="done" data-tint={BLOCK_TINT[b.kind]} onClick={() => jumpToBlock(b.key)}>
                   <b>{b.title}</b>
                   <span>

@@ -174,7 +174,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       siblings={siblings
         .slice()
         .sort((a, b) => b.exam_label.localeCompare(a.exam_label) || a.no - b.no)
-        .map((s) => ({ slug: s.slug, label: s.exam_label, no: s.no, current: s.id === item.id }))}
+        .map((s) => ({ id: s.id, slug: s.slug, label: s.exam_label, no: s.no, current: s.id === item.id }))}
     />
   )
 
@@ -209,7 +209,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   return (
     <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번</>} bare>
       {meta ? (
-        <LectureStage slug={toItemSlug(item.id)} meta={meta}>
+        <LectureStage slug={toItemSlug(item.id)} meta={meta} keys={false}>
           {body}
         </LectureStage>
       ) : (

@@ -132,13 +132,10 @@ async function openItem(p: Probe, slug: string) {
   await expect(p.page.getByTestId('analysis-theater')).toBeVisible({ timeout: 90_000 })
 }
 
-async function commitPrediction(page: Page) {
-  await expect(page.getByTestId('predict-gate')).toBeVisible({ timeout: 30_000 })
-  await page.getByRole('button', { name: '근거 후보 2번째 문장' }).click()
-  await page.getByRole('button', { name: '3번 선지' }).click()
-  await page.getByRole('button', { name: '꽤', exact: true }).click()
-  await page.getByRole('button', { name: '확정하고 대조하기' }).click()
-  await expect(page.getByTestId('gate-diff')).toBeVisible()
+/** 예측 관문은 없다(F01 · 2026-10-10) — 열자마자 해설 블록이 모두 보이고 상영할 수 있다 */
+async function expectOpen(page: Page) {
+  await expect(page.getByTestId('predict-gate')).toHaveCount(0)
+  await expect(page.locator('[data-block="analysis:answer"]')).toBeVisible({ timeout: 30_000 })
 }
 
 async function stepTo(page: Page, n: number) {
@@ -155,44 +152,46 @@ const legacyPrediction = (over: Partial<Prediction>): Prediction => ({
   item: KICE_ID, type: 'R-BLANK', step: 1, hit: false, at: Date.UTC(2026, 8, 30), source: 'theater', sentence: 1, choice: 3, confidence: 4, ...over,
 })
 
-test('1 처음 열기 → 예측 → 해설 → 완료 (independent)', async ({ browser }) => {
+test('1 처음 열기 → 제출 없이 해설 · 강의 → 화살표 한 칸씩 → 완료 (viewed_first)', async ({ browser }) => {
   const server = new FakeServer()
   const p = await device(browser, server)
   await openItem(p, KICE)
-  await commitPrediction(p.page)
-  await expect(p.page.getByTestId('finish-item')).toHaveCount(0) // 아직 마지막 단계가 아니다
-  await stepTo(p.page, 13)
-  await p.page.getByTestId('finish-item').click()
+  await expectOpen(p.page)
+  // 큐가 가리키지 않아도 오답 블록까지 처음부터 읽힌다(F03)
+  await expect(p.page.locator('[data-block^="analysis:reject"]').first()).toBeVisible()
+  // ← → 는 한 칸씩(F12 — 전에는 극장 · 강의 무대가 둘 다 받아 두 칸씩 갔다)
+  await stepTo(p.page, 3)
+  await expect(p.page.getByText('4 / 14', { exact: false }).first()).toBeVisible()
+  // 추정 위치를 「지난 시간」이라 하지 않는다(F13)
+  await expect(p.page.getByText(/지난 시간|지남/)).toHaveCount(0)
+  await p.page.getByTestId('finish-item').click() // 마지막 단계까지 넘기지 않아도 마칠 수 있다
   const done = p.page.getByTestId('session-done')
   await expect(done).toBeVisible()
-  await expect(done).toHaveAttribute('data-completion', 'independent')
-  await expect(done).toContainText('스스로 판단하고 마쳤어요')
-  await shot(p.page, '1-done-independent')
+  await expect(done).toHaveAttribute('data-completion', 'guided')
+  await expect(done).toContainText('설계 설명을 읽고 마쳤어요')
+  await shot(p.page, '1-done-viewed-first')
   const r = await readRecord(p.page)
   const s = sessionsFor(r, KICE_ID)
   expect(s).toHaveLength(1)
-  expect(s[0]).toMatchObject({ stage: 'finished', help: 'independent', activity: 'theater', phase: 'practice', sv: 1 })
-  expect(s[0].finishedAt).toBeGreaterThan(0)
-  const pred = (r?.predictions ?? []).filter((x) => x.item === KICE_ID && x.session === s[0].id)
-  expect(pred).toHaveLength(1)
-  expect(pred[0].attempt).toBe(s[0].attempt)
+  expect(s[0]).toMatchObject({ stage: 'finished', help: 'viewed_first', activity: 'theater', phase: 'practice', sv: 1 })
+  expect(s[0].attempt).toBeUndefined() // 해설 열람은 시도가 아니다
+  expect((r?.predictions ?? []).filter((x) => x.item === KICE_ID)).toHaveLength(0)
   await p.ctx.close()
 })
 
-test('2 처음 열기 → 모르겠어요 → 해설 → 완료 (guided · 강의 없는 문항)', async ({ browser }) => {
+test('2 강의 없는 학평 문항 — 열자마자 읽고 마친다 (guided)', async ({ browser }) => {
   const server = new FakeServer()
   const p = await device(browser, server)
   await openItem(p, HP)
-  await expect(p.page.getByTestId('predict-gate')).toBeVisible({ timeout: 30_000 })
-  await p.page.getByRole('button', { name: /모르겠어요/ }).click()
-  await p.page.getByTestId('finish-item').click() // 단계가 없으면 공개 직후 마칠 수 있다
+  await expect(p.page.getByTestId('predict-gate')).toHaveCount(0)
+  await p.page.getByTestId('finish-item').click()
   const done = p.page.getByTestId('session-done')
   await expect(done).toHaveAttribute('data-completion', 'guided')
-  await expect(done).toContainText('예측 없이 해설을 먼저 봤어요')
+  await expect(done).toContainText('스스로 푼 기록으로 세지 않아요')
   await shot(p.page, '2-done-guided')
   const s = sessionsFor(await readRecord(p.page), HP_ID)
   expect(s[0]).toMatchObject({ stage: 'finished', help: 'viewed_first' })
-  expect(s[0].attempt).toBeUndefined() // 「모르겠어요」는 시도가 아니다
+  expect(s[0].attempt).toBeUndefined() // 열람은 시도가 아니다
   await p.ctx.close()
 })
 
@@ -200,7 +199,7 @@ test('3 중도 이탈 → 재접속 → 이전 단계 복원', async ({ browser 
   const server = new FakeServer()
   const p = await device(browser, server)
   await openItem(p, KICE)
-  await commitPrediction(p.page)
+  await expectOpen(p.page)
   await stepTo(p.page, 5)
   await expect.poll(async () => sessionsFor(await readRecord(p.page), KICE_ID)[0]?.step).toBe(5)
   await p.page.reload({ waitUntil: 'domcontentloaded' })
@@ -216,7 +215,6 @@ test('4 같은 완료를 반복해도 완료 1건 · 다시 열면 완료 화면
   const server = new FakeServer()
   const p = await device(browser, server)
   await openItem(p, HP)
-  await p.page.getByRole('button', { name: /모르겠어요/ }).click()
   const finish = p.page.getByTestId('finish-item')
   await finish.dblclick()
   await expect(p.page.getByTestId('session-done')).toBeVisible()
@@ -260,7 +258,7 @@ test('6 두 기기 — 단계는 이어지고, 마친 것은 되돌아가지 않
   const server = new FakeServer()
   const a = await device(browser, server)
   await openItem(a, KICE)
-  await commitPrediction(a.page)
+  await expectOpen(a.page)
   await stepTo(a.page, 3)
   await expect.poll(() => server.record?.sessions?.find((s) => s.item === KICE_ID)?.step ?? -1, { timeout: 15_000 }).toBe(3)
 
@@ -291,7 +289,7 @@ test('7 삭제 표시한 세션은 다시 나타나지 않는다', async ({ brow
   const server = new FakeServer({ ...emptyDissectionRecord(5), sessions: [gone], updatedAt: t + 10 })
   const p = await device(browser, server)
   await openItem(p, KICE)
-  await expect(p.page.getByTestId('predict-gate')).toBeVisible({ timeout: 30_000 }) // 지워진 세션으로 재개하지 않는다
+  await expectOpen(p.page) // 지워진 세션으로 재개하지 않는다
   await expect(p.page.getByTestId('resume-notice')).toHaveCount(0)
   const local = sessionsFor(await readRecord(p.page), KICE_ID)
   expect(local.find((s) => s.id === 'gone-1')?.deleted).toBe(true)
@@ -337,7 +335,7 @@ test('10 원문 없음 · 강의 오류 · 서버 저장 실패에서도 마칠 
   const p = await device(browser, server, { noPaper: true, lecture500: true })
   await openItem(p, KICE)
   await expect(p.page.getByTestId('item-paper-missing')).toBeVisible({ timeout: 60_000 })
-  await commitPrediction(p.page)
+  await expectOpen(p.page)
   await p.page.getByRole('button', { name: /상영 시작|하이라이트만/ }).click()
   await expect(p.page.locator('[role="status"]').filter({ hasText: /.+/ }).first()).toBeVisible({ timeout: 30_000 })
   await stepTo(p.page, 13)
