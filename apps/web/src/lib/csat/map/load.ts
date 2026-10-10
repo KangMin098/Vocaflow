@@ -17,8 +17,9 @@ import { embargoedExamIds, itemRevealDecision, userHasHeldSession } from '../emb
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
-import { practiceHrefsBeyond } from '../../knowledge/practice-server'
-import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
+import { loadPracticePool, practiceHrefsBeyond } from '../../knowledge/practice-server'
+import { loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
+import type { AsIsSession } from './v4/as-is'
 import type { ActivityRow } from './lifecycle-evidence'
 import { findOutcome, type FindAttemptRow } from '../../knowledge/find-outcome'
 import { decideStep } from '../../knowledge/learning-decision'
@@ -68,6 +69,22 @@ export interface MapPageData {
   practiceNext?: Record<string, string>
   /** 학습자 본인의 시험 기록(진단에 반영된 회차 · 오래된 것부터) — 「현재 위치」는 이것만 근거로 쓴다 */
   records: LearnerRecord[]
+  /**
+   * rev4 As-Is · To-Be · Workspace 계산 재료(lib/csat/map/v4) — 계산은 화면이 같은 순수 함수로(목표를 바꾸면 바로 다시 계산).
+   * 없으면(옛 응답) 화면은 rev4 섹션을 그리지 않는다.
+   */
+  v4?: MapV4Input
+}
+
+export interface MapV4Input {
+  /** 본인의 모든 시험 기록(기록 테이블 직접) — 시행일 · 입력일 · 입력 신뢰도 · 시험 진단 준비 여부 */
+  sessions: AsIsSession[]
+  /** 축 관찰(스냅샷)이 반영한 세션 id — 여기 없는 기록은 「반영 중」(스냅샷 계산 전) */
+  proxyCovers: string[]
+  /** 목표 계산 기준 시험(평가원 최근 N회)의 전 문항 — splitMust 입력 */
+  refItems: RefItem[]
+  /** 확인 과제 키 → 확인 묶음 밖에서 같은 과제로 적용할 수 있는 활성 문항 수 */
+  transferItems: Record<string, number>
 }
 
 /** 화면의 「시험상 위치」 — 실제 기록 한 회. 등급은 기록에 저장된 값(없으면 null — 화면이 원점수 구간으로 표시) */
@@ -314,7 +331,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   //   옛 엔진 버전(예: Record Quality Layer 전 rule-v1) · 지도 계산이 꺼졌거나 실패한 채 저장(mapStatus ≠ ok — 시드 전 기록 등) ·
   //   순위 축소 추정의 분모(den)가 없는 2026-10-08 이전 지표(없으면 k=8 보정을 건너뛰어 행동이 달라진다)
   // Reveal Gate — 보류 시험(오답 원인 Pilot 수집 중) 기록이 있는 학습자는 관찰값(정오 · 점수 파생)을 싣지 않는다(embargo-gate · 판정 실패면 보류)
-  const [stored] = (await userHasHeldSession(userId)) ? [] : await loadSnapshots(db, userId, 1)
+  const heldUser = await userHasHeldSession(userId)
+  const [stored] = heldUser ? [] : await loadSnapshots(db, userId, 1)
   let snap = stored
   if (stored && staleMapEvidence(stored)) {
     const fresh = await computeSnapshotNow(db, userId, now)
@@ -344,7 +362,11 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     list.push({ no: r.item_no, chosen: r.chosen_option })
     answersBySession.set(r.session_id, list)
   }
-  const sessionById = new Map(sessionRows.filter((r) => isDiagnosable(recordQuality(answersBySession.get(r.id) ?? []))).map((r) => [r.id, r]))
+  const diagnosableIds = new Set(sessionRows.filter((r) => isDiagnosable(recordQuality(answersBySession.get(r.id) ?? []))).map((r) => r.id))
+  const sessionById = new Map(sessionRows.filter((r) => diagnosableIds.has(r.id)).map((r) => [r.id, r]))
+  // rev4 As-Is 입력 — 스냅샷 점수 흐름이 아니라 **기록 테이블에서 직접**(기록 직후 스냅샷이 아직 없을 때 「기록 없음」으로 보이던 경합 · 2차 E2E).
+  //   입력 신뢰도 · 시험 준비 여부는 칸으로 남긴다(빼지 않는다). 보류 시험 기록이 있는 학습자는 관찰값과 같이 싣지 않는다(Reveal Gate).
+  const v4Sessions = heldUser ? [] : await loadV4Sessions(db, userId, ev?.trend ?? [])
   const records: LearnerRecord[] = (ev?.trend ?? []).flatMap((t) => {
     const r = sessionById.get(t.sessionId)
     return r ? [{ label: recordLabels[r.exam_id] ?? r.exam_id, takenAt: r.taken_at, raw: t.raw ?? r.raw_score, grade: r.grade }] : []
@@ -402,8 +424,17 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const practiceNext: Record<string, string> = {}
   for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
+  // rev4 — 확인 과제 키별 「확인 묶음 밖」 적용 문항 수(실제로 있는 만큼만). 못 읽으면 0(적용 단계는 「준비 중」으로 보인다 — 숫자를 지어내지 않는다)
+  const transferItems = await loadTransferItems(db, practiceLinks).catch((e) => { console.error('[csat-map v4 transfer items]', e); return {} as Record<string, number> })
+
   return {
     now: now.toISOString(),
+    v4: {
+      sessions: v4Sessions,
+      proxyCovers: snap ? (ev?.trend ?? []).map((t) => t.sessionId) : [],
+      refItems: examIds.flatMap((id) => itemsByExam[id]),
+      transferItems,
+    },
     model: buildMapModel(raw, examLabels),
     nodes,
     edges,
@@ -420,6 +451,58 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     practiceNext,
     records,
   }
+}
+
+/** rev4 As-Is 세션 — 본인 기록 전부(최근 200회) · 응답으로 입력 신뢰도 판정 · 시험 진단 준비 여부. 점수는 스냅샷 값이 있으면 그것(엔진 채점) */
+async function loadV4Sessions(db: Db, userId: string, trend: { sessionId: string; raw: number | null }[]): Promise<AsIsSession[]> {
+  const { data, error } = await db.from('csat_dx_session').select('id, exam_id, taken_at, created_at, raw_score, grade').eq('user_id', userId).order('taken_at', { ascending: false }).limit(200)
+  if (error) throw new Error(`시험 기록 조회 실패: ${error.message}`)
+  const rows = (data ?? []) as { id: string; exam_id: string; taken_at: string; created_at: string; raw_score: number | null; grade: number | null }[]
+  if (rows.length === 0) return []
+  const examIds = [...new Set(rows.map((r) => r.exam_id))]
+  const [exams, responses] = await Promise.all([
+    selectByChunks<{ id: string; label: string; diagnosis_ready: boolean | null }>(examIds, 100, (chunk) => db.from('csat_exams').select('id, label, diagnosis_ready').in('id', chunk), 'csat_exams'),
+    selectByChunks<{ session_id: string; item_no: number; chosen_option: number | null }>(rows.map((r) => r.id), 20, (chunk) => db.from('csat_dx_response').select('session_id, item_no, chosen_option').in('session_id', chunk), 'csat_dx_response'),
+  ])
+  const examById = new Map(exams.map((e) => [e.id, e]))
+  const answers = new Map<string, { no: number; chosen: number | null }[]>()
+  for (const r of responses) answers.set(r.session_id, [...(answers.get(r.session_id) ?? []), { no: r.item_no, chosen: r.chosen_option }])
+  const trendRaw = new Map(trend.map((t) => [t.sessionId, t.raw]))
+  return rows.map((r) => ({
+    id: r.id, examId: r.exam_id, examLabel: examById.get(r.exam_id)?.label ?? r.exam_id, takenAt: r.taken_at, enteredAt: r.created_at,
+    raw: trendRaw.get(r.id) ?? r.raw_score, grade: r.grade,
+    diagnosable: isDiagnosable(recordQuality(answers.get(r.id) ?? [])), examReady: examById.get(r.exam_id)?.diagnosis_ready === true,
+  }))
+}
+
+/**
+ * rev4 Workspace 「다른 글에 적용」 학습량 — 확인 과제 키마다 확인 묶음 밖의 실제 적용 문항 수.
+ *   claim-support: 실학습 Practice 풀(practice-server) · 그 밖: 활성 문항 과제 적용(knowledge_applications csat_item_task · 상태 active).
+ * 보류 문항 판정(itemRevealDecision)을 거친다 — 실패면 0(fail-closed).
+ */
+async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>): Promise<Record<string, number>> {
+  const confirmOf = new Map<string, Set<string>>()
+  for (const l of Object.values(links)) for (const c of l.confirm) {
+    const s = confirmOf.get(c.taskKey) ?? new Set<string>()
+    s.add(c.target)
+    confirmOf.set(c.taskKey, s)
+  }
+  if (confirmOf.size === 0) return {}
+  const [pool, apps] = await Promise.all([
+    confirmOf.has(PRACTICE_SLUG) ? loadPracticePool({ preview: false }) : Promise.resolve([]),
+    selectSmall<{ surface_ref: string }>(() => db.from('knowledge_applications').select('surface_ref').eq('surface', 'csat_item_task').eq('status', 'active').or([...confirmOf.keys()].map((k) => `surface_ref.like.${k}:*`).join(',')), 'knowledge_applications'),
+  ])
+  const byKey = new Map<string, Set<string>>()
+  const add = (key: string, item: string) => { if (!confirmOf.get(key)?.has(item)) byKey.set(key, (byKey.get(key) ?? new Set()).add(item)) }
+  for (const p of pool) add(PRACTICE_SLUG, p.itemId)
+  for (const a of apps) {
+    const r = parseItemTaskRef(a.surface_ref)
+    if (r && confirmOf.has(r.taskKey)) add(r.taskKey, r.itemId)
+  }
+  const candidates = [...new Set([...byKey.values()].flatMap((s) => [...s]))]
+  const gate = await itemRevealDecision(candidates)
+  if (gate.failed) return {}
+  return Object.fromEntries([...confirmOf.keys()].map((k) => [k, [...(byKey.get(k) ?? [])].filter((i) => !gate.held.has(i)).length]))
 }
 
 /** 보류 문항을 확인 링크에서 뺀다 — 확인 문항이 하나도 안 남으면 그 과제 링크를 뺀다. 판정 실패면 링크 없음 */

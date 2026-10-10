@@ -1,62 +1,465 @@
 {
- "$comment": "docs/csat-learner/v4/relations.json — rev4.0 공통 교육 관계 그래프(설계 제안). 모든 관계 status=proposed — 승인·검증 전에는 추천·잠금에 쓰지 않는다. 학습자별 학습 필요 그래프는 여기 저장하지 않는다(LEARNING_MAP_RELATIONSHIP_MODEL.md §4).",
+ "$comment": "docs/csat-learner/v4/relations.json — rev4.0 공통 교육 관계 그래프(설계 제안). PART_OF 14(S·R·E — 정본이 구성 원자를 명시)만 approved(2차 정본 대조), 나머지 20 은 proposed. 어떤 관계도 근거 상태 · 학습 요구를 바꾸지 않는다. 학습자별 학습 필요 그래프는 여기 저장하지 않는다(LEARNING_MAP_RELATIONSHIP_MODEL.md §4).",
  "types": {
-  "PREREQUISITE": {"direction": "from → to: from 이 불안정하면 to 학습 효과가 떨어진다", "use": "우선순위 낮춤만(dominant_dependency, §6) — 잠금 금지", "requires": "검증된 근거(verified_diagnosis) 있을 때만 우선순위에 반영"},
-  "SUPPORTS": {"direction": "from 이 to 수행을 돕는다(필수 아님)", "use": "Workspace 보조 TASK 후보", "requires": "교육 근거 인용"},
-  "PART_OF": {"direction": "from(원자) 이 to(통합 관찰)의 구성 요소", "use": "통합 관찰 분해 · 직접 확인 후보 탐색", "requires": "정본 §3 정의"},
-  "INTEGRATES_WITH": {"direction": "대칭 — 같은 문항에서 함께 작동", "use": "Workspace 묶음", "requires": "문항 공동 관찰 근거"},
-  "TRANSFERS_TO": {"direction": "from 의 숙달이 to 의 새 맥락 수행으로 옮겨 간다", "use": "TRANSFER 단계 자료 선택", "requires": "전이 확인 기록"},
-  "ALTERNATIVE_PATH": {"direction": "대칭 — 같은 목표에 이르는 다른 경로", "use": "학습자 자율 조정 대안", "requires": "교육 근거"},
-  "DIAGNOSE_WITH": {"direction": "from(문항 렌즈·확인 과제) 로 to(TASK) 를 관찰한다", "use": "직접 확인 문항 선택", "requires": "Evidence Anchor validated 이상"},
-  "REMEDIATES": {"direction": "from(방법·활동) 이 to(TASK) 의 결함을 고친다", "use": "REPAIR 활동 선택", "requires": "효과 근거 — 지금은 가설"}
+  "PREREQUISITE": {
+   "direction": "from → to: from 이 불안정하면 to 학습 효과가 떨어진다",
+   "use": "우선순위 낮춤만(dominant_dependency, §6) — 잠금 금지",
+   "requires": "검증된 근거(verified_diagnosis) 있을 때만 우선순위에 반영"
+  },
+  "SUPPORTS": {
+   "direction": "from 이 to 수행을 돕는다(필수 아님)",
+   "use": "Workspace 보조 TASK 후보",
+   "requires": "교육 근거 인용"
+  },
+  "PART_OF": {
+   "direction": "from(원자) 이 to(통합 관찰)의 구성 요소",
+   "use": "통합 관찰 분해 · 직접 확인 후보 탐색",
+   "requires": "정본 §3 정의"
+  },
+  "INTEGRATES_WITH": {
+   "direction": "대칭 — 같은 문항에서 함께 작동",
+   "use": "Workspace 묶음",
+   "requires": "문항 공동 관찰 근거"
+  },
+  "TRANSFERS_TO": {
+   "direction": "from 의 숙달이 to 의 새 맥락 수행으로 옮겨 간다",
+   "use": "TRANSFER 단계 자료 선택",
+   "requires": "전이 확인 기록"
+  },
+  "ALTERNATIVE_PATH": {
+   "direction": "대칭 — 같은 목표에 이르는 다른 경로",
+   "use": "학습자 자율 조정 대안",
+   "requires": "교육 근거"
+  },
+  "DIAGNOSE_WITH": {
+   "direction": "from(문항 렌즈·확인 과제) 로 to(TASK) 를 관찰한다",
+   "use": "직접 확인 문항 선택",
+   "requires": "Evidence Anchor validated 이상"
+  },
+  "REMEDIATES": {
+   "direction": "from(방법·활동) 이 to(TASK) 의 결함을 고친다",
+   "use": "REPAIR 활동 선택",
+   "requires": "효과 근거 — 지금은 가설"
+  }
  },
- "basis_vocab": ["canon_rev2.1", "literature_hypothesis", "asset_observed", "hypothesis"],
- "status_vocab": ["proposed", "approved", "verified", "rejected"],
+ "basis_vocab": [
+  "canon_rev2.1",
+  "literature_hypothesis",
+  "asset_observed",
+  "hypothesis"
+ ],
+ "status_vocab": [
+  "proposed",
+  "approved",
+  "verified",
+  "rejected"
+ ],
  "relations": [
-  {"id": "rel-001", "type": "PART_OF", "from": "s.sentence_core", "to": "s.o.sentence_meaning_model", "basis": "canon_rev2.1", "ref": "§3 S", "status": "proposed"},
-  {"id": "rel-002", "type": "PART_OF", "from": "s.chunk_boundary", "to": "s.o.sentence_meaning_model", "basis": "canon_rev2.1", "ref": "§3 S", "status": "proposed"},
-  {"id": "rel-003", "type": "PART_OF", "from": "s.attachment", "to": "s.o.sentence_meaning_model", "basis": "canon_rev2.1", "ref": "§3 S", "status": "proposed"},
-  {"id": "rel-004", "type": "PART_OF", "from": "s.structural_relation", "to": "s.o.sentence_meaning_model", "basis": "canon_rev2.1", "ref": "§3 S", "status": "proposed"},
-  {"id": "rel-005", "type": "PART_OF", "from": "s.form_scope", "to": "s.o.sentence_meaning_model", "basis": "canon_rev2.1", "ref": "§3 S", "status": "proposed"},
-  {"id": "rel-006", "type": "PART_OF", "from": "r.reference", "to": "r.o.global_meaning_model", "basis": "canon_rev2.1", "ref": "§3 R", "status": "proposed"},
-  {"id": "rel-007", "type": "PART_OF", "from": "r.relation", "to": "r.o.global_meaning_model", "basis": "canon_rev2.1", "ref": "§3 R", "status": "proposed"},
-  {"id": "rel-008", "type": "PART_OF", "from": "r.discourse_function", "to": "r.o.global_meaning_model", "basis": "canon_rev2.1", "ref": "§3 R", "status": "proposed"},
-  {"id": "rel-009", "type": "PART_OF", "from": "r.discourse_structure", "to": "r.o.global_meaning_model", "basis": "canon_rev2.1", "ref": "§3 R", "status": "proposed"},
-  {"id": "rel-010", "type": "PART_OF", "from": "r.central_meaning", "to": "r.o.global_meaning_model", "basis": "canon_rev2.1", "ref": "§3 R", "status": "proposed"},
-  {"id": "rel-011", "type": "PART_OF", "from": "r.inference", "to": "r.o.global_meaning_model", "basis": "canon_rev2.1", "ref": "§3 R", "status": "proposed"},
-  {"id": "rel-012", "type": "PART_OF", "from": "e.task_demand", "to": "e.o.final_judgment", "basis": "canon_rev2.1", "ref": "§3 E", "status": "proposed"},
-  {"id": "rel-013", "type": "PART_OF", "from": "e.evidence_location", "to": "e.o.final_judgment", "basis": "canon_rev2.1", "ref": "§3 E", "status": "proposed"},
-  {"id": "rel-014", "type": "PART_OF", "from": "e.option_correspondence", "to": "e.o.final_judgment", "basis": "canon_rev2.1", "ref": "§3 E", "status": "proposed"},
-  {"id": "rel-015", "type": "PART_OF", "from": "x.time_allocation", "to": "x.o.whole_test_stability", "basis": "canon_rev2.1", "ref": "§3 X", "status": "proposed"},
-  {"id": "rel-016", "type": "PART_OF", "from": "x.sequence", "to": "x.o.whole_test_stability", "basis": "canon_rev2.1", "ref": "§3 X", "status": "proposed"},
-  {"id": "rel-017", "type": "PART_OF", "from": "x.recovery_adaptation", "to": "x.o.whole_test_stability", "basis": "canon_rev2.1", "ref": "§3 X", "status": "proposed"},
-  {"id": "rel-018", "type": "PART_OF", "from": "x.attention_stamina", "to": "x.o.whole_test_stability", "basis": "canon_rev2.1", "ref": "§3 X", "status": "proposed"},
-  {"id": "rel-019", "type": "PREREQUISITE", "from": "v.core_meaning", "to": "s.o.sentence_meaning_model", "basis": "canon_rev2.1", "ref": "§5 LP1→LP2 · §6 dominant_dependency(잠금 아님)", "status": "proposed"},
-  {"id": "rel-020", "type": "PREREQUISITE", "from": "s.o.sentence_meaning_model", "to": "r.relation", "basis": "canon_rev2.1", "ref": "§5 LP2→LP3 · ORM 2024-79-3 「문장 구조 → 문단 구조」", "status": "proposed"},
-  {"id": "rel-021", "type": "SUPPORTS", "from": "r.relation", "to": "r.discourse_structure", "basis": "canon_rev2.1", "ref": "§5 LP3→LP4", "status": "proposed"},
-  {"id": "rel-022", "type": "SUPPORTS", "from": "r.discourse_structure", "to": "r.central_meaning", "basis": "canon_rev2.1", "ref": "§5 LP4→LP5(처리 모델 가정 — 공식 위계 아님)", "status": "proposed"},
-  {"id": "rel-023", "type": "SUPPORTS", "from": "r.discourse_function", "to": "r.discourse_structure", "basis": "canon_rev2.1", "ref": "§3 R3 local → R4 global", "status": "proposed"},
-  {"id": "rel-024", "type": "SUPPORTS", "from": "r.reference", "to": "r.relation", "basis": "hypothesis", "ref": "§20-1 R1↔R2 보류 — 사람 dry run 뒤", "status": "proposed"},
-  {"id": "rel-025", "type": "SUPPORTS", "from": "r.central_meaning", "to": "e.option_correspondence", "basis": "canon_rev2.1", "ref": "§5 LP5→LP6", "status": "proposed"},
-  {"id": "rel-026", "type": "SUPPORTS", "from": "e.evidence_location", "to": "e.option_correspondence", "basis": "canon_rev2.1", "ref": "§3 E", "status": "proposed"},
-  {"id": "rel-027", "type": "INTEGRATES_WITH", "from": "r.relation", "to": "e.option_correspondence", "basis": "canon_rev2.1", "ref": "§7 relation facet ↔ E3 relation_consistency", "status": "proposed"},
-  {"id": "rel-028", "type": "INTEGRATES_WITH", "from": "v.semantic_relation", "to": "e.option_correspondence", "basis": "canon_rev2.1", "ref": "§8 paraphrase 세 층", "status": "proposed"},
-  {"id": "rel-029", "type": "INTEGRATES_WITH", "from": "v.semantic_relation", "to": "r.relation", "basis": "canon_rev2.1", "ref": "§8 restatement", "status": "proposed"},
-  {"id": "rel-030", "type": "TRANSFERS_TO", "from": "v.core_meaning", "to": "v.contextual_sense", "basis": "literature_hypothesis", "ref": "다의어 선택은 기본 의미 위에서", "status": "proposed"},
-  {"id": "rel-031", "type": "TRANSFERS_TO", "from": "s.o.sentence_meaning_model", "to": "r.inference", "basis": "hypothesis", "ref": "함축 밑줄 = 문장 명제 + 추론", "status": "proposed"},
-  {"id": "rel-032", "type": "ALTERNATIVE_PATH", "from": "r.central_meaning", "to": "e.evidence_location", "basis": "hypothesis", "ref": "빈칸: 요지에서 내려오기 vs 근거 문장에서 올라가기", "status": "proposed"},
-  {"id": "rel-033", "type": "PREREQUISITE", "from": "e.task_demand", "to": "e.evidence_location", "basis": "literature_hypothesis", "ref": "요구를 알아야 근거를 찾는다", "status": "proposed"},
-  {"id": "rel-034", "type": "SUPPORTS", "from": "r.o.global_meaning_model", "to": "x.o.whole_test_stability", "basis": "canon_rev2.1", "ref": "§5 LP7 — X 보류", "status": "proposed"}
+  {
+   "id": "rel-001",
+   "type": "PART_OF",
+   "from": "s.sentence_core",
+   "to": "s.o.sentence_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 S",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 S-O1 「S1–S5 가 합쳐져 …」(L93)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-002",
+   "type": "PART_OF",
+   "from": "s.chunk_boundary",
+   "to": "s.o.sentence_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 S",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 S-O1 「S1–S5 가 합쳐져 …」(L93)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-003",
+   "type": "PART_OF",
+   "from": "s.attachment",
+   "to": "s.o.sentence_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 S",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 S-O1 「S1–S5 가 합쳐져 …」(L93)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-004",
+   "type": "PART_OF",
+   "from": "s.structural_relation",
+   "to": "s.o.sentence_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 S",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 S-O1 「S1–S5 가 합쳐져 …」(L93)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-005",
+   "type": "PART_OF",
+   "from": "s.form_scope",
+   "to": "s.o.sentence_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 S",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 S-O1 「S1–S5 가 합쳐져 …」(L93)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-006",
+   "type": "PART_OF",
+   "from": "r.reference",
+   "to": "r.o.global_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 R",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 R-O1 「R1–R6 이 합쳐져 …」(L106)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-007",
+   "type": "PART_OF",
+   "from": "r.relation",
+   "to": "r.o.global_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 R",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 R-O1 「R1–R6 이 합쳐져 …」(L106)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-008",
+   "type": "PART_OF",
+   "from": "r.discourse_function",
+   "to": "r.o.global_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 R",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 R-O1 「R1–R6 이 합쳐져 …」(L106)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-009",
+   "type": "PART_OF",
+   "from": "r.discourse_structure",
+   "to": "r.o.global_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 R",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 R-O1 「R1–R6 이 합쳐져 …」(L106)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-010",
+   "type": "PART_OF",
+   "from": "r.central_meaning",
+   "to": "r.o.global_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 R",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 R-O1 「R1–R6 이 합쳐져 …」(L106)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-011",
+   "type": "PART_OF",
+   "from": "r.inference",
+   "to": "r.o.global_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§3 R",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 R-O1 「R1–R6 이 합쳐져 …」(L106)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-012",
+   "type": "PART_OF",
+   "from": "e.task_demand",
+   "to": "e.o.final_judgment",
+   "basis": "canon_rev2.1",
+   "ref": "§3 E",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 E-O1 「E1–E3 가 합쳐져 …」(L116)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-013",
+   "type": "PART_OF",
+   "from": "e.evidence_location",
+   "to": "e.o.final_judgment",
+   "basis": "canon_rev2.1",
+   "ref": "§3 E",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 E-O1 「E1–E3 가 합쳐져 …」(L116)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-014",
+   "type": "PART_OF",
+   "from": "e.option_correspondence",
+   "to": "e.o.final_judgment",
+   "basis": "canon_rev2.1",
+   "ref": "§3 E",
+   "status": "approved",
+   "approval": {
+    "by": "rev4.0 2차 정본 대조",
+    "ref": "VNEXT §3 E-O1 「E1–E3 가 합쳐져 …」(L116)",
+    "rule": "정본이 통합 관찰의 구성 원자를 명시한 경우만"
+   }
+  },
+  {
+   "id": "rel-015",
+   "type": "PART_OF",
+   "from": "x.time_allocation",
+   "to": "x.o.whole_test_stability",
+   "basis": "canon_rev2.1",
+   "ref": "§3 X",
+   "status": "proposed",
+   "review_note": "VNEXT §3 X-O1(L143)은 「제한 시간 전체 수행의 안정성」만 쓰고 X1–X4 를 구성 원자로 명시하지 않는다 — X 보류(§20-4)와 함께 proposed 유지"
+  },
+  {
+   "id": "rel-016",
+   "type": "PART_OF",
+   "from": "x.sequence",
+   "to": "x.o.whole_test_stability",
+   "basis": "canon_rev2.1",
+   "ref": "§3 X",
+   "status": "proposed",
+   "review_note": "VNEXT §3 X-O1(L143)은 「제한 시간 전체 수행의 안정성」만 쓰고 X1–X4 를 구성 원자로 명시하지 않는다 — X 보류(§20-4)와 함께 proposed 유지"
+  },
+  {
+   "id": "rel-017",
+   "type": "PART_OF",
+   "from": "x.recovery_adaptation",
+   "to": "x.o.whole_test_stability",
+   "basis": "canon_rev2.1",
+   "ref": "§3 X",
+   "status": "proposed",
+   "review_note": "VNEXT §3 X-O1(L143)은 「제한 시간 전체 수행의 안정성」만 쓰고 X1–X4 를 구성 원자로 명시하지 않는다 — X 보류(§20-4)와 함께 proposed 유지"
+  },
+  {
+   "id": "rel-018",
+   "type": "PART_OF",
+   "from": "x.attention_stamina",
+   "to": "x.o.whole_test_stability",
+   "basis": "canon_rev2.1",
+   "ref": "§3 X",
+   "status": "proposed",
+   "review_note": "VNEXT §3 X-O1(L143)은 「제한 시간 전체 수행의 안정성」만 쓰고 X1–X4 를 구성 원자로 명시하지 않는다 — X 보류(§20-4)와 함께 proposed 유지"
+  },
+  {
+   "id": "rel-019",
+   "type": "PREREQUISITE",
+   "from": "v.core_meaning",
+   "to": "s.o.sentence_meaning_model",
+   "basis": "canon_rev2.1",
+   "ref": "§5 LP1→LP2 · §6 dominant_dependency(잠금 아님)",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-020",
+   "type": "PREREQUISITE",
+   "from": "s.o.sentence_meaning_model",
+   "to": "r.relation",
+   "basis": "canon_rev2.1",
+   "ref": "§5 LP2→LP3 · ORM 2024-79-3 「문장 구조 → 문단 구조」",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-021",
+   "type": "SUPPORTS",
+   "from": "r.relation",
+   "to": "r.discourse_structure",
+   "basis": "canon_rev2.1",
+   "ref": "§5 LP3→LP4",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-022",
+   "type": "SUPPORTS",
+   "from": "r.discourse_structure",
+   "to": "r.central_meaning",
+   "basis": "canon_rev2.1",
+   "ref": "§5 LP4→LP5(처리 모델 가정 — 공식 위계 아님)",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-023",
+   "type": "SUPPORTS",
+   "from": "r.discourse_function",
+   "to": "r.discourse_structure",
+   "basis": "canon_rev2.1",
+   "ref": "§3 R3 local → R4 global",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-024",
+   "type": "SUPPORTS",
+   "from": "r.reference",
+   "to": "r.relation",
+   "basis": "hypothesis",
+   "ref": "§20-1 R1↔R2 보류 — 사람 dry run 뒤",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-025",
+   "type": "SUPPORTS",
+   "from": "r.central_meaning",
+   "to": "e.option_correspondence",
+   "basis": "canon_rev2.1",
+   "ref": "§5 LP5→LP6",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-026",
+   "type": "SUPPORTS",
+   "from": "e.evidence_location",
+   "to": "e.option_correspondence",
+   "basis": "canon_rev2.1",
+   "ref": "§3 E",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-027",
+   "type": "INTEGRATES_WITH",
+   "from": "r.relation",
+   "to": "e.option_correspondence",
+   "basis": "canon_rev2.1",
+   "ref": "§7 relation facet ↔ E3 relation_consistency",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-028",
+   "type": "INTEGRATES_WITH",
+   "from": "v.semantic_relation",
+   "to": "e.option_correspondence",
+   "basis": "canon_rev2.1",
+   "ref": "§8 paraphrase 세 층",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-029",
+   "type": "INTEGRATES_WITH",
+   "from": "v.semantic_relation",
+   "to": "r.relation",
+   "basis": "canon_rev2.1",
+   "ref": "§8 restatement",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-030",
+   "type": "TRANSFERS_TO",
+   "from": "v.core_meaning",
+   "to": "v.contextual_sense",
+   "basis": "literature_hypothesis",
+   "ref": "다의어 선택은 기본 의미 위에서",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-031",
+   "type": "TRANSFERS_TO",
+   "from": "s.o.sentence_meaning_model",
+   "to": "r.inference",
+   "basis": "hypothesis",
+   "ref": "함축 밑줄 = 문장 명제 + 추론",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-032",
+   "type": "ALTERNATIVE_PATH",
+   "from": "r.central_meaning",
+   "to": "e.evidence_location",
+   "basis": "hypothesis",
+   "ref": "빈칸: 요지에서 내려오기 vs 근거 문장에서 올라가기",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-033",
+   "type": "PREREQUISITE",
+   "from": "e.task_demand",
+   "to": "e.evidence_location",
+   "basis": "literature_hypothesis",
+   "ref": "요구를 알아야 근거를 찾는다",
+   "status": "proposed"
+  },
+  {
+   "id": "rel-034",
+   "type": "SUPPORTS",
+   "from": "r.o.global_meaning_model",
+   "to": "x.o.whole_test_stability",
+   "basis": "canon_rev2.1",
+   "ref": "§5 LP7 — X 보류",
+   "status": "proposed"
+  }
  ],
  "lens_relations": {
   "$comment": "TASK ↔ 문항 렌즈(B) · 방법(I) 관계 — codebook.json lines[].v4 와 tasks[].methods 에서 파생한다(중복 저장 안 함). B 라인의 v4 = DIAGNOSE_WITH, tasks[].methods = REMEDIATES 후보",
-  "derive": ["DIAGNOSE_WITH: lines[B*].v4", "REMEDIATES: tasks[].methods"]
+  "derive": [
+   "DIAGNOSE_WITH: lines[B*].v4",
+   "REMEDIATES: tasks[].methods"
+  ]
  },
  "legacy_edges": {
   "$comment": "기존 csat_map_edge 160개(전부 basis=pending)는 v4 관계로 자동 이관하지 않는다 — 종류별 처리만 정한다",
-  "goal": {"count": 6, "v4": "없음 — GOAL→축 연결은 목표 모델(EXAM_INPUT_CONTRACT §5)이 대신한다"},
-  "member": {"count": 54, "v4": "codebook.json lines[].layer 로 대체(구조 소속)"},
-  "reason": {"count": 87, "v4": "Rationale 층(P 원리 근거) — 교육 관계 아님, 근거 출처 검토 후보"},
-  "route": {"count": 13, "v4": "트랙 T1–T3 → ALTERNATIVE_PATH 후보 검토(자동 승격 금지)"}
+  "goal": {
+   "count": 6,
+   "v4": "없음 — GOAL→축 연결은 목표 모델(EXAM_INPUT_CONTRACT §5)이 대신한다"
+  },
+  "member": {
+   "count": 54,
+   "v4": "codebook.json lines[].layer 로 대체(구조 소속)"
+  },
+  "reason": {
+   "count": 87,
+   "v4": "Rationale 층(P 원리 근거) — 교육 관계 아님, 근거 출처 검토 후보"
+  },
+  "route": {
+   "count": 13,
+   "v4": "트랙 T1–T3 → ALTERNATIVE_PATH 후보 검토(자동 승격 금지)"
+  }
  }
 }

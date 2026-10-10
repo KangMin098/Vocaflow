@@ -72,7 +72,7 @@
 | GAP-04 | evidence 전이 문항 0 | GAP | MC-07 그대로 |
 | GAP-05 | 목표 이력 없음(덮어쓰기) | GAP | 3차 목표 버전 |
 | GAP-06 | as-of 재현 · 정의 버전 없음 | GAP | 2차 파일 버전 → 3차 |
-| GAP-07 | `graph.ts pathOf` 가 pending 간선을 강조 경로에 넣는다 | GAP(표현) | 별도 UI 승인 때 — pending 점선은 유지, 강조만 제외 검토 |
+| GAP-07 | `graph.ts pathOf` 가 pending 간선을 강조 경로에 넣는다 | **해소(2차)** | 경로 탐색 유지 · 미확정 간선 `unconfirmed` 흐린 강조 |
 | GAP-08 | 같은 활동이 여러 라인에 복제(C*-3 7개 등) | GAP(정규화) | rev4 는 활동 1 · TASK N 으로 읽는다 — DB 정리는 하지 않음 |
 | GAP-09 | `learning_goals` 마이그레이션이 개발 DB 에 없다 | 확인 필요 | 쓰는 코드 0 — 목표는 `csat_map_goal` 기준으로 결정, 남은 파일 처리는 사용자 결정 |
 | GAP-10 | 교재 단위에 TASK 키 없음 | GAP | WORKSPACE_CONTRACT §5 제안 |

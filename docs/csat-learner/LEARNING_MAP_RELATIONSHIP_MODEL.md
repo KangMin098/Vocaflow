@@ -43,7 +43,9 @@
 | TRANSFERS_TO | 2 | 문헌 가설 1 · 가설 1 |
 | ALTERNATIVE_PATH | 1 | 가설(빈칸: 요지에서 내려오기 vs 근거에서 올라가기) |
 
-전체 목록 · 근거 칸은 `relations.json`. **모두 `proposed`** — 테스트가 다른 상태를 거부한다(일괄 확정 금지). 승인 절차: 관계 하나씩 `basis`·`ref` 를 사람이 확인 → `approved`(공통 그래프에 쓰임) → 학습자 기록으로 효과가 관찰되면 `verified`.
+전체 목록 · 근거 칸은 `relations.json`.
+
+**2차(2026-10-10) 승인 결과 — PART_OF 18 을 정본과 하나씩 대조**: S-O1 ← S1–S5(5) · R-O1 ← R1–R6(6) · E-O1 ← E1–E3(3) = **14 approved**. 근거: 정본 §3 이 통합 관찰을 「S1–S5 가 합쳐져」(L93) · 「R1–R6 이 합쳐져」(L106) · 「E1–E3 가 합쳐져」(L116)로 구성 원자를 명시한다. 양 끝 TASK 유효 · 방향 원자 → 통합 · 구조적 포함(선수 · 인과 아님). **X 4 는 proposed 유지** — §3 X-O1(L143)은 「제한 시간 전체 수행의 안정성」만 쓰고 X1–X4 를 구성으로 명시하지 않으며, X 자체가 §20-4 보류다. 나머지 16(PREREQUISITE · SUPPORTS · INTEGRATES_WITH · TRANSFERS_TO · ALTERNATIVE_PATH)은 자동 승인하지 않았다 → approved 14 · proposed 20. 테스트(`codebook.test.mjs` · `definition.test.ts`)가 「승인 = 정본 인용이 있는 S/R/E PART_OF 뿐」을 지킨다. 승인된 관계도 근거 상태 · 학습 요구를 바꾸지 않는다 — 쓰임은 `partsOf()`(통합 관찰의 INTEGRATE 요구 판정)와 화면의 「구조적 연결」 표시뿐. 승인 절차: 관계 하나씩 `basis`·`ref` 를 사람이 확인 → `approved`(공통 그래프에 쓰임) → 학습자 기록으로 효과가 관찰되면 `verified`.
 
 ## 4. 공통 그래프 vs 학습자별 학습 필요 그래프
 
@@ -66,4 +68,4 @@
 | reason | 87 | Rationale 층(P1–P8 근거). 교육 관계가 아니다 — `csat_map_edge_source` 근거 검토 후보로만 |
 | route | 13 | 트랙 T1–T3 경로. `ALTERNATIVE_PATH` 후보로 **사람 검토** — 자동 승격 금지 |
 
-기존 행은 지우지 않는다. 기존 지도 화면은 그대로 이 160 을 쓴다. 단 `graph.ts pathOf` 가 pending 간선을 강조 경로에 넣는 것은 GAP-07(MIGRATION_PLAN §5).
+기존 행은 지우지 않는다. 기존 지도 화면은 그대로 이 160 을 쓴다. `graph.ts pathOf` 가 pending 간선을 확정 경로처럼 진하게 강조하던 GAP-07 은 2차에서 고쳤다 — 탐색은 그대로, 경로 안의 미확정 간선(basis ≠ direct)을 `unconfirmed` 로 따로 돌려주고 화면은 점선 · 흐린 색으로만 강조한다(160 개 전부 pending 이라 빼면 경로가 사라진다).
