@@ -1,0 +1,113 @@
+{
+  "at": "2026-10-10T12:36:20.336Z",
+  "base": "http://localhost:3000",
+  "viewport": "1440x900",
+  "account": "합성 테스트 계정(기록 0)",
+  "page_errors": [],
+  "states": [
+    {
+      "state": "basic-map",
+      "note": "기본 학습 지도(?tab=map)",
+      "ok": true,
+      "screenshot": "verification/ui/UG-0002-REQ013/basic-map.png",
+      "facts": {
+        "headings": [
+          "내 목표",
+          "시험 기록으로 본 지금",
+          "목표까지",
+          "읽기 7단계 근거 상태",
+          "수능 영어 독해 실력이 만들어지는 길",
+          "학년별 권장 참고",
+          "지금 먼저 할 일"
+        ],
+        "goal": "아직 정하지 않았어요"
+      },
+      "error": null
+    },
+    {
+      "state": "basic-map-no-records",
+      "note": "기록 없음 상태(이 계정은 시험 기록 0 · 목표 미설정)",
+      "ok": true,
+      "screenshot": "verification/ui/UG-0002-REQ013/basic-map-no-records.png",
+      "facts": {
+        "exam": "시험 기록으로 본 지금\n\n기록 없음\n\n기출 시험을 기록하면 실제 점수로 보여 드려요.",
+        "goal": "내 목표\n\n아직 정하지 않았어요\n\n목표를 정하면 각 단계가 목표 점수와 어떤 관계인지 함께 보여 드려요.\n\n시험 기록으로 본 지금\n\n기록 없음\n\n기출 시험을 기록하면 실제 점수로 보여 드려요.\n\n목표까지\n\n목표와 기록이 둘 다 있을 때 보여요.\n\n읽기 7단계 근거 상태\n기출에서 관찰됨 0\n먼저 확인할 것 0\n근거 부족 7\n\n목표 점수의 계산 기준은 평가원 최근 6회의 문항 · 배점이에요(내 기록과 별개). 단계 상태는 실력 점수가 아니에요."
+      },
+      "error": null
+    },
+    {
+      "state": "step-sheet",
+      "note": "단계 카드(어휘·표현) → 단계 시트",
+      "ok": true,
+      "screenshot": "verification/ui/UG-0002-REQ013/step-sheet.png",
+      "facts": {
+        "sections": [
+          "어휘·표현",
+          "기록 없음",
+          "이 힘은",
+          "",
+          "단어와 표현의 뜻을 문장 속에서 바로 떠올리는 힘",
+          "",
+          "수능에서 왜 중요한가",
+          "",
+          "",
+          "목표와의 관계",
+          "",
+          "",
+          "내 기출 기록에서",
+          "",
+          "",
+          "아직 모르는 것",
+          "",
+          "이 단계가 지금 어떤지 판단할 기록이 아직 부족해요.",
+          "",
+          "지금 확인할 것 — 확인하기",
+          "확인하기",
+          "확인 활동",
+          "바로잡기",
+          "잠김 · 원인 확인 뒤",
+          "다른 문제에 적용하기"
+        ]
+      },
+      "error": null
+    },
+    {
+      "state": "goal-cta",
+      "note": "「목표 점수 정하기」 → 목표 설정",
+      "ok": true,
+      "screenshot": "verification/ui/UG-0002-REQ013/goal-cta.png",
+      "facts": {
+        "dialog": "목표 점수\n100\n90\n80\n70\n60\n직접 입력\n적용\n\n목표 점수에서 나온 「반드시 맞혀야 하는 문항」은 시험 수행 전략 계산이에요. 능력 목표가 아니에요.\n\n현재 — · 기준 시험 6회"
+      },
+      "error": null
+    },
+    {
+      "state": "full-map",
+      "note": "전체 지도(?view=full)",
+      "ok": true,
+      "screenshot": "verification/ui/UG-0002-REQ013/full-map.png",
+      "facts": {
+        "buttons": [],
+        "headings": []
+      },
+      "error": null
+    },
+    {
+      "state": "full-map-node",
+      "note": "전체 지도에서 노드 하나 선택 → 상세(팝업)",
+      "ok": true,
+      "screenshot": "verification/ui/UG-0002-REQ013/full-map-node.png",
+      "facts": {
+        "popup": "기출 상세 분석",
+        "overflow_x": null
+      },
+      "error": null
+    }
+  ],
+  "unverified": [
+    "조회 실패(오류) 상태 — 오류를 주입할 수단이 없다",
+    "근거 부족·재확인 문항 없음 상태 — 그런 기록을 가진 합성 계정이 없다(실제 학습자 기록 0)",
+    "과제 시작 → 복귀 — 시작은 실제 기록을 남기므로 이 실행에서 누르지 않았다",
+    "모바일 — 현재 대상 아님(데스크톱 전용 정책)"
+  ]
+}
