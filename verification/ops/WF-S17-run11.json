@@ -1,0 +1,603 @@
+{
+  "run_id": "20261010T013938-dbe72f",
+  "recovery": null,
+  "handoff": {
+    "reaped": [],
+    "revived": [],
+    "kept": []
+  },
+  "iterations": [
+    {
+      "bridge": {
+        "published": null,
+        "collected": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ],
+        "error": null
+      },
+      "goal_check": "verification/goal-check/GC-2026-10-10T01-39-38-628Z.json",
+      "changes": [],
+      "distribution": {
+        "UNKNOWN": 33,
+        "FAIL": 2
+      },
+      "selected": {
+        "task_id": "T-0018",
+        "score": 845,
+        "reasons": [
+          "범주 1 — Vocaflow 전체 제품 완성을 직접 막는 기능(R0 학습 여정) (+800)",
+          "목표 VG-L3-A1-01 현재 UNKNOWN (+10)",
+          "R0 차단 목표 (+20)",
+          "이 목표에 의존하는 목표 1개 (+5)",
+          "작업 우선순위 P1 (+10)"
+        ]
+      },
+      "skipped": [
+        {
+          "task_id": "T-0005",
+          "score": 845,
+          "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+        }
+      ],
+      "uncovered": [
+        {
+          "goal_id": "VG-L3-A3-01",
+          "category": 1,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-A3-02",
+          "category": 1,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-B2-02",
+          "category": 1,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-C1-01",
+          "category": 2,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-A2-02",
+          "category": 3,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-B2-01",
+          "category": 3,
+          "status": "UNKNOWN",
+          "r0": false
+        },
+        {
+          "goal_id": "VG-L3-A1-02",
+          "category": 4,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-D1-02",
+          "category": 4,
+          "status": "FAIL",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-C1-02",
+          "category": 5,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-D3-01",
+          "category": 6,
+          "status": "UNKNOWN",
+          "r0": false
+        }
+      ],
+      "outcome": "completed",
+      "goal_level": {
+        "goal_id": "UG-c8315ad8-0002",
+        "level": "GOAL_VERIFIED",
+        "coverage": {
+          "total": 8,
+          "covered": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "missing": []
+        },
+        "tasks_done": [
+          "T-0014",
+          "T-0015",
+          "T-0016",
+          "T-0017",
+          "T-0018"
+        ]
+      }
+    },
+    {
+      "bridge": {
+        "published": null,
+        "collected": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-009"
+        ],
+        "error": null
+      },
+      "goal_check": "verification/goal-check/GC-2026-10-10T01-56-11-150Z.json",
+      "changes": [],
+      "distribution": {
+        "UNKNOWN": 33,
+        "FAIL": 2
+      },
+      "selected": null,
+      "skipped": [
+        {
+          "task_id": "T-0005",
+          "score": 845,
+          "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+        },
+        {
+          "task_id": "T-0001",
+          "score": 750,
+          "reason": "automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+        },
+        {
+          "task_id": "T-0002",
+          "score": 750,
+          "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+        },
+        {
+          "task_id": "T-0004",
+          "score": 545,
+          "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+        },
+        {
+          "task_id": "T-0003",
+          "score": 370,
+          "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / approval: 승인 필요(secret,deploy) · 기록 없음"
+        }
+      ],
+      "uncovered": [
+        {
+          "goal_id": "VG-L3-A1-01",
+          "category": 1,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-A3-01",
+          "category": 1,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-A3-02",
+          "category": 1,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-B2-02",
+          "category": 1,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-C1-01",
+          "category": 2,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-A2-02",
+          "category": 3,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-B2-01",
+          "category": 3,
+          "status": "UNKNOWN",
+          "r0": false
+        },
+        {
+          "goal_id": "VG-L3-A1-02",
+          "category": 4,
+          "status": "UNKNOWN",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-D1-02",
+          "category": 4,
+          "status": "FAIL",
+          "r0": true
+        },
+        {
+          "goal_id": "VG-L3-C1-02",
+          "category": 5,
+          "status": "UNKNOWN",
+          "r0": true
+        }
+      ]
+    }
+  ],
+  "final_goal_check": {
+    "report": "verification/goal-check/GC-2026-10-10T01-59-17-451Z.json",
+    "changes": [],
+    "distribution": {
+      "UNKNOWN": 33,
+      "FAIL": 2
+    }
+  },
+  "stop_reason": "실행 가능한 작업 없음 · Work 응답 대기(REQ-20261010-c8315ad8-009)",
+  "run": {
+    "run_id": "20261010T013938-dbe72f",
+    "pid": 7096,
+    "host": "SKCC23N00265",
+    "started_at": "2026-10-10T01:39:38.481Z",
+    "limits": {
+      "max_tasks": 4,
+      "max_minutes": 90,
+      "max_cost_usd": 15,
+      "claude_budget_usd": 5,
+      "max_review_rounds": 3,
+      "max_same_failure": 2,
+      "claude_timeout_ms": 2700000,
+      "codex_timeout_ms": 1200000
+    },
+    "status": "done",
+    "phase": "done",
+    "task_id": null,
+    "cost_usd": 1.0118,
+    "tasks_done": [
+      {
+        "task_id": "T-0018",
+        "outcome": "completed",
+        "at": "2026-10-10T01:56:11.037Z"
+      }
+    ],
+    "events": [
+      {
+        "at": "2026-10-10T01:39:38.548Z",
+        "phase": "goal_check"
+      },
+      {
+        "at": "2026-10-10T01:39:38.703Z",
+        "phase": "select",
+        "goal_check": "verification/goal-check/GC-2026-10-10T01-39-38-628Z.json",
+        "changes": []
+      },
+      {
+        "at": "2026-10-10T01:39:39.104Z",
+        "phase": "bridge",
+        "published": null,
+        "collected": [],
+        "intake": [],
+        "waiting": [],
+        "error": null
+      },
+      {
+        "at": "2026-10-10T01:44:42.517Z",
+        "phase": "research",
+        "ug": "UG-c8315ad8-0002",
+        "request": "REQ-20261010-c8315ad8-007",
+        "answers": 4,
+        "added_paths": [
+          "apps/web/src/components/csat/diagnosis/map/SkillPrescription.tsx",
+          "apps/web/src/components/csat/diagnosis/map/StepSheet.tsx",
+          "apps/web/src/components/csat/diagnosis/map/useTaskDone.ts",
+          "apps/web/src/app/api/csat/diagnosis/map/tasks/[id]/route.ts",
+          "apps/web/src/lib/csat/map/server.ts",
+          "apps/web/src/lib/csat/map/load.ts",
+          "apps/web/src/lib/knowledge/practice-writer.ts",
+          "apps/web/src/components/knowledge/ClaimPractice.tsx",
+          "apps/web/src/app/api/csat/practice/attempt/route.ts",
+          "apps/web/src/lib/knowledge/practice-server.ts",
+          "apps/web/src/lib/knowledge/practice.ts",
+          "apps/web/src/app/(app)/csat/diagnosis/page.tsx"
+        ],
+        "error": null
+      },
+      {
+        "at": "2026-10-10T01:44:44.908Z",
+        "phase": "auto_design_request",
+        "ug": "UG-c8315ad8-0002",
+        "key": "v6#@c5c640fd4bf9#r007",
+        "request": "REQ-20261010-c8315ad8-008"
+      },
+      {
+        "at": "2026-10-10T01:45:01.311Z",
+        "phase": "bridge",
+        "published": "REQ-20261010-c8315ad8-008",
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:45:43.791Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:46:26.878Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:47:10.149Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:47:52.561Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:48:34.059Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:49:17.017Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:49:59.634Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:50:41.204Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:51:22.842Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-008"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:52:05.478Z",
+        "phase": "bridge_wait",
+        "collected": [
+          "REQ-20261010-c8315ad8-008"
+        ],
+        "intake": [
+          "applied"
+        ],
+        "waiting": []
+      },
+      {
+        "at": "2026-10-10T01:52:05.559Z",
+        "phase": "approval_applied",
+        "applied": [
+          {
+            "ug": "UG-c8315ad8-0002",
+            "version": 7,
+            "via_policy": "DL-0070",
+            "created": [
+              "T-0018"
+            ],
+            "refused": [],
+            "resumed": []
+          }
+        ]
+      },
+      {
+        "at": "2026-10-10T01:52:05.841Z",
+        "phase": "selected",
+        "task_id": "T-0018",
+        "skipped": [
+          {
+            "task_id": "T-0005",
+            "score": 845,
+            "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+          }
+        ]
+      },
+      {
+        "at": "2026-10-10T01:52:06.057Z",
+        "phase": "implement",
+        "task_id": "T-0018",
+        "round": 1
+      },
+      {
+        "at": "2026-10-10T01:54:55.702Z",
+        "phase": "implement_done",
+        "task_id": "T-0018",
+        "round": 1,
+        "cost_usd": 1.011759,
+        "claude_code": 0,
+        "timed_out": false
+      },
+      {
+        "at": "2026-10-10T01:54:55.951Z",
+        "phase": "review",
+        "task_id": "T-0018",
+        "round": 1
+      },
+      {
+        "at": "2026-10-10T01:56:08.784Z",
+        "phase": "review_done",
+        "task_id": "T-0018",
+        "round": 1,
+        "verdict": "APPROVE",
+        "blocking": []
+      },
+      {
+        "at": "2026-10-10T01:56:11.006Z",
+        "phase": "branch_pushed",
+        "task_id": "T-0018",
+        "branch": "feat/ug0002-map-recheck",
+        "head": "b6785cda8a6e27ab66395278759aab617a37f81d"
+      },
+      {
+        "at": "2026-10-10T01:56:11.069Z",
+        "phase": "task_done",
+        "task_id": "T-0018",
+        "outcome": "completed"
+      },
+      {
+        "at": "2026-10-10T01:56:11.107Z",
+        "phase": "goal_check"
+      },
+      {
+        "at": "2026-10-10T01:56:11.193Z",
+        "phase": "select",
+        "goal_check": "verification/goal-check/GC-2026-10-10T01-56-11-150Z.json",
+        "changes": []
+      },
+      {
+        "at": "2026-10-10T01:56:11.402Z",
+        "phase": "bridge",
+        "published": null,
+        "collected": [],
+        "intake": [],
+        "waiting": [],
+        "error": null
+      },
+      {
+        "at": "2026-10-10T01:56:13.516Z",
+        "phase": "auto_design_request",
+        "ug": "UG-c8315ad8-0002",
+        "key": "v7#@b6785cda8a6e#r007",
+        "request": "REQ-20261010-c8315ad8-009"
+      },
+      {
+        "at": "2026-10-10T01:56:26.903Z",
+        "phase": "bridge",
+        "published": "REQ-20261010-c8315ad8-009",
+        "waiting": [
+          "REQ-20261010-c8315ad8-009"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:57:09.652Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-009"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:57:51.886Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-009"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:58:34.405Z",
+        "phase": "bridge_wait",
+        "collected": [],
+        "intake": [],
+        "waiting": [
+          "REQ-20261010-c8315ad8-009"
+        ]
+      },
+      {
+        "at": "2026-10-10T01:59:16.851Z",
+        "phase": "bridge_wait",
+        "collected": [
+          "REQ-20261010-c8315ad8-009"
+        ],
+        "intake": [
+          "applied"
+        ],
+        "waiting": []
+      },
+      {
+        "at": "2026-10-10T01:59:17.408Z",
+        "phase": "selected",
+        "task_id": null,
+        "skipped": [
+          {
+            "task_id": "T-0005",
+            "score": 845,
+            "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+          },
+          {
+            "task_id": "T-0001",
+            "score": 750,
+            "reason": "automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+          },
+          {
+            "task_id": "T-0002",
+            "score": 750,
+            "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+          },
+          {
+            "task_id": "T-0004",
+            "score": 545,
+            "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / automated_no_db: db_scope=read — 자동 실행은 DB 접근 경로가 없다(대화형 세션에서 수행)"
+          },
+          {
+            "task_id": "T-0003",
+            "score": 370,
+            "reason": "worktree_set: worktree 없음 — assign-worktree 필요 / approval: 승인 필요(secret,deploy) · 기록 없음"
+          }
+        ]
+      }
+    ],
+    "recovery": null,
+    "updated_at": "2026-10-10T01:59:17.408Z",
+    "stop_reason": "실행 가능한 작업 없음 · Work 응답 대기(REQ-20261010-c8315ad8-009)",
+    "ended_at": "2026-10-10T01:59:17.494Z"
+  }
+}
