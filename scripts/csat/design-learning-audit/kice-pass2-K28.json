@@ -1,0 +1,9 @@
+{"pass":2,"k":28,"items":[
+{"id":"M2706#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"answer_locus.sentence_index [5,11]과 정답 confirmed_at [5,9] 불일치 — 방향 확정 문장 위치 표기 통일 필요(경미)"}]},
+{"id":"M2706#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_3","note":"trap '인과 역전' 오표기 — 실제 바뀐 성분은 시간축(현재 시대 vs 미래 존재)"},{"code":"choice_5","note":"'all but certain'을 '반드시 밀려난다'로 단정 — 거의 확실로 완화 필요"}]},
+{"id":"M2706#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"⑤ 배제 논리 부정확 — likewise는 ⑤ 앞에 이미 있어 '첫 항목이 총론' 논거 불성립. Orienting이 총론 없이 앞서는 점으로 배제해야"},{"code":"choice_1","note":"why_tempting이 wind 반복만 듦 — 실제 유인(문제 서술 직후 대책 전환 착각) 설명 약함"},{"code":"source_broken","note":"choices 필드가 번호 아닌 뒤 문장 텍스트+각주로 저장됨(원문 구조 깨짐)"}]},
+{"id":"M2706#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"choices 필드가 위치 번호 아닌 뒤 문장 텍스트+각주로 저장됨"}]},
+{"id":"M2706#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"배제 핵심(D가 초면 인사라 C보다 앞)이 빠지고 D 끝-C 첫 연결만 제시 — 보강 권장(경미)"}]}
+]}

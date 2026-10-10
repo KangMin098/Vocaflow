@@ -1,0 +1,12 @@
+{"pass":2,"k":18,"items":[
+{"id":"M2109#39","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2109#40","version":3,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"⑤ 배제가 'primary는 다른 축'에 그치고 denying이 (A)에서 왜 틀리는지(가치 추구를 막음↔부정을 막음) 바뀐 성분을 짚지 않음"},{"code":"choice_4","note":"④ 배제 문장 '부정하지 못하게 막는다'가 지문과 어긋나는 이유를 방향 대비로 명시하지 않아 모호"}]},
+{"id":"M2206#31","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"design_intent가 'mere만으로 절반을 좁힌다'는 지름길을 출제 의도처럼 서술 — 표지 의존 요령으로 굳을 위험(경미)"}]},
+{"id":"M2206#32","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"design_intent는 근거가 첫 문장 정의라 하나 answer_locus는 빈칸 뒤 이유절을 근거로 삼아 근거 위치 설명이 서로 어긋남"}]},
+{"id":"M2206#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2206#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"선지 해설의 문장 번호(5~6번·7번)가 sentence_index와 한 칸씩 어긋나 보임 — 번호 기준 확인 필요(경미)"}]},
+{"id":"M2206#36","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"measured_ability가 '연구 서술은 설계→결과→해석 고정 순서'라는 무조건 규칙을 제시 — 적용 조건·반례 없음"},{"code":"choice_5","note":"⑤ (C)-(B)-(A) 배제가 '(C)와 (B)의 지시어 대상이 둘 다 뒤에'라 하나 (B)의 asymmetry 선행 (C)는 앞에 있음 — 사실 오류"},{"code":"logic_requirement_missing","note":"순서 유형은 passageDesign=false인데 문장 역할 passage_design이 씌워져 있음"}]},
+{"id":"M2206#37","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"logic_requirement_missing","note":"순서 유형인데 passage_design(문장 역할 12개)이 씌워져 있음 — 교수 계약상 불필요(경미)"}]},
+{"id":"M2206#38","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2206#39","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"design_intent가 this potential price를 '정관사+지시어'로 부름 — this는 지시어일 뿐 정관사 아님(경미)"}]}
+]}

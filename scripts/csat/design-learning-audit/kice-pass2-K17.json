@@ -1,0 +1,12 @@
+{"pass":2,"k":17,"items":[
+{"id":"M2106#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2109#31","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"②배제 근거로 individually or collectively 를 들며 '분류 낱말 없음'이라 하나, collectively 는 오히려 분류 쪽 단서라 근거가 약함. 이해의 틀 vs 갈래 나누기 대비만 남기는 편이 낫다"}]},
+{"id":"M2109#32","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"'genetic 계열이 지문에 네 번'이라 하나 genetically 는 선지에만 있음 — 횟수 서술 부정확"}]},
+{"id":"M2109#33","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"design_intent 앞부분이 인쇄 블록·코퍼스·파서·stem·item_id·라벨 오류 경위로 채워짐 — 학습자 필드에서 제거하고 설계 설명만 남겨야 함"}]},
+{"id":"M2109#34","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"measured_ability 가 '두 단 인쇄 읽기 순서 복원'을 능력으로 적음 — 원문 추출 결함을 측정 능력으로 오인. answer_locus.reasoning 도 같은 서술로 시작"}]},
+{"id":"M2109#36","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"trap 이름이 '지시어 선행사 없음'이나 배제 근거는 공통점 선행 요구(내용 조건)라 이름과 근거가 어긋남"}]},
+{"id":"M2109#37","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2109#38","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"choices[4] 끝에 각주·문항번호 잔여물(* arithmetic: 산수 7)이 붙어 있음. 분석 자체는 앞·뒤 조건 모두 정확"},{"code":"choice_5","note":"⑤ 배제가 '지시 거리가 벌어진다'로 약함 — ④ 뒤 here·then 완료 조건이 이미 깨진다는 점을 근거로 들어야 함"}]}
+]}

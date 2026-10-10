@@ -1,0 +1,12 @@
+{"pass":2,"k":15,"items":[
+{"id":"M1809#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"교수 계약상 순서 유형은 passageDesign=false인데 passage_design(문장 역할)이 씌워져 있음"}]},
+{"id":"M1809#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"⑤ 배제 핵심은 (C)가 첫 자리면 this oneness 선행사가 없다는 점인데, union 대상 소실로 돌려 설명해 결정 단서가 흐림"},{"code":"other","note":"순서 유형에 passage_design 부착(교수 계약 passageDesign=false)"}]},
+{"id":"M1809#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"choices가 위치 번호가 아닌 괄호 조각 문장이고 ⑤ 끝에 쪽번호 '7'이 붙어 있음(본문 판정엔 영향 없음)"}]},
+{"id":"M1809#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"④ why_tempting의 '가장 많이 고르는 자리다'는 근거 없는 선택률 주장"},{"code":"source_broken","note":"choices ⑤ 끝에 배점 표기 '[3 점]'이 섞여 있음"}]},
+{"id":"M1809#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform을 negation_flip으로 표기했으나 (A)는 결핍→loose 환언이라 극성 반전이 아님"}]},
+{"id":"M1809#42","version":4,"type":"X-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M1809#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"design_intent가 단락 첫 문장이 '전부 지시 표현'이라 하나 (B) 첫 문장엔 지시어가 없음—사실과 다른 설계 설명"},{"code":"choice_3","note":"③ 배제 문장 '아버지가 아직 모르는 사실이 아니라'가 논리 단서로 불명확"}]},
+{"id":"M2006#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

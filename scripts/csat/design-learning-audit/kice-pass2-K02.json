@@ -1,0 +1,12 @@
+{"pass":2,"k":2,"items":[
+{"id":"2014B#35","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2014B#36","version":4,"type":"R-BLANK2","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_5","note":"(B) overlooked 배제 근거를 '강도가 모자라다'로 든 부분은 약함 — (A) same 불일치가 주 근거임을 앞세우면 충분"}]},
+{"id":"2014B#37","version":4,"type":"R-BLANK2","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"measured_ability '일반 진술 뒤 지명·수치가 나오면 사례' 가 조건 없는 규칙으로 서술됨 — 앞 일반 진술(access)의 구체화라는 조건 명시 필요"}]},
+{"id":"2014B#38","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2014B#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2014B#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"why_correct가 'that behavior…' 문장을 여섯째로, 다음을 일곱째로 표기 — 실제 5·6문장. ③ 해설(다섯째)·locus(6)와 번호 불일치"},{"code":"other","note":"① why_tempting '절반의 확률로 남는다' 는 찍기 확률 표현 — 근거 설명으로 교체 권장"}]},
+{"id":"2014B#42","version":4,"type":"X-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"why_correct 인용 부호가 live less/thickly 사이에서 어긋나 원문 인용이 깨져 보임"}]},
+{"id":"2014B#43","version":6,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"design_intent·② 해설이 '총론은 각론 뒤'를 무조건 규칙처럼 씀 — 결정 근거는 roofless 정관사 인접·Yet 역접"},{"code":"answer_reasoning","note":"sentence_index [18,19] 가 reasoning이 인용한 20·21·28·6번 문장과 맞지 않음"},{"code":"work_jargon","note":"design_intent '다른 세 문항과 달리' — 학습자 필드에 세트 내부 비교 표현, 맥락 없이 노출"}]},
+{"id":"2015#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2015#34","version":4,"type":"R-BLANK2","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

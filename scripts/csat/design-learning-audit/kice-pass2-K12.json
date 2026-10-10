@@ -1,0 +1,12 @@
+{"pass":2,"k":12,"items":[
+{"id":"2024#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"근거 열거 중 안전 감각까지 '이동 방식' 축으로 묶은 서술은 다소 확장 — 핵심 논증엔 영향 없음"}]},
+{"id":"2024#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2024#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2024#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"선지 5에 각주(replication·verification)와 쪽번호 '7'이 섞여 들어감 — 원문 선지 필드 정리 필요. 해설 자체는 앞뒤 조건 모두 정확"}]},
+{"id":"2024#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"선지 5에 '[3 점]'과 각주(analogy·mutation)가 섞여 들어감 — 선지 필드 정리 필요. 해설은 just as 기준 경계 설명이 우수"}]},
+{"id":"2024#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"(B) creates 배제 근거(remains≠새로 만듦)가 약함 — 판별 칸은 (A) delays 임을 먼저 밝혀야 함"}]},
+{"id":"2024#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"why_correct ③에서 their destination 을 '정관사로 되받는다'고 함 — their 는 소유격, 정관사 아님(용어 오류)"},{"code":"other","note":"passage_design 부재(장문 순서라 계약상 불필요) — 문제 아님, 기록만"}]},
+{"id":"2025#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2025#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2025#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"배제 근거가 '조건절이 묻는 것은 거래 상대(who is paying)'라 해 answer_locus(빈칸=팔리는 물건)와 모순"},{"code":"overgeneral","note":"선지5 배제에 '빈칸 뒤 문장이라 빈칸을 채우지 못한다' — 뒤 문장도 근거가 될 수 있어 무조건 규칙화 위험"}]}
+]}

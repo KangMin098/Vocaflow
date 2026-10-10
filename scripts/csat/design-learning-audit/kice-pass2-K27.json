@@ -1,0 +1,12 @@
+{"pass":2,"k":27,"items":[
+{"id":"M2609#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"①배제 논리가 '생태학자 불만=조사가 이어짐'으로 엉뚱함. 실제로는 다양성이 '확장 가치 조사'의 근거가 되면 안 될 이유가 지문에 없다는 점(방향 불일치)을 짚어야 함. trap '반대 진술'도 부정확"}]},
+{"id":"M2609#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"⑤배제의 'that이 첫 블록에서 가리킬 것이 없다'는 오류. (C) 내부의 something mathematical going on 을 받으므로 근거가 못 됨. (B) 2인칭 대꾸 근거만 남겨야 함"}]},
+{"id":"M2609#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"passage 첫머리에 주어진 문장이 본문처럼 붙어 있고 choices 가 위치 문장 조각+각주·쪽번호(⑤)로 저장됨 — 화면 표시 시 분리 필요"}]},
+{"id":"M2609#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"passage 첫머리에 주어진 문장이 붙어 있고 choices 가 위치 문장 조각+[3점] 표기로 저장됨"},{"code":"choice_1","note":"①배제가 '명사구가 동사 첫 등장보다 앞선다'는 약한 근거. ② 뒤 피라미드 but 대비가 근거를 잃는 점(=②에서만 연결)으로 보강 권장"}]},
+{"id":"M2609#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"why_correct가 지문 featuring 을 '자동사 용법'이라 함 — 지문은 타동사(시리즈가 인물을 등장시킴). (A)는 요약문의 자동사 feature(등장하다)로의 변환임을 바로 써야 함"}]},
+{"id":"M2609#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

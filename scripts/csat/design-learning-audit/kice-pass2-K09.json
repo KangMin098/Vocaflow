@@ -1,0 +1,12 @@
+{"pass":2,"k":9,"items":[
+{"id":"2021#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note 에 '코퍼스 지문 끝에 선지가 섞여' 작업 용어·데이터 상태 서술이 학습자 필드에 노출"}]},
+{"id":"2021#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 위치 번호가 아니라 지문 문장 조각과 각주('connotation: 함축 7')로 저장됨, passage 첫머리에 주어진 문장이 붙어 있음"},{"code":"choice_5","note":"⑤ 배제 근거 '뒤에서 nevertheless 를 받치는 꼴'이 모호 — 한계 진술이 But 문장 앞에 없어진다는 점만 명확히 해야 함"}]},
+{"id":"2021#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 위치 번호 대신 지문 문장 조각·각주로 저장, passage 첫 문장이 주어진 문장과 섞임"}]},
+{"id":"2021#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"'마지막 문장'이 실제로는 요약문 직전의 Strathern 문장을 가리켜 위치 지칭이 혼동될 수 있음"}]},
+{"id":"2021#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note 가 '3차 보강 전 서술'로 시작 — 작업 이력 용어가 학습자 필드에 노출"}]},
+{"id":"2022#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"근거 거리 서술 불일치: design_intent '다섯 문장 위' vs why_correct '네 문장 앞'"}]},
+{"id":"2022#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"'새 주어가 예고 없이 등장하면 빈칸의 동의어 재진술' 을 조건·반례 없이 규칙으로 제시"}]},
+{"id":"2022#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

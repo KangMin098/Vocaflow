@@ -1,0 +1,12 @@
+{"pass":2,"k":4,"items":[
+{"id":"2016#35","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"how_to_reject 중 'their two groups 를 세우는' 문장이 깨진 표현 — 'two groups'를 세우는 질문으로 다듬을 것(경미)"}]},
+{"id":"2016#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#37","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"③ 배제에 '사례는 일반 진술 뒤에 와야 한다'를 무조건 규칙으로 제시 — 핵심 근거는 these dogs 선행 대상 부재"},{"code":"source_broken","note":"choices 가 위치 번호가 아니라 ') 문장 (' 조각으로 저장됨 — 선지 원문 형식 깨짐"}]},
+{"id":"2016#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"⑤ 선지 문자열에 '[3 점] * per se: 그 자체로 7' 각주·쪽번호가 섞임, choices 도 문장 조각 형식"}]},
+{"id":"2016#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"why_correct 가 controllable 이 첫 문장과 '뒤집힌다'고 함 — 첫 문장은 통제 가능 요인으로 평가하라는 말이라 오히려 부합. 판별 칸은 (B)"},{"code":"choice_3","note":"③ 배제를 (A) 의미로 하려다 논리가 꼬임 — (A)는 지문과 부분 부합, (B) put aside 가 결정적 배제임을 명시해야"},{"code":"choice_1","note":"'only… 제쳐 두기만 하지 말라' 설명이 혼란 — 수치 비교가 필요하다는 근거만으로 충분"}]},
+{"id":"2016#42","version":4,"type":"X-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#43","version":6,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"'26번·33번·19번 문장' 등 학습자 화면에 없는 내부 문장 번호로 근거 지시, sentence_index[6,21]과도 불일치"}]},
+{"id":"2017#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"② input 의 lure_quote 가 빈칸 뒤 절로, 오답을 끄는 근거라기보다 배제 근거에 가까움(경미)"}]},
+{"id":"2017#32","version":5,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"① general purposes 의 lure_quote(기상학자 문장)가 유인 근거와 맞지 않음(경미)"}]},
+{"id":"2017#33","version":5,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

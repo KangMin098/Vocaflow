@@ -1,0 +1,12 @@
+{"pass":2,"k":8,"items":[
+{"id":"2020#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"④ lure_quote가 빈칸 문장 자체 일부라 유인 근거가 아님(minor)"}]},
+{"id":"2020#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"③ lure_quote가 (B) 끝 문장으로 오답 유인과 무관(minor)"}]},
+{"id":"2020#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"overgeneral","note":"⑤ 배제의 'This는 바로 앞 문장을 받는 지시어다'는 무조건 규칙 — 앞 단락 전체를 받는 경우가 있음"}]},
+{"id":"2020#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"① 배제 'these needs 선행사가 costs로 걸린다'는 억지 — 실질 근거는 Thus 전제 부재"}]},
+{"id":"2020#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2020#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"⑤ 배제가 '(B) 방향 맞는 선지는 ③⑤ 둘'이라 함 — 정답 ① parted도 (B) 방향이 맞아 사실 오류"},{"code":"lure_quote","note":"⑤ lure_quote(첫 문장 break up)가 competitive 유인과 연결 설명 없음"}]},
+{"id":"2020#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note에 '3차 보강 전 서술' 같은 작업 이력 문구가 학습자 필드에 노출"}]},
+{"id":"2021#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_5","note":"⑤ 배제 '3번 문장 이후'는 governance가 2번 문장이라 번호 어긋남(minor)"}]},
+{"id":"2021#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

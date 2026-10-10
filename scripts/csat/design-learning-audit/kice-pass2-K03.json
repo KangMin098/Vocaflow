@@ -1,0 +1,12 @@
+{"pass":2,"k":3,"items":[
+{"id":"2015#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"③ 배제의 1차 근거는 (B) 정관사 home-team room 의 선행 부재인데 this application 만 들어 약하다"}]},
+{"id":"2015#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"why_correct 가 이음매 단서(The first·Survival eaters→They)를 인용 없이 요약만 한다 — answer_locus 에는 있음"}]},
+{"id":"2015#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 위치 뒤 문장 조각이고 ⑤에 각주·쪽번호(* nymph … 7)가 섞여 있다. 원문 정리 필요"}]},
+{"id":"2015#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"how_to_reject 의 '②에 남은 also' 표현이 뜻이 불분명 — also 는 삽입문에 있으므로 문장 다듬기 필요"}]},
+{"id":"2015#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2015#42","version":4,"type":"X-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2015#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"answer_reasoning","note":"answer_locus 가 '변하는 기준점' 문장을 근거로 삼고 바위 피난의 상황 개선(직전 문장)을 주근거로 명시하지 않는다"}]},
+{"id":"2016#33","version":5,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"why_correct 가 한 문장으로 짧아 The combination 이 묶는 두 차단 조건을 직접 짚지 않는다"},{"code":"choice_4","note":"trap '부분 사실'이나 실제는 배경지식(수확량) 유인 — 지문 밖 상식이 더 정확"}]},
+{"id":"2016#34","version":5,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}
