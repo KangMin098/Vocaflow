@@ -85,6 +85,8 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
   // 문항마다 가장 이른 독립 첫 시도 하나
   const first = new Map<string, { at: string; ok: boolean }>()
   for (const a of attempts) {
+    // 연습 화면 기록은 직접 확인 근거가 아니다 — 확인 과제를 하지 않고 연습에서만 틀려도 확정되던 결함(Codex P2 · find-policy.v3 와 같은 기준)
+    if ((a as { activity?: string | null }).activity === 'practice') continue
     if (a.phase !== 'practice' || !keys.has(`${a.taskKey}|${a.itemRef}`) || !isEligible(a) || a.isCorrect === null || !a.answeredAt) continue
     const cur = first.get(a.itemRef)
     if (!cur || a.answeredAt < cur.at) first.set(a.itemRef, { at: a.answeredAt, ok: a.isCorrect })

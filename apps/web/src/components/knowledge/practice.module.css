@@ -23,6 +23,9 @@
 .steps { display: grid; gap: 8px; }
 .steps li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 10px; border: 1px solid transparent; }
 .steps li[aria-current='step'] { border-color: var(--bd); background: var(--bg2); }
+/* 오류 초점이 강조한 단계 — 색만이 아니라 「천천히」 표시를 함께(접근성) */
+.steps li[data-emphasis='true'] { border-color: var(--p); }
+.steps li[data-emphasis='true'] b::after { content: ' · 이번에 천천히'; font-weight: 500; color: var(--t2); }
 .stepNo { flex-shrink: 0; display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: color-mix(in srgb, var(--t1) 12%, var(--bg)); font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 700; }
 .steps b { display: block; font-size: 14px; font-weight: 600; }
 .detail { display: block; font-size: 13px; line-height: 1.7; color: var(--t2); margin-top: 2px; }

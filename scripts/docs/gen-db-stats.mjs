@@ -217,10 +217,14 @@ async function collect() {
   // auth.users 는 PostgREST 로 안 보인다 — service_role 의 admin API 로 센다.
   let users = null
   let usersCapped = false
+  // 합성 계정(합성 학습자 집단 cohort-pNN@vocaflow.local · 시험 계정) — 수요 지표에서 뺀다(2026-10-10 · 합성 데이터 격리).
+  //   도메인 목록은 앱의 SYNTHETIC_EMAIL_DOMAINS(lib/knowledge/practice.ts)와 같다 — 그 계정의 학습 기록은 synthetic 으로 저장된다.
+  let synthetic = null
   try {
     const { data, error } = await db.auth.admin.listUsers({ page: 1, perPage: 1000 })
     if (!error && data?.users) {
-      users = data.users.length
+      synthetic = data.users.filter((u) => /@(vocaflow\.dev|vocaflow\.local|example\.com)$/i.test(u.email ?? '')).length
+      users = data.users.length - synthetic
       usersCapped = data.users.length === 1000
     }
   } catch {
@@ -234,7 +238,7 @@ async function collect() {
     books, bookStatus, articles, articleStatus,
     sets, setsPub, quiz, texts, vocabularies,
     comicIssues, comicSeries, comicBooksPub,
-    users, usersCapped, profiles,
+    users, usersCapped, synthetic, profiles,
     records, sessions, daily, scores,
     classes, classMembers, assignments, funnel,
   }
@@ -254,7 +258,7 @@ function render(s) {
   L.push('')
   L.push('**수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.')
   L.push('')
-  L.push(`- 가입자 **${usersStr}** (프로필 ${fmt(s.profiles)}) · 학습기록 **${fmt(s.records)}** · 읽기 세션 ${fmt(s.sessions)} · 일별 활동 ${fmt(s.daily)} · 점수 ${fmt(s.scores)}`)
+  L.push(`- 가입자 **${usersStr}**${s.synthetic ? ` (합성 · 시험 계정 ${fmt(s.synthetic)} 제외)` : ''} (프로필 ${fmt(s.profiles)} — 합성 포함) · 학습기록 **${fmt(s.records)}** · 읽기 세션 ${fmt(s.sessions)} · 일별 활동 ${fmt(s.daily)} · 점수 ${fmt(s.scores)}`)
   L.push(`- 교사 채널: 학급 **${fmt(s.classes)}** · 학급 구성원 ${fmt(s.classMembers)} · 학급 과제 **${fmt(s.assignments)}** · 퍼널 이벤트 ${fmt(s.funnel)}`)
   L.push('')
   L.push('**공급 측**')
