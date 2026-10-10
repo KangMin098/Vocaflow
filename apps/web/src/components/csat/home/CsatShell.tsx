@@ -36,7 +36,8 @@ export function CsatShell({
   testId?: string
   children: ReactNode
 }) {
-  const rec = useCsatRecord()
+  // 읽기 전용 — 셸 아래 화면이 기록을 쓴다. 셸이 압축본을 늦게 저장하면 그 쓰기를 덮는다
+  const rec = useCsatRecord({ readOnly: true })
   return (
     <div className={styles.root} data-testid={testId}>
       <a

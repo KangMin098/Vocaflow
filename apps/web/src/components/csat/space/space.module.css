@@ -595,6 +595,8 @@
   height: 34px;
   flex-shrink: 0;
   border-radius: 10px;
+  /* 톤 클래스가 --t1 을 그 톤의 잉크로 바꾼다 — 색을 물려받으면 어두운 테마에서 진한 글자가 어두운 톤 위에 남는다(1.06:1 · axe 2026-10-10) */
+  color: var(--t1);
   font-family: var(--font-mono), monospace;
   font-size: 12px;
   font-weight: 700;
@@ -836,13 +838,86 @@
    회색 페이지 위에 레일이 투명하게 놓이고, 오른쪽이 큰 흰 카드 하나다(띠 · 탭 · 표가 그 안에 있다).
    띠 색(보라 · 분홍 · 초록)은 `PatternBand` 의 격자 변형이 쥔다. */
 .root {
+  /* 3B 스킨은 밝은 판 하나다. 어두운 테마가 바꾸는 토큰 중 아래에서 따로 정하지 않은 것을 밝은 값으로 되돌린다(tokens.css :root 에서 생성 · 2026-10-10).
+     빠지면 셸 안 화면(해부 · 해설 극장)에서 밝은 글자색과 어두운 면이 섞인다 — 1.14:1(axe). */
+  --p-hover: #081832;
+  --p-light: #E3E8EE;
+  --p-dark: #051428;
+  --on-p: #FFFFFF;
+  --on-p-tint: #0F2540;
+  --on-semantic: #FFFFFF;
+  --ju-ink: #A8342A;
+  --ju-light: #F5E4E0;
+  --ju-wash: rgba(192, 57, 43, 0.13);
+  --on-ju: #FFF7F0;
+  --accent-plum: #7A4A6B;
+  --active: #B0843A;
+  --active-light: #F4EAD3;
+  --on-active: #1A1714;
+  --active-ink: #7E5A1B;
+  --success-ink: #1F6B49;
+  --error-ink: #8A3128;
+  --warning-ink: #7A5200;
+  --info-ink: #3E5771;
+  --success-light: #E1EFE6;
+  --error: #9C3A30;
+  --error-light: #F4E0DC;
+  --warning: #B5803A;
+  --warning-light: #F2E8D2;
+  --info: #50697F;
+  --info-light: #E1E8EF;
+  --admin: #8B5CF6;
+  --admin-strong: #6D28D9;
+  --t4: rgba(26, 23, 20, 0.20);
+  --ti: #FBFAF6;
+  --grid-line: color-mix(in srgb, var(--bd) 40%, transparent);
+  --bdf: #0F2540;
+  --ios-red: #FF3B30;
+  --ios-orange: #FF9500;
+  --ios-yellow: #FFCC00;
+  --ios-green: #34C759;
+  --ios-blue: #007AFF;
+  --ios-indigo: #5856D6;
+  --ios-purple: #7A4A6B;
+  --ios-pink: #FF2D55;
+  --ios-gray-1: #8E8E93;
+  --ios-gray-2: #AEAEB2;
+  --ios-gray-3: #C7C7CC;
+  --ios-gray-4: #D1D1D6;
+  --ios-gray-5: #E5E5EA;
+  --ios-gray-6: #F2F2F7;
+  --ios-red-tint: #FFE5E5;
+  --ios-orange-tint: #FFF1E5;
+  --ios-yellow-tint: #FEF3C7;
+  --ios-green-tint: #E8F8EE;
+  --ios-blue-tint: #E5F2FF;
+  --ios-purple-tint: #F4ECF1;
+  --ios-pink-tint: #FCE7F3;
+  --ios-red-ink: #B3261E;
+  --ios-orange-ink: #8A4B00;
+  --ios-yellow-ink: #92400E;
+  --ios-green-ink: #1F6B49;
+  --ios-blue-ink: #005BBB;
+  --ios-purple-ink: #6A3F5D;
+  --ios-pink-ink: #B01142;
+  --mat-glass-bg-thin: rgba(251, 250, 246, .72);
+  --mat-glass-bg-regular: rgba(251, 250, 246, .85);
+  --mat-glass-bg-thick: rgba(251, 250, 246, .92);
+  --sh-ios-1: 0 0 0 1px var(--bd);
+  --sh-ios-2: 0 0 0 1px var(--bd);
+  --sh-ios-3: 0 0 0 1px var(--bd);
+  --sh-ios-4: 0 0 0 1px var(--bd), 0 18px 48px -12px rgba(26, 23, 20, .22);
+  --sh-soft: 0 1px 3px rgba(0, 0, 0, .06);
+  --sh-drop: 0 16px 16px -8px rgba(0, 0, 0, .10);
+  --sh-overlay: 0 24px 80px rgba(0, 0, 0, .25);
   --bg: #ffffff;
   --bg2: #f7f7f8;
   --bg3: #efeeec;
   --bd: #e8e7e4;
   --t1: #18181b;
   --t2: #56565c;
-  --t3: #8e8e94;
+  /* 참조값 #8e8e94 는 #faf9f7 위 3.09:1 — 11px 레일 머리 · 개수가 WCAG AA(4.5) 미달(axe 2026-10-10 · 8화면 전부). 접근성이 참조보다 앞선다 → 4.8:1 */
+  --t3: #6e6e74;
   --p: #7c5cfa;
   --ju: #18181b;
   --success: #16a34a;
