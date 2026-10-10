@@ -51,6 +51,12 @@ test('정책 검사: HIGH 위임 불가 · 너무 넓은 영역 거부 · 범위
   const p = basePolicy()
   assert.equal(policyCovers(p, { paths: ['src/a.ts', 'src/__tests__/a.test.ts'] }).ok, true, '경로가 바뀌어도 같은 영역·위험이면 자동')
   assert.match(policyCovers(p, { paths: ['lib/x.ts'] }).why.join(), /영역 밖/)
+  // glob 경로는 포함 관계로 — 글자 맞춤으로 더 넓은 범위가 위임되지 않는다
+  const pg = { ...p, allowed_code_areas: ['src/m*', 'src/map/**'] }
+  assert.match(policyCovers(pg, { paths: ['src/m*/**'] }).why.join(), /영역 밖/)
+  assert.match(policyCovers(pg, { paths: ['src/map/../**'] }).why.join(), /영역 밖/)
+  assert.equal(policyCovers(pg, { paths: ['src/map/sub/**'] }).ok, true)
+  assert.equal(policyCovers(pg, { paths: ['src/mx.ts'] }).ok, true)
   assert.match(policyCovers(p, { paths: ['src/a.ts'], db_changes: true }).why.join(), /HIGH/)
   assert.match(policyCovers(basePolicy({ risk_level: 'LOW' }), { paths: ['src/a.ts'] }).why.join(), /정책 상한 LOW/)
   assert.match(policyCovers(p, { paths: ['src/a.ts'], db_scope: { mode: 'read' } }).why.join(), /db_read_dev/)
