@@ -37,7 +37,7 @@ export const CORE_AXES: CoreAxisDef[] = [
   { code: 'R', name: '글 이해', question: '여러 문장을 이어 글 전체의 의미와 논리를 만드는가', lines: ['A3', 'A6'], group: 'core', legacyNote: 'A6(배경지식)은 앞으로 글 이해가 아니라 맥락 자원으로 옮겨요 — 지금은 기존 계산과 맞추려고 임시로 더해요' },
   { code: 'E', name: '근거 · 선지 판단', question: '글의 의미를 선지와 이어 정답 · 오답을 가리는가', lines: ['A4', 'A5'], group: 'core', legacyNote: 'A4 는 앞으로 다른 항목으로 나뉘어요 — 지금은 기존 계산과 맞추려고 임시로 더해요' },
   { code: 'L', name: '듣기', question: '음성을 실시간으로 단어 · 문장 · 의미로 바꾸는가', lines: ['A7'], group: 'core' },
-  { code: 'X', name: '실전 수행', question: '처리 속도 · 시간 배분 · 풀이 순서 · 집중', lines: ['A9'], group: 'performance' },
+  { code: 'X', name: '실전 수행', question: '시험 시간 안에서 시간 배분 · 풀이 순서 · 집중을 운영하는가(처리 속도는 축이 아니라 모든 축의 가로 측정 차원 — 정본 §3 · §4)', lines: ['A9'], group: 'performance' },
 ]
 
 /**

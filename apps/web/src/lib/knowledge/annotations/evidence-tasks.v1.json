@@ -20,7 +20,43 @@
    ],
    "disputed": [
     9
-   ]
+   ],
+   "source": {
+    "revision": "e52fe510c1752a7a5485fcaec6de297410ea6c951b85e9927bb1b07045201b4f",
+    "textHash": "669e58522944e15f118aed3a33004ec6b909ea1f44cfc7705c75a1a1d7ca56cc",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 8,
+      "textHash": "16aa207c2e2ca38d2cc0eb51d8b26ce44da9a582472feafcd8d0cf4b285b99a0",
+      "charRange": {
+       "start": 942,
+       "end": 1035
+      }
+     },
+     {
+      "index": 5,
+      "textHash": "e44d3a602cddfd5de5fffea2201b867475b6cabbb9a80a72c051555bf76d04a1",
+      "charRange": {
+       "start": 647,
+       "end": 757
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 9,
+      "textHash": "671499735f473bc4b6e10fa3024737f2933e89ce39cb192975756a9daf93b28f",
+      "charRange": {
+       "start": 1036,
+       "end": 1102
+      }
+     }
+    ]
+   }
   },
   "2026#23": {
    "key": "option-restate",
@@ -32,7 +68,35 @@
    ],
    "disputed": [
     5
-   ]
+   ],
+   "source": {
+    "revision": "472357902f9773ddd9cc31ea4ebae040fcb4bddb06e8a97106cb72089ccba74c",
+    "textHash": "11e1ec63e7ab49f0912c18e3a85903325e8b9f9d4575420a39831b0d5273c19d",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 7,
+      "textHash": "307dcc27222d52e1152ab9f26c77d809f26eccac0a980212c570529aff294d60",
+      "charRange": {
+       "start": 662,
+       "end": 885
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 5,
+      "textHash": "befbc0a4f3d6cd23bf2fcd6267df5714a9022e81a61914c712fe4ca99e57a9c1",
+      "charRange": {
+       "start": 490,
+       "end": 583
+      }
+     }
+    ]
+   }
   },
   "2026#24": {
    "key": "option-restate",
@@ -45,7 +109,43 @@
    "disputed": [
     6,
     2
-   ]
+   ],
+   "source": {
+    "revision": "89d41ece47d5b4ad97988c9d1775698b5e30b6ac5a143591ff7465e6a7fbceb3",
+    "textHash": "12f326bfa4b1b8826127e1ff1bfd387fe0cf8acf11e174b33efe59ad694780c4",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 4,
+      "textHash": "e3d552fd8c681aee33ba6cea028d07116e63a300b298f062fbe4d03302b0d89f",
+      "charRange": {
+       "start": 702,
+       "end": 805
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 6,
+      "textHash": "0cb5225bbed3527e58bff2b2f26ba5916a32cea0858e49fd65461a4fde8699a3",
+      "charRange": {
+       "start": 948,
+       "end": 1091
+      }
+     },
+     {
+      "index": 2,
+      "textHash": "9f82bc7c5b5700c04a7086c389f2f52bef4436e72f43cbe134e5833706731a2e",
+      "charRange": {
+       "start": 420,
+       "end": 571
+      }
+     }
+    ]
+   }
   },
   "2025#22": {
    "key": "option-restate",
@@ -59,7 +159,51 @@
     0,
     2,
     5
-   ]
+   ],
+   "source": {
+    "revision": "93dad6b995aa7f91db1de4970f9a27d4c146356224cbd87e3373cbedde0450fa",
+    "textHash": "5b6d9d8399420fa4b932b5c89ffa3ab596a06a667d5250a9971c83411b11f12a",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 1,
+      "textHash": "0525a1f11dd19d214eabed16b22d7cf36710c5cadc3d5ad23454e92112caa991",
+      "charRange": {
+       "start": 177,
+       "end": 344
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 0,
+      "textHash": "7d372ea15c87bdbaf68f36dddd490719b76ab70cccd0a69e599074bd35587bfb",
+      "charRange": {
+       "start": 0,
+       "end": 176
+      }
+     },
+     {
+      "index": 2,
+      "textHash": "6e5bf448655f296848b70a011c49740586628e5b8b676fded516e0a746921c2f",
+      "charRange": {
+       "start": 345,
+       "end": 478
+      }
+     },
+     {
+      "index": 5,
+      "textHash": "3f6718c5e4feda54ad04119631c85d98cc45219a69000c08b44974d7fc817138",
+      "charRange": {
+       "start": 790,
+       "end": 935
+      }
+     }
+    ]
+   }
   },
   "2025#23": {
    "key": "option-restate",
@@ -71,7 +215,35 @@
    ],
    "disputed": [
     0
-   ]
+   ],
+   "source": {
+    "revision": "89ea35db16a64a9c21167b07fe5682029a6cfd6258aebe4002681e682a61d091",
+    "textHash": "b488d24d2dc4d0b396b0ab017b6ee6cc31c668d4158af03c64e3f6a5e98c54e0",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 5,
+      "textHash": "b1a6992693a3da1331a4ba13236ba2602c71b9d5bcd15becdc39714f751efde8",
+      "charRange": {
+       "start": 775,
+       "end": 914
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 0,
+      "textHash": "16d43da4d09c31a868a132fd77e8a1179fd03f25af7db4b164591622866717bb",
+      "charRange": {
+       "start": 0,
+       "end": 90
+      }
+     }
+    ]
+   }
   },
   "2025#24": {
    "key": "option-restate",
@@ -83,7 +255,35 @@
    ],
    "disputed": [
     0
-   ]
+   ],
+   "source": {
+    "revision": "9a110b3de279292e1b6bced1a35a1161a99013a72cea9bd08edef6eeac62b482",
+    "textHash": "bbe3bd2aafaf8a17966d2ef84377cc23235324d34cc31898f8082288998efb91",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 5,
+      "textHash": "34ae7faccca488f9b6a9af039b92f863f4d58cffd2b720caa5d59f6cc0bf5fce",
+      "charRange": {
+       "start": 662,
+       "end": 815
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 0,
+      "textHash": "c42ff2d812187a913432cf943d792aeda5b9df804cf0a837f29d8de97d726e67",
+      "charRange": {
+       "start": 0,
+       "end": 143
+      }
+     }
+    ]
+   }
   },
   "2026#31": {
    "key": "evidence-locate",
@@ -95,7 +295,35 @@
    ],
    "disputed": [
     0
-   ]
+   ],
+   "source": {
+    "revision": "4f329aa6397d6e65dcb5aa0c67f7a32919fbb3eb946d7adae61e9507d2a31a72",
+    "textHash": "55ab15715733e628a1457aba17b90d72554c665cc1bf0f9edfddf371d0ff2407",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 6,
+      "textHash": "6d747d539e1d8eccdf9cabf1b0737ada13f54b23220cdc4b74b79c7d11a1b393",
+      "charRange": {
+       "start": 934,
+       "end": 1066
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 0,
+      "textHash": "c442128072d9960e39c8015b6e1ad34ae11c701f1064eb1e8311835fb4a3e83e",
+      "charRange": {
+       "start": 0,
+       "end": 178
+      }
+     }
+    ]
+   }
   },
   "2026#32": {
    "key": "evidence-locate",
@@ -105,7 +333,26 @@
    "evidence": [
     5
    ],
-   "disputed": []
+   "disputed": [],
+   "source": {
+    "revision": "9d812cca3218dba760e385f93a9fef4b2f17ffe447bd421c743fb616d2506963",
+    "textHash": "de413ed408c2bc43bbe5ef109fc8e9cd084d242e9d7befaddd9fa22835b74232",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 5,
+      "textHash": "a26e3a75a340b17523494635dd16bdbaa6a596b12223f20dc25066a62ab0d712",
+      "charRange": {
+       "start": 676,
+       "end": 904
+      }
+     }
+    ],
+    "disputed": []
+   }
   },
   "2026#33": {
    "key": "evidence-locate",
@@ -118,7 +365,43 @@
    ],
    "disputed": [
     1
-   ]
+   ],
+   "source": {
+    "revision": "8d309a345abf0aa57b7cfce619fd891e2387a4ea2131c4467a4b33ca2c4d606e",
+    "textHash": "cca92b5e86607bd9f38cef5b973bcd81666f983d98250c232a6d843d8a9fe05d",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 5,
+      "textHash": "d7f0cee12623aa1813f4413f027ffdfcb53aa3b8c629c602d08892ca48f9ef82",
+      "charRange": {
+       "start": 713,
+       "end": 886
+      }
+     },
+     {
+      "index": 0,
+      "textHash": "3de7ff83c8dd23a08609c9c044ea77533da93310c97b00d99d303099a7e486df",
+      "charRange": {
+       "start": 0,
+       "end": 114
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 1,
+      "textHash": "ac9a6f33a004a7c9e021c8741e523df0b794fa1eb8bded98e7eebd59ac3090e9",
+      "charRange": {
+       "start": 115,
+       "end": 220
+      }
+     }
+    ]
+   }
   },
   "2026#34": {
    "key": "evidence-locate",
@@ -130,7 +413,35 @@
    ],
    "disputed": [
     0
-   ]
+   ],
+   "source": {
+    "revision": "b0f33fa40ca37152c4401f12c175a8ffc7393082462f53baffb6dc5adf791f59",
+    "textHash": "396ec6074393dc6d6caea0f47a0da6ff22749e7006209555db52f69b14ffeced",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 5,
+      "textHash": "9623cde1c67bdda2bbd17397f6f604cf04a66f21bdd1c38e3052d3c9be92467c",
+      "charRange": {
+       "start": 804,
+       "end": 914
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 0,
+      "textHash": "519e911adc550bdd358fecf7aaf5f69611a090e74bbd925a1fcdcc50f5ecb7c4",
+      "charRange": {
+       "start": 0,
+       "end": 125
+      }
+     }
+    ]
+   }
   },
   "2025#32": {
    "key": "evidence-locate",
@@ -142,7 +453,35 @@
    ],
    "disputed": [
     1
-   ]
+   ],
+   "source": {
+    "revision": "1f47187307f8ab187ddc5148296b4d114ed77e33793666b9d23435a75d9e7c71",
+    "textHash": "a053351ecacd05a14fdb25335465eab32d702a5a8792de808c30e957d62e5348",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 3,
+      "textHash": "c1ce2bbc2ef2855be6b8c101b0cb2fc239bc290d2f822a736a050001e50a5f07",
+      "charRange": {
+       "start": 206,
+       "end": 248
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 1,
+      "textHash": "e998f4d1d068e31f6efaf3af86a48f2f1c55a402e06f8896b2b5201473260352",
+      "charRange": {
+       "start": 58,
+       "end": 176
+      }
+     }
+    ]
+   }
   }
  }
 }

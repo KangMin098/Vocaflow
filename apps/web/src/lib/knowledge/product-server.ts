@@ -13,6 +13,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { fromItemSlug, toItemSlug } from '@/lib/csat/item-slug'
 import { createAdminClient } from '@/lib/supabase/admin'
 
+import { checkBinding } from './anchor-source'
+import { CURATED } from './evidence-locate'
 import { currentItemTask, ITEM_TASKS } from './item-tasks'
 import { isSyntheticEmail, parseClientMeta } from './practice'
 import { selectWriter, type AttemptWrite, type AttemptWriter, type WriteOutcome } from './practice-writer'
@@ -91,8 +93,31 @@ export interface ItemPrinciplePanel {
   panel: Record<string, unknown>
 }
 
-export async function loadItemPrinciple(itemId: string): Promise<ItemPrinciplePanel | null> {
+/**
+ * 원문 결속 관문(계약 B · MC-06) — 원문에 결속된 주석(합의 주석 evidence-tasks)은 지금 원문과 대조해 valid 일 때만 과제를 연다.
+ * 결속이 없는 과제(주장과 근거 · 이어 주는 단서 — 경계 서명만 있는 기존 주석)는 이 관문을 지나지 않는다(완료 계약에 boundary_only 로 남는다).
+ * 원문 조회 실패 · 결속 불일치는 닫는다(fail-closed). 원문이 같다는 것은 근거 위치가 맞다는 뜻일 뿐 원인 판정 근거가 아니다.
+ */
+export async function anchorGate(itemId: string, client: SupabaseClient = db()): Promise<boolean> {
+  const bound = CURATED[itemId] as (typeof CURATED)[string] & { source?: { revision: string } }
+  if (!bound) return true
+  const { data, error } = await client.from('csat_items').select('passage').eq('id', itemId).maybeSingle()
+  const passage = (data as { passage?: string } | null)?.passage
+  if (error || !passage) { console.error('[anchor-gate] 원문 조회 실패', itemId, error?.message); return false }
+  const c = checkBinding(bound as Parameters<typeof checkBinding>[0], itemId, passage, bound.source?.revision ?? '')
+  if (!c.ok) console.error('[anchor-gate] 결속 불일치 — 과제 닫음', itemId, JSON.stringify(c))
+  return c.ok
+}
+
+/** 주석 · 골격 서명 + 원문 결속까지 맞는 문항 과제 */
+async function liveItemTask(itemId: string, client?: SupabaseClient) {
   const task = currentItemTask(itemId)
+  if (!task) return null
+  return (await anchorGate(itemId, client)) ? task : null
+}
+
+export async function loadItemPrinciple(itemId: string): Promise<ItemPrinciplePanel | null> {
+  const task = await liveItemTask(itemId)
   if (!task) return null
   const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId))
   if (!live) return null
@@ -137,7 +162,7 @@ export async function recordItemTaskAttempt(
   const o = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>
   const meta = parseClientMeta(o, now)
   if (!meta.ok) throw new TaskInputError(meta.error, 'invalid_input')
-  const task = currentItemTask(itemId)
+  const task = await liveItemTask(itemId)
   if (!task) throw new TaskInputError('이 문항에는 지금 확인 과제가 없어요', 'no_task')
   const live = await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, itemId), client)
   // 주석은 있지만 제품 적용이 켜져 있지 않다(초안 · 중단 · 사슬 미채택) — 노출 게이트가 막은 것
@@ -229,7 +254,7 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
     // 지도 쪽 연결도 그 문항 쪽 적용이 살아 있어야 한다 — 문항에서 과제가 내려갔는데 지도 링크만 남으면 빈 화면으로 보낸다
     const confirm: MapPracticeLink['confirm'] = []
     for (const target of findTargetsOf(app.audience)) {
-      const task = currentItemTask(target)
+      const task = await liveItemTask(target, client)
       if (!task || !(await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, target), client))) continue
       confirm.push({ href: `/csat/item/${toItemSlug(target)}#principle`, label: itemLabel(target), target, taskKey: task.def.key })
     }

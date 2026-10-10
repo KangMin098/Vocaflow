@@ -4,6 +4,7 @@
 import { Lock, Route } from 'lucide-react'
 
 import { CURRICULUM, READINESS_LABEL, TRANSFER_HREF, lifecycleCells, repairProtocol } from '@/lib/csat/map/curriculum'
+import { NO_EVIDENCE, nextLifecycleAction, type LifecycleEvidence } from '@/lib/csat/map/lifecycle-evidence'
 import type { SkillDiagnosis, SkillStatus } from '@/lib/csat/map/skill-diagnosis'
 import { skillMessage } from '@/lib/csat/map/skill-diagnosis'
 import { STAGE_WORD, type StepKey } from '@/lib/csat/map/learner-path'
@@ -39,10 +40,10 @@ export interface PrescriptionGroup {
 }
 
 /** 생애주기 4칸 — 확인하기 → 바로잡기 → 다른 글에 적용하기 → 다시 확인하기의 지금 상태(직접 확인 결과에서만) */
-export function LifecycleStrip({ skill, hasTargets }: { skill: SkillDiagnosis | null; hasTargets: boolean }) {
+export function LifecycleStrip({ skill, hasTargets, ev = NO_EVIDENCE }: { skill: SkillDiagnosis | null; hasTargets: boolean; ev?: LifecycleEvidence }) {
   return (
     <ol className={l.cycle} data-testid="step-lifecycle" aria-label="학습 순서와 지금 상태">
-      {lifecycleCells(skill, hasTargets).map((c) => (
+      {lifecycleCells(skill, hasTargets, ev).map((c) => (
         <li key={c.stage} className={l.cycleCell} data-stage={c.stage} data-s={c.state}>
           <strong>{STAGE_WORD[c.stage]}</strong>
           <span>{c.state === 'locked' ? '잠김 · ' : ''}{c.note}</span>
@@ -64,26 +65,40 @@ export function StepReadiness({ step }: { step: StepKey }) {
   return <p className={l.ready} data-testid="step-readiness" data-readiness={c.readiness}><strong>{READINESS_LABEL[c.readiness]}</strong> — {text}</p>
 }
 
-export function SkillPrescription({ skill, groups, transferHref, checkLinks, step }: {
+export function SkillPrescription({ skill, groups, transferHref, checkLinks, step, repairLinks = [], ev = NO_EVIDENCE }: {
   step?: StepKey
+  /** 바로잡기 — 확정에 쓴(막혔던) 확인 문항으로 가는 링크 */
+  repairLinks?: { target: string; href: string; label: string }[]
+  /** 생애주기 수행 근거(바로잡기 · 적용 기록) */
+  ev?: LifecycleEvidence
   skill: SkillDiagnosis | null
   groups: PrescriptionGroup[]
   transferHref: string | null
   checkLinks: { target: string; href: string; label: string }[]
 }) {
   const opened = !!skill?.verified
+  const next = nextLifecycleAction(skill?.status, ev)
   return (
-    <section className={l.block} data-testid="step-prescription" data-open={opened}>
+    <section className={l.block} data-testid="step-prescription" data-open={opened} data-next={next ?? ''}>
       <h3 className={l.blockH}><Route size={14} strokeWidth={1.9} aria-hidden="true" />{opened ? '확인된 학습 요구에 맞춘 학습' : '원인이 확인되면 이어지는 학습'}</h3>
       <ol className={l.next}>
         {groups.map((g) => (
-          <li key={g.stage} className={l.nextStep} data-stage={g.stage}>
+          <li key={g.stage} className={l.nextStep} data-stage={g.stage} data-now={opened && next === g.stage.toLowerCase()}>
             <span className={l.nextName}>
               {!opened && <Lock size={12} strokeWidth={1.9} aria-hidden="true" />}
               {STAGE_WORD[g.stage]}
             </span>
             <span className={l.nextList}>{g.titles.length ? g.titles.slice(0, 3).join(' · ') : '—'}</span>
             {/* 바로잡기 = 정본 §13 기출 분석 Protocol 중 이 단계의 절차 — 확인된 문항을 다시 처리하는 질문(과제 안 절차) */}
+            {/* 바로잡기 수행 = 막혔던 문항을 이 절차대로 다시 처리해 맞히기(기록으로 판정 · lifecycle-evidence) */}
+            {opened && g.stage === 'REPAIR' && (
+              <span className={l.nextList} data-testid="rx-repair-state" data-done={!!ev.repairAt}>
+                {ev.repairAt ? '막혔던 문항을 다시 처리해 맞혔어요.' : ev.repairTried ? '다시 처리하는 중이에요 — 아래 질문을 따라 한 번 더 해 보세요.' : '막혔던 문항을 아래 질문 순서대로 다시 처리해 보세요. 다시 맞히면 바로잡기를 마친 것으로 기록돼요.'}
+              </span>
+            )}
+            {opened && g.stage === 'REPAIR' && !ev.repairAt && repairLinks.map((c) => (
+              <a key={c.target} href={c.href} style={NEXT_LINK} data-testid="rx-repair" data-item={c.target}>다시 처리하기 — {c.label.replace(/으로 직접 확인$/, '')} →</a>
+            ))}
             {opened && g.stage === 'REPAIR' && step && repairProtocol(step).length > 0 && (
               <ol className={l.proto} data-testid="rx-repair-protocol">
                 {repairProtocol(step).map((p) => (
@@ -92,6 +107,9 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks, ste
               </ol>
             )}
             {/* 처방은 직접 확인 뒤에만 연다 — 다른 글에 적용 = Practice · 다시 확인 = 확정에 쓰지 않은 · 아직 풀지 않은 확인 문항 */}
+            {opened && g.stage === 'TRANSFER' && (
+              <span className={l.nextList} data-testid="rx-transfer-state" data-done={!!ev.transferAt}>{ev.transferAt ? '다른 문항에 적용한 기록이 있어요.' : '확인 묶음에 없는 다른 문항에 같은 원리를 적용해 보세요.'}</span>
+            )}
             {opened && g.stage === 'TRANSFER' && transferHref && (
               <a href={transferHref} style={NEXT_LINK} data-testid="rx-transfer">다른 글에 적용하기 →</a>
             )}

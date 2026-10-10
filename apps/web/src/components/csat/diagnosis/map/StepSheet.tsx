@@ -17,6 +17,7 @@ import { FIND_STATE_LABEL, findOutcome } from '@/lib/knowledge/find-outcome'
 import { decideStep } from '@/lib/knowledge/learning-decision'
 import { PRACTICE_SLUG } from '@/lib/knowledge/practice'
 import { skillDiagnosis } from '@/lib/csat/map/skill-diagnosis'
+import { NO_EVIDENCE, lifecycleEvidence } from '@/lib/csat/map/lifecycle-evidence'
 import type { PracticeResult } from '@/lib/csat/map/practice-results'
 import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 
@@ -51,6 +52,9 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
   // 다시 확인하기 — 확정에 쓰지 않았고 아직 풀지 않은 확인 문항
   const confirmLinks = find.flatMap((t) => data.practiceLinks?.[t.id]?.confirm ?? [])
   const checkLinks = skill ? confirmLinks.filter((c) => skill.check.remaining.includes(c.target)) : []
+  // 바로잡기 · 적용 수행 근거 — 본인 시도 전부(첫 시도만이 아니다). 기록을 못 읽었으면 근거 없음으로(완료로 보이지 않게)
+  const ev = skill && data.lifecycleActivity ? lifecycleEvidence(skill, findTargets, data.lifecycleActivity) : NO_EVIDENCE
+  const repairLinks = skill ? confirmLinks.filter((c) => skill.verifiedItems.includes(c.target)) : []
   // 다른 글에 적용(Practice) — 이 단계 확인 문항의 원리에 Practice 가 있을 때만(다른 원리 · 다른 단계 링크를 섞지 않는다)
   const stepKeys = [...new Set(findTargets.map((t) => t.taskKey))]
   const transferHref = stepKeys.length === 1 ? PRACTICE_HREF[stepKeys[0]] ?? null : null
@@ -133,7 +137,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
           </section>
           <section className={`${l.block} ${l.now}`} id="step-check">
             <h3 className={l.blockH}><Search size={14} strokeWidth={1.9} aria-hidden="true" />지금 확인할 것 — {STAGE_WORD.FIND}</h3>
-            <LifecycleStrip skill={skill} hasTargets={findTargets.length > 0} />
+            <LifecycleStrip skill={skill} hasTargets={findTargets.length > 0} ev={ev} />
             {findTargets.length === 0 && <StepReadiness step={step.key} />}
             {outcome && (!skill || skill.status === 'unverified') && (
               <p className={l.text} data-testid="find-outcome" data-state={outcome.state}>
@@ -200,7 +204,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
             )}
             {tasks.err && <p className={l.err} role="alert">{tasks.err}</p>}
           </section>
-          <SkillPrescription skill={skill} groups={later.map((g) => ({ stage: g.stage, titles: g.tasks.map((t) => t.title) }))} transferHref={transferHref} checkLinks={checkLinks} step={step.key} />
+          <SkillPrescription skill={skill} groups={later.map((g) => ({ stage: g.stage, titles: g.tasks.map((t) => t.title) }))} transferHref={transferHref} checkLinks={checkLinks} step={step.key} repairLinks={repairLinks} ev={ev} />
           <section className={l.block}>
             <button type="button" className={l.moreBtn} aria-expanded={more} onClick={() => setMore((v) => !v)}>
               <ChevronDown size={14} className={more ? l.rot : ''} aria-hidden="true" />

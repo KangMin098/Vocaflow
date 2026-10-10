@@ -20,6 +20,7 @@ import { staleMapEvidence } from './stale'
 import { practiceHrefsBeyond } from '../../knowledge/practice-server'
 import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/product-server'
 import type { FindAttemptRow } from '../../knowledge/find-outcome'
+import type { ActivityRow } from './lifecycle-evidence'
 
 import { crossSessionHelp, type CrossSession, type CrossVerdict } from '@/lib/knowledge/prior-help'
 import { practiceResultsFor, transferKeysOf, type AttemptRow, type FirstAttemptRow, type PracticeResult, type ReviewRow } from './practice-results'
@@ -54,6 +55,8 @@ export interface MapPageData {
   practiceLinks?: Record<string, MapPracticeLink>
   /** 확인 문항에서의 내 첫 시도(DB 뷰 learning_first_attempts · RLS 본인 행) — 확인 결과 → 확인된 학습 요구(find-outcome) */
   findAttempts?: FindAttemptRow[]
+  /** 생애주기 수행 기록(바로잡기 · 적용 판정용) — 연결된 과제 키의 본인 시도 전부(첫 시도만이 아니다). 못 읽으면 undefined(「기록 없음」 으로 보이지 않게) */
+  lifecycleActivity?: ActivityRow[]
   /** FIND 과제 id → 그 실행 과제의 본인 수행 요약(결과 환류) — 연결된 과제만 */
   practiceResults?: Record<string, PracticeResult>
   /** FIND 과제 id → 「같은 원리를 다른 지문에 적용」 Practice 주소 — 실학습 풀에 그 문항 말고 다른 문항이 있을 때만 */
@@ -171,6 +174,17 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
     parts: partsById.get(Number(r.attempt_id)) ?? null,
   }
   })
+}
+
+/** 생애주기 수행 기록 — 연결된 과제 키의 본인 시도 전부(문항 · 단계 · 정오 · 판단 시각). 보류 문항은 뺀다(Reveal Gate) */
+async function loadLifecycleActivity(db: Db, userId: string, taskKeys: string[], gate: { held: Set<string>; failed: boolean }): Promise<ActivityRow[]> {
+  if (taskKeys.length === 0 || gate.failed) return []
+  const { data, error } = await db.from('learning_task_attempts').select('item_ref, task_key, phase, is_correct, answered_at')
+    .eq('user_id', userId).in('task_key', taskKeys).order('answered_at', { ascending: true }).limit(1000)
+  if (error) throw new Error(`수행 기록 조회 실패: ${error.message}`)
+  return ((data ?? []) as { item_ref: string | null; task_key: string; phase: string; is_correct: boolean | null; answered_at: string | null }[])
+    .filter((r) => !r.item_ref || !gate.held.has(r.item_ref))
+    .map((r) => ({ itemRef: r.item_ref, taskKey: r.task_key, phase: r.phase, isCorrect: r.is_correct, answeredAt: r.answered_at }))
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
@@ -359,6 +373,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     return undefined
   })
   const practiceResults = await loadPracticeResults(db, userId, practiceLinks, now).catch((e) => { console.error('[csat-map practice results]', e); return undefined })
+  const lifecycleActivity = await loadLifecycleActivity(db, userId, [...new Set(Object.values(practiceLinks).map((l) => l.taskKey))], gate).catch((e) => { console.error('[csat-map lifecycle activity]', e); return undefined })
   // 결과 환류의 다음 칸 — 같은 원리를 다른 지문에 적용(Practice). 실학습 풀에 그 문항 말고 다른 문항이 있을 때만
   // 링크를 보일 수 있는 칸(마친 확인 · 전이 없음)이 있을 때만, 풀은 한 번만 계산한다
   const needNext = Object.entries(practiceLinks).filter(([taskId, link]) => link.taskKey === 'claim-support' && practiceResults?.[taskId]?.next === 'move_on' && !practiceResults[taskId].transfer)
@@ -379,6 +394,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     settings,
     practiceLinks,
     findAttempts,
+    lifecycleActivity,
     practiceResults,
     practiceNext,
     records,
