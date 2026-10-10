@@ -28,6 +28,6 @@
 ## Codex 와 함께 일할 때
 
 - 분담·폴백 규칙: `agents/router.md`. Claude 기본 몫은 설계·계획·큰 리팩터·문서·대화형 탐색.
-- 기능 하나를 끝내면 반대 에이전트 리뷰: `codex review --uncommitted` (Codex 가 설치·로그인된 경우).
+- Codex 리뷰는 따로 부르지 않는다. 커밋마다 전역 Stop 훅이 자동으로 리뷰하고, 머지 전에 `node agents/scripts/review.mjs` 를 한 번 돌린다. 같은 변경을 `codex review --uncommitted` 로 또 보지 않는다(중복 · 2026-10-10).
 - 사용량 한도 메시지를 보면 즉시 `node agents/scripts/handoff.mjs claude codex` → 출력된 시작 명령을 사용자에게 전달.
 - 세션 시작 훅이 `.agent-handoff/latest.md` 요약을 주입하면, 첫 동작은 그 파일의 **수용 기준 재확인**이다.

@@ -214,6 +214,8 @@ export interface MapPracticeLink {
   confirm: { href: string; label: string; target: string; taskKey: string }[]
   /** 이 단계에 연결된 원리 사슬(과제 · 방법 · 원리 id · 버전) — 학습 결정의 추적 정보(learning-decision) */
   chain?: StepChain
+  /** 지도 연결 적용 — 결정 기록(learning_decisions)에 적용 id · 버전 · 대상 조건을 남긴다 */
+  application?: { id: string; version: number; audience: Record<string, unknown> }
 }
 
 /** 사슬 경로(과제 → 방법 → 기제 → 본질)에서 층마다 하나 */
@@ -260,7 +262,7 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
       confirm.push({ href: `/csat/item/${toItemSlug(target)}#principle`, label: itemLabel(target), target, taskKey: task.def.key })
     }
     if (confirm.length === 0) continue
-    out[taskId] = { ...confirm[0], itemId: confirm[0].target, confirm, chain: stepChainOf(verdict.path) }
+    out[taskId] = { ...confirm[0], itemId: confirm[0].target, confirm, chain: stepChainOf(verdict.path), application: { id: app.id, version: app.version, audience: app.audience ?? {} } }
   }
   return out
 }
