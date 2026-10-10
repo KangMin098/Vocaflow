@@ -77,6 +77,8 @@ async function device(browser: Browser): Promise<Probe> {
     if (!isWrite(req.method())) return route.continue()
     // 문제지 해시 조회는 POST 지만 읽기다(좌표 색인 반환 · DB 쓰기 없음 — api/csat/paper 머리말). 해설 탭이 로컬 문제지를 열면 보낸다
     if (req.url().includes('/api/csat/paper')) return route.continue()
+    // 기기 진행 동기화(본 문항 목록 등)는 학습 시도가 아니다 — #182 해결 뒤 해설 탭이 /api/csat/state 에 PUT 한다(전엔 503 으로 막혀 안 보였다). 가짜 응답으로 받아 실 DB 는 안 바뀐다
+    if (req.url().includes('/api/csat/state')) return route.fulfill({ json: { ok: true } })
     if (url.includes('/api/csat/practice/review')) {
       probe.reviews.push(req.postDataJSON() as Record<string, unknown>)
       // 서버 확정 날짜 — 이미 다른 날로 잡혀 있던 경우(kept)를 흉내 낸다
