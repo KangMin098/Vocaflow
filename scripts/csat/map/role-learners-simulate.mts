@@ -76,6 +76,6 @@ for (const p of personas) {
   out[p.persona] = res
 }
 fs.writeFileSync(path.join(DIR, 'simulation.json'), JSON.stringify({ note: '역할 학습자(모델) 시뮬레이션 — 프로세스 검증 · 효과 근거 아님', now: now.toISOString(), personas: out, annotationReview: review }, null, 2))
-for (const [p, r] of Object.entries(out)) for (const [k, v] of Object.entries(r as Record<string, { correct: number; lurePicked: number; status: string; lifecycle: string }>)) console.log(`${p.padEnd(6)} ${k.padEnd(16)} 정답 ${v.correct}/6 · 함정 ${v.lurePicked} · ${v.status.padEnd(12)} · ${v.lifecycle}`)
+for (const [p, r] of Object.entries(out)) for (const [k, v] of Object.entries(r as Record<string, { correct: number; lurePicked: number; status: string; lifecycle: string }>)) console.log(`${p.padEnd(6)} ${k.padEnd(16)} 정답 ${v.correct}/${(v as unknown as { rows: unknown[] }).rows.length} · 함정 ${v.lurePicked} · ${v.status.padEnd(12)} · ${v.lifecycle}`)
 console.log(`주석 점검 대상(상위 페르소나 오답): ${review.length}`)
 for (const r of review) console.log(`  ${r.itemId} ${r.key} 고름 ${r.pick} · 주석 근거 ${r.evidence.join(',')} — ${r.reason}`)

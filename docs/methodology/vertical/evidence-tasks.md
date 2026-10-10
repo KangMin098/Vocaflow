@@ -1,14 +1,14 @@
 # E축 확인 과제 — 「선지가 다시 말한 본문 문장」 · 「빈칸을 정하는 근거 문장」(2026-10-10)
 
-> 상태: **코드 준비됨(ready) · 활성화 승인 대기**. 학습자에게 열려면 아래 지식 사슬 채택과 적용이 필요하다. 이 작업은 공유 개발 DB 쓰기라서 사용자 승인 뒤에만 한다.
-> 이 문서는 무엇을 쓸지 정하는 계획이다. 아직 아무것도 적용하지 않았다.
+> 상태: **사용자 승인(2026-10-10) · 맹검 검토 2건 adopt([evidence-tasks-review](./evidence-tasks-review.md))** — 빌드 스크립트 `scripts/knowledge/vertical-evidence-tasks-build.mts` 로 관리자 화면 경로를 탄다.
+> 빌드 실행 여부는 CHANGELOG 와 DB(knowledge_applications)로 확인한다.
 
 ## 코드(이미 있음 · DB 없이 동작)
 
 | 무엇 | 어디 |
 |---|---|
 | 과제 · 채점 · 화면 모양 | `apps/web/src/lib/knowledge/evidence-locate.ts`, 레지스트리 `item-tasks.ts`(`option-restate` · `evidence-locate`) |
-| 합의 주석 12문항 | `apps/web/src/lib/knowledge/annotations/evidence-tasks.v1.json` — 근거 · 갈린 문장 · 빈칸 문장(문장 번호만) |
+| 합의 주석 11문항 | `apps/web/src/lib/knowledge/annotations/evidence-tasks.v1.json` — 근거 · 갈린 문장 · 빈칸 문장(문장 번호만) |
 | 문항 화면 | `components/csat/theater/EvidencePanel.tsx`(문항 페이지 `#principle`) |
 | 지도 기준 | `lib/csat/map/curriculum.ts` — option 단계 = option-restate · evidence 단계 = evidence-locate |
 | 검증 | 단위 `vertical-evidence-locate.test.ts` · 역할 학습자 시뮬레이션 [ROLE_LEARNER_SIM_2026-10-10](../../csat-learner/ROLE_LEARNER_SIM_2026-10-10.md) |
@@ -35,14 +35,14 @@ cohesion-link 와 같은 절차다(`scripts/knowledge/vertical-cohesion-link-bui
 | surface | surface_ref | audience |
 |---|---|---|
 | `csat_item_task` | `option-restate:2026-22` · `2026-23` · `2026-24` · `2025-22` · `2025-23` · `2025-24` | `{ item, exam: 'suneung', type }` |
-| `csat_item_task` | `evidence-locate:2026-31` · `2026-32` · `2026-33` · `2026-34` · `2025-31` · `2025-32` | 같음 |
-| `learning_map_find` | `a4-4`(본문↔선지 · 바뀐 표현 대응 찾기) | `{ step: 'option', line: 'A4', item: '2026#22', items: [나머지 5] }` |
-| `learning_map_find` | `a5-4`(근거 판단 · 고른 이유 출처 확인) | `{ step: 'evidence', line: 'A5', item: '2026#31', items: [나머지 5] }` |
+| `csat_item_task` | `evidence-locate:2026-31` · `2026-32` · `2026-33` · `2026-34` · `2025-32`(2025-31 은 검토로 제외) | 같음 |
+| `learning_map_find` | `a4-4`(본문↔선지 · 바뀐 표현 대응 찾기) | `{ step: 'option', line: 'A4', item: '2026#22', items: [나머지] }` |
+| `learning_map_find` | `a5-4`(근거 판단 · 고른 이유 출처 확인) | `{ step: 'evidence', line: 'A5', item: '2026#31', items: [나머지] }` |
 
 3. 되돌리기: 적용을 `paused` 로 돌린다. 마지막 active 가 멈추면 항목이 in_review 로 자동 회귀한다. 재개 전에는 다시 채택해야 한다(B7).
 
 ## 켠 뒤 확인
 
 - 문항 화면 `/csat/item/2026-31#principle` 에 `data-task="evidence-locate"` 패널이 보여야 한다.
-- 지도 단계 시트 「근거 판단」 에 확인 문항 링크 6개가 보여야 한다.
+- 지도 단계 시트 「근거 판단」 에 확인 문항 링크 5개(본문↔선지 6개)가 보여야 한다.
 - 직접 확인 → 처방 개방은 실제 계정에서만 열린다(합성 계정은 제외). 열린 경로는 렌더 테스트와 시뮬레이션이 맡는다.

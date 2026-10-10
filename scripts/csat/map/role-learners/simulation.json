@@ -78,7 +78,7 @@
       "evidence-locate": {
         "step": "evidence",
         "readiness": "ready",
-        "correct": 6,
+        "correct": 5,
         "lurePicked": 0,
         "status": "unverified",
         "verifiedItems": [],
@@ -123,15 +123,6 @@
             "pick": 1,
             "evidence": [
               6
-            ],
-            "correct": true,
-            "lure": false
-          },
-          {
-            "itemId": "2025#31",
-            "pick": 6,
-            "evidence": [
-              9
             ],
             "correct": true,
             "lure": false
@@ -274,15 +265,6 @@
             "lure": false
           },
           {
-            "itemId": "2025#31",
-            "pick": 8,
-            "evidence": [
-              9
-            ],
-            "correct": false,
-            "lure": false
-          },
-          {
             "itemId": "2025#32",
             "pick": 4,
             "evidence": [
@@ -370,7 +352,7 @@
       "evidence-locate": {
         "step": "evidence",
         "readiness": "ready",
-        "correct": 6,
+        "correct": 5,
         "lurePicked": 0,
         "status": "unverified",
         "verifiedItems": [],
@@ -415,15 +397,6 @@
             "pick": 6,
             "evidence": [
               6
-            ],
-            "correct": true,
-            "lure": false
-          },
-          {
-            "itemId": "2025#31",
-            "pick": 9,
-            "evidence": [
-              9
             ],
             "correct": true,
             "lure": false
@@ -519,7 +492,7 @@
       "evidence-locate": {
         "step": "evidence",
         "readiness": "ready",
-        "correct": 4,
+        "correct": 3,
         "lurePicked": 2,
         "status": "resolved",
         "verifiedItems": [
@@ -567,15 +540,6 @@
             "pick": 6,
             "evidence": [
               6
-            ],
-            "correct": true,
-            "lure": false
-          },
-          {
-            "itemId": "2025#31",
-            "pick": 9,
-            "evidence": [
-              9
             ],
             "correct": true,
             "lure": false
@@ -671,7 +635,7 @@
       "evidence-locate": {
         "step": "evidence",
         "readiness": "ready",
-        "correct": 3,
+        "correct": 2,
         "lurePicked": 2,
         "status": "still_needed",
         "verifiedItems": [
@@ -679,7 +643,7 @@
           "2026#32"
         ],
         "check": {
-          "right": 3,
+          "right": 2,
           "wrong": 1,
           "need": 2,
           "remaining": []
@@ -719,15 +683,6 @@
             "pick": 6,
             "evidence": [
               6
-            ],
-            "correct": true,
-            "lure": false
-          },
-          {
-            "itemId": "2025#31",
-            "pick": 9,
-            "evidence": [
-              9
             ],
             "correct": true,
             "lure": false
