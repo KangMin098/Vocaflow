@@ -219,7 +219,8 @@ export function parseSubmission(v: unknown, now: number): ParseResult<PracticeSu
   if (ev !== null && (!Number.isFinite(ev) || ev > now + SKEW_MS || ev < now - MAX_AGE_MS)) return { ok: false, error: '해설 열람 시각이 맞지 않아요' }
   if (!Number.isInteger(o.claim)) return { ok: false, error: '주장 문장을 골라 주세요' }
   const support = Array.isArray(o.support) ? o.support : null
-  if (!support || support.length > 3 || !support.every((x) => Number.isInteger(x))) return { ok: false, error: '근거 문장은 0~3개예요' }
+  // 근거는 「모두」 고른다 — 주석 문항은 근거가 6개인 것도 있다(2021#20). 상한은 지문 문장 수 범위(채점 쪽이 문항 문장 수로 다시 막는다) · 2026-10-10 0~3 상한 때문에 항상 오답이던 결함
+  if (!support || support.length > 20 || !support.every((x) => Number.isInteger(x))) return { ok: false, error: '근거 문장을 다시 골라 주세요' }
   const relation = o.relation === null || o.relation === undefined ? null : o.relation
   if (relation !== null && !(typeof relation === 'string' && (RELATIONS as readonly string[]).includes(relation))) return { ok: false, error: '관계를 다시 골라 주세요' }
   const option = o.option === null || o.option === undefined ? null : o.option
