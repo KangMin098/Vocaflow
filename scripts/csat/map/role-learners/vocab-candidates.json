@@ -1,0 +1,341 @@
+{
+ "version": "vocab-context.candidates.v0",
+ "rule": "정답 = 공식 정답(두 맹검 검토자 모두 일치) · 근거 문장 = 두 검토자가 겹친 cue(0부터) · 한쪽만 = 갈린 문장 · 겹침 없음 = 세 번째 검토 필요",
+ "items": {
+  "2014A#28": {
+   "official": 3,
+   "answerSentences": [
+    2
+   ],
+   "cueAgreed": [
+    2
+   ],
+   "cueDisputed": [
+    3,
+    4
+   ],
+   "status": "candidate"
+  },
+  "2014B#28": {
+   "official": 4,
+   "answerSentences": [
+    5
+   ],
+   "cueAgreed": [
+    5
+   ],
+   "cueDisputed": [],
+   "status": "candidate"
+  },
+  "2016#29": {
+   "official": 3,
+   "answerSentences": [
+    7
+   ],
+   "cueAgreed": [
+    2,
+    7
+   ],
+   "cueDisputed": [],
+   "status": "candidate"
+  },
+  "2017#29": {
+   "official": 4,
+   "answerSentences": [
+    2
+   ],
+   "cueAgreed": [
+    5
+   ],
+   "cueDisputed": [
+    0,
+    1
+   ],
+   "status": "candidate"
+  },
+  "2018#29": {
+   "official": 2,
+   "answerSentences": [
+    3
+   ],
+   "cueAgreed": [
+    4
+   ],
+   "cueDisputed": [
+    2,
+    3
+   ],
+   "status": "candidate"
+  },
+  "2019#30": {
+   "official": 5,
+   "answerSentences": [
+    5
+   ],
+   "cueAgreed": [
+    3,
+    4
+   ],
+   "cueDisputed": [],
+   "status": "candidate"
+  },
+  "2020#30": {
+   "official": 4,
+   "answerSentences": [
+    5
+   ],
+   "cueAgreed": [
+    4,
+    5
+   ],
+   "cueDisputed": [],
+   "status": "candidate"
+  },
+  "2021#30": {
+   "official": 5,
+   "answerSentences": [
+    10
+   ],
+   "cueAgreed": [
+    9
+   ],
+   "cueDisputed": [
+    10
+   ],
+   "status": "candidate"
+  },
+  "2024#30": {
+   "official": 4,
+   "answerSentences": [
+    5
+   ],
+   "cueAgreed": [
+    4
+   ],
+   "cueDisputed": [
+    5
+   ],
+   "status": "candidate"
+  },
+  "2025#30": {
+   "official": 4,
+   "answerSentences": [
+    6
+   ],
+   "cueAgreed": [
+    6
+   ],
+   "cueDisputed": [
+    0,
+    5
+   ],
+   "status": "candidate"
+  },
+  "2026#30": {
+   "official": 5,
+   "answerSentences": [
+    7
+   ],
+   "cueAgreed": [
+    6
+   ],
+   "cueDisputed": [
+    7
+   ],
+   "status": "candidate"
+  },
+  "M1809#29": {
+   "official": 5,
+   "answerSentences": [
+    2
+   ],
+   "cueAgreed": [],
+   "cueDisputed": [
+    4,
+    6,
+    1,
+    7
+   ],
+   "status": "needs_third_review"
+  },
+  "M2006#30": {
+   "official": 2,
+   "answerSentences": [
+    0
+   ],
+   "cueAgreed": [
+    0
+   ],
+   "cueDisputed": [
+    1,
+    2
+   ],
+   "status": "candidate"
+  },
+  "M2106#30": {
+   "official": 3,
+   "answerSentences": [
+    3
+   ],
+   "cueAgreed": [
+    2
+   ],
+   "cueDisputed": [
+    4,
+    3
+   ],
+   "status": "candidate"
+  },
+  "M2206#30": {
+   "official": 4,
+   "answerSentences": [
+    6
+   ],
+   "cueAgreed": [
+    5
+   ],
+   "cueDisputed": [
+    4,
+    6
+   ],
+   "status": "candidate"
+  },
+  "M2209#30": {
+   "official": 4,
+   "answerSentences": [
+    4
+   ],
+   "cueAgreed": [
+    3
+   ],
+   "cueDisputed": [
+    4
+   ],
+   "status": "candidate"
+  },
+  "M2306#30": {
+   "official": 4,
+   "answerSentences": [
+    5
+   ],
+   "cueAgreed": [
+    0
+   ],
+   "cueDisputed": [
+    2,
+    5
+   ],
+   "status": "candidate"
+  },
+  "M2309#30": {
+   "official": 5,
+   "answerSentences": [
+    5
+   ],
+   "cueAgreed": [
+    4
+   ],
+   "cueDisputed": [
+    5
+   ],
+   "status": "candidate"
+  },
+  "M2406#30": {
+   "official": 4,
+   "answerSentences": [
+    0
+   ],
+   "cueAgreed": [],
+   "cueDisputed": [
+    0,
+    4,
+    3,
+    5
+   ],
+   "status": "needs_third_review"
+  },
+  "M2409#30": {
+   "official": 4,
+   "answerSentences": [
+    4
+   ],
+   "cueAgreed": [
+    4
+   ],
+   "cueDisputed": [
+    6,
+    5
+   ],
+   "status": "candidate"
+  },
+  "M2506#30": {
+   "official": 4,
+   "answerSentences": [
+    4
+   ],
+   "cueAgreed": [
+    5
+   ],
+   "cueDisputed": [
+    4,
+    6
+   ],
+   "status": "candidate"
+  },
+  "M2509#30": {
+   "official": 5,
+   "answerSentences": [
+    7
+   ],
+   "cueAgreed": [
+    2
+   ],
+   "cueDisputed": [
+    5,
+    7
+   ],
+   "status": "candidate"
+  },
+  "M2606#30": {
+   "official": 5,
+   "answerSentences": [
+    6
+   ],
+   "cueAgreed": [
+    1
+   ],
+   "cueDisputed": [
+    5,
+    6
+   ],
+   "status": "candidate"
+  },
+  "M2609#30": {
+   "official": 5,
+   "answerSentences": [
+    8
+   ],
+   "cueAgreed": [
+    9
+   ],
+   "cueDisputed": [
+    8
+   ],
+   "status": "candidate"
+  },
+  "M2706#30": {
+   "official": 4,
+   "answerSentences": [
+    4
+   ],
+   "cueAgreed": [
+    5
+   ],
+   "cueDisputed": [
+    3,
+    4
+   ],
+   "status": "candidate"
+  }
+ }
+}
