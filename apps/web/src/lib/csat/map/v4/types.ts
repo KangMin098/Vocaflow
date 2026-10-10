@@ -21,7 +21,10 @@ export interface V4Task {
   goal: string
   conditions: string
   evidence: string
+  /** 설계 기준(설계자용 메모 포함 — 학습자 화면에 쓰지 않는다) */
   criterion: string
+  /** 학습자에게 보이는 「다 했다고 보는 기준」 */
+  learner_criterion: string
   quantity_policy: string
   direct_check: DirectCheck
   methods: string[]

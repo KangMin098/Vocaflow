@@ -12,6 +12,7 @@ import { asIsMap, ms, type AsIsMap, type AxisProxyState } from './as-is'
 import { DOMAINS, type Domain } from './definition'
 import { toBeMap, type ConfirmLink, type ToBeGoal, type ToBeMap } from './to-be'
 import { planWorkspaces, type WorkspacePlan } from './workspace'
+import { allTaskPlans, workspacePlan, type PlanActivity, type TaskPlan, type WorkspacePlanView } from './plan'
 
 const STEP_TO_PROXY: Record<StepEvidence, AxisProxyState> = {
   none: 'none',
@@ -81,6 +82,10 @@ export interface V4View {
   asIs: AsIsMap
   toBe: ToBeMap | null
   plan: WorkspacePlan
+  /** Workspace id → TASK 별 학습계획(대표 · 다른 후보) */
+  plans: Record<string, WorkspacePlanView>
+  /** 모든 비보류 TASK 계획 — 지도의 TASK → 연관 Workspace 찾기 */
+  taskPlans: TaskPlan[]
 }
 
 /**
@@ -98,5 +103,9 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   const asIs = asIsMap({ asOf: at, sessions: data.v4.sessions, axisProxy: { ...axisProxyOf(data), covers: data.v4.proxyCovers }, checks, attempts })
   const toBe = toBeMap({ asIs, goal, refItems: data.v4.refItems, lineRefItems: data.model.lineRefItems, confirmLinks, transferredKeys: transferredKeysOf(data) })
   const plan = planWorkspaces({ asIs, toBe, confirmLinks, transferItems: data.v4.transferItems })
-  return { asIs, toBe, plan }
+  // 수행 기록 — 생애주기 기록(지도 연결 과제 키의 본인 시도). 시각 없는 기록 · 기준 시점 뒤 기록은 세지 않는다(As-Is 와 같은 자격 · 리뷰 P1)
+  const cut = ms(at)
+  const activity: PlanActivity[] = (data.lifecycleActivity ?? []).filter((a) => !!a.answeredAt && ms(a.answeredAt) <= cut)
+  const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, workspacePlan(w, asIs, toBe, plan, activity)]))
+  return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, activity) }
 }

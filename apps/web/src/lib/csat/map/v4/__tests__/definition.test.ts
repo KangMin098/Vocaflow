@@ -46,6 +46,15 @@ describe('rev4 정의 — 기존 자산 전수 보존', () => {
     }
   })
 
+  it('학습자에게 보이는 문장(이름 · 목표 · 기준)에 내부 코드 · 설계 용어가 없다', () => {
+    // 2026-10-11 화면 검토: 설계 기준(criterion)의 「R4 와 독립 관찰」이 계획 화면에 그대로 나왔다 → learner_criterion 분리
+    const internal = /\b[A-JPRSTVX]\d{1,2}\b|[A-Z]-O1|§|facet|Gold|tagging|mastery|숙달도 계산|proxy/i
+    for (const t of V4_DATA.tasks) {
+      for (const [k, v] of [['name', t.name], ['learner_criterion', t.learner_criterion]] as const) expect(internal.test(v), `${t.id}.${k}: ${v}`).toBe(false)
+      if (t.status !== 'hold') expect(internal.test(t.goal), `${t.id}.goal: ${t.goal}`).toBe(false)
+    }
+  })
+
   it('확인 과제 키는 live/ready Workspace 의 중심 TASK 하나만 가리킨다', () => {
     expect(checkedTaskOfKey('claim-support')).toBe('r.central_meaning')
     expect(checkedTaskOfKey('option-restate')).toBe('e.option_correspondence')

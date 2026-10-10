@@ -86,8 +86,10 @@ export interface AsIsTask {
     independentItems: number
     verifiedItems: string[]
     wrongItems: string[]
-    /** 아직 본 적 없는 확인 문항 — 「확인」 · 「다시 확인」에 쓸 수 있는 실제 문항 */
+    /** 아직 본 적 없는 확인 문항 — 「확인」 · 「다시 확인」에 쓸 수 있는 실제 문항(확인 과제로도, 기록한 시험지로도 안 본 것) */
     unseen: string[]
+    /** 확인 과제로는 안 봤지만 학습자가 그 시험을 기록해 이미 푼 확인 문항 — 새 문항으로 내밀지 않는다 */
+    examSeen: string[]
     verifiedAt: string | null
   } | null
   /** 근거 출처와 개수 */
@@ -185,6 +187,8 @@ export function asIsMap(input: AsIsInput): AsIsMap {
   })) as AsIsMap['domains']
 
   const syntheticAttempts = attempts.filter((a) => a.synthetic).length
+  // 기준 시점까지 기록한 시험(입력 신뢰도 · 진단 준비와 무관 — 시험지를 받아 풀었다)
+  const takenExams = new Set(inWindow.map((s) => s.examId))
   const out: Record<TaskId, AsIsTask> = {}
   for (const t of tasks()) {
     const base = { id: t.id, axis: t.axis, directCheck: t.direct_check }
@@ -202,14 +206,18 @@ export function asIsMap(input: AsIsInput): AsIsMap {
       const mine = attempts.filter((a) => targets.some((x) => x.itemRef === a.itemRef && x.taskKey === a.taskKey))
       // skill-diagnosis 와 같은 자격(확인 과제 · 독립 첫 시도 · 정오 있음) — 연습 화면 기록 · 합성 · 도움 받은 시도는 세지 않는다
       const independent = new Set(mine.filter((a) => a.activity !== 'practice' && a.phase === 'practice' && isEligible(a) && a.isCorrect !== null && !!a.answeredAt).map((a) => a.itemRef))
-      const seen = new Set(mine.map((a) => a.itemRef))
+      // 이미 본 문항 — 다른 과제로 본 문항(과제 키 무관 · skill-diagnosis 의 seenAt 과 같은 기준) + **기록한 시험의 문항**(시험지로 이미 풀었다).
+      //   후자는 「다음에 내밀 확인 문항 · 계획량」에서만 뺀다 — 직접 확인 판정(skillDiagnosis)은 그대로(3차 · 재노출 방지)
+      const seen = new Set(attempts.filter((a) => targets.some((x) => x.itemRef === a.itemRef)).map((a) => a.itemRef))
+      const examSeen = [...new Set(targets.map((x) => x.itemRef))].filter((i) => !seen.has(i) && takenExams.has(i.split('#')[0] ?? ''))
       check = {
         taskKey: targets[0].taskKey,
         status: d.status,
         independentItems: independent.size,
         verifiedItems: d.verifiedItems,
         wrongItems: d.check.wrongItems ?? [],
-        unseen: [...new Set(targets.map((x) => x.itemRef))].filter((i) => !seen.has(i)),
+        unseen: [...new Set(targets.map((x) => x.itemRef))].filter((i) => !seen.has(i) && !examSeen.includes(i)),
+        examSeen,
         verifiedAt: d.verifiedAt,
       }
       fromCheck = SKILL_TO_TASK[d.status] ?? (independent.size > 0 ? 'checking' : null)
