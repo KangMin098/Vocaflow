@@ -172,3 +172,18 @@ test('설계 예산: tty budget_change 만 · 그 목표에만 · 올리기만 �
   const a = spawnSync(process.execPath, [VFC, 'approve', '--kind', 'budget_change', '--goal', 'UG-c8315ad8-0002', '--max-next-designs', '12', '--summary', 'UG-c8315ad8-0002 budget'], { env, encoding: 'utf8' })
   assert.match(a.stderr, /TRUST_REQUIRED/)
 })
+
+test('정책 auto_budget: 사람이 승인한 정책 상한까지는 예산이 자동으로 늘어난다 · 정책 밖 값은 거부 · 사용 횟수 유지', async () => {
+  const { budgetLimit } = await import('../lib/usergoals.mjs')
+  const { validatePolicy } = await import('../lib/policy.mjs')
+  const g = { budgets: { max_total_requeries: 6 }, counters: { next_designs: 8, total_requeries: 6 } }
+  assert.equal(budgetLimit(g, 'max_next_designs'), 8)
+  g.execution_policy = { auto_budget: { max_next_designs: 12, max_total_requeries: 10 } }
+  assert.equal(budgetLimit(g, 'max_next_designs'), 12)
+  assert.equal(budgetLimit(g, 'max_total_requeries'), 10)
+  g.execution_policy = { auto_budget: { max_next_designs: 4 } }
+  assert.equal(budgetLimit(g, 'max_next_designs'), 8, '정책이 더 낮으면 목표 예산 그대로(내리지 않음)')
+  const pol = JSON.parse(fs.readFileSync(path.join(REPO, 'planning', 'policies', 'UG-c8315ad8-0002.v2.json'), 'utf8'))
+  assert.deepEqual(validatePolicy(pol), [], '준비한 v2 정책은 형식 통과')
+  assert.ok(validatePolicy({ ...pol, auto_budget: { max_next_designs: 50 } }).some((e) => /auto_budget/.test(e)))
+})
