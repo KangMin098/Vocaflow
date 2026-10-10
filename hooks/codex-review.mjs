@@ -8,13 +8,12 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { STATE_DIR, MAX_FILES, DAILY_BUDGET, log, collectTouched, buildPrompt, runCodex, markClean, fileKey, overBudget, todayTokens } from './codex-review-lib.mjs';
+import { STATE_DIR, MAX_FILES, DAILY_BUDGET, EFFORT, log, collectTouched, buildPrompt, runCodex, markClean, fileKey, overBudget, todayTokens } from './codex-review-lib.mjs';
 import { runStopReview, DEFAULTS } from './codex-review-policy.mjs';
 
 const pass = (why) => { if (why) log(`pass: ${why}`); process.exit(0); };
 
-if (process.env.CODEX_REVIEW === '0') pass('disabled by env');
-let input;
+if (process.env.CODEX_REVIEW === '0') pass('disabled by env');let input;
 try { input = JSON.parse(readFileSync(0, 'utf8')); } catch { pass('no stdin'); }
 const { session_id: sessionId, transcript_path: transcriptPath, cwd } = input;
 if (!sessionId || !transcriptPath || !existsSync(transcriptPath)) pass('no transcript');
@@ -46,6 +45,7 @@ const res = runStopReview(
   { sessionId, root, head, touched: collectTouched(transcriptPath, root).repo },
   {
     stateDir: STATE_DIR,
+    effort: EFFORT,
     log: (m) => log(`${m} · root=${root}`),
     isAncestor: (a, b) => { try { gitOut('merge-base', '--is-ancestor', a, b); return true; } catch { return false; } },
     mergeBase: (a, b) => { try { return gitOut('merge-base', a, b); } catch { return null; } },

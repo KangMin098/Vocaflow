@@ -30,7 +30,12 @@ for (const name of ['codex-review-policy.mjs', 'codex-review.mjs']) {
     if (!dry) fs.copyFileSync(to, bak)
     out.push(`${name}: 백업 ${path.basename(bak)}`)
   }
-  if (!dry) fs.copyFileSync(src, to)
+  // 원자적 교체: 같은 폴더 임시 파일 → rename. 다른 세션의 Stop 훅이 반쯤 쓴 파일을 import 하지 않게(RP-2026-10-10.1)
+  if (!dry) {
+    const tmp = `${to}.${process.pid}.tmp`
+    fs.copyFileSync(src, tmp)
+    fs.renameSync(tmp, to)
+  }
   out.push(`${name}: ${dry ? '설치 예정' : '설치'} → ${to}`)
 }
 console.log(out.join('\n'))

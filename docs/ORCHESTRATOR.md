@@ -108,3 +108,11 @@ node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10 
 **중복 리뷰 방지** — 같은 작업 · 같은 diff · 같은 리뷰 입력(보고서·완료 조건·범위·claim)에서 APPROVE(차단 0)였으면 재사용(`runtime/review-cache.json`, 이벤트 `review_cache_hit`). REQUEST_CHANGES·판독 실패·오탐 이의 라운드는 캐시하지 않는다. 리뷰 강도(effort)는 바꾸지 않았다.
 
 **실측(2026-10-10)** — 기존 12 실행: 구현 53% · 리뷰 42% · 목표 검사 4% · 선정 0.5%(작업당 3.6분). 추가 비용: tick 유휴 ~110ms(프로세스 기동) · 실제 상태 dry-run 1.15s → 1.25s(브리지 포함) · 정렬 게이트 0.4ms.
+
+## 리뷰 중복 점검 — RP-2026-10-10.1 (2026-10-10)
+
+- 구현 Claude 는 `--no-session-persistence` 로 돌아 트랜스크립트가 없다. 그래서 전역 Stop 훅이 리뷰하지 않는다(실측: 오케스트레이터 작업 worktree 4곳의 Stop 판정 0건, hook.log 「no transcript」). 오케스트레이터 작업의 대표 리뷰는 이미 독립 리뷰 하나다. 위임 장치는 넣지 않았다.
+- CRITICAL(require_review_pass) 작업이 요구하는 「그 커밋의 Stop REVIEW_PASS」는 대화형 세션에서만 생긴다. 그대로 둔다(약화 금지).
+- 독립 리뷰 APPROVE 캐시(`runtime/review-cache.json`) 키에 **정책 판과 effort** 를 넣었다. 이전 정책이나 낮은 effort 의 APPROVE 를 높은 요구에 다시 쓰지 않는다. 옛 키는 자연히 빗나가 한 번 다시 리뷰한다. 리뷰 기록 md 머리에 「리뷰 정책 · effort · 캐시 재사용」이 남는다.
+- Goal Check(`lib/goalcheck.mjs`)는 Codex 를 부르지 않는 결정적 증거 검사다(리뷰 기록 무결성 해시 · 커밋 · 범위 변경). 바꾸지 않았다.
+- Codex 리뷰 「이전 판 작업에 소급」(P1) 판단: 오탐으로 둔다. 키가 바뀌면 이전 판 작업은 캐시가 **빗나가 한 번 더 리뷰받을 뿐**이다. 검증은 엄격해지는 쪽이고, 이전 판 판정·완료 기록은 고치지 않는다. 기록 머리의 정책 판은 「그 리뷰가 돈 판」이다.
