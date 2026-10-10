@@ -105,3 +105,33 @@ This closes the "registered order cannot reach a student volume" gap for single-
 - Specialized families: P13/P14/P18/P20 now run through the order-production run with sealed per-day resources (cycled when fewer than days) or an exam target and printed time budgets; all 20 families assemble a student volume with lineage (run tests 7/7, including wrong-day resource, invented resource quote, missing resource and missing time budget). They remain `IMPLEMENTED`, not E2E: atomic production refuses them by design (JS + DB triggers), and the admin form cannot yet enter resources.
 - Run revision impact: `run-revision.mjs` turns a change in a registered run into day-level rebuild/reuse decisions and rebuilds only affected days as new atomic group revisions (tests 3/3: one-day explanation fix rebuilds day 2 only and invalidates the old volume; order revision rebuilds all days; unchanged runs rebuild nothing; changed order set/plan refused). Not yet persisted through the hash-chain revision journal.
 - Journaled run revision: rebuilt days are persisted through the existing hash-chain revision journal, one journal per rebuilt day; an injected crash after review leaves the day in `revise` and the volume not ready, a rerun completes it without duplicate records, and an edited record blocks the volume (run-revision tests 4/4).
+
+## 2026-10-11 re-judgment against the work order
+
+Baseline `dcc3bb43f` + work order `docs/methodology/TEXTBOOK_FACTORY_CLAUDE_WORK_ORDER.md` (`306df711d`). Judged from code and tests on this branch, not from earlier sections. `DONE` = executable path with synthetic verification; never real-content or operational validation.
+
+### Work-order areas
+
+| # | Area | Evidence in code/tests | Status |
+|---|---|---|---|
+| 1 | Registered order → production run → days → unit → volume | `order-production-run.ts`/CLI re-seal the same structured drafts the admin draft route registers; `run-atomic-bridge.mjs` → per-day promotion, atomic snapshot, publication simulation; `atomic-volume.mjs` composes/verifies | PARTIAL — synthetic in-memory DB only; no live DB promotion of a run; admin cannot start a run (CLI only) |
+| 2a | P01–P20 executable adapters | All 20 run through `order-production-run` with a family gate (generic grounding for 15, resource/time layouts for P13/P14/P18/P20) | PARTIAL — 15 families are generic grounding gates, not family-specific teaching design (`CONTRACT_ONLY`) |
+| 2b | Specialized resources / exam targets | Structured draft accepts `exam`/`resources`; per-day resource cycling; P18 printed time budget | PARTIAL — admin registration form has no resource/exam input; atomic production refused by DB gate (migration needed) |
+| 3 | Non-reading products (vocabulary, syntax, grammar, listening, dictation, cards, diagnostic) | Generators exist outside the factory: `grammar-choice.ts`, `vocab-choice.ts`, `word-order.ts`, `listen-choose.ts`, `vocab/typeset.ts`; none takes a Product Order or emits order lineage; no dictation or diagnostic workbook generator | MISSING (factory connection) |
+| 4a | Grade scopes: single, contiguous, noncontiguous, E5–H3 | Run tests: E5, E6/H2, H1, H3, M1/H3, M1–M3, M2–M3; planned-volume E5–H3 eight grades | DONE (synthetic) |
+| 4b | Delivery modes in the run → atomic path | Only `grade_specific_adaptations` (multi-grade) and `single_grade` exercised from runs; `shared_passage_grade_specific_items` and `grade_specific_units` only in fixed fixtures (`multi-grade-order.test.ts`, P03 master) | PARTIAL |
+| 4c | Many days/passages in one volume | Planned volume (file) and atomic multi-day volume (3 days, 16 families) | DONE (synthetic) |
+| 5a | Admin observation | `/api/admin/csat/order-trace` (DB evidence) + `/api/admin/csat/order-runs` (run stage, blockers, stale, revision mismatch) | PARTIAL — revision journals and atomic-volume state not shown in admin |
+| 5b | Recovery / revision | `run-revision.mjs` day-level impact, selective rebuild, hash-chain journal with resume; interrupted output never complete | DONE (synthetic) |
+| 6 | Required failure injections on the run path | Done: order/grade mix, item/explanation change, order revision, resource change, revoked day, output tamper, interrupted retry, trust-policy mismatch. Fixed P03 master only: source/adaptation change, benchmark version, expired authority, promotion/snapshot replay | PARTIAL — benchmark/policy revision, expiry and snapshot replay not injected on the run path |
+| 7 | Capability display matches evidence | `product-capability-status.ts` cites run/bridge tests; P03 `SYNTHETIC_E2E_VALIDATED`, specialized `IMPLEMENTED`, others `CONTRACT_ONLY` | DONE |
+| — | Real rights, corpus, Korean grade benchmark, Gold-S issuance, DB seed, external publication, teacher edition | Out of scope per work order | DEFERRED_REAL_DATA / EXCLUDED |
+
+### Order of remaining blockers
+
+1. Area 3 — connect existing non-reading generators to the same order/run lineage (largest MISSING).
+2. Areas 4b and 6 — run the two remaining delivery modes and the missing failure injections from a run.
+3. Area 2b — admin input for resources/exam targets.
+4. Areas 2a, 5a, 1 (live DB) — family-specific teaching adapters, admin journal view, and DB-side work that needs reviewed migrations.
+
+Verdict: `TEXTBOOK_FACTORY_PIPELINE_COMPLETE=false`, `TEXTBOOK_FACTORY_PRODUCTION_VERIFIED=false`.
