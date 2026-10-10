@@ -73,3 +73,14 @@ describe('/api/csat/state PUT — 보류로 빠진 진행 세트를 지키기(Co
     expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(active)
   })
 })
+
+describe('/api/csat/state PUT — 새 세트가 와도 보류 세트를 덮지 않는다(Codex P1 재리뷰)', () => {
+  it('서버 세트가 보류면 들어온 새 세트 대신 서버 세트를 남긴다', async () => {
+    const held = { items: ['2026#31'], index: 1, startedAt: 1, loci: { '2026#31': [2] } }
+    h.stored = { ...(h.stored as object), active: held, updatedAt: 1 }
+    h.gate = 'error'
+    const incoming = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], updatedAt: 9, active: { items: ['2025#40'], index: 0, startedAt: 9, loci: {} } }
+    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: incoming }) }))
+    expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(held)
+  })
+})

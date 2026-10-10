@@ -8,7 +8,7 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { embargoedExamIds } from '@/lib/csat/embargo-gate'
+import { examEmbargoDecision } from '@/lib/csat/embargo-gate'
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
 import { buildExamReport, type ExamReport, type ReportItem, type ReportSession } from './engine/exam-report'
@@ -65,7 +65,9 @@ export async function loadExamReport(db: Db, userId: string): Promise<{ report: 
     (row) => row.id,
     'csat_dx_session',
   )
-  const held = await embargoedExamIds(keys.map((k) => k.exam_id))
+  // 판정 실패를 「기록 없음」으로 보이지 않는다(재입력 유도 금지 · Codex P2) — 조회 실패로 던져 화면이 오류를 말하게
+  const { held, failed } = await examEmbargoDecision(keys.map((k) => k.exam_id))
+  if (failed) throw new Error('보류 판정 실패 — 기록을 지금 열 수 없다')
   const visible = keys.filter((k) => !held.has(k.exam_id))
   const scores = new Map(
     (await selectByChunks<{ id: string; raw_score: number | null; grade: number | null }>(

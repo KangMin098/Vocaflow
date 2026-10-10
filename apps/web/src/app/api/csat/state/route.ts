@@ -88,7 +88,8 @@ export async function PUT(req: Request) {
   // GET 은 보류 문항이 든 진행 세트(active)를 통째로 뺀다. 그 사본이 더 새 것으로 돌아오면 병합이 active 를 새 쪽에서 가져가
   // 서버의 세트가 지워진다(Codex P1) — 들어온 기록에 active 가 없고 서버 세트에 보류 문항이 있으면 서버 세트를 지킨다(판정 실패도 보류로)
   const serverActive = looksLikeRecord(existing) ? (existing as unknown as DissectionRecord).active : undefined
-  if (serverActive && !(record as unknown as DissectionRecord).active) {
+  // 들어온 기록에 새 세트가 있어도 덮지 않는다 — 숨긴 세트의 진행 위치 · 근거가 사라진다(Codex P1 재리뷰). 새 세트는 보류가 풀릴 때까지 기기에만 있다
+  if (serverActive) {
     const { held, failed } = await itemRevealDecision([...serverActive.items, ...Object.keys(serverActive.loci ?? {})])
     if (failed || held.size) merged = { ...(merged as DissectionRecord), active: serverActive }
   }

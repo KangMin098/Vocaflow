@@ -10,7 +10,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
-import { embargoedExamIds, embargoedItemIds } from '../embargo-gate'
+import { examEmbargoDecision, itemRevealDecision } from '../embargo-gate'
 import { mapEvidenceFor } from '../map/evidence'
 import { selectByChunks, selectSmall } from './fetch'
 
@@ -182,7 +182,9 @@ export async function loadSessionsWithWatermark(db: Db, userId: string): Promise
     )
   ).sort((a, b) => a.taken_at.localeCompare(b.taken_at) || a.created_at.localeCompare(b.created_at) || a.id.localeCompare(b.id))
   // Reveal Gate(Pilot 1c8e122fb · #182) — 보류 시험(오답 원인 Pilot 수집 중)의 기록은 진단 입력에서 뺀다. 스냅샷 · 지도가 그 정오 · 점수를 품지 않게(판정 실패면 전부 보류)
-  const held = await embargoedExamIds(sessionsAll.map((s) => s.exam_id).filter((x): x is string => Boolean(x)))
+  // 판정 실패를 「제외」로 삼키면 빈 · 불완전 스냅샷이 저장된다(Codex P2) — 실패면 던져 이번 계산을 하지 않는다
+  const { held, failed } = await examEmbargoDecision(sessionsAll.map((s) => s.exam_id).filter((x): x is string => Boolean(x)))
+  if (failed) throw new Error('보류 판정 실패 — 진단 입력을 지금 만들 수 없다')
   const sessions = sessionsAll.filter((s) => !s.exam_id || !held.has(s.exam_id))
   // 세션당 응답 ≤ 45행 → 20세션 묶음이면 900행
   const responses = await selectByChunks<ResponseRow>(
@@ -193,7 +195,8 @@ export async function loadSessionsWithWatermark(db: Db, userId: string): Promise
   )
   responses.sort((a, b) => a.item_no - b.item_no)
   // 진단 테스트(시험 id 없음) 응답도 문항 단위로 — 보류 시험 문항의 정오는 입력에 넣지 않는다(판정 실패면 전부 뺀다)
-  const heldItems = await embargoedItemIds(responses.map((r) => r.item_id).filter((x): x is string => Boolean(x)))
+  const { held: heldItems, failed: itemFailed } = await itemRevealDecision(responses.map((r) => r.item_id).filter((x): x is string => Boolean(x)))
+  if (itemFailed) throw new Error('보류 판정 실패 — 진단 입력을 지금 만들 수 없다')
   if (heldItems.size) responses.splice(0, responses.length, ...responses.filter((r) => !r.item_id || !heldItems.has(r.item_id)))
   const bySession = new Map<string, SessionIn>()
   for (const s of sessions) {
