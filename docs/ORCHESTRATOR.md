@@ -115,3 +115,4 @@ node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10 
 - CRITICAL(require_review_pass) 작업이 요구하는 「그 커밋의 Stop REVIEW_PASS」는 대화형 세션에서만 생긴다. 그대로 둔다(약화 금지).
 - 독립 리뷰 APPROVE 캐시(`runtime/review-cache.json`) 키에 **정책 판과 effort** 를 넣었다. 이전 정책이나 낮은 effort 의 APPROVE 를 높은 요구에 다시 쓰지 않는다. 옛 키는 자연히 빗나가 한 번 다시 리뷰한다. 리뷰 기록 md 머리에 「리뷰 정책 · effort · 캐시 재사용」이 남는다.
 - Goal Check(`lib/goalcheck.mjs`)는 Codex 를 부르지 않는 결정적 증거 검사다(리뷰 기록 무결성 해시 · 커밋 · 범위 변경). 바꾸지 않았다.
+- Codex 리뷰 「이전 판 작업에 소급」(P1) 판단: 오탐으로 둔다. 키가 바뀌면 이전 판 작업은 캐시가 **빗나가 한 번 더 리뷰받을 뿐**이다. 검증은 엄격해지는 쪽이고, 이전 판 판정·완료 기록은 고치지 않는다. 기록 머리의 정책 판은 「그 리뷰가 돈 판」이다.

@@ -230,6 +230,10 @@ function stableHarness(opts = {}) {
   const h = harness(opts)
   h.deps.diff = (from, head, fs_) => fs_.map((f) => `diff --git a/${f} b/${f}\n+${h.content?.[f] ?? 'v1'}`).join('\n')
   h.content = {}
+  // 기준 커밋 고정(재사용 키에 from 이 들어간다) — h.base 를 바꾸면 다른 기준
+  h.base = 'fixedbase0000000000000000000000000000000'
+  h.deps.isAncestor = () => false
+  h.deps.mergeBase = () => h.base
   return h
 }
 
@@ -387,4 +391,14 @@ test('RP11 재시도 직전에 시간이 모자라면 부르지 않고 UNKNOWN',
   assert.equal(h.stop().verdict, VERDICT.UNKNOWN)
   assert.equal(h.calls.length, 2, '400초 지점에서는 재시도하지 않는다')
   assert.match(h.records().at(-1).failures.join(' '), /재시도할 시간이 없다/)
+})
+
+test('RP12 기준 커밋이 다르면(다른 worktree·리베이스) 같은 diff 라도 재사용하지 않는다 · 미수행 표현은 깨끗함 아님', () => {
+  const h = stableHarness({ files: ['src/a.ts'], reviews: [CLEAN, CLEAN] })
+  h.stop()
+  h.base = 'otherbase000000000000000000000000000000'
+  h.stop()
+  assert.equal(h.calls.length, 2)
+  const u = harness({ reviews: ['No regressions were identified because the review was skipped.'] })
+  assert.equal(u.stop().verdict, VERDICT.UNKNOWN)
 })

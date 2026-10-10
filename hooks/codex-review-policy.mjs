@@ -49,7 +49,7 @@ const CLEAN_SENTENCE_RE = /^[\s>*_-]*no\b[^\n]{0,160}?\b(?:defects?|findings?|is
 
 /** 깨끗한 답인가 — P 표지가 하나라도 있으면 아니다(지적 판독이 우선). legacy = v1 판독 */
 // 리뷰를 못 했다는 말 — 문장형 판독에서는 이것이 하나라도 있으면 깨끗한 답으로 치지 않는다(Codex 리뷰 P1: 「No review was performed; defects could not be identified」)
-const CANNOT_REVIEW_RE = /\b(?:could ?n[o']t|cannot|can't|unable|not able|no review|not reviewed|did ?n[o']t (?:review|see|inspect|read)|was ?n[o']t (?:able|performed|possible)|without (?:access|seeing)|not (?:visible|available|provided)|no diff|empty diff)\b/i
+const CANNOT_REVIEW_RE = /\b(?:could ?n[o']t|cannot|can't|unable|not able|no review|not reviewed|did ?n[o']t (?:review|see|inspect|read)|was ?n[o']t (?:able|performed|possible)|without (?:access|seeing)|not (?:visible|available|provided|performed|completed)|skipped|incomplete|partial(?:ly)?|no diff|empty diff)\b/i
 
 export function isCleanOutput(out, { legacy = false } = {}) {
   const s = String(out ?? '')
@@ -313,7 +313,8 @@ function reviewRange({ files, from, head, deps, cfg, kind, ctx }) {
     todo = []
     for (const f of files) fileDiffs[f] = deps.diff(from, head, [f])
     // 범위 해시 = 범위 전체 파일과 각 diff — 범위나 주변 변경이 하나라도 다르면 재사용하지 않는다(Codex 리뷰 P1: 「범위 동일」 기준)
-    scopeHash = files.some((f) => fileDiffs[f] == null) ? null : sha1([...files].sort().map((f) => `${f}\0${fileDiffs[f]}`).join('\0'))
+    // 기준 커밋(from)도 넣는다 — from 과 범위 전체 diff 가 같으면 head 의 코드 전체가 같다(다른 worktree·다른 기준의 주변 코드로 재사용하지 않는다 · Codex 리뷰 P1)
+    scopeHash = files.some((f) => fileDiffs[f] == null) ? null : sha1([from, ...[...files].sort().map((f) => `${f}\0${fileDiffs[f]}`)].join('\0'))
     for (const f of files) {
       const d = fileDiffs[f]
       const hit = scopeHash && String(d).trim() ? book[reuseKey({ goalHash: ctx.goalHash, scopeHash, file: f, fileDiff: d })] : null
