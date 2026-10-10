@@ -67,7 +67,8 @@ export async function GET() {
   const stripped = withoutHeldCorrectness(rec, (id) => held.has(id))
   // 진행 세트를 뺀 사본이 기기 사본보다 새 것으로 보이면 기기 병합(새 쪽의 active 를 가져감)이 기기의 세트를 지운다(P2) —
   // 뺀 사본은 updatedAt 0 으로 내보내 기기 쪽이 언제나 새 것이 되게 한다(합집합 필드는 그대로 합쳐진다)
-  const out = rec.active && !stripped.active ? { ...stripped, updatedAt: 0 } : stripped
+  // updatedAt 을 낮추면 보류와 무관한 최신 초안 · 복습까지 밀린다(Codex P2) — 대신 「뺐다」는 표시만 붙여 기기 병합이 세트를 지키게 한다
+  const out = rec.active && !stripped.active ? { ...stripped, activeWithheld: true as const } : stripped
   return NextResponse.json({ ok: true, record: out }, { headers: NO_STORE })
 }
 

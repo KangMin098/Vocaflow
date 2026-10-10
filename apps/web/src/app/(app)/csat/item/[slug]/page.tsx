@@ -37,7 +37,7 @@ import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/cata
 import { examOrder } from '@/lib/csat/session/model'
 import { isKiceExam } from '@/lib/csat/exam-id'
 import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings } from '@/lib/csat/skeleton'
-import { loadRevealScope } from '@/lib/csat/embargo-gate'
+import { canRevealItem, loadRevealScope } from '@/lib/csat/embargo-gate'
 import { loadItemPrinciple } from '@/lib/knowledge/product-server'
 import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -136,6 +136,17 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
     papers: base.papers[examId] || !paperUrl
       ? base.papers
       : { ...base.papers, [examId]: { url: paperUrl, direct: paper.paperUrl != null } },
+  }
+
+  // 마지막 관문 — 처음 판정과 골격 판정 사이에 보류가 시작됐으면 이미 읽은 정답 · 해설 · 강의 개요를 내지 않는다(Codex P1)
+  if (!(await canRevealItem(item.id))) {
+    return (
+      <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />기출 해설</>}>
+        <p className="mx-auto max-w-2xl break-keep py-10 text-sm leading-relaxed text-[var(--t2)]" data-testid="item-held">
+          이 회차의 해설은 지금 잠시 닫혀 있어요. 풀이 기록을 모으는 기간이 끝나면 다시 열려요.
+        </p>
+      </CsatShell>
+    )
   }
 
   const theater = (

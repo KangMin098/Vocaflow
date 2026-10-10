@@ -121,3 +121,18 @@ describe('이벤트 버킷', () => {
     expect([0, 1, 2, 3, 6, 7].map(gapBucket)).toEqual(['0', '1-2', '1-2', '3-6', '3-6', '7+'])
   })
 })
+
+describe('mergeDissection — 보류로 빠진 진행 세트(activeWithheld · Reveal Gate)', () => {
+  const active = { items: ['2026#31', '2026#32'], index: 1, pairSeen: false, loci: {} }
+  it('새 쪽이 「뺀 사본」이면 다른 쪽의 세트를 지킨다 · 표시는 남기지 않는다', () => {
+    const local = base({ active, updatedAt: 5 })
+    const server = { ...base({ updatedAt: 9 }), activeWithheld: true as const }
+    const out = mergeDissection(local, server)
+    expect(out.active).toEqual(active)
+    expect(out.activeWithheld).toBeUndefined()
+  })
+  it('표시 없이 새 쪽에 세트가 없으면(끝낸 세트) 옛 세트를 되살리지 않는다', () => {
+    const out = mergeDissection(base({ active, updatedAt: 5 }), base({ updatedAt: 9 }))
+    expect(out.active).toBeUndefined()
+  })
+})

@@ -48,6 +48,8 @@ export interface DissectionRecord {
   drafts?: Record<string, DissectionDraft>
   inspected?: string[]
   active?: { items: string[]; index: number; pairSeen: boolean; loci: Record<string, string> }
+  /** 서버가 보류 문항이 든 진행 세트를 뺀 사본에만 붙인다 — 기기 병합이 그 빈자리로 기기의 세트를 지우지 않게(Reveal Gate) */
+  activeWithheld?: true
   version: 1
   seed: number
   onboarded: boolean
