@@ -49,3 +49,24 @@ it('원천 조회 실패도 명시적인 오류가 된다', async () => {
   evidence.mockRejectedValue(new Error('source unavailable'))
   expect((await loadEvidenceOperations()).loadError).toBe('source unavailable')
 })
+it('해부 감사에 학평 문항이 섞여도 평가원 범위만 견준다(2026-10-10: 3,408 대 802 로 늘 보류되던 결함)', async () => {
+  dissection.mockResolvedValue({
+    items: [{ id: '2026#31' }, { id: 'H1803G1#18' }],
+    audit: { total: 3, fields: {}, excluded: [{ id: 'H1803G1#19', reasons: [] }] },
+  })
+  const result = await loadEvidenceOperations()
+  expect(result.readinessError).toBeNull()
+  expect(result.readiness?.readyIds).toEqual(['2026#31'])
+  expect(result.readiness?.total).toBe(1)
+  expect(result.readiness?.excluded).toEqual([])
+})
+it('필드 충족 수도 평가원 범위로 다시 센다(학평이 섞여 100% 를 넘지 않게)', async () => {
+  evidence.mockResolvedValue({ items: [{ id: '2026#31' }, { id: '2026#32' }], exams: [], types: [], loadError: null })
+  dissection.mockResolvedValue({
+    items: [{ id: '2026#31' }],
+    audit: { total: 4, fields: { passage: 3, answer: 4 }, excluded: [{ id: '2026#32', missing: ['passage'] }, { id: 'H1803G1#18', missing: [] }, { id: 'H1803G1#19', missing: [] }] },
+  })
+  const result = await loadEvidenceOperations()
+  expect(result.readinessError).toBeNull()
+  expect(result.readiness?.fields).toEqual({ passage: 1, answer: 2 })
+})
