@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(textbook): 생산 실행 개정 영향 `run-revision.mjs` — 두 실행을 셀 단위로 비교해 다시 만들 일자만 골라 새 그룹 revision 으로 원자 재생산, 나머지 일자 snapshot 재사용, 옛 권은 검증 실패로 무효.
 - feat(textbook): P13·P14·P18·P20 도 생산 실행에 — 구조화 주문 초안이 `exam`·`resources`(라이선스 제2 지문·데이터)를 봉인, 일자별 자료 순환, 문항은 그날 자료를 정확히 인용, P18 은 인쇄된 문항별 제한 시간. 20개 제품군 전부 학생용 권 조립. 원자 생산은 기존 DB 게이트대로 거부.
 - feat(textbook): 생산 실행 → 일자별 합성 승격·원자 snapshot·게시 시뮬레이션 → 검증된 원자 권 (`run-atomic-bridge.mjs`). 단일 지문 16개 제품군 · 단일/연속/비연속 복수 학년, 일자 철회·신뢰 정책 불일치·게이트 후 문항 변조 차단.
 - feat(textbook): 일자별 게시 원자 snapshot 을 한 권으로 묶는 `atomic-volume.mjs` — 모든 일자를 DB serve 로 재확인, 한 일자의 증거가 바뀌면 권 전체 무효. 새 마이그레이션 없음(주문 결속은 실행 manifest 기준 — 한계 명시).

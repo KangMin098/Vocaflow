@@ -98,7 +98,8 @@ function promotionInput({ trust, order, grade, passage, quote, source, child, re
  * Produces and publishes one atomic snapshot for `day` of an assembled order run.
  * `run` is the `assembled` result of importOrderProductionDrain.
  */
-export async function produceRunDayAtomic({ run, day, trust }) {
+export async function produceRunDayAtomic({ run, day, trust, revision = 1 }) {
+  if (!Number.isInteger(revision) || revision < 1 || revision > 99) throw Error('RUN_DAY_REVISION_INVALID')
   const units = run.volumeInput.units.filter(unit => unit.day === day)
     .sort((a, b) => run.volumeInput.brief.grade_scope.grades.indexOf(a.grade) - run.volumeInput.brief.grade_scope.grades.indexOf(b.grade))
   if (!units.length) throw Error('RUN_DAY_MISSING')
@@ -140,11 +141,11 @@ export async function produceRunDayAtomic({ run, day, trust }) {
     return { grade: unit.grade, orderId: sealedOrder.product_order_id, order: sealedOrder, unit, items, rpc: promoted[index].rpc }
   })
   const grades = sections.map(section => section.grade)
-  const group = { schema: 'textbook-product-order-group/1', group_id: `run-${sections[0].orderId}-d${day}`, group_revision: 1,
+  const group = { schema: 'textbook-product-order-group/1', group_id: `run-${sections[0].orderId}-d${day}`, group_revision: revision,
     grade_scope: grades.length === 1 ? { mode: 'single_grade', grades } : run.volumeInput.brief.grade_scope,
     delivery_mode: grades.length === 1 ? 'single_grade' : 'grade_specific_adaptations',
     orders: sections.map(section => ({ grade: section.grade, order: section.order })) }
-  const evidence = { schema: 'textbook-multi-grade-evidence/1', group_id: group.group_id, group_revision: 1,
+  const evidence = { schema: 'textbook-multi-grade-evidence/1', group_id: group.group_id, group_revision: revision,
     group_hash: sealMultiGradeProductOrder(group).group_hash, source_id: source.id,
     source_hash: sha(source.content), rights_hash: sourceRightsHash(source),
     variants: sections.map((section, index) => ({ grade: section.grade, product_order_id: section.orderId,
@@ -176,9 +177,10 @@ export async function produceRunDayAtomic({ run, day, trust }) {
     issued: '2026-10-07', sourcePolicy: 'synthetic', review: 'synthetic' }, step: null, schoolBand: null, vLevel: 5,
     totalSteps: 7, totalMinutes: 20, autoPassed: 0, autoTotal: 0, passageChip: 'synthetic', answerBias: null,
     proof: { passages: sections.length, defective: 0 } }
-  const snapshot = { snapshot_id: uuid('e5555555', day), snapshot_hash: sha(`run-snapshot-${group.group_id}`),
+  // A rebuilt day is a new group revision with a new snapshot; earlier snapshots stay as history.
+  const snapshot = { snapshot_id: uuid('e5555555', revision * 1000 + day), snapshot_hash: sha(`run-snapshot-${group.group_id}-r${revision}`),
     captured_at: now, expires_at: '2026-10-08T00:00:00Z',
-    evidence: { schema: 'reading-production-evidence/1', group_id: group.group_id, group_revision: 1,
+    evidence: { schema: 'reading-production-evidence/1', group_id: group.group_id, group_revision: revision,
       group_document: group, evidence_document: evidence, approved_output_hash: null,
       sections: sections.map(section => ({ grade: section.grade, order_id: section.orderId,
         order_revision: section.order.order_revision, order_hash: section.rpc.order_hash,
@@ -193,7 +195,7 @@ export async function produceRunDayAtomic({ run, day, trust }) {
   // In-memory DB: register, capture, finalize, approve, publish and serve for this one group.
   let published = null
   const db = { rpc: async (name, params) => {
-    if (name === 'register_reading_production_group') return { data: { group_id: group.group_id, group_revision: 1 } }
+    if (name === 'register_reading_production_group') return { data: { group_id: group.group_id, group_revision: revision } }
     if (name === 'capture_reading_production_snapshot') return { data: structuredClone(snapshot), error: null }
     if (name === 'finalize_reading_production_snapshot') return { data: { status: 'rendered_unpublished',
       snapshot_id: snapshot.snapshot_id, snapshot_hash: snapshot.snapshot_hash, output_hash: params.p_output_hash }, error: null }
@@ -222,7 +224,12 @@ export async function produceRunDayAtomic({ run, day, trust }) {
 export async function produceRunAtomicVolume({ run, trust }) {
   const days = [...new Set(run.volumeInput.units.map(unit => unit.day))].sort((a, b) => a - b)
   const results = []
-  for (const day of days) results.push(await produceRunDayAtomic({ run, day, trust }))
+  for (const day of days) results.push({ ...(await produceRunDayAtomic({ run, day, trust })), revision: 1 })
+  return composeRunDayResults(run, results)
+}
+
+/** Composes and verifies a volume from per-day results ({ day, revision, output, published }). */
+export async function composeRunDayResults(run, results) {
   const artifacts = new Map(results.map(result => [result.published.snapshot_id, result.published]))
   const revoked = new Set()
   const serveDb = { rpc: async (_name, { p_snapshot_id: id }) => revoked.has(id) || !artifacts.has(id)
@@ -233,5 +240,5 @@ export async function produceRunAtomicVolume({ run, trust }) {
   const input = { orders, sections: results.map(result => ({ day: result.day, manifest: result.output.manifest })) }
   const volume = await composeAtomicPlannedVolume(serveDb, input)
   await verifyAtomicPlannedVolume(serveDb, input, volume)
-  return { volume, input, serveDb, revoke: id => revoked.add(id), snapshots: results.map(result => result.published.snapshot_id) }
+  return { volume, input, serveDb, revoke: id => revoked.add(id), snapshots: results.map(result => result.published.snapshot_id), days: results }
 }
