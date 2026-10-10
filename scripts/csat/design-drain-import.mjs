@@ -10,6 +10,8 @@
 //   · 목록 밖 라벨(역할 9 · 패턴 9 · 변환 8 · 단서 6) · 문장 수 불일치(골격 분할기 기준)
 //   · 빈 selection/transform_note · transform_note 에 원문 12자 넘는 인용
 //   · 이미 같은 값이 들어 있는 문항(재실행 안전 — 키 순서가 아니라 필드 값으로 비교한다)
+//   · 입력 결속(bind: 분석 id · 버전 · 지문 sha256)이 지금 DB 와 다른 문항 — 재추출 대상(design-drain-bind.mjs).
+//     결속 없는 옛 산출물은 이미 같은 값일 때만 통과한다(새 분석에 옛 판정을 붙이지 않는다)
 //
 // 실행:
 //   NODE_OPTIONS=--tls-max-v1.2 npx tsx scripts/csat/design-drain-import.mjs            (dry-run)
@@ -18,6 +20,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { checkBind } from './design-drain-bind.mjs'
 import { isKiceExam } from './lib-exam-id.mjs'
 
 for (const f of ['apps/web/.env.local', '.env.local']) {
@@ -48,7 +51,14 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 const byId = new Map()
 for (const f of fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()) {
   const j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
-  for (const r of j.items ?? []) byId.set(r.id, { ...r, _file: f, _version: j.criteria_version ?? 'v1' })
+  // 결속은 입력 청크(같은 이름의 .json)에 있다 — 판정자가 옮겨 적지 않아도 된다
+  const binds = new Map()
+  try {
+    for (const x of JSON.parse(fs.readFileSync(path.join(WORK, f.replace(/\.out\.json$/, '.json')), 'utf8')).items ?? []) if (x.bind) binds.set(x.id, x.bind)
+  } catch {
+    /* 입력 청크가 없으면 결속 없음 — 옛 산출물로 다룬다 */
+  }
+  for (const r of j.items ?? []) byId.set(r.id, { ...r, _file: f, _version: j.criteria_version ?? 'v1', _bind: r.bind ?? binds.get(r.id) ?? null })
 }
 const rows = [...byId.values()]
 
@@ -111,6 +121,8 @@ for (const r of rows) {
   const key = (d) =>
     [d.criteria, d.roles.join(','), (d.alternatives ?? []).map((x) => `${x.index}:${x.role}`).sort().join(','), d.pattern, d.selection, d.transform, d.transform_note, (d.cues ?? []).join(','), d.data_defect ?? ''].join('')
   if (prev && key(prev) === key(design)) { same++; continue }
+  const bound = checkBind(r._bind, { analysis: a, passage: it.passage })
+  if (!bound.ok) { bump(bound.why); continue }
   if (COMMIT) {
     // 기존 answer_locus 를 읽어 키 하나만 더한다 — 통째로 덮으면 quote/reasoning 이 날아간다
     const { error } = await db.from('csat_item_analyses').update({ answer_locus: { ...(a.answer_locus ?? {}), passage_design: design } }).eq('id', a.id)

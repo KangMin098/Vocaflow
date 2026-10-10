@@ -19,6 +19,7 @@
 //   … [--type R-BLANK] [--size 10] [--limit 3]
 
 import fs from 'node:fs'
+import { makeBind } from './design-drain-bind.mjs'
 import path from 'node:path'
 
 import { isKiceExam } from './lib-exam-id.mjs'
@@ -76,7 +77,7 @@ const analyses = new Map()
 for (let i = 0; i < ids.length; i += 200) {
   const { data, error: e } = await db
     .from('csat_item_analyses')
-    .select('item_id, version, design_intent, answer_locus')
+    .select('id, item_id, version, design_intent, answer_locus')
     .in('item_id', ids.slice(i, i + 200))
     .eq('status', 'published')
     .order('version', { ascending: false })
@@ -103,6 +104,8 @@ for (const it of items.sort((a, b) => b.id.localeCompare(a.id))) {
     sentences,
     choices: it.choices,
     answer: it.answer,
+    // 입력 결속(design-drain-bind.mjs) — import 가 적재 직전 분석 id · 버전 · 지문 해시를 다시 대조한다
+    bind: makeBind(a, it.passage),
     analysis: { design_intent: a.design_intent, answer_locus: { quote: a.answer_locus?.quote ?? null, reasoning: a.answer_locus?.reasoning ?? null } },
   })
 }
