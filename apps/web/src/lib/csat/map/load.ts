@@ -143,6 +143,16 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
   const { data, error } = await db.from('learning_first_attempts').select('*').eq('user_id', userId).in('item_ref', [...new Set(items)])
   if (error) throw new Error(`확인 결과 조회 실패: ${error.message}`)
   const cross = await loadCrossVerdicts(db, userId, (data ?? []) as Record<string, unknown>[])
+  // 세부 채점(response.grade = { claim, support, relation } 등) — 「어디서 막혔나」 추적용(find-policy.v2). 못 읽으면 세부 없이 판정한다
+  const ids = ((data ?? []) as Record<string, unknown>[]).map((r) => Number(r.attempt_id)).filter(Number.isFinite)
+  const partsById = new Map<number, Record<string, boolean>>()
+  if (ids.length) {
+    const { data: rows } = await db.from('learning_task_attempts').select('id,response').eq('user_id', userId).in('id', ids)
+    for (const row of (rows ?? []) as { id: number; response: { grade?: Record<string, unknown> } | null }[]) {
+      const g = row.response?.grade
+      if (g && typeof g === 'object') partsById.set(Number(row.id), Object.fromEntries(Object.entries(g).filter(([, v]) => typeof v === 'boolean')) as Record<string, boolean>)
+    }
+  }
   return ((data ?? []) as Record<string, unknown>[]).map((r) => {
     const v = cross.get(Number(r.attempt_id)) ?? 'independent'
     return {
@@ -158,6 +168,7 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
     afterExplanation: r.after_explanation === true,
     timingUncertain: v === 'uncertain' || r.timing_uncertain === true,
     answeredAt: typeof r.answered_at === 'string' ? r.answered_at : null,
+    parts: partsById.get(Number(r.attempt_id)) ?? null,
   }
   })
 }
