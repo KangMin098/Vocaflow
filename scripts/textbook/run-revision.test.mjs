@@ -83,3 +83,42 @@ test('a run whose order set or plan changed is refused instead of partially reus
   shorter.volumeInput.units.pop()
   assert.throws(() => inspectRunRevision(run, shorter), /PLAN_CHANGED/)
 })
+
+test('rebuilt days are journaled to complete; an interrupted revision resumes without duplicate records', async () => {
+  const { mkdtempSync, rmSync, readdirSync, writeFileSync, readFileSync } = await import('node:fs')
+  const { tmpdir } = await import('node:os')
+  const path = await import('node:path')
+  const { reviseRunAtomicVolumeJournaled, runRevisionJournalStatus } = await import('./run-revision.mjs')
+  const temp = mkdtempSync(path.join(tmpdir(), 'vocaflow-run-revision-'))
+  try {
+    const trust = syntheticTrustRoot()
+    const runInput = input(trust)
+    const drain = exportOrderProductionDrain(runInput)
+    const priorRun = importOrderProductionDrain(runInput, fill(drain))
+    const prior = await produceRunAtomicVolume({ run: priorRun, trust })
+    const nextRun = importOrderProductionDrain(runInput, fill(drain, cell =>
+      cell.day === 3 ? '고친 해설.' : '첫 문장이 말한다.'))
+    const journalRoot = path.join(temp, 'journal')
+    await assert.rejects(reviseRunAtomicVolumeJournaled({ priorRun, nextRun, prior, trust, journalRoot,
+      onStep: ({ step }) => { if (step === 'reviewed') throw Error('INJECTED_CRASH') } }), /INJECTED_CRASH/)
+    const halfway = runRevisionJournalStatus(journalRoot)
+    assert.equal(halfway.volume_ready, false)
+    assert.equal(halfway.journals[0].state, 'revise')
+    const resumed = await reviseRunAtomicVolumeJournaled({ priorRun, nextRun, prior, trust, journalRoot })
+    assert.deepEqual(resumed.journals.map(row => [row.day, row.state, row.sequence]), [[3, 'complete', 3]])
+    const status = runRevisionJournalStatus(journalRoot)
+    assert.equal(status.volume_ready, true)
+    const dir = path.join(journalRoot, 'day-3-r2')
+    assert.deepEqual(readdirSync(dir).sort(), ['revision-000000.json', 'revision-000001.json', 'revision-000002.json', 'revision-000003.json'])
+    const again = await reviseRunAtomicVolumeJournaled({ priorRun, nextRun, prior, trust, journalRoot })
+    assert.equal(again.journals[0].sequence, 3)
+    const file = path.join(dir, 'revision-000002.json')
+    writeFileSync(file, readFileSync(file, 'utf8').replace('rebuild_passed', 'review_approved'))
+    assert.equal(runRevisionJournalStatus(journalRoot).volume_ready, false)
+    assert.equal(runRevisionJournalStatus(journalRoot).journals[0].state, 'unreadable')
+  } finally {
+    if (path.dirname(temp) !== path.resolve(tmpdir()) || !path.basename(temp).startsWith('vocaflow-run-revision-'))
+      throw Error('TEMP_CLEANUP_TARGET_INVALID')
+    rmSync(temp, { recursive: true, force: true })
+  }
+})

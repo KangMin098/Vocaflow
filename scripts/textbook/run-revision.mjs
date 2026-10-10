@@ -6,7 +6,10 @@
 // The prior volume is never edited; it simply stops verifying once a rebuilt day replaces it.
 import { inspectProductionRevisionImpact } from './production-revision-impact.mjs'
 import { composeRunDayResults, produceRunDayAtomic } from './run-atomic-bridge.mjs'
+import fs from 'node:fs'
+import path from 'node:path'
 import { hash } from './frym-benchmark/benchmark.mjs'
+import { advanceRevisionJournal, readRevisionJournal, startRevisionJournal } from './production-revision-journal.mjs'
 
 const key = unit => `${unit.grade}:${unit.day}`
 
@@ -62,4 +65,50 @@ export async function reviseRunAtomicVolume({ priorRun, nextRun, prior, trust })
   }
   const produced = await composeRunDayResults(nextRun, results)
   return { impact, produced, day_impacts: dayImpacts }
+}
+
+/**
+ * Same as reviseRunAtomicVolume, but every rebuilt day is recorded in its own hash-chained
+ * revision journal under `journalRoot/day-<N>-r<revision>` (outside the repository):
+ * start -> review_approved -> rebuild_passed -> publication_simulated -> complete.
+ * Rebuilds are deterministic, so a rerun after an interruption re-derives the same manifests
+ * and the journal start/advance calls are idempotent; nothing is recorded as complete twice.
+ * The volume is returned only when every rebuilt day's journal reached `complete`.
+ */
+export async function reviseRunAtomicVolumeJournaled({ priorRun, nextRun, prior, trust, journalRoot, onStep = () => {} }) {
+  const revised = await reviseRunAtomicVolume({ priorRun, nextRun, prior, trust })
+  if (!revised.day_impacts.length) return { ...revised, journals: [] }
+  const journals = []
+  for (const { day, revision, impact } of revised.day_impacts) {
+    const before = prior.days.find(result => result.day === day).output.manifest
+    const after = revised.produced.days.find(result => result.day === day).output.manifest
+    const dir = path.join(journalRoot, `day-${day}-r${revision}`)
+    if (!fs.existsSync(journalRoot)) fs.mkdirSync(journalRoot)
+    startRevisionJournal(dir, before, after, 'changed')
+    onStep({ day, step: 'started' })
+    const base = { group_id: after.group_id, next_manifest_hash: after.manifest_hash }
+    advanceRevisionJournal(dir, { ...base, event_id: `d${day}-r${revision}-review`, type: 'review_approved',
+      proof_hash: hash(impact) })
+    onStep({ day, step: 'reviewed' })
+    advanceRevisionJournal(dir, { ...base, event_id: `d${day}-r${revision}-rebuild`, type: 'rebuild_passed',
+      proof_hash: after.html_sha256 })
+    onStep({ day, step: 'rebuilt' })
+    const done = advanceRevisionJournal(dir, { ...base, event_id: `d${day}-r${revision}-publish`,
+      type: 'publication_simulated', proof_hash: after.html_sha256, output_hash: after.html_sha256 })
+    if (done.record.workflow.state !== 'complete') throw Error('RUN_REVISION_JOURNAL_INCOMPLETE')
+    journals.push({ day, revision, dir, state: done.record.workflow.state, sequence: done.record.sequence })
+  }
+  return { ...revised, journals }
+}
+
+/** Read-only: state of every day journal under one root; any incomplete or broken day blocks the volume. */
+export function runRevisionJournalStatus(journalRoot) {
+  const days = fs.readdirSync(journalRoot).filter(name => /^day-\d+-r\d+$/.test(name)).sort()
+  const rows = days.map(name => {
+    try {
+      const { record, pending_files } = readRevisionJournal(path.join(journalRoot, name))
+      return { journal: name, state: record.workflow.state, sequence: record.sequence, pending_files }
+    } catch (error) { return { journal: name, state: 'unreadable', reason: error.message } }
+  })
+  return { journals: rows, volume_ready: rows.length > 0 && rows.every(row => row.state === 'complete') }
 }
