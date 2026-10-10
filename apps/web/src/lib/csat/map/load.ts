@@ -22,7 +22,8 @@ import { loadMapPracticeLinks, type MapPracticeLink } from '../../knowledge/prod
 import { findOutcome, type FindAttemptRow } from '../../knowledge/find-outcome'
 import { decideStep } from '../../knowledge/learning-decision'
 import { recordDecisions, type DecisionLogEntry } from '../../knowledge/decision-log-server'
-import { PRACTICE_SLUG } from '../../knowledge/practice'
+import { PRACTICE_SLUG, PRACTICE_TASK, SKELETON_TASK, isSyntheticEmail } from '../../knowledge/practice'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { ALL_STEPS } from './learner-path'
 
 import { crossSessionHelp, type CrossSession, type CrossVerdict } from '@/lib/knowledge/prior-help'
@@ -157,7 +158,7 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
       if (g && typeof g === 'object') partsById.set(Number(row.id), Object.fromEntries(Object.entries(g).filter(([, v]) => typeof v === 'boolean')) as Record<string, boolean>)
     }
   }
-  return ((data ?? []) as Record<string, unknown>[]).map((r) => {
+  const first: FindAttemptRow[] = ((data ?? []) as Record<string, unknown>[]).map((r) => {
     const v = cross.get(Number(r.attempt_id)) ?? 'independent'
     return {
     userId: String(r.user_id),
@@ -177,6 +178,16 @@ async function loadFindAttempts(db: Db, userId: string, items: string[]): Promis
     activity: typeof r.activity === 'string' ? r.activity : null,
   }
   })
+  // 연습 화면 기록은 원장에서 따로(확인 문항 밖 지문의 방법 연습 포함 — 과제 키로 고른다) — 첫 시도 뷰는 문항마다 하나라, 확인한 뒤 같은 문항을 연습한 기록이 빠져 재확인 순환이 멈춘다(Codex P2).
+  //   정오는 넣지 않는다(isCorrect null) — 연습 기록은 확인 근거가 아니고 「연습한 지문 · 마지막 연습 시각」에만 쓴다
+  const { data: prac, error: pe } = await db.from('learning_task_attempts').select('item_ref,task_key,answered_at,phase,synthetic').eq('user_id', userId).eq('activity', 'practice').in('task_key', [PRACTICE_TASK, SKELETON_TASK]).order('answered_at', { ascending: false }).limit(500)
+  if (pe) throw new Error(`연습 기록 조회 실패: ${pe.message}`)
+  const practice: FindAttemptRow[] = ((prac ?? []) as Record<string, unknown>[]).map((r) => ({
+    userId, itemRef: String(r.item_ref), taskKey: String(r.task_key ?? ''), phase: String(r.phase) as FindAttemptRow['phase'], isCorrect: null,
+    synthetic: r.synthetic === true, helpLevel: null, afterViewedFirst: false, afterExplanation: false,
+    answeredAt: typeof r.answered_at === 'string' ? r.answered_at : null, parts: null, activity: 'practice',
+  }))
+  return [...first, ...practice]
 }
 
 export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
@@ -462,7 +473,9 @@ async function logMapDecisions(userId: string, links: Record<string, MapPractice
     entries.push({ decision, application: link.application ?? null })
   }
   if (entries.length === 0) return
-  // 합성 여부 — 이 학습자의 확인 기록이 합성이면 합성 결정(실학습자 분석에서 빠진다)
-  const synthetic = attempts.length > 0 && attempts.every((a) => a.synthetic)
+  // 합성 여부 — 기록이 아니라 **계정**으로 판정한다(기록이 아직 없는 합성 계정의 첫 추천이 실제로 섞이던 결함 · Codex P2).
+  //   기록 쪽 synthetic 과 같은 기준(SYNTHETIC_EMAIL_DOMAINS)
+  const { data: who } = await (createAdminClient() as unknown as SupabaseClient).auth.admin.getUserById(userId)
+  const synthetic = isSyntheticEmail(who?.user?.email ?? null)
   await recordDecisions(userId, synthetic, entries)
 }

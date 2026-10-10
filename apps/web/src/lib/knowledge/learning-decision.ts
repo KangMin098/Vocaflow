@@ -67,7 +67,9 @@ export interface DecisionTrace {
   stepKey: string
   findTaskId: string
   /** 관찰 근거 — 몇 문항을 확인해 몇 개가 막혔나(문항 id) */
-  observation: { state: FindOutcome['state'] | 'none'; checked: number; wrong: number; right: number; items: string[]; blockedParts: Record<string, number> }
+  observation: { state: FindOutcome['state'] | 'none'; checked: number; wrong: number; right: number; items: string[]; blockedParts: Record<string, number>
+    /** 연습 · 재확인 근거 — 재확인 뒤 결정이 첫 처방과 다른 근거로 기록되게(fingerprint 에 들어간다) */
+    practicedItems: string[]; lastPracticeAt: string | null; recheck: { items: string[]; right: number; wrong: number } }
   /** 막힌 문항에서 가장 많이 틀린 부분(세부 채점이 없으면 null) */
   focus: string | null
   principleId: string | null
@@ -120,7 +122,8 @@ export function decideStep(input: DecisionInput): LearningDecision {
     stepKey: input.stepKey,
     findTaskId: input.findTaskId,
     // 관찰 근거 = 판정에 실제로 쓴 문항(적격 독립 첫 시도)만 — 해설 먼저 본 시도 등은 근거로 남기지 않는다(Codex P1)
-    observation: { state: o?.state ?? 'none', checked: o?.checked ?? 0, wrong: o?.wrong ?? 0, right: o?.right ?? 0, items: [...(o?.items ?? [])], blockedParts: { ...(o?.blockedParts ?? { unknown: 0 }) } },
+    observation: { state: o?.state ?? 'none', checked: o?.checked ?? 0, wrong: o?.wrong ?? 0, right: o?.right ?? 0, items: [...(o?.items ?? [])], blockedParts: { ...(o?.blockedParts ?? { unknown: 0 }) },
+      practicedItems: [...(o?.practicedItems ?? [])], lastPracticeAt: o?.lastPracticeAt ?? null, recheck: { items: [...(o?.recheck.items ?? [])], right: o?.recheck.right ?? 0, wrong: o?.recheck.wrong ?? 0 } },
     focus: focusOf(o?.blockedParts),
     principleId: c.principle?.id ?? null,
     principleSlug: c.principle?.slug ?? null,
@@ -146,7 +149,7 @@ export function decideStep(input: DecisionInput): LearningDecision {
     // 학습자 문구에는 관리자 항목 문장 · slug 를 넣지 않는다(연구 단서가 섞여 있다) — 추적 정보에만 남긴다
     const f = trace.focus
     // 연습한 뒤 — 새 지문 재확인
-    if (o.lastPracticeAt) {
+    if (o.practiceAfterPrescription) {
       if (o.recheck.right > 0 && o.recheck.wrong === 0) {
         return out('recheck_passed', `연습한 뒤 처음 보는 글 ${o.recheck.right}개에서 다시 해냈어요. 이 단계는 다음 단계로 넘어가도 돼요.`, null, null,
           `연습 뒤 새 지문 재확인 통과(${o.recheck.items.join(', ')}) — 연습한 지문은 근거에서 제외`)

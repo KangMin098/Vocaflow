@@ -143,7 +143,6 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                 그 줄이 비어 있을 때(미확인 · 엇갈림 · 확인 문항 소진 등)는 다음 할 일을 보인다 — 연습 · 다시 확인 링크가 끊기지 않게(Codex P1) */}
             {decision && decision.action !== 'no_principle' && (
               <p
-                hidden={!!skill && skill.status !== 'unverified'}
                 className={l.text}
                 data-testid="learning-decision"
                 data-action={decision.action}
@@ -155,7 +154,8 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
                 data-observation={JSON.stringify(decision.trace.observation)}
                 data-reason={decision.reason}
               >
-                <strong>다음 할 일</strong> — {decision.message}
+                {/* 직접 확인 줄이 상태를 이미 말하면 같은 설명은 빼고 행동(초점 연습 · 새 지문 재확인 링크)만 — 링크까지 숨기면 실제 학습자에게 초점별 연습이 끊긴다(Codex P1) */}
+                <strong>다음 할 일</strong>{!(skill && skill.status !== 'unverified') && <> — {decision.message}</>}
                 {decision.href && (
                   <>
                     {' '}

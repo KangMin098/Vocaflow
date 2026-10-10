@@ -28,3 +28,17 @@ describe('decisionFingerprint', () => {
     expect(decisionFingerprint({ decision: decide([row('2022#20', false), row('2025#20', false)]), application: { ...app, version: 2 } })).not.toBe(base)
   })
 })
+
+describe('재확인 근거도 fingerprint 에 들어간다', () => {
+  it('첫 처방과 「재확인 실패 뒤 재연습」은 다른 기록', () => {
+    const first = decide([row('2022#20', false), row('2025#20', false)])
+    const after = decide([
+      { ...row('2022#20', false), answeredAt: '2026-10-10T01:00:00Z', activity: 'theater' },
+      { ...row('2025#20', false), answeredAt: '2026-10-10T01:01:00Z', activity: 'theater' },
+      { ...row('2025#20', false), isCorrect: null as unknown as boolean, answeredAt: '2026-10-10T02:00:00Z', activity: 'practice' },
+      { ...row('2016#20', false), answeredAt: '2026-10-10T03:00:00Z', activity: 'theater' },
+    ] as unknown as ReturnType<typeof row>[])
+    expect(after.action).toBe('practice_method')
+    expect(decisionFingerprint({ decision: after, application: app })).not.toBe(decisionFingerprint({ decision: first, application: app }))
+  })
+})

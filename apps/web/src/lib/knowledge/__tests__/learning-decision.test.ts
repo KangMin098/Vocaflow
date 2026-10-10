@@ -172,3 +172,33 @@ describe('find-policy.v3 — 연습 뒤 새 지문 재확인', () => {
     expect(d.href).toBeNull()
   })
 })
+
+describe('find-policy.v3 — 확인 전에 연습부터 한 학습자', () => {
+  it('연습이 확인보다 먼저면 그 뒤 확인은 재확인이 아니라 진단 근거다(진단이 선다)', () => {
+    const C4 = [...CONFIRM, { itemRef: '2020#20', href: '/csat/item/2020-20#principle', label: '2020#20' }]
+    const rows = [
+      { ...row('2020#20', false), isCorrect: null as unknown as boolean, answeredAt: '2026-10-10T00:30:00Z', activity: 'practice' },
+      { ...row('2022#20', false), answeredAt: '2026-10-10T01:00:00Z', activity: 'theater' },
+      { ...row('2025#20', false), answeredAt: '2026-10-10T01:05:00Z', activity: 'theater' },
+    ] as FindAttemptRow[]
+    const o = findOutcome(C4.map((c) => ({ itemRef: c.itemRef, taskKey: 'claim-support' })), rows)
+    expect(o.state).toBe('confirmed_need')
+    expect(o.recheck.items).toEqual([])
+  })
+})
+
+describe('find-policy.v3 — 확인 문항 밖 지문의 방법 연습', () => {
+  it('골격 지문에서 연습해도 처방 뒤 연습으로 인정 → 새 지문 재확인으로 간다', () => {
+    const C4 = [...CONFIRM, { itemRef: '2020#20', href: '/csat/item/2020-20#principle', label: '2020#20' }]
+    const rows = [
+      { ...row('2022#20', false), answeredAt: '2026-10-10T01:00:00Z', activity: 'theater' },
+      { ...row('2025#20', false), answeredAt: '2026-10-10T01:05:00Z', activity: 'theater' },
+      { ...row('2019#22', false), taskKey: 'claim-support-skeleton', isCorrect: null as unknown as boolean, answeredAt: '2026-10-10T02:00:00Z', activity: 'practice' },
+    ] as unknown as FindAttemptRow[]
+    const o = findOutcome(C4.map((c) => ({ itemRef: c.itemRef, taskKey: 'claim-support' })), rows)
+    expect(o.practiceAfterPrescription).toBe(true)
+    const d = decideStep({ stepKey: 'structure', findTaskId: 'B6-3', outcome: o, chain: CHAIN, confirm: C4, triedItems: ['2022#20', '2025#20'], practiceHref: '/csat/practice/claim-support' })
+    expect(d.action).toBe('recheck_new')
+    expect(['/csat/item/2016-20#principle', '/csat/item/2020-20#principle']).toContain(d.href)
+  })
+})
