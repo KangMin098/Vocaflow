@@ -3,6 +3,7 @@
 
 import { useRef, useState } from 'react'
 import type { OrderProductionTrace, OrderTraceEntry } from '@/lib/csat/order-trace'
+import type { OrderRunStatus } from '@/lib/csat/order-run-status'
 
 type Trace = { order_id: string | null; order_revision: number | null; entries: OrderTraceEntry[];
   blocker: string | null; production?: OrderProductionTrace }
@@ -13,6 +14,11 @@ const stageNames: Record<OrderTraceEntry['stage'], string> = {
   explanation: '해설', editorial: '편집 검수', unit: '단원', volume: '권',
   rendered: '조판', published: '게시',
 }
+const runStatusNames: Record<OrderRunStatus['status'], string> = {
+  complete: '학생용 권 완료(비게시)', blocked: '차단', in_progress: '진행 중',
+}
+type Runs = { runs: OrderRunStatus[] } | { error: string }
+
 const stateNames: Record<OrderTraceEntry['state'], string> = {
   observed: '기록 확인', hold: '보류', stale: '증거 만료', blocked: '차단', unmeasured: '미측정',
 }
@@ -23,6 +29,7 @@ export function OrderTracePanel() {
   const [trace, setTrace] = useState<Trace | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
+  const [runs, setRuns] = useState<Runs | null>(null)
 
   async function load() {
     const id = orderId.trim()
@@ -31,6 +38,13 @@ export function OrderTracePanel() {
     setPending(true)
     setTrace(null)
     setError(null)
+    setRuns(null)
+    void fetch(`/api/admin/csat/order-runs?order_id=${encodeURIComponent(id)}`, { cache: 'no-store' })
+      .then(async response => {
+        const body = await response.json() as { runs?: OrderRunStatus[]; error?: string }
+        if (request === generation.current) setRuns(response.ok && body.runs ? { runs: body.runs } : { error: body.error ?? 'ORDER_RUN_STATUS_UNAVAILABLE' })
+      })
+      .catch(() => { if (request === generation.current) setRuns({ error: 'ORDER_RUN_STATUS_UNAVAILABLE' }) })
     try {
       const response = await fetch(`/api/admin/csat/order-trace?order_id=${encodeURIComponent(id)}`, { cache: 'no-store' })
       if (!response.ok) throw Error('order trace unavailable')
@@ -45,7 +59,7 @@ export function OrderTracePanel() {
     <p className="mt-2 break-keep text-[13px] text-[var(--t2)]">등록된 Product Order ID로 현재 읽을 수 있는 증거를 확인합니다. 승격 당시 기록은 현재 인증을 대신하지 않으며, 아직 조회 경로가 없는 공정은 미측정으로 표시합니다.</p>
     <form className="mt-3 flex flex-wrap items-end gap-2" onSubmit={event => { event.preventDefault(); void load() }}>
       <label className="min-w-[240px] flex-1 text-[13px] font-[700] text-[var(--t1)]">Product Order ID
-        <input value={orderId} onChange={event => { generation.current += 1; setOrderId(event.target.value); setTrace(null); setError(null); setPending(false) }} maxLength={128}
+        <input value={orderId} onChange={event => { generation.current += 1; setOrderId(event.target.value); setTrace(null); setRuns(null); setError(null); setPending(false) }} maxLength={128}
           className="mt-1 block min-h-[44px] w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[12px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]" />
       </label>
       <button type="submit" disabled={pending || !orderId.trim()}
@@ -72,6 +86,21 @@ export function OrderTracePanel() {
             <span className={entry.state === 'blocked' || entry.state === 'stale' ? 'text-[var(--memory-risk)]' : 'text-[var(--t2)]'}>{stateNames[entry.state]}</span></div>
           <p className="mt-1 break-keep text-[var(--t2)]">{entry.reason}</p>
         </li>)}</ol>
+    </div> : null}
+    {runs ? <div className="mt-4">
+      <h3 className="text-[13px] font-[800] text-[var(--t1)]">생산 실행(드레인 → 단원 → 권)</h3>
+      {'error' in runs ? <p role="status" className="mt-1 break-keep text-[12px] text-[var(--t2)]">실행 상태 미측정: {runs.error}</p>
+        : !runs.runs.length ? <p role="status" className="mt-1 break-keep text-[12px] text-[var(--t2)]">이 주문의 생산 실행 기록이 없습니다.</p>
+          : <ul className="mt-2 grid gap-2">{runs.runs.map(run =>
+            <li key={run.run} className="rounded-[var(--r-sm)] border border-[var(--bd)] p-3 text-[12px]">
+              <div className="flex items-center justify-between gap-2"><strong className="font-mono text-[var(--t1)]">{run.run}</strong>
+                <span className={run.status === 'blocked' || run.stale || run.revision_current === false ? 'text-[var(--memory-risk)]' : 'text-[var(--t2)]'}>
+                  {runStatusNames[run.status]}{run.revision_current === false ? ' · 주문 revision 바뀜(재실행 필요)' : ''}{run.stale ? ' · 드레인 낡음' : ''}</span></div>
+              <p className="mt-1 break-keep text-[var(--t2)]">{run.order.grade} · revision {run.order.order_revision} · 셀 {run.cell_count} · 현재 공정 {run.current_stage}</p>
+              {run.blockers.length ? <p className="mt-1 break-keep text-[var(--memory-risk)]">
+                {run.blockers.slice(0, 3).map(b => `${b.stage}: ${b.reason}${b.cell_id ? ` (${b.cell_id})` : ''}`).join(' · ')}
+                {run.blockers.length > 3 ? ` 외 ${run.blockers.length - 3}건` : ''}</p> : null}
+            </li>)}</ul>}
     </div> : null}
   </section>
 }
