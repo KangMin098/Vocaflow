@@ -35,6 +35,16 @@ describe('pathOf', () => {
     expect(pathOf('GOAL', E).nodes.size).toBe(9) // 노드 전부(GOAL · A · B · A1 · B1 · P1 · P2 · T1 · T2)
   })
 
+  it('미확정 연결선(basis ≠ direct)도 경로 탐색에는 그대로 — 확정 강조에서만 따로 돌려준다(GAP-07)', () => {
+    const withBasis: GraphEdge[] = E.map((e) => ({ ...e, basis: e.id === 3 || e.id === 5 ? 'pending' : e.id === 7 ? 'inferred' : 'direct' }))
+    const p = pathOf('A1', withBasis)
+    expect([...p.nodes].sort()).toEqual(['A', 'A1', 'GOAL', 'P1', 'P2', 'T1', 'T2']) // 탐색 결과는 basis 와 무관
+    expect([...p.unconfirmed].sort((a, b) => a - b)).toEqual([3, 5, 7])
+    for (const id of p.unconfirmed) expect(p.edges.has(id)).toBe(true)
+    // basis 를 주지 않은 기존 호출은 미확정 없음(호환)
+    expect(pathOf('A1', E).unconfirmed.size).toBe(0)
+  })
+
   it('연결이 없는 노드는 자기 자신만', () => {
     const p = pathOf('X', E)
     expect([...p.nodes]).toEqual(['X'])

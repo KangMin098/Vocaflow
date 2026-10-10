@@ -3,16 +3,22 @@
 // 학습 지도 그래프 — 선택한 노드의 연결 경로(강조할 노드 · 연결선)를 구한다. 순수 함수.
 // 모든 연결선은 왼쪽 → 오른쪽(목표 → 영역 → 라인 → 원리 → 트랙)이라, 경로 = 상류(왼쪽)로 가는 조상 + 하류(오른쪽)로 가는 자손.
 // 형제(같은 영역의 다른 라인 등)는 경로가 아니므로 흐리게 남는다.
+// 근거가 확정되지 않은 연결선(basis ≠ 'direct' — 2026-10 현재 160개 전부 pending)은 경로에는 넣되 `unconfirmed` 로 따로 돌려준다 —
+// 화면이 확정 경로처럼 진하게 강조하지 않게(rev4.0 GAP-07). 탐색 자체는 바꾸지 않는다.
 
 export interface GraphEdge {
   id: number
   from: string
   to: string
+  /** 연결 근거 — 'direct' 만 확정. 없으면 확정으로 본다(기존 호출 호환) */
+  basis?: 'direct' | 'inferred' | 'pending'
 }
 
 export interface Path {
   nodes: Set<string>
   edges: Set<number>
+  /** 경로 안의 미확정 연결선(basis 가 direct 가 아닌 것) — edges 의 부분집합 */
+  unconfirmed: Set<number>
 }
 
 export function pathOf(selected: string, edges: GraphEdge[]): Path {
@@ -42,5 +48,6 @@ export function pathOf(selected: string, edges: GraphEdge[]): Path {
   }
   walk(selected, out, (e) => e.to) // 하류 — 오른쪽
   walk(selected, into, (e) => e.from) // 상류 — 왼쪽
-  return { nodes, edges: picked }
+  const unconfirmed = new Set(edges.filter((e) => picked.has(e.id) && e.basis !== undefined && e.basis !== 'direct').map((e) => e.id))
+  return { nodes, edges: picked, unconfirmed }
 }

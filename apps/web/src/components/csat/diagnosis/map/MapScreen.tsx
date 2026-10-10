@@ -18,7 +18,7 @@ import s from './map.module.css'
 export type MapView = 'core' | 'full'
 export const parseMapView = (v?: string): MapView => (v === 'full' ? 'full' : 'core')
 
-export function MapScreen({ data, view, base }: { data: MapPageData; view: MapView; base: string }) {
+export function MapScreen({ data, view, base, asOf }: { data: MapPageData; view: MapView; base: string; asOf?: string }) {
   const coreHref = `${base}?tab=map`
   return (
     <div className={s.root} data-testid="csat-map-screen" data-view={view}>
@@ -41,7 +41,7 @@ export function MapScreen({ data, view, base }: { data: MapPageData; view: MapVi
           <LearningMap data={data} />
         </>
       ) : (
-        <LearnerMap data={data} detailHref={`${base}?tab=map&view=full`} recordHref={`${base}?tab=records&modal=new`} recordsHref={`${base}?tab=records`} />
+        <LearnerMap data={data} detailHref={`${base}?tab=map&view=full`} recordHref={`${base}?tab=records&modal=new`} recordsHref={`${base}?tab=records`} asOf={asOf} />
       )}
     </div>
   )
