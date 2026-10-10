@@ -6,7 +6,7 @@ import { describe, expect, it, vi } from 'vitest'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { skillDiagnosis, type SkillAttempt } from '@/lib/csat/map/skill-diagnosis'
 
-import { DIRECT_CHECK_TEXT, NEXT_STEP_HREF, SKILL_BADGE, SkillBadge, SkillPrescription, SkillStatusLine, stepSkillProjection } from '../SkillPrescription'
+import { CHECK_PENDING_TEXT, DIRECT_CHECK_TEXT, NEXT_STEP_HREF, SKILL_BADGE, SkillBadge, SkillPrescription, SkillStatusLine, skillActionText, stepSkillProjection } from '../SkillPrescription'
 
 const T = ['a', 'b', 'c', 'd'].map((i) => ({ itemRef: i, taskKey: 'claim-support' }))
 const now = new Date('2026-10-20T00:00:00Z')
@@ -179,5 +179,24 @@ describe('stepSkillProjection — 지도 카드와 단계 시트의 단일 출�
     expect(attr(e, 'data-action')).toBe('direct_check')
     expect(attr(e, 'data-target')).toBe('')
     expect(stepSkillProjection(mapData(CASES[4][1], CASES[4][2]), step).view?.locked).toBe(true)
+  })
+  it('[1][2][4] still_needed · 미노출 CHECK 소진 — 직접 확인으로 보내지 않고 카드와 시트가 같은 문항 준비 안내', () => {
+    const used = [att('a', false, at(10)), att('b', false, at(11)), att('c', false, at(15)), att('d', false, at(16))]
+    const px = stepSkillProjection(mapData(used), step)
+    expect(px.view?.status).toBe('still_needed')
+    expect(px.view?.action).toBe('recheck')
+    expect(px.primary).toBeNull()
+    const c = card(used)
+    const s = sheet(used)
+    expect(c).not.toContain(DIRECT_CHECK_TEXT)
+    expect(c).toContain(CHECK_PENDING_TEXT)
+    expect(attr(c, 'data-target')).toBe('')
+    expect(s).not.toContain('rx-primary')
+    expect(s).toMatch(new RegExp(`data-testid="rx-pending" data-action="recheck">${CHECK_PENDING_TEXT}`))
+    expect(attr(c, 'data-action')).toBe(attr(s, 'data-action'))
+  })
+  it.each(CASES.slice(1, 4))('[4] %s — 카드 행동 문구가 시트의 주 행동 문구와 같다', (_status, attempts, when) => {
+    const px = stepSkillProjection(mapData(attempts, when), step)
+    expect(sheet(attempts, when)).toContain(`${skillActionText(px)} →`)
   })
 })

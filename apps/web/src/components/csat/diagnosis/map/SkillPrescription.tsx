@@ -74,9 +74,13 @@ export interface StepSkillProjection {
   transferHref: string | null
 }
 
-/** 지도 카드에 쓰는 단일 다음 행동 문구 — 주 행동이 있으면 그 문구, 없으면(unverified · expired) 직접 확인 */
-export function skillActionText(px: Pick<StepSkillProjection, 'primary'>): string {
-  return px.primary ? px.primary.text.replace(/ →$/, '') : DIRECT_CHECK_TEXT
+/** 주 행동을 실행할 문항이 없을 때(예: still_needed 인데 미노출 CHECK 소진) — 카드와 시트가 같은 안내를 쓴다 */
+export const CHECK_PENDING_TEXT = '다시 확인할 문항이 더 준비되면 이어서 볼게요.'
+
+/** 지도 카드에 쓰는 단일 다음 행동 문구 — 직접 확인은 view.action=direct_check 일 때만. 그 밖에 주 행동이 없으면 문항 준비 안내 */
+export function skillActionText(px: Pick<StepSkillProjection, 'view' | 'primary'>): string {
+  if (px.primary) return px.primary.text.replace(/ →$/, '')
+  return px.view?.action === 'direct_check' ? DIRECT_CHECK_TEXT : CHECK_PENDING_TEXT
 }
 
 /** 지도 카드(읽기 StepNode · FocusStep) 배지 — 상태 + 단일 다음 행동. 판정이 없으면(unavailable 포함) 아무것도 보이지 않는다 */
@@ -125,6 +129,8 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks }: {
     <section className={l.block} data-testid="step-prescription" data-open={opened} data-status={view?.status ?? 'none'} data-action={view?.action ?? 'direct_check'}>
       <h3 className={l.blockH}><Route size={14} strokeWidth={1.9} aria-hidden="true" />{HEADING[view?.action ?? 'direct_check']}</h3>
       {primary && <a href={primary.href} style={NEXT_LINK} data-testid="rx-primary" data-action={view?.action}>{primary.text}</a>}
+      {/* 주 행동이 있어야 할 상태인데 실행할 문항이 없으면 — 카드와 같은 안내(직접 확인으로 잘못 보내지 않는다) */}
+      {opened && !primary && <p className={l.text} data-testid="rx-pending" data-action={view?.action}>{CHECK_PENDING_TEXT}</p>}
       <ol className={l.next}>
         {groups.map((g) => (
           <li key={g.stage} className={l.nextStep} data-stage={g.stage} data-current={opened && view?.stage === g.stage ? 'true' : undefined}>
@@ -140,7 +146,7 @@ export function SkillPrescription({ skill, groups, transferHref, checkLinks }: {
             {opened && g.stage === 'CHECK' && checks.slice(0, 2).map((c) => (
               <a key={c.target} href={c.href} style={NEXT_LINK} data-testid="rx-check" data-item={c.target}>다시 확인 — {itemWord(c.label)} →</a>
             ))}
-            {opened && g.stage === 'CHECK' && checks.length === 0 && <span className={l.nextList}>다시 확인할 문항이 더 준비되면 이어서 볼게요.</span>}
+            {opened && g.stage === 'CHECK' && checks.length === 0 && <span className={l.nextList}>{CHECK_PENDING_TEXT}</span>}
           </li>
         ))}
       </ol>
