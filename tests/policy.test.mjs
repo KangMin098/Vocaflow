@@ -380,11 +380,20 @@ test('담당 세션 실행 모드 — AI-Control 은 배정·인수 확인·리�
   assert.equal(g2.status, 'REVIEW')
   assert.equal(g2.dispatch.generation, 2)
   assert.equal(g2.run.worker_id, w.worker_id)
+  // 제출 뒤 담당이 worktree 를 다른 브랜치로 돌려도 리뷰는 제출 커밋(refs/heads/feat/t) 기준이다(T-0019 실측 결함)
+  const gitWt = (...a) => execFileSync('git', ['-C', s.wt, ...a], { encoding: 'utf8' }).trim()
+  const submitted = gitWt('rev-parse', 'refs/heads/feat/t')
+  gitWt('checkout', '-q', '-b', 'other-track')
+  fs.writeFileSync(path.join(s.wt, 'src', 'other.ts'), 'export const o = 1\n')
+  gitWt('add', 'src/other.ts')
+  gitWt('commit', '-q', '-m', 'other track')
   // F. 중앙 오케스트레이터는 독립 리뷰만 → 완료
   s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'])
   const done = s.vfc('task', 'show', t.task_id)
   assert.equal(done.status, 'COMPLETED', JSON.stringify(done.history?.slice(-2)))
-  assert.ok(done.verified_commit)
+  assert.ok(submitted.startsWith(done.verified_commit), `리뷰·검증 커밋 = 제출 커밋(worktree HEAD 아님): ${done.verified_commit} vs ${submitted}`)
+  assert.match(fs.readFileSync(path.join(s.root, done.review_record), 'utf8'), new RegExp(`\\.\\.${submitted}`), '리뷰 범위의 끝이 제출 커밋')
+  assert.match(gitWt('worktree', 'list'), /^(?![\s\S]*owner-review)/, '검토용 worktree 는 정리된다')
 })
 
 test('REVIEW_UNKNOWN P1 회귀 — 승인한 테스트 파일 말고 다른 파일이 실행되면 live PASS 아님', () => {
