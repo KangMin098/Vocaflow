@@ -43,8 +43,8 @@ if (a[0] === 'api') {
     st.files[`${f.branch}:${m[1]}`] = f.content
     console.log('{}')
   } else if (method === 'GET' && (m = url.match(/issues\/(\d+)\/comments/))) {
-    const pr = st.prs.find((p) => p.number === Number(m[1]))
-    console.log(JSON.stringify((pr?.comments || []).map((c, i) => ({ user: { login: c.author, type: c.type || 'User' }, created_at: c.at, body: c.body, html_url: `https://github.example/pr/${pr.number}#c${i}` }))))
+    const pr = st.prs.find((p) => p.number === Number(m[1])) || (st.issues || []).find((p) => p.number === Number(m[1]))
+    console.log(JSON.stringify((pr?.comments || []).map((c, i) => ({ user: { login: c.author, type: c.type || 'User' }, performed_via_github_app: c.app ? { slug: c.app } : null, created_at: c.at, body: c.body, html_url: `https://github.example/${pr.headRefName ? 'pr' : 'issues'}/${pr.number}#c${i}` }))))
   } else if (method === 'GET' && (m = url.match(/contents\/(.+)\?ref=(.+)$/))) {
     const c = st.files[`${m[2]}:${m[1]}`]
     if (!c) fail('Not Found (HTTP 404)')
@@ -65,5 +65,9 @@ if (a[0] === 'api') {
 } else if (a[0] === 'pr' && a[1] === 'list') {
   const label = flag('--label')
   console.log(JSON.stringify(st.prs.filter((p) => p.labels.includes(label)).map(({ number, title, headRefName, createdAt }) => ({ number, title, headRefName, createdAt }))))
+} else if (a[0] === 'issue' && a[1] === 'list') {
+  // ChatGPT 목표 요청 이슈(라벨 vfc-goal) — 테스트가 state.json 의 issues 에 넣는다(SIMULATED)
+  const label = flag('--label')
+  console.log(JSON.stringify((st.issues || []).filter((p) => p.labels.includes(label) && p.state !== 'closed').map(({ number, title, body, author, createdAt }) => ({ number, title, body, author: { login: author }, createdAt, url: `https://github.example/issues/${number}` }))))
 } else fail(`fake gh: 모르는 명령 ${a.join(' ')}`)
 save()

@@ -176,6 +176,33 @@ node bin\vfc.mjs ugoal status UG-0001
 node bin\vfc.mjs status
 ```
 
+**10-0. ChatGPT 에서 자연어로 목표 등록**(2026-10-10)
+
+| 단계 | 누가 · 무엇으로 |
+|---|---|
+| ① 요청 | 사용자가 ChatGPT(Work)에 자연어로 목표를 말한다 |
+| ② 기록 | ChatGPT 가 교환 저장소 [`vocaflow-exchange` 이슈 #24 「목표 접수함」](https://github.com/KangMin098/vocaflow-exchange/issues/24)에 `vfc-goal-request` 블록 댓글을 단다. 형식·정본 목록은 그 이슈 본문에 있다(원본 `docs/GOAL_INTAKE_ISSUE.md`) |
+| ③ 수집 | 오케스트레이터의 브리지 tick 이 `collect-goals` 로 댓글을 가져온다. 운영 설정 `config/bridge.json` 의 `app: chatgpt-codex-connector` 라서 **Work 앱이 단 댓글만** 받는다. 사람이 `gh` 로 단 댓글은 `ignored_app` |
+| ④ 판정 | `vfc ugoal intake-requests` 가 판정한다(아래) |
+
+판정(`vfc ugoal intake-requests` · `lib/goalintake.mjs`)
+- **기존 목표 재사용**: `goal_ref` 일치, 같은 `chat_url`, 제목 낱말 겹침 0.5 이상 중 하나면 그 goal_id·owner 를 그대로 쓴다.
+  - 요청은 그 목표의 사용자 방향(next_scope)에 `[ChatGPT 요청 날짜]` 로 더한다.
+  - 정책 안이면 다음 증분 설계 → 담당 배정까지 기존 자동 경로를 탄다.
+- **새 목표**: 정본 L3 목표 id 가 있으면 새 목표를 만든다.
+  - 첫 설계는 Work 에 바로 요청한다(`request-design`).
+  - 설계 승인과 owner 배정(`owner_hint` 는 제안만)은 사용자 결정이다.
+- **보류**: 정본 id 가 없으면 `needs_canon` 이고, 틀린 id 면 `rejected` 다. 둘 다 상태를 바꾸지 않는다.
+- **재실행 안전**: 같은 댓글은 한 번만 처리한다.
+- **Work 대화 URL**: 처음 오면 그 목표의 대표 Work 대화로 연결한다. 이미 다른 URL 이 있으면 바꾸지 않고 충돌만 기록한다.
+- **승인이 아니다**: 이 요청은 목표 등록·방향 기록까지만이다. 설계 승인 · DB · 범위 확대는 기존 대화형 승인을 거친다.
+
+**하지 않는 것 — 지원 경로 없음**
+- VS Code 에 대화 탭을 자동으로 열기.
+- 실행 중인 대화형 세션에 명령을 직접 넣기.
+  - 담당 세션에 배정을 알리는 길은 받은 편지함과 배정 알림 훅(`hooks/dispatch-notify.mjs`)이다. 훅은 사용자가 설치해야 한다.
+  - 백그라운드 실행은 `bin/owner-worker.mjs` 로 한다. 이를 위한 worker 등록은 사용자 대화형 터미널에서 1회 한다.
+
 **10-1. Work ↔ Claude 담당 세션 매핑**(읽기 전용 — 상태를 바꾸지 않는다)
 
 ```powershell

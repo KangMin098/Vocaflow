@@ -18,6 +18,8 @@ import * as T from '../lib/tasks.mjs'
 import * as P from '../lib/planning.mjs'
 import * as UG from '../lib/usergoals.mjs'
 import * as SM from '../lib/sessionmap.mjs'
+import * as GI from '../lib/goalintake.mjs'
+import { fileURLToPath } from 'node:url'
 import * as CTX from '../lib/context.mjs'
 import { measureRuns, goalMetrics } from '../lib/perf.mjs'
 import { execFileSync } from 'node:child_process'
@@ -503,6 +505,40 @@ function main() {
       return out(withState((s) => UG.cancelRequest(s, pos[0], pos[1], { reason: opt.reason, by }), { event: 'usergoal.cancel_request', by }), opt)
     case 'ugoal link':
       return out(withState((s) => UG.linkSurface(s, pos[0], { surface: opt.surface, url: opt.url || null, by })), opt)
+    case 'ugoal intake-requests': {
+      // ChatGPT 자연어 목표 요청(planning/goal-requests/*.json — 브리지 collect-goals 가 가져온 것) → 기존 목표 재사용 또는 새 목표
+      const dir = path.join(root(), 'planning', 'goal-requests')
+      const arch = path.join(root(), 'planning', 'archive', 'goal-requests')
+      const results = []
+      for (const f of fs.existsSync(dir) ? fs.readdirSync(dir).filter((x) => x.endsWith('.json')) : []) {
+        const src = path.join(dir, f)
+        const rec = JSON.parse(fs.readFileSync(src, 'utf8'))
+        const parsed = GI.parseGoalRequest(rec.body)
+        let r
+        if (parsed.error) r = { outcome: 'rejected', reason: parsed.error }
+        else {
+          requireValidCanon()
+          try {
+            r = withState((s) => GI.intakeGoalRequest(s, parsed.req, { source: rec.source, by: `chatgpt-request:${rec.author ?? '-'}`, deps: { newGoal: (st, a) => UG.startFromChatGPTRequest(st, a) } }), { event: 'usergoal.chatgpt_request', by })
+          } catch (e) {
+            r = { outcome: 'rejected', reason: `${e.code ?? 'ERROR'}: ${String(e.message).slice(0, 200)}` } // 예: 정본에 없는 목표 id — 상태는 바뀌지 않는다(트랜잭션)
+          }
+          // 새 목표는 설계가 없다 — 첫 설계를 Work 에 바로 요청한다(브리지가 다음 tick 에 게시). 승인·owner 배정은 사용자
+          if (r.outcome === 'created' && !opt['no-design']) {
+            try {
+              const d = JSON.parse(execFileSync(process.execPath, [fileURLToPath(import.meta.url), 'ugoal', 'request-design', r.goal_id, '--by', by, '--json'], { encoding: 'utf8', env: process.env }))
+              r.design_request = d.request_id
+            } catch (e) {
+              r.design_request_error = String(e.stderr || e.message).slice(0, 300)
+            }
+          }
+        }
+        fs.mkdirSync(arch, { recursive: true })
+        fs.renameSync(src, path.join(arch, f))
+        results.push({ file: f, source: rec.source, ...r })
+      }
+      return out({ results }, opt)
+    }
     case 'ugoal map': {
       // Work ↔ Claude 담당 세션 매핑(읽기 전용). 세션 활동 = ~/.claude/projects/*/<세션 id>.jsonl 의 마지막 갱신 시각
       const projects = path.join(os.homedir(), '.claude', 'projects')
@@ -517,7 +553,8 @@ function main() {
         }
         return null
       }
-      const rows = SM.goalSessionMap(loadState().state, { now: new Date().toISOString(), activityOf, ugs: pos[0] ? [pos[0]] : null })
+      const stm = loadState().state
+      const rows = SM.goalSessionMap(stm, { now: new Date().toISOString(), activityOf, ugs: pos[0] ? [pos[0]] : null, routeOf: (ug) => UG.route(stm, ug) })
       if (opt.open) {
         const url = rows[0]?.work_chat_url
         if (!url || url === 'UNKNOWN') throw new T.RuleError('NO_CHAT_URL', `${pos[0] ?? '목표'} 에 연결된 Work 대화 URL 이 없다 — vfc ugoal link ${pos[0] ?? '<UG>'} --surface work --url https://chatgpt.com/…`)

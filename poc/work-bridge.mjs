@@ -273,6 +273,54 @@ function collectOnce({ authors, app }) {
   return found
 }
 
+/**
+ * ChatGPT 자연어 목표 요청 수집 — 교환 저장소의 라벨 `vfc-goal` 이슈(본문·댓글)에서 ```json vfc-goal-request``` 블록.
+ * Work 가 PR 에 응답 댓글을 다는 것과 같은 GitHub 쓰기(사용자 명의 + Work 앱)다. 판정은 `vfc ugoal intake-requests`(lib/goalintake.mjs).
+ * 같은 출처(댓글·이슈 URL)는 한 번만 가져온다(로그 goal_collected · 보관함으로 확인). --app 이면 그 앱이 단 댓글만, --authors 면 그 사람만.
+ */
+function collectGoalsOnce({ authors, app }) {
+  const issues = ghJson(['issue', 'list', '--repo', opt.repo, '--label', 'vfc-goal', '--state', 'open', '--json', 'number,title,body,author,createdAt,url', '--limit', '50'])
+  const seen = new Set(readLog().filter((e) => e.event === 'goal_collected').map((e) => e.source))
+  const found = []
+  for (const is of issues) {
+    // 댓글만 — 이슈 본문은 접수함 안내(형식 견본 블록 포함)라 요청이 아니다
+    const sources = []
+    for (const c of ghJson(['api', `repos/${opt.repo}/issues/${is.number}/comments?per_page=100`])) sources.push({ kind: 'comment', author: c.user.login, app: c.performed_via_github_app?.slug ?? null, at: c.created_at, body: c.body, ref: c.html_url })
+    for (const s of sources) {
+      if (!/```json vfc-goal-request/.test(String(s.body))) continue
+      if (seen.has(s.ref)) {
+        found.push({ issue: is.number, source: s.ref, status: 'already_collected' })
+        continue
+      }
+      if (app && s.kind === 'comment' && s.app !== app) {
+        found.push({ issue: is.number, source: s.ref, app: s.app, status: 'ignored_app' })
+        continue
+      }
+      if (authors && s.author && !authors.includes(s.author.toLowerCase())) {
+        found.push({ issue: is.number, source: s.ref, author: s.author, status: 'ignored_author' })
+        continue
+      }
+      const name = `GR-${crypto.createHash('sha256').update(s.ref).digest('hex').slice(0, 12)}.json`
+      const dest = path.join(ROOT, 'planning', 'goal-requests', name)
+      if (!dry) {
+        fs.mkdirSync(path.dirname(dest), { recursive: true })
+        fs.writeFileSync(`${dest}.part`, JSON.stringify({ source: s.ref, issue: is.number, author: s.author, app: s.app, at: s.at, body: s.body }, null, 2))
+        fs.renameSync(`${dest}.part`, dest) // intake-requests 는 .json 만 집는다
+        log({ event: 'goal_collected', source: s.ref, issue: is.number, author: s.author, app: s.app, responded_at: s.at })
+      }
+      found.push({ issue: is.number, source: s.ref, author: s.author, app: s.app, status: dry ? 'would_collect' : 'collected', file: name })
+    }
+  }
+  return found
+}
+
+function goalIntakeNow(by) {
+  const VFC = process.env.VFC_CLI || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'bin', 'vfc.mjs')
+  const r = JSON.parse(execFileSync(process.execPath, [VFC, 'ugoal', 'intake-requests', '--by', by, '--json'], { encoding: 'utf8', env: { ...process.env, VFC_ROOT: ROOT } }))
+  for (const x of r.results) log({ event: 'goal_intake', source: x.source, outcome: x.outcome, goal_id: x.goal_id ?? null, design_request: x.design_request ?? null })
+  return r.results
+}
+
 function sleep(ms) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
 }
@@ -461,6 +509,17 @@ function tick() {
           log({ event: 'tick_intake_error', error: String(e.message).slice(0, 200) })
         }
       }
+      // 2b) ChatGPT 자연어 목표 요청(라벨 vfc-goal 이슈) 수집 → 인수(기존 목표 재사용 · 새 목표 + 첫 설계 요청). 실패는 다른 단계를 막지 않는다
+      if (!opt['no-goals']) {
+        try {
+          res.goal_requests = collectGoalsOnce({ authors: null, app: opt.app || null }).filter((r) => r.status === 'collected').map((r) => r.source)
+          const gdir = path.join(ROOT, 'planning', 'goal-requests')
+          if (!opt['dry-run'] && fs.existsSync(gdir) && fs.readdirSync(gdir).some((f) => f.endsWith('.json'))) res.goal_intake = goalIntakeNow('bridge-tick')
+        } catch (e) {
+          res.errors.push(`goals: ${String(e.message).slice(0, 200)}`)
+          log({ event: 'tick_goal_error', error: String(e.message).slice(0, 200) })
+        }
+      }
       // 3) 대기 요청이 없어졌으면(방금 수집 포함) 다음 PENDING 요청 하나를 게시 — 줄 선 요청이 다음 수동 실행까지 멈추지 않게(Codex P2)
       if (!inflight().length) {
         const next = pendingUnpublished()[0]
@@ -508,7 +567,10 @@ try {
   else if (cmd === 'preview') out(preview(pos[0]))
   else if (cmd === 'watch') watch()
   else if (cmd === 'tick') tick()
-  else {
+  else if (cmd === 'collect-goals') {
+    if (!opt.repo) throw new Error('--repo owner/exchange 필요')
+    out({ repo: opt.repo, results: collectGoalsOnce({ authors: opt.authors ? String(opt.authors).split(',').map((s) => s.trim().toLowerCase()) : null, app: opt.app || null }) })
+  } else {
     console.log('node poc/work-bridge.mjs publish <REQ-id> --repo owner/exchange [--dry-run]\nnode poc/work-bridge.mjs collect --repo owner/exchange [--authors a,b] [--dry-run]\nnode poc/work-bridge.mjs status')
     process.exit(cmd ? 2 : 0)
   }
