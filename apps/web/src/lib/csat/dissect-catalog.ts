@@ -1,8 +1,11 @@
 // apps/web/src/lib/csat/dissect-catalog.ts
 // Published analysis only; no passage/choices columns. Learners use RLS; authenticated admin callers may inject a fresh client.
+// Reveal Gate: 캐시는 **원본 행**(문항 · 분석)이다. 학습자 요청마다 보류 범위(embargo-gate)로 원본을 거른 뒤 카탈로그를 짓는다 —
+// 보류 문항의 정답 · 근거 · 함정뿐 아니라 그 분석이 섞이는 파생 필드(함정 빈도 순위 · 설계 의도 대안 · 기출 이력)도 함께 빠진다.
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import { keysetSelect } from '@/lib/supabase/keyset-select'
+import { isItemHeld, loadRevealScope } from './embargo-gate'
 import { loadSessionCatalog } from './session/catalog'
 import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, type ItemSkeleton } from './skeleton'
 import verifiedAnchors from './dissect-anchors.json'
@@ -17,16 +20,12 @@ interface Analysis {
   answer_locus: { reasoning?: string }
   choice_analysis: { n: number; trap?: string; verdict: string; how_to_reject?: string }[]
 }
+interface RawRows { items: { id: string; type_id: string; answer: number | null }[]; analyses: Analysis[]; hakAnalyses: Analysis[] }
 const clean = (s: string | null | undefined) => (s ?? '').replace(/\*\*/g, '').replace(/\s+/g, ' ').trim()
-let cached: { at: number; value: DissectionCatalog } | null = null
+let cachedRaw: { at: number; value: RawRows } | null = null
 
-export async function loadDissectionCatalog(options: { db?: SupabaseClient; fresh?: boolean } = {}): Promise<DissectionCatalog> {
-  if (!options.db && !options.fresh && cached && Date.now() - cached.at < 600000) return cached.value
-  const db = options.db ?? (await createClient()) as unknown as SupabaseClient
-  // 학평 골격(DB · 발행분만) — 학습자 클라이언트일 때만 채운다(skeleton.ts)
-  if (!options.db) await primeLearnerHakpyeongSkeletons(db)
-  const [base, items, analyses, hakAnalyses] = await Promise.all([
-    loadSessionCatalog(options),
+async function readRawRows(db: SupabaseClient): Promise<RawRows> {
+  const [items, analyses, hakAnalyses] = await Promise.all([
     keysetSelect<{ id: string; type_id: string; answer: number | null }, string>((cursor, limit) => {
       // 범위: 평가원 + 발행 학평 목록(해부는 같은 기능 · 함정 빈도 통계만 평가원)
       let query = db.from('csat_items_public').select('id,type_id,answer').eq('in_scope', true).order('id').limit(limit)
@@ -45,10 +44,27 @@ export async function loadDissectionCatalog(options: { db?: SupabaseClient; fres
       return query
     }, (row) => ({ itemId: row.item_id, version: row.version }), '해부 분석(학평)'),
   ])
+  return { items, analyses, hakAnalyses }
+}
+
+export async function loadDissectionCatalog(options: { db?: SupabaseClient; fresh?: boolean } = {}): Promise<DissectionCatalog> {
+  const learner = !options.db
+  const db = options.db ?? (await createClient()) as unknown as SupabaseClient
+  // 학평 골격(DB · 발행분만) — 학습자 클라이언트일 때만 채운다(skeleton.ts)
+  if (learner) await primeLearnerHakpyeongSkeletons(db)
+  const fromCache = learner && !options.fresh && cachedRaw !== null && Date.now() - cachedRaw.at < 600000
+  const [base, raw] = await Promise.all([loadSessionCatalog(options), fromCache && cachedRaw ? Promise.resolve(cachedRaw.value) : readRawRows(db)])
   if (base.error) throw new Error(base.error)
   // An expired session can return an empty RLS result without a query error.
   // Do not turn that into hundreds of false metadata defects or cache it.
-  if (items.length > 0 && analyses.length === 0) throw new Error('공개 분석을 읽지 못했습니다. 로그인 상태를 확인해 주세요.')
+  if (raw.items.length > 0 && raw.analyses.length === 0) throw new Error('공개 분석을 읽지 못했습니다. 로그인 상태를 확인해 주세요.')
+  if (learner && !fromCache) cachedRaw = { at: Date.now(), value: raw }
+  // 요청마다 — 보류 시험 문항을 원본에서 뺀다(판정 실패면 전부 · fail-closed). 관리자(주입 클라이언트)는 원본 그대로
+  const scope = learner ? await loadRevealScope() : null
+  const keep = (id: string) => scope === null || !isItemHeld(scope, id)
+  const items = raw.items.filter((r) => keep(r.id))
+  const analyses = raw.analyses.filter((a) => keep(a.item_id))
+  const hakAnalyses = raw.hakAnalyses.filter((a) => keep(a.item_id))
   const latest = new Map<string, Analysis>()
   for (const row of [...analyses, ...hakAnalyses]) {
     const current = latest.get(row.item_id)
@@ -83,7 +99,7 @@ export async function loadDissectionCatalog(options: { db?: SupabaseClient; fres
     const sameSet = (x: Analysis) => x.item_id.startsWith(HAKPYEONG_ID_PREFIX) === row.id.startsWith(HAKPYEONG_ID_PREFIX)
     const peers = [...latest.values()].filter(x => x.item_id !== row.id && typeOf.get(x.item_id) === row.type_id && sameSet(x)).map(x => clean(x.design_intent))
     const alternatives = [...new Set(peers)].filter(s => s !== intent && s.length >= intent.length * .8 && s.length <= intent.length * 1.2).sort((x, y) => Math.abs(x.length - intent.length) - Math.abs(y.length - intent.length)).slice(0, 2)
-    const history = metadata ? Object.entries(DISSECTION_METADATA).filter(([id, m]) => id !== row.id && m.format === metadata.format).map(([id, m]) => ({ id, topic: m.topic, formula: m.formula })) : []
+    const history = metadata ? Object.entries(DISSECTION_METADATA).filter(([id, m]) => id !== row.id && keep(id) && m.format === metadata.format).map(([id, m]) => ({ id, topic: m.topic, formula: m.formula })) : []
     const checks = {
       answer: Boolean(row.answer && !a?.answer_unknown),
       evidence: Boolean(clean(a?.answer_locus?.reasoning)),
@@ -112,7 +128,5 @@ export async function loadDissectionCatalog(options: { db?: SupabaseClient; fres
     if (readyItem(item)) built.push(item)
     else excluded.push({ id: row.id, missing: ['ready-check'] })
   }
-  const value: DissectionCatalog = { ...base.catalog, items: built, families: [...new Set(built.flatMap(i => i.trapOptions))].sort(), audit: { total: items.length, fields, excluded } }
-  if (!options.db && built.length > 0) cached = { at: Date.now(), value }
-  return value
+  return { ...base.catalog, items: built, families: [...new Set(built.flatMap(i => i.trapOptions))].sort(), audit: { total: items.length, fields, excluded } }
 }

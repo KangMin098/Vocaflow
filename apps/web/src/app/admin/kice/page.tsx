@@ -25,6 +25,7 @@ import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
 import { parseScope, withScope } from '@/lib/csat/scope'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
+import { loadTrapExamples } from '@/lib/csat/trap-atlas-examples'
 import { loadCsatTypeCards } from '@/lib/csat/learner'
 import { loadMyTraps } from '@/lib/csat/my-traps'
 import { createClient } from '@/lib/supabase/server'
@@ -63,7 +64,7 @@ export default async function CsatHubPage({ searchParams }: { searchParams: Prom
 
       {/* 함정 지도는 평가원 분석으로 구운 파일이다 — 학평 지도는 학년별로 따로 굽는다(별도 작업). 섞어 보이지 않는다 */}
       {scope.set === 'kice' ? (
-        <TrapAtlas chips={chips} as="h2" mine={mine} />
+        <TrapAtlas chips={chips} as="h2" mine={mine} details={await loadTrapExamples()} />
       ) : (
         <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           학평 고{scope.grade} 함정 지도는 아직 굽지 않았어요. 아래 유형 카드의 출제 수는 이 학년 회차 전체로 셉니다.

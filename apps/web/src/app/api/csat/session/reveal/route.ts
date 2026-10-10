@@ -10,6 +10,7 @@
 
 import { NextResponse } from 'next/server'
 
+import { isRevealHeld, revealHeldResponse } from '@/lib/csat/embargo-gate'
 import { fromItemSlug } from '@/lib/csat/item-slug'
 import { loadReveal } from '@/lib/csat/session/reveal'
 import { createClient } from '@/lib/supabase/server'
@@ -36,7 +37,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'item 이 문항 슬러그 모양이 아니다' }, { status: 400 })
   }
 
-  const { payload, error } = await loadReveal(fromItemSlug(slug))
+  let loaded: Awaited<ReturnType<typeof loadReveal>>
+  try {
+    loaded = await loadReveal(fromItemSlug(slug))
+  } catch (e) {
+    // 보류 시험 문항(오답 원인 Pilot 수집 중) — 데이터를 읽기 전에 멈췄다. 계약: 423 · { held } · no-store
+    if (isRevealHeld(e)) return revealHeldResponse()
+    throw e
+  }
+  const { payload, error } = loaded
   if (error) return NextResponse.json({ ok: false, error }, { status: 500 })
   if (!payload) return NextResponse.json({ ok: false, error: '없는 문항이에요' }, { status: 404 })
   return NextResponse.json({ ok: true, ...payload }, { headers: { 'cache-control': 'no-store' } })

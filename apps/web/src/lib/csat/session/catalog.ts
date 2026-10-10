@@ -10,6 +10,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { isItemHeld, loadRevealScope, scopeIsClear, type RevealScope } from '@/lib/csat/embargo-gate'
 import { kiceSourceOf } from '@/lib/csat/kice-source'
 import { anchorCatalog } from '@/lib/csat/overlay'
 import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, skeletonExams, skeletonSiblings } from '@/lib/csat/skeleton'
@@ -42,12 +43,23 @@ const CATALOG_TTL_MS = 10 * 60 * 1000
 let catalogCache: { at: number; catalog: LearnerCatalog } | null = null
 
 export async function loadSessionCatalog(options: { db?: SupabaseClient; fresh?: boolean } = {}): Promise<{ catalog: LearnerCatalog; error: string | null }> {
-  if (!options.db && !options.fresh && catalogCache && Date.now() - catalogCache.at < CATALOG_TTL_MS) {
-    return { catalog: catalogCache.catalog, error: null }
+  // 관리자(주입 클라이언트)는 원본 그대로 — 학습자 경로만 아래에서 거른다
+  if (options.db) return readSessionCatalog(options.db)
+  let res: { catalog: LearnerCatalog; error: string | null }
+  if (!options.fresh && catalogCache && Date.now() - catalogCache.at < CATALOG_TTL_MS) {
+    res = { catalog: catalogCache.catalog, error: null }
+  } else {
+    res = await readSessionCatalog()
+    // 캐시는 **원본**이다 — 보류는 언제든 시작 · 끝나므로 거른 결과를 담지 않는다(Reveal Gate §J)
+    if (!res.error) catalogCache = { at: Date.now(), catalog: res.catalog }
   }
-  const res = await readSessionCatalog(options.db)
-  if (!options.db && !res.error) catalogCache = { at: Date.now(), catalog: res.catalog }
-  return res
+  return { ...res, catalog: withoutHeldItems(res.catalog, await loadRevealScope()) }
+}
+
+/** 요청마다 — 보류 시험 문항을 후보에서 뺀다(판정 실패면 전부 뺀다 · fail-closed). 문항 글자는 원래 없다 */
+export function withoutHeldItems(catalog: LearnerCatalog, scope: RevealScope): LearnerCatalog {
+  if (scopeIsClear(scope)) return catalog
+  return { ...catalog, items: catalog.items.filter((i) => !isItemHeld(scope, i.id)) }
 }
 
 async function readSessionCatalog(client?: SupabaseClient): Promise<{ catalog: LearnerCatalog; error: string | null }> {

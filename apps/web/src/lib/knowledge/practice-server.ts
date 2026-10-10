@@ -41,6 +41,7 @@ import { selectWriter, stableUuid, type AttemptWriter } from './practice-writer'
 import { crossSessionHelp, type CrossSession } from './prior-help'
 import { kstDateOf, kstReviewDate } from './review-date'
 import { CLAIM_SUPPORT_TASK, itemTaskRef, loadLiveApplication } from './product-server'
+import { canRevealItem, embargoedItemIds } from '@/lib/csat/embargo-gate'
 
 /** 정본 주석이 있는 문항 — claim-support.ts 의 주석 레지스트리에서 만든다(손 목록이면 주석을 늘려도 연습 풀이 1문항에 머문다) */
 export const ANNOTATED_ITEM_IDS: readonly string[] = annotatedItemIds()
@@ -103,7 +104,9 @@ async function serverPool(opts: { preview: boolean }, client?: SupabaseClient): 
     }
   }
   // 주석 문항 먼저, 그다음 최근 회차부터
-  return out.sort((a, b) => (a.kind === b.kind ? b.itemId.localeCompare(a.itemId) || a.no - b.no : a.kind === 'annotated' ? -1 : 1))
+  // Reveal Gate — 보류 시험(오답 원인 Pilot 수집 중) 문항은 연습 풀에서 뺀다(판정 실패면 전부 보류 · fail-closed)
+  const held = await embargoedItemIds(out.map((e) => e.itemId))
+  return out.filter((e) => !held.has(e.itemId)).sort((a, b) => (a.kind === b.kind ? b.itemId.localeCompare(a.itemId) || a.no - b.no : a.kind === 'annotated' ? -1 : 1))
 }
 
 /**
@@ -205,6 +208,8 @@ export class PracticeInputError extends Error {
 }
 
 async function answerOf(db: SupabaseClient, itemId: string): Promise<number | null> {
+  // 보류 시험 문항이면 정답을 읽지 않는다 — 고른 답의 정오(optionCorrect)를 내지 않는다(null)
+  if (!(await canRevealItem(itemId))) return null
   const { data, error } = await db.from('csat_items_public').select('answer').eq('id', itemId).maybeSingle()
   if (error) throw new Error(`정답 읽기 실패: ${error.message}`)
   const a = (data as { answer?: unknown } | null)?.answer

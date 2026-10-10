@@ -8,6 +8,7 @@
 
 import { NextResponse } from 'next/server'
 
+import { canRevealItem, revealHeldResponse } from '@/lib/csat/embargo-gate'
 import { fromItemSlug } from '@/lib/csat/item-slug'
 import { loadLecture } from '@/lib/csat/lecture/store'
 import { createClient } from '@/lib/supabase/server'
@@ -27,6 +28,8 @@ export async function GET(req: Request) {
   if (!/^[A-Za-z0-9_]{1,16}-\d{1,2}$/.test(slug)) {
     return NextResponse.json({ ok: false, error: 'item 이 문항 슬러그 모양이 아니다' }, { status: 400 })
   }
+  // 보류 시험 문항이면 대본(정답 · 해설)을 읽기 전에 멈춘다 — 계약: 423 · { held } · no-store
+  if (!(await canRevealItem(fromItemSlug(slug)))) return revealHeldResponse()
   const lecture = loadLecture(fromItemSlug(slug))
   if (!lecture) return NextResponse.json({ ok: false, error: '이 문항에는 아직 강의가 없어요' }, { status: 404 })
   return NextResponse.json({ ok: true, lecture }, { headers: { 'cache-control': 'no-store' } })
