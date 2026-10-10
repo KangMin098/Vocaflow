@@ -2348,8 +2348,8 @@
     },
     "M2406#25": {
       "item_id": "M2406#25",
-      "version": 1,
-      "total_sec_est": 184,
+      "version": 2,
+      "total_sec_est": 189,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 83,
       "cues": [
@@ -2551,14 +2551,14 @@
             },
             {
               "lang": "ko-KR",
-              "text": "해외가 붙지 않은 막대를 찾아 값을 확인하세요."
+              "text": "해외가 붙지 않은 막대를 찾아 그 값을 선지 수치와 대조하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "같으니 일치합니다."
+              "text": "막대를 잘못 고르면 값이 맞아 보여도 틀린 판정이 됩니다."
             }
           ],
-          "est_sec": 14.2,
+          "est_sec": 19.4,
           "pause_after_ms": 400
         },
         {

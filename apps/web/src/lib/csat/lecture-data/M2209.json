@@ -2787,7 +2787,7 @@
     },
     "M2209#25": {
       "item_id": "M2209#25",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 209,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 91,
@@ -2944,14 +2944,14 @@
             },
             {
               "lang": "ko-KR",
-              "text": "표 첫 행을 확인하세요."
+              "text": "표 첫 행을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "사천육백오십구 명으로 가장 많고, 성장률은 칠십일이에요."
+              "text": "증가 인원이 가장 많은지, 성장률 칸이 칠십일인지 두 가지를 대조하세요."
             }
           ],
-          "est_sec": 16.2,
+          "est_sec": 16.9,
           "pause_after_ms": 400
         },
         {

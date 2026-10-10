@@ -2710,8 +2710,8 @@
     },
     "M2506#25": {
       "item_id": "M2506#25",
-      "version": 1,
-      "total_sec_est": 185,
+      "version": 2,
+      "total_sec_est": 188,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 85,
       "cues": [
@@ -2863,14 +2863,14 @@
             },
             {
               "lang": "ko-KR",
-              "text": "여성 막대 중 최고를 찾고 값도 확인하세요."
+              "text": "여성 막대 중 최고를 찾고, 그 값이 오십팔인지도 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "둘 다 맞으니 일치합니다."
+              "text": "순위와 수치가 둘 다 맞아야 일치입니다."
             }
           ],
-          "est_sec": 13.7,
+          "est_sec": 16.9,
           "pause_after_ms": 400
         },
         {
