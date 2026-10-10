@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(csat): 학습자 결함 — (근거 상한 제거는 #187) 연습을 다 풀면 안 움직이는 「다음 문항」 대신 완료 + 서가 해부로 · 강의가 지도를 움직이는 동안 「멈춤」 안내. 원문 진입: 다른 회차 PDF 를 놓으면 조용히 무시되던 것 → 어느 회차가 필요한지 알림(저장은 유지) · 문제지 없이 되는 학습과 안 되는 학습 안내.
 
 - fix(csat): 확인 과제 · Practice 제출 라우트에 보류 관문(Reveal Gate) — 채점 전 423(Codex P1). 직접 확인 CHECK 는 막힌 뒤 연속 2개 정답으로 해소(D-8 v1.1 · Codex P2), 판정 기준 `curriculum.ts` `CRITERIA`. 생애주기 E2E `e2e-lifecycle-open.mts`(합성 게이트 5/5 · QA 계정 열린 경로 준비) · V · S 설계 `docs/csat-learner/VS_DIRECT_CHECK_DESIGN.md`
 
