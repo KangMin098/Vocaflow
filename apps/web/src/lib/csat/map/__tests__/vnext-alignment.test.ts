@@ -10,9 +10,10 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import {
-  AXIS_ROLE, CAUSE_NOTE, CORE_AXES, FORBIDDEN_WORDS, GOAL_STRATEGY_NOTE, LEARNING_PROGRESSION, LEGACY_DETAIL_NOTE,
+  AXIS_ROLE, CAUSE_NOTE, CORE_AXES, FORBIDDEN_WORDS, GOAL_STRATEGY_NOTE, GRADE_EXPOSURE_GUIDE, LEARNING_PROGRESSION, LEGACY_DETAIL_NOTE,
   LEGACY_PROXY_LABEL, TASK_NOTE, THRESHOLD_NOTE,
 } from '../core'
+import { READ_PATH } from '../learner-path'
 
 const MAP_DIR = path.resolve(__dirname, '../../../../components/csat/diagnosis/map')
 const read = (f: string) => fs.readFileSync(path.join(MAP_DIR, f), 'utf8')
@@ -96,5 +97,65 @@ describe('학습 지도 vNext 정렬', () => {
       ...Object.values(AXIS_ROLE).flatMap((r) => [r.label, r.desc]),
     ]
     for (const t of texts) expect(t).not.toMatch(FORBIDDEN_WORDS)
+  })
+
+  // ── T-0019 학년별 권장 참고(정본 rev2.1 §15) ──
+  const LIB = path.resolve(__dirname, '..')
+  const lib = (f: string) => fs.readFileSync(path.join(LIB, f), 'utf8')
+
+  it('T0 학교급별 LP 배열이 정본 §15 그대로', () => {
+    const by = Object.fromEntries(GRADE_EXPOSURE_GUIDE.bands.map((b) => [b.stage, { main: [...b.main], preview: [...b.preview] }]))
+    expect(by).toEqual({
+      upper_elementary: { main: ['LP1', 'LP2'], preview: ['LP3'] },
+      middle: { main: ['LP2', 'LP3', 'LP4'], preview: [] },
+      high: { main: ['LP3', 'LP4', 'LP5', 'LP6', 'LP7'], preview: [] },
+    })
+  })
+
+  it('T1 축은 CORE_AXES 식별자만 참조한다(복제 정의 없음)', () => {
+    const codes = new Set(CORE_AXES.map((a) => a.code))
+    for (const b of GRADE_EXPOSURE_GUIDE.bands) for (const c of [...b.axes, ...b.earlyAxes]) expect(codes.has(c)).toBe(true)
+    // core.ts 안에 축 코드 목록을 새로 만든 곳이 CORE_AXES · CoreCode 외에 없다
+    expect(lib('core.ts').split("'V' | 'S' | 'R' | 'E' | 'L' | 'X'").length - 1).toBe(1)
+  })
+
+  it('T2 참고(advisory) · 출처 버전만 — 범위 계산 · 단계 키 · 진단 상태 · 잠금 · 완료 값이 없다', () => {
+    expect(GRADE_EXPOSURE_GUIDE.advisory).toBe(true)
+    expect(GRADE_EXPOSURE_GUIDE.source).toBe('LEARNING_MAP_VNEXT rev2.1 §15')
+    const json = JSON.stringify(GRADE_EXPOSURE_GUIDE)
+    expect(json).not.toMatch(/"(start|end|from|to|step|stepKey|status|state|locked?|lock|done|complete[d]?|evidence)"/)
+    const stepKeys = new Set(READ_PATH.map((s) => s.key as string))
+    for (const b of GRADE_EXPOSURE_GUIDE.bands) for (const lp of [...b.main, ...b.preview]) expect(stepKeys.has(lp)).toBe(false)
+  })
+
+  it('T3 지도는 세 학교급을 모두 보이고 참고 · 진단 결정 · 듣기 별도 문구를 화면과 접근성 트리에 둔다', () => {
+    const main = read('LearnerMap.tsx')
+    expect(main).toContain('GRADE_EXPOSURE_GUIDE.bands.map(')
+    expect(main).toMatch(/aria-labelledby="grade-guide-h"/)
+    expect(main).toContain('학년별 권장 참고')
+    expect(main).toContain('실제 경로는 진단 결과가 결정')
+    expect(main).toContain('듣기는 별도 트랙')
+  })
+
+  it('T4 학교급은 카드 표시 · 학습 길 · 행동 계산에 들어가지 않는다(숨김 · 비활성 · 재정렬 · 강조 없음)', () => {
+    const main = read('LearnerMap.tsx')
+    // 단계 카드는 학교급 값을 받지 않는다
+    expect(main).toContain('function StepNode({ s, i, last, onOpen }')
+    expect(main).not.toMatch(/exposureOf|SchoolBand|data-band|step-exposure/)
+    for (const f of ['learner-path.ts', 'axis-routing.ts', 'skill-diagnosis.ts', 'curriculum.ts']) {
+      expect(lib(f)).not.toMatch(/GRADE_EXPOSURE_GUIDE|SchoolStage/)
+    }
+  })
+
+  it('T6 정본 LP 배열 · 성장 경로 8단계 · 읽기 길 7단계는 서로 다른 계약이다', () => {
+    const lps = new Set(GRADE_EXPOSURE_GUIDE.bands.flatMap((b) => [...b.main, ...b.preview]))
+    expect([...lps].sort()).toEqual(['LP1', 'LP2', 'LP3', 'LP4', 'LP5', 'LP6', 'LP7'])
+    expect(LEARNING_PROGRESSION).toHaveLength(8)
+    expect(READ_PATH).toHaveLength(7)
+    // LP 이름이 성장 경로 단계명 · 읽기 길 키로 쓰이지 않는다(같은 배열로 취급 금지)
+    for (const lp of lps) {
+      expect(LEARNING_PROGRESSION.some((p) => p.step === lp)).toBe(false)
+      expect(READ_PATH.some((s) => s.key === lp || s.name === lp)).toBe(false)
+    }
   })
 })
