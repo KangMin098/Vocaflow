@@ -48,7 +48,11 @@ export interface SkillDiagnosis {
   /** 확정에 쓴 문항 */
   verifiedItems: string[]
   /** CHECK 진행 — 확정에 쓰지 않은 확인 문항의 독립 첫 시도 */
-  check: { right: number; wrong: number; need: number; remaining: string[] }
+  check: {
+    right: number; wrong: number; need: number; remaining: string[]
+    /** 다시 확인에서 막힌 문항과 마지막으로 막힌 시각 — 그 뒤의 바로잡기만 센다(lifecycle-evidence) */
+    wrongItems?: string[]; lastWrongAt?: string | null
+  }
   resolvedAt: string | null
 }
 
@@ -115,11 +119,13 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
     let resolvedAt: string | null = null
     // 막힌 뒤에는 바로잡기를 다시 하고 **새로** 확인한다 — 막힌 다음의 연속 정답 CHECK_ITEMS 개로 해소(누적 오답이 영구히 막지 않게 · Codex P2 · D-8 v1.1)
     let streak = 0
+    const wrongItems: string[] = []
+    let lastWrongAt: string | null = null
     for (const e of checks) {
-      if (e.ok) { right++; streak++ } else { wrong++; streak = 0 }
+      if (e.ok) { right++; streak++ } else { wrong++; streak = 0; wrongItems.push(e.item); lastWrongAt = e.at }
       if (streak >= CHECK_ITEMS) { resolvedAt = e.at; break }
     }
-    const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)) } }
+    const base = { verifiedAt, verifiedItems: wrongs, check: { right, wrong, need: CHECK_ITEMS, remaining: remaining.filter((i) => !used.has(i)), wrongItems, lastWrongAt } }
     if (resolvedAt) return { ...base, status: 'resolved', verified: false, resolvedAt }
     // 해소되지 않았고 기한이 지났으면 만료 → 기한 뒤의 시도로 새 회차(그 시도가 없으면 만료로 끝)
     if (now.toISOString() > deadline) {

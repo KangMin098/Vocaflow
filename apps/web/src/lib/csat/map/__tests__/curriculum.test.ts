@@ -18,11 +18,12 @@ describe('기준 정본', () => {
       expect(CURRICULUM[s.key].taskKeys).toEqual([])
     }
   })
-  it('live · ready 단계는 확인 과제 · 바로잡기 절차 · 적용 링크가 있다', () => {
+  it('live · ready 단계는 확인 과제 · 바로잡기 절차가 있고, 적용 링크는 practice 종류만', () => {
     for (const c of Object.values(CURRICULUM).filter((x) => x.readiness === 'live' || x.readiness === 'ready')) {
       expect(c.taskKeys.length).toBeGreaterThan(0)
       expect(repairProtocol(c.step).length).toBeGreaterThan(0)
-      for (const k of c.taskKeys) expect(TRANSFER_HREF[k]).toBeTruthy()
+      // 적용 링크는 기록이 실제로 남는 곳(practice)만 — item 종류는 전이 문항 풀 전까지 「준비 중」(Codex P2)
+      for (const k of c.taskKeys) expect(!!TRANSFER_HREF[k]).toBe(c.transfer === 'practice')
     }
   })
   it('과제 키는 한 단계에만 속한다', () => {
@@ -62,7 +63,7 @@ describe('생애주기 4칸', () => {
     expect(lifecycleCells(sk('verified', 1), true)[3].note).toBe('맞힘 1/2')
   })
   it('다시 확인에서 막히면 바로잡기 · 다시 확인이 다시 지금 할 일', () => {
-    expect(states(lifecycleCells(sk('still_needed', 1, 1), true))).toEqual(['done', 'now', 'open', 'now'])
+    expect(states(lifecycleCells(sk('still_needed', 1, 1), true))).toEqual(['done', 'now', 'open', 'open']) // 지금 할 일은 하나 — 바로잡기 기록이 생기면 적용 → 다시 확인 순서
   })
   it('통과하면 확인 · 다시 확인만 마침 · 기한이 지나면 다시 확인부터', () => {
     expect(states(lifecycleCells(sk('resolved', 2), true))).toEqual(['done', 'open', 'open', 'done']) // 바로잡기 · 적용은 수행 근거가 없어 마침이 아니다

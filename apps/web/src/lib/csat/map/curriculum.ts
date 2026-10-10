@@ -5,6 +5,7 @@
 // 순수 상수 · 함수(DB · 시계 없음). 처방은 직접 확인(skill-diagnosis) 뒤에만 연다 — 이 파일은 「무엇을 열지」 만 정한다.
 // 준비 상태는 코드와 콘텐츠의 사실만 적는다. 실제 학습자 효과는 어느 단계도 확인되지 않았다(MC-12 UNKNOWN).
 import type { StepKey } from './learner-path'
+import { NO_EVIDENCE, nextLifecycleAction, type LifecycleEvidence } from './lifecycle-evidence'
 import { CHECK_ITEMS, EXPIRY_DAYS, VERIFY_ITEMS } from './skill-diagnosis'
 
 /** FIND · CHECK 판정 기준(결정 D-1 · D-8 v1.1) — 단계마다 같은 값이지만 기준 정본은 여기다. 엔진(skill-diagnosis)이 같은 상수를 쓴다(테스트가 묶는다) */
@@ -135,7 +136,7 @@ export function exposureOf(step: StepKey, band: SchoolBand | null): Exposure | n
 export const SCHOOL_BANDS: readonly SchoolBand[] = ['elementary', 'middle', 'high']
 export const isSchoolBand = (v: unknown): v is SchoolBand => typeof v === 'string' && (SCHOOL_BANDS as readonly string[]).includes(v)
 
-/** 생애주기 4칸의 상태 — 직접 확인 결과(skill-diagnosis)에서만 계산한다. 화면 · 테스트가 같은 값을 쓴다 */
+/** 생애주기 4칸의 상태 — 직접 확인 결과(skill-diagnosis) + 수행 기록(lifecycle-evidence)으로 계산한다. 화면 · 테스트가 같은 값을 쓴다 */
 export type CycleState = 'done' | 'now' | 'open' | 'locked'
 export interface CycleCell {
   stage: 'FIND' | 'REPAIR' | 'TRANSFER' | 'CHECK'
@@ -143,61 +144,42 @@ export interface CycleCell {
   note: string
 }
 
-export function lifecycleCells(skill: { status: 'unverified' | 'verified' | 'still_needed' | 'resolved' | 'expired'; check: { right: number; wrong: number; need: number } } | null, hasTargets: boolean): CycleCell[] {
+export function lifecycleCells(
+  skill: { status: 'unverified' | 'verified' | 'still_needed' | 'resolved' | 'expired'; check: { right: number; wrong: number; need: number } } | null,
+  hasTargets: boolean,
+  ev: LifecycleEvidence = NO_EVIDENCE,
+): CycleCell[] {
   const s = skill?.status ?? 'unverified'
-  const check = skill ? `${skill.check.right}/${skill.check.need}` : ''
-  if (!hasTargets) {
-    return [
-      { stage: 'FIND', state: 'now', note: '확인 활동' },
-      { stage: 'REPAIR', state: 'locked', note: '원인 확인 뒤' },
-      { stage: 'TRANSFER', state: 'locked', note: '원인 확인 뒤' },
-      { stage: 'CHECK', state: 'locked', note: '원인 확인 뒤' },
-    ]
-  }
-  switch (s) {
-    case 'verified':
-      return [
-        { stage: 'FIND', state: 'done', note: '직접 확인됨' },
-        { stage: 'REPAIR', state: 'now', note: '지금 할 일' },
-        { stage: 'TRANSFER', state: 'open', note: '열림' },
-        { stage: 'CHECK', state: 'open', note: `맞힘 ${check}` },
-      ]
-    case 'still_needed':
-      return [
-        { stage: 'FIND', state: 'done', note: '직접 확인됨' },
-        { stage: 'REPAIR', state: 'now', note: '한 번 더' },
-        { stage: 'TRANSFER', state: 'open', note: '열림' },
-        { stage: 'CHECK', state: 'now', note: `막힘 ${skill!.check.wrong}` },
-      ]
-    case 'resolved':
-      return [
-        { stage: 'FIND', state: 'done', note: '직접 확인됨' },
-        // 바로잡기 · 다른 글에 적용은 수행 기록을 남기지 않는다 — 했는지 모르는 단계를 「마침」 으로 표시하지 않는다(Codex P2)
-        { stage: 'REPAIR', state: 'open', note: '기록 없음 · 언제든 다시' },
-        { stage: 'TRANSFER', state: 'open', note: '기록 없음 · 언제든 다시' },
-        { stage: 'CHECK', state: 'done', note: '다시 확인 통과' },
-      ]
-    case 'expired':
-      return [
-        { stage: 'FIND', state: 'now', note: '다시 확인' },
-        { stage: 'REPAIR', state: 'locked', note: '다시 확인 뒤' },
-        { stage: 'TRANSFER', state: 'locked', note: '다시 확인 뒤' },
-        { stage: 'CHECK', state: 'locked', note: '다시 확인 뒤' },
-      ]
-    default:
-      return [
-        { stage: 'FIND', state: 'now', note: '확인 문항 풀기' },
-        { stage: 'REPAIR', state: 'locked', note: '원인 확인 뒤' },
-        { stage: 'TRANSFER', state: 'locked', note: '원인 확인 뒤' },
-        { stage: 'CHECK', state: 'locked', note: '원인 확인 뒤' },
-      ]
-  }
+  const locked = (why: string): CycleCell[] => [
+    { stage: 'REPAIR', state: 'locked', note: why },
+    { stage: 'TRANSFER', state: 'locked', note: why },
+    { stage: 'CHECK', state: 'locked', note: why },
+  ]
+  if (!hasTargets) return [{ stage: 'FIND', state: 'now', note: '확인 활동' }, ...locked('원인 확인 뒤')]
+  if (s === 'expired') return [{ stage: 'FIND', state: 'now', note: '다시 확인' }, ...locked('다시 확인 뒤')]
+  if (s !== 'verified' && s !== 'still_needed' && s !== 'resolved') return [{ stage: 'FIND', state: 'now', note: '확인 문항 풀기' }, ...locked('원인 확인 뒤')]
+  // 바로잡기 · 적용은 실제 수행 기록(lifecycle-evidence)으로만 「마침」 — 기록이 없으면 마침으로 표시하지 않는다(Codex P2 · MC-07)
+  const next = nextLifecycleAction(s, ev)
+  const repair: CycleCell = ev.repairAt
+    ? { stage: 'REPAIR', state: 'done', note: '막혔던 문항을 다시 맞힘' }
+    : { stage: 'REPAIR', state: next === 'repair' ? 'now' : 'open', note: ev.repairTried ? '바로잡는 중' : s === 'resolved' ? '기록 없음' : '지금 할 일' }
+  const transfer: CycleCell = ev.transferAt
+    ? { stage: 'TRANSFER', state: 'done', note: '다른 글에 적용함' }
+    : ev.transferReady === false
+      ? { stage: 'TRANSFER', state: 'locked', note: '적용 문항 준비 중' }
+    : { stage: 'TRANSFER', state: next === 'transfer' ? 'now' : 'open', note: s === 'resolved' ? '기록 없음' : '열림' }
+  const check: CycleCell = s === 'resolved'
+    ? { stage: 'CHECK', state: 'done', note: '다시 확인 통과' }
+    : s === 'still_needed'
+      ? { stage: 'CHECK', state: next === 'check' ? 'now' : 'open', note: `막힘 ${skill!.check.wrong} · 연속 ${skill!.check.need}개 맞히면 통과` }
+      : { stage: 'CHECK', state: next === 'check' ? 'now' : 'open', note: `맞힘 ${skill!.check.right}/${skill!.check.need}` }
+  return [{ stage: 'FIND', state: 'done', note: '직접 확인됨' }, repair, transfer, check]
 }
 
-/** 다른 글에 적용(TRANSFER) 링크 — 과제 키마다. practice = Practice 화면 · item = 같은 유형의 다른 기출 목록 */
+/**
+ * 다른 글에 적용(TRANSFER) 링크 — **적용 기록이 실제로 남는** 곳만(Codex P2). 지금은 주장과 근거 Practice 하나.
+ * 이어 주는 단서 · E축은 확인 묶음 밖에 과제가 켜진 문항이 없어 적용 기록을 만들 수 없다 — 전이 문항 풀(합의 주석 · 맹검 · 승인) 전에는 「준비 중」.
+ */
 export const TRANSFER_HREF: Readonly<Record<string, string>> = {
   'claim-support': '/csat/practice/claim-support',
-  'cohesion-link': '/csat/browse?type=R-ORDER',
-  'option-restate': '/csat/browse?type=R-TOPIC',
-  'evidence-locate': '/csat/browse?type=R-BLANK',
 }
