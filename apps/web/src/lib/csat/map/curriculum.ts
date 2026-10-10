@@ -80,12 +80,12 @@ export const CURRICULUM: Record<StepKey, StepCurriculum> = {
     note: '주장과 근거 — 확인 문항 9 · 직접 확인 → 처방 → 다시 확인이 돈다(합성 검증만)',
   },
   option: {
-    step: 'option', exposure: { elementary: 'later', middle: 'preview', high: 'core' }, taskKeys: ['option-restate'], repair: [4, 6, 7], transfer: 'item', readiness: 'ready',
-    note: '「선지가 다시 말한 본문 문장」 — 골격 근거 표시에서 파생(주제 · 제목 · 요지). 적용(knowledge_applications) 승인이 남았다',
+    step: 'option', exposure: { elementary: 'later', middle: 'preview', high: 'core' }, taskKeys: ['option-restate'], repair: [4, 6, 7], transfer: 'item', readiness: 'live',
+    note: '「선지가 다시 말한 본문 문장」 — 합의 주석 6문항(주제 · 제목 · 요지) · 2026-10-10 사용자 승인 · 맹검 채택 2 · 적용 켬(A4-4)',
   },
   evidence: {
-    step: 'evidence', exposure: { elementary: 'later', middle: 'preview', high: 'core' }, taskKeys: ['evidence-locate'], repair: [1, 6, 7], transfer: 'item', readiness: 'ready',
-    note: '「빈칸을 정하는 근거 문장」 — 골격 근거 표시에서 파생(빈칸 31–34). 적용 승인이 남았다',
+    step: 'evidence', exposure: { elementary: 'later', middle: 'preview', high: 'core' }, taskKeys: ['evidence-locate'], repair: [1, 6, 7], transfer: 'item', readiness: 'live',
+    note: '「빈칸을 정하는 근거 문장」 — 합의 주석 5문항(빈칸) · 2026-10-10 사용자 승인 · 맹검 채택 2 · 적용 켬(A5-4)',
   },
   integrate: {
     step: 'integrate', exposure: { elementary: 'later', middle: 'later', high: 'core' }, taskKeys: [], repair: [1, 2, 3, 4, 5, 6, 7], transfer: 'none', readiness: 'blocked',

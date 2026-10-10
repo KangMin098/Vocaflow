@@ -25,6 +25,7 @@ const ESSENCE = 'essence-meaning-processing'
 const REVIEW_FILE = path.join(ROOT, 'docs/methodology/vertical/evidence-tasks-review.md')
 // 채택 사유 — 맹검 검토 기록 파일이 있어야 한다(없으면 채택하지 않는다)
 const REVIEW = 'Claude 맹검 검토 2건(서로 독립 · 판정 기록 docs/methodology/vertical/evidence-tasks-review.md) 모두 adopt · Codex 검토는 이 환경에 Codex 가 없어 하지 못했다 — 채택은 제품 사용 판단이지 효과 입증이 아니다(efficacy 미확정)'
+const RELEASE = '사용자 출시 승인(2026-10-10 「승인」) · 맹검 채택 검토 2건 adopt(docs/methodology/vertical/evidence-tasks-review.md) — 효과 미확인, 검증 계획 동반'
 const OPTION_ITEMS = ['2026#22', '2026#23', '2026#24', '2025#22', '2025#23', '2025#24']
 const BLANK_ITEMS = ['2026#31', '2026#32', '2026#33', '2026#34', '2025#32'] // 2025#31 은 인정 문장이 지문 절반을 넘어 뺐다(검토자 2)
 const TYPE_OF: Record<string, string> = { '2026#22': 'R-GIST', '2026#23': 'R-TOPIC', '2026#24': 'R-TITLE', '2025#22': 'R-GIST', '2025#23': 'R-TOPIC', '2025#24': 'R-TITLE' }
@@ -62,10 +63,12 @@ const browser = await chromium.launch()
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
 page.setDefaultTimeout(180_000)
 const go = async (url: string) => { await page.goto(`${BASE}${url}`, { waitUntil: 'domcontentloaded' }); await page.waitForLoadState('networkidle').catch(() => {}) }
+const waitDb = async (ok: () => Promise<boolean>, what: string) => { for (let i = 0; i < 60; i++) { if (await ok()) return; await page.waitForTimeout(2000) } throw new Error(`${what} — 2분 안에 DB 에 반영되지 않았다`) }
 const expectText = async (t: string | RegExp) => {
   const ok = page.getByText(t).first()
   const bad = page.locator('[role="alert"]').filter({ hasText: /./ }).first()
-  await Promise.race([ok.waitFor(), bad.waitFor().then(async () => { throw new Error(`화면 오류: ${await bad.innerText()}`) })])
+  // 성공 문장이 다시 그리기로 사라지면 30초 뒤 넘어간다 — 오류(role=alert)만 멈춘다. 결과는 끝에서 DB 로 전부 확인한다
+  await Promise.race([ok.waitFor({ timeout: 30_000 }).catch(() => log(`(성공 문장 못 봄: ${String(t)} — 끝에서 DB 로 확인)`)), bad.waitFor({ timeout: 30_000 }).then(async () => { throw new Error(`화면 오류: ${await bad.innerText()}`) }, () => {})])
 }
 try {
   // 근거로 쓸 기출 원천 — A · B 등급만(G 는 근거 불가)
@@ -109,7 +112,8 @@ try {
     await form.getByLabel('대상').selectOption({ label: target })
     await form.getByLabel('이유').fill(reason)
     await form.getByRole('button', { name: '연결' }).click()
-    await expectText('연결했습니다.')
+    // 성공 문장이 다시 그려지며 사라지는 경우가 있다 — DB 에 연결이 생겼는지로 확인한다(읽기만)
+    await waitDb(async () => ((await db.from('knowledge_links').select('id', { count: 'exact', head: true }).eq('from_id', from.id).eq('kind', 'implements')).count ?? 0) > 0, `연결 ${from.slug}`)
     log(`연결 ${from.slug} → ${target}`)
   }
 
@@ -232,7 +236,11 @@ try {
     }
     if (app.status === 'draft' && firstBuild && !NO_ACTIVATE) {
       await go('/admin/knowledge/product')
-      await page.locator(`[data-testid="app-status-${app.id}"]`).getByRole('button', { name: '학습자에게 켜기' }).click()
+      const row = page.locator(`[data-testid="app-status-${app.id}"]`)
+      // B7 — 켜기는 출시 승인 사유가 필요하다(채택 ≠ 출시). 사유 = 사용자 승인(2026-10-10 「승인」) + 맹검 검토 기록
+      await row.getByRole('textbox').fill(RELEASE)
+      await row.getByRole('button', { name: /학습자에게 켜기/ }).click()
+      await waitDb(async () => (await one(db.from('knowledge_applications').select('status').eq('id', app!.id).single()) as { status: string }).status === 'active', `켜기 ${a.ref}`)
       await expectText('저장했습니다')
       log(`켜기 ${a.ref}`)
     }
@@ -249,6 +257,12 @@ try {
   }
   await page.screenshot({ path: path.join(OUT, 'evidence-build-final.png'), fullPage: true })
   console.log(JSON.stringify(await one(db.from('knowledge_items').select('slug, status, efficacy, version').in('slug', CHAIN.map((c) => c.slug)))))
+  // 끝 확인 — 적용 13 이 다 있고(켰으면 active) 과제마다 근거가 있다
+  const apps = await one(db.from('knowledge_applications').select('surface_ref, status').in('item_id', [T1.id, T2.id])) as { surface_ref: string; status: string }[]
+  const missing = APPS.filter((a) => !apps.some((x) => x.surface_ref === a.ref))
+  const off = NO_ACTIVATE ? [] : APPS.filter((a) => apps.find((x) => x.surface_ref === a.ref)?.status !== 'active')
+  console.log(`적용 ${apps.length}/${APPS.length} · active ${apps.filter((x) => x.status === 'active').length}`)
+  if (missing.length || off.length) throw new Error(`끝 확인 실패 — 없음 ${missing.map((a) => a.ref).join(',')} · 꺼짐 ${off.map((a) => a.ref).join(',')}`)
 } finally {
   await browser.close()
 }

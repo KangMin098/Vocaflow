@@ -1,6 +1,6 @@
 # E축 확인 과제 — 「선지가 다시 말한 본문 문장」 · 「빈칸을 정하는 근거 문장」(2026-10-10)
 
-> 상태: **사용자 승인(2026-10-10) · 맹검 검토 2건 adopt([evidence-tasks-review](./evidence-tasks-review.md))** — 빌드 스크립트 `scripts/knowledge/vertical-evidence-tasks-build.mts` 로 관리자 화면 경로를 탄다.
+> 상태: **사용자 승인(2026-10-10) · 맹검 검토 2건 adopt([evidence-tasks-review](./evidence-tasks-review.md))** · **2026-10-10 개발 DB 적용 완료** — 사슬 4 채택(과제 2 제품 적용) · 적용 13 active · 화면 확인 `scripts/csat/map/e2e-evidence-live.mts` 13/13.
 > 빌드 실행 여부는 CHANGELOG 와 DB(knowledge_applications)로 확인한다.
 
 ## 코드(이미 있음 · DB 없이 동작)
