@@ -1,0 +1,186 @@
+{
+  "type": "ui",
+  "command_or_protocol": "node --env-file=<web .env.local> verification/ui/ui-verify-map.mjs --base http://localhost:3000 --out verification/ui/UG-0002-T0019",
+  "result": "fail",
+  "skip_count": 3,
+  "artifact_path_or_url": "verification/ui/UG-0002-T0019/ui-evidence.json",
+  "started_at": "2026-10-10T09:21:46.224Z",
+  "observed_at": "2026-10-10T09:21:55.237Z",
+  "commit": "128fd78c1",
+  "urls": [
+    "http://localhost:3000/csat/diagnosis?tab=map"
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "environment": "next dev(http://localhost:3000) · worktree Vocaflow-map-feedback · chromium(playwright) · 계정 runtime-test",
+  "screenshots": [
+    "verification/ui/UG-0002-T0019/map-1440-full.png",
+    "verification/ui/UG-0002-T0019/grade-guide-1440.png",
+    "verification/ui/UG-0002-T0019/map-1440-stepsheet.png"
+  ],
+  "checks": {
+    "render": "pass",
+    "layout_pc": "fail",
+    "readability_hierarchy": "fail",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "skip",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "skip",
+    "design_acceptance": "skip"
+  },
+  "defects": [
+    {
+      "kind": "objective",
+      "claim": "「학년별 권장 참고」 제목이 바로 위 듣기 트랙 내용과 -16px 간격(8px 미만 — 겹치거나 붙어 듣기 줄의 일부처럼 보인다)",
+      "status": "open"
+    },
+    {
+      "kind": "objective",
+      "claim": "학년별 안내 글자 11.04px(12px 미만)",
+      "status": "open"
+    }
+  ],
+  "ui_acceptance_results": [],
+  "notes": {
+    "http": 200,
+    "console_errors": [],
+    "layout": {
+      "1440": {
+        "overflowX": 0,
+        "guide": {
+          "x": 283,
+          "w": 710,
+          "right": 993
+        }
+      },
+      "1920": {
+        "overflowX": 0,
+        "guide": {
+          "x": 283,
+          "w": 1190,
+          "right": 1473
+        }
+      },
+      "gap_above_guide": {
+        "prev": "listen-path",
+        "heading_top": 599,
+        "prev_bottom": 615,
+        "prev_content_bottom": 615,
+        "gap": -16
+      }
+    },
+    "typography": {
+      "items": [
+        {
+          "tag": "H3",
+          "text": "학년별 권장 참고",
+          "size": 11.04,
+          "weight": "600",
+          "family": "__Inter_62543b",
+          "ratio": 6.32
+        },
+        {
+          "tag": "P",
+          "text": "실제 경로는 진단 결과가 결정해요. 학년은 어떤 단계를 주로 만나는지에 ",
+          "size": 11.04,
+          "weight": "400",
+          "family": "__Inter_62543b",
+          "ratio": 6.32
+        },
+        {
+          "tag": "LI",
+          "text": "초등 고학년 — 주로 LP1 · LP2 (+ LP3 맛보기) · 중심 어",
+          "size": 11.04,
+          "weight": "400",
+          "family": "__Inter_62543b",
+          "ratio": 6.32
+        },
+        {
+          "tag": "STRONG",
+          "text": "초등 고학년",
+          "size": 11.04,
+          "weight": "700",
+          "family": "__Inter_62543b",
+          "ratio": 6.32
+        },
+        {
+          "tag": "LI",
+          "text": "중등 — 주로 LP2 · LP3 · LP4 · 중심 문장 이해 · 글 이",
+          "size": 11.04,
+          "weight": "400",
+          "family": "__Inter_62543b",
+          "ratio": 6.32
+        },
+        {
+          "tag": "STRONG",
+          "text": "중등",
+          "size": 11.04,
+          "weight": "700",
+          "family": "__Inter_62543b",
+          "ratio": 6.32
+        },
+        {
+          "tag": "LI",
+          "text": "고등 — 주로 LP3 · LP4 · LP5 · LP6 · LP7 · 중심",
+          "size": 11.04,
+          "weight": "400",
+          "family": "__Inter_62543b",
+          "ratio": 6.32
+        },
+        {
+          "tag": "STRONG",
+          "text": "고등",
+          "size": 11.04,
+          "weight": "700",
+          "family": "__Inter_62543b",
+          "ratio": 6.32
+        }
+      ],
+      "heading": {
+        "size": 11.04,
+        "weight": "600",
+        "text": "학년별 권장 참고"
+      }
+    },
+    "design_system": {
+      "mapFont": "__Inter_62543b",
+      "guideFont": "__Inter_62543b",
+      "inlineStyled": 0,
+      "classes": [
+        "learner_pathHint__yvTp4"
+      ]
+    },
+    "states": "실행 못 함: 빈 상태·오류 상태를 만들 계정·주입 수단이 이 실행에 없다",
+    "aria_snapshot": "- region \"학년별 권장 참고\":\n  - heading \"학년별 권장 참고\" [level=3]\n  - paragraph: 실제 경로는 진단 결과가 결정해요. 학년은 어떤 단계를 주로 만나는지에 대한 참고일 뿐, 잠그거나 건너뛰게 하지 않아요. 듣기는 별도 트랙이에요.\n  - list \"학교급별 권장 단계\":\n    - listitem:\n      - strong: 초등 고학년\n      - text: — 주로 LP1 · LP2 (+ LP3 맛보기) · 중심 어휘 · 표현 · 문장 이해 · 초기 글 이해\n    - listitem:\n      - strong: 중등\n      - text: — 주로 LP2 · LP3 · LP4 · 중심 문장 이해 · 글 이해\n    - listitem:\n      - strong: 고등\n      - text: — 주로 LP3 · LP4 · LP5 · LP6 · LP7 · 중심 글 이해 · 근거 · 선지 판단 · 실전 수행",
+    "accessibility": {
+      "aria_phrases": [
+        true,
+        true,
+        true
+      ],
+      "min_contrast": 6.32,
+      "focus_visible": "20/20"
+    },
+    "navigation": [
+      {
+        "href": "/csat/diagnosis?tab=map&view=full",
+        "status": 200
+      }
+    ],
+    "visual_regression": "기준 캡처 없음 — 이번 스크린샷을 다음 비교의 기준으로 남긴다",
+    "design_acceptance": {
+      "v8_ac3_three_bands": 3,
+      "v8_ac3_aria": [
+        true,
+        true,
+        true
+      ],
+      "map_items": 32,
+      "ui_design": "설계 v8 에 ui_design 없음(게이트 이전) — 디자인 수용 기준 자체가 없다"
+    }
+  }
+}
