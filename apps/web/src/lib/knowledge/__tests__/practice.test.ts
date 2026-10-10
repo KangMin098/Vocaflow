@@ -109,8 +109,9 @@ describe('제출 검사', () => {
     const r = parseSubmission({ ...base, explanationViewedAt: '2026-10-08T05:59:30Z' }, NOW)
     expect(r.ok && r.value.explanationViewedAt).toBe('2026-10-08T05:59:30.000Z')
   })
-  it('근거 4개 · 선지 6 · 확신 0 · 모르는 관계 · 도움 수준 hint 는 거부', () => {
-    expect(parseSubmission({ ...base, support: [0, 2, 3, 4] }, NOW).ok).toBe(false)
+  it('근거 21개 · 선지 6 · 확신 0 · 모르는 관계 · 도움 수준 hint 는 거부(근거는 「모두」 — 6개 근거 문항도 받는다)', () => {
+    expect(parseSubmission({ ...base, support: [0, 2, 3, 4, 5, 6] }, NOW).ok).toBe(true)
+    expect(parseSubmission({ ...base, support: Array.from({ length: 21 }, (_, i) => i) }, NOW).ok).toBe(false)
     expect(parseSubmission({ ...base, option: 6 }, NOW).ok).toBe(false)
     expect(parseSubmission({ ...base, confidence: 0 }, NOW).ok).toBe(false)
     expect(parseSubmission({ ...base, relation: 'cause' }, NOW).ok).toBe(false)

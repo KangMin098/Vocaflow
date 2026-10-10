@@ -26,7 +26,12 @@ export interface FindAttemptRow extends FirstAttempt {
   taskKey: string
   /** 판단 시각(ISO) — 기능 단위 직접 확인(skill-diagnosis)의 순서 · 기한에 쓴다 */
   answeredAt?: string | null
+  /** 세부 채점(수행 기록 response.grade) — 완전 정답 판정은 바꾸지 않고 「어디서 막혔나」만 알린다. 없으면 null */
+  parts?: Record<string, boolean> | null
 }
+
+/** 막힌 확인 문항에서 각 부분(주장 · 근거 · 관계 …)이 틀린 문항 수 — 세부 채점이 없는 문항은 unknown */
+export type BlockedParts = Record<string, number> & { unknown: number }
 
 export type FindState = 'untried' | 'in_progress' | 'confirmed_need' | 'not_needed' | 'mixed'
 
@@ -38,6 +43,8 @@ export interface FindOutcome {
   right: number
   /** 판정에 실제로 쓴 확인 문항(적격 독립 첫 시도가 있는 것만) — 결정 추적의 관찰 근거 */
   items: string[]
+  /** 막힌 문항의 세부 — 부분 정답(주장은 맞고 근거만 누락 등)을 완전 오답과 구별해 추적한다(판정 기준은 그대로) */
+  blockedParts: BlockedParts
   /** 확인 문항이 모자라 기준에 못 닿는가(문항이 1개뿐인 단계) */
   needsMoreItems: boolean
   /** 학습자에게 보이는 한 문장 — 약점을 단정하지 않는다 */
@@ -55,10 +62,23 @@ export const FIND_STATE_LABEL: Record<FindState, string> = {
 export function findOutcome(targets: readonly FindTarget[], attempts: readonly FindAttemptRow[]): FindOutcome {
   const keys = new Set(targets.map((t) => `${t.taskKey}|${t.itemRef}`))
   const byItem = new Map<string, boolean>()
+  const partsOf = new Map<string, Record<string, boolean> | null>()
   for (const a of attempts) {
     if (a.phase !== 'practice' || !keys.has(`${a.taskKey}|${a.itemRef}`) || !isOwnEvidence(a) || a.isCorrect === null) continue
     // 뷰가 첫 시도만 준다 — 같은 문항이 두 번 오면(과제 키가 다른 경우 등) 먼저 온 것을 둔다
-    if (!byItem.has(a.itemRef)) byItem.set(a.itemRef, a.isCorrect)
+    if (!byItem.has(a.itemRef)) {
+      byItem.set(a.itemRef, a.isCorrect)
+      partsOf.set(a.itemRef, a.parts ?? null)
+    }
+  }
+  const blockedParts: BlockedParts = { unknown: 0 }
+  for (const [item, ok] of byItem) {
+    if (ok) continue
+    const p = partsOf.get(item)
+    if (!p) { blockedParts.unknown++; continue }
+    // 주장이 틀리면 근거 · 관계는 정답 주장에 대고 채점되므로 따라 틀린다 — 그 문항은 「주장」으로만 센다(따라 틀린 것을 별도 약점으로 세지 않는다 · 합성 집단 C 그룹에서 확인)
+    if (p.claim === false) { blockedParts.claim = (blockedParts.claim ?? 0) + 1; continue }
+    for (const [k, v] of Object.entries(p)) if (v === false) blockedParts[k] = (blockedParts[k] ?? 0) + 1
   }
   const checked = byItem.size
   const right = [...byItem.values()].filter(Boolean).length
@@ -86,5 +106,5 @@ export function findOutcome(targets: readonly FindTarget[], attempts: readonly F
     state = 'mixed'
     message = `확인 문항 ${checked}개 중 ${wrong}개가 막혔어요. 결과가 엇갈려서 한 번 더 확인해요.`
   }
-  return { state, checked, wrong, right, items: [...byItem.keys()], needsMoreItems, message }
+  return { state, checked, wrong, right, items: [...byItem.keys()], blockedParts, needsMoreItems, message }
 }

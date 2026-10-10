@@ -8,7 +8,9 @@
 import type { FindOutcome } from './find-outcome'
 
 /** 정책을 바꾸면 버전을 올린다 — 기록된 결정이 어떤 규칙으로 나왔는지 다시 알 수 있게 */
-export const DECISION_POLICY_VERSION = 'find-policy.v1'
+// v1(2026-10-10) → v2(2026-10-10 합성 집단 검증): 행동 규칙은 같다. 막힌 문항의 세부(주장 · 근거 · 관계)를 추적 · 이유 · 학습자 문구에 남긴다
+//   — v1 은 「주장은 맞고 근거 하나 누락」과 「주장부터 틀림」을 같은 실패로만 기록했다(합성 120응답 중 부분 정답 50)
+export const DECISION_POLICY_VERSION = 'find-policy.v2'
 
 export type DecisionAction =
   /** 확인 문항을 아직 안 풀었다 — 먼저 확인한다 */
@@ -60,7 +62,9 @@ export interface DecisionTrace {
   stepKey: string
   findTaskId: string
   /** 관찰 근거 — 몇 문항을 확인해 몇 개가 막혔나(문항 id) */
-  observation: { state: FindOutcome['state'] | 'none'; checked: number; wrong: number; right: number; items: string[] }
+  observation: { state: FindOutcome['state'] | 'none'; checked: number; wrong: number; right: number; items: string[]; blockedParts: Record<string, number> }
+  /** 막힌 문항에서 가장 많이 틀린 부분(세부 채점이 없으면 null) */
+  focus: string | null
   principleId: string | null
   principleSlug: string | null
   methodId: string | null
@@ -83,6 +87,22 @@ export interface LearningDecision {
   trace: DecisionTrace
 }
 
+/** 학습자에게 보이는 막힌 부분 — 약점을 단정하지 않고 어디를 볼지 말한다 */
+const PART_LEARNER: Record<string, string> = {
+  claim: '주장 문장을 찾는 데서 주로 막혔어요.',
+  support: '주장은 찾았지만 떠받치는 문장을 모두 고르는 데서 주로 막혔어요.',
+  relation: '문장과 주장의 관계를 가리는 데서 주로 막혔어요.',
+}
+export function focusOf(p: Record<string, number> | undefined): string | null {
+  if (!p) return null
+  const known = Object.entries(p).filter(([k, n]) => k !== 'unknown' && n > 0)
+  if (known.length === 0) return null
+  // 주장이 틀리면 그 뒤는 따라 틀린다 — 주장 실패가 하나라도 많으면 주장이 초점
+  known.sort((a, b) => b[1] - a[1] || (a[0] === 'claim' ? -1 : b[0] === 'claim' ? 1 : 0))
+  return known[0][0]
+}
+const partsText = (p: Record<string, number>) => Object.entries(p).filter(([, n]) => n > 0).map(([k, n]) => `${k} ${n}`).join(' · ') || '세부 없음'
+
 export function decideStep(input: DecisionInput): LearningDecision {
   const o = input.outcome
   const c = input.chain
@@ -92,7 +112,8 @@ export function decideStep(input: DecisionInput): LearningDecision {
     stepKey: input.stepKey,
     findTaskId: input.findTaskId,
     // 관찰 근거 = 판정에 실제로 쓴 문항(적격 독립 첫 시도)만 — 해설 먼저 본 시도 등은 근거로 남기지 않는다(Codex P1)
-    observation: { state: o?.state ?? 'none', checked: o?.checked ?? 0, wrong: o?.wrong ?? 0, right: o?.right ?? 0, items: [...(o?.items ?? [])] },
+    observation: { state: o?.state ?? 'none', checked: o?.checked ?? 0, wrong: o?.wrong ?? 0, right: o?.right ?? 0, items: [...(o?.items ?? [])], blockedParts: { ...(o?.blockedParts ?? { unknown: 0 }) } },
+    focus: focusOf(o?.blockedParts),
     principleId: c.principle?.id ?? null,
     principleSlug: c.principle?.slug ?? null,
     methodId: c.method?.id ?? null,
@@ -115,9 +136,10 @@ export function decideStep(input: DecisionInput): LearningDecision {
   }
   if (o.state === 'confirmed_need') {
     // 학습자 문구에는 관리자 항목 문장 · slug 를 넣지 않는다(연구 단서가 섞여 있다) — 추적 정보에만 남긴다
-    return out('practice_method', `서로 다른 확인 문항 ${o.wrong}개에서 막혔어요. 이 단계의 원리 과제를 연습부터 해요.`,
+    const f = trace.focus
+    return out('practice_method', `서로 다른 확인 문항 ${o.wrong}개에서 막혔어요.${f ? ` ${PART_LEARNER[f] ?? ''}` : ''} 이 단계의 원리 과제를 연습부터 해요.`,
       input.practiceHref, input.practiceHref ? '같은 원리로 연습하기' : null,
-      `확인된 요구(서로 다른 ${o.wrong}문항 막힘 · 맞힌 문항 0) → 원리 ${c.principle.slug} 의 방법 ${c.method?.slug ?? '(없음)'} 과제 ${c.task.slug} 연습`)
+      `확인된 요구(서로 다른 ${o.wrong}문항 막힘 · 맞힌 문항 0 · 막힌 부분 ${partsText(o.blockedParts)}) → 원리 ${c.principle.slug} 의 방법 ${c.method?.slug ?? '(없음)'} 과제 ${c.task.slug} 연습${f ? ` · 초점 ${f}` : ''}`)
   }
   if (o.state === 'not_needed') {
     return out('move_on', '확인 문항을 혼자 해냈어요. 이 단계 연습은 미루고 다음 단계로 가요.', null, null,
