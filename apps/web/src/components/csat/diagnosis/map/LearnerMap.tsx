@@ -10,10 +10,10 @@
 
 import { ArrowRight, ChevronRight, GitCompareArrows, ClipboardList, FileBarChart2, Headphones, Pencil, PlayCircle, Route, Target } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import type { DistinguishActivity } from '@/lib/csat/map/distinguish'
-import { EXPOSURE_LABEL, SCHOOL_BANDS, SCHOOL_BAND_LABEL, exposureOf, isSchoolBand, type SchoolBand } from '@/lib/csat/map/curriculum'
+import { CORE_AXES, GRADE_EXPOSURE_GUIDE } from '@/lib/csat/map/core'
 import { EVIDENCE_LABEL, JOURNEY, learnerPath, stepByKey, type StepKey, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
 
@@ -30,7 +30,6 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
   const g = useGoal(data)
   const tasks = useTaskDone(data.doneTaskIds)
   const [open, setOpen] = useState<{ key: StepKey; startAt?: 'check' } | null>(null)
-  const [band, setBand] = useSchoolBand()
   const all = [...path.read, ...path.listen]
   const viewOf = (k: StepKey) => all.find((s) => s.key === k) as StepView
   const focus = path.focus
@@ -126,16 +125,9 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
           {gs.goalSet ? `목표 ${gs.goal}점으로 가는 영어 독해의 길` : '수능 영어 독해 실력이 만들어지는 길'}
         </h2>
         <p className={l.pathHint}>단계를 누르면 이 힘이 무엇인지 · 왜 필요한지 · 목표와 어떤 관계인지 · 내 기록에서 보인 것을 볼 수 있어요.</p>
-        {/* 학교급 권장 노출(정본 §15) — 잠금이 아니다. 실제 경로는 진단 근거로 정한다 */}
-        <div className={l.band} role="group" aria-label="학교급 권장 노출" data-testid="school-band">
-          <span>학교급을 고르면 그 학교급에서 중심이 되는 단계를 표시해요(잠그지 않아요).</span>
-          {SCHOOL_BANDS.map((b) => (
-            <button key={b} type="button" className={l.bandBtn} aria-pressed={band === b} data-band={b} onClick={() => setBand(band === b ? null : b)}>{SCHOOL_BAND_LABEL[b]}</button>
-          ))}
-        </div>
         <ol className={l.path} data-testid="read-path">
           {path.read.map((s, i) => (
-            <StepNode key={s.key} s={s} i={i} last={i === path.read.length - 1} band={band} onOpen={() => setOpen({ key: s.key })} />
+            <StepNode key={s.key} s={s} i={i} last={i === path.read.length - 1} onOpen={() => setOpen({ key: s.key })} />
           ))}
         </ol>
         <div className={l.listen} data-testid="listen-path">
@@ -155,6 +147,7 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
             ))}
           </ol>
         </div>
+        <GradeGuide />
       </section>
 
       {/* ② 지금 먼저 할 일 — 하나만(우측). 목표를 정하기 전에는 목표 정하기가 그 하나다 */}
@@ -271,33 +264,8 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
   )
 }
 
-/** 학교급 선택 — 이 기기에만 기억한다(표시 편의 · 기록 아님). 저장소를 못 쓰면 고르지 않은 상태로 둔다 */
-const BAND_KEY = 'vf-map-school-band'
-function useSchoolBand(): [SchoolBand | null, (b: SchoolBand | null) => void] {
-  const [band, setBand] = useState<SchoolBand | null>(null)
-  useEffect(() => {
-    try {
-      const v = window.localStorage.getItem(BAND_KEY)
-      if (isSchoolBand(v)) setBand(v)
-    } catch {
-      /* 저장소 없음 — 고르지 않은 상태 */
-    }
-  }, [])
-  const set = (b: SchoolBand | null) => {
-    setBand(b)
-    try {
-      if (b) window.localStorage.setItem(BAND_KEY, b)
-      else window.localStorage.removeItem(BAND_KEY)
-    } catch {
-      /* 저장 실패 — 이번 화면에서만 */
-    }
-  }
-  return [band, set]
-}
-
-function StepNode({ s, i, last, band, onOpen }: { s: StepView; i: number; last: boolean; band: SchoolBand | null; onOpen: () => void }) {
+function StepNode({ s, i, last, onOpen }: { s: StepView; i: number; last: boolean; onOpen: () => void }) {
   const Icon = STEP_ICON[s.key]
-  const x = exposureOf(s.key, band)
   return (
     // data-observed · data-estimate — 관리자 · 디버그 추적용(관찰값 vs 순위 추정 RANKING_SHRINK). 화면에는 내지 않는다
     <li className={l.step} data-e={s.evidence} data-observed={s.axisView.observed?.toFixed(3)} data-estimate={s.axisView.rankingEstimate?.toFixed(3)}>
@@ -308,7 +276,6 @@ function StepNode({ s, i, last, band, onOpen }: { s: StepView; i: number; last: 
         </span>
         <span className={l.stepName}>{s.name}</span>
         <span className={l.stepBadge}>{EVIDENCE_LABEL[s.evidence]}</span>
-        {x && <span className={l.stepExposure} data-x={x} data-testid="step-exposure">{EXPOSURE_LABEL[x]}</span>}
       </button>
       {!last && <span className={l.connector} aria-hidden="true" />}
     </li>
@@ -396,4 +363,25 @@ function josa(word: string, withFinal: string, without: string) {
   const c = word.charCodeAt(word.length - 1)
   const has = c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 !== 0
   return word + (has ? withFinal : without)
+}
+
+/**
+ * 학년별 권장 참고(정본 §15 · GRADE_EXPOSURE_GUIDE) — 세 학교급을 모두 그대로 보인다. 카드 숨김 · 비활성 · 순서 · 강조를 바꾸지 않고,
+ * 학교급은 학습 길 · 행동 계산에 넘기지 않는다(표시 전용). 실제 경로는 진단 결과가 정한다.
+ */
+function GradeGuide() {
+  const axisName = (c: string) => CORE_AXES.find((a) => a.code === c)?.name ?? c
+  return (
+    <section className={l.band} aria-labelledby="grade-guide-h" data-testid="grade-guide" data-advisory={GRADE_EXPOSURE_GUIDE.advisory} data-source={GRADE_EXPOSURE_GUIDE.source}>
+      <h3 id="grade-guide-h" className={l.pathHint}>학년별 권장 참고</h3>
+      <p className={l.pathHint}>실제 경로는 진단 결과가 결정해요. 학년은 어떤 단계를 주로 만나는지에 대한 참고일 뿐, 잠그거나 건너뛰게 하지 않아요. 듣기는 별도 트랙이에요.</p>
+      <ul className={l.pathHint} aria-label="학교급별 권장 단계">
+        {GRADE_EXPOSURE_GUIDE.bands.map((g) => (
+          <li key={g.stage} data-stage={g.stage}>
+            <strong>{g.label}</strong> — 주로 {g.main.join(' · ')}{g.preview.length ? ` (+ ${g.preview.join(' · ')} 맛보기)` : ''} · 중심 {g.axes.map(axisName).join(' · ')}{g.earlyAxes.length ? ` · 초기 ${g.earlyAxes.map(axisName).join(' · ')}` : ''}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
 }

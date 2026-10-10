@@ -77,6 +77,35 @@ export const LEARNING_PROGRESSION: readonly { step: string; axes: CoreCode[] }[]
   { step: '시간 내 통합', axes: ['X'] },
 ]
 
+/**
+ * 학년별 권장 노출(정본 LEARNING_MAP_VNEXT rev2.1 §15 · T-0019 · 2026-10-10) — **참고(advisory)** 이지 경로 · 잠금 · 진단이 아니다.
+ * LP 는 정본 LP1–LP7 배열 그대로 둔다(시작 · 끝 범위 계산 없음). 위 LEARNING_PROGRESSION(8단계) · 학습자 읽기 길 READ_PATH(7단계)와 같은 계약이 아니다.
+ * 축은 CoreCode(CORE_AXES 식별자)만 참조한다 — V/S/R/E/L/X 를 다시 정의하지 않는다. 학습 길 · 순위 · 행동 계산에 넘기지 않는다(표시 전용).
+ */
+export type CanonLp = 'LP1' | 'LP2' | 'LP3' | 'LP4' | 'LP5' | 'LP6' | 'LP7'
+export type SchoolStage = 'upper_elementary' | 'middle' | 'high'
+export interface GradeExposure {
+  stage: SchoolStage
+  label: string
+  /** 주 노출 LP(정본 배열 그대로) */
+  main: readonly CanonLp[]
+  /** 맛보기 LP */
+  preview: readonly CanonLp[]
+  /** 중심 축 · 초기 축(CORE_AXES 식별자) */
+  axes: readonly CoreCode[]
+  earlyAxes: readonly CoreCode[]
+  experience: string
+}
+export const GRADE_EXPOSURE_GUIDE = {
+  advisory: true,
+  source: 'LEARNING_MAP_VNEXT rev2.1 §15',
+  bands: [
+    { stage: 'upper_elementary', label: '초등 고학년', main: ['LP1', 'LP2'], preview: ['LP3'], axes: ['V', 'S'], earlyAxes: ['R'], experience: '문장이 의미로 들어온다 · because · but · for example 같은 단순 관계를 이해한다' },
+    { stage: 'middle', label: '중등', main: ['LP2', 'LP3', 'LP4'], preview: [], axes: ['S', 'R'], earlyAxes: [], experience: '문장 → 문단: 문장 관계 · 문단 기능 · 재진술 · 핵심과 부연' },
+    { stage: 'high', label: '고등', main: ['LP3', 'LP4', 'LP5', 'LP6', 'LP7'], preview: [], axes: ['R', 'E', 'X'], earlyAxes: [], experience: '문단 → 글 → 근거 판단: 글 구조 · 중심 의미 · 선지 대응 · 시간 안의 통합' },
+  ] satisfies readonly GradeExposure[],
+} as const
+
 /** 영역(축) 역할 — 학생 숙달 노드인지, 측정 렌즈 · 오답 분류 · 행동 진단 · 방법 도구인지 */
 export type AxisRole = 'ability_proxy' | 'lens' | 'error' | 'behavior' | 'method' | 'performance'  // 'error' = 선지 함정(Choice Trap) — 이름은 호환을 위해 유지
 export const AXIS_ROLE: Record<string, { role: AxisRole; label: string; desc: string }> = {
