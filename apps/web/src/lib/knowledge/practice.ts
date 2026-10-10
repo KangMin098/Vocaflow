@@ -126,7 +126,7 @@ export function annotationForGrading(k: PracticeKey, relation: Relation | null):
 
 export interface PracticeAnswer {
   claim: number
-  /** 0–3개 */
+  /** 주장 외 문장 — 상한은 문항의 문장 수(checkAnswerRange) */
   support: number[]
   /** 관계를 묻는 문항만 */
   relation: Relation | null
@@ -219,7 +219,9 @@ export function parseSubmission(v: unknown, now: number): ParseResult<PracticeSu
   if (ev !== null && (!Number.isFinite(ev) || ev > now + SKEW_MS || ev < now - MAX_AGE_MS)) return { ok: false, error: '해설 열람 시각이 맞지 않아요' }
   if (!Number.isInteger(o.claim)) return { ok: false, error: '주장 문장을 골라 주세요' }
   const support = Array.isArray(o.support) ? o.support : null
-  if (!support || support.length > 3 || !support.every((x) => Number.isInteger(x))) return { ok: false, error: '근거 문장은 0~3개예요' }
+  // 모양 검사는 상한을 문항과 무관한 안전값으로만 — 실제 상한(주장 외 문장 수)은 키를 안 뒤 checkAnswerRange 가 본다.
+  // 2026-10-10: 고정 3 이면 근거 6개인 2021#20 은 맞는 답을 낼 수 없었다(「더 고름」 채점이 고르기를 이미 단속한다)
+  if (!support || support.length > 40 || !support.every((x) => Number.isInteger(x))) return { ok: false, error: '근거 문장 번호를 다시 골라 주세요' }
   const relation = o.relation === null || o.relation === undefined ? null : o.relation
   if (relation !== null && !(typeof relation === 'string' && (RELATIONS as readonly string[]).includes(relation))) return { ok: false, error: '관계를 다시 골라 주세요' }
   const option = o.option === null || o.option === undefined ? null : o.option
@@ -248,6 +250,7 @@ export function checkAnswerRange(k: PracticeKey, a: PracticeAnswer): string | nu
   const ok = (i: number) => i >= 0 && i < k.sentenceCount
   if (!ok(a.claim)) return '주장 문장 번호가 범위를 벗어났어요'
   if (!a.support.every(ok)) return '근거 문장 번호가 범위를 벗어났어요'
+  if (new Set(a.support).size !== a.support.length || a.support.includes(a.claim)) return '근거 문장은 주장 문장을 빼고 한 번씩만 골라요'
   if (k.relationProbe && a.relation === null) return '관계를 골라 주세요'
   if (!k.relationProbe && a.relation !== null) return '이 문항은 관계를 묻지 않아요'
   return null

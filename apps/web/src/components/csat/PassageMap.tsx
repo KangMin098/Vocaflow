@@ -106,6 +106,12 @@ export function PassageMap({ sentences, anchors, placements, onSelect }: Passage
         <p className="break-keep text-xs text-[var(--t3)]">{sentences.length}문장 · 눌러서 근거 자리 보기</p>
       </div>
 
+      {/* 강의가 지도를 움직이는 동안에는 학습자가 누른 칩이 다음 큐에 덮인다 — 「눌렀는데 안 바뀐다」로 보이지 않게 이유와 길을 말한다(2026-10-10) */}
+      {lectureKey?.startsWith('analysis:') || followingSpeech ? (
+        <p className="mb-2 break-keep text-xs leading-relaxed text-[var(--t2)]" role="status" data-testid="map-following-lecture">
+          강의가 말하는 자리를 따라 비추는 중이에요. 직접 칩을 골라 비교하려면 위의 「멈춤」으로 강의를 세우세요.
+        </p>
+      ) : null}
       <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="근거 고르기">
         {anchors.map((a) => {
           const on = a.id === activeId
