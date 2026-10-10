@@ -100,7 +100,11 @@ export async function PUT(req: Request) {
     // 같은 세트(문항 목록이 같음)의 더 나아간 진행이면 그 진행을 받는다 — 서버 세트로 덮으면 index · loci 가 되돌아간다(P2)
     const incoming = (record as unknown as DissectionRecord).active
     const sameSet = Boolean(incoming) && incoming!.items.length === serverActive.items.length && incoming!.items.every((id, i) => id === serverActive.items[i])
-      && incoming!.index >= serverActive.index // 같은 세트라도 진행이 뒤로 가면 서버 진행을 지킨다(Codex P2)
+      // 같은 세트라도 진행이 뒤로 가거나(index) 같은 자리에서 근거(loci) · 짝 확인(pairSeen)을 잃으면 서버 진행을 지킨다(Codex P2)
+      && (incoming!.index > serverActive.index
+        || (incoming!.index === serverActive.index
+          && Object.keys(serverActive.loci ?? {}).every((k) => k in (incoming!.loci ?? {}))
+          && (!serverActive.pairSeen || incoming!.pairSeen)))
     if ((failed || held.size) && !sameSet) merged = { ...(merged as DissectionRecord), active: serverActive }
   }
   const { error } = await db

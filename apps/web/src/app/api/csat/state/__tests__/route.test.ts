@@ -96,3 +96,15 @@ describe('/api/csat/state — 보류 중 진행 세트 P2', () => {
     expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(moved)
   })
 })
+
+describe('/api/csat/state — 같은 자리 근거 손실 방지(Codex P2)', () => {
+  it('같은 세트 · 같은 index 라도 서버의 근거(loci)를 잃은 사본은 받지 않는다', async () => {
+    const held = { items: ['2026#31'], index: 0, startedAt: 1, pairSeen: true, loci: { '2026#31': '3' } }
+    h.stored = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], active: held, updatedAt: 1 }
+    h.gate = 'error'
+    const stale = { ...held, pairSeen: false, loci: {} }
+    const incoming = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], updatedAt: 9, active: stale }
+    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: incoming }) }))
+    expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(held)
+  })
+})
