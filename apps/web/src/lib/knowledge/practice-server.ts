@@ -148,7 +148,10 @@ export async function loadMyAttempts(learnerDb: SupabaseClient, userId: string, 
   if (error) throw new Error(`내 기록 읽기 실패: ${error.message}`)
   // 정본 열(activity · help_level) 우선 — NULL(G2 전 직접 기록)일 때만 response 사본으로 호환
   type Row = { session_id?: string | null; received_at?: string | null; id: number; task_key: string; item_ref: string | null; phase: string; answered_at: string; activity: string | null; help_level: string | null; response: Record<string, unknown> | null }
-  const rows = (data ?? []) as Row[]
+  const all = (data ?? []) as Row[]
+  // Reveal Gate — 보류 시험 문항의 판단(claimHit 등 정오)은 최근 기록 · 역량 판정에 싣지 않는다(판정 실패면 전부 보류 · Codex P1)
+  const heldItems = await embargoedItemIds([...new Set(all.map((r) => r.item_ref).filter((x): x is string => Boolean(x)))])
+  const rows = heldItems.size ? all.filter((r) => !r.item_ref || !heldItems.has(r.item_ref)) : all
   // 첫 시도는 **활동과 무관하게** (과제 · 문항 · 단계)의 가장 이른 판단이다(DB 뷰 learning_first_attempts 와 같다 — 이미 answered_at · id 순).
   // 그 첫 판단이 해설 극장(theater) 등 다른 활동이면, Practice 재풀이는 첫 시도가 아니다 — 역량 판정에서만 뺀다(Codex P2).
   // 완료 · 이력은 수행 기록을 그대로 둔다(빼면 연습을 마쳐도 새로고침 뒤 미완료로 보인다)

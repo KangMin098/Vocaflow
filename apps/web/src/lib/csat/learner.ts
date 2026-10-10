@@ -569,9 +569,11 @@ export async function loadCsatTypeItems(
 /** 문항 하나의 해설 */
 export async function loadCsatItemExplain(
   id: string,
+  opts: { admin?: boolean } = {},
 ): Promise<{ item: CsatItemExplain | null; error: string | null; held?: true }> {
-  // 보류 시험 문항(오답 원인 Pilot 수집 중)이면 정답 · 분석을 읽기 전에 멈춘다 — 판정 실패도 보류(embargo-gate)
-  if (!(await canRevealItem(id))) return { item: null, error: null, held: true }
+  // 보류 시험 문항(오답 원인 Pilot 수집 중)이면 정답 · 분석을 읽기 전에 멈춘다 — 판정 실패도 보류(embargo-gate).
+  // 관리자 검수 화면(인증된 관리자 경로)은 관문 밖이다 — 막으면 보류 문항이 관리자에게 404 가 된다(Codex P2)
+  if (!opts.admin && !(await canRevealItem(id))) return { item: null, error: null, held: true }
   const db = await csatDb()
   const [itemRes, aRes] = await Promise.all([
     db.from('csat_items_public').select('id, exam_id, no, points, answer, type_id').eq('id', id).maybeSingle(),

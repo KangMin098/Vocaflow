@@ -50,6 +50,7 @@ import {
   stepsFor,
   trapRows,
   typeRows,
+  type TrapExamples,
   type SpaceFilter,
   type SpaceRow,
   type SpaceTab,
@@ -85,6 +86,7 @@ export function SpaceScreen({
   need = null,
   view = 'home',
   diagnosis,
+  trapExamples,
 }: {
   exams: SpaceExam[]
   /** 문항 id → 유형 id(넓이 · 「본 문항」 계산용). 서가 카탈로그에서 온다 */
@@ -96,9 +98,11 @@ export function SpaceScreen({
   view?: 'home' | 'continue'
   /** 진단 요약 카드(서버가 읽는다). 없으면 카드를 그리지 않는다 */
   diagnosis?: HomeDiagnosis
+  /** 함정 → 예시 문항(서버가 보류 필터 뒤 넘긴 식별 칸만 · Reveal Gate G3). 없으면 예시 없이 */
+  trapExamples?: TrapExamples
 }) {
   const head = useMemo(spaceHeadline, [])
-  const all = useMemo(() => ({ type: typeRows(), trap: trapRows() }), [])
+  const all = useMemo(() => ({ type: typeRows(trapExamples), trap: trapRows(trapExamples) }), [trapExamples])
   const [tab, setTab] = useState<SpaceTab>(need === 'trap' ? 'trap' : initialTab)
   const [filter, setFilter] = useState<SpaceFilter>(need === 'killer' ? { ...EMPTY_SPACE_FILTER, keys: killerTypeIds() } : EMPTY_SPACE_FILTER)
   const rec = useCsatRecord()

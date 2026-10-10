@@ -9,6 +9,8 @@ import { PracticeInputError, loadMyAttempts, schedulePracticeReview, submitPract
 import { directWriter, g2Writer, responseOf, selectWriter, stableUuid, type AttemptWrite, type AttemptWriter, type WriteOutcome } from '../practice-writer'
 
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: () => ({}) }))
+// 보류 관문 — 이 테스트는 보류 0 인 평상시(Reveal Gate 판정은 embargo-gate 테스트가 따로 잠근다)
+vi.mock('@/lib/csat/embargo-gate', () => ({ embargoedItemIds: async () => new Set<string>(), canRevealItem: async () => true }))
 
 const ann = annotationFor('2022#20')!
 const ENTRY: ServerEntry = {

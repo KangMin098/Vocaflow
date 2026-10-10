@@ -83,7 +83,7 @@ function Layer({
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const { item } = await loadCsatItemExplain(fromItemSlug(slug))
+  const { item } = await loadCsatItemExplain(fromItemSlug(slug), { admin: true })
   return {
     title: item ? `${item.exam_label} ${item.no}번 해설 — 기출 분석` : '기출 문항 해설',
   }
@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function CsatItemPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const { item, error } = await loadCsatItemExplain(fromItemSlug(slug))
+  const { item, error } = await loadCsatItemExplain(fromItemSlug(slug), { admin: true })
 
   if (!error && !item) notFound()
 
