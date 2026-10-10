@@ -351,3 +351,18 @@ test('Stop 훅 P1 3건 회귀 — 계약 같은 재승인은 완료 유지 · �
   assert.ok(tk.published, `취소 뒤 새 요청 게시: ${JSON.stringify(tk)}`)
   assert.equal(s.gh().prs.length, 2)
 })
+
+test('REVIEW_UNKNOWN P1 회귀 — 계약 같은 재승인은 열린 작업을 새 버전으로 옮겨 고를 수 있게', () => {
+  const s = setup()
+  const a = s.goal('MIG목표')
+  s.approve(a.ug_id, 1)
+  const t = s.ugTask(a.ug_id, [0])
+  const stF = path.join(s.root, 'state', 'USER_GOALS.json')
+  const st = JSON.parse(fs.readFileSync(stF, 'utf8'))
+  const g = st.goals[a.ug_id]
+  g.designs.push({ ...g.designs[0], version: 2, status: 'PROPOSED', summary: '요약만', approved_at: undefined })
+  fs.writeFileSync(stF, JSON.stringify(st))
+  s.approve(a.ug_id, 2)
+  assert.equal(s.task(t.task_id).design_version, 2, '열린 작업이 새 버전으로')
+  assert.equal(s.orch(['--dry-run']).iterations[0].selected?.task_id, t.task_id, '선정 가능')
+})

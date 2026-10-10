@@ -364,3 +364,20 @@ test('담당 세션 실행 모드 — AI-Control 은 배정·인수 확인·리�
   assert.equal(done.status, 'COMPLETED', JSON.stringify(done.history?.slice(-2)))
   assert.ok(done.verified_commit)
 })
+
+test('REVIEW_UNKNOWN P1 회귀 — 승인한 테스트 파일 말고 다른 파일이 실행되면 live PASS 아님', () => {
+  const wt = fs.mkdtempSync(path.join(os.tmpdir(), 'vfc-live6-'))
+  fs.mkdirSync(path.join(wt, 'apps', 'web', 'src', 'lib', '__tests__'), { recursive: true })
+  const rel = 'apps/web/src/lib/__tests__/a.live.test.ts'
+  fs.writeFileSync(path.join(wt, rel), 'export const a = 1\n')
+  const fx = path.join(wt, 'fx.mjs')
+  fs.writeFileSync(fx, "import fs from 'node:fs'\nconst [, , , out] = process.argv\nfs.writeFileSync(out, JSON.stringify({ numPassedTests: 2, numFailedTests: 0, numPendingTests: 0, numTotalTests: 2, testResults: [{ name: 'D:/x/apps/web/src/lib/__tests__/a.live.test.ts' }, { name: 'D:/x/apps/web/src/lib/__tests__/a.live.test.ts.other.ts' }] }))\n")
+  process.env.VFC_VITEST_CMD = `node ${fx.split(path.sep).join('/')}`
+  try {
+    const r = runLive({ worktree: wt, testRel: rel, liveUser: '00000000-0000-4000-8000-000000000001' })
+    assert.equal(r.status, 'FAIL')
+    assert.match(r.reason, /승인 밖/)
+  } finally {
+    delete process.env.VFC_VITEST_CMD
+  }
+})
