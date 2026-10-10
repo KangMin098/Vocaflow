@@ -347,19 +347,35 @@ test('담당 세션 실행 모드 — AI-Control 은 배정·인수 확인·리�
   assert.equal(t.dispatch.accepted_at, null, '등록 ≠ 인수')
   const inbox = fs.readFileSync(path.join(s.root, 'planning', 'inbox', `${OWNER}.md`), 'utf8')
   assert.match(inbox, new RegExp(t.task_id))
-  // 담당 세션: worktree 지정 → 인수 → 커밋 → 증거 → 제출
+  const WORKER = path.join(REPO, 'bin', 'owner-worker.mjs')
+  const ttyEnv = { VFC_TTY_FOR_TESTS: '1' }
+  // C. 등록 안 된 세션의 인수는 거부
+  assert.match(s.run(VFC, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', 'random-session']).err, /WRONG_WORKER/)
+  // 1회 등록(대화형 터미널 대역) — 에이전트 경로는 거부
+  assert.match(s.run(VFC, ['worker', 'register', '--owner', OWNER, '--worktree', s.wt, '--branch', 'feat/t'], { CLAUDECODE: '1' }).err, /TRUST_REQUIRED/)
+  const w = s.run(VFC, ['worker', 'register', '--owner', OWNER, '--worktree', s.wt, '--branch', 'feat/t', '--json'], ttyEnv).json
+  assert.match(w.worker_id, /^w-/)
+  // E. worker 가 인수 중 죽었다 — 죽은 pid 로 인수된 상태를 만들고, 다음 worker 실행이 안전하게 되찾는다
+  const gone = spawnSync(process.execPath, ['-e', 'process.exit(0)'])
   s.vfc('task', 'assign-worktree', t.task_id, s.wt, '--by', OWNER, '--branch', 'feat/t')
-  s.vfc('task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', 'map-session-1')
-  assert.equal(s.vfc('task', 'show', t.task_id).dispatch.accepted_session, 'map-session-1', '인수 기록')
-  fs.writeFileSync(path.join(s.wt, 'src', 'owner.ts'), 'export const o = 1\n')
-  execFileSync('git', ['-C', s.wt, 'add', '.'])
-  execFileSync('git', ['-C', s.wt, 'commit', '-q', '-m', 'owner work'])
-  const ev = path.join(s.root, 'ev.json')
-  fs.writeFileSync(ev, JSON.stringify({ type: 'unit', command_or_protocol: 'node --test', result: 'pass', skip_count: 0, artifact_path_or_url: path.join(s.wt, 'src', 'owner.ts'), observed_at: new Date().toISOString(), covers: [0, 1] }))
-  s.vfc('task', 'evidence', t.task_id, '--file', ev, '--by', OWNER)
-  s.vfc('task', 'submit', t.task_id, '--by', OWNER)
-  // 실행 2: 오케스트레이터는 독립 리뷰만 → 완료
-  const r2 = s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'])
+  assert.equal(s.run(VFC, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', w.worker_id, '--worker', w.worker_id, '--pid', String(gone.pid)], { VFC_LOCK_TTL_MS: '1' }).code, 0)
+  const g1 = s.vfc('task', 'show', t.task_id)
+  assert.equal(g1.dispatch.generation, 1)
+  assert.ok(g1.dispatch.accepted_at, 'A·B 인수 기록(accepted_at)은 실제 claim 뒤에만')
+  // D. 같은 작업을 또 인수하면 거부(중복 실행 차단)
+  assert.match(s.run(VFC, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', w.worker_id, '--worker', w.worker_id]).err, /ALREADY_RUNNING|BAD_TRANSITION/)
+  // 죽은 실행 회수(오케스트레이터 세션 인계) → READY → worker 가 다시 인수(세대 2) → 구현 → 제출
+  s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'], { VFC_LOCK_TTL_MS: '1' })
+  assert.equal(s.vfc('task', 'show', t.task_id).status, 'READY', '죽은 worker 의 작업이 되살아난다')
+  const wr = s.run(WORKER, ['--worker', w.worker_id, '--once', '--json'], { VFC_LOCK_TTL_MS: '1' })
+  assert.equal(wr.code, 0, wr.err)
+  assert.equal(wr.json.submitted.length, 1, JSON.stringify(wr.json))
+  const g2 = s.vfc('task', 'show', t.task_id)
+  assert.equal(g2.status, 'REVIEW')
+  assert.equal(g2.dispatch.generation, 2)
+  assert.equal(g2.run.worker_id, w.worker_id)
+  // F. 중앙 오케스트레이터는 독립 리뷰만 → 완료
+  s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'])
   const done = s.vfc('task', 'show', t.task_id)
   assert.equal(done.status, 'COMPLETED', JSON.stringify(done.history?.slice(-2)))
   assert.ok(done.verified_commit)

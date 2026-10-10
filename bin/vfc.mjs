@@ -24,6 +24,7 @@ import { initState } from '../lib/init.mjs'
 import { goalLevel } from '../lib/alignment.mjs'
 import * as POL from '../lib/policy.mjs'
 import * as LIVE from '../lib/liveverify.mjs'
+import * as W from '../lib/workers.mjs'
 
 function parse(argv) {
   const pos = []
@@ -102,6 +103,8 @@ const HELP = `vfc — Vocaflow AI Control
                                           impact: current_gap · expected_impact(closes|advances|prerequisite) · evidence_required[] · [acceptance_ids parent_goal_id next_dependency out_of_scope dependency_type unblocks] · kind independent 면 user_request_ref
   task check --file spec.json             task add 와 같은 검사(영향 계약·갭·중복·재구현)만 — 상태를 바꾸지 않는다
   verify live <UG> --test <apps/web/...live.test.ts> --acceptance i,j [--worktree wt] [--check]   읽기 전용 개발 DB 검증(정책 위임 · 해시 결속 · 건너뜀≠PASS)
+  worker register --owner O --worktree <path> --branch b   (1회 · 대화형 터미널) owner worker 등록 → node bin/owner-worker.mjs --worker <id>
+  worker list
   goal level <VG-…>                       TASK_COMPLETED · GOAL_PARTIAL · GOAL_VERIFIED · USER_ACCEPTED(사용자 결정만)
   task list [--status S] [--owner O] | task show <id>
   task approve <id> --by user --ref "근거" [--sql-sha256 H]   DB 쓰기 승인은 사람의 대화형 터미널에서만
@@ -290,6 +293,15 @@ function main() {
       }, { event: 'usergoal.live_verify', ug, status: rec.status, by })
       return out(rec, opt)
     }
+    case 'worker register': {
+      // 1회 · 사람의 대화형 터미널 — 이 worker 가 owner 의 신원으로 배정 작업을 인수한다
+      const w = withState((s) => W.registerWorker(s, { owner: opt.owner, worktree: opt.worktree, branch: opt.branch, via: T.approvalChannel() }), { event: 'worker.register', owner: opt.owner, by: 'user' })
+      return out({ ...w, run: `node bin/owner-worker.mjs --worker ${w.worker_id} --max-tasks 3` }, opt)
+    }
+    case 'worker list': {
+      const st = loadState().state
+      return out(Object.values(st.ownership.owners).flatMap((o) => Object.values(o.workers || {})).map((w) => ({ ...w, live: W.liveWorkers(st, w.owner_id).some((x) => x.worker_id === w.worker_id) })), opt)
+    }
     case 'goal level':
       return out(goalLevel(loadState().state, pos[0]), opt)
     case 'task add': {
@@ -364,7 +376,7 @@ function main() {
         (s, ctx) => {
           const owner = s.ownership.owners[opt.owner]
           if (owner && (!owner.current_session || owner.current_session.label !== sess.label)) T.bindSession(s, opt.owner, sess)
-          const started = T.startTask(s, pos[0], { owner_id: opt.owner, session: sess, pid: sess.pid }, ctx)
+          const started = T.startTask(s, pos[0], { owner_id: opt.owner, session: sess, pid: sess.pid, worker_id: opt.worker || null }, ctx)
           // 세션 인계의 리뷰 기준 — 죽은 세션이 커밋을 남기면 이 기준과 달라져 자동 재개하지 않는다(Codex P1)
           if (started.worktree) {
             try {
