@@ -28,6 +28,19 @@ export interface FindAttemptRow extends FirstAttempt {
   answeredAt?: string | null
   /** 세부 채점(수행 기록 response.grade) — 완전 정답 판정은 바꾸지 않고 「어디서 막혔나」만 알린다. 없으면 null */
   parts?: Record<string, boolean> | null
+  /** 어디서 푼 기록인가 — 'theater'(확인 과제) · 'practice'(연습 화면). 연습 기록은 확인 근거가 아니다(find-policy.v3) */
+  activity?: string | null
+}
+
+/** 연습 뒤 **새 지문**에서 다시 확인한 결과 — 연습한 지문 · 연습 전에 푼 지문은 넣지 않는다 */
+export interface Recheck {
+  items: string[]
+  right: number
+  wrong: number
+  /** 가장 최근 재확인 — 결정은 최신 사건으로 정한다 */
+  last: { item: string; ok: boolean; at: string | null } | null
+  /** 처방 뒤 연습이 마지막 재확인보다 뒤에 있다(또는 재확인 전) — 새 지문 재확인 차례 */
+  pending: boolean
 }
 
 /** 막힌 확인 문항에서 각 부분(주장 · 근거 · 관계 …)이 틀린 문항 수 — 세부 채점이 없는 문항은 unknown */
@@ -45,6 +58,14 @@ export interface FindOutcome {
   items: string[]
   /** 막힌 문항의 세부 — 부분 정답(주장은 맞고 근거만 누락 등)을 완전 오답과 구별해 추적한다(판정 기준은 그대로) */
   blockedParts: BlockedParts
+  /** 연습 화면에서 푼 확인 문항 — 같은 지문으로 재확인하지 않게 */
+  practicedItems: string[]
+  /** 마지막 연습 시각(ISO) — 그 뒤 새 지문 확인만 재확인으로 센다 */
+  lastPracticeAt: string | null
+  /** 연습 뒤 새 지문 재확인 */
+  recheck: Recheck
+  /** 요구 확인(처방) 뒤에 연습했는가 — 이때만 재확인 단계로 간다 */
+  practiceAfterPrescription: boolean
   /** 확인 문항이 모자라 기준에 못 닿는가(문항이 1개뿐인 단계) */
   needsMoreItems: boolean
   /** 학습자에게 보이는 한 문장 — 약점을 단정하지 않는다 */
@@ -63,14 +84,64 @@ export function findOutcome(targets: readonly FindTarget[], attempts: readonly F
   const keys = new Set(targets.map((t) => `${t.taskKey}|${t.itemRef}`))
   const byItem = new Map<string, boolean>()
   const partsOf = new Map<string, Record<string, boolean> | null>()
+  // ── 회차를 시간 순서로 다시 세운다(2026-10-10 · 반복 지적 원인: 「마지막 연습 시각」 하나로 경계를 잡아
+  //    재확인 실패 → 재연습이 오면 앞 재확인이 진단으로 섞여 사라졌다). 진단 → 처방 → 연습 → 재확인 → (실패면 재연습 → 재확인) …
+  // 연습: 같은 원리 과제 키(·골격 변형)면 문항과 무관(확인 문항 밖 지문 연습 포함). 연습은 확인 근거가 아니다
+  const taskKeys = new Set(targets.flatMap((t) => [t.taskKey, `${t.taskKey}-skeleton`]))
+  const practiced = new Set<string>()
+  // 지문마다 처음 연습한 시각 — 「그 확인 전에 이미 연습한 지문」만 재확인에서 뺀다(나중에 연습해도 앞 재확인은 남는다 · Codex P1)
+  const firstPracticedAt = new Map<string, string>()
+  const practiceTimes: string[] = []
   for (const a of attempts) {
-    if (a.phase !== 'practice' || !keys.has(`${a.taskKey}|${a.itemRef}`) || !isOwnEvidence(a) || a.isCorrect === null) continue
-    // 뷰가 첫 시도만 준다 — 같은 문항이 두 번 오면(과제 키가 다른 경우 등) 먼저 온 것을 둔다
-    if (!byItem.has(a.itemRef)) {
-      byItem.set(a.itemRef, a.isCorrect)
-      partsOf.set(a.itemRef, a.parts ?? null)
+    if (a.activity !== 'practice' || !taskKeys.has(a.taskKey)) continue
+    practiced.add(a.itemRef)
+    if (a.answeredAt) {
+      practiceTimes.push(a.answeredAt)
+      const cur = firstPracticedAt.get(a.itemRef)
+      if (!cur || a.answeredAt < cur) firstPracticedAt.set(a.itemRef, a.answeredAt)
     }
   }
+  practiceTimes.sort()
+  const lastPracticeAt = practiceTimes.length ? practiceTimes[practiceTimes.length - 1] : null
+  // 확인: 문항마다 첫 시도 하나(뷰가 고른 것) · 시간순
+  const checks: { item: string; ok: boolean; at: string | null; parts: Record<string, boolean> | null }[] = []
+  const seenItem = new Set<string>()
+  for (const a of attempts) {
+    if (a.activity === 'practice' || a.phase !== 'practice' || !keys.has(`${a.taskKey}|${a.itemRef}`) || !isOwnEvidence(a) || a.isCorrect === null) continue
+    if (seenItem.has(a.itemRef)) continue
+    seenItem.add(a.itemRef)
+    checks.push({ item: a.itemRef, ok: a.isCorrect, at: a.answeredAt ?? null, parts: a.parts ?? null })
+  }
+  checks.sort((x, y) => (x.at ?? '').localeCompare(y.at ?? ''))
+  // 처방 시점 = 확인 기록만으로 「서로 다른 2문항 막힘 · 맞힘 0」이 처음 성립한 순간
+  let prescribedAt: string | null = null
+  {
+    let w = 0, r = 0
+    for (const c of checks) {
+      if (c.ok) r++
+      else w++
+      if (w >= CONFIRM_ITEMS && r === 0 && c.at) { prescribedAt = c.at; break }
+    }
+  }
+  // 처방 뒤 첫 연습 — 이 앞까지가 진단, 이 뒤 새 지문 확인이 재확인
+  const firstPracticeAfter = prescribedAt ? practiceTimes.find((t) => t > prescribedAt!) ?? null : null
+  const prescribedBeforePractice = !!firstPracticeAfter
+  const recheck: Recheck = { items: [], right: 0, wrong: 0, last: null, pending: false }
+  for (const c of checks) {
+    const practicedBefore = (() => { const p = firstPracticedAt.get(c.item); return !!p && c.at !== null && p < c.at })()
+    const isRecheck = prescribedBeforePractice && c.at !== null && c.at > firstPracticeAfter! && !practicedBefore
+    if (isRecheck) {
+      recheck.items.push(c.item)
+      if (c.ok) recheck.right++
+      else recheck.wrong++
+      recheck.last = { item: c.item, ok: c.ok, at: c.at }
+      continue
+    }
+    byItem.set(c.item, c.ok)
+    partsOf.set(c.item, c.parts)
+  }
+  // 마지막 재확인보다 뒤에 연습이 있으면(또는 재확인이 아직 없으면) 새 지문 재확인을 기다린다
+  recheck.pending = prescribedBeforePractice && (!recheck.last || (lastPracticeAt !== null && lastPracticeAt > (recheck.last.at ?? '')))
   const blockedParts: BlockedParts = { unknown: 0 }
   for (const [item, ok] of byItem) {
     if (ok) continue
@@ -106,5 +177,5 @@ export function findOutcome(targets: readonly FindTarget[], attempts: readonly F
     state = 'mixed'
     message = `확인 문항 ${checked}개 중 ${wrong}개가 막혔어요. 결과가 엇갈려서 한 번 더 확인해요.`
   }
-  return { state, checked, wrong, right, items: [...byItem.keys()], blockedParts, needsMoreItems, message }
+  return { state, checked, wrong, right, items: [...byItem.keys()], blockedParts, practicedItems: [...practiced], lastPracticeAt, recheck, practiceAfterPrescription: prescribedBeforePractice, needsMoreItems, message }
 }

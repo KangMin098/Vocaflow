@@ -13,6 +13,8 @@
 - docs(agents): Codex 리뷰 중복 제거 — 기능 끝의 수동 `codex review --uncommitted` 를 지침에서 뺐다(커밋마다 Stop 훅 + 머지 전 `review.mjs` 1회). 훅 쪽 판독·재사용 개선(RP-2026-10-10.1)은 AI-Control `chore/review-dedupe`.
 - fix(csat): 학습자 결함 — (근거 상한 제거는 #187) 연습을 다 풀면 안 움직이는 「다음 문항」 대신 완료 + 서가 해부로 · 강의가 지도를 움직이는 동안 「멈춤」 안내. 원문 진입: 다른 회차 PDF 를 놓으면 조용히 무시되던 것 → 어느 회차가 필요한지 알림(저장은 유지) · 문제지 없이 되는 학습과 안 되는 학습 안내.
 
+- feat(knowledge): find-policy.v3 — 오류 초점별 연습(방법 · 강조 · 피드백, `?focus=`) · 연습 화면 기록은 확인 근거에서 제외 · 연습 뒤 새 지문 재확인(통과 → 다음 단계 · 실패 → 같은 초점 재연습) · 결정 기록 `learning_decisions`(migration `20261010034932`) · 개정 환류 격리 PostgreSQL 9/9(`revision-loop-test.mjs`) · DB 통계 가입자에서 합성 계정 제외.
+
 - fix(csat): 확인 과제 · Practice 제출 라우트에 보류 관문(Reveal Gate) — 채점 전 423(Codex P1). 직접 확인 CHECK 는 막힌 뒤 연속 2개 정답으로 해소(D-8 v1.1 · Codex P2), 판정 기준 `curriculum.ts` `CRITERIA`. 생애주기 E2E `e2e-lifecycle-open.mts`(합성 게이트 5/5 · QA 계정 열린 경로 준비) · V · S 설계 `docs/csat-learner/VS_DIRECT_CHECK_DESIGN.md`
 
 - data(knowledge): E축 확인 과제 활성화(개발 DB · 사용자 승인 2026-10-10) — 지식 사슬 semantic-correspondence → method-option-correspondence → task-option-restate · task-evidence-locate 채택(맹검 2), 적용 13 active(문항 과제 11 · 지도 FIND A4-4 · A5-4). 관리자 화면 경로 `scripts/knowledge/vertical-evidence-tasks-build.mts` · 화면 확인 `e2e-evidence-live.mts` 13/13
