@@ -30,6 +30,7 @@
 | DB 통계 블록 | `pnpm docs:db-stats` (확인만 `pnpm docs:db-stats:check`) |
 | 에이전트 설정 | `node agents/scripts/sync.mjs` (생성) · `node agents/scripts/check.mjs` (검사) · `node --test agents/scripts/__tests__/*.test.mjs` (스크립트 회귀) |
 | 잠금 · 인수인계 | `node agents/scripts/lock.mjs acquire\|release\|status <agent>` · `node agents/scripts/handoff.mjs <from> <to>` |
+| PR 병합(유일한 경로) | `node agents/scripts/safe-merge.mjs <PR> --wait` — 체크 전부 통과 + 확인한 HEAD SHA 일 때만. `gh pr merge` 를 직접 쓰거나 확인과 이어 붙이지 않는다(main 에 서버 보호 없음) |
 | worktree | `pnpm wt list` · `pnpm wt new <suffix>` · `pnpm wt remove <suffix>` |
 
 ## 문서 navigation — 작업 영역에 맞는 것만 읽는다
