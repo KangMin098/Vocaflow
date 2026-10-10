@@ -44,7 +44,12 @@ export async function loadEvidenceOperations(scope: EvidenceScope = KICE_SCOPE):
       ? (() => {
           const excluded = dissection.value.audit.excluded.filter((i) => kice(i.id))
           const readyIds = dissection.value.items.map((i) => i.id).filter(kice)
-          return { ...dissection.value.audit, total: readyIds.length + excluded.length, excluded, readyIds }
+          const total = readyIds.length + excluded.length
+          // 필드 충족 수도 같은 범위로 — 문항마다 모든 검사를 돌고 빠진 것만 missing 에 남으므로 「범위 안 총수 − 그 필드가 빠진 범위 안 제외」(Codex P2)
+          const fields = Object.fromEntries(
+            Object.keys(dissection.value.audit.fields).map((k) => [k, total - excluded.filter((e) => e.missing?.includes(k)).length]),
+          )
+          return { ...dissection.value.audit, total, fields, excluded, readyIds }
         })()
       : null
   let readinessError = dissection.status === 'rejected' ? error(dissection.reason) : null

@@ -60,3 +60,13 @@ it('해부 감사에 학평 문항이 섞여도 평가원 범위만 견준다(20
   expect(result.readiness?.total).toBe(1)
   expect(result.readiness?.excluded).toEqual([])
 })
+it('필드 충족 수도 평가원 범위로 다시 센다(학평이 섞여 100% 를 넘지 않게)', async () => {
+  evidence.mockResolvedValue({ items: [{ id: '2026#31' }, { id: '2026#32' }], exams: [], types: [], loadError: null })
+  dissection.mockResolvedValue({
+    items: [{ id: '2026#31' }],
+    audit: { total: 4, fields: { passage: 3, answer: 4 }, excluded: [{ id: '2026#32', missing: ['passage'] }, { id: 'H1803G1#18', missing: [] }, { id: 'H1803G1#19', missing: [] }] },
+  })
+  const result = await loadEvidenceOperations()
+  expect(result.readinessError).toBeNull()
+  expect(result.readiness?.fields).toEqual({ passage: 1, answer: 2 })
+})
