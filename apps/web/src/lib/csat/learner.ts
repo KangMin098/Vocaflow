@@ -14,6 +14,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import { examLabelOf, examOrder, schoolYearOf } from './exam-id'
 import { createCsatClient, selectScopeItems } from './client'
+import { canRevealItem, embargoedItemIds } from './embargo-gate'
 import { examFilter, inScope as inScopeId, KICE_SCOPE, reportKey, SCOPES, type CsatScope } from './scope'
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
 import { stripInternalNotes } from './learner-text'
@@ -545,6 +546,8 @@ export async function loadCsatTypeItems(
       .map(([id]) => id),
   )
 
+  // 보류 시험 문항은 정답 · 해설 유무를 내지 않는다(목록에는 남긴다 — 문항이 없다고 말하지 않는다)
+  const held = await embargoedItemIds(items.map((i) => i.id))
   const brief = items
     .map((it) => ({
       id: it.id,
@@ -552,8 +555,8 @@ export async function loadCsatTypeItems(
       exam_label: exam.get(it.exam_id)?.label ?? examLabelOf(it.exam_id) ?? it.exam_id,
       no: it.no,
       points: it.points,
-      answer: it.answer,
-      explained: explained.has(it.id),
+      answer: held.has(it.id) ? null : it.answer,
+      explained: !held.has(it.id) && explained.has(it.id),
     }))
     .sort((a, b) => {
       // 최근 회차부터 — 학평의 학년·같은 달 순서까지 정렬 규칙 한곳(exam-id.ts examOrder)
@@ -566,7 +569,11 @@ export async function loadCsatTypeItems(
 /** 문항 하나의 해설 */
 export async function loadCsatItemExplain(
   id: string,
-): Promise<{ item: CsatItemExplain | null; error: string | null }> {
+  opts: { admin?: boolean } = {},
+): Promise<{ item: CsatItemExplain | null; error: string | null; held?: true }> {
+  // 보류 시험 문항(오답 원인 Pilot 수집 중)이면 정답 · 분석을 읽기 전에 멈춘다 — 판정 실패도 보류(embargo-gate).
+  // 관리자 검수 화면(인증된 관리자 경로)은 관문 밖이다 — 막으면 보류 문항이 관리자에게 404 가 된다(Codex P2)
+  if (!opts.admin && !(await canRevealItem(id))) return { item: null, error: null, held: true }
   const db = await csatDb()
   const [itemRes, aRes] = await Promise.all([
     db.from('csat_items_public').select('id, exam_id, no, points, answer, type_id').eq('id', id).maybeSingle(),

@@ -301,7 +301,18 @@ for (const [i, t] of traps.slice(0, 12).entries()) {
 }
 console.log('')
 
-const json = JSON.stringify(atlas, null, 2) + '\n'
+// Reveal Gate G3(2026-10-06): 예시의 정답 민감 부분(문항 id · 오답 선지 번호 · 끌리는 이유 · 버리는 법)은 클라이언트 번들로 가는
+// `trap-atlas.json` 에 넣지 않는다 — 서버 전용 `trap-atlas-examples.json`(lib/csat/trap-atlas-examples.ts 가 보류 필터 뒤 내보낸다).
+// 번들 쪽 예시는 비운다 — 문항 slug 와 함정 key 의 연결만으로도 보류 문항의 오답 계열이 복원된다(리뷰 P1 · 2026-10-06).
+function splitAtlas(full) {
+  const pub = { ...full, traps: full.traps.map((t) => ({ ...t, examples: [] })) }
+  const detail = { built_at: full.built_at, traps: Object.fromEntries(full.traps.map((t) => [t.key, t.examples])) }
+  return { pub, detail }
+}
+const split = splitAtlas(atlas)
+const json = JSON.stringify(split.pub, null, 2) + '\n'
+const OUT_DETAIL = SET === 'kice' ? path.resolve('apps/web/src/lib/csat', 'trap-atlas-examples.json') : null
+const detailJson = JSON.stringify(split.detail, null, 2) + '\n'
 
 if (CHECK) {
   let cur = null
@@ -312,7 +323,15 @@ if (CHECK) {
   }
   // `built_at` 은 도는 날마다 달라지므로 견주지 않는다 — 수치가 같으면 낡지 않은 것이다.
   const strip = (s) => (s ?? '').replace(/"built_at": "[^"]*",?\n/, '')
-  if (strip(cur) === strip(json)) {
+  let curDetail = null
+  if (OUT_DETAIL) {
+    try {
+      curDetail = fs.readFileSync(OUT_DETAIL, 'utf8')
+    } catch {
+      /* 없으면 낡음 */
+    }
+  }
+  if (strip(cur) === strip(json) && (!OUT_DETAIL || strip(curDetail) === strip(detailJson))) {
     console.log('최신이다.')
     process.exit(0)
   }
@@ -329,4 +348,8 @@ if (!CHECK && WRITE) {
   fs.mkdirSync(path.dirname(OUT), { recursive: true })
   fs.writeFileSync(OUT, json)
   console.log(`→ ${path.relative(process.cwd(), OUT)} (${json.length.toLocaleString()}자)`)
+  if (OUT_DETAIL) {
+    fs.writeFileSync(OUT_DETAIL, detailJson)
+    console.log(`→ ${path.relative(process.cwd(), OUT_DETAIL)} (${detailJson.length.toLocaleString()}자 · 서버 전용)`)
+  }
 }

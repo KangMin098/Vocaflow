@@ -36,7 +36,8 @@ import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/catalog'
 import { examOrder } from '@/lib/csat/session/model'
 import { isKiceExam } from '@/lib/csat/exam-id'
-import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, skeletonSiblings } from '@/lib/csat/skeleton'
+import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings } from '@/lib/csat/skeleton'
+import { canRevealItem, loadRevealScope } from '@/lib/csat/embargo-gate'
 import { loadItemPrinciple } from '@/lib/knowledge/product-server'
 import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -56,7 +57,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CsatItemTheaterPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const itemId = fromItemSlug(slug)
-  const { item, error } = await loadCsatItemExplain(itemId)
+  const { item, error, held } = await loadCsatItemExplain(itemId)
+  // 보류 시험 문항(오답 원인 Pilot 수집 중) — 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에 싣지 않는다(embargo-gate · Pilot 1c8e122fb)
+  if (held) {
+    return (
+      <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />기출 해설</>}>
+        <p className="mx-auto max-w-2xl break-keep py-10 text-sm leading-relaxed text-[var(--t2)]" data-testid="item-held">
+          이 회차의 해설은 지금 잠시 닫혀 있어요. 풀이 기록을 모으는 기간이 끝나면 다시 열려요.
+        </p>
+      </CsatShell>
+    )
+  }
   if (!error && !item) notFound()
 
   if (error || !item) {
@@ -70,7 +81,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   // 지도는 **구워 둔 골격**에서만 온다(DB 의 지문을 런타임에 만지는 경로가 없어야 한다).
   // 학평 골격은 DB 의 구운 행(발행분만 · 학습자 RLS) — 지문 원본이 아니라 문장 길이와 해설 인용뿐이다
   await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
-  const skeleton = loadItemSkeleton(item.id)
+  const skeleton = await loadRevealedSkeleton(item.id)
   const anchors: MapAnchor[] = [
     ...(item.answer != null && !item.answer_unknown && item.why_correct
       ? [{ id: 'answer', label: CIRCLED[item.answer] ?? String(item.answer), kind: 'answer' as const, detail: item.why_correct }]
@@ -100,7 +111,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
 
   // 같은 유형의 다음 문항 — 조회 0회(커밋된 골격이 `type_id` 를 들고 있다)
   const siblings = item.type_id
-    ? skeletonSiblings(item.type_id).map((sib) => ({
+    ? revealedSkeletonSiblings(item.type_id, await loadRevealScope()).map((sib) => ({
         id: sib.id,
         slug: toItemSlug(sib.id),
         exam_label: sib.exam_label,
@@ -125,6 +136,17 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
     papers: base.papers[examId] || !paperUrl
       ? base.papers
       : { ...base.papers, [examId]: { url: paperUrl, direct: paper.paperUrl != null } },
+  }
+
+  // 마지막 관문 — 처음 판정과 골격 판정 사이에 보류가 시작됐으면 이미 읽은 정답 · 해설 · 강의 개요를 내지 않는다(Codex P1)
+  if (!(await canRevealItem(item.id))) {
+    return (
+      <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />기출 해설</>}>
+        <p className="mx-auto max-w-2xl break-keep py-10 text-sm leading-relaxed text-[var(--t2)]" data-testid="item-held">
+          이 회차의 해설은 지금 잠시 닫혀 있어요. 풀이 기록을 모으는 기간이 끝나면 다시 열려요.
+        </p>
+      </CsatShell>
+    )
   }
 
   const theater = (

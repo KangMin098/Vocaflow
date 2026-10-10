@@ -21,6 +21,7 @@ import { SpaceScreen } from '@/components/csat/space/SpaceScreen'
 import { loadHomeDiagnosis } from '@/lib/csat/diagnosis/learner'
 import { itemTypeMap, railExams } from '@/lib/csat/rail-data'
 import { spaceHeadline } from '@/lib/csat/space-model'
+import { loadTrapExamples } from '@/lib/csat/trap-atlas-examples'
 
 export const dynamic = 'force-dynamic'
 
@@ -43,6 +44,9 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
   const need = NEED_IDS.find((n) => n === needParam) ?? (one(params.tab) === 'trap' ? 'trap' : null)
   // 회차 목록은 구운 골격 JSON, 문항 → 유형은 서가 카탈로그(프로세스 캐시)에서 온다.
   const [exams, itemTypes, diagnosis] = [await railExams(), await itemTypeMap(), await loadHomeDiagnosis()]
+  // 함정 예시는 서버에서 보류 필터 뒤 — 식별 칸(문항 · 회차 · 번호 · 유형)만 넘긴다(오답 번호 · 이유는 싣지 않는다 · Reveal Gate G3)
+  const detail = await loadTrapExamples()
+  const trapExamples = Object.fromEntries(Object.entries(detail).map(([k, list]) => [k, list.map((e) => ({ slug: e.slug, exam_label: e.exam_label, no: e.no, type_id: e.type_id }))]))
   return (
     // 쿼리가 바뀌면 다시 세운다 — 같은 경로 안의 링크 이동은 컴포넌트를 재사용해 첫 필터가 남는다(A2 실패 2026-09-25)
     <SpaceScreen
@@ -53,6 +57,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
       need={need}
       view={one(params.view) === 'continue' ? 'continue' : 'home'}
       diagnosis={diagnosis}
+      trapExamples={trapExamples}
     />
   )
 }

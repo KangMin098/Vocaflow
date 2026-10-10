@@ -16,7 +16,14 @@
 // ⚠️ `server-only` 를 들이지 않는다 — 표와 명령 상자가 클라이언트에서 다시 거르므로
 //    이 모듈이 브라우저 그래프에 들어간다(`trap-atlas.ts` 머리말과 같은 이유).
 
-import { ATLAS_TYPES, BUILT_AT, CORPUS, DETECTOR, RECENT_FROM, TRAPS, UNIVERSAL_MIN_TYPES, type TrapEntry } from './trap-atlas'
+import { ATLAS_TYPES, BUILT_AT, CORPUS, DETECTOR, RECENT_FROM, TRAPS, UNIVERSAL_MIN_TYPES, type TrapEntry, type TrapExample } from './trap-atlas'
+
+/**
+ * 함정 → 예시 문항. 번들의 TRAPS.examples 는 비어 있다(Reveal Gate G3 — 문항 ↔ 함정 연결이 보류 문항의 오답 계열을 드러낸다).
+ * 화면은 서버가 보류 필터 뒤 넘긴 지도(loadTrapExamples → 식별 칸만)를 받는다. 안 넘기면 예시 없이 그린다.
+ */
+export type TrapExamples = Record<string, TrapExample[]>
+const examplesOf = (t: TrapEntry, ex?: TrapExamples): TrapExample[] => ex?.[t.key] ?? t.examples
 
 // ⚠️ **예시의 인용문(`tempting`·`reject`)은 이 화면에 오지 않는다.** 그 두 줄에는 지문 구절이
 //    영어로 그대로 들어 있고, 지금까지 그것을 그린 화면은 관리자(`/admin/kice/*`)뿐이다.
@@ -72,20 +79,20 @@ function trapsOfType(typeId: string): TrapEntry[] {
   return TRAPS.filter((t) => (t.by_type[typeId] ?? 0) > 0)
 }
 
-function exampleOf(entries: TrapEntry[], typeId?: string) {
+function exampleOf(entries: TrapEntry[], typeId?: string, ex?: TrapExamples) {
   for (const t of entries) {
-    const found = t.examples.find((e) => !typeId || e.type_id === typeId)
+    const found = examplesOf(t, ex).find((e) => !typeId || e.type_id === typeId)
     if (found) return { slug: found.slug, label: found.exam_label, no: found.no }
   }
   return null
 }
 
 /** 유형 26 — 행 하나가 「이 유형을 해부할 준비가 어디까지 됐나」다. */
-export function typeRows(): SpaceRow[] {
+export function typeRows(ex?: TrapExamples): SpaceRow[] {
   return ATLAS_TYPES.map((type, i) => {
     const traps = trapsOfType(type.id)
     const named = pct(type.named, type.distractors)
-    const example = exampleOf(traps, type.id)
+    const example = exampleOf(traps, type.id, ex)
     const coverage = { label: `계열 이름 ${named}%`, pct: named }
     // 학습자 화면에는 제작 공정 지표(계열 이름 % · 예시 있음)를 싣지 않는다 — 재설계안 v1 결정 6 (2026-09-25)
     const badges: SpaceBadge[] = []
@@ -112,10 +119,10 @@ export function typeRows(): SpaceRow[] {
 }
 
 /** 함정 32 — 행 하나가 「평가원이 오답을 만드는 한 가지 방법」이다. */
-export function trapRows(): SpaceRow[] {
+export function trapRows(ex?: TrapExamples): SpaceRow[] {
   return TRAPS.map((trap, i) => {
     const universal = trap.types >= UNIVERSAL_MIN_TYPES
-    const example = trap.examples[0] ?? null
+    const example = examplesOf(trap, ex)[0] ?? null
     const share = pct(trap.n, CORPUS.named)
     const coverage = { label: `이름 붙은 오답의 ${share}%`, pct: share }
     const badges: SpaceBadge[] = []
@@ -133,7 +140,7 @@ export function trapRows(): SpaceRow[] {
       recent: trap.recent,
       recentRatio: trap.n > 0 ? trap.recent / trap.n : 0,
       example: example ? { slug: example.slug, label: example.exam_label, no: example.no } : null,
-      search: [trap.key, ...trap.examples.map((e) => `${e.exam_label} ${e.no}`)].join(' ').toLowerCase(),
+      search: [trap.key, ...examplesOf(trap, ex).map((e) => `${e.exam_label} ${e.no}`)].join(' ').toLowerCase(),
       weight: trap.n,
     }
   }).sort((a, b) => b.weight - a.weight || a.name.localeCompare(b.name))

@@ -63,7 +63,13 @@ export async function GET() {
   const { held, failed } = await itemRevealDecision(correctnessItemIds(rec))
   // 관문 판정 실패 — 기록을 내보내지 않고 공통 423(기기 기록으로 계속 돈다)
   if (failed) return revealHeldResponse()
-  return NextResponse.json({ ok: true, record: held.size ? withoutHeldCorrectness(rec, (id) => held.has(id)) : rec }, { headers: NO_STORE })
+  if (!held.size) return NextResponse.json({ ok: true, record: rec }, { headers: NO_STORE })
+  const stripped = withoutHeldCorrectness(rec, (id) => held.has(id))
+  // 진행 세트를 뺀 사본이 기기 사본보다 새 것으로 보이면 기기 병합(새 쪽의 active 를 가져감)이 기기의 세트를 지운다(P2) —
+  // 뺀 사본은 updatedAt 0 으로 내보내 기기 쪽이 언제나 새 것이 되게 한다(합집합 필드는 그대로 합쳐진다)
+  // updatedAt 을 낮추면 보류와 무관한 최신 초안 · 복습까지 밀린다(Codex P2) — 대신 「뺐다」는 표시만 붙여 기기 병합이 세트를 지키게 한다
+  const out = rec.active && !stripped.active ? { ...stripped, activeWithheld: true as const } : stripped
+  return NextResponse.json({ ok: true, record: out }, { headers: NO_STORE })
 }
 
 export async function PUT(req: Request) {
@@ -91,7 +97,15 @@ export async function PUT(req: Request) {
   // 들어온 기록에 새 세트가 있어도 덮지 않는다 — 숨긴 세트의 진행 위치 · 근거가 사라진다(Codex P1 재리뷰). 새 세트는 보류가 풀릴 때까지 기기에만 있다
   if (serverActive) {
     const { held, failed } = await itemRevealDecision([...serverActive.items, ...Object.keys(serverActive.loci ?? {})])
-    if (failed || held.size) merged = { ...(merged as DissectionRecord), active: serverActive }
+    // 같은 세트(문항 목록이 같음)의 더 나아간 진행이면 그 진행을 받는다 — 서버 세트로 덮으면 index · loci 가 되돌아간다(P2)
+    const incoming = (record as unknown as DissectionRecord).active
+    const sameSet = Boolean(incoming) && incoming!.items.length === serverActive.items.length && incoming!.items.every((id, i) => id === serverActive.items[i])
+      // 같은 세트라도 진행이 뒤로 가거나(index) 같은 자리에서 근거(loci) · 짝 확인(pairSeen)을 잃으면 서버 진행을 지킨다(Codex P2)
+      && (incoming!.index > serverActive.index
+        || (incoming!.index === serverActive.index
+          && Object.keys(serverActive.loci ?? {}).every((k) => k in (incoming!.loci ?? {}))
+          && (!serverActive.pairSeen || incoming!.pairSeen)))
+    if ((failed || held.size) && !sameSet) merged = { ...(merged as DissectionRecord), active: serverActive }
   }
   const { error } = await db
     .from('csat_learner_state')

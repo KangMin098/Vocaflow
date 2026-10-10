@@ -190,6 +190,9 @@ export function mergeDissection(local: DissectionRecord, server: DissectionRecor
     views: [...views.entries()].map(([id, at]) => ({ id, at })).sort((a, b) => a.at - b.at).slice(-200),
     drafts: { ...(older.drafts ?? {}), ...(newer.drafts ?? {}) },
     updatedAt: Math.max(local.updatedAt ?? 0, server.updatedAt ?? 0),
+    // 보류로 빠진 세트(activeWithheld)는 「세트 없음」이 아니다 — 새 쪽이 그 사본이면 다른 쪽의 세트를 지킨다. 표시는 남기지 않는다
+    active: newer.active ?? (newer.activeWithheld ? older.active : undefined),
+    activeWithheld: undefined,
   }
 }
 

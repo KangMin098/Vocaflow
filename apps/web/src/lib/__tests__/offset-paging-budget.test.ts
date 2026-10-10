@@ -91,8 +91,14 @@ type Scanner = { scanFile: (file: string) => Hit[]; walk: (dir: string, out?: st
  * `lib/csat/items.ts` 3곳과 `lib/csat/dissect-catalog.ts` 2곳의 OFFSET 호출을
  * 고유 키 커서로 바꿨다. 실제 `.range()` 다섯 곳을 없애자 넓은 스캐너 창이 이웃 조회까지
  * 같은 OFFSET 으로 세던 네 후보도 함께 사라졌다. 깨끗한 LF 체크아웃 실측 207.
+ *
+ * ── 207 → 208 (2026-10-06 · Reveal Gate canary) ───────────────────────────
+ * 늘어난 1건 = `scripts/csat/reveal-gate/canary-scan.mjs` 의 `c.from(rel).select(cols).range(from, from + 999)`.
+ * Track B 앱 diff 가 아니라 분기점 `00a99edab`(feat/ec-smoke) 에서 이미 208 이다(origin/main 207 · 차이는 이 한 줄뿐 — 실측).
+ * 의도 · 필요: 검사기가 **학습자 JWT 로** 학습자에게 열린 관계 39개(키가 제각각 · 일부는 뷰)를 전 행 읽어 canary 를 찾는다 —
+ * 공통 고유 키가 없어 커서로 바꿀 수 없고, 개발 DB 의 TEST fixture 검사라 운영 재고와 함께 커지지 않는다.
  */
-const BASELINE = 207
+const BASELINE = 208
 
 let scanner: Scanner
 
