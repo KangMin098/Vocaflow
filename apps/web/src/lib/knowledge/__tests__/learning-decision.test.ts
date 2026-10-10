@@ -202,3 +202,40 @@ describe('find-policy.v3 — 확인 문항 밖 지문의 방법 연습', () => {
     expect(['/csat/item/2016-20#principle', '/csat/item/2020-20#principle']).toContain(d.href)
   })
 })
+
+describe('find-policy.v3 — 반복 회차(진단 → 연습 → 재확인 실패 → 재연습 → 재확인)', () => {
+  // 반복 지적 원인: 경계를 「마지막 연습」 하나로 잡아, 재확인 실패 뒤 재연습이 오면 앞 재확인이 진단으로 섞였다 — 이 경로를 못 시험했다
+  const C5 = [...CONFIRM, { itemRef: '2020#20', href: '/csat/item/2020-20#principle', label: '2020#20' }, { itemRef: '2021#20', href: '/csat/item/2021-20#principle', label: '2021#20' }]
+  const T5 = C5.map((c) => ({ itemRef: c.itemRef, taskKey: 'claim-support' }))
+  const at = (itemRef: string, ok: boolean | null, t: string, activity: string, taskKey = 'claim-support') =>
+    ({ ...row(itemRef, false), isCorrect: ok, answeredAt: `2026-10-10T${t}:00Z`, activity, taskKey }) as unknown as FindAttemptRow
+  const diag = [at('2022#20', false, '01:00', 'theater'), at('2025#20', false, '01:05', 'theater')]
+  const p1 = at('2019#22', null, '02:00', 'practice', 'claim-support-skeleton')
+  const r1 = at('2016#20', false, '03:00', 'theater')
+  const p2 = at('2018#22', null, '04:00', 'practice', 'claim-support-skeleton')
+  const r2 = at('2020#20', true, '05:00', 'theater')
+  const dec = (rows: FindAttemptRow[]) => {
+    const o = findOutcome(T5, rows)
+    return { o, d: decideStep({ stepKey: 'structure', findTaskId: 'B6-3', outcome: o, chain: CHAIN, confirm: C5, triedItems: [...new Set(rows.filter((r) => r.activity !== 'practice').map((r) => r.itemRef))], practiceHref: '/csat/practice/claim-support' }) }
+  }
+  it('재확인 실패 → 같은 초점 재연습, 진단은 그대로 2문항', () => {
+    const { o, d } = dec([...diag, p1, r1])
+    expect(o.items).toEqual(['2022#20', '2025#20'])
+    expect(o.recheck.items).toEqual(['2016#20'])
+    expect(d.action).toBe('practice_method')
+  })
+  it('재연습 뒤 → 앞 재확인은 재확인으로 남고(진단에 섞이지 않음) 새 지문 재확인 차례', () => {
+    const { o, d } = dec([...diag, p1, r1, p2])
+    expect(o.state).toBe('confirmed_need')
+    expect(o.items).toEqual(['2022#20', '2025#20'])
+    expect(o.recheck.items).toEqual(['2016#20'])
+    expect(o.recheck.pending).toBe(true)
+    expect(d.action).toBe('recheck_new')
+    expect(d.href).not.toMatch(/2016|2022|2025/)
+  })
+  it('두 번째 재확인 통과 → 다음 단계(최신 사건 기준)', () => {
+    const { o, d } = dec([...diag, p1, r1, p2, r2])
+    expect(o.recheck.items).toEqual(['2016#20', '2020#20'])
+    expect(d.action).toBe('recheck_passed')
+  })
+})
