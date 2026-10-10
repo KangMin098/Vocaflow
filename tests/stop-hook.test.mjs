@@ -402,3 +402,65 @@ test('RP12 기준 커밋이 다르면(다른 worktree·리베이스) 같은 diff
   const u = harness({ reviews: ['No regressions were identified because the review was skipped.'] })
   assert.equal(u.stop().verdict, VERDICT.UNKNOWN)
 })
+
+// ── 반복 차단 · 최종 리뷰 범위(2026-10-10 완료 정체 해소) ────────────────────
+test('RP13 같은 파일이 줄이 멀리 떨어져 다시 막히면 원인 분석 안내 · 차단은 유지', () => {
+  const h = harness({ files: ['src/a.ts'], reviews: ['[P1] src/a.ts:10 — first edge — fix', '[P1] src/a.ts:200 — another edge — fix'] })
+  const r1 = h.stop()
+  assert.equal(r1.log, 'blocked')
+  const r2 = h.stop()
+  assert.equal(r2.exit, 2, '새 P1 은 계속 차단')
+  assert.equal(r2.log, 'blocked_same_file')
+  assert.match(r2.stderr, /같은 파일이 다시 막혔다\(src\/a\.ts\)/)
+})
+
+test('RP14 다른 파일의 새 P1 은 같은 파일 안내 없이 차단', () => {
+  const h = harness({ files: ['src/a.ts', 'src/b.ts'], reviews: ['[P1] src/a.ts:10 — x — fix', '[P1] src/b.ts:10 — y — fix'] })
+  h.stop()
+  const r = h.stop()
+  assert.equal(r.log, 'blocked')
+})
+
+test('RP15 최종 이후 리뷰는 묶음 상한 6(읽기 전용) — 범위가 커져도 33~48파일은 미검토 UNKNOWN 이 아니다', () => {
+  const files = ['src/f0.ts']
+  const h = harness({ files, reviews: ['[P1] src/f0.ts:1 — bad — fix', '[P1] src/f0.ts:1 — bad — fix'], cfg: { maxFixRounds: 1 } })
+  h.stop()
+  h.stop()
+  assert.equal(h.records().at(-1).kind, 'final')
+  // 최종 판정 뒤 범위가 40파일로 자란다(기준선 고정)
+  for (let k = 1; k < 40; k++) files.push(`src/f${k}.ts`)
+  for (let k = 0; k < 5; k++) h.queue.push(CLEAN)
+  const r = h.stop()
+  const rec = h.records().at(-1)
+  assert.equal(rec.kind, 'post_final')
+  assert.equal(rec.files_unreviewed, 0, '5묶음 모두 본다')
+  assert.equal(r.verdict, VERDICT.PASS)
+})
+
+test('RP16 미검토 파일이 있어도 검토한 묶음에 P1 이 있으면 BLOCKED(UNKNOWN 에 묻히지 않는다)', () => {
+  const files = Array.from({ length: 40 }, (_, i) => `src/f${i}.ts`)
+  const h = harness({ files, reviews: ['[P1] src/f0.ts:1 — bad — fix', CLEAN, CLEAN, CLEAN] })
+  const r = h.stop()
+  assert.equal(r.verdict, VERDICT.BLOCKED)
+  assert.equal(r.exit, 2)
+})
+
+test('RP17 v1 사이클이 같은 head 에서 UNKNOWN 으로 멈추면 새 판으로 올라가 재사용으로 미검토 파일까지 돈다', () => {
+  const files = Array.from({ length: 40 }, (_, i) => `src/f${i}.ts`)
+  const h = stableHarness({ files, reviews: [] })
+  const sf = path.join(h.stateDir, 's1.json')
+  const st = JSON.parse(fs.readFileSync(sf, 'utf8'))
+  st.roots[h.root] = { fix_rounds: 1, pending_block: null, seen: {}, final: null, history: [] }
+  fs.writeFileSync(sf, JSON.stringify(st))
+  const head = 'h'.repeat(40)
+  for (let k = 0; k < 4; k++) h.queue.push(CLEAN)
+  assert.equal(h.stop(head).verdict, VERDICT.UNKNOWN, 'v1: 4묶음 뒤 8파일 미검토')
+  assert.equal(h.records().at(-1).policy_version, 'RP-v1')
+  for (let k = 0; k < 5; k++) h.queue.push(CLEAN)
+  const r = h.stop(head)
+  assert.equal(h.records().at(-1).policy_version, 'RP-2026-10-10.1')
+  assert.equal(r.verdict, VERDICT.UNKNOWN, '새 판 첫 회: 4묶음 리뷰 · 장부 기록 · 8파일 남음')
+  const r3 = h.stop(head)
+  assert.equal(r3.verdict, VERDICT.PASS, '다음 회: 32파일 재사용 + 남은 8파일 1묶음')
+  assert.deepEqual(h.calls.at(-1).files.length, 8)
+})

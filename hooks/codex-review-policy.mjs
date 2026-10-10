@@ -23,7 +23,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 export const VERDICT = { PASS: 'REVIEW_PASS', BLOCKED: 'REVIEW_BLOCKED', UNKNOWN: 'REVIEW_UNKNOWN' }
-export const DEFAULTS = { maxFixRounds: 3, filesPerChunk: 8, maxChunks: 4 }
+// maxChunksFinal: 최종·최종 이후 리뷰(읽기 전용 · 수정 루프 없음)의 묶음 상한. 최종 판정 뒤에는 기준선이 고정돼 범위가 커지기만 한다 —
+// 상한 4 로는 33파일부터 「미검토」 UNKNOWN 이 영구히 났다(실측 2026-10-10 AI-Control: 커밋 61 · 파일 35 · 묶음 5)
+export const DEFAULTS = { maxFixRounds: 3, filesPerChunk: 8, maxChunks: 4, maxChunksFinal: 6 }
 
 // codex exec 는 NO_FINDINGS, codex review 는 「No concrete defect(s)… identified/evident」 · 최종 리뷰는 「No remaining P0/P1 defects were confirmed」
 // 같은 문장으로 깨끗함을 말한다(실측 2026-10-09 · 두 번째 형식을 못 읽어 최종 리뷰가 UNKNOWN 이 됐다)
@@ -324,8 +326,9 @@ function reviewRange({ files, from, head, deps, cfg, kind, ctx }) {
   }
   const chunks = []
   for (let i = 0; i < todo.length; i += cfg.filesPerChunk) chunks.push(todo.slice(i, i + cfg.filesPerChunk))
-  const reviewed = chunks.slice(0, cfg.maxChunks)
-  const overflow = chunks.slice(cfg.maxChunks).flat()
+  const cap = kind === 'final' || kind === 'post_final' ? Math.max(cfg.maxChunks, cfg.maxChunksFinal ?? cfg.maxChunks) : cfg.maxChunks
+  const reviewed = chunks.slice(0, cap)
+  const overflow = chunks.slice(cap).flat()
   let diffAll = ''
   const fresh = {}
   const clock = () => deps.now?.() ?? Date.now()
@@ -395,8 +398,9 @@ function reviewRange({ files, from, head, deps, cfg, kind, ctx }) {
 const isBlocking = (f) => ['P0', 'P1'].includes(f.severity) && !f.false_positive
 
 function verdictOf(rr) {
-  if (rr.failures.length || rr.overflow.length) return VERDICT.UNKNOWN
+  // 차단 지적이 하나라도 있으면 미검토·실패가 섞여도 BLOCKED — 이전에는 미검토 파일이 있으면 찾은 P1 이 UNKNOWN 에 묻혔다(2026-10-10 g2-int 실측)
   if (rr.findings.some(isBlocking)) return VERDICT.BLOCKED
+  if (rr.failures.length || rr.overflow.length) return VERDICT.UNKNOWN
   // 오탐 선언은 차단 루프만 멈춘다 — 범위 밖 판단은 자기 선언이라 통과 근거가 아니다(사람이 본다)
   if (rr.findings.some((f) => ['P0', 'P1'].includes(f.severity) && f.false_positive)) return VERDICT.UNKNOWN
   return VERDICT.PASS
@@ -441,7 +445,11 @@ function inner(ctx, deps, cfg, log) {
   // 정책 버전: 열린 v1 수정 사이클(차단 대기 · 최종 판정 전 수정 중)은 v1 로 끝낸다. 그 밖(새 루트 · 유휴 · 최종 판정 뒤)은 지금 판으로 올린다
   if (R.policy_version !== POLICY_VERSION) {
     const openCycle = !!R.pending_block || (R.fix_rounds > 0 && !R.final)
-    if (!openCycle) {
+    // 같은 head 에서 v1 이 UNKNOWN 으로 멈춘 사이클은 v1 로는 닫히지 않는다(미검토 파일은 매번 같다) — 새 판으로 올린다.
+    // 새 판은 차단 규칙을 완화하지 않는다(판독 · 범위 동일 재사용 · 한도 재시도) — 2026-10-10 g2-int: 같은 head 를 6분마다 4묶음씩 다시 보던 교착
+    const last = (R.history || []).at(-1)
+    const stalled = last && last.head === head && last.verdict === VERDICT.UNKNOWN
+    if (!openCycle || stalled) {
       R.policy_version = POLICY_VERSION
       persist()
     }
@@ -566,22 +574,28 @@ function inner(ctx, deps, cfg, log) {
   const locs = (R.seen_locs ||= [])
   const near = (f) => locs.some((l) => l.severity === f.severity && l.file === (f.affected_file || '').toLowerCase() && f.relevant_line != null && l.line != null && Math.abs(l.line - f.relevant_line) <= 5)
   const repeated = blocking.filter((f) => (R.seen[f.finding_id] || 0) >= 1 || near(f))
+  // 같은 파일 재차단(줄이 멀어도) — 한 파일의 계약에서 경계 경우가 잇따라 나오는 패턴(실측: 같은 파일 재차단 24건 중 13건을 위 규칙이 놓쳤다).
+  // 차단은 그대로(새 P0/P1 은 계속 막는다) — 다음 수정을 땜질이 아니라 그 파일 계약 전체의 원인 분석으로 돌린다
+  const sameFile = blocking.filter((f) => !repeated.includes(f) && f.affected_file && locs.some((l) => l.file === f.affected_file.toLowerCase()))
   for (const f of blocking) {
     R.seen[f.finding_id] = (R.seen[f.finding_id] || 0) + 1
     if (f.affected_file) locs.push({ severity: f.severity, file: f.affected_file.toLowerCase(), line: f.relevant_line })
   }
   R.pending_block = { head, finding_ids: blocking.map((f) => f.finding_id) }
   persist()
-  log(`review BLOCKED head=${head.slice(0, 9)} p01=${blocking.length} repeated=${repeated.length} fix_rounds=${R.fix_rounds}`)
+  log(`review BLOCKED head=${head.slice(0, 9)} p01=${blocking.length} repeated=${repeated.length} same_file=${sameFile.length} fix_rounds=${R.fix_rounds}`)
   const header = `[Codex 리뷰 · ${from.slice(0, 9)}..${head.slice(0, 9)} · 수정 ${R.fix_rounds}/${cfg.maxFixRounds}회] REVIEW_BLOCKED — 차단 지적(P0·P1):\n${fmtFindings(rr.findings)}`
   const rootCause = repeated.length
     ? `\n\n⚠ 같은 결함이 반복됐다(${repeated.map((f) => f.finding_id).join(', ')}). 땜질 커밋을 더 하지 말고 **원인 분석**부터: 왜 이전 수정이 이 결함을 없애지 못했는지(가정·테스트 빈틈·범위)를 적고, 그 원인을 고친 뒤 커밋하라. 오탐이면 현재 작업 승인 범위(.agent-goal.md)와 대조한 근거를 남겨라.`
     : ''
+  const fileCause = sameFile.length
+    ? `\n\n⚠ 같은 파일이 다시 막혔다(${[...new Set(sameFile.map((f) => f.affected_file))].join(', ')}). 이 지적만 고치지 말고 그 파일이 지켜야 할 계약(입력·상태·경계 조건)을 한 번에 적고, 테스트로 경계 경우를 모두 덮은 뒤 커밋하라. 승인 범위 밖 개선이면 고치지 말고 별도 작업으로 분리하고 근거를 남겨라.`
+    : ''
   return {
     exit: 2,
     verdict: v,
-    stderr: `${header}${rootCause}\n\n실제 결함이면 고쳐 커밋한다. 오탐이면 현재 작업 범위와 대조한 근거를 한 줄로 남긴다(불편하다는 이유로 넘기지 않는다). P2·P3 는 차단하지 않는다.`,
-    log: repeated.length ? 'blocked_root_cause' : 'blocked',
+    stderr: `${header}${rootCause}${fileCause}\n\n실제 결함이면 고쳐 커밋한다. 오탐이면 현재 작업 범위와 대조한 근거를 한 줄로 남긴다(불편하다는 이유로 넘기지 않는다). P2·P3 는 차단하지 않는다.`,
+    log: repeated.length ? 'blocked_root_cause' : sameFile.length ? 'blocked_same_file' : 'blocked',
   }
 }
 
