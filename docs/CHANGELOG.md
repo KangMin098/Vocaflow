@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(textbook): 생산 실행 → 일자별 합성 승격·원자 snapshot·게시 시뮬레이션 → 검증된 원자 권 (`run-atomic-bridge.mjs`). 단일 지문 16개 제품군 · 단일/연속/비연속 복수 학년, 일자 철회·신뢰 정책 불일치·게이트 후 문항 변조 차단.
 - feat(textbook): 일자별 게시 원자 snapshot 을 한 권으로 묶는 `atomic-volume.mjs` — 모든 일자를 DB serve 로 재확인, 한 일자의 증거가 바뀌면 권 전체 무효. 새 마이그레이션 없음(주문 결속은 실행 manifest 기준 — 한계 명시).
 - feat(textbook): 관리자 `/admin/csat/new` 주문별 생산 상태에 생산 실행(드레인→단원→권) 현재 공정·차단 사유·revision 불일치를 표시 — 새 라우트 `GET /api/admin/csat/order-runs`(admin 전용, `TEXTBOOK_ORDER_RUN_DIR`).
 - feat(textbook): 등록 주문 초안 → 학년·일자 드레인 → 제품군 어댑터 검사 → 학생용 권·계보 manifest 로 잇는 `order-production-run`(라이브러리 + CLI export/import/status). 낡은 revision·혼합 brief·누락/외부 셀은 산출물 전에 차단. 교재 공장 브랜치를 main 기준으로 다시 세웠다(교재 파일만 이식).

@@ -185,7 +185,9 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
   const volumeInput = { brief: sealed.brief, orders: sealed.orders, units }
   try {
     const output = assemblePlannedVolumeSynthetic(volumeInput)
-    return { status: 'assembled' as const, drain_hash: drain.drain_hash, volumeInput, output,
+    // The adapter-level item fields (choices, secondary/focus evidence) feed downstream atomic production.
+    const gatedItems = drain.cells.map(cell => ({ unit_id: cell.cell_id, items: filled.get(cell.cell_id)!.items }))
+    return { status: 'assembled' as const, drain_hash: drain.drain_hash, volumeInput, output, gatedItems,
       lineage: output.receipt.units.map(unit => ({ grade: unit.grade, day: unit.day, unit_id: unit.unit_id,
         product_order_id: unit.product_order_id, order_revision: unit.order_revision, order_hash: unit.order_hash,
         passage_hash: unit.passage_hash, unit_hash: unit.unit_hash, item_ids: unit.items.map(item => item.item_id) })) }

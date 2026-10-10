@@ -34,6 +34,8 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
       'packages/library-pipeline/src/textbook/multi-grade-order.test.ts',
       // Registered-order drain -> generic family gate -> planned student volume (not family teaching design).
       'packages/library-pipeline/src/textbook/order-production-run.test.ts',
+      // Same run -> per-day synthetic promotion -> atomic snapshot -> publication -> verified volume.
+      'scripts/textbook/run-atomic-bridge.test.mjs',
     ] : []
   const missing = state === 'NOT_SUPPORTED'
     ? ['family-specific passage/item/activity/layout adapter', 'synthetic end-to-end']
@@ -41,7 +43,7 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
       ? ['family-specific promotion-to-publication end-to-end', 'real-content operational end-to-end']
       : state === 'CONTRACT_ONLY'
       ? ['family-specific semantic passage/item/activity/layout adapter',
-        'family-specific promotion-to-publication end-to-end']
+        'live DB promotion to atomic publication end-to-end']
       : ['live DB promotion to atomic publication end-to-end', 'real-content operational end-to-end']
   return [id, { state, evidence, missing }]
 })) as unknown as RuntimeEvidence
