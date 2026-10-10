@@ -124,3 +124,16 @@ node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10 
 - **CRITICAL(`require_review_pass`) 작업은 계속 막힙니다.** 그 커밋의 Stop REVIEW_PASS 가 생기지 않기 때문입니다. 대체 독립 검증이 승인되기 전까지는 BLOCKED 를 유지합니다.
 - Goal Check 는 바뀌지 않았습니다(원래 Codex 를 부르지 않는 결정적 검사).
 - 회귀: `tests/no-auto-codex.test.mjs`(NC1–NC3: Codex 0회 · 통과 증거면 완료 · 실패·미실행 증거나 실패 보고면 완료 안 됨). 기존 테스트는 `VFC_AUTO_CODEX=1` 로 옛 경로를 계속 검증합니다.
+
+## CRITICAL 대체 검증 계약 CRIT-EV-1 (2026-10-10)
+
+자동 Codex 리뷰가 없어진 뒤(RP-2026-10-10.2)에는 `require_review_pass`(CRITICAL: 인증·권한·DB·학습 기록·데이터 계보) 작업에 필요한 「그 커밋의 Stop REVIEW_PASS」가 생기지 않습니다. 그래서 `completeTask` 는 아래 둘 중 하나를 요구합니다.
+1. 그 커밋의 Stop REVIEW_PASS. 사용자가 요청한 수동 Codex 리뷰(`CODEX_REVIEW=1`)로 생깁니다.
+2. **CRIT-EV-1 전부:**
+   - 이번 run 증거가 모두 같은 검증 커밋을 적었다.
+   - 그 커밋의 CI 통과 증거가 있다(`type ci`, 실행 URL).
+   - 통합·e2e·DB 검증 증거가 있다(`integration`·`e2e`·`db_query`). 단위 테스트만으로는 부족하다.
+   - 작업 owner 가 아닌 owner 가 붙인 독립 검증 증거가 있다(`review`·`manual`·`integration`·`e2e`·`db_query`). REVIEW 단계 증거는 다른 owner 만 붙일 수 있다.
+   - DB 쓰기 작업이면 승인 기록(`task.approval`)이 있다.
+
+하나라도 빠지면 기존 오류 코드(`REVIEW_PASS_REQUIRED` / `REVIEW_COMMIT_MISMATCH`)로 완료를 거부하고, 빠진 항목을 메시지에 적습니다. 자동 승격은 없습니다. 오케스트레이터의 「자동 Codex 없음」 인수 기록은 이 계약의 독립 검증으로 세지 않습니다(증거가 아니라 리뷰 기록이기 때문). 회귀: `tests/critical-evidence.test.mjs`(CE1–CE6), SH9.
