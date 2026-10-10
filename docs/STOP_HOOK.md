@@ -51,3 +51,25 @@
 ## 바꾸지 않은 것
 
 DB 쓰기 게이트 · 일일 예산 정책 · `rm -rf` 가드 · 승인 없는 DB 변경 금지. 이번 변경은 판정을 더 엄격하게만 만든다(통과 경로를 늘리지 않는다).
+
+## 리뷰 정책 RP-2026-10-10.1 — 중복 제거 (2026-10-10)
+
+실측(10/1~10/10 · verdicts 118건 · Codex 호출 503회 ≈ 10시간): 판정의 37%(44건)가 REVIEW_UNKNOWN 이었다.
+사유는 사용량 한도 30건, 판독 실패 19건이었다. 판독 실패 원문 16건을 다시 보니 모두 깨끗한 답이었다(「No concrete defects or goal drift were found…」).
+한도 실패 직후 같은 실행의 다음 묶음은 62개 중 60개가 성공했다. 즉 한도는 대부분 잠깐이다.
+
+| 바뀐 것 | 근거 · 안전 |
+|---|---|
+| **판독**: 「No … defects/regressions/findings … found/identified」 문장과 「introduces no confirmed defects」를 깨끗한 답으로 읽는다 | shadow: 원문 228건 중 판독 실패 16건 → 15건 회복 · 차단 84건과 깨끗함 128건은 판정이 그대로(놓친 P0/P1 0건). `[P0-3]` 표지가 있으면 문장과 관계없이 지적으로 읽는다 |
+| **파일 단위 재사용** `review-reuse.json`: (정책 버전 · 목적 파일 해시 · 파일 경로 · 그 파일 diff)가 같고 **같거나 높은 effort** 로 깨끗했던 파일은 Codex 를 다시 부르지 않는다 | P0/P1 이 나온 묶음의 파일은 기록하지 않는다. low 기록으로 high 요구를 건너뛰지 않는다. 목적 파일이 바뀌면 무효. 14일 만료. 판정 기록 `files_reused` 에 출처(head · 원문)가 남는다 |
+| **한도 재시도**: 한도에 걸린 묶음은 다른 묶음을 먼저 돌린 뒤 한 번 다시 부른다(묶음이 하나뿐이면 30초 쉬고). 시작 240초 뒤에는 재시도하지 않는다(훅 제한 600초) | 다시 실패하면 그대로 UNKNOWN 이다(PASS 아님). 대기·중단 방식은 실측으로 기각했다 |
+| **오케스트레이터 위임**: `VFC_REVIEW_DEFER=orchestrator` + `VFC_AUTOMATED_RUN=1` 인 구현 세션은 Stop 리뷰를 건너뛴다 | 오케스트레이터가 같은 diff 를 medium/high 독립 리뷰로 본다. 판정 기록을 남기지 않아 완료 게이트에는 「없음」으로 보인다(PASS 아님). **require_review_pass(CRITICAL) 작업은 위임하지 않는다** |
+| 판정 기록에 `policy_version` · `effort` · `codex_calls` · `files_reused` 추가 | 구버전과 신버전 증거가 섞여도 구분된다(옛 기록 = 필드 없음 → `RP-v1`) |
+
+**전환 규칙(소급 금지)** — 훅은 Stop 마다 새 프로세스로 돈다. 그래서 설치하면 모든 세션이 **다음 Stop** 부터 새 파일을 읽는다(재시작은 필요 없다). 정책 판은 루트 상태(`roots[root].policy_version`)로 정한다.
+- 새 세션 · 새 루트 · 유휴 루트(열린 사이클 없음) · 최종 판정을 이미 낸 루트(`final`) → 다음 리뷰부터 새 판을 쓴다.
+- **열린 v1 수정 사이클**(`pending_block` 있음, 또는 `fix_rounds>0` 이고 `final` 없음) → 그 사이클을 닫는 리뷰까지 v1 그대로(옛 판독 · 재사용·재시도 없음)이고, 기록은 `RP-v1` 이다. 기준선이 넘어가면(PASS) 새 판으로 올린다.
+- 이미 돌고 있는 리뷰 프로세스는 옛 코드를 메모리에 올린 채 끝난다.
+
+검증: `node --test tests/stop-hook.test.mjs`(RP1–RP9) · shadow 판독 `scratchpad/shadow-parse.mjs` · 이력 replay(추정, 10/1~ 기록 119건: Codex 호출 262 → 168(−36%, 약 110분) · UNKNOWN 44 → 약 5).
+설치: `node hooks/install.mjs --dry-run` → 승인 → `node hooks/install.mjs`(이전 파일은 `.bak-<시각>` 으로 남는다). 되돌리기: 백업 파일을 원래 이름으로 복사하면 다음 Stop 부터 v1 로 돈다(`review-reuse.json` 은 v1 이 읽지 않으므로 그대로 둬도 된다).

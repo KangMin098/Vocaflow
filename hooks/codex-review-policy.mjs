@@ -29,7 +29,59 @@ export const DEFAULTS = { maxFixRounds: 3, filesPerChunk: 8, maxChunks: 4 }
 // 같은 문장으로 깨끗함을 말한다(실측 2026-10-09 · 두 번째 형식을 못 읽어 최종 리뷰가 UNKNOWN 이 됐다)
 export const NO_FINDINGS_RE = /^\s*NO_FINDINGS\s*$|\bno (?:remaining )?(?:concrete |blocking |actionable )?(?:P0\s*(?:\/|or|and|&)\s*P1 |P[01] )?(?:defects?|findings|issues|bugs)\b(?:[^.\n]*\b(?:identified|evident|found|detected|confirmed))?/im
 
+// ── 리뷰 정책 버전(2026-10-10 「Codex 리뷰 최적화」) ─────────────────────────
+// RP-2026-10-10.1 = 아래 셋. 판정 기록마다 policy_version 을 남겨 구버전·신버전 증거가 섞여도 구분된다.
+//   1. 판독: 「No concrete defects or goal drift were found…」 처럼 문장이 바뀐 깨끗한 답을 읽는다(실측: 판독 실패 19건이 전부 이 형식)
+//   2. 파일 단위 재사용: 같은 정책 · 같은 목적 파일 · 같은 파일 diff 를 **같거나 높은 effort** 로 깨끗하다고 본 기록이 있으면 Codex 를 다시 부르지 않는다
+//      (UNKNOWN 재시도 때 성공한 묶음까지 다시 돌던 낭비 · 범위가 자라는 post_final 재리뷰). P0/P1 이 나온 묶음의 파일은 기록하지 않는다.
+//   3. 사용량 한도: 한도에 걸린 묶음을 같은 실행 안에서 한 번 다시 부른다(실측상 일시적). 다시 실패하면 UNKNOWN(통과 아님).
+//      (대기·중단 방식은 실측으로 기각: 한도 뒤 묶음 62개 중 60개가 바로 성공했다 — 멈추면 성공할 리뷰를 UNKNOWN 으로 만든다)
+// 이전 판(v1)의 수정 사이클(fix_rounds>0 · pending_block)이 열린 루트는 그 사이클이 닫힐 때까지 v1 동작을 유지한다(소급 변경 금지).
+export const POLICY_VERSION = 'RP-2026-10-10.1'
+export const LEGACY_POLICY = 'RP-v1'
+export const LIMIT_RETRY_WAIT_MS = 30_000
+// 훅 제한 시간 600초 — 시작 뒤 이 시간이 지났으면 재시도하지 않는다(Codex 1회 평균 70초 · 상한 540초)
+export const LIMIT_RETRY_BUDGET_MS = 240_000
+const REUSE_TTL_MS = 14 * 86_400_000
+export const EFFORT_RANK = { minimal: 0, low: 1, medium: 2, high: 3, xhigh: 4 }
+// 「No …(defects|findings|issues|bugs|problems|regressions|goal drift)… (were) found/identified/evident/detected/confirmed」 — 한 줄 안에서만
+const CLEAN_SENTENCE_RE = /^[\s>*_-]*no\b[^\n]{0,160}?\b(?:defects?|findings?|issues|bugs|problems|regressions?|goal drift)\b[^\n]{0,160}?\b(?:found|identified|evident|detected|confirmed|spotted)\b|\b(?:introduces?|contains?|has|have) no (?:confirmed |concrete |actionable |reportable )*(?:defects|regressions|bugs)\b/im
+
+/** 깨끗한 답인가 — P 표지가 하나라도 있으면 아니다(지적 판독이 우선). legacy = v1 판독 */
+export function isCleanOutput(out, { legacy = false } = {}) {
+  const s = String(out ?? '')
+  if (/\[P[0-3]\]/.test(s)) return false
+  return NO_FINDINGS_RE.test(s) || (!legacy && CLEAN_SENTENCE_RE.test(s))
+}
+
 const sha1 = (s) => createHash('sha1').update(String(s)).digest('hex')
+
+// ── 파일 단위 재사용 장부(review-reuse.json) ──────────────────────────────
+// 키 = 정책 버전 · 목적 파일 해시 · 파일 경로 · 그 파일의 diff. 값 = { effort, at, head, raw }. 깨끗한 묶음만 기록한다.
+const reuseFile = (stateDir) => path.join(stateDir, 'review-reuse.json')
+export const reuseKey = ({ goalHash, file, fileDiff }) => sha1(`${POLICY_VERSION}\0${goalHash}\0${String(file).toLowerCase()}\0${fileDiff}`)
+function readReuse(stateDir) {
+  try {
+    return JSON.parse(fs.readFileSync(reuseFile(stateDir), 'utf8'))
+  } catch {
+    return {}
+  }
+}
+function writeReuse(stateDir, entries, nowMs) {
+  // 여러 세션의 훅이 같은 파일을 쓴다 — 읽고 합쳐 임시 파일 → rename. 경합으로 잃는 것은 재사용 기회뿐(다시 리뷰할 뿐 통과가 늘지 않는다)
+  const c = readReuse(stateDir)
+  for (const [k, v] of Object.entries(c)) if (!(nowMs - Date.parse(v.at) < REUSE_TTL_MS)) delete c[k]
+  Object.assign(c, entries)
+  const f = reuseFile(stateDir)
+  const tmp = `${f}.${process.pid}.${Math.random().toString(36).slice(2)}.tmp`
+  try {
+    fs.writeFileSync(tmp, JSON.stringify(c))
+    fs.renameSync(tmp, f)
+  } catch {
+    fs.rmSync(tmp, { force: true })
+  }
+}
+const isLimitFailure = (why) => /사용량 한도|usage limit/i.test(String(why ?? ''))
 
 // ── 지적 파싱 · 지문 ─────────────────────────────────────────────────────
 
@@ -98,6 +150,15 @@ export function goalContext(root) {
     return { goal_id: (t.match(/VG-L\d-[A-Z0-9-]+/) || [])[0] ?? null, scope: (t.split('\n').find((l) => l.startsWith('# ')) || '').replace(/^#\s*/, '').slice(0, 120) || null }
   } catch {
     return { goal_id: null, scope: null }
+  }
+}
+
+/** 목적 파일 내용 해시 — 재사용 장부 키(목적이 바뀌면 이전 「깨끗함」을 쓰지 않는다). 없으면 'none' */
+export function goalHash(root, read = (p) => fs.readFileSync(p, 'utf8')) {
+  try {
+    return sha1(read(path.join(root, '.agent-goal.md')))
+  } catch {
+    return 'none'
   }
 }
 
@@ -230,38 +291,88 @@ export function applyFalsePositives(findings, { root, scopeFiles, read = (p) => 
 
 /** 범위의 모든 파일을 묶음으로 리뷰. 하나라도 실패하거나 묶음 상한을 넘으면 unknown 사유를 남긴다. */
 function reviewRange({ files, from, head, deps, cfg, kind, ctx }) {
+  const v2 = ctx.policy === POLICY_VERSION
+  const nowMs = deps.now?.() ?? Date.now()
+  const effort = deps.effort || 'low'
+  const failures = []
+  const raws = []
+  const findings = []
+  // 재사용: 파일 diff 가 같고 같거나 높은 effort 로 깨끗했던 파일은 묶음에서 뺀다
+  const reused = []
+  const fileDiffs = {}
+  let todo = files
+  if (v2) {
+    const book = readReuse(deps.stateDir)
+    todo = []
+    for (const f of files) {
+      const d = deps.diff(from, head, [f])
+      fileDiffs[f] = d
+      const hit = d != null && String(d).trim() ? book[reuseKey({ goalHash: ctx.goalHash, file: f, fileDiff: d })] : null
+      if (hit && (EFFORT_RANK[hit.effort] ?? 0) >= (EFFORT_RANK[effort] ?? 1) && nowMs - Date.parse(hit.at) < REUSE_TTL_MS) reused.push({ file: f, from_head: hit.head, raw: hit.raw, effort: hit.effort })
+      else todo.push(f)
+    }
+  }
   const chunks = []
-  for (let i = 0; i < files.length; i += cfg.filesPerChunk) chunks.push(files.slice(i, i + cfg.filesPerChunk))
+  for (let i = 0; i < todo.length; i += cfg.filesPerChunk) chunks.push(todo.slice(i, i + cfg.filesPerChunk))
   const reviewed = chunks.slice(0, cfg.maxChunks)
   const overflow = chunks.slice(cfg.maxChunks).flat()
-  const findings = []
-  const raws = []
-  const failures = []
   let diffAll = ''
-  for (const c of reviewed) {
+  const fresh = {}
+  const clock = () => deps.now?.() ?? Date.now()
+  const sleep = deps.sleep ?? ((ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms))
+  // 한도 실패는 대부분 잠깐이다(실측: 같은 실행의 뒤 묶음 62개 중 60개 성공 · 5분 안 다음 Stop 11건 모두 성공) —
+  // 한도에 걸린 묶음은 다른 묶음 뒤에 한 번 다시 부른다(단독이면 LIMIT_RETRY_WAIT_MS 쉬고). 훅 제한 시간 안에서만.
+  const queue = reviewed.map((c) => ({ c, retried: false }))
+  let ranSinceLimit = true
+  while (queue.length) {
+    const item = queue.shift()
+    const c = item.c
+    if (item.retried && !ranSinceLimit) sleep(LIMIT_RETRY_WAIT_MS)
     const diff = deps.diff(from, head, c)
     // diff 를 못 읽었거나 비었으면 리뷰한 것이 없다 — 통과가 아니라 판정 불가(Codex 리뷰 P1: 빈 문자열이 PASS·clean 이 됐다)
     if (diff == null || !String(diff).trim()) {
       failures.push(`diff 수집 실패 또는 빈 diff(${c.join(', ')})`)
       continue
     }
-    diffAll += diff
+    if (!item.retried) diffAll += diff
     const r = deps.review(c, diff, kind)
+    ranSinceLimit = true
     if (!r.ok) {
-      failures.push(r.why || 'review failed')
       raws.push(saveRaw(deps.stateDir, `${kind}-failed`, head, `${r.why || 'review failed'}\n${r.out ?? ''}`))
+      if (v2 && !item.retried && isLimitFailure(r.why) && clock() - nowMs < LIMIT_RETRY_BUDGET_MS) {
+        queue.push({ c, retried: true })
+        ranSinceLimit = false
+        continue
+      }
+      failures.push(r.why || 'review failed')
       continue
     }
-    raws.push(saveRaw(deps.stateDir, kind, head, r.out))
+    const raw = saveRaw(deps.stateDir, kind, head, r.out)
+    raws.push(raw)
     const parsed = parseFindings(r.out, ctx)
-    if (blockingMarkers(r.out) > parsed.filter((x) => ['P0', 'P1'].includes(x.severity)).length) failures.push('P0/P1 표지를 지적으로 판독하지 못했다')
+    let readable = true
+    if (blockingMarkers(r.out) > parsed.filter((x) => ['P0', 'P1'].includes(x.severity)).length) {
+      failures.push('P0/P1 표지를 지적으로 판독하지 못했다')
+      readable = false
+    }
     // 지적도 「지적 없음」 표지도 없는 출력(예: 「변경을 볼 수 없었다」)은 리뷰가 아니다 — PASS 로 세지 않는다
-    else if (!parsed.length && !NO_FINDINGS_RE.test(String(r.out))) failures.push('리뷰 출력을 판독하지 못했다(지적도 「지적 없음」 도 없다)')
+    else if (!parsed.length && !isCleanOutput(r.out, { legacy: !v2 })) {
+      failures.push('리뷰 출력을 판독하지 못했다(지적도 「지적 없음」 도 없다)')
+      readable = false
+    }
     findings.push(...parsed)
+    // P0/P1 이 없는 판독 가능한 묶음만 재사용 장부에 — 차단 묶음의 파일은 다음에 반드시 다시 본다
+    if (v2 && readable && !parsed.some((x) => ['P0', 'P1'].includes(x.severity))) {
+      for (const f of c) if (fileDiffs[f] != null && String(fileDiffs[f]).trim()) fresh[reuseKey({ goalHash: ctx.goalHash, file: f, fileDiff: fileDiffs[f] })] = { effort, at: new Date(nowMs).toISOString(), head, raw }
+    }
   }
+  if (v2 && Object.keys(fresh).length) writeReuse(deps.stateDir, fresh, nowMs)
   const fp = applyFalsePositives(findings, { root: ctx.root, scopeFiles: files, read: deps.readFile })
   for (const f of findings) if (fp.accepted.has(f.finding_id)) f.false_positive = true
-  return { findings, raws, failures, overflow, false_positives: fp.evidence, diff_hash: sha1(diffAll), files_reviewed: reviewed.flat().length, files: reviewed.flat() }
+  const covered = [...reviewed.flat(), ...reused.map((x) => x.file)]
+  // 재사용만으로 끝난 범위도 diff_hash 를 남긴다(같은 범위 판정끼리 대조할 수 있게)
+  if (!diffAll && reused.length) diffAll = files.map((f) => fileDiffs[f] ?? '').join('')
+  return { findings, raws, failures, overflow, false_positives: fp.evidence, diff_hash: sha1(diffAll), files_reviewed: covered.length, files: covered, reused, codex_calls: raws.length, effort }
 }
 
 const isBlocking = (f) => ['P0', 'P1'].includes(f.severity) && !f.false_positive
@@ -310,7 +421,16 @@ function inner(ctx, deps, cfg, log) {
   const state = loadState(deps.stateDir, sessionId)
   const R = (state.roots[root] ||= { fix_rounds: 0, pending_block: null, seen: {}, final: null, history: [] })
   const persist = () => saveState(deps.stateDir, sessionId, state)
+  // 정책 버전: 열린 v1 수정 사이클(차단 대기 · 최종 판정 전 수정 중)은 v1 로 끝낸다. 그 밖(새 루트 · 유휴 · 최종 판정 뒤)은 지금 판으로 올린다
+  if (R.policy_version !== POLICY_VERSION) {
+    const openCycle = !!R.pending_block || (R.fix_rounds > 0 && !R.final)
+    if (!openCycle) {
+      R.policy_version = POLICY_VERSION
+      persist()
+    }
+  }
   const advance = () => {
+    R.policy_version = POLICY_VERSION
     state.heads[root] = head
     R.fix_rounds = 0
     R.pending_block = null
@@ -347,7 +467,7 @@ function inner(ctx, deps, cfg, log) {
     log(`pass: new commits but no files from this session · ${from.slice(0, 9)}..${head.slice(0, 9)}`)
     return { exit: 0, log: 'no session files in range' }
   }
-  const gctx = { ...goalContext(root), root }
+  const gctx = { ...goalContext(root), root, policy: R.policy_version ?? LEGACY_POLICY, goalHash: goalHash(root, deps.readFile) }
 
   // 최종 판정 이후(post-final): 새 커밋은 1회 리뷰·기록·알림만 — 수정 루프로 되돌아가지 않는다(재귀 방지)
   if (R.final) {
@@ -465,6 +585,10 @@ function mkRecord({ root, head, from, rr, v, kind, R }) {
     p0_p1: rr.findings.filter(isBlocking),
     false_positives: rr.false_positives,
     raw_paths: rr.raws,
+    policy_version: R.policy_version ?? LEGACY_POLICY,
+    effort: rr.effort ?? null,
+    codex_calls: rr.codex_calls ?? rr.raws.length,
+    files_reused: (rr.reused || []).map((x) => ({ file: x.file, from_head: x.from_head, effort: x.effort, raw: x.raw })),
     tests: 'not_run_by_hook — 테스트 증거는 작업 증거(AI-Control)가 담는다',
   }
 }

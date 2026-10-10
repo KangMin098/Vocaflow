@@ -108,3 +108,11 @@ node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10 
 **중복 리뷰 방지** — 같은 작업 · 같은 diff · 같은 리뷰 입력(보고서·완료 조건·범위·claim)에서 APPROVE(차단 0)였으면 재사용(`runtime/review-cache.json`, 이벤트 `review_cache_hit`). REQUEST_CHANGES·판독 실패·오탐 이의 라운드는 캐시하지 않는다. 리뷰 강도(effort)는 바꾸지 않았다.
 
 **실측(2026-10-10)** — 기존 12 실행: 구현 53% · 리뷰 42% · 목표 검사 4% · 선정 0.5%(작업당 3.6분). 추가 비용: tick 유휴 ~110ms(프로세스 기동) · 실제 상태 dry-run 1.15s → 1.25s(브리지 포함) · 정렬 게이트 0.4ms.
+
+## 대표 리뷰 1회 — 리뷰 정책 RP-2026-10-10.1 (2026-10-10)
+
+- 이전에는 오케스트레이터가 띄운 구현 Claude(`-p`)에도 사용자 전역 Stop 훅이 걸렸다. 그래서 같은 diff 가 **Stop 리뷰(low) + 독립 리뷰(medium/high)** 로 두 번 리뷰됐고, 수정 루프도 각자 3회씩이었다.
+- 이제 작업이 첫 라운드를 시작할 때 `orchestration.review_policy = RP-2026-10-10.1` 을 찍는다. 이 판에서 시작한 **require_review_pass 가 아닌** 작업은 구현 세션에 `VFC_REVIEW_DEFER=orchestrator` 를 넘긴다. Stop 훅은 그 세션을 건너뛰고, 대표 리뷰는 이 오케스트레이터의 독립 리뷰 하나다.
+- 유지하는 것: CRITICAL(require_review_pass) 작업은 그 커밋의 Stop REVIEW_PASS 를 별도로 요구한다. 이전 판에서 라운드를 시작한 작업(`review_policy` 없음 → `RP-v1`)은 재개해도 끝날 때까지 위임하지 않는다. 같은 diff·계약의 APPROVE 캐시(`runtime/review-cache.json`)는 그대로 쓴다.
+- 기록: 실행 이벤트 `review_policy`(stop_review = deferred_to_independent | stop_hook) · 리뷰 기록 md 머리의 「리뷰 정책 · effort · 위임 여부 · 캐시 재사용」.
+- Goal Check(`lib/goalcheck.mjs`)는 Codex 를 부르지 않는 결정적 증거 검사다(리뷰 기록 무결성 해시 · 커밋 · 범위 변경). 목적 대조는 독립 리뷰 프롬프트 한 곳에서만 한다.
