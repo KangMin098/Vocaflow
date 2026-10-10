@@ -237,8 +237,12 @@ for (const width of [1280, 1440, 1728]) test(`해부 3수·설계도·공식·�
   await cdp.detach()
   if (width === 1280) {
     // Simulate an older failed extraction in this isolated browser's cache.
-    // 지금 홈 카드의 시작 링크는 `/csat/dissect`(쿼리 없음)라 회차를 URL 에서 읽을 수 없다 — 망가뜨리는 캐시 행의 회차를 쓴다(Codex P1)
-    const year = await page.evaluate(async () => new Promise<string>((resolve, reject) => {
+    // 지금 홈 카드의 시작 링크는 `/csat/dissect`(쿼리 없음)라 회차를 URL 에서 읽을 수 없다(Codex P1) — 화면에 떠 있는 문항의 회차를 위치 줄에서 읽는다.
+    // 캐시 첫 행을 쓰면 2025 · 2026 문제지가 함께 있을 때 키 순서로 다른 회차 PDF 를 놓는다(Codex P2).
+    const shown = (await page.getByRole('navigation', { name: '기출 학습 위치' }).locator('span').first().innerText()).match(/·\s*(\S+)\s+\d+번/)?.[1] ?? ''
+    const year = /^\d{4}/.test(shown) ? shown.slice(0, 4) : shown
+    expect(year, '위치 줄에서 회차를 못 읽었다').not.toBe('')
+    await page.evaluate(async () => new Promise<string>((resolve, reject) => {
       const open = indexedDB.open('vocaflow-csat')
       open.onerror = () => reject(open.error)
       open.onsuccess = () => {
