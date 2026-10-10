@@ -1,0 +1,27 @@
+# .github/workflows/ai-control-tests.yml — ai-control 브랜치 PR 의 회귀 테스트(2026-10-10)
+# 왜: ai-control 에는 CI 가 없어 safe-merge(체크 0개 = 통과 아님)가 모든 PR 을 거부했다. 로컬과 같은 node --test 를 돌린다.
+name: ai-control-tests
+on:
+  pull_request:
+    branches: [ai-control]
+  push:
+    branches: [ai-control]
+jobs:
+  node-test:
+    runs-on: windows-latest  # 이 도구들은 Windows 에서 돈다 — 경로 대소문자·8.3 이름 테스트가 Linux 에서는 실패한다(2026-10-10 실측 3건)
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 20
+    steps:
+      # 체크아웃 전에 줄바꿈 변환을 끈다 — Windows 러너 기본값(autocrlf=true)이 정본 파일을 CRLF 로 바꿔 봉인 해시가 어긋났다(실측 112건 실패)
+      - name: keep line endings as committed
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: git identity for test fixtures
+        run: git config --global user.email ci@example.com && git config --global user.name ci && git config --global init.defaultBranch main
+      - name: node --test
+        run: node --test --test-concurrency=1 tests/*.test.mjs

@@ -356,7 +356,7 @@ test('담당 세션 실행 모드 — AI-Control 은 배정·인수 확인·리�
   const WORKER = path.join(REPO, 'bin', 'owner-worker.mjs')
   const ttyEnv = { VFC_TTY_FOR_TESTS: '1' }
   // C. 등록 안 된 세션의 인수는 거부
-  assert.match(s.run(VFC, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', 'random-session']).err, /WRONG_WORKER/)
+  assert.match(s.run(VFC, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', 'random-session', '--pid', String(process.pid)]).err, /WRONG_WORKER/) // --pid: claude 조상 프로세스가 없는 CI 에서도 같은 판정
   // 1회 등록(대화형 터미널 대역) — 에이전트 경로는 거부
   assert.match(s.run(VFC, ['worker', 'register', '--owner', OWNER, '--worktree', s.wt, '--branch', 'feat/t'], { CLAUDECODE: '1' }).err, /TRUST_REQUIRED/)
   const w = s.run(VFC, ['worker', 'register', '--owner', OWNER, '--worktree', s.wt, '--branch', 'feat/t', '--json'], ttyEnv).json
@@ -369,7 +369,7 @@ test('담당 세션 실행 모드 — AI-Control 은 배정·인수 확인·리�
   assert.equal(g1.dispatch.generation, 1)
   assert.ok(g1.dispatch.accepted_at, 'A·B 인수 기록(accepted_at)은 실제 claim 뒤에만')
   // D. 같은 작업을 또 인수하면 거부(중복 실행 차단)
-  assert.match(s.run(VFC, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', w.worker_id, '--worker', w.worker_id]).err, /ALREADY_RUNNING|BAD_TRANSITION/)
+  assert.match(s.run(VFC, ['task', 'start', t.task_id, '--owner', OWNER, '--agent', 'claude', '--session', w.worker_id, '--worker', w.worker_id, '--pid', String(process.pid)]).err, /ALREADY_RUNNING|BAD_TRANSITION/)
   // 죽은 실행 회수(오케스트레이터 세션 인계) → READY → worker 가 다시 인수(세대 2) → 구현 → 제출
   s.run(ORCH, ['--no-ci', '--json', '--max-tasks', '1'], { VFC_LOCK_TTL_MS: '1' })
   assert.equal(s.vfc('task', 'show', t.task_id).status, 'READY', '죽은 worker 의 작업이 되살아난다')
