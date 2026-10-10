@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // scripts/csat/map/v4/plan-sql-harness.mjs
 //
-// 학습계획 저장 마이그레이션(20261011120000 · 120100 · 120200 — 2026-10-11 개발 DB 적용)의 오프라인 검증 — 메모리 Postgres(PGlite 0.2.17). **공유 DB 에 닿지 않는다.**
+// 학습계획 저장 마이그레이션(20261010180218 · 120100 · 120200 — 2026-10-11 개발 DB 적용)의 오프라인 검증 — 메모리 Postgres(PGlite 0.2.17). **공유 DB 에 닿지 않는다.**
 // 저장소 의존성에 PGlite 가 없어 설치 위치를 인자로 받는다:
 //   node scripts/csat/map/v4/plan-sql-harness.mjs <pglite 를 설치한 폴더(node_modules 의 부모)>
 // 4차(2026-10-11) 보완 계약: 신뢰 경계(서버가 템플릿 TASK · 가용량 · 목표 버전을 채움) · 순서 순열 · TASK 소속 · 경계값 ·
@@ -35,7 +35,7 @@ insert into public.csat_map_goal values ('00000000-0000-0000-0000-00000000000a',
 const A = '00000000-0000-0000-0000-00000000000a'
 const B = '00000000-0000-0000-0000-00000000000b'
 // 개발 DB 에 실제로 적용한 순서 그대로(2026-10-11): 본 스키마 → search_path 후속 → 충돌 코드 후속
-const MIGS = ['20261011120000_map_v4_plan.sql', '20261011120100_map_v4_append_only_search_path.sql', '20261011120200_map_v4_plan_conflict_code.sql']
+const MIGS = ['20261010180218_map_v4_plan.sql', '20261010180916_map_v4_append_only_search_path.sql', '20261010181834_map_v4_plan_conflict_code.sql']
 const sql = fs.readFileSync(path.join(ROOT, 'supabase/migrations', MIGS[0]), 'utf8')
 for (const m of MIGS) await db.exec(fs.readFileSync(path.join(ROOT, 'supabase/migrations', m), 'utf8'))
 rec('적용(트랜잭션 하나)', true)

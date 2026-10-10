@@ -16,7 +16,7 @@ import { useEffect, useMemo, useState, useTransition } from 'react'
 
 import { CANON_VERSION, taskOf, templateOf } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
-import { REASON_LABEL, applySaved, planDrift, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
+import { REASON_LABEL, applySaved, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
 import { STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
@@ -53,6 +53,12 @@ function writeDraft(key: string, d: PlanDraft | null) {
   }
 }
 
+/** 저장 시각을 서울 시각으로(서버 · 브라우저가 같은 글자 — UTC 로 자르면 오전 저장이 전날로 보였다) */
+const seoul = (iso: string, withTime: boolean) => {
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(iso)).map((x) => [x.type, x.value]))
+  return `${p.year}.${p.month}.${p.day}${withTime ? ` ${p.hour}:${p.minute}` : ''}`
+}
+
 const sameAsSaved = (a: WorkspacePlanView, b: WorkspacePlanView) =>
   [...a.tasks].sort((x, y) => x.task.localeCompare(y.task)).map((t) => `${t.task}:${t.quantity.planned ?? '-'}`).join('|') === [...b.tasks].sort((x, y) => x.task.localeCompare(y.task)).map((t) => `${t.task}:${t.quantity.planned ?? '-'}`).join('|')
 
@@ -74,7 +80,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   // 바뀐 내용 = 초안이 있고, 계획량이나 순서가 저장본(없으면 추천 계획)과 다르다
   const dirty = draft !== null && (!sameAsSaved(shown, base) || shown.tasks.map((x) => x.task).join() !== base.tasks.map((x) => x.task).join())
   const [save, setSave] = useState<SaveState>({ kind: 'idle' })
-  const [pendingKey, setPendingKey] = useState<string | null>(null)
+  const [pending, setPending] = useState<{ key: string; sig: string } | null>(null)
   const [note, setNote] = useState('')
   const defaultReason: PlanReason = !sw ? 'initial' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : 'learner_adjust'
   const [why, setWhy] = useState<PlanReason>(defaultReason)
@@ -97,21 +103,21 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const setPlanned = (p: TaskPlan, v: number) => update({ ...baseDraft(), order: shown.tasks.map((x) => x.task), planned: { ...baseDraft().planned, [p.task]: v } })
 
   const submit = async (reasonCode: PlanReason, restoreOf?: number) => {
-    // 같은 시도의 재전송은 같은 키(네트워크 실패 뒤 다시 눌러도 두 번 저장되지 않는다) — 성공하면 버린다
-    const clientKey = pendingKey ?? crypto.randomUUID()
-    setPendingKey(clientKey)
-    setSave({ kind: 'saving' })
     const src = restoreOf ? sw?.history.find((h) => h.version === restoreOf)?.plan : null
-    const body = {
+    const req = {
       template: view.workspace,
       order: src ? src.order : shown.tasks.map((p) => p.task),
-      planned: Object.fromEntries((src ? src.tasks.map((x) => [x.task, x.planned]) : shown.tasks.map((p) => [p.task, p.quantity.planned])) as [string, number | null][]),
+      planned: Object.fromEntries((src ? src.tasks.map((x) => { const now = view.tasks.find((p) => p.task === x.task)?.quantity.available ?? null; return [x.task, x.planned === null || now === null ? (now === null ? null : x.planned) : Math.min(x.planned, now)] }) : shown.tasks.map((p) => [p.task, p.quantity.planned])) as [string, number | null][]),
       reason: reasonCode,
       note: note.trim() || null,
       expectedVersion: savedVersion,
-      clientKey,
       ...(restoreOf ? { restoreOf } : {}),
     }
+    // 같은 논리적 요청의 재전송만 같은 키(네트워크 실패 뒤 다시 눌러도 두 번 저장되지 않는다) — 내용이 바뀌면 새 키
+    const attempt = keyFor(pending, requestSignature(req), () => crypto.randomUUID())
+    setPending(attempt)
+    setSave({ kind: 'saving' })
+    const body = { ...req, clientKey: attempt.key }
     try {
       const res = await fetch('/api/csat/diagnosis/map/plan', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
       const j = (await res.json().catch(() => ({}))) as { code?: string; detail?: string }
@@ -119,15 +125,16 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
         writeDraft(key, null)
         setDraft(null)
         setNote('')
-        setPendingKey(null)
+        setPending(null)
         setSave({ kind: 'idle' })
         startRefresh(() => router.refresh())
         return
       }
-      setPendingKey(null)
+      // 5xx · 게이트웨이 시간 초과는 저장됐을 수도 있다 — 네트워크 실패처럼 같은 키를 남겨 재시도가 중복 · 거짓 충돌을 만들지 않게(독립 리뷰 P2)
+      if (res.status < 500) setPending(null)
       setSave(res.status === 409 ? { kind: 'conflict' } : { kind: 'error', code: j.code ?? String(res.status), detail: j.detail })
     } catch {
-      // 네트워크 실패 — 저장됐는지 모른다. 같은 키로 다시 보내면 서버가 같은 결과를 돌려준다(pendingKey 유지)
+      // 네트워크 실패 — 저장됐는지 모른다. 같은 내용을 다시 보내면 같은 키라 서버가 같은 결과를 돌려준다(pending 유지)
       setSave({ kind: 'error', code: 'network' })
     }
   }
@@ -153,9 +160,11 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       </div>
       {/* 저장 상태 — 서버가 확인한 저장본과 화면이 같을 때만 「저장됨」 */}
       {store && (
-        <p className={n.saveState} data-testid="plan-save-state" data-state={sw && !dirty ? 'saved' : dirty ? 'dirty' : 'none'}>
-          {sw && !dirty ? (
-            <><Save size={13} aria-hidden="true" /> 저장됨 · 버전 {sw.latest.version} · {sw.latest.createdAt.slice(0, 10).replace(/-/g, '.')} · {REASON_LABEL[sw.latest.reason]}</>
+        <p className={n.saveState} data-testid="plan-save-state" data-state={refreshing ? 'saving' : sw && !dirty ? 'saved' : dirty ? 'dirty' : 'none'}>
+          {refreshing ? (
+            <>저장 결과를 불러오는 중…</>
+          ) : sw && !dirty ? (
+            <><Save size={13} aria-hidden="true" /> 저장됨 · 버전 {sw.latest.version} · {seoul(sw.latest.createdAt, false)} · {REASON_LABEL[sw.latest.reason]}</>
           ) : dirty ? (
             <>바꾼 내용이 아직 저장되지 않았어요{sw ? ` · 저장본은 버전 ${sw.latest.version}` : ''}</>
           ) : (
@@ -266,7 +275,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           <ol>
             {sw.history.map((h) => (
               <li key={h.version} data-version={h.version}>
-                <span><strong>버전 {h.version}</strong> · {h.createdAt.slice(0, 16).replace('T', ' ')} · {REASON_LABEL[h.reason]}{h.restoredFrom ? `(버전 ${h.restoredFrom})` : ''}{h.note ? ` · 「${h.note}」` : ''}</span>
+                <span><strong>버전 {h.version}</strong> · {seoul(h.createdAt, true)} · {REASON_LABEL[h.reason]}{h.restoredFrom ? `(버전 ${h.restoredFrom})` : ''}{h.note ? ` · 「${h.note}」` : ''}</span>
                 <span className={n.historyPlan}>{h.plan.tasks.filter((x) => x.planned !== null).map((x) => `${taskOf(x.task).name} ${x.planned}문항`).join(' · ') || '계획량 없음'}</span>
                 {!past && h.version !== sw.latest.version && (
                   <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving'} data-testid="plan-restore">
@@ -276,7 +285,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
               </li>
             ))}
           </ol>
-          <p className={n.fine}>되돌려도 지난 기록은 지우지 않고 새 버전으로 남아요.</p>
+          <p className={n.fine}>되돌려도 지난 기록은 지우지 않고 새 버전으로 남아요. 그때보다 쓸 수 있는 문항이 줄었으면 지금 문항 수에 맞춰 되돌려요.</p>
         </details>
       )}
 

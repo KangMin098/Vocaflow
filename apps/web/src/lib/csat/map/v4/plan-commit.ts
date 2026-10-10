@@ -134,3 +134,15 @@ export function applySaved(view: WorkspacePlanView, saved: SavedPlanVersion | nu
   const core = tasks.filter((p) => view.core.includes(p.task) && p.quantity.planned !== null)
   return { ...view, tasks, progress: core.length ? { planned: core.reduce((s, p) => s + (p.quantity.planned ?? 0), 0), done: core.reduce((s, p) => s + Math.min(p.quantity.done, p.quantity.planned ?? 0), 0) } : null }
 }
+
+/** 같은 논리적 요청인지 가리는 서명(요청 키 제외) — 내용 · 사유 · 메모 · 기대 버전 · 되돌릴 버전 중 하나라도 다르면 다른 요청이다.
+ *  네트워크 실패 뒤 다시 보낼 때는 서명이 같을 때만 이전 요청 키를 쓴다(바뀐 내용을 옛 키로 보내면 서버가 옛 결과를 돌려줘 변경이 사라진다). */
+export function requestSignature(req: Omit<PlanCommitRequest, 'clientKey'>): string {
+  const planned = Object.keys(req.planned).sort().map((k) => `${k}=${req.planned[k] ?? '-'}`).join(',')
+  return [req.template, req.order.join('>'), planned, req.reason, req.note ?? '', req.expectedVersion, req.restoreOf ?? ''].join('|')
+}
+
+/** 이전 시도의 키를 다시 쓸지 — 서명이 같을 때만 */
+export function keyFor(pending: { key: string; sig: string } | null, sig: string, fresh: () => string): { key: string; sig: string } {
+  return pending && pending.sig === sig ? pending : { key: fresh(), sig }
+}

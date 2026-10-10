@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 
 import { CANON_VERSION } from '../definition'
 import type { WorkspacePlanView } from '../plan'
-import { applySaved, buildCommitPayload, parseCommitRequest, planDrift, type SavedPlanVersion } from '../plan-commit'
+import { applySaved, buildCommitPayload, keyFor, parseCommitRequest, planDrift, requestSignature, type SavedPlanVersion } from '../plan-commit'
 
 const TPL = ['r.central_meaning', 'r.discourse_function', 'r.discourse_structure']
 const KEY = '3f1d6c1e-6b1a-4c2a-9d6e-2a4f1b9c8e71'
@@ -98,5 +98,29 @@ describe('저장본 적용 · 변경 감지', () => {
   it('정의 버전이 바뀌면 definition drift', () => {
     expect(planDrift(savedV(5, 9, 'rev4.0-old'), view(9))?.definition).toBe(true)
     expect(planDrift(null, view(9))).toBeNull()
+  })
+})
+
+describe('요청 키 — 같은 논리적 요청에만 재사용(4차 마감)', () => {
+  const req = { template: 'ws.central-meaning', order: TPL, planned: { 'r.central_meaning': 3 }, reason: 'learner_adjust' as const, note: null, expectedVersion: 1 }
+  let n = 0
+  const fresh = () => `k${++n}`
+  it('같은 내용 재전송 → 같은 키', () => {
+    const a = keyFor(null, requestSignature(req), fresh)
+    expect(keyFor(a, requestSignature({ ...req, planned: { 'r.central_meaning': 3 } }), fresh).key).toBe(a.key)
+  })
+  it('실패 뒤 계획량 · 순서 · 메모 · 사유 · 기대 버전이 바뀌면 새 키', () => {
+    const a = keyFor(null, requestSignature(req), fresh)
+    for (const changed of [
+      { ...req, planned: { 'r.central_meaning': 2 } },
+      { ...req, order: [...TPL].reverse() },
+      { ...req, note: '이번 주 2문항' },
+      { ...req, reason: 'goal_change' as const },
+      { ...req, expectedVersion: 2 },
+      { ...req, reason: 'restore' as const, restoreOf: 1 },
+    ]) expect(keyFor(a, requestSignature(changed), fresh).key).not.toBe(a.key)
+  })
+  it('planned 키 순서는 서명에 영향 없음', () => {
+    expect(requestSignature({ ...req, planned: { a: 1, b: 2 } })).toBe(requestSignature({ ...req, planned: { b: 2, a: 1 } }))
   })
 })

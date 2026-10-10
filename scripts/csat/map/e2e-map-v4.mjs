@@ -181,7 +181,7 @@ try {
       rec('PLAN · 대표 묶음 학습계획이 보임', (await sec.count()) === 1 && (await sec.getAttribute('data-ws')) === ws, await sec.getAttribute('data-ws').catch(() => null))
       const prog = await sec.locator('[data-testid="plan-progress"]').innerText()
       rec('PLAN · 계획 진행은 「수행 / 계획 문항」 글자 · 퍼센트 없음', /계획 진행 \d+ \/ \d+문항/.test(prog) && !/%/.test(prog), prog)
-      rec('PLAN · 저장 미구현을 화면에 명시', /이 기기에만/.test(await sec.locator('[data-testid="plan-not-saved"]').innerText()))
+      rec("PLAN · 저장 구조 설치 — 저장 버전 안내", (await sec.getAttribute("data-store")) === "installed" && /저장 버전/.test(await sec.locator('[data-testid="plan-not-saved"]').innerText()))
       const coreRow = () => panel.locator('[data-testid="plan-section"] li[data-core="true"]').first()
       const before = Number(await coreRow().getAttribute('data-planned'))
       const achieveBefore = await coreRow().getAttribute('data-achievement')
