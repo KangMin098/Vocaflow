@@ -89,11 +89,17 @@ export function findOutcome(targets: readonly FindTarget[], attempts: readonly F
   // 연습: 같은 원리 과제 키(·골격 변형)면 문항과 무관(확인 문항 밖 지문 연습 포함). 연습은 확인 근거가 아니다
   const taskKeys = new Set(targets.flatMap((t) => [t.taskKey, `${t.taskKey}-skeleton`]))
   const practiced = new Set<string>()
+  // 지문마다 처음 연습한 시각 — 「그 확인 전에 이미 연습한 지문」만 재확인에서 뺀다(나중에 연습해도 앞 재확인은 남는다 · Codex P1)
+  const firstPracticedAt = new Map<string, string>()
   const practiceTimes: string[] = []
   for (const a of attempts) {
     if (a.activity !== 'practice' || !taskKeys.has(a.taskKey)) continue
     practiced.add(a.itemRef)
-    if (a.answeredAt) practiceTimes.push(a.answeredAt)
+    if (a.answeredAt) {
+      practiceTimes.push(a.answeredAt)
+      const cur = firstPracticedAt.get(a.itemRef)
+      if (!cur || a.answeredAt < cur) firstPracticedAt.set(a.itemRef, a.answeredAt)
+    }
   }
   practiceTimes.sort()
   const lastPracticeAt = practiceTimes.length ? practiceTimes[practiceTimes.length - 1] : null
@@ -122,7 +128,8 @@ export function findOutcome(targets: readonly FindTarget[], attempts: readonly F
   const prescribedBeforePractice = !!firstPracticeAfter
   const recheck: Recheck = { items: [], right: 0, wrong: 0, last: null, pending: false }
   for (const c of checks) {
-    const isRecheck = prescribedBeforePractice && c.at !== null && c.at > firstPracticeAfter! && !practiced.has(c.item)
+    const practicedBefore = (() => { const p = firstPracticedAt.get(c.item); return !!p && c.at !== null && p < c.at })()
+    const isRecheck = prescribedBeforePractice && c.at !== null && c.at > firstPracticeAfter! && !practicedBefore
     if (isRecheck) {
       recheck.items.push(c.item)
       if (c.ok) recheck.right++

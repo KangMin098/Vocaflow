@@ -239,3 +239,17 @@ describe('find-policy.v3 — 반복 회차(진단 → 연습 → 재확인 실�
     expect(d.action).toBe('recheck_passed')
   })
 })
+
+describe('find-policy.v3 — 재확인한 지문을 나중에 연습해도', () => {
+  it('앞 재확인은 재확인으로 남는다(진단으로 옮겨 가지 않는다)', () => {
+    const C5 = [...CONFIRM, { itemRef: '2020#20', href: '/csat/item/2020-20#principle', label: '2020#20' }]
+    const at = (itemRef: string, ok: boolean | null, t: string, activity: string, taskKey = 'claim-support') =>
+      ({ ...row(itemRef, false), isCorrect: ok, answeredAt: `2026-10-10T${t}:00Z`, activity, taskKey }) as unknown as FindAttemptRow
+    const rows = [at('2022#20', false, '01:00', 'theater'), at('2025#20', false, '01:05', 'theater'), at('2019#22', null, '02:00', 'practice', 'claim-support-skeleton'),
+      at('2016#20', false, '03:00', 'theater'), at('2016#20', null, '04:00', 'practice')]
+    const o = findOutcome(C5.map((c) => ({ itemRef: c.itemRef, taskKey: 'claim-support' })), rows)
+    expect(o.items).toEqual(['2022#20', '2025#20'])
+    expect(o.recheck.items).toEqual(['2016#20'])
+    expect(o.recheck.pending).toBe(true)
+  })
+})
