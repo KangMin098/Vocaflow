@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 
 import { skillDiagnosis, type SkillAttempt } from '@/lib/csat/map/skill-diagnosis'
 
-import { SkillPrescription, SkillStatusLine } from '../SkillPrescription'
+import { LifecycleStrip, SkillPrescription, SkillStatusLine, StepReadiness } from '../SkillPrescription'
 
 const T = ['a', 'b', 'c', 'd'].map((i) => ({ itemRef: i, taskKey: 'claim-support' }))
 const now = new Date('2026-10-20T00:00:00Z')
@@ -50,5 +50,30 @@ describe('처방 개방은 직접 확인 뒤에만', () => {
     expect(html).toContain('data-status="resolved"')
     expect(html).toContain('data-open="false"')
     expect(html).toContain('판정은 아니에요')
+  })
+})
+
+describe('생애주기 4칸 · 바로잡기 절차 · 준비 상태(2026-10-10)', () => {
+  const strip = (attempts: SkillAttempt[]) => renderToStaticMarkup(<LifecycleStrip skill={skillDiagnosis(T, attempts, now)} hasTargets />)
+  it('확인 전에는 확인하기만 지금 할 일 · 나머지 잠김', () => {
+    const html = strip([att('a', false, at(10))])
+    expect(html).toContain('data-stage="FIND" data-s="now"')
+    expect(html).toContain('data-stage="REPAIR" data-s="locked"')
+  })
+  it('직접 확인 뒤 바로잡기가 지금 할 일 — 처방 칸에 §13 절차(글 구조 → 핵심 압축 → 문장 역할)', () => {
+    expect(strip([att('a', false, at(10)), att('b', false, at(11))])).toContain('data-stage="REPAIR" data-s="now"')
+    const skill = skillDiagnosis(T, [att('a', false, at(10)), att('b', false, at(11))], now)
+    const html = renderToStaticMarkup(<SkillPrescription skill={skill} groups={groups} transferHref={null} checkLinks={[]} step="structure" />)
+    expect(html).toContain('rx-repair-protocol')
+    expect(html.indexOf('data-no="3"')).toBeLessThan(html.indexOf('data-no="4"'))
+    expect(html).toContain('data-no="5"')
+  })
+  it('확인 전에는 절차를 보이지 않는다', () => {
+    const skill = skillDiagnosis(T, [att('a', false, at(10))], now)
+    expect(renderToStaticMarkup(<SkillPrescription skill={skill} groups={groups} transferHref={null} checkLinks={[]} step="structure" />)).not.toContain('rx-repair-protocol')
+  })
+  it('확인 문항이 없는 단계는 준비 상태를 사실대로 — 듣기는 정본 보류', () => {
+    expect(renderToStaticMarkup(<StepReadiness step="l-sound" />)).toContain('data-readiness="blocked"')
+    expect(renderToStaticMarkup(<StepReadiness step="vocab" />)).toContain('data-readiness="content_needed"')
   })
 })

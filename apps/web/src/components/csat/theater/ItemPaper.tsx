@@ -101,6 +101,10 @@ export function ItemPaper({ catalog, examId, no, onPassageChange }: {
           원문(발문·지문·선지)은 {isKiceExam(examId) ? '평가원' : '교육청'} 저작물이라 서버가 보내지 않아요.{' '}
           {isKiceExam(examId) ? '공개' : '받아 둔'} 문제지 PDF 를 한 번 놓으면 이 기기에서 글자를 뽑아 이 회차 모든 문항에 보여 줘요.
         </p>
+        {/* 원문 없이 되는 것 · 안 되는 것을 가른다(2026-10-10 · D17 정책 유지 — 서버는 원문을 보내지 않는다) */}
+        <p className={styles.quiet} data-testid="paper-missing-scope">
+          문제지 없이도 지문 지도(문장 막대) · 정답 근거와 오답 함정 설명 · 강의는 볼 수 있어요. 지문 글자를 읽으며 근거 문장을 직접 고르는 연습은 문제지를 놓은 뒤에 열려요.
+        </p>
         <PaperDrop
           catalog={catalog}
           needed={[examId]}

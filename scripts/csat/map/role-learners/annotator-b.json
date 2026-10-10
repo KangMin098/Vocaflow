@@ -1,0 +1,14 @@
+{"annotator":"blind-b","items":{
+"2026#22":{"key":"option-restate","answer":1,"blank":null,"primary":9,"acceptable":[9,6,10],"why":"협력과 경쟁을 동시에 추구할 계획이 필요하다는 결론이 균형 잡힌 접근을 재진술"},
+"2026#23":{"key":"option-restate","answer":3,"blank":null,"primary":8,"acceptable":[8,6],"why":"빈도 없는 속도는 무가치하다는 결론이 대중교통에서 빈도 중시의 중요성"},
+"2026#24":{"key":"option-restate","answer":2,"blank":null,"primary":5,"acceptable":[5,7,3],"why":"재정적 이득과 문화적 메시지 상실 사이의 균형이 Cash or Soul"},
+"2025#22":{"key":"option-restate","answer":1,"blank":null,"primary":1,"acceptable":[1,2,3],"why":"감정 이해 능력이 집단 상황에서 소통·협력에 특히 중요함"},
+"2025#23":{"key":"option-restate","answer":2,"blank":null,"primary":6,"acceptable":[6,1],"why":"노동이 시계 중심으로 바뀌었다는 문장이 산업화로 인한 노동-시간 패러다임 전환"},
+"2025#24":{"key":"option-restate","answer":5,"blank":null,"primary":1,"acceptable":[1,6],"why":"셀피는 자화상의 긴 역사를 확장한 것으로 자기표현의 최신 혁신"},
+"2026#31":{"key":"evidence-locate","answer":1,"blank":2,"primary":7,"acceptable":[7,1],"why":"여러 시장의 정보 접근이 위험을 쉽게 감당하게 해 수익성의 핵심임"},
+"2026#32":{"key":"evidence-locate","answer":5,"blank":7,"primary":6,"acceptable":[6],"why":"글쓰기는 즉각적 피드백이 없어 부재한 독자의 반응을 예상해야 함"},
+"2026#33":{"key":"evidence-locate","answer":4,"blank":7,"primary":6,"acceptable":[6,2,1],"why":"각 사용자의 경험과 설계안 반응을 이해하면 더 나은 건물이 됨=설계 과정 자문"},
+"2026#34":{"key":"evidence-locate","answer":3,"blank":7,"primary":6,"acceptable":[6,1],"why":"법은 이성적 존재가 자유롭게 선택할 원칙의 구현이므로 자유의 제약이 아님"},
+"2025#31":{"key":"evidence-locate","answer":1,"blank":1,"primary":5,"acceptable":[5,6,9],"why":"독자가 텍스트에 '거주'하며 빠져든다는 것이 개인적 몰입"},
+"2025#32":{"key":"evidence-locate","answer":2,"blank":6,"primary":4,"acceptable":[4,2],"why":"비판적 사고는 정신적 해방이므로 자극 주도의 부담에서 벗어나게 함"}
+}}

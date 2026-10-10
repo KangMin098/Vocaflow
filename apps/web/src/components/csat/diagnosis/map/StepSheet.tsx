@@ -23,7 +23,7 @@ import { STAGE_ORDER, stageOf } from '@/lib/csat/map/prescription'
 import { useModalFocus } from '../useModalFocus'
 
 import { STEP_ICON } from './icons'
-import { PRACTICE_HREF, SkillPrescription, SkillStatusLine } from './SkillPrescription'
+import { LifecycleStrip, PRACTICE_HREF, SkillPrescription, SkillStatusLine, StepReadiness } from './SkillPrescription'
 import p from './popup.module.css'
 import { stepGoalLink } from '@/lib/csat/map/goal-view'
 import l from './learner.module.css'
@@ -133,6 +133,8 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
           </section>
           <section className={`${l.block} ${l.now}`} id="step-check">
             <h3 className={l.blockH}><Search size={14} strokeWidth={1.9} aria-hidden="true" />지금 확인할 것 — {STAGE_WORD.FIND}</h3>
+            <LifecycleStrip skill={skill} hasTargets={findTargets.length > 0} />
+            {findTargets.length === 0 && <StepReadiness step={step.key} />}
             {outcome && (!skill || skill.status === 'unverified') && (
               <p className={l.text} data-testid="find-outcome" data-state={outcome.state}>
                 <strong>직접 확인 결과 · {FIND_STATE_LABEL[outcome.state]}</strong> — {outcome.message}
@@ -198,7 +200,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
             )}
             {tasks.err && <p className={l.err} role="alert">{tasks.err}</p>}
           </section>
-          <SkillPrescription skill={skill} groups={later.map((g) => ({ stage: g.stage, titles: g.tasks.map((t) => t.title) }))} transferHref={transferHref} checkLinks={checkLinks} />
+          <SkillPrescription skill={skill} groups={later.map((g) => ({ stage: g.stage, titles: g.tasks.map((t) => t.title) }))} transferHref={transferHref} checkLinks={checkLinks} step={step.key} />
           <section className={l.block}>
             <button type="button" className={l.moreBtn} aria-expanded={more} onClick={() => setMore((v) => !v)}>
               <ChevronDown size={14} className={more ? l.rot : ''} aria-hidden="true" />

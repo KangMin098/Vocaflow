@@ -1,0 +1,704 @@
+{
+  "note": "역할 학습자(모델) 시뮬레이션 — 프로세스 검증 · 효과 근거 아님",
+  "now": "2026-10-20T00:00:00.000Z",
+  "personas": {
+    "basic": {
+      "option-restate": {
+        "step": "option",
+        "readiness": "live",
+        "correct": 5,
+        "lurePicked": 0,
+        "status": "unverified",
+        "verifiedItems": [],
+        "check": {
+          "right": 0,
+          "wrong": 0,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:now REPAIR:locked TRANSFER:locked CHECK:locked",
+        "rows": [
+          {
+            "itemId": "2026#22",
+            "pick": 6,
+            "evidence": [
+              6,
+              9
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#23",
+            "pick": 6,
+            "evidence": [
+              8
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#24",
+            "pick": 1,
+            "evidence": [
+              5
+            ],
+            "correct": false,
+            "lure": false
+          },
+          {
+            "itemId": "2025#22",
+            "pick": 2,
+            "evidence": [
+              2
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#23",
+            "pick": 1,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#24",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          }
+        ]
+      },
+      "evidence-locate": {
+        "step": "evidence",
+        "readiness": "live",
+        "correct": 5,
+        "lurePicked": 0,
+        "status": "unverified",
+        "verifiedItems": [],
+        "check": {
+          "right": 0,
+          "wrong": 0,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:now REPAIR:locked TRANSFER:locked CHECK:locked",
+        "rows": [
+          {
+            "itemId": "2026#31",
+            "pick": 1,
+            "evidence": [
+              7
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#32",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#33",
+            "pick": 6,
+            "evidence": [
+              1,
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#34",
+            "pick": 1,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#32",
+            "pick": 4,
+            "evidence": [
+              4
+            ],
+            "correct": true,
+            "lure": false
+          }
+        ]
+      }
+    },
+    "mid": {
+      "option-restate": {
+        "step": "option",
+        "readiness": "live",
+        "correct": 6,
+        "lurePicked": 0,
+        "status": "unverified",
+        "verifiedItems": [],
+        "check": {
+          "right": 0,
+          "wrong": 0,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:now REPAIR:locked TRANSFER:locked CHECK:locked",
+        "rows": [
+          {
+            "itemId": "2026#22",
+            "pick": 6,
+            "evidence": [
+              6,
+              9
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#23",
+            "pick": 8,
+            "evidence": [
+              8
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#24",
+            "pick": 3,
+            "evidence": [
+              5
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#22",
+            "pick": 2,
+            "evidence": [
+              2
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#23",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#24",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          }
+        ]
+      },
+      "evidence-locate": {
+        "step": "evidence",
+        "readiness": "live",
+        "correct": 5,
+        "lurePicked": 0,
+        "status": "unverified",
+        "verifiedItems": [],
+        "check": {
+          "right": 0,
+          "wrong": 0,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:now REPAIR:locked TRANSFER:locked CHECK:locked",
+        "rows": [
+          {
+            "itemId": "2026#31",
+            "pick": 1,
+            "evidence": [
+              7
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#32",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#33",
+            "pick": 6,
+            "evidence": [
+              1,
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#34",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#32",
+            "pick": 4,
+            "evidence": [
+              4
+            ],
+            "correct": true,
+            "lure": false
+          }
+        ]
+      }
+    },
+    "top": {
+      "option-restate": {
+        "step": "option",
+        "readiness": "live",
+        "correct": 6,
+        "lurePicked": 0,
+        "status": "unverified",
+        "verifiedItems": [],
+        "check": {
+          "right": 0,
+          "wrong": 0,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:now REPAIR:locked TRANSFER:locked CHECK:locked",
+        "rows": [
+          {
+            "itemId": "2026#22",
+            "pick": 9,
+            "evidence": [
+              6,
+              9
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#23",
+            "pick": 8,
+            "evidence": [
+              8
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#24",
+            "pick": 5,
+            "evidence": [
+              5
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#22",
+            "pick": 2,
+            "evidence": [
+              2
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#23",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#24",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          }
+        ]
+      },
+      "evidence-locate": {
+        "step": "evidence",
+        "readiness": "live",
+        "correct": 5,
+        "lurePicked": 0,
+        "status": "unverified",
+        "verifiedItems": [],
+        "check": {
+          "right": 0,
+          "wrong": 0,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:now REPAIR:locked TRANSFER:locked CHECK:locked",
+        "rows": [
+          {
+            "itemId": "2026#31",
+            "pick": 7,
+            "evidence": [
+              7
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#32",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#33",
+            "pick": 6,
+            "evidence": [
+              1,
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#34",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#32",
+            "pick": 4,
+            "evidence": [
+              4
+            ],
+            "correct": true,
+            "lure": false
+          }
+        ]
+      }
+    },
+    "habit-then-repair": {
+      "option-restate": {
+        "step": "option",
+        "readiness": "live",
+        "correct": 4,
+        "lurePicked": 1,
+        "status": "resolved",
+        "verifiedItems": [
+          "2026#22",
+          "2026#23"
+        ],
+        "check": {
+          "right": 2,
+          "wrong": 0,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:done REPAIR:open TRANSFER:open CHECK:done",
+        "rows": [
+          {
+            "itemId": "2026#22",
+            "pick": 1,
+            "evidence": [
+              6,
+              9
+            ],
+            "correct": false,
+            "lure": false
+          },
+          {
+            "itemId": "2026#23",
+            "pick": 1,
+            "evidence": [
+              8
+            ],
+            "correct": false,
+            "lure": true
+          },
+          {
+            "itemId": "2026#24",
+            "pick": 5,
+            "evidence": [
+              5
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#22",
+            "pick": 2,
+            "evidence": [
+              2
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#23",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#24",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          }
+        ]
+      },
+      "evidence-locate": {
+        "step": "evidence",
+        "readiness": "live",
+        "correct": 3,
+        "lurePicked": 2,
+        "status": "resolved",
+        "verifiedItems": [
+          "2026#31",
+          "2026#32"
+        ],
+        "check": {
+          "right": 2,
+          "wrong": 0,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:done REPAIR:open TRANSFER:open CHECK:done",
+        "rows": [
+          {
+            "itemId": "2026#31",
+            "pick": 3,
+            "evidence": [
+              7
+            ],
+            "correct": false,
+            "lure": true
+          },
+          {
+            "itemId": "2026#32",
+            "pick": 1,
+            "evidence": [
+              6
+            ],
+            "correct": false,
+            "lure": true
+          },
+          {
+            "itemId": "2026#33",
+            "pick": 1,
+            "evidence": [
+              1,
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2026#34",
+            "pick": 6,
+            "evidence": [
+              6
+            ],
+            "correct": true,
+            "lure": false
+          },
+          {
+            "itemId": "2025#32",
+            "pick": 4,
+            "evidence": [
+              4
+            ],
+            "correct": true,
+            "lure": false
+          }
+        ]
+      }
+    },
+    "habit-persistent": {
+      "option-restate": {
+        "step": "option",
+        "readiness": "live",
+        "correct": 0,
+        "lurePicked": 1,
+        "status": "still_needed",
+        "verifiedItems": [
+          "2026#22",
+          "2026#23"
+        ],
+        "check": {
+          "right": 0,
+          "wrong": 4,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:done REPAIR:now TRANSFER:open CHECK:now",
+        "rows": [
+          {
+            "itemId": "2026#22",
+            "pick": 1,
+            "evidence": [
+              6,
+              9
+            ],
+            "correct": false,
+            "lure": false
+          },
+          {
+            "itemId": "2026#23",
+            "pick": 1,
+            "evidence": [
+              8
+            ],
+            "correct": false,
+            "lure": true
+          },
+          {
+            "itemId": "2026#24",
+            "pick": 1,
+            "evidence": [
+              5
+            ],
+            "correct": false,
+            "lure": false
+          },
+          {
+            "itemId": "2025#22",
+            "pick": 4,
+            "evidence": [
+              2
+            ],
+            "correct": false,
+            "lure": false
+          },
+          {
+            "itemId": "2025#23",
+            "pick": 2,
+            "evidence": [
+              6
+            ],
+            "correct": false,
+            "lure": false
+          },
+          {
+            "itemId": "2025#24",
+            "pick": 2,
+            "evidence": [
+              6
+            ],
+            "correct": false,
+            "lure": false
+          }
+        ]
+      },
+      "evidence-locate": {
+        "step": "evidence",
+        "readiness": "live",
+        "correct": 0,
+        "lurePicked": 3,
+        "status": "still_needed",
+        "verifiedItems": [
+          "2026#31",
+          "2026#32"
+        ],
+        "check": {
+          "right": 0,
+          "wrong": 3,
+          "need": 2,
+          "remaining": []
+        },
+        "lifecycle": "FIND:done REPAIR:now TRANSFER:open CHECK:now",
+        "rows": [
+          {
+            "itemId": "2026#31",
+            "pick": 3,
+            "evidence": [
+              7
+            ],
+            "correct": false,
+            "lure": true
+          },
+          {
+            "itemId": "2026#32",
+            "pick": 1,
+            "evidence": [
+              6
+            ],
+            "correct": false,
+            "lure": true
+          },
+          {
+            "itemId": "2026#33",
+            "pick": 8,
+            "evidence": [
+              1,
+              6
+            ],
+            "correct": false,
+            "lure": false
+          },
+          {
+            "itemId": "2026#34",
+            "pick": 2,
+            "evidence": [
+              6
+            ],
+            "correct": false,
+            "lure": false
+          },
+          {
+            "itemId": "2025#32",
+            "pick": 5,
+            "evidence": [
+              4
+            ],
+            "correct": false,
+            "lure": true
+          }
+        ]
+      }
+    }
+  },
+  "annotationReview": []
+}

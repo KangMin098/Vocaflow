@@ -12,7 +12,7 @@ import { selectByChunks, selectSmall } from '../diagnosis/fetch'
 import { isDiagnosable, recordQuality } from '../diagnosis/engine/record-quality'
 import { computeSnapshotNow } from '../diagnosis/server'
 import { loadSnapshots } from '../diagnosis/snapshot'
-import { embargoedExamIds, userHasHeldSession } from '../embargo-gate'
+import { embargoedExamIds, itemRevealDecision, userHasHeldSession } from '../embargo-gate'
 
 import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
@@ -366,7 +366,10 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   }
 
   // 연결 조회가 실패해도 지도는 그린다 — 연결만 빠진다
-  const practiceLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
+  const allLinks = await loadMapPracticeLinks().catch((e) => { console.error('[csat-map practice links]', e); return {} as Record<string, MapPracticeLink> })
+  // Reveal Gate — 보류 시험 문항은 확인 링크 · 확인 결과(정오) · 수행 요약에서 뺀다. 판정 실패면 전부 뺀다(fail-closed · Codex P1)
+  const gate = await itemRevealDecision(Object.values(allLinks).flatMap((l) => l.confirm.map((c) => c.target)))
+  const practiceLinks = withoutHeld(allLinks, gate)
   const findAttempts = await loadFindAttempts(db, userId, Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target))).catch((e) => {
     // 빈 배열로 바꾸면 이미 확인한 학습자에게 「아직 확인 안 함」을 보인다 — undefined 로 넘겨 판정을 보류한다
     console.error('[csat-map find attempts]', e)
@@ -401,6 +404,18 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     practiceNext,
     records,
   }
+}
+
+/** 보류 문항을 확인 링크에서 뺀다 — 확인 문항이 하나도 안 남으면 그 과제 링크를 뺀다. 판정 실패면 링크 없음 */
+export function withoutHeld(links: Record<string, MapPracticeLink>, gate: { held: Set<string>; failed: boolean }): Record<string, MapPracticeLink> {
+  if (gate.failed) return {}
+  const out: Record<string, MapPracticeLink> = {}
+  for (const [taskId, link] of Object.entries(links)) {
+    const confirm = link.confirm.filter((c) => !gate.held.has(c.target))
+    if (confirm.length === 0) continue
+    out[taskId] = gate.held.has(link.target) ? { ...link, ...confirm[0], itemId: confirm[0].target, confirm } : { ...link, confirm }
+  }
+  return out
 }
 
 /** 결과 환류 — 연결된 실행 과제의 본인 수행 기록과 첫 시도. 이 db 는 서버 키라서 user_id 로 직접 좁힌다 */
