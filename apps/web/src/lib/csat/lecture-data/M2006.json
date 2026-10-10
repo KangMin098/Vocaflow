@@ -2770,7 +2770,7 @@
     },
     "M2006#25": {
       "item_id": "M2006#25",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 223,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 88,
@@ -6516,7 +6516,7 @@
     },
     "M2006#35": {
       "item_id": "M2006#35",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 232,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 82,

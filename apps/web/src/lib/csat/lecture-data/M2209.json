@@ -2787,7 +2787,7 @@
     },
     "M2209#25": {
       "item_id": "M2209#25",
-      "version": 2,
+      "version": 3,
       "total_sec_est": 209,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 91,
@@ -6646,7 +6646,7 @@
     },
     "M2209#35": {
       "item_id": "M2209#35",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 233,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 85,

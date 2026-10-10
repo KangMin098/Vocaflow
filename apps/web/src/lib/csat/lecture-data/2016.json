@@ -2423,7 +2423,7 @@
     },
     "2016#24": {
       "item_id": "2016#24",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 215,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 83,
@@ -8364,7 +8364,7 @@
     },
     "2016#39": {
       "item_id": "2016#39",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 235,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 87,

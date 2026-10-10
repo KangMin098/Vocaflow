@@ -1148,7 +1148,7 @@
     },
     "2014B#26": {
       "item_id": "2014B#26",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 211,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 89,
@@ -1251,7 +1251,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:8"
+            "id": "sentence:10"
           },
           "segments": [
             {
@@ -1280,7 +1280,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:9"
+            "id": "sentence:11"
           },
           "segments": [
             {
@@ -1418,7 +1418,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:7"
+            "id": "sentence:9"
           },
           "segments": [
             {
@@ -2300,7 +2300,7 @@
     },
     "2014B#29": {
       "item_id": "2014B#29",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 225,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 88,

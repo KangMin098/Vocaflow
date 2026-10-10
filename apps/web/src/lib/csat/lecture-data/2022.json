@@ -2823,7 +2823,7 @@
     },
     "2022#25": {
       "item_id": "2022#25",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 232,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 86,
@@ -4455,7 +4455,7 @@
     },
     "2022#29": {
       "item_id": "2022#29",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 203,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 92,
@@ -6827,7 +6827,7 @@
     },
     "2022#35": {
       "item_id": "2022#35",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 239,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 85,

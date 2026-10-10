@@ -2738,7 +2738,7 @@
     },
     "M2106#25": {
       "item_id": "M2106#25",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 203,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 92,
@@ -6546,7 +6546,7 @@
     },
     "M2106#35": {
       "item_id": "M2106#35",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 234,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 86,

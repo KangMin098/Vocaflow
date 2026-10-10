@@ -2744,7 +2744,7 @@
     },
     "2023#25": {
       "item_id": "2023#25",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 182,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 87,
@@ -6182,7 +6182,7 @@
     },
     "2023#35": {
       "item_id": "2023#35",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 213,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 91,
@@ -6281,7 +6281,10 @@
             }
           ],
           "est_sec": 17,
-          "pause_after_ms": 600
+          "pause_after_ms": 600,
+          "focus": [
+            6
+          ]
         },
         {
           "id": "c5",
@@ -6306,7 +6309,10 @@
             }
           ],
           "est_sec": 18.2,
-          "pause_after_ms": 700
+          "pause_after_ms": 700,
+          "focus": [
+            4
+          ]
         },
         {
           "id": "c6",
@@ -6360,7 +6366,10 @@
             }
           ],
           "est_sec": 14.9,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -6385,7 +6394,10 @@
             }
           ],
           "est_sec": 14.9,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -6410,7 +6422,10 @@
             }
           ],
           "est_sec": 14.4,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
@@ -6435,7 +6450,10 @@
             }
           ],
           "est_sec": 14.6,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            6
+          ]
         },
         {
           "id": "c11",
@@ -6460,7 +6478,10 @@
             }
           ],
           "est_sec": 17.7,
-          "pause_after_ms": 600
+          "pause_after_ms": 600,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c12",

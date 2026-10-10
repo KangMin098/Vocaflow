@@ -6243,7 +6243,7 @@
     },
     "M2409#35": {
       "item_id": "M2409#35",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 196,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 85,
@@ -6317,7 +6317,10 @@
             }
           ],
           "est_sec": 18.2,
-          "pause_after_ms": 600
+          "pause_after_ms": 600,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c4",
@@ -6342,7 +6345,10 @@
             }
           ],
           "est_sec": 18.2,
-          "pause_after_ms": 700
+          "pause_after_ms": 700,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c5",
@@ -6398,6 +6404,7 @@
           "est_sec": 12.6,
           "pause_after_ms": 400,
           "focus": [
+            1,
             0
           ]
         },
@@ -6424,7 +6431,10 @@
             }
           ],
           "est_sec": 13.1,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -6449,7 +6459,10 @@
             }
           ],
           "est_sec": 15.4,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
           "id": "c9",
@@ -6476,6 +6489,7 @@
           "est_sec": 15.4,
           "pause_after_ms": 400,
           "focus": [
+            5,
             0
           ]
         },
@@ -6504,6 +6518,7 @@
           "est_sec": 19.7,
           "pause_after_ms": 600,
           "focus": [
+            2,
             0
           ]
         },

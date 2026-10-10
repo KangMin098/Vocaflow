@@ -3631,7 +3631,7 @@
     },
     "2014A#32": {
       "item_id": "2014A#32",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 214,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 87,
@@ -5918,7 +5918,7 @@
     },
     "2014A#38": {
       "item_id": "2014A#38",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 223,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 86,

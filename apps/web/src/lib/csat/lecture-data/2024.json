@@ -2731,7 +2731,7 @@
     },
     "2024#25": {
       "item_id": "2024#25",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 188,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 87,
@@ -6489,7 +6489,7 @@
     },
     "2024#35": {
       "item_id": "2024#35",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 221,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 91,
@@ -6588,7 +6588,10 @@
             }
           ],
           "est_sec": 16.2,
-          "pause_after_ms": 600
+          "pause_after_ms": 600,
+          "focus": [
+            6
+          ]
         },
         {
           "id": "c5",
@@ -6615,6 +6618,7 @@
           "est_sec": 19.8,
           "pause_after_ms": 700,
           "focus": [
+            4,
             0
           ]
         },
@@ -6670,7 +6674,10 @@
             }
           ],
           "est_sec": 15.9,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -6699,7 +6706,10 @@
             }
           ],
           "est_sec": 20,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -6726,6 +6736,7 @@
           "est_sec": 14.9,
           "pause_after_ms": 400,
           "focus": [
+            5,
             0
           ]
         },
@@ -6752,7 +6763,10 @@
             }
           ],
           "est_sec": 12.9,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            6
+          ]
         },
         {
           "id": "c11",
@@ -6779,6 +6793,7 @@
           "est_sec": 19.7,
           "pause_after_ms": 600,
           "focus": [
+            5,
             1
           ]
         },

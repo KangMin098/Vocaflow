@@ -4,13 +4,11 @@
 // `lecture-sentence-range` 는 큐의 sentence:k · focus 만 본다 — 그런데 2026#35 는 골격이 2문장으로 뭉개져 있는데
 // 대본은 「여섯 번째 문장」을 말했다. 귀는 여섯째를 듣고 눈에는 막대 둘뿐이다. 전량 측정: 14문항(2026-10-10 이 가드 기준).
 //
-// 원인은 대본이 아니라 골격이다(대본은 실제 지문 문장 수를 맞게 말한다). 2026-10-11 확인: splitSentences
-// (passage-skeleton.ts)가 종결부호 뒤 첫 글자를 대문자 · 따옴표로만 받아 「… . ① As …」 의 동그라미 번호 문장을
-// 앞 문장에 붙인다 → 선지 번호가 지문 안에 있는 R-IRRELEVANT · R-CHART · R-NOTICE 54문항이 1~2문장.
-// 분할기 · 골격 재빌드(DB) · 강의 sentence:k 이동(remap-lecture-sentences)을 한 묶음으로 고친다 — 분할기만 바꾸면
-// 커밋된 골격과 기기 PDF 정렬이 어긋난다. 골격 재분할은 M3 배치에서
-// 한다 — 그때까지 아래 PENDING 원장에 문항별로 남긴다(조용한 생략 금지). 원장은 양방향으로 지킨다:
-// 원장 밖 문항이 넘으면 실패, 원장 문항이 더는 넘지 않으면(고쳐졌으면) 원장에서 지우라고 실패.
+// 원인은 대본이 아니라 골격이었다(대본은 실제 지문 문장 수를 맞게 말한다): splitSentences 가 「… . ① As …」 의
+// 동그라미 번호 문장을 앞 문장에 붙였다. 2026-10-11 분할기 수정 · 평가원 골격 재빌드 · 강의 대상 이동
+// (`scripts/csat-learner/remap-lecture-circled-split.mts`)으로 13문항이 고쳐졌고, 남은 1건(2026#23 「우열 문장」)은
+// 이 가드의 오탐이었다(앞에 한글이 붙은 「열」 을 개수로 읽음 → 정규식 고침). 원장은 비었다.
+// 원장은 양방향으로 지킨다: 원장 밖 문항이 넘으면 실패, 원장 문항이 더는 넘지 않으면 원장에서 지우라고 실패.
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -28,28 +26,14 @@ const ORD: Record<string, number> = {
   열한: 11, 열두: 12, 열세: 13, 열네: 14, 열다섯: 15, 열여섯: 16, 열일곱: 17, 열여덟: 18, 열아홉: 19, 스무: 20,
 }
 // 긴 낱말부터 — 「열한」 을 「열」 로 읽지 않게
-const ORD_RE = new RegExp(`(${Object.keys(ORD).sort((a, b) => b.length - a.length).join('|')})\\s*번째\\s*문장`, 'g')
+const ORD_RE = new RegExp(`(?<![가-힣])(${Object.keys(ORD).sort((a, b) => b.length - a.length).join('|')})\\s*번째\\s*문장`, 'g')
 // 「열 문장」 처럼 개수로 말하는 것도 지도 문장 수와 맞아야 한다
-const COUNT_RE = new RegExp(`(${Object.keys(ORD).filter((k) => k !== '첫').sort((a, b) => b.length - a.length).join('|')})\\s+문장`, 'g')
+// 앞에 한글이 붙은 경우(「우열 문장」 의 열)는 개수가 아니다
+const COUNT_RE = new RegExp(`(?<![가-힣])(${Object.keys(ORD).filter((k) => k !== '첫').sort((a, b) => b.length - a.length).join('|')})\\s+문장`, 'g')
 const COUNT_WORD: Record<string, number> = { ...ORD, 두: 2, 세: 3, 네: 4 }
 
-/** 골격 재분할 대기(M3) — 문항: 사유. 고쳐지면 지운다 */
-const PENDING: Record<string, string> = {
-  '2023#35': 'R-IRRELEVANT 골격 2문장',
-  '2024#35': 'R-IRRELEVANT 골격 2문장',
-  '2025#35': 'R-IRRELEVANT 골격 2문장',
-  '2026#35': 'R-IRRELEVANT 골격 2문장',
-  'M2309#35': 'R-IRRELEVANT 골격 2문장',
-  'M2406#35': 'R-IRRELEVANT 골격 2문장',
-  'M2409#35': 'R-IRRELEVANT 골격 2문장',
-  'M2506#35': 'R-IRRELEVANT 골격 2문장',
-  'M2509#35': 'R-IRRELEVANT 골격 2문장',
-  'M2606#35': 'R-IRRELEVANT 골격 2문장',
-  'M2609#35': 'R-IRRELEVANT 골격 2문장',
-  'M2706#35': 'R-IRRELEVANT 골격 2문장',
-  '2026#23': '대본 「열 문장」 · 골격 8문장',
-  'M2206#35': '대본 「다섯 문장」 · 골격 문장 수 불일치',
-}
+/** 알려진 예외 — 문항: 사유. 고쳐지면 지운다(2026-10-11 비움) */
+const PENDING: Record<string, string> = {}
 
 type Seg = { lang: string; text: string }
 type Cue = { id: string; segments?: Seg[] }

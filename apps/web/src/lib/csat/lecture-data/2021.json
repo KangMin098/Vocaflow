@@ -2768,7 +2768,7 @@
     },
     "2021#25": {
       "item_id": "2021#25",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 229,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 85,
@@ -6701,7 +6701,7 @@
     },
     "2021#35": {
       "item_id": "2021#35",
-      "version": 1,
+      "version": 2,
       "total_sec_est": 233,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 86,
