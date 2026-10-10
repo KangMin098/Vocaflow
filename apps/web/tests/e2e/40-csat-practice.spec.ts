@@ -20,7 +20,8 @@ const USER = {
       throw new Error('PLAYWRIGHT_RUNTIME_PASSWORD 가 없다 — apps/web/.env.local')
     })(),
 }
-const PRACTICE = '/csat/practice/claim-support'
+// 2026-10-10: 주석 문항이 1 → 9개(2026-10-09 적용 확대)가 되어 추천 첫 문항이 바뀌었다 — 이 스펙의 답 키는 2022#20 이라 그 문항을 지정해 연다
+const PRACTICE = '/csat/practice/claim-support?item=2022%2320'
 const ITEM = '2022#20'
 const KEY = keyFromAnnotation(annotationFor(ITEM)!)
 
@@ -74,6 +75,8 @@ async function device(browser: Browser): Promise<Probe> {
     const req = route.request()
     const url = req.url()
     if (!isWrite(req.method())) return route.continue()
+    // 문제지 해시 조회는 POST 지만 읽기다(좌표 색인 반환 · DB 쓰기 없음 — api/csat/paper 머리말). 해설 탭이 로컬 문제지를 열면 보낸다
+    if (req.url().includes('/api/csat/paper')) return route.continue()
     if (url.includes('/api/csat/practice/review')) {
       probe.reviews.push(req.postDataJSON() as Record<string, unknown>)
       // 서버 확정 날짜 — 이미 다른 날로 잡혀 있던 경우(kept)를 흉내 낸다
@@ -115,7 +118,7 @@ async function answer(page: Page) {
   await page.getByRole('button', { name: '확실해요' }).click()
 }
 
-test('학습자: 주석 문항 하나만 보이고, 풀이 → 판정(정답 키는 응답 뒤에만) · 중복 클릭은 한 번 전송', async ({ browser }) => {
+test('학습자: 검증 전 문항은 안 보이고, 풀이 → 판정(정답 키는 응답 뒤에만) · 중복 클릭은 한 번 전송', async ({ browser }) => {
   const d = await device(browser)
   await d.page.goto(PRACTICE)
   await expect(d.page.getByRole('heading', { level: 1, name: '주장 문장 먼저 찾기' })).toBeVisible()
@@ -143,7 +146,7 @@ test('학습자: 실패 뒤 재시도는 같은 제출 id · 같은 판단 시�
   await d.page.goto(PRACTICE)
   await answer(d.page)
   await d.page.getByRole('button', { name: '맞춰 보기' }).click()
-  await expect(d.page.getByRole('alert')).toBeVisible()
+  await expect(d.page.locator('[role=alert]:not(#__next-route-announcer__)')).toBeVisible() // Next 경로 알림판도 role=alert
   await d.page.getByRole('button', { name: '맞춰 보기' }).click()
   await expect(d.page.getByRole('status').filter({ hasText: '주장 문장을 찾았어요' })).toBeVisible({ timeout: 20_000 })
   expect(d.submits).toHaveLength(2)
@@ -179,7 +182,7 @@ test('학습자: 판단을 보낸 뒤 연 해설은 도움 수준을 바꾸지 �
   await d.page.goto(PRACTICE)
   await answer(d.page)
   await d.page.getByRole('button', { name: '맞춰 보기' }).click()
-  await expect(d.page.getByRole('alert')).toBeVisible()
+  await expect(d.page.locator('[role=alert]:not(#__next-route-announcer__)')).toBeVisible() // Next 경로 알림판도 role=alert
   // 판단을 보낸 세션 — 링크는 「해설 먼저 보기」 가 아니다
   await expect(d.page.getByRole('link', { name: /해설 먼저 보기/ })).toHaveCount(0)
   const [popup] = await Promise.all([d.ctx.waitForEvent('page'), d.page.getByRole('link', { name: '해설 보기' }).first().click()])

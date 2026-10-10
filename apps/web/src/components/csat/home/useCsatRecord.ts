@@ -23,20 +23,34 @@ export interface CsatRecordState {
   now: number
 }
 
-export function useCsatRecord(): CsatRecordState | null {
+/** 읽은 기록의 밀린 복습을 압축하고, 쓰기 화면이 아니면 저장한다. 순수하게 떼어 둔다(useCsatRecord.test.ts). */
+export async function settleRecord(
+  record: DissectionRecord,
+  now: number,
+  { readOnly, save }: { readOnly: boolean; save: (r: DissectionRecord) => Promise<unknown> },
+): Promise<{ record: DissectionRecord; dueBefore: number }> {
+  const dueBefore = dueNow(record, now).length
+  const compressed = compressDue(record, now)
+  if (!readOnly && compressed !== record) await save(compressed)
+  return { record: compressed, dueBefore }
+}
+
+/**
+ * `readOnly` — 읽기만 한다(압축 결과를 저장하지 않는다). 기록을 **쓰는 화면**(해설 극장 · 해부 · 연습) 위에 얹히는 셸이 쓴다:
+ * 셸이 마운트 때 읽은 기록을 늦게 저장하면 그 사이 화면이 쓴 세션 · 예측을 옛 사본으로 덮는다(Codex P1 · 2026-10-10).
+ */
+export function useCsatRecord({ readOnly = false }: { readOnly?: boolean } = {}): CsatRecordState | null {
   const [state, setState] = useState<CsatRecordState | null>(null)
   useEffect(() => {
     let alive = true
     void loadSyncedDissectionRecord().then(async ({ record, synced }) => {
       const now = Date.now()
-      const dueBefore = dueNow(record, now).length
-      const compressed = compressDue(record, now)
-      if (compressed !== record) await saveDissectionRecord(compressed)
-      if (alive) setState({ record: compressed, synced, dueBefore, now })
+      const settled = await settleRecord(record, now, { readOnly, save: saveDissectionRecord })
+      if (alive) setState({ record: settled.record, synced, dueBefore: settled.dueBefore, now })
     })
     return () => {
       alive = false
     }
-  }, [])
+  }, [readOnly])
   return state
 }
