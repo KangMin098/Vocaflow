@@ -40,3 +40,11 @@ test('PN1 정책 낡음 판정 — 같은 버전 · 둘 다 없음은 조용 · 
   assert.match(policyNotice('{', v('1.1')), /\[정책 오류\]/)
   assert.equal(policyNotice(v('1.1'), null), '', 'origin/main 에 아직 없으면(첫 도입) 경고 안 함')
 })
+
+test('PN2 세션 시작 주입(injection)이 정책 낡음 판정을 부른다 — 연결이 빠지면 구버전 워크트리가 조용히 옛 규칙으로 돈다', async () => {
+  const fs = await import('node:fs')
+  const src = fs.readFileSync(new URL('../handoff-inject.mjs', import.meta.url), 'utf8')
+  const body = src.slice(src.indexOf('export function injection'))
+  assert.match(body, /policyNotice\(readText\(rel\('agents', 'policies', 'pr-automation\.json'\)\), readMainPolicy\(\)\)/)
+  assert.match(body, /if \(notice\) out\.push\(notice\)/)
+})

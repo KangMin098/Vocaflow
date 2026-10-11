@@ -31,21 +31,21 @@
 
 1. PR 열림 · MERGEABLE · **base = main**(종속 PR 은 앞 PR 병합 뒤 base 가 main 으로 바뀌고 CI 가 다시 돈 다음에만).
 2. **필수 체크 전부**(pr-automation.json `required_checks`)가 최신 HEAD 에서 SUCCESS — 하나라도 없으면(누락) · SKIPPED 뿐이면 · 대기면 병합 안 함.
-3. **DB 변경 승인 증거** — `supabase/migrations/` 를 바꾼 PR 은 파일마다 본문에 `DB-Approved: <파일명> sha256=<앞 12자+>` 가 있고 그 해시가 PR HEAD 의 파일 본문과 맞아야 한다. 이름이 `_pending_` 로 시작하는 제안본은 적용되지 않으므로 증거 대상에서 빼고 판정 메모에만 남긴다(적용은 별도 승인 + DB 쓰기 훅).
-4. **데이터 삭제 패턴**(DROP TABLE · TRUNCATE · DELETE FROM · DROP COLUMN)이 있는 마이그레이션도 같은 증거가 있어야 한다.
+3. **DB 변경 승인 증거 = 개발 DB 적용 이력** — `supabase/migrations/` 를 바꾼 PR 은 파일마다 개발 DB `supabase_migrations.schema_migrations` 의 statements sha256 이 PR HEAD 본문 sha256 과 같아야 한다. 적용은 사용자 승인 + DB 쓰기 훅을 거쳐서만 생기므로 PR 작성자가 꾸밀 수 없다. **PR 본문 문자열은 증거가 아니다**(이 머신은 에이전트와 사용자가 같은 GitHub 계정을 써서 작성자를 가릴 수 없다). 미적용 · 적용 뒤 수정 · 이력 조회 실패(SUPABASE_ACCESS_TOKEN 없음)는 병합 안 함. `_pending_` 제안본은 적용되지 않으므로 메모로만 남긴다.
+4. **데이터 삭제** — 삭제 구문(DROP TABLE · TRUNCATE · DELETE FROM · DROP COLUMN)이 있는 마이그레이션은 종류를 밝히고 같은 적용 이력 증거가 필요하다. 마이그레이션 파일 삭제는 승인 대상이라 막는다.
 5. **30파일 이상** → 본문 `## 검증` 절.
-6. 병합은 `gh pr merge --match-head-commit <확인한 SHA>` — 확인 뒤 새 커밋이 들어오면 GitHub 이 거부한다(SHA 변경 = 재검증).
+6. 필수 체크가 **이 HEAD** 에서 · **마지막 base 변경 뒤에** 성공했는지(check-runs · timeline). 7. 병합 직전 HEAD · base 를 다시 읽어 비교하고, 병합은 `gh pr merge --match-head-commit <확인한 SHA>` — 확인 뒤 새 커밋이 들어오면 GitHub 이 거부한다(SHA 변경 = 재검증).
 
 ## 4. 자동 main 병합 활성화 조건(지금은 꺼짐)
 
 `merge.auto_merge_enabled = false`. 다음이 모두 확인되면 켠다(정책 버전을 올리고 DECISIONS 에 기록):
 
-1. `e2e` 체크가 시크릿이 없을 때 SUCCESS 로 끝나지 않는다 — 2026-10-11 전에는 시크릿이 없으면 E2E 를 건너뛰고도 SUCCESS 였다(가짜 통과). ci.yml 에서 PR 이벤트일 때 실패로 바꿨다.
+1. PR 필수 `e2e` 가 실제로 돈다 — 2026-10-11 전에는 시크릿이 없으면 건너뛰고도 SUCCESS 였다(가짜 통과). 이제 PR 필수 `e2e` 는 **격리 실행**(러너 안 로컬 Supabase + 저장소 마이그레이션 실제 적용 + next start + Playwright + DB 단언 · 공유 DB · 시크릿 불필요)이고, 공유 개발 DB E2E 는 `e2e-shared-dev`(main push · 수동 실행만 · 시크릿 필요)로 분리했다.
 2. 모든 base 의 PR 에서 필수 CI 가 돈다 — 전에는 `pull_request: branches: [main]` 이라 종속 PR(#206 · #207 · #209)에 CI 가 없었다. 필터를 풀었다.
-3. 저장소 시크릿(`NEXT_PUBLIC_SUPABASE_URL` 등)이 설정돼 e2e 가 실제로 돈다 — **사용자 작업**(비밀값을 에이전트가 외부에 올리지 않는다).
+3. (선택) 공유 개발 DB 통합 E2E(`e2e-shared-dev`)에 쓸 저장소 시크릿 — PR 필수 조건은 아니다. 비밀값은 에이전트가 외부에 올리지 않는다.
 4. main 브랜치 보호(필수 체크) — 2026-10-11 실측 「Branch not protected」. 설정은 GitHub 관리자 권한이 필요하다.
 
-꺼져 있는 동안 에이전트는 `safe-merge.mjs` 를 **사용자가 병합을 맡긴 PR** 에만 돌린다. 켜진 뒤에는 위 게이트를 통과한 PR 을 묻지 않고 병합한다.
+꺼져 있는 동안 `safe-merge.mjs` 는 **어떤 경로로도 병합하지 않는다**(`--dry-run` 판정만 · 자동/수동 구분 없음). 켜는 길은 이 값을 바꾸는 PR 하나뿐이고, 그 PR 도 보호된 main 의 필수 CI 를 거친다. 켜진 뒤에는 게이트를 통과한 PR 을 묻지 않고 병합한다.
 
 ## 5. 실패 · 예외
 
@@ -73,4 +73,5 @@ PR 마다 승인을 요청하지 않는다. 최종 보고는 네 가지: ① 제
 ## 8. 적용 확인
 
 - `node agents/scripts/check.mjs` D11 — 정책 파일 존재 · JSON 유효 · AGENTS.md 정책 줄 버전 = JSON 버전 · DECISIONS 이력.
-- 정책 낡음 판정 `policyNotice()`(`agents/scripts/handoff-inject.mjs`) — 이 워크트리 정책 버전이 origin/main 과 다르면 「[정책 낡음]」 문구를 만든다. **세션 시작 주입에 연결하는 수정은 2026-10-11 자동 모드 분류기(자기 수정)가 막아 아직 연결되지 않았다** — 사용자가 허용하면 `injection()` 에서 호출 한 줄을 더한다. 그 전까지는 AGENTS.md 정책 줄 + `check.mjs` D11(커밋 전 훅 · CI)이 정책 인식을 확인한다.
+- 세션 시작 훅(`handoff-inject.mjs` — Claude Code `.claude/settings.json` · Codex `.codex/config.toml` 이 같은 스크립트를 부른다)이 이 워크트리 정책 버전을 origin/main 과 비교해 다르거나 없으면 「[정책 낡음]」 을 주입한다(`policyNotice` · 2026-10-11 연결). 동기화: `git merge origin/main`.
+- **이미 실행 중인 세션은 정책을 다시 읽지 않는다** — AGENTS.md · 훅은 세션 시작에 한 번 읽힌다. 정책이 바뀌면 그 세션을 다시 시작하거나 정본을 직접 다시 읽게 한다.

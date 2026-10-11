@@ -64,6 +64,8 @@ export function injection(agent) {
   } catch (e) {
     out.push(`[인수인계] latest.json 을 읽지 못했다: ${e.message}`)
   }
+  const notice = policyNotice(readText(rel('agents', 'policies', 'pr-automation.json')), readMainPolicy())
+  if (notice) out.push(notice)
   const lock = readLock()
   if (lock && lock.agent !== agent && lockState(lock) === 'held')
     out.push(`[잠금] 이 워크트리는 ${lock.agent} 가 쓰는 중이다(pid ${lock.pid}, ${lock.started_at}). 쓰기 전에 사용자에게 확인하거나 \`pnpm wt new <suffix>\` 로 워크트리를 나눈다.`)
