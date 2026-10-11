@@ -287,7 +287,7 @@ function PrimaryWorkspace({ w, reason, past }: { w: WorkspaceView; reason: Works
           const s = w.stages[k]
           const done = !s.ready && s.blocked === null
           return (
-            <li key={k} className={n.stage} data-stage={k} data-ready={s.ready} data-done={done}>
+            <li key={k} className={n.stage} data-stage={k} data-ready={s.ready} data-done={done} data-blocked={s.blocked ?? ""}>
               <span className={n.stageName}>{STAGE_LABEL[k]}</span>
               <span className={n.stageNote}>
                 {s.ready ? (s.count !== null ? `지금 할 수 있어요 · ${s.count}문항` : '지금 할 수 있어요') : done ? '마쳤어요' : STAGE_BLOCKED_LABEL[s.blocked!]}

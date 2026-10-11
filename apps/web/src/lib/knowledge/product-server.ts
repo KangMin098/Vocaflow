@@ -236,6 +236,11 @@ export function findTargetsOf(audience: Record<string, unknown> | null | undefin
   return out
 }
 
+/** 적용 대상 조건이 「다른 글에 적용(전이)」 용도인가 — 확인 문항 묶음에서 뺀다 */
+export function isTransferRole(audience: unknown): boolean {
+  return !!audience && typeof audience === 'object' && (audience as Record<string, unknown>).role === 'transfer'
+}
+
 const itemLabel = (target: string) => {
   const [exam, no] = target.split('#')
   return `${/^\d{4}$/.test(exam) ? `${exam}학년도 수능` : exam} ${no}번으로 직접 확인`
@@ -258,7 +263,11 @@ export async function loadMapPracticeLinks(client: SupabaseClient = db()): Promi
     const confirm: MapPracticeLink['confirm'] = []
     for (const target of findTargetsOf(app.audience)) {
       const task = await liveItemTask(target, client)
-      if (!task || !(await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, target), client))) continue
+      const live = task ? await loadLiveApplication('csat_item_task', itemTaskRef(task.def.key, target), client) : null
+      if (!task || !live) continue
+      // 「다른 글에 적용」 용도로 승인된 문항(audience.role='transfer')은 확인 문항이 아니다 — 지도 라인 대상 목록에 있어도 끌어오지 않는다
+      //   (5차 실측: a4-4 대상에 있던 2026#23 을 전이로 출시하자 확인 묶음으로 끌려 들어가 승인 범위 밖 노출 · 전이 풀에서 빠졌다)
+      if (isTransferRole(live.app.audience)) continue
       confirm.push({ href: `/csat/item/${toItemSlug(target)}#principle`, label: itemLabel(target), target, taskKey: task.def.key })
     }
     if (confirm.length === 0) continue
