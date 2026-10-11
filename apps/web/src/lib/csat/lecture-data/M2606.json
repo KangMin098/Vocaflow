@@ -3001,10 +3001,10 @@
     },
     "M2606#27": {
       "item_id": "M2606#27",
-      "version": 1,
-      "total_sec_est": 191,
+      "version": 2,
+      "total_sec_est": 190,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 87,
+      "rubric_score": 85,
       "cues": [
         {
           "id": "c1",
@@ -3017,14 +3017,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "자, 여러분. 이천이십육 학년도 유월 모의평가 이십칠 번, 안내문 내용 불일치 문제입니다."
+              "text": "여러분, 발문부터 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여기 발문의 일치하지 않는 것에 먼저 표시하세요."
+              "text": "안내문과 일치하지 않는 것을 고르는 문항입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그러니 정답이 아닌 네 선지는 안내문과 맞는 참 진술이에요."
             }
           ],
-          "est_sec": 14.7,
+          "est_sec": 14.4,
           "pause_after_ms": 500
         },
         {
@@ -3038,22 +3042,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "안내문을 읽기 전에 선지부터 보세요."
+              "text": "지문을 읽기 전에 할 일은 하나입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "선지를 위쪽 항목용과 일정표용으로 나눕니다."
+              "text": "선지를 먼저 훑고, 방법을 말하는 선지에 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "주제, 자격, 혜택은 위, 신청과 제출은 표죠."
+              "text": "오 번의 우편이 바로 그 낱말이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "해야 한다 같은 서술어에도 표시하세요."
+              "text": "방법 선지는 안내문에서 금지어가 붙었는지까지 봐야 합니다."
             }
           ],
-          "est_sec": 17.7,
+          "est_sec": 19.7,
           "pause_after_ms": 500
         },
         {
@@ -3067,22 +3071,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "지도를 보세요. 두 번째 문장에 주제, 응모 자격, 혜택이 모여 있습니다."
+              "text": "안내문 뼈대를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "세 번째 문장부터 일정표예요. 신청, 제출, 발표 순이죠."
+              "text": "두 번째 문장에 주제와 응모 자격, 혜택이 모여 있고요."
             },
             {
               "lang": "ko-KR",
-              "text": "표 칸의 문장은 끝까지 이어 읽어야 합니다."
+              "text": "세 번째와 네 번째 문장이 일정표입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "줄마다 섞여 보이니 행 이름을 붙잡고 읽으세요."
             }
           ],
-          "est_sec": 17.8,
+          "est_sec": 17.5,
           "pause_after_ms": 600,
           "focus": [
             1,
-            2
+            3
           ]
         },
         {
@@ -3096,7 +3104,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 오 번입니다. 여기 네 번째 문장, 작품 제출 칸을 보세요."
+              "text": "여기 네 번째 문장, 제품 제출 행입니다."
             },
             {
               "lang": "en-US",
@@ -3104,10 +3112,10 @@
             },
             {
               "lang": "ko-KR",
-              "text": "작품을 직접 가져오라는 말이죠."
+              "text": "직접 가져오라는 지시죠."
             }
           ],
-          "est_sec": 12.4,
+          "est_sec": 9.1,
           "pause_after_ms": 700
         },
         {
@@ -3121,7 +3129,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 네 번째 문장 칸 끝에 한 줄이 더 있습니다."
+              "text": "여기 네 번째 문장 뒷부분을 다시 보세요."
             },
             {
               "lang": "en-US",
@@ -3129,10 +3137,18 @@
             },
             {
               "lang": "ko-KR",
-              "text": "우편 발송 금지죠. 선지의 우편 제출과 같은 칸에서 두 번 어긋납니다."
+              "text": "우편으로 보내지 말라고 금지합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "선지 오 번은 이 금지를 의무로 뒤집었어요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그래서 정답은 오 번입니다."
             }
           ],
-          "est_sec": 14.8,
+          "est_sec": 18.6,
           "pause_after_ms": 700
         },
         {
@@ -3146,18 +3162,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 주제는 한옥의 아름다움. 두 번째 문장 첫머리를 짚어 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "Theme: The beauty of Hanok"
+              "text": "일 번, 주제는 한옥의 아름다움. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "주제를 직접 적었습니다. 대회 이름과 헷갈리지 마세요."
+              "text": "주제 항목이 한옥의 아름다움이라고 그대로 적혀 있습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "안내문과 맞는 진술이라 답이 아닌 거예요."
             }
           ],
-          "est_sec": 15.4,
+          "est_sec": 17.2,
           "pause_after_ms": 400,
           "focus": [
             1
@@ -3174,18 +3190,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 예술가와 사회적 기업. 두 번째 문장의 응모 자격을 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "Artists and social enterprises"
+              "text": "이 번, 예술가와 사회적 기업의 응모. 두 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "둘 다 명시돼 있습니다."
+              "text": "응모자 항목에 예술가와 사회적 기업, 두 주체가 나옵니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "주체가 일치하니 참이고, 그래서 답이 아닙니다."
             }
           ],
-          "est_sec": 11.7,
+          "est_sec": 18,
           "pause_after_ms": 400,
           "focus": [
             1
@@ -3202,18 +3218,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 기념품점에서 판매. 두 번째 문장 끝의 혜택 항목을 짚어 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "sold in Hanok village souvenir shops"
+              "text": "삼 번, 기념품점 판매. 두 번째 문장 끝을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "혜택이 판매로 적혀 있습니다."
+              "text": "혜택 항목에서 선정 제품이 한옥 마을 기념품점에서 팔린다고 합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "선지와 판매 장소까지 맞는 참 진술이에요."
             }
           ],
-          "est_sec": 13.3,
+          "est_sec": 17,
           "pause_after_ms": 400,
           "focus": [
             1
@@ -3230,18 +3246,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 양식은 웹사이트에서 내려받는다. 세 번째 문장의 신청 칸을 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "Download the application form"
+              "text": "사 번, 신청서 양식 다운로드. 세 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "내려받은 뒤 작성본을 올리라고 이어집니다."
+              "text": "신청 행에서 양식을 웹사이트에서 내려받으라고 합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "받는 곳이 웹사이트로 같으니, 안내문과 일치해서 답이 아닙니다."
             }
           ],
-          "est_sec": 15,
+          "est_sec": 19,
           "pause_after_ms": 400,
           "focus": [
             2
@@ -3250,31 +3266,6 @@
         {
           "id": "c10",
           "order": 10,
-          "role": "trap",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:2"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "함정은 부분 사실입니다. 여기 세 번째 문장의 신청 칸을 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "내려받기와 올리기가 한 칸에 있어, 방향을 뒤집으면 사 번이 틀려 보이죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "여러분, 동사가 둘이면 순서대로 확인하세요."
-            }
-          ],
-          "est_sec": 19.2,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c11",
-          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -3283,47 +3274,35 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘 네 개를 확인하세요. 첫째,"
+              "text": "어휘 두 개를 확인하세요."
             },
             {
               "lang": "en-US",
-              "text": "applicants"
+              "text": "in person"
             },
             {
               "lang": "ko-KR",
-              "text": "응모자입니다. 둘째,"
+              "text": "직접, 본인이 가서라는 뜻이고요."
             },
             {
               "lang": "en-US",
-              "text": "enterprises"
+              "text": "by post"
             },
             {
               "lang": "ko-KR",
-              "text": "기업. 셋째,"
-            },
-            {
-              "lang": "en-US",
-              "text": "souvenir"
+              "text": "우편으로라는 뜻입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "기념품. 넷째,"
-            },
-            {
-              "lang": "en-US",
-              "text": "post"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "여기서는 우편입니다."
+              "text": "두 표현이 한 줄에서 서로 반대 방법으로 맞서 있어요."
             }
           ],
-          "est_sec": 14.9,
+          "est_sec": 16.8,
           "pause_after_ms": 500
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -3332,18 +3311,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 일정표는 날짜보다 칸 속 문장이 근거입니다."
+              "text": "정리합니다. 주목하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "앤드 뒤의 금지 명령까지 읽어야 하죠."
+              "text": "방법 선지는 같은 낱말이 있어도, 그 앞의 금지어까지 맞춰야 일치입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 다음에는 첫 십 초에 선지부터 읽고 서술어에 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 방법 낱말부터 표시하세요."
             }
           ],
-          "est_sec": 17.2,
+          "est_sec": 16.5,
           "pause_after_ms": 900
         }
       ]
@@ -5788,10 +5767,10 @@
     },
     "M2606#35": {
       "item_id": "M2606#35",
-      "version": 2,
-      "total_sec_est": 214,
+      "version": 3,
+      "total_sec_est": 207,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 85,
+      "rubric_score": 86,
       "cues": [
         {
           "id": "c1",
@@ -5804,14 +5783,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "자, 여러분. 이천이십육 학년도 유월 모의평가 삼십오 번, 무관한 문장입니다."
+              "text": "여러분, 이번 문항은 흐름과 관계없는 문장 고르기입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "문항 머리를 보세요. 빙하를 담았지만 학교 과제를 말하는 문장이 미끼예요."
+              "text": "같은 소재를 쓰면서도 다른 말을 하는 문장을 가려내는지 보세요."
             }
           ],
-          "est_sec": 16.2,
+          "est_sec": 12.9,
           "pause_after_ms": 500
         },
         {
@@ -5819,25 +5798,25 @@
           "order": 2,
           "role": "strategy",
           "target": {
-            "kind": "analysis",
-            "id": "head"
+            "kind": "anchor",
+            "id": "sentence:2"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 첫 문장의 화제를 한 줄로 적으세요. 첫 문장을 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "A genuine glacier must be permanent"
+              "text": "읽기 전에 할 일 하나입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "진짜 빙하는 영구적이어야 한다. 둘째 문장이, 쌓이는 눈이 녹는 양을 메워야 한다고 풉니다."
+              "text": "여기 세 번째 문장, 일 번 선지의 주장을 한 줄로 적으세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빙하가 녹고 있고, 녹는 속도가 빨라지는 것으로 보인다는 말이죠."
             }
           ],
-          "est_sec": 19.1,
-          "pause_after_ms": 600
+          "est_sec": 15.7,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -5845,81 +5824,86 @@
           "role": "structure",
           "target": {
             "kind": "analysis",
-            "id": "ability"
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "흐름을 확인하세요. 번호는 세 번째 문장부터, 오 번이 일곱 번째예요."
+              "text": "뼈대를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번 빙하가 녹는다, 이 번 알프스 기록, 삼 번 위성 영상, 오 번 소멸 추정."
+              "text": "첫 두 문장은 빙하의 정의, 곧 배경입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "빙하가 줄어든다는 한 줄에 증거가 쌓입니다."
+              "text": "세 번째 문장이 감소 추세를 세웁니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "넷째는 기록, 다섯째는 위성 사진 증거, 마지막은 전망입니다."
             }
           ],
-          "est_sec": 19.2,
-          "pause_after_ms": 600
+          "est_sec": 16.5,
+          "pause_after_ms": 600,
+          "focus": [
+            1,
+            2
+          ]
         },
         {
           "id": "c4",
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번, 여섯 번째 문장입니다. 정답 블록을 보세요."
+              "text": "정답은 사 번입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "빙하에 든 돌과 광물이 학교 과학 과제로 인기를 얻었다."
+              "text": "여기 여섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "녹는다도, 줄어든다도 없죠. 줄어드는 흐름에서 벗어났어요."
+              "text": "빙하 속 암석과 광물이 학교 과학 프로젝트 소재가 됐다는 말이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빙하가 줄어드는지, 얼마나 빨리 줄어드는지는 말하지 않죠."
             }
           ],
-          "est_sec": 18.5,
-          "pause_after_ms": 700,
-          "focus": [
-            5
-          ]
+          "est_sec": 19,
+          "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:6"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "결정적 단서는 오 번의 이 표현이에요. 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "the present warming trend"
+              "text": "여기 일곱 번째 문장도 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "정관사로 앞의 추세를 받죠. 기후가 따뜻해져 녹는 속도가 빨라지는 듯하다는 일 번입니다."
+              "text": "여섯 번째를 빼고 읽으면, 위성 사진 증거 뒤에"
             },
             {
               "lang": "ko-KR",
-              "text": "사 번엔 그 추세가 없어요."
+              "text": "지금의 온난화 추세라면 작은 빙하가 사라질 거라는 전망이 바로 붙습니다."
             }
           ],
-          "est_sec": 19.8,
-          "pause_after_ms": 800
+          "est_sec": 16.4,
+          "pause_after_ms": 700
         },
         {
           "id": "c6",
@@ -5936,17 +5920,18 @@
             },
             {
               "lang": "ko-KR",
-              "text": "영구적이어야 한다와 반대로 들리지만, 둘째 문장이 해마다 커지거나 줄 수 있다고 했어요."
+              "text": "정의에서 갑자기 넘어간 듯해도, 두 번째 문장이 이미 여름의 녹음과 빙하의 축소를 꺼냈어요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번은 지금의 방향을 밝힙니다."
+              "text": "일 번은 그 상쇄가 깨진 지금의 상황입니다."
             }
           ],
-          "est_sec": 16.4,
+          "est_sec": 17.7,
           "pause_after_ms": 400,
           "focus": [
-            2
+            2,
+            1
           ]
         },
         {
@@ -5960,21 +5945,30 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 네 번째 문장을 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "This has been documented"
+              "text": "이 번, 네 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이것은 일 번의 녹는 현상이에요. 알프스의 옛 기록과 그림, 사진을 지금과 견준 증거죠."
+              "text": "첫머리의"
+            },
+            {
+              "lang": "en-US",
+              "text": "This"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "는 세 번째 문장의 녹는 추세를 받습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "옛 스케치와 사진을 지금 얼음 범위와 견주는 건, 감소를 확인하는 첫 증거죠."
             }
           ],
-          "est_sec": 14.5,
+          "est_sec": 17.6,
           "pause_after_ms": 400,
           "focus": [
-            3
+            3,
+            2
           ]
         },
         {
@@ -5992,14 +5986,14 @@
             },
             {
               "lang": "ko-KR",
-              "text": "불과 몇십 년 사이에도 산악 빙하가 극적으로 줄었음을 위성 영상이 보여 준다."
+              "text": "새 지명이 나와도, 산악 빙하가 크게 줄었다는 두 번째 증거입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "역사 기록에 이은, 종류가 다른 증거입니다."
+              "text": "불과 몇십 년 사이라는 말은 속도가 빨라진다는 주장을 받쳐 줍니다."
             }
           ],
-          "est_sec": 16.4,
+          "est_sec": 17.7,
           "pause_after_ms": 400,
           "focus": [
             4
@@ -6016,21 +6010,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 일곱 번째 문장을 확인하세요."
+              "text": "오 번, 일곱 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "지금 추세가 뜻밖에 바뀌지 않는 한, 작은 산악 빙하 상당수가 사라질 것으로 추정된다. 십 년에서 이십 년 안에요."
+              "text": "미래 예측이라 성격이 달라 보이지만,"
             },
             {
               "lang": "ko-KR",
-              "text": "관측 뒤의 전망이에요."
+              "text": "지금의 온난화 추세는 세 번째 문장의 따뜻해지는 기후를 받습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "앞 증거들에서 나온 결론 자리예요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 18.7,
           "pause_after_ms": 400,
           "focus": [
-            6
+            6,
+            2
           ]
         },
         {
@@ -6038,28 +6037,25 @@
           "order": 10,
           "role": "trap",
           "target": {
-            "kind": "analysis",
-            "id": "reject:5"
+            "kind": "anchor",
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 오 번, 일곱 번째 문장의 마무리 문장 위치 오판입니다."
+              "text": "함정은 어휘 반복 유인입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "혼자 미래 추정이라 다른 글 같죠. 하지만 온난화 추세가 일 번을 받아요."
+              "text": "여기 여섯 번째 문장에도 빙하라는 낱말이 그대로 있어서, 소재만 보면 흐름에 붙어 보여요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 정관사 명사가 앞의 무엇을 받는지 먼저 찾으세요."
+              "text": "낱말이 아니라, 술어가 감소 추세를 말하는지 확인하세요."
             }
           ],
-          "est_sec": 20,
-          "pause_after_ms": 600,
-          "focus": [
-            6
-          ]
+          "est_sec": 18.7,
+          "pause_after_ms": 600
         },
         {
           "id": "c11",
@@ -6076,38 +6072,30 @@
             },
             {
               "lang": "en-US",
-              "text": "accumulate"
+              "text": "accelerating"
             },
             {
               "lang": "ko-KR",
-              "text": "쌓이다."
+              "text": "은 빨라지는,"
             },
             {
               "lang": "en-US",
-              "text": "contract"
+              "text": "reduction"
             },
             {
               "lang": "ko-KR",
-              "text": "줄어들다."
+              "text": "은 감소,"
             },
             {
               "lang": "en-US",
-              "text": "extent"
+              "text": "offset"
             },
             {
               "lang": "ko-KR",
-              "text": "범위, 규모."
-            },
-            {
-              "lang": "en-US",
-              "text": "accelerate"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "빨라지다."
+              "text": "은 상쇄하다입니다."
             }
           ],
-          "est_sec": 10,
+          "est_sec": 9.3,
           "pause_after_ms": 500
         },
         {
@@ -6121,14 +6109,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 증거가 쌓이는 글에선 화제의 술어에 붙지 않는 문장이 답이에요. 주제어가 아니라 술어를 확인하세요."
+              "text": "정리합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 다음에는 첫 십 초에 첫 문장의 화제부터 한 줄로 적으세요."
+              "text": "무관한 문장은 소재가 아니라 술어로 거릅니다. 이 점을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "주장의 증거도 전망도 아닌 문장이 답이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 주장 문장을 한 줄로 적는 것부터 하세요."
             }
           ],
-          "est_sec": 19.2,
+          "est_sec": 20,
           "pause_after_ms": 900
         }
       ]
@@ -6841,10 +6837,10 @@
     },
     "M2606#38": {
       "item_id": "M2606#38",
-      "version": 1,
-      "total_sec_est": 200,
+      "version": 2,
+      "total_sec_est": 213,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 91,
+      "rubric_score": 90,
       "cues": [
         {
           "id": "c1",
@@ -6857,14 +6853,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "자, 여러분. 이천이십육 학년도 유월 모의평가 삼십팔 번, 문장 삽입입니다."
+              "text": "여러분, 이번은 주어진 문장의 자리를 찾는 삽입 문항이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "문항 머리를 보세요. 좋은 말 묶음과 나쁜 말 묶음의 경계를 찾습니다."
+              "text": "문항 머리를 보세요. 장점 묶음과 단점 묶음이 어디서 갈리는지 묻습니다."
             }
           ],
-          "est_sec": 15.2,
+          "est_sec": 14.2,
           "pause_after_ms": 500
         },
         {
@@ -6872,28 +6868,24 @@
           "order": 2,
           "role": "strategy",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 주어진 문장을 보세요."
+              "text": "읽기 전에 할 일은 하나예요. 주어진 문장의 역접과 묶음 명사를 표시하세요."
             },
             {
               "lang": "en-US",
-              "text": "also have downsides"
+              "text": "But … also have downsides"
             },
             {
               "lang": "ko-KR",
-              "text": "단점 묶음을 여는 표제죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그러니 단점이 처음 나오는 문장을 찾으세요. 표제는 그 바로 앞입니다."
+              "text": "단점이라는 묶음 말이 있으니, 뒤에 단점이 둘 이상 이어져야 한다는 조건이 생기죠."
             }
           ],
-          "est_sec": 15.4,
+          "est_sec": 18.5,
           "pause_after_ms": 500
         },
         {
@@ -6907,21 +6899,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "지도를 보세요. 첫 막대가 주어진 문장이에요."
+              "text": "지도를 보세요. 두 번째부터 다섯 번째 문장까지는 끌림과 두 가지 동기예요."
             },
             {
               "lang": "ko-KR",
-              "text": "다섯 번째 문장까지는 끌림과 두 동기, 귀여움 다음 아름다움입니다."
+              "text": "부정 평가는 한 번도 없습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여섯, 일곱 번째는 같은 순서로 단점을 듭니다."
+              "text": "여섯, 일곱 번째 문장은 귀여움, 아름다움 순서로 단점을 하나씩 듭니다."
             }
           ],
-          "est_sec": 17,
+          "est_sec": 18.7,
           "pause_after_ms": 600,
           "focus": [
-            4
+            4,
+            6
           ]
         },
         {
@@ -6935,7 +6928,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번. 근거는 여기, 여섯 번째 문장이에요."
+              "text": "정답은 사 번입니다. 근거는 여기, 여섯 번째 문장이에요."
             },
             {
               "lang": "en-US",
@@ -6943,14 +6936,14 @@
             },
             {
               "lang": "ko-KR",
-              "text": "세련미 부족, 지문의 첫 부정적 평가죠."
+              "text": "세련미가 없어 보일 수 있다는 말, 지문의 첫 부정 평가죠."
             },
             {
               "lang": "ko-KR",
-              "text": "주어진 문장의 단점과 바로 맞물립니다."
+              "text": "성능 기대를 낮출 수 있다고도 해요."
             }
           ],
-          "est_sec": 15.5,
+          "est_sec": 17.5,
           "pause_after_ms": 700
         },
         {
@@ -6958,24 +6951,28 @@
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:6"
+            "kind": "analysis",
+            "id": "answer"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이어서 여기 일곱 번째 문장을 보세요. 아름다움엔 곧 무뎌진다고 하죠."
+              "text": "정답 블록을 확인하세요. 주어진 문장의"
+            },
+            {
+              "lang": "en-US",
+              "text": "also"
             },
             {
               "lang": "ko-KR",
-              "text": "귀여움, 아름다움. 주어진 문장의 순서 그대로 단점이 둘입니다."
+              "text": "는 앞의 장점 전체에 단점을 더하는 표시예요."
             },
             {
               "lang": "ko-KR",
-              "text": "다섯 번째 문장까지는 부정적인 말이 없죠."
+              "text": "뒤의 단점 둘을 묶는 머리말은 지문에 없죠. 주어진 문장이 그 머리말입니다."
             }
           ],
-          "est_sec": 19,
+          "est_sec": 18.2,
           "pause_after_ms": 700
         },
         {
@@ -6989,7 +6986,11 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번은 세 번째 문장 앞입니다. 그 첫말을 짚어 보세요."
+              "text": "일 번 자리. 세 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이미"
             },
             {
               "lang": "en-US",
@@ -6997,14 +6998,14 @@
             },
             {
               "lang": "ko-KR",
-              "text": "이미 역접인데, 뒤는 단점이 아니라 서로 다른 두 동기예요."
+              "text": "로 시작해서 역접이 두 번 겹칩니다."
             },
             {
               "lang": "ko-KR",
-              "text": "표제 뒤에 단점이 안 나옵니다."
+              "text": "게다가 그 역접이 끄는 말은 단점이 아니라 서로 다른 두 동기예요."
             }
           ],
-          "est_sec": 15.9,
+          "est_sec": 16.4,
           "pause_after_ms": 400,
           "focus": [
             2
@@ -7021,23 +7022,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번은 네 번째 문장 앞이에요. 세 번째 문장의 두 동기를 확인하세요."
+              "text": "이 번 자리. 세 번째 문장이 동기 둘을 예고하는 걸 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 둘이 곧장 다음 두 문장으로 나뉘니, 예고와 첫 항목을 가르게 되죠."
+              "text": "네 번째와 다섯 번째 문장이 그 둘을 하나씩 풉니다."
             },
             {
               "lang": "ko-KR",
-              "text": "네 번째의 돌봄도 단점이 아닙니다."
+              "text": "예고와 첫 항목 사이를 자르면, 두 동기가 단점 머리말 뒤로 떨어져요."
             }
           ],
-          "est_sec": 18.2,
+          "est_sec": 18.5,
           "pause_after_ms": 400,
           "focus": [
-            3,
             2,
-            1
+            4
           ]
         },
         {
@@ -7051,18 +7051,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번은 다섯 번째 문장 앞입니다. 네 번째와 다섯 번째 문장을 짚어 보세요."
+              "text": "삼 번 자리. 네 번째와 다섯 번째 문장을 비교해 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "돌보는 동기, 드러내는 동기. 같은 틀로 짝지은 항목이죠."
+              "text": "귀여운 디자인은 보살핌, 아름다운 디자인은 자기표현."
             },
             {
               "lang": "ko-KR",
-              "text": "다섯 번째도 단점이 아닙니다."
+              "text": "같은 틀로 짝지은 열거라, 그 사이는 아직 열거가 이어지는 중입니다."
             }
           ],
-          "est_sec": 17.3,
+          "est_sec": 18.7,
           "pause_after_ms": 400,
           "focus": [
             4
@@ -7079,16 +7079,21 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번은 마지막 문장 앞이에요. 여섯 번째 문장을 짚어 보세요."
+              "text": "오 번 자리. 일곱 번째 문장도 단점이라 그 앞이 그럴듯해 보이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "세련미 부족이라는 단점이 이미 나왔죠. 첫 단점이 표제보다 앞서게 됩니다."
+              "text": "하지만 그러면 여섯 번째 문장의 첫 단점이 머리말 없이 장점 끝에 섞여요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "머리말이 단점 하나만 거느리게 되니 확인하세요."
             }
           ],
-          "est_sec": 14.7,
+          "est_sec": 19.7,
           "pause_after_ms": 400,
           "focus": [
+            6,
             5
           ]
         },
@@ -7098,27 +7103,31 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:6"
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 여기 일곱 번째 문장입니다."
+              "text": "함정은 낱말 겹침이에요. 여기 여섯 번째 문장은"
+            },
+            {
+              "lang": "en-US",
+              "text": "cute products"
             },
             {
               "lang": "ko-KR",
-              "text": "무뎌진다가 가장 뚜렷한 단점이라, 그 앞 오 번에 끌리죠."
+              "text": "를 말해요."
             },
             {
               "lang": "ko-KR",
-              "text": "여섯 번째의 단점을 놓치면 총론과 각론이 뒤집힙니다."
+              "text": "네 번째 문장과 낱말이 같아 장점 묶음으로 넘기기 쉽죠."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 첫 부정어에 표시하세요."
+              "text": "낱말보다 평가의 부호부터 표시하세요."
             }
           ],
-          "est_sec": 19,
+          "est_sec": 17.8,
           "pause_after_ms": 600
         },
         {
@@ -7148,7 +7157,7 @@
             },
             {
               "lang": "ko-KR",
-              "text": "돌보는."
+              "text": "보살피는."
             },
             {
               "lang": "en-US",
@@ -7156,7 +7165,7 @@
             },
             {
               "lang": "ko-KR",
-              "text": "세련미."
+              "text": "세련됨."
             },
             {
               "lang": "en-US",
@@ -7164,10 +7173,10 @@
             },
             {
               "lang": "ko-KR",
-              "text": "무뎌진, 이라는 뜻이에요."
+              "text": "무뎌진."
             }
           ],
-          "est_sec": 10.7,
+          "est_sec": 9.2,
           "pause_after_ms": 500
         },
         {
@@ -7181,14 +7190,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 묶음의 표제는 그 묶음 첫 항목 바로 앞에 둡니다."
+              "text": "정리합니다. 묶음 명사가 있는 삽입 문장은 첫 부정 평가 바로 앞에 섭니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 다음에는 첫 십 초에 주어진 문장이 좋은 말인지 나쁜 말인지부터 표시하세요."
+              "text": "그래야 뒤의 단점을 모두 거느리니까요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 주어진 문장의 역접과 묶음 명사부터 표시하세요."
             }
           ],
-          "est_sec": 15.4,
+          "est_sec": 19.5,
           "pause_after_ms": 900
         }
       ]

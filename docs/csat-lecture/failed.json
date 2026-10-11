@@ -1,19 +1,11 @@
 {
-  "updated": "2026-10-11T02:56:59.538Z",
-  "count": 9,
+  "updated": "2026-10-11T03:15:57.012Z",
+  "count": 8,
   "items": {
     "2024#37": {
       "chunk": "R-ORDER-02",
       "attempt": 1,
       "score": 87,
-      "reasons": [
-        "factual: 심사관이 지문과 어긋나는 말을 찾았다"
-      ]
-    },
-    "M2409#36": {
-      "chunk": "R-ORDER-02",
-      "attempt": 1,
-      "score": 81,
       "reasons": [
         "factual: 심사관이 지문과 어긋나는 말을 찾았다"
       ]

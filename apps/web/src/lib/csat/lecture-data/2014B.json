@@ -6701,10 +6701,10 @@
     },
     "2014B#41": {
       "item_id": "2014B#41",
-      "version": 1,
-      "total_sec_est": 214,
+      "version": 2,
+      "total_sec_est": 222,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 82,
+      "rubric_score": 87,
       "cues": [
         {
           "id": "c1",
@@ -6717,14 +6717,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천십사 학년도 수능 비형 사십일 번, 장문 제목입니다."
+              "text": "여러분, 이 문항은 통념과 필자의 판단을 가르고, 둘을 양보 관계로 묶은 제목을 고르게 합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 확인하세요."
+              "text": "문두를 보세요. 가장 적절한 하나만 맞고, 나머지 넷은 지문과 어긋나요."
             }
           ],
-          "est_sec": 8.9,
+          "est_sec": 17.2,
           "pause_after_ms": 500
         },
         {
@@ -6733,23 +6733,19 @@
           "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "head"
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 선지의 판단어에 표시하세요."
+              "text": "읽기 전에 할 일 하나. 선지를 한쪽만 말하는 것과 두 쪽을 잇는 것으로 나누세요."
             },
             {
               "lang": "ko-KR",
-              "text": "외로움과의 작별, 현실 너머는 반기는 쪽, 사 번의 떨어져 있다는 경계하는 쪽이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "지문에선 역접 뒤 필자의 판단과 맞대세요."
+              "text": "두 항을 잇는 말이 든 선지를 따로 표시하세요."
             }
           ],
-          "est_sec": 17.4,
+          "est_sec": 13.2,
           "pause_after_ms": 500
         },
         {
@@ -6758,48 +6754,44 @@
           "role": "structure",
           "target": {
             "kind": "analysis",
-            "id": "intent"
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "뼈대를 확인하세요."
+              "text": "뼈대를 보세요. 첫 문장은 원하는 것과 원한다고 생각하는 것을 구분합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "세 번째와 네 번째 문장은 짐작할 수도 있다는 통념이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다섯 번째 문장의 역접에서 뒤집고, 마지막 문장이 가상과 현실을 맞세웁니다."
+              "text": "셋째와 넷째는 그렇게 가정할 수 있다는 통념이고, 다섯 번째 문장의 그러나에서 뒤집혀요."
             }
           ],
-          "est_sec": 16.4,
-          "pause_after_ms": 600
+          "est_sec": 17.4,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            4
+          ]
         },
         {
           "id": "c4",
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번. 먼저 다섯 번째 문장을 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "the real consequences"
+              "text": "여기 다섯 번째 문장에 주목하세요. 결과에 주의를 기울이면 정말 원하는 것을 알게 될 수도 있다고 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "원한다고 생각하는 것의 실제 결과에 주목하면, 정말 원하는 걸 발견할지도 모른다고 하죠."
+              "text": "이어서 고요함과 홀로 있음을 원할 수도 있다고 말합니다."
             }
           ],
-          "est_sec": 15.6,
+          "est_sec": 16.9,
           "pause_after_ms": 700
         },
         {
@@ -6807,28 +6799,24 @@
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:7"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이어서 여덟 번째 문장을 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "miss the human voice"
+              "text": "정답은 사 번입니다. 여기 여덟 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "오래 타자를 치다 보면 사람 목소리가 그립다는 걸 알게 될 수도 있다고 하죠."
+              "text": "오래 자판을 두드리며 접속해 있지만, 사람 목소리가 그리울 수 있다고 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "연결됐지만 떨어져 있다와 그대로 맞물려요."
+              "text": "연결돼 있는데도 떨어져 있다는 양보가 선지로 옮겨졌습니다."
             }
           ],
-          "est_sec": 18.5,
+          "est_sec": 20,
           "pause_after_ms": 700
         },
         {
@@ -6836,28 +6824,20 @@
           "order": 6,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:11"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "끝으로 마지막 문장을 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "must not let the virtual"
+              "text": "여기 열두 번째 문장도 확인하세요. 가상이 우리를 현실에서 떼어 놓게 두지 말라고 합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "가상이 우리를 현실에서 떼어 놓게 두면 안 된다고 하죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그 단절의 무대가 선지의 가상 속입니다."
+              "text": "선지 끝의 가상 공간은 이 문장의 가상을 받은 말이에요."
             }
           ],
-          "est_sec": 16.1,
+          "est_sec": 15.4,
           "pause_after_ms": 700
         },
         {
@@ -6871,19 +6851,23 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 외로움과의 작별. 세 번째와 네 번째 문장을 짚어 보세요."
+              "text": "일 번, 외로움이여 안녕. 세 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "늘 연결되고 혼자가 아니길 원한다는 말은 짐작할 수도 있다는 통념이에요."
+              "text": "늘 연결되길 원한다는 건 가정할 수 있다는 통념이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "다섯 번째 문장의 역접이 뒤집습니다."
+              "text": "여덟 번째 문장이 사람 목소리가 그립다고 하니 어긋납니다."
             }
           ],
-          "est_sec": 18.5,
-          "pause_after_ms": 400
+          "est_sec": 17.7,
+          "pause_after_ms": 400,
+          "focus": [
+            2,
+            7
+          ]
         },
         {
           "id": "c8",
@@ -6896,15 +6880,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 윤리 문제. 열 번째 문장을 짚어 보세요."
+              "text": "이 번, 온라인 공동체의 윤리 문제. 열 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "로봇의 한계를 옳고 그름이 아니라, 욕망을 이해할 언어와 육체의 문제로 말하죠."
+              "text": "로봇의 한계를 언어와 몸이 필요하다는 능력 문제로 말할 뿐이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "옳고 그름을 따지는 문장은 지문에 없습니다."
             }
           ],
-          "est_sec": 13.2,
-          "pause_after_ms": 400
+          "est_sec": 18.2,
+          "pause_after_ms": 400,
+          "focus": [
+            9
+          ]
         },
         {
           "id": "c9",
@@ -6917,19 +6908,23 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 친구인가 적인가. 아홉 번째 문장을 짚어 보세요."
+              "text": "삼 번, 로봇은 친구인가 적인가. 아홉 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "로봇과 체스는 괜찮아도 가족이나 친구 이야기엔 맞지 않다고 판단할 수 있다고 하죠."
+              "text": "로봇은 원한다고 생각한 것의 한 사례일 뿐이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "로봇은 사례이고, 친구냐 적이냐를 가르지 않아요."
+              "text": "열두 번째 문장은 대상을 가상 전체로 넓힙니다."
             }
           ],
-          "est_sec": 20,
-          "pause_after_ms": 400
+          "est_sec": 17,
+          "pause_after_ms": 400,
+          "focus": [
+            8,
+            11
+          ]
         },
         {
           "id": "c10",
@@ -6942,39 +6937,42 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 현실 너머로 가라. 마지막 문장을 짚어 보세요."
+              "text": "오 번, 넷을 탐험해 현실 너머로 가라. 열두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "가상이 현실에서 떼어 놓게 두지 말라는 금지와 정면으로 어긋나요."
+              "text": "가상이 우리를 현실에서 떼어 놓게 두지 말라는 금지문이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "현실 너머로 가라는 말은 이와 정반대입니다."
             }
           ],
-          "est_sec": 12.7,
-          "pause_after_ms": 400
+          "est_sec": 18.2,
+          "pause_after_ms": 400,
+          "focus": [
+            11
+          ]
         },
         {
           "id": "c11",
           "order": 11,
           "role": "trap",
           "target": {
-            "kind": "analysis",
-            "id": "reject:1"
+            "kind": "anchor",
+            "id": "sentence:2"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정 이름은 부분 사실입니다. 세 번째 문장을 짚어 보세요."
+              "text": "함정은 부분 사실입니다. 여기 세 번째 문장이 일 번과 겹쳐 끌리죠."
             },
             {
               "lang": "ko-KR",
-              "text": "혼자가 아니길 원한다는 말이 그대로 있어 일 번이 결론처럼 보이죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "짐작 표지엔 괄호를 치고 뒤의 역접을 찾으세요."
+              "text": "하지만 서술어가 가정할 수 있다예요. 남의 생각 표지가 붙은 문장은 괄호부터 치세요."
             }
           ],
-          "est_sec": 18.5,
+          "est_sec": 16.2,
           "pause_after_ms": 600
         },
         {
@@ -7000,22 +6998,6 @@
             },
             {
               "lang": "en-US",
-              "text": "stillness"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "고요."
-            },
-            {
-              "lang": "en-US",
-              "text": "weak ties"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "느슨한 관계."
-            },
-            {
-              "lang": "en-US",
               "text": "virtual"
             },
             {
@@ -7024,14 +7006,22 @@
             },
             {
               "lang": "en-US",
-              "text": "unfit"
+              "text": "assume"
             },
             {
               "lang": "ko-KR",
-              "text": "맞지 않는."
+              "text": "가정하다, 당연히 여기다."
+            },
+            {
+              "lang": "en-US",
+              "text": "typing"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "자판 두드리기."
             }
           ],
-          "est_sec": 12.1,
+          "est_sec": 12,
           "pause_after_ms": 500
         },
         {
@@ -7045,18 +7035,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 통념을 뒤집는 글은 뒤집은 뒤의 판단이 제목입니다."
+              "text": "정리합니다. 통념 뒤에 그러나가 오면 제목은 필자의 판단 쪽입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이번엔 연결돼도 사람이 그립다는 판단이었죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "여러분, 다음에는 첫 십 초에 선지의 판단어부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지를 한쪽짜리와 잇는 것으로 나누는 것부터 확인하세요."
             }
           ],
-          "est_sec": 18.5,
+          "est_sec": 15.7,
           "pause_after_ms": 900
         }
       ]
