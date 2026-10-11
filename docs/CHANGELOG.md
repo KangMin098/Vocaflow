@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(textbook): 마이그레이션 `20261011094405_reading_production_agent_reviewer` (승인·개발 DB 적용) — 사람 관리자 1명 체제에서 두 번째 승인을 반대 에이전트(Codex/Claude) 서명 영수증으로. 실측 생성기가 `registered_by` 교체를 버리고 실제 에이전트 승인 사용, P13 롤백 실측 11/11(거부 3 포함).
 - feat(textbook): 마이그레이션 `20261011075550_csat_dcp_items_specialized_types` (승인·개발 DB 적용) — `csat_dcp_items` 유형에 P13·P14·P20 문항 유형 3개 추가. 전용 4개 제품군 실제 내용 가족 검토(P18 유형 불일치 1건 수정 후 통과)와 롤백 전용 DB 실측 4×6/6, 행 수 불변.
 - feat(textbook): 마이그레이션 `20261011072230_reading_specialized_production_revalidate` (승인·개발 DB 적용) — P13·P14·P18·P20 원자 생산 전면 거부를 DB 재검증(봉인 자료 권리·자료 인용·인쇄 제한 시간)으로 교체, JS 도 같은 검사로. P13·P18 실행이 검증된 원자 권까지 도달.
 - feat(textbook): DB 실측 생성기를 복수 학년으로 확장(일자별 그룹에 학년별 각색 구역) — P07 중1·고2 2일 실행을 생성 SQL 그대로 실측(승인): 두 주문 hash 일치, 일자별 2학년 게시, 두 주문 권 등록·서빙, 전후 행 수 동일.

@@ -22,7 +22,9 @@ if (!fs.existsSync(path.join(runDir, 'complete.json'))) throw Error('RUN_NOT_COM
 // Fresh ed25519 trust root (postgres cannot generate keys); policy hashed exactly as the DB does.
 const keys = {}
 const pem = raw => `-----BEGIN PUBLIC KEY-----\n${Buffer.concat([Buffer.from('302a300506032b6570032100', 'hex'), raw]).toString('base64')}\n-----END PUBLIC KEY-----`
-for (const name of ['gold', 'seed']) {
+// reviewer_* are the agent reviewer keys of migration 20261011094405: the run is produced by Claude, so only
+// the Codex reviewer may approve it; the Claude reviewer key exists to prove the same-agent refusal.
+for (const name of ['gold', 'seed', 'reviewer_codex', 'reviewer_claude']) {
   const pair = generateKeyPairSync('ed25519')
   const pub = pair.publicKey.export({ format: 'der', type: 'spki' }).subarray(-32)
   const seed = pair.privateKey.export({ format: 'der', type: 'pkcs8' }).subarray(-32)
@@ -118,10 +120,22 @@ BEGIN
     'display_only',v_source.display_only,'copyright_safe_in_kr',v_source.copyright_safe_in_kr,'status',v_source.status,'updated_at',v_source.updated_at));
   INSERT INTO public.reading_promotion_authority(singleton,generation,trust_policy_hash,benchmark_version,benchmark_snapshot_hash,valid_until,registered_by)
     VALUES(true,1,v_trust,'run-db-measure-v1',v_benchmark,clock_timestamp()+interval '30 minutes',v_admin);
+  -- The single human admin registers both agent reviewer keys (rolled back with everything else).
+  PERFORM set_config('request.jwt.claim.role','authenticated',true);
+  PERFORM set_config('request.jwt.claim.sub',v_admin::text,true);
+  INSERT INTO _run_ctx VALUES
+    ('reviewer_codex',to_jsonb(public.register_reading_production_agent_reviewer('codex',${lit(pem(keys.reviewer_codex.pub))}))),
+    ('reviewer_claude',to_jsonb(public.register_reading_production_agent_reviewer('claude',${lit(pem(keys.reviewer_claude.pub))}))),
+    ('review_criteria',${lit(Object.fromEntries(Object.keys(reviewOut.units[0].criteria).map(id => [id, true])))}::jsonb),
+    ('family_review_hash',to_jsonb(${lit(hash(reviewOut))}::text));
   INSERT INTO _run_ctx VALUES ('admin',to_jsonb(v_admin)),('source',to_jsonb(v_source.id)),('policy',v_policy),('orders',v_hashed),
     ('trust',to_jsonb(v_trust)),('rights',to_jsonb(v_rights)),('benchmark',to_jsonb(v_benchmark)),
     ('grade_scope',${lit(gradeScope)}::jsonb),('delivery',to_jsonb(${lit(delivery)}::text)),('sections','[]'::jsonb);
 END $run$;
+
+CREATE FUNCTION pg_temp.sign_receipt(p_receipt jsonb, p_secret bytea) RETURNS jsonb LANGUAGE sql AS $f$
+  SELECT p_receipt || jsonb_build_object('signature',regexp_replace(encode(pgsodium.crypto_sign_detached(
+    convert_to(public._reading_json_hash(p_receipt - 'signature'),'UTF8'),p_secret),'base64'),'[[:space:]]','','g')) $f$;
 
 CREATE FUNCTION pg_temp.run_measure_one(p_day int, p_output text, p_units jsonb) RETURNS void LANGUAGE plpgsql AS $f$
 DECLARE
@@ -129,6 +143,8 @@ DECLARE
   v_policy jsonb := pg_temp.ctx('policy'); v_trust text := pg_temp.ctx('trust')#>>'{}'; v_rights text := pg_temp.ctx('rights')#>>'{}';
   v_benchmark text := pg_temp.ctx('benchmark')#>>'{}';
   v_gold_secret bytea := decode(${lit(keys.gold.secret.toString('hex'))},'hex'); v_seed_secret bytea := decode(${lit(keys.seed.secret.toString('hex'))},'hex');
+  v_codex_secret bytea := decode(${lit(keys.reviewer_codex.secret.toString('hex'))},'hex'); v_claude_secret bytea := decode(${lit(keys.reviewer_claude.secret.toString('hex'))},'hex');
+  v_receipt jsonb; v_approval jsonb;
   v_evidence text := repeat('f',64); v_issued text := to_char(clock_timestamp() AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS.MS"Z"');
   v_group text := 'run-db-measure:d' || p_day || ':' || gen_random_uuid()::text;
   v_output_hash text := encode(extensions.digest(convert_to(p_output,'UTF8'),'sha256'),'hex');
@@ -220,11 +236,35 @@ BEGIN
   PERFORM set_config('request.jwt.claim.role','service_role',true);
   v_capture := public.capture_reading_production_snapshot(v_group);
   PERFORM public.finalize_reading_production_snapshot((v_capture->>'snapshot_id')::uuid,v_capture->>'snapshot_hash',v_output_hash);
-  PERFORM set_config('request.jwt.claim.role','authenticated',true);
-  -- Dev has one active admin; simulate the required second approver (same as the existing smoke).
-  UPDATE public.reading_production_group SET registered_by=gen_random_uuid() WHERE group_id=v_group;
-  PERFORM public.approve_reading_production_output((v_capture->>'snapshot_id')::uuid,v_capture->>'snapshot_hash',v_output_hash);
-  PERFORM set_config('request.jwt.claim.role','service_role',true);
+  -- Second approval by the agent that did not produce the run (migration 20261011094405).
+  PERFORM public.declare_reading_production_producer(v_group,'claude');
+  v_receipt := jsonb_build_object('schema','reading-production-agent-review/1','agent','codex',
+    'reviewer_id',pg_temp.ctx('reviewer_codex')#>>'{}','snapshot_id',v_capture->>'snapshot_id',
+    'snapshot_hash',v_capture->>'snapshot_hash','output_hash',v_output_hash,'verdict','pass',
+    'criteria',pg_temp.ctx('review_criteria'),'family_review_hash',pg_temp.ctx('family_review_hash')#>>'{}',
+    'rationale','Measurement receipt: the rendered output matches the reviewed run units and every family criterion held.',
+    'reviewed_at',v_issued);
+  IF p_day = 1 THEN
+    -- Refusals: the producing agent's own key, a receipt for another output, and a failed criterion.
+    BEGIN
+      PERFORM public.approve_reading_production_output_by_agent((v_capture->>'snapshot_id')::uuid,v_capture->>'snapshot_hash',v_output_hash,
+        pg_temp.sign_receipt(v_receipt || jsonb_build_object('agent','claude','reviewer_id',pg_temp.ctx('reviewer_claude')#>>'{}'),v_claude_secret));
+      INSERT INTO _run_measure VALUES ('producing agent cannot approve its own output', false, 'accepted');
+    EXCEPTION WHEN check_violation THEN INSERT INTO _run_measure VALUES ('producing agent cannot approve its own output', true, SQLERRM); END;
+    BEGIN
+      PERFORM public.approve_reading_production_output_by_agent((v_capture->>'snapshot_id')::uuid,v_capture->>'snapshot_hash',v_output_hash,
+        pg_temp.sign_receipt(v_receipt || jsonb_build_object('output_hash',repeat('0',64)),v_codex_secret));
+      INSERT INTO _run_measure VALUES ('receipt for another output is refused', false, 'accepted');
+    EXCEPTION WHEN check_violation THEN INSERT INTO _run_measure VALUES ('receipt for another output is refused', true, SQLERRM); END;
+    BEGIN
+      PERFORM public.approve_reading_production_output_by_agent((v_capture->>'snapshot_id')::uuid,v_capture->>'snapshot_hash',v_output_hash,
+        pg_temp.sign_receipt(v_receipt || jsonb_build_object('criteria',pg_temp.ctx('review_criteria') || '{"answer_unique":false}'::jsonb),v_codex_secret));
+      INSERT INTO _run_measure VALUES ('receipt with a failed criterion is refused', false, 'accepted');
+    EXCEPTION WHEN check_violation THEN INSERT INTO _run_measure VALUES ('receipt with a failed criterion is refused', true, SQLERRM); END;
+  END IF;
+  v_approval := public.approve_reading_production_output_by_agent((v_capture->>'snapshot_id')::uuid,v_capture->>'snapshot_hash',v_output_hash,
+    pg_temp.sign_receipt(v_receipt,v_codex_secret));
+  INSERT INTO _run_measure VALUES ('day '||p_day||' approved by the codex reviewer', v_approval->>'reviewer_agent'='codex', v_approval->>'receipt_hash');
   v_capture := public.capture_reading_production_snapshot(v_group);
   PERFORM public.finalize_reading_production_snapshot((v_capture->>'snapshot_id')::uuid,v_capture->>'snapshot_hash',v_output_hash);
   v_result := public.publish_reading_production_artifact((v_capture->>'snapshot_id')::uuid,v_capture->>'snapshot_hash',p_output);
