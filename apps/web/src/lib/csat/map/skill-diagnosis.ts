@@ -87,7 +87,9 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
   for (const a of attempts) {
     // 연습 화면 기록은 직접 확인 근거가 아니다 — 확인 과제를 하지 않고 연습에서만 틀려도 확정되던 결함(Codex P2 · find-policy.v3 와 같은 기준)
     if ((a as { activity?: string | null }).activity === 'practice') continue
-    if (a.phase !== 'practice' || !keys.has(`${a.taskKey}|${a.itemRef}`) || !isEligible(a) || a.isCorrect === null || !a.answeredAt) continue
+    // 본인 판정 — 합성 표시는 빼지 않는다(집단 통계에서만 뺀다 · find-outcome 과 같은 기준 2026-10-10). 독립 첫 시도 조건은 그대로
+    //   (5차: 이 차이로 합성 학습자는 v4 지도에서 확정에 닿지 못해 실제 경로 E2E 가 불가능했고, 같은 학습자가 두 화면에서 다른 판정을 받았다)
+    if (a.phase !== 'practice' || !keys.has(`${a.taskKey}|${a.itemRef}`) || !isEligible({ ...a, synthetic: false }) || a.isCorrect === null || !a.answeredAt) continue
     const cur = first.get(a.itemRef)
     if (!cur || a.answeredAt < cur.at) first.set(a.itemRef, { at: a.answeredAt, ok: a.isCorrect })
   }

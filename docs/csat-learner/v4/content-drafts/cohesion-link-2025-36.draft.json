@@ -1,4 +1,15 @@
 {
+  "release": {
+    "public": false,
+    "status": "draft",
+    "blockedBy": [
+      "second_annotator_done",
+      "anchor_bind",
+      "blind_adoption",
+      "human_release_approval"
+    ],
+    "note": "기계 판독 비공개 — content-drafts.test.ts 가 public=false 와 앱 코드 미참조를 강제한다. 공개는 B7 사람 출시 승인 뒤 정본 annotations 로 옮겨서만"
+  },
   "version": "cohesion-link-2025-36.draft",
   "itemId": "2025#36",
   "skeletonSig": "def817699344ebbee18b7714b8636a6e275ce46c3e8b3607318e4d2cb7429e36",

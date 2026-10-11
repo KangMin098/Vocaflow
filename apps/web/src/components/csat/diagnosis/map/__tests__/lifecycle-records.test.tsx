@@ -99,10 +99,10 @@ describe('실기록 생애주기 — 근거 판단(evidence-locate)', () => {
     expect(s.html).toContain('data-open="false"')
     expect(s.cycle).toBe('FIND:done REPAIR:done TRANSFER:locked CHECK:done') // 적용 기록 없이 해소 — 적용은 마침이 아니다
   })
-  it('합성 계정 기록은 직접 확인에서 빠진다 — 같은 순서라도 처방이 열리지 않는다', () => {
+  it('합성 계정도 본인 판정은 같은 기준 — 같은 순서면 같은 처방(합성 표시는 집단 통계에서만 뺀다 · 5차 통일)', () => {
+    const real = screen(find)
     const s = screen(find.map((r) => ({ ...r, synthetic: true })))
-    expect(s.skill.status).toBe('unverified')
-    expect(s.html).toContain('data-open="false"')
+    expect(s.skill.status).toBe(real.skill.status)
   })
   it('해설을 먼저 본 첫 시도는 직접 확인 근거가 아니다', () => {
     expect(screen(find.map((r) => ({ ...r, help: 'viewed_first' as const }))).skill.status).toBe('unverified')

@@ -34,6 +34,8 @@ export interface WorkspaceView {
   stages: Record<StageKey, StageReadiness>
   /** 지금 할 수 있는 다음 행동 하나 — 확인 문항 링크. 없으면 null */
   next: ConfirmLink | null
+  /** 단계별 활동 대상(5차) — 바로잡기 = 확정 · 다시 확인에서 막힌 확인 문항 · 적용 = 연습 풀의 전이 유형 문항(확인 묶음 밖). 계획이 아직 안 한 것 하나를 고른다 */
+  stageItems: { repair: ConfirmLink[]; transfer: ConfirmLink[] }
   /** 승인된 구조적 연결 · 제안 연결(검증 전) — 화면은 둘을 다른 말로 */
   relations: { structural: string[]; proposed: string[] }
 }
@@ -55,11 +57,15 @@ export interface WorkspaceInput {
   confirmLinks: Record<string, readonly ConfirmLink[]>
   /** 확인 과제 키 → 확인 묶음 밖에서 같은 과제로 적용할 수 있는 활성 문항 수(없으면 0) */
   transferItems: Record<string, number>
+  /** 확인 과제 키 → 「다른 글에 적용」 링크로 열 전이 유형 문항 id(연습 화면 ?item=) — 없으면 적용 링크 없음 */
+  transferTargets?: Record<string, string[]>
 }
 
 const LIVE_ORDER = ['ws.central-meaning', 'ws.option-match', 'ws.evidence-locate']
+/** 정본 quantity_policy 「전이 2지문」(workspaces.json) — 적용 단계 계획량의 상한 */
+export const TRANSFER_PASSAGES = 2
 
-export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInput, 'confirmLinks' | 'transferItems'>): Record<StageKey, StageReadiness> {
+export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInput, 'confirmLinks' | 'transferItems' | 'transferTargets'>): Record<StageKey, StageReadiness> {
   const off = (blocked: StageReadiness['blocked']): StageReadiness => ({ ready: false, count: null, blocked })
   if (t.hold) return { check: off('canon_hold'), repair: off('canon_hold'), transfer: off('canon_hold'), recheck: off('canon_hold') }
   if (t.readiness === 'ready') return { check: off('awaiting_release'), repair: off('awaiting_release'), transfer: off('awaiting_release'), recheck: off('awaiting_release') }
@@ -71,14 +77,15 @@ export function stagesOf(t: V4Template, asIs: AsIsMap, input: Pick<WorkspaceInpu
   const unseenLinked = c.unseen.filter((i) => links.some((l) => l.target === i))
   const opened = c.status === 'verified' || c.status === 'still_needed'
   const resolved = c.status === 'resolved'
-  const transfer = input.transferItems[key] ?? 0
+  // 적용 가능한 문항 = 링크로 열 수 있는 전이 문항이 있으면 그 수, 없으면 풀 전체 수(옛 입력) — 계획량은 정본 「전이 2지문」을 넘지 않는다
+  const transfer = input.transferTargets?.[key]?.length ?? input.transferItems[key] ?? 0
   return {
     check: opened || resolved
       ? { ready: false, count: null, blocked: resolved ? 'resolved' : null }
       : unseenLinked.length > 0 ? { ready: true, count: unseenLinked.length, blocked: null } : off('no_unseen_items'),
     // 바로잡기 대상 = 확정에 쓴 문항 + 다시 확인에서 막힌 문항(실제 막힌 곳만)
     repair: opened ? { ready: true, count: new Set([...c.verifiedItems, ...c.wrongItems]).size, blocked: null } : off('after_check'),
-    transfer: !(opened || resolved) ? off('after_repair') : transfer > 0 ? { ready: true, count: transfer, blocked: null } : off('no_transfer_items'),
+    transfer: !(opened || resolved) ? off('after_repair') : transfer > 0 ? { ready: true, count: Math.min(transfer, TRANSFER_PASSAGES), blocked: null } : off('no_transfer_items'),
     recheck: !opened ? off(resolved ? 'resolved' : 'after_check') : unseenLinked.length >= CHECK_ITEMS ? { ready: true, count: CHECK_ITEMS, blocked: null } : off('not_enough_unseen'),
   }
 }
@@ -89,9 +96,15 @@ function viewOf(t: V4Template, input: WorkspaceInput): WorkspaceView {
   const links = input.confirmLinks[t.content_keys[0]] ?? []
   // 다음 행동 — 확인 · 다시 확인이 열려 있으면 아직 안 본 확인 문항 하나
   const next = (stages.check.ready || stages.recheck.ready) && c ? links.find((l) => c.unseen.includes(l.target)) ?? null : null
+  const blocked = new Set([...(c?.verifiedItems ?? []), ...(c?.wrongItems ?? [])])
+  const key = t.content_keys[0]
+  const stageItems = {
+    repair: links.filter((l) => blocked.has(l.target)),
+    transfer: (input.transferTargets?.[key] ?? []).map((i) => ({ target: i, href: `/csat/practice/${key}?item=${encodeURIComponent(i)}`, label: '다른 글에 적용' })),
+  }
   const rels = t.relations.map((id) => relationOf(id)).filter((r): r is NonNullable<typeof r> => !!r)
   return {
-    id: t.id, name: t.name, goal: t.goal, core: t.core, support: t.support, readiness: t.readiness, stages, next,
+    id: t.id, name: t.name, goal: t.goal, core: t.core, support: t.support, readiness: t.readiness, stages, next, stageItems,
     relations: { structural: rels.filter((r) => r.status === 'approved').map((r) => r.id), proposed: rels.filter((r) => r.status !== 'approved').map((r) => r.id) },
   }
 }

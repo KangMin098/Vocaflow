@@ -185,7 +185,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           const q = p.quantity
           const extra = q.planned !== null && q.done > q.planned ? q.done - q.planned : 0
           return (
-            <li key={p.task} className={n.planItem} data-task={p.task} data-core={isCore} data-planned={q.planned ?? ''} data-done={q.done} data-achievement={p.achievement}>
+            <li key={p.task} className={n.planItem} data-task={p.task} data-core={isCore} data-planned={q.planned ?? ''} data-done={q.done} data-achievement={p.achievement} data-stage={p.stage ?? ""}>
               <div className={n.planMain}>
                 <p className={n.planName}>
                   {p.name}
