@@ -1,0 +1,1759 @@
+{
+ "$comment": "docs/csat-learner/v4/codebook.json — 학습 지도 rev4.0 영역·TASK 코드북 원천(설계 제안 · 미승인). 표는 scripts/csat/map/v4/render-codebook.mjs 가 LEARNING_MAP_DOMAIN_TASK_CODEBOOK.md 로 그린다. 검사: node --test scripts/csat/map/v4/__tests__/codebook.test.mjs",
+ "version": "rev4.0-draft-1",
+ "canon": "LEARNING_MAP_VNEXT.md rev2.1 (2026-10-04 승인) — 이 파일은 정본을 바꾸지 않는다",
+ "status_vocab": {
+  "task_status": {
+   "canon_candidate": "rev2.1 §3 이 이미 후보로 정의(승인된 구조) — rev4 는 수행 목표·조건·관찰·기준을 덧붙인 제안",
+   "proposed": "rev4 에서 새로 제안 — 승인 전",
+   "hold": "정본이 의도적으로 보류(§20) — 정의만, 측정·표시 없음"
+  },
+  "direct_check": {
+   "live": "앱 안 직접 확인이 돈다(합성 검증까지 · 실제 학습자 0)",
+   "ready": "과제·채점·화면 있음, 확인 문항·노출 승인 부족",
+   "content_needed": "확인 도구·주석 없음",
+   "blocked": "정본 보류"
+  },
+  "line_decision": [
+   "유지",
+   "통합",
+   "분할",
+   "재분류",
+   "보류"
+  ],
+  "activity_class": {
+   "LA": "학습 활동(연습)",
+   "DC": "직접 확인 과제(실패 지점·성취를 관찰 — FIND/CHECK)",
+   "LM": "학습 방법·절차(어떻게 공부하나)",
+   "MC": "자료·콘텐츠 묶음(모음 풀이·읽을거리)",
+   "MG": "관리용 체크리스트·메타데이터(기록·일정·다른 라인으로 보내기)"
+  },
+  "crosswalk_status": [
+   "retain_core",
+   "retain_as_facet",
+   "move_layer",
+   "legacy_alias",
+   "retire_from_vnext"
+  ]
+ },
+ "domains": [
+  {
+   "axis": "V",
+   "name": "어휘·표현 의미",
+   "canon": "§2 V",
+   "legacy_lines": [
+    "A1"
+   ],
+   "legacy_proxy": "A1",
+   "independence": "높음 — 문맥 밖 의미 접근은 다른 축 없이 관찰된다",
+   "observability": "직접 확인 도구 0(content_needed)",
+   "teachability": "높음 — 간격 반복·문맥 확인",
+   "growth": "누적",
+   "transfer": "V4 가 E3 선지 대응으로 전이",
+   "korean_assessment": "어휘 문항·전 유형의 기반"
+  },
+  {
+   "axis": "S",
+   "name": "문장 이해",
+   "canon": "§2 S",
+   "legacy_lines": [
+    "A2",
+    "A8"
+   ],
+   "legacy_proxy": "A2+A8",
+   "independence": "높음",
+   "observability": "S 직접 확인 과제 A2-4 1개(기출 밖 활동) · 채점 도구 0",
+   "teachability": "높음 — 끊어 읽기·풀어 쓰기",
+   "growth": "단계적",
+   "transfer": "S-O1 이 R 전체의 재료",
+   "korean_assessment": "어법 문항(B9) + 전 독해 유형"
+  },
+  {
+   "axis": "R",
+   "name": "글 이해",
+   "canon": "§2 R",
+   "legacy_lines": [
+    "A3"
+   ],
+   "legacy_proxy": "A3+A6(legacy — A6 는 K)",
+   "independence": "중간 — E 와 같은 문항에서 함께 관찰된다",
+   "observability": "structure live · relation ready",
+   "teachability": "높음 — §13 Protocol",
+   "growth": "LP3→LP5",
+   "transfer": "R2 관계 facet 이 E3 relation_consistency 로",
+   "korean_assessment": "대의·빈칸·순서·삽입·요약의 주 처리"
+  },
+  {
+   "axis": "E",
+   "name": "근거·선지 판단",
+   "canon": "§2 E",
+   "legacy_lines": [
+    "A5"
+   ],
+   "legacy_proxy": "A4+A5",
+   "independence": "중간 — R 과 분리 유지(정본)",
+   "observability": "option·evidence live",
+   "teachability": "높음 — 근거 위치·선지 대응",
+   "growth": "LP6",
+   "transfer": "새 유형 문항",
+   "korean_assessment": "5지선다 전부"
+  },
+  {
+   "axis": "L",
+   "name": "듣기",
+   "canon": "§2 L · §20-5 보류",
+   "legacy_lines": [
+    "A7"
+   ],
+   "legacy_proxy": "A7",
+   "independence": "높음",
+   "observability": "blocked — 대본·시점 증거 0",
+   "teachability": "높음",
+   "growth": "누적",
+   "transfer": "—",
+   "korean_assessment": "17문항(1–17번)"
+  },
+  {
+   "axis": "X",
+   "name": "실전",
+   "canon": "§2 X · §20-4 보류",
+   "legacy_lines": [
+    "A9"
+   ],
+   "legacy_proxy": "A9",
+   "independence": "높음 — 영어 능력과 분리",
+   "observability": "blocked — 문항별 시간 유효 데이터 0",
+   "teachability": "중간",
+   "growth": "회차 반복",
+   "transfer": "모든 시험",
+   "korean_assessment": "70분 45문항"
+  }
+ ],
+ "tasks": [
+  {
+   "id": "v.core_meaning",
+   "display": "V1",
+   "axis": "V",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "기본 의미 접근",
+   "goal": "시험 빈도 낱말의 기본 의미를 문맥 없이도 바로 꺼낸다",
+   "conditions": "고등 기출 빈도 어휘 · 시간 제한 없음",
+   "evidence": "낱말 → 뜻 인출 정답(독립 첫 시도)",
+   "criterion": "도움 없이 맞히고, 다른 날 다시 맞힌다",
+   "quantity_policy": "모르는 낱말 수 기준 간격 반복 분량(FSRS due)",
+   "direct_check": "content_needed",
+   "methods": [
+    "I6",
+    "A1-2"
+   ],
+   "assets": [
+    "shared_dictionary",
+    "WordVault·Flashcard(FSRS)"
+   ]
+  },
+  {
+   "id": "v.contextual_sense",
+   "display": "V2",
+   "axis": "V",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "문맥 의미 선택",
+   "goal": "다의어에서 이 문장에 맞는 의미를 고른다",
+   "conditions": "기출 지문 문장 안",
+   "evidence": "문맥 의미 선택 정답 + 근거 낱말 지목",
+   "criterion": "서로 다른 문맥 2개 이상에서 맞힌다",
+   "quantity_policy": "확인 문항 묶음 단위",
+   "direct_check": "content_needed",
+   "methods": [
+    "I6-3",
+    "B9-2"
+   ],
+   "assets": [
+    "csat_items(어휘 문항)"
+   ]
+  },
+  {
+   "id": "v.multiword",
+   "display": "V3",
+   "axis": "V",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "덩어리 표현",
+   "goal": "구·숙어·연어를 한 의미 단위로 읽는다",
+   "conditions": "기출 지문",
+   "evidence": "덩어리 경계·의미 정답",
+   "criterion": "낱낱 해석으로 바꾸지 않고 의미를 말한다",
+   "quantity_policy": "표현 목록 간격 반복",
+   "direct_check": "content_needed",
+   "methods": [
+    "I6"
+   ],
+   "assets": []
+  },
+  {
+   "id": "v.semantic_relation",
+   "display": "V4",
+   "axis": "V",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "표현 사이 의미 관계",
+   "goal": "유의·반의·상하위 표현의 의미 동등성을 판단한다",
+   "conditions": "본문 표현 ↔ 다른 표현",
+   "evidence": "두 표현이 같은 뜻인지 판정 + 이유",
+   "criterion": "재진술 쌍을 가려낸다",
+   "quantity_policy": "확인 문항 묶음",
+   "direct_check": "content_needed",
+   "methods": [
+    "A4-2"
+   ],
+   "assets": []
+  },
+  {
+   "id": "s.sentence_core",
+   "display": "S1",
+   "axis": "S",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "문장 뼈대",
+   "goal": "주어·서술어·목적어·보어를 찾는다",
+   "conditions": "기출 긴 문장",
+   "evidence": "뼈대 표시 정답",
+   "criterion": "3문장 이상 연속 정확",
+   "quantity_policy": "막힌 문장 수집량 기준",
+   "direct_check": "content_needed",
+   "methods": [
+    "I2",
+    "A2-2"
+   ],
+   "assets": [
+    "csat_item_units"
+   ]
+  },
+  {
+   "id": "s.chunk_boundary",
+   "display": "S2",
+   "axis": "S",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "의미 단위 경계",
+   "goal": "구·절 경계를 끊어 읽는다",
+   "conditions": "기출 문장",
+   "evidence": "경계 표시",
+   "criterion": "경계 오류 없이 풀어 쓴다",
+   "quantity_policy": "문장 묶음",
+   "direct_check": "content_needed",
+   "methods": [
+    "I2"
+   ],
+   "assets": [
+    "csat_item_units"
+   ]
+  },
+  {
+   "id": "s.attachment",
+   "display": "S3",
+   "axis": "S",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "수식 관계",
+   "goal": "무엇이 무엇을 꾸미는지 정한다",
+   "conditions": "수식어가 긴 문장",
+   "evidence": "피수식어 지목",
+   "criterion": "다른 문장에서도 맞힌다",
+   "quantity_policy": "문장 묶음",
+   "direct_check": "content_needed",
+   "methods": [
+    "I2"
+   ],
+   "assets": []
+  },
+  {
+   "id": "s.structural_relation",
+   "display": "S4",
+   "axis": "S",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "구조 관계",
+   "goal": "병렬·종속·삽입·생략·도치를 풀어낸다",
+   "conditions": "복합 구조 문장",
+   "evidence": "구조 복원 정답",
+   "criterion": "풀어 쓰기가 원문 의미와 같다",
+   "quantity_policy": "문장 묶음",
+   "direct_check": "content_needed",
+   "methods": [
+    "I2",
+    "A2-3"
+   ],
+   "assets": []
+  },
+  {
+   "id": "s.form_scope",
+   "display": "S5",
+   "axis": "S",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "형태·의미 범위",
+   "goal": "문법 형태와 부정·비교·조건의 범위를 판단한다",
+   "conditions": "어법 문항 + 독해 문장",
+   "evidence": "어법 판정 + 이유",
+   "criterion": "포인트별 서로 다른 문항 2개 이상",
+   "quantity_policy": "포인트별 기출 반복",
+   "direct_check": "content_needed",
+   "methods": [
+    "A8-2",
+    "B9-1"
+   ],
+   "assets": [
+    "csat_items(어법)"
+   ]
+  },
+  {
+   "id": "s.o.sentence_meaning_model",
+   "display": "S-O1",
+   "axis": "S",
+   "kind": "integrated",
+   "status": "canon_candidate",
+   "name": "문장 의미 구성(통합 관찰)",
+   "goal": "한 문장의 명제와 핵심·부가 정보를 우리말로 구성한다",
+   "conditions": "기출 문장 · 도움 없이",
+   "evidence": "명제 풀어 쓰기",
+   "criterion": "숙달도 계산 없음 — 관찰 기록만",
+   "quantity_policy": "없음(통합 관찰)",
+   "direct_check": "content_needed",
+   "methods": [
+    "A2-4"
+   ],
+   "assets": []
+  },
+  {
+   "id": "r.reference",
+   "display": "R1",
+   "axis": "R",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "지시·응집 추적",
+   "goal": "대명사·지시어·같은 개념의 연결을 추적한다",
+   "conditions": "기출 지문",
+   "evidence": "지시 대상 지목",
+   "criterion": "서로 다른 지문 2개",
+   "quantity_policy": "확인 문항 묶음",
+   "direct_check": "ready",
+   "methods": [
+    "B11-1"
+   ],
+   "assets": [
+    "cohesion-link"
+   ]
+  },
+  {
+   "id": "r.relation",
+   "display": "R2",
+   "axis": "R",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "문장 사이 관계",
+   "goal": "인접 문장의 관계(인과·대조·예시·재진술 …)를 구성한다",
+   "conditions": "기출 지문 · relation facet 기록",
+   "evidence": "관계 종류 + 근거 단서",
+   "criterion": "facet 별 막대 없음 — 관찰 근거 내역만",
+   "quantity_policy": "확인 문항 묶음",
+   "direct_check": "ready",
+   "methods": [
+    "A3-1"
+   ],
+   "assets": [
+    "cohesion-link"
+   ]
+  },
+  {
+   "id": "r.discourse_function",
+   "display": "R3",
+   "axis": "R",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "문장·문단 기능",
+   "goal": "이 문장이 지금 하는 역할(근거·예시·반론 …)을 말한다",
+   "conditions": "기출 지문",
+   "evidence": "역할 표시",
+   "criterion": "§20-2 하향 조건 — Gold tagging 에서 R4 와 독립 관찰 확인 전 잠정",
+   "quantity_policy": "확인 문항 묶음",
+   "direct_check": "live",
+   "methods": [
+    "A3-2"
+   ],
+   "assets": [
+    "claim-support",
+    "passage_design.roles"
+   ]
+  },
+  {
+   "id": "r.discourse_structure",
+   "display": "R4",
+   "axis": "R",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "글 전개 구조",
+   "goal": "역할들이 모여 만드는 전개 방식을 재구성한다",
+   "conditions": "기출 지문",
+   "evidence": "구조 유형 + 근거",
+   "criterion": "R3 와 다른 근거로 관찰될 때만 독립",
+   "quantity_policy": "확인 문항 묶음",
+   "direct_check": "live",
+   "methods": [
+    "I1"
+   ],
+   "assets": [
+    "claim-support",
+    "passage_design.pattern"
+   ]
+  },
+  {
+   "id": "r.central_meaning",
+   "display": "R5",
+   "axis": "R",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "중심 의미",
+   "goal": "중심과 부연을 가르고 핵심 주장을 한 줄로 압축한다",
+   "conditions": "주제·요지·제목 지문",
+   "evidence": "한 줄 요지 + 중심 문장",
+   "criterion": "서로 다른 지문 2개 독립 확인 + 다른 날 재확인",
+   "quantity_policy": "확인 9문항 묶음(claim-support) 기준",
+   "direct_check": "live",
+   "methods": [
+    "I1-3",
+    "I5-1"
+   ],
+   "assets": [
+    "claim-support"
+   ]
+  },
+  {
+   "id": "r.inference",
+   "display": "R6",
+   "axis": "R",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "추론",
+   "goal": "쓰이지 않은 의미를 글 근거로 도출한다",
+   "conditions": "함축·빈칸 지문",
+   "evidence": "추론 + 근거 문장",
+   "criterion": "근거 없는 추론은 실패",
+   "quantity_policy": "확인 문항 묶음",
+   "direct_check": "content_needed",
+   "methods": [
+    "B7-1"
+   ],
+   "assets": []
+  },
+  {
+   "id": "r.o.global_meaning_model",
+   "display": "R-O1",
+   "axis": "R",
+   "kind": "integrated",
+   "status": "canon_candidate",
+   "name": "글 전체 의미 모델(통합 관찰)",
+   "goal": "글 전체의 일관된 의미를 구성한다",
+   "conditions": "장문·고난도",
+   "evidence": "구조도 + 요지",
+   "criterion": "숙달도 계산 없음",
+   "quantity_policy": "없음",
+   "direct_check": "content_needed",
+   "methods": [
+    "I1"
+   ],
+   "assets": []
+  },
+  {
+   "id": "e.task_demand",
+   "display": "E1",
+   "axis": "E",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "발문 요구 파악",
+   "goal": "발문이 요구하는 판단을 정확히 말한다",
+   "conditions": "모든 유형",
+   "evidence": "요구 진술",
+   "criterion": "유형 2개 이상",
+   "quantity_policy": "확인 문항",
+   "direct_check": "content_needed",
+   "methods": [
+    "B1-1"
+   ],
+   "assets": []
+  },
+  {
+   "id": "e.evidence_location",
+   "display": "E2",
+   "axis": "E",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "근거 위치",
+   "goal": "판단을 정하는 본문 근거 문장을 특정한다",
+   "conditions": "빈칸 지문 등",
+   "evidence": "근거 문장 지목(Evidence Anchor 결속)",
+   "criterion": "서로 다른 확인 문항 2개 독립 정답 → 다른 날 재확인",
+   "quantity_policy": "확인 5문항 묶음",
+   "direct_check": "live",
+   "methods": [
+    "A5-1"
+   ],
+   "assets": [
+    "evidence-locate",
+    "answer_locus"
+   ]
+  },
+  {
+   "id": "e.option_correspondence",
+   "display": "E3",
+   "axis": "E",
+   "kind": "atomic",
+   "status": "canon_candidate",
+   "name": "선지-본문 대응",
+   "goal": "선지가 본문의 어떤 의미를 다시 말했는지(또는 바꿨는지) 판단한다",
+   "conditions": "주제·제목·요지 지문 · judgment facet 기록",
+   "evidence": "대응 본문 문장 지목",
+   "criterion": "facet 별 막대 없음 · 함정 선택만으로 약함 판정 금지",
+   "quantity_policy": "확인 6문항 묶음",
+   "direct_check": "live",
+   "methods": [
+    "A5-2",
+    "B6-3"
+   ],
+   "assets": [
+    "option-restate",
+    "choice_analysis.how_to_reject"
+   ]
+  },
+  {
+   "id": "e.o.final_judgment",
+   "display": "E-O1",
+   "axis": "E",
+   "kind": "integrated",
+   "status": "canon_candidate",
+   "name": "최종 판단(통합 관찰)",
+   "goal": "정답 선택과 배제 이유를 함께 낸다",
+   "conditions": "정답 + 과정 근거",
+   "evidence": "선택 + 근거 + 배제 이유",
+   "criterion": "추측 정답은 근거 아님",
+   "quantity_policy": "없음",
+   "direct_check": "content_needed",
+   "methods": [
+    "I9"
+   ],
+   "assets": [
+    "reveal-gate GateCommit"
+   ]
+  },
+  {
+   "id": "l.sound",
+   "display": "L1",
+   "axis": "L",
+   "kind": "atomic",
+   "status": "hold",
+   "name": "소리 인식",
+   "goal": "(보류) 연음·약음을 낱말로 인식",
+   "conditions": "—",
+   "evidence": "—",
+   "criterion": "—",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "I7"
+   ],
+   "assets": []
+  },
+  {
+   "id": "l.sentence",
+   "display": "L2",
+   "axis": "L",
+   "kind": "atomic",
+   "status": "hold",
+   "name": "들은 문장 이해",
+   "goal": "(보류)",
+   "conditions": "—",
+   "evidence": "—",
+   "criterion": "—",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "I7"
+   ],
+   "assets": []
+  },
+  {
+   "id": "l.retain",
+   "display": "L3",
+   "axis": "L",
+   "kind": "atomic",
+   "status": "hold",
+   "name": "정보 유지",
+   "goal": "(보류)",
+   "conditions": "—",
+   "evidence": "—",
+   "criterion": "—",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "B3-1"
+   ],
+   "assets": []
+  },
+  {
+   "id": "l.respond",
+   "display": "L4",
+   "axis": "L",
+   "kind": "atomic",
+   "status": "hold",
+   "name": "응답 판단",
+   "goal": "(보류)",
+   "conditions": "—",
+   "evidence": "—",
+   "criterion": "—",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "B4-1"
+   ],
+   "assets": []
+  },
+  {
+   "id": "x.time_allocation",
+   "display": "X1",
+   "axis": "X",
+   "kind": "atomic",
+   "status": "hold",
+   "name": "시간 배분",
+   "goal": "(보류 §20-4) 영역·문항 시간 배분을 지킨다",
+   "conditions": "실전 70분",
+   "evidence": "문항별 시간(유효 데이터 0)",
+   "criterion": "—",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "J1"
+   ],
+   "assets": [
+    "csat_session_attempts.sec"
+   ]
+  },
+  {
+   "id": "x.sequence",
+   "display": "X2",
+   "axis": "X",
+   "kind": "atomic",
+   "status": "hold",
+   "name": "풀이 순서",
+   "goal": "(보류)",
+   "conditions": "—",
+   "evidence": "—",
+   "criterion": "—",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "J2"
+   ],
+   "assets": []
+  },
+  {
+   "id": "x.recovery_adaptation",
+   "display": "X3",
+   "axis": "X",
+   "kind": "atomic",
+   "status": "hold",
+   "name": "막힘 회복",
+   "goal": "(보류)",
+   "conditions": "—",
+   "evidence": "—",
+   "criterion": "—",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "J3"
+   ],
+   "assets": []
+  },
+  {
+   "id": "x.attention_stamina",
+   "display": "X4",
+   "axis": "X",
+   "kind": "atomic",
+   "status": "hold",
+   "name": "집중 유지",
+   "goal": "(보류)",
+   "conditions": "—",
+   "evidence": "—",
+   "criterion": "—",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "J5"
+   ],
+   "assets": []
+  },
+  {
+   "id": "x.o.whole_test_stability",
+   "display": "X-O1",
+   "axis": "X",
+   "kind": "integrated",
+   "status": "hold",
+   "name": "전체 시험 안정성(통합 관찰)",
+   "goal": "(보류)",
+   "conditions": "—",
+   "evidence": "—",
+   "criterion": "숙달도 계산 없음",
+   "quantity_policy": "—",
+   "direct_check": "blocked",
+   "methods": [
+    "I4"
+   ],
+   "assets": []
+  }
+ ],
+ "non_task_layers": {
+  "k.context_resource": "축 밖 지식·맥락 자원(A6) — 막대·목표·부족 판정 없음",
+  "context.performance": "Performance Context(J4 · J5 컨디션) — 막대 없음",
+  "lens.question_type": "Question Lens(B1–B13) — 어디서 관찰되나",
+  "feature.choice_trap": "Item Feature(C1–C8) — 문항 쪽 특성",
+  "pedagogy.method": "학습 방법(I1–I10 · D6 · D8)",
+  "plan.allocation": "학습 배분(D9)",
+  "retired": "vNext 개념에서 퇴출(D1 · D2 · D4 · D7) — 행 보존",
+  "legacy.alias": "옛 화면 · 데이터를 읽기 위한 별칭(D3) — 개념으로 쓰지 않음"
+ },
+ "lines": {
+  "A1": {
+   "crosswalk_status": "retain_core",
+   "decision": "유지",
+   "layer": "domain",
+   "v4": [
+    "v.core_meaning",
+    "v.contextual_sense",
+    "v.multiword",
+    "v.semantic_relation"
+   ],
+   "role": "V 축 근거",
+   "performance_goal": true,
+   "observable": "어휘 인출·문맥 의미",
+   "method": "간격 반복·문맥 확인",
+   "assessment": "직접 확인 도구 필요",
+   "why": "crosswalk §A retain_core — 정의만 「어휘·표현 의미」로 확장",
+   "verify": "content_needed"
+  },
+  "A2": {
+   "crosswalk_status": "retain_core",
+   "decision": "분할",
+   "layer": "domain",
+   "v4": [
+    "s.sentence_core",
+    "s.chunk_boundary",
+    "s.attachment",
+    "s.structural_relation",
+    "s.o.sentence_meaning_model"
+   ],
+   "role": "S 축 근거",
+   "performance_goal": true,
+   "observable": "뼈대·경계·풀어 쓰기",
+   "method": "문장 풀어 쓰기(I2)",
+   "assessment": "A2-4 직접 확인(채점 도구 없음)",
+   "why": "구문 하나가 S1–S4 + S-O1 로 갈린다(§3 S)",
+   "verify": "content_needed"
+  },
+  "A3": {
+   "crosswalk_status": "retain_core",
+   "decision": "분할",
+   "layer": "domain",
+   "v4": [
+    "r.reference",
+    "r.relation",
+    "r.discourse_function",
+    "r.discourse_structure"
+   ],
+   "role": "R 축 근거",
+   "performance_goal": true,
+   "observable": "참조·관계·역할·구조",
+   "method": "§13 Protocol 2–3",
+   "assessment": "cohesion-link · claim-support",
+   "why": "「논리 흐름」이 참조·관계·기능·구조로 나뉜다(crosswalk §A)",
+   "verify": "partial_live"
+  },
+  "A4": {
+   "crosswalk_status": "retain_as_facet",
+   "decision": "분할",
+   "layer": "facet",
+   "v4": [
+    "v.semantic_relation",
+    "r.relation",
+    "e.option_correspondence"
+   ],
+   "role": "재진술 — paraphrase 세 층",
+   "performance_goal": false,
+   "observable": "표현 동등성",
+   "method": "재진술 사슬",
+   "assessment": "option-restate(A4-4 active)",
+   "why": "단일 능력이 아니라 V4·R2·E3 facet(§8)",
+   "verify": "partial_live"
+  },
+  "A5": {
+   "crosswalk_status": "retain_core",
+   "decision": "유지",
+   "layer": "domain",
+   "v4": [
+    "e.task_demand",
+    "e.evidence_location",
+    "e.option_correspondence",
+    "e.o.final_judgment"
+   ],
+   "role": "E 축 근거",
+   "performance_goal": true,
+   "observable": "근거 위치·선지 대응",
+   "method": "근거 표시·오답 반박",
+   "assessment": "evidence-locate(A5-4 active)",
+   "why": "crosswalk §A retain_core",
+   "verify": "partial_live"
+  },
+  "A6": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "k.context_resource",
+   "v4": [],
+   "role": "배경지식 자원",
+   "performance_goal": false,
+   "observable": "주제 친숙도(데이터 없음)",
+   "method": "주제별 묶음 읽기",
+   "assessment": "없음",
+   "why": "§3 축 밖 K — R proxy 계산은 legacy 유지",
+   "verify": "none"
+  },
+  "A7": {
+   "crosswalk_status": "retain_core",
+   "decision": "보류",
+   "layer": "domain",
+   "v4": [
+    "l.sound",
+    "l.sentence",
+    "l.retain",
+    "l.respond"
+   ],
+   "role": "L 축 근거",
+   "performance_goal": true,
+   "observable": "(데이터 없음)",
+   "method": "받아쓰기·쉐도잉",
+   "assessment": "없음",
+   "why": "§20-5 듣기 보류",
+   "verify": "blocked"
+  },
+  "A8": {
+   "crosswalk_status": "retain_core",
+   "decision": "재분류",
+   "layer": "domain",
+   "v4": [
+    "s.form_scope"
+   ],
+   "role": "어법 → S5",
+   "performance_goal": true,
+   "observable": "어법 판정",
+   "method": "포인트별 반복",
+   "assessment": "어법 문항",
+   "why": "crosswalk §A — S 의 원자 하위 능력",
+   "verify": "content_needed"
+  },
+  "A9": {
+   "crosswalk_status": "retain_core",
+   "decision": "분할",
+   "layer": "domain",
+   "v4": [
+    "x.attention_stamina",
+    "x.o.whole_test_stability"
+   ],
+   "role": "속도·지구력",
+   "performance_goal": true,
+   "observable": "(시간 데이터 0)",
+   "method": "연속 풀이",
+   "assessment": "없음",
+   "why": "지구력 → X4, 속도 → 가로 측정 차원(§4)",
+   "verify": "blocked"
+  },
+  "B1": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "l.respond",
+    "l.sentence"
+   ],
+   "role": "듣기 대의 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "발문 먼저",
+   "assessment": "유형 정오(능력 아님)",
+   "why": "Question Lens — DIAGNOSE_WITH",
+   "verify": "blocked"
+  },
+  "B2": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "l.retain"
+   ],
+   "role": "듣기 세부 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "정보 위치",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "blocked"
+  },
+  "B3": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "l.retain"
+   ],
+   "role": "듣기 계산 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "메모 양식",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "blocked"
+  },
+  "B4": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "l.respond"
+   ],
+   "role": "듣기 응답 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "마지막 발화",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "blocked"
+  },
+  "B5": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "l.retain"
+   ],
+   "role": "듣기 세트 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "두 문항 메모",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "blocked"
+  },
+  "B6": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "r.central_meaning",
+    "e.option_correspondence"
+   ],
+   "role": "독해 대의 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "필자 주장 먼저",
+   "assessment": "B6-3 FIND active",
+   "why": "Question Lens — 유형 성과를 축 숙달로 읽지 않는다",
+   "verify": "partial_live"
+  },
+  "B7": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "r.inference",
+    "v.contextual_sense"
+   ],
+   "role": "함축 의미 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "밑줄 풀어 쓰기",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "content_needed"
+  },
+  "B8": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "e.evidence_location",
+    "e.option_correspondence"
+   ],
+   "role": "세부 정보 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "선지별 대조",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "content_needed"
+  },
+  "B9": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "s.form_scope",
+    "v.contextual_sense"
+   ],
+   "role": "어법·어휘 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "출제 포인트",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "content_needed"
+  },
+  "B10": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "r.central_meaning",
+    "r.inference",
+    "e.evidence_location"
+   ],
+   "role": "빈칸 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "예상 답 먼저",
+   "assessment": "evidence-locate 문항",
+   "why": "Question Lens",
+   "verify": "partial_live"
+  },
+  "B11": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "r.reference",
+    "r.relation",
+    "r.discourse_structure"
+   ],
+   "role": "순서·삽입·무관 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "단서 표시",
+   "assessment": "cohesion-link 문항",
+   "why": "Question Lens",
+   "verify": "partial_live"
+  },
+  "B12": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "r.central_meaning",
+    "v.semantic_relation"
+   ],
+   "role": "요약 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "요약문 먼저",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "content_needed"
+  },
+  "B13": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "lens.question_type",
+   "v4": [
+    "r.o.global_meaning_model",
+    "x.time_allocation"
+   ],
+   "role": "장문 유형",
+   "performance_goal": false,
+   "observable": "유형 정오",
+   "method": "순서·지칭 절차",
+   "assessment": "유형 정오",
+   "why": "Question Lens",
+   "verify": "content_needed"
+  },
+  "C1": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "feature.choice_trap",
+   "v4": [],
+   "role": "선지 함정 — 단어 재활용",
+   "performance_goal": false,
+   "observable": "문항 쪽 특성",
+   "method": "함정 표시",
+   "assessment": "능력 판정 금지",
+   "why": "Item Feature — 「C 선지를 골랐다 → E3 약함」 금지",
+   "verify": "n/a"
+  },
+  "C2": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "feature.choice_trap",
+   "v4": [],
+   "role": "핵심 아님",
+   "performance_goal": false,
+   "observable": "문항 쪽 특성",
+   "method": "핵심 문장 먼저",
+   "assessment": "능력 판정 금지",
+   "why": "Item Feature",
+   "verify": "n/a"
+  },
+  "C3": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "feature.choice_trap",
+   "v4": [],
+   "role": "부분을 전체로",
+   "performance_goal": false,
+   "observable": "문항 쪽 특성",
+   "method": "범위어 표시",
+   "assessment": "능력 판정 금지",
+   "why": "Item Feature",
+   "verify": "n/a"
+  },
+  "C4": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "feature.choice_trap",
+   "v4": [],
+   "role": "인과 전도",
+   "performance_goal": false,
+   "observable": "문항 쪽 특성",
+   "method": "인과 화살표(cue 훈련)",
+   "assessment": "능력 판정 금지",
+   "why": "Item Feature",
+   "verify": "n/a"
+  },
+  "C5": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "feature.choice_trap",
+   "v4": [],
+   "role": "범위·강도 변형",
+   "performance_goal": false,
+   "observable": "문항 쪽 특성",
+   "method": "수식어 대조",
+   "assessment": "능력 판정 금지",
+   "why": "Item Feature",
+   "verify": "n/a"
+  },
+  "C6": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "feature.choice_trap",
+   "v4": [],
+   "role": "방향 반대",
+   "performance_goal": false,
+   "observable": "문항 쪽 특성",
+   "method": "필자 입장 표시",
+   "assessment": "능력 판정 금지",
+   "why": "Item Feature",
+   "verify": "n/a"
+  },
+  "C7": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "feature.choice_trap",
+   "v4": [],
+   "role": "상식 개입",
+   "performance_goal": false,
+   "observable": "문항 쪽 특성",
+   "method": "근거 번호 쓰기",
+   "assessment": "능력 판정 금지",
+   "why": "Item Feature",
+   "verify": "n/a"
+  },
+  "C8": {
+   "crosswalk_status": "legacy_alias",
+   "decision": "보류",
+   "layer": "feature.choice_trap",
+   "v4": [],
+   "role": "비유 선지(legacy_alias)",
+   "performance_goal": false,
+   "observable": "대응 key 0",
+   "method": "비유 풀어 쓰기",
+   "assessment": "없음",
+   "why": "crosswalk §B legacy_alias — 사례가 생기면 재검토",
+   "verify": "n/a"
+  },
+  "D1": {
+   "crosswalk_status": "retire_from_vnext",
+   "decision": "보류",
+   "layer": "retired",
+   "v4": [],
+   "role": "선지에 끌림",
+   "performance_goal": false,
+   "observable": "포괄적",
+   "method": "예상 답 먼저",
+   "assessment": "오답 원인으로 분해",
+   "why": "retire_from_vnext(행 보존 · 개념 미사용)",
+   "verify": "n/a"
+  },
+  "D2": {
+   "crosswalk_status": "retire_from_vnext",
+   "decision": "보류",
+   "layer": "retired",
+   "v4": [],
+   "role": "추측 풀이",
+   "performance_goal": false,
+   "observable": "확신도 기록",
+   "method": "찍음 표시",
+   "assessment": "원인 아님",
+   "why": "retire_from_vnext",
+   "verify": "n/a"
+  },
+  "D3": {
+   "crosswalk_status": "legacy_alias",
+   "decision": "보류",
+   "layer": "legacy.alias",
+   "v4": [],
+   "role": "상식 판단(legacy_alias)",
+   "performance_goal": false,
+   "observable": "B.outside_knowledge 관련",
+   "method": "근거 번호 쓰기",
+   "assessment": "오답 원인 경로",
+   "why": "legacy_alias(crosswalk §B) — B.outside_knowledge 와 관련되지만 같은 객체 아님, 옛 화면 대응용 별칭으로만",
+   "verify": "n/a"
+  },
+  "D4": {
+   "crosswalk_status": "retire_from_vnext",
+   "decision": "보류",
+   "layer": "retired",
+   "v4": [],
+   "role": "해석은 되는데 틀림",
+   "performance_goal": false,
+   "observable": "상태 묘사",
+   "method": "원인 쪼개기",
+   "assessment": "진단 시작점",
+   "why": "retire_from_vnext",
+   "verify": "n/a"
+  },
+  "D5": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "domain",
+   "v4": [
+    "x.time_allocation",
+    "x.attention_stamina"
+   ],
+   "role": "시간 붕괴 → X",
+   "performance_goal": false,
+   "observable": "(시간 데이터 0)",
+   "method": "시간 기록",
+   "assessment": "없음",
+   "why": "move_layer → X",
+   "verify": "blocked"
+  },
+  "D6": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "오답 분석 습관",
+   "performance_goal": false,
+   "observable": "학습 행동",
+   "method": "오답 4분류",
+   "assessment": "행동 기록",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "D7": {
+   "crosswalk_status": "retire_from_vnext",
+   "decision": "보류",
+   "layer": "retired",
+   "v4": [],
+   "role": "90점 커트라인 전략",
+   "performance_goal": false,
+   "observable": "—",
+   "method": "—",
+   "assessment": "—",
+   "why": "retire_from_vnext — 목표는 csat_map_goal 이 맡는다",
+   "verify": "n/a"
+  },
+  "D8": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "EBS 암기 의존",
+   "performance_goal": false,
+   "observable": "학습 행동",
+   "method": "논지 요약 전환",
+   "assessment": "행동 기록",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "D9": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "plan.allocation",
+   "v4": [],
+   "role": "듣기 소홀 = 배분 문제",
+   "performance_goal": false,
+   "observable": "배분",
+   "method": "듣기 루틴",
+   "assessment": "PLAN 배분",
+   "why": "Goal/Route — L 숙달과 동일시 금지",
+   "verify": "n/a"
+  },
+  "I1": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "기출 분해 = §13 Protocol 의 집",
+   "performance_goal": false,
+   "observable": "절차 수행",
+   "method": "§13 7단계",
+   "assessment": "—",
+   "why": "Pedagogy — Workspace 방법 카드",
+   "verify": "n/a"
+  },
+  "I2": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "문장 풀어 쓰기",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "풀어 쓰기",
+   "assessment": "—",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "I3": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "오답 원인 분류",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "4분류",
+   "assessment": "—",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "I4": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "실전 모의고사 운영",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "실전 조건",
+   "assessment": "—",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "I5": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "EBS 논지 요약",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "논지 한 줄",
+   "assessment": "—",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "I6": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "어휘 간격 반복",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "FSRS",
+   "assessment": "—",
+   "why": "Pedagogy — WordVault 재사용",
+   "verify": "n/a"
+  },
+  "I7": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "받아쓰기·쉐도잉",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "Dictation·EchoMatch",
+   "assessment": "—",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "I8": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "주제별 묶음 읽기",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "묶음 읽기",
+   "assessment": "—",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "I9": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "셀프 설명",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "선지별 설명",
+   "assessment": "—",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "I10": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "pedagogy.method",
+   "v4": [],
+   "role": "예상 답 먼저 쓰기",
+   "performance_goal": false,
+   "observable": "절차",
+   "method": "선지 가리기",
+   "assessment": "—",
+   "why": "Pedagogy",
+   "verify": "n/a"
+  },
+  "J1": {
+   "crosswalk_status": "move_layer",
+   "decision": "통합",
+   "layer": "domain",
+   "v4": [
+    "x.time_allocation"
+   ],
+   "role": "시간 배분 → X1",
+   "performance_goal": true,
+   "observable": "(시간 데이터 0)",
+   "method": "기준 시간표",
+   "assessment": "없음",
+   "why": "move_layer → X1",
+   "verify": "blocked"
+  },
+  "J2": {
+   "crosswalk_status": "move_layer",
+   "decision": "통합",
+   "layer": "domain",
+   "v4": [
+    "x.sequence"
+   ],
+   "role": "풀이 순서 → X2",
+   "performance_goal": true,
+   "observable": "(데이터 0)",
+   "method": "순서 설계",
+   "assessment": "없음",
+   "why": "→ X2",
+   "verify": "blocked"
+  },
+  "J3": {
+   "crosswalk_status": "move_layer",
+   "decision": "통합",
+   "layer": "domain",
+   "v4": [
+    "x.recovery_adaptation"
+   ],
+   "role": "난이도 변동 → X3",
+   "performance_goal": true,
+   "observable": "(데이터 0)",
+   "method": "하방 시나리오",
+   "assessment": "없음",
+   "why": "→ X3",
+   "verify": "blocked"
+  },
+  "J4": {
+   "crosswalk_status": "move_layer",
+   "decision": "재분류",
+   "layer": "context.performance",
+   "v4": [],
+   "role": "시험 불안",
+   "performance_goal": false,
+   "observable": "자기보고",
+   "method": "시작 루틴",
+   "assessment": "없음",
+   "why": "Performance Context — 막대 없음",
+   "verify": "n/a"
+  },
+  "J5": {
+   "crosswalk_status": "move_layer",
+   "decision": "분할",
+   "layer": "domain",
+   "v4": [
+    "x.attention_stamina"
+   ],
+   "role": "집중 → X4 · 컨디션 → Context",
+   "performance_goal": true,
+   "observable": "(데이터 0)",
+   "method": "시간대 풀이",
+   "assessment": "없음",
+   "why": "crosswalk §B 분리",
+   "verify": "blocked"
+  }
+ },
+ "activity_class": {
+  "A1-1": "DC",
+  "A1-2": "LM",
+  "A1-3": "DC",
+  "A2-1": "DC",
+  "A2-2": "LA",
+  "A2-3": "LA",
+  "A2-4": "DC",
+  "A3-1": "LA",
+  "A3-2": "LA",
+  "A3-3": "DC",
+  "A3-4": "DC",
+  "A4-1": "LA",
+  "A4-2": "LA",
+  "A4-3": "DC",
+  "A4-4": "DC",
+  "A5-1": "LA",
+  "A5-2": "LA",
+  "A5-3": "DC",
+  "A5-4": "DC",
+  "A6-1": "DC",
+  "A6-2": "MC",
+  "A6-3": "MC",
+  "A7-1": "DC",
+  "A7-2": "LM",
+  "A7-3": "LM",
+  "A8-1": "DC",
+  "A8-2": "LA",
+  "A8-3": "MC",
+  "A9-1": "DC",
+  "A9-2": "LM",
+  "A9-3": "LA",
+  "B1-1": "LM",
+  "B1-2": "MC",
+  "B1-3": "DC",
+  "B2-1": "LA",
+  "B2-2": "MC",
+  "B2-3": "LA",
+  "B2-4": "DC",
+  "B3-1": "LM",
+  "B3-2": "MC",
+  "B3-3": "LA",
+  "B4-1": "LM",
+  "B4-2": "LM",
+  "B4-3": "DC",
+  "B4-4": "DC",
+  "B5-1": "LM",
+  "B5-2": "MC",
+  "B5-3": "DC",
+  "B6-1": "LA",
+  "B6-2": "MC",
+  "B6-3": "DC",
+  "B7-1": "LA",
+  "B7-2": "MG",
+  "B7-3": "DC",
+  "B7-4": "DC",
+  "B8-1": "LA",
+  "B8-2": "LA",
+  "B8-3": "MC",
+  "B8-4": "DC",
+  "B9-1": "MC",
+  "B9-2": "LM",
+  "B9-3": "DC",
+  "B10-1": "LM",
+  "B10-2": "DC",
+  "B10-3": "MG",
+  "B11-1": "LA",
+  "B11-2": "LA",
+  "B11-3": "MG",
+  "B11-4": "DC",
+  "B12-1": "LM",
+  "B12-2": "LA",
+  "B12-3": "MG",
+  "B12-4": "DC",
+  "B13-1": "LM",
+  "B13-2": "LM",
+  "B13-3": "LM",
+  "B13-4": "DC",
+  "C1-1": "LA",
+  "C1-2": "MC",
+  "C1-3": "DC",
+  "C2-1": "LA",
+  "C2-2": "MC",
+  "C2-3": "DC",
+  "C3-1": "LA",
+  "C3-2": "MC",
+  "C3-3": "DC",
+  "C4-1": "LA",
+  "C4-2": "MC",
+  "C4-3": "DC",
+  "C5-1": "LA",
+  "C5-2": "MC",
+  "C5-3": "DC",
+  "C6-1": "LA",
+  "C6-2": "MC",
+  "C6-3": "DC",
+  "C7-1": "LA",
+  "C7-2": "MC",
+  "C7-3": "DC",
+  "C8-1": "LA",
+  "C8-2": "MC",
+  "C8-3": "MG",
+  "C8-4": "DC",
+  "D1-1": "LM",
+  "D1-2": "LM",
+  "D1-3": "DC",
+  "D1-4": "DC",
+  "D2-1": "MG",
+  "D2-2": "MG",
+  "D2-3": "DC",
+  "D3-1": "LA",
+  "D3-2": "MC",
+  "D3-3": "LM",
+  "D3-4": "DC",
+  "D4-1": "DC",
+  "D4-2": "MG",
+  "D4-3": "DC",
+  "D5-1": "MG",
+  "D5-2": "MG",
+  "D5-3": "LM",
+  "D6-1": "LM",
+  "D6-2": "LA",
+  "D6-3": "MG",
+  "D7-1": "MG",
+  "D7-2": "MC",
+  "D7-3": "MG",
+  "D8-1": "DC",
+  "D8-2": "LM",
+  "D8-3": "MC",
+  "D9-1": "MG",
+  "D9-2": "MG",
+  "D9-3": "DC",
+  "D9-4": "DC",
+  "I1-1": "LA",
+  "I1-2": "LM",
+  "I1-3": "LA",
+  "I2-1": "LA",
+  "I2-2": "LA",
+  "I2-3": "LA",
+  "I3-1": "LM",
+  "I3-2": "MG",
+  "I3-3": "MG",
+  "I4-1": "LM",
+  "I4-2": "MG",
+  "I4-3": "LM",
+  "I5-1": "LA",
+  "I5-2": "MC",
+  "I5-3": "LA",
+  "I5-4": "DC",
+  "I6-1": "MG",
+  "I6-2": "LM",
+  "I6-3": "LA",
+  "I7-1": "LM",
+  "I7-2": "LM",
+  "I7-3": "LM",
+  "I7-4": "DC",
+  "I8-1": "MG",
+  "I8-2": "MC",
+  "I8-3": "LA",
+  "I9-1": "LM",
+  "I9-2": "DC",
+  "I9-3": "LA",
+  "I10-1": "LM",
+  "I10-2": "LA",
+  "I10-3": "LA",
+  "I10-4": "DC",
+  "J1-1": "MG",
+  "J1-2": "LA",
+  "J1-3": "MG",
+  "J1-4": "DC",
+  "J2-1": "MG",
+  "J2-2": "LA",
+  "J2-3": "MG",
+  "J2-4": "DC",
+  "J3-1": "MG",
+  "J3-2": "MC",
+  "J3-3": "MG",
+  "J4-1": "DC",
+  "J4-2": "MG",
+  "J4-3": "DC",
+  "J5-1": "LA",
+  "J5-2": "MG",
+  "J5-3": "DC",
+  "J5-4": "DC"
+ },
+ "activity_task_override": {
+  "$comment": "라인 기본 대응(lines[].v4)과 다른 TASK 를 겨누는 과제만 — 나머지는 라인 대응을 상속한다",
+  "A2-4": [
+   "s.o.sentence_meaning_model"
+  ],
+  "A3-1": [
+   "r.relation"
+  ],
+  "A3-2": [
+   "r.discourse_function"
+  ],
+  "A3-4": [
+   "r.reference",
+   "r.relation"
+  ],
+  "A4-4": [
+   "e.option_correspondence"
+  ],
+  "A5-1": [
+   "e.evidence_location"
+  ],
+  "A5-2": [
+   "e.option_correspondence"
+  ],
+  "A5-4": [
+   "e.evidence_location"
+  ],
+  "B6-3": [
+   "r.central_meaning",
+   "r.discourse_structure"
+  ],
+  "I1-3": [
+   "r.central_meaning"
+  ],
+  "I2-2": [
+   "s.sentence_core"
+  ],
+  "I2-3": [
+   "s.structural_relation"
+  ],
+  "I5-1": [
+   "r.central_meaning"
+  ],
+  "I6-2": [
+   "v.core_meaning"
+  ],
+  "I6-3": [
+   "v.contextual_sense"
+  ],
+  "I9-1": [
+   "e.o.final_judgment"
+  ],
+  "I10-2": [
+   "e.task_demand"
+  ]
+ },
+ "in_app_execution": {
+  "$comment": "2026-10-10 개발 DB knowledge_applications(surface=learning_map_find) 실측 — 나머지 과제는 체크리스트(csat_map_task_done 토글)뿐",
+  "B6-3": "live",
+  "A4-4": "live",
+  "A5-4": "live",
+  "A3-4": "draft"
+ }
+}
