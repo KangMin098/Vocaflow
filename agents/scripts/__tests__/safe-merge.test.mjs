@@ -117,9 +117,10 @@ test('SM-P5 30파일 이상은 승인이 아니라 「## 검증」 절 — 없�
   assert.equal(gates({ baseRefName: 'main', body: '## 검증\n- 전체 테스트 통과', files }, policy).ok, true)
 })
 
-test('SM-P6 정책 정본 — 자동 병합은 활성화 조건 확인 전까지 꺼져 있다', () => {
+// 스위치 값 자체(켜짐 · 꺼짐)는 단언하지 않는다 — 2026-10-11 사용자가 활성화했다. 효력은 SM-P10(origin/main 에서만 읽음)이 지킨다
+test('SM-P6 정책 정본 — 형식 · 승인 2종 · 필수 체크 · 자동 병합 스위치는 불리언', () => {
   assert.equal(policy.mode, 'AUTO_CONTINUE')
-  assert.equal(policy.merge.auto_merge_enabled, false)
+  assert.equal(typeof policy.merge.auto_merge_enabled, 'boolean')
   assert.deepEqual(Object.keys(policy.approval_required).sort(), ['data_deletion', 'db_change'])
   for (const n of ['verify', 'build', 'e2e']) assert.ok(policy.required_checks.includes(n), n)
 })
