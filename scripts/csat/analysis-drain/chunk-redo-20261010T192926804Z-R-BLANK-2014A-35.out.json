@@ -1,0 +1,181 @@
+{
+ "chunk": 2,
+ "type_id": "R-BLANK",
+ "type_name": "빈칸 추론",
+ "analyses": [
+  {
+   "item_id": "2014A#35",
+   "body_recovered": true,
+   "measured_ability": "빈칸(5문장)의 주어가 고객도 회사도 아닌 '고객의 요청안'임을 구문으로 확정하고, 그 요청안이 무엇에 작용하는지를 빈칸보다 네 문장 앞인 1문장의 일반 진술에서 되찾는 능력",
+   "design_intent": "빈칸 주어를 '요청한 해결책'으로 두고 그 작용의 대상을 1문장의 other outcomes 에서 되찾게 설계했다. 정답은 지문 낱말을 바꿔 쓰고(impact · functions), 오답 ③⑤는 지문 낱말(other · requests · listening to customers' voices)을 재사용하며, ②④는 출시 지연·기업 경쟁 같은 제품 개발 통념으로 끌어 작용의 대상을 제품 밖으로 옮긴다. 2014B#31 과 지문·선지가 같은 공유 문항이다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     6
+    ],
+    "quote": "Sometimes all the outcomes customers are trying to achieve in one area have a negative effect on other outcomes.",
+    "reasoning": "빈칸 문장의 주어는 their requested solution 이고 will 뒤가 비어 있으므로 빈칸에는 요청안이 하는 일이 온다. 그 일을 문단 첫 문장이 미리 적었다 — 한 영역의 성과가 다른 성과에 부정적 영향을 준다. 예시 둘이 같은 꼴을 되풀이하고(작아진 전화 → 쓰기 어려움, 가벼운 톱 → 힘 부족), 빈칸 뒤 문장의 the added feature turns out to be worthless because of the problems it causes 가 피해가 같은 제품 안에서 생김을 확인한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "빈칸은 their requested solution will 다음 동사구 자리라 '요청한 해결책이 무엇에 어떤 작용을 하는가'를 채워야 한다. 1문장의 have a negative effect on other outcomes 에서 동사 have a negative effect on 이 선지의 impact 로, 대상 other outcomes 가 other product or service functions 로 옮겨졌다. 3·4문장의 예시(작은 전화 → 쓰기 어려움, 가벼운 톱 → 절단력 부족)가 바로 '한 기능의 개선이 같은 제품의 다른 기능을 해친다'는 꼴이고, 6문장의 the problems it causes 가 그 작용의 결과를 받는다. 주어(요청안)·동사(작용)·대상(다른 기능) 세 성분이 모두 맞는 선지는 ①뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1,
+       6
+      ],
+      "note": "1문장이 작용의 대상(other outcomes)을, 6문장이 그 작용이 문제를 낳는다는 결과를 확정한다. 3·4문장은 사례라 단독 확정력이 없다."
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "고객 요구가 늘면 출시가 늦어진다는 것은 제품 개발에 관한 익숙한 통념이다.",
+     "how_to_reject": "지문에 시간 · 출시 · 일정을 뜻하는 낱말이 없다. 6문장이 결과를 the added feature turns out to be worthless 로 적어, 요청안의 작용이 늦춤이 아니라 제품 안의 손상임을 보여 준다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "첫 문장의 other 와 빈칸 문장의 requests 를 그대로 담아 지문 낱말로 만든 선지처럼 보인다.",
+     "how_to_reject": "첫 문장에서 other 가 걸리는 대상은 outcomes 다. 지문에 다른 고객이 등장하는 문장이 하나도 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "2문장의 companies 가 문단에 나오고, 신기능 요청이 쏟아지면 기업끼리 기능 경쟁이 붙는다는 시장 통념이 겹쳐 그럴듯하다.",
+     "how_to_reject": "지문에서 companies 는 2문장에 한 번, 고객 목소리를 듣는 주체로만 나온다. 회사 사이의 비교·경쟁을 적은 문장이 없고, 6문장의 피해는 한 제품 안의 problems it causes 이다 — 작용의 대상이 제품 안에서 시장 전체로 넘어갔다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "2문장의 listening to the ‘voice of the customer.’ 를 거의 그대로 옮겨 와(listening to customers’ voices) 지문 낱말과 겹치는 선지라 근거가 있어 보인다.",
+     "how_to_reject": "2문장에서 회사의 청취는 상충이 '흔히 생기는 상황'을 소개하는 배경일 뿐이다. 빈칸 주어는 요청안이고 6문장이 적는 결과는 고객이 제품을 거부하는 것(reject the resulting product)이지 회사가 듣기를 그만두는 것이 아니다 — 작용의 대상이 제품 기능에서 회사의 태도로 바뀌었다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "빈칸 문장에서 will 앞의 주어를 그대로 옮겨 적는다 — their requested solution 이다. 주어를 적어 두면 사람(고객 · 회사)을 목적어로 삼은 선지가 바로 걸린다",
+     "on_fail": "주어가 안 보이면 빈칸 바로 앞 명사구를 주어로 삼는다"
+    },
+    {
+     "step": "선지 다섯의 목적어만 나란히 적는다 — 제품 기능 / 신제품 출시 / 다른 고객 / 기업 경쟁 / 회사의 청취",
+     "on_fail": "목적어가 안 뽑히면 각 선지의 명사를 지문에서 찾아 등장 여부만 표시한다"
+    },
+    {
+     "step": "for example 앞 문장으로 올라간다. 예시가 둘 이상이면 그 앞 문장이 이 문단의 일반 진술이고 빈칸은 그것을 되풀이하는 자리다",
+     "on_fail": "예시 표지가 없으면 문단 첫 문장을 그 자리로 삼는다"
+    },
+    {
+     "step": "일반 진술의 목적어(other outcomes)를 2단계의 목적어 목록과 맞대어 한 줄로 남긴다",
+     "on_fail": "대응이 안 보이면 예시 둘이 각각 무엇을 잃었는지 적어 공통 항목을 뽑는다 — 쓰기 편함 · 절단 능력"
+    },
+    {
+     "step": "고른 선지를 빈칸에 넣고 6문장의 the problems it causes 와 이어지는지 확인한다",
+     "on_fail": "이어지지 않으면 목적어가 사람인 선지를 모두 버리고 남은 둘을 비교한다"
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.68,
+    "drivers": [
+     "예시 둘이 같은 구조라 추상화가 쉽다",
+     "정답이 1문장의 직접 재진술이지만 낱말은 바꿔 썼다(negative effect → impact, outcomes → functions)",
+     "A형 3점 배점"
+    ]
+   },
+   "required_vocab": [
+    "outcome",
+    "ramification",
+    "feature",
+    "impact"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 지적(정답 설명 얇음)에 따라 why_correct 를 will 뒤 동사구=요청안의 작용, have a negative effect on→impact, other outcomes→other functions 대응으로 다시 썼다",
+      "quote 는 원장이 맞다고 본 1문장을 보존",
+      "REFIX: measured_ability 의 거리 서술을 sentences 번호로 교정 — 빈칸 5문장, 근거 1문장(네 문장 앞). ② 배제·절차 5단계의 '빈칸 뒤 문장'도 6문장으로 명시"
+     ],
+     "checked": [
+      "quote 를 지문 1문장과 문자열 대조",
+      "why_correct 의 낱말 대응 세 성분 확인",
+      "design_intent 가 이 문항 고유 설계인지",
+      "빈칸 문장 번호(5)와 근거 문장 번호(1)를 sentences 목록과 대조, answer_locus_pattern 의 '네 문장 앞'과 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "1차 revise: 원장: ④⑤ 유인이 같은 구절에 기대고 ⑤ '인과 역전' 부정확 — ⑤는 2문장 표현 재사용이 유인이라 '어휘 함정'으로 바꾸고, ④는 companies 등장+시장 통념으로 유인을 분리했다 / ③(other·requests 재사용)과 ⑤ 모두 어휘 함정이지만 유인 낱말과 배제 단위가 다름을 확인",
+      "수정 후 재검수: 네 오답 설명이 서로 다른 낱말·위치를 근거로 한다"
+     ],
+     "checked": [
+      "②~⑤ why_tempting 상호 문자열 비교",
+      "⑤ 라벨과 설명 방향 일치",
+      "how_to_reject 마다 문장 위치 존재",
+      "수정된 ④⑤ 재대조",
+      "drivers 에서 작업 용어 제거 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차는 지문 표지(for example, will 앞 주어, the problems it causes)로 실행 가능, 95초 내"
+     ],
+     "checked": [
+      "절차를 지문 없이 실행",
+      "금지 표현 검색",
+      "on_fail 중복 여부"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-BLANK",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "어휘 함정",
+    "count": 2,
+    "signature": "지문 낱말(other·requests·listening to customers' voices)을 재사용해 작용 대상을 바꾼다"
+   },
+   {
+    "trap": "지문 밖 상식",
+    "count": 1,
+    "signature": "제품 개발 통념(출시 지연)"
+   },
+   {
+    "trap": "무관",
+    "count": 1,
+    "signature": "기업 경쟁처럼 지문에 없는 관계"
+   }
+  ],
+  "answer_locus_pattern": "빈칸 문장이 예시 둘 뒤 일반 진술을 다시 말하는 자리라 근거가 네 문장 앞 1문장에 있고 6문장이 확인한다",
+  "procedure": [
+   "빈칸 문장의 주어·동사를 적어 빈칸이 무엇의 작용인지 정한다",
+   "예시 앞 일반 진술에서 작용의 대상을 찾는다",
+   "선지마다 작용 대상을 비교하고 빈칸 뒤 문장과 이어 확인한다"
+  ],
+  "failure_modes": [
+   "지문 낱말이 겹치는 선지를 근거로 착각",
+   "예시 속 인물(고객·회사)에게 작용 대상을 옮김"
+  ],
+  "time_budget_sec": 95,
+  "open_questions": [
+   "문항 1개라 표본 부족. 함정은 문항당 한 번만 셌다.",
+   "analyst 반려 1건 외 setter·tutor 반려 없음 — 같은 자를 쓰는지 다음 청크에서 확인"
+  ]
+ }
+}

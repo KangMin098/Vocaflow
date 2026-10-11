@@ -8,7 +8,31 @@
 // 거르는 단위: ① 메모가 든 괄호 덩어리 ② 메모가 든 문장(「참고: …」 포함). 나머지 설명은 그대로 둔다.
 // 오탐 주의: 「QR 코드를 스캔」 · 「데이터에 기반한」 · 「병합(merge)」 같은 지문 내용은 패턴에 없다.
 
-const INTERNAL = /파싱 ?(잔여|값)|OCR 잔여|저장(된)? 지문|2단 병합|코퍼스 지문|우리 코퍼스|원문 데이터|raw_block|쪽번호 잡음/
+// 2026-10-11 평가원 802 정독 검수에서 걸러지지 않은 표현을 더했다: 「이 청크에서」 · 인쇄 잔여 · 파일 경로(columns2/…txt) ·
+// 원문 창 · 두 단 섞임 · 추출본/추출 부스러기 · 「3차 보강 전 서술」 · 코퍼스(선지 자리 · 회차 원문 등 모든 꼴). 분석 드레인 validate V12 와 같은 범위.
+const INTERNAL =
+  /파싱 ?(잔여|값)|OCR 잔여|저장(된)? 지문|2단 병합|코퍼스|원문 데이터|raw_block|쪽번호 잡음|이 청크|인쇄 잔여|columns\d*\/|\.txt\b|원문 창|두 단(이)? 섞|추출본|추출 부스러기|\d차 보강|보강 전 서술/
+
+/**
+ * 분석 본문의 근거 단위 표기 `[u5]` · `[u3-u5]` 를 학습자 말로 바꾼다(2026-10-11).
+ * 분석자는 근거 단위 목록 번호를 `[uN]` 으로 쓰는데(검수 · validate 가 읽는 표기), 화면이 그대로 내보내 학습자가
+ * 「[u5]」 를 봤다(최신 분석 3,408 중 2,444). 단위는 96% 가 문장, 안내문은 줄이라 유형으로 이름을 고른다.
+ */
+export function unitMarkers(s: string, typeId?: string | null): string {
+  const noun = typeId === 'R-NOTICE' ? '줄' : '문장'
+  // 분석자는 「[u5]와」 처럼 「유오」 로 읽고 조사를 붙였다 — 받침 있는 「문장 · 줄」 에 맞게 고친다(줄 뒤 「로」 는 그대로)
+  const fix: Record<string, string> = { 와: '과', 는: '은', 가: '이', 를: '을', ...(noun === '문장' ? { 로: '으로' } : {}) }
+  return s.replace(/\[u(\d+)(?:\s*[-–~,·]\s*u?(\d+))?\](와|는|가|를|로)?/g, (_m, a: string, b: string | undefined, p: string | undefined) => {
+    const head = b ? `${a}~${b}번 ${noun}` : `${a}번 ${noun}`
+    return head + (p ? (fix[p] ?? p) : '')
+  })
+}
+
+/** 학습자용 분석 문장 — 작업 메모를 걷고 근거 단위 표기를 바꾼다. 남는 것이 없으면 null */
+export function learnerText(s: string | null | undefined, typeId?: string | null): string | null {
+  const stripped = stripInternalNotes(s)
+  return stripped ? unitMarkers(stripped, typeId) : null
+}
 
 /** 분석 작업 메모를 걷어 낸 학습자용 문장. 남는 것이 없으면 null */
 export function stripInternalNotes(s: string | null | undefined): string | null {

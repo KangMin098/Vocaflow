@@ -1,0 +1,12 @@
+{"pass":2,"k":22,"items":[
+{"id":"M2309#40","version":3,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2406#31","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2406#32","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"how_to_reject가 '계산 자체가 없다'고 과장 — 지문은 공식 기록이 없다고만 함. 바뀐 성분은 manual(노동 종류)→계산 방식"}]},
+{"id":"M2406#34","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note에 '코퍼스 선지 5는 잘려 있으나' 작업 용어 노출"},{"code":"choice_3","note":"trap 라벨 '주체 역전'이 실제 변경(진리 소재를 이성 너머로 이동)과 맞지 않음"}]},
+{"id":"M2406#36","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2406#37","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"answer_locus.reasoning에 '코퍼스 지문에 39번 지문이 섞여' 작업 메모 노출(현 지문은 정상)"},{"code":"choice_1","note":"why_tempting이 (A)에 없는 'an involuntary' 표현을 (A) 화제로 제시 — 사실 오류"}]},
+{"id":"M2406#38","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"needs_source","defects":[{"code":"source_broken","note":"stem에 40번 지문 문장 혼입, 주어진 문장 누락; choices가 괄호 사이 본문 문장+각주로 채워짐"},{"code":"work_jargon","note":"design_intent 'raw_block', reasoning '코퍼스 지문' 작업 용어"}]},
+{"id":"M2406#39","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"needs_source","defects":[{"code":"source_broken","note":"stem에 40번 지문 혼입·주어진 문장이 passage 첫 문장으로 섞임; choices가 본문 문장+각주"},{"code":"other","note":"measured_ability·design_intent가 '본문 없음·자료 결손'이라 하나 reasoning·선지분석은 본문 사용 — 자기모순"},{"code":"work_jargon","note":"design_intent 'raw_block·코퍼스', reasoning '코퍼스 지문' 노출"}]},
+{"id":"M2406#40","version":3,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note '이 청크의 요약문 일곱 문항' 작업 용어·배치 통계 노출"}]},
+{"id":"M2409#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

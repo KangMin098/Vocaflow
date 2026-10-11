@@ -1,0 +1,12 @@
+{"pass":2,"k":16,"items":[
+{"id":"M2006#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"(C)-(A)-(B)에서 (B) 바로 앞은 (A) 끝(aural tradition 문장)인데 It 선행사를 (C)의 pop musicians로 잘못 지목"},{"code":"choice_5","note":"배제 근거가 뒤엉킴: (C) 첫자리면 still aural의 선행 조건 부재라는 핵심을 명확히 못 씀"}]},
+{"id":"M2006#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"④ why_tempting의 '이 자리를 고르는 학습자가 가장 많다'는 근거 없는 통계 주장"},{"code":"source_broken","note":"choices 필드에 ①~⑤ 대신 지문 문장 조각과 각주가 들어가 있음"}]},
+{"id":"M2006#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note에 '3차 보강 전 서술'이라는 작업 이력 문구가 학습자 필드에 노출"},{"code":"other","note":"design_intent의 '두 표지 방향이 반대라 순서가 뒤집힌다'는 설명이 부정확(같은 날을 가리킬 뿐)"}]},
+{"id":"M2106#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2106#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"confirmed_at 노트의 '6~7번 문장(소유욕·자동차)' 번호 어긋남(소유욕은 5번)"}]}
+]}

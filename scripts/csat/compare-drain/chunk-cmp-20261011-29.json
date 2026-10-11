@@ -1,0 +1,480 @@
+{
+ "chunk": "cmp-20261011-29",
+ "pairs": [
+  {
+   "pair_id": "2020#18:1|M2609#18:3",
+   "type": "R-PURPOSE",
+   "trap": "무관",
+   "a": {
+    "id": "2020#18",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "개를 세 마리 기른다는 서술이 있어 반려견 관리 일반으로 화제를 넓혀 읽게 된다",
+    "how_to_reject": "지문에 접종·병원·건강을 뜻하는 낱말이 없다. 개가 나오는 문장(As I live with three dogs)은 발신자가 공원과 어떤 관계인지 밝히는 배경이고, 요구 문장의 목적어는 the noise 다"
+   },
+   "b": {
+    "id": "M2609#18",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "AI summer program 이라는 명사가 다섯 선지에 모두 들어 있어 프로그램 소개로 읽으면 홍보가 자연스러워 보인다.",
+    "how_to_reject": "첫 줄 수신자가 AI summer program participants 로 이미 등록을 마친 사람들이고, 셋째 문장은 예상보다 많이 등록됐다고 적는다. 등록을 권하는 표현(sign up·register now)이 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "2020#19:5|M2706#19:2",
+   "type": "R-MOOD",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#19",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "'could not stay calm' 이라는 부정 표현이 앞에 있어 걱정으로 시작한다고 읽기 쉽고, 여행이 잘 풀렸다면 자신감으로 끝난다는 서사 통념이 뒤 칸을 지지하는 듯하다",
+    "how_to_reject": "앞 칸은 2문장 'looking forward to' 와, 뒤 칸은 10문장 'boring fields ... with a sigh' 와 각각 정면으로 어긋난다 — 두 칸 모두 지문과 부호가 반대다"
+   },
+   "b": {
+    "id": "M2706#19",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "'didn’t feel like going' 을 초대에 대한 반감(화)으로 읽고, 4문장의 'all he saw was grey for what felt like forever' 를 낙담으로 이어 붙이면 -→- 가 만들어진다.",
+    "how_to_reject": "마지막 두 문장(6~7)이 'the most beautiful mountains'·'how marvelous nature could be' 로 긍정이므로 뒤 심경이 부정인 선지는 여기서 전부 떨어진다."
+   }
+  },
+  {
+   "pair_id": "2020#19:4|M2609#19:1",
+   "type": "R-MOOD",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "2020#19",
+    "n": 4,
+    "trap": "어휘 함정",
+    "why_tempting": "1문장 'could not stay calm' 을 침착함을 잃은 상태 곧 놀람으로 읽으면 앞 칸 surprised 가 붙고, 도착이라는 사건에서 뒤 칸 relieved 를 떠올리게 된다",
+    "how_to_reject": "2~5문장이 그 동요의 방향을 기대(looking forward to, enthusiastically, first to board)로 못박는다. 뒤 칸도 10문장의 sigh 와 정반대다"
+   },
+   "b": {
+    "id": "M2609#19",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "첫 문장 첫 동사 ‘shook’ 을 화가 나서 떠는 것으로 읽으면 앞이 곧바로 angry 가 되고, 마지막이 웃는 장면이라 calm 이 어울려 보인다.",
+    "how_to_reject": "1문장의 나머지가 ‘walked back and forth in front of her professor’s office’ 이고 4문장이 ‘sweating hand’ 라 떨림의 원인이 두려움임이 못 박힌다. 뒤도 6문장이 감탄부호 셋(‘This is the best day ever!’)이라 calm 이 아니다."
+   }
+  },
+  {
+   "pair_id": "2020#20:4|M2706#20:2",
+   "type": "R-CLAIM",
+   "trap": "부분 사실",
+   "a": {
+    "id": "2020#20",
+    "n": 4,
+    "trap": "부분 사실",
+    "why_tempting": "첫 문장의 look silly, improper, or dumb 와 다섯째 문장의 worried about always appearing respectable 이 '타인의 시선'과 정확히 겹친다. 절반이 지문 그대로다",
+    "how_to_reject": "겹치는 것은 앞 절뿐이고, 뒤 절 '목표 달성에 매진'은 지문의 방향과 어긋난다. 다섯째 문장은 시선을 의식하지 않을 때 도달할 곳을 physically and emotionally free 라고 적었고 마지막 문장은 그것을 놀이의 허락으로 잇는다"
+   },
+   "b": {
+    "id": "M2706#20",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "첫 문장이 '지도자가 활동 자체에만 집중하고 참여자에게는 덜 집중한다'고 하므로 '참여자에 집중하라'까지는 지문과 같다. 거기에 마지막 문장의 development(발달)를 얹으면 '적성을 발굴하고 개발'로 이어 붙기 쉽다.",
+    "how_to_reject": "1번째 문장이 문제 삼는 것은 참여자의 '적성'이 아니라 3번째 문장의 minds(태도·노력 수준)다. 적성(aptitude)·발굴에 해당하는 말이 지문 어디에도 없고, 마지막 문장의 development 는 참여자가 스스로 떠맡는 '자기 발달'이지 지도자가 발굴할 재능이 아니다."
+   }
+  },
+  {
+   "pair_id": "2020#20:4|M2609#20:1",
+   "type": "R-CLAIM",
+   "trap": "부분 사실",
+   "a": {
+    "id": "2020#20",
+    "n": 4,
+    "trap": "부분 사실",
+    "why_tempting": "첫 문장의 look silly, improper, or dumb 와 다섯째 문장의 worried about always appearing respectable 이 '타인의 시선'과 정확히 겹친다. 절반이 지문 그대로다",
+    "how_to_reject": "겹치는 것은 앞 절뿐이고, 뒤 절 '목표 달성에 매진'은 지문의 방향과 어긋난다. 다섯째 문장은 시선을 의식하지 않을 때 도달할 곳을 physically and emotionally free 라고 적었고 마지막 문장은 그것을 놀이의 허락으로 잇는다"
+   },
+   "b": {
+    "id": "M2609#20",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "'교육해야 한다'는 서술어가 정답 선지와 같고, 지각·폭언이라는 소재가 윤리 문제로 읽혀 '윤리 교육'이 자연스럽다.",
+    "how_to_reject": "6번째 문장에서 교육 내용은 'about how to follow them', 즉 앞서 만든 clear standards 를 따르는 방법이다. 윤리(ethics)에 해당하는 말도, '주기적으로'라는 빈도 조건도 지문에 없다. 목적으로 내건 '생산성 향상'도 지문에는 better employees 로만 나온다."
+   }
+  },
+  {
+   "pair_id": "2020#21:2|M2706#21:1",
+   "type": "R-IMPLY",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#21",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "posing as experts 가 11번 문장의 '그럴듯해 보인다'와 맞아떨어져 절반이 맞는 것처럼 읽힌다.",
+    "how_to_reject": "11번 문장 뒤끝이 they know nothing 이고 9번 문장이 don't have depth of knowledge 라고 못 박는다. ②의 demonstrating their in-depth knowledge 는 그 둘을 정반대로 뒤집는다."
+   },
+   "b": {
+    "id": "M2706#21",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "선지 문구가 7문장 Animal thought and reason ought to be seriously studied 를 거의 그대로 옮긴 것이라 지문에 있는 말로 보인다.",
+    "how_to_reject": "7문장은 he argued 로 끝나는 Griffin 의 주장이고 9문장은 그 주장을 밀기 위한 수사의문문이다. 자기 주장을 give up 의 목적어로 놓을 수 없다."
+   }
+  },
+  {
+   "pair_id": "2020#21:2|M2609#21:2",
+   "type": "R-IMPLY",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#21",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "posing as experts 가 11번 문장의 '그럴듯해 보인다'와 맞아떨어져 절반이 맞는 것처럼 읽힌다.",
+    "how_to_reject": "11번 문장 뒤끝이 they know nothing 이고 9번 문장이 don't have depth of knowledge 라고 못 박는다. ②의 demonstrating their in-depth knowledge 는 그 둘을 정반대로 뒤집는다."
+   },
+   "b": {
+    "id": "M2609#21",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "'집에 돌아온다' 를 문자 그대로 원래 자리 복귀로 읽으면 original note 와 identical frequency 가 자연스럽다.",
+    "how_to_reject": "밑줄 문장 끝의 each time we double a tone's frequency 가 주파수가 두 배가 되었음을 명시한다. identical frequency 는 이 조건과 정면으로 어긋난다."
+   }
+  },
+  {
+   "pair_id": "2020#22:1|M2706#22:2",
+   "type": "R-GIST",
+   "trap": "부분 사실",
+   "a": {
+    "id": "2020#22",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "5번째 문장이 many civilizations never got to the stage of ~ great literary works 라고 실제로 말하므로 선지 문장 자체는 지문과 어긋나지 않는다.",
+    "how_to_reject": "그 문장은 In fact 로 시작해 앞 명제(경제 기록이 초기 문자를 지배했다)를 뒷받침하는 예증이고, 바로 다음 문장이 남은 것은 대부분 영수증 더미라며 다시 경제 기록으로 되돌아온다. 예증 한 문장을 요지로 올리면 마지막 문장의 반사실 가정이 설명되지 않는다."
+   },
+   "b": {
+    "id": "M2706#22",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "두 번째 문장 인용 안에 tapping psychologists, anthropologists and other experts in human behavior, and even monitoring the brain waves 가 실제로 있어 '다양한 학문적 접근'이 지문에 있는 말처럼 보인다.",
+    "how_to_reject": "그 나열은 designers are focusing on faces 라는 주절에 딸린 분사구이고, 2006년 기사 인용문 안에만 있다. 뒤의 세 문장(4·6·7)은 학자를 한 번도 다시 부르지 않고 얼굴 모양과 판매만 말한다 — 마지막 문장의 주어는 Buoyant sales 이지 연구가 아니다."
+   }
+  },
+  {
+   "pair_id": "2020#22:1|M2609#22:2",
+   "type": "R-GIST",
+   "trap": "부분 사실",
+   "a": {
+    "id": "2020#22",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "5번째 문장이 many civilizations never got to the stage of ~ great literary works 라고 실제로 말하므로 선지 문장 자체는 지문과 어긋나지 않는다.",
+    "how_to_reject": "그 문장은 In fact 로 시작해 앞 명제(경제 기록이 초기 문자를 지배했다)를 뒷받침하는 예증이고, 바로 다음 문장이 남은 것은 대부분 영수증 더미라며 다시 경제 기록으로 되돌아온다. 예증 한 문장을 요지로 올리면 마지막 문장의 반사실 가정이 설명되지 않는다."
+   },
+   "b": {
+    "id": "M2609#22",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "세 번째 문장에 built on mutuality and sharing of identity, understanding, norms and values 가 그대로 있어 '규범과 가치의 공유'가 지문 표현으로 보인다.",
+    "how_to_reject": "그 구절은 Social capital describes the networks of relationships we have that are ... 라는 정의문의 수식절이다. 정의의 재료를 옮겨 온 것일 뿐 소셜 미디어가 한 번도 등장하지 않아, 첫 문장과 마지막 문장이 붙들고 있는 소재와 어긋난다."
+   }
+  },
+  {
+   "pair_id": "2020#23:2|M2706#23:3",
+   "type": "R-TOPIC",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#23",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "8번째 문장에 nature versus nurture 가 글자 그대로 있고, 5·9번째 문장에 developmental biologists 가 나와 developmental biology 와 겹친다.",
+    "how_to_reject": "8번째 문장은 그 구도로 논하는 것이 nonsensical 이라고 하고, 9번째 문장은 it is really both 라고 한다. 지문은 논쟁을 소개하는 것이 아니라 논쟁 구도 자체를 거부한다."
+   },
+   "b": {
+    "id": "M2706#23",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "energy reserves 가 3번째 문장에 글자 그대로 있고, 8번째 문장의 environment 가 environmental adaptation 과 겹쳐 지문 어휘로 짠 선지처럼 보인다.",
+    "how_to_reject": "3번째 문장은 minimal energy reserves offer few choices — 비축이 적어 선택지가 줄어든다는 제약이다. 선지는 이를 benefits(이점)로 뒤집었고, 에너지 비축은 소형 동물의 결정 단순화를 설명하는 이유 하나일 뿐이다."
+   }
+  },
+  {
+   "pair_id": "2020#23:2|M2609#23:4",
+   "type": "R-TOPIC",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#23",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "8번째 문장에 nature versus nurture 가 글자 그대로 있고, 5·9번째 문장에 developmental biologists 가 나와 developmental biology 와 겹친다.",
+    "how_to_reject": "8번째 문장은 그 구도로 논하는 것이 nonsensical 이라고 하고, 9번째 문장은 it is really both 라고 한다. 지문은 논쟁을 소개하는 것이 아니라 논쟁 구도 자체를 거부한다."
+   },
+   "b": {
+    "id": "M2609#23",
+    "n": 4,
+    "trap": "반대 진술",
+    "why_tempting": "양쪽 모두 letters, journals, photographs 같은 자료를 쓴다고 적혀 있어 공통점이 있는 것처럼 보인다",
+    "how_to_reject": "1번째 문장이 engage different kinds of evidence 라고 못박고 4번째 문장에 by contrast 가 붙어 있다. 글의 골격은 유사성이 아니라 차이다"
+   }
+  },
+  {
+   "pair_id": "2020#24:3|M2706#24:3",
+   "type": "R-TITLE",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#24",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "species-poor 가 6번째 문장에 나오는 낱말이고, Grasp All, Lose All 이라는 속담 틀이 균형 잡힌 주장처럼 들린다.",
+    "how_to_reject": "6번째 문장은 more diverse communities are believed to be more stable because they use a broader range of niches than species-poor communities 로 종이 빈약한 군집을 열등한 비교 대상으로 놓는다. 그것의 필요성을 주장하는 것은 지문 진술을 정면으로 뒤집은 것이다."
+   },
+   "b": {
+    "id": "M2706#24",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "tour operators 는 첫 문장과 다섯 번째 문장에 반복되는 눈에 띄는 표현이라, 그 표현이 든 선지가 주제어를 담은 것처럼 보인다.",
+    "how_to_reject": "다섯 번째 문장의 the growth of tour operators began to change the nature of the industry 가 역할이 커졌음을 말한다. 축소(reduced, declined, less)를 말하는 문장은 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "2020#24:1|M2609#24:1",
+   "type": "R-TITLE",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "2020#24",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "empty ecological niches 가 5번째 문장에 그대로 있어 지문에서 뽑아낸 표현으로 보이고, 명령형이라 주장처럼 들린다.",
+    "how_to_reject": "5번째 문장은 the decreased chance of empty ecological niches 다 — 빈 니치가 줄어드는 것이 침입을 막는 메커니즘이다. 선지는 빈 공간을 더 만들라고 해 그 문장의 부호를 지운 채 낱말만 옮겼다."
+   },
+   "b": {
+    "id": "M2609#24",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "지문의 benefit 이 선지에 그대로 있고 Religious 와 Social 도 religious observance·wider society 와 겹쳐, 낱말만 대조하면 가장 많이 일치한다.",
+    "how_to_reject": "지문에서 benefit 을 받는 쪽은 wider society 와 수도사 자신이고, 글에는 방법을 알려 주는 문장(명령문·조언)이 하나도 없다. 'How to Gain'에 대응할 절차 서술을 지문에서 지목할 수 없다."
+   }
+  },
+  {
+   "pair_id": "2020#28:2|M2706#28:5",
+   "type": "R-NOTICE",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "2020#28",
+    "n": 2,
+    "trap": "어휘 함정",
+    "why_tempting": "'two-member team'을 한 덩어리 복합어로 읽지 못하면 팀 인원 수치를 놓치고, 바로 아래 Activities 의 '3-point match'에 있는 3을 팀 인원으로 옮겨 붙이게 된다.",
+    "how_to_reject": "How to Join 첫 줄 'Make a two-member team.'이 인원을 2로 못박는다. 3은 Activities 의 경기 방식(3-point match)에 붙은 숫자다."
+   },
+   "b": {
+    "id": "M2706#28",
+    "n": 5,
+    "trap": "어휘 함정",
+    "why_tempting": "Note 줄에 heavy rain 조건이 실제로 있어 우천 시 조치가 있다는 데까지는 맞고, cancelled 를 '연기' 로 옮기면 그대로 참이 된다.",
+    "how_to_reject": "Note 줄의 술어는 the event will be cancelled 다 — 취소이지 연기(postponed)가 아니다."
+   }
+  },
+  {
+   "pair_id": "2020#28:1|M2609#28:2",
+   "type": "R-NOTICE",
+   "trap": "주체 역전",
+   "a": {
+    "id": "2020#28",
+    "n": 1,
+    "trap": "주체 역전",
+    "why_tempting": "도입 두 문장에 기관 이름이 연달아 나와서, 뒤에 나온 Salke Children’s Hospital 이 더 크게 읽히면 주최자로 자리를 바꿔 기억한다.",
+    "how_to_reject": "도입 첫 문장 'hosted by Cliffield Community Center'가 주최자이고, 다음 문장 'This event supports Salke Children’s Hospital.'은 지원 대상이다."
+   },
+   "b": {
+    "id": "M2609#28",
+    "n": 2,
+    "trap": "주체 역전",
+    "why_tempting": "Prizes 표에 Number of Winners 값 2 가 실재한다. 행 이름표를 놓치면 그 2 가 2nd prize 의 것으로 읽히고, 선지의 「2 등」과 숫자 2 가 겹쳐 더 그럴듯해진다.",
+    "how_to_reject": "Prizes 표에서 \"2nd prize ______ 1 ______ $700\" 을 읽는다. 인원 2 는 그 아래 행 \"3rd prize ______ 2 ______ $500\" 의 값이다."
+   }
+  },
+  {
+   "pair_id": "2020#31:3|M2706#31:4",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "2020#31",
+    "n": 3,
+    "trap": "지문 밖 상식",
+    "why_tempting": "'과학 대 종교·예술' 이라는 익숙한 대립 구도가 논쟁(controversy)을 떠올리게 한다",
+    "how_to_reject": "of little controversy 는 '논란이 거의 없는' 이라 비과학적 접근을 깎아내리는 말이 못 된다. 5번 문장도 과학철학이 '균형 잡힌 시각' 을 구한다고 할 뿐 논쟁의 크기를 말하지 않는다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "복원 예시에 'an ecosystem'이 있어 자연 보전을 떠올리게 한다. 이 문항에서 가장 강한 함정",
+    "how_to_reject": "같은 예시 목록에 historical musical instrument · painting · dinosaur 가 함께 있다. 악기와 그림을 '자연 상태'로 되돌린다는 말은 성립하지 않는다"
+   }
+  },
+  {
+   "pair_id": "2020#31:3|M2706#32:1",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "2020#31",
+    "n": 3,
+    "trap": "지문 밖 상식",
+    "why_tempting": "'과학 대 종교·예술' 이라는 익숙한 대립 구도가 논쟁(controversy)을 떠올리게 한다",
+    "how_to_reject": "of little controversy 는 '논란이 거의 없는' 이라 비과학적 접근을 깎아내리는 말이 못 된다. 5번 문장도 과학철학이 '균형 잡힌 시각' 을 구한다고 할 뿐 논쟁의 크기를 말하지 않는다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "회의에서 듣는 척하기가 흔한 경험이라 자연스럽게 읽힌다",
+    "how_to_reject": "인용문 어디에도 ‘주의를 기울이는 척’에 해당하는 말이 없다. 인용문은 ‘betrayal oozes out of him at every pore’ 처럼 새어 나감만 말하고, 듣는 척하는 태도는 지문의 축이 아니다"
+   }
+  },
+  {
+   "pair_id": "2020#32:1|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#32",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "synchronously(동시에)를 '모든 것이 똑같이'로 넓혀 읽으면 도착점까지 같아야 할 것 같다",
+    "how_to_reject": "도착점이 같으면 5번 문장의 오답 진술('더 앞에서 멈춘 차')이 아예 생길 수 없다. 그 진술이 지문에 있으므로 도착점은 달라야 한다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "2020#32:1|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#32",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "synchronously(동시에)를 '모든 것이 똑같이'로 넓혀 읽으면 도착점까지 같아야 할 것 같다",
+    "how_to_reject": "도착점이 같으면 5번 문장의 오답 진술('더 앞에서 멈춘 차')이 아예 생길 수 없다. 그 진술이 지문에 있으므로 도착점은 달라야 한다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "2020#33:2|M2706#31:3",
+   "type": "R-BLANK",
+   "trap": "부분 사실",
+   "a": {
+    "id": "2020#33",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "8·9번 문장에 green technologies · 태양·바람이 나와 친환경이 이 글의 결론처럼 읽힌다",
+    "how_to_reject": "8·9번 문장의 역할은 희소 금속이 왜 더 필요해지는지를 대는 것이다. 마지막 문장의 주어는 supplies 이고 친환경 기술은 그 공급에 걸려 있는 쪽이지 미래를 가르는 쪽이 아니다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 3,
+    "trap": "부분 사실",
+    "why_tempting": "마지막 문장의 '최소한으로 개입한다'가 격리를 연상시킨다",
+    "how_to_reject": "그 서술은 preservationists 의 것이다. 빈칸 문장의 주어는 Conservationists — 지문이 두 진영을 명시적으로 갈라 놓은 자리다"
+   }
+  },
+  {
+   "pair_id": "2020#33:1|M2706#32:4",
+   "type": "R-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "2020#33",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "빈칸 문장의 주어가 high-tech goods 라서 '기능 개선' 이 그 명사에 붙는 말처럼 보인다",
+    "how_to_reject": "3번 문장의 unending 은 조합의 수를 말하는 것이고, 6번 문장은 아이디어 쪽이 오히려 남아돈다고 말한다. 기능·성능을 다루는 문장이 지문에 없다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
+    "how_to_reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다"
+   }
+  },
+  {
+   "pair_id": "2020#34:1|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#34",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "naturally fluctuating 이 7번 문장의 fluctuate constantly 와 낱말까지 겹쳐 정답처럼 보인다. 이 문항에서 가장 강한 함정이다",
+    "how_to_reject": "빈칸 문장은 'Now it is true that' 으로 시작하고 바로 다음 문장이 However 로 뒤집는다. 빈칸이 반례와 같은 편이면 However 가 뒤집을 것이 없어져 6번 문장이 성립하지 않는다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "2020#34:1|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2020#34",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "naturally fluctuating 이 7번 문장의 fluctuate constantly 와 낱말까지 겹쳐 정답처럼 보인다. 이 문항에서 가장 강한 함정이다",
+    "how_to_reject": "빈칸 문장은 'Now it is true that' 으로 시작하고 바로 다음 문장이 However 로 뒤집는다. 빈칸이 반례와 같은 편이면 However 가 뒤집을 것이 없어져 6번 문장이 성립하지 않는다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "2020#35:2|M2706#35:2",
+   "type": "R-IRRELEVANT",
+   "trap": "연결사 방향 충돌",
+   "a": {
+    "id": "2020#35",
+    "n": 2,
+    "trap": "연결사 방향 충돌",
+    "why_tempting": "앞 절 may hold true under particular conditions 가 속담을 편드는 말처럼 읽혀서, 비판만 하던 글에서 방향이 뒤집힌 것처럼 보인다.",
+    "how_to_reject": "but 뒤의 주절이 aphorisms provide little insight into relations among people 으로 결론을 비판 쪽에 놓는다. 이 주절이 뒤 문장 even less guidance 의 비교 기준이므로 빼면 비교급이 근거를 잃는다."
+   },
+   "b": {
+    "id": "M2706#35",
+    "n": 2,
+    "trap": "연결사 방향 충돌",
+    "why_tempting": "②가 아기에서 adults 로 대상을 갑자기 바꾸고 괄호 속 낙하 높이·반응 속도까지 덧붙여, 아기 설명 흐름을 끊는 문장처럼 보인다.",
+    "how_to_reject": "문장 1의 The bigger someone is 가 비교 축을 이미 세웠고, ②의 increased mass·much larger force 가 문장 3(①)의 thick bones in comparison to their mass·rarely build up enough energy 와 정반대 짝을 이룬다. 대상 전환은 대비를 완성하는 장치다."
+   }
+  },
+  {
+   "pair_id": "2020#35:1|M2609#35:2",
+   "type": "R-IRRELEVANT",
+   "trap": "열거·병렬 절단",
+   "a": {
+    "id": "2020#35",
+    "n": 1,
+    "trap": "열거·병렬 절단",
+    "why_tempting": "도입부에서 이미 속담 쌍을 하나 보여 줬는데 같은 형식의 쌍을 또 늘어놓아, 없어도 되는 되풀이로 읽힌다.",
+    "how_to_reject": "도입부 첫 문장의 it often contradicts itself 의 often 은 사례가 둘 이상이어야 성립한다. 또 다음 문장의 Each of these contradictory statements 의 these 가 두 쌍을 함께 받으므로, 이 문장을 빼면 these 가 한 쌍만 가리키게 된다."
+   },
+   "b": {
+    "id": "M2609#35",
+    "n": 2,
+    "trap": "열거·병렬 절단",
+    "why_tempting": "②만 보면 소수자 이야기에 국한되어, 문장 1의 All workers 에서 범위가 좁아진 이탈처럼 보인다.",
+    "how_to_reject": "②는 문장 3(①)의 alike 가 예고한 두 짝 중 소수자 쪽이다. 문장 5(③)가 다수자 쪽을 채우므로 둘이 함께 문장 3을 뒷받침한다."
+   }
+  }
+ ]
+}

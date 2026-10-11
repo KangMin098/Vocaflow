@@ -1,0 +1,12 @@
+{"pass":2,"k":10,"items":[
+{"id":"2022#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"② why_correct 괄호에 '코퍼스·회차 원문…잘려 있다' 작업 메모가 학습자 필드에 노출됨(현재 지문은 온전)"}]},
+{"id":"2022#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"⑤ confirmed_at.note 에 '코퍼스 지문이 두 단 섞임으로 손상' 작업 메모 노출"}]},
+{"id":"2022#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"⑤ confirmed_at.note '저장 지문은 2단 병합' 작업 메모, why_correct 인용이 '+ company'로 쪼개짐"},{"code":"source_broken","note":"choices 에 선지 번호 대신 본문 문장 조각과 끝의 '7' 잔재가 저장됨"}]},
+{"id":"2022#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"answer_locus.reasoning 끝 '저장된 지문은 2단 병합 탓에' 작업 메모가 학습자 설명에 섞임"},{"code":"source_broken","note":"⑤ choices 에 [3점]·각주(decry, fantasmatic)가 붙어 저장됨"}]},
+{"id":"2022#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"② 배제를 '문 열린 채 끝날 수 없다'로만 함 — (B)의 사과가 (D) 발언 뒤여야 한다는 결정 근거 누락"},{"code":"answer_reasoning","note":"③ why_correct 가 짧고 (B) 사과↔(D) 비난 선후 고리를 언급 안 함"}]},
+{"id":"2023#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"⑤ trap '범위 과소'인데 배제는 '논의량은 많다'(반대 진술) 뒤 '범위를 좁힌다'로 섞여 논리 혼선"}]},
+{"id":"2023#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"3번 문장 trans-missible 하이픈 잔재(뜻 지장 없음, ③ lure_quote 에도 그대로)"}]},
+{"id":"2023#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

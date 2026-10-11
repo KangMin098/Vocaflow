@@ -1,0 +1,12 @@
+{"pass":2,"k":26,"items":[
+{"id":"M2606#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"how_to_reject 의 축 설명이 'For a brief moment ↔ )' 로 대응항이 빠진 채 깨져 있다"},{"code":"lure_quote","note":"③(과제 전환) lure_quote 가 기기 끊기 비유 문장 — 전환 유인과 무관한 인용"}]},
+{"id":"M2606#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"⑤ 배제에서 'also는 묶음 전체 앞에 놓인다'고 해 정답 설명(also는 앞 묶음을 요구)과 모순"},{"code":"answer_reasoning","note":"also 가 받는 앞 묶음은 두 동기보다 '끌림·장점' 전체인데 두 동기 열거로만 좁혀 설명"}]},
+{"id":"M2606#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note 에 '코퍼스의 선지 배열이 뭉개져' 등 작업 용어가 학습자 필드에 노출"},{"code":"work_jargon","note":"answer_locus.note 에 파서·body_ok·raw_block 등 작업 메모 잔존"}]},
+{"id":"M2609#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

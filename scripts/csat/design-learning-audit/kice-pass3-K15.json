@@ -1,0 +1,12 @@
+{"pass":3,"k":15,"items":[
+{"id":"2022#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"②배제에 'Jane 어깨(원문 Jane’s shoulder)' 혼합 표기, ⑤ trap '단락 순서 오판'은 실제 원인(직전 언급 인물 이끌림)과 어긋남 — 경미"}]},
+{"id":"2022#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2023#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"학습자용 서수(일곱째·여덟째·아홉째 문장)가 roles 배열(요청=8번째)·sentence_index와 어긋남 — 문장 번호 기준 불명확"}]},
+{"id":"2023#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2023#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2023#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"② trap 라벨 '주체 역전'은 남의 일기 읽기(행위 대상 바꿈)와 맞지 않음 — 경미"}]},
+{"id":"2023#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform_note '1번이'가 문장 인덱스(0기준)인지 선지 번호인지 모호 — 경미"}]},
+{"id":"2023#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2023#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform_note '5번 문장'은 0기준 인덱스로 실제 6번째 문장, 정답 ⑤와 혼동 소지 — 경미"}]},
+{"id":"2023#26","version":5,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"①유인 설명이 '인쇄에서 194로 잘림'을 근거로 하나 지문엔 1949가 온전함 — 원본 결함 운운은 사실 아니고 작업 맥락 노출"},{"code":"other","note":"①~③ 배제의 서수(셋째·넷째·다섯째 문장)가 실제 문장 순서보다 하나씩 밀려 있음"}]}
+]}

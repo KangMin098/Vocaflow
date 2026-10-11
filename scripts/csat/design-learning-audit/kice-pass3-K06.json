@@ -1,0 +1,12 @@
+{"pass":3,"k":6,"items":[
+{"id":"2017#25","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"참인 선지에 '범위 과대' 함정 라벨 — choiceTruth 유형인데 오답을 함정으로 규정, 내용 참 설명이 how_to_reject에만 있음"},{"code":"choice_1","note":"why_tempting이 Prague 두 번 등장으로 오판한다는 억지 경로 — 실제 학습자 오류로 보기 어려움"}]},
+{"id":"2017#26","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"why_tempting 논리 오류: 수식이 photographs에만 걸려도 학생 출품 사진은 여전히 참 — 오판 경로가 성립 안 함"}]},
+{"id":"2017#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2017#28","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"those를 지시형용사로 읽으면 enduring이 동사처럼 보인다는 설명이 모호 — 구조 진단은 맞음"}]},
+{"id":"2017#29","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"why_tempting의 '고립되어도 나름의 근거' 독해 경로가 억지스러움(경미)"}]},
+{"id":"2017#30","version":7,"type":"R-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2017#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"trap 라벨 '연결사 방향 충돌'이 why_tempting 내용(격언조 삽입 착시)과 맞지 않음"}]},
+{"id":"2017#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_5","note":"trap '반대 진술' 라벨 부정확 — 실제는 지문 낱말 재사용·주변 소재 확대"}]},
+{"id":"2017#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"confirmed_at 노트가 (b) 직전 문장을 Erik 언급으로 서술 — 실제 직전 문장 주어는 Keith, 미끄러짐 경로 부정확"},{"code":"choice_3","note":"why_tempting '단락 순서 오판'이 (c)를 왜 Keith로 읽는지 설명 못 함 — 별칭 명사구 함정이 핵심"}]},
+{"id":"2017#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"학습자 필드에 '문장 17~19'·'문장 22' 등 내부 문장 번호 노출(경미)"}]}
+]}

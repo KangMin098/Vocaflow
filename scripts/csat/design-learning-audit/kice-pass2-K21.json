@@ -1,0 +1,12 @@
+{"pass":2,"k":21,"items":[
+{"id":"M2306#40","version":3,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2306#43","version":4,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"선지1 trap 라벨 '첫 등장 위반'이 실제 배제 근거(어제·이튿날 시점, 쇼핑 결정 선행)와 어긋남 — 라벨만 교정 권장"}]},
+{"id":"M2309#31","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#32","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"선지1 lure_quote(스타와의 이상화된 연결)가 '스타 간 협업' 유인과 직접 대응하지 않음"}]},
+{"id":"M2309#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#34","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"선지4 배제에서 '3번 문장의 literature'라 했으나 3번 문장엔 Writers만 있음(literature는 1번) — 문장 번호 오류"},{"code":"answer_reasoning","note":"why_correct가 a little more often을 6번 문장의 '부분적 이동'과 연결 — 지문 근거 없는 과잉 해석"}]},
+{"id":"M2309#36","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#37","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2309#38","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"passage 첫머리에 주어진 문장이 구분 없이 붙고 choices에 본문 문장 조각·각주가 들어감 — 원문 구조 복원 필요"}]},
+{"id":"M2309#39","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"주어진 문장이 passage 첫 문장으로 섞이고 choices가 본문 문장+[3점]·각주 조각 — 원문 구조 복원 필요"}]}
+]}

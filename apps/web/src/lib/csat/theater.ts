@@ -12,7 +12,8 @@
 //
 // ⚠️ 이름은 **역할과 타깃에서만** 짓는다. 대본 글자(`segments`)는 이 파일에 들어오지 않는다 —
 //    들어오면 서버 렌더 HTML 에 대본이 실려 `lecture/types.ts` 의 경계가 무너진다.
-import { reasoningRepeats } from './learner-text'
+import { reasoningRepeats, unitMarkers } from './learner-text'
+import { distractorsAreTrue } from './teaching-contract'
 
 import type { LectureRole, LectureStep } from './lecture/types'
 
@@ -123,6 +124,10 @@ export interface TheaterBlock {
 
 /** 블록을 만들 때 필요한 것만 — 로더의 전체 모양에 묶이지 않게 좁혀 받는다 */
 export interface TheaterSource {
+  /** 유형 id — 선택≠참거짓 유형(교수 계약 choiceTruth)의 오답 블록을 다르게 그린다 */
+  type_id?: string | null
+  /** 문항 id — 같은 유형이라도 긍정형 발문(「일치하는 것은?」)이면 오답이 틀린 진술이다(`distractorsAreTrue`) */
+  id?: string | null
   exam_label: string
   no: number
   type_name: string | null
@@ -146,6 +151,9 @@ export interface TheaterSource {
 
 const text = (s: string | null | undefined): string[] => (s && s.trim() ? [s.trim()] : [])
 
+// 근거 단위 표기 변환은 learner-text 가 정본 — 로더(learner.ts)가 이미 바꿔 오지만, 다른 경로로 온 원문도 같은 말이 되게 한 번 더 건다
+export { unitMarkers }
+
 /**
  * 분석 자료 → 오른쪽에 차례로 쌓일 블록들.
  *
@@ -154,6 +162,7 @@ const text = (s: string | null | undefined): string[] => (s && s.trim() ? [s.tri
  */
 export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
   const out: TheaterBlock[] = []
+  const t = (v: string | null | undefined) => text(v).map((x) => unitMarkers(x, item.type_id))
 
   out.push({
     key: 'analysis:head',
@@ -180,7 +189,7 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
       kind: 'ability',
       title: '이 문항이 재는 것',
       chips: [{ text: '재는 능력' }],
-      body: text(item.measured_ability),
+      body: t(item.measured_ability),
       quote: null,
     })
   }
@@ -191,7 +200,7 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
       kind: 'intent',
       title: '출제 의도',
       chips: [{ text: '왜 이렇게 냈나' }],
-      body: text(item.design_intent),
+      body: t(item.design_intent),
       quote: null,
     })
   }
@@ -206,20 +215,27 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
         ...(item.answer != null && !item.answer_unknown ? [{ text: CIRCLED[item.answer] ?? String(item.answer) }] : []),
       ],
       // 근거 해설이 정답 설명의 인용을 되풀이하기만 하면 한 번만 말한다(학습 가치 감사 — 같은 근거 두 번)
-      body: [...text(item.why_correct), ...(reasoningRepeats(item.why_correct, item.evidence_reasoning) ? [] : text(item.evidence_reasoning))],
+      body: [...t(item.why_correct), ...(reasoningRepeats(item.why_correct, item.evidence_reasoning) ? [] : t(item.evidence_reasoning))],
       quote: item.evidence_quote?.trim() || null,
       quoteTruncated: item.evidence_quote_truncated === true,
     })
   }
 
+  // 어법 · 어휘 · 불일치 · 도표(교수 계약 choiceTruth)는 정답이 아닌 선지의 **내용이 맞다** — 함정이 아니다.
+  // 2026-10-11 측정: 이 유형 1,154문항 전부가 참인 선지에 함정 라벨(trap)과 지어낸 오독(why_tempting)을 달고 있었다
+  // (분석 스키마가 모든 선지에 trap 을 요구한 탓). 화면은 「내용은 맞음」 + 맞는 근거(how_to_reject)만 보인다.
+  // 단, 긍정형 발문(「일치하는 것은?」 · 네모 어휘)은 오답이 틀린 진술이라 일반 오답처럼 그린다(2026-10-11 · 155문항).
+  const choiceTruth = distractorsAreTrue(item.type_id, item.id)
   for (const d of item.distractors) {
-    const body = [...text(d.why_tempting), ...text(d.how_to_reject)]
-    if (!body.length && !d.trap) continue
+    const body = choiceTruth ? t(d.how_to_reject) : [...t(d.why_tempting), ...t(d.how_to_reject)]
+    if (!body.length && (choiceTruth || !d.trap)) continue
     out.push({
       key: `analysis:reject:${d.n}`,
       kind: 'reject',
-      title: `${CIRCLED[d.n] ?? d.n}가 왜 아닌가`,
-      chips: [{ text: '오답', tone: 'warn' }, ...(d.trap?.trim() ? [{ text: d.trap.trim() }] : [])],
+      title: choiceTruth ? `${CIRCLED[d.n] ?? d.n}는 왜 정답이 아닌가` : `${CIRCLED[d.n] ?? d.n}가 왜 아닌가`,
+      chips: choiceTruth
+        ? [{ text: '내용은 맞음', tone: 'ok' }]
+        : [{ text: '오답', tone: 'warn' }, ...(d.trap?.trim() ? [{ text: d.trap.trim() }] : [])],
       body,
       quote: null,
     })

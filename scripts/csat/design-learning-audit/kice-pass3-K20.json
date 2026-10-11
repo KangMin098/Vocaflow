@@ -1,0 +1,12 @@
+{"pass":3,"k":20,"items":[
+{"id":"2026#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2026#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_5","note":"⑤ 함정명 '반대 진술'과 lure_quote(첫 문장)가 선지의 '차이 연구' 유인과 약하게 연결됨"}]},
+{"id":"2026#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"measured_ability가 '바로 다음 문장에서 찾아' 로 일반화 — 계약 pitfall '밑줄 바로 뒤가 풀이'에 해당, 이 문항 한정 조건 명시 필요"}]},
+{"id":"2026#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_3","note":"③ 배제: 7문장 '바로 뒤 두 문장이 This means…' 라 했으나 바로 뒤는 By necessity 문장, This means 는 9문장 하나"}]},
+{"id":"2026#23","version":5,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2026#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"③ 함정명 '주체 역전' 설명이 정부·정책 주체로 빗나감 — 실제 변경은 '오락이 문화가 되려는 야망'이라는 지문 밖 관계"}]},
+{"id":"2026#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 참인 오답①②④⑤를 함정명(지문 밖 상식·어휘 함정 등)+억지 why_tempting으로 설명 — 내용 참 대응으로 바꿔야"}]},
+{"id":"2026#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth: 참 선지①②③⑤를 함정명+'틀려 보이는 이유'로 설명 — 내용 참·대응 항목으로 재서술 필요"},{"code":"answer_reasoning","note":"정답 confirmed_at.sentence_index=[1]이 근거 줄(Selection Method, locus 8)과 불일치"}]},
+{"id":"2026#28","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note '3차 보강 전 서술' — 작업 이력 문구가 학습자 필드에 노출"}]},
+{"id":"2026#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 밑줄 구가 아니라 번호 사이 지문 조각(각주 포함)으로 저장됨 — 선지 원문 복원 필요"},{"code":"other","note":"정답 수정형을 locus는 was/is, why_correct는 is 로 단정 — 시제 근거(현재 서술) 한 줄 필요"}]}
+]}

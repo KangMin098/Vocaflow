@@ -1,0 +1,12 @@
+{"pass":2,"k":20,"items":[
+{"id":"M2209#40","version":3,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"answer_locus.reasoning에 '코퍼스 지문'·'columns2/M2209.txt 883~887행'·'회차 원문' 등 작업 용어가 학습자 필드에 노출"},{"code":"other","note":"DB 지문에는 But it also 이하가 다 있는데 '코퍼스 지문이 잘려 있다'고 서술 — 사실과 다름(confirmed_at.note도 동일)"}]},
+{"id":"M2209#43","version":4,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"③ why_tempting의 '조언 뒤 감사와 설명' 서술이 (C)-(D)-(B) 배열 실제 흐름과 잘 맞지 않음(경미)"}]},
+{"id":"M2306#31","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2306#32","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"'빈칸 문장은 훼손돼 판정 정보가 거의 없고' — 빈칸 문장은 정상, 원천 상태를 학습자 설명에 섞음"},{"code":"choice_3","note":"③ 배제에서 within을 '3번 문장'의 취하는 쪽이라 함 — within itself는 4번 문장, 위치 오기"}]},
+{"id":"M2306#33","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"③ 배제 논리('find a need와 같은 말이 됨')가 약함 — 핵심은 encountered≠developed(이미 개발) 차이(경미)"}]},
+{"id":"M2306#34","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"measured_ability에 '빈칸 마커가 보이지 않는 문장' — 원천 추출 결함을 학습 능력으로 기술"}]},
+{"id":"M2306#36","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2306#37","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"design_intent '세 단락이 전부 this로 시작' — (A)는 Sometimes로 시작, 사실과 다름(경미)"}]},
+{"id":"M2306#38","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"stem에 다른 문항 지문(Mobilities in transit…) 혼입, 주어진 문장이 passage 첫머리에 섞임, 선지5에 각주 잔재"}]},
+{"id":"M2306#39","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"stem에 다른 문항 지문 혼입, 주어진 문장이 passage 첫 문장으로 들어가 있음, 선지5에 배점·각주 잔재"}]}
+]}

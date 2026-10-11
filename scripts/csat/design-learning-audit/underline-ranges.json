@@ -1,0 +1,27 @@
+{
+ "method": "원본 문제지 PDF 를 render-pdf-page.mjs 로 렌더 → 서로 독립인 판독자 2명이 선지별 밑줄 낱말을 읽고 비교(2026-10-11). 20/20 문항 · 선지 100/100 일치",
+ "read_at": "2026-10-11",
+ "agreed": 20,
+ "items": {
+  "2021#29": ["associated", "it", "deeply", "does", "what"],
+  "2020#29": ["rely", "as", "which", "inhabited", "itself"],
+  "M2006#29": ["appealing", "decide", "what", "emerges", "that"],
+  "2019#29": ["expressing", "did", "those", "that", "carved"],
+  "2018#28": ["have", "what", "doing", "them", "to think"],
+  "M1809#28": ["filled", "waits", "substantially", "their", "what"],
+  "2016#28": ["their", "tossed", "exclusively", "causing", "that"],
+  "2015#28": ["devastated", "close", "meaning", "where", "has"],
+  "2014B#27": ["that", "sending", "to fight", "uncontrollably", "built"],
+  "M2706#29": ["frequently", "what", "to limit", "Allowed", "their"],
+  "2026#29": ["to solve", "being", "in which", "motivated", "greatly"],
+  "2025#29": ["had", "knows", "freeing", "that", "what"],
+  "M2509#29": ["employed", "evenly", "were", "inspired", "whose"],
+  "M2506#29": ["leads", "give", "where", "them", "making"],
+  "2024#29": ["seeming", "which", "do", "those", "to be"],
+  "M2406#29": ["them", "to fulfill", "being", "in which", "motivated"],
+  "2023#29": ["that", "them", "associated", "inexpensively", "opening"],
+  "M2309#29": ["be evaluated", "Learn", "have", "that", "whether"],
+  "M2209#29": ["is", "it", "which", "honest", "communicated"],
+  "M1809#30": ["her mother", "I", "she", "her", "she"]
+ }
+}

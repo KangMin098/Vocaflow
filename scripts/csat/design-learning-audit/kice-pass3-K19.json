@@ -1,0 +1,12 @@
+{"pass":3,"k":19,"items":[
+{"id":"2025#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"지문은 6문장인데 answer_locus.sentence_index 가 [1,7]로 범위를 벗어남(인덱스 기준 불일치)"}]},
+{"id":"2025#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"choiceTruth 유형인데 참인 선지에 함정 라벨(어휘 함정 등)·억지 유혹 서술. 내용 참으로 설명해야 함(①②③⑤ 공통)"}]},
+{"id":"2025#27","version":6,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"④ lure_quote 가 표의 3-Day/5-Day 행 조각이라 환불 기준일 유혹과 무관"},{"code":"choice_1","note":"참인 선지에 주체 역전·반대 진술 등 함정 라벨 부여 — 내용 참 설명 원칙과 어긋남"}]},
+{"id":"2025#28","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2025#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 밑줄 구간이 아니라 다음 밑줄까지의 본문 덩어리·각주(* crude:)를 담음"}]},
+{"id":"2025#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"overgeneral","note":"measured_ability 가 '주어가 바뀐 문장 가려내기'로 요약돼 소재·주어 변화=무관 규칙으로 읽힐 소지(경미)"}]},
+{"id":"2025#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"trying and failing 장면을 '열한 번째 문장'이라 함 — 실제는 여덟 번째 문장(위치 오기)"}]},
+{"id":"2025#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"(c) lure_quote 가 엄지 서술 구절인데 why_tempting 은 possible 의 평범함 — 인용과 유혹 불일치"}]},
+{"id":"2025#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2026#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

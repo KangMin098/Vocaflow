@@ -1,0 +1,36 @@
+{"group":3,"items":[
+{"file":"chunk-redo-20261010T191130200Z-R-NOTICE-2014A-29.out.json","id":"2014A#29","self_solved_matches_answer":true,
+ "ledger":[
+  {"code":"source_broken","resolved":false,"note":"입력 지문이 여전히 'month.' 조각뿐. 분석은 내부 기록만 남김 — 원문 각주(휴관 주기) 복원은 데이터 쪽에서 해야 함"},
+  {"code":"choice_3","resolved":true,"note":"③ how_to_reject가 각주 불완전을 인정하고 보류 처리, 정답 확정을 ⑤ 성분 대응으로만 세움"}],
+ "new_defects":[
+  {"code":"other","note":"design_intent는 ③이 '휴관 주기를 바꿨다'고 단정 — how_to_reject의 보류와 어긋남. 각주 복원 전에는 같은 단서를 달 것"},
+  {"code":"other","note":"confirmed_at.note의 '추출 지문'·'정본 문제지 대조'는 작업 기록 — 학습자 노출 칸이면 빼서 type_report로 옮길 것"}],
+ "verdict":"revise"},
+{"file":"chunk-redo-20261010T191130200Z-R-ORDER-2014A-37.out.json","id":"2014A#37","self_solved_matches_answer":true,
+ "ledger":[
+  {"code":"overgeneral","resolved":true,"note":"(A)·(C) 선후를 paper→it 연결로 정하고, 이름 형태는 '(B)가 인물·연도를 처음 소개' 조건과 함께만 씀"},
+  {"code":"logic_requirement_missing","resolved":true,"note":"why_correct가 이음매 셋(폭풍→두려움, paper→it, 발견→일반 진술)을 각각 씀"}],
+ "new_defects":[],
+ "verdict":"pass"},
+{"file":"chunk-redo-20261010T191130200Z-R-PURPOSE-2023-18.out.json","id":"2023#18","self_solved_matches_answer":true,
+ "ledger":[
+  {"code":"other","resolved":true,"note":"인사말=1번~서명=11번 기준을 명시. 3~4·5~6·7·8·9·10번이 실제 분절과 맞고 모든 칸이 같은 번호를 씀"}],
+ "new_defects":[],
+ "verdict":"pass"},
+{"file":"chunk-redo-20261010T191130200Z-R-REFER-2014B-26.out.json","id":"2014B#26","self_solved_matches_answer":true,
+ "ledger":[
+  {"code":"source_broken","resolved":false,"note":"입력 choices가 여전히 밑줄 사이 조각+'8'. 분석은 passage 밑줄로 우회했지만 데이터 수정이 필요함"},
+  {"code":"other","resolved":true,"note":"마지막 문장을 why_correct·confirmed_at·⑤ 모두 11번으로 통일"}],
+ "new_defects":[
+  {"code":"other","note":"명시한 규칙(인용 안 문장도 따로)대로라면 'Sorry, lady.'가 따로 세어져 12문장. 규칙을 고치거나 9~11을 10~12로 바꿀 것"},
+  {"code":"other","note":"confirmed_at.note의 '저장된 choices 배열'·'쪽 번호 잔여'는 작업 기록 — 학습자 칸에서 빼서 type_report로 옮길 것"}],
+ "verdict":"revise"},
+{"file":"chunk-redo-20261010T191130200Z-R-SUMMARY-2014B-40.out.json","id":"2014B#40","self_solved_matches_answer":true,
+ "ledger":[
+  {"code":"answer_reasoning","resolved":true,"note":"why_correct·locus·confirmed_at·③④ 해설이 5·6·8번 문장으로 일치하고, 실제 8문장 분절과도 맞음"},
+  {"code":"other","resolved":true,"note":"① why_tempting의 확률 표현을 '(A)만 확정하면 time·face가 남고 시간 절약 상식이 끼어든다'는 설명으로 교체"}],
+ "new_defects":[
+  {"code":"other","note":"경미: ⑤ why_tempting '한 번만 나와 남는 답'은 찍기 요령(cherish도 한 번) — 근거 설명으로 바꾸면 좋음. 판정에는 영향 없음"}],
+ "verdict":"pass"}
+]}

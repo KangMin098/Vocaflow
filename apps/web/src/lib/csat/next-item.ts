@@ -16,6 +16,9 @@
 //   ② **지도가 있는 것을 먼저** — 지도가 없으면 산문 화면으로 떨어져 방금 익힌 조작이 사라진다.
 //      (802문항 중 골격이 있는 것은 589 = 73%. 아무거나 고르면 넷 중 하나가 산문이다.)
 //   ③ **최신 회차부터** — 현행 설계에 가까운 것이 시험에 가깝다(유형 화면의 정렬과 같은 판단).
+//   ③-1 **이 기기에서 본 문항은 뒤로**(F14 · 2026-10-10) — 최신순만 쓰면 최신 A 에서 B 로, B 에서 다시 A 로
+//      왕복했다. 본 것을 빼고 고르고, 이 유형을 다 봤으면 현재 문항의 **다음 순번**을 「다시 보기」로 준다
+//      (revisit: true — 화면이 새 문항인 척하지 않는다).
 //   ④ 그래도 없으면 **null** — 없는 길을 있는 척하지 않는다. 화면이 그때는 문을 안 그린다.
 //
 // 순수 함수다. 목록과 «골격이 있는가» 를 받아 고르기만 한다 — 조회는 부르는 쪽의 몫이다.
@@ -35,8 +38,10 @@ export interface NextPick {
   item: NextCandidate
   /** 그 문항이 지도를 갖는가 — 화면이 「지도로 이어집니다」를 말할 수 있다. */
   hasMap: boolean
-  /** 이 유형에서 아직 안 본 것이 몇 개나 남았는가(이 문항 포함). */
+  /** 이 유형에서 아직 안 본 것이 몇 개나 남았는가(현재 문항 제외 · seen 을 안 주면 후보 수). */
   remaining: number
+  /** 후보를 다 봐서 이미 본 문항을 다시 주는가 — 의도적인 재방문으로 표시한다 */
+  revisit: boolean
 }
 
 /**
@@ -64,15 +69,22 @@ export function pickNextItem(
   items: NextCandidate[],
   currentId: string,
   hasMap: (id: string) => boolean,
+  seen: ReadonlySet<string> = new Set(),
 ): NextPick | null {
+  const rank = (i: NextCandidate) => examRank(i.id)
+  const order = (a: NextCandidate, b: NextCandidate) => rank(b) - rank(a) || a.no - b.no
   const pool = items.filter((i) => i.id !== currentId && i.explained)
   if (!pool.length) return null
+  const fresh = pool.filter((i) => !seen.has(i.id)).sort(order)
 
-  const rank = (i: NextCandidate) => examRank(i.id)
-  const sorted = [...pool].sort((a, b) => rank(b) - rank(a) || a.no - b.no)
-
-  // 지도가 있는 것을 먼저. 없으면 해설만 있는 것이라도 준다 — 앞길이 아예 없는 것보다 낫다.
-  const withMap = sorted.find((i) => hasMap(i.id))
-  const item = withMap ?? sorted[0]
-  return { item, hasMap: hasMap(item.id), remaining: pool.length }
+  if (fresh.length) {
+    // 지도가 있는 것을 먼저. 없으면 해설만 있는 것이라도 준다 — 앞길이 아예 없는 것보다 낫다.
+    const item = fresh.find((i) => hasMap(i.id)) ?? fresh[0]
+    return { item, hasMap: hasMap(item.id), remaining: fresh.length, revisit: false }
+  }
+  // 다 봤다 — 현재 문항 다음 순번(끝이면 처음)으로 돈다. 최신 문항으로 되돌아가 둘 사이를 왕복하지 않는다.
+  const ring = [...items.filter((i) => i.explained || i.id === currentId)].sort(order)
+  const at = ring.findIndex((i) => i.id === currentId)
+  const item = (at < 0 ? pool.sort(order) : [...ring.slice(at + 1), ...ring.slice(0, at)]).find((i) => i.id !== currentId) ?? null
+  return item ? { item, hasMap: hasMap(item.id), remaining: 0, revisit: true } : null
 }

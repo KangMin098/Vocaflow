@@ -92,30 +92,11 @@ test.describe('재설계 뒤에만', () => {
     await page.keyboard.press('ArrowRight')
     await expect(cards.nth(3)).toHaveAttribute('aria-current', 'step')
 
-    // 공개 게이트 — 확정 전에는 정답·근거가 없고 상영이 막힌다
-    const gate = page.getByTestId('predict-gate')
-    await expect(gate).toBeVisible()
-    await expect(page.getByRole('button', { name: /답이 왜/ })).toHaveCount(0)
-    await expect(page.getByText(/^정답 [①②③④⑤]$/)).toHaveCount(0)
-    await expect(page.getByRole('button', { name: '예측 후 상영' })).toBeDisabled()
-    await page.screenshot({ path: path.join(SHOTS, 'after-gate-before-1440.png') })
-    // 예측을 확정한다
-    await gate.getByRole('button', { name: '근거 후보 1번째 문장' }).click()
-    await gate.getByRole('button', { name: '1번 선지' }).click()
-    await gate.getByRole('button', { name: '확실' }).click()
-    // 설계 주석이 있는 문항(M2706#31)은 주제문 · 지문 뼈대 · 표현 변환도 묻는다(Phase 1 · S2 · S3)
-    await gate.getByRole('button', { name: '주제문 후보 2번째 문장' }).click()
-    await gate.getByRole('button', { name: '대조', exact: true }).click()
-    await gate.getByRole('button', { name: '추상화', exact: true }).click()
-    await page.screenshot({ path: path.join(SHOTS, 'after-gate-design-1440.png'), fullPage: true })
-    await gate.getByRole('button', { name: '확정하고 대조하기' }).click()
-    const diff = page.getByTestId('gate-diff')
-    await expect(diff).toBeVisible()
-    await expect(diff.getByText('지문 뼈대')).toBeVisible()
-    await expect(diff.getByText('왜 이 지문인가')).toBeVisible()
-    await page.waitForTimeout(600)
-    await page.screenshot({ path: path.join(SHOTS, 'after-gate-design-diff-1440.png') })
-    // 근거 표시 — 확정 뒤 지도의 앵커 칩
+    // 예측 관문 없음(F01 · 2026-10-10) — 열자마자 정답 근거 칩과 상영 단추가 있다
+    await expect(page.getByTestId("predict-gate")).toHaveCount(0)
+    await expect(page.getByRole("button", { name: /상영 시작|하이라이트만/ })).toBeEnabled()
+    await page.screenshot({ path: path.join(SHOTS, "open-1440.png") })
+    // 근거 표시 — 지도의 앵커 칩
     const anchor = page.getByRole('button', { name: /답이 왜/ }).first()
     await anchor.click()
     await expect(page.getByText('정답 근거').first()).toBeVisible()

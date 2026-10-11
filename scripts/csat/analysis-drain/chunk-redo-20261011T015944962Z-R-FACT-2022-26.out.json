@@ -1,0 +1,1438 @@
+{
+ "chunk": 13,
+ "type_id": "R-FACT",
+ "type_name": "내용 일치(글)",
+ "analyses": [
+  {
+   "item_id": "2022#26",
+   "measured_ability": "선지의 「~하면서 …을 포기했다」를 지문의 대등 연결 but 뒤 부정 술어(did not give up)와 극성 단위로 대조하는 능력",
+   "design_intent": "[6]의 앞 절(Architecture became his main interest)은 선지에 그대로 살리고, but 뒤 술어 did not give up painting 의 극성만 「포기했다」로 뒤집었다. 앞 절이 맞아 보이게 해 두고 뒤 절의 not 한 자리를 확인하는지 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     6
+    ],
+    "quote": "Architecture became his main interest, but he did not give up painting.",
+    "reasoning": "[6]은 건축이 주된 관심이 된 뒤에도 but 으로 이어 그림을 그만두지 않았다고 명시한다. 선지는 같은 시점의 같은 행위(그림 그리기)에 대해 반대 극성을 말하므로 지문과 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 'he worked as an assistant of Piero della Francesca' 가 선지의 'Piero della Francesca의 조수로 일했다' 와 주체·행위가 그대로 대응한다. 내용이 맞으므로 발문이 묻는 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 'he built several churches in a new style in Milan' 이 'Milan에서 새로운 양식의 교회들을 건축했다' 와 장소·대상·양식까지 대응한다. 일치하는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "[6]의 'Architecture became his main interest' 는 선지의 '건축에 주된 관심을 갖게 되면서' 와 대응하지만, 'but he did not give up painting' 은 선지의 '그림 그리기를 포기했다' 와 극성이 반대다. 바뀐 성분은 술어의 not 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ],
+      "note": "[6] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[7] 'participated in Pope Julius II’s plan for the renewal of Rome' 이 'Pope Julius II의 Rome 재개발 계획에 참여했다' 와 대응한다(renewal = 재개발). 맞는 진술이므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7
+      ]
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[10] 'His buildings influenced other architects for centuries' 가 '그의 건축물들은 다른 건축가들에게 영향을 끼쳤다' 와 대응한다. 선지는 for centuries 만 생략했을 뿐 내용이 맞아 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       10
+      ]
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(Bramante)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "but 뒤 부정 술어 하나만 바뀜",
+     "앞 절은 선지와 일치"
+    ]
+   },
+   "required_vocab": [
+    "give up",
+    "main interest"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(~하면서 …을 포기했다)이 [6] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [3]·[4]·[7]·[10] 로 서로 다름",
+      "정답 바뀐 성분: but 뒤 부정 술어 하나만 바뀜"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 give up, main interest 만 required_vocab 에 둠 · 난점: but 뒤 부정 술어 하나만 바뀜 / 앞 절은 선지와 일치"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2206#26",
+   "measured_ability": "선지의 「기록을 깨지 못했다」를 지문 분사구 breaking Olympic records in each 의 극성과 대조하는 능력",
+   "design_intent": "[5]의 시점·장소(1952 Helsinki)는 선지에 그대로 두고, 문장 끝 분사구 breaking Olympic records 의 극성만 「깨지 못했다」로 뒤집었다. 문장 앞부분의 금메달 정보만 보고 넘어가면 끝의 분사구를 놓치게 한 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "At the 1952 Olympic Games in Helsinki, he won three gold medals in the 5,000-meter and 10,000-meter races and in the marathon, breaking Olympic records in each.",
+    "reasoning": "[5]는 1952년 Helsinki 올림픽에서 세 종목을 이기며 각각 올림픽 기록을 깼다(breaking Olympic records in each)고 쓴다. 선지는 같은 대회에 대해 기록을 깨지 못했다고 하므로 극성이 반대다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2] 'famous for his distinctive running style' 이 '독특한 달리기 스타일로 유명했다' 와 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 'While working in a shoe factory' 가 '신발 공장에서 일한 적이 있다' 와 대응한다. 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "[5]의 'At the 1952 Olympic Games in Helsinki' 는 선지의 '1952년 Helsinki 올림픽에서' 와 맞지만, 'breaking Olympic records in each' 는 선지의 '올림픽 기록을 깨지 못했다' 와 반대다. 바뀐 성분은 술어의 극성 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "[5] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[6] 'He was married to Dana Zátopková, who was an Olympic gold medalist, too' 에서 관계절 who 의 선행사는 Dana Zátopková 이고, 선지도 Dana Zátopková 를 '올림픽 금메달리스트인' 사람으로 적었다. 결혼 상대와 그 수식이 모두 맞아 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ]
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[9] 'he gave Clarke one of his gold medals as a gift' 가 '자신의 금메달 중 하나를 Ron Clarke에게 주었다' 와 대응하고, [8]이 Clarke 가 Ron Clarke 임을 밝힌다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       8,
+       9
+      ]
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(Zátopek)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "극성이 문장 끝 분사구에 있음",
+     "긴 문장 안 정보 다수"
+    ]
+   },
+   "required_vocab": [
+    "break a record",
+    "distinctive"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(기록을 깨지 못했다)이 [5] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [2]·[3]·[6]·[9] 로 서로 다름",
+      "정답 바뀐 성분: 극성이 문장 끝 분사구에 있음"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 break a record, distinctive 만 required_vocab 에 둠 · 난점: 극성이 문장 끝 분사구에 있음 / 긴 문장 안 정보 다수"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2021#26",
+   "measured_ability": "선지의 「가르치는 일은 하지 않고」를 지문 remained active in teaching and writing 의 병렬 두 항과 대조하는 능력",
+   "design_intent": "[9]의 시점(After retiring)과 writing 은 선지에 살리고, teaching 항만 「하지 않고」로 지웠다. 병렬 두 항 중 한 항만 부정해 반쯤 맞는 진술로 만든 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     9
+    ],
+    "quote": "After retiring in 1952, Knight remained active in teaching and writing.",
+    "reasoning": "[9]는 은퇴 뒤에도 teaching 과 writing 두 가지 모두에서 활발했다고 쓴다. 선지는 그중 teaching 을 하지 않았다고 하므로 지문과 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[1] 'one of the most influential economists of the twentieth century' 가 '20세기의 가장 영향력 있는 경제학자들 중 한 명' 과 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 'spent most of his career at the University of Chicago' 가 '경력의 대부분을 University of Chicago에서 보냈다' 와 대응한다. [2]에 여러 대학이 나열되지만 most 는 [3]이 Chicago 로 한정한다. 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 'Some of his students at Chicago later received the Nobel Prize' 에서 상을 받은 주체는 Knight 가 아니라 his students 이고, 선지도 '그의 학생들 중 몇 명' 을 주체로 썼다. 주체가 맞아 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ]
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[5] 'Knight is known as the author of the book Risk, Uncertainty and Profit' 이 'Risk, Uncertainty and Profit의 저자로 알려져 있다' 와 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ]
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "[9]의 'After retiring in 1952' 는 선지의 '은퇴 후에는' 과, 'writing' 은 '글 쓰는 일' 과 맞지만, 'remained active in teaching' 은 선지의 '가르치는 일은 하지 않고' 와 반대다. 병렬 두 항 중 한 항의 극성만 바뀌었다.",
+     "confirmed_at": {
+      "sentence_index": [
+       9
+      ],
+      "note": "[9] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(Knight)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "병렬 두 항 중 하나만 부정",
+     "마지막 문장에 근거"
+    ]
+   },
+   "required_vocab": [
+    "remain active",
+    "retire"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(가르치는 일은 하지 않고)이 [9] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [1]·[3]·[4]·[5] 로 서로 다름",
+      "정답 바뀐 성분: 병렬 두 항 중 하나만 부정"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 remain active, retire 만 required_vocab 에 둠 · 난점: 병렬 두 항 중 하나만 부정 / 마지막 문장에 근거"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2109#26",
+   "measured_ability": "선지의 「아파서 참석하지 못했다」를 지문 양보구 despite being in ill health 와 주절 attended 의 관계로 대조하는 능력",
+   "design_intent": "[10]의 ill health 는 선지에 「아파서」로 살리고, 양보(despite)를 이유로 바꿔 주절 attended 의 극성을 「참석하지 못했다」로 뒤집었다. 아팠다는 사실이 맞으니 결과도 맞다고 넘기는지 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     10
+    ],
+    "quote": "The Thames Tunnel officially opened on 25 March 1843, and Brunel, despite being in ill health, attended the opening ceremony.",
+    "reasoning": "[10]은 despite 로 병중이었음에도 개통식에 참석했다(attended)고 쓴다. 선지는 아파서 참석하지 못했다고 하므로 주절 술어가 반대다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2] 'escaped to the United States during the French Revolution' 이 '프랑스 혁명 중에 미국으로 달아났다' 와 시점·장소까지 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 'he invented machines for making boots' 가 '부츠를 만드는 기계를 발명하였다' 와 대응한다. 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[5] 'Brunel’s factory supplied British troops with boots' 가 '그의 공장은 영국 군대에 부츠를 공급한 적이 있다' 와 대응한다. [6]의 공급 중단은 전쟁 뒤의 일이라 '공급한 적이 있다' 를 부정하지 않는다. 맞아서 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       6
+      ]
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[7] 'Brunel was imprisoned for several months because of his debt' 가 '빚 때문에 감옥에 수감되었다' 와 원인까지 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7
+      ]
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "[10]의 'despite being in ill health' 는 선지의 '아파서' 와 사실은 같지만, 주절 'attended the opening ceremony' 는 선지의 '개통식에 … 참석하지 못했다' 와 반대다. 양보 관계가 이유 관계로 바뀌며 술어 극성이 뒤집혔다.",
+     "confirmed_at": {
+      "sentence_index": [
+       10
+      ],
+      "note": "[10] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(Brunel)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.84,
+    "drivers": [
+     "양보 despite 를 이유로 오독할 여지",
+     "사실 일부(병중)는 선지와 일치"
+    ]
+   },
+   "required_vocab": [
+    "despite",
+    "attend",
+    "ill health"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(아파서 참석하지 못했다)이 [10] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [2]·[4]·[5]·[7] 로 서로 다름",
+      "정답 바뀐 성분: 양보 despite 를 이유로 오독할 여지"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 despite, attend, ill health 만 required_vocab 에 둠 · 난점: 양보 despite 를 이유로 오독할 여지 / 사실 일부(병중)는 선지와 일치"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2020#26",
+   "measured_ability": "선지의 「행운을 가져온다」를 지문 could result in misfortune 과 결과 명사의 극성으로 대조하는 능력",
+   "design_intent": "[8]의 대상(아이 수를 세는 일)은 선지에 그대로 두고 결과 명사 misfortune 을 「행운」으로 뒤집었다. [7]의 「나이 든 구성원만 센다」는 관습과 함께 읽어 세지 않는 이유를 확인하게 한 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     8
+    ],
+    "quote": "They believe that counting the number of children one has could result in misfortune and prefer to report fewer children than they have.",
+    "reasoning": "[8]은 자녀 수를 세는 것이 불운(misfortune)을 부를 수 있다고 믿어 실제보다 적게 보고한다고 쓴다. 선지는 같은 행위가 행운을 가져온다고 믿는다고 하므로 결과의 극성이 반대다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[1] 'primarily residing in the Nile River Valley' 가 '주로 Nile River Valley에 거주한다' 와 대응한다(primarily = 주로). 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 'They have various terms related to cattle' 이 '소와 관련된 다양한 용어를 가지고 있다' 와 그대로 대응한다. 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 'They prefer to be called by the names of the cattle they raise' 가 '자신들이 기르는 소의 이름으로 불리는 것을 선호한다' 와 대응한다. 맞아서 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ]
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[5] 'The commonest daily foods for the Nuer are dairy products' 가 '가장 일반적인 일상 음식은 유제품이다' 와 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ]
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "[8]의 'counting the number of children one has' 는 선지의 '어린 자녀의 수를 세는 것' 과 대응하지만, 'could result in misfortune' 은 선지의 '행운을 가져온다고 믿는다' 와 반대다. 바뀐 성분은 결과 명사 misfortune 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       8
+      ],
+      "note": "[8] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(the Nuer)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.87,
+    "drivers": [
+     "결과 명사 하나만 반대",
+     "[7]-[8] 관습 설명 연결"
+    ]
+   },
+   "required_vocab": [
+    "misfortune",
+    "result in"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(행운을 가져온다)이 [8] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [1]·[3]·[4]·[5] 로 서로 다름",
+      "정답 바뀐 성분: 결과 명사 하나만 반대"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 misfortune, result in 만 required_vocab 에 둠 · 난점: 결과 명사 하나만 반대 / [7]-[8] 관습 설명 연결"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2006#26",
+   "measured_ability": "선지의 「Ireland와 Nova Scotia를 합친 크기」를 지문 about the size of Ireland or Nova Scotia 의 접속사 or 와 대조하는 능력",
+   "design_intent": "[2]의 두 지명은 선지에 그대로 두고 or(둘 중 하나와 비슷한)를 「합친」(and 의 합)으로 바꿨다. 지명이 둘 다 맞으니 관계도 맞다고 넘기는지 접속사 한 낱말로 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     2
+    ],
+    "quote": "This land is the Great Bear Rainforest, which measures 6.4 million hectares ― about the size of Ireland or Nova Scotia.",
+    "reasoning": "[2]는 넓이를 Ireland 나 Nova Scotia 각각의 크기 정도(about the size of Ireland or Nova Scotia)라고 비교한다. 선지는 두 지역을 합친 크기라 하므로 비교 기준이 달라진다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[1] 'Along the coast of British Columbia lies a land' 가 'British Columbia의 해안가를 따라 위치한다' 와 대응하고, [2]가 그 land 를 This land is the Great Bear Rainforest 로 받는다. 맞아서 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "[2]의 'Ireland or Nova Scotia' 는 선지의 'Ireland와 Nova Scotia' 와 지명은 같지만, or 는 둘 중 어느 하나의 크기라는 뜻이어서 선지의 '합친 크기이다' 와 어긋난다. 바뀐 성분은 접속사 or 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2
+      ],
+      "note": "[2] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 'One of the unique animals living in the area is the Kermode bear' 가 'Kermode 곰이 살고 있다' 와 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ]
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[7] 'They play a vital role in this area’s ecosystem' 의 They 는 [6]의 Salmon 이고, 선지도 '연어는 … 중요한 역할을 한다' 로 같은 주어를 썼다(vital = 중요한). 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6,
+       7
+      ]
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[8] 'The Great Bear Rainforest is also home to the Western Red Cedar' 가 'Western Red Cedar의 서식지이다' 와 대응한다(home to = 서식지). 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       8
+      ]
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(Great Bear Rainforest)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "접속사 한 낱말 차이",
+     "지명 두 개가 그대로 일치"
+    ]
+   },
+   "required_vocab": [
+    "or",
+    "the size of"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(Ireland와 Nova Scotia를 합친 크기)이 [2] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [1]·[4]·[7]·[8] 로 서로 다름",
+      "정답 바뀐 성분: 접속사 한 낱말 차이"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 or, the size of 만 required_vocab 에 둠 · 난점: 접속사 한 낱말 차이 / 지명 두 개가 그대로 일치"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2018#25",
+   "measured_ability": "선지의 「특별한 유대 관계를 맺지 않았다」를 지문 He formed special bonds with the artists 의 긍정 술어와 대조하는 능력",
+   "design_intent": "[6]의 대상(함께 작업한 예술가)과 special bonds 는 선지에 그대로 두고 술어 formed 에 부정만 붙였다. 「특별한 유대」라는 지문 낱말이 보이면 맞다고 넘기는지 술어 극성으로 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     6
+    ],
+    "quote": "He formed special bonds with the artists he worked with and those relationships helped him capture some of his most vivid and iconic imagery.",
+    "reasoning": "[6]은 그가 함께 작업한 예술가들과 특별한 유대를 맺었고(formed special bonds) 그 관계가 사진에 도움이 됐다고 쓴다. 선지는 맺지 않았다고 하므로 극성이 반대다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2] 'the first and only photographer to be presented with the Grammy Trustees Award' 가 'Grammy Trustees Award가 수여된 최초이자 유일한 사진작가' 와 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 'He started as a professional photographer in 1959' 가 '1959년에 직업 사진작가로 일하기 시작했다' 와 연도까지 대응한다. 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[5] 'also shot the Rolling Stones on their historic 1972 tour' 가 'Rolling Stones의 역사적인 1972년 투어에서 그들을 촬영했다' 와 대응한다(shot = 촬영했다). 맞아서 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ]
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "[6]의 'the artists he worked with' 는 선지의 '함께 작업한 예술가들' 과, 'special bonds' 는 '특별한 유대 관계' 와 맞지만, 'He formed' 는 선지의 '맺지 않았다' 와 반대다. 바뀐 성분은 술어의 극성 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ],
+      "note": "[6] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[7] 'the photographs he took appeared on more than 500 album covers' 가 '500개가 넘는 앨범 커버에 그가 촬영한 사진들이 실렸다' 와 수치·비교어(more than)까지 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7
+      ]
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(Jim Marshall)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "술어 부정 하나",
+     "지문 낱말 special bonds 가 선지에 그대로"
+    ]
+   },
+   "required_vocab": [
+    "form bonds"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(특별한 유대 관계를 맺지 않았다)이 [6] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [2]·[3]·[5]·[7] 로 서로 다름",
+      "정답 바뀐 성분: 술어 부정 하나"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 form bonds 만 required_vocab 에 둠 · 난점: 술어 부정 하나 / 지문 낱말 special bonds 가 선지에 그대로"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M1809#25",
+   "measured_ability": "선지의 「제2차 세계 대전 이전에」를 지문 Shortly after World War Ⅱ 의 시간 전치사와 대조하는 능력",
+   "design_intent": "[6]의 유입 방식(accidentally)과 장소(Guam)는 선지에 그대로 두고 시간 전치사 after 를 「이전에」로 바꿨다. 사건이 맞으면 시점도 맞다고 넘기는지 전치사 한 자리로 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     6
+    ],
+    "quote": "Shortly after World War Ⅱ, the brown tree snake was accidentally brought into Guam from its native range in the South Pacific, probably as an unwanted passenger on a ship or plane.",
+    "reasoning": "[6]은 이 뱀이 제2차 세계 대전 직후(Shortly after World War Ⅱ)에 우연히 Guam 에 들어왔다고 쓴다. 선지는 대전 이전이라 하므로 시점이 반대다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[1] 'a large head with sticking-out eyes' 가 '큰 머리와 돌출된 눈을 가지고 있다' 와 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 'Its body usually has a light brown background' 가 '일반적으로 몸 바탕색은 연한 갈색이다' 와 usually 까지 대응한다. 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 'The snake is about 38 centimeters when it comes out of its egg' 가 '알에서 나올 때 약 38센티미터이다' 와 수치·시점까지 대응한다. 1~2미터는 다 자란 뒤의 길이라 충돌하지 않는다. 맞아서 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ]
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "[6]의 'accidentally brought into Guam' 은 선지의 'Guam으로 우연히 유입되었다' 와 맞지만, 'Shortly after World War Ⅱ' 는 선지의 '제2차 세계 대전 이전에' 와 반대다. 바뀐 성분은 시간 전치사 after 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ],
+      "note": "[6] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[7] 'is therefore at the top of its food chain' 이 'Guam에서 먹이 사슬의 최상위에 있다' 와 대응하고, 같은 문장의 in Guam 이 장소를 맞춘다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7
+      ]
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(brown tree snake)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.87,
+    "drivers": [
+     "시간 전치사 하나",
+     "유입 방식·장소는 일치"
+    ]
+   },
+   "required_vocab": [
+    "shortly after",
+    "accidentally"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(제2차 세계 대전 이전에)이 [6] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [1]·[3]·[4]·[7] 로 서로 다름",
+      "정답 바뀐 성분: 시간 전치사 하나"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 shortly after, accidentally 만 required_vocab 에 둠 · 난점: 시간 전치사 하나 / 유입 방식·장소는 일치"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2017#25",
+   "measured_ability": "선지의 「단독으로 집필했다」를 지문 With Jan Novák, Forman wrote 의 공동 행위자 전치사구와 대조하는 능력",
+   "design_intent": "[9]의 책 제목과 집필 행위는 선지에 그대로 두고 문두 With Jan Novák(공저자)를 「단독으로」로 바꿨다. 문장 앞에 놓인 전치사구를 건너뛰고 주어·동사만 읽는지 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     9
+    ],
+    "quote": "With Jan Novák, Forman wrote his autobiography, Turnaround: A Memoir, which was published in 1994.",
+    "reasoning": "[9]는 Forman 이 Jan Novák 과 함께(With Jan Novák) 자서전을 썼다고 쓴다. 선지는 단독으로 썼다고 하므로 행위자 수가 달라진다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2] 'Forman grew up in a small town near Prague' 가 'Prague 근교의 작은 마을에서 성장했다' 와 대응한다(near = 근교). 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 'studied film at the film school of the University of Prague' 가 'Prague 대학교에서 영화를 공부했다' 와 대응한다. 선지가 film school 을 생략했어도 대학교 안의 학교라 내용이 맞아 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[6] 'he emigrated to the U.S. and continued to make films' 가 '미국으로 이주한 후에도 계속 영화를 만들었다' 와 대응한다. 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ]
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[8] 'the movie Amadeus … swept eight Oscars including one for best director' 와 같은 문장의 'which he also directed' 가 선지의 '영화 Amadeus로 오스카 최고 감독상을 수상했다' 를 뒷받침한다. 맞아서 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       8
+      ]
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "[9]의 'Forman wrote his autobiography, Turnaround: A Memoir' 는 선지의 'Turnaround: A Memoir를 … 집필했다' 와 맞지만, 문두 'With Jan Novák' 는 선지의 '단독으로' 와 어긋난다. 바뀐 성분은 공동 행위자 한 자리다.",
+     "confirmed_at": {
+      "sentence_index": [
+       9
+      ],
+      "note": "[9] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(Forman)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "문두 전치사구에 바뀐 성분",
+     "제목·행위는 일치"
+    ]
+   },
+   "required_vocab": [
+    "autobiography",
+    "with"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(단독으로 집필했다)이 [9] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [2]·[4]·[6]·[8] 로 서로 다름",
+      "정답 바뀐 성분: 문두 전치사구에 바뀐 성분"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 autobiography, with 만 required_vocab 에 둠 · 난점: 문두 전치사구에 바뀐 성분 / 제목·행위는 일치"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2016#25",
+   "measured_ability": "선지의 「적진과 멀리 떨어진 곳에서」를 지문 in the middle of the enemy’s camp 의 위치 표현과 대조하는 능력",
+   "design_intent": "[10]의 작품(Satyr)과 그린 행위는 선지에 그대로 두고 위치 in the middle of 를 「멀리 떨어진」으로 뒤집었다. [9]의 공격 상황만 보고 안전한 곳이었으리라 상식으로 채우는지 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     10
+    ],
+    "quote": "Interestingly, the garden in which he painted the Satyr was in the middle of the enemy’s camp.",
+    "reasoning": "[10]은 그가 Satyr 를 그린 정원이 적의 진영 한가운데(in the middle of the enemy’s camp)에 있었다고 쓴다. 선지는 적진과 멀리 떨어진 곳이라 하므로 위치가 반대다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[1] 'Protogenes was an ancient Greek painter' 가 '고대 그리스 화가였다' 와 그대로 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1
+      ]
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[2] 'lived most of his life in Rhodes' 가 '일생의 대부분을 Rhodes에서 지냈다' 와 대응한다. 출생지 Caunus 는 별개 정보라 충돌하지 않는다. 일치하므로 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2
+      ]
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[6] 'Protogenes spent approximately seven years painting the Ialysus' 가 'Ialysus를 그리는 데 대략 7년을 보냈다' 와 수치·대상까지 대응한다. 맞아서 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ]
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "[10]의 'the garden in which he painted the Satyr' 는 선지의 'Satyr를 그렸다' 와 맞지만, 'in the middle of the enemy’s camp' 는 선지의 '적진과 멀리 떨어진 곳에서' 와 반대다. 바뀐 성분은 위치 표현 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       10
+      ],
+      "note": "[10] 한 문장에서 바뀐 성분이 확정된다"
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[11] 'about seventy years of age when the Satyr was completed' 와 'is said to have been' 이 '완성했을 때는 약 70세였다고 전해진다' 와 대응한다. 맞는 진술이라 답이 아니다.",
+     "confirmed_at": {
+      "sentence_index": [
+       11
+      ]
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「일치하지 않는 것」을 확인하고, 선지 다섯 개에서 대상(Protogenes)과 시점·수치·부정어·접속어처럼 바뀌기 쉬운 성분에 먼저 표시한다",
+     "on_fail": "표시할 성분을 못 고르면 선지의 술어 끝(했다/하지 않았다/못했다)과 숫자부터 동그라미 친다"
+    },
+    {
+     "step": "선지마다 고유명사·연도·수치를 지문에서 찾아 대응 문장 번호를 선지 옆에 적는다",
+     "on_fail": "대응 문장이 둘 이상 걸리면 선지의 술어와 같은 동사를 가진 문장을 고른다"
+    },
+    {
+     "step": "대응 문장과 선지를 주체·행위·시점·극성(not, despite, or, after 같은 기능어 포함) 순서로 한 성분씩 대조한다",
+     "on_fail": "모두 맞아 보이면 대응 문장의 but·despite·with·or·after 같은 기능어를 다시 읽고 선지에서 그 기능어가 어떻게 옮겨졌는지 본다"
+    },
+    {
+     "step": "성분 하나가 반대로 바뀐 선지를 답으로 정하고, 나머지 넷은 대응 문장 번호만 확인해 넘긴다",
+     "on_fail": "바뀐 성분이 둘 이상 후보로 남으면 각 후보의 대응 문장을 한 번 더 열어 문장 안의 수식어 위치를 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "위치 표현 반대",
+     "[9] 공격 상황이 상식 추론을 부름"
+    ]
+   },
+   "required_vocab": [
+    "in the middle of",
+    "enemy’s camp"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "교정: 원장 지적에 따라 내용이 맞는 네 선지의 trap·why_tempting 을 제거하고 how_to_reject 에 대응 문장 번호와 「맞는 진술이라 답이 아님」을 적었다",
+      "바뀐 성분(적진과 멀리 떨어진 곳에서)이 [10] 한 문장에서 확정됨"
+     ],
+     "checked": [
+      "answer_locus.quote 를 청크 문장 목록과 문자열 대조",
+      "why_correct 의 지문 어구와 선지 어구 대응 확인",
+      "design_intent 가 이 문항의 바뀐 성분을 지목하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "오답 넷에 함정 라벨 없음 · 대응 문장 [1]·[2]·[6]·[11] 로 서로 다름",
+      "정답 바뀐 성분: 위치 표현 반대"
+     ],
+     "checked": [
+      "distractor 4개의 trap/why_tempting 부재 확인",
+      "how_to_reject 의 문장 번호가 문장 목록 범위 안인지 대조",
+      "confirmed_at.sentence_index 와 how_to_reject 언급 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": false,
+     "findings": [
+      "절차가 정답을 미리 짚지 않음",
+      "판정에 필요한 어구 in the middle of, enemy’s camp 만 required_vocab 에 둠 · 난점: 위치 표현 반대 / [9] 공격 상황이 상식 추론을 부름"
+     ],
+     "checked": [
+      "solve_procedure 4단계의 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 바뀐 성분 판정에 필요한 어구인지 확인",
+      "time_budget 60초 안에 다섯 대응 확인 가능 여부"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-FACT",
+  "n_analyzed": 10,
+  "recurring_traps": [
+   {
+    "trap": "반대 진술",
+    "count": 10,
+    "signature": "정답 선지가 지문 한 문장의 성분 하나(부정어 not·결과 명사·시간 전치사·접속사 or·양보 despite·공동 행위자 with·위치 표현)만 반대로 바꾼다. 10문항 각각 한 번씩만 셌다"
+   }
+  ],
+  "answer_locus_pattern": "10문항 모두 근거가 한 문장 안에서 닫힌다. 바뀐 성분은 술어 극성 5(2022·M2206·2021·2018·M2109)·결과 명사 1(2020)·접속사 1(M2006)·시간 전치사 1(M1809)·공동 행위자 1(2017)·위치 1(2016)",
+  "procedure": [
+   "선지에서 시점·수치·부정어·기능어를 표시",
+   "선지별 대응 문장 번호를 적음",
+   "주체·행위·시점·극성 순으로 성분 대조",
+   "바뀐 성분 하나인 선지 선택"
+  ],
+  "failure_modes": [
+   "문장 앞부분이 선지와 맞으면 끝의 분사구·but 절을 읽지 않음(M2206·2022)",
+   "despite·or·with 같은 기능어를 내용어보다 가볍게 읽음(M2109·M2006·2017)"
+  ],
+  "time_budget_sec": 60,
+  "open_questions": [
+   "자기 검수 3인이 모두 pass — 교정 원장의 지적을 반영한 뒤라 새 반려가 나오지 않았다. 세 자가 같은 축(대응 문장 확인)을 재고 있을 수 있어 독립 검수가 필요하다",
+   "바뀐 성분이 선지 순서상 어디에 오는지는 이 10문항(정답 2·3·4·5)으로 규칙화하지 않는다"
+  ]
+ }
+}

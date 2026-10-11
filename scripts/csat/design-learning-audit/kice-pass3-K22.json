@@ -1,0 +1,12 @@
+{"pass":3,"k":22,"items":[
+{"id":"M1809#22","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"④(통찰·분석적 사고 분리) lure_quote 가 경험 이탈 문장 — 선지 성분과 대응 안 됨"}]},
+{"id":"M1809#23","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M1809#25","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_5","note":"참인 선지에 trap '인과 역전'·'반대 진술' 등 함정 라벨 — choiceTruth 유형은 내용 참으로 설명해야 함(①②③⑤ 공통)"}]},
+{"id":"M1809#26","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"일치 선지에 '범위 과대/과소' 등 함정 라벨 — 안내문 항목 대응(내용 참)으로 설명해야 함(①②④⑤)"}]},
+{"id":"M1809#27","version":5,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"일치 유형인데 오답(내용 거짓) 설명은 적절하나 ③ trap '범위 과대'는 배수 오류에 맞지 않는 라벨"}]},
+{"id":"M1809#28","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 밑줄 구간이 아니라 다음 밑줄까지의 긴 지문 조각·각주로 저장됨"}]},
+{"id":"M1809#29","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M1809#30","version":7,"type":"R-REFER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 가 밑줄 뒤 긴 지문 조각·각주·쪽번호로 저장됨"}]},
+{"id":"M1809#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"⑤ choice 문자열 끝에 각주 잔여물 섞임(분석 자체는 정확)"}]},
+{"id":"M1809#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

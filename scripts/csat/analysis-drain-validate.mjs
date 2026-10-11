@@ -18,7 +18,7 @@ import path from 'node:path'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 import { analysisWinners, chunkArgs, DrainSelectError, replacesOutput, selectOutFiles } from './lib-drain-select.mjs'
 import { checkUnitRefs } from './lib-evidence-units.mjs'
-import { analysisRuleErrors } from './lib-analysis-rules.mjs'
+import { analysisRuleErrors, distractorsAreTrue } from './lib-analysis-rules.mjs'
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -260,7 +260,7 @@ for (const f of files) {
     const it = itemOf.get(a.item_id)
     if (!it) { bad(id, '코퍼스에 없는 item_id'); continue }
 
-    for (const error of analysisRuleErrors(a)) bad(id, error)
+    for (const error of analysisRuleErrors(a, { typeId: it.type_id ?? a.type_id ?? null, answerKnown: it.answer != null })) bad(id, error)
 
     // V1 필수 서술
     const analystRun = a.analyst_run ?? j.analyst_run
@@ -360,10 +360,16 @@ for (const f of files) {
         }
       }
 
-      // 오답 넷은 함정 서술을 갖춰야 한다
+      // 오답 넷은 함정 서술을 갖춰야 한다 — 선택≠참거짓 유형 중 부정형 발문은 예외: 내용이 맞는 선지라 함정이 없다(V14)
+      // 긍정형 발문(「일치하는 것은?」)은 오답이 틀린 진술이라 함정 서술을 그대로 요구한다
+      const choiceTruth = distractorsAreTrue(it.type_id, it.stem)
       for (const c of ch.filter((c) => c.verdict === 'distractor')) {
-        if (!c.trap) bad(id, `선지 ${c.n} 에 trap 라벨이 없다`)
-        if (!c.why_tempting || c.why_tempting.length < 10) bad(id, `선지 ${c.n} 의 why_tempting 이 부실하다`)
+        if (choiceTruth) {
+          if (c.trap) bad(id, `V14 선지 ${c.n} 은 내용이 맞는 선지인데 trap 「${c.trap}」 이 있다 — 함정 라벨 · why_tempting 대신 how_to_reject 에 대응 위치와 「왜 답이 아닌가」를 쓴다`)
+        } else {
+          if (!c.trap) bad(id, `선지 ${c.n} 에 trap 라벨이 없다`)
+          if (!c.why_tempting || c.why_tempting.length < 10) bad(id, `선지 ${c.n} 의 why_tempting 이 부실하다`)
+        }
         if (!c.how_to_reject || c.how_to_reject.length < 10) bad(id, `선지 ${c.n} 의 how_to_reject 가 부실하다`)
         // **배제 근거에 위치가 있어야 한다.** "지문과 다르다" 는 검증도 재현도 안 된다 —
         // 학습자가 그 자리를 직접 짚어 확인할 수 있어야 길 안내가 된다(실측 473/606 만 갖췄다).
@@ -374,7 +380,8 @@ for (const f of files) {
       }
       // V3b 함정이 전부 같으면 "오답 4개가 서로 다른 함정" 이 아니다
       const traps = new Set(ch.filter((c) => c.verdict === 'distractor').map((c) => c.trap))
-      if (traps.size < 2) bad(id, `오답 4개의 함정이 ${traps.size}종 — 최소 2종이어야 한다`)
+      if (choiceTruth) { /* 함정이 없는 유형 — 함정 종류 수를 세지 않는다 */ }
+      else if (traps.size < 2) bad(id, `오답 4개의 함정이 ${traps.size}종 — 최소 2종이어야 한다`)
       else if (traps.size < 3) warn(id, `오답 함정이 ${traps.size}종뿐 (${[...traps].join(' · ')})`)
     }
 

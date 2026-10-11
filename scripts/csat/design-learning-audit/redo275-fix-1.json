@@ -1,0 +1,159 @@
+{
+ "rule": "confirmed_at.note 는 학습자 칸이 아님(오탐 제외) · needs_source(밑줄 범위)는 확정 표현을 걷고 위치로만 부른다",
+ "files": {
+  "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json": {
+   "M2306#32": [
+    "quote_verbatim: design_intent 인용 'Instead of historical…' 에 examining 누락 — 3번 원문대로 축자 인용할 것"
+   ],
+   "M2206#32": [
+    "choice_4: ④ trap '인과 역전' 이 내용(avoid 와 방향 반대)과 어긋남 — '반대 진술' 로 고칠 것"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-BLANK-2025-33.out.json": {
+   "M2509#31": [
+    "needs_source: 순서 일치 단정과 '빈칸 바로 뒤 문장' 위치 서술을 원문 확인 전 확정하지 말 것 — 단정 삭제 또는 원문 대조"
+   ],
+   "M2509#32": [
+    "work_jargon: difficulty.drivers에 '선지에 OCR 잡문자 혼입' — 작업 용어이고 현 선지는 온전함. 삭제 필요"
+   ],
+   "M2506#31": [
+    "sentence_number: drivers '근거가 빈칸에서 여섯 문장 뒤' — 빈칸 [3], 근거 [7]로 네 문장 뒤. 수정 필요",
+    "overgeneral: solve_procedure on_fail '이 유형은 정의를 끝에 두는 경우가 잦다' 근거 없는 일반화 — 삭제 또는 조건화"
+   ],
+   "M2506#34": [
+    "answer_reasoning: solve_procedure 4단계 on_fail '당위(should·will)'가 고친 ① 판정과 다시 충돌 — will을 예측으로 맞출 것",
+    "sentence_number: ⑤ why_tempting '빈칸 두 문장 앞에 uniformity' — uniformity는 [6], 빈칸 [7]의 바로 앞 문장"
+   ],
+   "M2406#34": [
+    "factual: drivers '선지 5번이 원지에서 잘려 들어와(representat)' — 입력 선지는 온전. 잘림 메모가 학습자 칸에 잔존, 삭제"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-BLANK-M2706-34.out.json": {
+   "M2706#34": [
+    "sentence_number: ④ why_tempting '6번 문장 앞의 signing his check' — signing은 [3]. '3번 문장의'로 고칠 것"
+   ],
+   "2026#31": [
+    "factual: ④ why_tempting '2번 문장 바로 뒤에 family ties' — 해당 어구는 [2] 안에 있음. 위치 표현 수정"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json": {
+   "2024#26": [
+    "work_context: design_intent 끝 「Charles H. 가 1번 단위로 떨어져 번호가 뒤로 간다」는 문장 분리 결함 노출. 이 문장 삭제(번호 자체는 목록과 일치)"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-GIST-2026-22.out.json": {
+   "M2306#22": [
+    "answer_reasoning: answer_locus.reasoning 이 4·6번 조건항이 「둘 다 what,when,why 앎」이라 함 — 6번 조건은 tools 보유. 4번 이해·6번 도구로 고칠 것"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json": {
+   "2021#29": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ],
+   "2020#29": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ],
+   "M2006#29": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ],
+   "2019#29": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ],
+   "2018#28": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ],
+   "M1809#28": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ],
+   "2016#28": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ],
+   "2015#28": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ],
+   "2014B#27": [
+    "needs_source: 밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json": {
+   "M2706#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요",
+    "trap_label: 정답 trap 「최근접 명사 오인」은 what→which(선행사 유무·주어 빈자리)와 어긋남 — 라벨 교체"
+   ],
+   "2026#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+   ],
+   "2025#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+   ],
+   "M2509#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요",
+    "trap_label: 정답 trap 「최근접 명사 오인」은 whose→which(뒤 절 주어 결여)와 무관 — 라벨 교체",
+    "templated: 정답 trap 「최근접 명사 오인」이 M2706·M2509·M2209 에 내용과 무관하게 반복"
+   ],
+   "M2506#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+   ],
+   "2024#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요",
+    "trap_label: 정답 trap 「의미상 태·지시 대상」은 전치사 with 누락(with which)과 어긋남 — 라벨 교체"
+   ],
+   "M2406#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+   ],
+   "2023#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요",
+    "원장 other: 표제 문구는 지웠으나 같은 note 가 「보고에 기록」 등 작업 메모로 채워짐"
+   ],
+   "M2309#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+   ],
+   "M2209#29": [
+    "needs_source: how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요",
+    "trap_label: 정답 trap 「최근접 명사 오인」은 which→동격 that(완전절)과 무관 — 라벨 교체"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-INSERT-M2209-38.out.json": {
+   "M2209#38": [
+    "sentence_ref: ① why_tempting 「1번 문장 다음에…2번 문장」— 1번은 상자 문장이라 지문 순서처럼 오독됨. 「① 앞 2번 문장」으로"
+   ],
+   "M2209#39": [
+    "sentence_ref: ① why_tempting 「1번 다음 2번 문장」— 상자 문장 번호를 지문 순서처럼 씀. 「① 앞 2번 문장」으로"
+   ],
+   "M2106#38": [
+    "grammar: ① how_to_reject 끝 문장 「복잡성은…아니라 대립쌍이 깨진다」 비문 — 「복잡성은 정보량 문제가 아니라 대립쌍이 깨진다」로"
+   ],
+   "M2106#39": [
+    "trap_label: ④ trap 「어휘 반복 유인」이나 why_tempting 은 대조 배열 착각 — trap 을 「열거·병렬 절단」 등으로"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-INSERT-M2706-38.out.json": {
+   "2025#38": [
+    "clarity: ⑤ how_to_reject 끝 절 「Such a predicament 는 그대로 [1] 뒤에 붙어도」 의미 흐림 — 정리 필요"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json": {
+   "M2506#28": [
+    "choice_1: ① one-day→2일은 수치 교체인데 trap 「반대 진술」 — 수치/기간 변경 계열 라벨로"
+   ],
+   "2024#27": [
+    "needs_source: raw_block 없음에도 ③ note 가 「원본 시험지 배치로 확인」이라 단정 — 근거는 정답 키 정합으로 쓰고 작업 기록 삭제"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json": {
+   "2017#26": [
+    "duplicate_text: ① how_to_reject 끝 「맞는 진술이다.」가 두 번 반복 — 한 번으로"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-PURPOSE-M2706-18.out.json": {
+   "M2409#18": [
+    "원장 choice_5: ⑤ trap 이 여전히 '주체 역전'. 당부(규칙 준수)↔참여 요청 화행 바꿔치기 라벨로 바꿀 것"
+   ]
+  },
+  "chunk-redo-20261011T015944962Z-R-REFER-M1809-30.out.json": {
+   "M1809#30": [
+    "needs_source: ①=her mother 전체, ④=her 한 낱말이라는 밑줄 범위를 ①④ how_to_reject 가 확정처럼 씀(스스로 미확정이라 기록). 원지 확인 전 단정 빼거나 원지로 확정"
+   ]
+  }
+ }
+}

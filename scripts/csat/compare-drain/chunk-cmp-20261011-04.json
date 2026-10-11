@@ -1,0 +1,480 @@
+{
+ "chunk": "cmp-20261011-04",
+ "pairs": [
+  {
+   "pair_id": "M2606#18:3|M2609#18:3",
+   "type": "R-PURPOSE",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#18",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "둘째 문장의 collection of pictures, tools, and historical documents 가 전시품 이야기라 기부 요청으로 이어 붙이기 쉽다.",
+    "how_to_reject": "그 문장은 전시가 인상 깊었던 이유를 적은 것이고, donate·contribution 에 해당하는 어구가 지문에 없다. 요구가 나오는 자리는 넷째와 여섯째 문장뿐이다."
+   },
+   "b": {
+    "id": "M2609#18",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "AI summer program 이라는 명사가 다섯 선지에 모두 들어 있어 프로그램 소개로 읽으면 홍보가 자연스러워 보인다.",
+    "how_to_reject": "첫 줄 수신자가 AI summer program participants 로 이미 등록을 마친 사람들이고, 셋째 문장은 예상보다 많이 등록됐다고 적는다. 등록을 권하는 표현(sign up·register now)이 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "M2509#19:2|M2606#19:3",
+   "type": "R-MOOD",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2606#19",
+    "n": 3,
+    "trap": "어휘 함정",
+    "why_tempting": "6문장의 ‘became tense’ 를 사람이 긴장한 것으로 읽으면 뒤 심경이 anxious 가 되고, 1문장의 ‘best fishing spots’ 를 남들이 잘 잡는 자리로 읽으면 앞이 질투로 보인다.",
+    "how_to_reject": "tense 의 주어는 the fishing line(낚싯줄)이고, 바로 다음 7문장에서 Jessie 자신은 excitedly 로 서술된다. 또 지문에 다른 낚시꾼이 등장하지 않아 질투의 대상이 없다."
+   },
+   "b": {
+    "id": "M2509#19",
+    "n": 2,
+    "trap": "어휘 함정",
+    "why_tempting": "7~8문장의 ‘felt at ease’·‘time to relax’ 를 감정이 식은 무심함으로 읽으면 뒤가 indifferent 가 된다.",
+    "how_to_reject": "8문장이 ‘With an unexpected hour to spare’ 로 편안함의 이유를 대고 있어 무관심이 아니다. 앞도 2문장 ‘intense rush’ 라 pleased 가 아니다."
+   }
+  },
+  {
+   "pair_id": "M2506#19:2|M2606#19:3",
+   "type": "R-MOOD",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2606#19",
+    "n": 3,
+    "trap": "어휘 함정",
+    "why_tempting": "6문장의 ‘became tense’ 를 사람이 긴장한 것으로 읽으면 뒤 심경이 anxious 가 되고, 1문장의 ‘best fishing spots’ 를 남들이 잘 잡는 자리로 읽으면 앞이 질투로 보인다.",
+    "how_to_reject": "tense 의 주어는 the fishing line(낚싯줄)이고, 바로 다음 7문장에서 Jessie 자신은 excitedly 로 서술된다. 또 지문에 다른 낚시꾼이 등장하지 않아 질투의 대상이 없다."
+   },
+   "b": {
+    "id": "M2506#19",
+    "n": 2,
+    "trap": "어휘 함정",
+    "why_tempting": "마지막 대사의 ‘You are the best sister ever!’ 를 누나의 능력에 대한 부러움으로 읽으면 뒤가 envious 가 되고, 과제를 못 시작한 앞 상황은 실망으로 읽힌다.",
+    "how_to_reject": "같은 대사 안에 ‘Thank you’ 가 함께 있어 감탄의 대상이 아니라 감사의 인사다. 부러움을 나타내는 서술(자신과 누나를 견주는 문장)은 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "M2606#20:1|M2706#20:5",
+   "type": "R-CLAIM",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#20",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "3번째 문장의 예시가 '중요한 발표 중 컴퓨터가 멈추는' 상황이라 발표·긴장·실수라는 연상이 이어지고, '연습을 많이 해야 한다'가 흔한 처방이라 거부감이 없다.",
+    "how_to_reject": "그 문장은 걱정의 예시일 뿐이고, 지문에 practice·rehearse 에 해당하는 말이 없다. 마지막 문장의 처방 동사는 stop worrying 이지 준비하기가 아니다."
+   },
+   "b": {
+    "id": "M2706#20",
+    "n": 5,
+    "trap": "무관",
+    "why_tempting": "physical performance·physical development 가 반복되어 '신체 능력'이 지문 소재어로 보이고, 지도자가 무언가를 제공해야 한다는 형식이 정답 선지와 같다.",
+    "how_to_reject": "지문은 활동의 '종류를 다양화하라'고 하지 않는다. 4번째 문장에서 활동 목록(규칙적 운동·준비운동·특정 전략)은 이미 주어져 있고, 6번째 문장이 요구하는 것은 그 활동들에 대한 인식이다. 개인차·수준별에 해당하는 표현이 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "M2606#20:1|M2609#20:4",
+   "type": "R-CLAIM",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#20",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "3번째 문장의 예시가 '중요한 발표 중 컴퓨터가 멈추는' 상황이라 발표·긴장·실수라는 연상이 이어지고, '연습을 많이 해야 한다'가 흔한 처방이라 거부감이 없다.",
+    "how_to_reject": "그 문장은 걱정의 예시일 뿐이고, 지문에 practice·rehearse 에 해당하는 말이 없다. 마지막 문장의 처방 동사는 stop worrying 이지 준비하기가 아니다."
+   },
+   "b": {
+    "id": "M2609#20",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "businesses·employees 가 반복돼 기업-직원 관계를 다루는 선지가 모두 그럴듯해 보이고, '보상'이 '처벌'의 짝으로 떠오른다.",
+    "how_to_reject": "보상(reward)·이탈(turnover)·근무 성과(performance)에 해당하는 말이 지문에 한 번도 없다. 6번째 문장이 원하는 결과는 better employees 이지 우수 직원의 잔류가 아니다."
+   }
+  },
+  {
+   "pair_id": "M2606#21:1|M2609#21:4",
+   "type": "R-IMPLY",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#21",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "4~7문장이 '나' 와 '파트너' 를 대조하므로 사람마다 다르다는 결론으로 미끄러지기 쉽다.",
+    "how_to_reject": "1~2문장이 말하는 것은 외부 요인의 random and misleading 함이지 개인차가 아니다. self-growth 나 그 지각의 개인차에 해당하는 서술이 1~11문장에 없다."
+   },
+   "b": {
+    "id": "M2609#21",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "restored 가 '돌아온다' 와 겹치고 various octaves 가 4~5문장의 옥타브 논의와 이어져 보인다.",
+    "how_to_reject": "1~8문장 어디에도 감수성(sensitivity)의 손상이나 회복, 적응(adapting)에 해당하는 서술이 없다. 8문장이 말하는 것은 지각적 감각(perceptual sense) 자체이지 그 감각의 회복이 아니다."
+   }
+  },
+  {
+   "pair_id": "M2509#21:4|M2606#21:4",
+   "type": "R-IMPLY",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2606#21",
+    "n": 4,
+    "trap": "부분 사실",
+    "why_tempting": "performance · comparison · partner 세 낱말이 모두 지문에 있어 다섯 선지 중 지문과 가장 많이 겹친다(4~7문장이 통째로 이 소재다).",
+    "how_to_reject": "3문장은 Comparison is one source of illusion 으로 비교를 '착각의 원천' 이라 부르지 의욕 저하와 연결하지 않는다. demotivating 에 해당하는 서술이 없고, 비교는 8~9문장의 환경 요인과 나란한 사례 하나일 뿐이다."
+   },
+   "b": {
+    "id": "M2509#21",
+    "n": 4,
+    "trap": "부분 사실",
+    "why_tempting": "4문장의 sought out a local Western host 와 낱말이 넷이나 겹쳐 다섯 선지 중 지문과 가장 많이 겹친다.",
+    "how_to_reject": "4문장에서 host 는 found accommodations through them 으로 숙소를 얻는 통로일 뿐이다. 5문장이 부정하는 것은 host 와의 협력이 아니라 local people 과 보낸 시간이고, 밑줄은 5문장을 Thus 로 받는다."
+   }
+  },
+  {
+   "pair_id": "M2509#22:1|M2606#22:2",
+   "type": "R-GIST",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2606#22",
+    "n": 2,
+    "trap": "어휘 함정",
+    "why_tempting": "두 번째 문장에 whose probability in a certain situation can be easily measured 가, 예시에 throwing three heads in a row 가 있어 확률이 지문의 중심 낱말처럼 보인다.",
+    "how_to_reject": "probability 는 information(the former)을 설명하는 수식절에만 붙어 있고, 예시의 결말은 확률 계산이 아니라 we tend to interpret the outcome 이다. 미래 예측(predict, forecast)에 해당하는 낱말이 지문에 없다."
+   },
+   "b": {
+    "id": "M2509#22",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "첫 문장에 capable of making choices and plans 가, 두 번째 문장 첫머리에 Moral responsibility 가 그대로 있어 '선택'과 '책임'이 둘 다 지문 낱말이다.",
+    "how_to_reject": "두 번째 문장은 Moral responsibility is not some universal concept — 도덕적 책임이 무엇인지 정의하는 문장이 아니라 그것이 보편 개념이 아님을 부정하는 문장이다. 선지는 부정문의 소재만 떼어다 정의문으로 바꿔 놓았다."
+   }
+  },
+  {
+   "pair_id": "M2506#22:2|M2606#22:4",
+   "type": "R-GIST",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#22",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "예시에서 undetectable cheating 이 나와 진위 판별을 다룬 글처럼 보이고, '출처 확인'은 정보 관련 선지로 무난하게 들린다.",
+    "how_to_reject": "cheating 은 we tend to interpret the outcome either as the work of Fortune, or else as ... cheating 에서 사람들이 내리는 두 해석 중 하나로 제시된 것이다. source·verify·check 에 해당하는 낱말이 지문에 없다."
+   },
+   "b": {
+    "id": "M2506#22",
+    "n": 2,
+    "trap": "무관",
+    "why_tempting": "지문에 property·goods and food·shared 같은 자원 낱말이 몰려 있어 자원 배분을 다룬 글로 읽히고, 언어가 그 수단이라는 진술이 자연스럽게 들린다.",
+    "how_to_reject": "그 낱말들이 걸린 술어는 promoted the notion that ... should be held in common — 어떻게 나눌지가 아니라 나눠야 한다는 관념이다. efficient·efficiency 계열 낱말이 지문에 한 번도 없다."
+   }
+  },
+  {
+   "pair_id": "M2509#23:3|M2606#23:5",
+   "type": "R-TOPIC",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#23",
+    "n": 5,
+    "trap": "무관",
+    "why_tempting": "4번째 문장 Writing is an invaluable tool 때문에 글쓰기가 소재로 보인다",
+    "how_to_reject": "그 문장의 writing 은 앞 문장의 discover and express your opinions 를 이루는 수단으로 한 번 쓰였고, 이어지는 5번째 문장부터는 pens and pencils, note taking 으로 옮겨 간다. brainstorming 이나 writing tasks 는 지문에 없다"
+   },
+   "b": {
+    "id": "M2509#23",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "scientific 과 perceptions 가 과학적 설명과 놀람(surprised · frightened)의 인상과 겹친다.",
+    "how_to_reject": "과학적 해석이 현실 인식을 바꾼다는 진술은 어느 문장에도 없다. 4번째 문장의 주장은 인식 변화가 아니라 설명의 순서(평범 → 특이)다."
+   }
+  },
+  {
+   "pair_id": "M2506#23:1|M2606#23:2",
+   "type": "R-TOPIC",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2606#23",
+    "n": 2,
+    "trap": "어휘 함정",
+    "why_tempting": "마지막 문장 it can prepare you to speak 의 speak 를 public speaking 으로 옮겨 읽으면 필기와 말하기의 연결이 만들어진다",
+    "how_to_reject": "그 speak 는 토론에서 자기 의견을 말하는 것으로, 8번째 문장의 formulate what you want to say 와 같은 자리다. 청중 앞 발표를 다루는 문장은 없고, 기술 향상 방법을 제시하는 문장도 없다"
+   },
+   "b": {
+    "id": "M2506#23",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "3번째 문장의 the decline of the referentials 에서 decline 을 그대로 가져왔고 natural foods 도 지문 소재라 요약처럼 보인다",
+    "how_to_reject": "3번째 문장에서 쇠퇴하는 것은 referentials, 곧 낱말과 의미의 연결이다. 광고가 믿을 만한가를 판정하는 문장은 없고, 마지막 문장의 pretense 도 광고의 신뢰도가 아니라 욕구 충족 방식을 가리킨다"
+   }
+  },
+  {
+   "pair_id": "M2509#24:2|M2606#24:1",
+   "type": "R-TITLE",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2606#24",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "지문의 a finer and finer atmosphere 가 fine dining 을 연상시키고, Changing 이 this began to change 와 낱말로 겹친다.",
+    "how_to_reject": "지문은 18세기 후반에 처음 생겨난 변화를 말한다 — Return(되돌아옴)이 성립하려면 그전에 고급 식문화가 있었다는 서술이 있어야 하는데, 그 앞 구간은 production, preservation, distribution, pricing 뿐이다."
+   },
+   "b": {
+    "id": "M2509#24",
+    "n": 2,
+    "trap": "어휘 함정",
+    "why_tempting": "1940년대 양식으로 되돌아왔다는 서술이 '레트로'라는 말로 자연스럽게 옮겨진다.",
+    "how_to_reject": "7번 문장 Comparing the offices of the 1940s with contemporary office spaces shows that they have circled back around 은 일어난 일을 관찰한 서술이다. 레트로 양식을 꾸미는 방법(How to)을 알려 주는 문장이 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "M2506#24:4|M2606#24:3",
+   "type": "R-TITLE",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#24",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "restaurants, dining choices, table service, socialization 이 연달아 나와 식당 고르기에 관한 글로 읽힌다.",
+    "how_to_reject": "독자에게 주는 조언 문장(명령문·2인칭)이 지문에 없고, 식당은 offering people dining choices and table service 처럼 '음식이 필수를 넘어선' 사례로만 등장한다."
+   },
+   "b": {
+    "id": "M2506#24",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "그림자를 그리는 일이 기술적으로 어렵다는 상식이 challenges 와 맞물려 그럴듯하게 들린다.",
+    "how_to_reject": "화가가 겪는 어려움을 말한 문장이 없다. 기술적 조건을 열거한 문장 a practice that implied a consistent light source, a fixed point of view, and an understanding of geometric projection 은 그리스·로마가 이룬 성취의 설명이다."
+   }
+  },
+  {
+   "pair_id": "M2606#28:1|M2706#28:3",
+   "type": "R-NOTICE",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2606#28",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "9시 시작은 맞고 종료 시각을 정오로 어림하면 3시간이 되어, 앞부분이 맞는 만큼 통과시키기 쉽다.",
+    "how_to_reject": "Date and Time 줄이 June 7, 9:00 a.m.—11:30 a.m. 로 종료가 11시 30분이다 — 2시간 30분이다."
+   },
+   "b": {
+    "id": "M2706#28",
+    "n": 3,
+    "trap": "부분 사실",
+    "why_tempting": "6 p.m. 은 Time 줄에 실제로 있는 숫자여서 영화 시작 시각으로 옮겨 붙이기 쉽다.",
+    "how_to_reject": "Attractions·Activities 칸에서 Movie 에 붙은 시각은 Deep into the Universe at 7 p.m. 이고, 6 p.m. 은 Time 줄의 행사 전체 시작 시각이다."
+   }
+  },
+  {
+   "pair_id": "M2509#28:4|M2606#28:1",
+   "type": "R-NOTICE",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2606#28",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "9시 시작은 맞고 종료 시각을 정오로 어림하면 3시간이 되어, 앞부분이 맞는 만큼 통과시키기 쉽다.",
+    "how_to_reject": "Date and Time 줄이 June 7, 9:00 a.m.—11:30 a.m. 로 종료가 11시 30분이다 — 2시간 30분이다."
+   },
+   "b": {
+    "id": "M2509#28",
+    "n": 4,
+    "trap": "부분 사실",
+    "why_tempting": "Prizes 표에 3 이라는 수가 실제로 있어 2등 인원으로 옮겨 붙이기 쉽다.",
+    "how_to_reject": "표에서 2nd prize 행의 인원은 2 이고, 3 은 3rd prize 행의 인원이다. 3,000 은 1등 상금이다."
+   }
+  },
+  {
+   "pair_id": "M2606#31:2|M2706#31:4",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M2606#31",
+    "n": 2,
+    "trap": "지문 밖 상식",
+    "why_tempting": "4번 문장의 물범 사냥 장면이 용감함을 연상시킨다.",
+    "how_to_reject": "4번 문장의 의문은 사냥의 위험이 아니라 먹지도 않을 사냥을 왜 반복하는가, 곧 목적이다. 5번 문장도 에너지 비용에 걸맞은 이유(reason)를 찾을 뿐 용기를 말하지 않는다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "복원 예시에 'an ecosystem'이 있어 자연 보전을 떠올리게 한다. 이 문항에서 가장 강한 함정",
+    "how_to_reject": "같은 예시 목록에 historical musical instrument · painting · dinosaur 가 함께 있다. 악기와 그림을 '자연 상태'로 되돌린다는 말은 성립하지 않는다"
+   }
+  },
+  {
+   "pair_id": "M2606#31:1|M2706#32:4",
+   "type": "R-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#31",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "tandem running 에서 몸을 맞대는(touch their bodies) 장면이 안심·편안함을 떠올리게 한다.",
+    "how_to_reject": "3번 문장에서 몸을 맞대는 행동의 목적은 presumably to assist the newcomer with route learning, 곧 길 학습을 돕는 것이다. 모델이 느끼는 편안함은 지문에 없다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
+    "how_to_reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다"
+   }
+  },
+  {
+   "pair_id": "M2606#32:3|M2706#31:4",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M2606#32",
+    "n": 3,
+    "trap": "지문 밖 상식",
+    "why_tempting": "7번 문장 one would expect 의 「기대」가 인물에게 앞으로 일어날 일을 예상한다는 뜻으로 읽힌다.",
+    "how_to_reject": "7번 문장의 expect 는 외모(the kind of appearance)에 걸린다. 지문은 처음부터 끝까지 외모 묘사를 다루며(1·2·4번 문장), 사건 전개를 미리 안다는 내용은 없다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "복원 예시에 'an ecosystem'이 있어 자연 보전을 떠올리게 한다. 이 문항에서 가장 강한 함정",
+    "how_to_reject": "같은 예시 목록에 historical musical instrument · painting · dinosaur 가 함께 있다. 악기와 그림을 '자연 상태'로 되돌린다는 말은 성립하지 않는다"
+   }
+  },
+  {
+   "pair_id": "M2606#32:3|M2706#32:1",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M2606#32",
+    "n": 3,
+    "trap": "지문 밖 상식",
+    "why_tempting": "7번 문장 one would expect 의 「기대」가 인물에게 앞으로 일어날 일을 예상한다는 뜻으로 읽힌다.",
+    "how_to_reject": "7번 문장의 expect 는 외모(the kind of appearance)에 걸린다. 지문은 처음부터 끝까지 외모 묘사를 다루며(1·2·4번 문장), 사건 전개를 미리 안다는 내용은 없다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "회의에서 듣는 척하기가 흔한 경험이라 자연스럽게 읽힌다",
+    "how_to_reject": "인용문 어디에도 ‘주의를 기울이는 척’에 해당하는 말이 없다. 인용문은 ‘betrayal oozes out of him at every pore’ 처럼 새어 나감만 말하고, 듣는 척하는 태도는 지문의 축이 아니다"
+   }
+  },
+  {
+   "pair_id": "M2606#33:1|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2606#33",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "we start to miss cues and signals 의 놓침이 산만함 때문인 것처럼 들린다.",
+    "how_to_reject": "4번 문장은 좁히기가 distractions 를 잘라낸다고 했고, 7번 문장은 we get locked in on one path 라고 한다. 신호를 놓치는 원인은 너무 많은 자극이 아니라 한 곳에 갇힌 것이라 선지와 방향이 반대다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "M2606#33:1|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2606#33",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "we start to miss cues and signals 의 놓침이 산만함 때문인 것처럼 들린다.",
+    "how_to_reject": "4번 문장은 좁히기가 distractions 를 잘라낸다고 했고, 7번 문장은 we get locked in on one path 라고 한다. 신호를 놓치는 원인은 너무 많은 자극이 아니라 한 곳에 갇힌 것이라 선지와 방향이 반대다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "M2606#34:3|M2706#31:4",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M2606#34",
+    "n": 3,
+    "trap": "지문 밖 상식",
+    "why_tempting": "지리학 하면 자원·환경이라는 통념이 있고, 6문장의 'business or policy judgments' 가 자원 정책을 연상시킨다",
+    "how_to_reject": "1~3문장이 지리의 질문을 where · why there · so what 으로 못박았다. when 은 그 목록에 없다. 5문장과의 병렬도 공간(spatial)이지 시간이 아니다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "복원 예시에 'an ecosystem'이 있어 자연 보전을 떠올리게 한다. 이 문항에서 가장 강한 함정",
+    "how_to_reject": "같은 예시 목록에 historical musical instrument · painting · dinosaur 가 함께 있다. 악기와 그림을 '자연 상태'로 되돌린다는 말은 성립하지 않는다"
+   }
+  },
+  {
+   "pair_id": "M2606#34:1|M2706#32:4",
+   "type": "R-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "M2606#34",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "8문장에 discrimination(차별)이 있어 사회 갈등이 화제인 듯 보이고, '문화 간 갈등' 은 지리 교과의 단골 소재로 여겨진다",
+    "how_to_reject": "8문장의 차별은 'the spatial consequences of discrimination', 곧 차별의 공간적 결과로만 등장한다. 갈등이 늘어난다는 예측은 지문에 없고, 6문장이 요구하는 것은 예측이 아니라 인식의 대상이다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
+    "how_to_reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다"
+   }
+  },
+  {
+   "pair_id": "M2509#35:1|M2606#35:1",
+   "type": "R-IRRELEVANT",
+   "trap": "총론-각론 역전",
+   "a": {
+    "id": "M2606#35",
+    "n": 1,
+    "trap": "총론-각론 역전",
+    "why_tempting": "①이 문장 1·2의 「진짜 빙하는 영구적이어야 한다」는 정의에서 갑자기 온난화 문제로 넘어가, 화제가 바뀐 문장처럼 보인다.",
+    "how_to_reject": "문장 2의 to offset melting during the summer 와 glaciers may expand or contract 가 녹음과 축소를 이미 끌어들였고, ①의 most glaciers ... are melting 은 그 상쇄가 깨진 현재 상황이다. 이후 문장 4~7이 모두 ①의 추세를 뒷받침한다."
+   },
+   "b": {
+    "id": "M2509#35",
+    "n": 1,
+    "trap": "총론-각론 역전",
+    "why_tempting": "①이 because 절로 「전업이라서」라는 이유를 대며 연결망 이야기를 새로 꺼내, 문장 2의 「빈칸을 채울 물건을 찾는다」에서 화제가 넘어간 것처럼 보인다.",
+    "how_to_reject": "①의 a much wider network 는 문장 2의 actively seek specific items 가 어떻게 가능한지 수단을 댄다. 이후 문장 4·5·7이 모두 그 연결망의 구체적 작동이다."
+   }
+  },
+  {
+   "pair_id": "M2506#35:1|M2606#35:2",
+   "type": "R-IRRELEVANT",
+   "trap": "지시어 선행사 절단",
+   "a": {
+    "id": "M2606#35",
+    "n": 2,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "②가 Alps·sketches·photographs 같은 역사 기록 이야기를 해, 빙하 과학에서 벗어난 문화사 서술처럼 보인다.",
+    "how_to_reject": "②의 This 는 문장 3(①)의 「빙하가 녹고 그 속도가 빨라지는 것」을 받고, compare with the present extent of ice 는 그 감소를 확인하는 방법이다. 증거 사슬의 첫 고리다."
+   },
+   "b": {
+    "id": "M2506#35",
+    "n": 1,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "'The young bird’s initial efforts to reproduce the memorized song are usually not successful' 의 memorized song 이 앞 문단의 어느 단계인지 놓치면 갑자기 실패 이야기가 시작된 것처럼 보인다.",
+    "how_to_reject": "도입이 '먼저 기억, 다음 연습' 두 단계를 세워 두었고 ①은 그중 연습 단계의 시작이다. memorized 가 첫 단계를 되받는 표지다."
+   }
+  }
+ ]
+}

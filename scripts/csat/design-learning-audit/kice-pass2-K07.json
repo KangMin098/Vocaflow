@@ -1,0 +1,12 @@
+{"pass":2,"k":7,"items":[
+{"id":"2019#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2019#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2019#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2019#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"배제 설명이 'Likewise 짝이 뒤로 간다'로 흐림 — (C)-(A)에서 Likewise가 받을 조건절 짝이 없다는 점을 직접 밝혀야 함"}]},
+{"id":"2019#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"원천 choices가 위치 번호가 아니라 자리 뒤 문장 텍스트이고 5번에 각주·쪽번호가 섞임(분석 자체는 정상)"}]},
+{"id":"2019#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"원천 choices가 자리 뒤 문장 텍스트이고 5번에 [3점]·각주가 섞임(분석 자체는 정상)"}]},
+{"id":"2019#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"temporal advantage·current consumption 출처를 '마지막 문장'이라 함 — 실제는 Thus 문장(4번), 마지막은 요약문이라 위치 안내가 틀림"},{"code":"choice_2","note":"(B) expensive 배제 근거를 '마지막 문장'의 cost로 지목 — 같은 위치 오기(4번 문장)"}]},
+{"id":"2020#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"정답 confirmed_at.note에 '저장 지문에는 빈칸 표시가 사라져' 작업 메모가 학습자 필드에 남음(실제 지문엔 빈칸 표시 있음)"}]},
+{"id":"2020#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2020#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"1번 lure_quote가 빈칸 문장 자체라 유인 근거(high-tech goods 주어)를 보여 주지 못함"}]}
+]}

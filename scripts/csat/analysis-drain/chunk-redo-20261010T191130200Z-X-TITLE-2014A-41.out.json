@@ -1,0 +1,188 @@
+{
+ "chunk": 7,
+ "type_id": "X-TITLE",
+ "type_name": "장문 제목",
+ "analyses": [
+  {
+   "item_id": "2014A#41",
+   "measured_ability": "야구장 조건이라는 사례가 'In business and life, just as in baseball' 에서 독자의 일로 확장되고 마지막에 명령문으로 맺히는 구조를 알아보고, 사례의 소재(구장·팀·통계)가 아니라 확장된 뒤의 명령(인식된 거리를 바꿔라)을 제목으로 옮기는 능력",
+   "design_intent": "1~6번 문장을 구장 조건·이적·28퍼센트·60퍼센트라는 야구 사실로 채우고, 논점(7번 'The answer lies in how achievable you think the goal is')을 'Why?' 뒤에 둔다. 10번 문장 'our ___ can affect' 는 같은 지문의 42번 빈칸 자리라 41번 제목 판단은 그 낱말 없이 7·11·13·14번 문장만으로 서도록 설계되어 있다. 앞부분 야구 어휘로 제목을 만들면 야구 소재 선지가 모두 후보로 남고, 정답 제목은 마지막 명령문의 비유(fences)를 독자 2인칭으로 옮긴 형태라 사례를 사례로 접고 비유를 비유로 읽는지를 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     13,
+     14
+    ],
+    "quote": "Do the fences seem too far away to hit a home run? Simply adjust the fences so that it seems easier.",
+    "reasoning": "13·14번 문장은 바로 앞 12번 'Consider your work and your current life.' 가 무대를 야구에서 독자의 일로 옮긴 뒤 물음+명령으로 맺는다. 이 명령이 실제 담장이 아니라 인식상의 거리를 바꾸라는 뜻임은 7번 'The answer lies in how achievable you think the goal is' 와 11번 'what matters is not the actual distance to the fence but what our brains recognize that distance to be' 가 정해 준다 — 둘 다 원인을 구장이 아니라 인식에 둔다. 따라서 제목은 구장·팀·통계가 아니라 '스스로 느끼는 목표 거리를 줄여라'를 말해야 한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "①의 'Fences' 는 14번 'Simply adjust the fences' 의 목적어를 그대로 가져왔고, 'Move … Closer' 는 'adjust … so that it seems easier'(쉬워 보이도록 조정) 를 '가깝게'라는 방향으로 환언한 것이다. 'Your' 는 12번 'Consider your work' 의 2인칭에서 온다. 옮길 대상이 물리적 담장이 아니라 인식된 거리라는 점은 11번 'not the actual distance … but what our brains recognize' 가 받쳐 준다.",
+     "confirmed_at": {
+      "sentence_index": [
+       11,
+       12,
+       13,
+       14
+      ],
+      "note": "10번 문장은 42번 빈칸 자리(원문 'our' 뒤 낱말이 비어 있음)라 근거로 쓰지 않았다. 원문 낱말 미확인 — 추측해 채우지 않음."
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "넷째 문장에 'moved to a team' 이 있고 야구가 단체 경기라 협업 이야기로 읽힌다.",
+     "how_to_reject": "team 은 4번 문장에서 선수가 옮겨 가는 곳으로 한 번 나올 뿐이고, 동료·협력을 말하는 문장이 없다. 8·9번 문장의 주어는 you 와 your brain 이고 12~14번은 독자 개인에게 명령한다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "다섯째 문장 'One analysis found that the player hit 60 percent more home runs' 와 넷째 문장의 28 percent 가 수치를 주어 통계 이야기로 보인다.",
+     "how_to_reject": "5번 문장의 분석 결과는 6번 'Why?' 로 설명 대상이 되고, 7번이 그 답을 통계가 아니라 'how achievable you think the goal is' 로 준다. 통계가 필요한지 묻거나 답하는 문장은 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "4·5번 문장이 '조건 좋은 구장의 팀으로 옮긴 선수가 홈런을 60퍼센트 더 쳤다'를 주므로 'Change Your Team' 이라는 처방이 결론처럼 보인다.",
+     "how_to_reject": "11번 문장이 원인을 'not the actual distance to the fence but what our brains recognize' 로 바로잡는다 — 팀 이동 자체가 아니라 그로 인해 달라진 인식이 원인이다. 14번의 처방도 팀을 바꾸라가 아니라 담장(인식)을 조정하라이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "2·3번 문장이 크기(size)와 바람(wind)·습도를 나란히 놓아 비교가 글의 뼈대처럼 보이고, 선지가 지문 낱말(park conditions, size, wind)로만 이루어져 있다.",
+     "how_to_reject": "2·3번 문장은 '구장 조건이 다르다'는 전제만 세우고 4번 물음으로 넘어간다. 크기와 바람 중 무엇이 더 중요한지 견주는 문장은 없고, 12번부터 대상이 your work and your current life 로 바뀌어 구장 조건은 글 전체의 일부만 덮는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯의 목적어만 적는다(fences / teamwork / statistics / team / park conditions). 명령문 선지(①④)는 지문에 같은 동작의 명령문이 있는지, 물음 선지(②③)는 지문이 그 물음을 다루는지 확인할 항목으로 정한다",
+     "on_fail": "형태로 안 갈리면 목적어 다섯 개를 지문에서 몇 번째 문장에 나오는지만 표시한다"
+    },
+    {
+     "step": "지문 끝 세 문장(12~14번)을 먼저 읽고 명령문의 동사·목적어를 옮겨 적는다 — 이 지문에서는 adjust the fences",
+     "on_fail": "끝이 명령문이 아니면 'In business and life, just as in baseball' 처럼 무대를 옮기는 구절을 찾아 그 뒤 문장의 주어·술어를 적는다"
+    },
+    {
+     "step": "무대를 옮기는 구절(10번 'In business and life, just as in baseball')을 경계로 앞쪽은 야구 사례, 뒤쪽은 독자에게 적용으로 나눈다. 1단계에서 표시한 목적어가 앞쪽 사례에만 있고 뒤쪽 적용에 다시 나오지 않으면 그 선지는 제목 후보에서 내린다. 10번 문장의 'our' 뒤 낱말이 비어 있으면(42번 빈칸) 그 문장은 판단에 쓰지 않는다",
+     "on_fail": "경계가 안 보이면 주어가 the player 에서 you/your 로 바뀌는 자리를 경계로 삼는다"
+    },
+    {
+     "step": "남은 선지를 11번의 'not A but B' 와 맞댄다. B(what our brains recognize) 쪽을 원인으로 삼은 선지를 남기고, A(actual distance, 즉 구장·팀 같은 실제 조건)를 원인으로 삼은 선지를 지운다",
+     "on_fail": "not A but B 를 못 찾으면 7번 'The answer lies in ~' 처럼 답을 명시하는 문장의 원인 명사(how achievable you think)를 기준으로 쓴다"
+    }
+   ],
+   "time_budget_sec": 105,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "정답이 마지막 명령문을 환언한 제목이라 근거가 끝에 모여 있다",
+     "1~6번이 전부 야구 사실이라 앞에서 멈추면 야구 소재 선지가 모두 후보로 남는다",
+     "fences 가 비유임을 알아채야 하는데 지문이 끝까지 야구 낱말을 쓴다",
+     "10번 문장이 42번 빈칸 자리라 그 문장 하나로는 논점을 확정할 수 없다"
+    ]
+   },
+   "required_vocab": [
+    "achievable",
+    "recognize",
+    "adjust",
+    "actual",
+    "analysis"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "1차 revise: 원장 결함 source_broken — 10번 'our can affect' 의 빠진 낱말은 같은 지문 42번 빈칸 자리다. 낱말을 추측하지 않고, 근거·확정 위치·절차 어디에서도 10번 문장 내용에 기대지 않도록 고쳤다(design_intent·confirmed_at.note·3단계에 명시)",
+      "1차 revise: sentence_index [7,14] 는 인용(13·14번 문장)과 어긋났다 → [13,14] 로 고침. reasoning·why_correct·how_to_reject 의 번호 호칭을 같은 1-base 문장 번호로 통일",
+      "why_correct 가 reasoning 을 되풀이하지 않고 낱말 대응(Fences·Move Closer·Your)만 적는지 재확인"
+     ],
+     "checked": [
+      "quote 를 지문에서 문자열 대조(13·14번)",
+      "문장 14개를 직접 세어 7·11·12·13·14번 번호 확인",
+      "10번 문장을 쓰는 서술이 남았는지 전 필드 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "1차 revise: ⑤ how_to_reject 가 라벨 '범위 과소'를 설명하지 않았다 → 구장 조건이 글 전체 중 일부만 덮는다는 점을 추가",
+      "②③④⑤ 유인 단서가 각각 team(4번)·60 percent(5번)·moved to a team(4·5번)·size/wind(2·3번)로 서로 다르고 배제 위치도 다르다"
+     ],
+     "checked": [
+      "정답 ①이 정답표 answer=1 과 일치",
+      "선지 낱말의 지문 위치 개별 대조",
+      "선지별 배제 근거 문장 번호 존재 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "1차 revise: 3단계가 '②③④⑤가 여기서 걸린다'로 정답을 미리 알려 주었다 → 목적어가 적용부에 다시 나오는지라는 판정 기준으로 바꿈",
+      "on_fail 네 개가 서로 다른 대체 행동인지 확인"
+     ],
+     "checked": [
+      "정답 모르는 상태로 절차 실행 — 3단계 뒤 ①④가 남고 4단계에서 ④가 빠진다",
+      "금지 표현 검사",
+      "required_vocab 다섯 낱말이 지문에 있는지 대조",
+      "105초 안 실행 가능성"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "X-TITLE",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "무관",
+    "count": 1,
+    "signature": "사례 속 한 번 나온 낱말(team)을 화제로 키운다"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 1,
+    "signature": "사례의 수치를 글의 화제로 착각"
+   },
+   {
+    "trap": "인과 역전",
+    "count": 1,
+    "signature": "사례의 외적 조건을 원인으로 삼아 처방을 만든다"
+   },
+   {
+    "trap": "범위 과소",
+    "count": 1,
+    "signature": "전제 문장의 비교 소재만으로 제목을 만든다"
+   }
+  ],
+  "answer_locus_pattern": "1문항: 근거가 끝 명령문(13·14번)에 있고 7·11번 원인 진술이 비유의 뜻을 정한다",
+  "procedure": [
+   "선지 목적어 적기",
+   "끝 문장 명령·적용 확인",
+   "사례/적용 경계로 나누어 사례에만 있는 소재 선지 내리기",
+   "not A but B 원인 진술과 맞대기"
+  ],
+  "failure_modes": [
+   "사례 부분의 소재 낱말로 제목을 고른다",
+   "장문 세트의 빈칸 문장을 41번 근거로 쓰려다 막힌다"
+  ],
+  "time_budget_sec": 105,
+  "open_questions": [
+   "표본 1문항이라 유형 일반화 불가 — 각 함정은 한 번만 셌다",
+   "10번 문장의 빈 낱말(42번 빈칸 원어)은 원문 대조 전까지 미확인으로 둔다"
+  ]
+ }
+}

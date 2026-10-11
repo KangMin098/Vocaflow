@@ -1,0 +1,355 @@
+{
+ "group": 8,
+ "items": [
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "2024#39",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "M2406#38",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    },
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "design_intent·reasoning 에서 raw_block·코퍼스 제거됨. 결손 메모는 confirmed_at.note 에만"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "M2406#39",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "measured_ability·design_intent 의 「본문 없음」 삭제, 본문 근거로 일관"
+    },
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "raw_block·코퍼스 용어 학습자 칸에서 제거"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "2023#39",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "M2309#38",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "M2309#39",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "M2306#38",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "M2306#39",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "2022#38",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "작업 메모는 confirmed_at.note 에만(학습자 칸 아님). why_correct 인용 정상"
+    },
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-INSERT-2024-39.out.json",
+   "id": "2022#39",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "reasoning 끝 「2단 병합」 메모 삭제"
+    },
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB stem/choices 는 여전히 깨짐 — 분석으로 해소 불가(데이터 층). 분석은 문장 목록만 근거로 써 의존 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "M2706#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "③ why_tempting 에서 OCR 잔여 언급 삭제"
+    },
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "For the same reasons 축자 인용"
+    },
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "same reasons 가 문장 4(높이·반응)·5를 함께 받는다고 정정, ⑤와 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "2026#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "self-care 부재 근거 삭제, 비교 대상·기준 전환으로 설명"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "answer_locus.quote 가 정답 문장 6 인용"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "M2609#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "passage_design 키 삭제됨"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "quote 가 정답 ④(문장 6)"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "M2606#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "시간 표지 근거 삭제, 술어가 감소를 말하는지로 판별. body_recovered 인용 지문과 대조 일치"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "추세→증거→전망 사슬의 술어 전환으로 한정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "M2509#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "quote 정답 ④, 받음→되돌림(In turn) 관계로 설명"
+    },
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "a dealer 관사 근거 삭제"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "M2409#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "④ factors 를 장벽을 줄이는 반대 요인으로 정정"
+    },
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "must 판별 규칙 삭제, 술어 기준"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "2023#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "① why_tempting OCR 언급 삭제"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "2021#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "⑤ why_tempting 코퍼스·파싱 문구 삭제"
+    },
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "⑤ 선지 각주 혼입은 DB 그대로(데이터 층). 분석은 confirmed_at.note 에만 기록 — 분석 결함 아님"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "M2109#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "quote 정답 ③(문장 6)"
+    },
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "「겹침 최다=답」을 이 문항 미끼로 한정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-IRRELEVANT-M2706-35.out.json",
+   "id": "2018#35",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "파싱 잔여 언급 삭제, ② 유인은 offline world"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  }
+ ]
+}

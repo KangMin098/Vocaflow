@@ -1,0 +1,12 @@
+{"pass":3,"k":10,"items":[
+{"id":"2019#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 참 선지 ①③④⑤에 trap 라벨(어휘 함정·주체 역전 등)을 붙여 함정으로 서술"},{"code":"choice_3","note":"why_tempting 이 지문에 없는 '할머니의 인식' 오독을 지어냄 — 실제 변경 성분 없음"},{"code":"other","note":"정답 ②의 confirmed_at.note 가 확인 위치가 아니라 오답 유인 설명을 담음"}]},
+{"id":"2020#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_5","note":"trap '주체 역전' 라벨이 실제 오류(무관한 공지 화행)와 맞지 않음 — 경미"}]},
+{"id":"2020#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"trap '인과 역전' 은 실제로 시점(순서) 뒤바뀜 — 라벨 경미 불일치"}]},
+{"id":"2020#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2020#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2020#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"confirmed_at 은 첫 문장이 유보라 주장 아님, passage_design 은 첫 문장을 요지(topic)로 — 상호 모순"},{"code":"answer_reasoning","note":"it might seem surprising 은 사실을 전제한 표현이고 But 문장이 이를 뒤집지 않음 — 구조 설명 오류"}]},
+{"id":"2020#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"design_intent 가 nature versus nurture 3회 등장이라 하나 versus 형은 1회뿐 — 사실 오류"},{"code":"choice_2","note":"why_tempting 의 'nature versus nurture 두 번 나온다' 도 지문과 불일치"}]},
+{"id":"2020#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_5","note":"trap '인과 역전' 이나 설명은 방향 반대 — 라벨 경미 불일치"}]},
+{"id":"2020#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 참 선지 ①~④에 trap 라벨·lure_quote 를 달아 함정으로 서술"},{"code":"choice_2","note":"why_tempting 의 terms=기간·조건 오독은 지어낸 유인 — 참 근거 설명이면 충분"},{"code":"other","note":"design_intent 가 older members 만 세는 관습을 '긍정적 관습'으로 단정 — 지문 근거 없음"}]},
+{"id":"2020#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 참 선지 ①②④⑤에 trap 라벨(범위 과소·지문 밖 상식 등)을 붙임"},{"code":"choice_1","note":"why_tempting 의 brand-new=유명한/기존 오독은 지어낸 유인"}]}
+]}

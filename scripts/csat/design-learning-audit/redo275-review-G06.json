@@ -1,0 +1,482 @@
+{
+ "group": 6,
+ "items": [
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-MOOD-M2409-19.out.json",
+   "id": "M2409#19",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "모든 칸이 sentences 1~14 번호로 통일, 4·5/11·13/6 번호 칸 사이 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-MOOD-M2409-19.out.json",
+   "id": "M2406#19",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_N",
+     "resolved": true,
+     "note": "felt at ease 를 전 칸 9번으로 통일, 범위 안 번호"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-MOOD-M2409-19.out.json",
+   "id": "2021#19",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "떨림(3)→안정된 손(13) 짝으로 교정, 심장박동은 보조"
+    },
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "라벨을 반대 진술로 바꾸고 설명은 감정 순서 역배열로 정합"
+    },
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "envious 배제를 2~4번 문장 앞 칸 증거로 교체"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-MOOD-M2409-19.out.json",
+   "id": "M2109#19",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "relax=13, 악재=10·11 로 전 칸 일치 확인"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-MOOD-M2409-19.out.json",
+   "id": "2018#19",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "as we entered 를 7번으로 교정"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "라벨을 어휘 함정(cool shade 오독)으로 교체, why_tempting 과 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2016-27.out.json",
+   "id": "2016#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "design_intent 가 참 선지를 참 진술로 서술, trap 제거"
+    },
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "② why_tempting 삭제, 2번 문장 대응으로 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2016-27.out.json",
+   "id": "2015#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_truth",
+     "resolved": true,
+     "note": "부정 발문: 참 선지 trap·why_tempting 제거, how_to_reject 가 대응 위치+답 아님으로 서술됨"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "⑤ 7번 문장 website·email 대응으로 서술"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「파서 본문 결함 표시」 작업 용어 — 학습자 칸에서 삭제하고 근거 위치만 남길 것"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "2026#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 ①②③⑤ 대응 항목으로 재서술"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "confirmed_at [4] = answer_locus [4] 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "M2606#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_N",
+     "resolved": true,
+     "note": "①~④ 함정 라벨 제거, [2][2][2][3] 대응"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "confirmed_at [4] = answer_locus [4]"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "2025#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "④ 근거를 3번 문장 ※ 환불 줄로 교체"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "참 선지 함정 라벨 제거"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "M2509#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "참 선지 ①②④⑤ 대응 위치 서술"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "confirmed_at [4] 로 locus 와 일치(원장 [6]은 범위 밖)"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "M2506#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "발문 잘림은 원천 결함; 선지 판정이 극성(⑤ 거짓·나머지 참)과 정합"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "⑤ confirmed_at.note 「화면 발문 일부가 잘려…문항 블록으로 대조」 작업 기록 — 학습자 칸에서 빼고 근거 위치만"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "M2506#28",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "raw_block 으로 발문(일치하는 것)·A/B 코스 배치 확인, 분석과 일치"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "④ confirmed_at.note 「원본 시험지 문항 블록으로…대조」 작업 기록 — 근거 위치만 남길 것"
+    },
+    {
+     "code": "choice_1",
+     "note": "① one-day→2일은 수치 교체인데 trap 「반대 진술」 — 수치/기간 변경 계열 라벨로"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "2024#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "참 선지 trap·lure_quote 제거"
+    },
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "발문 극성 명시; 표 평일1·주말2 해석은 정답 키와 정합"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "needs_source",
+     "note": "raw_block 없음에도 ③ note 가 「원본 시험지 배치로 확인」이라 단정 — 근거는 정답 키 정합으로 쓰고 작업 기록 삭제"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "M2409#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "범위 과대·과소·무관 라벨 제거, 대응 위치 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "M2406#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "② only 가상 오독 제거, 참 대응 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-2026-27.out.json",
+   "id": "M2309#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "함정 라벨 제거, 1)~4) 항목 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "M2306#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "but 규칙을 「선지 성분이 but 뒤에 있을 때만」으로 조건화"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "2022#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap 제거, 대응 줄 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "M2206#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_truth",
+     "resolved": true,
+     "note": "참 선지 ①~④ trap 제거; passage 와 인용 축자 일치(raw_block 은 다른 문항)"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "2021#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap 제거"
+    },
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "「위에서 아래로 단조 대응」 위치 요령 삭제 확인"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "M2109#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap 제거"
+    },
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "⑤ 인용 October 1, 2020 공백 복원"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "2020#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap 제거"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "brand-new 지어낸 유인 삭제, brand-new=신제품 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "2018#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 제거; ⑤ 인용은 passage 에 실재"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "③ confirmed_at.note 「원 문항 배열에 따라…다시 확인」 작업 기록(raw_block 은 다른 문항) — 삭제할 것"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "M1809#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "범위 과대/과소 라벨 제거, 대응 위치 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "M1809#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "③ 라벨 어휘 함정(배수어)으로 교체 — 수치 변경 라벨이 더 정확하나 허용"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-NOTICE-M2306-27.out.json",
+   "id": "2017#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "② 성립 안 하던 오판 경로 제거, 참 대응 서술"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "duplicate_text",
+     "note": "① how_to_reject 끝 「맞는 진술이다.」가 두 번 반복 — 한 번으로"
+    }
+   ],
+   "verdict": "revise"
+  }
+ ]
+}

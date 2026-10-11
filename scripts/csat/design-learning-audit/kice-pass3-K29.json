@@ -1,0 +1,12 @@
+{"pass":3,"k":29,"items":[
+{"id":"M2206#35","version":3,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"①의 trap 이름 '첫 등장 위반'이 설명 내용(지시어가 앞 행동을 받음)과 어긋남 — 경미"}]},
+{"id":"M2206#41","version":3,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2206#42","version":3,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"어휘(choiceTruth) 유형인데 ④ why_tempting 이 '자연스러운데도 수식어 때문에 의심'으로 꼬여 있고 내용상 참인 이유가 불분명"},{"code":"choice_1","note":"①을 '뻔하다며 빼기 쉽다'는 함정 틀로 설명 — 낱말이 문맥상 맞는 이유 중심으로 다시 써야"},{"code":"overgeneral","note":"'However 가 앞 두 문장을 뒤집으라고 요구'를 조건 없이 단정 — 실제 근거는 다음 문장의 강점 평가"}]},
+{"id":"M2206#44","version":3,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2206#45","version":3,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"measured_ability 의 단락 순서 (A)-(C)-(B)-(D)가 틀림 — 실제 사건 순서는 (A)-(C)-(D)-(B)"},{"code":"choice_1","note":"참인 선지인데 trap '어휘 함정'·'반대 진술' 등 함정 라벨을 붙임 — 내용상 참 근거 중심이어야"}]},
+{"id":"M2209#18","version":3,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"overgeneral","note":"⑤ 배제의 '통보문은 답을 요구하지 않는다'는 조건 없는 일반 규칙 — 경미"}]},
+{"id":"M2209#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"문장 번호 불일치 — 지문은 8문장인데 ①④에서 '8~9번'·'9번 문장' 참조"}]},
+{"id":"M2209#20","version":3,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2209#21","version":3,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2209#22","version":3,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"③ 배제에서 '일곱 문장 어디에도'라 했으나 지문은 6문장 — 경미"}]}
+]}

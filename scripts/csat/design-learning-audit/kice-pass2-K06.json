@@ -1,0 +1,12 @@
+{"pass":2,"k":6,"items":[
+{"id":"2018#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"주어진 글이 광고도 언급하는데 '비율만 말한다'고 단정 — 배제 근거를 '전문 잡지 일반 진술 부재'로 좁혀야 정확"}]},
+{"id":"2018#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 필드에 ①~⑤ 대신 지문 문장 조각과 각주가 들어 있음(⑤에 postulate/incinerator 각주 혼입)"},{"code":"overgeneral","note":"⑤ 배제의 'such 명사는 앞에서 나온 것을 받는다'를 조건 없이 규칙화 — 후행 지시 예외 언급 없음"}]},
+{"id":"2018#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"why_correct가 surprising 근거를 '마지막 문장'이라 함 — 실제는 다섯째 문장(마지막은 요약문). confirms·reasoning과 불일치"}]},
+{"id":"2018#42","version":4,"type":"X-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"how_to_reject 끝 '거리 두기의 반대가 아니다'가 논리 불명확 — 헌신 배제 근거로 기능 못함"}]},
+{"id":"2018#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"trap 라벨 '지시어 선행사 절단'이 실제 근거(공동 출마 사실 전제)와 맞지 않음"}]},
+{"id":"2019#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2019#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

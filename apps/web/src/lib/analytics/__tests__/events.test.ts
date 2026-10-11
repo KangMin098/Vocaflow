@@ -150,6 +150,10 @@ describe('허용 이벤트 목록', () => {
     'csat_resume_clicked',
     'csat_review_started',
     'csat_review_done',
+    // 해설 극장 M4(2026-10-11) — DB CHECK 에 이미 있는 이름(20261008160000_learning_sessions_integrated)
+    'csat_review_scheduled',
+    'csat_principle_saved',
+    'csat_transfer_submitted',
     'csat_path_chosen',
     'csat_item_back',
     'csat_dx_viewed',

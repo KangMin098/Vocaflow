@@ -1,0 +1,633 @@
+{
+ "chunk": 22,
+ "type_id": "X-FACT",
+ "type_name": "장문 내용 일치",
+ "analyses": [
+  {
+   "item_id": "2019#45",
+   "measured_ability": "(A)~(D) 단락이 섞인 이야기에서 선지마다 대응 문장을 찾아, 행위 진술의 극성(했다/하지 않았다)이 지문과 맞는지 판정하는 능력",
+   "design_intent": "정답 ②는 이야기의 중심 행위인 애벌레 잡기를 「잡지 않았다」로 부정형만 바꿔 놓았다. 잡는 장면은 (B)의 [10]·[14]와 (D)의 [30]에 흩어져 있어, 「잡을 수 없을 것 같았다」는 [20]의 생각만 보고 판단하면 부정형이 맞는 것처럼 보이게 설계했다. 나머지 넷은 각 단락 한 곳씩([7] · [12] · [17] · [26]~[28])에 그대로 대응한다.",
+   "answer_locus": {
+    "sentence_index": [
+     14
+    ],
+    "quote": "She kept filling her bucket with the caterpillars until the bottom disappeared.",
+    "reasoning": "[14]에서 Olivia는 양동이 바닥이 안 보일 때까지 애벌레를 채웠고, [10]은 애벌레가 「picked up」되는 장면이며 [30]은 자매가 「full buckets」를 본다. 애벌레를 잡은 행위가 세 곳에서 사실로 서술되므로 「잡지 않았다」는 지문과 반대다."
+   },
+   "choices": [
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "[14]의 「kept filling her bucket with the caterpillars」(애벌레로 양동이를 계속 채웠다)가 선지의 「애벌레를 잡지 않았다」와 정면으로 맞선다. 주체(Olivia와 Ellie)와 장소(양배추밭)는 그대로 두고 술어 극성만 「잡았다→잡지 않았다」로 뒤집었다.",
+     "confirmed_at": {
+      "sentence_index": [
+       10,
+       14,
+       30
+      ],
+      "note": "[10] picked up · [14] filling her bucket · [30] full buckets 세 곳이 모두 잡은 사실을 확인한다."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[7]의 「why don’t you help me to pick the caterpillars up?」은 할머니가 두 손녀에게 애벌레 잡는 일을 도와 달라고 요청한 말이고 [8] 「Grandma suggested.」가 화자를 확인한다. 지문과 맞는 진술이라 「적절하지 않은 것」이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[12]의 「The cabbage patch looked like a battlefield.」가 선지 「양배추밭은 마치 전쟁터 같았다」와 그대로 대응하고, [13]의 「losing the battle」이 그것이 Olivia의 느낌임을 받쳐 준다. 맞는 진술이므로 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[17]의 「they suddenly remembered how vast it was」(그것이 얼마나 넓은지 갑자기 떠올렸다)가 선지 「얼마나 드넓은지 새삼 깨달았다」에 대응한다. 주어 they는 [16]의 Olivia와 Ellie다. 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[26]에서 할머니는 나비가 꽃가루를 옮겨 다른 식물을 기르는 데 도움을 준다고 말하고, [28]에서 「natural balance of the environment」를 해치고 싶지 않다고 덧붙이며, [27]에서 Olivia는 할머니가 옳다고 깨닫는다. 「자연의 섭리를 일깨워주었다」는 이 세 문장의 요약이라 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「적절하지 않은 것」을 확인하고, 선지 다섯 개에서 부정어(「않았다」)나 극단 표현이 들어 있는 선지에 먼저 표시한다",
+     "on_fail": "표시할 선지가 없으면 각 선지의 술어(요청했다·잡지 않았다·같았다·깨달았다·일깨워주었다)만 밑줄 긋고 다음 단계로 간다"
+    },
+    {
+     "step": "선지 핵심어(도움 요청 · 애벌레 · 전쟁터 · 드넓은 · 자연)를 영어로 바꿔(help · caterpillars · battlefield · vast · nature) 단락에서 찾는다. 단락 기호 순서가 이야기 순서와 다를 수 있으니 (A)~(D) 전체에서 찾는다",
+     "on_fail": "한 낱말이 안 보이면 같은 장면의 다른 표현(pick up · bucket)으로 찾는다"
+    },
+    {
+     "step": "부정형 선지 ②는 「잡는 장면이 하나라도 있는가」로 확인한다 — [14] filling her bucket, [30] full buckets",
+     "on_fail": "[20]의 could not possibly pick all은 생각이고 「모두」에 걸린 부정이다. 실제 행위를 서술한 문장과 구분해 다시 본다"
+    },
+    {
+     "step": "나머지 선지는 대응 문장 하나씩([7] · [12] · [17] · [26]~[28])과 주어·술어가 맞는지만 확인하고 넘긴다",
+     "on_fail": "주어가 헷갈리면 그 문장 앞의 인물 이름([16] Olivia and Ellie)까지 거슬러 올라간다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "부정형 선지가 이야기의 중심 행위를 뒤집어 대조가 쉬움",
+     "[20]의 부정 생각 문장이 혼동 요인"
+    ]
+   },
+   "required_vocab": [
+    "caterpillars",
+    "bucket",
+    "battlefield",
+    "vast"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 지적대로 맞는 선지 ①③④⑤의 trap·why_tempting을 없애고 대응 문장으로만 서술했다(재검 후 통과).",
+      "정답 ②의 confirmed_at.note를 유인 설명에서 확인 위치 [10]·[14]·[30] 목록으로 바꿨다."
+     ],
+     "checked": [
+      "quote가 [14] 원문과 글자 단위로 같은지 대조",
+      "why_correct의 filling her bucket ↔ 잡지 않았다 대응 확인",
+      "design_intent·reasoning·confirmed_at가 모두 [14]를 같은 번호로 부르는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "③에 있던 지어낸 「할머니의 인식」 오독을 삭제했다 — [12]·[13]에 Olivia의 느낌이 그대로 있다.",
+      "오답 네 개의 how_to_reject가 각각 다른 문장([7]·[12]·[17]·[26]~[28])을 근거로 한다."
+     ],
+     "checked": [
+      "맞는 선지 네 개에 trap/why_tempting 부재 확인",
+      "각 how_to_reject의 근거 문장 번호를 sentences 목록과 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계 on_fail이 [20]의 「all」 부분 부정을 실제 행위와 구분하게 해 준다.",
+      "선지 번호=단락 순서 같은 요령을 쓰지 않았다."
+     ],
+     "checked": [
+      "4단계를 70초 안에 실행 가능한지 확인",
+      "required_vocab 네 낱말이 지문에 있는지 문자열 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2018#45",
+   "measured_ability": "단락 순서가 섞인 이야기에서 인물 사이의 정보 전달(숨겼다/알렸다)이 실제 대화 장면과 맞는지 대조하는 능력",
+   "design_intent": "정답 ③은 Steve가 출마 사실을 Dave에게 직접 알린 (C)의 [19]~[20] 장면을 「숨겼다」로 뒤집었다. 출마를 알린 쪽이 오히려 Dave의 동시 출마에 놀라는 구도이고 [24] 이후 둘 사이가 서먹해지므로, 갈등 분위기만 기억하면 「무언가 숨겼다」가 그럴듯하게 들린다. 나머지 넷은 [3] · [7] · [27] · [31]에 각각 대응한다.",
+   "answer_locus": {
+    "sentence_index": [
+     19,
+     20
+    ],
+    "quote": "I’m going for student president and I think mine will be the only nomination.",
+    "reasoning": "[19]에서 Steve는 복도에서 Dave를 보고 달려가 「I’ve got good news!」라고 말을 꺼내고, [20]에서 학생회장에 나간다고 직접 밝힌다. 출마 사실을 Dave에게 먼저 알렸으므로 「숨겼다」는 지문과 반대다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "[20]의 「I’m going for student president」를 Steve가 Dave에게 직접 말한 것이 선지의 「선거 출마 사실을 숨겼다」와 맞선다. 주체(Steve)·상대(Dave)·대상(출마 사실)은 그대로이고 동사만 「알렸다→숨겼다」로 바뀌었다.",
+     "confirmed_at": {
+      "sentence_index": [
+       19,
+       20
+      ],
+      "note": "[19] ran to him excitedly(Dave에게 달려감) · [20] 출마 발언."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[1]이 새 학기 첫날임을, [3]의 「They rode their bicycles to school together that morning」이 그날 아침 둘이 함께 자전거로 등교했음을 말한다. 선지와 맞으므로 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[7]의 「Steve won the election.」이 선지 「학생회장으로 당선되었다」와 그대로 대응한다(선거 종목은 [5]의 student president). 맞는 진술이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[26]에서 Steve는 타이어가 펑크 나서 학교로 뛰기 시작했고, [27]에서 Dave의 아버지가 차를 세워 「give him a ride」 했다. 선지와 맞으므로 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[31]의 「Don’t let this election ruin your friendship.」이 선지 「선거로 인해 우정을 잃지 말라고 충고했다」와 대응하고, 화자는 [29]의 Dave’s dad다. 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 「적절하지 않은 것」을 확인하고 선지마다 동사(등교했다·당선되었다·숨겼다·태워 주었다·충고했다)에 밑줄을 긋는다",
+     "on_fail": "동사가 구분되지 않으면 선지의 주어와 목적어를 먼저 표시한다"
+    },
+    {
+     "step": "「숨겼다」처럼 정보 전달 방향이 걸린 선지는 두 인물이 처음 그 화제를 말하는 대화 장면을 찾는다 — student president · nomination이 나오는 [19]~[21]",
+     "on_fail": "장면이 안 보이면 Steve의 직접 인용(“I’ve got good news!”)이 있는 단락을 찾는다"
+    },
+    {
+     "step": "대화에서 누가 먼저 말했는지 확인한다: [20]은 Steve의 발언, [21]은 Dave의 응답",
+     "on_fail": "[24]의 tension만 보고 판단하지 말고 그 앞 [19]~[20]의 발언 주체로 돌아간다"
+    },
+    {
+     "step": "나머지 선지는 대응 문장([3] · [7] · [27] · [31])과 주어·동사가 맞는지 확인한다",
+     "on_fail": "「Dave의 아버지」 선지는 [29] Dave’s dad said로 화자를 확인한다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "단락 순서가 섞여 (C)의 대화 장면을 찾아야 함",
+     "[24] 갈등 분위기가 「숨겼다」를 그럴듯하게 만듦"
+    ]
+   },
+   "required_vocab": [
+    "student president",
+    "nomination",
+    "ride"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 지적대로 맞는 선지 ①②④⑤의 「반대 진술·주체 역전」 라벨을 모두 지우고 대응 문장 설명으로 바꿨다(재검 후 통과)."
+     ],
+     "checked": [
+      "quote가 [20] 원문과 같은지 대조",
+      "why_correct의 going for student president ↔ 숨겼다 대응 확인",
+      "answer_locus·confirmed_at의 [19]·[20] 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "②는 [7]과 일치하는 참 진술로만 설명해 참/거짓 표시 혼동을 없앴다.",
+      "오답 네 개가 [3]·[7]·[27]·[31] 서로 다른 근거를 쓴다."
+     ],
+     "checked": [
+      "trap/why_tempting이 정답에만 있는지 확인",
+      "각 근거 번호를 sentences 목록과 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2·3단계가 발언 주체 확인이라는 구체 행동이다."
+     ],
+     "checked": [
+      "70초 안 실행 가능 여부",
+      "required_vocab 지문 존재 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M1809#45",
+   "measured_ability": "인물의 태도 변화(불만→자랑)가 있는 이야기에서, 선지가 변화 이전과 이후 중 어느 시점의 태도를 말하는지 구분해 대조하는 능력",
+   "design_intent": "아버지는 (A)의 [3]·(D)의 [24]에서 Ricky를 Good-for-Nothing이라 부르며 불만을 보이지만 (B)의 [8]에서 마침내 자랑스러워한다. 정답 ②는 성공 이후 시점에 앞 시점의 불만을 붙여 「자랑스러워하지 않았다」로 만들었다. 단락이 (A)(B)(C)(D)로 인쇄되어 있지만 이야기 순서는 다르므로, 불만 문장만 여러 번 읽은 학습자는 그 태도가 끝까지 이어졌다고 믿기 쉽다.",
+   "answer_locus": {
+    "sentence_index": [
+     8
+    ],
+    "quote": "he was finally proud of Ricky and respected his accomplishments",
+    "reasoning": "[6]에서 Ricky가 명예의 전당에 오른 뒤 [7]이 아버지의 생각을 묻고, [8]이 「finally proud of Ricky」로 답한다. 성공 이후 아버지는 자랑스러워했으므로 「자랑스러워하지 않았다」는 지문과 반대다."
+   },
+   "choices": [
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "[8]의 「finally proud of Ricky」가 선지 뒷부분 「아버지가 자랑스러워하지 않았다」와 맞선다. 앞부분 「야구 선수로 성공했지만」은 [6]의 Hall of Fame과 맞고, 바뀐 성분은 아버지 태도의 극성 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6,
+       8
+      ],
+      "note": "[6] 성공 시점 · [8] 그 시점의 아버지 태도."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2]의 「Riccardo, who was named after his father」가 선지 「아버지의 이름을 따서 Riccardo라고 이름 지어졌다」와 그대로 대응한다. named after(~의 이름을 따서 지어진)의 뜻대로 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[16]의 「he decided to drop out of school to become a baseball player」가 선지 「야구 선수가 되기 위해 학교를 그만두기로 결심했다」와 대응한다. 맞는 진술이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[18]의 「because he was a fisherman」에서 he는 같은 문장 앞의 His father다. 아버지의 직업이 어부라는 선지와 맞는다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[22]의 삽입구 「who was not afraid of hard work」가 Ricky를 수식해 선지 「힘든 일을 두려워하지 않았다」와 대응한다. 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 「Ricky에 관한」 「적절하지 않은 것」임을 확인하고, 선지 가운데 「~했지만 ~않았다」처럼 두 시점을 묶은 선지를 표시한다",
+     "on_fail": "표시할 선지가 없으면 각 선지의 부정어 유무만 확인한다"
+    },
+    {
+     "step": "「아버지가 자랑스러워하지 않았다」는 아버지 태도가 나오는 문장을 모두 찾는다 — [3]·[24]의 Good-for-Nothing/good for nothing, [8]의 proud",
+     "on_fail": "proud · respected · dissatisfied 같은 감정어로 찾는다"
+    },
+    {
+     "step": "찾은 문장이 성공 이전인지 이후인지 정한다: [6]의 Hall of Fame과 같은 단락에 있는 [8]이 성공 이후다",
+     "on_fail": "단락 기호 순서로 시점을 정하지 말고, 그 문장 주변에 성공(legend · Hall of Fame)이 언급되는지로 정한다"
+    },
+    {
+     "step": "나머지 선지는 대응 문장([2] named after · [16] drop out · [18] fisherman · [22] hard work)과 맞추고 넘긴다",
+     "on_fail": "[18]의 he가 누구인지 헷갈리면 같은 문장의 주어 His father로 확인한다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "불만 서술이 두 단락에 반복되어 태도 변화를 놓치기 쉬움",
+     "단락 인쇄 순서와 시간 순서가 다름"
+    ]
+   },
+   "required_vocab": [
+    "proud",
+    "named after",
+    "fisherman",
+    "drop out"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 지적대로 ①을 「어휘 함정」 라벨·아버지 문장 인용 없이 [2]의 named after 대응으로만 설명했다(재검 후 통과)."
+     ],
+     "checked": [
+      "quote가 [8] 원문의 연속 부분인지 대조",
+      "why_correct가 선지 앞뒤 절을 [6]·[8]에 나눠 대응시키는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "③의 「선지 번호 순서=단락 인쇄 순서」 요령을 삭제하고 [16] 대응으로 바꿨다.",
+      "절차 3단계 on_fail에서도 단락 기호로 시점을 정하지 말라고 같은 기준을 썼다."
+     ],
+     "checked": [
+      "맞는 선지 네 개의 trap/why_tempting 부재 확인",
+      "how_to_reject 근거 번호 대조",
+      "solve_procedure에 같은 순서 요령이 남지 않았는지 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "시점 구분 단계가 이 문항의 태도 변화에 맞춰져 있다."
+     ],
+     "checked": [
+      "75초 안 실행 가능",
+      "required_vocab 지문 존재 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2016#45",
+   "measured_ability": "이야기의 세부 장면 묘사에서 선지의 수식어(줄 번호·자리 위치)가 지문과 성분 단위로 일치하는지 대조하는 능력",
+   "design_intent": "정답 ⑤는 [32]의 「the fifth row, hallway side, even though she had wanted a window seat」에서 실제 자리(복도 쪽)를 바라던 자리(창가)로 바꿔 놓았다. 「다섯 번째 줄」은 그대로 두고 「창가」라는 낱말도 같은 문장에 있어, 낱말이 보인다는 이유로 일치 판정을 하면 넘어가게 설계했다.",
+   "answer_locus": {
+    "sentence_index": [
+     32
+    ],
+    "quote": "Hannah was seated in the fifth row, hallway side, even though she had wanted a window seat.",
+    "reasoning": "[32]의 주절 「was seated in the fifth row, hallway side」가 실제 자리이고, even though 절의 「had wanted a window seat」는 이루어지지 않은 바람이다. 실제로 앉은 곳은 복도 쪽이므로 「창가 자리에 앉았다」는 지문과 다르다."
+   },
+   "choices": [
+    {
+     "n": 5,
+     "verdict": "correct",
+     "trap": "부분 사실",
+     "why_correct": "[32]의 「hallway side」(복도 쪽)가 선지의 「창가 자리」와 어긋난다. 「다섯 번째 줄」(fifth row)은 맞게 두고 위치 성분 하나만 even though 절의 window seat로 갈아 끼웠다.",
+     "confirmed_at": {
+      "sentence_index": [
+       32
+      ],
+      "note": "주절이 실제 자리, even though 절이 바라던 자리."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[6]의 「she had stood in that same place, in the middle of many anxious freshmen」이 선지 「다른 신입생들과 함께 운동장에 서 있었다」와 대응한다. that same place는 [2]의 The high school grounds다. 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[17]의 「Hannah took more photos with her teachers in the school garden.」이 선지 「학교 정원에서 선생님들과 사진을 찍었다」와 그대로 대응한다. 맞는 진술이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[22]의 「She had sung and danced with her friends in the festival」이 선지 「축제에서 노래를 부르고 춤을 추었다」와 대응한다. 맞는 진술이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[29]의 「but she could not concentrate」가 교장 선생님의 연설(The principal was energetically addressing them)에 대한 Hannah의 상태로, 선지 「교장 선생님의 말씀에 집중할 수가 없었다」와 대응한다. 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 「Hannah에 관한」 「일치하지 않는 것」임을 확인하고, 선지 중 숫자·위치처럼 성분이 둘 이상 붙은 선지(「다섯 번째 줄 창가 자리」)를 표시한다",
+     "on_fail": "표시할 선지가 없으면 선지마다 장소어(운동장·정원·축제·교실)를 밑줄 긋는다"
+    },
+    {
+     "step": "장소어를 영어로 바꿔(grounds · garden · festival · principal · row) 해당 문장을 찾는다",
+     "on_fail": "안 보이면 Hannah가 주어인 문장들만 훑는다"
+    },
+    {
+     "step": "찾은 문장에 even though · although · but 같은 양보·대조 접속어가 있으면 주절(실제 일어난 일)과 종속절(바람·예상)을 나누고 선지가 어느 절과 맞는지 본다 — [32]",
+     "on_fail": "선지의 낱말이 문장에 보여도 그 낱말이 종속절에 있으면 실제 사실이 아니라는 점으로 돌아간다"
+    },
+    {
+     "step": "나머지 선지는 대응 문장([6] · [17] · [22] · [29])과 주어·동사가 맞는지 확인한다",
+     "on_fail": "[6]처럼 대명사 she로 시작하면 앞의 Hannah로 주어를 확인한다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "바뀐 성분이 같은 문장 종속절에 낱말로 존재함",
+     "세부 수식어 대조 필요"
+    ]
+   },
+   "required_vocab": [
+    "hallway",
+    "window seat",
+    "even though",
+    "concentrate"
+   ],
+   "body_recovered": true,
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 지적대로 ④의 「반대 진술」 함정 분류를 없애고 [29] 대응 설명으로 바꿨다. 인용 번호를 [32]로 통일했다(이전 [33] 오기 수정, 재검 후 통과)."
+     ],
+     "checked": [
+      "quote가 [32] 원문과 같은지 대조",
+      "design_intent·answer_locus·confirmed_at·절차 3단계가 모두 [32]를 부르는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①~④의 trap/why_tempting 함정 프레임을 모두 제거하고 대응 문장 확인으로 서술했다.",
+      "③의 「일반→구체면 구체 문장을 근거로」 무조건 규칙을 삭제했다."
+     ],
+     "checked": [
+      "정답에만 trap이 있는지 확인",
+      "근거 번호 [6]·[17]·[22]·[29] 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계의 주절/종속절 구분은 양보·대조 접속어가 있을 때로 조건을 걸었다."
+     ],
+     "checked": [
+      "70초 안 실행 가능",
+      "required_vocab 지문 존재 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2015#45",
+   "measured_ability": "이야기 결말의 수치 진술에서 술어의 극성(합격/불합격)이 지문과 맞는지 대조하는 능력",
+   "design_intent": "정답 ⑤는 [22]의 「80 percent of Jeremy’s students passed」에서 수치 80퍼센트와 시점(학년말)은 그대로 두고 「passed」만 「불합격했다」로 뒤집었다. (B)의 [8]~[10]에서 학생들이 수학 시험을 외면한 실패 장면이 먼저 인쇄되어 있어, 그 인상으로 결말을 짐작하면 불합격이 그럴듯하게 보인다.",
+   "answer_locus": {
+    "sentence_index": [
+     22
+    ],
+    "quote": "At the end of the school year, 80 percent of Jeremy’s students passed the state’s math test.",
+    "reasoning": "[22]는 학년말에 학생 80퍼센트가 주 수학 시험에 「passed」했다고 말한다. [21]의 「their confidence with math grew too」가 이 결과로 이어지는 흐름도 합격과 맞는다. 불합격은 지문과 반대다."
+   },
+   "choices": [
+    {
+     "n": 5,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "[22]의 「passed」가 선지의 「80퍼센트가 수학 시험에 불합격했다」와 맞선다. 「At the end of the school year」→학년말, 「80 percent」→80퍼센트, 「math test」→수학 시험은 그대로 옮겼고 동사만 반대로 바꿨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       22
+      ],
+      "note": "수치·시점은 일치, 동사 극성만 다름."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[5]의 「he took my positive psychology class in college」가 선지 「대학에서 긍정 심리학을 수강했다」와 대응한다. 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[7]의 「spending many hours each day preparing lesson plans」가 선지 「많은 시간을 들여 수업 계획서를 준비했다」와 대응한다. 그 계획이 효과가 없었다는 뒷부분은 선지가 말하지 않으므로 선지는 맞는 진술이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[11]의 「Jeremy became so stressed that he even dreaded going into his classroom.」이 선지 「스트레스로 인해 교실에 들어가기를 두려워했다」와 대응한다. so ~ that 구조가 원인(스트레스)과 결과(두려움)를 이어 준다. 맞는 진술이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[12]의 「Jeremy joined an organization that recruits future leaders to teach in low-income communities」가 선지 「저소득 지역에서 가르칠 미래 지도자를 모집하는 단체에 가입했다」와 성분 단위로 대응한다. 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 「Jeremy에 관한」 「일치하지 않는 것」임을 확인하고, 선지 중 수치(80퍼센트)나 결과 동사(합격·불합격)가 있는 선지를 표시한다",
+     "on_fail": "표시할 선지가 없으면 각 선지의 동사에 밑줄을 긋는다"
+    },
+    {
+     "step": "수치 선지는 지문에서 같은 숫자(80 percent)를 찾아 그 숫자에 붙은 동사(passed)를 확인한다 — [22]",
+     "on_fail": "숫자를 찾았는데 동사를 못 읽겠으면 바로 앞 문장 [21]의 결과 방향(confidence grew)으로 확인한다"
+    },
+    {
+     "step": "나머지 선지의 핵심어를 영어로 바꿔(positive psychology · lesson plans · stressed · organization) 대응 문장을 찾는다. 단락 기호 순서가 이야기 순서와 다를 수 있으니 (A)~(D) 전체에서 찾는다",
+     "on_fail": "핵심어가 안 보이면 Jeremy 또는 he가 주어인 문장만 훑는다"
+    },
+    {
+     "step": "찾은 문장과 선지의 주어·동사가 맞는지 확인한다",
+     "on_fail": "선지가 문장 일부만 옮겼을 때([7])는 선지에 없는 뒷부분을 판정에 끌어오지 않는다"
+    }
+   ],
+   "time_budget_sec": 65,
+   "difficulty": {
+    "predicted": 0.92,
+    "drivers": [
+     "결말 수치 문장의 동사만 대조하면 됨",
+     "앞 단락의 실패 장면이 혼동 요인"
+    ]
+   },
+   "required_vocab": [
+    "passed",
+    "dreaded",
+    "recruits",
+    "low-income"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote·why_correct·confirmed_at가 모두 [22]를 같은 번호로 부른다."
+     ],
+     "checked": [
+      "quote가 [22] 원문과 같은지 대조",
+      "passed ↔ 불합격 대응 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "원장 지적대로 ④의 「네 번째 선지이므로 세 번째 단락부터」 요령을 삭제하고 [12] 성분 대응으로 바꿨다(재검 후 통과).",
+      "맞는 선지 네 개에 trap/why_tempting이 없다."
+     ],
+     "checked": [
+      "how_to_reject 근거 번호 [5]·[7]·[11]·[12] 대조",
+      "절차 3단계에도 선지 번호=위치 요령이 남지 않았는지 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계 on_fail이 선지가 문장 일부만 옮긴 경우를 다룬다."
+     ],
+     "checked": [
+      "65초 안 실행 가능",
+      "required_vocab 지문 존재 확인"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "X-FACT",
+  "n_analyzed": 5,
+  "recurring_traps": [
+   {
+    "trap": "반대 진술",
+    "count": 4,
+    "signature": "정답 선지가 지문 문장의 주어·수치·시점은 그대로 두고 술어 극성만 뒤집는다(잡았다→잡지 않았다 · 알렸다→숨겼다 · proud→자랑스러워하지 않았다 · passed→불합격)"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 1,
+    "signature": "같은 문장 종속절(even though)의 낱말을 실제 사실 자리에 넣는다(2016#45)"
+   }
+  ],
+  "answer_locus_pattern": "5문항 모두 정답 근거가 한 문장(또는 인접 두 문장)에 있고, 바뀐 성분은 술어 극성 4건 · 위치 수식어 1건이다. 각 문항 정답은 정답 선지당 한 번만 셌다.",
+  "procedure": [
+   {
+    "step": "발문 극성(적절하지 않은/일치하지 않는)과 대상 인물을 확인한다",
+    "on_fail": "대상 인물이 지정되면 그 인물이 주어인 문장만 대조한다"
+   },
+   {
+    "step": "선지 핵심어를 영어로 바꿔 (A)~(D) 전체에서 대응 문장을 찾는다 — 단락 기호·선지 번호를 위치 단서로 쓰지 않는다",
+    "on_fail": "안 보이면 같은 장면의 다른 표현이나 인물 이름으로 찾는다"
+   },
+   {
+    "step": "대응 문장과 선지의 주어·술어 극성·수식어를 성분별로 대조하고, 양보·대조 접속어가 있으면 주절과 종속절을 나눈다",
+    "on_fail": "태도 변화가 있는 이야기면 그 문장의 시점(성공 전/후)을 먼저 정한다"
+   }
+  ],
+  "failure_modes": [
+   "갈등·실패 장면의 인상으로 결말이나 정보 전달을 짐작함(2018 · 2015)",
+   "같은 문장의 바람·생각을 실제 행위로 읽음(2016 window seat · 2019 could not possibly pick all)",
+   "태도 변화 이전 문장만 읽고 끝까지 이어졌다고 봄(M1809)"
+  ],
+  "time_budget_sec": 70,
+  "open_questions": [
+   "5문항 모두 3인 검수가 원장 결함 반영 후 통과했고 새 반려는 없다 — 세 자가 같은 원장 지적을 재고 있을 가능성이 있다.",
+   "선지 번호=이야기 순서 경향은 단락 순서 섞임 때문에 이 5문항에서 성립 조건을 확인하지 못해 절차에 넣지 않았다."
+  ]
+ }
+}

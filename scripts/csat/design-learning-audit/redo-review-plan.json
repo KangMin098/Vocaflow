@@ -1,0 +1,39 @@
+{
+ "groups": [
+  [
+   "chunk-redo-20261010T191130200Z-R-BLANK-2014A-35.out.json",
+   "chunk-redo-20261010T191130200Z-R-BLANK2-2014A-36.out.json",
+   "chunk-redo-20261010T191130200Z-R-CLAIM-2022-20.out.json",
+   "chunk-redo-20261010T191130200Z-R-FACT-2014B-30.out.json",
+   "chunk-redo-20261010T191130200Z-R-GIST-2015-18.out.json"
+  ],
+  [
+   "chunk-redo-20261010T191130200Z-R-GRAMMAR-2014A-27.out.json",
+   "chunk-redo-20261010T191130200Z-R-IMPLY-2026-21.out.json",
+   "chunk-redo-20261010T191130200Z-R-INSERT-2015-38.out.json",
+   "chunk-redo-20261010T191130200Z-R-IRRELEVANT-2015-35.out.json",
+   "chunk-redo-20261010T191130200Z-R-MOOD-2014A-40.out.json"
+  ],
+  [
+   "chunk-redo-20261010T191130200Z-R-NOTICE-2014A-29.out.json",
+   "chunk-redo-20261010T191130200Z-R-ORDER-2014A-37.out.json",
+   "chunk-redo-20261010T191130200Z-R-PURPOSE-2023-18.out.json",
+   "chunk-redo-20261010T191130200Z-R-REFER-2014B-26.out.json",
+   "chunk-redo-20261010T191130200Z-R-SUMMARY-2014B-40.out.json"
+  ],
+  [
+   "chunk-redo-20261010T191130200Z-R-TITLE-2014B-25.out.json",
+   "chunk-redo-20261010T191130200Z-R-TOPIC-2014B-24.out.json",
+   "chunk-redo-20261010T191130200Z-R-VOCAB-2014B-28.out.json",
+   "chunk-redo-20261010T191130200Z-X-BLANK-2014A-42.out.json",
+   "chunk-redo-20261010T191130200Z-X-BLANK2-2017-42.out.json"
+  ],
+  [
+   "chunk-redo-20261010T191130200Z-X-FACT-2014B-45.out.json",
+   "chunk-redo-20261010T191130200Z-X-ORDER-2014B-43.out.json",
+   "chunk-redo-20261010T191130200Z-X-REFER-2017-44.out.json",
+   "chunk-redo-20261010T191130200Z-X-TITLE-2014A-41.out.json",
+   "chunk-redo-20261010T191130200Z-X-VOCAB-2019-42.out.json"
+  ]
+ ]
+}

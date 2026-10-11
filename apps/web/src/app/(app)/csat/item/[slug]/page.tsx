@@ -42,6 +42,8 @@ import { loadItemPrinciple } from '@/lib/knowledge/product-server'
 import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
+import { buildChecks } from '@/lib/csat/understanding-check'
+import compareData from '@/lib/csat/compare-data.json'
 
 export const dynamic = 'force-dynamic'
 
@@ -108,6 +110,14 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   const meta = lectureMeta(item.id)
   const steps = theaterSteps(outline)
   const blocks = theaterBlocks(item)
+  // 이해 확인(M4) — 검수된 근거 자리 · 함정 라벨로만 만든다(새 생성 없음)
+  const answerPlacement = skeleton?.anchors.find((x) => x.id === 'answer')
+  const checks = buildChecks({
+    id: item.id,
+    type_id: item.type_id,
+    distractors: item.distractors,
+    map: skeleton && answerPlacement ? { sentenceCount: skeleton.sentences.length, answerSentences: answerPlacement.sentences } : null,
+  })
 
   // 같은 유형의 다음 문항 — 조회 0회(커밋된 골격이 `type_id` 를 들고 있다)
   const siblings = item.type_id
@@ -120,6 +130,13 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       }))
     : []
   const nextPick = pickNextItem(siblings, item.id, () => true)
+  // 같은 원리 비교 쌍(M4) — 검수 통과분 중 지금 열 수 있는(같은 유형 공개 목록에 있는) 문항만
+  const sibById = new Map(siblings.map((x) => [x.id, x]))
+  const pairs = (compareData.items as Record<string, { kind?: 'same' | 'contrast'; other: string; choice: number; otherChoice: number; trap: string; note: string }[]>)[item.id] ?? []
+  const comparePairs = pairs.flatMap((p) => {
+    const o = sibById.get(p.other)
+    return o ? [{ ...p, otherSlug: o.slug, otherLabel: `${o.exam_label} ${o.no}번` }] : []
+  })
   const examId = item.id.split('#')[0]
   const paper = kiceSourceOf(examId)
   // 평가원 회차는 링크가 없으면 평가원 게시판으로, 학평은 갈 곳이 없다(평가원 게시판으로 보내지 않는다)
@@ -158,6 +175,8 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       minutes={theaterMinutes(outline)}
       steps={steps}
       blocks={blocks}
+      checks={checks}
+      comparePairs={comparePairs}
       map={map}
       itemId={item.id}
       backHref="/csat"
@@ -174,7 +193,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       siblings={siblings
         .slice()
         .sort((a, b) => b.exam_label.localeCompare(a.exam_label) || a.no - b.no)
-        .map((s) => ({ slug: s.slug, label: s.exam_label, no: s.no, current: s.id === item.id }))}
+        .map((s) => ({ id: s.id, slug: s.slug, label: s.exam_label, no: s.no, current: s.id === item.id }))}
     />
   )
 
@@ -209,7 +228,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   return (
     <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번</>} bare>
       {meta ? (
-        <LectureStage slug={toItemSlug(item.id)} meta={meta}>
+        <LectureStage slug={toItemSlug(item.id)} meta={meta} keys={false}>
           {body}
         </LectureStage>
       ) : (

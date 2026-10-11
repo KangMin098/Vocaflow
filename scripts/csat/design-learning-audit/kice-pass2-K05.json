@@ -1,0 +1,12 @@
+{"pass":2,"k":5,"items":[
+{"id":"2017#34","version":5,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"가장 강한 오답이라 했지만 lure_quote 없음. why_correct 의 '5번째 문장'과 sentence_index [6] 번호 기준 불일치"}]},
+{"id":"2017#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"교수 계약상 R-ORDER 는 passageDesign=false 인데 passage_design(roles·pattern)을 씌움"}]},
+{"id":"2017#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"R-ORDER 에 passage_design 적용(계약 위반). 사슬 설명 자체는 정확"}]},
+{"id":"2017#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"③ 배제에 '같은 대명사가 두 문장에 걸치면 먼저 나온 쪽 앞이 자리' 라는 조건 없는 규칙"},{"code":"source_broken","note":"⑤ 선지 텍스트에 각주·쪽번호(chronological : 연대순의 7) 잔재"},{"code":"choice_3","note":"'(⑥·⑦)' 문장 번호 표기가 선지 번호와 혼동됨"}]},
+{"id":"2017#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2017#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"confirmed_at: '한 칸만 확정하면 ①·⑤가 살아남는다' 오류 — (A)만 확정 시 ①②③, (B)만 확정 시 ③만 남음"},{"code":"other","note":"'dissimilar 를 미뤄 두는 학습자가 많다' 는 근거 없는 행동 주장"}]},
+{"id":"2017#42","version":4,"type":"X-BLANK2","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"internal 배제 근거 'usually 는 정도·성질 요구' 가 성립하지 않음. 실제 배제는 (B)와 precise 대비뿐"},{"code":"source_broken","note":"passage 끝에 선지 머리글 '(A) (B) (A) (B)' 잔재"}]},
+{"id":"2017#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"'심리 여정 극화는 지문이 영화의 장점으로 든 것' — 지문은 원작과 공유한 주제로 말할 뿐, 배제 근거 왜곡"},{"code":"choice_3","note":"충실한 전쟁 묘사도 동시대 배경이라 공감을 줄이지 않는다는 핵심 배제 논리 누락"}]},
+{"id":"2018#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

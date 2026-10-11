@@ -1,0 +1,480 @@
+{
+ "chunk": "cmp-20261011-42",
+ "pairs": [
+  {
+   "pair_id": "M2006#43:1|M2706#43:1",
+   "type": "X-ORDER",
+   "trap": "시간·인과 순서 역전",
+   "a": {
+    "id": "M2006#43",
+    "n": 1,
+    "trap": "시간·인과 순서 역전",
+    "why_tempting": "(A)가 연주 장면으로 끝나 (B) 7번 문장의 'finished practicing'이 그 수업 연습이 끝난 것으로 읽히고, 아버지가 등장하므로 (A)의 Master Brooks와 바로 이어진다고 느끼기 쉽다.",
+    "how_to_reject": "(B) 11번 문장에서 아버지는 crossover music의 힘을 과소평가했다고 말하는데, 그가 crossover를 싫어한다는 사실(24번)과 Joe가 crossover 공연 허락을 청하는 장면(21~22번)은 (D)에 있다. 아버지의 생각이 바뀌는 (B)가 그 생각을 처음 밝히는 (D)보다 앞설 수 없다."
+   },
+   "b": {
+    "id": "M2706#43",
+    "n": 1,
+    "trap": "시간·인과 순서 역전",
+    "why_tempting": "(A)가 노파를 만난 장면으로 끝나므로 '다음 날 다시 만났다'는 (B)가 자연스러운 후속처럼 읽힌다.",
+    "how_to_reject": "(B) 첫 문장 'The following day, they met at the same bench'와 (D)·(C)가 모두 첫날 장면임을 본다 — (D)의 'Are you going to listen to my performance?'는 초면 인사이고 (C)의 'Beatrice had said' 회상도 같은 날이다. 이틀째가 첫날보다 앞설 수 없다."
+   }
+  },
+  {
+   "pair_id": "M2006#43:1|M2609#43:2",
+   "type": "X-ORDER",
+   "trap": "시간·인과 순서 역전",
+   "a": {
+    "id": "M2006#43",
+    "n": 1,
+    "trap": "시간·인과 순서 역전",
+    "why_tempting": "(A)가 연주 장면으로 끝나 (B) 7번 문장의 'finished practicing'이 그 수업 연습이 끝난 것으로 읽히고, 아버지가 등장하므로 (A)의 Master Brooks와 바로 이어진다고 느끼기 쉽다.",
+    "how_to_reject": "(B) 11번 문장에서 아버지는 crossover music의 힘을 과소평가했다고 말하는데, 그가 crossover를 싫어한다는 사실(24번)과 Joe가 crossover 공연 허락을 청하는 장면(21~22번)은 (D)에 있다. 아버지의 생각이 바뀌는 (B)가 그 생각을 처음 밝히는 (D)보다 앞설 수 없다."
+   },
+   "b": {
+    "id": "M2609#43",
+    "n": 2,
+    "trap": "시간·인과 순서 역전",
+    "why_tempting": "(C) 입장 장면 뒤에 '몇 시간 뒤 경기가 끝났다'는 (B)를 붙이면 시간 표지가 순조로워 보이고, (D)는 명장면 회상처럼 뒤에 붙여도 될 듯하다.",
+    "how_to_reject": "(D)의 'Both teams kept scoring and the game stayed close'는 경기 진행 중 서술인데 (B)에서 이미 'won the game'으로 경기가 끝났다. 끝난 경기가 다시 진행될 수 없다."
+   }
+  },
+  {
+   "pair_id": "M1809#18:1|M2706#18:1",
+   "type": "R-PURPOSE",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M1809#18",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "perform CPR quickly and effectively 와 improve a sufferer's chances of survival 이 실제로 효과를 서술해, 구조 요령을 알려 주는 글로 읽힌다",
+    "how_to_reject": "그 문장들은 With the proper training 이라는 조건절에 걸려 있어 강좌를 들었을 때 얻는 결과다. 가슴 압박 횟수 같은 방법이 한 줄도 없고, 마지막 문장은 더 알고 싶으면 웹사이트를 보라고 넘긴다"
+   },
+   "b": {
+    "id": "M2706#18",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "선지의 대회·참가 선수라는 명사가 지문의 homerun competition, best baseball hitters 와 그대로 겹쳐서, 3번 문장 we gather together all of the best baseball hitters 를 선수 명단 발표로 읽게 된다.",
+    "how_to_reject": "4번 문장이 we would like to ask you to join 이므로 수신자는 아직 참가자가 아니다. 지문 어디에도 announce·the following players 같은 발표 표현이 없다."
+   }
+  },
+  {
+   "pair_id": "M1809#18:1|M2609#18:1",
+   "type": "R-PURPOSE",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M1809#18",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "perform CPR quickly and effectively 와 improve a sufferer's chances of survival 이 실제로 효과를 서술해, 구조 요령을 알려 주는 글로 읽힌다",
+    "how_to_reject": "그 문장들은 With the proper training 이라는 조건절에 걸려 있어 강좌를 들었을 때 얻는 결과다. 가슴 압박 횟수 같은 방법이 한 줄도 없고, 마지막 문장은 더 알고 싶으면 웹사이트를 보라고 넘긴다"
+   },
+   "b": {
+    "id": "M2609#18",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "둘째 문장의 your enthusiasm 과 셋째 문장의 Thanks to your interest 가 참여 동기를 화제로 삼은 것처럼 읽힌다.",
+    "how_to_reject": "두 문장 모두 등록이 이미 끝난 뒤의 인사이고, 수신자에게 무엇을 답하라는 요구(tell us·please answer)가 없다. 요구가 나오는 자리는 다섯째 문장의 결정 통보뿐이다."
+   }
+  },
+  {
+   "pair_id": "M1809#19:1|M2706#19:4",
+   "type": "R-MOOD",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M1809#19",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "'show and tell' 수업에 좋아하는 장난감을 가져가는 상황이라 아이가 들떠 있었을 것이라는 통념으로 앞 칸 excited 를 고르게 되고, 물건이 사라진 장면에서 뒤 칸 confused 를 떠올린다",
+    "how_to_reject": "3문장이 'she was anxious' 로 상태를 직접 말하고 1문장은 눈물이다. 뒤 칸도 14문장 'felt calm and comforted' 와 어긋난다"
+   },
+   "b": {
+    "id": "M2706#19",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "친구가 국립공원에 초대했으니 신났을 것이고 산 정상까지 오르는 모노레일은 무서울 것이라는 통념이 1문장만 읽어도 만들어진다.",
+    "how_to_reject": "2문장 'Mark didn’t feel like going' 이 앞 심경을 부정으로 못 박고, 마지막 문장 'wondered what he would have missed if he hadn’t come' 은 오길 잘했다는 만족이라 공포와 반대다."
+   }
+  },
+  {
+   "pair_id": "M1809#19:2|M2609#19:4",
+   "type": "R-MOOD",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M1809#19",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "뒤 칸 relaxed 는 14문장 calm 과 거의 같은 뜻이라 절반이 맞아 보인다",
+    "how_to_reject": "앞 칸에서 걸린다 — 지문에 다른 사람이 가진 것을 부러워하는 서술이 없다. 3~4문장의 불안 대상은 선생님의 반응과 분실이지 타인의 소유가 아니다"
+   },
+   "b": {
+    "id": "M2609#19",
+    "n": 4,
+    "trap": "부분 사실",
+    "why_tempting": "뒤의 surprised 는 예상 밖의 칭찬이라는 사건과 맞아떨어져 절반이 옳아 보인다.",
+    "how_to_reject": "앞 — 3문장이 ‘What if she thinks my paintings are horrible?’ 이라 안도가 아니라 걱정이고, 안도를 나타내는 신호(sigh·at ease)가 1~4문장 어디에도 없다."
+   }
+  },
+  {
+   "pair_id": "M1809#20:2|M2706#20:5",
+   "type": "R-CLAIM",
+   "trap": "무관",
+   "a": {
+    "id": "M1809#20",
+    "n": 2,
+    "trap": "무관",
+    "why_tempting": "어른이 아이에게 하는 말을 다룬 글이라 '조언'이 칭찬의 대체물처럼 보이고, evaluative outbursts 가 말투 문제로 읽힌다",
+    "how_to_reject": "지문이 칭찬의 대체물로 내놓은 것은 일곱째 문장의 unconditional support, love with no strings attached 다. advice·guidance·눈높이에 해당하는 표현이 지문에 없다"
+   },
+   "b": {
+    "id": "M2706#20",
+    "n": 5,
+    "trap": "무관",
+    "why_tempting": "physical performance·physical development 가 반복되어 '신체 능력'이 지문 소재어로 보이고, 지도자가 무언가를 제공해야 한다는 형식이 정답 선지와 같다.",
+    "how_to_reject": "지문은 활동의 '종류를 다양화하라'고 하지 않는다. 4번째 문장에서 활동 목록(규칙적 운동·준비운동·특정 전략)은 이미 주어져 있고, 6번째 문장이 요구하는 것은 그 활동들에 대한 인식이다. 개인차·수준별에 해당하는 표현이 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "M1809#20:2|M2609#20:4",
+   "type": "R-CLAIM",
+   "trap": "무관",
+   "a": {
+    "id": "M1809#20",
+    "n": 2,
+    "trap": "무관",
+    "why_tempting": "어른이 아이에게 하는 말을 다룬 글이라 '조언'이 칭찬의 대체물처럼 보이고, evaluative outbursts 가 말투 문제로 읽힌다",
+    "how_to_reject": "지문이 칭찬의 대체물로 내놓은 것은 일곱째 문장의 unconditional support, love with no strings attached 다. advice·guidance·눈높이에 해당하는 표현이 지문에 없다"
+   },
+   "b": {
+    "id": "M2609#20",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "businesses·employees 가 반복돼 기업-직원 관계를 다루는 선지가 모두 그럴듯해 보이고, '보상'이 '처벌'의 짝으로 떠오른다.",
+    "how_to_reject": "보상(reward)·이탈(turnover)·근무 성과(performance)에 해당하는 말이 지문에 한 번도 없다. 6번째 문장이 원하는 결과는 better employees 이지 우수 직원의 잔류가 아니다."
+   }
+  },
+  {
+   "pair_id": "M1809#21:1|M2706#22:5",
+   "type": "R-GIST",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#21",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전체가 사회적 비교를 다루므로 '비교를 통해 자신을 평가한다' 는 진술이 소재상 맞아 보인다.",
+    "how_to_reject": "6번째 문장은 그 전환의 목적이 favorable self-views 를 유지하는 것이라고 명시한다. 즉 지문이 말하는 비교의 기능은 객관적 평가가 아니라 자기고양이며, 2번째 문장도 This is self-enhancement at work 라고 못박는다."
+   },
+   "b": {
+    "id": "M2706#22",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "다섯 번째 문장에 feel safer 와 oversize SUVs 가 나란히 있어 '안전'과 'SUV'라는 두 낱말이 선지와 겹친다.",
+    "how_to_reject": "그 문장은 these faces help drivers feel safer in heavier traffic amidst more oversize SUVs — 성난 얼굴이 안전감을 준다는 쪽이다. 선지는 안전감을 원하면 거친 차를 피한다고 방향을 뒤집었고, 마지막 문장의 판매 호조와도 어긋난다."
+   }
+  },
+  {
+   "pair_id": "M1809#21:2|M2609#22:3",
+   "type": "R-GIST",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M1809#21",
+    "n": 2,
+    "trap": "어휘 함정",
+    "why_tempting": "7번 문장의 areas that are not especially relevant to our self-definition 과 8번 문장의 take delight in her victory celebrations 가 있어 '자기 분야와 관련 없는'과 '축하'라는 낱말이 지문에 대응을 갖는다.",
+    "how_to_reject": "7번과 8번의 그 표현은 어떤 조건에서 reflection 이 일어나는지 서술하는 말이지 그렇게 하라는 당위가 아니다. 지문에는 need to / should 에 해당하는 요구 표현이 없고, 8번 문장은 그럴 때 실제로 벌어지는 심리(자존감 상승)를 묘사한다."
+   },
+   "b": {
+    "id": "M2609#22",
+    "n": 3,
+    "trap": "어휘 함정",
+    "why_tempting": "마지막 문장이 With new media 로 시작해 '뉴 미디어'가 지문 낱말 그대로이고, 새로운 매체가 나오면 형성 방식이 바뀐다는 진술이 자연스럽게 들린다.",
+    "how_to_reject": "그 문장이 말하는 것은 our reach of connecting is all the greater, expanding ... to greater and greater lengths — 크기·범위가 커진다는 양의 변화다. 방식이 달라졌다는 진술(different way, changed how)에 해당하는 표현이 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "M1809#22:1|M2706#23:5",
+   "type": "R-TOPIC",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M1809#22",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "4번 문장 one should break away from experience and let the mind wander freely 가 경험의 해로움을 실제로 말하고 있어 근거가 있어 보인다",
+    "how_to_reject": "그 문장은 It has been claimed that 으로 열린 전언 구간 안에 있고, 5번 문장의 Nevertheless 가 그 구간 전체를 뒤집는다. 6번 문장은 오히려 실패한 시도가 재구조화를 낳는다고 해서 경험 쪽에 값을 매긴다"
+   },
+   "b": {
+    "id": "M2706#23",
+    "n": 5,
+    "trap": "부분 사실",
+    "why_tempting": "5번째 문장 being short-lived puts a premium on the effectiveness of preprogrammed behavior patterns 와 낱말이 거의 그대로 겹친다.",
+    "how_to_reject": "7번째 문장이 수명이 긴 동물에서는 less on automatic preprogrammed behaviors 라고 해 선천 행동의 비중이 크기·수명에 따라 달라짐을 보인다. 선천 행동은 비교의 한 항이지 글이 묶는 중심 축(크기)이 아니다."
+   }
+  },
+  {
+   "pair_id": "M1809#22:4|M2609#23:4",
+   "type": "R-TOPIC",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#22",
+    "n": 4,
+    "trap": "반대 진술",
+    "why_tempting": "선지가 지문의 두 핵심어 insight 와 analytical thinking 을 모두 담고 있고, 5번 문장 앞의 Nevertheless 가 두 견해를 맞세우므로 '통찰과 분석적 사고를 구별해야 한다'는 대립 구도로 읽히기 쉽다. 특히 1~4번 문장의 통찰(갑작스러운 재구조화)과 5번 문장의 ordinary analytical thinking 을 서로 다른 두 사고로 떼어 읽으면 separating 에 닿는다.",
+    "how_to_reject": "5번 문장 insight is actually the result of ordinary analytical thinking 은 통찰을 분석적 사고의 '결과'로 붙여 놓는다 — 분리가 아니라 연결이다. 6·7번 문장도 실패한 시도(분석 과정)가 새 정보를 끌어들여 Aha 경험을 낳는다고 이어 붙인다. 둘을 떼어야 한다는 문장은 지문에 없다."
+   },
+   "b": {
+    "id": "M2609#23",
+    "n": 4,
+    "trap": "반대 진술",
+    "why_tempting": "양쪽 모두 letters, journals, photographs 같은 자료를 쓴다고 적혀 있어 공통점이 있는 것처럼 보인다",
+    "how_to_reject": "1번째 문장이 engage different kinds of evidence 라고 못박고 4번째 문장에 by contrast 가 붙어 있다. 글의 골격은 유사성이 아니라 차이다"
+   }
+  },
+  {
+   "pair_id": "M1809#23:2|M2706#24:1",
+   "type": "R-TITLE",
+   "trap": "무관",
+   "a": {
+    "id": "M1809#23",
+    "n": 2,
+    "trap": "무관",
+    "why_tempting": "회사·시장·규제 도입이 이어져 나와 새로운 사업 환경 이야기처럼 보이고, 마지막 문장의 new regulations 에서 new 만 떼어 읽으면 '새로운 기회' 로 이어진다.",
+    "how_to_reject": "마지막 문장의 new 가 수식하는 것은 regulations 이지 opportunities 가 아니다. 지문에 사업 기회의 출현을 말하는 문장은 하나도 없고, 2·3번째 문장의 예시도 표시 의무와 상장 보고 요건이다."
+   },
+   "b": {
+    "id": "M2706#24",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "'Bright and Dark Sides'라는 양면 구도가 균형 잡힌 제목처럼 보이고, 첫 문장의 fragmented(파편화된)를 Collapsing(무너지는)으로 옮겨 읽으면 관광 자원이 붕괴하는 이야기로 연결된다.",
+    "how_to_reject": "지문에 부정적 결과를 말하는 문장이 하나도 없다. 마지막 두 문장(항공사가 보험과 숙박 예약을 제공)까지 전부 서비스 확대 사례이므로 'Dark Side'에 대응할 문장을 지문에서 지목할 수 없다."
+   }
+  },
+  {
+   "pair_id": "M1809#23:1|M2609#24:1",
+   "type": "R-TITLE",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M1809#23",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "profitability 가 6번째 문장(overstate its profitability)에 그대로 있고, 주식·시장 낱말이 지문 전반에 깔려 있어 금융 지문의 제목처럼 읽힌다.",
+    "how_to_reject": "6번째 문장에서 profitability 는 엔론이 부풀린 대상이지 글이 추구하는 목표가 아니다. 지문에는 수익을 높이는 조언에 해당하는 문장이 없고, 첫 문장의 주어도 투자자가 아니라 governments 다."
+   },
+   "b": {
+    "id": "M2609#24",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "지문의 benefit 이 선지에 그대로 있고 Religious 와 Social 도 religious observance·wider society 와 겹쳐, 낱말만 대조하면 가장 많이 일치한다.",
+    "how_to_reject": "지문에서 benefit 을 받는 쪽은 wider society 와 수도사 자신이고, 글에는 방법을 알려 주는 문장(명령문·조언)이 하나도 없다. 'How to Gain'에 대응할 절차 서술을 지문에서 지목할 수 없다."
+   }
+  },
+  {
+   "pair_id": "M1809#27:1|M2706#28:2",
+   "type": "R-NOTICE",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#27",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "안내문에 $200·$100·$50 같은 금액이 여럿 나와 참가에도 돈이 드는 행사로 기억하기 쉽다.",
+    "how_to_reject": "2번 문장 Participation in the contest is free of charge 가 참가비가 없음을 밝힌다."
+   },
+   "b": {
+    "id": "M2706#28",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "Place 가 공원이라 야외 행사면 주차장이 있으리라는 짐작이 선지를 참으로 보이게 한다.",
+    "how_to_reject": "Place 줄 괄호 안에 Parking is not available. 이 적혀 있다."
+   }
+  },
+  {
+   "pair_id": "M1809#27:1|M2609#28:3",
+   "type": "R-NOTICE",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#27",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "안내문에 $200·$100·$50 같은 금액이 여럿 나와 참가에도 돈이 드는 행사로 기억하기 쉽다.",
+    "how_to_reject": "2번 문장 Participation in the contest is free of charge 가 참가비가 없음을 밝힌다."
+   },
+   "b": {
+    "id": "M2609#28",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "Guidelines 첫 불릿에 participation fee 라는 말이 있어 참가비 항목이 존재한다는 인상만 남는다. 앞의 There is no 를 흘리면 「참가비가 있다」가 맞아 보인다.",
+    "how_to_reject": "Guidelines 첫 불릿 전체가 \"There is no participation fee.\" 다 — 문장 머리의 no 가 fee 를 부정한다."
+   }
+  },
+  {
+   "pair_id": "M1809#31:2|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "천재(Geniuses)가 등장하므로 남보다 뛰어남을 가리키는 낱말이 그 자리를 채울 것 같다.",
+    "how_to_reject": "4번째 문장이 바로 그 우월성을 부정한다 — 천재라고 해서 성공률이 더 높지는 않고 단지 더 많이 할 뿐이다. 게다가 빈칸 앞의 'not about wild talent' 가 재능 우위 계열을 이미 배제했다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "M1809#31:1|M2706#32:4",
+   "type": "R-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "M1809#31",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "창의성 담론에서 감수성이 흔히 함께 거론되고, 남은 낱말 중 뜻이 부드러워 무난해 보인다.",
+    "how_to_reject": "지문에 감각·감수성을 가리키는 문장이 하나도 없다. 3번째 문장이 논의를 'a pure numbers game' 으로 한정한다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
+    "how_to_reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다"
+   }
+  },
+  {
+   "pair_id": "M1809#32:1|M2706#31:4",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M1809#32",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "배고픔·돈 부족이라는 사례가 나와, 사람이 상황에 따라 더 나은 선택을 하려 한다는 익숙한 설명으로 이어 붙이게 된다.",
+    "how_to_reject": "5·6번째 문장에서 두 사람의 차이는 선택의 좋고 나쁨이 아니라 '무엇을 알아차리는가'다(notice that a shop is selling groceries / notice only that it sells newspapers). 지문에 더 나은 선택을 논하는 문장이 없다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "복원 예시에 'an ecosystem'이 있어 자연 보전을 떠올리게 한다. 이 문항에서 가장 강한 함정",
+    "how_to_reject": "같은 예시 목록에 historical musical instrument · painting · dinosaur 가 함께 있다. 악기와 그림을 '자연 상태'로 되돌린다는 말은 성립하지 않는다"
+   }
+  },
+  {
+   "pair_id": "M1809#32:1|M2706#32:1",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M1809#32",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "배고픔·돈 부족이라는 사례가 나와, 사람이 상황에 따라 더 나은 선택을 하려 한다는 익숙한 설명으로 이어 붙이게 된다.",
+    "how_to_reject": "5·6번째 문장에서 두 사람의 차이는 선택의 좋고 나쁨이 아니라 '무엇을 알아차리는가'다(notice that a shop is selling groceries / notice only that it sells newspapers). 지문에 더 나은 선택을 논하는 문장이 없다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "회의에서 듣는 척하기가 흔한 경험이라 자연스럽게 읽힌다",
+    "how_to_reject": "인용문 어디에도 ‘주의를 기울이는 척’에 해당하는 말이 없다. 인용문은 ‘betrayal oozes out of him at every pore’ 처럼 새어 나감만 말하고, 듣는 척하는 태도는 지문의 축이 아니다"
+   }
+  },
+  {
+   "pair_id": "M1809#33:2|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#33",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "'alternative story' 가 6번 문장의 'a new and preferred story' 와 같은 대상을 가리키므로 낱말 층위에서 맞아 보이고, 문제와 거리를 둔다는 상담 상식과도 어울린다.",
+    "how_to_reject": "7번 문장 'it is important to assist the child to hold on to, or stay connected to, the new story' 를 본다. 새 이야기에 대해 지문이 요구하는 것은 붙잡기·연결 유지이지 거리두기가 아니다. distances 를 넣으면 '대안 이야기로부터의 거리가 새 이야기를 만들도록 돕는다' 가 되어 7번 문장과 정면으로 어긋난다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "M1809#33:2|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#33",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "'alternative story' 가 6번 문장의 'a new and preferred story' 와 같은 대상을 가리키므로 낱말 층위에서 맞아 보이고, 문제와 거리를 둔다는 상담 상식과도 어울린다.",
+    "how_to_reject": "7번 문장 'it is important to assist the child to hold on to, or stay connected to, the new story' 를 본다. 새 이야기에 대해 지문이 요구하는 것은 붙잡기·연결 유지이지 거리두기가 아니다. distances 를 넣으면 '대안 이야기로부터의 거리가 새 이야기를 만들도록 돕는다' 가 되어 7번 문장과 정면으로 어긋난다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "M1809#34:2|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#34",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "'old tie' 가 4번 문장의 'feel strongly attached' 를 가리키는 것처럼 보여, 관광 산업으로 넘어가는 이야기의 자연스러운 결말처럼 읽힌다.",
+    "how_to_reject": "4번 문장에서 빈칸은 'local residents may feel strongly attached to the definitions of place' 와 and 로 이어진다. 같은 방향을 잇는 and 뒤에 '옛 유대를 고집하기를 멈춘다' 를 넣으면 애착과 포기가 한 문장에서 부딪친다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "M1809#34:2|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M1809#34",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "'old tie' 가 4번 문장의 'feel strongly attached' 를 가리키는 것처럼 보여, 관광 산업으로 넘어가는 이야기의 자연스러운 결말처럼 읽힌다.",
+    "how_to_reject": "4번 문장에서 빈칸은 'local residents may feel strongly attached to the definitions of place' 와 and 로 이어진다. 같은 방향을 잇는 and 뒤에 '옛 유대를 고집하기를 멈춘다' 를 넣으면 애착과 포기가 한 문장에서 부딪친다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "M1809#35:1|M2706#35:3",
+   "type": "R-IRRELEVANT",
+   "trap": "어휘 반복 유인",
+   "a": {
+    "id": "M1809#35",
+    "n": 1,
+    "trap": "어휘 반복 유인",
+    "why_tempting": "앞 문장(higher-graded teas ... tightly and uniformly rolled)의 낱말을 반대말로 바꿔 되풀이할 뿐이라, 새 정보가 없는 군더더기로 보인다. on the other hand 도 대비만 하고 논지를 밀지 않는 것처럼 읽힌다.",
+    "how_to_reject": "②가 With that said 로 시작한다 — '그렇게 말했지만'이 뒤집을 대상은 도입과 ①이 함께 세운 '말림 정도 = 등급'이라는 통념이다. ①을 빼면 그 통념이 높은 등급 쪽 한 문장으로만 남아 ②의 반전 폭이 사라진다."
+   },
+   "b": {
+    "id": "M2706#35",
+    "n": 3,
+    "trap": "어휘 반복 유인",
+    "why_tempting": "③의 nonlinear relationship between mass and bone strength 가 낯선 수학적 표현이고 a toddler’s 를 다시 불러내, 어른 이야기에서 아기 비교로 되돌아간 군더더기처럼 보인다.",
+    "how_to_reject": "③의 their bones 는 문장 4(②)의 adults 를 받고, 「절대적으로는 더 굵어도 상대적으로 충분히 굵지 않다」는 문장 3(①)의 relatively thick bones 를 어른 쪽에서 뒤집는다. 문장 7(⑤)의 the same reasons 가 받는 이유 중 하나다."
+   }
+  }
+ ]
+}

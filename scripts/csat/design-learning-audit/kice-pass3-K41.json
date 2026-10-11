@@ -1,0 +1,12 @@
+{"pass":3,"k":41,"items":[
+{"id":"M2606#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_N","note":"choiceTruth 유형인데 참인 선지 1·3·4·5에 함정 라벨(어휘 함정·주체 역전 등)과 지어낸 오독 유인을 붙임. 대응 문장으로 참임을 설명해야 함"},{"code":"choice_5","note":"범위 과대 유인 설명이 선지에 없는 '유일' 해석을 가정해 자기모순적"}]},
+{"id":"M2606#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_N","note":"참인 선지 1~4를 함정(어휘 함정·범위 과대·지문 밖 상식)으로 분류하고 가상의 오독을 유인으로 씀. 대응 항목으로 참 설명 필요"},{"code":"other","note":"정답 confirmed_at.sentence_index 가 1로 answer_locus(8)와 어긋남"}]},
+{"id":"M2606#28","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_5","note":"⑤ 유인('제거한다' 능동 오독·강조구문 오인)이 다소 억지스러움 — 경미"}]},
+{"id":"M2606#30","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"'④만 시간 표지가 없다/시간 축에 안 얹힌다'는 근거가 틀림 — ②에도 시간 표지가 없음. design_intent·why_correct·answer_locus 공통"},{"code":"answer_reasoning","note":"판별 근거를 시간 표지 리듬에 두지 말고 녹는 추세 증거 사슬에서 술어가 바뀐 점으로 한정해야 함"}]}
+]}

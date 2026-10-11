@@ -1,0 +1,10 @@
+{"pass":3,"k":45,"items":[
+{"id":"M2706#28","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#29","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 필드가 밑줄 단위로 잘리지 않고 다음 밑줄 직전까지 여러 문장을 통째로 담음(②는 4문장). 선지 원문 재분할 필요"},{"code":"choice_1","note":"why_tempting 의 대안 형태 제시가 어색(단독 과거시제 운운) — 실제 유혹은 부사 개입으로 수동 구조가 안 보이는 점"}]},
+{"id":"M2706#30","version":4,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"④ confirmed_at.note 에 작업 이력 문구('3차에 why_correct 에서 이관')가 학습자 필드에 남음"},{"code":"source_broken","note":"선지 ⑤ 텍스트에 각주·쪽번호 잔여물('* archaic: 고어…5')이 섞임, 선지가 밑줄 단위로 잘리지 않음"}]},
+{"id":"M2706#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"③ why_tempting 에 'OCR 잔여 ile' 언급 — 작업 용어이며 현재 지문에 그런 잔여물도 없음"},{"code":"lure_quote","note":"'For the same ... reasons' 로 인용 — 원문은 생략 없는 For the same reasons. 축자 인용 아님"},{"code":"overgeneral","note":"same reasons 가 받는 이유를 ③뿐이라 단정 — ②의 낙하 높이·반응 속도도 포함(⑤ how_to_reject 와도 모순)"}]},
+{"id":"M2706#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"⑤ why_correct '같은 문장이 paradox 라 부른' — paradox 는 (e) 앞 문장에 있음. 표현 경미 수정"}]},
+{"id":"M2706#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"참인 선지에 trap 라벨(시점 이동·어휘 함정)을 붙임 — 설명 본문은 내용 참으로 서술돼 있어 경미"}]}
+]}

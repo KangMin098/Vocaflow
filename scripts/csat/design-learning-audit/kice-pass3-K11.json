@@ -1,0 +1,12 @@
+{"pass":3,"k":11,"items":[
+{"id":"2020#28","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2020#29","version":5,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"②번 note에 '추출 부스러기' — 작업 용어가 학습자 필드에 노출"},{"code":"source_broken","note":"choices가 ①~⑤ 밑줄이 아니라 밑줄 사이 지문 구간 전체로 잘려 저장됨"}]},
+{"id":"2020#30","version":7,"type":"R-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices가 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간으로 저장됨(⑤에 각주·쪽번호 혼입)"}]},
+{"id":"2020#35","version":4,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2020#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2020#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"answer_locus sentence_index [6] 과 정답 confirmed_at [10] 이 서로 다른 문장을 가리킴"},{"code":"answer_reasoning","note":"수정어를 Understanding 으로 제시 — 공식 원문은 Certainty, 근거 대비(불확실↔확실)를 흐림"}]},
+{"id":"2020#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2020#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"why_tempting(Marie가 자기 친구라는 읽기)가 인위적 — 참 선지라 대응 문장만 보이면 충분"}]},
+{"id":"2021#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"passage_design roles 첫 항목(인사말)이 closing 으로 표기 — opening 이어야"}]},
+{"id":"2021#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"신체 대칭 짝이 어긋남: 손 안정을 심장 박동 해소로, 숨 고르기를 떨림 해소로 대응"},{"code":"choice_2","note":"trap '인과 역전'인데 설명은 감정 순서 뒤바뀜(시점) — 라벨과 배제 근거 불일치"},{"code":"choice_3","note":"envious 배제 근거로 '친구에 반대할 이유 없다'는 사후 성찰 — 앞 심경 증거(troubled)로 배제해야"}]}
+]}

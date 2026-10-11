@@ -1,0 +1,622 @@
+{
+ "chunk": 1,
+ "type_id": "R-CHART",
+ "type_name": "도표",
+ "supersedes": [
+  "chunk-R-CHART-M2706-25.out.json"
+ ],
+ "analyses": [
+  {
+   "item_id": "M2706#25",
+   "measured_ability": "지역별 100% 누적 막대에서 세 교통수단 값을 읽고, 「가장 낮다」 같은 순위 진술을 한 지역 안의 세 값 비교로 검증하는 능력",
+   "design_intent": "아시아 막대는 대중교통 구간(43)이 가장 길어 한눈에 보이는데, 진술 ③은 그 순위를 정반대 「lowest」로 바꿨다. 순위 낱말 하나만 뒤집어 값 자체는 보지 않고 낱말만 훑는 풀이를 가른다. 나머지 진술은 70%·50% 경계, 지역 간 대조(④)처럼 다른 판단을 요구해 하나씩 계산해야 한다.",
+   "answer_locus": {
+    "sentence_index": [
+     4
+    ],
+    "quote": "In Asia, the percentage of weekday trips made by public transport was the lowest among the three types of transportation.",
+    "reasoning": "아시아의 세 값은 도보·자전거 34, 대중교통 43, 자동차 23이다. 대중교통 43은 셋 중 최댓값이고 최솟값은 자동차 23이므로 「lowest」는 도표와 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "진술의 「public transport ... the lowest」는 아시아 막대에서 대중교통 43 > 도보·자전거 34 > 자동차 23과 순위가 뒤집혀 있다. 최저는 자동차(23)이고 대중교통은 최고다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ],
+      "note": "원본 도표 확인 — 202706_영어영역_문제지.pdf 4쪽, 읽은 값: 남북미 12/15/74, 유럽 29/27/45, 아시아 34/43/23, 아프리카 41/37/22, 호주·뉴질랜드 6/18/76 (도보·자전거/대중교통/자동차, %)"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번째 문장: 남북미 자동차 구간은 74다. 74 > 70이므로 「Over 70%」는 맞는 진술이고, 그래서 일치하지 않는 것을 묻는 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번째 문장: 유럽은 도보·자전거 29, 자동차 45다. 29 < 45이므로 「less commonly used ... than cars」는 맞고, 답에서 빠진다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "5번째 문장: 아프리카는 도보·자전거 41이 대중교통 37·자동차 22보다 커서 최고, 호주·뉴질랜드는 도보·자전거 6이 대중교통 18·자동차 76보다 작아서 최저다. 두 지역 진술이 모두 맞으므로 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "6번째 문장: 다섯 지역의 대중교통 값은 15·27·43·37·18로 가장 큰 아시아 43도 50 미만이다. 「each ... less than 50%」 전칭이 성립하므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "도표 제목과 범례에서 막대 세 구간이 도보·자전거(흰색)·대중교통(빗금)·자동차(검정) 순서임을 확인한다",
+     "on_fail": "구간 색을 헷갈리면 범례 상자의 무늬를 막대 하나에 직접 대어 본다"
+    },
+    {
+     "step": "진술마다 지역 이름과 교통수단을 먼저 밑줄 긋고, 그 지역 막대의 해당 구간 숫자만 옮겨 적는다",
+     "on_fail": "숫자가 동그라미 안에 있어 놓치면 막대 안의 세 숫자를 왼쪽부터 순서대로 읽는다"
+    },
+    {
+     "step": "「lowest」「most common」「least common」 같은 순위어가 있으면 그 지역의 세 값을 크기 순으로 줄 세운 뒤 진술과 견준다",
+     "on_fail": "순위가 엇갈리면 세 값을 부등호로 써서 최대·최소를 다시 표시한다"
+    },
+    {
+     "step": "「Over 70%」「less than 50%」「each」 같은 경계·전칭은 기준 숫자와 해당 값(전칭이면 다섯 지역 전부)을 비교한다",
+     "on_fail": "전칭에서 한 지역이라도 빠뜨렸는지 지역 이름 다섯 개를 체크하며 다시 센다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "순위어 하나만 뒤집힌 진술",
+     "④가 두 지역을 동시에 비교"
+    ]
+   },
+   "required_vocab": [
+    "lowest",
+    "least common",
+    "public transport"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답 ③은 순위 낱말만 바뀐 설계로 도표 값과 대조해 확정됨"
+     ],
+     "checked": [
+      "도표 제목·범례·축·모든 막대 값을 이미지에서 직접 읽음",
+      "answer_locus.quote 를 지문 문장과 문자열 대조",
+      "정답 선지의 바뀐 성분이 도표 값과 실제로 어긋나는지 계산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "(1차 revise → 수정 반영) 초안의 ④ 배제 서술이 아프리카만 계산하고 호주·뉴질랜드의 최저 판정을 빠뜨림 — 두 지역 모두 계산하도록 수정",
+      "수정 후 오답 넷 모두 각자의 값 대응과 계산으로 서술됨"
+     ],
+     "checked": [
+      "수정한 how_to_reject 다섯 칸을 다시 읽고 trap·why_tempting 이 비었는지 확인",
+      "solve_procedure 의 단계가 같은 기준(값 대조)을 쓰는지 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차가 지역·교통수단 표시 → 값 옮기기 → 순위/경계 비교로 실행 가능"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 상태에서 따라 해 봄",
+      "time_budget_sec 안에 다섯 진술 대조가 끝나는지",
+      "required_vocab 이 진술의 비교 판단에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2026#25",
+   "measured_ability": "두 빈도 범주(Every Day / Less Often)가 한 막대에 이어 붙은 그래프에서 같은 범주 안 순위와 범주 간 비교, 배수 관계를 구별해 검증하는 능력",
+   "design_intent": "Less Often 범주에서 이메일(43)은 실제로 1위인데 진술 ④는 「second highest」라 했다. 이메일의 Every Day 값(6)이 작아 막대 전체가 짧아 보이므로, 범주별 숫자를 따로 읽지 않으면 2위로 착각하기 쉽게 설계됐다. ②는 배수, ③·⑤는 범주 간 비교로 판단 종류를 섞었다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "In the category of Less Often, emailing was the second highest in percentage among the types of communication listed above.",
+    "reasoning": "Less Often 값은 문자 13, 전화 41, 이메일 43, 화상 채팅 37이다. 이메일 43이 최댓값이라 1위이고 2위는 전화 41이므로 「second highest」는 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "진술의 「emailing ... second highest」를 Less Often 숫자 43(이메일) > 41(전화) > 37(화상) > 13(문자)와 맞대면 이메일은 1위다. 순위 한 칸이 바뀐 진술이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2026_영어영역_문제지.pdf 4쪽, 읽은 값: Every Day/Less Often — Text Messaging 55/13, Talking on the Phone 19/41, Emailing 6/43, Video Chatting 7/37 (%)"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번째 문장: Every Day 값은 문자 55, 전화 19, 이메일 6, 화상 7이다. 55가 최댓값이므로 문자 메시지 최고는 맞는 진술이고 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번째 문장: Less Often에서 전화 41, 문자 13이다. 13의 두 배는 26이고 41 > 26이므로 「more than twice」가 성립해 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "4번째 문장: 전화는 Every Day 19, Less Often 41이다. 19 < 41이므로 「lower than」이 맞고 답에서 빠진다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "6번째 문장: 화상 채팅은 Less Often 37, Every Day 7이다. 37 > 7이므로 「higher than」이 맞아 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례에서 진한 구간 = Every Day, 옅은 구간 = Less Often임을 확인하고, 막대 전체 길이가 아니라 구간 안의 숫자를 읽는다고 정한다",
+     "on_fail": "막대 길이로 판단하고 있으면 각 구간 숫자를 표로 옮겨 적는다(유형 4 × 범주 2)"
+    },
+    {
+     "step": "진술마다 범주어(Every Day / Less Often)와 유형어를 표시해 같은 범주 안 비교인지 범주 간 비교인지 가른다",
+     "on_fail": "범주가 둘 다 나오면 같은 유형의 두 숫자를, 하나만 나오면 그 범주 열 네 숫자를 본다"
+    },
+    {
+     "step": "「second highest」「highest」 같은 순위어는 해당 범주 네 값을 크기 순으로 적어 몇 번째인지 센다",
+     "on_fail": "순위가 애매하면 가장 큰 값부터 하나씩 지워 가며 몇 번째에 걸리는지 확인한다"
+    },
+    {
+     "step": "「more than twice」는 작은 값을 두 배로 계산해 큰 값과 비교한다",
+     "on_fail": "배수와 차이를 섞었으면 차이(41−13)가 아니라 13×2를 다시 계산한다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "한 막대에 두 범주가 이어 붙어 막대 길이 착시",
+     "배수 진술 포함"
+    ]
+   },
+   "required_vocab": [
+    "second highest",
+    "more than twice",
+    "Less Often"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "④의 바뀐 성분은 순위 서수 하나이며 Less Often 값으로 확정"
+     ],
+     "checked": [
+      "도표 제목·범례·축·모든 막대 값을 이미지에서 직접 읽음",
+      "answer_locus.quote 를 지문 문장과 문자열 대조",
+      "정답 선지의 바뀐 성분이 도표 값과 실제로 어긋나는지 계산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "(1차 revise → 수정 반영) 초안 ②의 배제 근거가 「41이 크다」로만 적혀 배수 계산이 빠짐 — 13×2=26 계산을 넣음",
+      "수정 후 오답 넷 모두 각자의 값 대응과 계산으로 서술됨"
+     ],
+     "checked": [
+      "수정한 how_to_reject 다섯 칸을 다시 읽고 trap·why_tempting 이 비었는지 확인",
+      "solve_procedure 의 단계가 같은 기준(값 대조)을 쓰는지 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "범주 구별 단계가 이 도표의 착시(막대 길이)를 직접 막음"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 상태에서 따라 해 봄",
+      "time_budget_sec 안에 다섯 진술 대조가 끝나는지",
+      "required_vocab 이 진술의 비교 판단에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2609#25",
+   "measured_ability": "네 상품군 × 세 연령대 묶은 막대에서 상품군 간 최댓값, 연령대 간 최솟값, 배수, 「각 집단 모두 ~미만」 전칭을 값으로 검증하는 능력",
+   "design_intent": "의류 막대는 다른 상품군보다 모두 낮아 「30% 미만」이 그럴듯해 보이지만, 18–34세 값이 33으로 30을 넘는다. 전칭 「for each of the three age groups」가 한 집단에서만 깨지도록 설계해, 낮은 막대 둘(25·21)만 보고 판정하는 풀이를 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     6
+    ],
+    "quote": "The percentage of people reading online reviews before buying clothes was less than 30% for each of the three age groups.",
+    "reasoning": "의류 값은 18–34세 33, 35–54세 25, 55+ 21이다. 25·21은 30 미만이지만 33은 30보다 커서 「each」 전칭이 깨진다."
+   },
+   "choices": [
+    {
+     "n": 5,
+     "verdict": "correct",
+     "trap": "범위 과대",
+     "why_correct": "진술의 「less than 30% for each of the three age groups」는 의류 세 값 중 18–34세 33에서 성립하지 않는다(33 > 30). 두 집단에만 맞는 사실을 세 집단 전체로 넓힌 진술이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ],
+      "note": "원본 도표 확인 — 202609_영어영역_문제지.pdf 4쪽, 읽은 값: 18–34/35–54/55+ — Electronics 66/71/68, Cars 47/53/55, Household appliances 42/57/62, Clothes 33/25/21 (%)"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번째 문장: 연령대마다 전자제품 값(66·71·68)이 자동차(47·53·55), 가전(42·57·62), 의류(33·25·21)보다 크다. 세 연령대 모두 전자제품이 최고이므로 맞는 진술이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번째 문장: 자동차 값은 18–34세 47, 35–54세 53, 55+ 55다. 최솟값 47이 18–34세이므로 맞는 진술이고 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "4번째 문장: 35–54세의 가전 57, 의류 25다. 25×2=50이고 57 > 50이므로 「more than twice」가 성립해 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "5번째 문장: 가전에서 35–54세 57은 18–34세 42보다 크고 55+ 62보다 작다. 42 < 57 < 62로 두 조건이 다 맞으므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례에서 흰색 18–34, 검정 35–54, 빗금 55+ 순서를 확인하고 상품군마다 막대 세 개의 숫자를 짝지어 둔다",
+     "on_fail": "막대 순서를 헷갈리면 범례 순서(왼쪽→오른쪽)가 묶음 안 막대 순서와 같은지 대어 본다"
+    },
+    {
+     "step": "진술이 상품군 사이 비교(①)인지, 한 상품군 안 연령대 비교(②·④)인지, 같은 연령대의 두 상품군 비교(③)인지 먼저 표시한다",
+     "on_fail": "비교 축을 못 가르면 진술에서 상품군 이름과 연령대 숫자를 각각 동그라미 친다"
+    },
+    {
+     "step": "「each」「for each of the three」 같은 전칭이 있으면 해당하는 값을 하나도 빼지 않고 기준과 비교한다",
+     "on_fail": "눈에 띄게 낮은 막대 몇 개만 봤다면 그 묶음의 세 숫자를 모두 적고 다시 비교한다"
+    },
+    {
+     "step": "「more than twice」는 작은 값을 두 배 한 수와 큰 값을 비교한다",
+     "on_fail": "두 값을 바꿔 계산했으면 진술의 「that of」 뒤 대상이 기준(작은 쪽)인지 다시 본다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.84,
+    "drivers": [
+     "전칭이 한 집단에서만 깨짐",
+     "진술마다 비교 축이 다름"
+    ]
+   },
+   "required_vocab": [
+    "for each of",
+    "least likely",
+    "more than twice"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "⑤의 반례는 의류 18–34세 33 하나이며 이미지 값으로 확인"
+     ],
+     "checked": [
+      "도표 제목·범례·축·모든 막대 값을 이미지에서 직접 읽음",
+      "answer_locus.quote 를 지문 문장과 문자열 대조",
+      "정답 선지의 바뀐 성분이 도표 값과 실제로 어긋나는지 계산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "(1차 revise → 수정 반영) 초안 ①의 배제가 한 연령대만 비교 — 세 연령대 모두 비교하도록 수정",
+      "수정 후 오답 넷 모두 각자의 값 대응과 계산으로 서술됨"
+     ],
+     "checked": [
+      "수정한 how_to_reject 다섯 칸을 다시 읽고 trap·why_tempting 이 비었는지 확인",
+      "solve_procedure 의 단계가 같은 기준(값 대조)을 쓰는지 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "전칭 단계의 on_fail 이 낮은 막대만 보는 실수를 직접 막음"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 상태에서 따라 해 봄",
+      "time_budget_sec 안에 다섯 진술 대조가 끝나는지",
+      "required_vocab 이 진술의 비교 판단에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2606#25",
+   "measured_ability": "국가별 두 해(2016·2022) 가로 막대에서 연도 간 증감 방향과 국가 간 순위, 경계(20%)를 값으로 검증하는 능력",
+   "design_intent": "다섯 나라 중 이탈리아만 2016(42)에서 2022(36)로 줄었는데, 진술 ④는 「2016 was lower than 2022」라 하여 다른 나라들의 증가 흐름에 맞춰 방향을 뒤집었다. 대부분 증가하는 그래프에서 감소한 한 나라를 찾는지를 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "In Italy, the percentage of adults who participated in education and training in 2016 was lower than that in 2022.",
+    "reasoning": "이탈리아는 2016년 42, 2022년 36이다. 42 > 36이라 2016년이 더 높으므로 「lower than」은 방향이 반대다."
+   },
+   "choices": [
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "진술의 「in 2016 was lower than that in 2022」를 이탈리아 막대 2016년 42, 2022년 36과 견주면 실제는 2016년이 6%p 높다. 비교 방향 하나만 뒤집힌 진술이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 202606_영어영역_문제지.pdf 4쪽, 읽은 값: 2016/2022 — Netherlands 64/65, Germany 52/60, Spain 43/49, Italy 42/36, Greece 17/17 (%)"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번째 문장: 네덜란드는 2016년 64, 2022년 65로, 같은 해 다른 나라 최댓값(독일 52·60)보다 크다. 두 해 모두 최고라서 맞는 진술이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번째 문장: 독일은 2016년 52, 2022년 60이다. 60 > 52이므로 「2022 was higher than 2016」이 맞아 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "4번째 문장: 2022년 스페인 49, 독일 60이다. 49 < 60이므로 「lower in Spain than in Germany」가 맞아 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "6번째 문장: 그리스는 2016년 17, 2022년 17로 두 해 모두 20 미만이다. 「In each year listed」 조건이 두 해에서 다 성립해 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례에서 옅은 막대 = 2016, 진한 막대 = 2022임을 확인하고 나라마다 위·아래 숫자를 연도와 짝짓는다",
+     "on_fail": "연도를 뒤바꿔 읽었으면 범례 상자의 위·아래 순서를 국가 막대의 위·아래와 다시 맞춘다"
+    },
+    {
+     "step": "진술에서 「in 2016 ... than that in 2022」처럼 비교의 앞뒤 연도를 표시하고, 앞 연도 값 → 뒤 연도 값 순으로 적어 부등호를 그린다",
+     "on_fail": "부등호 방향이 헷갈리면 진술의 주어 연도 값을 왼쪽에 놓고 다시 쓴다"
+    },
+    {
+     "step": "「the highest in each year」는 연도마다 다섯 나라 값을 따로 비교한다",
+     "on_fail": "한 해만 봤으면 다른 해의 다섯 값도 줄 세운다"
+    },
+    {
+     "step": "「less than 20%」 같은 경계 진술은 해당 나라의 두 해 값을 모두 20과 비교한다",
+     "on_fail": "경계 숫자와 같은 값이 나오면 「less than」은 같음을 포함하지 않는다는 점을 확인한다"
+    }
+   ],
+   "time_budget_sec": 65,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "증가 일색 속 감소 한 나라",
+     "비교 방향 진술"
+    ]
+   },
+   "required_vocab": [
+    "lower than",
+    "in each year listed"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "④의 반례는 이탈리아 42→36이며 이미지 값으로 확정"
+     ],
+     "checked": [
+      "도표 제목·범례·축·모든 막대 값을 이미지에서 직접 읽음",
+      "answer_locus.quote 를 지문 문장과 문자열 대조",
+      "정답 선지의 바뀐 성분이 도표 값과 실제로 어긋나는지 계산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "(1차 revise → 수정 반영) 초안 ①의 배제가 2022년만 비교 — 2016년 비교를 추가",
+      "수정 후 오답 넷 모두 각자의 값 대응과 계산으로 서술됨"
+     ],
+     "checked": [
+      "수정한 how_to_reject 다섯 칸을 다시 읽고 trap·why_tempting 이 비었는지 확인",
+      "solve_procedure 의 단계가 같은 기준(값 대조)을 쓰는지 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "부등호 쓰기 단계가 비교 방향 뒤집기를 직접 막음"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 상태에서 따라 해 봄",
+      "time_budget_sec 안에 다섯 진술 대조가 끝나는지",
+      "required_vocab 이 진술의 비교 판단에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2025#25",
+   "measured_ability": "네 직무 × 세 연도 묶은 막대에서 연도별 최댓값, 연도 간 증감과 증가 폭(%p), 「세 해 모두 ~미만」 전칭을 값으로 검증하는 능력",
+   "design_intent": "편집자 막대는 18·21·18로 두 해는 20 미만이지만 2021년 21이 20을 넘는다. 진술 ④는 「less than 20% in each of the three years」로 전칭을 걸어 한 해의 반례로 깨지게 했다. ③은 %p 증가 폭 계산, ②는 세 값 사이 순서로 판단 종류를 섞었다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "The percentage of women employed as editors on the top 100 U.S. films was less than 20% in each of the three years.",
+    "reasoning": "편집자 값은 2020년 18, 2021년 21, 2022년 18이다. 2021년 21이 20보다 커서 「each of the three years」 전칭이 성립하지 않는다."
+   },
+   "choices": [
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "범위 과대",
+     "why_correct": "진술의 「less than 20% in each of the three years」는 편집자 2021년 값 21에서 깨진다(21 > 20). 2020·2022년(18)에만 맞는 사실을 세 해 전부로 넓힌 진술이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2025_영어영역_문제지(짝수형).pdf 4쪽, 읽은 값: 2020/2021/2022 — Director 16/12/11, Writer 12/16/17, Editor 18/21/18, Producer 28/24/28 (%)"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번째 문장: 제작자 값 28·24·28은 각 해의 다른 직무 최댓값(2020 편집자 18, 2021 편집자 21, 2022 편집자 18)보다 크다. 세 해 모두 최고라서 맞는 진술이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번째 문장: 감독 값은 2020년 16, 2021년 12, 2022년 11이다. 12 < 16이고 12 > 11이므로 「lower than in 2020 but higher than in 2022」가 맞아 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "4번째 문장: 작가 값은 12 → 16 → 17이다. 16−12=4, 17−16=1이므로 「4 percentage points」「1 percentage point」 증가가 맞아 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "6번째 문장: 제작자는 2020년 28, 2022년 28로 같다. 「the same as that in 2020」이 맞으므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례에서 흰색 2020, 회색 2021, 빗금 2022 순서를 확인하고 직무마다 세 숫자를 연도 순으로 옮겨 적는다",
+     "on_fail": "연도를 헷갈리면 범례 순서와 묶음 안 막대 순서(왼쪽→오른쪽)를 다시 맞춘다"
+    },
+    {
+     "step": "「each of the three years」 같은 전칭이 있으면 세 해 값을 모두 기준(20)과 비교한다",
+     "on_fail": "두 해만 확인했으면 가운데 해(2021) 값을 따로 다시 읽는다"
+    },
+    {
+     "step": "「increased by 4 percentage points」 같은 폭 진술은 뒤 연도 값에서 앞 연도 값을 빼서 진술 숫자와 맞춘다",
+     "on_fail": "비율 변화(%)와 차이(%p)를 섞었으면 단순 뺄셈 결과만 다시 본다"
+    },
+    {
+     "step": "「lower than ... but higher than」은 두 비교를 따로 부등호로 쓴 뒤 둘 다 맞는지 확인한다",
+     "on_fail": "한쪽만 확인했으면 나머지 연도와의 부등호를 추가로 그린다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "전칭이 가운데 해 하나에서 깨짐",
+     "%p 차이 계산 포함"
+    ]
+   },
+   "required_vocab": [
+    "percentage points",
+    "in each of the three years",
+    "the same as"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "④의 반례는 편집자 2021년 21이며 이미지 값으로 확정"
+     ],
+     "checked": [
+      "도표 제목·범례·축·모든 막대 값을 이미지에서 직접 읽음",
+      "answer_locus.quote 를 지문 문장과 문자열 대조",
+      "정답 선지의 바뀐 성분이 도표 값과 실제로 어긋나는지 계산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "(1차 revise → 수정 반영) 초안 ①의 배제가 「제작자가 높다」로만 적혀 해별 비교값이 없음 — 해마다 2위 값을 넣음",
+      "수정 후 오답 넷 모두 각자의 값 대응과 계산으로 서술됨"
+     ],
+     "checked": [
+      "수정한 how_to_reject 다섯 칸을 다시 읽고 trap·why_tempting 이 비었는지 확인",
+      "solve_procedure 의 단계가 같은 기준(값 대조)을 쓰는지 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "%p 뺄셈 단계와 전칭 단계가 분리돼 실행 가능"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 상태에서 따라 해 봄",
+      "time_budget_sec 안에 다섯 진술 대조가 끝나는지",
+      "required_vocab 이 진술의 비교 판단에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-CHART",
+  "n_analyzed": 5,
+  "recurring_traps": [
+   {
+    "trap": "반대 진술",
+    "count": 3,
+    "signature": "순위어(lowest·second highest)나 비교 방향(lower than) 하나만 도표와 반대로 바꾼다 (M2706#25 · 2026#25 · M2606#25)"
+   },
+   {
+    "trap": "범위 과대",
+    "count": 2,
+    "signature": "「each」 전칭을 걸고 한 집단·한 해에서만 경계를 넘게 한다 (M2609#25 의류 18–34세 33 · 2025#25 편집자 2021년 21)"
+   }
+  ],
+  "answer_locus_pattern": "5문항 모두 정답 근거는 그 진술 한 문장과 도표 값 2~4개의 비교로 닫힌다. 바뀐 성분은 순위어·비교 방향(3) 또는 전칭 범위(2). 각 문항 정답 선지 1회씩만 셌다.",
+  "procedure": [
+   "범례 색·무늬와 막대 순서를 먼저 맞춘다",
+   "진술마다 대상(집단·연도·범주)을 표시하고 해당 숫자만 옮겨 적는다",
+   "순위어는 값을 줄 세우고, 비교는 부등호를 쓰고, 배수는 작은 값×2, 폭은 뺄셈으로 계산한다",
+   "「each」 전칭은 해당 값을 하나도 빼지 않고 기준과 비교한다"
+  ],
+  "failure_modes": [
+   "막대 길이(또는 낮은 막대 몇 개)로 판단해 전칭의 반례 하나를 놓친다",
+   "두 범주가 이어 붙은 막대에서 전체 길이를 범주 값으로 착각한다",
+   "비교 진술의 앞뒤 연도를 바꿔 읽는다"
+  ],
+  "time_budget_sec": 75,
+  "open_questions": [
+   "analyst 반려 5건은 모두 「배제 근거에 비교 대상 값 일부가 빠짐」 같은 종류였다 — setter·tutor 는 반려 0건이라 세 자가 값 대조라는 같은 것을 재고 있을 가능성이 있다",
+   "표본 5문항이라 반대 진술 3 : 범위 과대 2 비율은 유형 전체 경향으로 말할 수 없다"
+  ]
+ }
+}

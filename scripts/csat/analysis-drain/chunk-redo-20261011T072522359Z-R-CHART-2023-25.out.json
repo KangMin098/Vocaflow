@@ -1,0 +1,614 @@
+{
+ "chunk": 3,
+ "type_id": "R-CHART",
+ "type_name": "도표",
+ "analyses": [
+  {
+   "item_id": "2023#25",
+   "measured_ability": "연령대 세 묶음 안에서 막대 세 개의 크기 순위를 매기고, 「가장 낮다」·「20%보다 높다」 같은 최상급·전칭 조건을 묶음마다 따로 확인하는 능력",
+   "design_intent": "55세 이상 묶음에서 Big/Small City(26%)는 35-54세 묶음에서 최하위(24%)였던 범주라 「가장 낮다」가 그럴듯하게 들리지만, 이 묶음에서만 Suburb(22%)가 더 낮다. 연령대마다 최하위 범주가 바뀐다는 점을 ④ 한 진술에 걸었다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "In the 55 year-olds and older group, the percentage of those who chose Big/Small City among the three preferred types of place to live was the lowest.",
+    "reasoning": "55세 이상 묶음의 세 값은 Big/Small City 26%, Suburb of Big/Small City 22%, Town/Rural Area 52%다. 최솟값은 22%인 Suburb이므로 26%인 Big/Small City를 「가장 낮다」고 한 진술은 도표와 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "[5번 문장]의 주어 범주 Big/Small City(26%)와 술어 the lowest가 맞물리지 않는다. 같은 묶음의 Suburb가 22%로 4%p 더 낮아, 「가장 낮다」는 자리를 Suburb가 차지한다. 바뀐 성분은 최하위로 지목한 범주 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2023_영어영역_문제지.pdf 4쪽, 읽은 값: 18-34 City33/Suburb27/Town39, 35-54 24/27/49, 55+ 26/22/52(%)"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2번 문장]: Town/Rural Area가 18-34(39 > 33, 27), 35-54(49 > 24, 27), 55+(52 > 26, 22) 세 묶음 모두에서 가장 길다. 진술이 도표와 맞으므로 일치하지 않는 것을 묻는 발문의 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3번 문장]: 18-34 묶음에서 Big/Small City 33%가 Suburb 27%보다 6%p 높다. 비교 방향이 도표와 같으므로 맞는 진술이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4번 문장]: 35-54 묶음에서 Suburb 27%가 Big/Small City 24%를 3%p 넘는다. exceeded의 방향이 도표와 같아 맞는 진술이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6번 문장]: 아홉 값 중 최솟값은 55+ Suburb의 22%로 20%를 넘고, 나머지(24·26·27·27·33·39·49·52)도 모두 20%보다 높다. 전칭 조건이 성립하므로 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례에서 흰 막대·옅은 회색·짙은 회색이 각각 Big/Small City·Suburb·Town/Rural Area임을 먼저 짝짓는다",
+     "on_fail": "막대 색을 헷갈리면 범례 상자 순서를 각 묶음의 위→아래 막대 순서에 겹쳐 본다"
+    },
+    {
+     "step": "세 연령대마다 막대 끝의 숫자 세 개를 적어 묶음별로 큰 순서(1·2·3위)를 매긴다",
+     "on_fail": "눈금으로 길이를 재지 말고 막대 끝에 인쇄된 % 숫자로만 비교한다"
+    },
+    {
+     "step": "선지마다 묶음 이름(18-34·35-54·55+)과 범주 이름을 밑줄 긋고, 그 묶음의 순위표에서 해당 칸만 찾는다",
+     "on_fail": "「the lowest」「the most preferred」처럼 최상급이 나오면 묶음 안 세 값 전부를 비교했는지 확인한다"
+    },
+    {
+     "step": "「each」「across the three age groups」처럼 전칭이 나오면 아홉 값 중 최솟값 하나만 기준(20%)과 견준다",
+     "on_fail": "최솟값을 못 찾으면 각 묶음의 3위 값 셋을 먼저 모은 다음 그중 가장 작은 것을 본다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "연령대마다 최하위 범주가 바뀜(35-54는 City, 55+는 Suburb)",
+     "최상급 the lowest를 범주 이름과 함께 확인해야 함"
+    ]
+   },
+   "required_vocab": [
+    "preferred",
+    "exceeded",
+    "the lowest",
+    "across"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "④ 판정은 55+ 묶음 Big/Small City 26% 대 Suburb 22%에서 닫힘"
+     ],
+     "checked": [
+      "quote 를 sentences n=5 와 문자열 대조",
+      "원본 도표의 아홉 값을 다섯 진술 각각과 계산 대조",
+      "판정 결과와 공식 답 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 ⑤의 전칭은 최솟값 22% 하나로 확인됨을 how_to_reject 에 반영"
+     ],
+     "checked": [
+      "오답 넷 how_to_reject 가 서로 다른 묶음·값을 짚는지 대조",
+      "정답 선지 trap 이 실제 바뀐 성분(최하위 범주)과 맞는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 3단계의 최상급 확인이 ④의 the lowest 를 직접 겨눔"
+     ],
+     "checked": [
+      "절차 4단계를 도표만 보고 실행 가능한지 확인",
+      "on_fail 네 개가 서로 다른 대응인지 대조",
+      "60초 안에 아홉 값 비교 가능한지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#25",
+   "measured_ability": "두 해(2011·2020)의 막대를 나라별로 짝지어 읽고, 「두 해 모두」 조건이 붙은 비교를 해마다 따로 확인하는 능력",
+   "design_intent": "France는 2020년에 55.4로 Italy(55.3)를 0.1 차로 앞서 「France가 Italy보다 높다」가 한쪽 해에서만 성립한다. 2011년에는 34.8 < 40.8로 뒤진다. in both 2011 and 2020 의 「both」를 확인하게 만드는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     6
+    ],
+    "quote": "The renewable energy generation capacity of France was higher than that of Italy in both 2011 and 2020.",
+    "reasoning": "2011년 France 34.8GW, Italy 40.8GW로 France가 6.0 낮다. 2020년(55.4 > 55.3)만 맞고 2011년이 어긋나므로 「both」 조건이 깨진다."
+   },
+   "choices": [
+    {
+     "n": 5,
+     "verdict": "correct",
+     "trap": "부분 사실",
+     "why_correct": "[6번 문장]의 in both 2011 and 2020 중 2020년 France 55.4 > Italy 55.3 은 맞지만, 2011년은 France 34.8 < Italy 40.8 이다. 「higher than that of Italy」가 2011년 값과 반대 방향이라 진술 전체가 도표와 어긋난다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ],
+      "note": "원본 도표 확인 — 202309_영어영역_문제지.pdf 4쪽, 읽은 값(GW, 2011/2020): Germany 67.4/131.7, Spain 43.9/59.1, Italy 40.8/55.3, France 34.8/55.4"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2번 문장]: 네 나라 모두 짙은 막대(2020)가 옅은 막대(2011)보다 크다 — Germany 67.4→131.7, Spain 43.9→59.1, Italy 40.8→55.3, France 34.8→55.4. 맞는 진술이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3번 문장]: Germany는 2011년 67.4, 2020년 131.7로 두 해 모두 50.0을 넘는다. 맞는 진술이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4번 문장]: 2011년 순위는 Germany 67.4 > Spain 43.9 > Italy 40.8 > France 34.8, 2020년은 Germany 131.7 > Spain 59.1 > France 55.4 > Italy 55.3이라 Spain은 두 해 모두 2위다. 맞는 진술이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[5번 문장]: 2020년 Italy 55.3이 Spain 59.1보다 3.8 낮다. 비교 방향이 도표와 같아 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례에서 옅은 막대=2011, 짙은 막대=2020을 확인하고 나라마다 두 숫자를 (2011, 2020) 쌍으로 적는다",
+     "on_fail": "막대 위 숫자가 어느 막대 것인지 헷갈리면 숫자 바로 아래 막대 색을 범례와 맞춘다"
+    },
+    {
+     "step": "선지에서 연도 표현(in 2011 · in 2020 · in both · the same year)을 먼저 표시해 비교할 해를 정한다",
+     "on_fail": "연도 표현이 둘이면 해마다 비교를 따로 두 번 한다"
+    },
+    {
+     "step": "both·remained가 붙은 진술은 두 해 각각에서 같은 비교가 성립하는지 확인하고, 한 해라도 어긋나면 그 진술이 틀린 것이다",
+     "on_fail": "값 차이가 0.1처럼 작으면 소수점 첫째 자리까지 그대로 비교한다"
+    },
+    {
+     "step": "순위 진술(second place)은 그 해 네 값을 큰 순서로 다시 줄 세운 뒤 확인한다",
+     "on_fail": "순위가 바뀌는 해(2020년 France와 Italy)를 따로 표시해 둔다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "2020년 France·Italy 차이가 0.1",
+     "both 조건이 한 해에서만 성립"
+    ]
+   },
+   "required_vocab": [
+    "capacity",
+    "respective",
+    "remained",
+    "in both"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "⑤는 2020년 55.4 vs 55.3 이 맞고 2011년 34.8 vs 40.8 이 반대 — 「both」가 판별 성분"
+     ],
+     "checked": [
+      "quote 를 sentences n=6 과 문자열 대조(선지 끝 각주 조각 제외)",
+      "여덟 값으로 다섯 진술 계산 대조",
+      "판정 결과와 공식 답 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "③의 2020 순위에서 France(55.4)가 Italy(55.3)보다 앞선다는 점을 how_to_reject 에 명시했는지 확인"
+     ],
+     "checked": [
+      "오답 넷 how_to_reject 가 서로 다른 값·연도를 짚는지 대조",
+      "선지 3의 2020 순위가 France>Italy임을 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "0.1 차이 비교를 on_fail 에 넣어 소수점까지 보게 함"
+     ],
+     "checked": [
+      "절차가 도표만으로 실행 가능한지",
+      "on_fail 서로 다른지",
+      "60초 예산 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2306#25",
+   "measured_ability": "표에서 순위 변화와 수치 변화를 구별해, 순위가 내려간 나라의 값이 실제로는 늘었는지 줄었는지 따로 확인하는 능력",
+   "design_intent": "U.S.는 5위에서 6위로 내려갔지만 값은 733에서 869로 늘었다. 「순위 하락 = 값 감소」로 잇는 추론을 ③의 분사구 showing a decrease 에 걸었다. 바로 앞 ②의 Germany는 순위도 값도 함께 내려가(891→884) 같은 연결이 맞는 사례로 놓여 있다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "The U.S. fell from fifth place on the 2009 list to sixth place on the 2019 list, showing a decrease in the number of resident patent applications per million population.",
+    "reasoning": "U.S.의 백만 명당 출원 수는 2009년 733, 2019년 869로 136 늘었다. 순위는 5위→6위로 맞지만 showing a decrease in the number 가 값의 방향과 반대다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "[5번 문장]의 앞부분 fell from fifth place ... to sixth place 는 표와 맞고, 뒷부분 showing a decrease 가 U.S. 733(2009) → 869(2019) 증가와 반대 방향이다. 바뀐 성분은 수치 변화의 방향 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 표 확인 — 202306_영어영역_문제지.pdf 4쪽, 읽은 값: 2009 Korea 2,582/Japan 2,306/Switzerland 975/Germany 891/U.S. 733/Finland 609, 2019 Korea 3,319/Japan 1,943/Switzerland 1,122/China 890/Germany 884/U.S. 869"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[3번 문장]: 2009년 1·2·3위 Korea·Japan·Switzerland가 2019년에도 1·2·3위다. 순위만 말한 진술이라 Japan 값 감소(2,306→1,943)와 무관하게 맞다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[4번 문장]: Germany는 2009년 4위 891, 2019년 5위 884다. 순위·두 값 모두 표와 같아 맞는 진술이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[6번 문장]: 2009년 여섯 나라 중 2019년 표에 없는 나라는 Finland 하나다(나머지 다섯은 2019년 표에 다시 있음). 맞는 진술이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[7번 문장]: China는 2009년 표에 없고 2019년 4위 890이다. 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "표의 두 해 열을 나란히 놓고 나라마다 (2009 순위·값 → 2019 순위·값)을 짝지어 적는다",
+     "on_fail": "나라 순서가 두 해에 다르므로 이름으로 찾아 짝짓는다"
+    },
+    {
+     "step": "선지마다 순위 진술(rank·place·list)과 수치 진술(number·increase·decrease)을 나눠 밑줄 긋는다",
+     "on_fail": "분사구(showing ~)나 with 구에 수치 진술이 숨어 있는지 끝까지 본다"
+    },
+    {
+     "step": "순위 진술은 순위 칸으로, 수치 진술은 값 칸으로 각각 따로 확인한다 — 순위가 내려가도 값은 늘 수 있다",
+     "on_fail": "두 값의 크기를 직접 빼서 방향(+/−)을 적는다"
+    },
+    {
+     "step": "「only」「did not make the list」 진술은 다른 해 표 전체에서 이름이 있는지 하나씩 지운다",
+     "on_fail": "여섯 이름에 표시하며 지워 남은 이름을 센다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "순위 하락과 값 증가가 함께 일어남",
+     "수치 진술이 분사구 안에 있음"
+    ]
+   },
+   "required_vocab": [
+    "fell",
+    "decrease",
+    "maintained",
+    "per million population"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "③은 순위 진술은 참, 분사구 수치 진술(733→869 증가)이 반대"
+     ],
+     "checked": [
+      "quote 를 sentences n=5 와 문자열 대조",
+      "원본 표 열두 칸으로 다섯 진술 대조",
+      "판정 결과와 공식 답 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①의 how_to_reject 가 Japan 값 감소를 근거로 쓰지 않는지(순위만의 진술) 확인"
+     ],
+     "checked": [
+      "오답 넷 how_to_reject 가 각기 다른 나라·칸을 짚는지 대조",
+      "정답 trap 반대 진술이 증감 방향 뒤집기와 일치"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "순위 칸과 값 칸을 나눠 보는 단계가 U.S. 행에서 바로 작동"
+     ],
+     "checked": [
+      "절차 실행 가능성",
+      "on_fail 상이성",
+      "60초 예산"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2022#25",
+   "measured_ability": "두 해의 띠그래프에서 같은 지역 칸을 찾아 비율을 짝지어 읽고, 배수·증감·변화 없음 진술을 각각 계산으로 확인하는 능력",
+   "design_intent": "작은 칸 넷(Central and South America·Middle East and North Africa·Sub-Saharan Africa·North America)이 띠 오른쪽에 몰려 있고 이름표가 위로 빠져 있다. Middle East and North Africa(6→6)·Sub-Saharan Africa(4→4)는 실제로 변하지 않아, Central and South America(9→7)도 「변화 없음」으로 보이게 만들었다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "Central and South America is not expected to change from 2015 to 2025 in its share of the global middle class.",
+    "reasoning": "Central and South America의 비율은 2015년 9%, 2025년 7%로 2%p 줄 것으로 예상된다. is not expected to change 는 이 감소와 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "[5번 문장]의 not expected to change 가 Central and South America의 9%(2015) → 7%(2025) 감소와 맞물리지 않는다. 변화가 없는 것은 옆 칸 Middle East and North Africa(6→6)와 Sub-Saharan Africa(4→4)다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2022_영어영역_짝수형.pdf 4쪽, 읽은 값(2015/2025 %): Asia Pacific 46/60, Europe 24/16, North America 11/8, Central and South America 9/7, Middle East and North Africa 6/6, Sub-Saharan Africa 4/4"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2번 문장]: Asia Pacific 칸은 2015년 46%, 2025년 60%다. 증가 방향과 두 값이 도표와 같아 맞는 진술이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3번 문장]: 2025년 Asia Pacific 60%는 여섯 지역 중 최대이고, Europe 16%의 세 배는 48%이므로 60 > 48로 「세 배 이상」이 성립한다. 맞는 진술이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4번 문장]: Europe 24%→16%, North America 11%→8%로 둘 다 줄고 네 값도 도표 칸과 같다. 맞는 진술이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6번 문장]: Middle East and North Africa 6%, Sub-Saharan Africa 4%로 2025년과 2015년 모두 6 > 4다. 맞는 진술이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "두 띠에서 위로 빠진 작은 칸 이름표(Central and South America·Middle East and North Africa·Sub-Saharan Africa)를 연결선으로 따라가 각 칸에 숫자를 적는다",
+     "on_fail": "연결선이 헷갈리면 띠 안 칸 순서(왼쪽부터)가 두 해에 같다는 점을 이용해 위치로 짝짓는다"
+    },
+    {
+     "step": "여섯 지역마다 (2015, 2025) 쌍을 한 줄 표로 만든다",
+     "on_fail": "칸 크기로 짐작하지 말고 인쇄된 %만 옮긴다"
+    },
+    {
+     "step": "「more than three times」 같은 배수 진술은 작은 쪽 값에 배수를 곱해 큰 쪽과 견준다",
+     "on_fail": "배수와 %p 차이를 섞지 않도록 곱셈 결과를 따로 적는다"
+    },
+    {
+     "step": "「not expected to change」「increase」「decrease」 진술은 그 지역 두 값을 빼서 0인지, 부호가 맞는지 본다",
+     "on_fail": "옆 칸 지역과 혼동하지 않도록 선지의 지역 이름을 표의 줄과 한 번 더 맞춘다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.87,
+    "drivers": [
+     "작은 칸 이름표가 띠 밖으로 빠져 있음",
+     "변화 없는 이웃 칸 두 개가 있음"
+    ]
+   },
+   "required_vocab": [
+    "projected",
+    "share",
+    "more than three times",
+    "not expected to change"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "④ Central and South America 9→7 감소, 변화 없음은 이웃 두 지역(6→6, 4→4)"
+     ],
+     "checked": [
+      "quote 를 sentences n=5 와 문자열 대조",
+      "열두 값으로 다섯 진술 계산 대조(배수 60 vs 48 포함)",
+      "판정 결과와 공식 답 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "②의 배수 계산 16×3=48 < 60 을 how_to_reject 에 숫자로 보였는지 확인"
+     ],
+     "checked": [
+      "오답 넷 how_to_reject 상이성",
+      "정답 trap 반대 진술 = 변화 없음 vs 감소 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "띠 밖 이름표를 연결선으로 따라가는 1단계가 작은 칸 혼동을 막음"
+     ],
+     "checked": [
+      "절차 실행 가능성",
+      "on_fail 상이성",
+      "60초 예산"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2209#25",
+   "measured_ability": "표의 두 수치 열(Number of Workers Added · Growth Percentage)을 구별해 선지가 묻는 열에서 값을 찾고, 두 나라를 묶은 「each」 조건을 나라마다 확인하는 능력",
+   "design_intent": "Texas(44%)는 「50% 미만」을 만족하지만 Virginia(120%)는 그렇지 않다. 두 주를 each 로 묶어, 앞의 Texas 하나만 확인하고 넘어가면 놓치게 만든 설계다. 표가 근로자 수 순위로 정렬되어 성장률 열은 순서가 들쭉날쭉하다.",
+   "answer_locus": {
+    "sentence_index": [
+     4
+    ],
+    "quote": "Regarding Texas and Virginia, each state showed less than 50% growth.",
+    "reasoning": "Growth Percentage 열에서 Texas 44%, Virginia 120%다. Virginia가 50%를 넘으므로 each state showed less than 50% growth 가 깨진다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "부분 사실",
+     "why_correct": "[4번 문장]의 each state 가 Texas와 Virginia 둘을 다 요구하는데, less than 50% 는 Texas 44%에만 맞고 Virginia 120%와는 반대다. 바뀐 성분은 Virginia의 성장률 범위다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ],
+      "note": "원본 표 확인 — 202209_영어영역_문제지.pdf 4쪽, 읽은 값(Workers Added / Growth %): Florida 4,659/71, Utah 4,246/158, Texas 3,058/44, Virginia 2,352/120, Minnesota 2,003/101, New York 1,964/24, Pennsylvania 1,810/72"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2번 문장]: Florida는 근로자 수 1위(4,659)이고 성장률은 71%다. 맞는 진술이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3번 문장]: Minnesota 2,003의 두 배는 4,006이고 Utah 4,246은 그보다 크다. 「두 배 이상」이 성립하므로 맞는 진술이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[5번 문장]: New York은 1,964명으로 1,900을 넘고 성장률은 24%다. 맞는 진술이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6번 문장]: 근로자 수 열의 최솟값은 Pennsylvania 1,810(7위)이다. 성장률 72%와 상관없이 근로자 수 기준 진술이라 맞다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "표 머리에서 숫자 열 둘(Number of Workers Added, Growth Percentage %)을 구별하고, 표가 첫 열 기준으로 정렬되었음을 확인한다",
+     "on_fail": "단위(명 vs %)로 어느 열인지 다시 가른다"
+    },
+    {
+     "step": "선지마다 묻는 열을 표시한다 — workers added·lowest number 는 첫 열, growth·% 는 둘째 열",
+     "on_fail": "한 선지에 두 열이 다 나오면(①·④) 두 값을 따로 확인한다"
+    },
+    {
+     "step": "each·both 로 둘 이상을 묶은 진술은 묶인 주마다 값을 하나씩 찾아 조건과 견준다",
+     "on_fail": "첫 주만 맞고 끝내지 않도록 묶인 이름 수만큼 체크 표시를 한다"
+    },
+    {
+     "step": "「more than twice」 진술은 작은 값에 2를 곱해 큰 값과 견준다",
+     "on_fail": "어림으로 판단이 안 서면 천 단위까지 곱한 값을 적는다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "each 로 묶인 두 주 중 하나만 조건 위반",
+     "두 수치 열 혼동 가능"
+    ]
+   },
+   "required_vocab": [
+    "growth",
+    "more than twice",
+    "each",
+    "the lowest number"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "③은 Texas 44%만 조건 충족, Virginia 120% 위반 — each 가 판별 성분"
+     ],
+     "checked": [
+      "quote 를 sentences n=4 와 문자열 대조",
+      "열네 칸으로 다섯 진술 계산 대조(2,003×2=4,006)",
+      "판정 결과와 공식 답 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "②의 2,003×2=4,006 < 4,246 계산을 how_to_reject 에 보였는지 확인"
+     ],
+     "checked": [
+      "오답 넷 how_to_reject 상이성",
+      "정답 trap 부분 사실 = 두 주 중 하나만 성립과 일치"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "두 수치 열(명·%) 구별 단계가 ⑤·③에서 각각 다른 열을 보게 함"
+     ],
+     "checked": [
+      "절차 실행 가능성",
+      "on_fail 상이성",
+      "60초 예산"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-CHART",
+  "n_analyzed": 5,
+  "recurring_traps": [
+   {
+    "trap": "반대 진술",
+    "count": 3,
+    "signature": "증감·최하위·변화 없음의 방향을 하나 뒤집음(2023 ④·M2306 ③·2022 ④)"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 2,
+    "signature": "both/each 로 묶은 둘 중 하나에서만 성립(M2309 ⑤·M2209 ③)"
+   }
+  ],
+  "answer_locus_pattern": "5문항 모두 근거가 선지 문장 자신 하나와 도표 값의 대조에서 닫힌다. 각 정답 선지에서 바뀐 성분은 하나뿐이고 나머지 성분은 도표와 맞다. 함정은 문항마다 한 번만 셌다.",
+  "procedure": [
+   "범례·열 머리·단위를 먼저 짝짓고 범주별 값을 표로 옮긴다",
+   "선지마다 범주·연도·열 이름과 조건어(both·each·the lowest·times·change)를 표시한다",
+   "묶음 조건은 묶인 것마다, 최상급은 묶음 전체 값과, 배수는 곱셈으로 따로 확인한다"
+  ],
+  "failure_modes": [
+   "순위 하락을 값 감소로 잇기",
+   "both/each 중 첫째만 확인",
+   "이웃 칸 범주와 혼동",
+   "최하위 범주가 묶음마다 다름을 놓치기"
+  ],
+  "time_budget_sec": 60,
+  "open_questions": [
+   "3인 검수에서 반려가 0건이었다 — 세 자가 모두 도표 값 대조를 재고 있어 서로 다른 맹점을 덮지 못했을 수 있다. 다음 청크에서는 tutor 가 학습자 시간 측정을 실제로 하도록 자를 바꿀 것을 제안한다."
+  ]
+ }
+}

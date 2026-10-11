@@ -1,0 +1,12 @@
+{"pass":2,"k":14,"items":[
+{"id":"2026#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"overgeneral","note":"선지3 배제에 '정의는 개별 사례보다 앞에 온다'를 조건 없이 씀 — another/like this 선행 조건으로 설명해야 함"}]},
+{"id":"2026#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2026#38","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"선지5 텍스트에 각주(anecdote·incumbent 풀이)와 쪽번호 7이 섞여 있음"},{"code":"overgeneral","note":"정답 근거 '예시가 예시의 근거가 될 수 없다'가 조건 없는 규칙처럼 서술됨"}]},
+{"id":"2026#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"선지5 텍스트에 [3점] 표기와 encompass 각주가 섞여 있음"},{"code":"choice_2","note":"② 배제 근거 'As in the real world가 받을 대상이 없어진다'가 성립 불명확 — 유사 진술이 차이 앞에 와야 한다는 점으로 설명해야 함"}]},
+{"id":"2026#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2026#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"선지1 배제가 '문제 제기 직후 해소가 올 수 없다'는 일반론 — (B)의 the book Mia had chosen 선행 조건이 더 정확"}]},
+{"id":"M1809#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M1809#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M1809#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"선지2 lure_quote가 빈칸 문장 자체라 유인 근거(new and preferred story 대응)를 가리키지 못함"}]},
+{"id":"M1809#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"선지4 배제가 '멀어지는 쪽은 outsiders'로 논리 혼동 — 주민의 장소 애착(rooted)과 소외가 반대라는 점이 핵심, trap '주체 역전'도 부정확"},{"code":"choice_5","note":"선지5 배제가 advantage 주체만 지적 — 거부 대상이 산업 이점이 아니라 정체성 상실이라는 점이 빠짐"}]}
+]}

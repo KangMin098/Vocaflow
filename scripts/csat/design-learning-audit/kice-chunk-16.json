@@ -1,0 +1,370 @@
+{
+  "chunk": "16",
+  "set": "kice",
+  "offset": 600,
+  "items": [
+    {
+      "id": "M2309#40",
+      "version": 3,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2309#41",
+      "version": 3,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2309#42",
+      "version": 3,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2309#43",
+      "version": 4,
+      "type": "X-ORDER",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "answer_reasoning",
+          "note": "「지시 강도의 한 단계 상승으로 닫힌다」 틀 문구가 이음매 근거와 맞지 않는 복붙 표현"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2309#44",
+      "version": 3,
+      "type": "X-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2309#45",
+      "version": 3,
+      "type": "X-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#18",
+      "version": 3,
+      "type": "R-PURPOSE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#19",
+      "version": 4,
+      "type": "R-MOOD",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#20",
+      "version": 3,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#21",
+      "version": 3,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#22",
+      "version": 3,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#23",
+      "version": 3,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#24",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#25",
+      "version": 3,
+      "type": "R-CHART",
+      "verdict": "needs_source",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "막대 값 미수록 상태에서 선지 커버리지 소거로 정답 자리를 추론 — 도표 값 확보 필요"
+        },
+        {
+          "code": "answer_reasoning",
+          "note": "why_correct가 평가원 정답표로 부등호 방향을 역추론함(정답표 역추론 금지 위반)"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "M2406#26",
+      "version": 3,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#27",
+      "version": 5,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#28",
+      "version": 3,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#29",
+      "version": 4,
+      "type": "R-GRAMMAR",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "choice_2",
+          "note": "why_tempting가 원문 the power to fulfill 을 power of fulfilling 으로 잘못 인용"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#30",
+      "version": 3,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#31",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#32",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#33",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "lure_quote",
+          "note": "선지2 why_tempting 인용이 원문 여러 조각을 쉼표로 이어 붙인 합성 인용"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#34",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#35",
+      "version": 3,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#36",
+      "version": 3,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#37",
+      "version": 3,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#38",
+      "version": 3,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#39",
+      "version": 3,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#40",
+      "version": 3,
+      "type": "R-SUMMARY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#41",
+      "version": 3,
+      "type": "X-TITLE",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "other",
+          "note": "confirmed_at가 지문이 옆 단과 뒤섞였다고 하나 저장 지문은 정상 — 근사 문장번호 주석 재확인"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#42",
+      "version": 3,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#43",
+      "version": 3,
+      "type": "X-ORDER",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "other",
+          "note": "why_correct 괄호 주석이 코퍼스 선지 오염을 주장하나 저장된 선지는 정상 순열 — 낡은 주석 삭제"
+        },
+        {
+          "code": "answer_reasoning",
+          "note": "「지시 강도의 한 단계 상승」 틀 문구가 실제 이음매 설명과 무관(2309#43과 동일 복붙)"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#44",
+      "version": 3,
+      "type": "X-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2406#45",
+      "version": 3,
+      "type": "X-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#18",
+      "version": 3,
+      "type": "R-PURPOSE",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "choice_5",
+          "note": "trap「주체 역전」이 실제 함정(당부 vs 참여 요청 화행 바꿔치기)과 맞지 않음"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#19",
+      "version": 4,
+      "type": "R-MOOD",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#20",
+      "version": 3,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#21",
+      "version": 3,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#22",
+      "version": 3,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#23",
+      "version": 3,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    }
+  ]
+}

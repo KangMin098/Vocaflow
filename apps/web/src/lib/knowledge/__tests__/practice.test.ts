@@ -80,7 +80,9 @@ describe('골격 115문항 — 개발 · 연습용 후보(효과 계산 제외)'
       .update(JSON.stringify(SKELETON_ITEMS.map((id) => keyFromSkeleton(loadItemSkeleton(id)!))))
       .digest('hex')
     // 2026-10-10 갱신: 정규식 결함 수정으로 해설 인용이 새로 자리를 찾아 12문항 함정 문장 +12 · -2(주장 불변). 끌리는 구절(lure)은 채점 제외.
-    expect(digest).toMatchInlineSnapshot(`"9b7ff9163233638fa3e7de8383cf0f866c9aa67a272ceaa4891ab2fc48850767"`)
+    // 2026-10-11 갱신: 평가원 교정 300 적재 · 영어 조각 앞뒤 부호 정리(F06) · 노출 상한 재유도로 58문항 키가 바뀜 — 57문항은 함정 문장만,
+    //   주장 변경 1문항 M2409#23(4→6번 문장: 교정이 범위 밖 8·9번 근거를 6 · 7번으로 바로잡음 · 독립 검수 통과).
+    expect(digest).toMatchInlineSnapshot(`"52ab9004a7ab0c3e7a2906389bc385e95dadbbf12f45e96e89eb7d7da71e331d"`)
   })
   it('과제 키가 둘로 갈린다 — 골격 기록은 정본 과제 키를 쓰지 않는다', () => {
     expect(SKELETON_TASK).not.toBe(PRACTICE_TASK)

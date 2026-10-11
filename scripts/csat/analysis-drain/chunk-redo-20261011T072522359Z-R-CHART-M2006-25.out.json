@@ -1,0 +1,638 @@
+{
+ "chunk": 5,
+ "type_id": "R-CHART",
+ "type_name": "도표",
+ "analyses": [
+  {
+   "item_id": "M2006#25",
+   "measured_ability": "막대그래프에서 성별 계열을 고정한 채 연령대 여섯 칸의 최댓값·최솟값·차순위를 찾고, 「the youngest group」 같은 범주 지시어를 실제 연령대 칸으로 바꿔 대조하는 능력",
+   "design_intent": "⑤는 「likewise」로 ④(남성 최저=2-5세)의 패턴을 여성에게 그대로 옮겨 오게 만든다. 여성 2-5세(59)와 60세 이상(55)의 차이가 4뿐이라 막대 높이 눈대중으로는 갈리지 않고, 막대 위 숫자를 읽어야 갈린다. 「the youngest group」 은 연령 순서상 첫 칸을 가리키는 지시어라 값 비교 없이 참으로 넘기기 쉽다.",
+   "answer_locus": {
+    "sentence_index": [
+     6
+    ],
+    "quote": "Among the female groups, likewise, the youngest group had the lowest average kilocalorie intake from sugar-sweetened beverages.",
+    "reasoning": "여성 막대 여섯 개의 값은 2-5세 59 · 6-11세 104 · 12-19세 162 · 20-39세 160 · 40-59세 111 · 60세 이상 55다. 가장 작은 값은 60세 이상의 55이고 가장 어린 2-5세(59)는 그보다 4 크므로, 「가장 어린 집단이 최저」라는 진술은 성립하지 않는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2]의 「In each age group」은 여섯 칸 모두를 요구한다. 남/여 순으로 65>59 · 133>104 · 232>162 · 249>160 · 172>111 · 82>55 로 여섯 칸 전부 남성이 크므로 도표와 맞고, 그래서 불일치를 묻는 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번째 문장 「the group aged 20-39」 는 남성 막대만 비교한다. 남성 최댓값은 20-39세 249로, 차순위 12-19세 232보다 17 크다. 진술이 맞으므로 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4]는 여성 1위와 2위를 함께 주장한다. 여성 12-19세 162가 최대이고 20-39세 160이 그다음(차이 2)이며 40-59세 111이 세 번째다. 두 순위가 모두 맞아 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "5번째 문장 「the group aged 2-5 had the lowest」 는 남성 최솟값을 묻는다. 남성 2-5세 65가 60세 이상 82보다 작고 나머지 칸(133~249)보다도 작아 최저가 맞다. 그래서 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "trap": "범주 지시어 대입 오류",
+     "why_correct": "[6]의 「the youngest group」 은 2-5세 칸(여성 59)을 가리키고 「the lowest」 는 여성 막대 중 최솟값을 요구하는데, 여성 최솟값은 60세 이상의 55라서 「youngest」 와 「lowest」 가 같은 칸에 붙지 않는다. 「likewise」 로 이어 받은 남성 쪽 패턴(2-5세 65가 최저)이 여성에서는 끝 칸으로 옮겨 간 것이 바뀐 성분이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ],
+      "note": "원본 도표 확인 — 202006_영어영역_문제지.pdf 4쪽, 읽은 값(남/여): 2-5 65/59, 6-11 133/104, 12-19 232/162, 20-39 249/160, 40-59 172/111, 60 and over 82/55"
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 「일치하지 않는」 인지 보고, 범례에서 진한 막대=Male, 연한 막대=Female 을 확인해 연령대 아래에 남/여 값을 짝으로 적는다",
+     "on_fail": "계열을 바꿔 읽었으면 범례 상자의 색 칸을 막대 하나와 직접 대 본다"
+    },
+    {
+     "step": "선지마다 묻는 계열(남성만·여성만·둘 다)과 연산(최대·최소·순위·전칭 비교)을 옆에 표시한다",
+     "on_fail": "「Among the male groups」 「Among the female groups」 「In each age group」 세 표현이 계열 범위를 정하므로 그 구에 밑줄을 긋는다"
+    },
+    {
+     "step": "「the youngest group」 처럼 값 대신 이름으로 칸을 가리키는 표현은 먼저 실제 연령대(2-5세)로 바꿔 적은 뒤 비교한다",
+     "on_fail": "지시어를 바꾸지 않고 넘겼으면 「youngest」 「oldest」 「highest」 를 칸 이름과 값 하나씩으로 다시 적는다"
+    },
+    {
+     "step": "최저·최고 주장은 막대 높이가 아니라 막대 위 숫자로 여섯 칸 전부 비교한다. 두 값 차이가 작은 칸(162/160, 59/55)은 특히 숫자로 본다",
+     "on_fail": "높이로 판단해 둘 이상이 X 가 되면 숫자 라벨만 써서 해당 계열 최솟값·최댓값을 다시 찾는다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "막대마다 숫자 라벨이 있어 눈금 판독이 필요 없다",
+     "여성 끝 두 칸 차이가 4로 작다",
+     "「likewise」 가 앞 선지 패턴을 옮겨 오게 한다"
+    ]
+   },
+   "required_vocab": [
+    "youngest",
+    "lowest",
+    "likewise",
+    "followed by"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답 선지의 바뀐 성분이 연령 극단(첫 칸→끝 칸)임을 why_correct 에 명시",
+      "여성 막대 최솟값 55(60세 이상)와 2-5세 59를 그림에서 다시 읽어 ⑤ 거짓 확인"
+     ],
+     "checked": [
+      "answer_locus.quote 를 문장 목록 원문과 문자열 대조",
+      "원본 도표에서 읽은 값으로 다섯 진술을 직접 계산해 공식 정답과 일치 확인",
+      "why_correct 가 정답 선지의 어느 절·어느 값과 맞물리는지 낱말 단위 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①의 여섯 쌍 비교와 ③의 162/160 차순위가 모두 참인지 숫자로 재대조"
+     ],
+     "checked": [
+      "오답 넷이 도표상 참인지 값 대조",
+      "오답에 trap/why_tempting 이 비어 있는지(V14)",
+      "오답 how_to_reject 가 선지마다 다른 값·계산을 쓰는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계(지시어→칸 이름 변환)는 이 문항 ⑤에만 해당하는 표현이 있어 넣었다 — 공통 틀이 아님을 확인",
+      "지시어 변환 단계가 the youngest 에만 걸리는지, 4단계 70초 안에 끝나는지 확인"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 학생이 도표만 보고 실행할 수 있는지",
+      "on_fail 이 단계마다 다른지",
+      "time_budget_sec 안에 계산 횟수가 들어가는지",
+      "required_vocab 이 진술 판정에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2019#25",
+   "measured_ability": "두 학년도 표에서 같은 나라의 행을 찾아 배수를 계산하고, 같은 표 안의 순위 비교를 별도로 확인해 한 문장 안 두 절을 각각 판정하는 능력",
+   "design_intent": "③의 앞 절(인도 20배 이상)은 186,000÷9,000≈20.7로 경계 근처에서 참이 되도록 맞춰져 있어 계산에 시간을 쓰게 만든다. 정작 어긋난 것은 계산이 필요 없는 뒤 절의 순위(India ranked higher than China)다. 앞 절 계산을 마치고 만족하는 학습자를 거른다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     5
+    ],
+    "quote": "and India ranked higher than China in 2016-2017",
+    "reasoning": "2016-2017 표의 첫 행이 China 351,000, 둘째 행이 India 186,000이다. 인도는 중국보다 아래(2위)이므로 「India ranked higher than China」 는 거짓이고, 앞 절이 참이어도 and 로 묶인 문장 전체가 표와 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[1] 표의 Total 행: 1,079,000 ÷ 286,000 ≈ 3.77. 「over three times」 기준인 286,000×3=858,000 을 넘으므로 [3]은 맞고 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[1]의 1979-1980 표 상위 셋은 Iran 51,000 · Taiwan 18,000 · Nigeria 16,000 이다. 2016-2017 표에는 Taiwan(22,000)만 있고 Iran·Nigeria 는 없다. [4]의 두 주장이 모두 맞아 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "연언 뒤 절 미확인",
+     "why_correct": "[5]의 앞 절 「over twenty times larger」 는 인도 186,000 ÷ 9,000 ≈ 20.7 로 맞지만, 뒤 절 「India ranked higher than China in 2016-2017」 은 표 첫 행 China 351,000 > 둘째 행 India 186,000 과 방향이 반대다. 바뀐 성분은 두 나라의 순위 비교 방향이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1,
+       5
+      ],
+      "note": "원본 표 확인 — 2019_영어_짝.pdf 4쪽, 읽은 값: 1979-80 Iran 51,000 Taiwan 18,000 Nigeria 16,000 Canada 15,000 Japan 12,000 … India 9,000 Total 286,000 / 2016-17 China 351,000 India 186,000 South Korea 59,000 Saudi Arabia 53,000 Canada 27,000 Vietnam 22,000 Taiwan 22,000 Japan 19,000 Total 1,079,000"
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[1]의 1979-1980 표 열 행에는 South Korea 가 없고, 2016-2017 표에서는 China·India 다음 셋째 행(59,000)이다. [6]이 맞아 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[1]에서 Japan 은 12,000(1979-80, 5위) → 19,000(2016-17, 8위)이다. 수는 늘고 순위는 5위에서 8위로 내려가 [7]의 양보절·주절이 모두 맞으므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 「일치하지 않는」 인지 확인하고, 두 표의 열 머리(Country · Number)와 맨 아래 Total 행 위치를 먼저 짚는다",
+     "on_fail": "어느 표가 어느 학년도인지 헷갈리면 표 위 「School Year」 띠의 연도를 다시 읽는다"
+    },
+    {
+     "step": "선지를 and · among which · Although 에서 끊어 절마다 따로 O/X 칸을 만든다. 한 절이라도 X 면 그 선지가 답이다",
+     "on_fail": "절을 안 끊고 판정했으면 접속어 앞뒤 주장을 각각 한 줄로 다시 적는다"
+    },
+    {
+     "step": "배수 주장(three times · twenty times)은 기준값×배수를 계산해 큰 값과 비교한다(286,000×3, 9,000×20)",
+     "on_fail": "나눗셈이 막히면 곱셈으로 바꿔 경계값을 먼저 만든다"
+    },
+    {
+     "step": "순위 주장(top three · ranked third · ranked higher/lower)은 계산 없이 표의 행 순서로 확인한다",
+     "on_fail": "순위를 수로 다시 세다 막히면 표가 큰 수부터 정렬돼 있는지 확인하고 행 번호를 적는다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "표 두 개를 오가며 같은 나라 행을 찾아야 한다",
+     "배수 계산이 경계(20.7)에 걸려 있다",
+     "거짓인 절이 두 절 중 뒤에 있다"
+    ]
+   },
+   "required_vocab": [
+    "ranked",
+    "origin",
+    "Although"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "2016-17 표 첫 두 행 China 351,000 · India 186,000 순서를 다시 읽어 뒤 절 거짓 확인"
+     ],
+     "checked": [
+      "answer_locus.quote 를 문장 목록 원문과 문자열 대조",
+      "원본 도표에서 읽은 값으로 다섯 진술을 직접 계산해 공식 정답과 일치 확인",
+      "why_correct 가 정답 선지의 어느 절·어느 값과 맞물리는지 낱말 단위 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "정답 선지 trap 은 앞 절 참·뒤 절 거짓의 구조에서 나온 것으로 확인",
+      "186,000÷9,000=20.7, 1,079,000÷286,000=3.77 재계산, Japan 5위→8위 행 순서 확인"
+     ],
+     "checked": [
+      "오답 넷이 도표상 참인지 값 대조",
+      "오답에 trap/why_tempting 이 비어 있는지(V14)",
+      "오답 how_to_reject 가 선지마다 다른 값·계산을 쓰는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "배수 두 번 계산을 곱셈 경계로 바꾸는 단계가 90초 안에 끝나는지 확인"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 학생이 도표만 보고 실행할 수 있는지",
+      "on_fail 이 단계마다 다른지",
+      "time_budget_sec 안에 계산 횟수가 들어가는지",
+      "required_vocab 이 진술 판정에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2018#24",
+   "measured_ability": "네 계열 막대의 두 시점 값을 짝지어 증감·순위를 판정하고, 「twice as high」 를 기준값×2와의 비교로 바꿔 계산하는 능력",
+   "design_intent": "Fairtrade 는 1,064 → 1,572로 크게 늘어 「두 배」 로 보이기 쉽지만 1,064×2=2,128 에 한참 못 미친다(약 1.48배). 증가 사실(①과 겹침)과 배수 주장을 구별하는지 묻는다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "The sales of Fairtrade in 2015 were twice as high as those in 2010.",
+    "reasoning": "Fairtrade 막대는 2010년 1,064, 2015년 1,572다. 두 배가 되려면 2,128이어야 하는데 1,572는 그보다 556 작아 약 1.48배에 그친다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2]는 네 계열 모두의 증가를 주장한다. Organic 1,475→1,744 · Rainforest Alliance 1,197→2,048 · Fairtrade 1,064→1,572 · Vegetarian meat alternatives 541→710 으로 넷 다 늘었으므로 맞고 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3]: 2010년 최댓값은 Organic 1,475, 2015년에는 Rainforest Alliance 2,048 다음이 Organic 1,744 로 2위다. 두 순위가 맞아 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4]: 2010년 Rainforest Alliance 1,197 은 Organic 1,475 다음 2위, 2015년 2,048 은 네 계열 중 최대다. 맞으므로 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "증가를 배수로 과장",
+     "why_correct": "[5]의 「twice as high as those in 2010」 은 Fairtrade 2015년 값이 2010년 1,064의 두 배(2,128) 이상이어야 성립하는데 실제 2015년 값은 1,572로 약 1.48배다. 증가 방향은 맞고 배수 크기만 바뀐 진술이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2018_영어_짝.pdf 3쪽, 읽은 값(£ million, 2010/2015): Organic 1,475/1,744, Rainforest Alliance 1,197/2,048, Fairtrade 1,064/1,572, Vegetarian meat alternatives 541/710"
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6]: Vegetarian meat alternatives 는 2010년 541, 2015년 710 으로 두 해 모두 네 막대 중 가장 낮다(다음으로 낮은 값은 1,064 · 1,572). 맞아서 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 「일치하지 않는」 인지 보고, 범례 무늬 네 개(흰 칸 Organic · 빗금 Rainforest Alliance · 회색 Fairtrade · 점무늬 Vegetarian)를 각 연도 막대에 대응시킨다",
+     "on_fail": "무늬가 헷갈리면 막대 위 숫자를 연도별로 왼쪽부터 순서대로 받아 적고 범례 순서와 맞춘다"
+    },
+    {
+     "step": "선지가 묻는 연산을 표시한다 — 증감(①) · 연도별 순위(②③⑤) · 배수(④)",
+     "on_fail": "연산이 안 보이면 「increase」 「highest」 「twice」 「lowest」 같은 비교어에 밑줄을 친다"
+    },
+    {
+     "step": "배수 주장은 작은 값×2를 계산해 큰 값과 비교한다(앞 연도 값을 기준으로 삼는다)",
+     "on_fail": "기준 연도를 바꿔 곱했다면 「as high as those in 2010」 의 those 가 가리키는 연도를 다시 본다"
+    },
+    {
+     "step": "순위 주장은 같은 연도 막대 넷의 숫자만 비교해 1·2위와 최하위를 적는다",
+     "on_fail": "연도를 섞어 비교했다면 2010 묶음과 2015 묶음을 세로선으로 갈라 놓고 다시 본다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "막대 숫자 라벨이 모두 있다",
+     "배수 계산 한 번으로 갈린다",
+     "증가 폭이 커 두 배로 착각할 여지"
+    ]
+   },
+   "required_vocab": [
+    "twice as high as",
+    "corresponding",
+    "ranked"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "Fairtrade 1,064×2=2,128 대 1,572 재계산"
+     ],
+     "checked": [
+      "answer_locus.quote 를 문장 목록 원문과 문자열 대조",
+      "원본 도표에서 읽은 값으로 다섯 진술을 직접 계산해 공식 정답과 일치 확인",
+      "why_correct 가 정답 선지의 어느 절·어느 값과 맞물리는지 낱말 단위 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "네 계열 증가와 2010·2015 순위를 막대 숫자로 재대조, ⑤ 최하위 541/710 확인"
+     ],
+     "checked": [
+      "오답 넷이 도표상 참인지 값 대조",
+      "오답에 trap/why_tempting 이 비어 있는지(V14)",
+      "오답 how_to_reject 가 선지마다 다른 값·계산을 쓰는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "배수 기준 연도(those=2010) 확인 단계가 절차에 있는지 확인"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 학생이 도표만 보고 실행할 수 있는지",
+      "on_fail 이 단계마다 다른지",
+      "time_budget_sec 안에 계산 횟수가 들어가는지",
+      "required_vocab 이 진술 판정에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M1809#24",
+   "measured_ability": "숫자 라벨 없는 막대그래프에서 눈금선으로 값을 어림하고, 두 계열(자동차 산업 · 그 외 산업)을 갈라 최솟값·최댓값을 각각 찾는 능력",
+   "design_intent": "③은 그 외 산업 최댓값(대한민국, 회색 막대 약 260으로 참)과 자동차 산업 최솟값(대한민국이라 주장 — 실제로는 영국 약 650)을 한 문장에 묶었다. 대한민국의 회색 막대가 눈에 띄게 높아 뒷절의 참이 앞절까지 참으로 보이게 만든다.",
+   "answer_locus": {
+    "sentence_index": [
+     4
+    ],
+    "quote": "While the Republic of Korea has the smallest number of multipurpose industrial robots per 10,000 employees in automotive industries",
+    "reasoning": "빗금 막대(자동차 산업)는 일본 약 1,560 · 이탈리아 약 1,200 · 독일 약 1,170 · 미국 약 1,100 · 대한민국 약 880 · 영국 약 650 이다. 가장 작은 것은 600~800 사이의 영국이고 대한민국은 800 눈금 위라 최소가 아니다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번째 문장 「All of the six countries」 는 여섯 나라 각각의 빗금 막대가 회색 막대보다 높은지를 요구한다. 빗금 막대는 모두 600 눈금 위, 회색 막대는 모두 300 아래(최대 대한민국 약 260)라 여섯 쌍 모두 참이다. 그래서 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번째 문장 「Japan has the largest number」: 빗금 막대 중 일본만 1,400 눈금을 넘어 1,600 가까이 닿고 나머지는 1,200 이하다. 일본이 최대가 맞아 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "계열 최솟값 대상 바꾸기",
+     "why_correct": "[4]의 While 절 「the Republic of Korea has the smallest number … in automotive industries」 는 빗금 막대 최솟값을 대한민국에 붙였지만, 대한민국 빗금 막대(약 880)는 800 눈금 위이고 영국(약 650)이 600~800 사이로 더 낮다. 주절 「it has the largest number in all other industries」(회색 약 260, 일본 약 220보다 높음)는 맞아서, 바뀐 성분은 자동차 산업 최솟값의 주인이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ],
+      "note": "원본 도표 확인 — 201809_영어영역_문제지.pdf 3쪽, 막대에 수치 라벨 없음·200 단위 눈금선으로 어림한 값(자동차/그 외): Japan ~1,560/~220, Italy ~1,200/~100, Germany ~1,170/~150, USA ~1,100/~70, Republic of Korea ~880/~260, United Kingdom ~650/~25. 판정은 눈금 경계(600·800·200) 비교로 닫혀 어림 오차에 흔들리지 않는다"
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "5번째 문장 「more than 600 units」 「fewer than 200 units」: 미국 빗금 막대 약 1,100 · 영국 약 650 으로 둘 다 600 눈금 위, 회색 막대는 미국 약 70 · 영국 약 25 로 둘 다 200 눈금 아래다. 네 조건이 모두 맞아 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6]: 빗금 막대 상위 셋은 일본 약 1,560 · 이탈리아 약 1,200 · 독일 약 1,170 이고 네 번째 미국은 약 1,100 으로 1,200 눈금보다 확실히 낮다. 맞으므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 「일치하지 않는」 인지 보고, 범례에서 빗금=automotive industries, 회색=all other industries 를 확인한다. 막대에 숫자가 없으니 왼쪽 축 200 단위 눈금선을 기준으로 쓴다",
+     "on_fail": "계열을 바꿔 읽었으면 범례 상자의 빗금 칸을 첫 막대와 대 본다"
+    },
+    {
+     "step": "선지마다 어느 계열을 묻는지(빗금만·회색만·둘 다) 표시하고, While · but · and 로 이어진 선지는 절마다 따로 판정한다",
+     "on_fail": "한 절만 보고 O 를 줬다면 접속어 앞 절을 다시 계열과 함께 적는다"
+    },
+    {
+     "step": "최대·최소 주장은 해당 계열 막대 여섯 개를 높이 순으로 나열해 맨 위·맨 아래 나라를 적는다",
+     "on_fail": "높이 차가 작아 헷갈리면 막대 끝이 어느 두 눈금선 사이에 있는지만 적어 비교한다"
+    },
+    {
+     "step": "「more than 600」 「fewer than 200」 같은 경계 주장은 그 눈금선 위·아래인지로만 판정한다",
+     "on_fail": "정확한 값을 어림하려다 막히면 경계선 하나와 막대 끝의 위아래만 본다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.82,
+    "drivers": [
+     "막대에 수치 라벨이 없어 눈금으로 어림해야 한다",
+     "거짓 절과 참 절이 한 문장에 있다",
+     "대한민국 회색 막대가 눈에 띄어 앞 절 확인을 건너뛰게 한다"
+    ]
+   },
+   "required_vocab": [
+    "smallest",
+    "automotive",
+    "While"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "수치 라벨이 없는 도표라 값은 어림치(~)로만 적고, 판정 근거는 눈금 경계 비교로 서술했음을 확인",
+      "라벨 없는 도표라 영국 빗금 막대가 600~800, 대한민국이 800 위인지 눈금선으로 재확인"
+     ],
+     "checked": [
+      "answer_locus.quote 를 문장 목록 원문과 문자열 대조",
+      "원본 도표에서 읽은 값으로 다섯 진술을 직접 계산해 공식 정답과 일치 확인",
+      "why_correct 가 정답 선지의 어느 절·어느 값과 맞물리는지 낱말 단위 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "④의 600·200 경계, ⑤의 4위 미국이 1,200 아래인지 눈금 비교로 재확인"
+     ],
+     "checked": [
+      "오답 넷이 도표상 참인지 값 대조",
+      "오답에 trap/why_tempting 이 비어 있는지(V14)",
+      "오답 how_to_reject 가 선지마다 다른 값·계산을 쓰는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "정확한 값 어림 대신 경계선 위·아래로 판정하게 한 단계가 있는지 확인"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 학생이 도표만 보고 실행할 수 있는지",
+      "on_fail 이 단계마다 다른지",
+      "time_budget_sec 안에 계산 횟수가 들어가는지",
+      "required_vocab 이 진술 판정에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2017#24",
+   "measured_ability": "원그래프 두 개에서 같은 이름의 조각을 계열별로 찾아 라벨 값과 대조하고, 「more than 30 percent」 같은 임계 표현을 값과 비교하는 능력",
+   "design_intent": "③은 교사 원의 「Some」 40%(참)를 앞 절에 두고, 성인 원의 「Some」 22%를 「more than 30 percent」 로 바꾼 뒤 절을 「In addition」 으로 이어 붙였다. 앞 절이 맞으면 뒤 절도 같은 조각이라 넘기게 되는 설계다. ①의 28%가 성인 원의 「All / Almost all」 이라는 점을 「Some」 과 헷갈리면 30 근처 값으로 착각할 수 있다.",
+   "answer_locus": {
+    "sentence_index": [
+     4
+    ],
+    "quote": "and more than 30 percent of U.S. adult search users respond the same",
+    "reasoning": "성인 원(U.S. adult search users)의 「Some」 조각 라벨은 22%다. 30%를 넘는다는 뒤 절은 8%p 모자라 거짓이다. 앞 절의 교사 「Some」 40%는 맞지만 and 로 묶인 문장 전체가 도표와 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2]: 교사 원의 「All / Almost all」 조각 라벨 5%, 성인 원의 같은 조각 28% — 두 값이 진술과 같아 맞고, 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3]: 교사 원은 Most 55 > Some 40 > All/Almost all 5, 성인 원은 Most 45 > All/Almost all 28 > Some 22 > Very little/None 4 > Don't know 1 이다. 두 원 모두 「Most」 가 최대라 맞고 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "연언 뒤 절 수치 변경",
+     "why_correct": "[4]의 앞 절 「40 percent of AP & NWP teachers say that “Some”」 은 교사 원의 Some 40%와 맞지만, 뒤 절 「more than 30 percent of U.S. adult search users respond the same」 은 성인 원의 Some 조각 22%와 견주면 30에 못 미친다. 바뀐 성분은 성인 쪽 Some 값의 범위(22 → 30 초과)다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ],
+      "note": "원본 도표 확인 — 2017_영어_짝.pdf 3쪽, 읽은 값: AP & NWP teachers All/Almost all 5% · Most 55% · Some 40%(나머지 조각 표기 없음) / U.S. adult search users All/Almost all 28% · Most 45% · Some 22% · Very little/None 4% · Don't know 1%"
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[5]: 성인 원의 「Very little / None」 조각 라벨은 4%로 5보다 작다. 맞으므로 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6]: 성인 원의 「Don't know」 조각 라벨은 1%다. 진술과 같아 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 「일치하지 않는」 인지 보고, 왼쪽 원=AP & NWP teachers, 오른쪽 원=U.S. adult search users 를 원 아래 이름표로 확인한다",
+     "on_fail": "두 원을 바꿔 잡았으면 원 아래 굵은 글씨 이름표를 다시 읽는다"
+    },
+    {
+     "step": "범례 무늬 다섯(가로줄 All/Almost all · 흰 칸 Most · 점무늬 Some · 빗금 Very little/None · 검정 Don't know)을 원의 조각과 짝짓는다",
+     "on_fail": "조각 이름이 안 잡히면 선지 속 큰따옴표 말을 범례에서 찾아 무늬를 확인한다"
+    },
+    {
+     "step": "선지마다 (어느 원, 어느 조각)을 적고, and 로 묶인 선지는 두 절을 각각 해당 원의 라벨 값과 대조한다",
+     "on_fail": "한 절만 확인했다면 「respond the same」 이 앞 절과 같은 조각을 다른 원에서 묻는다는 점을 표시하고 다시 본다"
+    },
+    {
+     "step": "「more than」 「less than」 「only」 같은 임계 표현은 라벨 숫자와 경계값을 직접 견준다",
+     "on_fail": "조각 크기로 판단했다면 크기를 버리고 라벨 숫자만 쓴다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "조각마다 숫자 라벨이 있다",
+     "거짓 절이 「In addition」 문장의 뒤 절에 숨어 있다",
+     "두 원에 같은 조각 이름이 반복된다"
+    ]
+   },
+   "required_vocab": [
+    "trustworthy",
+    "respond the same",
+    "account for"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "성인 원 Some 라벨 22%를 다시 읽어 30 초과 뒤 절 거짓 확인"
+     ],
+     "checked": [
+      "answer_locus.quote 를 문장 목록 원문과 문자열 대조",
+      "원본 도표에서 읽은 값으로 다섯 진술을 직접 계산해 공식 정답과 일치 확인",
+      "why_correct 가 정답 선지의 어느 절·어느 값과 맞물리는지 낱말 단위 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "교사 원의 Very little/None · Don't know 조각 표기가 보이지 않아 ②의 교사 쪽 판정은 표기된 세 조각(5·55·40, 합 100)으로만 했음을 확인",
+      "성인 원 다섯 조각 합 28+45+22+4+1=100, 교사 원 5+55+40=100 확인"
+     ],
+     "checked": [
+      "오답 넷이 도표상 참인지 값 대조",
+      "오답에 trap/why_tempting 이 비어 있는지(V14)",
+      "오답 how_to_reject 가 선지마다 다른 값·계산을 쓰는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "두 원 이름표·범례 무늬 짝짓기 단계가 70초 안에 들어가는지 확인"
+     ],
+     "checked": [
+      "solve_procedure 를 정답을 모르는 학생이 도표만 보고 실행할 수 있는지",
+      "on_fail 이 단계마다 다른지",
+      "time_budget_sec 안에 계산 횟수가 들어가는지",
+      "required_vocab 이 진술 판정에 실제로 쓰이는지"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-CHART",
+  "n_analyzed": 5,
+  "recurring_traps": [
+   {
+    "trap": "연언 뒤 절 미확인(and·While·In addition 으로 묶인 두 주장 중 한쪽만 거짓)",
+    "count": 3,
+    "signature": "2019#25 · M1809#24 · 2017#24 — 참인 절이 앞(또는 눈에 띄는 쪽)에 있고 거짓 절이 나머지에 있다"
+   },
+   {
+    "trap": "배수 과장",
+    "count": 1,
+    "signature": "2018#24 — 증가 사실은 맞고 배수만 부풀림"
+   },
+   {
+    "trap": "범주 지시어 대입 오류",
+    "count": 1,
+    "signature": "M2006#25 — the youngest 가 최솟값 칸과 다름"
+   }
+  ],
+  "answer_locus_pattern": "5문항 모두 정답 근거가 정답 선지 문장 자신과 도표 값의 대조로 닫힌다. 3/5는 두 절 중 한 절만 거짓이다. 함정은 문항당 한 번씩만 셌다.",
+  "procedure": [
+   "발문 부정형 확인 → 범례로 계열 확정",
+   "선지를 접속어에서 절로 끊어 절마다 O/X",
+   "배수는 기준값×배수, 경계 주장은 눈금·라벨과 경계값 직접 비교",
+   "이름으로 가리킨 칸(youngest 등)은 실제 범주로 바꾼 뒤 비교"
+  ],
+  "failure_modes": [
+   "연언 선지에서 앞 절만 확인하고 O 처리",
+   "증가 폭이 크면 두 배로 단정",
+   "라벨 없는 도표에서 경계 대신 정확한 값을 어림하다 시간 초과"
+  ],
+  "time_budget_sec": 75,
+  "open_questions": [
+   "3인 검수에서 반려 0건 — 세 자가 모두 원본 값 대조로 수렴해 같은 것을 재고 있을 가능성. 다음 청크에서 tutor 는 시간 실측(풀이 단계 수×계산 횟수)으로 자를 바꿀 것을 제안",
+   "표본 5문항이라 「연언 뒤 절」 비율(3/5)을 유형 일반 규칙으로 쓰지 않는다"
+  ]
+ }
+}

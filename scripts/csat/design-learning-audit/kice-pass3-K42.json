@@ -1,0 +1,12 @@
+{"pass":3,"k":42,"items":[
+{"id":"M2606#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_3","note":"성립 이유는 있으나 ensures 가 맞다는 결론 문장이 없음(경미)"}]},
+{"id":"M2606#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"결정 통보를 '요구'라 부름 — 화행 구분이 흐림(경미)"}]},
+{"id":"M2609#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"lure_quote","note":"④ 무관 선지의 lure_quote 가 정답 근거 문장 — 유인 근거로 부적절(경미)"}]},
+{"id":"M2609#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2609#23","version":5,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"answer_locus sentence_index [1,4] 인데 reasoning 은 3문장 대조를 핵심으로 씀 — 색인 누락(경미)"}]}
+]}

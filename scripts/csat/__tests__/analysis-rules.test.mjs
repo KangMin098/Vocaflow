@@ -53,3 +53,52 @@ test('V11 blocks the actual internal repair memo without banning original-PDF le
   a.design_intent = '문제 화면 원본 PDF에서 밑줄 전체를 확인하여 동작 주체와 분사 태를 비교하게 한다.'
   assert.deepEqual(precheckAnalysis(a, units).errors, [])
 })
+
+// ── V12 · V13 (2026-10-11 평가원 802 의미 검수 실측) ───────────────────────────
+import { analysisRuleErrors as rulesV12 } from '../lib-analysis-rules.mjs'
+
+const base = { measured_ability: '도표 대조', design_intent: '비교 조건', answer_locus: { reasoning: '두 막대를 비교한다' }, choices: [] }
+
+test('V12 — 학습자 칸의 작업 용어(코퍼스 · 파일 경로 · 파싱 잔여)를 막는다', () => {
+  const hits = [
+    { ...base, answer_locus: { reasoning: '값은 그림에만 있어 코퍼스 지문에도 columns2/2014A.txt 에도 없다' } },
+    { ...base, choices: [{ why_tempting: '선지 뒤에 붙은 인쇄 잔여도 선지를 미덥지 않게 만든다' }] },
+    { ...base, design_intent: '이 청크에서 유일하게 형태가 맞는 문항' },
+  ]
+  for (const a of hits) assert.ok(rulesV12(a).some((e) => e.startsWith('V12')), JSON.stringify(a))
+})
+
+test('V12 — 내부 기록 칸(confirmed_at)의 작업 메모와 정상 서술은 통과한다', () => {
+  assert.deepEqual(rulesV12({ ...base, choices: [{ why_correct: '주제문과 대응한다', confirmed_at: { note: '코퍼스 지문 OCR 잔여 확인' } }] }), [])
+  assert.deepEqual(rulesV12({ ...base, design_intent: '두 단락의 대조로 요지를 세운다' }), [])
+})
+
+test('V13 — 도표 문항이 정답표로 정답을 정하면 막는다 · 다른 유형 · 정상 서술은 통과', () => {
+  const inferred = { ...base, answer_locus: { reasoning: '막대 값은 없지만 평가원 정답표가 ④를 불일치로 확정하므로 ④다' } }
+  assert.ok(rulesV12(inferred, { typeId: 'R-CHART' }).some((e) => e.startsWith('V13')))
+  assert.deepEqual(rulesV12(inferred, { typeId: 'R-BLANK' }).filter((e) => e.startsWith('V13')), [])
+  assert.deepEqual(rulesV12({ ...base, answer_locus: { reasoning: '2015년 값 34는 2010년 12의 세 배 이하다' } }, { typeId: 'R-CHART' }), [])
+})
+
+test('발문 극성 — 긍정형 「일치하는 것은?」은 오답이 틀린 진술이라 V14 예외가 아니다(2026-10-11)', async () => {
+  const { stemPositive, distractorsAreTrue } = await import('../lib-analysis-rules.mjs')
+  assert.equal(stemPositive('Fun Bowling Season Pass에 관한 다음 안내문의 내용과 일치하는 것은?'), true)
+  assert.equal(stemPositive('2023 Online Talent Show에 관한 다음 안내문의 내용과 일 치하는 것은?'), true) // 추출 띄어쓰기
+  assert.equal(stemPositive('(A), (B), (C)의 각 네모 안에서 문맥에 맞는 낱말로 가장 적절한 것은?'), true)
+  assert.equal(stemPositive('Rachel’s Flower Class에 관한 다음 안내문의 내용과 일치하 지 않는 것은?'), false)
+  assert.equal(stemPositive('다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?'), false)
+  assert.equal(stemPositive('다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?'), false)
+  assert.equal(stemPositive(''), false)
+  assert.equal(distractorsAreTrue('R-NOTICE', '안내문의 내용과 일치하지 않는 것은?'), true)
+  assert.equal(distractorsAreTrue('R-NOTICE', '안내문의 내용과 일치하는 것은?'), false)
+  assert.equal(distractorsAreTrue('R-BLANK', '빈칸에 들어갈 말로 가장 적절한 것은?'), false)
+})
+
+test('V15 정답표가 있는 회차에 「정답표가 없다」는 사실 오류 · 문장 분리 사정은 작업 용어(2026-10-11)', async () => {
+  const { analysisRuleErrors } = await import('../lib-analysis-rules.mjs')
+  const a = { design_intent: '삽입 위치를 고르게 한다', difficulty: { drivers: ['이 회차는 정답표가 없다'] }, choices: [] }
+  assert.ok(analysisRuleErrors(a, { typeId: 'R-INSERT', answerKnown: true }).some((e) => e.startsWith('V15')))
+  assert.deepEqual(analysisRuleErrors(a, { typeId: 'R-INSERT', answerKnown: false }).filter((e) => e.startsWith('V15')), [])
+  const b = { design_intent: 'Charles H. 가 1번 단위로 따로 떨어져 번호가 뒤로 간다', choices: [] }
+  assert.ok(analysisRuleErrors(b, { typeId: 'R-FACT' }).some((e) => e.startsWith('V12')))
+})

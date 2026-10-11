@@ -1,0 +1,12 @@
+{"pass":3,"k":4,"items":[
+{"id":"2015#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"④ lure_quote(여행 귀국 문장)가 '항의' 유인과 직접 연결되지 않음 — 경미"}]},
+{"id":"2016#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"④ trap 라벨 '반대 진술'과 설명(사건 없는 서술 → 담담한 인상)이 어긋남 — 경미"}]},
+{"id":"2016#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#21","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#23","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2016#25","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"choiceTruth 유형인데 내용이 참인 ①②③⑤에 '무관·지문 밖 상식·어휘 함정' trap 라벨을 붙여 함정처럼 설명 — 대응 문장으로 참임을 설명해야 함"}]},
+{"id":"2016#26","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_2","note":"② why_tempting 이 '대강당 인상'에 기대 약함, lure_quote 는 실제로 배제 근거 — 경미"}]},
+{"id":"2016#27","version":5,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"불일치형인데 design_intent 가 참 선지 넷을 '미끼'로, 각 선지에 trap 라벨 — 선지 내용은 참이라는 틀로 고쳐야 함"},{"code":"choice_2","note":"② why_tempting(예시 3명이라 과장으로 보임)이 억지스러움"}]},
+{"id":"2016#28","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"choices 필드가 밑줄 구간이 아니라 다음 밑줄까지의 본문 덩어리로 잘려 저장됨(⑤엔 각주 포함)"},{"code":"choice_5","note":"⑤ why_tempting '주어 없이 쓰인 것처럼' — that 절엔 주어 events 가 있어 유인 설명이 부정확"},{"code":"choice_1","note":"① '목적격 them 을 넣고 싶어진다'는 유인이 비현실적, 소유격 판단 설명만 유효"}]}
+]}

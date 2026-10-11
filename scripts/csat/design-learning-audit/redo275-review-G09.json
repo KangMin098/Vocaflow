@@ -1,0 +1,348 @@
+{
+ "group": 9,
+ "items": [
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2706#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "사전 단정 제거, (B) native 가 3번 지불 능력 기준과 어긋난다는 근거로 교체"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2609#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "지문 featuring 타동사 → 요약문 자동사 feature 변환으로 why_correct·design_intent 정정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "2025#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "(A)를 controlled→controllability 로 설명, 예측 표현 제거"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2509#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "fixed(불변) vs restricted(개수 한정) 성분 차이 추가, 라벨 어휘 함정"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "novel 을 4번 동물 체계 성질의 이전으로 설명, 주체 역전 라벨"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2506#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "학습자 칸·confirmed_at 에 작업 용어 없음, 문장 번호만"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2409#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "판별 칸을 두 칸 모두로 reasoning·combo·confirmed_at 통일"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2406#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 배치 통계 제거, 두 열 구조만. body_recovered 인용 7번과 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2209#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "파일명·행 번호 등 작업 용어 제거"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "지문 잘림 오서술 삭제, (B) 근거를 6·8번으로 직접 지목"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2206#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "exhibition 을 공개적 애국 행위로 설명, 억지 환언 제거"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "official 이 permanence 를 공식성으로 바꾼 교체 성분 명시"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-SUMMARY-M2706-40.out.json",
+   "id": "M2109#40",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "denying 이 막히는 행위를 추구→부정으로 바꿔 방향 역전임을 명시"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "가치를 지키게 함 ↔ 1번 충족 차단의 방향 대비 명시"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "2025#24",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "sentence_index [1,6], 모든 칸 1·5·6 범위 내 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "M2509#24",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "sentence_index [5,6,7], 인용 6번과 일치"
+    },
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "Comparing 문장을 7번으로 정정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "M2409#24",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "수명 축 3번, 맥락 축 4·5번으로 design_intent·locus·why_correct 통일"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "M2406#24",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "Yet 문장 6번, confirmed_at [6,8], 선지 해설 번호 1~8 범위로 통일"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "M2309#24",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "confirmed_at [3,7,8,9], 「이후 여덟 문장(2~9번)」으로 정정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "M2106#24",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "두 항 6번, first 7번, follow 8번으로 정정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "2019#24",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 작업 메모 제거, 5·6·9번 근거만"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "2017#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "why_correct_empty",
+     "resolved": true,
+     "note": "A Reality↔new reality, Director’s Hands↔uses it·obedient 대응으로 재작성"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TITLE-2025-24.out.json",
+   "id": "2015#22",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "④ 유인을 5·1번 성향 연상 어구로 교체"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "「행동 동기까지 다룬다고 예고」로 정정"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "sentence_ref_style",
+     "note": "reasoning「다섯째·6번」, ③ how_to_reject「넷째~6번」 서수·번호 혼용 — 「5·6번」「4~6번」으로 통일"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M1809-22.out.json",
+   "id": "M1809#22",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "④ why_tempting 을 insight·analytical thinking 대립 구도로 교체. 7·8번 분할 메모는 confirmed_at 이라 결함 아님"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M1809-22.out.json",
+   "id": "2017#21",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "why_correct_empty",
+     "resolved": true,
+     "note": "apparent objectivity·carriers of ideology→lying beneath 변환으로 재작성"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M1809-22.out.json",
+   "id": "2016#22",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "why_correct_empty",
+     "resolved": true,
+     "note": "beliefs↔3·5번, biased↔9번 unjustified·8번 misunderstanding 으로 재작성"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  }
+ ]
+}

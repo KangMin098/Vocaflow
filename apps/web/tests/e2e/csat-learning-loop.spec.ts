@@ -7,6 +7,7 @@
 //    공유하는 브라우저 컨텍스트 둘로 돈다. 합성 학습자 검증이다 — 학습 효과를 말하지 않는다.
 // 스크린샷에는 평가원 지문이 찍힌다 → 저장소 밖(`test-results-csat-learner/`, D15).
 
+import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { expect, test, type Browser, type BrowserContext, type Page } from '@playwright/test'
 
@@ -23,10 +24,12 @@ const USER = {
     })(),
 }
 const SHOTS = path.resolve('test-results-csat-learner/learning-loop')
-const KICE = '2026-34' // 강의 14단계
+const KICE = '2026-34' // 강의가 있는 평가원 문항 — 단계 수는 강의 재작성마다 바뀌므로 테스트가 박지 않는다
 const KICE_ID = '2026#34'
 const HP = 'H2503G1-20' // 학평 — 강의 없음(단계 0)
 const HP_ID = 'H2503G1#20'
+const M4 = '2026-22' // 근거 · 바뀐 성분 과제와 검수된 비교 쌍이 모두 있는 문항(M4)
+const M4_ID = '2026#22'
 
 let storage: Awaited<ReturnType<BrowserContext['storageState']>>
 
@@ -132,13 +135,12 @@ async function openItem(p: Probe, slug: string) {
   await expect(p.page.getByTestId('analysis-theater')).toBeVisible({ timeout: 90_000 })
 }
 
-async function commitPrediction(page: Page) {
-  await expect(page.getByTestId('predict-gate')).toBeVisible({ timeout: 30_000 })
-  await page.getByRole('button', { name: '근거 후보 2번째 문장' }).click()
-  await page.getByRole('button', { name: '3번 선지' }).click()
-  await page.getByRole('button', { name: '꽤', exact: true }).click()
-  await page.getByRole('button', { name: '확정하고 대조하기' }).click()
-  await expect(page.getByTestId('gate-diff')).toBeVisible()
+/** 예측 관문은 없다(F01 · 2026-10-10) — 열자마자 해설 블록이 모두 보이고 상영할 수 있다 */
+async function expectOpen(page: Page) {
+  await expect(page.getByTestId('predict-gate')).toHaveCount(0)
+  await expect(page.locator('[data-block="analysis:answer"]')).toBeVisible({ timeout: 30_000 })
+  // 블록은 서버 HTML 로 먼저 보인다 — 키 입력 전에 하이드레이션 · 세션 읽기가 끝났음을 「마치기」 단추(클라이언트 상태)로 기다린다
+  await expect(page.getByTestId('finish-item').or(page.getByTestId('session-done'))).toBeVisible({ timeout: 30_000 })
 }
 
 async function stepTo(page: Page, n: number) {
@@ -155,44 +157,50 @@ const legacyPrediction = (over: Partial<Prediction>): Prediction => ({
   item: KICE_ID, type: 'R-BLANK', step: 1, hit: false, at: Date.UTC(2026, 8, 30), source: 'theater', sentence: 1, choice: 3, confidence: 4, ...over,
 })
 
-test('1 처음 열기 → 예측 → 해설 → 완료 (independent)', async ({ browser }) => {
+test('1 처음 열기 → 제출 없이 해설 · 강의 → 화살표 한 칸씩 → 완료 (viewed_first)', async ({ browser }) => {
   const server = new FakeServer()
   const p = await device(browser, server)
   await openItem(p, KICE)
-  await commitPrediction(p.page)
-  await expect(p.page.getByTestId('finish-item')).toHaveCount(0) // 아직 마지막 단계가 아니다
-  await stepTo(p.page, 13)
-  await p.page.getByTestId('finish-item').click()
+  await expectOpen(p.page)
+  // 큐가 가리키지 않아도 오답 블록까지 처음부터 읽힌다(F03)
+  await expect(p.page.locator('[data-block^="analysis:reject"]').first()).toBeVisible()
+  // ← → 는 한 칸씩(F12 — 전에는 극장 · 강의 무대가 둘 다 받아 두 칸씩 갔다)
+  await stepTo(p.page, 3)
+  // 세 번 눌러 4단계 — 전체 단계 수는 강의 재작성(2026-10-11 교정 강의)으로 바뀌므로 「4 / N」 만 본다
+  await expect(p.page.getByText(/(^|\s)4 \/ \d+/).first()).toBeVisible()
+  // 추정 위치를 「지난 시간」이라 하지 않는다(F13)
+  await expect(p.page.getByText(/지난 시간|지남/)).toHaveCount(0)
+  await p.page.getByTestId('finish-item').click() // 마지막 단계까지 넘기지 않아도 마칠 수 있다
   const done = p.page.getByTestId('session-done')
   await expect(done).toBeVisible()
-  await expect(done).toHaveAttribute('data-completion', 'independent')
-  await expect(done).toContainText('스스로 판단하고 마쳤어요')
-  await shot(p.page, '1-done-independent')
+  await expect(done).toHaveAttribute('data-completion', 'guided')
+  await expect(done).toContainText('설계 설명을 읽고 마쳤어요')
+  await shot(p.page, '1-done-viewed-first')
   const r = await readRecord(p.page)
   const s = sessionsFor(r, KICE_ID)
   expect(s).toHaveLength(1)
-  expect(s[0]).toMatchObject({ stage: 'finished', help: 'independent', activity: 'theater', phase: 'practice', sv: 1 })
-  expect(s[0].finishedAt).toBeGreaterThan(0)
-  const pred = (r?.predictions ?? []).filter((x) => x.item === KICE_ID && x.session === s[0].id)
-  expect(pred).toHaveLength(1)
-  expect(pred[0].attempt).toBe(s[0].attempt)
+  expect(s[0]).toMatchObject({ stage: 'finished', help: 'viewed_first', activity: 'theater', phase: 'practice', sv: 1 })
+  expect(s[0].attempt).toBeUndefined() // 해설 열람은 시도가 아니다
+  expect((r?.predictions ?? []).filter((x) => x.item === KICE_ID)).toHaveLength(0)
   await p.ctx.close()
 })
 
-test('2 처음 열기 → 모르겠어요 → 해설 → 완료 (guided · 강의 없는 문항)', async ({ browser }) => {
+test('2 강의 없는 학평 문항 — 열자마자 읽고 마친다 (guided)', async ({ browser }) => {
   const server = new FakeServer()
   const p = await device(browser, server)
   await openItem(p, HP)
-  await expect(p.page.getByTestId('predict-gate')).toBeVisible({ timeout: 30_000 })
-  await p.page.getByRole('button', { name: /모르겠어요/ }).click()
-  await p.page.getByTestId('finish-item').click() // 단계가 없으면 공개 직후 마칠 수 있다
+  await expect(p.page.getByTestId('predict-gate')).toHaveCount(0)
+  // 학평도 지문 지도가 있다(F09 · 2026-10-11 학평 골격 2,299행 적재 — 전엔 37문항뿐이었다)
+  await expect(p.page.getByText(/\d+ SENTENCES/).first()).toBeVisible({ timeout: 30_000 })
+  await expect(p.page.getByText('NO MAP')).toHaveCount(0)
+  await p.page.getByTestId('finish-item').click()
   const done = p.page.getByTestId('session-done')
   await expect(done).toHaveAttribute('data-completion', 'guided')
-  await expect(done).toContainText('예측 없이 해설을 먼저 봤어요')
+  await expect(done).toContainText('스스로 푼 기록으로 세지 않아요')
   await shot(p.page, '2-done-guided')
   const s = sessionsFor(await readRecord(p.page), HP_ID)
   expect(s[0]).toMatchObject({ stage: 'finished', help: 'viewed_first' })
-  expect(s[0].attempt).toBeUndefined() // 「모르겠어요」는 시도가 아니다
+  expect(s[0].attempt).toBeUndefined() // 열람은 시도가 아니다
   await p.ctx.close()
 })
 
@@ -200,13 +208,13 @@ test('3 중도 이탈 → 재접속 → 이전 단계 복원', async ({ browser 
   const server = new FakeServer()
   const p = await device(browser, server)
   await openItem(p, KICE)
-  await commitPrediction(p.page)
+  await expectOpen(p.page)
   await stepTo(p.page, 5)
   await expect.poll(async () => sessionsFor(await readRecord(p.page), KICE_ID)[0]?.step).toBe(5)
   await p.page.reload({ waitUntil: 'domcontentloaded' })
   await expect(p.page.getByTestId('resume-notice')).toContainText('6단계', { timeout: 60_000 })
   await expect(p.page.getByTestId('predict-gate')).toHaveCount(0)
-  await expect(p.page.getByText('6 / 14', { exact: false }).first()).toBeVisible()
+  await expect(p.page.getByText(/(^|\s)6 \/ \d+/).first()).toBeVisible()
   await shot(p.page, '3-resumed')
   expect(sessionsFor(await readRecord(p.page), KICE_ID)).toHaveLength(1)
   await p.ctx.close()
@@ -216,7 +224,6 @@ test('4 같은 완료를 반복해도 완료 1건 · 다시 열면 완료 화면
   const server = new FakeServer()
   const p = await device(browser, server)
   await openItem(p, HP)
-  await p.page.getByRole('button', { name: /모르겠어요/ }).click()
   const finish = p.page.getByTestId('finish-item')
   await finish.dblclick()
   await expect(p.page.getByTestId('session-done')).toBeVisible()
@@ -260,7 +267,7 @@ test('6 두 기기 — 단계는 이어지고, 마친 것은 되돌아가지 않
   const server = new FakeServer()
   const a = await device(browser, server)
   await openItem(a, KICE)
-  await commitPrediction(a.page)
+  await expectOpen(a.page)
   await stepTo(a.page, 3)
   await expect.poll(() => server.record?.sessions?.find((s) => s.item === KICE_ID)?.step ?? -1, { timeout: 15_000 }).toBe(3)
 
@@ -291,7 +298,7 @@ test('7 삭제 표시한 세션은 다시 나타나지 않는다', async ({ brow
   const server = new FakeServer({ ...emptyDissectionRecord(5), sessions: [gone], updatedAt: t + 10 })
   const p = await device(browser, server)
   await openItem(p, KICE)
-  await expect(p.page.getByTestId('predict-gate')).toBeVisible({ timeout: 30_000 }) // 지워진 세션으로 재개하지 않는다
+  await expectOpen(p.page) // 지워진 세션으로 재개하지 않는다
   await expect(p.page.getByTestId('resume-notice')).toHaveCount(0)
   const local = sessionsFor(await readRecord(p.page), KICE_ID)
   expect(local.find((s) => s.id === 'gone-1')?.deleted).toBe(true)
@@ -337,7 +344,7 @@ test('10 원문 없음 · 강의 오류 · 서버 저장 실패에서도 마칠 
   const p = await device(browser, server, { noPaper: true, lecture500: true })
   await openItem(p, KICE)
   await expect(p.page.getByTestId('item-paper-missing')).toBeVisible({ timeout: 60_000 })
-  await commitPrediction(p.page)
+  await expectOpen(p.page)
   await p.page.getByRole('button', { name: /상영 시작|하이라이트만/ }).click()
   await expect(p.page.locator('[role="status"]').filter({ hasText: /.+/ }).first()).toBeVisible({ timeout: 30_000 })
   await stepTo(p.page, 13)
@@ -356,5 +363,50 @@ test('11 진단 화면 진입 이벤트는 한 번', async ({ browser }) => {
   await expect.poll(() => p.events.filter((e) => e === 'csat_dx_viewed').length, { timeout: 60_000 }).toBeGreaterThanOrEqual(1)
   await p.page.waitForTimeout(4000)
   expect(p.events.filter((e) => e === 'csat_dx_viewed')).toHaveLength(1)
+  await p.ctx.close()
+})
+
+test('12 M4 — 관계 다시 짚기(근거 · 바뀐 성분) · 원리 저장 · 같은 원리 비교가 기록되고 서버로 간다', async ({ browser }) => {
+  const server = new FakeServer()
+  const p = await device(browser, server)
+  // 정답 근거 문장은 커밋된 지도에서 읽는다 — 테스트가 답을 박지 않는다
+  const sk = JSON.parse(readFileSync(path.join(process.cwd(), 'src/lib/csat/skeleton-data/2026.json'), 'utf8')) as { items: { id: string; sentences: unknown[]; anchors: { id: string; sentences: number[] }[] }[] }
+  const it = sk.items.find((x) => x.id === M4_ID)!
+  const correct = it.anchors.find((a) => a.id === 'answer')!.sentences
+  const wrong = Array.from({ length: it.sentences.length }, (_, k) => k).find((k) => !correct.includes(k))!
+  await openItem(p, M4)
+  await expectOpen(p.page)
+
+  const evidence = p.page.getByTestId('check-evidence')
+  await expect(evidence).toBeVisible()
+  await evidence.getByRole('button', { name: String(wrong + 1), exact: true }).click()
+  await expect(evidence.getByText('다시 골라 보세요')).toBeVisible()
+  await evidence.getByRole('button', { name: String(correct[0] + 1), exact: true }).click()
+  await expect(evidence.getByText(/맞아요/)).toBeVisible()
+  await expect(p.page.getByTestId('check-lure')).toBeVisible()
+
+  await p.page.getByTestId('principle-save').click()
+  await expect(p.page.getByTestId('principle-save')).toHaveText('내 원리에 저장됨')
+
+  await expect(p.page.getByTestId('compare-pairs')).toBeVisible()
+  await p.page.getByTestId('compare-done').first().click()
+  // 화면 확인용 캡처(test-results 는 커밋하지 않는다)
+  await p.page.getByTestId('understanding-checks').screenshot({ path: 'test-results/m4-checks.png' })
+  await p.page.getByTestId('compare-pairs').screenshot({ path: 'test-results/m4-compare.png' })
+
+  await expect
+    .poll(async () => {
+      const r = await readRecord(p.page)
+      return [
+        (r?.checks ?? []).filter((x) => x.item === M4_ID && x.kind === 'evidence' && x.correct && x.tries === 2 && x.afterExplanation).length,
+        (r?.formulas ?? []).filter((f) => f.from === 'theater' && f.sources.includes(M4_ID) && !!f.conditions).length,
+        (r?.compares ?? []).filter((x) => x.item === M4_ID).length,
+      ].join(',')
+    }, { timeout: 15_000 })
+    .toBe('1,1,1')
+  // 기기 기록이 서버로 동기화된다(디바운스 뒤 PUT)
+  await expect.poll(() => (server.record?.checks ?? []).some((x) => x.item === M4_ID), { timeout: 15_000 }).toBe(true)
+  expect(p.events).toContain('csat_principle_saved')
+  expect(p.events).toContain('csat_transfer_submitted')
   await p.ctx.close()
 })

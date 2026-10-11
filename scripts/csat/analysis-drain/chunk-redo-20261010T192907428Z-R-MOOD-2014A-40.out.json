@@ -1,0 +1,158 @@
+{
+ "chunk": 1,
+ "type_id": "R-MOOD",
+ "type_name": "심경·분위기",
+ "analyses": [
+  {
+   "item_id": "2014A#40",
+   "measured_ability": "딸의 거듭된 거부라는 사건에 반응하는 필자 자신의 행동·신체 묘사(시계를 가리킴, 인내심을 잃음, 목소리가 커짐)를 모아 하나의 심경어로 바꾸는 능력",
+   "design_intent": "감정어가 직접 나오는 곳은 10번 문장 'losing my patience' 한 자리뿐이고, 8번 문장의 시계를 가리키는 동작과 13번 문장의 점점 커지는 목소리가 같은 감정을 누적시킨다. 딸 Lily의 감정(3·9번 문장의 가기 싫음)을 필자의 감정과 섞어 읽으면 bored·indifferent로 가도록 설계했다. 심경 변화형이 아니라 단일 심경형이라 전환점 대신 감정의 강도가 쌓이는 과정을 보게 한다.",
+   "answer_locus": {
+    "sentence_index": [
+     10
+    ],
+    "quote": "I started losing my patience.",
+    "reasoning": "필자(I)가 자기 상태를 직접 진술한 유일한 감정 표현이다(10번 문장). 인내심을 잃기 시작했다는 것은 짜증이 차오르는 상태이며, 8번 문장 'pointed at my watch'(재촉 동작)와 13번 문장 'My voice was growing louder with each sentence'(신체 반응)가 같은 방향으로 강도를 더해 준다."
+   },
+   "choices": [
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "irritated(짜증 난)는 '인내심이 바닥나는' 상태를 한 낱말로 바꾼 말이고, 13번 문장의 커지는 목소리가 그 짜증이 고조되는 정도까지 맞춰 준다. 감정의 주체도 발문이 묻는 필자(I)와 같다.",
+     "confirmed_at": {
+      "sentence_index": [
+       10,
+       13
+      ],
+      "note": "10번 인내심 상실 문장과 13번 목소리 문장이 함께 확정한다. 8번 시계를 가리키는 문장은 보강 근거."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "3번 문장 Lily의 'I don’t feel like going today'와 5번 문장의 평소보다 천천히 먹는 모습이 지루함·싫증으로 읽혀, 그 감정을 필자의 것으로 옮기면 bored가 끌린다.",
+     "how_to_reject": "지루해 보이는 쪽은 딸이다. 필자는 6번 문장 'I urged her'·8번 문장 'pointed at my watch'로 서두르고 있어 지루함과 반대로 조급해 있다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "2번 문장에서 Ms. Green이 혼자 행사를 준비한다는 대목에 다른 인물이 등장하므로 그 인물과 비교하는 감정을 떠올리면 envious에 닿을 수 있다.",
+     "how_to_reject": "Ms. Green은 11번 문장 'has a lot of work to do'로 도와야 할 대상으로만 나온다. 필자가 누군가의 처지를 부러워하는 표현은 1~13번 어디에도 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "9번 문장 딸의 'I still don’t feel like going'처럼 행사에 무심한 태도가 반복되어, 그 무관심을 장면 전체의 분위기로 받아들이면 indifferent가 끌린다.",
+     "how_to_reject": "필자는 12번 문장 'It’s time you started thinking about other people'이라며 행사와 남의 사정에 강하게 관여한다. 무관심은 필자 상태와 정반대다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "1번 문장 'I had volunteered for the charity picnic'의 자원봉사라는 긍정적 소재만 보면 기쁜 마음을 떠올리기 쉽다.",
+     "how_to_reject": "자원봉사는 배경일 뿐이고, 10번 'losing my patience'·13번 'voice was growing louder'로 부정적 감정이 커진다. delighted는 극성이 반대다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문의 '필자의 심경'에서 감정의 주인이 I임을 먼저 표시하고, 지문의 등장인물(Lily, Ms. Green)의 말과 행동은 따로 분리한다",
+     "on_fail": "따옴표 안 대사가 누구의 것인지 3번 문장 'Lily complained'·6번 문장 'I urged her' 같은 화자 표시로 다시 확인한다"
+    },
+    {
+     "step": "I가 주어인 문장에서 감정어(patience)와 동작·신체 묘사(pointed at my watch, voice growing louder)만 골라 적는다",
+     "on_fail": "감정어가 하나뿐이면 동작 묘사가 그 감정과 같은 방향(재촉·고조)인지로 보강한다"
+    },
+    {
+     "step": "모은 표현의 극성(긍정/부정)과 강도(커지는가)를 정한 뒤 다섯 선지에서 극성이 반대이거나 다른 인물의 감정인 낱말을 지운다",
+     "on_fail": "남은 후보가 둘이면 각 낱말이 'losing my patience'를 바꿔 말한 것인지 대입해 확인한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "감정어가 직접 노출됨",
+     "딸의 감정과 필자 감정을 분리해야 함"
+    ]
+   },
+   "required_vocab": [
+    "patience",
+    "irritated"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함 2건 반영: ① 유인 인용을 원문 그대로 'I don’t feel like going today'로 바꿈, ⑤ 서술에서 선지에 없는 인쇄기호 언급 제거",
+      "재검수: 모든 칸의 번호가 sentences n과 일치, 범위(1~13) 밖 번호 없음"
+     ],
+     "checked": [
+      "quote를 지문에서 문자열 대조",
+      "why_correct의 patience↔irritated 대응 확인",
+      "design_intent가 이 문항 고유 설계인지 확인",
+      "answer_locus.sentence_index=[10]이 quote 위치와 일치",
+      "confirmed_at [10,13]와 note 번호 일치",
+      "선지 해설 인용 문장 번호 각각 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "재검수 pass. 초안의 ⑤ 서술이 선지 텍스트에 없는 기호를 근거로 들었다 — 제거 후 첫 문장 자원봉사 소재를 유인으로 다시 씀",
+      "① 인용의 축약형 불일치 수정",
+      "1차 revise → 수정 후 재검수 pass: 원장 결함(2014A#40): 문장 번호가 sentences 목록과 어긋남 — 이전 9(losing patience)·12(마지막 문장)는 실제 10·13. answer_locus·confirmed_at·design_intent·reasoning·선지 해설에 번호를 sentences 기준으로 통일"
+     ],
+     "checked": [
+      "다섯 선지의 유인 단서가 서로 다른 지문 자리에 근거하는지",
+      "라벨(주체 역전/무관/반대 진술)과 설명 방향 일치",
+      "수정 후 다른 선지 인용도 원문 철자(don’t, It’s) 재대조",
+      "sentences 목록 n=10 'I started losing my patience.' · n=13 'My voice was growing...' · n=8 시계 문장 대조",
+      "why_correct가 reasoning을 되풀이하지 않도록 재작성"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [],
+     "checked": [
+      "절차가 지문 전 실행 가능한지",
+      "순환 표현 없음",
+      "60초 안 완료 가능",
+      "required_vocab 두 낱말이 정답 판단에 필요한지"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-MOOD",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "주체 역전",
+    "count": 1,
+    "signature": "다른 인물(딸)의 감정을 필자 감정으로 옮김"
+   }
+  ],
+  "answer_locus_pattern": "1개 중 1개가 필자 주어 감정어 문장(10번) + 마지막 신체 반응 문장(13번)으로 확정",
+  "procedure": [
+   "감정의 주인을 발문에서 확정",
+   "그 인물이 주어인 문장의 감정어·신체 반응만 수집",
+   "극성·강도로 선지 소거"
+  ],
+  "failure_modes": [
+   "대화 상대의 감정을 필자 감정으로 혼동"
+  ],
+  "time_budget_sec": 60,
+  "open_questions": [
+   "단일 문항 청크라 함정 분포를 말할 수 없음",
+   "문장 번호는 청크 sentences 목록 n 기준으로 교정됨(10=losing patience, 13=마지막 문장)"
+  ]
+ }
+}

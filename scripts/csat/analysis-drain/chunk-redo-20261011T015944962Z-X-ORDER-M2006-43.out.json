@@ -1,0 +1,282 @@
+{
+  "chunk": 24,
+  "type_id": "X-ORDER",
+  "type_name": "장문 순서",
+  "analyses": [
+    {
+      "item_id": "M2006#43",
+      "measured_ability": "수업 장면(A) 뒤에 '수업 후 허락 요청 → 다음 날 연습실 → 연습을 마친 뒤 아버지의 반응'이라는 사건 사슬을 시간 표지(After the class · the following day · When they finished practicing)와 '허락'이라는 화제의 진행으로 이어 붙이는 능력",
+      "design_intent": "출제자는 '허락'이라는 화제를 세 단계로 나눠 배치했다 — (D) 19~22번 문장에서 Joe가 처음 허락을 청하고 26번 문장에서 아버지를 다음 날 연습에 초대하며, (C) 13번 문장의 \"did you get permission?\"은 그 요청이 이미 있었음을 전제하고, (B) 7번 문장은 연습이 끝난 뒤 구석에 서 있던 아버지를 보여 준다. 26번 문장의 tomorrow와 13번 문장의 the following day는 같은 날을 가리켜 (D)와 (C)를 잇는 고리가 되고, (C)의 연습이 끝나야 (B)의 'When they finished practicing'이 성립한다. 시간 표지가 서로를 지시하는 사슬이 순서를 확정하도록 만든 문항이다.",
+      "answer_locus": {
+        "sentence_index": [19],
+        "quote": "After the class, Joe was alone with his father.",
+        "reasoning": "(A)는 Master Brooks가 수업에서 연주하는 장면(1~3번 문장)이므로 'After the class'가 바로 그 수업을 받는다. 이 단락에서 Joe가 허락을 청하고(21번) 다음 날 연습에 오라고 초대하므로(26번), 허락 여부를 묻는 (C) 13번 문장과 연습 뒤 아버지가 등장하는 (B) 7번 문장은 모두 (D) 뒤에 와야 한다."
+      },
+      "choices": [
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "(D)의 'After the class'가 (A)의 수업을 받고, (D) 26번 문장의 'our practice tomorrow'가 (C) 13번 문장의 'the following day'·'practice room'으로 이어지며, (C) 18번 문장에서 시작된 트리오의 연습이 (B) 7번 문장의 'When they finished practicing'으로 닫힌다. 세 이음매가 모두 앞 단락의 사건을 받는 배열은 (D)-(C)-(B)뿐이다.",
+          "confirmed_at": { "sentence_index": [19, 26, 13, 18, 7], "note": "26번 tomorrow와 13번 the following day가 같은 날을 가리키는 것이 (D)→(C) 이음매, 18번 연습 시작과 7번 연습 종료가 (C)→(B) 이음매다." }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "시간·인과 순서 역전",
+          "why_tempting": "(A)가 연주 장면으로 끝나 (B) 7번 문장의 'finished practicing'이 그 수업 연습이 끝난 것으로 읽히고, 아버지가 등장하므로 (A)의 Master Brooks와 바로 이어진다고 느끼기 쉽다.",
+          "how_to_reject": "(B) 11번 문장에서 아버지는 crossover music의 힘을 과소평가했다고 말하는데, 그가 crossover를 싫어한다는 사실(24번)과 Joe가 crossover 공연 허락을 청하는 장면(21~22번)은 (D)에 있다. 아버지의 생각이 바뀌는 (B)가 그 생각을 처음 밝히는 (D)보다 앞설 수 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 앞당김",
+          "why_tempting": "(A)의 수업이 끝난 직후 친구들이 있는 연습실 장면으로 넘어가는 것이 자연스러워 보이고, (C) 13번 문장의 대화체가 장면 전환처럼 읽힌다.",
+          "how_to_reject": "(C) 13번 문장의 'did you get permission?'과 'the following day'는 이미 허락을 청하기로 한 사건과 그 전날을 전제한다. (A)에는 허락도 공연도 나오지 않으므로 이 질문의 선행 사건이 없고, 허락 요청은 (D) 21번 문장에서야 등장한다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "시간·인과 순서 역전",
+          "why_tempting": "(C) 뒤에 (D)를 두면 Joe가 친구들과 연습한 뒤 아버지와 단둘이 이야기하는 흐름처럼 보이고, (B)가 마지막에 와 결말 자리를 지키므로 끝 단락만 확인한 학습자는 맞다고 느낀다.",
+          "how_to_reject": "(D) 19번 문장은 'After the class'로 연습이 아니라 수업 뒤를 가리키고, (D) 26번 문장에서 연습에 오라는 초대는 tomorrow로 미래의 일이다. 그 연습이 이미 끝난 (C) 뒤에 이 초대가 오면 13번 문장의 'did you get permission?'이 묻는 허락 요청이 질문보다 늦어진다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 반복 유인",
+          "why_tempting": "(D) 26번 문장의 'our practice tomorrow' 직후에 (B) 7번 문장의 'When they finished practicing'이 와서 practice라는 낱말이 이어지니 연습 장면이 곧바로 붙는다고 판단하기 쉽다.",
+          "how_to_reject": "(B)에서 아버지가 이미 연습을 보고 칭찬했다면(10~11번), (C) 14번 문장에서 Joe가 'I’m not sure'라고 답하고 17번 문장에서 공연에서 빠질지 모른다고 생각할 이유가 없다. 연습을 앞두고 망설이는 (C)가 연습 결과를 전하는 (B)보다 앞서야 한다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "(A)의 마지막 상황을 한 줄로 적는다 — 누가 어디서 무엇을 하는 중인지(여기서는 아버지가 지도하는 수업 중).", "on_fail": "(A)의 끝 두 문장에서 장소·시간을 나타내는 낱말을 표시하고 그 장면이 아직 진행 중인지 본다." },
+        { "step": "(B)·(C)·(D)의 첫 문장에서 시간 표지만 뽑는다 — When they finished practicing · the following day · After the class — 그리고 각 표지가 어떤 사건을 전제하는지 옆에 적는다.", "on_fail": "표지가 전제하는 사건(수업·연습·전날)이 (A)에 있는지부터 확인한다. 없으면 그 단락은 (A) 바로 뒤에 올 수 없다." },
+        { "step": "단락마다 '허락' 화제가 어느 단계인지 표시한다 — 처음 청함, 결과를 물음, 아버지의 생각이 바뀜.", "on_fail": "permission·crossover가 나오는 문장에 밑줄을 긋고, 요청 문장과 결과 문장 중 어느 것이 먼저여야 하는지 비교한다." },
+        { "step": "남은 배열을 넣어 각 단락 끝 문장과 다음 단락 첫 문장이 같은 사건(초대한 연습 → 연습실 → 연습 종료)으로 이어지는지 확인한다.", "on_fail": "끊기는 이음매 하나를 찾으면 그 배열을 지우고, 남은 배열의 같은 이음매를 다시 본다." }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": { "predicted": 0.82, "drivers": ["세 단락 첫 문장이 모두 시간 표지로 시작해 표지 해석만으로 풀린다", "(C)의 질문이 앞선 허락 요청을 전제한다는 점을 놓치면 (C)를 앞에 둔다"] },
+      "required_vocab": ["permission", "crossover", "the following day", "underestimated"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["design_intent의 '두 표지 방향이 반대라 순서가 뒤집힌다'는 서술을 26번 tomorrow와 13번 the following day가 같은 날을 가리킨다는 설명으로 바꿨다.", "quote가 19번 문장과 문자 그대로 일치한다."], "checked": ["answer_locus.quote를 19번 문장과 문자열 대조", "design_intent·why_correct·confirmed_at이 모두 26번·13번을 같은 번호로 부르는지 대조"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["정답 confirmed_at.note에서 작업 이력 문구를 제거하고 이음매 설명만 남겼다.", "④의 유인을 practice 낱말 반복으로, ③의 배제를 26번 초대의 시제로 각각 다르게 썼다."], "checked": ["오답 네 개의 why_tempting이 각 배열의 실제 이음매(A→B, A→C, C→D, D→B)를 근거로 하는지 대조", "how_to_reject에 문장 번호가 있는지 확인"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["절차 2단계가 정답을 미리 말하지 않고 표지가 전제하는 사건만 적게 한다."], "checked": ["각 단계를 지문을 안 본 상태에서 실행 가능한지 점검", "on_fail 네 개가 서로 다른 행동인지 확인", "80초 안에 첫 문장 세 개 비교로 끝나는지 확인"] }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2019#43",
+      "measured_ability": "(A) 끝의 '집으로 돌아가 준비했다'를 (C)의 '양동이를 들고 할머니에게 돌아왔다'가 받고, 애벌레 잡기의 시작(C) → 지쳐서 던진 질문(B) → 할머니의 대답(D)으로 이어지는 행동·문답 사슬을 따라가는 능력",
+      "design_intent": "출제자는 (A) 9번 문장의 'went back to the house to get ready'와 (C) 16번 문장의 'armed with a small bucket each, ... went back to Grandma'를 짝지어 첫 이음매를 만들고, (B) 15번 문장 끝의 질문 'Why don’t we just get rid of all the butterflies'에 (D) 25번 문장의 'Why wrestle with Mother Nature?'가 답하도록 문답을 단락 경계에 걸쳐 놓았다. (D) 30번 문장의 'full buckets'는 (B) 14번 문장에서 양동이가 채워진 뒤에만 가능해 (D)가 마지막임을 굳힌다.",
+      "answer_locus": {
+        "sentence_index": [16],
+        "quote": "Soon, armed with a small bucket each, Olivia and Ellie went back to Grandma.",
+        "reasoning": "(A)는 자매가 준비하러 집에 들어가는 데서 끝나는데(9번), 'armed with a small bucket'은 그 준비의 결과이고 'went back to Grandma'는 집에 갔다가 되돌아오는 동작이다. 양동이가 처음 등장하는 이 문장보다 양동이를 채우는 (B) 14번 문장이나 가득 찬 양동이를 보는 (D) 30번 문장이 먼저 올 수 없다."
+      },
+      "choices": [
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "(A) 9번 'get ready'를 (C) 16번 'armed with a small bucket'이 받고, (C) 24번 'started on the first cabbage'를 (B) 10번 'The caterpillars wriggled as they were picked up'이 잇고, (B) 15번의 질문을 (D) 25번 'Why wrestle with Mother Nature?'가 답한다. 준비→시작→진행과 질문→대답이 끊기지 않는 배열은 (C)-(B)-(D)다.",
+          "confirmed_at": { "sentence_index": [9, 16, 24, 10, 15, 25], "note": "세 이음매: 9→16(준비와 귀환), 24→10(첫 배추에서 애벌레 잡기 시작), 15→25(질문과 대답)." }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "시간·인과 순서 역전",
+          "why_tempting": "(A) 7번 문장에서 할머니가 애벌레를 잡아 달라고 했으니 애벌레를 잡는 장면인 (B) 10번 문장이 곧바로 이어진다고 보기 쉽다.",
+          "how_to_reject": "(A) 9번 문장에서 자매는 아직 집으로 준비하러 가 있고, 양동이를 들고 돌아오는 장면은 (C) 16번 문장이다. 또 이 배열이면 (D) 30번 문장에서 가득 찬 양동이를 본 뒤 (C) 24번 문장에서 첫 배추를 시작하게 되어 작업의 처음과 끝이 뒤집힌다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "조건-귀결 절단",
+          "why_tempting": "(C) 22번 문장에서 할머니가 웃으며 위로하는 말과 (D) 25번 문장 'Grandma smiled gently and said'가 같은 모습이라 할머니의 말이 이어지는 것처럼 보인다.",
+          "how_to_reject": "(D) 25번의 'Why wrestle with Mother Nature?'는 나비를 없애자는 제안에 대한 대답인데, 그 제안은 (B) 15번 문장에 있다. (C) 24번은 작업을 막 시작하는 장면이라 반박할 제안이 없고, (B)를 마지막에 두면 15번 질문이 답 없이 끝난다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "마무리 문장 위치 오판",
+          "why_tempting": "(A)가 할머니의 제안으로 끝나고 (D)가 할머니의 말로 시작하니 할머니의 대화가 계속되는 듯 보이며, 나비에 관한 설명(Cabbage White)이 (A) 4번 문장과 (D) 26번 문장에서 이어진다.",
+          "how_to_reject": "(D) 30번 문장 'looked at their full buckets and smiled'는 작업을 마친 결말이다. 이 단락을 맨 앞에 두면 양동이를 채우는 (B) 14번 문장과 양동이를 처음 드는 (C) 16번 문장이 결말 뒤로 밀린다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 반복 유인",
+          "why_tempting": "(A) 7·8번 문장과 (D) 25번 문장에 Grandma가 반복되고, (C) 16번 'went back to Grandma'까지 할머니 중심으로 묶여 (D)-(C)가 한 장면처럼 읽힌다.",
+          "how_to_reject": "(D) 25번은 '자연과 싸울 필요가 있느냐'라고 반문하는데 (A)에는 나비를 없애자는 말이 없다. 그 말은 (B) 15번에 있으므로 (D)는 (B) 뒤에만 온다. (B)를 마지막에 두는 이 배열은 15번 질문을 답 없이 남긴다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "(A) 끝 문장에서 인물이 지금 어디에 있고 무엇을 하러 갔는지 적는다(집에 준비하러 감).", "on_fail": "동사 went back과 그 목적어구(to the house to get ready)를 표시해 장소 이동을 확인한다." },
+        { "step": "세 단락에서 물건·작업의 진행 상태를 나타내는 표현을 찾는다 — 양동이를 '든다', 양동이를 '채운다', 양동이가 '가득 찼다'.", "on_fail": "bucket이 나오는 문장마다 그 양동이가 빈 상태인지 찬 상태인지 옆에 적는다." },
+        { "step": "의문문으로 끝나는 단락과 반문으로 시작하는 단락이 있는지 보고, 질문과 대답이 짝이 되는지 확인한다.", "on_fail": "끝 문장의 질문 내용(나비를 없애자)과 첫 문장의 대답 내용(자연과 싸우지 말자)이 같은 대상을 다루는지 비교한다." },
+        { "step": "남은 배열을 넣어 준비→시작→진행→결말 순서가 지켜지는지 이음매 세 곳을 확인한다.", "on_fail": "결말 표현(full buckets·smiled)이 들어 있는 단락이 마지막이 아닌 배열부터 지운다." }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": { "predicted": 0.8, "drivers": ["양동이의 상태 변화가 세 단락에 걸쳐 명시된다", "(D)의 반문이 (B)의 질문에 답한다는 것을 놓치면 (C)-(D)-(B)로 간다"] },
+      "required_vocab": ["armed with", "wrestle with", "get rid of", "caterpillar"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["confirmed_at.sentence_index를 지문 순서가 아닌 이음매 순서로 적되 note에 세 이음매를 같은 번호로 명시해 역순으로 보이던 [26,16] 표기를 없앴다.", "quote가 16번 문장과 문자 그대로 일치한다."], "checked": ["answer_locus.quote를 16번 문장과 문자열 대조", "why_correct와 confirmed_at.note가 9·16·24·10·15·25번을 같은 번호로 부르는지 대조"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["confirmed_at.note의 작업 이력 문구를 지우고 이음매 설명으로 대체했다.", "④는 결말 단락을 앞에 둔 오류, ⑤는 Grandma 반복이라는 낱말 유인으로 서로 다른 오류 방식을 붙였다."], "checked": ["각 오답의 trap 라벨이 배열이 깨지는 실제 이음매와 맞는지 대조", "④와 ⑤의 how_to_reject가 서로 다른 근거 문장(30·14번 대 25·15번)을 쓰는지 확인"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["양동이 상태 표시 단계는 낱말 bucket만 찾으면 되어 학생이 바로 실행할 수 있다."], "checked": ["단계 네 개가 정답 배열을 미리 말하지 않는지 확인", "required_vocab 네 낱말이 지문에 실제로 있는지 대조"] }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "M1809#43",
+      "measured_ability": "(A) 끝의 'Ricky hated fishing'을 (D)의 this가, (D) 끝의 일 목록을 (C)의 these jobs가 받는 지시 사슬과, 야구를 시작해 전설이 되고(C) 국가적 명성과 아버지의 인정으로 맺는(B) 시간 전개를 함께 확인하는 능력",
+      "design_intent": "출제자는 두 단락 첫 문장에 지시 표현을 두었다 — (D) 18번 'His father saw this very negatively'의 this는 (A) 5번 'Because Ricky hated fishing'을, (C) 10번 'Since these jobs were not fishing'의 these jobs는 (D) 22번의 신문 배달·구두닦이·사무실 일·그물 수선을 받는다. (B)의 첫 문장 6번에는 지시어가 없고, 대신 'The nation came to know Ricky as the most complete player'라는 내용이 (C) 17번 'he had become a legend' 이후의 결과여서 시간 순서로 자리가 정해진다.",
+      "answer_locus": {
+        "sentence_index": [10],
+        "quote": "Since these jobs were not fishing, his father saw no value in them.",
+        "reasoning": "these jobs가 가리킬 수 있는 일의 목록은 (D) 22번 문장에만 있다. (A)에도 (B)에도 직업 목록이 없으므로 (C)는 (D) 바로 뒤에 와야 하고, (C) 17번에서 야구 선수로 전설이 된 뒤에야 (B) 6번의 명예의 전당이 이어진다."
+      },
+      "choices": [
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "(D) 18번의 this가 (A) 5번의 '낚시를 싫어함'을 받고, (C) 10번의 these jobs가 (D) 22번의 일 목록을 받으며, (C) 17번 'he had become a legend'를 (B) 6번 'voted into the Hall of Fame'이 결과로 잇는다. 두 지시 이음매와 한 시간 이음매가 모두 성립하는 배열은 (D)-(C)-(B)뿐이다.",
+          "confirmed_at": { "sentence_index": [5, 18, 22, 10, 17, 6], "note": "5→18(this), 22→10(these jobs), 17→6(전설 이후의 명성)." }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "마무리 문장 위치 오판",
+          "why_tempting": "(A) 1번 문장이 어려움 속에서 긍정을 보라는 교훈을 내세우므로, 그 교훈의 결과를 말하는 (B) 9번 'held onto hope ... and achieved greatness'가 바로 이어지는 것처럼 보인다.",
+          "how_to_reject": "(B) 6번에서 Ricky는 이미 the most complete player로 명예의 전당에 올랐는데, 그가 야구를 시작하는 장면은 (C) 13번, 선수가 되기로 하는 장면은 (C) 16번이다. 명성이 시작보다 앞설 수 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 앞당김",
+          "why_tempting": "(C) 11번 'Young Ricky hated fishing'이 (A) 5번 'Because Ricky hated fishing'과 거의 같은 문장이라 (A) 뒤에 (C)가 붙는다고 느끼기 쉽다.",
+          "how_to_reject": "(C) 10번의 these jobs는 앞서 나열된 여러 일을 가리키는데 (A)에는 일의 목록이 없다. 목록은 (D) 22번에 있다. 또 이 배열에서는 (D) 18번의 this가 (B)의 명예의 전당을 받게 되어, 아버지가 자랑스러워했다는 (B) 8번과 '매우 부정적으로 봤다'는 18번이 충돌한다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 반복 유인",
+          "why_tempting": "(C) 11번 'Young Ricky hated fishing'이 (A) 5번을 되풀이하고, (B)가 마지막에 와 결말 자리가 맞으니 끝만 확인하면 맞는 배열로 보인다.",
+          "how_to_reject": "(C)를 (A) 바로 뒤에 두면 10번 these jobs가 받을 일 목록이 없다. 그리고 (C) 17번에서 이미 전설이 된 Ricky 뒤에 (D) 21~22번의 '배를 싫어해 신문을 배달하던 소년'이 오면 소년 시절이 성공 뒤로 밀려 시간 순서가 거꾸로 된다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "시간·인과 순서 역전",
+          "why_tempting": "(D)가 (A) 바로 뒤에 오는 첫 이음매는 맞으므로, 첫 단락만 확인한 학습자는 (D)로 시작하는 두 배열 중 하나를 고르게 되고, (D) 24번 '아버지의 불만' 직후 (B) 8번 '아버지가 마침내 자랑스러워했다'가 아버지 이야기로 이어져 보인다.",
+          "how_to_reject": "(B) 6번의 most complete player와 Hall of Fame은 (C) 16·17번에서 야구 선수가 되어 전설이 된 뒤의 결과다. (D) 24번에서 Ricky는 아직 잡일을 하는 소년이므로 그 직후에 명예의 전당이 올 수 없고, (B) 뒤의 (C) 10번 these jobs도 선행사를 잃는다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "(A) 끝 문장이 무엇을 말하는지 적는다(Ricky가 낚시를 싫어함).", "on_fail": "Why ~? Because ~ 문답에서 Because 뒤의 내용을 표시한다." },
+        { "step": "세 단락 첫 문장에서 지시 표현(this · these jobs 등)을 찾고, 지시어가 없는 단락은 첫 문장의 사건이 언제 일어난 일인지 적는다.", "on_fail": "지시어마다 '무엇을 가리킬 수 있나'를 적고, 그 대상이 (A)나 다른 단락 끝에 실제로 있는지 찾는다." },
+        { "step": "these jobs처럼 여럿을 묶는 표현은 앞에 나열된 목록이 있는 단락을 찾아 바로 뒤에 붙인다.", "on_fail": "콤마로 이어진 동사 나열(delivered … shined … worked … repaired)이 있는 문장을 찾는다." },
+        { "step": "인물의 나이·처지 변화(소년 → 선수 → 전설 → 명예의 전당)가 단락 순서와 맞는지 확인한다.", "on_fail": "각 단락에서 Ricky의 처지를 한 낱말로 적어 순서가 거꾸로 된 이음매를 찾는다." }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": { "predicted": 0.78, "drivers": ["(C)의 11번이 (A)의 5번을 되풀이해 (C)를 먼저 두게 만든다", "these jobs의 선행사가 (D) 끝 목록에 있다"] },
+      "required_vocab": ["these jobs", "Hall of Fame", "good for nothing", "legend"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["1차 판정 revise — 처음 서술에 '단락 첫 문장이 전부 지시 표현'이라고 썼으나 (B) 6번에는 지시어가 없다. design_intent를 (D)·(C)만 지시 표현이고 (B)는 시간 순서로 정해진다고 고쳤다.", "재검수: quote가 10번 문장과 문자 그대로 일치하고, design_intent·measured_ability·why_correct가 같은 구분을 쓴다."], "checked": ["design_intent와 6·10·18번 문장의 첫 낱말 대조", "measured_ability·solve_procedure 2단계에도 '모두 지시어'라는 서술이 남지 않았는지 재확인", "answer_locus.quote를 10번과 문자열 대조"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["1차 판정 revise — ③의 배제 문장 '아버지가 아직 모르는 사실이 아니라'는 근거가 되지 못했다. 10번 these jobs의 선행사 부재와 17번→21·22번의 시간 역전으로 바꿨다.", "재검수: ②와 ③이 모두 11번 반복을 유인으로 쓰지만, ②는 18번 this와 8번의 충돌, ③은 소년 시절이 성공 뒤로 밀리는 시간 역전으로 배제 근거가 다르다."], "checked": ["③ how_to_reject를 10·17·21·22번과 대조", "②·③의 why_tempting/how_to_reject가 복제되지 않았는지 비교"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["절차 2단계가 '지시어가 없는 단락'도 다루도록 고쳐 (B)를 처리할 수 있다."], "checked": ["단계별 실행 가능성", "on_fail 네 개가 서로 다른 행동인지", "required_vocab이 지문에 있는지"] }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2016#43",
+      "body_recovered": true,
+      "measured_ability": "졸업식 날(A)에 떠올린 '입학 첫날'을 (D)의 That day가 받고, 학교생활의 회상(C)이 어머니의 도착으로 현재로 돌아오며, 도착한 어머니와의 대화·사진(B)으로 맺는 회상-복귀의 시간 구조를 추적하는 능력",
+      "design_intent": "출제자는 현재(졸업식) 속에 과거 회상을 끼워 넣었다. (A) 6번 'She recalled the first day of school'이 회상을 열고, (D) 27번 'That day was unusually foggy'가 그 첫날을 받아 입학식과 1학년을 묘사하며, (C) 19~23번이 이후 학년의 고생과 2학년 축제를 거쳐 24번 'Her thoughts wandering'에서 회상을 끝내고 26번에서 어머니가 도착한다. (A) 5번 'Soon her mother would be joining them'은 어머니가 아직 오지 않았음을 알려, 어머니가 말을 거는 (B) 7번이 도착 장면 26번 뒤에 와야 함을 정한다.",
+      "answer_locus": {
+        "sentence_index": [27],
+        "quote": "That day was unusually foggy as if something mysterious were ahead.",
+        "reasoning": "That day는 앞에서 특정된 하루를 가리켜야 하는데, (A)에서 특정된 지난날은 6번의 'the first day of school'뿐이다. (D)가 그 첫날의 입학식(29번 principal의 연설)과 담임 소개(30번)를 이어 가므로 (A) 바로 뒤에 오고, 학교생활 전체를 회상하는 (C)가 그다음, 어머니가 도착한 뒤의 대화인 (B)가 마지막이다."
+      },
+      "choices": [
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "(A) 6번 'the first day of school'을 (D) 27번 'That day'가 받고, (D) 33번 'High school life soon proved as challenging'을 (C) 19번 'struggled with the many class hours'가 잇고, (C) 26번 어머니의 도착 뒤에 (B) 7번 어머니의 말 'Hannah, you look so serious'가 온다. 회상의 시작·진행·복귀와 어머니의 도착·대화가 모두 맞는 배열은 (D)-(C)-(B)다.",
+          "confirmed_at": { "sentence_index": [6, 27, 33, 19, 26, 7], "note": "6→27(That day), 33→19(고된 학교생활의 구체화), 26→7(도착한 어머니의 말). 5번은 어머니가 아직 오지 않았음을 보여 주는 보조 근거다." }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "시간·인과 순서 역전",
+          "why_tempting": "(A)가 졸업식 현재 장면이고 (B)도 현재의 대화와 사진 장면이라 현재끼리 이어 붙이면 자연스럽다고 느끼기 쉽다.",
+          "how_to_reject": "(A) 5번 'Soon her mother would be joining them'은 어머니가 아직 도착하지 않았음을 말하고, 도착 장면은 (C) 26번 'Her mother hurried over'다. 어머니가 말을 거는 (B) 7번은 26번보다 앞설 수 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "시간·인과 순서 역전",
+          "why_tempting": "(A) 6번에서 학교 시절을 떠올리기 시작하므로 학교생활의 고생을 말하는 (C) 19번이 곧바로 회상 내용으로 이어지는 것처럼 보인다.",
+          "how_to_reject": "(C)는 2학년 축제(21·22번)를 거쳐 회상을 끝내고 어머니를 맞는데, (D)가 마지막에 오면 회상이 끝난 뒤 다시 입학 첫날(27번)과 1학년(33번)으로 돌아가 이야기가 과거에서 끝나 버린다. 회상의 첫날이 회상의 끝보다 뒤에 놓인다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "지시어 선행사 절단",
+          "why_tempting": "(B)가 마지막에 와 어머니와 사진을 찍는 결말 자리를 지키고, (D) 33번의 'challenging'과 (C) 19번의 'struggled'가 비슷한 내용이라 (C)·(D)가 붙어 있으면 맞는다고 느낀다.",
+          "how_to_reject": "(D) 27번의 That day가 가리킬 날은 (A) 6번의 첫날인데, (C)가 사이에 끼면 That day 바로 앞에는 (C) 26번 어머니의 도착 장면이 놓여 That day가 졸업식 날로 읽힌다. 그러면 29~30번의 입학식 연설과 담임 소개가 졸업식 날의 일이 되어 맞지 않는다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "조건-귀결 절단",
+          "why_tempting": "(D)로 시작하는 첫 이음매가 맞고, (B) 8번 'What are you thinking about?'이 (D)의 회상에 잠긴 Hannah에게 묻는 말처럼 들려 (D) 다음에 (B)가 어울려 보인다.",
+          "how_to_reject": "어머니가 말을 걸려면 먼저 도착해야 하는데 도착은 (C) 24~26번이다. 이 배열은 (B) 7번의 대화가 26번의 도착보다 앞서고, (C) 26번에서 어머니가 'Here you are!'라며 처음 Hannah를 찾는 장면이 대화와 사진 뒤에 놓인다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "(A)에서 현재 장면(졸업식)과 회상이 시작되는 문장을 구분하고, 아직 등장하지 않은 인물이 있는지 본다(어머니는 곧 올 예정).", "on_fail": "would be joining · recalled 같은 동사의 시제를 표시해 현재·미래·과거를 나눈다." },
+        { "step": "세 단락 첫 문장에서 That day처럼 특정한 날을 가리키는 표현을 찾고, (A)에서 특정된 날이 무엇인지 연결한다.", "on_fail": "the first day · that day · second year처럼 날·학년을 가리키는 낱말에 동그라미를 친다." },
+        { "step": "회상이 끝나고 현재로 돌아오는 문장(생각이 흩어지다 · 목소리를 듣다)과 인물이 도착하는 문장을 찾는다.", "on_fail": "hurried over · Here you are 같은 도착 표현이 있는 단락을 표시한다." },
+        { "step": "도착한 인물이 말하는 단락이 도착 장면 뒤에 오는지, 회상이 입학 → 학년 진행 순서인지 확인해 남는 배열을 고른다.", "on_fail": "인물이 도착 전에 말하는 배열과 회상이 거꾸로 흐르는 배열을 차례로 지운다." }
+      ],
+      "time_budget_sec": 85,
+      "difficulty": { "predicted": 0.8, "drivers": ["현재 속 회상 구조라 시제 전환을 놓치면 (B)를 앞에 둔다", "That day의 선행사가 (A) 마지막 문장에 있다"] },
+      "required_vocab": ["recalled", "freshmen", "Her thoughts wandering", "would be joining"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["옛 분석은 본문에 26·33·19번을 쓰면서 sentence_index를 [6,21]로 적어 어긋났다. 이번에는 answer_locus.sentence_index를 quote가 있는 27번으로, confirmed_at을 6·27·33·19·26·7번으로 맞추고 본문의 모든 번호를 이 목록 번호로 통일했다.", "quote가 27번 문장과 문자 그대로 일치한다."], "checked": ["answer_locus.quote를 27번과 문자열 대조", "reasoning·why_correct·how_to_reject에 나오는 번호가 모두 청크 문장 목록 범위(1~33) 안이고 같은 문장을 같은 번호로 부르는지 대조"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["①과 ②가 모두 시간 순서 라벨이지만 ①은 어머니 도착 전 대화(5·26·7번), ②는 회상이 끝난 뒤 첫날로 돌아감(21·22·27·33번)으로 근거가 다르다.", "③은 That day의 선행사가 끊기는 오류로 따로 라벨을 붙였다."], "checked": ["각 오답의 trap과 how_to_reject의 근거 문장 대조", "선지별 설명 복제 여부 비교"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["시제 표시 단계가 회상 구조를 학생이 스스로 찾게 한다."], "checked": ["단계를 지문을 안 본 상태에서 실행 가능한지", "on_fail 네 개가 서로 다른지", "85초 예산 점검"] }
+      ],
+      "revised": true
+    }
+  ],
+  "type_report": {
+    "type_id": "X-ORDER",
+    "n_analyzed": 4,
+    "recurring_traps": [
+      { "trap": "시간·인과 순서 역전", "count": 6, "signature": "결과·도착·종료를 나타내는 단락이 그 전제 사건보다 앞에 놓인다(선지 단위로 한 번씩 셈: M2006 ①③ · 2019 ① · M1809 ④ · 2016 ①②)" },
+      { "trap": "어휘 반복 유인", "count": 3, "signature": "practice · Grandma · hated fishing처럼 단락 경계에 겹치는 낱말이 이음매처럼 보이지만 사건 선후는 맞지 않는다" },
+      { "trap": "지시어 선행사 앞당김", "count": 2, "signature": "these jobs · did you get permission처럼 앞 사건을 전제하는 표현을 그 사건 앞에 둔다" },
+      { "trap": "마무리 문장 위치 오판", "count": 2, "signature": "full buckets · Hall of Fame 같은 결말 단락을 앞에 둔다" },
+      { "trap": "조건-귀결 절단", "count": 2, "signature": "질문-대답, 도착-대화처럼 짝이 되는 사건을 떼어 놓는다" },
+      { "trap": "지시어 선행사 절단", "count": 1, "signature": "That day와 선행사 사이에 다른 단락이 끼어 지시 대상이 바뀐다" }
+    ],
+    "answer_locus_pattern": "4문항 모두 (A) 바로 뒤 단락의 첫 문장이 (A) 끝의 사건(수업 · 준비하러 감 · 낚시를 싫어함 · 첫날 회상)을 받는다. 단 M1809의 (B)처럼 지시어 없이 시간 순서로만 자리가 정해지는 단락도 있어, 지시어만으로 세 이음매를 모두 확정할 수는 없다.",
+    "procedure": [
+      "(A) 끝 장면의 인물·장소·진행 상태를 한 줄로 적는다",
+      "세 단락 첫 문장에서 시간 표지·지시 표현을 뽑고 각각이 전제하는 사건을 적는다",
+      "물건·인물의 상태 변화(빈 양동이→가득 찬 양동이, 도착 전→도착 후, 소년→선수)를 단락별로 표시한다",
+      "질문-대답, 요청-결과처럼 짝이 되는 사건이 단락 경계에 걸쳐 있는지 확인한다",
+      "남은 배열의 이음매 세 곳을 모두 대조해 하나라도 끊기면 지운다"
+    ],
+    "failure_modes": [
+      "단락 경계의 겹치는 낱말(practice · Grandma · hated fishing)을 연결 근거로 삼는다",
+      "결말 단락 자리만 확인하고 가운데 이음매를 확인하지 않는다",
+      "현재 속 회상 구조에서 시제 전환을 놓쳐 현재 장면끼리 붙인다"
+    ],
+    "time_budget_sec": 80,
+    "open_questions": [
+      "이 청크 4문항에서 정답 배열은 ⑤ 3회·② 1회였으나 유형 전체 분포(keyed 29: ②6 · ③9 · ④3 · ⑤11)는 번호 찍기 근거가 되지 못하므로 절차에 넣지 않았다.",
+      "반려는 M1809의 setter·analyst 두 건뿐이었고 나머지 세 문항은 세 검수 모두 첫 판정에서 pass였다 — 원장 결함을 고친 뒤 검수했기 때문이지만, 세 자가 같은 이음매만 재고 있을 가능성을 다음 청크에서 확인할 필요가 있다."
+    ]
+  }
+}

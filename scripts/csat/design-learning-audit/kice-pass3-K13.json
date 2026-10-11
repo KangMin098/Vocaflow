@@ -1,0 +1,12 @@
+{"pass":3,"k":13,"items":[
+{"id":"2021#35","version":7,"type":"R-IRRELEVANT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"work_jargon","note":"⑤ why_tempting 에 '우리 코퍼스에는 파싱 잔여' 문구 — 학습자 필드에 작업 용어와 원문 결함 언급"},{"code":"source_broken","note":"⑤ 선지 텍스트 끝에 각주(* subservient) 혼입"}]},
+{"id":"2021#41","version":4,"type":"X-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#42","version":4,"type":"X-VOCAB","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2021#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2022#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"design_intent 가 customers·measurable 을 부정된 A쪽 어휘라 함 — 실제로는 필자 쪽(목적 문장) 어휘라 사실과 어긋남"}]},
+{"id":"2022#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"why_correct 가 한 줄로 얇음 — without 조건절 역산(신뢰 없으면 마비) 논리는 answer_locus 에만 있음"}]},
+{"id":"2022#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform_note 의 (1번)(2번) 문장 번호가 sentence_index·why_correct 번호(2·3번째)와 불일치"}]}
+]}

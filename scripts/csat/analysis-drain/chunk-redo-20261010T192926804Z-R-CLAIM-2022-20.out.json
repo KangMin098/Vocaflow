@@ -1,0 +1,177 @@
+{
+  "chunk": 6,
+  "type_id": "R-CLAIM",
+  "type_name": "필자 주장",
+  "analyses": [
+    {
+      "item_id": "2022#20",
+      "measured_ability": "not A but B 구문에서 필자가 어느 쪽을 출발점으로 놓았는지 읽어, 부정된 A(도구·플랫폼)를 버리고 B(조직의 목표)를 주장의 자리에 놓는 능력",
+      "design_intent": "첫 문장이 조직의 흔한 실수(도구·플랫폼에 치우치고 사업 목표를 소홀히 함)를 진단하고, 둘째 문장이 not with ~ but with 구문으로 출발점을 '조직 자신의 목표'로 바꿔 놓는다. 다섯째 문장의 must(문제 해결 또는 측정 가능한 개선)와 여섯째 문장 purpose drives success 는 같은 주장을 목적 쪽에서 되받는 필자 쪽 문장이다. 오답은 이 문장들의 낱말을 다른 술어에 붙여 만든다 — ①은 부정된 쪽(tools and platforms)을 '직접 개발'로, ③은 필자 쪽 문장의 customers 를 '의견 수렴'으로, ④는 필자 쪽 문장의 measurable 을 '구체적 정보 제공'으로 옮기고, ②는 정답과 같은 '사업 목표'를 남기되 지문에 없는 '사회적 가치 반영'이라는 목표 수립 방법을 덧붙이고 소셜 미디어를 지운다. 낱말이 지문에 있는지가 아니라 그 낱말이 지문에서 어떤 술어와 묶였는지를 대조해야 갈린다.",
+      "answer_locus": {
+        "sentence_index": [
+          2,
+          5
+        ],
+        "quote": "creating a social media program begins not with insight into the latest social media tools and channels but with a thorough understanding of the organization’s own goals and objectives",
+        "reasoning": "이 문장은 소셜 미디어 프로그램의 '출발점'을 명시적으로 지정한다 — 도구·채널이 아니라 조직 자신의 목표와 목적이다. 선지가 요구하는 두 자리(주체=기업, 근거=사업 목표)가 이 한 문장에 다 들어 있고, 뒤의 'In order to serve any purpose at all, a social media presence must either solve a problem ... or result in an improvement' 은 그 목적이 무엇이어야 하는지를 덧붙일 뿐 출발점을 바꾸지 않는다"
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "선지의 '소셜 미디어를 직접 개발하여 운영'은 첫 문장의 social media tools and platforms 와 붙어 보인다. 기업이 자체 채널을 가져야 한다는 통념이 겹쳐 그럴듯해진다",
+          "how_to_reject": "지문 어디에도 develop·build·create a platform 에 해당하는 표현이 없다. 둘째 문장은 tools and channels 를 출발점에서 제외하는 쪽이므로, 도구를 직접 만들라는 처방은 부정된 자리에서 나온 것이다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "'기업'과 '사업 목표'가 정답 ⑤와 같은 낱말이고, 첫 문장의 business goals 가 그대로 옮겨진 것처럼 보인다. 기업의 사회적 책임이라는 익숙한 상식이 '사회적 가치와 요구'를 덧붙여도 어색하지 않게 만든다",
+          "how_to_reject": "지문에서 goals and objectives 는 소셜 미디어 프로그램의 출발점(둘째 문장 begins … with)으로만 쓰이고, 목표를 무엇을 반영해 세우라는 진술은 없다. '사회적 가치와 요구'에 해당하는 표현(social values·needs of society)도 지문에 없다. 이 선지는 목표 자체를 수립하는 방법이라는 지문 밖 화제로 옮겼고, 소셜 미디어라는 지문의 대상이 빠졌다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "다섯째 문장에 customers 가 실제로 있어 '소비자'가 지문 낱말처럼 보인다. 소셜 미디어의 용도로 의견 수렴은 가장 익숙한 답이다",
+          "how_to_reject": "customers 가 나오는 문장은 'solve a problem for the organization and its customers' — 술어가 문제 해결이지 의견 수렴이 아니다. 지문에 listen·feedback·opinion 에 해당하는 표현이 없다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "괄호 안 preferably a measurable one 이 '구체적인 정보'로 옮겨 읽히고, 소셜 미디어의 용도를 홍보로 좁히는 상식이 붙는다",
+          "how_to_reject": "measurable 은 개선(improvement)의 성질을 한정하는 말이지 소비자에게 줄 정보의 성질이 아니다. 지문에는 promote·advertise·product 축이 아예 없다"
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "선지의 '사업 목표'는 둘째 문장 but 뒤 'the organization’s own goals and objectives' 에, '토대로 해야 한다'는 같은 문장의 'begins not with … but with'(출발점 지정)에 대응한다. '소셜 미디어를 활용할 때'는 그 문장의 주어 'creating a social media program' 이고, 다섯째 문장 must 가 이 요구가 당위임을 확인한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              5,
+              6
+            ],
+            "note": "2번의 not-but 이 출발점을, 5번의 must 가 요구 강도를, 6번 'In all things, purpose drives success' 가 같은 방향을 닫는다"
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 다섯을 먼저 읽고 주체(기업/소비자)와 서술 목적어를 나눠 표시한다 — 주체가 갈리는 유형인지부터 확인한다",
+          "on_fail": "주체가 다섯 다 같으면 서술 목적어만 다섯 개 나열해 둔다"
+        },
+        {
+          "step": "지문에서 not ~ but, rather than, instead of 같은 대체 구문을 먼저 찾아 but 뒤에 밑줄을 긋는다",
+          "on_fail": "대체 구문이 없으면 In order to·must·should 가 든 문장을 후보로 삼는다"
+        },
+        {
+          "step": "but 앞에 놓인 부정된 쪽 낱말(도구·채널)을 적고, 선지가 그 부정된 쪽을 처방으로 삼는지 본다. 지문 낱말이 든 선지는 그 낱말이 지문에서 어떤 술어와 묶였는지(문제 해결인가 의견 수렴인가)를 따로 대조한다",
+          "on_fail": "술어가 헷갈리면 그 낱말이 든 지문 문장의 동사(solve·result in)만 옮겨 적고 선지 동사와 나란히 놓는다"
+        },
+        {
+          "step": "남은 선지와 but 뒤 밑줄을 주체·근거 두 자리로 맞춘다",
+          "on_fail": "둘 이상 남으면 지문의 마지막 문장(purpose drives success)이 어느 선지의 근거 자리와 같은 낱말인지로 가른다"
+        }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": {
+        "predicted": 0.78,
+        "drivers": [
+          "not A but B 가 한 문장 안에서 32낱말에 걸쳐 있어 but 뒤가 멀다",
+          "오답 넷이 모두 부정된 A 쪽 어휘를 쓴다",
+          "정답 선지의 '토대로'가 지문의 begins with 를 한 번 추상화한 표현이다"
+        ]
+      },
+      "required_vocab": [
+        "objectives",
+        "thorough",
+        "presence",
+        "purpose",
+        "fulfillment"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "원장 결함: design_intent 가 customers·measurable 을 부정된 A쪽 어휘라 했으나 두 낱말은 다섯째 문장(필자의 must 문장)에 있다 — 필자 쪽 낱말을 다른 술어에 붙인 것으로 고쳤다",
+            "quote·정답 근거(둘째 문장 not-but)는 원장대로 보존"
+          ],
+          "checked": "quote 를 corpus.json passage 에서 문자열 대조,customers·measurable 위치를 다섯째 문장에서 확인,why_correct 대응(goals and objectives↔사업 목표, begins with↔토대로) 대조,measured_ability·how_to_reject ③④에 같은 'A쪽' 오기가 남았는지 재확인 — 없음 | 재교정: ② 라벨을 「인과 역전」→「무관」으로, 유인·배제를 실제 변형(목표 수립 방법 첨가, 소셜 미디어 삭제)에 맞춤. design_intent 의 ② 서술도 같은 기준으로 재확인",
+          "revised": true
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "1차: solve_procedure 3단계가 '부정된 낱말이 든 선지를 지운다'고 해 design_intent 오기와 같은 전제(오답=부정된 쪽 어휘)를 품고 있었다 — ③④는 필자 쪽 낱말을 쓰므로 이 절차로는 안 지워진다. 술어 대조 절차로 고쳤다",
+            "재검수: 라벨 4종이 각 선지의 실제 변형과 맞는다(①지문 밖 상식 ②무관(목표 수립 방법 첨가) ③어휘 함정 ④무관)"
+          ],
+          "checked": "trap·why_tempting·how_to_reject 를 선지 텍스트와 대조,solve_procedure 3단계를 design_intent 수정과 대조,correct=5 와 정답표 일치 | 재교정: ② 라벨을 「인과 역전」→「무관」으로, 유인·배제를 실제 변형(목표 수립 방법 첨가, 소셜 미디어 삭제)에 맞춤. design_intent 의 ② 서술도 같은 기준으로 재확인",
+          "revised": true
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계 수정 후에도 표지(but·must)만 훑으면 실행 가능, 80초 내"
+          ],
+          "checked": "금지 표현 문자열 검색,step·on_fail 서로 다른 문장인지 확인,required_vocab 이 지문에 실재하는지 | 재교정: ② 라벨을 「인과 역전」→「무관」으로, 유인·배제를 실제 변형(목표 수립 방법 첨가, 소셜 미디어 삭제)에 맞춤. design_intent 의 ② 서술도 같은 기준으로 재확인",
+          "revised": true
+        }
+      ],
+      "revised": true
+    }
+  ],
+  "type_report": {
+    "type_id": "R-CLAIM",
+    "n_analyzed": 1,
+    "recurring_traps": [
+      {
+        "trap": "지문 밖 상식",
+        "count": 1,
+        "signature": "소셜 미디어→자체 개발이라는 관용 처방"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 1,
+        "signature": "필자 쪽 문장의 customers 를 다른 술어(의견 수렴)에"
+      },
+      {
+        "trap": "무관",
+        "count": 2,
+        "signature": "measurable 을 홍보 정보로 — 지문에 홍보 축 없음 / 정답 낱말(사업 목표)을 남기고 지문 밖 목표 수립 방법을 덧붙임"
+      }
+    ],
+    "answer_locus_pattern": "근거는 must 문장이 아니라 둘째 문장의 not A but B 대체 구문이며, must 문장은 확인 역할",
+    "procedure": [
+      {
+        "step": "선지 다섯을 먼저 읽고 주체(기업/소비자)와 서술 목적어를 나눠 표시한다 — 주체가 갈리는 유형인지부터 확인한다",
+        "on_fail": "주체가 다섯 다 같으면 서술 목적어만 다섯 개 나열해 둔다"
+      },
+      {
+        "step": "지문에서 not ~ but, rather than, instead of 같은 대체 구문을 먼저 찾아 but 뒤에 밑줄을 긋는다",
+        "on_fail": "대체 구문이 없으면 In order to·must·should 가 든 문장을 후보로 삼는다"
+      },
+      {
+        "step": "but 앞에 놓인 부정된 쪽 낱말(도구·채널)을 적고, 선지가 그 부정된 쪽을 처방으로 삼는지 본다. 지문 낱말이 든 선지는 그 낱말이 지문에서 어떤 술어와 묶였는지(문제 해결인가 의견 수렴인가)를 따로 대조한다",
+        "on_fail": "술어가 헷갈리면 그 낱말이 든 지문 문장의 동사(solve·result in)만 옮겨 적고 선지 동사와 나란히 놓는다"
+      },
+      {
+        "step": "남은 선지와 but 뒤 밑줄을 주체·근거 두 자리로 맞춘다",
+        "on_fail": "둘 이상 남으면 지문의 마지막 문장(purpose drives success)이 어느 선지의 근거 자리와 같은 낱말인지로 가른다"
+      }
+    ],
+    "failure_modes": [
+      "지문에 있는 낱말이면 필자 쪽이라고 믿거나, 반대로 부정된 쪽이라고 단정한다 — 낱말이 아니라 묶인 술어로 갈라야 한다"
+    ],
+    "time_budget_sec": 80,
+    "open_questions": [
+      "교정 1문항. 오답 넷을 한 번씩만 셌다(합 4)",
+      "analyst 반려 1건(절차 3단계가 수정 전 오기 전제를 품음)"
+    ]
+  }
+}

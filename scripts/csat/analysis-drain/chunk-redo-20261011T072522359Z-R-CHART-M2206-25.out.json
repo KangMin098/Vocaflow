@@ -1,0 +1,294 @@
+{
+  "chunk": 4,
+  "type_id": "R-CHART",
+  "type_name": "도표",
+  "analyses": [
+    {
+      "item_id": "M2206#25",
+      "measured_ability": "연령대 넷 × 형식 셋(print book · e-book · audiobook) 막대에서, 선지가 지목한 두 연령대의 같은 형식 막대 값을 골라 대소를 비교하는 능력",
+      "design_intent": "50-64 의 print book(59)이 65+ 의 print book(63)보다 낮아, 나이가 많을수록 독서 비율이 줄 것이라는 통념과 값이 반대로 움직인다. 출제자는 ② 에 「50-64 가 65 and up 보다 높다」는 통념 방향의 비교를 넣어, 막대 값을 실제로 읽는지 아니면 연령 추세로 짐작하는지를 가른다. 나머지 넷은 최대값·임계값(20%)·전 연령 비교·최대 연령대처럼 다른 종류의 비교를 하나씩 맡는다.",
+      "answer_locus": {
+        "sentence_index": [3],
+        "quote": "The percentage of people who said they had read a print book in the 50-64 group was higher than that in the 65 and up group.",
+        "reasoning": "도표의 print book 막대는 50-64 가 59%, 65+ 가 63% 다. 59 < 63 이므로 50-64 쪽이 더 높다는 [3] 의 비교 방향이 도표와 반대다. 다른 선지는 모두 도표 값으로 성립한다."
+      },
+      "choices": [
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "선지의 'in the 50-64 group was higher than that in the 65 and up group' 은 print book 막대 두 개(50-64: 59%, 65+: 63%)의 대소를 주장한다. 실제 값은 59 < 63 이라 higher 가 아니라 lower 이며, 바뀐 성분은 비교 방향 한 자리다.",
+          "confirmed_at": { "sentence_index": [3], "note": "원본 도표 확인 — 202206_영어영역_문제지.pdf 4쪽, 읽은 값: print 74/65/59/63, e-book 34/28/22/17, audiobook 23/27/16/8 (18-29/30-49/50-64/65+, %)" }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "[2] 의 74% 는 18-29 의 print book 막대 값 그대로이고, 다른 연령대 print book 값 65 · 59 · 63 이 모두 74 보다 작으므로 the highest among the four groups 도 맞다. 맞는 진술이라 답이 아니다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "[4] 의 34% 는 18-29 e-book 막대 값과 같고, 65+ 의 e-book 막대는 17% 로 below 20% 조건을 만족한다. 두 주장 모두 성립하는 맞는 진술이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "how_to_reject": "[5] 는 In all age groups 라는 전칭이므로 네 연령대를 모두 비교해야 한다 — e-book 대 audiobook 이 34>23, 28>27, 22>16, 17>8 로 네 번 다 e-book 이 높다. 30-49 의 28>27 이 1 차이로 가장 아슬하지만 여전히 성립하므로 답이 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "[6] 은 audiobook 막대 넷(23 · 27 · 16 · 8) 중 최대를 묻는다. 30-49 의 27 이 가장 크므로 맞는 진술이다. print book 과 e-book 은 18-29 가 최대지만 audiobook 은 최대 연령대가 달라진다는 점까지 도표와 일치한다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "범례에서 막대 세 종류(print book · e-book · audiobook)의 무늬를 먼저 짝짓고, 가로축이 연령대 네 묶음임을 확인한다.", "on_fail": "무늬가 헷갈리면 각 묶음의 왼쪽 막대부터 범례 순서(print → e-book → audiobook)대로 이름을 붙인다." },
+        { "step": "선지마다 비교 대상을 「어느 연령대 · 어느 형식」 두 칸으로 적는다 — 예: [3] 은 50-64 print 대 65+ print.", "on_fail": "형식 이름(print book · e-book · audiobook)에 밑줄을 쳐서 한 선지가 형식을 하나만 쓰는지 둘을 비교하는지부터 가른다." },
+        { "step": "적은 두 칸의 막대 위 숫자를 읽어 부등호를 직접 쓴다. 연령이 많을수록 줄 것이라고 짐작하지 말고 숫자로만 판정한다.", "on_fail": "부등호 방향이 선지의 higher/below/highest 와 같은지 다시 대 본다." },
+        { "step": "In all age groups · the highest 같은 전칭·최상급이 있으면 네 묶음 모두를 확인하고, 차이가 가장 작은 묶음(여기서는 1 차이)에서 멈추지 말고 끝까지 본다.", "on_fail": "네 쌍의 값을 표처럼 옮겨 적고 한 줄씩 지운다." }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": { "predicted": 0.85, "drivers": ["연령 추세 통념과 반대로 65+ print 가 50-64 보다 높다", "30-49 e-book 28 대 audiobook 27 의 1 차이 전칭 비교"] },
+      "required_vocab": ["format", "audiobook", "the 65 and up group"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["quote 는 [3] 원문과 동일하다. why_correct 가 'higher than' 을 59/63 값과 낱말 단위로 맞물렸다."], "checked": ["quote 를 지문 [3] 과 문자열 대조", "원본 도표의 막대 12개 값을 직접 읽어 다섯 진술 판정 — 판정 결과 ② 가 거짓으로 공식 정답과 일치", "design_intent 가 이 문항 고유의 59<63 역전을 다루는지 확인"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["부정형 발문이라 오답 넷은 맞는 진술 — trap·why_tempting 비우고 how_to_reject 에 값 대응을 넣었다. 선지마다 인용한 값 조합이 서로 다르다."], "checked": ["오답 넷의 how_to_reject 가 각기 다른 막대 값(74/65/59/63, 34/17, 4쌍, 23/27/16/8)을 쓰는지 대조", "sentence_index 가 [3] 하나뿐이고 confirmed_at 과 같은지 확인"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["절차가 정답 선지를 미리 짚지 않고 범례→비교칸→부등호→전칭 순으로 실행 가능하다."], "checked": ["각 step 의 on_fail 이 서로 다른 문장인지 확인", "70초 안에 막대 숫자 읽기로 끝나는지 확인", "required_vocab 이 선지 판정에 쓰이는 낱말인지 확인"] }
+      ]
+    },
+    {
+      "item_id": "2021#25",
+      "measured_ability": "여섯 나라 × 두 해(2012 · 2019) 막대에서, 「both in 2012 and in 2019」처럼 두 해 · 두 나라에 동시에 걸린 조건을 네 칸 모두 확인하는 능력",
+      "design_intent": "Spain 의 2012 값은 2.0% 로 5.0% 미만이지만 2019 값은 5.4% 로 5.0% 를 넘는다. 출제자는 [7] 에 두 나라 × 두 해 네 칸을 한 문장에 묶고, 그중 한 칸(Spain 2019)만 경계값 5.0 을 살짝 넘게 두어, 낮아 보이는 막대 무리를 한꺼번에 「5 미만」으로 처리하는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [7],
+        "quote": "In the case of Spain and Italy, the online share of retail sales in each country was less than 5.0% both in 2012 and in 2019.",
+        "reasoning": "[7] 은 Spain 2012 · Spain 2019 · Italy 2012 · Italy 2019 네 칸 모두가 5.0% 미만이라는 주장이다. 도표에서 Spain 2019 막대는 5.4% 로 5.0 을 넘으므로 네 칸 중 하나가 조건을 깨고, 진술 전체가 거짓이 된다."
+      },
+      "choices": [
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "'less than 5.0% both in 2012 and in 2019' 는 네 칸 전부에 걸린 조건인데, Spain 2019 막대가 5.4% 다. 나머지 세 칸(Spain 2012 2.0%, Italy 2012 1.5%, Italy 2019 3.7%)은 5.0 미만이라 맞지만, 한 칸이 경계를 넘으므로 'both' 조건이 깨진다.",
+          "confirmed_at": { "sentence_index": [7], "note": "원본 도표 확인 — 2021_3교시_영어영역_짝.pdf 4쪽, 읽은 값(2012/2019 %): UK 10.6/19.7, U.S. 9.7/16.5, Netherlands 5.7/9.9, France 5.4/10.9, Spain 2.0/5.4, Italy 1.5/3.7" }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "[3] 은 For each country 라 여섯 쌍을 모두 본다 — 10.6→19.7, 9.7→16.5, 5.7→9.9, 5.4→10.9, 2.0→5.4, 1.5→3.7 로 여섯 나라 모두 2019 가 크다. 맞는 진술이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "[4] 의 the largest 는 2019 회색 막대 중 최대를 묻는다. UK 19.7% 가 U.S. 16.5% 등 다른 다섯 나라보다 크고 수치 19.7 도 막대 위 값과 같아 맞는 진술이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "[5] 의 second largest 는 2019 값 순위 2위를 뜻한다. 19.7(UK) 다음이 U.S. 16.5 이고 그다음 France 10.9 이므로 순위와 수치 모두 맞다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "how_to_reject": "[6] 은 두 해의 대소 역전을 주장한다. 2012 에 Netherlands 5.7 > France 5.4, 2019 에 Netherlands 9.9 < France 10.9 로 실제로 뒤집혔으므로 the reverse was true 가 맞다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "범례에서 흰 막대 2012 · 회색 막대 2019 를 확인하고, 막대마다 위에 적힌 % 값이 있는지 본다.", "on_fail": "색이 헷갈리면 각 나라의 왼쪽 막대가 2012, 오른쪽이 2019 인지 범례 순서와 대 본다." },
+        { "step": "선지마다 확인할 칸 수를 센다 — For each country 는 여섯 쌍, both ... and ... 에 나라 둘이면 네 칸, the reverse was true 는 두 해의 대소 두 번.", "on_fail": "주어(나라 이름)와 해(2012 · 2019)에 각각 밑줄을 쳐서 곱한 수만큼 칸을 적는다." },
+        { "step": "경계값(less than 5.0% 등)이 있는 선지는 적어 둔 칸의 값을 경계와 하나씩 비교한다. 막대가 짧아 보인다는 인상으로 묶어 처리하지 않는다.", "on_fail": "5.0 과 비교한 결과를 칸마다 O/X 로 적고 X 가 하나라도 있으면 그 선지는 거짓이다." },
+        { "step": "second largest 나 the reverse 처럼 순위·역전을 말하는 선지는 해당 해의 값만 골라 순서를 직접 매긴다.", "on_fail": "그 해의 막대 값 여섯 개를 큰 순서로 옮겨 적는다." }
+      ],
+      "time_budget_sec": 75,
+      "difficulty": { "predicted": 0.8, "drivers": ["Spain 2019 5.4 가 경계값 5.0 을 0.4 넘는다", "France 2012 5.4 와 Spain 2019 5.4 가 같은 숫자라 칸을 혼동할 수 있다", "한 문장에 네 칸 조건"] },
+      "required_vocab": ["online share", "retail sales", "the reverse was true"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["quote 는 [7] 과 동일. why_correct 가 'both in 2012 and in 2019' 조건과 Spain 2019 5.4 를 대응시켰다."], "checked": ["quote 를 지문 [7] 과 문자열 대조", "원본 도표 12개 값을 직접 읽어 다섯 진술 판정 — ⑤ 만 거짓으로 공식 정답과 일치", "design_intent 가 경계값 5.0 과 네 칸 결합이라는 이 문항 고유 장치를 쓰는지 확인"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["오답 넷은 각각 여섯 쌍 증가 · 2019 최대 · 2019 2위 · 대소 역전으로 서로 다른 값 조합을 대응했다. trap·why_tempting 없음(부정형 발문)."], "checked": ["오답 how_to_reject 에 위치([3]~[6])와 값이 있는지 확인", "France 2012 5.4 와 Spain 2019 5.4 혼동 가능성을 difficulty 에만 두고 학습자 오독을 지어내지 않았는지 확인"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["칸 수를 먼저 세게 하는 2단계가 이 문항의 네 칸 조건을 놓치지 않게 한다."], "checked": ["step 이 정답 번호를 미리 짚지 않는지 확인", "on_fail 문장이 단계마다 다른지 확인", "75초 안에 끝나는지 확인"] }
+      ]
+    },
+    {
+      "item_id": "M2109#25",
+      "measured_ability": "표의 한 행에서 순위 · 도착자 수 · 1일 평균 지출 세 열을 각각 읽고, 한 선지에 묶인 두 주장 중 뒤쪽 금액 조건(more than $150)까지 확인하는 능력",
+      "design_intent": "Kuala Lumpur 행은 순위 3위 · 13.8 은 맞지만 Average Spend per Day 가 $142 로 $150 에 못 미친다. 출제자는 [3] 앞부분에 참인 순위 주장을 두고 뒤에 금액 경계 주장을 붙여, 앞 절만 확인하고 넘어가는지를 가른다. 바로 아래 Seoul 이 $155 로 $150 을 넘어 이웃 행 값과 섞으면 참으로 보인다.",
+      "answer_locus": {
+        "sentence_index": [1, 3],
+        "quote": "3 Kuala Lumpur 13.8 $142",
+        "reasoning": "표의 Kuala Lumpur 행은 순위 3, 도착자 13.8(million), 평균 지출 $142 다. [3] 의 'more than $150' 은 이 행의 $142 와 비교해야 하는데 142 < 150 이므로 뒤쪽 주장이 거짓이다."
+      },
+      "choices": [
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "'Kuala Lumpur was ranked in third place' 는 표의 Rank 3 와 맞지만, 'the average spend per day in this city was more than $150' 은 같은 행의 '$142' 와 어긋난다. 142 는 150 보다 8 작으므로 more than 이 아니라 less than 이다.",
+          "confirmed_at": { "sentence_index": [1, 3], "note": "원본 표 확인 — 202109_영어영역_문제지.pdf 4쪽, 읽은 값(도착 million / USD): Bangkok 22.8/$184, Singapore 14.7/$272, Kuala Lumpur 13.8/$142, Tokyo 12.9/$196, Seoul 11.3/$155, Osaka 10.1/$223, Phuket 9.9/$247" }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "[2] 는 1위 Bangkok 22.8 과 바로 다음 2위 Singapore 14.7 을 말한다. 표의 1 · 2 행 도착자 수와 순서가 그대로 맞는 진술이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "[4] 는 Tokyo 행(Rank 4, 12.9, $196)과 대응한다. fourth place 와 $196 둘 다 표와 같아 맞는 진술이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "how_to_reject": "[5] 는 Seoul 11.3 과 Osaka 10.1 의 도착자 수 비교다. 11.3 > 10.1 이므로 larger 가 맞다. 평균 지출은 Osaka($223)가 더 크지만 이 선지는 도착자 수만 묻는다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "[6] 의 the only city 는 도착자 수 열 일곱 값 중 10 미만이 하나뿐인지 묻는다. Osaka 10.1 은 10 이상이고 Phuket 9.9 만 10 미만이며, Phuket 의 지출 $247 도 표와 같아 맞는 진술이다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "표 제목과 열 이름을 읽어 단위를 정한다 — 도착자 수는 million, 지출은 USD per day.", "on_fail": "열 머리의 괄호 안 단위를 옮겨 적어 두 수치 열을 섞지 않게 한다." },
+        { "step": "선지 하나를 and 앞뒤로 쪼개 주장 개수를 센다 — 순위 주장과 금액 주장이 함께 있으면 둘 다 확인 대상이다.", "on_fail": "숫자 · 서수 · more than · only 에 밑줄을 쳐서 밑줄 수만큼 확인한다." },
+        { "step": "도시 이름으로 행을 먼저 고정한 뒤 그 행 안에서만 값을 읽는다. 바로 위아래 행의 값을 끌어오지 않는다.", "on_fail": "자로 그 행을 가리거나 행 번호(Rank)를 함께 적는다." },
+        { "step": "more than $150 · less than 10 million 같은 경계 비교는 부등호를 써서 판정하고, the only 는 해당 열 전체를 훑어 조건에 맞는 행 수를 센다.", "on_fail": "경계에 가까운 값(10.1 · 9.9, $142 · $155)을 따로 표시해 다시 비교한다." }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": { "predicted": 0.88, "drivers": ["한 선지에 순위와 금액 두 주장", "이웃 행 Seoul $155 가 경계 $150 을 넘는다"] },
+      "required_vocab": ["international overnight arrivals", "average spend per day", "immediately followed by"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["quote 는 [1] 표 텍스트 안의 연속 문자열. 표 행과 선지의 'more than $150' 이 낱말 단위로 대응한다."], "checked": ["quote '3 Kuala Lumpur 13.8 $142' 를 지문 [1] 에서 문자열 대조", "원본 표 21칸을 직접 읽어 지문 표 텍스트와 일치 확인 · 다섯 진술 판정 결과 ② 거짓, 공식 정답과 일치"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["오답 넷은 1·2행 순서 · Tokyo 행 · Seoul/Osaka 비교 · 10 미만 유일성으로 서로 다른 행과 열을 쓴다."], "checked": ["sentence_index [1,3] 이 quote 위치([1])와 선지 위치([3])를 모두 담는지 확인", "오답 how_to_reject 가 지문 위치와 값을 갖는지 확인"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["and 로 쪼개기 단계가 앞 절만 보고 넘기는 실패를 직접 막는다."], "checked": ["step 이 실행 가능한 행동인지 확인", "on_fail 이 단계마다 다른지 확인", "65초 안에 표 대조로 끝나는지 확인"] }
+      ]
+    },
+    {
+      "item_id": "M2106#25",
+      "measured_ability": "표의 Million Tons 열과 % 열을 구별해 읽고, 두 부문 값이 같다는 주장과 각 부문의 비율 주장을 따로 확인하는 능력(두 부문을 합한 값과 각 부문 값의 구별 포함)",
+      "design_intent": "Electrical and Electronic 과 Building and Construction 은 둘 다 13 million tons · 4.30% 다. [6] 은 'just as much' 는 맞게 두고 'each sector accounting for 8.60%' 로 두 부문 합(4.30+4.30)을 각 부문 값처럼 바꿔 넣었다. 출제자는 each 가 한 부문씩의 값을 요구한다는 점, 그리고 % 열을 직접 읽는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [1, 6],
+        "quote": "Electrical and Electronic 13 4.30 Building and Construction 13 4.30",
+        "reasoning": "표에서 두 부문은 모두 13 million tons, 4.30% 다. [6] 의 'just as much' 는 13 = 13 으로 맞지만 'each sector accounting for 8.60%' 는 각 부문 4.30% 와 다르다. 8.60 은 두 부문을 합친 값이라 each 와 맞지 않는다."
+      },
+      "choices": [
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "'generated just as much plastic waste as the building and construction sector did' 는 표의 13 = 13 과 맞지만, 'each sector accounting for 8.60%' 는 표의 각 부문 '4.30' 과 어긋난다. 8.60 = 4.30 + 4.30 으로 두 부문의 합을 each 자리에 넣은 것이다.",
+          "confirmed_at": { "sentence_index": [1, 6], "note": "원본 표 확인 — 202106_영어영역_문제지.pdf 4쪽, 읽은 값(Million Tons / %): Packaging 141/46.69, Textiles 38/12.58, Consumer and Institutional Products 37/12.25, Transportation 17/5.63, Electrical and Electronic 13/4.30, Building and Construction 13/4.30, Industrial Machinery 1/0.33, Others 42/13.91, Total 302/100" }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "[3] 은 Packaging 141 이 Million Tons 열의 최대이고(다음은 Others 42) 그 비율이 46.69% 라는 주장이다. 두 값 모두 표와 같아 맞는 진술이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "[4] 는 Textiles 행의 38 million tons 와 12.58% 를 그대로 옮겼다. 두 열 모두 표와 같아 맞는 진술이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "[5] 는 Consumer and Institutional Products 37 이 Transportation 17 의 두 배를 넘는지 묻는다. 17 × 2 = 34 이고 37 > 34 이므로 more than twice 가 성립하는 맞는 진술이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "[7] 은 Industrial Machinery 행의 1 million tons 와 0.33% 를 말한다. 0.33 < 0.50 이므로 less than 0.50% 도 맞는 진술이다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "표의 두 수치 열(Million Tons · %)을 확인하고, 아래 Note 가 반올림 때문에 % 합이 100 이 아닐 수 있다고 한 점을 본다.", "on_fail": "열 머리를 다시 읽어 선지 숫자 뒤에 % 가 붙었는지 tons 가 붙었는지로 볼 열을 정한다." },
+        { "step": "선지마다 숫자 뒤의 단위를 보고 표의 어느 열과 대조할지 정한 뒤, 부문 이름으로 행을 찾아 그 칸 값을 적는다.", "on_fail": "부문 이름이 길면(Consumer and Institutional Products 등) 첫 낱말로 행을 찾는다." },
+        { "step": "twice · each · less than 처럼 계산이 필요한 낱말이 있으면 직접 계산한다 — 두 배는 곱해서, each 는 한 부문 값 하나씩, 경계는 부등호로.", "on_fail": "each 가 붙은 수치는 두 행 각각의 값과 따로 비교하고, 합계와 혼동하지 않는다." },
+        { "step": "and · 콤마 뒤의 두 번째 주장까지 확인한 다음에 그 선지를 넘긴다.", "on_fail": "한 선지 안의 숫자에 모두 표시하고 표시된 숫자를 하나씩 지운다." }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": { "predicted": 0.86, "drivers": ["앞 절(just as much)은 참이고 뒤 절의 비율만 틀렸다", "8.60 이 두 부문 합으로 표 안에서 계산 가능한 값이다"] },
+      "required_vocab": ["sector", "account for", "just as much as", "each"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["quote 는 [1] 표 텍스트에서 그대로 뽑았다. why_correct 가 'each sector accounting for 8.60%' 를 표 4.30 과 대응시켰다."], "checked": ["quote 를 지문 [1] 에서 문자열 대조", "원본 표 18칸을 직접 읽어 지문 표 텍스트와 일치 확인 · 다섯 진술 판정 결과 ④ 거짓, 공식 정답과 일치", "design_intent 의 8.60 = 4.30+4.30 계산 확인"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["오답 넷이 각각 최대값 · 행 그대로 · 두 배 계산 · 경계 비교로 서로 다른 확인을 요구한다."], "checked": ["오답 how_to_reject 마다 위치([3][4][5][7])와 계산이 있는지 확인", "sentence_index 와 confirmed_at 이 [1,6] 으로 같은지 확인"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["단위로 볼 열을 정하게 하는 2단계가 tons/% 혼동을 막는다."], "checked": ["step 이 정답 선지를 미리 지목하지 않는지 확인", "on_fail 문장 중복 여부 확인", "65초 안에 끝나는지 확인"] }
+      ]
+    },
+    {
+      "item_id": "2020#25",
+      "measured_ability": "누적 막대에서 with/without 비율 두 겹을 구별해 읽고, 두 해 사이의 차이를 percentage points 로 계산하는 능력",
+      "design_intent": "rural 의 without electricity 비율은 1997 년 36%, 2017 년 21% 로 차이가 15 percentage points 다. 그런데 rural with 비율 79% 와 1997 total 등 다른 값들이 함께 있어, 64→79(15)나 36−21 을 계산하지 않고 어림하면 20 이라는 둥근 숫자에 끌린다. 출제자는 [5] 에 차이 값만 바꿔 넣어 두 해의 같은 칸을 실제로 빼는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [5],
+        "quote": "The percentage of the rural population without electricity access in 2017 was 20 percentage points lower than that in 1997.",
+        "reasoning": "rural 막대의 without(밝은 윗부분) 값은 1997 년 36%, 2017 년 21% 다. 36 − 21 = 15 이므로 2017 이 1997 보다 15 percentage points 낮다. [5] 의 20 은 이 차이와 다르다."
+      },
+      "choices": [
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "선지의 'rural population without electricity access' 는 rural 막대 윗부분(1997 36%, 2017 21%)을 가리키고, '20 percentage points lower' 는 그 차이를 주장한다. 실제 차이는 36 − 21 = 15 percentage points 라서 20 이 틀린 값이다. lower 라는 방향은 맞고 차이 값만 바뀌었다.",
+          "confirmed_at": { "sentence_index": [5], "note": "원본 도표 확인 — 2020_영어_짝.pdf 4쪽, 읽은 값(with/without %): 1997 rural 64/36, urban 95/5, total 78/22; 2017 rural 79/21, urban 97/3, total 89/11" }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "[2] 는 total 막대의 with 값 두 개를 비교한다. 1997 78%, 2017 89% 로 89 − 78 = 11 이므로 11 percentage points higher 가 맞는 진술이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "[3] 은 rural with 값(1997 64%, 2017 79%)이 둘 다 80 미만이고 urban with 값(95%, 97%)이 둘 다 90 초과라는 주장이다. 네 칸 모두 조건을 만족해 맞는 진술이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "[4] 는 1997 년의 without 값 두 개를 말한다. rural 윗부분 36%, urban 윗부분 5% 로 도표와 같아 맞는 진술이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "[6] 은 urban without 값이 1997 5% 에서 2017 3% 로 줄었다는 주장이다. 두 해 urban 막대 윗부분 값과 같고 감소 방향도 맞다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "범례에서 막대의 아랫부분이 with electricity access, 윗부분이 without 임을 확인하고, 세로축이 billion people 이지만 막대 안 숫자는 % 라는 점을 구별한다.", "on_fail": "rural 1997 막대의 두 숫자(64 · 36)를 더해 100 이 되는지로 두 겹이 비율임을 확인한다." },
+        { "step": "선지마다 with 인지 without 인지, rural · urban · total 중 무엇인지, 어느 해인지를 세 칸으로 적는다.", "on_fail": "선지의 without · with 에 동그라미를 쳐서 막대의 윗부분과 아랫부분 중 어디를 볼지 정한다." },
+        { "step": "percentage points higher/lower 가 있으면 두 해의 같은 칸 값을 실제로 빼서 차이를 적고 선지 숫자와 비교한다.", "on_fail": "with 차이와 without 차이는 크기가 같아야 한다 — 두 방식으로 계산해 같은 값이 나오는지 검산한다." },
+        { "step": "less than 80% · over 90% 처럼 두 해 · 두 집단에 걸린 조건은 해당 칸을 모두 적고 하나씩 경계와 비교한다.", "on_fail": "네 칸의 값을 옮겨 적고 조건에 맞지 않는 칸이 있는지 표시한다." }
+      ],
+      "time_budget_sec": 75,
+      "difficulty": { "predicted": 0.78, "drivers": ["누적 막대의 윗부분 · 아랫부분 비율 구별", "percentage points 차이 계산", "세로축 단위(billion people)와 막대 안 % 의 구별"] },
+      "required_vocab": ["percentage points", "rural", "urban", "access"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["quote 는 [5] 와 동일. why_correct 가 'without electricity access' 와 '20 percentage points' 를 36·21 값과 대응시켰다."], "checked": ["quote 를 지문 [5] 와 문자열 대조", "원본 누적 막대 12개 비율을 직접 읽어 다섯 진술 판정 — ④ 만 거짓으로 공식 정답과 일치"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["오답 넷이 total with 차이 · rural/urban 경계 · 1997 without · urban without 감소로 각기 다른 칸을 쓴다."], "checked": ["오답 how_to_reject 마다 [2][3][4][6] 위치와 값이 있는지 확인", "design_intent 의 '20 에 끌린다'가 선택률 주장이 아니라 값 구조 설명인지 확인"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["with·without 차이가 같다는 검산을 on_fail 에 넣어 계산 실수를 스스로 잡게 했다."], "checked": ["step 이 실행 가능한 관찰 행동인지 확인", "on_fail 중복 여부 확인", "75초 안에 끝나는지 확인"] }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-CHART",
+    "n_analyzed": 5,
+    "recurring_traps": [
+      { "trap": "결합 진술의 뒤쪽 성분 변경", "count": 3, "signature": "한 선지에 참인 앞 주장과 거짓인 뒤 주장을 묶는다(M2109 순위+금액, M2106 같은 양+비율, 2021 두 나라×두 해)" },
+      { "trap": "비교 방향 반전", "count": 1, "signature": "두 막대의 대소를 통념 방향으로 뒤집는다(M2206 59<63)" },
+      { "trap": "차이 값 변경", "count": 1, "signature": "방향은 맞고 percentage points 차이만 바꾼다(2020 15→20)" }
+    ],
+    "answer_locus_pattern": "5문항 모두 정답 선지 자체가 근거 단위이고, 표 문항 2개는 표 행([1])이 함께 근거가 된다. 그래프 문항 3개는 막대 값이 그림에만 있어 원본 도표로 판정했다. 각 문항을 함정 하나로만 한 번 셌다.",
+    "procedure": [
+      "범례·열 머리·단위를 먼저 확정한다(색/무늬, million/USD/%, 누적 막대의 윗부분/아랫부분).",
+      "선지를 and·콤마·both 로 쪼개 확인할 칸 수를 센다.",
+      "칸마다 값을 적고 부등호·차이·배수를 직접 계산한다 — 통념이나 인상으로 판정하지 않는다.",
+      "전칭(all · each · the only)과 경계값(less than 5.0%)은 해당 칸 전부를 확인한다."
+    ],
+    "failure_modes": [
+      "결합 진술에서 앞 주장만 확인하고 넘김",
+      "이웃 행·이웃 막대의 값을 끌어옴(Seoul $155, France 5.4)",
+      "합계를 each 의 값으로 받아들임(8.60)",
+      "누적 막대에서 with/without 겹을 바꿔 읽음"
+    ],
+    "time_budget_sec": 70,
+    "open_questions": [
+      "3인 자체 검수에서 반려가 한 건도 나오지 않았다 — 원본 도표 값 대조가 세 페르소나에 공통이라 같은 것을 재고 있을 수 있다. 독립 검수자가 이미지를 직접 다시 읽는 단계가 필요하다.",
+      "표 문항(M2109 · M2106)은 지문에 표 텍스트가 실려 있어 quote 가 표 행이고, 그래프 문항은 값이 그림에만 있어 quote 가 선지 문장이다 — 화면에서 두 경우의 근거 표시 방식을 구분할지 정해야 한다."
+    ]
+  }
+}

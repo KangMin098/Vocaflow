@@ -1,0 +1,107 @@
+{
+ "chunk": 2,
+ "type_id": "R-NOTICE",
+ "type_name": "안내문 일치",
+ "analyses": [
+  {
+   "item_id": "2014A#29",
+   "measured_ability": "안내문의 항목(체험 비용·운영시간·휴관·요금표·주차)마다 선지의 대상·수치·조건 성분을 하나씩 맞대어, 다섯 진술 중 안내문과 모든 성분이 맞는 하나를 가려내는 능력",
+   "design_intent": "'일치하는 것'을 묻는 문항이라 오답 넷이 각각 안내문 한 항목의 성분 하나를 바꾼 거짓 진술이다 — ①은 비용 조건(for an additional fee → 추가 비용 없이), ②는 비교 방향(주말이 1시간 짧음 → 더 김), ③은 휴관 주기, ④는 금액이 붙는 대상(Free → $5)을 바꿨다. 정답 ⑤는 Parking 항목 첫 줄을 대상(방문객)·혜택(주차 할인)까지 그대로 옮기고, 뒤 줄의 도장 절차는 조건일 뿐 혜택을 지우지 않는다는 점을 읽는지 본다.",
+   "answer_locus": {
+    "sentence_index": [13],
+    "quote": "A parking discount is available to museum visitors.",
+    "reasoning": "Parking 항목이 방문객에게 주차 할인이 '제공된다(is available)'고 단정한다. 이어지는 'visitors must have their parking tickets stamped' 는 할인을 받는 절차를 덧붙일 뿐 할인 자체를 제한·부정하지 않으므로, '할인받을 수 있다'는 가능 진술이 성분 손실 없이 성립한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "소개 셋째 문장 'Visitors can make their own plates or cups for an additional fee.' 가 체험 자체는 맞지만 끝의 for an additional fee 가 추가 비용을 명시하고, Fees 의 'Pottery Experience: $10' 이 그 금액을 다시 적는다 — 비용 조건이 '추가 비용 없이'로 뒤집혀 불일치."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "Hours 의 'Weekdays: 9:00 a.m. － 6:00 p.m.' 과 'Weekends: 9:00 a.m. － 5:00 p.m.' 은 시작이 같고 마감이 주말에 한 시간 이르다 — 차이 1시간은 맞지만 방향이 반대(주말이 짧다)라 불일치."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "휴관 정보는 Hours 에 붙은 별표(*) 각주에 있고, 이 안내문에서 그 각주는 'month.' 로 끝나 휴관 주기를 달(month) 기준으로 적는다 — '매주'와 맞지 않는다. 다만 각주 문장의 앞부분이 이 지문에 온전히 보이지 않으므로 ③은 이 근거만으로 단정하지 말고, ⑤가 Parking 항목에서 모든 성분이 확인되는 것으로 답을 정한다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "Fees 의 'Children under 12: Free' 가 12세 미만은 무료라고 적는다. $5 는 바로 윗줄 'General Admission: $5' 에 붙은 금액이다 — 금액이 붙는 대상을 바꿔 불일치."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "근거의 museum visitors ↔ 선지 '방문객은', a parking discount ↔ '주차 요금을 할인', is available ↔ '받을 수 있다' 로 세 성분이 모두 대응한다. 나머지 넷은 각각 한 성분이 안내문과 어긋나므로 발문 '일치하는 것'을 충족하는 것은 이 선지뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [13, 14],
+      "note": "14번 문장(도장 절차)은 할인의 조건이지 부정이 아니다. 내부 기록: 추출 지문에서 Hours 별표 각주가 'month.' 조각만 남아 ③의 휴관 주기 원문(예: 매월 특정 월요일)은 정본 문제지 대조가 필요하다 — 정답 ⑤ 확정에는 영향 없음."
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하는 것'인지 '일치하지 않는 것'인지 표시하고, 선지마다 대응할 안내문 항목 이름(소개문·Hours·Fees·Parking)을 여백에 적는다",
+     "on_fail": "항목 이름이 안 떠오르면 선지의 핵심 명사(비용·시간·휴관·입장료·주차)를 영어 제목 줄에서 찾는다"
+    },
+    {
+     "step": "비용이 걸린 선지는 해당 문장 끝의 조건 어구(for an additional fee 같은 전치사구)까지 읽고 Fees 표의 금액과 함께 맞대어 본다",
+     "on_fail": "문장 앞부분만 보고 참이라 판단했다면 같은 문장의 마지막 전치사구를 다시 확인한다"
+    },
+    {
+     "step": "운영시간 비교 선지는 두 줄의 시작·마감 시각을 나란히 적고 차이의 크기와 어느 쪽이 긴지를 따로 판정한다",
+     "on_fail": "크기만 맞고 방향이 헷갈리면 시작 시각이 같은지 먼저 보고 마감이 늦은 쪽을 긴 쪽으로 적는다"
+    },
+    {
+     "step": "요금표는 대상과 금액을 같은 줄에서 읽고, 휴관 같은 예외는 별표(*)가 가리키는 각주에서 주기 낱말(week·month)을 찾는다",
+     "on_fail": "각주 문장이 온전히 읽히지 않으면 그 선지는 보류하고 남은 선지 중 모든 성분이 확인되는 것을 찾는다"
+    },
+    {
+     "step": "마지막 항목(Parking)까지 내려가 대상·혜택·조건을 확인하고, 조건 문장(must ~)이 혜택을 없애는지 절차만 덧붙이는지 가른다",
+     "on_fail": "must 문장을 제한으로 읽었다면 '할인이 있다'는 앞 문장을 부정하는 낱말(not·no)이 있는지 확인한다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": ["②가 시간 차의 크기와 방향을 함께 요구한다", "요금표에서 금액이 붙는 대상을 한 줄 밀어 읽기 쉽다", "휴관 각주가 짧게만 보여 ③ 판정이 보류된다"]
+   },
+   "required_vocab": ["additional fee", "admission", "discount", "stamped"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["원장 결함 source_broken·choice_3: ③ 배제가 잘린 각주에만 기대고 있었다 — ③은 보류 판정으로 낮추고 정답 확정은 ⑤의 성분 대응만으로 서도록 how_to_reject·solve_procedure 4단계를 고쳤다. 휴관 원문 확인 필요는 confirmed_at.note 내부 기록으로만 남겼다", "재검수: quote 가 passage 에 문자 그대로 있음, 정답 5 와 일치 → pass"],
+     "checked": ["quote 문자열 대조", "③ how_to_reject 가 지문에 없는 문장(첫째 월요일 등)을 근거로 쓰지 않는지", "design_intent 에 학습자용 작업 용어(인쇄·코퍼스) 없는지", "solve_procedure 에 정답 번호를 미리 짚는 단계가 없는지"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["V14에 따라 오답에 trap·why_tempting 을 두지 않고, 각 how_to_reject 가 서로 다른 항목(소개문·Hours·각주·Fees)과 바뀐 성분(비용 조건·방향·주기·대상)을 짚는다", "옛 분석의 '박물관은 월요일에 쉰다는 통념' 같은 근거 없는 유인 서술 제거"],
+     "checked": ["correct 5 를 정답표 5 와 대조", "오답 4개 설명이 문장 복제가 아닌지", "각 배제에 지문 위치가 있는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["절차 단계가 항목 이름·조건 어구·시각 비교·각주·조건 문장으로 서로 다르고 on_fail 도 각각 다르다", "70초 안에 다섯 항목 대조 가능"],
+     "checked": ["순환 표현 검색", "required_vocab 이 판정에 쓰이는 낱말인지(stamped 는 ⑤ 조건 해석)", "옛 절차의 '⑤ 먼저 확인' 같은 정답 선지 지목 단계 제거 확인"]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-NOTICE",
+  "n_analyzed": 1,
+  "recurring_traps": [{"trap": "조건 성분 교체", "count": 1, "signature": "체험·혜택 자체는 맞게 두고 비용 조건이나 비교 방향만 뒤집는다(①②) — 같은 문항 안에서 한 번만 셌다"}],
+  "answer_locus_pattern": "일치형 정답이 안내문 마지막 항목(Parking) 첫 문장에 있다 — 1문항 관찰",
+  "procedure": ["선지마다 대응 항목을 적는다", "문장 끝 조건 어구와 표의 대상-금액 짝을 확인한다", "must 조건이 혜택을 부정하는지 절차인지 가른다"],
+  "failure_modes": ["문장 앞부분만 보고 끝의 for an additional fee 를 놓친다", "시간 차의 크기만 확인하고 방향을 놓친다"],
+  "time_budget_sec": 70,
+  "open_questions": ["Hours 별표 각주가 지문에 'month.' 조각만 남아 ③ 휴관 주기의 원문 확인이 필요하다(정본 문제지 대조)", "R-NOTICE 일치형(정답이 참)에서 V14가 오답(거짓 진술)에도 trap 을 막아 바뀐 성분 서술이 how_to_reject 로만 간다 — 일치형/불일치형 구분 규칙 검토 제안"]
+ }
+}

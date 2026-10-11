@@ -1,0 +1,12 @@
+{"pass":3,"k":7,"items":[
+{"id":"2018#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_4","note":"'as we entered' 를 8문장이라 했으나 실제는 7문장(thrilled 문장) — 문장 번호 오류"},{"code":"choice_1","note":"trap '범위 과소' 라벨이 실제 유인(cool shade→편안함 오독)과 맞지 않음"}]},
+{"id":"2018#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#21","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#22","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"정답 why_correct 가 한 문장뿐 — 실험 예시·두 자리 대응 설명이 얇음(경미)"}]},
+{"id":"2018#23","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#25","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"choiceTruth 유형: 내용이 참인 선지①②③⑤에 범위 과대·어휘 함정 등 trap 라벨을 붙여 함정처럼 설명"},{"code":"overgeneral","note":"정답 confirmed_at 이 '선지 순서=지문 순서'로 근거 위치를 좁힘 — 조건 없는 위치 규칙"}]},
+{"id":"2018#26","version":5,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_1","note":"choiceTruth 유형: 참인 선지①②④⑤에 주체 역전·범위 과소 등 trap 라벨, why_tempting 이 '틀려 보이는 이유'로 서술됨"}]},
+{"id":"2018#27","version":4,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"2018#28","version":4,"type":"R-GRAMMAR","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"source_broken","note":"csat_items.choices 가 밑줄 어구가 아니라 지문 조각(밑줄 사이 구간)으로 잘려 저장됨 — 선지 표시 깨짐"}]}
+]}

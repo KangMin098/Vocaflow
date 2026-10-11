@@ -397,3 +397,49 @@
 .composerActions .finishBtn:hover { color: #fff; opacity: .9; }
 .resume { width: 100%; font-size: 12px; color: var(--t2); }
 .resumeNote { padding: 0 12px 8px; font-size: 12px; color: var(--t2); }
+
+/* 읽기 강의 — 음성과 같은 대본을 차례별로 읽는다(지금 차례는 강조) */
+.script { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.script button {
+  display: flex; gap: 10px; width: 100%; min-height: 44px; padding: 10px 12px; text-align: left;
+  border: 1px solid transparent; border-radius: 10px; background: transparent; color: inherit; font: inherit; line-height: 1.6; cursor: pointer;
+}
+.script button:hover { background: color-mix(in srgb, currentColor 6%, transparent); }
+.script button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.script li[data-live='true'] button { border-color: currentColor; background: color-mix(in srgb, currentColor 8%, transparent); font-weight: 600; }
+.scriptNo { flex: none; font-variant-numeric: tabular-nums; opacity: 0.6; }
+
+/* 학습 목표 — 문항을 마치고 설명할 관계(유형 교수 계약) */
+.goal { display: grid; gap: 6px; margin: 0 0 12px; padding: 12px 14px; border: 1px solid currentColor; border-radius: 12px; line-height: 1.6; }
+.goal b { font-size: 0.8125rem; letter-spacing: 0.02em; opacity: 0.75; }
+.goal p { margin: 0; }
+.goal em { font-style: normal; text-decoration: underline; text-underline-offset: 3px; }
+
+/* 자기 설명(M4) — 선택 참여 · 저장 뒤 분석 설명과 나란히 */
+.explain { display: grid; gap: 10px; margin-top: 16px; padding: 14px; border: 1px dashed currentColor; border-radius: 12px; line-height: 1.6; }
+.explain h2 { margin: 0; font-size: 0.9375rem; }
+.explain > p { margin: 0; }
+.optional { margin-left: 6px; font-size: 0.75rem; font-weight: 500; opacity: 0.7; }
+.explainChoices { display: flex; gap: 6px; flex-wrap: wrap; }
+.explainChoices button, .explainActions button, .explainCompare button {
+  min-height: 44px; min-width: 44px; padding: 0 14px; border: 1px solid currentColor; border-radius: 10px; background: transparent; color: inherit; font: inherit; cursor: pointer;
+}
+.explainChoices button[aria-pressed='true'] { background: color-mix(in srgb, currentColor 14%, transparent); font-weight: 700; }
+.explain button:focus-visible, .explain textarea:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.explain button:disabled { opacity: 0.45; cursor: not-allowed; }
+.explainField { display: grid; gap: 4px; }
+.explainField span { font-size: 0.8125rem; }
+.explainField textarea { width: 100%; padding: 8px 10px; border: 1px solid currentColor; border-radius: 8px; background: transparent; color: inherit; font: inherit; resize: vertical; }
+.explainActions { display: flex; gap: 8px; }
+.explainCompare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.explainCompare > div { display: grid; gap: 4px; align-content: start; }
+.explainCompare > p { grid-column: 1 / -1; margin: 0; }
+.explainCompare b { font-size: 0.8125rem; }
+.explainCompare p { margin: 0; }
+/* 같은 원리 비교 쌍(M4) — 쌍 하나가 한 덩어리: 머리줄(이 문항 ↔ 상대 문항 · 함정) · 검수 한 줄 · 비교 완료 */
+.comparePairs { display: grid; gap: 12px; list-style: none; margin: 0; padding: 0; }
+.comparePairs li { display: grid; gap: 4px; padding-top: 10px; border-top: 1px solid var(--bd); }
+.comparePairs li:first-child { padding-top: 0; border-top: 0; }
+.comparePairs p { margin: 0; }
+.comparePairs a { text-decoration: underline; text-underline-offset: 3px; }
+.comparePairs a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }

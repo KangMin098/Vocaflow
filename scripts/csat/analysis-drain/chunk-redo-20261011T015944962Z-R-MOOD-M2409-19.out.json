@@ -1,0 +1,718 @@
+{
+ "chunk": 34,
+ "type_id": "R-MOOD",
+ "type_name": "심경·분위기",
+ "analyses": [
+  {
+   "item_id": "M2409#19",
+   "measured_ability": "눈 때문에 취소된 관광(1번 문장)과 가이드의 동물원 소식(8번 문장)이라는 전환 사건을 기준으로, 앞쪽 한숨·아쉬움과 뒤쪽 서두르는 몸짓·환호를 각각 감정어로 옮기는 능력",
+   "design_intent": "앞 칸은 감정어 없이 long sigh(4번 문장)와 즐기지 못할 볼거리 생각(5번 문장)으로만 실망을 보여 주고, 뒤 칸은 sprung off the couch(11번 문장)라는 신체 동작과 bucket list 감탄(13~14번 문장)으로 흥분을 보여 준다. 6번 문장의 노크(All of a sudden)가 전환점이라 그 순간의 놀람을 앞 칸에 넣은 ③과 뒤 칸만 맞는 ⑤가 걸리도록 짜였다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5,
+     6,
+     11,
+     14
+    ],
+    "quote": "She sprung off the couch and started putting on her coat in a hurry.",
+    "reasoning": "11번 문장의 소파에서 튀어 일어나 서둘러 코트를 입는 동작은 기대에 들뜬 상태의 신체 반응이고, 14번 문장 What a turn of fortune이 그 원인을 운이 바뀐 것으로 밝힌다. 바뀌기 전의 운은 2번 문장 Luck just didn’t run my way와 4번 문장 long sigh로 드러난 낙담이므로 앞 칸은 실망, 뒤 칸은 흥분으로 둘 다 확정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "앞 칸 disappointed는 4번 문장 with a long sigh와 5번 문장 sights she wouldn’t be able to enjoy에, 뒤 칸 excited는 11번 문장 sprung off the couch ... in a hurry와 13번 문장 That’s on my bucket list!에 대응한다. 6번 문장의 노크가 두 칸을 가르는 전환점이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       5,
+       11,
+       13
+      ],
+      "note": "앞 칸 근거 4·5번, 뒤 칸 근거 11·13번 문장"
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "1번 문장의 heavy snow와 도로 차단 상황을 위험에서 벗어난 안도로, 9번 문장의 곧 로비에서 만나자는 말을 일정 압박의 불안으로 읽으면 relieved → anxious가 그럴듯해진다.",
+     "how_to_reject": "4번 문장 with a long sigh는 안도가 아니라 낙담의 한숨이고, 14번 문장 What a turn of fortune!은 불안이 아니라 반가움의 외침이라 두 칸 모두 방향이 반대다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "6번 문장 All of a sudden, there was a knock at the door의 갑작스러움이 surprised와 겹쳐 보여 앞 칸에 끌린다.",
+     "how_to_reject": "놀람은 6번 문장 한 순간의 반응일 뿐 그 이전 4~5번 문장의 지배적 심경은 실망이다. 뒤 칸 annoyed는 13번 문장 bucket list 감탄과 정면으로 어긋난다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "13번 문장 That’s on my bucket list!를 가이드에게 고마워하는 말로 넓혀 읽으면 grateful이 뒤 칸에 맞아 보인다.",
+     "how_to_reject": "Nancy는 2~3번 문장에서 운이 없었다고 혼잣말할 뿐 자신의 잘못을 부끄러워하는 표현이 없어 ashamed가 성립하지 않는다. 14번 문장도 고마움이 아니라 운의 반전에 대한 환호다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "뒤 칸 amazed는 14번 문장 What a turn of fortune!의 감탄과 비슷해 보여 반쪽만 보고 고르기 쉽다.",
+     "how_to_reject": "앞 칸 indifferent(무관심)는 3번 문장 Sightseeing in Midtown was why I signed up for this trip과 4번 문장 long sigh가 보여 주는 강한 애착과 반대라서 앞 칸에서 탈락한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문에서 심경 주인공이 Nancy임을 확인하고, 지문에서 상황을 바꾸는 사건 문장(소식·노크·편지 등)을 먼저 찾는다 — 여기서는 6번 문장 knock at the door와 8번 문장 Pland Zoo 소식",
+     "on_fail": "All of a sudden 같은 급변 부사가 있는 문장을 전환점 후보로 표시한다"
+    },
+    {
+     "step": "전환점 앞에서 감정을 드러내는 표현(한숨·혼잣말·생각)을 모두 골라 한국어 감정어 하나로 요약한다",
+     "on_fail": "감정어가 없으면 신체 동작(sigh)과 생각 내용(못 볼 볼거리)을 묶어 판단한다"
+    },
+    {
+     "step": "전환점 뒤에서 몸짓(sprung off, in a hurry)과 감탄문을 찾아 두 번째 감정어를 정한다",
+     "on_fail": "감탄문 하나만으로 정하지 말고 그 앞 동작이 같은 방향인지 확인한다"
+    },
+    {
+     "step": "선지마다 앞 칸·뒤 칸을 따로 대조해 두 칸이 모두 맞는 것만 남긴다",
+     "on_fail": "한 칸만 맞는 선지가 둘 이상 남으면 앞 칸 근거(4·5번 문장)로 다시 거른다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "앞 칸에 감정어가 없고 sigh로만 제시",
+     "전환 순간의 놀람이 앞 칸 미끼로 작동"
+    ]
+   },
+   "required_vocab": [
+    "sigh",
+    "sprung",
+    "bucket list",
+    "turn of fortune"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(오답 ②③의 13번·10~13번 번호 체계 불일치)을 청크 문장 목록 1~14번으로 통일해 해소"
+     ],
+     "checked": [
+      "quote 를 11번 문장과 문자열 대조",
+      "정답 두 칸이 각각 다른 근거 문장(4·5번 / 11·13번)으로 확정되는지 대조",
+      "모든 칸의 문장 번호를 청크 sentences 목록과 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "③ 라벨 부분 사실은 전환 순간의 놀람이 실제 사실이나 지배 심경이 아니라는 설명과 일치"
+     ],
+     "checked": [
+      "선지별 why_tempting 이 각기 다른 지문 표현(heavy snow · knock · bucket list · turn of fortune)에 근거하는지 대조",
+      "how_to_reject 에 문장 번호가 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "6번 노크를 전환점으로 잡는 1단계가 ③ 놀람 미끼를 앞 칸에서 분리함"
+     ],
+     "checked": [
+      "절차 1단계가 지문 전에 실행 가능한지(사건 문장 찾기) 확인",
+      "on_fail 4개가 서로 다른 문장인지 확인",
+      "required_vocab 이 근거 문장 낱말인지 대조"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2406#19",
+   "measured_ability": "수리비 걱정(2·3번 문장)이 정비사의 좋은 소식(5번 문장)과 10달러 미만 청구서(8번 문장)로 해소되는 과정을 앞뒤 감정어로 옮기는 능력",
+   "design_intent": "앞 칸은 walked back and forth(1번 문장)라는 신체 동작과 deeply concerned(2번 문장)라는 감정어가 겹쳐 제시되고, 뒤 칸은 felt at ease(9번 문장)가 직접 나온다. 정비사의 good news와 비싼 엔진 교체 소문이 각각 thrilled·terrified·scared 같은 강도 과장 선지의 재료가 되도록 짜였다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     2,
+     5,
+     8,
+     9
+    ],
+    "quote": "She was deeply concerned about how much it was going to cost to get her car fixed.",
+    "reasoning": "2번 문장 deeply concerned가 앞 칸 감정을 직접 이름 붙이고 1번 문장의 서성임이 그것을 몸으로 보여 준다. 전환점은 5번 문장 good news와 8번 문장 less than ten dollars이고, 9번 문장 she felt at ease가 뒤 칸을 직접 확정한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "앞 칸 worried는 2번 문장 deeply concerned와 1번 문장 walked back and forth에, 뒤 칸 relieved는 9번 문장 she felt at ease, knowing she could easily afford it에 대응한다. 걱정의 대상(비용)과 안도의 이유(감당 가능한 비용)가 같은 축이라 변화가 한 사건으로 이어진다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       9
+      ],
+      "note": "전환점은 5번·8번 문장"
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "3번 문장 replacing an engine could be very expensive의 겁나는 정보가 terrified와 이어져 보인다.",
+     "how_to_reject": "그 정보는 전환 이전의 걱정 재료일 뿐, 전환 후 9번 문장은 felt at ease라 뒤 칸 terrified와 반대이고, 앞 칸 calm도 2번 문장 deeply concerned와 반대다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "5번 문장 I’ve got some good news와 7번 문장 as good as new의 밝은 말투가 thrilled로 부풀려 읽힌다.",
+     "how_to_reject": "9번 문장은 at ease(마음 놓임)로 흥분보다 약한 안도를 말한다. 앞 칸 bored도 1번 문장 walked back and forth의 초조한 서성임과 맞지 않는다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "1번 문장의 서성임을 기대에 찬 들뜸(excited)으로, 3번 문장의 엔진 교체 비용을 나중에 생긴 두려움으로 읽으면 순서가 뒤집혀 맞아 보인다.",
+     "how_to_reject": "두려움에 가까운 걱정은 2번 문장(전환 전)에 있고 전환 후 9번 문장은 at ease라서, 감정이 놓인 시점이 지문과 반대다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "8번 문장의 청구서를 보고 기대보다 적다는 9번 문장 far less than she had expected를 기대가 어긋난 실망으로 오독하면 disappointed가 끌린다.",
+     "how_to_reject": "기대보다 적은 것은 비용이므로 실망이 아니라 안도의 이유다(9번 문장 felt at ease). 뒤 칸 indifferent도 직접 감정어 at ease와 다르다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문에서 Jennifer의 심경임을 확인하고, 상황을 바꾸는 소식이나 결과 문장을 찾는다 — good news(5번 문장), 청구서 확인(8번 문장)",
+     "on_fail": "After a few minutes처럼 시간이 넘어가는 표지 뒤 문장을 전환 후보로 본다"
+    },
+    {
+     "step": "전환 앞의 감정어(concerned)와 신체 동작(back and forth)을 묶어 앞 칸을 정한다",
+     "on_fail": "동작만으로 애매하면 무엇에 대한 감정인지(비용) 목적어를 확인한다"
+    },
+    {
+     "step": "전환 뒤의 직접 감정어(felt at ease)를 찾아 강도까지 비교한다 — 안도인지 흥분인지",
+     "on_fail": "good news 같은 남의 말이 아니라 주인공 자신의 감정 서술 문장을 근거로 삼는다"
+    },
+    {
+     "step": "선지 두 칸을 따로 대조해 둘 다 맞는 선지만 남긴다",
+     "on_fail": "뒤 칸만 맞는 선지가 남으면 앞 칸을 2번 문장과 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 55,
+   "difficulty": {
+    "predicted": 0.93,
+    "drivers": [
+     "양 칸 모두 직접 감정어 제시",
+     "강도 과장 선지(thrilled · terrified)"
+    ]
+   },
+   "required_vocab": [
+    "concerned",
+    "at ease",
+    "afford"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(②~⑤의 felt at ease 문장 번호 불일치)을 청크 목록 9번 문장으로 모든 칸에서 통일해 해소"
+     ],
+     "checked": [
+      "quote 를 2번 문장과 문자열 대조",
+      "why_correct 의 at ease ↔ relieved 대응 확인",
+      "모든 칸에서 felt at ease 를 9번으로 부르는지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "④ 인과 역전은 감정 시점이 뒤바뀐 유형으로 설명과 방향 일치"
+     ],
+     "checked": [
+      "선지별 유인 표현이 서로 다른지(expensive · good news · back and forth · far less) 대조",
+      "배제 근거 위치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계 강도 비교가 thrilled 과장 선지를 거름"
+     ],
+     "checked": [
+      "절차 실행 가능성",
+      "on_fail 서로 다름 확인",
+      "시간 55초 적정"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2021#19",
+   "measured_ability": "경연에서 진 뒤의 감정어·신체 반응(2~4번 문장)과, 선생님 말씀을 떠올린 전환(6번 문장) 뒤의 호흡·손·마음 묘사(12~14번 문장)를 짝지어 앞뒤 심경을 정하는 능력",
+   "design_intent": "앞 칸은 troubled and unhappy(2번 문장)라는 감정어에 떨림(3번 문장)·빠른 심장 박동과 붉어진 얼굴(4번 문장)이 겹치고, 뒤 칸은 느린 호흡(12번 문장)·안정된 손(13번 문장)·평온한 마음(14번 문장)이 앞의 신체 반응을 하나씩 되돌린다. 친구에게 졌다는 1번 문장이 envious의 재료로 놓여 있다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     3,
+     6,
+     13,
+     14
+    ],
+    "quote": "When I learned that Linda had won, I was deeply troubled and unhappy.",
+    "reasoning": "2번 문장의 troubled and unhappy가 앞 칸 감정을 직접 이름 붙인다. 6번 문장에서 선생님 말씀을 떠올린 것이 전환점이고, 3번 문장 My body was shaking의 떨림이 13번 문장 My hands were steady now로 가라앉으며, 14번 문장 my mind was at peace가 뒤 칸을 확정한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "선지 ‘upset → calm’ 의 앞 칸 upset은 2번 문장 deeply troubled and unhappy와 3번 문장 shaking with uneasiness에, 뒤 칸 calm은 13번 문장 My hands were steady now와 14번 문장 my mind was at peace에 대응한다. 떨리던 몸(3번)이 안정된 손(13번)으로 바뀌는 짝이 두 칸 사이의 변화를 보여 준다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       3,
+       13,
+       14
+      ],
+      "note": "4번 문장의 빠른 심장 박동은 12번 문장의 느린 호흡과 함께 흥분이 가라앉는 흐름의 보조 근거"
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "6~8번 문장에서 선생님 말씀을 고맙게 떠올리는 장면이 grateful처럼 보이고, 2번 문장 unhappy가 sorrowful과 비슷해 두 단어가 모두 지문에 있는 듯하다.",
+     "how_to_reject": "슬픔(unhappy)은 2번 문장, 즉 전환 이전에 있고 전환 뒤 14번 문장은 at peace라서, 이 선지는 감정이 놓인 순서를 거꾸로 배열했다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "1번 문장 I had lost the piano contest to my friend와 2번 문장 Linda had won이 친구를 부러워하는 상황처럼 보여 envious가 끌린다.",
+     "how_to_reject": "앞 칸 감정은 2번 문장이 troubled and unhappy로 직접 명명하고 3·4번 문장이 떨림과 두근거림으로 보여 주는 동요이지 질투로 표현되지 않는다. 뒤 칸 doubtful도 9번 문장 He was absolutely right의 확신과 반대다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "1번 문장 Once again의 패배를 예상 밖 결과로 읽으면 surprised가, 2번 문장 unhappy가 disappointed와 닿아 보인다.",
+     "how_to_reject": "Once again은 반복된 패배라 놀람의 근거가 아니고, disappointed는 전환 뒤가 아니라 전환 앞(2번 문장)의 감정이다. 전환 뒤 14번 문장 at peace를 담지 못한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "뒤 칸 relieved가 12번 문장 I breathed out slowly의 한숨 돌림과 비슷해 반쪽이 맞아 보인다.",
+     "how_to_reject": "앞 칸 bored는 3·4번 문장의 떨림·빠른 심장 박동·붉어진 얼굴과 정반대인 무료함이라 앞 칸에서 탈락한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문에서 ‘I’의 심경임을 확인하고, 생각이나 상황이 바뀌는 문장을 찾는다 — 6번 문장 I recalled what my teacher had said",
+     "on_fail": "Instead, At last 같은 표지 앞뒤를 전환 구간으로 묶는다"
+    },
+    {
+     "step": "전환 앞의 감정어와 신체 반응(shaking, heart beat quickly, reddish)을 모아 앞 칸을 정한다",
+     "on_fail": "상황(친구에게 짐)에서 감정을 추측하지 말고 지문이 직접 쓴 감정어 troubled를 우선한다"
+    },
+    {
+     "step": "전환 뒤 신체 묘사가 앞의 반응을 어떻게 되돌리는지 짝지어 본다(떨림 → 안정된 손)",
+     "on_fail": "짝이 안 보이면 마지막 감정 서술 문장(at peace)을 뒤 칸 근거로 쓴다"
+    },
+    {
+     "step": "선지 두 칸을 각각 대조하고, 감정어가 맞더라도 놓인 시점(전환 전/후)이 맞는지 확인한다",
+     "on_fail": "두 단어가 다 지문에 있는 선지는 순서를 거꾸로 놓았는지 점검한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "감정어가 양 칸에 직접 제시",
+     "패배 상황이 envious 미끼"
+    ]
+   },
+   "required_vocab": [
+    "troubled",
+    "uneasiness",
+    "steady",
+    "at peace"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(신체 대칭 짝 어긋남)을 떨림(3번) → 안정된 손(13번) 짝으로 바로잡고, 심장 박동은 느린 호흡과 함께 보조 근거로만 둠"
+     ],
+     "checked": [
+      "quote 를 2번 문장과 문자열 대조",
+      "reasoning·why_correct·confirmed_at.note 의 신체 짝이 서로 일치하는지 재대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함 ② 라벨을 인과 역전에서 반대 진술(감정 순서를 거꾸로 배열)로 바꿈",
+      "원장 결함 ③ envious 배제 근거를 사후 성찰(10번 문장)이 아니라 앞 칸 증거(2~4번 문장)로 교체"
+     ],
+     "checked": [
+      "② 라벨과 설명 방향 일치 확인",
+      "③ how_to_reject 가 전환 이전 문장을 근거로 쓰는지 확인",
+      "선지별 유인 표현 상이 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계 시점 확인이 ② 순서 뒤집기 함정을 거름"
+     ],
+     "checked": [
+      "절차 3단계가 짝짓기 기준과 정답 근거와 같은지 확인",
+      "on_fail 상이 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2109#19",
+   "measured_ability": "Reiner를 기다리며 나쁜 일을 상상하는 걱정(4·5번 문장)이 그가 나타난 순간(6·7번 문장) 이후 relax(13번 문장)로 바뀌는 흐름을 앞뒤 감정어로 옮기는 능력",
+   "design_intent": "앞 칸은 something bad might have happened(4번 문장)와 Getting concerned(5번 문장)로, 뒤 칸은 She started to relax(13번 문장)와 I’m fine now(14번 문장)로 확정된다. 그 사이 교통 체증·휴대전화를 두고 온 사정(10·11번 문장)과 사과(12번 문장)가 upset·regretful 같은 미끼를 만들도록 놓였다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5,
+     7,
+     13
+    ],
+    "quote": "Getting concerned, she tried calling",
+    "reasoning": "5번 문장 Getting concerned가 앞 칸 감정을 직접 이름 붙이고 4번 문장의 나쁜 일 상상이 그 내용이다. 7번 문장에서 Reiner가 나타난 것이 전환점이고 13번 문장 She started to relax가 뒤 칸을 확정한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "앞 칸 worried는 5번 문장 Getting concerned와 4번 문장 something bad might have happened to him에, 뒤 칸 relieved는 13번 문장 She started to relax와 8번 문장 Thank goodness!에 대응한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       5,
+       13
+      ],
+      "note": "8번·14번 문장은 뒤 칸 보조 근거"
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "2번 문장의 한 시간 넘는 기다림 뒤 14번 문장 I’m fine now가 처음부터 자신 있던 사람의 말처럼 읽혀 confident가 끌린다.",
+     "how_to_reject": "앞 칸은 4·5번 문장의 걱정이라 confident와 반대이고, 뒤 칸 nervous도 13번 문장 She started to relax와 반대다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "10·11번 문장 traffic had been terrible, What was worse의 나쁜 소식을 뒤에 생긴 언짢음으로 읽으면 upset이 뒤 칸에 맞아 보인다.",
+     "how_to_reject": "10·11번 문장은 Reiner가 늦은 이유 설명일 뿐 그 뒤 13번 문장은 relax다. 언짢음이 아니라 안도가 뒤 칸이고, 앞 칸 calm도 5번 문장 concerned와 반대다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "12번 문장 “I’m so sorry,” he said의 미안함과 8번 문장 Thank goodness!의 감사가 regretful → grateful로 그대로 옮겨져 보인다.",
+     "how_to_reject": "미안해한 사람은 12번 문장의 he(Reiner)이지 Annette가 아니다. Annette의 앞 칸은 5번 문장 concerned라서 regretful이 성립하지 않는다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "7번 문장 She found Reiner coming toward her의 반가운 순간을 놀라움으로 읽으면 amazed가 뒤 칸처럼 보인다.",
+     "how_to_reject": "앞 칸 bored는 4·5번 문장의 걱정과 거리가 멀고, 뒤 칸도 13번 문장 relax로 놀람이 아니라 안도다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문에서 Annette의 심경임을 확인하고, 기다리던 사람이 나타나는 장면처럼 상황이 바뀌는 문장을 찾는다 — 6·7번 문장(At that moment)",
+     "on_fail": "At that moment 같은 시점 표지가 있는 문장을 전환 후보로 표시한다"
+    },
+    {
+     "step": "전환 앞에서 감정어(concerned)와 생각 내용(something bad)을 모아 앞 칸을 정한다",
+     "on_fail": "기다린 시간만 보고 짜증으로 정하지 말고 생각 내용이 걱정인지 확인한다"
+    },
+    {
+     "step": "전환 뒤에서 Annette 자신의 감정 서술(started to relax)을 찾는다 — 다른 인물(he)의 감정 문장은 따로 표시한다",
+     "on_fail": "사과·변명처럼 남의 말에 있는 감정어를 주인공 감정으로 옮기지 않았는지 주어를 다시 본다"
+    },
+    {
+     "step": "선지 두 칸을 따로 대조해 둘 다 맞는 것만 남긴다",
+     "on_fail": "뒤 칸만 맞는 선지가 남으면 앞 칸을 5번 문장과 다시 맞춘다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.92,
+    "drivers": [
+     "양 칸 직접 감정어",
+     "다른 인물의 사과가 주체 역전 미끼"
+    ]
+   },
+   "required_vocab": [
+    "concerned",
+    "relax",
+    "Thank goodness"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(relax 문장·악재 문장 번호 불일치)을 청크 목록 기준 relax=13번, 악재=10·11번으로 모든 칸 통일"
+     ],
+     "checked": [
+      "quote 를 5번 문장과 문자열 대조",
+      "모든 칸의 relax 문장 번호를 13으로 부르는지 재대조",
+      "악재 문장 번호 10·11 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "④ 주체 역전 라벨이 sorry 의 화자가 Reiner라는 설명과 일치"
+     ],
+     "checked": [
+      "선지별 유인 표현 상이 확인(I’m fine now · traffic · sorry · found Reiner)",
+      "배제 근거 위치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계 주어 확인이 Reiner의 sorry 를 걸러 냄"
+     ],
+     "checked": [
+      "절차 3단계 주어 확인 지시가 ④ 함정을 막는지 확인",
+      "on_fail 상이 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2018#19",
+   "measured_ability": "기대에 못 미친 보트 투어(1~4번 문장)가 맹그로브 숲 등장(5·6번 문장)으로 바뀌는 지점을 잡고, 앞의 실망과 뒤의 thrilled·fascinated·charmed를 감정어로 옮기는 능력",
+   "design_intent": "앞 칸은 far from what I had expected(1번 문장)와 dull gray rocks(3번 문장), 더위로 즐기지 못함(4번 문장)으로 실망을 보여 주고, 5번 문장 However가 전환을 알린다. 뒤 칸은 thrilled(7번 문장)·fascinated(8번 문장)·charmed(9번 문장)와 감탄(10번 문장)이 흥분을 확정한다. cool shade(7번 문장)·relaxed, 어머니의 외침·scared 같은 국소 단서가 미끼로 놓였다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     3,
+     5,
+     7
+    ],
+    "quote": "The start of the boat tour was far from what I had expected.",
+    "reasoning": "1번 문장 far from what I had expected가 앞 칸이 기대 어긋남, 곧 실망임을 정하고 3·4번 문장이 그 이유를 보탠다. 5번 문장 However가 전환점이며, 7번 문장 The mangrove forest ... thrilled me가 뒤 칸을 확정한다."
+   },
+   "choices": [
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "앞 칸 disappointed는 1번 문장 far from what I had expected와 4번 문장 could not enjoy the tour fully에, 뒤 칸 excited는 7번 문장 thrilled me와 10번 문장 What a wonderful adventure!에 대응한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1,
+       4,
+       7,
+       10
+      ],
+      "note": "5번 문장 However가 전환점"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "7번 문장 as we entered its cool shade의 시원한 그늘이 편안함을 떠올리게 해 뒤 칸 relaxed가 맞아 보인다.",
+     "how_to_reject": "7번 문장의 주절은 The mangrove forest ... thrilled me로 감정은 들뜸이고 cool shade는 배경일 뿐이다. 앞 칸 ashamed도 1~4번 문장 어디에도 부끄러움 표현이 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "8·9번 문장 fascinated, charmed의 기쁨을 delighted로 앞 칸에 옮겨 놓으면 감정어가 지문에 있는 것처럼 보인다.",
+     "how_to_reject": "기쁨은 5번 문장 However 뒤의 감정이고 앞 칸 1번 문장은 기대 어긋남이다. 뒤 칸 confused도 10번 문장 What a wonderful adventure!와 맞지 않는다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "앞 칸 pleased가 뒤쪽 8번 문장 fascinated와 같은 긍정 계열이라 감정어 자체는 지문에 있어 보인다.",
+     "how_to_reject": "pleased는 전환 뒤의 감정이라 1~4번 문장의 실망과 맞지 않고, lonely는 5번 문장에서 어머니와 함께 있는 장면과도 7번 문장 thrilled와도 어긋난다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "5번 문장 my mother shouted의 갑작스러운 외침이 겁먹음을, 그 뒤 6번 문장 A whole new world came into sight가 안도를 떠올리게 한다.",
+     "how_to_reject": "외침은 Look at the mangroves!라는 감탄이지 위험 신호가 아니고, 앞 칸 1~4번 문장에는 두려움 표현이 없다. 뒤 칸도 7번 문장 thrilled로 안도보다 강한 흥분이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문에서 ‘I’의 심경임을 확인하고, However처럼 흐름을 뒤집는 연결어가 있는 문장을 찾는다 — 5번 문장",
+     "on_fail": "all of a sudden이나 새 장면 등장(came into sight) 문장을 전환 후보로 본다"
+    },
+    {
+     "step": "전환 앞에서 기대와의 비교(far from what I had expected)와 불만 묘사(dull, could not enjoy)를 모아 앞 칸을 정한다",
+     "on_fail": "직접 감정어가 없으면 기대 대비 결과가 나빴는지 좋았는지로 판단한다"
+    },
+    {
+     "step": "전환 뒤에서 나(me·I)를 목적어나 주어로 둔 감정 동사(thrilled me, fascinated, charmed)를 찾아 뒤 칸을 정한다",
+     "on_fail": "배경 묘사(cool shade)에서 감정을 끌어내지 말고 감정 동사가 있는 주절을 본다"
+    },
+    {
+     "step": "선지 두 칸을 따로 대조하고, 뒤 감정이 앞 칸에 옮겨 놓인 선지가 없는지 확인한다",
+     "on_fail": "두 칸 중 앞 칸을 1번 문장과 먼저 맞춰 후보를 줄인다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "앞 칸 감정어 없이 기대 대비로 제시",
+     "배경 묘사(cool shade)가 미끼"
+    ]
+   },
+   "required_vocab": [
+    "far from",
+    "dull",
+    "thrilled",
+    "fascinated"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(④에서 as we entered 문장을 8번이라 한 오류)을 청크 목록 7번으로 바로잡고 전 칸 통일"
+     ],
+     "checked": [
+      "quote 를 1번 문장과 문자열 대조",
+      "cool shade·thrilled 를 모든 칸에서 7번으로 부르는지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함 ① 라벨을 범위 과소에서 어휘 함정(cool shade → 편안함 오독)으로 교체"
+     ],
+     "checked": [
+      "① 라벨과 why_tempting 방향 일치 확인",
+      "선지별 유인 표현 상이 확인(cool shade · fascinated · pleased · shouted)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계 주절 감정 동사 지시가 cool shade 미끼를 막음"
+     ],
+     "checked": [
+      "절차 1단계 However 가 이 지문에 실제 있는지 확인",
+      "on_fail 상이 확인"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-MOOD",
+  "n_analyzed": 5,
+  "recurring_traps": [
+   {
+    "trap": "반대 진술",
+    "count": 5,
+    "signature": "두 칸이 모두 지문 심경과 반대 방향이거나 뒤 감정을 앞 칸에 옮겨 놓음"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 3,
+    "signature": "전환 순간의 국소 반응이나 한쪽 칸 감정어만 맞음"
+   },
+   {
+    "trap": "무관",
+    "count": 3,
+    "signature": "지문에 없는 감정(ashamed · bored)"
+   },
+   {
+    "trap": "인과 역전",
+    "count": 3,
+    "signature": "감정이 놓인 시점(전환 전/후)을 뒤집음"
+   },
+   {
+    "trap": "범위 과소",
+    "count": 2,
+    "signature": "한 칸만 맞고 다른 칸이 비는 선지"
+   },
+   {
+    "trap": "범위 과대",
+    "count": 1,
+    "signature": "안도를 흥분으로 부풀림"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 1,
+    "signature": "다른 인물의 감정(sorry)을 주인공에게 옮김"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 1,
+    "signature": "배경 묘사 낱말(cool shade)에서 감정 추출"
+   }
+  ],
+  "answer_locus_pattern": "5문항 모두 전환 사건 문장(노크·good news·회상·등장·However)이 있고 앞 칸 근거는 그 앞, 뒤 칸 근거는 그 뒤 감정 서술·신체 동작 문장에 있다. 각 문항의 함정은 한 번씩만 셌다.",
+  "procedure": [
+   {
+    "step": "발문에서 심경 주인공을 확인하고 상황을 바꾸는 사건 문장을 찾는다",
+    "on_fail": "급변 부사·역접 연결어·시점 표지가 있는 문장을 후보로 둔다"
+   },
+   {
+    "step": "전환 앞의 감정어·신체 반응·생각 내용으로 앞 칸을 정한다",
+    "on_fail": "감정어가 없으면 기대 대비 결과나 몸짓으로 판단한다"
+   },
+   {
+    "step": "전환 뒤 주인공 자신의 감정 서술로 뒤 칸을 정하고 강도를 비교한다",
+    "on_fail": "다른 인물의 말·배경 묘사에서 감정을 가져오지 않았는지 주어를 확인한다"
+   },
+   {
+    "step": "선지 두 칸을 따로 대조하고 감정의 시점이 맞는지 본다",
+    "on_fail": "남은 후보를 앞 칸 근거로 다시 거른다"
+   }
+  ],
+  "failure_modes": [
+   "전환 순간의 놀람을 앞 칸 심경으로 착각",
+   "뒤 칸만 맞춰 보고 고름",
+   "다른 인물의 감정어를 주인공 감정으로 옮김",
+   "배경 묘사 낱말에서 감정 추출"
+  ],
+  "time_budget_sec": 60,
+  "open_questions": [
+   "교정 청크라 3인 자체 검수에서 새 반려가 나오지 않았다 — 원장 결함 해소 대조가 주 검수였고 세 자가 같은 대상을 재었을 수 있어 독립 검수가 필요하다",
+   "5문항 중 4문항이 1번 정답이나 유형 분포(keyed 28 중 1번 16)를 절차에 쓰지 않았다"
+  ]
+ }
+}

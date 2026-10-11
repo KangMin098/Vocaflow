@@ -111,10 +111,12 @@ export function splitSentences(passage: string): { start: number; end: number }[
 
     if (ABBREV.test(passage.slice(start, j))) continue
 
-    // 다음 글자가 대문자/따옴표/괄호여야 새 문장이다.
+    // 다음 글자가 대문자/따옴표/괄호/동그라미 번호여야 새 문장이다.
+    // 동그라미 번호(①~⑳): 무관 문장 · 도표 · 어법 · 지칭 지문은 선지 번호가 문장 머리에 붙는다 — 이걸 빼면
+    // 「… . ① As we …」 가 앞 문장에 붙어 지문이 1~2문장으로 뭉개졌다(평가원 61 · 학평 225 지문 · 2026-10-11 F08).
     let k = j
     while (k < passage.length && /\s/.test(passage[k])) k += 1
-    if (k < passage.length && !/[A-Z“"('‘[]/.test(passage[k])) continue
+    if (k < passage.length && !/[A-Z“"('‘[①-⑳]/.test(passage[k])) continue
 
     out.push({ start, end: j })
     start = k

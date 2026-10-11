@@ -1,0 +1,480 @@
+{
+ "chunk": "cmp-20261011-13",
+ "pairs": [
+  {
+   "pair_id": "M2306#22:2|M2609#22:2",
+   "type": "R-GIST",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2306#22",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "5번 문장의 인용 'I love this restaurant-finder app on my phone' 이 앱 사용을 긍정하는 말로 읽히고, 지문 전체가 디지털 서비스 소재라 앱 활용 권고가 자연스럽게 붙는다.",
+    "how_to_reject": "5번 문장은 큰따옴표 안 소비자 발화이고 what happens to my data if I press ‘ok’ 라는 불안으로 끝난다. 지문이 소비자에게 주는 것은 앱 사용 권고가 아니라 6번 문장의 tools that can provide them options 다."
+   },
+   "b": {
+    "id": "M2609#22",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "세 번째 문장에 built on mutuality and sharing of identity, understanding, norms and values 가 그대로 있어 '규범과 가치의 공유'가 지문 표현으로 보인다.",
+    "how_to_reject": "그 구절은 Social capital describes the networks of relationships we have that are ... 라는 정의문의 수식절이다. 정의의 재료를 옮겨 온 것일 뿐 소셜 미디어가 한 번도 등장하지 않아, 첫 문장과 마지막 문장이 붙들고 있는 소재와 어긋난다."
+   }
+  },
+  {
+   "pair_id": "M2306#23:1|M2706#23:5",
+   "type": "R-TOPIC",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2306#23",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "5번째 문장 the links between such emotional states and stimuli, behavior 에 links · behavior 가 그대로 있다.",
+    "how_to_reject": "5번째 문장은 그 연결이 plastic and can be modified by learning — 바뀔 수 있다고 한다. essential(본질적·고정된) 연결은 지문과 반대이고, 연결은 3~4번째 문장의 구분을 덧붙이는 한 요소일 뿐이다."
+   },
+   "b": {
+    "id": "M2706#23",
+    "n": 5,
+    "trap": "부분 사실",
+    "why_tempting": "5번째 문장 being short-lived puts a premium on the effectiveness of preprogrammed behavior patterns 와 낱말이 거의 그대로 겹친다.",
+    "how_to_reject": "7번째 문장이 수명이 긴 동물에서는 less on automatic preprogrammed behaviors 라고 해 선천 행동의 비중이 크기·수명에 따라 달라짐을 보인다. 선천 행동은 비교의 한 항이지 글이 묶는 중심 축(크기)이 아니다."
+   }
+  },
+  {
+   "pair_id": "M2306#23:3|M2609#23:5",
+   "type": "R-TOPIC",
+   "trap": "무관",
+   "a": {
+    "id": "M2306#23",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "1번째 문장 differences in the words and concepts ... for describing emotions 가 언어로 감정을 기술하는 이야기라 languages 와 겹친다.",
+    "how_to_reject": "지문은 감정이 「잘못」 기술된다거나 「세계 언어」를 말하지 않는다. 1번째 문장은 문화마다 기술 방식이 다르다는 관찰이다."
+   },
+   "b": {
+    "id": "M2609#23",
+    "n": 5,
+    "trap": "무관",
+    "why_tempting": "life narrators 가 지문의 한쪽 주체로 반복돼 소재어가 맞아 보인다",
+    "how_to_reject": "성공이나 실패, 조건을 말하는 문장이 지문에 없다. 마지막 문장은 자기 서사에서 기억 행위가 주장·정당화 같은 수사적 행위와 겹친다는 기술이지 성공 조건이 아니다"
+   }
+  },
+  {
+   "pair_id": "M2306#24:3|M2706#24:3",
+   "type": "R-TITLE",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#24",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "Human and Machine 이라는 짝이 첫 문장의 human-machine team 과 글자까지 같아 앞부분만 보면 정답과 구별되지 않는다.",
+    "how_to_reject": "지문에 갈등(conflict)이나 인간성 상실을 말한 문장이 하나도 없다. 다섯째 문장은 cooperate and coordinate, 마지막 문장은 good team members 로 끝난다."
+   },
+   "b": {
+    "id": "M2706#24",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "tour operators 는 첫 문장과 다섯 번째 문장에 반복되는 눈에 띄는 표현이라, 그 표현이 든 선지가 주제어를 담은 것처럼 보인다.",
+    "how_to_reject": "다섯 번째 문장의 the growth of tour operators began to change the nature of the industry 가 역할이 커졌음을 말한다. 축소(reduced, declined, less)를 말하는 문장은 지문에 없다."
+   }
+  },
+  {
+   "pair_id": "M2306#24:2|M2609#24:2",
+   "type": "R-TITLE",
+   "trap": "주체 역전",
+   "a": {
+    "id": "M2306#24",
+    "n": 2,
+    "trap": "주체 역전",
+    "why_tempting": "Join Forces 가 협력을 말하고 Human Teams 가 지문의 team 을 그대로 쓴다. 협력·팀이라는 낱말만 보면 지문과 겹치는 것이 가장 많은 선지다.",
+    "how_to_reject": "이 선지의 구도는 「로봇끼리 힘을 합쳐 인간 팀을 능가한다」다. 여섯째 문장은 Rather than treating robots as peer agents with their own completely independent agenda, joint cognitive systems approaches treat robots as helpers 로 로봇을 독립 행위자로 보는 관점을 명시적으로 물리친다. 팀은 인간과 로봇이 섞인 mixed team 이지 로봇 팀이 아니다(둘째 문장)."
+   },
+   "b": {
+    "id": "M2609#24",
+    "n": 2,
+    "trap": "주체 역전",
+    "why_tempting": "isolation 이 지문의 핵심어로 반복되므로 '중세가 종교인에게 고립을 요구했다'는 문장이 자연스럽게 들린다.",
+    "how_to_reject": "세 번째 문장의 self-imposed isolation 이 고립을 스스로 부과한 것으로 못 박고, 네 번째 문장도 monasteries were intended to function as places set apart 라며 수도원 자체의 의도로 서술한다. 외부가 요구했다는 주체는 등장하지 않는다."
+   }
+  },
+  {
+   "pair_id": "M2306#28:1|M2706#28:1",
+   "type": "R-NOTICE",
+   "trap": "범위 과대",
+   "a": {
+    "id": "M2306#28",
+    "n": 1,
+    "trap": "범위 과대",
+    "why_tempting": "Registration 첫 불릿이 Online only 인데 only 를 흘리면 「온라인으로도 된다」로 읽혀 현장 등록이 막혀 있다는 사실이 사라진다.",
+    "how_to_reject": "Registration 첫 불릿 Online only ― www.dcsm.org 의 only 가 온라인 이외의 경로를 전부 닫는다."
+   },
+   "b": {
+    "id": "M2706#28",
+    "n": 1,
+    "trap": "범위 과대",
+    "why_tempting": "Date: Friday, July 3, 2026 의 3 이 날짜인데 기간으로 읽히면 '3일 동안' 이 맞아 보인다.",
+    "how_to_reject": "Date 줄에 요일이 Friday 하나만 붙어 있고, Time 줄이 6 p.m. to 11 p.m. 로 하루치 시각만 준다 — 며칠간이라는 기간 표기가 없다."
+   }
+  },
+  {
+   "pair_id": "M2306#28:2|M2609#28:3",
+   "type": "R-NOTICE",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#28",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "인원 상한이 Registration 블록의 셋째 줄에 있어, 등록 방법과 기간 두 줄만 읽고 넘어가면 상한 줄을 통째로 건너뛴다.",
+    "how_to_reject": "Registration 셋째 불릿 The number of participants will be limited to 50. 이 상한을 숫자로 못 박는다."
+   },
+   "b": {
+    "id": "M2609#28",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "Guidelines 첫 불릿에 participation fee 라는 말이 있어 참가비 항목이 존재한다는 인상만 남는다. 앞의 There is no 를 흘리면 「참가비가 있다」가 맞아 보인다.",
+    "how_to_reject": "Guidelines 첫 불릿 전체가 \"There is no participation fee.\" 다 — 문장 머리의 no 가 fee 를 부정한다."
+   }
+  },
+  {
+   "pair_id": "M2306#31:2|M2706#31:3",
+   "type": "R-BLANK",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2306#31",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "디지털 기술이 작업 전반에 스며들었다는 서술이 있어 영향력이 커졌다고 읽기 쉽다.",
+    "how_to_reject": "커진 것은 5번 문장의 integrated, portable digital technologies 이고 빈칸의 주어는 the computer artist 라는 이름이다. 4번 문장이 그 이름을 marked contrast 의 옛 항으로 돌려놓는다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 3,
+    "trap": "부분 사실",
+    "why_tempting": "마지막 문장의 '최소한으로 개입한다'가 격리를 연상시킨다",
+    "how_to_reject": "그 서술은 preservationists 의 것이다. 빈칸 문장의 주어는 Conservationists — 지문이 두 진영을 명시적으로 갈라 놓은 자리다"
+   }
+  },
+  {
+   "pair_id": "M2306#31:1|M2706#32:4",
+   "type": "R-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "M2306#31",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "기술이 널리 퍼졌다는 뒷부분을 읽고 각성이나 부활의 어감을 붙이게 된다.",
+    "how_to_reject": "마지막 문장이 세는 것은 기기의 보급(tablets and cell phones surpassing personal computers)이지 호칭의 부활이 아니다. 1번 문장은 오히려 언급이 드물다고 말한다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
+    "how_to_reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다"
+   }
+  },
+  {
+   "pair_id": "M2306#32:2|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#32",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "4번 문장이 Joyce 가 실제로 알던 사람들과의 대응을 may be interesting 이라고 인정해 절충으로 읽힌다.",
+    "how_to_reject": "같은 4번 문장이 but ... they are less relevant ... than are other kinds of information that the story contains within itself 로 곧바로 순위를 매긴다. 인정은 양보이지 중간 지점이 아니다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "M2306#32:2|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#32",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "4번 문장이 Joyce 가 실제로 알던 사람들과의 대응을 may be interesting 이라고 인정해 절충으로 읽힌다.",
+    "how_to_reject": "같은 4번 문장이 but ... they are less relevant ... than are other kinds of information that the story contains within itself 로 곧바로 순위를 매긴다. 인정은 양보이지 중간 지점이 아니다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "M2306#33:1|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#33",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "4번 문장에 rejected 라는 부정 동사가 있어 간과라는 낱말이 지문의 부정적 분위기와 맞아 보인다.",
+    "how_to_reject": "4번 문장에서 기각하는 주체는 제조사이고 lead users 는 기각당하는 쪽이다. 5번 문장은 그들이 major innovations 의 actual source 였다고 하므로 그들이 간과한다는 방향은 반대다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "M2306#33:1|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#33",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "4번 문장에 rejected 라는 부정 동사가 있어 간과라는 낱말이 지문의 부정적 분위기와 맞아 보인다.",
+    "how_to_reject": "4번 문장에서 기각하는 주체는 제조사이고 lead users 는 기각당하는 쪽이다. 5번 문장은 그들이 major innovations 의 actual source 였다고 하므로 그들이 간과한다는 방향은 반대다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "M2306#34:1|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#34",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "2번 문장의 complicated · intricate development 가 복잡함을 말해 모순이라는 낱말이 이어져 보인다.",
+    "how_to_reject": "2번 문장은 그 복잡함이 within a coherent structure 안에서 일어난다고 못 박고, 5번 문장도 a large, cohesive statement 로 닫는다. coherent 와 cohesive 가 두 번 나오므로 모순은 방향이 반대다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "M2306#34:1|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#34",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "2번 문장의 complicated · intricate development 가 복잡함을 말해 모순이라는 낱말이 이어져 보인다.",
+    "how_to_reject": "2번 문장은 그 복잡함이 within a coherent structure 안에서 일어난다고 못 박고, 5번 문장도 a large, cohesive statement 로 닫는다. coherent 와 cohesive 가 두 번 나오므로 모순은 방향이 반대다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "M2306#35:2|M2706#35:2",
+   "type": "R-IRRELEVANT",
+   "trap": "연결사 방향 충돌",
+   "a": {
+    "id": "M2306#35",
+    "n": 2,
+    "trap": "연결사 방향 충돌",
+    "why_tempting": "But 으로 시작해 앞을 뒤집는데 결론이 '감행하라'라서 글의 신중한 논조와 반대로 들린다.",
+    "how_to_reject": "①의 give up immediately 와 짝을 이루는 반대항이고, 둘을 합쳐야 ④의 '정보를 모으면 승산을 최대화하는 결정에 이른다'가 성립한다."
+   },
+   "b": {
+    "id": "M2706#35",
+    "n": 2,
+    "trap": "연결사 방향 충돌",
+    "why_tempting": "②가 아기에서 adults 로 대상을 갑자기 바꾸고 괄호 속 낙하 높이·반응 속도까지 덧붙여, 아기 설명 흐름을 끊는 문장처럼 보인다.",
+    "how_to_reject": "문장 1의 The bigger someone is 가 비교 축을 이미 세웠고, ②의 increased mass·much larger force 가 문장 3(①)의 thick bones in comparison to their mass·rarely build up enough energy 와 정반대 짝을 이룬다. 대상 전환은 대비를 완성하는 장치다."
+   }
+  },
+  {
+   "pair_id": "M2306#35:4|M2609#35:1",
+   "type": "R-IRRELEVANT",
+   "trap": "총론-각론 역전",
+   "a": {
+    "id": "M2306#35",
+    "n": 4,
+    "trap": "총론-각론 역전",
+    "why_tempting": "조건쌍을 하나로 접는 일반화라 앞 두 문장의 되풀이처럼 읽혀 지워도 될 것 같다.",
+    "how_to_reject": "a little extra time 과 without such information 이 도입 문장의 straight away · not have sufficient information 을 각각 뒤집어 받는다. 이 문장이 빠지면 ⑤의 this information gathering 이 받을 말이 없다."
+   },
+   "b": {
+    "id": "M2609#35",
+    "n": 1,
+    "trap": "총론-각론 역전",
+    "why_tempting": "①이 important for ... alike 라는 넓은 판단이라, 문장 2의 심리사회적 지지 이야기 뒤에 층이 다른 일반론이 끼어든 것처럼 보인다.",
+    "how_to_reject": "①의 dominant 와 minority 를 문장 4(②)의 Minority group members 와 문장 5(③)의 Majority workers 가 차례로 받는다. ①은 뒤 두 문장의 예고문이다."
+   }
+  },
+  {
+   "pair_id": "M2306#36:4|M2609#37:3",
+   "type": "R-ORDER",
+   "trap": "조건-귀결 절단",
+   "a": {
+    "id": "M2306#36",
+    "n": 4,
+    "trap": "조건-귀결 절단",
+    "why_tempting": "(C)를 첫 자리로 잡은 뒤 (A)의 「반증 가능성」이 (C)의 「이론 검증」과 곧장 이어지는 것처럼 느껴진다.",
+    "how_to_reject": "(A) 첫 문장의 If절은 (B) 마지막 문장 the possibility always remains that the opposite could be found 의 the opposite 을 풀어 쓴 것이다. (B)를 건너뛰면 the opposite 이 무엇인지 정해지지 않은 채 조건절만 남는다."
+   },
+   "b": {
+    "id": "M2609#37",
+    "n": 3,
+    "trap": "조건-귀결 절단",
+    "why_tempting": "(B)의 질문 바로 뒤에 (C)의 Put simply, there has to be something mathematical going on 이 오면 질문에 대한 정의로 곧장 답하는 것처럼 보인다.",
+    "how_to_reject": "(C)는 Put simply 로 앞의 설명을 줄여 말하는 자리이고, 줄여 말할 앞 설명이 (A)의 기호 이야기다. 또 (C)의 from a time even before recorded language 는 (A)의 Mathematics had been going on for a long time before the dashes and squiggles were invented. 를 받는 말이라 (A)가 (C) 앞이어야 한다. 이 배열은 (A)를 마지막으로 밀어 그 대응을 끊는다."
+   }
+  },
+  {
+   "pair_id": "M2206#37:4|M2306#36:4",
+   "type": "R-ORDER",
+   "trap": "조건-귀결 절단",
+   "a": {
+    "id": "M2306#36",
+    "n": 4,
+    "trap": "조건-귀결 절단",
+    "why_tempting": "(C)를 첫 자리로 잡은 뒤 (A)의 「반증 가능성」이 (C)의 「이론 검증」과 곧장 이어지는 것처럼 느껴진다.",
+    "how_to_reject": "(A) 첫 문장의 If절은 (B) 마지막 문장 the possibility always remains that the opposite could be found 의 the opposite 을 풀어 쓴 것이다. (B)를 건너뛰면 the opposite 이 무엇인지 정해지지 않은 채 조건절만 남는다."
+   },
+   "b": {
+    "id": "M2206#37",
+    "n": 4,
+    "trap": "조건-귀결 절단",
+    "why_tempting": "(C)를 첫 자리로 잡은 뒤 (A)의 두 결과가 (C)의 투자 조건과 곧장 짝지어지는 것처럼 보인다.",
+    "how_to_reject": "(A) 첫 문장의 There is a “good” outcome 은 (B) 마지막 문장 Now we have two possible outcomes 가 선언한 둘을 펴는 것이다. (B)를 건너뛰면 둘이라는 개수 선언이 없어 열거가 허공에서 시작한다."
+   }
+  },
+  {
+   "pair_id": "M2306#38:1|M2706#38:1",
+   "type": "R-INSERT",
+   "trap": "시간·인과 순서 역전",
+   "a": {
+    "id": "M2306#38",
+    "n": 1,
+    "trap": "시간·인과 순서 역전",
+    "why_tempting": "2번 문장 requires new cultivars and management methods 의 「새것이 필요하다」가 주어진 문장의 「새 살충제 개발이 어렵다」와 이어지는 듯하다.",
+    "how_to_reject": "①은 2번과 3번 문장 사이다. 3번 문장 In the 1960s 가 이야기를 과거로 돌리므로, 현재완료 has become difficult 를 그 앞에 두면 현재 → 1960년대 → 현재로 시간이 역행하고 Also 가 더할 부정적 문제도 아직 없다."
+   },
+   "b": {
+    "id": "M2706#38",
+    "n": 1,
+    "trap": "시간·인과 순서 역전",
+    "why_tempting": "[3]에서 vortex shedding 이라는 이름이 붙고 [4]에서 바람이 건물 면을 돌아 떨어져 나가는 장면이 끝나므로, 문제 소개가 다 끝나 곧바로 대책(To minimize vortex shedding)으로 넘어가는 자리처럼 보인다.",
+    "how_to_reject": "[4]의 separates from the face of the structure 와 ① 뒤 [5]의 The difference in pressures on the front and back faces 는 '분리 → 압력 차 → 회오리' 로 이어지는 발생 과정의 중간이다. 여기서 대책을 꺼내면 [5]·[6]의 발생 과정과 위험 서술이 대책 뒤로 밀리고, 압력 차의 원인도 끊긴다."
+   }
+  },
+  {
+   "pair_id": "M2306#38:3|M2706#39:1",
+   "type": "R-INSERT",
+   "trap": "지시어 선행사 절단",
+   "a": {
+    "id": "M2306#38",
+    "n": 3,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "4번 문장 Developing new … pesticides 와 어구가 겹치고 5번 문장에서 논조가 부정으로 바뀌어 전환의 시작처럼 보인다.",
+    "how_to_reject": "③은 4번과 5번 문장 사이다. 5번 문장의 Since that time 은 3·4번 문장의 1960년대를 바로 받아야 하는데, 사이에 현재완료 문장을 끼우면 that time 이 가리킬 시점이 흐려진다. 이때까지 부정적 문제가 없어 Also 도 성립하지 않는다."
+   },
+   "b": {
+    "id": "M2706#39",
+    "n": 1,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "① 앞 it exceeded all others가 빨강의 우위를 말해, 빨강 이야기가 이어지는 주어진 문장을 붙이고 싶어진다.",
+    "how_to_reject": "① 뒤 Not that they did not exist의 they는 앞 문장 all others(빨강 이외의 색)를 받는다. 사이에 they가 다른 것(사람들)을 가리키는 문장을 끼우면 대명사가 두 대상을 오간다."
+   }
+  },
+  {
+   "pair_id": "M2306#39:2|M2706#38:2",
+   "type": "R-INSERT",
+   "trap": "지시어 선행사 절단",
+   "a": {
+    "id": "M2306#39",
+    "n": 2,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "5번 문장이 이탈이 위험 신호가 될 수 있다고 해서 신호의 신뢰도를 말하는 주어진 문장이 곧바로 붙을 듯하다.",
+    "how_to_reject": "②는 5번과 6번 문장 사이다. 6번 문장 Studies … support the view that … 의 the view 는 5번 문장의 생각을 받는데, 사이를 벌리면 연구가 지지하는 대상이 주어진 문장으로 바뀐다. 또 5번 문장은 한 마리와 여러 마리를 아직 견주지 않는다."
+   },
+   "b": {
+    "id": "M2706#38",
+    "n": 2,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "② 앞에서 vortices가 처음 나와 '회오리 이야기가 끝났다'고 느껴진다.",
+    "how_to_reject": "② 뒤 [6]이 The vortices 로 시작한다. 이 정관사구는 [5]의 gives rise to vortices 를 받으므로 [5]와 [6] 사이는 비울 수 없다. 또 [6]의 위험 서술(dangerously self-sustaining)이 나오기 전에는 줄일 이유가 아직 서지 않는다."
+   }
+  },
+  {
+   "pair_id": "M2306#39:1|M2706#39:4",
+   "type": "R-INSERT",
+   "trap": "첫 등장 위반",
+   "a": {
+    "id": "M2306#39",
+    "n": 1,
+    "trap": "첫 등장 위반",
+    "why_tempting": "4번 문장 its best response is to seek shelter 가 일반 원리처럼 읽혀 「이치에 맞는다」는 평가를 붙이고 싶어진다.",
+    "how_to_reject": "①은 4번과 5번 문장 사이다. 신호(signal)라는 말은 5번 문장에서 처음 나오므로, 신뢰도를 따질 정보가 ① 앞에는 아직 없다."
+   },
+   "b": {
+    "id": "M2706#39",
+    "n": 4,
+    "trap": "첫 등장 위반",
+    "why_tempting": "④ 뒤 In certain languages …가 색채어 이야기라 주어진 문장의 the oldest known color terms와 화제가 같아 보인다.",
+    "how_to_reject": "④에 넣으면 ④ 앞 Here the lexicon이 정관사를 단 채 선행 언급 없이 먼저 나오고, 그 근거인 color terms는 뒤에 오게 된다. 정관사 명사의 첫 등장은 그 명사를 받는 문장보다 앞이어야 한다."
+   }
+  },
+  {
+   "pair_id": "M2306#40:3|M2706#40:1",
+   "type": "R-SUMMARY",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2306#40",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "요약문에 less 가 이미 박혀 있어 방향이 한 번 뒤집히는데, 지문의 non-moving·at rest 를 그대로 「제한된」으로 옮기면 less limited 가 되어 뜻이 정반대가 된다.",
+    "how_to_reject": "요약문의 less (A) 에 limited 를 넣으면 「덜 제한된다」가 되어 앞쪽 문장 our body becomes more and more a passive non-moving container 와 방향이 어긋난다."
+   },
+   "b": {
+    "id": "M2706#40",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "(B) marginalized 는 5번 문장 traditionally neglected populations 와 뜻이 맞아 (B)부터 대조하면 여기서 멈추게 된다. prevention 도 신약 개발 글의 분위기와 어울린다.",
+    "how_to_reject": "(A)는 has led to 의 결과 자리다. 3번 문장은 그 병들이 neglected(방치)되었다고 하므로 불균형이 낳은 것은 예방이 아니라 방치다 — prevention 은 방향이 반대다."
+   }
+  },
+  {
+   "pair_id": "M2306#40:2|M2609#40:1",
+   "type": "R-SUMMARY",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2306#40",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "(A)가 정답과 같은 necessary 라 앞 칸을 맞춘 순간 이 선지를 답으로 확정하게 된다. growth 도 앞부분의 increasing acceleration 이나 information society 와 어울리는 낱말이다.",
+    "how_to_reject": "지문 마지막 두 문장은 성장이 아니라 두 집단의 차이를 말한다 — Others, at the bottom of this power 와 without either the right to move or the right to stay 가 그 자리다."
+   },
+   "b": {
+    "id": "M2609#40",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "resurface(다시 나타나다)는 3번 문장 reappear 와 거의 같은 뜻이라 (A)를 먼저 대조하면 바로 고르게 된다.",
+    "how_to_reject": "(B) simplification(단순화)은 변화의 방향을 한쪽으로 좁힌 것이다. 8번 문장은 change considerably 라고만 했고, 7번 문장도 독자가 인물에 대해 learn more 한다고 해 단순해진다는 근거가 없다."
+   }
+  }
+ ]
+}

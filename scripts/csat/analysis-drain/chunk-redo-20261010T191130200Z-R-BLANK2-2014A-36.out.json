@@ -1,0 +1,175 @@
+{
+ "chunk": 4,
+ "type_id": "R-BLANK2",
+ "type_name": "빈칸 추론(2개·폐지)",
+ "analyses": [
+  {
+   "item_id": "2014A#36",
+   "measured_ability": "두 빈칸의 연결 표지를 각각 다른 근거로 정하는 능력 — (A)는 일반 진술 뒤 구체 장면이 오는지, (B)는 앞뒤 문장의 서술 대상 집단이 바뀌는지로 판정하고 두 판정의 교집합인 쌍만 고른다",
+   "design_intent": "self-monitoring 이 높은 집단과 낮은 집단을 같은 순서(일반 진술 → 회의 장면 → 타인 시선에 대한 태도)로 두 번 서술하고, 뒤쪽 짝(8번째 문장)에만 For example 을 남겨 (A)의 기능을 지문 안에서 확인할 수 있게 했다. (B)는 두 집단이 갈리는 경계에 놓았다. 오답은 (A)만 맞는 쌍(For example …… As a result)과 (B)만 맞는 쌍(Meanwhile …… In contrast)을 하나씩 두어 한 칸만 확정한 풀이를 걸러 내고, 나머지 둘은 두 칸 모두 표지 기능을 혼동한 쌍이다.",
+   "answer_locus": {
+    "sentence_index": [
+     3,
+     4,
+     6,
+     8
+    ],
+    "quote": "For example, if they are in a meeting with the president of an organization, they may act bored.",
+    "reasoning": "8번째 문장은 4번째 문장(빈칸 (A) 문장)과 통사 틀이 같다 — 둘 다 자기 집단의 일반 진술 바로 뒤에서 'if they are in a meeting ...' 으로 회의 장면을 든다. 뒤쪽 짝의 표지가 For example 이므로 같은 기능의 (A)도 사례 표지다. (B)는 6번째 문장의 주어가 앞 문장들의 high self-monitoring 집단(They)에서 'those who have low self-monitoring' 으로 바뀌는 자리라 대비 표지가 필요하다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "(A)가 정답과 같은 For example 이라 앞 칸만 맞히면 그대로 고르게 된다. (B) 앞 문장 'They are also good at managing what others think about them.' 을 원인으로 삼아 다음 문장을 결과로 읽으면 As a result 도 이어지는 듯 보인다.",
+     "how_to_reject": "6번째 문장(빈칸 (B) 문장)의 주어가 'those who have low self-monitoring' 으로 바뀐다. As a result 라면 5번째 문장 'They are also good at managing what others think about them.' 의 주어(high 집단)에 생기는 결과가 이어져야 하는데, 뒤 문장은 반대 집단의 성향을 새로 소개한다. (A)의 For example 은 맞으므로 (B) 칸을 따로 확인해야 걸러진다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "선지의 For example 은 3번째 문장 'any social signal' 이라는 일반 진술을 4번째 문장이 'in a meeting ... make suggestions' 라는 한 장면으로 좁히는 관계와 맞고, 같은 틀이 8번째 문장에 For example 을 달고 다시 나와 이를 확인한다. 선지의 In contrast 는 6번째 문장의 주어 'those who have low self-monitoring' 이 앞선 high 집단과 반대 집단이라는 점과 맞는다. 두 칸을 모두 만족하는 쌍은 이 선지 하나다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       6,
+       8
+      ],
+      "note": "(A)는 4·8번째 문장의 평행 틀, (B)는 6번째 문장의 주어 교체로 확정. 2014A 두 칸 빈칸, units 없음 — 문장 번호는 마침표 기준 1-base 9문장."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "Otherwise 를 '한편·다른 한편'으로 익힌 학습자가 두 집단을 나누는 글이라는 인상에 끌려 (A)에 넣는다.",
+     "how_to_reject": "Otherwise 는 앞 문장의 조건이 성립하지 않는 경우를 잇는다. 3번째 문장 'They adjust themselves to any social signal ...' 은 조건문이 아니고, 4번째 문장은 그 조정 행동이 실제로 일어나는 회의 장면이라 '그렇지 않으면'이 붙을 자리가 없다. (B)의 As a result 도 6번째 문장의 주어 교체와 맞지 않아 두 칸 모두 어긋난다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "(B)의 In contrast 는 6번째 문장의 집단 교체와 맞아, (B) 칸부터 정한 학습자에게는 두 집단을 나누는 글이라는 인상과 함께 (A)의 Meanwhile('한편')도 그럴듯하게 들린다.",
+     "how_to_reject": "Meanwhile 은 다른 사건·대상으로 화제를 옮길 때 쓴다. 4번째 문장은 3번째 문장과 같은 집단(they)의 같은 조정 행동을 회의 장면으로 좁힌 것이라 화제 전환이 아니며, 8번째 문장이 같은 틀에 For example 을 붙여 그 기능을 보여 준다. (B)만 맞고 (A)가 틀린 쌍이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "Nevertheless 가 '앞과 반대 방향'을 나타낸다는 점만 기억하면, high 집단에서 low 집단으로 넘어가는 (B) 자리의 방향 전환에 맞아 보인다.",
+     "how_to_reject": "Nevertheless 는 앞 진술을 인정하고도 그에 어긋나는 결과가 성립함을 잇는 양보 표지다. 5번째와 6번째 문장은 'high 집단은 이렇다 / low 집단은 저렇다' 로 대상이 다른 두 집단을 나란히 놓은 대조이지, 앞 진술에도 불구하고 뒤가 일어나는 관계가 아니다. (A)의 Meanwhile 도 4번째 문장이 화제 전환이 아니라 3번째 문장의 사례라서 맞지 않아, 두 칸 모두 표지 기능을 혼동한 쌍이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지의 (A)열과 (B)열을 나눠 보고, 각 칸에 서로 다른 표지가 둘 이상 섞여 있어 한 칸만 정해서는 답이 하나로 좁혀지지 않는다는 것을 먼저 확인한다",
+     "on_fail": "헷갈리면 (A)열·(B)열 낱말을 따로 옮겨 적고 같은 낱말끼리 묶는다"
+    },
+    {
+     "step": "(A) 빈칸 문장의 'if they are in a meeting' 을 글 뒤쪽에서 찾는다 — 같은 틀의 문장이 표지를 달고 다시 나오면 그 표지의 기능을 (A)에 대 본다",
+     "on_fail": "같은 틀이 안 보이면 빈칸 바로 앞 문장의 'any social signal' 같은 전체 표현을 빈칸 문장이 특정 장면(meeting, suggestions)으로 좁히는지 본다"
+    },
+    {
+     "step": "(B) 빈칸 앞 문장의 주어(They)가 누구를 받는지 위로 거슬러 'Those who have high self-monitoring' 까지 확인하고, 빈칸 뒤 주어 'those who have low self-monitoring' 과 비교한다 — 반대 집단으로 바뀌면 대비, 같은 주어의 귀결이면 결과 표지다",
+     "on_fail": "대비와 양보가 헷갈리면 '앞 진술에도 불구하고 뒤가 일어나는가'를 물어 본다 — 대상만 다른 병치이면 양보가 아니다"
+    },
+    {
+     "step": "(A) 판정과 (B) 판정을 둘 다 만족하는 쌍만 남긴다. 한 칸만 맞는 쌍이 남아 있으면 지우지 않은 칸의 판정을 다시 대 본다",
+     "on_fail": "두 칸 다 맞는 쌍이 없으면 (B)의 주어 비교부터 다시 한다 — 주어 이름은 지문에서 바로 보이므로 되짚기가 빠르다"
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.78,
+    "drivers": [
+     "지문 뒤쪽에 같은 틀의 문장이 표지를 달고 그대로 인쇄돼 있다",
+     "(B)가 두 집단의 경계라 주어만 봐도 판정된다",
+     "Otherwise·Meanwhile 오역이 유일한 실점 경로"
+    ]
+   },
+   "required_vocab": [
+    "self-monitoring",
+    "In contrast",
+    "As a result",
+    "Otherwise",
+    "Meanwhile",
+    "Nevertheless"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "1차: answer_locus.sentence_index 가 [3,6,8] 로 빈칸 (A) 문장(4번째)을 빠뜨렸고 3번째 문장을 (A) 자리로 오기했다 — [3,4,6,8] 로 고치고 reasoning·why_correct·how_to_reject 의 문장 번호를 같은 기준으로 맞췄다(revise→수정)",
+      "why_correct 를 reasoning 되풀이가 아니라 선지 낱말(For example / In contrast)↔지문 어구 대응으로 다시 썼다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 2014A#36 passage 와 문자열 대조",
+      "마침표 기준 9문장으로 세어 모든 칸의 문장 번호가 같은 문장을 가리키는지 대조",
+      "design_intent 가 이 문항의 평행 틀·경계 배치를 서술하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "1차 revise(원장 결함): ④ trap '무관' 이 실제 설계(한 칸만 맞는 쌍)와 어긋남 → '부분 사실' 로 고치고 why_tempting 을 (B) In contrast 일치에 근거하도록 다시 썼다",
+      "1차 revise(원장 결함): ⑤ trap '반대 진술' 오표기 → '어휘 함정'(양보 표지를 대조 표지로 오인)으로 고치고, (A) Meanwhile 배제를 ④ 참조 대신 ⑤ 안에서 직접 서술",
+      "①·④는 같은 '부분 사실' 라벨이지만 맞는 칸이 서로 반대라 유인·배제 근거를 다르게 썼다"
+     ],
+     "checked": [
+      "correct=2 가 정답표(answer=2)와 일치",
+      "다섯 선지 how_to_reject 에 문장 위치가 있는지 확인",
+      "④·⑤ 라벨을 교수 계약 lureDesign(한 칸만 맞는 쌍)과 대조",
+      "①·③ how_to_reject 의 문장 번호를 고친 기준으로 재확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1차 revise: 옛 4단계가 '①((A)만)·④((B)만) 둘 남는지 확인' 으로 정답 전 선지 번호를 미리 짚었다 → 번호 없이 '한 칸만 맞는 쌍' 기준으로 고쳤다",
+      "옛 1단계의 선지별 개수 세기와 2단계 '첫 여섯 낱말'(실제 다섯 낱말) 오기를 제거"
+     ],
+     "checked": [
+      "solve_procedure 를 금지 표현 8종과 대조",
+      "각 on_fail 이 서로 다른 행동인지 확인",
+      "required_vocab 이 선지 판정에 쓰이는 표지인지 확인",
+      "85초 안에 4단계가 끝나는지 점검"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-BLANK2",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "부분 사실",
+    "count": 2,
+    "signature": "정답과 한 칸만 같은 쌍 — (A)만 맞는 쌍과 (B)만 맞는 쌍이 하나씩"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 2,
+    "signature": "Otherwise·Nevertheless 를 대조·전환 표지로 오인"
+   }
+  ],
+  "answer_locus_pattern": "(A)는 지문 뒤쪽 평행 문장의 표지, (B)는 빈칸 앞뒤 주어 교체 — 두 칸 근거가 서로 다른 문장",
+  "procedure": [
+   "두 칸을 각각 다른 근거 문장으로 판정한다",
+   "한 칸만 맞는 쌍이 남으면 다른 칸 판정을 다시 한다"
+  ],
+  "failure_modes": [
+   "한 칸만 확정하고 그 칸을 공유하는 첫 쌍을 고른다",
+   "양보(Nevertheless)를 대조로 읽는다"
+  ],
+  "time_budget_sec": 85,
+  "open_questions": [
+   "표본 1문항 — 함정 수는 이 문항의 선지 4개를 한 번씩만 셌다",
+   "반려는 원장 결함 기반으로 3건 나왔고 전부 수정했다. 독립 검수는 아니다"
+  ]
+ }
+}

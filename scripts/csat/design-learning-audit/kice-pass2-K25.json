@@ -1,0 +1,12 @@
+{"pass":2,"k":25,"items":[
+{"id":"M2509#33","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#34","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2509#36","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"answer_locus.sentence_index [7,3] 이 역순·범위 밖으로 보임(근거 위치 표시 점검 필요). 해설 자체는 정확"}]},
+{"id":"M2509#37","version":4,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"sentence_index [7,3] 역순 표기. ①의 trap 명 '지시어 선행사 없음'은 해설(사전 대처 틀 부재)과 약간 어긋남"}]},
+{"id":"M2509#38","version":5,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"lure_quote","note":"④ why_tempting 인용이 원문과 다름(artificial 누락) — 축자 인용 아님"},{"code":"choice_5","note":"정답 해설 인용에서 To be successful 뒤 쉼표 누락 — 축자 인용 불일치"},{"code":"source_broken","note":"⑤ 선지 문자열에 각주·쪽번호 잔재('* entity…7')가 섞여 있음"}]},
+{"id":"M2509#39","version":4,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"source_broken","note":"⑤ 선지 문자열에 [3점]·각주(adverse, magnitude) 잔재 포함"}]},
+{"id":"M2509#40","version":4,"type":"R-SUMMARY","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_3","note":"③ 배제가 (A) distorts 만 다루고 (B) fixed 가 왜 안 되는지(유한≈고정 혼동) 설명 없음. trap '반대 진술'도 부정확"},{"code":"choice_4","note":"④ trap '반대 진술'은 novel 의 변경 성분(새 소리 vs 조합)과 맞지 않음"}]},
+{"id":"M2509#43","version":5,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2606#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"지문은 5문장인데 '빈칸에서 다섯 문장 뒤'·confirmed_at [1,6] 등 문장 번호가 틀림"}]},
+{"id":"M2606#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_3","note":"③ why_tempting 이 지문에 없는 낱말(short story·story 반복)을 근거로 듦"},{"code":"choice_5","note":"⑤ 배제가 '성격은 6문장이 우회한 문제'라 하나, 지문의 난제는 외모 묘사 — 사실 오류"},{"code":"choice_4","note":"④ '정답과 한 낱말만 다른 선지'는 사실과 다름(have been given precise details about)"},{"code":"choice_1","note":"'근거는 빈칸보다 네 문장 앞' 위치 계산 부정확(4문장 vs 7문장)"}]}
+]}

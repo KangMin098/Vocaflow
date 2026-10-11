@@ -1,0 +1,480 @@
+{
+ "chunk": "cmp-20261011-07",
+ "pairs": [
+  {
+   "pair_id": "M2506#21:3|M2706#21:1",
+   "type": "R-IMPLY",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2506#21",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "2문장의 as if that status were black and white 가 그대로 있어 all-or-nothing 이 지문 표현처럼 보인다.",
+    "how_to_reject": "3문장이 A black-and-white view cannot account for the variety of burnout experience 로 그 기준을 정면 부정하고, 1문장이 not as a state but as a spectrum 을 선언한다. 선지는 부정된 쪽을 긍정으로 되돌렸다."
+   },
+   "b": {
+    "id": "M2706#21",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "선지 문구가 7문장 Animal thought and reason ought to be seriously studied 를 거의 그대로 옮긴 것이라 지문에 있는 말로 보인다.",
+    "how_to_reject": "7문장은 he argued 로 끝나는 Griffin 의 주장이고 9문장은 그 주장을 밀기 위한 수사의문문이다. 자기 주장을 give up 의 목적어로 놓을 수 없다."
+   }
+  },
+  {
+   "pair_id": "M2506#21:3|M2609#21:2",
+   "type": "R-IMPLY",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2506#21",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "2문장의 as if that status were black and white 가 그대로 있어 all-or-nothing 이 지문 표현처럼 보인다.",
+    "how_to_reject": "3문장이 A black-and-white view cannot account for the variety of burnout experience 로 그 기준을 정면 부정하고, 1문장이 not as a state but as a spectrum 을 선언한다. 선지는 부정된 쪽을 긍정으로 되돌렸다."
+   },
+   "b": {
+    "id": "M2609#21",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "'집에 돌아온다' 를 문자 그대로 원래 자리 복귀로 읽으면 original note 와 identical frequency 가 자연스럽다.",
+    "how_to_reject": "밑줄 문장 끝의 each time we double a tone's frequency 가 주파수가 두 배가 되었음을 명시한다. identical frequency 는 이 조건과 정면으로 어긋난다."
+   }
+  },
+  {
+   "pair_id": "M2506#22:1|M2706#22:2",
+   "type": "R-GIST",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2506#22",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "첫 문장이 In both the ancient hunter-gatherer band and our intimate speech communities today 로 두 시대를 나란히 놓아, 둘의 유사성이 글의 뼈대처럼 보인다.",
+    "how_to_reject": "그 병렬은 the diffusion of speech shaped values 라는 주절을 위한 배경 한정구다. 게다가 여섯 번째 문장 This was probably more true among hunter-gatherers than it is in the modern family 가 둘이 같지 않다고 명시한다."
+   },
+   "b": {
+    "id": "M2706#22",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "두 번째 문장 인용 안에 tapping psychologists, anthropologists and other experts in human behavior, and even monitoring the brain waves 가 실제로 있어 '다양한 학문적 접근'이 지문에 있는 말처럼 보인다.",
+    "how_to_reject": "그 나열은 designers are focusing on faces 라는 주절에 딸린 분사구이고, 2006년 기사 인용문 안에만 있다. 뒤의 세 문장(4·6·7)은 학자를 한 번도 다시 부르지 않고 얼굴 모양과 판매만 말한다 — 마지막 문장의 주어는 Buoyant sales 이지 연구가 아니다."
+   }
+  },
+  {
+   "pair_id": "M2506#22:1|M2609#22:2",
+   "type": "R-GIST",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2506#22",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "첫 문장이 In both the ancient hunter-gatherer band and our intimate speech communities today 로 두 시대를 나란히 놓아, 둘의 유사성이 글의 뼈대처럼 보인다.",
+    "how_to_reject": "그 병렬은 the diffusion of speech shaped values 라는 주절을 위한 배경 한정구다. 게다가 여섯 번째 문장 This was probably more true among hunter-gatherers than it is in the modern family 가 둘이 같지 않다고 명시한다."
+   },
+   "b": {
+    "id": "M2609#22",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "세 번째 문장에 built on mutuality and sharing of identity, understanding, norms and values 가 그대로 있어 '규범과 가치의 공유'가 지문 표현으로 보인다.",
+    "how_to_reject": "그 구절은 Social capital describes the networks of relationships we have that are ... 라는 정의문의 수식절이다. 정의의 재료를 옮겨 온 것일 뿐 소셜 미디어가 한 번도 등장하지 않아, 첫 문장과 마지막 문장이 붙들고 있는 소재와 어긋난다."
+   }
+  },
+  {
+   "pair_id": "M2506#23:1|M2706#23:1",
+   "type": "R-TOPIC",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2506#23",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "3번째 문장의 the decline of the referentials 에서 decline 을 그대로 가져왔고 natural foods 도 지문 소재라 요약처럼 보인다",
+    "how_to_reject": "3번째 문장에서 쇠퇴하는 것은 referentials, 곧 낱말과 의미의 연결이다. 광고가 믿을 만한가를 판정하는 문장은 없고, 마지막 문장의 pretense 도 광고의 신뢰도가 아니라 욕구 충족 방식을 가리킨다"
+   },
+   "b": {
+    "id": "M2706#23",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "1번째 문장의 telescoping of time 과 4번째 문장의 little time for learning 에 time 이 반복돼 time perceptions 가 지문 낱말의 요약처럼 보이고, survival 도 생존 행동 서술과 겹친다.",
+    "how_to_reject": "지문의 time 은 동물이 시간을 어떻게 지각하느냐가 아니라 반사 속도(2번째 문장)와 수명의 길이(4·7번째 문장)라는 실제 시간이다. 지각 차이가 생존 확률을 바꾼다는 진술은 어느 문장에도 없다."
+   }
+  },
+  {
+   "pair_id": "M2506#23:1|M2609#23:3",
+   "type": "R-TOPIC",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2506#23",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "3번째 문장의 the decline of the referentials 에서 decline 을 그대로 가져왔고 natural foods 도 지문 소재라 요약처럼 보인다",
+    "how_to_reject": "3번째 문장에서 쇠퇴하는 것은 referentials, 곧 낱말과 의미의 연결이다. 광고가 믿을 만한가를 판정하는 문장은 없고, 마지막 문장의 pretense 도 광고의 신뢰도가 아니라 욕구 충족 방식을 가리킨다"
+   },
+   "b": {
+    "id": "M2609#23",
+    "n": 3,
+    "trap": "어휘 함정",
+    "why_tempting": "6번째 문장의 the usefulness of such evidence for their stories 를 자료 종류가 서사의 질을 좌우한다는 말로 옮겨 읽으면 그럴듯하다",
+    "how_to_reject": "그 문장은 유용성이 lies in the ways in which they employ that evidence 라고 이어져, 자료의 종류가 아니라 화자가 그것을 쓰는 방식에 달렸다고 말한다. 서사의 좋고 나쁨을 평가하는 문장은 지문에 없다"
+   }
+  },
+  {
+   "pair_id": "M2506#24:4|M2706#24:1",
+   "type": "R-TITLE",
+   "trap": "무관",
+   "a": {
+    "id": "M2506#24",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "그림자를 그리는 일이 기술적으로 어렵다는 상식이 challenges 와 맞물려 그럴듯하게 들린다.",
+    "how_to_reject": "화가가 겪는 어려움을 말한 문장이 없다. 기술적 조건을 열거한 문장 a practice that implied a consistent light source, a fixed point of view, and an understanding of geometric projection 은 그리스·로마가 이룬 성취의 설명이다."
+   },
+   "b": {
+    "id": "M2706#24",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "'Bright and Dark Sides'라는 양면 구도가 균형 잡힌 제목처럼 보이고, 첫 문장의 fragmented(파편화된)를 Collapsing(무너지는)으로 옮겨 읽으면 관광 자원이 붕괴하는 이야기로 연결된다.",
+    "how_to_reject": "지문에 부정적 결과를 말하는 문장이 하나도 없다. 마지막 두 문장(항공사가 보험과 숙박 예약을 제공)까지 전부 서비스 확대 사례이므로 'Dark Side'에 대응할 문장을 지문에서 지목할 수 없다."
+   }
+  },
+  {
+   "pair_id": "M2506#24:3|M2609#24:4",
+   "type": "R-TITLE",
+   "trap": "범위 과대",
+   "a": {
+    "id": "M2506#24",
+    "n": 3,
+    "trap": "범위 과대",
+    "why_tempting": "마지막 문장의 an ongoing debate 가 지금도 이어지는 논쟁이라, 그림자 표현이 현대 미술의 핵심이라는 큰 주장으로 부풀리기 쉽다.",
+    "how_to_reject": "지문이 말하는 것은 논의가 이어져 왔다는 것뿐이고, contemporary art 라는 낱말도 그것이 핵심 요소라는 평가도 없다. what we might now call 'shadow studies' ... has its roots in ancient Athens 가 무게중심을 고대에 둔다."
+   },
+   "b": {
+    "id": "M2609#24",
+    "n": 4,
+    "trap": "범위 과대",
+    "why_tempting": "첫 문장 Monasteries were the engine rooms of the Middle Ages 와 sacrifices made by monks 를 이으면 문명 전체가 그들에게 달렸다는 큰 주장이 만들어진다.",
+    "how_to_reject": "두 번째 문장은 수도원이 한 일(지적 지도력·의료·교육·농업)을 열거할 뿐이고, '희생하는 지도자가 없으면 문명이 꽃피지 못한다'는 조건 서술이 지문에 없다. 필요조건을 말한 문장을 지목할 수 없다."
+   }
+  },
+  {
+   "pair_id": "M2506#28:2|M2706#28:1",
+   "type": "R-NOTICE",
+   "trap": "범위 과대",
+   "a": {
+    "id": "M2506#28",
+    "n": 2,
+    "trap": "범위 과대",
+    "why_tempting": "'Participants:' 항목이 있어 참가 대상을 다룬 선지로 보이지만, 'students'만 보고 뒤의 한정어를 놓치면 「모든 전공」이 맞는 것처럼 읽힌다.",
+    "how_to_reject": "[3] 'First-year students majoring in geography'가 지리학 전공 1학년으로 한정하므로 '모든 전공'은 대상을 넓힌 진술이다."
+   },
+   "b": {
+    "id": "M2706#28",
+    "n": 1,
+    "trap": "범위 과대",
+    "why_tempting": "Date: Friday, July 3, 2026 의 3 이 날짜인데 기간으로 읽히면 '3일 동안' 이 맞아 보인다.",
+    "how_to_reject": "Date 줄에 요일이 Friday 하나만 붙어 있고, Time 줄이 6 p.m. to 11 p.m. 로 하루치 시각만 준다 — 며칠간이라는 기간 표기가 없다."
+   }
+  },
+  {
+   "pair_id": "M2506#28:3|M2609#28:2",
+   "type": "R-NOTICE",
+   "trap": "주체 역전",
+   "a": {
+    "id": "M2506#28",
+    "n": 3,
+    "trap": "주체 역전",
+    "why_tempting": "선지의 'Lionsford Beach'와 '해안의 특징을 조사'가 안내문의 'Examining coastal features … along Lionsford Beach'와 낱말이 그대로 겹쳐 맞는 진술처럼 보인다.",
+    "how_to_reject": "[3] Course Options에서 A는 'Exploring the landscape while hiking Mount Belena'이고 해안 조사는 B 칸이다 — 코스 활동은 맞되 A·B 짝이 바뀌었다."
+   },
+   "b": {
+    "id": "M2609#28",
+    "n": 2,
+    "trap": "주체 역전",
+    "why_tempting": "Prizes 표에 Number of Winners 값 2 가 실재한다. 행 이름표를 놓치면 그 2 가 2nd prize 의 것으로 읽히고, 선지의 「2 등」과 숫자 2 가 겹쳐 더 그럴듯해진다.",
+    "how_to_reject": "Prizes 표에서 \"2nd prize ______ 1 ______ $700\" 을 읽는다. 인원 2 는 그 아래 행 \"3rd prize ______ 2 ______ $500\" 의 값이다."
+   }
+  },
+  {
+   "pair_id": "M2506#31:2|M2706#31:3",
+   "type": "R-BLANK",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2506#31",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "'A physical carrier is necessary' 가 지문에 그대로 있어 저장이 실제로 논의된다고 느낀다",
+    "how_to_reject": "바로 그 문장이 배제 근거다 — 물리적 운반체가 필요하다는 것은 매체가 저장의 **일부라는 뜻**이므로, 'the medium is not part of the storage' 는 같은 문장과 정면으로 어긋난다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 3,
+    "trap": "부분 사실",
+    "why_tempting": "마지막 문장의 '최소한으로 개입한다'가 격리를 연상시킨다",
+    "how_to_reject": "그 서술은 preservationists 의 것이다. 빈칸 문장의 주어는 Conservationists — 지문이 두 진영을 명시적으로 갈라 놓은 자리다"
+   }
+  },
+  {
+   "pair_id": "M2506#31:4|M2706#32:4",
+   "type": "R-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "M2506#31",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "첫 문장의 'the first question that must be addressed' 가 '해결할 과제'를 떠올리게 해, 디지털 보존의 난제를 말하는 글로 읽으면 challenge 가 자연스러워 보인다",
+    "how_to_reject": "지문은 보존의 난이도를 논하지 않는다. 넷째 문장부터 마지막까지가 전부 '매체가 바뀌어도 내용은 같다'는 한 줄기이고, 과제를 구성 요소로 나누는 서술이 어느 문장에도 없다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
+    "how_to_reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다"
+   }
+  },
+  {
+   "pair_id": "M2506#32:3|M2706#31:4",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M2506#32",
+    "n": 3,
+    "trap": "지문 밖 상식",
+    "why_tempting": "'to successfully solve problems or innovate' 에 innovate 가 있어, 창의성이 혁신의 지름길이라는 익숙한 통념과 겹쳐 보인다",
+    "how_to_reject": "같은 문장이 혁신에 'one or a few good ideas that really work' 를 요구한다 — 지름길이 아니라 **추가 관문**을 세우는 서술이다. 지름길이라는 평가는 지문에 없다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "복원 예시에 'an ecosystem'이 있어 자연 보전을 떠올리게 한다. 이 문항에서 가장 강한 함정",
+    "how_to_reject": "같은 예시 목록에 historical musical instrument · painting · dinosaur 가 함께 있다. 악기와 그림을 '자연 상태'로 되돌린다는 말은 성립하지 않는다"
+   }
+  },
+  {
+   "pair_id": "M2506#32:2|M2706#32:3",
+   "type": "R-BLANK",
+   "trap": "인과 역전",
+   "a": {
+    "id": "M2506#32",
+    "n": 2,
+    "trap": "인과 역전",
+    "why_tempting": "정의 문장의 'useful (appropriate, feasible)' 이 practical 로 바로 옮겨 붙어, '실용적 아이디어에서 창의가 나오는 것은 아니다'가 지문을 요약한 말처럼 들린다",
+    "how_to_reject": "정의 문장은 아이디어의 **평가 기준** 두 축을 말할 뿐 발생 순서를 말하지 않는다. originate(기원) 이야기는 지문 어느 문장에도 없고, 빈칸을 받는 Thus 앞 문장들은 전부 생성 **이후**를 다룬다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 3,
+    "trap": "인과 역전",
+    "why_tempting": "지문 중반에 'it is easy to misinterpret nonverbal behavior'가 명시돼 있어 '해석이 어렵다'가 지문의 말처럼 느껴진다. 이 문항의 최강 함정",
+    "how_to_reject": "그 문장은 빈칸에서 다섯 문장 위에 있고, 사이에 Freud 인용이 끼어 논지가 **화자 쪽**으로 넘어갔다. 'No wonder'는 바로 앞 인용을 받는다 — 접속 표지가 근거의 위치를 지정한다"
+   }
+  },
+  {
+   "pair_id": "M2506#33:2|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2506#33",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "[1]의 'the environment plays a significant role in aiding meaningful internal processes' 에서 환경이 내적 과정을 '돕는다(aiding)' 고 했으므로, 제도가 개인의 판단을 지지하는 옹호자라는 말이 그 연장처럼 들린다",
+    "how_to_reject": "[5]는 'even if we are trained as hard-nosed health care rationalists … our decisions are influenced by various institutional practices' 라 하여, 냉철하게 훈련받아도 결정이 제도에 좌우된다고 말한다. 독립적 결정을 옹호한다는 진술과 방향이 반대다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   }
+  },
+  {
+   "pair_id": "M2506#33:2|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2506#33",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "[1]의 'the environment plays a significant role in aiding meaningful internal processes' 에서 환경이 내적 과정을 '돕는다(aiding)' 고 했으므로, 제도가 개인의 판단을 지지하는 옹호자라는 말이 그 연장처럼 들린다",
+    "how_to_reject": "[5]는 'even if we are trained as hard-nosed health care rationalists … our decisions are influenced by various institutional practices' 라 하여, 냉철하게 훈련받아도 결정이 제도에 좌우된다고 말한다. 독립적 결정을 옹호한다는 진술과 방향이 반대다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   }
+  },
+  {
+   "pair_id": "M2506#34:1|M2706#31:4",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M2506#34",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "differences 가 앞 문단에 여러 번 나오고, '차이를 좁히려는 노력이 나타날 것'은 학술 산문의 결말로 익숙하다",
+    "how_to_reject": "①의 will emerge 는 미래 예측이고, 예측 대상인 '차이를 좁히려는 우리의 노력(our devotion to narrowing these differences)' 은 지문에 없는 주장이다. [3]의 devoted 는 음악 교육이 듣기 과정을 발전시키는 데 바쳐진다는 말이지 차이를 좁히는 노력이 아니고, 필자의 실제 결론은 [4]의 'relatively consistent across listeners' 라는 공통성 진술이다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "복원 예시에 'an ecosystem'이 있어 자연 보전을 떠올리게 한다. 이 문항에서 가장 강한 함정",
+    "how_to_reject": "같은 예시 목록에 historical musical instrument · painting · dinosaur 가 함께 있다. 악기와 그림을 '자연 상태'로 되돌린다는 말은 성립하지 않는다"
+   }
+  },
+  {
+   "pair_id": "M2506#34:1|M2706#32:1",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M2506#34",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "differences 가 앞 문단에 여러 번 나오고, '차이를 좁히려는 노력이 나타날 것'은 학술 산문의 결말로 익숙하다",
+    "how_to_reject": "①의 will emerge 는 미래 예측이고, 예측 대상인 '차이를 좁히려는 우리의 노력(our devotion to narrowing these differences)' 은 지문에 없는 주장이다. [3]의 devoted 는 음악 교육이 듣기 과정을 발전시키는 데 바쳐진다는 말이지 차이를 좁히는 노력이 아니고, 필자의 실제 결론은 [4]의 'relatively consistent across listeners' 라는 공통성 진술이다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 1,
+    "trap": "지문 밖 상식",
+    "why_tempting": "회의에서 듣는 척하기가 흔한 경험이라 자연스럽게 읽힌다",
+    "how_to_reject": "인용문 어디에도 ‘주의를 기울이는 척’에 해당하는 말이 없다. 인용문은 ‘betrayal oozes out of him at every pore’ 처럼 새어 나감만 말하고, 듣는 척하는 태도는 지문의 축이 아니다"
+   }
+  },
+  {
+   "pair_id": "M2506#35:3|M2706#35:2",
+   "type": "R-IRRELEVANT",
+   "trap": "연결사 방향 충돌",
+   "a": {
+    "id": "M2506#35",
+    "n": 3,
+    "trap": "연결사 방향 충돌",
+    "why_tempting": "However 로 시작해 앞의 실패 서술을 뒤집는데, 앞뒤가 모두 같은 새의 같은 과정이라 역접이 과하게 느껴져 삽입처럼 보인다.",
+    "how_to_reject": "However 는 초기 실패(①②)와 몇 주·몇 달에 걸친 개선을 대비시키는 것이고, '동일 개체의 시간 경과' 를 sound graphs of songs recorded over several weeks or months 가 명시한다."
+   },
+   "b": {
+    "id": "M2706#35",
+    "n": 2,
+    "trap": "연결사 방향 충돌",
+    "why_tempting": "②가 아기에서 adults 로 대상을 갑자기 바꾸고 괄호 속 낙하 높이·반응 속도까지 덧붙여, 아기 설명 흐름을 끊는 문장처럼 보인다.",
+    "how_to_reject": "문장 1의 The bigger someone is 가 비교 축을 이미 세웠고, ②의 increased mass·much larger force 가 문장 3(①)의 thick bones in comparison to their mass·rarely build up enough energy 와 정반대 짝을 이룬다. 대상 전환은 대비를 완성하는 장치다."
+   }
+  },
+  {
+   "pair_id": "M2506#35:2|M2609#35:2",
+   "type": "R-IRRELEVANT",
+   "trap": "열거·병렬 절단",
+   "a": {
+    "id": "M2506#35",
+    "n": 2,
+    "trap": "열거·병렬 절단",
+    "why_tempting": "uneven pitch·irregular tempo·notes out of order 로 결함만 나열되어, 주장 없이 묘사만 하는 곁가지처럼 보인다.",
+    "how_to_reject": "②의 These early songs 가 ①의 initial efforts 를 받아 '성공적이지 않다' 를 구체화한다. 나열은 ①의 술어를 푸는 각론이다."
+   },
+   "b": {
+    "id": "M2609#35",
+    "n": 2,
+    "trap": "열거·병렬 절단",
+    "why_tempting": "②만 보면 소수자 이야기에 국한되어, 문장 1의 All workers 에서 범위가 좁아진 이탈처럼 보인다.",
+    "how_to_reject": "②는 문장 3(①)의 alike 가 예고한 두 짝 중 소수자 쪽이다. 문장 5(③)가 다수자 쪽을 채우므로 둘이 함께 문장 3을 뒷받침한다."
+   }
+  },
+  {
+   "pair_id": "M2409#36:1|M2506#36:3",
+   "type": "R-ORDER",
+   "trap": "지시어 선행사 절단",
+   "a": {
+    "id": "M2506#36",
+    "n": 3,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "(B)의 grasses 와 (C)의 The young shoots 를 이어 읽으면 풀이 먼저, 그다음 어린싹으로 식물 이야기가 자연스럽게 흘러 보인다.",
+    "how_to_reject": "(C) 첫 문장 their animals when they returned 의 their·they 가 가리킬 사람이 (B) 안에는 없다. (B)에 나오는 명사는 grasses · woody plants · shrubs · burning 뿐이다. 목축업자와 가축은 (A)의 they would set fire ... as they moved their animals out for the winter 에서 처음 나온다."
+   },
+   "b": {
+    "id": "M2409#36",
+    "n": 1,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "(A)의 Intuitively and quickly 가 주어진 글의 The intuitive ability 를 바로 받는 것처럼 보여 (A)를 첫 자리에 두고 싶어진다.",
+    "how_to_reject": "(A)-(C)-(B) 로 놓으면 (B) 첫 문장의 these tasks 가 (C)를 건너뛰어 (A)의 두 절차를 가리켜야 한다. (C)는 negative connotations · in principle 처럼 평가와 원칙만 말해 「뇌가 수행하는 과제」가 하나도 없으므로 지시가 두 덩어리를 건넌다."
+   }
+  },
+  {
+   "pair_id": "M2209#37:4|M2506#36:2",
+   "type": "R-ORDER",
+   "trap": "첫 등장 위반",
+   "a": {
+    "id": "M2506#36",
+    "n": 2,
+    "trap": "첫 등장 위반",
+    "why_tempting": "(B)의 Although grasses were the first kinds of plants to recolonize the burnt areas 가 주어진 글의 불을 놓는다와 곧바로 이어지는 것처럼 읽힌다 — 불 → 탄 자리 → 풀 이라는 상식 순서를 지문 순서로 착각한다.",
+    "how_to_reject": "6번 문장 (B)의 the burnt areas 는 정관사다. 어느 소각으로 탄 자리인지 앞에서 지정돼 있어야 하는데, 2번 문장은 소각을 millennia 단위 관행으로만 말하고 특정 소각 장면을 서술하지 않는다. 또 7번 문장의 further burning ― essentially using fire to control the consequences of using fire 는 9번 문장의 「통제하려던 덤불을 키웠다」 는 결과가 나온 뒤에야 그 대응책으로 읽힌다."
+   },
+   "b": {
+    "id": "M2209#37",
+    "n": 4,
+    "trap": "첫 등장 위반",
+    "why_tempting": "6번 문장의 in addition to playing music, a social personal assistant robot 이 부정관사로 새 대상을 세우는 듯해 도입부처럼 읽힌다.",
+    "how_to_reject": "(C)는 For instance 로 시작하므로 앞에 일반 진술이 반드시 있어야 한다. 또 로봇의 이름을 세우는 정의는 (B)에 있으므로 (C)가 첫 자리에 오면 정의가 예시보다 뒤에 놓인다."
+   }
+  },
+  {
+   "pair_id": "M2506#38:2|M2706#38:2",
+   "type": "R-INSERT",
+   "trap": "지시어 선행사 절단",
+   "a": {
+    "id": "M2506#38",
+    "n": 2,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "② 뒤 문장에 'less costly per unit of abatement'라는 비용 표현이 있어, 비용을 말하는 주어진 문장과 같은 화제로 보인다.",
+    "how_to_reject": "② 뒤 문장은 'The polluter thus has an incentive…'로 시작한다. 이 thus 가 가리키는 근거는 바로 앞 문장의 '배출이 늘면 그만큼 세금이 는다'이다. 사이에 다른 문장을 넣으면 thus 의 근거가 주어진 문장(측정 비용)으로 바뀌어, 측정이 비싸므로 배출을 줄일 유인이 생긴다는 성립하지 않는 인과가 된다. 또한 'costly'는 ②에서는 '감축 단가'이고 주어진 문장에서는 '측정 비용'이라 지시 대상이 다르다."
+   },
+   "b": {
+    "id": "M2706#38",
+    "n": 2,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "② 앞에서 vortices가 처음 나와 '회오리 이야기가 끝났다'고 느껴진다.",
+    "how_to_reject": "② 뒤 [6]이 The vortices 로 시작한다. 이 정관사구는 [5]의 gives rise to vortices 를 받으므로 [5]와 [6] 사이는 비울 수 없다. 또 [6]의 위험 서술(dangerously self-sustaining)이 나오기 전에는 줄일 이유가 아직 서지 않는다."
+   }
+  },
+  {
+   "pair_id": "M2506#38:2|M2706#39:1",
+   "type": "R-INSERT",
+   "trap": "지시어 선행사 절단",
+   "a": {
+    "id": "M2506#38",
+    "n": 2,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "② 뒤 문장에 'less costly per unit of abatement'라는 비용 표현이 있어, 비용을 말하는 주어진 문장과 같은 화제로 보인다.",
+    "how_to_reject": "② 뒤 문장은 'The polluter thus has an incentive…'로 시작한다. 이 thus 가 가리키는 근거는 바로 앞 문장의 '배출이 늘면 그만큼 세금이 는다'이다. 사이에 다른 문장을 넣으면 thus 의 근거가 주어진 문장(측정 비용)으로 바뀌어, 측정이 비싸므로 배출을 줄일 유인이 생긴다는 성립하지 않는 인과가 된다. 또한 'costly'는 ②에서는 '감축 단가'이고 주어진 문장에서는 '측정 비용'이라 지시 대상이 다르다."
+   },
+   "b": {
+    "id": "M2706#39",
+    "n": 1,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "① 앞 it exceeded all others가 빨강의 우위를 말해, 빨강 이야기가 이어지는 주어진 문장을 붙이고 싶어진다.",
+    "how_to_reject": "① 뒤 Not that they did not exist의 they는 앞 문장 all others(빨강 이외의 색)를 받는다. 사이에 they가 다른 것(사람들)을 가리키는 문장을 끼우면 대명사가 두 대상을 오간다."
+   }
+  },
+  {
+   "pair_id": "M2506#39:1|M2706#38:2",
+   "type": "R-INSERT",
+   "trap": "지시어 선행사 절단",
+   "a": {
+    "id": "M2506#39",
+    "n": 1,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "① 앞 문장이 subject matter 와 style 의 trade-off 를 예고해 '무언가 깊은 이야기가 시작된다'는 인상을 준다.",
+    "how_to_reject": "① 앞 문장 'There are interesting trade-offs in the relative importance of subject matter (i.e., figure) and style (i.e., background).'에는 감상자의 행위가 전혀 없다. 'This active involvement'가 되받을 명사구가 앞에 없고, ① 뒤 문장은 그 trade-off 의 첫 항목(In highly representational…)이므로 예고-전개 관계가 끊긴다."
+   },
+   "b": {
+    "id": "M2706#38",
+    "n": 2,
+    "trap": "지시어 선행사 절단",
+    "why_tempting": "② 앞에서 vortices가 처음 나와 '회오리 이야기가 끝났다'고 느껴진다.",
+    "how_to_reject": "② 뒤 [6]이 The vortices 로 시작한다. 이 정관사구는 [5]의 gives rise to vortices 를 받으므로 [5]와 [6] 사이는 비울 수 없다. 또 [6]의 위험 서술(dangerously self-sustaining)이 나오기 전에는 줄일 이유가 아직 서지 않는다."
+   }
+  }
+ ]
+}

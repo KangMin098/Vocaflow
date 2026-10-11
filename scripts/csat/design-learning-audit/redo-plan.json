@@ -1,0 +1,4139 @@
+{
+ "total": 329,
+ "chart": [
+  "2014A#32",
+  "2014B#29",
+  "2015#25",
+  "2016#24",
+  "2017#24",
+  "2018#24",
+  "2019#25",
+  "2020#25",
+  "2021#25",
+  "2022#25",
+  "2023#25",
+  "2024#25",
+  "2025#25",
+  "2026#25",
+  "M1809#24",
+  "M2006#25",
+  "M2106#25",
+  "M2109#25",
+  "M2206#25",
+  "M2209#25",
+  "M2306#25",
+  "M2309#25",
+  "M2406#25",
+  "M2409#25",
+  "M2506#25",
+  "M2509#25",
+  "M2606#25",
+  "M2609#25",
+  "M2706#25"
+ ],
+ "rest": [
+  {
+   "id": "2014A#27",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 어구가 아니라 다음 밑줄까지의 지문 조각으로 저장됨"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "④ why_correct 가 '자리를 지배하는 것은 앞 절과의 병렬'로 시작 — 실제 근거는 stop+to부정사/동명사 의미 구분"
+    },
+    {
+     "code": "work_jargon",
+     "note": "design_intent 에 '이 청크에서' 작업 용어"
+    }
+   ]
+  },
+  {
+   "id": "2014A#29",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "Hours 각주가 'month.'만 남은 잘린 본문 — 휴관 주기 원문 확인 필요"
+    },
+    {
+     "code": "choice_3",
+     "note": "잘린 각주에 기대 '매주'와 다르다고 판정, 근거가 불완전함을 스스로 인정"
+    }
+   ]
+  },
+  {
+   "id": "2014A#35",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "정답 설명이 한 줄로 얇음 — will 뒤 빈칸이 요청안의 작용이라는 연결 미흡"
+    },
+    {
+     "code": "lure_quote",
+     "note": "④⑤ lure_quote가 같은 잘린 구절이고 ⑤ trap '인과 역전' 분류가 부정확"
+    }
+   ]
+  },
+  {
+   "id": "2014A#36",
+   "type": "R-BLANK2",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "trap '무관' 라벨이 실제 설계(한 칸만 맞는 쌍)와 어긋남"
+    },
+    {
+     "code": "choice_5",
+     "note": "trap '반대 진술' 오표기 — 실제는 (B) 표지 기능 혼동(양보 vs 대조), (A)는 ④ 참조로만 처리"
+    }
+   ]
+  },
+  {
+   "id": "2014A#37",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "design_intent '이름 정밀도만 견주면 순서가 나온다'는 무조건 규칙 — (A)·(C) 선후는 it→종이 연결이 정함"
+    },
+    {
+     "code": "logic_requirement_missing",
+     "note": "정답 why_correct가 줄거리 요약뿐, 이음매별 선행 조건(it의 선행사 등)을 쓰지 않음"
+    }
+   ]
+  },
+  {
+   "id": "2014A#40",
+   "type": "R-MOOD",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "① 근거 인용 'I do not feel like'는 원문 'I don’t'와 축자 불일치"
+    },
+    {
+     "code": "choice_5",
+     "note": "선지에 없는 '끝의 8' 인쇄기호 언급 — 근거 없는 서술"
+    }
+   ]
+  },
+  {
+   "id": "2014A#41",
+   "type": "X-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "지문 'our can affect' 에서 our 뒤 낱말(빈칸/밑줄 원어) 누락 — 원문 대조 필요"
+    }
+   ]
+  },
+  {
+   "id": "2014A#42",
+   "type": "X-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "strengths 오답에 trap '반대 진술'·lure_quote(구장 조건)가 바뀐 성분(실력)과 맞지 않음"
+    }
+   ]
+  },
+  {
+   "id": "2014B#24",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "정답 why_correct가 근거 대신 '왜 어려워 보이나'만 적음 — 정답 논증 누락"
+    }
+   ]
+  },
+  {
+   "id": "2014B#25",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "정답 why_correct가 '주장이 없어 보인다'는 함정 서술뿐 — 정답 논증 누락"
+    }
+   ]
+  },
+  {
+   "id": "2014B#26",
+   "type": "R-REFER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 선지가 아니라 밑줄 사이 지문 조각으로 저장됨(⑤ 끝에 쪽번호 '8')"
+    },
+    {
+     "code": "other",
+     "note": "문장 번호 불일치 — 같은 마지막 문장을 why_correct·선지5는 11번, confirmed_at은 9번으로 지칭"
+    }
+   ]
+  },
+  {
+   "id": "2014B#27",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 지문 조각으로 저장되고 ⑤에 각주까지 섞임"
+    },
+    {
+     "code": "choice_3",
+     "note": "why_tempting 의 'mobilizes 목적어 자리에 동명사' 설명이 실제 오인 경로로 약함 — 자동사 mobilize+목적 부정사 구조 성립 이유가 중심이어야"
+    }
+   ]
+  },
+  {
+   "id": "2014B#28",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 낱말이 아니라 다음 밑줄까지의 지문 조각으로 저장됨"
+    }
+   ]
+  },
+  {
+   "id": "2014B#30",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "본문에 없는 '인쇄 잔여(4 ___)' 언급, '이론이 그를 얻었다' 유인은 억지"
+    }
+   ]
+  },
+  {
+   "id": "2014B#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "정답 설명이 한 줄로 얇음 — 빈칸 주어(요청안)와 첫 문장 연결 미흡"
+    },
+    {
+     "code": "choice_5",
+     "note": "trap '인과 역전' 라벨이 내용(무관한 결과 귀속)과 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "2014B#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "logic_requirement_missing",
+     "note": "정답 why_correct가 한 줄 환언뿐 — 병렬(and did not have)·them 지시 조건은 reasoning에만 있음"
+    },
+    {
+     "code": "choice_1",
+     "note": "trap '반대 진술'이나 how_to_reject는 지문 부호 반전 설명이라 적합, 다만 빈칸 문장 구조 조건 미언급"
+    }
+   ]
+  },
+  {
+   "id": "2014B#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "logic_requirement_missing",
+     "note": "정답 why_correct 한 줄 — so…that 결과절 요구와 뒤 문장 평가 조건을 정답 설명에 안 씀"
+    },
+    {
+     "code": "choice_5",
+     "note": "trap '인과 역전' 오표기 — 실제는 정확/부정확 값 뒤바꿈; design_intent의 ⑤ 성분 설명도 부정확"
+    }
+   ]
+  },
+  {
+   "id": "2014B#37",
+   "type": "R-BLANK2",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "measured_ability '일반 진술 뒤 지명·수치가 나오면 사례' 가 조건 없는 규칙으로 서술됨 — 앞 일반 진술(access)의 구체화라는 조건 명시 필요"
+    }
+   ]
+  },
+  {
+   "id": "2014B#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct가 'that behavior…' 문장을 여섯째로, 다음을 일곱째로 표기 — 실제 5·6문장. ③ 해설(다섯째)·locus(6)와 번호 불일치"
+    },
+    {
+     "code": "other",
+     "note": "① why_tempting '절반의 확률로 남는다' 는 찍기 확률 표현 — 근거 설명으로 교체 권장"
+    }
+   ]
+  },
+  {
+   "id": "2014B#41",
+   "type": "X-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "지문 'infrequent but meaningful .' 뒤 낱말 누락(원문 결손)"
+    }
+   ]
+  },
+  {
+   "id": "2014B#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "design_intent·② 해설이 '총론은 각론 뒤'를 무조건 규칙처럼 씀 — 결정 근거는 roofless 정관사 인접·Yet 역접"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "sentence_index [18,19] 가 reasoning이 인용한 20·21·28·6번 문장과 맞지 않음"
+    },
+    {
+     "code": "work_jargon",
+     "note": "design_intent '다른 세 문항과 달리' — 학습자 필드에 세트 내부 비교 표현, 맥락 없이 노출"
+    }
+   ]
+  },
+  {
+   "id": "2014B#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "③ 배제에 '세 번째 선지이므로 (C)부터 찾으면' — 선지 번호=단락 위치라는 무조건 요령"
+    },
+    {
+     "code": "choice_1",
+     "note": "① lure_quote가 아버지 회상 문장으로, 농촌 대가족 오독의 유인 근거와 연결 약함"
+    }
+   ]
+  },
+  {
+   "id": "2015#18",
+   "type": "R-GIST",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "선지3 how_to_reject 에 작업 용어 '이 청크에서' — 학습자 필드"
+    },
+    {
+     "code": "other",
+     "note": "transform_note 가 0기준 번호(3번·7번)로 다른 필드의 4·8번 문장과 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "2015#22",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "④ lure_quote가 정답 근거인 4문장(동기화 절)을 그대로 씀 — 오답 유인 근거로 부적절, 성격 형성 연상 어구로 교체 필요"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "⑤ why_correct의 'But 문장이 행동으로 나아가라고 예고' — 당위로 오독될 표현, '행동 동기까지 다룬다고 예고'로"
+    }
+   ]
+  },
+  {
+   "id": "2015#24",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "본문에 없는 '인쇄 잔여(8 3)'를 유인 근거로 서술 — 선지 데이터엔 없음"
+    },
+    {
+     "code": "source_broken",
+     "note": "발문이 '일치하지 않는'에서 잘림(…것은? 누락)"
+    }
+   ]
+  },
+  {
+   "id": "2015#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "불일치형: ①②③⑤는 내용이 참인 선지인데 trap(어휘 함정·범위 과대 등) 라벨로 함정처럼 분류 — choiceTruth 계약 위반"
+    },
+    {
+     "code": "choice_5",
+     "note": "⑤ '지문 밖 상식' 라벨 부적절 — 참 선지의 대응 항목(웹사이트·이메일 줄) 확인으로 서술해야 함"
+    }
+   ]
+  },
+  {
+   "id": "2015#28",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 배열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 조각으로 저장됨 — 선지 원문 재구성 필요"
+    },
+    {
+     "code": "choice_1",
+     "note": "① trap '관계절 동사 수·시제'는 실제 쟁점(관계절 정동사 자리·능동)과 어긋난 라벨"
+    }
+   ]
+  },
+  {
+   "id": "2015#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "선지 ⑤ 끝에 인쇄 잔여 숫자 '5'가 붙어 있고 2문장 원문도 의심(색 대비절) — 원문 대조 필요"
+    },
+    {
+     "code": "work_jargon",
+     "note": "⑤ confirmed_at 학습자 문구에 '인쇄 잔여 숫자' 언급 — 데이터 결함을 학습 함정으로 설명"
+    },
+    {
+     "code": "choice_4",
+     "note": "④ how_to_reject가 귀에 판단(discern) 능력을 준다고 함 — 지문에서 discern 주어는 색/눈 쪽, 근거 오귀속"
+    }
+   ]
+  },
+  {
+   "id": "2015#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "정답 why_correct가 한 줄 — that절이 거짓이라 '착각을 키운다'가 요구된다는 연결이 locus에만 있음"
+    }
+   ]
+  },
+  {
+   "id": "2015#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "정답 why_correct가 한 줄 — 양보(legitimate)-but 구조와 빈칸 뒤 재진술 연결 미흡"
+    },
+    {
+     "code": "choice_5",
+     "note": "trap '인과 역전' 라벨이 내용(필자가 반박한 전제를 결론화)과 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "2015#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "선지·지문에 없는 '파싱 잔여 Although ort' 언급 — 근거 없는 서술"
+    }
+   ]
+  },
+  {
+   "id": "2015#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 위치 뒤 문장 조각이고 ⑤에 각주·쪽번호(* nymph … 7)가 섞여 있다. 원문 정리 필요"
+    }
+   ]
+  },
+  {
+   "id": "2015#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "④ 배제에 '네 번째 선지이므로 세 번째 단락부터' — 선지 번호=위치 무조건 요령"
+    }
+   ]
+  },
+  {
+   "id": "2016#22",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "why_correct_empty",
+     "note": "정답 why_correct가 'biased가 없어 약해 보인다'는 함정 서술뿐 — 정답 논증 누락(locus엔 있음)"
+    }
+   ]
+  },
+  {
+   "id": "2016#25",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 내용이 참인 ①②③⑤에 '무관·지문 밖 상식·어휘 함정' trap 라벨을 붙여 함정처럼 설명 — 대응 문장으로 참임을 설명해야 함"
+    }
+   ]
+  },
+  {
+   "id": "2016#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "불일치형인데 design_intent 가 참 선지 넷을 '미끼'로, 각 선지에 trap 라벨 — 선지 내용은 참이라는 틀로 고쳐야 함"
+    },
+    {
+     "code": "choice_2",
+     "note": "② why_tempting(예시 3명이라 과장으로 보임)이 억지스러움"
+    }
+   ]
+  },
+  {
+   "id": "2016#28",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 밑줄 구간이 아니라 다음 밑줄까지의 본문 덩어리로 잘려 저장됨(⑤엔 각주 포함)"
+    },
+    {
+     "code": "choice_5",
+     "note": "⑤ why_tempting '주어 없이 쓰인 것처럼' — that 절엔 주어 events 가 있어 유인 설명이 부정확"
+    },
+    {
+     "code": "choice_1",
+     "note": "① '목적격 them 을 넣고 싶어진다'는 유인이 비현실적, 소유격 판단 설명만 유효"
+    }
+   ]
+  },
+  {
+   "id": "2016#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct 한 문장 — 양보절(필요에 맞아도 거부)과 innovation 연결을 설명하지 않음"
+    }
+   ]
+  },
+  {
+   "id": "2016#37",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "③ 배제에 '사례는 일반 진술 뒤에 와야 한다'를 무조건 규칙으로 제시 — 핵심 근거는 these dogs 선행 대상 부재"
+    },
+    {
+     "code": "source_broken",
+     "note": "choices 가 위치 번호가 아니라 ') 문장 (' 조각으로 저장됨 — 선지 원문 형식 깨짐"
+    }
+   ]
+  },
+  {
+   "id": "2016#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct 가 controllable 이 첫 문장과 '뒤집힌다'고 함 — 첫 문장은 통제 가능 요인으로 평가하라는 말이라 오히려 부합. 판별 칸은 (B)"
+    },
+    {
+     "code": "choice_3",
+     "note": "③ 배제를 (A) 의미로 하려다 논리가 꼬임 — (A)는 지문과 부분 부합, (B) put aside 가 결정적 배제임을 명시해야"
+    },
+    {
+     "code": "choice_1",
+     "note": "'only… 제쳐 두기만 하지 말라' 설명이 혼란 — 수치 비교가 필요하다는 근거만으로 충분"
+    }
+   ]
+  },
+  {
+   "id": "2016#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "'26번·33번·19번 문장' 등 학습자 화면에 없는 내부 문장 번호로 근거 지시, sentence_index[6,21]과도 불일치"
+    }
+   ]
+  },
+  {
+   "id": "2016#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "choiceTruth 유형인데 오답을 '반대 진술' 함정으로 분류; 선지 내용이 참이라는 대응 설명 중심으로 바꿔야 함. 문장33 인용 번호 불일치"
+    },
+    {
+     "code": "overgeneral",
+     "note": "③ '일반→구체가 이어지면 구체 문장을 근거로' 조건 없는 규칙"
+    },
+    {
+     "code": "other",
+     "note": "①~④ trap/why_tempting이 함정 프레임; 참 선지는 대응 문장 확인으로 서술해야 함"
+    }
+   ]
+  },
+  {
+   "id": "2017#21",
+   "type": "R-TOPIC",
+   "verdict": "rewrite",
+   "defects": [
+    {
+     "code": "why_correct_empty",
+     "note": "정답 why_correct가 '낯설게 느껴진다'는 매력도 서술 — 왜 정답인지 근거·지문 대응이 전혀 없음"
+    }
+   ]
+  },
+  {
+   "id": "2017#23",
+   "type": "R-TITLE",
+   "verdict": "rewrite",
+   "defects": [
+    {
+     "code": "why_correct_empty",
+     "note": "정답 why_correct가 '근거가 약해 보인다'는 함정 서술뿐 — 비유 제목이 지문 요지와 맞는 이유 없음"
+    }
+   ]
+  },
+  {
+   "id": "2017#25",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "참인 선지에 '범위 과대' 함정 라벨 — choiceTruth 유형인데 오답을 함정으로 규정, 내용 참 설명이 how_to_reject에만 있음"
+    },
+    {
+     "code": "choice_1",
+     "note": "why_tempting이 Prague 두 번 등장으로 오판한다는 억지 경로 — 실제 학습자 오류로 보기 어려움"
+    }
+   ]
+  },
+  {
+   "id": "2017#26",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "why_tempting 논리 오류: 수식이 photographs에만 걸려도 학생 출품 사진은 여전히 참 — 오판 경로가 성립 안 함"
+    }
+   ]
+  },
+  {
+   "id": "2017#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "③ 배제에 '같은 대명사가 두 문장에 걸치면 먼저 나온 쪽 앞이 자리' 라는 조건 없는 규칙"
+    },
+    {
+     "code": "source_broken",
+     "note": "⑤ 선지 텍스트에 각주·쪽번호(chronological : 연대순의 7) 잔재"
+    },
+    {
+     "code": "choice_3",
+     "note": "'(⑥·⑦)' 문장 번호 표기가 선지 번호와 혼동됨"
+    }
+   ]
+  },
+  {
+   "id": "2017#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "confirmed_at: '한 칸만 확정하면 ①·⑤가 살아남는다' 오류 — (A)만 확정 시 ①②③, (B)만 확정 시 ③만 남음"
+    },
+    {
+     "code": "other",
+     "note": "'dissimilar 를 미뤄 두는 학습자가 많다' 는 근거 없는 행동 주장"
+    }
+   ]
+  },
+  {
+   "id": "2017#42",
+   "type": "X-BLANK2",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "internal 배제 근거 'usually 는 정도·성질 요구' 가 성립하지 않음. 실제 배제는 (B)와 precise 대비뿐"
+    },
+    {
+     "code": "source_broken",
+     "note": "passage 끝에 선지 머리글 '(A) (B) (A) (B)' 잔재"
+    }
+   ]
+  },
+  {
+   "id": "2017#44",
+   "type": "X-REFER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "confirmed_at 노트가 (b) 직전 문장을 Erik 언급으로 서술 — 실제 직전 문장 주어는 Keith, 미끄러짐 경로 부정확"
+    },
+    {
+     "code": "choice_3",
+     "note": "why_tempting '단락 순서 오판'이 (c)를 왜 Keith로 읽는지 설명 못 함 — 별칭 명사구 함정이 핵심"
+    }
+   ]
+  },
+  {
+   "id": "2018#19",
+   "type": "R-MOOD",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "'as we entered' 를 8문장이라 했으나 실제는 7문장(thrilled 문장) — 문장 번호 오류"
+    },
+    {
+     "code": "choice_1",
+     "note": "trap '범위 과소' 라벨이 실제 유인(cool shade→편안함 오독)과 맞지 않음"
+    }
+   ]
+  },
+  {
+   "id": "2018#25",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "choiceTruth 유형: 내용이 참인 선지①②③⑤에 범위 과대·어휘 함정 등 trap 라벨을 붙여 함정처럼 설명"
+    },
+    {
+     "code": "overgeneral",
+     "note": "정답 confirmed_at 이 '선지 순서=지문 순서'로 근거 위치를 좁힘 — 조건 없는 위치 규칙"
+    }
+   ]
+  },
+  {
+   "id": "2018#26",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "choiceTruth 유형: 참인 선지①②④⑤에 주체 역전·범위 과소 등 trap 라벨, why_tempting 이 '틀려 보이는 이유'로 서술됨"
+    }
+   ]
+  },
+  {
+   "id": "2018#28",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "csat_items.choices 가 밑줄 어구가 아니라 지문 조각(밑줄 사이 구간)으로 잘려 저장됨 — 선지 표시 깨짐"
+    }
+   ]
+  },
+  {
+   "id": "2018#29",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "'11세기 난파선이 그 언어권 문헌과 이어진다'는 지문에 없는 추론을 근거로 제시"
+    }
+   ]
+  },
+  {
+   "id": "2018#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "'심리 여정 극화는 지문이 영화의 장점으로 든 것' — 지문은 원작과 공유한 주제로 말할 뿐, 배제 근거 왜곡"
+    },
+    {
+     "code": "choice_3",
+     "note": "충실한 전쟁 묘사도 동시대 배경이라 공감을 줄이지 않는다는 핵심 배제 논리 누락"
+    }
+   ]
+  },
+  {
+   "id": "2018#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "why_tempting 이 지문에 없는 '파싱 잔여 This use ___ relates'를 유인 근거로 언급 — 학습자 노출 부적합"
+    }
+   ]
+  },
+  {
+   "id": "2018#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "why_correct 인용에 'f luids' OCR 띄어쓰기 잔여 — 원문과 글자 불일치"
+    },
+    {
+     "code": "other",
+     "note": "원천 choices 5번에 각주·쪽번호가 섞여 파싱됨"
+    }
+   ]
+  },
+  {
+   "id": "2018#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드에 ①~⑤ 대신 지문 문장 조각과 각주가 들어 있음(⑤에 postulate/incinerator 각주 혼입)"
+    },
+    {
+     "code": "overgeneral",
+     "note": "⑤ 배제의 'such 명사는 앞에서 나온 것을 받는다'를 조건 없이 규칙화 — 후행 지시 예외 언급 없음"
+    }
+   ]
+  },
+  {
+   "id": "2018#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "why_correct가 surprising 근거를 '마지막 문장'이라 함 — 실제는 다섯째 문장(마지막은 요약문). confirms·reasoning과 불일치"
+    }
+   ]
+  },
+  {
+   "id": "2018#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "logic_requirement_missing",
+     "note": "choiceTruth 유형인데 참인 선지 ①②④⑤에 '반대 진술·주체 역전' 등 함정 라벨을 붙여 내용 참임보다 함정으로 설명함"
+    },
+    {
+     "code": "choice_2",
+     "note": "②는 지문과 일치(참)인데 trap '반대 진술'로 표기돼 참/거짓 표시와 혼동 유발"
+    }
+   ]
+  },
+  {
+   "id": "2019#24",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 '코퍼스 지문 끝에 OCR 잔여' 작업 용어가 학습자 필드에 노출"
+    }
+   ]
+  },
+  {
+   "id": "2019#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 밑줄 단위가 아니라 다음 밑줄까지 지문 조각+각주로 잘림"
+    },
+    {
+     "code": "choice_1",
+     "note": "①배제에서 the basic characteristic 을 전치사 to 의 목적어처럼 서술 — 실제론 expressing 의 목적어"
+    }
+   ]
+  },
+  {
+   "id": "2019#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 지문 조각+각주·쪽번호로 잘림"
+    },
+    {
+     "code": "work_jargon",
+     "note": "confirmed_at.note 에 '3차에 why_correct 에서 이관' 작업 이력 노출"
+    },
+    {
+     "code": "other",
+     "note": "design_intent 가 uncertain 을 '첫 문장'이라 함 — 실제 2번째 문장"
+    }
+   ]
+  },
+  {
+   "id": "2019#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "temporal advantage·current consumption 출처를 '마지막 문장'이라 함 — 실제는 Thus 문장(4번), 마지막은 요약문이라 위치 안내가 틀림"
+    },
+    {
+     "code": "choice_2",
+     "note": "(B) expensive 배제 근거를 '마지막 문장'의 cost로 지목 — 같은 위치 오기(4번 문장)"
+    }
+   ]
+  },
+  {
+   "id": "2019#41",
+   "type": "X-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "⑤배제 'Modern 시점 한정이 어긋난다'는 틀림 — 지문 첫 문장이 modern sense 의 여가를 다룸"
+    }
+   ]
+  },
+  {
+   "id": "2019#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "design_intent '이 유형이 42번 자리에 처음 놓인 회차' — 근거 없는 출제 이력 단정"
+    }
+   ]
+  },
+  {
+   "id": "2019#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "confirmed_at.note 에 '3차 보강 전 서술' 작업 메타가 학습자 노출 텍스트로 남음; sentence_index 순서 [26,16] 역순"
+    }
+   ]
+  },
+  {
+   "id": "2019#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 참 선지 ①③④⑤에 trap 라벨(어휘 함정·주체 역전 등)을 붙여 함정으로 서술"
+    },
+    {
+     "code": "choice_3",
+     "note": "why_tempting 이 지문에 없는 '할머니의 인식' 오독을 지어냄 — 실제 변경 성분 없음"
+    },
+    {
+     "code": "other",
+     "note": "정답 ②의 confirmed_at.note 가 확인 위치가 아니라 오답 유인 설명을 담음"
+    }
+   ]
+  },
+  {
+   "id": "2020#22",
+   "type": "R-GIST",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "confirmed_at 은 첫 문장이 유보라 주장 아님, passage_design 은 첫 문장을 요지(topic)로 — 상호 모순"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "it might seem surprising 은 사실을 전제한 표현이고 But 문장이 이를 뒤집지 않음 — 구조 설명 오류"
+    }
+   ]
+  },
+  {
+   "id": "2020#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "design_intent 가 nature versus nurture 3회 등장이라 하나 versus 형은 1회뿐 — 사실 오류"
+    },
+    {
+     "code": "choice_2",
+     "note": "why_tempting 의 'nature versus nurture 두 번 나온다' 도 지문과 불일치"
+    }
+   ]
+  },
+  {
+   "id": "2020#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 참 선지 ①~④에 trap 라벨·lure_quote 를 달아 함정으로 서술"
+    },
+    {
+     "code": "choice_2",
+     "note": "why_tempting 의 terms=기간·조건 오독은 지어낸 유인 — 참 근거 설명이면 충분"
+    },
+    {
+     "code": "other",
+     "note": "design_intent 가 older members 만 세는 관습을 '긍정적 관습'으로 단정 — 지문 근거 없음"
+    }
+   ]
+  },
+  {
+   "id": "2020#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 참 선지 ①②④⑤에 trap 라벨(범위 과소·지문 밖 상식 등)을 붙임"
+    },
+    {
+     "code": "choice_1",
+     "note": "why_tempting 의 brand-new=유명한/기존 오독은 지어낸 유인"
+    }
+   ]
+  },
+  {
+   "id": "2020#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "②번 note에 '추출 부스러기' — 작업 용어가 학습자 필드에 노출"
+    },
+    {
+     "code": "source_broken",
+     "note": "choices가 ①~⑤ 밑줄이 아니라 밑줄 사이 지문 구간 전체로 잘려 저장됨"
+    }
+   ]
+  },
+  {
+   "id": "2020#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices가 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간으로 저장됨(⑤에 각주·쪽번호 혼입)"
+    }
+   ]
+  },
+  {
+   "id": "2020#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note에 '저장 지문에는 빈칸 표시가 사라져' 작업 메모가 학습자 필드에 남음(실제 지문엔 빈칸 표시 있음)"
+    }
+   ]
+  },
+  {
+   "id": "2020#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "⑤ 배제가 '(B) 방향 맞는 선지는 ③⑤ 둘'이라 함 — 정답 ① parted도 (B) 방향이 맞아 사실 오류"
+    },
+    {
+     "code": "lure_quote",
+     "note": "⑤ lure_quote(첫 문장 break up)가 competitive 유인과 연결 설명 없음"
+    }
+   ]
+  },
+  {
+   "id": "2020#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "answer_locus sentence_index [6] 과 정답 confirmed_at [10] 이 서로 다른 문장을 가리킴"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "수정어를 Understanding 으로 제시 — 공식 원문은 Certainty, 근거 대비(불확실↔확실)를 흐림"
+    }
+   ]
+  },
+  {
+   "id": "2020#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note에 '3차 보강 전 서술' 같은 작업 이력 문구가 학습자 필드에 노출"
+    }
+   ]
+  },
+  {
+   "id": "2021#19",
+   "type": "R-MOOD",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "신체 대칭 짝이 어긋남: 손 안정을 심장 박동 해소로, 숨 고르기를 떨림 해소로 대응"
+    },
+    {
+     "code": "choice_2",
+     "note": "trap '인과 역전'인데 설명은 감정 순서 뒤바뀜(시점) — 라벨과 배제 근거 불일치"
+    },
+    {
+     "code": "choice_3",
+     "note": "envious 배제 근거로 '친구에 반대할 이유 없다'는 사후 성찰 — 앞 심경 증거(troubled)로 배제해야"
+    }
+   ]
+  },
+  {
+   "id": "2021#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "why_correct가 '선지 ①~⑤가 지문 순서를 따르므로 ⑤ 근거는 마지막 문장'이라는 무조건 규칙을 가르침"
+    },
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 참인 선지 ①~④에 범위 과대·주체 역전 등 함정 라벨을 붙여 오답처럼 분류"
+    }
+   ]
+  },
+  {
+   "id": "2021#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "내용이 참인 ①②③⑤에 '지문 밖 상식'·'주체 역전' 등 함정 라벨을 붙임 — 참 선지로 설명해야 함"
+    },
+    {
+     "code": "overgeneral",
+     "note": "design_intent의 '선지가 위에서 아래로 단조 대응'이 위치 요령으로 읽힐 수 있음(조건 없음)"
+    }
+   ]
+  },
+  {
+   "id": "2021#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 밑줄 사이 지문 덩어리·각주까지 담아 선지 단위가 깨짐(분석 자체는 정확)"
+    }
+   ]
+  },
+  {
+   "id": "2021#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "⑤ confirmed_at.note에 '3차에 why_correct 에서 이관' 같은 작업 이력 문구가 학습자 필드에 노출"
+    },
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 지문 덩어리·각주·쪽번호(5)까지 포함해 깨짐"
+    },
+    {
+     "code": "other",
+     "note": "③ trap '주체 혼동' 라벨이 내용(조작처럼 들림)과 맞지 않음"
+    }
+   ]
+  },
+  {
+   "id": "2021#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "⑤ why_tempting 에 '우리 코퍼스에는 파싱 잔여' 문구 — 학습자 필드에 작업 용어와 원문 결함 언급"
+    },
+    {
+     "code": "source_broken",
+     "note": "⑤ 선지 텍스트 끝에 각주(* subservient) 혼입"
+    }
+   ]
+  },
+  {
+   "id": "2021#36",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 '코퍼스 지문 끝에 선지가 섞여' 작업 용어·데이터 상태 서술이 학습자 필드에 노출"
+    }
+   ]
+  },
+  {
+   "id": "2021#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 위치 번호가 아니라 지문 문장 조각과 각주('connotation: 함축 7')로 저장됨, passage 첫머리에 주어진 문장이 붙어 있음"
+    },
+    {
+     "code": "choice_5",
+     "note": "⑤ 배제 근거 '뒤에서 nevertheless 를 받치는 꼴'이 모호 — 한계 진술이 But 문장 앞에 없어진다는 점만 명확히 해야 함"
+    }
+   ]
+  },
+  {
+   "id": "2021#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 위치 번호 대신 지문 문장 조각·각주로 저장, passage 첫 문장이 주어진 문장과 섞임"
+    }
+   ]
+  },
+  {
+   "id": "2021#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 '3차 보강 전 서술'로 시작 — 작업 이력 용어가 학습자 필드에 노출"
+    }
+   ]
+  },
+  {
+   "id": "2022#20",
+   "type": "R-CLAIM",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "design_intent 가 customers·measurable 을 부정된 A쪽 어휘라 함 — 실제로는 필자 쪽(목적 문장) 어휘라 사실과 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "2022#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 맞는 선지들에 trap 라벨(주체 역전·어휘 함정 등)을 붙여 함정처럼 설명함. ①의 why_tempting(소유격 뒤집어 읽기)은 억지"
+    }
+   ]
+  },
+  {
+   "id": "2022#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 내용이 참인 선지 ①②③⑤에 범위 과대·부분 사실 등 trap 라벨 부착 — 참 근거 설명으로 바꿔야 함"
+    }
+   ]
+  },
+  {
+   "id": "2022#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "'긍정 낱말은 however 뒤에만 온다'·'반드시 however를 달고' 를 조건 없이 규칙화(design_intent·reasoning)"
+    },
+    {
+     "code": "choice_1",
+     "note": "how_to_reject가 같은 문장의 however와 increase가 '짝'이라 함 — however는 앞 주장과의 대조 표지라 설명이 뒤엉킴"
+    },
+    {
+     "code": "other",
+     "note": "choiceTruth인데 맞는 낱말에 trap 라벨(역설 진술 오인 등) 부착"
+    }
+   ]
+  },
+  {
+   "id": "2022#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "'새 주어가 예고 없이 등장하면 빈칸의 동의어 재진술' 을 조건·반례 없이 규칙으로 제시"
+    }
+   ]
+  },
+  {
+   "id": "2022#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "② why_correct 괄호에 '코퍼스·회차 원문…잘려 있다' 작업 메모가 학습자 필드에 노출됨(현재 지문은 온전)"
+    }
+   ]
+  },
+  {
+   "id": "2022#37",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "⑤ confirmed_at.note 에 '코퍼스 지문이 두 단 섞임으로 손상' 작업 메모 노출"
+    }
+   ]
+  },
+  {
+   "id": "2022#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "⑤ confirmed_at.note '저장 지문은 2단 병합' 작업 메모, why_correct 인용이 '+ company'로 쪼개짐"
+    },
+    {
+     "code": "source_broken",
+     "note": "choices 에 선지 번호 대신 본문 문장 조각과 끝의 '7' 잔재가 저장됨"
+    }
+   ]
+  },
+  {
+   "id": "2022#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "answer_locus.reasoning 끝 '저장된 지문은 2단 병합 탓에' 작업 메모가 학습자 설명에 섞임"
+    },
+    {
+     "code": "source_broken",
+     "note": "⑤ choices 에 [3점]·각주(decry, fantasmatic)가 붙어 저장됨"
+    }
+   ]
+  },
+  {
+   "id": "2022#41",
+   "type": "X-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct가 이 지문을 '42~45번이 함께 쓰는 지문'이라 함 — 실제 41~42 세트, 사실 오류"
+    },
+    {
+     "code": "lure_quote",
+     "note": "③ lure_quote가 정답 근거인 마지막 문장이라 유인 근거로 부적절, '인과 역전' 라벨도 내용(수단·목적 뒤집힘)과 어긋남. 인용 오타(abou)"
+    }
+   ]
+  },
+  {
+   "id": "2022#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth인데 적절한 낱말 (a)(b)(d)(e)에 trap 라벨(동어 반복 유인·상식 충돌 등) — 성립 이유 중심으로 정리 필요"
+    },
+    {
+     "code": "choice_3",
+     "note": "abstract가 다음 문장 (d) learn과 '어긋난다'는 연결 근거가 불명확 — 이유절 논리만으로 충분"
+    }
+   ]
+  },
+  {
+   "id": "2022#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "② 배제를 '문 열린 채 끝날 수 없다'로만 함 — (B)의 사과가 (D) 발언 뒤여야 한다는 결정 근거 누락"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "③ why_correct 가 짧고 (B) 사과↔(D) 비난 선후 고리를 언급 안 함"
+    }
+   ]
+  },
+  {
+   "id": "2023#18",
+   "type": "R-PURPOSE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "학습자용 서수(일곱째·여덟째·아홉째 문장)가 roles 배열(요청=8번째)·sentence_index와 어긋남 — 문장 번호 기준 불명확"
+    }
+   ]
+  },
+  {
+   "id": "2023#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "①유인 설명이 '인쇄에서 194로 잘림'을 근거로 하나 지문엔 1949가 온전함 — 원본 결함 운운은 사실 아니고 작업 맥락 노출"
+    },
+    {
+     "code": "other",
+     "note": "①~③ 배제의 서수(셋째·넷째·다섯째 문장)가 실제 문장 순서보다 하나씩 밀려 있음"
+    }
+   ]
+  },
+  {
+   "id": "2023#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 자리가 아니라 다음 밑줄까지의 지문 조각으로 잘려 저장됨(⑤에 각주 잔여 포함)"
+    },
+    {
+     "code": "other",
+     "note": "② confirmed_at.note 에 작업용 표제 「학습자가 미끄러지는 자리」가 학습자 문구로 노출"
+    }
+   ]
+  },
+  {
+   "id": "2023#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 낱말이 아닌 지문 조각으로 잘림, ⑤에 각주·쪽번호 잔여"
+    },
+    {
+     "code": "work_jargon",
+     "note": "⑤ confirmed_at.note 에 '3차에 why_correct 에서 이관' 작업 이력 문구"
+    }
+   ]
+  },
+  {
+   "id": "2023#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "⑤ trap '범위 과소'인데 배제는 '논의량은 많다'(반대 진술) 뒤 '범위를 좁힌다'로 섞여 논리 혼선"
+    }
+   ]
+  },
+  {
+   "id": "2023#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "answer_locus.sentence_note에 '코퍼스'·'파싱' 등 작업 용어와 원문 유실 서술이 학습자 필드에 노출됨"
+    }
+   ]
+  },
+  {
+   "id": "2023#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "① why_tempting 에 'OCR 잔여 For' — 학습자 필드에 작업 용어, 실제 지문에도 없는 내용"
+    }
+   ]
+  },
+  {
+   "id": "2023#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드에 위치 번호 대신 본문 문장 조각과 배점·각주가 들어가 있음(삽입 유형 선지 파싱 오류)"
+    }
+   ]
+  },
+  {
+   "id": "2023#44",
+   "type": "X-REFER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "answer_locus.quote 가 저장된 지문과 글자 단위로 일치하지 않음(따옴표·생략 차이 추정) — 인용 재확인 필요"
+    }
+   ]
+  },
+  {
+   "id": "2023#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "⑤ lure_quote·locus quote 가 저장 지문에서 그대로 확인되지 않음(지문 말미 절단 의심)"
+    }
+   ]
+  },
+  {
+   "id": "2024#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "④ lure_quote 'may exceed…'는 유인 근거가 아니라 배제 근거(how_to_reject에서 사용) — 유인/배제 뒤바뀜"
+    },
+    {
+     "code": "lure_quote",
+     "note": "① lure_quote가 실제 유인(UN 추정)보다 배제 쪽 non-market 맥락과 섞임"
+    }
+   ]
+  },
+  {
+   "id": "2024#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "choiceTruth 유형인데 참인 선지를 '주체 역전' 함정으로 설명. 내용이 참인 근거로 서술해야 함"
+    },
+    {
+     "code": "choice_1",
+     "note": "참 선지에 '어휘 함정' 라벨과 억지 오독 시나리오 — 대응 문장 확인으로 서술 필요(④⑤ 동일)"
+    }
+   ]
+  },
+  {
+   "id": "2024#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "참 선지 ①②④⑤를 trap·lure_quote로 처리 — choiceTruth 유형은 대응 항목으로 참임을 설명해야 함"
+    },
+    {
+     "code": "source_broken",
+     "note": "발문 끝 '것은?' 누락, 표의 평일/주말 시간대가 평문으로 뭉개져 회차 판단이 원문 없이는 모호"
+    }
+   ]
+  },
+  {
+   "id": "2024#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 선지가 아니라 밑줄 사이 지문 조각과 각주를 담고 있음"
+    },
+    {
+     "code": "other",
+     "note": "② confirmed_at sentence_index 3 이 answer_locus 4와 불일치, note에 「학습자가 미끄러지는 자리」 내부 라벨 노출"
+    }
+   ]
+  },
+  {
+   "id": "2024#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 지문 조각·각주(끝에 '5' 잔재)로 깨져 있음"
+    },
+    {
+     "code": "work_jargon",
+     "note": "④ confirmed_at note에 '3차에 why_correct 에서 이관' 작업 이력 문구가 학습자 필드에 노출"
+    }
+   ]
+  },
+  {
+   "id": "2024#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "선지 5에 각주(replication·verification)와 쪽번호 '7'이 섞여 들어감 — 원문 선지 필드 정리 필요. 해설 자체는 앞뒤 조건 모두 정확"
+    }
+   ]
+  },
+  {
+   "id": "2024#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "선지 5에 '[3 점]'과 각주(analogy·mutation)가 섞여 들어감 — 선지 필드 정리 필요. 해설은 just as 기준 경계 설명이 우수"
+    }
+   ]
+  },
+  {
+   "id": "2024#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "why_tempting가 '다시 나오는 동사'라 하나 enjoy는 앞에 나온 적 없음. 유인 설명이 사실과 어긋남"
+    },
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 오답을 함정(trap)으로 명명. 맞는 낱말의 성립 이유 중심으로 재표현 필요"
+    }
+   ]
+  },
+  {
+   "id": "2024#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "why_correct ③에서 their destination 을 '정관사로 되받는다'고 함 — their 는 소유격, 정관사 아님(용어 오류)"
+    },
+    {
+     "code": "other",
+     "note": "passage_design 부재(장문 순서라 계약상 불필요) — 문제 아님, 기록만"
+    }
+   ]
+  },
+  {
+   "id": "2024#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 맞는 선지를 함정·유인으로 설명. 대응 위치로 참임을 보이는 틀이어야 함"
+    },
+    {
+     "code": "choice_1",
+     "note": "just를 '단지'로 오독한다는 유인은 근거 없는 억지 설정"
+    },
+    {
+     "code": "choice_4",
+     "note": "'이미 도착한 뒤로 오해' 유인이 선지 진술과 연결되지 않음"
+    }
+   ]
+  },
+  {
+   "id": "2025#24",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "지문은 6문장인데 answer_locus.sentence_index 가 [1,7]로 범위를 벗어남(인덱스 기준 불일치)"
+    }
+   ]
+  },
+  {
+   "id": "2025#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "choiceTruth 유형인데 참인 선지에 함정 라벨(어휘 함정 등)·억지 유혹 서술. 내용 참으로 설명해야 함(①②③⑤ 공통)"
+    }
+   ]
+  },
+  {
+   "id": "2025#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "④ lure_quote 가 표의 3-Day/5-Day 행 조각이라 환불 기준일 유혹과 무관"
+    },
+    {
+     "code": "choice_1",
+     "note": "참인 선지에 주체 역전·반대 진술 등 함정 라벨 부여 — 내용 참 설명 원칙과 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "2025#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 구간이 아니라 다음 밑줄까지의 본문 덩어리·각주(* crude:)를 담음"
+    }
+   ]
+  },
+  {
+   "id": "2025#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "why_correct 인용이 \"inclu lower\" 로 잘림 — 원문 include 와 축자 불일치"
+    }
+   ]
+  },
+  {
+   "id": "2025#33",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "배제 근거가 '조건절이 묻는 것은 거래 상대(who is paying)'라 해 answer_locus(빈칸=팔리는 물건)와 모순"
+    },
+    {
+     "code": "overgeneral",
+     "note": "선지5 배제에 '빈칸 뒤 문장이라 빈칸을 채우지 못한다' — 뒤 문장도 근거가 될 수 있어 무조건 규칙화 위험"
+    }
+   ]
+  },
+  {
+   "id": "2025#37",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "'인명이 성 없이 처음 등장할 수 없다'는 근거 아닌 무조건 규칙 — 핵심은 Marc 소개가 (B)에 있다는 선행 조건"
+    },
+    {
+     "code": "choice_5",
+     "note": "배제 설명에 'buffer' 같은 영어 작업어와 '두 칸 앞' 모호 표현 — 학습자 문장으로 다시 써야 함"
+    }
+   ]
+  },
+  {
+   "id": "2025#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "passage 첫 문장에 주어진 문장이 섞여 있고 choices에 위치 대신 지문 문장·각주·'[3 점]'·쪽번호가 들어감"
+    }
+   ]
+  },
+  {
+   "id": "2025#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "passage 첫 문장에 주어진 문장이 섞이고 choices에 지문 문장·각주가 위치 번호 대신 저장됨"
+    },
+    {
+     "code": "choice_1",
+     "note": "주어진 문장은 부정관사 a linear lifecycle model인데 '이미 알려진 것처럼'이라 설명 — 근거는 lifecycle 첫 등장 순서"
+    }
+   ]
+  },
+  {
+   "id": "2025#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "transform_note 가 (A)를 \"예측 가능성\"으로 설명 — 정답 controllability 아닌 오답②어와 충돌"
+    }
+   ]
+  },
+  {
+   "id": "2025#41",
+   "type": "X-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "trying and failing 장면을 '열한 번째 문장'이라 함 — 실제는 여덟 번째 문장(위치 오기)"
+    }
+   ]
+  },
+  {
+   "id": "2025#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "(c) lure_quote 가 엄지 서술 구절인데 why_tempting 은 possible 의 평범함 — 인용과 유혹 불일치"
+    }
+   ]
+  },
+  {
+   "id": "2025#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "answer_locus.reasoning 인용 \"to g and pick\" 오타 — 원문 go 와 축자 불일치"
+    }
+   ]
+  },
+  {
+   "id": "2026#21",
+   "type": "R-IMPLY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "measured_ability가 '바로 다음 문장에서 찾아' 로 일반화 — 계약 pitfall '밑줄 바로 뒤가 풀이'에 해당, 이 문항 한정 조건 명시 필요"
+    }
+   ]
+  },
+  {
+   "id": "2026#22",
+   "type": "R-GIST",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "③ 배제: 7문장 '바로 뒤 두 문장이 This means…' 라 했으나 바로 뒤는 By necessity 문장, This means 는 9문장 하나"
+    }
+   ]
+  },
+  {
+   "id": "2026#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 참인 오답①②④⑤를 함정명(지문 밖 상식·어휘 함정 등)+억지 why_tempting으로 설명 — 내용 참 대응으로 바꿔야"
+    }
+   ]
+  },
+  {
+   "id": "2026#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth: 참 선지①②③⑤를 함정명+'틀려 보이는 이유'로 설명 — 내용 참·대응 항목으로 재서술 필요"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "정답 confirmed_at.sentence_index=[1]이 근거 줄(Selection Method, locus 8)과 불일치"
+    }
+   ]
+  },
+  {
+   "id": "2026#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 구가 아니라 번호 사이 지문 조각(각주 포함)으로 저장됨 — 선지 원문 복원 필요"
+    },
+    {
+     "code": "other",
+     "note": "정답 수정형을 locus는 was/is, why_correct는 is 로 단정 — 시제 근거(현재 서술) 한 줄 필요"
+    }
+   ]
+  },
+  {
+   "id": "2026#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "csat_items.choices 가 밑줄 낱말이 아니라 지문 조각(①~⑤ 사이 구간)으로 저장됨 — 선지 표시가 깨짐"
+    },
+    {
+     "code": "choice_4",
+     "note": "how_to_reject 가 'Caring about...' 을 '앞 문장'이라 함 — 실제로는 두 문장 앞(친선 경기 사례 문장)"
+    },
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 오답을 trap·why_tempting 함정 틀로 서술 — '내용상 맞는 이유' 중심 서술이 약함"
+    }
+   ]
+  },
+  {
+   "id": "2026#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "sentence_index에 8 — 지문은 7문장. 범위 밖 인덱스"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct가 근거를 '뒤 문장'이라 했다가 '세 문장 아래'라 함 — 위치 서술 자기모순"
+    },
+    {
+     "code": "choice_2",
+     "note": "'통합이 목적이면 위험 관리가 목적일 자리 없다'는 빈칸(정보가 무엇의 열쇠인가) 요구와 직접 연결 안 됨"
+    }
+   ]
+  },
+  {
+   "id": "2026#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "answer_locus.sentence_index [9,10] — 지문은 7문장. 범위 밖"
+    },
+    {
+     "code": "overgeneral",
+     "note": "design_intent '동격 표지를 아는지만 재는 문항' — 앞 대조(즉각 피드백 없음)도 필요하다는 why_correct와 충돌"
+    }
+   ]
+  },
+  {
+   "id": "2026#33",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "reasoning이 결과 문장을 '여덟 번째'라 함 — 실제 6번째(confirmed_at과도 불일치), sentence_index 8도 오류"
+    },
+    {
+     "code": "choice_1",
+     "note": "'방향이 반대다 — 설계자가 사용자에게 배운다'가 선지 성분(training) 변화와 어긋나게 압축됨"
+    }
+   ]
+  },
+  {
+   "id": "2026#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "answer_locus.sentence_index [8,9] — 지문은 7문장. 범위 밖"
+    },
+    {
+     "code": "choice_1",
+     "note": "부정문에 ① 대입 시 왜 불성립인지 설명이 '부정 대상 어긋남'에 그침 — 제한 자체를 인정하는 전제(reasonably confining)가 문제임을 명시 필요"
+    }
+   ]
+  },
+  {
+   "id": "2026#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct 'self-care 가 ④에만 없다'는 사실 오류 — ②③에도 self-care 낱말이 없음"
+    },
+    {
+     "code": "other",
+     "note": "answer_locus.quote 가 정답 ④가 아니라 ⑤ 문장을 인용 — 근거 위치 표시가 정답 문장과 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "2026#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "선지5 텍스트에 각주(anecdote·incumbent 풀이)와 쪽번호 7이 섞여 있음"
+    },
+    {
+     "code": "overgeneral",
+     "note": "정답 근거 '예시가 예시의 근거가 될 수 없다'가 조건 없는 규칙처럼 서술됨"
+    }
+   ]
+  },
+  {
+   "id": "2026#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "선지5 텍스트에 [3점] 표기와 encompass 각주가 섞여 있음"
+    },
+    {
+     "code": "choice_2",
+     "note": "② 배제 근거 'As in the real world가 받을 대상이 없어진다'가 성립 불명확 — 유사 진술이 차이 앞에 와야 한다는 점으로 설명해야 함"
+    }
+   ]
+  },
+  {
+   "id": "M1809#21",
+   "type": "R-GIST",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "문장 번호 불일치 — transform_note 는 reflection 정의를 6번, why_correct·choice_2 는 7번으로 지칭"
+    }
+   ]
+  },
+  {
+   "id": "M1809#22",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "④(통찰·분석적 사고 분리) lure_quote 가 경험 이탈 문장 — 선지 성분과 대응 안 됨"
+    }
+   ]
+  },
+  {
+   "id": "M1809#25",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "참인 선지에 trap '인과 역전'·'반대 진술' 등 함정 라벨 — choiceTruth 유형은 내용 참으로 설명해야 함(①②③⑤ 공통)"
+    }
+   ]
+  },
+  {
+   "id": "M1809#26",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "일치 선지에 '범위 과대/과소' 등 함정 라벨 — 안내문 항목 대응(내용 참)으로 설명해야 함(①②④⑤)"
+    }
+   ]
+  },
+  {
+   "id": "M1809#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "일치 유형인데 오답(내용 거짓) 설명은 적절하나 ③ trap '범위 과대'는 배수 오류에 맞지 않는 라벨"
+    }
+   ]
+  },
+  {
+   "id": "M1809#28",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 구간이 아니라 다음 밑줄까지의 긴 지문 조각·각주로 저장됨"
+    }
+   ]
+  },
+  {
+   "id": "M1809#30",
+   "type": "R-REFER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 뒤 긴 지문 조각·각주·쪽번호로 저장됨"
+    }
+   ]
+  },
+  {
+   "id": "M1809#33",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "선지2 lure_quote가 빈칸 문장 자체라 유인 근거(new and preferred story 대응)를 가리키지 못함"
+    }
+   ]
+  },
+  {
+   "id": "M1809#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "선지4 배제가 '멀어지는 쪽은 outsiders'로 논리 혼동 — 주민의 장소 애착(rooted)과 소외가 반대라는 점이 핵심, trap '주체 역전'도 부정확"
+    },
+    {
+     "code": "choice_5",
+     "note": "선지5 배제가 advantage 주체만 지적 — 거부 대상이 산업 이점이 아니라 정체성 상실이라는 점이 빠짐"
+    }
+   ]
+  },
+  {
+   "id": "M1809#37",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "⑤ 배제 핵심은 (C)가 첫 자리면 this oneness 선행사가 없다는 점인데, union 대상 소실로 돌려 설명해 결정 단서가 흐림"
+    },
+    {
+     "code": "other",
+     "note": "순서 유형에 passage_design 부착(교수 계약 passageDesign=false)"
+    }
+   ]
+  },
+  {
+   "id": "M1809#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "④ why_tempting의 '가장 많이 고르는 자리다'는 근거 없는 선택률 주장"
+    },
+    {
+     "code": "source_broken",
+     "note": "choices ⑤ 끝에 배점 표기 '[3 점]'이 섞여 있음"
+    }
+   ]
+  },
+  {
+   "id": "M1809#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "design_intent가 단락 첫 문장이 '전부 지시 표현'이라 하나 (B) 첫 문장엔 지시어가 없음—사실과 다른 설계 설명"
+    },
+    {
+     "code": "choice_3",
+     "note": "③ 배제 문장 '아버지가 아직 모르는 사실이 아니라'가 논리 단서로 불명확"
+    }
+   ]
+  },
+  {
+   "id": "M1809#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "③ how_to_reject가 '선지 번호 순서=단락 인쇄 순서'를 조건 없이 요령으로 가르침(순서 문항 지문에선 깨짐)"
+    },
+    {
+     "code": "choice_1",
+     "note": "참인 선지에 '어휘 함정' 라벨·아버지 문장 lure_quote — 내용 참 대응(named after)으로 설명해야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2006#20",
+   "type": "R-CLAIM",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "more than repetition을 '다양한 맥락이 횟수보다 중요'로 과잉 해석 — 지문은 순위를 매기지 않음"
+    },
+    {
+     "code": "other",
+     "note": "design_intent가 '여러 번만 담은 선지'를 언급하나 실제 선지에 없음"
+    }
+   ]
+  },
+  {
+   "id": "M2006#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "참인 선지에 '범위 과대' 함정 라벨 — choiceTruth 유형은 내용 참 대응으로 설명해야 함"
+    },
+    {
+     "code": "choice_4",
+     "note": "참인 선지에 '주체 역전' 라벨·오독 시나리오 중심 서술(선지 ①⑤도 같은 경향)"
+    }
+   ]
+  },
+  {
+   "id": "M2006#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "how_to_reject가 appealing의 형용사 근거를 like things more와의 병렬로 설명 — 병렬은 like/find 동사이며 근거 오류"
+    },
+    {
+     "code": "choice_2",
+     "note": "why_tempting 인용이 'catches our inter'로 잘림(축자 인용 아님)"
+    },
+    {
+     "code": "other",
+     "note": "confirmed_at sentence_index 8이 answer_locus 7과 불일치"
+    }
+   ]
+  },
+  {
+   "id": "M2006#36",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "(C)-(A)-(B)에서 (B) 바로 앞은 (A) 끝(aural tradition 문장)인데 It 선행사를 (C)의 pop musicians로 잘못 지목"
+    },
+    {
+     "code": "choice_5",
+     "note": "배제 근거가 뒤엉킴: (C) 첫자리면 still aural의 선행 조건 부재라는 핵심을 명확히 못 씀"
+    }
+   ]
+  },
+  {
+   "id": "M2006#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "④ why_tempting의 '이 자리를 고르는 학습자가 가장 많다'는 근거 없는 통계 주장"
+    },
+    {
+     "code": "source_broken",
+     "note": "choices 필드에 ①~⑤ 대신 지문 문장 조각과 각주가 들어가 있음"
+    }
+   ]
+  },
+  {
+   "id": "M2006#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note에 '3차 보강 전 서술'이라는 작업 이력 문구가 학습자 필드에 노출"
+    },
+    {
+     "code": "other",
+     "note": "design_intent의 '두 표지 방향이 반대라 순서가 뒤집힌다'는 설명이 부정확(같은 날을 가리킬 뿐)"
+    }
+   ]
+  },
+  {
+   "id": "M2106#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "why_correct_empty",
+     "note": "why_correct가 '밋밋해 보이지만'으로 시작해 왜 낯선지 위주 — 원인(틀)·결과(접근·해결) 두 자리 대응 설명이 빈약"
+    }
+   ]
+  },
+  {
+   "id": "M2106#24",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "confirmed_at 문장 번호 불일치 — 두 항(효율 비교)은 6번 문장인데 '7번'으로, first는 7번인데 근거를 8번 follow로 기술"
+    }
+   ]
+  },
+  {
+   "id": "M2106#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "passage 가 두 단 섞임으로 주어진 문장이 본문 맨 앞에 붙고, choices 도 괄호 조각 구간으로 저장됨"
+    },
+    {
+     "code": "other",
+     "note": "confirmed_at.note 에 작업 메타('코퍼스 지문이 두 단 섞임…원문 창에서')가 섞여 학습자 노출 문구로 부적합"
+    }
+   ]
+  },
+  {
+   "id": "M2106#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "passage 첫 문장이 주어진 문장(두 단 섞임), choices 가 구간 조각으로 저장됨"
+    },
+    {
+     "code": "other",
+     "note": "confirmed_at.note 에 작업 메타 문구가 붙어 있음 — 학습자 화면에 그대로 나갈 위험"
+    }
+   ]
+  },
+  {
+   "id": "M2106#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "lure_quote(absence of hominin…)가 reveal 의 유인과 무관하고 why_tempting 이 '①과 같아서'뿐 — 선지 고유 함정 없음"
+    }
+   ]
+  },
+  {
+   "id": "M2106#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 '이 청크에서 … 유일한 문항' — 작업 용어 '청크'가 학습자 필드에 노출"
+    }
+   ]
+  },
+  {
+   "id": "M2106#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct 가 (A)→(D), (C)→(B) 두 이음매만 말하고 (D)→(C) 연결 근거가 빠짐"
+    }
+   ]
+  },
+  {
+   "id": "M2109#19",
+   "type": "R-MOOD",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "문장 번호 불일치: relax 문장은 12번인데 ②③⑤ 설명은 13번, 악재 문장도 9~10번인데 10~11번으로 표기"
+    }
+   ]
+  },
+  {
+   "id": "M2109#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "a product of ~ 문장을 '여섯째 문장'으로 지칭 — 실제 다섯째 문장. 문장 번호 오류"
+    },
+    {
+     "code": "choice_4",
+     "note": "The brain itself is a social thing 을 '일곱째 문장'으로 지칭 — 실제 여섯째. 문장 번호 오류"
+    }
+   ]
+  },
+  {
+   "id": "M2109#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "내용 참인 오답 ①~④에 '인과 역전·주체 역전' 등 함정 라벨 부여 — 선지 자체가 뒤집힌 듯 오해. 참 근거 대응으로 설명해야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2109#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "내용 참인 ①②④⑤에 함정 라벨(범위 과소·지문 밖 상식 등) — choiceTruth 유형은 참 대응 위주로"
+    },
+    {
+     "code": "lure_quote",
+     "note": "⑤ how_to_reject 인용이 'October 1,2020' 으로 원문 공백 누락 — 축자 인용 아님"
+    }
+   ]
+  },
+  {
+   "id": "M2109#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "how_to_reject 가 '억압 대상과 어긋나는 생각을 찾는 건 monitoring' 이라 해 지문(불일치 생각 감지)과 엇갈리게 서술"
+    },
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 구간 전체로 저장됨"
+    }
+   ]
+  },
+  {
+   "id": "M2109#33",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "design_intent 앞부분이 인쇄 블록·코퍼스·파서·stem·item_id·라벨 오류 경위로 채워짐 — 학습자 필드에서 제거하고 설계 설명만 남겨야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2109#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "measured_ability 가 '두 단 인쇄 읽기 순서 복원'을 능력으로 적음 — 원문 추출 결함을 측정 능력으로 오인. answer_locus.reasoning 도 같은 서술로 시작"
+    }
+   ]
+  },
+  {
+   "id": "M2109#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "answer_locus.quote 가 정답 ③이 아니라 ④ 문장 — 근거 위치가 정답 문장과 어긋남"
+    },
+    {
+     "code": "overgeneral",
+     "note": "design_intent '겹치는 낱말이 가장 많은 자리가 답' — 조건 없는 일반 규칙으로 읽힘"
+    }
+   ]
+  },
+  {
+   "id": "M2109#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "⑤ 배제가 'primary는 다른 축'에 그치고 denying이 (A)에서 왜 틀리는지(가치 추구를 막음↔부정을 막음) 바뀐 성분을 짚지 않음"
+    },
+    {
+     "code": "choice_4",
+     "note": "④ 배제 문장 '부정하지 못하게 막는다'가 지문과 어긋나는 이유를 방향 대비로 명시하지 않아 모호"
+    }
+   ]
+  },
+  {
+   "id": "M2109#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "③ lure_quote(할머니가 선물 주려 함)가 why_tempting·how_to_reject(the same thing 선행사)와 무관"
+    }
+   ]
+  },
+  {
+   "id": "M2109#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_truth",
+     "note": "①~④는 지문과 일치하는 참 진술인데 어휘 함정·부분 사실 등 trap 라벨이 붙어 정답선택/참거짓 구분 흐림"
+    }
+   ]
+  },
+  {
+   "id": "M2206#20",
+   "type": "R-CLAIM",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "why_correct의 선지 인용이 띄어쓰기 깨짐('과학자를긍정적으로…해야한다')—선지 원문과 불일치"
+    }
+   ]
+  },
+  {
+   "id": "M2206#22",
+   "type": "R-GIST",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "지문은 9문장인데 해설이 '10번 문장'·'열 문장'을 쓰고 transform_note는 6·8번으로 번호 체계가 서로 어긋남"
+    },
+    {
+     "code": "other",
+     "note": "sentence_index [8,10]이 범위를 넘고 answer_locus 인용(7번째 문장)과도 불일치"
+    }
+   ]
+  },
+  {
+   "id": "M2206#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "③(읽기 습관) lure_quote가 놀이를 그만둔다는 통념 문장이라 선지 유인과 연결 약함"
+    }
+   ]
+  },
+  {
+   "id": "M2206#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "how_to_reject가 \"선지도 그를 금메달리스트로 적었다\"고 함 — 선지는 Dana를 금메달리스트로 적음, 주체 서술 오류"
+    }
+   ]
+  },
+  {
+   "id": "M2206#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_truth",
+     "note": "불일치형인데 참 진술 ①~④에 범위 과대·지문 밖 상식 등 함정 라벨 — 참인 선지의 함정 유형이 무의미"
+    }
+   ]
+  },
+  {
+   "id": "M2206#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "design_intent는 근거가 첫 문장 정의라 하나 answer_locus는 빈칸 뒤 이유절을 근거로 삼아 근거 위치 설명이 서로 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "M2206#36",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "measured_ability가 '연구 서술은 설계→결과→해석 고정 순서'라는 무조건 규칙을 제시 — 적용 조건·반례 없음"
+    },
+    {
+     "code": "choice_5",
+     "note": "⑤ (C)-(B)-(A) 배제가 '(C)와 (B)의 지시어 대상이 둘 다 뒤에'라 하나 (B)의 asymmetry 선행 (C)는 앞에 있음 — 사실 오류"
+    },
+    {
+     "code": "logic_requirement_missing",
+     "note": "순서 유형은 passageDesign=false인데 문장 역할 passage_design이 씌워져 있음"
+    }
+   ]
+  },
+  {
+   "id": "M2206#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "(B) exhibition 근거를 'being regarded as=드러내 보이는 일'로 풀이 — 억지 환언. 나무 심기가 충성을 공개적으로 보여 주는 행위라는 점으로 설명해야 함"
+    },
+    {
+     "code": "choice_5",
+     "note": "official 배제가 낱말 출처(declared 주어)만 따짐 — 영속성(permanence)과 다른 성분이라는 핵심 교체 성분을 명시 안 함"
+    }
+   ]
+  },
+  {
+   "id": "M2206#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "어휘(choiceTruth) 유형인데 ④ why_tempting 이 '자연스러운데도 수식어 때문에 의심'으로 꼬여 있고 내용상 참인 이유가 불분명"
+    },
+    {
+     "code": "choice_1",
+     "note": "①을 '뻔하다며 빼기 쉽다'는 함정 틀로 설명 — 낱말이 문맥상 맞는 이유 중심으로 다시 써야"
+    },
+    {
+     "code": "overgeneral",
+     "note": "'However 가 앞 두 문장을 뒤집으라고 요구'를 조건 없이 단정 — 실제 근거는 다음 문장의 강점 평가"
+    }
+   ]
+  },
+  {
+   "id": "M2206#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "measured_ability 의 단락 순서 (A)-(C)-(B)-(D)가 틀림 — 실제 사건 순서는 (A)-(C)-(D)-(B)"
+    },
+    {
+     "code": "choice_1",
+     "note": "참인 선지인데 trap '어휘 함정'·'반대 진술' 등 함정 라벨을 붙임 — 내용상 참 근거 중심이어야"
+    }
+   ]
+  },
+  {
+   "id": "M2209#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "design_intent에 'OCR 잔여'가 선지1 끝에 붙었다는 작업 용어 서술 — 현재 선지에는 그런 잔여가 없어 사실과도 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "M2209#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices가 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간으로 저장됨(선지5에 각주 포함) — 화면 선지 표시가 깨짐"
+    }
+   ]
+  },
+  {
+   "id": "M2209#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices가 밑줄 낱말이 아닌 지문 구간으로 저장되고 선지5 끝에 각주·쪽번호 잔여"
+    },
+    {
+     "code": "other",
+     "note": "선지2·3 why_tempting의 대체 낱말 가정(sold, immediately)이 문맥 근거 없이 약함"
+    }
+   ]
+  },
+  {
+   "id": "M2209#37",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "선지4 why_tempting 인용이 'a social assistant robot'로 personal 누락 — 원문과 불일치"
+    },
+    {
+     "code": "other",
+     "note": "answer_locus.quote 가 'assistants, their...that' 식 잘린 조각 — 근거 문장 단위로 다시 잡아야 함"
+    },
+    {
+     "code": "choice_1",
+     "note": "배제 근거가 '이름을 아는 것처럼 부른다'로 약함 — They 선행사(정의된 assistants)와 motorized↔no locomotion 대비 사슬을 명시해야"
+    }
+   ]
+  },
+  {
+   "id": "M2209#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "passage 첫 문장이 주어진 문장과 섞이고 choices 가 위치 번호 대신 본문 문장 조각(괄호·'7' 잔재)으로 저장됨"
+    },
+    {
+     "code": "other",
+     "note": "passage_design 선택 설명은 '시간 표지로 자리 찾기', design_intent 는 '시간이 아니라 지시 표현' — 서로 모순"
+    }
+   ]
+  },
+  {
+   "id": "M2209#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 본문 문장 조각으로 저장, 선지5에 배점·각주 텍스트 혼입. 주어진 문장이 passage 첫 문장으로 섞임"
+    },
+    {
+     "code": "choice_4",
+     "note": "배제 근거 'these 가 new identities 를 가리키게 됨'은 성립 약함 — 핵심은 larger narratives 가 받을 집단(tribal formations)이 ④까지 없다는 점"
+    },
+    {
+     "code": "choice_2",
+     "note": "단수 it 이 복수 new identities 를 가리킨다는 논거 부정확 — 집단 미등장으로 배제해야"
+    }
+   ]
+  },
+  {
+   "id": "M2209#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "answer_locus.reasoning에 '코퍼스 지문'·'columns2/M2209.txt 883~887행'·'회차 원문' 등 작업 용어가 학습자 필드에 노출"
+    },
+    {
+     "code": "other",
+     "note": "DB 지문에는 But it also 이하가 다 있는데 '코퍼스 지문이 잘려 있다'고 서술 — 사실과 다름(confirmed_at.note도 동일)"
+    }
+   ]
+  },
+  {
+   "id": "M2209#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "why_tempting가 함정 근거를 대지 못하고 '원문에 after 없음'만 말함 — 내용 참 선지의 성립 이유로 정리 필요"
+    }
+   ]
+  },
+  {
+   "id": "M2306#20",
+   "type": "R-CLAIM",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "'셋째 문단이 아니라' — 단일 문단 지문에 없는 문단 언급, 오류 문장"
+    },
+    {
+     "code": "other",
+     "note": "선지2 why_correct 인용 한국어가 띄어쓰기 없이 붙어 있음(학습자 노출 문구 깨짐)"
+    }
+   ]
+  },
+  {
+   "id": "M2306#22",
+   "type": "R-GIST",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "how_to_reject 의 소비자 발화 인용에서 ok 의 따옴표가 빠져 원문과 글자 단위로 어긋남(경미)"
+    }
+   ]
+  },
+  {
+   "id": "M2306#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "design_intent에 '파본 지문·옆 단 글자·원문 창' 등 작업 메모 노출 — 현재 지문은 정상"
+    },
+    {
+     "code": "other",
+     "note": "transform_note의 '2번·4번' 문장 번호가 sentence_index(3,4)·실제 문장과 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "M2306#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "정답 confirmed_at '한 줄에 but 있으면 but 뒤가 판정 근거' — 조건 없는 무조건 규칙"
+    }
+   ]
+  },
+  {
+   "id": "M2306#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "'빈칸 문장은 훼손돼 판정 정보가 거의 없고' — 빈칸 문장은 정상, 원천 상태를 학습자 설명에 섞음"
+    },
+    {
+     "code": "choice_3",
+     "note": "③ 배제에서 within을 '3번 문장'의 취하는 쪽이라 함 — within itself는 4번 문장, 위치 오기"
+    }
+   ]
+  },
+  {
+   "id": "M2306#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "measured_ability에 '빈칸 마커가 보이지 않는 문장' — 원천 추출 결함을 학습 능력으로 기술"
+    }
+   ]
+  },
+  {
+   "id": "M2306#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "stem에 다른 문항 지문(Mobilities in transit…) 혼입, 주어진 문장이 passage 첫머리에 섞임, 선지5에 각주 잔재"
+    }
+   ]
+  },
+  {
+   "id": "M2306#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "stem에 다른 문항 지문 혼입, 주어진 문장이 passage 첫 문장으로 들어가 있음, 선지5에 배점·각주 잔재"
+    }
+   ]
+  },
+  {
+   "id": "M2306#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "④ 배제에 '앞 문장을 되받는 자리는 정답이 아니라 확인 자리' 무조건 규칙 — 적용 조건 없음"
+    },
+    {
+     "code": "choice_2",
+     "note": "② 유인 설명이 rare 부호 혼동을 장황·모호하게 서술"
+    }
+   ]
+  },
+  {
+   "id": "M2306#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "measured_ability의 사건 순서 (A)-(D)-(C)-(B)는 오류 — 소파 이동(C)이 (D)보다 앞, 실제 A-C-D-B"
+    },
+    {
+     "code": "choice_1",
+     "note": "① 유인 설명이 '표현이 나뉘어 있다'뿐이라 그럴듯한 이유가 아님"
+    },
+    {
+     "code": "choice_4",
+     "note": "④ 유인 논리 뒤틀림(his를 Noah로 읽어도 선지는 맞아 보임)"
+    }
+   ]
+  },
+  {
+   "id": "M2309#22",
+   "type": "R-GIST",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "③(성실 납세·예산) 선지의 lure_quote 가 경제학 관심 문장이라 선지 유인과 맞지 않음"
+    }
+   ]
+  },
+  {
+   "id": "M2309#24",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "지문은 9문장인데 정답 confirmed_at 이 10번 문장을 가리키고, ① 배제에서 '이후 아홉 문장'(실제 8)으로 셈이 틀림"
+    }
+   ]
+  },
+  {
+   "id": "M2309#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "내용 참인 오답에 '주체 역전'·'범위 과대' 함정 라벨 — choiceTruth 유형인데 함정으로 서술"
+    },
+    {
+     "code": "choice_5",
+     "note": "참 선지에 '부분 사실' 라벨, why_tempting 이 근거 없는 추측(뜬금없어 보임)"
+    }
+   ]
+  },
+  {
+   "id": "M2309#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "참 선지에 '무관'·'어휘 함정'·'범위 과소' 등 함정 라벨 — 안내문 일치는 대응 항목(참)으로 설명해야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2309#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 밑줄 구간이 아닌 다음 밑줄까지의 긴 본문 조각으로 잘려 저장됨(②~④)"
+    }
+   ]
+  },
+  {
+   "id": "M2309#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 가 다음 밑줄까지의 본문 조각이고 ⑤에 각주와 쪽번호까지 섞여 저장됨"
+    },
+    {
+     "code": "other",
+     "note": "오답 trap 라벨(구문 부호 계산 실패·동어 반복 유인)이 학습자에게 낯선 작업 용어"
+    }
+   ]
+  },
+  {
+   "id": "M2309#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "선지4 배제에서 '3번 문장의 literature'라 했으나 3번 문장엔 Writers만 있음(literature는 1번) — 문장 번호 오류"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct가 a little more often을 6번 문장의 '부분적 이동'과 연결 — 지문 근거 없는 과잉 해석"
+    }
+   ]
+  },
+  {
+   "id": "M2309#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "passage 첫머리에 주어진 문장이 구분 없이 붙고 choices에 본문 문장 조각·각주가 들어감 — 원문 구조 복원 필요"
+    }
+   ]
+  },
+  {
+   "id": "M2309#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "주어진 문장이 passage 첫 문장으로 섞이고 choices가 본문 문장+[3점]·각주 조각 — 원문 구조 복원 필요"
+    }
+   ]
+  },
+  {
+   "id": "M2309#41",
+   "type": "X-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note에 '옆 단과 낱말 단위로 뒤섞여 문장 번호는 근사치' 작업 메모가 학습자 필드에 노출"
+    }
+   ]
+  },
+  {
+   "id": "M2309#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "「지시 강도의 한 단계 상승으로 닫힌다」 틀 문구가 이음매 근거와 맞지 않는 복붙 표현"
+    }
+   ]
+  },
+  {
+   "id": "M2406#19",
+   "type": "R-MOOD",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_N",
+     "note": "선지②③④⑤가 felt at ease를 '9번 문장'이라 함 — 정답 설명은 7번, 문장 번호 불일치(지문 7~8문장)"
+    }
+   ]
+  },
+  {
+   "id": "M2406#24",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "문장 번호 불일치: Yet 문장은 실제 6번째인데 sentence_index 7, confirmed_at 9(지문은 8문장). 선지 해설의 6~8번 표기와도 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "M2406#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 내용이 참인 오답①②③⑤에 주체 역전·어휘 함정 등 함정 라벨과 why_tempting 을 붙여 함정처럼 설명"
+    }
+   ]
+  },
+  {
+   "id": "M2406#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 참인 선지①②④⑤를 함정 라벨로 설명. ②의 why_tempting(only 가 나이에 걸림)은 억지스러운 가상 오독"
+    }
+   ]
+  },
+  {
+   "id": "M2406#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "why_tempting가 원문 the power to fulfill 을 power of fulfilling 으로 잘못 인용"
+    }
+   ]
+  },
+  {
+   "id": "M2406#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "선지⑤ 텍스트 끝에 '5'가 붙어 있고 지문에 선지표가 중복 포함됨"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "answer_locus.reasoning 이 (A)(C)만 다루고 (B) unless 근거를 빠뜨림(선지 해설에만 있음)"
+    }
+   ]
+  },
+  {
+   "id": "M2406#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "how_to_reject가 '계산 자체가 없다'고 과장 — 지문은 공식 기록이 없다고만 함. 바뀐 성분은 manual(노동 종류)→계산 방식"
+    }
+   ]
+  },
+  {
+   "id": "M2406#33",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "선지2 why_tempting 인용이 원문 여러 조각을 쉼표로 이어 붙인 합성 인용"
+    }
+   ]
+  },
+  {
+   "id": "M2406#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note에 '코퍼스 선지 5는 잘려 있으나' 작업 용어 노출"
+    },
+    {
+     "code": "choice_3",
+     "note": "trap 라벨 '주체 역전'이 실제 변경(진리 소재를 이성 너머로 이동)과 맞지 않음"
+    }
+   ]
+  },
+  {
+   "id": "M2406#37",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "answer_locus.reasoning에 '코퍼스 지문에 39번 지문이 섞여' 작업 메모 노출(현 지문은 정상)"
+    },
+    {
+     "code": "choice_1",
+     "note": "why_tempting이 (A)에 없는 'an involuntary' 표현을 (A) 화제로 제시 — 사실 오류"
+    }
+   ]
+  },
+  {
+   "id": "M2406#38",
+   "type": "R-INSERT",
+   "verdict": "needs_source",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "stem에 40번 지문 문장 혼입, 주어진 문장 누락; choices가 괄호 사이 본문 문장+각주로 채워짐"
+    },
+    {
+     "code": "work_jargon",
+     "note": "design_intent 'raw_block', reasoning '코퍼스 지문' 작업 용어"
+    }
+   ]
+  },
+  {
+   "id": "M2406#39",
+   "type": "R-INSERT",
+   "verdict": "needs_source",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "stem에 40번 지문 혼입·주어진 문장이 passage 첫 문장으로 섞임; choices가 본문 문장+각주"
+    },
+    {
+     "code": "other",
+     "note": "measured_ability·design_intent가 '본문 없음·자료 결손'이라 하나 reasoning·선지분석은 본문 사용 — 자기모순"
+    },
+    {
+     "code": "work_jargon",
+     "note": "design_intent 'raw_block·코퍼스', reasoning '코퍼스 지문' 노출"
+    }
+   ]
+  },
+  {
+   "id": "M2406#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note '이 청크의 요약문 일곱 문항' 작업 용어·배치 통계 노출"
+    }
+   ]
+  },
+  {
+   "id": "M2406#41",
+   "type": "X-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "confirmed_at가 지문이 옆 단과 뒤섞였다고 하나 저장 지문은 정상 — 근사 문장번호 주석 재확인"
+    }
+   ]
+  },
+  {
+   "id": "M2406#42",
+   "type": "X-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "발문이 '적절하지 않은'에서 잘림(것은? 누락)"
+    },
+    {
+     "code": "other",
+     "note": "(b) 근거를 '앞 문단'이라 하나 같은 단락 앞 문장임. 참인 오답을 함정 라벨로 설명"
+    }
+   ]
+  },
+  {
+   "id": "M2406#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "why_correct 괄호 주석이 코퍼스 선지 오염을 주장하나 저장된 선지는 정상 순열 — 낡은 주석 삭제"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "「지시 강도의 한 단계 상승」 틀 문구가 실제 이음매 설명과 무관(2309#43과 동일 복붙)"
+    }
+   ]
+  },
+  {
+   "id": "M2406#44",
+   "type": "X-REFER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "'밑줄 문장이 다른 사람을 이름으로 부르면 밑줄은 그 사람이 아니다' 무조건 규칙 — 같은 글 (d)문장은 Ellen을 부르고 she=Ellen이라 반례"
+    },
+    {
+     "code": "source_broken",
+     "note": "발문이 45번 문항 발문·선지①로 잘못 들어감. sentence_index 가 모두 1"
+    }
+   ]
+  },
+  {
+   "id": "M2406#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "발문에 '(A)'와 선지① 텍스트가 섞여 들어감. sentence_index 가 모든 선지에서 1"
+    },
+    {
+     "code": "other",
+     "note": "choiceTruth 유형인데 참인 선지를 시점 이동·등장인물 혼동 등 함정으로 설명"
+    }
+   ]
+  },
+  {
+   "id": "M2409#18",
+   "type": "R-PURPOSE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "trap「주체 역전」이 실제 함정(당부 vs 참여 요청 화행 바꿔치기)과 맞지 않음"
+    }
+   ]
+  },
+  {
+   "id": "M2409#19",
+   "type": "R-MOOD",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "문장 번호 불일치: 지문은 11문장인데 오답 ②③에서 '13번', '10~13번' 문장을 인용하고 정답 해설(4·7·8)과도 번호 체계가 다름"
+    }
+   ]
+  },
+  {
+   "id": "M2409#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "지문은 7문장인데 sentence_index [4,8]·confirmed_at [8,9]·'8번째 문장' 언급 — In consequence 는 6번, 마지막은 7번 문장. 근거 위치 표시 오류"
+    }
+   ]
+  },
+  {
+   "id": "M2409#24",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "design_intent는 두 축이 서로 다른 문장에 있다 하고 answer_locus는 3번 한 문장에 두 축이 다 있다고 해 서로 모순. 넓은 맥락 축은 4·5번이 주 근거"
+    }
+   ]
+  },
+  {
+   "id": "M2409#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "choiceTruth 유형인데 오답을 함정(인과 역전 등) 라벨로 설명. ④는 인과 아닌 시점 대조이며 내용 참임을 중심으로 써야 함"
+    },
+    {
+     "code": "choice_1",
+     "note": "why_tempting이 '어긋나 보이는 이유'를 지어냄 — 일치 선지는 대응 문장으로 참임만 보이면 됨"
+    }
+   ]
+  },
+  {
+   "id": "M2409#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "choiceTruth 유형인데 참인 선지에 '범위 과대'·'범위 과소'·'무관' 함정 라벨 부여 — 라벨이 실제 관계와 안 맞음"
+    }
+   ]
+  },
+  {
+   "id": "M2409#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "design_intent가 '첫 문장 빈칸은 뒤 문단의 반대를 넣는 자리'라고 조건 없이 단정 — Prior to 시간 대비 구조일 때만 성립"
+    },
+    {
+     "code": "other",
+     "note": "confirmed_at sentence_index 9는 8문장 지문 범위 밖(마지막 문장은 8)"
+    }
+   ]
+  },
+  {
+   "id": "M2409#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_4",
+     "note": "④의 factors는 장벽을 줄이는 요인인데 ①의 제약 요인 목록과 '짝'이라 설명해 관계를 잘못 짚음"
+    },
+    {
+     "code": "overgeneral",
+     "note": "정답 근거에 '유일한 must 당위문'을 내세워 어조 단서를 조건 없이 판별 규칙처럼 제시"
+    }
+   ]
+  },
+  {
+   "id": "M2409#36",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "(B) 첫 자리 배제를 평가문 선후로 설명 — 실제 결정 조건은 these tasks의 선행 절차 부재. trap 라벨 '첫 등장 위반'도 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "M2409#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "transform_note가 「결정 칸 (B)」라 적어 reasoning·why_correct의 「판별 칸은 (A)」와 모순"
+    }
+   ]
+  },
+  {
+   "id": "M2409#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "the longest night의 the를 앞 밤을 받는 정관사로 설명 — 최상급 the는 지시 단서가 아님. 근거는 밤→아침 시간 사슬"
+    },
+    {
+     "code": "other",
+     "note": "'this offer는 부정관사 없이 지시사로' 표현이 부정확(지시사 this 자체가 선행 제안을 요구)"
+    }
+   ]
+  },
+  {
+   "id": "M2409#44",
+   "type": "X-REFER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "why_tempting이 Sean을 '화자 쪽'이라 표기 — Sean은 청자이고 화자는 Alex라 화자·청자가 뒤바뀜"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "'이 유형의 단일 점검이 뒤집혀 적용' 문구가 조건 불명확한 규칙을 끌어와 혼란"
+    },
+    {
+     "code": "other",
+     "note": "design_intent의 호격 'my friend'는 지문에 없음"
+    }
+   ]
+  },
+  {
+   "id": "M2409#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "선지⑤ 근거 문장에 OCR 잔여가 끼었다고 스스로 기록 — 원문 대조 필요"
+    }
+   ]
+  },
+  {
+   "id": "M2506#18",
+   "type": "R-PURPOSE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at note에 '코퍼스 지문 손상·회차 원문 창' 작업 용어가 학습자 필드에 노출"
+    }
+   ]
+  },
+  {
+   "id": "M2506#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "choiceTruth 유형인데 오답을 '인과 역전' 함정으로 분류 — 내용상 참인 선지이고 인과 관계 자체가 없음"
+    },
+    {
+     "code": "choice_1",
+     "note": "'서수를 못 읽으면' 식 억지 유혹 서술 — 맞는 선지는 대응 문장으로 참임을 보이는 것이 중심이어야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2506#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "발문 잘림(안내문의 지 않는 것은), 선지 복원 실패를 회차 원문으로 보완했다고 기록"
+    }
+   ]
+  },
+  {
+   "id": "M2506#28",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "발문 잘림(LCU Geograp 일치하는 것은), 두 단 섞임으로 선지 원문 미복원"
+    }
+   ]
+  },
+  {
+   "id": "M2506#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 컬럼이 밑줄 낱말이 아니라 밑줄 사이 지문 구간 전체로 저장됨(각주 포함)"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct 의 '같은 절의 they 와 충돌' 은 근거가 아님 — 핵심은 힌트를 받는 쪽이라 수동이어야 한다는 점"
+    }
+   ]
+  },
+  {
+   "id": "M2506#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 컬럼이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간으로 저장됨(각주·쪽번호 포함)"
+    }
+   ]
+  },
+  {
+   "id": "M2506#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "sentence_index [3,9] 중 9는 7문장 지문 범위 밖 — 마지막 문장은 7"
+    }
+   ]
+  },
+  {
+   "id": "M2506#33",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "②의 lure_quote가 유인 근거가 아니라 배제 근거(합리주의자로 훈련받아도 영향받음) 문장임"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct가 '낱말 단위로 맞물린다'고 과장 — decisions↔experience and solutions는 환언이지 낱말 대응 아님"
+    }
+   ]
+  },
+  {
+   "id": "M2506#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "①의 will emerge를 '당위'로 규정 — 예측 진술이며, 실제 바뀐 성분은 '차이 좁히기 노력'이라는 지문에 없는 주장"
+    }
+   ]
+  },
+  {
+   "id": "M2506#36",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "(B)의 such regrowth는 (B) 앞 문장의 woody plants·shrubs 재성장을 받는 것인데 (C)의 scrubby growth를 받는다고 단정"
+    },
+    {
+     "code": "choice_5",
+     "note": "⑤ 배제의 가장 강한 근거((C) their animals·they의 선행사가 주어진 글에 없음)를 빼고 간접 근거만 제시"
+    }
+   ]
+  },
+  {
+   "id": "M2506#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices가 ①~⑤ 위치가 아니라 각 자리 뒤 문장 조각+각주로 저장됨, 주어진 문장이 passage 첫머리에 섞임"
+    },
+    {
+     "code": "other",
+     "note": "③ how_to_reject 인용에 오타(are→ar)"
+    }
+   ]
+  },
+  {
+   "id": "M2506#39",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices가 위치 번호가 아닌 문장 조각+[3점]·각주로 저장, 주어진 문장이 passage 첫 문장으로 섞임"
+    }
+   ]
+  },
+  {
+   "id": "M2506#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "answer_locus.note에 청크·body_ok·OCR 잔여 등 작업 용어 노출"
+    }
+   ]
+  },
+  {
+   "id": "M2506#43",
+   "type": "X-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "① 배제를 '결말 단락은 맨 뒤에만 온다'는 무조건 규칙으로 설명 — 리허설·구매 선행 조건으로 배제해야 함"
+    },
+    {
+     "code": "choice_4",
+     "note": "tonight's rehearsal을 '공연 전날 밤'으로 단정 — 지문은 본행사 날짜를 명시하지 않음"
+    }
+   ]
+  },
+  {
+   "id": "M2509#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "passage_design.transform_note 가 근거를 '3번'이라 지칭 — 실제 근거는 4번째 문장(answer_locus sentence_index 4,5와 불일치)"
+    }
+   ]
+  },
+  {
+   "id": "M2509#24",
+   "type": "R-TITLE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "answer_locus 인용은 6번째 문장(순환)인데 sentence_index 가 [7,8]로 어긋남"
+    },
+    {
+     "code": "choice_2",
+     "note": "how_to_reject 가 Comparing 문장을 '여덟 번째'라 함 — 실제 7번째 문장"
+    }
+   ]
+  },
+  {
+   "id": "M2509#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "choiceTruth 유형인데 맞는 선지 ①③④⑤에 부분사실·인과역전 등 함정 라벨과 '틀려 보이는 이유' 틀을 씌움 — 내용 참 설명으로 바꿀 것"
+    }
+   ]
+  },
+  {
+   "id": "M2509#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "choiceTruth 유형인데 참인 선지 ①②④⑤에 범위과소·주체역전 등 함정 라벨 — 대응 항목 중심의 참 설명으로"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "정답 confirmed_at.sentence_index [1]이 answer_locus [6]과 불일치"
+    }
+   ]
+  },
+  {
+   "id": "M2509#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "why_correct 안 선행사 인용이 'mise'로 잘려 원문 그대로가 아님(misery)"
+    }
+   ]
+  },
+  {
+   "id": "M2509#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "passage_design.data_defect 자체가 문장 순서 원문 불일치 가능성 지적 — 문장 번호 근거 전반이 흔들릴 수 있어 원문 대조 필요"
+    },
+    {
+     "code": "lure_quote",
+     "note": "③ lure_quote가 유인 근거가 아니라 배제 근거(disorient) 문장"
+    }
+   ]
+  },
+  {
+   "id": "M2509#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "design_intent에 '이 청크에서' 작업 용어 노출"
+    },
+    {
+     "code": "choice_3",
+     "note": "③ lure_quote 없음 — 유인 근거가 지문 밖 통념뿐이라 인용 필드 비어 있음(경미)"
+    }
+   ]
+  },
+  {
+   "id": "M2509#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "answer_locus.quote 가 정답 ④가 아니라 ⑤ 문장이고, 판별을 대명사 they 연결에만 기대 사슬 관계 변화 설명이 약함"
+    },
+    {
+     "code": "overgeneral",
+     "note": "design_intent 가 부정관사 a dealer 를 판별 지점으로 단정 — 근거로 성립하지 않는 무조건 단서"
+    }
+   ]
+  },
+  {
+   "id": "M2509#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "④ why_tempting 인용이 원문과 다름(artificial 누락) — 축자 인용 아님"
+    },
+    {
+     "code": "choice_5",
+     "note": "정답 해설 인용에서 To be successful 뒤 쉼표 누락 — 축자 인용 불일치"
+    },
+    {
+     "code": "source_broken",
+     "note": "⑤ 선지 문자열에 각주·쪽번호 잔재('* entity…7')가 섞여 있음"
+    }
+   ]
+  },
+  {
+   "id": "M2509#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "③ 배제가 (A) distorts 만 다루고 (B) fixed 가 왜 안 되는지(유한≈고정 혼동) 설명 없음. trap '반대 진술'도 부정확"
+    },
+    {
+     "code": "choice_4",
+     "note": "④ trap '반대 진술'은 novel 의 변경 성분(새 소리 vs 조합)과 맞지 않음"
+    }
+   ]
+  },
+  {
+   "id": "M2509#44",
+   "type": "X-REFER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "design_intent 가 (e)를 메시지 발화로 분류했으나 (e)는 (D) 대면 대화 속 Julia 발화임"
+    }
+   ]
+  },
+  {
+   "id": "M2509#45",
+   "type": "X-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "lure_quote",
+     "note": "①의 lure_quote 가 Anna 판매 게시 문장으로, 알림·앱 대응 근거(첫 문장)와 무관"
+    },
+    {
+     "code": "choice_1",
+     "note": "choiceTruth 유형인데 ①~④를 함정 중심으로 서술 — 내용이 참인 대응 위치 설명이 우선돼야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2606#26",
+   "type": "R-FACT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_N",
+     "note": "choiceTruth 유형인데 참인 선지 1·3·4·5에 함정 라벨(어휘 함정·주체 역전 등)과 지어낸 오독 유인을 붙임. 대응 문장으로 참임을 설명해야 함"
+    },
+    {
+     "code": "choice_5",
+     "note": "범위 과대 유인 설명이 선지에 없는 '유일' 해석을 가정해 자기모순적"
+    }
+   ]
+  },
+  {
+   "id": "M2606#27",
+   "type": "R-NOTICE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_N",
+     "note": "참인 선지 1~4를 함정(어휘 함정·범위 과대·지문 밖 상식)으로 분류하고 가상의 오독을 유인으로 씀. 대응 항목으로 참 설명 필요"
+    },
+    {
+     "code": "other",
+     "note": "정답 confirmed_at.sentence_index 가 1로 answer_locus(8)와 어긋남"
+    }
+   ]
+  },
+  {
+   "id": "M2606#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "지문은 5문장인데 '빈칸에서 다섯 문장 뒤'·confirmed_at [1,6] 등 문장 번호가 틀림"
+    }
+   ]
+  },
+  {
+   "id": "M2606#32",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "③ why_tempting 이 지문에 없는 낱말(short story·story 반복)을 근거로 듦"
+    },
+    {
+     "code": "choice_5",
+     "note": "⑤ 배제가 '성격은 6문장이 우회한 문제'라 하나, 지문의 난제는 외모 묘사 — 사실 오류"
+    },
+    {
+     "code": "choice_4",
+     "note": "④ '정답과 한 낱말만 다른 선지'는 사실과 다름(have been given precise details about)"
+    },
+    {
+     "code": "choice_1",
+     "note": "'근거는 빈칸보다 네 문장 앞' 위치 계산 부정확(4문장 vs 7문장)"
+    }
+   ]
+  },
+  {
+   "id": "M2606#33",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "how_to_reject 의 축 설명이 'For a brief moment ↔ )' 로 대응항이 빠진 채 깨져 있다"
+    },
+    {
+     "code": "lure_quote",
+     "note": "③(과제 전환) lure_quote 가 기기 끊기 비유 문장 — 전환 유인과 무관한 인용"
+    }
+   ]
+  },
+  {
+   "id": "M2606#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "overgeneral",
+     "note": "'④만 시간 표지가 없다/시간 축에 안 얹힌다'는 근거가 틀림 — ②에도 시간 표지가 없음. design_intent·why_correct·answer_locus 공통"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "판별 근거를 시간 표지 리듬에 두지 말고 녹는 추세 증거 사슬에서 술어가 바뀐 점으로 한정해야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2606#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "⑤ 배제에서 'also는 묶음 전체 앞에 놓인다'고 해 정답 설명(also는 앞 묶음을 요구)과 모순"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "also 가 받는 앞 묶음은 두 동기보다 '끌림·장점' 전체인데 두 동기 열거로만 좁혀 설명"
+    }
+   ]
+  },
+  {
+   "id": "M2609#31",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 '코퍼스의 선지 배열이 뭉개져' 등 작업 용어가 학습자 필드에 노출"
+    },
+    {
+     "code": "work_jargon",
+     "note": "answer_locus.note 에 파서·body_ok·raw_block 등 작업 메모 잔존"
+    }
+   ]
+  },
+  {
+   "id": "M2609#33",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_1",
+     "note": "①배제 논리가 '생태학자 불만=조사가 이어짐'으로 엉뚱함. 실제로는 다양성이 '확장 가치 조사'의 근거가 되면 안 될 이유가 지문에 없다는 점(방향 불일치)을 짚어야 함. trap '반대 진술'도 부정확"
+    }
+   ]
+  },
+  {
+   "id": "M2609#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "other",
+     "note": "passage_design.roles 가 정답 ④ 문장을 support 로, ②③을 example 로 표기 — 무관 문장 역할 미표시"
+    },
+    {
+     "code": "answer_reasoning",
+     "note": "answer_locus.quote 가 ④가 아닌 ⑤ 문장 — 근거 위치가 정답 문장 자체가 아님(설명은 타당)"
+    }
+   ]
+  },
+  {
+   "id": "M2609#37",
+   "type": "R-ORDER",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "⑤배제의 'that이 첫 블록에서 가리킬 것이 없다'는 오류. (C) 내부의 something mathematical going on 을 받으므로 근거가 못 됨. (B) 2인칭 대꾸 근거만 남겨야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2609#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "why_correct가 지문 featuring 을 '자동사 용법'이라 함 — 지문은 타동사(시리즈가 인물을 등장시킴). (A)는 요약문의 자동사 feature(등장하다)로의 변환임을 바로 써야 함"
+    }
+   ]
+  },
+  {
+   "id": "M2706#18",
+   "type": "R-PURPOSE",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_2",
+     "note": "Every year 문장을 '넷째 문장'이라 함. ①은 같은 문장을 셋째라 해서 번호가 서로 맞지 않음"
+    },
+    {
+     "code": "choice_4",
+     "note": "popularity from the video 문장을 '일곱째'라 했지만 실제로는 여섯째(roles 기준)"
+    }
+   ]
+  },
+  {
+   "id": "M2706#23",
+   "type": "R-TOPIC",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "근거 인용은 7번째 문장(longer-lived)인데 sentence_index는 [1,8]이라 마지막 문장을 가리킴"
+    },
+    {
+     "code": "overgeneral",
+     "note": "'크기→수명' 인과를 지문이 직접 진술한 것처럼 확정함. 지문은 상관과 대비만 줌"
+    },
+    {
+     "code": "choice_1",
+     "note": "단일 단락 지문인데 '마지막 문단'이라고 씀"
+    }
+   ]
+  },
+  {
+   "id": "M2706#29",
+   "type": "R-GRAMMAR",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 밑줄 단위로 잘리지 않고 다음 밑줄 직전까지 여러 문장을 통째로 담음(②는 4문장). 선지 원문 재분할 필요"
+    },
+    {
+     "code": "choice_1",
+     "note": "why_tempting 의 대안 형태 제시가 어색(단독 과거시제 운운) — 실제 유혹은 부사 개입으로 수동 구조가 안 보이는 점"
+    }
+   ]
+  },
+  {
+   "id": "M2706#30",
+   "type": "R-VOCAB",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "④ confirmed_at.note 에 작업 이력 문구('3차에 why_correct 에서 이관')가 학습자 필드에 남음"
+    },
+    {
+     "code": "source_broken",
+     "note": "선지 ⑤ 텍스트에 각주·쪽번호 잔여물('* archaic: 고어…5')이 섞임, 선지가 밑줄 단위로 잘리지 않음"
+    }
+   ]
+  },
+  {
+   "id": "M2706#34",
+   "type": "R-BLANK",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "trap '인과 역전' 오표기 — 실제 바뀐 성분은 시간축(현재 시대 vs 미래 존재)"
+    },
+    {
+     "code": "choice_5",
+     "note": "'all but certain'을 '반드시 밀려난다'로 단정 — 거의 확실로 완화 필요"
+    }
+   ]
+  },
+  {
+   "id": "M2706#35",
+   "type": "R-IRRELEVANT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "work_jargon",
+     "note": "③ why_tempting 에 'OCR 잔여 ile' 언급 — 작업 용어이며 현재 지문에 그런 잔여물도 없음"
+    },
+    {
+     "code": "lure_quote",
+     "note": "'For the same ... reasons' 로 인용 — 원문은 생략 없는 For the same reasons. 축자 인용 아님"
+    },
+    {
+     "code": "overgeneral",
+     "note": "same reasons 가 받는 이유를 ③뿐이라 단정 — ②의 낙하 높이·반응 속도도 포함(⑤ how_to_reject 와도 모순)"
+    }
+   ]
+  },
+  {
+   "id": "M2706#38",
+   "type": "R-INSERT",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_5",
+     "note": "⑤ 배제 논리 부정확 — likewise는 ⑤ 앞에 이미 있어 '첫 항목이 총론' 논거 불성립. Orienting이 총론 없이 앞서는 점으로 배제해야"
+    },
+    {
+     "code": "choice_1",
+     "note": "why_tempting이 wind 반복만 듦 — 실제 유인(문제 서술 직후 대책 전환 착각) 설명 약함"
+    },
+    {
+     "code": "source_broken",
+     "note": "choices 필드가 번호 아닌 뒤 문장 텍스트+각주로 저장됨(원문 구조 깨짐)"
+    }
+   ]
+  },
+  {
+   "id": "M2706#40",
+   "type": "R-SUMMARY",
+   "verdict": "partial",
+   "defects": [
+    {
+     "code": "choice_3",
+     "note": "overlook에 '간과' 명사 용법이 없다는 단정은 사전과 어긋남(미국식 명사 용법 존재) — 배제 근거 교체 필요"
+    }
+   ]
+  }
+ ],
+ "pilot": [
+  "2014A#27",
+  "2014A#29",
+  "2014A#35",
+  "2014A#36",
+  "2014A#37",
+  "2014A#40",
+  "2014A#41",
+  "2014A#42",
+  "2014B#24",
+  "2014B#25",
+  "2014B#26",
+  "2014B#28",
+  "2014B#30",
+  "2014B#40",
+  "2014B#43",
+  "2014B#45",
+  "2015#18",
+  "2015#35",
+  "2015#38",
+  "2017#42",
+  "2017#44",
+  "2019#42",
+  "2022#20",
+  "2023#18",
+  "2026#21"
+ ]
+}

@@ -1,0 +1,199 @@
+{
+ "chunk": 3,
+ "type_id": "R-REFER",
+ "type_name": "지칭 추론(단문·폐지)",
+ "analyses": [
+  {
+   "item_id": "2014B#26",
+   "revised": true,
+   "measured_ability": "한 여인을 an angry lady · 인용 속 I · the distressed mother · the woman 으로 바꿔 부르는 서사에서, 각 밑줄이 가리키는 사람을 행위(말하기·연민 받기·표 받기)와 소유(표의 임자) 관계로 확인하고, 소유격 her 의 임자를 「좌석이 없다」는 사실과 「나중 비행기로 미루겠다」는 제안의 대가 관계로 정하는 능력",
+   "design_intent": "이 문항의 선지는 지문 속 밑줄 ①~⑤ 다섯 자리 자체다. 등장 여성은 글쓴이의 친구와 항의하는 여인 둘이며 둘 다 she·her 로 불린다. 밑줄 셋을 대명사가 아닌 명사구로 두어 대명사 사슬만으로는 안 풀리게 했고, 정답 자리는 11번 문장의 소유격 her 다 — 같은 문장 안에서 the woman 이 use 의 주어로 나오고 뒤의 her daughter 는 그 여인의 딸이어서, 가까운 명사나 같은 형태의 her 에 붙이면 여인으로 읽히게 설계되어 있다. 판정은 표의 임자를 5번 문장(좌석 없음)과 11번 문장의 제안 내용(내가 나중 비행기를 타겠다)으로 맞춰 보는 데서 선다.",
+   "answer_locus": {
+    "sentence_index": [
+     5,
+     11
+    ],
+    "quote": "She walked over to the ticket agent and offered to take a later flight, if it meant the woman could use",
+    "reasoning": "11번 문장의 행위자 She 는 10번 문장에서 여인의 이야기를 듣고 연민을 느낀 My friend 다. 그 친구가 내놓는 것은 「자신이 나중 비행기를 타는 것」이고, 그 대가로 여인이 할 수 있게 되는 일이 뒤따르는 use ④ her ticket 이다. 5번 문장 there are no more seats available 로 여인에게는 그 비행기의 표가 없으므로, 여인이 새로 쓰게 되는 표는 자리를 내주는 친구의 표여야 제안이 말이 된다. 같은 문장 끝의 her daughter 는 여인의 딸(6번 문장 my eight-year-old daughter)이라 형태가 같은 두 her 의 임자가 갈린다."
+   },
+   "choices": [
+    {
+     "n": 4,
+     "verdict": "correct",
+     "refers_to": "글쓴이의 친구(A friend of mine)",
+     "why_correct": "④ her ticket 의 ticket 은 친구가 offered to take a later flight 로 비워 주는 자리와 대응한다 — 「내가 나중 비행기를 탄다」와 「그 여인이 표를 쓴다」가 if it meant 로 대가 관계를 이루므로 표의 임자는 미루는 사람이다. 여인의 표로 읽으면 5번 문장의 no more seats available 과 충돌하고, 12번 문장 arranged for another flight for my friend 가 친구에게 다른 비행편이 따로 마련되었다고 적어 이 읽기를 다시 확인한다. 나머지 넷(①②③⑤)은 모두 항의하던 여인이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       11,
+       12
+      ],
+      "note": "11번 문장이 제안과 대가를, 5번 문장이 여인에게 좌석이 없음을, 12번 문장이 친구가 다른 비행편을 받았음을 대준다."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "refers_to": "항의하던 여인",
+     "trap": "동일인 다중 지칭 오인",
+     "why_tempting": "an angry lady 는 부정관사가 붙은 새 인물이고 뒤의 the distressed mother · the woman 과 낱말이 달라, 화난 여자와 상심한 어머니를 서로 다른 사람으로 세게 된다.",
+     "how_to_reject": "3번 문장 인용 But I must get to New York today! 의 화자가 4번 문장의 an angry lady 이고, 6·7번 문장 인용(my eight-year-old daughter is on that plane … she cried)이 같은 카운터 앞의 같은 주장(오늘 뉴욕에 가야 한다)을 이어 간다. 10번 문장이 그 사연을 the woman’s woeful story 로 되받으므로 ①은 뒤의 여인과 같은 사람이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "refers_to": "항의하던 여인",
+     "trap": "인용 화자 오인",
+     "why_tempting": "글이 A friend of mine 이라는 글쓴이 시점으로 시작해, 따옴표 안의 I 를 글쓴이나 그 친구로 돌리게 된다. 앞의 5번 문장이 직원의 대답(came the reply)이라 화자가 다시 바뀌는 것도 놓치기 쉽다.",
+     "how_to_reject": "7번 문장 끝 전달부 she cried 가 화자를 표시하고, 같은 인용 덩어리의 6번 문장 my eight-year-old daughter is on that plane 이 딸을 그 비행기에 태운 사람의 말임을 보여 준다. 1번 문장의 친구는 잡지를 읽으며 비행기를 기다리던 사람으로, 딸 이야기는 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "refers_to": "항의하던 여인",
+     "trap": "주체 역전",
+     "why_tempting": "10번 문장의 주어가 My friend 이고 her heart was touched 의 her 도 친구라, 같은 문장 끝의 명사구까지 친구 쪽으로 붙여 읽게 된다.",
+     "how_to_reject": "10번 문장에서 the distressed mother 는 compassion for 의 목적어다 — 연민을 느끼는 쪽(친구의 heart)과 받는 쪽이 for 로 갈린다. mother 라는 말은 6번 문장의 딸 이야기를 한 사람에게만 맞고, 같은 문장 앞의 the woman’s woeful story 가 그 사람을 이미 the woman 으로 불렀다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "refers_to": "항의하던 여인",
+     "trap": "수령자 역전",
+     "why_tempting": "revalidated ticket 은 원래 친구의 표였으므로, 표와 엮인 사람을 친구로 묶어 to ⑤ the woman 까지 친구로 읽게 된다.",
+     "how_to_reject": "12번 문장은 issued a revalidated ticket to ⑤ the woman 과 arranged for another flight for my friend 를 and then 으로 나란히 놓아, 표를 받는 사람과 다른 비행편을 받는 사람을 각각 적는다. 11번 문장에서 표를 쓰기로 된 사람이 the woman 이었으므로 표를 받는 쪽도 그 여인이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯을 여백에 적고, 대명사(I · her)인지 명사구(an angry lady · the distressed mother · the woman)인지 표시한다",
+     "on_fail": "명사구가 누구인지 막히면 관사와 수식어를 본다 — an 은 새로 등장한 사람, the 와 mother 처럼 관계를 담은 말은 앞에서 사연이 나온 사람을 되받는다"
+    },
+    {
+     "step": "등장 인물을 역할로 칸을 만든다(글쓴이의 친구 · 항의하는 여인 · 직원 · 딸) — 이름이 하나도 없으므로 행위(앉아 기다림 · 항의 · 대답)로 구별한다",
+     "on_fail": "인물 수가 헷갈리면 인용마다 전달부(told the clerk · came the reply · she cried)의 주어를 적어, 말하는 사람이 몇 명인지 센다"
+    },
+    {
+     "step": "인용 안의 I 는 그 인용 덩어리의 전달부 주어로 바꾸고, 인용 안의 소유물(my daughter)이 그 사람의 사정과 맞는지 확인한다",
+     "on_fail": "전달부가 인용 뒤에 붙어 있으면 그 인용이 끝나는 자리까지 읽고 전달부를 찾는다"
+    },
+    {
+     "step": "소유격 밑줄은 후보(친구 · 여인)를 둘 다 넣어 보고, 각각이 앞 문장의 사실(좌석이 없다)과 그 문장의 제안(내가 나중 비행기를 탄다)에 맞는지 따진다. 같은 문장에 같은 형태의 her 가 또 있으면 따로 판정한다",
+     "on_fail": "둘 다 말이 되는 것 같으면 그 사람이 그 물건을 이미 가졌는지 지문에서 찾는다 — 표를 못 산 사람은 자기 표를 가질 수 없다"
+    },
+    {
+     "step": "다섯 칸의 인물을 견주어 하나만 다른 자리를 고르고, 마지막 문장에서 두 인물이 각각 무엇을 받는지로 재확인한다",
+     "on_fail": "다섯이 모두 같은 사람으로 적혔으면 4단계의 소유격 자리로 돌아가 두 후보를 다시 넣어 본다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "두 여성이 모두 she·her 로 불린다",
+     "한 사람에게 별칭이 넷이라 인물 수를 과다하게 셀 여지가 있다",
+     "정답 문장 안에 형태가 같은 her 가 둘이고 임자가 다르다",
+     "판정이 5번 문장의 좌석 사실과 11번 문장의 제안을 함께 써야 선다"
+    ]
+   },
+   "required_vocab": [
+    "distressed",
+    "compassion",
+    "woeful",
+    "revalidated"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "1차 revise: 원장의 정답 근거가 「if 절 안 주어가 따로 불렸으니 소유격 임자가 아니다」라는 배제 규칙에 기대고 있었다 — 같은 절에 이름이 나온다는 이유로 후보를 빼는 규칙이라 지칭 유형 기준에 어긋난다. reasoning·why_correct 를 제안과 대가(나중 비행기를 탄다 ↔ 표를 쓴다) 및 좌석 없음 문장(목록 5번) 사실로 다시 썼고 정답 판정(④=친구)은 보존했다.",
+      "재검수 pass: quote 가 지문 10번 문장 앞부분과 글자 그대로 일치한다."
+     ],
+     "checked": [
+      "quote 를 지문 문자열과 대조",
+      "정답표 ④ 와 correct 일치 확인",
+      "reasoning·why_correct·solve 4단계·design_intent 에 이름 등장 배제 서술이 남았는지 재대조",
+      "design_intent 에 세는 법 서술이 남지 않았는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "1차 revise: 원장에서 같은 마지막 문장을 why_correct 와 confirmed_at 이 서로 다른 번호로 불렀다 — 2차에서 목록 번호(12번)로 통일했다.",
+      "재검수 pass: 오답 넷의 유인이 각 선지 낱말(an angry lady · 인용 속 I · her heart was touched · revalidated ticket)에 근거하고 배제 위치가 서로 다르다.",
+      "2차 revise(교정 원장): 이전 판은 스스로 센 11문장 번호를 써서 청크 문장 목록(12개, ①이 붙은 전달부가 4번으로 따로 섬)과 한 칸씩 어긋났다. 모든 칸을 목록 번호로 바꾸고 design_intent 의 세는 법 서술과 confirmed_at.note 의 작업 기록을 지웠다.",
+      "재검수 pass: answer_locus 5·11, confirmed_at 5·11·12, 각 how_to_reject 의 번호가 목록 문장 내용과 일치."
+     ],
+     "checked": [
+      "answer_locus·confirmed_at·why_correct·how_to_reject 네 칸의 문장 번호를 11문장 목록과 하나씩 대조",
+      "trap 라벨 4종 중복 여부",
+      "각 how_to_reject 에 문장 번호가 있는지",
+      "sentences 목록 12개의 n·text 와 해설 전 칸의 번호를 하나씩 대조(5=no seats, 6=daughter, 7=she cried, 10=compassion, 11=offered, 12=revalidated)",
+      "difficulty.drivers·reasoning 의 번호도 재대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차가 「직전 주어 승계」나 「가까운 명사」를 단독 규칙으로 쓰지 않고 두 후보를 넣어 보는 검산으로 끝난다. 70초 안에 실행 가능하다.",
+      "학습자 칸에 작업 용어가 없고, 저장 형식 결함은 confirmed_at.note 에만 있다."
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "각 step/on_fail 이 서로 다른 행동인지 대조",
+      "required_vocab 네 낱말의 지문 존재 확인"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-REFER",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "동일인 다중 지칭 오인",
+    "count": 1,
+    "signature": "한 인물을 부르는 명사구가 바뀌면 다른 인물로 센다"
+   },
+   {
+    "trap": "인용 화자 오인",
+    "count": 1,
+    "signature": "인용 안 I 를 글쓴이 시점으로 돌린다"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 1,
+    "signature": "전치사 목적어를 문장 주어 쪽으로 붙인다"
+   },
+   {
+    "trap": "수령자 역전",
+    "count": 1,
+    "signature": "물건의 원 임자와 받는 사람을 뒤섞는다"
+   }
+  ],
+  "answer_locus_pattern": "1문항 — 정답 소유격의 임자가 같은 문장(11번)의 제안 내용과 5번 문장의 사실(좌석 없음)의 결합으로 정해진다",
+  "procedure": [
+   "밑줄을 대명사·명사구로 나눈다",
+   "인물을 역할로 칸을 만든다",
+   "인용 안 I 는 전달부 주어로",
+   "소유격은 두 후보를 넣어 사실과 대조",
+   "하나만 다른 자리 고른 뒤 마지막 문장으로 재확인"
+  ],
+  "failure_modes": [
+   "같은 문장 안 같은 형태의 her 를 같은 사람으로 읽는다",
+   "가까운 명사(the woman)를 소유격 임자로 삼는다"
+  ],
+  "time_budget_sec": 70,
+  "open_questions": [
+   "라벨 「동일인 다중 지칭 오인」「인용 화자 오인」「수령자 역전」은 (C)군에 없는 새 라벨 — 등재 제안",
+   "반려 2건(setter·analyst)은 원장 결함에서 나왔고 tutor 는 반려가 없었다 — 표본 1문항이라 세 자의 분리 정도를 판단하기 어렵다",
+   "recurring_traps 는 한 문항의 각 함정을 한 번씩만 셌다"
+  ]
+ }
+}

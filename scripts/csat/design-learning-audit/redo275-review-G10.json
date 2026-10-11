@@ -1,0 +1,484 @@
+{
+ "group": 10,
+ "items": [
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "M2706#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "sentence_index [1,5,7], 인용 7번째 문장과 일치, confirmed_at 도 같은 번호"
+    },
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "design_intent·reasoning·why_correct 모두 상관·대비로 고침, 인과 단정 없음"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "「마지막 문단」 삭제, 2·4·7번째 문장 위치로 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "M2509#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "transform_note 없음, 모든 칸이 근거를 4·5번째 문장으로 일관되게 지칭"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "2024#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "④ 유인을 2번째 문장의 시장·비시장 공존으로 바꾸고 may exceed 는 배제 쪽에만 사용"
+    },
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "① 유인을 5번째 문장 UN 추정(수치)으로 정리"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "M2409#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "[4,6,7]로 정정, In consequence 6번·마지막 7번 문장으로 칸 사이 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "M2306#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "design_intent 에 파본·원문 창 메모 없음"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "transform_note 제거, 근거 3·4번째 문장으로 일관"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "M2209#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "OCR 잔여 서술 삭제, design_intent 는 지문 구조만 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "M2206#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "③ 유인을 4번째 문장 novels·3번째 adolescence 로 선지와 직접 연결"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "M2109#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "a product of 를 5번째 문장으로 정확히 지칭"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "The brain itself 를 6번째 문장으로 정확히 지칭"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "M2106#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "why_correct_empty",
+     "resolved": true,
+     "note": "원인(틀)·결과(접근·해결) 두 자리 대응과 4번째 문장 실험 확인으로 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-TOPIC-M2706-23.out.json",
+   "id": "2020#23",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "design_intent 가 versus 구를 8번째 문장 1회로 정확히 서술"
+    },
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "why_tempting 이 8번째 문장에 글자 그대로 있다고만 해 지문과 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-2021-30.out.json",
+   "id": "2021#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 는 학습자 칸 아님(지침 11). 학습자 칸에 작업 메모 없음"
+    },
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "부정 발문이라 오답 trap 비움, ③ 주체 혼동 라벨 제거"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-2021-30.out.json",
+   "id": "M2109#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "작동 과정=무관한 생각 탐색, 감시 과정=불일치 감지로 역할 구분 정확"
+    },
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-2021-30.out.json",
+   "id": "2020#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-2021-30.out.json",
+   "id": "2019#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 는 학습자 칸 아님(지침 11). 학습자 칸에 작업 메모 없음"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "design_intent 가 uncertain 을 2번 문장으로 정확히 지칭"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-2021-30.out.json",
+   "id": "2018#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "지문 밖 추론 삭제, without which 구조로 learn 고정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-2021-30.out.json",
+   "id": "2015#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 는 학습자 칸 아님(지침 11). 학습자 칸에 작업 메모 없음"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "discern 은 눈 쪽 능력이라고 명시, 귀 근거는 3·5번 문장으로 정정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "M2706#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 는 학습자 칸 아님(지침 11). 학습자 칸에 작업 메모 없음"
+    },
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "2026#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "Caring 문장을 6번, 반칙 인정을 5번으로 정확히 지칭"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "부정 발문이라 오답 trap·why_tempting 비우고 맞는 이유로 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "2025#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "인용이 include lower task motivation 으로 축자 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "M2506#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "2024#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 는 학습자 칸 아님(지침 11). 학습자 칸에 작업 메모 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "M2406#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "answer_locus.reasoning 이 (B) unless 근거를 포함해 세 칸 모두 다룸"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "2023#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 는 학습자 칸 아님(지침 11). 학습자 칸에 작업 메모 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "M2309#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "부정 발문 오답 trap 라벨 제거"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "2022#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "however 무조건 규칙 삭제, In addition 나열 위치로 설명"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "however 를 1번 견해와의 대조로 정확히 서술"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "맞는 낱말의 trap 라벨 제거"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-VOCAB-M2706-30.out.json",
+   "id": "M2209#30",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "입력 choices 결손은 분석 범위 밖. 분석은 지문 속 밑줄 낱말 기준으로만 서술해 전파 없음"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "근거 없는 대체 낱말 why_tempting 삭제"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  }
+ ]
+}

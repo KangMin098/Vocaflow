@@ -1,0 +1,180 @@
+{
+ "chunk": 21,
+ "type_id": "X-REFER",
+ "type_name": "장문 지칭",
+ "analyses": [
+  {
+   "item_id": "2017#44",
+   "measured_ability": "인물을 이름 대신 직함·별칭 명사구로 바꿔 부르는 서사에서, 그 명사구의 수식어(나이·국적·직업)를 인물 정보와 맞춰 같은 사람으로 묶는 능력",
+   "design_intent": "밑줄 (a)·(c)를 The youngest concert promoter in Germany · the German teenager 라는 별칭 명사구로, (b)·(d)·(e)를 대명사로 두었다. 단락이 (A) 뒤 (B)·(C)·(D) 순으로 인쇄되어 사건 순서((A)-(D)-(C)-(B))와 어긋나고, 남성 인물 셋(Erik·Keith·Manfred)이 모두 he 로 받힌다. 정답 (b)는 연주 동작의 소유격이라 '피아니스트'라는 직업 정보 하나로 Keith 에 붙고, 나머지 넷은 나이·국적·청자 관계로 Erik 에 모인다.",
+   "answer_locus": {
+    "sentence_index": [
+     8
+    ],
+    "quote": "(b) His left hand produced thundering, repetitive bass riffs as a way of covering up the piano’s lack of resonance.",
+    "reasoning": "왼손으로 베이스 리프를 치는 사람은 앞 문장 When Keith began to play 의 연주자이고, 뒤 문장 Keith really had to play that piano very hard 가 같은 연주 동작을 Keith 로 이어 받는다. 같은 문단에서 Erik 은 Erik too was deeply touched 로 듣는 쪽에 세워져 있어 연주 주체가 될 수 없다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "별칭 명사구 지시",
+     "why_tempting": "이름이 아니라 직함(The youngest concert promoter in Germany)이라 오페라하우스를 설득한 제3의 흥행업자로 세우기 쉽다.",
+     "how_to_reject": "앞 문장 A seventeen-year-old German boy named Erik Brandes stepped out onto the empty vast stage 가 열일곱 살과 독일이라는 정보를 이미 붙여 두었으므로, 독일에서 가장 어린 공연 기획자는 그 소년이다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "소유격 (b) His 의 임자는 왼손으로 베이스 리프를 치는 연주자이고, 앞 문장 When Keith began to play 와 뒤 문장 Keith really had to play that piano very hard 가 그 연주 동작을 Keith 로 이어 받는다. 같은 문단의 Erik too was deeply touched 는 Erik 을 듣는 쪽에 세워 둔다. 나머지 넷 (a) The youngest concert promoter in Germany · (c) the German teenager · Only for (d) you · Manfred came to (e) him 은 모두 Erik 이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       8
+      ],
+      "note": "(b) 직전 문장 Keith was unexpectedly producing the performance of a lifetime 의 주어가 Keith 이고, 바로 뒤 Keith really had to play that piano very hard 도 같은 연주 동작을 Keith 로 잇는다. 이 단락에서 Erik 은 두 문장 앞 Erik too was deeply touched 에서 듣는 쪽으로만 나온다. 미끄러짐은 직전 주어 때문이 아니라, 이 단락을 읽기 전에 (A) 의 Erik 중심 서술을 이어 붙여 His 를 무대에 선 소년으로 읽는 데서 생긴다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "별칭 명사구 지시",
+     "why_tempting": "the German teenager 는 이름이 아니라 나이·국적 별칭이라, 대명사만 따라온 학습자는 이 명사구를 직전 문장의 He left and went to wait in his car 의 주어(Keith)를 다시 부르는 말로 읽거나 새 인물로 세운다. (C) 단락은 연주를 거부한 Keith 이야기로 시작해서 주어가 계속 Keith 일 것이라는 기대가 생긴다.",
+     "how_to_reject": "별칭의 수식어를 인물 정보와 맞춘다. teenager·German 은 [A] 첫 문장 A seventeen-year-old German boy named Erik Brandes 와 맞고, Keith 는 같은 지문에서 the American pianist Keith Jarrett 로 소개되어 국적·나이가 어긋난다. 행위도 대조된다 — (c)는 caught up with ... and begged the jazz pianist to play 로 연주를 '부탁하는' 쪽이고, 부탁받는 쪽이 the jazz pianist 다. 그래서 (c)는 Erik 이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "직접화법 인칭 전환",
+     "why_tempting": "인용 안 2인칭이라 특정 인물이 아닌 일반 청자로 흘려 읽거나, 말하는 Keith 쪽으로 돌린다.",
+     "how_to_reject": "“Never forget,” Keith said. “Only for (d) you.” 에서 Keith said 가 화자를 확정하므로 you 는 청자다. 앞 문장 The pianist looked out at him standing in the rain, completely soaked, and took pity on him 이 그 청자를 빗속의 소년으로 준다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "호격 지시",
+     "why_tempting": "Manfred came to (e) him 에서 him 을 같은 자리에 있던 Keith 로 읽기 쉽다.",
+     "how_to_reject": "이어지는 인용이 “Erik, if you don’t get another piano, Keith can’t play tonight.” 으로 시작해 청자를 이름으로 부르고 Keith 를 3인칭으로 따로 말한다. 곧 말을 받은 him 은 Erik 이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "(A) 단락 첫 부분에서 인물마다 나이·국적·직업을 적어 표를 만든다(Erik: 17세 독일 소년, Keith: 미국 피아니스트). 뒤 단락에 나오는 Manfred 는 등장할 때 역할(producer)을 덧붙인다.",
+     "on_fail": "정보가 안 붙어 있으면 각 인물이 실제로 한 행동(무대에 섬·공연 성사·연주·제작)을 표에 적는다"
+    },
+    {
+     "step": "밑줄이 명사구((a)·(c))면 수식어(youngest·German·teenager)를 인물표의 나이·국적과 맞춘다.",
+     "on_fail": "수식어가 둘 이상과 맞으면 그 문장에서 밑줄 인물이 하는 행동(설득·부탁)과 그 행동을 받는 인물을 갈라 적고 표의 역할과 대조한다"
+    },
+    {
+     "step": "밑줄이 대명사((b))면 그 절의 술어(produced ... bass riffs)가 어떤 일인지 보고 그 일을 할 수 있는 인물을 고른 뒤, 앞뒤 문장에서 같은 동작의 주어가 누구인지 확인한다.",
+     "on_fail": "술어로 안 갈리면 단락 안 각 인물의 역할(연주하는 쪽·듣는 쪽)을 다시 적는다"
+    },
+    {
+     "step": "인용 안·인용 앞 밑줄((d)·(e))은 화자 표시(Keith said)와 인용 안에서 불린 이름(“Erik, ...”)으로 화자와 청자를 갈라 적는다.",
+     "on_fail": "이름이 안 불리면 인용 앞 문장에서 화자가 바라보거나 말을 건 대상을 찾는다"
+    },
+    {
+     "step": "다섯 자리 대상을 적어 4대1 인지 확인한다.",
+     "on_fail": "4대1 이 아니면 별칭 명사구 자리부터 수식어 대조를 다시 한다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.68,
+    "drivers": [
+     "남성 인물 셋(Erik·Keith·Manfred)이 모두 he/him",
+     "밑줄 둘이 이름 대신 직함·별칭 명사구",
+     "정답 자리가 소유격이라 임자를 술어로 정해야 한다",
+     "단락이 (A)-(D)-(C)-(B) 로 재배열"
+    ]
+   },
+   "required_vocab": [
+    "promoter",
+    "improvised",
+    "resonance",
+    "desperate"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함 1(confirmed_at.note 가 (b) 직전 문장을 Erik 언급으로 서술)을 고쳤다 — 직전 문장 주어는 Keith 이고 Erik too was deeply touched 는 두 문장 앞이다",
+      "design_intent 의 단락 순서를 실제 인쇄 순서 (A)(B)(C)(D) 와 사건 순서 (A)-(D)-(C)-(B) 로 구분해 적었다"
+     ],
+     "checked": [
+      "(b) 앞 두 문장을 지문에서 다시 읽어 주어 확인(Erik too was deeply touched → Keith was unexpectedly producing → (b))",
+      "answer_locus.quote 를 corpus.json 지문과 문자열 대조",
+      "정답표 2 와 correct 대조",
+      "다섯 밑줄 대상 Erik/Keith/Erik/Erik/Erik 재계산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "choice 3 의 trap '단락 순서 오판'은 (c)를 Keith 로 읽는 경로를 설명 못 한다 — 별칭 명사구 함정으로 바꿨다",
+      "choice 3 how_to_reject 가 'Keith 를 목적어로 따로 적었으므로 주어가 아니다'라는 같은 문장 이름 등장 배제였다 — 나이·국적 수식어 대조와 부탁하는 쪽/부탁받는 쪽 역할 대조로 다시 썼다",
+      "재검수: (a)와 (c)가 같은 라벨이지만 why_tempting 은 각각 '제3의 흥행업자로 세움' · '직전 주어 Keith 를 다시 부름'으로 갈라졌다 → pass"
+     ],
+     "checked": [
+      "choice 3 trap·why_tempting·how_to_reject 수정",
+      "같은 오류(이름 등장 배제)가 choice 5·절차 2단계 on_fail 에 남았는지 대조 — 2단계 on_fail 의 '목적어로 적힌 인물을 지운다'를 역할 대조로 교체",
+      "choice 5 는 호격·3인칭 관계 근거라 유지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 각 단계에 이 지문 밑줄 기호와 표지를 붙였고 on_fail 을 서로 다르게 썼다",
+      "4단계 on_fail 의 '다가온 사람을 청자로' 같은 고정 규칙을 '말을 건 대상을 찾는다'로 완화"
+     ],
+     "checked": [
+      "금지 표현 검사",
+      "80초 예산 검토",
+      "required_vocab 4개 지문 존재 확인"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "X-REFER",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "별칭 명사구 지시",
+    "count": 2,
+    "signature": "이름 대신 나이·국적·직함 명사구로 같은 인물을 다시 불러 제3 인물이나 직전 주어로 오인시킨다"
+   },
+   {
+    "trap": "직접화법 인칭 전환",
+    "count": 1,
+    "signature": "인용 속 you 를 화자 쪽으로 돌린다"
+   },
+   {
+    "trap": "호격 지시",
+    "count": 1,
+    "signature": "him 을 현장의 다른 남성으로 읽는다"
+   }
+  ],
+  "answer_locus_pattern": "1문항: 정답 소유격 (b)는 앞뒤 문장의 같은 연주 동작 주어(Keith)와 직업 정보로 확정",
+  "procedure": [
+   "(A) 단락 첫 부분에서 인물마다 나이·국적·직업을 적어 표를 만든다(Erik: 17세 독일 소년, Keith: 미국 피아니스트). 뒤 단락에 나오는 Manfred 는 등장할 때 역할(producer)을 덧붙인다.",
+   "밑줄이 명사구((a)·(c))면 수식어(youngest·German·teenager)를 인물표의 나이·국적과 맞춘다.",
+   "밑줄이 대명사((b))면 그 절의 술어(produced ... bass riffs)가 어떤 일인지 보고 그 일을 할 수 있는 인물을 고른 뒤, 앞뒤 문장에서 같은 동작의 주어가 누구인지 확인한다.",
+   "인용 안·인용 앞 밑줄((d)·(e))은 화자 표시(Keith said)와 인용 안에서 불린 이름(“Erik, ...”)으로 화자와 청자를 갈라 적는다.",
+   "다섯 자리 대상을 적어 4대1 인지 확인한다."
+  ],
+  "failure_modes": [
+   "별칭 명사구를 새 인물로 세움",
+   "인쇄 단락 순서와 사건 순서 혼동"
+  ],
+  "time_budget_sec": 80,
+  "open_questions": [
+   "표본 1문항이라 함정 빈도는 말할 수 없다. 각 함정은 문항당 한 번만 셌다",
+   "(C) 라벨표에 '별칭 명사구 지시' 등재 제안"
+  ]
+ }
+}

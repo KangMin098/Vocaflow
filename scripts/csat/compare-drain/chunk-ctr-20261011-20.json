@@ -1,0 +1,505 @@
+{
+ "chunk": "ctr-20261011-20",
+ "pairs": [
+  {
+   "pair_id": "2014A#38:1|M2706#35:3",
+   "type": "R-IRRELEVANT",
+   "trap": "어휘 반복 유인",
+   "a": {
+    "id": "2014A#38",
+    "n": 1,
+    "trap": "어휘 반복 유인",
+    "why_tempting": "track 이라는 놀이기구 부품 이름이 주어라, 인생 이야기가 아니라 놀이기구 자체를 설명하는 문장으로 보인다. 괄호가 문장을 끊는 것도 삽입된 군더더기라는 인상을 준다.",
+    "how_to_reject": "괄호 안 (or in this case, life events)이 track = 인생 사건이라는 대응을 문장 안에서 직접 명시한다. 대응이 적힌 문장은 비유를 유지하는 문장이지 벗어난 문장이 아니다."
+   },
+   "b": {
+    "id": "M2706#35",
+    "n": 3,
+    "trap": "어휘 반복 유인",
+    "why_tempting": "③의 nonlinear relationship between mass and bone strength 가 낯선 수학적 표현이고 a toddler’s 를 다시 불러내, 어른 이야기에서 아기 비교로 되돌아간 군더더기처럼 보인다.",
+    "how_to_reject": "③의 their bones 는 문장 4(②)의 adults 를 받고, 「절대적으로는 더 굵어도 상대적으로 충분히 굵지 않다」는 문장 3(①)의 relatively thick bones 를 어른 쪽에서 뒤집는다. 문장 7(⑤)의 the same reasons 가 받는 이유 중 하나다."
+   },
+   "first_reason": "비유 대응 명시 대 앞 문장 지시 연결로 다름"
+  },
+  {
+   "pair_id": "2014A#38:1|M2609#35:3",
+   "type": "R-IRRELEVANT",
+   "trap": "어휘 반복 유인",
+   "a": {
+    "id": "2014A#38",
+    "n": 1,
+    "trap": "어휘 반복 유인",
+    "why_tempting": "track 이라는 놀이기구 부품 이름이 주어라, 인생 이야기가 아니라 놀이기구 자체를 설명하는 문장으로 보인다. 괄호가 문장을 끊는 것도 삽입된 군더더기라는 인상을 준다.",
+    "how_to_reject": "괄호 안 (or in this case, life events)이 track = 인생 사건이라는 대응을 문장 안에서 직접 명시한다. 대응이 적힌 문장은 비유를 유지하는 문장이지 벗어난 문장이 아니다."
+   },
+   "b": {
+    "id": "M2609#35",
+    "n": 3,
+    "trap": "어휘 반복 유인",
+    "why_tempting": "③에 diverse 가 거듭 나오고 privilege 라는 새 낱말이 붙어, 같은 말을 되풀이하다 특권 문제로 샌 문장처럼 보인다.",
+    "how_to_reject": "③의 Majority workers benefit by having a network of diverse mentors 가 문장 3(①)의 dominant group members 짝을 채운다. privilege 는 다수자가 얻는 이해의 내용을 구체화할 뿐 화제를 바꾸지 않는다."
+   },
+   "first_reason": "비유 대응 명시 대 대립 짝 채우기로 다름"
+  },
+  {
+   "pair_id": "2014A#40:4|M2609#19:2",
+   "type": "R-MOOD",
+   "trap": "반대 진술",
+   "a": {
+    "id": "2014A#40",
+    "n": 4,
+    "trap": "반대 진술",
+    "why_tempting": "9번 문장 딸의 'I still don’t feel like going'처럼 행사에 무심한 태도가 반복되어, 그 무관심을 장면 전체의 분위기로 받아들이면 indifferent가 끌린다.",
+    "how_to_reject": "필자는 12번 문장 'It’s time you started thinking about other people'이라며 행사와 남의 사정에 강하게 관여한다. 무관심은 필자 상태와 정반대다."
+   },
+   "b": {
+    "id": "M2609#19",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "과제를 낸 뒤 교수가 불렀다는 2문장을 ‘혼날 일’ 로 읽으면 앞이 좌절로 보이고, 면담이 끝났으니 김이 빠졌다고 이어 붙이면 -→- 가 된다.",
+    "how_to_reject": "마지막 문장의 ‘This is the best day ever!’ 가 뒤 부호를 + 로 고정한다. 뒤가 부정인 선지는 이 한 문장으로 전부 떨어진다."
+   },
+   "first_reason": "인물 태도 반대 대 결말 부호 반대로 다름"
+  },
+  {
+   "pair_id": "2014A#41:2|M2706#41:2",
+   "type": "X-TITLE",
+   "trap": "무관",
+   "a": {
+    "id": "2014A#41",
+    "n": 2,
+    "trap": "무관",
+    "why_tempting": "넷째 문장에 'moved to a team' 이 있고 야구가 단체 경기라 협업 이야기로 읽힌다.",
+    "how_to_reject": "team 은 4번 문장에서 선수가 옮겨 가는 곳으로 한 번 나올 뿐이고, 동료·협력을 말하는 문장이 없다. 8·9번 문장의 주어는 you 와 your brain 이고 12~14번은 독자 개인에게 명령한다."
+   },
+   "b": {
+    "id": "M2706#41",
+    "n": 2,
+    "trap": "무관",
+    "why_tempting": "지문 앞부분이 amorphous solid 와 supercooled liquid 를 나란히 놓아 고체·액체 두 이름이 눈에 남고, 두 이름을 그대로 담은 선지가 소재를 정확히 짚은 것처럼 보인다.",
+    "how_to_reject": "Uses(용도)에 대응하는 문장이 지문에 없다. 유리로 무엇을 만드는지 말하는 자리는 stained-glass 창과 flat sheets 두 곳뿐인데, 둘 다 모양이 왜 그렇게 생겼는지를 설명할 뿐 용도를 비교하지 않는다. 게다가 네 번째 문장은 in practice it's really the latter 로 둘 중 하나로 정리해 버려, 두 상태를 각각의 쓰임으로 나눈다는 구도 자체가 성립하지 않는다."
+   },
+   "first_reason": "낱말 하나 확대 대 대응 문장 없는 축으로 다름"
+  },
+  {
+   "pair_id": "2014A#41:3|M2609#41:3",
+   "type": "X-TITLE",
+   "trap": "부분 사실",
+   "a": {
+    "id": "2014A#41",
+    "n": 3,
+    "trap": "부분 사실",
+    "why_tempting": "다섯째 문장 'One analysis found that the player hit 60 percent more home runs' 와 넷째 문장의 28 percent 가 수치를 주어 통계 이야기로 보인다.",
+    "how_to_reject": "5번 문장의 분석 결과는 6번 'Why?' 로 설명 대상이 되고, 7번이 그 답을 통계가 아니라 'how achievable you think the goal is' 로 준다. 통계가 필요한지 묻거나 답하는 문장은 없다."
+   },
+   "b": {
+    "id": "M2609#41",
+    "n": 3,
+    "trap": "부분 사실",
+    "why_tempting": "네 번째 문장이 전화의 장점으로 immediate feedback 을 실제로 들고, 여섯 번째 문장이 successful managers 를 언급해 두 조각이 붙으면 경영 조언처럼 읽힌다.",
+    "how_to_reject": "immediate feedback 은 네 번째·다섯 번째 문장에서 richness 를 재는 눈금의 하나로만 쓰이고, 마지막 두 문장은 즉각적 피드백이 아니라 '맞는 그릇'을 결론으로 든다. 즉각 피드백이 항상 낫다고 말하는 문장은 지문에 없다."
+   },
+   "first_reason": "수치 인상 대 장점 조각 결합으로 방식 다름"
+  },
+  {
+   "pair_id": "2014A#42:3|2016#42:3",
+   "type": "X-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "2014A#42",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "빈칸 문장이 In business and life 로 시작해 사업 이야기로 넘어가므로 수입이라는 낱말이 그 자리에 어울려 보인다.",
+    "how_to_reject": "소득·보수·돈을 가리키는 낱말이 지문에 한 번도 없다. 빈칸 문장의 술어는 whether we swing for the fences 로 시도 여부를 좌우하는 항을 요구하는데, 11문장이 그 항을 뇌의 인식으로 지정한다."
+   },
+   "b": {
+    "id": "2016#42",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "seemingly 가 '겉보기에는 그렇지만 실은 아니다'라는 뜻이라, 지식이 부정확해 보인다는 방향으로도 문장이 만들어진다.",
+    "how_to_reject": "지식의 정확성을 문제 삼는 문장이 지문에 없다. 이 글의 대립축은 정확/부정확이 아니라 1~2문장이 세운 실용적 쓸모의 유무이고, 마지막 문장도 knowledge is beyond value 로 가치 축에서 끝난다."
+   },
+   "first_reason": "낱말 부재 대 대립축 이탈로 확인 방식 다름"
+  },
+  {
+   "pair_id": "2014A#43:2|M2706#43:4",
+   "type": "X-ORDER",
+   "trap": "조건-귀결 절단",
+   "a": {
+    "id": "2014A#43",
+    "n": 2,
+    "trap": "조건-귀결 절단",
+    "why_tempting": "(B)를 도입으로 잡은 뒤 (D)의 옛이야기 장면을 회상으로 끼워 넣고 (C)의 생일을 결말로 두면 액자 구성처럼 보인다.",
+    "how_to_reject": "(B)의 마지막 7번 문장 So my grandmother and I worked hard together using books for beginners 와 (C)의 첫 8번 문장 My efforts were rewarded only a month later 는 노력과 그 보상이라는 한 쌍이고 only a month later 가 기준 시점을 (B)에 둔다. 사이에 (D)를 끼우면 a month later 가 세는 기준이 없어진다."
+   },
+   "b": {
+    "id": "M2706#43",
+    "n": 4,
+    "trap": "조건-귀결 절단",
+    "why_tempting": "(D) 다음에 (B)를 놓으면 '만남 → 다음 날 레슨'이라는 큰 시간축은 맞아 보인다.",
+    "how_to_reject": "(B)의 'Today is your first full lesson'은 (C)에서 Sally가 이미 바이올린을 받아 'The sound was rough'로 한 번 시도한 뒤라야 성립한다. (C)를 건너뛰면 '첫 정식 레슨'의 전제가 사라진다."
+   },
+   "first_reason": "끼워 넣기 대 단락 건너뛰기로 다름"
+  },
+  {
+   "pair_id": "2014A#43:1|M2609#43:1",
+   "type": "X-ORDER",
+   "trap": "마무리 문장 위치 오판",
+   "a": {
+    "id": "2014A#43",
+    "n": 1,
+    "trap": "마무리 문장 위치 오판",
+    "why_tempting": "(B)의 One day, when I saw my grandmother on the street by chance 가 전형적인 이야기 도입부로 읽히고, (D)의 마지막 19번 문장 The morals of her stories taught me how I should live my life 가 교훈으로 닫는 문장처럼 들려 맨 뒤에 놓고 싶어진다.",
+    "how_to_reject": "그 19번 문장은 결말이 아니라 (B) 5번 문장의 all she had taught me 가 가리키는 선행 정보다. (D)를 맨 뒤로 보내면 5번 문장의 지시 대상이 사라진다. 이야기의 결말은 (C) 11~14번 문장, 생일 케이크 앞의 대사(So it's your birthday, too.)다."
+   },
+   "b": {
+    "id": "M2609#43",
+    "n": 1,
+    "trap": "마무리 문장 위치 오판",
+    "why_tempting": "(B)의 'Several hours later'가 (A)의 '차 안' 장면에서 몇 시간 뒤로 자연스럽게 읽힌다.",
+    "how_to_reject": "(B) 끝의 'He couldn't wait for the next time they would get to go to a game'은 하루를 총평하는 결말이고, 'showed her the ball he caught'는 아직 일어나지 않은 사건을 정관사로 받는다. 결말 단락은 맨 뒤에만 온다."
+   },
+   "first_reason": "선행 정보 단락 대 결말 단락 오배치로 다름"
+  },
+  {
+   "pair_id": "M2006#18:1|M2609#18:1",
+   "type": "R-PURPOSE",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2006#18",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "캠프를 알리는 글인 것은 맞아 화행이 겹치고, 날짜와 장소가 구체적으로 나와 이미 있던 계획을 고쳐 알리는 글로 읽힌다",
+    "how_to_reject": "첫 문장의 동사는 announce that we will offer 로 새로 연다는 말이다. change·update·instead of 처럼 변경을 뜻하는 표현이 지문에 없다"
+   },
+   "b": {
+    "id": "M2609#18",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "둘째 문장의 your enthusiasm 과 셋째 문장의 Thanks to your interest 가 참여 동기를 화제로 삼은 것처럼 읽힌다.",
+    "how_to_reject": "두 문장 모두 등록이 이미 끝난 뒤의 인사이고, 수신자에게 무엇을 답하라는 요구(tell us·please answer)가 없다. 요구가 나오는 자리는 다섯째 문장의 결정 통보뿐이다."
+   },
+   "first_reason": "변경 화행 대 인사말 화제화로 다름"
+  },
+  {
+   "pair_id": "M2006#19:1|M2706#19:3",
+   "type": "R-MOOD",
+   "trap": "무관",
+   "a": {
+    "id": "M2006#19",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "결말이 밝게 끝나므로 뒤 칸이 아니라 앞 칸에 긍정어를 놓아도 된다고 착각하기 쉽고, 원고가 엉망이라는 서술에서 뒤 칸 ashamed 를 떠올리게 된다",
+    "how_to_reject": "1~4문장은 마감 압박과 불확신뿐이라 delighted 를 지지하는 문장이 없고, 6문장 'scribbled words ... disjointed ideas' 는 원고 상태 서술이지 인물이 부끄러워한다는 진술이 아니다"
+   },
+   "b": {
+    "id": "M2706#19",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "4문장의 'Clouds surrounded the monorail' 과 회색 시야를 불안한 장면으로 읽고, 1문장의 friends 를 부러움의 대상으로 삼는다.",
+    "how_to_reject": "friends 는 1문장에서 초대만 하고 다시 등장하지 않아 비교 대상이 없고, 회색 시야 다음 문장(5)이 'started feeling sleepy' 라 불안이 아니라 지루함이다."
+   },
+   "first_reason": "앞뒤 칸 혼동 대 비교 대상 부재로 다름"
+  },
+  {
+   "pair_id": "M2006#21:1|M2706#21:3",
+   "type": "R-IMPLY",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2006#21",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "3번 문장의 what's compensated 가 선지의 compensation 과 같은 낱말이라 지문에서 온 문장처럼 읽힌다.",
+    "how_to_reject": "3번 문장은 보상이 품질의 열쇠라고 말하지 않고, 보상받는 일을 하느라 효과적인 일을 안 한다고 말한다. 7번 문장의 activity was what it got 도 보상이 아니라 활동을 결과로 지목한다."
+   },
+   "b": {
+    "id": "M2706#21",
+    "n": 3,
+    "trap": "어휘 함정",
+    "why_tempting": "4문장의 inner worlds 를 그대로 담고 있어 지문 낱말이 겹치는 선지처럼 보인다.",
+    "how_to_reject": "4문장은 he became convinced they had inner worlds 로, 지문이 긍정적으로 서술한 내용이다. illusion 이라는 평가어는 1~9문장 어디에도 없다."
+   },
+   "first_reason": "역할 뒤집기 대 평가어 추가로 다름"
+  },
+  {
+   "pair_id": "M2006#21:1|M2609#21:1",
+   "type": "R-IMPLY",
+   "trap": "어휘 함정",
+   "a": {
+    "id": "M2006#21",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "3번 문장의 what's compensated 가 선지의 compensation 과 같은 낱말이라 지문에서 온 문장처럼 읽힌다.",
+    "how_to_reject": "3번 문장은 보상이 품질의 열쇠라고 말하지 않고, 보상받는 일을 하느라 효과적인 일을 안 한다고 말한다. 7번 문장의 activity was what it got 도 보상이 아니라 활동을 결과로 지목한다."
+   },
+   "b": {
+    "id": "M2609#21",
+    "n": 1,
+    "trap": "어휘 함정",
+    "why_tempting": "octave 가 4문장과 5문장에 반복돼 지문의 핵심어처럼 보이고, differences 는 5문장의 large differences 와 겹친다.",
+    "how_to_reject": "4문장이 옥타브를 2:1 주파수 비로 정의하므로 옥타브는 두 음 사이의 간격이다. 밑줄은 그 간격을 건넜을 때의 감각이지 같은 옥타브 안의 차이가 아니며, 5문장의 differences 는 musical cultures 사이의 차이다."
+   },
+   "first_reason": "역할 뒤집기 대 낱말 뜻 오독으로 다름"
+  },
+  {
+   "pair_id": "M2006#23:2|M2609#23:4",
+   "type": "R-TOPIC",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2006#23",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "첫 두 문장이 실제로 출판물(manuals · The Courtier · The Galateo)을 나열해 publications 부분에 근거가 있어 보인다",
+    "how_to_reject": "마지막 문장이 the impossibility of breaking them down 으로 장벽이 허물어지지 않음을 명시한다. 계층 간 평등을 가져온다는 방향은 세 번째 문장의 separating the participants from the ostracized 와도 정면으로 어긋난다"
+   },
+   "b": {
+    "id": "M2609#23",
+    "n": 4,
+    "trap": "반대 진술",
+    "why_tempting": "양쪽 모두 letters, journals, photographs 같은 자료를 쓴다고 적혀 있어 공통점이 있는 것처럼 보인다",
+    "how_to_reject": "1번째 문장이 engage different kinds of evidence 라고 못박고 4번째 문장에 by contrast 가 붙어 있다. 글의 골격은 유사성이 아니라 차이다"
+   },
+   "first_reason": "결과 방향 반전 대 비교 구조 반전으로 다름"
+  },
+  {
+   "pair_id": "M2006#28:2|M2706#28:3",
+   "type": "R-NOTICE",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2006#28",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "Submission Categories 는 두 줄인데 그 아래 Prizes·Details 소제목까지 항목처럼 세면 세 가지로 늘어난다.",
+    "how_to_reject": "▣ Submission Categories 아래 불릿은 'People with Wildflowers'와 'Landscape with Wildflowers' 둘뿐이고, 다음 ▣ 는 Prizes 라는 다른 소제목이다."
+   },
+   "b": {
+    "id": "M2706#28",
+    "n": 3,
+    "trap": "부분 사실",
+    "why_tempting": "6 p.m. 은 Time 줄에 실제로 있는 숫자여서 영화 시작 시각으로 옮겨 붙이기 쉽다.",
+    "how_to_reject": "Attractions·Activities 칸에서 Movie 에 붙은 시각은 Deep into the Universe at 7 p.m. 이고, 6 p.m. 은 Time 줄의 행사 전체 시작 시각이다."
+   },
+   "first_reason": "항목 수 세기 범위 오류와 값 이동은 다름"
+  },
+  {
+   "pair_id": "M2006#28:2|M2609#28:1",
+   "type": "R-NOTICE",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2006#28",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "Submission Categories 는 두 줄인데 그 아래 Prizes·Details 소제목까지 항목처럼 세면 세 가지로 늘어난다.",
+    "how_to_reject": "▣ Submission Categories 아래 불릿은 'People with Wildflowers'와 'Landscape with Wildflowers' 둘뿐이고, 다음 ▣ 는 Prizes 라는 다른 소제목이다."
+   },
+   "b": {
+    "id": "M2609#28",
+    "n": 1,
+    "trap": "부분 사실",
+    "why_tempting": "\"September 15 — October 15\" 라는 기간이 지문에 실제로 있다. 기간 값만 대조하면 선지의 「9 월 15 일부터 10 월 15 일까지」가 그대로 맞아떨어진다.",
+    "how_to_reject": "Schedule 구획 첫 두 불릿을 나란히 본다 — 그 기간의 이름표는 \"Submission period\" 이고, \"Judging period: October 16 — October 20\" 이 따로 적혀 있다."
+   },
+   "first_reason": "소제목 경계 계수와 기간 이름표 혼동은 다름"
+  },
+  {
+   "pair_id": "M2006#31:3|M2706#31:4",
+   "type": "R-BLANK",
+   "trap": "지문 밖 상식",
+   "a": {
+    "id": "M2006#31",
+    "n": 3,
+    "trap": "지문 밖 상식",
+    "why_tempting": "맹금을 다루는 방법으로 훈련이 곧바로 떠오르고, 문장 형태상 without 뒤에 넣어도 어색하지 않다",
+    "how_to_reject": "6번 문장이 지목한 문제는 predation, 곧 포식이 다른 멸종위기종의 개체 수를 줄인다는 것이다. 훈련은 4~6번 어디에도 피해야 할 일로 놓이지 않아 without 의 목적어 자리와 맞지 않는다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 4,
+    "trap": "지문 밖 상식",
+    "why_tempting": "복원 예시에 'an ecosystem'이 있어 자연 보전을 떠올리게 한다. 이 문항에서 가장 강한 함정",
+    "how_to_reject": "같은 예시 목록에 historical musical instrument · painting · dinosaur 가 함께 있다. 악기와 그림을 '자연 상태'로 되돌린다는 말은 성립하지 않는다"
+   },
+   "first_reason": "빈칸 자리 조건과 예시 목록 대조로 확인법이 다름"
+  },
+  {
+   "pair_id": "M2006#31:1|M2706#32:4",
+   "type": "R-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "M2006#31",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "멸종위기종이라는 낱말이 두 번 나와 개체 수를 늘리는 보전 기술이 떠오른다",
+    "how_to_reject": "7번 문장의 목표는 '먹는 것을 멈추는 것' 이다. 개체 수를 늘리는 처방을 다루는 문장이 지문에 없고, without 뒤에는 피해야 할 일이 와야 하는데 복제는 피해야 할 일로 놓인 적이 없다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
+    "how_to_reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다"
+   },
+   "first_reason": "지문에 없는 처방과 방향 반대 진술은 다름"
+  },
+  {
+   "pair_id": "M2006#32:2|M2706#31:3",
+   "type": "R-BLANK",
+   "trap": "부분 사실",
+   "a": {
+    "id": "M2006#32",
+    "n": 2,
+    "trap": "부분 사실",
+    "why_tempting": "'자료에서 나왔다' 는 절반이 맞아, data 라는 낱말만 확인하고 고르면 여기서 멈춘다",
+    "how_to_reject": "출처를 다른 분야로 옮긴 것이 결함이다. 4번 문장과 7번 문장의 the data 는 모두 그들 자신의 발굴 자료이고, 지문에 다른 분야를 끌어오는 문장이 없다"
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 3,
+    "trap": "부분 사실",
+    "why_tempting": "마지막 문장의 '최소한으로 개입한다'가 격리를 연상시킨다",
+    "how_to_reject": "그 서술은 preservationists 의 것이다. 빈칸 문장의 주어는 Conservationists — 지문이 두 진영을 명시적으로 갈라 놓은 자리다"
+   },
+   "first_reason": "출처 분야 이동과 주체 진영 바꿈은 다름"
+  },
+  {
+   "pair_id": "M2006#32:3|M2706#32:4",
+   "type": "R-BLANK",
+   "trap": "무관",
+   "a": {
+    "id": "M2006#32",
+    "n": 3,
+    "trap": "무관",
+    "why_tempting": "발굴(excavations)이 소재라 '더 많은 유적을 조사한다' 가 같은 계열로 들린다",
+    "how_to_reject": "7번 문장은 이미 가진 자료를 말한다(already knew the data). 앞으로의 조사 계획을 다루는 문장이 지문에 없고, 빈칸은 결론이 '어디에서 나왔는지' 를 묻는 자리다"
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 4,
+    "trap": "무관",
+    "why_tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
+    "how_to_reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다"
+   },
+   "first_reason": "지문 밖 계획과 방향 반대 진술은 다름"
+  },
+  {
+   "pair_id": "M2006#33:3|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2006#33",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "빈칸 바로 뒤 두 문장에 hardware 와 software 가 나란히 나와, 그 둘의 관계를 묻는 문장이라고 착각하게 한다.",
+    "how_to_reject": "빈칸 다음다음 문장 'Hardware behaves like software.' 와 마지막 인용 'Software eats everything.' 이 정확히 반대 방향이다 — 하드웨어가 소프트웨어를 이겨 살아남는 것이 아니라 소프트웨어처럼 굴게 된다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   },
+   "first_reason": "뒤 문장 관계 역전과 같은 문장 동사 배제는 다름"
+  },
+  {
+   "pair_id": "M2006#33:3|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2006#33",
+    "n": 3,
+    "trap": "반대 진술",
+    "why_tempting": "빈칸 바로 뒤 두 문장에 hardware 와 software 가 나란히 나와, 그 둘의 관계를 묻는 문장이라고 착각하게 한다.",
+    "how_to_reject": "빈칸 다음다음 문장 'Hardware behaves like software.' 와 마지막 인용 'Software eats everything.' 이 정확히 반대 방향이다 — 하드웨어가 소프트웨어를 이겨 살아남는 것이 아니라 소프트웨어처럼 굴게 된다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   },
+   "first_reason": "관계 방향 역전과 양의 많고 적음 역전은 다름"
+  },
+  {
+   "pair_id": "M2006#34:1|M2706#31:2",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2006#34",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "선지에 concerns for others 가 들어 있어 빈칸 앞 절(care for an other)과 낱말이 겹치고, '그럼에도 자기중심적'이라는 결론을 극단으로 밀면 '타인을 위해 행동하지 않는다'로 읽힌다.",
+    "how_to_reject": "빈칸 앞 절이 이미 'these Golden Rules encourage an agent to care for an other' 라고 인정했고, 5번째 문장 'Both versions insist on caring for others' 가 못을 박는다. 양보절이 인정한 것을 주절에서 부정할 수 없다."
+   },
+   "b": {
+    "id": "M2706#31",
+    "n": 2,
+    "trap": "반대 진술",
+    "why_tempting": "바로 앞에 'acknowledge change'가 있어 '불안정'이 문맥어처럼 보인다",
+    "how_to_reject": "동사가 prolong 이다. 연장하려는 대상은 원하는 상태이지 불안정한 상태가 아니다 — 같은 문장 안에서 배제된다"
+   },
+   "first_reason": "양보절 인정 부정과 동사 목적어 배제는 다름"
+  },
+  {
+   "pair_id": "M2006#34:1|M2706#32:5",
+   "type": "R-BLANK",
+   "trap": "반대 진술",
+   "a": {
+    "id": "M2006#34",
+    "n": 1,
+    "trap": "반대 진술",
+    "why_tempting": "선지에 concerns for others 가 들어 있어 빈칸 앞 절(care for an other)과 낱말이 겹치고, '그럼에도 자기중심적'이라는 결론을 극단으로 밀면 '타인을 위해 행동하지 않는다'로 읽힌다.",
+    "how_to_reject": "빈칸 앞 절이 이미 'these Golden Rules encourage an agent to care for an other' 라고 인정했고, 5번째 문장 'Both versions insist on caring for others' 가 못을 박는다. 양보절이 인정한 것을 주절에서 부정할 수 없다."
+   },
+   "b": {
+    "id": "M2706#32",
+    "n": 5,
+    "trap": "반대 진술",
+    "why_tempting": "지문 전반부의 조언(비언어를 들으면 이해가 는다)과 닿아 보인다",
+    "how_to_reject": "인용문은 이해의 기회가 넘친다고 말한다 — ‘he that has eyes to see and ears to hear may convince himself’. 기회를 만나기 어렵다는 진술과 정반대다"
+   },
+   "first_reason": "양보절 구조와 인용문 대조로 확인법이 다름"
+  },
+  {
+   "pair_id": "M2006#35:1|M2609#35:1",
+   "type": "R-IRRELEVANT",
+   "trap": "총론-각론 역전",
+   "a": {
+    "id": "M2006#35",
+    "n": 1,
+    "trap": "총론-각론 역전",
+    "why_tempting": "도입부가 '냄새를 가르치는 게 아니다'라고 부정했는데 이 문장이 다시 scent 를 꺼내서, 방금 부정한 데로 되돌아간 것처럼 보인다.",
+    "how_to_reject": "이 문장의 attaches an emotional charge to a particular scent 가 도입부 마지막 문장 trained to become emotionally aroused by one smell versus another 를 방법으로 구체화한다. 냄새는 감정을 붙이는 대상일 뿐 학습 내용이 아니다."
+   },
+   "b": {
+    "id": "M2609#35",
+    "n": 1,
+    "trap": "총론-각론 역전",
+    "why_tempting": "①이 important for ... alike 라는 넓은 판단이라, 문장 2의 심리사회적 지지 이야기 뒤에 층이 다른 일반론이 끼어든 것처럼 보인다.",
+    "how_to_reject": "①의 dominant 와 minority 를 문장 4(②)의 Minority group members 와 문장 5(③)의 Majority workers 가 차례로 받는다. ①은 뒤 두 문장의 예고문이다."
+   },
+   "first_reason": "앞 문장 구체화와 뒤 문장 예고는 연결 방향이 다름"
+  },
+  {
+   "pair_id": "M2006#41:1|M2706#41:2",
+   "type": "X-TITLE",
+   "trap": "무관",
+   "a": {
+    "id": "M2006#41",
+    "n": 1,
+    "trap": "무관",
+    "why_tempting": "Aristotle·Plato·Thomas More·Robert Nozick 등 철학자 이름이 지문 내내 나와 인물을 다루는 글로 보인다",
+    "how_to_reject": "philosophers 는 도덕주의 집단의 구성으로 한 번 언급될 뿐이고(there are many philosophers in the group of moralistic political thinkers), 철학자가 되는 길이나 자질을 다루는 문장이 없다"
+   },
+   "b": {
+    "id": "M2706#41",
+    "n": 2,
+    "trap": "무관",
+    "why_tempting": "지문 앞부분이 amorphous solid 와 supercooled liquid 를 나란히 놓아 고체·액체 두 이름이 눈에 남고, 두 이름을 그대로 담은 선지가 소재를 정확히 짚은 것처럼 보인다.",
+    "how_to_reject": "Uses(용도)에 대응하는 문장이 지문에 없다. 유리로 무엇을 만드는지 말하는 자리는 stained-glass 창과 flat sheets 두 곳뿐인데, 둘 다 모양이 왜 그렇게 생겼는지를 설명할 뿐 용도를 비교하지 않는다. 게다가 네 번째 문장은 in practice it's really the latter 로 둘 중 하나로 정리해 버려, 두 상태를 각각의 쓰임으로 나눈다는 구도 자체가 성립하지 않는다."
+   },
+   "first_reason": "한 번 언급된 소재 과장과 없는 축 추가는 다름"
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{"pass":3,"k":44,"items":[
+{"id":"M2609#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_1","note":"①의 why_tempting(오후라는 시각에 눈이 감)이 거짓으로 보일 이유로는 약함. 내용이 참이라는 설명은 맞음"}]},
+{"id":"M2706#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"Every year 문장을 '넷째 문장'이라 함. ①은 같은 문장을 셋째라 해서 번호가 서로 맞지 않음"},{"code":"choice_4","note":"popularity from the video 문장을 '일곱째'라 했지만 실제로는 여섯째(roles 기준)"}]},
+{"id":"M2706#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"why_correct가 한 줄 대응뿐이고 지도자(주체)와 '돕다' 대응 이유가 빈약함"}]},
+{"id":"M2706#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#23","version":5,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"근거 인용은 7번째 문장(longer-lived)인데 sentence_index는 [1,8]이라 마지막 문장을 가리킴"},{"code":"overgeneral","note":"'크기→수명' 인과를 지문이 직접 진술한 것처럼 확정함. 지문은 상관과 대비만 줌"},{"code":"choice_1","note":"단일 단락 지문인데 '마지막 문단'이라고 씀"}]},
+{"id":"M2706#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform_note가 근거 문장을 '4번'이라 함. answer_locus·선지 설명은 다섯째/index 5"}]},
+{"id":"M2706#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2706#27","version":6,"type":"R-NOTICE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

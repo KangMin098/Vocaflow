@@ -1,0 +1,335 @@
+{
+ "group": 1,
+ "items": [
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "2020#31",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "confirmed_at.note 가 therefore·2번 정의만 서술, 작업 메모 제거됨"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "2018#31",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "심리 여정을 원작·영화 공유 요소로 정정, 비교 축 밖이라 배제"
+    },
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "전쟁 묘사도 동시대 배경이라 공감이 줄지 않는다는 배제 논리 추가"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "M1809#33",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "②의 유인 근거를 new and preferred story 대응으로 바꾸고 7번 문장으로 배제"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "M1809#34",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "5번 rooted·4번 애착과 alienate 의 반대로 배제, outsiders 혼동 제거"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "거부 대상이 산업 이점이 아니라 정체성 상실(6번 sacrifice)임을 명시"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "2016#31",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "Even when 양보 구조와 7번 미터법 예시로 innovation 연결 설명"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "2015#31",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "that절이 6·7번에 의해 거짓 → illusion·feeds 연결을 why_correct 에 씀"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "2015#32",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "legitimate-but 양보 구조와 7번 재진술 연결 추가"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "trap 을 반대 진술로 바꾸고 필자가 반박한 전제(2·4번)로 배제"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "2014B#31",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "just one problem 대비·1번 문장 대응·3·4번 실례로 보강"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "trap 을 무관으로, 지문에 없는 결과 귀속으로 설명 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "2014B#32",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "logic_requirement_missing",
+     "resolved": true,
+     "note": "why_correct 에 and 병렬·them 선행사 조건 반영"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "병렬 짝 did not have a dense… 과의 충돌로 구조 조건 언급"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2020-31.out.json",
+   "id": "2014B#34",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "logic_requirement_missing",
+     "resolved": true,
+     "note": "so…that 결과절 요구와 6·7번 평가 조건을 why_correct 에 씀"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "정확/부정확 값 뒤바꿈으로 설명, DI 의 ⑤ 성분도 정정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "2023#31",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "배제를 2·3번의 가시성(많음)+reluctance 는 언급량 아님으로 일관화"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "2023#34",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "answer_locus 에 작업 용어·원문 유실 서술 없음, 정정 구문 설명만 남음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "M2309#34",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "literature 는 1번, 3번은 Writers 로 번호 정정"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "a little more often 을 판정 근거 아님으로 명시, 과잉 해석 제거"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "M2306#32",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "빈칸 문장 훼손 서술 제거, 2번 문장 respects the autonomy 로 방향 설명"
+    },
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "within 을 4번 문장으로 정정"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "quote_verbatim",
+     "note": "design_intent 인용 'Instead of historical…' 에 examining 누락 — 3번 원문대로 축자 인용할 것"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "M2306#34",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "measured_ability 가 본동사 자리·not only A but B 판단으로 교체됨"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "2022#32",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "다음 문장 주어 재진술에 조건(A와 다른 축·뒤 문장이 풀어 감)과 예외 명시"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "2022#34",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "② why_correct 괄호의 작업 메모 제거됨"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "M2206#32",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "DI·answer_locus 모두 2번 이유절=근거, 1번 정의=보조로 일치"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "choice_4",
+     "note": "④ trap '인과 역전' 이 내용(avoid 와 방향 반대)과 어긋남 — '반대 진술' 로 고칠 것"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "M2109#33",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "design_intent 에서 인쇄·파서 경위 제거, 설계 설명만 남음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK-2023-31.out.json",
+   "id": "M2109#34",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "measured_ability·reasoning 에서 두 단 읽기 순서 서술 제거"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  }
+ ]
+}

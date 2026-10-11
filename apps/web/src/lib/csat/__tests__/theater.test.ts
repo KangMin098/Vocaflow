@@ -19,6 +19,7 @@ import {
   theaterMinutes,
   theaterSteps,
   theaterTimeline,
+  unitMarkers,
   type TheaterSource,
 } from '../theater'
 
@@ -245,5 +246,45 @@ describe('옮겨 쓸 원리 — 유형 일반 절차 블록(2026-10-09 학습 �
   })
   it('유형 절차가 없으면 블록을 만들지 않는다', () => {
     expect(theaterBlocks({ ...FULL, type_procedure: [] }).some((b) => b.key === 'analysis:transfer')).toBe(false)
+  })
+})
+
+describe('theaterBlocks — 선택≠참거짓 유형(2026-10-11 · 교수 계약 choiceTruth)', () => {
+  it('어법 · 어휘 · 불일치 · 도표는 정답 아닌 선지를 「내용은 맞음」으로 — 함정 라벨 · 지어낸 오독을 보이지 않는다', () => {
+    for (const type_id of ['R-FACT', 'R-NOTICE', 'R-GRAMMAR', 'R-VOCAB', 'X-FACT', 'R-CHART']) {
+      const rejects = theaterBlocks({ ...FULL, type_id }).filter((b) => b.kind === 'reject')
+      expect(rejects.length, type_id).toBeGreaterThan(0)
+      for (const b of rejects) {
+        expect(b.chips.map((c) => c.text), type_id).toEqual(['내용은 맞음'])
+        expect(b.title, type_id).toMatch(/왜 정답이 아닌가/)
+        for (const d of FULL.distractors) if (d.why_tempting) expect(b.body, type_id).not.toContain(d.why_tempting.trim())
+      }
+    }
+  })
+
+  it('그 밖의 유형은 그대로 — 오답 칩 · 함정 라벨 · 그럴듯한 이유', () => {
+    const rejects = theaterBlocks({ ...FULL, type_id: 'R-BLANK' }).filter((b) => b.kind === 'reject')
+    expect(rejects[0].chips[0].text).toBe('오답')
+  })
+
+  it('긍정형 발문(「일치하는 것은?」)은 오답이 틀린 진술 — 「내용은 맞음」을 붙이지 않는다', () => {
+    // 2014A#29 = 안내문 「일치하는 것은?」(choice-polarity.json) — 강의 심사에서 드러난 사례
+    const rejects = theaterBlocks({ ...FULL, type_id: 'R-NOTICE', id: '2014A#29' }).filter((b) => b.kind === 'reject')
+    expect(rejects.length).toBeGreaterThan(0)
+    for (const b of rejects) expect(b.chips.map((c) => c.text)).not.toContain('내용은 맞음')
+    expect(rejects[0].chips[0].text).toBe('오답')
+  })
+})
+
+describe('unitMarkers — 근거 단위 표기를 학습자 말로(2026-10-11)', () => {
+  it('[u5] → 5번 문장 · 범위 · 안내문은 줄', () => {
+    expect(unitMarkers('근거는 [u5]이다', 'R-BLANK')).toBe('근거는 5번 문장이다')
+    expect(unitMarkers('[u3-u5] 사이', 'R-ORDER')).toBe('3~5번 문장 사이')
+    expect(unitMarkers('[u2]의 시간', 'R-NOTICE')).toBe('2번 줄의 시간')
+  })
+
+  it('해설 블록 본문에 [uN] 이 남지 않는다', () => {
+    const blocks = theaterBlocks({ ...FULL, why_correct: '[u4]와 대응한다', type_id: 'R-BLANK' })
+    expect(JSON.stringify(blocks)).not.toMatch(/\[u\d+\]/)
   })
 })

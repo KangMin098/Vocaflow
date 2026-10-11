@@ -1,0 +1,511 @@
+{
+ "group": 11,
+ "items": [
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2019-45.out.json",
+   "id": "2019#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 ①③④⑤ trap·why_tempting 비움, how_to_reject 가 [7]·[12]·[17]·[26]~[28] 대응+참 진술"
+    },
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "지어낸 할머니 인식 유인 삭제, [12]·[13] 대응으로 참임 서술"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "정답 confirmed_at.note 가 [10]·[14]·[30] 확인 위치로 교체"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2019-45.out.json",
+   "id": "2018#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "logic_requirement_missing",
+     "resolved": true,
+     "note": "참 선지에서 함정 라벨 제거, 대응 문장 [3]·[7]·[27]·[31]로 참임 서술"
+    },
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "② trap 비움, [7] Steve won the election 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2019-45.out.json",
+   "id": "M1809#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "③ 선지번호=단락순서 요령 삭제, [16] 대응으로 배제"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "① 함정 라벨·아버지 lure 삭제, [2] named after 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2019-45.out.json",
+   "id": "2016#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "④ 함정 분류 삭제, [29] could not concentrate 대응으로 참"
+    },
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "③ 일반→구체 규칙 삭제, [22] 대응"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "①~④ trap/why_tempting 비움. 번호는 목록 번호로 통일, body_recovered 인용 대조 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2019-45.out.json",
+   "id": "2015#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "네 번째 선지=세 번째 단락 요령 삭제, ④는 [12] 대응으로 배제"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "2025#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "quote·reasoning 이 [9] to go and pick 으로 축자 일치(오타는 confirmed_at.note 작업 메모에만)"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "M2509#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "① 근거를 [1] notification 문장으로 교체"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "①~④ 함정 서술 삭제, 대응 위치+참 진술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "2024#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 함정·유인 서술 삭제, [3]·[10]·[21]·[24] 대응"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "just 오독 억지 유인 삭제"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "이미 도착 오해 유인 삭제, [21] 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "M2409#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "⑤ 근거 [19] 원문과 축자 일치, 잔여 문자 언급 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "M2406#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "발문 결손은 confirmed_at.note 작업 메모로 기록, 선지별 근거 [2]·[7]~[8]·[10]·[17]·[23]로 분산"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 함정 서술 삭제, 대응 위치로 참임 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "2023#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "⑤ 인용 [21]·[35], 정답 인용 [33] 모두 문장 목록과 축자 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "M2306#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "measured_ability 순서 (A)→(C)→(D)→(B)로 정정"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "① 유인 서술 삭제, [1]·[2] 대응 참 진술"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "④ 뒤틀린 유인 삭제, [20] his=Sammy 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "M2209#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "① why_tempting 비움, [1] from her photography class 대응으로 참"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "M2206#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "measured_ability 순서 (A)→(C)→(D)→(B)로 정정"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "① 함정 라벨 삭제, [4] 대응 참 진술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-FACT-2025-45.out.json",
+   "id": "M2109#45",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_truth",
+     "resolved": true,
+     "note": "①~④ trap 라벨 삭제, [2]·[8]·[18]·[21] 대응으로 참"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2006-43.out.json",
+   "id": "M2006#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "작업 이력 문구 제거, note 는 이음매 설명(학습자 칸 아님)"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "design_intent 가 26번 tomorrow·13번 following day 를 같은 날로 정정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2006-43.out.json",
+   "id": "2019#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "작업 메타 제거, confirmed_at 순서 9→16→24→10→15→25 로 정렬"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2006-43.out.json",
+   "id": "M1809#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "(B) 6번에 지시어 없음을 명시, 시간 결과로 자리 설명"
+    },
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "③ 배제를 these jobs 선행사 부재+시간 역전으로 명확화"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2006-43.out.json",
+   "id": "2016#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "내부 번호 대신 목록 번호 6·27·33·19·26·7 사용, 칸 사이 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "M2506#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "① 배제를 30번 구매·19번 새 옷 착용 선행 조건으로 교체"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "전날 밤 단정 삭제, 20번 관객 미래 vs 14번 환호로 배제"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "2024#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "their 를 소유격으로 정정, 목적지는 21번이 정함"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "기록만 — 조치 불요"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "M2409#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "최상급 the 는 지시 단서 아님 명시, 12번 밤→14번 새벽 사슬로 설명"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "this offer 를 지시사 this 가 선행 제안(5번) 요구로 정정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "M2406#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "선지 오염 낡은 주석 삭제"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "틀 문구 삭제, 19→9 · 14→20 실제 이음매로 설명"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "M2309#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "틀 문구 삭제, 도착→입장·기대→역접·좌절→격려 이음매 설명"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "2022#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "② 배제에 (B)15번 사과 ↔ (D)24~26번 비난 선후 근거 추가"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "③ why_correct 에 사과↔비난 고리 포함"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "2021#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "작업 이력 문구 제거, note 는 수신자 설명"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "M2109#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "③ 유인이 19번 선물 계획을 the same thing 에 붙이는 오독으로 how_to_reject 와 정합"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "M2106#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "(D)→(C) 이음매(28·33번 → 19번) 추가"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-X-ORDER-M2506-43.out.json",
+   "id": "2020#43",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": true,
+     "note": "작업 이력 문구 제거, note 는 사건 순서 설명"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  }
+ ]
+}

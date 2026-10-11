@@ -1,0 +1,12 @@
+{"pass":2,"k":23,"items":[
+{"id":"M2409#32","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#33","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#34","version":3,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"design_intent가 '첫 문장 빈칸은 뒤 문단의 반대를 넣는 자리'라고 조건 없이 단정 — Prior to 시간 대비 구조일 때만 성립"},{"code":"other","note":"confirmed_at sentence_index 9는 8문장 지문 범위 밖(마지막 문장은 8)"}]},
+{"id":"M2409#36","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_2","note":"(B) 첫 자리 배제를 평가문 선후로 설명 — 실제 결정 조건은 these tasks의 선행 절차 부재. trap 라벨 '첫 등장 위반'도 어긋남"}]},
+{"id":"M2409#37","version":3,"type":"R-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#38","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#39","version":3,"type":"R-INSERT","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2409#43","version":4,"type":"X-ORDER","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"the longest night의 the를 앞 밤을 받는 정관사로 설명 — 최상급 the는 지시 단서가 아님. 근거는 밤→아침 시간 사슬"},{"code":"other","note":"'this offer는 부정관사 없이 지시사로' 표현이 부정확(지시사 this 자체가 선행 제안을 요구)"}]},
+{"id":"M2506#31","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"other","note":"sentence_index [3,9] 중 9는 7문장 지문 범위 밖 — 마지막 문장은 7"}]},
+{"id":"M2506#32","version":4,"type":"R-BLANK","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]}
+]}

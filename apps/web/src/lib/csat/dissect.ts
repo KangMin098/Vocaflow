@@ -43,7 +43,16 @@ export interface Prediction {
   session?: string
 }
 export interface DissectionDraft { phase: 'scan' | 'predict1' | 'compare1' | 'predict2' | 'compare2' | 'predict3' | 'compare3' | 'blueprint' | 'formula'; selection: string | null; answers: { step: number; hit: boolean; selection: string }[] }
-export interface Formula { tag: string; text: string; type: string; sources: string[] }
+export interface Formula {
+  tag: string
+  text: string
+  type: string
+  sources: string[]
+  /** 해설 극장에서 저장한 원리(M4) — 적용 조건 · 해석 한계를 함께 둔다(문구만 저장하지 않는다) */
+  conditions?: string
+  limit?: string
+  from?: 'theater'
+}
 export interface DissectionRecord {
   drafts?: Record<string, DissectionDraft>
   inspected?: string[]
@@ -63,7 +72,51 @@ export interface DissectionRecord {
   updatedAt?: number
   /** 학습 세션(해설 극장) — `lib/csat/learning-session.ts` · G0 계약. 병합은 id 단위 */
   sessions?: LearningSession[]
+  /** 자기 설명(해설 극장 M4) — 학습자가 쓴 오답 설계 설명. 병합은 id 단위 · 자동 채점 없음 */
+  explanations?: SelfExplanation[]
+  /** 이해 확인(해설 극장 M4) — 근거 자리 · 바뀐 성분 과제의 시도. 검수된 관계로 판정 · 병합은 id 단위 */
+  checks?: CheckAttempt[]
+  /** 비교 완료(해설 극장 M4) — 검수된 같은 원리 쌍을 학습자가 실제로 대조했는가. 열람과 구별 */
+  compares?: { id: string; item: string; other: string; at: number }[]
 }
+
+/**
+ * 이해 확인 시도 하나(`lib/csat/understanding-check.ts`). 해설이 열린 화면에서 낸 과제라 **늘 설명 후 수행**이다 —
+ * 독립 수행으로 세지 않는다. `tries` 는 맞힐 때까지 고른 횟수(1 = 첫 시도에 맞힘), `revealed` 는 답을 열어 본 경우.
+ */
+export interface CheckAttempt {
+  id: string
+  item: string
+  kind: 'evidence' | 'lure'
+  correct: boolean
+  tries: number
+  revealed: boolean
+  at: number
+  afterExplanation: true
+  /** 복습에서 다시 푼 것인가 — 처음 학습과 구별한다 */
+  review?: boolean
+}
+
+/**
+ * 오답 하나를 골라 「왜 그럴듯한가 · 무엇이 바뀌어 배제되나」를 학습자가 쓴 기록.
+ * 정오를 매기지 않는다 — 검수된 분석 설명과 **스스로 대조**한 여부만 남긴다(자동 의미 채점 경로가 없다).
+ * `afterExplanation`: 해설이 이미 열려 있는 화면에서 쓴 것 — 독립 수행으로 세지 않는다.
+ */
+export interface SelfExplanation {
+  id: string
+  item: string
+  kind: 'lure'
+  choice: number
+  tempting: string
+  reject: string
+  at: number
+  afterExplanation: true
+  /** 쓴 뒤 분석 설명을 열어 대조했는가 */
+  compared: boolean
+}
+
+/** 한 칸 글자 상한 — 기록 전체가 서버 상한(900KB)을 넘지 않게 */
+export const EXPLAIN_MAX = 600
 export function emptyDissectionRecord(seed: number): DissectionRecord {
   return { version: 1, seed, onboarded: false, predictions: [], formulas: [], queue: [], completed: [] }
 }

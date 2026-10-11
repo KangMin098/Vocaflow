@@ -1,0 +1,365 @@
+{
+  "chunk": "17",
+  "set": "kice",
+  "offset": 640,
+  "items": [
+    {
+      "id": "M2409#24",
+      "version": 3,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#25",
+      "version": 3,
+      "type": "R-CHART",
+      "verdict": "needs_source",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "표 15칸 값 미입력 상태에서 ③ 확정 — 정답표를 근거로 하한 위반 자리를 역추론"
+        },
+        {
+          "code": "answer_reasoning",
+          "note": "④ 참을 전제로 히스패닉 칸 지목, 표 값 없이 why_correct가 정답을 설명하지 못함"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "M2409#26",
+      "version": 3,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#27",
+      "version": 3,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#28",
+      "version": 3,
+      "type": "R-NOTICE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#29",
+      "version": 3,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#30",
+      "version": 3,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#32",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#33",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#34",
+      "version": 3,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#35",
+      "version": 3,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#36",
+      "version": 3,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#37",
+      "version": 3,
+      "type": "R-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#38",
+      "version": 3,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#39",
+      "version": 3,
+      "type": "R-INSERT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#40",
+      "version": 3,
+      "type": "R-SUMMARY",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "other",
+          "note": "transform_note가 「결정 칸 (B)」라 적어 reasoning·why_correct의 「판별 칸은 (A)」와 모순"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#41",
+      "version": 3,
+      "type": "X-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#42",
+      "version": 3,
+      "type": "X-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#43",
+      "version": 4,
+      "type": "X-ORDER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#44",
+      "version": 3,
+      "type": "X-REFER",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2409#45",
+      "version": 3,
+      "type": "X-FACT",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "source_broken",
+          "note": "선지⑤ 근거 문장에 OCR 잔여가 끼었다고 스스로 기록 — 원문 대조 필요"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#18",
+      "version": 4,
+      "type": "R-PURPOSE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#19",
+      "version": 4,
+      "type": "R-MOOD",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#20",
+      "version": 4,
+      "type": "R-CLAIM",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#21",
+      "version": 4,
+      "type": "R-IMPLY",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#22",
+      "version": 4,
+      "type": "R-GIST",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#23",
+      "version": 4,
+      "type": "R-TOPIC",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#24",
+      "version": 4,
+      "type": "R-TITLE",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#25",
+      "version": 4,
+      "type": "R-CHART",
+      "verdict": "needs_source",
+      "defects": [
+        {
+          "code": "chart_unverified",
+          "note": "그래프 수치 없음 — 정답표가 ③을 확정한다며 역추론, 41%·대소 어느 쪽이 깨지는지 미확인"
+        },
+        {
+          "code": "source_broken",
+          "note": "발문 잘림(일치하) · 옆 단 조각 섞인 손상 지문"
+        }
+      ],
+      "principle_ok": false
+    },
+    {
+      "id": "M2506#26",
+      "version": 4,
+      "type": "R-FACT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#27",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "source_broken",
+          "note": "발문 잘림(안내문의 지 않는 것은), 선지 복원 실패를 회차 원문으로 보완했다고 기록"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#28",
+      "version": 4,
+      "type": "R-NOTICE",
+      "verdict": "partial",
+      "defects": [
+        {
+          "code": "source_broken",
+          "note": "발문 잘림(LCU Geograp 일치하는 것은), 두 단 섞임으로 선지 원문 미복원"
+        }
+      ],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#29",
+      "version": 4,
+      "type": "R-GRAMMAR",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#30",
+      "version": 7,
+      "type": "R-VOCAB",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#31",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#32",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#33",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#34",
+      "version": 4,
+      "type": "R-BLANK",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    },
+    {
+      "id": "M2506#35",
+      "version": 4,
+      "type": "R-IRRELEVANT",
+      "verdict": "keep",
+      "defects": [],
+      "principle_ok": true
+    }
+  ]
+}

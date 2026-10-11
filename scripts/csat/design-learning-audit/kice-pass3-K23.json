@@ -1,0 +1,12 @@
+{"pass":3,"k":23,"items":[
+{"id":"M1809#44","version":4,"type":"X-REFER","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M1809#45","version":4,"type":"X-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"overgeneral","note":"③ how_to_reject가 '선지 번호 순서=단락 인쇄 순서'를 조건 없이 요령으로 가르침(순서 문항 지문에선 깨짐)"},{"code":"choice_1","note":"참인 선지에 '어휘 함정' 라벨·아버지 문장 lure_quote — 내용 참 대응(named after)으로 설명해야 함"}]},
+{"id":"M2006#18","version":4,"type":"R-PURPOSE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"passage_design.pattern이 request_letter인데 요청이 아닌 개최 통보문 — 패턴명 부정확(경미)"}]},
+{"id":"M2006#19","version":4,"type":"R-MOOD","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#20","version":4,"type":"R-CLAIM","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"answer_reasoning","note":"more than repetition을 '다양한 맥락이 횟수보다 중요'로 과잉 해석 — 지문은 순위를 매기지 않음"},{"code":"other","note":"design_intent가 '여러 번만 담은 선지'를 언급하나 실제 선지에 없음"}]},
+{"id":"M2006#21","version":4,"type":"R-IMPLY","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"choice_4","note":"wrong customer 등을 활동의 '결과'로 보고 인과 역전이라 한 설명이 다소 억지(경미)"}]},
+{"id":"M2006#22","version":4,"type":"R-GIST","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[{"code":"other","note":"transform_note의 문장 번호(1번)가 why_correct의 2번째 문장과 불일치(경미)"}]},
+{"id":"M2006#23","version":4,"type":"R-TOPIC","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#24","version":4,"type":"R-TITLE","read":"full","self_solved_matches_answer":true,"verdict":"keep","defects":[]},
+{"id":"M2006#26","version":4,"type":"R-FACT","read":"full","self_solved_matches_answer":true,"verdict":"partial","defects":[{"code":"choice_3","note":"참인 선지에 '범위 과대' 함정 라벨 — choiceTruth 유형은 내용 참 대응으로 설명해야 함"},{"code":"choice_4","note":"참인 선지에 '주체 역전' 라벨·오독 시나리오 중심 서술(선지 ①⑤도 같은 경향)"}]}
+]}

@@ -152,3 +152,21 @@ describe('buildSkeleton — 경계: 원문이 새지 않는가', () => {
     expect(joined).not.toContain('Disasters resist the novel.')
   })
 })
+
+describe('splitSentences — 동그라미 번호로 시작하는 문장(F08 · 2026-10-11)', () => {
+  it('「. ① As …」 를 새 문장으로 나눈다 — 무관 문장 · 도표 지문이 1~2문장으로 뭉개지지 않는다', () => {
+    const t = 'There are few of us who try. We plan each day. ① As we try, plans fail. ② No matter how hard, we fail. ③ It matters.'
+    expect(splitSentences(t).map((r) => t.slice(r.start, r.end))).toEqual([
+      'There are few of us who try.',
+      'We plan each day.',
+      '① As we try, plans fail.',
+      '② No matter how hard, we fail.',
+      '③ It matters.',
+    ])
+  })
+
+  it('문장 안의 번호(밑줄 표지)는 나누지 않는다', () => {
+    const t = 'He said that ① the result was clear and ② everyone agreed.'
+    expect(splitSentences(t)).toHaveLength(1)
+  })
+})

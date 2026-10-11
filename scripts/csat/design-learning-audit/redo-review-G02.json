@@ -1,0 +1,36 @@
+{"group":2,"items":[
+{"file":"chunk-redo-20261010T191130200Z-R-GRAMMAR-2014A-27.out.json","id":"2014A#27","self_solved_matches_answer":true,
+"ledger":[
+{"code":"source_broken","resolved":false,"note":"입력 choices 조각은 그대로. 분석은 ①~⑤ 표시 뒤 낱말로 우회해 근거엔 영향 없음 — 원문 정리는 별도 필요"},
+{"code":"answer_reasoning","resolved":true,"note":"why_correct·reasoning·design_intent 모두 stop+to부정사/동명사 의미 구분으로 교체, 문장 2·7 일치"},
+{"code":"work_jargon","resolved":true,"note":"design_intent 의 '이 청크에서' 제거됨"}],
+"new_defects":[
+{"code":"work_jargon","note":"④ confirmed_at.note 에 '청크의 choices 필드'·'source_broken' 작업 용어 — 학습자 칸에서 빼고 근거 설명만 남길 것"}],
+"verdict":"revise"},
+{"file":"chunk-redo-20261010T191130200Z-R-IMPLY-2026-21.out.json","id":"2026#21","self_solved_matches_answer":true,
+"ledger":[
+{"code":"overgeneral","resolved":true,"note":"measured_ability·절차 2단계에 '첫 문장 밑줄·2문장 As 절' 조건과 반례 위치 명시"}],
+"new_defects":[
+{"code":"unconditional_rule","note":"type_report.procedure 6단계 '지문에 없는 명사 선지를 지운다' — 이 문항 정답 spatial flexibility 를 지운다. 삭제·조건화 필요"},
+{"code":"unconditional_rule","note":"procedure 5단계 '등치 명사가 반드시 괄호 안에 문자로 있다' 무조건 단정 — 조건·반례 붙일 것"},
+{"code":"unsupported_stats","note":"type_report 의 12문항·48오답·13% 집계는 이 청크 밖 문항 근거 — 1문항 교정본에서 빼거나 출처 확인"}],
+"verdict":"revise"},
+{"file":"chunk-redo-20261010T191130200Z-R-INSERT-2015-38.out.json","id":"2015#38","self_solved_matches_answer":true,
+"ledger":[
+{"code":"source_broken","resolved":false,"note":"입력 원문(주어진 문장 합침·⑤ 각주)은 미정리. 분석은 지문 두 줄로만 세워 정답 근거엔 영향 없음"}],
+"new_defects":[
+{"code":"work_jargon","note":"③ confirmed_at.note 에 'passage'·'choices'·'원장 결함 source_broken'·'별도 작업' — 학습자 칸에서 제거, 번호 규칙만 남길 것"}],
+"verdict":"revise"},
+{"file":"chunk-redo-20261010T191130200Z-R-IRRELEVANT-2015-35.out.json","id":"2015#35","self_solved_matches_answer":true,
+"ledger":[
+{"code":"choice_5","resolved":true,"note":"⑤ why_tempting·drivers 의 잔여 문자 언급 제거, Although·일반화 단서로 재작성 확인"}],
+"new_defects":[],
+"verdict":"pass"},
+{"file":"chunk-redo-20261010T191130200Z-R-MOOD-2014A-40.out.json","id":"2014A#40","self_solved_matches_answer":true,
+"ledger":[
+{"code":"lure_quote","resolved":true,"note":"① 인용이 'I don’t feel like going today' 로 축자 일치"},
+{"code":"choice_5","resolved":true,"note":"⑤ 인쇄기호 언급 제거, 첫 문장 자원봉사 소재로 재작성"}],
+"new_defects":[
+{"code":"sentence_index","note":"문장 끝 구두점 기준이면 patience=10, 마지막=13 인데 9·12로 표기(근사라 자인) — 한 기준으로 다시 세어 칸 전체 맞출 것"}],
+"verdict":"revise"}
+]}
