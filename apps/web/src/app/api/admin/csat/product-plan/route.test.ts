@@ -48,7 +48,8 @@ it('plans a chosen family while retaining its synthetic-only execution status', 
   const data = await response.json()
   expect(data.plan.product_family).toBe('P13')
   expect(data.runtime_capability.state).toBe('IMPLEMENTED')
-  expect(data.runtime_capability.missing).toContain('family semantic review run on real content for this family')
+  expect(data.runtime_capability.missing).not.toContain('family semantic review run on real content for this family')
+  expect(data.runtime_capability.missing).toContain('live DB promotion to atomic publication end-to-end')
 })
 
 it('rejects a malformed grade scope and unauthorized callers', async () => {

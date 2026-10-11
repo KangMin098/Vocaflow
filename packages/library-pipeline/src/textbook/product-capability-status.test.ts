@@ -24,7 +24,8 @@ describe('runtime capability claims', () => {
     expect(productRuntimeCapability('P01').missing).not.toContain('family semantic review run on real content for this family')
     expect(productRuntimeCapability('P09').missing).toContain('real-content operational end-to-end')
     for (const family of ['P13', 'P14', 'P18', 'P20'] as const)
-      expect(productRuntimeCapability(family).state).toBe('IMPLEMENTED')
+      expect(productRuntimeCapability(family)).toMatchObject({ state: 'IMPLEMENTED',
+        missing: ['live DB promotion to atomic publication end-to-end', 'real-content operational end-to-end'] })
     expect(PRODUCT_CAPABILITIES.P18.timer).toBe(false)
     expect(Object.values(PRODUCT_RUNTIME_EVIDENCE).some(value => value.state === 'PRODUCTION_E2E_VALIDATED')).toBe(false)
   })

@@ -70,7 +70,10 @@ const days = [...new Set(run.volumeInput.units.map(unit => unit.day))].sort((a, 
 const itemsOf = unit => run.gatedItems.find(row => row.unit_id === unit.unit_id).items.map((item, index) => ({ type: item.item_type, index,
   payload: { item_type: item.item_type, question: item.question, choices: item.choices, evidence_primary: item.evidence_primary,
     ...(item.evidence_secondary ? { evidence_secondary: item.evidence_secondary } : {}),
-    ...(item.focus_text ? { focus_text: item.focus_text } : {}) },
+    ...(item.focus_text ? { focus_text: item.focus_text } : {}),
+    // Specialized families: the DB guard (20261011072230) re-checks these against the sealed order.
+    ...(item.resource_url ? { resource_url: item.resource_url, evidence_resource: item.evidence_resource } : {}),
+    ...(item.time_limit_seconds ? { time_limit_seconds: item.time_limit_seconds } : {}) },
   answer_key: { answer: item.answer, explanation_ko: item.explanation } }))
 // One group per day; its sections follow the brief's grade order, each grade with its own adaptation and items.
 const dayUnits = day => gradeScope.grades.map(grade => run.volumeInput.units.find(unit => unit.day === day && unit.grade === grade))
