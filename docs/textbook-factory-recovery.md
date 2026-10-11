@@ -101,3 +101,5 @@ Review hardening (2026-10-11): `review` refuses to complete (`FAMILY_REVIEW_RUN_
 Guards from the live family review (2026-10-11): `FAMILY_GENRE_MISMATCH:P02` at planning (re-plan with narrative genres); `ITEM_ANSWER_VISIBLE_IN_PASSAGE` (rewrite the item so the quoted sentence or ordered sentences are not printed in the passage — paraphrase steps, or leave a gap for the inserted sentence); `P01_SOURCE_TEXT_REQUIRED` (add the source text being re-levelled); `ORDER_RUN_ANSWER_POSITION_BIAS` (vary keyed positions). All are raised at `import`, before review; fix `drain.out.json` and rerun `import`.
 
 Run → live DB (rollback-only, 2026-10-11): `pnpm exec tsx scripts/textbook/run-db-measure.mjs <run-input.json> <completed-run-dir> > out.sql` produces a single rollback-only script for a single-grade reviewed run. Run it only after approval; compare table counts before and after. It aborts if the run is not complete or its family review no longer passes after re-sealing.
+
+`run-db-measure.mjs` handles single- and multi-grade runs (one group per day, grade-specific adaptations). Generate, get approval for the exact output, run it verbatim, and compare counts.

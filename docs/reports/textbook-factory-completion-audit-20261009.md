@@ -213,3 +213,16 @@ Before/after counts identical (articles 91,793; items 834,311; reviews 549; orde
   - Answer-position bias counts every item of a unit, not only the first.
   - Admin planning: choosing P02 now sends narrative-only genres and says so, instead of returning a generic error.
   - `run-db-measure.mjs`: the served-volume check regex had lost its `\s` (heredoc backslash trap); fixed with the editor. Re-sealing now refuses a reviewed fill if the re-exported cell's plan differs (`RUN_CELL_PLAN_CHANGED`).
+
+### 2026-10-11 — multi-grade reviewed run through the live DB RPCs (rollback-only, approved)
+
+`run-db-measure.mjs` now emits one production group per day containing every grade of the run (grade-specific adaptations, sections in the brief's grade order, each grade with its own adapted passage, items and order). A new multi-grade P07 run (middle_1 + high_2, noncontiguous, 2 days; written by a drain subagent, family-reviewed by Claude — both grades share each day's topic at different levels, every item has a supporting-detail distractor) completed and was pushed through the DB exactly as generated (SQL `a3e2d0e4…c2ea`, approved, executed verbatim):
+
+| Step | Result |
+|---|---|
+| DB trust hash = JS | equal |
+| DB order hash = JS run order hash, middle_1 and high_2 | both equal |
+| day 1 / day 2: two grades promoted, items with 3 reviews, one group per day, snapshot, approval, publication | published_current (2 grades, 2 items each day) |
+| volume over both orders registered / served | 2 sections; served HTML contains all four units' passages and questions |
+
+Before/after counts identical. Same limits as before (simulated second approver; synthetic source and trust root). Area 4 (grade scopes in the live DB) is now measured for single and noncontiguous multi-grade runs.
