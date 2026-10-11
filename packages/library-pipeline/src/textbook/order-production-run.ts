@@ -122,10 +122,15 @@ const filledItemSchema = z.object({
 const filledSchema = z.object({ cells: z.array(z.object({
   cell_id: z.string().min(1), cell_hash: z.string().regex(/^[a-f0-9]{64}$/),
   passage: z.string().trim().min(1), items: z.array(filledItemSchema).min(1),
+  // P01 (multi-level) needs the source it re-levels so the family review can check claim preservation.
+  source_text: z.string().trim().min(1).optional(),
 }).strict()) }).strict()
 
 const esc = (text: string) => text.replace(/&/gu, '&amp;').replace(/</gu, '&lt;')
   .replace(/>/gu, '&gt;').replace(/"/gu, '&quot;').replace(/'/gu, '&#39;')
+
+const VISIBLE_ANSWER_TYPES = new Set(['order', 'insert', 'grammar_fix', 'word_order'])
+const passageSentences = (passage: string) => passage.split(/(?<=[.!?])\s+/u).map(sentence => sentence.trim()).filter(Boolean)
 
 function gateP03(passage: string, items: z.infer<typeof filledItemSchema>[], itemTypes: string[]) {
   for (const item of items) {
@@ -171,6 +176,15 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
     if (fill.items[0]!.item_type !== cell.item_type || fill.items.some(item => seenItems.has(item.item_id))) {
       blockers.push({ stage: 'items_gated', cell_id: cell.cell_id, reason: 'ORDER_RUN_ITEM_PLAN_OR_ID_MISMATCH' }); continue
     }
+    if (cell.family === 'P01' && (!fill.source_text || fill.source_text.trim() === fill.passage.trim())) {
+      blockers.push({ stage: 'items_gated', cell_id: cell.cell_id, reason: 'P01_SOURCE_TEXT_REQUIRED' }); continue
+    }
+    // Order/insert/correction items whose quoted sentence already sits in the printed passage are
+    // solved by lookup (found three times in the live review). Block them before review.
+    if (fill.items.some(item => VISIBLE_ANSWER_TYPES.has(item.item_type) && passageSentences(fill.passage)
+        .some(sentence => sentence.split(/\s+/u).length >= 6 && item.question.includes(sentence)))) {
+      blockers.push({ stage: 'items_gated', cell_id: cell.cell_id, reason: 'ITEM_ANSWER_VISIBLE_IN_PASSAGE' }); continue
+    }
     try {
       if (cell.family === 'P03') gateP03(fill.passage, fill.items, entry.order.item_types)
       else if (SPECIALIZED.has(cell.family)) {
@@ -212,12 +226,21 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
       unit_html: `<section><p>${esc(fill.passage)}${resourceHtml}</p>${fill.items.map(item => `<p>${esc(questionText(item))}</p>`).join('')}</section>`,
     })
   }
+  // A printed volume whose keys cluster on one choice number can be answered without reading.
+  for (const entry of sealed.orders) {
+    const answers = drain.cells.filter(cell => cell.grade === entry.grade)
+      .map(cell => filled.get(cell.cell_id)?.items[0]?.answer).filter((value): value is number => typeof value === 'number')
+    const top = Math.max(0, ...[1, 2, 3, 4, 5].map(n => answers.filter(answer => answer === n).length))
+    if (answers.length >= 5 && top / answers.length > 0.6)
+      blockers.push({ stage: 'items_gated', cell_id: entry.grade, reason: 'ORDER_RUN_ANSWER_POSITION_BIAS' })
+  }
   if (blockers.length) return { status: 'blocked' as const, drain_hash: drain.drain_hash, blockers }
   const volumeInput = { brief: sealed.brief, orders: sealed.orders, units }
   try {
     const output = assemblePlannedVolumeSynthetic(volumeInput)
     // The adapter-level item fields (choices, secondary/focus evidence) feed downstream atomic production.
-    const gatedItems = drain.cells.map(cell => ({ unit_id: cell.cell_id, items: filled.get(cell.cell_id)!.items }))
+    const gatedItems = drain.cells.map(cell => ({ unit_id: cell.cell_id, items: filled.get(cell.cell_id)!.items,
+      ...(filled.get(cell.cell_id)!.source_text ? { source_text: filled.get(cell.cell_id)!.source_text } : {}) }))
     return { status: 'assembled' as const, drain_hash: drain.drain_hash, volumeInput, output, gatedItems,
       lineage: output.receipt.units.map(unit => ({ grade: unit.grade, day: unit.day, unit_id: unit.unit_id,
         product_order_id: unit.product_order_id, order_revision: unit.order_revision, order_hash: unit.order_hash,

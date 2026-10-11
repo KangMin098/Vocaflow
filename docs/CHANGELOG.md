@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(textbook): 일반 11종 실제 드레인 검수(작성 서브에이전트 / 검수 분리) — 1차 22단원 중 8 탈락에서 구조 결함 4개를 찾아 가드로 막음: P02 서사 장르 강제, 정답이 본문에 보이는 순서·삽입·수정 문항 차단, P01 원문(source_text) 필수, 정답 번호 쏠림 차단. 재작성·2차 검수로 15종 모두 완료 → 기능표 IMPLEMENTED.
 - test(textbook): 제품군 실제 드레인 검수 확대 — P05·P07 첫 검수 통과, P12 는 1일차 정답 선지 과장("gradual")을 검수가 잡아 수정 후 통과. 기능표 P05·P07·P09·P12 IMPLEMENTED, 나머지 일반 11종 CONTRACT_ONLY.
 - fix(textbook): 교차 리뷰 반영 — review 단계가 student.html·동반 연습·자원 파일을 다시 확인, 기능표 과대 표시 정정(일반 14종 CONTRACT_ONLY 복귀, P09 만 IMPLEMENTED), 실측 SQL 철회 판정은 check_violation 만.
 - test(textbook): 권 단위 DB 증명 성공 경로를 개발 DB 에서 rollback 전용으로 실측(사용자 승인) — 2일 승격·게시 → 권 등록·서빙, 재등록·틀린 주문 hash·2일차 인증서 철회 거부, 전후 행 수 동일(`atomic-volume-db-measure.sql`).

@@ -176,3 +176,18 @@ Before/after counts were identical (library_articles 91,793; csat_dcp_items 834,
   - Known, not fixed: `_reading_production_volume_check` accepts extra keys and textual `order_revision` in the caller's order objects, so equivalent registrations can hash differently. There is no security impact and the JS client always sends canonical objects; changing it needs a new migration.
 
 - More live family reviews (Claude as drain agent and reviewer, real prose, synthetic orders, files outside the repo): P05 Vocabulary-in-Context (middle_3, vocab_choice "mitigate" / long_vocab "ration"), P07 Main Idea (high_1, topic / title), P12 Argument (high_2, claim / implication). P05 and P07 passed first time (complete; manifests `f3695441…`, `77864b9e…`). P12 day 1 failed `evidence_supports` because the keyed choice said "gradual" while the passage proposes only a targeted limit; after rewording, re-import kept day 2's hash, the old review was rejected as stale for day 1, and review v2 completed (manifest `ce9272b5…`). Capability: P05, P07, P09, P12 are `IMPLEMENTED`; the other 11 generic families stay `CONTRACT_ONLY` until reviewed on real content.
+
+### 2026-10-11 — live family review for the remaining 11 generic families
+
+Writers and reviewer were separated: four parallel writer subagents filled the drains (P01 E6, P02 M1, P04 M2, P06 H1, P08 H1, P10 H2, P11 M3, P15 H2, P16 M2, P17 H3, P19 E5; two days each), Claude reviewed every unit against the family criteria with exact passage quotes. Files stay outside the repository.
+
+Review v1: 14 of 22 units passed; P04, P10, P11, P15, P17, P19 completed. Eight units failed, five because of pipeline defects rather than writing:
+- P02 day 1 had no narrative — the planner scheduled an expository genre for the narrative family. Fix: `FAMILY_GENRE_MISMATCH` (P02 accepts only narrative genres).
+- P06 day 2 and both P08 units printed the answer: the sentence to correct, the (A)(B)(C) sentences and the sentence to insert were already in the passage. Fix: `ITEM_ANSWER_VISIBLE_IN_PASSAGE` blocks order/insert/grammar_fix/word_order items that quote a 6+ word passage sentence.
+- P01 could not be judged: its purpose (re-level a source without changing claims) needs the source, which runs did not carry. Fix: optional cell `source_text`, required for P01 (`P01_SOURCE_TEXT_REQUIRED`) and included in the review export.
+- P16 day 1 stated an outside figure without a source (content fix).
+- Also observed: nearly every keyed answer was choice 1. Fix: `ORDER_RUN_ANSWER_POSITION_BIAS` when one choice number exceeds 60% of a grade's keys across 5+ units.
+
+After the guards and a rewrite drain, review v2 passed all remaining units; P01, P02 (narrative-only re-plan), P06, P08 and P16 completed. Recorded caveat: P06 day 2 is labelled grammar_fix but asks for the main verb of a long-subject sentence (structure tested; label loose).
+
+Capability: all 15 generic families now have a structural adapter plus a live family review → `IMPLEMENTED`. Still missing per family: live DB promotion of a run and real-content operational use. P13/P14/P18/P20 stay `IMPLEMENTED` with atomic production blocked by the DB gate. Verdict unchanged: both flags false.

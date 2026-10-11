@@ -20,13 +20,15 @@ const brief = () => ({
 describe('product planning', () => {
   it('can plan every declared family without treating a plan as a production adapter', () => {
     for (const family of Object.keys(PRODUCT_FAMILIES)) {
-      const { plan } = planProductBrief({ ...brief(), product_family: family })
+      const genres = family === 'P02' ? { genre_weights: { narrative: 1 } } : {}
+      const { plan } = planProductBrief({ ...brief(), product_family: family, ...genres })
       expect(plan.product_family).toBe(family)
       expect(plan.units).toHaveLength(20)
       expect(plan.warning).toMatch(/not admission/)
     }
     expect(planProductBrief({ ...brief(), product_family: 'P13' }).plan.units[0]?.item_type_target).toBe('cross_text_comparison')
     expect(() => planProductBrief({ ...brief(), product_family: 'P21' })).toThrow()
+    expect(() => planProductBrief({ ...brief(), product_family: 'P02' })).toThrow('FAMILY_GENRE_MISMATCH:P02')
   })
   it('turns a grade/purpose/domain/length brief into a reproducible balanced volume plan', () => {
     const { plan, plan_hash } = planProductBrief(brief())

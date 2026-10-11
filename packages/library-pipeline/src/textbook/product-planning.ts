@@ -11,6 +11,8 @@ export const PRODUCT_PURPOSES = [
   'academic_sentence', 'inference', 'exam_bridge',
 ] as const
 
+export const FAMILY_REQUIRED_GENRES: Partial<Record<string, readonly string[]>> = { P02: ['narrative'] }
+
 const purposeFamily: Record<(typeof PRODUCT_PURPOSES)[number], keyof typeof PRODUCT_FAMILIES> = {
   knowledge_reading: 'P03', relation_reading: 'P09', vocabulary_in_context: 'P05',
   academic_sentence: 'P06', inference: 'P10', exam_bridge: 'P17',
@@ -64,6 +66,11 @@ const interpolate = (start: number, end: number, index: number, length: number) 
 export function planProductBrief(input: unknown) {
   const brief = productBriefSchema.parse(input)
   const family = brief.product_family ?? purposeFamily[brief.purpose]
+  // Found by the live family review: P02 was scheduled an expository science day, which cannot
+  // teach characters, events or time order. A family with a fixed genre refuses other genres.
+  const requiredGenres = FAMILY_REQUIRED_GENRES[family]
+  if (requiredGenres && Object.keys(brief.genre_weights).some(genre => !requiredGenres.includes(genre)))
+    throw new Error(`FAMILY_GENRE_MISMATCH:${family}`)
   const capability = PRODUCT_CAPABILITIES[family]
   const domains = schedule(brief.domain_weights, brief.duration_days)
   const genres = schedule(brief.genre_weights, brief.duration_days)

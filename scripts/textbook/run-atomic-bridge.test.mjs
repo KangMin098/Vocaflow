@@ -27,7 +27,7 @@ function fill(drain) {
     const filler = Array.from({ length: cell.passage_words_target - 12 }, (_, i) => `w${cell.day}x${i}`).join(' ')
     const passage = `Plants store energy in roots ${cell.grade} day ${cell.day}. ${filler} Rain refills the deep wells slowly.`
     const primary = `Plants store energy in roots ${cell.grade} day ${cell.day}.`
-    return { cell_id: cell.cell_id, cell_hash: cell.cell_hash, passage, items: [{
+    return { cell_id: cell.cell_id, cell_hash: cell.cell_hash, passage, source_text: `Original: ${passage}`, items: [{
       item_id: `${cell.cell_id}:i1`, item_type: cell.item_type, question: `Day ${cell.day}: which statement is supported?`,
       choices: [primary, 'Wells never refill.'], answer: 1, explanation: '첫 문장이 그대로 말한다.',
       evidence_primary: primary, evidence_secondary: 'Rain refills the deep wells slowly.', focus_text: 'energy' }] }
@@ -35,7 +35,7 @@ function fill(drain) {
 }
 const brief = (family, grades) => ({ schema: 'textbook-product-brief/1',
   grade_scope: { mode: grades.length === 1 ? 'single_grade' : 'multi_grade', grades }, purpose: 'knowledge_reading',
-  product_family: family, domain_weights: { science: 1 }, genre_weights: { explanation: 1 }, duration_days: 3,
+  product_family: family, domain_weights: { science: 1 }, genre_weights: family === 'P02' ? { narrative: 1 } : { explanation: 1 }, duration_days: 3,
   units_per_chapter: 3, difficulty: { start: 2, end: 3 }, passage_words: { start: 60, end: 70 }, source_strategy: 'balanced' })
 
 for (const [family, grades] of [['P09', ['middle_1', 'high_3']], ['P05', ['elementary_5']], ['P03', ['high_1']], ['P12', ['middle_2', 'middle_3']]]) {
@@ -106,7 +106,7 @@ function fillShared(drain) {
   return { cells: drain.cells.map(cell => {
     const primary = `Plants store energy in roots on day ${cell.day}.`
     const filler = Array.from({ length: cell.passage_words_target - 14 }, (_, i) => `w${cell.day}x${i}`).join(' ')
-    return { cell_id: cell.cell_id, cell_hash: cell.cell_hash,
+    return { cell_id: cell.cell_id, cell_hash: cell.cell_hash, source_text: `Original account for day ${cell.day}.`,
       passage: `${primary} ${filler} Rain refills the deep wells slowly.`, items: [{
         item_id: `${cell.cell_id}:i1`, item_type: cell.item_type, question: `${cell.grade}: which statement is supported?`,
         choices: [primary, 'Wells never refill.'], answer: 1, explanation: '첫 문장이 말한다.',

@@ -45,7 +45,7 @@ const sha = (value: string) => createHash('sha256').update(value).digest('hex')
 type ReviewRun = {
   volumeInput: { units: Array<{ unit_id: string; grade: string; day: number; primary_skill: string; passage: string; unit_html: string }>
     orders: Array<{ grade: string; order: { product_family: string } }> }
-  gatedItems: Array<{ unit_id: string; items: unknown[] }>
+  gatedItems: Array<{ unit_id: string; items: unknown[]; source_text?: string }>
   output: { receipt: { receipt_hash: string } }
 }
 
@@ -55,7 +55,9 @@ export function exportFamilyReview(run: ReviewRun) {
   const units = [...run.volumeInput.units].sort((a, b) => a.day - b.day || a.grade.localeCompare(b.grade)).map(unit => ({
     unit_id: unit.unit_id, unit_hash: sha(unit.unit_html), grade: unit.grade, day: unit.day,
     primary_skill: unit.primary_skill, passage: unit.passage,
-    items: run.gatedItems.find(entry => entry.unit_id === unit.unit_id)?.items ?? [] }))
+    items: run.gatedItems.find(entry => entry.unit_id === unit.unit_id)?.items ?? [],
+    ...(run.gatedItems.find(entry => entry.unit_id === unit.unit_id)?.source_text
+      ? { source_text: run.gatedItems.find(entry => entry.unit_id === unit.unit_id)!.source_text } : {}) }))
   const body = { schema: 'textbook-family-review-drain/1', family, family_name: PRODUCT_FAMILIES[family].name,
     family_instruction: PRODUCT_FAMILIES[family].instruction, run_receipt_hash: run.output.receipt.receipt_hash,
     criteria, units,

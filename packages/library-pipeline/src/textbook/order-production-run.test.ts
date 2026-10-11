@@ -43,9 +43,11 @@ function fill(drain: ReturnType<typeof exportOrderProductionDrain>) {
   return { cells: drain.cells.map(cell => {
     const filler = Array.from({ length: cell.passage_words_target - 12 }, (_, i) => `w${cell.day}x${i}`).join(' ')
     const passage = `Plants store energy in roots. ${filler} Rain refills the deep wells slowly.`
-    return { cell_id: cell.cell_id, cell_hash: cell.cell_hash, passage, items: [{
+    // Alternate the keyed position so a volume never clusters on one choice number.
+    const flip = cell.day % 2 === 0
+    return { cell_id: cell.cell_id, cell_hash: cell.cell_hash, passage, source_text: `Original account: ${passage}`, items: [{
       item_id: `${cell.cell_id}:i1`, item_type: cell.item_type, question: `Day ${cell.day}: which statement is supported?`,
-      choices: ['Plants store energy in roots.', 'Wells never refill.'], answer: 1,
+      choices: flip ? ['Wells never refill.', 'Plants store energy in roots.'] : ['Plants store energy in roots.', 'Wells never refill.'], answer: flip ? 2 : 1,
       explanation: 'The first sentence states it.', evidence_primary: 'Plants store energy in roots.',
       ...(cell.family === 'P18' ? { time_limit_seconds: 90 }
         : cell.resource ? { resource_url: cell.resource.url, evidence_resource: cell.resource.content.slice(0, 12) }
@@ -81,7 +83,7 @@ describe('registered order production run', () => {
   it('runs all 20 families through their adapters, including sealed resources and printed time budgets', () => {
     for (const family of Object.keys(PRODUCT_FAMILIES) as (keyof typeof PRODUCT_FAMILIES)[]) {
       expect(PRODUCT_CAPABILITIES[family].items.length).toBeGreaterThan(0)
-      const input = runInput({ ...baseBrief, product_family: family })
+      const input = runInput({ ...baseBrief, product_family: family, ...(family === 'P02' ? { genre_weights: { narrative: 1 } } : {}) })
       const result = importOrderProductionDrain(input, fill(exportOrderProductionDrain(input)))
       expect(result.status, `${family} ${JSON.stringify((result as { blockers?: unknown }).blockers)}`).toBe('assembled')
       if (result.status !== 'assembled') continue
@@ -212,4 +214,36 @@ describe('order production run CLI', () => {
       rmSync(temp, { recursive: true, force: true })
     }
   }, 60_000)
+})
+
+describe('guards found by the live family review (2026-10-11)', () => {
+  it('blocks order/insert items whose quoted sentence is already printed in the passage', () => {
+    const input = runInput({ ...baseBrief, product_family: 'P09' })
+    const drain = exportOrderProductionDrain(input)
+    const visible = fill(drain)
+    const cell = drain.cells.find(c => ['order', 'insert'].includes(c.item_type))!
+    const target = visible.cells.find(c => c.cell_id === cell.cell_id)!
+    target.items[0]!.question = `Where does this sentence fit? "${target.passage.split(/(?<=[.!?])\s+/u).at(-1)}"`
+    expect(JSON.stringify(importOrderProductionDrain(input, visible))).toContain('ITEM_ANSWER_VISIBLE_IN_PASSAGE')
+  })
+
+  it('requires the source text for multi-level P01 and refuses a source identical to the passage', () => {
+    const input = runInput({ ...baseBrief, product_family: 'P01' })
+    const noSource = fill(exportOrderProductionDrain(input))
+    delete (noSource.cells[0] as { source_text?: string }).source_text
+    expect(JSON.stringify(importOrderProductionDrain(input, noSource))).toContain('P01_SOURCE_TEXT_REQUIRED')
+    const same = fill(exportOrderProductionDrain(input))
+    same.cells[0]!.source_text = same.cells[0]!.passage
+    expect(JSON.stringify(importOrderProductionDrain(input, same))).toContain('P01_SOURCE_TEXT_REQUIRED')
+  })
+
+  it('blocks a grade whose keys cluster on one choice number across five or more units', () => {
+    const input = runInput(baseBrief)
+    const allFirst = fill(exportOrderProductionDrain(input))
+    for (const cell of allFirst.cells) {
+      cell.items[0]!.choices = ['Plants store energy in roots.', 'Wells never refill.']
+      cell.items[0]!.answer = 1
+    }
+    expect(JSON.stringify(importOrderProductionDrain(input, allFirst))).toContain('ORDER_RUN_ANSWER_POSITION_BIAS')
+  })
 })
