@@ -3,8 +3,8 @@ name: CI
 on:
   push:
     branches: [main]
+  # 모든 base 의 PR — 종속 PR(base ≠ main)에도 필수 CI 가 돌아야 safe-merge 가 판정할 수 있다(정책 v1.1 · 2026-10-11)
   pull_request:
-    branches: [main]
 
 jobs:
   verify:
@@ -102,6 +102,11 @@ jobs:
             echo "ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "ready=false" >> "$GITHUB_OUTPUT"
+            # PR 에서는 건너뛰고 SUCCESS 로 끝내지 않는다 — 돌지 않은 e2e 는 통과가 아니다(정책 v1.1 · 2026-10-11 실측: 시크릿 없이 SUCCESS 였다)
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              echo "::error::e2e 미실행 — 저장소 시크릿 미설정(Settings → Secrets: NEXT_PUBLIC_SUPABASE_URL 등). 돌지 않은 e2e 는 통과로 치지 않는다."
+              exit 1
+            fi
             echo "::notice::e2e 건너뜀 — 저장소 시크릿 미설정. Settings → Secrets 에 NEXT_PUBLIC_SUPABASE_URL 등을 넣으면 활성화됩니다."
           fi
 

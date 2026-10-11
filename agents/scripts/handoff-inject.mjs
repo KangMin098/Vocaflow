@@ -4,6 +4,7 @@
 // SessionStart 훅 — Claude Code · Codex CLI 공용. stdout 이 세션 컨텍스트로 들어간다.
 //   · .agent-handoff/latest.json 이 이 에이전트 앞으로 왔고 아직 읽음 표시(--ack)가 없으면 1–6항목을 주입
 //   · 워크트리 잠금이 남(다른 에이전트)에게 있으면 경고
+//   · PR 자동화 정책(agents/policies/pr-automation.json)이 없거나 origin/main 과 버전이 다르면 「[정책 낡음]」(2026-10-11 v1.1)
 // 아무것도 없으면 아무것도 출력하지 않는다(매 세션 컨텍스트를 낭비하지 않게). 항상 exit 0 — 세션 시작을 막지 않는다.
 //
 //   node agents/scripts/handoff-inject.mjs --agent claude
@@ -11,10 +12,36 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { DIR } from './handoff.mjs'
-import { isMain, lf } from './lib.mjs'
+import { git, isMain, lf, readText, rel } from './lib.mjs'
 import { read as readLock, state as lockState } from './lock.mjs'
 
 const MAX_AGE_MS = 7 * 24 * 3600 * 1000
+
+/** 이 워크트리 정책 vs origin/main 정책(JSON 문자열 · 없으면 null) → 경고 한 줄 또는 ''(순수) */
+export function policyNotice(localRaw, mainRaw) {
+  const ver = (raw) => {
+    try {
+      return raw ? (JSON.parse(raw).version ?? null) : null
+    } catch {
+      return 'invalid'
+    }
+  }
+  const local = ver(localRaw)
+  const main = ver(mainRaw)
+  const sync = '쓰기 전에 `git merge origin/main`(옛 승인 규칙으로 돌지 않게)'
+  if (local === 'invalid') return '[정책 오류] agents/policies/pr-automation.json 이 JSON 이 아니다 — 병합 게이트가 멈춘다.'
+  if (!local) return main && main !== 'invalid' ? `[정책 낡음] 이 워크트리에 PR 자동화 정책이 없다 — origin/main 은 v${main}. ${sync}.` : ''
+  if (main && main !== 'invalid' && main !== local) return `[정책 낡음] 이 워크트리 정책 v${local} ≠ origin/main v${main}. ${sync}.`
+  return ''
+}
+
+function readMainPolicy() {
+  try {
+    return git(['show', 'origin/main:agents/policies/pr-automation.json'])
+  } catch {
+    return null
+  }
+}
 
 export function injection(agent) {
   const out = []

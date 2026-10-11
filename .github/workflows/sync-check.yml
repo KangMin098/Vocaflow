@@ -17,8 +17,8 @@ name: sync-check
 on:
   push:
     branches: ['main', 'chore/**', 'feat/**', 'fix/**']
+  # 모든 base 의 PR(종속 PR 포함 · 정책 v1.1 · 2026-10-11)
   pull_request:
-    branches: ['main']
 
 jobs:
   typecheck:
