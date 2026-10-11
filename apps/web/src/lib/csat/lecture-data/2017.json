@@ -2837,10 +2837,10 @@
     },
     "2017#25": {
       "item_id": "2017#25",
-      "version": 1,
-      "total_sec_est": 218,
+      "version": 2,
+      "total_sec_est": 165,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 88,
+      "rubric_score": 85,
       "cues": [
         {
           "id": "c1",
@@ -2853,65 +2853,44 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천십칠학년도 수능 영어 이십오 번, 인물 내용 일치입니다."
+              "text": "여러분, 발문을 먼저 보세요. 일치하지 않는 것을 찾는 문제입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "문두를 확인하세요. 밀로시 포먼에 관해 일치하지 않는 것을 고릅니다."
+              "text": "정답 아닌 네 개는 지문과 맞는 내용이에요."
             }
           ],
-          "est_sec": 13.9,
+          "est_sec": 11.7,
           "pause_after_ms": 500
         },
         {
           "id": "c2",
           "order": 2,
-          "role": "intro",
+          "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "ability"
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여러분이 재는 힘에 주목하세요."
+              "text": "읽기 전에 선지부터 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문장 맨 앞의 전치사구가 행동한 사람을 몇 명으로 만드는지 읽는 힘입니다."
+              "text": "수치와 부정어, 그리고 혼자인지 함께인지 같은 행위자 표현에 표시합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "오 번의 단독으로가 그런 자리죠."
             }
           ],
-          "est_sec": 11.4,
+          "est_sec": 14.4,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
-          "role": "strategy",
-          "target": {
-            "kind": "analysis",
-            "id": "head"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "읽기 전에 선지부터 읽으세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "선지마다 지명이나 작품명 같은 열쇠 하나에 표시하고,"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "단독으로 같은 한정어에는 따로 세모를 표시하세요."
-            }
-          ],
-          "est_sec": 14.7,
-          "pause_after_ms": 500
-        },
-        {
-          "id": "c4",
-          "order": 4,
           "role": "structure",
           "target": {
             "kind": "analysis",
@@ -2920,51 +2899,23 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "지도 전체를 보세요. 선지 순서가 문장 순서를 따릅니다."
+              "text": "지문 지도를 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번은 두 번째, 이 번은 네 번째, 삼 번은 여섯 번째,"
+              "text": "성장지, 공부, 이민, 대표작과 수상, 마지막에 자서전 순으로 나옵니다."
             },
             {
               "lang": "ko-KR",
-              "text": "사 번은 여덟 번째, 오 번은 아홉 번째 문장이에요."
+              "text": "선지도 이 순서로 대응해요."
             }
           ],
-          "est_sec": 16.2,
-          "pause_after_ms": 600,
-          "focus": [
-            8
-          ]
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "structure",
-          "target": {
-            "kind": "analysis",
-            "id": "intent"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "출제 의도에 주목하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "자서전의 제목과 집필 사실은 그대로 두고, 함께 쓴 사람만 문장 맨 앞에 뺐습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "선지에는 지문에 없는 단독으로를 넣었죠."
-            }
-          ],
-          "est_sec": 15.7,
+          "est_sec": 12.9,
           "pause_after_ms": 600
         },
         {
-          "id": "c6",
-          "order": 6,
+          "id": "c4",
+          "order": 4,
           "role": "evidence",
           "target": {
             "kind": "anchor",
@@ -2973,27 +2924,48 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 오 번. 여기 아홉 번째 문장을 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "With Jan Novák, Forman wrote"
+              "text": "정답은 오 번입니다. 여기 아홉 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "쓴 사람이 얀 노바크와 포먼, 두 사람입니다."
+              "text": "책 제목과 자서전을 썼다는 행위는 선지와 같습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "선지의 단독으로가 이 함께와 정면으로 부딪치죠."
+              "text": "그런데 문장 맨 앞에 이 전치사구가 있죠."
             }
           ],
-          "est_sec": 17.3,
+          "est_sec": 15.5,
           "pause_after_ms": 700
         },
         {
-          "id": "c7",
-          "order": 7,
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:8"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "같은 문장에서 낱말을 짝지어 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "With Jan Novák"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다른 사람과 함께 썼다는 뜻이라, 단독으로 썼다는 선지와 어긋납니다."
+            }
+          ],
+          "est_sec": 13.2,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3002,26 +2974,30 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 작은 마을에서 성장. 두 번째 문장을 짚어 보세요."
+              "text": "일 번, 성장지. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "en-US",
-              "text": "grew up in a small town"
+              "text": "a small town near Prague"
             },
             {
               "lang": "ko-KR",
-              "text": "자랐다와 작은 마을이 선지와 맞고, 뒤에 프라하 근처가 이어집니다."
+              "text": "근처의 작은 마을이니 근교와 그대로 맞습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그래서 답이 아니에요."
             }
           ],
-          "est_sec": 15.5,
+          "est_sec": 14.4,
           "pause_after_ms": 400,
           "focus": [
             1
           ]
         },
         {
-          "id": "c8",
-          "order": 8,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3030,30 +3006,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 프라하 대학교에서 영화 공부. 네 번째 문장을 짚어 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "studied film at the film school"
+              "text": "이 번, 영화 공부. 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 학교는 프라하 대학교에 딸린 영화 학교입니다."
+              "text": "그 대학교의 영화 학교에서 공부했다고 합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "대학 안에서 영화를 공부했으니 선지와 맞아요."
+              "text": "선지가 영화 학교를 줄였어도 대학교 안이니 내용이 맞아요."
             }
           ],
-          "est_sec": 19.8,
+          "est_sec": 16.2,
           "pause_after_ms": 400,
           "focus": [
             3
           ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3062,15 +3034,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 이주 후에도 영화 제작. 여섯 번째 문장을 짚어 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "emigrated to the U.S."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "도착지가 미국이고, 이어서 이렇게 말합니다."
+              "text": "삼 번, 이주. 여섯 번째 문장을 보세요."
             },
             {
               "lang": "en-US",
@@ -3078,18 +3042,22 @@
             },
             {
               "lang": "ko-KR",
-              "text": "이주한 뒤에도 계속 만들었다는 뜻이죠."
+              "text": "미국으로 이주한 뒤에도 영화를 계속 만들었다고 대응합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "맞는 진술이라 답이 아닙니다."
             }
           ],
-          "est_sec": 19.5,
+          "est_sec": 15.8,
           "pause_after_ms": 400,
           "focus": [
             5
           ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3098,55 +3066,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 아마데우스로 감독상. 여덟 번째 문장을 짚어 보세요."
+              "text": "사 번, 감독상. 여덟 번째 문장을 찾으세요."
             },
             {
               "lang": "ko-KR",
-              "text": "주어는 영화지만, 끼워 넣은 절이 감독을 포먼으로 정합니다."
-            },
-            {
-              "lang": "en-US",
-              "text": "which he also directed"
+              "text": "그가 이 영화를 감독했고, 최고 감독상을 포함해 여덟 개 상을 휩쓸었다고 합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "그리고 받은 상 가운데 감독상이 들어 있다고 말하죠."
+              "text": "그래서 답이 아니에요."
             }
           ],
-          "est_sec": 20,
+          "est_sec": 15.5,
           "pause_after_ms": 400,
           "focus": [
             7
           ]
         },
         {
-          "id": "c11",
-          "order": 11,
-          "role": "trap",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:8"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "함정 이름은 한정어 덧붙이기. 여기 아홉 번째 문장을 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "주어 포먼부터 읽으면 제목도, 집필도 다 맞아 보여 끌립니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "콤마 앞 전치사구부터 읽고, 그 안의 사람 수를 세세요."
-            }
-          ],
-          "est_sec": 18.5,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c12",
-          "order": 12,
+          "id": "c10",
+          "order": 10,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -3155,15 +3094,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "emigrated"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다른 나라로 이주했다."
+              "text": "어휘 두 개를 확인하세요."
             },
             {
               "lang": "en-US",
@@ -3171,23 +3102,23 @@
             },
             {
               "lang": "ko-KR",
-              "text": "자서전."
+              "text": "이 낱말은 자서전입니다."
             },
             {
               "lang": "en-US",
-              "text": "swept"
+              "text": "with"
             },
             {
               "lang": "ko-KR",
-              "text": "상을 휩쓸었다."
+              "text": "이 전치사는 누구와 함께라는 공동 행위자를 알려 줘요."
             }
           ],
-          "est_sec": 9.8,
+          "est_sec": 12.8,
           "pause_after_ms": 500
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c11",
+          "order": 11,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -3196,18 +3127,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 선지의 한정어는 지문에서 짝이 되는 말을 찾으세요."
+              "text": "정리합니다. 주어와 동사가 맞아도 문장 앞 전치사구가 행위자 수를 바꿀 수 있어요."
             },
             {
               "lang": "ko-KR",
-              "text": "짝이 없거나 반대 말이 있으면 답 후보입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지의 열쇠와 한정어부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 수치, 부정어, 행위자 표현부터 표시하세요."
             }
           ],
-          "est_sec": 18.2,
+          "est_sec": 16.2,
           "pause_after_ms": 900
         }
       ]

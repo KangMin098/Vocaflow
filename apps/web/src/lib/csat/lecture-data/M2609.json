@@ -1,6 +1,6 @@
 {
   "exam_id": "M2609",
-  "built": "2026-09-17",
+  "built": "2026-10-11",
   "lectures": {
     "M2609#18": {
       "item_id": "M2609#18",
@@ -4972,10 +4972,10 @@
     },
     "M2609#31": {
       "item_id": "M2609#31",
-      "version": 2,
-      "total_sec_est": 208,
+      "version": 3,
+      "total_sec_est": 176,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 86,
+      "rubric_score": 87,
       "cues": [
         {
           "id": "c1",
@@ -4988,148 +4988,119 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여러분, 이천이십육 학년도 구월 모의평가 삼십일 번, 빈칸 추론입니다."
+              "text": "여러분, 구월 모의평가 삼십일 번 빈칸 추론입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "빈칸이 사례를 여는 두 번째 문장에 있는 것부터 보세요."
+              "text": "일반 진술을 다른 영역의 사례로 옮기는 관계를 보세요."
             }
           ],
-          "est_sec": 13.1,
+          "est_sec": 11.1,
           "pause_after_ms": 500
         },
         {
           "id": "c2",
           "order": 2,
-          "role": "intro",
+          "role": "strategy",
           "target": {
-            "kind": "analysis",
-            "id": "intent"
+            "kind": "anchor",
+            "id": "sentence:1"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "선지에 사례의 겉 행동이 섞여 있습니다. 주목하세요."
+              "text": "읽기 전에 여기 두 번째 문장, 빈칸 문장부터 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "장식과 배치요. 첫 문장의 틀을 옮겨 오는지 재는 문항입니다."
+              "text": "짝짓기 영역이라는 표시가 붙어 있죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그럼 앞 문장과 영역만 바꾼 평행이라고 예상합니다."
             }
           ],
-          "est_sec": 12.5,
+          "est_sec": 14.9,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
-          "role": "strategy",
+          "role": "structure",
           "target": {
-            "kind": "analysis",
-            "id": "procedure"
+            "kind": "anchor",
+            "id": "sentence:0"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일 하나. 빈칸 앞 일반 진술에서 명사 하나를 먼저 표시하세요."
+              "text": "여기 첫 번째 문장이 일반 장치예요."
             },
             {
               "lang": "ko-KR",
-              "text": "사례는 그 명사를 확인하는 데만 쓰기로 정합니다."
+              "text": "동물이 포식자의 지각을 조작해 안전을 얻는다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빈칸 문장은 같은 장치를 짝짓기에 쓴다는 말입니다."
             }
           ],
-          "est_sec": 13.2,
-          "pause_after_ms": 500
+          "est_sec": 14.4,
+          "pause_after_ms": 600
         },
         {
           "id": "c4",
           "order": 4,
-          "role": "structure",
+          "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "intent"
+            "kind": "anchor",
+            "id": "sentence:6"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "뼈대를 짚어 보세요. 첫 문장은 동물이 포식자의 지각을 조작한다는 일반 진술입니다."
+              "text": "정답은 이 번입니다. 근거는 여기 일곱 번째 문장."
+            },
+            {
+              "lang": "en-US",
+              "text": "appears smaller than it actually is"
             },
             {
               "lang": "ko-KR",
-              "text": "두 번째 문장은 그 틀을 짝짓기로 옮기고, 이어서 방법과 효과가 나와요."
+              "text": "실제보다 작아 보인다, 곧 보는 쪽의 크기 지각이 어긋나죠."
             }
           ],
-          "est_sec": 16.4,
-          "pause_after_ms": 600
+          "est_sec": 14,
+          "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:7"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 이 번, 지각의 편향입니다. 첫 문장을 짚어 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "manipulate the perceptions"
+              "text": "여기 여덟 번째 문장이 결과예요."
             },
             {
               "lang": "ko-KR",
-              "text": "지각이 선지의 지각과 짝이죠."
+              "text": "구애하는 수컷이 더 커 보여 암컷에게 매력적이다."
             },
             {
               "lang": "ko-KR",
-              "text": "새는 암컷 눈에 원래 있는 치우침을 이용해 조작합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "빈칸 앞 이용한다와 맞물려요."
+              "text": "지각을 조작한다가 지각의 치우침과 맞물립니다."
             }
           ],
-          "est_sec": 20,
+          "est_sec": 14.2,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "analysis",
-            "id": "answer"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "일곱 번째 문장을 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "smaller than it actually is"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "실제보다 작아 보인다는 착시예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그래서 수컷이 더 커 보여 매력적이라고 연구진은 제안하죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "암컷 눈을 속이는 지각의 문제입니다."
-            }
-          ],
-          "est_sec": 19.7,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -5138,23 +5109,27 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 유전적 변이. 첫 문장을 짚어 보세요."
+              "text": "일 번, 유전적 변이. 첫 번째 문장의 진화라는 말에 끌리죠."
             },
             {
               "lang": "ko-KR",
-              "text": "진화한 것은 포식자의 지각을 조작하는 여러 무늬와 패턴이에요."
+              "text": "네 번째부터 여섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "유전적 차이를 비교하는 문장은 지문 어디에도 없습니다."
+              "text": "수컷이 물건을 놓는 행동일 뿐, 유전적 차이는 없습니다."
             }
           ],
-          "est_sec": 17.5,
-          "pause_after_ms": 400
+          "est_sec": 16.5,
+          "pause_after_ms": 400,
+          "focus": [
+            0,
+            5
+          ]
         },
         {
-          "id": "c8",
-          "order": 8,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -5163,23 +5138,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 목소리의 매력. 일곱 번째 문장을 확인하세요."
+              "text": "삼 번, 목소리의 매력. 네 번째부터 여덟 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "원근과 보인다, 전부 눈에 관한 말입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "소리에 관한 말은 한 줄도 없어요."
+              "text": "배치, 원근, 커 보임 모두 눈의 장치예요. 소리는 없습니다."
             }
           ],
-          "est_sec": 13.5,
-          "pause_after_ms": 400
+          "est_sec": 13,
+          "pause_after_ms": 400,
+          "focus": [
+            7
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -5188,23 +5162,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 장식 솜씨. 네 번째 문장을 짚어 보세요."
+              "text": "사 번, 장식 솜씨. 네 번째 문장이 장식을 직접 말하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "장식은 수단이고, 효과를 내는 건 일곱 번째 문장의 원근 착시입니다."
+              "text": "그런데 여섯 번째는 크기 순 배치, 일곱 번째는 착시를 말해요."
             },
             {
               "lang": "ko-KR",
-              "text": "솜씨가 아니라 착시가 핵심이에요."
+              "text": "장식은 수단일 뿐임을 확인하세요."
             }
           ],
           "est_sec": 15.7,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -5213,23 +5190,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 위치의 이점. 여섯 번째 문장을 확인하세요."
+              "text": "오 번, 위치상의 이점. 여섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "물건의 위치는 원근을 만드는 방법일 뿐입니다."
+              "text": "위치는 물건 크기로 정해져 착시를 만들 뿐이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "결과는 작아 보인다, 곧 지각으로 끝나요."
+              "text": "좋은 자리를 차지한 이득이라는 말은 없습니다."
             }
           ],
-          "est_sec": 14.7,
-          "pause_after_ms": 400
+          "est_sec": 16,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
             "kind": "analysis",
@@ -5238,27 +5218,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 사 번, 부분 사실입니다. 네 번째 문장을 보세요."
+              "text": "가장 강한 함정은 사 번, 범위 과소입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "길을 꾸민다는 말이 그대로 있어 끌려요."
+              "text": "네 번째 문장의 장식과 겹쳐 끌리죠."
             },
             {
               "lang": "ko-KR",
-              "text": "하지만 빈칸은 무엇을 이용하는지 묻습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "겉 행동 선지는 틀 명사와 대조해 확인하세요."
+              "text": "선지가 수단인지, 지각 조작이라는 핵심인지 물어 보세요."
             }
           ],
-          "est_sec": 19.8,
-          "pause_after_ms": 600
+          "est_sec": 14.2,
+          "pause_after_ms": 600,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -5267,31 +5246,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘 확인하세요."
             },
             {
               "lang": "en-US",
-              "text": "manipulate"
+              "text": "perception"
             },
             {
               "lang": "ko-KR",
-              "text": "조작하다."
-            },
-            {
-              "lang": "en-US",
-              "text": "predator"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "포식자."
-            },
-            {
-              "lang": "en-US",
-              "text": "bower"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "새의 정자."
+              "text": "지각."
             },
             {
               "lang": "en-US",
@@ -5300,14 +5263,22 @@
             {
               "lang": "ko-KR",
               "text": "강제 원근법."
+            },
+            {
+              "lang": "en-US",
+              "text": "bias"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "한쪽으로 치우친 경향."
             }
           ],
-          "est_sec": 10.6,
+          "est_sec": 9.4,
           "pause_after_ms": 500
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -5316,14 +5287,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 사례를 여는 빈칸은 앞 일반 진술의 틀 명사로 채웁니다."
+              "text": "정리합니다. 빈칸 문장에 영역 표시가 붙으면 앞 일반 진술과 평행을 찾고, 사례의 결과로 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 빈칸 앞 일반 진술의 명사부터 표시하세요."
+              "text": "다음에는 첫 십 초에 빈칸 문장의 영역 표시부터 보세요."
             }
           ],
-          "est_sec": 13.9,
+          "est_sec": 16.4,
           "pause_after_ms": 900
         }
       ]
@@ -5684,10 +5655,10 @@
     },
     "M2609#33": {
       "item_id": "M2609#33",
-      "version": 2,
-      "total_sec_est": 214,
+      "version": 3,
+      "total_sec_est": 171,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 87,
+      "rubric_score": 85,
       "cues": [
         {
           "id": "c1",
@@ -5700,95 +5671,82 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여러분, 이천이십육 학년도 구월 모의평가 삼십삼 번, 빈칸 추론입니다."
+              "text": "여러분, 구월 모의평가 삼십삼 번 빈칸 추론입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "빈칸이 첫 문장, 하지만 뒤 부정 절에 있는 것부터 보세요."
+              "text": "지시어가 빈칸의 행위를 되받는 관계를 보세요."
             }
           ],
-          "est_sec": 13.1,
+          "est_sec": 10.4,
           "pause_after_ms": 500
         },
         {
           "id": "c2",
           "order": 2,
-          "role": "intro",
+          "role": "strategy",
           "target": {
-            "kind": "analysis",
-            "id": "intent"
+            "kind": "anchor",
+            "id": "sentence:0"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "빈칸이 첫 문장이라 근거는 전부 뒤에 있습니다. 주목하세요."
+              "text": "여기 첫 번째 문장, 빈칸이 맨 앞이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "앞 절만 보면 생태적 풍요로 끌리게 배치했어요."
+              "text": "다양성이 어떤 일의 명분이 되면 안 되는지, 물음으로 바꿔 적으세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "답은 모두 뒤에 있습니다."
             }
           ],
-          "est_sec": 11.7,
+          "est_sec": 13.9,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
-          "role": "strategy",
+          "role": "structure",
           "target": {
-            "kind": "analysis",
-            "id": "procedure"
+            "kind": "anchor",
+            "id": "sentence:2"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일 하나. 첫 문장의 하지만과 부정어를 표시하세요."
+              "text": "여기 세 번째 문장의"
+            },
+            {
+              "lang": "en-US",
+              "text": "this process"
             },
             {
               "lang": "ko-KR",
-              "text": "숲이 다양하다는 앞 절은 참으로 두고, 그 쓰임을 찾기로 정합니다."
+              "text": "가 빈칸의 행위를 되받는 지시어예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "바로 다음 문장이 그 과정의 정체를 밝힙니다."
             }
           ],
-          "est_sec": 13.7,
-          "pause_after_ms": 500
+          "est_sec": 12.2,
+          "pause_after_ms": 600
         },
         {
           "id": "c4",
           "order": 4,
-          "role": "structure",
-          "target": {
-            "kind": "analysis",
-            "id": "intent"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "뼈대를 짚어 보세요. 두 번째 문장이 습지도 고유한 생물이 있다고 방어합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "세 번째 문장이 이 과정의 문제를 꺼내고, 네 번째가 사례예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "마지막 문장이 그 사업을 비판합니다."
-            }
-          ],
-          "est_sec": 18.7,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c5",
-          "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:3"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 오 번입니다. 네 번째 문장을 짚어 보세요."
+              "text": "정답은 오 번. 여기 네 번째 문장, 습지에서 물을 빼 숲으로 바꾸는 일이죠."
             },
             {
               "lang": "en-US",
@@ -5796,48 +5754,40 @@
             },
             {
               "lang": "ko-KR",
-              "text": "습지를 숲으로 바꾸려고 물을 빼고 울타리를 쳤다."
+              "text": "가 선지의 비숲을 숲으로 바꾸기와 맞물립니다."
+            }
+          ],
+          "est_sec": 14.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 두 번째 문장은 이유예요."
             },
             {
               "lang": "ko-KR",
-              "text": "숲으로 바꾸기가 선지의 전환과, 습지가 숲 아닌 곳과 짝입니다."
+              "text": "습지와 초원은 흔히 숲보다 덜 풍부해도 고유한 생물상이 있다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그래서 다양성이 그 전환을 정당화하지 못하죠."
             }
           ],
-          "est_sec": 19,
+          "est_sec": 14.9,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "analysis",
-            "id": "answer"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "세 번째 문장의 이 과정을 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이 말은 앞, 곧 빈칸에 나온 과정을 받습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그러니 빈칸에 무언가를 바꾸는 행위가 있어야 하죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "네 번째 문장의 습지를 숲으로 바꾼 일이 그 사례예요."
-            }
-          ],
-          "est_sec": 19.7,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -5846,23 +5796,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 숲 확장의 가치를 조사할 근거. 다섯 번째 문장을 짚어 보세요."
+              "text": "일 번, 숲 확장의 가치를 조사할 근거. 여섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "숲을 늘리는 건 바람직하다고 인정합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "지문이 막는 건 조사가 아니라 습지의 전환이에요."
+              "text": "비판은 조사가 아니라 이미 벌어진 전환을 향해요."
             }
           ],
-          "est_sec": 17,
-          "pause_after_ms": 400
+          "est_sec": 12.4,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c8",
-          "order": 8,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -5871,23 +5820,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 기관 지원을 넓힐 근거. 마지막 문장을 확인하세요."
+              "text": "이 번, 기관 지원을 생태계 전체로. 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문제는 사업지가 옛 숲 자리에 한정되지 않는다는 점입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "지원 이야기는 없어요."
+              "text": "산림위원회는 나오지만 지원을 넓힌다는 말은 없어요. 과정은 습지를 숲으로 바꾸는 일입니다."
             }
           ],
-          "est_sec": 15,
-          "pause_after_ms": 400
+          "est_sec": 16.7,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -5896,23 +5844,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 외래종을 들일 이유. 마지막 문장을 짚어 보세요."
+              "text": "삼 번, 외래종 도입의 이유. 여섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "외래종은 세 불만 중 하나일 뿐입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 번째 문장이 지키려는 습지 생물의 문제는 설명하지 못해요."
+              "text": "외래 수종은 생태학자들의 불만 세 가지 중 하나일 뿐이에요."
             }
           ],
-          "est_sec": 16.5,
-          "pause_after_ms": 400
+          "est_sec": 12.4,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -5921,52 +5868,50 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 생태적 풍요를 늘리는 증거. 두 번째 문장을 확인하세요."
+              "text": "사 번, 생태적 풍요 증대의 증거. 두 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "습지가 덜 풍부할 수 있다고 인정한 채 고유함을 지킵니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "풍요는 논점이 아니고, 이 과정도 가리키지 못해요."
+              "text": "숲이 더 풍부함은 인정하지만, 쟁점은 다른 생태계를 숲으로 바꾸는 게 정당한가입니다."
             }
           ],
-          "est_sec": 18,
-          "pause_after_ms": 400
+          "est_sec": 14.9,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
             "kind": "analysis",
-            "id": "reject:4"
+            "id": "reject:3"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 사 번, 부분 사실입니다. 첫 문장의 앞 절을 보세요."
+              "text": "가장 강한 함정은 삼 번, 범위 과소예요."
             },
             {
               "lang": "ko-KR",
-              "text": "숲이 다양하다 뒤라 풍요의 증거가 자연스러워요."
+              "text": "여섯 번째 문장에 외래종이 직접 나와 끌리죠."
             },
             {
               "lang": "ko-KR",
-              "text": "하지만 지문은 그 사실의 쓰임을 부정합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "앞 절이 참으로 남는지 확인하세요."
+              "text": "지시어가 받는 행위 전체인지, 불만 하나만 집었는지 따져 보세요."
             }
           ],
-          "est_sec": 20,
-          "pause_after_ms": 600
+          "est_sec": 15.7,
+          "pause_after_ms": 600,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -5975,7 +5920,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "justification"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "정당화."
             },
             {
               "lang": "en-US",
@@ -5987,11 +5940,11 @@
             },
             {
               "lang": "en-US",
-              "text": "meadow"
+              "text": "drained"
             },
             {
               "lang": "ko-KR",
-              "text": "초원."
+              "text": "물을 뺀."
             },
             {
               "lang": "en-US",
@@ -6000,22 +5953,14 @@
             {
               "lang": "ko-KR",
               "text": "외래의."
-            },
-            {
-              "lang": "en-US",
-              "text": "justification"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정당화."
             }
           ],
           "est_sec": 9,
           "pause_after_ms": 500
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -6024,14 +5969,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 하지만 뒤 부정 빈칸은 앞 절을 참으로 두고, 뒤 사례가 비판하는 행위로 채웁니다."
+              "text": "정리합니다. 빈칸이 맨 앞이면 뒤에서 되받는 지시어를 찾고, 그것이 가리키는 실제 행위로 채우세요."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 하지만과 부정어부터 표시하세요."
+              "text": "다음에는 첫 십 초에 빈칸 문장의 틀을 물음으로 바꿔 보세요."
             }
           ],
-          "est_sec": 15.7,
+          "est_sec": 16.9,
           "pause_after_ms": 900
         }
       ]
