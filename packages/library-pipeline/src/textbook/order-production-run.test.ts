@@ -247,3 +247,37 @@ describe('guards found by the live family review (2026-10-11)', () => {
     expect(JSON.stringify(importOrderProductionDrain(input, allFirst))).toContain('ORDER_RUN_ANSWER_POSITION_BIAS')
   })
 })
+
+describe('review fixes for the live-review guards (2026-10-11)', () => {
+  it('catches a visible answer hidden by curly quotes, case, spacing or placed in the choices', () => {
+    const input = runInput({ ...baseBrief, product_family: 'P09' })
+    const drain = exportOrderProductionDrain(input)
+    const cell = drain.cells.find(c => ['order', 'insert'].includes(c.item_type))!
+    for (const disguise of [
+      (s: string) => `Where does this fit? “${s.replace(/\.$/u, '')}”`,
+      (s: string) => `WHERE DOES THIS FIT? "${s.toUpperCase()}"`,
+      (s: string) => `Where does this fit?  "${s.replace(/ /gu, '  ')}"`,
+    ]) {
+      const visible = fill(drain)
+      const target = visible.cells.find(c => c.cell_id === cell.cell_id)!
+      target.items[0]!.question = disguise(target.passage.split(/(?<=[.!?])\s+/u).at(-1)!)
+      expect(JSON.stringify(importOrderProductionDrain(input, visible))).toContain('ITEM_ANSWER_VISIBLE_IN_PASSAGE')
+    }
+    const inChoices = fill(drain)
+    const target = inChoices.cells.find(c => c.cell_id === cell.cell_id)!
+    target.items[0]!.choices = [target.passage.split(/(?<=[.!?])\s+/u).at(-1)!, 'Something else entirely here.']
+    expect(JSON.stringify(importOrderProductionDrain(input, inChoices))).toContain('ITEM_ANSWER_VISIBLE_IN_PASSAGE')
+  })
+
+  it('counts every item of a unit for answer-position bias', () => {
+    const input = runInput(baseBrief)
+    const filledMulti = fill(exportOrderProductionDrain(input))
+    for (const [index, cell] of filledMulti.cells.entries()) {
+      const base = cell.items[0]!
+      cell.items[0] = { ...base, answer: index % 2 === 0 ? 1 : 2, choices: index % 2 === 0 ? base.choices : [...base.choices].reverse() }
+      for (let n = 2; n <= 4; n += 1)
+        cell.items.push({ ...base, item_id: `${cell.cell_id}:i${n}`, choices: ['Plants store energy in roots.', 'Wells never refill.'], answer: 1 })
+    }
+    expect(JSON.stringify(importOrderProductionDrain(input, filledMulti))).toContain('ORDER_RUN_ANSWER_POSITION_BIAS')
+  })
+})

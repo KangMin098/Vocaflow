@@ -130,7 +130,17 @@ const esc = (text: string) => text.replace(/&/gu, '&amp;').replace(/</gu, '&lt;'
   .replace(/>/gu, '&gt;').replace(/"/gu, '&quot;').replace(/'/gu, '&#39;')
 
 const VISIBLE_ANSWER_TYPES = new Set(['order', 'insert', 'grammar_fix', 'word_order'])
-const passageSentences = (passage: string) => passage.split(/(?<=[.!?])\s+/u).map(sentence => sentence.trim()).filter(Boolean)
+// Sentences end at . ! ? optionally followed by a closing quote or bracket.
+const passageSentences = (passage: string) => passage.split(/(?<=[.!?]["'”’)\]]?)\s+/u).map(sentence => sentence.trim()).filter(Boolean)
+// Normalised for comparison: case, curly quotes, ellipses, whitespace and trailing punctuation do not hide a copy.
+const normalizeForLookup = (text: string) => text.toLowerCase().replace(/[“”«»]/gu, '"').replace(/[‘’]/gu, "'")
+  .replace(/…/gu, '...').replace(/\s+/gu, ' ').replace(/[\s.!?"')\]]+$/u, '').trim()
+function answerVisibleInPassage(passage: string, item: { item_type: string; question: string; choices: string[] }) {
+  if (!VISIBLE_ANSWER_TYPES.has(item.item_type)) return false
+  const shown = [item.question, ...item.choices].map(normalizeForLookup)
+  return passageSentences(passage).some(sentence => sentence.split(/\s+/u).length >= 6 &&
+    shown.some(text => text.includes(normalizeForLookup(sentence))))
+}
 
 function gateP03(passage: string, items: z.infer<typeof filledItemSchema>[], itemTypes: string[]) {
   for (const item of items) {
@@ -181,8 +191,7 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
     }
     // Order/insert/correction items whose quoted sentence already sits in the printed passage are
     // solved by lookup (found three times in the live review). Block them before review.
-    if (fill.items.some(item => VISIBLE_ANSWER_TYPES.has(item.item_type) && passageSentences(fill.passage)
-        .some(sentence => sentence.split(/\s+/u).length >= 6 && item.question.includes(sentence)))) {
+    if (fill.items.some(item => answerVisibleInPassage(fill.passage, item))) {
       blockers.push({ stage: 'items_gated', cell_id: cell.cell_id, reason: 'ITEM_ANSWER_VISIBLE_IN_PASSAGE' }); continue
     }
     try {
@@ -229,7 +238,7 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
   // A printed volume whose keys cluster on one choice number can be answered without reading.
   for (const entry of sealed.orders) {
     const answers = drain.cells.filter(cell => cell.grade === entry.grade)
-      .map(cell => filled.get(cell.cell_id)?.items[0]?.answer).filter((value): value is number => typeof value === 'number')
+      .flatMap(cell => (filled.get(cell.cell_id)?.items ?? []).map(item => item.answer))
     const top = Math.max(0, ...[1, 2, 3, 4, 5].map(n => answers.filter(answer => answer === n).length))
     if (answers.length >= 5 && top / answers.length > 0.6)
       blockers.push({ stage: 'items_gated', cell_id: entry.grade, reason: 'ORDER_RUN_ANSWER_POSITION_BIAS' })

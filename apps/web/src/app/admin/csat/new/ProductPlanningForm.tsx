@@ -92,7 +92,8 @@ export function ProductPlanningForm({ onPlanReady }: { onPlanReady?: (value: { b
     const brief = {
       schema: 'textbook-product-brief/1', grade_scope: { mode, grades: ordered }, purpose,
       ...(familyOverride ? { product_family: familyOverride } : {}),
-      domain_weights: weights(selectedDomains), genre_weights: weights(selectedGenres),
+      // P02 (narrative reading) is planned only with narrative passages (planner rule FAMILY_GENRE_MISMATCH).
+      domain_weights: weights(selectedDomains), genre_weights: familyOverride === 'P02' ? { narrative: 1 } : weights(selectedGenres),
       duration_days: days, units_per_chapter: unitsPerChapter,
       difficulty: { start: startLevel, end: endLevel },
       passage_words: { start: startWords, end: endWords }, source_strategy: sourceStrategy,
@@ -152,7 +153,7 @@ export function ProductPlanningForm({ onPlanReady }: { onPlanReady?: (value: { b
       <fieldset><legend className="text-[13px] font-[700] text-[var(--t1)]">영역 배합</legend>{domains.map(([value, label]) =>
         <button key={value} type="button" aria-pressed={selectedDomains.includes(value)} onClick={() => toggle(value, selectedDomains, setSelectedDomains)}
           className="mr-2 min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] px-3 text-[13px] text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] aria-pressed:border-[var(--p)] aria-pressed:text-[var(--p)]">{label}</button>)}</fieldset>
-      <fieldset><legend className="text-[13px] font-[700] text-[var(--t1)]">글 유형</legend>{genres.map(([value, label]) =>
+      <fieldset><legend className="text-[13px] font-[700] text-[var(--t1)]">글 유형{familyOverride === 'P02' ? ' — 서사 독해(P02)는 서사 글로만 계획됩니다' : ''}</legend>{genres.map(([value, label]) =>
         <button key={value} type="button" aria-pressed={selectedGenres.includes(value)} onClick={() => toggle(value, selectedGenres, setSelectedGenres)}
           className="mr-2 min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] px-3 text-[13px] text-[var(--t2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] aria-pressed:border-[var(--p)] aria-pressed:text-[var(--p)]">{label}</button>)}</fieldset>
       <fieldset><legend className="text-[13px] font-[700] text-[var(--t1)]">함께 낼 연습(독해 외)</legend>{companionOptions.map(([value, label]) =>

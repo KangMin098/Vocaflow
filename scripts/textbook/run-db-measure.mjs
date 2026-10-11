@@ -41,9 +41,15 @@ const trust = hash(policy)
 for (const draft of input.drafts) draft.policies.trust = { version: 'run-db-measure', hash: trust }
 const drain = exportOrderProductionDrain(input)
 const byCell = new Map(filled.cells.map(cell => [cell.cell_id, cell]))
+// The reviewed fill may move to the re-sealed cell only if that cell's plan is unchanged; the trust root
+// changes only the order hash and the cell hash.
+const reviewedDrain = JSON.parse(fs.readFileSync(path.join(runDir, 'drain.json'), 'utf8'))
+const planOf = cell => { const { order_hash: _o, cell_hash: _c, ...plan } = cell; return JSON.stringify(plan) }
 const remapped = { cells: drain.cells.map(cell => {
   const old = byCell.get(cell.cell_id)
-  if (!old) throw Error(`RUN_CELL_MISSING:${cell.cell_id}`)
+  const reviewedCell = reviewedDrain.cells.find(row => row.cell_id === cell.cell_id)
+  if (!old || !reviewedCell) throw Error(`RUN_CELL_MISSING:${cell.cell_id}`)
+  if (planOf(reviewedCell) !== planOf(cell)) throw Error(`RUN_CELL_PLAN_CHANGED:${cell.cell_id}`)
   return { ...old, cell_hash: cell.cell_hash }
 }) }
 const run = importOrderProductionDrain(input, remapped)
@@ -233,7 +239,7 @@ BEGIN
   v_served := public.serve_reading_production_volume('run-db-measure:'||(pg_temp.ctx('order')->>'product_order_id'));
   INSERT INTO _run_measure VALUES ('volume served with every reviewed unit',
     ${days.map(day => { const unit = run.volumeInput.units.find(row => row.day === day)
-      const first = unit.passage.split(/(?<=[.!?])s+/u)[0], question = run.gatedItems.find(row => row.unit_id === unit.unit_id).items[0].question
+      const first = unit.passage.split(/(?<=[.!?])\s+/u)[0], question = run.gatedItems.find(row => row.unit_id === unit.unit_id).items[0].question
       return [first, question].map(text => `position(${lit(escHtml(text))} in v_served->>'html') > 0`).join(' AND ') }).join(' AND ')},
     v_served->>'output_hash');
 END $volume$;

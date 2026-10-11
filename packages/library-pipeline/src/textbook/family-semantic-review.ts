@@ -52,12 +52,14 @@ type ReviewRun = {
 export function exportFamilyReview(run: ReviewRun) {
   const family = run.volumeInput.orders[0]!.order.product_family as keyof typeof PRODUCT_FAMILIES
   const criteria = [...FAMILY_CRITERIA[family], ...COMMON].map(([id, text]) => ({ id, text }))
-  const units = [...run.volumeInput.units].sort((a, b) => a.day - b.day || a.grade.localeCompare(b.grade)).map(unit => ({
-    unit_id: unit.unit_id, unit_hash: sha(unit.unit_html), grade: unit.grade, day: unit.day,
-    primary_skill: unit.primary_skill, passage: unit.passage,
-    items: run.gatedItems.find(entry => entry.unit_id === unit.unit_id)?.items ?? [],
-    ...(run.gatedItems.find(entry => entry.unit_id === unit.unit_id)?.source_text
-      ? { source_text: run.gatedItems.find(entry => entry.unit_id === unit.unit_id)!.source_text } : {}) }))
+  const units = [...run.volumeInput.units].sort((a, b) => a.day - b.day || a.grade.localeCompare(b.grade)).map(unit => {
+    const source = run.gatedItems.find(entry => entry.unit_id === unit.unit_id)?.source_text
+    // The reviewed source (P01) is part of what the reviewer signed: a swapped source makes the review stale.
+    return { unit_id: unit.unit_id, unit_hash: source ? sha(`${unit.unit_html}\u0000source:${source}`) : sha(unit.unit_html),
+      grade: unit.grade, day: unit.day, primary_skill: unit.primary_skill, passage: unit.passage,
+      items: run.gatedItems.find(entry => entry.unit_id === unit.unit_id)?.items ?? [],
+      ...(source ? { source_text: source } : {}) }
+  })
   const body = { schema: 'textbook-family-review-drain/1', family, family_name: PRODUCT_FAMILIES[family].name,
     family_instruction: PRODUCT_FAMILIES[family].instruction, run_receipt_hash: run.output.receipt.receipt_hash,
     criteria, units,

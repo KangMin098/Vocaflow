@@ -206,3 +206,10 @@ Executed once on vocaflow-dev for the reviewed P09 run (middle_2, 3 days; genera
 | volume registered / served | 3 DB-derived sections; served HTML contains every unit's passage and question |
 
 Before/after counts identical (articles 91,793; items 834,311; reviews 549; orders, authority, audits, permits, groups, snapshots, artifacts, volumes 0). Limits as before: one active admin (second approver simulated); synthetic source article and trust root; single-grade runs only in this generator. The DB item table accepts every generic item type used by the 15 generic families (checked against its CHECK constraint).
+
+- Cross-review of `a43724a6f..df158c75b` (independent Claude reviewer, read-only): 1 P1 + 5 P2, all fixed.
+  - P1: the P01 source was outside the review hash, so a swapped source kept a stale claim-preservation review valid. The family review unit hash now binds the source; the old P01 review was rejected as stale and P01 was re-reviewed against the source-bound hash (complete).
+  - Visible-answer guard now normalises case, curly quotes, ellipses, spacing and trailing punctuation, splits sentences before closing quotes/brackets, and checks the choices as well as the question.
+  - Answer-position bias counts every item of a unit, not only the first.
+  - Admin planning: choosing P02 now sends narrative-only genres and says so, instead of returning a generic error.
+  - `run-db-measure.mjs`: the served-volume check regex had lost its `\s` (heredoc backslash trap); fixed with the editor. Re-sealing now refuses a reviewed fill if the re-exported cell's plan differs (`RUN_CELL_PLAN_CHANGED`).
