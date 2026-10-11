@@ -22,10 +22,9 @@ import { useMemo, useState } from 'react'
 
 import { CsatRail, type NeedId, type RailPlace } from '@/components/csat/home/CsatRail'
 import { useCsatRecord } from '@/components/csat/home/useCsatRecord'
-import { activeSet, dueNow, touchedItems } from '@/lib/csat/continuity'
+import { touchedItems } from '@/lib/csat/continuity'
 import { EMPTY_FILTER, filterBrowse, groupByExam, type BrowseCatalog, type BrowseFilter, type ExamKind } from '@/lib/csat/browse-model'
 import { toItemSlug } from '@/lib/csat/item-slug'
-import type { RailExam } from '@/lib/csat/rail-data'
 
 import home from '../home/home.module.css'
 import styles from '../space/space.module.css'
@@ -41,7 +40,7 @@ export interface BrowseEntry {
 const isEmpty = (f: BrowseFilter) =>
   f.kind === 'all' && (f.grade ?? 'all') === 'all' && f.year === 'all' && f.type === 'all' && f.status === 'all' && f.query.trim() === '' && (f.exam ?? 'all') === 'all' && (f.from ?? 'all') === 'all'
 
-export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog; exams: RailExam[]; entry: BrowseEntry }) {
+export function CsatWorkspace({ browse, entry }: { browse: BrowseCatalog; entry: BrowseEntry }) {
   const rec = useCsatRecord()
   const [filter, setFilter] = useState<BrowseFilter>({
     ...EMPTY_FILTER,
@@ -84,7 +83,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
 
   return (
     <div className={styles.root} data-csat-browse data-testid="csat-workspace">
-      <CsatRail place={place} current={current} exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} />
+      <CsatRail place={place} current={current} />
 
       <div className="min-w-0">
         <header className={styles.topbar}>

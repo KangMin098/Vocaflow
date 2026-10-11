@@ -9,9 +9,8 @@
 import Link from 'next/link'
 import { ArrowUpRight, BookMarked, CloudOff } from 'lucide-react'
 
-import { activeSet, coverage, dueNow, studyDays, upcoming } from '@/lib/csat/continuity'
+import { coverage, studyDays, upcoming } from '@/lib/csat/continuity'
 import { ATLAS_TYPES } from '@/lib/csat/trap-atlas'
-import type { RailExam } from '@/lib/csat/rail-data'
 
 import { ContinueCard } from './ContinueCard'
 import { CsatRail } from './CsatRail'
@@ -21,7 +20,7 @@ import styles from '../space/space.module.css'
 
 const pct = (a: number, b: number) => (b > 0 ? Math.round((100 * a) / b) : 0)
 
-export function RecordScreen({ exams, itemTypes }: { exams: RailExam[]; itemTypes: Record<string, string> }) {
+export function RecordScreen({ itemTypes }: { itemTypes: Record<string, string> }) {
   const rec = useCsatRecord()
   const cov = rec ? coverage(rec.record, (id) => itemTypes[id]) : null
   const days = rec ? studyDays(rec.record, rec.now) : []
@@ -30,7 +29,7 @@ export function RecordScreen({ exams, itemTypes }: { exams: RailExam[]; itemType
 
   return (
     <div className={styles.root} data-testid="csat-record">
-      <CsatRail place="record" exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} />
+      <CsatRail place="record" />
       <div className="min-w-0">
         <header className={styles.topbar}>
           <span className={styles.topPill}>

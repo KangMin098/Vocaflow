@@ -39,7 +39,7 @@ import { ContinuePanel } from '../home/ContinuePanel'
 import { CsatRail, type NeedId } from '../home/CsatRail'
 import { useCsatRecord } from '../home/useCsatRecord'
 import { track } from '@/lib/analytics/client'
-import { activeSet, coverage, dueBucket, dueNow, gapBucket, gapDays, visitState } from '@/lib/csat/continuity'
+import { activeSet, coverage, dueBucket, gapBucket, gapDays, visitState } from '@/lib/csat/continuity'
 import { ATLAS_TYPES } from '@/lib/csat/trap-atlas'
 import {
   EMPTY_SPACE_FILTER,
@@ -68,19 +68,12 @@ const TONE_CLASS: Record<SpaceTone, string> = {
 
 const n = (value: number) => value.toLocaleString('ko-KR')
 
-export interface SpaceExam {
-  exam_id: string
-  label: string
-  items: number
-}
-
 /** 씨는 탭마다 다르다 — 참조도 화면마다 다른 무늬를 쓴다. 값 자체에 뜻은 없다(결정론만 필요). */
 const SEED: Record<SpaceTab, number> = { type: 7, trap: 23 }
 
 const TAB_LABEL: Record<SpaceTab, string> = { type: '유형', trap: '함정' }
 
 export function SpaceScreen({
-  exams,
   itemTypes,
   initialTab = 'type',
   need = null,
@@ -88,7 +81,6 @@ export function SpaceScreen({
   diagnosis,
   trapExamples,
 }: {
-  exams: SpaceExam[]
   /** 문항 id → 유형 id(넓이 · 「본 문항」 계산용). 서가 카탈로그에서 온다 */
   itemTypes: Record<string, string>
   initialTab?: SpaceTab
@@ -205,8 +197,6 @@ export function SpaceScreen({
       <CsatRail
         place={view === 'continue' ? 'continue' : need ? 'need' : 'home'}
         current={need ?? undefined}
-        exams={exams}
-        dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null}
       />
 
       <div className="min-w-0">
