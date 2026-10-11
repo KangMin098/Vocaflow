@@ -128,3 +128,43 @@ describe('증거 · 자료 중복 없음', () => {
     expect(omView.progress).toBeNull() // option-match 의 중심(E3)은 이 픽스처에 확인 연결이 없어 계획 불가 · 보조 수는 세지 않음
   })
 })
+
+describe('Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(5차)', () => {
+  const T = ['t1', 't2', 't3']
+  const view = (a: ReturnType<typeof asIs>, act: PlanActivity[]) => {
+    const toBe = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
+    const plan = planWorkspaces({ asIs: a, toBe, confirmLinks: links, transferItems: { [KEY]: 12 }, transferTargets: { [KEY]: T } })
+    const cm = [plan.primary, ...plan.others].find((w) => w?.id === 'ws.central-meaning')!
+    return workspacePlan(cm, a, toBe, plan, act).tasks.find((t) => t.task === 'r.central_meaning')!
+  }
+  const a = asIs({ attempts: verified }) // i1 · i2 오답 → 확정(REPAIR)
+  const later = (item: string, phase: string, day: number): PlanActivity => ({ itemRef: item, taskKey: KEY, phase, answeredAt: `2026-09-${day}T00:00:00Z` })
+
+  it('① 확정 직후 = 바로잡기 · 다음 활동은 막힌 확인 문항', () => {
+    const p = view(a, [])
+    expect(p.stage).toBe('repair')
+    expect(p.next?.href).toBe('/csat/item/i1')
+    expect(p.achievement).toBe('need_confirmed')
+  })
+
+  it('② 막힌 문항을 다 다시 풀면 = 다른 글에 적용(2지문) · 다음 활동은 연습 화면의 전이 문항', () => {
+    const p = view(a, [later('i1', 'practice', 12), later('i2', 'practice', 13)])
+    expect(p.stage).toBe('transfer')
+    expect(p.quantity).toMatchObject({ available: 2, done: 0, rule: 'transfer_pool' })
+    expect(p.next?.href).toBe('/csat/practice/claim-support?item=t1')
+    const one = view(a, [later('i1', 'practice', 12), later('i2', 'practice', 13), later('t1', 'transfer', 14)])
+    expect(one.next?.href).toBe('/csat/practice/claim-support?item=t2') // 한 지문 뒤에는 아직 안 한 다음 지문
+  })
+
+  it('③ 적용 2지문 뒤 = 다시 확인 · 다음 활동은 아직 안 본 확인 문항 · 성취는 여전히 직접 확인 결과(수행 ≠ 성취)', () => {
+    const p = view(a, [later('i1', 'practice', 12), later('i2', 'practice', 13), later('t1', 'transfer', 14), later('t2', 'transfer', 15)])
+    expect(p.stage).toBe('recheck')
+    expect(p.next?.href).toMatch(/^\/csat\/item\/i[345]$/)
+    expect(p.achievement).toBe('need_confirmed')
+  })
+
+  it('④ 확정 전 수행은 바로잡기로 세지 않는다', () => {
+    const p = view(a, [later('i1', 'practice', 9), later('i2', 'practice', 9)])
+    expect(p.stage).toBe('repair')
+  })
+})

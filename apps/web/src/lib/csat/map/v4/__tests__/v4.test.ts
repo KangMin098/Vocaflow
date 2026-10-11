@@ -199,11 +199,12 @@ describe('불변식 8', () => {
     expect(tb.needs.every((n) => n.type !== 'REPAIR')).toBe(true)
   })
 
-  it('3 직접 확인(서로 다른 2문항 독립 실패)만 확정 — 합성 · 도움 받은 시도는 세지 않는다', () => {
+  it('3 직접 확인(서로 다른 2문항 독립 실패)만 확정 — 도움 받은 시도는 세지 않는다 · 합성 계정은 본인 판정에서 같은 기준(5차)', () => {
     expect(asIsMap(base({ attempts: verifiedAttempts })).tasks['r.central_meaning'].status).toBe('verified_need')
+    // 합성 표시는 집단 통계(효과 · 성과 신호)에서만 뺀다 — 본인 화면 판정은 실제 학습자와 같다(find-outcome 2026-10-10 기준으로 통일 · csat-learner/DECISIONS)
     const synth = asIsMap(base({ attempts: verifiedAttempts.map((a) => ({ ...a, synthetic: true })) }))
-    expect(synth.tasks['r.central_meaning'].status).toBe('observed')
-    expect(synth.excluded.syntheticAttempts).toBe(2)
+    expect(synth.tasks['r.central_meaning'].status).toBe('verified_need')
+    expect(synth.excluded.syntheticAttempts).toBe(2) // 몇 건이 합성인지는 계속 드러낸다
     const helped = asIsMap(base({ attempts: verifiedAttempts.map((a) => ({ ...a, helpLevel: 'viewed_first' })) }))
     expect(helped.tasks['r.central_meaning'].status).toBe('observed')
   })
@@ -302,7 +303,7 @@ describe('Workspace 대표 선정 · 단계', () => {
     const plan = planWorkspaces({ asIs: a, toBe: tb, confirmLinks: links, transferItems: { [KEY]: 12 } })
     expect(plan.primary?.id).toBe('ws.central-meaning')
     expect(plan.reason).toBe('goal_need')
-    expect(plan.primary?.stages.transfer).toEqual({ ready: true, count: 12, blocked: null })
+    expect(plan.primary?.stages.transfer).toEqual({ ready: true, count: 2, blocked: null }) // 풀 12 중 정본 「전이 2지문」(workspaces.json quantity_policy · 5차)
   })
 
   it('확인 전에는 확인만 열리고 나머지는 이유와 함께 닫힌다', () => {

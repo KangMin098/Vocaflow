@@ -129,13 +129,43 @@ export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly P
 
 const RULE_OF: Record<StageKey, QuantityRule> = { check: 'unseen_check_items', repair: 'blocked_items', transfer: 'transfer_pool', recheck: 'recheck_items' }
 
+/**
+ * 지금 단계(5차) — 확정된 요구(REPAIR) 안에서는 정본 순서(workspaces.json quantity_policy)대로 실제 수행에 따라 넘어간다:
+ *   바로잡기(막힌 문항 수만큼) → 다른 글에 적용(전이 2지문) → 다시 확인. 수행이 단계를 넘기지만 **성취는 바꾸지 않는다** —
+ *   「다시 확인 통과(resolved)」는 As-Is 의 독립 첫 시도 판정에서만 나온다(수행량 ≠ 검증된 성취).
+ *   단계가 열려 있지 않으면(문항 없음) 건너뛴다 — 없는 활동으로 묶어 두지 않는다.
+ */
+export function stageNow(need: Need | null, t: AsIsTask, home: WorkspaceView | null, activity: readonly PlanActivity[]): StageKey | null {
+  if (!need) return null
+  const base = STAGE_OF_NEED[need.type]
+  if (need.type !== 'REPAIR' || !home) return base
+  const left = (k: 'repair' | 'transfer') => {
+    const st = home.stages[k]
+    return st.ready && st.count !== null && doneOf(k, t, activity) < st.count
+  }
+  if (left('repair')) return 'repair'
+  if (left('transfer')) return 'transfer'
+  if (home.stages.recheck.ready) return 'recheck'
+  return base
+}
+
+/** 단계의 다음 활동 하나 — 아직 안 한 대상만(확정 뒤 수행 기준). 확인 · 다시 확인은 Workspace 의 안 본 확인 문항 */
+function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | null, activity: readonly PlanActivity[]): { href: string; label: string } | null {
+  if (!home || !stage || !home.stages[stage].ready) return null
+  if (stage === 'check' || stage === 'recheck') return home.next ? { href: home.next.href, label: home.next.label } : null
+  const after = t.check?.verifiedAt ? new Date(t.check.verifiedAt).getTime() : null
+  const did = new Set(activity.filter((a) => a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' : a.phase !== 'transfer')).map((a) => a.itemRef))
+  const pick = home.stageItems[stage].find((l) => !did.has(l.target)) ?? null
+  return pick ? { href: pick.href, label: pick.label } : null
+}
+
 export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: readonly WorkspaceView[], activity: readonly PlanActivity[]): TaskPlan {
   const def = taskOf(id)
   const t = asIs.tasks[id]
   const need = toBe?.needs.find((n) => n.task === id) ?? null
-  const stage = need ? STAGE_OF_NEED[need.type] : null
   // 단계 가용량은 이 TASK 를 **중심**으로 하는 Workspace 에서만(보조로 든 곳의 수를 더하지 않는다 — 증거 · 자료 중복 금지)
   const home = ws.find((w) => w.core.includes(id)) ?? null
+  const stage = stageNow(need, t, home, activity)
   const st = home && stage ? home.stages[stage] : null
   const done = doneOf(stage, t, activity)
   // 확인 단계 — 단계 수(st.count)는 「아직 안 본 문항」이고 수행(done)은 「이미 푼 문항」이다. 같은 묶음으로 세려면 둘을 더한다
@@ -159,7 +189,7 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
     priority: need?.priority ?? null,
     stage,
     workspaces: need?.workspaces ?? [],
-    next: need?.executable ? { href: need.executable.href, label: need.executable.label } : home && stage && st?.ready && home.next ? { href: home.next.href, label: home.next.label } : null,
+    next: need?.executable ? { href: need.executable.href, label: need.executable.label } : stageLink(stage, t, home, activity),
     quantity: {
       unit: '문항',
       available,

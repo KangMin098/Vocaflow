@@ -5,32 +5,18 @@
   "exams": 134,
   "byCause": {
    "STRUCTURAL": 3,
-   "REVIEW_NEEDED": 130,
-   "READY": 1
+   "REVIEW_NEEDED": 128,
+   "READY": 3
   },
   "byOrganizer": {
    "kice": 30,
    "edu_office": 104
   },
   "canEnableNow": 0,
-  "reviewItemsToGo": 3640,
+  "reviewItemsToGo": 3584,
   "heldCheck": "ok"
  },
  "nextReview": [
-  {
-   "id": "M2706",
-   "label": "2027학년도 6월 모의평가",
-   "remaining": 28,
-   "publishedAnalysis": 28,
-   "unitItems": 0
-  },
-  {
-   "id": "2026",
-   "label": "2026학년도 수능",
-   "remaining": 28,
-   "publishedAnalysis": 28,
-   "unitItems": 0
-  },
   {
    "id": "M2609",
    "label": "2026학년도 9월 모의평가",
@@ -55,6 +41,20 @@
   {
    "id": "M2509",
    "label": "2025학년도 9월 모의평가",
+   "remaining": 28,
+   "publishedAnalysis": 28,
+   "unitItems": 0
+  },
+  {
+   "id": "M2506",
+   "label": "2025학년도 6월 모의평가",
+   "remaining": 28,
+   "publishedAnalysis": 28,
+   "unitItems": 0
+  },
+  {
+   "id": "2024",
+   "label": "2024학년도 수능",
    "remaining": 28,
    "publishedAnalysis": 28,
    "unitItems": 0
@@ -359,16 +359,16 @@
    "grade": 3,
    "year": 2025,
    "month": 11,
-   "ready": false,
-   "cause": "REVIEW_NEEDED",
+   "ready": true,
+   "cause": "READY",
    "keyRows": 45,
    "items": 28,
    "seededItems": 28,
-   "reviewedItems": 0,
-   "remaining": 28,
+   "reviewedItems": 28,
+   "remaining": 0,
    "structural": [],
-   "reason": "검수 완료 후 가능 — 남은 문항 28",
-   "canEnable": false,
+   "reason": "진단 반영 가능",
+   "canEnable": true,
    "trapItems": 28,
    "publishedAnalysis": 28,
    "unitItems": 0
@@ -3002,16 +3002,16 @@
    "grade": 3,
    "year": 2026,
    "month": 6,
-   "ready": false,
-   "cause": "REVIEW_NEEDED",
+   "ready": true,
+   "cause": "READY",
    "keyRows": 45,
    "items": 28,
    "seededItems": 28,
-   "reviewedItems": 0,
-   "remaining": 28,
+   "reviewedItems": 28,
+   "remaining": 0,
    "structural": [],
-   "reason": "검수 완료 후 가능 — 남은 문항 28",
-   "canEnable": false,
+   "reason": "진단 반영 가능",
+   "canEnable": true,
    "trapItems": 28,
    "publishedAnalysis": 28,
    "unitItems": 0
