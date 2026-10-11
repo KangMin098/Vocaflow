@@ -2747,10 +2747,10 @@
     },
     "M2109#25": {
       "item_id": "M2109#25",
-      "version": 2,
-      "total_sec_est": 204,
+      "version": 3,
+      "total_sec_est": 164,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 92,
+      "rubric_score": 91,
       "cues": [
         {
           "id": "c1",
@@ -2763,18 +2763,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십일 학년도 구월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 이번엔 관광 도시 표와 진술을 견주는 문항이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 표와 일치하지 않는 것을 고릅니다."
+              "text": "발문을 보세요. 일치하지 않는 것을 묻습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십팔 년 아시아 태평양 지역 상위 일곱 여행 도시의 표예요."
+              "text": "답이 아닌 넷은 표와 맞는 진술입니다."
             }
           ],
-          "est_sec": 19.5,
+          "est_sec": 15.2,
           "pause_after_ms": 500
         },
         {
@@ -2788,19 +2788,19 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일 하나."
             },
             {
               "lang": "ko-KR",
-              "text": "선지를 절로 쪼개, 절마다 순위인지 지출인지 표시하세요."
+              "text": "선지를 먼저 읽고, 앤드 앞뒤로 쪼개 주장이 몇 개인지 세어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 절이 모두 맞아야 그 선지가 맞습니다."
+              "text": "주장마다 확인 표시를 하나씩 붙입니다."
             }
           ],
-          "est_sec": 13.7,
-          "pause_after_ms": 600
+          "est_sec": 13.4,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2813,22 +2813,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 표를 보세요."
+              "text": "여기 첫 번째 문장, 표를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "순위는 해외 숙박 방문객 수 기준입니다."
+              "text": "열은 순위, 도착자 수, 하루 평균 지출 셋이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "하루 평균 지출은 덧붙인 정보라 순위와 따로 움직여요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "방문객 수가 이십이 점 팔에서 구 점 구까지 내려가는지 확인하세요."
+              "text": "도착자는 백만 명 단위, 지출은 달러입니다."
             }
           ],
-          "est_sec": 20,
+          "est_sec": 12.7,
           "pause_after_ms": 600
         },
         {
@@ -2836,58 +2832,33 @@
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:2"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 이 번입니다. 정답 블록을 보세요."
+              "text": "정답은 이 번입니다. 여기 세 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "쿠알라룸푸르가 삼 위라는 앞 절은 맞아요."
+              "text": "앞 절의 삼 위는 표와 맞아요."
             },
             {
               "lang": "ko-KR",
-              "text": "뒤 절은 하루 평균 지출이 백오십 달러가 넘는다는 말이죠."
+              "text": "뒤 절은 하루 지출이 백오십 달러를 넘는다고 하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "같은 행의 값은 백사십이 달러, 여덟 달러 모자랍니다."
             }
           ],
-          "est_sec": 15.2,
+          "est_sec": 19.3,
           "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장의 표에서 삼 위 행을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "쿠알라룸푸르의 하루 지출은 백사십이 달러입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "백오십에 못 미치니, 넘는다는 말이 틀려요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "앞 절이 맞아도 뒤 절은 따로 판정됩니다."
-            }
-          ],
-          "est_sec": 19.2,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c6",
-          "order": 6,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2896,23 +2867,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 방콕이 이천이백팔십만 명으로 일 위, 싱가포르가 천사백칠십만 명으로 바로 뒤라는 말이에요."
+              "text": "일 번, 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "첫 두 행의 이름과 값을 짝지어 확인하세요."
+              "text": "일 위 방콕 이십이 점 팔, 바로 다음 이 위 싱가포르 십사 점 칠."
             },
             {
               "lang": "ko-KR",
-              "text": "둘 다 맞으니 일치합니다."
+              "text": "순서와 값이 표 그대로라 맞습니다."
             }
           ],
-          "est_sec": 17.7,
-          "pause_after_ms": 400
+          "est_sec": 13.4,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
-          "id": "c7",
-          "order": 7,
+          "id": "c6",
+          "order": 6,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2921,23 +2895,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 도쿄가 사 위이고 지출이 백구십육 달러라는 말입니다."
+              "text": "삼 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "넷째 행을 통째로 확인하세요."
+              "text": "도쿄는 사 위, 하루 지출 백구십육 달러."
             },
             {
               "lang": "ko-KR",
-              "text": "순위와 지출이 모두 맞아요."
+              "text": "두 주장 모두 표와 같아 맞는 진술이에요."
             }
           ],
-          "est_sec": 12.7,
-          "pause_after_ms": 400
+          "est_sec": 11.9,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c8",
-          "order": 8,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2946,27 +2923,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 서울 방문객이 오사카보다 많다는 말이에요."
+              "text": "사 번, 다섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "방문객 수 열만 확인하세요."
+              "text": "서울 십일 점 삼이 오사카 십 점 일보다 커요."
             },
             {
               "lang": "ko-KR",
-              "text": "서울 천백삼십만, 오사카 천십만이니 일치합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "지출은 오사카가 크지만, 이 선지는 지출을 말하지 않아요."
+              "text": "지출은 오사카가 크지만, 이 진술은 도착자 수만 묻습니다."
             }
           ],
-          "est_sec": 19.7,
-          "pause_after_ms": 400
+          "est_sec": 14.4,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2975,52 +2951,51 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 푸껫만 천만 명 미만이고 지출은 이백사십칠 달러라는 말입니다."
+              "text": "오 번, 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "방문객 수 일곱 값을 천만과 하나씩 확인하세요."
+              "text": "천만 미만은 푸껫 구 점 구 하나뿐이에요. 오사카는 십 점 일이라 넘습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "미만은 푸껫의 구백구십만 하나뿐이고, 지출도 맞아요."
+              "text": "지출 이백사십칠 달러도 표와 같습니다."
             }
           ],
-          "est_sec": 18.2,
-          "pause_after_ms": 400
+          "est_sec": 16,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c9",
+          "order": 9,
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:2"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 이 번이 함정입니다."
+              "text": "주의할 자리는 여기 세 번째 문장의 뒤 절이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "삼 위가 맞으면 뒤 절도 믿기 쉬워요."
+              "text": "바로 아래 서울은 백오십오 달러라, 행을 섞으면 맞아 보입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "서울의 백오십오 달러처럼 백오십 근처 값도 있죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "뒤 절의 칸은 따로 짚으세요."
+              "text": "도시 이름으로 행을 고정하고 그 행 안에서만 읽으세요."
             }
           ],
-          "est_sec": 16.2,
+          "est_sec": 17.4,
           "pause_after_ms": 600
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c10",
+          "order": 10,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -3029,47 +3004,31 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘를 보세요."
             },
             {
               "lang": "en-US",
-              "text": "destination"
+              "text": "average spend per day"
             },
             {
               "lang": "ko-KR",
-              "text": "여행지."
+              "text": "는 하루 평균 지출,"
             },
             {
               "lang": "en-US",
-              "text": "arrivals"
+              "text": "immediately followed by"
             },
             {
               "lang": "ko-KR",
-              "text": "도착한 방문객."
-            },
-            {
-              "lang": "en-US",
-              "text": "overnight"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "숙박하는."
-            },
-            {
-              "lang": "en-US",
-              "text": "average spend"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "평균 지출."
+              "text": "는 바로 뒤를 잇는다는 뜻이에요."
             }
           ],
-          "est_sec": 10.9,
+          "est_sec": 10.7,
           "pause_after_ms": 500
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -3078,18 +3037,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다. 한 선지에 주장이 둘이면 둘 다 확인해야 넘긴다."
             },
             {
               "lang": "ko-KR",
-              "text": "순위 기준 열과 덧붙인 열은 따로 움직입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지를 절로 쪼개 순위인지 지출인지부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지를 앤드 앞뒤로 쪼개 주장 수부터 세세요."
             }
           ],
-          "est_sec": 14.7,
+          "est_sec": 13.4,
           "pause_after_ms": 900
         }
       ]

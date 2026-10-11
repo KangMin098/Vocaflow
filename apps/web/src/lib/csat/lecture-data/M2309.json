@@ -2635,10 +2635,10 @@
     },
     "M2309#25": {
       "item_id": "M2309#25",
-      "version": 2,
-      "total_sec_est": 179,
+      "version": 3,
+      "total_sec_est": 181,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 85,
+      "rubric_score": 90,
       "cues": [
         {
           "id": "c1",
@@ -2651,18 +2651,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십삼 학년도 구월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 도표와 일치하지 않는 진술 하나를 고르는 문항입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "발문의 「않는」을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "유럽 네 나라의 재생 에너지 설비 용량을 두 해로 보여 줘요."
+              "text": "답이 아닌 네 진술은 도표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 18.5,
+          "est_sec": 14.4,
           "pause_after_ms": 500
         },
         {
@@ -2676,72 +2676,76 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일 하나."
             },
             {
               "lang": "ko-KR",
-              "text": "선지 끝의 연도 꼬리까지 읽고 판정 횟수를 표시하세요."
+              "text": "선지마다 연도 표현을 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이 번과 오 번은 두 해를 요구해요."
+              "text": "두 해를 묶은 말이 있으면 해마다 따로 비교해야 합니다."
             }
           ],
-          "est_sec": 12.7,
-          "pause_after_ms": 600
+          "est_sec": 12.4,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "구조를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "나라는 독일, 스페인, 이탈리아, 프랑스예요."
+              "text": "첫 문장은 도표 소개, 두 번째부터 여섯 번째 문장이 선지입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "단위가 기가와트라는 점도 확인하세요."
+              "text": "옅은 막대가 이천십일 년, 짙은 막대가 이천이십 년이에요."
             }
           ],
-          "est_sec": 12.4,
-          "pause_after_ms": 600
+          "est_sec": 14.4,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
         },
         {
           "id": "c4",
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 오 번입니다. 정답 블록을 보세요."
+              "text": "정답은 오 번입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "프랑스가 이탈리아보다 크다는 선지죠."
+              "text": "여기 여섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "프랑스가 이탈리아보다 높았다는 말에 두 해가 묶여 있어요."
             },
             {
               "lang": "en-US",
               "text": "in both 2011 and 2020"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "같은 부등호를 두 해에 확인해야 합니다."
             }
           ],
-          "est_sec": 14.7,
+          "est_sec": 13.4,
           "pause_after_ms": 700
         },
         {
@@ -2750,27 +2754,27 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 오 번을 짚어 보세요."
+              "text": "여기 여섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "사 번은 이탈리아와 스페인만 견줘요."
+              "text": "이천이십 년은 오십오 점 사 대 오십오 점 삼으로 프랑스가 앞섭니다."
             },
             {
               "lang": "ko-KR",
-              "text": "프랑스와 이탈리아를 견주는 선지는 오 번뿐입니다."
+              "text": "하지만 이천십일 년은 삼십사 점 팔 대 사십 점 팔로 뒤져요."
             },
             {
               "lang": "ko-KR",
-              "text": "한 해는 이탈리아가 낮지 않은 거죠."
+              "text": "한 해가 어긋나 틀립니다."
             }
           ],
-          "est_sec": 17.5,
+          "est_sec": 19.2,
           "pause_after_ms": 700
         },
         {
@@ -2784,19 +2788,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 네 나라 모두 용량이 늘었다는 말이에요."
+              "text": "일 번, 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "나라마다 두 막대를 확인하세요."
+              "text": "네 나라 모두 짙은 막대가 옅은 막대보다 큽니다."
             },
             {
               "lang": "ko-KR",
-              "text": "모두 늘었으니 일치합니다."
+              "text": "독일은 육십칠 점 사에서 백삼십일 점 칠로 늘었죠. 맞는 진술이에요."
             }
           ],
-          "est_sec": 11.4,
-          "pause_after_ms": 400
+          "est_sec": 16,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2809,19 +2816,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 독일이 두 해 모두 오십 기가와트를 넘었다는 말입니다."
+              "text": "이 번, 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 막대를 오십 눈금과 확인하세요."
+              "text": "독일은 육십칠 점 사, 백삼십일 점 칠로 두 해 모두 오십을 넘습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "둘 다 넘으니 일치해요."
+              "text": "맞는 진술이에요."
             }
           ],
-          "est_sec": 12.7,
-          "pause_after_ms": 400
+          "est_sec": 12.4,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2834,19 +2844,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 스페인이 두 해 모두 두 번째라는 말이에요."
+              "text": "삼 번, 네 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "해마다 따로 줄 세워 확인하세요."
+              "text": "스페인은 이천십일 년 사십삼 점 구, 이천이십 년 오십구 점 일로 두 해 모두 독일 다음입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "두 해 모두 두 번째이니 일치합니다."
+              "text": "맞는 진술이에요."
             }
           ],
-          "est_sec": 12.4,
-          "pause_after_ms": 400
+          "est_sec": 14.4,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2859,19 +2872,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 이천이십 년에 이탈리아가 스페인보다 낮다는 말입니다."
+              "text": "사 번, 다섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그해 두 막대만 보세요."
+              "text": "이천이십 년 이탈리아 오십오 점 삼은 스페인 오십구 점 일보다 낮습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이탈리아가 낮으니 일치해요."
+              "text": "방향이 같아 맞는 진술이에요."
             }
           ],
-          "est_sec": 12.4,
-          "pause_after_ms": 400
+          "est_sec": 14.7,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
           "id": "c10",
@@ -2879,27 +2895,23 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 오 번의 꼬리입니다. 첫 문장 안 오 번을 짚어 보세요."
+              "text": "함정은 부분 사실입니다. 여기 여섯 번째 문장이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "앞부분만 보면 부등호 하나로 끝나 보여요."
+              "text": "눈에 잘 띄는 이천이십 년의 근소한 역전만 보면 맞다고 넘기기 쉽습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "한 해만 보고 넘기기 쉽습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 해 모두라면 해마다 확인하세요."
+              "text": "두 해가 묶이면 이천십일 년부터 확인하세요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 18.2,
           "pause_after_ms": 600
         },
         {
@@ -2921,38 +2933,26 @@
             },
             {
               "lang": "ko-KR",
-              "text": "용량."
+              "text": "용량, 능력."
             },
             {
               "lang": "en-US",
-              "text": "generate"
+              "text": "respective"
             },
             {
               "lang": "ko-KR",
-              "text": "만들어 내다."
+              "text": "각자의."
             },
             {
               "lang": "en-US",
-              "text": "ranked"
+              "text": "remained"
             },
             {
               "lang": "ko-KR",
-              "text": "순위를 차지했다."
-            },
-            {
-              "lang": "en-US",
-              "text": "gigawatts"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "기가와트."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "단위 낱말에 주목하세요."
+              "text": "그대로 유지했다."
             }
           ],
-          "est_sec": 13.5,
+          "est_sec": 8.8,
           "pause_after_ms": 500
         },
         {
@@ -2966,19 +2966,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "문장 끝의 연도 꼬리는 판정 횟수를 늘립니다."
+              "text": "두 해를 묶은 진술은 해마다 따로 비교하고, 한 해라도 어긋나면 틀린 진술입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "하나만 어긋나도 틀려요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지 끝의 연도 꼬리부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 연도 표현부터 표시하세요."
             }
           ],
           "est_sec": 15.7,

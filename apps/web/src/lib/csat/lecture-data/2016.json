@@ -2360,10 +2360,10 @@
     },
     "2016#24": {
       "item_id": "2016#24",
-      "version": 2,
-      "total_sec_est": 215,
+      "version": 3,
+      "total_sec_est": 199,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 83,
+      "rubric_score": 92,
       "cues": [
         {
           "id": "c1",
@@ -2376,161 +2376,111 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천십육학년도 수능 영어 이십사 번, 도표 일치입니다."
+              "text": "여러분, 이 문항은 도표와 맞지 않는 진술을 고르는 문제예요. 발문의 않는 것은을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문두를 확인하세요. 도표와 일치하지 않는 것을 고릅니다."
+              "text": "답이 아닌 네 선지는 도표와 맞는 진술입니다."
             }
           ],
-          "est_sec": 12.2,
+          "est_sec": 14.7,
           "pause_after_ms": 500
         },
         {
           "id": "c2",
           "order": 2,
-          "role": "intro",
+          "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "ability"
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여러분이 재는 힘에 주목하세요."
+              "text": "읽기 전에 할 일은 하나예요. 여섯 활동마다 부모와 다른 성인의 차이를 먼저 계산해 적으세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 집단 막대의 차이를 활동마다 만들어,"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "가장 큰 것과 가장 작은 것을 정하는 힘입니다."
+              "text": "진한 막대가 부모, 흰 막대가 다른 성인이라는 범례부터 확인하세요."
             }
           ],
-          "est_sec": 12.7,
+          "est_sec": 16.9,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
-          "role": "strategy",
+          "role": "structure",
           "target": {
             "kind": "analysis",
-            "id": "head"
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 선지부터 읽으세요."
+              "text": "지도를 보세요. 첫 두 문장은 조사 소개이고, 세 번째부터 일곱 번째 문장이 선지 다섯입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 어느 집단의 어느 활동인지, 막대 몇 개가 필요한지 옆에 표시하세요."
+              "text": "차이를 표로 만들면 십일, 십삼, 삼십삼, 십오, 십삼, 사예요. 이 표 하나로 최상급 선지를 판정합니다."
             }
           ],
-          "est_sec": 11.4,
-          "pause_after_ms": 500
+          "est_sec": 19.7,
+          "pause_after_ms": 600,
+          "focus": [
+            1,
+            6
+          ]
         },
         {
           "id": "c4",
           "order": 4,
-          "role": "structure",
+          "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:1"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 두 번째 문장을 보세요."
+              "text": "여기 다섯 번째 문장, 삼 번이 정답입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "부모와 다른 성인을 여섯 가지 도서관 활동에서 비교한다고 합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "계열 둘, 항목 여섯, 막대 열두 개죠."
+              "text": "앞 절의 가장 큰 차이는 수업 참석, 삼십삼 포인트로 맞아요."
             }
           ],
-          "est_sec": 13.7,
-          "pause_after_ms": 600
+          "est_sec": 10.4,
+          "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 삼 번. 확인하세요, 차이가 가장 큰 활동과 가장 작은 활동을 한 문장에 묶었습니다."
+              "text": "같은 문장에서 뒤 절을 확인하세요. 최소 차이가 컴퓨터 이용이라고 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "다른 선지는 막대 몇 개로 닫히는데, 이것만 차이 여섯 개를 견줘야 하죠."
+              "text": "컴퓨터는 사십과 이십칠, 차이 십삼이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "전자책은 구와 오, 차이 사라서 스몰리스트가 성립하지 않아요."
             }
           ],
-          "est_sec": 16.7,
+          "est_sec": 19,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:1"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 두 번째 문장 칸의 일 번을 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표상 맞는 선지이니, 여섯 활동 모두 부모가 높습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그러니 차이는 전부 양수예요."
-            }
-          ],
-          "est_sec": 13.4,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:1"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 오 번도 보세요. 맞는 선지이니, 이 북에서 부모는 십 미만, 다른 성인은 더 낮습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그 차이도 십 미만이라 최소 자리의 경쟁 후보죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "어느 절이 어긋났는지는 그림에서 확인하세요."
-            }
-          ],
-          "est_sec": 19.2,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c8",
-          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2539,23 +2489,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 모든 활동에서 부모가 높다."
+              "text": "일 번은 세 번째 문장을 짚어 보세요. 모든 활동에서 부모가 더 높다고 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "여섯 항목에서 두 막대의 위아래만 훑어 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "뒤집힌 항목이 하나라도 있으면 틀리고, 이 훑기가 삼 번의 재료도 됩니다."
+              "text": "여섯 쌍 모두 부모 막대가 더 길어서 맞는 진술이고, 답이 아닙니다."
             }
           ],
-          "est_sec": 16.7,
-          "pause_after_ms": 400
+          "est_sec": 14.7,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2564,23 +2513,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 부모의 서가 둘러보기와 종이책 대출이 같다."
+              "text": "이 번은 네 번째 문장을 확인하세요. 부모의 서가 둘러보기와 인쇄본 대출이 둘 다 팔십일 퍼센트예요."
             },
             {
               "lang": "ko-KR",
-              "text": "부모 막대 두 개만 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "사 번은 같은 서가 항목을 다른 성인으로 물으니, 계열을 부모로 고정합니다."
+              "text": "같다는 진술이 맞으니 답이 아닙니다."
             }
           ],
-          "est_sec": 16.4,
-          "pause_after_ms": 400
+          "est_sec": 14.7,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2589,23 +2537,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 다른 성인의 서가 둘러보기가 영상물 대출의 두 배."
+              "text": "사 번은 여섯 번째 문장을 보세요. 다른 성인의 서가 둘러보기는 칠십, 디브이디 등 대출은 삼십오예요."
             },
             {
               "lang": "ko-KR",
-              "text": "다른 성인 막대 두 개를 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "작은 값의 두 배를 종이에 적고 큰 값과 견줍니다."
+              "text": "칠십은 삼십오의 두 배라 맞는 진술이고, 답이 아닙니다."
             }
           ],
-          "est_sec": 14.7,
-          "pause_after_ms": 400
+          "est_sec": 16.4,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2614,48 +2561,47 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번. 부모의 이 북 막대를 십 눈금과 견줘 확인하세요."
+              "text": "오 번은 일곱 번째 문장을 짚어 보세요. 부모 전자책은 구 퍼센트로 십보다 작고, 다른 성인의 오보다 높습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "뒤 절, 다른 성인보다 높다는 말은 일 번이 맞으니 저절로 따라옵니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "새로 읽을 막대가 없죠."
+              "text": "두 조건 모두 맞으니 답이 아니에요."
             }
           ],
-          "est_sec": 15.5,
-          "pause_after_ms": 400
+          "est_sec": 15.2,
+          "pause_after_ms": 400,
+          "focus": [
+            6
+          ]
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:1"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정 이름은 최소 건너뛰기. 여기 두 번째 문장 칸의 삼 번을 보세요."
+              "text": "여기 다섯 번째 문장이 부분 사실 함정입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "아이 대상 행사는 부모가 앞서겠다는 짐작에 앞 절만 보고 넘기기 쉽습니다."
+              "text": "앞 절이 맞으니 뒤 절도 믿게 되죠. 짧은 맨 아래 막대는 빠지기 쉬워요."
             },
             {
               "lang": "ko-KR",
-              "text": "차이 여섯 개를 적고 양 끝을 모두 확인하세요."
+              "text": "최상급이 나오면 활동이 여섯 개인지 세면서 끝까지 비교하세요."
             }
           ],
-          "est_sec": 19.7,
+          "est_sec": 19,
           "pause_after_ms": 600
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -2672,39 +2618,39 @@
             },
             {
               "lang": "ko-KR",
-              "text": "차이, 격차."
+              "text": "두 값의 차이, 곧 뺄셈이에요."
             },
             {
               "lang": "en-US",
-              "text": "browsed"
+              "text": "twice as high"
             },
             {
               "lang": "ko-KR",
-              "text": "둘러보았다."
+              "text": "두 배, 곧 곱셈입니다."
             },
             {
               "lang": "en-US",
-              "text": "involvement"
+              "text": "browse"
             },
             {
               "lang": "ko-KR",
-              "text": "참여."
+              "text": "둘러보다,"
             },
             {
               "lang": "en-US",
-              "text": "twice"
+              "text": "minor children"
             },
             {
               "lang": "ko-KR",
-              "text": "두 배."
+              "text": "미성년 자녀예요."
             }
           ],
-          "est_sec": 9.5,
+          "est_sec": 14.9,
           "pause_after_ms": 500
         },
         {
-          "id": "c14",
-          "order": 14,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -2713,14 +2659,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 차이의 최대와 최소를 묻는 선지는 모든 항목의 차이를 적어야 판정됩니다."
+              "text": "정리할게요. 최상급 선지는 모든 항목의 차이를 다 구한 뒤에만 판정한다, 이것이 규칙입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 볼 막대 수부터 표시하세요."
+              "text": "다음에는 첫 십 초에 항목마다 두 막대의 차이부터 적어 확인하세요."
             }
           ],
-          "est_sec": 15.4,
+          "est_sec": 16.9,
           "pause_after_ms": 900
         }
       ]

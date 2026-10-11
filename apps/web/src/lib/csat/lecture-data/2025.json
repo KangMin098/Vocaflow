@@ -2669,10 +2669,10 @@
     },
     "2025#25": {
       "item_id": "2025#25",
-      "version": 2,
-      "total_sec_est": 202,
+      "version": 3,
+      "total_sec_est": 185,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 87,
+      "rubric_score": 92,
       "cues": [
         {
           "id": "c1",
@@ -2685,18 +2685,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십오 학년도 수능 이십오 번, 도표 문항입니다."
+              "text": "여러분, 발문을 먼저 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "도표와 일치하지 않는 진술을 찾는 문항이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "흥행 상위 영화 제작진의 여성 비율을 역할별로 보여 줘요."
+              "text": "답이 아닌 네 진술은 모두 도표와 맞습니다."
             }
           ],
-          "est_sec": 17.5,
+          "est_sec": 13.2,
           "pause_after_ms": 500
         },
         {
@@ -2710,52 +2710,76 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일은 하나예요. 선지의 연도어와 전칭어를 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 볼 칸 수를 표시하고, 적은 것부터 처리하세요."
+              "text": "특히 이 말이 보이면 세 해를 전부 봐야 해요."
             },
             {
-              "lang": "ko-KR",
-              "text": "사 번은 한 칸, 오 번은 두 칸이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "뺄셈이 드는 삼 번은 맨 뒤로 미룹니다."
+              "lang": "en-US",
+              "text": "in each of the three years"
             }
           ],
-          "est_sec": 16.7,
-          "pause_after_ms": 600
+          "est_sec": 14.5,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "지도를 보세요. 첫 문장은 도표 소개예요."
             },
             {
               "lang": "ko-KR",
-              "text": "역할은 제작자, 감독, 작가, 편집자 넷이에요."
+              "text": "직무 네 개마다 연도 세 개의 막대가 묶여 있습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "연도는 이천이십 년부터 세 해입니다."
+              "text": "선지는 최댓값, 증감 순서, 증가 폭, 전칭, 같음을 차례로 묻습니다."
             }
           ],
-          "est_sec": 12.2,
-          "pause_after_ms": 600
+          "est_sec": 16.5,
+          "pause_after_ms": 600,
+          "focus": [
+            0
+          ]
         },
         {
           "id": "c4",
           "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번입니다. 여기 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "편집자 비율이 세 해 모두 이십 미만이라고 했어요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "편집자 값은 이천이십 년 십팔, 이천이십일 년 이십일, 이천이십이 년 십팔입니다."
+            }
+          ],
+          "est_sec": 19.2,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "analysis",
@@ -2764,51 +2788,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 정답 블록을 보세요."
+              "text": "정답 칸을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "편집자 비율이 세 해 모두 이십 퍼센트 미만이라는 선지죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "in each of the three years"
+              "text": "가운데 해의 이십일이 이십보다 커요."
             },
             {
               "lang": "ko-KR",
-              "text": "한 해만 걸려도 무너지는 말입니다."
+              "text": "한 해라도 넘으면 세 해 모두라는 말은 깨집니다. 그래서 일치하지 않아요."
             }
           ],
-          "est_sec": 17.1,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 사 번을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "편집자를 다루는 선지는 사 번뿐이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "일 번이 제작자를 최고로 정해도, 편집자가 낮다는 보증은 없죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "편집자가 이십 이상인 해가 한 번은 있는 겁니다."
-            }
-          ],
-          "est_sec": 20,
+          "est_sec": 14.5,
           "pause_after_ms": 700
         },
         {
@@ -2822,19 +2813,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 세 해 모두 제작자가 가장 높다는 말이에요."
+              "text": "일 번. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "해마다 가장 높은 막대 하나씩 확인하세요."
+              "text": "제작자는 이십팔, 이십사, 이십팔이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "셋 다 제작자이니 일치합니다."
+              "text": "각 해 다른 직무의 최댓값은 십팔, 이십일, 십팔이라 제작자가 늘 위입니다. 맞는 진술이에요."
             }
           ],
-          "est_sec": 12.9,
-          "pause_after_ms": 400
+          "est_sec": 17.8,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2847,19 +2841,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 감독의 가운데 해가 앞 해보다 낮고 뒤 해보다 높다는 말입니다."
+              "text": "이 번. 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "감독 막대 세 개로 두 부등호를 확인하세요."
+              "text": "감독은 십육, 십이, 십일이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "둘 다 맞으니 일치해요."
+              "text": "이천이십일 년 값이 앞해보다 낮고 뒤해보다 높으니 두 비교가 다 맞습니다."
             }
           ],
-          "est_sec": 14.2,
-          "pause_after_ms": 400
+          "est_sec": 15,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2872,19 +2869,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 작가 비율이 사 퍼센트포인트, 이어서 일 퍼센트포인트 올랐다는 말이에요."
+              "text": "삼 번. 네 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이웃한 해끼리 값을 빼서 확인하세요."
+              "text": "작가는 십이, 십육, 십칠이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 차이가 맞으니 일치합니다."
+              "text": "뒤 값에서 앞 값을 빼면 사, 그리고 일. 진술의 폭과 같아서 답이 아닙니다."
             }
           ],
-          "est_sec": 15.7,
-          "pause_after_ms": 400
+          "est_sec": 14.2,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2897,19 +2897,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 제작자의 이천이십이 년이 이천이십 년과 같다는 말입니다."
+              "text": "오 번. 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 막대 끝에 가로선을 대 보세요."
+              "text": "제작자는 이천이십 년과 이천이십이 년이 모두 이십팔이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "한 선에 걸리니 일치해요."
+              "text": "같다는 진술이 맞아서 답에서 빠집니다."
             }
           ],
-          "est_sec": 13.2,
-          "pause_after_ms": 400
+          "est_sec": 15,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
@@ -2917,27 +2920,23 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 사 번입니다. 첫 문장 안 사 번을 짚어 보세요."
+              "text": "함정은 범위 과대예요. 여기 다섯 번째 문장."
             },
             {
               "lang": "ko-KR",
-              "text": "편집자는 낮을 거란 인상에 쉽게 믿게 돼요."
+              "text": "첫해와 마지막 해가 십팔이라 이십 미만이 그럴듯하게 들려요."
             },
             {
               "lang": "ko-KR",
-              "text": "삼 번 뺄셈에 쓴 시간도 확인을 밀어냅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "기준선 선지는 계산보다 먼저 눈금선에 대 보세요."
+              "text": "전칭을 보면 가운데 해 값을 따로 다시 읽으세요."
             }
           ],
-          "est_sec": 20,
+          "est_sec": 16.5,
           "pause_after_ms": 600
         },
         {
@@ -2951,23 +2950,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "employed"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "고용된."
-            },
-            {
-              "lang": "en-US",
-              "text": "editors"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "편집자."
+              "text": "어휘 칸을 보세요."
             },
             {
               "lang": "en-US",
@@ -2975,22 +2958,18 @@
             },
             {
               "lang": "ko-KR",
-              "text": "퍼센트포인트, 값의 차이."
+              "text": "퍼센트포인트."
             },
             {
               "lang": "en-US",
-              "text": "increased"
+              "text": "the same as"
             },
             {
               "lang": "ko-KR",
-              "text": "증가했다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "증가율이 아니라 뺄셈이라는 점에 주목하세요."
+              "text": "~와 같은."
             }
           ],
-          "est_sec": 16.7,
+          "est_sec": 7.4,
           "pause_after_ms": 500
         },
         {
@@ -3004,22 +2983,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리할게요. 전칭 진술은 반례 하나로 깨지니 모든 값을 기준과 견줍니다."
             },
             {
               "lang": "ko-KR",
-              "text": "볼 칸 수가 적은 선지부터 처리하면 시간이 남습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "모든 해 기준선은 가장 높은 막대 하나로 판정해요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 볼 칸 수부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 연도어와 전칭어부터 표시하세요."
             }
           ],
-          "est_sec": 18.7,
+          "est_sec": 14.4,
           "pause_after_ms": 900
         }
       ]

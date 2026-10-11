@@ -2625,10 +2625,10 @@
     },
     "M2509#25": {
       "item_id": "M2509#25",
-      "version": 2,
-      "total_sec_est": 194,
+      "version": 3,
+      "total_sec_est": 195,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 86,
+      "rubric_score": 90,
       "cues": [
         {
           "id": "c1",
@@ -2641,18 +2641,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십오 학년도 구월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 이 문항도 도표와 일치하지 않는 진술을 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "네 나라에서 가상 현실과 증강 현실을 아는 비율을 보여 줘요."
+              "text": "발문을 보세요. 정답을 뺀 네 진술은 도표와 맞는 말이에요."
             }
           ],
-          "est_sec": 18.7,
+          "est_sec": 12.4,
           "pause_after_ms": 500
         },
         {
@@ -2666,23 +2662,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 선지마다 비교의 종류를 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 부등호가 몇 개인지 표시하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "사 번은 하나, 오 번은 둘이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "끝의 각각이라는 말이 부등호를 둘로 늘립니다."
+              "text": "전칭인지, 최댓값인지, 차이인지, 경계값인지, 그리고 두 계열을 각각 비교하라는 말이 있는지요."
             }
           ],
-          "est_sec": 16.2,
-          "pause_after_ms": 600
+          "est_sec": 15.4,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2695,23 +2683,56 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "여기 첫 번째 문장은 도표 소개입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "나라 넷에 가상 현실과 증강 현실 막대가 짝으로 있어요."
+              "text": "네 나라 응답자 가운데 가상 현실과 증강 현실 개념을 아는 비율을 보여 주죠."
             },
             {
               "lang": "ko-KR",
-              "text": "범례로 어느 쪽이 가상 현실인지 고정하세요."
+              "text": "나라마다 막대가 두 개, 흰 막대가 가상 현실, 회색 막대가 증강 현실입니다."
             }
           ],
-          "est_sec": 14.2,
+          "est_sec": 19.4,
           "pause_after_ms": 600
         },
         {
           "id": "c4",
           "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 오 번입니다. 여기 여섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "끝에"
+            },
+            {
+              "lang": "en-US",
+              "text": "respectively"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "가 붙었죠. 가상 현실끼리, 증강 현실끼리 두 번 비교하라는 표지입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "스위스가 일본보다 둘 다 낮다는 진술이에요."
+            }
+          ],
+          "est_sec": 19.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "analysis",
@@ -2720,51 +2741,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 오 번입니다. 정답 블록을 보세요."
+              "text": "가상 현실은 스위스 오십칠, 일본 육십칠이라 낮은 게 맞아요."
             },
             {
               "lang": "ko-KR",
-              "text": "스위스가 일본보다 두 비율 모두 낮다는 선지죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "lower in Switzerland than in Japan"
+              "text": "그런데 증강 현실은 스위스 사십육, 일본 사십삼으로 스위스가 높습니다. 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "가상 현실끼리, 증강 현실끼리 따로 견줍니다."
+              "text": "두 비교가 다 맞아야 참인데, 한쪽이 깨졌죠."
             }
           ],
-          "est_sec": 17.1,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 오 번을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "둘 중 하나만 어긋나도 선지 전체가 틀려요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 나라를 견주는 선지는 오 번뿐입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 비교 중 적어도 하나가 도표와 반대인 거죠."
-            }
-          ],
-          "est_sec": 17.7,
+          "est_sec": 20,
           "pause_after_ms": 700
         },
         {
@@ -2778,19 +2766,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 모든 나라에서 가상 현실이 더 높다는 말이에요."
+              "text": "일 번은 내용이 맞아서 답이 아닙니다. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "증강 현실이 더 높은 짝이 있는지만 확인하세요."
+              "text": "네 나라 모두 흰 막대가 회색 막대보다 깁니다."
             },
             {
               "lang": "ko-KR",
-              "text": "없으니 일치합니다."
+              "text": "캐나다는 칠십사 대 사십삼, 스위스는 오십칠 대 사십육이에요."
             }
           ],
-          "est_sec": 12.9,
-          "pause_after_ms": 400
+          "est_sec": 18.5,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2803,19 +2794,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 증강 현실이 가장 높은 나라가 한국이라는 말입니다."
+              "text": "이 번, 세 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "증강 현실 막대 넷 중 가장 높은 것을 찾아보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "한국이니 일치해요."
+              "text": "증강 현실 값은 한국 칠십이 가장 크고, 스위스 사십육, 캐나다와 일본이 사십삼이에요. 맞는 진술입니다."
             }
           ],
-          "est_sec": 13.4,
-          "pause_after_ms": 400
+          "est_sec": 13.9,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2828,19 +2818,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 두 비율 차이가 가장 큰 나라가 캐나다라는 말이에요."
+              "text": "삼 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "값이 아니라 짝 사이 간격을 보세요."
+              "text": "차이는 한국 칠, 캐나다 삼십일, 일본 이십사, 스위스 십일입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "가장 벌어진 짝이 캐나다이니 일치합니다."
+              "text": "가장 큰 격차가 캐나다라서 맞아요."
             }
           ],
-          "est_sec": 14.4,
-          "pause_after_ms": 400
+          "est_sec": 13.9,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2853,19 +2846,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 일본의 가상 현실이 육십 퍼센트를 넘는다는 말입니다."
+              "text": "사 번, 다섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 막대 하나를 육십 눈금선과 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "선 위이니 일치해요."
+              "text": "일본의 가상 현실 값은 육십칠이고 육십보다 크니 맞는 진술입니다."
             }
           ],
-          "est_sec": 13.2,
-          "pause_after_ms": 400
+          "est_sec": 10.9,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
           "id": "c10",
@@ -2873,27 +2865,23 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 오 번 끝의 각각입니다. 첫 문장 안 오 번을 짚어 보세요."
+              "text": "미끄러지는 자리는 여기 여섯 번째 문장입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "장식처럼 흘리면 부등호가 하나로 보여요."
+              "text": "앞의 가상 현실 비교가 맞으니, 흰 막대만 보고 판정을 끝내기 쉬워요."
             },
             {
               "lang": "ko-KR",
-              "text": "그래서 한쪽만 보고 넘기기 쉽습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "각각이 보이면 비교를 둘로 풀어 확인하세요."
+              "text": "각각이라는 말이 보이면 두 계열의 부등호를 따로 써서 둘 다 확인하세요."
             }
           ],
-          "est_sec": 20,
+          "est_sec": 19.7,
           "pause_after_ms": 600
         },
         {
@@ -2907,31 +2895,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "respondents"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "응답자."
-            },
-            {
-              "lang": "en-US",
-              "text": "familiar"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "잘 아는."
-            },
-            {
-              "lang": "en-US",
-              "text": "gap"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "차이."
+              "text": "어휘를 표시하세요."
             },
             {
               "lang": "en-US",
@@ -2939,14 +2903,26 @@
             },
             {
               "lang": "ko-KR",
-              "text": "각각."
+              "text": "는 각각,"
+            },
+            {
+              "lang": "en-US",
+              "text": "gap"
             },
             {
               "lang": "ko-KR",
-              "text": "마지막 낱말에 주목하세요."
+              "text": "은 격차,"
+            },
+            {
+              "lang": "en-US",
+              "text": "familiar with"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "는 무엇을 잘 아는이라는 뜻입니다."
             }
           ],
-          "est_sec": 11.8,
+          "est_sec": 10.6,
           "pause_after_ms": 500
         },
         {
@@ -2960,22 +2936,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다. 각각이 붙은 진술은 계열마다 비교를 따로 하고, 둘 다 맞아야 참입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "짝 막대 도표는 한 문장의 비교 횟수가 판정을 가릅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "각각이 붙으면 부등호가 둘이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 부등호 개수부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 비교 종류부터 표시하세요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 14.7,
           "pause_after_ms": 900
         }
       ]

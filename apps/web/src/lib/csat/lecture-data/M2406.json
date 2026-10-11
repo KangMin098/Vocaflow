@@ -2231,10 +2231,10 @@
     },
     "M2406#25": {
       "item_id": "M2406#25",
-      "version": 3,
-      "total_sec_est": 189,
+      "version": 4,
+      "total_sec_est": 170,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 83,
+      "rubric_score": 82,
       "cues": [
         {
           "id": "c1",
@@ -2247,18 +2247,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십사 학년도 유월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 도표와 일치하지 않는 진술 하나를 고르는 문항입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "발문의 「않는」을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "유럽 연합 인구의 여행 참여를 연령대와 유형으로 나눴어요."
+              "text": "답이 아닌 네 진술은 도표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 18.7,
+          "est_sec": 14.4,
           "pause_after_ms": 500
         },
         {
@@ -2272,78 +2272,24 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일 하나."
             },
             {
               "lang": "ko-KR",
-              "text": "선지의 여행 유형 이름을 범례와 끝말까지 짝지어 표시하세요."
+              "text": "범례의 네 무늬를 누적 막대의 아래에서 위 순서와 짝지어 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "비슷한 이름이 둘씩 있어 헷갈리기 쉬워요."
+              "text": "같은 범주라도 조각 높이가 연령대마다 달라서입니다."
             }
           ],
-          "est_sec": 14.4,
-          "pause_after_ms": 600
+          "est_sec": 15.4,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "가로 묶음은 연령대 다섯이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "유형은 여행 안 함, 해외만, 국내만, 국내와 해외 모두입니다."
-            }
-          ],
-          "est_sec": 13.2,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c4",
-          "order": 4,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 여기 첫 문장 안의 사 번을 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "국내와 해외 모두 유형의 두 연령대를 견줘요."
-            },
-            {
-              "lang": "en-US",
-              "text": "lower in the 45 — 54 age group"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "부등호 하나짜리 선지입니다."
-            }
-          ],
-          "est_sec": 16.2,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
           "target": {
             "kind": "analysis",
             "id": "map"
@@ -2351,22 +2297,76 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "지문 지도를 보세요."
+              "text": "구조를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "다른 선지는 이 두 막대를 건드리지 않아요."
+              "text": "첫 문장은 도표 소개, 두 번째부터 여섯 번째 문장이 선지예요."
             },
             {
               "lang": "ko-KR",
-              "text": "그러니 이 비교는 누구도 대신하지 않습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "사십오 세 쪽이 더 낮지 않은 거죠."
+              "text": "아래부터 국내만, 국내와 해외, 해외만, 여행 없음 순서입니다."
             }
           ],
-          "est_sec": 15.2,
+          "est_sec": 14.4,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여기 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "국내와 해외 모두 다녀온 빗금 조각을 찾으세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "사십오에서 오십사 세는 이십삼 점 삼, 오십오에서 육십사 세는 이십이 점 오예요."
+            }
+          ],
+          "est_sec": 19,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 다섯 번째 문장은 앞 연령대가 더 낮다고 말하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "실제로는 영 점 팔 더 높습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "막대 높이로는 차이가 거의 안 보이니 조각 안 숫자를 확인하세요."
+            }
+          ],
+          "est_sec": 15.7,
           "pause_after_ms": 700
         },
         {
@@ -2380,19 +2380,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 여행 안 함이 모든 연령대에서 삼십을 넘는다는 말이에요."
+              "text": "일 번, 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 유형의 가장 낮은 막대를 찾아보세요."
+              "text": "여행 없음 조각의 가장 낮은 값이 삼십일 점 일이라 다섯 연령대 모두 삼십을 넘습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "삼십 선 위이니 일치합니다."
+              "text": "맞는 진술이에요."
             }
           ],
-          "est_sec": 13.9,
-          "pause_after_ms": 400
+          "est_sec": 14.4,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2405,19 +2408,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 해외만 유형에서 이십오 세 층이 그다음 층보다 높다는 말입니다."
+              "text": "이 번, 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "해외만 색을 고정해 확인하세요."
+              "text": "해외만 조각은 이십오에서 삼십사 세가 십오 점 이, 삼십오에서 사십사 세가 십일 점 팔이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "앞 층이 높으니 일치해요."
+              "text": "앞이 더 높아 맞습니다."
             }
           ],
-          "est_sec": 13.7,
-          "pause_after_ms": 400
+          "est_sec": 15.7,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2430,19 +2436,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 삼십오 세 층의 국내만이 삼십사 점 이 퍼센트라는 말이에요."
+              "text": "삼 번, 네 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "해외가 붙지 않은 막대를 찾아 그 값을 선지 수치와 대조하세요."
+              "text": "삼십오에서 사십사 세 막대의 맨 아래 국내만 조각이 삼십사 점 이입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "막대를 잘못 고르면 값이 맞아 보여도 틀린 판정이 됩니다."
+              "text": "진술의 값과 같아 맞는 진술이에요."
             }
           ],
-          "est_sec": 19.4,
-          "pause_after_ms": 400
+          "est_sec": 14.4,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2455,48 +2464,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 육십오 세 이상의 여행 안 함이 오십을 넘는다는 말입니다."
+              "text": "오 번, 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 막대 하나를 오십 선과 확인하세요."
+              "text": "육십오 세 이상의 여행 없음 조각은 오십이 점 육이라 오십을 넘습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "선 위이니 일치해요."
+              "text": "맞는 진술이에요."
             }
           ],
-          "est_sec": 12.9,
-          "pause_after_ms": 400
+          "est_sec": 13.2,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
           "order": 10,
-          "role": "trap",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "함정은 겹치는 이름입니다. 첫 문장 안 이 번과 삼 번을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "해외나 국내가 겹친 이름이 둘씩이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이름 끝말부터 확인하세요."
-            }
-          ],
-          "est_sec": 14.5,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c11",
-          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -2509,27 +2496,19 @@
             },
             {
               "lang": "en-US",
-              "text": "share"
+              "text": "domestic"
             },
             {
               "lang": "ko-KR",
-              "text": "비율."
+              "text": "국내의."
             },
             {
               "lang": "en-US",
-              "text": "participating"
+              "text": "outbound"
             },
             {
               "lang": "ko-KR",
-              "text": "참여하는."
-            },
-            {
-              "lang": "en-US",
-              "text": "destination"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "목적지."
+              "text": "해외로 나가는."
             },
             {
               "lang": "en-US",
@@ -2537,19 +2516,15 @@
             },
             {
               "lang": "ko-KR",
-              "text": "유형."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "목적지가 막대 기준이라는 점에 주목하세요."
+              "text": "범주, 즉 막대 안의 한 조각이에요."
             }
           ],
-          "est_sec": 13.8,
+          "est_sec": 10.8,
           "pause_after_ms": 500
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -2558,15 +2533,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이름이 겹치는 도표는 짝짓기를 틀리면 판정이 뒤집힙니다."
+              "text": "누적 막대는 높이로 어림하지 말고 조각 안 숫자를 옮겨 부등호를 쓰세요."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지의 유형 이름을 범례와 짝짓는 것부터 표시하세요."
+              "text": "다음에는 첫 십 초에 범례 무늬와 조각 순서부터 짝지어 표시하세요."
             }
           ],
           "est_sec": 16.2,

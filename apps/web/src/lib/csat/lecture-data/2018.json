@@ -1900,10 +1900,10 @@
     },
     "2018#24": {
       "item_id": "2018#24",
-      "version": 2,
-      "total_sec_est": 194,
+      "version": 3,
+      "total_sec_est": 173,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 82,
+      "rubric_score": 86,
       "cues": [
         {
           "id": "c1",
@@ -1916,18 +1916,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천십팔 학년도 수능 이십사 번, 도표 문항입니다."
+              "text": "여러분, 발문을 먼저 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "도표와 일치하지 않는 것을 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십 년과 이천십오 년, 영국의 윤리적 농산물 네 종류 판매액 도표예요."
+              "text": "정답 아닌 네 선지는 도표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 18.7,
+          "est_sec": 11.9,
           "pause_after_ms": 500
         },
         {
@@ -1945,68 +1945,68 @@
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 증감인지, 순위인지, 배수인지 표시하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "배수 선지에는 별표를 칩니다. 곱셈을 해야만 판정되니까요."
+              "text": "선지마다 비교어에 밑줄을 치고, 증감인지 순위인지 배수인지 표시하세요."
             }
           ],
-          "est_sec": 15.5,
-          "pause_after_ms": 600
+          "est_sec": 11.1,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "지도를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "품목 넷, 해 둘이니 볼 값은 여덟 개입니다."
+              "text": "첫 문장은 도표 소개, 두 번째부터 여섯 번째 문장이 선지예요."
             },
             {
               "lang": "ko-KR",
-              "text": "연도마다 순위를 한 번씩 매겨 두세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이 번, 삼 번, 오 번이 그 순위표로 판정됩니다."
+              "text": "네 종류 막대가 두 해에 걸쳐 놓여 있습니다."
             }
           ],
-          "est_sec": 16.5,
-          "pause_after_ms": 600
+          "est_sec": 12.7,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
         },
         {
           "id": "c4",
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 정답 블록을 보세요."
+              "text": "정답은 사 번입니다. 여기 다섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "공정무역 판매액이 이천십오 년에 이천십 년의 두 배라는 말이죠."
+              "text": "공정무역 매출이"
             },
             {
               "lang": "en-US",
               "text": "twice as high as"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "앞 해라고, 곧 두 배라고 하죠."
             }
           ],
-          "est_sec": 13.2,
+          "est_sec": 12.5,
           "pause_after_ms": 700
         },
         {
@@ -2015,27 +2015,23 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장의 사 번을 짚어 보세요."
+              "text": "여기 다섯 번째 문장을 막대 값과 맞대 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "배수를 말하는 선지는 이것 하나입니다."
+              "text": "천육십사의 두 배는 이천백이십팔인데, 실제는 천오백칠십이예요."
             },
             {
               "lang": "ko-KR",
-              "text": "증가는 일 번이 확인해 주니, 남는 물음은 두 배인가예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표가 사 번이니, 딱 두 배가 아닙니다."
+              "text": "약 일 점 사팔 배라 두 배에 못 미칩니다."
             }
           ],
-          "est_sec": 18.2,
+          "est_sec": 15.9,
           "pause_after_ms": 700
         },
         {
@@ -2049,19 +2045,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 네 품목 모두 이천십오 년에 늘었다는 말이에요."
+              "text": "일 번, 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "품목마다 두 해의 높이만 확인하세요."
+              "text": "유기농, 열대우림 동맹, 공정무역, 채식 대체육 모두 두 해 사이에 늘었어요."
             },
             {
               "lang": "ko-KR",
-              "text": "네 쌍 모두 뒤쪽이 크니 일치합니다."
+              "text": "맞는 진술이라 답이 아닙니다."
             }
           ],
-          "est_sec": 13.4,
-          "pause_after_ms": 400
+          "est_sec": 14.4,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2074,19 +2073,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 유기농이 이천십 년 일 위에서 이천십오 년 이 위가 됐다는 말입니다."
+              "text": "이 번, 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "연도별 순위표에서 유기농 자리를 확인하세요."
+              "text": "이천십 년 최댓값은 유기농 천사백칠십오예요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 위와 이 위이니 일치해요."
+              "text": "이천십오 년엔 열대우림 동맹 다음, 유기농 천칠백사십사가 둘째입니다."
             }
           ],
-          "est_sec": 15.7,
-          "pause_after_ms": 400
+          "est_sec": 16.2,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2099,23 +2101,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 레인포레스트 얼라이언스가 이 위에서 일 위로 올랐다는 말이죠."
+              "text": "삼 번, 네 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이 품목 자리는 순위표에서 따로 확인하세요."
+              "text": "열대우림 동맹은 이천십 년 천백구십칠로 둘째, 이천십오 년 이천사십팔로 가장 커요."
             },
             {
               "lang": "ko-KR",
-              "text": "이 번이 맞아도 삼 번이 증명되진 않아요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이 위와 일 위이니 일치해요."
+              "text": "맞는 진술입니다."
             }
           ],
-          "est_sec": 19.5,
-          "pause_after_ms": 400
+          "est_sec": 13.9,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2128,19 +2129,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 채식 대체육이 두 해 모두 가장 낮다는 말입니다."
+              "text": "오 번, 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 순위표에서 이 품목이 모두 사 위인지 확인하세요."
+              "text": "채식 대체육은 오백사십일과 칠백십으로 두 해 모두 가장 낮아요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 번 다 사 위이니 일치해요."
+              "text": "맞는 진술입니다."
             }
           ],
-          "est_sec": 14.2,
-          "pause_after_ms": 400
+          "est_sec": 12.7,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
@@ -2148,27 +2152,27 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 사 번이 함정입니다."
+              "text": "미끄러지기 쉬운 자리는 여기 다섯 번째 문장입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번에서 증가를 확인한 뒤라 맞아 보여요."
+              "text": "공정무역 막대가 크게 늘어서 두 배처럼 보이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "그래서 두 배라는 어림수를 그냥 받기 쉽죠."
+              "text": "늘었다는 사실과 배수 주장은 다릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "배수가 보이면 곱한 결과를 꼭 적으세요."
+              "text": "배수는 앞 해 값에 둘을 곱해 뒤 해 값과 견주세요."
             }
           ],
-          "est_sec": 17.5,
+          "est_sec": 20,
           "pause_after_ms": 600
         },
         {
@@ -2182,31 +2186,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "표현을 확인하세요."
             },
             {
               "lang": "en-US",
-              "text": "ethical produce"
+              "text": "twice as high as"
             },
             {
               "lang": "ko-KR",
-              "text": "윤리적 농산물."
-            },
-            {
-              "lang": "en-US",
-              "text": "ranked"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "순위를 차지했다."
-            },
-            {
-              "lang": "en-US",
-              "text": "twice"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 배."
+              "text": "는 두 배만큼 높은,"
             },
             {
               "lang": "en-US",
@@ -2214,10 +2202,10 @@
             },
             {
               "lang": "ko-KR",
-              "text": "해당하는."
+              "text": "은 그에 대응하는이라는 뜻이에요."
             }
           ],
-          "est_sec": 11.4,
+          "est_sec": 10.7,
           "pause_after_ms": 500
         },
         {
@@ -2231,18 +2219,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "배수 선지는 방향이 맞아도 곱셈으로만 판정됩니다."
+              "text": "증감은 빼기, 순위는 같은 해끼리, 배수는 기준값 곱하기로 따로 봅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 배수 선지부터 별표로 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 비교어에 밑줄부터 치세요."
             }
           ],
-          "est_sec": 13.4,
+          "est_sec": 14.7,
           "pause_after_ms": 900
         }
       ]

@@ -2361,8 +2361,8 @@
     },
     "M2606#25": {
       "item_id": "M2606#25",
-      "version": 2,
-      "total_sec_est": 196,
+      "version": 3,
+      "total_sec_est": 183,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 88,
       "cues": [
@@ -2377,18 +2377,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십육 학년도 유월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 이 문항은 도표와 일치하지 않는 진술을 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다섯 나라 성인의 교육 훈련 참여율을 두 해로 보여 줘요."
+              "text": "발문을 보세요. 정답을 뺀 네 진술은 도표와 맞는 말이에요."
             }
           ],
-          "est_sec": 18.2,
+          "est_sec": 12.4,
           "pause_after_ms": 500
         },
         {
@@ -2402,23 +2398,19 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 선지마다 비교의 앞뒤를 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "선지를 연도 비교와 나라 비교로 갈라 표시하세요."
+              "text": "어느 연도를 어느 연도와, 어느 나라를 어느 나라와 견주는지요."
             },
             {
               "lang": "ko-KR",
-              "text": "이 번과 사 번은 한 나라의 두 해를 견줘요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "삼 번은 같은 해 두 나라입니다."
+              "text": "그리고 앞쪽 값부터 적어 부등호를 그립니다."
             }
           ],
-          "est_sec": 16.2,
-          "pause_after_ms": 600
+          "est_sec": 16.9,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2431,23 +2423,56 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "여기 첫 번째 문장은 도표 소개입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "나라 다섯에 이천십육 년과 이천이십이 년 막대가 있어요."
+              "text": "다섯 나라 성인의 교육과 훈련 참여율을 이천십육 년과 이천이십이 년으로 보여 주죠."
             },
             {
               "lang": "ko-KR",
-              "text": "범례로 어느 막대가 어느 해인지 고정하세요."
+              "text": "나라마다 연도별 막대가 두 개씩 있어요."
             }
           ],
-          "est_sec": 14.4,
+          "est_sec": 17.2,
           "pause_after_ms": 600
         },
         {
           "id": "c4",
           "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번입니다. 여기 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이탈리아는 이천십육 년이 더"
+            },
+            {
+              "lang": "en-US",
+              "text": "lower than"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이라고 하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "도표에서는 이천십육 년 사십이, 이천이십이 년 삼십육입니다."
+            }
+          ],
+          "est_sec": 18.1,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "analysis",
@@ -2456,51 +2481,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 정답 블록을 보세요."
+              "text": "사십이가 삼십육보다 크니, 실제로는 이천십육 년이 더 높아요. 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이탈리아의 이천십육 년이 이천이십이 년보다 낮다는 선지죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "in 2016 was lower than"
+              "text": "다른 나라 대부분이 늘거나 그대로인데, 이탈리아만 줄었습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "부등호가 하나뿐이니, 틀렸다면 그 방향입니다."
+              "text": "비교 방향 하나가 뒤집힌 진술이죠."
             }
           ],
-          "est_sec": 18,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 사 번을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이탈리아를 다루는 선지는 사 번뿐이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그러니 이 비교는 다른 선지가 대신하지 않습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이탈리아는 이천십육 년 막대가 더 낮지 않은 거죠."
-            }
-          ],
-          "est_sec": 19.2,
+          "est_sec": 18.7,
           "pause_after_ms": 700
         },
         {
@@ -2514,19 +2506,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 네덜란드가 두 해 모두 가장 높다는 말이에요."
+              "text": "일 번은 내용이 맞아서 답이 아닙니다. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "해마다 가장 높은 막대 하나씩만 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "둘 다 네덜란드이니 일치합니다."
+              "text": "네덜란드는 육십사와 육십오로, 두 해 모두 독일의 오십이와 육십보다 높아요."
             }
           ],
-          "est_sec": 13.7,
-          "pause_after_ms": 400
+          "est_sec": 15.2,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2539,19 +2530,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 독일의 이천이십이 년이 더 높다는 말입니다."
+              "text": "이 번, 세 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "독일 묶음 두 막대만 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이천이십이 년이 높으니 일치해요."
+              "text": "독일은 이천십육 년 오십이, 이천이십이 년 육십이라서 늘었다는 말이 맞습니다."
             }
           ],
-          "est_sec": 12.2,
-          "pause_after_ms": 400
+          "est_sec": 11.4,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2564,19 +2554,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 이천이십이 년에 스페인이 독일보다 낮다는 말이에요."
+              "text": "삼 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "연도를 먼저 고정하고 두 나라를 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "스페인이 낮으니 일치합니다."
+              "text": "이천이십이 년 스페인은 사십구, 독일은 육십이니 스페인이 더 낮다는 말이 맞아요."
             }
           ],
-          "est_sec": 13.9,
-          "pause_after_ms": 400
+          "est_sec": 12.1,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2589,43 +2578,42 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 그리스가 두 해 모두 이십 퍼센트 미만이라는 말입니다."
+              "text": "오 번, 여섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그리스의 높은 쪽 막대 하나만 이십 선과 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "선 아래이니 일치해요."
+              "text": "그리스는 두 해 모두 십칠이라 이십 미만이 두 해 다 성립합니다."
             }
           ],
-          "est_sec": 14.4,
-          "pause_after_ms": 400
+          "est_sec": 10.4,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
           "order": 10,
           "role": "trap",
           "target": {
-            "kind": "analysis",
-            "id": "reject:2"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정 이름은 동형 진술 동조입니다. 이 번과 사 번을 나란히 확인하세요."
+              "text": "미끄러지는 자리는 여기 다섯 번째 문장입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "틀이 같아, 이탈리아도 올랐겠지 하면 걸립니다."
+              "text": "대부분 나라가 늘어난 흐름이라 이탈리아도 늘었겠거니 넘기기 쉬워요."
             },
             {
               "lang": "ko-KR",
-              "text": "나라마다 막대를 따로 짚으세요."
+              "text": "연도 비교는 앞 연도 값을 왼쪽에 두고 부등호를 쓰세요."
             }
           ],
-          "est_sec": 16.2,
+          "est_sec": 18.4,
           "pause_after_ms": 600
         },
         {
@@ -2639,46 +2627,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘를 표시하세요."
             },
             {
               "lang": "en-US",
-              "text": "participated"
+              "text": "lower than"
             },
             {
               "lang": "ko-KR",
-              "text": "참여했다."
+              "text": "은 보다 낮은,"
             },
             {
               "lang": "en-US",
-              "text": "adults"
+              "text": "in each year listed"
             },
             {
               "lang": "ko-KR",
-              "text": "성인."
-            },
-            {
-              "lang": "en-US",
-              "text": "highest"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "가장 높은."
-            },
-            {
-              "lang": "en-US",
-              "text": "lower"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "더 낮은."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "비교 대상이 연도인지 나라인지 주목하세요."
+              "text": "는 제시된 해마다라는 뜻입니다."
             }
           ],
-          "est_sec": 14.3,
+          "est_sec": 10.3,
           "pause_after_ms": 500
         },
         {
@@ -2692,22 +2660,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다. 연도 간 증감 진술은 흐름이 아니라 그 나라의 두 값으로 방향을 정합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "두 해 도표는 연도 비교와 나라 비교를 섞지 않습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "같은 틀의 선지끼리 판정을 옮기지 마세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 연도 비교와 나라 비교부터 갈라 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 비교 앞뒤부터 표시하세요."
             }
           ],
-          "est_sec": 19,
+          "est_sec": 14.9,
           "pause_after_ms": 900
         }
       ]

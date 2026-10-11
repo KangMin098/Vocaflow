@@ -2685,10 +2685,10 @@
     },
     "M2306#25": {
       "item_id": "M2306#25",
-      "version": 2,
-      "total_sec_est": 220,
+      "version": 3,
+      "total_sec_est": 172,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 90,
+      "rubric_score": 93,
       "cues": [
         {
           "id": "c1",
@@ -2701,18 +2701,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십삼 학년도 유월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 표와 일치하지 않는 진술 하나를 고르는 문항입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 표와 일치하지 않는 것을 고릅니다."
+              "text": "발문의 「않는」을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "인구 백만 명당 거주자 특허 출원 수를 두 해로 나눈 표예요."
+              "text": "답이 아닌 네 진술은 표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 19,
+          "est_sec": 13.9,
           "pause_after_ms": 500
         },
         {
@@ -2726,84 +2726,73 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일 하나."
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 순위 말과 수치 말을 따로 표시하세요."
+              "text": "선지마다 순위 진술과 수치 진술을 나눠 밑줄 그으세요."
             },
             {
               "lang": "ko-KR",
-              "text": "한 선지에 둘이 다 있으면 칸 두 개를 봐야 해요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "늘었다, 줄었다 같은 판정어에 특히 주목하세요."
+              "text": "분사구 끝에 수치 진술이 숨어 있을 수 있습니다."
             }
           ],
-          "est_sec": 18.2,
-          "pause_after_ms": 600
+          "est_sec": 13.2,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 표를 보세요."
+              "text": "구조를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "왼쪽이 이천구 년, 오른쪽이 이천십구 년입니다."
+              "text": "첫 문장 자리는 표 자체, 두 번째 문장은 표 소개예요."
             },
             {
               "lang": "ko-KR",
-              "text": "열은 순위, 출원 지역, 백만 명당 출원 수 셋이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "값이 건수가 아니라 인구 백만 명당 수라는 점을 확인하세요."
+              "text": "세 번째부터 일곱 번째 문장이 선지 다섯입니다."
             }
           ],
-          "est_sec": 19.2,
-          "pause_after_ms": 600
+          "est_sec": 12.2,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            1,
+            6
+          ]
         },
         {
           "id": "c4",
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 삼 번입니다. 정답 블록을 보세요."
+              "text": "정답은 삼 번입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "미국이 오 위에서 육 위로 내려갔다는 앞 절은 맞아요."
+              "text": "여기 다섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문제는 뒤 절입니다."
-            },
-            {
-              "lang": "en-US",
-              "text": "showing a decrease"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "백만 명당 출원 수가 줄었다는 말이죠."
+              "text": "미국은 오 위에서 육 위로 내려갔으니 앞부분은 맞습니다."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 11.7,
           "pause_after_ms": 700
         },
         {
@@ -2812,27 +2801,27 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장의 표에서 미국 두 칸을 짚어 보세요."
+              "text": "여기 다섯 번째 문장 끝을 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "showing a decrease"
             },
             {
               "lang": "ko-KR",
-              "text": "이천구 년 오 위 칸은 칠백삼십삼입니다."
+              "text": "하지만 미국 값은 칠백삼십삼에서 팔백육십구로 늘었어요."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십구 년 육 위 칸은 팔백육십구예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "백삼십육이 늘었으니, 줄었다는 말이 표와 반대입니다."
+              "text": "순위는 내려가도 값은 늘 수 있습니다."
             }
           ],
-          "est_sec": 19.5,
+          "est_sec": 15.9,
           "pause_after_ms": 700
         },
         {
@@ -2846,23 +2835,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 한국, 일본, 스위스가 상위 세 자리를 지켰다는 말이에요."
+              "text": "일 번, 세 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 표의 일, 이, 삼 위 이름만 확인하세요."
+              "text": "한국, 일본, 스위스는 두 해 모두 일, 이, 삼 위입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "세 이름이 같은 자리이니 일치합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "일본 값이 준 것은 이 선지가 말하지 않아요."
+              "text": "순위만 말한 진술이라 일본 값이 줄어도 맞아요."
             }
           ],
-          "est_sec": 19,
-          "pause_after_ms": 400
+          "est_sec": 13.7,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c7",
@@ -2875,23 +2863,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 독일입니다. 두 표의 독일 칸을 찾으세요."
+              "text": "이 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이천구 년 사 위에 팔백구십일이에요."
+              "text": "독일은 사 위 팔백구십일에서 오 위 팔백팔십사로 내려갔습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십구 년 오 위에 팔백팔십사입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "순위 둘, 수치 둘이 모두 맞아요."
+              "text": "순위와 두 값 모두 표와 같아요."
             }
           ],
-          "est_sec": 16.8,
-          "pause_after_ms": 400
+          "est_sec": 13.7,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c8",
@@ -2904,23 +2891,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 이천구 년 목록에서 핀란드만 빠졌다는 말이에요."
+              "text": "사 번, 여섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 해의 이름만 맞춰 확인하세요."
+              "text": "이천구 년 여섯 나라 가운데 이천십구 년 표에 없는 나라는 핀란드 하나입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이천구 년에만 있는 이름은 핀란드 하나입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "중국은 새로 든 이름이라 이 선지의 대상이 아니에요."
+              "text": "맞는 진술이에요."
             }
           ],
-          "est_sec": 20,
-          "pause_after_ms": 400
+          "est_sec": 13.4,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c9",
@@ -2933,19 +2919,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 중국이 이천십구 년 사 위에 팔백구십이라는 말입니다."
+              "text": "오 번, 일곱 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "오른쪽 표 사 위 칸을 확인하세요. 둘 다 맞아요."
+              "text": "중국은 이천구 년 표에 없고 이천십구 년에 사 위, 팔백구십입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이천구 년 표 여섯 이름에는 중국이 없습니다."
+              "text": "맞는 진술이에요."
             }
           ],
-          "est_sec": 16.2,
-          "pause_after_ms": 400
+          "est_sec": 12.7,
+          "pause_after_ms": 400,
+          "focus": [
+            6
+          ]
         },
         {
           "id": "c10",
@@ -2953,27 +2942,23 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:1"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 두 번째 문장 안의 삼 번이 함정입니다."
+              "text": "함정은 반대 진술입니다. 여기 다섯 번째 문장이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "순위가 내려가면 값도 줄었으리라 믿기 쉬워요."
+              "text": "바로 앞 독일은 순위와 값이 함께 내려가 같은 연결이 맞았죠."
             },
             {
               "lang": "ko-KR",
-              "text": "하지만 순위는 남과의 비교이고, 값은 제 기록이죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "순위 열과 수치 열은 칸을 따로 짚으세요."
+              "text": "그래서 미국도 줄었다고 잇기 쉽습니다. 값은 직접 빼서 방향을 적으세요."
             }
           ],
-          "est_sec": 19.2,
+          "est_sec": 20,
           "pause_after_ms": 600
         },
         {
@@ -2991,35 +2976,11 @@
             },
             {
               "lang": "en-US",
-              "text": "resident"
+              "text": "maintained"
             },
             {
               "lang": "ko-KR",
-              "text": "거주자."
-            },
-            {
-              "lang": "en-US",
-              "text": "patent applications"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "특허 출원."
-            },
-            {
-              "lang": "en-US",
-              "text": "origin"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "출원 지역."
-            },
-            {
-              "lang": "en-US",
-              "text": "per million population"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "인구 백만 명당."
+              "text": "유지했다."
             },
             {
               "lang": "en-US",
@@ -3028,9 +2989,17 @@
             {
               "lang": "ko-KR",
               "text": "감소."
+            },
+            {
+              "lang": "en-US",
+              "text": "per million population"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "인구 백만 명당."
             }
           ],
-          "est_sec": 13.1,
+          "est_sec": 9,
           "pause_after_ms": 500
         },
         {
@@ -3044,18 +3013,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "순위와 수치가 한 선지에 있으면 두 칸을 따로 확인합니다."
+              "text": "순위 진술은 순위 칸으로, 수치 진술은 값 칸으로 따로 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지의 순위 말과 수치 말부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지마다 순위와 수치 진술부터 나눠 밑줄 그으세요."
             }
           ],
-          "est_sec": 14.7,
+          "est_sec": 15.9,
           "pause_after_ms": 900
         }
       ]

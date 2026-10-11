@@ -2616,10 +2616,10 @@
     },
     "M2106#25": {
       "item_id": "M2106#25",
-      "version": 2,
-      "total_sec_est": 203,
+      "version": 3,
+      "total_sec_est": 159,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 92,
+      "rubric_score": 86,
       "cues": [
         {
           "id": "c1",
@@ -2632,18 +2632,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십일 학년도 유월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 산업별 플라스틱 폐기물 표를 진술과 견주는 문항입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 표와 일치하지 않는 것을 고릅니다."
+              "text": "발문을 보세요. 일치하지 않는 것을 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십오 년 산업별 플라스틱 쓰레기 발생량 표예요."
+              "text": "답이 아닌 넷은 표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 18.5,
+          "est_sec": 16,
           "pause_after_ms": 500
         },
         {
@@ -2657,19 +2657,19 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일 하나."
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 양을 묻는지 비율을 묻는지 표시하세요."
+              "text": "선지 숫자 뒤에 퍼센트가 붙었는지, 톤이 붙었는지 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "비율은 전체 삼억 이백만 톤에 대한 몫이라는 것도 적어 두세요."
+              "text": "그 단위가 볼 열을 정해 줍니다."
             }
           ],
-          "est_sec": 15.2,
-          "pause_after_ms": 600
+          "est_sec": 12.7,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2682,18 +2682,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 표를 보세요."
+              "text": "여기 첫 번째 문장, 표를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "열은 부문, 백만 톤 단위의 양, 퍼센트 셋입니다."
+              "text": "열은 백만 톤과 퍼센트 둘이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "전기 전자와 건축 건설, 두 행의 값이 같다는 데 주목하세요."
+              "text": "아래 주석은 반올림 때문에 합이 백이 아닐 수 있다고 말합니다."
             }
           ],
-          "est_sec": 13.7,
+          "est_sec": 13.4,
           "pause_after_ms": 600
         },
         {
@@ -2702,27 +2702,23 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:1"
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 여기 두 번째 문장 안의 사 번을 보세요."
+              "text": "정답은 사 번입니다. 여기 여섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 부문이 같은 양을 냈다는 앞 절은 맞아요."
+              "text": "전기 전자와 건설 두 부문이 같은 양이라는 앞부분은 맞아요. 둘 다 십삼이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "뒤 절은 각 부문이 팔 점 육 퍼센트라는 말이죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "each sector accounting for"
+              "text": "그런데 각 부문이 팔 점 육 퍼센트라고 합니다."
             }
           ],
-          "est_sec": 17.5,
+          "est_sec": 18.5,
           "pause_after_ms": 700
         },
         {
@@ -2730,28 +2726,28 @@
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "answer"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이제 여기 첫 문장의 표에서 두 행을 짚어 보세요."
+              "text": "정답 블록을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 부문 모두 천삼백만 톤, 사 점 삼 퍼센트입니다."
+              "text": "표의 각 부문 값은 사 점 삼 퍼센트예요."
             },
             {
               "lang": "ko-KR",
-              "text": "팔 점 육은 두 부문을 더한 값이에요."
+              "text": "팔 점 육은 두 부문을 더한 값이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "각각이라는 말과 어긋나니 사 번이 틀립니다."
+              "text": "한 부문씩을 말하는 자리에 합을 넣었으니 어긋납니다."
             }
           ],
-          "est_sec": 18.7,
+          "est_sec": 16.2,
           "pause_after_ms": 700
         },
         {
@@ -2765,19 +2761,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 포장 부문이 가장 많고 사십육 점 육구 퍼센트라는 말입니다."
+              "text": "일 번, 세 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "양 열 전체를 확인하세요."
+              "text": "포장 부문 백사십일이 톤 열에서 가장 크고,"
             },
             {
               "lang": "ko-KR",
-              "text": "일억 사천백만 톤이 가장 크니 일치합니다."
+              "text": "비율 사십육 점 육구도 표와 같습니다. 맞는 진술이에요."
             }
           ],
           "est_sec": 14.2,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c7",
@@ -2790,19 +2789,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 섬유 부문이 삼천팔백만 톤, 십이 점 오팔 퍼센트라는 말이에요."
+              "text": "이 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "섬유 행에서 두 값을 함께 확인하세요."
+              "text": "섬유는 삼십팔 백만 톤, 십이 점 오팔 퍼센트."
             },
             {
               "lang": "ko-KR",
-              "text": "아래 행의 십이 점 이오와 섞지만 않으면 일치합니다."
+              "text": "두 열 모두 표 그대로라 맞습니다."
             }
           ],
-          "est_sec": 16.7,
-          "pause_after_ms": 400
+          "est_sec": 11.7,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c8",
@@ -2815,23 +2817,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 소비재와 기관용품 부문이 운송의 두 배가 넘는다는 말입니다."
+              "text": "삼 번, 다섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 행의 양을 짚어 보세요."
+              "text": "운송 십칠에 둘을 곱하면 삼십사."
             },
             {
               "lang": "ko-KR",
-              "text": "운송 천칠백만 톤의 두 배는 삼천사백만 톤이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "삼천칠백만 톤이 더 크니 일치합니다."
+              "text": "소비재 부문 삼십칠이 더 크니 두 배 넘게가 맞습니다."
             }
           ],
-          "est_sec": 19.2,
-          "pause_after_ms": 400
+          "est_sec": 12.9,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
           "id": "c9",
@@ -2844,52 +2845,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 산업 기계 부문이 백만 톤뿐이고 영 점 오 퍼센트 미만이라는 말이에요."
+              "text": "오 번, 일곱 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 행을 확인하세요. 백만 톤, 영 점 삼삼 퍼센트입니다."
+              "text": "산업 기계는 일 백만 톤, 영 점 삼삼 퍼센트."
             },
             {
               "lang": "ko-KR",
-              "text": "영 점 오보다 작으니 일치해요."
+              "text": "영 점 오보다 작으니 맞는 진술입니다."
             }
           ],
-          "est_sec": 17,
-          "pause_after_ms": 400
+          "est_sec": 12.2,
+          "pause_after_ms": 400,
+          "focus": [
+            6
+          ]
         },
         {
           "id": "c10",
           "order": 10,
-          "role": "trap",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:1"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 두 번째 문장 안의 사 번이 함정입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "앞 절이 참이라 뒤 절까지 믿게 돼요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "팔 점 육이 두 부문에 함께 걸린 숫자처럼 읽히기도 하죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "각각이 보이면 한 행의 비율과 따로 대조하세요."
-            }
-          ],
-          "est_sec": 19.2,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c11",
-          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -2898,55 +2873,39 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘를 보세요."
             },
             {
               "lang": "en-US",
-              "text": "generation"
+              "text": "account for"
             },
             {
               "lang": "ko-KR",
-              "text": "발생."
+              "text": "는 몫을 차지하다,"
             },
             {
               "lang": "en-US",
-              "text": "sector"
+              "text": "just as much as"
             },
             {
               "lang": "ko-KR",
-              "text": "부문."
+              "text": "는 꼭 그만큼,"
             },
             {
               "lang": "en-US",
-              "text": "accounting for"
+              "text": "each"
             },
             {
               "lang": "ko-KR",
-              "text": "차지하는."
-            },
-            {
-              "lang": "en-US",
-              "text": "representing"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "해당하는."
-            },
-            {
-              "lang": "en-US",
-              "text": "twice"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 배."
+              "text": "는 하나씩 각각이에요."
             }
           ],
-          "est_sec": 11.1,
+          "est_sec": 11.5,
           "pause_after_ms": 500
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -2955,18 +2914,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다. 각각이 붙은 수치는 한 행 값과 비교하고, 합계와 섞지 않는다."
             },
             {
               "lang": "ko-KR",
-              "text": "두 항목에 걸린 비율은 각각의 값인지 합인지 행마다 확인합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 양인지 비율인지부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지 숫자 뒤 단위부터 표시하세요."
             }
           ],
-          "est_sec": 15.7,
+          "est_sec": 13.7,
           "pause_after_ms": 900
         }
       ]

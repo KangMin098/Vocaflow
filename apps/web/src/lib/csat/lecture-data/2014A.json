@@ -3515,10 +3515,10 @@
     },
     "2014A#32": {
       "item_id": "2014A#32",
-      "version": 2,
-      "total_sec_est": 214,
+      "version": 3,
+      "total_sec_est": 206,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 87,
+      "rubric_score": 92,
       "cues": [
         {
           "id": "c1",
@@ -3531,69 +3531,40 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천십사학년도 수능 영어 에이형 삼십이 번, 도표 일치입니다."
+              "text": "여러분, 이 문항은 도표와 맞지 않는 진술을 고르는 문제예요. 발문의 않는 것은에 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문두를 확인하세요. 도표와 일치하지 않는 것을 고릅니다."
-            }
-          ],
-          "est_sec": 12.9,
-          "pause_after_ms": 500
-        },
-        {
-          "id": "c2",
-          "order": 2,
-          "role": "intro",
-          "target": {
-            "kind": "analysis",
-            "id": "ability"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여러분이 재는 힘에 주목하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 축 그래프에서 퍼센트와 시간을 갈라 짚고,"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "규칙 선지로 다른 선지의 모순을 먼저 잡는 힘입니다."
+              "text": "답이 아닌 네 선지는 맞는 진술입니다."
             }
           ],
           "est_sec": 13.9,
           "pause_after_ms": 500
         },
         {
-          "id": "c3",
-          "order": 3,
+          "id": "c2",
+          "order": 2,
           "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "head"
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 선지부터 읽으세요."
+              "text": "읽기 전에 할 일은 하나예요. 선지마다 막대인지 꺾은선인지 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "제외하고, 범위처럼 규칙을 말하는 선지와,"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "같다, 적다처럼 두 칸을 말하는 선지를 다른 기호로 표시하세요."
+              "text": "비율이라는 말은 막대, 시간이라는 말은 꺾은선입니다."
             }
           ],
-          "est_sec": 14.4,
+          "est_sec": 14.2,
           "pause_after_ms": 500
         },
         {
-          "id": "c4",
-          "order": 4,
+          "id": "c3",
+          "order": 3,
           "role": "structure",
           "target": {
             "kind": "analysis",
@@ -3602,98 +3573,65 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "지도 전체를 보세요."
+              "text": "지도를 보세요. 첫 문장은 도표 소개이고, 두 번째부터 여섯 번째 문장이 선지 다섯입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "일곱 연령대마다 참여율과 연평균 시간, 두 값이 있습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "값이 열네 개라 다 읽으면 오래 걸리죠."
+              "text": "왼쪽 축은 퍼센트, 오른쪽 축은 시간이에요. 캐나다 평균은 연령 집단 비교에서 빼세요."
             }
           ],
-          "est_sec": 12.4,
-          "pause_after_ms": 600
+          "est_sec": 18.5,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 다섯 번째 문장, 사 번이 정답입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "앞 절, 삼십오 세 집단이 사십오 세 집단보다 시간이 적다는 건 백오십팔과 백칠십이라 맞아요."
+            }
+          ],
+          "est_sec": 13.9,
+          "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번. 확인하세요."
+              "text": "같은 문장에서 뒤 절을 확인하세요. 두 집단의 연평균 시간이 같다고 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "어긋나는 곳은 뒤 절, 오십오 세 구간과 육십오 세 구간의 시간이 같다는 말입니다."
+              "text": "꺾은선 값은 이백오와 이백십육이라 다릅니다. 같은 건 참여율 막대, 사십 퍼센트예요."
             }
           ],
-          "est_sec": 11.4,
+          "est_sec": 17,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 이 번 선지를 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "increased with age except for"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "예외는 이십오 세에서 삼십사 세 하나뿐, 나머지는 나이 들수록 늘었다는 말이죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표상 맞는 선지입니다."
-            }
-          ],
-          "est_sec": 16.4,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 사 번 뒤 절과 맞대 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "늘었다면 이웃한 두 구간이 같을 수 없습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "반면 앞 절, 삼십오 세 구간이 사십오 세 구간보다 적다는 말은 규칙 그대로예요."
-            }
-          ],
-          "est_sec": 16.2,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c8",
-          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3702,23 +3640,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 범위 이십구에서 오십팔, 평균 사십육."
+              "text": "일 번은 두 번째 문장을 짚어 보세요. 막대 계열입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "세 값 모두 퍼센트 축에서만 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "최저점, 최고점, 그리고 평균 표시입니다."
+              "text": "일곱 집단의 참여율은 이십구에서 오십팔 사이이고, 캐나다 평균은 사십육이에요. 맞으니 답이 아닙니다."
             }
           ],
-          "est_sec": 13.2,
-          "pause_after_ms": 400
+          "est_sec": 17,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3727,23 +3664,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번. 시간 막대를 왼쪽부터 훑어 확인하세요."
+              "text": "이 번은 세 번째 문장을 확인하세요. 꺾은선 계열이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "이십오 세 구간을 뺀 이웃 쌍이 모두 오르는지 봅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "한 곳이라도 꺾이면 이 번이 틀립니다."
+              "text": "이십오 세 집단에서만 백삼십삼으로 줄고, 이후로는 나이와 함께 늘어납니다. 맞으니 답이 아니에요."
             }
           ],
-          "est_sec": 14.7,
-          "pause_after_ms": 400
+          "est_sec": 16.7,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3752,23 +3688,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번. 참여율 최고와 시간 순위가 한 문장에 섞여 있습니다."
+              "text": "삼 번은 네 번째 문장을 보세요. 막대와 꺾은선을 함께 묻습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "시간에서 작은 값 둘을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "백삼십삼 구간과 함께 십오 세에서 이십사 세가 들어오는지 봅니다."
+              "text": "십오 세 집단의 참여율 오십팔은 최고, 시간 백삼십팔은 백삼십삼 다음으로 적어요. 맞는 진술이라 답이 아닙니다."
             }
           ],
-          "est_sec": 17.2,
-          "pause_after_ms": 400
+          "est_sec": 18.7,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3777,48 +3712,47 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번. 참여율 최저와 시간 최다가 모두 칠십오 세 이상인지 확인하세요."
+              "text": "오 번은 여섯 번째 문장을 짚어 보세요. 일흔다섯 세 이상은 참여율이 이십구로 최저예요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 계열을 나눠 최상급 하나씩만 봅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "방향이 반대인 것 자체는 근거가 아니에요."
+              "text": "그런데 시간은 이백이십이로 가장 많습니다. 둘 다 맞아 답이 아니에요."
             }
           ],
-          "est_sec": 16.5,
-          "pause_after_ms": 400
+          "est_sec": 17,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정 이름은 비슷함을 같음으로 읽기. 여기 사 번 선지를 보세요."
+              "text": "여기 다섯 번째 문장에 계열 혼동 함정이 있어요."
             },
             {
               "lang": "ko-KR",
-              "text": "이웃한 두 막대 높이가 눈금 한 칸 안이면 같다로 적기 쉽습니다."
+              "text": "막대 높이가 같아 끄덕이게 되지만, 비교 대상은 시간이었죠."
             },
             {
               "lang": "ko-KR",
-              "text": "비슷함과 같음을 다른 기호로 표시하세요."
+              "text": "같다, 더 적다가 보이면 바로 뒤 명사를 찾아 계열부터 정하세요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 17.9,
           "pause_after_ms": 600
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -3827,7 +3761,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘를 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "volunteer rate"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "참여율로 막대를,"
             },
             {
               "lang": "en-US",
@@ -3835,15 +3777,7 @@
             },
             {
               "lang": "ko-KR",
-              "text": "연평균 시간."
-            },
-            {
-              "lang": "en-US",
-              "text": "except for"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "제외하고는."
+              "text": "연평균 시간으로 꺾은선을 가리켜요."
             },
             {
               "lang": "en-US",
@@ -3851,23 +3785,23 @@
             },
             {
               "lang": "ko-KR",
-              "text": "두 번째로 적은."
+              "text": "두 번째로 적은,"
             },
             {
               "lang": "en-US",
-              "text": "ranged"
+              "text": "except for"
             },
             {
               "lang": "ko-KR",
-              "text": "범위가 걸쳐 있었다."
+              "text": "을 빼고라는 뜻입니다."
             }
           ],
-          "est_sec": 13.8,
+          "est_sec": 16.9,
           "pause_after_ms": 500
         },
         {
-          "id": "c14",
-          "order": 14,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -3876,14 +3810,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 규칙 선지와 두 칸 선지가 부딪치면, 값을 읽기 전에 그 쌍부터 의심하세요."
+              "text": "정리할게요. 비교어 뒤 명사가 계열을 정하고, 그 계열 숫자로만 판정한다, 이것이 규칙입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 규칙 선지와 두 칸 선지부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지마다 막대인지 꺾은선인지부터 표시하세요."
             }
           ],
-          "est_sec": 15.4,
+          "est_sec": 17.2,
           "pause_after_ms": 900
         }
       ]

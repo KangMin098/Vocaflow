@@ -56,9 +56,9 @@
       "type": "R-NOTICE"
     },
     "2014A#32": {
-      "sec": 214,
-      "cues": 14,
-      "score": 87,
+      "sec": 206,
+      "cues": 12,
+      "score": 92,
       "type": "R-CHART"
     },
     "2014A#33": {
@@ -176,9 +176,9 @@
       "type": "R-VOCAB"
     },
     "2014B#29": {
-      "sec": 225,
-      "cues": 14,
-      "score": 88,
+      "sec": 211,
+      "cues": 12,
+      "score": 92,
       "type": "R-CHART"
     },
     "2014B#30": {
@@ -320,9 +320,9 @@
       "type": "R-FACT"
     },
     "2015#25": {
-      "sec": 198,
-      "cues": 13,
-      "score": 87,
+      "sec": 194,
+      "cues": 12,
+      "score": 91,
       "type": "R-CHART"
     },
     "2015#26": {
@@ -482,9 +482,9 @@
       "type": "R-TITLE"
     },
     "2016#24": {
-      "sec": 215,
-      "cues": 14,
-      "score": 83,
+      "sec": 199,
+      "cues": 12,
+      "score": 92,
       "type": "R-CHART"
     },
     "2016#25": {
@@ -650,9 +650,9 @@
       "type": "R-TITLE"
     },
     "2017#24": {
-      "sec": 232,
-      "cues": 14,
-      "score": 84,
+      "sec": 198,
+      "cues": 12,
+      "score": 90,
       "type": "R-CHART"
     },
     "2017#25": {
@@ -806,9 +806,9 @@
       "type": "R-TITLE"
     },
     "2018#24": {
-      "sec": 194,
+      "sec": 173,
       "cues": 12,
-      "score": 82,
+      "score": 86,
       "type": "R-CHART"
     },
     "2018#25": {
@@ -980,9 +980,9 @@
       "type": "R-TITLE"
     },
     "2019#25": {
-      "sec": 217,
-      "cues": 13,
-      "score": 92,
+      "sec": 183,
+      "cues": 12,
+      "score": 91,
       "type": "R-CHART"
     },
     "2019#26": {
@@ -1148,9 +1148,9 @@
       "type": "R-TITLE"
     },
     "2020#25": {
-      "sec": 233,
-      "cues": 13,
-      "score": 89,
+      "sec": 185,
+      "cues": 12,
+      "score": 90,
       "type": "R-CHART"
     },
     "2020#26": {
@@ -1316,9 +1316,9 @@
       "type": "R-TITLE"
     },
     "2021#25": {
-      "sec": 229,
-      "cues": 14,
-      "score": 85,
+      "sec": 169,
+      "cues": 11,
+      "score": 80,
       "type": "R-CHART"
     },
     "2021#26": {
@@ -1484,8 +1484,8 @@
       "type": "R-TITLE"
     },
     "2022#25": {
-      "sec": 232,
-      "cues": 13,
+      "sec": 180,
+      "cues": 12,
       "score": 86,
       "type": "R-CHART"
     },
@@ -1652,9 +1652,9 @@
       "type": "R-TITLE"
     },
     "2023#25": {
-      "sec": 182,
+      "sec": 189,
       "cues": 12,
-      "score": 87,
+      "score": 91,
       "type": "R-CHART"
     },
     "2023#26": {
@@ -1820,9 +1820,9 @@
       "type": "R-TITLE"
     },
     "2024#25": {
-      "sec": 188,
+      "sec": 191,
       "cues": 12,
-      "score": 87,
+      "score": 94,
       "type": "R-CHART"
     },
     "2024#26": {
@@ -1982,9 +1982,9 @@
       "type": "R-TITLE"
     },
     "2025#25": {
-      "sec": 202,
+      "sec": 185,
       "cues": 12,
-      "score": 87,
+      "score": 92,
       "type": "R-CHART"
     },
     "2025#26": {
@@ -2150,9 +2150,9 @@
       "type": "R-TITLE"
     },
     "2026#25": {
-      "sec": 197,
+      "sec": 188,
       "cues": 12,
-      "score": 83,
+      "score": 92,
       "type": "R-CHART"
     },
     "2026#26": {
@@ -2304,6 +2304,12 @@
       "cues": 13,
       "score": 87,
       "type": "R-TITLE"
+    },
+    "M1809#24": {
+      "sec": 201,
+      "cues": 12,
+      "score": 93,
+      "type": "R-CHART"
     },
     "M1809#25": {
       "sec": 162,
@@ -2474,9 +2480,9 @@
       "type": "R-TITLE"
     },
     "M2006#25": {
-      "sec": 223,
-      "cues": 13,
-      "score": 88,
+      "sec": 177,
+      "cues": 11,
+      "score": 93,
       "type": "R-CHART"
     },
     "M2006#26": {
@@ -2642,9 +2648,9 @@
       "type": "R-TITLE"
     },
     "M2106#25": {
-      "sec": 203,
-      "cues": 12,
-      "score": 92,
+      "sec": 159,
+      "cues": 11,
+      "score": 86,
       "type": "R-CHART"
     },
     "M2106#26": {
@@ -2810,9 +2816,9 @@
       "type": "R-TITLE"
     },
     "M2109#25": {
-      "sec": 204,
-      "cues": 12,
-      "score": 92,
+      "sec": 164,
+      "cues": 11,
+      "score": 91,
       "type": "R-CHART"
     },
     "M2109#26": {
@@ -2978,9 +2984,9 @@
       "type": "R-TITLE"
     },
     "M2206#25": {
-      "sec": 244,
-      "cues": 14,
-      "score": 82,
+      "sec": 176,
+      "cues": 11,
+      "score": 89,
       "type": "R-CHART"
     },
     "M2206#26": {
@@ -3146,9 +3152,9 @@
       "type": "R-TITLE"
     },
     "M2209#25": {
-      "sec": 209,
+      "sec": 192,
       "cues": 12,
-      "score": 91,
+      "score": 94,
       "type": "R-CHART"
     },
     "M2209#26": {
@@ -3314,9 +3320,9 @@
       "type": "R-TITLE"
     },
     "M2306#25": {
-      "sec": 220,
+      "sec": 172,
       "cues": 12,
-      "score": 90,
+      "score": 93,
       "type": "R-CHART"
     },
     "M2306#26": {
@@ -3482,9 +3488,9 @@
       "type": "R-TITLE"
     },
     "M2309#25": {
-      "sec": 179,
+      "sec": 181,
       "cues": 12,
-      "score": 85,
+      "score": 90,
       "type": "R-CHART"
     },
     "M2309#26": {
@@ -3644,9 +3650,9 @@
       "type": "R-TITLE"
     },
     "M2406#25": {
-      "sec": 189,
-      "cues": 12,
-      "score": 83,
+      "sec": 170,
+      "cues": 11,
+      "score": 82,
       "type": "R-CHART"
     },
     "M2406#26": {
@@ -3811,6 +3817,12 @@
       "score": 89,
       "type": "R-TITLE"
     },
+    "M2409#25": {
+      "sec": 167,
+      "cues": 11,
+      "score": 81,
+      "type": "R-CHART"
+    },
     "M2409#26": {
       "sec": 181,
       "cues": 12,
@@ -3974,9 +3986,9 @@
       "type": "R-TITLE"
     },
     "M2506#25": {
-      "sec": 188,
+      "sec": 171,
       "cues": 12,
-      "score": 85,
+      "score": 83,
       "type": "R-CHART"
     },
     "M2506#26": {
@@ -4142,9 +4154,9 @@
       "type": "R-TITLE"
     },
     "M2509#25": {
-      "sec": 194,
+      "sec": 195,
       "cues": 12,
-      "score": 86,
+      "score": 90,
       "type": "R-CHART"
     },
     "M2509#26": {
@@ -4304,7 +4316,7 @@
       "type": "R-TITLE"
     },
     "M2606#25": {
-      "sec": 196,
+      "sec": 183,
       "cues": 12,
       "score": 88,
       "type": "R-CHART"
@@ -4472,9 +4484,9 @@
       "type": "R-TITLE"
     },
     "M2609#25": {
-      "sec": 208,
+      "sec": 197,
       "cues": 12,
-      "score": 82,
+      "score": 88,
       "type": "R-CHART"
     },
     "M2609#26": {
@@ -4640,9 +4652,9 @@
       "type": "R-TITLE"
     },
     "M2706#25": {
-      "sec": 213,
+      "sec": 192,
       "cues": 12,
-      "score": 84,
+      "score": 89,
       "type": "R-CHART"
     },
     "M2706#26": {

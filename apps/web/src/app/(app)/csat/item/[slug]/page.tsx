@@ -132,7 +132,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   const nextPick = pickNextItem(siblings, item.id, () => true)
   // 같은 원리 비교 쌍(M4) — 검수 통과분 중 지금 열 수 있는(같은 유형 공개 목록에 있는) 문항만
   const sibById = new Map(siblings.map((x) => [x.id, x]))
-  const pairs = (compareData.items as Record<string, { other: string; choice: number; otherChoice: number; trap: string; note: string }[]>)[item.id] ?? []
+  const pairs = (compareData.items as Record<string, { kind?: 'same' | 'contrast'; other: string; choice: number; otherChoice: number; trap: string; note: string }[]>)[item.id] ?? []
   const comparePairs = pairs.flatMap((p) => {
     const o = sibById.get(p.other)
     return o ? [{ ...p, otherSlug: o.slug, otherLabel: `${o.exam_label} ${o.no}번` }] : []

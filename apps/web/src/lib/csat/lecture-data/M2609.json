@@ -2776,10 +2776,10 @@
     },
     "M2609#25": {
       "item_id": "M2609#25",
-      "version": 2,
-      "total_sec_est": 208,
+      "version": 3,
+      "total_sec_est": 197,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 82,
+      "rubric_score": 88,
       "cues": [
         {
           "id": "c1",
@@ -2792,18 +2792,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십육 학년도 구월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 이 문항도 도표와 일치하지 않는 진술을 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "구매 전에 온라인 후기를 읽은 비율을 다룬 도표예요."
+              "text": "발문을 보세요. 정답 하나를 빼면 네 진술은 도표와 맞는 말이에요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 13.2,
           "pause_after_ms": 500
         },
         {
@@ -2817,23 +2813,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 선지마다 고정할 축을 표시하세요."
+              "text": "읽기 전에 선지마다 비교 축과 전칭어를 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이 번, 사 번, 오 번은 제품 하나를 고정해요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "삼 번은 중간 연령대를 고정하고 두 제품을 견줍니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "일 번은 연령대마다 제품을 훑어요."
+              "text": "상품군끼리 비교인지, 연령대끼리 비교인지, 그리고 각각 모두를 뜻하는 말이 있는지요."
             }
           ],
-          "est_sec": 18.5,
-          "pause_after_ms": 600
+          "est_sec": 15.1,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2846,23 +2834,56 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "여기 첫 번째 문장은 도표 소개입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "축은 둘, 제품 범주와 연령대입니다. 연령대는 세 개예요."
+              "text": "미국 쇼핑객이 구매 전에 온라인 후기를 읽은 비율을 상품군과 연령대로 나눴죠."
             },
             {
               "lang": "ko-KR",
-              "text": "선지에 나오는 제품은 전자 기기, 자동차, 가전제품, 옷이에요."
+              "text": "상품군 넷마다 연령대 막대가 세 개씩 있습니다."
             }
           ],
-          "est_sec": 16,
+          "est_sec": 17.4,
           "pause_after_ms": 600
         },
         {
           "id": "c4",
           "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 오 번입니다. 여기 여섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "의류 후기 비율이 세 연령대"
+            },
+            {
+              "lang": "en-US",
+              "text": "for each of"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "모두 삼십 미만이라고 하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "의류 값은 삼십삼, 이십오, 이십일입니다."
+            }
+          ],
+          "est_sec": 17.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "analysis",
@@ -2871,47 +2892,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 오 번입니다. 정답 블록을 보세요."
+              "text": "이십오와 이십일은 삼십 미만이 맞아요."
             },
             {
               "lang": "ko-KR",
-              "text": "옷의 후기 비율이 세 연령대 모두 삼십 퍼센트 미만이라는 선지죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "for each of the three age groups"
+              "text": "그런데 가장 젊은 집단의 삼십삼은 삼십을 넘습니다. 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "한 칸만 걸려도 무너지는 말입니다."
+              "text": "두 집단에만 맞는 사실을 세 집단 전체로 넓혀서 전칭이 깨진 진술이죠."
             }
           ],
-          "est_sec": 18.2,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 오 번을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "대조할 곳은 옷 묶음과 삼십 눈금선뿐이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "오 번이 답이니, 옷 막대 중 적어도 하나는 삼십 선 아래가 아닙니다."
-            }
-          ],
-          "est_sec": 15.7,
+          "est_sec": 18.7,
           "pause_after_ms": 700
         },
         {
@@ -2925,19 +2917,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 연령대마다 전자 기기에서 후기를 읽는 비율이 가장 높았다는 말이에요."
+              "text": "일 번은 내용이 맞아서 답이 아닙니다. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "연령대마다 가장 높은 막대 하나씩, 세 칸만 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "셋 다 전자 기기이니 일치합니다."
+              "text": "전자제품은 육십육, 칠십일, 육십팔로, 연령대마다 다른 상품군보다 큽니다."
             }
           ],
-          "est_sec": 17.4,
-          "pause_after_ms": 400
+          "est_sec": 14.9,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2950,19 +2941,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 자동차에서 후기를 읽는 비율이 가장 낮은 층이 가장 젊은 층이라는 말입니다."
+              "text": "이 번, 세 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "자동차 묶음의 가장 낮은 막대를 찾아보세요."
+              "text": "자동차 값은 사십칠, 오십삼, 오십오예요."
             },
             {
               "lang": "ko-KR",
-              "text": "가장 젊은 층이니 일치해요."
+              "text": "가장 작은 사십칠이 십팔에서 삼십사 세 집단이니 맞는 진술입니다."
             }
           ],
-          "est_sec": 16.4,
-          "pause_after_ms": 400
+          "est_sec": 14.4,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2975,19 +2969,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 중간 연령대에서 가전제품이 옷의 두 배를 넘는다는 말이에요."
+              "text": "삼 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "옷 값을 두 배 한 지점을 찾으세요."
+              "text": "삼십오에서 오십사 세의 가전은 오십칠, 의류는 이십오입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "가전제품 막대가 그 위이니 일치합니다."
+              "text": "이십오의 두 배는 오십이고 오십칠이 더 크니 두 배가 넘어요."
             }
           ],
-          "est_sec": 14.9,
-          "pause_after_ms": 400
+          "est_sec": 16.4,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -3000,19 +2997,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번은 가전제품 묶음의 세 막대 순서입니다."
+              "text": "사 번, 다섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "중간 연령대가 젊은 층보다 높고, 오십오 세 이상보다 낮대요."
+              "text": "가전에서 중간 연령대 오십칠은 젊은 집단 사십이보다 크고, 오십오 세 이상 육십이보다 작습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "두 부등호를 모두 확인하세요. 둘 다 맞으니 일치해요."
+              "text": "두 조건 다 맞아요."
             }
           ],
-          "est_sec": 17,
-          "pause_after_ms": 400
+          "est_sec": 15.9,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
           "id": "c10",
@@ -3020,23 +3020,23 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:5"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 마지막 선지입니다. 첫 문장 안 오 번을 짚어 보세요."
+              "text": "미끄러지는 자리는 여기 여섯 번째 문장입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "앞 넷을 본 뒤라 남은 것이니 참이겠지 하기 쉬워요."
+              "text": "의류 막대가 전체적으로 낮아서 낮은 두 막대만 보고 맞다고 넘기기 쉬워요."
             },
             {
               "lang": "ko-KR",
-              "text": "마지막 선지도 눈금선에 직접 대 보세요."
+              "text": "전칭어가 보이면 그 묶음의 세 숫자를 모두 적고 비교하세요."
             }
           ],
-          "est_sec": 16,
+          "est_sec": 19.2,
           "pause_after_ms": 600
         },
         {
@@ -3050,23 +3050,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘를 표시하세요."
             },
             {
               "lang": "en-US",
-              "text": "household appliances"
+              "text": "for each of"
             },
             {
               "lang": "ko-KR",
-              "text": "가전제품."
-            },
-            {
-              "lang": "en-US",
-              "text": "purchases"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "구매."
+              "text": "는 각각 모두,"
             },
             {
               "lang": "en-US",
@@ -3074,22 +3066,18 @@
             },
             {
               "lang": "ko-KR",
-              "text": "가장 덜 하는."
+              "text": "는 가장 덜 그럴 법한,"
             },
             {
               "lang": "en-US",
-              "text": "less than"
+              "text": "more than twice"
             },
             {
               "lang": "ko-KR",
-              "text": "미만."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "기준선 표현에 주목하세요."
+              "text": "는 두 배가 넘는입니다."
             }
           ],
-          "est_sec": 13.7,
+          "est_sec": 12.7,
           "pause_after_ms": 500
         },
         {
@@ -3103,22 +3091,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다. 전칭 진술은 해당 값을 하나도 빼지 않고 기준과 비교해야 참이 됩니다."
             },
             {
               "lang": "ko-KR",
-              "text": "두 축 도표는 한 축을 고정해야 볼 막대가 줄어요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "모두 미만이라는 말은 가장 높은 막대 하나로 판정합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 고정할 축부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 비교 축과 전칭어부터 표시하세요."
             }
           ],
-          "est_sec": 19.2,
+          "est_sec": 15.4,
           "pause_after_ms": 900
         }
       ]

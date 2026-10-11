@@ -31,6 +31,7 @@ let rejected = 0
 let missing = 0
 let badNote = 0
 let labelConflict = 0
+let contrastAccepted = 0
 // 한 줄이 라벨과 다른 함정을 말하는 쌍 — 「주체를 바꿨다」고 쓰면서 라벨이 주체 역전이 아니면 학습자가 헷갈린다(2026-10-11 표본 3/546)
 const conflicts = (trap, note) => trap !== '주체 역전' && /주체(?:를|·대상을|가)?\s*(?:지문에 없는 쪽으로\s*)?바(?:뀌|꿨)/.test(note)
 for (const f of fs.readdirSync(WORK).filter((f) => /^chunk-.*\.json$/.test(f) && !f.endsWith('.out.json')).sort()) {
@@ -44,7 +45,9 @@ for (const f of fs.readdirSync(WORK).filter((f) => /^chunk-.*\.json$/.test(f) &&
       missing += 1
       continue
     }
-    if (v.same_principle !== true) {
+    // 두 종류: cmp-* = 같은 원리(same_principle) · ctr-* = 비슷해 보이지만 조건이 다른 대조(contrast)
+    const kind = f.startsWith('chunk-ctr-') ? 'contrast' : 'same'
+    if ((kind === 'same' ? v.same_principle : v.contrast) !== true) {
       rejected += 1
       continue
     }
@@ -53,18 +56,19 @@ for (const f of fs.readdirSync(WORK).filter((f) => /^chunk-.*\.json$/.test(f) &&
       badNote += 1
       continue
     }
-    if (conflicts(p.trap, note)) {
+    if (kind === 'same' && conflicts(p.trap, note)) {
       labelConflict += 1
       continue
     }
     accepted += 1
-    add(p.a.id, { other: p.b.id, choice: p.a.n, otherChoice: p.b.n, trap: p.trap, note })
-    add(p.b.id, { other: p.a.id, choice: p.b.n, otherChoice: p.a.n, trap: p.trap, note })
+    if (kind === 'contrast') contrastAccepted += 1
+    add(p.a.id, { kind, other: p.b.id, choice: p.a.n, otherChoice: p.b.n, trap: p.trap, note })
+    add(p.b.id, { kind, other: p.a.id, choice: p.b.n, otherChoice: p.a.n, trap: p.trap, note })
   }
 }
 
 const data = Object.fromEntries([...byItem.entries()].sort(([x], [y]) => x.localeCompare(y)).map(([id, xs]) => [id, xs.sort((p, q) => p.other.localeCompare(q.other))]))
-console.log(`후보 ${candidates} · 통과 ${accepted} · 탈락 ${rejected} · 검수 없음 ${missing} · note 부적합 ${badNote} · 라벨-설명 충돌 ${labelConflict} → 비교 쌍이 있는 문항 ${byItem.size}`)
+console.log(`후보 ${candidates} · 통과 ${accepted} · 탈락 ${rejected} · 검수 없음 ${missing} · note 부적합 ${badNote} · 라벨-설명 충돌 ${labelConflict} · 그중 대조 ${contrastAccepted} → 비교 쌍이 있는 문항 ${byItem.size}`)
 if (WRITE) {
   fs.writeFileSync(OUT, JSON.stringify({ built_by: 'scripts/csat/compare-drain-import.mjs', pairs: accepted, items: data }, null, 1) + '\n')
   console.log(`→ ${path.relative(process.cwd(), OUT)}`)

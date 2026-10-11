@@ -2759,10 +2759,10 @@
     },
     "2026#25": {
       "item_id": "2026#25",
-      "version": 2,
-      "total_sec_est": 197,
+      "version": 3,
+      "total_sec_est": 188,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 83,
+      "rubric_score": 92,
       "cues": [
         {
           "id": "c1",
@@ -2775,18 +2775,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십육 학년도 수능 이십오 번, 도표 문항입니다."
+              "text": "여러분, 발문부터 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "도표와 일치하지 않는 진술 하나를 고르는 문항이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "미국 십 대가 친구와 시간을 보낸 수단을 다룬 도표예요."
+              "text": "그러니 답이 아닌 네 진술은 도표와 맞는 진술입니다."
             }
           ],
-          "est_sec": 17.2,
+          "est_sec": 14.2,
           "pause_after_ms": 500
         },
         {
@@ -2800,56 +2800,89 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일은 하나예요. 선지마다 범주어를 표시하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "Every Day"
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 범주 안 비교인지, 범주를 건너뛰는지 표시하세요."
+              "text": "그리고"
+            },
+            {
+              "lang": "en-US",
+              "text": "Less Often"
             },
             {
               "lang": "ko-KR",
-              "text": "일 번, 이 번, 사 번은 한 범주 안이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "삼 번과 오 번은 범주를 건너뜁니다."
+              "text": "막대 전체 길이가 아니라 구간 안 숫자를 읽겠다고 정합니다."
             }
           ],
-          "est_sec": 17.2,
-          "pause_after_ms": 600
+          "est_sec": 16.1,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "지도를 보세요. 첫 문장은 도표 소개예요."
             },
             {
               "lang": "ko-KR",
-              "text": "가로 묶음은 매일, 덜 자주 같은 빈도 범주입니다."
+              "text": "두 번째부터 여섯 번째 문장이 선지 다섯 개입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "막대는 문자, 전화, 화상 채팅, 이메일이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그래서 같은 수단이 여러 묶음에 나옵니다."
+              "text": "같은 범주 안 순위, 범주끼리 비교, 배수 계산이 섞여 있어요."
             }
           ],
-          "est_sec": 17.7,
-          "pause_after_ms": 600
+          "est_sec": 16,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
         },
         {
           "id": "c4",
           "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번입니다. 여기 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "emailing was the second highest"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "덜 자주 범주의 값을 크기순으로 적어 볼게요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이메일 사십삼, 전화 사십일, 화상 채팅 삼십칠, 문자 십삼."
+            }
+          ],
+          "est_sec": 18.4,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "analysis",
@@ -2858,51 +2891,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 정답 블록을 보세요."
+              "text": "정답 칸을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "덜 자주 범주에서 이메일이 두 번째로 높다는 선지죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "was the second highest"
+              "text": "이메일이 맨 위, 곧 일위예요. 이위는 전화죠."
             },
             {
               "lang": "ko-KR",
-              "text": "위에 막대가 딱 하나여야 두 번째입니다."
+              "text": "진술의 두 번째라는 순위어와 도표의 일위가 맞지 않습니다."
             }
           ],
-          "est_sec": 16.3,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 이 번도 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그 범주에서 전화가 문자보다 높다고 했죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "문자가 이메일보다 높다면, 전화도 이메일보다 높아요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그럼 이메일 위가 둘이 되어 두 번째가 깨집니다."
-            }
-          ],
-          "est_sec": 19.5,
+          "est_sec": 13.7,
           "pause_after_ms": 700
         },
         {
@@ -2916,19 +2916,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 매일 범주에서 문자가 가장 높다는 말이에요."
+              "text": "일 번. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 묶음의 가장 높은 막대 하나만 찾아보세요."
+              "text": "매일 범주에서 문자 오십오, 전화 십구, 이메일 육, 화상 칠이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "문자이니 일치합니다."
+              "text": "문자가 가장 높다는 말이 맞아서 답이 아닙니다."
             }
           ],
-          "est_sec": 12.7,
-          "pause_after_ms": 400
+          "est_sec": 15.5,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2941,19 +2944,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 덜 자주 범주에서 전화가 문자의 두 배를 넘는다는 말입니다."
+              "text": "이 번. 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문자 값을 두 배 한 지점을 찾으세요."
+              "text": "덜 자주 범주에서 문자 십삼의 두 배는 이십육이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "전화 막대가 그 위이니 일치해요."
+              "text": "전화 사십일이 그보다 크니 두 배가 넘는다는 진술이 맞습니다."
             }
           ],
-          "est_sec": 14.2,
-          "pause_after_ms": 400
+          "est_sec": 16,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2966,19 +2972,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번은 전화를 두 범주에서 견줍니다."
+              "text": "삼 번. 네 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "전화 색 하나를 고정하고 확인하세요."
+              "text": "전화는 매일 십구, 덜 자주 사십일이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "매일 쪽이 더 낮으니 일치해요."
+              "text": "매일 쪽이 더 낮다는 비교가 도표와 같아서 답이 아닙니다."
             }
           ],
-          "est_sec": 11.4,
-          "pause_after_ms": 400
+          "est_sec": 13.7,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2991,23 +3000,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번은 화상 채팅을 두 범주에서 견줍니다."
+              "text": "오 번. 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "화상 채팅 색만 골라 보세요."
+              "text": "화상 채팅은 덜 자주 삼십칠, 매일 칠이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "덜 자주 쪽이 더 높으니 일치해요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "삼 번의 판정을 옮겨 쓰지 마세요."
+              "text": "덜 자주 쪽이 높다는 말이 맞아서 답에서 빠집니다."
             }
           ],
-          "est_sec": 14.7,
-          "pause_after_ms": 400
+          "est_sec": 14,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
@@ -3015,20 +3023,20 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 사 번의 두 번째입니다. 첫 문장 안 사 번을 짚어 보세요."
+              "text": "함정은 순위를 뒤집은 반대 진술이에요. 여기 다섯 번째 문장."
             },
             {
               "lang": "ko-KR",
-              "text": "일등이 아니니 이등이겠지, 하면 그대로 통과시켜요."
+              "text": "이메일은 매일 값이 육이라 막대 전체가 짧아 보여요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 막대 위에 올라온 막대 수를 세어 확인하세요."
+              "text": "구간 숫자 네 개를 따로 적고 순서를 세어 보세요."
             }
           ],
           "est_sec": 17.2,
@@ -3045,15 +3053,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "category"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "범주."
+              "text": "어휘 칸을 보세요."
             },
             {
               "lang": "en-US",
@@ -3070,21 +3070,9 @@
             {
               "lang": "ko-KR",
               "text": "두 배보다 많은."
-            },
-            {
-              "lang": "en-US",
-              "text": "video chatting"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "화상 채팅."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "배수와 순위 표현에 주목하세요."
             }
           ],
-          "est_sec": 15.8,
+          "est_sec": 8.2,
           "pause_after_ms": 500
         },
         {
@@ -3098,18 +3086,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리할게요. 순위어가 나오면 그 범주 값만 크기순으로 적고 셉니다."
             },
             {
               "lang": "ko-KR",
-              "text": "범주를 건너뛰면 색 하나를, 순위를 물으면 묶음 하나를 고정합니다."
+              "text": "막대 길이는 두 범주의 합이라 순위를 알려 주지 않아요."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 범주 안인지 건너뛰는지부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 범주어부터 표시하세요."
             }
           ],
-          "est_sec": 16.7,
+          "est_sec": 18.7,
           "pause_after_ms": 900
         }
       ]

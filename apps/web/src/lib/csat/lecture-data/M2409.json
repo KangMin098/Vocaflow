@@ -2557,6 +2557,326 @@
         }
       ]
     },
+    "M2409#25": {
+      "item_id": "M2409#25",
+      "version": 1,
+      "total_sec_est": 167,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 81,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 표와 일치하지 않는 진술 하나를 고르는 문항입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "발문의 「않는」을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "답이 아닌 네 진술은 표와 맞는 진술이에요."
+            }
+          ],
+          "est_sec": 13.9,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 할 일 하나."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "선지의 범위 조건을 부등호로 바꿔 적으세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "더 크다, 더 작다에 경계값이 들어가는지 표시하는 겁니다."
+            }
+          ],
+          "est_sec": 13.2,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "구조를 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "첫 문장은 표 소개, 두 번째부터 여섯 번째 문장이 선지입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "행은 다섯 집단, 열은 이천십일, 이천십육, 이천이십일 년이에요."
+            }
+          ],
+          "est_sec": 14.7,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 삼 번입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여기 네 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "조건은 삼십오 초과, 사십 미만이고 대상은 두 집단의 두 해, 네 칸이에요."
+            }
+          ],
+          "est_sec": 12.7,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 네 번째 문장의 네 칸을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "흑인은 삼십칠, 삼십칠로 통과합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "히스패닉은 이천십일 년 삼십오, 이천이십일 년 삼십삼이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "둘 다 조건 밖이라 틀립니다."
+            }
+          ],
+          "est_sec": 17.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번, 두 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "아시아계는 육십, 오십팔, 육십일로 세 해 모두 가장 높고 모두 오십을 넘습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "맞는 진술이에요."
+            }
+          ],
+          "est_sec": 13.7,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번, 세 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "백인은 사십오, 사십이, 삼십팔로 세 해 모두 아시아계 다음이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "삼십팔은 사십 미만이라 뒷부분도 맞습니다."
+            }
+          ],
+          "est_sec": 15.2,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "사 번, 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "히스패닉이 흑인보다 높은 해는 서른아홉 대 서른여섯인 이천십육 년뿐이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "나머지 두 해는 흑인이 높아 맞는 진술입니다."
+            }
+          ],
+          "est_sec": 16.4,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번, 여섯 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "원주민 집단은 이십사, 십구, 이십팔로 해마다 다른 네 집단의 최솟값보다 낮습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "맞는 진술이에요."
+            }
+          ],
+          "est_sec": 14.4,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘를 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "enrollment"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "등록, 진학."
+            },
+            {
+              "lang": "en-US",
+              "text": "higher than"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "같은 값은 포함하지 않는 초과."
+            },
+            {
+              "lang": "en-US",
+              "text": "the only year"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그런 해가 하나뿐이라는 뜻이에요."
+            }
+          ],
+          "est_sec": 13.9,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "범위 조건은 부등호로 바꾸고, 경계값과 같은 수는 조건 밖으로 처리하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 범위 조건부터 부등호로 표시하세요."
+            }
+          ],
+          "est_sec": 15.4,
+          "pause_after_ms": 900
+        }
+      ]
+    },
     "M2409#26": {
       "item_id": "M2409#26",
       "version": 2,

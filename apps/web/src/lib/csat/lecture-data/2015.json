@@ -2522,10 +2522,10 @@
     },
     "2015#25": {
       "item_id": "2015#25",
-      "version": 2,
-      "total_sec_est": 198,
+      "version": 3,
+      "total_sec_est": 194,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 87,
+      "rubric_score": 91,
       "cues": [
         {
           "id": "c1",
@@ -2538,65 +2538,40 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천십오학년도 수능 영어 이십오 번, 도표 일치입니다."
+              "text": "여러분, 이 문항은 도표와 맞지 않는 진술을 고르는 문제예요. 발문의 않는 것은에 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문두를 확인하세요. 도표와 일치하지 않는 것을 고릅니다."
+              "text": "답이 아닌 네 선지는 도표와 맞는 진술입니다."
             }
           ],
-          "est_sec": 12.2,
+          "est_sec": 14.7,
           "pause_after_ms": 500
         },
         {
           "id": "c2",
           "order": 2,
-          "role": "intro",
+          "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "ability"
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여러분이 재는 힘에 주목하세요."
+              "text": "읽기 전에 할 일은 하나예요. 선지마다 비교 종류를 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "몇 배라는 말에는 곱셈을, 얼마 늘었다는 말에는 뺄셈을 가려 쓰는 힘입니다."
+              "text": "가장 높다는 크기 비교, 세 배는 나눗셈, 몇 포인트 증가는 뺄셈입니다."
             }
           ],
-          "est_sec": 11.4,
+          "est_sec": 14.4,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
-          "role": "strategy",
-          "target": {
-            "kind": "analysis",
-            "id": "head"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "읽기 전에 선지부터 읽으세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "선지마다 필요한 연산을 옆에 표시하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "배는 곱하기, 증가는 빼기, 최상급과 비교는 높이만 봅니다."
-            }
-          ],
-          "est_sec": 13.9,
-          "pause_after_ms": 500
-        },
-        {
-          "id": "c4",
-          "order": 4,
           "role": "structure",
           "target": {
             "kind": "analysis",
@@ -2605,73 +2580,69 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "지도 전체를 보세요."
+              "text": "지도를 보세요. 첫 문장은 도표 소개이고, 두 번째부터 여섯 번째 문장이 선지 다섯입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "십이 세에서 십칠 세 미국인이 소셜 미디어에 올린 개인 정보의 비율,"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이천육 년과 이천십이 년 두 해를 비교한 그래프입니다."
+              "text": "진한 막대가 이천육 년, 흰 막대가 이천십이 년이에요. 항목은 다섯 개입니다."
             }
           ],
-          "est_sec": 15.2,
-          "pause_after_ms": 600
+          "est_sec": 17.5,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 다섯 번째 문장, 사 번이 정답입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이메일 주소는 이천육 년 이십구, 이천십이 년 오십삼이에요."
+            }
+          ],
+          "est_sec": 10.6,
+          "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번. 확인하세요."
+              "text": "같은 문장에서 뒤 절을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이메일 주소에서 이천십이 년 값이 이천육 년의 세 배라는 선지죠."
+              "text": "세 배라면 이십구에 삼을 곱한 팔십칠이 되어야 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "다섯 가운데 곱셈이 필요한 선지는 이것 하나입니다."
+              "text": "오십삼은 대략 일 점 팔 배라서, 쓰리 타임스라는 배수가 도표와 어긋납니다."
             }
           ],
-          "est_sec": 15.5,
+          "est_sec": 17.2,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 일 번을 보세요. 정답표상 맞는 선지이니, 모든 항목에서 이천십이 년이 높습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그래서 사 번에서 새로 볼 것은 정확히 세 배인가 하나예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이천육 년 값에 삼을 곱해 막대와 견주세요."
-            }
-          ],
-          "est_sec": 19.7,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2680,23 +2651,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 모든 항목에서 증가."
+              "text": "일 번은 두 번째 문장을 짚어 보세요. 항목마다 이천십이 년이 늘었다고 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "항목마다 두 막대의 위아래만 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "값은 안 읽어도 되고, 같거나 줄어든 항목이 하나라도 있으면 틀립니다."
+              "text": "다섯 항목 모두 흰 막대가 더 높아서 맞는 진술이고, 답이 아닙니다."
             }
           ],
-          "est_sec": 14.7,
-          "pause_after_ms": 400
+          "est_sec": 14.9,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
-          "id": "c8",
-          "order": 8,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2705,23 +2675,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 두 해 모두 자기 사진이 가장 높다."
+              "text": "이 번은 세 번째 문장을 확인하세요. 자기 사진은 이천육 년 칠십구, 이천십이 년 구십일이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "해마다 가장 높은 막대를 하나씩 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 해 모두 사진이어야 맞습니다."
+              "text": "두 해 모두 가장 높으니 맞는 진술이고, 답이 아닙니다."
             }
           ],
-          "est_sec": 12.4,
-          "pause_after_ms": 400
+          "est_sec": 15.4,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2730,23 +2699,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 이천육 년에 도시 이름이 학교 이름보다 높다."
+              "text": "삼 번은 네 번째 문장을 보세요. 이천육 년만 묻습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이천육 년 막대 두 개만 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이천십이 년 막대는 손으로 가리고 봅니다."
+              "text": "도시 이름 육십일이 학교 이름 사십구보다 높아요. 이천십이 년 동률은 묻지 않으니 맞는 진술이고, 답이 아닙니다."
             }
           ],
-          "est_sec": 13.7,
-          "pause_after_ms": 400
+          "est_sec": 17.7,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2755,48 +2723,47 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 휴대폰 번호가 십팔 퍼센트 증가. 두 막대의 눈금 차를 확인하세요."
+              "text": "오 번은 여섯 번째 문장을 짚어 보세요. 휴대폰 번호는 이에서 이십으로 올라 차이가 십팔이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "곱하기가 아니라 빼기입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "증가 방향은 일 번이 보증하니, 차가 십팔인지만 봅니다."
+              "text": "여기서 증가는 값의 차이를 말하니 맞는 진술이고, 답이 아닙니다."
             }
           ],
-          "est_sec": 16.7,
-          "pause_after_ms": 400
+          "est_sec": 16.9,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정 이름은 배수 눈대중. 여기 사 번 선지를 보세요."
+              "text": "여기 다섯 번째 문장이 배수 과장 함정입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "모두 늘었다는 인상에 간격까지 넓어 보이면, 세 배를 눈으로 통과시킵니다."
+              "text": "휴대폰 번호가 열 배로 늘어, 세 배도 그럴듯해 보이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "이천육 년 값에 삼을 곱한 수를 반드시 종이에 적으세요."
+              "text": "배수가 나오면 작은 값에 배수를 곱해 큰 값과 직접 견주세요."
             }
           ],
-          "est_sec": 19.2,
+          "est_sec": 16.7,
           "pause_after_ms": 600
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -2805,47 +2772,47 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘를 보세요."
             },
             {
               "lang": "en-US",
-              "text": "posted"
+              "text": "three times higher"
             },
             {
               "lang": "ko-KR",
-              "text": "게시했다."
+              "text": "세 배, 곧 나눗셈으로 확인합니다."
             },
             {
               "lang": "en-US",
-              "text": "categories"
+              "text": "increase"
             },
             {
               "lang": "ko-KR",
-              "text": "항목, 범주."
+              "text": "증가, 여기서는 뺄셈이에요."
             },
             {
               "lang": "en-US",
-              "text": "Regarding"
+              "text": "category"
             },
             {
               "lang": "ko-KR",
-              "text": "무엇에 관해서는."
+              "text": "항목,"
             },
             {
               "lang": "en-US",
-              "text": "Compared to"
+              "text": "overall"
             },
             {
               "lang": "ko-KR",
-              "text": "무엇과 비교하면."
+              "text": "전반적인이라는 뜻입니다."
             }
           ],
-          "est_sec": 12.1,
+          "est_sec": 15.8,
           "pause_after_ms": 500
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -2854,14 +2821,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 배는 곱하고, 증가 폭은 빼서 종이에 적으면 눈대중이 사라집니다."
+              "text": "정리할게요. 배수는 곱해서, 증가는 빼서 확인한다, 이것이 규칙입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 필요한 연산부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지마다 크기, 배수, 차이 중 어느 비교인지부터 표시하세요."
             }
           ],
-          "est_sec": 14.7,
+          "est_sec": 15.9,
           "pause_after_ms": 900
         }
       ]

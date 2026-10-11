@@ -2681,10 +2681,10 @@
     },
     "2019#25": {
       "item_id": "2019#25",
-      "version": 2,
-      "total_sec_est": 217,
+      "version": 3,
+      "total_sec_est": 183,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 92,
+      "rubric_score": 91,
       "cues": [
         {
           "id": "c1",
@@ -2697,18 +2697,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천십구 학년도 수능 이십오 번, 도표 문항입니다."
+              "text": "여러분, 발문을 먼저 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 표와 일치하지 않는 것을 고릅니다."
+              "text": "표와 일치하지 않는 것을 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "미국 대학 유학생의 출신 국가 상위 열 곳을 두 학년도로 나눈 표예요."
+              "text": "정답 아닌 네 선지는 표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 18.7,
+          "est_sec": 11.4,
           "pause_after_ms": 500
         },
         {
@@ -2726,68 +2726,68 @@
             },
             {
               "lang": "ko-KR",
-              "text": "선지를 절로 쪼개, 절마다 수인지 순위인지 목록 포함인지 표시하세요."
+              "text": "선지를 접속어에서 끊어 절마다 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "한 선지에 절이 둘이면 둘 다 맞아야 합니다."
+              "text": "한 절이라도 틀리면 그 선지가 답입니다."
             }
           ],
-          "est_sec": 15.2,
-          "pause_after_ms": 600
+          "est_sec": 12.4,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 표를 보세요."
+              "text": "지도를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "왼쪽이 옛 학년도, 오른쪽이 이천십육에서 십칠 학년도입니다."
+              "text": "첫 칸은 두 학년도 표, 두 번째 문장은 표 소개예요."
             },
             {
               "lang": "ko-KR",
-              "text": "나라 행에만 위에서부터 번호를 매기세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "기타 국가와 합계 행은 뺍니다."
+              "text": "세 번째부터 일곱 번째 문장이 선지입니다."
             }
           ],
-          "est_sec": 17.2,
-          "pause_after_ms": 600
+          "est_sec": 11.4,
+          "pause_after_ms": 600,
+          "focus": [
+            1,
+            6
+          ]
         },
         {
           "id": "c4",
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 삼 번입니다. 정답 블록을 보세요."
+              "text": "정답은 삼 번입니다. 여기 다섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "인도 학생이 스무 배 넘게 늘었다는 앞 절이 있어요."
+              "text": "앞 절은 인도 학생이 스무 배 넘게 많아졌다는 말이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "그리고 인도가 중국보다 순위가 높았다는 뒤 절이 있죠."
+              "text": "구천의 스무 배는 십팔만인데, 실제는 십팔만 육천이라 맞습니다."
             }
           ],
-          "est_sec": 15.7,
+          "est_sec": 18.2,
           "pause_after_ms": 700
         },
         {
@@ -2796,53 +2796,36 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장의 표에서 인도를 짚어 보세요."
+              "text": "여기 다섯 번째 문장의 뒤 절을 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "India ranked higher than China"
             },
             {
               "lang": "ko-KR",
-              "text": "왼쪽은 구천 명, 오른쪽은 십팔만 육천 명입니다."
+              "text": "라고 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "구천의 스무 배는 십팔만이니, 앞 절은 맞아요."
+              "text": "표 첫 줄이 중국 삼십오만 천, 둘째 줄이 인도예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "인도가 아래니 방향이 반대입니다. 한 절이 틀려 문장 전체가 틀려요."
             }
           ],
-          "est_sec": 14.4,
+          "est_sec": 20,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장의 오른쪽 표 첫 두 줄을 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "첫 줄은 중국, 둘째 줄이 인도예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "인도가 중국보다 높다는 뒤 절이 표와 정반대입니다."
-            }
-          ],
-          "est_sec": 14.2,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2851,27 +2834,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 전체 유학생이 세 배 넘게 늘었다는 말이에요."
+              "text": "일 번, 세 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 표의 합계 행만 확인하세요."
+              "text": "앞 해 합계 이십팔만 육천의 세 배는 팔십오만 팔천이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "이십팔만 육천의 세 배는 팔십오만 팔천입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "백칠만 구천이 더 크니 일치해요."
+              "text": "뒤 해 합계 백칠만 구천이 그보다 크니 맞는 진술입니다."
             }
           ],
-          "est_sec": 17.2,
-          "pause_after_ms": 400
+          "est_sec": 15.4,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
-          "id": "c8",
-          "order": 8,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2880,23 +2862,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 옛 상위 셋 이란, 대만, 나이지리아 중 대만만 새 목록에 들었다는 말입니다."
+              "text": "이 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "세 이름을 오른쪽 표 열 줄에서 찾아 확인하세요."
+              "text": "앞 해 상위 셋은 이란, 대만, 나이지리아예요."
             },
             {
               "lang": "ko-KR",
-              "text": "대만만 있으니 일치해요."
+              "text": "뒤 해 표에는 대만만 남아 있어 두 주장이 모두 맞습니다."
             }
           ],
-          "est_sec": 15.9,
-          "pause_after_ms": 400
+          "est_sec": 13.9,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2905,23 +2890,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 한국이 옛 목록엔 없었고 새 목록에선 삼 위라는 말이에요."
+              "text": "사 번, 여섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "오른쪽 표 나라 행을 세어 확인하세요. 중국, 인도, 다음이 한국입니다."
+              "text": "한국은 앞 해 열 줄 안에 없고, 뒤 해에는 셋째 줄 오만 구천이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "왼쪽 표엔 한국이 없으니 일치해요."
+              "text": "맞는 진술입니다."
             }
           ],
-          "est_sec": 17.7,
-          "pause_after_ms": 400
+          "est_sec": 11.9,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2930,52 +2918,55 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 일본 학생 수는 늘었지만 순위는 내려갔다는 말입니다."
+              "text": "오 번, 일곱 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "값과 순위를 따로 확인하세요."
+              "text": "일본은 만 이천에서 만 구천으로 늘었어요."
             },
             {
               "lang": "ko-KR",
-              "text": "만 이천에서 만 구천으로 늘었고, 다섯째 줄에서 여덟째 줄로 내려갔어요."
+              "text": "순위는 다섯째에서 여덟째로 내려가, 두 절이 모두 맞습니다."
             }
           ],
-          "est_sec": 17.2,
-          "pause_after_ms": 400
+          "est_sec": 14.7,
+          "pause_after_ms": 400,
+          "focus": [
+            6
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:1"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 두 번째 문장 안의 삼 번이 함정입니다."
+              "text": "미끄러지기 쉬운 자리는 여기 다섯 번째 문장입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "스무 배 계산이 맞으면 선지 전체를 믿기 쉬워요."
+              "text": "스무 배 계산을 마치면 만족해서 뒤 절을 건너뛰기 쉬워요."
+            },
+            {
+              "lang": "en-US",
+              "text": "and"
             },
             {
               "lang": "ko-KR",
-              "text": "인도 값이 둘째로 커서 높은 순위라는 인상도 생기죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음 절을 꼭 확인하세요."
+              "text": "가 보이면 뒤 절에 따로 표시하고, 순위는 표의 줄 순서로 확인하세요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 19.3,
           "pause_after_ms": 600
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -2984,47 +2975,39 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "낱말을 확인하세요."
             },
             {
               "lang": "en-US",
-              "text": "origin countries"
+              "text": "ranked"
             },
             {
               "lang": "ko-KR",
-              "text": "출신 국가."
+              "text": "는 순위가 매겨졌다,"
             },
             {
               "lang": "en-US",
-              "text": "enrolled"
+              "text": "origin"
             },
             {
               "lang": "ko-KR",
-              "text": "등록한."
+              "text": "은 출신,"
             },
             {
               "lang": "en-US",
-              "text": "ranked higher"
+              "text": "Although"
             },
             {
               "lang": "ko-KR",
-              "text": "순위가 더 높았다."
-            },
-            {
-              "lang": "en-US",
-              "text": "although"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "비록 그렇지만."
+              "text": "는 비록 그렇지만이라는 양보예요."
             }
           ],
-          "est_sec": 12,
+          "est_sec": 11.5,
           "pause_after_ms": 500
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -3033,15 +3016,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "절이 둘인 선지는 계산이 맞아도 나머지 절을 따로 판정합니다."
+              "text": "접속어로 묶인 선지는 절마다 따로 판정하고, 배수는 곱셈, 순위는 줄 순서로 봅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지를 절로 쪼개 수인지 순위인지부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지를 접속어에서 끊어 표시하세요."
             }
           ],
           "est_sec": 16.2,

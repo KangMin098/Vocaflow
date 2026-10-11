@@ -2704,10 +2704,10 @@
     },
     "M2706#25": {
       "item_id": "M2706#25",
-      "version": 2,
-      "total_sec_est": 213,
+      "version": 3,
+      "total_sec_est": 192,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 84,
+      "rubric_score": 89,
       "cues": [
         {
           "id": "c1",
@@ -2720,18 +2720,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십칠 학년도 유월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 이 문항은 도표와 일치하지 않는 진술 하나를 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다섯 지역의 평일 이동을 세 수단으로 나눈 도표예요."
+              "text": "발문을 먼저 보세요. 부정형이니 나머지 네 진술은 도표와 맞는 말이에요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 14.4,
           "pause_after_ms": 500
         },
         {
@@ -2749,19 +2745,15 @@
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 볼 막대 수를 표시하세요."
+              "text": "선지마다 지역 이름, 교통수단, 순위어나 경계 숫자를 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번은 기준선 하나, 이 번은 막대 두 개면 끝나요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "삼 번은 가장 낮다는 말이라 막대 세 개가 다 필요합니다."
+              "text": "그다음 그 막대의 숫자만 대조합니다."
             }
           ],
-          "est_sec": 18,
-          "pause_after_ms": 600
+          "est_sec": 14.7,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2774,27 +2766,56 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "여기 첫 번째 문장은 도표 소개예요."
             },
             {
               "lang": "ko-KR",
-              "text": "가로 묶음은 지역 다섯 곳입니다."
+              "text": "다섯 지역의 평일 이동을 걷기와 자전거, 대중교통, 자동차로 나눈 비율이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "막대는 걷기나 자전거, 대중교통, 자동차 세 개예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "범례 색과 수단 이름부터 짝지어 두세요."
+              "text": "지역마다 막대 하나에 세 값이 들어 있습니다."
             }
           ],
-          "est_sec": 16.7,
+          "est_sec": 16.4,
           "pause_after_ms": 600
         },
         {
           "id": "c4",
           "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 삼 번입니다. 여기 네 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "아시아에서 대중교통이 세 수단 중"
+            },
+            {
+              "lang": "en-US",
+              "text": "the lowest"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "라고 하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "아시아 막대는 걷기와 자전거 삼십사, 대중교통 사십삼, 자동차 이십삼입니다."
+            }
+          ],
+          "est_sec": 19.6,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "analysis",
@@ -2803,51 +2824,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 삼 번입니다. 정답 블록을 보세요."
+              "text": "세 값을 줄 세워 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "아시아에서 대중교통이 세 수단 중 가장 낮다는 선지죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "the lowest among the three types"
+              "text": "사십삼이 가장 크고, 가장 작은 건 자동차 이십삼이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "가장 낮다는 말은 비교 두 번으로 섭니다."
+              "text": "대중교통은 최저가 아니라 최고죠. 순위 낱말 하나가 정반대로 뒤집혔습니다."
             }
           ],
-          "est_sec": 17.3,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 삼 번을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "대중교통을 걷기와 한 번, 자동차와 한 번 견줍니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "하나만 뒤집혀도 가장 낮다는 말은 무너져요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "곧 아시아엔 대중교통보다 낮은 수단이 따로 있습니다."
-            }
-          ],
-          "est_sec": 20,
+          "est_sec": 17.2,
           "pause_after_ms": 700
         },
         {
@@ -2861,19 +2849,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 남북 아메리카의 자동차가 칠십 퍼센트를 넘는다는 말이에요."
+              "text": "일 번은 내용이 맞아서 답이 아닙니다. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 자동차 막대와 칠십 눈금선만 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "막대 끝이 선 위이니 일치합니다."
+              "text": "남북미의 자동차 값은 칠십사, 칠십을 넘으니 도표와 맞아요."
             }
           ],
-          "est_sec": 15.4,
-          "pause_after_ms": 400
+          "est_sec": 13.4,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2886,19 +2873,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 유럽에서 걷기나 자전거가 자동차보다 덜 쓰였다는 말입니다."
+              "text": "이 번도 맞는 진술입니다. 세 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "유럽 묶음의 두 막대만 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "자동차가 더 높으니 일치해요. 상식으로 판단하지 마세요."
+              "text": "유럽은 걷기와 자전거 이십구, 자동차 사십오라서 덜 쓰였다는 말이 맞습니다."
             }
           ],
-          "est_sec": 17.2,
-          "pause_after_ms": 400
+          "est_sec": 13.4,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2911,23 +2897,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번은 절이 둘이니 나눠서 확인하세요."
+              "text": "사 번, 다섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "아프리카에선 걷기나 자전거가 가장 높다고 해요."
+              "text": "아프리카는 걷기와 자전거가 사십일로 셋 중 최고, 호주와 뉴질랜드는 육으로 셋 중 최저예요."
             },
             {
               "lang": "ko-KR",
-              "text": "오스트레일리아와 뉴질랜드에선 같은 수단이 가장 낮다고 하죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "둘 다 맞으니 지웁니다."
+              "text": "두 절이 모두 맞습니다."
             }
           ],
-          "est_sec": 19,
-          "pause_after_ms": 400
+          "est_sec": 15.9,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
           "id": "c9",
@@ -2940,19 +2925,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 모든 지역에서 대중교통이 오십 퍼센트 미만이라는 말이에요."
+              "text": "오 번, 여섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "대중교통 막대 중 가장 높은 하나만 찾으세요."
+              "text": "대중교통 값은 십오, 이십칠, 사십삼, 삼십칠, 십팔입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "그 하나가 오십 선 아래이니 일치합니다."
+              "text": "가장 큰 아시아도 오십 미만이라 다섯 지역 모두 성립해요."
             }
           ],
-          "est_sec": 16.2,
-          "pause_after_ms": 400
+          "est_sec": 15.7,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
@@ -2960,27 +2948,23 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:3"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 삼 번입니다. 첫 문장 안 삼 번을 짚어 보세요."
+              "text": "미끄러지는 자리는 여기 네 번째 문장입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "대중교통은 적다는 인상에 쉽게 믿게 돼요."
+              "text": "아시아의 대중교통 구간이 가장 길어 눈에 잘 띄니, 낱말만 훑으면 그냥 넘기기 쉬워요."
             },
             {
               "lang": "ko-KR",
-              "text": "오 번에서 이미 봤다는 착각도 생기죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "오십 선은 순위를 정하지 않으니 따로 확인하세요."
+              "text": "순위어가 보이면 세 값을 부등호로 직접 써 보세요."
             }
           ],
-          "est_sec": 19.5,
+          "est_sec": 18.9,
           "pause_after_ms": 600
         },
         {
@@ -2994,7 +2978,23 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘를 표시하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "lowest"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "는 가장 낮은,"
+            },
+            {
+              "lang": "en-US",
+              "text": "least common"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "은 가장 덜 흔한,"
             },
             {
               "lang": "en-US",
@@ -3002,38 +3002,10 @@
             },
             {
               "lang": "ko-KR",
-              "text": "대중교통."
-            },
-            {
-              "lang": "en-US",
-              "text": "commonly"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "흔히."
-            },
-            {
-              "lang": "en-US",
-              "text": "least"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "가장 적게."
-            },
-            {
-              "lang": "en-US",
-              "text": "regions"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "지역들."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "덜 흔하게라는 말은 비교 방향을 정하니 주목하세요."
+              "text": "는 대중교통입니다."
             }
           ],
-          "est_sec": 15.4,
+          "est_sec": 10.8,
           "pause_after_ms": 500
         },
         {
@@ -3047,18 +3019,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다. 순위어가 있는 진술은 그 지역의 세 값을 모두 줄 세운 뒤 판정합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "가장 높다, 가장 낮다는 그 묶음 막대를 모두 봐야 섭니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 볼 막대 수부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 지역, 수단, 순위어부터 표시하세요."
             }
           ],
-          "est_sec": 13.9,
+          "est_sec": 15.2,
           "pause_after_ms": 900
         }
       ]

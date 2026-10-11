@@ -17,6 +17,8 @@ import styles from './theater.module.css'
 const CIRCLED = ['', '①', '②', '③', '④', '⑤']
 
 export interface ComparePair {
+  /** same = 같은 방식으로 바뀐 쌍 · contrast = 라벨 · 표현은 같아 보이지만 판단을 가르는 조건이 다른 쌍 */
+  kind?: 'same' | 'contrast'
   other: string
   otherSlug: string
   otherLabel: string
@@ -26,14 +28,31 @@ export interface ComparePair {
   note: string
 }
 
+const COPY = {
+  same: { title: '같은 원리, 다른 글', lead: '오답이 같은 방식으로 만들어진 다른 문항이에요. 두 오답을 나란히 놓고 무엇이 같고 무엇이 다른지 확인해 보세요.', testid: 'compare-pairs' },
+  contrast: { title: '비슷해 보이지만 조건이 다른 글', lead: '함정 이름은 같지만 판단을 가르는 조건이 다른 문항이에요. 같은 요령이 어디서 통하고 어디서 안 통하는지 확인해 보세요.', testid: 'contrast-pairs' },
+} as const
+
 export function ComparePairs({ pairs, compared, onCompared }: { pairs: ComparePair[]; compared: ReadonlySet<string>; onCompared: (other: string) => void }) {
   if (!pairs.length) return null
   return (
-    <section className={styles.explain} aria-labelledby="compare-pairs-title" data-testid="compare-pairs">
-      <h2 id="compare-pairs-title">
-        같은 원리, 다른 글 <span className={styles.optional}>선택</span>
+    <>
+      {(['same', 'contrast'] as const).map((kind) => (
+        <PairGroup key={kind} kind={kind} pairs={pairs.filter((p) => (p.kind ?? 'same') === kind)} compared={compared} onCompared={onCompared} />
+      ))}
+    </>
+  )
+}
+
+function PairGroup({ kind, pairs, compared, onCompared }: { kind: 'same' | 'contrast'; pairs: ComparePair[]; compared: ReadonlySet<string>; onCompared: (other: string) => void }) {
+  if (!pairs.length) return null
+  const copy = COPY[kind]
+  return (
+    <section className={styles.explain} aria-labelledby={`${copy.testid}-title`} data-testid={copy.testid}>
+      <h2 id={`${copy.testid}-title`}>
+        {copy.title} <span className={styles.optional}>선택</span>
       </h2>
-      <p className="break-keep">오답이 같은 방식으로 만들어진 다른 문항이에요. 두 오답을 나란히 놓고 무엇이 같고 무엇이 다른지 확인해 보세요.</p>
+      <p className="break-keep">{copy.lead}</p>
       <ul className={styles.comparePairs}>
         {pairs.map((p) => (
           <li key={`${p.other}:${p.otherChoice}`}>
@@ -53,7 +72,7 @@ export function ComparePairs({ pairs, compared, onCompared }: { pairs: ComparePa
                 className={styles.back}
                 onClick={() => {
                   onCompared(p.other)
-                  track({ name: 'csat_transfer_submitted', props: { relation: 'same_principle' } })
+                  track({ name: 'csat_transfer_submitted', props: { relation: kind === 'contrast' ? 'contrast' : 'same_principle' } })
                 }}
                 data-testid="compare-done"
               >

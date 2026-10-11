@@ -2707,10 +2707,10 @@
     },
     "2021#25": {
       "item_id": "2021#25",
-      "version": 2,
-      "total_sec_est": 229,
+      "version": 3,
+      "total_sec_est": 169,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 85,
+      "rubric_score": 80,
       "cues": [
         {
           "id": "c1",
@@ -2723,18 +2723,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십일 학년도 수능 이십오 번, 도표 문항입니다."
+              "text": "여러분, 발문을 먼저 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "도표와 일치하지 않는 것을 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여섯 나라의 소매 판매 중 온라인 비중을 두 해로 나눈 도표예요."
+              "text": "정답 아닌 네 선지는 도표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 11.9,
           "pause_after_ms": 500
         },
         {
@@ -2752,156 +2752,110 @@
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 확인할 칸 수를 옆에 적으세요."
+              "text": "선지마다 확인할 칸 수를 먼저 세어 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "한 나라 한 해면 한 칸, 두 나라 두 해면 네 칸이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "칸이 많은 선지는 반례 한 칸만 찾으면 끝납니다."
+              "text": "나라 수에 해 수를 곱하면 됩니다."
             }
           ],
-          "est_sec": 17.7,
-          "pause_after_ms": 600
+          "est_sec": 11.9,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "지도를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "나라가 여섯, 해는 이천십이 년과 이천십구 년입니다."
+              "text": "첫 두 문장은 도표 소개와 용어 풀이이고, 세 번째부터 일곱 번째 문장이 선지예요."
             },
             {
               "lang": "ko-KR",
-              "text": "나라마다 두 해의 값을 짝지어 두세요."
+              "text": "흰 막대가 이천십이 년, 회색 막대가 이천십구 년입니다."
             }
           ],
-          "est_sec": 13.2,
-          "pause_after_ms": 600
+          "est_sec": 15.9,
+          "pause_after_ms": 600,
+          "focus": [
+            1,
+            6
+          ]
         },
         {
           "id": "c4",
           "order": 4,
-          "role": "structure",
+          "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:1"
+            "id": "sentence:6"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 두 번째 문장은 온라인 비중의 뜻풀이입니다."
+              "text": "정답은 오 번입니다. 여기 일곱 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "한 나라 소매 판매 중 온라인으로 이뤄진 비율이에요."
+              "text": "스페인과 이탈리아가"
+            },
+            {
+              "lang": "en-US",
+              "text": "both in 2012 and in 2019"
             },
             {
               "lang": "ko-KR",
-              "text": "선지 다섯도 이 문장 뒤에 이어지니 주목하세요."
+              "text": "오 퍼센트 미만이었다고 하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "두 나라에 두 해, 네 칸이 모두 조건을 지켜야 합니다."
             }
           ],
-          "est_sec": 15.9,
-          "pause_after_ms": 600
+          "est_sec": 18.6,
+          "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:6"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 오 번입니다. 정답 블록을 보세요."
+              "text": "여기 일곱 번째 문장의 네 칸을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "스페인과 이탈리아가 두 해 모두 각각 오 점 영 퍼센트 미만이라는 말이죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "each country"
+              "text": "스페인 이천십이 년, 이탈리아 두 해는 오 미만이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 나라 곱하기 두 해, 네 칸이 다 걸립니다."
+              "text": "그런데 스페인 이천십구 년은 오 점 사로 경계를 넘습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "한 칸이 깨지니 진술 전체가 틀려요."
             }
           ],
-          "est_sec": 17.5,
+          "est_sec": 19.5,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:1"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 두 번째 문장 안의 일 번을 함께 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "모든 나라에서 이천십구 년 값이 더 크다고 합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그러니 이천십이 년 칸이 오를 넘으면, 이천십구 년 칸도 넘어요."
-            }
-          ],
-          "est_sec": 16.9,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:1"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 두 번째 문장 안의 오 번으로 돌아오세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "먼저 볼 곳은 두 나라의 이천십구 년 칸 둘입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표가 오 번이니, 그중 하나는 오 점 영 위에 있어요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "한 칸만 넘어도 선지가 깨집니다."
-            }
-          ],
-          "est_sec": 19,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c8",
-          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2910,23 +2864,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 여섯 나라 모두 이천십구 년 값이 더 크다는 말입니다."
+              "text": "일 번, 세 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "나라마다 두 값의 크기만 확인하세요."
+              "text": "나라마다라고 했으니 여섯 쌍을 다 봅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여섯 쌍 모두 뒤쪽이 크니 일치해요."
+              "text": "여섯 나라 모두 이천십구 년 값이 더 커서 맞는 진술이에요."
             }
           ],
-          "est_sec": 13.9,
-          "pause_after_ms": 400
+          "est_sec": 14.2,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2935,23 +2892,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 이천십구 년 영국이 십구 점 칠 퍼센트로 가장 크다는 말이에요."
+              "text": "이 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "삼 번이 둘째 값을 십육 점 오로 못 박는 것을 확인하세요."
+              "text": "이천십구 년 회색 막대 중 영국 십구 점 칠이 가장 큽니다."
             },
             {
               "lang": "ko-KR",
-              "text": "가장 높은 값이 영국이니 일치합니다."
+              "text": "순위와 수치가 모두 도표와 같아요."
             }
           ],
-          "est_sec": 16.9,
-          "pause_after_ms": 400
+          "est_sec": 13.2,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2960,23 +2920,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 이천십구 년 미국이 십육 점 오 퍼센트로 둘째라는 말입니다."
+              "text": "삼 번, 다섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이 번과 한 쌍으로, 위 두 값만 확인하세요."
+              "text": "이천십구 년은 영국 다음이 미국 십육 점 오, 그다음이 프랑스 십 점 구예요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 나라의 자리가 맞으니 일치해요."
+              "text": "두 번째라는 말이 맞습니다."
             }
           ],
-          "est_sec": 14.9,
-          "pause_after_ms": 400
+          "est_sec": 13.9,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2985,52 +2948,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 이천십이 년엔 네덜란드가 프랑스보다 컸고, 이천십구 년엔 반대라는 말이에요."
+              "text": "사 번, 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 해를 떼어 대소만 확인하세요."
+              "text": "이천십이 년엔 네덜란드 오 점 칠이 프랑스 오 점 사보다 커요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 해의 대소가 서로 반대이니 일치합니다."
+              "text": "이천십구 년엔 구 점 구 대 십 점 구로 뒤집힙니다. 역전이 실제로 있죠."
             }
           ],
-          "est_sec": 16.9,
-          "pause_after_ms": 400
+          "est_sec": 17.5,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c12",
-          "order": 12,
-          "role": "trap",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:1"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 두 번째 문장 안의 오 번이 함정입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 나라 값이 작아 보여 그럴듯하죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그래서 한두 칸만 보고 넘기기 쉬워요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "네 칸을 오 점 영 선에 하나씩 대 보세요."
-            }
-          ],
-          "est_sec": 16.5,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c13",
-          "order": 13,
+          "id": "c10",
+          "order": 10,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -3039,47 +2976,31 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "표현 두 개를 확인하세요."
             },
             {
               "lang": "en-US",
-              "text": "retail"
+              "text": "online share"
             },
             {
               "lang": "ko-KR",
-              "text": "소매."
+              "text": "는 소매 판매 중 온라인 판매의 비율,"
             },
             {
               "lang": "en-US",
-              "text": "share"
+              "text": "the reverse was true"
             },
             {
               "lang": "ko-KR",
-              "text": "비중."
-            },
-            {
-              "lang": "en-US",
-              "text": "whereas"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "반면에."
-            },
-            {
-              "lang": "en-US",
-              "text": "the reverse"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그 반대."
+              "text": "는 그 반대였다는 뜻이에요."
             }
           ],
-          "est_sec": 9.1,
+          "est_sec": 12.6,
           "pause_after_ms": 500
         },
         {
-          "id": "c14",
-          "order": 14,
+          "id": "c11",
+          "order": 11,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -3088,18 +3009,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "각각과 모두가 겹친 선지는 걸린 칸을 전부 봐야 섭니다."
+              "text": "여러 나라, 여러 해에 걸린 조건은 칸마다 경계와 견줍니다."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 확인할 칸 수부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지마다 볼 칸 수부터 세어 표시하세요."
             }
           ],
-          "est_sec": 14.2,
+          "est_sec": 13.9,
           "pause_after_ms": 900
         }
       ]

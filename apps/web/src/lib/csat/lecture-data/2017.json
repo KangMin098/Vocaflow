@@ -2287,10 +2287,10 @@
     },
     "2017#24": {
       "item_id": "2017#24",
-      "version": 2,
-      "total_sec_est": 232,
+      "version": 3,
+      "total_sec_est": 198,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 84,
+      "rubric_score": 90,
       "cues": [
         {
           "id": "c1",
@@ -2303,69 +2303,40 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여러분, 이천십칠 학년도 수능 영어 이십사 번, 도표 일치입니다."
+              "text": "여러분, 이 문항은 도표와 맞지 않는 진술을 고르는 문제예요. 발문의 않는 것은에 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문두를 확인하세요. 도표와 일치하지 않는 것을 고릅니다."
+              "text": "답이 아닌 네 선지는 도표와 맞는 진술입니다."
             }
           ],
-          "est_sec": 12.9,
+          "est_sec": 15.2,
           "pause_after_ms": 500
         },
         {
           "id": "c2",
           "order": 2,
-          "role": "intro",
+          "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "ability"
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "재는 힘에 주목하세요."
+              "text": "읽기 전에 할 일은 하나예요. 선지마다 어느 원, 어느 조각인지 먼저 적으세요."
             },
             {
               "lang": "ko-KR",
-              "text": "원그래프 두 개에서 같은 이름의 조각을 원마다 갈라 짚고,"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "한 선지에 든 두 주장을 하나씩 따로 확인하는 힘입니다."
+              "text": "왼쪽 원은 교사, 오른쪽 원은 성인 검색 이용자입니다. 원 아래 이름표로 확인하세요."
             }
           ],
-          "est_sec": 14.4,
+          "est_sec": 17,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
-          "role": "strategy",
-          "target": {
-            "kind": "analysis",
-            "id": "head"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "읽기 전에 선지부터 읽으세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "선지마다 어느 원의 어느 조각인지 옆에 표시하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "따옴표로 묶인 말이 곧 조각 이름입니다."
-            }
-          ],
-          "est_sec": 13.2,
-          "pause_after_ms": 500
-        },
-        {
-          "id": "c4",
-          "order": 4,
           "role": "structure",
           "target": {
             "kind": "analysis",
@@ -2374,48 +2345,65 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "지도 전체를 보세요. 원은 교사 집단과 미국 성인 검색 사용자, 둘입니다."
+              "text": "지도를 보세요. 첫 문장은 도표 소개이고, 두 번째부터 여섯 번째 문장이 선지 다섯입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "원마다 조각을 합하면 백이죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "Some"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "성인 원에서 이 조각을 말하는 선지는 삼 번 하나뿐입니다."
+              "text": "몇몇 선지는 두 절이 이어져 있어요. 절마다 원 하나씩을 따로 가리킨다는 점에 주목하세요."
             }
           ],
-          "est_sec": 17.6,
-          "pause_after_ms": 600
+          "est_sec": 19,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 네 번째 문장, 삼 번이 정답입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "앞 절의 교사 쪽 썸은 사십 퍼센트라 맞아요."
+            }
+          ],
+          "est_sec": 8.6,
+          "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:3"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 삼 번. 확인하세요, 두 원의 같은 조각을 한 문장에 주장하죠."
+              "text": "같은 문장에서 뒤 절을 확인하세요."
             },
             {
               "lang": "en-US",
-              "text": "Some"
+              "text": "respond the same"
             },
             {
               "lang": "ko-KR",
-              "text": "교사 원이 사십, 성인 원이 삼십 초과라는 두 주장입니다."
+              "text": "이 말은 같은 썸 조각을 성인 원에서 묻습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "하나만 어긋나도 문장 전체가 틀립니다."
+              "text": "성인 원의 썸은 이십이 퍼센트예요. 삼십에 못 미치니 도표와 어긋납니다."
             }
           ],
           "est_sec": 17.9,
@@ -2424,60 +2412,6 @@
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 삼 번의 뒤 절을 보세요. 정답표상 나머지 넷은 일치하는 선지입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그러면 성인 원에서 이십팔과 일, 오 미만을 빼고"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "육십육 초과, 칠십일 이하가 남습니다."
-            }
-          ],
-          "est_sec": 17,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 남은 몫을 두 조각이 나눕니다."
-            },
-            {
-              "lang": "en-US",
-              "text": "Most"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이 번대로 이쪽이 가장 크니, 삼 번의 조각은 삼십오 점 오 아래죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "틈이 좁아요. 어긋난 절은 그림에서 확인하세요."
-            }
-          ],
-          "est_sec": 16.4,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c8",
-          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2486,27 +2420,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번. 두 원의 이 조각을 하나씩 짚어 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "All / Almost all"
+              "text": "일 번은 두 번째 문장을 짚어 보세요. 거의 전부라는 조각이 교사 원에서 오 퍼센트, 성인 원에서 이십팔 퍼센트예요."
             },
             {
               "lang": "ko-KR",
-              "text": "교사 원이 오, 성인 원이 이십팔인지 봅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표상 일치하는 선지이니, 두 값 모두 그림과 맞습니다."
+              "text": "두 값이 도표와 같아 맞는 진술이고, 그래서 답이 아닙니다."
             }
           ],
-          "est_sec": 16.9,
-          "pause_after_ms": 400
+          "est_sec": 17.9,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2515,31 +2444,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번. 둘 다라 했으니 두 원을 모두 보세요."
+              "text": "이 번은 세 번째 문장을 확인하세요. 교사 원은 모스트가 오십오로 가장 크고, 성인 원도 모스트가 사십오로 가장 큽니다."
             },
             {
               "lang": "ko-KR",
-              "text": "성인 원은 남은 두 조각 합이 육십육을 넘으니, 최대는 이 둘 중 하나죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "Most"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이쪽이 더 크고, 교사 원에서도 가장 큰지 봅니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표상 맞아요."
+              "text": "두 원 모두 맞으니 답이 아니에요."
             }
           ],
-          "est_sec": 19.4,
-          "pause_after_ms": 400
+          "est_sec": 15.9,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2548,27 +2468,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번. 성인 원의 이 조각 숫자를 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "Very little / None"
+              "text": "사 번은 다섯 번째 문장을 보세요. 성인 원에서 거의 없다는 조각은 사 퍼센트예요."
             },
             {
               "lang": "ko-KR",
-              "text": "오보다 작은지만 보면 되고, 정답표상 일치합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "일 번의 오는 교사 원의 다른 조각이니 섞지 마세요."
+              "text": "오보다 작다는 진술과 맞으니 답이 아닙니다."
             }
           ],
-          "est_sec": 16.9,
-          "pause_after_ms": 400
+          "est_sec": 13.4,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2577,48 +2492,47 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번. 성인 원의 모름 조각 숫자를 확인하세요."
+              "text": "오 번은 여섯 번째 문장을 짚어 보세요. 성인 원의 모르겠다 조각은 일 퍼센트입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "아주 얇은 조각이라도 크기를 눈대중하지 말고, 적힌 숫자를 읽습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그 숫자가 일인지 보면 되고, 정답표상 일치해요."
+              "text": "진술과 같은 값이라 맞는 진술이고, 답이 아니에요."
             }
           ],
-          "est_sec": 17.5,
-          "pause_after_ms": 400
+          "est_sec": 14.2,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:3"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정 이름은 두 절 중 한 절만 확인. 여기 삼 번 선지를 보세요."
+              "text": "여기 네 번째 문장이 연결된 두 절의 함정입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "앞 절의 사십을 대 보고 끝났다고 느끼기 쉽죠."
+              "text": "앞 절이 맞으면 뒤 절은 넘기기 쉽죠. 바뀐 건 뒤 절의 성인 쪽 숫자였어요."
             },
             {
               "lang": "ko-KR",
-              "text": "어느 절이 틀렸는지 미리 정하지 말고, 두 절에 따로 표시하세요."
+              "text": "앤드로 묶인 선지는 절마다 따로 원을 찾아 숫자를 확인하세요."
             }
           ],
-          "est_sec": 17.7,
+          "est_sec": 19.2,
           "pause_after_ms": 600
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -2627,7 +2541,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘를 보세요."
             },
             {
               "lang": "en-US",
@@ -2639,11 +2553,11 @@
             },
             {
               "lang": "en-US",
-              "text": "respondents"
+              "text": "respond the same"
             },
             {
               "lang": "ko-KR",
-              "text": "응답자."
+              "text": "같은 답을 하다, 곧 앞과 같은 조각을 고른다는 뜻이에요."
             },
             {
               "lang": "en-US",
@@ -2651,15 +2565,15 @@
             },
             {
               "lang": "ko-KR",
-              "text": "차지하다."
+              "text": "비율을 차지하다로 읽으세요."
             }
           ],
-          "est_sec": 8.4,
+          "est_sec": 15.4,
           "pause_after_ms": 500
         },
         {
-          "id": "c14",
-          "order": 14,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -2668,18 +2582,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 주장이 둘인 선지는 절마다 따로 대조하세요."
+              "text": "정리할게요. 두 절이 이어진 선지는 절마다 원과 조각을 따로 대조한다, 이것이 규칙입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "확인된 값을 모으면 남은 칸이 좁혀져요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 어느 원의 어느 조각인지부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지마다 어느 원, 어느 조각인지부터 적어 확인하세요."
             }
           ],
-          "est_sec": 18.2,
+          "est_sec": 17.4,
           "pause_after_ms": 900
         }
       ]

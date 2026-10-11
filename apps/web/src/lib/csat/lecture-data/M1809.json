@@ -2226,6 +2226,350 @@
         }
       ]
     },
+    "M1809#24": {
+      "item_id": "M1809#24",
+      "version": 1,
+      "total_sec_est": 201,
+      "generated_by": "claude-opus-5 · Claude Code 드레인",
+      "rubric_score": 93,
+      "cues": [
+        {
+          "id": "c1",
+          "order": 1,
+          "role": "intro",
+          "target": {
+            "kind": "analysis",
+            "id": "head"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 발문부터 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "도표와 일치하지 않는 진술을 고르는 문항이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "답이 아닌 네 진술은 도표와 맞습니다. 막대에 숫자가 없다는 점도 보세요."
+            }
+          ],
+          "est_sec": 16.5,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c2",
+          "order": 2,
+          "role": "strategy",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "읽기 전에 할 일은 하나예요. 선지마다 어느 계열을 묻는지 표시하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빗금은 자동차 산업, 회색은 그 외 산업이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "접속어로 이은 선지는 절마다 끊어 표시합니다."
+            }
+          ],
+          "est_sec": 17.5,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c3",
+          "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "analysis",
+            "id": "map"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "지도를 보세요. 첫 문장은 도표 소개예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "나라 여섯 곳마다 막대가 두 개씩 있고, 왼쪽 축 이백 단위 눈금선으로 값을 어림합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "선지는 계열 비교, 최대, 최소, 경계, 상위 셋을 묻습니다."
+            }
+          ],
+          "est_sec": 19,
+          "pause_after_ms": 600,
+          "focus": [
+            0
+          ]
+        },
+        {
+          "id": "c4",
+          "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 삼 번입니다. 여기 네 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "앞 절은 자동차 산업에서 대한민국이 가장 적다고 해요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그런데 대한민국 빗금 막대는 팔백 눈금 위이고, 영국은 육백과 팔백 사이예요."
+            }
+          ],
+          "est_sec": 19.2,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "analysis",
+            "id": "answer"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답 칸을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "자동차 산업 최솟값의 주인은 영국이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "뒤 절, 그 외 산업 최대가 대한민국이라는 말은 맞습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "바뀐 것은 앞 절의 최솟값 나라 하나예요."
+            }
+          ],
+          "est_sec": 17.2,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:1"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "일 번. 두 번째 문장을 짚어 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빗금 막대는 모두 육백 눈금 위, 회색 막대는 모두 삼백 아래예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여섯 나라 모두 자동차 쪽이 많으니 맞는 진술입니다."
+            }
+          ],
+          "est_sec": 16,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
+        },
+        {
+          "id": "c7",
+          "order": 7,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:2"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이 번. 세 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빗금 막대 가운데 천사백 눈금을 넘는 건 일본뿐이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "일본이 최대라는 말이 맞아서 답이 아닙니다."
+            }
+          ],
+          "est_sec": 14.5,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
+        },
+        {
+          "id": "c8",
+          "order": 8,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "사 번. 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "미국과 영국의 빗금 막대는 둘 다 육백 눈금 위예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "회색 막대는 둘 다 이백 눈금 아래라 네 조건이 모두 맞습니다."
+            }
+          ],
+          "est_sec": 15.2,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
+        },
+        {
+          "id": "c9",
+          "order": 9,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번. 여섯 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "빗금 막대 상위 셋은 일본, 이탈리아, 독일이에요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "미국 막대는 독일보다 낮아 네 번째라 맞는 진술입니다."
+            }
+          ],
+          "est_sec": 15,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
+        },
+        {
+          "id": "c10",
+          "order": 10,
+          "role": "trap",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "함정은 계열 최솟값의 대상 바꾸기예요. 여기 네 번째 문장."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "대한민국 회색 막대가 눈에 띄게 높아 뒤 절이 바로 참으로 보여요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "절을 끊고 앞 절은 빗금 막대만 다시 보세요."
+            }
+          ],
+          "est_sec": 17.7,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c11",
+          "order": 11,
+          "role": "vocab",
+          "target": {
+            "kind": "analysis",
+            "id": "vocab"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "어휘 칸을 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "automotive"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "자동차의."
+            },
+            {
+              "lang": "en-US",
+              "text": "smallest"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "가장 적은."
+            },
+            {
+              "lang": "en-US",
+              "text": "While"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "~인 반면."
+            }
+          ],
+          "est_sec": 7.8,
+          "pause_after_ms": 500
+        },
+        {
+          "id": "c12",
+          "order": 12,
+          "role": "wrapup",
+          "target": {
+            "kind": "analysis",
+            "id": "procedure"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정리할게요. 접속어로 이은 진술은 절마다 계열을 정해 따로 판정합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "숫자가 없으면 눈금선 위아래로만 견주세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 선지마다 묻는 계열부터 표시하세요."
+            }
+          ],
+          "est_sec": 18.7,
+          "pause_after_ms": 900
+        }
+      ]
+    },
     "M1809#25": {
       "item_id": "M1809#25",
       "version": 2,

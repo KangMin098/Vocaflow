@@ -2742,8 +2742,8 @@
     },
     "2022#25": {
       "item_id": "2022#25",
-      "version": 2,
-      "total_sec_est": 232,
+      "version": 3,
+      "total_sec_est": 180,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
       "rubric_score": 86,
       "cues": [
@@ -2758,18 +2758,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십이 학년도 수능 이십오 번, 도표 문항입니다."
+              "text": "여러분, 머리의 발문을 먼저 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "도표와 일치하지 않는 것을 고르는 문항입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "세계 중산층에서 지역마다 차지하는 몫을 두 해로 나눈 도표예요."
+              "text": "그러니 정답 아닌 네 선지는 도표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 18.2,
+          "est_sec": 14.4,
           "pause_after_ms": 500
         },
         {
@@ -2787,76 +2787,72 @@
             },
             {
               "lang": "ko-KR",
-              "text": "숫자가 없는 선지에 별표로 표시하세요."
+              "text": "선지마다 지역 이름과 두 해 숫자에 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "숫자 없는 선지는 도표를 직접 봐야 판정돼요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이 문항에선 사 번과 오 번입니다."
+              "text": "그 쌍을 들고 도표 칸으로 갑니다."
             }
           ],
-          "est_sec": 16,
-          "pause_after_ms": 600
+          "est_sec": 11.9,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "지도를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십오 년 몫과 이천이십오 년 예상 몫, 두 그래프입니다."
+              "text": "첫 문장은 도표 소개이고, 두 번째부터 여섯 번째 문장이 선지 다섯 개예요."
             },
             {
               "lang": "ko-KR",
-              "text": "지역은 여섯이고, 몫이니 해마다 합이 백이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "선지 다섯도 이 문장 안에 이어져 있습니다."
+              "text": "작은 칸 넷은 띠 오른쪽에 몰려 있고 이름표가 위로 빠져 있습니다."
             }
           ],
-          "est_sec": 19.2,
-          "pause_after_ms": 600
+          "est_sec": 16.2,
+          "pause_after_ms": 600,
+          "focus": [
+            0,
+            5
+          ]
         },
         {
           "id": "c4",
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 정답 블록을 보세요."
+              "text": "정답은 사 번입니다. 여기 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "중남미의 비율이"
             },
             {
               "lang": "en-US",
-              "text": "is not expected to change"
+              "text": "not expected to change"
             },
             {
               "lang": "ko-KR",
-              "text": "중남미의 몫이 변하지 않을 것으로 예상된다는 말이죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "숫자가 없어서 두 칸을 직접 견줘야 판정됩니다."
+              "text": "라고, 곧 변하지 않으리라고 하죠."
             }
           ],
-          "est_sec": 17.7,
+          "est_sec": 13,
           "pause_after_ms": 700
         },
         {
@@ -2865,61 +2861,28 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장 안 일 번과 삼 번의 숫자를 짚어 보세요."
+              "text": "여기 다섯 번째 문장을 도표와 맞대 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "아시아 태평양, 유럽, 북미의 몫입니다."
+              "text": "도표의 중남미는 이천십오 년 구, 이천이십오 년 칠 퍼센트예요."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십오 년은 사십육, 이십사, 십일로 팔십일이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이천이십오 년은 육십, 십육, 팔로 팔십사죠."
+              "text": "두 포인트 줄어드니 변화 없음과 어긋납니다."
             }
           ],
-          "est_sec": 19.5,
+          "est_sec": 15.9,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장으로 계산을 이어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "남은 세 지역의 합은 십구에서 십육으로 줄어야 해요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "누가 줄었는지는 숫자만으로 안 갈립니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표가 사 번이니, 중남미의 두 칸은 같지 않아요."
-            }
-          ],
-          "est_sec": 19.5,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2928,23 +2891,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 아시아 태평양이 사십육에서 육십으로 늘 것으로 예상된다는 말이에요."
+              "text": "일 번, 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 그래프에서 같은 지역 칸만 확인하세요."
+              "text": "아시아 태평양은 사십육에서 육십으로 늘 것으로 예상돼요."
             },
             {
               "lang": "ko-KR",
-              "text": "각 해의 같은 지역 값이니 일치합니다."
+              "text": "방향과 두 값이 도표와 같아서, 맞는 진술이라 답이 아닙니다."
             }
           ],
-          "est_sec": 16.7,
-          "pause_after_ms": 400
+          "est_sec": 16.2,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
-          "id": "c8",
-          "order": 8,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2953,27 +2919,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 이천이십오 년 아시아 태평양이 같은 해 유럽의 세 배가 넘는다는 말입니다."
+              "text": "이 번, 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "같은 해라는 말에 주목하세요."
+              "text": "이천이십오 년 아시아 태평양 육십은 여섯 지역 중 가장 커요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번의 육십과 삼 번의 십육을 씁니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "십육의 세 배는 사십팔이니 일치해요."
+              "text": "유럽 십육의 세 배는 사십팔이니, 육십은 세 배를 넘습니다. 맞는 진술이죠."
             }
           ],
-          "est_sec": 19.7,
-          "pause_after_ms": 400
+          "est_sec": 17.7,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2982,27 +2947,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 유럽과 북미가 둘 다 줄 것으로 예상된다는 말이에요."
+              "text": "삼 번, 네 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "숫자 쌍을 지역별로 끊어 확인하세요."
+              "text": "유럽은 이십사에서 십육, 북미는 십일에서 팔로 둘 다 줄어요."
             },
             {
               "lang": "ko-KR",
-              "text": "유럽은 이십사에서 십육, 북미는 십일에서 팔입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "둘 다 앞 수가 크니 일치해요."
+              "text": "네 값이 모두 도표 칸과 같습니다."
             }
           ],
-          "est_sec": 18.7,
-          "pause_after_ms": 400
+          "est_sec": 12.9,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -3011,52 +2975,51 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 이천이십오 년에도 중동과 북아프리카가 사하라 이남보다 크다는 말입니다."
+              "text": "오 번, 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십오 년에도 그랬다는 꼬리까지, 두 해를 따로 확인하세요."
+              "text": "중동과 북아프리카는 육, 사하라 이남은 사예요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 해 모두 대소가 맞으니 일치해요."
+              "text": "두 해 모두 앞쪽이 더 크니 맞는 진술입니다."
             }
           ],
-          "est_sec": 18.9,
-          "pause_after_ms": 400
+          "est_sec": 13.4,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 사 번이 함정입니다."
+              "text": "미끄러지기 쉬운 자리는 여기 다섯 번째 문장입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "숫자 검산을 마치면 변화 없음은 그냥 믿기 쉬워요."
+              "text": "옆 칸 두 지역은 실제로 값이 그대로라, 중남미도 그렇다고 믿기 쉽죠."
             },
             {
               "lang": "ko-KR",
-              "text": "그것도 두 칸을 견줘야 서는 주장이죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "숫자 없는 선지는 마지막에 꼭 확인하세요."
+              "text": "변화 없음은 두 값을 빼서 영인지 확인하세요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 17.4,
           "pause_after_ms": 600
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -3065,15 +3028,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "share"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "몫, 비중."
+              "text": "낱말 두 개를 확인하세요."
             },
             {
               "lang": "en-US",
@@ -3081,31 +3036,23 @@
             },
             {
               "lang": "ko-KR",
-              "text": "예상되는."
+              "text": "는 예상되는,"
             },
             {
               "lang": "en-US",
-              "text": "region"
+              "text": "share"
             },
             {
               "lang": "ko-KR",
-              "text": "지역."
-            },
-            {
-              "lang": "en-US",
-              "text": "decrease"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "줄다."
+              "text": "는 전체 중의 몫, 비율이에요."
             }
           ],
-          "est_sec": 9,
+          "est_sec": 8.8,
           "pause_after_ms": 500
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -3114,18 +3061,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "숫자 없는 단정도 도표의 두 칸을 요구합니다."
+              "text": "변화 없음과 증감은 두 값을 빼서 보고, 배수는 작은 값에 곱해서 견줍니다."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 숫자 없는 선지부터 별표로 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 지역 이름과 숫자부터 표시하세요."
             }
           ],
-          "est_sec": 13.2,
+          "est_sec": 15.7,
           "pause_after_ms": 900
         }
       ]

@@ -6,11 +6,11 @@
     "exams": 30,
     "items": 802,
     "analyzed": 802,
-    "distractors": 2796,
-    "distinct_traps": 337,
-    "named": 2285,
-    "named_recent": 1024,
-    "recent": 1268,
+    "distractors": 2680,
+    "distinct_traps": 303,
+    "named": 2232,
+    "named_recent": 998,
+    "recent": 1216,
     "year_min": 2014,
     "year_max": 2027
   },
@@ -86,15 +86,6 @@
       "recent": 52,
       "items": 29,
       "named": 113
-    },
-    {
-      "id": "R-CHART",
-      "name": "도표",
-      "status": "active",
-      "distractors": 116,
-      "recent": 52,
-      "items": 29,
-      "named": 53
     },
     {
       "id": "R-CLAIM",
@@ -456,45 +447,6 @@
       "examples": []
     },
     {
-      "key": "범위 과대",
-      "n": 115,
-      "recent": 59,
-      "items": 115,
-      "types": 14,
-      "by_type": {
-        "R-BLANK": 24,
-        "R-NOTICE": 23,
-        "R-TITLE": 13,
-        "R-CHART": 12,
-        "R-TOPIC": 9,
-        "R-GIST": 6,
-        "X-TITLE": 6,
-        "R-CLAIM": 5,
-        "R-MOOD": 5,
-        "R-PURPOSE": 4,
-        "R-IMPLY": 3,
-        "R-SUMMARY": 2,
-        "X-FACT": 2,
-        "R-FACT": 1
-      },
-      "by_type_recent": {
-        "R-NOTICE": 13,
-        "R-BLANK": 11,
-        "R-TOPIC": 6,
-        "R-TITLE": 5,
-        "R-CHART": 4,
-        "X-TITLE": 4,
-        "R-CLAIM": 3,
-        "R-GIST": 3,
-        "R-IMPLY": 3,
-        "R-PURPOSE": 3,
-        "R-MOOD": 2,
-        "R-SUMMARY": 1,
-        "X-FACT": 1
-      },
-      "examples": []
-    },
-    {
       "key": "주체 역전",
       "n": 108,
       "recent": 46,
@@ -531,6 +483,43 @@
         "R-SUMMARY": 3,
         "R-TOPIC": 2,
         "R-GIST": 1
+      },
+      "examples": []
+    },
+    {
+      "key": "범위 과대",
+      "n": 103,
+      "recent": 55,
+      "items": 103,
+      "types": 13,
+      "by_type": {
+        "R-BLANK": 24,
+        "R-NOTICE": 23,
+        "R-TITLE": 13,
+        "R-TOPIC": 9,
+        "R-GIST": 6,
+        "X-TITLE": 6,
+        "R-CLAIM": 5,
+        "R-MOOD": 5,
+        "R-PURPOSE": 4,
+        "R-IMPLY": 3,
+        "R-SUMMARY": 2,
+        "X-FACT": 2,
+        "R-FACT": 1
+      },
+      "by_type_recent": {
+        "R-NOTICE": 13,
+        "R-BLANK": 11,
+        "R-TOPIC": 6,
+        "R-TITLE": 5,
+        "X-TITLE": 4,
+        "R-CLAIM": 3,
+        "R-GIST": 3,
+        "R-IMPLY": 3,
+        "R-PURPOSE": 3,
+        "R-MOOD": 2,
+        "R-SUMMARY": 1,
+        "X-FACT": 1
       },
       "examples": []
     },
@@ -811,48 +800,6 @@
       "examples": []
     },
     {
-      "key": "항목 짝 바꾸기",
-      "n": 13,
-      "recent": 3,
-      "items": 13,
-      "types": 1,
-      "by_type": {
-        "R-CHART": 13
-      },
-      "by_type_recent": {
-        "R-CHART": 3
-      },
-      "examples": []
-    },
-    {
-      "key": "임계값 경계",
-      "n": 10,
-      "recent": 8,
-      "items": 10,
-      "types": 1,
-      "by_type": {
-        "R-CHART": 10
-      },
-      "by_type_recent": {
-        "R-CHART": 8
-      },
-      "examples": []
-    },
-    {
-      "key": "전칭 검증 부담",
-      "n": 10,
-      "recent": 8,
-      "items": 10,
-      "types": 1,
-      "by_type": {
-        "R-CHART": 10
-      },
-      "by_type_recent": {
-        "R-CHART": 8
-      },
-      "examples": []
-    },
-    {
       "key": "국소 어색함",
       "n": 9,
       "recent": 9,
@@ -877,20 +824,6 @@
       },
       "by_type_recent": {
         "R-ORDER": 9
-      },
-      "examples": []
-    },
-    {
-      "key": "대소 비교 뒤집기",
-      "n": 8,
-      "recent": 3,
-      "items": 8,
-      "types": 1,
-      "by_type": {
-        "R-CHART": 8
-      },
-      "by_type_recent": {
-        "R-CHART": 3
       },
       "examples": []
     }

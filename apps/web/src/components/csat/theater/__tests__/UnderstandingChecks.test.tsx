@@ -61,3 +61,23 @@ describe('같은 원리 비교 쌍', () => {
     expect(html).toContain('두 오답을 비교했어요')
   })
 })
+
+describe('비슷해 보이지만 조건이 다른 쌍', () => {
+  it('대조 쌍은 따로 묶어 보이고 같은 원리 묶음과 섞지 않는다', () => {
+    const base = { otherSlug: 'x', otherLabel: '2025학년도 수능 22번', choice: 2, otherChoice: 4, trap: '어휘 함정' }
+    const html = renderToStaticMarkup(
+      <ComparePairs
+        pairs={[
+          { ...base, other: 'A', kind: 'same', note: '같은 방식으로 바뀐 쌍' },
+          { ...base, other: 'B', kind: 'contrast', note: '둘 다 낱말이 겹치지만 한쪽은 뜻이 바뀌어 갈린다' },
+        ]}
+        compared={new Set()}
+        onCompared={noop}
+      />,
+    )
+    expect(html).toContain('같은 원리, 다른 글')
+    expect(html).toContain('비슷해 보이지만 조건이 다른 글')
+    expect(html).toContain('data-testid="contrast-pairs"')
+    expect(html.indexOf('같은 방식으로 바뀐 쌍')).toBeLessThan(html.indexOf('비슷해 보이지만'))
+  })
+})

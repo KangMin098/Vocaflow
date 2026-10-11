@@ -161,38 +161,6 @@
         "reject": "지문은 연주자의 심리 상태를 다룬 적이 없다. 연주자에 대한 서술은 3~5번 문장의 '똑같이 연주하지 않는다'는 사실 하나뿐이다"
       }
     ],
-    "범위 과대": [
-      {
-        "item_id": "M2409#25",
-        "slug": "M2409-25",
-        "exam_label": "2024학년도 9월 모의평가",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 4,
-        "tempting": "the only year 가 세 해를 모두 확인하라고 요구하는데, 지목된 2016년 한 해만 맞춰 보고 나머지 두 해에서 같은 조건이 성립하는지는 세지 않는다.",
-        "reject": "Blacks 행과 Hispanics 행을 세 해 각각에서 견줘 히스패닉이 더 큰 해가 몇 개인지 센다."
-      },
-      {
-        "item_id": "2025#28",
-        "slug": "2025-28",
-        "exam_label": "2025학년도 수능",
-        "no": 28,
-        "type_id": "R-NOTICE",
-        "choice": 2,
-        "tempting": "1월 24일에서 30일까지를 날짜 차이로 어림하면 열흘 가까이 되는 것처럼 보인다.",
-        "reject": "When & Where 줄이 January 24th—30th (7 days) 로 괄호에 일수를 직접 적는다."
-      },
-      {
-        "item_id": "2026#18",
-        "slug": "2026-18",
-        "exam_label": "2026학년도 수능",
-        "no": 18,
-        "type_id": "R-PURPOSE",
-        "choice": 5,
-        "tempting": "셋째 문장의 extracurricular activities 와 다섯째 문장의 hip-hop, K-pop dancing, or coding 예시가 프로그램 소개문처럼 보인다.",
-        "reject": "예시는 만들 수 있는 동아리의 종류일 뿐이고, 여섯째·일곱째 문장의 요구와 마감을 설명이라는 서술어로는 덮을 수 없다."
-      }
-    ],
     "주체 역전": [
       {
         "item_id": "M2609#26",
@@ -223,6 +191,38 @@
         "choice": 5,
         "tempting": "교내 공모전이라는 소재 때문에 수상자 선정을 학생회가 맡는다고 짐작하기 쉽고, 바로 위 줄에 학교 앱이 나와 학생 조직의 인상이 겹친다.",
         "reject": "Prizes 마지막 줄 'The prize winners will be chosen by the school art teachers.' 가 선정 주체를 미술 교사로 못 박는다."
+      }
+    ],
+    "범위 과대": [
+      {
+        "item_id": "2025#28",
+        "slug": "2025-28",
+        "exam_label": "2025학년도 수능",
+        "no": 28,
+        "type_id": "R-NOTICE",
+        "choice": 2,
+        "tempting": "1월 24일에서 30일까지를 날짜 차이로 어림하면 열흘 가까이 되는 것처럼 보인다.",
+        "reject": "When & Where 줄이 January 24th—30th (7 days) 로 괄호에 일수를 직접 적는다."
+      },
+      {
+        "item_id": "2026#18",
+        "slug": "2026-18",
+        "exam_label": "2026학년도 수능",
+        "no": 18,
+        "type_id": "R-PURPOSE",
+        "choice": 5,
+        "tempting": "셋째 문장의 extracurricular activities 와 다섯째 문장의 hip-hop, K-pop dancing, or coding 예시가 프로그램 소개문처럼 보인다.",
+        "reject": "예시는 만들 수 있는 동아리의 종류일 뿐이고, 여섯째·일곱째 문장의 요구와 마감을 설명이라는 서술어로는 덮을 수 없다."
+      },
+      {
+        "item_id": "M2306#23",
+        "slug": "M2306-23",
+        "exam_label": "2023학년도 6월 모의평가",
+        "no": 23,
+        "type_id": "R-TOPIC",
+        "choice": 4,
+        "tempting": "5번째 문장 culturally universal emotion set 의 universal 과 1번째 문장 cultural psychologists and anthropologists 가 universally · academic disciplines 와 겹친다.",
+        "reject": "보편적인 것은 감정 상태(4·5번째 문장)이지 학문 분야를 넘나드는 정의가 아니다. 지문은 학문 간 정의 합의를 말하지 않는다."
       }
     ],
     "지시어 선행사 절단": [
@@ -641,102 +641,6 @@
         "reject": "(B) 첫 문장의 another 와 like this 가 가리킬 앞 사례가 주어진 글에 없다. 주어진 글은 시계가 반복 과정이라는 규정만 말할 뿐 매끄러워 보이는 시계를 하나도 들지 않았다."
       }
     ],
-    "항목 짝 바꾸기": [
-      {
-        "item_id": "M2309#25",
-        "slug": "M2309-25",
-        "exam_label": "2023학년도 9월 모의평가",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 4,
-        "tempting": "같은 해의 두 나라 비교인데 계열이 두 해로 나뉘어 있어, Italy 의 2020 막대와 Spain 의 2011 막대를 견주면 대소가 달라진다.",
-        "reject": "2020 계열 안에서 Italy 막대와 Spain 막대 두 개만 나란히 견준다."
-      },
-      {
-        "item_id": "M2406#25",
-        "slug": "M2406-25",
-        "exam_label": "2024학년도 6월 모의평가",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 2,
-        "tempting": "계열 이름 넷 중 둘이 Outbound 를 품고 있어(Outbound Trips Only · Domestic & Outbound Trips), 색을 고정하지 않으면 다른 계열의 막대를 견주게 된다.",
-        "reject": "범례에서 Outbound Trips Only 색을 고정한 뒤 25—34 묶음과 35—44 묶음에서 그 색 막대 둘만 견준다."
-      },
-      {
-        "item_id": "M2409#25",
-        "slug": "M2409-25",
-        "exam_label": "2024학년도 9월 모의평가",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 5,
-        "tempting": "집단 이름이 다섯이고 American Indians/Alaska Natives 만 슬래시가 든 긴 이름이라, 행을 짚을 때 이웃 행으로 손이 밀린다.",
-        "reject": "American Indians/Alaska Natives 행 세 칸을 각각 그해 열의 최솟값과 견준다 — 행 하나와 세 열만 보면 끝난다."
-      }
-    ],
-    "임계값 경계": [
-      {
-        "item_id": "M2406#25",
-        "slug": "M2406-25",
-        "exam_label": "2024학년도 6월 모의평가",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 5,
-        "tempting": "more than 50% 는 한 칸짜리 판정이라 빠르게 O 를 주게 되고, ①에서 이미 No Trips 계열을 봤다는 기억이 재확인을 막는다.",
-        "reject": "65 or over 묶음에서 No Trips 막대 하나만 50 이라는 눈금선과 견준다."
-      },
-      {
-        "item_id": "M2509#25",
-        "slug": "M2509-25",
-        "exam_label": "2025학년도 9월 모의평가",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 4,
-        "tempting": "'greater than 60%'는 눈금선 하나에 걸리는 주장이라, Japan 의 VR 막대가 60 선 근처면 참·거짓이 뒤집혔다고 의심한다.",
-        "reject": "Japan 묶음의 VR 막대 하나만 골라 세로축 60 눈금선과 비교한다. 선 위로 올라가 있으면 참이다."
-      },
-      {
-        "item_id": "2023#25",
-        "slug": "2023-25",
-        "exam_label": "2023학년도 수능",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 5,
-        "tempting": "'higher than 20% across the three age groups'는 아홉 칸 전부가 20 선 위여야 한다는 뜻이라, 가장 낮은 막대가 20 근처면 참·거짓이 뒤집혔다고 의심한다.",
-        "reject": "아홉 칸 중 가장 낮은 막대 하나만 골라 20 눈금선과 비교한다. 그 하나가 20 위면 나머지는 볼 필요가 없다."
-      }
-    ],
-    "전칭 검증 부담": [
-      {
-        "item_id": "2024#25",
-        "slug": "2024-25",
-        "exam_label": "2024학년도 수능",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 1,
-        "tempting": "'For each of the three years ~ the highest'는 다섯 나라 × 세 해 열다섯 칸을 확인하라는 말로 읽혀, 검증 없이 참으로 넘기거나 전칭이라는 이유로 의심한다.",
-        "reject": "세 해 각각에서 가장 높은 막대 하나씩, 모두 세 칸만 보고 전부 Ireland 인지 확인한다."
-      },
-      {
-        "item_id": "2025#25",
-        "slug": "2025-25",
-        "exam_label": "2025학년도 수능",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 1,
-        "tempting": "'for each of the three years ~ the highest as compared with the ~ other three roles'는 열두 칸을 확인하라는 말처럼 읽혀, 검증 없이 참으로 넘기거나 전칭이라는 이유만으로 의심한다.",
-        "reject": "연도 세 개 각각에서 가장 높은 막대 하나씩, 모두 세 칸만 보고 전부 producers 인지 확인한다."
-      },
-      {
-        "item_id": "2023#25",
-        "slug": "2023-25",
-        "exam_label": "2023학년도 수능",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 1,
-        "tempting": "'In each of the three age groups ~ the most preferred'는 아홉 칸을 확인하라는 말로 읽혀, 검증 없이 참으로 넘기거나 전칭이라는 이유로 의심한다.",
-        "reject": "세 연령대 각각에서 가장 높은 막대 하나씩, 모두 세 칸만 보고 전부 Town/Rural Area 인지 확인한다."
-      }
-    ],
     "국소 어색함": [
       {
         "item_id": "2023#42",
@@ -799,38 +703,6 @@
         "choice": 3,
         "tempting": "(B)를 먼저 두고 (C)의 In saying that 이 (B)의 주장을 되받는다고 보면 두 블록이 이어지는 것처럼 읽힌다.",
         "reject": "(A)의 마지막 but imitation is not enough 와 (B)의 첫 문장 Spectacle must also be spectacular. 는 미해결-응답의 한 쌍이다. 이 배열은 그 둘을 글의 양 끝으로 갈라놓는다. (C)의 that 이 되받을 대상도 (B)의 놀라게 해야 한다가 아니라 주어진 글의 문화 틀 안에서 작동한다이다."
-      }
-    ],
-    "대소 비교 뒤집기": [
-      {
-        "item_id": "M2606#25",
-        "slug": "M2606-25",
-        "exam_label": "2026학년도 6월 모의평가",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 3,
-        "tempting": "연도 비교(②④)와 국가 비교(③)가 섞여 있어, 'Spain 과 Germany'를 보면서 무심코 2016 막대를 짚어 2022 판정을 내린다.",
-        "reject": "연도를 먼저 2022 로 고정한 뒤 Spain 과 Germany 두 막대만 나란히 본다. 2016 막대는 이 선지와 무관하다."
-      },
-      {
-        "item_id": "2026#25",
-        "slug": "2026-25",
-        "exam_label": "2026학년도 수능",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 5,
-        "tempting": "③과 문장 구조가 같고 계열만 다르므로, ③을 참으로 판정한 뒤 ⑤도 같은 방향이라고 넘겨짚거나 반대로 '둘 중 하나는 거짓'이라고 몰아붙인다.",
-        "reject": "video chatting 색 막대만 골라 Less Often 과 Every Day 두 값을 비교한다. ③의 판정 결과를 ⑤에 옮겨 쓰지 않는다."
-      },
-      {
-        "item_id": "M2706#25",
-        "slug": "M2706-25",
-        "exam_label": "2027학년도 6월 모의평가",
-        "no": 25,
-        "type_id": "R-CHART",
-        "choice": 2,
-        "tempting": "'유럽은 도보·자전거 통행이 많다'는 생활 상식이 강해서, 막대를 보지 않고 'walking or cycling < cars'라는 부등호가 뒤집혔다고 넘겨짚는다.",
-        "reject": "Europe 그룹에서 범례의 walking or cycling 막대와 cars 막대 두 개만 짚어 높이를 비교한다. cars 쪽이 높으면 참이다. 다른 지역의 도보·자전거 비율은 이 선지와 무관하다."
       }
     ]
   }

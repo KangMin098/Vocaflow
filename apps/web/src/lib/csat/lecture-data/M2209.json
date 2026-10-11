@@ -2757,10 +2757,10 @@
     },
     "M2209#25": {
       "item_id": "M2209#25",
-      "version": 3,
-      "total_sec_est": 209,
+      "version": 4,
+      "total_sec_est": 192,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 91,
+      "rubric_score": 94,
       "cues": [
         {
           "id": "c1",
@@ -2773,18 +2773,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십이 학년도 구월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 표와 진술 다섯을 견주는 도표 문항이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 표와 일치하지 않는 것을 고릅니다."
+              "text": "발문을 보세요. 일치하지 않는 것을 묻습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "태양광 산업 인력을 가장 많이 늘린 미국 일곱 주의 표예요."
+              "text": "그러니 답이 아닌 넷은 표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 19,
+          "est_sec": 15.2,
           "pause_after_ms": 500
         },
         {
@@ -2802,19 +2802,15 @@
             },
             {
               "lang": "ko-KR",
-              "text": "여러 대상을 한꺼번에 거는 말에 밑줄로 표시하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "each state"
+              "text": "선지 숫자마다 어느 열을 묻는지 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이런 말이 있으면 대상 수만큼 표를 봐야 해요."
+              "text": "숫자 열이 둘이에요. 사람 수인지, 퍼센트인지로 가릅니다."
             }
           ],
-          "est_sec": 14.7,
-          "pause_after_ms": 600
+          "est_sec": 15,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2827,27 +2823,56 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 표를 보세요."
+              "text": "여기 첫 번째 문장, 표를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "순위는 늘어난 인력 수 기준입니다."
+              "text": "줄 세운 기준은 늘어난 근로자 수예요."
             },
             {
               "lang": "ko-KR",
-              "text": "옆의 성장률 열은 순위와 따로 움직여요."
+              "text": "그래서 성장률 열은 위아래로 들쭉날쭉합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "일 위 플로리다는 칠십일, 이 위 유타는 백오십팔이죠."
+              "text": "성장률은 순위로 짐작하지 말고 칸을 읽으세요."
             }
           ],
-          "est_sec": 16.5,
+          "est_sec": 17.5,
           "pause_after_ms": 600
         },
         {
           "id": "c4",
           "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 삼 번입니다. 여기 네 번째 문장을 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "each state showed less than"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "두 주 모두 오십 퍼센트 미만이라는 말이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "텍사스는 사십사 퍼센트라 조건에 맞습니다."
+            }
+          ],
+          "est_sec": 16.9,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "analysis",
@@ -2856,47 +2881,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 삼 번입니다. 정답 블록을 보세요."
+              "text": "이제 정답 블록을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "텍사스와 버지니아가 각각 오십 퍼센트 미만 성장했다는 말이에요."
+              "text": "버지니아의 성장률은 백이십 퍼센트예요."
             },
             {
               "lang": "ko-KR",
-              "text": "각각이라서 두 주가 모두 맞아야 합니다."
+              "text": "오십 미만과는 정반대죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "묶인 둘 중 하나가 깨졌으니, 이 진술이 표와 어긋납니다."
             }
           ],
-          "est_sec": 16,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장의 표에서 삼 위와 사 위 행을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "텍사스 성장률은 사십사, 오십 미만이 맞아요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "하지만 버지니아는 백이십입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "한 주가 오십을 넘으니, 각각 미만이라는 말이 깨지죠."
-            }
-          ],
-          "est_sec": 19.7,
+          "est_sec": 16.5,
           "pause_after_ms": 700
         },
         {
@@ -2910,19 +2910,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 인력 증가 일 위 플로리다가 칠십일 퍼센트 성장했다는 말입니다."
+              "text": "일 번, 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "표 첫 행을 보세요."
+              "text": "플로리다는 사천육백오십구 명으로 근로자 수 일 위,"
             },
             {
               "lang": "ko-KR",
-              "text": "증가 인원이 가장 많은지, 성장률 칸이 칠십일인지 두 가지를 대조하세요."
+              "text": "성장률은 칠십일 퍼센트예요. 표와 맞아서 답이 아닙니다."
             }
           ],
-          "est_sec": 16.9,
-          "pause_after_ms": 400
+          "est_sec": 15.5,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2935,23 +2938,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 유타가 미네소타의 두 배가 넘는다는 말이에요."
+              "text": "이 번, 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 행의 인력 수를 짚어 보세요."
+              "text": "미네소타 이천삼 명에 둘을 곱하면 사천육 명."
             },
             {
               "lang": "ko-KR",
-              "text": "미네소타 이천삼의 두 배는 사천육입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "유타 사천이백사십육이 더 크니 일치해요."
+              "text": "유타 사천이백사십육 명이 더 많으니 두 배 넘게가 맞습니다."
             }
           ],
-          "est_sec": 18,
-          "pause_after_ms": 400
+          "est_sec": 14.7,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2964,19 +2966,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 뉴욕이 천구백 명 넘게 늘렸고 이십사 퍼센트 성장했다는 말입니다."
+              "text": "사 번, 다섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여섯째 행을 통째로 확인하세요."
+              "text": "뉴욕은 천구백육십사 명이라 천구백을 넘고,"
             },
             {
               "lang": "ko-KR",
-              "text": "천구백육십사와 이십사, 둘 다 맞아요."
+              "text": "성장률 이십사 퍼센트도 표와 같아요. 맞는 진술입니다."
             }
           ],
-          "est_sec": 15.2,
-          "pause_after_ms": 400
+          "est_sec": 14.7,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
           "id": "c9",
@@ -2989,23 +2994,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 일곱 주 가운데 펜실베이니아가 가장 적게 늘렸다는 말이에요."
+              "text": "오 번, 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "인력 수 열만 확인하세요."
+              "text": "근로자 수 열의 가장 작은 값은 펜실베이니아 천팔백십 명."
             },
             {
               "lang": "ko-KR",
-              "text": "마지막 행 천팔백십이 일곱 값 중 가장 작습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "표 밖의 주는 비교 대상이 아니에요."
+              "text": "성장률이 아니라 사람 수를 묻는 말이라 맞습니다."
             }
           ],
-          "est_sec": 18.7,
-          "pause_after_ms": 400
+          "est_sec": 15.2,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
@@ -3013,27 +3017,27 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:3"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 삼 번이 함정입니다."
+              "text": "함정 이름은 부분 사실입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "텍사스 사십사를 보고 맞다며 손을 멈추기 쉬워요."
+              "text": "여기 네 번째 문장에서 앞의 텍사스만 보고 넘기기 쉬워요."
             },
             {
               "lang": "ko-KR",
-              "text": "첫 대상이 맞으면 둘째도 맞으리라 넘기는 거죠."
+              "text": "첫 이름이 맞으면 전부 맞은 듯 느껴지거든요."
             },
             {
               "lang": "ko-KR",
-              "text": "각각이 보이면 두 번째 주의 행까지 반드시 찾으세요."
+              "text": "묶인 이름 수만큼 체크 표시를 하세요."
             }
           ],
-          "est_sec": 20,
+          "est_sec": 18.2,
           "pause_after_ms": 600
         },
         {
@@ -3047,23 +3051,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "workers added"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "늘어난 인력."
-            },
-            {
-              "lang": "en-US",
-              "text": "growth percentage"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "성장률."
+              "text": "어휘를 보세요."
             },
             {
               "lang": "en-US",
@@ -3071,26 +3059,26 @@
             },
             {
               "lang": "ko-KR",
-              "text": "두 배가 넘는."
+              "text": "는 두 배를 넘는다,"
             },
             {
               "lang": "en-US",
-              "text": "regarding"
+              "text": "each"
             },
             {
               "lang": "ko-KR",
-              "text": "에 관해."
+              "text": "는 하나하나 모두,"
             },
             {
               "lang": "en-US",
-              "text": "exhibited"
+              "text": "the lowest number"
             },
             {
               "lang": "ko-KR",
-              "text": "보였다."
+              "text": "는 가장 적은 수예요."
             }
           ],
-          "est_sec": 13.5,
+          "est_sec": 11.8,
           "pause_after_ms": 500
         },
         {
@@ -3104,18 +3092,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리할게요. 둘 이상을 묶은 진술은 대상마다 값을 따로 맞춰 본다."
             },
             {
               "lang": "ko-KR",
-              "text": "각각, 모두, 유일한 같은 말은 대상마다 따로 확인해야 섭니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 여러 대상을 거는 말부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지 숫자마다 어느 열인지부터 표시하세요."
             }
           ],
-          "est_sec": 14.4,
+          "est_sec": 13.9,
           "pause_after_ms": 900
         }
       ]

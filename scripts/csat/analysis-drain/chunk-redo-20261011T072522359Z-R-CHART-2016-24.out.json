@@ -1,0 +1,538 @@
+{
+ "chunk": 6,
+ "type_id": "R-CHART",
+ "type_name": "도표",
+ "analyses": [
+  {
+   "item_id": "2016#24",
+   "measured_ability": "여섯 활동마다 부모·기타 성인 두 막대의 차이를 모두 계산해, 「가장 큰 차이」「가장 작은 차이」라는 최상급 주장이 여섯 개 전부와 견주어도 성립하는지 확인하는 능력",
+   "design_intent": "여섯 활동의 부모−기타 성인 차이는 11·13·33·15·13·4%p다. ③은 최대 차이(Attend classes 33%p)를 맞게 짚은 뒤 최소 차이를 Use computers(13%p)로 적었지만 실제 최소는 맨 아래 Borrow e-books(9−5=4%p)다. 앞 절이 맞아 뒤 절을 덜 검산하게 만들고, 막대가 짧아 차이도 작아 보이지 않는 맨 아래 항목을 빠뜨리는지 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "is smallest in the activity of using computers or the Internet",
+    "reasoning": "도표에서 Use computers or the Internet 은 부모 40%·기타 성인 27%로 차이 13%p, Borrow e-books 는 9%·5%로 차이 4%p다. 4 < 13 이므로 최소 차이 활동은 e-books 이고, using computers 가 최소라는 [5]의 뒤 절은 도표와 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[3]의 「all activity types」는 여섯 쌍 전부에서 부모 막대가 더 길어야 참이다. 81>70, 81>68, 66>33, 50>35, 40>27, 9>5 로 여섯 쌍 모두 부모가 높으므로 도표와 일치해 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 문장은 부모의 Browse shelves 와 Borrow print books 를 견준다. 두 막대 모두 81%로 같으므로 「the same」은 맞는 진술이고 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "부분 사실",
+     "why_correct": "[5]의 「smallest in the activity of using computers or the Internet」이 거짓이다. 최소 차이를 고르려면 여섯 차이 11·13·33·15·13·4 를 모두 비교해야 하고, 가장 작은 값은 Borrow e-books 의 4%p(9%−5%)다. Use computers 의 13%p(40%−27%)는 최소가 아니므로 「smallest」가 성립하지 않는다. 앞 절 「largest in … attending classes」(33%p)는 맞아 뒤 절만 바뀐 문장이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2016_영어영역-홀수.pdf 3쪽, 읽은 값(부모/기타 성인 %): Browse shelves 81/70, Borrow print books 81/68, Attend classes or events for children 66/33, Borrow DVDs·CDs·videotapes 50/35, Use computers or the Internet 40/27, Borrow e-books 9/5."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "[6] 문장은 기타 성인 막대끼리 배수를 묻는다. Browse shelves 70%, Borrow DVDs·CDs·videotapes 35% 이고 70 = 35×2 이므로 「twice as high」는 맞아 답이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[7] 문장은 부모 e-books 9%가 10% 미만이고 기타 성인 5%보다 높다는 두 조건이다. 9<10, 9>5 로 둘 다 성립해 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례에서 진한 막대가 Parents of minor children, 흰 막대가 Other adults 인지 확인하고, 여섯 활동 옆에 두 값을 짝으로 적는다.",
+     "on_fail": "막대 끝 숫자가 어느 막대 것인지 헷갈리면 위·아래 순서(진한 막대가 위)를 범례 색과 다시 맞춘다."
+    },
+    {
+     "step": "여섯 활동마다 부모−기타 성인 차이를 계산해 옆에 쓴다(예: 66−33). 차이를 묻는 선지가 나오기 전에 표를 먼저 만든다.",
+     "on_fail": "계산이 밀리면 최상급 선지가 가리키는 활동과 그보다 막대가 짧은 활동만이라도 차이를 구한다."
+    },
+    {
+     "step": "「largest」「smallest」「all」이 있는 선지는 절마다 쪼개 각 절을 여섯 값 전부와 비교한다. 한 절이 맞아도 다른 절을 따로 확인한다.",
+     "on_fail": "맨 아래 짧은 막대 항목을 비교에서 빠뜨리지 않았는지 활동 개수(6)를 세어 확인한다."
+    },
+    {
+     "step": "「twice」「less than 10%」처럼 배수·경계값이 있는 선지는 해당 두 값을 직접 곱하거나 기준값과 비교한다.",
+     "on_fail": "배수인지 차이인지 헷갈리면 선지 낱말을 본다 — twice 는 곱셈, gap 은 뺄셈이다."
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "최상급 두 개가 한 문장에 묶여 앞 절이 참",
+     "최소 차이 항목이 막대가 가장 짧은 맨 아래에 있음",
+     "여섯 쌍의 차이를 모두 계산해야 함"
+    ]
+   },
+   "required_vocab": [
+    "gap",
+    "browse",
+    "twice as high",
+    "minor children"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "여섯 차이 11·13·33·15·13·4%p 를 원본 막대에서 다시 계산해 최소가 e-books 4%p 임을 확인했다.",
+      "정답 선지의 why_correct 가 거짓 절의 낱말과 도표 두 값을 대응시키는지 확인했다."
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus 지문과 문자열 대조",
+      "원본 문제지 PNG에서 모든 막대·꺾은선 값을 읽고 다섯 선지 계산을 재수행",
+      "공식 정답과 도표 판정 일치 확인",
+      "2016#24 문항 값 재검산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "④ 70÷35=2 와 ⑤ 9<10·9>5 를 재검산했다.",
+      "오답 넷은 맞는 진술이라 trap·why_tempting 을 비우고 how_to_reject 에 대응 값과 계산을 썼다(초안의 「부분 사실」류 라벨을 오답에 붙이지 않음)."
+     ],
+     "checked": [
+      "오답 how_to_reject 가 선지마다 다른 값·다른 계산을 쓰는지 대조",
+      "정답 선지 trap 라벨이 실제로 바뀐 성분(최소 항목·배수·계열)과 맞는지 대조",
+      "sentence_index 와 confirmed_at 번호가 청크 sentences 범위 안인지 확인",
+      "2016#24 문항 값 재검산"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 3단계가 맨 아래 e-books 항목을 빠뜨리지 않도록 활동 개수 확인을 on_fail 에 넣었는지 봤다.",
+      "절차가 정답 번호를 미리 짚지 않고 도표 읽기 행동으로 구성됐는지 확인했다."
+     ],
+     "checked": [
+      "solve_procedure 각 단계가 지문 읽기 전 실행 가능한지 대조",
+      "on_fail 이 단계마다 다른 문장인지 확인",
+      "required_vocab 이 선지 판정에 쓰이는 낱말인지 지문에서 확인",
+      "2016#24 문항 값 재검산"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2015#25",
+   "measured_ability": "「three times higher」 같은 배수 주장을 두 해의 막대 값으로 직접 나눠 확인하고, 「eighteen percent increase」 같은 차이 주장과 구분해 계산하는 능력",
+   "design_intent": "Email Addresses 는 2006년 29%, 2012년 53%다. 53÷29 는 약 1.8배라 「three times」가 성립하지 않는다. 같은 도표에서 Cell Phone Numbers 는 2%→20%로 10배 늘어 「배수가 크다」는 인상을 다른 항목에서 주기 때문에, 배수 주장을 항목별로 계산하는지 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "the percentage of 2012 was three times higher than that of 2006",
+    "reasoning": "Email Addresses 막대는 2006년 29, 2012년 53 이다. 세 배라면 29×3=87 이어야 하는데 53 이므로 약 1.8배에 그친다. 따라서 [5]의 배수 주장은 도표와 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2] 문장은 다섯 항목 모두에서 2012 막대가 2006 막대보다 높아야 참이다. 79→91, 49→71, 61→71, 29→53, 2→20 으로 다섯 항목 모두 늘었으므로 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 문장은 두 해 각각에서 Photos of Themselves 가 최고인지 묻는다. 2006 은 79(다음 61), 2012 는 91(다음 71)로 두 해 모두 가장 높아 맞는 진술이고 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 문장은 2006년 막대끼리 비교다. City or Town Names 61 > School Names 49 이므로 맞는 진술이라 답이 아니다. 2012 는 둘 다 71 이지만 선지는 2006 만 말한다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "배수 과장",
+     "why_correct": "[5]의 「three times higher」를 Email Addresses 의 두 값으로 나눠 보면 53÷29≈1.8 이다. 세 배가 되려면 2012 값이 약 87 이어야 하므로 배수 주장이 성립하지 않는다. 항목(email addresses)과 연도(2012 vs 2006)는 맞고 배수만 바뀐 문장이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2015_영어영역-홀수.pdf 4쪽, 읽은 값(2006/2012 %): Photos of Themselves 79/91, School Names 49/71, City or Town Names 61/71, Email Addresses 29/53, Cell Phone Numbers 2/20."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6] 문장은 Cell Phone Numbers 의 2006 값 2 와 2012 값 20 의 차이를 말한다. 20−2=18 이므로 18 포인트 증가로 읽으면 도표와 일치해 답이 아니다(이 선지의 percent 는 백분율 값의 차이를 가리킨다)."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례에서 진한 막대가 2006, 흰 막대가 2012 인지 확인하고 다섯 항목의 두 값을 짝으로 적는다.",
+     "on_fail": "막대 위 숫자가 어느 해 것인지 헷갈리면 왼쪽 막대가 진한 색(2006)인지 범례와 다시 대조한다."
+    },
+    {
+     "step": "선지마다 비교 종류를 표시한다 — each/highest 는 크기 비교, three times 는 나눗셈, increase 숫자는 뺄셈.",
+     "on_fail": "종류를 못 정하면 선지 속 숫자 낱말(three times, eighteen)이 곱셈인지 차이인지부터 본다."
+    },
+    {
+     "step": "배수 선지는 작은 값에 배수를 곱해 큰 값과 비교한다(29×3 과 53).",
+     "on_fail": "곱셈이 번거로우면 큰 값을 작은 값의 2배와 먼저 비교해 2배를 넘는지만 확인한다."
+    },
+    {
+     "step": "연도를 지정한 선지(In 2006, In both years)는 그 연도 막대만 본다.",
+     "on_fail": "두 해 막대를 섞어 읽었으면 선지의 연도 낱말에 표시하고 해당 색 막대만 다시 읽는다."
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "배수와 차이를 구분해 계산해야 함",
+     "다른 항목(2→20)이 큰 배수 인상을 줌"
+    ]
+   },
+   "required_vocab": [
+    "three times higher",
+    "category",
+    "increase",
+    "overall"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "Email 29→53 이 1.8배로 세 배가 아님을 원본 막대 값으로 확인했다.",
+      "정답 선지의 why_correct 가 거짓 절의 낱말과 도표 두 값을 대응시키는지 확인했다."
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus 지문과 문자열 대조",
+      "원본 문제지 PNG에서 모든 막대·꺾은선 값을 읽고 다섯 선지 계산을 재수행",
+      "공식 정답과 도표 판정 일치 확인",
+      "2015#25 문항 값 재검산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "⑤의 2→20 이 퍼센트포인트 차이 18 로 참 처리됨을 how_to_reject 에 밝혔는지 확인했다.",
+      "오답 넷은 맞는 진술이라 trap·why_tempting 을 비우고 how_to_reject 에 대응 값과 계산을 썼다(초안의 「부분 사실」류 라벨을 오답에 붙이지 않음)."
+     ],
+     "checked": [
+      "오답 how_to_reject 가 선지마다 다른 값·다른 계산을 쓰는지 대조",
+      "정답 선지 trap 라벨이 실제로 바뀐 성분(최소 항목·배수·계열)과 맞는지 대조",
+      "sentence_index 와 confirmed_at 번호가 청크 sentences 범위 안인지 확인",
+      "2015#25 문항 값 재검산"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "배수 선지 절차(29×3 과 53 비교)가 시간 70초 안에 가능한지 확인했다.",
+      "절차가 정답 번호를 미리 짚지 않고 도표 읽기 행동으로 구성됐는지 확인했다."
+     ],
+     "checked": [
+      "solve_procedure 각 단계가 지문 읽기 전 실행 가능한지 대조",
+      "on_fail 이 단계마다 다른 문장인지 확인",
+      "required_vocab 이 선지 판정에 쓰이는 낱말인지 지문에서 확인",
+      "2015#25 문항 값 재검산"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2014B#29",
+   "measured_ability": "막대(참여율)와 꺾은선(연평균 시간) 두 계열이 한 그림에 겹친 도표에서, 선지가 가리키는 계열을 골라 그 계열 값으로만 「같다」「더 적다」를 판정하는 능력",
+   "design_intent": "55-64 와 65-74 는 참여율 막대가 둘 다 40%로 같지만 연평균 시간은 205 와 216 으로 다르다. ④는 앞 절(35-44 158 < 45-54 170)이 맞고 뒤 절에서 「same average annual hours」라고 해, 시간 대신 막대 값을 읽으면 참으로 넘어가도록 두 계열을 엇갈리게 설계했다. 2014학년도 A형 32번과 같은 지문·선지다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "the 55-64 and 65-74 age groups showed the same average annual hours",
+    "reasoning": "꺾은선(Average Annual Hours, 오른쪽 축)에서 55-64 는 205시간, 65-74 는 216시간이다. 11시간 차이가 있으므로 「same average annual hours」는 성립하지 않는다. 두 집단이 같은 것은 막대(참여율 40%)다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2] 문장은 막대 계열을 말한다. 일곱 집단 참여율은 58·40·52·48·40·40·29 로 최저 29, 최고 58 이고, Canadian Average 막대가 46 이므로 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 문장은 꺾은선 계열이다. 138→133 으로 25-34 에서만 줄고 이후 133→158→170→205→216→222 로 계속 늘며, 25-34 값이 133 이므로 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 문장은 두 계열을 함께 묻는다. 15-24 참여율 58 은 일곱 막대 중 최고이고, 시간 138 은 133(25-34) 다음으로 적은 두 번째 최저라 맞는 진술이고 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "계열 혼동",
+     "why_correct": "[5] 뒤 절의 「same average annual hours」는 꺾은선 값을 비교하라는 말이다. 55-64 의 205 와 65-74 의 216 은 같지 않으므로 거짓이다. 같은 것은 참여율 막대 40% 뿐이라, 계열(시간)만 바꿔 놓은 문장이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2014_영어B-홀수형_문제.pdf 4쪽, 읽은 값: 참여율(%) 15-24 58, 25-34 40, 35-44 52, 45-54 48, 55-64 40, 65-74 40, 75+ 29, Canadian Average 46 / 연평균 시간 138, 133, 158, 170, 205, 216, 222, Canadian Average 166."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6] 문장은 75+ 가 막대 최저(29)이면서 꺾은선 최고(222)라는 두 조건이다. 222 는 다른 여섯 집단 시간(최대 216)보다 많으므로 맞는 진술이라 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례와 두 세로축을 먼저 짝짓는다 — 막대(Volunteer Rates)는 왼쪽 % 축, 꺾은선(Average Annual Hours)은 오른쪽 Hours 축.",
+     "on_fail": "어느 숫자가 어느 계열인지 헷갈리면 숫자가 막대 안에 있는지 꺾은선 점 옆에 있는지로 가른다."
+    },
+    {
+     "step": "선지 낱말로 계열을 정한다 — volunteer rate·rate of volunteering 은 막대, hours 는 꺾은선. 문장 하나에 둘이 섞이면 절마다 따로 표시한다.",
+     "on_fail": "same·fewer 같은 비교어만 보이고 계열이 안 보이면 그 비교어 바로 뒤 명사(hours/rate)를 찾는다."
+    },
+    {
+     "step": "「same」「highest」「second fewest」는 지정한 계열의 일곱 값 전부를 줄 세워 확인한다. Canadian Average 는 연령 집단이 아니므로 비교에서 뺀다.",
+     "on_fail": "순위가 꼬이면 해당 계열 값만 작은 것부터 다시 적는다(시간: 133, 138, 158, …)."
+    },
+    {
+     "step": "increased with age except 처럼 추세를 말하는 선지는 이웃한 두 집단씩 차례로 증감을 확인한다.",
+     "on_fail": "추세가 헷갈리면 꺾은선이 내려가는 구간만 찾아 그 집단이 except 뒤 집단과 같은지 본다."
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "막대와 꺾은선 두 계열이 겹침",
+     "거짓 절의 두 집단이 다른 계열에서는 같은 값",
+     "앞 절이 참"
+    ]
+   },
+   "required_vocab": [
+    "volunteer rate",
+    "average annual hours",
+    "second fewest",
+    "except for"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "꺾은선 55-64 205·65-74 216 이 다르고 막대는 둘 다 40 임을 원본에서 확인했다.",
+      "정답 선지의 why_correct 가 거짓 절의 낱말과 도표 두 값을 대응시키는지 확인했다."
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus 지문과 문자열 대조",
+      "원본 문제지 PNG에서 모든 막대·꺾은선 값을 읽고 다섯 선지 계산을 재수행",
+      "공식 정답과 도표 판정 일치 확인",
+      "2014B#29 문항 값 재검산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "③의 second fewest 를 시간 값 133<138<158 순으로 재확인했다.",
+      "오답 넷은 맞는 진술이라 trap·why_tempting 을 비우고 how_to_reject 에 대응 값과 계산을 썼다(초안의 「부분 사실」류 라벨을 오답에 붙이지 않음)."
+     ],
+     "checked": [
+      "오답 how_to_reject 가 선지마다 다른 값·다른 계산을 쓰는지 대조",
+      "정답 선지 trap 라벨이 실제로 바뀐 성분(최소 항목·배수·계열)과 맞는지 대조",
+      "sentence_index 와 confirmed_at 번호가 청크 sentences 범위 안인지 확인",
+      "2014B#29 문항 값 재검산"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "이중축 범례 짝짓기 단계가 첫 단계에 있는지 확인했다.",
+      "절차가 정답 번호를 미리 짚지 않고 도표 읽기 행동으로 구성됐는지 확인했다."
+     ],
+     "checked": [
+      "solve_procedure 각 단계가 지문 읽기 전 실행 가능한지 대조",
+      "on_fail 이 단계마다 다른 문장인지 확인",
+      "required_vocab 이 선지 판정에 쓰이는 낱말인지 지문에서 확인",
+      "2014B#29 문항 값 재검산"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2014A#32",
+   "measured_ability": "막대(참여율)와 꺾은선(연평균 시간) 두 계열이 한 그림에 겹친 도표에서, 선지가 가리키는 계열을 골라 그 계열 값으로만 「같다」「더 적다」를 판정하는 능력",
+   "design_intent": "55-64 와 65-74 는 참여율 막대가 둘 다 40%로 같지만 연평균 시간은 205 와 216 으로 다르다. ④는 앞 절(35-44 158 < 45-54 170)이 맞고 뒤 절에서 「same average annual hours」라고 해, 시간 대신 막대 값을 읽으면 참으로 넘어가도록 두 계열을 엇갈리게 설계했다. 2014학년도 B형 29번과 같은 지문·선지다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "the 55-64 and 65-74 age groups showed the same average annual hours",
+    "reasoning": "꺾은선(Average Annual Hours, 오른쪽 축)에서 55-64 는 205시간, 65-74 는 216시간이다. 11시간 차이가 있으므로 「same average annual hours」는 성립하지 않는다. 두 집단이 같은 것은 막대(참여율 40%)다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "[2] 문장은 막대 계열을 말한다. 일곱 집단 참여율은 58·40·52·48·40·40·29 로 최저 29, 최고 58 이고, Canadian Average 막대가 46 이므로 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "[3] 문장은 꺾은선 계열이다. 138→133 으로 25-34 에서만 줄고 이후 133→158→170→205→216→222 로 계속 늘며, 25-34 값이 133 이므로 맞는 진술이라 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "[4] 문장은 두 계열을 함께 묻는다. 15-24 참여율 58 은 일곱 막대 중 최고이고, 시간 138 은 133(25-34) 다음으로 적은 두 번째 최저라 맞는 진술이고 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "계열 혼동",
+     "why_correct": "[5] 뒤 절의 「same average annual hours」는 꺾은선 값을 비교하라는 말이다. 55-64 의 205 와 65-74 의 216 은 같지 않으므로 거짓이다. 같은 것은 참여율 막대 40% 뿐이라, 계열(시간)만 바꿔 놓은 문장이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5
+      ],
+      "note": "원본 도표 확인 — 2014_영어A-홀수형_문제.pdf 6쪽, 읽은 값: 참여율(%) 15-24 58, 25-34 40, 35-44 52, 45-54 48, 55-64 40, 65-74 40, 75+ 29, Canadian Average 46 / 연평균 시간 138, 133, 158, 170, 205, 216, 222, Canadian Average 166."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "[6] 문장은 75+ 가 막대 최저(29)이면서 꺾은선 최고(222)라는 두 조건이다. 222 는 다른 여섯 집단 시간(최대 216)보다 많으므로 맞는 진술이라 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "범례와 두 세로축을 먼저 짝짓는다 — 막대(Volunteer Rates)는 왼쪽 % 축, 꺾은선(Average Annual Hours)은 오른쪽 Hours 축.",
+     "on_fail": "어느 숫자가 어느 계열인지 헷갈리면 숫자가 막대 안에 있는지 꺾은선 점 옆에 있는지로 가른다."
+    },
+    {
+     "step": "선지 낱말로 계열을 정한다 — volunteer rate·rate of volunteering 은 막대, hours 는 꺾은선. 문장 하나에 둘이 섞이면 절마다 따로 표시한다.",
+     "on_fail": "same·fewer 같은 비교어만 보이고 계열이 안 보이면 그 비교어 바로 뒤 명사(hours/rate)를 찾는다."
+    },
+    {
+     "step": "「same」「highest」「second fewest」는 지정한 계열의 일곱 값 전부를 줄 세워 확인한다. Canadian Average 는 연령 집단이 아니므로 비교에서 뺀다.",
+     "on_fail": "순위가 꼬이면 해당 계열 값만 작은 것부터 다시 적는다(시간: 133, 138, 158, …)."
+    },
+    {
+     "step": "increased with age except 처럼 추세를 말하는 선지는 이웃한 두 집단씩 차례로 증감을 확인한다.",
+     "on_fail": "추세가 헷갈리면 꺾은선이 내려가는 구간만 찾아 그 집단이 except 뒤 집단과 같은지 본다."
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "막대와 꺾은선 두 계열이 겹침",
+     "거짓 절의 두 집단이 다른 계열에서는 같은 값",
+     "앞 절이 참"
+    ]
+   },
+   "required_vocab": [
+    "volunteer rate",
+    "average annual hours",
+    "second fewest",
+    "except for"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "A형 6쪽 도표가 B형 29번과 같은 값(138·133·158·170·205·216·222 / 58·40·52·48·40·40·29)임을 원본에서 대조했다.",
+      "정답 선지의 why_correct 가 거짓 절의 낱말과 도표 두 값을 대응시키는지 확인했다."
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus 지문과 문자열 대조",
+      "원본 문제지 PNG에서 모든 막대·꺾은선 값을 읽고 다섯 선지 계산을 재수행",
+      "공식 정답과 도표 판정 일치 확인",
+      "2014A#32 문항 값 재검산"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①의 범위 29~58 과 평균 46 을 재확인했다.",
+      "오답 넷은 맞는 진술이라 trap·why_tempting 을 비우고 how_to_reject 에 대응 값과 계산을 썼다(초안의 「부분 사실」류 라벨을 오답에 붙이지 않음)."
+     ],
+     "checked": [
+      "오답 how_to_reject 가 선지마다 다른 값·다른 계산을 쓰는지 대조",
+      "정답 선지 trap 라벨이 실제로 바뀐 성분(최소 항목·배수·계열)과 맞는지 대조",
+      "sentence_index 와 confirmed_at 번호가 청크 sentences 범위 안인지 확인",
+      "2014A#32 문항 값 재검산"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "Canadian Average 를 연령 비교에서 빼라는 단계가 ⑤ 판정(222 최고)에 필요한지 확인했다.",
+      "절차가 정답 번호를 미리 짚지 않고 도표 읽기 행동으로 구성됐는지 확인했다."
+     ],
+     "checked": [
+      "solve_procedure 각 단계가 지문 읽기 전 실행 가능한지 대조",
+      "on_fail 이 단계마다 다른 문장인지 확인",
+      "required_vocab 이 선지 판정에 쓰이는 낱말인지 지문에서 확인",
+      "2014A#32 문항 값 재검산"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-CHART",
+  "n_analyzed": 4,
+  "recurring_traps": [
+   {
+    "trap": "부분 사실",
+    "count": 1,
+    "signature": "최상급 두 절 중 앞 절은 참, 뒤 절의 항목만 바뀜(2016#24)"
+   },
+   {
+    "trap": "배수 과장",
+    "count": 1,
+    "signature": "항목·연도는 맞고 배수만 부풀림(2015#25)"
+   },
+   {
+    "trap": "계열 혼동",
+    "count": 2,
+    "signature": "다른 계열에서 같은 값인 두 집단을 「same」으로 묶음(2014A#32 ≡ 2014B#29, 같은 문항이지만 회차별로 한 번씩 셈)"
+   }
+  ],
+  "answer_locus_pattern": "4문항 모두 정답 근거가 정답 선지 문장 자신의 한 절이다. 네 문항 중 세 문항(2016·2014A·2014B)은 두 절 문장에서 앞 절이 참이고 뒤 절이 거짓이다.",
+  "procedure": [
+   "범례·축으로 계열을 먼저 짝짓는다",
+   "선지 낱말로 비교 종류(크기·차이·배수·최상급)와 계열을 정한다",
+   "최상급·전칭은 모든 항목과 비교한다",
+   "두 절 문장은 절마다 따로 검산한다"
+  ],
+  "failure_modes": [
+   "앞 절이 맞으면 뒤 절 검산을 건너뜀",
+   "배수와 차이를 혼동",
+   "이중축 도표에서 다른 계열 값을 읽음",
+   "맨 아래 짧은 막대 항목을 최상급 비교에서 빠뜨림"
+  ],
+  "time_budget_sec": 75,
+  "open_questions": [
+   "세 페르소나 모두 반려 0건 — 같은 기준(값 대조)을 재고 있을 가능성. 도표 값 판독 자체를 독립 검수자가 이미지로 재확인해야 한다.",
+   "2015#25 ⑤의 「eighteen percent increase」는 엄밀히는 18%p 이며 평가원은 참으로 처리했다. 퍼센트/퍼센트포인트 구분을 학습자에게 어떻게 가르칠지 열린 문제.",
+   "recurring_traps 는 문항당 한 번만 셌다(2014A·B 쌍은 각 회차에서 한 번씩)."
+  ]
+ }
+}

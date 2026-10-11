@@ -2742,10 +2742,10 @@
     },
     "2023#25": {
       "item_id": "2023#25",
-      "version": 2,
-      "total_sec_est": 182,
+      "version": 3,
+      "total_sec_est": 189,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 87,
+      "rubric_score": 91,
       "cues": [
         {
           "id": "c1",
@@ -2758,18 +2758,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십삼 학년도 수능 이십오 번, 도표 문항입니다."
+              "text": "여러분, 발문을 먼저 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "도표와 일치하지 않는 진술을 찾는 문항이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "미국인이 살고 싶은 곳을 연령대별로 조사한 도표예요."
+              "text": "답이 아닌 네 진술은 도표와 맞습니다."
             }
           ],
-          "est_sec": 17.2,
+          "est_sec": 12.2,
           "pause_after_ms": 500
         },
         {
@@ -2783,19 +2783,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일은 하나예요. 선지마다 연령대 이름과 최상급 말을 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "선지의 계열 이름을 범례와 앞머리까지 짝지어 표시하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "도시와 그 교외는 이름이 겹쳐요."
+              "text": "최상급이 나오면 그 묶음 세 값을 모두 비교해야 합니다."
             }
           ],
-          "est_sec": 13.2,
-          "pause_after_ms": 600
+          "est_sec": 14.2,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2803,52 +2799,51 @@
           "role": "structure",
           "target": {
             "kind": "analysis",
-            "id": "ability"
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "재는 능력 블록을 보세요."
+              "text": "지도를 보세요. 첫 문장은 도표 소개예요."
             },
             {
               "lang": "ko-KR",
-              "text": "연령대는 셋, 계열은 도시, 교외, 소읍과 농촌 셋이에요."
+              "text": "연령대 세 묶음마다 사는 곳 범주 세 개의 막대가 있습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이 번과 삼 번은 도시와 교외의 앞뒤를 연령대마다 말합니다."
+              "text": "선지는 최고, 두 비교, 최저, 전칭 기준을 묻습니다."
             }
           ],
-          "est_sec": 14.7,
-          "pause_after_ms": 600
+          "est_sec": 15.7,
+          "pause_after_ms": 600,
+          "focus": [
+            0
+          ]
         },
         {
           "id": "c4",
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 정답 블록을 보세요."
+              "text": "정답은 사 번입니다. 여기 다섯 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "오십오 세 이상에서 도시가 가장 낮다는 선지죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "was the lowest"
+              "text": "오십오 세 이상 묶음에서 대도시와 소도시가 가장 낮다고 했어요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번이 참이니 여기서도 소읍과 농촌이 최고예요."
+              "text": "이 묶음 값은 도시 이십육, 교외 이십이, 소읍과 시골 오십이입니다."
             }
           ],
-          "est_sec": 16.4,
+          "est_sec": 19.2,
           "pause_after_ms": 700
         },
         {
@@ -2862,18 +2857,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답 블록의 논리를 이어서 확인하세요."
+              "text": "정답 칸을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "최저 후보는 도시와 교외 둘뿐입니다."
+              "text": "최솟값은 이십이인 교외예요."
             },
             {
               "lang": "ko-KR",
-              "text": "사 번이 틀렸으니, 교외가 도시보다 낮은 거죠."
+              "text": "이십육인 도시는 두 번째로 낮을 뿐이라, 가장 낮다는 술어와 맞지 않습니다."
             }
           ],
-          "est_sec": 13.2,
+          "est_sec": 13.7,
           "pause_after_ms": 700
         },
         {
@@ -2887,19 +2882,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 모든 연령대에서 소읍과 농촌이 최고라는 말이에요."
+              "text": "일 번. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "연령대마다 최고 막대 하나씩 확인하세요."
+              "text": "소읍과 시골은 삼십구, 사십구, 오십이로 세 묶음 모두 가장 길어요."
             },
             {
               "lang": "ko-KR",
-              "text": "모두 맞으니 일치합니다."
+              "text": "맞는 진술이라 답이 아닙니다."
             }
           ],
-          "est_sec": 13.4,
-          "pause_after_ms": 400
+          "est_sec": 14,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2912,19 +2910,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 가장 젊은 층에서 도시가 교외보다 높다는 말입니다."
+              "text": "이 번. 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 묶음의 두 막대만 짚어 보세요."
+              "text": "열여덟에서 서른넷 묶음에서 도시는 삼십삼, 교외는 이십칠이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "도시가 높으니 일치해요."
+              "text": "도시가 더 높다는 방향이 도표와 같습니다."
             }
           ],
-          "est_sec": 12.4,
-          "pause_after_ms": 400
+          "est_sec": 15.5,
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2937,19 +2938,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 중간 층에서 교외가 도시를 넘었다는 말이에요."
+              "text": "삼 번. 네 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "그 묶음만 따로 짚어 보세요."
+              "text": "서른다섯에서 쉰넷 묶음에서 교외는 이십칠, 도시는 이십사예요."
             },
             {
               "lang": "ko-KR",
-              "text": "교외가 높으니 일치합니다."
+              "text": "교외가 넘어선다는 방향이 맞아서 답이 아닙니다."
             }
           ],
-          "est_sec": 11.7,
-          "pause_after_ms": 400
+          "est_sec": 15.5,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2962,47 +2966,50 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 아홉 칸 모두 이십을 넘는다는 말입니다."
+              "text": "오 번. 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "가장 낮은 막대 하나만 찾아보세요."
+              "text": "아홉 값 가운데 가장 작은 것이 이십이예요."
             },
             {
               "lang": "ko-KR",
-              "text": "이십 선 위이니 일치해요."
+              "text": "최솟값도 이십을 넘으니 모두 이십보다 높다는 전칭이 맞습니다."
             }
           ],
-          "est_sec": 11.4,
-          "pause_after_ms": 400
+          "est_sec": 15.5,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
           "order": 10,
           "role": "trap",
           "target": {
-            "kind": "analysis",
-            "id": "reject:2"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정 이름은 계열 짝 바꾸기입니다. 이 번을 다시 짚어 보세요."
+              "text": "함정은 반대 진술이에요. 여기 다섯 번째 문장."
             },
             {
               "lang": "ko-KR",
-              "text": "이름이 겹쳐 범례 한 칸 옆을 짚기 쉬워요."
+              "text": "바로 앞 묶음에서는 도시가 이십사로 꼴찌였어요."
             },
             {
               "lang": "ko-KR",
-              "text": "앞 연령대 순서를 마지막 층에 옮기지 마세요."
+              "text": "그 기억 때문에 이 묶음에서도 꼴찌처럼 들립니다."
             },
             {
               "lang": "ko-KR",
-              "text": "색을 고정해 확인하세요."
+              "text": "묶음이 바뀌면 순위표를 새로 매기세요."
             }
           ],
-          "est_sec": 18.5,
+          "est_sec": 20,
           "pause_after_ms": 600
         },
         {
@@ -3016,7 +3023,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘 칸을 보세요."
             },
             {
               "lang": "en-US",
@@ -3024,7 +3031,7 @@
             },
             {
               "lang": "ko-KR",
-              "text": "선호한."
+              "text": "선호하는."
             },
             {
               "lang": "en-US",
@@ -3036,11 +3043,11 @@
             },
             {
               "lang": "en-US",
-              "text": "Suburb"
+              "text": "the lowest"
             },
             {
               "lang": "ko-KR",
-              "text": "교외."
+              "text": "가장 낮은."
             },
             {
               "lang": "en-US",
@@ -3048,14 +3055,10 @@
             },
             {
               "lang": "ko-KR",
-              "text": "전체에 걸쳐."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "넘어섰다는 비교 표현에 주목하세요."
+              "text": "모든 묶음에 걸쳐."
             }
           ],
-          "est_sec": 13.8,
+          "est_sec": 11.1,
           "pause_after_ms": 500
         },
         {
@@ -3069,22 +3072,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리할게요. 최상급 진술은 그 묶음 안 값을 전부 비교해 순위를 직접 매깁니다."
             },
             {
               "lang": "ko-KR",
-              "text": "최저 주장은 최고를 빼고 남은 후보끼리 견줍니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이름이 겹치면 짝짓기가 판정을 좌우해요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 계열 이름을 범례와 짝짓는 것부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 연령대 이름과 최상급 말부터 표시하세요."
             }
           ],
-          "est_sec": 19,
+          "est_sec": 15.7,
           "pause_after_ms": 900
         }
       ]

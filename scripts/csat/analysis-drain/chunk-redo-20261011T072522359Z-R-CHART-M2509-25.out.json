@@ -1,0 +1,630 @@
+{
+  "chunk": 2,
+  "type_id": "R-CHART",
+  "type_name": "도표",
+  "analyses": [
+    {
+      "item_id": "M2509#25",
+      "measured_ability": "「respectively」로 묶인 두 계열(VR·AR)의 비교를 계열마다 따로 계산하고, 국가별 두 막대 차이를 넷 모두 구해 최대 격차를 확정하는 능력",
+      "design_intent": "Switzerland 는 VR(57)이 Japan(67)보다 낮아 진술의 앞 절반이 맞지만, AR 은 46 으로 Japan 43 보다 높다. respectively 가 요구하는 두 비교 중 한쪽만 뒤집어, VR 막대만 보고 판정을 끝내는지 가르는 문항이다. 동시에 Canada·Japan 의 AR 값이 43 으로 같아 격차 비교(31 대 24)에서 VR 값을 끝까지 보게 만든다.",
+      "answer_locus": {
+        "sentence_index": [
+          6
+        ],
+        "quote": "were lower in Switzerland than in Japan, respectively",
+        "reasoning": "respectively 는 VR 끼리, AR 끼리 두 번 비교하라는 표지다. 도표에서 VR 은 Switzerland 57 < Japan 67 이라 성립하지만 AR 은 Switzerland 46 > Japan 43 이라 lower 가 깨진다. 두 비교가 모두 맞아야 참인 진술이므로 6번 문장이 도표와 일치하지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "네 나라의 VR·AR 막대를 짝지어 보면 South Korea 77>70, Canada 74>43, Japan 67>43, Switzerland 57>46 으로 For each country 조건이 넷 다 성립한다. 도표와 맞는 진술이라 일치하지 않는 것을 고르는 발문의 답이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "AR(회색) 막대만 비교하면 South Korea 70, Switzerland 46, Canada 43, Japan 43 이라 최고는 South Korea 다. 맞는 진술이므로 답이 아니다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "나라별 VR−AR 차이는 South Korea 7, Canada 31, Japan 24, Switzerland 11 이다. Canada 와 Japan 의 AR 이 43 으로 같아 VR 값(74 대 67)이 격차를 가르고, 최대는 Canada 의 31 이다. 맞는 진술이라 답이 아니다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "how_to_reject": "Japan 의 VR 막대 값은 67 이고 67 > 60 이므로 greater than 60% 가 성립한다. 맞는 진술이라 답이 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "6번 문장의 lower ... respectively 는 VR 비교(57<67)와 AR 비교 두 개를 요구하는데, AR 은 Switzerland 46 이 Japan 43 보다 3 높아 lower 와 반대다. 바뀐 성분은 AR 비교의 방향 하나다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6
+            ],
+            "note": "원본 도표 확인 — 202509_영어영역_문제지.pdf 4쪽, 읽은 값(VR/AR): South Korea 77/70, Canada 74/43, Japan 67/43, Switzerland 57/46"
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "제목과 범례에서 흰 막대=VR, 회색 막대=AR 임을 확인하고 네 나라의 두 값을 나라 이름 아래에 적는다.",
+          "on_fail": "범례 색이 헷갈리면 범례 상자의 □(흰색)·■(회색) 표시를 막대 하나에 직접 대어 본다."
+        },
+        {
+          "step": "진술마다 비교 대상을 표시한다 — For each country(전칭), highest(최댓값), largest gap(차이), greater than 60%(경계값), respectively(두 계열 각각).",
+          "on_fail": "비교 대상이 안 보이면 진술의 비교급·최상급 낱말(greater · highest · largest · lower)에 밑줄을 그어 그 앞뒤 명사를 찾는다."
+        },
+        {
+          "step": "gap 진술은 네 나라의 VR−AR 차이를 모두 계산해 적는다(어림 금지).",
+          "on_fail": "두 나라 AR 값이 같으면 VR 값만 비교해도 격차 순서가 정해진다는 점을 이용해 다시 센다."
+        },
+        {
+          "step": "respectively 가 붙은 진술은 VR 비교와 AR 비교를 따로 써서 둘 다 맞는지 확인한다. 하나라도 어긋나면 그 진술이 도표와 일치하지 않는다.",
+          "on_fail": "한쪽 비교만 하고 넘어갔다면 남은 계열의 두 막대 값을 다시 적어 부등호를 쓴다."
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.8,
+        "drivers": [
+          "respectively 로 묶인 두 비교 중 뒤쪽(AR)만 어긋남",
+          "Canada·Japan AR 값이 43 으로 같음"
+        ]
+      },
+      "required_vocab": [
+        "respectively",
+        "gap",
+        "familiar with"
+      ],
+      "revised": false,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "design_intent 가 Switzerland VR 57<67 · AR 46>43 배치를 직접 적는지 확인 — 일반론 아님."
+          ],
+          "checked": [
+            "answer_locus.quote 를 지문 문장과 문자열 대조",
+            "정답 선지의 바뀐 성분(비교 방향·경계값)을 도표 값과 대조",
+            "design_intent 가 이 도표 고유의 수치 배치를 말하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "③ 설명은 Canada·Japan AR 동일(43)로 VR 값이 격차를 가른다는 점을 써서 ②와 근거가 다름."
+          ],
+          "checked": [
+            "정답 아닌 네 선지에 trap·why_tempting 이 비었는지(부정형 발문, 맞는 진술)",
+            "네 선지 how_to_reject 마다 서로 다른 값·계산이 들어 있는지",
+            "각 계산을 도표 값으로 다시 셈"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "gap 단계에서 네 차이(7·31·24·11)를 다 구하는 데 70초 안에 들어옴."
+          ],
+          "checked": [
+            "solve_procedure 각 단계가 도표만 보고 실행 가능한지",
+            "on_fail 문장이 단계마다 다른지",
+            "time_budget 안에 다섯 진술 대조가 끝나는지",
+            "required_vocab 이 판정에 실제 쓰이는 낱말인지"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2506#25",
+      "measured_ability": "한 진술 안의 값 주장(41%)과 비교 주장(smaller than)을 분리해, 값이 맞아도 비교 방향이 틀린 진술을 잡아내는 능력",
+      "design_intent": "Mexico 남성 41% 는 도표 값과 정확히 같아 진술의 앞부분이 참으로 읽힌다. 뒤의 which was smaller than that in the United States 가 United States 남성 30 과 견주면 반대 방향이다. 맞는 수치로 신뢰를 얻은 뒤 비교 방향을 뒤집는 설계이며, Germany·Mexico 여성 값이 51 로 같아 격차 진술에서 남성 값을 보게 하는 장치도 있다.",
+      "answer_locus": {
+        "sentence_index": [
+          4
+        ],
+        "quote": "Mexico was 41%, which was smaller than that in the United States",
+        "reasoning": "which 가 받는 것은 Mexico 남성 41% 이고, 비교 상대는 United States 남성이다. 도표에서 United States 남성은 30 이므로 41 은 30 보다 크다. 값 41 은 맞지만 smaller than 이 틀려 4번 문장이 도표와 일치하지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "여성(진한 막대) 값은 Spain 58, Germany 51, Mexico 51, United States 44, South Korea 31 로 Spain 이 최대이고 값도 58 이다. 최상급과 수치가 모두 맞아 답이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "여성−남성 격차는 Germany 51−31=20, Mexico 51−41=10 이다. 두 나라 여성 값이 51 로 같아 남성 값이 격차를 가르며 20 > 10 이므로 larger in Germany 가 맞다. 맞는 진술이라 답이 아니다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "4번 문장의 41% 는 Mexico 남성 막대 41 과 일치하지만, smaller than that in the United States 의 비교 상대인 United States 남성은 30 이다. 41 > 30 이라 smaller 가 반대 방향으로 바뀐 성분이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "원본 도표 확인 — 202506_영어영역_문제지.pdf 4쪽, 읽은 값(여/남): Spain 58/39, Germany 51/31, Mexico 51/41, United States 44/30, South Korea 31/25"
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "how_to_reject": "여성 값은 United States 44, South Korea 31 이고 44 > 31 이라 larger than 이 성립한다. 맞는 진술이라 답이 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "South Korea 는 여성 31(다른 나라 44~58보다 낮음), 남성 25(다른 나라 30~41보다 낮음)로 두 성별 각각 최저다. for each gender, respectively 의 두 조건이 다 맞아 답이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "범례에서 진한 막대=Female, 연한 막대=Male 을 확인하고 다섯 나라의 두 값을 표로 옮긴다.",
+          "on_fail": "색이 헷갈리면 범례 상자의 Female 칸 색을 Spain 의 58 막대와 대 본다."
+        },
+        {
+          "step": "각 진술에서 수치 주장(58% · 41%)과 비교 주장(largest · larger · smaller · smallest)을 따로 표시한다.",
+          "on_fail": "한 문장에 둘이 섞여 있으면 which 나 콤마 앞뒤로 끊어 두 주장으로 나눈다."
+        },
+        {
+          "step": "수치 주장이 맞더라도 비교 주장은 상대 나라의 같은 성별 값을 찾아 부등호로 다시 쓴다.",
+          "on_fail": "비교 상대를 못 찾으면 that in ~ 의 that 이 앞의 어느 명사(share of males / females)를 받는지 확인한다."
+        },
+        {
+          "step": "gap 진술은 두 나라의 여−남 차이를 각각 계산해 비교한다.",
+          "on_fail": "두 나라 여성 값이 같으면 남성 값이 작은 쪽이 격차가 크다는 점으로 다시 확인한다."
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.82,
+        "drivers": [
+          "정답 진술의 수치 41% 가 도표와 정확히 일치",
+          "Germany·Mexico 여성 값 동일(51)"
+        ]
+      },
+      "required_vocab": [
+        "share",
+        "gap",
+        "respectively"
+      ],
+      "revised": false,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "정답 문장의 41% 가 도표 값과 같고 비교만 틀렸음을 why_correct 가 분리해 적음."
+          ],
+          "checked": [
+            "answer_locus.quote 를 지문 문장과 문자열 대조",
+            "정답 선지의 바뀐 성분(비교 방향·경계값)을 도표 값과 대조",
+            "design_intent 가 이 도표 고유의 수치 배치를 말하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "② 격차는 20 대 10 계산으로 적혀 있음."
+          ],
+          "checked": [
+            "정답 아닌 네 선지에 trap·why_tempting 이 비었는지(부정형 발문, 맞는 진술)",
+            "네 선지 how_to_reject 마다 서로 다른 값·계산이 들어 있는지",
+            "각 계산을 도표 값으로 다시 셈"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "which 앞뒤로 끊는 on_fail 이 Mexico 진술에 바로 적용됨."
+          ],
+          "checked": [
+            "solve_procedure 각 단계가 도표만 보고 실행 가능한지",
+            "on_fail 문장이 단계마다 다른지",
+            "time_budget 안에 다섯 진술 대조가 끝나는지",
+            "required_vocab 이 판정에 실제 쓰이는 낱말인지"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2024#25",
+      "measured_ability": "「which was also true for」로 앞 절의 증감 판단을 다른 대상에 옮겨 붙인 진술을, 두 대상마다 따로 같은 연도 쌍으로 검산하는 능력",
+      "design_intent": "Finland 는 2017 18 → 2019 17 로 실제로 줄어 진술의 앞 절이 참이다. 그런데 which was also true for Japan 이 같은 판단을 Japan 에 옮기는데, Japan 은 6 → 11 로 늘었다. 다섯 나라 중 2017→2019 에 줄어든 나라가 Finland 하나뿐이라, 앞 절만 확인하고 뒤 꼬리를 건너뛰는지 가르는 설계다.",
+      "answer_locus": {
+        "sentence_index": [
+          5
+        ],
+        "quote": "was lower than that in 2017, which was also true for Japan",
+        "reasoning": "which was also true for Japan 은 「Japan 도 2019 값이 2017 값보다 낮았다」는 두 번째 주장이다. 도표에서 Japan 은 2017 6, 2019 11 로 2019 가 더 높다. Finland(18→17)는 맞지만 Japan 부분이 깨져 5번 문장이 도표와 일치하지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "연도별 최고값은 2017 Ireland 30(다음 Germany 24), 2019 Ireland 32(다음 Germany 25), 2022 Ireland 41(다음 Germany 29)로 세 해 모두 Ireland 가 최고다. 맞는 진술이라 답이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "Germany 는 24, 25, 29 로 세 해 모두 30 미만이다. 가장 높은 2022 의 29 도 30 보다 작아 less than 30% 가 성립한다. 맞는 진술이라 답이 아니다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "Denmark 는 2017 14, 2019 15, 2022 20 이다. 15 > 14 이고 15 < 20 이라 higher than 2017 but lower than 2022 의 두 비교가 모두 맞다. 답이 아니다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "5번 문장의 앞 절(Finland 2019 17 < 2017 18)은 맞지만, which was also true for Japan 이 옮겨 붙인 같은 판단은 Japan 2017 6, 2019 11 이라 반대다. 바뀐 성분은 Japan 에 적용된 증감 방향이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "원본 도표 확인 — 2024_영어영역_문제지.pdf 4쪽, 읽은 값(2017/2019/2022): Ireland 30/32/41, Germany 24/25/29, Denmark 14/15/20, Finland 18/17/20, Japan 6/11/14"
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "Japan 은 6, 11, 14 로 세 해 모두 15 이하다. 최댓값 14 도 15 를 넘지 않아 did not exceed 15% 가 성립한다. 맞는 진술이라 답이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "범례에서 빗금=2017, 흰 막대=2019, 검은 막대=2022 를 확인하고 나라마다 세 값을 순서대로 적는다.",
+          "on_fail": "빗금과 흰 막대가 헷갈리면 범례 순서(2017 · 2019 · 2022)가 막대 왼→오 순서와 같은지 Ireland 에서 확인한다."
+        },
+        {
+          "step": "진술마다 비교하는 연도 쌍과 기준값을 표시한다 — each of the three years(세 값 전부), 2019 vs 2017, less than 30%, did not exceed 15%.",
+          "on_fail": "연도가 셋 다 나오는 진술은 세 값을 모두 적고 하나씩 지운다."
+        },
+        {
+          "step": "which was also true for ~ 처럼 앞 판단을 다른 대상에 옮기는 꼬리가 있으면, 그 대상의 같은 연도 쌍을 따로 찾아 부등호를 쓴다.",
+          "on_fail": "꼬리를 놓쳤다면 문장 끝 콤마 뒤에 새 나라 이름이 나오는지 다시 본다."
+        },
+        {
+          "step": "경계값 진술(less than 30% · not exceed 15%)은 그 나라의 최댓값 하나만 기준과 비교한다.",
+          "on_fail": "최댓값을 못 고르면 세 막대 중 가장 긴 막대 위 숫자를 기준과 견준다."
+        }
+      ],
+      "time_budget_sec": 75,
+      "difficulty": {
+        "predicted": 0.8,
+        "drivers": [
+          "앞 절 Finland 는 참이고 꼬리의 Japan 만 거짓",
+          "나라당 세 값이라 대조할 칸이 15개"
+        ]
+      },
+      "required_vocab": [
+        "avoid",
+        "exceed",
+        "which was also true for"
+      ],
+      "revised": false,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "Finland 18→17 참, Japan 6→11 거짓 — 대응 성립."
+          ],
+          "checked": [
+            "answer_locus.quote 를 지문 문장과 문자열 대조",
+            "정답 선지의 바뀐 성분(비교 방향·경계값)을 도표 값과 대조",
+            "design_intent 가 이 도표 고유의 수치 배치를 말하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "① 연도별 2위(Germany 24·25·29)까지 적어 최고 판정 근거가 구체적."
+          ],
+          "checked": [
+            "정답 아닌 네 선지에 trap·why_tempting 이 비었는지(부정형 발문, 맞는 진술)",
+            "네 선지 how_to_reject 마다 서로 다른 값·계산이 들어 있는지",
+            "각 계산을 도표 값으로 다시 셈"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계가 콤마 뒤 새 나라 이름을 찾는 행동으로 적혀 실행 가능."
+          ],
+          "checked": [
+            "solve_procedure 각 단계가 도표만 보고 실행 가능한지",
+            "on_fail 문장이 단계마다 다른지",
+            "time_budget 안에 다섯 진술 대조가 끝나는지",
+            "required_vocab 이 판정에 실제 쓰이는 낱말인지"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2409#25",
+      "measured_ability": "「higher than 35% but lower than 40%」라는 열린 구간 조건을 두 집단 × 두 연도 네 칸 모두에 적용하고, 경계값(35)이 조건 밖이라는 점까지 판정하는 능력",
+      "design_intent": "Black 은 2011 37, 2021 37 로 구간 안이지만 Hispanic 은 2011 35, 2021 33 이다. 35 는 higher than 35% 를 만족하지 못하는 경계값이고 33 은 구간 밖이다. both · in 2011 and in 2021 로 네 칸을 묶어, 2016(Hispanic 39)처럼 구간 안에 있는 칸에 끌리지 않고 지정 연도만 보는지와 경계 처리를 함께 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          4
+        ],
+        "quote": "were higher than 35% but lower than 40% in 2011 and in 2021",
+        "reasoning": "조건은 35 초과 40 미만이고 대상은 Black·Hispanic 의 2011·2021 네 칸이다. 표에서 Hispanic 2011 은 35(초과가 아님), 2021 은 33(35 미만)이라 두 칸이 조건을 어긴다. both 가 붙어 한 칸만 어겨도 거짓이므로 4번 문장이 표와 일치하지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "Asian 은 60, 58, 61 로 세 해 모두 다섯 집단 중 최고이고(다음은 White 45, 42, 38) 모두 50 초과다. 두 조건이 다 맞아 답이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "White 는 45, 42, 38 로 세 해 모두 Asian 다음 두 번째다(2016 Hispanic 39 < White 42, 2021 Black 37 < White 38). 2021 의 38 은 40 미만이라 dropped below 40% 도 맞다. 답이 아니다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "4번 문장의 higher than 35% but lower than 40% 를 네 칸에 대면 Black 37·37 은 통과하지만 Hispanic 은 2011 35, 2021 33 이다. 35 는 35 초과가 아니고 33 은 35 미만이라, Hispanic 이 구간 조건을 어긴 것이 바뀐 성분이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "원본 표 확인 — 202409_영어영역_문제지.pdf 4쪽, 읽은 값(2011/2016/2021): White 45/42/38, Black 37/36/37, Hispanic 35/39/33, Asian 60/58/61, American Indian/Alaska Native 24/19/28"
+          }
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "how_to_reject": "Hispanic 과 Black 을 연도별로 견주면 2011 35<37, 2016 39>36, 2021 33<37 이라 Hispanic 이 더 높은 해는 2016 하나뿐이다. the only year 가 맞아 답이 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "American Indian/Alaska Native 는 24, 19, 28 로 각 해의 다른 네 집단 최솟값(2011 Hispanic 35, 2016 Black 36, 2021 Hispanic 33)보다 낮다. 세 해 모두 최저라 답이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "표의 행(다섯 집단)과 열(2011 · 2016 · 2021)을 확인하고, 진술마다 해당 행·열을 표시한다.",
+          "on_fail": "행·열이 엇갈리면 표 왼쪽 위 대각선 칸의 Year(열)·Race/Ethnicity(행) 표기를 다시 본다."
+        },
+        {
+          "step": "구간 조건(higher than A but lower than B)은 부등호로 바꿔 적는다 — 35 < x < 40. 경계값과 같은 수는 조건 밖이다.",
+          "on_fail": "higher than 과 at least 를 구분하지 못하면 「같으면 포함되나」를 영어 표현마다 따로 적는다."
+        },
+        {
+          "step": "both A and B, in 2011 and in 2021 처럼 대상이 곱으로 묶이면 해당 칸을 모두 나열해 하나씩 조건에 대 본다. 진술이 말하지 않은 해(2016)는 보지 않는다.",
+          "on_fail": "칸 수를 셀 수 없으면 집단 수 × 연도 수로 칸을 적어 표를 따로 그린다."
+        },
+        {
+          "step": "순위·the only 진술은 각 해의 값을 내림차순으로 놓거나 연도별 대소를 표로 만들어 확인한다.",
+          "on_fail": "순위가 헷갈리면 해마다 가장 큰 값과 가장 작은 값을 먼저 지운 뒤 남은 값을 비교한다."
+        }
+      ],
+      "time_budget_sec": 75,
+      "difficulty": {
+        "predicted": 0.72,
+        "drivers": [
+          "경계값 35 가 higher than 35% 를 만족하지 않음",
+          "조건이 두 집단 × 두 연도 네 칸에 걸림"
+        ]
+      },
+      "required_vocab": [
+        "enrollment",
+        "higher than",
+        "the only year"
+      ],
+      "revised": false,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "경계값 35 를 「35 초과가 아님」으로 reasoning·why_correct·절차 2단계에서 같은 기준으로 씀."
+          ],
+          "checked": [
+            "answer_locus.quote 를 지문 문장과 문자열 대조",
+            "정답 선지의 바뀐 성분(비교 방향·경계값)을 도표 값과 대조",
+            "design_intent 가 이 도표 고유의 수치 배치를 말하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "⑤ 각 해 다른 네 집단 최솟값을 연도별로 적음."
+          ],
+          "checked": [
+            "정답 아닌 네 선지에 trap·why_tempting 이 비었는지(부정형 발문, 맞는 진술)",
+            "네 선지 how_to_reject 마다 서로 다른 값·계산이 들어 있는지",
+            "각 계산을 도표 값으로 다시 셈"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2016 을 보지 말라는 3단계가 ④(2016 비교)와 충돌하지 않도록 「진술이 말하지 않은 해」로 한정됨."
+          ],
+          "checked": [
+            "solve_procedure 각 단계가 도표만 보고 실행 가능한지",
+            "on_fail 문장이 단계마다 다른지",
+            "time_budget 안에 다섯 진술 대조가 끝나는지",
+            "required_vocab 이 판정에 실제 쓰이는 낱말인지"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2406#25",
+      "measured_ability": "누적 막대에서 범주별 조각을 범례 무늬로 구분하고, 이웃 연령대의 같은 범주 조각 값을 견주어 비교 방향을 판정하는 능력",
+      "design_intent": "Domestic & Outbound Trips(빗금) 조각은 45–54 가 23.3, 55–64 가 22.5 로 0.8 차이다. 막대 높이로는 차이가 거의 안 보여 표기된 숫자를 읽어야 하고, lower 가 실제 방향과 반대다. 누적 막대라 같은 범주의 조각 위치가 연령대마다 달라 범례 무늬로 범주를 짝짓는지도 함께 묻는다.",
+      "answer_locus": {
+        "sentence_index": [
+          5
+        ],
+        "quote": "Domestic & Outbound Trips category was lower in the 45—54 age group than in the 55—64 age group",
+        "reasoning": "빗금 조각(Domestic & Outbound Trips)의 숫자는 45–54 가 23.3, 55–64 가 22.5 다. 23.3 > 22.5 이므로 45–54 가 더 높아 lower 가 반대 방향이다. 5번 문장이 도표와 일치하지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "No Trips(맨 위 흰 조각)는 31.1, 31.1, 35.5, 37.3, 52.6 으로 다섯 연령대 모두 30 초과다. 가장 낮은 31.1 도 30 을 넘어 맞는 진술이고 답이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "Outbound Trips Only(진한 조각)는 25–34 가 15.2, 35–44 가 11.8 이고 15.2 > 11.8 이라 higher 가 맞다. 답이 아니다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "35–44 막대의 Domestic Trips Only(맨 아래 연한 조각) 값은 34.2 로 진술의 34.2% 와 같다. 맞는 진술이라 답이 아니다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "5번 문장의 lower in the 45—54 age group than in the 55—64 age group 을 빗금 조각 값에 대면 23.3 대 22.5 로 45–54 가 0.8 높다. 비교 방향(lower)이 바뀐 성분이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "원본 도표 확인 — 202406_영어영역_문제지.pdf 4쪽, 읽은 값(아래→위: Domestic Only / Domestic&Outbound / Outbound Only / No Trips): 25–34 30.2/23.4/15.2/31.1, 35–44 34.2/22.9/11.8/31.1, 45–54 28.8/23.3/12.3/35.5, 55–64 29.4/22.5/10.7/37.3, 65+ 26.3/14.0/7.0/52.6"
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "65 or over 막대의 No Trips 조각은 52.6 이고 52.6 > 50 이라 more than 50% 가 맞다. 답이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "범례의 네 무늬(연한 회색=Domestic Trips Only, 빗금=Domestic & Outbound, 진한 회색=Outbound Trips Only, 흰색=No Trips)를 누적 막대의 아래→위 순서와 짝짓는다.",
+          "on_fail": "순서가 안 잡히면 한 막대(25–34)에서 조각마다 무늬를 범례와 하나씩 대 본다."
+        },
+        {
+          "step": "진술마다 범주 이름과 연령대 두 개(또는 다섯 개 전부)를 표시한다.",
+          "on_fail": "범주 이름이 길면 Domestic · Outbound · Only · No 네 낱말만 보고 범례 칸을 고른다."
+        },
+        {
+          "step": "조각 높이로 어림하지 말고 조각 안 숫자를 옮겨 적어 부등호를 쓴다(누적 막대는 조각 시작 높이가 달라 눈대중이 틀린다).",
+          "on_fail": "숫자 차이가 1 이하라 헷갈리면 소수점 첫째 자리까지 그대로 빼 본다(23.3−22.5)."
+        },
+        {
+          "step": "each of the five age groups 같은 전칭은 다섯 값 중 최솟값만 기준(30%)과 비교한다.",
+          "on_fail": "최솟값을 못 고르면 다섯 값을 모두 적고 기준 이하인 것이 있는지 하나씩 지운다."
+        }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": {
+        "predicted": 0.75,
+        "drivers": [
+          "정답 두 값 차이 0.8 로 막대 높이로 구분 어려움",
+          "누적 막대라 범주 조각 위치가 연령대마다 다름"
+        ]
+      },
+      "required_vocab": [
+        "domestic",
+        "outbound",
+        "category"
+      ],
+      "revised": false,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 는 지문의 45—54 표기(전각 대시) 그대로."
+          ],
+          "checked": [
+            "answer_locus.quote 를 지문 문장과 문자열 대조",
+            "정답 선지의 바뀐 성분(비교 방향·경계값)을 도표 값과 대조",
+            "design_intent 가 이 도표 고유의 수치 배치를 말하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "① 은 최솟값 31.1, ⑤ 는 52.6 단일 값으로 서로 다른 칸 근거."
+          ],
+          "checked": [
+            "정답 아닌 네 선지에 trap·why_tempting 이 비었는지(부정형 발문, 맞는 진술)",
+            "네 선지 how_to_reject 마다 서로 다른 값·계산이 들어 있는지",
+            "각 계산을 도표 값으로 다시 셈"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "on_fail 네 문장이 서로 다름 확인."
+          ],
+          "checked": [
+            "solve_procedure 각 단계가 도표만 보고 실행 가능한지",
+            "on_fail 문장이 단계마다 다른지",
+            "time_budget 안에 다섯 진술 대조가 끝나는지",
+            "required_vocab 이 판정에 실제 쓰이는 낱말인지"
+          ]
+        }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-CHART",
+    "n_analyzed": 5,
+    "recurring_traps": [
+      {
+        "trap": "비교 방향 반전",
+        "count": 4,
+        "signature": "수치는 도표와 맞고 비교어(lower · smaller · also true)만 실제 방향과 반대 — M2509·M2506·2024·M2406"
+      },
+      {
+        "trap": "구간 경계값",
+        "count": 1,
+        "signature": "higher than 35% 에 경계값 35 를 넣어 열린 구간 밖으로 둠 — M2409"
+      }
+    ],
+    "counting_note": "함정은 문항마다 정답 선지 하나에서만 한 번씩 셌다(5문항 5건). 부정형 발문이라 정답 아닌 선지 20개는 맞는 진술이므로 함정으로 세지 않았다.",
+    "answer_locus_pattern": "5문항 모두 정답 선지가 두 주장을 한 문장에 묶고(값+비교, 앞 절+also true, respectively 두 계열, 두 집단×두 연도) 그중 뒤쪽 하나만 도표와 어긋난다. 정답 위치 분포는 유형 전체 keyed 29 기준 ①0·②2·③9·④13·⑤5 이며 절차에 쓰지 않는다.",
+    "procedure": [
+      {
+        "step": "범례·축·단위를 먼저 확인하고 범주별 값을 표로 옮긴다.",
+        "on_fail": "범례 무늬를 막대 하나에 직접 대어 본다."
+      },
+      {
+        "step": "진술을 주장 단위(값 · 비교 · 전칭 · 경계)로 쪼개고, respectively · both · which was also true 가 있으면 비교를 둘로 나눈다.",
+        "on_fail": "콤마·which·and 를 기준으로 끊는다."
+      },
+      {
+        "step": "비교는 부등호로, 격차는 뺄셈으로, 경계는 열린/닫힌 구간으로 바꿔 계산한다.",
+        "on_fail": "경계값과 같은 수가 나오면 than/at least 표현을 다시 본다."
+      }
+    ],
+    "failure_modes": [
+      "앞 절의 값이 맞으면 뒤 비교를 확인하지 않는다",
+      "respectively·also true 꼬리의 두 번째 비교를 생략한다",
+      "경계값(35)을 구간 안으로 넣는다",
+      "누적 막대 조각을 높이로 어림한다"
+    ],
+    "time_budget_sec": 75,
+    "open_questions": [
+      "3인 검수에서 반려가 0건이었다 — 세 자가 같은 것을 쟀을 가능성이 있고, 모두 같은 작성자의 자체 QA다 — 독립 검수(이미지를 직접 본 검수자)가 필요하다.",
+      "표본 5문항에서 정답 선지가 전부 「복합 진술의 뒤쪽 성분」이었다. 유형 전체 29문항에서 같은지는 확인하지 않았다."
+    ]
+  }
+}

@@ -259,7 +259,7 @@ export type PublicEvent =
   /** 해설 극장(M4) — 검수된 같은 원리 쌍을 대조했다(열람이 아니라 비교 완료) */
   | {
       name: 'csat_transfer_submitted'
-      props: { relation: 'same_principle' }
+      props: { relation: 'same_principle' | 'contrast' }
     }
   /** 어느 축으로 들어왔나 — 목적별 · 유형별 · 회차별(같은 도착지로 가는 두 입구의 비율). */
   | {

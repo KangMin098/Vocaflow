@@ -2656,10 +2656,10 @@
     },
     "2024#25": {
       "item_id": "2024#25",
-      "version": 2,
-      "total_sec_est": 188,
+      "version": 3,
+      "total_sec_est": 191,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 87,
+      "rubric_score": 94,
       "cues": [
         {
           "id": "c1",
@@ -2672,18 +2672,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십사 학년도 수능 이십오 번, 도표 문항입니다."
+              "text": "여러분, 발문부터 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "도표와 일치하지 않는 진술 하나를 고르는 문항이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "다섯 나라에서 뉴스를 피한 비율을 세 해 보여 줘요."
+              "text": "답이 아닌 네 진술은 도표와 맞는 진술입니다."
             }
           ],
-          "est_sec": 16.7,
+          "est_sec": 13.4,
           "pause_after_ms": 500
         },
         {
@@ -2697,48 +2697,76 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일은 하나예요. 선지마다 비교 연도와 대상 나라를 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "덧붙은 절까지 읽고 확인할 나라 수를 표시하세요."
+              "text": "콤마 뒤에 새 나라가 붙는 꼬리도 함께 표시합니다."
             },
             {
-              "lang": "ko-KR",
-              "text": "사 번은 끝에 일본이 붙어 나라가 둘이에요."
+              "lang": "en-US",
+              "text": "which was also true for"
             }
           ],
-          "est_sec": 13.2,
-          "pause_after_ms": 600
+          "est_sec": 15.6,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
           "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "지도를 보세요. 첫 문장은 도표 소개예요."
             },
             {
               "lang": "ko-KR",
-              "text": "나라 다섯에 세 해 막대가 있어요."
+              "text": "나라 다섯 곳마다 연도 세 개의 막대가 있습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "이천십칠 년, 이천십구 년, 이천이십이 년입니다."
+              "text": "선지는 최고, 기준 미만, 두 비교, 옮겨 붙인 판단, 기준 이하를 묻습니다."
             }
           ],
-          "est_sec": 12.2,
-          "pause_after_ms": 600
+          "est_sec": 16.7,
+          "pause_after_ms": 600,
+          "focus": [
+            0
+          ]
         },
         {
           "id": "c4",
           "order": 4,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "정답은 사 번입니다. 여기 다섯 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "앞 절은 핀란드예요. 이천십칠 년 십팔에서 이천십구 년 십칠로 줄었으니 맞습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그런데 꼬리가 같은 판단을 일본에 옮겨 붙여요."
+            }
+          ],
+          "est_sec": 19.5,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "analysis",
@@ -2747,51 +2775,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번입니다. 정답 블록을 보세요."
+              "text": "정답 칸을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "핀란드의 이천십구 년이 이천십칠 년보다 낮다는 선지죠."
-            },
-            {
-              "lang": "en-US",
-              "text": "which was also true for Japan"
+              "text": "일본은 이천십칠 년 육, 이천십구 년 십일이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "끝말이 같은 조건을 일본에도 요구합니다."
+              "text": "줄어든 게 아니라 늘었죠. 일본 부분이 깨져 문장 전체가 도표와 어긋납니다."
             }
           ],
-          "est_sec": 17.8,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 사 번을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "핀란드 한 번, 일본 한 번, 비교가 둘이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "하나만 어긋나도 선지가 틀립니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 나라 중 한 곳은 더 낮지 않은 거죠."
-            }
-          ],
-          "est_sec": 16,
+          "est_sec": 15.7,
           "pause_after_ms": 700
         },
         {
@@ -2805,19 +2800,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 세 해 모두 아일랜드가 가장 높다는 말이에요."
+              "text": "일 번. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "해마다 최고 막대 하나씩 확인하세요."
+              "text": "아일랜드는 삼십, 삼십이, 사십일이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "셋 다 아일랜드이니 일치합니다."
+              "text": "각 해 다음 순위인 독일은 이십사, 이십오, 이십구라 아일랜드가 늘 최고입니다. 맞는 진술이에요."
             }
           ],
-          "est_sec": 12.9,
-          "pause_after_ms": 400
+          "est_sec": 18.3,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
           "id": "c7",
@@ -2830,19 +2828,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 독일이 세 해 모두 삼십 퍼센트 미만이라는 말입니다."
+              "text": "이 번. 세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "독일의 가장 높은 막대 하나만 확인하세요."
+              "text": "독일은 이십사, 이십오, 이십구예요."
             },
             {
               "lang": "ko-KR",
-              "text": "삼십 선 아래이니 일치해요."
+              "text": "가장 큰 이십구도 삼십보다 작으니 삼십 미만이 맞습니다."
             }
           ],
           "est_sec": 13.7,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            2
+          ]
         },
         {
           "id": "c8",
@@ -2855,19 +2856,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 덴마크의 가운데 해가 앞보다 높고 뒤보다 낮다는 말이에요."
+              "text": "삼 번. 네 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "세 막대를 연도 순으로 짚어 보세요."
+              "text": "덴마크는 십사, 십오, 이십이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "두 부등호가 맞으니 일치합니다."
+              "text": "이천십구 년 값이 앞해보다 높고 뒤해보다 낮아 두 비교가 다 맞습니다."
             }
           ],
           "est_sec": 14.2,
-          "pause_after_ms": 400
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
           "id": "c9",
@@ -2880,19 +2884,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 일본이 십오 퍼센트를 넘지 않았다는 말입니다."
+              "text": "오 번. 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "부정을 십오 이하로 바꿔 확인하세요."
+              "text": "일본은 육, 십일, 십사예요."
             },
             {
               "lang": "ko-KR",
-              "text": "일본의 최고 막대가 넘지 않으니 일치해요."
+              "text": "최댓값 십사도 십오를 넘지 않으니 맞는 진술이라 답이 아닙니다."
             }
           ],
-          "est_sec": 14.2,
-          "pause_after_ms": 400
+          "est_sec": 13.7,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
           "id": "c10",
@@ -2900,27 +2907,23 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 사 번의 덧붙임입니다. 첫 문장 안 사 번을 짚어 보세요."
+              "text": "함정은 꼬리 건너뛰기예요. 여기 다섯 번째 문장."
             },
             {
               "lang": "ko-KR",
-              "text": "보충 설명처럼 읽혀 핀란드만 보기 쉬워요."
+              "text": "줄어든 나라는 핀란드 하나뿐인데 꼬리가 일본까지 끌어들입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "오 번은 두 해의 앞뒤를 정하지 않습니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "새 나라가 붙으면 그 막대도 확인하세요."
+              "text": "콤마 뒤 새 나라가 보이면 그 나라 값을 따로 찾으세요."
             }
           ],
-          "est_sec": 19.8,
+          "est_sec": 18,
           "pause_after_ms": 600
         },
         {
@@ -2934,15 +2937,15 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "어휘를 확인하세요."
+              "text": "어휘 칸을 보세요."
             },
             {
               "lang": "en-US",
-              "text": "actively avoided"
+              "text": "avoid"
             },
             {
               "lang": "ko-KR",
-              "text": "적극적으로 피했다."
+              "text": "피하다."
             },
             {
               "lang": "en-US",
@@ -2954,26 +2957,14 @@
             },
             {
               "lang": "en-US",
-              "text": "respondents"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "응답자."
-            },
-            {
-              "lang": "en-US",
               "text": "which was also true for"
             },
             {
               "lang": "ko-KR",
-              "text": "그 나라도 마찬가지였다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "마지막 표현에 주목하세요."
+              "text": "이 대상에도 들어맞았다."
             }
           ],
-          "est_sec": 17,
+          "est_sec": 10.3,
           "pause_after_ms": 500
         },
         {
@@ -2987,18 +2978,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리할게요. 판단을 옮겨 붙이는 꼬리는 새 주장 하나로 보고 따로 검산합니다."
             },
             {
               "lang": "ko-KR",
-              "text": "선지 끝의 덧붙임은 판정을 한 번 더 요구합니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 덧붙은 절까지 읽고 나라 수부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지의 비교 연도와 대상 나라부터 표시하세요."
             }
           ],
-          "est_sec": 13.9,
+          "est_sec": 15.4,
           "pause_after_ms": 900
         }
       ]

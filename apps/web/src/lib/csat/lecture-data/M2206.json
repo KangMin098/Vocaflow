@@ -2669,10 +2669,10 @@
     },
     "M2206#25": {
       "item_id": "M2206#25",
-      "version": 3,
-      "total_sec_est": 244,
+      "version": 4,
+      "total_sec_est": 176,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 82,
+      "rubric_score": 89,
       "cues": [
         {
           "id": "c1",
@@ -2685,18 +2685,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천이십이 학년도 유월 모의평가 이십오 번, 도표 문항입니다."
+              "text": "여러분, 막대 도표와 진술을 견주는 문항입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 보세요. 일치하지 않는 것을 고릅니다."
+              "text": "발문을 보세요. 일치하지 않는 하나를 고릅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "미국 성인의 책 읽기 형식을 연령대별로 나눈 도표예요."
+              "text": "답이 아닌 넷은 도표와 맞는 진술이에요."
             }
           ],
-          "est_sec": 18.2,
+          "est_sec": 14.7,
           "pause_after_ms": 500
         },
         {
@@ -2710,23 +2710,19 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일은 하나입니다."
+              "text": "읽기 전에 할 일 하나."
             },
             {
               "lang": "ko-KR",
-              "text": "선지마다 비교 방향을 표시하세요."
+              "text": "선지마다 어느 연령대, 어느 형식인지 두 칸으로 먼저 표시하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "같은 형식 안에서 연령대끼리인지, 같은 연령대 안에서 형식끼리인지요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그래야 막대 열두 개 중 볼 칸이 정해집니다."
+              "text": "형식은 종이책, 전자책, 오디오북 셋입니다."
             }
           ],
-          "est_sec": 19.2,
-          "pause_after_ms": 600
+          "est_sec": 13.7,
+          "pause_after_ms": 500
         },
         {
           "id": "c3",
@@ -2739,22 +2735,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장, 도표 소개를 보세요."
+              "text": "여기 첫 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "형식은 종이책, 전자책, 오디오북 셋입니다."
+              "text": "연령대 네 묶음마다 형식 세 개의 비율이 막대로 서 있다는 설명이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "연령대는 넷이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "범례 색과 형식 이름부터 짝지어 두세요."
+              "text": "비교는 같은 형식 막대끼리 합니다."
             }
           ],
-          "est_sec": 14.7,
+          "est_sec": 14.2,
           "pause_after_ms": 600
         },
         {
@@ -2762,87 +2754,29 @@
           "order": 4,
           "role": "evidence",
           "target": {
-            "kind": "analysis",
-            "id": "answer"
+            "kind": "anchor",
+            "id": "sentence:2"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 이 번입니다. 정답 블록을 보세요."
+              "text": "정답은 이 번입니다. 여기 세 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "종이책 비율이 쉰에서 예순넷 집단에서 더 높다는 말이죠."
+              "text": "종이책에서 오십에서 육십사 세가 육십오 세 이상보다 높다고 하죠."
             },
             {
               "lang": "ko-KR",
-              "text": "비교 상대는 예순다섯 이상 집단입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "볼 막대는 두 개뿐이에요."
+              "text": "막대 값은 오십구 대 육십삼이에요. 높은 게 아니라 낮습니다."
             }
           ],
-          "est_sec": 17.8,
+          "est_sec": 19,
           "pause_after_ms": 700
         },
         {
           "id": "c5",
           "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 이 번을 짚어 보세요."
-            },
-            {
-              "lang": "en-US",
-              "text": "was higher than that"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "종이책 계열 안의 두 연령대를 견주는 부등호 하나예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표가 이 번이니, 쉰에서 예순넷 막대는 더 높지 않습니다."
-            }
-          ],
-          "est_sec": 18,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c6",
-          "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "analysis",
-            "id": "answer"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "정답 블록에서 다른 선지와 견줘 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "일 번의 최상급은 가장 높은 막대만 정해요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이 두 막대의 순서는 어느 선지도 대신 말해 주지 않습니다."
-            }
-          ],
-          "est_sec": 14.9,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2851,23 +2785,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 가장 젊은 집단의 종이책이 칠십사 퍼센트로 일 위라는 말."
+              "text": "일 번, 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "종이책 막대 넷을 모두 읽고, 이 집단 값이 칠십사인지와 가장 높은지를 함께 확인하세요."
+              "text": "십팔에서 이십구 세 종이책은 칠십사 퍼센트."
             },
             {
               "lang": "ko-KR",
-              "text": "수치와 순위, 두 조건이 다 맞아야 일치입니다."
+              "text": "다른 연령대 육십오, 오십구, 육십삼보다 커서 최고도 맞습니다."
             }
           ],
-          "est_sec": 20.4,
-          "pause_after_ms": 400
+          "est_sec": 14.9,
+          "pause_after_ms": 400,
+          "focus": [
+            1
+          ]
         },
         {
-          "id": "c8",
-          "order": 8,
+          "id": "c6",
+          "order": 6,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2876,27 +2813,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 전자책 두 칸이에요."
+              "text": "삼 번, 네 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "가장 젊은 집단은 삼십사 퍼센트, 예순다섯 이상은 이십 퍼센트 미만."
+              "text": "젊은 층 전자책은 삼십사 퍼센트,"
             },
             {
               "lang": "ko-KR",
-              "text": "뒤 막대는 이십 눈금에 대 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "앞 숫자가 맞아도 뒤 절은 따로 봅니다."
+              "text": "육십오 세 이상 전자책은 십칠 퍼센트라 이십 미만이 맞습니다."
             }
           ],
-          "est_sec": 18,
-          "pause_after_ms": 400
+          "est_sec": 13.7,
+          "pause_after_ms": 400,
+          "focus": [
+            3
+          ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2905,23 +2841,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 모든 연령대에서 전자책이 오디오북보다 높다는 말."
+              "text": "사 번, 다섯 번째 문장을 짚어 보세요. 모든 연령대라는 말이니 넷을 다 봅니다."
             },
             {
               "lang": "ko-KR",
-              "text": "네 묶음마다 두 막대를 한 쌍씩 확인하세요."
+              "text": "전자책 대 오디오북, 삼십사 대 이십삼, 이십팔 대 이십칠,"
             },
             {
               "lang": "ko-KR",
-              "text": "이 말과 삼 번을 이으면, 예순다섯 이상의 오디오북도 이십 퍼센트 아래라는 게 따라 나와요."
+              "text": "이십이 대 십육, 십칠 대 팔. 네 번 다 전자책이 높습니다."
             }
           ],
-          "est_sec": 19.9,
-          "pause_after_ms": 400
+          "est_sec": 19.8,
+          "pause_after_ms": 400,
+          "focus": [
+            4
+          ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -2930,73 +2869,51 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 오디오북은 서른에서 마흔아홉 집단이 가장 높다는 말."
+              "text": "오 번, 여섯 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "오디오북 색을 고정하고 그 막대 넷만 확인하세요."
+              "text": "오디오북 막대는 이십삼, 이십칠, 십육, 팔."
             },
             {
               "lang": "ko-KR",
-              "text": "이 말이 맞으니, 종이책 일 위인 가장 젊은 집단도 오디오북에선 일 위가 아니에요."
+              "text": "삼십에서 사십구 세의 이십칠이 가장 크니 맞는 진술입니다."
             }
           ],
-          "est_sec": 19.9,
-          "pause_after_ms": 400
+          "est_sec": 14.4,
+          "pause_after_ms": 400,
+          "focus": [
+            5
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c9",
+          "order": 9,
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:2"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 첫 문장 안의 이 번이 함정 자리예요. 순서 짐작 함정입니다."
+              "text": "주의할 자리는 여기 세 번째 문장입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번에서 가장 젊은 집단이 일 위인 걸 보고, 나이 순으로 줄어든다고 짐작하죠."
+              "text": "나이가 많을수록 책을 덜 읽겠지, 하는 짐작이 이 진술을 그럴듯하게 만들어요."
             },
             {
               "lang": "ko-KR",
-              "text": "그러면 이 번이 그냥 맞아 보여요."
+              "text": "추세로 짐작하지 말고 막대 위 숫자로 부등호를 직접 쓰세요."
             }
           ],
-          "est_sec": 18.5,
+          "est_sec": 18.7,
           "pause_after_ms": 600
         },
         {
-          "id": "c12",
-          "order": 12,
-          "role": "trap",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:0"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 첫 문장의 이 번을 다시 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정답표대로라면 종이책은 나이 순으로 줄곧 줄지 않아요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "짐작하지 말고, 두 막대를 직접 대 보세요."
-            }
-          ],
-          "est_sec": 14.2,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c13",
-          "order": 13,
+          "id": "c10",
+          "order": 10,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -3009,11 +2926,11 @@
             },
             {
               "lang": "en-US",
-              "text": "formats"
+              "text": "format"
             },
             {
               "lang": "ko-KR",
-              "text": "형식."
+              "text": "은 책의 형식,"
             },
             {
               "lang": "en-US",
@@ -3021,31 +2938,23 @@
             },
             {
               "lang": "ko-KR",
-              "text": "오디오북."
+              "text": "은 듣는 책,"
             },
             {
               "lang": "en-US",
-              "text": "percentage"
+              "text": "the 65 and up group"
             },
             {
               "lang": "ko-KR",
-              "text": "비율."
-            },
-            {
-              "lang": "en-US",
-              "text": "previous"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "지난."
+              "text": "은 육십오 세 이상 집단이에요."
             }
           ],
-          "est_sec": 8.7,
+          "est_sec": 11.7,
           "pause_after_ms": 500
         },
         {
-          "id": "c14",
-          "order": 14,
+          "id": "c11",
+          "order": 11,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -3054,18 +2963,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리하겠습니다."
+              "text": "정리합니다. 비교 진술은 연령대와 형식 두 칸을 정한 뒤 숫자로만 판정한다."
             },
             {
               "lang": "ko-KR",
-              "text": "도표 선지는 비교 방향이 정해져야 볼 칸이 정해집니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지마다 비교 방향부터 표시하세요."
+              "text": "다음에는 첫 십 초에 선지마다 연령대와 형식 두 칸부터 표시하세요."
             }
           ],
-          "est_sec": 13.9,
+          "est_sec": 15.2,
           "pause_after_ms": 900
         }
       ]
