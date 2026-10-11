@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- data(csat): 진단 시험 확대 5차 — M2609 이중 맹검 태깅 검수(일치 0.889) → 관리자 경로 저장 · 진단 반영(3 → 4회). M2606 은 일치 0.817 로 보류. 판정자 지름길 4/4 발견 → 역량 정의표 · 강화 검증기로 재판정. 기록 [LEARNING_MAP_V4_PHASE5](csat-learner/LEARNING_MAP_V4_PHASE5.md) §6.
 - feat(map): 학습 지도 rev4.0 5차 — Workspace 「글의 핵심 잡기」 전체 경로: 확정 요구 안에서 바로잡기 → 다른 글에 적용(정본 2지문) → 다시 확인으로 수행에 따라 진행 · 단계별 「활동 시작」(막힌 문항 · 연습 화면 전이 문항 · 안 본 확인 문항) · 성취는 직접 확인에서만. 합성 계정 본인 판정 기준 통일(find-outcome 과 같게). 전이 문항 2(2026#23 · M2609#23 · 맹검 이중 주석 9 후보 중 채택) 주석 · 적용 초안(미출시 — B7 사람 출시 승인 대기). 콘텐츠 초안 비공개 기계 강제(`release.public=false` + 테스트) · 2025#34 근거 범위 수정. 브라우저 E2E `scripts/csat/map/e2e-map-v5-path.mjs`. 기록 [LEARNING_MAP_V4_PHASE5](csat-learner/LEARNING_MAP_V4_PHASE5.md).
 - fix(map): 학습 지도 rev4.0 4차 마감 — 저장 브라우저 E2E(`scripts/csat/map/e2e-map-v4-save.mjs` 36/36) · 실패 뒤 내용이 바뀌면 새 요청 키 · Workspace 별 이력 20 · 갱신 중 옛 「저장됨」 숨김 · 5xx 뒤 키 유지 · 목표 저장 요청 키 · 저장 시각 서울 표기 · 계획 API 라우트 가드 등록 · 마이그레이션 파일명을 원격 적용 버전(`20261010180218` · `…180916` · `…181834`)으로 맞춤(본문 불변). 기록 [LEARNING_MAP_V4_PHASE4](csat-learner/LEARNING_MAP_V4_PHASE4.md).
 - feat(map): 학습 지도 rev4.0 4차 — 학습 묶음 계획 저장(`/api/csat/diagnosis/map/plan` · 버전 · 사유 · 메모 · 이력 · 되돌리기 · 409 충돌 · 학습자별 초안) · 마이그레이션 `20261010180218_map_v4_plan` · `120100` · `120200` 개발 DB 적용(승인) · 목표 변경 이력 RPC · 수행량 = 실제 푼 확인 문항(성취와 분리) · 2026 · M2706 태깅 검수(이중 검수 판정) 후 `diagnosis_ready`(1→3 시험, 승인) · 콘텐츠 초안(읽기 전용).
