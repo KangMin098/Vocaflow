@@ -266,6 +266,14 @@ describe('theaterBlocks — 선택≠참거짓 유형(2026-10-11 · 교수 계�
     const rejects = theaterBlocks({ ...FULL, type_id: 'R-BLANK' }).filter((b) => b.kind === 'reject')
     expect(rejects[0].chips[0].text).toBe('오답')
   })
+
+  it('긍정형 발문(「일치하는 것은?」)은 오답이 틀린 진술 — 「내용은 맞음」을 붙이지 않는다', () => {
+    // 2014A#29 = 안내문 「일치하는 것은?」(choice-polarity.json) — 강의 심사에서 드러난 사례
+    const rejects = theaterBlocks({ ...FULL, type_id: 'R-NOTICE', id: '2014A#29' }).filter((b) => b.kind === 'reject')
+    expect(rejects.length).toBeGreaterThan(0)
+    for (const b of rejects) expect(b.chips.map((c) => c.text)).not.toContain('내용은 맞음')
+    expect(rejects[0].chips[0].text).toBe('오답')
+  })
 })
 
 describe('unitMarkers — 근거 단위 표기를 학습자 말로(2026-10-11)', () => {

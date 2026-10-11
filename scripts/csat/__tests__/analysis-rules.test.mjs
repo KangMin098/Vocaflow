@@ -79,3 +79,17 @@ test('V13 — 도표 문항이 정답표로 정답을 정하면 막는다 · 다
   assert.deepEqual(rulesV12(inferred, { typeId: 'R-BLANK' }).filter((e) => e.startsWith('V13')), [])
   assert.deepEqual(rulesV12({ ...base, answer_locus: { reasoning: '2015년 값 34는 2010년 12의 세 배 이하다' } }, { typeId: 'R-CHART' }), [])
 })
+
+test('발문 극성 — 긍정형 「일치하는 것은?」은 오답이 틀린 진술이라 V14 예외가 아니다(2026-10-11)', async () => {
+  const { stemPositive, distractorsAreTrue } = await import('../lib-analysis-rules.mjs')
+  assert.equal(stemPositive('Fun Bowling Season Pass에 관한 다음 안내문의 내용과 일치하는 것은?'), true)
+  assert.equal(stemPositive('2023 Online Talent Show에 관한 다음 안내문의 내용과 일 치하는 것은?'), true) // 추출 띄어쓰기
+  assert.equal(stemPositive('(A), (B), (C)의 각 네모 안에서 문맥에 맞는 낱말로 가장 적절한 것은?'), true)
+  assert.equal(stemPositive('Rachel’s Flower Class에 관한 다음 안내문의 내용과 일치하 지 않는 것은?'), false)
+  assert.equal(stemPositive('다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?'), false)
+  assert.equal(stemPositive('다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?'), false)
+  assert.equal(stemPositive(''), false)
+  assert.equal(distractorsAreTrue('R-NOTICE', '안내문의 내용과 일치하지 않는 것은?'), true)
+  assert.equal(distractorsAreTrue('R-NOTICE', '안내문의 내용과 일치하는 것은?'), false)
+  assert.equal(distractorsAreTrue('R-BLANK', '빈칸에 들어갈 말로 가장 적절한 것은?'), false)
+})

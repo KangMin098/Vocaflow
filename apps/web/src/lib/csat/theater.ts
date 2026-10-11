@@ -13,7 +13,7 @@
 // ⚠️ 이름은 **역할과 타깃에서만** 짓는다. 대본 글자(`segments`)는 이 파일에 들어오지 않는다 —
 //    들어오면 서버 렌더 HTML 에 대본이 실려 `lecture/types.ts` 의 경계가 무너진다.
 import { reasoningRepeats, unitMarkers } from './learner-text'
-import { teachingModelOf } from './teaching-contract'
+import { distractorsAreTrue } from './teaching-contract'
 
 import type { LectureRole, LectureStep } from './lecture/types'
 
@@ -126,6 +126,8 @@ export interface TheaterBlock {
 export interface TheaterSource {
   /** 유형 id — 선택≠참거짓 유형(교수 계약 choiceTruth)의 오답 블록을 다르게 그린다 */
   type_id?: string | null
+  /** 문항 id — 같은 유형이라도 긍정형 발문(「일치하는 것은?」)이면 오답이 틀린 진술이다(`distractorsAreTrue`) */
+  id?: string | null
   exam_label: string
   no: number
   type_name: string | null
@@ -222,7 +224,8 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
   // 어법 · 어휘 · 불일치 · 도표(교수 계약 choiceTruth)는 정답이 아닌 선지의 **내용이 맞다** — 함정이 아니다.
   // 2026-10-11 측정: 이 유형 1,154문항 전부가 참인 선지에 함정 라벨(trap)과 지어낸 오독(why_tempting)을 달고 있었다
   // (분석 스키마가 모든 선지에 trap 을 요구한 탓). 화면은 「내용은 맞음」 + 맞는 근거(how_to_reject)만 보인다.
-  const choiceTruth = teachingModelOf(item.type_id)?.choiceTruth === true
+  // 단, 긍정형 발문(「일치하는 것은?」 · 네모 어휘)은 오답이 틀린 진술이라 일반 오답처럼 그린다(2026-10-11 · 155문항).
+  const choiceTruth = distractorsAreTrue(item.type_id, item.id)
   for (const d of item.distractors) {
     const body = choiceTruth ? t(d.how_to_reject) : [...t(d.why_tempting), ...t(d.how_to_reject)]
     if (!body.length && (choiceTruth || !d.trap)) continue

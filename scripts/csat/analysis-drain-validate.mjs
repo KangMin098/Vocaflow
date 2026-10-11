@@ -18,7 +18,7 @@ import path from 'node:path'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 import { analysisWinners, chunkArgs, DrainSelectError, replacesOutput, selectOutFiles } from './lib-drain-select.mjs'
 import { checkUnitRefs } from './lib-evidence-units.mjs'
-import { CHOICE_TRUTH_TYPES, analysisRuleErrors } from './lib-analysis-rules.mjs'
+import { analysisRuleErrors, distractorsAreTrue } from './lib-analysis-rules.mjs'
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -360,8 +360,9 @@ for (const f of files) {
         }
       }
 
-      // 오답 넷은 함정 서술을 갖춰야 한다 — 선택≠참거짓 유형(CHOICE_TRUTH_TYPES)은 예외: 내용이 맞는 선지라 함정이 없다(V14)
-      const choiceTruth = CHOICE_TRUTH_TYPES.has(it.type_id)
+      // 오답 넷은 함정 서술을 갖춰야 한다 — 선택≠참거짓 유형 중 부정형 발문은 예외: 내용이 맞는 선지라 함정이 없다(V14)
+      // 긍정형 발문(「일치하는 것은?」)은 오답이 틀린 진술이라 함정 서술을 그대로 요구한다
+      const choiceTruth = distractorsAreTrue(it.type_id, it.stem)
       for (const c of ch.filter((c) => c.verdict === 'distractor')) {
         if (choiceTruth) {
           if (c.trap) bad(id, `V14 선지 ${c.n} 은 내용이 맞는 선지인데 trap 「${c.trap}」 이 있다 — 함정 라벨 · why_tempting 대신 how_to_reject 에 대응 위치와 「왜 답이 아닌가」를 쓴다`)

@@ -19,6 +19,8 @@
 //
 // ⚠️ 여기에는 정답 번호 분포 · 위치 통계 같은 「찍기 규칙」을 넣지 않는다(CSAT_TYPE_BLUEPRINTS 의 생성 기준도 아니다).
 
+import choicePolarity from './choice-polarity.json'
+
 export type EvidenceUnit = 'sentence' | 'paragraph' | 'underline' | 'blank' | 'choice' | 'table_cell' | 'chart_series' | 'notice_item' | 'summary_slot'
 
 export interface TeachingModel {
@@ -297,4 +299,15 @@ export const TEACHING_MODELS: Record<string, TeachingModel> = {
 
 export function teachingModelOf(typeId: string | null | undefined): TeachingModel | null {
   return typeId ? (TEACHING_MODELS[typeId] ?? null) : null
+}
+
+const POSITIVE_STEM = new Set<string>(choicePolarity.positive)
+
+/**
+ * 정답 아닌 선지가 **내용이 맞는** 진술인가 — choiceTruth 유형이면서 발문이 부정형(「일치하지 않는 것은?」)일 때만.
+ * 긍정형 발문(「일치하는 것은?」 · 네모 어휘 「가장 적절한 것은?」)은 오답이 틀린 진술이다(2026-10-11 실측 155문항).
+ * 발문은 학습자 쪽에 숨겨 두므로 구운 id 목록(`choice-polarity.json`)으로 가른다 — 드레인 validate 와 같은 규칙.
+ */
+export function distractorsAreTrue(typeId: string | null | undefined, itemId: string | null | undefined): boolean {
+  return teachingModelOf(typeId)?.choiceTruth === true && !(itemId && POSITIVE_STEM.has(itemId))
 }

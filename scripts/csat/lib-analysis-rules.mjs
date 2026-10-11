@@ -31,6 +31,24 @@ export function namedReferentExclusions(procedure) {
  */
 export const CHOICE_TRUTH_TYPES = new Set(['R-GRAMMAR', 'R-VOCAB', 'X-VOCAB', 'R-NOTICE', 'R-FACT', 'X-FACT', 'R-CHART'])
 
+/**
+ * 발문이 **긍정형**인가 — 「일치하는 것은?」 · 「(A)(B)(C) … 가장 적절한 것은?」.
+ * 2026-10-11 실측: 위 유형 중 안내문 113(평가원 28 · 학평 85) · 네모 어휘 23(6 · 17)이 긍정형이다. 이 문항은 정답이
+ * 맞는 진술이고 **오답이 틀린 진술**이라 오답의 함정 서술이 정당하다(2014A#29 강의 심사에서 드러났다).
+ * 부정형 판정은 띄어쓰기를 지우고 본다 — 원문 추출에 「일치하 지 않는」 · 「일 치하지」 꼴이 섞여 있다.
+ */
+export function stemPositive(stem) {
+  const s = String(stem ?? '').replace(/\s+/g, '')
+  if (!s) return false
+  if (/않는|않은|틀린/.test(s)) return false
+  return /일치하는|적절한것|맞는|옳은/.test(s)
+}
+
+/** 정답 아닌 선지가 **내용이 맞는** 진술인가 — 유형이 choiceTruth 이고 발문이 부정형일 때만(V14 · 화면 「내용은 맞음」) */
+export function distractorsAreTrue(typeId, stem) {
+  return CHOICE_TRUTH_TYPES.has(typeId) && !stemPositive(stem)
+}
+
 export function learnerTexts(analysis) {
   const out = [analysis.measured_ability, analysis.design_intent, analysis.answer_locus?.reasoning]
   for (const ch of analysis.choices ?? analysis.choice_analysis ?? []) out.push(ch.why_correct, ch.why_tempting, ch.how_to_reject, ch.trap)
