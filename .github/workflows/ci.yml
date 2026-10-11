@@ -201,6 +201,12 @@ jobs:
           echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$(strip "$LOCAL_ANON_KEY")" >> "$GITHUB_ENV"
           echo "SUPABASE_SERVICE_ROLE_KEY=$(strip "$LOCAL_SERVICE_ROLE_KEY")" >> "$GITHUB_ENV"
 
+      # 비민감 fixture — 학습 지도 정의(저장소의 공개 JSON scripts/csat/map/source/*). 학습자 · 시험 기록은 넣지 않는다(테스트가 만든다)
+      - name: 격리 fixture 적재(학습 지도 정의)
+        run: |
+          case "$NEXT_PUBLIC_SUPABASE_URL" in http://127.0.0.1:54321*) ;; *) echo "::error::격리 DB 가 아니다"; exit 1 ;; esac
+          node scripts/csat/map/seed.mjs --commit
+
       - run: pnpm --filter web build
 
       - name: 앱 기동 후 대기
