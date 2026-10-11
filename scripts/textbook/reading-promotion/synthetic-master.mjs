@@ -275,11 +275,11 @@ async function runMultiGradeDay(withOutput, day, keys = null) {
   await assert.rejects(registerTrustedProductionGroup({ rpc: async () => {
     throw Error('specialized group must not reach registration RPC')
   } }, { group: unsupportedGroup, evidence, sections: [] }),
-  /ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING/)
+  /ATOMIC_SPECIALIZED_RESOURCE_MISSING/)
   const unsupportedCapture = structuredClone(captured)
   unsupportedCapture.evidence.group_document.orders[0].order.product_family = 'P14'
   await assert.rejects(captureTrustedProductionSnapshot({ rpc: async () => ({ data: unsupportedCapture }) },
-    group.group_id), /ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING/)
+    group.group_id), /ATOMIC_SPECIALIZED_RESOURCE_MISSING/)
   const approval = await approveTrustedProductionOutput({ rpc: async (name, params) => {
     assert.equal(name, 'approve_reading_production_output')
     assert.equal(params.p_snapshot_id, captured.snapshot_id)

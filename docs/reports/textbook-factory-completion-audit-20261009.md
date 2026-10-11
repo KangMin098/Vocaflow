@@ -226,3 +226,7 @@ Before/after counts identical (articles 91,793; items 834,311; reviews 549; orde
 | volume over both orders registered / served | 2 sections; served HTML contains all four units' passages and questions |
 
 Before/after counts identical. Same limits as before (simulated second approver; synthetic source and trust root). Area 4 (grade scopes in the live DB) is now measured for single and noncontiguous multi-grade runs.
+
+### 2026-10-11 — specialized families in atomic production (approved migration)
+
+Migration `20261011072230` (approved, applied to dev) replaces the blanket DB refusal of P13/P14/P18/P20 with revalidation of sealed resources/exam targets on group registration and of resource quotes / printed time budgets on snapshot capture (rollback smoke 15/15). The JS registration/capture refusal was replaced by the same checks (`checkSpecializedOrder`, `checkSpecializedItems`), and the run bridge now carries resource and time-budget fields and renders the specialized layout. P13 and P18 runs reach a verified atomic volume; a resource quote altered after the run gate is rejected (bridge tests 11/11). Capability: the specialized four stay `IMPLEMENTED`; their missing list now names a live family review on real content and live DB promotion instead of the DB gate. Note: the strengthened visible-answer guard also caught bridge fixtures that printed the evidence sentence as an answer choice; the fixtures now paraphrase.

@@ -36,14 +36,14 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
       'packages/library-pipeline/src/textbook/family-semantic-review.ts',
       'packages/library-pipeline/src/textbook/family-semantic-review.test.ts',
       'packages/library-pipeline/src/textbook/order-production-run.test.ts',
-      ...(specialized ? [] : ['scripts/textbook/run-atomic-bridge.test.mjs']),
+      'scripts/textbook/run-atomic-bridge.test.mjs',
     ] : []
   const missing = state === 'NOT_SUPPORTED'
     ? ['family-specific passage/item/activity/layout adapter', 'synthetic end-to-end']
     : state === 'CONTRACT_ONLY'
       ? ['family semantic review run on real content for this family', 'live DB promotion to atomic publication end-to-end']
       : state === 'IMPLEMENTED'
-      ? [...(specialized ? ['atomic production (DB gate pending migration)'] : ['live DB promotion to atomic publication end-to-end']),
+      ? ['live DB promotion to atomic publication end-to-end',
         ...(liveFamilyReview ? [] : ['family semantic review run on real content for this family']), 'real-content operational end-to-end']
       : ['live DB promotion to atomic publication end-to-end', 'real-content operational end-to-end']
   return [id, { state, evidence, missing }]

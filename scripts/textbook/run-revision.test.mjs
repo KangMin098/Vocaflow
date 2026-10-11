@@ -25,7 +25,7 @@ const fill = (drain, explain = () => '첫 문장이 말한다.') => ({ cells: dr
   const filler = Array.from({ length: cell.passage_words_target - 12 }, (_, i) => `w${cell.day}x${i}`).join(' ')
   return { cell_id: cell.cell_id, cell_hash: cell.cell_hash, passage: `${primary} ${filler} Rain refills the deep wells slowly.`,
     items: [{ item_id: `${cell.cell_id}:i1`, item_type: cell.item_type, question: 'Which is supported?',
-      choices: [primary, 'Wells never refill.'], answer: 1, explanation: explain(cell),
+      choices: [`Roots hold the plant's energy (${cell.grade}, day ${cell.day})`, 'Wells never refill.'], answer: 1, explanation: explain(cell),
       evidence_primary: primary, evidence_secondary: 'Rain refills the deep wells slowly.' }] }
 }) })
 

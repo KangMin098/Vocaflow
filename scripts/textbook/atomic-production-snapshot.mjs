@@ -12,10 +12,40 @@ const hex = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
 const fail = reason => { throw Error(reason) }
 const specialized = new Set(['P13', 'P14', 'P18', 'P20'])
 
+// Mirrors the DB guard (migration 20261011072230): specialized orders must seal what the family needs,
+// and captured items must quote exactly one sealed resource of their order (P18: printed time budget).
+export function checkSpecializedOrder(order) {
+  if (!specialized.has(order?.product_family)) return
+  const kind = order.product_family === 'P14' ? 'data' : order.product_family === 'P18' ? null : 'text'
+  const resources = (order.target?.resources ?? []).filter(row => row.kind === kind)
+  if (kind && !resources.length) fail('ATOMIC_SPECIALIZED_RESOURCE_MISSING')
+  if (order.product_family === 'P18' && (order.target?.exam ?? 'none') === 'none') fail('ATOMIC_SPECIALIZED_EXAM_MISSING')
+  if (resources.some(row => (row.content ?? '').trim().length < 20 || !row.canonical_url || row.commercial_use !== true ||
+      row.derivative_use !== true || row.ai_processing !== 'allowed' || row.third_party_text !== false ||
+      (row.attribution ?? '').trim().length < 8) || new Set(resources.map(row => row.canonical_url)).size !== resources.length)
+    fail('ATOMIC_SPECIALIZED_RESOURCE_RIGHTS_INVALID')
+  return { kind, resources }
+}
+export function checkSpecializedItems(order, items) {
+  const checked = checkSpecializedOrder(order)
+  if (!checked) return
+  const urls = new Set(items.map(item => item.payload?.resource_url))
+  for (const item of items) {
+    const payload = item.payload ?? {}
+    if (!checked.kind) {
+      if (!Number.isInteger(payload.time_limit_seconds) || payload.time_limit_seconds < 1 || payload.time_limit_seconds > 3600 ||
+          'resource_url' in payload || 'evidence_resource' in payload) fail('ATOMIC_SPECIALIZED_TIME_BUDGET_MISSING')
+    } else {
+      const resource = checked.resources.find(row => row.canonical_url === payload.resource_url)
+      if (!resource || urls.size !== 1 || !payload.evidence_resource?.trim() || !resource.content.includes(payload.evidence_resource))
+        fail('ATOMIC_SPECIALIZED_ITEM_UNGROUNDED')
+    }
+  }
+}
+
 export async function registerTrustedProductionGroup(db, { group, evidence, sections } = {}) {
   if (!db?.rpc || !Array.isArray(sections)) fail('ATOMIC_GROUP_REGISTRATION_INVALID')
-  if (group?.orders?.some(entry => specialized.has(entry?.order?.product_family)))
-    fail('ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING')
+  for (const entry of group?.orders ?? []) checkSpecializedOrder(entry?.order)
   const sealed = sealMultiGradeProductOrder(group)
   bindMultiGradeEvidence(sealed.group, evidence)
   if (sections.length !== sealed.group.orders.length || sections.some((section, index) =>
@@ -63,8 +93,8 @@ export async function captureTrustedProductionSnapshot(db, groupId) {
       (evidence.approved_output_hash !== null && !hex(evidence.approved_output_hash)) ||
       !Number.isFinite(Date.parse(expiresAt)) || !Number.isFinite(Date.parse(capturedAt)))
     fail('ATOMIC_SNAPSHOT_RESPONSE_INVALID')
-  if (evidence.group_document?.orders?.some(entry => specialized.has(entry?.order?.product_family)))
-    fail('ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING')
+  for (const [index, entry] of (evidence.group_document?.orders ?? []).entries())
+    checkSpecializedItems(entry?.order, evidence.sections[index]?.items ?? [])
   const sealed = sealMultiGradeProductOrder(evidence.group_document)
   const bound = bindMultiGradeEvidence(sealed.group, evidence.evidence_document)
   if (sealed.group.group_id !== groupId || sealed.group.group_revision !== evidence.group_revision ||

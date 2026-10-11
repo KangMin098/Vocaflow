@@ -8,7 +8,7 @@ import assert from 'node:assert/strict'
 import { createHash, generateKeyPairSync } from 'node:crypto'
 import { bindFactoryEvidence, sealProductOrder } from '@vocaflow/library-pipeline/factory-order'
 import { sealMultiGradeProductOrder } from '@vocaflow/library-pipeline/multi-grade-order'
-import { reviewDigest, renderReadingFamilyUnit } from '@vocaflow/library-pipeline'
+import { reviewDigest, renderReadingFamilyUnit, renderSpecializedReadingUnit } from '@vocaflow/library-pipeline'
 import { READING_ENGINE_VERSION } from '@vocaflow/library-pipeline/academic-reading'
 import { hash } from './frym-benchmark/benchmark.mjs'
 import { sourceRightsHash, validateGoldSImport } from './frym-benchmark/gold-s-import-gate.mjs'
@@ -106,10 +106,6 @@ export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliv
   const units = run.volumeInput.units.filter(unit => unit.day === day)
     .sort((a, b) => run.volumeInput.brief.grade_scope.grades.indexOf(a.grade) - run.volumeInput.brief.grade_scope.grades.indexOf(b.grade))
   if (!units.length) throw Error('RUN_DAY_MISSING')
-  // Specialized resource/time layouts are rejected by registration JS and by the DB triggers
-  // (20261009095727) until their resources are revalidated at the DB boundary.
-  if (['P13', 'P14', 'P18', 'P20'].includes(run.volumeInput.orders[0].order.product_family))
-    throw Error('ATOMIC_SPECIALIZED_PRODUCTION_REVALIDATION_PENDING')
   const orderByGrade = new Map(run.volumeInput.orders.map(entry => [entry.grade, entry]))
   if (orderByGrade.size !== units.length) throw Error('RUN_DAY_GRADE_MISSING')
   for (const unit of units) if (orderByGrade.get(unit.grade).order.trust_policy_hash !== trust.policy_hash)
@@ -137,7 +133,9 @@ export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliv
         payload: { passage: child.content, item_type: runItem.item_type, question: runItem.question,
           choices: runItem.choices, evidence_primary: runItem.evidence_primary,
           ...(runItem.evidence_secondary ? { evidence_secondary: runItem.evidence_secondary } : {}),
-          ...(runItem.focus_text ? { focus_text: runItem.focus_text } : {}), factory_lineage: lineage },
+          ...(runItem.focus_text ? { focus_text: runItem.focus_text } : {}),
+          ...(runItem.resource_url ? { resource_url: runItem.resource_url, evidence_resource: runItem.evidence_resource } : {}),
+          ...(runItem.time_limit_seconds ? { time_limit_seconds: runItem.time_limit_seconds } : {}), factory_lineage: lineage },
         answer_key: { answer: runItem.answer, explanation_ko: runItem.explanation } }
       return { ...item, source_item_digest: reviewDigest(item.payload, item.answer_key) }
     })
@@ -164,7 +162,9 @@ export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliv
     const items = section.items.map(({ source_item_digest: _digest, ...item }) => item)
     const html = family === 'P03'
       ? `<section class="unit"><p>${section.unit.passage}</p></section>`
-      : renderReadingFamilyUnit({ order: section.order, passage: section.unit.passage, grade: section.grade, items })
+      : ['P13', 'P14', 'P18', 'P20'].includes(family)
+        ? renderSpecializedReadingUnit({ order: section.order, passage: section.unit.passage, grade: section.grade, items })
+        : renderReadingFamilyUnit({ order: section.order, passage: section.unit.passage, grade: section.grade, items })
     const unit = { unit_id: section.unit.unit_id, html }
     const analysis = { grade: section.grade, day }
     evidence.variants[index].unit_set_hash = hash([[unit.unit_id, sha(unit.html)]])
