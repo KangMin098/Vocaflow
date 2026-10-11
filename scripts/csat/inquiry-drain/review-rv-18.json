@@ -1,0 +1,413 @@
+{
+  "reviewer": "rv-18",
+  "verdicts": [
+    {
+      "id": "M2006#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2006#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#31",
+      "verdict": "revise",
+      "codes": [
+        "R2"
+      ],
+      "why": "선지 3(suddenly peaked)의 altered from 이 \"challenged conventional wisdom\"(1번 문장의 연구 성격 서술)이다. 선지가 실제로 바꾼 지문 내용은 빈칸이 받는 결과, 즉 4번 문장 strikingly similar(거의 변하지 않음)이며 그것을 급정점으로 바꾼 것이다. from 을 4번 문장의 결과로 고쳐야 한다."
+    },
+    {
+      "id": "M2106#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#21",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지 3의 preserved text \"routines\" 는 지문 1~14번 문장 어디에도 없는 낱말이다(영어 text 는 지문 원문이어야 함). note 스스로 \"틀이라는 대상은 두고\"라고 하므로 preserved 는 12번 문장 the box(틀) 등 지문에 있는 성분으로 고쳐야 한다."
+    },
+    {
+      "id": "M2109#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2206#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#20",
+      "verdict": "pass"
+    }
+  ]
+}

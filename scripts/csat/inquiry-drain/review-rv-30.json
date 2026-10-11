@@ -1,0 +1,314 @@
+{
+  "reviewer": "rv-30",
+  "verdicts": [
+    {
+      "id": "M2606#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#40",
+      "verdict": "pass",
+      "note": "선지 1 preserved text distribution 은 지문이 아니라 선지 낱말(경미, 판정 영향 없음)"
+    },
+    {
+      "id": "M2606#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2606#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2609#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2706#45",
+      "verdict": "pass"
+    }
+  ]
+}

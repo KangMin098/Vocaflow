@@ -1,0 +1,1861 @@
+{
+  "chunk": "inq-12",
+  "items": [
+    {
+      "id": "2023#23",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "false",
+          "operation": "scope",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "information"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "advantage",
+              "to": "steps to make public information"
+            }
+          ],
+          "note": "정보 공개라는 대상은 남기고 술어를 1번 문장의 이점에서 절차로 바꿨다. 5·6번 문장은 공개하면 소비자가 무엇을 할 수 있는지로 끝난다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "agent",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "free market"
+            }
+          ],
+          "altered": [
+            {
+              "component": "역할",
+              "from": "purchasers",
+              "to": "companies to increase profits"
+            }
+          ],
+          "note": "자유 시장이라는 배경은 남기고 이익을 얻는 주체를 소비자에서 기업으로 바꿨다. 5번 문장의 제조사는 공개를 요구받는 쪽이다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "industry"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "(지문에 없음)",
+              "to": "current industry trends"
+            }
+          ],
+          "note": "산업이라는 막연한 배경만 남기고 동향 분석이라는 없는 화제를 끼워 넣었다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "reference",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "diversity"
+            }
+          ],
+          "altered": [
+            {
+              "component": "역할",
+              "from": "규제가 무시하는 것",
+              "to": "diversified markets"
+            }
+          ],
+          "note": "2번 문장의 diversity 를 남기되 그것을 시장 다변화로 바꿔 선택의 원인 자리에 놓았다. 지문이 지목한 원인은 4번 문장의 information provision 이다."
+        }
+      ],
+      "principle": {
+        "statement": "주제는 첫 문장이 advantage 로 세운 술어와, 사례들의 뒤 절이 공통으로 보여 주는 결과(자유로운 선택)를 함께 담아야 한다",
+        "when_applies": [
+          "첫 문장이 평가어(advantage)로 화제를 정하고 이어지는 If 사례가 그 이점을 예시하는 경우",
+          "선지가 사례의 어휘(공개, 시장)만 공유하는 경우"
+        ],
+        "when_not": [
+          "첫 문장이 통념 소개이고 필자의 주장이 However 뒤에 오는 경우",
+          "사례들이 이점과 단점을 함께 보여 주는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#24",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "Visual Systems"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "부분 손상 시 일부만 보임",
+              "to": "Never Betray Our Trust"
+            }
+          ],
+          "note": "시각 체계라는 대상은 남기고 7번 문장의 부분적 어긋남을 신뢰라는 반대 평가로 바꿨다."
+        },
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "scope",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "Brain Cells"
+            }
+          ],
+          "altered": [
+            {
+              "component": "범위",
+              "from": "네 항목의 분업",
+              "to": "Color-Sensitive"
+            }
+          ],
+          "note": "뇌세포라는 대상은 남기고 6번 문장의 네 항목 중 색 하나로 좁혔다. 2번 문장은 색을 오히려 예외로 쓴다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "Brain"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "밝혀진 분업",
+              "to": "Still Unknown"
+            }
+          ],
+          "note": "뇌라는 대상은 남기고 미해결이라는 없는 관계를 넣었다. 9번 문장 surprising 은 독자의 놀람이다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "Brain Cells"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "분업의 증거",
+              "to": "Recovery Process"
+            }
+          ],
+          "note": "7번 문장의 뇌 손상을 남기되 회복이라는 지문에 없는 과정으로 바꿨다."
+        }
+      ],
+      "principle": {
+        "statement": "제목은 통념(5번 문장)을 However 로 뒤집은 필자의 주장(부위별 분업)을 담아야 한다",
+        "when_applies": [
+          "지문이 It is natural to assume 으로 통념을 세우고 However 로 반박하는 경우",
+          "선지가 분업 항목 하나만 떼어 낸 경우"
+        ],
+        "when_not": [
+          "통념 소개 없이 사실만 나열하는 설명문",
+          "반박 뒤에 다시 양보가 와 주장이 조건부로 좁혀진 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#25",
+      "analysis_version": 6,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "2번 문장: Town/Rural Area 가 18-34(39), 35-54(49), 55+(52) 세 묶음 모두에서 가장 높아 맞는 진술이다."
+        },
+        {
+          "n": 2,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "3번 문장: 18-34 묶음에서 Big/Small City 33%가 Suburb 27%보다 높아 맞는 진술이다."
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "4번 문장: 35-54 묶음에서 Suburb 27%가 Big/Small City 24%를 넘어 맞는 진술이다."
+        },
+        {
+          "n": 5,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "6번 문장: 아홉 값 중 최솟값이 55+ Suburb 22%라 모두 20%를 넘어 맞는 진술이다."
+        }
+      ],
+      "principle": {
+        "statement": "도표의 「가장 낮다」 진술은 같은 묶음 안의 세 값을 모두 비교해야 하고, 인접 값 하나와의 비교로는 판정되지 않는다",
+        "when_applies": [
+          "진술이 the lowest·the most 같은 최상급 비교인 경우",
+          "같은 묶음에 값이 셋 이상이고 차이가 작은 경우"
+        ],
+        "when_not": [
+          "묶음 사이 비교(across groups)를 묻는 진술 — 같은 항목의 묶음별 값을 비교해야 한다",
+          "진술이 백분율이 아니라 인원 수의 최솟값을 말하는 경우 — 묶음마다 기준 인원이 달라 백분율 최솟값이 인원 최솟값이 아니다"
+        ]
+      }
+    },
+    {
+      "id": "2023#26",
+      "analysis_version": 6,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "2번 문장 After World War II, he studied law 가 선지와 대응한다."
+        },
+        {
+          "n": 2,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "3번 문장 in charge of educational reform 이 교육 개혁 담당과 맞는다."
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "4번 문장 at Harvard University, where he was influenced by Talcott Parsons 와 맞는다."
+        },
+        {
+          "n": 4,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "7번 문장 He researched a variety of subjects 와 그대로 대응한다."
+        }
+      ],
+      "principle": {
+        "statement": "인물 소개 불일치 문항은 Although 양보절의 내용(알려진 평판)을 선지가 반대로 옮기지 않았는지 대조한다",
+        "when_applies": [
+          "지문에 Although A, in fact B 처럼 평판과 사실을 대비하는 문장이 있는 경우",
+          "선지가 평판 쪽 낱말(difficult)을 반의어로 바꾼 경우"
+        ],
+        "when_not": [
+          "평판과 사실이 같은 방향으로 서술된 경우",
+          "양보절이 아니라 주절의 사실을 묻는 선지인 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#27",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "3번 문장 Renovation Period: November 21 to December 18, 2022 에서 시작 날짜가 맞다."
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "4번 문장 Areas to be Closed: Gym and indoor swimming pool 이 폐쇄 대상과 맞는다."
+        },
+        {
+          "n": 4,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "4번 문장 All outdoor leisure activities will be available as usual 이 그대로 대응한다."
+        },
+        {
+          "n": 5,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "4번 문장 Guests may use the tennis courts for free 가 무료를 명시한다."
+        }
+      ],
+      "principle": {
+        "statement": "안내문 불일치 문항은 빈도·요일 표현(every day, 주말에만)을 원문 일정 줄과 대조한다",
+        "when_applies": [
+          "원문에 every day 같은 전칭 빈도 표현이 있는 경우",
+          "선지가 「~에만」으로 범위를 좁혀 진술하는 경우"
+        ],
+        "when_not": [
+          "원문이 요일을 명시하지 않아 빈도를 확정할 수 없는 경우",
+          "일정이 여러 줄에 나뉘어 어느 활동의 빈도인지 가려야 하는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#28",
+      "analysis_version": 6,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "false",
+          "operation": "scope",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "students in Valestown"
+            }
+          ],
+          "altered": [
+            {
+              "component": "범위",
+              "from": "only for high school",
+              "to": "모든 학생"
+            }
+          ],
+          "note": "Valestown 학생이라는 대상은 남기고 2번 문장의 고등학생 한정을 모든 학생으로 넓혔다."
+        },
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "theme"
+            }
+          ],
+          "altered": [
+            {
+              "component": "극성",
+              "from": "주제 지정",
+              "to": "제약을 받지 않는다"
+            }
+          ],
+          "note": "주제라는 항목은 남기고 2번 문장의 지정 주제를 자유 선택으로 뒤집었다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "File type"
+            }
+          ],
+          "altered": [
+            {
+              "component": "극성",
+              "from": "PDF only",
+              "to": "자유롭게 선택"
+            }
+          ],
+          "note": "파일 양식 항목은 남기고 3번 문장의 PDF 한정을 자유 선택으로 뒤집었다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "Submissions"
+            }
+          ],
+          "altered": [
+            {
+              "component": "극성",
+              "from": "limited to one poster",
+              "to": "제한이 없다"
+            }
+          ],
+          "note": "출품 수 항목은 남기고 3번 문장의 1인 1작품 제한을 무제한으로 뒤집었다."
+        }
+      ],
+      "principle": {
+        "statement": "안내문 일치 문항에서 only·limited to 같은 한정어가 붙은 항목은 선지의 「자유롭게·제한 없음」과 정반대로 대응한다",
+        "when_applies": [
+          "안내문 항목마다 only, limited 같은 제한어가 붙어 있는 경우",
+          "선지 다수가 같은 항목을 무제한으로 바꾼 경우"
+        ],
+        "when_not": [
+          "안내문이 제한 없이 예시만 드는 항목(예: 권장 양식) — 이때 「자유롭게」가 맞을 수 있다",
+          "제한어가 다른 항목에 붙어 있어 대응 항목을 잘못 짚은 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#29",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "3번 문장에서 that 은 is 뒤 보어 명사절을 이끌고 뒤 절 it constitutes … 가 완전해 정상이다."
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "5번 문장 meanings associated with 에서 의미는 옷과 「연관되는」 쪽이라 수동 과거분사가 정상이다."
+        },
+        {
+          "n": 4,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "6번 문장 can be inexpensively purchased 에서 부사가 과거분사를 꾸며 정상이다."
+        },
+        {
+          "n": 5,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "7번 문장 주절 뒤 콤마로 이어진 분사구문이고 패션이 공간을 「여는」 능동 관계라 opening 이 정상이다."
+        }
+      ],
+      "principle": {
+        "statement": "동사의 목적어가 문장 주어와 같은 대상이면 재귀대명사를 쓰므로, how people present ___ 에서 목적어 대명사는 people 과의 동일성으로 판정한다",
+        "when_applies": [
+          "목적어가 같은 절의 주어와 같은 사람을 가리키는 경우(4번 문장)",
+          "them 이 다른 복수 명사를 받을 후보가 없는 경우"
+        ],
+        "when_not": [
+          "목적어가 주어와 다른 대상(다른 사람들)을 가리키는 경우 — 그때는 them 이 정상이다",
+          "주어와 목적어가 다른 절에 있어 재귀 관계가 성립하지 않는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#30",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "3번 문장 we didn’t leave our world 와 4번 문장 On the contrary 의 대비에서 가지 않은 곳이 remote 한 모터 공간이라는 진술이 맞다."
+        },
+        {
+          "n": 2,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "5번 문장 This absorption 은 4번 문장의 「모터를 삶 속으로 가져옴」을 받고, 쓰임새 이름으로 부른다는 결과와 맞는다."
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "6번 문장 entered and affected profoundly our everyday lives 는 4·5번 문장의 흡수와 같은 방향이다."
+        },
+        {
+          "n": 4,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "7·8번 문장이 사람은 그대로이고 기술은 바뀐다고 대비하므로 기술이 사람에게 adapt 해야 한다는 9번 문장이 맞다."
+        }
+      ],
+      "principle": {
+        "statement": "The longer A, the longer B 구문의 밑줄은 A(잘못된 믿음)가 지속될수록 B 가 늦어지는 관계인지 앞당겨지는 관계인지를 필자의 평가 방향으로 판정한다",
+        "when_applies": [
+          "A 가 필자가 부정하는 믿음(magical new world)이고 B 가 필자가 바라는 결과(natural fusion)인 경우",
+          "비례 구문 앞 문장들이 바람직한 결과를 명시한 경우"
+        ],
+        "when_not": [
+          "A 가 필자가 지지하는 태도라 B 의 지속이 긍정인 경우",
+          "비례 구문이 평가 없이 사실적 상관만 말하는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#31",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "역할",
+              "text": "적은 쪽 자리"
+            }
+          ],
+          "altered": [
+            {
+              "component": "대상",
+              "from": "standing",
+              "to": "paid"
+            }
+          ],
+          "note": "빈칸이 「적은」 쪽이라는 자리는 그대로 두고 대상을 지위에서 보수로 바꿨다. 3번 문장 lucrative contracts 가 보수는 많은 쪽임을 말한다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "역할",
+              "text": "적은 쪽 자리"
+            }
+          ],
+          "altered": [
+            {
+              "component": "대상",
+              "from": "standing",
+              "to": "censored"
+            }
+          ],
+          "note": "「적은」 쪽 자리는 남기고 검열이라는 지문에 없는 축을 넣었다. 대조축은 readerships·pay 대 standing 이다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "reference",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "dismissal"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "진지하게 다루지 않음",
+              "to": "challenged"
+            }
+          ],
+          "note": "4번 문장의 dismissal(폄하)을 반박으로 읽게 바꿨다. 5번 문장 reluctance to take … seriously 가 방향을 정한다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "역할",
+              "text": "적은 쪽 자리"
+            }
+          ],
+          "altered": [
+            {
+              "component": "대상",
+              "from": "standing",
+              "to": "discussed"
+            }
+          ],
+          "note": "「적은」 쪽 자리에 2·3번 문장이 많은 쪽에 둔 visibility·sought after 계열을 넣었다."
+        }
+      ],
+      "principle": {
+        "statement": "much A but little ___ 역설 빈칸은 지문이 「많은 쪽」에 둔 항목(독자·보수)을 피하고 「없는 쪽」에 둔 항목(지위·존중)을 받아야 한다",
+        "when_applies": [
+          "지문이 Yet 으로 많은 것과 없는 것을 대조한 뒤 paradoxical 로 요약하는 경우",
+          "선지가 많은 쪽 항목(paid, discussed)을 섞어 놓은 경우"
+        ],
+        "when_not": [
+          "지문이 대조 없이 한쪽만 서술해 「적은 쪽」 항목을 추론해야 하는 경우",
+          "많은 쪽과 적은 쪽이 같은 낱말 계열이라 구분이 흐린 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#32",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "false",
+          "operation": "reference",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "art"
+            }
+          ],
+          "altered": [
+            {
+              "component": "역할",
+              "from": "도시의 산출물",
+              "to": "source materials"
+            }
+          ],
+          "note": "2번 문장의 예술을 남기되 도시의 산출물을 도시가 제공하는 재료로 바꿨다. 이유절은 5번 문장이 정한 사람 간 노출을 받아야 한다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "slang"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "(지문에 없음)",
+              "to": "cultural conflicts"
+            }
+          ],
+          "note": "3번 문장의 slang 을 남기고 갈등이라는 없는 관계를 넣었다. 4번 문장의 질병 비유는 확산 속도의 비유다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "reference",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "linguist"
+            }
+          ],
+          "altered": [
+            {
+              "component": "역할",
+              "from": "인용된 사람",
+              "to": "research environments"
+            }
+          ],
+          "note": "5번 문장의 언어학자를 남기되 인용된 사람을 도시가 제공하는 대상으로 바꿨다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "cities"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "attract",
+              "to": "reduce the social mobility"
+            }
+          ],
+          "note": "도시라는 주어는 남기고 6번 문장 attract 의 방향을 이동을 줄인다는 반대로 뒤집었다."
+        }
+      ],
+      "principle": {
+        "statement": "because 이유절 빈칸은 앞 문장의 조건-귀결(가장 많은 사람이 서로 듣고 말하는 곳)을 도시의 속성으로 옮긴 말이어야 한다",
+        "when_applies": [
+          "빈칸 앞 문장이 If … then 으로 원인 조건을 제시한 경우",
+          "빈칸 뒤 who 절이 사람을 수식해 빈칸에 사람 명사가 와야 하는 경우"
+        ],
+        "when_not": [
+          "앞 문장의 조건이 빈칸과 다른 현상(질병)을 설명하는 비유일 때 — 비유 대상을 그대로 옮기면 틀린다",
+          "이유절이 둘 이상의 원인을 요구하는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#33",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "water source"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "하역 시간에 반응",
+              "to": "measuring distance"
+            }
+          ],
+          "note": "4번 문장의 water source 를 남기고 거리 측정이라는 지문에 없는 방법을 넣었다. 7번 문장의 목적어는 water collection 이다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "scope",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "colony"
+            }
+          ],
+          "altered": [
+            {
+              "component": "범위",
+              "from": "up or down",
+              "to": "decrease the colony’s workload"
+            }
+          ],
+          "note": "군집 단위의 조절이라는 틀은 남기고 7번 문장의 양방향(up or down)을 감소 한쪽으로 좁혔다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "tasks"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "if they require it",
+              "to": "talents"
+            }
+          ],
+          "note": "역할 분담이라는 소재는 남기고 기준을 6번 문장의 필요량에서 재능으로 바꿨다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "causal_direction",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "communication"
+            }
+          ],
+          "altered": [
+            {
+              "component": "인과 방향",
+              "from": "조절의 수단",
+              "to": "훈련의 목표"
+            }
+          ],
+          "note": "의사소통 소재는 남기고 그것을 조절의 수단에서 목표로 뒤집었으며, 지문에 없는 학습을 넣었다."
+        }
+      ],
+      "principle": {
+        "statement": "예시 문단이 Thus 로 닫히면 빈칸은 그 결론 문장(7번 문장)의 「개체 반응이 군집 단위를 조절한다」를 일반화한 말이어야 한다",
+        "when_applies": [
+          "빈칸이 For example 앞의 일반화 자리이고 예시 끝에 Thus 요약이 있는 경우",
+          "예시가 양방향(증가·감소)을 모두 보여 주는 경우"
+        ],
+        "when_not": [
+          "예시가 한 방향만 보여 줘 일반화 범위를 넓힐 근거가 없는 경우",
+          "Thus 문장이 예시와 다른 수준의 주장으로 비약하는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#34",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "관계",
+              "text": "it is not that"
+            }
+          ],
+          "altered": [
+            {
+              "component": "대상",
+              "from": "현실을 보고도 부정",
+              "to": "all our efforts prove to be effective"
+            }
+          ],
+          "note": "정정 구문 틀은 남기고 X 를 노력의 효과라는 다른 축으로 바꿨다. Y 절(6번 문장)의 축은 현실이 보이는가다."
+        },
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "관계",
+              "text": "it is not that"
+            }
+          ],
+          "altered": [
+            {
+              "component": "대상",
+              "from": "현실을 보고도 부정",
+              "to": "sufficient scientific evidence"
+            }
+          ],
+          "note": "정정 틀은 남기고 과학적 증거라는 지문에 없는 대상을 넣었다. 3·4번 문장이 지목한 것은 시간의 구획이다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "reference",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "future"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "구분 자체가 오도함",
+              "to": "more urgent than present needs"
+            }
+          ],
+          "note": "3번 문장의 과거·현재·미래 어휘를 남기되 구분 자체의 문제를 우선순위 비교로 바꿔 오히려 분할을 전제했다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "temporal",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "frame of time"
+            }
+          ],
+          "altered": [
+            {
+              "component": "시점",
+              "from": "지금 우리의 구획",
+              "to": "our ancestors"
+            }
+          ],
+          "note": "시간 틀이라는 대상은 남기고 시점을 옛사람으로 옮겼다. 1번 문장의 세대 언급은 자기지시성의 예일 뿐이다."
+        }
+      ],
+      "principle": {
+        "statement": "it is not that X. It is that Y 정정 구문에서 X 는 Y 와 같은 축(현실을 보는가) 위의 반대편이어야 한다",
+        "when_applies": [
+          "빈칸 바로 뒤 문장이 It is that 으로 정정 내용을 주는 경우",
+          "Y 절에 X 와 대비될 핵심어(obscured, questions of responsibility)가 있는 경우"
+        ],
+        "when_not": [
+          "정정 구문이 아니라 단순 부정(it is not true that)으로 끝나는 경우",
+          "Y 절이 X 와 다른 축으로 넘어가는 화제 전환인 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#35",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "not_applicable",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "3번 문장(①)의 give instructions 는 2번 문장 use it for different purposes 의 한 용도로, 목소리가 학급 반응을 바꾼다는 흐름에 맞다."
+        },
+        {
+          "n": 2,
+          "truth": "not_applicable",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "4번 문장(②)은 6번 문장(④) However 가 받을 양보부(큰 목소리가 유용한 때가 있다)라 빠질 수 없다."
+        },
+        {
+          "n": 4,
+          "truth": "not_applicable",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "6번 문장(④)의 However 는 4번 문장(②)의 loudly 를 sparingly 로 되받아 맞선다."
+        },
+        {
+          "n": 5,
+          "truth": "not_applicable",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "7번 문장(⑤)의 panicked shouting 은 ④의 avoid shouting 을 되받고 2번 문장 control your voice 의 바람직한 결과로 결론을 맺는다."
+        }
+      ],
+      "principle": {
+        "statement": "무관한 문장은 화제 어휘(noise, school)를 공유하더라도 글의 주체·관심(교사의 목소리 사용)과 다른 주체·문제(학교 소음 해결)를 말하는 문장이다",
+        "when_applies": [
+          "글이 한 주체(초임 교사)의 기술을 양보-반전으로 전개하는 경우",
+          "후보 문장이 앞 문장의 낱말(noisy)에서 화제를 갈아탄 경우"
+        ],
+        "when_not": [
+          "글이 학교 소음 문제 자체를 다루는 경우 — 해결 주체를 말하는 문장이 정당한 전개가 된다",
+          "후보 문장이 However 의 앞 항처럼 연결사에 물려 있는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#36",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(B) 다음",
+              "to": "주어진 글 바로 다음"
+            }
+          ],
+          "note": "(A)는 producing spines and a helmet 을 이미 아는 것처럼 말하는데, 가시와 투구는 4번 문장 (B)에서 처음 나온다."
+        },
+        {
+          "n": 3,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(A) 다음",
+              "to": "(B) 다음"
+            }
+          ],
+          "note": "(C)의 reproductive fitness 근거는 (A)의 「에너지 절약이 생존·번식에 필수」에서만 제공되므로 (C)가 (A)보다 앞설 수 없다."
+        },
+        {
+          "n": 4,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(A) 다음",
+              "to": "주어진 글 바로 다음"
+            }
+          ],
+          "note": "(C)를 먼저 두면 (A)의 That 이 적응이라는 판정을 받게 되어 clever trick(행동)과 어긋나고, (B)의 사례가 결론 뒤로 밀린다."
+        },
+        {
+          "n": 5,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(A) 다음",
+              "to": "주어진 글 바로 다음"
+            }
+          ],
+          "note": "(C)가 첫 자리면 So 가 받을 근거가 정의 한 문장뿐이고, 일반화된 마무리 뒤에 한 종의 사례가 다시 온다."
+        }
+      ],
+      "principle": {
+        "statement": "사례 → 평가(That’s a clever trick) → 결론(So … adaptation) 순서는 지시어와 결론 표지가 받을 내용이 앞에 놓이도록 정한다",
+        "when_applies": [
+          "단락 첫머리가 That, So 처럼 앞 내용을 전제하는 경우",
+          "구체 사례를 서술하는 단락이 하나뿐인 경우"
+        ],
+        "when_not": [
+          "주어진 글이 이미 사례를 제시해 평가 단락이 바로 올 수 있는 경우",
+          "So 가 앞 단락이 아니라 주어진 글의 정의만으로 충분히 귀결되는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#37",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(C) 다음",
+              "to": "주어진 글 바로 다음"
+            }
+          ],
+          "note": "(A)의 Therefore 가 받을 전제(합의 전에는 보수를 받지 않음)는 8번 문장 (C)에 있어 (A)가 첫 자리일 수 없다."
+        },
+        {
+          "n": 2,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(A) 다음",
+              "to": "주어진 글 바로 다음"
+            }
+          ],
+          "note": "(B)의 「의뢰인이 안심한다」는 해결이 4번 문장 (A)의 Their biggest fears 보다 먼저 와 무엇을 달래는지 사라진다."
+        },
+        {
+          "n": 3,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(A) 다음",
+              "to": "주어진 글 바로 다음"
+            }
+          ],
+          "note": "(B) 둘째 문장의 일반화 뒤에 (C)의 기본 설명이 오면 설명이 요약 뒤로 밀리고, (A)의 Therefore 도 전제를 잃는다."
+        },
+        {
+          "n": 5,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(A) 다음",
+              "to": "(C) 다음"
+            }
+          ],
+          "note": "(B)의 안심이 (A)에서 처음 도입되는 의뢰인 관점·두려움보다 앞서고, 글이 두려움으로 끝나 해결이 사라진다."
+        }
+      ],
+      "principle": {
+        "statement": "정의 → 결과(Therefore) → 문제(두려움) → 해결(안심) 순서는 연결사와 문제-해결 짝이 앞 항을 먼저 요구하는 데서 정해진다",
+        "when_applies": [
+          "단락에 Therefore 처럼 전제를 요구하는 연결사가 있는 경우",
+          "한 단락이 걱정을, 다른 단락이 그 걱정의 해소를 말하는 경우"
+        ],
+        "when_not": [
+          "주어진 글이 이미 보수 조건을 설명해 Therefore 의 전제가 될 수 있는 경우",
+          "문제와 해결이 같은 단락 안에서 완결되는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#38",
+      "analysis_version": 4,
+      "status": "needs_review",
+      "review_note": "입력 choices 가 null 이다(선지 텍스트 없음). 문장 번호·슬롯 위치는 sentences 의 ①~⑤ 표지로 대조할 수 있어 위치 판정은 했지만, 선지 원문 대조는 불가했다.",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "9번 문장 앞",
+              "to": "5번 문장 앞"
+            }
+          ],
+          "note": "① 앞에는 공원이 시대에 따라 만들어진다는 일반론뿐이라 such a feeling 이 받을 느낌이 없고, 5번 문장 Indeed 가 강화할 앞 문장도 끊긴다."
+        },
+        {
+          "n": 2,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "9번 문장 앞",
+              "to": "6번 문장 앞"
+            }
+          ],
+          "note": "6번 문장은 5번 문장의 the broader category of public space 를 곧바로 예시하는 문장이라 사이를 가를 수 없고, 느낌 서술도 아직 없다."
+        },
+        {
+          "n": 3,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "9번 문장 앞",
+              "to": "7번 문장 앞"
+            }
+          ],
+          "note": "7번 문장은 공원의 구성 요소 나열이고, 주어진 문장의 나무는 경계에 심어 분리감을 만드는 수단이라 기능이 다르며 ③ 앞에 느낌 서술이 없다."
+        },
+        {
+          "n": 4,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "9번 문장 앞",
+              "to": "8번 문장 앞"
+            }
+          ],
+          "note": "④ 앞 7번 문장은 사물 나열이라 feeling 이 아니고, 그 feeling 은 ④ 뒤 8번 문장의 sharp separation 이라 주어진 문장은 그 뒤에 와야 한다."
+        }
+      ],
+      "principle": {
+        "statement": "such a feeling 처럼 지시 한정어가 붙은 주어진 문장은 그 느낌을 처음 서술하는 문장 바로 뒤에 들어간다",
+        "when_applies": [
+          "주어진 문장이 There’s a reason for that 으로 앞 현상의 원인을 설명하는 경우",
+          "지문에서 느낌·인식을 서술하는 문장이 하나뿐인 경우"
+        ],
+        "when_not": [
+          "such 가 받을 수 있는 후보 서술이 둘 이상인 경우 — 그때는 뒤 문장(this idea)과의 고리까지 확인한다",
+          "주어진 문장이 지시 한정어 없이 새 화제를 여는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#39",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "6번 문장 앞",
+              "to": "3번 문장 앞"
+            }
+          ],
+          "note": "①은 2·3번 문장 사이로, 시간 지평은 5번 문장에서야 등장해 주어진 문장이 부연할 방법이 아직 없다."
+        },
+        {
+          "n": 2,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "6번 문장 앞",
+              "to": "4번 문장 앞"
+            }
+          ],
+          "note": "②는 3·4번 문장 사이로, 4번 문장 For example 은 3번 문장을 바로 예시해 가를 수 없다. months 는 세분 단위가 아니라 이행 시점이다."
+        },
+        {
+          "n": 3,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "6번 문장 앞",
+              "to": "5번 문장 앞"
+            }
+          ],
+          "note": "③은 4·5번 문장 사이로, 부연(몇 달 뒤 이행)이 그 방법(5번 문장의 time horizon)보다 먼저 나온다."
+        },
+        {
+          "n": 5,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "6번 문장 앞",
+              "to": "7번 문장 앞"
+            }
+          ],
+          "note": "⑤는 6·7번 문장 사이로, 7번 문장 For example 은 6번 문장을 예시하고 그 시간 표현은 적용 횟수 제한이지 이행 연기가 아니다."
+        }
+      ],
+      "principle": {
+        "statement": "방법 문장 → 부연·예시 구조가 반복되는 글에서 주어진 문장은 그것이 풀어 주는 방법(시간 지평) 바로 뒤에 들어간다",
+        "when_applies": [
+          "지문이 여러 세분 방법을 차례로 소개하고 각 방법 뒤에 예시를 붙이는 경우",
+          "주어진 문장의 핵심어(months in the future)가 특정 방법의 개념(time horizon)과 대응하는 경우"
+        ],
+        "when_not": [
+          "주어진 문장의 시간 표현이 다른 방법의 예시(횟수 제한)와도 겹쳐 대응이 둘로 읽히는 경우",
+          "방법 문장과 예시가 연결사 없이 이어져 경계가 불분명한 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#40",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "강도",
+              "text": "persisted"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "stand in the way",
+              "to": "cultivate"
+            }
+          ],
+          "note": "(A) persisted 는 맞게 두고 (B)를 반대로 바꿨다. 5번 문장 stand in the way 와 7번 문장 weakened 가 방해 방향이다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "reference",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "diverse contexts"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "enduring",
+              "to": "evolved"
+            }
+          ],
+          "note": "3번 문장의 적용 영역 확장을 성질의 변화로 바꿔 읽게 했다. 2번 문장은 enduring 이고 (B) accelerate 도 방해와 반대다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "craftsmanship"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "enduring",
+              "to": "diminished"
+            }
+          ],
+          "note": "1번 문장에서 misleading 으로 부정된 declined 를 사실로 가져왔고, (B) shape 는 방해 방향을 담지 못한다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "관계",
+              "text": "restrict"
+            }
+          ],
+          "altered": [
+            {
+              "component": "강도",
+              "from": "enduring",
+              "to": "diminished"
+            }
+          ],
+          "note": "(B) restrict 는 맞게 두고 (A)를 1번 문장이 오해라고 부정한 쇠퇴로 바꿨다."
+        }
+      ],
+      "principle": {
+        "statement": "요약문 빈칸 낱말이 지문에 나오더라도 그 낱말이 부정되는 절(but this is misleading) 안에 있었다면 필자의 주장과 반대다",
+        "when_applies": [
+          "지문 첫 문장이 통념을 소개하고 곧바로 misleading 으로 부정하는 경우",
+          "선지가 부정된 통념의 낱말(declined)을 가져온 경우"
+        ],
+        "when_not": [
+          "통념 소개 뒤 필자가 부분적으로만 수정하는 경우 — 통념 낱말이 일부 맞을 수 있다",
+          "지문 낱말이 긍정 맥락과 부정 맥락에 모두 나오는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#41",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "important factors"
+            }
+          ],
+          "altered": [
+            {
+              "component": "대상",
+              "from": "(지문에 없음)",
+              "to": "Big Data"
+            }
+          ],
+          "note": "4번 문장의 most important factors 를 남기되 빅데이터 관리라는 없는 화제와 명령형 조언으로 바꿨다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "polarity",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "Algorithms"
+            }
+          ],
+          "altered": [
+            {
+              "component": "극성",
+              "from": "outperform",
+              "to": "Mistakes"
+            }
+          ],
+          "note": "알고리즘과 단순함이라는 대상은 남기고 1·3·4번 문장의 우위 평가를 실수로 뒤집었다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "scope",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "checklists"
+            }
+          ],
+          "altered": [
+            {
+              "component": "범위",
+              "from": "추가 증거",
+              "to": "Make a Checklist"
+            }
+          ],
+          "note": "5번 문장의 체크리스트를 남기되 추가 증거를 글 전체 주제로 키우고, 앞 네 문장의 공식 우위를 뺐다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "agent",
+          "preserved": [
+            {
+              "component": "관계",
+              "text": "Beats"
+            }
+          ],
+          "altered": [
+            {
+              "component": "역할",
+              "from": "algorithms",
+              "to": "Human Judgement"
+            }
+          ],
+          "note": "이긴다는 관계는 남기고 이기는 쪽과 지는 쪽을 뒤바꿨다. 1번 문장은 algorithms can outperform expert judgement 다."
+        }
+      ],
+      "principle": {
+        "statement": "제목은 주장(단순 공식의 우위)과 그것을 받치는 추가 증거(A similar idea is supported)를 함께 덮는 상위 개념이어야 한다",
+        "when_applies": [
+          "글 후반이 A similar idea 로 같은 주장의 다른 증거를 덧붙이는 경우",
+          "선지 하나가 추가 증거만 담은 경우"
+        ],
+        "when_not": [
+          "후반이 주장의 한계나 반례를 제시하는 경우 — 제목이 조건부가 되어야 한다",
+          "두 증거가 서로 다른 주장을 받치는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#42",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "1번 문장이 simple algorithms can outperform 이라 논지를 밝혔고, 2번 문장은 그 예시라 algorithms 가 더 accurate 하다는 방향이 맞다."
+        },
+        {
+          "n": 2,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "3번 문장 뒷부분이 나머지를 무승부(a tie)라 적으므로 앞 절반은 그보다 나은 better 여야 대비가 선다."
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "4번 문장이 공식의 강점(가장 중요한 요인에 집중)과 사람 판단을 대비하므로 사람이 붙드는 요인은 irrelevant 한 것이어야 맞다."
+        },
+        {
+          "n": 5,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "7번 문장 끝의 감염 예방·폐렴 감소라는 실제 성과가 effective 를 받친다."
+        }
+      ],
+      "principle": {
+        "statement": "체크리스트가 실수를 막는 조건을 말하는 밑줄은, 실수가 잘 일어나는 상태(압박·피로)와 극성이 맞아야 한다",
+        "when_applies": [
+          "밑줄이 when people are feeling ___ 처럼 실수 조건 자리에 있는 경우(5번 문장)",
+          "뒤 예시(6번 문장)가 작은 실수가 생명을 좌우하는 고압 상황을 보여 주는 경우"
+        ],
+        "when_not": [
+          "밑줄이 실수 조건이 아니라 체크리스트 사용의 결과 상태를 말하는 경우",
+          "지문이 이완 상태의 부주의를 실수 원인으로 명시하는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#43",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(C) 다음",
+              "to": "(A) 바로 다음"
+            }
+          ],
+          "note": "(B) 끝 19번 문장은 선물의 효과를 확인하며 닫는 문장이라, 선물을 건네기도 전인 첫 자리에 올 수 없다."
+        },
+        {
+          "n": 2,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(D) 다음",
+              "to": "(A) 바로 다음"
+            }
+          ],
+          "note": "(C)의 20~21번 문장은 아버지에게 직접 하는 말인데 아버지는 32번 문장 (D)에서야 도착한다."
+        },
+        {
+          "n": 3,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(D) 다음",
+              "to": "(A) 바로 다음"
+            }
+          ],
+          "note": "(A) 끝 6번 문장의 선물 질문에 대한 대답이 28~29번 문장 (D)에 있어, 질문과 대답 사이에 (C)를 끼울 수 없다."
+        },
+        {
+          "n": 4,
+          "truth": "not_applicable",
+          "operation": "order",
+          "preserved": [],
+          "altered": [
+            {
+              "component": "위치",
+              "from": "(C) 다음",
+              "to": "(D) 다음"
+            }
+          ],
+          "note": "(B) 10번 문장의 these glasses 는 24번 문장 (C)에서 처음 나오는 안경을 받아야 하므로 (C)를 건너뛸 수 없다."
+        }
+      ],
+      "principle": {
+        "statement": "이야기 순서는 질문→대답, 인물 도착→그 인물에게 하는 말, 물건 첫 등장→these 지시처럼 앞 항이 먼저 오도록 단락을 놓는다",
+        "when_applies": [
+          "(A) 끝이 질문이고 한 단락이 그 대답으로 시작하는 경우",
+          "지시어(these glasses)가 다른 단락에서 처음 나온 물건을 받는 경우"
+        ],
+        "when_not": [
+          "인물이 처음부터 같은 장소에 있어 도착 장면이 없는 경우",
+          "회상 단락이 섞여 시간 순서와 서술 순서가 다른 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#44",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "not_applicable",
+          "operation": "reference",
+          "preserved": [],
+          "altered": [],
+          "note": "(a) you 는 7번 문장 Camila asked 의 청자로 Hailey 이며, 9번 문장 Hailey answered 가 확인한다."
+        },
+        {
+          "n": 2,
+          "truth": "not_applicable",
+          "operation": "reference",
+          "preserved": [],
+          "altered": [],
+          "note": "(b) her gift of the glasses 는 안경을 건넨 Hailey 의 선물이다(10·23~24번 문장)."
+        },
+        {
+          "n": 3,
+          "truth": "not_applicable",
+          "operation": "reference",
+          "preserved": [],
+          "altered": [],
+          "note": "(c) her sister 는 Camila 의 자매로 소포를 건넨 Hailey 이며 26~27번 문장이 확인한다."
+        },
+        {
+          "n": 4,
+          "truth": "not_applicable",
+          "operation": "reference",
+          "preserved": [],
+          "altered": [],
+          "note": "(d) you 는 28번 문장 Camila said 의 청자로 Hailey 이고 29번 문장에서 Hailey 가 답한다."
+        }
+      ],
+      "principle": {
+        "statement": "직접인용 속 you 는 인용을 이끄는 문장의 화자를 먼저 정한 뒤 그 청자로 대상을 정한다",
+        "when_applies": [
+          "인용 앞뒤에 said, asked, answered 같은 화자 표지가 있는 경우",
+          "두 인물만 대화해 화자가 정해지면 청자가 자동으로 정해지는 경우"
+        ],
+        "when_not": [
+          "세 명 이상이 대화해 청자가 하나로 정해지지 않는 경우",
+          "you 가 특정인이 아니라 일반인을 가리키는 총칭 용법인 경우"
+        ]
+      }
+    },
+    {
+      "id": "2023#45",
+      "analysis_version": 5,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "4번 문장 Hailey had safely placed the cake on the party table 과 대응한다."
+        },
+        {
+          "n": 2,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "11번 문장 He slowly put them on 에서 them 은 10번 문장의 these glasses 라 직접 써 본 것이 맞다."
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "26번 문장 I recently found out he has long been suffering from color blindness 를 Hailey 가 말한다."
+        },
+        {
+          "n": 5,
+          "truth": "true",
+          "operation": "none",
+          "preserved": [],
+          "altered": [],
+          "note": "21번 문장 You’re fifty today 와 35번 문장 fifty red roses 로 나이와 장미 수가 같다."
+        }
+      ],
+      "principle": {
+        "statement": "내용 불일치 문항에서 방문 방향(누가 누구의 집에 갔나)은 인물의 대사 속 장소 표현(your place)으로 확인한다",
+        "when_applies": [
+          "대사에 inviting me to your place 처럼 장소 소유를 드러내는 표현이 있는 경우(33번 문장)",
+          "선지가 방문 주체와 대상을 뒤바꾼 경우"
+        ],
+        "when_not": [
+          "장소가 제3의 공간(식당 등)이라 소유 관계가 없는 경우",
+          "대사 없이 서술로만 장소가 주어져 지시어 해석이 필요한 경우"
+        ]
+      }
+    },
+    {
+      "id": "2024#18",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "agent",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "instructors"
+            }
+          ],
+          "altered": [
+            {
+              "component": "역할",
+              "from": "배우려는 사람",
+              "to": "웹툰 작가 채용"
+            }
+          ],
+          "note": "7번 문장의 강사를 남기되 글이 부르는 대상을 2번 문장의 배우려는 사람에서 채용 지원자로 바꿨다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "reference",
+          "preserved": [
+            {
+              "component": "관계",
+              "text": "launched"
+            }
+          ],
+          "altered": [
+            {
+              "component": "대상",
+              "from": "special online courses",
+              "to": "신작 웹툰"
+            }
+          ],
+          "note": "3번 문장의 launched 는 남기고 목적어를 강좌에서 신작 웹툰으로 바꿨다. six months 는 수강 기간이다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "webtoon"
+            }
+          ],
+          "altered": [
+            {
+              "component": "관계",
+              "from": "강좌 수강",
+              "to": "창작 대회 출품"
+            }
+          ],
+          "note": "웹툰 창작이라는 소재는 남기고 대회 출품이라는 없는 화행을 넣었다. 8번 문장의 주소는 강좌 사이트다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "scope",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "webtoon production"
+            }
+          ],
+          "altered": [
+            {
+              "component": "범위",
+              "from": "from beginner to advanced",
+              "to": "기초적인 방법"
+            }
+          ],
+          "note": "웹툰 제작이라는 대상은 남기고 5번 문장의 전 수준을 초급으로 좁혔으며, 강좌 소개를 방법 설명으로 바꿨다."
+        }
+      ],
+      "principle": {
+        "statement": "광고문의 목적은 발신자가 출시한 상품(launched 의 목적어)과 끝의 행동 유도가 가리키는 대상이 정한다",
+        "when_applies": [
+          "발신자가 회사명과 함께 새 상품을 소개하고 끝에 사이트 방문을 권하는 글",
+          "선지들이 상품의 세부(강사, 기간, 수준) 어휘를 공유하는 경우"
+        ],
+        "when_not": [
+          "상품 소개 없이 절차만 안내하는 공지문",
+          "끝의 행동 유도가 상품과 다른 행사(대회 접수 등)를 가리키는 경우"
+        ]
+      }
+    },
+    {
+      "id": "2024#19",
+      "analysis_version": 4,
+      "status": "needs_review",
+      "review_note": "기존 분석 how_to_reject 의 문장 번호가 입력 sentences 와 어긋난다 — 「3문장 I can’t be late」는 입력 4번, 「5문장 that was going right to his work」는 입력 6번, 「8문장 relax」는 입력 10번, 「4문장 couldn’t feel at ease」는 입력 5번 문장이다(「2문장」만 일치). 번호 표기 수정이 필요하다.",
+      "distractors": [
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "unsupported",
+          "preserved": [
+            {
+              "component": "인과 방향",
+              "text": "부정 → 긍정 구도"
+            }
+          ],
+          "altered": [
+            {
+              "component": "대상",
+              "from": "지각 걱정",
+              "to": "lonely"
+            }
+          ],
+          "note": "부정에서 긍정으로 가는 구도는 남기고 앞 칸의 걱정 내용을 지각(4번 문장)에서 외로움으로 바꿨다."
+        },
+        {
+          "n": 3,
+          "truth": "false",
+          "operation": "causal_direction",
+          "preserved": [
+            {
+              "component": "대상",
+              "text": "감정 변화"
+            }
+          ],
+          "altered": [
+            {
+              "component": "인과 방향",
+              "from": "불안 → 안도",
+              "to": "pleased → confused"
+            }
+          ],
+          "note": "감정 변화 구도는 남기고 방향을 뒤집었다. 6번 문장의 버스는 직장으로 바로 가고 10번 문장은 relax 로 끝난다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "degree",
+          "preserved": [
+            {
+              "component": "인과 방향",
+              "text": "부정 → 긍정 구도"
+            }
+          ],
+          "altered": [
+            {
+              "component": "강도",
+              "from": "finally able to relax",
+              "to": "delighted"
+            }
+          ],
+          "note": "긍정 방향은 맞게 두고 강도를 높였으며, 앞 칸도 5번 문장 couldn’t feel at ease 와 다른 무관심으로 바꿨다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "degree",
+          "preserved": [
+            {
+              "component": "인과 방향",
+              "text": "부정 → 긍정 구도"
+            }
+          ],
+          "altered": [
+            {
+              "component": "강도",
+              "from": "relax",
+              "to": "thrilled"
+            }
+          ],
+          "note": "2번 문장의 조바심 행동을 지루함으로 바꾸고 뒤 칸을 10번 문장의 안도보다 강한 흥분으로 올렸다."
+        }
+      ],
+      "principle": {
+        "statement": "심경 변화의 뒤 칸은 마지막 문장의 서술어 강도(relax)에 맞추고, 앞 칸은 행동 묘사가 보이는 감정(조바심)에 맞춘다",
+        "when_applies": [
+          "마지막 문장이 took a deep breath, relax 처럼 강도가 드러나는 서술어로 끝나는 경우",
+          "앞 구간이 시계를 반복해 보는 행동처럼 감정을 행동으로 보이는 경우"
+        ],
+        "when_not": [
+          "마지막 문장이 감정 어휘 없이 사건으로 끝나 강도를 추론해야 하는 경우",
+          "감정이 두 번 이상 바뀌어 어느 구간을 칸에 대응시킬지 정해야 하는 경우"
+        ]
+      }
+    }
+  ]
+}

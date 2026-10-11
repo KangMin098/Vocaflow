@@ -437,6 +437,8 @@ export interface CsatItemExplain {
   time_budget_sec: number | null
   /** **출제 설계 주석** — 문장 역할 · 구조 패턴 · 정답 표현 변환(`lib/csat/design.ts`). 주석 없는 문항은 null */
   design: PassageDesign | null
+  /** 읽은 발행 분석의 버전 — 이 버전에 묶인 파생물(탐구 데이터 등)만 보인다. 분석이 없으면 null */
+  analysis_version: number | null
 }
 
 type AnalysisRow = {
@@ -631,6 +633,7 @@ export async function loadCsatItemExplain(
       evidence_quote_truncated: (a?.answer_locus?.quote?.trim().split(/\s+/).length ?? 0) > QUOTE_WORD_CAP,
       evidence_reasoning: learnerText(a?.answer_locus?.reasoning ?? null, it.type_id),
       design: parseDesign(a?.answer_locus?.passage_design),
+      analysis_version: a?.version ?? null,
       distractors: chs
         .filter((c) => c.verdict === 'distractor')
         .map((c) => ({

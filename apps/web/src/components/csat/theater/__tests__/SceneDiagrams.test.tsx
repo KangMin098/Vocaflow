@@ -46,3 +46,29 @@ describe('장면 도식', () => {
     expect(renderToStaticMarkup(<StructureDiagram design={{ ...design, roles: [] }} sentenceCount={null} />)).toBe('')
   })
 })
+
+describe('오답 설계 · 원리 도식', () => {
+  it('유지 / 바뀜을 라벨과 기호로 보이고, 맞는 선지는 왜곡 없이 note 만', async () => {
+    const { DistractorDesign } = await import('../SceneDiagrams')
+    const html = renderToStaticMarkup(
+      <DistractorDesign
+        distractors={[
+          { n: 2, truth: 'false', operation: 'scope', preserved: [{ component: '대상', text: '습관' }], altered: [{ component: '범위', from: '일부', to: '모두' }], note: '범위만 넓혔다' },
+          { n: 4, truth: 'true', operation: 'none', preserved: [], altered: [], note: '정상 형태라 맞는 말이다' },
+        ]}
+      />,
+    )
+    expect(html).toContain('= 유지')
+    expect(html).toContain('≠ 바뀜 · 범위')
+    expect(html).toContain('범위 바꿈')
+    expect(html).toContain('내용은 맞지만 정답 아님')
+    expect(html.split('≠ 바뀜').length - 1).toBe(1)
+  })
+  it('원리는 통하는 조건과 적용하면 안 되는 조건을 함께', async () => {
+    const { PrincipleDesign } = await import('../SceneDiagrams')
+    const html = renderToStaticMarkup(<PrincipleDesign principle={{ statement: '범위 한정어가 같아야 일치한다', when_applies: ['한정어가 있을 때'], when_not: ['전칭 주장일 때'] }} />)
+    expect(html).toContain('통하는 조건')
+    expect(html).toContain('적용하면 안 되는 조건')
+    expect(html).toContain('전칭 주장일 때')
+  })
+})

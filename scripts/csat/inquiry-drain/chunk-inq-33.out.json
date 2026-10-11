@@ -1,0 +1,77 @@
+{
+  "chunk": "inq-33",
+  "items": [
+    {
+      "id": "M2706#44",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1, "truth": "not_applicable", "operation": "reference",
+          "preserved": [{ "component": "대상", "text": "her music" }],
+          "altered": [],
+          "note": "5번 문장에서 벤치에 앉아 바이올린을 켜는 사람이 노부인이므로 6번 문장의 her music 은 노부인의 연주다. 7번 문장이 주인공 이름을 다시 불러 her 와 주인공을 갈라 놓는다 — 정상 지칭."
+        },
+        {
+          "n": 2, "truth": "not_applicable", "operation": "reference",
+          "preserved": [{ "component": "역할", "text": "showed the young woman" }],
+          "altered": [],
+          "note": "10번 문장에서 바이올린을 건네며 수업을 여는 쪽이 노부인이고, 11번 문장의 She 는 그 행동을 이어 the young woman(주인공)에게 손가락 위치를 보여 준다 — 노부인을 가리키는 정상 지칭."
+        },
+        {
+          "n": 3, "truth": "not_applicable", "operation": "reference",
+          "preserved": [{ "component": "대상", "text": "looked back to the old woman" }],
+          "altered": [],
+          "note": "19번 문장 앞부분이 바라본 상대를 the old woman 으로 밝혀 두어 told her 의 her 도 노부인이다. 18번 문장의 언니는 회상 속 인물이라 이 장면의 청자가 아니다."
+        },
+        {
+          "n": 4, "truth": "not_applicable", "operation": "reference",
+          "preserved": [{ "component": "화자", "text": "the old woman just smiled and said" }],
+          "altered": [],
+          "note": "23번 문장의 전달동사 주어가 노부인이라 24번 문장 인용 속 I 는 노부인이고, 같은 인용의 you 가 주인공이다 — 정상 지칭."
+        }
+      ],
+      "principle": {
+        "statement": "같은 성별 인물이 둘인 서사에서는 대명사 형태 대신 바로 앞뒤의 행위(연주·수업·발화)와 전달동사 주어로 지시 대상을 붙인다",
+        "when_applies": ["여성 인물 둘이 한 장면에서 번갈아 she/her 로 불리는 경우", "밑줄이 직접인용 안의 I/you 이고 인용 앞뒤에 said·asked 주어가 명시된 경우"],
+        "when_not": ["장면마다 인물이 한 명뿐이라 대명사가 중의적이지 않은 경우", "문단 순서를 바꿔 읽어야 하는데 순서를 확정하지 않고 인쇄순으로 이어 읽으면 행위 주체가 뒤섞이는 경우 — 먼저 순서를 정해야 한다"]
+      }
+    },
+    {
+      "id": "M2706#45",
+      "analysis_version": 4,
+      "status": "ok",
+      "distractors": [
+        {
+          "n": 1, "truth": "true", "operation": "none",
+          "preserved": [{ "component": "관계", "text": "liked listening to music in her headphones" }],
+          "altered": [],
+          "note": "2번 문장이 헤드폰으로 음악 듣기를 좋아했다고 그대로 말한다. 4번 문장에서 헤드폰을 벗는 것은 뒤의 사건이라 이 진술을 뒤집지 않는다."
+        },
+        {
+          "n": 2, "truth": "true", "operation": "none",
+          "preserved": [{ "component": "관계", "text": "happy to hear the old woman's music again" }],
+          "altered": [],
+          "note": "9번 문장 but 앞절이 선지와 같다. but 뒤에서 연주가 멈춘 것은 다음 순간의 사건이지 행복했다는 앞절을 취소하지 않는다."
+        },
+        {
+          "n": 3, "truth": "true", "operation": "none",
+          "preserved": [{ "component": "역할", "text": "promised to meet her every day" }],
+          "altered": [],
+          "note": "14번 문장에서 promise 의 주어가 주인공이다. 노부인의 말은 24번 문장의 hope 이므로 약속한 쪽을 주인공으로 둔 선지가 맞다."
+        },
+        {
+          "n": 5, "truth": "true", "operation": "none",
+          "preserved": [{ "component": "시점", "text": "but I always wanted to learn" }],
+          "altered": [],
+          "note": "30번 문장 앞절은 작년에 시작했다는 시점이고, but 뒤 절이 늘 배우고 싶었다는 선지와 대응한다. 앞절만 읽고 시작이 늦었다는 이유로 지우면 틀린다."
+        }
+      ],
+      "principle": {
+        "statement": "내용 일치 선지는 근거 문장의 접속사 앞뒤 절을 끝까지 읽고, 그 진술이 놓인 시점과 주어를 맞춰야 판정된다",
+        "when_applies": ["근거 문장이 but 으로 서로 다른 시점의 두 사건을 잇는 경우", "비슷한 행동(약속·바람)을 두 인물이 각각 하는 서사"],
+        "when_not": ["but 뒤 절이 앞절의 진술을 직접 부정·정정하는 경우 — 그때는 뒤 절이 판정을 바꾼다"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,603 @@
+{
+  "chunk": "inq-07",
+  "items": [
+    {
+      "id": "2018#38", "analysis_version": 5, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "단맛 사례 묶음" } ],
+          "altered": [ { "component": "위치", "from": "결핍 대응 사례 자리", "to": "단맛 사례 사이" } ],
+          "note": "① 앞뒤(3·4번 문장)는 단맛 선호 사례 묶음이고, 4번 문장의 also 는 단맛 사례를 더하는 말이라 소금 결핍 사례가 끼면 also 의 짝이 깨진다." },
+        { "n": 2, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "기피 진술 앞" } ],
+          "altered": [ { "component": "위치", "from": "결핍 총론 뒤", "to": "결핍 총론 앞" } ],
+          "note": "② 뒤 5번 문장은 기피(쓴맛·신맛)로 넘어가는 자리이고, 소금 결핍을 포괄하는 deficits 진술은 6번 문장에서야 나온다." },
+        { "n": 3, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "결핍 총론 앞" } ],
+          "altered": [ { "component": "위치", "from": "결핍 총론 뒤", "to": "결핍 총론 앞" } ],
+          "note": "③에 넣으면 6번 문장의 They 가 실험 속 쥐만 가리키게 되고, 사례가 그것을 포괄하는 6번 문장의 deficits 총론보다 먼저 나온다." },
+        { "n": 5, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "마무리 문장 앞" } ],
+          "altered": [ { "component": "위치", "from": "유사 사례 문장 앞", "to": "마무리 지시어 바로 앞" } ],
+          "note": "⑤에 넣으면 7번 문장의 likewise 가 짝지을 같은 꼴의 사례가 앞에 없고, 8번 문장의 These 가 소금 사례 하나에 붙는다." }
+      ],
+      "principle": {
+        "statement": "문장 삽입에서는 총론(deficits 진술) 뒤 첫 사례 자리와 likewise · also 가 짝지을 사례의 모양을 맞춰 위치를 정한다",
+        "when_applies": ["총론 → 사례 1 → likewise 사례 2 순으로 짜인 단락", "주어진 문장이 구체적 실험 사례 하나인 경우"],
+        "when_not": ["사례가 총론보다 먼저 나오는 귀납 구조의 단락", "likewise 가 문장 안의 두 항을 비교할 뿐 앞 문장과 짝짓지 않는 경우"]
+      }
+    },
+    {
+      "id": "2018#39", "analysis_version": 5, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "미나마타 사례 안" } ],
+          "altered": [ { "component": "위치", "from": "원격 호수 오염 뒤", "to": "공장 직접 배출 사례 안" } ],
+          "note": "① 자리의 오염원은 3번 문장에서 이미 공장 직접 배출로 밝혀져 대기 운반 가정과 충돌하고, 5번 문장의 symptoms 는 4번 문장의 중독을 받는다." },
+        { "n": 2, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "직접 배출 대책 앞" } ],
+          "altered": [ { "component": "위치", "from": "원격 호수 오염 뒤", "to": "직접 배출 대책 앞" } ],
+          "note": "②에 넣으면 such contamination 이 직접 배출 오염을 가리키게 되어 원격 운반을 가정할 이유가 사라진다." },
+        { "n": 3, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "반전 문장 앞" } ],
+          "altered": [ { "component": "위치", "from": "반전 문장 뒤", "to": "반전 문장 앞" } ],
+          "note": "③은 6번 문장의 대책과 7번 문장 However 반전 쌍을 가르고, such contamination 이 받을 원격 호수 오염은 아직 서술되지 않았다." },
+        { "n": 5, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "배출 기준 문장 뒤" } ],
+          "altered": [ { "component": "위치", "from": "배출원 지시어 앞", "to": "배출원 지시어 뒤" } ],
+          "note": "⑤에 넣으면 8번 문장의 such sources 가 가리킬 배출원(발전소·소각로)이 그 앞에 없다." }
+      ],
+      "principle": {
+        "statement": "주어진 문장의 such contamination 과 다음 문장의 such sources 가 앞뒤를 동시에 묶는 자리, 곧 선행사 뒤이자 후속 지시어 앞이 정답 위치다",
+        "when_applies": ["주어진 문장이 앞의 현상을 받고 뒤 문장이 주어진 문장의 명사를 받는 이중 연결", "However 반전 뒤에 새 원인 가설이 필요한 구조"],
+        "when_not": ["such 가 바로 뒤의 such as 로 내용을 스스로 밝히는 경우", "주어진 문장이 단락 전체를 요약하는 마무리 문장인 경우"]
+      }
+    },
+    {
+      "id": "2018#40", "analysis_version": 5, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "관계", "text": "limit" } ],
+          "altered": [ { "component": "극성", "from": "surprising discoveries", "to": "distorted" } ],
+          "note": "(A) limit 은 유지하고 (B)를 바꿨다. 4·5번 문장이 줄어든다고 아쉬워하는 것은 새롭고 놀라운 발견이고, 왜곡된 발견이 줄면 오히려 바람직해 글의 우려와 맞지 않는다." },
+        { "n": 3, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "potential sources of information" } ],
+          "altered": [ { "component": "극성", "from": "eliminating the diversity", "to": "diversify" } ],
+          "note": "(B) accidental 은 놀라운 발견과 비슷하지만 (A)가 4번 문장의 다양성 제거와 정반대다." },
+        { "n": 4, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "potential sources of information" } ],
+          "altered": [ { "component": "극성", "from": "eliminating the diversity", "to": "diversify" } ],
+          "note": "(A)가 4번 문장과 반대이고, (B) misleading 도 5번 문장의 surprising discoveries 와 무관해 두 칸 모두 막힌다." },
+        { "n": 5, "truth": "false", "operation": "causal_direction",
+          "preserved": [ { "component": "관계", "text": "novel" } ],
+          "altered": [ { "component": "인과 방향", "from": "overfilter", "to": "provide" } ],
+          "note": "(B) novel 은 4번 문장의 radically new ideas 와 맞지만 (A) provide 는 긍정 방향이라 and thus make it less probable 로 이어지는 인과가 성립하지 않는다." }
+      ],
+      "principle": {
+        "statement": "요약문의 (A) and thus (B) 구조에서는 (A)가 원인, (B)가 그 결과로 줄어드는 대상이므로 두 칸의 방향이 인과로 맞물려야 한다",
+        "when_applies": ["요약문에 thus · so 같은 인과 접속이 두 빈칸 사이에 있는 경우", "지문이 비용(과잉 여과)과 상실(새 발견 감소)을 차례로 말하는 경우"],
+        "when_not": ["두 빈칸이 and 로 병렬되어 서로 독립적인 내용을 담는 요약문", "지문이 장점과 단점을 함께 저울질해 결론 방향이 하나로 정해지지 않는 경우"]
+      }
+    },
+    {
+      "id": "2018#41", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 2, "truth": "false", "operation": "agent",
+          "preserved": [ { "component": "관계", "text": "Character" } ],
+          "altered": [ { "component": "역할", "from": "every character you create will be yourself", "to": "People You Know" } ],
+          "note": "인물 창작이라는 소재를 두고 재료의 출처를 작가 자신에서 주변 사람으로 바꿨다. 1번·11번 문장 모두 재료는 자기 삶이다." },
+        { "n": 3, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "memories of your own extreme anger" } ],
+          "altered": [ { "component": "극성", "from": "incorporate aspects of yourself", "to": "Keep Your Memories Away" } ],
+          "note": "9번 문장의 문제를 기억 사용 전체로 넓혀 권고를 뒤집었다. 2번 문장과 13번 문장은 기억과 자신의 면모를 쓰라고 한다." },
+        { "n": 4, "truth": "false", "operation": "agent",
+          "preserved": [ { "component": "대상", "text": "a protagonist" } ],
+          "altered": [ { "component": "역할", "from": "쓰는 사람을 위한 창작 조언", "to": "A Key to Understanding Novels" } ],
+          "note": "8번 문장의 주인공 소재를 두고 대상 독자를 작가에서 소설 읽는 사람으로 바꿨다. 지문은 2인칭 창작 조언으로 일관한다." },
+        { "n": 5, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "complicated makeup" } ],
+          "altered": [ { "component": "대상", "from": "(지문에 없음)", "to": "Simplicity" } ],
+          "note": "10번 문장의 complicated 에서 그 반대인 단순함을 끌어냈지만, 지문이 지목한 어려움은 복잡함이 아니라 too close, 곧 거리다." }
+      ],
+      "principle": {
+        "statement": "문제 제기 뒤 처방(It can thus be easier ~)이 오는 창작 조언 글의 제목은 처방이 제시하는 '더 나은 방법'을 담는다",
+        "when_applies": ["Should you ~? 질문과 The problem with this 로 문제를 세운 뒤 thus 로 대안을 내는 글", "앞부분 사례들이 처방의 전제(인물은 곧 작가)를 깔아 두는 경우"],
+        "when_not": ["문제만 지적하고 처방 없이 끝나는 글 — 그때는 문제 자체가 제목이 된다", "처방이 여러 개라 하나의 '방법'으로 묶이지 않는 경우"]
+      }
+    },
+    {
+      "id": "2018#42", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 2, "truth": "false", "operation": "reference",
+          "preserved": [ { "component": "관계", "text": "too close" } ],
+          "altered": [ { "component": "관계", "from": "objectivity and control", "to": "intuitively" } ],
+          "note": "10번 문장의 too close 라는 이유는 그대로인데, 가까움은 직관을 막지 않고 오히려 쉽게 하므로 '직관적으로 볼 수 없다'는 결론과 이어지지 않는다." },
+        { "n": 3, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "view himself" } ],
+          "altered": [ { "component": "관계", "from": "(지문에 없음)", "to": "devotedly" } ],
+          "note": "자기를 보는 행위는 두고 지문에 없는 헌신 개념을 넣었다. 14번 문장이 얻는다고 한 것은 objectivity and control 이다." },
+        { "n": 4, "truth": "false", "operation": "reference",
+          "preserved": [ { "component": "대상", "text": "our own emotions" } ],
+          "altered": [ { "component": "역할", "from": "인물 창작의 재료", "to": "emotionally" } ],
+          "note": "5번 문장의 emotions 는 인물을 만드는 재료를 설명하는 자리다. 빈칸의 결핍은 14번 문장이 짝으로 지목한 객관성이다." },
+        { "n": 5, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "view himself" } ],
+          "altered": [ { "component": "관계", "from": "(지문에 없음)", "to": "favorably" } ],
+          "note": "10번 문장의 이유는 복잡한 구성에 너무 가깝다는 것이지 자기를 좋게 본다는 것이 아니다." }
+      ],
+      "principle": {
+        "statement": "부정문 빈칸(no one can view himself ___)은 바로 뒤 이유 문장(too close)과 글 끝에서 얻는다고 한 것(objectivity)이 함께 가리키는 결핍을 채운다",
+        "when_applies": ["빈칸 뒤 As the writer 같은 이유 문장이 이어지는 경우", "마지막 문장이 대안으로 얻는 성질을 명시하는 경우"],
+        "when_not": ["이유 문장과 결론의 성질이 서로 다른 축을 가리키는 경우", "빈칸 문장이 긍정문이라 결핍이 아니라 능력을 묻는 경우"]
+      }
+    },
+    {
+      "id": "2018#43", "analysis_version": 5, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "(B) 단락" } ],
+          "altered": [ { "component": "위치", "from": "마지막 자리", "to": "첫 자리" } ],
+          "note": "(B) 끝 18번 문장의 won two battles 는 선거와 우정이 모두 정리된 뒤의 대사라 첫 자리에 올 수 없다." },
+        { "n": 2, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "(C) 첫 자리" } ],
+          "altered": [ { "component": "위치", "from": "(B) 앞", "to": "(B) 뒤" } ],
+          "note": "(D)는 26번 문장 When the election day came 로 시작해 당선 결과 (B)보다 앞서야 한다." },
+        { "n": 4, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "(D) 단락" } ],
+          "altered": [ { "component": "위치", "from": "(C) 뒤", "to": "첫 자리" } ],
+          "note": "(D)의 29번·31번 문장(only one of you, this election)은 둘이 함께 출마한 사실을 전제하는데, 그 사실은 (C)에만 있다." },
+        { "n": 5, "truth": "not_applicable", "operation": "order",
+          "preserved": [ { "component": "위치", "text": "(D) 단락" } ],
+          "altered": [ { "component": "위치", "from": "(C) 뒤", "to": "첫 자리" } ],
+          "note": "Dave 가 경쟁자가 되는 장면은 (C)의 21번 문장에서 처음 밝혀지므로 (D)가 (C)보다 앞설 수 없다." }
+      ],
+      "principle": {
+        "statement": "서사 순서 문항에서는 갈등이 처음 생기는 단락 → 갈등이 고조되는 날 → 해소 단락 순으로, 각 단락이 전제하는 사건의 첫 등장을 따라 잇는다",
+        "when_applies": ["When the election day came 같은 시점 표지가 단락 머리에 있는 경우", "마지막 대사가 앞 사건 전부를 정리하는 단락이 있는 경우"],
+        "when_not": ["회상으로 결말을 먼저 보여 주는 서사", "단락마다 시점 표지 없이 감정 묘사만 있어 선후 단서가 약한 경우"]
+      }
+    },
+    {
+      "id": "2018#44", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "not_applicable", "operation": "reference",
+          "preserved": [ { "component": "역할", "text": "Steve thought for a moment and answered" } ], "altered": [],
+          "note": "5번 문장 (a) he 는 출마 의사를 질문받는 사람이고, 6번 문장에서 답한 사람이 Steve 라 정상 지칭이다." },
+        { "n": 2, "truth": "not_applicable", "operation": "reference",
+          "preserved": [ { "component": "역할", "text": "Dave went over to Steve" } ], "altered": [],
+          "note": "8번 문장에서 축하의 주어가 Dave 이므로 목적어 (b) him 은 이긴 Steve 다." },
+        { "n": 3, "truth": "not_applicable", "operation": "reference",
+          "preserved": [ { "component": "역할", "text": "As Steve arrived home, his dad" } ], "altered": [],
+          "note": "15번 문장이 아버지를 Steve 의 것으로 정해 두어 18번 문장의 (c) His 도 Steve 다." },
+        { "n": 5, "truth": "not_applicable", "operation": "reference",
+          "preserved": [ { "component": "역할", "text": "Looking at Steve" } ], "altered": [],
+          "note": "34번 문장 앞부분에서 바라본 대상이 Steve 이고, 10번 문장의 사과도 Steve 에게 갔으므로 (e) him 은 Steve 다." }
+      ],
+      "principle": {
+        "statement": "두 소년이 번갈아 주어가 되는 서사의 지칭은 질문·축하·사과 같은 동사의 주어와 목적어 짝을 따라 확정한다",
+        "when_applies": ["같은 성별 인물 둘이 he · him 으로 섞여 나오는 경우", "대사의 화자 표시(He continued sharply)가 앞 문장의 화자를 잇는 경우"],
+        "when_not": ["동사가 상호적(서로 악수하다)이라 주어·목적어로 갈리지 않는 경우", "단락이 뒤섞여 직전 문장이 시간상 앞이 아닌 경우 — 순서를 먼저 복원해야 한다"]
+      }
+    },
+    {
+      "id": "2018#45", "analysis_version": 5, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "true", "operation": "none", "preserved": [ { "component": "시점", "text": "together that morning" } ], "altered": [],
+          "note": "1번 문장이 새 학기 첫날, 3번 문장이 그날 아침 함께 자전거로 등교했다고 해 맞다." },
+        { "n": 2, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "Steve won the election" } ], "altered": [],
+          "note": "7번 문장이 당선을 말하고, 선거 종목은 5번 문장의 student president 다." },
+        { "n": 4, "truth": "true", "operation": "none", "preserved": [ { "component": "관계", "text": "pulled over to give him a ride" } ], "altered": [],
+          "note": "26번 문장에서 Steve 가 뛰어가기 시작했고 27번 문장에서 Dave 의 아버지가 태워 주었다." },
+        { "n": 5, "truth": "true", "operation": "none", "preserved": [ { "component": "관계", "text": "Don't let this election ruin your friendship" } ], "altered": [],
+          "note": "31번 문장이 충고의 내용, 29번 문장이 화자(Dave's dad)를 준다." }
+      ],
+      "principle": {
+        "statement": "단락이 섞인 서사의 내용 불일치는 인물이 한 행동을 반대로(알렸다 → 숨겼다) 바꾼 선지에서 나오며, 해당 단락의 대사로 확인된다",
+        "when_applies": ["19번 문장처럼 인물이 직접 소식을 알리는 대사가 있는 경우", "다른 선지들이 행위자와 사건을 그대로 옮긴 경우"],
+        "when_not": ["인물의 의도가 서술 없이 암시만 되어 숨김 여부를 확정할 수 없는 경우", "같은 사실을 서로 다른 인물이 다르게 말하는 서사"]
+      }
+    },
+    {
+      "id": "2019#18", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "agent",
+          "preserved": [ { "component": "대상", "text": "the contest date, time, and prizes" } ],
+          "altered": [ { "component": "역할", "from": "웹사이트에서 찾아본 사람", "to": "일정을 안내하는 쪽" } ],
+          "note": "3번 문장의 일정 정보를 두고 화행 주체를 바꿨다. 발신자는 그 정보를 찾아본 쪽이고 6번 문장은 알려 달라는 요청이다." },
+        { "n": 2, "truth": "false", "operation": "temporal",
+          "preserved": [ { "component": "대상", "text": "prizes" } ],
+          "altered": [ { "component": "시점", "from": "A few days ago, I submitted my application", "to": "심사 결과를 확인" } ],
+          "note": "3번 문장의 prizes 를 결과로 읽게 했다. 대회는 아직 열리지 않았고 발신자는 며칠 전 응모했을 뿐이다." },
+        { "n": 4, "truth": "false", "operation": "agent",
+          "preserved": [ { "component": "대상", "text": "a great new recipe" } ],
+          "altered": [ { "component": "역할", "from": "I have just created", "to": "개발을 요청" } ],
+          "note": "5번 문장의 새 요리법을 두고 만든 주체를 발신자에서 상대로 바꿨다." },
+        { "n": 5, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "contest" } ],
+          "altered": [ { "component": "관계", "from": "change my recipe", "to": "불참을 통보" } ],
+          "note": "대회 소재는 두고 요리법 교체를 불참으로 바꿨다. 5번 문장은 계속 참가할 전제로 더 나은 요리법을 내려 한다." }
+      ],
+      "principle": {
+        "statement": "편지 목적은 However 뒤의 바람(change my recipe)과 마지막 요청문(Please let me know)이 일치하는 지점에서 정해진다",
+        "when_applies": ["앞부분이 이미 한 일(응모)을, However 뒤가 바람을 말하는 편지", "웹사이트 확인 같은 경위 설명이 중간에 끼어 있는 경우"],
+        "when_not": ["However 뒤의 바람과 마지막 요청이 서로 다른 일을 가리키는 편지", "요청 없이 사실 통보로만 끝나는 편지"]
+      }
+    },
+    {
+      "id": "2019#19", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 2, "truth": "false", "operation": "degree",
+          "preserved": [ { "component": "시점", "text": "He was about to give up" } ],
+          "altered": [ { "component": "강도", "from": "would never succeed", "to": "bored" } ],
+          "note": "앞 칸 자리는 지켰지만 4번 문장의 포기 직전 좌절을 지루함으로 약화했고, 뒤 칸도 13번 문장의 환호보다 약한 위로다." },
+        { "n": 3, "truth": "false", "operation": "order",
+          "preserved": [ { "component": "대상", "text": "Taking a deep breath" } ],
+          "altered": [ { "component": "시점", "from": "전환 뒤의 준비 동작", "to": "calm" } ],
+          "note": "8번 문장의 심호흡은 전환 뒤 동작이라 앞 심경 근거가 아니고, 13번 문장 I did it 으로 끝나 annoyed 도 맞지 않는다." },
+        { "n": 4, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "The swelling waves" } ],
+          "altered": [ { "component": "극성", "from": "Walking out of the water joyfully", "to": "frightened" } ],
+          "note": "6번 문장의 파도는 격려자로 그려졌는데 위협처럼 읽게 했다. 뒤 칸 frightened 는 13번 문장 joyfully 와 정반대다." },
+        { "n": 5, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "The waves were perfect for surfing" } ],
+          "altered": [ { "component": "극성", "from": "could not stay on his board", "to": "pleased" } ],
+          "note": "1번 문장의 좋은 파도에 끌려 앞 칸을 기쁨으로 뒤집었다. 2번 문장의 however 가 좌절을 앞쪽에 고정하고 결말은 환호다." }
+      ],
+      "principle": {
+        "statement": "심경 변화의 첫 칸은 배경 묘사(좋은 파도)가 아니라 However 뒤 인물의 상태(실패·포기 직전)에서 읽는다",
+        "when_applies": ["첫 문장이 긍정적 배경, 다음 문장이 however 로 인물의 처지를 대비하는 서사", "결말에 감탄문(Wow, I did it!)이 있는 경우"],
+        "when_not": ["배경 묘사가 그대로 인물의 감정을 반영하는(날씨가 우울 = 인물도 우울) 글", "인물이 처음부터 끝까지 같은 감정을 유지하는 글"]
+      }
+    },
+    {
+      "id": "2019#20", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 2, "truth": "false", "operation": "reference",
+          "preserved": [ { "component": "대상", "text": "strategic, tactical" } ],
+          "altered": [ { "component": "화자", "from": "권위자 인용문", "to": "필자의 요구" } ],
+          "note": "4번 문장 인용 속 전략·전술 낱말을 필자의 주장으로 옮겼다. 인용의 요지는 그것들이 적에 대한 정치적 결정을 전제한다는 것이다." },
+        { "n": 3, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "the image of the enemy" } ],
+          "altered": [ { "component": "극성", "from": "in an abstract and uniform way", "to": "보편적 윤리관에 기초" } ],
+          "note": "6번 문장이 경계한 추상적·획일적 방식을 오히려 권고로 뒤집었다. 7번 문장은 문화적·우연적으로 보라고 한다." },
+        { "n": 4, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "the political decision" } ],
+          "altered": [ { "component": "관계", "from": "(지문에 없음)", "to": "전쟁 예방" } ],
+          "note": "4번 문장의 정치적 결정은 누가 적인지 정하는 결정인데, 지문에 없는 예방 목적을 붙였다." },
+        { "n": 5, "truth": "false", "operation": "scope",
+          "preserved": [ { "component": "대상", "text": "gives meaning and justification to war" } ],
+          "altered": [ { "component": "관계", "from": "정당화가 만들어지는 과정 설명", "to": "어떠한 경우에도 정당화 금지" } ],
+          "note": "2번 문장의 정당화 설명을 금지 규범으로 넓혔다. 필자의 요구(6번 문장)의 대상은 전쟁을 생각하는 방식이다." }
+      ],
+      "principle": {
+        "statement": "인용으로 통념을 길게 소개한 뒤 However, we need to ~ 로 돌아서는 글에서 필자의 주장은 However 뒤 문장과 Rather 대안에 있다",
+        "when_applies": ["앞부분이 권위자 인용으로 채워지고 뒤에서 필자가 1인칭 복수로 말하는 글", "Rather 가 경계 대상의 대안을 명시하는 경우"],
+        "when_not": ["필자가 인용을 끝까지 지지 근거로만 쓰는 글", "However 뒤가 인용의 한 부분을 보완할 뿐 방향을 바꾸지 않는 경우"]
+      }
+    },
+    {
+      "id": "2019#21", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 2, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "A discovery" } ],
+          "altered": [ { "component": "극성", "from": "the next questions", "to": "an ultimate account" } ],
+          "note": "발견이라는 소재는 두고 방향을 뒤집었다. 6번 문장은 결과가 아니라 다음 질문을, 10번 문장은 분야를 여는 것을 말한다." },
+        { "n": 3, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "science" } ],
+          "altered": [ { "component": "관계", "from": "(지문에 없음)", "to": "with an objective mindset" } ],
+          "note": "과학이라는 대상만 남기고 기존 지식의 객관적 분석이라는 없는 내용을 넣었다. 6번 문장은 next questions 를 지목한다." },
+        { "n": 4, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "Big discoveries are covered in the press" } ],
+          "altered": [ { "component": "극성", "from": "But it's wrong", "to": "publicize significant discoveries" } ],
+          "note": "4번 문장의 언론 보도 소재를 썼지만 5번 문장이 그것을 통째로 부정한다. 필자가 부정한 쪽은 밑줄 구의 뜻이 될 수 없다." },
+        { "n": 5, "truth": "false", "operation": "reference",
+          "preserved": [ { "component": "대상", "text": "his students" } ],
+          "altered": [ { "component": "역할", "from": "물리학자 발언의 청자", "to": "새 분야를 알려 주는 대상" } ],
+          "note": "7번 문장의 students 는 발언의 청자일 뿐이고, 10번 문장의 opened a field up 은 노벨상 인용 표현이다." }
+      ],
+      "principle": {
+        "statement": "역설적 밑줄 구(무지를 다듬다)는 필자가 부정한 것(결과 집착)과 긍정한 것(다음 질문 · 새 무지의 발견)을 가른 뒤 긍정 쪽으로 풀어야 한다",
+        "when_applies": ["밑줄 구가 상식과 어긋나는 결합(refining + ignorance)인 경우", "But it's wrong 처럼 앞 단락을 통째로 부정하는 문장이 있는 경우"],
+        "when_not": ["밑줄 구가 비꼬는 뜻으로 쓰여 필자가 그 행위를 비판하는 경우", "지문이 부정과 긍정을 나누지 않고 현상만 기술하는 경우"]
+      }
+    },
+    {
+      "id": "2019#22", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "the medium in which it is contained" } ],
+          "altered": [ { "component": "극성", "from": "a life of its own outside the medium", "to": "전달하는 방식이 중요" } ],
+          "note": "4번 문장의 매체를 남기되, 정보가 매체와 분리된다는 진술을 전달 방식이 중요하다는 쪽으로 뒤집었다." },
+        { "n": 3, "truth": "false", "operation": "scope",
+          "preserved": [ { "component": "대상", "text": "the effects of information on decision making" } ],
+          "altered": [ { "component": "관계", "from": "연구 범주의 한 항목", "to": "정보 처리의 단순화" } ],
+          "note": "3번 문장 목록의 한 항목을 요지로 키우고 지문에 없는 단순화를 붙였다." },
+        { "n": 4, "truth": "false", "operation": "scope",
+          "preserved": [ { "component": "대상", "text": "the productivity of organizations" } ],
+          "altered": [ { "component": "관계", "from": "연구 범주의 한 항목", "to": "효율적 교환이 생산성 향상" } ],
+          "note": "3번 문장 세미콜론 목록의 항목을 인과 주장으로 바꿨다. 그 문장의 주어는 연구가 무엇을 포함하는가이다." },
+        { "n": 5, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "information-based society" } ],
+          "altered": [ { "component": "대상", "from": "(지문에 없음)", "to": "개인 정보 보호" } ],
+          "note": "정보 사회 배경은 두고 프라이버시라는 없는 화제를 넣었다. 5번 문장의 귀결은 측정·평가·가격 매김이다." }
+      ],
+      "principle": {
+        "statement": "첫 문장과 마지막 문장이 같은 명제(정보 = 독자적 가치의 상품)를 되풀이하는 글에서는 중간 열거 목록의 항목이 요지가 되지 않는다",
+        "when_applies": ["중간 문장이 세미콜론으로 연구 범주를 나열하는 경우", "마지막 문장이 measured, evaluated, and priced 처럼 첫 문장을 구체화하는 경우"],
+        "when_not": ["열거 항목 중 하나가 뒤에서 집중적으로 전개되는 글", "첫 문장과 마지막 문장이 서로 다른 주장을 하는 경우"]
+      }
+    },
+    {
+      "id": "2019#23", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "agent",
+          "preserved": [ { "component": "대상", "text": "policy reform" } ],
+          "altered": [ { "component": "역할", "from": "선진국 보조금 개혁", "to": "diplomatic policies in poor countries" } ],
+          "note": "5번 문장의 정책 개혁을 두고 개혁 대상을 OECD 보조금에서 가난한 나라의 외교 정책으로 바꿨다." },
+        { "n": 3, "truth": "false", "operation": "causal_direction",
+          "preserved": [ { "component": "대상", "text": "poorest countries" } ],
+          "altered": [ { "component": "관계", "from": "effective mitigation", "to": "restoring economic equality" } ],
+          "note": "가난한 나라라는 대상은 두고, 3번 문장에서 기후 대응 수단인 원조를 경제적 평등이라는 목적으로 바꿨다." },
+        { "n": 4, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "climate change" } ],
+          "altered": [ { "component": "관계", "from": "(지문에 없음)", "to": "increasing global awareness" } ],
+          "note": "기후 위기 소재는 두고 인식 제고라는 없는 수단을 넣었다. 지문은 원조·탄소 크레딧·보조금 철폐 같은 정책만 열거한다." },
+        { "n": 5, "truth": "false", "operation": "agent",
+          "preserved": [ { "component": "대상", "text": "the two biggest recipients in the OECD" } ],
+          "altered": [ { "component": "역할", "from": "보조금을 받는 산업의 자리", "to": "roles of the OECD" } ],
+          "note": "5번 문장에서 OECD 는 보조금 수혜 산업의 위치일 뿐인데, 분쟁을 해결하는 행위자로 바꿨다." }
+      ],
+      "principle": {
+        "statement": "여러 정책 수단을 열거하는 글의 주제는 수단들이 공통으로 겨냥하는 목적(기후 변화 대응)과 수단의 범주(원조 · 정책 개혁)를 함께 담는다",
+        "when_applies": ["첫 문장이 We argue 로 목적을 밝히고 이후 수단을 나열하는 글", "고유명사(OECD)가 수단 설명 속 장소로만 등장하는 경우"],
+        "when_not": ["열거된 수단이 서로 다른 목적을 겨냥하는 글", "고유명사가 실제 행위 주체로 반복 등장하는 경우"]
+      }
+    },
+    {
+      "id": "2019#24", "analysis_version": 5, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "causal_direction",
+          "preserved": [ { "component": "관계", "text": "Feelings" } ],
+          "altered": [ { "component": "인과 방향", "from": "unless they convey affect", "to": "Numbers Magnify Feelings" } ],
+          "note": "숫자와 감정의 관계는 남기되 방향을 뒤집었다. 6번 문장은 큰 수가 감정을 싣지 못하면 의미를 잃는다고 한다." },
+        { "n": 2, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "technological sophistication" } ],
+          "altered": [ { "component": "극성", "from": "casts doubt on this fundamental assumption", "to": "Preventing Potential Losses Through Technology" } ],
+          "note": "2번 문장의 기술 노력을 결론으로 세웠지만 4번 문장이 그 전제를 의심한다. 지문이 세운 뒤 무너뜨린 쪽이다." },
+        { "n": 3, "truth": "false", "operation": "scope",
+          "preserved": [ { "component": "대상", "text": "a single individual in need" } ],
+          "altered": [ { "component": "범위", "from": "역설의 양쪽", "to": "돕는 쪽 한 면" } ],
+          "note": "8번 문장의 한쪽만 옮겨 7번 문장의 역설을 잘랐고, 지문은 돕는 방법을 제시하지도 않는다." },
+        { "n": 4, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "natural disasters" } ],
+          "altered": [ { "component": "관계", "from": "(지문에 없음)", "to": "A Way of Classifying" } ],
+          "note": "자연재해 소재는 두고 분류라는 없는 기능을 붙였다. Power of Numbers 는 6번 문장의 lack meaning 과도 어긋난다." }
+      ],
+      "principle": {
+        "statement": "However 로 전제를 의심한 뒤 역설로 마무리하는 글의 제목은 연구가 밝힌 둔감함(큰 수 앞의 무감각)을 담고 의심받은 전제(기술적 평가)는 버린다",
+        "when_applies": ["앞부분이 통념적 노력, However 뒤가 연구 결과로 그것을 반박하는 글", "On the one hand / On the other hand 로 역설을 보여 주는 경우"],
+        "when_not": ["However 뒤 연구가 전제를 보완할 뿐 부정하지 않는 글", "역설의 한쪽이 글 전체에서 압도적으로 전개되는 경우"]
+      }
+    },
+    {
+      "id": "2019#25", "analysis_version": 6, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "true", "operation": "none", "preserved": [ { "component": "수치", "text": "over three times larger" } ], "altered": [],
+          "note": "1번 문장 표의 Total 1,079,000 은 286,000 의 세 배(858,000)를 넘어 맞는 진술이다." },
+        { "n": 2, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "only Taiwan was included" } ], "altered": [],
+          "note": "1979-1980 상위 셋은 Iran · Taiwan · Nigeria 이고 2016-2017 표에는 Taiwan 만 남아 두 주장이 모두 맞다." },
+        { "n": 4, "truth": "true", "operation": "none", "preserved": [ { "component": "수치", "text": "ranked third in 2016-2017" } ], "altered": [],
+          "note": "South Korea 는 1979-1980 표에 없고 2016-2017 표에서 China · India 다음 셋째(59,000)다." },
+        { "n": 5, "truth": "true", "operation": "none", "preserved": [ { "component": "수치", "text": "Japan ranked lower" } ], "altered": [],
+          "note": "Japan 은 12,000(5위)에서 19,000(8위)으로 수는 늘고 순위는 내려가 양보절과 주절이 모두 맞다." }
+      ],
+      "principle": {
+        "statement": "두 시점 표의 일치 문항에서는 배수 비교와 순위 비교를 한 문장에 묶은 선지의 뒤 절(순위)까지 확인해야 불일치를 잡는다",
+        "when_applies": ["선지가 and 로 수치 비교와 순위 비교를 이어 붙인 경우", "표가 연도별로 순위 행을 따로 가진 경우"],
+        "when_not": ["선지가 한 가지 비교만 담은 경우", "표에 순위가 아닌 합계만 있어 순위를 직접 읽을 수 없는 경우"]
+      }
+    },
+    {
+      "id": "2019#26", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "born in Washington, D.C." } ], "altered": [],
+          "note": "1번 문장이 Washington, D.C. 출생 미국 작가라고 밝혀 맞다." },
+        { "n": 2, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "one of her stories appeared" } ], "altered": [],
+          "note": "2번 문장 appeared 의 주어가 그녀의 이야기 하나라 일치한다." },
+        { "n": 3, "truth": "true", "operation": "none", "preserved": [ { "component": "시점", "text": "After graduating from university" } ], "altered": [],
+          "note": "3번 문장이 졸업 뒤 저널리스트로 일했다고 시점까지 같게 말한다." },
+        { "n": 5, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "has become a Florida State Park" } ], "altered": [],
+          "note": "8번 문장이 Cross Creek 의 땅이 주립 공원이 되었다고 그대로 말한다." }
+      ],
+      "principle": {
+        "statement": "인물 전기문의 불일치 선지는 of the same name 같은 짧은 수식어를 반대로(다른 제목) 바꾸는 경우가 있어, 연도·지명뿐 아니라 수식어까지 대조한다",
+        "when_applies": ["선지 대부분이 연도·지명·매체명을 그대로 옮긴 경우", "지문에 the same 같은 짧은 동일성 표현이 있는 경우"],
+        "when_not": ["지문이 영화 제목을 따로 밝혀 동일성 여부를 직접 비교할 수 있는 경우", "선지가 수치를 바꾼 경우 — 수식어보다 수치 대조가 먼저다"]
+      }
+    },
+    {
+      "id": "2019#27", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "true", "operation": "none", "preserved": [ { "component": "범위", "text": "13 years old and over" } ], "altered": [],
+          "note": "2번 문장 Age requirement 의 and over 가 13세를 포함해 맞다." },
+        { "n": 2, "truth": "true", "operation": "none", "preserved": [ { "component": "수치", "text": "Zipline length: 500 metres" } ], "altered": [],
+          "note": "2번 문장 항목명 length 의 값이 500 미터로 일치한다." },
+        { "n": 3, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "Weight: over 125 kg" } ], "altered": [],
+          "note": "2번 문장 Restrictions 아래 체중 기준이 있어 체중 제한이 있다는 진술과 맞다." },
+        { "n": 4, "truth": "true", "operation": "none", "preserved": [ { "component": "관계", "text": "We do not take responsibility for lost valuables" } ], "altered": [],
+          "note": "2번 문장 ※ 항목이 분실 귀중품 면책을 명시해 일치한다." }
+      ],
+      "principle": {
+        "statement": "안내문 끝의 ※ 주의 항목은 부정어(No, not)를 담는 경우가 많아, 선지가 그 부정을 뺐는지(예약 불필요 → 필요)를 확인하는 자리가 된다",
+        "when_applies": ["※ 표시 아래 No advanced reservations 처럼 부정 표현이 있는 안내문", "다른 선지들이 수치·항목을 그대로 옮긴 경우"],
+        "when_not": ["주의 항목이 긍정 지시(꼭 가져오세요)로만 된 안내문", "선지가 부정어가 아닌 수치를 바꾼 경우"]
+      }
+    },
+    {
+      "id": "2019#28", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "the display" } ],
+          "altered": [ { "component": "극성", "from": "facing up", "to": "아래로" } ],
+          "note": "3번 문장의 화면 방향 지시를 두고 위를 아래로 뒤집었다." },
+        { "n": 2, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "the center of the charging pad" } ],
+          "altered": [ { "component": "극성", "from": "or it will not charge", "to": "놓지 않아도 된다" } ],
+          "note": "4번 문장의 중앙 배치 지시와 그러지 않으면 충전되지 않는다는 결과를 '안 해도 된다'로 뒤집었다." },
+        { "n": 3, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "White Light" } ],
+          "altered": [ { "component": "극성", "from": "fully charged", "to": "완전히 충전되지 않은" } ],
+          "note": "6번 문장의 흰색 표시를 두고 완충을 미완충으로 뒤집었다. 충전 중은 5번 문장의 Blue Light 다." },
+        { "n": 5, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "The charging pad" } ],
+          "altered": [ { "component": "극성", "from": "not water-resistant", "to": "방수가 된다" } ],
+          "note": "7번 문장의 not 을 지워 방수 여부를 뒤집었고, 8번 문장 Keep it dry 도 반대를 뒷받침한다." }
+      ],
+      "principle": {
+        "statement": "사용 설명서형 안내문의 오답은 지시 항목(방향·위치·색·방수)은 그대로 두고 그 값의 극성만 뒤집는 경우가 많다",
+        "when_applies": ["지시문이 번호 순서와 Caution 항목으로 나뉜 설명서", "or it will not 처럼 조건과 결과가 한 줄에 붙은 경우"],
+        "when_not": ["안내문에 없는 기능을 지어낸 선지 — 극성이 아니라 존재 여부를 본다", "지시가 조건부(모델마다 다름)로 주어진 설명서"]
+      }
+    },
+    {
+      "id": "2019#29", "analysis_version": 5, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "true", "operation": "none", "preserved": [ { "component": "형태", "text": "comes very close to ① expressing" } ], "altered": [],
+          "note": "1번 문장의 close to 에서 to 는 전치사라 동명사 expressing 이 정상이다." },
+        { "n": 3, "truth": "true", "operation": "none", "preserved": [ { "component": "형태", "text": "exceed ③ those of Egypt" } ], "altered": [],
+          "note": "4번 문장의 those 는 복수 structures 를 받는 지시대명사라 정상이다." },
+        { "n": 4, "truth": "true", "operation": "none", "preserved": [ { "component": "형태", "text": "④ that constitutes" } ], "altered": [],
+          "note": "6번 문장의 관계대명사 that 은 단수 pile 을 받아 주어 역할을 하고 constitutes 와 수가 맞는다." },
+        { "n": 5, "truth": "true", "operation": "none", "preserved": [ { "component": "형태", "text": "⑤ carved in wood" } ], "altered": [],
+          "note": "8번 문장에서 carved 는 is 의 보어로 a few inches across 와 병렬되고, 깎인 대상이라 과거분사가 맞다." }
+      ],
+      "principle": {
+        "statement": "as fully as it ___ 같은 비교절의 대동사는 앞 절 동사의 형태(수동 완료 has been achieved)를 받아 was 처럼 맞춰야 한다",
+        "when_applies": ["Never before ~ has ... been p.p. 처럼 수동태가 앞 절에 있는 비교 구문", "대동사 자리에 do 계열이 쓰인 경우"],
+        "when_not": ["앞 절 동사가 일반 능동 동사라 did 가 그대로 받을 수 있는 경우", "비교 대상이 다른 동사를 생략한 명사구인 경우"]
+      }
+    },
+    {
+      "id": "2019#30", "analysis_version": 5, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "uncertain task" } ], "altered": [],
+          "note": "2번 문장의 Even under ideal circumstances 와 fast animals 가 육지 사냥의 어려움을 말해 uncertain 이 맞다." },
+        { "n": 2, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "it swam poorly" } ], "altered": [],
+          "note": "3번 문장 콜론 뒤가 weakness 의 내용을 바로 풀어 정상 낱말이다." },
+        { "n": 3, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "moving slowly" } ], "altered": [],
+          "note": "4번 문장의 분사구(느리게 버둥거림)가 vulnerable 을 풀어 주어 맞다." },
+        { "n": 4, "truth": "true", "operation": "none", "preserved": [ { "component": "대상", "text": "apply this advantage to other goods" } ], "altered": [],
+          "note": "7번 문장이 같은 낱말 advantage 로 받아 5번 문장의 이점과 이어진다." }
+      ],
+      "principle": {
+        "statement": "어휘 문항에서 배의 이점을 말하는 글의 결론(far easier by boat)과 같은 문장 안의 부사는 그 쉬움과 같은 방향이어야 하므로, 고생(laboriously)을 뜻하는 부사는 어색하다",
+        "when_applies": ["같은 문장에 비교 결론(far easier)이 있어 부사의 방향을 고정하는 경우", "앞 문장들이 동물의 약점과 사냥의 이점을 쌓아 온 경우"],
+        "when_not": ["부사가 비교의 반대편(육지에서의 고생)을 묘사하는 자리에 놓인 경우", "글이 이점과 비용을 함께 말해 방향이 섞인 경우"]
+      }
+    },
+    {
+      "id": "2019#31", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 2, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "social sharing of the bad news" } ],
+          "altered": [ { "component": "관계", "from": "(지문에 없음)", "to": "illegal" } ],
+          "note": "사회적 공유는 두고 법적 성격이라는 없는 축을 넣었다. 5번 문장의 변수는 공유의 양이다." },
+        { "n": 3, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "contributes to realism" } ],
+          "altered": [ { "component": "극성", "from": "constructed a social narrative", "to": "biased" } ],
+          "note": "3번 문장의 함께 만든 서사를 왜곡으로 읽게 했다. 편향된 공유가 현실 직시에 기여한다는 것은 9번 문장 안에서 모순이다." },
+        { "n": 4, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "시점", "text": "initially" } ],
+          "altered": [ { "component": "강도", "from": "The more an event is socially shared", "to": "temporary" } ],
+          "note": "8번 문장의 initially 는 부인에 걸린 말이다. 5번 문장은 공유가 많을수록 기억이 고정된다고 해 일시적 공유와 반대다." },
+        { "n": 5, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "social sharing" } ],
+          "altered": [ { "component": "관계", "from": "(지문에 없음)", "to": "rational" } ],
+          "note": "공유의 질(합리성)을 끼웠지만 지문은 5번 문장에서 공유의 빈도만 변수로 둔다." }
+      ],
+      "principle": {
+        "statement": "The more A, the more B 로 변수를 정해 둔 글의 빈칸 형용사는 그 변수(공유의 양 · 반복)를 다시 가리켜야 결론(현실 직시)과 이어진다",
+        "when_applies": ["비례 구문이 결과의 조건을 미리 지정한 경우", "빈칸 앞 문장들이 그 조건을 방해하는 자연 경향(부인)을 소개한 경우"],
+        "when_not": ["지문이 공유의 양과 질을 모두 변수로 다루는 경우", "비례 구문이 예시 속에만 있고 일반 진술이 아닌 경우"]
+      }
+    },
+    {
+      "id": "2019#32", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "역할", "text": "the minority" } ],
+          "altered": [ { "component": "관계", "from": "social conflict, doubt and uncertainty", "to": "cooperates with the majority" } ],
+          "note": "소수라는 주체는 지켰지만 5번 문장의 갈등 유발 방식을 협력으로 뒤집었다." },
+        { "n": 2, "truth": "false", "operation": "agent",
+          "preserved": [ { "component": "대상", "text": "social change" } ],
+          "altered": [ { "component": "역할", "from": "a minority has converted others", "to": "the majority brings about" } ],
+          "note": "사회 변화라는 결과는 두고 주체를 소수에서 다수로 바꿨다. 3번 문장 their behavioural style 이 소수를 주어로 고정한다." },
+        { "n": 3, "truth": "false", "operation": "agent",
+          "preserved": [ { "component": "대상", "text": "the minority" } ],
+          "altered": [ { "component": "역할", "from": "갈등을 겪는 다수", "to": "the majority cultivates" } ],
+          "note": "다수와 소수를 모두 두되 관계를 다수가 소수를 키우는 것으로 바꿨다. 지문에서 다수는 의심을 겪는 쪽이다." },
+        { "n": 4, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "역할", "text": "the minority" } ],
+          "altered": [ { "component": "극성", "from": "an outspoken minority", "to": "tones down its voice" } ],
+          "note": "4·5번 문장의 일관성과 8번 문장의 outspoken 이 성공 조건인데, 목소리를 낮춘다는 반대 방향을 넣었다." }
+      ],
+      "principle": {
+        "statement": "How, then ~? 질문 뒤 the answer lies in ~ 빈칸은 뒤따르는 사례(일관된 지지 · 적극적 주장)가 공통으로 보여 주는 행동 방식을 요약한다",
+        "when_applies": ["질문 → 이론가의 답(빈칸) → 역사적 사례 순으로 짜인 글", "빈칸 앞 소유격(their)이 주체를 고정한 경우"],
+        "when_not": ["사례들이 서로 다른 성공 요인을 보여 주어 하나로 요약되지 않는 경우", "빈칸이 이론가의 주장이 아니라 반대 견해를 소개하는 자리인 경우"]
+      }
+    },
+    {
+      "id": "2019#33", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "scope",
+          "preserved": [ { "component": "대상", "text": "cultural" } ],
+          "altered": [ { "component": "범위", "from": "very selective", "to": "universal" } ],
+          "note": "1번 문장의 선별 한정을 보편으로 넓혔고, 6번 문장의 폐기 가능성과도 어긋난다." },
+        { "n": 2, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "material artefacts" } ],
+          "altered": [ { "component": "극성", "from": "more concerned with meanings than material artefacts", "to": "reflecting the artefacts of the past" } ],
+          "note": "4번 문장이 무게를 유물에서 의미로 옮겼는데 선지는 유물을 비추는 거울로 되돌렸다." },
+        { "n": 3, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "시점", "text": "the present" } ],
+          "altered": [ { "component": "극성", "from": "according to the demands of the present", "to": "neither concerned with the present" } ],
+          "note": "2번 문장이 현재와 미래를 모두 명시하는데 선지는 정반대로 둘 다 무관하다고 했다." },
+        { "n": 5, "truth": "false", "operation": "compression",
+          "preserved": [ { "component": "대상", "text": "memories and traditions" } ],
+          "altered": [ { "component": "관계", "from": "selected", "to": "a collection" } ],
+          "note": "1번 문장의 낱말을 그대로 쓰되 선별·폐기 과정(5·6번 문장)을 지우고 단순한 모음으로 압축했다." }
+      ],
+      "principle": {
+        "statement": "Thus 결론 빈칸은 앞 문장들의 선별(selected)과 폐기(discarded)를 함께 덮는 말, 곧 기억과 망각의 양면을 담아야 한다",
+        "when_applies": ["앞 문장들이 선택과 버림을 차례로 말하는 경우", "Thus 가 앞 논증 전체를 요약하는 자리인 경우"],
+        "when_not": ["앞 문장이 한쪽(선별)만 다뤄 양면 요약의 근거가 없는 경우", "Thus 가 마지막 문장 하나만 받는 경우"]
+      }
+    },
+    {
+      "id": "2019#34", "analysis_version": 4, "status": "ok",
+      "distractors": [
+        { "n": 1, "truth": "false", "operation": "reference",
+          "preserved": [ { "component": "대상", "text": "constraints" } ],
+          "altered": [ { "component": "관계", "from": "biological and cultural constraints", "to": "put a limit on cultural diversity" } ],
+          "note": "8번 문장의 constraints 를 뇌가 문화를 제한한다는 뜻으로 바꿨다. 1번 문장은 기능 확장을 말한다." },
+        { "n": 3, "truth": "false", "operation": "causal_direction",
+          "preserved": [ { "component": "대상", "text": "cultural tools" } ],
+          "altered": [ { "component": "인과 방향", "from": "they were made possible because", "to": "cultural tools stabilize" } ],
+          "note": "빈칸은 도구를 가능하게 한 뇌 쪽 조건을 묻는데 선지는 도구가 뇌에 미치는 결과로 방향을 뒤집었고, 6번 문장의 changes 와도 맞지 않는다." },
+        { "n": 4, "truth": "false", "operation": "polarity",
+          "preserved": [ { "component": "대상", "text": "regions" } ],
+          "altered": [ { "component": "극성", "from": "connect them to language areas", "to": "operate in an isolated manner" } ],
+          "note": "뇌 영역이라는 대상은 두고 4·5번 문장의 연결을 고립으로 뒤집었다." },
+        { "n": 5, "truth": "false", "operation": "unsupported",
+          "preserved": [ { "component": "대상", "text": "we" } ],
+          "altered": [ { "component": "대상", "from": "(지문에 없음)", "to": "natural challenges" } ],
+          "note": "적응이라는 화제를 끼웠지만 지문은 자연적 도전을 다루지 않는다. because 절은 문화 도구가 가능했던 이유를 요구한다." }
+      ],
+      "principle": {
+        "statement": "because 빈칸이 '진화 시간이 없었는데도 가능했던 이유'를 묻는 경우, 뒤따르는 사례들(시각 영역 재활용)이 공통으로 보여 주는 기존 자원의 새 사용이 답이 된다",
+        "when_applies": ["빈칸 앞에 did not have enough time 같은 양보 조건이 있는 경우", "뒤 사례에 recycle · build a circuit 같은 재활용 표현이 반복되는 경우"],
+        "when_not": ["사례가 새 영역의 생성을 보여 주는 글 — 재활용이 아니라 진화가 답일 수 있다", "빈칸이 원인이 아니라 결과를 묻는 경우"]
+      }
+    }
+  ]
+}

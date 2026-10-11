@@ -44,6 +44,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
 import { normalizeScene } from '@/lib/csat/inquiry/scenes'
+import { lookupInquiry } from '@/lib/csat/inquiry/data'
 import compareData from '@/lib/csat/compare-data.json'
 
 export const dynamic = 'force-dynamic'
@@ -185,6 +186,11 @@ export default async function CsatItemTheaterPage({
       blocks={blocks}
       checks={checks}
       comparePairs={comparePairs}
+      inquiry={(() => {
+        // 지금 읽은 분석 버전과 같은 버전으로 만든 탐구 데이터만 — 다르면 stale 로 빼고 기존 블록만 보인다
+        const hit = lookupInquiry(item.id, item.analysis_version)
+        return hit.state === 'ready' ? hit.record : null
+      })()}
       initialScene={normalizeScene(Array.isArray(sceneParam) ? sceneParam[0] : sceneParam)}
       map={map}
       itemId={item.id}

@@ -487,3 +487,10 @@
 .roleAlt { font-size: 11px; color: var(--t3); }
 .transformRow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
 .transformRow b { padding: 2px 10px; border: 1px solid currentColor; border-radius: 8px; }
+.designRow { border-top: 1px solid var(--bd); padding-top: 8px; }
+.designRow summary { min-height: 44px; display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px; }
+.designRow summary:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.designRow > p, .designRow > ul { margin: 6px 0 0; }
+.alteredList { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.boundary { display: grid; gap: 10px; }
+.boundary ul { margin: 4px 0 0; padding-left: 18px; }

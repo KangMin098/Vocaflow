@@ -1,0 +1,129 @@
+{
+  "reviewer": "rv-fix",
+  "verdicts": [
+    {
+      "id": "2014A#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2026#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M1809#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2106#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2109#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#36",
+      "verdict": "revise",
+      "codes": [
+        "R2"
+      ],
+      "why": "선지 2((B)-(A)-(C))의 altered 위치 to 「(A)·(C) 뒤」가 틀렸다 — 이 선지에서 (C)는 (B)·(A) 뒤(마지막)에 놓인다. from 「(B) 앞」(정답 첫 자리)은 맞으나 to 를 「(B)·(A) 뒤」 또는 「마지막」으로 고쳐야 한다. 선지 1 수정(from (B) 다음)은 반영됐다."
+    },
+    {
+      "id": "M2209#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2409#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2506#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2509#25",
+      "verdict": "pass"
+    }
+  ]
+}
