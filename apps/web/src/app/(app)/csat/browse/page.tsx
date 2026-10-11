@@ -7,6 +7,7 @@ import type { Metadata } from 'next'
 
 import { CsatWorkspace, type BrowseEntry } from '@/components/csat/browse/CsatWorkspace'
 import { loadBrowseCatalog } from '@/lib/csat/browse'
+import { railExams } from '@/lib/csat/rail-data'
 
 export const metadata: Metadata = { title: '전체 서가 — 기출분석공간', description: '수능·모의평가 기출을 유형·회차·목적으로 골라 근거와 오답 설계를 봅니다.' }
 export const dynamic = 'force-dynamic'
@@ -25,5 +26,5 @@ export default async function CsatBrowsePage({ searchParams }: { searchParams: P
     query: one(params.q)?.slice(0, 40),
   }
   // 쿼리가 바뀌면 다시 세운다 — 메뉴의 유형 · 회차 · 목적 링크는 같은 경로 안의 이동이다
-  return <CsatWorkspace key={JSON.stringify(entry)} browse={browse} entry={entry} />
+  return <CsatWorkspace key={JSON.stringify(entry)} browse={browse} exams={await railExams()} entry={entry} />
 }
