@@ -16,7 +16,7 @@
 - 흐름의 기본형: **Claude 가 계획 → Codex 가 실행**(또는 그 역). 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다.
 - **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2). Stop 훅·커밋·task submit·DB 게이트·PR·머지 어디서도 Codex 리뷰를 자동으로 부르지 않는다.
 - 교차 검토는 **사용자가 요청할 때만** 한다 — Claude 가 쓴 기능은 `node agents/scripts/review.mjs`(목적 대조 · 정본 [goal-review.md](./goal-review.md)), Codex 가 쓴 기능은 Claude 세션의 `/code-review`. Codex 실패 시 재시도를 반복하지 않는다.
-- 마이그레이션 적용·main 머지·`.env` 는 어느 쪽이든 사용자 확인(AGENTS.md ③).
+- 사용자 승인은 DB 변경 · 데이터 삭제뿐(정책 정본 `agents/policies/PR_AUTOMATION_POLICY.md`). main 병합은 `safe-merge.mjs` 게이트 · `.env` 는 다루지 않는다.
 
 ## 2. 같은 워크트리를 동시에 쓰지 않는다
 
