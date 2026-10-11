@@ -191,3 +191,18 @@ Review v1: 14 of 22 units passed; P04, P10, P11, P15, P17, P19 completed. Eight 
 After the guards and a rewrite drain, review v2 passed all remaining units; P01, P02 (narrative-only re-plan), P06, P08 and P16 completed. Recorded caveat: P06 day 2 is labelled grammar_fix but asks for the main verb of a long-subject sentence (structure tested; label loose).
 
 Capability: all 15 generic families now have a structural adapter plus a live family review → `IMPLEMENTED`. Still missing per family: live DB promotion of a run and real-content operational use. P13/P14/P18/P20 stay `IMPLEMENTED` with atomic production blocked by the DB gate. Verdict unchanged: both flags false.
+
+### 2026-10-11 — reviewed order-production run through the live DB RPCs (rollback-only, approved)
+
+`scripts/textbook/run-db-measure.mjs <run-input.json> <run-dir>` re-seals a completed, family-reviewed run under a fresh synthetic trust root (the existing family review must still pass), then emits one rollback-only SQL script that pushes the run's own order document, passages, items, choices, explanations, evidence and unit HTML through the real promotion → group → capture → approval → finalize → publish → volume register/serve RPCs.
+
+Executed once on vocaflow-dev for the reviewed P09 run (middle_2, 3 days; generated SQL `6595c976…33ed`, approved). The final served-volume assertion was shortened to key substrings at execution time; the generator now emits that same form. Results:
+
+| Step | Result |
+|---|---|
+| DB `_reading_json_hash` of the trust policy = JS hash | equal (`3ea355e0…`) |
+| DB hash of the sealed run order document = JS run order hash | equal (`54aff83f…`) — cross-language order lineage |
+| days 1–3: run passage promoted, run items (order / insert / long_reference) stored with 3 reviews, group, snapshot, approval, publication of the run's unit HTML | all published_current |
+| volume registered / served | 3 DB-derived sections; served HTML contains every unit's passage and question |
+
+Before/after counts identical (articles 91,793; items 834,311; reviews 549; orders, authority, audits, permits, groups, snapshots, artifacts, volumes 0). Limits as before: one active admin (second approver simulated); synthetic source article and trust root; single-grade runs only in this generator. The DB item table accepts every generic item type used by the 15 generic families (checked against its CHECK constraint).
