@@ -240,3 +240,29 @@ Migration `20261011075550_csat_dcp_items_specialized_types` (approved, applied t
 ### 2026-10-11 — second approval by the other agent
 
 The user confirmed there is one human administrator; a second approver is an agent with a reviewer role. Migration `20261011094405_reading_production_agent_reviewer` (approved, applied to dev) adds agent reviewer keys, a producer declaration and `approve_reading_production_output_by_agent`. `run-db-measure.mjs` no longer rewrites `registered_by`: the human admin registers a Codex and a Claude reviewer key, the run is declared as produced by Claude, and each day is approved with a receipt signed by the Codex key. P13 rollback-only measurement 11/11: three refusals (the producing agent's own key, a receipt for another output hash, a failed criterion), two agent approvals, two publications, volume registered and served; counts unchanged (articles 91,793, csat_dcp_items 834,311, csat_item_reviews 549, groups 0, reviewers 0, receipts 0). Limits: both agent keys live on the same machine, and the measurement receipt is generated from the family review, not from a Codex review of the rendered output; a Codex review drain that signs its own receipt is the next step, so `live DB promotion` stays in the missing list.
+
+### 2026-10-11 — operator path from a completed run to an atomic volume, and admin observation (areas 1 and 5a)
+
+Until now `produceRunAtomicVolume` and `reviseRunAtomicVolumeJournaled` were called only from tests. `scripts/textbook/run-atomic.mjs` makes them an operator path:
+- `produce --input --run-dir` re-seals a completed, family-reviewed run under one synthetic trust root (`run-reseal.mjs`, shared with `run-db-measure.mjs`), produces every day as an atomic snapshot and writes `atomic/{volume.html, volume.json, status.json}`; it refuses an incomplete run and an existing `atomic/`.
+- `revise --prior-input --prior-run-dir --input --run-dir` rebuilds only the changed days and journals each one under `atomic/journal/day-N-rR`.
+- `status --run-dir` re-verifies the volume seal, HTML hash, run completion hash and every journal chain.
+
+Executed on the reviewed P13 run (`volume_ready`, 2 days, single_grade). CLI test (1/1, real CLIs end to end): two completed P05 multi-grade runs → produce (3 days × 2 grades) → refused re-produce → revise with only day 2's explanation changed (rebuild [2], reuse [1, 3], `day-2-r2` complete) → deleting the last journal record → `revision_incomplete` → editing the volume HTML → `broken` → an incomplete run refused with `RUN_NOT_COMPLETE`.
+
+Admin: `/api/admin/csat/order-runs` now returns `atomic` per run, and the order panel shows its state, day count, revision, delivery modes and journal states. The server re-fingerprints the volume HTML and the latest record of every journal; any change since the last `status` reads `status_stale`, a missing status file `status_missing` (API tests 4/4). Help: the field and a rerun caution were added.
+
+Reclassification: area 1 → DONE for the synthetic operator path (still no live DB promotion of a run with a real second reviewer's own review); area 5a → DONE (run, blockers, stale, atomic volume, revision journals visible in admin and CLI; no admin buttons that start or retry production, which stays in the CLI by design). Verdict unchanged: both flags false.
+
+### 2026-10-11 — operator path from a completed run to an atomic volume, and admin observation (areas 1 and 5a)
+
+Until now `produceRunAtomicVolume` and `reviseRunAtomicVolumeJournaled` were called only from tests. `scripts/textbook/run-atomic.mjs` makes them an operator path:
+- `produce --input --run-dir` re-seals a completed, family-reviewed run under one synthetic trust root (`run-reseal.mjs`, shared with `run-db-measure.mjs`), produces every day as an atomic snapshot and writes `atomic/{volume.html, volume.json, status.json}`; it refuses an incomplete run and an existing `atomic/`.
+- `revise --prior-input --prior-run-dir --input --run-dir` rebuilds only the changed days and journals each one under `atomic/journal/day-N-rR`.
+- `status --run-dir` re-verifies the volume seal, HTML hash, run completion hash and every journal chain.
+
+Executed on the reviewed P13 run (`volume_ready`, 2 days, single_grade). CLI test (1/1, real CLIs end to end): two completed P05 multi-grade runs → produce (3 days × 2 grades) → refused re-produce → revise with only day 2's explanation changed (rebuild [2], reuse [1, 3], `day-2-r2` complete) → deleting the last journal record → `revision_incomplete` → editing the volume HTML → `broken` → an incomplete run refused with `RUN_NOT_COMPLETE`.
+
+Admin: `/api/admin/csat/order-runs` now returns `atomic` per run, and the order panel shows its state, day count, revision, delivery modes and journal states. The server re-fingerprints the volume HTML and the latest record of every journal; any change since the last `status` reads `status_stale`, a missing status file `status_missing` (API tests 4/4). Help: the field and a rerun caution were added.
+
+Reclassification: area 1 → DONE for the synthetic operator path (still no live DB promotion of a run with a real second reviewer's own review); area 5a → DONE (run, blockers, stale, atomic volume, revision journals visible in admin and CLI; no admin buttons that start or retry production, which stays in the CLI by design). Verdict unchanged: both flags false.

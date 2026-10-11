@@ -208,6 +208,10 @@ export const CSAT_HELP: HelpRegistry = {
           detail: '서버의 TEXTBOOK_ORDER_RUN_DIR 아래 order-production-run 실행 중 이 주문을 담은 것을 읽는다. 차단은 첫 3개 사유, revision 바뀜은 재실행 필요. family_reviewed 는 제품군 의미 검수 대기·차단이다. 완료여도 비게시 학생용 권이다.',
         },
         {
+          label: '원자 권 · 개정 기록',
+          detail: '`run-atomic.mjs` 결과. produce/revise는 재실행 불가(새 실행 폴더), status는 재실행 안전. status 뒤 파일이 바뀌면 「status 재실행 필요」.',
+        },
+        {
           label: '관문이 왜 넷인가',
           detail:
             '순서가 곧 인과다 — 문항이 없으면 해설이 있을 수 없고, 배합에 빈 유형이 있으면 문항 수가 차도 그 권은 못 찍는다. 그래서 처음 막힌 하나만 편다. 뒤 관문이 더 나빠 보여도 거기부터 풀면 헛일이 된다.',

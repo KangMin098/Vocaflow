@@ -18,6 +18,11 @@ const runStatusNames: Record<OrderRunStatus['status'], string> = {
   complete: '학생용 권 완료(비게시)', blocked: '차단', in_progress: '진행 중',
 }
 type Runs = { runs: OrderRunStatus[] } | { error: string }
+const atomicStateNames: Record<NonNullable<OrderRunStatus['atomic']>['state'], string> = {
+  volume_ready: '검증된 권(합성 신뢰 루트, 비게시)', revision_incomplete: '개정 기록 미완료 — 권으로 쓰지 않음',
+  broken: '권 파일 손상 — 다시 생산', status_stale: '상태 확인 후 파일이 바뀜 — status 재실행 필요',
+  status_missing: '상태 파일 없음 — status 실행 필요',
+}
 
 const stateNames: Record<OrderTraceEntry['state'], string> = {
   observed: '기록 확인', hold: '보류', stale: '증거 만료', blocked: '차단', unmeasured: '미측정',
@@ -100,6 +105,11 @@ export function OrderTracePanel() {
               {run.blockers.length ? <p className="mt-1 break-keep text-[var(--memory-risk)]">
                 {run.blockers.slice(0, 3).map(b => `${b.stage}: ${b.reason}${b.cell_id ? ` (${b.cell_id})` : ''}`).join(' · ')}
                 {run.blockers.length > 3 ? ` 외 ${run.blockers.length - 3}건` : ''}</p> : null}
+              {run.atomic ? <p className={`mt-1 break-keep ${run.atomic.state === 'volume_ready' ? 'text-[var(--t2)]' : 'text-[var(--memory-risk)]'}`}>
+                원자 권: {atomicStateNames[run.atomic.state]}
+                {run.atomic.day_count ? ` · ${run.atomic.day_count}일 · revision ${run.atomic.revision ?? '?'} · ${run.atomic.delivery_modes.join(', ')}` : ''}
+                {run.atomic.journals.length ? ` · 개정 기록 ${run.atomic.journals.map(row => `${row.journal} ${row.state}`).join(', ')}` : ''}
+              </p> : <p className="mt-1 break-keep text-[var(--t2)]">원자 권: 아직 만들지 않음</p>}
             </li>)}</ul>}
     </div> : null}
   </section>

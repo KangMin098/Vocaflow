@@ -8,16 +8,12 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { generateKeyPairSync } from 'node:crypto'
-import { exportOrderProductionDrain, importOrderProductionDrain } from '../../packages/library-pipeline/src/textbook/order-production-run.ts'
-import { importFamilyReview } from '../../packages/library-pipeline/src/textbook/family-semantic-review.ts'
+import { resealReviewedRun } from './run-reseal.mjs'
 import { hash } from './frym-benchmark/benchmark.mjs'
 
 const [inputPath, runDir] = process.argv.slice(2)
 if (!inputPath || !runDir) throw Error('Usage: run-db-measure.mjs <run-input.json> <run-dir>')
 const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'))
-const filled = JSON.parse(fs.readFileSync(path.join(runDir, 'drain.out.json'), 'utf8'))
-const reviewOut = JSON.parse(fs.readFileSync(path.join(runDir, 'review.out.json'), 'utf8'))
-if (!fs.existsSync(path.join(runDir, 'complete.json'))) throw Error('RUN_NOT_COMPLETE')
 
 // Fresh ed25519 trust root (postgres cannot generate keys); policy hashed exactly as the DB does.
 const keys = {}
@@ -39,25 +35,8 @@ const policy = { schema: 'frym-gold-s-operational-policy/1', revision: 'run-db-m
   revoked: { certificate_hashes: [], eligibility_hashes: [], issuer_ids: [] } }
 const trust = hash(policy)
 
-// Re-seal the same drafts under this trust root, map the reviewed fill onto the new cells.
-for (const draft of input.drafts) draft.policies.trust = { version: 'run-db-measure', hash: trust }
-const drain = exportOrderProductionDrain(input)
-const byCell = new Map(filled.cells.map(cell => [cell.cell_id, cell]))
-// The reviewed fill may move to the re-sealed cell only if that cell's plan is unchanged; the trust root
-// changes only the order hash and the cell hash.
-const reviewedDrain = JSON.parse(fs.readFileSync(path.join(runDir, 'drain.json'), 'utf8'))
-const planOf = cell => { const { order_hash: _o, cell_hash: _c, ...plan } = cell; return JSON.stringify(plan) }
-const remapped = { cells: drain.cells.map(cell => {
-  const old = byCell.get(cell.cell_id)
-  const reviewedCell = reviewedDrain.cells.find(row => row.cell_id === cell.cell_id)
-  if (!old || !reviewedCell) throw Error(`RUN_CELL_MISSING:${cell.cell_id}`)
-  if (planOf(reviewedCell) !== planOf(cell)) throw Error(`RUN_CELL_PLAN_CHANGED:${cell.cell_id}`)
-  return { ...old, cell_hash: cell.cell_hash }
-}) }
-const run = importOrderProductionDrain(input, remapped)
-if (run.status !== 'assembled') throw Error(`RUN_NOT_ASSEMBLED:${JSON.stringify(run.blockers)}`)
-const reviewed = importFamilyReview(run, reviewOut)
-if (reviewed.status !== 'passed') throw Error(`RUN_REVIEW_NOT_PASSED:${JSON.stringify(reviewed.blockers)}`)
+// Re-seal the same reviewed drafts under this trust root (shared with run-atomic.mjs).
+const { run, reviewOut } = resealReviewedRun({ input, runDir, trustHash: trust, trustVersion: 'run-db-measure' })
 
 // Same escaping as the unit HTML, so served-volume checks match the printed text.
 const escHtml = text => text.replace(/&/gu, '&amp;').replace(/</gu, '&lt;').replace(/>/gu, '&gt;').replace(/"/gu, '&quot;').replace(/'/gu, '&#39;')
