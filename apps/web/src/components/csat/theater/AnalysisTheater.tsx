@@ -87,6 +87,8 @@ import { ComparePairs, type ComparePair } from './ComparePairs'
 import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-check'
 import { hashTag } from '@/lib/csat/dissect'
 import { SessionDone } from './SessionDone'
+import { SceneNav } from './SceneNav'
+import { SCENES, nextScene, sceneOfBlock, sceneOfCheck, type SceneId } from '@/lib/csat/inquiry/scenes'
 import styles from './theater.module.css'
 
 const RATES = [0.9, 1, 1.15] as const
@@ -174,6 +176,7 @@ export function AnalysisTheater({
   blocks,
   checks = [],
   comparePairs = [],
+  initialScene = 'essence',
   map,
   itemId,
   backHref,
@@ -196,6 +199,8 @@ export function AnalysisTheater({
   checks?: UnderstandingCheck[]
   /** 같은 원리 비교 쌍(M4) — 독립 검수 통과분만 */
   comparePairs?: ComparePair[]
+  /** 여섯 장면 중 처음 열 장면(URL `?scene=` · 서버가 정규화) */
+  initialScene?: SceneId
   map: TheaterMap | null
   /** 문항 id(`2026#31`) — 열람 기록용 */
   itemId: string
@@ -375,6 +380,19 @@ export function AnalysisTheater({
     })
   }
   const [tab, setTab] = useState<TabId>('analysis')
+  const [scene, setScene] = useState<SceneId>(initialScene)
+  // 장면 이동 — 학습자가 고른 것은 history 에 쌓고(뒤로가기), 강의가 따라 옮긴 것은 주소만 바꾼다
+  const selectScene = (id: SceneId, how: 'push' | 'replace' = 'push') => {
+    setScene(id)
+    const url = new URL(window.location.href)
+    url.searchParams.set('scene', id)
+    window.history[how === 'push' ? 'pushState' : 'replaceState'](window.history.state, '', url)
+  }
+  useEffect(() => {
+    const onPop = () => setScene((SCENES.find((x) => x.id === new URL(window.location.href).searchParams.get('scene'))?.id ?? 'essence'))
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
   const railRef = useRef<HTMLElement>(null)
   const blocksRef = useRef<HTMLDivElement>(null)
   const played = useRef(-1)
@@ -433,6 +451,17 @@ export function AnalysisTheater({
     ) : null
   const step = steps[cursor] ?? null
   const liveKey = step ? blockKeyForTarget(step.targetKey, blockKeys) : null
+  const sceneBlocks = blocks.filter((b) => sceneOfBlock(b.kind) === scene)
+  const sceneChecks = checks.filter((c) => sceneOfCheck(c.kind) === scene)
+
+  // 강의가 다른 장면의 블록을 설명하기 시작하면 그 장면으로 따라간다(재생 중에만 · history 는 쌓지 않는다)
+  const liveScene = liveKey ? blocks.find((b) => b.key === liveKey)?.kind : undefined
+  useEffect(() => {
+    if (lec?.status !== 'playing' || !liveScene) return
+    const target = sceneOfBlock(liveScene)
+    if (target !== scene) selectScene(target, 'replace')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [liveScene, lec?.status])
 
   const move = (delta: number) => {
     const to = Math.max(0, Math.min(steps.length - 1, cursor + delta))
@@ -446,6 +475,8 @@ export function AnalysisTheater({
   }
   const jumpToBlock = (key: string) => {
     setTab('analysis')
+    const kind = blocks.find((b) => b.key === key)?.kind
+    if (kind && sceneOfBlock(kind) !== scene) selectScene(sceneOfBlock(kind))
     const index = steps.findIndex((s) => blockKeyForTarget(s.targetKey, blockKeys) === key)
     if (index >= 0) goto(index)
     window.setTimeout(
@@ -708,7 +739,7 @@ export function AnalysisTheater({
                   <ChevronDown size={12} aria-hidden />
                   <em>
                     {tab === 'analysis'
-                      ? `${blocks.length} BLOCKS`
+                      ? `${sceneBlocks.length} / ${blocks.length} BLOCKS`
                       : tab === 'script'
                         ? `${lec?.cues.length || steps.length} CUES`
                         : tab === 'run'
@@ -719,7 +750,11 @@ export function AnalysisTheater({
 
                 {tab === 'analysis' ? (
                   <div className={`${styles.paneBody} ${styles.blockPane}`} ref={blocksRef}>
-                    {goal ? (
+                    <SceneNav current={scene} onSelect={(id) => selectScene(id)} />
+                    <p className={styles.sceneQuestion} data-testid="scene-question">
+                      {SCENES.find((x) => x.id === scene)?.question}
+                    </p>
+                    {scene === 'essence' && goal ? (
                       <section className={styles.goal} aria-label="이 문항의 학습 목표" data-testid="learning-goal">
                         <b>이 문항에서 설명할 관계</b>
                         <p className="break-keep">{goal.relation}</p>
@@ -731,16 +766,20 @@ export function AnalysisTheater({
                         {goal.visual ? (
                           <p className="break-keep">수치 판단은 원본 도표를 직접 읽어야 확정됩니다. 도표를 못 보면 계산 방법만 확인하세요.</p>
                         ) : null}
-                        <button type="button" className={styles.back} onClick={savePrinciple} disabled={principleSaved} data-testid="principle-save">
-                          {principleSaved ? '내 원리에 저장됨' : '이 원리 저장'}
-                        </button>
                       </section>
+                    ) : null}
+                    {scene === 'structure' ? (
+                      <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="structure-hint">
+                        {map
+                          ? '왼쪽 지문 지도에서 문장의 역할과 정답 근거 · 오답을 지우는 자리를 확인하세요. 문장 길이는 위치를 보여 줄 뿐 중요도가 아닙니다.'
+                          : '이 문항은 지문 골격을 구하지 못해 지도가 없어요. 아래 설명과 다른 장면의 분석은 그대로 읽을 수 있어요.'}
+                      </p>
                     ) : null}
                     <p className={styles.status}>
                       <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>
                       {step ? `${step.kind} · ${Math.round(step.sec)}초` : '분석'}
                     </p>
-                    {blocks.map((b) => (
+                    {sceneBlocks.map((b) => (
                       <article
                         key={b.key}
                         data-block={b.key}
@@ -763,17 +802,51 @@ export function AnalysisTheater({
                         <EvidenceQuote passage={currentPassage} quote={b.quote} truncated={b.quoteTruncated} />
                       </article>
                     ))}
-                    <SelfExplain
-                      key={itemId}
-                      itemId={itemId}
-                      rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
-                      choiceTruth={distractorsAreTrue(typeId, itemId)}
-                      saved={explained}
-                      onSave={saveExplanation}
-                      onCompare={compareExplanation}
-                    />
-                    <UnderstandingChecks key={`checks-${itemId}`} itemId={itemId} checks={checks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
-                    <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} />
+                    {scene === 'distractor' ? (
+                      <SelfExplain
+                        key={itemId}
+                        itemId={itemId}
+                        rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
+                        choiceTruth={distractorsAreTrue(typeId, itemId)}
+                        saved={explained}
+                        onSave={saveExplanation}
+                        onCompare={compareExplanation}
+                      />
+                    ) : null}
+                    {sceneChecks.length ? (
+                      <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
+                    ) : null}
+                    {scene === 'principle' && goal ? (
+                      <section className={styles.goal} aria-label="이 문항의 원리" data-testid="principle-scene">
+                        <b>이 문항에서 확인한 관계</b>
+                        <p className="break-keep">{goal.relation}</p>
+                        <p className="break-keep">
+                          이 관계가 다른 문항에서도 통하는지는 성립 조건이 같을 때만입니다 — 「기출 비교」에서 검수된 사례로 경계를 확인하세요.
+                        </p>
+                        <button type="button" className={styles.back} onClick={savePrinciple} disabled={principleSaved} data-testid="principle-save">
+                          {principleSaved ? '내 원리에 저장됨' : '이 원리 저장'}
+                        </button>
+                      </section>
+                    ) : null}
+                    {scene === 'compare' ? (
+                      comparePairs.length ? (
+                        <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} />
+                      ) : (
+                        <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="compare-empty">
+                          이 문항과 짝지은 검수된 비교 문항을 준비 중이에요. 같은 유형이라는 이유만으로 같은 원리라고 잇지 않아요 — 「같은 유형」 탭에서 목록은 볼 수 있어요.
+                        </p>
+                      )
+                    ) : null}
+                    {!sceneBlocks.length && !sceneChecks.length && scene !== 'compare' && scene !== 'structure' && !(scene === 'essence' && goal) && !(scene === 'principle' && goal) ? (
+                      <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="scene-empty">
+                        이 문항은 이 장면에 해당하는 검수된 설명이 아직 없어요. 다른 장면의 분석은 그대로 읽을 수 있어요.
+                      </p>
+                    ) : null}
+                    {nextScene(scene) ? (
+                      <button type="button" className={styles.back} onClick={() => selectScene(nextScene(scene)!)} data-testid="scene-next">
+                        다음 장면 · {SCENES.find((x) => x.id === nextScene(scene))?.label} →
+                      </button>
+                    ) : null}
                   </div>
                 ) : null}
 

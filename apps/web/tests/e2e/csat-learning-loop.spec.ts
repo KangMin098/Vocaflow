@@ -135,12 +135,20 @@ async function openItem(p: Probe, slug: string) {
   await expect(p.page.getByTestId('analysis-theater')).toBeVisible({ timeout: 90_000 })
 }
 
-/** 예측 관문은 없다(F01 · 2026-10-10) — 열자마자 해설 블록이 모두 보이고 상영할 수 있다 */
+/** 예측 관문은 없다(F01 · 2026-10-10) — 열자마자 여섯 장면이 잠금 없이 열리고 상영할 수 있다(vNext2 M2) */
 async function expectOpen(page: Page) {
   await expect(page.getByTestId('predict-gate')).toHaveCount(0)
+  await expect(page.getByTestId('scene-nav')).toBeVisible({ timeout: 30_000 })
+  // 정답 설계는 제출 없이 한 번 눌러 바로 연다
+  await openScene(page, 'answer')
   await expect(page.locator('[data-block="analysis:answer"]')).toBeVisible({ timeout: 30_000 })
   // 블록은 서버 HTML 로 먼저 보인다 — 키 입력 전에 하이드레이션 · 세션 읽기가 끝났음을 「마치기」 단추(클라이언트 상태)로 기다린다
   await expect(page.getByTestId('finish-item').or(page.getByTestId('session-done'))).toBeVisible({ timeout: 30_000 })
+}
+
+async function openScene(page: Page, id: string) {
+  await page.getByTestId('scene-nav').locator(`[data-scene="${id}"]`).click()
+  await expect(page).toHaveURL(new RegExp(`scene=${id}`))
 }
 
 async function stepTo(page: Page, n: number) {
@@ -162,7 +170,8 @@ test('1 처음 열기 → 제출 없이 해설 · 강의 → 화살표 한 칸�
   const p = await device(browser, server)
   await openItem(p, KICE)
   await expectOpen(p.page)
-  // 큐가 가리키지 않아도 오답 블록까지 처음부터 읽힌다(F03)
+  // 큐가 가리키지 않아도 오답 블록까지 잠금 없이 읽힌다(F03) — 오답 설계 장면을 한 번 눌러 연다
+  await openScene(p.page, 'distractor')
   await expect(p.page.locator('[data-block^="analysis:reject"]').first()).toBeVisible()
   // ← → 는 한 칸씩(F12 — 전에는 극장 · 강의 무대가 둘 다 받아 두 칸씩 갔다)
   await stepTo(p.page, 3)
@@ -383,15 +392,18 @@ test('12 M4 — 관계 다시 짚기(근거 · 바뀐 성분) · 원리 저장 �
   await expect(evidence.getByText('다시 골라 보세요')).toBeVisible()
   await evidence.getByRole('button', { name: String(correct[0] + 1), exact: true }).click()
   await expect(evidence.getByText(/맞아요/)).toBeVisible()
+  await p.page.getByTestId('understanding-checks').screenshot({ path: 'test-results/m4-checks.png' })
+  await openScene(p.page, 'distractor')
   await expect(p.page.getByTestId('check-lure')).toBeVisible()
 
+  await openScene(p.page, 'principle')
   await p.page.getByTestId('principle-save').click()
   await expect(p.page.getByTestId('principle-save')).toHaveText('내 원리에 저장됨')
 
+  await openScene(p.page, 'compare')
   await expect(p.page.getByTestId('compare-pairs')).toBeVisible()
   await p.page.getByTestId('compare-done').first().click()
   // 화면 확인용 캡처(test-results 는 커밋하지 않는다)
-  await p.page.getByTestId('understanding-checks').screenshot({ path: 'test-results/m4-checks.png' })
   await p.page.getByTestId('compare-pairs').screenshot({ path: 'test-results/m4-compare.png' })
 
   await expect

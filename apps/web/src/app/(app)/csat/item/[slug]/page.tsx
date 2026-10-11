@@ -42,6 +42,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
+import { normalizeScene } from '@/lib/csat/inquiry/scenes'
 import compareData from '@/lib/csat/compare-data.json'
 
 export const dynamic = 'force-dynamic'
@@ -55,8 +56,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function CsatItemTheaterPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CsatItemTheaterPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ scene?: string | string[] }>
+}) {
   const { slug } = await params
+  const sceneParam = (await searchParams).scene
   const itemId = fromItemSlug(slug)
   const { item, error, held } = await loadCsatItemExplain(itemId)
   // 보류 시험 문항(오답 원인 Pilot 수집 중) — 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에 싣지 않는다(embargo-gate · Pilot 1c8e122fb)
@@ -176,6 +184,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       blocks={blocks}
       checks={checks}
       comparePairs={comparePairs}
+      initialScene={normalizeScene(Array.isArray(sceneParam) ? sceneParam[0] : sceneParam)}
       map={map}
       itemId={item.id}
       backHref="/csat"
