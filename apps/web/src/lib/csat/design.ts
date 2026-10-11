@@ -30,6 +30,19 @@ export interface PassageDesign {
   cues: Cue[]
 }
 
+/** 문장 역할 — 정의는 docs/csat-learner/design-annotation-criteria.md */
+export const ROLE_LABEL: Record<Role, string> = {
+  topic: '주제문',
+  support: '근거',
+  example: '예시',
+  turn: '전환',
+  concession: '양보',
+  conclusion: '결론',
+  background: '배경',
+  speech_act: '화행',
+  closing: '맺음',
+}
+
 export const PATTERN_LABEL: Record<Pattern, string> = {
   myth_rebuttal: '통념-반박',
   general_specific: '일반-구체',
