@@ -1,0 +1,405 @@
+{
+  "reviewer": "rv-10",
+  "verdicts": [
+    {
+      "id": "2021#29",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "when_not 1(목적어·보어 자리가 실제로 비면 what 정상)은 statement(빈 성분 유무로 what/whether 갈림)의 단순 부정이고, when_not 2(if 로 대체할 수 있는 간접의문 자리…선택 의미가 없는 경우)는 whether/if 경계와 뒤섞여 실제 적용 경계가 되지 못한다"
+    },
+    {
+      "id": "2021#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#25",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "when_not 두 개 모두 데이터 단서다(도표 원본 없음 · 반올림 값) — 원리(변화·배수·순위를 칸 값으로 계산)의 실제 적용 경계가 아니다"
+    },
+    {
+      "id": "2022#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2022#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#25",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "when_not 2(도표 원본이 없어 값을 확인할 수 없는 경우)는 데이터 단서일 뿐 적용 경계가 아니다"
+    },
+    {
+      "id": "2023#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2023#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#25",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "when_not 2(도표 원본 없이 값을 확인할 수 없는 경우)는 데이터 단서일 뿐 적용 경계가 아니다"
+    },
+    {
+      "id": "2024#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2024#44",
+      "verdict": "pass"
+    }
+  ]
+}

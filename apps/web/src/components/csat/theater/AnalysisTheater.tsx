@@ -88,7 +88,8 @@ import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-ch
 import { hashTag } from '@/lib/csat/dissect'
 import { SessionDone } from './SessionDone'
 import { SceneNav } from './SceneNav'
-import { DesignSelection, StructureDiagram, TransformDiagram } from './SceneDiagrams'
+import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
+import type { InquiryRecord } from '@/lib/csat/inquiry/labels'
 import { SCENES, nextScene, sceneOfBlock, sceneOfCheck, type SceneId } from '@/lib/csat/inquiry/scenes'
 import styles from './theater.module.css'
 
@@ -178,6 +179,7 @@ export function AnalysisTheater({
   checks = [],
   comparePairs = [],
   initialScene = 'essence',
+  inquiry = null,
   map,
   itemId,
   backHref,
@@ -202,6 +204,8 @@ export function AnalysisTheater({
   comparePairs?: ComparePair[]
   /** 여섯 장면 중 처음 열 장면(URL `?scene=` · 서버가 정규화) */
   initialScene?: SceneId
+  /** 탐구 데이터(오답 설계 · 원리) — 분석 버전이 같을 때만 서버가 넘긴다 */
+  inquiry?: InquiryRecord | null
   map: TheaterMap | null
   /** 문항 id(`2026#31`) — 열람 기록용 */
   itemId: string
@@ -772,6 +776,8 @@ export function AnalysisTheater({
                     {scene === 'essence' && gate.design ? <DesignSelection design={gate.design} /> : null}
                     {scene === 'structure' && gate.design ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} /> : null}
                     {scene === 'answer' && gate.design ? <TransformDiagram design={gate.design} /> : null}
+                    {scene === 'distractor' && inquiry ? <DistractorDesign distractors={inquiry.distractors} /> : null}
+                    {scene === 'principle' && inquiry?.principle ? <PrincipleDesign principle={inquiry.principle} /> : null}
                     {scene === 'structure' ? (
                       <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="structure-hint">
                         {map

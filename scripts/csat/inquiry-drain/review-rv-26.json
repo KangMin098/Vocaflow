@@ -1,0 +1,413 @@
+{
+ "reviewer": "rv-26",
+ "verdicts": [
+  {
+   "id": "M2406#37",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2406#38",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2406#39",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2406#40",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2406#41",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2406#42",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2406#43",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2406#44",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2406#45",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#18",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#19",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#20",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#21",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#22",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#23",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#24",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#25",
+   "verdict": "revise",
+   "codes": [
+    "R5"
+   ],
+   "why": "R-CHART 원리의 when_not 둘째 항 「도표 원본 수치가 없어 분석에 적힌 값으로만 대조해야 하는 경우 — 원본 확인이 따로 필요하다」는 적용 경계가 아니라 데이터 주의 문구다. 진짜 경계(예: 진술이 근사·추세 표현이라 경계값 판정이 불필요한 경우)로 바꿔야 한다. distractor 1·2·4·5 의 수치·truth 는 분석값과 맞다."
+  },
+  {
+   "id": "M2409#26",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#27",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#28",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#29",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#30",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#31",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#32",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#33",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#34",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#35",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#36",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#37",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#38",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#39",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#40",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#41",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#42",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#43",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#44",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2409#45",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#18",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#19",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#20",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#21",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#22",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#23",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#24",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#25",
+   "verdict": "revise",
+   "codes": [
+    "R5"
+   ],
+   "why": "R-CHART 원리의 when_not 둘째 항 「그래프 원본 없이 분석에 적힌 값으로만 대조하는 경우 — 원본 확인이 따로 필요하다」는 데이터 주의 문구라 적용 경계가 아니다. 나머지(2번 문장 Spain 58, 3번 문장 격차 20>10 등)는 맞다."
+  },
+  {
+   "id": "M2506#26",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#27",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#28",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#29",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#30",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#31",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#32",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#33",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#34",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#35",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#36",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#37",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#38",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#39",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#40",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#41",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#42",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#43",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#44",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2506#45",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#18",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#19",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#20",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#21",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#22",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#23",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#24",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#25",
+   "verdict": "revise",
+   "codes": [
+    "R5"
+   ],
+   "why": "R-CHART 원리의 when_not 둘째 항 「그래프 원본 없이 분석에 적힌 값으로만 대조하는 경우 — 원본 확인이 따로 필요하다」는 데이터 주의 문구라 적용 경계가 아니다. distractor 수치(77>70 등, Canada 격차 31)는 분석과 맞다."
+  },
+  {
+   "id": "M2509#26",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#27",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#28",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#29",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#30",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#31",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#32",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#33",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#34",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#35",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#36",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#37",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#38",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#39",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#40",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#41",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#42",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#43",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#44",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2509#45",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2606#18",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2606#20",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2606#21",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2606#22",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2606#23",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2606#24",
+   "verdict": "pass"
+  }
+ ]
+}

@@ -1,0 +1,405 @@
+{
+  "reviewer": "rv-22",
+  "verdicts": [
+    {
+      "id": "M2209#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#36",
+      "verdict": "revise",
+      "codes": [
+        "R2"
+      ],
+      "why": "선지 1((A)-(C)-(B))의 altered 위치 from 「(C) 다음」이 틀렸다 — 정답 (C)-(B)-(A)에서 (A)는 (B) 다음(마지막, 5번 문장의 such downsides·companies 뒤)이다. from 을 「(B) 다음」 또는 「마지막」으로 고쳐야 한다. 나머지 선지·note·원리는 원문(2·5·6번 문장)과 맞다."
+    },
+    {
+      "id": "M2209#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#43",
+      "verdict": "revise",
+      "codes": [
+        "R2"
+      ],
+      "why": "선지 5((D)-(C)-(B))의 altered 가 from/to 를 뒤집었다 — (B)의 정답 위치는 (D) 다음(가운데, 22번 문장 질문에 6번 문장 I don't know 로 답함)이고 선지에서는 마지막이므로 from=「(D) 다음」, to=「마지막」이어야 하는데 「마지막→(D) 다음」으로 썼다. 같은 문항 다른 선지들은 from=정답 위치 규약을 따른다."
+    },
+    {
+      "id": "M2209#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2209#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2306#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2309#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "M2406#36",
+      "verdict": "pass"
+    }
+  ]
+}

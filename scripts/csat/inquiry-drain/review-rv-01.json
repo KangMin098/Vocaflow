@@ -1,0 +1,105 @@
+{
+  "reviewer": "rv-01",
+  "verdicts": [
+    {
+      "id": "2014A#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#28",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지 2의 preserved \"세 칸의 반의어 쌍 구조\"는 선지에 남은 지문 성분이 아니라 문항 틀이다. 선지 2는 (A)(B)(C)를 모두 바꿔 2·5·7번 문장의 내용 성분이 하나도 남지 않으므로, 남긴 것을 선지 틀(같은 후보 쌍 안에서 고름) 정도로 정직하게 쓰거나 the office/work 같은 실제 유지 성분을 대야 한다."
+    },
+    {
+      "id": "2014A#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#41",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "principle.when_not 두 번째 항목 「마지막 처방이 비유적 표현이라 사례 낱말과 같은 경우가 아닌, 비유 없이 직접 진술하는 글」은 문장이 꼬여 경계가 무엇인지 읽히지 않는다. 14번 문장의 처방(adjust the fences)이 사례 낱말을 비유로 재사용한다는 점을 기준으로, 처방이 사례 낱말 없이 직접 진술되면 제목이 사례 낱말을 쓰지 않는다는 식의 명확한 경계로 다시 써야 한다."
+    },
+    {
+      "id": "2014A#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014A#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#24",
+      "verdict": "pass"
+    }
+  ]
+}

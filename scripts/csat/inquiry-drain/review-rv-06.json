@@ -1,0 +1,413 @@
+{
+  "reviewer": "rv-06",
+  "verdicts": [
+    {
+      "id": "2017#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#35",
+      "verdict": "revise",
+      "codes": [
+        "R4"
+      ],
+      "why": "선지 2 note 가 '4번 문장 ④의 golden rule' 이라 했으나 ④는 5번 문장이다(4번 문장은 ③). 같은 문항 선지 4 note 는 '④(5번 문장)'으로 맞게 써 서로 어긋난다."
+    },
+    {
+      "id": "2018#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2018#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2019#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#31",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "principle.when_not 첫 항목이 '여기서처럼 이중 부정이 칭찬이 된다'고 스스로 이 문항(선지 5 bias)에 해당한다고 밝힌다. 원리가 적용되지 않는 경계가 아니라 이 문항 안의 판정 주의점이다. 4번 문장 merely subjective/therefore 와 무관한 실제 경계(예: of little 이 수량 의미인 경우)로 바꿔야 한다."
+    },
+    {
+      "id": "2020#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#40",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2020#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2021#28",
+      "verdict": "pass"
+    }
+  ]
+}

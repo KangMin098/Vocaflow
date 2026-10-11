@@ -1,0 +1,407 @@
+{
+ "reviewer": "rv-14",
+ "chunks": [
+  "inq-14",
+  "inq-15",
+  "inq-16",
+  "inq-17"
+ ],
+ "verdicts": [
+  {
+   "id": "2024#45",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#18",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#19",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#20",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#21",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#22",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#23",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#24",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#25",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#26",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#27",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#28",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#29",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#30",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#31",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#32",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#33",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#34",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#35",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#36",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#37",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#38",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#39",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#40",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#41",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#42",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#43",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#44",
+   "verdict": "pass"
+  },
+  {
+   "id": "2025#45",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#18",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#20",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#21",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#22",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#23",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#24",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#25",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#26",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#27",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#28",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#29",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#30",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#31",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#32",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#33",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#34",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#35",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#36",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#37",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#38",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#39",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#40",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#41",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#42",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#43",
+   "verdict": "pass"
+  },
+  {
+   "id": "2026#44",
+   "verdict": "revise",
+   "codes": [
+    "R5"
+   ],
+   "why": "principle 이 이 문항을 잘못 기술한다 — when_applies 「한 문장 안에 같은 her 가 서로 다른 사람을 가리키는 장면」은 사실이 아니다(24번 문장 handed her=Mia, 25번 문장 thanked (c) her=사서로 서로 다른 문장). statement 「목적어 자리 대명사는 주어와 다른 사람(재귀대명사 아님)을 가리킬 수 있다」는 영어 일반 문법이라 이 문항의 판별 조건(직전 문장에서 말을 건 무명 인물 사서가 감사의 상대)이 드러나지 않는다."
+  },
+  {
+   "id": "2026#45",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#18",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#20",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#21",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#22",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#23",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#24",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#25",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#26",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#27",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#28",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#29",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#30",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#31",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#32",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#33",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#34",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#35",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#36",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#37",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#38",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#39",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#40",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#41",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#42",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#43",
+   "verdict": "pass"
+  },
+  {
+   "id": "M1809#44",
+   "verdict": "revise",
+   "codes": [
+    "R5"
+   ],
+   "why": "principle.statement 「전치사구로 따로 세워진 인물(For Ricky)이 있으면 같은 문장의 대명사는 그 인물이 아닌 상대를 가리킨다」는 이 문항이 스스로 반증한다 — 같은 14번 문장의 his hardship 의 his 는 Ricky 다. (c) him 이 형인 근거는 13번 문장이 형을 새로 도입하고 with 의 상대 자리라는 점이지 '같은 문장의 대명사 일반'이 아니다. 조건을 'with ~ 의 목적어(함께한 상대) 자리'로 좁혀야 한다."
+  },
+  {
+   "id": "M1809#45",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#18",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#20",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#21",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#22",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#23",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#24",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#25",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#26",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#27",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#28",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#29",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#30",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#31",
+   "verdict": "pass"
+  },
+  {
+   "id": "M2006#32",
+   "verdict": "pass"
+  }
+ ]
+}

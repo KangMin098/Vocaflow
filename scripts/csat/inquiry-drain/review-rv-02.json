@@ -1,0 +1,441 @@
+{
+  "reviewer": "rv-02",
+  "verdicts": [
+    {
+      "id": "2014B#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#29",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "principle.when_not 2번째 '도표 원본 수치를 볼 수 없어 크기 관계를 확정할 수 없는 경우 — 판정 보류'는 적용 경계가 아니라 데이터 사정(원본 없음) 메모다. 진짜 경계(예: 한 계열만 있는 도표 외의 조건)로 바꿀 것."
+    },
+    {
+      "id": "2014B#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#33",
+      "verdict": "revise",
+      "codes": [
+        "R2"
+      ],
+      "why": "선지5 operation 이 temporal(시점 바꿈)인데 altered 성분은 화자(2번 문장 supposedly 아래 통념 → 필자 결론)로 시점 변화가 아니다. agent/reference 류로 맞출 것. 선지3도 operation scope 인데 성분은 강도(illusion 한정 제거, 3번 문장)로 degree 가 맞다."
+    },
+    {
+      "id": "2014B#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#37",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지4(As a result/however)·선지5(In other words/therefore)는 두 칸이 모두 지문 관계와 다르므로 지문 성분이 선지에 남아 있지 않다. preserved 'oil and gas reserves'(3번 문장)·'climate change' 는 선지 문자열에 없는 지문 문맥이다."
+    },
+    {
+      "id": "2014B#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#40",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지3(cherish/time)·선지5(modify/trouble)는 두 칸이 모두 오답인데 preserved 'his purchase decision' 은 요약문(9번 문장) 문맥일 뿐 선지에 남은 성분이 아니다."
+    },
+    {
+      "id": "2014B#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#44",
+      "verdict": "pass"
+    },
+    {
+      "id": "2014B#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#24",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#25",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "when_not 2번째 '도표 수치를 지문에서 확인할 수 없어 계산을 검증할 수 없는 경우'는 데이터 사정 메모이지 원리의 적용 경계가 아니다."
+    },
+    {
+      "id": "2015#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#29",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#33",
+      "verdict": "revise",
+      "codes": [
+        "R2"
+      ],
+      "why": "선지3 altered 'rigid social control(6번 문장) → strict hierarchical structures' 는 같은 뜻의 재진술이라 바뀐 것이 아니다. 실제 변환은 6번 문장이 과학에 해롭다고 한 엄격한 통제를 과학 번성의 조건으로 역할을 뒤집은 것(인과/역할), operation polarity·from→to 를 그에 맞게."
+    },
+    {
+      "id": "2015#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#40",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지4(unexpected/converge)는 두 칸 모두 오답인데 preserved '대상: Plato and Tolstoy' 는 요약문(9번 문장) 문맥이고 선지에 남은 성분이 아니다."
+    },
+    {
+      "id": "2015#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2015#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#24",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "when_not 2번째 '도표 원본 수치를 확인할 수 없는 경우 — 판정이 보류된다'는 데이터 사정 메모이지 적용 경계가 아니다."
+    },
+    {
+      "id": "2016#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#29",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지2(accommodation/supported/cooperating)는 세 칸 모두 오답이라 남은 성분이 없다. preserved '대상: grebes'(9번 문장)는 선지에 없는 지문 문맥이다."
+    },
+    {
+      "id": "2016#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#40",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지4(positive/ignore)는 두 칸 모두 오답인데 preserved '대상: factors'(8번 문장 요약문)는 선지에 남은 성분이 아니다."
+    },
+    {
+      "id": "2016#41",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#42",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#43",
+      "verdict": "pass"
+    },
+    {
+      "id": "2016#45",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#18",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#19",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#20",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#21",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#22",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#23",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#24",
+      "verdict": "revise",
+      "codes": [
+        "R5"
+      ],
+      "why": "when_not 2번째 '조각 값 라벨을 확인할 수 없어 대조가 불가능한 경우'는 데이터 사정 메모이지 적용 경계가 아니다."
+    },
+    {
+      "id": "2017#25",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#26",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#27",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#28",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#29",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지2(based/forbids/mostly)는 세 칸 모두 오답이라 남은 성분이 없다. preserved '대상: teachers'(2·3번 문장)는 선지 문자열에 없다."
+    },
+    {
+      "id": "2017#30",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#31",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#32",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#33",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#34",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#35",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#36",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#37",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#38",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#39",
+      "verdict": "pass"
+    },
+    {
+      "id": "2017#40",
+      "verdict": "revise",
+      "codes": [
+        "R1"
+      ],
+      "why": "선지4(control/favorable)는 두 칸 모두 오답인데 preserved 'tourism’s environmental influences'(7번 문장 요약문)는 선지에 남은 성분이 아니다."
+    }
+  ]
+}
