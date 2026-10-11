@@ -82,6 +82,7 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   { route: 'csat/item/[slug]/task', why: '문항 확인 과제 응답 — 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 · 채점 · 채택 사슬 게이트는 서버(product-server)' },
   { route: 'csat/item/[slug]/reveal', why: '해설 극장 공개를 서버 학습 세션에 남김(시도 아님) — 로그인 확인은 라우트 안(learnerContext), userId · 합성 여부는 세션에서만' },
   { route: 'csat/diagnosis/map/goal', why: '학습 지도 — 본인 목표 점수(0~100). 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 온다' },
+  { route: 'csat/diagnosis/map/plan', why: '학습 지도 — 본인 학습 묶음 계획 버전 조회 · 저장. 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 · 가용량은 서버 재계산 · 알 수 없는 필드 거절' },
   { route: 'csat/diagnosis/map/tasks/[id]', why: '학습 지도 — 본인 과제 완료 체크. 로그인 확인은 라우트 안(learnerContext), 과제 id 는 형식 검증 + FK' },
 ]
 

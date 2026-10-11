@@ -62,3 +62,115 @@ test('SM7 StatusContext(옛 상태 API)도 같은 규칙', () => {
   assert.equal(classify(ctx('PENDING')).state, 'pending')
   assert.equal(classify(ctx('FAILURE')).state, 'fail')
 })
+
+// ── 정책 v1.1 게이트(2026-10-11) ──
+import { createHash } from 'node:crypto'
+import { gates, loadPolicy, verifyRuns } from '../safe-merge.mjs'
+
+const policy = loadPolicy()
+const sha = (t) => createHash('sha256').update(t).digest('hex')
+
+test('SM-P1 필수 체크가 하나라도 없으면 누락 — 통과가 아니다(돌지 않은 e2e)', () => {
+  const all = policy.required_checks.map((n) => run(n, 'SUCCESS'))
+  assert.equal(decide(pr(all), { required: policy.required_checks }).ok, true)
+  const d = decide(pr(all.filter((c) => c.name !== 'e2e')), { required: policy.required_checks })
+  assert.equal(d.ok, false)
+  assert.ok(d.reasons.some((r) => r.startsWith('누락: e2e')))
+  assert.equal(d.pending, false, '누락은 기다려도 풀리지 않는다')
+})
+
+test('SM-P2 base ≠ main 이면 종속 PR — 병합 안 함', () => {
+  const g = gates({ baseRefName: 'feat/map-v4-plan', body: '', files: [] }, policy)
+  assert.equal(g.ok, false)
+  assert.ok(g.reasons[0].startsWith('종속 PR'))
+  assert.equal(gates({ baseRefName: 'main', body: '', files: [] }, policy).ok, true)
+})
+
+test('SM-P3 마이그레이션 승인 증거 = 개발 DB 적용 이력 해시 일치 — PR 본문 문자열은 증거가 아니다', () => {
+  const p = 'supabase/migrations/20261010180218_map_v4_plan.sql'
+  const text = 'create table x (id int);\n'
+  const files = [{ path: p }, { path: 'apps/web/a.ts' }]
+  // 본문에 승인 줄을 써도 적용 이력이 없으면 막는다(작성자가 꾸밀 수 있는 문자열)
+  const forged = gates({ baseRefName: 'main', body: `DB-Approved: 20261010180218_map_v4_plan.sql sha256=${sha(text)}`, files }, policy, { [p]: text }, {})
+  assert.ok(forged.reasons[0].includes('적용 이력 없음'), forged.reasons.join())
+  const ok = gates({ baseRefName: 'main', body: '', files }, policy, { [p]: text }, { '20261010180218': sha(text) })
+  assert.equal(ok.ok, true, ok.reasons.join())
+  const changed = gates({ baseRefName: 'main', body: '', files }, policy, { [p]: text + '-- 적용 뒤 수정\n' }, { '20261010180218': sha(text) })
+  assert.ok(changed.reasons[0].includes('적용 뒤 바뀜'))
+  assert.ok(gates({ baseRefName: 'main', body: '', files }, policy, { [p]: text }, null).reasons[0].includes('적용 이력을 읽지 못했다'), '이력을 못 읽으면 통과시키지 않는다')
+  assert.ok(gates({ baseRefName: 'main', body: '', files }, policy, {}, {}).reasons[0].includes('읽지 못해'), '본문을 못 읽으면 통과시키지 않는다')
+  const noVersion = gates({ baseRefName: 'main', body: '', files: [{ path: 'supabase/migrations/fix.sql' }] }, policy, { 'supabase/migrations/fix.sql': text }, {})
+  assert.ok(noVersion.reasons[0].includes('버전 번호 없는'))
+})
+
+test('SM-P4 데이터 삭제 구문은 종류를 밝히고 · 마이그레이션 파일 삭제는 승인 대상', () => {
+  const p = 'supabase/migrations/20261011000000_x.sql'
+  const r = gates({ baseRefName: 'main', body: '', files: [{ path: p }] }, policy, { [p]: 'TRUNCATE public.t;' }, {})
+  assert.ok(r.reasons[0].startsWith('DB 변경 + 데이터 삭제 구문'))
+  assert.ok(gates({ baseRefName: 'main', body: '', files: [{ path: p }] }, policy, { [p]: null }, { '20261011000000': 'x' }).reasons[0].startsWith('적용된 마이그레이션 삭제'))
+  assert.ok(gates({ baseRefName: 'main', body: '', files: [{ path: p }] }, policy, { [p]: null }, {}).reasons[0].startsWith('마이그레이션 삭제'))
+})
+
+test('SM-P5 30파일 이상은 승인이 아니라 「## 검증」 절 — 없으면 병합 안 함', () => {
+  const files = Array.from({ length: policy.large_change.files }, (_, i) => ({ path: `apps/web/f${i}.ts` }))
+  assert.ok(gates({ baseRefName: 'main', body: '요약만', files }, policy).reasons[0].startsWith('대규모 변경'))
+  assert.equal(gates({ baseRefName: 'main', body: '## 검증\n- 전체 테스트 통과', files }, policy).ok, true)
+})
+
+// 스위치 값 자체(켜짐 · 꺼짐)는 단언하지 않는다 — 2026-10-11 사용자가 활성화했다. 효력은 SM-P10(origin/main 에서만 읽음)이 지킨다
+test('SM-P6 정책 정본 — 형식 · 승인 2종 · 필수 체크 · 자동 병합 스위치는 불리언', () => {
+  assert.equal(policy.mode, 'AUTO_CONTINUE')
+  assert.equal(typeof policy.merge.auto_merge_enabled, 'boolean')
+  assert.deepEqual(Object.keys(policy.approval_required).sort(), ['data_deletion', 'db_change'])
+  for (const n of ['verify', 'build', 'e2e']) assert.ok(policy.required_checks.includes(n), n)
+})
+
+test('SM-P7 _pending_ 제안본은 증거 대상 아님 — 메모로만', () => {
+  const g = gates({ baseRefName: 'main', body: '', files: [{ path: 'supabase/migrations/_pending_x.sql' }] }, policy, {})
+  assert.equal(g.ok, true)
+  assert.ok(g.notes[0].startsWith('제안본 _pending_x.sql'))
+})
+
+test('SM-P8 필수 체크는 이 HEAD 에서 · 마지막 base 변경 뒤에 성공해야 한다', () => {
+  const H = 'b'.repeat(40)
+  const runAt = (name, at, conclusion = 'success', head = H) => ({ name, head_sha: head, status: 'completed', conclusion, started_at: at })
+  const req = ['verify', 'e2e']
+  assert.equal(verifyRuns(req, [runAt('verify', '2026-10-11T02:00:00Z'), runAt('e2e', '2026-10-11T02:00:00Z')], H, '2026-10-11T01:00:00Z').ok, true)
+  const old = verifyRuns(req, [runAt('verify', '2026-10-11T00:00:00Z'), runAt('e2e', '2026-10-11T02:00:00Z')], H, '2026-10-11T01:00:00Z')
+  assert.ok(old.reasons[0].includes('base 변경') && old.reasons[0].includes('verify'))
+  const other = verifyRuns(req, [runAt('verify', '2026-10-11T02:00:00Z', 'success', 'c'.repeat(40)), runAt('e2e', '2026-10-11T02:00:00Z')], H, null)
+  assert.ok(other.reasons[0].includes('에서 돈 「verify」 없음'), '다른 커밋의 성공은 이 HEAD 의 성공이 아니다')
+  const skipped = verifyRuns(req, [runAt('verify', '2026-10-11T02:00:00Z', 'skipped'), runAt('e2e', '2026-10-11T02:00:00Z')], H, null)
+  assert.ok(skipped.reasons[0].includes('성공 아님(skipped)'))
+})
+
+test('SM-P9 정책 비활성 — safe-merge 본체에 병합 차단 분기가 dry-run 다음 · gh pr merge 앞에 있다', async () => {
+  const fs = await import('node:fs')
+  const src = fs.readFileSync(new URL('../safe-merge.mjs', import.meta.url), 'utf8')
+  const iDry = src.indexOf('if (dry)')
+  const iOff = src.indexOf('if (!policy.merge.auto_merge_enabled)')
+  const iMerge = src.indexOf("gh(['pr', 'merge'")
+  assert.ok(iDry > 0 && iOff > iDry && iMerge > iOff, '꺼짐 차단이 병합 호출보다 앞에 있어야 한다')
+  assert.ok(!/--auto/.test(src.slice(iOff - 200, iOff + 300)), '자동/수동 구분 없이 막는다')
+})
+
+test('SM-P10 병합 정책은 보호된 origin/main 에서 — PR 브랜치가 스위치를 켜도 main 이 꺼져 있으면 꺼짐', async () => {
+  const { mergePolicy } = await import('../safe-merge.mjs')
+  const on = { ...policy, merge: { ...policy.merge, auto_merge_enabled: true } }
+  const off = { ...policy, merge: { ...policy.merge, auto_merge_enabled: false } }
+  // 로컬(PR 브랜치)은 켜짐 · main 은 꺼짐 → 꺼짐
+  assert.equal(mergePolicy(() => JSON.stringify(off), on).merge.auto_merge_enabled, false)
+  // main 에 정책이 없으면(도입 전) 로컬이 켜져 있어도 꺼짐
+  assert.equal(mergePolicy(() => null, on).merge.auto_merge_enabled, false)
+  assert.equal(mergePolicy(() => { throw new Error('fetch 실패') }, on).merge.auto_merge_enabled, false)
+  // 필수 체크도 main 것을 쓴다 — PR 이 자기 필수 체크를 줄여도 소용없다
+  const weakLocal = { ...on, required_checks: ['verify'] }
+  assert.deepEqual(mergePolicy(() => JSON.stringify(on), weakLocal).required_checks, policy.required_checks)
+})
+
+test('SM-P11 필수가 아닌 체크의 SKIPPED 는 막지 않는다 · 필수 체크의 SKIPPED · 비필수 실패는 막는다', () => {
+  const req = ['verify']
+  assert.equal(decide(pr([run('verify', 'SUCCESS'), run('e2e-shared-dev', 'SKIPPED')]), { required: req }).ok, true)
+  assert.equal(decide(pr([run('verify', 'SKIPPED')]), { required: req }).ok, false)
+  assert.equal(decide(pr([run('verify', 'SUCCESS'), run('extra', 'FAILURE')]), { required: req }).ok, false)
+})

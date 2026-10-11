@@ -22,10 +22,11 @@ import { EVIDENCE_GROUP_LABEL, evidenceCounts, goalSummary } from '@/lib/csat/ma
 import { GoalPopover, useGoal } from './GoalBar'
 import { STEP_ICON } from './icons'
 import l from './learner.module.css'
+import { NeedPanel } from './NeedPanel'
 import { StepSheet } from './StepSheet'
 import { useTaskDone } from './useTaskDone'
 
-export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data: MapPageData; detailHref: string; recordHref: string; recordsHref: string }) {
+export function LearnerMap({ data, detailHref, recordHref, recordsHref, asOf }: { data: MapPageData; detailHref: string; recordHref: string; recordsHref: string; asOf?: string }) {
   const path = learnerPath(data.model, data.settings)
   const g = useGoal(data)
   const tasks = useTaskDone(data.doneTaskIds)
@@ -258,6 +259,9 @@ export function LearnerMap({ data, detailHref, recordHref, recordsHref }: { data
         </section>
       </div>
       </div>
+
+      {/* ③ rev4 목표까지 필요한 학습 — 읽기 전용(As-Is · To-Be · 대표 Workspace). 위의 길 · 지금 할 일은 그대로 둔다 */}
+      <NeedPanel data={data} goal={g.goal} goalSet={gs.goalSet} recordHref={recordHref} asOf={asOf} />
 
       {open && <StepSheet data={data} step={viewOf(open.key)} tasks={tasks} startAt={open.startAt} onClose={() => setOpen(null)} />}
     </div>

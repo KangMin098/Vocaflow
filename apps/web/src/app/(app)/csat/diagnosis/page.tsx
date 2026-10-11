@@ -16,6 +16,7 @@ import { RecordDetailModal } from '@/components/csat/diagnosis/RecordDetailModal
 import { RecordModal } from '@/components/csat/diagnosis/RecordModal'
 import { learnerSession } from '@/lib/csat/diagnosis/learner'
 import { loadMapPage } from '@/lib/csat/map/load'
+import { parseAsOf } from '@/lib/csat/map/v4/compose'
 import { todayKst } from '@/lib/csat/diagnosis/payload'
 import { loadExamReport, loadPickerExams } from '@/lib/csat/diagnosis/report'
 import { railExams } from '@/lib/csat/rail-data'
@@ -26,7 +27,7 @@ export const dynamic = 'force-dynamic'
 
 const BASE = '/csat/diagnosis'
 
-export default async function DiagnosisPage({ searchParams }: { searchParams: { tab?: string; view?: string; modal?: string; record?: string; focus?: string } }) {
+export default async function DiagnosisPage({ searchParams }: { searchParams: { tab?: string; view?: string; modal?: string; record?: string; focus?: string; asof?: string } }) {
   const { userId } = await learnerSession()
   if (!userId) redirect('/login?next=/csat/diagnosis')
   const { tab, view } = parseBoardTab(searchParams.tab, searchParams.view, { map: true })
@@ -38,7 +39,9 @@ export default async function DiagnosisPage({ searchParams }: { searchParams: { 
   const closeHref = boardHref(BASE, tab, view)
   // 학습 지도 탭일 때만 지도 데이터를 읽는다(다른 탭의 속도를 건드리지 않는다)
   const mapData = tab === 'map' ? await loadMapPage(db, userId, new Date()) : null
-  const mapSlot = tab === 'map' ? mapData ? <MapScreen data={mapData} view={parseMapView(searchParams.view)} base={BASE} /> : <MapPreparing /> : undefined
+  // ?asof=YYYY-MM-DD — rev4 「목표까지 필요한 학습」을 그날 기준으로 다시 분석(형식 · 미래 날짜는 무시하고 지금 분석)
+  const asOf = mapData?.now ? parseAsOf(searchParams.asof, mapData.now) : undefined
+  const mapSlot = tab === 'map' ? mapData ? <MapScreen data={mapData} view={parseMapView(searchParams.view)} base={BASE} asOf={asOf} /> : <MapPreparing /> : undefined
   const record = searchParams.record ? report.trend.find((t) => t.sessionId === searchParams.record) : undefined
 
   const modal = exams ? (

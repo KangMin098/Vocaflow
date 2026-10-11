@@ -92,6 +92,12 @@
   stroke: var(--m-ink);
   stroke-width: 1.6;
 }
+/* 경로 안의 미확정 연결선(basis ≠ direct) — 경로임은 보이되 확정 경로처럼 진하게 칠하지 않는다(점선 유지 · rev4.0 GAP-07) */
+.hasSel .edgeOnUnconfirmed {
+  opacity: 1;
+  stroke: #9a968f;
+  stroke-width: 1.3;
+}
 .edge {
   transition: opacity 0.18s, stroke 0.18s, stroke-width 0.18s;
 }

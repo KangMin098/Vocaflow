@@ -1,0 +1,52 @@
+{
+  "version": "cohesion-link-2025-36.draft",
+  "itemId": "2025#36",
+  "skeletonSig": "def817699344ebbee18b7714b8636a6e275ce46c3e8b3607318e4d2cb7429e36",
+  "sentenceCount": 8,
+  "probes": [
+    {
+      "id": "cue1",
+      "cueSentence": 1,
+      "cueLabel": "2번째 문장 첫머리의 「마찬가지로, 지주도」 — Similarly(앞 사례와 나란히 놓는 연결어)",
+      "referent": [
+        5
+      ],
+      "disputed": []
+    },
+    {
+      "id": "cue2",
+      "cueSentence": 4,
+      "cueLabel": "5번째 문장의 「농부와 지주의 평판」 — 앞에서 꺼낸 평판을 다시 받는 명사구",
+      "referent": [
+        6
+      ],
+      "disputed": [
+        7
+      ]
+    }
+  ],
+  "order": {
+    "options": [
+      "(A) － (C) － (B)",
+      "(B) － (A) － (C)",
+      "(B) － (C) － (A)",
+      "(C) － (A) － (B)",
+      "(C) － (B) － (A)"
+    ],
+    "answer": 4
+  },
+  "answerAnchorOverlap": {
+    "answerAnchorSentences": [
+      1
+    ],
+    "note": "정답 근거 앵커(2번째 문장)가 단서 1이 있는 문장과 같다."
+  },
+  "provenance": {
+    "status": "draft · single annotator · needs second annotator + anchor-bind + blind adoption + release approval",
+    "annotators": "Claude(단일 · 맹검 아님 — 정답을 본 상태)",
+    "rationale": "Similarly, a landowner can undermaintain … 는 (B) 끝 'a farmer can reduce effort …'(5) 와 짝. (B) 'Farmer and landowner reputations' 는 (C) 'develop reputations … well known' 뒤. 그래서 C-B-A.",
+    "ambiguity": "단서 2: 평판이 처음 나오는 문장은 6, 7('reputations are well known')도 직접 이어진다 → 7 disputed. (B) 첫 문장 'Over time landowners indirectly monitor' 도 단서 후보지만 가리킴이 흐려 뺐다.",
+    "reviewedAt": null,
+    "draftedAt": "2026-10-11"
+  }
+}
