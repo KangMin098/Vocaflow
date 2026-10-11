@@ -153,3 +153,18 @@ Live drain (Claude as drain agent and reviewer; synthetic order, real prose; fil
 Capability: the 15 generic families move `CONTRACT_ONLY` → `IMPLEMENTED` (structural adapter + executable family review). Missing per family remains a real-content review run and live DB promotion; the specialized four still lack atomic production. Only P09 has had a live family review. Verdict unchanged: both flags false.
 
 - DB volume proof (user-approved migration, applied to dev 2026-10-11): `reading_production_volume` + register/serve RPCs prove inside the DB that each day is published current and belongs to exactly the volume's orders. Rollback smoke and privilege/advisor checks passed; client tests 6/6. Live success path unmeasured because the DB has 0 promoted production groups — this remains tied to the separate "live DB promotion of a run" item.
+
+### 2026-10-11 — live DB measurement of the volume success path (rollback-only)
+
+User-approved script `scripts/textbook/atomic-volume-db-measure.sql` (template SHA-256 `9956ad363a1f2d20afa635d04c837004e8557ea66a3b6f0584961110767aa3f6`; `atomic-volume-db-measure.mjs` injects fresh ed25519 keys, the only difference from the template) ran once on vocaflow-dev in one transaction ending in `ROLLBACK`. Through the real RPCs it promoted two days of one registered order, registered two production groups, captured/finalized/approved/re-captured/finalized and published both snapshots, then registered and served the volume:
+
+| Step | Result |
+|---|---|
+| day 1 / day 2 published | published_current (2 snapshots) |
+| volume registered | 2 DB-derived sections, volume hash `b1bccb28…` |
+| same revision replay | refused — "volume revision replay or downgrade" |
+| wrong order hash | refused — "volume order missing or stale" |
+| volume served | both days present, output hash `dac4f1dc…` equals SHA-256 of the served HTML |
+| day 2 certificate revoked | volume refused — "production evidence stale or rights blocked" |
+
+Before/after counts were identical (library_articles 91,793; csat_dcp_items 834,311; csat_item_reviews 549; orders, authority, audits, permits, groups, snapshots, artifacts, volumes all 0). Limitation: dev has one active admin, so the required second approver was simulated by changing the group's `registered_by` inside the transaction, exactly as the earlier atomic smoke did; a real two-admin approval is unmeasured. Synthetic order and trust root only; not production evidence.
