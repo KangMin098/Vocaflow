@@ -19,6 +19,7 @@ import { BookOpen } from 'lucide-react'
 
 import { CsatShell } from '@/components/csat/home/CsatShell'
 import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/AnalysisTheater'
+import { railExams } from '@/lib/csat/rail-data'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
 import { CohesionPanel } from '@/components/csat/theater/CohesionPanel'
 import { EvidencePanel } from '@/components/csat/theater/EvidencePanel'
@@ -62,7 +63,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   // 보류 시험 문항(오답 원인 Pilot 수집 중) — 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에 싣지 않는다(embargo-gate · Pilot 1c8e122fb)
   if (held) {
     return (
-      <CsatShell place="item" pill={<><BookOpen size={13} aria-hidden="true" />기출 해설</>}>
+      <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />기출 해설</>}>
         <p className="mx-auto max-w-2xl break-keep py-10 text-sm leading-relaxed text-[var(--t2)]" data-testid="item-held">
           이 회차의 해설은 지금 잠시 닫혀 있어요. 풀이 기록을 모으는 기간이 끝나면 다시 열려요.
         </p>
@@ -157,7 +158,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   // 마지막 관문 — 처음 판정과 골격 판정 사이에 보류가 시작됐으면 이미 읽은 정답 · 해설 · 강의 개요를 내지 않는다(Codex P1)
   if (!(await canRevealItem(item.id))) {
     return (
-      <CsatShell place="item" pill={<><BookOpen size={13} aria-hidden="true" />기출 해설</>}>
+      <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />기출 해설</>}>
         <p className="mx-auto max-w-2xl break-keep py-10 text-sm leading-relaxed text-[var(--t2)]" data-testid="item-held">
           이 회차의 해설은 지금 잠시 닫혀 있어요. 풀이 기록을 모으는 기간이 끝나면 다시 열려요.
         </p>
@@ -225,7 +226,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   // 강의가 없는 문항은 무대를 세우지 않는다 — 분석 블록과 지도는 그대로 읽힌다.
   // 2026-10-10 1440 통합: 해설 극장도 기출분석공간 레일 안에 둔다(일반 앱 셸에서는 이어서 · 서가 · 연습으로 가는 길이 없었다).
   return (
-    <CsatShell place="item" pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번</>} bare>
+    <CsatShell place="item" exams={await railExams()} pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번</>} bare>
       {meta ? (
         <LectureStage slug={toItemSlug(item.id)} meta={meta} keys={false}>
           {body}

@@ -19,6 +19,7 @@ import { loadMapPage } from '@/lib/csat/map/load'
 import { parseAsOf } from '@/lib/csat/map/v4/compose'
 import { todayKst } from '@/lib/csat/diagnosis/payload'
 import { loadExamReport, loadPickerExams } from '@/lib/csat/diagnosis/report'
+import { railExams } from '@/lib/csat/rail-data'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const metadata: Metadata = { title: '내 진단 — 기출분석공간' }
@@ -57,7 +58,7 @@ export default async function DiagnosisPage({ searchParams }: { searchParams: { 
   ) : null
 
   return (
-    <DiagnosisShell screen="report">
+    <DiagnosisShell exams={await railExams()} screen="report">
       <DiagnosisBoard report={report} typeNames={typeNames} tab={tab} view={view} features={{ map: true }} mapSlot={mapSlot} base={BASE} addHref={`${BASE}?tab=records&modal=new`} modal={modal} focus={searchParams.focus} />
     </DiagnosisShell>
   )
