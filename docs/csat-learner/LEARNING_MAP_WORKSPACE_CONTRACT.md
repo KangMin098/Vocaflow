@@ -49,6 +49,19 @@ Workspace 밖에 남은 비보류 TASK 3: `s.attachment`(S3) · `r.o.global_mean
 
 정성: `criterion` 문장 + 근거 수준 표기(rule_proxy · item_tagged · verified). 「완료」 = 기준 충족 기록이 있을 때만. 효과(점수 상승) 주장 없음.
 
+### 3-1. 단계별 준비 상태(2차 구현 · `lib/csat/map/v4/workspace.ts`)
+
+Template 의 단일 `readiness` 와 별도로 학습자마다 네 칸을 계산한다 — 확인 과제가 있다는 사실만으로 Workspace 전체를 완료 가능으로 보이지 않는다.
+
+| 칸 | 열리는 조건 | 학습량(실제 수만) | 닫힌 이유 코드 |
+|---|---|---|---|
+| `check_ready` | 확인 문항 연결이 있고 아직 안 본 확인 문항이 있다 · 판정 전 | 안 본 확인 문항 수 | `no_check_link` · `no_unseen_items` · (판정 뒤 = 마침) |
+| `repair_ready` | 직접 확인 확정(verified · still_needed) | 확정에 쓴 문항 + 다시 확인에서 막힌 문항 | `after_check` |
+| `transfer_ready` | 확정 · 해소 뒤 + 확인 묶음 밖 실제 적용 문항 > 0 | 적용 문항 수(claim-support = 실학습 Practice 풀, 그 밖 = 활성 `csat_item_task` 적용 − 확인 묶음, 보류 문항 제외) | `after_repair` · `no_transfer_items` |
+| `recheck_ready` | 확정 뒤 · 안 본 확인 문항 ≥ 2(skill-diagnosis CHECK_ITEMS) | 2 | `after_check` · `not_enough_unseen` · `resolved` |
+
+대표 Workspace 는 live 이고 열린 칸이 하나라도 있는 것 중에서: 목표가 있으면 To-Be 1순위 요구의 TASK 를 중심으로 하는 것, 없으면 As-Is(확인된 요구 > 확인 진행 중 > 축 기록상 먼저 확인 > 지금 할 수 있는 것). 단계 판정은 As-Is 의 TASK 확인 판정 하나를 **참조**한다 — 같은 TASK 를 보조로 가진 다른 Workspace 는 그 판정으로 단계를 열지 않는다(증거 중복 금지, `v4.test.ts` 불변식 4).
+
 ## 4. Learner Workspace(학습자 인스턴스)
 
 | 칸 | 뜻 | 저장(제안) |

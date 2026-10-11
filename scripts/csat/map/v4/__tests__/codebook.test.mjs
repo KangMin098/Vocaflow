@@ -82,7 +82,7 @@ test('rev4 TASK — id 유일, 모든 TASK 가 기존 자산(라인 · 과제)�
   }
 })
 
-test('관계 — 타입 · 끝점 · 상태 유효, 전부 proposed(일괄 확정 금지)', () => {
+test('관계 — 타입 · 끝점 · 상태 유효, 승인은 정본 근거가 있는 PART_OF 만(일괄 확정 금지)', () => {
   const ids = rel.relations.map((r) => r.id)
   assert.equal(new Set(ids).size, ids.length, '관계 id 중복')
   const seen = new Set()
@@ -91,7 +91,13 @@ test('관계 — 타입 · 끝점 · 상태 유효, 전부 proposed(일괄 확�
     assert.ok(v4.has(r.from) && v4.has(r.to), `${r.id} 끝점`)
     assert.notEqual(r.from, r.to, `${r.id} 자기 고리`)
     assert.ok(rel.basis_vocab.includes(r.basis), `${r.id} basis`)
-    assert.equal(r.status, 'proposed', `${r.id}: 승인 없이 확정됐다`)
+    assert.ok(['proposed', 'approved'].includes(r.status), `${r.id}: 허용되지 않은 상태 ${r.status}`)
+    if (r.status === 'approved') {
+      assert.equal(r.type, 'PART_OF', `${r.id}: PART_OF 밖의 관계가 승인됐다`)
+      assert.equal(r.basis, 'canon_rev2.1', `${r.id}: 정본 근거 없는 승인`)
+      assert.match(r.approval?.ref ?? '', /VNEXT §3/, `${r.id}: 승인 근거 인용이 없다`)
+      assert.notEqual(r.to.charAt(0), 'x', `${r.id}: X 는 정본이 구성 원자를 명시하지 않는다`)
+    }
     const key = `${r.type}|${r.from}|${r.to}`
     assert.ok(!seen.has(key), `${r.id} 중복 관계`)
     seen.add(key)

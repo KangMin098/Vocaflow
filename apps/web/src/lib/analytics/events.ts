@@ -270,6 +270,12 @@ export type PublicEvent =
   | { name: 'csat_map_goal_set'; props: { goal: number } }
   | { name: 'csat_map_task_toggled'; props: { done: boolean } }
   /**
+   * 학습 지도 rev4 「목표까지 필요한 학습」(Workspace 첫 편성) — DB 허용 목록은 이미 있다(20261008160000_learning_sessions_integrated).
+   * opened = 대표 Workspace 가 보였다 · suggestion_applied = 그 다음 행동(확인 문항)을 눌렀다. 질문: 제안된 Workspace 에서 실제 확인으로 가는가.
+   */
+  | { name: 'csat_workspace_opened'; props: { workspace: 'central-meaning' | 'option-match' | 'evidence-locate' | 'cohesion' | 'none'; reason: 'goal_need' | 'verified_need' | 'checking' | 'axis_check_first' | 'available' | 'none'; goal_set: boolean } }
+  | { name: 'csat_workspace_suggestion_applied'; props: { workspace: 'central-meaning' | 'option-match' | 'evidence-locate' | 'cohesion'; stage: 'check' | 'recheck' } }
+  /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
    * 이 화면의 전제는 «근거를 눌러 가며 지문 위에서 풀이를 재구성한다» 인데, 그 전제가
@@ -568,6 +574,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_map_node_opened: true,
   csat_map_goal_set: true,
   csat_map_task_toggled: true,
+  csat_workspace_opened: true,
+  csat_workspace_suggestion_applied: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

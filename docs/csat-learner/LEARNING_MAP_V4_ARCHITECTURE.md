@@ -1,6 +1,7 @@
 # 학습 지도 rev4.0 — 아키텍처(설계 제안 · 2026-10-10 · 미승인)
 
-> **상태**: 설계 문서. 코드 · DB · UI 변경 없음. 정본 [LEARNING_MAP_VNEXT](./LEARNING_MAP_VNEXT.md) rev2.1 을 **바꾸지 않고 그 위에 얹는다** — rev2.1 의 층 분리 · 금지 추론 · 근거 수준 규칙은 모두 그대로 유효하다.
+> **2차 구현(2026-10-10)**: 첫 수직 경로가 앱에 들어갔다 — [LEARNING_MAP_V4_IMPLEMENTATION](./LEARNING_MAP_V4_IMPLEMENTATION.md). 아래 설계는 그대로 유효하다.
+> **상태(1차)**: 설계 문서. 코드 · DB · UI 변경 없음. 정본 [LEARNING_MAP_VNEXT](./LEARNING_MAP_VNEXT.md) rev2.1 을 **바꾸지 않고 그 위에 얹는다** — rev2.1 의 층 분리 · 금지 추론 · 근거 수준 규칙은 모두 그대로 유효하다.
 > 짝 문서: [ASIS_AUDIT](./LEARNING_MAP_ASIS_AUDIT.md) · [DOMAIN_TASK_CODEBOOK](./LEARNING_MAP_DOMAIN_TASK_CODEBOOK.md) · [RELATIONSHIP_MODEL](./LEARNING_MAP_RELATIONSHIP_MODEL.md) · [WORKSPACE_CONTRACT](./LEARNING_MAP_WORKSPACE_CONTRACT.md) · [EXAM_INPUT_CONTRACT](./LEARNING_MAP_EXAM_INPUT_CONTRACT.md) · [MIGRATION_PLAN](./LEARNING_MAP_MIGRATION_PLAN.md).
 > 구조화 원천: [v4/](./v4/) — `codebook.json` · `relations.json` · `workspaces.json` · `asis-snapshot.json`.
 
