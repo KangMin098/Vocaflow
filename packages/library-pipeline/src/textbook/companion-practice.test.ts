@@ -1,7 +1,7 @@
 // packages/library-pipeline/src/textbook/companion-practice.test.ts
 import { describe, expect, it } from 'vitest'
 import { exportOrderProductionDrain, importOrderProductionDrain } from './order-production-run'
-import { planProductBrief } from './product-planning'
+import { assemblePlannedVolumeSynthetic, planProductBrief } from './product-planning'
 import { buildCompanionPractice, verifyCompanionPractice, COMPANION_ACTIVITIES, type CompanionResources } from './companion-practice'
 
 const h = (c: string) => c.repeat(64)
@@ -128,6 +128,8 @@ describe('companion practice through the order-production CLI', () => {
       const complete = JSON.parse(readFileSync(path.join(runDir, 'complete.json'), 'utf8'))
       const manifest = JSON.parse(readFileSync(path.join(runDir, 'practice.manifest.json'), 'utf8'))
       expect(complete.practice_manifest_hash).toBe(manifest.manifest_hash)
+      expect(complete.companion_resources_sha256).toMatch(/^[a-f0-9]{64}$/)
+      expect(manifest.resources_sha256).toBe(complete.companion_resources_sha256)
       expect(new Set(manifest.items.map((item: { activity: string }) => item.activity)).size).toBe(7)
       expect(readFileSync(path.join(runDir, 'practice.html'), 'utf8')).toContain('data-activity="dictation_practice"')
     } finally {
@@ -136,4 +138,37 @@ describe('companion practice through the order-production CLI', () => {
       rmSync(temp, { recursive: true, force: true })
     }
   }, 60_000)
+})
+
+describe('review regressions (2026-10-11)', () => {
+  it('an order whose sealed activities differ from the brief is stale, not silently practice-free', () => {
+    const input = runInput(brief(['middle_2'], ['grammar_practice']))
+    const drain = exportOrderProductionDrain(input)
+    const run = importOrderProductionDrain(input, fill(drain))
+    if (run.status !== 'assembled') throw Error('run not assembled')
+    const mixed = structuredClone(run)
+    mixed.volumeInput.orders[0]!.order.activity_types = []
+    expect(() => assemblePlannedVolumeSynthetic(mixed.volumeInput)).toThrow('PRODUCT_PLAN_ORDER_STALE')
+  })
+
+  it('a one-skill diagnostic and a unit without items block instead of building or crashing', () => {
+    const one = { ...brief(['middle_2'], ['diagnostic_check']), duration_days: 1, units_per_chapter: 1 }
+    const input = runInput(one)
+    const run = importOrderProductionDrain(input, fill(exportOrderProductionDrain(input)))
+    if (run.status !== 'assembled') throw Error(JSON.stringify((run as { blockers?: unknown }).blockers))
+    expect(JSON.stringify(buildCompanionPractice(run, deps))).toContain('COMPANION_DIAGNOSTIC_TOO_NARROW')
+    const empty = structuredClone(run)
+    empty.volumeInput.units[0]!.items = []
+    expect(JSON.stringify(buildCompanionPractice(empty, deps))).toContain('COMPANION_UNIT_WITHOUT_ITEMS')
+  })
+
+  it('records the companion resources hash so a different resources file is a different lineage', () => {
+    const input = runInput(brief(['middle_2'], ['grammar_practice']))
+    const run = importOrderProductionDrain(input, fill(exportOrderProductionDrain(input)))
+    if (run.status !== 'assembled') throw Error('run not assembled')
+    const a = buildCompanionPractice(run, deps, { resourcesSha256: h('a') })
+    if (a.status !== 'built') throw Error('not built')
+    expect(a.manifest.resources_sha256).toBe(h('a'))
+    expect(() => verifyCompanionPractice(run, deps, a, { resourcesSha256: h('b') })).toThrow('COMPANION_PRACTICE_STALE_OR_MIXED')
+  })
 })

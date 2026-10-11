@@ -101,7 +101,7 @@ function generate(kind: CompanionActivity, unit: RunUnit, deps: CompanionResourc
 export type CompanionBlocker = { grade: string; activity: string; reason: string }
 
 /** Builds the companion practice section for an assembled run; returns blockers instead of partial output. */
-export function buildCompanionPractice(run: AssembledRun, deps: CompanionResources) {
+export function buildCompanionPractice(run: AssembledRun, deps: CompanionResources, options: { resourcesSha256?: string | null } = {}) {
   const requested = new Map(run.volumeInput.orders.map(entry => [entry.grade,
     entry.order.activity_types.filter((kind): kind is CompanionActivity => (COMPANION_ACTIVITIES as readonly string[]).includes(kind))]))
   const blockers: CompanionBlocker[] = []
@@ -126,13 +126,16 @@ export function buildCompanionPractice(run: AssembledRun, deps: CompanionResourc
     const seen = new Set<string>()
     for (const unit of units.filter(row => row.grade === grade)) {
       if (seen.has(unit.primary_skill)) continue
+      const item = unit.items[0]
+      if (!item) { blockers.push({ grade, activity: 'diagnostic_check', reason: 'COMPANION_UNIT_WITHOUT_ITEMS' }); continue }
       seen.add(unit.primary_skill)
-      const item = unit.items[0]!
       items.push({ activity: 'diagnostic_check', grade, day: unit.day, unit_id: unit.unit_id,
         product_order_id: unit.product_order_id, order_revision: unit.order_revision, order_hash: unit.order_hash,
         passage_sha256: sha(unit.passage), item_sha256: sha(canonicalJson(item)),
         html: `<p>[진단 · ${esc(unit.primary_skill)} · ${unit.day}일차] ${esc(item.prompt)}</p>` })
     }
+    // A diagnostic needs at least two planned skills to tell strengths apart.
+    if (seen.size < 2) blockers.push({ grade, activity: 'diagnostic_check', reason: 'COMPANION_DIAGNOSTIC_TOO_NARROW' })
   }
   for (const [grade, kinds] of requested) for (const kind of kinds)
     if (!items.some(item => item.grade === grade && item.activity === kind))
@@ -143,13 +146,16 @@ export function buildCompanionPractice(run: AssembledRun, deps: CompanionResourc
   const manifest = { schema: 'textbook-companion-practice/1', synthetic_fixture: true, non_production: true,
     publish_eligible: false, planning_hash: run.output.receipt.planning_hash,
     run_receipt_hash: run.output.receipt.receipt_hash,
+    // Hash of the operator's companion resources file, so later re-verification can prove which lexicon/audio was used.
+    resources_sha256: options.resourcesSha256 ?? null,
     items: items.map(({ html: _html, ...rest }) => rest), skipped, html_sha256: sha(html) }
   return { status: 'built' as const, html, manifest: { ...manifest, manifest_hash: sha(canonicalJson(manifest)) } }
 }
 
 /** Rebuilds from the current run and resources; stored output must match exactly. */
-export function verifyCompanionPractice(run: AssembledRun, deps: CompanionResources, output: { html: string; manifest: unknown }) {
-  const current = buildCompanionPractice(run, deps)
+export function verifyCompanionPractice(run: AssembledRun, deps: CompanionResources, output: { html: string; manifest: unknown },
+  options: { resourcesSha256?: string | null } = {}) {
+  const current = buildCompanionPractice(run, deps, options)
   if (current.status !== 'built' || current.html !== output.html || canonicalJson(current.manifest) !== canonicalJson(output.manifest))
     throw Error('COMPANION_PRACTICE_STALE_OR_MIXED')
   return current.manifest

@@ -291,6 +291,7 @@ export function verifyProductPlanFulfillment(input: {
         canonicalJson(entry.order.domain_mix) !== canonicalJson(normalizedMix(plan.brief.domain_weights)) ||
         canonicalJson(entry.order.genre_mix) !== canonicalJson(normalizedMix(plan.brief.genre_weights)) ||
         canonicalJson(entry.order.item_types) !== canonicalJson(expectedItems) ||
+        canonicalJson(entry.order.activity_types) !== canonicalJson(plan.brief.companion_activities ?? []) ||
         Object.values(entry.order.passage_difficulty_profile).some(level => level !== finalDifficulty) ||
         entry.order.item_difficulty_profile.reasoning !== finalDifficulty
     } catch { return true }

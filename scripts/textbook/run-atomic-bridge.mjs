@@ -98,8 +98,9 @@ function promotionInput({ trust, order, grade, passage, quote, source, child, re
  * Produces and publishes one atomic snapshot for `day` of an assembled order run.
  * `run` is the `assembled` result of importOrderProductionDrain.
  */
-// deliveryMode: 'auto' picks shared_passage_grade_specific_items when every grade got the same
-// passage that day, otherwise grade_specific_adaptations; 'grade_specific_units' can be forced.
+// deliveryMode: 'auto' = grade_specific_adaptations (each grade's order expects its own adaptation).
+// Shared passage or grade-specific units must be requested explicitly; the mode is never inferred
+// from the filled passages, because identical passages would then bypass the adaptation guard.
 export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliveryMode = 'auto' }) {
   if (!Number.isInteger(revision) || revision < 1 || revision > 99) throw Error('RUN_DAY_REVISION_INVALID')
   const units = run.volumeInput.units.filter(unit => unit.day === day)
@@ -145,9 +146,8 @@ export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliv
   const grades = sections.map(section => section.grade)
   const group = { schema: 'textbook-product-order-group/1', group_id: `run-${sections[0].orderId}-d${day}`, group_revision: revision,
     grade_scope: grades.length === 1 ? { mode: 'single_grade', grades } : run.volumeInput.brief.grade_scope,
-    delivery_mode: grades.length === 1 ? 'single_grade' : deliveryMode !== 'auto' ? deliveryMode
-      : new Set(sections.map(section => section.unit.passage)).size === 1
-        ? 'shared_passage_grade_specific_items' : 'grade_specific_adaptations',
+    delivery_mode: grades.length === 1 ? 'single_grade'
+      : deliveryMode === 'auto' ? 'grade_specific_adaptations' : deliveryMode,
     orders: sections.map(section => ({ grade: section.grade, order: section.order })) }
   const evidence = { schema: 'textbook-multi-grade-evidence/1', group_id: group.group_id, group_revision: revision,
     group_hash: sealMultiGradeProductOrder(group).group_hash, source_id: source.id,

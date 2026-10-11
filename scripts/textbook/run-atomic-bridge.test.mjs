@@ -119,7 +119,9 @@ test('delivery modes from a run: shared passage with grade-specific items, grade
   const runInputShared = runInput(brief('P09', ['middle_1', 'middle_2']), trust)
   const sharedRun = importOrderProductionDrain(runInputShared, fillShared(exportOrderProductionDrain(runInputShared)))
   assert.equal(sharedRun.status, 'assembled', JSON.stringify(sharedRun.blockers))
-  const shared = await produceRunAtomicVolume({ run: sharedRun, trust })
+  // Identical passages under the default mode are refused; shared passage must be explicit.
+  await assert.rejects(produceRunAtomicVolume({ run: sharedRun, trust }), /GRADE_ADAPTATION_MISSING_OR_REUSED/)
+  const shared = await produceRunAtomicVolume({ run: sharedRun, trust, deliveryMode: 'shared_passage_grade_specific_items' })
   assert.deepEqual([...new Set(shared.days.map(day => day.delivery_mode))], ['shared_passage_grade_specific_items'])
   const distinctInput = runInput(brief('P09', ['middle_1', 'high_3']), trust)
   const distinctRun = importOrderProductionDrain(distinctInput, fill(exportOrderProductionDrain(distinctInput)))
