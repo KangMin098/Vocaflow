@@ -37,7 +37,11 @@ const blockedRec = (name, detail) => { blocked++; console.log(`[BLOCKED] ${name}
 const rec = (name, ok, detail = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail === '' ? '' : ' — ' + JSON.stringify(detail).slice(0, 300)}`) }
 
 const READY = 'M2409'
-const TASK = 'r.central_meaning'
+// --ws central-meaning(기본) | evidence-locate — 6차 P0-2: 두 번째 Workspace 경로
+const WS = arg('--ws', 'central-meaning')
+const CFG = { 'central-meaning': { task: 'r.central_meaning', key: 'claim-support' }, 'evidence-locate': { task: 'e.evidence_location', key: 'evidence-locate' } }[WS]
+if (!CFG) throw new Error('모르는 --ws ' + WS)
+const TASK = CFG.task
 const users = []
 const browser = await chromium.launch()
 onInterrupt(async () => { await browser.close().catch(() => {}); for (const id of users) await db.auth.admin.deleteUser(id).catch(() => {}) })
@@ -72,7 +76,7 @@ try {
     const sec = page.locator('[data-testid="plan-section"]')
     await sec.waitFor()
     await page.waitForLoadState('networkidle').catch(() => {})
-    if ((await sec.getAttribute('data-ws')) !== 'ws.central-meaning') await page.locator('[data-testid="plan-tab"][data-ws="ws.central-meaning"]').click()
+    if ((await sec.getAttribute('data-ws')) !== `ws.${WS}`) await page.locator(`[data-testid="plan-tab"][data-ws="ws.${WS}"]`).click()
     const li = page.locator(`[data-testid="plan-section"] li[data-task="${TASK}"]`)
     await li.waitFor()
     const go = li.locator('[data-testid="plan-go"]')
@@ -111,7 +115,16 @@ try {
       await page.waitForTimeout(800)
     }
     if (retry && (await panel.getByRole('button', { name: '다시 해 보기' }).count())) await panel.getByRole('button', { name: '다시 해 보기' }).click()
-    if (correct) {
+    if (await panel.locator('[data-pick]').count()) {
+      // 근거 찾기 · 선지 맞대기(근거 패널) — 정답 = 근거 문장 하나 · 확실한 오답 = 빈칸 문장(근거가 될 수 없다)
+      const ev = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps/web/src/lib/knowledge/annotations/evidence-tasks.v1.json'), 'utf8')).items
+      const id = href.split('#')[0].split('?')[0].split('/').pop().replace(/-(\d+)$/, '#$1').toUpperCase().replace(/^(\d{4})#/, '$1#')
+      const a = ev[id] ?? ev[id.replace(/^M/, 'M')]
+      // 확실한 오답 = 근거 · 갈린 문장 · 빈칸이 아닌 문장(빈칸 문장 버튼은 고를 수 없다)
+      const wrongPick = [...Array(a.sentenceCount).keys()].find((i) => !a.evidence.includes(i) && !a.disputed.includes(i) && i !== a.blank)
+      const pick = correct ? a.evidence[0] : wrongPick
+      await panel.locator(`[data-pick="${pick}"]`).click()
+    } else if (correct) {
       const a = annotationOf(href)
       await panel.locator(`[data-claim="${a.claim}"]`).click()
       for (const s of a.support) await panel.locator(`[data-support="${s}"]`).click()
@@ -180,21 +193,23 @@ try {
   const at2 = await attempts()
   rec('② 막힌 문항 다시 풀이가 수행 기록으로 남음(같은 문항 두 번째 시도)', at2.filter((a) => a.phase !== 'transfer').length >= 2 + blockedPlanned, at2.length)
 
+  let transferDone = false
   // ③ 다른 글에 적용 — 승인 · 활성화된 전이 문항이 있을 때만 열린다(없으면 정본대로 건너뛰고 그 사실을 보인다)
   s = await row('p3-transfer')
   if (s.stage === 'transfer') {
-    rec('③ 바로잡기 마침 → 단계 「다른 글에 적용」 · 계획 2지문 · 활동 = 연습 화면 전이 문항 · 성취 그대로', s.planned === '2' && (s.href ?? '').startsWith('/csat/practice/claim-support?item=') && s.achievement === 'need_confirmed', s)
+    rec('③ 바로잡기 마침 → 단계 「다른 글에 적용」 · 계획 2지문 · 활동 = 연습 화면 전이 문항 · 성취 그대로', s.planned === '2' && (CFG.key === 'claim-support' ? (s.href ?? '').startsWith('/csat/practice/claim-support?item=') : ((s.href ?? '').startsWith('/csat/item/') && (s.href ?? '').includes('?check=1'))) && s.achievement === 'need_confirmed', s)
     for (let i = 0; i < 3; i++) {
       s = await row(`p3-transfer-${i}`)
       if (s.stage !== 'transfer' || !s.href) break
-      const st = await solvePractice(s.href)
+      const st = CFG.key === 'claim-support' ? await solvePractice(s.href) : ((await solveItem(s.href)), 200)
       rec(`③ 적용 풀이 ${i + 1} 저장(200)`, st === 200, st)
     }
     const tr = (await attempts()).filter((a) => a.phase === 'transfer')
-    rec('③ 적용 2지문 = phase transfer 기록 2건(서로 다른 문항)', new Set(tr.map((a) => a.item_ref)).size === 2, tr.map((a) => a.item_ref))
+    transferDone = new Set(tr.map((a) => a.item_ref)).size === 2
+    rec('③ 적용 2지문 = phase transfer 기록 2건(서로 다른 문항)', transferDone, tr.map((a) => a.item_ref))
   } else {
     rec('③ 전이 콘텐츠가 없으면 적용 단계는 「준비 중」으로 닫히고 계획은 다시 확인으로 넘어간다(없는 활동에 묶지 않음)', s.transferBlocked === 'no_transfer_items' && s.stage === 'recheck', { stage: s.stage, transferBlocked: s.transferBlocked })
-    blockedRec('③ 다른 글에 적용 — 승인 · 활성화된 주제 · 제목 유형 「주장과 근거」 문항 0개(개발 DB 활성 9개 모두 20번 · 확인 묶음 자체)', { transferBlocked: s.transferBlocked })
+    blockedRec(`③ 다른 글에 적용 — 승인 · 활성화된 ${CFG.key} 전이 문항 0개(전이 콘텐츠 출시 전)`, { transferBlocked: s.transferBlocked })
   }
   rec('②→③ 수행(바로잡기 · 적용)만으로는 As-Is 영역 근거가 바뀌지 않는다', s.domains === domainsRepair)
 
@@ -218,7 +233,7 @@ try {
   const verdict = s.achievement
   rec('④ 다시 확인 문항 풀이 → 직접 확인 판정 재계산(해소 또는 아직 필요 — 결과 그대로 표시)', rechecked >= 1 && ['resolved', 'need_confirmed', 'checking'].includes(verdict), { rechecked, verdict, stage: s.stage })
   if (RECHECK === 'pass') {
-    rec('④ 성공 경로 — 확정에 쓰지 않은 문항 연속 2 정답 → 성취 「해소」 · 적용을 이미 마쳐 요구 = 유지(MAINTAIN · 정본 단계 「다시 확인」 = 나중에 다시 보기)', verdict === 'resolved' && rechecked === 2 && s.stage === 'recheck', { verdict, rechecked, stage: s.stage })
+    rec('④ 성공 경로 — 확정에 쓰지 않은 문항 연속 2 정답 → 성취 「해소」 · 요구 = 적용을 마쳤으면 유지(MAINTAIN · 다시 확인) · 아니면 적용(TRANSFER) — 정본 상태 전이', verdict === 'resolved' && rechecked === 2 && s.stage === (transferDone ? 'recheck' : 'transfer'), { verdict, rechecked, stage: s.stage, transferDone })
     rec('④ 해소 판정이 As-Is 영역 근거에 반영됨(적용 뒤와 다름)', s.domains !== domainsRepair)
   } else {
     rec('④ 실패 경로 — 다시 확인에서 막히면 성취 「필요 확인됨」 유지(still_needed)', verdict === 'need_confirmed', { verdict })
