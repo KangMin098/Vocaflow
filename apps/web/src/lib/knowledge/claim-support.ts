@@ -27,6 +27,8 @@ import ann_m2609_20 from './annotations/claim-support-m2609-20.v1.json'
 //   학습자에게 열리는 것은 knowledge_applications 활성(B7 사람 출시 승인) 뒤 — 등록만으로는 실학습 풀에 들어가지 않는다
 import ann_2026_23 from './annotations/claim-support-2026-23.v1.json'
 import ann_m2609_23 from './annotations/claim-support-m2609-23.v1.json'
+import ann_2020_24 from './annotations/claim-support-2020-24.v1.json'
+import ann_2021_24 from './annotations/claim-support-2021-24.v1.json'
 import { RELATIONS, type Relation } from './claim-support-labels'
 
 export { RELATIONS, RELATION_LABEL, type Relation } from './claim-support-labels'
@@ -68,6 +70,8 @@ const ANNOTATIONS: Record<string, ClaimSupportAnnotation> = {
   [ann_m2609_20.itemId]: ann_m2609_20 as ClaimSupportAnnotation,
   [ann_2026_23.itemId]: ann_2026_23 as ClaimSupportAnnotation,
   [ann_m2609_23.itemId]: ann_m2609_23 as ClaimSupportAnnotation,
+  [ann_2020_24.itemId]: ann_2020_24 as ClaimSupportAnnotation,
+  [ann_2021_24.itemId]: ann_2021_24 as ClaimSupportAnnotation,
 }
 
 export function annotationFor(itemId: string): ClaimSupportAnnotation | null {

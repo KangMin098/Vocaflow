@@ -1,0 +1,42 @@
+{
+  "version": "claim-support-2021-24.v1",
+  "itemId": "2021#24",
+  "skeletonSig": "6e68f96eebe929d53349d7fc498f9d3f259c764ef2d1a65d470752f0bca3531a",
+  "sentenceCount": 10,
+  "claim": 0,
+  "claimRestated": [],
+  "support": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9
+  ],
+  "supportDisputed": [
+    8
+  ],
+  "opposed": [],
+  "relationProbe": {
+    "sentence": 3,
+    "relation": "example"
+  },
+  "answerAnchorOverlap": {
+    "answerAnchorSentences": [
+      0
+    ],
+    "note": "주장 문장이 정답 근거 앵커와 같은 문장이다 — 채택 조건(2023#20 보류 사유와 같은 기준). 제목 · 주제 유형(전이) 문항."
+  },
+  "provenance": {
+    "annotator": "claude-code 서브에이전트 A — 맹검(packet 만 · 다른 판정 미열람)",
+    "independentReviewer": "claude-code 서브에이전트 B — 맹검 · 서로 다른 참고 주석(Codex 미설치로 대체 — 4차와 같은 한계)",
+    "reviewerBlind": true,
+    "agreement": "주장 0(정답 앵커와 같음) 일치 · 관계 질문 3=example 일치 · 합의 뒷받침 1·2·3·4·5·6·7·9",
+    "resolved": "갈렸거나 한쪽이 불확실로 둔 8는 supportDisputed 로 채점에서 뺀다(판정 규칙 final-v1).",
+    "role": "TRANSFER — Workspace 「글의 핵심 잡기」 다른 글에 적용(확인 묶음 20번 밖 · 지도 확인 라인 대상 밖)",
+    "release": "미활성 — knowledge_applications 활성은 B7 사람 출시 승인 필요",
+    "reviewedAt": "2026-10-11"
+  }
+}

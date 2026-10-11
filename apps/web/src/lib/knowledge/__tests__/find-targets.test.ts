@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 vi.mock('server-only', () => ({}))
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: () => ({}) }))
 
-import { findTargetsOf } from '../product-server'
+import { findTargetsOf, isTransferRole } from '../product-server'
 
 describe('findTargetsOf', () => {
   it('기존 행(item 단수)은 그대로 한 문항', () => {
@@ -17,5 +17,14 @@ describe('findTargetsOf', () => {
   it('없으면 빈 목록', () => {
     expect(findTargetsOf(null)).toEqual([])
     expect(findTargetsOf({})).toEqual([])
+  })
+})
+
+describe('isTransferRole — 전이 용도 적용은 확인 문항 묶음에서 뺀다(5차)', () => {
+  it('audience.role = transfer 만 전이', () => {
+    expect(isTransferRole({ item: '2026#23', role: 'transfer' })).toBe(true)
+    expect(isTransferRole({ item: '2026#20' })).toBe(false)
+    expect(isTransferRole(null)).toBe(false)
+    expect(isTransferRole({ role: 'check' })).toBe(false)
   })
 })
