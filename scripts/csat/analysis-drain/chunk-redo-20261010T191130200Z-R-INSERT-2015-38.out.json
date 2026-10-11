@@ -1,0 +1,184 @@
+{
+ "chunk": 19,
+ "type_id": "R-INSERT",
+ "type_name": "문장 삽입",
+ "analyses": [
+  {
+   "item_id": "2015#38",
+   "measured_ability": "실험 서술에서 '결과 → 그 결과를 만든 조작 → 조작의 효과'라는 세 마디를 구분해, 앞의 this(결과)와 뒤의 By doing this(조작)를 동시에 만족시키는 자리를 찾는 능력",
+   "design_intent": "주어진 문장은 앞뒤로 동시에 걸리는 이중 고리다 — 'had made this happen'의 this는 앞에 서술된 결과(1년 만에 성체가 됨)를 받고, 'lengthening the period of daylight'는 뒤 문장 By doing this가 가리킬 조작을 대준다. 대명사 한쪽만 맞추면 ② 또는 ④가 남도록 설계됐고, 두 고리가 함께 채워지는 자리는 결과 문장과 By doing this 문장 사이 하나다.",
+   "answer_locus": {
+    "sentence_index": [
+     5,
+     6
+    ],
+    "quote": "By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once.",
+    "reasoning": "'By doing this'의 this는 연구자가 한 **조작**이어야 하는데, ③ 앞까지 서술된 것은 '15년생 약충을 사육장으로 옮겼다'와 '2년 걸릴 것이 1년 만에 나왔다'는 결과뿐이고 나무를 속일 수 있는 조작은 없다. 삽입문의 '일조 시간을 늘렸다'가 들어와야 By doing this가 가리킬 행위가 생긴다. 동시에 삽입문의 'made this happen'은 앞 문장의 '1년 만에 성체가 됨'을 받으므로 자리는 ③뿐이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "① 앞에서 연구자들이 외부 단서 가설을 제시했으므로 곧바로 연구자의 조작 설명이 올 것 같다.",
+     "how_to_reject": "① 뒤 문장이 'For their experiments they took 15-year-old nymphs ...'로 실험을 **도입**한다. 도입보다 앞에 조작 상세가 오면 순서가 뒤집히고, 삽입문의 'made this happen'이 받을 결과도 아직 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 앞당김",
+     "why_tempting": "② 앞 문장에 사육장으로 옮겼다는 조작이 나와 'made this happen'이 그 조치를 가리키는 듯 보인다.",
+     "how_to_reject": "삽입문의 'made this happen'이 받아야 할 것은 이미 일어난 결과인데, ② 앞에는 '15년생 애벌레를 사육장으로 옮겼다'는 준비만 있다. 결과는 ② 뒤 문장 'but in fact they took just one year'에서 처음 나오므로 this가 선행사보다 앞에 놓인다. 또 ② 뒤 'These nymphs'는 ② 앞 문장의 15-year-old nymphs를 받는 연결이라 끊을 이유가 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "앞쪽 대응: 주어진 문장의 The researchers had made this happen 의 this 는 ③ 앞 문장 These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year 의 결과를 받는다. 뒤쪽 대응: 주어진 문장이 lengthening the period of daylight 라는 조작을 놓아야, 뒤 문장 By doing this, the trees were “tricked” into flowering twice during the year 의 By doing this 가 가리킬 행위가 생긴다 — ③ 앞에는 나무를 속일 조작이 하나도 서술되어 있지 않다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       6
+      ],
+      "note": "문장 번호는 passage 를 처음부터 센 것으로, 1번에 주어진 문장이 붙어 있어 5=These nymphs…, 6=By doing this… 이다. 원장 결함 source_broken: 주어진 문장이 passage 첫머리에 합쳐져 있고 choices 가 위치 뒤 문장 조각이며 ⑤에 각주·쪽번호가 섞여 있다 — 정답 근거 두 줄은 지문에 온전히 있어 분석은 그 두 줄로만 세웠다. 원문 정리는 별도 작업."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "④ 앞 문장에 the trees가 나와 삽입문의 peach trees와 낱말이 맞물린다.",
+     "how_to_reject": "④ 앞 문장이 이미 'By doing this'로 시작한다. 조작 설명을 그 뒤로 미루면 By doing this가 가리킬 행위가 앞에 없어진다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 반복 유인",
+     "why_tempting": "⑤ 앞 문장의 'the sap that the insects feed on'과 삽입문의 'the insects fed'가 같은 동사 feed를 써서 두 문장이 맞물려 보인다. 겹치는 것은 소재 낱말일 뿐 기능(⑤ 앞은 개화의 효과, 삽입문은 연구자의 조작)이 다르다.",
+     "how_to_reject": "⑤ 뒤 마지막 문장은 'So it seems that the cicadas keep track of time by counting the peaks.'로 바로 앞 문장(개화와 아미노산 최고점의 일치)을 근거로 받는다. 그 사이에 조작 설명을 넣으면 So가 받을 근거가 끊긴다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "주어진 문장에서 'had made this happen'(대과거 + this)과 'by lengthening the period of daylight'(연구자가 한 일)를 표시한다 — 앞에는 이미 서술된 결과가, 뒤에는 이 조작을 받는 문장이 올 수 있다는 두 조건을 적는다",
+     "on_fail": "두 조건이 안 보이면 주어진 문장이 실험의 준비·조작·결과·해석 중 무엇을 말하는지 한 낱말로 먼저 정한다"
+    },
+    {
+     "step": "①~⑤ 사이 문장마다 준비(For their experiments…)·결과(took just one year)·조작의 효과(were “tricked”)·해석(So it seems…) 중 무엇인지 옆에 적는다",
+     "on_fail": "한 문장이 둘로 보이면 그 문장의 주어가 연구자인지 매미·나무인지, 동사가 실제로 한 행위인지 관찰된 변화인지를 따로 적어 비교한다"
+    },
+    {
+     "step": "각 위치에서 앞 문장이 this가 받을 결과를 이미 담았는지, 뒤 문장에 앞의 행위를 요구하는 표지(By doing this 등)가 있는지 두 칸으로 체크한다",
+     "on_fail": "두 칸이 다 차는 자리가 없으면 뒤 문장 표지의 지시 대상을 지문 안에서 찾아 그 대상이 실제로 앞에 있는지 다시 본다"
+    },
+    {
+     "step": "두 칸이 다 찬 자리에 넣고 앞·삽입·뒤를 이어 읽어, 이웃 위치(바로 앞·뒤 자리)에서는 어느 칸이 비는지 하나씩 확인한다",
+     "on_fail": "이웃 자리도 두 칸이 찬다고 느껴지면, 그 자리에서 뒤 문장의 지시어(These nymphs·By doing this·So)가 원래 받던 대상을 잃는지 본다"
+    }
+   ],
+   "time_budget_sec": 115,
+   "difficulty": {
+    "predicted": 0.45,
+    "drivers": [
+     "peach trees on whose roots the insects fed 관계절 이중 삽입으로 삽입문 자체가 난해하다",
+     "this가 앞뒤 두 방향으로 걸려 한쪽만 보면 ②·④로 샌다",
+     "cicada·nymph 등 소재 어휘가 낯설다"
+    ]
+   },
+   "required_vocab": [
+    "nymph",
+    "enclosure",
+    "emerge",
+    "coincides",
+    "sap",
+    "lengthening"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함 source_broken(주어진 문장 합침·선지 조각·⑤ 각주 혼입)은 학습자 칸이 아니라 confirmed_at.note 에 기록했다. 근거 두 줄은 지문에 온전해 분석을 지어낼 필요가 없다",
+      "quote 의 굽은 따옴표까지 지문과 일치"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus passage 에서 문자열 대조",
+      "정답 ③과 정답표 대조",
+      "design_intent·reasoning·why_correct 에 작업 용어(V12)가 없는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "(1차 revise) 1차: trap 라벨 '시간 순서 역행'·'지시어 선행사 부재'·'지문 표지 절단'이 위치형 표(B)에 없다 → ①시간·인과 순서 역전, ②지시어 선행사 앞당김, ⑤어휘 반복 유인으로 교체",
+      "(1차 revise) ⑤ why_tempting 이 겹침 낱말의 기능 차이를 말하지 않아 보강",
+      "재검: 라벨 4종 모두 (B) 표 안, 라벨과 how_to_reject 방향 일치(②는 this 가 선행사보다 앞, ④는 By doing this 의 선행 행위가 뒤로 밀림)"
+     ],
+     "checked": [
+      "다섯 선지 trap 을 _PROMPT §1-b (B) 표와 대조",
+      "선지별 why_tempting 이 서로 다른 단서(사육장 이동·the trees·feed)를 쓰는지 확인",
+      "수정한 trap·why_tempting·how_to_reject 재대조",
+      "같은 오류가 why_correct·design_intent 에 남지 않았는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "(1차 revise) 1차: 옛 절차 3단계가 '결과 문장 바로 뒤'를 조건 없이 강제하고 2단계 on_fail 이 '주어가 연구자면 조작'이라는 일반 규칙을 썼다(the trees were tricked 는 대상 주어지만 조작의 효과) → 두 칸 체크와 이웃 위치 확인으로 바꿈",
+      "재검: 각 단계가 이 지문의 표지(had made this happen·By doing this·These nymphs·So)로 실행 가능, 순환 표현 없음"
+     ],
+     "checked": [
+      "solve_procedure 4단계 지문 미독 모의 실행",
+      "on_fail 문장 중복 여부",
+      "금지 표현 문자열 검사",
+      "required_vocab 6개가 지문에 있는지 대조",
+      "design_intent 의 '이중 고리'와 절차 3단계 두 칸 체크가 같은 기준인지 대조"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-INSERT",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "어휘 반복 유인",
+    "count": 1,
+    "signature": "⑤ 앞 the sap that the insects feed on 이 삽입문 the insects fed 와 겹치지만 기능이 다르다"
+   },
+   {
+    "trap": "지시어 선행사 앞당김",
+    "count": 1,
+    "signature": "this 가 받을 결과보다 앞에 삽입"
+   },
+   {
+    "trap": "지시어 선행사 절단",
+    "count": 1,
+    "signature": "By doing this 가 가리킬 조작이 뒤로 밀림"
+   },
+   {
+    "trap": "시간·인과 순서 역전",
+    "count": 1,
+    "signature": "실험 도입보다 조작 상세가 앞섬"
+   }
+  ],
+  "answer_locus_pattern": "1문항: 정답이 앞 문장(결과)과 뒤 문장(By doing this) 두 줄의 교집합으로 확정된다. 각 함정은 한 번만 셌다.",
+  "procedure": [
+   "주어진 문장의 지시어(앞 조건)와 새로 놓는 행위(뒤 조건)를 따로 적는다",
+   "위치마다 앞·뒤 두 칸 체크",
+   "이웃 위치에서 어느 칸이 비는지 확인"
+  ],
+  "failure_modes": [
+   "this 한쪽만 맞춰 ②·④로 새는 것",
+   "feed 낱말 겹침으로 ⑤를 고르는 것"
+  ],
+  "time_budget_sec": 115,
+  "open_questions": [
+   "이 문항은 입력 원문이 깨져 있다(주어진 문장이 passage 첫머리에 합쳐짐, 선지가 문장 조각, ⑤에 각주·쪽번호). 원문 정리 후 재검 필요",
+   "표본 1문항이라 유형 일반화 불가"
+  ]
+ }
+}

@@ -1,0 +1,196 @@
+{
+ "chunk": 17,
+ "type_id": "R-GIST",
+ "type_name": "요지",
+ "analyses": [
+  {
+   "item_id": "2015#18",
+   "measured_ability": "That's why · Thus 같은 귀결 표지를 세어 명제 문장을 골라내고, 비유(volcanic ash)와 학자 인용을 근거에서 제외하는 능력. 앞부분에 깔린 경영 소재어(companies, professionals, team)가 화제일 뿐 결론이 아님을 마지막 문장으로 확정하는 능력",
+   "design_intent": "글은 기업·전문가·팀이라는 경영 소재(2·3번 문장)로 문을 열고, 4번 문장(회복 능력이 중요하다)과 8번 문장(성취의 핵심은 저점에서 되돌아오는 것)으로 '실패 후 빠른 회복'이라는 일반 명제를 닫는다. 정답 ⑤는 8번 문장의 low points를 '실패'로, high achievement를 '성공'으로 추상화하고 4번 문장의 quickly를 '빨리'로 옮긴 환언이다. ①②는 앞부분 소재어(companies·professionals, Troubles·scholar)를 재사용하고, ④는 결론의 서술부(성공)만 가져가 주어부를 지문에 없는 '인간 관계'로 바꾼다. ③은 지문과 소재가 겹치지 않는 선지다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     8
+    ],
+    "quote": "Thus, a key factor in high achievement is bouncing back from the low points.",
+    "reasoning": "Thus 로 열리는 마지막 문장이 'A는 B다' 꼴의 완결 등식이라, 주어부 bouncing back from the low points(실패에서 되돌아오는 것)와 서술부 a key factor in high achievement(성공의 열쇠)가 한 문장에서 모두 확인된다. 정답 선지의 수식어 '빨리'만 이 문장에 없고 4번 문장 the ability to recover quickly is so important 가 보충하므로, 두 문장을 함께 근거로 잡았다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "2번 문장에 the best companies and most accomplished professionals 가 그대로 있어 '일류 기업'과 '전문화'가 지문 낱말처럼 보인다",
+     "how_to_reject": "2번 문장의 술어는 long track records of success are punctuated by slips, slides, and mini-turnarounds 이다 — 최고 기업도 미끄러진다는 양보 예시이지 일류 기업의 조건을 말하는 문장이 아니다. 이 문장은 Even for 로 열려 예시임이 표시돼 있다"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "5번 문장의 Troubles are ubiquitous 가 '위기'로, 7번 문장의 one prominent scholar 가 '전문가'로 각각 대응해 보여 두 낱말이 다 지문에 있는 것처럼 읽힌다",
+     "how_to_reject": "7번 문장에서 학자는 조언자가 아니라 인용문(Anything can look like a failure in the middle)의 출처로만 등장한다. 지문 여덟 문장 어디에도 조언을 구하라거나 도움을 받으라는 술어가 없다"
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "요지형 한국어 선지는 대개 격언 꼴이라, 그 자체로 옳은 말처럼 보이면 지문을 대조하지 않고 고르는 일이 생긴다",
+     "how_to_reject": "선지의 핵심 명사 셋(소비·필요·욕구)에 대응하는 표현이 지문 여덟 문장(1~8번)에 하나도 없다. 8번 문장의 결론(저점에서 되돌아오기)과 화제부터 다르므로 소재 대조 한 번으로 걸러진다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "'성공'이 지문의 success·high achievement 와 곧바로 대응해 서술부 절반이 맞아 보이고, winners 라는 낱말이 첫 문장에 있어 성공 담론이라는 인상을 준다",
+     "how_to_reject": "마지막 문장에서 high achievement 에 붙은 요인은 bouncing back from the low points 하나뿐이다. '인간 관계'에 대응하는 표현(relationship, network, people)이 지문에 없다 — 명사 절반만 맞고 나머지 절반과 서술어가 지문에 없는 형태다"
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "마지막 문장 'a key factor in high achievement is bouncing back from the low points' 의 두 항이 선지 ⑤ '실패를 빨리 극복하는 것이 성공의 열쇠이다.' 의 두 항과 자리만 바꿔 대응한다 — 'bouncing back from the low points'=실패를 극복하는 것, 'a key factor in high achievement'=성공의 열쇠. 선지에만 있는 수식어 '빨리'는 4번 문장 'the ability to recover quickly is so important' 의 'quickly' 가 채운다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯을 '주어부(무엇이) / 서술부(무엇이다)'로 나눠 적는다 — 서술부가 겹치는 선지끼리는 주어부에서 갈린다",
+     "on_fail": "공유 낱말이 없으면 각 선지의 주어부만 다섯 줄로 적는다"
+    },
+    {
+     "step": "지문에서 That's why · Thus · So 같은 귀결 표지로 시작하는 문장을 찾아 번호를 적는다 — 이 지문에서는 4·7·8번 문장이 해당하며, 요지 후보로 먼저 검토한다(표지 없는 문장이 요지인 글도 있으므로 후보를 좁히는 출발점일 뿐이다)",
+     "on_fail": "표지가 하나도 없으면 사례(Even for·for example) 뒤에서 그 사례들을 묶어 일반화하는 문장을 찾는다"
+    },
+    {
+     "step": "큰따옴표 인용과 직유(like ~)가 든 문장을 괄호로 묶어 후보에서 뺀다",
+     "on_fail": "인용이 결론처럼 보이면 그 인용을 소개한 주어가 필자인지 타인인지(one prominent scholar said) 확인한다"
+    },
+    {
+     "step": "남은 귀결 문장에서 'A는 B다' 꼴로 주어와 보어를 뽑아 한국어 두 낱말로 적는다",
+     "on_fail": "주어가 동명사면 그 회복이 무엇으로부터의 회복인지(from the low points) 함께 적는다"
+    },
+    {
+     "step": "4단계에서 적은 두 낱말이 주어부와 서술부 양쪽에 다 들어 있는 선지 하나를 고른다",
+     "on_fail": "둘이 남으면 그 선지의 명사가 Even for 로 열린 예시 문장(2·3번)에서만 나온 것인지 확인해 그쪽을 버린다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.92,
+    "drivers": [
+     "결론이 Thus 로 표지된 완결 등식 문장이라 근거 위치가 노출돼 있다",
+     "오답 하나(③)는 소재조차 겹치지 않아 사실상 3지선다로 줄어든다",
+     "문장이 짧고 종속 구조가 얕다"
+    ]
+   },
+   "required_vocab": [
+    "punctuated",
+    "lag behind",
+    "ubiquitous",
+    "prominent",
+    "bouncing back"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안은 answer_locus 를 4번 문장 'That's why the ability to recover quickly is so important.' 하나로 잡았다 — 반려했다. 그 문장은 '중요하다'까지만 말하고 정답 선지의 서술부 '성공의 열쇠'를 담지 않아 ①②④를 배제하지 못한다",
+      "8번 문장(Thus, a key factor in high achievement is bouncing back from the low points.)으로 인용을 교체하고, 수식어 '빨리'의 출처로 4번 문장을 reasoning 에 남겼다(revised)",
+      "교체한 인용을 코퍼스 지문에서 문자열로 다시 대조했다",
+      "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다.",
+      "2026-10-11 교정: 원장 결함 2건 반영 — ③ how_to_reject 의 작업 용어 제거, 문장 번호를 1기준(4·8번)으로 design_intent·transform_note·reasoning·절차에 통일"
+     ],
+     "checked": [
+      "quote 를 corpus.json 2015#18 passage 에 문자열 대조",
+      "인용 문장 하나가 정답 선지의 주어부·서술부를 모두 확정하는지 성분별 확인",
+      "교체 전후 인용의 배제력 비교(오답 ①②④에 대해)",
+      "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+      "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인",
+      "design_intent·transform_note·reasoning 의 문장 번호가 모두 1기준 4·8번인지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "라벨 4종이 서로 다르다(부분 사실·지문 밖 상식·무관·어휘 함정)",
+      "③은 이 유형 누적 관찰에서 처음 나온 '소재어가 하나도 겹치지 않는 오답'이다 — 앞 청크의 '오답 36/36 이 지문 소재어를 포함한다'에 대한 반례로 type_report 에 등재했다",
+      "④의 배제 근거를 '성공은 겹치지만 인간 관계에 대응 표현이 없다'로 명시해 명사 절반 일치 형태임을 드러냈다",
+      "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다.",
+      "2026-10-11 교정: 원장 결함 2건 반영 — ③ how_to_reject 의 작업 용어 제거, 문장 번호를 1기준(4·8번)으로 design_intent·transform_note·reasoning·절차에 통일"
+     ],
+     "checked": [
+      "오답 4개의 소재어가 지문에 대응하는지 낱말 단위로 대조(③에서 소비·필요·욕구 세 낱말 모두 부재 확인)",
+      "trap 라벨 중복 확인",
+      "how_to_reject 마다 문장 번호 표기 확인",
+      "why_correct 에 소거법 서술이 없는지",
+      "오답 선지 필드 불변 확인",
+      "정답표 answer 와 correct 선지 번호 재대조",
+      "③ how_to_reject 에 작업 용어가 남지 않았는지, 다른 선지 how_to_reject 와 문장이 겹치지 않는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계(That's why·Thus 찾기)가 이 지문에서 세 문장을 잡아 주고 3단계가 그중 인용 문장을 걸러 내므로, 학생이 표지만으로 후보를 두 개로 줄일 수 있다",
+      "70초 배분이 충분하다 — 표지 찾기 15초, 인용 괄호 10초, 낱말 적기 15초, 대조 20초",
+      "required_vocab 다섯이 모두 판단에 쓰인다(punctuated·lag behind 는 예시 문장을 예시로 알아보는 데, ubiquitous·prominent 는 오답 ②의 미끼를 알아보는 데, bouncing back 은 정답 대조에)",
+      "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다.",
+      "2026-10-11 교정: 원장 결함 2건 반영 — ③ how_to_reject 의 작업 용어 제거, 문장 번호를 1기준(4·8번)으로 design_intent·transform_note·reasoning·절차에 통일"
+     ],
+     "checked": [
+      "절차만으로 정답 도달 재현",
+      "금지 표현 목록 대조",
+      "required_vocab 이 지문에 실제로 있는지 문자열 확인",
+      "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+      "solve_procedure 불변 확인",
+      "2단계를 '후보 출발점'으로 완화해 무조건 규칙이 남지 않았는지, on_fail 이 단계마다 다른지 대조"
+     ]
+    }
+   ],
+   "transform_note": "8번 문장 bouncing back from the low points → '실패를 극복하는 것' · 8번 문장 a key factor in high achievement → '성공의 열쇠' · 4번 문장 recover quickly → '빨리'"
+  }
+ ],
+ "type_report": {
+  "type_id": "R-GIST",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "부분 사실",
+    "count": 1,
+    "signature": "앞부분 예시 문장의 소재어(일류 기업·전문가)를 그대로 가져온다"
+   },
+   {
+    "trap": "지문 밖 상식",
+    "count": 1,
+    "signature": "지문 낱말(위기·학자)에 지문에 없는 술어(조언이 필요)를 붙인다"
+   },
+   {
+    "trap": "무관",
+    "count": 1,
+    "signature": "소재가 겹치지 않는 격언형 선지"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 1,
+    "signature": "서술부(성공)만 맞고 주어부를 바꾼다"
+   }
+  ],
+  "answer_locus_pattern": "1문항: 귀결 표지(Thus) 마지막 문장 + 수식어를 보충하는 That's why 문장, 두 문장 근거",
+  "procedure": [
+   "선지를 주어부/서술부로 나눈다",
+   "귀결 표지 문장을 후보로 찾고 인용·직유 문장을 뺀다",
+   "후보 문장의 주어·보어를 우리말 두 낱말로 옮겨 선지 양쪽과 대조한다"
+  ],
+  "failure_modes": [
+   "예시 문장의 소재어(기업·전문가)를 요지로 착각",
+   "서술부 '성공'만 보고 주어부 확인 생략"
+  ],
+  "time_budget_sec": 70,
+  "open_questions": [
+   "각 함정은 한 번씩만 셌다(1문항).",
+   "3인 검수가 모두 pass — 원장 결함(작업 용어·번호 기준)은 외부 감사가 잡았고 자체 검수는 못 잡았다. 자체 검수 자에 '학습자 칸 작업 용어'와 '필드 간 번호 기준 일치' 항목이 필요하다."
+  ]
+ }
+}

@@ -1,7 +1,7 @@
 {
- "built_at": "2026-10-01",
+ "built_at": "2026-10-10",
  "per_trap": 120,
- "eligible": 1934,
+ "eligible": 1920,
  "cards": [
   {
    "id": "2014A#23:4",
@@ -134,25 +134,6 @@
     "주체 역전",
     "반대 진술",
     "무관"
-   ]
-  },
-  {
-   "id": "2014A#29:3",
-   "item_id": "2014A#29",
-   "slug": "2014A-29",
-   "exam_label": "2014학년도 수능 A형",
-   "no": 29,
-   "type_id": "R-NOTICE",
-   "type_name": "안내문 일치",
-   "choice": 3,
-   "tempting": "박물관은 월요일에 쉰다는 통념이 강해, 휴관 주기를 안내문에서 확인하지 않고 '매주 월요일'을 참으로 받아들인다.",
-   "reject": "Hours 에 별표(*)가 붙어 각주가 딸려 있고 그 각주는 'month.'로 끝난다 — 휴관 주기가 달(month) 단위로 걸려 있으므로 '매주'와 다르다. 각주 문장 전체가 인쇄면에서 잘려 있으면 이 선지는 근거로 확정하지 말고 다른 선지에서 참인 것을 찾는 쪽으로 간다.",
-   "answer": "지문 밖 상식",
-   "options": [
-    "지문 밖 상식",
-    "범위 과대",
-    "어휘 함정",
-    "부분 사실"
    ]
   },
   {
@@ -308,25 +289,6 @@
    ]
   },
   {
-   "id": "2014A#35:5",
-   "item_id": "2014A#35",
-   "slug": "2014A-35",
-   "exam_label": "2014학년도 수능 A형",
-   "no": 35,
-   "type_id": "R-BLANK",
-   "type_name": "빈칸 추론",
-   "choice": 5,
-   "tempting": "2문장의 listening to the voice of the customer 를 그대로 담아 문단의 결론처럼 읽힌다.",
-   "reject": "지문의 순서는 회사가 듣는다(2문장) → 상충하는 요청 → 무가치한 기능(마지막 문장)이다. ⑤는 그 끝을 원인 자리로 옮겨 요청안이 청취를 멈추게 한다고 적는다.",
-   "answer": "인과 역전",
-   "options": [
-    "인과 역전",
-    "무관",
-    "반대 진술",
-    "어휘 함정"
-   ]
-  },
-  {
    "id": "2014A#36:1",
    "item_id": "2014A#36",
    "slug": "2014A-36",
@@ -336,51 +298,13 @@
    "type_name": "빈칸 추론(2개·폐지)",
    "choice": 1,
    "tempting": "(A)가 정답과 같은 For example 이라 앞 칸만 맞히면 그대로 고르게 된다. (B) 앞 문장 'They are also good at managing what others think about them.' 을 원인으로 삼아 다음 문장을 결과로 읽으면 As a result 도 이어지는 듯 보인다.",
-   "reject": "(B) 빈칸 다음 주어가 'those who have low self-monitoring' 으로 서술 대상이 바뀐다. 결과절이라면 앞 문장의 주어(높은 자기감시 집단)에 대한 서술이 이어져야 하는데, 뒤 문장은 그 집단이 아니라 반대 집단을 소개한다.",
+   "reject": "6번째 문장(빈칸 (B) 문장)의 주어가 'those who have low self-monitoring' 으로 바뀐다. As a result 라면 5번째 문장 'They are also good at managing what others think about them.' 의 주어(high 집단)에 생기는 결과가 이어져야 하는데, 뒤 문장은 반대 집단의 성향을 새로 소개한다. (A)의 For example 은 맞으므로 (B) 칸을 따로 확인해야 걸러진다.",
    "answer": "부분 사실",
    "options": [
-    "어휘 함정",
-    "부분 사실",
-    "반대 진술",
-    "무관"
-   ]
-  },
-  {
-   "id": "2014A#36:4",
-   "item_id": "2014A#36",
-   "slug": "2014A-36",
-   "exam_label": "2014학년도 수능 A형",
-   "no": 36,
-   "type_id": "R-BLANK2",
-   "type_name": "빈칸 추론(2개·폐지)",
-   "choice": 4,
-   "tempting": "(B)가 정답과 같은 In contrast 라 뒤 칸만 맞히면 고르게 된다. (A)의 Meanwhile 도 '한편'으로 옮기면 문장 사이를 느슨하게 이어 주는 듯 들린다.",
-   "reject": "Meanwhile 은 서로 다른 두 사건·대상을 동시에 놓을 때 쓴다. (A) 빈칸 문장은 앞 문장과 다른 대상을 다루는 것이 아니라 같은 집단(they)의 같은 행동을 회의 장면으로 좁힌 것이고, 8번 문장이 같은 틀에 For example 을 붙여 그 기능을 확인해 준다.",
-   "answer": "무관",
-   "options": [
     "무관",
     "부분 사실",
-    "어휘 함정",
-    "반대 진술"
-   ]
-  },
-  {
-   "id": "2014A#36:5",
-   "item_id": "2014A#36",
-   "slug": "2014A-36",
-   "exam_label": "2014학년도 수능 A형",
-   "no": 36,
-   "type_id": "R-BLANK2",
-   "type_name": "빈칸 추론(2개·폐지)",
-   "choice": 5,
-   "tempting": "Nevertheless 도 대비를 나타내므로 두 집단이 갈리는 (B) 자리에 맞아 보인다.",
-   "reject": "Nevertheless 는 앞 진술을 인정한 뒤 그럼에도 성립하는 반대 결과를 잇는 양보 표지다. (B) 앞뒤는 'high self-monitoring 은 이렇다 / low self-monitoring 은 저렇다' 로 대상이 다른 병치이지, 앞 진술에도 불구하고 뒤가 성립한다는 관계가 아니다. (A)의 Meanwhile 은 ④와 같은 이유로 배제된다.",
-   "answer": "반대 진술",
-   "options": [
     "반대 진술",
-    "어휘 함정",
-    "무관",
-    "부분 사실"
+    "어휘 함정"
    ]
   },
   {
@@ -392,8 +316,8 @@
    "type_id": "R-MOOD",
    "type_name": "심경·분위기",
    "choice": 1,
-   "tempting": "지문에 지루함의 신호가 분명히 있다 — I do not feel like going today, She was eating slower than usual, She slowly pulled on her sweater. 감정을 누구에게 물었는지 고정하지 않으면 이 신호들이 답으로 넘어온다.",
-   "reject": "그 세 신호의 주어는 모두 Lily(She)다. 발문은 필자의 심경을 묻고, 필자를 주어로 한 감정 문장은 I started losing my patience 하나뿐이다.",
+   "tempting": "3번 문장 Lily의 'I don’t feel like going today'와 5번 문장의 평소보다 천천히 먹는 모습이 지루함·싫증으로 읽혀, 그 감정을 필자의 것으로 옮기면 bored가 끌린다.",
+   "reject": "지루해 보이는 쪽은 딸이다. 필자는 6번 문장 'I urged her'·8번 문장 'pointed at my watch'로 서두르고 있어 지루함과 반대로 조급해 있다.",
    "answer": "주체 역전",
    "options": [
     "부분 사실",
@@ -411,13 +335,13 @@
    "type_id": "R-MOOD",
    "type_name": "심경·분위기",
    "choice": 3,
-   "tempting": "Ms. Green, the charity president, was preparing this monthly event by herself 를 보고 혼자 다 해내는 사람에 대한 부러움을 떠올리면 envious 가 붙는다.",
-   "reject": "그 문장은 화자가 제때 가야 하는 이유로 제시될 뿐 비교나 선망을 나타내는 표현이 없다. 화자가 Ms. Green 을 다시 부르는 자리도 Ms. Green has a lot of work to do 로, 도와야 할 사정을 딸에게 설명하는 맥락이다.",
-   "answer": "지문 밖 상식",
+   "tempting": "2번 문장에서 Ms. Green이 혼자 행사를 준비한다는 대목에 다른 인물이 등장하므로 그 인물과 비교하는 감정을 떠올리면 envious에 닿을 수 있다.",
+   "reject": "Ms. Green은 11번 문장 'has a lot of work to do'로 도와야 할 대상으로만 나온다. 필자가 누군가의 처지를 부러워하는 표현은 1~13번 어디에도 없다.",
+   "answer": "무관",
    "options": [
     "부분 사실",
     "어휘 함정",
-    "지문 밖 상식",
+    "무관",
     "반대 진술"
    ]
   },
@@ -430,8 +354,8 @@
    "type_id": "R-MOOD",
    "type_name": "심경·분위기",
    "choice": 4,
-   "tempting": "화자가 딸을 재촉하는 장면만 보면 감정 없이 일정만 챙기는 것처럼 보이고, I stood by the door and pointed at my watch 라는 동작이 말없이 담담한 태도로 읽힌다.",
-   "reject": "마지막 문장 My voice was growing louder with each sentence 가 감정이 커지는 중임을 말한다. 무관심은 목소리가 커지는 것과 양립하지 않는다.",
+   "tempting": "9번 문장 딸의 'I still don’t feel like going'처럼 행사에 무심한 태도가 반복되어, 그 무관심을 장면 전체의 분위기로 받아들이면 indifferent가 끌린다.",
+   "reject": "필자는 12번 문장 'It’s time you started thinking about other people'이라며 행사와 남의 사정에 강하게 관여한다. 무관심은 필자 상태와 정반대다.",
    "answer": "반대 진술",
    "options": [
     "반대 진술",
@@ -449,12 +373,12 @@
    "type_id": "R-MOOD",
    "type_name": "심경·분위기",
    "choice": 5,
-   "tempting": "volunteered, charity picnic, promised to help 처럼 긍정적 인상의 소재어가 앞부분에 몰려 있어 소재의 인상을 화자의 감정으로 옮기면 delighted 가 된다. (선지 끝의 8 은 인쇄 기호가 섞여 들어온 것이므로 판정에 쓰지 않는다.)",
-   "reject": "소재어는 화자가 무엇을 하러 가는지를 말할 뿐이다. 화자의 감정을 말한 자리는 I started losing my patience 와 목소리가 커진다는 마지막 문장이고 둘 다 부정 방향이다.",
-   "answer": "어휘 함정",
+   "tempting": "1번 문장 'I had volunteered for the charity picnic'의 자원봉사라는 긍정적 소재만 보면 기쁜 마음을 떠올리기 쉽다.",
+   "reject": "자원봉사는 배경일 뿐이고, 10번 'losing my patience'·13번 'voice was growing louder'로 부정적 감정이 커진다. delighted는 극성이 반대다.",
+   "answer": "반대 진술",
    "options": [
-    "반대 진술",
     "어휘 함정",
+    "반대 진술",
     "지문 밖 상식",
     "부분 사실"
    ]
@@ -469,7 +393,7 @@
    "type_name": "장문 제목",
    "choice": 2,
    "tempting": "넷째 문장에 'moved to a team' 이 있고 야구가 단체 경기라 협업 이야기로 읽힌다.",
-   "reject": "team 은 선수가 옮겨 가는 장소로 한 번 쓰였을 뿐이고, 동료·협력·역할을 말하는 문장이 지문에 없다. 여덟·아홉째 문장의 주어는 내내 you 와 your brain 이다.",
+   "reject": "team 은 4번 문장에서 선수가 옮겨 가는 곳으로 한 번 나올 뿐이고, 동료·협력을 말하는 문장이 없다. 8·9번 문장의 주어는 you 와 your brain 이고 12~14번은 독자 개인에게 명령한다.",
    "answer": "무관",
    "options": [
     "범위 과소",
@@ -488,7 +412,7 @@
    "type_name": "장문 제목",
    "choice": 3,
    "tempting": "다섯째 문장 'One analysis found that the player hit 60 percent more home runs' 와 넷째 문장의 28 percent 가 수치를 주어 통계 이야기로 보인다.",
-   "reject": "그 분석은 곧바로 여섯째 문장 'Why?' 로 설명 대상이 되고, 일곱째 문장이 답을 통계의 필요성이 아니라 'how achievable you think the goal is' 로 준다. 통계가 필요한지를 묻거나 답하는 문장은 지문에 없다.",
+   "reject": "5번 문장의 분석 결과는 6번 'Why?' 로 설명 대상이 되고, 7번이 그 답을 통계가 아니라 'how achievable you think the goal is' 로 준다. 통계가 필요한지 묻거나 답하는 문장은 없다.",
    "answer": "부분 사실",
    "options": [
     "무관",
@@ -506,8 +430,8 @@
    "type_id": "X-TITLE",
    "type_name": "장문 제목",
    "choice": 4,
-   "tempting": "넷째·다섯째 문장이 '조건 좋은 구장을 쓰는 팀으로 옮긴 선수가 홈런을 60퍼센트 더 쳤다'는 사실을 주므로, 팀을 옮기라는 처방이 자연스러운 결론처럼 보인다.",
-   "reject": "열한째 문장이 원인을 뒤집는다 — 'what matters is not the actual distance to the fence but what our brains recognize that distance to be'. 옮긴 것 자체가 아니라 그로 인해 달라진 인식이 원인이고, 마지막 문장의 처방도 팀 이동이 아니라 담장 조정이다.",
+   "tempting": "4·5번 문장이 '조건 좋은 구장의 팀으로 옮긴 선수가 홈런을 60퍼센트 더 쳤다'를 주므로 'Change Your Team' 이라는 처방이 결론처럼 보인다.",
+   "reject": "11번 문장이 원인을 'not the actual distance to the fence but what our brains recognize' 로 바로잡는다 — 팀 이동 자체가 아니라 그로 인해 달라진 인식이 원인이다. 14번의 처방도 팀을 바꾸라가 아니라 담장(인식)을 조정하라이다.",
    "answer": "인과 역전",
    "options": [
     "어휘 함정",
@@ -525,8 +449,8 @@
    "type_id": "X-TITLE",
    "type_name": "장문 제목",
    "choice": 5,
-   "tempting": "둘째·셋째 문장이 크기와 바람·습도를 나란히 놓아 그 비교가 글의 뼈대처럼 보이고, 선지가 지문 낱말(park conditions, size, wind)만으로 이루어져 있다.",
-   "reject": "그 두 문장은 '구장 조건이 서로 다르다'는 전제를 세우고 곧 넷째 문장의 물음으로 넘어갈 뿐, 크기와 바람 중 무엇이 더 중요한지 견주는 문장이 없다. 열두째 문장부터는 주어가 your work and your current life 로 바뀐다.",
+   "tempting": "2·3번 문장이 크기(size)와 바람(wind)·습도를 나란히 놓아 비교가 글의 뼈대처럼 보이고, 선지가 지문 낱말(park conditions, size, wind)로만 이루어져 있다.",
+   "reject": "2·3번 문장은 '구장 조건이 다르다'는 전제만 세우고 4번 물음으로 넘어간다. 크기와 바람 중 무엇이 더 중요한지 견주는 문장은 없고, 12번부터 대상이 your work and your current life 로 바뀌어 구장 조건은 글 전체의 일부만 덮는다.",
    "answer": "범위 과소",
    "options": [
     "반대 진술",
@@ -544,14 +468,14 @@
    "type_id": "X-BLANK",
    "type_name": "장문 빈칸(1개·폐지)",
    "choice": 1,
-   "tempting": "홈런은 힘과 실력의 문제라는 인상이 강하고, 1~3문장이 구장 조건이라는 실제 요인을 길게 다루어 실체 쪽 선지가 지지를 받는 것처럼 보인다.",
-   "reject": "11문장이 what matters is not the actual distance ... but what our brains recognize 로 실체 쪽을 명시적으로 부정한다. 4·5문장도 같은 선수가 구장만 바뀌어 홈런이 60퍼센트 늘었다고 해서 실력 변화가 원인이 아님을 이미 막아 둔다.",
-   "answer": "반대 진술",
+   "tempting": "홈런 수는 타자의 힘·실력(strengths)이 정한다는 야구 상식이 강해, '스윙 여부를 좌우하는 우리의 무엇'이라는 빈칸 자리에 능력 낱말이 자연스럽게 들어가 보인다. 지문의 사실은 놔두고 원인 성분만 '인식'에서 '실제 능력'으로 바꾼 선지다.",
+   "reject": "4·5문장은 같은 선수가 구장만 바뀌었는데 홈런이 60퍼센트 늘었다고 해, 선수의 실력은 그대로인 채 결과가 달라졌음을 보인다. 7문장은 원인을 how achievable you think the goal is 로 지정하고, 11문장은 not the actual distance ... but what our brains recognize 로 실제 조건 대신 인식을 택한다. 실력이 원인이라는 진술은 지문 어디에도 없다.",
+   "answer": "지문 밖 상식",
    "options": [
     "무관",
     "어휘 함정",
-    "반대 진술",
-    "지문 밖 상식"
+    "지문 밖 상식",
+    "반대 진술"
    ]
   },
   {
@@ -567,10 +491,10 @@
    "reject": "소득·보수·돈을 가리키는 낱말이 지문에 한 번도 없다. 빈칸 문장의 술어는 whether we swing for the fences 로 시도 여부를 좌우하는 항을 요구하는데, 11문장이 그 항을 뇌의 인식으로 지정한다.",
    "answer": "무관",
    "options": [
-    "지문 밖 상식",
+    "반대 진술",
     "어휘 함정",
     "무관",
-    "반대 진술"
+    "지문 밖 상식"
    ]
   },
   {
@@ -593,6 +517,25 @@
    ]
   },
   {
+   "id": "2014A#42:5",
+   "item_id": "2014A#42",
+   "slug": "2014A-42",
+   "exam_label": "2014학년도 수능 A형",
+   "no": 42,
+   "type_id": "X-BLANK",
+   "type_name": "장문 빈칸(1개·폐지)",
+   "choice": 5,
+   "tempting": "13문장 Do the fences seem too far away 와 14문장 so that it seems easier 에 seem 이 두 번 나와, 겉으로 보이는 것이라는 낱말이 지문에 근거를 둔 것처럼 읽힌다.",
+   "reject": "13·14문장의 seem 은 본인에게 그렇게 느껴진다는 뜻이고 판단의 주체가 자신이다. 11문장이 그 자리를 our brains recognize 로 못 박으므로 빈칸은 남에게 보이는 외양이 아니라 본인의 인식이다.",
+   "answer": "어휘 함정",
+   "options": [
+    "반대 진술",
+    "지문 밖 상식",
+    "어휘 함정",
+    "무관"
+   ]
+  },
+  {
    "id": "2014A#45:1",
    "item_id": "2014A#45",
    "slug": "2014A-45",
@@ -606,8 +549,8 @@
    "answer": "주체 역전",
    "options": [
     "어휘 함정",
-    "단락 순서 교란",
     "부분 사실",
+    "단락 순서 교란",
     "주체 역전"
    ]
   },
@@ -626,7 +569,7 @@
    "options": [
     "어휘 함정",
     "범위 과대",
-    "부분 사실",
+    "단락 순서 교란",
     "주체 역전"
    ]
   },
@@ -685,6 +628,25 @@
     "무관",
     "부분 사실",
     "어휘 함정"
+   ]
+  },
+  {
+   "id": "2014B#24:3",
+   "item_id": "2014B#24",
+   "slug": "2014B-24",
+   "exam_label": "2014학년도 수능 B형",
+   "no": 24,
+   "type_id": "R-TOPIC",
+   "type_name": "주제",
+   "choice": 3,
+   "tempting": "children’s independence 라는 목적이 지문과 맞고, supervision 은 authority 와 뜻이 이웃해 보인다. 목적 칸이 정답과 같아서 마지막까지 남는 선지다.",
+   "reject": "지문의 동사는 일관되게 communicate 다 — 둘째 문장 communicate that authority, 여섯째 문장 cannot communicate security to their child. 감독(supervision)에 해당하는 낱말은 없고, 첫 문장은 오히려 the control of his parents 에서 벗어나는 것을 목표로 둔다. 곧 수단 칸의 낱말이 바뀐 선지다.",
+   "answer": "어휘 함정",
+   "options": [
+    "부분 사실",
+    "반대 진술",
+    "어휘 함정",
+    "무관"
    ]
   },
   {
@@ -753,147 +715,14 @@
    "type_id": "R-REFER",
    "type_name": "지칭 추론(단문·폐지)",
    "choice": 3,
-   "tempting": "9번 문장의 주체가 My friend 이고 her heart was touched 의 her 도 친구이므로, 같은 문장 뒤쪽 명사구까지 친구 쪽으로 붙여 읽게 된다.",
-   "reject": "9번 문장에서 the distressed mother 는 compassion for 의 목적어다 — 동정을 느낀 주체는 친구, 그 대상은 바로 앞에 나온 the woman's woeful story 의 주인이다. 딸이 혼자 비행기에 있다고 우는 사람이 그 어머니이므로 대상은 여인이다.",
+   "tempting": "10번 문장의 주어가 My friend 이고 her heart was touched 의 her 도 친구라, 같은 문장 끝의 명사구까지 친구 쪽으로 붙여 읽게 된다.",
+   "reject": "10번 문장에서 the distressed mother 는 compassion for 의 목적어다 — 연민을 느끼는 쪽(친구의 heart)과 받는 쪽이 for 로 갈린다. mother 라는 말은 6번 문장의 딸 이야기를 한 사람에게만 맞고, 같은 문장 앞의 the woman’s woeful story 가 그 사람을 이미 the woman 으로 불렀다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
     "반대 진술",
-    "어휘 함정",
-    "주체 역전"
-   ]
-  },
-  {
-   "id": "2014B#28:1",
-   "item_id": "2014B#28",
-   "slug": "2014B-28",
-   "exam_label": "2014학년도 수능 B형",
-   "no": 28,
-   "type_id": "R-VOCAB",
-   "type_name": "어휘(문맥)",
-   "choice": 1,
-   "tempting": "pressure 를 일상 의미 '압박'으로만 읽으면 '식물이 겪는 압박을 바꾸었다'가 어색하게 들리고, 바로 앞 문장의 protecting(보호)과 충돌하는 듯 느껴진다.",
-   "reject": "같은 2번 문장의 as 절 'as they no longer had to survive in a natural environment' 와 다음 3번 문장 'selected for other characteristics than nature previously had' 가 '선택하는 쪽이 자연에서 사람으로 바뀌었다'를 말한다. 바뀐 것은 곧 선택압이므로 changed the evolutionary pressure 가 성립한다.",
-   "answer": "어휘 함정",
-   "options": [
-    "지문 밖 상식",
-    "어휘 함정",
-    "인과 역전",
-    "주체 역전"
-   ]
-  },
-  {
-   "id": "2014B#28:3",
-   "item_id": "2014B#28",
-   "slug": "2014B-28",
-   "exam_label": "2014학년도 수능 B형",
-   "no": 28,
-   "type_id": "R-VOCAB",
-   "type_name": "어휘(문맥)",
-   "choice": 3,
-   "tempting": "often 을 흘리고 '두꺼운 껍질은 늘 필수'로 읽으면, 두 문장 뒤의 unnecessary 와 정면으로 부딪쳐 essential 이 과장된 낱말로 보인다.",
-   "reject": "같은 5번 문장의 because 절 'the seeds of many wild plants remain dormant for months until winter is over' 가 두꺼운 껍질이 야생에서 하는 일(장기 휴면 보호)을 직접 대준다. unnecessary 는 6번 문장에서 'under human management' 조건 아래 나온 말이라 essential 과 같은 환경을 두고 다투지 않는다.",
-   "answer": "범위 과대",
-   "options": [
-    "어휘 함정",
-    "인과 역전",
-    "지문 밖 상식",
-    "범위 과대"
-   ]
-  },
-  {
-   "id": "2014B#28:5",
-   "item_id": "2014B#28",
-   "slug": "2014B-28",
-   "exam_label": "2014학년도 수능 B형",
-   "no": 28,
-   "type_id": "R-VOCAB",
-   "type_name": "어휘(문맥)",
-   "choice": 5,
-   "tempting": "preferred 의 주체를 자연·야생으로 잡으면, 얇은 껍질은 야생에서 불리하다는 5번 문장 때문에 '선호되었다'가 거꾸로 읽힌다.",
-   "reject": "4번 문장 'farmers selected for larger seeds and ② thinner seed coats' 가 선호의 주체를 농부로 못박는다. 같은 7번 문장의 이유절 'easier to eat or process into flour' 도 사람의 기준이지 자연선택의 기준이 아니다.",
-   "answer": "주체 역전",
-   "options": [
-    "인과 역전",
-    "어휘 함정",
-    "주체 역전",
-    "지문 밖 상식"
-   ]
-  },
-  {
-   "id": "2014B#30:1",
-   "item_id": "2014B#30",
-   "slug": "2014B-30",
-   "exam_label": "2014학년도 수능 B형",
-   "no": 30,
-   "type_id": "R-FACT",
-   "type_name": "내용 일치(글)",
-   "choice": 1,
-   "tempting": "이집트 원정 동행·군사학교 같은 이력이 앞뒤에 깔려 있어 이 인물을 군인이나 행정가로 넘겨짚으면 '수학자이자 물리학자'가 지문의 무게중심과 어긋나 보인다.",
-   "reject": "첫 문장 Jean Baptiste Joseph Fourier was a French mathematician and physicist 가 국적과 두 직업을 그대로 적는다.",
-   "answer": "지문 밖 상식",
-   "options": [
-    "어휘 함정",
-    "주체 역전",
-    "지문 밖 상식",
-    "부분 사실"
-   ]
-  },
-  {
-   "id": "2014B#30:2",
-   "item_id": "2014B#30",
-   "slug": "2014B-30",
-   "exam_label": "2014학년도 수능 B형",
-   "no": 30,
-   "type_id": "R-FACT",
-   "type_name": "내용 일치(글)",
-   "choice": 2,
-   "tempting": "was not allowed to 뒤에 동사가 생략돼 있어 무엇이 금지됐는지 흐려지고, because 절을 결과로 읽으면 '장교가 못 된 것'과 '재단사의 아들'의 원인·결과가 뒤바뀐 것처럼 보인다.",
-   "reject": "넷째 문장을 but 과 because 에서 자르면 wanted to become an officer / was not allowed to / because he was the son of a tailor 셋으로 갈린다. because 뒤가 원인이다.",
-   "answer": "인과 역전",
-   "options": [
-    "인과 역전",
-    "어휘 함정",
-    "주체 역전",
-    "부분 사실"
-   ]
-  },
-  {
-   "id": "2014B#30:3",
-   "item_id": "2014B#30",
-   "slug": "2014B-30",
-   "exam_label": "2014학년도 수능 B형",
-   "no": 30,
-   "type_id": "R-FACT",
-   "type_name": "내용 일치(글)",
-   "choice": 3,
-   "tempting": "spoke out against 를 against 없이 읽으면 찬성으로 뒤집히고, almost lost his life 를 lost his life 로 읽으면 실제로 죽었다는 진술이 되어 '잃을 뻔했다'와 어긋나 보인다.",
-   "reject": "여섯째 문장 he spoke out against the use of the guillotine, for which he almost lost his life 에서 against 가 반대를, almost 가 미수를 각각 못박는다.",
-   "answer": "어휘 함정",
-   "options": [
-    "범위 과대",
-    "어휘 함정",
-    "주체 역전",
-    "부분 사실"
-   ]
-  },
-  {
-   "id": "2014B#30:4",
-   "item_id": "2014B#30",
-   "slug": "2014B-30",
-   "exam_label": "2014학년도 수능 B형",
-   "no": 30,
-   "type_id": "R-FACT",
-   "type_name": "내용 일치(글)",
-   "choice": 4,
-   "tempting": "His mathematical theory ... earned him lasting fame 은 주어가 이론이고 him 이 목적어다. 영어 어순대로 '이론이 그를 얻었다'로 읽으면 명성을 얻은 쪽이 뒤집혀 보인다. 이 문장에는 인쇄 잔여(4 ______)까지 끼어 있어 더 흐려진다.",
-   "reject": "아홉째 문장에서 earn A B 는 A 에게 B 를 가져다준다는 뜻이고, 여기서 A 는 him(Fourier), B 는 lasting fame 이다. 앞 문장 began his research on heat conduction 이 주제를 열전도로 고정한다.",
-   "answer": "주체 역전",
-   "options": [
-    "범위 과대",
-    "주체 역전",
     "부분 사실",
-    "어휘 함정"
+    "어휘 함정",
+    "주체 역전"
    ]
   },
   {
@@ -1119,8 +948,8 @@
    "answer": "부분 사실",
    "options": [
     "부분 사실",
-    "무관",
     "어휘 함정",
+    "무관",
     "반대 진술"
    ]
   },
@@ -1138,9 +967,9 @@
    "answer": "어휘 함정",
    "options": [
     "어휘 함정",
-    "반대 진술",
+    "부분 사실",
     "무관",
-    "부분 사실"
+    "반대 진술"
    ]
   },
   {
@@ -1157,9 +986,9 @@
    "answer": "반대 진술",
    "options": [
     "부분 사실",
-    "어휘 함정",
+    "무관",
     "반대 진술",
-    "무관"
+    "어휘 함정"
    ]
   },
   {
@@ -1175,10 +1004,10 @@
    "reject": "(A)의 same 이 3번 문장과 어긋나 무너진다. 나아가 (B) 문장이 'The emotion was so strong that ...' 이므로 강한 감정의 귀결로 올 술어여야 하는데 overlooked(무심코 지나치다)는 강도가 모자라고, 감정의 세기가 원인이 되려면 능동적으로 물리치는 술어여야 한다.",
    "answer": "범위 과소",
    "options": [
-    "부분 사실",
-    "범위 과소",
     "반대 진술",
-    "무관"
+    "범위 과소",
+    "부분 사실",
+    "어휘 함정"
    ]
   },
   {
@@ -1194,9 +1023,9 @@
    "reject": "첫 문장이 말하는 것은 '수백만 년이 걸린 과정의 산물이고 지질학적으로 갇혀 있어서 영향받지 않는다' 는 것이다. 빈칸 문장의 생산지 폐쇄와 북극 탐사 확대는 그 '영향받지 않음' 에서 나올 수 있는 결과가 아니다 — 영향받지 않는다는 진술에서 영향을 받는다는 진술이 도출되지 않는다.",
    "answer": "인과 역전",
    "options": [
-    "반대 진술",
-    "무관",
     "부분 사실",
+    "어휘 함정",
+    "반대 진술",
     "인과 역전"
    ]
   },
@@ -1209,8 +1038,8 @@
    "type_id": "R-SUMMARY",
    "type_name": "요약문 완성",
    "choice": 1,
-   "tempting": "(A) justify 가 정답과 같아 자기지각 이론만 읽고 (A)를 맞힌 학생이 절반의 확률로 남는다. '거래를 깨면 다시 알아보는 데 시간이 든다' 는 상식이 save time 을 자연스럽게 만든다.",
-   "reject": "지문에 시간에 관한 진술이 한 문장도 없다. 둘째 이론을 설명하는 마지막 두 문장은 'impression management theory' 와 'the rather undesirable impression of being an irresponsible consumer' 로 오직 인상만 말한다. (B)는 그 두 문장에서 뽑아야 한다.",
+   "tempting": "(A) justify 가 정답과 같아 앞 갈래(5~6번째 문장)만 읽고 (A)를 확정한 학생에게 (B) 후보가 time·face 둘로 좁혀진다. 이때 '거래를 깨고 다시 알아보면 시간이 든다'는 상식이 save time 을 자연스럽게 만든다.",
+   "reject": "지문에 시간에 관한 진술이 없다. 둘째 이론을 설명하는 7·8번째 문장은 'impression management theory' 와 'the rather undesirable impression of being an irresponsible consumer' 로 인상만 말한다. (B)는 그 두 문장에서 뽑아야 하므로 time 은 근거가 없다.",
    "answer": "지문 밖 상식",
    "options": [
     "어휘 함정",
@@ -1292,25 +1121,6 @@
     "반대 진술",
     "범위 과소",
     "무관",
-    "어휘 함정"
-   ]
-  },
-  {
-   "id": "2014B#45:1",
-   "item_id": "2014B#45",
-   "slug": "2014B-45",
-   "exam_label": "2014학년도 수능 B형",
-   "no": 45,
-   "type_id": "X-FACT",
-   "type_name": "장문 내용 일치",
-   "choice": 1,
-   "tempting": "글이 필자의 1인칭 회고이고 (D)가 아버지의 회상이라, 농촌 대가족에서 자란 사람을 아버지나 필자로 옮겨 읽으면 선지가 틀린 것처럼 보인다.",
-   "reject": "(A) 문장 5 'He grew up in a farming community and within a very large family' — 이 He 는 문장 3~4의 My grandpa Otto 를 받는다. 문장 3에서 새 주어가 도입된 뒤 대명사가 이어지므로 주체는 할아버지다.",
-   "answer": "주체 역전",
-   "options": [
-    "부분 사실",
-    "단락 순서 교란",
-    "주체 역전",
     "어휘 함정"
    ]
   },
@@ -1517,10 +1327,10 @@
    "reject": "첫 문장 앞부분 The 18th century is called the Golden Age of botanical painting 이 the time 의 가리키는 바를 18세기로 고정한다. 같은 문장 안에서 두 조각이 and 로 이어진다.",
    "answer": "범위 과대",
    "options": [
-    "어휘 함정",
+    "부분 사실",
     "주체 역전",
     "범위 과대",
-    "부분 사실"
+    "어휘 함정"
    ]
   },
   {
@@ -1536,9 +1346,9 @@
    "reject": "둘째 문장의 소유격 of 는 앞이 아들, 뒤가 정원사다. who 바로 앞 명사가 a gardener 이므로 가르친 쪽이 정원사다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
-    "주체 역전",
     "어휘 함정",
+    "주체 역전",
+    "부분 사실",
     "범위 과대"
    ]
   },
@@ -1574,9 +1384,9 @@
    "reject": "마지막 문장 끝 particularly in England, where he eventually settled 에서 where 의 선행사가 England 이고 settled 가 정착을 말한다.",
    "answer": "무관",
    "options": [
-    "부분 사실",
-    "주체 역전",
     "어휘 함정",
+    "주체 역전",
+    "부분 사실",
     "무관"
    ]
   },
@@ -1897,8 +1707,8 @@
    "reject": "3번 문장 'By using this definition, it is easy to identify media as old or new.' 와 빈칸 문장은 서로 반대되는 주장이 아니라 주장-대입 관계다. 역접이라면 앞 문장의 '식별이 쉽다'를 뒤집는 서술이 와야 하는데, TV 문장은 오히려 식별이 쉽다는 것을 실행해 보인다.",
    "answer": "반대 진술",
    "options": [
-    "어휘 함정",
     "무관",
+    "어휘 함정",
     "부분 사실",
     "반대 진술"
    ]
@@ -1916,10 +1726,10 @@
    "reject": "빈칸 문장은 정의에서 새 명제를 끌어내지 않고 정의의 세 항목(images/sound/text · interactive · digital code)을 그대로 대입해 확인만 한다. 뒤이어 The plain old telephone · interactive television 으로 같은 대입이 세 번 반복되는데, 반복되는 개별 대입은 귀결이 아니라 사례다.",
    "answer": "인과 역전",
    "options": [
-    "부분 사실",
     "반대 진술",
+    "부분 사실",
     "인과 역전",
-    "무관"
+    "어휘 함정"
    ]
   },
   {
@@ -1936,8 +1746,8 @@
    "answer": "부분 사실",
    "options": [
     "반대 진술",
-    "무관",
     "어휘 함정",
+    "무관",
     "부분 사실"
    ]
   },
@@ -1954,10 +1764,29 @@
    "reject": "6번 문장(interactive television 판정)과 7번 문장(telephony 판정)은 각기 다른 매체를 같은 기준으로 판정한 병렬 항목이라 앞이 뒤의 원인이 되지 않는다. telephony 가 디지털화된 것은 interactive television 이 상호작용성을 더한 결과가 아니다.",
    "answer": "무관",
    "options": [
-    "부분 사실",
+    "반대 진술",
     "어휘 함정",
     "무관",
-    "반대 진술"
+    "부분 사실"
+   ]
+  },
+  {
+   "id": "2015#40:4",
+   "item_id": "2015#40",
+   "slug": "2015-40",
+   "exam_label": "2015학년도 수능",
+   "no": 40,
+   "type_id": "R-SUMMARY",
+   "type_name": "요약문 완성",
+   "choice": 4,
+   "tempting": "'예술의 효과는 예측할 수 없다' 는 말은 이 글에 실제로 있다 — 넷째 문장의 'neither so certain nor so direct' 가 그것이다. 그 진술을 요약문의 (A) 자리에 그대로 옮기면 unexpected 가 된다.",
+   "reject": "요약문의 (A)는 'Although Plato and Tolstoy claim that ...' 안에 있다 — 진술의 임자가 두 사람이다. 그런데 넷째 문장은 'In fact, however' 로 시작하는 필자의 반박이다. 두 사람 쪽 문장은 첫 문장 'firmly established' · 둘째 문장 'Plato is sure' · 셋째 문장 'Tolstoy is confident' 로 전부 확신이다. 확신하는 사람에게 '예상 밖' 을 붙일 수 없다.",
+   "answer": "주체 역전",
+   "options": [
+    "반대 진술",
+    "주체 역전",
+    "무관",
+    "어휘 함정"
    ]
   },
   {
@@ -2013,7 +1842,7 @@
    "options": [
     "주체 역전",
     "무관",
-    "반대 진술",
+    "지문 밖 상식",
     "어휘 함정"
    ]
   },
@@ -2030,8 +1859,8 @@
    "reject": "(A) 문장 7~8 'Mr. Wills is Jeremy Wills, and (a) he is one of my former students. A few years back, he took my positive psychology class in college.' — my class 를 took 한 주체가 he=Jeremy 다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
     "단락 순서 교란",
+    "부분 사실",
     "주체 역전",
     "어휘 함정"
    ]
@@ -2049,7 +1878,7 @@
    "reject": "(B) 문장 10 'Even after spending many hours each day preparing lesson plans, it became clear that his methods were not working.' — Even after 는 '~했음에도'라는 양보다. 준비한 사실은 부정되지 않는다.",
    "answer": "인과 역전",
    "options": [
-    "부분 사실",
+    "단락 순서 교란",
     "인과 역전",
     "어휘 함정",
     "주체 역전"
@@ -2163,9 +1992,9 @@
    "reject": "다섯째 문장 An assertive counselor would find a way to call that person 의 attention … 을 보면 농담을 한 쪽은 that person(someone tells a racist joke)이고 상담사는 그것을 지적하는 쪽이다. 여섯 문장 어디에도 상담사가 농담의 발화자로 나오지 않으므로 상담사에게 「농담을 하지 말라」고 요구하는 문장은 없다.",
    "answer": "주체 역전",
    "options": [
-    "반대 진술",
-    "주체 역전",
     "무관",
+    "주체 역전",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -2202,9 +2031,9 @@
    "answer": "어휘 함정",
    "options": [
     "부분 사실",
-    "무관",
+    "반대 진술",
     "어휘 함정",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -2317,8 +2146,8 @@
    "options": [
     "무관",
     "주체 역전",
-    "부분 사실",
-    "어휘 함정"
+    "어휘 함정",
+    "부분 사실"
    ]
   },
   {
@@ -2334,10 +2163,10 @@
    "reject": "여섯째 문장 spent approximately seven years painting the Ialysus 에서 seven years 가 painting 에 직접 붙는다. 200 years 는 일곱째 문장에서 그림이 Rhodes 에 남아 있던 기간이다.",
    "answer": "지문 밖 상식",
    "options": [
-    "어휘 함정",
+    "부분 사실",
     "지문 밖 상식",
     "주체 역전",
-    "부분 사실"
+    "어휘 함정"
    ]
   },
   {
@@ -2639,9 +2468,9 @@
    "answer": "무관",
    "options": [
     "무관",
-    "반대 진술",
+    "지문 밖 상식",
     "어휘 함정",
-    "지문 밖 상식"
+    "반대 진술"
    ]
   },
   {
@@ -2660,7 +2489,7 @@
     "무관",
     "부분 사실",
     "어휘 함정",
-    "반대 진술"
+    "지문 밖 상식"
    ]
   },
   {
@@ -2678,8 +2507,8 @@
    "options": [
     "어휘 함정",
     "무관",
-    "반대 진술",
-    "지문 밖 상식"
+    "지문 밖 상식",
+    "반대 진술"
    ]
   },
   {
@@ -3395,12 +3224,12 @@
    "type_name": "장문 빈칸(2개)",
    "choice": 1,
    "tempting": "(B) faster 는 맞다. (A) delayed 는 'it doesn't take long before their time sense breaks down' 와 'mentally stretches the duration of time' 을 '심리 시계가 늦게 간다'로 읽으면 그럴듯해진다. (B)를 먼저 맞히고 안심한 학생이 (A)를 대충 확인하고 고르는 자리다.",
-   "reject": "11·12문장을 나란히 본다. 1번 타자는 50초를 40초로 줄여 잡고 2번 타자는 60초로 늘려 잡는다 — 오차가 양쪽으로 갈린다. delayed 는 한 방향(느려짐)만 뜻하므로 두 방향 오차를 함께 설명하지 못한다. 반면 4문장의 'clumsier operation' 은 방향 없이 부정확함만 말한다.",
+   "reject": "(B) faster 는 맞으므로 (A)에서 지운다. 11·12문장을 나란히 본다 — 1번 타자는 50초를 40초로 줄여 잡고 2번 타자는 60초로 늘려 잡아 오차가 양쪽으로 갈린다. delayed 는 한 방향(늦어짐)만 뜻해 두 방향 오차를 설명하지 못하고, 4문장의 'clumsier operation' 은 방향 없이 부정확함만 말한다.",
    "answer": "부분 사실",
    "options": [
-    "지문 밖 상식",
-    "부분 사실",
     "어휘 함정",
+    "부분 사실",
+    "지문 밖 상식",
     "반대 진술"
    ]
   },
@@ -3413,14 +3242,14 @@
    "type_id": "X-BLANK2",
    "type_name": "장문 빈칸(2개)",
    "choice": 2,
-   "tempting": "(A) internal 은 빈칸 바로 뒤 낱말 psychological 과 'as opposed to the time on one's watch' 를 보고 '몸 안의 시계'로 옮긴 것이라 의미상 어긋나지 않아 보인다. 지문 낱말을 동의어로 되풀이한 선지가 가장 안전해 보이는 착시다.",
-   "reject": "빈칸 문장(6문장)의 수식 구조를 본다 — 'this usually (A) psychological clock' 에서 psychological 이 이미 자리를 차지하고 있어 internal 은 새 정보를 주지 않고, 부사 usually(대개)는 늘 참인 속성이 아니라 정도·성질을 요구한다. 결정타는 (B)다: 13문장이 1번 타자를 'every four seconds' 로 못 박으므로 slower 가 성립하지 않는다.",
-   "answer": "어휘 함정",
+   "tempting": "(A) internal 은 빈칸 뒤 psychological clock 과 'as opposed to the time on one's watch'(손목시계와 대비되는 몸 안의 시계)를 그대로 바꿔 말한 낱말이라 (A) 칸만 보면 어색하지 않다. 게다가 (B) slower 는 7문장 'should experience a slower tempo' 의 낱말을 그대로 가져왔다.",
+   "reject": "(A) internal 은 사실과 어긋나지 않아 (A) 칸만으로는 확실히 지워지지 않는다. 배제는 (B)에서 한다: 13문장이 1번 타자를 'every four seconds' 로 못 박아 실제 5초(9문장)보다 잦게 느꼈으므로, 2문장의 tempo 정의(사건의 속도)에 따라 tempo 는 faster 이고 slower 는 성립하지 않는다. 덧붙여 6문장의 (A)는 4문장의 precise ↔ clumsier 대비를 받는 평가어 자리인데, internal 은 위치(안/밖)만 말해 그 대비를 담지 못한다.",
+   "answer": "부분 사실",
    "options": [
     "반대 진술",
+    "부분 사실",
     "어휘 함정",
-    "지문 밖 상식",
-    "부분 사실"
+    "지문 밖 상식"
    ]
   },
   {
@@ -3438,8 +3267,8 @@
    "options": [
     "부분 사실",
     "반대 진술",
-    "지문 밖 상식",
-    "어휘 함정"
+    "어휘 함정",
+    "지문 밖 상식"
    ]
   },
   {
@@ -3456,8 +3285,8 @@
    "answer": "지문 밖 상식",
    "options": [
     "지문 밖 상식",
-    "반대 진술",
     "부분 사실",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -3475,7 +3304,7 @@
    "answer": "반대 진술",
    "options": [
     "주체 역전",
-    "부분 사실",
+    "단락 순서 교란",
     "어휘 함정",
     "반대 진술"
    ]
@@ -3493,10 +3322,10 @@
    "reject": "(D) 문장 22 'Keith and Manfred played a few notes.' — 주어가 두 사람으로 명시된다. Erik은 문장 21에서 두 사람을 피아노 앞으로 '안내한(introduced)' 쪽이다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
+    "단락 순서 교란",
     "어휘 함정",
     "주체 역전",
-    "단락 순서 교란"
+    "부분 사실"
    ]
   },
   {
@@ -3569,9 +3398,9 @@
    "reject": "그 문장의 술어는 analyze 가 아니라 challenge 이고, not only ~ but also 구문에서 무게는 뒤쪽 your internal status quo 에 실린다. 지문에 analysis·examine 에 해당하는 표현이 없다",
    "answer": "어휘 함정",
    "options": [
-    "반대 진술",
-    "어휘 함정",
     "무관",
+    "어휘 함정",
+    "반대 진술",
     "부분 사실"
    ]
   },
@@ -3589,9 +3418,9 @@
    "answer": "부분 사실",
    "options": [
     "부분 사실",
-    "무관",
+    "반대 진술",
     "어휘 함정",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -3609,8 +3438,8 @@
    "options": [
     "어휘 함정",
     "지문 밖 상식",
-    "반대 진술",
-    "무관"
+    "무관",
+    "반대 진술"
    ]
   },
   {
@@ -3780,8 +3609,8 @@
    "options": [
     "범위 과대",
     "주체 역전",
-    "어휘 함정",
-    "부분 사실"
+    "부분 사실",
+    "어휘 함정"
    ]
   },
   {
@@ -3835,8 +3664,8 @@
    "reject": "7번째 문장 “the photographs he took appeared on more than 500 album covers” 가 more than 500 을 그대로 적는다 — 앞에 Over a 50-year career 라는 기간도 함께 있다.",
    "answer": "지문 밖 상식",
    "options": [
-    "부분 사실",
     "어휘 함정",
+    "부분 사실",
     "주체 역전",
     "지문 밖 상식"
    ]
@@ -4215,10 +4044,10 @@
    "reject": "헌신·애착을 가리키는 낱말이 지문에 한 번도 없다. 10문장은 '가깝다'를 문제로 말할 뿐 헌신의 많고 적음을 문제 삼지 않으며, 14문장이 얻는다고 말하는 것도 objectivity and control 이지 거리 두기의 반대가 아니다.",
    "answer": "무관",
    "options": [
-    "지문 밖 상식",
+    "반대 진술",
     "어휘 함정",
     "무관",
-    "반대 진술"
+    "지문 밖 상식"
    ]
   },
   {
@@ -4238,6 +4067,25 @@
     "무관",
     "어휘 함정",
     "반대 진술"
+   ]
+  },
+  {
+   "id": "2018#45:4",
+   "item_id": "2018#45",
+   "slug": "2018-45",
+   "exam_label": "2018학년도 수능",
+   "no": 45,
+   "type_id": "X-FACT",
+   "type_name": "장문 내용 일치",
+   "choice": 4,
+   "tempting": "'Dave’s dad, who was driving Dave to school, pulled over to give him a ride' 에서 him 을 이미 차에 타고 있는 Dave로 읽거나, 태워 준 사람을 Steve의 아버지((B)에 등장하는 his dad)로 섞으면 선지를 틀린 것으로 판정한다.",
+   "reject": "(D) 문장 26~27 — 뛰어가는 사람은 Steve(문장 26 'Steve found that his bicycle had a flat tire, so he started to run to school'), 차를 세운 사람은 Dave’s dad이므로 him = Steve다. 아버지가 둘 나오면 소유격(Dave’s dad / his dad) 앞의 이름을 먼저 확인한다.",
+   "answer": "주체 역전",
+   "options": [
+    "어휘 함정",
+    "부분 사실",
+    "주체 역전",
+    "단락 순서 교란"
    ]
   },
   {
@@ -4330,9 +4178,9 @@
    "answer": "지문 밖 상식",
    "options": [
     "지문 밖 상식",
-    "무관",
+    "반대 진술",
     "어휘 함정",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -4349,8 +4197,8 @@
    "answer": "범위 과대",
    "options": [
     "어휘 함정",
-    "반대 진술",
     "무관",
+    "반대 진술",
     "범위 과대"
    ]
   },
@@ -4616,8 +4464,8 @@
    "options": [
     "지문 밖 상식",
     "주체 역전",
-    "부분 사실",
-    "어휘 함정"
+    "어휘 함정",
+    "부분 사실"
    ]
   },
   {
@@ -4672,8 +4520,8 @@
    "answer": "무관",
    "options": [
     "무관",
-    "부분 사실",
     "어휘 함정",
+    "부분 사실",
     "주체 역전"
    ]
   },
@@ -5108,8 +4956,8 @@
    "reject": "(B)의 'The cabbage patch looked like a battlefield.' 바로 다음 문장 'Olivia felt like she was losing the battle' — 전투 비유의 주체가 Olivia 로 이어진다. 참이므로 답이 아니다.",
    "answer": "주체 역전",
    "options": [
-    "단락 순서 교란",
     "부분 사실",
+    "단락 순서 교란",
     "주체 역전",
     "어휘 함정"
    ]
@@ -5128,7 +4976,7 @@
    "answer": "범위 과대",
    "options": [
     "범위 과대",
-    "부분 사실",
+    "단락 순서 교란",
     "주체 역전",
     "어휘 함정"
    ]
@@ -5204,9 +5052,9 @@
    "answer": "주체 역전",
    "options": [
     "주체 역전",
-    "무관",
+    "반대 진술",
     "어휘 함정",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -5224,8 +5072,8 @@
    "options": [
     "지문 밖 상식",
     "어휘 함정",
-    "무관",
-    "반대 진술"
+    "반대 진술",
+    "무관"
    ]
   },
   {
@@ -5241,8 +5089,8 @@
    "reject": "겹치는 것은 앞 절뿐이고, 뒤 절 '목표 달성에 매진'은 지문의 방향과 어긋난다. 다섯째 문장은 시선을 의식하지 않을 때 도달할 곳을 physically and emotionally free 라고 적었고 마지막 문장은 그것을 놀이의 허락으로 잇는다",
    "answer": "부분 사실",
    "options": [
-    "반대 진술",
     "무관",
+    "반대 진술",
     "어휘 함정",
     "부분 사실"
    ]
@@ -5261,9 +5109,9 @@
    "answer": "범위 과대",
    "options": [
     "어휘 함정",
-    "무관",
+    "반대 진술",
     "범위 과대",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -5469,8 +5317,8 @@
    "reject": "첫 문장 “primarily residing in the Nile River Valley” 의 primarily 가 선지의 ‘주로’와 같은 한정어다 — 나라 이름과 계곡 이름은 포함 관계이지 충돌이 아니다.",
    "answer": "범위 과대",
    "options": [
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "범위 과대",
     "주체 역전"
    ]
@@ -5489,9 +5337,9 @@
    "answer": "주체 역전",
    "options": [
     "주체 역전",
-    "어휘 함정",
+    "부분 사실",
     "범위 과대",
-    "부분 사실"
+    "어휘 함정"
    ]
   },
   {
@@ -5774,8 +5622,8 @@
    "answer": "주체 역전",
    "options": [
     "주체 역전",
-    "부분 사실",
     "단락 순서 교란",
+    "부분 사실",
     "어휘 함정"
    ]
   },
@@ -5946,8 +5794,8 @@
    "options": [
     "어휘 함정",
     "주체 역전",
-    "무관",
-    "반대 진술"
+    "반대 진술",
+    "무관"
    ]
   },
   {
@@ -6229,9 +6077,9 @@
    "reject": "첫 문장 “one of the most influential economists of the twentieth century” 가 선지와 같은 한정(one of)을 이미 달고 있다 — 최상급이 아니라 복수 중 하나다.",
    "answer": "범위 과대",
    "options": [
-    "어휘 함정",
-    "주체 역전",
     "부분 사실",
+    "주체 역전",
+    "어휘 함정",
     "범위 과대"
    ]
   },
@@ -6267,9 +6115,9 @@
    "reject": "4번째 문장의 주어는 “Some of his students at Chicago” 이고 동사는 received 다 — 수상 주체가 학생들이라고 문장이 명시한다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
-    "주체 역전",
     "어휘 함정",
+    "주체 역전",
+    "부분 사실",
     "범위 과대"
    ]
   },
@@ -6688,7 +6536,7 @@
     "주체 역전",
     "지문 밖 상식",
     "어휘 함정",
-    "부분 사실"
+    "단락 순서 교란"
    ]
   },
   {
@@ -6818,8 +6666,8 @@
    "reject": "지문 어디에도 develop·build·create a platform 에 해당하는 표현이 없다. 둘째 문장은 tools and channels 를 출발점에서 제외하는 쪽이므로, 도구를 직접 만들라는 처방은 부정된 자리에서 나온 것이다",
    "answer": "지문 밖 상식",
    "options": [
-    "무관",
     "반대 진술",
+    "무관",
     "어휘 함정",
     "지문 밖 상식"
    ]
@@ -6833,14 +6681,14 @@
    "type_id": "R-CLAIM",
    "type_name": "필자 주장",
    "choice": 2,
-   "tempting": "'사업 목표'와 '기업'이 정답과 같은 낱말이라 절반이 겹친다. 목표와 소셜 미디어를 잇는 화살표만 반대로 돌린 형태다",
-   "reject": "둘째 문장의 화살표는 목표에 대한 이해 → 소셜 미디어 프로그램 순서다. 이 선지는 사회적 가치·요구 → 사업 목표 수립으로 목표를 결과 자리에 놓는다. 지문에는 목표를 어떻게 세우라는 말이 한 문장도 없다",
-   "answer": "인과 역전",
+   "tempting": "'기업'과 '사업 목표'가 정답 ⑤와 같은 낱말이고, 첫 문장의 business goals 가 그대로 옮겨진 것처럼 보인다. 기업의 사회적 책임이라는 익숙한 상식이 '사회적 가치와 요구'를 덧붙여도 어색하지 않게 만든다",
+   "reject": "지문에서 goals and objectives 는 소셜 미디어 프로그램의 출발점(둘째 문장 begins … with)으로만 쓰이고, 목표를 무엇을 반영해 세우라는 진술은 없다. '사회적 가치와 요구'에 해당하는 표현(social values·needs of society)도 지문에 없다. 이 선지는 목표 자체를 수립하는 방법이라는 지문 밖 화제로 옮겼고, 소셜 미디어라는 지문의 대상이 빠졌다",
+   "answer": "무관",
    "options": [
     "반대 진술",
+    "부분 사실",
     "어휘 함정",
-    "무관",
-    "인과 역전"
+    "무관"
    ]
   },
   {
@@ -6858,8 +6706,8 @@
    "options": [
     "부분 사실",
     "어휘 함정",
-    "무관",
-    "반대 진술"
+    "반대 진술",
+    "무관"
    ]
   },
   {
@@ -6970,10 +6818,10 @@
    "reject": "3번째 문장 “he worked as an assistant of Piero della Francesca in Urbino” 에서 주어 he 가 Bramante 이고 as 뒤가 그의 신분이다 — of 는 소속을 가리키므로 조수는 Bramante 다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
+    "어휘 함정",
     "주체 역전",
     "범위 과대",
-    "어휘 함정"
+    "부분 사실"
    ]
   },
   {
@@ -7008,9 +6856,9 @@
    "reject": "마지막 문장 “His buildings influenced other architects for centuries.” 가 선지 그대로다. 근거 문장 번호가 안 붙은 선지가 남았으면 마지막 한 줄을 다시 본다.",
    "answer": "무관",
    "options": [
-    "부분 사실",
-    "무관",
     "어휘 함정",
+    "무관",
+    "부분 사실",
     "주체 역전"
    ]
   },
@@ -7217,8 +7065,8 @@
    "reject": "(A) 세 번째 문장 'Anna, the head of the club, was teaching the new members basic moves.' — teaching 의 주어가 Anna 이고 the new members 가 '신입 회원' 을 그대로 받는다. 참이므로 답이 아니다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
     "단락 순서 교란",
+    "부분 사실",
     "주체 역전",
     "어휘 함정"
    ]
@@ -7232,33 +7080,14 @@
    "type_id": "R-PURPOSE",
    "type_name": "글의 목적",
    "choice": 3,
-   "tempting": "클럽에 대해 알아본다는 점이 겹쳐, 가입 방법 문의를 협회 규정 확인으로 넓혀 읽게 된다.",
-   "reject": "아홉째 문장이 묻는 것은 how to sign up 이라는 절차 하나이고, rule·regulation 에 해당하는 어구가 지문에 없다. 여덟째 문장도 정보를 못 찾았다는 사정일 뿐이다.",
+   "tempting": "클럽에 대해 무언가를 알아본다는 점이 겹쳐, 가입 방법 문의를 단체의 규정 확인으로 넓혀 읽게 된다.",
+   "reject": "9번 문장이 묻는 것은 how to sign up이라는 가입 절차 하나이고, 지문 어디에도 rule·regulation에 해당하는 어구나 '새로운' 변경에 대한 언급이 없다. 8번 문장도 정보를 못 찾았다는 사정일 뿐이다.",
    "answer": "범위 과대",
    "options": [
     "어휘 함정",
     "범위 과대",
     "무관",
     "부분 사실"
-   ]
-  },
-  {
-   "id": "2023#18:4",
-   "item_id": "2023#18",
-   "slug": "2023-18",
-   "exam_label": "2023학년도 수능",
-   "no": 18,
-   "type_id": "R-PURPOSE",
-   "type_name": "글의 목적",
-   "choice": 4,
-   "tempting": "website 라는 낱말이 지문에 그대로 있어 사이트를 화제로 삼은 글처럼 보인다.",
-   "reject": "일곱째 문장은 your website appears to be under construction 으로 사이트를 못 쓴다는 불편의 서술이고, 사이트를 가진 쪽은 수신자다. 발신자가 사이트를 알리는 방향의 표현이 없다.",
-   "answer": "주체 역전",
-   "options": [
-    "부분 사실",
-    "무관",
-    "어휘 함정",
-    "주체 역전"
    ]
   },
   {
@@ -7274,9 +7103,9 @@
    "reject": "마지막 문장에서 map of the future 는 계획표가 아니라 결정의 근거가 되는 그림(on which to base your decisions)이다. 계획 수립(plan)에 해당하는 말이 지문에 없고, 6번째 문장이 지정한 방법은 시나리오의 비율을 보는 것이다.",
    "answer": "지문 밖 상식",
    "options": [
-    "반대 진술",
-    "어휘 함정",
     "무관",
+    "어휘 함정",
+    "반대 진술",
     "지문 밖 상식"
    ]
   },
@@ -7312,10 +7141,10 @@
    "reject": "4번째 문장에서 지름길을 찾는 것은 수치화가 가져다주는 성과이지 경계 대상이 아니다. 5번째 문장도 확률 이론이 위험을 없애지는 못해도 더 잘 관리하게 해 준다고 하므로, 지름길을 조심하라는 경고는 지문에 없다.",
    "answer": "어휘 함정",
    "options": [
-    "무관",
+    "반대 진술",
     "어휘 함정",
     "부분 사실",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -7578,10 +7407,10 @@
    "reject": "다섯째 문장 where he was influenced by Talcott Parsons 가 수동태이고 by 뒤가 영향을 준 쪽이다. 영향을 받은 쪽은 he 다.",
    "answer": "주체 역전",
    "options": [
-    "어휘 함정",
+    "부분 사실",
     "범위 과대",
     "주체 역전",
-    "부분 사실"
+    "어휘 함정"
    ]
   },
   {
@@ -7597,8 +7426,8 @@
    "reject": "일곱째 문장 He researched a variety of subjects, including mass media and law 에서 a variety of 가 이미 '다양한'이고 including 은 그중 일부를 든 것이다.",
    "answer": "범위 과대",
    "options": [
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "주체 역전",
     "범위 과대"
    ]
@@ -7884,8 +7713,8 @@
    "options": [
     "어휘 함정",
     "주체 역전",
-    "부분 사실",
-    "단락 순서 교란"
+    "단락 순서 교란",
+    "부분 사실"
    ]
   },
   {
@@ -7927,6 +7756,25 @@
    ]
   },
   {
+   "id": "2024#19:5",
+   "item_id": "2024#19",
+   "slug": "2024-19",
+   "exam_label": "2024학년도 수능",
+   "no": 19,
+   "type_id": "R-MOOD",
+   "type_name": "심경·분위기",
+   "choice": 5,
+   "tempting": "버스를 기다리는 일은 지루하다는 통념이 1문장만 읽어도 만들어지고, 뒷자리 thrilled 는 부호가 맞아 남는다.",
+   "reject": "2문장 ‘He kept looking back and forth between his watch and the direction the bus would come from’ 은 지루함이 아니라 조바심의 행동 묘사이고, 8문장의 마무리가 relax 라 thrilled 는 강도가 과하다.",
+   "answer": "지문 밖 상식",
+   "options": [
+    "어휘 함정",
+    "지문 밖 상식",
+    "반대 진술",
+    "부분 사실"
+   ]
+  },
+  {
    "id": "2024#20:1",
    "item_id": "2024#20",
    "slug": "2024-20",
@@ -7939,8 +7787,8 @@
    "reject": "1번째 문장이 'Values alone do not create and build culture'로 가치 단계에서 멈추는 것을 부정하고, 3번째 문장이 가치를 행동으로 바꾸는 것조차 only half the battle 이라고 한다. 처방은 그 뒤 단계(공유·명문화)에 걸려 있다.",
    "answer": "범위 과소",
    "options": [
-    "반대 진술",
     "무관",
+    "반대 진술",
     "어휘 함정",
     "범위 과소"
    ]
@@ -7958,9 +7806,9 @@
    "reject": "6번째 문장에서 leaders 는 시각적 표현을 '사용해 코치하는' 쪽이고, clear 가 걸린 명사는 4번째 문장의 description(지침)이지 가치관이 아니다. 지도자의 가치관을 요구하는 문장이 없다.",
    "answer": "어휘 함정",
    "options": [
-    "반대 진술",
-    "어휘 함정",
     "무관",
+    "어휘 함정",
+    "반대 진술",
     "부분 사실"
    ]
   },
@@ -7978,9 +7826,9 @@
    "answer": "인과 역전",
    "options": [
     "어휘 함정",
-    "무관",
+    "반대 진술",
     "인과 역전",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -8187,8 +8035,8 @@
    "answer": "주체 역전",
    "options": [
     "주체 역전",
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "범위 과대"
    ]
   },
@@ -8471,9 +8319,9 @@
    "reject": "(B)의 'Clara answered with a smile, “Quite similar, actually.”' 에서 similar 라고 답한 화자가 Clara 다. unlike 는 Emma 의 물음에 있다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
-    "어휘 함정",
     "단락 순서 교란",
+    "어휘 함정",
+    "부분 사실",
     "주체 역전"
    ]
   },
@@ -8566,9 +8414,9 @@
    "reject": "그 문장은 We almost universally accept that ~ 으로 시작하는 통념이고 4번째 문장이 'we are too easily ignoring a valuable tool'로 그 통념을 반박한다. 게다가 '학습 공동체의 노력'에 해당하는 주체가 지문에 없다 — 5번째 문장의 주어는 we(게임을 개발하는 쪽), 6번째 문장은 educators 다.",
    "answer": "부분 사실",
    "options": [
-    "반대 진술",
-    "부분 사실",
     "무관",
+    "부분 사실",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -8587,8 +8435,8 @@
    "options": [
     "어휘 함정",
     "부분 사실",
-    "반대 진술",
-    "무관"
+    "무관",
+    "반대 진술"
    ]
   },
   {
@@ -8687,6 +8535,44 @@
    ]
   },
   {
+   "id": "2025#23:4",
+   "item_id": "2025#23",
+   "slug": "2025-23",
+   "exam_label": "2025학년도 수능",
+   "no": 23,
+   "type_id": "R-TOPIC",
+   "type_name": "주제",
+   "choice": 4,
+   "tempting": "Industrialization raised the potential value of every single work hour 가 그대로 있어 시간의 가치라는 말이 지문 표현으로 보인다",
+   "reject": "지문에는 방법을 권하는 문장이 없다(명령문·should·by -ing 형 처방 없음). 5번째 문장은 산업화가 이미 일으킨 결과의 기술이지 효율을 높이는 방법의 제시가 아니다",
+   "answer": "범위 과대",
+   "options": [
+    "반대 진술",
+    "무관",
+    "어휘 함정",
+    "범위 과대"
+   ]
+  },
+  {
+   "id": "2025#24:1",
+   "item_id": "2025#24",
+   "slug": "2025-24",
+   "exam_label": "2025학년도 수능",
+   "no": 24,
+   "type_id": "R-TITLE",
+   "type_name": "제목",
+   "choice": 1,
+   "tempting": "첫 문장의 not because it is new 를 '새롭지 않다 = 잠깐 지나갈 것'으로 옮기면 이 물음이 지문이 던진 물음처럼 보인다.",
+   "reject": "마지막 문장이 셀피를 the first visual signature of the new era 라 부른다. temporary·fad·passing 처럼 일시성을 말하는 표현이 지문에 없다.",
+   "answer": "반대 진술",
+   "options": [
+    "어휘 함정",
+    "부분 사실",
+    "무관",
+    "반대 진술"
+   ]
+  },
+  {
    "id": "2025#24:3",
    "item_id": "2025#24",
    "slug": "2025-24",
@@ -8757,8 +8643,8 @@
    "answer": "범위 과대",
    "options": [
     "범위 과대",
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "주체 역전"
    ]
   },
@@ -8776,8 +8662,8 @@
    "answer": "무관",
    "options": [
     "주체 역전",
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "무관"
    ]
   },
@@ -9081,8 +8967,8 @@
    "options": [
     "어휘 함정",
     "주체 역전",
-    "부분 사실",
-    "단락 순서 교란"
+    "단락 순서 교란",
+    "부분 사실"
    ]
   },
   {
@@ -9098,10 +8984,10 @@
    "reject": "4번째 문장은 작사가들이 '이미 해 온 일'을 서술하는 분사구문이고, 주절의 술어는 have had an incredible literary impact(영향을 끼쳐 왔다)다. 필자가 요구하는 행위는 마지막 문장의 must be recognized(인정) 하나뿐이므로, '기법을 작사 과정에 적용하라'는 처방은 지문의 당위 문장과 다른 동사다.",
    "answer": "부분 사실",
    "options": [
-    "무관",
+    "반대 진술",
     "부분 사실",
     "어휘 함정",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -9117,9 +9003,9 @@
    "reject": "그 절은 Unlike Shakespeare 로 시작하는 비교 대상이다. 셰익스피어는 이미 연구·찬양받은 쪽(has been studied)이고, 마지막 문장의 must be recognized 가 걸린 주어는 Their, 즉 2번째 문장의 modern songwriters 다. 인정받아야 할 주체가 뒤바뀌었다.",
    "answer": "주체 역전",
    "options": [
-    "반대 진술",
-    "어휘 함정",
     "무관",
+    "어휘 함정",
+    "반대 진술",
     "주체 역전"
    ]
   },
@@ -9136,9 +9022,9 @@
    "reject": "3번째 문장에서 storytelling 은 작사가들이 언어를 풍부하게 만든 '수단'(have used linguistic manipulation and storytelling to enrich our language)이지 독자가 배워야 할 대상이 아니다. 지문에 감상법·이해법을 요구하는 문장이 없다.",
    "answer": "어휘 함정",
    "options": [
-    "무관",
-    "어휘 함정",
     "반대 진술",
+    "어휘 함정",
+    "무관",
     "부분 사실"
    ]
   },
@@ -9421,9 +9307,9 @@
    "reject": "일곱째 문장 popular with undergraduates and graduate students alike 가 두 집단을 and 로 나란히 적고 alike 로 둘 다임을 못박는다.",
    "answer": "범위 과소",
    "options": [
-    "어휘 함정",
-    "범위 과소",
     "부분 사실",
+    "범위 과소",
+    "어휘 함정",
     "주체 역전"
    ]
   },
@@ -9599,6 +9485,25 @@
    ]
   },
   {
+   "id": "2026#40:5",
+   "item_id": "2026#40",
+   "slug": "2026-40",
+   "exam_label": "2026학년도 수능",
+   "no": 40,
+   "type_id": "R-SUMMARY",
+   "type_name": "요약문 완성",
+   "choice": 5,
+   "tempting": "(B) support 는 5문장의 sustain 및 funding 과 어휘가 겹쳐 지문에서 본 말처럼 느껴진다.",
+   "reject": "요약문 구조는 the performing arts ... (B) audiences 로 주어가 공연예술이고 목적어가 관객이다. 지문에서 지원하는 쪽은 institutions 와 public and corporate funding 이지 공연예술이 아니다. 낱말이 겹치는지가 아니라 그 낱말의 주체가 같은지가 기준이다. (A) advantages 도 5문장 unstable 과 어긋난다.",
+   "answer": "주체 역전",
+   "options": [
+    "주체 역전",
+    "어휘 함정",
+    "반대 진술",
+    "무관"
+   ]
+  },
+  {
    "id": "2026#41:4",
    "item_id": "2026#41",
    "slug": "2026-41",
@@ -9763,9 +9668,9 @@
    "reject": "그 장면은 어른의 칭찬이 얼마나 기계적인지 드러내려는 반어이고, 지문이 그만두라고 하는 습관의 주체는 어른(teachers or parents)이다. 아이에게 무엇을 길러 주라는 요구는 어디에도 없다",
    "answer": "주체 역전",
    "options": [
-    "반대 진술",
-    "주체 역전",
     "무관",
+    "주체 역전",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -9782,9 +9687,9 @@
    "reject": "we need to say it 은 칭찬이 어른의 필요라는 비판이지 감정 표현을 권하는 말이 아니다. 지문에 express feelings·honest 에 해당하는 표현이 없고, 가르칠 대상도 아이가 아니라 어른의 습관이다",
    "answer": "지문 밖 상식",
    "options": [
-    "반대 진술",
-    "지문 밖 상식",
     "무관",
+    "지문 밖 상식",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -9858,29 +9763,10 @@
    "reject": "3번째 문장 “Its body usually has a light brown background with a series of darker markings or bands on it” 에서 light brown 이 background 에 붙고 darker 는 markings 에 붙는다 — 붙는 명사가 다르다.",
    "answer": "반대 진술",
    "options": [
-    "부분 사실",
     "어휘 함정",
+    "부분 사실",
     "주체 역전",
     "반대 진술"
-   ]
-  },
-  {
-   "id": "M1809#25:3",
-   "item_id": "M1809#25",
-   "slug": "M1809-25",
-   "exam_label": "2018학년도 9월 모의평가",
-   "no": 25,
-   "type_id": "R-FACT",
-   "type_name": "내용 일치(글)",
-   "choice": 3,
-   "tempting": "한 문장에 수치가 둘(38 centimeters · 1 to 2 meters) 들어 있어, 값은 지문에서 본 것을 그대로 쓰면서 항목만 바꿔 성체 길이를 부화 시 길이로 옮기게 된다.",
-   "reject": "4번째 문장에서 38 centimeters 에는 when it comes out of its egg 가, 1 to 2 meters 에는 usually reaches 가 붙어 있다 — 수치마다 붙은 조건절이 다르다.",
-   "answer": "부분 사실",
-   "options": [
-    "어휘 함정",
-    "주체 역전",
-    "부분 사실",
-    "범위 과대"
    ]
   },
   {
@@ -9896,8 +9782,8 @@
    "reject": "마지막 문장의 therefore 뒤 “is at the top of its food chain” 이 결론이고, not hunted 는 그 이유다 — 부정은 앞 절에만 걸린다.",
    "answer": "인과 역전",
    "options": [
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "인과 역전",
     "주체 역전"
    ]
@@ -10184,7 +10070,7 @@
     "어휘 함정",
     "무관",
     "주체 역전",
-    "반대 진술"
+    "지문 밖 상식"
    ]
   },
   {
@@ -10200,10 +10086,10 @@
    "reject": "(D) 문장 18~20 — because 절의 he 는 앞의 His father 를 받고, 이어지는 'He loved the fishing business. So did all of his sons, except for Good-for-Nothing Ricky.' 가 어부인 쪽이 아버지임을 확정한다. 오히려 Ricky는 배 타기를 싫어한다(문장 21).",
    "answer": "주체 역전",
    "options": [
-    "단락 순서 교란",
+    "부분 사실",
     "어휘 함정",
     "주체 역전",
-    "부분 사실"
+    "단락 순서 교란"
    ]
   },
   {
@@ -10390,10 +10276,10 @@
    "reject": "지문에는 basic·fundamental·prerequisite 에 해당하는 표현이 없고, 개념을 기본과 심화로 나누는 대목도 없다. 둘째 문장의 요구는 개념의 난이도가 아니라 노출의 횟수와 맥락이다",
    "answer": "지문 밖 상식",
    "options": [
-    "무관",
+    "반대 진술",
     "어휘 함정",
     "지문 밖 상식",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -10428,8 +10314,8 @@
    "reject": "watching videos 는 Reading·listening 과 나란한 열거 항목 하나이며, 넷째 문장은 세 항목이 함께 이해에 기여한다고 말한다. 시각 자료만 골라 수업 방식으로 승격시키면 열거의 나머지 둘이 빠진다",
    "answer": "부분 사실",
    "options": [
-    "무관",
     "반대 진술",
+    "무관",
     "부분 사실",
     "어휘 함정"
    ]
@@ -10658,8 +10544,8 @@
    "options": [
     "범위 과대",
     "주체 역전",
-    "어휘 함정",
-    "부분 사실"
+    "부분 사실",
+    "어휘 함정"
    ]
   },
   {
@@ -10676,8 +10562,8 @@
    "answer": "주체 역전",
    "options": [
     "범위 과대",
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "주체 역전"
    ]
   },
@@ -10810,8 +10696,8 @@
    "options": [
     "주체 역전",
     "인과 역전",
-    "지문 밖 상식",
-    "어휘 함정"
+    "어휘 함정",
+    "지문 밖 상식"
    ]
   },
   {
@@ -11037,8 +10923,8 @@
    "answer": "어휘 함정",
    "options": [
     "어휘 함정",
-    "무관",
     "반대 진술",
+    "무관",
     "부분 사실"
    ]
   },
@@ -11055,10 +10941,10 @@
    "reject": "그 문장은 간접 표현의 예시 셋 중 하나이고, 다섯째 문장의 판정 근거는 '기분을 상하게 해서'가 아니라 '어떻게 반응할지 알려 주지 못해서'다. 예시 하나를 근거로 승격시킨 형태다",
    "answer": "부분 사실",
    "options": [
-    "반대 진술",
+    "무관",
     "부분 사실",
     "어휘 함정",
-    "무관"
+    "반대 진술"
    ]
   },
   {
@@ -11074,8 +10960,8 @@
    "reject": "마지막 문장에서 부족한 것으로 지목된 것은 듣는 쪽의 경청이 아니라 말하는 쪽의 directness 다. 처방을 받아야 할 주체가 화난 사람인데 이 선지는 그 상대에게 요구한다. 지문에 listen 에 해당하는 표현이 없다",
    "answer": "주체 역전",
    "options": [
-    "반대 진술",
     "무관",
+    "반대 진술",
     "어휘 함정",
     "주체 역전"
    ]
@@ -11361,8 +11247,8 @@
    "options": [
     "주체 역전",
     "지문 밖 상식",
-    "어휘 함정",
-    "부분 사실"
+    "부분 사실",
+    "어휘 함정"
    ]
   },
   {
@@ -11379,9 +11265,9 @@
    "answer": "주체 역전",
    "options": [
     "주체 역전",
-    "부분 사실",
+    "어휘 함정",
     "범위 과대",
-    "어휘 함정"
+    "부분 사실"
    ]
   },
   {
@@ -11606,8 +11492,8 @@
    "reject": "둘째 문장의 workplace 는 동료 효과를 관찰한 장소이고, 지문이 말하는 결과는 셋째 문장의 start their own businesses(창업)다. job·employment·career 에 해당하는 낱말이 지문에 0건이다",
    "answer": "지문 밖 상식",
    "options": [
-    "반대 진술",
     "무관",
+    "반대 진술",
     "지문 밖 상식",
     "어휘 함정"
    ]
@@ -11644,10 +11530,10 @@
    "reject": "넷째 문장에서 그 경험을 제공하는(offer) 주어는 colleges and universities 이고 학생은 받는 쪽(students)이다. 다섯째 문장의 They 도 대학을 받는다. 대학생이 무엇을 해야 한다는 당위 문장이 지문에 없다",
    "answer": "주체 역전",
    "options": [
-    "반대 진술",
+    "무관",
     "어휘 함정",
     "주체 역전",
-    "무관"
+    "반대 진술"
    ]
   },
   {
@@ -11815,9 +11701,9 @@
    "reject": "5번 문장 Brunel’s factory supplied British troops with boots 에서 주어는 factory, 받는 쪽은 British troops 다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
-    "범위 과대",
     "어휘 함정",
+    "범위 과대",
+    "부분 사실",
     "주체 역전"
    ]
   },
@@ -11835,9 +11721,9 @@
    "answer": "인과 역전",
    "options": [
     "인과 역전",
-    "부분 사실",
+    "어휘 함정",
     "주체 역전",
-    "어휘 함정"
+    "부분 사실"
    ]
   },
   {
@@ -11891,7 +11777,7 @@
    "reject": "바로 앞 2번째 문장이 thought suppression can actually increase the thoughts one wishes to suppress 라고 따옴표까지 달아 못 박았고, 4번째 문장이 그 현상에 the rebound effect 라는 이름을 붙인다.",
    "answer": "지문 밖 상식",
    "options": [
-    "주체 역전",
+    "반대 진술",
     "어휘 함정",
     "인과 역전",
     "지문 밖 상식"
@@ -11913,7 +11799,7 @@
     "인과 역전",
     "지문 밖 상식",
     "어휘 함정",
-    "주체 역전"
+    "반대 진술"
    ]
   },
   {
@@ -11929,8 +11815,8 @@
    "reject": "6번째 문장의 주어는 an intentional operating process, which consciously attempts to locate 다. 억압을 수행하는 쪽이므로 딴 생각을 찾아야 하고, 억압 대상과 어긋나는 생각을 찾아내는 것은 7번째 문장의 monitoring process 쪽이다.",
    "answer": "주체 역전",
    "options": [
-    "지문 밖 상식",
     "어휘 함정",
+    "지문 밖 상식",
     "주체 역전",
     "인과 역전"
    ]
@@ -11948,10 +11834,10 @@
    "reject": "마지막 문장 안의 filters the inappropriate thoughts into consciousness 가 방향을 정한다. 의식으로 들어왔다는 것이므로 접근성이 높아진 것이고, 그것이 곧 앞에서 말한 반동 효과다.",
    "answer": "인과 역전",
    "options": [
-    "주체 역전",
-    "어휘 함정",
+    "반대 진술",
+    "지문 밖 상식",
     "인과 역전",
-    "지문 밖 상식"
+    "어휘 함정"
    ]
   },
   {
@@ -12101,9 +11987,9 @@
    "answer": "어휘 함정",
    "options": [
     "어휘 함정",
-    "단락 순서 교란",
+    "부분 사실",
     "주체 역전",
-    "부분 사실"
+    "단락 순서 교란"
    ]
   },
   {
@@ -12158,9 +12044,9 @@
    "answer": "주체 역전",
    "options": [
     "주체 역전",
-    "무관",
+    "반대 진술",
     "어휘 함정",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -12176,9 +12062,9 @@
    "reject": "다섯째 문장의 요구 대상은 screenplays and novels 둘이므로 영화 한 매체로 좁히면 novels 가 빠진다. 그리고 요구는 등장 자체가 아니라 present scientists in a positive light — 어떻게 그리느냐까지다. 여섯째 문장도 it is likely that ~ would help 라는 추정이지 처방 문장이 아니다",
    "answer": "범위 과소",
    "options": [
-    "무관",
-    "범위 과소",
     "반대 진술",
+    "범위 과소",
+    "무관",
     "어휘 함정"
    ]
   },
@@ -12316,6 +12202,25 @@
    ]
   },
   {
+   "id": "M2206#23:5",
+   "item_id": "M2206#23",
+   "slug": "M2206-23",
+   "exam_label": "2022학년도 6월 모의평가",
+   "no": 23,
+   "type_id": "R-TOPIC",
+   "type_name": "주제",
+   "choice": 5,
+   "tempting": "둘째 문장의 narratively structured 와 마지막 문장의 metaphorical transformations 가 겹쳐, 서사 구조가 상상력에 미치는 영향을 다룬 글처럼 보인다.",
+   "reject": "narratively structured 는 아이들 놀이를 꾸미는 수식어이고, 지문은 서사 구조가 독자에게 미치는 효과를 재는 대신 놀이가 어떤 형태로 이어지는지를 좇는다. readers 를 주어로 삼은 문장이 없다.",
+   "answer": "어휘 함정",
+   "options": [
+    "어휘 함정",
+    "부분 사실",
+    "무관",
+    "반대 진술"
+   ]
+  },
+  {
    "id": "M2206#24:2",
    "item_id": "M2206#24",
    "slug": "M2206-24",
@@ -12348,8 +12253,8 @@
    "answer": "주체 역전",
    "options": [
     "범위 과대",
-    "부분 사실",
     "어휘 함정",
+    "부분 사실",
     "주체 역전"
    ]
   },
@@ -12366,8 +12271,8 @@
    "reject": "마지막 문장 After the meeting, he gave Clarke one of his gold medals as a gift 가 시점을 대회 뒤로 못 박고, 준 사람은 he(Zátopek)다.",
    "answer": "인과 역전",
    "options": [
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "주체 역전",
     "인과 역전"
    ]
@@ -12442,7 +12347,7 @@
    "reject": "마지막 문장의 because it breaks a link with tradition 이 결과의 이유를 그 자리에서 밝힌다. 전통과의 연결이 끊긴다는 이유가 설명하는 결과는 부결이므로 defeated 가 맞다.",
    "answer": "지문 밖 상식",
    "options": [
-    "주체 역전",
+    "반대 진술",
     "인과 역전",
     "어휘 함정",
     "지문 밖 상식"
@@ -12690,8 +12595,8 @@
    "answer": "부분 사실",
    "options": [
     "어휘 함정",
-    "반대 진술",
     "무관",
+    "반대 진술",
     "부분 사실"
    ]
   },
@@ -12747,9 +12652,9 @@
    "answer": "어휘 함정",
    "options": [
     "부분 사실",
-    "반대 진술",
+    "무관",
     "어휘 함정",
-    "무관"
+    "반대 진술"
    ]
   },
   {
@@ -12917,8 +12822,8 @@
    "reject": "2번 문장 showed a talent for art from early on in school 에 in school 이 들어 있어 시기가 학교로 한정된다. 선지의 학창 시절과 같은 구간이다.",
    "answer": "범위 과대",
    "options": [
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "주체 역전",
     "범위 과대"
    ]
@@ -13050,10 +12955,10 @@
    "reject": "1번째 문장이 demand for a good or service in one sector is derived from another 로 이 글의 축을 파생 수요로 못 박았다. 2번째 문장은 그 축의 예시이므로 generate 의 목적어는 demands 여야 한다.",
    "answer": "인과 역전",
    "options": [
-    "주체 역전",
+    "반대 진술",
     "인과 역전",
-    "지문 밖 상식",
-    "어휘 함정"
+    "어휘 함정",
+    "지문 밖 상식"
    ]
   },
   {
@@ -13071,8 +12976,8 @@
    "options": [
     "반대 진술",
     "인과 역전",
-    "어휘 함정",
-    "지문 밖 상식"
+    "지문 밖 상식",
+    "어휘 함정"
    ]
   },
   {
@@ -13090,7 +12995,7 @@
    "options": [
     "인과 역전",
     "어휘 함정",
-    "주체 역전",
+    "반대 진술",
     "지문 밖 상식"
    ]
   },
@@ -13279,9 +13184,9 @@
    "answer": "어휘 함정",
    "options": [
     "주체 역전",
-    "부분 사실",
+    "단락 순서 교란",
     "어휘 함정",
-    "단락 순서 교란"
+    "부분 사실"
    ]
   },
   {
@@ -13297,10 +13202,10 @@
    "reject": "(C)의 Sally took out a container of vegetables from the refrigerator and replied 에서 took out 의 주어가 Sally 로 명시돼 있다. 참이다.",
    "answer": "주체 역전",
    "options": [
-    "단락 순서 교란",
+    "부분 사실",
     "어휘 함정",
     "주체 역전",
-    "부분 사실"
+    "단락 순서 교란"
    ]
   },
   {
@@ -13337,8 +13242,8 @@
    "options": [
     "어휘 함정",
     "부분 사실",
-    "무관",
-    "반대 진술"
+    "반대 진술",
+    "무관"
    ]
   },
   {
@@ -13374,8 +13279,8 @@
    "answer": "부분 사실",
    "options": [
     "부분 사실",
-    "반대 진술",
     "무관",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -13393,9 +13298,9 @@
    "answer": "지문 밖 상식",
    "options": [
     "지문 밖 상식",
-    "반대 진술",
+    "무관",
     "어휘 함정",
-    "무관"
+    "반대 진술"
    ]
   },
   {
@@ -13589,6 +13494,25 @@
    ]
   },
   {
+   "id": "M2306#26:1",
+   "item_id": "M2306#26",
+   "slug": "M2306-26",
+   "exam_label": "2023학년도 6월 모의평가",
+   "no": 26,
+   "type_id": "R-FACT",
+   "type_name": "내용 일치(글)",
+   "choice": 1,
+   "tempting": "rich 를 재산으로 읽거나 화석 수집 시점(as a child)과 섞으면 출생지에 관한 진술이 어긋난 것처럼 보인다.",
+   "reject": "2번 문장 His birthplace, Axminster in Britain, was rich with fossils 가 선지의 두 성분(태어난 곳·화석이 풍부)을 그대로 담는다.",
+   "answer": "어휘 함정",
+   "options": [
+    "어휘 함정",
+    "주체 역전",
+    "범위 과대",
+    "부분 사실"
+   ]
+  },
+  {
    "id": "M2306#26:2",
    "item_id": "M2306#26",
    "slug": "M2306-26",
@@ -13601,9 +13525,9 @@
    "reject": "4번 문장 He developed his scientific knowledge there while attending John Kidd’s lectures 에서 attending 의 주어는 He(Buckland)다. 선지의 들으며와 방향이 같다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
-    "범위 과대",
     "어휘 함정",
+    "범위 과대",
+    "부분 사실",
     "주체 역전"
    ]
   },
@@ -13621,9 +13545,9 @@
    "answer": "범위 과소",
    "options": [
     "범위 과소",
-    "어휘 함정",
+    "부분 사실",
     "주체 역전",
-    "부분 사실"
+    "어휘 함정"
    ]
   },
   {
@@ -13775,7 +13699,7 @@
     "어휘 함정",
     "지문 밖 상식",
     "인과 역전",
-    "주체 역전"
+    "반대 진술"
    ]
   },
   {
@@ -13791,10 +13715,10 @@
    "reject": "마지막 문장 바로 앞이 6번째 문장의 억제책이므로 this imperative 가 받는 것은 그 억제책이다. 자동차 통행이 기후변화에 보태는 몫은 억제 필요를 키우므로 reinforces 가 맞다.",
    "answer": "인과 역전",
    "options": [
-    "주체 역전",
-    "지문 밖 상식",
+    "반대 진술",
+    "어휘 함정",
     "인과 역전",
-    "어휘 함정"
+    "지문 밖 상식"
    ]
   },
   {
@@ -13982,9 +13906,9 @@
    "answer": "주체 역전",
    "options": [
     "어휘 함정",
-    "단락 순서 교란",
+    "부분 사실",
     "주체 역전",
-    "부분 사실"
+    "단락 순서 교란"
    ]
   },
   {
@@ -14020,8 +13944,8 @@
    "answer": "범위 과대",
    "options": [
     "범위 과대",
-    "반대 진술",
     "무관",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -14057,10 +13981,10 @@
    "reject": "그 문장은 We tend not to notice those cultural norms until ~ 로, 규범이 언제 눈에 띄는지를 설명하는 관찰이다. conflict·communication·dialogue 에 해당하는 낱말이 지문에 없고, 요구는 셋째 문장의 must 하나뿐이다",
    "answer": "지문 밖 상식",
    "options": [
-    "무관",
+    "반대 진술",
     "어휘 함정",
     "지문 밖 상식",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -14515,7 +14439,7 @@
    "options": [
     "범위 과대",
     "어휘 함정",
-    "부분 사실",
+    "단락 순서 교란",
     "주체 역전"
    ]
   },
@@ -14533,9 +14457,9 @@
    "answer": "주체 역전",
    "options": [
     "주체 역전",
-    "단락 순서 교란",
+    "부분 사실",
     "어휘 함정",
-    "부분 사실"
+    "단락 순서 교란"
    ]
   },
   {
@@ -14590,8 +14514,8 @@
    "answer": "어휘 함정",
    "options": [
     "부분 사실",
-    "반대 진술",
     "무관",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -14608,9 +14532,9 @@
    "reject": "넷째 문장은 Both tendencies pose a threat to the transfer ~ 로, 두 극단이 그 전이를 위협한다는 진단이다. 투자(investment·resources)를 요구하는 표현이 지문에 없고, 마지막 문장이 요구하는 것은 투자가 아니라 support 와 encouragement 다",
    "answer": "부분 사실",
    "options": [
-    "반대 진술",
-    "어휘 함정",
     "무관",
+    "어휘 함정",
+    "반대 진술",
     "부분 사실"
    ]
   },
@@ -14628,8 +14552,8 @@
    "answer": "범위 과대",
    "options": [
     "범위 과대",
-    "반대 진술",
     "무관",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -14798,8 +14722,8 @@
    "reject": "8번 문장 including the Academy Honorary Award in 1975 에서 including 이 그 상을 목록의 한 항목으로 명시한다.",
    "answer": "범위 과소",
    "options": [
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "범위 과소",
     "주체 역전"
    ]
@@ -15181,7 +15105,7 @@
     "주체 역전",
     "어휘 함정",
     "범위 과소",
-    "부분 사실"
+    "단락 순서 교란"
    ]
   },
   {
@@ -15273,9 +15197,9 @@
    "reject": "계획·준비를 뜻하는 표현(plan·prepare·in advance)이 지문에 0건이다. 넷째 문장은 오히려 we are willing to let fear be present as we do the things that matter to us 로, 두려움을 없앤 뒤가 아니라 안은 채로 하라고 말한다",
    "answer": "지문 밖 상식",
    "options": [
-    "반대 진술",
-    "지문 밖 상식",
     "무관",
+    "지문 밖 상식",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -15293,9 +15217,9 @@
    "answer": "어휘 함정",
    "options": [
     "부분 사실",
-    "무관",
+    "반대 진술",
     "어휘 함정",
-    "반대 진술"
+    "무관"
    ]
   },
   {
@@ -15391,6 +15315,25 @@
     "어휘 함정",
     "무관",
     "부분 사실"
+   ]
+  },
+  {
+   "id": "M2409#22:4",
+   "item_id": "M2409#22",
+   "slug": "M2409-22",
+   "exam_label": "2024학년도 9월 모의평가",
+   "no": 22,
+   "type_id": "R-GIST",
+   "type_name": "요지",
+   "choice": 4,
+   "tempting": "다문화라는 낱말이 2번 문장의 Multiculturalists 와 겹치고, 다문화 사회에 붙는 통상적 결론이 국제 협력이다.",
+   "reject": "지문의 무대는 5번 문장의 this country 하나이고, 갈등이 결정되는 단위는 3번 문장의 the community to which one migrates 다. 국가 간 협력을 말한 표현이 없다.",
+   "answer": "지문 밖 상식",
+   "options": [
+    "무관",
+    "지문 밖 상식",
+    "부분 사실",
+    "어휘 함정"
    ]
   },
   {
@@ -15539,8 +15482,8 @@
    "reject": "5번 문장 impressed some of the 20th century’s most well-known composers, who invited him to play their music 에서 who 의 선행사는 composers, 목적어 him 이 Rosen 이다.",
    "answer": "주체 역전",
    "options": [
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "범위 과대",
     "주체 역전"
    ]
@@ -15558,8 +15501,8 @@
    "reject": "7번 문장 first published in 1971 and won the U.S. National Book Award the next year 에서 the next year 의 기준은 바로 앞의 1971 이다.",
    "answer": "인과 역전",
    "options": [
-    "부분 사실",
     "어휘 함정",
+    "부분 사실",
     "인과 역전",
     "주체 역전"
    ]
@@ -15863,7 +15806,7 @@
    "answer": "범위 과소",
    "options": [
     "주체 역전",
-    "부분 사실",
+    "단락 순서 교란",
     "어휘 함정",
     "범위 과소"
    ]
@@ -16052,9 +15995,9 @@
    "reject": "넷째 문장 He was very interested in cowboys and horses 가 관심 사실을 그대로 적는다. 직업이 되었다는 뒤 문장은 이 진술을 지우지 않는다.",
    "answer": "범위 과소",
    "options": [
-    "어휘 함정",
-    "주체 역전",
     "부분 사실",
+    "주체 역전",
+    "어휘 함정",
     "범위 과소"
    ]
   },
@@ -16072,8 +16015,8 @@
    "answer": "인과 역전",
    "options": [
     "인과 역전",
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "주체 역전"
    ]
   },
@@ -16528,8 +16471,8 @@
    "answer": "주체 역전",
    "options": [
     "주체 역전",
-    "단락 순서 교란",
     "부분 사실",
+    "단락 순서 교란",
     "어휘 함정"
    ]
   },
@@ -16546,9 +16489,28 @@
    "reject": "(C)의 'His confidence was, however, quickly changed to nervousness when he thought of how many people would be there.' 가 리허설 직전 감정 변화를 적어 놓았다. however 가 앞 문장을 뒤집는 표지다.",
    "answer": "어휘 함정",
    "options": [
-    "단락 순서 교란",
-    "주체 역전",
     "부분 사실",
+    "주체 역전",
+    "단락 순서 교란",
+    "어휘 함정"
+   ]
+  },
+  {
+   "id": "M2509#18:5",
+   "item_id": "M2509#18",
+   "slug": "M2509-18",
+   "exam_label": "2025학년도 9월 모의평가",
+   "no": 18,
+   "type_id": "R-PURPOSE",
+   "type_name": "글의 목적",
+   "choice": 5,
+   "tempting": "둘째 문장의 To thank you for your loyalty 와 일곱째 문장의 Thank you for your continued loyalty 가 감사 행사라는 말과 겹친다.",
+   "reject": "감사의 표시로 회사가 혜택을 주는 방향이며, 고객에게 아이디어를 내라는 요구(share your ideas·submit)가 지문에 없다. 수신자가 할 일은 다섯째 문장의 코드 입력뿐이다.",
+   "answer": "주체 역전",
+   "options": [
+    "무관",
+    "부분 사실",
+    "주체 역전",
     "어휘 함정"
    ]
   },
@@ -16603,8 +16565,8 @@
    "reject": "6번째 문장의 당위가 걸린 주어는 participants 이고 5번째 문장이 그것을 our responsibility 로 못박는다. 책임 주체가 기업으로 바뀌었고, 개인 정보 보호(privacy)에 해당하는 말도 지문에 없다.",
    "answer": "주체 역전",
    "options": [
-    "무관",
     "반대 진술",
+    "무관",
     "주체 역전",
     "어휘 함정"
    ]
@@ -16832,9 +16794,9 @@
    "answer": "인과 역전",
    "options": [
     "인과 역전",
-    "어휘 함정",
+    "부분 사실",
     "주체 역전",
-    "부분 사실"
+    "어휘 함정"
    ]
   },
   {
@@ -16850,8 +16812,8 @@
    "reject": "판정 근거는 그 문장이 아니라 마지막 문장 He was a great pioneer in connecting art and technology 다. 여기에 technology 가 그대로 적혀 있다.",
    "answer": "무관",
    "options": [
-    "부분 사실",
     "어휘 함정",
+    "부분 사실",
     "주체 역전",
     "무관"
    ]
@@ -17117,8 +17079,8 @@
    "answer": "주체 역전",
    "options": [
     "어휘 함정",
-    "단락 순서 교란",
     "부분 사실",
+    "단락 순서 교란",
     "주체 역전"
    ]
   },
@@ -17230,10 +17192,10 @@
    "reject": "5번째 문장에서 넘치는 것은 결과에 대한 집착이 아니라 worries(걱정)이고, 마지막 문장은 그 대상을 아직 일어나지 않은 사건으로 한정한다. '일의 과정을 즐기려면'이라는 목적도 지문에 없다.",
    "answer": "범위 과대",
    "options": [
-    "반대 진술",
+    "무관",
     "범위 과대",
     "어휘 함정",
-    "무관"
+    "반대 진술"
    ]
   },
   {
@@ -17459,9 +17421,9 @@
    "answer": "주체 역전",
    "options": [
     "범위 과대",
-    "어휘 함정",
+    "부분 사실",
     "주체 역전",
-    "부분 사실"
+    "어휘 함정"
    ]
   },
   {
@@ -17496,8 +17458,8 @@
    "reject": "마지막 문장 she was remembered as one of the leading figures in the field of science education 이 근거다. 선지도 '선도적인 인물'이라 유일성을 주장하지 않는다.",
    "answer": "범위 과대",
    "options": [
-    "어휘 함정",
     "부분 사실",
+    "어휘 함정",
     "범위 과대",
     "주체 역전"
    ]
@@ -17876,9 +17838,9 @@
    "reject": "(A)의 'Born and raised in a big city, ... Cathy had never had a chance to buy freshly-picked fruits or vegetables.' 에서 분사구문의 주어가 Cathy 다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
-    "주체 역전",
     "단락 순서 교란",
+    "주체 역전",
+    "부분 사실",
     "어휘 함정"
    ]
   },
@@ -18446,8 +18408,8 @@
    "reject": "(A)의 'One afternoon, Mike’s dad came home earlier than usual.' 에서 earlier than usual 이 선지 그대로다.",
    "answer": "어휘 함정",
    "options": [
-    "부분 사실",
     "단락 순서 교란",
+    "부분 사실",
     "주체 역전",
     "어휘 함정"
    ]
@@ -18486,7 +18448,7 @@
    "options": [
     "범위 과소",
     "어휘 함정",
-    "부분 사실",
+    "단락 순서 교란",
     "주체 역전"
    ]
   },
@@ -18675,8 +18637,8 @@
    "answer": "부분 사실",
    "options": [
     "부분 사실",
-    "반대 진술",
     "무관",
+    "반대 진술",
     "어휘 함정"
    ]
   },
@@ -18693,9 +18655,9 @@
    "reject": "gradually 가 걸린 자리는 프로그램 계획이 아니라 참여자가 'take fuller ownership of their own development'(자기 발달의 주도권을 더 갖는) 과정이다. 또 '편의(convenience)'에 해당하는 말은 지문에 없고, 6번째 문장의 요구는 편의가 아니라 인식 제고다.",
    "answer": "어휘 함정",
    "options": [
-    "무관",
-    "부분 사실",
     "반대 진술",
+    "부분 사실",
+    "무관",
     "어휘 함정"
    ]
   },
@@ -18921,8 +18883,8 @@
    "reject": "아홉째 문장 he left Oxford to take a job at UC Berkeley and retired from there in 1979 에서 left 의 목적어가 Oxford 이므로 그 뒤에 남은 근무지는 UC Berkeley 하나다. there 가 가리킬 수 있는 곳은 방금 취직한 곳뿐이다.",
    "answer": "주체 역전",
    "options": [
-    "부분 사실",
     "어휘 함정",
+    "부분 사실",
     "주체 역전",
     "범위 과대"
    ]
@@ -19058,25 +19020,6 @@
     "반대 진술",
     "어휘 함정",
     "인과 역전"
-   ]
-  },
-  {
-   "id": "M2706#32:4",
-   "item_id": "M2706#32",
-   "slug": "M2706-32",
-   "exam_label": "2027학년도 6월 모의평가",
-   "no": 32,
-   "type_id": "R-BLANK",
-   "type_name": "빈칸 추론",
-   "choice": 4,
-   "tempting": "본문 핵심어 nonverbal communication 을 그대로 담고 있다",
-   "reject": "‘유지하기가 어렵다’는 진술이 지문에 없다. 인용문의 ‘he chatters with his fingertips’ 는 비언어가 애쓰지 않아도 저절로 나온다는 말이라, 유지의 어려움과 방향이 반대다",
-   "answer": "무관",
-   "options": [
-    "어휘 함정",
-    "무관",
-    "지문 밖 상식",
-    "반대 진술"
    ]
   },
   {

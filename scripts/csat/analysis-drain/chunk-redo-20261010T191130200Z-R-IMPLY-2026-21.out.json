@@ -1,0 +1,203 @@
+{
+ "chunk": 25,
+ "type_id": "R-IMPLY",
+ "type_name": "함축 의미",
+ "analyses": [
+  {
+   "item_id": "2026#21",
+   "measured_ability": "sticky 라는 비유어(장소에 달라붙음)가 이 지문에서 어떤 명사구와 등치되는지 찾아 원관념(일과 특정 장소의 결속)으로 바꿔 쓰는 능력. 이 문항은 밑줄이 첫 문장이라 풀이가 뒤에만 올 수 있고, 2문장의 As ~ 절이 그 풀이를 맡는다는 조건에서만 '다음 문장'이 근거가 된다 — 밑줄이 글 중간·끝이면 앞 문장이나 글 전체 대조로 풀어야 한다.",
+   "design_intent": "밑줄이 첫 문장에 있어 근거가 뒤에만 있다. 2문장이 비유를 '일과 장소의 결속이 끊어짐'으로 풀고, 이어지는 문장들이 규제·세금 미준수(5문장), 클릭 몇 번의 전환(6문장) 같은 결과를 늘어놓아, 그 결과 하나를 밑줄의 의미로 집어 드는지 가린다. 정답은 지문에 없는 낱말 spatial flexibility 로 2·3문장의 역할을 바꿔 말한다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     3
+    ],
+    "quote": "ties between service work and particular places can be disconnected",
+    "reasoning": "1문장의 less sticky 를 받아 2문장이 As ~ 구문으로 곧바로 풀어 쓴다. sticky = 일이 특정 장소에 묶여 있음이므로 less sticky = 장소 결속이 끊어짐이고, 3문장이 geographically non-proximate work 로 그 결속 해제가 공간 차원의 일임을 못박는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "locational 이 sticky 의 공간성과 겹쳐 보이고 3문장에 global reserve army 라는 세계 시장 표현이 있어 어울려 보인다.",
+     "how_to_reject": "1~7문장 어디에도 dilemma 에 해당하는 갈등이나 그 해소가 서술되지 않는다. 7문장은 오히려 고용주가 흔적을 남기지 않는다는 부작용을 덧붙인다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "2문장의 'ties between service work and particular places can be disconnected' 에서 particular places 와의 결속이 끊긴다는 것이 선지의 spatial flexibility 로, service work 가 conducting business 로 대응한다. 3문장 'geographically non-proximate work' 가 그 해제를 공간 차원으로 못박고, 밑줄의 less(sticky) 와 선지의 elevated 가 같은 방향의 증감이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "4문장의 New York · Nairobi · New Delhi 와 3문장의 distant labour markets 를 보고 지역 사업 이야기로 읽으면 닿는다.",
+     "how_to_reject": "3문장은 cloudwork changes the volume and granularity at which geographically non-proximate work can take place 로 비근접 노동이 늘었다고 말한다. weakened 는 방향이 반대다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "5문장에 no local regulations are observed 와 no local taxes are paid 가 그대로 있어 법·규제 항목이 지문에 실재한다.",
+     "how_to_reject": "5문장은 장소 결속이 끊어진 뒤에 따라오는 결과를 나열한 것이고, 1문장의 sticky 를 풀어 쓴 것은 2문장이다. 게다가 지문은 절차가 완화되었다가 아니라 지켜지지 않는다고 말한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "6문장 simply sending some emails or clicking some buttons 가 '덜 복잡한 채용' 이라는 표현과 바로 겹친다.",
+     "how_to_reject": "6문장이 말하는 것은 전환의 간편함이고, 2문장이 밝힌 밑줄의 뜻은 장소 결속의 해제다. 절차 간소화는 그 결과 중 하나일 뿐 밑줄이 가리키는 범위를 덮지 못한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 표현에서 비유어 하나(sticky)에 동그라미를 치고, 그 낱말의 일상적 뜻(달라붙는)을 여백에 적는다",
+     "on_fail": "일상적 뜻이 안 떠오르면 less / more 같은 정도 표지만 적고 다음 단계로 간다"
+    },
+    {
+     "step": "밑줄이 지문의 어디(첫 문장·중간·끝)에 있는지 확인한다. 첫 문장이면 풀이는 뒤에만 있을 수 있으므로, 뒤 문장 중 밑줄 낱말(work)을 다시 받으며 일반 진술로 풀어 쓰는 문장을 찾아 괄호를 친다(이 글에서는 As ~ 로 시작하는 2문장)",
+     "on_fail": "밑줄이 중간·끝에 있거나 바로 뒤 문장이 예시(A small business in New York…)뿐이면 앞쪽 일반 진술까지 괄호를 넓혀 글 전체와 대조한다"
+    },
+    {
+     "step": "괄호 안에서 disconnected · separated · removed 처럼 '떨어짐' 을 말하는 동사와 그 동사의 주어 명사구를 그대로 옮겨 적는다",
+     "on_fail": "그런 동사가 없으면 괄호 안 문장의 주어와 목적어만 옮겨 적는다"
+    },
+    {
+     "step": "옮겨 적은 명사구(ties between service work and particular places)가 무엇 차원의 말인지 한 낱말로 적고(장소·비용·법·절차 중), 선지 다섯이 각각 어느 차원을 말하는지 옆에 적어 다른 차원의 선지를 지운다",
+     "on_fail": "같은 차원(장소)의 선지가 둘 남으면 증감 방향을 본다 — less sticky 는 결속이 줄어 이동성이 커진다는 방향이므로 '약화·축소'를 말하는 선지와 비교한다"
+    },
+    {
+     "step": "남은 선지를 밑줄 자리에 넣어 1문장을 다시 읽고, 2문장의 접속(As ~)이 그대로 이어지는지 본다",
+     "on_fail": "둘 다 이어지면 5문장 이후에만 근거가 있는 쪽을 지운다 — 밑줄을 푼 것은 2문장이다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.62,
+    "drivers": [
+     "밑줄이 첫 문장이라 근거가 전부 뒤에 있음",
+     "modularised · commoditised · granularity 등 추상 명사 밀도",
+     "규제·세금·절차라는 그럴듯한 부수 항목이 세 문장에 걸쳐 깔림"
+    ]
+   },
+   "required_vocab": [
+    "sticky",
+    "ties",
+    "disconnected",
+    "non-proximate",
+    "granularity"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "재검수: 1차 revise(measured_ability 과일반화)를 고친 뒤 재확인 — 이 문항 한정 조건이 명시되어 해소",
+      "원장 결함: measured_ability 가 '바로 다음 문장에서 찾아'로 일반화되어 계약 pitfall(밑줄 바로 뒤가 풀이)에 걸렸다 — 이 문항 한정 조건(첫 문장 밑줄·2문장 As 절)을 명시하도록 고침",
+      "인용은 2문장에 문자 그대로 있고 정답 대응(particular places→spatial, service work→conducting business, less sticky→elevated flexibility)은 유지"
+     ],
+     "checked": [
+      "measured_ability 수정 후 design_intent·solve_procedure 2단계도 같은 일반화가 남았는지 대조해 2단계를 조건부로 고침",
+      "answer_locus.quote 를 지문과 문자열 대조"
+     ],
+     "revised": true
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 유인 낱말(locational·geographical·legal·hiring)과 배제 문장(1~7·3·5·6문장)이 선지마다 다르다",
+      "4단계 on_fail 의 '지문에 없는 명사를 먼저 지운다' 규칙은 정답 spatial flexibility 도 지문에 없는 낱말이라 성립하지 않아 증감 방향 비교로 교체"
+     ],
+     "checked": [
+      "trap 라벨과 설명 방향 일치",
+      "선지별 why_tempting/how_to_reject 중복 여부",
+      "on_fail 규칙이 정답 선지를 지우지 않는지 대조"
+     ],
+     "revised": true
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계가 밑줄 위치별 분기를 갖게 되어 무조건 '바로 뒤' 요령이 사라졌다",
+      "90초 안에 실행 가능"
+     ],
+     "checked": [
+      "금지 표현 문자열 검색",
+      "required_vocab 지문 실재 대조",
+      "각 on_fail 문장이 서로 다른지 대조"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-IMPLY",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "무관",
+    "count": 1,
+    "signature": "지문에 없는 dilemma"
+   },
+   {
+    "trap": "반대 진술",
+    "count": 1,
+    "signature": "weakened 로 방향 뒤집기"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 1,
+    "signature": "결과 문장(규제)을 의미로"
+   },
+   {
+    "trap": "범위 과소",
+    "count": 1,
+    "signature": "결과 하나(채용 간소화)를 의미로"
+   }
+  ],
+  "answer_locus_pattern": "밑줄이 첫 문장이라 근거가 바로 뒤 일반 진술(2문장)에 있다 — 이 위치 조건에서만 성립",
+  "procedure": [
+   {
+    "step": "발문에서 밑줄 표현을 옮겨 적고 세 갈래로 표시한다 — (가) 큰따옴표나 As the saying goes 로 인용된 굳은 관용구·속담 4건(give up the ghost · have the last word · hunting the shadow not the substance · The best is the enemy of the good), (나) 지문이 is like / describe A as B / 앞 문장 명사로 스스로 도입한 비유 7건, (다) 비유가 아닌 추상 구절 1건",
+    "on_fail": "갈래가 안 보이면 (나)로 두고 다음 단계로 간다 — 12문항 중 7이 (나)이고, (나)의 절차가 (가)·(다)를 덮는다"
+   },
+   {
+    "step": "(가)라면 관용구의 사전 뜻에서 방향만 뽑아 여백에 적는다(폐기 · 최종 · 실체 아님 · 과잉의 해). 방향이 정해지면 '무엇을' 에 해당하는 명사만 찾으면 되므로 다음 단계의 괄호가 좁아진다",
+    "on_fail": "관용구 뜻을 모르면 밑줄 안의 부정어·비교급(give up · not · hasn't · less)만 보고 방향을 적는다 — 관용구 4건 모두 밑줄 표면에 방향 표지가 있다"
+   },
+   {
+    "step": "밑줄이 지문 몇 번째 문장인지 세고, 바로 앞 한 문장과 바로 뒤 한 문장에 괄호를 친다. 밑줄이 마지막 문장이면 앞 2문장, 첫 문장이면 뒤 2문장으로 넓힌다",
+    "on_fail": "괄호 안에 재진술이 없으면 밑줄이 든 문장 자신을 본다 — while · because · each time 으로 이어진 종속절에 원관념이 든 경우가 2건 있다(2025#21 · M2609#21)"
+   },
+   {
+    "step": "괄호 안에서 부정어(not · no · never · did not)와 그 부정어가 걸린 명사구를 그대로 옮겨 적는다. 부정어가 없으면 disconnected · separated · turns down 처럼 방향을 담은 동사와 그 주어를 옮긴다",
+    "on_fail": "둘 다 없으면 괄호 문장의 주어와 목적어만 옮겨 적고 다음 단계로 간다"
+   },
+   {
+    "step": "옮겨 적은 구를 밑줄 자리에 넣어 문장을 다시 읽고, 그 구와 같은 말을 하는 선지를 남긴다. (나) 갈래에서는 비유어(sticky · stick · pan · corners)가 등치된 명사가 반드시 괄호 안에 문자로 있으므로 그 명사를 담은 선지를 우선한다",
+    "on_fail": "같은 말이 둘 이상이면 선지 중심 명사의 차원(장소 · 시간 · 절차 · 정도 · 권리)을 적어 괄호 문장과 다른 차원인 쪽을 지운다"
+   },
+   {
+    "step": "남은 선지에서 지문에 한 번도 나오지 않은 명사를 찾아 그 선지를 지운다(dilemma · illusion · sensitivity · demotivating · alternate ego · overqualified). 반대로 지문 낱말이 가장 많이 겹치는 선지는 후순위로 미룬다",
+    "on_fail": "지문 밖 명사가 없는 선지가 둘이면 4단계의 부정어가 걸린 명사구를 그대로 담은 쪽을 남긴다"
+   }
+  ],
+  "failure_modes": [
+   "소재 대조로 지우려 한다. 12문항 48개 오답 중 지문 내용어가 하나도 안 겹치는 것은 6개(13%)뿐이다. 더 나쁜 것은 방향이다: 지문 낱말이 가장 많이 겹치는 선지가 정답인 문항은 12개 중 2개(M2609#21 · 2025#21)뿐이고, 9개에서는 겹침 최다 선지가 오답이었다(M2606#21 ④ · M2509#21 ④ · M2506#21 ① · M2406#21 ④⑤ · M2309#21 ② 등). 어휘 대조는 이 유형에서 역신호다. 값싼 첫 점검은 밑줄 표면의 방향 표지(give up · less · not · hasn't · non- · different · divergence)를 읽는 것이다 — 12문항 중 10에서 밑줄 표현 자체에 방향 표지가 있고, 나머지 2도 인접 문장에 부정어가 있다.",
+   "밑줄 표현의 사물 이미지로 곧장 뛴다. 논스틱 팬 → 스트레스가 아예 없다(2024#21 ①), 베란다 → 넓게 조망한다(M2509#21 ⑤), 집에 돌아온다 → 원래 주파수로 복귀한다(M2609#21 ②), 임차인 → 세입자들이 나눠 쓰는 건물(M2406#21 ④). 네 경우 모두 인접 문장이 그 이미지를 제한하고 있는데(still fry an egg · did not spend significant time · each time we double a tone's frequency · a tenant with a lease) 그 문장을 안 읽고 이미지에서 답을 만든다.",
+   "대조 구조에서 밑줄이 어느 편인지 확인하지 않는다. while 절 반대쪽 사람의 실패를 답으로 고르거나(2025#21 ④), 일부 학자의 요구를 실제 행동으로 읽거나(M2509#21 ①), But 앞의 걱정을 뒤집힌 결과로 읽는다(M2309#21 ⑤가 정확히 그 자리다). 세로줄 하나 긋는 동작으로 막힌다.",
+   "밑줄 문장의 주어를 확인하지 않는다. M2506#21 ①은 last word 를 '논의의 마지막 말' 로 읽는데 밑줄 문장의 주어가 Burnout 이라는 사실 하나로 배제된다. 선지가 완결 문장인 문항(M2506#21 · M2409#21)에서는 주어 대조가 가장 값싼 첫 동작이다.",
+   "관용구를 문자 그대로 읽는다. give up the ghost · have the last word · The best is the enemy of the good 세 건에서 문자적 독해나 통상적 뜻이 각각 오답 하나로 곧장 이어진다. 관용구 갈래(5/12)에서는 사전 뜻이 없으면 밑줄 표면의 부정어·비교급으로 방향만이라도 잡아야 한다.",
+   "인접 한 문장에서 판단을 끝낸다 — 12문항 전부에서 인접 문장은 방향만 주고 '무엇으로' 에 해당하는 명사는 앞쪽 정의문·동기 진술에 있다. 두 자리를 다 짚지 않으면 방향이 같은 선지 둘이 남는다."
+  ],
+  "time_budget_sec": 105,
+  "open_questions": [
+   "이 청크는 1문항 교정 redo 라 recurring_traps 는 원장(12문항) 집계를 그대로 두지 않고 이 문항 함정만 센다",
+   "analyst·tutor 는 원장 결함 외 반려가 없었다 — setter 만 반려"
+  ]
+ }
+}

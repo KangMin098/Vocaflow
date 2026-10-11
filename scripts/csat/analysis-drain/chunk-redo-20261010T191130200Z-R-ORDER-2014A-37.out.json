@@ -1,0 +1,170 @@
+{
+ "chunk": 5,
+ "type_id": "R-ORDER",
+ "type_name": "글의 순서",
+ "analyses": [
+  {
+   "item_id": "2014A#37",
+   "measured_ability": "세 단락의 머리가 앞에 요구하는 것(누구인지 소개된 인물, it 이 받을 사물, So 가 받을 이유)을 찾아 앞 단락 꼬리와 하나씩 잇는 능력",
+   "design_intent": "주어진 글은 '병에 담긴 편지'라는 일반 화제만 열고, 콜럼버스 일화를 세 조각으로 잘랐다. (B) 첫 문장 'In 1493, Christopher Columbus sent one of the earliest and most famous bottled messages' 가 주어진 글의 bottled messages 를 사례로 받는 자리이고, (A)·(C)의 선후는 이름 형태가 아니라 (A) 끝의 a piece of paper 를 (C) 첫 문장의 it 이 받는 연결로 정해지도록 설계했다. 이름이 성만 쓰인 (A)가 (B) 뒤라는 판단은 (B)가 인물·연도·상황(폭풍)을 처음 대 준다는 내용 조건과 함께일 때만 성립한다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5,
+     7
+    ],
+    "quote": "In 1493, Christopher Columbus sent one of the earliest and most famous bottled messages.",
+    "reasoning": "이음매 셋을 따로 확인한다. ① 주어진 글→(B): 주어진 글 끝의 '병 편지는 언제 어디 닿을지 모른다'는 일반 진술을 (B) 첫 문장이 one of the earliest ... bottled messages 라는 사례로 받는다. ② (B)→(A): (B) 끝이 '폭풍을 만났다'에서 끊기고, (A)의 '살아서 왕과 왕비에게 알리지 못할까 두려웠다'와 So he wrote the news 는 그 폭풍과 (B)의 '왕과 왕비에게 알리러 돌아가던 중'을 이유로 받는다. ③ (A)→(C): (C) 첫 문장 He put it in a wooden bottle 의 it 은 병에 넣을 수 있는 물건이어야 하는데, 그런 물건은 (A) 끝 문장(4번 문장)의 a piece of paper 뿐이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "조건-귀결 절단",
+     "why_tempting": "(A) 첫 문장의 'more than a thousand miles from Europe' 이 주어진 글의 바다·먼 거리 이야기와 바로 이어지는 듯해 (A)를 맨 앞에 둔다.",
+     "how_to_reject": "(A)의 '두려워했다'와 So he wrote 는 이유가 앞에 있어야 하는데, 그 이유인 폭풍과 귀국 목적은 (B) 6번 문장(He was returning to Spain ... bad storm)에만 있다. (A)를 앞에 두면 (B)가 맨 뒤로 가 결말 뒤에 도입이 온다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "이 순열만 세 이음매가 모두 선다. (B) 끝 'his ship got caught in a bad storm'이 (A)의 'he feared he would never live to tell'의 이유가 되고, (A) 끝 'a piece of paper'가 (C) 첫 문장 'He put it in a wooden bottle'의 it 이 되며, (C) 끝의 발견(More than 300 years later)이 주어진 글의 '언제 닿을지 알 수 없다'를 사례로 확인하며 닫는다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       6,
+       7
+      ],
+      "note": "정답을 확정하는 것은 6→3번 문장의 이유 연결과 4→7번 문장의 it 연결이다. 문장 번호는 주어진 글 1~2, (A) 3~4, (B) 5~6, (C) 7~8 로 센다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(B) 첫 문장의 bottled messages 와 (C)의 'put it in a wooden bottle'이 같은 '병' 낱말을 공유해, (B) 바로 뒤에 (C)가 붙는다고 본다.",
+     "how_to_reject": "(B)-(C)로 이으면 (C) 7번 문장의 it 앞에 오는 사물이 (B) 6번 문장의 his ship·storm 뿐이라 '배를 병에 넣었다'가 된다. it 이 받을 a piece of paper 는 (A) 4번 문장에 있으므로 (A)가 (C) 앞에 와야 한다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "(C) 끝의 '300년 뒤 아프리카 해안에서 발견'이 주어진 글의 '언제 어디로 닿을지 알 수 없다'를 곧바로 예증하는 것처럼 보여 (C)를 첫 자리에 둔다.",
+     "how_to_reject": "(C)를 주어진 글 바로 뒤에 두면 7번 문장의 He 와 it 이 받을 인물·사물이 주어진 글(1~2번 문장)에 없다. He 는 (B) 5번 문장의 Christopher Columbus, it 은 (A) 4번 문장의 a piece of paper 가 먼저 나와야 한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "시간·인과 순서 역전",
+     "why_tempting": "(C)를 앞세우고 (B)의 'In 1493'으로 사연을 거슬러 푸는 회상 구성으로 읽으면 이야기로 성립하는 듯하다.",
+     "how_to_reject": "⑤는 (C)-(B)-(A)라 (A) 4번 문장 'So he wrote the news on a piece of paper'로 끝나는데, 이 종이가 어떻게 됐는지는 (C) 7번 문장에서야 나오므로 쓴 종이가 이미 앞에서 병에 들어간 뒤가 된다. 또 7번 문장의 it 이 선행사 없이 맨 앞에 놓인다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "주어진 글 마지막 문장이 무엇을 남기는지 적는다 — 여기서는 '병 편지는 언제 어디 닿을지 모른다'는 일반 진술이고, 사례를 받을 단락이 이어질 수 있다",
+     "on_fail": "일반 진술인지 사건인지 판단이 안 서면, 주어진 글에 특정 인물·연도가 있는지만 확인한다(없으면 그것을 소개하는 단락이 필요하다)"
+    },
+    {
+     "step": "(A)(B)(C) 첫 문장에서 앞에 무언가를 요구하는 낱말에 표시한다 — (A)의 Columbus·he feared(왜 두려운가), (C)의 He·it",
+     "on_fail": "표시할 낱말이 안 보이면 대명사(he·it·they)와 So·Then 같은 연결어만 먼저 찾는다"
+    },
+    {
+     "step": "표시한 낱말마다 그것을 대 주는 말이 어느 단락 끝에 있는지 찾는다 — it 은 병에 넣을 수 있는 사물이어야 하므로 그런 사물이 끝에 나오는 단락을 바로 앞에 둔다",
+     "on_fail": "후보 사물이 둘이면 'put it in a wooden bottle'에 넣어 보아 말이 되는 쪽만 남긴다"
+    },
+    {
+     "step": "요구하는 것이 없는 단락(인물을 이름·연도로 처음 소개하는 단락)을 주어진 글 뒤에 두고, 3단계에서 정한 짝을 이어 다섯 순열 중 세 이음매가 모두 서는 것을 고른다",
+     "on_fail": "두 순열이 남으면 각 순열의 마지막 단락 끝 문장이 다음 동작을 남기는지(So he wrote ... 처럼) 결말을 맺는지 견준다"
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "구체 사건 서사라 시간 순이 연결 단서와 겹친다",
+     "it 의 선행사가 단락 경계를 넘어 (A) 끝에 있다",
+     "(B) 첫 문장이 주어진 글의 bottled messages 를 직접 되받는다"
+    ]
+   },
+   "required_vocab": [
+    "overboard",
+    "tossed",
+    "storm",
+    "bottled"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "[반려 후 수정] design_intent 가 '이름의 정밀도만 견주면 순서가 나온다'는 무조건 규칙이었다. (A)·(C) 선후는 it→a piece of paper 연결이 정한다 — 고쳐 썼다",
+      "[반려 후 수정] 정답 why_correct 가 줄거리 요약뿐이었다 — 이음매별 선행 조건(이유·it 의 선행사)으로 다시 썼다",
+      "수정 후 이름 형태는 내용 조건과 함께만 쓰였다"
+     ],
+     "checked": [
+      "quote 를 지문 (B) 첫 문장과 문자열 대조",
+      "정답 ② = (B)-(A)-(C) 와 정답표 answer=2 일치",
+      "answer_locus.reasoning·why_correct·solve_procedure 1단계에 이름 형태 규칙이 남았는지 재확인",
+      "design_intent·measured_ability·step 재독"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "[반려 후 수정] 옛 ① 라벨 '첫 등장 위반'은 이름 규칙에 기댄 것이라 이유 연결 절단(조건-귀결 절단)으로 바꿨다",
+      "[반려 후 수정] 옛 ⑤ 배제 근거는 (A) 끝이 결말이 못 된다는 것뿐이라 it 선행사 근거를 더했다"
+     ],
+     "checked": [
+      "다섯 선지 trap 과 how_to_reject 방향 일치",
+      "how_to_reject 마다 문장 번호 확인",
+      "③·④가 같은 라벨이지만 선행사가 빠지는 대상(it 대 He·it)이 다른지 대조",
+      "수정본 선지 설명 중복 문장 없음 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "[반려 후 수정] 옛 1단계 '전체 이름 · 성만 · 대명사 순으로 뒤로 간다'가 무조건 요령이었다 — 요구 낱말과 대 주는 말을 짝짓는 단계로 바꿨다",
+      "95초 안에 4단계 가능"
+     ],
+     "checked": [
+      "지문 미독 상태 실행 모의",
+      "금지 표현 문자열 확인",
+      "required_vocab 이 지문에 있는지 대조",
+      "on_fail 네 개가 서로 다른 문장인지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-ORDER",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "지시어 선행사 절단",
+    "count": 2,
+    "signature": "(C)의 it·He 가 받을 대상을 앞 단락에서 떼어 놓는 순열"
+   }
+  ],
+  "answer_locus_pattern": "1문항: 정답이 이음매 셋(일반→사례, 폭풍→두려움·So, paper→it)에서 함께 확정된다",
+  "procedure": [
+   "주어진 글 끝이 남기는 것을 적는다",
+   "각 단락 머리의 요구 낱말을 표시한다",
+   "요구를 대 주는 말이 끝에 있는 단락과 짝짓는다",
+   "세 이음매가 모두 서는 순열을 고른다"
+  ],
+  "failure_modes": [
+   "공유 낱말(bottle)을 연결 근거로 삼아 it 선행사를 건너뜀",
+   "이름 형태만으로 순서를 정하는 요령에 기댐"
+  ],
+  "time_budget_sec": 95,
+  "open_questions": [
+   "표본 1문항이라 함정 빈도는 말할 수 없다",
+   "각 페르소나 반려 1건씩은 원장 결함 지적에 따른 것이며 독립 검수를 대신하지 않는다"
+  ]
+ }
+}

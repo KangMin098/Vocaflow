@@ -1,0 +1,173 @@
+{
+ "chunk": 18,
+ "type_id": "R-IRRELEVANT",
+ "type_name": "무관한 문장",
+ "analyses": [
+  {
+   "item_id": "2015#35",
+   "revised": true,
+   "measured_ability": "글이 반박하려는 통념(기술 탓)과 그에 맞세운 논지(기술은 사람들이 무엇을 문제로 삼고 무엇을 원하는지에 반응한다)를 구별하고, 논지의 축이 아니라 화제 분야만 같은 문장을 가려내는 능력",
+   "design_intent": "도입 두 문장이 '기술 탓하기'를 통념으로 세우고 이를 misguided 라 못 박은 뒤, ①(오염이 설계 요건이 아니었기 때문) → ③(이제 깨끗한 차가 요구되니 만들어질 것) → ④(This last option 은 시간과 투자가 든다) → ⑤(기술은 사람들의 뜻에 반응하지만 즉각적이지도 공짜도 아니다)로 한 논증을 세운다. 그 사이에 환경·에너지라는 같은 분야에 속하지만 논증의 어느 자리도 차지하지 않는 태양광 문장을 넣었다. 분야 일치만 보는 학생은 통과시키고, ④의 This last option 이 무엇을 받는지 따지는 학생만 걸러 낸다. 정답 ②는 떼어 읽으면 참인 상식 문장이라 '틀린 문장 찾기'로는 잡히지 않고, 앞 문장 ①과 같은 환경 화제를 공유해 겹침만으로는 오히려 남는다.",
+   "answer_locus": {
+    "sentence_index": [
+     5,
+     6
+    ],
+    "quote": "This last option, however, would require several years and much investment.",
+    "reasoning": "This last option 은 '앞에서 열거된 선택지 중 마지막 것'을 받아야 한다. 선택지를 나열한 곳은 ③뿐이다 — less polluting cars will be produced; cars which scarcely pollute at all could even be made 에서 덜 오염시키는 차와 아예 오염시키지 않는 차 둘이 나오고, 그 마지막이 후자다. ②의 태양광은 열거된 선택지가 아니라 단독 진술이고, ②를 선행사로 잡으면 ⑤의 결론(기술은 사람들의 뜻에 반응하지만 즉각적이지 않고 공짜가 아니다)이 자동차 논의와 연결을 잃는다. 또 ②의 solar energy 는 지문 어디에서도 다시 나오지 않는 반면 ①의 pollution·engineers, ③의 cars, ④의 investment 는 ⑤의 seldom respond instantaneously and is never free 로 그대로 회수된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "조건-귀결 절단",
+     "why_tempting": "If 로 시작하는 가정문이고 과거의 설계 관행을 설명해, 통념 반박이라는 논지에서 벗어난 사례 서술처럼 보인다. 앞 문장의 misguided 와 곧바로 이어지는 연결어도 없다.",
+     "how_to_reject": "이 문장의 귀결부 it is because pollution was not recognized as a problem which engineers had to consider 가 '기술 탓이 아니라 요구되지 않았기 때문'이라는 반박의 첫 근거다. ③의 now that it has been decided that cleaner cars are wanted 는 이 문장의 was not recognized 를 현재 시점으로 뒤집어 받는다 — ①을 빼면 ③의 now 가 무엇과 대비되는지 사라진다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "②는 'Solar energy can be a practical alternative energy source for us in the foreseeable future.' 로 어떤 에너지원이 실용적인가를 말한다 — 이 글이 다투는 것은 '기술이 사람들이 원하는 바에 반응한다' 이고 ①③④⑤가 모두 자동차라는 한 사례로 그 반응을 따라간다(pollution was not recognized as a problem which engineers had to consider → now that it has been decided that cleaner cars are wanted → This last option ... would require several years and much investment → technology is responsive to the will of the people). ②만 요구와 반응이라는 축을 건드리지 않고 solar energy 는 뒤에서 다시 나오지 않는다. ②를 빼면 앞뒤가 곧바로 이어진다 — ④의 'This last option' 은 앞에 둘 이상 나열된 선택지의 마지막 항을 받는 표현인데, 나열은 ③의 'less polluting cars will be produced; cars which scarcely pollute at all could even be made' 뿐이고 그 마지막이 '아예 오염시키지 않는 차' 다. ②는 단독 진술이라 열거의 항이 되지 못한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       5,
+       6
+      ],
+      "note": "②(4번째 문장)를 빼면 ③(5번째)의 열거가 ④(6번째)의 This last option 에 바로 닿는다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "연결사 방향 충돌",
+     "why_tempting": "Obviously 로 시작해 '오염 기술이 더 싸다'는 반대편 사실을 인정한 뒤 but 으로 다시 꺾여, 한 문장 안에서 방향이 두 번 바뀐다. 앞 문장(태양광)과도 이어지지 않아 이 문장이 끊긴 자리처럼 보인다.",
+     "how_to_reject": "④의 This last option 이 이 문장 안의 cars which scarcely pollute at all could even be made 를 받는다. ③을 빼면 ④의 선행사가 사라진다. 앞 문장과 안 이어지는 것은 ③의 잘못이 아니라 사이에 낀 ②의 문제다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 절단",
+     "why_tempting": "This last option 의 선행사를 못 찾은 학생에게는 '마지막 선택지'가 어디서 나온 말인지 알 수 없어 이 문장이 떠 있는 것처럼 보인다. 시간·투자라는 비용 이야기가 갑자기 나오는 것도 이탈처럼 읽힌다.",
+     "how_to_reject": "③의 세미콜론 뒤 cars which scarcely pollute at all could even be made 가 열거의 마지막 항목이다. 그리고 이 문장의 several years and much investment 는 ⑤의 seldom respond instantaneously and is never free 로 시간·비용 두 축이 그대로 회수된다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "총론-각론 역전",
+     "why_tempting": "자동차라는 각론을 따라가던 글이 마지막에 technology 일반으로 올라가고 Although 로 양보절까지 붙어, 결론이 아니라 다른 층위의 이야기로 넘어간 것처럼 보인다.",
+     "how_to_reject": "responsive to the will of the people 은 ③의 now that it has been decided that cleaner cars are wanted 를 일반화한 것이고, seldom respond instantaneously and is never free 는 ④의 several years and much investment 를 시간·비용으로 나눠 받는다. 각론 두 문장을 그대로 접은 총론이므로 층위 이동은 결론의 정상 동작이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "번호가 안 붙은 도입에서 '통념'과 '글쓴이의 반박' 두 줄을 따로 적는다 — 여기서는 기술 탓하기 / 그 견해는 잘못이다",
+     "on_fail": "반박이 안 잡히면 도입에서 평가어(misguided · wrong · not true)가 붙은 문장을 찾아 그 문장의 주어를 통념으로 삼는다"
+    },
+    {
+     "step": "①~⑤에서 앞을 받는 표지에 동그라미를 친다 — 지시어(This last option · it), 연결사(however · but · Although), 시점어(now that)",
+     "on_fail": "표지가 없는 문장에는 별표를 한다. 표지 없는 문장은 앞 문장과의 연결을 스스로 주장하지 않으므로 후보로 남긴다"
+    },
+    {
+     "step": "지시어가 '선택지·항목'을 받는 말이면(This last option 처럼) 위로 올라가며 항목이 둘 이상 열거된 문장을 찾는다. 그 열거 문장과 지시어 문장 사이에 낀 문장이 후보다",
+     "on_fail": "열거 문장을 못 찾으면 지시어가 받을 수 있는 명사를 위 문장마다 하나씩 후보로 적어 수를 세고, 후보가 하나뿐인 문장을 선행사로 확정한다"
+    },
+    {
+     "step": "후보 문장이 꺼낸 명사구(solar energy 같은 것)가 뒤 문장의 지시어·결론에서 받히는지 본다. 받히지 않는 것만으로는 확정하지 말고, 그 문장을 뺐을 때 앞뒤 표지가 곧바로 이어지는지와 함께 판정한다",
+     "on_fail": "받힘 여부가 애매하면 마지막 문장이 쓰는 낱말(responsive · instantaneously · free)이 어느 문장들에서 왔는지 화살표를 그어, 화살표가 닿지 않는 문장을 5단계 검산에 넘긴다"
+    },
+    {
+     "step": "후보를 뺀 네 문장을 이어 읽어 지시어가 전부 선행사를 갖는지 15초 안에 확인한다",
+     "on_fail": "선행사를 잃는 지시어가 생기면 후보를 바꿔 3단계로 돌아간다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.74,
+    "drivers": [
+     "정답 문장이 환경·에너지라는 같은 분야여서 분야 일치만 보면 걸리지 않는다",
+     "④의 This last option 선행사를 ②로 오인하기 쉽다",
+     "⑤가 technology 일반으로 층위를 올려 결론이 아니라 이탈로 오판할 여지가 있다"
+    ]
+   },
+   "required_vocab": [
+    "misguided",
+    "pollute",
+    "scarcely",
+    "instantaneously",
+    "investment"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "원장 결함(choice_5): ⑤ why_tempting 에 지문·선지에 없는 문두 잔여 언급이 있었다 — 삭제하고 Although 양보절·technology 일반화라는 실제 문면 단서로 다시 썼다. 같은 언급이 difficulty.drivers 에도 있어 함께 고쳤다",
+      "quote 는 ④ 문장 그대로이고 정답 근거(③ 열거 → ④ This last option)는 보존했다"
+     ],
+     "checked": [
+      "quote 를 현재 지문과 문자열 대조",
+      "⑤ why_tempting·drivers·reviews 에서 잔여 언급 재검색(0건)",
+      "정답 2 와 정답표 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "confirmed_at.note 가 심리 서술(그럴듯해 보인다)이고 sentence_index 와 어긋났다 — 제거 전후 연결로 고치고 [4,5,6] 으로 맞췄다",
+      "⑤ 라벨 총론-각론 역전은 다시 쓴 유인(층위 상승)과 같은 방향이다"
+     ],
+     "checked": [
+      "다섯 선지 why_tempting·how_to_reject 가 서로 다른 문면 단서를 쓰는지",
+      "confirmed_at.note 와 sentence_index 일치",
+      "오답 how_to_reject 의 위치 명시"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "4단계가 '다시 안 나오면 답'이라는 무조건 규칙이었다 — 제거 후 연결 검산과 결합하도록 조건을 붙였다",
+      "90초 배분 유지"
+     ],
+     "checked": [
+      "5단계 실행 시뮬레이션",
+      "금지 표현 검사",
+      "required_vocab 지문 실재 대조"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-IRRELEVANT",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "지시어 선행사 절단",
+    "count": 1,
+    "signature": "④ This last option 이 ③ 열거를 받는데 그 사이 ②가 끼어 있다"
+   }
+  ],
+  "answer_locus_pattern": "1문항: 정답 뒤 두 번째 문장의 지시어(This last option)가 정답을 건너뛰어 앞 열거에 닿는다",
+  "procedure": [
+   "도입에서 통념과 반박을 가른다",
+   "앞을 받는 표지(지시어·연결사·시점어)를 표시한다",
+   "지시어 선행사와 지시어 사이에 낀 문장을 후보로 둔다",
+   "후보를 빼고 이어 읽어 모든 표지가 선행사를 갖는지 검산한다"
+  ],
+  "failure_modes": [
+   "같은 환경 화제라 무관 문장을 통과시킨다",
+   "결론의 층위 상승을 이탈로 오판한다"
+  ],
+  "time_budget_sec": 90,
+  "open_questions": [
+   "교정 1문항이라 표본으로 일반화 불가 — 함정은 한 번만 셌다",
+   "재검수에서 반려 2건(analyst·tutor)이 나와 수정 후 pass"
+  ]
+ }
+}

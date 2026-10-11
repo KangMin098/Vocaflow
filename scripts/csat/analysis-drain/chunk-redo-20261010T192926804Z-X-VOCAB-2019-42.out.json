@@ -1,0 +1,192 @@
+{
+  "chunk": 5,
+  "type_id": "X-VOCAB",
+  "type_name": "장문 어휘",
+  "analyses": [
+    {
+      "item_id": "2019#42",
+      "measured_ability": "“A 하는 것이 B 하게 두는 것보다 나았다”는 비교 구조에서 than 뒤에 오는 것은 회피 대상이라는 제약을, 산업자본주의가 여가를 만들었다는 반직관적 논지 위에서 적용하는 능력",
+      "design_intent": "노동시간 규율이 오히려 여가를 낳았다는 반직관적 논지를 깔고, 고용주가 공장을 닫는 별도 휴일을 만든 이유를 because ... better to do this than have work (b) ... 라는 비교절에 담았다. than 뒤는 고용주가 피하려던 상태여야 하는데, 「쉬면 일이 잘된다」는 상식으로 읽으면 promoted 가 매끄럽게 들리도록 비교 구조와 상식을 맞부딪치게 한 설계다. 바꾼 성분은 than 뒤 술어의 극성 하나(disrupted → promoted)다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          4,
+          5
+        ],
+        "quote": "it was better to do this than have work (b) promoted by the casual taking of days off",
+        "reasoning": "better to do this than X 구조에서 X 는 고용주가 피하려는 상태다. 여기서 this 는 공장을 닫는 별도 휴일을 만드는 것이고, X 는 제멋대로 쉬는 날이 생겨 벌어지는 일이다. [u3]이 고용주가 노동시간 중 비노동 활동을 몰아냈다고(ruling out non-work activity) 했고 [u5]가 여가는 규율되고 경계 지어진 노동시간의 산물이라 못박으므로, 고용주가 피하려던 것은 작업이 끊기는 것이다. 작업이 촉진되는 상태라면 피할 이유가 없어 비교 구조가 무너진다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "(a) separated out 은 문맥에 맞다. [u3] 앞부분 by requiring continuous work during work hours and ruling out non-work activity 가 수단을 밝히고, 노동시간에서 비노동을 몰아낸 결과는 여가가 일과 갈라지는 것이다. [u5] 'Leisure' as a distinct non-work time 이 그 분리를 되받으므로 고칠 낱말이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "밑줄이 든 절은 ‘it was better to do this than have work (b) … by the casual taking of days off’ 라는 비교 구문이라, than 뒤가 고용주가 피하려던 나쁜 쪽이어야 한다. 앞에서 고용주를 ‘wanted to keep their machinery running as long as possible’ 로 세워 두었으므로, 제멋대로 쉬는 날이 일으키는 것은 작업의 중단(disrupted)이다. promoted 는 피하려던 쪽을 이득으로 만들어 비교의 방향을 뒤집는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              4
+            ],
+            "note": "[u2]의 고용주 동기(machinery running as long as possible)와 [u4] 비교 구조 than 뒤가 함께 확정한다."
+          }
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "(c) limited 는 문맥에 맞다. 바로 앞 Workers then wanted more leisure 와 union campaigns 가 여가 확대 요구를 세웠고, 같은 절 and gave workers holiday entitlements 와 나란히 놓여 노동시간을 줄이는 법임이 확정된다. 그래서 적절하지 않은 낱말이 아니다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "how_to_reject": "(d) pay 는 문맥에 맞다. [u7]이 the commercialization of leisure 를 화제로 세웠고, [u10] where people could be charged for entry 가 입장료를 내는 쪽을 명시한다. 여가의 상업화 서술과 방향이 같아 답이 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "(e) develop 은 문맥에 맞다. 이어지는 관계절 which was to become a huge source of consumer demand, employment, and profit 이 여가 시장이 커지는 방향을 확정하고, whole new industries were emerging 과도 일치한다. 그래서 고칠 낱말이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 (a)~(e) 다섯 문장에 표시하고, 그중 비교·이유 구조(better ... than · because · so that)가 든 문장을 먼저 고른다",
+          "on_fail": "그런 구조가 없으면 문장 머리에 However · Some · Workers 처럼 주체가 바뀌는 표지가 있는 문장부터 잡는다"
+        },
+        {
+          "step": "비교 구조를 찾으면 than 앞뒤에 무엇이 놓였는지 두 마디로 적고, 뒤쪽이 회피 대상임을 표시한다",
+          "on_fail": "두 마디로 안 갈리면 than 뒤 절의 동사만 뽑아 그것이 고용주에게 좋은 일인지 나쁜 일인지 부호를 붙인다"
+        },
+        {
+          "step": "밑줄 낱말이 그 부호와 같은 쪽인지 예/아니오를 적는다. 나머지 밑줄은 앞뒤 한 문장이 그 낱말을 이어받는지로 판정한다",
+          "on_fail": "판정이 안 서면 낱말을 반대말로 바꿔 넣고 그 문장의 종속절만 다시 읽는다"
+        },
+        {
+          "step": "“아니오”가 하나만 남는지 세고, 남은 자리를 글 전체 논지(자본주의가 여가를 만들었다)와 다시 맞춘다",
+          "on_fail": "둘 남으면 각 후보의 바로 다음 문장이 예시·귀결로 이어받는 쪽을 뺀다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "3점 배점",
+          "정답 자리가 because 절 안의 비교 구조(better ~ than) 뒤쪽이라 문장 안 깊숙이 있다",
+          "「자본주의가 여가를 만들었다」는 논지가 상식과 어긋나 방향 판정을 흔든다"
+        ]
+      },
+      "required_vocab": [
+        "casual",
+        "ruling out",
+        "entitlements",
+        "commercialization"
+      ],
+      "vocab_load": {
+        "words": [
+          {
+            "tag": "(a)",
+            "word": "separated out",
+            "band": "중학"
+          },
+          {
+            "tag": "(b)",
+            "word": "promoted",
+            "band": "중학"
+          },
+          {
+            "tag": "(c)",
+            "word": "limited",
+            "band": "초등"
+          },
+          {
+            "tag": "(d)",
+            "word": "pay",
+            "band": "초등"
+          },
+          {
+            "tag": "(e)",
+            "word": "develop",
+            "band": "중학"
+          }
+        ],
+        "hard_words_are_outside_underline": [
+          "entitlements",
+          "commercialization",
+          "pastimes",
+          "exaggerated"
+        ],
+        "needs_word_knowledge_to_solve": "no",
+        "note": "밑줄 다섯이 전부 초·중학 수준이다. 이 문항이 어려웠던 이유는 낱말이 아니라 정답 자리가 because 절 안 비교 구조에 숨어 있었기 때문이다."
+      },
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "원장 결함 반영: design_intent 와 difficulty.drivers 의 「이 유형이 42번 자리에 처음 놓인 회차」라는 근거 없는 출제 이력 단정을 삭제하고 이 문항의 비교 구조 설계로 대체했다",
+            "quote 가 지문에 문자 그대로 있고, 정답 2 = 정답표 2"
+          ],
+          "checked": [
+            "quote 를 corpus.json 2019#42 지문과 문자열 대조",
+            "design_intent · difficulty.drivers · reviews 에서 출제 이력 단정 문자열 재검색(남지 않음)",
+            "why_correct 의 than 구조 대응 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "1차 revise: X-VOCAB 은 선택≠참거짓 유형인데 오답 넷에 trap·why_tempting(국소 어색·상식 충돌 등 지어낸 오독)이 있었다 → 삭제하고 how_to_reject 를 「대응 위치 + 왜 적절해 답이 아닌가」로 다시 씀",
+            "재검수: 네 선지 how_to_reject 가 서로 다른 근거 구(ruling out / holiday entitlements / charged for entry / huge source of ...)를 댄다 → pass"
+          ],
+          "checked": [
+            "오답 4개에 trap·why_tempting 부재 확인",
+            "how_to_reject 근거 구를 지문 문자열과 대조",
+            "선지 간 설명 복제 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "solve_procedure 는 비교 구조 → 부호 → 예/아니오 순으로 실행 가능, 금지 표현 없음",
+            "drivers 에서 형식 낯섦(출제 이력) 근거를 지워 시간 산정 근거는 종속절 깊이로만 남김"
+          ],
+          "checked": [
+            "각 단계 실행 가능성",
+            "금지 표현 8종 검사",
+            "required_vocab 4개 지문 대조",
+            "time_budget 110초 적정성"
+          ]
+        }
+      ],
+      "revised": true
+    }
+  ],
+  "type_report": {
+    "type_id": "X-VOCAB",
+    "n_analyzed": 1,
+    "recurring_traps": [
+      {
+        "trap": "극성 반전(비교절 than 뒤)",
+        "count": 1,
+        "signature": "정답 낱말이 회피 대상 자리에 긍정 극성으로 들어가 상식으로는 매끄럽게 읽힌다"
+      }
+    ],
+    "answer_locus_pattern": "1개 중 1개가 밑줄 문장 자신의 비교 구조(better ~ than)로 닫힌다",
+    "procedure": [
+      "밑줄 문장 중 비교·이유 구조가 든 문장부터 본다",
+      "than 뒤가 회피 대상인지 부호를 붙인다",
+      "나머지 밑줄은 앞뒤 문장이 같은 방향으로 되받는지 확인한다"
+    ],
+    "failure_modes": [
+      "「쉬면 일이 잘된다」 같은 상식을 비교절 안에 대입해 극성 반전을 놓친다"
+    ],
+    "time_budget_sec": 110,
+    "open_questions": [
+      "표본 1문항이라 유형 일반화 불가. 반려는 analyst 1건(V14) — 세 자가 서로 다른 것을 쟀다"
+    ]
+  }
+}

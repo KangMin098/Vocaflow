@@ -1,0 +1,81 @@
+{
+  "chunk": 4,
+  "type_id": "X-FACT",
+  "type_name": "장문 내용 일치",
+  "analyses": [
+    {
+      "item_id": "2014B#45",
+      "measured_ability": "순서가 뒤섞인 네 단락에 흩어진 grandpa 관련 사실을 선지 진술과 성분 단위(행위·주체·극성)로 대조해, 술어의 극성 하나가 뒤집힌 진술을 가려내는 능력",
+      "design_intent": "선지 ⑤는 (D) 단락의 'my dad and grandpa noticed dramatic changes' 에서 사건(지역 사회의 급격한 변화)은 그대로 두고 술어 noticed 의 극성만 '알아차리지 못했다' 로 뒤집었다. 바로 뒤에 개발·이웃 이주가 길게 묘사되어 변화가 있었다는 사실이 강하게 남으므로, 학습자가 '변화' 라는 낱말만 확인하고 술어 극성을 대조하지 않으면 넘어가도록 설계됐다. 나머지 네 선지는 참 진술로, ①은 (A)의 [5], ②는 (B)의 [12], ③은 (C)의 [15], ④는 같은 (C)의 [19]에 대응한다 — (C) 단락에 ③④ 두 선지가 몰려 있고 (D) 단락에는 ⑤만 있다.",
+      "answer_locus": {
+        "sentence_index": [24],
+        "quote": "Over the years, my dad and grandpa noticed dramatic changes in their community.",
+        "reasoning": "주어 'my dad and grandpa' 에 grandpa 가 포함되고 술어가 긍정형 noticed 이므로, grandpa 는 지역 사회의 극적인 변화를 알아차렸다. 이어지는 [25]~[27]의 농지 잠식·이웃 매도·홀로 남은 작은 집 묘사는 그가 목격한 변화의 내용이어서 '알아차리지 못했다' 와 양립할 수 없다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "",
+          "why_tempting": "",
+          "how_to_reject": "(A) 단락 [5] 'He grew up in a farming community and within a very large family' 의 He 는 [3]의 grandpa Otto 이다. farming community → 농촌 사회, a very large family → 대가족, grew up → 성장했다로 성분이 모두 일치하는 참 진술이라 '일치하지 않는 것' 이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "",
+          "why_tempting": "",
+          "how_to_reject": "(B) 단락 [12] 'In many ways, I’ve modeled my life after that of my grandpa.' 와 대응한다. In many ways → 여러 가지 면에서, modeled my life after → 삶의 모델로 삼았다로 주체(필자)와 대상(grandpa)이 그대로 옮겨진 참 진술이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "",
+          "why_tempting": "",
+          "how_to_reject": "(C) 단락 [15] 'In the 1950s, ... my grandpa built a 600-square-foot cottage.' 와 연도(1950년대)·면적(600제곱 피트)·행위(지었다)가 모두 일치한다. [16]의 twenty-by-thirty-foot(=600)도 수치를 뒷받침하므로 참 진술이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "",
+          "why_tempting": "",
+          "how_to_reject": "(C) 단락 [19] 'Grandpa got most of the materials for his little house from the Oakland docks' 와 대응한다. most of the materials → 대부분의 자재, the Oakland docks → 부두로 수량 한정어까지 일치하는 참 진술이다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "근거 문장의 'noticed dramatic changes in their community' 중 'dramatic changes in their community' 는 선지의 '지역 사회의 급격한 변화' 와 그대로 대응하지만, 술어 'noticed'(알아차렸다)는 선지에서 '알아차리지 못했다' 로 극성이 뒤집혔다. 바뀐 성분은 이 술어 하나뿐이다.",
+          "confirmed_at": {
+            "sentence_index": [24, 25, 26, 27],
+            "note": "[24] 의 주어에 grandpa 가 들어 있음이 확정 근거이고, [25]~[27] 은 그가 목격한 변화 내용이다. 원장 결함(선지 번호=단락 위치 요령, ① 유인 근거 약함)을 해소: 오답 선지는 V14에 따라 trap/why_tempting 을 비우고 대응 위치만 적었다."
+          }
+        }
+      ],
+      "solve_procedure": [
+        { "step": "발문의 대상(grandpa)과 극성(일치하지 않는 것)을 표시하고, 각 선지에서 술어와 그 극성(했다/못했다), 수치·한정어(600, 대부분, 여러 가지 면)에 밑줄을 긋는다", "on_fail": "선지의 '~지 못했다'·'않았다' 같은 부정 술어는 지문 원문이 긍정형인지부터 확인할 표적으로 따로 표시한다" },
+        { "step": "단락 순서 문항(43번)을 먼저 풀어 (A)→(C)→(D)→(B) 같은 시간 순서를 잡은 뒤, 선지마다 핵심 명사(farming community, modeled, 600-square-foot, docks, changes)를 지문에서 찾아 대응 문장을 정한다. 선지 번호와 단락 위치가 같다고 가정하지 않고 낱말로 찾는다", "on_fail": "핵심 명사가 안 보이면 영어 대응어를 떠올린다 — 부두는 docks, 변화는 changes, 모델은 modeled" },
+        { "step": "찾은 문장에서 주어가 grandpa(또는 He·him 이 grandpa 를 가리키는지)인지 확인한다. 'my dad and grandpa' 처럼 공동 주어도 grandpa 에 해당한다", "on_fail": "He 가 dad 인 문장(예: (e) He described Pleasant Hill)과 섞이면 그 문장 바로 앞 주어를 다시 확인한다" },
+        { "step": "주어가 맞으면 술어 극성과 수치를 원문과 한 성분씩 대조해, 원문이 긍정인데 선지가 부정인 것(또는 그 반대)을 고른다", "on_fail": "사건 내용(변화가 있었다)이 맞다고 바로 넘기지 말고, 그 사건을 '누가 알았는지/했는지' 의 술어까지 원문과 비교한다" }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": { "predicted": 0.85, "drivers": ["바뀐 성분이 술어 극성 하나", "근거가 마지막 단락 후반부에 있음", "He 가 grandpa 와 dad 를 번갈아 가리킴"] },
+      "required_vocab": ["noticed", "dramatic", "docks", "modeled"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["quote 가 [24] 원문과 문자 그대로 일치", "바뀐 성분이 noticed 의 극성 하나임을 why_correct 가 낱말 단위로 지목"], "checked": ["quote 를 지문에서 문자열 대조", "why_correct 대응(dramatic changes in their community ↔ 지역 사회의 급격한 변화, noticed ↔ 알아차리지 못했다) 확인", "design_intent 가 이 문항 고유 설계인지 확인"] },
+        { "persona": "analyst", "verdict": "pass", "findings": ["원장: ① 유인 근거가 아버지 회상 문장으로 엉뚱함 — V14 에 따라 참 진술 선지에 유인을 지어내지 않도록 trap/why_tempting 을 비우고 how_to_reject 에 (A) [5] 대응을 적어 해소", "재검: 네 오답 how_to_reject 가 각각 다른 문장 위치와 대응 성분을 적음 — pass"], "checked": ["①~④ how_to_reject 의 문장 번호를 문장 분할 목록과 대조", "① 대응 문장이 grandpa 의 성장 배경 문장([5])인지 확인", "선지별 설명이 서로 복제되지 않았는지 대조"] },
+        { "persona": "tutor", "verdict": "pass", "findings": ["원장: ③ 배제에 '세 번째 선지이므로 (C)부터' 라는 선지 번호=단락 위치 요령 — 삭제하고 핵심 명사로 대응 문장을 찾는 절차로 교체", "재검: solve_procedure step 2 가 번호-위치 가정을 명시적으로 배제, 다른 필드에도 그 요령이 남지 않음 — pass"], "checked": ["solve_procedure 각 step/on_fail 에 순환 표현·번호 요령 잔존 여부 확인", "how_to_reject ③ 에 위치 요령이 남지 않았는지 재확인", "required_vocab 이 지문에 실재하는지 문자열 확인"] }
+      ],
+      "revised": true
+    }
+  ],
+  "type_report": {
+    "type_id": "X-FACT",
+    "n_analyzed": 1,
+    "recurring_traps": [ { "trap": "반대 진술", "count": 1, "signature": "사건 내용은 그대로 두고 술어 noticed 의 극성만 부정으로 뒤집음 (정답 선지에서 한 번만 셈)" } ],
+    "answer_locus_pattern": "1문항: 바뀐 성분은 마지막 단락 (D) 의 술어 극성",
+    "procedure": ["선지의 술어 극성·수치에 표시", "핵심 명사로 대응 문장 찾기(선지 번호=단락 위치 가정 금지)", "주어가 발문 대상인지 확인", "극성·수치를 성분 단위 대조"],
+    "failure_modes": ["사건(변화)이 실재했다는 사실만 확인하고 술어 극성을 대조하지 않음", "He 의 지시 대상(grandpa/dad) 혼동"],
+    "time_budget_sec": 60,
+    "open_questions": ["표본 1문항이라 유형 일반화 불가. 검수 반려 2건은 원장 결함 재현이며 새로 발견한 반려는 없음 — 자가 검수가 원장 지적을 따라간 것인지 독립 검수가 필요"]
+  }
+}

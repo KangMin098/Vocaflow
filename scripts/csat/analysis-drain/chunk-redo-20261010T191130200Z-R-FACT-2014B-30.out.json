@@ -1,0 +1,148 @@
+{
+ "chunk": "redo-20261010T191130200Z-R-FACT-2014B-30",
+ "type_id": "R-FACT",
+ "type_name": "내용 일치(글)",
+ "analyses": [
+  {
+   "item_id": "2014B#30",
+   "measured_ability": "전기문의 사건 문장과 선지를 성분별(시점·장소·순서)로 대조해, 사건은 참이지만 시점 한 성분만 바뀐 진술을 가려내는 능력",
+   "design_intent": "Fourier의 생애를 시간순으로 서술하다가 마지막 직전 문장(10번 문장)에서 이집트 체류 중 병에 걸린 일을 귀국·연구 뒤에 회고하듯 배치했다. 서술 순서(귀국 → 연구 → 명성 → 병)를 사건 순서로 오인하게 만들고, 정답 선지는 '이상한 병에 걸렸다'는 사건은 그대로 두고 시점만 '이집트 체류 중'에서 '프랑스로 돌아온 후'로 바꿨다.",
+   "answer_locus": {
+    "sentence_index": [
+     8,
+     10
+    ],
+    "quote": "During his stay in Egypt he contracted a strange illness that confined him to well-heated rooms for the rest of his life.",
+    "reasoning": "병에 걸린 시점을 'During his stay in Egypt'(이집트 체류 동안)로 못 박는다. 8번 문장의 'Having returned to France'는 연구 시작 시점일 뿐 병의 시점이 아니므로, 선지 5의 '돌아온 후'는 시점 성분이 지문과 어긋난다."
+   },
+   "choices": [
+    {
+     "n": 5,
+     "verdict": "correct",
+     "trap": "반대 진술",
+     "why_correct": "10번 문장의 'During his stay in Egypt'가 선지의 '이집트에서 프랑스로 돌아온 후'와 시점 성분에서 충돌한다. 'contracted a strange illness'↔'이상한 병에 걸렸다'는 같아, 바뀐 성분은 시점 하나뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       10
+      ],
+      "note": "8번 문장 Having returned to France 는 연구 시작 시점이며 병의 시점이 아니다. 원장 결함(선지4 설명의 추출 잔여 언급·억지 유인)은 V14에 맞춰 오답 trap/why_tempting 제거로 해소."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "1번 문장 'a French mathematician and physicist'와 국적·직업 두 성분이 모두 일치하므로 참이다. 발문은 일치하지 않는 것을 묻기 때문에 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "4번 문장 'was not allowed to because he was the son of a tailor'가 장교가 되지 못한 결과와 그 이유(재단사의 아들)를 함께 담고 있어 인과까지 일치한다. 참인 진술이라 답이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "6번 문장 'he spoke out against the use of the guillotine, for which he almost lost his life'에서 반대 행위와 'almost'(~할 뻔했다)가 선지의 '목숨을 잃을 뻔했다'와 대응한다. 실제로 죽었다는 진술이 아니므로 일치하며 답이 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "9번 문장 'His mathematical theory of heat conduction earned him lasting fame'에서 이론(주어)이 그에게 명성을 가져다주었다는 관계가 선지의 '열전도에 관한 수학 이론으로 명성을 얻었다'와 그대로 대응한다. 참이므로 답이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯 개를 먼저 훑어 각 선지의 확인 성분을 표시한다(①국적·직업 ②원인 ③'뻔했다' ④명성의 출처 ⑤'돌아온 후'라는 시점).",
+     "on_fail": "선지에서 시간·순서 표현(후, 전, 동안)이 있는 것을 우선 표시해 둔다."
+    },
+    {
+     "step": "지문을 처음부터 읽으며 선지 순서대로 대응 문장을 찾는다. 전기문은 대체로 시간순이지만 회고 문장이 끼어들 수 있으니 연도·During·Having returned 같은 시간 표지를 동그라미친다.",
+     "on_fail": "대응 문장을 못 찾으면 선지의 핵심 명사(tailor·guillotine·heat conduction·illness)로 지문을 역검색한다."
+    },
+    {
+     "step": "⑤처럼 시점이 걸린 선지는 '병'을 다룬 문장 자체의 시간 표지를 확인한다. 바로 앞 문장의 시점(Having returned to France)을 끌어다 쓰지 않는다.",
+     "on_fail": "두 시간 표지가 보이면 각 표지가 어느 동사(began research / contracted)에 붙는지 적는다."
+    },
+    {
+     "step": "사건 일치에 안심하지 말고 바뀐 성분이 하나라도 있으면 그 선지를 답으로 확정한다.",
+     "on_fail": "모든 선지가 맞아 보이면 'almost'·'because'·시점어처럼 한 낱말로 뜻이 뒤집히는 자리를 다시 대조한다."
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "정답 근거 문장이 서술 순서와 사건 순서가 어긋나는 회고 배치",
+     "바로 앞 문장의 Having returned to France가 시점 혼동을 유도"
+    ]
+   },
+   "required_vocab": [
+    "contracted",
+    "illness",
+    "stay",
+    "tailor",
+    "guillotine"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote가 지문 10번 문장과 문자열 일치",
+      "바뀐 성분이 시점 하나임을 낱말 단위로 지목"
+     ],
+     "checked": [
+      "quote 지문 대조",
+      "why_correct의 During his stay in Egypt ↔ 돌아온 후 대응 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "1차 revise: 선지4에 근거 없는 유인 서술(V14 위반) → 오답 trap/why_tempting 제거 후 재검수 pass",
+      "수정 후 오답은 대응 위치와 '왜 답이 아닌가'만 서술"
+     ],
+     "checked": [
+      "선지1~4 설명이 서로 다른 문장·어구에 근거함",
+      "학습자 칸에 작업 용어 없음"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [],
+     "checked": [
+      "절차가 지문 전 실행 가능",
+      "on_fail 문장 서로 다름",
+      "60초 내 가능"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-FACT",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "반대 진술",
+    "count": 1,
+    "signature": "사건은 참, 시점 성분(체류 중→귀국 후)만 교체"
+   }
+  ],
+  "answer_locus_pattern": "정답 근거가 서술 순서를 벗어난 회고 문장(끝에서 둘째)에 있다",
+  "procedure": [
+   "선지마다 확인 성분 표시",
+   "시간 표지가 어느 동사에 붙는지 확인",
+   "성분 하나라도 다르면 확정"
+  ],
+  "failure_modes": [
+   "인접 문장의 시점을 다른 사건에 옮겨 붙임"
+  ],
+  "time_budget_sec": 60,
+  "open_questions": [
+   "1문항 표본이라 회고 배치 빈도는 말할 수 없음"
+  ]
+ }
+}

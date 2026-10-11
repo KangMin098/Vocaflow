@@ -1,0 +1,214 @@
+{
+ "chunk": 8,
+ "type_id": "X-BLANK",
+ "type_name": "장문 빈칸(1개·폐지)",
+ "analyses": [
+  {
+   "item_id": "2014A#42",
+   "body_recovered": true,
+   "measured_ability": "야구 사례가 일반론으로 넘어가는 문장에서 빈칸이 사례의 어느 항을 옮겨 받는지 판정하고, 뒤 문장의 not A but B 구문에서 B 를 한 낱말로 압축하는 능력",
+   "design_intent": "앞 문단이 구장 조건 · 바람 · 습도 · 28퍼센트 같은 물리적 수치로 시작해 실제 조건이 원인인 것처럼 깔아 두고, 7~9문장에서 think 로 원인 축을 옮긴다. 빈칸 다음 문장의 not the actual distance but what our brains recognize 가 그 이동을 한 번 더 못 박아, 실제 요인(실력·외양·수입·희생) 쪽 낱말을 고른 학생과 인식 쪽으로 옮겨 온 학생을 가른다. 정답 perceptions 는 지문의 think·recognize 를 쓰지 않고 그 역할을 한 낱말로 바꾼 표현이다.",
+   "set_cross_use": {
+    "paired_item": "2014A#41",
+    "usable": true,
+    "note": "41번 정답 제목 Move Your Fences Closer 는 실제 담장이 아니라 스스로 느끼는 거리를 조정하라는 비유다. 제목을 먼저 확정하면 42번 빈칸이 실제 조건이 아니라 그것을 받아들이는 쪽임이 정해져 ① strengths 와 ⑤ appearances 가 함께 흔들린다."
+   },
+   "choice_word_counts": [
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     7,
+     11
+    ],
+    "quote": "what matters is not the actual distance to the fence but what our brains recognize that distance to be",
+    "reasoning": "빈칸 문장은 야구 사례를 일반론으로 옮기는 문장이고, 빈칸에는 스윙 여부를 좌우하는 항이 들어간다. 다음 문장이 not A but B 로 그 항을 직접 지정한다 — 실제 거리(A)가 아니라 뇌가 그 거리를 무엇으로 인식하느냐(B)다. 7문장의 how achievable you think the goal is 와 8·9문장의 if you think 가 같은 항을 미리 세 번 되풀이한다. B를 한 낱말로 줄인 것이 인식이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "홈런 수는 타자의 힘·실력(strengths)이 정한다는 야구 상식이 강해, '스윙 여부를 좌우하는 우리의 무엇'이라는 빈칸 자리에 능력 낱말이 자연스럽게 들어가 보인다. 지문의 사실은 놔두고 원인 성분만 '인식'에서 '실제 능력'으로 바꾼 선지다.",
+     "how_to_reject": "4·5문장은 같은 선수가 구장만 바뀌었는데 홈런이 60퍼센트 늘었다고 해, 선수의 실력은 그대로인 채 결과가 달라졌음을 보인다. 7문장은 원인을 how achievable you think the goal is 로 지정하고, 11문장은 not the actual distance ... but what our brains recognize 로 실제 조건 대신 인식을 택한다. 실력이 원인이라는 진술은 지문 어디에도 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "빈칸 문장은 'In business and life, just as in baseball, our' ___ 'can affect whether we swing for the fences or not' 로, 스윙 여부를 좌우하는 항이 무엇인지를 묻는다. 바로 뒤 11문장이 not A but B 구문으로 그 항을 직접 지정한다 — 'what matters is not the actual distance to the fence but what our brains recognize that distance to be' 에서 A(실제 거리)가 아니라 B(뇌가 그 거리를 무엇으로 인식하는가)가 그 항이라고 못 박는다. 그 B를 한 낱말로 줄인 것이 선지 ② 'perceptions' 다. 같은 항을 7문장 'The answer lies in how achievable you think the goal is' 와 8·9문장의 두 if you think 가 미리 세 번 되풀이하므로, 빈칸에 들어갈 것은 실제 조건(구장 크기·바람)이 아니라 그것에 대한 인식이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       11
+      ],
+      "note": "확정은 빈칸 뒤 11문장의 not A but B 한 구문에서 난다. 7·8·9문장의 think 는 방향을 미리 알려 주지만 낱말을 고정하지는 않는다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "빈칸 문장이 In business and life 로 시작해 사업 이야기로 넘어가므로 수입이라는 낱말이 그 자리에 어울려 보인다.",
+     "how_to_reject": "소득·보수·돈을 가리키는 낱말이 지문에 한 번도 없다. 빈칸 문장의 술어는 whether we swing for the fences 로 시도 여부를 좌우하는 항을 요구하는데, 11문장이 그 항을 뇌의 인식으로 지정한다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "성취에는 희생이 따른다는 통념이 강하고, 자기계발 문투의 마지막 문장들과 어울려 보인다.",
+     "how_to_reject": "희생이나 노력의 양을 말하는 문장이 지문에 없다. 9문장은 기대가 낮으면 your brain will send you signals to just try for a single 이라고 해 시도의 크기를 정하는 것이 뇌의 신호임을 밝힌다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "13문장 Do the fences seem too far away 와 14문장 so that it seems easier 에 seem 이 두 번 나와, 겉으로 보이는 것이라는 낱말이 지문에 근거를 둔 것처럼 읽힌다.",
+     "how_to_reject": "13·14문장의 seem 은 본인에게 그렇게 느껴진다는 뜻이고 판단의 주체가 자신이다. 11문장이 그 자리를 our brains recognize 로 못 박으므로 빈칸은 남에게 보이는 외양이 아니라 본인의 인식이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "41번 제목 선지를 먼저 읽어 이 글이 실제 조건을 바꾸라는 글인지 받아들이는 방식을 바꾸라는 글인지 갈라 둔 뒤 42번으로 온다",
+     "on_fail": "제목이 안 갈리면 빈칸 문장의 술어(can affect whether we swing for the fences or not)만 옮겨 적고 '무엇이 시도를 좌우하는가'라고 적는다"
+    },
+    {
+     "step": "빈칸이 our 뒤 복수명사 자리이고 선지 다섯이 모두 명사임을 확인한다. 품사로는 안 갈리므로 소거는 뜻으로만 한다고 표시한다",
+     "on_fail": "빈칸 위치가 헷갈리면 주어 our ___ 와 동사 can affect 사이가 빈칸임을 문장 구조로 확인한다"
+    },
+    {
+     "step": "빈칸 다음 문장에서 not A but B 를 찾아 A와 B를 각각 옮겨 적는다(A: the actual distance to the fence, B: what our brains recognize that distance to be)",
+     "on_fail": "not A but B 가 안 보이면 7문장의 how achievable you think the goal is 에서 think 에 동그라미를 친다"
+    },
+    {
+     "step": "B를 한국어 한 낱말로 줄이고 선지 다섯의 뜻과 1:1로 맞춘다. A쪽에 서는 선지는 지운다",
+     "on_fail": "둘 이상 남으면 4·5문장에서 같은 선수의 실력이 바뀌지 않았는데 홈런이 늘었음을 확인해 실력·실제 조건 쪽 선지를 지운다"
+    },
+    {
+     "step": "남은 선지 중 지문의 seem 과 겹쳐 보이는 것이 있으면, 13·14문장의 seem 이 누구의 판단인지 확인해 자기 인식 쪽인지 남의 시선 쪽인지 가른다",
+     "on_fail": "가려지지 않으면 11문장의 our brains 를 근거로 판단 주체가 자신임만 확인한다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "확정 근거가 빈칸 바로 다음 문장의 not A but B 구문이다",
+     "앞 문단의 수치(28퍼센트·60퍼센트)가 실체 쪽 선지를 지지하는 것처럼 보인다",
+     "⑤ appearances 가 지문의 seem 두 번과 겹쳐 마지막까지 남는다"
+    ]
+   },
+   "required_vocab": [
+    "perceptions",
+    "recognize",
+    "achievable",
+    "appearances",
+    "sacrifices"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원본 추출 지문이 our can affect 로 빈칸 표시를 잃었다. raw_block 에서 줄바꿈 자리를 확인하고 body_recovered 를 붙였다.",
+      "이 문항은 41번 제목이 42번 답을 비유로 이미 말해 버리는 드문 경우다 — set_cross_use 에 예로 기록했다.",
+      "빈칸 다음 문장의 not A but B 가 근거이므로 근거 거리는 +1 이다.",
+      "3차 판정에서 setter 가 revise 를 냈다 — 「한 낱말로 줄인 것」이라고만 적고 그 낱말을 대지 않아 정답 선지와의 대응이 서술에 없었다. 선지 ② perceptions 를 지목하고 not A but B 의 B 와 맞물림을 적었다",
+      "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 2014A#42 passage 에서 문자열 대조",
+      "빈칸 위치를 raw_block 과 대조",
+      "정답표(answer=2)와 판정 대조",
+      "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+      "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+      "정답 번호를 평가원 정답표와 재대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ④ sacrifices 를 어휘 함정으로, ⑤ appearances 를 무관으로 달았다 — 둘 다 근거가 뒤바뀌어 있었다. sacrifice 는 지문에 없고 통념에서 오며, appearances 는 지문의 seem 두 번에서 온다. 지문 밖 상식과 어휘 함정으로 맞바꿔 고쳤다.",
+      "네 오답이 반대 진술 · 무관 · 지문 밖 상식 · 어휘 함정으로 갈린다.",
+      "①의 배제 근거로 11문장뿐 아니라 4·5문장(같은 선수·구장만 변경)을 함께 지목했다.",
+      "3차 판정에서 analyst 가 revise 를 냈다 — 근거 문장 인용은 있었으나 선지 텍스트가 한 번도 나오지 않아 대응 확인이 불가능했고, 마지막 줄이 「빈칸에 넣으면 옮겨진다」는 적합성 진술이었다. not A but B 라는 강제 구문으로 근거를 바꿔 세웠다",
+      "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다",
+      "교정(2026-10-11): ① strengths 의 trap '반대 진술'과 구장 조건 중심 유인이 바뀐 성분(실력)과 맞지 않았다. trap 을 '지문 밖 상식'으로, why_tempting 을 실력 상식으로, how_to_reject 를 4·5·7·11문장으로 고쳤다."
+     ],
+     "checked": [
+      "선지 5개 낱말이 지문에 실재하는지 문자열 대조(seem 만 근접 근거로 실재)",
+      "trap 라벨 중복 여부",
+      "how_to_reject 넷에 문장 번호가 있는지",
+      "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+      "소거법에 기대지 않는지 확인",
+      "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인",
+      "① 수정 후 ④ 의 지문 밖 상식 서술과 유인 낱말(희생 vs 실력)이 겹치지 않는지 대조",
+      "design_intent·solve_procedure 4단계 on_fail 이 ① 의 새 성분(실력)과 일치하는지 대조"
+     ],
+     "revised": true
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 절차는 4단계에서 끝났는데, 그러면 ⑤ appearances 가 살아남은 채로 끝난다 — 학생이 실제로 마지막까지 붙드는 선지다. 13·14문장의 seem 을 확인하는 5단계를 추가했다.",
+      "80초 안에 끝난다: 빈칸 문장 10초 · not A but B 20초 · 1:1 대조 25초 · ⑤ 확인 25초.",
+      "required_vocab 다섯 중 recognize · achievable 은 근거 문장 독해에, 나머지 셋은 선지 소거에 쓰인다.",
+      "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 볼 자리를 「빈칸 뒤 한 문장의 not A but B」로 못 박고, not A 쪽으로 밀려나는 항(실제 거리)까지 적어 눈으로 맞춰 볼 수 있게 했다",
+      "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다",
+      "교정: 절차 2단계 on_fail 의 추출 사정 언급을 문장 구조 확인으로 바꿨다."
+     ],
+     "checked": [
+      "각 단계를 지문 미독 상태에서 실행 가능한지",
+      "순환논법 표현 문자열 점검",
+      "마지막까지 남는 선지가 절차 안에서 실제로 지워지는지 시연",
+      "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+      "solve_procedure 와 서술이 어긋나지 않는지 대조",
+      "time_budget_sec 안에서 확인 가능한 분량인지",
+      "학습자 칸에 작업 용어가 없는지 점검"
+     ],
+     "revised": true
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "X-BLANK",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "지문 밖 상식",
+    "count": 2,
+    "signature": "실력·희생처럼 일상 상식으로 원인이 될 법한 실제 요인 낱말이 인식 자리를 차지한다"
+   },
+   {
+    "trap": "무관",
+    "count": 1,
+    "signature": "In business 에 끌린 수입 낱말"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 1,
+    "signature": "seem 과 겹치는 appearances"
+   }
+  ],
+  "answer_locus_pattern": "1개 중 1개가 빈칸 바로 다음 문장의 not A but B 에서 확정되고, 7~9문장이 같은 항을 미리 되풀이한다",
+  "procedure": [
+   "빈칸 문장의 술어로 빈칸이 무엇을 좌우하는 항인지 적는다",
+   "빈칸 앞뒤의 대조 구문(not A but B)에서 B를 찾는다",
+   "B를 한 낱말로 줄여 선지와 역할로 맞춘다",
+   "실제 요인 쪽 선지는 사례 문장(같은 조건 변경)으로 지운다"
+  ],
+  "failure_modes": [
+   "앞 문단의 물리적 수치에 끌려 실제 요인 쪽 낱말을 고른다"
+  ],
+  "time_budget_sec": 80,
+  "open_questions": [
+   "표본 1문항 — 교정 청크라 유형 일반화 불가. 세 검수 모두 최종 pass 이며 이번 교정에서 analyst 만 실제 결함을 잡았다; setter·tutor 의 자가 비교적 같은 것을 재고 있을 수 있다"
+  ]
+ }
+}

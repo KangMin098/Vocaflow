@@ -66,6 +66,8 @@ describe.skipIf(skip)('구운 오답 지도가 DB 와 맞는가 (실 DB)', () =>
     for (const [itemId, a] of latest) {
       if (!typeOf.get(itemId)) continue
       for (const ch of Array.isArray(a.choice_analysis) ? a.choice_analysis : []) {
+        // 오답 선지만 — 빌더와 같은 기준. 선택≠참거짓 유형(V14 · 2026-10-11)은 함정 라벨이 **정답** 선지(바뀐 성분)에 있어 세면 안 된다
+        if ((ch as { verdict?: unknown }).verdict !== 'distractor') continue
         const trap = typeof (ch as { trap?: unknown }).trap === 'string' ? String((ch as { trap: string }).trap).trim() : ''
         if (!trap) continue
         distractors += 1
