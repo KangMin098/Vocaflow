@@ -93,3 +93,12 @@ test('발문 극성 — 긍정형 「일치하는 것은?」은 오답이 틀린
   assert.equal(distractorsAreTrue('R-NOTICE', '안내문의 내용과 일치하는 것은?'), false)
   assert.equal(distractorsAreTrue('R-BLANK', '빈칸에 들어갈 말로 가장 적절한 것은?'), false)
 })
+
+test('V15 정답표가 있는 회차에 「정답표가 없다」는 사실 오류 · 문장 분리 사정은 작업 용어(2026-10-11)', async () => {
+  const { analysisRuleErrors } = await import('../lib-analysis-rules.mjs')
+  const a = { design_intent: '삽입 위치를 고르게 한다', difficulty: { drivers: ['이 회차는 정답표가 없다'] }, choices: [] }
+  assert.ok(analysisRuleErrors(a, { typeId: 'R-INSERT', answerKnown: true }).some((e) => e.startsWith('V15')))
+  assert.deepEqual(analysisRuleErrors(a, { typeId: 'R-INSERT', answerKnown: false }).filter((e) => e.startsWith('V15')), [])
+  const b = { design_intent: 'Charles H. 가 1번 단위로 따로 떨어져 번호가 뒤로 간다', choices: [] }
+  assert.ok(analysisRuleErrors(b, { typeId: 'R-FACT' }).some((e) => e.startsWith('V12')))
+})

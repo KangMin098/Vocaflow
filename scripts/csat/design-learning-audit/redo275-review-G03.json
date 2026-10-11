@@ -1,0 +1,485 @@
+{
+ "group": 3,
+ "items": [
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-BLANK2-2014B-37.out.json",
+   "id": "2014B#37",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "measured_ability·solve_procedure 에 「앞 일반 진술(access)의 같은 대상을 좁힐 때만 사례」 조건 명시"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-CLAIM-M2306-20.out.json",
+   "id": "M2306#20",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "「셋째 문단」 언급 삭제, 7·8번 문장 위계 관계로 배제"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "why_correct 한국어 인용 띄어쓰기 정상"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-CLAIM-M2306-20.out.json",
+   "id": "M2206#20",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "선지 인용 띄어쓰기 원문과 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-CLAIM-M2306-20.out.json",
+   "id": "M2006#20",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "「두 조건 사이 우열 없음」으로 고쳐 순위 해석 제거"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "design_intent 의 없는 선지 언급 삭제, 실제 ②~⑤ 재료로 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2015-24.out.json",
+   "id": "2015#24",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "인쇄 잔여 서술 삭제, 6번 문장 where 선행사 England 대응으로 교체"
+    },
+    {
+     "code": "source_broken",
+     "resolved": true,
+     "note": "발문 잘림은 confirmed_at.note 에만 기록, 부정형 판단 유지"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "2022#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜. ①의 소유격 억지 유혹도 제거"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "M2206#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "who 선행사 Dana 로 바르게 서술, 선지도 Dana 를 금메달리스트로 적음"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "2021#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "「선지 순서=지문 순서」 규칙 삭제, [9] 직접 대응으로 확정"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "M2109#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜. ③은 [6] 공급 중단이 부정하지 않음까지 설명"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "2020#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜"
+    },
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "지어낸 기간·조건 오독 유인 삭제"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "「긍정적 관습」 단정 삭제, [7] 관습은 사실로만 언급"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "M2006#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "범위 과대 라벨 삭제, [4] 대응"
+    },
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "주체 역전 라벨 삭제, They=Salmon 대응으로 참 설명"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "2018#25",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜"
+    },
+    {
+     "code": "overgeneral",
+     "resolved": true,
+     "note": "confirmed_at 에서 선지 순서 규칙 제거, [6] 한 문장으로 확정"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "M1809#25",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "2017#25",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "범위 과대 라벨 삭제, film school 생략이 참임을 설명"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "Prague 두 번 억지 경로 삭제"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2022-26.out.json",
+   "id": "2016#25",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "templated",
+     "note": "solve_procedure 4단계가 파일 내 9문항 공통 틀(대상 이름만 교체). how_to_reject·design_intent 는 문항별이라 비차단"
+    }
+   ],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "2026#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜. a year later 로 1953 확정"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "M2606#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_N",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "「유일」 가정 삭제, 10번 문장 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "2025#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜. its=College 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "M2509#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "M2506#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "인과 역전 라벨 삭제, 6번 문장 대응"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "서수 억지 유혹 삭제, 2번 문장 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "2024#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "주체 역전 라벨 삭제, 6번 문장 대응"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "어휘 함정 라벨·오독 시나리오 삭제(④⑤ 동일)"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_context",
+     "note": "design_intent 끝 「Charles H. 가 1번 단위로 떨어져 번호가 뒤로 간다」는 문장 분리 결함 노출. 이 문장 삭제(번호 자체는 목록과 일치)"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "M2409#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_4",
+     "resolved": true,
+     "note": "인과 역전 라벨 삭제, 7번 문장 시점 대응"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "지어낸 why_tempting 삭제"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "M2406#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "참 선지 trap·why_tempting 삭제, how_to_reject 가 대응 문장+답 아닌 이유로 바뀜"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "2023#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "「194 잘림」 서술 삭제, 2번 문장 1949 그대로 대응"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "①~③ 문장 번호 2·3·4 로 목록과 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-FACT-2026-26.out.json",
+   "id": "M2309#26",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "라벨 삭제, 수동태 방향 대응"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "부분 사실 라벨·추측 삭제, 8번 문장 대응"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  }
+ ]
+}

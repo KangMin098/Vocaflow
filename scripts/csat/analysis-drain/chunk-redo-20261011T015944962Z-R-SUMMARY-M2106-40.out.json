@@ -1,0 +1,795 @@
+{
+ "chunk": 20,
+ "type_id": "R-SUMMARY",
+ "type_name": "요약문 완성",
+ "analyses": [
+  {
+   "item_id": "M2106#40",
+   "measured_ability": "화석 기록의 많고 적음이 개체 수·출현 시점을 그대로 보여 주지 않는다는 논지를, 요약문의 원인 칸(조건의 종류)과 결과 칸(증거가 할 수 없는 일)으로 나누어 압축하는 능력",
+   "design_intent": "1번 문장의 environments 가 (A)의 원인 명사로, 2번·7번 문장의 cannot assume·conservative 가 (B) 앞 cannot definitely 와 짝을 이루는 동사로 압축된다. (A)는 environmental 한 쌍만 원문 낱말과 직접 대응하고, (B)는 cannot 과 결합해 극성이 뒤집히므로 clarify(밝히다)와 conceal(숨기다)이 판별 칸이 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     2,
+     7
+    ],
+    "quote": "Some environments are more likely to lead to fossilization and subsequent discovery than others.",
+    "reasoning": "1번 문장은 화석화·발견 여부를 가르는 원인을 환경(environments)으로 지목해 (A) 칸의 성분을 정한다. 2번 문장 we cannot assume that more fossil evidence ... means that more individuals were present 와 7번 문장 conservative statements about the times of origin and extinction 은 화석 증거가 개체 수와 출현·멸종 시점을 확정해 주지 못한다는 결과를 말해, (B)가 cannot 뒤에서 「분명히 밝히다」 뜻이어야 함을 정한다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "1번 문장의 environments 가 (A) environmental conditions 로 형용사화되고, 2번 문장의 cannot assume ... more individuals 와 7번 문장의 conservative statements 가 cannot definitely clarify its population size or the times of its appearance and extinction 으로 바뀐다 — clarify 가 cannot 과 묶여 「확정하지 못한다」는 원문 극성을 그대로 유지한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1,
+       2,
+       7
+      ],
+      "note": "(A)는 1번, (B)는 2번(개체 수)·7번(시점) 두 문장이 함께 확정한다."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "(B) confirm 은 cannot definitely 와 결합해 「확증하지 못한다」가 되어 2번 문장의 cannot assume 과 의미가 맞는다. (B)만 보고 고르면 남는다.",
+     "how_to_reject": "(A) experimental 은 실험 조건을 뜻하는데, 1번·3번 문장이 말하는 것은 환경(environments)과 시기·장소의 circumstances 이지 실험이 아니다. 지문 어디에도 실험이 나오지 않으므로 (A)에서 탈락한다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "(B) reveal(드러내다)은 화석이 「발견(discovery)」된다는 1번 문장의 낱말과 이미지가 겹치고, cannot definitely reveal 도 「확실히 드러내지 못한다」로 읽혀 결론 방향과 맞는다.",
+     "how_to_reject": "①과 같은 (A) experimental 을 쓴다. 3번 문장 the circumstances at one period of time, or at one location 은 자연적 조건이지 실험 조건이 아니므로 (B)가 맞아도 (A)에서 막힌다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(A) environmental 이 1번 문장 environments 와 정확히 대응해 앞 칸이 맞는다. 또 conceal 은 5번 문장의 absence of evidence(증거 부재)가 무언가를 감춘다는 연상을 부른다.",
+     "how_to_reject": "cannot definitely conceal 은 「확실히 숨기지 못한다」, 곧 증거가 진실을 드러낸다는 뜻이 되어 2번 문장 cannot assume 과 7번 문장 conservative statements 의 극성과 반대다. cannot 과 결합한 뒤의 뜻으로 (B)를 판정하면 탈락한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(A) accidental 은 3번 문장 It may just be that the circumstances ... were more favourable 에서 「우연히 유리했다」는 인상을 받아 끌린다.",
+     "how_to_reject": "지문은 우연이 아니라 1번 문장의 환경 차이를 원인으로 든다. 또 (B) mask 도 conceal 처럼 cannot 과 결합하면 「가리지 못한다 = 드러낸다」가 되어 2번·7번 문장의 결론과 반대다. 두 칸 모두에서 막힌다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "요약문(8번 문장)을 먼저 읽고 (A)는 화석화에 영향을 주는 조건의 종류, (B)는 cannot definitely 뒤 동사라는 것을 표시한다.",
+     "on_fail": "(B) 앞의 cannot 을 놓치면 극성이 뒤집힌다 — not·cannot 에 동그라미를 친다."
+    },
+    {
+     "step": "1번 문장에서 화석화·발견의 원인으로 무엇이 주어인지 찾아 (A) 후보와 맞춘다.",
+     "on_fail": "3번 문장 circumstances at one period of time, or at one location 이 같은 원인을 다시 말하니 거기서 확인한다."
+    },
+    {
+     "step": "2번 문장(개체 수)과 7번 문장(출현·멸종 시점)에서 화석 증거가 그 둘을 확정하는지 부정하는지 확인한다.",
+     "on_fail": "7번 문장 conservative 가 「실제보다 보수적으로 잡힌다」는 뜻이라는 점을 6번 문장 arisen before ... survived beyond 로 되짚는다."
+    },
+    {
+     "step": "(B) 후보마다 cannot definitely 를 붙여 읽은 뜻이 2번·7번 문장과 같은 방향인지 판정하고, (A)를 통과한 쌍과 교집합을 고른다.",
+     "on_fail": "conceal·mask 처럼 원문 부정어와 겹쳐 보이는 낱말은 cannot 과 합친 최종 뜻을 우리말로 적어 본다."
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.6,
+    "drivers": [
+     "(B) 앞 cannot 이 선지 낱말의 극성을 뒤집음",
+     "conservative statements 의 함축 해석"
+    ]
+   },
+   "required_vocab": [
+    "fossilization",
+    "conservative",
+    "clarify",
+    "conceal"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(②의 lure 가 ①과 같다는 서술뿐)을 고쳐 reveal 과 1번 문장 discovery 의 연상으로 ② 고유 유인을 썼다"
+     ],
+     "checked": [
+      "quote 를 1번 문장과 문자열 대조",
+      "(A)·(B) 각각의 근거 문장(1번 / 2번·7번)이 why_correct·confirmed_at·reasoning 에서 같은 번호인지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: ②의 why_tempting 이 ①과 다른 단서(reveal–discovery)를 쓰는지 대조",
+      "이상 없음: ④⑤ 라벨을 cannot 결합 후 극성 반전으로 맞췄는지 확인"
+     ],
+     "checked": [
+      "②의 why_tempting 이 ①과 다른 단서(reveal–discovery)를 쓰는지 대조",
+      "④⑤ 라벨을 cannot 결합 후 극성 반전으로 맞췄는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: 4단계가 정답 번호를 미리 짚지 않는지 확인",
+      "이상 없음: on_fail 4개가 서로 다른 행동인지 대조"
+     ],
+     "checked": [
+      "4단계가 정답 번호를 미리 짚지 않는지 확인",
+      "on_fail 4개가 서로 다른 행동인지 대조"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2020#40",
+   "body_recovered": true,
+   "measured_ability": "코끼리 인사 행동의 강도가 유대의 정도와 헤어져 있던 기간 두 가지를 반영한다는 5번 문장을, 요약문의 두 칸(사회적으로 어떤 관계인가 / 얼마나 오래 어떤 상태였나)에 각각 대응시키는 능력",
+   "design_intent": "2번 문장 strength of the social bond 가 (A) socially tied 로, 4번 문장 after long absences 와 5번 문장 duration of the separation 이 (B) how long they have been parted 로 압축된다. 오답은 1번 문장 break up(헤어짐)에서 나올 법한 isolated·disconnected 와 경쟁 관계를 뜻하는 competitive 로 짜여, (A)에서 tied 를 확정해야 ①과 ④가 남고 (B)에서 parted 와 endangered 가 갈린다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     5
+    ],
+    "quote": "The fact that the intensity reflects the duration of the separation as well as the level of intimacy suggests that elephants have a sense of time as well.",
+    "reasoning": "5번 문장은 인사의 강도(intensity)가 반영하는 두 가지를 the duration of the separation 과 the level of intimacy 로 명시한다. 요약문의 how much ... socially (A) 는 친밀도 쪽, how long ... (B) 는 분리 기간 쪽에 대응하며, 2번 문장 the strength of the social bond 가 친밀도를 「유대」로 다시 말해 준다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "2번 문장의 the social bond 와 5번 문장의 the level of intimacy 가 (A) socially tied(사회적으로 묶인)로, 5번 문장의 the duration of the separation 이 how long they have been parted(얼마나 오래 떨어져 있었나)로 그대로 바뀐다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       5
+      ],
+      "note": "(A)는 2번·5번, (B)는 5번 문장(4번 문장 after long absences 가 보조)."
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "1번 문장 reunite·reunions 의 「다시 합친다」는 낱말이 (B) united 와 겹쳐 보인다.",
+     "how_to_reject": "how long they have been united 는 함께 있던 기간이지만 5번 문장이 강도와 연결한 것은 the duration of the separation(떨어져 있던 기간)이다. 또 (A) competitive 는 2번 문장 social bond 와 반대 방향의 관계다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "(B) isolated 는 4번 문장 long absences 의 「떨어져 있음」과 방향이 맞아 뒤 칸만 보면 그럴듯하다.",
+     "how_to_reject": "(A) responsible(책임 있는)은 지문 어디에도 근거가 없다 — 2번 문장이 인사 형태와 연결한 것은 strength of the social bond 이지 책임이 아니다. (A)에서 탈락한다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "(A) tied 가 2번 문장 social bond 와 맞아 앞 칸이 정답과 같다. 코끼리라는 소재에서 endangered(멸종 위기)를 떠올리기 쉽다.",
+     "how_to_reject": "how long they have been endangered 는 멸종 위기에 놓인 기간이라는 뜻인데, 지문은 개체 보전 상태를 다루지 않는다. 5번 문장이 말한 기간은 the duration of the separation 이므로 (B)에서 탈락한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(B) disconnected 는 1번 문장 break up 과 4번 문장 long absences 의 「연결이 끊긴 상태」와 맞아 정답 ① parted 와 함께 (B) 방향이 맞는 선지다. 그래서 (B)만 확정하면 ①·③·⑤가 남는다.",
+     "how_to_reject": "(A) competitive 는 how much they are socially competitive(얼마나 경쟁적인가)가 되는데, 2번 문장은 인사 형태가 the strength of the social bond 를 반영한다고 하고 악수와 포옹 비유도 친밀함의 차이다. 경쟁이 아닌 유대이므로 (A)에서 탈락한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "요약문을 먼저 읽고 how much ... socially (A) 와 how long ... (B) 두 의문사 칸이 각각 정도와 기간을 묻는다는 것을 표시한다.",
+     "on_fail": "두 칸이 같은 것을 묻는다고 보면 근거를 하나로 몰게 된다 — how much / how long 을 따로 밑줄 긋는다."
+    },
+    {
+     "step": "지문에서 as well as 로 두 요소를 나란히 놓은 문장(5번 문장)을 찾아 duration 과 intimacy 를 각각 어느 칸에 붙일지 정한다.",
+     "on_fail": "못 찾으면 4번 문장 after long absences 와 2번 문장 strength of the social bond 를 따로 찾아 짝을 맞춘다."
+    },
+    {
+     "step": "(A) 후보를 2번 문장 social bond 와 비교해 유대 방향인 것만 남긴다.",
+     "on_fail": "competitive·responsible 이 bond 와 같은 뜻인지 우리말로 바꿔 대조한다."
+    },
+    {
+     "step": "남은 쌍의 (B)를 how long they have been ___ 에 넣어 「떨어져 있던 기간」이 되는지 확인한다.",
+     "on_fail": "(B)가 소재 연상(멸종·보전)에서 온 낱말이면 5번 문장 separation 과 뜻이 같은지 다시 본다."
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "근거 두 요소가 한 문장(as well as)에 함께 있음",
+     "괄호 비유가 길어 2번 문장 핵심이 묻힘"
+    ]
+   },
+   "required_vocab": [
+    "bond",
+    "separation",
+    "intimacy",
+    "parted"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함: ⑤ 배제의 「(B) 방향 맞는 선지는 ③⑤ 둘」 오류를 ①·③·⑤ 셋으로 고쳤다"
+     ],
+     "checked": [
+      "quote 를 5번 문장과 문자열 대조",
+      "지문·선지가 문항 블록 원문과 같은지 대조(body_recovered)"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: ⑤의 lure 를 break up–disconnected 연결로 명시했는지 확인",
+      "이상 없음: 선지별 유인 단서가 서로 다른지(reunite·long absences·endangered 연상·break up) 대조"
+     ],
+     "checked": [
+      "⑤의 lure 를 break up–disconnected 연결로 명시했는지 확인",
+      "선지별 유인 단서가 서로 다른지(reunite·long absences·endangered 연상·break up) 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: 절차가 how much / how long 표지에서 출발해 정답 번호를 짚지 않는지 확인"
+     ],
+     "checked": [
+      "절차가 how much / how long 표지에서 출발해 정답 번호를 짚지 않는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2019#40",
+   "measured_ability": "「사람은 먼 산출을 할인한다」는 일반 원리(1번 문장)와 「화석연료는 산출이 빨리 온다」는 비교(3번 문장)를 결합해, 요약문의 선호 칸과 평가 칸을 채우는 능력",
+   "design_intent": "1번 문장 discount distant outputs over those available at the present time 이 (A) immediate outputs 로, 4번 문장 a “temporal advantage” 가 (B) more competitive 로 압축된다. (B) competitive 를 세 선지가 공유하므로 (B)만으로는 ①③⑤가 남고, (A)에서 immediate 와 반대인 delayed, 지문의 시간 축과 무관한 abundant 를 갈라야 한다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     3,
+     4
+    ],
+    "quote": "also have a “temporal advantage” after accounting for human behavioral preference for current consumption/return",
+    "reasoning": "4번 문장은 인간의 행동 선호가 current consumption/return(현재의 소비·수익)이라는 점을 고려하면 화석연료가 「시간적 이점」을 갖는다고 결론짓는다. 1번 문장은 같은 선호를 먼 산출을 할인한다는 말로 먼저 제시하고, 3번 문장은 화석연료의 산출이 much sooner 온다고 비교한다. 따라서 (A)는 「즉각적인」, (B)는 「이점이 있다=경쟁력 있다」이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "4번 문장의 preference for current consumption/return 과 1번 문장의 those available at the present time 이 (A) immediate outputs 로, 4번 문장의 also have a “temporal advantage” 가 (B) fossil fuels are more competitive 로 바뀐다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1,
+       4
+      ],
+      "note": "(A)는 1번·4번, (B)는 4번 문장. 3번 문장 much sooner 가 화석연료 쪽이 즉각적이라는 연결을 준다."
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(A) available 이 1번 문장 those available at the present time 의 available 을 글자 그대로 가져와 지문 낱말과 겹친다.",
+     "how_to_reject": "1번 문장의 available 은 at the present time 과 묶여야 「지금 얻는」 뜻이고, 혼자서는 시간 축을 담지 못한다. 또 (B) expensive 는 4번 문장에서 화석연료가 cost 를 포함한 energy quality advantages 를 갖는다는 말과 반대다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(B) competitive 가 정답과 같아 뒤 칸이 맞고, 3번 문장에 재생에너지의 투자가 before they begin producing 에 몰린다는 「지연」 이야기가 길게 나와 delayed 가 눈에 띈다.",
+     "how_to_reject": "1번 문장은 사람이 distant outputs 를 할인한다, 곧 지연된 산출을 덜 선호한다고 한다. people tend to favor more delayed outputs 는 이와 정반대다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "(A) convenient 는 4번 문장 괄호의 storability, transportability(저장·운송 편의)에서 연상되어 화석연료의 장점처럼 들린다.",
+     "how_to_reject": "요약문은 in regards to the distance between inputs and outputs, 곧 시간 거리 기준의 비교다. 편의성은 4번 문장에서 시간적 이점과 따로 열거된 다른 장점이다. (B) expensive 도 4번 문장의 cost 이점과 반대다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "(B) competitive 가 정답과 같고, abundant(풍부한)는 화석연료에 대한 일반 상식으로 그럴듯하다.",
+     "how_to_reject": "지문은 산출의 양이 아니라 산출이 오는 시점을 다룬다. 1번 문장 distant ... present time, 3번 문장 much sooner 모두 시간 축이므로 (A) abundant 는 근거가 없다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "요약문의 Due to the fact that people tend to favor more (A) outputs 에서 (A)가 사람의 선호, (B)가 화석연료 대 재생에너지 비교라는 것과 기준이 the distance between inputs and outputs(시간 거리)라는 것을 표시한다.",
+     "on_fail": "기준어를 놓치면 cost·storability 같은 다른 장점으로 (A)를 채우게 된다 — in regards to 뒤를 밑줄 긋는다."
+    },
+    {
+     "step": "1번 문장에서 사람이 할인하는 산출과 선호하는 산출이 각각 언제의 것인지 찾는다.",
+     "on_fail": "discount A over B 구조에서 A(distant)가 덜 쳐주는 쪽임을 확인하고, 4번 문장 current consumption/return 으로 교차 확인한다."
+    },
+    {
+     "step": "3번 문장에서 산출이 더 빨리 오는 쪽이 화석연료인지 재생에너지인지 확인하고, 4번 문장 Thus 가 그 결과를 어떤 이점으로 부르는지 찾는다.",
+     "on_fail": "where 절이 둘이라 헷갈리면 solar panels ... before they begin producing 과 fossil fuel ... much sooner 를 표로 나눈다."
+    },
+    {
+     "step": "(B)가 같은 선지끼리는 (A)로, (A)가 같은 선지끼리는 (B)로 가른다.",
+     "on_fail": "두 칸 중 하나만 확인했다면 남은 선지 수를 세어 다른 칸 근거를 다시 찾는다."
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.65,
+    "drivers": [
+     "3번 문장이 길고 where 절 두 개로 비교가 나뉨",
+     "discount A over B 구조"
+    ]
+   },
+   "required_vocab": [
+    "discount",
+    "temporal",
+    "immediate",
+    "competitive"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함: 근거 위치를 「마지막 문장」이라 한 오기를 4번 문장(Thus 문장)으로 고쳤다 — 5번 문장은 요약문"
+     ],
+     "checked": [
+      "quote 를 4번 문장과 문자열 대조",
+      "temporal advantage·current consumption 의 위치를 모든 칸에서 4번 문장으로 통일했는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: ② expensive 배제 근거 위치를 4번 문장 cost 로 고쳤는지 확인",
+      "이상 없음: ③⑤가 (B)를 공유해 (A)로만 갈린다는 서술이 선지마다 다른 단서를 쓰는지 대조"
+     ],
+     "checked": [
+      "② expensive 배제 근거 위치를 4번 문장 cost 로 고쳤는지 확인",
+      "③⑤가 (B)를 공유해 (A)로만 갈린다는 서술이 선지마다 다른 단서를 쓰는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: 절차 4단계가 공통 틀이 아니라 이 문항의 discount 구조·where 절을 쓰는지 확인"
+     ],
+     "checked": [
+      "절차 4단계가 공통 틀이 아니라 이 문항의 discount 구조·where 절을 쓰는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2018#40",
+   "measured_ability": "같은 분야 사람과의 온라인 교류가 정보를 과도하게 거른다는 4번 문장과 예상 밖 발견을 말하는 5번 문장을, 요약문의 원인 동사 칸과 결과 형용사 칸으로 각각 압축하는 능력",
+   "design_intent": "4번 문장 overfilter ... eliminating the diversity 가 (A) limit potential sources 로, 4번 문장 radically new ideas 와 5번 문장 surprising discoveries 가 (B) unexpected findings 로 바뀐다. (A) limit 을 공유하는 ①은 (B) distorted 가 「왜곡」이라 갈리고, diversify·provide 를 쓴 ③④⑤는 (A)의 방향이 반대다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5
+    ],
+    "quote": "But the result may be the tendency to overfilter it, thus eliminating the diversity of the knowledge circulating and diminishing the frequency of radically new ideas.",
+    "reasoning": "4번 문장은 동질적 네트워크의 결과로 정보를 지나치게 걸러(overfilter) 지식의 다양성을 없애고(eliminating the diversity) 급진적으로 새로운 생각의 빈도를 줄인다고 말한다. 다양성 제거가 정보원을 제한하는 원인, 새 생각 감소가 예상 밖 발견이 덜 일어나는 결과에 대응한다. 5번 문장 surprising discoveries 가 결과 칸의 성격을 「예상 밖」으로 다시 짚는다."
+   },
+   "choices": [
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "4번 문장의 overfilter ... eliminating the diversity 가 (A) limit potential sources of information 으로, 4번 문장의 diminishing the frequency of radically new ideas 와 5번 문장의 surprising discoveries 가 less probable for unexpected findings to happen 으로 바뀐다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       5
+      ],
+      "note": "(A)는 4번 문장, (B)는 4번 문장 radically new ideas 와 5번 문장 surprising discoveries. 6번 문장은 요약문이다."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "(A) limit 이 정답과 같아 앞 칸이 맞고, 3번 문장 the potentially overwhelming flow of information 을 거르는 이야기가 정보 「왜곡」을 떠올리게 한다.",
+     "how_to_reject": "지문이 줄어든다고 한 것은 4번 문장 radically new ideas, 5번 문장 surprising discoveries — 새롭고 놀라운 것이다. distorted(왜곡된) 발견이 줄어드는 것은 오히려 바람직한 일이라 글의 우려와 맞지 않는다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(B) accidental(우연한)은 5번 문장 the mixture of predictable and surprising discoveries 의 「뜻밖」과 가까워 뒤 칸이 그럴듯하다.",
+     "how_to_reject": "(A) diversify 는 정보원을 다양화한다는 뜻인데 4번 문장은 eliminating the diversity, 곧 다양성을 없앤다고 한다. 원인 칸의 방향이 정반대다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "3번 문장 filter the potentially overwhelming flow 에서 거르기의 장점을 읽으면 오해의 소지가 있는 정보가 줄어든다는 방향으로 (B) misleading 이 끌린다.",
+     "how_to_reject": "(A) diversify 는 4번 문장 eliminating the diversity 와 반대이고, (B) misleading 은 5번 문장이 아쉬워하는 surprising discoveries 와 무관하다. 두 칸 모두 막힌다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(B) novel(새로운)은 4번 문장 radically new ideas 의 new 와 뜻이 같아 뒤 칸만 보면 맞는다.",
+     "how_to_reject": "(A) provide potential sources 는 정보원을 제공한다는 긍정 방향이라, and thus make it less probable 의 「그 결과 덜 일어나게 한다」와 인과가 맞지 않는다. 4번 문장 overfilter·eliminating 이 원인을 제한 쪽으로 정한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "요약문에서 (A)가 Focusing on on-line interaction 이 정보원에 하는 일, (B)가 and thus make it less probable 뒤 줄어드는 발견의 성격이라는 것을 표시한다.",
+     "on_fail": "thus 를 놓치면 (A)·(B)를 따로 판단하다 인과가 어긋난 쌍을 고른다 — (A)의 결과가 (B)의 감소여야 한다."
+    },
+    {
+     "step": "3번 문장 filter 와 4번 문장 But ... overfilter 를 대조해, 글쓴이가 문제 삼는 것이 걸러지는 정도인지 확인한다.",
+     "on_fail": "3번 문장만 읽으면 거르기를 장점으로 오해한다 — But 뒤 4번 문장이 글쓴이 쪽이다."
+    },
+    {
+     "step": "4번 문장 radically new ideas 와 5번 문장 surprising discoveries 에서 줄어드는 것의 공통 성격을 한 낱말로 적어 (B) 후보와 맞춘다.",
+     "on_fail": "5번 문장이 길면 because 뒤 the mixture of predictable and surprising discoveries 만 떼어 본다."
+    },
+    {
+     "step": "(A) 방향(제한/확대)과 (B) 성격이 둘 다 맞는 쌍을 고른다.",
+     "on_fail": "(A)가 같은 두 선지는 (B)만으로 갈린다는 것을 확인하고 (B) 근거를 다시 본다."
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "3번 문장 filter 의 긍정 뉘앙스가 4번 문장 But 에서 뒤집힘",
+     "5번 문장 길이"
+    ]
+   },
+   "required_vocab": [
+    "overfilter",
+    "homogeneous",
+    "limit",
+    "unexpected"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함: why_correct 의 「마지막 문장」을 5번 문장으로 고쳤다(6번은 요약문)"
+     ],
+     "checked": [
+      "quote 를 4번 문장과 문자열 대조",
+      "surprising discoveries 위치를 why_correct·confirmed_at·reasoning 모두 5번 문장으로 통일했는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: ④의 유인을 3번 문장 filter 의 장점 읽기로, ③을 5번 문장 surprising 근접으로 서로 다르게 썼는지 대조"
+     ],
+     "checked": [
+      "④의 유인을 3번 문장 filter 의 장점 읽기로, ③을 5번 문장 surprising 근접으로 서로 다르게 썼는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: on_fail 이 단계마다 다른 행동인지 확인"
+     ],
+     "checked": [
+      "on_fail 이 단계마다 다른 행동인지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2017#40",
+   "measured_ability": "관광의 환경 영향에 대한 주민 반응이 엇갈린다(2번 문장)는 것과 그 차이가 여러 요인에서 온다(6번 문장)는 것을, 요약문의 평가 동사 칸과 태도 형용사 칸으로 압축하는 능력",
+   "design_intent": "1번 문장 not all residents attribute environmental damage to tourism 이 (A) do not weigh ... identically 의 「똑같이 평가하지 않는다」로, 2번 문장 mixed 와 6번 문장 variations in residents’ feelings 가 (B) dissimilar postures 로 압축된다. (A) weigh 를 세 선지가 공유하므로 (A)만 확정하면 ①②③이 남고, (B)의 common·balanced 를 dissimilar 와 갈라야 한다. ④⑤ control 은 주민이 영향을 통제한다는 지문에 없는 주장이다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     6
+    ],
+    "quote": "Some studies suggest that variations in residents’ feelings about tourism’s relationship to environmental damage are related to the type of tourism",
+    "reasoning": "6번 문장은 주민 감정의 차이(variations)가 관광 유형·보호 필요 인식·거리와 관련된다고 하여, 요약문 since 절의 based on factors such as ... 와 짝을 이룬다. 2번 문장 their reactions to environmental impacts are mixed 와 3~5번 문장의 Some ... Many ... Alternatively, some 대비가 그 차이의 실제 모습을 보여 주므로, 주민은 환경 영향을 똑같이 평가하지 않고 서로 다른 태도를 취한다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "2번 문장의 reactions ... are mixed 가 (A) do not weigh tourism’s environmental influences identically(똑같이 평가하지 않는다)로, 6번 문장의 variations in residents’ feelings 가 (B) take dissimilar postures(서로 다른 태도를 취한다)로 바뀐다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       6
+      ],
+      "note": "(A)는 2번 문장(1번 not all residents 가 보조), (B)는 6번 문장. (A)만 확정하면 ①②③, (B)만 확정하면 ③만 남는다."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(A) weigh 가 정답과 같아 앞 칸이 맞고, 2번 문장 Residents commonly have positive views on the economic ... influences 의 commonly 가 (B) common 과 겹친다.",
+     "how_to_reject": "2번 문장의 commonly 는 경제·사회문화 영향에 대한 것이고, 환경 영향에 대해서는 같은 문장 후반이 but their reactions ... are mixed 라고 한다. 6번 문장 variations 와도 common 은 반대다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "(A) weigh 가 정답과 같고, 3번·4번 문장(긍정)과 5번 문장(우려)이 함께 나와 주민이 양쪽을 고루 따지는 balanced 태도로 읽힌다.",
+     "how_to_reject": "3~5번 문장은 한 주민이 양면을 저울질한다는 말이 아니라 Some residents 와 some residents 가 서로 다른 입장을 취한다는 말이다. 6번 문장 variations in residents’ feelings 가 집단 간 차이를 말하므로 balanced(균형 잡힌)는 맞지 않는다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "(B) favorable 은 3번 문장 Some residents feel tourism provides more parks ... 의 긍정 반응과 맞아 일부 근거가 보인다.",
+     "how_to_reject": "(A) control 은 주민이 관광의 환경 영향을 통제한다는 뜻인데 지문은 주민의 인식·감정만 다룬다. 또 favorable 은 5번 문장 Alternatively, some residents express concern 의 우려 반응을 빠뜨린다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "(B) conflicting 은 2번 문장 mixed, 6번 문장 variations 와 뜻이 가까워 뒤 칸이 그럴듯하다.",
+     "how_to_reject": "(A) control 이 1번 문장 attribute(원인을 돌리다)·2번 문장 reactions 같은 인식 동사와 맞지 않는다. 주민이 환경 영향을 통제한다는 내용은 지문 어디에도 없으므로 (A)에서 탈락한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "요약문에서 (A)가 do not ___ identically 로 주민이 환경 영향을 어떻게 다루는지, (B)가 since 절에서 요인에 따라 취하는 태도라는 것을 표시한다.",
+     "on_fail": "not ... identically 의 이중 구조를 놓치면 (A)에 「통제」 같은 행위 동사를 넣게 된다 — identically 와 어울리는 동사인지 확인한다."
+    },
+    {
+     "step": "1번·2번 문장에서 주민이 환경 영향에 대해 무엇을 하는지(attribute, reactions)를 찾아 (A) 후보의 동사 성격(평가인가 통제인가)과 맞춘다.",
+     "on_fail": "2번 문장 앞부분 positive views(경제)와 뒷부분 mixed(환경)를 나누어 환경 쪽만 쓴다."
+    },
+    {
+     "step": "6번 문장 variations 와 3~5번 문장의 Some / Many / Alternatively, some 대비를 보고 주민 태도가 집단 간에 같은지 다른지 정한다.",
+     "on_fail": "긍정·부정이 모두 나와 「균형」으로 읽히면 주어가 같은 사람인지 다른 집단인지 확인한다."
+    },
+    {
+     "step": "(A)가 같은 선지끼리는 (B)로 가르고, 두 칸을 모두 통과한 쌍을 고른다.",
+     "on_fail": "(B)만 확정했을 때 남는 선지를 (A)로 교차 확인한다."
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "2번 문장 commonly(경제)와 mixed(환경)의 대상 구분",
+     "3~5번 문장의 Some/Many 대비를 집단 차이로 읽기"
+    ]
+   },
+   "required_vocab": [
+    "attribute",
+    "weigh",
+    "dissimilar",
+    "posture"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함: 「한 칸만 확정하면 ①·⑤가 살아남는다」 오류를 (A)→①②③, (B)→③ 으로 고쳤다",
+      "원장 결함: 근거 없는 「미뤄 두는 학습자가 많다」 행동 주장을 삭제했다"
+     ],
+     "checked": [
+      "quote 를 6번 문장과 문자열 대조",
+      "confirmed_at.note 의 칸별 잔여 선지(①②③ / ③)를 선지 표와 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: ①(commonly)·②(양면 열거)의 유인 단서가 서로 다른지, ④⑤ control 배제가 다른 근거를 쓰는지 대조",
+      "이상 없음: 선택률 주장이 남아 있지 않은지 전 필드 확인"
+     ],
+     "checked": [
+      "①(commonly)·②(양면 열거)의 유인 단서가 서로 다른지, ④⑤ control 배제가 다른 근거를 쓰는지 대조",
+      "선택률 주장이 남아 있지 않은지 전 필드 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: 절차가 not ... identically 표지에서 출발하는지 확인"
+     ],
+     "checked": [
+      "절차가 not ... identically 표지에서 출발하는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2016#40",
+   "measured_ability": "평가 대상의 통제 밖 요인(경기 침체)이 실적 수치를 끌어내린 사례를 읽고, 요약문의 고려할 요인 칸과 수치에 대한 태도 칸을 rather than ... only 구조로 압축하는 능력",
+   "design_intent": "2번 문장 broad, influential factors ... that hold down the performance of everyone 이 (A) contextual factors 로, 5~7번 문장의 평균 대비 수치 비교가 (B) rather than rely on figures only 로 압축된다. 판별 칸은 (B)다 — (A)에서 contextual 과 controllable 이 둘 다 1번 문장과 부분적으로 맞아 보이므로, rather than ... only 와 결합한 (B)가 put aside(제쳐 두다)인지 rely on(의존하다)인지가 정답을 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     7
+    ],
+    "quote": "There can be broad, influential factors, sometimes of an economic nature, that hold down the performance of everyone being judged.",
+    "reasoning": "2번 문장은 평가받는 모든 사람의 실적을 함께 끌어내리는 넓은 요인(경제적 성격)이 있다고 한다 — 개인을 둘러싼 맥락 요인이다. 4~7번 문장의 판매 사례는 평균 −15% 속에서 −3%가 「좋은」 실적이라며, 수치 자체만 보면 손실이지만 맥락 속에서는 좋은 실적임을 보인다. 따라서 수치에만 의존하지 말고 맥락 요인을 고려하라는 요약이 된다."
+   },
+   "choices": [
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "2번 문장의 broad, influential factors ... of an economic nature 가 (A) contextual factors affecting the individual’s performance 로, 7번 문장의 “good” performance ... is a smaller loss 가 보여 주는 「수치만으로는 판단 불가」가 rather than rely on figures only 로 바뀐다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       7
+      ],
+      "note": "(A)는 2번 문장, (B)는 5~7번 사례의 결론인 7번 문장. 판별 칸은 (B)."
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(A) contextual 이 정답과 같아 앞 칸이 맞고, 1번 문장 rather than those influences ... beyond their control 의 rather than 이 「무언가를 배제하라」는 인상을 줘 put aside 가 그럴듯하다.",
+     "how_to_reject": "rather than put aside figures only 는 「수치만 제쳐 두는 대신」으로, 수치를 버리는 것이 문제라는 말이 된다. 그러나 5~7번 문장은 −15%·−3% 수치를 비교해 실적을 판단한다 — 지문의 요지는 수치를 버리지 말라가 아니라 수치에만 기대지 말라다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "(A) controllable 은 1번 문장 what is under the control of the individuals 와 낱말 뜻이 겹쳐 앞 칸이 맞아 보인다. 실제로 1번 문장과 부분적으로 부합한다.",
+     "how_to_reject": "(A)만으로는 갈리지 않는다. 결정적 배제는 (B) put aside 다 — rather than put aside figures only 는 ①과 같이 수치를 버리지 말라는 뜻이 되어, 5~7번 문장이 경고하는 「수치만 보는 평가」와 방향이 반대다. 또 2번 문장이 고려하라고 든 요인은 everyone 에게 미치는 통제 밖 요인이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "(B) ignore 는 1번 문장 rather than 의 배제 뉘앙스와 겹치고, 7번 문장 “good” performance 에서 positive 를 연상하게 된다.",
+     "how_to_reject": "(A) positive factors 는 지문에 근거가 없다 — 2번 문장의 요인은 hold down the performance, 곧 실적을 끌어내리는 요인이다. (B) ignore 도 put aside 처럼 수치를 버리지 말라는 뜻이 되어 5~7번 문장과 반대다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "(B) rely on 이 정답과 같아 뒤 칸이 맞고, 6번 문장 the best salesperson 에서 긍정적 요인을 떠올리게 된다.",
+     "how_to_reject": "(A) positive 는 2번 문장 factors ... that hold down the performance of everyone 과 반대 성격이다. 지문이 고려하라는 것은 긍정 요인이 아니라 경기 침체 같은 상황 요인이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "요약문에서 consider (A) factors rather than (B) figures only 를 표시하고, rather than ... only 가 「~에만 ___ 하는 대신」이므로 (B)는 수치에 대해 지문이 경계하는 태도라는 것을 적는다.",
+     "on_fail": "only 를 빠뜨리면 put aside 와 rely on 이 둘 다 말이 되는 것처럼 보인다 — only 를 넣어 두 후보를 각각 우리말로 바꿔 본다."
+    },
+    {
+     "step": "2번 문장에서 실적에 영향을 주는 요인의 성격(넓은·경제적·모두에게 미치는)을 찾아 (A) 후보와 맞춘다.",
+     "on_fail": "1번 문장 under the control 만 보면 controllable 로 쏠린다 — 2번 문장이 실제로 든 요인이 누구에게 미치는지 확인한다."
+    },
+    {
+     "step": "5~7번 문장의 −15%·−3% 비교가 수치를 버리라는 것인지, 수치만으로는 판단할 수 없다는 것인지 판정해 (B)를 고른다.",
+     "on_fail": "7번 문장 “good” performance ... is a smaller loss 가 수치 자체(손실)와 평가(좋음)가 갈린다는 말임을 확인한다."
+    },
+    {
+     "step": "(B)를 먼저 확정해 남은 선지 중 (A)가 2번 문장의 요인 성격과 맞는 것을 고른다.",
+     "on_fail": "(A)가 둘 다 그럴듯하면 (B) 판정으로 돌아간다."
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.55,
+    "drivers": [
+     "controllable 이 1번 문장과 낱말 수준에서 겹침",
+     "rather than ... only 구조로 (B) 극성 판정"
+    ]
+   },
+   "required_vocab": [
+    "contextual",
+    "rely on",
+    "put aside",
+    "downturn"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함: why_correct 의 「controllable 이 첫 문장과 뒤집힌다」 오류를 삭제하고 controllable 이 1번 문장과 부분 부합함을 ③에 명시했다"
+     ],
+     "checked": [
+      "quote 를 2번 문장과 문자열 대조",
+      "판별 칸이 (B)라는 서술이 design_intent·confirmed_at·③·절차 4단계에서 일치하는지 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: ③ 배제가 (B) put aside 를 결정적 근거로 쓰는지 확인",
+      "이상 없음: ① 설명의 혼란스러운 「제쳐 두기만 하지 말라」 서술을 수치 비교 필요성 근거로 바꿨는지 확인",
+      "이상 없음: ④⑤가 서로 다른 유인(ignore 배제 뉘앙스 / best salesperson)을 쓰는지 대조"
+     ],
+     "checked": [
+      "③ 배제가 (B) put aside 를 결정적 근거로 쓰는지 확인",
+      "① 설명의 혼란스러운 「제쳐 두기만 하지 말라」 서술을 수치 비교 필요성 근거로 바꿨는지 확인",
+      "④⑤가 서로 다른 유인(ignore 배제 뉘앙스 / best salesperson)을 쓰는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "이상 없음: 절차가 rather than ... only 표지에서 출발하는지, 정답 번호를 미리 짚지 않는지 확인"
+     ],
+     "checked": [
+      "절차가 rather than ... only 표지에서 출발하는지, 정답 번호를 미리 짚지 않는지 확인"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-SUMMARY",
+  "n_analyzed": 6,
+  "recurring_traps": [
+   {
+    "trap": "반대 진술",
+    "count": 12,
+    "signature": "한 칸은 정답과 같고 다른 칸이 원문 극성과 반대 — 특히 요약문 안 cannot·rather than ... only 와 결합해 극성이 뒤집히는 낱말"
+   },
+   {
+    "trap": "무관",
+    "count": 6,
+    "signature": "지문에 없는 개념(experimental·responsible·abundant·positive)을 한 칸에 넣음"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 3,
+    "signature": "지문 낱말이나 소재 연상(commonly→common, 코끼리→endangered)과 겹치는 낱말"
+   },
+   {
+    "trap": "지문 밖 상식",
+    "count": 3,
+    "signature": "주민이 영향을 통제한다·편의성 같은 지문 밖 일반론"
+   }
+  ],
+  "answer_locus_pattern": "6문항 전부 (A)·(B)의 근거가 서로 다른 문장(또는 한 문장의 두 성분)이고, 6문항 전부에 정답과 한 칸을 공유하는 오답이 있다. 요약문 자체 안의 부정·제한어(cannot, not ... identically, rather than ... only)가 (B)의 극성을 정하는 문항이 6중 3.",
+  "procedure": [
+   "요약문을 먼저 읽고 칸마다 문법 역할과 그 칸을 감싼 부정·제한어를 표시한다",
+   "칸마다 대응하는 원문 문장을 따로 찾는다",
+   "부정어와 결합한 최종 뜻으로 후보를 판정한다",
+   "같은 낱말을 공유하는 선지끼리는 다른 칸으로 가른다"
+  ],
+  "failure_modes": [
+   "요약문 안 cannot·only 를 빼고 선지 낱말만 읽어 극성이 뒤집힌 쌍을 고름",
+   "한 칸만 확정하고 남은 2~3지 중 지문 낱말과 겹치는 쪽을 고름",
+   "긍정·부정 열거를 한 사람의 균형으로 오독"
+  ],
+  "time_budget_sec": 100,
+  "open_questions": [
+   "재작성 3인 검수는 모두 원장 결함 수정 뒤 pass 였다 — 실제 반려는 원장(독립 검수)이 낸 것이며, 이번 자체 검수에서 새 반려는 0건이라 자가 QA 의 자가 일치 위험이 있다",
+   "recurring_traps count 는 문항×선지 단위로 한 번씩 셌다(같은 선지 중복 없음)"
+  ]
+ }
+}

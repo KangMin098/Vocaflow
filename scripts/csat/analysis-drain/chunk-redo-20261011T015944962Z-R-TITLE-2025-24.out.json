@@ -1,0 +1,1290 @@
+{
+ "chunk": 30,
+ "type_id": "R-TITLE",
+ "type_name": "제목",
+ "analyses": [
+  {
+   "item_id": "2025#24",
+   "measured_ability": "'A 때문이 아니라 B 때문'이라는 1번 문장에서 B를 주제로 취하고, 마지막 문장이 그 B를 어떤 명사구로 다시 말하는지 대응시키는 능력",
+   "design_intent": "1번 문장이 not because it is new 로 새로움을 부정해 놓아 「셀피는 일시적이다」 「셀피가 자화상을 끝냈다」로 옮겨 읽게 유도한다. 정답은 부정된 new 를 Latest 로 되살리되 자화상 계보(1번)의 새 시대 단계(6번)라는 자리를 주는 선지여서, not A but B 의 B 와 마지막 6번 문장을 함께 묶었는지가 갈림길이다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     6
+    ],
+    "quote": "Today’s young, urban, networked majority has reworked the history of the self-portrait to make the selfie into the first visual signature of the new era.",
+    "reasoning": "6번 문장의 reworked the history of the self-portrait 는 1번 문장의 expresses, develops, expands, and intensifies the long history of the self-portrait 를 다시 받아 셀피를 자화상 역사의 연장선에 놓고, the first visual signature of the new era 가 그 선의 가장 새로운 자리를 준다. 1번 문장이 「새로워서가 아니라 오랜 계보를 잇기 때문」이라 말하고 6번 문장이 「그 계보의 새 시대 첫 서명」이라 말하므로, 제목은 계보 안의 최신 단계라는 두 조건을 함께 담아야 한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "1번 문장의 not because it is new 를 「새롭지 않다 = 잠깐 지나갈 것」으로 옮기면, 의문문 제목 Just a Temporary Trend 가 지문이 던진 물음처럼 보인다.",
+     "how_to_reject": "6번 문장이 셀피를 the first visual signature of the new era 라 부르고, 1번 문장은 셀피가 the long history of the self-portrait 를 잇는다고 한다. temporary·fad·passing 처럼 일시성을 말하는 표현이 지문에 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "4번 문장의 in tension with our inner emotions that may or may not be expressed as we wish 하나만 붙들면 '셀피 속 나는 진짜 내가 아니다'가 된다.",
+     "how_to_reject": "4번 문장은 셀피가 담는 내용(일상의 자기 연출과 내면 감정의 긴장)을 설명하는 한 문장이고, 1·5·6번 문장은 자화상의 역사·확장·새 시대의 서명을 말한다. 셀피 속 모습이 가짜라고 판정하는 문장이 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "3번 문장의 the first and fundamental object of global visual culture 에서 global culture 를 그대로 가져오면 규모가 큰 제목이 지문 어휘로 조립된 것처럼 보인다.",
+     "how_to_reject": "3번 문장의 global visual culture 가 걸리는 대상은 our own image(우리가 생각하는 모습과 남이 보는 모습의 접점)이지 셀피 문화가 아니다. self-oriented(자기중심적)라는 평가어에 대응하는 서술이 지문에 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "reworked the history of the self-portrait 를 '자화상을 갈아치웠다'로 옮기면 대체·종말 서사가 만들어지고, Taking Over 가 그 오독과 맞물린다.",
+     "how_to_reject": "1번 문장이 셀피를 expresses, develops, expands, and intensifies the long history of the self-portrait 라고 규정한다 — 끝냄이 아니라 이어감이다. 6번 문장의 reworked 도 자화상의 역사를 고쳐 쓴 것이지 자화상이 사라졌다는 말이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "선지의 Latest 는 6번 문장 the first visual signature of the new era(새 시대의 첫 서명)를, Innovation in Representing Ourselves 는 1번 문장 the long history of the self-portrait 와 5번 문장 more and more people have been able to depict themselves 가 말하는 「자기를 그려 온 방식」의 계보를 받는다. Latest 가 「계보 위의 가장 새 단계」라는 뜻이어서, 1번 문장이 부정한 new(계보와 단절된 새로움)와 충돌하지 않는다.",
+     "confirmed_at": {
+      "sentence_index": [
+       1,
+       5,
+       6
+      ],
+      "note": "Representing Ourselves 의 계보는 1·5번 문장, Latest 의 자리는 6번 문장에서 확정된다."
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "1번 문장에 not ~ but 이 있으면 but 뒤만 남기고 앞은 지운다. 지워진 낱말(new)이 각 선지에 어떻게 쓰였는지 표시해 둔다",
+     "on_fail": "not~but 이 없으면 1번 문장과 마지막 문장만 먼저 읽어 두 문장에 공통으로 나오는 명사를 적는다"
+    },
+    {
+     "step": "마지막 문장에서 셀피를 무엇이라 부르는지 명사구를 그대로 옮겨 적는다",
+     "on_fail": "마지막 문장이 길면 to make the selfie into ~ 처럼 셀피가 목적어인 자리만 잘라 적는다"
+    },
+    {
+     "step": "1단계의 but 뒤 표현과 2단계의 명사구를 둘 다 만족하는 선지를 고른다",
+     "on_fail": "둘 다 만족하는 선지가 없으면 2단계 명사구만으로 후보를 좁힌다"
+    },
+    {
+     "step": "남은 선지 중 계보를 끊는 낱말(End of, Just a Temporary)이 든 것을 지운다",
+     "on_fail": "그래도 둘이면 각 선지의 평가어(self-oriented, Not the Real You)가 지문 어느 문장에서 나온 것인지 짚어 보고, 짚이지 않는 쪽을 지운다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "정답 선지의 Latest 가 1번 문장에서 부정된 new 와 겹쳐 보인다",
+     "resonates·intensifies 등 추상 동사",
+     "선지 다섯 중 넷이 selfie/self-portrait 를 그대로 쓴다"
+    ]
+   },
+   "required_vocab": [
+    "resonates",
+    "intensifies",
+    "self-portrait",
+    "depict",
+    "signature"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(sentence_index [1,7])을 [1,6]으로 고쳤다 — 지문 문장은 6개다.",
+      "quote 는 6번 문장 전체와 문자 그대로 일치한다.",
+      "why_correct 의 Latest ↔ the first visual signature of the new era, Representing Ourselves ↔ depict themselves 대응이 낱말 단위로 성립한다."
+     ],
+     "checked": [
+      "quote 를 6번 문장과 문자열 대조",
+      "design_intent·reasoning·why_correct·confirmed_at 이 1·5·6번을 같은 번호로 부르는지 대조",
+      "정답 선지 영문과 근거 어구 대응 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①은 일시성, ④는 대체·종말로 서로 다른 오독 경로를 짚었다.",
+      "②의 배제가 4번 문장 한정 + 진위 판정 문장 부재로 위치를 갖는다.",
+      "③의 global 이 our own image 에 걸린다는 배제가 3번 문장 구조에 근거한다."
+     ],
+     "checked": [
+      "why_tempting 네 개가 각 선지 영문 낱말(Temporary·Not the Real You·Global Culture·Taking Over)에 걸리는지 대조",
+      "how_to_reject 위치 번호가 1~6 범위인지 확인",
+      "정답 선지에 오답 필드가 없는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 1단계 not~but 처리와 2단계 마지막 문장 명사구 옮겨 적기가 지문 미열람 학생에게 실행 가능하다.",
+      "80초는 6문장 지문에 충분하다.",
+      "required_vocab 5개가 모두 지문에 있다(signature 는 6번, depict 는 2·5번)."
+     ],
+     "checked": [
+      "금지 표현 유무 확인",
+      "step/on_fail 이 서로 다른 문장인지 확인",
+      "required_vocab 지문 실재 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2509#24",
+   "measured_ability": "'직선적 진보'와 '순환'이 맞서는 지문에서 어느 쪽이 글의 결론인지 가려, 지문 낱말이 하나도 겹치지 않는 관용구 제목이 그 결론과 같은 뜻인지 판별하는 능력",
+   "design_intent": "open-office 라는 화제어를 1번 문장에 놓고 partitions·cubicles·contemporary office spaces 같은 하위 소재를 뒤에 흩어, 지문 낱말이 든 선지로 손이 가게 했다. 정답만 지문 표현과 겹치는 낱말이 없는 관용구여서, 낱말 대조로 고르는 습관이 그대로 실점이 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     5,
+     6,
+     7
+    ],
+    "quote": "Surveying office spaces from the past eighty years, one can see a cycle that repeats.",
+    "reasoning": "5번 문장이 직선적 진보를 a myth 라며 부정하고, 6번 문장(인용)이 그 자리에 a cycle that repeats 를 놓는다. 7번 문장은 1940년대와 지금의 사무실이 circled back around to essentially the same style 했다고 실제 사례로 확인한다. 따라서 제목은 이 순환을 담아야 하고, 개방형 사무실의 장단이나 칸막이는 순환을 보여 주는 재료에 그친다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "1번 문장 open-office plans have gained currency 의 이유를 묻는 형태여서 곧바로 이어지는 것처럼 보이고, 개방형 사무실이 비용을 아낀다는 통념이 강하다.",
+     "how_to_reject": "비용을 말하는 문장이 지문에 없다. 1번 문장의 good reasons 는 같은 문장 안의 but open offices may not be the plan of choice for all times 로 곧바로 제한된다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "1940년대 양식으로 되돌아왔다는 서술이 '레트로'라는 말로 자연스럽게 옮겨진다.",
+     "how_to_reject": "7번 문장 Comparing the offices of the 1940s with contemporary office spaces shows that they have circled back around 은 일어난 일을 관찰한 서술이다. 레트로 양식을 꾸미는 방법(How to)을 알려 주는 문장이 지문에 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "partitions and cubicles 가 지문에 그대로 있어 그 대목만 보면 칸막이의 폐해를 다룬 글로 보인다.",
+     "how_to_reject": "그 표현은 7번 문장의 via a period in the 1980s when partitions and cubicles were more the norm 이라는 삽입구로, 순환의 중간 구간을 가리킬 뿐이다. productivity 를 말하는 문장이 지문에 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "관용구 What Goes Around Comes Around(돌고 돌아 다시 온다)가 6번 문장 a cycle that repeats 와 7번 문장 circled back around to essentially the same style 을 옮긴 것이고, Office Designs 가 1·4번 문장의 office plans 를 받는다. 지문 낱말을 쓰지 않고 「순환」이라는 역할만 일치시킨 선지다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6,
+       7
+      ],
+      "note": "순환 주장은 6번, 그 사례 확인은 7번 문장."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "contemporary office spaces 라는 표현이 지문에 그대로 있고, 조언형 제목은 어느 지문에나 얹히는 듯 무난해 보인다.",
+     "how_to_reject": "관리 방법이나 조언을 담은 문장이 지문에 없다. 8번 문장까지 1940년대와 2000년대 배치가 기둥 위치까지 같다는 비교 서술로 끝난다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯을 훑어 지문 낱말이 하나도 겹치지 않는 것을 따로 표시해 둔다 — 제목 유형에서 정답은 자주 지문 표현을 바꿔 말한 쪽이다",
+     "on_fail": "겹침을 세기 어려우면 각 선지의 명사만 지문에서 찾아 있는지 없는지 표시한다"
+    },
+    {
+     "step": "지문에서 but·Instead 를 찾아 부정된 것(a straight line of progress)과 그 자리에 놓인 것(a cycle that repeats)을 각각 적는다",
+     "on_fail": "표지가 여러 개면 myth·not·may not 처럼 부정어가 든 문장만 골라 그 뒤 문장을 본다"
+    },
+    {
+     "step": "'그 자리에 놓인 것'과 같은 뜻인 선지를 고른다. 관용구 선지는 한국어로 풀어 적은 뒤 대조한다",
+     "on_fail": "관용구 뜻이 안 잡히면 지문에서 그 뜻과 짝이 되는 표현(circled back around)을 찾아 대응시킨다"
+    },
+    {
+     "step": "남은 선지가 지문의 한 구간(1980년대 칸막이)이나 한 소재(비용·관리법)만 가리키면 지운다",
+     "on_fail": "둘이 남으면 그 선지가 요구하는 낱말(cost, productivity)을 지문에서 찾아 없는 쪽을 지운다"
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.72,
+    "drivers": [
+     "정답이 관용구여서 지문과 축자 대응이 없다",
+     "오답 넷 중 셋이 지문 낱말을 그대로 포함한다",
+     "지문에 연대(1940s·1980s·2000s)가 셋 나와 구간 혼동이 생긴다"
+    ]
+   },
+   "required_vocab": [
+    "currency",
+    "rigid",
+    "take-away",
+    "partitions",
+    "cubicles",
+    "myth"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함 두 건을 고쳤다 — sentence_index 를 인용 문장(6번)이 들어간 [5,6,7]로, ② 배제의 Comparing 문장을 7번으로.",
+      "quote 가 6번 문장과 문자 그대로 일치한다.",
+      "관용구 정답이 6·7번의 순환 서술과 뜻으로 대응한다."
+     ],
+     "checked": [
+      "quote 를 6번 문장과 문자열 대조",
+      "reasoning·why_correct·②③ how_to_reject 의 문장 번호 일치 확인",
+      "지문 문장 수(8) 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①은 비용 통념, ②는 레트로 연상, ③은 1980년대 삽입구, ⑤는 contemporary 낱말 겹침으로 유인 경로가 각기 다르다.",
+      "각 배제에 1·7·8번 위치가 있다."
+     ],
+     "checked": [
+      "why_tempting 이 각 선지 영문(Cost-efficient·Retro·Partitions·Contemporary)에 근거하는지 대조",
+      "라벨과 설명 방향 일치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계 「겹침 없는 선지 표시」는 단정 규칙이 아니라 관찰 표시로 쓰여 있고, 3단계에서 지문 대응으로 확인하게 해 요령 의존을 막는다.",
+      "85초 적정.",
+      "required_vocab 의 currency·myth 가 1·5번 해석에 필요하다."
+     ],
+     "checked": [
+      "금지 표현 확인",
+      "절차를 정답 미공개 상태로 시연",
+      "required_vocab 지문 실재 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2409#24",
+   "measured_ability": "웹 이전과 이후를 가르는 두 축(기사가 남는 기간과 기사가 놓이는 맥락의 넓이)을 지문에서 각각 짚어, 제목이 두 축을 모두 담는지 하나만 담는지 세는 능력",
+   "design_intent": "지문은 웹 이후의 변화를 두 축으로 놓는다 — 옛 기사가 계속 인용돼 수명이 늘었다는 축(3번 문장 the shelf life of journalism)과 기사가 더 큰 경제·사회·문화 문제의 결과로 읽힌다는 맥락 확장 축(4번 문장 underlying issues and contexts, 5번 문장 larger economic, social and cultural issues). 3번 문장의 cited to provide context 가 둘째 축의 실마리를 주지만 그 축의 본 근거는 4·5번이어서, 3번 한 문장만 보면 「수명」이나 「최신성」 쪽 절반짜리 제목으로 기운다.",
+   "solve_procedure": [
+    {
+     "step": "지문에서 시대를 가르는 표현(Before the web, now, was, by definition)에 표시하고 앞 시대와 뒤 시대의 특징을 각각 한 낱말로 적는다",
+     "on_fail": "시대 표현이 안 보이면 1번 문장과 마지막 문장의 주어를 나란히 적어 무엇이 바뀌었는지 비교한다"
+    },
+    {
+     "step": "뒤 시대의 특징이 몇 개인지 적는다 — 3번 문장의 extended the shelf life 와 4·5번 문장의 contexts / larger ... issues 처럼 다른 문장에 나뉜 특징도 따로 센다",
+     "on_fail": "세기 어려우면 5번 문장의 rather than 앞뒤(larger issues ↔ short-lived spectacles)에만 표시하고 3번 문장과 비교한다"
+    },
+    {
+     "step": "각 선지가 그 특징 중 몇 개를 담는지 옆에 숫자로 적고, 지문에 없는 낱말(latest, hidden, printed)이 든 선지에는 X를 친다",
+     "on_fail": "숫자가 같은 선지가 둘이면 각 선지의 대상(온라인 뉴스인지 종이 신문인지)을 마지막 문장의 주어와 맞대 본다"
+    },
+    {
+     "step": "숫자가 가장 큰 선지 하나를 남기고, 그 선지가 마지막 문장을 바꿔 말한 것인지 확인한다",
+     "on_fail": "확인이 안 되면 1번 문장(Before the web ...)과도 맞는지 물어 두 문장 모두와 맞는 쪽을 택한다"
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.6,
+    "drivers": [
+     "5번 문장이 한 문장 안에 emergent qualities·manifest outcomes 같은 추상 명사구를 이어 길다",
+     "선지 다섯 중 넷이 online/web/news/journalism 을 포함해 낱말 대조로는 갈리지 않는다",
+     "두 축이 3번과 4·5번에 나뉘어 있다"
+    ]
+   },
+   "required_vocab": [
+    "archives",
+    "shelf life",
+    "cited",
+    "emergent",
+    "manifest",
+    "spectacles"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(design_intent 는 두 축이 다른 문장, answer_locus 는 3번 한 문장)을 해소했다 — 3번은 수명 축, 4·5번이 맥락 축의 본 근거로 통일.",
+      "quote 가 3번 문장 일부와 문자 그대로 일치한다.",
+      "난이도 근거에 있던 「정답표가 없는 회차」 서술은 사실과 달라(이 문항은 정답 ①이 확정) 지웠다."
+     ],
+     "checked": [
+      "quote 를 3번 문장과 문자열 대조",
+      "design_intent·reasoning·why_correct·confirmed_at·절차 2단계가 같은 3/4·5 배분을 쓰는지 대조",
+      "answer_known 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "②는 최신성 통념, ③은 기자 주체, ④는 print 낱말, ⑤는 future 범위로 경로가 서로 다르다.",
+      "③ 주체 역전이 4번 문장 online news consumers 로 정확히 막힌다."
+     ],
+     "checked": [
+      "why_tempting 이 각 선지 영문에 걸리는지 대조",
+      "how_to_reject 의 1·2·3·4번 위치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계를 「다른 문장에 나뉜 특징도 센다」로 고쳐 3번 한 문장에서 멈추지 않게 했다.",
+      "85초 안에 5문장 처리 가능."
+     ],
+     "checked": [
+      "금지 표현 확인",
+      "고친 2단계와 4단계 on_fail 의 기준 일관성 확인",
+      "required_vocab 지문 실재 확인"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     3,
+     4,
+     5
+    ],
+    "quote": "extended the shelf life of journalism, with older stories now regularly cited to provide context",
+    "reasoning": "이 3번 문장이 첫째 축(기사 수명의 연장)을 확정하고, with older stories now regularly cited to provide context 로 둘째 축의 실마리를 연다. 둘째 축의 본 근거는 4번 문장(engage with the underlying issues and contexts of the news)과 5번 문장(the manifest outcomes of larger economic, social and cultural issues rather than short-lived and unconnected media spectacles)이다. 3번과 4·5번을 함께 대야 제목의 두 축이 다 선다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "선지의 Lasting Longer 는 3번 문장 greatly extended the shelf life of journalism 에, Contextually Wider 는 4번 문장 the underlying issues and contexts of the news 와 5번 문장 larger economic, social and cultural issues rather than short-lived and unconnected media spectacles 에 대응한다. 표제어 Web-based 는 1번 문장 Before the web 이 세운 시대 구분을 받는다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3,
+       4,
+       5
+      ],
+      "note": "Lasting Longer 는 3번, Contextually Wider 는 4·5번 문장에서 확정된다."
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "Online news 라는 소재어가 지문에 그대로 있고, 웹이 신문을 앞선다는 통념과 맞아떨어진다",
+     "how_to_reject": "이 글이 웹의 강점으로 드는 것은 최신성이 아니라 archives, 곧 옛 기사의 접근성이다(3번 문장). 2번 문장 Journalism was, by definition, current 는 웹 이전 상태를 적은 것이라 웹의 강점이 될 수 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "Online 과 news 가 겹치고, 숨은 맥락을 드러낸다는 말이 4번 문장의 underlying issues 와 비슷하게 들린다",
+     "how_to_reject": "4번 문장이 그 일을 하는 주체를 명시한다 — a readiness by online news consumers to engage with the underlying issues. 기자가 아니라 독자 쪽 태도의 변화다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "newspaper archives · print consumers 가 지문에 있어 종이 신문과 과거라는 낱말이 모두 지문에서 온 것처럼 보인다",
+     "how_to_reject": "1번 문장은 웹 이전의 archives 가 the musty domain of professional researchers 였다고 적고, 4번 문장은 print consumers 에게는 그것이 not apparent in, or even possible for 였다고 못박는다 — 종이 신문은 이 글에서 부정되는 쪽이다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "Journalism 과 Web 이 모두 지문 낱말이고, 제목이 넓어 틀린 곳을 짚기 어렵다",
+     "how_to_reject": "지문은 웹 이전과 이후를 견줄 뿐 앞날을 말하지 않는다. future·will·predict 계열 표현이 다섯 문장 어디에도 없다"
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2406#24",
+   "measured_ability": "앞부분의 통계 나열(이동량 증가)과 뒷부분의 역접(접근성 악화)을 하나의 물음으로 묶어, 제목이 그 역접까지 담고 있는지 재는 능력",
+   "design_intent": "hyper-mobility 의 정의를 1번 문장 대시 사이에 넣고 2~5번에 통계와 인프라 서술을 이어 붙인 뒤 6번 문장 Yet 로 방향을 꺾는다. 앞 구간이 길어 거기서 판단을 끝내면 이동 증가를 긍정하는 쪽(③·⑤)으로 기울고, 꺾인 뒤의 평가어(crisis, unsustainable)는 8번 문장에 몰려 있다.",
+   "solve_procedure": [
+    {
+     "step": "1번 문장의 대시 사이에 든 정의를 한국어 한 줄로 옮겨 적는다 — 이 글이 무엇을 화제로 삼는지가 거기서 확정된다",
+     "on_fail": "대시가 안 보이면 1번 문장에서 하이픈으로 이어진 합성어(hyper-mobility)를 찾아 그 뒤 that·which 절을 읽는다"
+    },
+    {
+     "step": "지문에서 Yet·However·But 를 찾아 그 뒤 문장의 서술 방향이 앞의 통계와 같은지 반대인지 +/- 로 표시한다",
+     "on_fail": "표지가 없으면 despite·Not only 처럼 양보를 나타내는 표현이 든 문장을 대신 찾는다"
+    },
+    {
+     "step": "마지막 문장에서 평가가 실린 낱말(crisis, unsustainable)에 표시하고, 그것이 2단계의 +/- 중 어느 쪽과 같은지 확인한다",
+     "on_fail": "평가어가 안 보이면 마지막 문장의 형용사를 모두 적어 긍정인지 부정인지 하나씩 판정한다"
+    },
+    {
+     "step": "2·3단계에서 표시한 방향을 담은 선지를 고르고, 앞 통계 구간만 담은 선지를 지운다",
+     "on_fail": "둘이 남으면 각 선지의 명사가 역접 앞에서 온 것인지 뒤에서 온 것인지 표시해 앞에서 온 쪽을 지운다"
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.62,
+    "drivers": [
+     "역접 앞 다섯 문장(정의·통계·인프라)이 길고 역접 뒤는 세 문장이라 앞 구간에서 판단을 끝내기 쉽다",
+     "externalities·unsustainable 같은 추상 평가어가 7·8번에 몰려 있다",
+     "선지 다섯 중 셋이 hyper-mobility 또는 accessibility 를 포함한다"
+    ]
+   },
+   "required_vocab": [
+    "hyper-mobility",
+    "freight",
+    "externalities",
+    "unsustainable",
+    "unprecedented"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(Yet 문장 sentence_index 7·confirmed_at 9, 지문은 8문장)을 6·[6,8]로 고쳤다.",
+      "선지 해설의 옛 6~8번 표기(인프라 6→5, 부작용 8→7, 결론 7~9→6~8)를 모두 같은 번호 체계로 맞췄다.",
+      "quote 가 6번 문장과 문자 그대로 일치한다."
+     ],
+     "checked": [
+      "quote 를 6번 문장과 문자열 대조",
+      "design_intent·reasoning·why_correct·②③④⑤ how_to_reject 의 번호를 sentences 목록과 대조",
+      "난이도 근거의 「정답표 없는 회차」「청크」 서술 삭제 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "②는 accessibility 낱말, ③은 1번 정의 속 통념, ④는 negative 방향 일치, ⑤는 5번 인프라 절로 서로 다른 유인이다.",
+      "⑤ 범위 과소 라벨이 「한 절만 제목으로」라는 설명과 방향이 맞다."
+     ],
+     "checked": [
+      "why_tempting 이 선지 영문에 근거하는지 대조",
+      "배제 위치 번호 범위 확인(1~8)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계 +/- 표시와 3단계 마지막 문장 평가어 확인이 실행 가능하다.",
+      "85초 적정."
+     ],
+     "checked": [
+      "금지 표현 확인",
+      "on_fail 중복 여부 확인",
+      "required_vocab 지문 실재 확인"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     6
+    ],
+    "quote": "Yet, despite the increasing level of urban mobility worldwide, access to places, activities and services has become increasingly difficult.",
+    "reasoning": "1번 문장이 hyper-mobility 를 generates greater economic success 라는 통념으로 정의하고 2~4번 문장이 이동량 증가 통계를 쌓은 뒤, 6번 문장의 Yet 이 방향을 꺾는다. despite 절이 이동량 증가를 인정한 채 결과는 반대(접근성 악화)라고 적으므로, 글의 결론은 이동량 증가가 곧 좋음이 아니라는 것이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "선지의 Always Good 에 붙은 물음은 1번 문장이 세운 통념(more travel ... generates greater economic success)을 6번 문장 Yet ... access to places, activities and services has become increasingly difficult 가 뒤집는 구조를 그대로 옮긴 것이고, for Cities 는 6번 문장 urban mobility 와 8번 문장 many of the world’s cities 를 받는다. 물음의 답(「늘 좋지는 않다」)은 8번 문장의 accessibility crisis·unsustainable 이 준다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6,
+       8
+      ],
+      "note": "꺾임은 6번, 부정적 결론은 8번 문장에서 확정된다."
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "accessibility 가 근거 문장과 마지막 문장에 그대로 있어 지문의 열쇳말을 앞세운 제목처럼 보인다",
+     "how_to_reject": "지문에서 accessibility 는 안내의 대상이 아니라 위기의 이름이다(8번 문장 an unprecedented accessibility crisis). guide·how to 에 해당하는 지시적 서술이 지문에 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "1번 문장에 generates greater economic success 가 있어 경제적 성공이 이 글의 결론처럼 남는다",
+     "how_to_reject": "그 구절은 1번 문장에서 hyper-mobility 를 정의하는 통념이고, 6번 문장의 Yet 이 그 통념의 결과를 뒤집는다. 경제적 성공을 다시 긍정하는 문장이 그 뒤에 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "negative externalities 라는 부정 표현이 있어 갈등이라는 낱말과 방향이 같아 보인다",
+     "how_to_reject": "그 부작용의 범위는 7번 문장이 시간·비용·편안함과 이동 과정 자체로 한정한다. 지역과 지역이 부딪친다는 진술이 지문에 없고 regional·conflict 계열 낱말도 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "5번 문장에 the associated infrastructure invariably constituting the backbone of urban form 이 있어 인프라가 핵심이라는 말이 지문에서 곧장 온다.",
+     "how_to_reject": "그 구절은 이동 흐름을 설명하는 한 절이고, 글의 결론은 6~8번 문장의 접근성 위기다. 한 절을 제목으로 올리면 Yet 이하 세 문장이 통째로 빠진다."
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2309#24",
+   "measured_ability": "같은 악보에서 연주가 달라지는 이유를 설명한 지문에서, 여러 낱말로 되풀이되는 하나의 개념(악보에서 벗어나는 표현)과 그 개념이 낳는 결과를 함께 담은 제목을 재는 능력",
+   "design_intent": "지문은 한 개념을 deviation, variations, diverges, expressivity, interpretations 로 바꿔 가며 되풀이하고, 마지막 두 문장에서 그 개념이 낳는 결과(같은 곡을 다시 들어도 흥미가 유지되고 같은 레퍼토리를 반복할 값어치가 있다)를 붙인다. 동의 관계를 묶지 못하면 음악이라는 소재만 겹치는 제목으로 손이 간다.",
+   "solve_procedure": [
+    {
+     "step": "지문에서 같은 뜻으로 되풀이되는 낱말을 어미가 달라도 한 묶음으로 표시한다(deviation·variations·diverges·expressivity·interpretations)",
+     "on_fail": "묶기 어려우면 각 문장의 주어만 세로로 적어 반복되는 것을 찾는다"
+    },
+    {
+     "step": "그 개념이 무엇에 대비되는지 표시한다(exactly defined score, two equal notes in exactly the same way)",
+     "on_fail": "대비어가 안 보이면 not·rarely·beyond 같은 부정어가 든 문장을 찾아 그 문장의 목적어를 적는다"
+    },
+    {
+     "step": "마지막 두 문장에서 그 개념이 낳는 결과(흥미가 유지됨·같은 곡을 반복할 값어치)를 한 줄로 적는다",
+     "on_fail": "결과가 여러 개면 This explains why 로 시작하는 문장만 골라 그 뒤를 적는다"
+    },
+    {
+     "step": "1단계의 개념과 3단계의 결과를 모두 담은 선지를 고르고, 지문에 없는 영역어(치료·비평 직업·무대 공포)가 든 선지를 지운다",
+     "on_fail": "둘이 남으면 각 선지의 명사를 지문에서 찾아 실제로 나오지 않는 쪽을 지운다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "핵심 개념이 다섯 낱말로 바뀌어 되풀이된다",
+     "6번 문장 We generally call this ‘expressivity’ 가 개념에 이름을 붙여 준다",
+     "선지 셋이 지문에 없는 영역(비평 경력·음악 치료·무대 공포)을 끌어온다"
+    ]
+   },
+   "required_vocab": [
+    "deviation",
+    "expressivity",
+    "intonation",
+    "diverges",
+    "repertoire"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함 두 건을 고쳤다 — confirmed_at 10번→[3,7,8,9], ① 배제의 「이후 아홉 문장」→「이후 여덟 문장(2~9번)」.",
+      "quote 가 3번 문장과 문자 그대로 일치한다.",
+      "Never the Same ↔ only rarely ... the same way 대응이 성립한다."
+     ],
+     "checked": [
+      "quote 를 3번 문장과 문자열 대조",
+      "reasoning·why_correct·confirmed_at 의 번호를 sentences(9개)와 대조",
+      "난이도 근거의 「정답표 없는 회차」 서술 삭제 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①은 사람 나열, ③은 expressivity 낱말, ④는 무대 공포 상식, ⑤는 9번 New 로 유인이 갈린다.",
+      "⑤ 범위 과대 라벨은 「새 해석」을 「업계 동향」으로 넓힌 방향과 맞다."
+     ],
+     "checked": [
+      "why_tempting 과 선지 영문 대조",
+      "how_to_reject 위치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계 동의어 묶기와 3단계 This explains why 문장 찾기가 지문 표지에 맞춰져 있다.",
+      "80초 적정."
+     ],
+     "checked": [
+      "금지 표현 확인",
+      "required_vocab 지문 실재 확인(repertoire 는 8번)",
+      "step/on_fail 중복 확인"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     3
+    ],
+    "quote": "Carl Seashore discovered that musicians only rarely play two equal notes in exactly the same way.",
+    "reasoning": "글이 바꿔 말하며 되풀이하는 개념(1번 expressive deviation · 4번 variations · 5번 diverges · 6번 expressivity · 9번 interpretations)의 실체를 3번 문장이 실증으로 못박는다 — 같은 음도 똑같이 연주되는 일이 드물다. 제목은 이 사실과 함께 그 값어치를 담아야 하는데, 값어치는 7·8·9번 문장에 따로 있다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "1번 문장에 musicians and psychologists · experts 가 나열돼 음악을 평하는 사람들이 화제인 듯 보인다",
+     "how_to_reject": "그들은 1번 문장에서 의견을 말하는 사람으로 한 번 언급될 뿐이고, 이후 여덟 문장(2~9번)이 모두 연주의 변이와 그 값어치를 다룬다. career·criticism 에 해당하는 표현이 지문에 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "선지의 Never the Same 은 3번 문장 only rarely play two equal notes in exactly the same way 와, Variation in Music Performance 는 4번 문장 a wide potential of variations in tempo, volume, tonal quality and intonation 과 5번 문장 Such variation ... diverges from it individually 와 맞물린다. Value 는 7번 문장 we do not lose interest, 8번 문장 it is worthwhile ... to repeat the same repertoire, 9번 문장 enrich and animate the music scene 이 대준다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3,
+       7,
+       8,
+       9
+      ],
+      "note": "Never the Same 은 3번, Value 는 7·8·9번 문장에서 확정된다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "expressive deviation 과 We generally call this 'expressivity' 가 지문에 있어 '개인적 표현'이라는 말이 정확히 지문에서 온 것처럼 보인다",
+     "how_to_reject": "지문의 표현은 연주 해석을 가리키지 치료를 가리키지 않는다. therapy·patient·healing 계열 낱말이 지문에 한 번도 없다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "연주라는 소재가 무대 공포라는 익숙한 화제와 붙어, 음악 지문이면 있을 법하다고 넘겨짚게 된다",
+     "how_to_reject": "지문은 연주자의 심리 상태를 다룬 적이 없다. 연주자에 대한 서술은 3~5번 문장의 '똑같이 연주하지 않는다'는 사실 하나뿐이다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "마지막 문장에 New, inspiring interpretations 가 있어 New 라는 낱말이 지문에서 곧장 온다",
+     "how_to_reject": "그 New 는 새 해석을 꾸미는 말이지 업계의 새 동향이 아니다. industry·market·trend 계열 낱말이 지문에 없고, 마지막 문장의 귀결도 our understanding 의 확장이다"
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2106#24",
+   "measured_ability": "1번 문장이 필자 주장이 아니라 반박 대상(a common error is the assumption that ~)임을 알아보고, 바로 뒤 문장에서 대체 명제를 찾아 두 후보의 선후 관계를 제목으로 옮기는 능력",
+   "design_intent": "1번 문장에 selfish genes 라는 널리 알려진 개념을 놓되 A common error 로 미리 부정해 둔다. 그 뒤에도 genetic adaptation, brain modules 같은 낱말을 뿌려, 1번 문장을 주장으로 오독하면 유전자를 주어로 삼은 ②·④·⑤로 가게 만든다. 9번 문장의 이빨-육식 비유는 7·8번이 세운 선후 관계를 한 번 더 못 박는다.",
+   "answer_locus": {
+    "sentence_index": [
+     7,
+     8
+    ],
+    "quote": "So, in animals with brains, behavioural change is the usual first response to environmental threat.",
+    "reasoning": "7번 문장은 So 로 시작하는 결론이고, first response 라는 서수 표현이 행동 변화가 먼저라고 명시한다. 8번 문장 If the change is successful, genetic adaptation to the new behaviour will follow more gradually 가 유전 적응이 뒤따른다는 나머지 순서를 채우고, 9번 문장의 이빨-육식 비유가 같은 순서를 부정형으로 되풀이한다. 7·8번이 합쳐 「무엇이 먼저 적응하는가」라는 물음과 답을 함께 만든다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "선지의 두 항 Behaviour·Genes 는 6번 문장 behavioural adaptation ... is vastly more efficient than genetic adaptation 의 두 적응이고, Which Adapts First 의 First 는 7번 문장 behavioural change is the usual first response 의 first 를 받는다. 답(행동이 먼저, 유전은 나중)은 8번 문장 genetic adaptation ... will follow more gradually 의 follow 가 확정한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6,
+       7,
+       8
+      ],
+      "note": "두 항의 대비는 6번, first 는 7번, 뒤따름(follow)은 8번 문장."
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "selfish genes 와 brain 은 둘 다 지문에 나오는 낱말이고, 1번 문장이 그 둘을 한 문장에 담고 있어 지문 요지처럼 읽힌다.",
+     "how_to_reject": "1번 문장의 틀이 A common error in current Darwinian thinking is the assumption that ... 다 — 선지 내용은 필자가 오류로 지목한 통념이지 주장이 아니다. 2번 문장(In strict Darwinism the prime mover is environmental threat)이 그 통념을 대체하는 명제를 바로 제시한다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "마지막 문장에 carnivore teeth 와 eat meat 가 나와 육식이 소재처럼 보이고, A Story of Survival 이 진화 지문의 분위기와 맞아 보인다.",
+     "how_to_reject": "육식은 9번 문장에서 순서를 보여 주기 위한 비유로만 쓰였다. 7·8번 문장이 다루는 것은 행동 적응과 유전 적응의 선후이지 특정 식성이 아니고, 동물이 왜 고기를 먹는지 설명하는 문장이 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "진화 지문에서 유전자와 자연을 대립시키는 구도가 익숙하고, genetic adaptation 이 지문에 실제로 나온다.",
+     "how_to_reject": "2번 문장에서 원동력(prime mover)의 자리에 있는 것은 유전자가 아니라 environmental threat 이고, 3번 문장은 위협이 없으면 자연선택이 변화에 저항한다고 한다. 이기는 쪽·주도하는 쪽이 뒤바뀌어 있다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "efficiency 와 genetic adaptation 이 지문에 같이 나오는 낱말 쌍이라 지문 문장을 옮긴 것처럼 보인다.",
+     "how_to_reject": "6번 문장이 behavioural adaptation, being immediate and non-random, is vastly more efficient than genetic adaptation 이라고 우열을 명시한다. 선지는 그 비교의 우열을 정반대로 뒤집었다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 주어 자리 명사를 뽑는다(Behaviour or Genes / Brain / Animals / Genes / Genetic Adaptation). 유전자를 주어로 둔 선지가 몇 개인지 센다",
+     "on_fail": "주어가 애매한 의문형 선지는 물음표 앞 두 명사를 모두 주어로 적는다"
+    },
+    {
+     "step": "지문 1번 문장에 error, myth, assumption, commonly believed 중 하나가 있는지 본다. 있으면 1번 문장은 반박 대상이므로 밑줄을 긋지 말고 바로 다음 문장에 밑줄",
+     "on_fail": "그런 낱말이 없으면 1번 문장에 밑줄"
+    },
+    {
+     "step": "본문에서 So 또는 Therefore 로 시작하는 문장을 찾아 함께 밑줄을 긋는다. 밑줄 두 자리의 주어가 같은 명사면 그것이 제목의 주어다",
+     "on_fail": "So/Therefore 문장이 없으면 마지막에서 2번 문장에 밑줄"
+    },
+    {
+     "step": "밑줄 문장에 first, then, follow, more gradually 같은 순서어가 있는지 본다. 있으면 순서를 묻는 선지를 남기고 우열·승패만 말하는 선지를 지운다",
+     "on_fail": "순서어가 없으면 비교급(more, less)이 있는지 보고 그 비교 방향과 어긋나는 선지를 지운다"
+    },
+    {
+     "step": "마지막 문장이 부정문(do not ... and then ...)이면 그 문장이 뒤집어 말하는 순서를 바로 세워 적고, 남은 선지와 대조한다",
+     "on_fail": "마지막 문장이 부정문이 아니면 3단계 밑줄 문장으로 결정한다"
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.55,
+    "drivers": [
+     "1번 문장이 반박 대상이라 그대로 주장으로 읽으면 오답 두 개(②·⑤)로 동시에 끌린다",
+     "prime mover, ex vacuo, domain-specific brain modules 등 고난도 표현",
+     "정답이 유일한 의문형 선지라 단정형 선지에 비해 약해 보인다",
+     "유전자·행동·환경 세 항이 얽혀 주어를 놓치기 쉽다"
+    ]
+   },
+   "required_vocab": [
+    "prime mover",
+    "adaptation",
+    "behavioural",
+    "gradually",
+    "emergence"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(confirmed_at 이 두 항을 7번, first 근거를 8번으로 적음)을 고쳤다 — 두 항 6번, first 7번, follow 8번.",
+      "answer_locus.sentence_index 를 [2,7]에서 인용·추론이 실제로 쓰는 [7,8]로 바꿨다.",
+      "quote 가 7번 문장과 문자 그대로 일치한다."
+     ],
+     "checked": [
+      "quote 를 7번 문장과 문자열 대조",
+      "design_intent·reasoning·why_correct·confirmed_at·③ 배제의 번호 일치 확인",
+      "정답 선지 영문과 근거 어구 대응 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "②는 1번 문장의 오류로 지목된 통념, ③은 9번 비유, ④는 주도권 역전, ⑤는 6번 우열 뒤집기로 각각 다르다.",
+      "⑤ 반대 진술 라벨이 more efficient 의 극성 반전과 일치한다."
+     ],
+     "checked": [
+      "why_tempting 과 선지 영문 대조",
+      "배제 위치 확인(1·2·3·6·7·8·9)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계 「error·assumption 이 있으면 1번 문장은 반박 대상」은 조건이 붙어 있어 무조건 규칙이 아니다.",
+      "95초 적정(prime mover·ex vacuo 등 어려운 어휘)."
+     ],
+     "checked": [
+      "금지 표현 확인",
+      "on_fail 중복 확인",
+      "required_vocab 지문 실재 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2019#24",
+   "measured_ability": "However 로 뒤집힌 뒤 On the one hand / On the other hand 로 갈라지는 두 사례를 묶어, 큰 수 앞에서 감정이 작동하지 않는다는 하나의 명제로 접는 능력",
+   "design_intent": "앞 세 문장은 재해 규모를 정확히 알리려는 노력을 세워 놓고, However 가 그 전제(사람들이 숫자를 이해하고 그에 따라 행동한다)를 무너뜨린다. 뒤이어 한 사람에게는 강하게 반응하고 대량 참사에는 실패한다는 두 대비를 나란히 놓아, 대비의 한쪽만 집은 제목과 두 쪽을 묶은 제목을 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     5,
+     9
+    ],
+    "quote": "we often fail to prevent mass tragedies or take appropriate measures to reduce potential losses from natural disasters",
+    "reasoning": "On the other hand 뒤 문장으로, 앞 문장(한 사람에게는 강하게 반응한다)과 짝을 이뤄 대비를 완성한다. 5번 문장 Many people do not understand large numbers 가 그 실패의 원인을 이미 말해 두었으므로, 이 문장이 원인(큰 수를 이해 못 함)과 결과(대량 참사에 무감각)를 잇는 끝점이 된다. 제목의 두 항 — 대량 참사에 대한 무감각, 큰 수 속에서 길을 잃음 — 이 이 문장과 5번 문장에서 각각 나온다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "numbers 와 feelings 가 둘 다 지문 낱말이고, 6번 문장에 affect (feeling) 이 괄호까지 달려 강조되어 있어 두 낱말의 관계가 요지처럼 보인다.",
+     "how_to_reject": "6번 문장은 large numbers have been found to lack meaning and to be underestimated ... unless they convey affect 다 — 큰 수는 감정을 실어 나르지 못하면 의미를 잃는다는 뜻이므로, 숫자가 감정을 증폭한다는 선지는 방향이 정반대다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "2번 문장에 technological sophistication 과 potential or actual losses 가 그대로 있어 지문 전반부를 옮긴 제목처럼 보인다.",
+     "how_to_reject": "2·3번 문장은 However 앞에 있는 전제부다. 4번 문장이 recent behavioral research casts doubt on this fundamental assumption 으로 그 전제를 의심하므로, 기술로 손실을 막는다는 것은 지문이 세운 뒤 무너뜨린 쪽이지 결론이 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "8번 문장 we respond strongly to aid a single individual in need 가 선지 문구와 거의 그대로 겹친다.",
+     "how_to_reject": "그 문장은 On the one hand 로 시작하는 대비의 한쪽이고, 바로 다음 문장이 On the other hand 로 반대쪽을 놓는다. 한쪽만 옮긴 제목은 7번 문장이 말한 paradox 를 담지 못한다. 또 지문은 돕는 방법(How to)을 하나도 제시하지 않는다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "Numbers 와 Natural Disasters 가 둘 다 지문에 나오고, 1번 문장의 magnitude 가 재해 규모 분류를 연상시킨다.",
+     "how_to_reject": "지문에서 숫자는 손실의 크기를 알리는 수단이고 그것이 통하지 않는다는 것이 논지다. 재해를 등급·종류로 나누는 서술은 어느 문장에도 없고, Power of Numbers 는 6번 문장의 lack meaning 과도 어긋난다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "선지 앞부분 Insensitivity to Mass Tragedy 는 9번 문장 we often fail to prevent mass tragedies 를 「무감각」으로 압축한 것이고, 콜론 뒤 We Are Lost in Large Numbers 는 5번 문장 Many people do not understand large numbers 와 6번 문장 large numbers have been found to lack meaning 에 대응한다. 콜론 뒤가 앞의 무감각을 낳은 원인이라는 관계도 지문의 5·6번→9번 순서와 같다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       6,
+       9
+      ],
+      "note": "무감각은 9번, 큰 수 이해 실패는 5·6번 문장에서 확정된다."
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 numbers 가 들어간 것을 표시하고, 각각 숫자를 강한 것으로 보는지 무력한 것으로 보는지 부호를 매긴다",
+     "on_fail": "부호가 애매하면 선지의 동사·형용사(Magnify, Power, Lost)만 뽑아 적는다"
+    },
+    {
+     "step": "지문에서 However 또는 But 으로 시작하는 문장을 찾아 그 문장과 바로 다음 문장에 밑줄을 긋는다. 그 앞은 전제부이므로 후보에서 뺀다",
+     "on_fail": "역접 표지가 없으면 In short/Indeed 로 시작하는 문장에 밑줄"
+    },
+    {
+     "step": "On the one hand / On the other hand 가 있으면 두 문장을 짝으로 묶고, 두 문장이 함께 만드는 대비를 한 줄로 적는다",
+     "on_fail": "그 표지가 없으면 마지막 두 문장을 짝으로 본다"
+    },
+    {
+     "step": "3단계 대비 중 한쪽만 옮긴 선지를 지운다. 남은 선지의 부호를 1단계 부호와 대조한다",
+     "on_fail": "한쪽만 옮긴 선지 판정이 안 되면 선지에 individual 또는 mass 중 하나만 들어 있는지 본다"
+    },
+    {
+     "step": "역접 앞 전제부(기술·노력·평가)의 낱말로만 만들어진 선지를 지운다",
+     "on_fail": "전제부 경계가 모호하면 However 앞 문장까지로 잡는다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.61,
+    "drivers": [
+     "본문이 전제부-반전-대비 3단이라 어느 구간을 요지로 잡느냐에 따라 오답이 셋으로 갈린다",
+     "affect 를 동사 '영향을 주다' 로 읽으면 6번 문장이 반대로 해석된다",
+     "정답 선지가 Insensitivity 라는 지문에 없는 낱말로 요약되어 있다"
+    ]
+   },
+   "required_vocab": [
+    "magnitude",
+    "sophistication",
+    "underestimated",
+    "affect",
+    "paradox"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(confirmed_at.note 의 작업 메모)을 지우고 근거 위치만 남겼다.",
+      "quote 가 9번 문장 일부와 문자 그대로 일치한다.",
+      "Insensitivity ↔ fail to prevent mass tragedies, Lost in Large Numbers ↔ do not understand large numbers 대응이 성립한다."
+     ],
+     "checked": [
+      "quote 를 9번 문장과 문자열 대조",
+      "학습자 필드 전체에서 작업 용어 검색",
+      "answer_locus 와 confirmed_at 번호(5·6·9) 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①은 6번 affect 의 방향 반전, ②는 However 앞 전제부, ③은 8번 대비의 한쪽, ④는 magnitude 연상으로 서로 다르다.",
+      "③ 범위 과소 라벨이 대비 한쪽만 옮긴 설명과 맞는다."
+     ],
+     "checked": [
+      "why_tempting 과 선지 영문 대조",
+      "배제 위치 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계 However 찾기와 3단계 On the one hand/other hand 짝짓기가 이 지문 표지 그대로라 실행 가능하다.",
+      "90초 적정."
+     ],
+     "checked": [
+      "금지 표현 확인",
+      "difficulty drivers 의 작업 사정 서술 삭제 확인",
+      "required_vocab 지문 실재 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2017#23",
+   "measured_ability": "not A but B 대조구문에서 B(새로운 현실의 창조)를 주장으로 집고, 앞에서 길게 나열된 수단(자르고 바꾸고 이어붙임)을 주제로 잘못 승격시키지 않는 능력",
+   "design_intent": "글 대부분(1~3번)이 편집 작업의 물리적 서술(strips·shortened·altered·assembled)이라 소재 낱말이 「편집 기술」과 「시간·공간」에 몰려 있다. 주장은 4번 문장의 does not ~ but ~ 에 있고, 감독이 현실에 맞추는 것이 아니라 현실을 지배해 새 현실을 만든다는 관계를 비유 제목(in the Director’s Hands)으로 옮길 수 있는지를 가른다. ②·③은 지문 낱말을 그대로 쓴 미끼다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5
+    ],
+    "quote": "He does not adapt reality, but uses it for the creation of a new reality",
+    "reasoning": "이 대조구문이 감독과 현실의 관계를 확정한다 — 현실에 맞추는 쪽이 아니라 현실을 재료로 쓰는 쪽이다. 이어지는 'laws of space and time invariable and inescapable in work with actuality become obedient'가 obedient(복종한다)로 그 지배 관계를 한 번 더 못박고, 마지막 문장 'a new reality proper only to itself'가 새 현실의 귀속을 감독의 작품 쪽으로 돌린다. 제목 ④의 'in the Film Director's Hands'가 바로 이 지배 관계다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "영화 제작을 소재로 한 글이면 '미지의 탐험'류 제목이 늘 그럴듯해 보이고, 'creation of a new reality'를 낭만적으로 읽으면 미지의 세계를 여는 이야기처럼 들린다.",
+     "how_to_reject": "지문에 unknown·discover·explore 계열 표현이 한 번도 없다. 4번 문장이 말하는 것은 미지의 발견이 아니라 laws of space and time 이 become obedient 하는 통제다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "3번 문장에 'filmic' time 과 'filmic' space 가 따옴표까지 붙어 두 번 나오므로, 선지의 'Lost in Time and Space'가 지문 낱말과 가장 많이 겹쳐 보인다.",
+     "how_to_reject": "같은 3번 문장의 술어가 'the director builds up his own'이다 — 시간·공간은 잃어버리는 것이 아니라 감독이 세우는 것이고, 4번 문장에서 그 법칙들이 become obedient 한다. 겹치는 낱말의 기능(주어가 아니라 감독의 목적어)이 다르다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "2번 문장의 shortened, altered, and assembled 는 그대로 편집 작업이라 '편집'이라는 낱말이 강하게 떠오른다.",
+     "how_to_reject": "그 서술은 4번 문장의 주장(새 현실의 창조)에 이르는 수단으로만 쓰인다. 게다가 지문에는 technology·innovative 에 해당하는 서술이 없고, 재료를 말하는 1번 문장은 기술이 아니라 celluloid 라는 물질을 가리킨다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "선지의 A Reality 는 4번 문장 the creation of a new reality 와 5번 문장 a new reality proper only to itself 를, in the Film Director’s Hands(감독의 손안에)는 4번 문장 He does not adapt reality, but uses it 의 「현실을 재료로 쓴다」와 laws of space and time ... become obedient 의 「법칙이 감독에게 복종한다」를 비유로 옮긴 것이다. 2번 문장의 assembled according to his will 과 3번 문장의 according to his desire 도 현실의 조각이 감독의 뜻대로 다뤄진다는 같은 관계를 받친다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       3,
+       4,
+       5
+      ],
+      "note": "지배 관계는 4번 문장, 새 현실은 4·5번, 감독의 뜻(his will·his desire)은 2·3번 문장."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "4번 문장 안의 'invariable and inescapable'을 감독 쪽 서술로 읽으면 '감독의 현실은 변하지 않는다'가 지문 낱말로 뒷받침되는 것처럼 보인다.",
+     "how_to_reject": "invariable and inescapable 은 'in work with actuality'(실제를 다루는 작업)에 걸린 수식이고, 그 문장의 결론은 그 법칙들이 become obedient 한다는 것이다. 마지막 문장도 'a new reality'라고 해 변화를 못박는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 명사구 핵을 하나씩 적는다 — 탐험/시공간 상실/편집 기술/감독의 손안 현실/불변. 다섯 개가 '감독이 현실을 어떻게 다루는가' 한 축 위에 놓인다",
+     "on_fail": "핵이 안 잡히면 콜론 뒤쪽만 읽는다 — 이 유형 선지는 콜론 뒤에 논점이 온다"
+    },
+    {
+     "step": "지문에서 not A but B · does not ~ but ~ 구문을 찾아 B에 밑줄을 긋는다",
+     "on_fail": "대조구문이 없으면 마지막 문장을 밑줄 대상으로 삼는다"
+    },
+    {
+     "step": "밑줄 친 B의 명사(new reality)와 그 임자(He=the director)를 함께 옮겨 적는다. 제목은 이 둘을 잇는 말이어야 한다",
+     "on_fail": "임자가 불분명하면 앞 문장들의 소유격(his material · his will · his desire)을 세어 반복되는 임자를 찾는다"
+    },
+    {
+     "step": "선지 중 「새 현실」과 「감독의 통제」를 함께 담은 것만 남기고, 수단(편집)만 담았거나 방향을 반대로 말한 것은 지운다",
+     "on_fail": "둘 다 담은 선지가 없으면 감독 쪽 낱말(director·his)이 든 선지를 우선 남긴다"
+    },
+    {
+     "step": "남은 선지를 지문 낱말과의 겹침이 아니라 술어의 방향으로 검산한다 — 시간·공간이 지문에서 잃는 대상인지 감독이 세우는 대상(builds up)인지 본다",
+     "on_fail": "검산이 안 끝나면 마지막 문장 'a new reality proper only to itself' 한 줄만 다시 보고 결정한다"
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.6,
+    "drivers": [
+     "정답 선지가 비유라 지문 어구와 직접 겹치지 않는다",
+     "오답 ②가 지문 낱말(filmic time·space)과 가장 많이 겹친다",
+     "celluloid·stage-sets·actuality 등 소재 어휘가 낯설다",
+     "핵심 술어 become obedient 가 긴 삽입구 뒤에 있어 주어를 놓치기 쉽다"
+    ]
+   },
+   "required_vocab": [
+    "celluloid",
+    "assemble",
+    "actuality",
+    "obedient",
+    "adapt"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(정답 why_correct 가 함정 서술뿐)을 고쳤다 — A Reality ↔ new reality(4·5번), Director’s Hands ↔ uses it / become obedient / his will·his desire(2·3·4번) 대응으로 다시 썼다.",
+      "quote 가 4번 문장 앞부분과 문자 그대로 일치한다."
+     ],
+     "checked": [
+      "quote 를 4번 문장과 문자열 대조",
+      "why_correct 영문 인용 다섯 개를 지문에서 문자열 대조",
+      "정답 필드에 함정 서술이 남지 않았는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①은 낭만적 연상, ②는 filmic time·space 겹침, ③은 편집 수단, ⑤는 invariable 오귀속으로 유인이 다르다.",
+      "② 배제가 3번 문장 builds up 으로 겹치는 낱말의 기능 차이를 짚는다."
+     ],
+     "checked": [
+      "why_tempting 과 선지 영문 대조",
+      "배제 위치 확인(2·3·4·5번)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4·5단계에서 정답 번호를 미리 짚던 문구를 지문 표지 기준 행동으로 바꿨다.",
+      "100초 적정."
+     ],
+     "checked": [
+      "금지 표현 확인",
+      "step 에 선지 번호 선노출이 없는지 확인",
+      "required_vocab 지문 실재 확인(obedient·adapt 는 4번)"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2015#22",
+   "measured_ability": "But 한 문장이 만든 전환('원칙을 믿는다'에서 '원칙이 행동을 몰고 간다')을 잡고, 뒤따르는 감정 서술(죄책감·존경)을 결과로 종속시켜 읽는 능력",
+   "design_intent": "앞 두 문장은 도덕 원칙을 '믿는 대상'으로 서술하다가 3번 문장 'But there is more to moral principles than that.'에서 '행동을 이끄는 동기'로 갈아탄다. 그 뒤의 guilty·esteem 같은 감정 낱말을 선지 ①이 그대로 가져가 제목처럼 꾸며 놓았으므로, 전환 문장 앞뒤 중 어느 쪽이 논점인지 표지로 끊는지를 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     3,
+     4
+    ],
+    "quote": "that person is strongly motivated toward the conduct required by the principle, and against behavior that conflicts with that principle",
+    "reasoning": "'But there is more to ~ than that' 바로 뒤에 오는 이 절이 원칙과 행동의 관계를 처음으로 명시한다 — 원칙이 특정 conduct 로 이끌고(toward) 반대 행동을 막는다(against). 제목 ⑤의 'Guiding Our Conduct'는 이 두 방향을 한 낱말로 묶은 것이고, 이어지는 5·6번 문장(죄책감·존경)은 모두 이 동기의 결과 서술이라 제목 자리를 차지할 수 없다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "5번 문장의 feel guilty 와 6번 문장의 hold in esteem 이 선지의 Guilty·Self-Esteem 과 낱말 수준에서 겹친다.",
+     "how_to_reject": "6번 문장의 esteem 은 'hold in esteem those whose conduct'로 남을 존경한다는 뜻이지 자기 존중감(self-esteem)이 아니다. 게다가 두 문장 모두 4번 문장의 동기에서 파생된 예시이며, 앞에 붙은 Likewise 가 그 종속 관계를 표시한다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "'도덕 원칙은 흔들리면 안 된다'는 일반 통념과 명령형 제목의 단호함이 맞물려 도덕 소재의 글에 잘 어울려 보인다.",
+     "how_to_reject": "지문은 원칙이 바뀌는지 지켜지는지를 논하지 않는다. 1번 문장은 오히려 사람들이 'what principles people should have'를 다시 생각한다고 하고, 4번 문장부터는 원칙이 이미 도덕 규범의 일부일 때 무슨 일이 생기는지만 서술한다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "'Moral'이 지문의 핵심어이고 1번 문장에 moral standards·justified 같은 철학적 어휘가 있어, 도덕철학 개론처럼 격상해 읽기 쉽다.",
+     "how_to_reject": "지문은 철학의 원리를 세우는 글이 아니라 한 사람의 moral code 안에서 원칙이 어떻게 작동하는지를 서술한다(4~6번 문장 주어가 모두 that person·The person). integrity 라는 개념도 지문에 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "선지의 Form Their Personalities 가 5번 문장 feel guilty, disapprove of others 같은 성향 묘사와 1번 문장 reflect on their own moral principles 를 「사람의 됨됨이가 어떻게 만들어지나」로 연상하게 한다.",
+     "how_to_reject": "지문에 personality·character 형성 과정에 해당하는 서술이 없다. 4~6번 문장은 원칙이 이미 moral code 의 일부가 된 뒤의 결과(동기·죄책감·존경)만 다루고, 어떻게 그런 사람이 되는지는 묻지 않는다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "선지의 Conduct 는 4번 문장 strongly motivated toward the conduct required by the principle, and against behavior that conflicts with that principle 의 conduct 이고, Guiding 은 그 문장의 toward(권하는 쪽)와 against(막는 쪽) 두 방향을 한 낱말로 묶은 것이다. 3번 문장 But there is more to moral principles than that 이 「중요하다고 믿는 것」을 넘어 원칙이 행동 동기까지 움직인다는 논의를 예고하므로, 제목의 중심도 4번 문장이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ],
+      "note": "5·6번 문장(feel guilty · hold in esteem)은 이 동기의 결과라 제목의 중심어가 되지 못한다"
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 제목의 주어가 무엇인지 표시한다 — 죄책감/원칙 유지/도덕적 통합성/성격 형성/도덕 원칙. 주어가 서로 다르면 지문에서 확인할 것은 '누가 주인공인가' 하나다",
+     "on_fail": "주어가 안 잡히면 콜론·물음표 앞부분만 읽는다"
+    },
+    {
+     "step": "지문에서 But·However 를 찾아 표시하고, 그 문장이 'there is more to X than that' 같은 전환 문형이면 바로 다음 문장을 논점으로 잡는다",
+     "on_fail": "역접이 없으면 When ~, ~ 형태의 조건문 중 주절이 가장 일반적인 것을 논점으로 잡는다"
+    },
+    {
+     "step": "논점 문장에서 주어(that person)와 그 사람이 무엇을 하게 되는지(motivated toward the conduct)를 옮겨 적는다 — 제목은 이 둘의 관계여야 한다",
+     "on_fail": "술어가 길면 toward·against 같은 방향 전치사만 표시하고 그 뒤 명사를 적는다"
+    },
+    {
+     "step": "논점 문장 뒤의 문장이 Likewise 나 같은 주어(The person will tend to)로 이어지면 예시로 표시하고, 그 예시 문장에서만 낱말을 따온 선지를 지운다",
+     "on_fail": "표지가 없으면 The person will tend to 처럼 같은 주어가 반복되는 문장을 예시로 본다"
+    },
+    {
+     "step": "남은 선지 중 논점 문장의 두 낱말(principle · conduct)을 함께 담은 것을 고른다",
+     "on_fail": "둘을 함께 담은 선지가 없으면 지문에 없는 소재(성격·통합성)를 담은 쪽부터 지운다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "정답 선지가 논점 문장의 낱말을 거의 그대로 쓴다",
+     "오답 ①이 예시 문장의 낱말 둘(guilty·esteem)을 한꺼번에 가져가 눈에 띈다",
+     "esteem 이 self-esteem 과 다른 뜻으로 쓰였다"
+    ]
+   },
+   "required_vocab": [
+    "conduct",
+    "motivated",
+    "esteem",
+    "violate",
+    "disapprove"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함 두 건을 고쳤다 — ④ 유인 근거를 정답 근거인 4번 문장 대신 5번·1번의 성향 연상 어구로 교체, ⑤ why_correct 의 「행동으로 나아가라고 예고」를 「행동 동기까지 다룬다고 예고」로 고쳤다.",
+      "quote 가 4번 문장 뒷부분과 문자 그대로 일치한다."
+     ],
+     "checked": [
+      "quote 를 4번 문장과 문자열 대조",
+      "④ why_tempting 이 4번 문장을 인용하지 않는지 확인",
+      "당위로 읽힐 표현이 why_correct 에 남지 않았는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "①은 guilty·esteem 낱말, ②는 원칙 불변 통념, ③은 철학 격상, ④는 성격 형성 연상으로 서로 다르다.",
+      "①의 배제가 6번 문장 hold in esteem those 의 실제 용법을 인용한다."
+     ],
+     "checked": [
+      "why_tempting 과 선지 영문 대조",
+      "배제 위치 확인(1·4·5·6번)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계 Likewise 표시와 5단계 principle·conduct 대조가 이 지문 표지 그대로다.",
+      "80초 적정."
+     ],
+     "checked": [
+      "금지 표현 확인",
+      "step 의 선지 번호 선노출 점검",
+      "required_vocab 지문 실재 확인"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-TITLE",
+  "n_analyzed": 9,
+  "recurring_traps": [
+   {
+    "trap": "어휘 함정",
+    "count": 7,
+    "signature": "지문 낱말(filmic time·accessibility·expressivity·guilty·Retro 연상 등)을 그대로 쓰되 기능이나 지시 대상이 다르다"
+   },
+   {
+    "trap": "무관",
+    "count": 6,
+    "signature": "지문에 없는 영역어(career·therapy·regional conflict·classification)를 소재와 엮는다"
+   },
+   {
+    "trap": "반대 진술",
+    "count": 5,
+    "signature": "지문 비교·방향을 뒤집는다(more efficient 반전, numbers magnify, never changes)"
+   },
+   {
+    "trap": "범위 과소",
+    "count": 4,
+    "signature": "대비의 한쪽·수단·한 절만 제목으로 올린다"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 5,
+    "signature": "역접 앞 전제부나 한 문장만 옮긴다"
+   },
+   {
+    "trap": "범위 과대",
+    "count": 4,
+    "signature": "개별 서술을 문화·철학·업계·미래로 넓힌다"
+   },
+   {
+    "trap": "지문 밖 상식",
+    "count": 3,
+    "signature": "비용 절감·무대 공포·원칙 불변 같은 통념"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 2,
+    "signature": "독자→기자, 환경→유전자로 행위자를 바꾼다"
+   }
+  ],
+  "answer_locus_pattern": "9문항 전부 정답 확정에 두 문장 이상이 필요했다. 역접·대조 표지(not~but, Yet, However, But there is more, myth) 뒤 문장이 주 근거인 경우가 9중 7, 나머지 2(M2309·M2409)는 개념 반복과 두 축 결합이다.",
+  "procedure": [
+   {
+    "step": "선지 다섯의 중심 명사와 술어 방향을 먼저 적는다",
+    "on_fail": "콜론 앞뒤를 나눠 각각 적는다"
+   },
+   {
+    "step": "지문에서 부정·역접 표지(not~but, Yet, However, error, myth)를 찾아 부정된 쪽과 남는 쪽을 가른다",
+    "on_fail": "표지가 없으면 같은 개념이 낱말을 바꿔 되풀이되는 묶음을 찾는다"
+   },
+   {
+    "step": "남는 쪽 주장과 그것을 확인하는 뒤 문장(사례·결과)을 함께 근거로 묶는다",
+    "on_fail": "한 문장만 잡혔으면 그 주장이 몇 개의 축인지 세어 다른 문장에 나뉜 축을 찾는다"
+   },
+   {
+    "step": "선지마다 지문 낱말 일치가 아니라 역할 일치(주장인가, 수단·사례·전제인가)로 대조한다",
+    "on_fail": "둘이 남으면 선지의 술어 방향을 지문 술어와 맞대 본다"
+   }
+  ],
+  "failure_modes": [
+   "문장 번호를 스스로 세다 밀리는 오류가 원장에서 5문항(2025·M2509·M2406·M2309·M2106)에 있었다 — 모두 sentences 목록 번호로 고쳤다",
+   "비유·관용구 정답(2017#23·M2509#24)에서 why_correct 가 「근거가 약해 보인다」는 함정 서술로 대체되는 결함",
+   "정답표가 있는 회차인데 「정답표 없는 회차」라는 난이도 근거가 남아 있던 문항 3(M2409·M2406·M2309)"
+  ],
+  "time_budget_sec": 85,
+  "open_questions": [
+   "세 검수가 모두 pass 로 끝났다 — 이번 교정은 원장 결함 목록을 그대로 고친 것이라 세 자가 같은 결함 목록을 재는 경향이 있다. 독립 검수에서 다른 결함이 나오는지 확인이 필요하다",
+   "recurring_traps 의 count 는 문항·선지마다 한 번만 셌다(9문항 × 오답 4 = 36 라벨 중 실측 집계)"
+  ]
+ }
+}

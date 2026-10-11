@@ -1,0 +1,618 @@
+{
+ "group": 4,
+ "items": [
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GIST-2026-22.out.json",
+   "id": "2026#22",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "③ 배제가 8번 By necessity 보충 → 9번 This means 처방으로 정확히 고쳐짐"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GIST-2026-22.out.json",
+   "id": "M2309#22",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "③ 유인이 5번 tax 주어·납세→예산 연상으로 바뀌어 선지와 맞음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GIST-2026-22.out.json",
+   "id": "M2306#22",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "ok 의 따옴표 포함해 원문 그대로 인용"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "answer_reasoning",
+     "note": "answer_locus.reasoning 이 4·6번 조건항이 「둘 다 what,when,why 앎」이라 함 — 6번 조건은 tools 보유. 4번 이해·6번 도구로 고칠 것"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GIST-2026-22.out.json",
+   "id": "M2206#22",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "번호 1~9 안에서 일관(7·8·9), 10번 언급 사라짐"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "sentence_index [7,8,9]·인용 7번 일치, 범위 밖 없음"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GIST-2026-22.out.json",
+   "id": "2020#22",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "design_intent·locus·confirmed_at 모두 1번=사실 전제, 2번 But=인상 반박으로 통일"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "But 이 사실을 뒤집지 않는다고 바르게 서술"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GIST-2026-22.out.json",
+   "id": "M1809#21",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "reflection 정의=7번, 목적=6번으로 모든 칸 일치"
+    }
+   ],
+   "new_defects": [],
+   "verdict": "pass"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "2021#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「원장 메모」「source_broken」「선지 필드」 작업 용어 — 학습 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "2020#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "work_jargon",
+     "resolved": false,
+     "note": "「추출 부스러기」는 사라졌으나 confirmed_at.note 에 「원장 메모」 등 새 작업 용어"
+    },
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "M2006#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "5형식 find 의 형용사 보어로 근거 교정, 병렬은 무관하다고 명시"
+    },
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "잘린 인용 사라짐(that catches our interest 전체)"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "confirmed_at 7 = locus 7"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「원장 메모」「source_broken」「선지 필드」 작업 용어 — 학습 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "2019#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "명사구를 expressing 의 목적어로 정정"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「원장 메모」「source_broken」「선지 필드」 작업 용어 — 학습 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "2018#28",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「원장 메모」「source_broken」「선지 필드」 작업 용어 — 학습 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "M1809#28",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「원장 메모」「source_broken」「선지 필드」 작업 용어 — 학습 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "2016#28",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "choice_5",
+     "resolved": true,
+     "note": "that 절에 주어 events 가 있는 완전절·동격으로 정정"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "them 유인 삭제, 명사 앞 소유격 판단만 남김"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「원장 메모」「source_broken」「선지 필드」 작업 용어 — 학습 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "2015#28",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "① 배제가 관계절 정동사·능동으로 실제 쟁점과 일치"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「원장 메모」「source_broken」「선지 필드」 작업 용어 — 학습 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-2021-29.out.json",
+   "id": "2014B#27",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "choice_3",
+     "resolved": true,
+     "note": "자동사 mobilize + 목적 부정사 구조로 배제 근거 교정"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 에 「원장 메모」「source_broken」「선지 필드」 작업 용어 — 학습 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "밑줄 범위를 「표시 바로 뒤 낱말」로 「확정했다」고 단정 — 원문 PDF 대조 없이 확정 표현 금지"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "M2706#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "choice_1",
+     "resolved": true,
+     "note": "부사 frequently 를 걷어 낸 be+p.p. 수동으로 설명"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    },
+    {
+     "code": "trap_label",
+     "note": "정답 trap 「최근접 명사 오인」은 what→which(선행사 유무·주어 빈자리)와 어긋남 — 라벨 교체"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "2026#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "수정형 is 로 통일, 앞뒤 현재시제 근거 추가"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "2025#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "M2509#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "lure_quote",
+     "resolved": true,
+     "note": "선행사 misery 원문 그대로"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    },
+    {
+     "code": "trap_label",
+     "note": "정답 trap 「최근접 명사 오인」은 whose→which(뒤 절 주어 결여)와 무관 — 라벨 교체"
+    },
+    {
+     "code": "templated",
+     "note": "정답 trap 「최근접 명사 오인」이 M2706·M2509·M2209 에 내용과 무관하게 반복"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "M2506#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "answer_reasoning",
+     "resolved": true,
+     "note": "힌트를 받는 쪽이라 수동 are given 으로 근거 교정"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "2024#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "other",
+     "resolved": true,
+     "note": "confirmed_at 4 = locus 4, 표제 문구 삭제(단 새 작업 메모는 별도 결함)"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    },
+    {
+     "code": "trap_label",
+     "note": "정답 trap 「의미상 태·지시 대상」은 전치사 with 누락(with which)과 어긋남 — 라벨 교체"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "M2406#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "choice_2",
+     "resolved": true,
+     "note": "why_tempting 삭제, the power to fulfill 원문 그대로 배제"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "2023#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    },
+    {
+     "code": "other",
+     "resolved": false,
+     "note": "표제 문구는 지웠으나 같은 note 가 「보고에 기록」 등 작업 메모로 채워짐"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "M2309#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    }
+   ],
+   "verdict": "revise"
+  },
+  {
+   "file": "chunk-redo-20261011T015944962Z-R-GRAMMAR-M2706-29.out.json",
+   "id": "M2209#29",
+   "self_solved_matches_answer": true,
+   "ledger": [
+    {
+     "code": "source_broken",
+     "resolved": false,
+     "note": "DB choices 가 여전히 지문 조각 — 분석으로 해소 불가, 선지 원문 재분할(원문 대조) 필요"
+    }
+   ],
+   "new_defects": [
+    {
+     "code": "work_jargon",
+     "note": "정답 confirmed_at.note 가 「입력 choices 필드」「보고에 기록」 등 작업 메모 — 학습자 근거 문장으로 교체"
+    },
+    {
+     "code": "needs_source",
+     "note": "how_to_reject 의 「밑줄 어구는 …」 범위(예: 두 낱말 밑줄)를 원문 확인 없이 단정 — 원문 대조 필요"
+    },
+    {
+     "code": "trap_label",
+     "note": "정답 trap 「최근접 명사 오인」은 which→동격 that(완전절)과 무관 — 라벨 교체"
+    }
+   ],
+   "verdict": "revise"
+  }
+ ]
+}

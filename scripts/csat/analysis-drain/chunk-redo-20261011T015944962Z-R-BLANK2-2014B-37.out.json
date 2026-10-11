@@ -1,0 +1,175 @@
+{
+ "chunk": 38,
+ "type_id": "R-BLANK2",
+ "type_name": "빈칸 추론(2개·폐지)",
+ "analyses": [
+  {
+   "item_id": "2014B#37",
+   "measured_ability": "1번 문장의 단정(자원 자체는 기후변화의 영향을 받지 않는다)과 2번 문장의 서술(산지 폐쇄·북극 탐사 확대) 사이의 방향 전환을 잡고, 3번 문장이 세운 일반 진술(기후변화가 자원에 대한 접근에 영향을 줄 수 있다)을 4번 문장이 시베리아라는 한 지역의 같은 접근 문제로 구체화한다는 관계를 읽어 (B)를 사례 표시로 판정하는 능력. 지명·수치가 등장한다는 사실만으로는 사례가 아니며, 앞 일반 진술의 같은 대상(access)을 좁혀 보여 줄 때에만 사례 표지가 성립한다.",
+   "design_intent": "'자원 자체(resources)'와 '자원에 대한 접근(access)'이라는 두 대상을 갈라 놓고, (A)에는 1번→2번 문장의 방향 전환을, (B)에는 3번 문장의 access 진술을 4번 문장이 시베리아의 접근·생산·운송 시간 문제로 구체화하는 관계를 넣었다. 3번 문장(Thus ... while ... since ...)이 두 빈칸 사이에서 (A)의 대조와 (B) 앞의 일반 진술을 동시에 확인해 주며, 선지는 한 칸만 맞는 쌍(①·③)과 두 칸 다 틀린 쌍(④·⑤)으로 짜여 두 칸을 따로 재야 하나만 남는다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "quote": "Thus, while climate change may not impact these resources, oil and gas reserves and known or potential resources could be affected by new climate conditions",
+    "reasoning": "3번 문장은 while 로 1번 문장의 '영향받지 않는다'와 2번 문장의 '폐쇄를 강제하고 탐사 가능성을 늘린다'를 맞세운다. 그래서 (A)는 앞 문장을 뒤집는 대조 표지여야 하며 귀결(As a result)이나 환언(In other words)은 들어갈 수 없다. 같은 3번 문장의 since 절 'climate change may affect access to these resources'가 접근이라는 일반 진술을 세우고, 4번 문장은 시베리아에서 'the time required to access, produce, and deliver oil'이라는 바로 그 접근 문제를 보여 주므로 (B)는 앞 진술을 뒤집지도 귀결 짓지도 않는 사례 표시다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "(A)가 정답과 같은 On the other hand 라 앞 칸만 맞히고 고르게 된다. (B)는 콤마 사이에 낀 삽입 자리라 삽입 역접 however 가 형태상 익숙하고, 시베리아 문단이 '어려움 → 온난화가 완화' 로 이어져 대조가 있는 것처럼 보인다.",
+     "how_to_reject": "대조는 (B) 자리가 아니라 5번 문장 'Warming may ease extreme environmental conditions'에서 일어난다. 4번 문장의 'the time required to access, produce, and deliver oil'은 3번 문장의 'affect access to these resources'와 같은 대상을 시베리아 한 곳으로 좁힌 것이라 앞 진술을 뒤집지 않는다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "(A)에는 On the other hand 가 들어간다 — 1문장이 ‘Oil and gas resources are not likely to be impacted by climate change’ 로 영향 없음을 말하는데 빈칸 문장은 기후변화가 산지의 폐쇄를 강제하고 ‘increase the possibility of exploration in areas of the Arctic through the reduction in ice cover’ 로 영향을 말하며, 뒤 문장이 ‘while climate change may not impact these resources, oil and gas reserves and known or potential resources could be affected by new climate conditions’ 로 그 둘을 while 로 맞세워 요약한다. (B)에는 for instance 가 들어간다 — 앞이 ‘climate change may affect access to these resources’ 라는 일반 진술이고 빈칸이 든 문장은 In Siberia 라는 한 지역의 1월 기온 수치로 그 접근 문제를 보인다. 두 칸을 각각 재면 (B) for instance 를 공유하는 다른 선지의 (A) As a result 는 1문장을 뒤집지 못하고, (A) On the other hand 를 공유하는 선지의 (B) however 는 지역 사례를 앞 진술과 맞세우게 되므로, On the other hand 와 for instance 를 함께 갖춘 선지만 두 칸을 다 만족한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       3,
+       4
+      ],
+      "note": "(A)는 3번 while 절로, (B)는 3번 since 절의 access 와 4번의 access, produce, and deliver 가 같은 대상이라는 점으로 확정된다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "(B)가 정답과 같은 for instance 라 뒤 칸만 맞히면 고르게 된다. 첫 문장에 because 절이 있어 인과의 글이라는 인상이 남고, 그 인상이 (A)의 As a result 로 옮겨 붙는다.",
+     "how_to_reject": "첫 문장이 말하는 것은 '수백만 년이 걸린 과정의 산물이고 지질학적으로 갇혀 있어서 영향받지 않는다' 는 것이다. 빈칸 문장의 생산지 폐쇄와 북극 탐사 확대는 그 '영향받지 않음' 에서 나올 수 있는 결과가 아니다 — 영향받지 않는다는 진술에서 영향을 받는다는 진술이 도출되지 않는다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "As a result 와 however 가 한 쌍에 들어 있어 1번 문장의 because 절이 남긴 인과 인상과 5번 문장 'Warming may ease'의 굴곡을 둘 다 담는 것처럼 들린다.",
+     "how_to_reject": "(A) As a result 는 1번 문장의 '영향받지 않는다'에서 2번 문장의 '폐쇄를 강제한다'가 나온다고 말하게 되어 3번 문장의 while 대조와 부딪힌다. (B) however 는 4번 문장이 3번 문장의 access 진술과 같은 접근 문제를 다루는데도 둘을 맞세우게 된다. 두 칸이 모두 지문이 세운 관계와 반대 방향이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "빈칸 문장이 첫 문장과 같은 기후변화·석유가스를 다루므로 같은 말을 풀어 쓴 것(In other words)처럼 보인다.",
+     "how_to_reject": "첫 문장은 자원이 영향받지 '않는다' 고 하고 빈칸 문장은 폐쇄를 강제할 수 '있다' 고 한다 — 환언이라면 두 문장의 진릿값이 같아야 하는데 정면으로 어긋난다. (B)의 therefore 도 시베리아 문장이 앞 문장의 귀결이 아니라 사례여서 맞지 않는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 두 열을 따로 본다 — (A)열은 On the other hand · As a result · In other words, (B)열은 however · for instance · therefore 이다. 같은 낱말이 두 번씩 나오므로 한 칸만으로는 하나가 남지 않는다는 것을 먼저 확인한다",
+     "on_fail": "열이 섞이면 (A)열과 (B)열을 옮겨 적고 같은 낱말끼리 묶는다"
+    },
+    {
+     "step": "(A): 1번 문장과 2번 문장의 술어 방향을 비교한다 — 1번은 'are not likely to be impacted'(영향 없음), 2번은 'may not only force the shutting down ... but increase the possibility of exploration'(영향 있음)이다. 방향이 뒤집히면 대조 표지만 남긴다",
+     "on_fail": "방향이 안 잡히면 두 문장의 not 이 무엇을 부정하는지만 표시한다 — 2번의 not only 는 부정이 아니라 첨가다"
+    },
+    {
+     "step": "(B): 3번 문장의 since 절이 무엇에 대한 일반 진술인지(access) 적고, 4번 문장이 그 같은 대상을 다루는지 확인한다 — 'access, produce, and deliver oil'이 3번의 access 를 한 지역에서 보여 주면 사례 표시, 반대 내용이면 역접, 결과면 귀결이다",
+     "on_fail": "In Siberia 같은 지명이나 기온 수치만 보고 사례로 정하지 말고, 4번 문장의 핵심 명사가 3번 문장의 어떤 명사와 같은지 다시 짝짓는다"
+    },
+    {
+     "step": "3번 문장의 while 절로 (A) 판정을 검산한다 — while 이 '영향 없음'과 '영향 있음'을 맞세우면 (A)는 대조다",
+     "on_fail": "검산이 어긋나면 2번 문장의 force · increase 가 기후변화의 영향인지 다시 본다"
+    },
+    {
+     "step": "(A) 판정과 (B) 판정을 둘 다 만족하는 쌍만 남긴다. 한 칸만 맞는 쌍은 남은 칸의 판정과 대조해 지운다",
+     "on_fail": "둘 이상 남으면 (B)를 다시 재고 4번 문장이 3번 문장을 좁혔는지 뒤집었는지만 본다"
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.55,
+    "drivers": [
+     "첫 문장의 because 절이 인과의 인상을 남겨 (A)에서 As a result 로 끌린다",
+     "(B)가 콤마 삽입 자리라 형태만 보면 however 가 익숙하다",
+     "검산용 요약문(Thus 문장)이 두 빈칸 사이에 있어 찾지 못하면 두 칸을 따로 판정해야 한다",
+     "한 칸만 정답과 같은 선지가 2개"
+    ]
+   },
+   "required_vocab": [
+    "geologically trapped",
+    "access",
+    "exploration",
+    "for instance",
+    "On the other hand"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "원장 결함(overgeneral): measured_ability 의 '지명·수치가 나오면 사례'를 앞 일반 진술(access)의 같은 대상 구체화라는 조건으로 고쳤다. 같은 규칙이 남은 solve_procedure 3단계·design_intent·reasoning 도 같은 조건으로 고쳤다",
+      "(B) 근거인 4번 문장을 sentence_index 와 confirmed_at 에 추가"
+     ],
+     "checked": [
+      "quote 를 현재 지문과 문자열 대조",
+      "measured_ability·design_intent·reasoning·step3·on_fail3 에 조건 없는 '지명=사례' 규칙이 남았는지 재확인",
+      "why_correct 의 while·since 대응을 3번 문장 낱말로 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "[1차 revise] ④ 라벨 '무관'이 실제 오류(두 칸 모두 관계 방향 반대)와 맞지 않고 배제 근거를 ①·③에 위임하고 있었다 → '반대 진술'로 바꾸고 3·4번 문장 근거를 직접 적었다",
+      "재검수: ④ 수정 반영 확인"
+     ],
+     "checked": [
+      "선지 5개 문자열 대조",
+      "correct=2 와 정답표 일치",
+      "④ 수정 뒤 ①·③·⑤ 설명이 서로 복제되지 않는지 대조",
+      "④ trap·how_to_reject 재대조",
+      "①의 how_to_reject 가 3·4번 access 대응으로 고쳐졌는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "[1차 revise] 옛 5단계가 '①·③ 둘인지 확인'으로 정답 선지 번호를 미리 짚었다 — 학습자 절차가 아니다",
+      "[1차 revise] 옛 3단계 on_fail 이 '수치가 있으면 사례'로 같은 overgeneral 규칙을 되풀이했다",
+      "재검수: 5단계를 두 판정 교차로, 3단계 on_fail 을 명사 짝짓기로 바꿨다. 110초: 선지 10 · (A) 30 · (B) 35 · 검산 20 · 소거 15"
+     ],
+     "checked": [
+      "5단계 step·on_fail",
+      "3단계 on_fail",
+      "금지 표현 대조",
+      "시간 합산",
+      "required_vocab 5개가 판정에 쓰이는지"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-BLANK2",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "부분 사실",
+    "count": 1,
+    "signature": "한 칸만 정답과 같은 쌍(①). ③은 인과 역전으로 따로 셌다 — 같은 문항의 함정은 한 번만 셌다"
+   }
+  ],
+  "answer_locus_pattern": "(A)는 1·2번 문장 방향 비교, (B)는 3번 since 절과 4번 문장의 같은 대상(access) 대응 — 두 칸 근거가 다르고 3번 문장이 두 칸을 함께 검산한다",
+  "procedure": [
+   "두 칸을 따로 판정한다",
+   "사례 표지는 지명·수치가 아니라 앞 일반 진술의 같은 대상을 좁히는지로 판정한다",
+   "두 판정의 교차로 하나를 남긴다"
+  ],
+  "failure_modes": [
+   "(B) 콤마 삽입 자리에서 however 로 끌림",
+   "1번 문장 because 의 인과 인상이 As a result 로 옮겨 붙음"
+  ],
+  "time_budget_sec": 110,
+  "open_questions": [
+   "교정 청크 1문항뿐이라 유형 수준 일반화는 하지 않는다"
+  ]
+ }
+}

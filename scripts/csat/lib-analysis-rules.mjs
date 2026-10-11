@@ -57,12 +57,15 @@ export function learnerTexts(analysis) {
 
 // 2026-10-11 평가원 802 의미 검수(scripts/csat/design-learning-audit) 실측: 학습자 칸에 「코퍼스 지문에도 columns2/2014A.txt」 ·
 // 「인쇄 잔여가 선지를 미덥지 않게 만든다」 · 「이 청크에서 유일하게」 같은 작업 용어가 노출된 문항이 수십 개였다.
-export const WORK_JARGON = /코퍼스|추출본|파싱|\bOCR\b|청크|보강 전|인쇄 잔여|원문 창|두 단(?:이)? 섞|columns\d*\/|\.txt\b|raw_block/
+export const WORK_JARGON = /코퍼스|추출본|파싱|\bOCR\b|청크|보강 전|인쇄 잔여|원문 창|두 단(?:이)? 섞|columns\d*\/|\.txt\b|raw_block|단위로 (?:따로 )?떨어져/
+
+/** 「정답표가 없다」 — 정답표가 있는 회차에 쓰면 사실 오류(V15) */
+export const NO_ANSWER_KEY = /정답표(?:가|는)?\s*(?:없|미공개)/
 
 /** 막대 값이 그림에만 있는 도표에서 정답표로 정답을 정하는 서술 — 학습자가 배울 것은 도표 대조다(교수 계약 visual). */
 export const ANSWER_KEY_INFERENCE = /정답표(?:가|는|로|에서)?[^.。\n]{0,30}(?:확정|불일치로|정하|역산)/
 
-export function analysisRuleErrors(analysis, { typeId = null } = {}) {
+export function analysisRuleErrors(analysis, { typeId = null, answerKnown = false } = {}) {
   const errors = namedReferentExclusions(analysis.solve_procedure).map((text) =>
     `V10 이름·호칭의 별도 등장만으로 지칭 후보를 제외한다 — 행위·소유·발화 관계로 대조해야 한다: ${text}`)
   // Actual repeated repair metadata, confined to the learner-facing design field.
@@ -73,6 +76,11 @@ export function analysisRuleErrors(analysis, { typeId = null } = {}) {
   for (const t of learnerTexts(analysis)) {
     const m = t.match(WORK_JARGON)
     if (m) { errors.push(`V12 학습자 칸에 작업 용어 「${m[0]}」 — 원문 사정 · 파일 · 작업 단위는 학습 내용이 아니다(내부 기록은 confirmed_at 에)`); break }
+  }
+  // V15 정답표가 있는 회차에 「정답표가 없다」 — 2026-10-11 교정 배치에서 R-INSERT · R-TITLE · R-CLAIM 청크마다 되풀이됐다(난이도 칸 포함)
+  if (answerKnown) {
+    const texts = [...learnerTexts(analysis), ...(analysis.difficulty?.drivers ?? [])]
+    if (texts.some((t) => typeof t === 'string' && NO_ANSWER_KEY.test(t))) errors.push('V15 정답표가 있는 회차인데 「정답표가 없다」고 쓴다 — 사실 오류')
   }
   if ((typeId ?? analysis.type_id) === 'R-CHART') {
     const hit = learnerTexts(analysis).find((t) => ANSWER_KEY_INFERENCE.test(t))

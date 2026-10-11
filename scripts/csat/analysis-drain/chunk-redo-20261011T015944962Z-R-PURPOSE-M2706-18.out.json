@@ -1,0 +1,484 @@
+{
+ "chunk": 37,
+ "type_id": "R-PURPOSE",
+ "type_name": "글의 목적",
+ "analyses": [
+  {
+   "item_id": "M2706#18",
+   "measured_ability": "편지에서 칭찬·소개 문장과 실제 용건 문장을 갈라, 발신자가 수신자에게 무엇을 하라고 하는지(화행)를 한 문장으로 특정하는 능력",
+   "design_intent": "지문 앞부분에 영상 시청(2번 문장)·대회 소개(3번 문장)·칭찬을 깔아 두고 용건은 4번 문장의 등위절 뒤쪽(and we would like to ask you to join)에 두었다. 소재 명사(대회·영상·야구)만 훑으면 발표·녹화 허가 쪽으로 새고, ask 의 목적어 join the competition 까지 읽어야 요청 대상이 확정되는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     4
+    ],
+    "quote": "It is a very popular event in our community, and we would like to ask you to join the competition this year.",
+    "reasoning": "we would like to ask you to + 동사원형은 이 편지에서 유일하게 수신자에게 행동을 요구하는 표현이고, 요구된 행동이 join the competition 이다. 앞뒤 문장(칭찬·기대)은 모두 이 요청을 뒷받침하는 근거일 뿐 별도의 용건을 만들지 않는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "선지의 대회·참가 선수라는 명사가 지문의 homerun competition, best baseball hitters 와 그대로 겹쳐서, 3번 문장 we gather together all of the best baseball hitters 를 선수 명단 발표로 읽게 된다.",
+     "how_to_reject": "4번 문장이 we would like to ask you to join 이므로 수신자는 아직 참가자가 아니다. 지문 어디에도 announce·the following players 같은 발표 표현이 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "야구·대회라는 소재가 맞고, Every year 와 this year 라는 시간 표현이 있어 일정 이야기로 넘겨짚게 된다.",
+     "how_to_reject": "지문에 날짜·시각이 하나도 없고 change·reschedule·postpone 류의 변경 동사도 없다. Every year 는 3번 문장에서 대회가 해마다 열린다는 연례성을, this year 는 4번 문장에서 참가 요청의 시점을 말할 뿐이다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "요청 화행 동사 'we would like to ask you to' 가 선지 ③의 '요청하려고' 와, 그 목적어 'join the competition this year' 가 '홈런 대회 참가' 와 낱말 단위로 맞물린다. 이 편지에서 수신자가 할 행동을 요구하는 문장은 이 하나뿐이고, 나머지는 그 요청을 뒷받침하는 칭찬과 기대다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4
+      ],
+      "note": "5번 문장 'You would be an excellent participant' 와 6번 문장은 4번 문장 요청의 근거일 뿐 새 용건이 아니다"
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "둘째 문장의 We recently saw a video of your baseball team 에 영상이 실제로 나와, 그 영상을 앞으로 찍을 경기 녹화로 옮겨 읽으면 허가를 구한다는 서술이 붙는다.",
+     "how_to_reject": "영상은 2번 문장에서 이미 본 것이고 6번 문장에서도 the popularity you gained from the video 로 과거의 것으로 되받는다. permission·allow·record 에 해당하는 어구가 없고, 4번 문장의 요청 대상은 join the competition 이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "대회를 여는 주최 측 편지라는 상황에서 관람권·환불 같은 운영 사무를 떠올리기 쉽다.",
+     "how_to_reject": "지문에 ticket·refund·fee 에 해당하는 어구가 한 번도 없다. 돈 이야기 자체가 없으므로 둘째 문장부터 마지막 문장까지 어느 자리도 근거가 되지 않는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯 개에서 ~하려고 앞의 서술어(발표·공지·요청·허가·안내)에 먼저 밑줄을 긋고 명사구와 분리해 둔다",
+     "on_fail": "서술어가 안 잘리면 마지막 두 어절만 잘라 낸다"
+    },
+    {
+     "step": "지문 첫 줄의 Dear 와 서명에서 보내는 사람과 받는 사람을 적는다(주최 측 → 선수 개인)",
+     "on_fail": "인사말이 없으면 Sincerely 아래 이름과 소속을 본다"
+    },
+    {
+     "step": "would like to ask / please / we have decided / we are offering 같은 화행 신호 어구가 든 문장 하나만 찾아 표시한다",
+     "on_fail": "신호 어구가 안 보이면 본문 마지막 세 문장으로 범위를 좁혀 다시 훑는다"
+    },
+    {
+     "step": "표시한 문장의 동사와 각 선지의 밑줄 친 서술어를 짝지어, 영어 대응이 없는 선지를 지운다",
+     "on_fail": "둘 이상 남으면 그 동사의 목적어(join the competition)와 선지의 명사구가 같은지 한 번 더 본다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.93,
+    "drivers": [
+     "용건 문장이 등위절 뒤쪽에 숨어 있다",
+     "칭찬 문장이 세 개로 길다"
+    ]
+   },
+   "required_vocab": [
+    "competition",
+    "participant",
+    "impressed",
+    "join"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용은 코퍼스 지문 넷째 문장과 문자 그대로 일치한다",
+      "출제 의도가 이 문항 고유의 배치(용건이 등위절에 숨음)를 지목한다",
+      "화행 동사(ask)와 목적어(join the competition)가 선지의 '요청'·'홈런 대회 참가' 에 하나씩 대응하는지 두 조각을 따로 대조했다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 의 M2706#18 passage 와 문자열 대조",
+      "글의 목적 유형 정의(발신자의 용건 특정)와 대조",
+      "why_correct 의 영어 인용 2개를 코퍼스 지문(손상 문항은 회차 원문 창)에서 정규화 후 문자열 대조: \"we would like to ask you to\" · \"join the competition this year\"",
+      "그 인용이 정답 선지 3 의 어느 부분과 맞물리는지 선지 텍스트와 낱말 단위로 대조",
+      "교정 후 design_intent 의 2·3·4번 문장 지칭을 문장 목록과 재대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "선지 4의 verdict 자리에 라벨이 잘못 들어가고 함정 서술이 비어 있던 것을 distractor·어휘 함정으로 고치고, video 를 녹화 허가로 읽는 경로와 배제 근거(둘째·일곱째 문장)를 채웠다",
+      "고친 뒤 오답 4개의 trap 이 부분 사실·무관·어휘 함정·지문 밖 상식 4종으로 서로 다르다",
+      "why_correct 가 다른 선지의 결함을 근거로 삼지 않고 4번 문장 하나로 서는지 확인했다",
+      "재검수 반려(revise): 선지 2가 Every year 문장을 넷째, 선지 1이 같은 문장을 셋째라 불러 번호가 어긋났고, 선지 4가 popularity from the video 문장을 일곱째라 했다 — 문장 목록 기준 3번·6번으로 고쳤다"
+     ],
+     "checked": [
+      "오답 4개의 trap 라벨 중복 여부 확인",
+      "why_tempting 이 선지 텍스트의 낱말에 근거하는지 확인",
+      "how_to_reject 에 문장 위치가 있는지 확인",
+      "고친 선지 4를 지문 둘째·일곱째 문장과 재대조",
+      "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인",
+      "정답 번호 3 을 코퍼스 정답표와 재대조",
+      "모든 선지·design_intent·confirmed_at 의 문장 번호를 문장 목록 n(1~8)과 대조: Every year=3, ask you to join=4, popularity from the video=6",
+      "선지 1·2가 같은 3번 문장을 같은 번호로 부르는지 교차 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계 절차가 지문을 안 본 상태에서 실행 가능하다",
+      "60초 안에 끝난다",
+      "학생이 편지에서 'ask you to' 를 찾아 그 뒤 동사구만 읽으면 되는 지시로 좁혀지는지 확인했다"
+     ],
+     "checked": [
+      "solve_procedure 각 단계를 지문 미열람 상태로 모의 실행",
+      "required_vocab 네 낱말이 정답 판정에 실제로 쓰이는지 확인",
+      "지문을 아직 안 본 학생이 why_correct 가 지목한 자리를 직접 짚을 수 있는지 confirmed_at 의 문장 번호로 확인",
+      "why_correct 에 \"주제를 잘 나타내므로\" 류의 되풀이 서술이 없는지 확인",
+      "교정한 번호로 학생이 해당 문장을 바로 찾을 수 있는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2506#18",
+   "body_recovered": true,
+   "measured_ability": "채널 인사말과 문제 제기를 갈라, 발신자가 구독자에게 삼가라고 요구하는 행동을 특정하는 능력",
+   "design_intent": "영상 채널 인사로 시작해 댓글창의 두 가지 문제(어린 시청자에게 부적절한 표현, 채널과 무관한 댓글)를 차례로 들고 마지막에 요청을 붙였다. 인사 문장을 목적으로 잡으면 채널 홍보로, 부적절이라는 낱말만 잡으면 연령 제한 고지로 새게 만든 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     6,
+     7
+    ],
+    "quote": "I would really like to ask that all of my followers keep these things in mind so that we can all enjoy this",
+    "reasoning": "I would really like to ask that ~ 는 이 글에서 유일한 요청 화행이고, 요청 내용인 keep these things in mind 의 these things 가 바로 앞 두 문장에서 지적한 부적절한 표현과 무관한 댓글을 가리킨다. 요청 대상이 구독자 자신의 댓글 쓰기 행동이므로 목적이 댓글 자제 요청으로 확정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "첫 두 문장의 Welcome back to your favorite online channel 이 채널 소개처럼 들려 홍보로 읽힌다.",
+     "how_to_reject": "Welcome back 은 이미 오던 시청자에게 하는 인사라 새로 개설했다는 진술과 어긋난다. 구독을 권하는 표현(subscribe·new channel)이 없고 글의 요구는 요청 문장 하나뿐이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "채널 운영자가 시청자에게 알리는 글이라는 형식 때문에 방송 일정 공지가 흔한 답처럼 보인다.",
+     "how_to_reject": "지문에 날짜·시각·live 에 해당하는 어구가 없다. Recently 로 시작하는 문장부터 끝까지 화제는 댓글창이다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "요청 화행 'I would really like to ask that' 의 목적어 'all of my followers keep these things in mind' 에서 these things 는 앞 두 문장이 지적한 'language that is inappropriate'(어린 시청자에게 부적절한 표현) 와 'comments that are not relevant to this channel' 을 받는다. 이 둘이 선지 ③의 '부적절한 댓글' 이고, ask + keep in mind 가 '쓰지 않도록 요청' 과 맞물린다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       5,
+       7
+      ],
+      "note": "무엇이 부적절한지는 4·5번 문장에, 요청 화행은 7번 문장에 나뉘어 있다. 코퍼스 지문이 두 단 섞임으로 손상돼 있어 회차 원문 창에서 갈라 읽었다"
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "inappropriate for younger viewers 라는 어구에 부적절과 연령이 함께 들어 있어 시청 연령 제한 고지로 옮겨 읽힌다.",
+     "how_to_reject": "그 어구는 댓글 언어를 평가하는 말이고, 채널을 볼 수 있는 나이를 제한한다는 표현(age limit·restricted)이 없다. 오히려 followers of all ages can enjoy 라고 적어 연령 제한과 반대다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "요청이라는 화행이 지문의 I would really like to ask 와 겹쳐, 요청하는 쪽과 요청받는 쪽을 바꿔 놓아도 맞아 보인다.",
+     "how_to_reject": "요청의 주어가 I(채널 운영자)이고 대상이 all of my followers 다. 구독자가 낸 요청 사항을 옮긴다는 표현이 지문에 없고, 댓글은 요청이 아니라 문제 사례로 인용된다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 서술어(홍보·공지·요청·고지·공유)에 밑줄을 긋고, 요청하는 쪽이 글쓴이인지 시청자인지 화살표로 적는다",
+     "on_fail": "방향이 안 잡히면 서술어만 남기고 다음 단계로 간다"
+    },
+    {
+     "step": "지문에서 Recently·These kinds of 처럼 문제를 끌어오는 표지가 있는 문장부터 끝까지만 먼저 읽는다",
+     "on_fail": "그런 표지가 없으면 마지막 네 문장으로 범위를 잡는다"
+    },
+    {
+     "step": "I would like to ask / please 로 시작하는 요청 문장을 찾아 요청의 주어와 대상을 각각 적는다",
+     "on_fail": "요청 문장이 없으면 unacceptable·should 같은 평가 표현이 든 문장을 대신 잡는다"
+    },
+    {
+     "step": "요청 내용의 지시어(these things)가 가리키는 앞 문장 두 개를 찾아 그 화제를 적고, 같은 화제를 가진 선지만 남긴다",
+     "on_fail": "지시어가 가리키는 것이 불분명하면 바로 앞 문장 하나만 대상으로 삼는다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.91,
+    "drivers": [
+     "요청 내용이 지시어 these things 로 되받아져 앞 문장을 되짚어야 한다",
+     "부적절이라는 평가어가 연령 제한 선지를 강하게 끈다"
+    ]
+   },
+   "required_vocab": [
+    "inappropriate",
+    "relevant",
+    "unacceptable",
+    "followers"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "코퍼스 지문이 앞 한 줄에서 끊겨 있어 raw_block 의 두 단을 갈라 본문을 복원했다(body_recovered)",
+      "처음 인용 끝에 channel 을 붙였다가 회차 원문에서 그 낱말이 다음 줄로 넘어가 있는 것을 확인하고 잘라 냈다 — 잘라 낸 문자열은 M2506 회차 원문 창에 그대로 있다",
+      "setter 반려 — 초안이 인용한 'language that is inappropriate for younger viewers' 는 회차 원문에서 단 갈림으로 두 줄에 나뉘어 있어 문자열로 통째 확인되지 않았다. 통째 확인되는 'language that is inappropriate' 로 줄이고 나머지는 한국어로 옮겼다."
+     ],
+     "checked": [
+      "quote 를 columns2/M2506.txt 의 18번 창(148행 기준)과 문자열 대조",
+      "복원한 선지 다섯 개를 raw_block 의 한국어 선지와 대조",
+      "정답표 answer=3 과 correct 선지 대조",
+      "why_correct 의 영어 인용 4개를 코퍼스 지문(손상 문항은 회차 원문 창)에서 정규화 후 문자열 대조: \"I would really like to ask that\" · \"all of my followers keep these things in mind\" · \"language that is inappropriate\"",
+      "그 인용이 정답 선지 3 의 어느 부분과 맞물리는지 선지 텍스트와 낱말 단위로 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "선지 5는 화행(요청)이 지문과 같고 주체만 뒤집힌 사례라 서술어 대조만으로는 안 걸린다 — how_to_reject 에서 요청의 주어를 근거로 삼았다",
+      "these things 의 선행사가 4·5번 문장 둘이라는 점이 소거법이 아니라 지시어 대조로 서는지 확인했다"
+     ],
+     "checked": [
+      "trap 라벨 4종 중복 확인",
+      "선지 4의 inappropriate 가 복원 본문에 실제로 있는지 문자열 확인",
+      "why_tempting 이 선지 텍스트의 낱말에 근거하는지 확인",
+      "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인",
+      "정답 번호 3 을 코퍼스 정답표와 재대조",
+      "redo 재검: 해설 칸의 문장 번호를 청크 문장 목록 n 과 대조(불일치 없음)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계 지시어 되짚기가 이 문항의 핵심이고 70초 안에 실행된다",
+      "학생이 ask that 을 찾은 뒤 these things 를 앞으로 두 문장만 되짚으면 되는 절차인지 확인했다"
+     ],
+     "checked": [
+      "절차를 지문 미열람 상태로 모의 실행",
+      "복원 본문 기준으로 절차 2단계의 범위 잡기가 성립하는지 확인",
+      "지문을 아직 안 본 학생이 why_correct 가 지목한 자리를 직접 짚을 수 있는지 confirmed_at 의 문장 번호로 확인",
+      "why_correct 에 \"주제를 잘 나타내므로\" 류의 되풀이 서술이 없는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2409#18",
+   "body_recovered": true,
+   "measured_ability": "학교장이 보낸 안내문에서 배경 서술(도로 공사·안전 우려)과 학부모에게 요구하는 행동을 갈라, 편지가 요구하는 행동 한 가지와 그 대상을 특정하는 능력",
+   "design_intent": "공사 예정이라는 사실, 안전 우려, 봉사 시간대, 신청 방법을 한 문단에 차례로 쌓아 배경과 요구가 붙어 있게 했다. 배경 문장 어느 하나만 잡아도 그럴듯한 목적 문장이 만들어지도록 소재를 겹쳐 놓은 지문이다.",
+   "solve_procedure": [
+    {
+     "step": "선지 다섯 개에서 ~하려고 앞의 서술어에 밑줄을 긋고, 학부모가 할 일을 요구하는 선지와 학교가 알리는 사실을 말하는 선지로 나눈다",
+     "on_fail": "나뉘지 않으면 서술어만 남기고 다음 단계로 간다"
+    },
+    {
+     "step": "지문에서 we are asking for / please + 동사 / if you are willing to 처럼 수신자에게 행동을 요구하는 표현이 든 문장을 전부 표시한다",
+     "on_fail": "그런 표현이 없으면 Therefore·So 뒤 문장을 표시한다"
+    },
+    {
+     "step": "표시한 문장에서 요구되는 행동의 동사와 목적어를 각각 적는다",
+     "on_fail": "동사가 여럿이면 주어가 we 이고 목적어가 수신자를 향하는 것만 남긴다"
+    },
+    {
+     "step": "적은 동사와 목적어가 둘 다 맞는 선지 하나만 남긴다 — 배경 문장(공사·안전)에서만 근거를 찾을 수 있는 선지는 버린다",
+     "on_fail": "둘 이상 남으면 시간대·이메일 주소 같은 구체 정보가 어느 선지의 행동에 딸려 있는지로 가른다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.93,
+    "drivers": [
+     "요구 표현(we are asking for, please email us)이 두 번 나와 표지가 뚜렷하다",
+     "배경 서술이 두 문장으로 짧다",
+     "이 유형 전체 난도가 낮고 지문 길이가 이 청크 평균 수준이라는 점에 근거한 추정치이며, 실제 정답률 자료는 없다"
+    ]
+   },
+   "required_vocab": [
+    "construction",
+    "volunteers",
+    "directing",
+    "willing"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답표 1 과 correct 선지가 일치한다",
+      "quote 가 지문에 문자 그대로 있다",
+      "요구형이라 근거가 뒤쪽(맺음 인사 앞 구간)에 있다는 자리 규칙과 맞는다 — Therefore 뒤 넷째 문장부터 여섯째 문장까지가 그 구간이다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "correct=1 을 평가원 정답표와 대조",
+      "why_correct 의 traffic safety volunteer group 을 선지 ①의 '교통안전 봉사'와 낱말별로 대조",
+      "화행 표지 we are asking for 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "라벨 넷이 부분 사실·어휘 함정·범위 과소·화행 바꿔치기로 모두 다르다",
+      "1차 검수에서 ④에 '무관'을 달았다가 반려했다 — 도로 공사 서술이 지문에 실제로 있으므로 무관이 아니라, 배경 설명을 목적으로 승격시킨 범위 과소다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "how_to_reject 넷에 문장 위치·영어 어구가 있는지 확인",
+      "why_tempting 이 선지의 한국어 서술어에 근거하는지 확인",
+      "redo 재검: 해설 칸의 문장 번호를 청크 문장 목록 n 과 대조(불일치 없음)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "요구 표지가 두 번(asking for, please email us) 나와 절차 3단계에서 바로 잡힌다",
+      "60초 배분이 넉넉하다"
+     ],
+     "checked": [
+      "금지 표현 문자열 대조",
+      "단계 실행 가능성 확인",
+      "required_vocab(construction·volunteers·directing·willing)을 지문에서 문자열 대조"
+     ]
+    }
+   ],
+   "revised": true,
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     6
+    ],
+    "quote": "Therefore, we are asking for parent volunteers to help with directing traffic.",
+    "reasoning": "Therefore 가 앞 두 문장(도로 공사 예정, 안전 우려)을 배경으로 접고 이 문장부터 요구가 시작된다. we are asking for 가 화행을, parent volunteers to help with directing traffic 이 요구받는 행동을 지정한다. 여섯째 문장 If you are willing to take part in the traffic safety volunteer group, please email us 가 같은 요구를 신청 방법과 함께 되풀이해 화행을 굳힌다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "why_correct": "화행 대응: 근거 문장의 we are asking for 가 선지 ①의 '요청하려고'와 맞물린다. 목적어 대응: parent volunteers to help with directing traffic 과 여섯째 문장의 take part in the traffic safety volunteer group 이 '교통안전 봉사 참여'와 낱말끼리 겹친다(traffic safety=교통안전, volunteer=봉사, take part in=참여). 요구받는 주체가 parents(수신자)여서 선지가 상정하는 요청 대상과도 같다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ],
+      "note": "넷째 문장만 보면 '교통정리를 돕는 일'까지만 정해지고, 그것이 상시 봉사단 참여라는 것은 the traffic safety volunteer group 이라는 이름이 나오는 여섯째 문장에서 확정된다"
+     }
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "다섯째 문장 The volunteer hours are from 8:00 to 8:30 a.m. and from 4:30 to 5:00 p.m. on school days 가 시간표 그대로라 일정 공지문으로 보인다",
+     "how_to_reject": "그 시간은 봉사를 하는 시간이지 교육을 받는 시간이 아니다. training·orientation·session 처럼 교육을 뜻하는 낱말이 지문에 0건이고, 다섯째 문장은 넷째 문장의 요구에 딸린 조건 설명이다"
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "둘째 문장의 major road construction 에서 construction 만 떼어 읽으면 학교가 공사로 불편을 끼쳐 양해를 구하는 글로 읽힌다",
+     "how_to_reject": "둘째 문장은 construction ~ to take place in front of our school 로 학교 앞 도로 공사이지 학교 시설 공사가 아니고, 공사 주체가 학교라는 서술이 없다. sorry·apologize·understanding 에 해당하는 표현도 없다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "둘째·셋째 문장(도로 공사 예정, This raises safety concerns)이 공사와 안전을 이어 설명하고 있어, 이 설명 자체를 글의 목적으로 잡기 쉽다",
+     "how_to_reject": "셋째 문장 뒤의 Therefore 가 그 설명을 요구의 근거로 강등시킨다. 공사가 왜 필요한지(why the construction is needed)를 말하는 문장은 지문에 아예 없고, 공사는 이미 예정된 사실(scheduled to take place)로만 나온다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "화행 바꿔치기",
+     "why_tempting": "safety·traffic·school days 가 모두 지문에 있어 통학 안전을 당부하는 가정통신문 틀에 그대로 들어맞는다",
+     "how_to_reject": "넷째 문장에서 요구받는 행동은 학부모가 교통정리를 돕는 것(help with directing traffic)이지 규칙을 지키는 것이 아니다. rule·obey·follow the safety rules 에 해당하는 표현이 없고, 일곱째 문장도 Your participation 으로 참여를 되짚는다"
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-PURPOSE",
+  "n_analyzed": 3,
+  "recurring_traps": [
+   {
+    "trap": "어휘 함정",
+    "count": 3,
+    "signature": "지문 낱말(video·inappropriate·construction)을 떼어 다른 행위로 옮긴다"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 1,
+    "signature": "요청 주체·대상을 바꾼다"
+   },
+   {
+    "trap": "화행 바꿔치기",
+    "count": 1,
+    "signature": "M2409#18 ⑤ — 참여 요청(help with directing traffic)을 규칙 준수 당부로 바꾼다"
+   },
+   {
+    "trap": "무관",
+    "count": 2,
+    "signature": "일정·공지 같은 서신 일반 화제"
+   }
+  ],
+  "answer_locus_pattern": "12문항 전부에서 첫 인사·자기소개 문장(Dear ~ / My name is ~)에 근거가 있는 경우는 0건이다. 새로 채운 셋도 같다 — M2409#18 은 Therefore 뒤 넷째 문장(we are asking for), M2406#18 은 넷째 문장(We would like to invite you), M2309#18 은 둘째 문장(I wish to let you know that we are supporting you)이다. 근거 문장에는 예외 없이 화행 표지가 붙는다: we would like to ask · I am encouraging · we are asking for · We would like to invite you · I wish to let you know. 요구 문장이 0건인 지문(M2309#18)에서는 let you know 의 that 절 내용이 곧 목적이 되며, 이 배치가 12문항 중 1건이다.",
+  "procedure": [
+   {
+    "step": "선지 다섯 개에서 ~하려고 앞의 서술어(요청·공지·문의·홍보·독려·설명·초대·당부·안내)에 밑줄을 긋고 명사구와 분리한다",
+    "on_fail": "서술어가 안 잘리면 마지막 두 어절만 잘라 낸다"
+   },
+   {
+    "step": "지문 첫 줄 Dear ~ 와 서명에서 발신자와 수신자를 적고, 누가 누구에게 무엇을 줄 수 있는 관계인지 화살표로 표시한다",
+    "on_fail": "인사말이 없으면(게시글 형식) 첫 문장의 주어와 마지막 문장의 주소·연락처로 대신한다"
+   },
+   {
+    "step": "화행 표지가 든 문장만 찾아 표시한다 — we would like to ask / I am encouraging / we have decided / I’m wondering if / I would like to know / we are offering / please + 동사",
+    "on_fail": "표지가 하나도 없으면 요구가 없는 편지이므로 발신자가 수신자를 향해 쓰는 동사(believe·cheer·wish)를 모으고, 수신자가 할 일을 전제하는 선지를 먼저 내린다"
+   },
+   {
+    "step": "표시한 문장의 동사와 그 목적어를 따로 적는다",
+    "on_fail": "목적어가 지시어면 바로 앞 두 문장에서 가리키는 명사구를 찾아 대신 적는다"
+   },
+   {
+    "step": "선지의 밑줄 친 서술어를 먼저 대조해 영어 대응이 없는 것을 버리고, 남은 선지는 명사구를 적어 둔 목적어와 대조해 하나만 남긴다",
+    "on_fail": "서술어가 같은 선지가 둘 이상이면 목적어만으로 가른다 — 이 유형에서 마지막까지 남는 오답은 언제나 이쪽이다"
+   }
+  ],
+  "failure_modes": [
+   "발신자 소개 문장(My name is ~, I am your instructor ~)을 목적으로 읽는다. 9문항 중 그 자리에 근거가 있는 경우는 0건인데, 소재 명사가 거기 다 모여 있어 눈이 멈춘다",
+   "선지의 명사구만 지문과 대조하고 서술어를 대조하지 않는다. 정답표가 있는 9문항의 오답 36개 중 33개는 서술어의 영어 대응이 지문에 없어 이 한 점검으로 걸린다",
+   "반대로 서술어만 대조하고 멈춘다. 나머지 3개(2026#18 결과 보고서 요청 · 2023#18 장비 문의 · 2024#18 출품 권유)는 그 화행의 영어 대응이 지문에 실제로 있어(submit·turn this in / I would like to know / It is time to start creating) 서술어 대조를 통과하고, 동사의 목적어에서만 갈린다 — 마지막까지 남는 오답은 항상 이쪽이다",
+   "배경 서술을 목적으로 승격시킨다. 편지는 사정(공사가 있다·요청이 있었다·비가 온다)을 먼저 대고 결정·요구를 뒤에 두는데, 앞부분이 길어 거기서 답을 정해 버린다",
+   "취소와 변경, 문의와 지원처럼 인접한 화행을 구분하지 않는다. 결정 동사의 목적어(the location vs the race)를 적어 두면 갈린다"
+  ],
+  "time_budget_sec": 62,
+  "open_questions": [
+   "정답표를 받아 셋(M2409#18 · M2406#18 · M2309#18)을 채웠다. 셋 다 근거가 본문 중반 이후였고, 첫 문장 근거는 12/12 에서 0건을 유지했다",
+   "요구 동사가 아예 없는 편지(M2309#18)가 12문항 중 1건 나왔다. 이때는 let you know 의 that 절이 목적을 나른다는 것이 이 청크의 관찰인데, 표본 1이라 규칙으로 삼을 수 없다 — 다른 R-PURPOSE 청크에서 요구 동사 0건 지문이 더 나오는지 세어야 한다",
+   "이번 보강에서 반려가 2건 나왔다(M2409#18 analyst — ④에 '무관'을 잘못 달았다가 '범위 과소'로 교정, M2309#18 setter — quote 를 응원의 되풀이 문장으로 잡았다가 용건을 밝히는 문장으로 교체). 두 자가 서로 다른 층을 재고 있음이 확인된다",
+   "함정 라벨은 문항당 오답 넷을 한 번씩만 세었다 — 12문항 × 4 = 48 이고 위 recurring_traps 의 count 합도 48 이다",
+   "지문 밖 상식 라벨이 5/48 로 늘었다. 셋 중 둘(M2406#18 ③ · M2309#18 ①)이 새로 들어온 것인데, 둘 다 '요구 문장이 약하거나 없는 지문'이었다. 요구 표지의 세기와 이 라벨의 출현이 연동되는지는 표본을 더 봐야 한다",
+   "redo 청크(3문항): 반려는 M2706#18 문장 번호 불일치 1건뿐. 세 자가 번호 일관성을 따로 재지 않아 원장 결함이 처음 통과됐다 — analyst 가 칸 사이 번호 교차 대조를 맡도록 자를 고칠 것",
+   "recurring_traps count 는 문항당 같은 함정을 한 번만 셌다"
+  ]
+ }
+}

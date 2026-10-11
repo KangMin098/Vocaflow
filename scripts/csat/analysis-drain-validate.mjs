@@ -260,7 +260,7 @@ for (const f of files) {
     const it = itemOf.get(a.item_id)
     if (!it) { bad(id, '코퍼스에 없는 item_id'); continue }
 
-    for (const error of analysisRuleErrors(a, { typeId: it.type_id ?? a.type_id ?? null })) bad(id, error)
+    for (const error of analysisRuleErrors(a, { typeId: it.type_id ?? a.type_id ?? null, answerKnown: it.answer != null })) bad(id, error)
 
     // V1 필수 서술
     const analystRun = a.analyst_run ?? j.analyst_run

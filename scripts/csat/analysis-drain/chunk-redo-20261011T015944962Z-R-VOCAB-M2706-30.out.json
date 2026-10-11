@@ -1,0 +1,1245 @@
+{
+ "chunk": 17,
+ "type_id": "R-VOCAB",
+ "type_name": "어휘(문맥)",
+ "analyses": [
+  {
+   "item_id": "M2706#30",
+   "measured_ability": "5번 문장의 For example 이 4번 문장의 「대사 비중이 줄어든다(diminished emphasis on dialogue)」를 구체화하는 사례임을 보고, 음악·가사를 걷어 낸 대본에 남는 대사의 분량이 어느 쪽이어야 하는지 정하는 능력",
+   "design_intent": "4번 문장이 뮤지컬 대본의 특징을 대사 비중 감소로 정의하고 5번 문장이 For example 로 그 사례를 든다. 출제자는 사례 끝의 thick(두껍다·분량이 많다)을 「대본은 두툼하다」는 상식으로 그럴듯하게 만들었지만, 4번의 일반 진술과 6번의 very little space 가 양쪽에서 「얇다(thin)」를 요구한다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5,
+     6
+    ],
+    "quote": "because of the diminished emphasis on dialogue and a ③ significant emphasis on song and dance",
+    "reasoning": "4번 문장은 뮤지컬 대본이 시각화하기 어려운 이유를 대사 비중이 줄고 노래·춤 비중이 크다는 데서 찾는다. 5번은 For example 로 시작하므로 이 진술의 사례여야 하고, 음악과 가사를 빼고 남은 대사는 비중이 작은 쪽, 곧 분량이 적은(thin) 쪽이 되어야 한다. 6번 문장의 can take very little space when typed into a play script 도 대본 지면이 적다는 같은 방향이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번 문장은 시적 형식·고어가 정보 얻기를 방해하게 두지 말고 형식 자체를 기법으로 보라고 한다. but instead 가 「방해물」과 대비해 형식을 의미를 드러내는(revealing) 기법으로 보라는 쪽을 가리키므로 revealing 이 맞고, 바꿀 이유가 없어 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장의 may require several additional readings in order for 는 목적을 나타낸다. 복잡한 언어의 대본을 여러 번 읽는 목적은 뉘앙스가 분명해지는(clear) 것이므로 낱말이 맞게 쓰였다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "4번 문장은 diminished emphasis on dialogue 와 and 로 짝지어 노래·춤 쪽 비중을 말한다. 대사가 줄었으니 다른 쪽은 큰(significant) 비중이어야 대비가 성립하고, 6번 문장의 There is an emphasis on dance 도 같은 방향이다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 diminished emphasis on dialogue 가 ④ 문장의 what is left is the dialogue 와 같은 대상(대사)을 가리킨다. 비중이 줄어든 대사만 남은 대본은 thick(두툼한)이 아니라 thin(얇은)이어야 하므로 ④가 문맥 방향과 반대다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       5,
+       6
+      ],
+      "note": "6번 문장의 very little space 가 지면 분량이 적다는 방향을 한 번 더 확인한다. 내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 지문 구간이고 ⑤에는 각주(archaic)·쪽번호가 섞여 있다. 판정은 지문 속 밑줄 낱말 기준."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "6번 문장은 but 으로 「무대에서 실제 공연할 때」와 「대본에 타이핑할 때」를 대조한다. 뒤쪽이 very little space 이므로 앞쪽은 시간이 많이 드는(time-consuming) 쪽이어야 대조가 맞는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "4번 문장의 because of 뒤에서 대사(dialogue)와 노래·춤(song and dance) 각각의 비중 방향을 적는다",
+     "on_fail": "diminished 와 emphasis 두 낱말에만 표시하고 「대사↓」로 줄여 적는다"
+    },
+    {
+     "step": "5번 문장 첫머리 For example 을 보고, 이 문장이 4번의 어느 진술을 예로 드는지 연결한다",
+     "on_fail": "5번 문장의 the dialogue 와 4번 문장의 dialogue 를 선으로 이어 같은 대상인지 확인한다"
+    },
+    {
+     "step": "5번 문장 끝 밑줄 낱말이 「대사↓」와 같은 방향(적다·얇다)인지 판정한다",
+     "on_fail": "6번 문장의 take very little space 를 읽고 대본 분량이 많다는 쪽인지 적다는 쪽인지 다시 정한다"
+    },
+    {
+     "step": "나머지 밑줄은 각 문장 안의 but instead · in order for · but 대조로 방향이 맞는지만 확인한다",
+     "on_fail": "방향이 애매한 밑줄은 반대말을 넣어 보고 문장이 자기모순이 되는지 본다"
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.5,
+    "drivers": [
+     "thick 이 「분량이 많다」라는 비유적 뜻으로 쓰여 극성이 바로 안 보인다",
+     "근거가 4번(일반 진술)과 6번(대조)으로 갈라져 있다",
+     "3점"
+    ]
+   },
+   "required_vocab": [
+    "diminished",
+    "libretto",
+    "thick",
+    "time-consuming"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 4번 문장에서 그대로 옮겨졌고, 정답 근거가 For example 의 일반-사례 관계라는 설계 서술이 이 문항 고유의 것이다",
+      "이전 판 ④ confirmed_at.note 의 작업 이력 문구를 지우고 6번 문장 확인 내용만 남겼다"
+     ],
+     "checked": [
+      "quote 를 지문에서 문자열 대조",
+      "why_correct 의 diminished emphasis on dialogue ↔ what is left is the dialogue 대응 확인",
+      "confirmed_at.note 에 작업 이력 문구가 남지 않았는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷이 각각 but instead(①) · in order for(②) · and 대비(③) · but 대조(⑤)라는 서로 다른 문장 내부 장치로 맞음이 설명된다",
+      "부정 발문이라 오답에 trap·why_tempting 을 두지 않았다"
+     ],
+     "checked": [
+      "오답 how_to_reject 4개가 서로 다른 문장 번호·장치를 지목하는지 대조",
+      "V14 규칙에 따라 오답 trap 부재 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계가 4번→5번→6번 순서로 손을 움직이게 해 110초 안에 끝난다",
+      "required_vocab 의 thick 은 정답 판정에 직접 쓰이는 낱말이다"
+     ],
+     "checked": [
+      "금지 표현 목록 대조",
+      "각 step 이 지문을 처음 보는 학생에게 실행 가능한지 확인",
+      "on_fail 4개가 서로 다른 행동인지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2026#30",
+   "measured_ability": "8번 문장의 try to get away with as many actions ... as possible 이 「규칙 위반을 최대한 들키지 않고 이득을 챙기는」 목적 행위임을 보고, 그 목적어인 competitive advantages 를 얻는 쪽 동사가 와야 하는지 정하는 능력",
+   "design_intent": "1~3번이 상황 윤리를 결과 중심 이론으로 정의하고 5~7번이 친선 경기와 공식 경기를 대조한다. 마지막 8번 문장은 승리라는 목적을 위해 반칙을 감추는 행위를 일반화하므로, to 부정사 목적 자리는 이점을 얻는(gain) 쪽이어야 한다. abandon 은 「선수가 무언가를 포기한다」는 윤리적 인상으로 그럴듯하게 놓였다.",
+   "answer_locus": {
+    "sentence_index": [
+     7,
+     8
+    ],
+    "quote": "as the end goal of winning is more important than expressing ④ concern for competitors",
+    "reasoning": "7번 문장이 공식 경기의 선수 행동 원리를 「승리라는 최종 목표」로 정한다. 8번 문장의 trying to get away with as many actions ... as possible 은 그 목표를 위한 행동이므로 뒤의 to 부정사는 경쟁 이점을 얻는 목적이어야 하고, 이점을 버리는(abandon) 것은 승리 목표와 정반대다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번 문장의 casting aside 는 「버린다」는 뜻이고, 3번 문장의 In the absence of a universal standard or law 가 버리는 대상이 보편적 기준임을 다시 말한다. 상황 윤리 지지자가 버리는 것이 절대적(absolute) 도덕 기준이라는 진술이 맞아 답이 아니다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장은 세미콜론 앞에서 결과(outcome or consequences)가 중요하다고 하고 so 로 결론을 잇는다. 결과가 중요하면 목적이 수단을 정당화한다(justifies)는 결론이 그대로 따라온다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "6번 문장은 5번 문장(친선 경기에서 스스로 반칙을 인정하는 행동)의 이유를 these actions 로 받는다. 친구를 아끼고 그 무리와 계속 경기하는(keep playing) 것이 정직한 행동의 동기가 된다는 연결이 자연스럽다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "7번 문장은 But 으로 5·6번의 친선 경기와 공식 경기를 대조하고, 승리 목표가 상대에 대한 배려(concern)를 표현하는 것보다 중요하다고 한다. 5번의 반칙 인정이 바로 상대를 배려하는 행동이므로 concern 이 맞다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 the end goal of winning 이 8번 문장의 get away with as many actions ... as possible 의 목적과 같은 축이다. 그 목적어 competitive advantages 를 승리를 원하는 선수가 버린다(abandon)는 것은 모순이므로 얻는다(gain) 쪽으로 바뀌어야 한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7,
+       8
+      ],
+      "note": "내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다."
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "1~3번 문장에서 상황 윤리가 무엇을 기준으로 삼는지(결과) 한 낱말로 적는다",
+     "on_fail": "3번 문장의 what matters is 뒤 명사를 그대로 적는다"
+    },
+    {
+     "step": "4번의 contrasting realities 를 보고 5·6번(친선 경기)과 7번(공식 경기)을 두 칸으로 나눠 각각 선수 행동을 적는다",
+     "on_fail": "7번 문장 첫 낱말 But 에서 칸을 나눈다"
+    },
+    {
+     "step": "8번 문장의 get away with 가 「들키지 않고 해내다」라는 뜻임을 확인하고, 그 목적 자리 낱말이 7번의 승리 목표와 같은 방향인지 판정한다",
+     "on_fail": "밑줄 낱말 대신 반대말(gain)을 넣어 보고 7번 문장과 이어지는 쪽을 고른다"
+    },
+    {
+     "step": "나머지 밑줄은 casting aside(2번) · so(3번) · these actions(6번) · But(7번)이 지정하는 방향과 맞는지만 확인한다",
+     "on_fail": "방향이 애매한 밑줄은 그 낱말이 받는 대상이 몇 번 문장에 있는지부터 찾는다"
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.55,
+    "drivers": [
+     "get away with 의 뜻을 모르면 8번 문장 방향을 못 잡는다",
+     "abandon 이 윤리적 「내려놓음」으로 읽혀 그럴듯하다",
+     "3점"
+    ]
+   },
+   "required_vocab": [
+    "get away with",
+    "abandon",
+    "competitive advantage",
+    "casting aside"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답 근거를 7번의 승리 목표와 8번의 목적 구조로 잡아 원장이 맞다고 본 판정을 보존했다",
+      "④ how_to_reject 에서 반칙 인정 행동을 「앞 문장」이 아니라 5번 문장으로 정확히 지목했다"
+     ],
+     "checked": [
+      "quote 를 지문에서 문자열 대조",
+      "④ 해설의 문장 번호가 5번(pickup game)과 일치하는지 대조",
+      "why_correct 와 reasoning 이 같은 문장을 반복하지 않는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이전 판의 오답 trap·why_tempting 함정 틀을 걷어 내고, 각 오답이 왜 맞는 낱말인지를 2·3·6·7번 문장의 장치로 다시 썼다"
+     ],
+     "checked": [
+      "부정 발문 확인 후 오답 trap 부재 확인",
+      "오답 4개 how_to_reject 가 서로 다른 근거 문장을 쓰는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "두 칸 나누기(친선/공식)가 4번 contrasting 에서 출발해 실행 가능하다",
+      "get away with 는 8번 문장 방향을 정하는 데 실제로 필요하다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "100초 안 실행 가능성 확인",
+      "on_fail 이 단계마다 다른지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2025#30",
+   "measured_ability": "6번 문장 속 삽입구(an emotion generally associated with high motivation for goal-achievement)가 주는 일반론과 이 글이 보고하는 연구 결과를 갈라, 밑줄 낱말이 어느 쪽을 받아야 하는지 정하는 능력",
+   "design_intent": "1번 문장이 경쟁 유인이 과제 노력을 낮춘다는 결론을 미리 정해 두고, 6번 문장에 일반론 삽입구를 끼워 stronger 가 문장 안에서는 매끄럽게 읽히도록 했다. 7번 문장이 this emotional state 로 같은 감정의 결과를 lower task motivation 이라 말해 삽입구를 결론으로 오인했는지를 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     6,
+     7
+    ],
+    "quote": "Consequences of this emotional state include lower task motivation in a competition",
+    "reasoning": "7번 문장의 this emotional state 는 6번 문장의 Feelings of guilt 를 받는다. 같은 감정의 결과가 7번에서는 lower task motivation 이므로 6번의 결과가 stronger motivation 일 수 없다. 1번 문장의 competitive incentives resulted in lower task effort 도 낮아지는 방향을 정해 둔다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번 문장의 conflict between A and the desire to ... 는 두 동기의 충돌이다. A 가 the motivation to achieve one’s personal goal 이므로 B 도 같은 층위의 동기 명사인 desire 가 와야 짝이 맞는다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장에서 갈등을 겪는 주체는 competitors 자신이고 그 갈등이 harm their desire to achieve their goal 이라 자기 안의 욕구를 해친다. 그러므로 마음속(internal) 갈등이 맞다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "5번 문장이 같은 상황을 people feel uneasiness, distress, or sorrow 로 풀어 말한다. 불편함 계열 감정이므로 uncomfortable 이 맞다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 lower task motivation 이 ④의 stronger motivation 과 같은 대상(죄책감의 결과 동기)을 반대 방향으로 말한다. this emotional state 가 Feelings of guilt 를 받으므로 ④는 weaker 쪽으로 바뀌어야 한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6,
+       7
+      ],
+      "note": "6번 문장 삽입구가 죄책감을 high motivation 과 묶어 stronger 가 문장 안에서는 자연스럽게 읽힌다. 내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "7번 문장의 such as 는 cooperative and altruistic outcomes 의 예를 든다. or 로 이어진 sharing the winner’s reward 와 함께, 결과의 의미를 낮추는(diminishing) 행동은 승리 몫을 덜어 내는 같은 계열이라 맞다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "1번 문장에서 연구 결과 방향을 화살표로 적는다(resulted in 뒤의 lower)",
+     "on_fail": "resulted in 뒤 명사구를 그대로 옮겨 적는다"
+    },
+    {
+     "step": "밑줄 문장마다 쉼표로 묶인 삽입구를 괄호로 지우고 주어·동사·결과만 읽는다",
+     "on_fail": "삽입구가 없는 문장은 주어와 동사에만 표시한다"
+    },
+    {
+     "step": "6번 문장 뼈대(Feelings of guilt ... lead to ④)의 방향을 7번 문장의 this emotional state 결과와 비교한다",
+     "on_fail": "this emotional state 가 무엇을 받는지 6번 문장 주어에서 찾는다"
+    },
+    {
+     "step": "나머지 밑줄은 between A and B(2번) · 주체 competitors(3번) · 5번 감정 목록 · such as 예시(7번)로 방향만 확인한다",
+     "on_fail": "방향이 둘 이상 어긋나 보이면 그 문장이 결과절인지 조건절인지 먼저 가른다"
+    }
+   ],
+   "time_budget_sec": 115,
+   "difficulty": {
+    "predicted": 0.42,
+    "drivers": [
+     "정답 문장 안 삽입구가 stronger 를 매끄럽게 만든다",
+     "근거가 다음 문장의 지시어 this emotional state 로 연결된다",
+     "3점"
+    ]
+   },
+   "required_vocab": [
+    "guilt",
+    "altruistic",
+    "diminish",
+    "envious"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "이전 판 why_correct·quote 의 잘린 인용(\"inclu\")을 지문 원문 include 로 바로잡았다",
+      "7번 문장 근거를 지시어 this emotional state 로 6번과 묶은 판정은 원장이 맞다고 보아 보존했다"
+     ],
+     "checked": [
+      "quote 와 why_correct 속 영어 인용을 지문에서 문자열 대조",
+      "confirmed_at.note 에 작업 이력 문구가 없는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "부정 발문이므로 이전 판의 오답 trap 라벨(대립항 성립 오인 등)을 지우고 맞는 이유만 남겼다",
+      "①~⑤ 오답 근거가 2·3·5·7번 문장으로 갈린다"
+     ],
+     "checked": [
+      "오답 trap·why_tempting 부재 확인",
+      "how_to_reject 문장 번호와 sentences 목록 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "삽입구 괄호 치기가 이 문항의 핵심 장치를 직접 무력화한다",
+      "115초 안에 들어간다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "required_vocab 이 지문에 실제로 있는지 확인(diminishing·envious 형태 포함)"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2506#30",
+   "measured_ability": "1번 문장(내면화는 자율성 지원에 달려 있다)과 5·6번 문장(외적 통제가 클수록 외부 통제에 의존)의 방향을 잡고, 7번 문장의 「외적 통제의 두드러짐」이 자기 책임 습득을 촉진하는지 방해하는지 정하는 능력",
+   "design_intent": "글 전체가 외적 통제는 행동은 만들어도 내면화는 막는다고 말한다. 7번 문장은 6번의 숙제 사례를 일반화한 요약문인데 drives(촉진한다)를 넣어 「통제하면 책임감이 생긴다」는 상식으로 그럴듯하게 했다. 3번의 controls ... work 가 「통제도 효과는 있다」는 양보라서, 이 양보와 7번의 주장을 섞는지가 갈린다.",
+   "answer_locus": {
+    "sentence_index": [
+     5,
+     6,
+     7
+    ],
+    "quote": "the person does not ③ develop a value or investment in the behaviors, but instead remains dependent on external controls",
+    "reasoning": "5번 문장은 외적 통제를 받는 사람이 행동에 가치를 스스로 키우지 않고 외부 통제에 의존한다고 결론 내리고, 6번은 보상받을 때만 숙제하는 아이로 그 사례를 든다. 7번은 이 흐름의 요약이므로 외적 통제의 두드러짐은 자기 책임 습득을 방해하는(undermines) 쪽이어야 한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번 문장은 1번의 「내면화는 자율성 지원에 달려 있다」를 뒤집어 말한 것이다. 보상·처벌 같은 통제 전략은 자율성 지원의 반대이므로 활동을 자기 것으로 여기게 할 가능성이 가장 낮다(least likely)가 맞다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장은 This is not to say 로 양보를 걸고 decades of operant psychology prove that they can 으로 통제가 행동을 만든다는 점을 인정한다. 그러므로 통제가 효과가 있다(work)가 맞다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "5번 문장은 does not develop ... but instead remains dependent 로 「스스로 가치를 키우지 않고 대신 의존한다」를 대조한다. 의존과 대비되는 쪽이 가치를 키우는(develop) 것이므로 낱말이 맞다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 remains dependent on external controls 가 7번 문장의 The salience of external controls 와 같은 원인을 다룬다. 외부에 의존하게 만든다는 원인이 자기 책임(self-responsibility) 습득을 drives(촉진)할 수는 없으므로 ④는 방해한다는 쪽으로 바뀌어야 한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       6,
+       7
+      ],
+      "note": "8번 문장 Alternatively 가 외적 유인을 최소화한 부모 쪽에서 willingness 가 길러진다고 대비해 같은 방향을 다시 확인한다. 내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "8번 문장은 Alternatively 로 6번의 통제형 부모와 대비되는 부모를 든다. 이유를 제시하고 정서적 이해를 보이는 부모는 외적 유인을 최소한(minimum)으로 쓰는 쪽이어야 대비가 성립한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "1번 문장에서 내면화의 조건(자율성 지원)을 적고, 통제는 그 반대편이라고 표시한다",
+     "on_fail": "depends on 뒤 명사를 그대로 옮긴다"
+    },
+    {
+     "step": "3번의 This is not to say 를 양보로 표시하고, 4번 It is rather that 뒤를 글의 주장으로 따로 적는다",
+     "on_fail": "양보와 주장을 가르기 어려우면 rather 뒤 문장만 주장으로 본다"
+    },
+    {
+     "step": "7번 문장이 6번 사례(보상받을 때만 숙제)를 요약하는지 보고, 동사 방향이 5번의 remains dependent 와 같은지 판정한다",
+     "on_fail": "밑줄 동사 대신 반대말(undermines)을 넣어 5·6번과 이어지는 쪽을 고른다"
+    },
+    {
+     "step": "나머지 밑줄은 2번(1번의 뒤집기) · 3번 양보 · 5번 but instead · 8번 Alternatively 대비로만 확인한다",
+     "on_fail": "대비 표지가 무엇과 무엇을 맞세우는지 두 대상을 먼저 적는다"
+    }
+   ],
+   "time_budget_sec": 115,
+   "difficulty": {
+    "predicted": 0.45,
+    "drivers": [
+     "3번 양보(통제도 효과가 있다)가 drives 를 지지하는 것처럼 보인다",
+     "7번이 짧은 요약문이라 앞 사례와 연결해야 방향이 선다",
+     "3점"
+    ]
+   },
+   "required_vocab": [
+    "internalization",
+    "salience",
+    "self-responsibility",
+    "drive"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답 근거를 5·6번 결론과 사례, 7번 요약의 관계로 잡았다",
+      "3번 양보문을 오답 근거와 함정 설명에 구별해 넣었다"
+     ],
+     "checked": [
+      "quote 를 지문에서 문자열 대조",
+      "why_correct 의 remains dependent ↔ The salience of external controls 대응 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷을 1번 조건의 뒤집기 · 양보 · but instead · Alternatively 라는 서로 다른 장치로 설명했다",
+      "저장 선지 문자열이 지문 구간이라는 결함은 학습자 칸이 아니라 confirmed_at.note 에만 적었다"
+     ],
+     "checked": [
+      "오답 trap 부재 확인",
+      "V12 작업 용어가 학습자 칸에 없는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "양보/주장 가르기 단계가 함정의 원천인 3번 문장을 미리 처리한다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "단계별 on_fail 이 서로 다른지 확인",
+      "required_vocab 이 지문에 있는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2024#30",
+   "measured_ability": "6번 문장의 because 이유절(구매자가 비디오 게임을 절대적 필수품으로 보지 않는다)이 판매자가 피하는 가격의 방향을 정한다는 점을 보고, 판매자가 직접 요구하지 않으려는 것이 높은 가격인지 낮은 가격인지 판정하는 능력",
+   "design_intent": "4·5번이 구매자와 판매자가 서로의 필수품·사치품 인식을 안다고 깔고, 6번에서 So 와 because 로 판매자의 행동을 그 지식에서 끌어낸다. 필수품이 아닌 물건에 높은 값을 부르면 구매자가 사지 않으므로 판매자가 조심하는 것은 high prices 다. low 는 「판매자가 싸게 부르기를 꺼린다」는 장사 상식으로 그럴듯하게 놓였다.",
+   "answer_locus": {
+    "sentence_index": [
+     5,
+     6
+    ],
+    "quote": "because at no point will the buyer see possession of them as an absolute necessity",
+    "reasoning": "6번 문장의 because 절은 판매자가 조심하는 이유를 구매자가 비디오 게임을 절대 필수품으로 보지 않는다는 데서 찾는다. 필수품이 아니면 비싼 값에 살 이유가 없으므로, 판매자가 직접 부르지 않으려는 것은 매우 높은(high) 가격이어야 이유와 행동이 맞는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번 문장의 restrictions 는 3번 문장에서 the financial constraints that other actors have 로 다시 풀린다. 서로의 제약을 안다는 진술이 맞다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장은 상대의 재정적 제약을 to a large extent 가늠할 수 있다는 내용이고, 4번 문장의 understands what the other sees as a necessity 가 같은 능력을 다시 말한다. 그러므로 assess 가 맞다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "5번 문장의 not a necessity at the same level as ... food items 는 4번 문장의 necessity and a luxury 구분을 받아 비디오 게임을 식품만큼의 필수품이 아니라고 한다. 6번의 absolute necessity 도 같은 판단이라 necessity 가 맞다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 at no point will the buyer see possession of them as an absolute necessity 가 ④의 「직접 요구하지 않으려는 가격」의 이유다. 필수품이 아닌 물건은 높은 값에 안 팔리므로 판매자가 피하는 것은 high 쪽이고, low 는 이유절과 반대 방향이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       6
+      ],
+      "note": "내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "7번 문장은 1번의 enduring ties of shared culture 를 받아, 같은 문화·경제적 세계에 속한 데서 오는 선호와 한계를 말한다. 공유 문화를 전제하므로 similar 가 맞다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "1~4번 문장에서 구매자와 판매자가 서로 무엇을 아는지(제약·필수품 인식) 적는다",
+     "on_fail": "4번 문장 understands 뒤를 그대로 옮긴다"
+    },
+    {
+     "step": "5번 문장에서 비디오 게임이 필수품인지 아닌지를 표시한다",
+     "on_fail": "not a necessity 의 not 에 동그라미를 친다"
+    },
+    {
+     "step": "6번 문장의 because 절을 먼저 읽고, 그 이유라면 판매자가 피할 가격이 높은지 낮은지 정한 뒤 밑줄 낱말과 비교한다",
+     "on_fail": "판매자 입장에서 「이 값을 부르면 손님이 떠난다」에 맞는 가격을 적어 본다"
+    },
+    {
+     "step": "나머지 밑줄은 다시 풀어 쓴 말(restrictions↔constraints · assess↔understands · similar↔shared culture)과 맞는지 확인한다",
+     "on_fail": "되풀이 표현이 안 보이면 1번 문장의 shared culture 에서 다시 시작한다"
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.5,
+    "drivers": [
+     "careful not to directly ask for 의 부정이 겹쳐 방향 계산이 필요하다",
+     "「싸게 팔기 싫다」는 상식이 low 를 지지한다",
+     "3점"
+    ]
+   },
+   "required_vocab": [
+    "constraint",
+    "necessity",
+    "possession",
+    "consensus"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답 근거를 6번 because 절로 잡은 원장 판정을 보존했다",
+      "④ confirmed_at.note 의 작업 이력 문구를 지웠다"
+     ],
+     "checked": [
+      "quote 를 지문에서 문자열 대조",
+      "note 에 「이관」 같은 작업 이력이 남지 않았는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷을 지문 안 되풀이 표현(constraints · understands · absolute necessity · shared culture)으로 각각 다르게 확인했다"
+     ],
+     "checked": [
+      "오답 trap 부재 확인",
+      "how_to_reject 4개의 근거 문장 번호가 서로 다른지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "because 절을 먼저 읽게 한 3단계가 부정 겹침(careful not to)을 정리한다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "100초 실행 가능성 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2406#30",
+   "measured_ability": "세 네모 각각의 바로 붙은 구조 표지(for 의 대상 · unless 조건 · After sufficient experience)를 보고, 자율성이 「사전 지식의 결함을 학습으로 메우고 결국 사전 지식에서 독립하는 것」이라는 1번 문장의 정의와 맞는 낱말을 고르는 능력",
+   "design_intent": "1번 문장이 자율성을 「설계자의 사전 지식에 기대지 않음」으로 정의한다. (A)는 partial or incorrect prior knowledge 를 목적어로 받아 메운다(compensate) 쪽이, (B)는 unless the designer gave some assistance 조건이 붙어 도움이 없으면 무작위로(randomly) 행동하는 쪽이, (C)는 After sufficient experience 가 붙어 사전 지식에서 독립(independent)하는 쪽이 맞다. 오답 낱말 prepare · purposefully · protective 는 각각 for 와 짝이 되는 숙어, 「합리적 행위자」의 인상, 「지식을 지킨다」는 인상으로 그럴듯하게 놓였다. 세 칸 모두 판별 칸이어서 한 칸만 맞으면 2지선다가 남는다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     4,
+     6
+    ],
+    "quote": "when the agent has had little or no experience, it would have to act (B) purposefully / randomly unless the designer gave some assistance",
+    "reasoning": "(B): unless 조건이 「설계자의 도움이 없으면」을 뜻하고 앞 절이 little or no experience 라서, 경험도 도움도 없는 행위자는 목적 있게가 아니라 무작위로(randomly) 행동할 수밖에 없다. (A): 2번 문장에서 학습의 대상이 partial or incorrect prior knowledge 이므로 결함 있는 지식은 「메우는(compensate for)」 대상이다. (C): 6번 문장의 After sufficient experience 는 학습이 충분히 쌓인 뒤를 말해 1번 문장의 자율성 정의대로 사전 지식에서 독립(independent)하게 된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "(A) compensate 와 (B) randomly 가 맞아 두 칸이 정답과 겹치고, protective 는 「사전 지식을 지킨다」로 읽혀 지식의 가치를 존중하는 말처럼 보인다.",
+     "how_to_reject": "(C) 자리 6번 문장의 After sufficient experience 와 1번 문장의 자율성 정의(사전 지식에 기대지 않음)를 대조하면, 경험이 쌓인 뒤의 행위자는 사전 지식을 보호하는 것이 아니라 그것에서 독립해야 한다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "2번 문장의 A rational agent 가 「합리적 행위자는 목적 있게 행동한다」는 인상을 주어 (B) purposefully 가 자연스러워 보인다.",
+     "how_to_reject": "(B) 자리 4번 문장의 little or no experience 와 unless the designer gave some assistance 를 함께 보면, 경험도 도움도 없는 상태라 목적 있는 행동은 불가능하다. (C) protective 도 6번 문장에서 배제된다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "prepare for 가 for 와 바로 붙는 익숙한 숙어라 2번 문장의 for partial or incorrect prior knowledge 앞에 자연스럽게 들어가 보인다.",
+     "how_to_reject": "(A) 자리 2번 문장에서 for 의 목적어가 partial or incorrect(불완전하거나 틀린) 사전 지식이다. 이미 있는 결함을 「대비한다」가 아니라 학습으로 「메운다」여야 하고, 3번 문장의 진공청소기 예도 학습으로 더 잘하게 되는 쪽이다. (C) protective 도 6번에서 배제된다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "(A) 근거의 partial or incorrect prior knowledge 가 compensate for 의 목적어로 맞물리고, (B) 근거의 little or no experience ... unless the designer gave some assistance 가 randomly 와, (C) 근거의 After sufficient experience 가 independent of its prior knowledge 와 맞물린다. 세 칸 모두 1번 문장의 자율성 정의와 같은 방향이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       4,
+       6
+      ],
+      "note": "세 칸이 모두 판별 칸이라 각 칸 근거 문장(2·4·6번)을 따로 확인해야 한다. 내부 기록: 지문 목록 8번에 선지표가 중복으로 들어 있고 저장된 선지 ⑤ 끝에 쪽번호 「5」가 붙어 있다. 판정은 네모 낱말 기준."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "(C) independent 가 맞아 마지막 칸이 정답과 같고, prepare for 와 purposefully 가 각각 숙어 익숙함과 「합리적 행위자」 인상으로 자연스러워 보인다.",
+     "how_to_reject": "(A) 자리 2번 문장의 partial or incorrect 는 메울 대상이라 prepare 가 아니고, (B) 자리 4번 문장의 unless the designer gave some assistance 는 도움이 없을 때의 무작위 행동을 가리키므로 purposefully 도 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "1번 문장에서 자율성이 없는 상태(설계자의 사전 지식에 기댐)를 적어 자율성의 방향을 정한다",
+     "on_fail": "lacks autonomy 앞의 relies on 뒤 명사를 그대로 옮긴다"
+    },
+    {
+     "step": "(B)부터 본다: 4번 문장의 little or no experience 와 unless 조건을 함께 읽고 도움 없는 행위자가 어떻게 행동할지 정한다",
+     "on_fail": "unless 를 「~하지 않으면」으로 바꿔 문장을 우리말로 다시 말해 본다"
+    },
+    {
+     "step": "(A): 2번 문장에서 for 의 목적어 partial or incorrect prior knowledge 가 이미 있는 결함인지 앞으로 올 일인지 가린다",
+     "on_fail": "3번 문장의 진공청소기 예가 학습으로 무엇을 더 잘하게 되는지 보고 다시 정한다"
+    },
+    {
+     "step": "(C): 6번 문장의 After sufficient experience 가 학습 뒤의 상태임을 확인하고 1번 문장 정의와 같은 방향의 낱말을 고른다",
+     "on_fail": "7번 문장의 incorporation of learning 이 무엇을 가능하게 하는지 보고 방향을 맞춘다"
+    },
+    {
+     "step": "세 칸 결과를 조합해 선지표에서 찾는다 — 한 칸이라도 어긋난 조합은 지운다",
+     "on_fail": "두 조합이 남으면 남은 차이 칸의 근거 문장만 다시 읽는다"
+    }
+   ],
+   "time_budget_sec": 120,
+   "difficulty": {
+    "predicted": 0.5,
+    "drivers": [
+     "세 칸이 모두 판별 칸이라 한 칸이라도 틀리면 오답",
+     "prepare for 의 숙어 익숙함",
+     "unless 조건의 부정 계산",
+     "3점"
+    ]
+   },
+   "required_vocab": [
+    "autonomy",
+    "compensate for",
+    "prior knowledge",
+    "percept"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "이전 판 reasoning 이 (A)(C)만 다뤄 (B) unless 근거가 빠졌다는 결함으로 revise. (B) 근거를 quote 와 reasoning 맨 앞에 넣고 sentence_index 에 4를 넣었다"
+     ],
+     "checked": [
+      "quote 를 지문에서 문자열 대조",
+      "reasoning 이 (A)(B)(C) 세 칸을 모두 다루는지 확인",
+      "why_correct 와 confirmed_at 의 문장 번호 2·4·6 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "긍정 발문(가장 적절한 것)이라 오답이 틀린 조합이다 — 오답마다 trap·why_tempting·how_to_reject 를 두었다",
+      "①·⑤는 두 칸 또는 한 칸이 맞는 조합이라 부분 사실, ②는 (B)를 randomly 의 반대말 purposefully 로 뒤집어 반대 진술, ③은 prepare for 숙어 익숙함에 기대 어휘 함정으로 갈랐다",
+      "①과 ⑤가 같은 라벨이지만 틀린 칸((C) vs (A)(B))과 근거 문장이 서로 다르다"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨과 실제 틀린 칸 대조",
+      "선지별 why_tempting 이 서로 다른 낱말을 지목하는지 확인",
+      "how_to_reject 마다 2·4·6번 중 해당 문장 번호가 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "(B)부터 보게 한 순서는 unless 조건이 가장 짧게 닫히기 때문이며, 지문 순서를 강제하지 않는다",
+      "5단계가 120초 안에 들어간다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "조합 소거 단계가 선지표만으로 실행 가능한지 확인",
+      "required_vocab 4개가 지문에 있는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2023#30",
+   "measured_ability": "11번 문장의 The longer ..., the longer ... 비례 구조에서 앞 절의 「컴퓨터가 마법 같은 새 세계로 데려간다는 믿음」이 3~6번에서 부정된 생각임을 보고, 그 믿음이 오래갈수록 자연스러운 융합이 늦어진다는 방향의 동사가 와야 함을 판정하는 능력",
+   "design_intent": "1~2번이 사이버 공간이라는 과대광고를 소개하고 3~6번이 모터 사례로 「기술은 딴 세계로 데려가지 않고 삶 속으로 흡수된다」를 보인다. 11번은 그 과대광고 믿음이 지속되는 만큼 융합이 지연된다는 결론인데, maintain 을 넣어 「융합을 유지한다」는 긍정 인상으로 매끄럽게 했다. the hallmark of every major movement 가 융합이 혁명의 특징이라 말해 그럴듯함을 더한다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     11
+    ],
+    "quote": "The longer we continue to believe that computers will take us to a magical new world",
+    "reasoning": "이 믿음은 2번 문장의 hype(과대광고)와 같은 내용이고, 3·4번이 모터 사례로 그 생각을 부정했다. 잘못된 믿음을 오래 유지할수록 컴퓨터가 삶에 자연스럽게 녹아드는 일은 늦어지므로, the longer 뒤 동사는 융합을 유지하는 것이 아니라 미루는(delay) 쪽이어야 한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장은 we didn’t leave our world 로 모터가 딴 세계로 데려가지 않았다고 하고, 4번 On the contrary 가 모터를 삶 속으로 가져왔다고 대비한다. 가지 않은 곳이 멀리 떨어진(remote) 모터 공간이라는 진술이 맞다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "5번 문장의 This 는 4번의 「모터를 삶 속으로 가져옴」을 받는다. 그 흡수(absorption)가 너무 완전해서 도구를 쓰임새 이름으로 부른다는 결과가 이어지므로 맞다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "6번 문장은 이 혁신들이 사회경제적 운동이 된 이유를 entered and affected profoundly our everyday lives 로 든다. 삶 속으로 들어와 깊이 영향을 미쳤다는 것은 4·5번의 흡수와 같은 방향이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "7·8번이 사람은 수천 년 동안 바뀌지 않았고 기술은 끊임없이 바뀐다고 대비한다. 바뀌는 쪽인 기술이 사람에게 맞춰야(adapt) 한다는 9번 진술이 그 대비에서 바로 나온다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 continue to believe that computers will take us to a magical new world 가 ⑤ 절의 원인이다. 3·4번에서 부정된 믿음을 오래 지속할수록 their natural fusion with our lives 는 유지(maintain)가 아니라 지연(delay)되어야 비례 구조가 글의 결론과 맞는다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       11
+      ],
+      "note": "9·10번이 기술이 사람에게 맞춘다는 human-centric 방향을 정해 두어 융합이 바람직한 쪽임을 확인한다. 내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다."
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "2번 문장의 The hype promises 를 보고, 글쓴이가 이 약속(딴 세계로 간다)을 지지하는지 반박하는지 3·4번의 didn’t · On the contrary 로 정한다",
+     "on_fail": "On the contrary 앞뒤 두 문장을 「간다/들여온다」로 줄여 적는다"
+    },
+    {
+     "step": "11번 문장의 The longer A, the longer B 에서 A 가 2번의 과대광고와 같은 믿음인지 확인한다",
+     "on_fail": "A 절의 magical new world 와 2번의 otherworld 를 선으로 잇는다"
+    },
+    {
+     "step": "잘못된 믿음 A 가 길어질 때 B 의 융합이 늘어나는지 늦어지는지 정하고 밑줄 동사와 비교한다",
+     "on_fail": "밑줄 동사 대신 delay 를 넣어 읽고 4~6번의 흡수 사례와 이어지는 쪽을 고른다"
+    },
+    {
+     "step": "나머지 밑줄은 On the contrary(①) · This 지시(②) · 6번 이유 · 7·8번 대비(④)로 방향만 확인한다",
+     "on_fail": "지시어 This 가 받는 내용을 4번 문장에서 찾아 적는다"
+    }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": {
+    "predicted": 0.45,
+    "drivers": [
+     "the longer 비례 구조에서 원인 절의 가치를 판단해야 한다",
+     "maintain 과 hallmark 가 긍정 인상을 준다",
+     "3점"
+    ]
+   },
+   "required_vocab": [
+    "hype",
+    "absorption",
+    "fusion",
+    "maintain"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답 근거를 11번의 믿음 절과 2번 과대광고의 동일성으로 잡았다",
+      "⑤ confirmed_at.note 의 작업 이력 문구(이관)를 지웠다"
+     ],
+     "checked": [
+      "quote 를 지문에서 문자열 대조",
+      "note 작업 이력 부재 확인",
+      "sentence_index 와 why_correct 문장 번호 일치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷이 On the contrary · This 지시 · 이유절 · 7·8번 대비로 서로 다른 장치를 쓴다",
+      "저장 선지 문자열 결함은 note 에만 기록했다"
+     ],
+     "checked": [
+      "오답 trap 부재 확인",
+      "V12 작업 용어가 학습자 칸에 없는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "the longer 구조를 A·B로 나누는 단계가 실행 가능하다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "110초 안 실행 가능성 확인",
+      "required_vocab 이 지문에 있는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#30",
+   "measured_ability": "6번 문장의 This frustration 이 5번의 과학자 좌절을 받고, by the fact that 뒤 사실(대중이 과학자와 도전자에게 같은 신뢰를 준다)이 그 좌절을 키우는지 줄이는지 정하는 능력",
+   "design_intent": "1~4번이 인터넷에서 자격과 무관하게 누구나 의견을 내 오정보가 퍼진다고 하고, 5번이 과학자의 좌절로 좁힌다. 6번은 then 으로 좌절이 한 단계 더해지는 장면인데 diminished 를 넣었다. 과학자 입장에서 비전문가와 같은 신뢰를 받는 것은 좌절을 키우는(heightened) 사실이다.",
+   "answer_locus": {
+    "sentence_index": [
+     5,
+     6
+    ],
+    "quote": "to the general public, both the scientist and the challenger are awarded equal credibility",
+    "reasoning": "5번 문장은 평생 연구한 과학자의 작업이 몇 분 경험한 사람에게 도전받는 좌절을 말한다. 6번의 by the fact that 뒤 사실은 대중이 그 둘을 같은 신뢰도로 대한다는 것이므로, 전문성이 인정받지 못하는 상황이 더해져 좌절은 커져야(heightened) 한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번 문장의 anyone who so chooses 와 regardless of 는 「누구든 자격과 상관없이」라는 뜻을 만든다. 3번의 유치원 교사가 의료 조언을 하는 예도 자격(qualifications)을 따지지 않는 상황이라 맞다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장은 After all 로 2번을 뒷받침한다. 누구나 의견을 낼 수 있는 이유가 그것을 막는(preventing) 규제가 없기 때문이라 맞다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "4번 문장은 As a result 로 오정보가 정보처럼 퍼진다고 하고, not always easy to 로 그 둘(the two)을 구별하기(differentiate) 어렵다고 잇는다. 정보와 오정보가 섞인 결과라 맞다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "5번 문장의 only to 는 「결국 ~당하고 만다」는 실망스러운 결과를 이끈다. 평생 연구한 작업이 경험이 몇 분인 사람에게 도전받는(challenged) 것이 그 좌절의 내용이라 맞다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 both the scientist and the challenger are awarded equal credibility 가 ⑤ 문장의 by the fact that 뒤 내용이다. 과학자에게는 전문성을 무시당하는 사실이므로 This frustration 은 diminished(줄어든다)가 아니라 heightened(커진다)여야 한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       6
+      ],
+      "note": "6번 문장의 then 이 5번 좌절에 한 단계 더한다는 흐름을 보탠다. 내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다."
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "2~4번 문장에서 인터넷의 단점(자격 없는 의견 · 오정보 확산)을 한 줄로 적는다",
+     "on_fail": "1번 문장의 downside 뒤로 이어지는 One of those downsides 문장만 요약한다"
+    },
+    {
+     "step": "5번 문장에서 누가(과학자) 무엇 때문에 좌절하는지 적는다",
+     "on_fail": "only to have their work 뒤를 그대로 옮긴다"
+    },
+    {
+     "step": "6번 문장의 This frustration 이 5번 좌절을 받는지 확인하고, by the fact that 뒤 사실이 과학자에게 좋은 일인지 나쁜 일인지 정해 밑줄 낱말 방향과 비교한다",
+     "on_fail": "과학자가 그 사실을 들으면 기분이 나아질지 나빠질지 한 낱말로 적어 본다"
+    },
+    {
+     "step": "나머지 밑줄은 regardless of(①) · After all(②) · As a result(③) · only to(④)가 지정하는 방향과 맞는지 확인한다",
+     "on_fail": "표지가 없는 밑줄은 그 낱말의 반대말을 넣어 문장이 앞 문장과 모순되는지 본다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.6,
+    "drivers": [
+     "diminished 가 be ~ed by 수동 구조에 놓여 주체 계산이 필요하다",
+     "2점 문항으로 근거가 바로 앞뒤에 있다"
+    ]
+   },
+   "required_vocab": [
+    "frustration",
+    "credibility",
+    "diminish",
+    "challenge"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 6번 문장 원문 그대로이고 정답 근거를 This frustration 의 지시와 by the fact that 내용으로 잡았다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "why_correct 대응 낱말 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이전 판의 오답 trap 라벨(구문 부호 계산 실패·동어 반복 유인)이 학습자에게 낯선 작업 용어여서 지웠다 — 부정 발문이라 오답에는 trap 자체를 두지 않는다",
+      "오답 넷을 regardless of · After all · As a result · only to 로 각각 설명했다"
+     ],
+     "checked": [
+      "오답 trap 부재 확인",
+      "how_to_reject 근거 문장 번호 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계의 「좋은 일인가 나쁜 일인가」 판단이 수동 구조를 피해 방향을 잡게 한다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "90초 안 실행 가능성 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2022#30",
+   "measured_ability": "2~5번 문장이 유기농 방식의 대규모 도입에 반대하는 근거를 나열하고 있음을 보고, In addition 으로 이어지는 4번 문장이 같은 반대 근거여야 하므로 거름·녹비 사용에 대해 이점(benefits)이 아니라 결점(drawbacks)을 말해야 함을 판정하는 능력",
+   "design_intent": "1번이 유기농이 생물권에 덜 해롭다는 견해를 소개하고 2번 however 가 대규모 도입의 문제(수확량 감소·비용 증가)로 돌린다. 3번(무기 질소 필요) · 4번(In addition) · 5번(잡초 제거 노동)이 그 문제를 덧붙이는 나열이다. 4번의 benefits 는 거름·녹비가 친환경이라는 상식으로 그럴듯하지만 In addition 이 나열을 이어 가는 자리라 반대 근거여야 한다. 6번 however 에서야 유기농 일부 방식의 기여로 돌아선다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     4
+    ],
+    "quote": "Large-scale adoption of “organic” farming methods, however, would ① reduce yields and increase production costs for many major crops",
+    "reasoning": "2번 문장이 유기농 대규모 도입의 문제를 제시한 뒤, 3번은 because 로 유기 질소의 한계를, 4번은 In addition 으로 또 하나의 문제를 덧붙이는 자리다. 문제 나열의 한 항목이 거름·녹비의 광범위한 사용에 따르는 이점(benefits)일 수는 없으므로 4번은 결점(drawbacks)이어야 한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번 문장의 however 는 1번의 「유기농이 덜 해롭다」는 견해와 대조해 단점을 꺼낸다. and 로 이어진 increase production costs 와 함께 수확량을 줄인다(reduce)는 단점 나열이 같은 방향이라 맞다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장의 because 절이 유기 질소 공급이 제한적이거나 더 비싸다고 하므로, 생산성 유지에는 무기 질소가 필수적(essential)이라는 주절이 그 이유와 맞는다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 reduce yields and increase production costs 가 시작한 단점 나열을 4번 문장의 In addition 이 잇는다. 같은 나열 안에서 거름·녹비 사용에 따른 benefits 는 방향이 반대이므로 ③은 drawbacks 쪽으로 바뀌어야 한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       2,
+       4
+      ],
+      "note": "5번 문장이 잡초 제거 노동이라는 또 하나의 단점으로 나열을 이어 가 같은 방향을 확인한다. 내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "how_to_reject": "5번 문장은 화학 약품을 못 쓰면 잡초 제거에 손 노동이 많이 든다는 단점이다. 사회가 부유해질수록 그 일을 하려는 사람이 더 적다(fewer)는 진술이 노동 확보의 어려움을 더해 같은 방향이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "6번 문장은 however 로 앞의 단점 나열에서 돌아서 유기농의 일부 방식(윤작·작물-가축 결합)을 평가한다. 돌아선 뒤이므로 지속 가능성에 기여한다(contributions)는 긍정이 맞다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "1번 문장의 It has been suggested 를 「남의 견해」로 표시하고, 2번 however 뒤가 글쓴이의 반론임을 적는다",
+     "on_fail": "2번 문장의 reduce yields 와 increase production costs 에 표시해 반론 내용을 잡는다"
+    },
+    {
+     "step": "3~5번 문장의 because · In addition · and 를 보고 2번 반론을 이어 가는 나열인지 확인한다",
+     "on_fail": "각 문장이 유기농 도입에 유리한지 불리한지 +/− 로 표시한다"
+    },
+    {
+     "step": "나열 안의 밑줄 낱말이 모두 불리한(−) 방향인지 보고, 혼자 + 인 밑줄을 찾는다",
+     "on_fail": "그 밑줄에 반대말을 넣어 In addition 앞 문장과 이어지는지 확인한다"
+    },
+    {
+     "step": "6번 문장의 however 이후는 방향이 바뀌므로 ⑤는 + 가 맞는지 따로 확인한다",
+     "on_fail": "6번 문장 주어 Some methods 가 1번 견해 쪽인지 2번 반론 쪽인지 다시 본다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.6,
+    "drivers": [
+     "benefits 가 「거름은 친환경」 상식에 기대어 그럴듯하다",
+     "나열 표지 In addition 을 놓치면 방향을 못 잡는다",
+     "2점"
+    ]
+   },
+   "required_vocab": [
+    "yield",
+    "manure",
+    "legume",
+    "drawback"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "이전 판 design_intent·reasoning 이 「긍정 낱말은 however 뒤에만 온다」를 조건 없이 규칙화했다는 결함으로 revise. 이 지문에서 2~5번이 단점 나열이고 6번 however 가 전환이라는 조건으로 바꿔 썼다",
+      "①의 how_to_reject 에서 however 를 1번 견해와의 대조 표지로, increase 를 and 로 이어진 단점 짝으로 구별해 다시 썼다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "design_intent·reasoning·solve_procedure 에 무조건 규칙 문구가 남지 않았는지 대조",
+      "① how_to_reject 의 however 역할 서술 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이전 판에서 맞는 낱말에 붙은 trap 라벨(역설 진술 오인 등)을 모두 지웠다 — 부정 발문이라 오답은 맞는 진술이다",
+      "오답 넷을 2번 however 대조 · 3번 because · 5번 단점 · 6번 전환으로 각각 다르게 설명했다"
+     ],
+     "checked": [
+      "오답 trap·why_tempting 부재 확인",
+      "how_to_reject 근거 문장 번호 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "+/− 표시 단계가 지문을 처음 보는 학생도 바로 할 수 있다",
+      "drawback 은 지문에 없지만 바른 낱말(수정 후)로 정답 설명에 필요하다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "90초 안 실행 가능성 확인",
+      "on_fail 이 단계마다 다른지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2209#30",
+   "measured_ability": "5번 문장의 since 이유절(공급된 운송량이 수요를 넘었다)이 「팔리지 않은 좌석」이라는 4번 상황을 가리킴을 보고, 그 경우 기회가 잡힌(seized) 것이 아니라 사라진(lost) 것이어야 함을 판정하는 능력",
+   "design_intent": "3번이 운송은 저장될 수 없다고 하고 4번이 팔리지 않은 상품(남겨 둘 수 있음)과 팔리지 않은 좌석(되돌릴 수 없음)을 대조한다. 5번 In this case 는 그 팔리지 않은 좌석 상황이며 since 절이 공급 초과를 이유로 든다. seized 는 「기회」와 자주 붙는 짝말이라 그럴듯하지만 이유절과 반대다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5
+    ],
+    "quote": "since the amount of transport being offered has exceeded the demand for it",
+    "reasoning": "5번 문장의 since 절은 제공된 운송량이 수요를 넘었다는 것, 곧 4번의 팔리지 않은 좌석·화물칸이 생겼다는 것이다. 팔리지 않은 좌석은 나중에 되살릴 수 없다고 4번이 말했으므로 그 기회는 잡힌 것이 아니라 잃어버린(lost) 것이어야 한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "how_to_reject": "2번 문장은 For instance 로 1번의 「한 부문의 수요가 다른 부문에서 파생된다」를 예시한다. 소비자 구매가 제조·자원 추출·운송 활동에 대한 수요(demands)를 만든다는 진술이 파생 수요 설명과 맞다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "how_to_reject": "3번 문장의 movement cannot be stored 는 4번에서 팔리지 않은 상품은 선반에 남지만 좌석은 되돌릴 수 없다는 대조로 다시 설명된다. 운송은 저장(stored)되지 않는다는 낱말이 그 대조와 맞다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "how_to_reject": "4번 문장의 but 뒤는 팔리지 않은 좌석이 cannot be brought back as additional capacity 라는 내용이다. 「나중에(later)」 추가 용량으로 되돌릴 수 없다는 것이 3번의 저장 불가와 같은 방향이라 맞다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "정답 근거의 the amount of transport being offered has exceeded the demand 가 ④ 문장 In this case 의 상황(팔리지 않은 좌석)이다. 공급이 남아 되살릴 수 없게 된 경우이므로 opportunity 는 seized(잡힌)가 아니라 lost(잃은)여야 한다.",
+     "confirmed_at": {
+      "sentence_index": [
+       4,
+       5
+      ],
+      "note": "내부 기록: 저장된 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이며 끝에 각주·쪽번호가 섞여 있다. 선지 판정은 지문 속 원문자 밑줄 낱말 기준으로 했다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "how_to_reject": "6번 문장은 파생 수요를 공급과 맞추기 어렵다고 하고, 운송 회사가 여분 용량을 두려는 이유를 든다. 맞추기 어려운 수요라 예측하지 못한(unforeseen) 수요에 대비한다는 것이 맞다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "3번 문장의 cannot be stored 를 「운송은 남겨 둘 수 없다」로 적는다",
+     "on_fail": "What is different about transport 뒤의 두 절에 표시한다"
+    },
+    {
+     "step": "4번 문장의 but 앞뒤를 상품/좌석 두 칸으로 나눠 각각 「남는다/못 되돌린다」를 적는다",
+     "on_fail": "remain on the shelf 와 cannot be brought back 두 어구만 비교한다"
+    },
+    {
+     "step": "5번 문장의 In this case 가 4번의 어느 칸을 가리키는지 정하고, since 절(공급>수요)을 읽은 뒤 밑줄 낱말이 그 결과와 맞는지 판정한다",
+     "on_fail": "밑줄 대신 lost 를 넣어 since 절과 이어지는지 비교한다"
+    },
+    {
+     "step": "나머지 밑줄은 For instance(①) · 저장 불가(②) · cannot be brought back(③) · difficult to reconcile(⑤)과 방향이 맞는지 확인한다",
+     "on_fail": "방향이 애매한 밑줄은 그 문장이 1번의 파생 수요 설명을 잇는지 보고 정한다"
+    }
+   ],
+   "time_budget_sec": 105,
+   "difficulty": {
+    "predicted": 0.5,
+    "drivers": [
+     "opportunity 와 seized 가 흔한 짝말이라 어색함이 안 느껴진다",
+     "In this case 가 4번 문장 후반을 받는다",
+     "3점"
+    ]
+   },
+   "required_vocab": [
+    "derived demand",
+    "seize",
+    "exceed",
+    "unforeseen"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답 근거를 5번 since 절과 4번 좌석 상황으로 잡은 원장 판정을 보존했다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "In this case 가 4번 문장을 가리키는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "이전 판 ②·③ why_tempting 이 대체 낱말(sold · immediately)을 문맥 근거 없이 가정했다는 결함으로 revise. 부정 발문이라 오답에 why_tempting 자체를 두지 않고, ②는 4번 대조로, ③은 cannot be brought back 으로 맞음을 설명했다"
+     ],
+     "checked": [
+      "오답 trap·why_tempting 부재 확인",
+      "② how_to_reject 와 ③ how_to_reject 가 서로 다른 어구를 지목하는지 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "상품/좌석 두 칸 나누기가 In this case 의 지시 대상을 실행 가능한 행동으로 만든다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "105초 실행 가능성 확인"
+     ]
+    }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "R-VOCAB",
+  "n_analyzed": 10,
+  "recurring_traps": [
+   {
+    "trap": "상식 극성 유인",
+    "count": 9,
+    "signature": "정답 밑줄 낱말이 일상 상식으로는 자연스러운 쪽(thick · abandon · stronger · drives · low · maintain · diminished · benefits · seized)이고, 지문의 구조 표지(For example · because · since · In addition · this emotional state · the longer)가 반대 방향을 지정한다. 부정 발문 9문항에서 문항당 한 번만 셌다"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 1,
+    "signature": "네모 3칸 문항(M2406#30)에서 두 칸이 맞는 조합 — 같은 문항의 두 선지(①·⑤)를 문항 단위 1회로 셌다"
+   }
+  ],
+  "answer_locus_pattern": "10문항 중 9문항이 정답 밑줄 문장의 바로 앞이나 뒤 문장, 또는 같은 문장의 이유·목적 절(because · since · this emotional state · In this case · For example)과 맞물려 닫힌다. 2023#30 은 11번 문장과 2번 문장의 동일 믿음 연결이 필요하다",
+  "procedure": [
+   "글의 주장 방향(찬반·증감)을 첫 일반 진술에서 한 줄로 적는다",
+   "밑줄 문장마다 붙은 표지(For example · because · since · but · In addition · 지시어)가 무엇을 받는지 문장 번호로 적는다",
+   "표지가 지정하는 방향과 밑줄 낱말의 방향을 비교하고, 혼자 어긋난 밑줄에 반대말을 넣어 앞뒤 문장과 이어지는지 확인한다",
+   "양보문(This is not to say)과 삽입 일반론을 주장과 갈라 읽는다"
+  ],
+  "failure_modes": [
+   "밑줄 문장 하나만 읽고 상식으로 판단해 인접 문장의 지시어·이유절을 놓친다",
+   "양보문이나 삽입 일반론(M2506#30 3번 · 2025#30 6번 삽입구)을 글의 주장으로 읽는다",
+   "「부정적 낱말이 답」이라는 요령 — 이 청크의 정답 abandon·diminished 는 부정적이지만 stronger·benefits·maintain·seized 는 긍정적이다"
+  ],
+  "time_budget_sec": 105,
+  "open_questions": [
+   "9문항(M2406#30 제외)의 저장 선지 문자열이 밑줄 낱말이 아니라 다음 밑줄까지의 지문 구간이고 ⑤ 끝에 각주·쪽번호가 섞여 있다. 분석으로는 고칠 수 없어 confirmed_at.note 에만 기록했다 — 선지 표시를 원문자 밑줄 낱말로 다시 뜨는 작업이 필요하다",
+   "M2406#30 은 sentences 목록 8번이 선지표 중복이다 — 근거 번호로는 쓰지 않았다",
+   "「상식 극성 유인」은 (C) 표에 없는 라벨이라 등재를 제안한다",
+   "실제 반려는 M2406#30(setter) · 2022#30(setter) · M2209#30(analyst) 3건으로 원장 결함에서 나왔고, 나머지 7문항은 자체 반려가 없었다 — 원장이 짚은 결함 외에 세 자가 새로 찾은 것이 없다는 점은 검수 자가 겹친다는 신호일 수 있다"
+  ]
+ }
+}

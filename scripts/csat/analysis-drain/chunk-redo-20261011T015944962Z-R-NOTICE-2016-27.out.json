@@ -1,0 +1,126 @@
+{
+  "chunk": 11,
+  "type_id": "R-NOTICE",
+  "type_name": "안내문 일치",
+  "analyses": [
+    {
+      "item_id": "2016#27",
+      "measured_ability": "선지의 기간 표현(두 달)을 안내문 Dates 항목의 시작일·종료일과 대조해, 같은 달 안의 날짜 범위가 기간으로 몇 달인지 환산하는 능력",
+      "design_intent": "발문이 「일치하지 않는 것」을 묻는다. 선지 넷은 서두 세 문장(20th · famous artists · first day)과 요금 항목(Free admission)을 한국어로 옮긴 참 진술이고, ④만 'November 1 － 30'이라는 한 달 범위를 '두 달'로 바꿨다. 학습자가 서두의 행사 소개 문장보다 항목 목록(Dates)의 숫자 범위를 직접 환산해야 답이 서도록 설계했다.",
+      "answer_locus": {
+        "sentence_index": [4],
+        "quote": "Dates: November 1 － 30",
+        "reasoning": "시작일과 종료일이 모두 November 안에 있으므로 행사 기간은 한 달(30일) 이내다. '두 달 동안'이라는 기간 성분은 이 범위와 맞지 않는다."
+      },
+      "choices": [
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "4번 문장의 'November 1 － 30'은 시작(1일)과 끝(30일)이 같은 달이라 기간이 한 달인데, 선지 ④ '두 달 동안 열린다'는 기간 성분만 '두 달'로 바꿨다. 행사가 열린다는 사실은 참이고 길이만 어긋나므로 이것이 일치하지 않는 선지다.",
+          "confirmed_at": { "sentence_index": [4], "note": "Dates 항목 하나로 확정된다" }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "1번 문장의 'the 20th Virginia Art Show'가 '스무 번째 개최되는 행사'와 그대로 대응해 참이다. 내용이 맞으므로 「일치하지 않는 것」의 답이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "2번 문장의 'Works by famous artists such as Mabel Green, Theresa Peterson, and Ronald McKuen will be displayed'가 '유명한 예술가의 작품이 전시된다'와 대응해 참이다. 답이 될 수 없다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "3번 문장의 'The Virginia Philharmonic will perform on the first day of the show'에서 공연 주체(Virginia Philharmonic)와 시점(first day)이 선지와 둘 다 같아 참이다. 답이 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "4번 문장 요금 항목 끝의 'Free admission for Virginia residents'가 대상(Virginia 주민)과 조건(무료입장) 모두 선지와 같아 참이다. 답이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "발문의 「일치하지 않는」에 표시하고, 선지 다섯을 먼저 읽어 각 선지의 핵심 성분(횟수 · 대상 · 시점 · 기간 · 요금 대상)에 밑줄을 긋는다", "on_fail": "성분이 안 보이면 선지에서 숫자·날짜·사람 이름이 들어간 낱말부터 표시한다" },
+        { "step": "서두 문장(1~3번)에서 '20th' · 'famous artists' · 'first day'를 찾아 ①②③과 하나씩 대조한다", "on_fail": "주체(누가 공연하나)와 시점(언제)을 따로 확인한다 — 한쪽만 맞아도 참으로 넘기지 않는다" },
+        { "step": "항목 목록에서 Dates의 시작 달과 종료 달을 확인하고 ④의 '두 달'과 기간을 환산해 비교한다", "on_fail": "날짜 범위는 시작·종료가 같은 달인지 다른 달인지부터 적어 본다" },
+        { "step": "Entrance Fees 항목 끝의 무료입장 대상을 ⑤의 대상과 맞춘 뒤, 어긋난 성분이 하나인 선지를 고른다", "on_fail": "어긋난 선지가 둘 이상 보이면 각 선지의 대응 항목을 다시 짚어 성분을 한 개씩 비교한다" }
+      ],
+      "time_budget_sec": 50,
+      "difficulty": { "predicted": 0.92, "drivers": ["항목형 안내문", "같은 달 날짜 범위의 기간 환산 한 번"] },
+      "required_vocab": ["philharmonic", "admission", "resident"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "revised": true, "findings": ["원장 지적대로 design_intent 에서 참 선지를 '미끼'로 부르던 틀을 걷고 '참 진술'로 고쳤다", "quote 'Dates: November 1 － 30' 은 4번 문장 안에 문자 그대로 있다"], "checked": ["quote 문자열 대조", "why_correct 의 'November 1 － 30'↔'두 달' 대응", "design_intent·reasoning·절차에 '미끼' 표현이 남지 않았는지 재확인"] },
+        { "persona": "analyst", "verdict": "pass", "revised": true, "findings": ["초안 ② why_tempting('예시 3명이라 과장')이 억지 — 부정 발문이라 오답은 참 진술이므로 trap·why_tempting 을 모두 삭제하고 how_to_reject 를 대응 위치 확인으로 바꿨다", "재검수: 선지별 how_to_reject 가 각기 다른 문장·어구를 짚는다 → pass"], "checked": ["①②③⑤에 trap·why_tempting 부재 확인", "선지별 근거 어구 중복 여부", "why_correct 첫머리 표현 점검"] },
+        { "persona": "tutor", "verdict": "pass", "findings": [], "checked": ["절차 4단계가 지문 전에 실행 가능한지", "50초 안에 끝나는지", "required_vocab 이 ③⑤ 대조에 실제로 필요한지"] }
+      ]
+    },
+    {
+      "item_id": "2015#27",
+      "body_recovered": true,
+      "measured_ability": "선지의 제출 방식(직접 방문)을 안내문 How to sign up 항목의 제출 수단(by email)과 대조해, 행위는 같고 수단만 바뀐 것을 찾는 능력",
+      "design_intent": "발문이 「일치하지 않는 것」을 묻는다. ①②③⑤는 서두(FREE program for local teens) · Classes · Time & Place · 마지막 안내 문장을 옮긴 참 진술이고, ④는 '등록 신청서를 제출한다'는 행위는 그대로 둔 채 수단을 email에서 '직접 방문'으로 바꿨다. 숫자(20명 · 날짜)보다 수단·조건 성분을 대조하게 만든 설계다.",
+      "answer_locus": {
+        "sentence_index": [5],
+        "quote": "Registration forms must be sent by email to the address below by 6:00 pm, November 28.",
+        "reasoning": "제출 수단이 'by email'로 지정되어 있다. 방문 제출을 허용하는 문장은 안내문 어디에도 없으므로 '직접 방문하여 제출해야 한다'는 수단 성분이 어긋난다."
+      },
+      "choices": [
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "5번 문장의 'must be sent by email'이 선지 ④의 '직접 방문하여 제출해야 한다'와 수단 자리에서 충돌한다. '제출해야 한다'(must)라는 의무 성분은 같고 email이 방문으로만 바뀌었으므로 일치하지 않는 선지다.",
+          "confirmed_at": { "sentence_index": [5], "note": "파서 본문 결함 표시가 있었으나 raw_block 원문과 passage 가 일치함을 확인" }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "how_to_reject": "2번 문장의 'our FREE program for local teens'가 '지역의 십 대들을 위한 무료 프로그램'과 대상·요금 모두 대응해 참이다. 답이 아니다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "how_to_reject": "3번 문장의 'Classes with fewer than 20 applicants will be canceled'가 '20명 미만'(fewer than 20)과 '취소'를 그대로 옮겨 참이다. 답이 아니다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "how_to_reject": "4번 문장의 'All classes will take place in the Simpson Building'이 '모든 수업'(All classes)과 장소까지 선지와 같아 참이다. 답이 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "how_to_reject": "7번 문장의 'please visit our website or send an email to bill@greenhills.org'가 '웹사이트나 이메일'과 대응해 참이다. 답이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        { "step": "발문의 「일치하지 않는」에 표시하고, 선지마다 바뀌기 쉬운 성분(대상 · 인원 수 · 장소 범위 · 제출 수단 · 문의 경로)에 밑줄을 긋는다", "on_fail": "성분이 안 보이면 선지의 서술어 앞 부사어(직접 방문하여 · 모든)부터 표시한다" },
+        { "step": "안내문의 소제목(Classes · Time & Place · How to sign up)을 찾아 각 선지가 어느 항목에 대응하는지 짝짓는다", "on_fail": "소제목이 안 보이면 선지의 핵심어(20명 · Simpson Building · 신청서)를 영어로 바꿔 지문에서 찾는다" },
+        { "step": "How to sign up 항목에서 신청서를 보내는 방법(by ~)을 찾아 ④의 '직접 방문'과 수단을 비교한다", "on_fail": "인원·날짜만 맞추고 넘어가지 말고 '어떤 방법으로'에 해당하는 전치사구를 따로 확인한다" },
+        { "step": "남은 선지(①②③⑤)를 대응 문장의 범위어(FREE · fewer than · All · or)와 대조해 모두 참인지 확인한 뒤 어긋난 하나를 고른다", "on_fail": "두 선지가 의심되면 각각의 대응 문장을 다시 짚고 바뀐 성분이 실제로 있는 쪽만 남긴다" }
+      ],
+      "time_budget_sec": 50,
+      "difficulty": { "predicted": 0.93, "drivers": ["소제목으로 나뉜 안내문", "수단 성분 하나만 바뀜"] },
+      "required_vocab": ["registration", "applicant", "sign up"],
+      "reviews": [
+        { "persona": "setter", "verdict": "pass", "findings": ["quote 는 5번 문장 그대로", "body_ok:false 였으나 원문과 대조해 복원 표시"], "checked": ["quote 문자열 대조", "why_correct 의 'must be sent by email'↔'직접 방문하여 제출해야' 대응", "design_intent 에 참 선지를 함정으로 부르는 표현 부재"] },
+        { "persona": "analyst", "verdict": "pass", "revised": true, "findings": ["원장 지적: ①②③⑤에 어휘 함정·범위 과대·지문 밖 상식 라벨이 붙어 있었다 — 부정 발문이라 참 진술이므로 trap·why_tempting 을 모두 지우고 how_to_reject 를 대응 문장 확인으로 고쳤다", "⑤는 7번 문장의 website·email 줄 대응으로 서술", "재검수 → pass"], "checked": ["네 오답의 trap·why_tempting 부재", "선지별 근거 문장 번호(2·3·4·7)가 서로 다른지", "절차 4단계 범위어 서술과 how_to_reject 일치"] },
+        { "persona": "tutor", "verdict": "pass", "findings": [], "checked": ["절차 실행 가능성", "50초 예산", "required_vocab 이 ②④ 판정에 필요한지"] }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-NOTICE",
+    "n_analyzed": 2,
+    "recurring_traps": [],
+    "answer_locus_pattern": "2개 모두 정답 근거가 서두 소개문이 아니라 항목 목록(Dates · How to sign up) 안에 있다. 각 문항을 한 번씩만 셌다.",
+    "procedure": [
+      "발문의 부정어를 표시하고 선지마다 바뀔 수 있는 성분(대상 · 수치 · 기간 · 수단 · 범위어)에 밑줄",
+      "선지를 안내문 소제목·항목과 짝지어 성분 단위로 대조",
+      "숫자 범위는 환산(같은 달인가), 방식은 전치사구(by ~)까지 확인"
+    ],
+    "failure_modes": ["숫자만 대조하고 제출 수단 같은 조건 성분을 놓침", "날짜 범위를 기간으로 환산하지 않고 숫자 존재만 확인"],
+    "time_budget_sec": 50,
+    "open_questions": ["표본 2문항 — 정답 위치 분포는 type_answer_distribution(keyed 57, ① 0회)을 쓰되 유의성 검정 전이므로 절차에 넣지 않았다", "tutor 반려가 두 문항 모두 0건 — 쉬운 항목형이라 절차 자가 자의 변별력이 낮을 수 있다"]
+  }
+}

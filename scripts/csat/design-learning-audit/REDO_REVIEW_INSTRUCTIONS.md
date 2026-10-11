@@ -11,3 +11,14 @@
    {"group":G,"items":[{"file","id","self_solved_matches_answer":bool,"ledger":[{"code","resolved":bool,"note"}],"new_defects":[{"code","note"}],"verdict":"pass|revise"}]}
    note ≤120자, 원문 인용 12자 이하. revise 면 무엇을 고쳐야 하는지 note 에 적는다(직접 고치지 않는다).
 5. 답: 문항별 판정 · 미해소 원장 결함 · 새 결함 요약.
+
+## 2026-10-11 추가 — 275문항 교정 검수(`redo275-review-plan.json`, 출력 `redo275-review-G<GG>.json`)
+
+교정 작성자의 3인 검수는 **같은 작성자가 한 것**이라 독립이 아니다. 아래를 반드시 본다.
+
+6. **칸 사이 문장 번호**: design_intent · answer_locus · why_correct · how_to_reject · confirmed_at · solve_procedure 가 같은 문장을 같은 번호로 부르는가. 번호는 입력 청크 `sentences` 목록 번호(1부터)만. 범위 밖 번호는 사실 오류.
+7. **발문 극성**: 선택≠참거짓 유형이라도 발문이 긍정형(「일치하는 것은?」 · 네모 어휘 「가장 적절한 것은?」)이면 오답이 **틀린** 진술이다 — trap · why_tempting 이 있어야 하고, 「맞는 진술」이라 쓰면 사실 오류. 부정형이면 반대.
+8. **틀로 찍은 설명**: 같은 파일의 여러 문항에서 how_to_reject · design_intent 가 문항 내용 없이 같은 꼴이면 `templated` 로 적는다.
+9. **`body_recovered: true`**: 입력 청크의 `passage` · `raw_block` 과 분석 인용이 실제로 맞는지 대조한다. 맞지 않으면 사실 오류.
+10. 원문 확인 없이 정할 수 없는 판단(밑줄 범위 · 도표 값 · 깨진 선지)을 확정처럼 쓰면 `needs_source` 로 적는다.
+11. **`confirmed_at.note` 는 학습자 칸이 아니다** — 학습자 화면 코드는 `confirmed_at` 을 읽지 않는다(grep 확인 · 3차 정독 README 정정). 원문 결손 · 문장 목록 사정 같은 작업 메모는 _PROMPT 가 **바로 이 칸에** 쓰라고 지시한다. 여기 있는 작업 메모는 결함이 아니다(원장의 M2106#38·#39 `other` 도 같은 오해 — 해소로 본다). 학습자 칸은 measured_ability · design_intent · answer_locus.reasoning · 선지 why_correct · why_tempting · how_to_reject · trap.

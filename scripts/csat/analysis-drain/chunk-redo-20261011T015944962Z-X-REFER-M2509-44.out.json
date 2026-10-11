@@ -1,0 +1,276 @@
+{
+ "chunk": 35,
+ "type_id": "X-REFER",
+ "type_name": "장문 지칭",
+ "analyses": [
+  {
+   "item_id": "M2509#44",
+   "measured_ability": "여성 인물 셋(구매자 Helen·판매자 Anna·동거인 Julia)이 모두 she/her로 받히는 글에서, 게시글·메시지·대면 대화 각각의 작성자와 수신자를 정해 다섯 밑줄의 지시 대상을 가르는 능력",
+   "design_intent": "발화 형식을 셋으로 나눴다 — 판매 게시글 속 (a), 메시지 속 (d), 그리고 건물 앞 대면 대화 속 (b)·(c)·(e). (e)는 (D)에서 Julia가 Helen에게 가방을 건네며 하는 말 안에 있다. 형식마다 말하는 사람을 다시 정해야 하고, 인쇄 순서 (A)(B)(C)(D)가 사건 순서 (A)(C)(B)(D)와 달라 (b)에 앞 단락의 Anna를 이어 붙이게 만든다.",
+   "answer_locus": {
+    "sentence_index": [7, 9, 10],
+    "quote": "(b) She said, “You must be Julia!”",
+    "reasoning": "[7]에서 건물에 도착해 Julia를 알아보는 행위자는 Helen이고, [9]의 She는 상대를 “You must be Julia!”라고 부르며, [10]에서 the woman이 “Yes!”로 자신이 Julia임을 확인한다. 상대를 Julia로 확인하는 쪽은 알아본 Helen이므로 (b)=Helen이고, 나머지 넷은 판매자 Anna다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "게시글 화자 오인",
+     "why_tempting": "(A)가 Helen의 기쁨으로 시작해 Helen이 주인공이라, 인용 속 (a) I도 글 첫 문장의 Helen으로 넣기 쉽다.",
+     "how_to_reject": "[4] Anna, though, had put one up for sale 이 글을 올린 사람을 Anna로 정하고, [5] The posting read 가 인용이 그 게시글임을 밝힌다. 게다가 I’m selling my favorite plant 는 파는 사람의 말이라 사려는 Helen일 수 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "(b) She가 하는 말 “You must be Julia!”는 상대에게 건네는 확인이고 [10]의 응답자 the woman이 Julia다. 그 상대를 [7]에서 알아본 사람이 Helen이므로 (b) She=Helen으로, Anna를 가리키는 나머지 넷과 다르다.",
+     "confirmed_at": { "sentence_index": [7, 9, 10], "note": "사건 순서상 (C)의 [22] my housemate, Julia, can meet you 가 Helen과 Julia의 만남을 미리 정해 둔다." }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "소유격 vs 명사구 혼동",
+     "why_tempting": "밑줄 (c) My housemate 의 My가 지금 말하는 Julia라서, 밑줄 전체를 Julia로 잡게 된다.",
+     "how_to_reject": "밑줄은 My가 아니라 명사구 housemate 전체다. [22]에서 Anna가 my housemate, Julia라고 했으므로 Julia의 housemate는 Anna이고, [16]에서 Dragon’s Tail을 가져가도 된다고 허락한 사람도 식물 주인 Anna다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "직접인용 청자 오인",
+     "why_tempting": "인쇄 순서로는 (B)에서 Julia가 식물 가방을 들고 먼저 나와, (C)의 (d) your plant 를 가방을 든 Julia의 식물로 읽기 쉽다.",
+     "how_to_reject": "[17] Helen immediately messaged the seller 가 메시지 수신자를 판매자로 정하고, [21] Anna replied 가 그 판매자가 Anna임을 확인한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "화자 자기지시 오인",
+     "why_tempting": "(e)가 든 말의 화자가 Julia이고 바로 앞에 조언 요청([29])을 받은 사람도 Julia라, 조언할 her를 Julia 자신으로 읽기 쉽다.",
+     "how_to_reject": "[30]에서 Julia는 I’m not a plant expert 라며 자신을 조언자에서 빼고 Anna kept them away from windows 로 Anna의 관리법을 전한다. 이어 [31]의 her와 [32]의 She would be happy to offer advice 는 그 Anna다."
+    }
+   ],
+   "solve_procedure": [
+    { "step": "다섯 밑줄마다 그 말이 게시글·메시지·대면 대화 중 어디에 실렸는지 인용을 여는 동사(read, messaged, replied, said)로 표시한다", "on_fail": "인용 여는 동사가 밑줄 문장에 없으면 그 인용이 시작된 앞 문장까지 올라가 동사를 찾는다" },
+    { "step": "인물 셋에 역할을 붙인다 — 사는 사람, 파는 사람(seller), 동거인(housemate)", "on_fail": "역할 명사 seller·housemate 가 나오는 문장을 찾아 이름과 짝지어 적는다" },
+    { "step": "인용 속 밑줄은 I·my를 그 형식의 작성자로, you·your를 수신자로 바꿔 적는다", "on_fail": "작성자가 안 보이면 그 인용에 답하는 사람을 찾고, 답하는 사람의 상대편을 작성자로 넣는다" },
+    { "step": "인용 밖 대명사 밑줄은 같은 장면에서 상대를 알아보는 쪽인지, 이름으로 불리는 쪽인지 행위 관계로 가른다", "on_fail": "행위로 안 갈리면 바로 다음 응답 문장의 화자를 보고 대화의 두 사람을 확정한다" },
+    { "step": "다섯 칸에 적은 이름을 비교해 하나만 다른 칸을 고르고, 명사구 밑줄은 소유격이 아니라 명사구 전체의 지시 대상으로 다시 확인한다", "on_fail": "두 칸 이상이 달라 보이면 단락을 사건 순서로 다시 놓고 각 단락 첫 문장의 행위자를 다시 적는다" }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": { "predicted": 0.7, "drivers": ["여성 인물 셋이 모두 she/her로 받힌다", "게시글·메시지·대면 대화가 섞인다", "다수 지시체가 주인공이 아닌 Anna다", "(B)가 인쇄순 두 번째지만 사건순 세 번째"] },
+   "required_vocab": ["seller", "housemate", "posting"],
+   "reviews": [
+    { "persona": "setter", "verdict": "pass", "revised": true, "findings": ["원장 결함 반영 — 이전 design_intent가 (e)를 메시지 속 발화로 묶었으나 (e)는 (D)에서 Julia가 Helen에게 가방을 건네며 하는 대면 발화다. design_intent를 '게시글 (a) · 메시지 (d) · 대면 (b)(c)(e)'로 고쳤고, 절차 1단계와 ⑤ how_to_reject 도 [30]·[31] 대면 장면으로 맞췄다", "quote 를 [9]에서 굽은 따옴표 그대로 복사했다"], "checked": ["design_intent의 발화 형식 분류를 [5]·[17]·[21]·[26]~[32]와 대조", "quote를 지문 [9]와 문자열 대조", "정답표 2와 correct 선지 대조", "solve_procedure 1단계와 ⑤ 배제 설명에 메시지 분류가 남지 않았는지 재확인"] },
+    { "persona": "analyst", "verdict": "pass", "findings": ["오답 넷의 유인이 각각 다르다 — ① 첫 문장 주인공, ③ 소유격 My, ④ 인쇄순 가방 든 Julia, ⑤ 조언 요청 받은 화자", "③의 배제가 [22]의 my housemate, Julia 상호 관계에 근거해 '같은 문장에 이름이 나와서' 식 배제가 아니다"], "checked": ["why_tempting 네 개가 서로 다른 단서를 쓰는지", "how_to_reject 마다 [N] 위치가 있는지", "trap 라벨과 오류 방식(화자·청자·소유격) 대응"] },
+    { "persona": "tutor", "verdict": "pass", "findings": ["절차가 정답 이름을 알려 주지 않고 형식→역할→대명사 치환 순으로 실행 가능하다", "on_fail 다섯이 서로 다른 다음 행동을 준다"], "checked": ["금지 표현 여부", "required_vocab 세 낱말이 지문에 있는지", "75초 안 실행 가능성"] }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2409#44",
+   "measured_ability": "의사 친구 Alex·주인공 Sean·개 Toby가 나오는 글에서 인용문의 화자와 청자를 구분해 you·I·he의 지시 대상을 정하고, 사람이 아닌 개를 부르는 you를 가려내는 능력",
+   "design_intent": "(A)·(D)는 Sean과 Alex의 대화, (B)·(C)는 Sean과 개 Toby의 산행이다. (a)는 Alex가 Sean에게 하는 말 속 You라 화자가 Alex, 청자가 Sean이고, (c)는 Sean이 Toby에게 하는 말 속 You라 청자가 개다. 같은 You라도 말하는 사람이 바뀌면 청자가 바뀐다는 점을 (a)와 (c)에 나란히 걸었다.",
+   "answer_locus": {
+    "sentence_index": [16],
+    "quote": "Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am",
+    "reasoning": "[16]의 분사구에서 Sean이 발견한 대상이 Toby이고, 주절 Sean said 가 화자를 Sean으로 정한다. 그 말 속 as excited as I am 의 I가 Sean이므로 (c) You는 그와 비교되는 상대 Toby다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "직접인용 화자·청자 혼동",
+     "why_tempting": "(a)가 든 [4]의 문장 첫머리가 Concerned about Sean 이라 Sean 이름이 먼저 보이고, he said 의 he를 Sean으로 읽으면 You가 Alex처럼 보인다.",
+     "how_to_reject": "[3]에서 Sean이 전화로 Alex에게 불평했고, [4]의 he는 Sean을 걱정하는 쪽인 Alex다. 화자 Alex가 Come see me for medical treatment([5])라고 하므로 청자 (a) You는 Sean이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "호격 대상 혼동",
+     "why_tempting": "(b) he 바로 뒤에 his companion 과 “Come here, Boy!”가 이어져, 부르는 말 속 Boy(개)와 밑줄 he를 섞기 쉽다.",
+     "how_to_reject": "[11] Sean became nervous 와 [12] Unable to sleep 이 같은 인물의 상태이고, [12]에서 he가 companion을 부르는 쪽이며 [13]에서 He held the dog close 로 개를 안는 쪽이 Sean이다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "[16]에서 화자는 Sean said 의 Sean이고 말 속 비교 as I am 의 I도 Sean이므로, 비교되는 You는 Sean이 Finding Toby 로 발견한 개 Toby다. 나머지 넷은 모두 Sean이다.",
+     "confirmed_at": { "sentence_index": [16], "note": "[7]의 Toby started to bark 와 [24]의 his dog, Toby 가 Toby를 개로 정해 둔다." }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "직접인용 화자·청자 혼동",
+     "why_tempting": "(d) I 가 든 말이 Upon hearing this offer 로 시작해, treatment를 제안한 의사 Alex의 말로 잘못 이어 읽기 쉽다.",
+     "how_to_reject": "[18]의 주절 Sean replied 가 화자를 Sean으로 정하고, Thanks, but 은 Alex의 제안([5])을 사양하는 말이다. [19]에서 산행 이야기를 꺼내는 he도 Sean이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "단락 전환 뒤 대상 착각",
+     "why_tempting": "(e) he 바로 앞 [20]~[21]이 Alex의 경고라, 직전 화자 Alex를 he로 이어 받기 쉽다.",
+     "how_to_reject": "[22] Following his friend’s words 에서 친구의 말을 따르는 쪽은 경고를 들은 Sean이고, [23]~[24]에서 장비를 챙겨 개와 문을 나서는 사람도 Sean이다."
+    }
+   ],
+   "solve_procedure": [
+    { "step": "등장 인물과 동물을 표로 적는다 — 이름 옆에 doctor, friend, dog 같은 관계어를 붙인다", "on_fail": "동물이 이름으로만 나오면 bark, dog 가 같이 나오는 문장을 찾아 표시한다" },
+    { "step": "인용 속 밑줄((a)·(c)·(d))은 인용 앞뒤의 said·replied 주어로 화자를 먼저 정하고, I는 화자, You는 그 장면의 상대로 적는다", "on_fail": "said의 주어가 he처럼 대명사면 그 앞 문장에서 누가 누구에게 말을 걸었는지(complained to 등) 거슬러 올라가 정한다" },
+    { "step": "인용 밖 밑줄((b)·(e))은 같은 문장과 다음 문장의 행동(부르기·안기·장비 챙기기)을 누가 하는지로 정한다", "on_fail": "행동 주체가 흐리면 바로 앞 문장의 상태 서술(became nervous 등)이 누구 것인지 확인한다" },
+    { "step": "다섯 칸에 적은 대상을 비교해 사람 아닌 대상이나 다른 인물이 하나만 있는 칸을 고른다", "on_fail": "두 칸이 달라 보이면 그 두 인용의 화자를 다시 정하고, 화자가 바뀌면 You도 바뀌는지 확인한다" }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": { "predicted": 0.75, "drivers": ["You가 두 번 나오는데 화자가 다르다", "(A)의 he said 가 Alex라 Sean 이름과 섞인다", "개를 가리키는 You"] },
+   "required_vocab": ["companion", "treatment"],
+   "reviews": [
+    { "persona": "setter", "verdict": "pass", "revised": true, "findings": ["원장 결함 반영 — 이전 design_intent의 호격 'my friend'는 지문에 없어 삭제했다. 지문의 관계어는 his friend and doctor, Alex([3])와 Following his friend’s words([22])뿐이다", "이전 reasoning의 '이 유형의 단일 점검이 뒤집혀 적용' 문구를 빼고 [16] 한 문장의 화자·비교 구조로만 확정했다"], "checked": ["design_intent의 영어 표현을 지문과 문자열 대조", "quote를 [16]에서 복사해 대조", "정답표 3과 correct 대조"] },
+    { "persona": "analyst", "verdict": "pass", "revised": true, "findings": ["재검수 pass — 원장 결함 반영 — 이전 ① why_tempting이 Sean을 '화자 쪽'이라 적었는데 [4]에서 화자는 Alex, 청자는 Sean이다. ①의 유인을 'he said의 he를 Sean으로 오독'으로 고쳐 화자·청자 방향을 바로잡았다", "재검: ④ 설명에서도 화자 Sean·청자 Alex 방향이 같은 기준으로 적혔는지 확인했다", "①과 ④가 같은 라벨이지만 유인 단서(Concerned about Sean / Upon hearing this offer)가 다르다"], "checked": ["① why_tempting·how_to_reject의 화자·청자 방향을 [3]~[5]와 대조", "④의 화자를 [18] Sean replied와 대조", "⑤ 라벨이 오류 방식(직전 화자 이어받기)과 맞는지"] },
+    { "persona": "tutor", "verdict": "pass", "findings": ["2단계가 'said 주어가 대명사일 때'의 실패 대응을 줘 (a)에서 막히는 학생에게 다음 행동이 있다", "정답 이름을 절차에서 미리 알려 주지 않는다"], "checked": ["금지 표현 여부", "required_vocab이 지문에 있는지", "on_fail 문장 중복 여부"] }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2406#44",
+   "measured_ability": "Ellen·어머니·카페 매니저·학생 무리가 나오는 글에서 she가 Ellen과 카페 매니저 사이를 오가는 마지막 단락을 행위 관계(전화를 건 사람·확인해 주겠다는 사람·발견한 사람)로 가르는 능력",
+   "design_intent": "(a)~(d)는 모두 Ellen인데, 마지막 단락 (D)에서 she가 Ellen과 카페 매니저 둘을 번갈아 받는다. (e)는 Ellen에게 전화로 알려 주는 말 속 she라, told Ellen that 의 Ellen을 그대로 she에 이어 붙이게 만든다.",
+   "answer_locus": {
+    "sentence_index": [23, 24],
+    "quote": "the manager said that she would check and let her know. After a few minutes, she called back and told Ellen that (e) she had just discovered it.",
+    "reasoning": "[23]에서 확인해 보겠다고 한 사람은 the manager이고, [24]에서 다시 전화해(called back) Ellen에게 알려 주는 쪽도 그 매니저다. 알려 주는 말 속 '방금 그것을 발견했다'는 주어는 직접 확인하러 간 매니저이므로 (e)=매니저다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "단락 전환 뒤 대상 착각",
+     "why_tempting": "(a) 앞 [3]~[4]가 어머니의 말이라, 계획을 바꾼 she를 직전 화자인 어머니로 잡기 쉽다.",
+     "how_to_reject": "[6]에서 she가 바꾼 것은 her original plan to do the assignment 이고, 과제를 끝내야 한다고 한 사람은 [2]의 Ellen이다. 또 decided to go to the shopping mall with her mother 의 her mother와 함께 가는 쪽이 Ellen이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "직접인용 청자 오인",
+     "why_tempting": "(b) you 가 든 말을 한 사람이 One of them(학생 무리 중 하나)이라, you를 그 무리로 읽기 쉽다.",
+     "how_to_reject": "[11] came over to Ellen’s table and politely asked 에서 학생이 말을 건 상대는 Ellen이고, [12] Ellen replied 가 그 상대가 Ellen임을 확인한다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "직접인용 화자·청자 혼동",
+     "why_tempting": "(c) I 바로 앞 [15]가 어머니의 질문이라, 그 말에 이어지는 I를 어머니로 읽기 쉽다.",
+     "how_to_reject": "[15]에서 어머니가 Ellen에게 묻고 [16] She quickly replied 로 답하는 쪽은 질문받은 Ellen이다. [17]~[18]에서 축구화를 고르는 사람도 Ellen이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "단락 전환 뒤 대상 착각",
+     "why_tempting": "(D)가 인쇄순으로 (C) 다음이고 [19]에서 Ellen이 어머니에게 말하므로, 집에 돌아와 깨닫는 she를 어머니로 잡을 여지가 있다.",
+     "how_to_reject": "[20]의 주절 Ellen suddenly exclaimed 와 when 부사절의 (d) she가 같은 장면의 같은 행위자다. the gift for her father 를 잃어버린 쪽도 선물을 산 Ellen이다([18])."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "(e) she had just discovered it 은 [24]에서 called back 한 쪽이 Ellen에게 전하는 내용이고, 전화를 다시 건 사람은 [23]에서 would check and let her know 라고 한 the manager다. 그래서 (e)만 매니저이고 나머지 넷은 Ellen이다.",
+     "confirmed_at": { "sentence_index": [23, 24], "note": "이 문항의 저장 발문은 45번 문항 발문과 그 선지 ①이 섞여 들어와 있다. 원래 44번 발문은 '밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?' 이고, 선지 (a)~(e)와 정답 5는 지문과 맞는다." }
+    }
+   ],
+   "solve_procedure": [
+    { "step": "등장 인물을 Ellen·어머니·학생 무리·카페 매니저로 적고, 여성 인물이 여럿이라 she가 한 사람으로 고정되지 않음을 표시한다", "on_fail": "manager 처럼 나중에 처음 나오는 인물은 등장한 단락 기호를 옆에 적어 둔다" },
+    { "step": "인용 속 밑줄((b)·(c))은 asked·replied 의 주어와 그 말을 들은 상대를 적고, I는 화자, you는 상대로 바꾼다", "on_fail": "화자가 One of them처럼 무리면, 그 말이 어느 사람의 자리(Ellen’s table)로 향했는지 찾는다" },
+    { "step": "인용 밖 she 밑줄((a)·(d)·(e))은 같은 문장의 주절 행위자와 그 행동의 목적어(her original plan, the gift)를 누가 가졌는지로 정한다", "on_fail": "주절과 밑줄 절의 주어가 다를 수 있으니, that절 안 she는 그 내용을 직접 겪은 사람(확인한 사람·발견한 사람)으로 따로 정한다" },
+    { "step": "(D)의 전화 장면은 전화 건 사람·확인하겠다는 사람·다시 전화한 사람을 차례로 적어 두 she를 갈라 놓는다", "on_fail": "두 she가 섞이면 let her know 의 her(알림을 받는 쪽)부터 확정하고 나머지를 반대편에 둔다" },
+    { "step": "다섯 칸을 비교해 하나만 다른 대상을 고른다", "on_fail": "모두 같아 보이면 told Ellen that 처럼 이름이 나온 문장의 that절 주어를 다시 확인한다" }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": { "predicted": 0.78, "drivers": ["(e)가 told Ellen that 바로 뒤라 Ellen과 겹쳐 보인다", "여성 인물 셋(Ellen·어머니·매니저)이 she로 받힌다"] },
+   "required_vocab": ["manager", "called back", "discovered"],
+   "reviews": [
+    { "persona": "setter", "verdict": "pass", "revised": true, "findings": ["재검수 pass — 원장 결함 반영 — 저장 발문이 45번 발문·선지 ①로 섞여 있다. 지문과 선지 (a)~(e)·정답 5는 44번 지칭 문항과 맞아 분석은 지칭으로 쓰고, 발문 혼입은 confirmed_at.note와 보고에 남겼다", "원장 결함 반영 — 이전 sentence_index가 모두 1이었다. 문장 목록 기준으로 근거 [23]·[24], 선지별 [2]·[6]·[11]·[12]·[15]~[18]·[20]로 다시 매겼다"], "checked": ["quote를 지문 [23]~[24]와 문자열 대조", "sentence_index가 quote가 걸친 [23]·[24]를 모두 포함하는지", "정답표 5와 correct 대조"] },
+    { "persona": "analyst", "verdict": "pass", "revised": true, "findings": ["재검수 pass — 원장 결함 반영 — 이전 분석의 '밑줄 문장이 다른 사람을 이름으로 부르면 밑줄은 그 사람이 아니다' 규칙은 [20](Ellen exclaimed 와 (d) she=Ellen)이 반례라 삭제했다. (e)는 이름 등장이 아니라 called back·would check의 행위 관계로 배제·확정한다", "재검: solve_procedure 3단계 on_fail과 ④ 배제 설명에도 이름 등장 배제 규칙이 남지 않았음을 확인했다"], "checked": ["모든 how_to_reject에 이름 등장 배제 서술이 없는지", "④ 배제를 [20] 주절·부사절 관계로 썼는지", "오답 넷의 유인 단서가 서로 다른지"] },
+    { "persona": "tutor", "verdict": "pass", "findings": ["4단계가 (D) 전화 장면의 세 행위를 순서대로 적게 해 두 she를 실제로 가를 수 있다"], "checked": ["금지 표현 여부", "required_vocab이 지문에 있는지", "on_fail 중복 여부"] }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2023#44",
+   "measured_ability": "자매 Hailey·Camila와 아버지가 나오는 글에서 인용문의 화자를 정해 you와 her의 지시 대상을 가르고, 같은 you가 화자 교대로 다른 사람을 가리키는 자리를 잡는 능력",
+   "design_intent": "(a)·(d)는 Camila가 Hailey에게 묻는 말 속 you, (b)·(c)는 서술 속 Hailey이고, (e)만 Hailey가 Camila에게 하는 말 속 you다. 인쇄순 (A)(B)(C)(D)와 사건순 (A)(D)(C)(B)가 달라 (D)의 두 you가 같은 대화 안에서 화자만 바뀌는 지점을 놓치게 만든다.",
+   "answer_locus": {
+    "sentence_index": [29, 30],
+    "quote": "In reply, Hailey answered, “No. I bought something much more personal. By the way, there’s something (e) you should know about Dad...”",
+    "reasoning": "[29]의 주절 Hailey answered 가 이 인용의 화자를 Hailey로 정하고, 인용은 [30]까지 이어진다. 따라서 그 안의 (e) you는 Hailey의 대답을 듣는 Camila다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "직접인용 화자·청자 혼동",
+     "why_tempting": "(a) 앞 [3]~[4]에 Hailey가 응답하고 케이크를 놓는 장면이 이어져, [6]의 질문도 Hailey의 말로 읽고 you를 Camila로 잡기 쉽다.",
+     "how_to_reject": "[7] Camila asked out of interest 가 [5]~[6] 질문의 화자를 Camila로 정하므로 (a) you는 Hailey이고, [9] Hailey answered 가 답하는 쪽이 Hailey임을 확인한다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "주어 소유격 혼동",
+     "why_tempting": "(b) her 가 든 문장의 주어가 Camila nodded 라, her를 그 주어 Camila로 이어 읽기 쉽다.",
+     "how_to_reject": "안경을 건넨 사람은 [10]에서 these glasses 를 설명한 Hailey이고, [23]~[24]에서 Hailey가 건넨 소포 속에 안경이 있었다. 그러므로 (b) her gift of the glasses 는 Hailey의 선물이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "명사구 지시 혼동",
+     "why_tempting": "(c) her sister 의 her가 Camila said 의 Camila를 받으므로, 밑줄을 Camila로 잡기 쉽다.",
+     "how_to_reject": "밑줄의 지시 대상은 her가 아니라 her sister 전체이고, Camila의 언니(동생)는 Hailey다. [24]의 소포 속 안경과 [26]의 Hailey 설명이 그 소포를 준 쪽이 Hailey임을 확인한다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "단락 전환 뒤 대상 착각",
+     "why_tempting": "(D)가 인쇄순 마지막이라 바로 앞 (C)에서 말을 많이 한 Hailey를 [28]의 화자로 넣으면 (d) you가 Camila가 된다.",
+     "how_to_reject": "[28]의 주절 Camila said 가 화자를 Camila로 정하고, I bet you bought a wallet or a watch 는 (A)의 선물 질문([6])을 이어 짐작하는 말이다. 이어 [29]에서 대답하는 쪽이 Hailey이므로 (d) you는 Hailey다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "(e) you 가 든 인용의 화자는 [29] Hailey answered 의 Hailey이므로 you는 그 대답을 듣는 Camila다. (a)·(d)의 you는 Camila가 Hailey에게 한 말이라 Hailey이고, (b)·(c)도 Hailey라 (e)만 다르다.",
+     "confirmed_at": { "sentence_index": [29, 30], "note": "인용이 [29]에서 열려 [30]까지 이어지므로 화자 표지가 (e) 문장 자체에 없다." }
+    }
+   ],
+   "solve_procedure": [
+    { "step": "인물 셋을 적고 Camila와 Hailey가 sister 관계라는 표지([2] her sister)를 표시한다", "on_fail": "누가 언니·동생인지는 필요 없다 — her sister 가 상대 자매를 가리킨다는 것만 적는다" },
+    { "step": "인용 속 밑줄((a)·(d)·(e))마다 그 인용을 닫거나 여는 said·asked·answered 의 주어를 찾아 화자를 적고, you를 그 장면의 상대 자매로 바꾼다", "on_fail": "밑줄 문장에 화자 표지가 없으면 인용이 열린 앞 문장(In reply, Hailey answered 등)까지 거슬러 찾는다" },
+    { "step": "인용 밖 밑줄((b)·(c))은 소유격 her가 아니라 her gift·her sister 명사구가 누구 것·누구인지를 선물을 건넨 행위로 정한다", "on_fail": "소유자가 흐리면 안경이 든 소포를 건넨 문장을 찾아 건넨 사람을 확인한다" },
+    { "step": "다섯 칸을 비교해 하나만 다른 사람을 고른다", "on_fail": "두 칸 이상 다르면 (D)의 [28]·[29] 두 인용의 화자를 다시 정해 you의 방향을 확인한다" }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": { "predicted": 0.72, "drivers": ["you가 세 번 나오는데 화자가 둘로 갈린다", "(e)의 인용은 화자 표지가 앞 문장에만 있다", "(b)·(c)가 Camila 주어 문장 안의 Hailey"] },
+   "required_vocab": ["in reply", "parcel"],
+   "reviews": [
+    { "persona": "setter", "verdict": "pass", "revised": true, "findings": ["재검수 pass — 원장 결함 반영 — 이전 answer_locus.quote가 지문과 글자 단위로 일치하지 않았다(따옴표·생략). [29]~[30]을 굽은 따옴표와 말줄임까지 그대로 복사해 다시 넣었다", "정답 근거(화자 Hailey → you=Camila)는 원장이 맞다고 본 부분이라 그대로 보존했다"], "checked": ["quote를 지문 [29]~[30]과 문자열 대조", "sentence_index가 quote가 걸친 [29]·[30]을 포함하는지", "정답표 5와 correct 대조"] },
+    { "persona": "analyst", "verdict": "pass", "findings": ["②·③의 배제가 'Camila 이름이 같은 문장에 있어서'가 아니라 선물을 건넨 행위([10]·[23]~[24])와 명사구 her sister로 정해졌다", "①과 ④의 유인이 서로 다른 단서([3]~[4] 장면 / 인쇄순 마지막 단락)를 쓴다"], "checked": ["how_to_reject에 이름 등장 배제 서술이 없는지", "trap 라벨과 오류 방식 대응", "[N] 번호가 1~35 범위 안인지"] },
+    { "persona": "tutor", "verdict": "pass", "findings": ["2단계 on_fail이 (e)처럼 화자 표지가 앞 문장에 있는 경우를 직접 다룬다"], "checked": ["금지 표현 여부", "required_vocab이 지문에 있는지", "70초 안 실행 가능성"] }
+   ],
+   "revised": true
+  }
+ ],
+ "type_report": {
+  "type_id": "X-REFER",
+  "n_analyzed": 4,
+  "recurring_traps": [
+   { "trap": "직접인용 화자·청자 혼동", "count": 4, "signature": "인용 속 I·you의 화자를 인용 앞뒤 said·replied의 주어로 정하지 않고 가까운 이름으로 넣는다 (M2409 ①④ · M2406 ③ · 2023 ①)" },
+   { "trap": "단락 전환 뒤 대상 착각", "count": 4, "signature": "인쇄순 단락 전환 직후 앞 단락 인물을 이어 받는다 (M2409 ⑤ · M2406 ①④ · 2023 ④)" },
+   { "trap": "직접인용 청자 오인", "count": 2, "signature": "you·your를 그 장면에 보이는 다른 인물로 잡는다 (M2509 ④ · M2406 ②)" }
+  ],
+  "answer_locus_pattern": "4문항 모두 정답 밑줄의 확정 근거가 그 인용·서술의 화자 또는 행위자 표지(said·called back·Finding)이며, 2문항(2023 · M2406)은 그 표지가 밑줄 앞 문장에 있다. 각 문항은 한 번씩만 셌다.",
+  "procedure": [
+   "인물표에 관계어(seller·doctor·sister·manager·dog)를 붙인다",
+   "인용 속 밑줄은 인용을 여는·닫는 동사의 주어로 화자를 정하고 I/you를 치환한다",
+   "인용 밖 밑줄은 같은 장면의 행위(알아보기·전화하기·건네기)의 주체로 정한다",
+   "다섯 칸을 비교해 하나만 다른 것을 고른다"
+  ],
+  "failure_modes": ["화자가 대명사(he said)일 때 문장 첫머리 이름을 화자로 넣는다", "that절 안 she를 바로 앞 목적어 이름(told Ellen that)과 동일시한다", "명사구 밑줄(My housemate · her sister)을 소유격 대상으로 잡는다"],
+  "time_budget_sec": 70,
+  "open_questions": [
+   "M2406#44의 저장 발문이 45번 발문·선지와 섞여 있다 — 발문 필드 원본 수리 필요",
+   "새 라벨 제안: '주어 소유격 혼동'(2023 ②) · '명사구 지시 혼동'(2023 ③ · M2509 ③과 같은 기제) · '호격 대상 혼동'(M2409 ②) — (C)군 등재 검토",
+   "표본 4문항이라 단락 인쇄순과 사건순 불일치가 정답 위치와 관련 있는지는 말할 수 없다"
+  ]
+ }
+}
