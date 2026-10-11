@@ -37,24 +37,26 @@ const { createClient } = await import('@supabase/supabase-js')
 const { findQuote } = await import('../../apps/web/src/lib/csat/quote-match.ts')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 
+// keyset(id) 페이징 — 뒤 페이지가 앞을 다시 훑는 OFFSET 을 쓰지 않는다(offset-paging-budget)
 async function page(table, sel, tune = (q) => q) {
   const out = []
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await tune(db.from(table).select(sel)).range(from, from + 999)
+  for (let last = null; ; ) {
+    let q = tune(db.from(table).select(`id, ${sel}`)).order('id').limit(1000)
+    if (last !== null) q = q.gt('id', last)
+    const { data, error } = await q
     if (error) throw new Error(`${table}: ${error.message}`)
     out.push(...data)
     if (data.length < 1000) break
+    last = data[data.length - 1].id
   }
   return out
 }
 
-const analyses = await page('csat_item_analyses', 'item_id, version, choice_analysis', (q) =>
-  q.eq('status', 'published').order('item_id').order('version', { ascending: false }),
-)
+const analyses = await page('csat_item_analyses', 'item_id, version, choice_analysis', (q) => q.eq('status', 'published'))
 const latest = new Map()
-for (const r of analyses) if (!latest.has(r.item_id)) latest.set(r.item_id, r)
+for (const r of analyses) if ((latest.get(r.item_id)?.version ?? -1) < r.version) latest.set(r.item_id, r)
 // 평가원만 — 지도 파일은 평가원 집합만 커밋된다(학평은 DB 표)
-const items = (await page('csat_items', 'id, exam_id, type_id, passage, choices, body_ok, in_scope', (q) => q.order('id'))).filter(
+const items = (await page('csat_items', 'exam_id, type_id, passage, choices, body_ok, in_scope')).filter(
   (r) => isKiceExam(r.exam_id) && r.in_scope,
 )
 
