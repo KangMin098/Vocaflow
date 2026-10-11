@@ -3,14 +3,13 @@ import type { Metadata } from 'next'
 import { NotebookPen } from 'lucide-react'
 import { CsatShell } from '@/components/csat/home/CsatShell'
 import { ProgressView } from '@/components/csat/session/ProgressView'
-import { railExams } from '@/lib/csat/rail-data'
 import { loadDissectionCatalog } from '@/lib/csat/dissect-catalog'
 export const metadata: Metadata = { title: '내 공식 — 기출' }
 export const dynamic = 'force-dynamic'
 export default async function FormulasPage() {
-  const [catalog, exams] = await Promise.all([loadDissectionCatalog(), railExams()])
+  const catalog = await loadDissectionCatalog()
   return (
-    <CsatShell place="formulas" exams={exams} pill={<><NotebookPen size={13} aria-hidden="true" />내 공식</>}>
+    <CsatShell place="formulas" pill={<><NotebookPen size={13} aria-hidden="true" />내 공식</>}>
       <ProgressView catalog={catalog} />
     </CsatShell>
   )
