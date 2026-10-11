@@ -471,3 +471,19 @@
 .sceneNav button[aria-selected='true'] { background: var(--bg3); color: var(--t1); font-weight: 600; border-color: currentColor; }
 .sceneNav button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 .sceneQuestion { margin: 0 0 12px; font-size: 0.9375rem; font-weight: 600; color: var(--t1); word-break: keep-all; }
+
+/* 장면별 중심 도식(vNext2 M2) — 설계 주석을 텍스트 목록으로 */
+.diagram { display: grid; gap: 8px; margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--bd); border-radius: 12px; line-height: 1.6; }
+.diagram p { margin: 0; }
+.diagramHead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.diagramHead b { font-size: 0.875rem; }
+.epistemic { font-size: 11px; color: var(--t3); border: 1px dashed currentColor; border-radius: 999px; padding: 0 8px; }
+.diagramLabel { font-size: 12px; color: var(--t3); margin-right: 4px; }
+.roleChain { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; counter-reset: none; }
+.roleChain li { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 10px; border: 1px solid var(--bd); border-radius: 8px; font-size: 12px; background: var(--bg2); }
+.roleChain li + li::before { content: '→'; margin-left: -12px; margin-right: 2px; color: var(--t3); }
+.roleChain li[data-role='topic'], .roleChain li[data-role='speech_act'] { border-color: currentColor; font-weight: 600; }
+.roleNo { font-family: var(--font-mono), monospace; font-size: 11px; color: var(--t3); }
+.roleAlt { font-size: 11px; color: var(--t3); }
+.transformRow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
+.transformRow b { padding: 2px 10px; border: 1px solid currentColor; border-radius: 8px; }

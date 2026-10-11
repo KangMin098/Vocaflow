@@ -88,6 +88,7 @@ import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-ch
 import { hashTag } from '@/lib/csat/dissect'
 import { SessionDone } from './SessionDone'
 import { SceneNav } from './SceneNav'
+import { DesignSelection, StructureDiagram, TransformDiagram } from './SceneDiagrams'
 import { SCENES, nextScene, sceneOfBlock, sceneOfCheck, type SceneId } from '@/lib/csat/inquiry/scenes'
 import styles from './theater.module.css'
 
@@ -768,6 +769,9 @@ export function AnalysisTheater({
                         ) : null}
                       </section>
                     ) : null}
+                    {scene === 'essence' && gate.design ? <DesignSelection design={gate.design} /> : null}
+                    {scene === 'structure' && gate.design ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} /> : null}
+                    {scene === 'answer' && gate.design ? <TransformDiagram design={gate.design} /> : null}
                     {scene === 'structure' ? (
                       <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="structure-hint">
                         {map
