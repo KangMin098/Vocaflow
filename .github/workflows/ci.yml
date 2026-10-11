@@ -176,7 +176,7 @@ jobs:
 
       - uses: supabase/setup-cli@v1
         with:
-          version: 2.48.3
+          version: latest
 
       # 마이그레이션은 자동 적용하지 않고(첫 실패에서 멈춘다) 빈 DB 로 띄운 뒤 파일별로 적용한다
       - name: 격리 Supabase 기동(빈 DB)
