@@ -43,6 +43,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
+import { normalizeScene } from '@/lib/csat/inquiry/scenes'
 import compareData from '@/lib/csat/compare-data.json'
 
 export const dynamic = 'force-dynamic'
@@ -56,12 +57,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function CsatItemTheaterPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams?: Promise<{ check?: string }> }) {
+export default async function CsatItemTheaterPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ scene?: string | string[]; check?: string }>
+}) {
   const { slug } = await params
+  const sp = await searchParams
+  const sceneParam = sp.scene
   // 확인 모드(학습 지도의 확인 · 다시 확인 · 적용 링크) — 해설을 열기 전에 확인 과제만 푼다(6차).
   //   F01(2026-10-10): 문항을 열면 해설을 바로 보여 주므로 그 열람은 「해설 먼저 봄」으로 남는다 — 그 화면에서 푼 확인 과제는 독립 수행이 아니다.
   //   그래서 지도에서 확인용으로 들어올 때만 해설 극장 · 강의를 그리지 않는다(해설 열람 기록도 없다). 과제 뒤 「해설 보기」 는 일반 화면(F01 그대로).
-  const checkMode = (await searchParams)?.check === '1'
+  const checkMode = sp.check === '1'
   const itemId = fromItemSlug(slug)
   const { item, error, held } = await loadCsatItemExplain(itemId)
   // 보류 시험 문항(오답 원인 Pilot 수집 중) — 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에 싣지 않는다(embargo-gate · Pilot 1c8e122fb)
@@ -181,6 +190,7 @@ export default async function CsatItemTheaterPage({ params, searchParams }: { pa
       blocks={blocks}
       checks={checks}
       comparePairs={comparePairs}
+      initialScene={normalizeScene(Array.isArray(sceneParam) ? sceneParam[0] : sceneParam)}
       map={map}
       itemId={item.id}
       backHref="/csat"
