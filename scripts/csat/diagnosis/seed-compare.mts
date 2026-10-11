@@ -151,9 +151,11 @@ const fmtW = (w: Weights, hi: Set<string> = new Set()) => ATTRIBUTE_CODES.map((c
 const whyOf = (no: number) => review.items.find((r) => r.no === no)!.why
 const tierName = { 3: 'Tier 3 — 역량 추가/삭제가 다름(정밀 확인 · 지금 추천에 영향)', 2: 'Tier 2 — 가중치만 다름(지금 추천 영향 없음 · 데이터 의미 · 리포트 숙달)', 1: 'Tier 1 — 시드와 검수안 완전 일치(빠른 확인)' }
 const lines: string[] = [
-  `# ${EXAM} 사람 검수 패킷 — 시드 v2 · 에이전트 검수안 v2 대조 (2026-10-08)`,
+  // 시험 · 검수안 출처를 파일에서 읽는다 — M2409 문구가 다른 시험 패킷에 박히던 것을 고침(2026-10-11)
+  `# ${EXAM} 사람 검수 패킷 — 시드 v2 · 검수안 대조 (${EXAM === 'M2409' ? '2026-10-08' : '2026-10-11'})`,
   '',
-  '> 이 패킷은 **사람 검수 준비물**이다. 아래 값은 아직 어디에도 저장되지 않았다(실제 M2409 검수 표지 0 · diagnosis_ready 꺼짐).',
+  `> 검수안 출처: ${(review as { reviewer?: string }).reviewer ?? '(기록 없음)'}`,
+  `> 이 패킷은 **사람 검수 준비물**이다. 아래 값은 아직 어디에도 저장되지 않았다(${EXAM} 검수 표지 · diagnosis_ready 는 이 파일이 바꾸지 않는다).`,
   '> 정본 저장은 사람이 문항마다 승인/수정한 결과로, 관리자 태깅 화면(`/admin/csat/diagnosis/exams/' + EXAM + '`)의 「검수 저장」(csat_dx_save_item_tagging)으로만 한다.',
   '> 굵은 글씨 = 시드 v2 와 검수안 v2 가 다른 역량. 0 = 이 문항에서 진단 근거로 쓰지 않음 · 1 = 보조 · 2 = 핵심.',
   '> 보조(1) 기준: 「그 역량만으로도 이 문항을 틀릴 수 있다」고 설명될 때만.',

@@ -82,8 +82,10 @@ export interface AsIsTask {
   check: {
     taskKey: string
     status: SkillStatus
-    /** 판정에 쓴 독립 첫 시도 문항 수(서로 다른 문항) */
+    /** 판정에 쓴 독립 첫 시도 문항 수(서로 다른 문항) — 성취(직접 확인) 근거 */
     independentItems: number
+    /** 확인 과제 화면에서 실제로 푼 확인 문항 수(서로 다른 문항 · 도움 · 합성 여부와 무관) — 계획의 「수행량」. 성취 근거가 아니다 */
+    attemptedItems: number
     verifiedItems: string[]
     wrongItems: string[]
     /** 아직 본 적 없는 확인 문항 — 「확인」 · 「다시 확인」에 쓸 수 있는 실제 문항(확인 과제로도, 기록한 시험지로도 안 본 것) */
@@ -214,6 +216,7 @@ export function asIsMap(input: AsIsInput): AsIsMap {
         taskKey: targets[0].taskKey,
         status: d.status,
         independentItems: independent.size,
+        attemptedItems: new Set(mine.filter((a) => a.activity !== 'practice' && !!a.answeredAt).map((a) => a.itemRef)).size,
         verifiedItems: d.verifiedItems,
         wrongItems: d.check.wrongItems ?? [],
         unseen: [...new Set(targets.map((x) => x.itemRef))].filter((i) => !seen.has(i) && !examSeen.includes(i)),

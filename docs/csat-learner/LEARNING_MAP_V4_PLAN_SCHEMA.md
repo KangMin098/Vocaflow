@@ -1,6 +1,6 @@
-# 학습 지도 rev4.0 — 목표 · Workspace · PLAN 스키마 검토안(3차 · **미적용**)
+# 학습 지도 rev4.0 — 목표 · Workspace · PLAN 스키마(3차 설계 · **4차 개발 DB 적용 완료**)
 
-> SQL: [`supabase/migrations/_pending_map_v4_plan.sql`](../../supabase/migrations/_pending_map_v4_plan.sql) — 승인 대기. 개발 DB 에 **적용하지 않았다**(2026-10-11 실측: 세 테이블 모두 `to_regclass` null).
+> SQL: [`20261010180218_map_v4_plan.sql`](../../supabase/migrations/20261010180218_map_v4_plan.sql) + `…120100`(search_path) + `…120200`(충돌 PT409) — **2026-10-11 사용자 승인 후 개발 DB 적용**. 신뢰 경계: 클라이언트는 `available` 을 보내지 못한다(알 수 없는 필드 거절) — 서버가 지도를 다시 계산해 넣는다. 실DB smoke 15/15.
 > 승인 절차: 사용자가 SQL 을 보고 승인 → `ls supabase/migrations` 로 겹치지 않는 번호 → 파일 이름 변경 → 적용 직전 sha256 기록 → `/db-checkpoint` 앞뒤 → 아래 §5 검증.
 
 ## 1. 무엇을 · 왜
@@ -24,7 +24,7 @@
 | RLS · 권한 | 세 테이블 본인 SELECT 만. INSERT/UPDATE/DELETE 는 학습자에게 없음. RPC 는 service_role 만 실행. `revoke truncate, update` (이력 2 표) |
 | 학습자 기록 | 계정 삭제 시 cascade(추가 전용 가드가 계정 삭제만 허용) |
 | 다른 작업 | `funnel_events` CHECK 변경 없음(이벤트는 기존 허용 목록 재사용) |
-| 마이그레이션 번호 | 이름 `_pending_*` — CI 번호 검사 · 적용 대상이 아니다 |
+| 마이그레이션 번호 | 원격 적용 버전에 맞춘 파일명 `20261010180218` · `20261010180916` · `20261010181834`(작성 당시 `20261011120000` · `…120100` · `…120200` — `apply_migration` 이 적용 시각으로 번호를 매겨 2026-10-11 마감 때 이름만 맞춤 · 본문 그대로) |
 
 ## 3. 되돌리기
 
@@ -32,13 +32,17 @@ SQL 머리의 `DROP` 4줄(함수 2 · 테이블 3 · 가드 함수). 기존 테�
 
 ## 4. 오프라인 검증(2026-10-11 · 공유 DB 미접속)
 
-`node scripts/csat/map/v4/plan-sql-harness.mjs <PGlite 설치 폴더>`(PGlite 0.2.17 · 저장소 의존성 아님) — **21/21**: 적용 · 백필 · 목표 멱등 · 최신 값 · 첫 계획 · 중복 제출 · 수정 버전 · 사유 보존 · 낡은 버전 거절 · 계획량 > 가용량 거절 · 가용량 없는 계획량 거절 · 알 수 없는 사유 거절 · 수행 기록 칸 없음 · UPDATE/DELETE 거절(계획 · 목표) · 다른 학습자 0행 · 학습자 INSERT 거절 · 학습자 RPC 거절 · 본인 2버전 · 계정 삭제 cascade · 롤백.
+`node scripts/csat/map/v4/plan-sql-harness.mjs <PGlite 설치 폴더>`(PGlite 0.2.17 · 저장소 의존성 아님) — 3차 21/21 → 4차 보완 마이그레이션 2건 포함 **ALL PASS**(2026-10-11 마감 재실행 · PT409 코드 단언 포함): 적용 · 백필 · 목표 멱등 · 최신 값 · 첫 계획 · 중복 제출 · 수정 버전 · 사유 보존 · 낡은 버전 거절 · 계획량 > 가용량 거절 · 가용량 없는 계획량 거절 · 알 수 없는 사유 거절 · 수행 기록 칸 없음 · UPDATE/DELETE 거절(계획 · 목표) · 다른 학습자 0행 · 학습자 INSERT 거절 · 학습자 RPC 거절 · 본인 2버전 · 계정 삭제 cascade · 롤백.
 하네스가 잡은 결함 1: 계획량 검증에서 `available` 이 null 이면 비교가 NULL 이 되어 위반에서 빠졌다 → `coalesce(..., false)` 로 고침.
 
-## 5. 적용 뒤 검증 계획(승인 뒤)
+## 5. 적용 뒤 검증(2026-10-11 실행)
 
 1. 적용 직전 · 직후 `/db-checkpoint`. 2. `select count(*) from csat_map_goal_version` = 적용 시점 `csat_map_goal` 행 수. 3. 학습자 RLS 클라이언트로 다른 사람 행 0 · INSERT 거절(실제 DB smoke — 합성 계정, 끝나면 `e2e-cleanup.mjs`). 4. 서버 API 가 RPC 로 계획 확정 → 같은 client_key 재전송 reused · 낡은 버전 409. 5. 화면: 「이 기기에만」 문구를 「저장됨 · 버전 N」 으로 바꾸고 E2E 에 확정 · 수정 · 사유 · 버전 단언 추가.
 
-## 6. 적용 전 앱 상태
+5-1 실DB smoke `scripts/csat/map/v4/plan-db-smoke.mjs` **15/15**(목표 멱등 · 병렬 목표 · 병렬 첫 확정 · 같은 키 동시 · 낡은 버전 409 · 경계 · goal_mismatch · 학습자 RLS 본인만 · INSERT/UPDATE/RPC 거절 · service_role UPDATE 거절 · cascade 정리). 5-2 브라우저 저장 여정 `scripts/csat/map/e2e-map-v4-save.mjs` — 결과는 [LEARNING_MAP_V4_PHASE4](./LEARNING_MAP_V4_PHASE4.md) §B.
 
-화면의 계획 조정은 **이 기기 초안**(localStorage)뿐이고 화면에 그렇게 쓴다. 저장 기능을 완료했다고 보지 않는다.
+## 6. 현재 앱 상태
+
+저장 구조가 있으면 계획은 서버 버전으로 남는다(「저장됨 · 버전 N」 은 서버 확인 뒤에만). 저장 구조가 없거나 읽기에 실패하면 이 기기 초안 모드로 돌아가고 화면에 그렇게 쓴다.
+
+신뢰 경계: 클라이언트는 `available` · `userId` 를 보낼 수 없다(알 수 없는 필드 400). 서버가 지도를 다시 계산해 가용량을 넣고, RPC 가 한 번 더 검사한다. 버전 충돌은 SQLSTATE `PT409`(PostgREST 가 재시도 없이 HTTP 409) — `40001` 은 PostgREST 가 재시도해 125초 타임아웃이 났다.

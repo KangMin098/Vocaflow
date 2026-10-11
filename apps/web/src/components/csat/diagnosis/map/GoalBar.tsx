@@ -37,6 +37,8 @@ export function useGoal(data: MapPageData) {
     setDraft(String(model.goal))
   }, [model.goal])
 
+  // 같은 목표 값의 재시도는 같은 요청 키 — 응답을 못 받고 다시 눌러도 목표 이력이 두 줄 생기지 않는다(독립 리뷰 P2)
+  const attempt = useRef<{ value: number; key: string } | null>(null)
   const apply = async (next: number) => {
     if (pending) return
     setErr(null)
@@ -48,9 +50,11 @@ export function useGoal(data: MapPageData) {
     setGoal(next)
     setDraft(String(next))
     setSaving(true)
+    if (attempt.current?.value !== next) attempt.current = { value: next, key: crypto.randomUUID() }
     try {
-      const res = await fetch('/api/csat/diagnosis/map/goal', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ target: next }) })
+      const res = await fetch('/api/csat/diagnosis/map/goal', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ target: next, clientKey: attempt.current.key }) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error ?? '저장하지 못했어요')
+      attempt.current = null
       setSaved(true)
       track({ name: 'csat_map_goal_set', props: { goal: next } })
       startTransition(() => router.refresh())

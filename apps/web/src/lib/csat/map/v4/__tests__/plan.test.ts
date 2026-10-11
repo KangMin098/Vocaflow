@@ -64,6 +64,16 @@ describe('TASK 학습계획 — 정량 · 정성 분리', () => {
     expect(p.achievement).toBe('need_confirmed')
   })
 
+  it('수행량 ≠ 검증된 성취 — 도움 받은 · 합성 풀이는 수행량에 들어가지만 확인 상태는 바꾸지 않는다(4차)', () => {
+    const helped = [attempt('i1', false, '2026-09-10T00:00:00Z'), attempt('i2', false, '2026-09-11T00:00:00Z')].map((a) => ({ ...a, helpLevel: 'viewed_first' }))
+    const synth = [attempt('i3', false, '2026-09-12T00:00:00Z')].map((a) => ({ ...a, synthetic: true }))
+    const a = asIs({ attempts: [...helped, ...synth] })
+    const p = build(a, 80).view.tasks.find((t) => t.task === 'r.central_meaning')!
+    expect(p.quantity.done).toBe(3)
+    expect(p.achievement).toBe('not_checked') // 독립 근거 0 — 직접 확인 판정 없음
+    expect(a.tasks['r.central_meaning'].check).toMatchObject({ attemptedItems: 3, independentItems: 0 })
+  })
+
   it('콘텐츠가 없으면 계획 불가(null) — 권장량을 지어내지 않는다', () => {
     const { view } = build(asIs(), 80)
     const support = view.tasks.find((t) => t.task === 'r.discourse_function')!

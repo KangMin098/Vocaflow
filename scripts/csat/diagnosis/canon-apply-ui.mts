@@ -20,13 +20,17 @@ import { examReadiness } from '../../../apps/web/src/lib/csat/diagnosis/readines
 
 const ROOT = path.resolve(import.meta.dirname, '../../..')
 const BASE = process.argv.includes('--base') ? process.argv[process.argv.indexOf('--base') + 1] : 'http://localhost:3000'
-const EXAM = 'M2409'
-const LABEL = 'm2409-canon-20261008'
+// 2026-10-11 일반화: --exam · --review(pilot/ 아래 최종 검수 파일) · --label — 기본값은 M2409 그대로
+const arg = (k: string, d: string) => (process.argv.includes(k) ? process.argv[process.argv.indexOf(k) + 1] : d)
+const EXAM = arg('--exam', 'M2409')
+const LABEL = arg('--label', 'm2409-canon-20261008')
+const REVIEW = arg('--review', 'pilot/M2409-review-tri.json')
 if (!String(process.env.NEXT_PUBLIC_SUPABASE_URL).includes('jajenrevcbmrpaliomxv')) throw new Error('개발 프로젝트가 아니다')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.SUPABASE_SERVICE_ROLE_KEY as string, { auth: { persistSession: false } })
 const { chromium } = createRequire(path.join(ROOT, 'apps/web/package.json'))('@playwright/test')
-const tri = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'pilot/M2409-review-tri.json'), 'utf8')) as { items: { no: number; w: Record<string, number> }[] }
-const before = JSON.parse(fs.readFileSync(path.join(ROOT, 'tmp/pilot/M2409-before.json'), 'utf8')) as { traps: { item_id: string; option_no: number; trap_key: string }[] }
+const tri = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, REVIEW), 'utf8')) as { items: { no: number; w: Record<string, number> }[] }
+// 저장 전 선지 함정 — DB 에서 직접 찍는다(검수 저장이 함정 키를 바꾸지 않는지 대조)
+const before = { traps: ((await db.from('csat_dx_option_trap').select('item_id, option_no, trap_key').like('item_id', `${EXAM}#%`)).data ?? []) as { item_id: string; option_no: number; trap_key: string }[] }
 let fail = 0
 const rec = (name: string, ok: boolean, detail: unknown = '') => { if (!ok) fail++; console.log(`[${ok ? 'PASS' : 'FAIL'}] ${name}${detail === '' ? '' : ' — ' + JSON.stringify(detail).slice(0, 400)}`) }
 
@@ -34,11 +38,11 @@ const ck = async (phase: 'before' | 'after', note: string) => {
   const { error } = await db.rpc('record_db_health_checkpoint', { p_label: LABEL, p_phase: phase, p_note: note })
   if (error) console.log(`체크포인트 ${phase} 실패(계속): ${error.message}`)
 }
-await ck('before', 'M2409 pilot canon — 관리자 경로 검수 저장 28문항 + 진단 반영 켜기')
+await ck('before', `${EXAM} canon — 관리자 경로 검수 저장 ${tri.items.length}문항 + 진단 반영 켜기`)
 
 const [exam0] = (await db.from('csat_exams').select('id, diagnosis_ready').eq('id', EXAM)).data ?? []
 const readyBefore = ((await db.from('csat_exams').select('id').eq('diagnosis_ready', true)).data ?? []).map((r) => r.id as string)
-rec('시작 상태 — M2409 꺼짐 · 다른 켜진 시험 없음', exam0?.diagnosis_ready === false && readyBefore.length === 0, { readyBefore })
+rec(`시작 상태 — ${EXAM} 꺼짐`, exam0?.diagnosis_ready === false, { readyBefore })
 if (fail) throw new Error('시작 상태가 예상과 다르다 — 멈춘다')
 
 const browser = await chromium.launch()
@@ -66,7 +70,7 @@ try {
     process.stdout.write(`${it.no} `)
   }
   console.log('')
-  await page.screenshot({ path: path.join(ROOT, 'tmp/pilot/M2409-canon-tagging.png') })
+  await page.screenshot({ path: path.join(ROOT, `tmp/pilot/${EXAM}-canon-tagging.png`) })
 
   // ── DB 확인 ──
   const items = (await db.from('csat_items').select('id, no, answer, answers').eq('exam_id', EXAM)).data ?? []
@@ -78,12 +82,12 @@ try {
     const row = attrs.find((a) => a.item_id === `${EXAM}#${it.no}` && a.attribute_code === c)
     if (!row || row.weight !== it.w[c] || !row.reviewed_at || row.source !== 'admin') mism.push(`${it.no}${c}`)
   }
-  rec('검수 저장 — 252행 · 28/28 검수 · 값 = tri 최종(0 포함) · source admin', attrs.length === 252 && mism.length === 0, { rows: attrs.length, mismatch: mism.slice(0, 10) })
+  rec(`검수 저장 — ${tri.items.length * 9}행 · 값 = 최종(0 포함) · source admin`, attrs.length === tri.items.length * 9 && mism.length === 0, { rows: attrs.length, mismatch: mism.slice(0, 10) })
   const tk = (t: { item_id: string; option_no: number; trap_key: string }) => `${t.item_id}/${t.option_no}/${t.trap_key}`
   const trapSame = traps.length === before.traps.length && before.traps.every((b) => traps.some((t) => tk(t) === tk(b)))
   rec('선지 함정 키 = 저장 전 그대로', trapSame, { before: before.traps.length, after: traps.length })
   const r = examReadiness(keyN, items.map((i) => ({ id: i.id as string, hasAnswer: i.answer !== null || ((i.answers as number[] | null) ?? []).length > 0, attrs: attrs.filter((a) => a.item_id === i.id).map((a) => ({ code: a.attribute_code as string, reviewed: a.reviewed_at !== null })) })))
-  rec('판정(readiness) — 28/28 · 구조 문제 0 · 켤 수 있음', r.canEnable && r.reviewed === 28 && r.structural.length === 0, r)
+  rec(`판정(readiness) — ${tri.items.length}/${tri.items.length} · 구조 문제 0 · 켤 수 있음`, r.canEnable && r.reviewed === tri.items.length && r.structural.length === 0, r)
   if (!r.canEnable) throw new Error('판정 미통과 — 켜지 않는다')
 
   // ── 진단 반영 켜기(관리자 목록) ──
@@ -91,16 +95,16 @@ try {
   const row = page.locator('tr', { has: page.locator(`[data-testid="dx-readiness-${EXAM}"]`) })
   const btn = row.getByRole('button', { name: /꺼짐 · 켜기/ })
   await btn.scrollIntoViewIfNeeded()
-  rec('관리자 목록 — M2409 검수 28/28 표시 · 켜기 버튼 활성', (await row.locator(`[data-testid="dx-readiness-${EXAM}"]`).innerText()).includes('28/28') && (await btn.isEnabled()))
+  rec(`관리자 목록 — ${EXAM} 검수 완료 표시 · 켜기 버튼 활성`, (await row.locator(`[data-testid="dx-readiness-${EXAM}"]`).innerText()).includes(`${tri.items.length}/${tri.items.length}`) && (await btn.isEnabled()))
   await btn.click()
   await row.getByRole('status').waitFor({ timeout: 20000 })
   rec('켜기 결과 메시지', (await row.getByRole('status').innerText()) === '진단 반영을 켰어요', await row.getByRole('status').innerText())
-  await page.screenshot({ path: path.join(ROOT, 'tmp/pilot/M2409-canon-ready.png') })
+  await page.screenshot({ path: path.join(ROOT, `tmp/pilot/${EXAM}-canon-ready.png`) })
   const readyAfter = ((await db.from('csat_exams').select('id').eq('diagnosis_ready', true)).data ?? []).map((x) => x.id as string)
-  rec('진단 반영 — M2409 만 켜짐(다른 시험 불변)', readyAfter.length === 1 && readyAfter[0] === EXAM, { readyAfter })
+  rec(`진단 반영 — ${EXAM} 가 더해지고 다른 시험 불변`, readyAfter.length === readyBefore.length + 1 && readyAfter.includes(EXAM) && readyBefore.every((x) => readyAfter.includes(x)), { readyBefore, readyAfter })
 } finally {
   await browser.close()
-  await ck('after', fail ? `실패 ${fail}` : 'M2409 정본 28문항 저장 · 진단 반영 켬')
+  await ck('after', fail ? `${EXAM} 실패 ${fail}` : `${EXAM} 정본 ${tri.items.length}문항 저장 · 진단 반영 켬`)
 }
 console.log(fail ? `실패 ${fail}` : '모든 단언 통과')
 if (fail) process.exit(1)

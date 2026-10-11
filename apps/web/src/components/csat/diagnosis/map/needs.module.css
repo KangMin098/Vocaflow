@@ -556,6 +556,111 @@
   justify-content: space-between;
   gap: 8px 16px;
 }
+/* ── 4차: 계획 저장 · 이력 ── */
+.saveState {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
+  background: var(--m-canvas);
+  color: var(--m-ink2);
+}
+.saveState[data-state='saved'] {
+  background: var(--m-met-bg);
+  color: var(--m-met-ink);
+  font-weight: 600;
+}
+.saveState[data-state='dirty'] {
+  color: var(--m-ink);
+  font-weight: 600;
+}
+.saveBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 14px;
+  padding-top: 4px;
+}
+.saveField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+}
+.saveField select,
+.saveField input {
+  min-height: 44px;
+  min-width: 200px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #0d0d1726;
+  background: var(--m-bg);
+  color: var(--m-ink);
+  font: inherit;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
+}
+.saveField select:focus-visible,
+.saveField input:focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+}
+.cta:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.saveErr {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
+  color: var(--m-short-ink);
+}
+.history {
+  font-size: max(var(--csat-fs-min), calc(12.5px * var(--csat-fs-scale)));
+  color: var(--m-ink2);
+}
+.history summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--m-ink);
+}
+.history summary:focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+}
+.history ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.history li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 12px;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--m-canvas);
+}
+.historyPlan {
+  grid-column: 1;
+  color: var(--m-ink2);
+}
+.history li > button {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
 @media (max-width: 1100px) {
   .planItem {
     grid-template-columns: minmax(0, 1fr);
