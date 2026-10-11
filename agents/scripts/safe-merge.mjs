@@ -30,9 +30,28 @@ import { isMain, rel } from './lib.mjs'
 
 /** 정책 정본(없거나 깨지면 던진다 — 정책 없이 병합하지 않는다) */
 export function loadPolicy(file = rel('agents', 'policies', 'pr-automation.json')) {
-  const p = JSON.parse(fs.readFileSync(file, 'utf8'))
-  if (!Array.isArray(p.required_checks) || !p.merge) throw new Error('pr-automation.json 형식 오류')
+  return parsePolicy(fs.readFileSync(file, 'utf8'))
+}
+export function parsePolicy(raw) {
+  const p = JSON.parse(raw)
+  if (!Array.isArray(p.required_checks) || !p.required_checks.length || !p.merge) throw new Error('pr-automation.json 형식 오류')
   return p
+}
+
+/**
+ * 병합 판정에 쓰는 정책 = **보호된 origin/main 의 정책**(로컬 작업 트리 · PR 브랜치가 아니다).
+ * PR 이 자기 브랜치에서 스위치를 켜거나 필수 체크를 줄여 자기 자신을 통과시키지 못하게 한다.
+ * origin/main 에 정책이 없으면(도입 전) 병합 꺼짐 — 판정에는 로컬 정본의 필수 체크를 쓰되 병합은 하지 않는다.
+ */
+export function mergePolicy(fetchMain, local) {
+  let raw = null
+  try {
+    raw = fetchMain()
+  } catch {
+    raw = null
+  }
+  if (!raw) return { ...local, merge: { ...local.merge, auto_merge_enabled: false }, source: 'local(origin/main 에 정책 없음 · 병합 꺼짐)' }
+  return { ...parsePolicy(raw), source: 'origin/main' }
 }
 
 const FAIL = new Set(['FAILURE', 'CANCELLED', 'TIMED_OUT', 'ACTION_REQUIRED', 'STARTUP_FAILURE', 'STALE', 'ERROR'])
@@ -65,7 +84,8 @@ export function decide(pr, { required = [] } = {}) {
     const s = runs.map((r) => r.state)
     if (s.includes('fail')) reasons.push(`실패: ${name}(${runs.filter((r) => r.state === 'fail').map((r) => r.result).join(',')})`)
     else if (s.includes('pending')) reasons.push(`대기: ${name}`)
-    else if (!s.includes('pass')) reasons.push(`통과 아님: ${name}(${runs.map((r) => r.result).join(',')})`)
+    // 필수가 아닌 체크가 SKIPPED 뿐이면 막지 않는다(e2e-shared-dev 는 PR 에서 의도적으로 건너뛴다). 필수 체크 · 실패 · 모르는 결론은 그대로 막는다
+    else if (!s.includes('pass') && !(required.length && !required.includes(name) && s.every((x) => x === 'skip'))) reasons.push(`통과 아님: ${name}(${runs.map((r) => r.result).join(',')})`)
   }
   for (const name of required) if (!byName[name]) reasons.push(`누락: ${name} — 돌지 않은 필수 체크는 통과가 아니다`)
   const pending = reasons.length > 0 && reasons.every((r) => r.startsWith('대기:'))
@@ -192,7 +212,11 @@ async function main() {
   }
   let policy
   try {
-    policy = loadPolicy()
+    policy = mergePolicy(() => {
+      execFileSync('git', ['fetch', '-q', 'origin', 'main'], { stdio: 'ignore' })
+      return execFileSync('git', ['show', 'origin/main:agents/policies/pr-automation.json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })
+    }, loadPolicy())
+    console.log(`[safe-merge] 정책 v${policy.version} · 출처 ${policy.source} · 병합 ${policy.merge.auto_merge_enabled ? '켜짐' : '꺼짐'}`)
   } catch (e) {
     console.error(`[safe-merge] 정책을 읽지 못했다(병합하지 않음): ${e.message}`)
     return 1

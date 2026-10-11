@@ -152,3 +152,24 @@ test('SM-P9 정책 비활성 — safe-merge 본체에 병합 차단 분기가 dr
   assert.ok(iDry > 0 && iOff > iDry && iMerge > iOff, '꺼짐 차단이 병합 호출보다 앞에 있어야 한다')
   assert.ok(!/--auto/.test(src.slice(iOff - 200, iOff + 300)), '자동/수동 구분 없이 막는다')
 })
+
+test('SM-P10 병합 정책은 보호된 origin/main 에서 — PR 브랜치가 스위치를 켜도 main 이 꺼져 있으면 꺼짐', async () => {
+  const { mergePolicy } = await import('../safe-merge.mjs')
+  const on = { ...policy, merge: { ...policy.merge, auto_merge_enabled: true } }
+  const off = { ...policy, merge: { ...policy.merge, auto_merge_enabled: false } }
+  // 로컬(PR 브랜치)은 켜짐 · main 은 꺼짐 → 꺼짐
+  assert.equal(mergePolicy(() => JSON.stringify(off), on).merge.auto_merge_enabled, false)
+  // main 에 정책이 없으면(도입 전) 로컬이 켜져 있어도 꺼짐
+  assert.equal(mergePolicy(() => null, on).merge.auto_merge_enabled, false)
+  assert.equal(mergePolicy(() => { throw new Error('fetch 실패') }, on).merge.auto_merge_enabled, false)
+  // 필수 체크도 main 것을 쓴다 — PR 이 자기 필수 체크를 줄여도 소용없다
+  const weakLocal = { ...on, required_checks: ['verify'] }
+  assert.deepEqual(mergePolicy(() => JSON.stringify(on), weakLocal).required_checks, policy.required_checks)
+})
+
+test('SM-P11 필수가 아닌 체크의 SKIPPED 는 막지 않는다 · 필수 체크의 SKIPPED · 비필수 실패는 막는다', () => {
+  const req = ['verify']
+  assert.equal(decide(pr([run('verify', 'SUCCESS'), run('e2e-shared-dev', 'SKIPPED')]), { required: req }).ok, true)
+  assert.equal(decide(pr([run('verify', 'SKIPPED')]), { required: req }).ok, false)
+  assert.equal(decide(pr([run('verify', 'SUCCESS'), run('extra', 'FAILURE')]), { required: req }).ok, false)
+})
