@@ -6,6 +6,7 @@
 //   D2  mcp 생성물 드리프트 0 (sync.mjs --check 와 같은 판정)
 //   D3  에이전트 설정 파일 전체에서 비밀값 패턴 0
 //   D9  README 안내 · router.md · .gitignore 로컬 전용 항목
+//   D11 PR 자동화 정책 정본 존재 · 형식 · AGENTS.md 정책 줄 버전 일치 · 옛 승인 규칙 없음 · DECISIONS 이력
 //
 //   node agents/scripts/check.mjs            # 표 출력, 실패 시 exit 1
 //   node agents/scripts/check.mjs --quiet    # 실패 항목만 출력
@@ -125,7 +126,36 @@ export function runChecks() {
   add('D9', `서브에이전트 ${claudeAgents.length}개 Codex 짝 존재`, orphanAgents.length === 0,
     orphanAgents.length ? `Codex 짝 없음: ${orphanAgents.join(', ')}` : claudeAgents.join(' · '))
 
+  // D11 — PR 자동화 정책(v1.1 · 2026-10-11). 모든 세션이 같은 정본을 읽어야 한다 — AGENTS.md 의 정책 줄 버전과 JSON 버전이 어긋나면
+  //   한쪽 세션은 옛 승인 규칙으로 돈다. DECISIONS 에 그 버전의 이력이 있어야 한다.
+  for (const r of policyChecks()) add('D11', r.name, r.ok, r.detail)
+
   return rows
+}
+
+/** D11 — 정책 정본 · AGENTS.md 참조 · 이력 일치(파일만 읽는다 · read 주입으로 테스트) */
+export function policyChecks(read = (p) => readText(rel(p))) {
+  const out = []
+  const add = (name, ok, detail = '') => out.push({ name, ok, detail })
+  const raw = read('agents/policies/pr-automation.json')
+  let p = null
+  try {
+    p = raw === null ? null : JSON.parse(raw)
+  } catch (e) {
+    add('정책 JSON 유효', false, e.message)
+    return out
+  }
+  add('정책 정본 2파일 존재', p !== null && read('agents/policies/PR_AUTOMATION_POLICY.md') !== null, 'agents/policies/PR_AUTOMATION_POLICY.md · pr-automation.json')
+  if (!p) return out
+  const shape = p.mode === 'AUTO_CONTINUE' && Array.isArray(p.required_checks) && p.required_checks.length > 0 && !!p.merge && typeof p.merge.auto_merge_enabled === 'boolean'
+    && JSON.stringify(Object.keys(p.approval_required ?? {}).sort()) === '["data_deletion","db_change"]'
+  add('정책 형식(AUTO_CONTINUE · 승인 2종 · 필수 체크 · 자동 병합 스위치)', shape, `v${p.version}`)
+  const agents = read('AGENTS.md') ?? ''
+  const m = agents.match(/PR_AUTOMATION_POLICY v(\d+(?:\.\d+)*)/)
+  add('AGENTS.md 정책 줄 버전 = 정본 버전', !!m && m[1] === p.version, m ? `AGENTS.md v${m[1]} · JSON v${p.version}` : 'AGENTS.md 에 「PR_AUTOMATION_POLICY v…」 줄 없음')
+  add('옛 승인 규칙 없음(main 머지 · 파일 ≥30 사용자 확인)', !/main 머지는 사용자 확인|사용자 확인:[^\n]*파일 ≥30/.test(agents))
+  add('정책 이력(DECISIONS) 있음', (read('agents/DECISIONS.md') ?? '').includes(`DD-PR-AUTO-${p.version}`), `DD-PR-AUTO-${p.version}`)
+  return out
 }
 
 function main() {
