@@ -9,6 +9,7 @@ export const ORDER_RUN_SCAN_LIMIT = 200
 type RunOrder = { grade: string; product_order_id: string; order_revision: number; order_hash: string }
 type AtomicJournal = { journal: string; state: string; latest_file: string | null; latest_sha256: string | null }
 type AtomicStatusFile = { state: string; html_sha256: string | null; revision: number; delivery_modes: string[];
+  companion_items?: number; companion_activities?: string[];
   days: { day: number; grades: string[] }[]; journals: AtomicJournal[] }
 /** What `scripts/textbook/run-atomic.mjs status` last recorded, re-fingerprinted on every read. */
 export type RunAtomicStatus = {
@@ -16,6 +17,8 @@ export type RunAtomicStatus = {
   revision: number | null
   day_count: number
   delivery_modes: string[]
+  companion_items: number
+  companion_activities: string[]
   journals: { journal: string; state: string }[]
 }
 export type OrderRunStatus = ReturnType<typeof summarizeOrderRun> & {
@@ -42,13 +45,14 @@ const sha256 = async (file: string) => createHash('sha256').update(await fs.read
 async function readAtomicStatus(dir: string): Promise<RunAtomicStatus | null> {
   const atomic = path.join(dir, 'atomic')
   try { await fs.access(atomic) } catch { return null }
-  const empty = { revision: null, day_count: 0, delivery_modes: [], journals: [] }
+  const empty = { revision: null, day_count: 0, delivery_modes: [], companion_items: 0, companion_activities: [], journals: [] }
   let status: AtomicStatusFile | undefined
   try { status = await readJson(path.join(atomic, 'status.json')) as AtomicStatusFile | undefined } catch { status = undefined }
   if (!status) return { state: 'status_missing', ...empty }
   const journals = Array.isArray(status.journals) ? status.journals : []
   const summary = { revision: status.revision ?? null, day_count: status.days?.length ?? 0,
-    delivery_modes: status.delivery_modes ?? [], journals: journals.map(row => ({ journal: row.journal, state: row.state })) }
+    delivery_modes: status.delivery_modes ?? [], companion_items: status.companion_items ?? 0,
+    companion_activities: status.companion_activities ?? [], journals: journals.map(row => ({ journal: row.journal, state: row.state })) }
   let fresh = false
   try {
     const journalRoot = path.join(atomic, 'journal')

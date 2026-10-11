@@ -149,7 +149,8 @@ export function buildCompanionPractice(run: AssembledRun, deps: CompanionResourc
     // Hash of the operator's companion resources file, so later re-verification can prove which lexicon/audio was used.
     resources_sha256: options.resourcesSha256 ?? null,
     items: items.map(({ html: _html, ...rest }) => rest), skipped, html_sha256: sha(html) }
-  return { status: 'built' as const, html, manifest: { ...manifest, manifest_hash: sha(canonicalJson(manifest)) } }
+  // entries keep each item's HTML so atomic production can place it after its own unit.
+  return { status: 'built' as const, html, entries: items, manifest: { ...manifest, manifest_hash: sha(canonicalJson(manifest)) } }
 }
 
 /** Rebuilds from the current run and resources; stored output must match exactly. */

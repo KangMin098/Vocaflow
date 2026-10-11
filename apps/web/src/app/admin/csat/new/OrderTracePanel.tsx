@@ -108,6 +108,7 @@ export function OrderTracePanel() {
               {run.atomic ? <p className={`mt-1 break-keep ${run.atomic.state === 'volume_ready' ? 'text-[var(--t2)]' : 'text-[var(--memory-risk)]'}`}>
                 원자 권: {atomicStateNames[run.atomic.state]}
                 {run.atomic.day_count ? ` · ${run.atomic.day_count}일 · revision ${run.atomic.revision ?? '?'} · ${run.atomic.delivery_modes.join(', ')}` : ''}
+                {run.atomic.companion_items ? ` · 보조 활동 ${run.atomic.companion_items}개(${run.atomic.companion_activities.join(', ')})` : ''}
                 {run.atomic.journals.length ? ` · 개정 기록 ${run.atomic.journals.map(row => `${row.journal} ${row.state}`).join(', ')}` : ''}
               </p> : <p className="mt-1 break-keep text-[var(--t2)]">원자 권: 아직 만들지 않음</p>}
             </li>)}</ul>}

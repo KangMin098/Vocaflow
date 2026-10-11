@@ -152,12 +152,31 @@ describe('companion practice through the order-production CLI', () => {
       expect(manifest.resources_sha256).toBe(complete.companion_resources_sha256)
       expect(new Set(manifest.items.map((item: { activity: string }) => item.activity)).size).toBe(7)
       expect(readFileSync(path.join(runDir, 'practice.html'), 'utf8')).toContain('data-activity="dictation_practice"')
+
+      // The same companion practice goes into the atomic snapshots: every activity sits after its unit in the
+      // published volume. A run produced without, or with different, resources is refused.
+      const atomic = (...args: string[]) => spawnSync(process.execPath, [tsx, path.join(root, 'scripts/textbook/run-atomic.mjs'), ...args],
+        { cwd: root, encoding: 'utf8', windowsHide: true })
+      expect(atomic('produce', '--input', inputPath, '--run-dir', runDir).stderr).toContain('RUN_COMPANION_RESOURCES_CHANGED')
+      const otherRes = path.join(temp, 'res-other.json')
+      writeFileSync(otherRes, readFileSync(resPath, 'utf8').replace('"dirty"', '"filthy"'))
+      expect(atomic('produce', '--input', inputPath, '--run-dir', runDir, '--companion-resources', otherRes).stderr).toContain('RUN_COMPANION_RESOURCES_CHANGED')
+      writeFileSync(practicePath, original.replace('</section>', ' edited</section>'))
+      expect(atomic('produce', '--input', inputPath, '--run-dir', runDir, '--companion-resources', resPath).stderr).toContain('RUN_COMPANION_STALE')
+      writeFileSync(practicePath, original)
+      const produced = atomic('produce', '--input', inputPath, '--run-dir', runDir, '--companion-resources', resPath)
+      expect(produced.status, produced.stderr).toBe(0)
+      const status = JSON.parse(produced.stdout)
+      expect(status).toMatchObject({ state: 'volume_ready', companion_items: manifest.items.length })
+      expect(new Set(status.companion_activities)).toEqual(new Set(COMPANION_ACTIVITIES))
+      const volume = readFileSync(path.join(runDir, 'atomic', 'volume.html'), 'utf8')
+      for (const activity of COMPANION_ACTIVITIES) expect(volume).toContain(`class="companion" data-activity="${activity}"`)
     } finally {
       if (path.dirname(temp) !== path.resolve(tmpdir()) || !path.basename(temp).startsWith('vocaflow-companion-'))
         throw Error('TEMP_CLEANUP_TARGET_INVALID')
       rmSync(temp, { recursive: true, force: true })
     }
-  }, 60_000)
+  }, 180_000)
 })
 
 describe('review regressions (2026-10-11)', () => {

@@ -266,3 +266,15 @@ Executed on the reviewed P13 run (`volume_ready`, 2 days, single_grade). CLI tes
 Admin: `/api/admin/csat/order-runs` now returns `atomic` per run, and the order panel shows its state, day count, revision, delivery modes and journal states. The server re-fingerprints the volume HTML and the latest record of every journal; any change since the last `status` reads `status_stale`, a missing status file `status_missing` (API tests 4/4). Help: the field and a rerun caution were added.
 
 Reclassification: area 1 → DONE for the synthetic operator path (still no live DB promotion of a run with a real second reviewer's own review); area 5a → DONE (run, blockers, stale, atomic volume, revision journals visible in admin and CLI; no admin buttons that start or retry production, which stays in the CLI by design). Verdict unchanged: both flags false.
+
+### 2026-10-11 — non-reading products inside atomic production (area 3)
+
+Companion practice (grammar, word order, vocabulary, listening, dictation, word cards, diagnostic check) was file-level only. It now rides the atomic path:
+- `multi-grade-production.ts`: a stage's `activities` are typed (`activity`, `item_sha256`, `html`), bound to the sealed evidence through each variant's `activity_hash` (already checked, never filled before), and printed right after their unit in the volume HTML.
+- `run-atomic-bridge.mjs` / `run-revision.mjs`: `companion` entries go to their own unit's stage and `activity_hash`; an entry for a unit outside the run is refused (`RUN_COMPANION_FOREIGN_UNIT`). Revision rebuilds keep them.
+- `run-atomic.mjs --companion-resources`: rebuilds the practice from the re-sealed run and requires the same resources file hash and the identical printed practice as the reviewed run (`RUN_COMPANION_RESOURCES_CHANGED`, `RUN_COMPANION_STALE`). Diagnostic item hashes include the order hash, so the comparison uses the hash-bound `practice.html`, not item hashes.
+- Admin shows the companion item count and activities per atomic volume.
+
+Verified (companion CLI test 7/7): a two-grade run with all seven activities → produce without resources, with altered resources and with an edited practice file all refused → produce succeeds, status `volume_ready` with the manifest's item count, and the volume HTML contains every activity section. Script tests 60/60.
+
+Area 3 → DONE for the synthetic path (seven activity kinds from existing generators, order lineage, atomic snapshots, volume, admin). Limits kept: dictation and cards are single-word scope, and the diagnostic reuses run items rather than a calibrated test. Verdict unchanged: both flags false.

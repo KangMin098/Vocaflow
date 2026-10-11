@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(textbook): 독해 외 보조 활동 7종을 원자 생산에 — 단원별 activity_hash 로 증거에 묶고 권 HTML 에서 단원 바로 뒤에 인쇄. `run-atomic.mjs --companion-resources`(같은 자원·같은 연습지만 통과), 관리자 원자 권에 보조 활동 수 표시.
 - feat(textbook): `run-atomic.mjs produce|revise|status` — 완료된 생산 실행에서 원자 권·일자별 개정 기록까지 운영자 경로. 관리자 주문 화면에 원자 권·개정 기록 상태(파일이 바뀌면 status_stale). 재봉인 로직은 `run-reseal.mjs` 로 공용화.
 - feat(textbook): `run-atomic.mjs produce|revise|status` — 완료된 생산 실행에서 원자 권·일자별 개정 기록까지 운영자 경로. 관리자 주문 화면에 원자 권·개정 기록 상태(파일이 바뀌면 status_stale). 재봉인 로직은 `run-reseal.mjs` 로 공용화.
 - feat(textbook): 마이그레이션 `20261011094405_reading_production_agent_reviewer` (승인·개발 DB 적용) — 사람 관리자 1명 체제에서 두 번째 승인을 반대 에이전트(Codex/Claude) 서명 영수증으로. 실측 생성기가 `registered_by` 교체를 버리고 실제 에이전트 승인 사용, P13 롤백 실측 11/11(거부 3 포함).

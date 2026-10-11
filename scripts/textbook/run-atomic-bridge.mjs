@@ -101,7 +101,9 @@ function promotionInput({ trust, order, grade, passage, quote, source, child, re
 // deliveryMode: 'auto' = grade_specific_adaptations (each grade's order expects its own adaptation).
 // Shared passage or grade-specific units must be requested explicitly; the mode is never inferred
 // from the filled passages, because identical passages would then bypass the adaptation guard.
-export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliveryMode = 'auto' }) {
+// companion: entries of buildCompanionPractice for this run (non-reading activities); each entry is placed
+// after its own unit and bound to the sealed evidence through activity_hash.
+export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliveryMode = 'auto', companion = [] }) {
   if (!Number.isInteger(revision) || revision < 1 || revision > 99) throw Error('RUN_DAY_REVISION_INVALID')
   const units = run.volumeInput.units.filter(unit => unit.day === day)
     .sort((a, b) => run.volumeInput.brief.grade_scope.grades.indexOf(a.grade) - run.volumeInput.brief.grade_scope.grades.indexOf(b.grade))
@@ -169,13 +171,16 @@ export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliv
     const analysis = { grade: section.grade, day }
     evidence.variants[index].unit_set_hash = hash([[unit.unit_id, sha(unit.html)]])
     evidence.variants[index].analysis_hash = hash(analysis)
+    const activities = companion.filter(entry => entry.unit_id === section.unit.unit_id)
+      .map(entry => ({ activity: entry.activity, item_sha256: entry.item_sha256, html: entry.html }))
+    evidence.variants[index].activity_hash = activities.length ? hash(activities) : null
     return { grade: section.grade, article_id: items[0].ref_id, passage: section.unit.passage,
       lineage: items[0].payload.factory_lineage, items,
       explanations: section.items.map(item => ({ item_id: item.id, text: item.answer_key.explanation_ko,
         item_digest: item.source_item_digest, factory_lineage: item.payload.factory_lineage })),
       reviews: section.items.map(item => ({ item_id: item.id, decision: 'approved', item_digest: item.source_item_digest,
         explanation_hash: sha(item.answer_key.explanation_ko), factory_lineage: item.payload.factory_lineage })),
-      activities: [], analysis, unit }
+      activities, analysis, unit }
   })
   const render = { colophon: { title: `Synthetic run day ${day}`, ladder: grades.join('/'), edition: 'synthetic',
     issued: '2026-10-07', sourcePolicy: 'synthetic', review: 'synthetic' }, step: null, schoolBand: null, vLevel: 5,
@@ -225,10 +230,12 @@ export async function produceRunDayAtomic({ run, day, trust, revision = 1, deliv
 }
 
 /** Every planned day -> published atomic snapshot -> one volume, verified against the served artifacts. */
-export async function produceRunAtomicVolume({ run, trust, deliveryMode = 'auto' }) {
+export async function produceRunAtomicVolume({ run, trust, deliveryMode = 'auto', companion = [] }) {
+  const units = new Set(run.volumeInput.units.map(unit => unit.unit_id))
+  if (companion.some(entry => !units.has(entry.unit_id))) throw Error('RUN_COMPANION_FOREIGN_UNIT')
   const days = [...new Set(run.volumeInput.units.map(unit => unit.day))].sort((a, b) => a - b)
   const results = []
-  for (const day of days) results.push({ ...(await produceRunDayAtomic({ run, day, trust, deliveryMode })), revision: 1 })
+  for (const day of days) results.push({ ...(await produceRunDayAtomic({ run, day, trust, deliveryMode, companion })), revision: 1 })
   return composeRunDayResults(run, results)
 }
 

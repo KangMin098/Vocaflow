@@ -48,7 +48,7 @@ export function inspectRunRevision(prior, next) {
 }
 
 /** Rebuilds changed days only; `prior` is the result of produceRunAtomicVolume / a previous revise. */
-export async function reviseRunAtomicVolume({ priorRun, nextRun, prior, trust }) {
+export async function reviseRunAtomicVolume({ priorRun, nextRun, prior, trust, companion = [] }) {
   const impact = inspectRunRevision(priorRun, nextRun)
   if (!impact.rebuild_days.length) return { impact, produced: prior, day_impacts: [] }
   const byDay = new Map(prior.days.map(result => [result.day, result]))
@@ -58,7 +58,7 @@ export async function reviseRunAtomicVolume({ priorRun, nextRun, prior, trust })
     if (!before) throw Error('RUN_REVISION_PRIOR_DAY_MISSING')
     if (impact.reuse_days.includes(day)) { results.push(before); continue }
     const revision = before.revision + 1
-    const rebuilt = { ...(await produceRunDayAtomic({ run: nextRun, day, trust, revision })), revision }
+    const rebuilt = { ...(await produceRunDayAtomic({ run: nextRun, day, trust, revision, companion })), revision }
     dayImpacts.push({ day, revision, impact: inspectProductionRevisionImpact(
       before.output.manifest, rebuilt.output.manifest, 'changed') })
     results.push(rebuilt)
@@ -75,8 +75,8 @@ export async function reviseRunAtomicVolume({ priorRun, nextRun, prior, trust })
  * and the journal start/advance calls are idempotent; nothing is recorded as complete twice.
  * The volume is returned only when every rebuilt day's journal reached `complete`.
  */
-export async function reviseRunAtomicVolumeJournaled({ priorRun, nextRun, prior, trust, journalRoot, onStep = () => {} }) {
-  const revised = await reviseRunAtomicVolume({ priorRun, nextRun, prior, trust })
+export async function reviseRunAtomicVolumeJournaled({ priorRun, nextRun, prior, trust, journalRoot, companion = [], onStep = () => {} }) {
+  const revised = await reviseRunAtomicVolume({ priorRun, nextRun, prior, trust, companion })
   if (!revised.day_impacts.length) return { ...revised, journals: [] }
   const journals = []
   for (const { day, revision, impact } of revised.day_impacts) {

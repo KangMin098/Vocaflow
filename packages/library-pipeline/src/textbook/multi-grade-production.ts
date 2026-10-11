@@ -25,7 +25,8 @@ const stageSchema = z.object({
   explanations: z.array(z.object({ item_id: id, text: z.string().min(1), item_digest: hex, factory_lineage: lineageSchema }).strict()),
   reviews: z.array(z.object({ item_id: id, decision: z.literal('approved'), item_digest: hex,
     explanation_hash: hex, factory_lineage: lineageSchema }).strict()),
-  activities: z.array(z.unknown()), analysis: z.unknown(),
+  // Companion (non-reading) activities of this unit, bound to the sealed evidence through activity_hash.
+  activities: z.array(z.object({ activity: z.string().regex(/^[a-z_]{1,40}$/), item_sha256: hex, html: z.string().min(1) }).strict()), analysis: z.unknown(),
   unit: z.object({ unit_id: id, html: z.string().min(1) }).strict(),
 }).strict()
 const renderSchema = z.object({
@@ -129,7 +130,8 @@ export function runMultiGradeFactoryDryRun(input: {
   const render = renderSchema.parse(input.render)
   if (render.proof.passages !== units.length) throw Error('MULTI_GRADE_RENDER_PROOF_MISMATCH')
   const rendered = renderVolumeDocument({ ...render, unitCount: units.length, itemCount: answers.length,
-    unitsHtml: stages.map(stage => stage.unit.html).join('\n'), answers })
+    unitsHtml: stages.map(stage => [stage.unit.html, ...stage.activities.map(row =>
+      `<section class="companion" data-activity="${row.activity}">${row.html}</section>`)].join('\n')).join('\n'), answers })
   const html = MULTI_GRADE_DRY_RUN_MARKER + '\n' + rendered
   const manifest = { schema: 'textbook-multi-grade-factory-dry-run/1', evidence_level: 'caller_supplied_unverified',
     render_eligible: false, seed_eligible: false, group_id: sealed.group.group_id,

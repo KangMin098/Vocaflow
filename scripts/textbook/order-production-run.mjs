@@ -14,20 +14,7 @@ import { assertExternalCandidate } from './frym-benchmark/local-candidate-path.m
 import { writeAtomicDryRunOutput } from './atomic-production-output.mjs'
 import { buildCompanionPractice, verifyCompanionPractice } from '../../packages/library-pipeline/src/textbook/companion-practice.ts'
 
-const companionBytes = file => fs.readFileSync(path.resolve(file), 'utf8')
-// Companion resources file (only when an order seals companion activities):
-// { antonyms: {word: [..]}, pos: {word: pos}, common_words: [..] | null, word_pool: [{word, meaningKo, rhymeKey}],
-//   audio: {word: {url, attribution}} }. Missing parts block only the activities that need them.
-function companionDeps(file) {
-  if (!file) return {}
-  const raw = JSON.parse(companionBytes(file))
-  return {
-    ...(raw.antonyms || raw.pos ? { lexicon: { antonymsOf: word => raw.antonyms?.[word] ?? [], posOf: word => raw.pos?.[word] ?? null } } : {}),
-    ...(raw.common_words !== undefined ? { isCommonWord: word => raw.common_words === null || raw.common_words.includes(word.toLowerCase()) } : {}),
-    ...(raw.word_pool ? { wordPool: raw.word_pool } : {}),
-    ...(raw.audio ? { audioOf: word => raw.audio[word] ?? null } : {}),
-  }
-}
+import { companionBytes, companionDeps } from './companion-deps.mjs'
 
 const usage = 'Usage: pnpm exec tsx scripts/textbook/order-production-run.mjs export|import|review --input FILE --run-dir DIR [--companion-resources FILE] | status --run-dir DIR'
 const [command, ...rest] = process.argv.slice(2)

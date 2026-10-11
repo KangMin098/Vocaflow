@@ -76,7 +76,8 @@ describe('admin order run status API', () => {
     mkdirSync(path.join(root, 'b-run', 'atomic'), { recursive: true })
     const body = await (await call()).json()
     expect(body.runs[0].atomic).toEqual({ state: 'volume_ready', revision: 2, day_count: 2,
-      delivery_modes: ['grade_specific_adaptations'], journals: [{ journal: 'day-2-r2', state: 'complete' }] })
+      delivery_modes: ['grade_specific_adaptations'], companion_items: 0, companion_activities: [],
+      journals: [{ journal: 'day-2-r2', state: 'complete' }] })
     expect(body.runs[1].atomic.state).toBe('status_missing')
     expect(body.runs[2].atomic).toBeNull()
 

@@ -1,8 +1,10 @@
 // scripts/textbook/run-atomic.mjs
 // Operator path from a completed, family-reviewed order-production run to an atomic volume (synthetic trust root).
-//   produce --input RUN_INPUT.json --run-dir DIR [--delivery MODE]
+//   produce --input RUN_INPUT.json --run-dir DIR [--delivery MODE] [--companion-resources FILE]
 //       writes DIR/atomic/{volume.html, volume.json, status.json}; refuses an existing DIR/atomic
-//   revise --prior-input FILE --prior-run-dir DIR0 --input FILE --run-dir DIR
+//   revise --prior-input FILE --prior-run-dir DIR0 --input FILE --run-dir DIR [--companion-resources FILE]
+//       companion (non-reading) practice sealed by the order is rebuilt from the re-sealed run and must equal the
+//       run's practice.manifest.json item for item; each item goes into its unit's atomic snapshot
 //       rebuilds only the changed days of DIR against DIR0, journals each rebuilt day under DIR/atomic/journal,
 //       writes DIR/atomic/{volume.html, volume.json, impact.json, status.json}
 //   status --run-dir DIR
@@ -16,6 +18,8 @@ import { assertExternalCandidate } from './frym-benchmark/local-candidate-path.m
 import { produceRunAtomicVolume, syntheticTrustRoot } from './run-atomic-bridge.mjs'
 import { reviseRunAtomicVolumeJournaled, runRevisionJournalStatus } from './run-revision.mjs'
 import { resealReviewedRun } from './run-reseal.mjs'
+import { companionDeps, companionResourcesSha256 } from './companion-deps.mjs'
+import { buildCompanionPractice } from '../../packages/library-pipeline/src/textbook/companion-practice.ts'
 
 const usage = 'Usage: pnpm exec tsx scripts/textbook/run-atomic.mjs produce --input FILE --run-dir DIR [--delivery MODE] | ' +
   'revise --prior-input FILE --prior-run-dir DIR --input FILE --run-dir DIR | status --run-dir DIR'
@@ -46,7 +50,26 @@ export function atomicRunStatus(runDir) {
     days: volume.manifest?.sections?.map(section => ({ day: section.day, snapshot_id: section.snapshot_id,
       grades: section.units.map(unit => unit.grade) })) ?? [],
     delivery_modes: volume.delivery_modes ?? [], revision: volume.revision ?? 1,
+    companion_items: volume.companion_items ?? 0, companion_activities: volume.companion_activities ?? [],
     production_verified: false, journals }
+}
+
+/** The run's own companion practice, rebuilt for atomic production; any difference from the reviewed run blocks. */
+export function runCompanionEntries(run, runDir, resourcesFile) {
+  const storedPath = path.join(runDir, 'practice.manifest.json')
+  if (!fs.existsSync(storedPath)) { if (resourcesFile) throw Error('RUN_COMPANION_NOT_SEALED'); return [] }
+  const stored = readJson(storedPath)
+  const resourcesSha256 = companionResourcesSha256(resourcesFile)
+  if ((stored.resources_sha256 ?? null) !== resourcesSha256) throw Error('RUN_COMPANION_RESOURCES_CHANGED')
+  const built = buildCompanionPractice(run, companionDeps(resourcesFile), { resourcesSha256 })
+  if (built.status !== 'built') throw Error(`RUN_COMPANION_BLOCKED:${JSON.stringify(built.blockers)}`)
+  // Diagnostic item hashes include the order hash, which re-sealing changes; the reviewed content does not.
+  // So compare the printed practice (hash-bound to the stored manifest) and each item's place.
+  const storedHtml = fs.readFileSync(path.join(runDir, 'practice.html'), 'utf8')
+  const place = items => JSON.stringify(items.map(item => [item.activity, item.unit_id, item.passage_sha256]))
+  if (sha(storedHtml) !== stored.html_sha256 || built.html !== storedHtml ||
+      place(built.manifest.items) !== place(stored.items ?? [])) throw Error('RUN_COMPANION_STALE')
+  return built.entries
 }
 
 function writeVolume(runDir, produced, extra) {
@@ -56,7 +79,9 @@ function writeVolume(runDir, produced, extra) {
     synthetic_trust_root: true, production_verified: false,
     run_complete_hash: sha(fs.readFileSync(path.join(runDir, 'complete.json'))),
     delivery_modes: [...new Set(produced.days.map(day => day.delivery_mode))],
-    manifest: produced.volume.manifest, ...extra }, null, 2) + '\n', { flag: 'wx' })
+    companion_items: (extra.companion ?? []).length,
+    companion_activities: [...new Set((extra.companion ?? []).map(entry => entry.activity))],
+    manifest: produced.volume.manifest, revision: extra.revision, ...(extra.prior_run ? { prior_run: extra.prior_run } : {}) }, null, 2) + '\n', { flag: 'wx' })
 }
 
 function writeStatus(runDir) {
@@ -82,21 +107,25 @@ async function main() {
   const seal = (sealInput, sealDir) => resealReviewedRun({ input: sealInput, runDir: sealDir,
     trustHash: trust.policy_hash, trustVersion: 'synthetic-trust' }).run
   if (command === 'produce') {
-    const produced = await produceRunAtomicVolume({ run: seal(input, runDir), trust, deliveryMode: opt('--delivery') ?? 'auto' })
+    const run = seal(input, runDir)
+    const companion = runCompanionEntries(run, runDir, opt('--companion-resources'))
+    const produced = await produceRunAtomicVolume({ run, trust, deliveryMode: opt('--delivery') ?? 'auto', companion })
     fs.mkdirSync(path.join(runDir, 'atomic'))
-    writeVolume(runDir, produced, { revision: 1 })
+    writeVolume(runDir, produced, { revision: 1, companion })
     console.log(JSON.stringify(writeStatus(runDir), null, 2)); return
   }
   const priorDir = dir('--prior-run-dir')
   const priorInput = readJson(path.resolve(opt('--prior-input') ?? (() => { throw Error(usage) })()))
   const priorRun = seal(priorInput, priorDir), nextRun = seal(input, runDir)
-  const prior = await produceRunAtomicVolume({ run: priorRun, trust })
+  const priorCompanion = runCompanionEntries(priorRun, priorDir, opt('--companion-resources'))
+  const companion = runCompanionEntries(nextRun, runDir, opt('--companion-resources'))
+  const prior = await produceRunAtomicVolume({ run: priorRun, trust, companion: priorCompanion })
   fs.mkdirSync(path.join(runDir, 'atomic'))
   const revised = await reviseRunAtomicVolumeJournaled({ priorRun, nextRun, prior, trust,
-    journalRoot: path.join(runDir, 'atomic', 'journal') })
+    journalRoot: path.join(runDir, 'atomic', 'journal'), companion })
   fs.writeFileSync(path.join(runDir, 'atomic', 'impact.json'), JSON.stringify({ impact: revised.impact,
     journals: revised.journals.map(({ dir: _dir, ...row }) => row) }, null, 2) + '\n', { flag: 'wx' })
-  writeVolume(runDir, revised.produced, { revision: 1 + revised.journals.length, prior_run: path.basename(priorDir) })
+  writeVolume(runDir, revised.produced, { revision: 1 + revised.journals.length, prior_run: path.basename(priorDir), companion })
   console.log(JSON.stringify(writeStatus(runDir), null, 2))
 }
 
