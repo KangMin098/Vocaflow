@@ -43,7 +43,16 @@ export interface Prediction {
   session?: string
 }
 export interface DissectionDraft { phase: 'scan' | 'predict1' | 'compare1' | 'predict2' | 'compare2' | 'predict3' | 'compare3' | 'blueprint' | 'formula'; selection: string | null; answers: { step: number; hit: boolean; selection: string }[] }
-export interface Formula { tag: string; text: string; type: string; sources: string[] }
+export interface Formula {
+  tag: string
+  text: string
+  type: string
+  sources: string[]
+  /** 해설 극장에서 저장한 원리(M4) — 적용 조건 · 해석 한계를 함께 둔다(문구만 저장하지 않는다) */
+  conditions?: string
+  limit?: string
+  from?: 'theater'
+}
 export interface DissectionRecord {
   drafts?: Record<string, DissectionDraft>
   inspected?: string[]
@@ -65,6 +74,27 @@ export interface DissectionRecord {
   sessions?: LearningSession[]
   /** 자기 설명(해설 극장 M4) — 학습자가 쓴 오답 설계 설명. 병합은 id 단위 · 자동 채점 없음 */
   explanations?: SelfExplanation[]
+  /** 이해 확인(해설 극장 M4) — 근거 자리 · 바뀐 성분 과제의 시도. 검수된 관계로 판정 · 병합은 id 단위 */
+  checks?: CheckAttempt[]
+  /** 비교 완료(해설 극장 M4) — 검수된 같은 원리 쌍을 학습자가 실제로 대조했는가. 열람과 구별 */
+  compares?: { id: string; item: string; other: string; at: number }[]
+}
+
+/**
+ * 이해 확인 시도 하나(`lib/csat/understanding-check.ts`). 해설이 열린 화면에서 낸 과제라 **늘 설명 후 수행**이다 —
+ * 독립 수행으로 세지 않는다. `tries` 는 맞힐 때까지 고른 횟수(1 = 첫 시도에 맞힘), `revealed` 는 답을 열어 본 경우.
+ */
+export interface CheckAttempt {
+  id: string
+  item: string
+  kind: 'evidence' | 'lure'
+  correct: boolean
+  tries: number
+  revealed: boolean
+  at: number
+  afterExplanation: true
+  /** 복습에서 다시 푼 것인가 — 처음 학습과 구별한다 */
+  review?: boolean
 }
 
 /**

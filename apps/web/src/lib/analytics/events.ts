@@ -243,6 +243,24 @@ export type PublicEvent =
       name: 'csat_review_done'
       props: { size: number; substituted: boolean }
     }
+  /**
+   * 해설 극장(M4) — 다시 볼 날을 예약했다. `days` 는 이해 확인 결과로 정한 간격(1 · 3 · 7). DB 허용 목록에 이미 있다
+   * (`20261008160000_learning_sessions_integrated`).
+   */
+  | {
+      name: 'csat_review_scheduled'
+      props: { days: 1 | 3 | 7 }
+    }
+  /** 해설 극장(M4) — 이 문항의 원리를 조건 · 근거 · 출처와 함께 저장했다 */
+  | {
+      name: 'csat_principle_saved'
+      props: { from: 'theater' }
+    }
+  /** 해설 극장(M4) — 검수된 같은 원리 쌍을 대조했다(열람이 아니라 비교 완료) */
+  | {
+      name: 'csat_transfer_submitted'
+      props: { relation: 'same_principle' }
+    }
   /** 어느 축으로 들어왔나 — 목적별 · 유형별 · 회차별(같은 도착지로 가는 두 입구의 비율). */
   | {
       name: 'csat_path_chosen'
@@ -561,6 +579,9 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_resume_clicked: true,
   csat_review_started: true,
   csat_review_done: true,
+  csat_review_scheduled: true,
+  csat_principle_saved: true,
+  csat_transfer_submitted: true,
   csat_path_chosen: true,
   csat_item_back: true,
   csat_dx_viewed: true,

@@ -46,11 +46,20 @@ export function ProgressView({ catalog }: { catalog: DissectionCatalog }) {
       return <section className={home.section} key={type}>
         <h2 className={home.sectionHead}>{catalog.types.find(t => t.id === type)?.name ?? type} <small>공식 {list.length}</small></h2>
         <ul className={home.list}>{list.map(x => <li key={x.tag}>
-          <Link href={`/csat/dissect?formula=${encodeURIComponent(x.tag)}`}>
-            <span className={home.grow}>{x.text}</span>
-            <small>이 공식으로 해부</small>
-            <ArrowUpRight size={13} aria-hidden="true" />
-          </Link>
+          {x.from === 'theater' ? (
+            // 해설 극장에서 저장한 원리(M4) — 해부 카탈로그 공식이 아니라 해부 링크가 없다. 적용 조건 · 한계를 함께 보인다
+            <div>
+              <span className={`${home.grow} break-keep`}>{x.text}</span>
+              {x.conditions ? <small className="block break-keep">적용 조건 · {x.conditions}</small> : null}
+              {x.limit ? <small className="block break-keep">주의 · {x.limit}</small> : null}
+            </div>
+          ) : (
+            <Link href={`/csat/dissect?formula=${encodeURIComponent(x.tag)}`}>
+              <span className={home.grow}>{x.text}</span>
+              <small>이 공식으로 해부</small>
+              <ArrowUpRight size={13} aria-hidden="true" />
+            </Link>
+          )}
         </li>)}</ul>
         <p className={home.daysLegend}>출처 {list.flatMap(x => x.sources).filter((v, i, a) => a.indexOf(v) === i).map((id, i) => <span key={id}>{i ? ' · ' : ''}<Link href={`/csat/item/${toItemSlug(id)}`} className="underline underline-offset-4">{source(id)}</Link></span>)}</p>
       </section>

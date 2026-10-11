@@ -175,6 +175,14 @@ function mergeExplanations(a: DissectionRecord['explanations'], b: DissectionRec
   return [...byId.values()].sort((p, q) => p.at - q.at).slice(-300)
 }
 
+/** id 로 합치는 목록(이해 확인 · 비교 완료) — 같은 id 는 하나 · 최근 N건 */
+function mergeById<T extends { id: string; at: number }>(a: T[] | undefined, b: T[] | undefined, cap: number): T[] | undefined {
+  if (!a?.length && !b?.length) return undefined
+  const byId = new Map<string, T>()
+  for (const x of [...(a ?? []), ...(b ?? [])]) byId.set(x.id, x)
+  return [...byId.values()].sort((p, q) => p.at - q.at).slice(-cap)
+}
+
 export function mergeDissection(local: DissectionRecord, server: DissectionRecord): DissectionRecord {
   const newer = (server.updatedAt ?? 0) > (local.updatedAt ?? 0) ? server : local
   const older = newer === server ? local : server
@@ -195,6 +203,8 @@ export function mergeDissection(local: DissectionRecord, server: DissectionRecor
     sessions: mergeSessions(older.sessions, newer.sessions),
     // 자기 설명은 id 로 합친다 — 같은 id 면 대조(compared)를 한 쪽을 남긴다 · 최근 300건
     explanations: mergeExplanations(older.explanations, newer.explanations),
+    checks: mergeById(older.checks, newer.checks, 600),
+    compares: mergeById(older.compares, newer.compares, 300),
     completed: uniqBy([...older.completed, ...newer.completed], (c) => `${c.id}|${c.at}`).sort((a, b) => a.at - b.at),
     formulas: [...formulas.values()],
     queue: [...newer.queue, ...olderOnlyQueue],
@@ -223,6 +233,8 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
     sameSessions(a.sessions, b.sessions) &&
     (a.explanations ?? []).length === (b.explanations ?? []).length &&
     (a.explanations ?? []).every((x, i) => x.compared === b.explanations?.[i]?.compared) &&
+    (a.checks ?? []).length === (b.checks ?? []).length &&
+    (a.compares ?? []).length === (b.compares ?? []).length &&
     (a.active?.index ?? -1) === (b.active?.index ?? -1) &&
     (a.active?.items.join(',') ?? '') === (b.active?.items.join(',') ?? '')
   )
@@ -238,6 +250,7 @@ export function correctnessItemIds(record: DissectionRecord): string[] {
     ...(record.active?.items ?? []), ...Object.keys(record.active?.loci ?? {}),
     ...record.formulas.flatMap((f) => f.sources),
     ...(record.explanations ?? []).map((x) => x.item),
+    ...(record.checks ?? []).map((x) => x.item),
   ])]
 }
 
@@ -256,6 +269,7 @@ export function withoutHeldCorrectness(record: DissectionRecord, isHeld: (itemId
     predictions: record.predictions.filter((p) => !isHeld(p.item)),
     formulas: record.formulas.filter((f) => !f.sources.some(isHeld)),
     ...(record.explanations ? { explanations: record.explanations.filter((x) => !isHeld(x.item)) } : {}),
+    ...(record.checks ? { checks: record.checks.filter((x) => !isHeld(x.item)) } : {}),
     ...(drafts ? { drafts } : {}),
   }
 }

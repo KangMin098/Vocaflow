@@ -57,11 +57,11 @@ import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
 import { touchedItems, withView } from '@/lib/csat/continuity'
 import { pickNextItem } from '@/lib/csat/next-item'
-import { teachingModelOf } from '@/lib/csat/teaching-contract'
+import { distractorsAreTrue, teachingModelOf } from '@/lib/csat/teaching-contract'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
-import type { DissectionRecord, Prediction, SelfExplanation } from '@/lib/csat/dissect'
+import type { CheckAttempt, DissectionRecord, Prediction, SelfExplanation } from '@/lib/csat/dissect'
 import {
   finishSession,
   isSkipPrediction,
@@ -82,6 +82,10 @@ import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff } from './PredictGate'
 import { SelfExplain } from './SelfExplain'
+import { UnderstandingChecks } from './UnderstandingChecks'
+import { ComparePairs, type ComparePair } from './ComparePairs'
+import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-check'
+import { hashTag } from '@/lib/csat/dissect'
 import { SessionDone } from './SessionDone'
 import styles from './theater.module.css'
 
@@ -168,6 +172,8 @@ export function AnalysisTheater({
   minutes,
   steps,
   blocks,
+  checks = [],
+  comparePairs = [],
   map,
   itemId,
   backHref,
@@ -186,6 +192,10 @@ export function AnalysisTheater({
   minutes: number
   steps: TheaterStep[]
   blocks: TheaterBlock[]
+  /** 이해 확인 과제(M4) — 서버가 검수된 분석에서 만든다 */
+  checks?: UnderstandingCheck[]
+  /** 같은 원리 비교 쌍(M4) — 독립 검수 통과분만 */
+  comparePairs?: ComparePair[]
   map: TheaterMap | null
   /** 문항 id(`2026#31`) — 열람 기록용 */
   itemId: string
@@ -206,6 +216,7 @@ export function AnalysisTheater({
   typeId?: string
 }) {
   const lec = useLecture()
+  const isReviewPhase = (s: LearningSession | null | undefined) => s?.phase === 'review'
   const goal = teachingModelOf(typeId)
   const [quotePassage, setQuotePassage] = useState<PaperPassage | null>(null)
   // 문항 이동 직후에는 이전 문항의 지문으로 인용을 검증하지 않는다.
@@ -221,6 +232,11 @@ export function AnalysisTheater({
   // 이 문항의 자기 설명(M4) — 기기 기록에서 읽고, 저장 · 대조 때 갱신한다
   const [explained, setExplained] = useState<SelfExplanation[]>([])
   const pickExplained = (r: DissectionRecord) => setExplained((r.explanations ?? []).filter((x) => x.item === itemId))
+  // 이 문항의 이해 확인 시도(M4)
+  const [checked, setChecked] = useState<CheckAttempt[]>([])
+  const pickChecked = (r: DissectionRecord) => setChecked((r.checks ?? []).filter((x) => x.item === itemId))
+  const [comparedWith, setComparedWith] = useState<ReadonlySet<string>>(new Set())
+  const pickCompared = (r: DissectionRecord) => setComparedWith(new Set((r.compares ?? []).filter((x) => x.item === itemId).map((x) => x.other)))
   const sfx = useTheaterSfx()
   const [cursor, setCursor] = useState(0)
   const ready = useRef(false)
@@ -256,6 +272,9 @@ export function AnalysisTheater({
       if (!alive || !opened) return
       setSeen(touchedItems(record))
       pickExplained(record)
+      pickChecked(record)
+      pickCompared(record)
+      if (principleTag) setPrincipleSaved(record.formulas.some((f) => f.tag === principleTag && f.sources.includes(itemId)))
       const { session: s, resumed } = opened as { session: LearningSession; resumed: boolean }
       // 예측 관문은 없다(F01 · 2026-10-10) — 문항을 열면 해설을 바로 본다. 그래서 이 열람은 「해설을 먼저 본」 공개로
       // 남긴다(viewed_first · 시도 없음). 같은 문항의 Practice · 확인 과제가 독립 수행으로 잘못 세지지 않게 한다.
@@ -300,6 +319,28 @@ export function AnalysisTheater({
     setExplained((xs) => [...xs, x])
     void persist((r) => ({ ...r, explanations: [...(r.explanations ?? []), x], updatedAt: Date.now() })).then(({ record }) => pickExplained(record))
   }
+  // 원리 저장(M4) — 유형 관계 · 적용 조건 · 한계 · 출처 문항을 함께. 같은 유형 원리는 한 줄로 모이고 출처만 늘어난다
+  const principleTag = goal ? hashTag(`theater|${typeId}|${goal.relation}`) : null
+  const [principleSaved, setPrincipleSaved] = useState(false)
+  const savePrinciple = () => {
+    if (!goal || !principleTag) return
+    setPrincipleSaved(true)
+    track({ name: 'csat_principle_saved', props: { from: 'theater' } })
+    void persist((r) => {
+      const prev = r.formulas.find((f) => f.tag === principleTag)
+      const f = { tag: principleTag, text: goal.relation, type: typeId ?? '', sources: [...new Set([...(prev?.sources ?? []), itemId])], conditions: goal.answerDesign, limit: goal.pitfalls[0], from: 'theater' as const }
+      return { ...r, formulas: [...r.formulas.filter((x) => x.tag !== principleTag), f], updatedAt: Date.now() }
+    })
+  }
+  const recordCompare = (other: string) => {
+    setComparedWith((s) => new Set([...s, other]))
+    const x = { id: globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${other}`, item: itemId, other, at: Date.now() }
+    void persist((r) => ({ ...r, compares: [...(r.compares ?? []), x], updatedAt: Date.now() })).then(({ record }) => pickCompared(record))
+  }
+  const recordCheck = (x: CheckAttempt) => {
+    setChecked((xs) => [...xs, x])
+    void persist((r) => ({ ...r, checks: [...(r.checks ?? []), x], updatedAt: Date.now() })).then(({ record }) => pickChecked(record))
+  }
   const compareExplanation = (id: string) => {
     setExplained((xs) => xs.map((x) => (x.id === id ? { ...x, compared: true } : x)))
     void persist((r) => ({ ...r, explanations: (r.explanations ?? []).map((x) => (x.id === id ? { ...x, compared: true } : x)), updatedAt: Date.now() })).then(({ record }) => pickExplained(record))
@@ -315,7 +356,10 @@ export function AnalysisTheater({
   const review = () => {
     if (!session) return
     const id = session.id
-    void persist((r) => scheduleReview(r, id, Date.now())).then(({ record }) => sync(record, id))
+    // 간격은 이해 확인 결과로 — 다 첫 시도에 맞혔으면 7일, 다시 골랐으면 3일, 답을 열었거나 안 했으면 1일(M4)
+    const days = reviewDays(checked.filter((x) => !x.review))
+    track({ name: 'csat_review_scheduled', props: { days } })
+    void persist((r) => scheduleReview(r, id, Date.now(), days)).then(({ record }) => sync(record, id))
   }
   const restart = () => {
     let fresh: LearningSession | null = null
@@ -679,7 +723,7 @@ export function AnalysisTheater({
                       <section className={styles.goal} aria-label="이 문항의 학습 목표" data-testid="learning-goal">
                         <b>이 문항에서 설명할 관계</b>
                         <p className="break-keep">{goal.relation}</p>
-                        {goal.choiceTruth ? (
+                        {distractorsAreTrue(typeId, itemId) ? (
                           <p className="break-keep">
                             이 유형은 <em>정답으로 고를 선지</em>와 <em>내용이 맞는 선지</em>가 다릅니다 — 오답 선지의 설명은 「왜 맞는 말인가」입니다.
                           </p>
@@ -687,6 +731,9 @@ export function AnalysisTheater({
                         {goal.visual ? (
                           <p className="break-keep">수치 판단은 원본 도표를 직접 읽어야 확정됩니다. 도표를 못 보면 계산 방법만 확인하세요.</p>
                         ) : null}
+                        <button type="button" className={styles.back} onClick={savePrinciple} disabled={principleSaved} data-testid="principle-save">
+                          {principleSaved ? '내 원리에 저장됨' : '이 원리 저장'}
+                        </button>
                       </section>
                     ) : null}
                     <p className={styles.status}>
@@ -720,11 +767,13 @@ export function AnalysisTheater({
                       key={itemId}
                       itemId={itemId}
                       rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
-                      choiceTruth={goal?.choiceTruth ?? false}
+                      choiceTruth={distractorsAreTrue(typeId, itemId)}
                       saved={explained}
                       onSave={saveExplanation}
                       onCompare={compareExplanation}
                     />
+                    <UnderstandingChecks key={`checks-${itemId}`} itemId={itemId} checks={checks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
+                    <ComparePairs pairs={comparePairs} compared={comparedWith} onCompared={recordCompare} />
                   </div>
                 ) : null}
 

@@ -1,0 +1,130 @@
+{
+ "chunk": "cmp-20261011-24",
+ "verdicts": [
+  {
+   "pair_id": "2024#34:1|M2706#31:4",
+   "same_principle": false,
+   "reason": "한쪽은 장면 오독, 한쪽은 배경지식 연상"
+  },
+  {
+   "pair_id": "2024#34:1|M2706#32:1",
+   "same_principle": false,
+   "reason": "장면 오독과 일상 경험 연상은 다름"
+  },
+  {
+   "pair_id": "2024#35:1|M2706#35:2",
+   "same_principle": false,
+   "reason": "양보절 해석과 대상 전환 대비는 장치가 다름"
+  },
+  {
+   "pair_id": "2024#35:2|M2609#35:1",
+   "same_principle": true,
+   "note": "끼어든 듯한 문장이 앞뒤 낱말로 이어지는지 확인 — 각론 풀이와 예고문으로 역할만 다르다"
+  },
+  {
+   "pair_id": "2024#38:2|M2706#38:5",
+   "same_principle": false,
+   "reason": "also 열거와 목표-수단 순서는 다른 구조"
+  },
+  {
+   "pair_id": "2024#38:1|M2606#38:1",
+   "same_principle": true,
+   "note": "넣을 자리 뒤 문장의 연결 방향과 충돌 — 양보 Yes와 역접 But으로 표지만 다르다"
+  },
+  {
+   "pair_id": "2024#39:1|M2706#39:4",
+   "same_principle": true,
+   "note": "정관사 명사가 선행 언급보다 먼저 나오게 됨 — 유추와 어휘로 소재만 다르다"
+  },
+  {
+   "pair_id": "2024#39:2|M2606#38:1",
+   "same_principle": true,
+   "note": "자리 바로 뒤 연결사와 방향이 겹치거나 충돌 — Similarly·However로 표지만 다르다"
+  },
+  {
+   "pair_id": "2024#40:3|M2706#40:1",
+   "same_principle": true,
+   "note": "(B)가 맞아 (A) 방향 반전을 놓침 — 학습 공간과 신약 개발로 소재만 다르다"
+  },
+  {
+   "pair_id": "2024#40:2|M2609#40:1",
+   "same_principle": false,
+   "reason": "한쪽은 반대 진술, 한쪽은 방향 축소"
+  },
+  {
+   "pair_id": "2024#41:3|M2706#41:5",
+   "same_principle": false,
+   "reason": "부정된 첫 문장과 시기·기법 혼동은 다름"
+  },
+  {
+   "pair_id": "2024#41:3|M2609#41:3",
+   "same_principle": false,
+   "reason": "부정된 첫 문장과 조각 이어 붙이기는 다름"
+  },
+  {
+   "pair_id": "2024#43:2|M2706#43:1",
+   "same_principle": true,
+   "note": "시간 표지가 앞선 사건보다 먼저 놓임 — 한 시간 뒤와 다음 날로 간격만 다르다"
+  },
+  {
+   "pair_id": "2024#43:1|M2609#43:1",
+   "same_principle": true,
+   "note": "도착·총평 결말 단락을 앞에 둠 — 자전거 여행과 야구 관람으로 소재만 다르다"
+  },
+  {
+   "pair_id": "2023#18:2|M2706#18:5",
+   "same_principle": false,
+   "reason": "화자 역할 오인과 지문에 없는 소재는 다름"
+  },
+  {
+   "pair_id": "2023#18:5|M2609#18:3",
+   "same_principle": false,
+   "reason": "목적어 불일치와 수신자 상태 오인은 다름"
+  },
+  {
+   "pair_id": "2023#19:2|M2706#19:4",
+   "same_principle": true,
+   "note": "첫 문장 통념으로 앞 심경을 정함 — 2문장이 뒤집는다, 경주와 여행으로 상황만 다르다"
+  },
+  {
+   "pair_id": "2023#19:5|M2609#19:4",
+   "same_principle": true,
+   "note": "뒤 심경만 맞고 앞 심경 부호가 틀림 — 기록 실패와 그림 걱정으로 상황만 다르다"
+  },
+  {
+   "pair_id": "2023#20:2|M2706#20:1",
+   "same_principle": true,
+   "note": "지문 낱말이 나오지만 필자는 반대 입장 — 직관과 실습으로 대상만 다르다"
+  },
+  {
+   "pair_id": "2023#20:2|M2609#20:3",
+   "same_principle": true,
+   "note": "지문에 나온 방안을 필자가 부정함 — 직관과 처벌로 대상만 다르다"
+  },
+  {
+   "pair_id": "2023#21:3|M2706#21:3",
+   "same_principle": false,
+   "reason": "낱말 연상과 없는 평가어 추가는 다름"
+  },
+  {
+   "pair_id": "2023#21:3|M2609#21:1",
+   "same_principle": false,
+   "reason": "낱말 연상과 개념 정의 오독은 다름"
+  },
+  {
+   "pair_id": "2023#22:2|M2706#22:4",
+   "same_principle": true,
+   "note": "소재 낱말은 겹치나 핵심 행위어가 지문에 없음 — 배송 자전거와 차 전면부로 소재만 다르다"
+  },
+  {
+   "pair_id": "2023#22:2|M2609#22:5",
+   "same_principle": true,
+   "note": "소재 낱말은 겹치나 핵심 성과어가 지문에 없음 — 자전거와 사회 관계로 소재만 다르다"
+  },
+  {
+   "pair_id": "2023#23:1|M2706#23:4",
+   "same_principle": false,
+   "reason": "술어 혼동과 한쪽 측면만 담기는 다름"
+  }
+ ]
+}
