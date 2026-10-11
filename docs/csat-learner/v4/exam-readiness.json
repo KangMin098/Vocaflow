@@ -5,25 +5,18 @@
   "exams": 134,
   "byCause": {
    "STRUCTURAL": 3,
-   "REVIEW_NEEDED": 128,
-   "READY": 3
+   "REVIEW_NEEDED": 127,
+   "READY": 4
   },
   "byOrganizer": {
    "kice": 30,
    "edu_office": 104
   },
   "canEnableNow": 0,
-  "reviewItemsToGo": 3584,
+  "reviewItemsToGo": 3556,
   "heldCheck": "ok"
  },
  "nextReview": [
-  {
-   "id": "M2609",
-   "label": "2026학년도 9월 모의평가",
-   "remaining": 28,
-   "publishedAnalysis": 28,
-   "unitItems": 0
-  },
   {
    "id": "M2606",
    "label": "2026학년도 6월 모의평가",
@@ -55,6 +48,13 @@
   {
    "id": "2024",
    "label": "2024학년도 수능",
+   "remaining": 28,
+   "publishedAnalysis": 28,
+   "unitItems": 0
+  },
+  {
+   "id": "M2406",
+   "label": "2024학년도 6월 모의평가",
    "remaining": 28,
    "publishedAnalysis": 28,
    "unitItems": 0
@@ -2980,16 +2980,16 @@
    "grade": 3,
    "year": 2025,
    "month": 9,
-   "ready": false,
-   "cause": "REVIEW_NEEDED",
+   "ready": true,
+   "cause": "READY",
    "keyRows": 45,
    "items": 28,
    "seededItems": 28,
-   "reviewedItems": 0,
-   "remaining": 28,
+   "reviewedItems": 28,
+   "remaining": 0,
    "structural": [],
-   "reason": "검수 완료 후 가능 — 남은 문항 28",
-   "canEnable": false,
+   "reason": "진단 반영 가능",
+   "canEnable": true,
    "trapItems": 28,
    "publishedAnalysis": 28,
    "unitItems": 0
