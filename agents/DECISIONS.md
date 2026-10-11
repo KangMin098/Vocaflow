@@ -39,6 +39,15 @@
 | D-13 | `node --test <디렉터리>` 대신 `node --test agents/scripts/__tests__/*.test.mjs` | Node 24 에서 디렉터리 인자는 파일 하나로 취급돼 실패했다(실측) |
 | D-14 | 기존 CLAUDE.md 의 "최근 변경" 목록은 CONTEXT_DETAIL 로 원문 이동, 이후 변경은 `docs/CHANGELOG.md` 에만 | 200줄 한도. 항목 대부분이 이미 CHANGELOG 에 있었다(19개 키워드 중 17개 적중) |
 
+## 정책 이력
+
+### DD-PR-AUTO-1.1 · 2026-10-11 · 승인 최소화(AUTO_CONTINUE)
+
+- **전**: main 머지 · 파일 ≥30 변경 · 데이터 손실 · 마이그레이션 적용 · .env 는 사용자 확인(AGENTS.md ③). 세션마다 PR 병합 · 30파일 커밋을 따로 물었다.
+- **후**: 사용자 승인은 DB 변경 · 데이터 삭제 둘뿐. 30파일은 추가 검증(PR 본문 `## 검증`). 병합은 `safe-merge.mjs` 정책 게이트(필수 체크 누락 = 실패 · base = main · 마이그레이션별 개발 DB 적용 이력 해시 증거(PR 본문 문자열 아님) · 체크는 이 HEAD · 마지막 base 변경 뒤 · 대규모 변경 검증 절 · 정책 꺼짐이면 어떤 경로로도 병합 안 함). 정본 `agents/policies/PR_AUTOMATION_POLICY.md` · `pr-automation.json` v1.1.
+- **자동 main 병합은 꺼 둠**(`auto_merge_enabled=false`): 실측 2026-10-11 — ① CI `e2e` 는 저장소 시크릿이 없으면 E2E 를 건너뛰고도 SUCCESS(가짜 통과) ② CI 가 base=main PR 에서만 돌아 종속 PR 에 필수 CI 가 없었다 ③ main 브랜치 보호 없음(「Branch not protected」). ①② 는 이번에 고쳤다(① PR 필수 e2e = 러너 안 격리 Supabase · 공유 DB E2E 는 e2e-shared-dev 로 분리). ③은 저장소 관리자 작업이다. 세션 시작 훅 정책 낡음 경고는 2026-10-11 사용자 지시로 연결(최소 2줄).
+- 이유: 사용자 지시 「전체 세션 승인 최소화 정책 v1.1」(2026-10-11). 개발 속도 · 제품 목표 도달 시간 우선.
+
 ## 남은 것 (Codex 설치 후)
 
 - [x] `codex exec -s workspace-write "node --test agents/scripts/__tests__/*.test.mjs 를 실행하고 실패만 요약"` — D7 Codex 실측: 95/95 PASS
