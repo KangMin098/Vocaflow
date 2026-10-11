@@ -113,9 +113,15 @@ try {
   /** 연습 화면 문항 하나 풀기(주장 문장 · 고른 답 · 확신도 · 관계) */
   const solvePractice = async (href) => {
     await page.goto(`${BASE}${href}`, { waitUntil: 'domcontentloaded' })
-    const bars = page.locator('button[data-claim], ol button[aria-pressed]')
-    await bars.first().waitFor({ timeout: 120_000 })
-    await bars.first().click()
+    await page.waitForLoadState('networkidle').catch(() => {})
+    // 지문 문장 막대(「문장 N」) — 다른 목록의 버튼을 잡지 않게 이름으로 고른다. 상호작용 준비 전 클릭은 반응이 없어 답 칸이 열릴 때까지 다시 누른다
+    const bar = page.getByRole('button', { name: /^문장 1(\s|$)/ }).first()
+    await bar.waitFor({ timeout: 120_000 })
+    const answer = page.locator('fieldset', { hasText: '문제지에서 고른 답' })
+    for (let k = 0; k < 10 && !(await answer.count()); k++) {
+      await bar.click({ timeout: 10_000 }).catch(() => {})
+      await page.waitForTimeout(800)
+    }
     const rel = page.locator('fieldset', { hasText: '주장과 어떤 관계' })
     if (await rel.count()) await rel.getByRole('button').first().click()
     await page.locator('fieldset', { hasText: '문제지에서 고른 답' }).getByRole('button', { name: '1번' }).click()
