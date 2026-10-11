@@ -43,7 +43,9 @@ test('학습 지도 — 로그인 · 목표 저장 · DB 단언 · RLS(격리 DB
   await expect(map).toHaveAttribute('data-goal-set', 'false')
   await expect(page.locator('[data-testid="goal-header"]')).toContainText('아직 정하지 않았어요')
 
-  await page.locator('[data-testid="map-goal-edit"]').click()
+  // 목표가 없을 때의 할 일 = 「목표 정하기」 CTA 가 목표 고르기를 연다(scripts/csat/map/e2e-map-goal.mjs A 와 같은 경로)
+  await expect(page.locator('[data-testid="focus-card"]')).toHaveAttribute('data-focus', 'goal')
+  await page.locator('[data-testid="focus-cta"]').click()
   const group = page.getByRole('group', { name: '목표 점수 정하기' })
   await expect(group).toBeVisible()
   await group.getByRole('button', { name: /^80/ }).first().click()
