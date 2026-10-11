@@ -73,9 +73,9 @@ describe('revision', () => {
 })
 
 describe('커밋된 합의 주석', () => {
-  it('11문항 모두 결속돼 있고 원문 · 근거는 해시 · 위치만(원문 복제 없음)', () => {
+  it('확인 11 + 근거 찾기 전이 4(6차 · role=transfer) 모두 결속돼 있고 원문 · 근거는 해시 · 위치만(원문 복제 없음)', () => {
     const items = Object.values(CURATED) as (AnchorBinding & { key: string })[]
-    expect(items.length).toBe(11)
+    expect(items.length).toBe(15)
     for (const it of items) {
       expect(it.source?.revision).toMatch(/^[0-9a-f]{64}$/)
       expect(it.anchors?.evidence.map((u) => u.index)).toEqual(it.evidence)

@@ -482,6 +482,210 @@
      }
     ]
    }
+  },
+  "2024#31": {
+   "key": "evidence-locate",
+   "skeletonSig": "3e7d145576a244eb205711db3a206d8eeb0ff9e3c487f03174c398a289a4dce8",
+   "sentenceCount": 7,
+   "blank": 5,
+   "evidence": [
+    6,
+    3
+   ],
+   "disputed": [
+    4
+   ],
+   "role": "transfer",
+   "provenance": "2026-10-11 6차 — 4차 전이 초안(주석자 1 · 정답 본 상태) + 2차 맹검 판정(REVIEW-second.md: accept 3 · 2025#34 revise → 두 판정 공통 근거만 채점 · 갈린 문장 채점 제외). 근거 찾기 Workspace 「다른 글에 적용」 전용 — 확인 묶음 밖",
+   "source": {
+    "revision": "b328db7e1212529ff1b9e9627da9eccde782ef817e80bcbd950efba1e136a602",
+    "textHash": "aa76d64d577b5281cbb7cd66cda46dda42657199fffe62863914160aa49aebb6",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 6,
+      "textHash": "60856ab88de9d1e12dbd8758f26e7bb8bc7be85e2b2fcc4249d4e079cb2a2d3e",
+      "charRange": {
+       "start": 875,
+       "end": 952
+      }
+     },
+     {
+      "index": 3,
+      "textHash": "aaaf79cb8da88ca5d8be9e5cb55d6ea2119d0d61172148986aa9db36893e481d",
+      "charRange": {
+       "start": 566,
+       "end": 741
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 4,
+      "textHash": "2fd6e889212f1a159394366cd60a3e29c84c3289bf8c421b661d1764b8911576",
+      "charRange": {
+       "start": 742,
+       "end": 844
+      }
+     }
+    ]
+   }
+  },
+  "2024#33": {
+   "key": "evidence-locate",
+   "skeletonSig": "0a89ff54aa2cc6ef141222b7167c99c6227f0144f9d3774ed411ef0eeca77bf1",
+   "sentenceCount": 7,
+   "blank": 3,
+   "evidence": [
+    4
+   ],
+   "disputed": [
+    5
+   ],
+   "role": "transfer",
+   "provenance": "2026-10-11 6차 — 4차 전이 초안(주석자 1 · 정답 본 상태) + 2차 맹검 판정(REVIEW-second.md: accept 3 · 2025#34 revise → 두 판정 공통 근거만 채점 · 갈린 문장 채점 제외). 근거 찾기 Workspace 「다른 글에 적용」 전용 — 확인 묶음 밖",
+   "source": {
+    "revision": "abd9cde47c5784ba097a861eadd6611b42fb324ca21ef71b5c6ace05ea335be2",
+    "textHash": "6a0fcbf0044e94e3b14c0fdbfa0e03e88b04e157a3367b09d9ab67af5463f305",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 4,
+      "textHash": "bd0db8ab369b584f8ad70596bcbd2a9620097cd0e342ff316086817819fbd9e8",
+      "charRange": {
+       "start": 417,
+       "end": 503
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 5,
+      "textHash": "1e048e149f1df3823d3978b88e1f2c9ff301352d24579729ce9c162f9c33298e",
+      "charRange": {
+       "start": 504,
+       "end": 637
+      }
+     }
+    ]
+   }
+  },
+  "2023#32": {
+   "key": "evidence-locate",
+   "skeletonSig": "341cfe9a5e5a47e11e3cdd1201e968e08a573a4710a9688940e4482ff2714c9b",
+   "sentenceCount": 7,
+   "blank": 5,
+   "evidence": [
+    4
+   ],
+   "disputed": [
+    2
+   ],
+   "role": "transfer",
+   "provenance": "2026-10-11 6차 — 4차 전이 초안(주석자 1 · 정답 본 상태) + 2차 맹검 판정(REVIEW-second.md: accept 3 · 2025#34 revise → 두 판정 공통 근거만 채점 · 갈린 문장 채점 제외). 근거 찾기 Workspace 「다른 글에 적용」 전용 — 확인 묶음 밖",
+   "source": {
+    "revision": "34a05458576b4557e6922781a208f267ce5d697ffdb63566b8d17d5ce99bed9c",
+    "textHash": "c124ca5598b753ee2328020e913a547ce8c428f04105e1b109a20258e8ac45ee",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 4,
+      "textHash": "6dcbb62283375c4d6a1ce99eddf576771d7818ab5e33906df710b07bce9cf539",
+      "charRange": {
+       "start": 440,
+       "end": 671
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 2,
+      "textHash": "645c088e172bc4422e98623a926ff5dc650ce556ae5c377b21a56142740d6a16",
+      "charRange": {
+       "start": 167,
+       "end": 326
+      }
+     }
+    ]
+   }
+  },
+  "2025#34": {
+   "key": "evidence-locate",
+   "skeletonSig": "a818793bf2bbd379070ecec23661e8aef0bff5b4026ef82f6b68b0dd8392adf9",
+   "sentenceCount": 8,
+   "blank": 0,
+   "evidence": [
+    2
+   ],
+   "disputed": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "role": "transfer",
+   "provenance": "2026-10-11 6차 — 4차 전이 초안(주석자 1 · 정답 본 상태) + 2차 맹검 판정(REVIEW-second.md: accept 3 · 2025#34 revise → 두 판정 공통 근거만 채점 · 갈린 문장 채점 제외). 근거 찾기 Workspace 「다른 글에 적용」 전용 — 확인 묶음 밖",
+   "source": {
+    "revision": "af7800ff606a59278a9bebfe5495abc635164801d7b7bd5044075aba335b3903",
+    "textHash": "1746b3f3e87398edf0abab5997231443fc0b7df627bd3118d74e0130d7795711",
+    "normalization": "anchor-norm-1",
+    "segmentation": "passage-skeleton-split-1"
+   },
+   "anchors": {
+    "evidence": [
+     {
+      "index": 2,
+      "textHash": "38c4bf79d9967c0daa7a9663ccb00d2232a9431677fefff0b0dd90cc8056f144",
+      "charRange": {
+       "start": 172,
+       "end": 289
+      }
+     }
+    ],
+    "disputed": [
+     {
+      "index": 3,
+      "textHash": "a4439129060ffc7a441b567760a8dd05e5a6c160f0520bae1c3019e43c800c6e",
+      "charRange": {
+       "start": 290,
+       "end": 400
+      }
+     },
+     {
+      "index": 4,
+      "textHash": "60cd09a5a3e879653fb5a2644e9fd4f9f3da1b0f6e819862f1b6753cfe7d227d",
+      "charRange": {
+       "start": 401,
+       "end": 645
+      }
+     },
+     {
+      "index": 5,
+      "textHash": "f599e6fd91b1e631d9ce0bc5d89b93e5936d7bc71fc3c89b9ada60089537c3cd",
+      "charRange": {
+       "start": 646,
+       "end": 783
+      }
+     },
+     {
+      "index": 6,
+      "textHash": "37ff33b9c2dd524c50177bc81b2f8edbf8ab64ac9ef001ba74faef5767ff017d",
+      "charRange": {
+       "start": 784,
+       "end": 931
+      }
+     }
+    ]
+   }
   }
  }
 }
