@@ -13,12 +13,17 @@
 
 import type { ReactNode } from 'react'
 
+import { activeSet, dueNow } from '@/lib/csat/continuity'
+import type { RailExam } from '@/lib/csat/rail-data'
+
 import { CsatRail, type RailPlace } from './CsatRail'
+import { useCsatRecord } from './useCsatRecord'
 import styles from '../space/space.module.css'
 
 export function CsatShell({
   place,
   pill,
+  exams,
   bare = false,
   testId,
   children,
@@ -26,10 +31,13 @@ export function CsatShell({
   place: RailPlace
   /** 상단 바 가운데 알약 — 지금 어디인가(아이콘 + 한 줄) */
   pill: ReactNode
+  exams: RailExam[]
   bare?: boolean
   testId?: string
   children: ReactNode
 }) {
+  // 읽기 전용 — 셸 아래 화면이 기록을 쓴다. 셸이 압축본을 늦게 저장하면 그 쓰기를 덮는다
+  const rec = useCsatRecord({ readOnly: true })
   return (
     <div className={styles.root} data-testid={testId}>
       <a
@@ -38,7 +46,7 @@ export function CsatShell({
       >
         본문으로 건너뛰기
       </a>
-      <CsatRail place={place} />
+      <CsatRail place={place} exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} />
       <div className="min-w-0">
         <header className={styles.topbar}>
           <span className={styles.topPill}>{pill}</span>
