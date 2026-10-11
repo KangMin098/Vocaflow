@@ -18,7 +18,8 @@ import { NO_DATA_ATTRIBUTES } from './core'
 import { lineItemKeys } from './memberships'
 import { staleMapEvidence } from './stale'
 import { loadPracticePool, practiceHrefsBeyond } from '../../knowledge/practice-server'
-import { loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
+import { isTransferRole, loadMapPracticeLinks, parseItemTaskRef, type MapPracticeLink } from '../../knowledge/product-server'
+import { toItemSlug } from '../item-slug'
 import type { AsIsSession } from './v4/as-is'
 import { loadSavedPlans, type SavedPlans } from './v4/plan-store'
 import type { ActivityRow } from './lifecycle-evidence'
@@ -86,8 +87,8 @@ export interface MapV4Input {
   refItems: RefItem[]
   /** 확인 과제 키 → 확인 묶음 밖에서 같은 과제로 적용할 수 있는 활성 문항 수 */
   transferItems: Record<string, number>
-  /** 확인 과제 키 → 「다른 글에 적용」 단계에서 열 전이 유형 문항(연습 풀 · 확인 묶음 밖 · 공개 관문 통과) — 5차 */
-  transferTargets: Record<string, string[]>
+  /** 확인 과제 키 → 「다른 글에 적용」 단계 링크(5차 · 6차 일반화) — 주장과 근거는 연습 화면 전이 문항, 다른 과제는 role=transfer 로 출시된 문항의 문항 화면. 확인 묶음 밖 · 공개 관문 통과 */
+  transferTargets: Record<string, { target: string; href: string; label: string }[]>
   /** 저장된 학습계획(4차) — 저장 구조가 없으면 status 'not_installed'(화면은 이 기기 초안 모드) */
   saved: SavedPlans
   /** 이 화면을 보는 학습자 — 이 기기 초안을 학습자별로 나눠 두는 열쇠(다른 학습자의 초안이 섞이지 않게) */
@@ -419,7 +420,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   for (const [taskId, link] of needNext) if (hrefs[link.itemId]) practiceNext[taskId] = hrefs[link.itemId] as string
 
   // rev4 — 확인 과제 키별 「확인 묶음 밖」 적용 문항 수(실제로 있는 만큼만). 못 읽으면 0(적용 단계는 「준비 중」으로 보인다 — 숫자를 지어내지 않는다)
-  const { counts: transferItems, targets: transferTargets } = await loadTransferItems(db, practiceLinks).catch((e) => { console.error('[csat-map v4 transfer items]', e); return { counts: {} as Record<string, number>, targets: {} as Record<string, string[]> } })
+  const { counts: transferItems, targets: transferTargets } = await loadTransferItems(db, practiceLinks).catch((e) => { console.error('[csat-map v4 transfer items]', e); return { counts: {} as Record<string, number>, targets: {} as Record<string, { target: string; href: string; label: string }[]> } })
   // 저장된 계획 — 못 읽으면 지도는 그리고 저장 기능만 끈다(저장됨으로 보이지 않게 not_installed 가 아니라 오류 표시)
   const saved: SavedPlans = await loadSavedPlans(db, userId).catch((e) => { console.error('[csat-map v4 saved plans]', e); return { status: 'not_installed' as const, byTemplate: {}, goalVersionId: null, error: true } as SavedPlans })
 
@@ -499,7 +500,7 @@ export async function loadLearnerSessions(db: Db, userId: string, trendIds: read
  *   claim-support: 실학습 Practice 풀(practice-server) · 그 밖: 활성 문항 과제 적용(knowledge_applications csat_item_task · 상태 active).
  * 보류 문항 판정(itemRevealDecision)을 거친다 — 실패면 0(fail-closed).
  */
-async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>): Promise<{ counts: Record<string, number>; targets: Record<string, string[]> }> {
+async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>): Promise<{ counts: Record<string, number>; targets: Record<string, { target: string; href: string; label: string }[]> }> {
   const confirmOf = new Map<string, Set<string>>()
   for (const l of Object.values(links)) for (const c of l.confirm) {
     const s = confirmOf.get(c.taskKey) ?? new Set<string>()
@@ -509,22 +510,28 @@ async function loadTransferItems(db: Db, links: Record<string, MapPracticeLink>)
   if (confirmOf.size === 0) return { counts: {}, targets: {} }
   const [pool, apps] = await Promise.all([
     confirmOf.has(PRACTICE_SLUG) ? loadPracticePool({ preview: false }) : Promise.resolve([]),
-    selectSmall<{ surface_ref: string }>(() => db.from('knowledge_applications').select('surface_ref').eq('surface', 'csat_item_task').eq('status', 'active').or([...confirmOf.keys()].map((k) => `surface_ref.like.${k}:*`).join(',')), 'knowledge_applications'),
+    selectSmall<{ surface_ref: string; audience: unknown }>(() => db.from('knowledge_applications').select('surface_ref, audience').eq('surface', 'csat_item_task').eq('status', 'active').or([...confirmOf.keys()].map((k) => `surface_ref.like.${k}:*`).join(',')), 'knowledge_applications'),
   ])
   const byKey = new Map<string, Set<string>>()
   const add = (key: string, item: string) => { if (!confirmOf.get(key)?.has(item)) byKey.set(key, (byKey.get(key) ?? new Set()).add(item)) }
   for (const p of pool) add(PRACTICE_SLUG, p.itemId)
   // 「다른 글에 적용」 링크 = 연습 풀의 전이 유형(주제 · 제목) 문항 — 연습 화면이 이 문항을 phase 'transfer' 로 기록한다
   const transferPhase = new Set(pool.filter((p) => p.phase === 'transfer' && !confirmOf.get(PRACTICE_SLUG)?.has(p.itemId)).map((p) => p.itemId))
+  // 다른 과제의 「다른 글에 적용」 = role=transfer 로 출시된 문항(문항 화면에서 풀면 phase 'transfer' 로 기록된다 · 6차)
+  const roleTransfer = new Map<string, Set<string>>()
   for (const a of apps) {
     const r = parseItemTaskRef(a.surface_ref)
-    if (r && confirmOf.has(r.taskKey)) add(r.taskKey, r.itemId)
+    if (!r || !confirmOf.has(r.taskKey)) continue
+    add(r.taskKey, r.itemId)
+    if (r.taskKey !== PRACTICE_SLUG && isTransferRole(a.audience) && !confirmOf.get(r.taskKey)?.has(r.itemId)) roleTransfer.set(r.taskKey, (roleTransfer.get(r.taskKey) ?? new Set()).add(r.itemId))
   }
   const candidates = [...new Set([...byKey.values()].flatMap((s) => [...s]))]
   const gate = await itemRevealDecision(candidates)
   if (gate.failed) return { counts: {}, targets: {} }
   const counts = Object.fromEntries([...confirmOf.keys()].map((k) => [k, [...(byKey.get(k) ?? [])].filter((i) => !gate.held.has(i)).length]))
-  const targets: Record<string, string[]> = confirmOf.has(PRACTICE_SLUG) ? { [PRACTICE_SLUG]: [...transferPhase].filter((i) => !gate.held.has(i)) } : {}
+  const targets: Record<string, { target: string; href: string; label: string }[]> = {}
+  if (confirmOf.has(PRACTICE_SLUG)) targets[PRACTICE_SLUG] = [...transferPhase].filter((i) => !gate.held.has(i)).map((i) => ({ target: i, href: `/csat/practice/${PRACTICE_SLUG}?item=${encodeURIComponent(i)}`, label: '다른 글에 적용' }))
+  for (const [k, ids] of roleTransfer) targets[k] = [...ids].filter((i) => !gate.held.has(i)).map((i) => ({ target: i, href: `/csat/item/${toItemSlug(i)}?check=1#principle`, label: '다른 글에 적용' }))
   return { counts, targets }
 }
 

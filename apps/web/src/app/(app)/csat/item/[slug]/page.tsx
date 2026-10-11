@@ -55,8 +55,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function CsatItemTheaterPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CsatItemTheaterPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams?: Promise<{ check?: string }> }) {
   const { slug } = await params
+  // 확인 모드(학습 지도의 확인 · 다시 확인 · 적용 링크) — 해설을 열기 전에 확인 과제만 푼다(6차).
+  //   F01(2026-10-10): 문항을 열면 해설을 바로 보여 주므로 그 열람은 「해설 먼저 봄」으로 남는다 — 그 화면에서 푼 확인 과제는 독립 수행이 아니다.
+  //   그래서 지도에서 확인용으로 들어올 때만 해설 극장 · 강의를 그리지 않는다(해설 열람 기록도 없다). 과제 뒤 「해설 보기」 는 일반 화면(F01 그대로).
+  const checkMode = (await searchParams)?.check === '1'
   const itemId = fromItemSlug(slug)
   const { item, error, held } = await loadCsatItemExplain(itemId)
   // 보류 시험 문항(오답 원인 Pilot 수집 중) — 정답 · 분석 · 뼈대 · 강의 개요를 화면 데이터에 싣지 않는다(embargo-gate · Pilot 1c8e122fb)
@@ -199,6 +203,32 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   // 이 문항에서 확인할 읽기 원리(Phase 3) — 채택 사슬 · 적용 active · 주석 서명이 모두 맞을 때만 온다. 하나라도 빠지면 null(화면에 없음).
   // 게이트 조회가 실패해도 해설은 그대로 보인다 — 원리 칸만 빠진다
   const principle = await loadItemPrinciple(item.id).catch((e) => { console.error('[csat-item principle]', e); return null })
+  const panel = principle ? (
+    principle.taskKey === 'option-restate' || principle.taskKey === 'evidence-locate' ? (
+      <EvidencePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as EvidencePanelProps)} />
+    ) : principle.taskKey === 'cohesion-link' ? (
+      <CohesionPanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as unknown as CohesionPanelProps)} />
+    ) : (
+      <PrinciplePanel slug={toItemSlug(item.id)} principle={principle.principle} why={principle.why} {...(principle.panel as { sentenceCount: number; relationSentence: number })} />
+    )
+  ) : null
+  if (checkMode && panel) {
+    return (
+      <CsatShell place="item" pill={<><BookOpen size={13} aria-hidden="true" />{item.exam_label} {item.no}번 · 직접 확인</>}>
+        <div data-testid="item-check-mode">
+          <p className="mx-auto mt-6 max-w-3xl break-keep px-4 text-sm leading-relaxed text-[var(--t2)]">
+            해설을 보기 전에 혼자 판단해 보는 확인이에요. 공개 문제지의 지문을 보며 문장 번호로 골라 주세요.
+          </p>
+          {panel}
+          <p className="mx-auto mt-4 max-w-3xl break-keep px-4 text-sm">
+            <a href={`/csat/item/${toItemSlug(item.id)}`} className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" data-testid="item-check-explain">
+              확인을 마쳤으면 해설 보기 →
+            </a>
+          </p>
+        </div>
+      </CsatShell>
+    )
+  }
   const body = principle ? (
     <>
       {theater}
