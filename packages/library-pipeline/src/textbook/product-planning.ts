@@ -68,6 +68,9 @@ export function planProductBrief(input: unknown) {
   const domains = schedule(brief.domain_weights, brief.duration_days)
   const genres = schedule(brief.genre_weights, brief.duration_days)
   const skills = PRODUCT_FAMILIES[family].skills
+  // A diagnostic tells skills apart; a single-skill family cannot produce one (fail at planning, not at run end).
+  if (brief.companion_activities?.includes('diagnostic_check') && skills.length < 2)
+    throw new Error('COMPANION_DIAGNOSTIC_NEEDS_TWO_SKILLS')
   const itemTypes = capability.items
   const units = Array.from({ length: brief.duration_days }, (_, index) => {
     const day = index + 1

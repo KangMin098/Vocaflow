@@ -6,6 +6,7 @@
 // Re-running export never overwrites; import refuses a run that is already complete.
 import fs from 'node:fs'
 import { createHash } from 'node:crypto'
+import { exportFamilyReview, importFamilyReview } from '../../packages/library-pipeline/src/textbook/family-semantic-review.ts'
 import path from 'node:path'
 import { exportOrderProductionDrain, importOrderProductionDrain, summarizeOrderRun } from '../../packages/library-pipeline/src/textbook/order-production-run.ts'
 import { verifyPlannedVolumeSyntheticOutput } from '../../packages/library-pipeline/src/textbook/product-planning.ts'
@@ -28,10 +29,10 @@ function companionDeps(file) {
   }
 }
 
-const usage = 'Usage: pnpm exec tsx scripts/textbook/order-production-run.mjs export|import --input FILE --run-dir DIR [--companion-resources FILE] | status --run-dir DIR'
+const usage = 'Usage: pnpm exec tsx scripts/textbook/order-production-run.mjs export|import|review --input FILE --run-dir DIR [--companion-resources FILE] | status --run-dir DIR'
 const [command, ...rest] = process.argv.slice(2)
 const opt = name => { const i = rest.indexOf(name); return i >= 0 ? rest[i + 1] : undefined }
-if (!['export', 'import', 'status'].includes(command)) throw Error(usage)
+if (!['export', 'import', 'review', 'status'].includes(command)) throw Error(usage)
 const runDir = opt('--run-dir') && path.resolve(opt('--run-dir'))
 if (!runDir) throw Error(usage)
 assertExternalCandidate(runDir)
@@ -39,7 +40,8 @@ const read = name => { const file = path.join(runDir, name); return fs.existsSyn
 const writeNew = (name, value) => fs.writeFileSync(path.join(runDir, name), JSON.stringify(value, null, 2) + '\n', { flag: 'wx' })
 
 if (command === 'status') {
-  console.log(JSON.stringify(summarizeOrderRun({ drain: read('drain.json'), result: read('result.json'), complete: read('complete.json') }), null, 2))
+  console.log(JSON.stringify(summarizeOrderRun({ drain: read('drain.json'), result: read('result.json'),
+    review: read('review.json'), reviewResult: read('review.result.json'), complete: read('complete.json') }), null, 2))
   process.exit(0)
 }
 const inputPath = opt('--input') && path.resolve(opt('--input'))
@@ -55,6 +57,7 @@ if (command === 'export') {
   process.exit(0)
 }
 
+if (command === 'import') {
 if (read('complete.json')) throw Error('ORDER_RUN_ALREADY_COMPLETE')
 const drain = read('drain.json')
 const filled = read('drain.out.json')
@@ -102,17 +105,50 @@ fs.writeFileSync(path.join(runDir, 'practice.html'), practice.html, { flag: 'wx'
 writeNew('practice.manifest.json', practice.manifest)
 verifyCompanionPractice(result, deps, { html: fs.readFileSync(path.join(runDir, 'practice.html'), 'utf8'),
   manifest: read('practice.manifest.json') }, { resourcesSha256 })
-writeNew('result.json', { status: 'assembled', drain_hash: result.drain_hash })
+fs.rmSync(path.join(runDir, 'review.json'), { force: true })
+fs.rmSync(path.join(runDir, 'review.result.json'), { force: true })
+writeNew('review.json', exportFamilyReview(result))
+writeNew('result.json', { status: 'assembled', drain_hash: result.drain_hash,
+  practice_manifest_hash: practice.manifest.manifest_hash, practice_items: practice.manifest.items.length,
+  companion_resources_sha256: resourcesSha256 })
+console.log(JSON.stringify(summarizeOrderRun({ drain, result: read('result.json'), review: read('review.json') })))
+process.exit(0)
+}
+
+// review: the family semantic review (agent drain) must pass for every unit before the run completes.
+{
+if (read('complete.json')) throw Error('ORDER_RUN_ALREADY_COMPLETE')
+const drain = read('drain.json'), stored = read('result.json'), reviewDrain = read('review.json'), reviewOut = read('review.out.json')
+if (!drain || stored?.status !== 'assembled' || !reviewDrain || !reviewOut) throw Error('ORDER_RUN_REVIEW_NOT_READY')
+// Re-derive the run from the current drafts and fill; a changed draft or fill makes the review stale.
+const result = importOrderProductionDrain(input, read('drain.out.json'))
+if (result.status !== 'assembled' || result.drain_hash !== stored.drain_hash ||
+    result.output.manifest.manifest_hash !== read('student.html.manifest.json')?.manifest_hash ||
+    exportFamilyReview(result).review_hash !== reviewDrain.review_hash) {
+  fs.rmSync(path.join(runDir, 'review.result.json'), { force: true })
+  writeNew('review.result.json', { status: 'blocked', blockers: [{ reason: 'FAMILY_REVIEW_RUN_STALE_REIMPORT_REQUIRED' }] })
+  console.log(JSON.stringify(summarizeOrderRun({ drain, result: stored, review: reviewDrain, reviewResult: read('review.result.json') })))
+  process.exit(2)
+}
+const reviewed = importFamilyReview(result, reviewOut)
+fs.rmSync(path.join(runDir, 'review.result.json'), { force: true })
+writeNew('review.result.json', reviewed)
+if (reviewed.status !== 'passed') {
+  console.log(JSON.stringify(summarizeOrderRun({ drain, result: stored, review: reviewDrain, reviewResult: reviewed })))
+  process.exit(2)
+}
 const pending = path.join(runDir, '.complete.pending')
 const fd = fs.openSync(pending, 'wx')
 try {
   fs.writeFileSync(fd, JSON.stringify({ status: 'complete', publish_eligible: false, non_production: true,
     drain_hash: result.drain_hash, receipt_hash: result.output.receipt.receipt_hash,
     manifest_hash: result.output.manifest.manifest_hash,
-    practice_manifest_hash: practice.manifest.manifest_hash, practice_items: practice.manifest.items.length,
-    companion_resources_sha256: resourcesSha256 }, null, 2) + '\n')
+    practice_manifest_hash: stored.practice_manifest_hash, practice_items: stored.practice_items,
+    companion_resources_sha256: stored.companion_resources_sha256,
+    family_review_receipt_hash: reviewed.receipt.receipt_hash }, null, 2) + '\n')
   fs.fsyncSync(fd)
 } finally { fs.closeSync(fd) }
 fs.linkSync(pending, path.join(runDir, 'complete.json'))
 fs.unlinkSync(pending)
-console.log(JSON.stringify(summarizeOrderRun({ drain, result: read('result.json'), complete: read('complete.json') })))
+console.log(JSON.stringify(summarizeOrderRun({ drain, result: stored, review: reviewDrain, reviewResult: reviewed, complete: read('complete.json') })))
+}

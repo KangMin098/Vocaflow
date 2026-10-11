@@ -15,7 +15,7 @@ import { canonicalJson } from './review-digest'
  * and hash, so stale or mixed evidence fails before any output is written.
  */
 export const ORDER_RUN_STAGES = [
-  'order_sealed', 'drain_exported', 'drain_filled', 'items_gated', 'units_built', 'volume_assembled',
+  'order_sealed', 'drain_exported', 'drain_filled', 'items_gated', 'units_built', 'family_reviewed', 'volume_assembled',
 ] as const
 
 const sha = (value: string) => createHash('sha256').update(value).digest('hex')
@@ -231,15 +231,18 @@ export function importOrderProductionDrain(input: unknown, filledInput: unknown)
 
 /** Status for one run directory, derived only from the files the CLI wrote. */
 export function summarizeOrderRun(files: { drain?: { drain_hash: string; cells: unknown[]; orders: unknown[] };
-  result?: { status: string; drain_hash: string; blockers?: OrderRunBlocker[] }; complete?: { manifest_hash: string } }) {
+  result?: { status: string; drain_hash: string; blockers?: OrderRunBlocker[] }; complete?: { manifest_hash: string }
+  review?: unknown; reviewResult?: { status: string; blockers?: Array<{ unit_id?: string; reason: string }> } }) {
+  const reviewBlocked = files.reviewResult?.status === 'blocked'
   const stage = !files.drain ? 'order_sealed' : !files.result ? 'drain_exported'
     : files.result.status === 'blocked' ? (files.result.blockers?.[0]?.stage ?? 'drain_filled')
-      : files.complete ? 'volume_assembled' : 'units_built'
+      : files.complete ? 'volume_assembled' : files.review ? 'family_reviewed' : 'units_built'
   return {
     current_stage: stage,
-    status: files.complete ? 'complete' : files.result?.status === 'blocked' ? 'blocked' : 'in_progress',
+    status: files.complete ? 'complete' : files.result?.status === 'blocked' || reviewBlocked ? 'blocked' : 'in_progress',
     stale: Boolean(files.result && files.drain && files.result.drain_hash !== files.drain.drain_hash),
-    blockers: files.result?.blockers ?? [],
+    blockers: files.result?.status === 'blocked' ? (files.result.blockers ?? [])
+      : reviewBlocked ? (files.reviewResult!.blockers ?? []).map(row => ({ stage: 'family_reviewed' as const, cell_id: row.unit_id, reason: row.reason })) : [],
     orders: files.drain?.orders ?? [],
     cell_count: files.drain?.cells.length ?? 0,
     manifest_hash: files.complete?.manifest_hash ?? null,

@@ -186,6 +186,20 @@ describe('order production run CLI', () => {
       writeFileSync(path.join(runDir, 'student.html'), 'interrupted partial write')
       const ok = cli('import', '--input', inputPath, '--run-dir', runDir)
       expect(ok.status, ok.stderr).toBe(0)
+      expect(JSON.parse(cli('status', '--run-dir', runDir).stdout)).toMatchObject({ status: 'in_progress', current_stage: 'family_reviewed' })
+      expect(existsSync(path.join(runDir, 'complete.json'))).toBe(false)
+      const reviewDrain = JSON.parse(readFileSync(path.join(runDir, 'review.json'), 'utf8'))
+      const approve = (verdict: 'pass' | 'fail') => ({ reviewer_id: 'claude-family-reviewer', units: reviewDrain.units.map((unit: { unit_id: string; unit_hash: string; passage: string }) => ({
+        unit_id: unit.unit_id, unit_hash: unit.unit_hash, verdict,
+        criteria: Object.fromEntries(reviewDrain.criteria.map((c: { id: string }) => [c.id, verdict === 'pass'])),
+        quote: unit.passage.slice(0, 20), rationale: 'Synthetic test review of the family criteria.' })) })
+      writeFileSync(path.join(runDir, 'review.out.json'), JSON.stringify(approve('fail')))
+      expect(cli('review', '--input', inputPath, '--run-dir', runDir).status).toBe(2)
+      expect(JSON.parse(cli('status', '--run-dir', runDir).stdout)).toMatchObject({ status: 'blocked', current_stage: 'family_reviewed' })
+      writeFileSync(path.join(runDir, 'review.out.json'), JSON.stringify(approve('pass')))
+      const reviewed = cli('review', '--input', inputPath, '--run-dir', runDir)
+      expect(reviewed.status, reviewed.stderr).toBe(0)
+      expect(JSON.parse(readFileSync(path.join(runDir, 'complete.json'), 'utf8')).family_review_receipt_hash).toMatch(/^[a-f0-9]{64}$/)
       const status = JSON.parse(cli('status', '--run-dir', runDir).stdout)
       expect(status).toMatchObject({ status: 'complete', current_stage: 'volume_assembled', stale: false, cell_count: 12 })
       const lineage = JSON.parse(readFileSync(path.join(runDir, 'lineage.json'), 'utf8'))

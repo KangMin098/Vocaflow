@@ -201,7 +201,7 @@ export const CSAT_HELP: HelpRegistry = {
         },
         {
           label: '생산 실행(드레인 → 단원 → 권)',
-          detail: '서버의 TEXTBOOK_ORDER_RUN_DIR 아래 order-production-run 실행 중 이 주문을 담은 것을 읽는다. 차단은 첫 3개 사유, revision 바뀜은 재실행 필요. 완료여도 비게시 학생용 권이다.',
+          detail: '서버의 TEXTBOOK_ORDER_RUN_DIR 아래 order-production-run 실행 중 이 주문을 담은 것을 읽는다. 차단은 첫 3개 사유, revision 바뀜은 재실행 필요. family_reviewed 는 제품군 의미 검수 대기·차단이다. 완료여도 비게시 학생용 권이다.',
         },
         {
           label: '관문이 왜 넷인가',

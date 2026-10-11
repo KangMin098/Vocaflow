@@ -19,33 +19,26 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
   const id = family as keyof typeof PRODUCT_FAMILIES
   const contract = PRODUCT_CAPABILITIES[id]
   const specialized = ['P13', 'P14', 'P18', 'P20'].includes(id)
+  // Every supported family now has a structural adapter plus the family semantic review drain
+  // (family-semantic-review.ts). IMPLEMENTED means executable gates exist, not validated teaching quality.
   const state: ProductRuntimeState = contract.state === 'PLANNED' || contract.state === 'UNSUPPORTED'
-    ? 'NOT_SUPPORTED'
-    : id === 'P03' ? 'SYNTHETIC_E2E_VALIDATED' : specialized ? 'IMPLEMENTED' : 'CONTRACT_ONLY'
+    ? 'NOT_SUPPORTED' : id === 'P03' ? 'SYNTHETIC_E2E_VALIDATED' : 'IMPLEMENTED'
   const evidence = id === 'P03'
-    ? ['scripts/textbook/reading-promotion/preflight.test.mjs', 'scripts/textbook/atomic-production-run.test.mjs']
+    ? ['scripts/textbook/reading-promotion/preflight.test.mjs', 'scripts/textbook/atomic-production-run.test.mjs',
+      'packages/library-pipeline/src/textbook/family-semantic-review.ts']
     : state === 'IMPLEMENTED' ? [
       specialized ? 'packages/library-pipeline/src/textbook/specialized-reading-unit.ts'
         : 'packages/library-pipeline/src/textbook/reading-family-unit.ts',
-      'packages/library-pipeline/src/textbook/multi-grade-order.test.ts',
-      // Registered order with sealed per-day resources / exam time budget -> planned student volume.
+      'packages/library-pipeline/src/textbook/family-semantic-review.ts',
+      'packages/library-pipeline/src/textbook/family-semantic-review.test.ts',
       'packages/library-pipeline/src/textbook/order-production-run.test.ts',
-    ] : state === 'CONTRACT_ONLY' ? [
-      'packages/library-pipeline/src/textbook/factory-order.ts',
-      'packages/library-pipeline/src/textbook/reading-family-unit.ts',
-      'packages/library-pipeline/src/textbook/multi-grade-order.test.ts',
-      // Registered-order drain -> generic family gate -> planned student volume (not family teaching design).
-      'packages/library-pipeline/src/textbook/order-production-run.test.ts',
-      // Same run -> per-day synthetic promotion -> atomic snapshot -> publication -> verified volume.
-      'scripts/textbook/run-atomic-bridge.test.mjs',
+      ...(specialized ? [] : ['scripts/textbook/run-atomic-bridge.test.mjs']),
     ] : []
   const missing = state === 'NOT_SUPPORTED'
     ? ['family-specific passage/item/activity/layout adapter', 'synthetic end-to-end']
     : state === 'IMPLEMENTED'
-      ? ['family-specific promotion-to-publication end-to-end', 'real-content operational end-to-end']
-      : state === 'CONTRACT_ONLY'
-      ? ['family-specific semantic passage/item/activity/layout adapter',
-        'live DB promotion to atomic publication end-to-end']
+      ? [...(specialized ? ['atomic production (DB gate pending migration)'] : ['live DB promotion to atomic publication end-to-end']),
+        'family semantic review run on real content for this family', 'real-content operational end-to-end']
       : ['live DB promotion to atomic publication end-to-end', 'real-content operational end-to-end']
   return [id, { state, evidence, missing }]
 })) as unknown as RuntimeEvidence

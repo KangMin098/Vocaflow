@@ -139,3 +139,15 @@ Verdict: `TEXTBOOK_FACTORY_PIPELINE_COMPLETE=false`, `TEXTBOOK_FACTORY_PRODUCTIO
 - Areas 4b and 6 update: all four delivery modes now run from an order-production run (single, shared passage + grade-specific items, grade-specific adaptations, grade-specific units) and the missing run-path injections pass — benchmark/evidence/rights policy revision (stale cell hash), expired trust root (Gold-S rejection), replayed snapshot across days (bridge tests 10/10). 4b → DONE (synthetic); 6 → DONE (synthetic) for the listed injections.
 - Area 2b/3 admin input: the planning form exposes companion activities and the registration form exposes the exam target and sealed resources (JSON array); the draft route test seals P13 resources, rejects P13 without them and P18 without an exam, and seals companion activities (3/3). 2b → DONE for registration input (atomic production of specialized families still needs a migration).
 - Cross-review of `f27f8806a..dfdfaf6d4` (independent Claude reviewer, read-only): 1 P1 and 3 P2 found and fixed with regressions — order/brief companion mismatch now stale; companion resources hashed into lineage; auto delivery mode no longer infers shared passage; empty unit / one-skill diagnostic block. No open P1/P2 from this review.
+
+### 2026-10-11 — family semantic adapters (area 2a)
+
+`family-semantic-review.ts` adds an executable family-specific gate for all 20 families: per-family criteria derived from the product definitions, reviewed through an agent drain with exact passage quotes, required before a run completes (unit tests 2/2, CLI tests updated, planning guard 1/1).
+
+Live drain (Claude as drain agent and reviewer; synthetic order, real prose; files kept outside the repository): P09 Relation Reading, middle_2, 3 days (order / insert / long_reference).
+- Two earlier attempts stopped honestly before review: a diagnostic companion on single-skill P09 (`COMPANION_DIAGNOSTIC_TOO_NARROW` → planning guard added) and a grammar companion with no generator candidate in short passages (`COMPANION_ACTIVITY_EMPTY`).
+- Review v1 failed day 3: the item asked only for the referent of "them", not a relation between sentences (`FAMILY_REVIEW_FAILED:relation_item`); the run stayed blocked with no `complete.json`.
+- Day 3 was rewritten to ask what "This system" summarizes before the "but" contrast; re-import kept days 1–2 hashes, and the old review was rejected for day 3 (`FAMILY_REVIEW_UNIT_STALE`).
+- Review v2 passed all units; `complete.json` recorded drain `c2e514e5…`, receipt `2a68ea3a…`, manifest `1b00dba5…`, family review receipt `1587ec8e…`; re-import is refused.
+
+Capability: the 15 generic families move `CONTRACT_ONLY` → `IMPLEMENTED` (structural adapter + executable family review). Missing per family remains a real-content review run and live DB promotion; the specialized four still lack atomic production. Only P09 has had a live family review. Verdict unchanged: both flags false.

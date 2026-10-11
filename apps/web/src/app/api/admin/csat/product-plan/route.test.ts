@@ -26,7 +26,7 @@ it('plans a multi-grade order from structured targeting without writing or inven
   expect(data.plan.units).toHaveLength(20)
   expect(data.plan.units[0].grade_scope.grades).toEqual(['middle_1', 'middle_2'])
   expect(data.plan_hash).toMatch(/^[a-f0-9]{64}$/)
-  expect(data.runtime_capability.state).toBe('CONTRACT_ONLY')
+  expect(data.runtime_capability.state).toBe('IMPLEMENTED')
   expect(JSON.stringify(data)).not.toContain('source_policy_hash')
 })
 
@@ -48,7 +48,7 @@ it('plans a chosen family while retaining its synthetic-only execution status', 
   const data = await response.json()
   expect(data.plan.product_family).toBe('P13')
   expect(data.runtime_capability.state).toBe('IMPLEMENTED')
-  expect(data.runtime_capability.missing).toContain('family-specific promotion-to-publication end-to-end')
+  expect(data.runtime_capability.missing).toContain('atomic production (DB gate pending migration)')
 })
 
 it('rejects a malformed grade scope and unauthorized callers', async () => {

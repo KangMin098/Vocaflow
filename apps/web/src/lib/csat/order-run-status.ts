@@ -37,7 +37,9 @@ export async function readOrderRuns(root: string, orderId: string, currentRevisi
     if (!drain || !order) continue
     const summary = summarizeOrderRun({ drain,
       result: await readJson(path.join(dir, 'result.json')) as Parameters<typeof summarizeOrderRun>[0]['result'],
-      complete: await readJson(path.join(dir, 'complete.json')) as Parameters<typeof summarizeOrderRun>[0]['complete'] })
+      complete: await readJson(path.join(dir, 'complete.json')) as Parameters<typeof summarizeOrderRun>[0]['complete'],
+      review: await readJson(path.join(dir, 'review.json')),
+      reviewResult: await readJson(path.join(dir, 'review.result.json')) as Parameters<typeof summarizeOrderRun>[0]['reviewResult'] })
     runs.push({ ...summary, run: name, order,
       revision_current: currentRevision === null ? null : order.order_revision === currentRevision })
   }
