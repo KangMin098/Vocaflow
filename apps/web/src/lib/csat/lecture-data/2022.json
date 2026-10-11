@@ -1,6 +1,6 @@
 {
   "exam_id": "2022",
-  "built": "2026-09-17",
+  "built": "2026-10-11",
   "lectures": {
     "2022#18": {
       "item_id": "2022#18",
@@ -792,10 +792,10 @@
     },
     "2022#20": {
       "item_id": "2022#20",
-      "version": 1,
-      "total_sec_est": 228,
+      "version": 2,
+      "total_sec_est": 175,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 89,
+      "rubric_score": 90,
       "cues": [
         {
           "id": "c1",
@@ -808,65 +808,40 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여러분, 이천이십이 학년도 수능 이십 번, 필자 주장입니다."
+              "text": "여러분, 필자의 주장을 고르는 문항이에요. 문두를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "문항 머리를 보세요. 기업과 소셜 미디어 이야기예요."
+              "text": "판단할 관계는 무엇이 아니라 무엇이다, 대체 구조입니다."
             }
           ],
-          "est_sec": 11.9,
+          "est_sec": 12.4,
           "pause_after_ms": 500
         },
         {
           "id": "c2",
           "order": 2,
-          "role": "intro",
+          "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "intent"
+            "id": "head"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "출제 의도에 주목하세요."
+              "text": "선지부터 보세요. 다섯 모두 해야 한다로 끝나죠."
             },
             {
               "lang": "ko-KR",
-              "text": "부정된 쪽과 긍정된 쪽 중 무엇이 출발점인지 가리는 문항입니다."
+              "text": "갈리는 축은 무엇을 토대로 쓰느냐예요. 이 축으로 대체 구문을 찾으세요."
             }
           ],
-          "est_sec": 9.6,
+          "est_sec": 13.2,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
-          "role": "strategy",
-          "target": {
-            "kind": "analysis",
-            "id": "procedure"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "읽기 전에 선지부터. 무엇을 출발점으로 삼는지 표시하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "매체 개발, 목표 수립, 의견 수렴, 홍보, 사업 목표."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이 축으로, 부정과 긍정을 짝지은 문장을 찾으세요."
-            }
-          ],
-          "est_sec": 16.7,
-          "pause_after_ms": 500
-        },
-        {
-          "id": "c4",
-          "order": 4,
           "role": "structure",
           "target": {
             "kind": "analysis",
@@ -875,18 +850,14 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "뼈대를 보세요. 첫 문장은 가장 흔한 실수 중 하나."
+              "text": "지도를 보세요. 첫 문장은 흔한 실수를 진단해요."
             },
             {
               "lang": "ko-KR",
-              "text": "도구에 지나치게 치중하고, 사업 목표는 충분히 챙기지 않는다는 거죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "두 번째가 교정, 다섯 번째가 조건, 끝 두 문장이 마무리예요."
+              "text": "두 번째 문장이 출발점을 바로잡고, 다섯 번째부터는 목적 쪽에서 되받습니다."
             }
           ],
-          "est_sec": 18.7,
+          "est_sec": 13.4,
           "pause_after_ms": 600,
           "focus": [
             0,
@@ -894,8 +865,8 @@
           ]
         },
         {
-          "id": "c5",
-          "order": 5,
+          "id": "c4",
+          "order": 4,
           "role": "evidence",
           "target": {
             "kind": "anchor",
@@ -904,7 +875,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 오 번. 여기 두 번째 문장을 보세요."
+              "text": "정답은 오 번. 근거는 여기 두 번째 문장이에요."
             },
             {
               "lang": "en-US",
@@ -912,7 +883,7 @@
             },
             {
               "lang": "ko-KR",
-              "text": "최신 도구에 대한 이해가 아니라,"
+              "text": "도구 안목이 아니라,"
             },
             {
               "lang": "en-US",
@@ -920,73 +891,48 @@
             },
             {
               "lang": "ko-KR",
-              "text": "조직 자신의 목표를 철저히 아는 데서 시작한다."
+              "text": "조직 자신의 목표에서 시작하죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "목표는 사업 목표, 시작은 토대와 짝이죠."
             }
           ],
-          "est_sec": 17.3,
+          "est_sec": 19.3,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c5",
+          "order": 5,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:4"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 다섯 번째 문장도 확인하세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "must either solve a problem"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "반드시 문제를 풀거나 개선을 낳아야 한대요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "선지의 해야 한다는 당위가 여기서 서죠."
+            }
+          ],
+          "est_sec": 15.1,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:1"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "같은 문장에서 짝을 확인하세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "시작한다가 선지의 토대로 한다와,"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "조직의 목표와 목적이 사업 목표와 맞물립니다."
-            }
-          ],
-          "est_sec": 12.4,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c7",
-          "order": 7,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:5"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 여섯 번째 문장이 방향을 닫습니다."
-            },
-            {
-              "lang": "en-US",
-              "text": "purpose drives success"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "모든 일에서 목적이 성공을 이끈다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이어서 일곱 번째 문장이 소셜 미디어도 다르지 않다고 맺죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "도구보다 목적이 먼저라는 고리예요."
-            }
-          ],
-          "est_sec": 19.9,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c8",
-          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -995,26 +941,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 매체 직접 개발. 두 번째 문장을 짚어 보세요."
+              "text": "일 번, 직접 개발해 운영. 두 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "도구와 채널은 출발점에서 밀려난 쪽이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "매체를 만들라는 말도, 이미지에 맞추라는 말도 없습니다."
+              "text": "도구와 채널은 출발점에서 부정된 쪽이에요. 그걸 처방으로 바꿨죠."
             }
           ],
-          "est_sec": 16.2,
+          "est_sec": 13,
           "pause_after_ms": 400,
           "focus": [
             1
           ]
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -1023,26 +965,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 사회적 가치로 목표 수립. 두 번째 문장을 짚어 보세요."
+              "text": "이 번, 사회적 가치를 반영한 목표. 두 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "조직 자신의 목표를 철저히 이해하는 데서 시작한다고 할 뿐이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "사회적 가치를 반영해 목표를 세우라는 말은 없습니다."
+              "text": "목표는 출발점으로만 나와요. 목표를 세우는 법은 없고, 소셜 미디어도 빠졌죠."
             }
           ],
-          "est_sec": 19.2,
+          "est_sec": 14.5,
           "pause_after_ms": 400,
           "focus": [
             1
           ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -1051,26 +989,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 소비자 의견 수렴. 다섯 번째 문장을 짚어 보세요."
+              "text": "삼 번, 의견 수렴. 다섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "고객은 나오지만, 조직과 고객의 문제를 해결하라는 자리예요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "의견을 모으라는 말은 없습니다."
+              "text": "고객은 나오지만 묶인 동사는 문제를 풀어 준다예요. 듣는다는 말은 없습니다."
             }
           ],
-          "est_sec": 16,
+          "est_sec": 13.5,
           "pause_after_ms": 400,
           "focus": [
             4
           ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -1079,58 +1013,47 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 구체적 정보로 홍보. 다섯 번째 문장을 짚어 보세요."
+              "text": "사 번, 구체적 정보. 다섯 번째 문장의 괄호를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "괄호 속, 가급적 측정할 수 있는 것은 개선을 꾸미는 말이에요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정보나 제품 홍보 이야기는 없습니다."
+              "text": "측정 가능한은 개선을 꾸미는 말이에요. 홍보 이야기는 지문에 없습니다."
             }
           ],
-          "est_sec": 16.5,
+          "est_sec": 13.5,
           "pause_after_ms": 400,
           "focus": [
             4
           ]
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c10",
+          "order": 10,
           "role": "trap",
           "target": {
-            "kind": "analysis",
-            "id": "reject:2"
+            "kind": "anchor",
+            "id": "sentence:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 이 번, 인과 역전. 두 번째 문장을 짚어 보세요."
+              "text": "대표 함정은 삼 번의 어휘 함정. 자리는 여기 다섯 번째 문장이에요."
+            },
+            {
+              "lang": "en-US",
+              "text": "and its customers"
             },
             {
               "lang": "ko-KR",
-              "text": "사업 목표가 정답과 겹쳐 끌립니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "지문에서 목표는 출발점인데, 이 번은 결과 자리에 놓았어요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "겹치는 낱말의 자리를 확인하세요."
+              "text": "지문 낱말이라 끌리죠. 그 낱말에 붙은 동사까지 확인하세요."
             }
           ],
-          "est_sec": 19.5,
-          "pause_after_ms": 600,
-          "focus": [
-            1
-          ]
+          "est_sec": 15.2,
+          "pause_after_ms": 600
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c11",
+          "order": 11,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -1147,7 +1070,7 @@
             },
             {
               "lang": "ko-KR",
-              "text": "목적."
+              "text": "목표."
             },
             {
               "lang": "en-US",
@@ -1167,14 +1090,6 @@
             },
             {
               "lang": "en-US",
-              "text": "purpose"
-            },
-            {
-              "lang": "ko-KR",
-              "text": "목적."
-            },
-            {
-              "lang": "en-US",
               "text": "fulfillment"
             },
             {
@@ -1182,12 +1097,12 @@
               "text": "충족."
             }
           ],
-          "est_sec": 10.2,
+          "est_sec": 8.7,
           "pause_after_ms": 500
         },
         {
-          "id": "c14",
-          "order": 14,
+          "id": "c12",
+          "order": 12,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -1196,14 +1111,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 부정과 긍정을 짝지은 문장에서는, 긍정된 뒤쪽이 출발점입니다."
+              "text": "정리해요. 무엇이 아니라 무엇이면, 주장은 뒤쪽이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지가 무엇을 출발점으로 삼는지부터 표시하세요."
+              "text": "구문이 없으면 해야 한다 문장을 후보로 삼으세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "다음에는 첫 십 초에 선지의 판단 축부터 표시하세요."
             }
           ],
-          "est_sec": 15.9,
+          "est_sec": 17,
           "pause_after_ms": 900
         }
       ]

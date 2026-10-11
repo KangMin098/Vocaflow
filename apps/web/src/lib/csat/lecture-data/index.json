@@ -1,5 +1,5 @@
 {
-  "built": "2026-09-17",
+  "built": "2026-10-11",
   "items": {
     "2014A#23": {
       "sec": 230,
@@ -26,9 +26,9 @@
       "type": "R-TITLE"
     },
     "2014A#27": {
-      "sec": 202,
-      "cues": 14,
-      "score": 93,
+      "sec": 187,
+      "cues": 11,
+      "score": 90,
       "type": "R-GRAMMAR"
     },
     "2014A#28": {
@@ -38,9 +38,9 @@
       "type": "R-VOCAB"
     },
     "2014A#29": {
-      "sec": 238,
-      "cues": 14,
-      "score": 89,
+      "sec": 185,
+      "cues": 13,
+      "score": 85,
       "type": "R-NOTICE"
     },
     "2014A#30": {
@@ -74,21 +74,21 @@
       "type": "R-BLANK"
     },
     "2014A#35": {
-      "sec": 209,
+      "sec": 172,
       "cues": 13,
-      "score": 85,
+      "score": 87,
       "type": "R-BLANK"
     },
     "2014A#36": {
-      "sec": 231,
-      "cues": 14,
-      "score": 90,
+      "sec": 166,
+      "cues": 13,
+      "score": 85,
       "type": "R-BLANK2"
     },
     "2014A#37": {
-      "sec": 235,
-      "cues": 14,
-      "score": 92,
+      "sec": 167,
+      "cues": 13,
+      "score": 87,
       "type": "R-ORDER"
     },
     "2014A#38": {
@@ -104,21 +104,21 @@
       "type": "R-INSERT"
     },
     "2014A#40": {
-      "sec": 228,
-      "cues": 13,
+      "sec": 194,
+      "cues": 12,
       "score": 91,
       "type": "R-MOOD"
     },
     "2014A#41": {
-      "sec": 230,
+      "sec": 167,
       "cues": 14,
-      "score": 90,
+      "score": 88,
       "type": "X-TITLE"
     },
     "2014A#42": {
-      "sec": 208,
-      "cues": 13,
-      "score": 86,
+      "sec": 177,
+      "cues": 12,
+      "score": 87,
       "type": "X-BLANK"
     },
     "2014A#43": {
@@ -146,21 +146,21 @@
       "type": "R-GIST"
     },
     "2014B#24": {
-      "sec": 223,
+      "sec": 202,
       "cues": 13,
-      "score": 90,
+      "score": 91,
       "type": "R-TOPIC"
     },
     "2014B#25": {
-      "sec": 223,
+      "sec": 193,
       "cues": 13,
-      "score": 85,
+      "score": 88,
       "type": "R-TITLE"
     },
     "2014B#26": {
-      "sec": 211,
+      "sec": 173,
       "cues": 13,
-      "score": 89,
+      "score": 88,
       "type": "R-REFER"
     },
     "2014B#27": {
@@ -170,9 +170,9 @@
       "type": "R-GRAMMAR"
     },
     "2014B#28": {
-      "sec": 220,
-      "cues": 14,
-      "score": 84,
+      "sec": 194,
+      "cues": 13,
+      "score": 90,
       "type": "R-VOCAB"
     },
     "2014B#29": {
@@ -182,9 +182,9 @@
       "type": "R-CHART"
     },
     "2014B#30": {
-      "sec": 215,
-      "cues": 14,
-      "score": 90,
+      "sec": 161,
+      "cues": 12,
+      "score": 89,
       "type": "R-FACT"
     },
     "2014B#31": {
@@ -242,9 +242,9 @@
       "type": "R-INSERT"
     },
     "2014B#40": {
-      "sec": 224,
+      "sec": 160,
       "cues": 13,
-      "score": 85,
+      "score": 81,
       "type": "R-SUMMARY"
     },
     "2014B#41": {
@@ -260,9 +260,9 @@
       "type": "X-BLANK"
     },
     "2014B#43": {
-      "sec": 248,
-      "cues": 14,
-      "score": 88,
+      "sec": 158,
+      "cues": 13,
+      "score": 90,
       "type": "X-ORDER"
     },
     "2014B#44": {
@@ -272,15 +272,15 @@
       "type": "X-REFER"
     },
     "2014B#45": {
-      "sec": 221,
-      "cues": 14,
-      "score": 92,
+      "sec": 181,
+      "cues": 12,
+      "score": 93,
       "type": "X-FACT"
     },
     "2015#18": {
-      "sec": 221,
+      "sec": 171,
       "cues": 13,
-      "score": 85,
+      "score": 88,
       "type": "R-GIST"
     },
     "2015#19": {
@@ -380,9 +380,9 @@
       "type": "R-BLANK2"
     },
     "2015#35": {
-      "sec": 228,
+      "sec": 230,
       "cues": 13,
-      "score": 83,
+      "score": 89,
       "type": "R-IRRELEVANT"
     },
     "2015#36": {
@@ -398,9 +398,9 @@
       "type": "R-ORDER"
     },
     "2015#38": {
-      "sec": 214,
+      "sec": 201,
       "cues": 12,
-      "score": 89,
+      "score": 91,
       "type": "R-INSERT"
     },
     "2015#39": {
@@ -752,9 +752,9 @@
       "type": "X-TITLE"
     },
     "2017#42": {
-      "sec": 250,
-      "cues": 14,
-      "score": 93,
+      "sec": 214,
+      "cues": 13,
+      "score": 90,
       "type": "X-BLANK2"
     },
     "2017#43": {
@@ -764,9 +764,9 @@
       "type": "X-ORDER"
     },
     "2017#44": {
-      "sec": 202,
-      "cues": 12,
-      "score": 88,
+      "sec": 176,
+      "cues": 13,
+      "score": 92,
       "type": "X-REFER"
     },
     "2017#45": {
@@ -1082,9 +1082,9 @@
       "type": "X-TITLE"
     },
     "2019#42": {
-      "sec": 213,
+      "sec": 198,
       "cues": 13,
-      "score": 89,
+      "score": 92,
       "type": "X-VOCAB"
     },
     "2019#43": {
@@ -1454,9 +1454,9 @@
       "type": "R-MOOD"
     },
     "2022#20": {
-      "sec": 228,
-      "cues": 14,
-      "score": 89,
+      "sec": 175,
+      "cues": 12,
+      "score": 90,
       "type": "R-CLAIM"
     },
     "2022#21": {
@@ -1610,9 +1610,9 @@
       "type": "X-FACT"
     },
     "2023#18": {
-      "sec": 199,
-      "cues": 13,
-      "score": 90,
+      "sec": 194,
+      "cues": 14,
+      "score": 87,
       "type": "R-PURPOSE"
     },
     "2023#19": {
@@ -2120,9 +2120,9 @@
       "type": "R-CLAIM"
     },
     "2026#21": {
-      "sec": 226,
-      "cues": 13,
-      "score": 86,
+      "sec": 209,
+      "cues": 12,
+      "score": 89,
       "type": "R-IMPLY"
     },
     "2026#22": {

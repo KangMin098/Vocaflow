@@ -1,6 +1,6 @@
 {
   "exam_id": "2017",
-  "built": "2026-09-17",
+  "built": "2026-10-11",
   "lectures": {
     "2017#18": {
       "item_id": "2017#18",
@@ -9164,10 +9164,10 @@
     },
     "2017#42": {
       "item_id": "2017#42",
-      "version": 1,
-      "total_sec_est": 250,
+      "version": 2,
+      "total_sec_est": 214,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 93,
+      "rubric_score": 90,
       "cues": [
         {
           "id": "c1",
@@ -9180,98 +9180,81 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여러분, 이천십칠 학년도 수능 사십이 번, 장문 빈칸입니다."
+              "text": "여러분, 이번 문항은 빈칸이 두 개인 장문입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "문항 머리를 보세요. 빈칸이 에이와 비, 두 개예요."
+              "text": "두 칸의 근거가 서로 다른 자리에 있어요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "한 칸만 보면 걸립니다. 문항 머리를 보세요."
             }
           ],
-          "est_sec": 11.4,
+          "est_sec": 14.2,
           "pause_after_ms": 500
         },
         {
           "id": "c2",
           "order": 2,
-          "role": "intro",
+          "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "intent"
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "출제 의도를 확인하세요."
+              "text": "여기 풀이 순서를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "에이는 물리 시간과 심리 시간의 대비가 정합니다."
+              "text": "선지의 비 칸 낱말이 몇 종류인지 세세요."
             },
             {
               "lang": "ko-KR",
-              "text": "비는 숫자를 속도의 정의로 옮겨야 정해지죠."
+              "text": "빠르다 둘, 느리다 셋뿐이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "두 빈칸의 근거 자리가 서로 달라요."
+              "text": "비 칸 하나로 후보가 크게 줄어요."
             }
           ],
-          "est_sec": 16.7,
+          "est_sec": 13.7,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
-          "role": "strategy",
+          "role": "structure",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:13"
+            "kind": "analysis",
+            "id": "map"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 할 일 하나. 비 빈칸부터 풀기로 정합니다."
+              "text": "뼈대를 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "선지의 비 칸은 빠르다와 느리다, 두 종류뿐이죠."
+              "text": "첫 문단은 물리학자의 초와 심리적 시간을 맞세웁니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여기 열네 번째 문장이 일 번 타자의 체감 속도를 묻습니다."
+              "text": "둘째 문단은 타자 두 명의 숫자 예시예요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "에이는 대비에서, 비는 숫자에서 정해집니다."
             }
           ],
-          "est_sec": 16.7,
-          "pause_after_ms": 500
+          "est_sec": 17.2,
+          "pause_after_ms": 600
         },
         {
           "id": "c4",
           "order": 4,
-          "role": "structure",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:3"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "뼈대를 짚어 보세요. 여기 네 번째 문장이 첫 단락의 축입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "물리의 정밀한 일 초와 달리, 심리적 시간 재기는 상당히 더 서툴다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "이 대비가 에이를, 타자 예시가 비를 맡아요."
-            }
-          ],
-          "est_sec": 18,
-          "pause_after_ms": 600
-        },
-        {
-          "id": "c5",
-          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "anchor",
@@ -9280,23 +9263,31 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 사 번, 부정확한과 더 빠른. 비부터, 여기 열세 번째 문장을 보세요."
+              "text": "정답은 사 번입니다. 먼저 비 칸."
             },
             {
               "lang": "ko-KR",
-              "text": "첫 타자는 사 초마다, 둘째 타자는 육 초마다 공이 온다고 겪었죠."
+              "text": "아홉 번째 문장, 공은 오 초마다 옵니다."
             },
             {
               "lang": "ko-KR",
-              "text": "아홉 번째 문장의 실제 간격은 오 초였습니다."
+              "text": "그런데 여기 열세 번째 문장을 보세요."
+            },
+            {
+              "lang": "en-US",
+              "text": "every four seconds"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "첫 타자는 사 초마다로 느꼈어요."
             }
           ],
-          "est_sec": 19,
+          "est_sec": 16.7,
           "pause_after_ms": 700
         },
         {
-          "id": "c6",
-          "order": 6,
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "anchor",
@@ -9305,7 +9296,7 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "여기 두 번째 문장을 확인하세요."
+              "text": "여기 두 번째 문장이 템포를 정의하죠."
             },
             {
               "lang": "en-US",
@@ -9313,52 +9304,52 @@
             },
             {
               "lang": "ko-KR",
-              "text": "템포를 사건의 속도로 본다고 하죠."
+              "text": "사 초 간격은 오 초보다 잦습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "오 초 간격이 사 초로 느껴졌으니, 체감상 더 자주 온 셈입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "일 번 타자의 템포는 더 빠르죠."
+              "text": "사건이 잦으니 템포는 빠르다예요."
             }
           ],
-          "est_sec": 19.6,
+          "est_sec": 14,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c6",
+          "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:3"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "이제 에이 칸. 여기 네 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "앞 문장은 물리학자의 초를 정확하다고 했죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "이 문장은 심리적 시간 재기를 이렇게 부릅니다."
+            },
+            {
+              "lang": "en-US",
+              "text": "a considerably clumsier operation"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그래서 에이는 부정확한입니다."
+            }
+          ],
+          "est_sec": 19.8,
           "pause_after_ms": 700
         },
         {
           "id": "c7",
           "order": 7,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:5"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "이제 에이. 여기 여섯 번째 문장을 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "대개 에이한 심리 시계를 손목시계 시간과 맞세우죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "네 번째 문장은 심리적 시간 재기가 훨씬 서툴다 했어요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "정밀함의 반대, 부정확한입니다."
-            }
-          ],
-          "est_sec": 19.5,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c8",
-          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -9367,26 +9358,27 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 늦춰진과 더 빠른. 열한, 열두 번째 문장을 짚어 보세요."
+              "text": "일 번, 지연된과 빠른. 에이에서 지웁니다."
             },
             {
               "lang": "ko-KR",
-              "text": "오십 초를 한 타자는 줄여, 다른 타자는 늘려 잡습니다."
+              "text": "열한째와 열두째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "어긋남이 양쪽이죠. 늦춰졌다는 한 방향으론 설명이 안 돼요."
+              "text": "한 타자는 줄여 잡고, 다른 타자는 늘려 잡았죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "오차가 양쪽인데, 지연은 한 방향뿐입니다."
             }
           ],
-          "est_sec": 18.5,
-          "pause_after_ms": 400,
-          "focus": [
-            11
-          ]
+          "est_sec": 18,
+          "pause_after_ms": 400
         },
         {
-          "id": "c9",
-          "order": 9,
+          "id": "c8",
+          "order": 8,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -9395,26 +9387,26 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이 번, 내부의와 더 느린. 열세 번째 문장을 짚어 보세요."
+              "text": "이 번, 내부의와 느린. 열세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번 타자는 공이 실제보다 잦게 온다고 느꼈죠."
+              "text": "사 초마다로 느꼈으니 느린 템포가 아니에요."
             },
             {
               "lang": "ko-KR",
-              "text": "비에 느린은 들어갈 수 없습니다."
+              "text": "내부의는 위치만 말해 정확성 대비를 못 담습니다."
             }
           ],
-          "est_sec": 14.5,
+          "est_sec": 15.7,
           "pause_after_ms": 400,
           "focus": [
             12
           ]
         },
         {
-          "id": "c10",
-          "order": 10,
+          "id": "c9",
+          "order": 9,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -9423,31 +9415,30 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "삼 번, 정확한과 더 느린. 네 번째 문장을 짚어 보세요."
+              "text": "삼 번, 정확한과 느린. 네 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "정밀함은 물리 쪽 몫, 심리 쪽은 더 서툴다고 했죠."
+              "text": "정확하다의 주어는 물리학자의 초였습니다."
             },
             {
               "lang": "ko-KR",
-              "text": "다섯 번째 문장도, 실제 시간의 단서가 없으면"
+              "text": "빈칸의 주어는 심리적 시계죠."
             },
             {
               "lang": "ko-KR",
-              "text": "시간 감각이 금세 무너진다고 합니다."
+              "text": "그것을 서투르다 했으니 정면으로 어긋나요."
             }
           ],
-          "est_sec": 19.5,
+          "est_sec": 18.3,
           "pause_after_ms": 400,
           "focus": [
-            3,
-            4
+            3
           ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c10",
+          "order": 10,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -9456,63 +9447,55 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 신비로운과 더 느린. 열세 번째 문장을 짚어 보세요."
+              "text": "오 번, 신비로운과 느린. 열세 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "일 번 타자는 공이 사 초마다 온다고 느꼈죠."
+              "text": "비 칸이 느린이라 바로 지워집니다."
             },
             {
               "lang": "ko-KR",
-              "text": "더 빠른 템포라 비에 느린은 못 와요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "에이도, 지문은 신비가 아니라 서툶을 말해요."
+              "text": "지문은 심리적 시간도 초 단위로 잽니다."
             }
           ],
-          "est_sec": 19.3,
+          "est_sec": 14,
           "pause_after_ms": 400,
           "focus": [
             12
           ]
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c11",
+          "order": 11,
           "role": "trap",
           "target": {
-            "kind": "analysis",
-            "id": "reject:1"
+            "kind": "anchor",
+            "id": "sentence:6"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "함정은 일 번, 부분 사실입니다."
+              "text": "함정은 부분 사실. 여기 일곱 번째 문장을 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "비로 일 번과 사 번이 남으면 안심하기 쉽죠."
+              "text": "늘려 잡는 사람은 느린 템포를 겪죠."
             },
             {
               "lang": "ko-KR",
-              "text": "일곱 번째 문장의 늘려 잡기가 늦어짐을 떠올리게 해요."
+              "text": "늘린 쪽은 둘째 타자입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "비로 둘을 남긴 뒤, 에이를 네 번째 문장의 서툶에 대 보세요."
+              "text": "누가 늘렸는지 타자 번호에 표시하세요."
             }
           ],
-          "est_sec": 19.7,
-          "pause_after_ms": 600,
-          "focus": [
-            6,
-            3
-          ]
+          "est_sec": 16.5,
+          "pause_after_ms": 600
         },
         {
-          "id": "c13",
-          "order": 13,
+          "id": "c12",
+          "order": 12,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -9537,15 +9520,15 @@
             },
             {
               "lang": "ko-KR",
-              "text": "빠르기."
+              "text": "사건의 속도."
             },
             {
               "lang": "en-US",
-              "text": "unambiguous"
+              "text": "precise"
             },
             {
               "lang": "ko-KR",
-              "text": "모호함이 없는."
+              "text": "정확한."
             },
             {
               "lang": "en-US",
@@ -9564,12 +9547,12 @@
               "text": "지각된."
             }
           ],
-          "est_sec": 12.2,
+          "est_sec": 12,
           "pause_after_ms": 500
         },
         {
-          "id": "c14",
-          "order": 14,
+          "id": "c13",
+          "order": 13,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -9578,18 +9561,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 빈칸 두 개는 선지 종류가 적은 칸부터 풀어 후보를 줄이세요."
+              "text": "여기 풀이 순서를 보세요. 두 칸 빈칸은 확정되는 칸부터 풉니다."
             },
             {
               "lang": "ko-KR",
-              "text": "숫자 칸은 정의에, 남은 칸은 대비에 대 봅니다."
+              "text": "숫자 칸이 먼저, 대비 칸이 다음이에요."
             },
             {
               "lang": "ko-KR",
-              "text": "다음에는 첫 십 초에 선지의 비 칸부터 확인하세요."
+              "text": "다음에는 첫 십 초에 선지 한쪽 칸의 낱말 종류부터 세세요."
             }
           ],
-          "est_sec": 18,
+          "est_sec": 17,
           "pause_after_ms": 900
         }
       ]
@@ -10001,10 +9984,10 @@
     },
     "2017#44": {
       "item_id": "2017#44",
-      "version": 1,
-      "total_sec_est": 202,
+      "version": 2,
+      "total_sec_est": 176,
       "generated_by": "claude-opus-5 · Claude Code 드레인",
-      "rubric_score": 88,
+      "rubric_score": 92,
       "cues": [
         {
           "id": "c1",
@@ -10017,14 +10000,18 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "이천십칠 학년도 수능 사십사 번, 장문 지칭입니다."
+              "text": "여러분, 장문 지칭 문항입니다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 문두를 확인하세요."
+              "text": "여기 문항 머리를 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "판단시키는 관계는 별칭과 대명사를 인물 정보로 묶는 거예요."
             }
           ],
-          "est_sec": 8.4,
+          "est_sec": 12.7,
           "pause_after_ms": 500
         },
         {
@@ -10033,28 +10020,57 @@
           "role": "strategy",
           "target": {
             "kind": "analysis",
-            "id": "head"
+            "id": "procedure"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "읽기 전에 등장인물부터 적으세요."
+              "text": "여기 풀이 순서를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "에릭은 열일곱 살 독일 소년, 키스는 미국 재즈 피아니스트, 만프레드는 키스의 프로듀서예요."
+              "text": "읽기 전에 등장인물표부터 적으세요."
             },
             {
               "lang": "ko-KR",
-              "text": "나이와 국적까지 표시해 두세요."
+              "text": "이름마다 나이, 국적, 하는 일을요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "남자가 셋이라 대명사만으론 안 갈립니다."
             }
           ],
-          "est_sec": 16.9,
+          "est_sec": 15,
           "pause_after_ms": 500
         },
         {
           "id": "c3",
           "order": 3,
+          "role": "structure",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:0"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 첫 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "에릭은 열일곱 살 독일 소년이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "세 번째 문장에서 키스는 미국인 피아니스트입니다."
+            }
+          ],
+          "est_sec": 12.2,
+          "pause_after_ms": 600
+        },
+        {
+          "id": "c4",
+          "order": 4,
           "role": "structure",
           "target": {
             "kind": "analysis",
@@ -10063,24 +10079,23 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "지도를 보세요. 밑줄은 세, 일곱, 열네, 열일곱, 스물한 번째 문장에 있어요."
+              "text": "지도를 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "비 단락은 네 번째 문장 뒷부분, 씨는 열두 번째, 디는 열아홉 번째 문장에서 시작합니다."
+              "text": "인쇄는 에이, 비, 씨, 디 순이지만"
+            },
+            {
+              "lang": "ko-KR",
+              "text": "사건은 에이, 디, 씨, 비 순입니다."
             }
           ],
-          "est_sec": 16.4,
-          "pause_after_ms": 600,
-          "focus": [
-            20,
-            3,
-            18
-          ]
+          "est_sec": 8.4,
+          "pause_after_ms": 600
         },
         {
-          "id": "c4",
-          "order": 4,
+          "id": "c5",
+          "order": 5,
           "role": "evidence",
           "target": {
             "kind": "anchor",
@@ -10089,7 +10104,11 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정답은 이 번, 밑줄 비입니다. 여기 일곱 번째 문장을 보세요."
+              "text": "정답은 이 번입니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여기 여덟 번째 문장을 보세요."
             },
             {
               "lang": "en-US",
@@ -10097,40 +10116,44 @@
             },
             {
               "lang": "ko-KR",
-              "text": "왼손으로 반복 베이스를 쳐서 피아노의 울림 부족을 덮는 사람, 곧 연주자예요."
+              "text": "왼손으로 베이스를 치는 연주자죠."
             }
           ],
-          "est_sec": 16.2,
-          "pause_after_ms": 700
-        },
-        {
-          "id": "c5",
-          "order": 5,
-          "role": "evidence",
-          "target": {
-            "kind": "anchor",
-            "id": "sentence:6"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "여기 여섯 번째 문장이 연주하는 사람을 키스로 적고, 여덟 번째 문장도 키스가 세게 쳐야 했다고 잇죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그 사이의 그의 왼손은 키스의 왼손입니다."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "다섯 번째 문장의 에릭은 감동한 청중 쪽이에요."
-            }
-          ],
-          "est_sec": 19.9,
+          "est_sec": 11.2,
           "pause_after_ms": 700
         },
         {
           "id": "c6",
           "order": 6,
+          "role": "evidence",
+          "target": {
+            "kind": "anchor",
+            "id": "sentence:8"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "여기 아홉 번째 문장을 보세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "같은 연주 동작을 키스로 잇습니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "에릭은 여섯 번째 문장에서 듣는 쪽이죠."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그러니 그는 키스예요."
+            }
+          ],
+          "est_sec": 14,
+          "pause_after_ms": 700
+        },
+        {
+          "id": "c7",
+          "order": 7,
           "role": "eliminate",
           "target": {
             "kind": "analysis",
@@ -10139,50 +10162,21 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "일 번, 밑줄 에이. 첫 문장을 짚어 보세요."
+              "text": "일 번. 세 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "열일곱 살 독일 소년 에릭이 소개되죠."
+              "text": "독일 최연소 기획자라는 별칭이죠."
             },
             {
               "lang": "ko-KR",
-              "text": "세 번째 문장의 독일에서 가장 어린 공연 기획자는, 나이와 국적이 맞는 에릭이에요."
+              "text": "열일곱 살 독일 소년, 에릭입니다."
             }
           ],
-          "est_sec": 17,
+          "est_sec": 11.2,
           "pause_after_ms": 400,
           "focus": [
-            0,
             2
-          ]
-        },
-        {
-          "id": "c7",
-          "order": 7,
-          "role": "eliminate",
-          "target": {
-            "kind": "analysis",
-            "id": "reject:3"
-          },
-          "segments": [
-            {
-              "lang": "ko-KR",
-              "text": "삼 번, 밑줄 씨. 열네 번째 문장을 짚어 보세요."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "그 독일 십 대가 키스를 따라잡아, 재즈 피아니스트에게 연주를 부탁하죠."
-            },
-            {
-              "lang": "ko-KR",
-              "text": "키스는 목적어로 따로 있고, 독일 십 대는 에릭입니다."
-            }
-          ],
-          "est_sec": 18,
-          "pause_after_ms": 400,
-          "focus": [
-            13
           ]
         },
         {
@@ -10191,26 +10185,26 @@
           "role": "eliminate",
           "target": {
             "kind": "analysis",
-            "id": "reject:4"
+            "id": "reject:3"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "사 번, 밑줄 디. 열다섯에서 열일곱 번째 문장을 짚어 보세요."
+              "text": "삼 번. 열다섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "피아니스트가 빗속의 그를 딱하게 여기고, 키스가 말을 꺼내죠."
+              "text": "독일 십 대가 피아니스트에게 연주를 빕니다."
             },
             {
               "lang": "ko-KR",
-              "text": "화자가 키스이니, 너는 빗속에서 부탁하던 에릭이에요."
+              "text": "부탁받는 쪽이 키스, 부탁하는 쪽은 에릭이죠."
             }
           ],
-          "est_sec": 18.7,
+          "est_sec": 14,
           "pause_after_ms": 400,
           "focus": [
-            16
+            14
           ]
         },
         {
@@ -10219,35 +10213,63 @@
           "role": "eliminate",
           "target": {
             "kind": "analysis",
-            "id": "reject:5"
+            "id": "reject:4"
           },
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "오 번, 밑줄 이. 스물한 번째 문장을 짚어 보세요."
+              "text": "사 번. 열여덟 번째 문장을 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "만프레드가 그에게 와서, 에릭이라고 부르며 말을 시작하죠."
+              "text": "앞 문장이 화자를 키스로 정하니 너는 청자죠."
             },
             {
               "lang": "ko-KR",
-              "text": "키스는 삼인칭으로 따로 말하니, 그는 에릭입니다."
+              "text": "빗속에 젖은 소년, 에릭입니다."
             }
           ],
-          "est_sec": 16.7,
+          "est_sec": 12.5,
           "pause_after_ms": 400,
           "focus": [
-            20
+            17
           ]
         },
         {
           "id": "c10",
           "order": 10,
+          "role": "eliminate",
+          "target": {
+            "kind": "analysis",
+            "id": "reject:5"
+          },
+          "segments": [
+            {
+              "lang": "ko-KR",
+              "text": "오 번. 스물두 번째 문장을 확인하세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "만프레드의 말이 에릭, 하고 부르며 시작합니다."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "그러니 그는 에릭이죠."
+            }
+          ],
+          "est_sec": 12,
+          "pause_after_ms": 400,
+          "focus": [
+            21
+          ]
+        },
+        {
+          "id": "c11",
+          "order": 11,
           "role": "trap",
           "target": {
-            "kind": "anchor",
-            "id": "sentence:2"
+            "kind": "analysis",
+            "id": "reject:3"
           },
           "segments": [
             {
@@ -10256,23 +10278,26 @@
             },
             {
               "lang": "ko-KR",
-              "text": "여기 세 번째 문장은 에릭을 이름 대신 직함으로 부르죠."
+              "text": "열다섯 번째 문장을 짚어 보세요."
             },
             {
               "lang": "ko-KR",
-              "text": "새 인물처럼 보여 일 번에 끌려요."
+              "text": "씨 단락이 키스로 시작해, 십 대를 키스로 읽기 쉽죠."
             },
             {
               "lang": "ko-KR",
-              "text": "명사구 밑줄은 나이와 국적을 인물표에 대 보세요."
+              "text": "별칭은 수식어를 인물표에 대 보세요."
             }
           ],
-          "est_sec": 18.7,
-          "pause_after_ms": 600
+          "est_sec": 17,
+          "pause_after_ms": 600,
+          "focus": [
+            14
+          ]
         },
         {
-          "id": "c11",
-          "order": 11,
+          "id": "c12",
+          "order": 12,
           "role": "vocab",
           "target": {
             "kind": "analysis",
@@ -10289,7 +10314,7 @@
             },
             {
               "lang": "ko-KR",
-              "text": "공연 기획자."
+              "text": "기획자."
             },
             {
               "lang": "en-US",
@@ -10316,12 +10341,12 @@
               "text": "절박한."
             }
           ],
-          "est_sec": 9.5,
+          "est_sec": 9,
           "pause_after_ms": 500
         },
         {
-          "id": "c12",
-          "order": 12,
+          "id": "c13",
+          "order": 13,
           "role": "wrapup",
           "target": {
             "kind": "analysis",
@@ -10330,18 +10355,22 @@
           "segments": [
             {
               "lang": "ko-KR",
-              "text": "정리합니다. 명사구 밑줄은 수식어로, 대명사 밑줄은 앞뒤 동작과 부름말로 주인을 가립니다."
+              "text": "여기 풀이 순서를 확인하세요."
             },
             {
               "lang": "ko-KR",
-              "text": "이번엔 베이스를 친 키스였죠."
+              "text": "한 줄 규칙. 별칭은 수식어로, 대명사는 동작으로 정한다."
             },
             {
               "lang": "ko-KR",
-              "text": "여러분, 다음에는 첫 십 초에 나이, 국적, 직업부터 표시하세요."
+              "text": "수식어가 둘에 맞으면 행동 관계로 가르세요."
+            },
+            {
+              "lang": "ko-KR",
+              "text": "여러분, 다음에는 첫 십 초에 등장인물표부터 적으세요."
             }
           ],
-          "est_sec": 19.5,
+          "est_sec": 20,
           "pause_after_ms": 900
         }
       ]
