@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- test(textbook): 제품군 실제 드레인 검수 확대 — P05·P07 첫 검수 통과, P12 는 1일차 정답 선지 과장("gradual")을 검수가 잡아 수정 후 통과. 기능표 P05·P07·P09·P12 IMPLEMENTED, 나머지 일반 11종 CONTRACT_ONLY.
 - fix(textbook): 교차 리뷰 반영 — review 단계가 student.html·동반 연습·자원 파일을 다시 확인, 기능표 과대 표시 정정(일반 14종 CONTRACT_ONLY 복귀, P09 만 IMPLEMENTED), 실측 SQL 철회 판정은 check_violation 만.
 - test(textbook): 권 단위 DB 증명 성공 경로를 개발 DB 에서 rollback 전용으로 실측(사용자 승인) — 2일 승격·게시 → 권 등록·서빙, 재등록·틀린 주문 hash·2일차 인증서 철회 거부, 전후 행 수 동일(`atomic-volume-db-measure.sql`).
 - feat(textbook): 마이그레이션 `20261011022148_reading_production_volume` (사용자 승인·개발 DB 적용) — 권 테이블과 등록/서빙 RPC 가 일자별 snapshot 의 게시 현재성·증거·주문 결속을 DB 안에서 증명. JS 클라이언트 `registerDbAtomicVolume`·`serveDbAtomicVolume`.

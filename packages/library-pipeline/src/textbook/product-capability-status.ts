@@ -22,7 +22,8 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
   // Every supported family now has a structural adapter plus the family semantic review drain
   // (family-semantic-review.ts). IMPLEMENTED means executable gates exist, not validated teaching quality.
   // A generic gate module is not evidence for a family; only a family with a live family review moves up.
-  const liveFamilyReview = id === 'P09'
+  // Live family review drains (2026-10-11, outside the repo; hashes in the completion audit).
+  const liveFamilyReview = ['P05', 'P07', 'P09', 'P12'].includes(id)
   const state: ProductRuntimeState = contract.state === 'PLANNED' || contract.state === 'UNSUPPORTED'
     ? 'NOT_SUPPORTED' : id === 'P03' ? 'SYNTHETIC_E2E_VALIDATED'
       : specialized || liveFamilyReview ? 'IMPLEMENTED' : 'CONTRACT_ONLY'
