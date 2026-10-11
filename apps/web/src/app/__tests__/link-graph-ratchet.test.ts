@@ -34,9 +34,11 @@ const SCRIPT = join(ROOT, 'scripts', 'audit', 'learner-linkgraph.mjs')
  *                     테스트가 알고 있어야 한다. 없애든 링크를 달든, 그때 이 목록도 줄인다.)
  * · `/join/[code]` — 교사가 QR·초대 링크로 **밖에서** 들여보내는 화면. 앱 안에 링크가 없는 것이
  *                    정상이다(`lib/teacher/invite-link.ts` 가 주소를 만들어 교사에게 준다).
+ * · `/csat/record`  — 2026-10-11 사용자 결정으로 기출 메뉴를 세 줄(연습 · 내 공식 · 근거 문장 찾기)로 줄이며
+ *                    「내 기록」 줄을 뺐다. 화면은 주소로 남긴다 — 다시 링크를 달면 이 목록에서 뺀다.
  * (`/csat/practice/[slug]` 는 2026-10-09 E11 에서 기출 문항 확인 과제 아래 진입 링크를 달아 목록에서 뺐다.)
  */
-const ALLOWED_ORPHAN_PAGES = ['/hub-lab', '/join/[code]']
+const ALLOWED_ORPHAN_PAGES = ['/hub-lab', '/join/[code]', '/csat/record']
 
 /**
  * 앱이 부르지 않는 것이 정상인 API — 손으로/외부에서 부른다.

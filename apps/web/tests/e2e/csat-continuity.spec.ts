@@ -89,31 +89,7 @@ test('C1/A1 첫 방문 — 처음이라면 카드에서 한 번에 해부 시작
   expect(clicks()).toBeLessThanOrEqual(1)
 })
 
-test('A2 킬러 유형 — 목적별 → 빈칸 줄 → 예시 문항', async ({ browser }) => {
-  const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-need="killer"]')
-  await page.waitForURL(/need=killer/)
-  await expect(page.getByTestId('need-chip')).toBeVisible()
-  await click('button[aria-expanded]:has-text("빈칸 추론")')
-  await click('a:has-text("출제 사고로 열기")')
-  await page.waitForURL(/\/csat\/item\//)
-  report('A2', clicks(), 3)
-  expect(clicks()).toBeLessThanOrEqual(3)
-})
-
-test('A3 오답 선지 설계 — 목적별 → 함정 줄 → 예시 문항', async ({ browser }) => {
-  const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-need="trap"]')
-  await page.waitForURL(/tab=trap/)
-  await click('[role="tabpanel"] button[aria-expanded]')
-  await click('a:has-text("출제 사고로 열기")')
-  await page.waitForURL(/\/csat\/item\//)
-  report('A3', clicks(), 3)
-  expect(clicks()).toBeLessThanOrEqual(3)
-})
-
+// A2 · A3 · A5 · A6 · A7(목적별 나머지 · 유형별 · 회차별 메뉴 경로)은 2026-10-11 메뉴를 세 줄로 줄이며 뺐다 — 메뉴에 그 줄이 없다.
 test('A4 근거 문장 찾기 — 목적별 → 지도 있는 문항 → 근거 칩', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
@@ -125,47 +101,6 @@ test('A4 근거 문장 찾기 — 목적별 → 지도 있는 문항 → 근거 
   await expect(page.locator('[data-proof="passage-map"]')).toBeVisible()
   report('A4', clicks(), 3)
   expect(clicks()).toBeLessThanOrEqual(3)
-})
-
-test('A5 최근 기출부터 — 목적별 → 번호 칩', async ({ browser }) => {
-  const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-need="recent"]')
-  await page.waitForURL(/from=\d{4}/)
-  await expect(page.getByTestId('browse-title')).toContainText('최근 기출부터')
-  await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
-  await page.waitForURL(/\/csat\/item\//)
-  report('A5', clicks(), 2)
-  expect(clicks()).toBeLessThanOrEqual(2)
-})
-
-test('A6 유형별 — 메뉴 문장 삽입 → 번호 칩, 목적 축(A2)과 같은 서가에 닿는다', async ({ browser }) => {
-  const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-type="R-INSERT"]')
-  await page.waitForURL(/type=R-INSERT/)
-  const typeUrl = new URL(page.url())
-  await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
-  await page.waitForURL(/\/csat\/item\//)
-  report('A6', clicks(), 2)
-  expect(clicks()).toBeLessThanOrEqual(2)
-
-  // 목적 축: 킬러 유형 → 문장 삽입 줄 → 「서가에서 보기」 가 **같은 주소**로 가는가
-  await page.goto('/csat?need=killer', { waitUntil: 'networkidle' })
-  await page.locator('button[aria-expanded]:has-text("문장 삽입")').first().click()
-  const href = await page.locator('a:has-text("전체 기출 서가")').first().getAttribute('href')
-  expect(href).toBe(`${typeUrl.pathname}${typeUrl.search}`)
-})
-
-test('A7 회차별 — 메뉴 2026학년도 수능 → 31번', async ({ browser }) => {
-  const { page, click, clicks } = await fresh(browser, null)
-  await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-exam="2026"]')
-  await page.waitForURL(/exam=2026/)
-  await click('[data-testid="csat-library"] a[href="/csat/item/2026-31"]')
-  await page.waitForURL(/\/csat\/item\/2026-31/)
-  report('A7', clicks(), 2)
-  expect(clicks()).toBeLessThanOrEqual(2)
 })
 
 test('C2/C5 재방문 · 다른 기기 — 서버에만 있는 멈춘 세트가 이어서 카드로 선다', async ({ browser }) => {

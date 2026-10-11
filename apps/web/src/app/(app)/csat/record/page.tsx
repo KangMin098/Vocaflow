@@ -5,11 +5,11 @@
 import type { Metadata } from 'next'
 
 import { RecordScreen } from '@/components/csat/home/RecordScreen'
-import { itemTypeMap, railExams } from '@/lib/csat/rail-data'
+import { itemTypeMap } from '@/lib/csat/rail-data'
 
 export const metadata: Metadata = { title: '내 기록 — 기출분석공간' }
 export const dynamic = 'force-dynamic'
 
 export default async function CsatRecordPage() {
-  return <RecordScreen exams={await railExams()} itemTypes={await itemTypeMap()} />
+  return <RecordScreen itemTypes={await itemTypeMap()} />
 }

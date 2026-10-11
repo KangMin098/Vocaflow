@@ -13,7 +13,6 @@ import { FlaskConical } from 'lucide-react'
 import { CsatShell } from '@/components/csat/home/CsatShell'
 import { ClaimPractice } from '@/components/knowledge/ClaimPractice'
 import { isFocus } from '@/lib/knowledge/practice-focus'
-import { railExams } from '@/lib/csat/rail-data'
 import { getAdminUser } from '@/lib/auth/require-admin'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { PRACTICE_SLUG, capabilityHits, firstAttempts, pendingReviews, pickNext } from '@/lib/knowledge/practice'
@@ -59,7 +58,7 @@ export default async function PracticePage({ params, searchParams }: { params: {
   const chosen = searchParams.item && pool.some((p) => p.itemId === searchParams.item) ? searchParams.item : (next?.itemId ?? pool[0].itemId)
 
   return (
-    <CsatShell place="practice" exams={await railExams()} pill={<><FlaskConical size={13} aria-hidden="true" />연습 · 주장과 근거</>} bare>
+    <CsatShell place="practice" pill={<><FlaskConical size={13} aria-hidden="true" />연습 · 주장과 근거</>} bare>
     <ClaimPractice
       preview={preview}
       judgement={judgement}

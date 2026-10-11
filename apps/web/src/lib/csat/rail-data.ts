@@ -1,30 +1,11 @@
 // apps/web/src/lib/csat/rail-data.ts
 //
-// 기출분석공간 화면들(홈 · 서가 · 내 기록)이 같이 쓰는 서버 쪽 재료 — **서버 전용**.
-//   · 회차 목록: 구운 골격 JSON(DB 를 치지 않는다)
+// 기출분석공간 화면들(홈 · 내 기록)이 같이 쓰는 서버 쪽 재료 — **서버 전용**.
 //   · 문항 id → 유형 id: 서가 카탈로그(프로세스 캐시). 넓이 · 「본 문항」 계산에만 쓴다.
+// (회차 목록 `railExams` 는 2026-10-11 메뉴에서 회차별을 빼며 지웠다 — 학평 골격 준비는 각 화면이 직접 한다.)
 import 'server-only'
 
 import { loadBrowseCatalog } from './browse'
-import { browseExamOrder, examAxis } from './browse-model'
-import { primeLearnerHakpyeongSkeletons, skeletonExamMeta } from './skeleton'
-import { createClient } from '@/lib/supabase/server'
-import type { SupabaseClient } from '@supabase/supabase-js'
-
-export interface RailExam {
-  exam_id: string
-  label: string
-  items: number
-}
-
-/** 회차 목록 — 평가원(구운 파일) + 발행된 학평(DB 골격, 학습자 클라이언트로 읽음) */
-export async function railExams(): Promise<RailExam[]> {
-  await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
-  return skeletonExamMeta()
-    .map((exam) => ({ ...exam, id: exam.exam_id, ...examAxis(exam.exam_id) }))
-    .sort(browseExamOrder)
-    .map(({ exam_id, label, items }) => ({ exam_id, label, items }))
-}
 
 /** 못 읽으면 빈 표 — 화면은 넓이를 0 으로 보이고 나머지는 그대로 선다. */
 export async function itemTypeMap(): Promise<Record<string, string>> {
