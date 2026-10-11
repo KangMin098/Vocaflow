@@ -51,7 +51,7 @@
       "\\bdrop\\s+column\\b",
       "\\bdrop\\s+schema\\b"
     ],
-    "auto_merge_enabled": false,
+    "auto_merge_enabled": true,
     "auto_merge_enable_conditions": [
       "e2e 체크가 시크릿 없이 SUCCESS 로 끝나지 않는다(가짜 통과 제거 — ci.yml 수정)",
       "모든 base 의 PR 에 필수 CI 가 돈다(ci.yml · sync-check.yml pull_request 필터 해제)",
