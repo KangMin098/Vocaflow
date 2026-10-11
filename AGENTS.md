@@ -138,6 +138,8 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 
 ## 자동화 정책 (사용자 standing authorization · 2026-06-08)
 
+**승인 정책: PR_AUTOMATION_POLICY v1.1(AUTO_CONTINUE)** — 정본 [agents/policies/PR_AUTOMATION_POLICY.md](./agents/policies/PR_AUTOMATION_POLICY.md) · [pr-automation.json](./agents/policies/pr-automation.json). 사용자 승인은 **DB 변경 · 데이터 삭제** 두 가지뿐이고 나머지(개발 · 테스트 · 커밋 · push · PR · CI · 게이트를 통과한 병합)는 묻지 않고 끝까지 한다. 승인 대기 부분만 멈추고 독립 작업은 계속한다.
+
 **① 문서 동반 갱신** — 같은 작업 안에서 코드와 문서를 함께 바꾼다(사용자 요청 없어도). 검증 가능한 사실만.
 마이그레이션 → DB_SCHEMA + CHANGELOG · RPC/view/trigger → DB_SCHEMA · 라우트 → ROUTES · 도메인 컴포넌트 → MODULES · 학습 모듈/계층 → LEARNING_MODEL + MODULES · 토큰/패턴 → DESIGN_SYSTEM · Admin 라우트/일괄 액션 → ADMIN_CONSOLE · 큐레이션 RPC/파이프라인 → LIBRARY_PIPELINE · 코딩 패턴 → CONVENTIONS · 패키지 → STACK · 전부 → CHANGELOG Unreleased 한두 줄 · 콘텐츠·수요 수치 변동(드레인·발행·마이그레이션) → `pnpm docs:db-stats` **실행**(마커 안을 손으로 고치지 않는다).
 
@@ -147,9 +149,9 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 
 **③ Git** — 논리적 milestone 종료 · 변경 파일 ≥5 · 다음 작업으로 넘어갈 때 커밋 + 현재 브랜치 push.
 - Conventional commits(`feat:` `fix:` `chore:` `docs:` `refactor:` `perf:`) · 첫 줄 ≤72자(한국어 가능) · 본문에 핵심 변경 3–5개 · 마이그레이션/라우트/RPC 명시 · 끝에 작성 에이전트의 `Co-Authored-By` 줄.
-- **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 머지는 사용자 확인.
+- **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 병합은 `safe-merge.mjs` 정책 게이트로만(자동 병합 활성화 조건은 정본 §4).
 - **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다(2026-09-19 사용자 승인 · DD-41: 두 달 산 브랜치가 PR 을 커밋 2,413개로 만들었다).
-- 항상 사용자 확인: `.env*` 커밋 · 새 키/secret 포함 · 빌드/테스트 실패 상태 push · 데이터 손실(DROP/TRUNCATE) · 파일 ≥30 변경.
+- 하지 않는다(안전 중단): `.env*` 커밋 · 새 키/secret 포함 · 빌드/테스트 실패 상태 push. 데이터 손실(DROP/TRUNCATE)은 승인 대상. 파일 ≥30 은 승인이 아니라 추가 검증(PR 본문 `## 검증`).
 
 **④ 분기 플랫폼 진단** — 1·4·7·10월 첫 주(다음 **2026-10**), 즉시 트리거는 PLATFORM_AUDIT 참조. 실패 모드는 "공급망 비대 / 수요 검증 0". **문서의 수치를 근거로 쓰지 않는다**(DB 질의 + 저장소 실계수 + 1차 공개자료). 측정 → 기록 → 결정 → 수정 순서(같은 턴에 고치면 측정이 오염 — 단 공개 라우트의 허위 수치는 즉시 제거). 산출물: 리포트 + PLATFORM_AUDIT §7 한 행 + CHANGELOG 한 줄. 기준선·산술은 [PLATFORM_AUDIT](./docs/PLATFORM_AUDIT.md).
 
