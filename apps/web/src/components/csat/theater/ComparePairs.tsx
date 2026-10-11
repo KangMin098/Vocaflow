@@ -34,7 +34,7 @@ export function ComparePairs({ pairs, compared, onCompared }: { pairs: ComparePa
         같은 원리, 다른 글 <span className={styles.optional}>선택</span>
       </h2>
       <p className="break-keep">오답이 같은 방식으로 만들어진 다른 문항이에요. 두 오답을 나란히 놓고 무엇이 같고 무엇이 다른지 확인해 보세요.</p>
-      <ul className={styles.siblings}>
+      <ul className={styles.comparePairs}>
         {pairs.map((p) => (
           <li key={`${p.other}:${p.otherChoice}`}>
             <p className="break-keep">

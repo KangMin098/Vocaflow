@@ -436,3 +436,10 @@
 .explainCompare > p { grid-column: 1 / -1; margin: 0; }
 .explainCompare b { font-size: 0.8125rem; }
 .explainCompare p { margin: 0; }
+/* 같은 원리 비교 쌍(M4) — 쌍 하나가 한 덩어리: 머리줄(이 문항 ↔ 상대 문항 · 함정) · 검수 한 줄 · 비교 완료 */
+.comparePairs { display: grid; gap: 12px; list-style: none; margin: 0; padding: 0; }
+.comparePairs li { display: grid; gap: 4px; padding-top: 10px; border-top: 1px solid var(--bd); }
+.comparePairs li:first-child { padding-top: 0; border-top: 0; }
+.comparePairs p { margin: 0; }
+.comparePairs a { text-decoration: underline; text-underline-offset: 3px; }
+.comparePairs a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }

@@ -7,6 +7,7 @@
 //    공유하는 브라우저 컨텍스트 둘로 돈다. 합성 학습자 검증이다 — 학습 효과를 말하지 않는다.
 // 스크린샷에는 평가원 지문이 찍힌다 → 저장소 밖(`test-results-csat-learner/`, D15).
 
+import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { expect, test, type Browser, type BrowserContext, type Page } from '@playwright/test'
 
@@ -23,10 +24,12 @@ const USER = {
     })(),
 }
 const SHOTS = path.resolve('test-results-csat-learner/learning-loop')
-const KICE = '2026-34' // 강의 14단계
+const KICE = '2026-34' // 강의가 있는 평가원 문항 — 단계 수는 강의 재작성마다 바뀌므로 테스트가 박지 않는다
 const KICE_ID = '2026#34'
 const HP = 'H2503G1-20' // 학평 — 강의 없음(단계 0)
 const HP_ID = 'H2503G1#20'
+const M4 = '2026-22' // 근거 · 바뀐 성분 과제와 검수된 비교 쌍이 모두 있는 문항(M4)
+const M4_ID = '2026#22'
 
 let storage: Awaited<ReturnType<BrowserContext['storageState']>>
 
@@ -163,7 +166,8 @@ test('1 처음 열기 → 제출 없이 해설 · 강의 → 화살표 한 칸�
   await expect(p.page.locator('[data-block^="analysis:reject"]').first()).toBeVisible()
   // ← → 는 한 칸씩(F12 — 전에는 극장 · 강의 무대가 둘 다 받아 두 칸씩 갔다)
   await stepTo(p.page, 3)
-  await expect(p.page.getByText('4 / 14', { exact: false }).first()).toBeVisible()
+  // 세 번 눌러 4단계 — 전체 단계 수는 강의 재작성(2026-10-11 교정 강의)으로 바뀌므로 「4 / N」 만 본다
+  await expect(p.page.getByText(/(^|\s)4 \/ \d+/).first()).toBeVisible()
   // 추정 위치를 「지난 시간」이라 하지 않는다(F13)
   await expect(p.page.getByText(/지난 시간|지남/)).toHaveCount(0)
   await p.page.getByTestId('finish-item').click() // 마지막 단계까지 넘기지 않아도 마칠 수 있다
@@ -210,7 +214,7 @@ test('3 중도 이탈 → 재접속 → 이전 단계 복원', async ({ browser 
   await p.page.reload({ waitUntil: 'domcontentloaded' })
   await expect(p.page.getByTestId('resume-notice')).toContainText('6단계', { timeout: 60_000 })
   await expect(p.page.getByTestId('predict-gate')).toHaveCount(0)
-  await expect(p.page.getByText('6 / 14', { exact: false }).first()).toBeVisible()
+  await expect(p.page.getByText(/(^|\s)6 \/ \d+/).first()).toBeVisible()
   await shot(p.page, '3-resumed')
   expect(sessionsFor(await readRecord(p.page), KICE_ID)).toHaveLength(1)
   await p.ctx.close()
@@ -359,5 +363,50 @@ test('11 진단 화면 진입 이벤트는 한 번', async ({ browser }) => {
   await expect.poll(() => p.events.filter((e) => e === 'csat_dx_viewed').length, { timeout: 60_000 }).toBeGreaterThanOrEqual(1)
   await p.page.waitForTimeout(4000)
   expect(p.events.filter((e) => e === 'csat_dx_viewed')).toHaveLength(1)
+  await p.ctx.close()
+})
+
+test('12 M4 — 관계 다시 짚기(근거 · 바뀐 성분) · 원리 저장 · 같은 원리 비교가 기록되고 서버로 간다', async ({ browser }) => {
+  const server = new FakeServer()
+  const p = await device(browser, server)
+  // 정답 근거 문장은 커밋된 지도에서 읽는다 — 테스트가 답을 박지 않는다
+  const sk = JSON.parse(readFileSync(path.join(process.cwd(), 'src/lib/csat/skeleton-data/2026.json'), 'utf8')) as { items: { id: string; sentences: unknown[]; anchors: { id: string; sentences: number[] }[] }[] }
+  const it = sk.items.find((x) => x.id === M4_ID)!
+  const correct = it.anchors.find((a) => a.id === 'answer')!.sentences
+  const wrong = Array.from({ length: it.sentences.length }, (_, k) => k).find((k) => !correct.includes(k))!
+  await openItem(p, M4)
+  await expectOpen(p.page)
+
+  const evidence = p.page.getByTestId('check-evidence')
+  await expect(evidence).toBeVisible()
+  await evidence.getByRole('button', { name: String(wrong + 1), exact: true }).click()
+  await expect(evidence.getByText('다시 골라 보세요')).toBeVisible()
+  await evidence.getByRole('button', { name: String(correct[0] + 1), exact: true }).click()
+  await expect(evidence.getByText(/맞아요/)).toBeVisible()
+  await expect(p.page.getByTestId('check-lure')).toBeVisible()
+
+  await p.page.getByTestId('principle-save').click()
+  await expect(p.page.getByTestId('principle-save')).toHaveText('내 원리에 저장됨')
+
+  await expect(p.page.getByTestId('compare-pairs')).toBeVisible()
+  await p.page.getByTestId('compare-done').first().click()
+  // 화면 확인용 캡처(test-results 는 커밋하지 않는다)
+  await p.page.getByTestId('understanding-checks').screenshot({ path: 'test-results/m4-checks.png' })
+  await p.page.getByTestId('compare-pairs').screenshot({ path: 'test-results/m4-compare.png' })
+
+  await expect
+    .poll(async () => {
+      const r = await readRecord(p.page)
+      return [
+        (r?.checks ?? []).filter((x) => x.item === M4_ID && x.kind === 'evidence' && x.correct && x.tries === 2 && x.afterExplanation).length,
+        (r?.formulas ?? []).filter((f) => f.from === 'theater' && f.sources.includes(M4_ID) && !!f.conditions).length,
+        (r?.compares ?? []).filter((x) => x.item === M4_ID).length,
+      ].join(',')
+    }, { timeout: 15_000 })
+    .toBe('1,1,1')
+  // 기기 기록이 서버로 동기화된다(디바운스 뒤 PUT)
+  await expect.poll(() => (server.record?.checks ?? []).some((x) => x.item === M4_ID), { timeout: 15_000 }).toBe(true)
+  expect(p.events).toContain('csat_principle_saved')
+  expect(p.events).toContain('csat_transfer_submitted')
   await p.ctx.close()
 })
