@@ -133,10 +133,16 @@ describe('companion practice through the order-production CLI', () => {
         criteria: Object.fromEntries(reviewDrain.criteria.map((c: { id: string }) => [c.id, verdict === 'pass'])),
         quote: unit.passage.slice(0, 20), rationale: 'Synthetic test review of the family criteria.' })) })
       writeFileSync(path.join(runDir, 'review.out.json'), JSON.stringify(approve('fail')))
-      expect(cli('review', '--input', inputPath, '--run-dir', runDir).status).toBe(2)
+      expect(cli('review', '--input', inputPath, '--run-dir', runDir, '--companion-resources', resPath).status).toBe(2)
       expect(JSON.parse(cli('status', '--run-dir', runDir).stdout)).toMatchObject({ status: 'blocked', current_stage: 'family_reviewed' })
       writeFileSync(path.join(runDir, 'review.out.json'), JSON.stringify(approve('pass')))
-      const reviewed = cli('review', '--input', inputPath, '--run-dir', runDir)
+      // Companion files edited after import, or a missing resources file, block the review.
+      const practicePath = path.join(runDir, 'practice.html'), original = readFileSync(practicePath, 'utf8')
+      writeFileSync(practicePath, original + '<!-- edited -->')
+      expect(cli('review', '--input', inputPath, '--run-dir', runDir, '--companion-resources', resPath).status).toBe(2)
+      writeFileSync(practicePath, original)
+      expect(cli('review', '--input', inputPath, '--run-dir', runDir).status).toBe(2)
+      const reviewed = cli('review', '--input', inputPath, '--run-dir', runDir, '--companion-resources', resPath)
       expect(reviewed.status, reviewed.stderr).toBe(0)
       expect(JSON.parse(readFileSync(path.join(runDir, 'complete.json'), 'utf8')).family_review_receipt_hash).toMatch(/^[a-f0-9]{64}$/)
       const complete = JSON.parse(readFileSync(path.join(runDir, 'complete.json'), 'utf8'))

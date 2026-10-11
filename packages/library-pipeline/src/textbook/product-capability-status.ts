@@ -21,12 +21,14 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
   const specialized = ['P13', 'P14', 'P18', 'P20'].includes(id)
   // Every supported family now has a structural adapter plus the family semantic review drain
   // (family-semantic-review.ts). IMPLEMENTED means executable gates exist, not validated teaching quality.
+  // A generic gate module is not evidence for a family; only a family with a live family review moves up.
+  const liveFamilyReview = id === 'P09'
   const state: ProductRuntimeState = contract.state === 'PLANNED' || contract.state === 'UNSUPPORTED'
-    ? 'NOT_SUPPORTED' : id === 'P03' ? 'SYNTHETIC_E2E_VALIDATED' : 'IMPLEMENTED'
+    ? 'NOT_SUPPORTED' : id === 'P03' ? 'SYNTHETIC_E2E_VALIDATED'
+      : specialized || liveFamilyReview ? 'IMPLEMENTED' : 'CONTRACT_ONLY'
   const evidence = id === 'P03'
-    ? ['scripts/textbook/reading-promotion/preflight.test.mjs', 'scripts/textbook/atomic-production-run.test.mjs',
-      'packages/library-pipeline/src/textbook/family-semantic-review.ts']
-    : state === 'IMPLEMENTED' ? [
+    ? ['scripts/textbook/reading-promotion/preflight.test.mjs', 'scripts/textbook/atomic-production-run.test.mjs']
+    : state === 'IMPLEMENTED' || state === 'CONTRACT_ONLY' ? [
       specialized ? 'packages/library-pipeline/src/textbook/specialized-reading-unit.ts'
         : 'packages/library-pipeline/src/textbook/reading-family-unit.ts',
       'packages/library-pipeline/src/textbook/family-semantic-review.ts',
@@ -36,9 +38,11 @@ export const PRODUCT_RUNTIME_EVIDENCE: RuntimeEvidence = Object.fromEntries(Obje
     ] : []
   const missing = state === 'NOT_SUPPORTED'
     ? ['family-specific passage/item/activity/layout adapter', 'synthetic end-to-end']
-    : state === 'IMPLEMENTED'
+    : state === 'CONTRACT_ONLY'
+      ? ['family semantic review run on real content for this family', 'live DB promotion to atomic publication end-to-end']
+      : state === 'IMPLEMENTED'
       ? [...(specialized ? ['atomic production (DB gate pending migration)'] : ['live DB promotion to atomic publication end-to-end']),
-        'family semantic review run on real content for this family', 'real-content operational end-to-end']
+        ...(liveFamilyReview ? [] : ['family semantic review run on real content for this family']), 'real-content operational end-to-end']
       : ['live DB promotion to atomic publication end-to-end', 'real-content operational end-to-end']
   return [id, { state, evidence, missing }]
 })) as unknown as RuntimeEvidence

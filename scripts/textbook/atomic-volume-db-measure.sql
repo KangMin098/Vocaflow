@@ -184,7 +184,7 @@ BEGIN
   BEGIN
     PERFORM public.serve_reading_production_volume('atomic-volume-measure');
     INSERT INTO _volume_measure VALUES ('revoked day blocks volume', false, 'served');
-  EXCEPTION WHEN others THEN INSERT INTO _volume_measure VALUES ('revoked day blocks volume', true, SQLERRM); END;
+  EXCEPTION WHEN check_violation THEN INSERT INTO _volume_measure VALUES ('revoked day blocks volume', true, SQLERRM); END;
 END $measure$;
 SELECT * FROM _volume_measure;
 ROLLBACK;

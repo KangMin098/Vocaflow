@@ -93,7 +93,7 @@ export async function registerDbAtomicVolume(db, { volumeId, revision, orders, s
   if (!db?.rpc || typeof volumeId !== 'string' || !volumeId.trim() || !Number.isInteger(revision) || revision < 1 ||
       !Array.isArray(orders) || !orders.length || !Array.isArray(sections) || !sections.length)
     fail('DB_VOLUME_REGISTRATION_INPUT_INVALID')
-  const payload = sections.map(section => ({ day: section.day, snapshot_id: section.manifest?.snapshot_id ?? section.snapshot_id }))
+  const payload = sections.map(section => ({ day: Number(section.day), snapshot_id: section.manifest?.snapshot_id ?? section.snapshot_id }))
   const { data, error } = await db.rpc('register_reading_production_volume', {
     p_volume_id: volumeId, p_volume_revision: revision, p_orders: dbOrders(orders), p_sections: payload })
   if (error || data?.volume_id !== volumeId || data.volume_revision !== revision || !hex(data.volume_hash) ||

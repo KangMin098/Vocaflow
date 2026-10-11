@@ -168,3 +168,9 @@ User-approved script `scripts/textbook/atomic-volume-db-measure.sql` (template S
 | day 2 certificate revoked | volume refused — "production evidence stale or rights blocked" |
 
 Before/after counts were identical (library_articles 91,793; csat_dcp_items 834,311; csat_item_reviews 549; orders, authority, audits, permits, groups, snapshots, artifacts, volumes all 0). Limitation: dev has one active admin, so the required second approver was simulated by changing the group's `registered_by` inside the transaction, exactly as the earlier atomic smoke did; a real two-admin approval is unmeasured. Synthetic order and trust root only; not production evidence.
+
+- Cross-review of `9696b8a24..e85a70d4e` (independent Claude reviewer, read-only): no P1; 4 P2 + 1 low.
+  - `review` now re-hashes `student.html`, re-verifies the companion practice and requires the same companion resources file (hash) before completing.
+  - The capability table over-claimed: the 14 generic families with only the generic review module go back to `CONTRACT_ONLY`; P09, which has a live family review, stays `IMPLEMENTED`; P03 no longer lists the review module as evidence.
+  - The measurement's revocation check now accepts only `check_violation` (template SHA-256 is now `e67a688dcd3c10ee3d48c907ec8a7a215479c0bdbd038feeddfca3a97847d625`). The executed run's message was the intended "production evidence stale or rights blocked", so its result stands.
+  - Known, not fixed: `_reading_production_volume_check` accepts extra keys and textual `order_revision` in the caller's order objects, so equivalent registrations can hash differently. There is no security impact and the JS client always sends canonical objects; changing it needs a new migration.

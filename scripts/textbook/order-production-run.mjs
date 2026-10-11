@@ -122,8 +122,22 @@ const drain = read('drain.json'), stored = read('result.json'), reviewDrain = re
 if (!drain || stored?.status !== 'assembled' || !reviewDrain || !reviewOut) throw Error('ORDER_RUN_REVIEW_NOT_READY')
 // Re-derive the run from the current drafts and fill; a changed draft or fill makes the review stale.
 const result = importOrderProductionDrain(input, read('drain.out.json'))
+const fileSha = name => fs.existsSync(path.join(runDir, name))
+  ? createHash('sha256').update(fs.readFileSync(path.join(runDir, name), 'utf8')).digest('hex') : null
+// Companion practice and the student file are re-verified too: complete.json must not cover files edited after import.
+const resourcesPath = opt('--companion-resources')
+const resourcesNow = resourcesPath ? createHash('sha256').update(companionBytes(resourcesPath)).digest('hex') : null
+let companionCurrent = resourcesNow === (stored.companion_resources_sha256 ?? null)
+if (companionCurrent && result.status === 'assembled') {
+  try {
+    verifyCompanionPractice(result, companionDeps(resourcesPath), { html: fs.readFileSync(path.join(runDir, 'practice.html'), 'utf8'),
+      manifest: read('practice.manifest.json') }, { resourcesSha256: resourcesNow })
+    companionCurrent = read('practice.manifest.json')?.manifest_hash === stored.practice_manifest_hash
+  } catch { companionCurrent = false }
+}
 if (result.status !== 'assembled' || result.drain_hash !== stored.drain_hash ||
     result.output.manifest.manifest_hash !== read('student.html.manifest.json')?.manifest_hash ||
+    fileSha('student.html') !== read('student.html.manifest.json')?.html_sha256 || !companionCurrent ||
     exportFamilyReview(result).review_hash !== reviewDrain.review_hash) {
   fs.rmSync(path.join(runDir, 'review.result.json'), { force: true })
   writeNew('review.result.json', { status: 'blocked', blockers: [{ reason: 'FAMILY_REVIEW_RUN_STALE_REIMPORT_REQUIRED' }] })
