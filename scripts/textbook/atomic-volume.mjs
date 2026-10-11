@@ -81,3 +81,33 @@ export async function verifyAtomicPlannedVolume(db, input, output) {
       sha(output.html) !== output.manifest.html_sha256) fail('ATOMIC_VOLUME_OUTPUT_STALE_OR_MIXED')
   return current.manifest
 }
+
+// ── DB-proven volume (migration 20261011022148) ─────────────────────────────
+// register_reading_production_volume (active admin) and serve_reading_production_volume
+// (service_role) re-check every day inside the DB: published current, evidence current and
+// the group's orders equal the volume's orders. The caller only names days and snapshots.
+const dbOrders = orders => orders.map(order => ({ grade: order.grade, order_id: order.product_order_id,
+  order_revision: order.order_revision, order_hash: order.order_hash }))
+
+export async function registerDbAtomicVolume(db, { volumeId, revision, orders, sections } = {}) {
+  if (!db?.rpc || typeof volumeId !== 'string' || !volumeId.trim() || !Number.isInteger(revision) || revision < 1 ||
+      !Array.isArray(orders) || !orders.length || !Array.isArray(sections) || !sections.length)
+    fail('DB_VOLUME_REGISTRATION_INPUT_INVALID')
+  const payload = sections.map(section => ({ day: section.day, snapshot_id: section.manifest?.snapshot_id ?? section.snapshot_id }))
+  const { data, error } = await db.rpc('register_reading_production_volume', {
+    p_volume_id: volumeId, p_volume_revision: revision, p_orders: dbOrders(orders), p_sections: payload })
+  if (error || data?.volume_id !== volumeId || data.volume_revision !== revision || !hex(data.volume_hash) ||
+      !Array.isArray(data.sections) || data.sections.length !== payload.length ||
+      data.sections.some((row, index) => row.snapshot_id !== payload.find(s => s.day === index + 1)?.snapshot_id))
+    fail('DB_VOLUME_REGISTRATION_REJECTED')
+  return data
+}
+
+export async function serveDbAtomicVolume(db, volumeId) {
+  if (!db?.rpc || typeof volumeId !== 'string' || !volumeId.trim()) fail('DB_VOLUME_SERVE_INPUT_INVALID')
+  const { data, error } = await db.rpc('serve_reading_production_volume', { p_volume_id: volumeId })
+  if (error || data?.volume_id !== volumeId || typeof data.html !== 'string' || !hex(data.output_hash) ||
+      sha(data.html) !== data.output_hash || !data.html.startsWith('<!-- ATOMIC SNAPSHOT VOLUME; DB VERIFIED;'))
+    fail('DB_VOLUME_SERVE_REJECTED')
+  return { ...data, production_verified: false }
+}

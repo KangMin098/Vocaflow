@@ -151,3 +151,5 @@ Live drain (Claude as drain agent and reviewer; synthetic order, real prose; fil
 - Review v2 passed all units; `complete.json` recorded drain `c2e514e5…`, receipt `2a68ea3a…`, manifest `1b00dba5…`, family review receipt `1587ec8e…`; re-import is refused.
 
 Capability: the 15 generic families move `CONTRACT_ONLY` → `IMPLEMENTED` (structural adapter + executable family review). Missing per family remains a real-content review run and live DB promotion; the specialized four still lack atomic production. Only P09 has had a live family review. Verdict unchanged: both flags false.
+
+- DB volume proof (user-approved migration, applied to dev 2026-10-11): `reading_production_volume` + register/serve RPCs prove inside the DB that each day is published current and belongs to exactly the volume's orders. Rollback smoke and privilege/advisor checks passed; client tests 6/6. Live success path unmeasured because the DB has 0 promoted production groups — this remains tied to the separate "live DB promotion of a run" item.

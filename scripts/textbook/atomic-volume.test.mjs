@@ -115,3 +115,27 @@ test('one brief-bound M1-M2 order pair produces a 3-day atomic volume, one snaps
   revoked.add(runs[2].output.manifest.snapshot_id)
   await assert.rejects(verifyAtomicPlannedVolume(db, input, volume), /SECTION_NOT_CURRENT/)
 })
+
+test('DB volume client sends only days and snapshot IDs and rejects mismatched or unverified responses', async () => {
+  const { registerDbAtomicVolume, serveDbAtomicVolume } = await import('./atomic-volume.mjs')
+  const { sections } = world()
+  const calls = []
+  const html = '<!-- ATOMIC SNAPSHOT VOLUME; DB VERIFIED; NON-PRODUCTION UNTIL OPERATIONAL VERIFICATION -->\nbody'
+  const db = { rpc: async (name, params) => {
+    calls.push([name, params])
+    if (name === 'register_reading_production_volume') return { data: { volume_id: params.p_volume_id,
+      volume_revision: params.p_volume_revision, volume_hash: 'f'.repeat(64),
+      sections: params.p_sections.map(s => ({ ...s, snapshot_hash: 'a'.repeat(64) })) }, error: null }
+    return { data: { volume_id: params.p_volume_id, html, output_hash: sha(html) }, error: null }
+  } }
+  const registered = await registerDbAtomicVolume(db, { volumeId: 'vol-1', revision: 1, orders, sections })
+  assert.equal(registered.sections.length, 3)
+  assert.deepEqual(Object.keys(calls[0][1].p_sections[0]).sort(), ['day', 'snapshot_id'])
+  assert.deepEqual(calls[0][1].p_orders[0], { grade: 'middle_1', order_id: 'order-m1', order_revision: 1, order_hash: 'a'.repeat(64) })
+  assert.equal((await serveDbAtomicVolume(db, 'vol-1')).production_verified, false)
+  const rejecting = { rpc: async () => ({ data: null, error: { message: 'volume section evidence changed' } }) }
+  await assert.rejects(registerDbAtomicVolume(rejecting, { volumeId: 'vol-1', revision: 1, orders, sections }), /DB_VOLUME_REGISTRATION_REJECTED/)
+  await assert.rejects(serveDbAtomicVolume(rejecting, 'vol-1'), /DB_VOLUME_SERVE_REJECTED/)
+  const tampered = { rpc: async () => ({ data: { volume_id: 'vol-1', html: html + 'x', output_hash: sha(html) }, error: null }) }
+  await assert.rejects(serveDbAtomicVolume(tampered, 'vol-1'), /DB_VOLUME_SERVE_REJECTED/)
+})

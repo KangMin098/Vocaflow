@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(textbook): 마이그레이션 `20261011022148_reading_production_volume` (사용자 승인·개발 DB 적용) — 권 테이블과 등록/서빙 RPC 가 일자별 snapshot 의 게시 현재성·증거·주문 결속을 DB 안에서 증명. JS 클라이언트 `registerDbAtomicVolume`·`serveDbAtomicVolume`.
 - feat(textbook): 제품군별 의미 검수 단계 — 20개 제품군 기준(`family-semantic-review.ts`)으로 단원마다 에이전트 검수(지문 정확 인용)를 받아야 생산 실행 완료. CLI `review` 명령, 상태 `family_reviewed`. 실제 드레인으로 P09 중2 3일 실행: 1차 검수가 3일차 관계 문항 부적합을 잡아 차단 → 수정 → 낡은 검수 거부 → 2차 통과. 일반 15종 기능표 CONTRACT_ONLY → IMPLEMENTED. 기능 1개 제품군의 진단 동반 연습은 기획 단계에서 거부.
 - fix(textbook): 교차 리뷰 반영 — 주문 activity_types 와 기획안 동반 연습 불일치는 낡은 주문으로 차단, 동반 연습 자원 파일 hash 를 계보에 기록, 자동 조립 모드가 공통 지문을 추론하지 않음, 문항 없는 단원·기능 1개 진단은 차단.
 - feat(textbook): 관리자 `/admin/csat/new` — 기획 폼에 「함께 낼 연습(독해 외)」, 주문 등록 폼에 「시험 목표」·「봉인할 자료」 입력. 화면도움말 갱신.
