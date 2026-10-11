@@ -58,7 +58,7 @@ export interface WorkspaceInput {
   /** 확인 과제 키 → 확인 묶음 밖에서 같은 과제로 적용할 수 있는 활성 문항 수(없으면 0) */
   transferItems: Record<string, number>
   /** 확인 과제 키 → 「다른 글에 적용」 링크로 열 전이 유형 문항 id(연습 화면 ?item=) — 없으면 적용 링크 없음 */
-  transferTargets?: Record<string, string[]>
+  transferTargets?: Record<string, readonly ConfirmLink[]>
 }
 
 const LIVE_ORDER = ['ws.central-meaning', 'ws.option-match', 'ws.evidence-locate']
@@ -100,7 +100,7 @@ function viewOf(t: V4Template, input: WorkspaceInput): WorkspaceView {
   const key = t.content_keys[0]
   const stageItems = {
     repair: links.filter((l) => blocked.has(l.target)),
-    transfer: (input.transferTargets?.[key] ?? []).map((i) => ({ target: i, href: `/csat/practice/${key}?item=${encodeURIComponent(i)}`, label: '다른 글에 적용' })),
+    transfer: [...(input.transferTargets?.[key] ?? [])],
   }
   const rels = t.relations.map((id) => relationOf(id)).filter((r): r is NonNullable<typeof r> => !!r)
   return {

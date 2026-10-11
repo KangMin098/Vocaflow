@@ -10,6 +10,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(map): 학습 지도 rev4.0 6차 — **문항 화면 확인 모드(`?check=1`)**: PR #211 이후 문항을 열면 「해설 먼저 봄」으로 기록돼 모든 학습자의 확인 풀이가 독립 근거에서 빠지던 회귀 수정(지도 확인 · 적용 링크만 해설 없이 과제만). 상태 전이 테스트 14 · 브라우저 E2E 다시 확인 성공(해소) · 실패(필요 유지) 양쪽 ALL PASS. 전이 일반화(role=transfer 문항 풀이 = `phase transfer` · 모든 과제 적용 링크). M2606 제3 맹검 판정(3자 합의 0.976) · 추천 민감도(`tag-sensitivity.mts`) · 영향 큰 셀 가드(`review-impact-guard.mjs`) → M2606 진단 반영 · M2609 다시 저장(진단 반영 4 → 5). 기록 [LEARNING_MAP_V4_PHASE6](csat-learner/LEARNING_MAP_V4_PHASE6.md).
 
 - feat(csat): 여섯 장면에 **중심 도식**(vNext2 M2) — 지문 구조=문장 역할 사슬·구조 패턴·허용 대안·단서, 발문·정답 설계=원문→정답 표현 변환, 본질=이 지문을 고른 이유. 검수된 `passage_design`(평가원 293) 그대로 · 「설계 가설」 라벨 · 단위 대응이 불확실하면 번호를 붙이지 않음.
 

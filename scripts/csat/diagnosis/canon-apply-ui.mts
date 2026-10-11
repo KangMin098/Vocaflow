@@ -25,6 +25,8 @@ const arg = (k: string, d: string) => (process.argv.includes(k) ? process.argv[p
 const EXAM = arg('--exam', 'M2409')
 const LABEL = arg('--label', 'm2409-canon-20261008')
 const REVIEW = arg('--review', 'pilot/M2409-review-tri.json')
+// --resave: 이미 진단 반영 중인 시험의 검수값만 다시 저장(켜기 단계 없음 · 시작 · 끝 모두 켜짐이어야 한다) — 6차 영향 큰 셀 가드 재적용
+const RESAVE = process.argv.includes('--resave')
 if (!String(process.env.NEXT_PUBLIC_SUPABASE_URL).includes('jajenrevcbmrpaliomxv')) throw new Error('개발 프로젝트가 아니다')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.SUPABASE_SERVICE_ROLE_KEY as string, { auth: { persistSession: false } })
 const { chromium } = createRequire(path.join(ROOT, 'apps/web/package.json'))('@playwright/test')
@@ -42,7 +44,7 @@ await ck('before', `${EXAM} canon — 관리자 경로 검수 저장 ${tri.items
 
 const [exam0] = (await db.from('csat_exams').select('id, diagnosis_ready').eq('id', EXAM)).data ?? []
 const readyBefore = ((await db.from('csat_exams').select('id').eq('diagnosis_ready', true)).data ?? []).map((r) => r.id as string)
-rec(`시작 상태 — ${EXAM} 꺼짐`, exam0?.diagnosis_ready === false, { readyBefore })
+rec(`시작 상태 — ${EXAM} ${RESAVE ? '켜짐(다시 저장)' : '꺼짐'}`, exam0?.diagnosis_ready === RESAVE, { readyBefore })
 if (fail) throw new Error('시작 상태가 예상과 다르다 — 멈춘다')
 
 const browser = await chromium.launch()
@@ -90,6 +92,10 @@ try {
   rec(`판정(readiness) — ${tri.items.length}/${tri.items.length} · 구조 문제 0 · 켤 수 있음`, r.canEnable && r.reviewed === tri.items.length && r.structural.length === 0, r)
   if (!r.canEnable) throw new Error('판정 미통과 — 켜지 않는다')
 
+  if (RESAVE) {
+    const readyAfter = ((await db.from('csat_exams').select('id').eq('diagnosis_ready', true)).data ?? []).map((x) => x.id as string)
+    rec(`다시 저장 — ${EXAM} 켜짐 유지 · 다른 시험 불변`, readyAfter.length === readyBefore.length && readyAfter.includes(EXAM) && readyBefore.every((x) => readyAfter.includes(x)), { readyBefore, readyAfter })
+  } else {
   // ── 진단 반영 켜기(관리자 목록) ──
   await page.goto(`${BASE}/admin/csat/diagnosis/exams`, { waitUntil: 'networkidle' })
   const row = page.locator('tr', { has: page.locator(`[data-testid="dx-readiness-${EXAM}"]`) })
@@ -102,6 +108,7 @@ try {
   await page.screenshot({ path: path.join(ROOT, `tmp/pilot/${EXAM}-canon-ready.png`) })
   const readyAfter = ((await db.from('csat_exams').select('id').eq('diagnosis_ready', true)).data ?? []).map((x) => x.id as string)
   rec(`진단 반영 — ${EXAM} 가 더해지고 다른 시험 불변`, readyAfter.length === readyBefore.length + 1 && readyAfter.includes(EXAM) && readyBefore.every((x) => readyAfter.includes(x)), { readyBefore, readyAfter })
+  }
 } finally {
   await browser.close()
   await ck('after', fail ? `${EXAM} 실패 ${fail}` : `${EXAM} 정본 ${tri.items.length}문항 저장 · 진단 반영 켬`)

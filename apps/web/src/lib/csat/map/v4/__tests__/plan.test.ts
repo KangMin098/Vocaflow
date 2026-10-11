@@ -133,7 +133,7 @@ describe('Workspace 전체 경로 — 바로잡기 → 적용 → 다시 확인(
   const T = ['t1', 't2', 't3']
   const view = (a: ReturnType<typeof asIs>, act: PlanActivity[]) => {
     const toBe = toBeMap({ asIs: a, goal: { score: 80, set: true }, refItems: REF, lineRefItems, confirmLinks: links })
-    const plan = planWorkspaces({ asIs: a, toBe, confirmLinks: links, transferItems: { [KEY]: 12 }, transferTargets: { [KEY]: T } })
+    const plan = planWorkspaces({ asIs: a, toBe, confirmLinks: links, transferItems: { [KEY]: 12 }, transferTargets: { [KEY]: T.map((i) => ({ target: i, href: `/csat/practice/claim-support?item=${i}`, label: '다른 글에 적용' })) } })
     const cm = [plan.primary, ...plan.others].find((w) => w?.id === 'ws.central-meaning')!
     return workspacePlan(cm, a, toBe, plan, act).tasks.find((t) => t.task === 'r.central_meaning')!
   }

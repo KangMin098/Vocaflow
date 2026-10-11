@@ -25,6 +25,7 @@ const argv = process.argv.slice(2)
 const arg = (k, d) => (argv.includes(k) ? argv[argv.indexOf(k) + 1] : d)
 const BASE = arg('--base', 'http://localhost:3003')
 const OUT = path.join(ROOT, arg('--out', 'tmp/map-v5-path'))
+const RECHECK = arg('--recheck', 'fail') // fail = 다시 확인을 일부러 틀림(still_needed) · pass = 정본 주석대로 맞힘(resolved) — 6차 P0-1 양쪽 재현
 if (!String(process.env.NEXT_PUBLIC_SUPABASE_URL).includes('jajenrevcbmrpaliomxv')) throw new Error('개발 프로젝트가 아니다')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 const must = async (q, what) => { const r = await q; if (r.error) throw new Error(`${what}: ${r.error.message}`); return r.data }
@@ -89,8 +90,16 @@ try {
   }
   const attempts = async () => must(db.from('learning_task_attempts').select('item_ref, phase, activity, is_correct, answered_at').eq('user_id', u.user.id).order('answered_at'), 'attempts')
 
-  /** 문항 화면 확인 과제 하나 풀기 — retry 면 「다시 해 보기」 먼저. 결과(정답 여부) 반환 */
-  const solveItem = async (href, retry = false) => {
+  /** 정본 주석(주장 · 뒷받침 · 관계) — `--recheck pass` 에서 다시 확인 문항을 맞히는 데만 쓴다(재현 가능한 성공 경로 · 6차) */
+  const annotationOf = (href) => {
+    const slug = href.split('#')[0].split('?')[0].split('/').pop().toLowerCase()
+    const dir = path.join(ROOT, 'apps/web/src/lib/knowledge/annotations')
+    const f = fs.readdirSync(dir).filter((x) => x.startsWith(`claim-support-${slug}.v`)).sort().pop()
+    if (!f) throw new Error(`주석 없음 ${slug}`)
+    return JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))
+  }
+  /** 문항 화면 확인 과제 하나 풀기 — retry 면 「다시 해 보기」 먼저 · correct 면 정본 주석대로 정답. 결과(정답 여부) 반환 */
+  const solveItem = async (href, retry = false, correct = false) => {
     await page.goto(`${BASE}${href.split('#')[0]}`, { waitUntil: 'domcontentloaded' })
     const panel = page.locator('[data-testid="principle-panel"]')
     await panel.waitFor({ timeout: 120_000 })
@@ -102,9 +111,16 @@ try {
       await page.waitForTimeout(800)
     }
     if (retry && (await panel.getByRole('button', { name: '다시 해 보기' }).count())) await panel.getByRole('button', { name: '다시 해 보기' }).click()
-    await panel.locator('[data-claim]').last().click()
-    await panel.locator('[data-support]').first().click()
-    await panel.locator('[data-relation]').last().check().catch(() => {})
+    if (correct) {
+      const a = annotationOf(href)
+      await panel.locator(`[data-claim="${a.claim}"]`).click()
+      for (const s of a.support) await panel.locator(`[data-support="${s}"]`).click()
+      await panel.locator(`[data-relation="${a.relationProbe.relation}"]`).check()
+    } else {
+      await panel.locator('[data-claim]').last().click()
+      await panel.locator('[data-support]').first().click()
+      await panel.locator('[data-relation]').last().check().catch(() => {})
+    }
     const resp = page.waitForResponse((r) => /\/api\/csat\/item\/.+\/task/.test(r.url()))
     await panel.getByRole('button', { name: '확인하기' }).click()
     const b = await (await resp).json()
@@ -135,14 +151,19 @@ try {
   let s = await row('p1-check')
   rec('① 시작 — 단계 「확인」 · 활동 = 실제 확인 문항 화면 · 성취 「직접 확인 전」', s.stage === 'check' && /^\/csat\/item\//.test(s.href ?? '') && s.achievement === 'not_checked', s)
   const domains0 = s.domains
+  // 독립 근거로 인정된 첫 시도(도움 · 해설 · 시각 불확실 제외 — 판정 규칙 그대로)를 DB 에서 센다. 채점 결과만 세면 개발 서버가 느려
+  // 시각 불확실로 빠진 시도까지 셌다(6차 실측: 재시작 직후 첫 문항 timing_uncertain) — 규칙을 완화하지 않고 필요한 만큼 더 푼다
+  const eligible = async () => (await must(db.from('learning_first_attempts').select('item_ref, phase, help_level, is_correct, after_viewed_first, after_explanation, timing_uncertain').eq('user_id', u.user.id), 'first'))
+    .filter((a) => a.phase === 'practice' && a.help_level === 'independent' && !a.after_viewed_first && !a.after_explanation && !a.timing_uncertain)
+  if (argv.includes('--probe')) { await solveItem(s.href); const at = await must(db.from('learning_task_attempts').select('item_ref, phase, help_level, answered_at, received_at, session_id').eq('user_id', u.user.id), 'a'); const ss = await must(db.from('learning_sessions').select('id, item_ref, help_level, help_received_at, help_server_at, explanation_viewed_at, explanation_server_at, help_clock_suspect').eq('user_id', u.user.id), 's'); const fa = await must(db.from('learning_first_attempts').select('item_ref, help_level, after_explanation, timing_uncertain').eq('user_id', u.user.id), 'f'); console.log('[probe] attempts', JSON.stringify(at)); console.log('[probe] sessions', JSON.stringify(ss)); console.log('[probe] first', JSON.stringify(fa)); throw new Error('probe 끝') }
   let wrong = 0
   for (let i = 0; i < 9 && wrong < 2; i++) {
     s = await row(`p1-check-${i}`)
     if (s.stage !== 'check' || !s.href) break
-    const ok = await solveItem(s.href)
-    if (!ok) wrong++
+    await solveItem(s.href)
+    wrong = (await eligible()).filter((a) => a.is_correct === false).length
   }
-  rec('① 확인 문항 풀이로 서로 다른 2문항 오답(독립 첫 시도)', wrong === 2, { wrong })
+  rec('① 확인 문항 풀이로 서로 다른 2문항 독립 오답(DB 첫 시도 · 판정 규칙 기준)', wrong === 2, { wrong, excludedUncertain: (await must(db.from('learning_first_attempts').select('timing_uncertain').eq('user_id', u.user.id), 'f')).filter((a) => a.timing_uncertain).length })
 
   // ② 바로잡기
   s = await row('p2-repair')
@@ -184,15 +205,24 @@ try {
   const recheckHref = s.href
   rec('④ 다시 확인 문항은 처음 보는 문항', !!recheckHref && ![...seen].some((i) => recheckHref.endsWith(i.replace('#', '-'))), recheckHref)
   let rechecked = 0
-  for (let i = 0; i < 2; i++) {
+  // 단계가 「다시 확인」인 동안(최대 4) — 성공은 연속 2 정답으로 해소되며 끝나고, 실패는 막히는 순간 바로잡기로 돌아가며 끝난다(시각 불확실로 빠진 시도는 한 문항 더)
+  for (let i = 0; i < 4; i++) {
     s = await row(`p4-recheck-${i}`)
-    if (s.stage !== 'recheck' || !s.href) break
-    await solveItem(s.href)
+    if (s.stage !== 'recheck' || !s.href || s.achievement === 'resolved') break
+    const ok = await solveItem(s.href, false, RECHECK === 'pass')
+    if (RECHECK === 'pass') rec(`④ 다시 확인 ${i + 1} — 정본 주석대로 풀이 → 채점 정답`, ok)
+    else if (ok) console.log('  (실패 경로인데 우연히 정답 — 다음 문항으로)')
     rechecked++
   }
   s = await row('p5-after')
   const verdict = s.achievement
-  rec('④ 다시 확인 2문항 풀이 → 직접 확인 판정 재계산(해소 또는 아직 필요 — 결과 그대로 표시)', rechecked === 2 && ['resolved', 'need_confirmed', 'checking'].includes(verdict), { rechecked, verdict, stage: s.stage })
+  rec('④ 다시 확인 문항 풀이 → 직접 확인 판정 재계산(해소 또는 아직 필요 — 결과 그대로 표시)', rechecked >= 1 && ['resolved', 'need_confirmed', 'checking'].includes(verdict), { rechecked, verdict, stage: s.stage })
+  if (RECHECK === 'pass') {
+    rec('④ 성공 경로 — 확정에 쓰지 않은 문항 연속 2 정답 → 성취 「해소」 · 적용을 이미 마쳐 요구 = 유지(MAINTAIN · 정본 단계 「다시 확인」 = 나중에 다시 보기)', verdict === 'resolved' && rechecked === 2 && s.stage === 'recheck', { verdict, rechecked, stage: s.stage })
+    rec('④ 해소 판정이 As-Is 영역 근거에 반영됨(적용 뒤와 다름)', s.domains !== domainsRepair)
+  } else {
+    rec('④ 실패 경로 — 다시 확인에서 막히면 성취 「필요 확인됨」 유지(still_needed)', verdict === 'need_confirmed', { verdict })
+  }
   console.log(`최종 단계 ${s.stage} · 성취 ${verdict} — 합성 계정의 실제 풀이 결과일 뿐 학습 효과의 증거가 아니다`)
 } finally {
   await browser.close()
